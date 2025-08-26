@@ -1,0 +1,72 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["ContextStack"]
+  DUPTABLE R3 K2 [{"providers"}]
+  NEWTABLE R4 0 3
+  GETUPVAL R5 0
+  GETUPVAL R6 2
+  CALL R5 1 1
+  GETUPVAL R6 0
+  GETUPVAL R7 3
+  CALL R6 1 1
+  GETUPVAL R7 0
+  GETUPVAL R8 4
+  CALL R7 1 -1
+  SETLIST R4 R5 -1 [1]
+  SETTABLEKS R4 R3 K1 ["providers"]
+  DUPTABLE R4 K4 [{"MainView"}]
+  GETUPVAL R5 0
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K5 ["Components"]
+  GETTABLEKS R6 R7 K3 ["MainView"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K3 ["MainView"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PropertiesPlugin"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Properties"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["ReactUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Components"]
+  GETTABLEKS R6 R7 K12 ["Contexts"]
+  GETTABLEKS R5 R6 K13 ["StudioActiveViewContextProvider"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K11 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Contexts"]
+  GETTABLEKS R6 R7 K14 ["StudioNetworkContextProvider"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K11 ["Components"]
+  GETTABLEKS R8 R9 K12 ["Contexts"]
+  GETTABLEKS R7 R8 K15 ["StudioThemeContextProvider"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K16 ["createElement"]
+  DUPCLOSURE R8 K17 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  RETURN R8 1

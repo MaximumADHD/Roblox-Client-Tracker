@@ -17,12 +17,17 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local TopBar = RobloxGui.Modules.TopBar
 local TopBarConstants = require(TopBar.Constants)
+local topBarHeight = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarHeight)
+local topBarScreenSideOffset = TopBarConstants.ApplyDisplayScale(TopBarConstants.ScreenSideOffset)
 
 local SelfieViewModule = Chrome.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
 local GetFFlagChromeTrackWindowPosition = require(Chrome.Flags.GetFFlagChromeTrackWindowPosition)
 local GetFFlagChromeTrackWindowStatus = require(Chrome.Flags.GetFFlagChromeTrackWindowStatus)
+
+local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeSelfieViewUsePolicy = SharedFlags.FFlagChromeSelfieViewUsePolicy
@@ -33,15 +38,15 @@ local SizingUtils = require(SelfieViewModule.Utils.SizingUtils)
 local SelfieViewPolicy = require(SelfieViewModule.Utils.SelfieViewPolicy)
 local AvailabilitySignalState = require(Chrome.ChromeShared.Service.ChromeUtils).AvailabilitySignalState
 local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
+local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
 local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
 local startingSize = SizingUtils.getSize(ViewportUtil.screenSize:get(), false)
 local windowSize = WindowSizeSignal.new(startingSize.X, startingSize.Y)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
-local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
-local startingWindowPosition = UDim2.new(0, TopBarConstants.ScreenSideOffset, 0, Constants.WINDOW_DEFAULT_PADDING)
+local startingWindowPosition = UDim2.new(0, topBarScreenSideOffset, 0, Constants.WINDOW_DEFAULT_PADDING)
 -- TODO: Add Localizations
 local ID = Constants.SELFIE_VIEW_ID
 local LABEL = "CoreScripts.TopBar.SelfViewLabel"
@@ -78,8 +83,16 @@ local selfieViewChromeIntegration = ChromeService:register({
 	cachePosition = true,
 	components = {
 		Icon = function(props)
+			local unibarStyle
+			local iconSize
+			if FFlagTokenizeUnibarConstantsWithStyleProvider then
+				unibarStyle = UnibarStyle.use()
+				iconSize = unibarStyle.ICON_SIZE
+			else
+				iconSize = Constants.ICON_SIZE
+			end
 			return React.createElement("Frame", {
-				Size = ICON_SIZE,
+				Size = UDim2.new(0, iconSize, 0, iconSize),
 				BackgroundTransparency = 1,
 			}, {
 				CommonIcon("icons/controls/selfieOff", "icons/controls/selfie", mappedSelfieWindowOpenSignal),
@@ -177,6 +190,7 @@ if game:GetEngineFeature("EnableSelfViewToggleApi") then
 		selfViewHiddenConnection = nil
 	end
 	selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
+		local topBarScreenSideOffset = TopBarConstants.ApplyDisplayScale(TopBarConstants.ScreenSideOffset)
 		-- Calling showSelfView when self view is already visible is no-op
 		if not ChromeService:isWindowOpen(ID) then
 			-- use current position
@@ -185,24 +199,21 @@ if game:GetEngineFeature("EnableSelfViewToggleApi") then
 			local newSelfViewPosition = nil
 
 			if selfViewPosition == Enum.SelfViewPosition.TopLeft then
-				newSelfViewPosition =
-					UDim2.fromOffset(TopBarConstants.ScreenSideOffset, Constants.WINDOW_DEFAULT_PADDING)
+				newSelfViewPosition = UDim2.fromOffset(topBarScreenSideOffset, Constants.WINDOW_DEFAULT_PADDING)
 			elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
 				newSelfViewPosition = UDim2.fromOffset(
-					screenSize.X - (windowSize.X.Offset + TopBarConstants.ScreenSideOffset),
+					screenSize.X - (windowSize.X.Offset + topBarScreenSideOffset),
 					Constants.WINDOW_DEFAULT_PADDING
 				)
 			elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
 				newSelfViewPosition = UDim2.fromOffset(
-					TopBarConstants.ScreenSideOffset,
-					screenSize.Y
-						- (TopBarConstants.TopBarHeight + windowSize.Y.Offset + Constants.WINDOW_DEFAULT_PADDING)
+					topBarScreenSideOffset,
+					screenSize.Y - (topBarHeight + windowSize.Y.Offset + Constants.WINDOW_DEFAULT_PADDING)
 				)
 			elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
 				newSelfViewPosition = UDim2.fromOffset(
-					screenSize.X - (windowSize.X.Offset + TopBarConstants.ScreenSideOffset),
-					screenSize.Y
-						- (TopBarConstants.TopBarHeight + windowSize.Y.Offset + Constants.WINDOW_DEFAULT_PADDING)
+					screenSize.X - (windowSize.X.Offset + topBarScreenSideOffset),
+					screenSize.Y - (topBarHeight + windowSize.Y.Offset + Constants.WINDOW_DEFAULT_PADDING)
 				)
 			end
 

@@ -4,13 +4,18 @@ local Components = script.Parent.Parent
 local PlayerList = Components.Parent
 
 local React = require(CorePackages.Packages.React)
+local UIBlox = require(CorePackages.Packages.UIBlox)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
+local useStyle = UIBlox.Core.Style.useStyle
 
 local PlayerEntryContainer = require(PlayerList.Components.Container.PlayerEntryContainer)
 local TeamEntryContainer = require(PlayerList.Components.Container.TeamEntryContainer)
+
+local FFlagMoveNewPlayerListDividers = SharedFlags.FFlagMoveNewPlayerListDividers
 
 type TeamEntry = LeaderboardStore.TeamEntry
 type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
@@ -44,6 +49,7 @@ export type TeamListViewProps = {
 
 local function TeamListView(props: TeamListViewProps)
 	local layoutValues = useLayoutValues()
+	local style = useStyle()
 
 	local size = if props.size then props.size else UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY)
 
@@ -59,7 +65,7 @@ local function TeamListView(props: TeamListViewProps)
 
 	if props.showTeamEntry then
 		childElements.TeamEntry = React.createElement(TeamEntryContainer, {
-			size = size,
+			size = if FFlagMoveNewPlayerListDividers then UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY) else size,
 			teamData = props.teamData,
 			entrySizeX = props.entrySizeX,
 			isSmallTouchDevice = props.isSmallTouchDevice,
@@ -69,7 +75,28 @@ local function TeamListView(props: TeamListViewProps)
 	end
 
 	if props.teamPlayersCount > 0 then
+		local addedPlayerEntriesCount
+
+		if FFlagMoveNewPlayerListDividers then
+			addedPlayerEntriesCount = 0
+
+			if props.isSmallTouchDevice then
+				childElements.BottomDiv = React.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 1),
+					Position = UDim2.new(0, 0, 0, 0),
+					AnchorPoint = Vector2.new(0, 0),
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 0.8,
+					LayoutOrder = props.teamPlayersCount * 2,
+				})
+			end
+		end
+
 		props.teamData.players.iterateData(function(player, playerId)
+			if FFlagMoveNewPlayerListDividers then
+				addedPlayerEntriesCount += 1
+			end
+
 			local playerIconInfo = props.playerIconInfos[playerId]
 			local playerRelationship = props.playerRelationships[playerId]
 
@@ -87,12 +114,37 @@ local function TeamListView(props: TeamListViewProps)
 				entrySizeX = props.entrySizeX,
 				playerIconInfo = playerIconInfo,
 				playerRelationship = playerRelationship,
-				teamData = props.teamData,
+				teamData = if FFlagMoveNewPlayerListDividers then nil else props.teamData,
 				setDropDownPlayerDimensionY = props.setDropDownPlayerDimensionY,
 				firstPlayerRef = props.firstPlayerRef,
 				prevFocusedEntry = props.prevFocusedEntry,
 				destroyedFocusedPlayerId = props.destroyedFocusedPlayerId,
 			})
+
+			if FFlagMoveNewPlayerListDividers then
+				if props.isSmallTouchDevice then
+					childElements["TopDiv_" .. addedPlayerEntriesCount] = React.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 1),
+						Position = UDim2.new(0, 0, 0, 0),
+						AnchorPoint = Vector2.new(0, 0),
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 0.8,
+						LayoutOrder = (addedPlayerEntriesCount - 1) * 2,
+					})
+				end
+
+				if addedPlayerEntriesCount < props.teamPlayersCount and not props.isSmallTouchDevice and not props.isDirectionalPreferred then
+					childElements["Divider_" .. addedPlayerEntriesCount] = React.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 1),
+						Position = UDim2.new(0, 0, 1, 0),
+						AnchorPoint = Vector2.new(0, 1),
+						BackgroundTransparency = style.Theme.Divider.Transparency,
+						BackgroundColor3 = style.Theme.Divider.Color,
+						BorderSizePixel = 0,
+						LayoutOrder = addedPlayerEntriesCount * 2,
+					})
+				end
+			end
 		end, false)
 	end
 

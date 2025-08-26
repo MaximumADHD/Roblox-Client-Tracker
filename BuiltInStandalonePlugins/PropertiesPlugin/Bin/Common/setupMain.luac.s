@@ -28,19 +28,21 @@ PROTO_1:
   SETTABLEKS R0 R7 K8 ["Plugin"]
   SETTABLEKS R1 R7 K9 ["PluginLoaderContext"]
   CALL R5 2 1
-  GETIMPORT R6 K13 [Instance.new]
-  LOADK R7 K14 ["Frame"]
+  GETIMPORT R6 K12 [print]
+  CALL R6 0 0
+  GETIMPORT R6 K15 [Instance.new]
+  LOADK R7 K16 ["Frame"]
   CALL R6 1 1
-  GETTABLEKS R7 R3 K15 ["createRoot"]
+  GETTABLEKS R7 R3 K17 ["createRoot"]
   MOVE R8 R6
   CALL R7 1 1
   MOVE R10 R5
-  NAMECALL R8 R7 K16 ["render"]
+  NAMECALL R8 R7 K18 ["render"]
   CALL R8 2 0
-  GETTABLEKS R8 R0 K17 ["Unloading"]
+  GETTABLEKS R8 R0 K19 ["Unloading"]
   NEWCLOSURE R10 P0
   CAPTURE VAL R7
-  NAMECALL R8 R8 K18 ["Connect"]
+  NAMECALL R8 R8 K20 ["Connect"]
   CALL R8 2 0
   RETURN R0 0
 

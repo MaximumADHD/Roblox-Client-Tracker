@@ -53,6 +53,13 @@ PROTO_2:
   CALL R0 2 -1
   RETURN R0 -1
 
+PROTO_3:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnableDeveloperAdsStatsApiMonetizationPageFix"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
@@ -70,10 +77,17 @@ MAIN:
   LOADK R3 K6 [""]
   NAMECALL R0 R0 K7 ["DefineFastString"]
   CALL R0 3 0
-  DUPCLOSURE R0 K8 [PROTO_0]
-  DUPTABLE R1 K11 [{"GetFFlagEnableRewardedVideoAdsStudioSettings", "GetFFlagEnableShowRewardedAdsToggleBackendFlag"}]
-  DUPCLOSURE R2 K12 [PROTO_1]
-  SETTABLEKS R2 R1 K9 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
-  DUPCLOSURE R2 K13 [PROTO_2]
-  SETTABLEKS R2 R1 K10 ["GetFFlagEnableShowRewardedAdsToggleBackendFlag"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K8 ["EnableDeveloperAdsStatsApiMonetizationPageFix"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  DUPCLOSURE R0 K9 [PROTO_0]
+  DUPTABLE R1 K13 [{"GetFFlagEnableRewardedVideoAdsStudioSettings", "GetFFlagEnableShowRewardedAdsToggleBackendFlag", "GetFFlagEnableDeveloperAdsStatsApiMonetizationPageFix"}]
+  DUPCLOSURE R2 K14 [PROTO_1]
+  SETTABLEKS R2 R1 K10 ["GetFFlagEnableRewardedVideoAdsStudioSettings"]
+  DUPCLOSURE R2 K15 [PROTO_2]
+  SETTABLEKS R2 R1 K11 ["GetFFlagEnableShowRewardedAdsToggleBackendFlag"]
+  DUPCLOSURE R2 K16 [PROTO_3]
+  SETTABLEKS R2 R1 K12 ["GetFFlagEnableDeveloperAdsStatsApiMonetizationPageFix"]
   RETURN R1 1

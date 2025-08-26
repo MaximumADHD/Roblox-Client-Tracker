@@ -47,8 +47,6 @@ local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
 local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
-local GetFFlagEnableInExpVoiceConsentAnalytics =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceConsentAnalytics)
 local GetFFlagShowDevicePermissionsModal =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowDevicePermissionsModal
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
@@ -317,7 +315,7 @@ function VoiceChatPromptFrame:init()
 				self.props.VoiceChatServiceManager:reportBanMessage("Shown")
 			end
 		end
-		if IsVoiceConsentModal(promptType) and GetFFlagEnableInExpVoiceConsentAnalytics() then
+		if IsVoiceConsentModal(promptType) then
 			if self.props.Analytics then
 				local playSessionId = ""
 				if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then

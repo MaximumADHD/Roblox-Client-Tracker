@@ -20,6 +20,23 @@ PROTO_0:
   RETURN R1 -1
 
 PROTO_1:
+  GETUPVAL R1 0
+  JUMPIFEQ R0 R1 [+11]
+  GETUPVAL R1 1
+  LOADK R3 K0 ["ScaleModeSelected"]
+  DUPTABLE R4 K2 [{"scaleMode"}]
+  GETTABLEKS R5 R0 K3 ["Name"]
+  SETTABLEKS R5 R4 K1 ["scaleMode"]
+  NAMECALL R1 R1 K4 ["logCounter"]
+  CALL R1 3 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K5 ["bodyScaleSetting"]
+  GETTABLEKS R1 R2 K6 ["set"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["bodyScaleCustomHeight"]
   GETTABLEKS R1 R2 K1 ["set"]
@@ -29,170 +46,186 @@ PROTO_1:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
-  GETUPVAL R2 1
-  CALL R2 0 1
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K1 ["useContext"]
-  GETUPVAL R4 3
-  CALL R3 1 1
-  GETTABLEKS R6 R3 K2 ["settings"]
-  JUMPIFNOTEQKNIL R6 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  FASTCALL2K ASSERT R5 K3 [+4]
-  LOADK R6 K3 ["Settings must not be nil in AvatarSettingsContext"]
-  GETIMPORT R4 K5 [assert]
-  CALL R4 2 0
-  NEWTABLE R4 0 2
-  DUPTABLE R5 K8 [{"Id", "Label"}]
-  GETIMPORT R6 K12 [Enum.AvatarSettingsScaleMode.PlayerChoice]
-  SETTABLEKS R6 R5 K6 ["Id"]
-  LOADK R8 K13 ["BodySettings"]
-  LOADK R9 K14 ["ScaleSectionPlayerChoiceButtonText"]
-  NAMECALL R6 R1 K15 ["getText"]
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K7 ["Label"]
+  GETUPVAL R3 1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+5]
+  GETUPVAL R2 2
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  JUMP [+1]
+  LOADNIL R2
+  GETUPVAL R3 3
+  CALL R3 0 1
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K1 ["useContext"]
+  GETUPVAL R5 5
+  CALL R4 1 1
+  GETTABLEKS R7 R4 K2 ["settings"]
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  FASTCALL2K ASSERT R6 K3 [+4]
+  LOADK R7 K3 ["Settings must not be nil in AvatarSettingsContext"]
+  GETIMPORT R5 K5 [assert]
+  CALL R5 2 0
+  NEWTABLE R5 0 2
   DUPTABLE R6 K8 [{"Id", "Label"}]
-  GETIMPORT R7 K17 [Enum.AvatarSettingsScaleMode.CustomScale]
+  GETIMPORT R7 K12 [Enum.AvatarSettingsScaleMode.PlayerChoice]
   SETTABLEKS R7 R6 K6 ["Id"]
   LOADK R9 K13 ["BodySettings"]
-  LOADK R10 K18 ["ScaleSectionCustomScaleButtonText"]
+  LOADK R10 K14 ["ScaleSectionPlayerChoiceButtonText"]
   NAMECALL R7 R1 K15 ["getText"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K7 ["Label"]
-  SETLIST R4 R5 2 [1]
-  GETTABLEKS R6 R3 K2 ["settings"]
-  GETTABLEKS R5 R6 K19 ["bodySettings"]
-  GETTABLEKS R7 R5 K20 ["bodyScaleSetting"]
-  GETTABLEKS R6 R7 K21 ["value"]
-  GETIMPORT R7 K24 [UDim.new]
-  LOADN R8 0
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K25 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
-  CALL R7 2 1
-  GETIMPORT R9 K17 [Enum.AvatarSettingsScaleMode.CustomScale]
-  JUMPIFEQ R6 R9 [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  GETUPVAL R9 5
-  GETUPVAL R10 6
-  DUPTABLE R11 K29 [{"text", "layoutOrder", "showWarning"}]
-  LOADK R14 K13 ["BodySettings"]
-  LOADK R15 K30 ["ScaleSection"]
-  NAMECALL R12 R1 K15 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K26 ["text"]
-  GETTABLEKS R12 R0 K27 ["layoutOrder"]
-  SETTABLEKS R12 R11 K27 ["layoutOrder"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K28 ["showWarning"]
-  DUPTABLE R12 K33 [{"ScaleModeSelector", "HeightSetting"}]
-  GETUPVAL R13 5
+  DUPTABLE R7 K8 [{"Id", "Label"}]
+  GETIMPORT R8 K17 [Enum.AvatarSettingsScaleMode.CustomScale]
+  SETTABLEKS R8 R7 K6 ["Id"]
+  LOADK R10 K13 ["BodySettings"]
+  LOADK R11 K18 ["ScaleSectionCustomScaleButtonText"]
+  NAMECALL R8 R1 K15 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K7 ["Label"]
+  SETLIST R5 R6 2 [1]
+  GETTABLEKS R7 R4 K2 ["settings"]
+  GETTABLEKS R6 R7 K19 ["bodySettings"]
+  GETTABLEKS R8 R6 K20 ["bodyScaleSetting"]
+  GETTABLEKS R7 R8 K21 ["value"]
+  GETIMPORT R8 K24 [UDim.new]
+  LOADN R9 0
+  GETUPVAL R11 6
+  GETTABLEKS R10 R11 K25 ["TITLED_FRAME_TEXT_MIN_WIDTH"]
+  CALL R8 2 1
+  GETIMPORT R10 K17 [Enum.AvatarSettingsScaleMode.CustomScale]
+  JUMPIFEQ R7 R10 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  GETUPVAL R10 7
+  GETUPVAL R11 8
+  DUPTABLE R12 K29 [{"text", "layoutOrder", "showWarning"}]
+  LOADK R15 K13 ["BodySettings"]
+  LOADK R16 K30 ["ScaleSection"]
+  NAMECALL R13 R1 K15 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K26 ["text"]
+  GETTABLEKS R13 R0 K27 ["layoutOrder"]
+  SETTABLEKS R13 R12 K27 ["layoutOrder"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K28 ["showWarning"]
+  DUPTABLE R13 K33 [{"ScaleModeSelector", "HeightSetting"}]
   GETUPVAL R14 7
-  DUPTABLE R15 K38 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  SETTABLEKS R4 R15 K34 ["items"]
-  SETTABLEKS R6 R15 K35 ["selected"]
-  GETTABLEKS R17 R5 K20 ["bodyScaleSetting"]
-  GETTABLEKS R16 R17 K39 ["set"]
-  SETTABLEKS R16 R15 K36 ["onItemActivated"]
-  LOADK R18 K13 ["BodySettings"]
-  GETIMPORT R20 K12 [Enum.AvatarSettingsScaleMode.PlayerChoice]
-  JUMPIFNOTEQ R6 R20 [+3]
-  LOADK R19 K40 ["ScaleSectionPlayerChoiceSubText"]
+  GETUPVAL R15 9
+  DUPTABLE R16 K38 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+  MOVE R17 R3
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K27 ["layoutOrder"]
+  SETTABLEKS R5 R16 K34 ["items"]
+  SETTABLEKS R7 R16 K35 ["selected"]
+  GETUPVAL R18 1
+  CALL R18 0 1
+  JUMPIFNOT R18 [+5]
+  NEWCLOSURE R17 P0
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  JUMP [+4]
+  GETTABLEKS R18 R6 K20 ["bodyScaleSetting"]
+  GETTABLEKS R17 R18 K39 ["set"]
+  SETTABLEKS R17 R16 K36 ["onItemActivated"]
+  LOADK R19 K13 ["BodySettings"]
+  GETIMPORT R21 K12 [Enum.AvatarSettingsScaleMode.PlayerChoice]
+  JUMPIFNOTEQ R7 R21 [+3]
+  LOADK R20 K40 ["ScaleSectionPlayerChoiceSubText"]
   JUMP [+1]
-  LOADK R19 K41 ["ScaleSectionCustomScaleSubText"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K37 ["subText"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K31 ["ScaleModeSelector"]
-  MOVE R13 R8
-  JUMPIFNOT R13 [+111]
-  GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K44 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-  SETTABLEKS R7 R15 K42 ["minTextLabelWidth"]
-  LOADK R16 K45 ["AvatarSettings-LeftTextPrimary"]
-  SETTABLEKS R16 R15 K43 ["textLabelTags"]
-  LOADK R18 K13 ["BodySettings"]
-  LOADK R19 K46 ["ScaleHeight"]
-  NAMECALL R16 R1 K15 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["text"]
-  MOVE R16 R2
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K27 ["layoutOrder"]
-  DUPTABLE R16 K48 [{"Content"}]
-  GETUPVAL R17 5
-  GETUPVAL R18 9
-  DUPTABLE R19 K57 [{"snapIncrement", "roundToTenths", "min", "max", "inputFieldText", "numberRange", "setNumberRange", "toggleRangeProps"}]
-  LOADK R20 K58 [0.1]
-  SETTABLEKS R20 R19 K49 ["snapIncrement"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K50 ["roundToTenths"]
-  GETUPVAL R21 4
-  GETTABLEKS R20 R21 K59 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-  SETTABLEKS R20 R19 K51 ["min"]
-  GETUPVAL R21 4
-  GETTABLEKS R20 R21 K60 ["BODYSCALECUSTOMHEIGHT_SLIDERMAXVALUE"]
-  SETTABLEKS R20 R19 K52 ["max"]
-  LOADK R22 K61 ["General"]
-  LOADK R23 K62 ["studs"]
-  NAMECALL R20 R1 K15 ["getText"]
-  CALL R20 3 1
-  SETTABLEKS R20 R19 K53 ["inputFieldText"]
-  GETTABLEKS R22 R5 K63 ["bodyScaleCustomHeight"]
-  GETTABLEKS R21 R22 K21 ["value"]
-  GETIMPORT R22 K65 [NumberRange.new]
-  GETTABLEKS R24 R21 K66 ["Min"]
-  GETUPVAL R26 4
-  GETTABLEKS R25 R26 K59 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K67 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
-  FASTCALL MATH_CLAMP [+2]
-  GETIMPORT R23 K70 [math.clamp]
-  CALL R23 3 1
-  GETTABLEKS R25 R21 K71 ["Max"]
-  GETUPVAL R27 4
+  LOADK R20 K41 ["ScaleSectionCustomScaleSubText"]
+  NAMECALL R17 R1 K15 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K37 ["subText"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K31 ["ScaleModeSelector"]
+  MOVE R14 R9
+  JUMPIFNOT R14 [+111]
+  GETUPVAL R14 7
+  GETUPVAL R15 10
+  DUPTABLE R16 K44 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+  SETTABLEKS R8 R16 K42 ["minTextLabelWidth"]
+  LOADK R17 K45 ["AvatarSettings-LeftTextPrimary"]
+  SETTABLEKS R17 R16 K43 ["textLabelTags"]
+  LOADK R19 K13 ["BodySettings"]
+  LOADK R20 K46 ["ScaleHeight"]
+  NAMECALL R17 R1 K15 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K26 ["text"]
+  MOVE R17 R3
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K27 ["layoutOrder"]
+  DUPTABLE R17 K48 [{"Content"}]
+  GETUPVAL R18 7
+  GETUPVAL R19 11
+  DUPTABLE R20 K57 [{"snapIncrement", "roundToTenths", "min", "max", "inputFieldText", "numberRange", "setNumberRange", "toggleRangeProps"}]
+  LOADK R21 K58 [0.1]
+  SETTABLEKS R21 R20 K49 ["snapIncrement"]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K50 ["roundToTenths"]
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K59 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+  SETTABLEKS R21 R20 K51 ["min"]
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K60 ["BODYSCALECUSTOMHEIGHT_SLIDERMAXVALUE"]
+  SETTABLEKS R21 R20 K52 ["max"]
+  LOADK R23 K61 ["General"]
+  LOADK R24 K62 ["studs"]
+  NAMECALL R21 R1 K15 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K53 ["inputFieldText"]
+  GETTABLEKS R23 R6 K63 ["bodyScaleCustomHeight"]
+  GETTABLEKS R22 R23 K21 ["value"]
+  GETIMPORT R23 K65 [NumberRange.new]
+  GETTABLEKS R25 R22 K66 ["Min"]
+  GETUPVAL R27 6
   GETTABLEKS R26 R27 K59 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-  GETUPVAL R28 4
+  GETUPVAL R28 6
   GETTABLEKS R27 R28 K67 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
   FASTCALL MATH_CLAMP [+2]
   GETIMPORT R24 K70 [math.clamp]
   CALL R24 3 1
-  CALL R22 2 1
-  MOVE R20 R22
-  SETTABLEKS R20 R19 K54 ["numberRange"]
-  NEWCLOSURE R20 P0
-  CAPTURE VAL R5
-  CAPTURE UPVAL U10
-  SETTABLEKS R20 R19 K55 ["setNumberRange"]
-  DUPTABLE R20 K75 [{"toggleText", "toggleValue", "setToggleValue"}]
-  LOADK R23 K13 ["BodySettings"]
-  LOADK R24 K76 ["ScaleSetMinAndMaxToggle"]
-  NAMECALL R21 R1 K15 ["getText"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K72 ["toggleText"]
-  GETTABLEKS R22 R5 K77 ["bodyScaleCustomHeightSetMinMax"]
-  GETTABLEKS R21 R22 K21 ["value"]
-  SETTABLEKS R21 R20 K73 ["toggleValue"]
-  GETTABLEKS R22 R5 K77 ["bodyScaleCustomHeightSetMinMax"]
-  GETTABLEKS R21 R22 K39 ["set"]
-  SETTABLEKS R21 R20 K74 ["setToggleValue"]
-  SETTABLEKS R20 R19 K56 ["toggleRangeProps"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K47 ["Content"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K32 ["HeightSetting"]
-  CALL R9 3 -1
-  RETURN R9 -1
+  GETTABLEKS R26 R22 K71 ["Max"]
+  GETUPVAL R28 6
+  GETTABLEKS R27 R28 K59 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+  GETUPVAL R29 6
+  GETTABLEKS R28 R29 K67 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R25 K70 [math.clamp]
+  CALL R25 3 1
+  CALL R23 2 1
+  MOVE R21 R23
+  SETTABLEKS R21 R20 K54 ["numberRange"]
+  NEWCLOSURE R21 P1
+  CAPTURE VAL R6
+  CAPTURE UPVAL U12
+  SETTABLEKS R21 R20 K55 ["setNumberRange"]
+  DUPTABLE R21 K75 [{"toggleText", "toggleValue", "setToggleValue"}]
+  LOADK R24 K13 ["BodySettings"]
+  LOADK R25 K76 ["ScaleSetMinAndMaxToggle"]
+  NAMECALL R22 R1 K15 ["getText"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K72 ["toggleText"]
+  GETTABLEKS R23 R6 K77 ["bodyScaleCustomHeightSetMinMax"]
+  GETTABLEKS R22 R23 K21 ["value"]
+  SETTABLEKS R22 R21 K73 ["toggleValue"]
+  GETTABLEKS R23 R6 K77 ["bodyScaleCustomHeightSetMinMax"]
+  GETTABLEKS R22 R23 K39 ["set"]
+  SETTABLEKS R22 R21 K74 ["setToggleValue"]
+  SETTABLEKS R21 R20 K56 ["toggleRangeProps"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K47 ["Content"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K32 ["HeightSetting"]
+  CALL R10 3 -1
+  RETURN R10 -1
 
 MAIN:
   PREPVARARGS 0
@@ -245,20 +278,33 @@ MAIN:
   CALL R9 1 1
   GETTABLEKS R10 R4 K20 ["ContextServices"]
   GETTABLEKS R11 R10 K21 ["Localization"]
-  GETTABLEKS R12 R7 K22 ["createNextOrder"]
-  GETTABLEKS R13 R6 K23 ["createElement"]
-  DUPCLOSURE R14 K24 [PROTO_0]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R16 R0 K6 ["Src"]
+  GETTABLEKS R15 R16 K10 ["Util"]
+  GETTABLEKS R14 R15 K22 ["Telemetry"]
+  GETTABLEKS R13 R14 K23 ["TelemetryContext"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K6 ["Src"]
+  GETTABLEKS R15 R16 K24 ["Flags"]
+  GETTABLEKS R14 R15 K25 ["getFFlagAddTelemetry"]
+  CALL R13 1 1
+  GETTABLEKS R14 R7 K26 ["createNextOrder"]
+  GETTABLEKS R15 R6 K27 ["createElement"]
+  DUPCLOSURE R16 K28 [PROTO_0]
   CAPTURE VAL R2
-  DUPCLOSURE R15 K25 [PROTO_2]
+  DUPCLOSURE R17 K29 [PROTO_3]
   CAPTURE VAL R11
+  CAPTURE VAL R13
   CAPTURE VAL R12
+  CAPTURE VAL R14
   CAPTURE VAL R6
   CAPTURE VAL R1
   CAPTURE VAL R2
-  CAPTURE VAL R13
+  CAPTURE VAL R15
   CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R9
   CAPTURE VAL R8
-  CAPTURE VAL R14
-  RETURN R15 1
+  CAPTURE VAL R16
+  RETURN R17 1

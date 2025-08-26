@@ -1,5 +1,5 @@
-game:DefineFastFlag("RefactorPeoplePage4", false)
+game:DefineFastFlag("RefactorPeoplePage5", false)
 
 return function()
-	return game:GetFastFlag("RefactorPeoplePage4")
+	return game:GetFastFlag("RefactorPeoplePage5")
 end

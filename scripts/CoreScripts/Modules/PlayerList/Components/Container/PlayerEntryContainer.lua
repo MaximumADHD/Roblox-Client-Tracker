@@ -8,12 +8,15 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local Signals = require(CorePackages.Packages.Signals)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local useLeaderboardStore = PlayerListPackage.Hooks.useLeaderboardStore
 
 local PlayerEntryView = require(PlayerList.Components.PresentationCommon.PlayerEntryView)
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
+
+local FFlagMoveNewPlayerListDividers = SharedFlags.FFlagMoveNewPlayerListDividers
 
 type PlayerEntryViewProps = PlayerEntryView.PlayerEntryViewProps
 
@@ -64,9 +67,11 @@ local function PlayerEntryContainer(props: PlayerEntryContainerProps)
 
 	local gameStatsCount = SignalsReact.useSignalState(gameStats.getCount)
 
-	local teamPlayersCount = Signals.createComputed(function(scope)
-		return if props.teamData then props.teamData.players.getCount(scope) else 1
-	end)
+	local teamPlayersCount = if not FFlagMoveNewPlayerListDividers 
+		then Signals.createComputed(function(scope)
+			return if props.teamData then props.teamData.players.getCount(scope) else 1
+		end) 
+		else nil
 
 	return if playerData 
 		then React.createElement(PlayerEntryView, {

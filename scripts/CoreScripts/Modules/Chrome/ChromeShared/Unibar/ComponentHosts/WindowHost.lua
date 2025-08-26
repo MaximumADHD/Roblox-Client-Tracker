@@ -10,6 +10,8 @@ local VRService = game:GetService("VRService")
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
+local getUIScale = Display.GetDisplayStore(false).getUIScale
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
@@ -39,6 +41,9 @@ local GetFFlagSelfieViewMoreFixMigration =
 local FIntChromeWindowLayoutOrder = game:DefineFastInt("ChromeWindowLayoutOrder", 2)
 local FFlagWindowDragDetection = game:DefineFastFlag("WindowDragDetection", false)
 local FIntWindowMinDragDistance = game:DefineFastInt("WindowMinDragDistance", 25)
+
+local ChromeSharedFlags = require(Root.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local useWindowSize = require(Root.Hooks.useWindowSize)
 
@@ -193,7 +198,16 @@ local WindowHost = function(props: WindowHostProps)
 		else
 			-- If the position signal is available consume it
 			-- Always translate the position to absolute coordinates accounting for X scale
-			local defaultPosition: UDim2 = props.position or UDim2.new()
+			local defaultPosition: UDim2
+			if FFlagTokenizeUnibarConstantsWithStyleProvider and props.position then
+				local UIScale = getUIScale(false)
+				local positionXOffset = UIScale * props.position.X.Offset
+				local positionYOffset = UIScale * props.position.Y.Offset
+				defaultPosition =
+					UDim2.new(props.position.X.Scale, positionXOffset, props.position.Y.Scale, positionYOffset)
+			else
+				defaultPosition = props.position or UDim2.new()
+			end
 			if props.integration.integration.cachePosition then
 				local cachedPosition = ChromeService:windowPosition(props.integration.id) or UDim2.new()
 				local leftSideOffset = if cachedPosition.X.Scale == 1 then parentScreenSize.X else 0

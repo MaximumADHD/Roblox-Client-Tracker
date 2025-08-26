@@ -8,6 +8,11 @@ local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
 local getMemStorageKey = CrossExperience.Utils.getMemStorageKey
 local logEvent = CrossExperience.Analytics.CrossExperienceAnalytics.logEvent
 
+local FStringTimeoutLoadingLocalPlayerInBackgroundDM =
+	require(CorePackages.Workspace.Packages.SharedFlags).FStringTimeoutLoadingLocalPlayerInBackgroundDM
+
+local LOCAL_PLAYER_LOADING_TIMEOUT_ENUM = CrossExperience.Constants.LOCAL_PLAYER_LOADING_TIMEOUT_ENUM
+
 if CEVLogsToEventIngest then
 	logEvent("partyVoiceCEVStarterScriptLoaded", {
 		cevJoinAttemptId = getMemStorageKey("cevJoinAttemptId"),
@@ -38,13 +43,15 @@ if CEVLogsToEventIngest then
 	})
 end
 
-local localPlayer = Players.LocalPlayer
-while not localPlayer do
-	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-	localPlayer = Players.LocalPlayer
+if FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
+	local localPlayer = Players.LocalPlayer
+	while not localPlayer do
+		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+		localPlayer = Players.LocalPlayer
+	end
 end
 
-if CEVLogsToEventIngest then
+if FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable and CEVLogsToEventIngest then
 	logEvent("cevStarterScriptLocalPlayerLoaded", {
 		cevJoinAttemptId = getMemStorageKey("cevJoinAttemptId"),
 		clientTimeStamp = os.time(),

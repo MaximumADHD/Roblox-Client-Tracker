@@ -1,3 +1,5 @@
 return {
 	FFlagGameSettingsUsePreferredInputMovement = require(script.FFlagGameSettingsUsePreferredInputMovement),
+	FFlagGameSettingsRemoveTextTransparency = require(script.FFlagGameSettingsRemoveTextTransparency),
+	FFlagGameSettingsRemoveMouseButton1Event = require(script.FFlagGameSettingsRemoveMouseButton1Event),
 }

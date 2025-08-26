@@ -9,6 +9,9 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 local DarkTheme = UIBlox.App.Style.Constants.ThemeName.Dark
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
+
 local Promise = require(CorePackages.Packages.Promise)
 
 local SelfViewTooltipFTUX = require(script.Parent.SelfViewTooltipFTUX)
@@ -21,14 +24,24 @@ return function(props)
 	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	screenGui.Parent = CoreGui
 
+	local topBarButtonHeight
+	local screenSideOffset
+	if FFlagTopBarStyleUseDisplayUIScale then
+		topBarButtonHeight = TopBarConstants.useDisplayScaleState(TopBarConstants.TopBarButtonHeight)
+		screenSideOffset = TopBarConstants.useDisplayScaleState(TopBarConstants.ScreenSideOffset)
+	else
+		topBarButtonHeight = TopBarButtonHeight
+		screenSideOffset = ScreenSideOffset
+	end
+
 	local root = Roact.createElement(AppStyleProvider, {
 		style = {
 			themeName = DarkTheme,
 		},
 	}, {
 		frame = Roact.createElement("Frame", {
-			Position = UDim2.fromOffset(ScreenSideOffset, -TopBarButtonHeight),
-			Size = UDim2.fromOffset(TopBarButtonHeight, TopBarButtonHeight),
+			Position = UDim2.fromOffset(screenSideOffset, -topBarButtonHeight),
+			Size = UDim2.fromOffset(topBarButtonHeight, topBarButtonHeight),
 			BackgroundTransparency = 0,
 			Visible = false,
 		}, {

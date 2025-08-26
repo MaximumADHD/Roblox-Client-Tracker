@@ -2,11 +2,15 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -41,13 +45,11 @@ local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePref
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
-local BACKGROUND_SIZE = Constants.TopBarButtonHeight
-
 local OVERLAY_ASSET = Images["component_assets/circle_17"]
 
 IconButton.validateProps = t.strictInterface({
 	icon = t.union(t.string, t.table),
-	iconSize = t.union(t.integer, t.UDim2, t.table),
+	iconSize = t.union(t.number, t.UDim2, t.table),
 	enableFlashingDot = t.optional(t.boolean),
 	useIconScaleAnimation = t.optional(t.boolean),
 	onActivated = t.callback,
@@ -106,6 +108,15 @@ function IconButton:init()
 			controlState = newControlState,
 		})
 	end
+
+	if FFlagTopBarStyleUseDisplayUIScale then
+		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+			local DisplayStore = Display.GetDisplayStore(scope)
+			self:setState({
+				UiScale = DisplayStore.getUIScale(scope),
+			})
+		end)
+	end
 end
 
 function IconButton:render()
@@ -122,6 +133,12 @@ end
 
 function IconButton:renderWithCursor(getCursor)
 	local hasBackgroundFrame = not isNewTiltIconEnabled() and self.props.backgroundColor3
+	local backgroundSize
+	if FFlagTopBarStyleUseDisplayUIScale then
+		backgroundSize = Constants.TopBarButtonHeight * self.state.UiScale
+	else
+		backgroundSize = Constants.TopBarButtonHeight
+	end
 	return withStyle(function(style: any)
 		local overlayTheme = {
 			Color = Color3.new(1, 1, 1),
@@ -145,7 +162,7 @@ function IconButton:renderWithCursor(getCursor)
 				else 1,
 			Position = UDim2.fromScale(0, if isNewTiltIconEnabled() then 0.5 else 1),
 			AnchorPoint = Vector2.new(0, if isNewTiltIconEnabled() then 0.5 else 1),
-			Size = UDim2.fromOffset(BACKGROUND_SIZE, BACKGROUND_SIZE),
+			Size = UDim2.fromOffset(backgroundSize, backgroundSize),
 			Image = if not isNewTiltIconEnabled() then "rbxasset://textures/ui/TopBar/iconBase.png" else nil,
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			SelectionImageObject = if isNewTiltIconEnabled() then 
@@ -226,6 +243,13 @@ function IconButton:renderWithCursor(getCursor)
 			}) or nil,
 		})
 	end)
+end
+
+
+function IconButton:willUnmount()
+	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+		self.disposeUiScaleEffect()
+	end
 end
 
 if FFlagEnableChromeBackwardsSignalAPI then

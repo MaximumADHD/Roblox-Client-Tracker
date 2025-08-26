@@ -15,6 +15,9 @@ local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local InExperienceUIVRIXP =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
+
 local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
@@ -1889,7 +1892,10 @@ OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))
 OnCoreGuiChanged(healthType, StarterGui:GetCoreGuiEnabled(healthType))
 
 GuiService.MenuOpened:Connect(function()
-	if BackpackScript.IsOpen and (if isInExperienceUIVREnabled then not VRService.VREnabled else true) then
+	if
+		BackpackScript.IsOpen
+		and (if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isMovePanelToCenter() then not VRService.VREnabled else true)
+	then
 		BackpackScript.OpenClose()
 	end
 end)

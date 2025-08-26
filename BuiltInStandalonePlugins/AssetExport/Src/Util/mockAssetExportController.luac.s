@@ -1,0 +1,49 @@
+PROTO_0:
+  DUPTABLE R0 K4 [{"OnExportCompleteSuccess", "OnExportCompleteFailed", "OnExportStarted", "OnFileSelectCanceled"}]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["new"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K0 ["OnExportCompleteSuccess"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["new"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["OnExportCompleteFailed"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["new"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K2 ["OnExportStarted"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["new"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K3 ["OnFileSelectCanceled"]
+  GETUPVAL R3 1
+  FASTCALL2 SETMETATABLE R0 R3 [+4]
+  MOVE R2 R0
+  GETIMPORT R1 K7 [setmetatable]
+  CALL R1 2 1
+  RETURN R1 1
+
+PROTO_1:
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetExport"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["Signal"]
+  NEWTABLE R3 4 0
+  SETTABLEKS R3 R3 K10 ["__index"]
+  DUPCLOSURE R4 K11 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K12 ["new"]
+  DUPCLOSURE R4 K13 [PROTO_1]
+  SETTABLEKS R4 R3 K14 ["StartExportAsync"]
+  RETURN R3 1

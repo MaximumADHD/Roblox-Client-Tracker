@@ -90,7 +90,6 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
-local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFFlagMuteButtonRaceConditionFix)
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
@@ -139,6 +138,7 @@ local FFlagIEMEndFocusNavTiltMenuHidden = SharedFlags.FFlagIEMEndFocusNavTiltMen
 local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
 local FFlagChromeShortcutBarRemoveOnInviteFriends = SharedFlags.FFlagChromeShortcutBarRemoveOnInviteFriends
 local FFlagAddMuteSelfTopOfPlayersPane = SharedFlags.FFlagAddMuteSelfTopOfPlayersPane
+local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -177,7 +177,9 @@ end
 
 --[[ VARIABLES ]]
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
-local isTouchDevice = UserInputService.TouchEnabled
+local FFlagSettingsHubRemoveTouchEnabled = game:DefineFastFlag("SettingsHubRemoveTouchEnabled", false)
+local isTouchDevice = if FFlagSettingsHubRemoveTouchEnabled then 
+	UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local platform = UserInputService:GetPlatform()
 
@@ -219,11 +221,9 @@ local shouldLocalize = CachedPolicyService:IsSubjectToChinaPolicies()
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
-local GetFFlagPlayerListAnimateMic = SharedFlags.GetFFlagPlayerListAnimateMic
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
 local FFlagFixReportButtonCutOff = game:DefineFastFlag("FixReportButtonCutOff", false)
 
-local MuteStatusIcons = VoiceChatServiceManager.MuteStatusIcons
 local PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
 
@@ -525,15 +525,15 @@ local function CreateSettingsHub()
 		local newMuted = VoiceChatServiceManager.localMuted
 		local image
 		if newMuted == nil then
-			image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.Loading else MuteStatusIcons.Loading
+			image = PlayerMuteStatusIcons.Loading
 		elseif newMuted then
-			image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.MicOff else MuteStatusIcons.MicOff
-		elseif VoiceChatServiceManager.isTalking and GetFFlagPlayerListAnimateMic() then
+			image = PlayerMuteStatusIcons.MicOff
+		elseif VoiceChatServiceManager.isTalking then
 			local level = math.random()
 			local roundedLevel = 20 * math.floor(0.5 + 5*level)
 			image = VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), "MicLight")
 		else
-			image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.MicOn else MuteStatusIcons.MicOn
+			image = PlayerMuteStatusIcons.MicOn
 		end
 		return image
 	end
@@ -778,32 +778,29 @@ local function CreateSettingsHub()
 			VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 				updateIcon()
 			end)
+			local renderStepName = 'settings-hub-renderstep'
+			this.SettingsShowSignal:connect(function(isOpen)
+				local frame = 0
+				local renderSteppedConnected = false
+				if isOpen and not renderSteppedConnected then
+					renderSteppedConnected = true
+					RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
+						frame = frame + 1
+						-- This looks a little less flickery if we only do it once every 3 frames
+						if frame % 3 == 0 then
+							updateIcon()
+						end
+					end)
+				elseif renderSteppedConnected then
+					renderSteppedConnected = false
+					RunService:UnbindFromRenderStep(renderStepName)
+				end
 
-			if GetFFlagPlayerListAnimateMic() then
-				local renderStepName = 'settings-hub-renderstep'
-				this.SettingsShowSignal:connect(function(isOpen)
-					local frame = 0
-					local renderSteppedConnected = false
-					if isOpen and not renderSteppedConnected then
-						renderSteppedConnected = true
-						RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
-							frame = frame + 1
-							-- This looks a little less flickery if we only do it once every 3 frames
-							if frame % 3 == 0 then
-								updateIcon()
-							end
-						end)
-					elseif renderSteppedConnected then
-						renderSteppedConnected = false
-						RunService:UnbindFromRenderStep(renderStepName)
-					end
-
-					if isOpen then
-						this.lastVoiceRecordingIndicatorTextUpdated = tick()
-						this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-					end
-				end)
-			end
+				if isOpen then
+					this.lastVoiceRecordingIndicatorTextUpdated = tick()
+					this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+				end
+			end)
 		end
 	end
 
@@ -864,32 +861,29 @@ local function CreateSettingsHub()
 								this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
 							end
 						end)
+						local renderStepName = 'settings-hub-renderstep'
+						settingShowSignalEvent = this.SettingsShowSignal:connect(function(isOpen)
+							local frame = 0
+							local renderSteppedConnected = false
+							if isOpen and not renderSteppedConnected then
+								renderSteppedConnected = true
+								RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
+									frame = frame + 1
+									-- This looks a little less flickery if we only do it once every 3 frames
+									if frame % 3 == 0 then
+										updateIcon()
+									end
+								end)
+							elseif renderSteppedConnected then
+								renderSteppedConnected = false
+								RunService:UnbindFromRenderStep(renderStepName)
+							end
 
-						if GetFFlagPlayerListAnimateMic() then
-							local renderStepName = 'settings-hub-renderstep'
-							settingShowSignalEvent = this.SettingsShowSignal:connect(function(isOpen)
-								local frame = 0
-								local renderSteppedConnected = false
-								if isOpen and not renderSteppedConnected then
-									renderSteppedConnected = true
-									RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
-										frame = frame + 1
-										-- This looks a little less flickery if we only do it once every 3 frames
-										if frame % 3 == 0 then
-											updateIcon()
-										end
-									end)
-								elseif renderSteppedConnected then
-									renderSteppedConnected = false
-									RunService:UnbindFromRenderStep(renderStepName)
-								end
-
-								if isOpen then
-									this.lastVoiceRecordingIndicatorTextUpdated = tick()
-									this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-								end
-							end)
-						end
+							if isOpen then
+								this.lastVoiceRecordingIndicatorTextUpdated = tick()
+								this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+							end
+						end)
 					end
 				end
 				local function hideUI()
@@ -947,33 +941,30 @@ local function CreateSettingsHub()
 								this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
 							end
 						end)
+						local renderStepName = 'settings-hub-renderstep'
+						this.SettingsShowSignal:connect(function(isOpen)
+							local frame = 0
+							local renderSteppedConnected = false
+							if isOpen and not renderSteppedConnected then
+								renderSteppedConnected = true
+								RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
+									frame = frame + 1
+									-- This looks a little less flickery if we only do it once every 3 frames
+									if frame % 3 == 0 then
+										updateIcon()
+									end
+								end)
+							elseif renderSteppedConnected then
+								renderSteppedConnected = false
+								RunService:UnbindFromRenderStep(renderStepName)
+							end
 
-						if GetFFlagPlayerListAnimateMic() then
-							local renderStepName = 'settings-hub-renderstep'
-							this.SettingsShowSignal:connect(function(isOpen)
-								local frame = 0
-								local renderSteppedConnected = false
-								if isOpen and not renderSteppedConnected then
-									renderSteppedConnected = true
-									RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
-										frame = frame + 1
-										-- This looks a little less flickery if we only do it once every 3 frames
-										if frame % 3 == 0 then
-											updateIcon()
-										end
-									end)
-								elseif renderSteppedConnected then
-									renderSteppedConnected = false
-									RunService:UnbindFromRenderStep(renderStepName)
-								end
+							if isOpen then
+								this.lastVoiceRecordingIndicatorTextUpdated = tick()
+								this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+							end
 
-								if isOpen then
-									this.lastVoiceRecordingIndicatorTextUpdated = tick()
-									this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-								end
-
-							end)
-						end
+						end)
 					end
 				end):catch(function(err)
 					if GetFFlagVoiceChatUILogging() then
@@ -3610,7 +3601,7 @@ local function CreateSettingsHub()
 				this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1, true)
 			end
 
-			if (if isInExperienceUIVREnabled then not VRService.VREnabled else true) then
+			if (if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isMovePanelToCenter() then not VRService.VREnabled else true) then
 				playerList:HideTemp('SettingsMenu', true)
 
 				chat:HideTemp('SettingsMenu', true)
@@ -3770,7 +3761,7 @@ local function CreateSettingsHub()
 				end
 			end
 
-			if (if isInExperienceUIVREnabled then not VRService.VREnabled else true) then
+			if (if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isMovePanelToCenter() then not VRService.VREnabled else true) then
 				playerList:HideTemp('SettingsMenu', false)
 
 				chat:HideTemp('SettingsMenu', false)

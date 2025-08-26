@@ -51,6 +51,8 @@ PROTO_1:
   SETTABLEKS R13 R12 K15 ["Image"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K7 ["NoDisplayImage"]
+  GETUPVAL R10 5
+  JUMPIF R10 [+26]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
   LOADK R10 K3 ["Frame"]
@@ -70,6 +72,8 @@ PROTO_1:
   LOADK R13 K21 ["X-Transparent"]
   SETTABLE R13 R11 R12
   CALL R9 2 1
+  JUMP [+1]
+  LOADNIL R9
   SETTABLEKS R9 R8 K8 ["EmptySpace"]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
@@ -86,7 +90,13 @@ PROTO_1:
   SETTABLEKS R12 R11 K13 ["LayoutOrder"]
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K5 ["Tag"]
-  LOADK R13 K29 ["X-Fit StartPage-Font StartPage-TextSize X-Transparent StartPage-TextColor"]
+  LOADK R14 K29 ["X-Fit StartPage-Font X-Transparent StartPage-TextColor"]
+  GETUPVAL R16 5
+  JUMPIFNOT R16 [+2]
+  LOADK R15 K30 [" StartPage-FontBold StartPage-TextSizeM"]
+  JUMP [+1]
+  LOADK R15 K31 [" StartPage-TextSize"]
+  CONCAT R13 R14 R15
   SETTABLE R13 R11 R12
   CALL R9 2 1
   SETTABLEKS R9 R8 K9 ["Title"]
@@ -112,33 +122,33 @@ PROTO_1:
   SETTABLEKS R9 R8 K10 ["EmptySpace2"]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K2 ["createElement"]
-  LOADK R10 K30 ["TextButton"]
+  LOADK R10 K32 ["TextButton"]
   NEWTABLE R11 8 0
-  LOADK R14 K31 ["Plugin"]
-  LOADK R15 K32 ["CreateANewExperience"]
-  NAMECALL R12 R1 K33 ["getText"]
+  LOADK R14 K33 ["Plugin"]
+  LOADK R15 K34 ["CreateANewExperience"]
+  NAMECALL R12 R1 K35 ["getText"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K23 ["Text"]
   MOVE R12 R2
   CALL R12 0 1
   SETTABLEKS R12 R11 K13 ["LayoutOrder"]
   GETUPVAL R14 3
-  GETTABLEKS R13 R14 K34 ["Event"]
-  GETTABLEKS R12 R13 K35 ["Activated"]
-  DUPCLOSURE R13 K36 [PROTO_0]
-  CAPTURE UPVAL U5
+  GETTABLEKS R13 R14 K36 ["Event"]
+  GETTABLEKS R12 R13 K37 ["Activated"]
+  DUPCLOSURE R13 K38 [PROTO_0]
+  CAPTURE UPVAL U6
   SETTABLE R13 R11 R12
   GETUPVAL R14 3
-  GETTABLEKS R13 R14 K34 ["Event"]
-  GETTABLEKS R12 R13 K37 ["MouseEnter"]
+  GETTABLEKS R13 R14 K36 ["Event"]
+  GETTABLEKS R12 R13 K39 ["MouseEnter"]
   SETTABLE R3 R11 R12
   GETUPVAL R14 3
-  GETTABLEKS R13 R14 K34 ["Event"]
-  GETTABLEKS R12 R13 K38 ["MouseLeave"]
+  GETTABLEKS R13 R14 K36 ["Event"]
+  GETTABLEKS R12 R13 K40 ["MouseLeave"]
   SETTABLE R4 R11 R12
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K5 ["Tag"]
-  LOADK R13 K39 ["X-Fit X-Middle StartPage-ButtonBackgroundColor StartPage-FontBold StartPage-TextSize StartPage-ButtonPadding StartPage-RoundedCorner8 StartPage-StandardTextColor"]
+  LOADK R13 K41 ["X-Fit X-Middle StartPage-ButtonBackgroundColor StartPage-FontBold StartPage-TextSize StartPage-ButtonPadding StartPage-RoundedCorner8 StartPage-StandardTextColor"]
   SETTABLE R13 R11 R12
   CALL R9 2 1
   SETTABLEKS R9 R8 K11 ["Button"]
@@ -167,20 +177,27 @@ MAIN:
   GETTABLEKS R6 R5 K14 ["Image"]
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K15 ["Src"]
-  GETTABLEKS R9 R10 K9 ["Util"]
-  GETTABLEKS R8 R9 K16 ["Services"]
+  GETTABLEKS R9 R10 K16 ["SharedFlags"]
+  GETTABLEKS R8 R9 K17 ["getFFlagLuaStartPageNotFoundImageUpdate"]
   CALL R7 1 1
-  GETTABLEKS R8 R7 K17 ["StartPageManager"]
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K15 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Hooks"]
-  GETTABLEKS R10 R11 K19 ["useCursor"]
-  CALL R9 1 1
-  DUPCLOSURE R10 K20 [PROTO_1]
+  CALL R7 0 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K15 ["Src"]
+  GETTABLEKS R10 R11 K9 ["Util"]
+  GETTABLEKS R9 R10 K18 ["Services"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K19 ["StartPageManager"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K15 ["Src"]
+  GETTABLEKS R12 R13 K20 ["Hooks"]
+  GETTABLEKS R11 R12 K21 ["useCursor"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K22 [PROTO_1]
   CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R9
+  CAPTURE VAL R10
   CAPTURE VAL R1
   CAPTURE VAL R6
-  CAPTURE VAL R8
-  RETURN R10 1
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  RETURN R11 1

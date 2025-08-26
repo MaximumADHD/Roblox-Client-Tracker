@@ -55,50 +55,42 @@ MAIN:
   GETTABLEKS R9 R0 K10 ["Src"]
   GETTABLEKS R8 R9 K18 ["Flags"]
   GETIMPORT R9 K4 [require]
-  GETTABLEKS R10 R8 K19 ["getFFlagStyleEditorEnableTelemetry"]
+  GETTABLEKS R10 R8 K19 ["getFFlagStyleEditorThrottleHundrethsPercent"]
   CALL R9 1 1
   CALL R9 0 1
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R11 R8 K20 ["getFFlagStyleEditorThrottleHundrethsPercent"]
+  GETTABLEKS R10 R2 K20 ["interface"]
+  DUPTABLE R11 K24 [{"eventType", "path", "data"}]
+  GETTABLEKS R12 R2 K25 ["string"]
+  SETTABLEKS R12 R11 K21 ["eventType"]
+  GETTABLEKS R12 R2 K25 ["string"]
+  SETTABLEKS R12 R11 K22 ["path"]
+  GETTABLEKS R12 R2 K26 ["optional"]
+  GETTABLEKS R13 R2 K25 ["string"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K23 ["data"]
   CALL R10 1 1
-  CALL R10 0 1
-  GETTABLEKS R11 R2 K21 ["interface"]
-  DUPTABLE R12 K25 [{"eventType", "path", "data"}]
-  GETTABLEKS R13 R2 K26 ["string"]
-  SETTABLEKS R13 R12 K22 ["eventType"]
-  GETTABLEKS R13 R2 K26 ["string"]
-  SETTABLEKS R13 R12 K23 ["path"]
-  GETTABLEKS R13 R2 K27 ["optional"]
-  GETTABLEKS R14 R2 K26 ["string"]
-  CALL R13 1 1
-  SETTABLEKS R13 R12 K24 ["data"]
-  CALL R11 1 1
-  DUPTABLE R12 K34 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-  LOADK R13 K35 ["StyleEditor_ActionClicked"]
-  SETTABLEKS R13 R12 K28 ["eventName"]
-  NEWTABLE R13 0 2
-  GETTABLEKS R14 R5 K36 ["Points"]
-  GETTABLEKS R15 R5 K37 ["EventIngest"]
-  SETLIST R13 R14 2 [1]
-  SETTABLEKS R13 R12 K29 ["backends"]
-  JUMPIFNOT R9 [+2]
-  MOVE R13 R10
-  JUMP [+1]
-  LOADN R13 0
-  SETTABLEKS R13 R12 K30 ["throttlingPercentage"]
-  NEWTABLE R13 0 3
-  LOADN R14 12
-  LOADN R15 5
-  LOADN R16 22
-  SETLIST R13 R14 3 [1]
-  SETTABLEKS R13 R12 K31 ["lastUpdated"]
-  LOADK R13 K38 ["ContextMenu, onboarding link, button pressed or token/property edited in the StyleEditor."]
-  SETTABLEKS R13 R12 K32 ["description"]
-  LOADK R13 K39 [""]
-  SETTABLEKS R13 R12 K33 ["links"]
-  DUPCLOSURE R13 K40 [PROTO_0]
-  CAPTURE VAL R11
+  DUPTABLE R11 K33 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
+  LOADK R12 K34 ["StyleEditor_ActionClicked"]
+  SETTABLEKS R12 R11 K27 ["eventName"]
+  NEWTABLE R12 0 2
+  GETTABLEKS R13 R5 K35 ["Points"]
+  GETTABLEKS R14 R5 K36 ["EventIngest"]
+  SETLIST R12 R13 2 [1]
+  SETTABLEKS R12 R11 K28 ["backends"]
+  SETTABLEKS R9 R11 K29 ["throttlingPercentage"]
+  NEWTABLE R12 0 3
+  LOADN R13 12
+  LOADN R14 5
+  LOADN R15 22
+  SETLIST R12 R13 3 [1]
+  SETTABLEKS R12 R11 K30 ["lastUpdated"]
+  LOADK R12 K37 ["ContextMenu, onboarding link, button pressed or token/property edited in the StyleEditor."]
+  SETTABLEKS R12 R11 K31 ["description"]
+  LOADK R12 K38 [""]
+  SETTABLEKS R12 R11 K32 ["links"]
+  DUPCLOSURE R12 K39 [PROTO_0]
+  CAPTURE VAL R10
   CAPTURE VAL R4
-  CAPTURE VAL R12
+  CAPTURE VAL R11
   CAPTURE VAL R6
-  RETURN R13 1
+  RETURN R12 1

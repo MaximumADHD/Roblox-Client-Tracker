@@ -1,0 +1,90 @@
+PROTO_0:
+  FASTCALL2K ASSERT R0 K0 [+5]
+  MOVE R2 R0
+  LOADK R3 K0 ["TelemetryContext.new expects a Telemetry instance."]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  DUPTABLE R1 K4 [{"telemetry"}]
+  SETTABLEKS R0 R1 K3 ["telemetry"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K6 [setmetatable]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["telemetry"]
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLE R3 R4 R1
+  LOADK R7 K0 ["Event not found:"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R9 R1
+  GETIMPORT R8 K2 [tostring]
+  CALL R8 1 1
+  CONCAT R6 R7 R8
+  FASTCALL2 ASSERT R3 R6 [+4]
+  MOVE R5 R3
+  GETIMPORT R4 K4 [assert]
+  CALL R4 2 0
+  LOADK R5 K5 ["AvatarSettings_"]
+  MOVE R6 R1
+  CONCAT R4 R5 R6
+  SETTABLEKS R4 R3 K6 ["eventName"]
+  GETTABLEKS R4 R0 K7 ["telemetry"]
+  MOVE R6 R3
+  MOVE R7 R2
+  NAMECALL R4 R4 K8 ["logTelemetryCounterEvent"]
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_3:
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  DUPTABLE R2 K2 [{"logTelemetryCounterEvent"}]
+  MOVE R3 R0
+  JUMPIF R3 [+1]
+  DUPCLOSURE R3 K3 [PROTO_3]
+  SETTABLEKS R3 R2 K1 ["logTelemetryCounterEvent"]
+  CALL R1 1 1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R2 R3 K9 ["ContextItem"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["Telemetry"]
+  GETTABLEKS R4 R5 K13 ["Events"]
+  CALL R3 1 1
+  LOADK R6 K12 ["Telemetry"]
+  NAMECALL R4 R2 K14 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K15 [PROTO_0]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K16 ["new"]
+  DUPCLOSURE R5 K17 [PROTO_1]
+  SETTABLEKS R5 R4 K18 ["get"]
+  DUPCLOSURE R5 K19 [PROTO_2]
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K20 ["logCounter"]
+  DUPCLOSURE R5 K21 [PROTO_4]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K22 ["mock"]
+  RETURN R4 1

@@ -50,6 +50,8 @@ local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReport
 local GetFFlagWHAM1707ExperimentForceEnabled = require(root.Flags.GetFFlagWHAM1707ExperimentForceEnabled)
 local FFlagAbuseReportTabRenderPerformanceFixEnabled =
 	require(root.Flags.FFlagAbuseReportTabRenderPerformanceFixEnabled)
+local FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled =
+	require(root.Flags.FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled)
 
 local FStringReportMenuIXPLayer = SharedFlags.FStringReportMenuIXPLayer
 local FStringEARReportMenuIXPLayer = SharedFlags.FStringEARReportMenuIXPLayer
@@ -302,6 +304,12 @@ local AbuseReportMenuNew = function(props: Props)
 							HorizontalAlignment = 0,
 							Padding = UDim.new(0, 12),
 						}),
+						Padding = if FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled
+							then React.createElement("UIPadding", {
+								PaddingTop = UDim.new(0, sizings.ItemPadding),
+								PaddingBottom = UDim.new(0, sizings.ItemPadding),
+							})
+							else nil,
 						SelectInSceneToggleFrame = if shouldSelectorRender
 							then React.createElement("Frame", {
 								BackgroundTransparency = 1,

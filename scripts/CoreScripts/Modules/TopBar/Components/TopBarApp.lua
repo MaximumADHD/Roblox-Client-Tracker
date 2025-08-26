@@ -10,6 +10,10 @@ local TweenService = game:GetService("TweenService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
+
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -28,7 +32,6 @@ local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local CoreGuiCommonStores = CoreGuiCommon.Stores
 local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
-local Signals = require(CorePackages.Packages.Signals)
 
 local InGameMenuConstants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
@@ -174,6 +177,15 @@ function TopBarApp:init()
 	self.unibarRightSidePosition, self.setUnibarRightSidePosition = Roact.createBinding(UDim2.new())
 	self.closeButtonState, self.setCloseButtonState = Roact.createBinding(false)
 	self.badgeOver13Visible, self.setBadgeOver13Visible = Roact.createBinding(false)
+
+	if FFlagTopBarStyleUseDisplayUIScale then
+		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+			local DisplayStore = Display.GetDisplayStore(scope)
+			self:setState({
+				UiScale = DisplayStore.getUIScale(scope),
+			})
+		end)
+	end
 
 	if FFlagAddUILessMode then
 		self.uiLessStore = CoreGuiCommonStores.GetUILessStore(false)
@@ -348,6 +360,10 @@ function TopBarApp:willUnmount()
 		end
 	end
 
+	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+		self.disposeUiScaleEffect()
+	end
+
 	if FFlagAddUILessMode then
 		if self.uiLessStore then
 			self.uiLessStore.cleanup()
@@ -393,8 +409,36 @@ function TopBarApp:renderWithStyle(style)
 		unibarAlignment = self.state.unibarAlignment
 	end
 
-	local screenSideOffset = Constants.ScreenSideOffset
-	local topBarHeight = Constants.TopBarHeight
+	local screenSideOffset
+	local topBarHeight
+	local topBarTopMargin
+	local topBarPadding
+	local legacyCloseMenuIconSize
+	local unibarFramePaddingTop
+	local unibarFramePaddingBottom
+	local unibarFramePaddingLeft
+	local unibarFrameExtendedSize
+	if FFlagTopBarStyleUseDisplayUIScale then
+		screenSideOffset = Constants.ScreenSideOffset * self.state.UiScale
+		topBarHeight = Constants.TopBarHeight * self.state.UiScale
+		topBarTopMargin = Constants.TopBarTopMargin * self.state.UiScale
+		topBarPadding = Constants.TopBarPadding * self.state.UiScale
+		legacyCloseMenuIconSize = Constants.LegacyCloseMenuIconSize * self.state.UiScale
+		unibarFramePaddingTop = Constants.UnibarFrame.PaddingTop * self.state.UiScale
+		unibarFramePaddingBottom = Constants.UnibarFrame.PaddingBottom * self.state.UiScale
+		unibarFramePaddingLeft = Constants.UnibarFrame.PaddingLeft * self.state.UiScale
+		unibarFrameExtendedSize = Constants.UnibarFrame.ExtendedSize * self.state.UiScale
+	else
+		screenSideOffset = Constants.ScreenSideOffset
+		topBarHeight = Constants.TopBarHeight
+		topBarTopMargin = Constants.TopBarTopMargin
+		topBarPadding = Constants.TopBarPadding
+		legacyCloseMenuIconSize = Constants.LegacyCloseMenuIconSize
+		unibarFramePaddingTop = Constants.UnibarFrame.PaddingTop
+		unibarFramePaddingBottom = Constants.UnibarFrame.PaddingBottom
+		unibarFramePaddingLeft = Constants.UnibarFrame.PaddingLeft
+		unibarFrameExtendedSize = Constants.UnibarFrame.ExtendedSize
+	end
 
 	if TenFootInterface:IsEnabled() then
 		if not FFlagUnibarMenuIconLayoutFix or not ChromeEnabled() then
@@ -409,11 +453,11 @@ function TopBarApp:renderWithStyle(style)
 		else not (self.props.menuOpen or self.props.inspectMenuOpen)
 
 	local topBarFramePosition =
-		UDim2.new(0, 0, 0, Constants.TopBarTopMargin )
-	local topBarFrameHeight = topBarHeight - Constants.TopBarTopMargin
+		UDim2.new(0, 0, 0, topBarTopMargin )
+	local topBarFrameHeight = topBarHeight - topBarTopMargin
 	local topBarLeftFramePosition = UDim2.new(0, screenSideOffset, 0, 0)
 	local topBarRightFramePosition = UDim2.new(1, -screenSideOffset, 0, 0)
-	local topBarRightUnibarFramePosition = UDim2.new(1, -screenSideOffset, 0, Constants.TopBarTopMargin)
+	local topBarRightUnibarFramePosition = UDim2.new(1, -screenSideOffset, 0, topBarTopMargin)
 	local closeMenuButtonPosition = UDim2.new(0, 0, 0.5, 0)
 
 	local bottomBar = if FFlagVRMoveVoiceIndicatorToBottomBar
@@ -495,7 +539,7 @@ function TopBarApp:renderWithStyle(style)
 					0,
 					screenSideOffset,
 					0,
-					Constants.TopBarTopMargin
+					topBarTopMargin
 				),
 				Size = UDim2.new(
 					1,
@@ -519,7 +563,7 @@ function TopBarApp:renderWithStyle(style)
 						0,
 						screenSideOffset,
 						0,
-						Constants.TopBarTopMargin
+						topBarTopMargin
 					),
 					AutomaticSize = Enum.AutomaticSize.XY,
 					BackgroundTransparency = self.uiLessTooltipTransparency,
@@ -578,7 +622,7 @@ function TopBarApp:renderWithStyle(style)
 				BackgroundTransparency = style.Theme.Overlay.Transparency,
 				Position = closeMenuButtonPosition,
 				AnchorPoint = Vector2.new(0, 0.5),
-				Size = UDim2.new(0, Constants.LegacyCloseMenuIconSize, 0, Constants.LegacyCloseMenuIconSize),
+				Size = UDim2.new(0, legacyCloseMenuIconSize, 0, legacyCloseMenuIconSize),
 				BackgroundColor3 = style.Theme.Overlay.Color,
 				[Roact.Event.Activated] = function()
 					local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
@@ -642,7 +686,7 @@ function TopBarApp:renderWithStyle(style)
 				BackgroundTransparency = 1,
 				Position = closeMenuButtonPosition,
 				AnchorPoint = Vector2.new(0, 0.5),
-				Size = UDim2.new(0, Constants.LegacyCloseMenuIconSize, 0, Constants.LegacyCloseMenuIconSize),
+				Size = UDim2.new(0, legacyCloseMenuIconSize, 0, legacyCloseMenuIconSize),
 				Image = Images["icons/controls/close-ingame"],
 
 				[Roact.Event.Activated] = function()
@@ -687,9 +731,9 @@ function TopBarApp:renderWithStyle(style)
 						then Roact.createElement(KeepOutAreasHandler)
 						else nil,
 					Padding = Roact.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, Constants.UnibarFrame.PaddingTop),
-						PaddingBottom = UDim.new(0, Constants.UnibarFrame.PaddingBottom),
-						PaddingLeft = UDim.new(0, Constants.UnibarFrame.PaddingLeft),
+						PaddingTop = UDim.new(0, unibarFramePaddingTop),
+						PaddingBottom = UDim.new(0, unibarFramePaddingBottom),
+						PaddingLeft = UDim.new(0, unibarFramePaddingLeft),
 					}),
 					Unibar = if isInExperienceUIVREnabled and isSpatial() 
 						then nil 
@@ -728,10 +772,10 @@ function TopBarApp:renderWithStyle(style)
 						Size = UDim2.new(1, 0, 1, 0),
 					}, {
 						Padding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, Constants.TopBarPadding),
+							PaddingLeft = UDim.new(0, topBarPadding),
 						}),
 						Layout = Roact.createElement("UIListLayout", {
-							Padding = UDim.new(0, Constants.TopBarPadding),
+							Padding = UDim.new(0, topBarPadding),
 							FillDirection = Enum.FillDirection.Horizontal,
 							HorizontalAlignment = Enum.HorizontalAlignment.Left,
 							VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -797,11 +841,11 @@ function TopBarApp:renderWithStyle(style)
 						then Roact.createElement(KeepOutAreasHandler)
 						else nil,
 					Padding = Roact.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, Constants.UnibarFrame.PaddingTop),
-						PaddingBottom = UDim.new(0, Constants.UnibarFrame.PaddingBottom),
+						PaddingTop = UDim.new(0, unibarFramePaddingTop),
+						PaddingBottom = UDim.new(0, unibarFramePaddingBottom),
 					}),
 					Layout = Roact.createElement("UIListLayout", {
-						Padding = UDim.new(0, Constants.TopBarPadding),
+						Padding = UDim.new(0, topBarPadding),
 						FillDirection = Enum.FillDirection.Horizontal,
 						HorizontalAlignment = Enum.HorizontalAlignment.Right,
 						VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -839,7 +883,7 @@ function TopBarApp:renderWithStyle(style)
 					Position = topBarLeftFramePosition,
 				}, {
 					Layout = Roact.createElement("UIListLayout", {
-						Padding = UDim.new(0, Constants.TopBarPadding),
+						Padding = UDim.new(0, topBarPadding),
 						FillDirection = Enum.FillDirection.Horizontal,
 						HorizontalAlignment = Enum.HorizontalAlignment.Left,
 						VerticalAlignment = if FFlagTopBarUseNewBadge
@@ -850,7 +894,7 @@ function TopBarApp:renderWithStyle(style)
 
 					Blank = chromeEnabled and Roact.createElement("Frame", {
 						LayoutOrder = 1,
-						Size = UDim2.new(0, Constants.UnibarFrame.ExtendedSize, 0, 1),
+						Size = UDim2.new(0, unibarFrameExtendedSize, 0, 1),
 						BackgroundTransparency = 1,
 					}),
 
@@ -890,7 +934,7 @@ function TopBarApp:renderWithStyle(style)
 				AnchorPoint = Vector2.new(1, 0),
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
-					Padding = UDim.new(0, Constants.TopBarPadding),
+					Padding = UDim.new(0, topBarPadding),
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Right,
 					VerticalAlignment = Enum.VerticalAlignment.Center,

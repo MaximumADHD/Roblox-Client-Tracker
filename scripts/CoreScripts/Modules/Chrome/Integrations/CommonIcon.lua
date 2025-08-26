@@ -12,15 +12,25 @@ local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
 
 local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
 
-local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
+local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
-local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
+local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
+local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
 local RBXAssetProto = "rbxasset://"
 
 export type IconData = string | { [string]: any }
 
 function CommonIconComponent(props)
+	local unibarStyle
+	local iconSize
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconSize = unibarStyle.ICON_SIZE
+	else
+		iconSize = Constants.ICON_SIZE
+	end
 	local active = props.activeSignalValue and useMappedSignal(props.activeSignalValue) or false
 	local icon = props.icon
 
@@ -40,7 +50,7 @@ function CommonIconComponent(props)
 	return React.createElement(ImageSetLabel, {
 		BackgroundTransparency = 1,
 		Image = icon,
-		Size = ICON_SIZE,
+		Size = UDim2.new(0, iconSize, 0, iconSize),
 		ImageColor3 = style.Theme.IconEmphasis.Color,
 		ImageTransparency = if GetFFlagAnimateSubMenu() and submenuTransition
 			then submenuTransition:map(function(v)

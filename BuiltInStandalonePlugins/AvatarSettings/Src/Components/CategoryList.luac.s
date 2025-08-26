@@ -1,7 +1,21 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["setCurrentSettingsPage"]
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+15]
   GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["currentSettingsPage"]
+  GETUPVAL R1 2
+  JUMPIFEQ R0 R1 [+10]
+  GETUPVAL R0 3
+  LOADK R2 K1 ["SwitchedToTab"]
+  DUPTABLE R3 K3 [{"tabName"}]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K2 ["tabName"]
+  NAMECALL R0 R0 K4 ["logCounter"]
+  CALL R0 3 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K5 ["setCurrentSettingsPage"]
+  GETUPVAL R1 2
   CALL R0 1 0
   RETURN R0 0
 
@@ -9,68 +23,78 @@ PROTO_1:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
-  NEWTABLE R2 0 0
   GETUPVAL R3 1
   CALL R3 0 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K1 ["useContext"]
-  GETUPVAL R5 3
-  CALL R4 1 1
-  GETTABLEKS R7 R4 K2 ["settings"]
-  JUMPIFNOTEQKNIL R7 [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  FASTCALL2K ASSERT R6 K3 [+4]
-  LOADK R7 K3 ["Settings must not be nil in AvatarSettingsContext"]
-  GETIMPORT R5 K5 [assert]
-  CALL R5 2 0
-  GETTABLEKS R5 R4 K2 ["settings"]
-  GETTABLEKS R7 R4 K2 ["settings"]
-  GETTABLEKS R6 R7 K6 ["categoryListExpanded"]
-  LOADN R7 0
-  GETUPVAL R8 4
-  LOADNIL R9
+  JUMPIFNOT R3 [+5]
+  GETUPVAL R2 2
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  JUMP [+1]
+  LOADNIL R2
+  NEWTABLE R3 0 0
+  GETUPVAL R4 3
+  CALL R4 0 1
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K1 ["useContext"]
+  GETUPVAL R6 5
+  CALL R5 1 1
+  GETTABLEKS R8 R5 K2 ["settings"]
+  JUMPIFNOTEQKNIL R8 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  FASTCALL2K ASSERT R7 K3 [+4]
+  LOADK R8 K3 ["Settings must not be nil in AvatarSettingsContext"]
+  GETIMPORT R6 K5 [assert]
+  CALL R6 2 0
+  GETTABLEKS R6 R5 K2 ["settings"]
+  GETTABLEKS R8 R5 K2 ["settings"]
+  GETTABLEKS R7 R8 K6 ["categoryListExpanded"]
+  LOADN R8 0
+  GETUPVAL R9 6
   LOADNIL R10
-  FORGPREP R8
-  JUMPIFEQKS R12 K7 ["Body"] [+13]
-  JUMPIFEQKS R12 K8 ["Clothing"] [+11]
-  GETTABLEKS R15 R5 K9 ["navigationBarSettings"]
-  GETTABLEKS R14 R15 K10 ["avatarType"]
-  GETTABLEKS R13 R14 K11 ["value"]
-  GETIMPORT R14 K15 [Enum.GameAvatarType.R6]
-  JUMPIFEQ R13 R14 [+39]
-  NEWCLOSURE R13 P0
-  CAPTURE VAL R5
-  CAPTURE VAL R12
-  GETUPVAL R14 5
-  GETUPVAL R15 6
-  DUPTABLE R16 K22 [{"name", "layoutOrder", "selected", "imageTag", "expanded", "onClick"}]
-  LOADK R19 K23 ["CategoryList"]
-  MOVE R20 R12
-  NAMECALL R17 R1 K24 ["getText"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K16 ["name"]
-  MOVE R17 R3
-  CALL R17 0 1
-  SETTABLEKS R17 R16 K17 ["layoutOrder"]
-  GETTABLEKS R18 R5 K25 ["currentSettingsPage"]
-  JUMPIFEQ R18 R12 [+2]
-  LOADB R17 0 +1
-  LOADB R17 1
-  SETTABLEKS R17 R16 K18 ["selected"]
-  GETUPVAL R18 7
-  GETTABLE R17 R18 R12
-  SETTABLEKS R17 R16 K19 ["imageTag"]
-  GETTABLEKS R17 R6 K26 ["enabled"]
-  SETTABLEKS R17 R16 K20 ["expanded"]
-  SETTABLEKS R13 R16 K21 ["onClick"]
-  CALL R14 2 1
-  SETTABLE R14 R2 R12
-  ADDK R7 R7 K27 [1]
-  FORGLOOP R8 2 [-53]
-  MOVE R8 R2
-  MOVE R9 R7
-  RETURN R8 2
+  LOADNIL R11
+  FORGPREP R9
+  JUMPIFEQKS R13 K7 ["Body"] [+13]
+  JUMPIFEQKS R13 K8 ["Clothing"] [+11]
+  GETTABLEKS R16 R6 K9 ["navigationBarSettings"]
+  GETTABLEKS R15 R16 K10 ["avatarType"]
+  GETTABLEKS R14 R15 K11 ["value"]
+  GETIMPORT R15 K15 [Enum.GameAvatarType.R6]
+  JUMPIFEQ R14 R15 [+41]
+  NEWCLOSURE R14 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R6
+  CAPTURE VAL R13
+  CAPTURE VAL R2
+  GETUPVAL R15 7
+  GETUPVAL R16 8
+  DUPTABLE R17 K22 [{"name", "layoutOrder", "selected", "imageTag", "expanded", "onClick"}]
+  LOADK R20 K23 ["CategoryList"]
+  MOVE R21 R13
+  NAMECALL R18 R1 K24 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K16 ["name"]
+  MOVE R18 R4
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K17 ["layoutOrder"]
+  GETTABLEKS R19 R6 K25 ["currentSettingsPage"]
+  JUMPIFEQ R19 R13 [+2]
+  LOADB R18 0 +1
+  LOADB R18 1
+  SETTABLEKS R18 R17 K18 ["selected"]
+  GETUPVAL R19 9
+  GETTABLE R18 R19 R13
+  SETTABLEKS R18 R17 K19 ["imageTag"]
+  GETTABLEKS R18 R7 K26 ["enabled"]
+  SETTABLEKS R18 R17 K20 ["expanded"]
+  SETTABLEKS R14 R17 K21 ["onClick"]
+  CALL R15 2 1
+  SETTABLE R15 R3 R13
+  ADDK R8 R8 K27 [1]
+  FORGLOOP R9 2 [-55]
+  MOVE R9 R3
+  MOVE R10 R8
+  RETURN R9 2
 
 PROTO_2:
   GETUPVAL R1 0
@@ -221,45 +245,58 @@ MAIN:
   GETTABLEKS R10 R5 K19 ["Styling"]
   GETTABLEKS R9 R10 K20 ["joinTags"]
   GETTABLEKS R10 R8 K21 ["Localization"]
-  GETTABLEKS R11 R5 K22 ["UI"]
-  GETTABLEKS R12 R11 K23 ["Pane"]
-  GETTABLEKS R13 R7 K24 ["createNextOrder"]
-  GETTABLEKS R14 R6 K25 ["createElement"]
-  NEWTABLE R15 0 5
-  LOADK R16 K26 ["General"]
-  LOADK R17 K27 ["Body"]
-  LOADK R18 K28 ["Clothing"]
-  LOADK R19 K29 ["Accessories"]
-  LOADK R20 K30 ["Movement"]
-  SETLIST R15 R16 5 [1]
-  DUPTABLE R16 K31 [{"General", "Body", "Movement", "Accessories", "Clothing"}]
-  LOADK R17 K32 ["GeneralCategoryImage data-testid=GeneralCategoryImage"]
-  SETTABLEKS R17 R16 K26 ["General"]
-  LOADK R17 K33 ["BodyCategoryImage data-testid=BodyCategoryImage"]
-  SETTABLEKS R17 R16 K27 ["Body"]
-  LOADK R17 K34 ["MovementCategoryImage data-testid=MovementCategoryImage"]
-  SETTABLEKS R17 R16 K30 ["Movement"]
-  LOADK R17 K35 ["AccessoriesCategoryImage data-testid=AccessoriesCategoryImage"]
-  SETTABLEKS R17 R16 K29 ["Accessories"]
-  LOADK R17 K36 ["ClothingCategoryImage data-testid=ClothingCategoryImage"]
-  SETTABLEKS R17 R16 K28 ["Clothing"]
-  DUPCLOSURE R17 K37 [PROTO_1]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R15 R0 K6 ["Src"]
+  GETTABLEKS R14 R15 K10 ["Util"]
+  GETTABLEKS R13 R14 K22 ["Telemetry"]
+  GETTABLEKS R12 R13 K23 ["TelemetryContext"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K6 ["Src"]
+  GETTABLEKS R14 R15 K24 ["Flags"]
+  GETTABLEKS R13 R14 K25 ["getFFlagAddTelemetry"]
+  CALL R12 1 1
+  GETTABLEKS R13 R5 K26 ["UI"]
+  GETTABLEKS R14 R13 K27 ["Pane"]
+  GETTABLEKS R15 R7 K28 ["createNextOrder"]
+  GETTABLEKS R16 R6 K29 ["createElement"]
+  NEWTABLE R17 0 5
+  LOADK R18 K30 ["General"]
+  LOADK R19 K31 ["Body"]
+  LOADK R20 K32 ["Clothing"]
+  LOADK R21 K33 ["Accessories"]
+  LOADK R22 K34 ["Movement"]
+  SETLIST R17 R18 5 [1]
+  DUPTABLE R18 K35 [{"General", "Body", "Movement", "Accessories", "Clothing"}]
+  LOADK R19 K36 ["GeneralCategoryImage data-testid=GeneralCategoryImage"]
+  SETTABLEKS R19 R18 K30 ["General"]
+  LOADK R19 K37 ["BodyCategoryImage data-testid=BodyCategoryImage"]
+  SETTABLEKS R19 R18 K31 ["Body"]
+  LOADK R19 K38 ["MovementCategoryImage data-testid=MovementCategoryImage"]
+  SETTABLEKS R19 R18 K34 ["Movement"]
+  LOADK R19 K39 ["AccessoriesCategoryImage data-testid=AccessoriesCategoryImage"]
+  SETTABLEKS R19 R18 K33 ["Accessories"]
+  LOADK R19 K40 ["ClothingCategoryImage data-testid=ClothingCategoryImage"]
+  SETTABLEKS R19 R18 K32 ["Clothing"]
+  DUPCLOSURE R19 K41 [PROTO_1]
   CAPTURE VAL R10
-  CAPTURE VAL R13
-  CAPTURE VAL R6
-  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R11
   CAPTURE VAL R15
-  CAPTURE VAL R14
-  CAPTURE VAL R3
-  CAPTURE VAL R16
-  DUPCLOSURE R18 K38 [PROTO_2]
-  CAPTURE VAL R10
   CAPTURE VAL R6
   CAPTURE VAL R1
   CAPTURE VAL R17
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CAPTURE VAL R18
+  DUPCLOSURE R20 K42 [PROTO_2]
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R19
+  CAPTURE VAL R16
   CAPTURE VAL R14
-  CAPTURE VAL R12
   CAPTURE VAL R4
   CAPTURE VAL R3
   CAPTURE VAL R9
-  RETURN R18 1
+  RETURN R20 1

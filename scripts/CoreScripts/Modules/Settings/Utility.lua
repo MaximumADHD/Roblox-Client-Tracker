@@ -57,6 +57,8 @@ local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGa
 
 local SettingsFlags = require(Settings.Flags)
 local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
+local FFlagGameSettingsRemoveTextTransparency = SettingsFlags.FFlagGameSettingsRemoveTextTransparency
+local FFlagGameSettingsRemoveMouseButton1Event = SettingsFlags.FFlagGameSettingsRemoveMouseButton1Event
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
@@ -64,6 +66,9 @@ local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: never
+
+local Signals = require(CorePackages.Packages.Signals)
+local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 
 local ChromeFlags = require(Chrome.Flags)
 local FFlagHideShortcutsWhileIemDropdownActive = ChromeFlags.FFlagHideShortcutsWhileIemDropdownActive
@@ -86,6 +91,17 @@ local migrationLookup = BuilderIcons.Migration
 
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
+
+local isLastInputModeTap = Signals.createComputed(function(scope)
+	local InputModeStore = Responsive.GetInputModeStore(scope)
+	local lastInputMode = InputModeStore.getLastInputType(scope)
+	return lastInputMode == Responsive.Input.Touch
+end)
+local isLastInputModePointer = Signals.createComputed(function(scope)
+	local InputModeStore = Responsive.GetInputModeStore(scope)
+	local lastInputMode = InputModeStore.getLastInputType(scope)
+	return lastInputMode == Responsive.Input.Pointer
+end)
 
 ----------- UTILITIES --------------
 local onResizedCallbacks = {}
@@ -1361,18 +1377,24 @@ local function CreateSelector(selectionStringTable, startPosition)
 				return
 			end
 
-			if GuiService.SelectedCoreObject == this.SelectorFrame then
-				this.Selections[this.CurrentIndex].TextTransparency = 0
+			if FFlagGameSettingsRemoveTextTransparency then 
+				if GuiService.SelectedCoreObject ~= nil and isAutoSelectButton[GuiService.SelectedCoreObject] and not VRService.VREnabled then
+					GuiService.SelectedCoreObject = this.SelectorFrame
+				end
 			else
-				if GuiService.SelectedCoreObject ~= nil and isAutoSelectButton[GuiService.SelectedCoreObject] then
-					if VRService.VREnabled then
-						this.Selections[this.CurrentIndex].TextTransparency = 0
-					else
-						GuiService.SelectedCoreObject = this.SelectorFrame
-					end
+				if GuiService.SelectedCoreObject == this.SelectorFrame then
+					this.Selections[this.CurrentIndex].TextTransparency = 0
 				else
-					if FFlagIEMFocusNavToButtons and this.Selections[this.CurrentIndex] then
-						this.Selections[this.CurrentIndex].TextTransparency = 0.5
+					if GuiService.SelectedCoreObject ~= nil and isAutoSelectButton[GuiService.SelectedCoreObject] then
+						if VRService.VREnabled then
+							this.Selections[this.CurrentIndex].TextTransparency = 0
+						else
+							GuiService.SelectedCoreObject = this.SelectorFrame
+						end
+					else
+						if FFlagIEMFocusNavToButtons and this.Selections[this.CurrentIndex] then
+							this.Selections[this.CurrentIndex].TextTransparency = 0.5
+						end
 					end
 				end
 			end
@@ -1443,7 +1465,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 				Position = UDim2.new(1, 0, 0, 0),
 				TextColor3 = Color3.fromRGB(255, 255, 255),
 				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = 0.5,
+				TextTransparency = if FFlagGameSettingsRemoveTextTransparency then nil else 0.5,
 				Font = Theme.font(Enum.Font.SourceSans, "UtilityText"),
 				TextSize = Theme.textSize(24, "UtilityText"),
 				TextWrapped = true,
@@ -1488,25 +1510,37 @@ local function CreateSelector(selectionStringTable, startPosition)
 	onVREnabled("VREnabled")
 
 	leftButton.InputBegan:Connect(function(inputObject)
-		if inputObject.UserInputType == Enum.UserInputType.Touch then
+		local shouldStep = isLastInputModeTap(false) 
+			or isLastInputModePointer(false) 
+			and inputObject.UserInputType ~= Enum.UserInputType.Keyboard 
+			and inputObject.UserInputType ~= Enum.UserInputType.MouseMovement
+		if (if FFlagGameSettingsRemoveMouseButton1Event then shouldStep else inputObject.UserInputType == Enum.UserInputType.Touch)  then
 			stepFunc(nil, -1)
 		end
 	end)
-	leftButton.MouseButton1Click:Connect(function()
-		if not isTouchInput() then
-			stepFunc(nil, -1)
-		end
-	end)
+	if not FFlagGameSettingsRemoveMouseButton1Event then
+		leftButton.MouseButton1Click:Connect(function()
+			if not isTouchInput() then
+				stepFunc(nil, -1)
+			end
+		end)
+	end
 	rightButton.InputBegan:Connect(function(inputObject)
-		if inputObject.UserInputType == Enum.UserInputType.Touch then
+		local shouldStep = isLastInputModeTap(false) 
+			or isLastInputModePointer(false) 
+			and inputObject.UserInputType ~= Enum.UserInputType.Keyboard 
+			and inputObject.UserInputType ~= Enum.UserInputType.MouseMovement
+		if (if FFlagGameSettingsRemoveMouseButton1Event then shouldStep else inputObject.UserInputType == Enum.UserInputType.Touch) then
 			stepFunc(nil, 1)
 		end
 	end)
-	rightButton.MouseButton1Click:Connect(function()
-		if not isTouchInput() then
-			stepFunc(nil, 1)
-		end
-	end)
+	if not FFlagGameSettingsRemoveMouseButton1Event then
+		rightButton.MouseButton1Click:Connect(function()
+			if not isTouchInput() then
+				stepFunc(nil, 1)
+			end
+		end)
+	end
 
 	local isInTree = true
 	this:UpdateOptions(selectionStringTable)

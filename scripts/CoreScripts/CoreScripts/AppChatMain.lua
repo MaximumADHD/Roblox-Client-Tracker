@@ -40,13 +40,23 @@ local FFlagEnableAppChatFocusableFixes =
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
+
 local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
 	require(RobloxGui.Modules.Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
-local TopBarTopMargin = require(RobloxGui.Modules.TopBar.Constants).TopBarTopMargin
+local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
 local getFFlagAppChatMoveApolloProvider = AppChat.Flags.getFFlagAppChatMoveApolloProvider
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
 local FFlagAppChatMoveMainComponent = game:DefineFastFlag("FFlagAppChatMoveMainComponent", false)
+
+local TopBarTopMargin
+if FFlagTopBarStyleUseDisplayUIScale then
+	TopBarTopMargin = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarTopMargin)
+else
+	TopBarTopMargin = TopBarConstants.TopBarTopMargin
+end
 
 InExperienceAppChatModal.default:initialize(TopBarTopMargin, SettingsHub, ViewportUtil, ChatSelector, PlayerListManager)
 

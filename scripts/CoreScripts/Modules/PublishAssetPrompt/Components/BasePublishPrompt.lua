@@ -12,6 +12,9 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
+
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
@@ -40,11 +43,13 @@ local ValidationErrorModal = require(Components.ValidationErrorModal)
 local PurchasePrompt = require(CorePackages.Workspace.Packages.PurchasePrompt)
 local Analytics = PurchasePrompt.PublishAssetAnalytics
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
+
 local NAME_HEIGHT_PIXELS = 30
 local DISCLAIMER_HEIGHT_PIXELS = 50
 local LABEL_PADDING = 24
 local BOTTOM_GRADIENT_HEIGHT = 5
-local TOP_BAR_HEIGHT = TopBarConstants.TopBarHeight
 --[[
 	Distance between the bottom of the top bar and the top of the prompt in
 	portrait mode. In landscape mode, the prompt is centered vertically, with
@@ -107,6 +112,14 @@ function BasePublishPrompt:init()
 	self.inputState = nil
 	self.inputObject = nil
 	self.connection = nil
+	if FFlagTopBarStyleUseDisplayUIScale then
+		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+			local DisplayStore = Display.GetDisplayStore(scope)
+			self:setState({
+				UiScale = DisplayStore.getUIScale(scope),
+			})
+		end)
+	end
 
 	self.storeInput = function(actionName, inputState, inputObject)
 		self.inputState = inputState
@@ -322,6 +335,8 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 	local topCornerInset, _ = GuiService:GetGuiInset()
 	local overlayPosition = UDim2.new(0, 0, 0, -topCornerInset.Y)
 	local overlaySize = UDim2.new(1, 0, 1, topCornerInset.Y)
+	local topBarHeight = TopBarConstants.TopBarHeight
+		* (if FFlagTopBarStyleUseDisplayUIScale then self.state.UiScale else 1)
 
 	return withStyle(function(style)
 		local theme = style.Theme
@@ -361,8 +376,8 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 
 			PublishPrompt = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, -TOP_BAR_HEIGHT),
-				Position = UDim2.fromOffset(0, TOP_BAR_HEIGHT),
+				Size = UDim2.new(1, 0, 1, -topBarHeight),
+				Position = UDim2.fromOffset(0, topBarHeight),
 				Visible = not self.state.showUnsavedDataWarning
 					and not self.props.showingPreviewView
 					and not self.props.showTopScrim,
@@ -455,6 +470,10 @@ function BasePublishPrompt:willUnmount()
 	self:removeMouseIconBehaviorOverride()
 
 	self:cleanupGamepad()
+
+	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+		self.disposeUiScaleEffect()
+	end
 
 	-- Make sure state reflects that the prompt is no longer visible
 	self.props.SetPromptVisibility(false)

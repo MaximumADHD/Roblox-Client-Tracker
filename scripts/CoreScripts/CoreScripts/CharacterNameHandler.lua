@@ -8,6 +8,7 @@ local UserProfileStore = UserProfiles.Stores.UserProfileStore
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local GetFFlagUseUserProfileStore = SharedFlags.GetFFlagUseUserProfileStore
+local FFlagUserProfileStoreQueryRefetch = SharedFlags.FFlagUserProfileStoreQueryRefetch
 
 local playerConnections = {}
 
@@ -144,6 +145,9 @@ local function onPlayerRemoving(player: Player)
 			connection:Disconnect()
 		end
 		playerConnections[player] = nil
+	end
+	if GetFFlagUseUserProfileStore() and FFlagUserProfileStoreQueryRefetch then
+		UserProfileStore.get().invalidateCachedNamesForUserIds({ tostring(player.UserId) })
 	end
 end
 

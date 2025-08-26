@@ -13,6 +13,9 @@ local TextButton = UIBlox.App.Button.TextButton
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 
+local FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled =
+	require(root.Flags.FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled)
+
 type Props = {
 	label: string,
 	abuseType: string,
@@ -118,6 +121,9 @@ local ReportTypeSelector = function(props: Props)
 					layoutOrder = 2,
 					isDisabled = props.isSelectionDisabled,
 					fontStyle = sizings.FontStyle,
+					verticalPadding = if FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled
+						then sizings.ButtonInsideVerticalPadding
+						else nil,
 				}),
 			}),
 			RightChevron = if props.isSelectionDisabled

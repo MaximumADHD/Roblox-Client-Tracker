@@ -2,6 +2,9 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
+
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local Otter = require(CorePackages.Packages.Otter)
@@ -13,6 +16,9 @@ local Modules = CoreGui.RobloxGui.Modules
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local TopBarConstants = require(Modules.TopBar.Constants)
 local ChromeEnabled = require(Modules.Chrome.Enabled)()
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local Presentation = script.Parent
 local PlayerList = Presentation.Parent.Parent
@@ -56,7 +62,7 @@ end
 
 local PlayerListApp = Roact.PureComponent:extend("PlayerListApp")
 
-local function playerListSizeFromViewportSize(viewportSize)
+local function playerListSizeFromViewportSize(self, viewportSize)
 	-- Turn x/y into min/max to stay independent of aspect ratio
 	local vMin = math.min(viewportSize.x, viewportSize.y)
 	local vMax = math.max(viewportSize.x, viewportSize.y)
@@ -81,7 +87,7 @@ local function playerListSizeFromViewportSize(viewportSize)
 
 	-- Increase y-axis border to avoid chrome overlap on landscape
 	if ChromeEnabled and viewportSize.y < viewportSize.x then
-		sY -= (TopBarConstants.TopBarHeight - BORDER_SIZE)
+		sY -= (TopBarConstants.TopBarHeight * (if FFlagTopBarStyleUseDisplayUIScale then self.state.UiScale else 1) - BORDER_SIZE)
 	end
 
 	return UDim2.fromOffset(sX, sY)
@@ -115,6 +121,15 @@ function PlayerListApp:init()
 	self.state = {
 		visible = false,
 	}
+
+	if FFlagTopBarStyleUseDisplayUIScale then
+		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+			local DisplayStore = Display.GetDisplayStore(scope)
+			self:setState({
+				UiScale = DisplayStore.getUIScale(scope),
+			})
+		end)
+	end
 
 	self.bodyTransparency, self.updateBodyTransparency = Roact.createBinding(0.5)
 	self.bodyTransparencyMotor = Otter.createSingleMotor(1)
@@ -240,6 +255,12 @@ function PlayerListApp:render()
 			local teamCount = getTeamCount(self.props.teams, self.props.players)
 			previousSizeBound = previousSizeBound + teamCount * OLD_PLAYERLIST_TEAM_ENTRY_SIZE
 		end
+		local topBarHeight
+		if FFlagTopBarStyleUseDisplayUIScale then
+			topBarHeight = TopBarConstants.TopBarHeight * self.state.UiScale
+		else
+			topBarHeight = TopBarConstants.TopBarHeight
+		end
 
 		local childElements = {}
 
@@ -278,11 +299,11 @@ function PlayerListApp:render()
 			BodyPadding = if ChromeEnabled
 					and self.props.screenSizeY < self.props.screenSizeX
 				then Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, TopBarConstants.TopBarHeight),
+					PaddingTop = UDim.new(0, topBarHeight),
 				})
 				else nil,
 			BodyBackground = Roact.createElement("Frame", {
-				Size = playerListSizeFromViewportSize(Vector2.new(self.props.screenSizeX, self.props.screenSizeY)),
+				Size = playerListSizeFromViewportSize(self, Vector2.new(self.props.screenSizeX, self.props.screenSizeY)),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				BackgroundColor3 = Color3.fromRGB(17, 18, 20),
@@ -303,6 +324,9 @@ end
 
 function PlayerListApp:willUnmount()
 	self.props.setLayerCollectorEnabled(true)
+	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+		self.disposeUiScaleEffect()
+	end
 end
 
 function PlayerListApp:didUpdate(previousProps, previousState)

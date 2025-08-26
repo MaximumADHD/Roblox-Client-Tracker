@@ -1,0 +1,137 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["closeExport"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["use"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["use"]
+  CALL R2 0 1
+  NAMECALL R2 R2 K1 ["get"]
+  CALL R2 1 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K2 ["createElement"]
+  GETUPVAL R5 4
+  DUPTABLE R6 K11 [{"Enabled", "Modal", "Resizable", "Title", "ZIndexBehavior", "MinSize", "Size", "OnClose"}]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K3 ["Enabled"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K4 ["Modal"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K5 ["Resizable"]
+  LOADK R7 K12 ["Export Complete"]
+  SETTABLEKS R7 R6 K6 ["Title"]
+  GETIMPORT R7 K15 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R7 R6 K7 ["ZIndexBehavior"]
+  GETIMPORT R7 K18 [Vector2.new]
+  LOADN R8 8
+  LOADN R9 150
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K8 ["MinSize"]
+  GETIMPORT R7 K18 [Vector2.new]
+  LOADN R8 8
+  LOADN R9 150
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K9 ["Size"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K10 ["OnClose"]
+  NEWTABLE R7 0 1
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  JUMPIFNOT R3 [+2]
+  GETUPVAL R9 5
+  JUMP [+1]
+  GETUPVAL R9 6
+  DUPTABLE R10 K20 [{"theme"}]
+  GETUPVAL R11 7
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K19 ["theme"]
+  DUPTABLE R11 K23 [{"DialogView", "StyleLink"}]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K2 ["createElement"]
+  GETUPVAL R13 8
+  NEWTABLE R14 0 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K21 ["DialogView"]
+  JUMPIF R3 [+9]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K2 ["createElement"]
+  LOADK R13 K22 ["StyleLink"]
+  DUPTABLE R14 K25 [{"StyleSheet"}]
+  SETTABLEKS R2 R14 K24 ["StyleSheet"]
+  CALL R12 2 1
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K22 ["StyleLink"]
+  CALL R8 3 -1
+  SETLIST R7 R8 -1 [1]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetExport"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Foundation"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["FoundationProvider"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K11 ["StudioFoundation"]
+  CALL R5 1 1
+  GETTABLEKS R7 R5 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["FoundationProviderAdapter"]
+  GETTABLEKS R8 R2 K14 ["UI"]
+  GETTABLEKS R7 R8 K15 ["Dialog"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K16 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Controllers"]
+  GETTABLEKS R9 R10 K18 ["ExportController"]
+  CALL R8 1 1
+  GETTABLEKS R9 R2 K19 ["ContextServices"]
+  GETTABLEKS R10 R9 K20 ["Design"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K16 ["Src"]
+  GETTABLEKS R13 R14 K12 ["Components"]
+  GETTABLEKS R12 R13 K21 ["FinishedView"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K16 ["Src"]
+  GETTABLEKS R14 R15 K22 ["Util"]
+  GETTABLEKS R13 R14 K23 ["getStudioTheme"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K16 ["Src"]
+  GETTABLEKS R15 R16 K24 ["Flags"]
+  GETTABLEKS R14 R15 K25 ["getFFlagFoundationDisableStylingPolyfill"]
+  CALL R13 1 1
+  DUPCLOSURE R14 K26 [PROTO_1]
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  RETURN R14 1

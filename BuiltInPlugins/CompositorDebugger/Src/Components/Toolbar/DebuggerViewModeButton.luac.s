@@ -1,0 +1,170 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["viewMode"]
+  JUMPIFNOTEQKS R0 K1 ["NodeView"] [+3]
+  LOADK R0 K2 ["rbxassetid://6034418507"]
+  RETURN R0 1
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["viewMode"]
+  JUMPIFNOTEQKS R0 K3 ["TreeView"] [+3]
+  LOADK R0 K4 ["rbxassetid://6035190838"]
+  RETURN R0 1
+  GETIMPORT R0 K6 [error]
+  LOADK R2 K7 ["Unknown debugger view mode: %*"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["viewMode"]
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K9 [tostring]
+  CALL R4 1 1
+  NAMECALL R2 R2 K10 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["viewMode"]
+  JUMPIFNOTEQKS R0 K1 ["NodeView"] [+8]
+  GETUPVAL R0 1
+  LOADK R2 K2 ["Tooltips"]
+  LOADK R3 K3 ["NodeViewTooltip"]
+  NAMECALL R0 R0 K4 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["viewMode"]
+  JUMPIFNOTEQKS R0 K5 ["TreeView"] [+8]
+  GETUPVAL R0 1
+  LOADK R2 K2 ["Tooltips"]
+  LOADK R3 K6 ["TreeViewTooltip"]
+  NAMECALL R0 R0 K4 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
+  GETIMPORT R0 K8 [error]
+  LOADK R2 K9 ["Unknown debugger view mode: %*"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["viewMode"]
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K11 [tostring]
+  CALL R4 1 1
+  NAMECALL R2 R2 K12 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Context"]
+  CALL R1 1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["ContextServices"]
+  GETTABLEKS R2 R3 K3 ["Localization"]
+  NAMECALL R2 R2 K4 ["use"]
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["useMemo"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  NEWTABLE R5 0 1
+  GETTABLEKS R6 R1 K6 ["viewMode"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["useMemo"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  NEWTABLE R6 0 2
+  GETTABLEKS R7 R1 K6 ["viewMode"]
+  MOVE R8 R2
+  SETLIST R6 R7 2 [1]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["createElement"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K8 ["UI"]
+  GETTABLEKS R6 R7 K9 ["Button"]
+  DUPTABLE R7 K16 [{"LayoutOrder", "Style", "Size", "Position", "AnchorPoint", "OnClick"}]
+  GETTABLEKS R8 R0 K10 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K10 ["LayoutOrder"]
+  LOADK R8 K17 ["Round"]
+  SETTABLEKS R8 R7 K11 ["Style"]
+  GETTABLEKS R8 R0 K12 ["Size"]
+  SETTABLEKS R8 R7 K12 ["Size"]
+  GETIMPORT R8 K20 [UDim2.fromScale]
+  LOADN R9 1
+  LOADK R10 K21 [0.5]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["Position"]
+  GETIMPORT R8 K24 [Vector2.new]
+  LOADN R9 1
+  LOADK R10 K21 [0.5]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["AnchorPoint"]
+  GETTABLEKS R8 R1 K25 ["toggleDebuggerViewMode"]
+  SETTABLEKS R8 R7 K15 ["OnClick"]
+  DUPTABLE R8 K28 [{"Icon", "Tooltip"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["createElement"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K8 ["UI"]
+  GETTABLEKS R10 R11 K29 ["Image"]
+  DUPTABLE R11 K30 [{"Size", "Position", "AnchorPoint", "Image"}]
+  GETIMPORT R12 K32 [UDim2.fromOffset]
+  LOADN R13 15
+  LOADN R14 15
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K12 ["Size"]
+  GETIMPORT R12 K20 [UDim2.fromScale]
+  LOADK R13 K21 [0.5]
+  LOADK R14 K21 [0.5]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K13 ["Position"]
+  GETIMPORT R12 K24 [Vector2.new]
+  LOADK R13 K21 [0.5]
+  LOADK R14 K21 [0.5]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K14 ["AnchorPoint"]
+  SETTABLEKS R3 R11 K29 ["Image"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K26 ["Icon"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["createElement"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K8 ["UI"]
+  GETTABLEKS R10 R11 K27 ["Tooltip"]
+  DUPTABLE R11 K34 [{"Text"}]
+  SETTABLEKS R4 R11 K33 ["Text"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K27 ["Tooltip"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Contexts"]
+  GETTABLEKS R4 R5 K11 ["DebuggerViewModeContext"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K12 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R4 1

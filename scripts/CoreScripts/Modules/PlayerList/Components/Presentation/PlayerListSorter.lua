@@ -124,6 +124,7 @@ PlayerListSorter.validateProps = t.strictInterface({
 		name = t.string,
 		text = t.string,
 		addId = t.integer,
+		serverAddId = t.integer,
 		isPrimary = t.boolean,
 		priority = t.number,
 	})),

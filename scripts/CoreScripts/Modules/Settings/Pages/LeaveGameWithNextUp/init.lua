@@ -118,7 +118,7 @@ local function LeaveGameWithNextUpComponent()
 		mainContainer = React.createElement(View, {
 			tag = if FFlagInGameExitModalFixModalPadding
 				then "size-full-0 auto-y padding-large col gap-xxlarge"
-				else "size-full-0 auto-y margin-large col gap-large",
+				else "size-full-0 auto-y padding-large col gap-large",
 		}, {
 			LeaveButtonsContainer = React.createElement(LeaveButtonsContainer, {
 				onDontLeave = onDontLeave,

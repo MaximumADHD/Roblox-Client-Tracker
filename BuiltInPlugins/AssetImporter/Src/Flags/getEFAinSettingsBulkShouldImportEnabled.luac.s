@@ -1,6 +1,6 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EFAinSettingsBulkShouldImportEnabled"]
+  LOADK R2 K2 ["AinSettingsBulkShouldImportEnabled"]
   NAMECALL R0 R0 K3 ["GetEngineFeature"]
   CALL R0 2 1
   JUMPIF R0 [+2]

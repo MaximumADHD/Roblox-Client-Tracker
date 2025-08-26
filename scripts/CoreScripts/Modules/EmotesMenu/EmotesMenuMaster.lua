@@ -390,7 +390,7 @@ function EmotesMenuMaster.new()
 		self.store:dispatch(SetLayout(Constants.Layout.TenFoot))
 	end
 
-	local inGameGlobalGuiInset = TopBarConstant.TopBarHeight
+	local inGameGlobalGuiInset = TopBarConstant.ApplyDisplayScale(TopBarConstant.TopBarHeight)
 	if not RobloxGui.IgnoreGuiInset then
 		self.store:dispatch(SetGuiInset(inGameGlobalGuiInset))
 	end

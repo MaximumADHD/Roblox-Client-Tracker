@@ -30,6 +30,7 @@ TitleBar.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	entrySize = t.integer,
 	contentsVisible = t.boolean,
+	showBackground = t.optional(t.boolean),
 	backgroundTransparency = t.union(t.number, t.table),
 	isSmallTouchDevice = t.boolean,
 
@@ -37,6 +38,7 @@ TitleBar.validateProps = t.strictInterface({
 		name = t.string,
 		text = t.string,
 		addId = t.integer,
+		serverAddId = t.integer,
 		isPrimary = t.boolean,
 		priority = t.number,
 	})),

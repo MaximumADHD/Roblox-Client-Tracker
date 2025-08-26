@@ -36,7 +36,6 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
 local GetFFlagMicConnectingToast = require(RobloxGui.Modules.Flags.GetFFlagMicConnectingToast)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
 local FFlagAvatarChatCoreScriptSupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
@@ -203,11 +202,7 @@ function BubbleChatBillboard:init()
 
 		local userId = self.props.userId
 
-		local iconStyle = "MicDark"
-
-		if GetFFlagEnableVoiceChatSpeakerIcons() then
-			iconStyle = userId ~= tostring(Players.LocalPlayer.UserId) and "SpeakerDark" or "MicDark"
-		end
+		local iconStyle = userId ~= tostring(Players.LocalPlayer.UserId) and "SpeakerDark" or "MicDark"
 
 		self.renderInsert = function()
 			return Roact.createElement(VoiceIndicator, {

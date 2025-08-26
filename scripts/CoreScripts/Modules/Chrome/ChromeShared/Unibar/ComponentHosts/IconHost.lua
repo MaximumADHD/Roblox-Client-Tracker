@@ -9,9 +9,12 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 
-local ChromeFlags = script.Parent.Parent.Parent.Parent.Flags
-local FFlagUnibarMenuOpenHamburger = require(ChromeFlags.FFlagUnibarMenuOpenHamburger)
-local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
+local ChromeFlags = require(script.Parent.Parent.Parent.Parent.Flags)
+local FFlagUnibarMenuOpenHamburger = ChromeFlags.FFlagUnibarMenuOpenHamburger
+local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
+
+local ChromeSharedFlags = require(Root.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
@@ -38,6 +41,7 @@ local ChromeTypes = require(Root.Service.Types)
 local FFlagEnableChromeAnalytics = SharedFlags.GetFFlagEnableChromeAnalytics()
 local FFlagWindowFixes = SharedFlags.GetFFlagWindowFixes()
 local FFlagHamburgerCursorFix = SharedFlags.FFlagHamburgerCursorFix
+local UnibarStyle = require(Root.Unibar.UnibarStyle)
 
 local useObservableValue = require(Root.Hooks.useObservableValue)
 local useNotificationCount = require(Root.Hooks.useNotificationCount)
@@ -156,11 +160,25 @@ function NotificationBadge(props: IconHostProps): any?
 	if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber then
 		tokens = useTokens()
 	end
+	local unibarStyle
+	local iconSize
+	local iconBadgeOffsetX
+	local iconBadgeOffsetY
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconSize = unibarStyle.ICON_SIZE
+		iconBadgeOffsetX = unibarStyle.ICON_BADGE_OFFSET_X
+		iconBadgeOffsetY = unibarStyle.ICON_BADGE_OFFSET_Y
+	else
+		iconSize = Constants.ICON_SIZE
+		iconBadgeOffsetX = Constants.ICON_BADGE_OFFSET_X
+		iconBadgeOffsetY = Constants.ICON_BADGE_OFFSET_Y
+	end
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber
-			then UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
+			then UDim2.new(0, iconSize, 0, iconSize)
 			else UDim2.fromScale(1, 1),
 		Visible = props.toggleTransition and props.toggleTransition:map(function(value)
 			if hideNotificationCountWhileOpen then
@@ -189,7 +207,7 @@ function NotificationBadge(props: IconHostProps): any?
 				})
 				elseif notificationBadgeText then React.createElement(Badge, {
 					AnchorPoint = Vector2.new(0, 0),
-					Position = UDim2.new(0, Constants.ICON_BADGE_OFFSET_X, 0, Constants.ICON_BADGE_OFFSET_Y),
+					Position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
 					variant = BadgeVariant.Primary,
 					size = BadgeSize.Small :: any,
 					text = notificationBadgeText,
@@ -223,9 +241,17 @@ function NotificationIndicator(props: NotificationIndicatorProps)
 end
 
 function HighlightCircle(props)
+	local unibarStyle
+	local iconHighlightSize
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconHighlightSize = unibarStyle.ICON_HIGHLIGHT_SIZE
+	else
+		iconHighlightSize = Constants.ICON_HIGHLIGHT_SIZE
+	end
 	return React.createElement("Frame", {
 		Name = props.name or "Highlighter",
-		Size = Constants.ICON_HIGHLIGHT_SIZE,
+		Size = iconHighlightSize,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		BackgroundColor3 = props.color.Color,
@@ -245,6 +271,14 @@ type TooltipButtonProps = {
 	isCurrentlyOpenSubMenu: React.Binding<boolean?>,
 }
 function TooltipButton(props: TooltipButtonProps)
+	local unibarStyle
+	local iconHighlightSize
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconHighlightSize = unibarStyle.ICON_HIGHLIGHT_SIZE
+	else
+		iconHighlightSize = Constants.ICON_HIGHLIGHT_SIZE
+	end
 	local localBtnRef = React.useRef(nil)
 	local secondaryAction = props.integration.integration.secondaryAction
 	local draggable: boolean = props.integration.integration.draggable or false
@@ -412,7 +446,9 @@ function TooltipButton(props: TooltipButtonProps)
 			{
 				Name = (if FFlagTiltIconUnibarFocusNav then Constants.ICON_NAME_PREFIX :: string else "IconHitArea_")
 					.. props.integration.id,
-				Size = if FFlagAdaptUnibarAndTiltSizing then Constants.ICON_HIGHLIGHT_SIZE else UDim2.new(1, 0, 1, 0),
+				Size = if FFlagAdaptUnibarAndTiltSizing or FFlagTokenizeUnibarConstantsWithStyleProvider
+					then iconHighlightSize
+					else UDim2.new(1, 0, 1, 0),
 				AnchorPoint = if FFlagAdaptUnibarAndTiltSizing then Vector2.new(0.5, 0.5) else nil,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
@@ -609,8 +645,17 @@ function IconHost(props: IconHostProps)
 	local iconVisible, setIconVisible = React.useBinding(true)
 
 	local style = useStyle()
+	local unibarStyle
 	local theme = style.Theme
 	local backgroundHover = theme.BackgroundOnHover
+
+	local iconCellWidth
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconCellWidth = unibarStyle.ICON_CELL_WIDTH
+	else
+		iconCellWidth = Constants.ICON_CELL_WIDTH
+	end
 
 	local isCurrentlyOpenSubMenu = useMappedObservableValueBinding(
 		ChromeService:currentSubMenu(),
@@ -620,7 +665,7 @@ function IconHost(props: IconHostProps)
 	)
 
 	return React.createElement("Frame", {
-		Size = UDim2.new(0, Constants.ICON_CELL_WIDTH, 0, Constants.ICON_CELL_WIDTH),
+		Size = UDim2.new(0, iconCellWidth, 0, iconCellWidth),
 		LayoutOrder = props.integration.order,
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,

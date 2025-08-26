@@ -25,7 +25,6 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
@@ -188,11 +187,7 @@ function PlayersPage:renderListEntries(players)
 			RoactRef = self.setSelectedPlayerRef
 		end
 
-		local iconStyle = "MicLight"
-
-		if GetFFlagEnableVoiceChatSpeakerIcons() then
-			iconStyle = player ~= Players.LocalPlayer and "SpeakerLight" or "MicLight"
-		end
+		local iconStyle = player ~= Players.LocalPlayer and "SpeakerLight" or "MicLight"
 
 		listComponents["player_" .. id] = Roact.createElement(PlayerLabel, {
 			username = player.Name,
@@ -306,9 +301,8 @@ function PlayersPage:getMoreActions(localized)
 					local isMuted = voiceParticipant.isMutedLocally
 					table.insert(moreActions, {
 						text = isMuted and "Unmute Player" or "Mute Player",
-						icon = GetFFlagEnableVoiceChatSpeakerIcons()
-								and VoiceChatServiceManager:GetIcon(isMuted and "Unmute" or "Mute", "Misc")
-							or VoiceChatServiceManager:GetIcon(isMuted and "Blank" or "Muted"),
+						icon = VoiceChatServiceManager:GetIcon(isMuted and "Unmute" or "Mute", "Misc")
+,
 						onActivated = function()
 							local player = self.state.selectedPlayer
 							log:debug("Muting Player {}", player.UserId)

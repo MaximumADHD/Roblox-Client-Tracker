@@ -22,8 +22,11 @@ local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 local FFlagChromeFixStopFocusBeforeMenuRowActive = SharedFlags.FFlagChromeFixStopFocusBeforeMenuRowActive
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 
-local ChromeFlags = script.Parent.Parent.Parent.Flags
-local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
+local ChromeFlags = require(script.Parent.Parent.Parent.Flags)
+local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
+
+local ChromeSharedFlags = require(Root.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -56,6 +59,7 @@ local MenuIconContext = if FFlagFocusNavOutOfSubmenu
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
 local SubMenuContext = require(Root.Unibar.SubMenuContext)
+local UnibarStyle = require(script.Parent.UnibarStyle)
 
 local UserInputService = game:GetService("UserInputService")
 
@@ -71,6 +75,7 @@ local FFlagSubmenuFixVectorConversion = game:DefineFastFlag("SubmenuFixVectorCon
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 
 local UIManager
 if isInExperienceUIVREnabled then
@@ -79,8 +84,6 @@ if isInExperienceUIVREnabled then
 end
 
 local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
-local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
-local SCROLL_OFFSET = ROW_HEIGHT * 0.5
 -- remove any casts after FFlagAdaptUnibarAndTiltSizing cleanup
 local CURSOR_TYPE = if FFlagAdaptUnibarAndTiltSizing then Foundation.Enums.CursorType.RoundedSlot else nil :: never
 
@@ -130,12 +133,38 @@ end
 
 function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	local style = useStyle()
+	local unibarStyle
 	local theme = style.Theme
 	local font = if FFlagAdaptUnibarAndTiltSizing then nil else style.Font
 	local defaultBgColor = {
 		Color = Color3.new(0, 0, 0),
 		Transparency = 1,
 	}
+	local iconSize
+	local rowHeight
+	local submenuPaddingLeft
+	local submenuPaddingRight
+	local submenuRowLabelFont
+	local submenuRowPadding
+	local submenuCornerRadius
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconSize = unibarStyle.ICON_SIZE
+		rowHeight = unibarStyle.SUB_MENU_ROW_HEIGHT
+		submenuPaddingLeft = unibarStyle.SUBMENU_PADDING_LEFT
+		submenuPaddingRight = unibarStyle.SUBMENU_PADDING_RIGHT
+		submenuRowLabelFont = unibarStyle.SUBMENU_ROW_LABEL_FONT
+		submenuRowPadding = unibarStyle.SUBMENU_ROW_PADDING
+		submenuCornerRadius = unibarStyle.SUBMENU_ROW_CORNER_RADIUS
+	else
+		iconSize = Constants.ICON_SIZE
+		rowHeight = Constants.SUB_MENU_ROW_HEIGHT
+		submenuPaddingLeft = Constants.SUBMENU_PADDING_LEFT
+		submenuPaddingRight = Constants.SUBMENU_PADDING_RIGHT
+		submenuRowLabelFont = Constants.SUBMENU_ROW_LABEL_FONT
+		submenuRowPadding = Constants.SUBMENU_ROW_PADDING
+		submenuCornerRadius = Constants.SUBMENU_ROW_CORNER_RADIUS
+	end
 
 	local menuTransition = React.useContext(SubMenuContext)
 	local menuIconContext = if FFlagFocusNavOutOfSubmenu then React.useContext(MenuIconContext) else nil :: never
@@ -191,15 +220,15 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 
 	local rowFragment = React.createElement(React.Fragment, nil, {
 		UIPadding = React.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, Constants.SUBMENU_PADDING_LEFT),
-			PaddingRight = UDim.new(0, Constants.SUBMENU_PADDING_RIGHT),
+			PaddingLeft = UDim.new(0, submenuPaddingLeft),
+			PaddingRight = UDim.new(0, submenuPaddingRight),
 		}),
 
 		UIListLayout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = UDim.new(0, Constants.SUBMENU_ROW_PADDING),
+			Padding = UDim.new(0, submenuRowPadding),
 		}),
 
 		IconHost = React.createElement(
@@ -214,13 +243,15 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			size = UDim2.new(
 				1,
 				if FFlagAdaptUnibarAndTiltSizing
-					then -Constants.ICON_SIZE - Constants.SUBMENU_PADDING_LEFT - Constants.SUBMENU_PADDING_RIGHT
-					else -Constants.ICON_SIZE - Constants.SUBMENU_PADDING_LEFT * 2,
+					then -iconSize - submenuPaddingLeft - submenuPaddingRight
+					else -iconSize - submenuPaddingLeft * 2,
 				1,
 				0
 			),
 			lineHeight = 1,
-			fontStyle = if FFlagAdaptUnibarAndTiltSizing then Constants.SUBMENU_ROW_LABEL_FONT else font.Header2,
+			fontStyle = if FFlagAdaptUnibarAndTiltSizing or FFlagTokenizeUnibarConstantsWithStyleProvider
+				then submenuRowLabelFont
+				else font.Header2,
 			colorStyle = if GetFFlagAnimateSubMenu() and menuTransition
 				then {
 					Color = theme.TextEmphasis.Color,
@@ -236,11 +267,11 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			richText = if GetFFlagEnableChromePinIntegrations() then false else true,
 		}),
 	})
-	local heightScale = if isInExperienceUIVREnabled
+	local heightScale = if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()
 		then UIManager.getInstance():getAdditionalCameraScaleIfNeeded()
 		else 1
 	return React.createElement(Interactable, {
-		Size = UDim2.new(1, 0, 0, ROW_HEIGHT * heightScale),
+		Size = UDim2.new(1, 0, 0, rowHeight * heightScale),
 		BorderSizePixel = 0,
 		BackgroundTransparency = highlightColor:map(function(v)
 			return v.Transparency
@@ -258,11 +289,11 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		NextSelectionLeft = if FFlagFocusNavOutOfSubmenu then menuIconContext.menuIconRef else nil,
 	}, {
 		UICorner = React.createElement("UICorner", {
-			CornerRadius = UDim.new(0, Constants.SUBMENU_ROW_CORNER_RADIUS),
+			CornerRadius = UDim.new(0, submenuCornerRadius),
 		}),
 		ButtonTouchTarget = if useTouchTargets
 			then React.createElement(Interactable, {
-				Size = UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING * 2, 0, ROW_HEIGHT),
+				Size = UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING * 2, 0, rowHeight),
 				BackgroundTransparency = 1,
 				AutoButtonColor = false,
 				[React.Event.Activated] = onMenuRowActivated,
@@ -319,12 +350,12 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			}, {
 				PinTouchTarget = if GetFFlagNewSubmenuTouchTargets()
 					then React.createElement(Interactable, {
-						Size = UDim2.new(0, Constants.PIN_BUTTON_SIZE + Constants.PIN_RIGHT_PADDING * 2, 0, ROW_HEIGHT),
+						Size = UDim2.new(0, Constants.PIN_BUTTON_SIZE + Constants.PIN_RIGHT_PADDING * 2, 0, rowHeight),
 						Position = UDim2.new(
 							0,
 							1 - Constants.PIN_RIGHT_PADDING,
 							0,
-							-(Constants.SUB_MENU_ROW_HEIGHT - Constants.PIN_BUTTON_SIZE) / 2
+							-(rowHeight - Constants.PIN_BUTTON_SIZE) / 2
 						),
 						BackgroundTransparency = 1,
 						AutoButtonColor = false,
@@ -420,12 +451,34 @@ function SubMenu(props: SubMenuProps)
 		end
 	end
 	local style = useStyle()
+	local unibarStyle
 	local theme = style.Theme
 	local menuRef = React.useRef(nil)
 	local screenSize = useObservableValue(ViewportUtil.screenSize) :: Vector2
 	local topbarInsetHeight = useTopbarInsetHeight()
-	local unibarLeftMargin = Constants.UNIBAR_LEFT_MARGIN
-
+	local unibarLeftMargin
+	local iconCellWidth
+	local unibarEndPadding
+	local rowHeight
+	local submenuCornerRadius
+	local submenuBottomPadding
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		unibarLeftMargin = unibarStyle.UNIBAR_LEFT_MARGIN
+		iconCellWidth = unibarStyle.ICON_CELL_WIDTH
+		unibarEndPadding = unibarStyle.UNIBAR_END_PADDING
+		rowHeight = unibarStyle.SUB_MENU_ROW_HEIGHT
+		submenuCornerRadius = unibarStyle.SUBMENU_CORNER_RADIUS
+		submenuBottomPadding = unibarStyle.SUBMENU_BOTTOM_PADDING
+	else
+		unibarLeftMargin = Constants.UNIBAR_LEFT_MARGIN
+		iconCellWidth = Constants.ICON_CELL_WIDTH
+		unibarEndPadding = Constants.UNIBAR_END_PADDING
+		rowHeight = Constants.SUB_MENU_ROW_HEIGHT
+		submenuCornerRadius = Constants.SUBMENU_CORNER_RADIUS
+		submenuBottomPadding = Constants.SUBMENU_BOTTOM_PADDING
+	end
+	local scrollOffset = rowHeight * 0.5
 	React.useEffect(function()
 		local function moveLeft()
 			local selectedWithinMenu = menuRef.current and menuRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
@@ -487,17 +540,17 @@ function SubMenu(props: SubMenuProps)
 		end
 	end, {})
 
-	local topBuffer = topbarInsetHeight + Constants.ICON_CELL_WIDTH
-	local canvasSize = if props and props.items then ROW_HEIGHT * #props.items else 0
+	local topBuffer = topbarInsetHeight + iconCellWidth
+	local canvasSize = if props and props.items then rowHeight * #props.items else 0
 	local minSize = math.min(screenSize.Y - topBuffer, canvasSize)
 
 	-- scroll affordance: if submenu does not fully fit, shrink height to half of last integration that partially fits
 	if screenSize.Y - topBuffer < canvasSize then
-		local numberItemsFullyFit = math.floor((screenSize.Y - topBuffer) / ROW_HEIGHT)
-		if (ROW_HEIGHT * numberItemsFullyFit) + SCROLL_OFFSET <= (screenSize.Y - topBuffer) then
-			minSize = ROW_HEIGHT * numberItemsFullyFit + SCROLL_OFFSET
+		local numberItemsFullyFit = math.floor((screenSize.Y - topBuffer) / rowHeight)
+		if (rowHeight * numberItemsFullyFit) + scrollOffset <= (screenSize.Y - topBuffer) then
+			minSize = rowHeight * numberItemsFullyFit + scrollOffset
 		else
-			minSize = ROW_HEIGHT * numberItemsFullyFit - SCROLL_OFFSET
+			minSize = rowHeight * numberItemsFullyFit - scrollOffset
 		end
 	end
 
@@ -519,7 +572,7 @@ function SubMenu(props: SubMenuProps)
 		}),
 		-- extra padding to account for broken AutomaticSize + Padding
 		BottomPadding = React.createElement("Frame", {
-			Size = UDim2.new(0, 0, 0, Constants.SUBMENU_BOTTOM_PADDING),
+			Size = UDim2.new(0, 0, 0, submenuBottomPadding),
 			BackgroundTransparency = 1,
 			LayoutOrder = 10000,
 		}),
@@ -533,7 +586,7 @@ function SubMenu(props: SubMenuProps)
 	local preferredTransparency = if GetFFlagChromeUsePreferredTransparency()
 		then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
 		else style.Theme.BackgroundUIContrast.Transparency
-	local heightScale = if isInExperienceUIVREnabled
+	local heightScale = if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()
 		then UIManager.getInstance():getAdditionalCameraScaleIfNeeded()
 		else 1
 	local anchorPoint
@@ -545,12 +598,7 @@ function SubMenu(props: SubMenuProps)
 	return React.createElement("Frame", {
 		Size = if isInExperienceUIVREnabled and isSpatial()
 			then UDim2.new(1, 0, 0, canvasSize * heightScale)
-			else UDim2.new(
-				0,
-				Constants.ICON_CELL_WIDTH * 4 + unibarLeftMargin + Constants.UNIBAR_END_PADDING * 2,
-				0,
-				0
-			),
+			else UDim2.new(0, iconCellWidth * 4 + unibarLeftMargin + unibarEndPadding * 2, 0, 0),
 		AnchorPoint = anchorPoint,
 		Position = if isInExperienceUIVREnabled and isSpatial()
 			then UDim2.new(0, 0, 1, 0)
@@ -567,7 +615,7 @@ function SubMenu(props: SubMenuProps)
 		SelectionBehaviorDown = if FFlagSubmenuFocusNavFixes then Enum.SelectionBehavior.Stop else nil,
 	}, {
 		UICorner = React.createElement("UICorner", {
-			CornerRadius = UDim.new(0, Constants.SUBMENU_CORNER_RADIUS),
+			CornerRadius = UDim.new(0, submenuCornerRadius),
 		}),
 		ScrollingFrame = React.createElement(VerticalScrollView, {
 			size = UDim2.new(1, 0, 1, 0),
@@ -639,7 +687,11 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 			connection.current = UserInputService.InputEnded:Connect(function(inputChangedObj: InputObject, _)
 				if isInExperienceUIVREnabled and isSpatial() then
 					-- drag SubMenu in SpatialUI should not dismiss SubMenu
-					return
+					-- but if panel is moved to center, dragging is disabled
+					-- and the submenu should be dismissed
+					if not InExperienceUIVRIXP:isMovePanelToCenter() then
+						return
+					end
 				end
 				local pressed = inputChangedObj.UserInputType == Enum.UserInputType.MouseButton1
 

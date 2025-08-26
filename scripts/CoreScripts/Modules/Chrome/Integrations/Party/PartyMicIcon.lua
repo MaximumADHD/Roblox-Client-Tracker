@@ -13,9 +13,13 @@ local useIsVoiceConnected = CrossExperienceVoice.Hooks.useIsVoiceConnected
 local useIsActiveParticipant = CrossExperienceVoice.Hooks.useIsActiveParticipant
 local useIsParticipantMuted = CrossExperienceVoice.Hooks.useIsParticipantMuted
 
-local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local Chrome = script.Parent.Parent.Parent
+local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
-local ICON_SIZE = 36
+local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local VOICE_INDICATOR_ICON_FOLDER = "MicLight"
 
@@ -49,6 +53,15 @@ function PartyMicIcon(props)
 	local renderStepName = React.useMemo(function()
 		return HttpService:GenerateGUID()
 	end, {})
+
+	local unibarStyle
+	local iconSize
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconSize = unibarStyle.ICON_SIZE
+	else
+		iconSize = 36
+	end
 
 	React.useEffect(function()
 		if voiceParticipant then
@@ -88,7 +101,7 @@ function PartyMicIcon(props)
 	end, { voiceParticipant, isMuted, isVoiceConnected, isActive, level } :: { any })
 
 	return React.createElement("Frame", {
-		Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+		Size = UDim2.new(0, iconSize, 0, iconSize),
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
 	}, {
@@ -98,7 +111,7 @@ function PartyMicIcon(props)
 		Icon = React.createElement(ImageSetLabel, {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
-			Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+			Size = UDim2.fromOffset(iconSize, iconSize),
 			BackgroundTransparency = 1,
 			Image = icon,
 		}, {

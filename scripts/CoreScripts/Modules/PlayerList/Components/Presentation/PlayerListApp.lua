@@ -13,6 +13,8 @@ local Otter = require(CorePackages.Packages.Otter)
 local Cryo = require(CorePackages.Packages.Cryo)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
+local Display = require(CorePackages.Workspace.Packages.Display)
+
 
 local StatsUtils = require(RobloxGui.Modules.Stats.StatsUtils)
 
@@ -41,6 +43,9 @@ local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListR
 
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -97,6 +102,15 @@ function PlayerListApp:init()
 			})
 		end
 	end)
+
+	if FFlagTopBarStyleUseDisplayUIScale then
+		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+			local DisplayStore = Display.GetDisplayStore(scope)
+			self:setState({
+				UiScale = DisplayStore.getUIScale(scope),
+			})
+		end)
+	end
 end
 
 function PlayerListApp:render()
@@ -115,7 +129,7 @@ function PlayerListApp:render()
 			containerPosition += UDim2.fromOffset(0, StatsUtils.ButtonHeight)
 		end
 
-		containerPosition += UDim2.fromOffset(0, layoutValues.TopBarOffset)
+		containerPosition += UDim2.fromOffset(0, layoutValues.TopBarOffset * (if FFlagTopBarStyleUseDisplayUIScale then self.state.UiScale else 1))
 
 		local maxLeaderstats = layoutValues.MaxLeaderstats
 		if self.props.displayOptions.isSmallTouchDevice then
@@ -272,6 +286,10 @@ end
 function PlayerListApp:willUnmount()
 	self.positionMotor:destroy()
 	self.positionMotor = nil
+
+	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+		self.disposeUiScaleEffect()
+	end
 end
 
 local function mapStateToProps(state)

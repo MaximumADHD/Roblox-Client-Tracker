@@ -14,7 +14,7 @@ local Controls = require(InGameMenu.Resources.Controls)
 
 local KeyboardControls = require(script.ControlLayouts.KeyboardControls)
 local GamepadControls = require(script.ControlLayouts.GamepadControls)
-local VRGamepadControls = require(script.ControlLayouts.VRGamepadControls)
+local VRGamepadControlsWrapper = require(script.ControlLayouts.VRGamepadControlsWrapper)
 
 local VRUtil = require(CorePackages.Workspace.Packages.VrCommon).VRUtil
 
@@ -41,7 +41,7 @@ function ControlsPage:render()
 		return Roact.createElement(KeyboardControls)
 	elseif controlLayout == Controls.ControlLayouts.GAMEPAD then
 		if VRService.VREnabled and VRUtil.getCurrentControllerType() == "Touch" then -- For now we only have a page for these
-			return Roact.createElement(VRGamepadControls)
+			return Roact.createElement(VRGamepadControlsWrapper)
 		else
 			return Roact.createFragment({
 				GamepadControls = Roact.createElement(GamepadControls, {

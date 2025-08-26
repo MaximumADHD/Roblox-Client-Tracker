@@ -17,6 +17,10 @@ local FFlagChromeFixMenuIconBackButton = SharedFlags.FFlagChromeFixMenuIconBackB
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FFlagChromeEnabledRequireGamepadConnectorFix = SharedFlags.FFlagChromeEnabledRequireGamepadConnectorFix
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
+
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -108,8 +112,6 @@ local withReferralRewardTooltipInfo = require(script.Parent.withReferralRewardTo
 
 local MenuIcon = Roact.PureComponent:extend("MenuIcon")
 
-local BACKGROUND_SIZE = Constants.TopBarButtonHeight
-
 local tooltipEnabled = ChromeEnabled()
 local DEFAULT_DELAY_TIME = if tooltipEnabled then 0.65 else 0.4
 local MENU_TOOLTIP_LABEL = "CoreScripts.TopBar.RobloxMenu"
@@ -137,6 +139,15 @@ function MenuIcon:init()
 		clickLatched = if tooltipEnabled then false else nil,
 		enableFlashingDot = false,
 	})
+	
+	if FFlagTopBarStyleUseDisplayUIScale then
+		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+			local DisplayStore = Display.GetDisplayStore(scope)
+			self:setState({
+				UiScale = DisplayStore.getUIScale(scope),
+			})
+		end)
+	end
 
 
 	if FFlagTopBarSignalizeMenuOpen then 
@@ -391,6 +402,10 @@ function MenuIcon:willUnmount()
 			self.tiltMenuDisposeEffect()
 		end
 	end
+
+	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+		self.disposeUiScaleEffect()
+	end
 end
 
 function MenuIcon:render()
@@ -399,6 +414,19 @@ function MenuIcon:render()
 		visible = true
 	else
 		visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
+	end
+
+	local backgroundSize
+	local topBarButtonPadding
+	local menuIconSize
+	if FFlagTopBarStyleUseDisplayUIScale then
+		backgroundSize = Constants.TopBarButtonHeight * self.state.UiScale
+		topBarButtonPadding = Constants.TopBarButtonPadding * self.state.UiScale
+		menuIconSize = Constants.MENU_ICON_SIZE * self.state.UiScale
+	else
+		backgroundSize = Constants.TopBarButtonHeight
+		topBarButtonPadding = Constants.TopBarButtonPadding
+		menuIconSize = Constants.MENU_ICON_SIZE
 	end
 
 	local onAreaChanged = function(rbx)
@@ -427,8 +455,8 @@ function MenuIcon:render()
 			then UIBloxImages["icons/logo/block"]
 			else "rbxasset://textures/ui/TopBar/coloredlogo.png",
 		iconSize = if FFlagTopBarSignalizeMenuOpen 
-			then Constants.MENU_ICON_SIZE * (if self.state.tiltMenuOpen then Constants.MenuIconOpenScale else 1)
-			else Constants.MENU_ICON_SIZE * (self.props.iconScale or 1),
+			then menuIconSize * (if self.state.tiltMenuOpen then Constants.MenuIconOpenScale else 1)
+			else menuIconSize * (self.props.iconScale or 1),
 		useIconScaleAnimation = isNewTiltIconEnabled(),
 		onActivated = self.menuIconActivated,
 		onHover = self.menuIconOnHover,
@@ -446,7 +474,7 @@ function MenuIcon:render()
 	local badgeOver12 = if self.props.showBadgeOver12
 		then Roact.createElement(BadgeOver12, {
 			position = if ChromeEnabled()
-				then UDim2.new(0, BADGE_INDENT, 1, -(Constants.TopBarButtonPadding + BADGE_INDENT))
+				then UDim2.new(0, BADGE_INDENT, 1, -(topBarButtonPadding + BADGE_INDENT))
 				else UDim2.new(0, -BADGE_OFFSET, 1, BADGE_OFFSET),
 		})
 		else nil
@@ -496,8 +524,8 @@ function MenuIcon:render()
 						then UIBloxImages["icons/logo/block"]
 						else "rbxasset://textures/ui/TopBar/coloredlogo.png",
 					iconSize = if FFlagTopBarSignalizeMenuOpen 
-						then Constants.MENU_ICON_SIZE * (if self.state.tiltMenuOpen then Constants.MenuIconOpenScale else 1)
-						else Constants.MENU_ICON_SIZE * (self.props.iconScale or 1),
+						then menuIconSize * (if self.state.tiltMenuOpen then Constants.MenuIconOpenScale else 1)
+						else menuIconSize * (self.props.iconScale or 1),
 					useIconScaleAnimation = isNewTiltIconEnabled(),
 					onActivated = self.menuIconActivated,
 					onHover = self.menuIconOnHover,
@@ -514,7 +542,7 @@ function MenuIcon:render()
 					return visible and showIcon
 				end) else visible,
 				BackgroundTransparency = 1,
-				Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
+				Size = UDim2.new(0, backgroundSize, 1, 0),
 				LayoutOrder = self.props.layoutOrder,
 				SelectionGroup = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then true else nil :: never,
 				SelectionBehaviorLeft = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then Enum.SelectionBehavior.Stop else nil :: never,
@@ -536,7 +564,7 @@ function MenuIcon:render()
 				return visible and showIcon
 			end) else visible,
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, BACKGROUND_SIZE, 1, 0),
+			Size = UDim2.new(0, backgroundSize, 1, 0),
 			LayoutOrder = self.props.layoutOrder,
 			[Roact.Change.AbsoluteSize] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled())
 				then onAreaChanged

@@ -5,7 +5,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
-local GetFFlagSubscriptionFailureUX = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureUX)
 local GetFFlagLocalMutedNilFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLocalMutedNilFix
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 
@@ -112,7 +111,7 @@ local initVoice = function(chatStore)
 	VoiceChatServiceManager.participantsUpdate.Event:Connect(function(participants)
 		for userId, participantState in pairs(participants) do
 			local voiceState = VOICE_STATE.INACTIVE
-			if participantState.subscriptionFailed and GetFFlagSubscriptionFailureUX() then
+			if participantState.subscriptionFailed then
 				voiceState = VOICE_STATE.ERROR
 			elseif not participantState.subscriptionCompleted then
 				voiceState = VOICE_STATE.CONNECTING

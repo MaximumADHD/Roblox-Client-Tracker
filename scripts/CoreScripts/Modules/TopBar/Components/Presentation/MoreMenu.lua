@@ -4,6 +4,9 @@ local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 local StarterGui = game:GetService("StarterGui")
 
+local Signals = require(CorePackages.Packages.Signals)
+local Display = require(CorePackages.Workspace.Packages.Display)
+
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
@@ -25,6 +28,9 @@ local RemoveKeepOutArea = require(Actions.RemoveKeepOutArea)
 local SetMoreMenuOpen = require(Actions.SetMoreMenuOpen)
 
 local TopBarAnalytics = require(TopBar.Analytics)
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
@@ -112,6 +118,15 @@ function MoreMenu:init()
 		self.analytics = TopBarAnalytics.default
 	end
 
+	if FFlagTopBarStyleUseDisplayUIScale then
+		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+			local DisplayStore = Display.GetDisplayStore(scope)
+			self:setState({
+				UiScale = DisplayStore.getUIScale(scope),
+			})
+		end)
+	end
+
 	if FFlagMountCoreGuiBackpack then
 		self:setState({
 			mountBackpack = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Backpack),
@@ -160,6 +175,9 @@ end
 function MoreMenu:willUnmount()
 	if FFlagTopBarSignalizeScreenSize then 
 		self.disposeScreenSize()
+	end
+	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+		self.disposeUiScaleEffect()
 	end
 end
 
@@ -324,7 +342,7 @@ function MoreMenu:renderWithStyle(style)
 
 				open = self.props.moreMenuOpen,
 				menuDirection = MenuDirection.Down,
-				openPositionY = UDim.new(0, Constants.TopBarHeight + MENU_GAP),
+				openPositionY = UDim.new(0, Constants.TopBarHeight * (if FFlagTopBarStyleUseDisplayUIScale then self.state.UiScale else 1) + MENU_GAP),
 
 				background = style.Theme.BackgroundUIContrast,
 				closeBackgroundVisible = false,

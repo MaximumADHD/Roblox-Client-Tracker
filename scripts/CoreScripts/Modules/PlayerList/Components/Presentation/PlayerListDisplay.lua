@@ -63,7 +63,10 @@ PlayerListDisplay.validateProps = t.strictInterface({
 
 	sortedPlayers = t.array(playerInterface),
 
-	sortedTeams = t.optional(t.array(t.instanceIsA("Team"))),
+	sortedTeams = t.optional(t.array(t.strictInterface({
+		team = t.instanceIsA("Team"),
+		originalPos = t.number,
+	}))),
 	teamColorToPlayerMap = t.optional(t.map(t.integer, t.array(t.instanceIsA("Player")))),
 	teamScores = t.optional(t.map(t.instanceIsA("Team"), t.map(t.string, t.any))),
 
@@ -76,6 +79,7 @@ PlayerListDisplay.validateProps = t.strictInterface({
 		name = t.string,
 		text = t.string,
 		addId = t.integer,
+		serverAddId = t.integer,
 		isPrimary = t.boolean,
 		priority = t.number,
 	})),

@@ -1,60 +1,56 @@
 PROTO_0:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFEQKS R2 K0 [""] [+3]
-  MOVE R3 R2
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFEQKS R3 K0 [""] [+3]
+  MOVE R4 R3
   JUMP [+1]
-  LOADK R3 K1 ["auto"]
-  DUPTABLE R4 K6 [{"system", "llm_config", "messages", "tools"}]
-  GETTABLEKS R5 R0 K2 ["system"]
-  SETTABLEKS R5 R4 K2 ["system"]
-  DUPTABLE R5 K10 [{"model", "max_tokens", "parallel_tool_calls"}]
-  SETTABLEKS R3 R5 K7 ["model"]
-  GETUPVAL R6 1
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K8 ["max_tokens"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K9 ["parallel_tool_calls"]
-  SETTABLEKS R5 R4 K3 ["llm_config"]
-  GETTABLEKS R5 R0 K4 ["messages"]
-  SETTABLEKS R5 R4 K4 ["messages"]
-  GETTABLEKS R5 R0 K5 ["tools"]
-  SETTABLEKS R5 R4 K5 ["tools"]
-  DUPTABLE R5 K14 [{"messageId", "requestId", "conversation"}]
-  GETTABLEKS R6 R0 K15 ["messageGuid"]
-  SETTABLEKS R6 R5 K11 ["messageId"]
-  SETTABLEKS R1 R5 K12 ["requestId"]
-  SETTABLEKS R4 R5 K13 ["conversation"]
-  GETUPVAL R6 2
-  CALL R6 0 1
-  JUMPIFEQKS R6 K0 [""] [+3]
-  MOVE R7 R6
+  LOADK R4 K1 ["auto"]
+  DUPTABLE R5 K6 [{"system", "llm_config", "messages", "tools"}]
+  GETTABLEKS R6 R1 K2 ["system"]
+  SETTABLEKS R6 R5 K2 ["system"]
+  DUPTABLE R6 K10 [{"model", "max_tokens", "parallel_tool_calls"}]
+  SETTABLEKS R4 R6 K7 ["model"]
+  GETUPVAL R7 1
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K8 ["max_tokens"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K9 ["parallel_tool_calls"]
+  SETTABLEKS R6 R5 K3 ["llm_config"]
+  GETTABLEKS R6 R1 K4 ["messages"]
+  SETTABLEKS R6 R5 K4 ["messages"]
+  GETTABLEKS R6 R1 K5 ["tools"]
+  SETTABLEKS R6 R5 K5 ["tools"]
+  DUPTABLE R6 K14 [{"messageId", "requestId", "conversation"}]
+  GETTABLEKS R7 R1 K15 ["messageGuid"]
+  SETTABLEKS R7 R6 K11 ["messageId"]
+  SETTABLEKS R2 R6 K12 ["requestId"]
+  SETTABLEKS R5 R6 K13 ["conversation"]
+  GETUPVAL R7 2
+  CALL R7 0 1
+  JUMPIFEQKS R7 K0 [""] [+3]
+  MOVE R8 R7
   JUMP [+1]
-  GETUPVAL R7 3
-  NEWTABLE R8 1 0
-  LOADK R9 K16 ["application/json"]
-  SETTABLEKS R9 R8 K17 ["Content-Type"]
-  JUMPIFEQKS R6 K0 [""] [+15]
-  GETUPVAL R10 4
-  LOADK R12 K18 ["StudioService"]
-  NAMECALL R10 R10 K19 ["GetService"]
-  CALL R10 2 1
-  NAMECALL R10 R10 K20 ["GetUserId"]
-  CALL R10 1 -1
+  GETUPVAL R8 3
+  NEWTABLE R9 1 0
+  LOADK R10 K16 ["application/json"]
+  SETTABLEKS R10 R9 K17 ["Content-Type"]
+  JUMPIFEQKS R7 K0 [""] [+10]
+  NAMECALL R11 R0 K18 ["GetUserId"]
+  CALL R11 1 -1
   FASTCALL TOSTRING [+2]
-  GETIMPORT R9 K22 [tostring]
-  CALL R9 -1 1
-  SETTABLEKS R9 R8 K23 ["robloxctx-authenticated-userid"]
-  GETUPVAL R9 5
-  MOVE R11 R7
-  GETUPVAL R12 6
-  MOVE R14 R5
-  NAMECALL R12 R12 K24 ["JSONEncode"]
-  CALL R12 2 1
-  MOVE R13 R8
-  NAMECALL R9 R9 K25 ["post"]
-  CALL R9 4 -1
-  RETURN R9 -1
+  GETIMPORT R10 K20 [tostring]
+  CALL R10 -1 1
+  SETTABLEKS R10 R9 K21 ["robloxctx-authenticated-userid"]
+  GETUPVAL R10 4
+  MOVE R12 R8
+  GETUPVAL R13 5
+  MOVE R15 R6
+  NAMECALL R13 R13 K22 ["JSONEncode"]
+  CALL R13 2 1
+  MOVE R14 R9
+  NAMECALL R10 R10 K23 ["post"]
+  CALL R10 4 -1
+  RETURN R10 -1
 
 PROTO_1:
   GETUPVAL R0 0
@@ -202,9 +198,10 @@ PROTO_6:
   NAMECALL R6 R6 K6 ["Connect"]
   CALL R6 2 0
   GETUPVAL R6 5
-  MOVE R7 R0
-  MOVE R8 R4
-  CALL R6 2 1
+  GETUPVAL R7 6
+  MOVE R8 R0
+  MOVE R9 R4
+  CALL R6 3 1
   NEWCLOSURE R8 P3
   CAPTURE VAL R1
   NAMECALL R6 R6 K8 ["catch"]
@@ -213,14 +210,21 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
-  NEWCLOSURE R1 P0
+  LOADK R4 K0 ["NotificationService"]
+  NAMECALL R2 R0 K1 ["GetService"]
+  CALL R2 2 1
+  LOADK R5 K2 ["StudioService"]
+  NAMECALL R3 R0 K1 ["GetService"]
+  CALL R3 2 1
+  NEWCLOSURE R4 P0
   CAPTURE UPVAL U0
+  CAPTURE VAL R2
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
+  CAPTURE VAL R1
   CAPTURE UPVAL U3
-  CAPTURE VAL R0
-  CAPTURE UPVAL U4
-  RETURN R1 1
+  CAPTURE VAL R3
+  RETURN R4 1
 
 MAIN:
   PREPVARARGS 0
@@ -228,90 +232,84 @@ MAIN:
   LOADK R2 K2 ["Assistant"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["AssistantUI"]
-  CALL R1 1 1
-  GETTABLEKS R3 R1 K8 ["Utils"]
-  GETTABLEKS R2 R3 K9 ["SpyableGame"]
-  LOADK R5 K10 ["HttpService"]
-  NAMECALL R3 R2 K11 ["GetService"]
-  CALL R3 2 1
-  LOADK R6 K12 ["NotificationService"]
-  NAMECALL R4 R2 K11 ["GetService"]
-  CALL R4 2 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K13 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Flags"]
-  GETTABLEKS R6 R7 K15 ["FIntConvAIAssistantMaxTokens"]
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["HttpService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["AssistantUI"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R0 K12 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Flags"]
+  GETTABLEKS R4 R5 K14 ["FIntConvAIAssistantMaxTokens"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R7 R0 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Flags"]
+  GETTABLEKS R5 R6 K15 ["FStringMCPAssistantModelOverride"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Flags"]
+  GETTABLEKS R6 R7 K16 ["FStringMCPAssistantURLOverride"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K13 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Flags"]
-  GETTABLEKS R7 R8 K16 ["FStringMCPAssistantModelOverride"]
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R8 R0 K10 ["Packages"]
+  GETTABLEKS R7 R8 K17 ["Framework"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K13 ["Src"]
-  GETTABLEKS R9 R10 K14 ["Flags"]
-  GETTABLEKS R8 R9 K17 ["FStringMCPAssistantURLOverride"]
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R9 R0 K10 ["Packages"]
+  GETTABLEKS R8 R9 K18 ["LuauPolyfill"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Packages"]
-  GETTABLEKS R9 R10 K18 ["Framework"]
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R10 R0 K10 ["Packages"]
+  GETTABLEKS R9 R10 K19 ["ModelContextProtocol"]
   CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K6 ["Packages"]
-  GETTABLEKS R10 R11 K19 ["LuauPolyfill"]
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R11 R0 K12 ["Src"]
+  GETTABLEKS R10 R11 K20 ["Types"]
   CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K6 ["Packages"]
-  GETTABLEKS R11 R12 K20 ["ModelContextProtocol"]
-  CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R13 R0 K13 ["Src"]
-  GETTABLEKS R12 R13 K21 ["Types"]
-  CALL R11 1 1
-  GETTABLEKS R12 R5 K22 ["Get"]
-  GETTABLEKS R13 R6 K22 ["Get"]
-  GETTABLEKS R14 R7 K22 ["Get"]
-  GETTABLEKS R16 R8 K23 ["Http"]
-  GETTABLEKS R15 R16 K24 ["Networking"]
-  GETTABLEKS R16 R15 K25 ["new"]
-  DUPTABLE R17 K28 [{"isInternal", "loggingLevel"}]
-  LOADB R18 1
-  SETTABLEKS R18 R17 K26 ["isInternal"]
-  LOADN R18 4
-  SETTABLEKS R18 R17 K27 ["loggingLevel"]
-  CALL R16 1 1
-  GETTABLEKS R18 R1 K29 ["Guest"]
-  GETTABLEKS R17 R18 K30 ["Environment"]
-  GETTABLEKS R19 R8 K23 ["Http"]
-  GETTABLEKS R18 R19 K31 ["HttpResponse"]
-  LOADNIL R19
-  GETTABLEKS R20 R8 K32 ["Url"]
-  GETTABLEKS R21 R20 K25 ["new"]
-  LOADNIL R22
-  CALL R21 1 1
-  LOADK R23 K33 ["%*/studio-assistant/v1/conversation"]
-  GETTABLEKS R25 R21 K34 ["APIS_URL"]
-  NAMECALL R23 R23 K35 ["format"]
-  CALL R23 2 1
-  MOVE R22 R23
-  DUPCLOSURE R23 K36 [PROTO_0]
-  CAPTURE VAL R13
+  GETTABLEKS R10 R3 K21 ["Get"]
+  GETTABLEKS R11 R4 K21 ["Get"]
+  GETTABLEKS R12 R5 K21 ["Get"]
+  GETTABLEKS R14 R6 K22 ["Http"]
+  GETTABLEKS R13 R14 K23 ["Networking"]
+  GETTABLEKS R14 R13 K24 ["new"]
+  DUPTABLE R15 K27 [{"isInternal", "loggingLevel"}]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K25 ["isInternal"]
+  LOADN R16 4
+  SETTABLEKS R16 R15 K26 ["loggingLevel"]
+  CALL R14 1 1
+  GETTABLEKS R16 R2 K28 ["Guest"]
+  GETTABLEKS R15 R16 K29 ["Environment"]
+  GETTABLEKS R17 R6 K22 ["Http"]
+  GETTABLEKS R16 R17 K30 ["HttpResponse"]
+  LOADNIL R17
+  GETTABLEKS R18 R6 K31 ["Url"]
+  GETTABLEKS R19 R18 K24 ["new"]
+  LOADNIL R20
+  CALL R19 1 1
+  LOADK R21 K32 ["%*/studio-assistant/v1/conversation"]
+  GETTABLEKS R23 R19 K33 ["APIS_URL"]
+  NAMECALL R21 R21 K34 ["format"]
+  CALL R21 2 1
+  MOVE R20 R21
+  DUPCLOSURE R21 K35 [PROTO_0]
+  CAPTURE VAL R11
+  CAPTURE VAL R10
   CAPTURE VAL R12
+  CAPTURE VAL R20
   CAPTURE VAL R14
-  CAPTURE VAL R22
-  CAPTURE VAL R2
-  CAPTURE VAL R16
-  CAPTURE VAL R3
-  NEWCLOSURE R24 P1
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R17
-  CAPTURE REF R19
-  CAPTURE VAL R23
-  DUPTABLE R25 K38 [{"createRequestHandler"}]
-  SETTABLEKS R24 R25 K37 ["createRequestHandler"]
-  CLOSEUPVALS R19
-  RETURN R25 1
+  CAPTURE VAL R1
+  NEWCLOSURE R22 P1
+  CAPTURE VAL R1
+  CAPTURE VAL R15
+  CAPTURE REF R17
+  CAPTURE VAL R21
+  DUPTABLE R23 K37 [{"createRequestHandler"}]
+  SETTABLEKS R22 R23 K36 ["createRequestHandler"]
+  CLOSEUPVALS R17
+  RETURN R23 1

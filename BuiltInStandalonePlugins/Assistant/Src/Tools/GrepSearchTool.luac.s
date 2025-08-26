@@ -15,20 +15,20 @@ PROTO_0:
   FORGPREP R4
   LENGTH R9 R1
   LOADN R10 50
-  JUMPIFLE R10 R9 [+70]
+  JUMPIFLE R10 R9 [+72]
   GETTABLEKS R10 R8 K8 ["ClassName"]
   GETTABLE R9 R2 R10
-  JUMPIFNOT R9 [+63]
+  JUMPIFNOT R9 [+65]
   NAMECALL R9 R8 K9 ["GetFullName"]
   CALL R9 1 1
   LOADK R12 K10 ["^CoreGui"]
   NAMECALL R10 R9 K11 ["find"]
   CALL R10 2 1
-  JUMPIF R10 [+55]
+  JUMPIF R10 [+57]
   LOADK R12 K12 ["^PlayerGui"]
   NAMECALL R10 R9 K11 ["find"]
   CALL R10 2 1
-  JUMPIF R10 [+50]
+  JUMPIF R10 [+52]
   GETTABLEKS R10 R8 K13 ["Source"]
   NEWTABLE R11 0 0
   GETIMPORT R12 K16 [string.gmatch]
@@ -53,31 +53,32 @@ PROTO_0:
   MOVE R19 R17
   MOVE R20 R3
   CALL R18 2 1
-  JUMPIFNOT R18 [+16]
+  JUMPIFNOT R18 [+18]
+  LOADK R21 K22 ["Path: %* | Line: %* | %*"]
+  MOVE R23 R9
+  MOVE R24 R15
+  MOVE R25 R16
+  NAMECALL R21 R21 K23 ["format"]
+  CALL R21 4 1
+  MOVE R20 R21
+  FASTCALL2 TABLE_INSERT R1 R20 [+4]
   MOVE R19 R1
-  GETIMPORT R20 K23 [string.format]
-  LOADK R21 K24 ["Path: %s | Line: %d | %s"]
-  MOVE R22 R9
-  MOVE R23 R15
-  MOVE R24 R16
-  CALL R20 4 -1
-  FASTCALL TABLE_INSERT [+2]
   GETIMPORT R18 K20 [table.insert]
-  CALL R18 -1 0
+  CALL R18 2 0
   LENGTH R18 R1
   LOADN R19 50
   JUMPIFLE R19 R18 [+3]
-  FORGLOOP R12 2 [-26]
-  FORGLOOP R4 2 [-72]
+  FORGLOOP R12 2 [-28]
+  FORGLOOP R4 2 [-74]
   LENGTH R4 R1
-  JUMPIFNOTEQKN R4 K25 [0] [+3]
-  LOADK R4 K26 ["No matches found for the given query."]
+  JUMPIFNOTEQKN R4 K24 [0] [+3]
+  LOADK R4 K25 ["No matches found for the given query."]
   RETURN R4 1
   LENGTH R4 R1
   LOADN R5 50
   JUMPIFNOTLE R5 R4 [+11]
   MOVE R5 R1
-  GETIMPORT R6 K23 [string.format]
+  GETIMPORT R6 K26 [string.format]
   LOADK R7 K27 ["... Search stopped after reaching the limit of %d matches."]
   LOADN R8 50
   CALL R6 2 -1
@@ -111,6 +112,104 @@ PROTO_2:
   CALL R2 1 -1
   RETURN R2 -1
 
+PROTO_3:
+  DUPTABLE R0 K3 [{"type", "icon", "summary"}]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["Type"]
+  SETTABLEKS R1 R0 K0 ["type"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["Icons"]
+  GETTABLEKS R1 R2 K6 ["Search"]
+  SETTABLEKS R1 R0 K1 ["icon"]
+  GETUPVAL R1 1
+  LOADK R3 K7 ["GrepSearch"]
+  LOADK R4 K8 ["Pending"]
+  NAMECALL R1 R1 K9 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K2 ["summary"]
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["GrepSearch"]
+  LOADK R4 K1 ["NoneFound"]
+  NAMECALL R1 R1 K2 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K3 ["summary"]
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["GrepSearch"]
+  LOADK R4 K1 ["MatchFound"]
+  NAMECALL R1 R1 K2 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K3 ["summary"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["content"]
+  GETTABLEN R1 R2 1
+  GETTABLEKS R2 R0 K1 ["isError"]
+  JUMPIF R2 [+13]
+  JUMPIFEQKNIL R1 [+12]
+  GETTABLEKS R2 R1 K2 ["type"]
+  JUMPIFNOTEQKS R2 K3 ["text"] [+8]
+  GETTABLEKS R2 R1 K3 ["text"]
+  JUMPIFNOTEQKS R2 K4 ["No matches found for the given query."] [+4]
+  DUPCLOSURE R2 K5 [PROTO_4]
+  CAPTURE UPVAL U0
+  RETURN R2 1
+  DUPCLOSURE R2 K6 [PROTO_5]
+  CAPTURE UPVAL U0
+  RETURN R2 1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["networking"]
+  LOADK R4 K1 ["GrepSearchTool_GrepSearch"]
+  DUPCLOSURE R5 K2 [PROTO_1]
+  CAPTURE UPVAL U0
+  NAMECALL R2 R1 K3 ["OnHostInvokeAsync"]
+  CALL R2 3 1
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R2
+  CAPTURE UPVAL U1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["define"]
+  CALL R4 0 1
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K5 ["GrepSearch"]
+  NAMECALL R4 R4 K6 ["setName"]
+  CALL R4 2 1
+  LOADK R6 K7 ["Runs a search for a string pattern over all script contents in the game. To avoid overwhelming output, the results are capped at 50 matches."]
+  NAMECALL R4 R4 K8 ["setDescription"]
+  CALL R4 2 1
+  LOADK R6 K9 ["query"]
+  DUPTABLE R7 K12 [{"type", "description"}]
+  LOADK R8 K13 ["string"]
+  SETTABLEKS R8 R7 K10 ["type"]
+  LOADK R8 K14 ["The string or Luau pattern to search for."]
+  SETTABLEKS R8 R7 K11 ["description"]
+  NAMECALL R4 R4 K15 ["addArgument"]
+  CALL R4 3 1
+  MOVE R6 R3
+  NAMECALL R4 R4 K16 ["setHandler"]
+  CALL R4 2 1
+  NAMECALL R4 R4 K17 ["build"]
+  CALL R4 1 1
+  NEWTABLE R5 2 0
+  DUPCLOSURE R6 K18 [PROTO_3]
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  SETTABLEKS R6 R5 K19 ["transformInitialContent"]
+  DUPCLOSURE R6 K20 [PROTO_6]
+  CAPTURE UPVAL U5
+  SETTABLEKS R6 R5 K21 ["getTransformResultFn"]
+  DUPTABLE R6 K24 [{"definition", "streamTransform"}]
+  SETTABLEKS R4 R6 K22 ["definition"]
+  SETTABLEKS R5 R6 K23 ["streamTransform"]
+  RETURN R6 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -127,51 +226,26 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Util"]
-  GETTABLEKS R4 R5 K11 ["StudioNetworking"]
+  GETTABLEKS R5 R6 K10 ["Tools"]
+  GETTABLEKS R4 R5 K11 ["ToolTypes"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Tools"]
-  GETTABLEKS R5 R6 K13 ["ToolTypes"]
-  CALL R4 1 1
-  GETTABLEKS R6 R2 K10 ["Util"]
-  GETTABLEKS R5 R6 K14 ["ToolBuilder"]
-  GETTABLEKS R7 R2 K10 ["Util"]
-  GETTABLEKS R6 R7 K15 ["ToolResult"]
-  GETTABLEKS R7 R4 K16 ["ToolNames"]
-  GETTABLEKS R8 R3 K17 ["get"]
-  CALL R8 0 1
-  DUPCLOSURE R9 K18 [PROTO_0]
-  LOADK R12 K19 ["GrepSearchTool_GrepSearch"]
-  DUPCLOSURE R13 K20 [PROTO_1]
+  GETTABLEKS R6 R1 K12 ["Components"]
+  GETTABLEKS R5 R6 K13 ["BuiltinContentWidgets"]
+  GETTABLEKS R4 R5 K14 ["SummarizedContentWidget"]
+  GETTABLEKS R7 R1 K15 ["Resources"]
+  GETTABLEKS R6 R7 K16 ["Localization"]
+  GETTABLEKS R5 R6 K17 ["Translator"]
+  GETTABLEKS R7 R2 K18 ["Util"]
+  GETTABLEKS R6 R7 K19 ["ToolBuilder"]
+  GETTABLEKS R8 R2 K18 ["Util"]
+  GETTABLEKS R7 R8 K20 ["ToolResult"]
+  GETTABLEKS R8 R3 K21 ["ToolNames"]
+  DUPCLOSURE R9 K22 [PROTO_0]
+  DUPCLOSURE R10 K23 [PROTO_7]
   CAPTURE VAL R9
-  NAMECALL R10 R8 K21 ["OnHostInvokeAsync"]
-  CALL R10 3 1
-  DUPCLOSURE R11 K22 [PROTO_2]
-  CAPTURE VAL R10
+  CAPTURE VAL R7
   CAPTURE VAL R6
-  GETTABLEKS R12 R5 K23 ["define"]
-  CALL R12 0 1
-  GETTABLEKS R14 R7 K24 ["GrepSearch"]
-  NAMECALL R12 R12 K25 ["setName"]
-  CALL R12 2 1
-  LOADK R14 K26 ["Runs a search for a string pattern over all script contents in the game. To avoid overwhelming output, the results are capped at 50 matches."]
-  NAMECALL R12 R12 K27 ["setDescription"]
-  CALL R12 2 1
-  LOADK R14 K28 ["query"]
-  DUPTABLE R15 K31 [{"type", "description"}]
-  LOADK R16 K32 ["string"]
-  SETTABLEKS R16 R15 K29 ["type"]
-  LOADK R16 K33 ["The string or Luau pattern to search for."]
-  SETTABLEKS R16 R15 K30 ["description"]
-  NAMECALL R12 R12 K34 ["addArgument"]
-  CALL R12 3 1
-  MOVE R14 R11
-  NAMECALL R12 R12 K35 ["setHandler"]
-  CALL R12 2 1
-  NAMECALL R12 R12 K36 ["build"]
-  CALL R12 1 1
-  DUPTABLE R13 K38 [{"definition"}]
-  SETTABLEKS R12 R13 K37 ["definition"]
-  RETURN R13 1
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  RETURN R10 1

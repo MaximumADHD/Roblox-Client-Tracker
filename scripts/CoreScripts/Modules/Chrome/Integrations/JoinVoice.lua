@@ -29,6 +29,9 @@ local GetFFlagIntegratePhoneUpsellJoinVoice =
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 
+local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+
 local FFlagJoinVoiceHideWhenPartyVoiceFocused = game:DefineFastFlag("JoinVoiceHideWhenPartyVoiceFocused", false)
 local FFlagCheckShouldShowJoinVoiceInEvent = game:DefineFastFlag("CheckShouldShowJoinVoiceInEvent", false)
 
@@ -39,8 +42,7 @@ local FIntUnibarJoinVoiceTooltipPriority = game:DefineFastInt("UnibarJoinVoiceTo
 local FFlagEnableChromeJoinVoiceTooltip = game:DefineFastFlag("EnableChromeJoinVoiceTooltip", false)
 
 local ChromeService = require(Chrome.Service)
-
-local ICON_SIZE = Constants.ICON_SIZE
+local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
 local isPrivateVoiceFocused = false
 local wasJoinVoiceSeenInThisPlaySession = false
@@ -72,6 +74,14 @@ joinVoice = ChromeService:register({
 	end,
 	components = {
 		Icon = function()
+			local unibarStyle
+			local iconSize
+			if FFlagTokenizeUnibarConstantsWithStyleProvider then
+				unibarStyle = UnibarStyle.use()
+				iconSize = unibarStyle.ICON_SIZE
+			else
+				iconSize = Constants.ICON_SIZE
+			end
 			local iconName = "icons/controls/publicAudioJoin"
 			if FFlagReplaceJoinVoiceIconToMuted then
 				iconName = GetIcon("Muted", "MicLight")
@@ -79,7 +89,7 @@ joinVoice = ChromeService:register({
 			if FFlagEnableChromeJoinVoiceTooltip then
 				local shouldShowTooltip = getShouldShowJoinVoiceTooltip()
 				return React.createElement(Foundation.View, {
-					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+					Size = UDim2.new(0, iconSize, 0, iconSize),
 				}, {
 					Icon = CommonIcon(iconName),
 					Tooltip = CommonFtuxTooltip({

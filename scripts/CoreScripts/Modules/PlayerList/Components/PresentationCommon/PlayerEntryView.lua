@@ -41,6 +41,8 @@ local PlayerNameTag = require(Components.Presentation.PlayerNameTag)
 
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
+local FFlagRemoveNewPlayerListOverlay = PlayerListPackage.Flags.FFlagRemoveNewPlayerListOverlay
+local FFlagMoveNewPlayerListDividers = require(SharedFlags).FFlagMoveNewPlayerListDividers
 
 type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
@@ -67,7 +69,7 @@ export type PlayerEntryViewProps = {
 	playerRelationship: PlayerRelationshipProps,
 	gameStats: GameStatList?,
 	gameStatsCount: number,
-	teamPlayersCount: Signals.getter<number>,
+	teamPlayersCount: Signals.getter<number>?,
 
 	-- Dropdown data
 	dropdownOpen: boolean?,
@@ -143,8 +145,8 @@ type PlayerEntryChildrenProps = {
 	playerNameFont: { [string]: any },
 	isHovered: boolean,
 	backgroundStyle: { [string]: any },
-	overlayStyle: { [string]: any },
-	isPressed: boolean,
+	overlayStyle: { [string]: any }?,
+	isPressed: boolean?,
 	player: Player,
 	playerIconInfo: PlayerIconInfoProps,
 	playerRelationship: PlayerRelationshipProps,
@@ -242,8 +244,10 @@ local function PlayerEntryChildren(props: PlayerEntryChildrenProps)
 	-- Add desktop and tenfoot specific props
 	if isDirectionalPreferred then
 		statProps.backgroundStyle = backgroundStyle
-		statProps.overlayStyle = overlayStyle
-		statProps.doubleOverlay = isPressed
+		if not FFlagRemoveNewPlayerListOverlay then
+			statProps.overlayStyle = overlayStyle
+			statProps.doubleOverlay = isPressed
+		end
 	end
 
 	if gameStats and gameStatsCount > 0 and playerStats and playerStatsCount >= 0 then
@@ -264,20 +268,22 @@ local function PlayerEntryChildren(props: PlayerEntryChildrenProps)
 	end
 
 	-- Add background extender for desktop non-tenfoot mode
-	if not isSmallTouchDevice and not isDirectionalPreferred then
-		children.BackgroundExtender = React.createElement(CellExtender, {
-			layoutOrder = 100,
-			size = UDim2.new(0, layoutValues.ExtraContainerPadding, 1, 0),
-			backgroundStyle = {
-				Color = Color3.new(1, 1, 1),
-				Transparency = 1,
-			},
-			overlayStyle = {
-				Color = Color3.new(1, 1, 1),
-				Transparency = 1,
-			},
-			doubleOverlay = isPressed,
-		})
+	if not FFlagRemoveNewPlayerListOverlay then
+		if not isSmallTouchDevice and not isDirectionalPreferred then
+			children.BackgroundExtender = React.createElement(CellExtender, {
+				layoutOrder = 100,
+				size = UDim2.new(0, layoutValues.ExtraContainerPadding, 1, 0),
+				backgroundStyle = {
+					Color = Color3.new(1, 1, 1),
+					Transparency = 1,
+				},
+				overlayStyle = {
+					Color = Color3.new(1, 1, 1),
+					Transparency = 1,
+				},
+				doubleOverlay = isPressed,
+			})
+		end
 	end
 	return React.createElement(React.Fragment, {}, children :: any)
 end
@@ -287,15 +293,29 @@ PlayerEntryChildren = React.memo(PlayerEntryChildren) :: any
 local function PlayerEntryView(props: PlayerEntryViewProps)
 	local playerStatsCount = SignalsReact.useSignalState(props.playerData.stats.getCount)
 
-	local playerOrder = SignalsReact.useSignalBinding(props.playerData.order)
+	-- Set player order to odd numbers (1, 3, 5, ...) to leave space for dividers
+	local playerOrder = SignalsReact.useSignalBinding(
+		if FFlagMoveNewPlayerListDividers 
+			then Signals.createComputed(function(scope)
+				return props.playerData.order(scope) * 2 - 1
+			end) 
+			else props.playerData.order
+	)
 
-	-- TODO: Move hasDivider, topDiv, and bottomDiv logic as well as their corresponding components to TeamListView (APPEXP-2906)
 	local bottomDiv = SignalsReact.useSignalBinding(function(scope)
-		return props.playerData.order(scope) == props.teamPlayersCount(scope) or props.titlePlayerEntry
+		if not FFlagMoveNewPlayerListDividers and props.teamPlayersCount then
+			return props.playerData.order(scope) == props.teamPlayersCount(scope) or props.titlePlayerEntry
+		else
+			return false
+		end
 	end)
 
 	local hasDivider = SignalsReact.useSignalBinding(function(scope)
-		return props.playerData.order(scope) ~= props.teamPlayersCount(scope)
+		if not FFlagMoveNewPlayerListDividers and props.teamPlayersCount then
+			return props.playerData.order(scope) ~= props.teamPlayersCount(scope)
+		else
+			return false
+		end
 	end)
 
 	local layoutOrder = React.useMemo(function()
@@ -527,14 +547,17 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 	end, { isSmallTouchDevice, isDirectionalPreferred, isLocalPlayer, style, layoutValues } :: { any })
 	local backgroundStyle = getBackgroundStyle()
 	local textStyle = getTextStyle()
-	local overlayStyle = getOverlayStyle()
+	local overlayStyle
+	if not FFlagRemoveNewPlayerListOverlay then
+		overlayStyle = getOverlayStyle()
+	end
 	local backgroundFrameProps = React.useMemo(function()
 		return {
 			size = UDim2.new(0, props.entrySizeX, 0, layoutValues.PlayerEntrySizeY),
 			isTeamFrame = false,
 			backgroundStyle = backgroundStyle,
-			overlayStyle = overlayStyle,
-			doubleOverlay = isPressed,
+			overlayStyle = if FFlagRemoveNewPlayerListOverlay then nil else overlayStyle,
+			doubleOverlay = if FFlagRemoveNewPlayerListOverlay then nil else isPressed,
 			firstPlayerRef = firstPlayerRef,
 			ref = if FFlagAddNewPlayerListFocusNav then entryFrameRef else nil,
 
@@ -561,8 +584,8 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			playerNameFont = playerNameFont,
 			isHovered = isHovered,
 			backgroundStyle = backgroundStyle :: any,
-			overlayStyle = overlayStyle,
-			isPressed = isPressed,
+			overlayStyle = if FFlagRemoveNewPlayerListOverlay then nil else overlayStyle,
+			isPressed = if FFlagRemoveNewPlayerListOverlay then nil else isPressed,
 			player = (props.player :: any) :: Player,
 			playerIconInfo = props.playerIconInfo,
 			playerRelationship = props.playerRelationship,
@@ -651,22 +674,22 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 				BackgroundTransparency = 1,
 			}, React.createElement(PlayerEntryChildren, playerEntryChildrenProps)),
 
-			TopDiv = not props.titlePlayerEntry and React.createElement("Frame", {
+			TopDiv = if not FFlagMoveNewPlayerListDividers and not props.titlePlayerEntry then React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 1),
 				Position = UDim2.new(0, 0, 0, 0),
 				AnchorPoint = Vector2.new(0, 0),
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 0.8,
-			}) or nil,
+			}) else nil,
 
-			BottomDiv = React.createElement("Frame", {
+			BottomDiv = if not FFlagMoveNewPlayerListDividers then React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				AnchorPoint = Vector2.new(0, 1),
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 0.8,
 				Visible = bottomDiv,
-			}),
+			}) else nil,
 		})
 	elseif isDirectionalPreferred then
 		return React.createElement("Frame", {
@@ -690,7 +713,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 				React.createElement(PlayerEntryChildren, playerEntryChildrenProps)
 			),
 
-			Divider = React.createElement("Frame", {
+			Divider = if not FFlagMoveNewPlayerListDividers then React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				AnchorPoint = Vector2.new(0, 1),
@@ -698,7 +721,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 				BackgroundColor3 = style.Theme.Divider.Color,
 				BorderSizePixel = 0,
 				Visible = hasDivider,
-			}),
+			}) else nil,
 		})
 	end
 end

@@ -6,6 +6,9 @@ local Constants = require(root.Components.Constants)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 
+local FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled =
+	require(root.Flags.FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled)
+
 function getMenuItemSizings()
 	local style = useStyle()
 
@@ -14,6 +17,9 @@ function getMenuItemSizings()
 		DropdownTextSize = style.Tokens.Global.FontSize_100, -- 20.16 for desktop, 30.24 for console
 		FontStyle = Constants.ReportMenuFontStyle,
 		ButtonSize = Constants.ReportMenuButtonSizeConsole,
+		ButtonInsideVerticalPadding = if FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled
+			then style.Tokens.Global.Space_50
+			else nil,
 	}
 end
 

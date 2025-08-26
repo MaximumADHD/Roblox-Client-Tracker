@@ -117,6 +117,63 @@ PROTO_2:
   CALL R2 1 -1
   RETURN R2 -1
 
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["networking"]
+  LOADK R4 K1 ["ScriptInsertionTool_InsertScript"]
+  DUPCLOSURE R5 K2 [PROTO_1]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  NAMECALL R2 R1 K3 ["OnHostInvokeAsync"]
+  CALL R2 3 1
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R2
+  CAPTURE UPVAL U3
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K4 ["define"]
+  CALL R4 0 1
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K5 ["ScriptInsertion"]
+  NAMECALL R4 R4 K6 ["setName"]
+  CALL R4 2 1
+  LOADK R6 K7 ["Insert a script or modify an existing script.
+Before using this tool, execute Luau code to find the script path first
+"]
+  NAMECALL R4 R4 K8 ["setDescription"]
+  CALL R4 2 1
+  LOADK R6 K9 ["className"]
+  DUPTABLE R7 K12 [{"type", "description"}]
+  LOADK R8 K13 ["string"]
+  SETTABLEKS R8 R7 K10 ["type"]
+  LOADK R8 K14 ["The class name of the script to insert (e.g., 'Script', 'LocalScript', 'ModuleScript'), used for creating new Instance, leave empty if exists"]
+  SETTABLEKS R8 R7 K11 ["description"]
+  NAMECALL R4 R4 K15 ["addOptionalArgument"]
+  CALL R4 3 1
+  LOADK R6 K16 ["code"]
+  DUPTABLE R7 K12 [{"type", "description"}]
+  LOADK R8 K13 ["string"]
+  SETTABLEKS R8 R7 K10 ["type"]
+  LOADK R8 K17 ["The updated Luau code"]
+  SETTABLEKS R8 R7 K11 ["description"]
+  NAMECALL R4 R4 K18 ["addArgument"]
+  CALL R4 3 1
+  LOADK R6 K19 ["scriptPath"]
+  DUPTABLE R7 K12 [{"type", "description"}]
+  LOADK R8 K13 ["string"]
+  SETTABLEKS R8 R7 K10 ["type"]
+  LOADK R8 K20 ["The path to the script to modify or create (e.g., 'game.Workspace.Scripts.MyScript')"]
+  SETTABLEKS R8 R7 K11 ["description"]
+  NAMECALL R4 R4 K18 ["addArgument"]
+  CALL R4 3 1
+  MOVE R6 R3
+  NAMECALL R4 R4 K21 ["setHandler"]
+  CALL R4 2 1
+  NAMECALL R4 R4 K22 ["build"]
+  CALL R4 1 1
+  DUPTABLE R5 K24 [{"definition"}]
+  SETTABLEKS R4 R5 K23 ["definition"]
+  RETURN R5 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -137,74 +194,23 @@ MAIN:
   CALL R3 1 1
   GETIMPORT R4 K9 [require]
   GETTABLEKS R7 R0 K13 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Util"]
-  GETTABLEKS R5 R6 K15 ["StudioNetworking"]
+  GETTABLEKS R6 R7 K14 ["Tools"]
+  GETTABLEKS R5 R6 K15 ["ToolTypes"]
   CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R8 R0 K13 ["Src"]
-  GETTABLEKS R7 R8 K16 ["Tools"]
-  GETTABLEKS R6 R7 K17 ["ToolTypes"]
-  CALL R5 1 1
-  GETTABLEKS R7 R2 K18 ["Guest"]
-  GETTABLEKS R6 R7 K19 ["Environment"]
-  GETTABLEKS R8 R2 K20 ["Utils"]
-  GETTABLEKS R7 R8 K16 ["Tools"]
-  GETTABLEKS R9 R3 K14 ["Util"]
-  GETTABLEKS R8 R9 K21 ["ToolBuilder"]
-  GETTABLEKS R10 R3 K14 ["Util"]
-  GETTABLEKS R9 R10 K22 ["ToolResult"]
-  GETTABLEKS R10 R5 K23 ["ToolNames"]
-  GETTABLEKS R11 R4 K24 ["get"]
-  CALL R11 0 1
-  LOADK R14 K25 ["ScriptInsertionTool_InsertScript"]
-  DUPCLOSURE R15 K26 [PROTO_1]
+  GETTABLEKS R6 R2 K16 ["Guest"]
+  GETTABLEKS R5 R6 K17 ["Environment"]
+  GETTABLEKS R7 R2 K18 ["Utils"]
+  GETTABLEKS R6 R7 K14 ["Tools"]
+  GETTABLEKS R8 R3 K19 ["Util"]
+  GETTABLEKS R7 R8 K20 ["ToolBuilder"]
+  GETTABLEKS R9 R3 K19 ["Util"]
+  GETTABLEKS R8 R9 K21 ["ToolResult"]
+  GETTABLEKS R9 R4 K22 ["ToolNames"]
+  DUPCLOSURE R10 K23 [PROTO_3]
   CAPTURE VAL R1
+  CAPTURE VAL R5
   CAPTURE VAL R6
+  CAPTURE VAL R8
   CAPTURE VAL R7
-  NAMECALL R12 R11 K27 ["OnHostInvokeAsync"]
-  CALL R12 3 1
-  DUPCLOSURE R13 K28 [PROTO_2]
-  CAPTURE VAL R12
   CAPTURE VAL R9
-  GETTABLEKS R14 R8 K29 ["define"]
-  CALL R14 0 1
-  GETTABLEKS R16 R10 K30 ["ScriptInsertion"]
-  NAMECALL R14 R14 K31 ["setName"]
-  CALL R14 2 1
-  LOADK R16 K32 ["Insert a script or modify an existing script.
-Before using this tool, execute Luau code to find the script path first
-"]
-  NAMECALL R14 R14 K33 ["setDescription"]
-  CALL R14 2 1
-  LOADK R16 K34 ["className"]
-  DUPTABLE R17 K37 [{"type", "description"}]
-  LOADK R18 K38 ["string"]
-  SETTABLEKS R18 R17 K35 ["type"]
-  LOADK R18 K39 ["The class name of the script to insert (e.g., 'Script', 'LocalScript', 'ModuleScript'), used for creating new Instance, leave empty if exists"]
-  SETTABLEKS R18 R17 K36 ["description"]
-  NAMECALL R14 R14 K40 ["addOptionalArgument"]
-  CALL R14 3 1
-  LOADK R16 K41 ["code"]
-  DUPTABLE R17 K37 [{"type", "description"}]
-  LOADK R18 K38 ["string"]
-  SETTABLEKS R18 R17 K35 ["type"]
-  LOADK R18 K42 ["The updated Luau code"]
-  SETTABLEKS R18 R17 K36 ["description"]
-  NAMECALL R14 R14 K43 ["addArgument"]
-  CALL R14 3 1
-  LOADK R16 K44 ["scriptPath"]
-  DUPTABLE R17 K37 [{"type", "description"}]
-  LOADK R18 K38 ["string"]
-  SETTABLEKS R18 R17 K35 ["type"]
-  LOADK R18 K45 ["The path to the script to modify or create (e.g., 'game.Workspace.Scripts.MyScript')"]
-  SETTABLEKS R18 R17 K36 ["description"]
-  NAMECALL R14 R14 K43 ["addArgument"]
-  CALL R14 3 1
-  MOVE R16 R13
-  NAMECALL R14 R14 K46 ["setHandler"]
-  CALL R14 2 1
-  NAMECALL R14 R14 K47 ["build"]
-  CALL R14 1 1
-  DUPTABLE R15 K49 [{"definition"}]
-  SETTABLEKS R14 R15 K48 ["definition"]
-  RETURN R15 1
+  RETURN R10 1

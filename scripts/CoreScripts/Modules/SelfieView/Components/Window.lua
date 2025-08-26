@@ -47,6 +47,10 @@ local ChromeEnabled = require(Chrome.Enabled)
 local ChromeService = if GetFFlagFixChromeReferences()
 	then if ChromeEnabled() then require(Chrome.Service) else nil
 	else require(script.Parent.Parent.Parent.Chrome.Service)
+local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
+
+local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
@@ -77,8 +81,17 @@ export type WindowProps = {
 local function Window(props: WindowProps): React.ReactNode
 	local id = props.id
 	local style = useStyle()
+	local unibarStyle
 	local theme = style.Theme
 	local font = style.Font
+
+	local closeButtonFrame
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		closeButtonFrame = unibarStyle.CLOSE_BUTTON_FRAME
+	else
+		closeButtonFrame = Constants.CLOSE_BUTTON_FRAME
+	end
 
 	local showUpdatedCameraPath = useAppPolicy(function(appPolicy)
 		return appPolicy.getShowUpdatedCameraPath()
@@ -237,7 +250,7 @@ local function Window(props: WindowProps): React.ReactNode
 		CloseButtonWrapper = focused and React.createElement("Frame", {
 			ZIndex = 2,
 			BackgroundTransparency = 1,
-			Size = Constants.CLOSE_BUTTON_FRAME,
+			Size = closeButtonFrame,
 		}, {
 
 			CloseButtonLayout = React.createElement("UIListLayout", {
@@ -299,7 +312,7 @@ local function Window(props: WindowProps): React.ReactNode
 			then React.createElement("Frame", {
 				ZIndex = 2,
 				BackgroundTransparency = 1,
-				Size = Constants.CLOSE_BUTTON_FRAME,
+				Size = closeButtonFrame,
 				AnchorPoint = Vector2.new(1, 0),
 				Position = UDim2.new(1, 0, 0, 0),
 			}, {
@@ -388,7 +401,7 @@ local function Window(props: WindowProps): React.ReactNode
 		}),
 		IconFrame = focused and showCameraButton and React.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = Constants.CLOSE_BUTTON_FRAME,
+			Size = closeButtonFrame,
 			Position = UDim2.fromScale(0.5, 1),
 			AnchorPoint = Vector2.new(0.5, 1),
 			ZIndex = 2,

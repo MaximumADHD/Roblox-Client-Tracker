@@ -8,22 +8,29 @@ local HttpService = game:GetService("HttpService")
 local Promise = require(CorePackages.Packages.Promise)
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
-local CEVLogsToEventIngest = game:GetEngineFeature("CEVLogsToEventIngest") 
+local CEVLogsToEventIngest = game:GetEngineFeature("CEVLogsToEventIngest")
 
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
 local FFlagEnableCEVErrorRCCTimeoutLogs =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableCEVErrorRCCTimeoutLogs
 local FFlagRecordTimestampforCEVEvents =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRecordTimestampforCEVEvents
+local GetFFlagPartyVoiceMuteScopeFix =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPartyVoiceMuteScopeFix
+local FStringTimeoutLoadingLocalPlayerInBackgroundDM =
+	require(CorePackages.Workspace.Packages.SharedFlags).FStringTimeoutLoadingLocalPlayerInBackgroundDM
 
 local getMemStorageKey = CrossExperience.Utils.getMemStorageKey
+local CEV_JOIN_ATTEMPT_ID_KEY = CrossExperience.Constants.CEV_JOIN_ATTEMPT_ID_KEY
+local LOCAL_PLAYER_LOADING_TIMEOUT_ENUM = CrossExperience.Constants.LOCAL_PLAYER_LOADING_TIMEOUT_ENUM
+
+local FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds = game:DefineFastInt("BackgroundDMLocalPlayerLoadingTimeoutSeconds", 12)
 
 local localUserId
-if CEVLogsToEventIngest then
+if FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable and CEVLogsToEventIngest then
 	localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
 end
 
-local CEV_JOIN_ATTEMPT_ID_KEY = "cevJoinAttemptId"
 local function sendAnalyticsEvent(eventName: string, args: { [string]: any }?)
 	local analyticsPayload = args or {}
 
@@ -32,17 +39,86 @@ local function sendAnalyticsEvent(eventName: string, args: { [string]: any }?)
 		local cevJoinAttemptId = getMemStorageKey(CEV_JOIN_ATTEMPT_ID_KEY)
 		analyticsPayload.cevJoinAttemptId = cevJoinAttemptId
 		analyticsPayload.clientTimeStamp = os.time()
-		analyticsPayload.userId = localUserId
+		analyticsPayload.userId = if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then nil else localUserId
 	end
 
 	AnalyticsService:SendEventDeferred("client", "partyVoice", eventName, analyticsPayload)
+end
+
+if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
+	sendAnalyticsEvent("partyVoiceCEVChannelFileLoaded")
+end
+
+local cevEventManager = CrossExperience.EventManager.new(CrossExperience.Constants.EXPERIENCE_TYPE_VOICE, true)
+
+local function notifyVoiceStatusChange(status: VoiceStatus, detail: string?)
+	cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, {
+		status = status,
+		detail = detail,
+	})
+end
+
+-- Handle LocalPlayer loading with timeout
+local function ensureLocalPlayerWithTimeout()
+	local localPlayer = Players.LocalPlayer
+	if not localPlayer then
+		-- promise #1: resolves when LocalPlayer is loaded
+		local localPlayerPromise = Promise.new(function(resolve)
+			if Players.LocalPlayer then
+				resolve("loaded")
+			else
+				local connection
+				connection = Players:GetPropertyChangedSignal("LocalPlayer"):Connect(function()
+					if Players.LocalPlayer then
+						connection:Disconnect()
+						resolve("loaded")
+					end
+				end)
+			end
+		end)
+
+		-- promise #2: resolves when the timeout is reached.
+		local timeoutPromise = Promise.delay(FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds):andThen(function()
+			return "timeout"
+		end)
+
+		Promise.race({ localPlayerPromise, timeoutPromise }):andThen(function(winner)
+			if winner == "loaded" then
+				localPlayer = Players.LocalPlayer
+
+				sendAnalyticsEvent("cevDefaultChannelBackgroundDMLocalPlayerLoaded", {
+					timeoutSeconds = FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds,
+				})
+			else
+				sendAnalyticsEvent("backgroundDMLocalPlayerLoadingTimeout", {
+					timeoutSeconds = FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds,
+				})
+
+				notifyVoiceStatusChange(CrossExperience.Constants.VOICE_STATUS.ERROR_BACKGROUND_DM_LOAD_LOCALPLAYER_TIMEOUT, 
+					"LocalPlayer loading timed out after " .. FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds .. " seconds")
+
+				localPlayer = nil
+			end
+		end):await()
+	end
+
+	-- If localPlayer is nil, then we timed out, and we block the thread indefinitely until we shut down the script via foreground DM
+	if not localPlayer then
+		Promise.new(function() end):await()
+	end
+
+	return localPlayer.UserId
+end
+
+if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
+	localUserId = ensureLocalPlayerWithTimeout()
 end
 
 if not CEVLogsToEventIngest and FFlagEnableCEVErrorRCCTimeoutLogs then
 	localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
 end
 
-if FFlagEnableCEVErrorRCCTimeoutLogs then
+if FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable and FFlagEnableCEVErrorRCCTimeoutLogs then
 	sendAnalyticsEvent("partyVoiceCEVChannelFileLoaded", {
 		userId = if not CEVLogsToEventIngest then localUserId else nil,
 		clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
@@ -178,7 +254,6 @@ local coreVoiceManagerState = {
 	previousGroupId = nil,
 	previousMutedState = false,
 }
-local cevEventManager = CrossExperience.EventManager.new(CrossExperience.Constants.EXPERIENCE_TYPE_VOICE, true)
 
 local onForegroundReadySignal = Instance.new("BindableEvent")
 local foregroundIsReady = false
@@ -193,13 +268,6 @@ if CevReadinessSync then
 			onForegroundReadySignal:Fire()
 		end
 	end)
-end
-
-local function notifyVoiceStatusChange(status: VoiceStatus, detail: string?)
-	cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_STATUS_CHANGED, {
-		status = status,
-		detail = detail,
-	})
 end
 
 local store = Rodux.Store.new(createReducers(), nil, {
@@ -705,8 +773,11 @@ local function setupListeners()
 		end)
 	end
 
-	-- unmute mic at the start once muted state is initialized
-	unmuteMicrophoneOnce()
+	-- Always start party voice muted to prevent updateRecording race conditions
+	-- Audio focus management will safely unmute after all transitions are complete
+	if not GetFFlagPartyVoiceMuteScopeFix() then
+		unmuteMicrophoneOnce()
+	end
 
 	if FFlagEnableCrossExpVoiceDebug then
 		cevEventManager:addObserver(CrossExperience.Constants.EVENTS.DEBUG_COMMAND, function(params)
@@ -816,11 +887,19 @@ function initializeAFM()
 				end
 
 				if (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo()) or not isCapturingVideo then
-					CoreVoiceManager:MuteAll(true, "AudioFocusManagement CEV")
+					if GetFFlagPartyVoiceMuteScopeFix() then
+						CoreVoiceManager:MuteAll(true, "AudioFocusManagement - CEV deafenAll")
+					else
+						CoreVoiceManager:MuteAll(true, "AudioFocusManagement CEV")
+					end
 				end
 
 				if not CoreVoiceManager.localMuted then
-					CoreVoiceManager:ToggleMic()
+					if GetFFlagPartyVoiceMuteScopeFix() then
+						CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV deafenAll")
+					else
+						CoreVoiceManager:ToggleMic()
+					end
 				end
 			end
 
@@ -831,11 +910,21 @@ function initializeAFM()
 				end
 
 				if (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo()) or not isCapturingVideo then
-					CoreVoiceManager:MuteAll(false, "AudioFocusManagement CEV")
+					CoreVoiceManager:MuteAll(false, "AudioFocusManagement - CEV Mute All")
 				end
 
-				if CoreVoiceManager.localMuted then
-					CoreVoiceManager:ToggleMic()
+				if GetFFlagPartyVoiceMuteScopeFix() then
+					if CoreVoiceManager.localMuted == nil then
+						log:info("CEV undeafenAll - Voice not connected yet - calling unmuteMicrophoneOnce")
+						unmuteMicrophoneOnce()
+					elseif CoreVoiceManager.localMuted then
+						log:info("CEV undeafenAll - Voice connected and muted - unmuting immediately")
+						CoreVoiceManager:ToggleMic("AudioFocusManagement - CEV undeafenAll")
+					end
+				else
+					if CoreVoiceManager.localMuted then
+						CoreVoiceManager:ToggleMic()
+					end
 				end
 			end
 
@@ -852,10 +941,17 @@ function initializeAFM()
 
 			AudioFocusService.OnUndeafenVoiceAudio:Connect(function(serviceContextId)
 				if serviceContextId == contextId then
+					if GetFFlagPartyVoiceMuteScopeFix() then
+						log:info(
+							"CEV OnUndeafenVoiceAudio fired for context: {} - expected: {}",
+							serviceContextId,
+							contextId
+						)
+					end
 					if FIntPartyVoiceUndeafenDelayMS > 0 then
 						if undeafenTimerHandle then
 							task.cancel(undeafenTimerHandle)
-						end		
+						end
 						undeafenTimerHandle = task.delay(FIntPartyVoiceUndeafenDelayMS / 1000, function()
 							undeafenTimerHandle = nil
 							log:info("CEV OnUndeafenVoiceAudio fired delayed" .. serviceContextId)
@@ -869,12 +965,21 @@ function initializeAFM()
 			end)
 
 			local requestAudioFocusWithPromise = function(id, prio)
+				if GetFFlagPartyVoiceMuteScopeFix() then
+					log:info("CEV requestAudioFocusWithPromise - id: {} - priority: {}", id, prio)
+				end
 				return Promise.new(function(resolve, reject)
 					local requestSuccess, focusGranted =
 						pcall(AudioFocusService.RequestFocus, AudioFocusService, id, prio)
 					if requestSuccess then
+						if GetFFlagPartyVoiceMuteScopeFix() then
+							log:info("CEV requestAudioFocusWithPromise - focusGranted: {}", focusGranted)
+						end
 						resolve(focusGranted) -- Still resolve, but indicate failure to grant focus
 					else
+						if GetFFlagPartyVoiceMuteScopeFix() then
+							log:info("CEV requestAudioFocusWithPromise - rejected")
+						end
 						reject("Failed to call RequestFocus due to an error") -- Reject the promise in case of an error
 					end
 				end)
@@ -883,7 +988,9 @@ function initializeAFM()
 			requestAudioFocusWithPromise(contextId, focusPriority)
 				:andThen(function(focusGranted)
 					if focusGranted then
-						log:info("CEV audio focus request granted, preparing to undeafen.")
+						if GetFFlagPartyVoiceMuteScopeFix() then
+							log:info("CEV audio focus request granted, preparing to undeafen.")
+						end
 						CoreVoiceManager.muteChanged.Event:Once(function(muted)
 							if
 								muted ~= nil and (FFlagPartyVoiceFixCaptureVideoCheck and not isCapturingVideo())
@@ -1036,16 +1143,13 @@ if CevReadinessSync then
 				log:info("Readiness signal received within timeout.")
 			else
 				log:info("Timed out waiting for readiness signal. Starting voice anyway.")
-				sendAnalyticsEvent(
-					"partyVoiceInitTimedOut",
-					{
-						userId = if not CEVLogsToEventIngest then localUserId else nil,
-						timeout = FIntVoiceJoinTimeoutInSeconds,
-						clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
-							then os.time()
-							else nil :: never,
-					}
-				)
+				sendAnalyticsEvent("partyVoiceInitTimedOut", {
+					userId = if not CEVLogsToEventIngest then localUserId else nil,
+					timeout = FIntVoiceJoinTimeoutInSeconds,
+					clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
+						then os.time()
+						else nil :: never,
+				})
 			end
 
 			doStartVoice()

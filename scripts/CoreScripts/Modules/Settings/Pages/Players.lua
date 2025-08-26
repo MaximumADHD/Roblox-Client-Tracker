@@ -139,8 +139,6 @@ local FFlagUseNotificationsLocalization = success and result
 local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagPauseMuteFix = require(RobloxGui.Modules.Flags.GetFFlagPauseMuteFix)
-local GetFFlagPlayerListAnimateMic = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPlayerListAnimateMic
-local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local FFlagAvatarChatCoreScriptSupport =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagUseFriendsPropsInMuteToggles =
@@ -685,23 +683,18 @@ local function Initialize()
 			imageTransparency = 0.5
 		elseif not playerStatus.subscriptionCompleted then
 			image = MuteStatusIcons.Loading
-		elseif GetFFlagPlayerListAnimateMic() and playerStatus.isSignalActive then
+		elseif playerStatus.isSignalActive then
 			local level = math.random()
 			local roundedLevel = 20 * math.floor(0.5 + 5 * level)
 			image = VoiceChatServiceManager:GetIcon(
 				"Unmuted" .. tostring(roundedLevel),
-				if GetFFlagOldMenuUseSpeakerIcons() then "SpeakerLight" else "MicLight"
+				"SpeakerLight"
 			)
 		end
 
 		if oldButton then
-			local muteStatusLabel
-			if GetFFlagPlayerListAnimateMic() then
-				muteStatusLabel = muteImageButtons[playerStatus.userId]
+			local muteStatusLabel = muteImageButtons[playerStatus.userId]
 					or buttonParent:FindFirstChild("MuteStatusImageLabel", true)
-			else
-				muteStatusLabel = buttonParent:FindFirstChild("MuteStatusImageLabel", true)
-			end
 			muteStatusLabel.Image = image
 			muteStatusLabel.Size = imageSize
 			muteStatusLabel.ImageTransparency = imageTransparency
@@ -735,9 +728,7 @@ local function Initialize()
 						end
 					end
 				)
-				if GetFFlagPlayerListAnimateMic() then
 					muteImageButtons[playerStatus.userId] = muteLabelText
-				end
 				muteLabelText.ZIndex = 3
 				muteLabelText.Position = muteLabelText.Position + imageOffset
 				muteLabelText.ImageTransparency = imageTransparency
@@ -842,15 +833,15 @@ local function Initialize()
 		local newMuted = VoiceChatServiceManager.localMuted
 		local image
 		if newMuted == nil then
-			image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.Loading else MuteStatusIcons.Loading
+			image = PlayerMuteStatusIcons.Loading 
 		elseif newMuted then
-			image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.MicOff else MuteStatusIcons.MicOff
-		elseif VoiceChatServiceManager.isTalking and GetFFlagPlayerListAnimateMic() then
+			image = PlayerMuteStatusIcons.MicOff 
+		elseif VoiceChatServiceManager.isTalking then
 			local level = math.random()
 			local roundedLevel = 20 * math.floor(0.5 + 5 * level)
 			image = VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), "MicLight")
 		else
-			image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.MicOn else MuteStatusIcons.MicOn
+			image = PlayerMuteStatusIcons.MicOn
 		end
 		return image
 	end
@@ -2274,7 +2265,7 @@ local function Initialize()
 		end
 
 		local frame = 0
-		if voiceChatServiceConnected and not renderSteppedConnected and GetFFlagPlayerListAnimateMic() then
+		if voiceChatServiceConnected and not renderSteppedConnected then
 			log:debug("Setting Up Playerlist Mic Update Renderstep Hook")
 			RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
 				frame = frame + 1
@@ -2319,7 +2310,7 @@ local function Initialize()
 	end
 
 	local cleanup = function()
-		if renderStepName and renderSteppedConnected and GetFFlagPlayerListAnimateMic() then
+		if renderStepName and renderSteppedConnected then
 			log:debug("Unbinding Playerlist Mic Update Renderstep Hook")
 			renderSteppedConnected = false
 			RunService:UnbindFromRenderStep(renderStepName)
@@ -2338,9 +2329,7 @@ local function Initialize()
 				end)
 				VoiceChatServiceManager.participantLeft.Event:Connect(function(participants, userLeft)
 					updateAllMuteButtons()
-					if GetFFlagPlayerListAnimateMic() then
 						muteImageButtons[userLeft] = nil
-					end
 					if GetFFlagUseFriendsPropsInMuteToggles() then
 						playersFriends[userLeft] = nil
 					end

@@ -81,17 +81,23 @@ MAIN:
   FORGLOOP R5 2 [-2]
   MOVE R2 R4
   SETTABLEKS R2 R1 K5 ["INSTANCE_CHECK"]
-  DUPTABLE R2 K39 [{"LayerFilters", "ActiveLayersFilter", "FrameBufferDuration", "SkipUIFrames"}]
-  LOADK R3 K40 ["CD_LayerFilters"]
+  DUPTABLE R2 K42 [{"LayerFilters", "ActiveLayersFilter", "FrameBufferDuration", "SkipUIFrames", "WasEnabled", "CompositorViewMode", "ViewportRect"}]
+  LOADK R3 K43 ["CD_LayerFilters"]
   SETTABLEKS R3 R2 K35 ["LayerFilters"]
-  LOADK R3 K41 ["CD_ActiveLayersFilter"]
+  LOADK R3 K44 ["CD_ActiveLayersFilter"]
   SETTABLEKS R3 R2 K36 ["ActiveLayersFilter"]
-  LOADK R3 K42 ["CD_FrameBufferDuration"]
+  LOADK R3 K45 ["CD_FrameBufferDuration"]
   SETTABLEKS R3 R2 K37 ["FrameBufferDuration"]
-  LOADK R3 K43 ["CD_SkipUIFrames"]
+  LOADK R3 K46 ["CD_SkipUIFrames"]
   SETTABLEKS R3 R2 K38 ["SkipUIFrames"]
+  LOADK R3 K47 ["CD_WasEnabled"]
+  SETTABLEKS R3 R2 K39 ["WasEnabled"]
+  LOADK R3 K48 ["CD_CompositorViewMode"]
+  SETTABLEKS R3 R2 K40 ["CompositorViewMode"]
+  LOADK R3 K49 ["CD_ViewportRect"]
+  SETTABLEKS R3 R2 K41 ["ViewportRect"]
   SETTABLEKS R2 R1 K6 ["SETTINGS"]
-  LOADK R2 K44 ["HasCompositor"]
+  LOADK R2 K50 ["HasCompositor"]
   SETTABLEKS R2 R1 K7 ["COMPOSITOR_ATTRIBUTE"]
   LOADN R2 10
   SETTABLEKS R2 R1 K8 ["DEFAULT_TIMECONTROLS_INTERVAL"]
@@ -106,31 +112,31 @@ MAIN:
   SETLIST R2 R3 5 [1]
   SETTABLEKS R2 R1 K10 ["SKIP_UI_FRAMES"]
   NEWTABLE R2 4 0
-  DUPTABLE R3 K47 [{"Minor", "Major"}]
+  DUPTABLE R3 K53 [{"Minor", "Major"}]
   LOADN R4 1
-  SETTABLEKS R4 R3 K45 ["Minor"]
+  SETTABLEKS R4 R3 K51 ["Minor"]
   LOADN R4 5
-  SETTABLEKS R4 R3 K46 ["Major"]
+  SETTABLEKS R4 R3 K52 ["Major"]
   SETTABLEN R3 R2 10
-  DUPTABLE R3 K49 [{"Minor", "Medium", "Major"}]
+  DUPTABLE R3 K55 [{"Minor", "Medium", "Major"}]
   LOADN R4 1
-  SETTABLEKS R4 R3 K45 ["Minor"]
+  SETTABLEKS R4 R3 K51 ["Minor"]
   LOADN R4 5
-  SETTABLEKS R4 R3 K48 ["Medium"]
+  SETTABLEKS R4 R3 K54 ["Medium"]
   LOADN R4 10
-  SETTABLEKS R4 R3 K46 ["Major"]
+  SETTABLEKS R4 R3 K52 ["Major"]
   SETTABLEN R3 R2 30
-  DUPTABLE R3 K47 [{"Minor", "Major"}]
+  DUPTABLE R3 K53 [{"Minor", "Major"}]
   LOADN R4 5
-  SETTABLEKS R4 R3 K45 ["Minor"]
+  SETTABLEKS R4 R3 K51 ["Minor"]
   LOADN R4 10
-  SETTABLEKS R4 R3 K46 ["Major"]
+  SETTABLEKS R4 R3 K52 ["Major"]
   SETTABLEN R3 R2 60
   SETTABLEKS R2 R1 K11 ["TIMECONTROLS_INVERVALS"]
   LOADN R2 30
   SETTABLEKS R2 R1 K12 ["BLEND_TRAIL_LENGTH"]
-  DUPTABLE R2 K51 [{"SphereRadius"}]
-  LOADK R3 K52 [0.05]
-  SETTABLEKS R3 R2 K50 ["SphereRadius"]
+  DUPTABLE R2 K57 [{"SphereRadius"}]
+  LOADK R3 K58 [0.05]
+  SETTABLEKS R3 R2 K56 ["SphereRadius"]
   SETTABLEKS R2 R1 K13 ["GIZMOS"]
   RETURN R1 1

@@ -37,6 +37,7 @@ local FFlagRefactorHelpPage = HelpPage.Flags.FFlagRefactorHelpPage
 local FFlagHelpPageTouch = HelpPage.Flags.FFlagHelpPageTouch
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagHelpPageShowVersion = game:DefineFastFlag("HelpPageShowVersion", false)
+local FFlagHelpPageRemoveNavProvider = game:DefineFastFlag("HelpPageRemoveNavProvider", false)
 
 local Integrations = nil
 local Constants = nil
@@ -89,20 +90,28 @@ local function createHelpPage()
         local HelpConditionalView = function()
             local displayed = SignalsReact.useSignalState(getDisplayed)
 
-            local Help = if displayed then React.createElement(CoreScriptsRootProvider, {}, {
-                FoundationProvider = React.createElement(FoundationProvider, {
-                    theme = Foundation.Enums.Theme.Dark,
-                    device = Utils.getDeviceType(),
+            local Child = if displayed then React.createElement(FoundationProvider, {
+                theme = Foundation.Enums.Theme.Dark,
+                device = Utils.getDeviceType(),
+            }, {
+                Child = React.createElement(LocalizationProvider, {
+                    localization = locales,
                 }, {
-                    Child = React.createElement(LocalizationProvider, {
-                        localization = locales,
-                    }, {
-                        FocusRoot = React.createElement(HelpFocusRoot, {}, {
-                            Child = React.createElement(HelpReactView)
-                        })
+                    FocusRoot = if FFlagHelpPageRemoveNavProvider then React.createElement(HelpReactView)
+                    else React.createElement(HelpFocusRoot, {}, {
+                        Child = React.createElement(HelpReactView)
                     })
                 })
             }) else nil
+
+            local Help: React.React_Node?
+            if displayed and not FFlagHelpPageRemoveNavProvider then
+                Help = React.createElement(CoreScriptsRootProvider, {}, {
+                    Child = Child
+                })
+            else
+                Help = Child
+            end
 
             return Help
         end

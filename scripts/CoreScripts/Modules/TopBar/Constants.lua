@@ -1,7 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
 
+local Signals = require(CorePackages.Packages.Signals)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local Display = require(CorePackages.Workspace.Packages.Display)
+local getUIScale = Display.GetDisplayStore(false).getUIScale
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local Modules = script.Parent.Parent
 local TenFootInterface = require(Modules.TenFootInterface)
@@ -56,6 +62,17 @@ local GAMEPAD_INPUT_TYPES = {
 }
 
 return {
+	ApplyDisplayScale = function(value: number)
+		return if FFlagTopBarStyleUseDisplayUIScale then getUIScale(false) * value else value
+	end,
+	useDisplayScaleState = function(value: number)
+		return if FFlagTopBarStyleUseDisplayUIScale 
+			then SignalsReact.useSignalState(Signals.createComputed(function(scope) 
+				local UiScale = Display.GetDisplayStore(scope).getUIScale
+				return value * UiScale(scope)
+			end)) 
+		else value
+	end,
 	TopBarHeight = topbarHeight,
 	TopBarHeightTenFoot = if FFlagUnibarMenuIconLayoutFix and ChromeEnabled() then nil else 72,
 	TopBarButtonHeight = topbarButtonHeight,

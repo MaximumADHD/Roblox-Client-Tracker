@@ -31,7 +31,6 @@ local GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses =
 
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
-local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local GetFFlagVoiceChatServiceManagerUseAvatarChat =
@@ -39,10 +38,7 @@ local GetFFlagVoiceChatServiceManagerUseAvatarChat =
 local FFlagAvatarChatCoreScriptSupport =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagUseLuaSignalrConsumer = require(VoiceChatCore.Flags.GetFFlagUseLuaSignalrConsumer)
-local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 local GetFFlagNonVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNonVoiceFTUX
-local GetFFlagEnableNudgeAnalytics = require(VoiceChatCore.Flags.GetFFlagEnableNudgeAnalytics)
-local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
 local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
@@ -81,10 +77,6 @@ local FFlagDisablePermissionPromptDeeplink = game:DefineFastFlag("DisablePermiss
 local getFFlagMicrophoneDevicePermissionsPromptLogging =
 	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
-local GetFFlagEnableInExpVoiceConsentAnalytics =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceConsentAnalytics)
-local GetFFlagEnableInExpMicPermissionsAnalytics =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableInExpMicPermissionsAnalytics)
 local GetFIntThrottleParticipantsUpdateMs = require(VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagEnableConnectDisconnectAnalytics =
@@ -250,7 +242,7 @@ local VoiceChatServiceManager = {
 	showVoiceUI = Instance.new("BindableEvent"),
 	hideVoiceUI = Instance.new("BindableEvent"),
 	voiceUIVisible = false,
-	mutedNonFriends = if FFlagMuteNonFriendsEvent then Instance.new("BindableEvent") else nil,
+	mutedNonFriends = Instance.new("BindableEvent"),
 	userAgencySelected = Instance.new("BindableEvent"),
 	sendMuteEvent = nil,
 	LikelySpeakingUsersEvent = nil,
@@ -423,7 +415,7 @@ function VoiceChatServiceManager.new(
 		end
 	end
 
-	local iconStyle = if GetFFlagOldMenuUseSpeakerIcons() then "SpeakerLight" else "MicLight"
+	local iconStyle = "SpeakerLight"
 	self.MuteStatusIcons = {
 		MicOn = self:GetIcon("Unmuted0", iconStyle),
 		MicOff = self:GetIcon("Muted", iconStyle),
@@ -450,7 +442,7 @@ function VoiceChatServiceManager.new(
 		else nil
 	self.coreVoiceManager:subscribe("GetPermissions", function(callback, permissions, shouldNotRequestPerms, rawGet)
 		local context = "VoiceChatServiceManager.requestMicPermission"
-		if GetFFlagEnableInExpMicPermissionsAnalytics() and self.inExpUpsellEntrypoint ~= nil then
+		if self.inExpUpsellEntrypoint ~= nil then
 			context = self.inExpUpsellEntrypoint
 		end
 		self.getPermissionsFunction(callback, permissions, shouldNotRequestPerms, context, rawGet)
@@ -1206,229 +1198,218 @@ function VoiceChatServiceManager:HideVoiceUI()
 end
 
 function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptType)
-	if not self.voiceChatPromptInstance or GetFFlagAlwaysMountVoicePrompt() then
-		if self.promptSignal then
-			self.promptSignal:Destroy()
-			self.promptSignal = nil
-		end
-		self.promptSignal = Instance.new("BindableEvent")
-		local errorText = nil
-		if GetFFlagEnableVoicePromptReasonText() then
-			errorText = self.errorText
-		end
+	
+	if self.promptSignal then
+		self.promptSignal:Destroy()
+		self.promptSignal = nil
+	end
+	self.promptSignal = Instance.new("BindableEvent")
+	local errorText = nil
+	if GetFFlagEnableVoicePromptReasonText() then
+		errorText = self.errorText
+	end
 
-		local isUpdatedBanModalB = promptType == VoiceChatPromptType.VoiceChatSuspendedTemporaryB
-		local banEnd = ""
-		if self.bannedUntil ~= nil then
-			if isUpdatedBanModalB then
-				-- We receive the date/time of the ban's end. For the updated Nudge v3 modal we need to show number of minutes the user is banned aka
-				-- the difference between the ban's end and the current time
-				local banDuration = self:calculateBanDuration(DateTime.now().UnixTimestamp, self.bannedUntil.Seconds)
-				banEnd = tostring(banDuration)
-			else
-				banEnd = DateTime.fromUnixTimestamp(self.bannedUntil.Seconds)
-					:FormatLocalTime("l LT", LocalizationService.RobloxLocaleId)
-			end
+	local isUpdatedBanModalB = promptType == VoiceChatPromptType.VoiceChatSuspendedTemporaryB
+	local banEnd = ""
+	if self.bannedUntil ~= nil then
+		if isUpdatedBanModalB then
+			-- We receive the date/time of the ban's end. For the updated Nudge v3 modal we need to show number of minutes the user is banned aka
+			-- the difference between the ban's end and the current time
+			local banDuration = self:calculateBanDuration(DateTime.now().UnixTimestamp, self.bannedUntil.Seconds)
+			banEnd = tostring(banDuration)
+		else
+			banEnd = DateTime.fromUnixTimestamp(self.bannedUntil.Seconds)
+				:FormatLocalTime("l LT", LocalizationService.RobloxLocaleId)
 		end
-		local isNudge = GetFFlagEnableNudgeAnalytics()
-			and (
-				promptType == VoiceChatPromptType.VoiceToxicityModal
-				or promptType == VoiceChatPromptType.VoiceToxicityToast
-			)
-		local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell()
-			and (
-				promptType == VoiceChatPromptType.VoiceConsentModalV1
-				or promptType == VoiceChatPromptType.VoiceConsentModalV2
-				or promptType == VoiceChatPromptType.VoiceConsentModalV3
-			)
+	end
+	local isNudge = (
+			promptType == VoiceChatPromptType.VoiceToxicityModal
+			or promptType == VoiceChatPromptType.VoiceToxicityToast
+		)
+	local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell()
+		and (
+			promptType == VoiceChatPromptType.VoiceConsentModalV1
+			or promptType == VoiceChatPromptType.VoiceConsentModalV2
+			or promptType == VoiceChatPromptType.VoiceConsentModalV3
+		)
 
-		local success = false
-		local canSwitchToSettings = nil
-		if GetFFlagShowDevicePermissionsModal() and promptType == VoiceChatPromptType.DevicePermissionsModal then
-			-- There is a known issue where calling LinkingProtocol:supportsSwitchToSettingsApp for the first time
-			-- stalls forever and never resolves, but when it's called any time after that it succeeds. To work around
-			-- this before a fix goes out, we run the code in a separate thread and wait briefly for it determine
-			-- if the device supports deeplinking. We cancel the task and check if we were able to determine this.
-			-- If not, we retry so that we get the success the second time.
-			-- Once the actual fix is implemented, we can flip the flag off and clean up the logic
-			if self.settingsAppAvailable == nil then
-				if FFlagEnableRetryForLinkingProtocolFetch then
-					for i = 0, FIntLinkingProtocolFetchRetries do
-						local supportsSwitchToSettingsTask = task.spawn(function()
-							success, canSwitchToSettings =
-								LinkingProtocol:supportsSwitchToSettingsApp(SettingsRoute.Microphone):await()
-						end)
-						task.wait(FIntLinkingProtocolFetchTimeoutMS / 1000)
-						task.cancel(supportsSwitchToSettingsTask)
+	local success = false
+	local canSwitchToSettings = nil
+	if GetFFlagShowDevicePermissionsModal() and promptType == VoiceChatPromptType.DevicePermissionsModal then
+		-- There is a known issue where calling LinkingProtocol:supportsSwitchToSettingsApp for the first time
+		-- stalls forever and never resolves, but when it's called any time after that it succeeds. To work around
+		-- this before a fix goes out, we run the code in a separate thread and wait briefly for it determine
+		-- if the device supports deeplinking. We cancel the task and check if we were able to determine this.
+		-- If not, we retry so that we get the success the second time.
+		-- Once the actual fix is implemented, we can flip the flag off and clean up the logic
+		if self.settingsAppAvailable == nil then
+			if FFlagEnableRetryForLinkingProtocolFetch then
+				for i = 0, FIntLinkingProtocolFetchRetries do
+					local supportsSwitchToSettingsTask = task.spawn(function()
+						success, canSwitchToSettings =
+							LinkingProtocol:supportsSwitchToSettingsApp(SettingsRoute.Microphone):await()
+					end)
+					task.wait(FIntLinkingProtocolFetchTimeoutMS / 1000)
+					task.cancel(supportsSwitchToSettingsTask)
 
-						if canSwitchToSettings ~= nil then
-							break
-						end
+					if canSwitchToSettings ~= nil then
+						break
 					end
-				else
-					success, canSwitchToSettings = LinkingProtocol:supportsSwitchToSettingsApp(SettingsRoute.Microphone)
-						:await()
 				end
-
-				-- We cache the result of checking if the device supports deeplinking so that we don't call logic above again
-				self.settingsAppAvailable = success and canSwitchToSettings
+			else
+				success, canSwitchToSettings = LinkingProtocol:supportsSwitchToSettingsApp(SettingsRoute.Microphone)
+					:await()
 			end
+
+			-- We cache the result of checking if the device supports deeplinking so that we don't call logic above again
+			self.settingsAppAvailable = success and canSwitchToSettings
 		end
+	end
 
-		self.voiceChatPromptInstance = Roact.mount(
-			Roact.createElement(VoiceChatPrompt, {
-				Analytics = Analytics.new(),
-				promptSignal = self.promptSignal.Event,
-				bannedUntil = banEnd,
-				policyMapper = self.policyMapper,
-				errorText = errorText,
-				onReadyForSignal = onReadyForSignal,
-				VoiceChatServiceManager = self,
-				settingsAppAvailable = if self.settingsAppAvailable == nil then false else self.settingsAppAvailable,
-				onContinueFunc = if promptType == VoiceChatPromptType.VoiceChatSuspendedTemporary
-						or isUpdatedBanModalB
-					then function()
-						PostInformedOfBan(bind(self, "PostRequest"), true)
+	self.voiceChatPromptInstance = Roact.mount(
+		Roact.createElement(VoiceChatPrompt, {
+			Analytics = Analytics.new(),
+			promptSignal = self.promptSignal.Event,
+			bannedUntil = banEnd,
+			policyMapper = self.policyMapper,
+			errorText = errorText,
+			onReadyForSignal = onReadyForSignal,
+			VoiceChatServiceManager = self,
+			settingsAppAvailable = if self.settingsAppAvailable == nil then false else self.settingsAppAvailable,
+			onContinueFunc = if promptType == VoiceChatPromptType.VoiceChatSuspendedTemporary
+					or isUpdatedBanModalB
+				then function()
+					PostInformedOfBan(bind(self, "PostRequest"), true)
+				end
+				elseif isNudge then function()
+					self.Analytics:reportClosedNudge(self:GetNudgeAnalyticsData())
+				end
+				elseif isVoiceConsentModal then function()
+					if GetFFlagUsePostRecordUserSeenGeneralModal() then
+						self:RecordUserSeenModal(VoiceConstants.MODAL_IDS.IN_EXP_UPSELL)
 					end
-					elseif isNudge then function()
-						self.Analytics:reportClosedNudge(self:GetNudgeAnalyticsData())
+					if
+						GetFFlagShowLikelySpeakingBubbles()
+						and ExperienceChat.Events.ShowLikelySpeakingBubblesChanged
+					then
+						ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
 					end
-					elseif isVoiceConsentModal then function()
-						if GetFFlagUsePostRecordUserSeenGeneralModal() then
-							self:RecordUserSeenModal(VoiceConstants.MODAL_IDS.IN_EXP_UPSELL)
-						end
-						if
-							GetFFlagShowLikelySpeakingBubbles()
-							and ExperienceChat.Events.ShowLikelySpeakingBubblesChanged
-						then
-							ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-						end
+				end
+				else nil,
+			onPrimaryActivated = if isNudge
+				then function()
+					self.Analytics:reportAcknowledgedNudge(self:GetNudgeAnalyticsData())
+				end
+				elseif
+					not FFlagDisablePermissionPromptDeeplink
+					and GetFFlagJoinWithoutMicPermissions()
+					and promptType == VoiceChatPromptType.Permission
+				then function()
+					local settingsAppAvailable = LinkingProtocol:supportsSwitchToSettingsApp():await()
+					log:debug("Settings app available: {}", settingsAppAvailable)
+					if settingsAppAvailable then
+						log:debug("Switching to settings app")
+						LinkingProtocol:switchToSettingsApp()
+							:andThen(function()
+								log:debug("Successfully switched to settings app")
+							end)
+							:catch(function()
+								log:error("Error switching to settings app")
+							end)
+					else
+						log:debug("Current platform does not support switching to settings app")
 					end
-					else nil,
-				onPrimaryActivated = if isNudge
-					then function()
-						self.Analytics:reportAcknowledgedNudge(self:GetNudgeAnalyticsData())
-					end
-					elseif
-						not FFlagDisablePermissionPromptDeeplink
-						and GetFFlagJoinWithoutMicPermissions()
-						and promptType == VoiceChatPromptType.Permission
-					then function()
-						local settingsAppAvailable = LinkingProtocol:supportsSwitchToSettingsApp():await()
-						log:debug("Settings app available: {}", settingsAppAvailable)
-						if settingsAppAvailable then
-							log:debug("Switching to settings app")
-							LinkingProtocol:switchToSettingsApp()
-								:andThen(function()
-									log:debug("Successfully switched to settings app")
-								end)
-								:catch(function()
-									log:error("Error switching to settings app")
-								end)
-						else
-							log:debug("Current platform does not support switching to settings app")
-						end
-					end
-					elseif
-						GetFFlagJoinWithoutMicPermissions()
-						and GetFFlagShowDevicePermissionsModal()
-						and promptType == VoiceChatPromptType.DevicePermissionsModal
-					then function()
-						log:debug("Settings app available: {}", self.settingsAppAvailable)
-						if GetFFlagSendDevicePermissionsModalAnalytics() then
-							self.Analytics:reportDevicePermissionsModalEvent(
-								if self.settingsAppAvailable then "OpenedSettings" else "Acknowledged",
-								self:GetSessionId(),
-								self:GetInExpUpsellAnalyticsData()
-							)
-						end
-
-						if self.settingsAppAvailable then
-							log:debug("Switching to settings app")
-							LinkingProtocol:switchToSettingsApp(SettingsRoute.Microphone)
-								:andThen(function()
-									log:debug("Successfully switched to settings app")
-								end)
-								:catch(function()
-									log:error("Error switching to settings app")
-								end)
-						else
-							log:debug("Current platform does not support switching to settings app")
-						end
-					end
-					elseif isUpdatedBanModalB then function()
-						self:reportBanMessage("Understood")
-						self.Analytics:reportBanMessageEvent("Understood")
-					end
-					elseif isVoiceConsentModal then function()
-						if GetFFlagEnableInExpVoiceConsentAnalytics() then
-							self.Analytics:reportInExpConsent(
-								"accepted",
-								self.inExpUpsellEntrypoint,
-								self:GetInExpUpsellAnalyticsData()
-							)
-						end
-						self:EnableVoice()
-					end
-					else nil,
-				onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
-					then function()
-						self:ShowVoiceToxicityFeedbackToast()
-						if FFlagFixNudgeDeniedEvents then
-							self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())
-						end
-					end
-					elseif isNudge then function()
-						self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())
-					end
-					elseif isUpdatedBanModalB then function()
-						self:ShowVoiceToxicityFeedbackToast()
-						self:reportBanMessage("Denied")
-						self.Analytics:reportBanMessageEvent("Denied")
-					end
-					elseif isVoiceConsentModal then function()
-						if GetFFlagEnableInExpVoiceConsentAnalytics() then
-							self.Analytics:reportInExpConsent(
-								"denied",
-								self.inExpUpsellEntrypoint,
-								self:GetInExpUpsellAnalyticsData()
-							)
-						end
-						if self.inExpUpsellEntrypoint ~= VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE then
-							self:showPrompt(VoiceChatPromptType.VoiceConsentDeclinedToast)
-						end
-					end
-					elseif
-						GetFFlagSendDevicePermissionsModalAnalytics()
-						and promptType == VoiceChatPromptType.DevicePermissionsModal
-					then function()
+				end
+				elseif
+					GetFFlagJoinWithoutMicPermissions()
+					and GetFFlagShowDevicePermissionsModal()
+					and promptType == VoiceChatPromptType.DevicePermissionsModal
+				then function()
+					log:debug("Settings app available: {}", self.settingsAppAvailable)
+					if GetFFlagSendDevicePermissionsModalAnalytics() then
 						self.Analytics:reportDevicePermissionsModalEvent(
-							"Denied",
+							if self.settingsAppAvailable then "OpenedSettings" else "Acknowledged",
 							self:GetSessionId(),
 							self:GetInExpUpsellAnalyticsData()
 						)
 					end
-					else nil,
-			}),
-			CoreGui,
-			"RobloxVoiceChatPromptGui"
-		)
-	end
+
+					if self.settingsAppAvailable then
+						log:debug("Switching to settings app")
+						LinkingProtocol:switchToSettingsApp(SettingsRoute.Microphone)
+							:andThen(function()
+								log:debug("Successfully switched to settings app")
+							end)
+							:catch(function()
+								log:error("Error switching to settings app")
+							end)
+					else
+						log:debug("Current platform does not support switching to settings app")
+					end
+				end
+				elseif isUpdatedBanModalB then function()
+					self:reportBanMessage("Understood")
+					self.Analytics:reportBanMessageEvent("Understood")
+				end
+				elseif isVoiceConsentModal then function()
+					self.Analytics:reportInExpConsent(
+						"accepted",
+						self.inExpUpsellEntrypoint,
+						self:GetInExpUpsellAnalyticsData()
+					)
+					self:EnableVoice()
+				end
+				else nil,
+			onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
+				then function()
+					self:ShowVoiceToxicityFeedbackToast()
+					if FFlagFixNudgeDeniedEvents then
+						self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())
+					end
+				end
+				elseif isNudge then function()
+					self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())
+				end
+				elseif isUpdatedBanModalB then function()
+					self:ShowVoiceToxicityFeedbackToast()
+					self:reportBanMessage("Denied")
+					self.Analytics:reportBanMessageEvent("Denied")
+				end
+				elseif isVoiceConsentModal then function()
+					self.Analytics:reportInExpConsent(
+						"denied",
+						self.inExpUpsellEntrypoint,
+						self:GetInExpUpsellAnalyticsData()
+					)
+					if self.inExpUpsellEntrypoint ~= VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE then
+						self:showPrompt(VoiceChatPromptType.VoiceConsentDeclinedToast)
+					end
+				end
+				elseif
+					GetFFlagSendDevicePermissionsModalAnalytics()
+					and promptType == VoiceChatPromptType.DevicePermissionsModal
+				then function()
+					self.Analytics:reportDevicePermissionsModalEvent(
+						"Denied",
+						self:GetSessionId(),
+						self:GetInExpUpsellAnalyticsData()
+					)
+				end
+				else nil,
+		}),
+		CoreGui,
+		"RobloxVoiceChatPromptGui"
+	)
 end
 
 function VoiceChatServiceManager:showPrompt(promptType, errorText)
 	if GetFFlagEnableVoicePromptReasonText() then
 		self.errorText = errorText or nil
 	end
-	if not self.voiceChatPromptInstance or GetFFlagAlwaysMountVoicePrompt() then
-		self:createPromptInstance(function()
-			log:debug("Show Prompt: {}", promptType)
-			self.promptSignal:fire(promptType)
-		end, promptType)
-	else
+	self:createPromptInstance(function()
 		log:debug("Show Prompt: {}", promptType)
 		self.promptSignal:fire(promptType)
-	end
+	end, promptType)
 end
 
 function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
@@ -1633,9 +1614,7 @@ function VoiceChatServiceManager:ToggleMuteSome(
 end
 
 function VoiceChatServiceManager:FireMuteNonFriendsEvent()
-	if FFlagMuteNonFriendsEvent then
-		self.mutedNonFriends:Fire()
-	end
+	self.mutedNonFriends:Fire()
 end
 
 function VoiceChatServiceManager:EnsureCorrectMuteState(userIds: { number }, muteState: boolean)

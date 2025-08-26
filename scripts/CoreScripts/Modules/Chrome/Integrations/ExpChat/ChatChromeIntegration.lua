@@ -43,6 +43,7 @@ local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUniba
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -133,7 +134,7 @@ chatChromeIntegration = ChromeService:register({
 		if chatVisibility then
 			ChatSelector:SetVisible(false)
 		else
-			if isInExperienceUIVREnabled and isSpatial() then
+			if (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter() then
 				ChatSelector:SetVisible(true)
 			else
 				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()

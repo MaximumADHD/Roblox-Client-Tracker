@@ -17,6 +17,7 @@ local GetFStringInExperienceMenuIXPLayer = require(Modules.Settings.Flags.GetFSt
 local GetFStringInExperienceMenuIXPVar = require(Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar)
 local FFlagInExperienceMenuReorderFirstVariant = require(Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
 local FFlagOverrideInExperienceMenuReorderFirstVariant = require(Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant)
+local GetFFlagEnablePlayerNamesEnabledSetting = require(Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
 
 -------------- Modules ----------------
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
@@ -79,6 +80,10 @@ SETTINGS_MENU_LAYOUT_ORDER.MicroProfilerFrame = 81
 -- VR, Dev Console, Special
 SETTINGS_MENU_LAYOUT_ORDER.VREnabledFrame = 100
 SETTINGS_MENU_LAYOUT_ORDER.DeveloperConsoleButton = 101
+-- AntiHarassment Settings
+if GetFFlagEnablePlayerNamesEnabledSetting() then
+	SETTINGS_MENU_LAYOUT_ORDER.PlayerNamesEnabledFrame = 105
+end
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRow = 200
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowCustom = 200 -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowBillboards = 201
@@ -140,6 +145,10 @@ LAYOUT_REORDER_VARIANT_1.VREnabledFrame = 120
 LAYOUT_REORDER_VARIANT_1.PerformanceStatsFrame = 130
 LAYOUT_REORDER_VARIANT_1.MicroProfilerFrame = 131
 LAYOUT_REORDER_VARIANT_1.DeveloperConsoleButton = 132
+-- AntiHarassment Settings
+if GetFFlagEnablePlayerNamesEnabledSetting() then
+	LAYOUT_REORDER_VARIANT_1.PlayerNamesEnabledFrame = 136
+end
 -- Special
 LAYOUT_REORDER_VARIANT_1.UiToggleRow = 200
 LAYOUT_REORDER_VARIANT_1.UiToggleRowCustom = 200 -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true

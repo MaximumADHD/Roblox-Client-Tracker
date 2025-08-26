@@ -30,12 +30,14 @@ TitleBar.validateProps = t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 	entrySize = t.integer,
 	contentsVisible = t.boolean,
+	showBackground = t.optional(t.boolean),
 	isSmallTouchDevice = t.boolean,
 
 	gameStats = t.array(t.strictInterface({
 		name = t.string,
 		text = t.string,
 		addId = t.integer,
+		serverAddId = t.integer,
 		isPrimary = t.boolean,
 		priority = t.number,
 	})),

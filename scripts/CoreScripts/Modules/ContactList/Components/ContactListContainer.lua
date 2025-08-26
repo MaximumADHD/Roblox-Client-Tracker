@@ -53,7 +53,8 @@ local DOCKED_WIDTH = 376
 -- Margin between left and bottom border of the screen when small screen is not applied
 local PHONEBOOK_CONTAINER_MARGIN = 12
 -- Margin between phonebook and top border of screen
-local PHONEBOOK_CONTAINER_TOP_MARGIN = PHONEBOOK_CONTAINER_MARGIN + TopBarConstants.TopBarHeight
+local PHONEBOOK_CONTAINER_TOP_MARGIN = PHONEBOOK_CONTAINER_MARGIN
+	+ TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarHeight)
 -- Peekview includes header as part of the scrolling frame
 -- will need to substract the height to able to correctly
 -- calculate the content size

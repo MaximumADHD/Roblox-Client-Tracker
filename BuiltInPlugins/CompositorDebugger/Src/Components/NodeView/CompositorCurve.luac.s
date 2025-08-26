@@ -1,0 +1,113 @@
+PROTO_0:
+  NEWTABLE R0 0 0
+  DUPTABLE R3 K3 [{"Position", "LeftTangent", "RightTangent"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["Start"]
+  SETTABLEKS R4 R3 K0 ["Position"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K1 ["LeftTangent"]
+  GETIMPORT R4 K7 [Vector2.new]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["TangentSpacing"]
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["RightTangent"]
+  FASTCALL2 TABLE_INSERT R0 R3 [+4]
+  MOVE R2 R0
+  GETIMPORT R1 K11 [table.insert]
+  CALL R1 2 0
+  DUPTABLE R3 K3 [{"Position", "LeftTangent", "RightTangent"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K12 ["Finish"]
+  SETTABLEKS R4 R3 K0 ["Position"]
+  GETIMPORT R4 K7 [Vector2.new]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["TangentSpacing"]
+  MINUS R5 R6
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["LeftTangent"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K2 ["RightTangent"]
+  FASTCALL2 TABLE_INSERT R0 R3 [+4]
+  MOVE R2 R0
+  GETIMPORT R1 K11 [table.insert]
+  CALL R1 2 0
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useMemo"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  NEWTABLE R3 0 3
+  GETTABLEKS R4 R0 K1 ["Start"]
+  GETTABLEKS R5 R0 K2 ["Finish"]
+  GETTABLEKS R6 R0 K3 ["TangentSpacing"]
+  SETLIST R3 R4 3 [1]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["createElement"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["Fragment"]
+  NEWTABLE R4 0 0
+  DUPTABLE R5 K9 [{"Curve", "StartPoint", "FinishPoint"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K6 ["Curve"]
+  DUPTABLE R8 K13 [{"Points", "ZIndex", "Color3"}]
+  SETTABLEKS R1 R8 K10 ["Points"]
+  GETTABLEKS R9 R0 K11 ["ZIndex"]
+  SETTABLEKS R9 R8 K11 ["ZIndex"]
+  GETTABLEKS R9 R0 K12 ["Color3"]
+  SETTABLEKS R9 R8 K12 ["Color3"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["Curve"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K14 ["Point"]
+  DUPTABLE R8 K16 [{"Position", "ZIndex", "Color3"}]
+  GETTABLEKS R9 R0 K1 ["Start"]
+  SETTABLEKS R9 R8 K15 ["Position"]
+  GETTABLEKS R9 R0 K11 ["ZIndex"]
+  SETTABLEKS R9 R8 K11 ["ZIndex"]
+  GETTABLEKS R9 R0 K12 ["Color3"]
+  SETTABLEKS R9 R8 K12 ["Color3"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K7 ["StartPoint"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K14 ["Point"]
+  DUPTABLE R8 K16 [{"Position", "ZIndex", "Color3"}]
+  GETTABLEKS R9 R0 K2 ["Finish"]
+  SETTABLEKS R9 R8 K15 ["Position"]
+  GETTABLEKS R9 R0 K11 ["ZIndex"]
+  SETTABLEKS R9 R8 K11 ["ZIndex"]
+  GETTABLEKS R9 R0 K12 ["Color3"]
+  SETTABLEKS R9 R8 K12 ["Color3"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K8 ["FinishPoint"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Graphing"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1

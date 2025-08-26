@@ -11,6 +11,7 @@ local InspectAndBuy = require(InspectAndBuyModules.Components.InspectAndBuy)
 local InspectAndBuyInstanceHandle = nil
 
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
+local FFlagAXEnableNewInspectAndBuyContainer = require(InspectAndBuyModules.Flags.FFlagAXEnableNewInspectAndBuyContainer)
 
 local TopBar = require(RobloxGui.Modules.TopBar)
 
@@ -46,6 +47,15 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 			ctx = ctx,
 		}),
 	})
+
+	if FFlagAXEnableNewInspectAndBuyContainer then
+		inspectAndBuy = Roact.createElement(InspectAndBuy, {
+		humanoidDescription = humanoidDescription,
+		playerName = playerName,
+		playerId = userId,
+		ctx = ctx,
+	})
+	end
 
 	if isInExperienceUIVREnabled and isSpatial() then
 		local panelObject = UIManager.getInstance():getPanelObject(PanelType.MoreMenu)

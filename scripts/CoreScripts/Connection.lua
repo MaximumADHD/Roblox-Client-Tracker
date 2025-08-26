@@ -212,7 +212,7 @@ local promptOverlay = Create("Frame")({
 -- Update promptOverlay height after ChromeService fully loads
 coroutine.wrap(function()
 	local TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
-	local updatedInGameGlobalGuiInset = TopBarConstant.TopBarHeight
+	local updatedInGameGlobalGuiInset = TopBarConstant.ApplyDisplayScale(TopBarConstant.TopBarHeight)
 
 	promptOverlay.Size = UDim2.new(1, 0, 1, updatedInGameGlobalGuiInset)
 	promptOverlay.Position = UDim2.new(0, 0, 0, -updatedInGameGlobalGuiInset)

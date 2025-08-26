@@ -9,6 +9,7 @@ local LocalizationService = game:GetService("LocalizationService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
@@ -20,6 +21,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Signals = require(CorePackages.Packages.Signals)
 
 local StyleConstants = UIBlox.App.Style.Constants
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
@@ -39,15 +41,24 @@ local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 
-if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing) then
-	-- set this prior to TopBarApp require
-	local guiInsetTopLeft, guiInsetBottomRight = GuiService:GetGuiInset()
-	GuiService:SetGlobalGuiInset(
-		guiInsetTopLeft.X,
-		Constants.TopBarHeight,
-		guiInsetBottomRight.X,
-		guiInsetBottomRight.Y
-	)
+if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing or FFlagTopBarStyleUseDisplayUIScale) then
+	local function SetGlobalGuiInset()
+		-- set this prior to TopBarApp require
+		local guiInsetTopLeft, guiInsetBottomRight = GuiService:GetGuiInset()
+		GuiService:SetGlobalGuiInset(
+			guiInsetTopLeft.X,
+			Constants.ApplyDisplayScale(Constants.TopBarHeight),
+			guiInsetBottomRight.X,
+			guiInsetBottomRight.Y
+		)
+	end
+	SetGlobalGuiInset()
+	
+	if FFlagTopBarStyleUseDisplayUIScale then
+		Signals.createEffect(function(scope)
+			SetGlobalGuiInset()
+		end)
+	end
 end
 
 local TopBarApp = require(script.Components.TopBarApp)

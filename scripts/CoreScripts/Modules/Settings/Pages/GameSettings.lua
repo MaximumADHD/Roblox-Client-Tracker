@@ -75,6 +75,8 @@ local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatCli
 local GetFFlagVoiceChatClientRewriteDisableVCSDevice = SharedFlags.GetFFlagVoiceChatClientRewriteDisableVCSDevice
 local GetFFlagAudioDevicesCanDefaultToOSLua = SharedFlags.GetFFlagAudioDevicesCanDefaultToOSLua
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
+local FFlagShowAntiHarassmentSettings = game:DefineFastFlag("ShowAntiHarassmentSettings", false)
+local GetFFlagEnablePlayerNamesEnabledSetting = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
 
 local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
 local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
@@ -158,6 +160,11 @@ if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
 	UNAVAILABLE_TEXT = RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.Unavailable")
 	GIVE_FEEDBACK_TEXT = RobloxTranslator:FormatByKey("CoreScripts.Feedback.EntryPoint.ButtonText")
 end
+
+local PLAYER_NAMES_ENABLED_VALUES = {
+	On = 1,
+	Off = 2,
+}
 
 local function getDefaultCameraMode()
 	local isPreferredInputTouch = if FFlagGameSettingsUsePreferredInputMovement then 
@@ -263,6 +270,8 @@ else
 		-- VR, Dev Console, Special
 		["VREnabledFrame"] = 100,
 		["DeveloperConsoleButton"] = 101,
+		-- AntiHarassment Settings
+		["PlayerNamesEnabledFrame"] = if GetFFlagEnablePlayerNamesEnabledSetting() then 105 else nil,
 		["UiToggleRow"] = 200,
 		["UiToggleRowCustom"] = 200, -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true
 		["UiToggleRowBillboards"] = 201,
@@ -444,6 +453,9 @@ local function reportSettingsForAnalytics()
 	stringTable["ui_navigation_key_bind_enabled"] = tostring(GameSettings.UiNavigationKeyBindEnabled)
 
 	stringTable["universeid"] = tostring(game.GameId)
+	if GetFFlagEnablePlayerNamesEnabledSetting() then
+		stringTable["player_names_enabled"] = tostring(GameSettings.PlayerNamesEnabled)
+	end
 	AnalyticsService:SetRBXEventStream(
 		Constants.AnalyticsTargetName,
 		Constants.AnalyticsInGameMenuName,
@@ -793,6 +805,34 @@ local function Initialize()
 			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
 				reportSettingsChangeForAnalytics("reduced_motion", oldValue, GameSettings.ReducedMotion)
 			end
+			reportSettingsForAnalytics()
+		end)
+	end
+
+	local function createPlayerNamesEnabledOptions()
+		local playerNamesEnabledLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.CharacterNames")
+		local function GetPlayerNamesEnabledStartIndex()
+			if GameSettings.PlayerNamesEnabled then
+				return PLAYER_NAMES_ENABLED_VALUES.On
+			else
+				return PLAYER_NAMES_ENABLED_VALUES.Off
+			end
+		end
+
+		local startIndex = GetPlayerNamesEnabledStartIndex()
+
+		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
+
+		this.PlayerNamesEnabledFrame, this.playerNamesEnabledLabel, this.playerNamesEnabledMode = utility:AddNewRow(this, playerNamesEnabledLabel, "Selector", { onLabel, offLabel }, startIndex)
+
+		this.PlayerNamesEnabledFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER.PlayerNamesEnabledFrame
+
+		this.playerNamesEnabledMode.IndexChanged:connect(function(newIndex)
+			local oldValue = GameSettings.PlayerNamesEnabled
+			GameSettings.PlayerNamesEnabled = newIndex == PLAYER_NAMES_ENABLED_VALUES.On
+
+			reportSettingsChangeForAnalytics("player_names_enabled", oldValue, GameSettings.PlayerNamesEnabled)
 			reportSettingsForAnalytics()
 		end)
 	end
@@ -4012,6 +4052,9 @@ local function Initialize()
 
 	createHapticsToggle()
 	createGraphicsOptions()
+	if FFlagShowAntiHarassmentSettings and GetFFlagEnablePlayerNamesEnabledSetting() then
+		createPlayerNamesEnabledOptions()
+	end
 
 	if not isInExperienceUIVREnabled then
 		createReducedMotionOptions()

@@ -17,11 +17,14 @@ local FFlagEnableChromeAudioFocusManagement = game:DefineFastFlag("EnableChromeA
 local FFlagFixTopBarSlowLoad = require(CorePackages.Workspace.Packages.SharedFlags).FFlagFixTopBarSlowLoad
 local EnableChromeAudioFocusManagement = AudioFocusManagementEnabled and FFlagEnableChromeAudioFocusManagement
 
+local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+
 local ChromeService = require(Chrome.Service)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
+local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
-local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
@@ -55,8 +58,16 @@ muteSelf = ChromeService:register({
 	activated = toggleMic,
 	components = {
 		Icon = function(props)
+			local unibarStyle
+			local iconSize
+			if FFlagTokenizeUnibarConstantsWithStyleProvider then
+				unibarStyle = UnibarStyle.use()
+				iconSize = unibarStyle.ICON_SIZE
+			else
+				iconSize = Constants.ICON_SIZE
+			end
 			return React.createElement("Frame", {
-				Size = ICON_SIZE,
+				Size = UDim2.new(0, iconSize, 0, iconSize),
 				BackgroundTransparency = 1,
 			}, {
 				React.createElement(VoiceIndicator, {
@@ -64,7 +75,7 @@ muteSelf = ChromeService:register({
 					hideOnError = false,
 					iconStyle = "MicLight",
 					selectable = false,
-					size = ICON_SIZE,
+					size = UDim2.new(0, iconSize, 0, iconSize),
 					showConnectingShimmer = true,
 				}) :: any,
 				React.createElement(RedVoiceDot, {

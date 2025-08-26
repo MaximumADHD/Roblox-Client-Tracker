@@ -24,13 +24,17 @@ local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 
-local ChromeFlags = script.Parent.Parent.Parent.Flags
-local FFlagUnibarMenuOpenSubmenu = require(ChromeFlags.FFlagUnibarMenuOpenSubmenu)
+local ChromeFlags = require(script.Parent.Parent.Parent.Flags)
+local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
+
+local ChromeSharedFlags = require(Root.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ChromeService = require(Root.Service)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
+local UnibarStyle = require(Root.Unibar.UnibarStyle)
 
 local _integrations = if GetFFlagChromeCentralizedConfiguration() then nil else require(Root.Parent.Integrations)
 local SubMenu = require(Root.Unibar.SubMenu)
@@ -167,6 +171,14 @@ export type IconDividerProps = {
 -- Vertical divider bar that separates groups of icons within the Unibar
 function IconDivider(props: IconDividerProps)
 	local style = useStyle()
+	local unibarStyle
+	local iconDividerPosition
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconDividerPosition = unibarStyle.ICON_DIVIDER_POSITION
+	else
+		iconDividerPosition = Constants.ICON_DIVIDER_POSITION
+	end
 
 	return React.createElement("Frame", {
 		Position = props.position,
@@ -175,7 +187,7 @@ function IconDivider(props: IconDividerProps)
 		BackgroundTransparency = 1,
 	}, {
 		DividerBar = React.createElement("Frame", {
-			Position = Constants.ICON_DIVIDER_POSITION,
+			Position = iconDividerPosition,
 			AnchorPoint = Vector2.new(0, 0.5),
 			Size = Constants.ICON_DIVIDER_SIZE,
 			BorderSizePixel = 0,
@@ -322,6 +334,14 @@ function IconPositionBinding(
 	leftAlign: boolean?,
 	flipLerp: any
 )
+	local unibarStyle
+	local unibarEndPadding
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		unibarEndPadding = unibarStyle.UNIBAR_END_PADDING
+	else
+		unibarEndPadding = Constants.UNIBAR_END_PADDING
+	end
 	return React.joinBindings({ toggleTransition, iconReflow, unibarWidth })
 			:map(function(val: { [number]: number })
 				local open = 0
@@ -337,7 +357,7 @@ function IconPositionBinding(
 				end
 				local openDelta = open - closedPos
 
-				return UDim2.new(0, Constants.UNIBAR_END_PADDING + closedPos + openDelta * val[1], 0, 0)
+				return UDim2.new(0, unibarEndPadding + closedPos + openDelta * val[1], 0, 0)
 			end) :: any
 end
 
@@ -365,6 +385,17 @@ function isLeft(alignment)
 end
 
 function Unibar(props: UnibarProp)
+	local unibarStyle
+	local iconCellWidth
+	local unibarEndPadding
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconCellWidth = unibarStyle.ICON_CELL_WIDTH
+		unibarEndPadding = unibarStyle.UNIBAR_END_PADDING
+	else
+		iconCellWidth = Constants.ICON_CELL_WIDTH
+		unibarEndPadding = Constants.UNIBAR_END_PADDING
+	end
 	local currentOpenPositions = {}
 	local priorOpenPositions = React.useRef({})
 	local priorAbsolutePosition = React.useRef(Vector2.zero)
@@ -455,7 +486,7 @@ function Unibar(props: UnibarProp)
 		if GetFFlagUsePolishedAnimations() then toggleWidthTransition else toggleTransition,
 		unibarWidth,
 	}):map(function(val: { [number]: number })
-		return UDim2.new(0, linearInterpolation(minSize, val[2], val[1]), 0, Constants.ICON_CELL_WIDTH)
+		return UDim2.new(0, linearInterpolation(minSize, val[2], val[1]), 0, iconCellWidth)
 	end)
 
 	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
@@ -475,7 +506,7 @@ function Unibar(props: UnibarProp)
 
 	for k, item in menuItems do
 		if item.isDivider then
-			local closedPos = xOffset + Constants.ICON_CELL_WIDTH * extraPinnedCount
+			local closedPos = xOffset + iconCellWidth * extraPinnedCount
 			closedPos = closedPos
 
 			local prior = priorPositions[item.id] or xOffset
@@ -498,13 +529,13 @@ function Unibar(props: UnibarProp)
 			if leftAlign then
 				visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
 					local position: UDim2 = values[1]
-					return position.X.Offset >= (Constants.ICON_CELL_WIDTH * 0.5)
+					return position.X.Offset >= (iconCellWidth * 0.5)
 				end)
 			else
 				visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
 					local position: UDim2 = values[1]
 					local size: UDim2 = values[2]
-					return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH)
+					return position.X.Offset <= (size.X.Offset - iconCellWidth)
 				end)
 			end
 
@@ -516,7 +547,7 @@ function Unibar(props: UnibarProp)
 			xOffset += Constants.DIVIDER_CELL_WIDTH
 		elseif item.integration then
 			local pinned = false
-			local closedPos = xOffset + Constants.ICON_CELL_WIDTH * extraPinnedCount
+			local closedPos = xOffset + iconCellWidth * extraPinnedCount
 			if item.integration.availability:get() == ChromeService.AvailabilitySignal.Pinned then
 				pinned = true
 				closedPos = xOffsetPinned
@@ -542,13 +573,13 @@ function Unibar(props: UnibarProp)
 			if leftAlign then
 				visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
 					local position: UDim2 = values[1]
-					return position.X.Offset >= (Constants.ICON_CELL_WIDTH * 0.5)
+					return position.X.Offset >= (iconCellWidth * 0.5)
 				end)
 			else
 				visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
 					local position: UDim2 = values[1]
 					local size: UDim2 = values[2]
-					return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH * 1.5)
+					return position.X.Offset <= (size.X.Offset - iconCellWidth * 1.5)
 				end)
 			end
 
@@ -563,9 +594,9 @@ function Unibar(props: UnibarProp)
 					integration = item,
 					containerWidthSlots = containerWidthSlots,
 				}) :: any
-				xOffset += containerWidthSlots * Constants.ICON_CELL_WIDTH
+				xOffset += containerWidthSlots * iconCellWidth
 				if pinned then
-					xOffsetPinned += containerWidthSlots * Constants.ICON_CELL_WIDTH
+					xOffsetPinned += containerWidthSlots * iconCellWidth
 				end
 			else
 				children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
@@ -577,9 +608,9 @@ function Unibar(props: UnibarProp)
 						then true
 						else false,
 				}) :: any
-				xOffset += Constants.ICON_CELL_WIDTH
+				xOffset += iconCellWidth
 				if pinned then
-					xOffsetPinned += Constants.ICON_CELL_WIDTH
+					xOffsetPinned += iconCellWidth
 				end
 			end
 		end
@@ -589,7 +620,7 @@ function Unibar(props: UnibarProp)
 	if props.onMinWidthChanged then
 		props.onMinWidthChanged(minSize)
 	end
-	expandSize = Constants.UNIBAR_END_PADDING * 2 + xOffset
+	expandSize = unibarEndPadding * 2 + xOffset
 
 	React.useEffect(function()
 		local lastUnibarWidth = lastUnibarGoal.current
@@ -601,7 +632,7 @@ function Unibar(props: UnibarProp)
 			setUnibarWidth(ReactOtter.spring(expandSize, Constants.MENU_ANIMATION_SPRING))
 			lastUnibarGoal.current = expandSize
 		end
-		ChromeService:setMenuAbsoluteSize(Vector2.new(expandSize, Constants.ICON_CELL_WIDTH))
+		ChromeService:setMenuAbsoluteSize(Vector2.new(expandSize, iconCellWidth))
 	end, { expandSize })
 
 	if updatePositions then
@@ -715,6 +746,17 @@ type UnibarPillsProp = {
 
 local function UnibarPills(props: UnibarPillsProp)
 	local style = useStyle()
+	local unibarStyle
+	local unibarEndPadding
+	local menuSubmenuPadding
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		unibarEndPadding = unibarStyle.UNIBAR_END_PADDING
+		menuSubmenuPadding = unibarStyle.MENU_SUBMENU_PADDING
+	else
+		unibarEndPadding = Constants.UNIBAR_END_PADDING
+		menuSubmenuPadding = Constants.MENU_SUBMENU_PADDING
+	end
 
 	-- Tree of menu items to display
 	local menuItems = useChromeMenuItems()
@@ -748,8 +790,8 @@ local function UnibarPills(props: UnibarPillsProp)
 					CornerRadius = UDim.new(1, 0),
 				}),
 				Padding = React.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, Constants.UNIBAR_END_PADDING),
-					PaddingRight = UDim.new(0, Constants.UNIBAR_END_PADDING),
+					PaddingLeft = UDim.new(0, unibarEndPadding),
+					PaddingRight = UDim.new(0, unibarEndPadding),
 				}),
 				PillsHorizontalList = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
@@ -780,7 +822,7 @@ local function UnibarPills(props: UnibarPillsProp)
 				FillDirection = Enum.FillDirection.Horizontal,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
-				Padding = UDim.new(0, Constants.MENU_SUBMENU_PADDING),
+				Padding = UDim.new(0, menuSubmenuPadding),
 			}),
 		} :: Array<any>,
 		pillListItems
@@ -816,6 +858,14 @@ local function SubMenuWrapper(props)
 end
 
 local UnibarMenu = function(props: UnibarMenuProp)
+	local unibarStyle
+	local menuSubmenuPadding
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		menuSubmenuPadding = unibarStyle.MENU_SUBMENU_PADDING
+	else
+		menuSubmenuPadding = Constants.MENU_SUBMENU_PADDING
+	end
 	local menuFrame = React.useRef(nil)
 	if FFlagTiltIconUnibarFocusNav and props.menuRef then
 		menuFrame = props.menuRef
@@ -918,7 +968,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 					then Enum.HorizontalAlignment.Left
 					else Enum.HorizontalAlignment.Right,
 				VerticalAlignment = Enum.VerticalAlignment.Top,
-				Padding = UDim.new(0, Constants.MENU_SUBMENU_PADDING),
+				Padding = UDim.new(0, menuSubmenuPadding),
 			}) :: any,
 			if isInExperienceUIVREnabled and isSpatial()
 				then React.createElement(UnibarPills, {

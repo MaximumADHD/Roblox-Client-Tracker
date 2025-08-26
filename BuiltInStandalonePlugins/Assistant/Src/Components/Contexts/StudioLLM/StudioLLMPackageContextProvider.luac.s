@@ -18,8 +18,9 @@ PROTO_0:
   DUPTABLE R7 K14 [{"requestHandler", "processEvent", "createLLMSession", "closeSession", "formatTools", "systemMessage"}]
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K15 ["createRequestHandler"]
-  MOVE R9 R1
-  CALL R8 1 1
+  GETIMPORT R9 K17 [game]
+  MOVE R10 R1
+  CALL R8 2 1
   SETTABLEKS R8 R7 K8 ["requestHandler"]
   SETTABLEKS R2 R7 K9 ["processEvent"]
   SETTABLEKS R3 R7 K10 ["createLLMSession"]
@@ -28,10 +29,10 @@ PROTO_0:
   GETTABLEKS R8 R9 K12 ["formatTools"]
   SETTABLEKS R8 R7 K12 ["formatTools"]
   GETUPVAL R9 5
-  GETTABLEKS R8 R9 K16 ["getSystemMessage"]
+  GETTABLEKS R8 R9 K18 ["getSystemMessage"]
   CALL R8 0 1
   SETTABLEKS R8 R7 K13 ["systemMessage"]
-  GETTABLEKS R8 R0 K17 ["children"]
+  GETTABLEKS R8 R0 K19 ["children"]
   CALL R5 3 -1
   RETURN R5 -1
 

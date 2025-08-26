@@ -1,0 +1,301 @@
+PROTO_0:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+10]
+  GETIMPORT R0 K2 [UDim2.fromScale]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["X"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["Y"]
+  CALL R0 2 -1
+  RETURN R0 -1
+  GETIMPORT R0 K2 [UDim2.fromScale]
+  LOADN R1 0
+  LOADN R2 0
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETIMPORT R0 K2 [UDim2.fromScale]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["X"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["Y"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  NEWTABLE R0 0 0
+  GETUPVAL R4 0
+  GETTABLEKS R1 R4 K0 ["InputPayloads"]
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  LOADK R7 K1 ["InputLabel_%*"]
+  GETTABLEKS R9 R5 K2 ["id"]
+  NAMECALL R7 R7 K3 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K8 [{"inputPayload", "LayoutOrder", "Text"}]
+  SETTABLEKS R5 R9 K5 ["inputPayload"]
+  SETTABLEKS R4 R9 K6 ["LayoutOrder"]
+  LOADK R11 K9 ["Option %*"]
+  MOVE R13 R4
+  NAMECALL R11 R11 K3 ["format"]
+  CALL R11 2 1
+  MOVE R10 R11
+  SETTABLEKS R10 R9 K7 ["Text"]
+  CALL R7 2 1
+  SETTABLE R7 R0 R6
+  FORGLOOP R1 2 [-27]
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createNextOrder"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useContext"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["CanvasContext"]
+  CALL R2 1 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K3 ["ContextServices"]
+  GETTABLEKS R3 R4 K4 ["Localization"]
+  NAMECALL R3 R3 K5 ["use"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K6 ["plotToView"]
+  GETTABLEKS R5 R0 K7 ["Position"]
+  CALL R4 1 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["useMemo"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R4
+  NEWTABLE R7 0 1
+  MOVE R8 R4
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETTABLEKS R6 R2 K9 ["absToView"]
+  GETTABLEKS R7 R0 K10 ["Size"]
+  CALL R6 1 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K8 ["useMemo"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R6
+  NEWTABLE R9 0 1
+  MOVE R10 R6
+  SETLIST R9 R10 1 [1]
+  CALL R7 2 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K8 ["useMemo"]
+  NEWCLOSURE R9 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
+  NEWTABLE R10 0 1
+  GETTABLEKS R11 R0 K11 ["InputPayloads"]
+  SETLIST R10 R11 1 [1]
+  CALL R8 2 1
+  GETTABLEKS R10 R0 K12 ["Payload"]
+  JUMPIFNOT R10 [+8]
+  GETTABLEKS R11 R0 K12 ["Payload"]
+  GETTABLEKS R10 R11 K13 ["weight"]
+  JUMPIFNOTEQKN R10 K14 [0] [+3]
+  LOADB R9 1
+  JUMP [+1]
+  LOADB R9 0
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K15 ["createElement"]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K16 ["View"]
+  DUPTABLE R12 K20 [{"tag", "Size", "Position", "LayoutOrder", "ZIndex"}]
+  LOADK R13 K21 ["bg-surface-300 radius-small padding-xsmall col auto-y gap-xsmall"]
+  SETTABLEKS R13 R12 K17 ["tag"]
+  SETTABLEKS R7 R12 K10 ["Size"]
+  SETTABLEKS R5 R12 K7 ["Position"]
+  GETTABLEKS R13 R0 K18 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K18 ["LayoutOrder"]
+  GETTABLEKS R13 R0 K19 ["ZIndex"]
+  SETTABLEKS R13 R12 K19 ["ZIndex"]
+  DUPTABLE R13 K24 [{"CompositorNodeHeader", "CompositorNodeContent"}]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K15 ["createElement"]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K16 ["View"]
+  DUPTABLE R16 K25 [{"tag", "LayoutOrder"}]
+  NEWTABLE R17 4 0
+  LOADB R18 1
+  SETTABLEKS R18 R17 K26 ["size-full-0 radius-small gap-xsmall auto-y padding-xsmall align-y-center row flex-x-fill"]
+  NOT R18 R9
+  SETTABLEKS R18 R17 K27 ["bg-surface-100"]
+  SETTABLEKS R9 R17 K28 ["bg-surface-200"]
+  SETTABLEKS R17 R16 K17 ["tag"]
+  MOVE R17 R1
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K18 ["LayoutOrder"]
+  DUPTABLE R17 K31 [{"NodeIcon", "Title"}]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K15 ["createElement"]
+  GETUPVAL R20 5
+  GETTABLEKS R19 R20 K32 ["Image"]
+  DUPTABLE R20 K33 [{"tag", "Image", "Size", "LayoutOrder"}]
+  NEWTABLE R21 2 0
+  LOADB R22 1
+  SETTABLEKS R22 R21 K34 ["aspect-1-1"]
+  SETTABLEKS R9 R21 K35 ["content-inverse-muted"]
+  SETTABLEKS R21 R20 K17 ["tag"]
+  GETTABLEKS R22 R0 K37 ["icon"]
+  ORK R21 R22 K36 ["rbxasset://textures/CompositorDebugger/default.png"]
+  SETTABLEKS R21 R20 K32 ["Image"]
+  GETIMPORT R21 K40 [UDim2.fromOffset]
+  LOADN R22 14
+  LOADN R23 14
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K10 ["Size"]
+  MOVE R21 R1
+  CALL R21 0 1
+  SETTABLEKS R21 R20 K18 ["LayoutOrder"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K29 ["NodeIcon"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K15 ["createElement"]
+  GETUPVAL R20 5
+  GETTABLEKS R19 R20 K41 ["Text"]
+  DUPTABLE R20 K42 [{"tag", "Text", "LayoutOrder"}]
+  NEWTABLE R21 2 0
+  LOADB R22 1
+  SETTABLEKS R22 R21 K43 ["size-0-0 text-title-small auto-xy text-align-x-left text-truncate-split"]
+  SETTABLEKS R9 R21 K35 ["content-inverse-muted"]
+  SETTABLEKS R21 R20 K17 ["tag"]
+  GETTABLEKS R21 R0 K44 ["text"]
+  SETTABLEKS R21 R20 K41 ["Text"]
+  MOVE R21 R1
+  CALL R21 0 1
+  SETTABLEKS R21 R20 K18 ["LayoutOrder"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K30 ["Title"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K22 ["CompositorNodeHeader"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K15 ["createElement"]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K16 ["View"]
+  DUPTABLE R16 K25 [{"tag", "LayoutOrder"}]
+  NEWTABLE R17 4 0
+  LOADB R18 1
+  SETTABLEKS R18 R17 K45 ["padding-xsmall size-full-0 auto-y col gap-xsmall radius-small"]
+  NOT R18 R9
+  SETTABLEKS R18 R17 K27 ["bg-surface-100"]
+  SETTABLEKS R9 R17 K28 ["bg-surface-200"]
+  SETTABLEKS R17 R16 K17 ["tag"]
+  MOVE R17 R1
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K18 ["LayoutOrder"]
+  DUPTABLE R17 K49 [{"InputLabels", "OutputLabel", "PlayingPreview"}]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K15 ["createElement"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K50 ["Fragment"]
+  NEWTABLE R20 0 0
+  MOVE R21 R8
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K46 ["InputLabels"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K15 ["createElement"]
+  GETUPVAL R20 5
+  GETTABLEKS R19 R20 K41 ["Text"]
+  DUPTABLE R20 K42 [{"tag", "Text", "LayoutOrder"}]
+  NEWTABLE R21 2 0
+  LOADB R22 1
+  SETTABLEKS R22 R21 K51 ["text-body-small padding-y-xsmall text-align-x-left auto-xy"]
+  SETTABLEKS R9 R21 K35 ["content-inverse-muted"]
+  SETTABLEKS R21 R20 K17 ["tag"]
+  LOADK R23 K52 ["NodeView"]
+  LOADK R24 K53 ["Output"]
+  NAMECALL R21 R3 K54 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K41 ["Text"]
+  GETTABLEKS R23 R0 K11 ["InputPayloads"]
+  LENGTH R22 R23
+  ADDK R21 R22 K55 [1]
+  SETTABLEKS R21 R20 K18 ["LayoutOrder"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K47 ["OutputLabel"]
+  GETTABLEKS R19 R0 K12 ["Payload"]
+  JUMPIFNOT R19 [+25]
+  GETTABLEKS R20 R0 K12 ["Payload"]
+  GETTABLEKS R19 R20 K56 ["className"]
+  JUMPIFNOTEQKS R19 K57 ["ClipLayer"] [+20]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K15 ["createElement"]
+  GETUPVAL R19 6
+  DUPTABLE R20 K59 [{"Payload", "LayoutOrder", "disabled"}]
+  GETTABLEKS R21 R0 K12 ["Payload"]
+  SETTABLEKS R21 R20 K12 ["Payload"]
+  GETTABLEKS R23 R0 K11 ["InputPayloads"]
+  LENGTH R22 R23
+  ADDK R21 R22 K60 [2]
+  SETTABLEKS R21 R20 K18 ["LayoutOrder"]
+  SETTABLEKS R9 R20 K58 ["disabled"]
+  CALL R18 2 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K48 ["PlayingPreview"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K23 ["CompositorNodeContent"]
+  CALL R10 3 -1
+  RETURN R10 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Components"]
+  GETTABLEKS R3 R4 K8 ["NodeView"]
+  GETTABLEKS R2 R3 K9 ["CompositorNodeInput"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Components"]
+  GETTABLEKS R4 R5 K8 ["NodeView"]
+  GETTABLEKS R3 R4 K10 ["CompositorNodePreview"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Foundation"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Framework"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K11 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Graphing"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Packages"]
+  GETTABLEKS R7 R8 K15 ["React"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K11 ["Packages"]
+  GETTABLEKS R8 R9 K16 ["ReactUtils"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K17 ["Types"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K18 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R9 1

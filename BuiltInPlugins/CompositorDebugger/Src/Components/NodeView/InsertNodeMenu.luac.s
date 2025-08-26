@@ -1,0 +1,108 @@
+PROTO_0:
+  NEWTABLE R0 0 0
+  GETUPVAL R4 0
+  GETTABLEKS R1 R4 K0 ["nodeGroups"]
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  DUPTABLE R8 K4 [{"id", "text", "isDisabled"}]
+  LOADK R10 K5 ["separator"]
+  MOVE R11 R4
+  CONCAT R9 R10 R11
+  SETTABLEKS R9 R8 K1 ["id"]
+  LOADK R10 K6 ["--- "]
+  GETTABLEKS R11 R5 K7 ["name"]
+  LOADK R12 K8 [" ---"]
+  CONCAT R9 R10 R12
+  SETTABLEKS R9 R8 K2 ["text"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K3 ["isDisabled"]
+  FASTCALL2 TABLE_INSERT R0 R8 [+4]
+  MOVE R7 R0
+  GETIMPORT R6 K11 [table.insert]
+  CALL R6 2 0
+  GETTABLEKS R6 R5 K12 ["nodes"]
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  DUPTABLE R13 K13 [{"id", "text"}]
+  SETTABLEKS R10 R13 K1 ["id"]
+  SETTABLEKS R10 R13 K2 ["text"]
+  FASTCALL2 TABLE_INSERT R0 R13 [+4]
+  MOVE R12 R0
+  GETIMPORT R11 K11 [table.insert]
+  CALL R11 2 0
+  FORGLOOP R6 2 [-12]
+  FORGLOOP R1 2 [-41]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["ContextServices"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  NAMECALL R1 R1 K2 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["useContext"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K4 ["Context"]
+  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["useMemo"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  NEWTABLE R5 0 3
+  GETTABLEKS R6 R2 K6 ["nodeDefinitions"]
+  GETTABLEKS R7 R2 K7 ["nodeGroups"]
+  MOVE R8 R1
+  SETLIST R5 R6 3 [1]
+  CALL R3 2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K8 ["createElement"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K9 ["Menu"]
+  DUPTABLE R6 K15 [{"isOpen", "items", "onActivated", "onPressedOutside", "size"}]
+  GETTABLEKS R7 R0 K10 ["isOpen"]
+  SETTABLEKS R7 R6 K10 ["isOpen"]
+  SETTABLEKS R3 R6 K11 ["items"]
+  GETTABLEKS R7 R0 K12 ["onActivated"]
+  SETTABLEKS R7 R6 K12 ["onActivated"]
+  GETTABLEKS R7 R0 K16 ["close"]
+  SETTABLEKS R7 R6 K13 ["onPressedOutside"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K17 ["Enums"]
+  GETTABLEKS R8 R9 K18 ["InputSize"]
+  GETTABLEKS R7 R8 K19 ["XSmall"]
+  SETTABLEKS R7 R6 K14 ["size"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Contexts"]
+  GETTABLEKS R4 R5 K11 ["NodeDefinitionsContext"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["React"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K13 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R5 1

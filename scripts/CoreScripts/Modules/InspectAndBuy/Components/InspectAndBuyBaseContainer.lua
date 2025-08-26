@@ -1,0 +1,57 @@
+--[[
+  This is the base container for the Inspect and Buy 2.0 pop-up menu.
+]]
+
+local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
+local CoreGui = game:GetService("CoreGui")
+
+local React = require(CorePackages.Packages.React)
+local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
+local useViewBreakpoints = AvatarExperienceInspectAndBuy.Hooks.useViewBreakpoints
+
+local Foundation = require(CorePackages.Packages.Foundation)
+local useTokens = Foundation.Hooks.useTokens
+local Modules = CoreGui.RobloxGui.Modules
+local Theme = require(Modules.Settings.Theme)
+local TopBarConstants = require(Modules.TopBar.Constants)
+
+local function InspectAndBuyBaseContainer(props)
+	local viewBreakpoints = useViewBreakpoints(TopBarConstants.TopBarHeight)
+	local tokens = useTokens()
+
+	-- outer overlay container will close the menu when clicked on
+	return React.createElement(Foundation.View, {
+		Size = viewBreakpoints.OverlaySize,
+		Position = viewBreakpoints.OverlayPosition,
+		backgroundStyle = {
+			-- same theme used by SettingsHub menu
+			Color3 = Theme.color("MenuContainer"),
+			Transparency = Theme.transparency("MenuContainer", 1),
+		},
+		stateLayer = {
+			affordance = Foundation.Enums.StateLayerAffordance.None,
+		},
+		onActivated = function()
+			GuiService:CloseInspectMenu()
+		end,
+	}, {
+		ContainerView = React.createElement(Foundation.View, {
+			AnchorPoint = viewBreakpoints.ContainerAnchorPoint,
+			Size = viewBreakpoints.ContainerSize,
+			Position = viewBreakpoints.ContainerPosition,
+			backgroundStyle = tokens.Color.Common.Shadow,
+			stateLayer = {
+				affordance = Foundation.Enums.StateLayerAffordance.None,
+			},
+			onActivated = function() end, -- stop click events from propagating up to overlay
+		}, {
+			UICorner = React.createElement("UICorner", {
+				CornerRadius = Theme.DefaultCornerRadius,
+			}),
+			-- TODO: add content here
+		}),
+	})
+end
+
+return InspectAndBuyBaseContainer

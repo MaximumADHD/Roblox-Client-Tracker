@@ -43,7 +43,6 @@ local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.Ge
 local FFlagAvatarChatCoreScriptSupport =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
 local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
-local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagRemoveInGameChatBubbleChatReferences =
 	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local GetFFlagJoinWithoutMicPermissions =
@@ -742,14 +741,12 @@ function PermissionsButtons:render()
 						callback = self.onVoiceStateChange,
 					})
 					else nil,
-				MuteNonFriendsEvent = if FFlagMuteNonFriendsEvent
-					then Roact.createElement(ExternalEventConnection, {
+				MuteNonFriendsEvent = Roact.createElement(ExternalEventConnection, {
 						event = VoiceChatServiceManager.mutedNonFriends.Event,
 						callback = function()
 							self.toggleMuteAllIcon(false)
 						end,
-					})
-					else nil,
+					}),
 				VoiceJoinProgressChanged = if GetFFlagEnableInExpVoiceUpsell()
 					then Roact.createElement(ExternalEventConnection, {
 						event = VoiceChatServiceManager.VoiceJoinProgressChanged.Event,
@@ -865,14 +862,12 @@ function PermissionsButtons:render()
 						callback = self.onVoiceStateChange,
 					})
 					else nil,
-				MuteNonFriendsEvent = if FFlagMuteNonFriendsEvent
-					then Roact.createElement(ExternalEventConnection, {
+				MuteNonFriendsEvent = Roact.createElement(ExternalEventConnection, {
 						event = VoiceChatServiceManager.mutedNonFriends.Event,
 						callback = function()
 							self.toggleMuteAllIcon(false)
 						end,
-					})
-					else nil,
+					}),
 				VoiceJoinProgressChanged = if GetFFlagEnableInExpVoiceUpsell()
 					then Roact.createElement(ExternalEventConnection, {
 						event = VoiceChatServiceManager.VoiceJoinProgressChanged.Event,

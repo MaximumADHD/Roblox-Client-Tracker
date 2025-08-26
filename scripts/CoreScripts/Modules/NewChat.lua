@@ -25,7 +25,6 @@ local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
-local getFFlagExpChatMigrationSetup = SharedFlags.getFFlagExpChatMigrationSetup
 local getFFlagFireSignalForLegacyWindow = SharedFlags.getFFlagFireSignalForLegacyWindow
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
@@ -235,17 +234,15 @@ do
 	moduleApiTable.BubbleChatOnlySet = Util.Signal()
 	moduleApiTable.ChatDisabled = Util.Signal()
 
-	if getFFlagExpChatMigrationSetup() then
-		local Chat = game:GetService("Chat")
-		Chat:GetPropertyChangedSignal("IsAutoMigrated"):Connect(function()
-			if Chat.IsAutoMigrated then
-				local didFire = DispatchEvent("SetVisible", false)
-				if not didFire then
-					moduleApiTable.VisibilityStateChanged:fire(false)
-				end
+	local Chat = game:GetService("Chat")
+	Chat:GetPropertyChangedSignal("IsAutoMigrated"):Connect(function()
+		if Chat.IsAutoMigrated then
+			local didFire = DispatchEvent("SetVisible", false)
+			if not didFire then
+				moduleApiTable.VisibilityStateChanged:fire(false)
 			end
-		end)
-	end
+		end
+	end)
 
 	StarterGui.CoreGuiChangedSignal:connect(function(coreGuiType, enabled)
 		if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.Chat then

@@ -17,6 +17,12 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
+local FocusRoot = FocusNavigationUtils.FocusRoot
+local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
+
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil :: never
@@ -33,6 +39,7 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local Analytics = require(InspectAndBuyFolder.Services.Analytics)
 local InspectAndBuyReducer = require(InspectAndBuyFolder.Reducers.InspectAndBuyReducer)
 local Container = require(InspectAndBuyFolder.Components.Container)
+local InspectAndBuyBaseContainer = require(InspectAndBuyFolder.Components.InspectAndBuyBaseContainer)
 local Constants = require(InspectAndBuyFolder.Constants)
 local CompactView = require(InspectAndBuyFolder.CompactView)
 local WideView = require(InspectAndBuyFolder.WideView)
@@ -51,8 +58,12 @@ local GetCharacterModelFromUserId = require(InspectAndBuyFolder.Thunks.GetCharac
 local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 local CloseOverlay = require(InspectAndBuyFolder.Actions.CloseOverlay)
+local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
+local getViewType = AvatarExperienceInspectAndBuy.Utils.getViewType
 
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
+
+local FFlagAXEnableNewInspectAndBuyContainer = require(InspectAndBuyFolder.Flags.FFlagAXEnableNewInspectAndBuyContainer)
 
 local COMPACT_VIEW_MAX_WIDTH = 600
 local CURSOR_OVERRIDE_KEY = Symbol.named("OverrideCursorInspectMenu")
@@ -89,15 +100,20 @@ end
 
 function InspectAndBuy:updateView()
 	local viewportSize = (workspace.CurrentCamera :: Camera).ViewportSize
-	local view = Constants.View.Wide
 
-	if viewportSize.X < COMPACT_VIEW_MAX_WIDTH then
-		view = Constants.View.Compact
-	elseif viewportSize.X > viewportSize.Y and viewportSize.X < 800 then
-		view = Constants.View.WideLandscape
+	if FFlagAXEnableNewInspectAndBuyContainer then
+		self.state.store:dispatch(SetView(getViewType(viewportSize)))
+	else
+		local view = Constants.View.Wide
+
+		if viewportSize.X < COMPACT_VIEW_MAX_WIDTH then
+			view = Constants.View.Compact
+		elseif viewportSize.X > viewportSize.Y and viewportSize.X < 800 then
+			view = Constants.View.WideLandscape
+		end
+
+		self.state.store:dispatch(SetView(view))
 	end
-
-	self.state.store:dispatch(SetView(view))
 end
 
 function InspectAndBuy:init()
@@ -166,7 +182,10 @@ function InspectAndBuy:didMount()
 	self:configureInputType()
 	self:pushMouseIconOverride()
 
-	if FFlagChromeHideShortcutBarOnInspectAndBuy and (if FFlagChromeEnabledShortcutBarFix then ChromeEnabled() else ChromeEnabled) then
+	if
+		FFlagChromeHideShortcutBarOnInspectAndBuy
+		and (if FFlagChromeEnabledShortcutBarFix then ChromeEnabled() else ChromeEnabled)
+	then
 		ChromeService:setHideShortcutBar(MODULE_NAME, true)
 	end
 
@@ -272,13 +291,32 @@ function InspectAndBuy:willUnmount()
 	ContextActionService:UnbindCoreAction(BACK_BUTTON_KEY)
 	self:popMouseIconOverride()
 
-	if FFlagChromeHideShortcutBarOnInspectAndBuy and (if FFlagChromeEnabledShortcutBarFix then ChromeEnabled() else ChromeEnabled) then
+	if
+		FFlagChromeHideShortcutBarOnInspectAndBuy
+		and (if FFlagChromeEnabledShortcutBarFix then ChromeEnabled() else ChromeEnabled)
+	then
 		ChromeService:setHideShortcutBar(MODULE_NAME, false)
 	end
 end
 
 function InspectAndBuy:render()
 	local localPlayerModel = self.localPlayerModel
+
+	if FFlagAXEnableNewInspectAndBuyContainer then
+		return Roact.createElement(CoreScriptsRootProvider, {}, {
+			FocusNavigationWrapper = Roact.createElement(FocusRoot, {
+				surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+			}, {
+				StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+					store = self.state.store,
+				}, {
+					Container = Roact.createElement(InspectAndBuyBaseContainer, {
+						localPlayerModel = localPlayerModel,
+					}),
+				}),
+			}),
+		})
+	end
 
 	return Roact.createElement(InspectAndBuyContext.Provider, {
 		value = self.state.views,

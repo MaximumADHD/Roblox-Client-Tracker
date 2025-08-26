@@ -23,12 +23,15 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local ChromeService = require(Chrome.Service)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
 local StyleTokens = if FFlagAdaptUnibarAndTiltSizing then GetStyleTokens() else nil :: never
+local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
+
+local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local GetFFlagUsePolishedAnimations = SharedFlags.GetFFlagUsePolishedAnimations
 
 local UNIBAR_ICON = Images["icons/actions/overflow"]
-local UNIBAR_ICON_SIZE = 32
 local TOGGLE_MENU_SIZE = if FFlagAdaptUnibarAndTiltSizing
 	then UDim2.new(0, StyleTokens.Size.Size_900, 0, StyleTokens.Size.Size_900)
 	else UDim2.new(0, 36, 0, 36)
@@ -48,6 +51,14 @@ local buttonPressed
 function ToggleMenuButton(props)
 	local toggleIconTransition = props.toggleTransition
 	local style = useStyle()
+	local unibarStyle
+	local unibarIconSize
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		unibarIconSize = unibarStyle.UNIBAR_ICON_SIZE
+	else
+		unibarIconSize = 32
+	end
 
 	local hasCurrentUtility = false
 	hasCurrentUtility = if ChromeService:getCurrentUtility():get() then true else false
@@ -74,7 +85,7 @@ function ToggleMenuButton(props)
 			Image = UNIBAR_ICON,
 			Size = toggleIconTransition:map(function(value: any): any
 				value = 1 - value
-				return UDim2.new(0, UNIBAR_ICON_SIZE * value, 0, UNIBAR_ICON_SIZE * value)
+				return UDim2.new(0, unibarIconSize * value, 0, unibarIconSize * value)
 			end),
 			Visible = if GetFFlagUsePolishedAnimations()
 				then toggleIconTransition:map(function(value: any): any

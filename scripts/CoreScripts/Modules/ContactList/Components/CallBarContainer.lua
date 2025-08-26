@@ -15,7 +15,9 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = if GetFFlagFixChromeReferences()
@@ -64,6 +66,15 @@ local function CallBarContainer(passedProps: Props)
 
 	local dispatch = useDispatch()
 
+	local topBarButtonPadding
+	local topBarTopMargin
+	if FFlagTopBarStyleUseDisplayUIScale then
+		topBarButtonPadding = TopBarConstants.useDisplayScaleState(TopBarConstants.TopBarButtonPadding)
+		topBarTopMargin = TopBarConstants.useDisplayScaleState(TopBarConstants.TopBarTopMargin)
+	else
+		topBarButtonPadding = TopBarConstants.TopBarButtonPadding
+		topBarTopMargin = TopBarConstants.TopBarTopMargin
+	end
 	local isCallBarEnabled, setIsCallBarEnabled = React.useState(false)
 	local callBarPosition, setCallBarPosition
 
@@ -92,7 +103,7 @@ local function CallBarContainer(passedProps: Props)
 		local screenPositionYOffset
 		if screenPosition == ScreenPosition.On then
 			if ChromeEnabled() then
-				screenPositionYOffset = TopBarConstants.TopBarTopMargin + TopBarConstants.TopBarButtonPadding
+				screenPositionYOffset = topBarTopMargin + topBarButtonPadding
 			else
 				screenPositionYOffset = CALL_BAR_TOP_PADDING
 			end
@@ -110,7 +121,8 @@ local function CallBarContainer(passedProps: Props)
 				if unibarMax.X + (CALL_BAR_MARGIN * 2) + CALL_BAR_SIZE.X > Camera.ViewportSize.X then
 					-- If CallBar has been pushed down because CallBar overflows Viewport
 					if screenPosition == ScreenPosition.On then
-						screenPositionYOffset = TopBarConstants.TopBarHeight + CALL_BAR_UNIBAR_VERTICAL_PADDING
+						screenPositionYOffset = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarHeight)
+							+ CALL_BAR_UNIBAR_VERTICAL_PADDING
 					end
 				else
 					screenPositionXOffset = unibarMax.X + CALL_BAR_MARGIN

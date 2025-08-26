@@ -8,6 +8,7 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local RespawnUtils = require(Chrome.Integrations.RespawnUtils)
 local MappedSignal = ChromeUtils.MappedSignal
+local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
@@ -60,6 +61,9 @@ local GetFFlagShouldShowSimpleMusicFtuxTooltip = require(Chrome.Flags.GetFFlagSh
 local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated1", false)
 local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
 
+local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
 local GetFFlagSongbirdCleanupMusicTooltip = SharedFlags.GetFFlagSongbirdCleanupMusicTooltip
@@ -81,9 +85,9 @@ local shouldShowMusicTooltip = if GetFFlagSongbirdCleanupMusicTooltip()
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 
 local SELFIE_ID = Constants.SELFIE_VIEW_ID
-local ICON_SIZE = Constants.ICON_SIZE
 
 local leaderboardVisibility = MappedSignal.new(PlayerListMaster:GetSetVisibleChangedEvent().Event, function()
 	return PlayerListMaster:GetSetVisible()
@@ -100,7 +104,7 @@ local leaderboard = ChromeService:register({
 			if PlayerListMaster:GetSetVisible() then
 				PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
 			else
-				if isInExperienceUIVREnabled and isSpatial() then
+				if (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter() then
 					PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
 				else
 					ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
@@ -131,7 +135,7 @@ local emotes = ChromeService:register({
 		if EmotesMenuMaster:isOpen() then
 			EmotesMenuMaster:close()
 		else
-			if isInExperienceUIVREnabled and isSpatial() then
+			if (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter() then
 				EmotesMenuMaster:open()
 			else
 				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
@@ -181,7 +185,7 @@ local backpack = ChromeService:register({
 		if BackpackModule.IsOpen then
 			BackpackModule:OpenClose()
 		else
-			if isInExperienceUIVREnabled and isSpatial() then
+			if (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter() then
 				BackpackModule:OpenClose()
 			else
 				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
@@ -248,6 +252,17 @@ end
 function HamburgerButton(props)
 	local toggleIconTransition = props.toggleTransition
 	local style = useStyle()
+	local unibarStyle
+	local iconSize
+	local mediumIconSize
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconSize = unibarStyle.ICON_SIZE
+		mediumIconSize = unibarStyle.MEDIUM_ICON_SIZE
+	else
+		iconSize = Constants.ICON_SIZE
+		mediumIconSize = Constants.MEDIUM_ICON_SIZE
+	end
 
 	local submenuOpen = submenuVisibility and useMappedSignal(submenuVisibility) or false
 
@@ -397,7 +412,7 @@ function HamburgerButton(props)
 			else nil
 
 	return React.createElement("Frame", {
-		Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+		Size = UDim2.new(0, iconSize, 0, iconSize),
 		BorderSizePixel = 0,
 		BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
 		BackgroundTransparency = toggleIconTransition:map(function(value): any
@@ -416,7 +431,7 @@ function HamburgerButton(props)
 			Image = Images["icons/common/hamburgermenu"],
 			Size = toggleIconTransition:map(function(value: any): any
 				value = 1 - value
-				return UDim2.new(0, Constants.ICON_SIZE * value, 0, Constants.ICON_SIZE * value)
+				return UDim2.new(0, iconSize * value, 0, iconSize * value)
 			end),
 			ImageColor3 = style.Theme.IconEmphasis.Color,
 
@@ -431,7 +446,7 @@ function HamburgerButton(props)
 			BackgroundTransparency = 1,
 			Image = Images["icons/navigation/close"],
 			Size = toggleIconTransition:map(function(value: any): any
-				return UDim2.new(0, Constants.MEDIUM_ICON_SIZE * value, 0, Constants.MEDIUM_ICON_SIZE * value)
+				return UDim2.new(0, mediumIconSize * value, 0, mediumIconSize * value)
 			end),
 			ImageColor3 = style.Theme.IconEmphasis.Color,
 

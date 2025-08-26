@@ -11,6 +11,8 @@ local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local GamepadService = game:GetService("GamepadService")
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local Responsive = require(CorePackages.Workspace.Packages.Responsive)
+local InputModeStore = Responsive.GetInputModeStore(false)
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local ExperimentLayers = require(CorePackages.Workspace.Packages.ExperimentLayers).AppUserLayers
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
@@ -33,6 +35,7 @@ local FFlagGamepadFocusRefactor = SharedFlags.FFlagGamepadFocusRefactor
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 
 local FFlagUseToBarFocusedToToggleTopBar = game:DefineFastFlag("UseToBarFocusedToToggleTopBar", false)
+local FFlagAddDismissTopBarFocus = game:DefineFastFlag("AddDismissTopBarFocus", false)
 
 local Modules = script.Parent.Parent.Parent
 local TopBar = Modules.TopBar
@@ -79,6 +82,8 @@ type GamepadConnectorImpl = {
 	getShowTopBar: (GamepadConnector) -> ObservableValue<boolean>,
 	getGamepadActive: (GamepadConnector) -> ObservableValue<boolean>,
 	setTopbarActive: (boolean) -> (),
+	_addDismissFocusConnections: (GamepadConnector) -> (),
+	_removeDismissFocusConnections: (GamepadConnector) -> (),
 	_toggleUnibarMenu: (GamepadConnector) -> (),
 	_toggleTopbar: ActionBind,
 	_focusGamepadToTopBar: (GamepadConnector) -> (),
@@ -99,6 +104,7 @@ export type GamepadConnector = typeof(setmetatable(
 		_showTopBar: ObservableValue<boolean>,
 		_devSetCoreGuiNavEnabled: boolean,
 		_connections: { AppCommonLib.SignalHandle },
+		_dismissFocusConnections: { RBXScriptConnection },
 	},
 	{} :: GamepadConnectorImpl
 ))
@@ -145,6 +151,7 @@ function GamepadConnector.new(): GamepadConnector
 	self._devSetCoreGuiNavEnabled = GuiService.CoreGuiNavigationEnabled
 	self._topbarFocused = ChromeService:inFocusNav()
 	self._lastMenuButtonPress = 0
+	self._dismissFocusConnections = {}
 	-- remove never cast when cleaning up GetFFlagTiltIconUnibarFocusNav
 	self._selectedCoreObject = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole) then createSelectedCoreObject() else nil :: never
 	self._connections = {}
@@ -234,6 +241,16 @@ function GamepadConnector:connectToTopbar()
 				-- Top bar menu being focused is dependent on either unibar or menu being focused.
 				local focused = self._topbarFocused:get() or MenuIconSelectedSignal:get()
 				GuiService:SetMenuIsOpen(focused, TOPBAR_MENU)
+
+				if focused then
+					if FFlagAddDismissTopBarFocus then
+						self:_addDismissFocusConnections()
+					end
+				else
+					if FFlagAddDismissTopBarFocus then
+						self:_removeDismissFocusConnections()
+					end
+				end
 			end
 			table.insert(self._connections, self._topbarFocused:connect(onFocusChanged))
 			table.insert(self._connections, MenuIconSelectedSignal:connect(onFocusChanged))
@@ -251,6 +268,10 @@ function GamepadConnector:disconnectFromTopbar()
 			connection:disconnect()
 		end
 		self._connections = {}
+	end
+
+	if FFlagAddDismissTopBarFocus then
+		self:_removeDismissFocusConnections()
 	end
 
 	ContextActionService:UnbindCoreAction(FOCUS_GAMEPAD_TO_TOPBAR)
@@ -273,6 +294,31 @@ function GamepadConnector.setTopbarActive(active: boolean)
 end
 
 -- Internal
+function GamepadConnector:_addDismissFocusConnections()
+	local dismissOnInputEnded = UserInputService.InputEnded:Connect(
+		function(inputChangedObj: InputObject, gameProcessedEvent: boolean)
+			local lastInputType = InputModeStore.getLastInputType(false)
+			local isPointerClick = lastInputType == Responsive.Input.Pointer and inputChangedObj.UserInputType ~= Enum.UserInputType.Keyboard 
+			local isTouch = lastInputType == Responsive.Input.Touch
+			if isPointerClick or isTouch and not gameProcessedEvent then
+				self:_unfocusGamepadFromTopBar()
+			end
+		end
+	)
+
+	self._dismissFocusConnections = {
+		dismissOnInputEnded,
+	}
+end
+
+function GamepadConnector:_removeDismissFocusConnections()
+	for _, connection in self._dismissFocusConnections do
+		connection:Disconnect()
+	end
+	self._dismissFocusConnections = {}
+end
+
+
 function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum.ContextActionResult
 	if ChromeEnabled and not self:_focusToastNotification(userInputState) and 
 		(not FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.End 

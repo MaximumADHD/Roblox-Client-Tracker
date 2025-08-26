@@ -15,6 +15,7 @@ local dependencyArray = RoactUtils.Hooks.dependencyArray
 
 local MappedSignal = ChromeUtils.MappedSignal
 local useTokens = Foundation.Hooks.useTokens
+local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
 local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
 local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
@@ -36,6 +37,9 @@ local FFlagConnectIconUsesAppChatConfig = game:DefineFastFlag("ConnectIconUsesAp
 local FIntUnibarConnectIconTooltipPriority = game:DefineFastInt("UnibarConnectIconTooltipPriority", 1500)
 local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
 
+local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
+local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+
 local AVATAR_SIZE = 24
 
 local ICON_OFF = "icons/menu/platformChatOff"
@@ -46,8 +50,6 @@ if FFlagConnectIconUsesAppChatConfig then
 	ICON_OFF = visualConfig.icon.off
 	ICON_ON = visualConfig.icon.on
 end
-
-local ICON_SIZE = ChromeConstants.ICON_SIZE
 
 export type Props = {
 	integrationId: string,
@@ -65,6 +67,14 @@ local defaultProps = {
 local function ConnectIcon(_props: Props): React.ReactElement
 	local props = Cryo.Dictionary.union(defaultProps, _props)
 	local tokens = useTokens()
+	local unibarStyle
+	local iconSize
+	if FFlagTokenizeUnibarConstantsWithStyleProvider then
+		unibarStyle = UnibarStyle.use()
+		iconSize = unibarStyle.ICON_SIZE
+	else
+		iconSize = ChromeConstants.ICON_SIZE
+	end
 
 	local unreadMessageCount, setUnreadMessageCount = React.useState(InExperienceAppChatModal.default.unreadCount)
 
@@ -135,7 +145,7 @@ local function ConnectIcon(_props: Props): React.ReactElement
 		else nil
 
 	local visible = useMappedSignal(visibilitySignal)
-	local icon = usePartyIcon(ICON_SIZE, AVATAR_SIZE, if visible then ICON_ON else ICON_OFF)
+	local icon = usePartyIcon(iconSize, AVATAR_SIZE, if visible then ICON_ON else ICON_OFF)
 
 	local submenuTransition = React.useContext(SubMenuContext)
 	local function getTransparency(transparency: number): any
@@ -147,7 +157,7 @@ local function ConnectIcon(_props: Props): React.ReactElement
 	end
 
 	return React.createElement(Foundation.View, {
-		Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+		Size = UDim2.new(0, iconSize, 0, iconSize),
 	}, {
 		Icon = React.createElement(Foundation.Image, {
 			AnchorPoint = Vector2.new(0.5, 0.5),
