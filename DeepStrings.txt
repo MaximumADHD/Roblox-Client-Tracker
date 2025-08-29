@@ -108,7 +108,6 @@ AAF011E38B9D871882A8E559
 AAF111E38B9D871882A8E559
 AAF511E38B9D871882A8E559
 AAIS[^^^^aarrrz
-AAXPEBVQLineF
 AB_AllUsers
 Ab_bbdbfbgbh
 Ab_bbdbfbgbhblbmbnbpbrbu
@@ -14844,6 +14843,7 @@ Bestselling
 BetaChannelEnrollment
 BetaFeatureInformation
 BetaFeatures
+BetaFeatures.EditableMeshSkinningFACSTitle
 BetaFeatures]
 BetaFeaturesChanged
 BetaFeaturesController
@@ -25766,7 +25766,7 @@ DurationWidth
 Durchschnittlicher
 Durchsuchen
 Durdurulmu
-DV.nDV.nDV.nDV.nD0[
+DV.nDV.nDV.nDV.nDp[
 DVCSRequestData
 DVCSResponseData
 DViewportFrameSnapshotEngineFeature
@@ -60191,7 +60191,6 @@ SmoothWinkel
 SMSProtocol
 SmtpUTF8Mailbox
 SnapAttachmentsVerb
-SnapshotAsync
 SnapToParts
 SnapToPartsAction
 SniHostname
@@ -67290,6 +67289,7 @@ Studio.App.VersionHistoryDialog.OpenDialog
 Studio.App.VersionHistoryDialog.OpenScriptsLabel
 Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle
 Studio.App.VersionHistoryDialog.PlaceVersionLabel1
+Studio.App.VersionHistoryDialog.ShowBat
 Studio.App.VersionHistoryDialog.ShowBatchContentsLink
 Studio.App.VersionHistoryDialog.Title1
 Studio.App.VersionHistoryDialog.VersionColumnTitle
@@ -68580,6 +68580,7 @@ Studio.BetaFeatures.GamepadEmulatorDescription
 Studio.BetaFeatures.GamepadEmulatorTitle
 Studio.BetaFeatures.GltfExportDescription
 Studio.BetaFeatures.GltfExportTitle
+Studio.BetaFeatures.Ha
 Studio.BetaFeatures.HapticEffectDescription
 Studio.BetaFeatures.HapticEffectTitle
 Studio.BetaFeatures.IEAvatarAutoSetupTitleDescription
@@ -79156,7 +79157,6 @@ TrendlineIntegrationEnabled
 TrendlineObservationsWindowSize
 Treningowa
 Trennlinie
-Tresolution
 TRIANGLE_LIMIT_EXCEEDED_ERROR
 TriangleCount
 TriangleMesh
@@ -81644,7 +81644,6 @@ UserFreecamSmoothnessControl
 UserFreecamTiltControl
 UserGameSettings
 UserGameSettingsProp
-UserGuiRenderingCh
 UserGuiRenderingChanged
 UserHandleChatHotKeyWithContextActionService
 UserHandleFriendJoinNotifierOnClient
@@ -87991,7 +87990,7 @@ WilError_03
 Willkommen
 WillReturn
 WIN32_LEAN_AND_MEAN
-Win64.688.65064
+Win64.688.65119
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
