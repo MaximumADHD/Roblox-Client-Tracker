@@ -20,7 +20,7 @@ local function Story(props)
 	end
 
 	return React.createElement(View, {
-		tag = "col-order-by-name gap-large auto-xy padding-larger",
+		tag = "gap-large auto-xy padding-xlarge",
 	}, {
 		React.createElement(InputField, {
 			label = controls.label,

@@ -54,6 +54,10 @@ local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
 	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
 local getFFlagUGCValidateIncorrectNumericalData = require(root.flags.getFFlagUGCValidateIncorrectNumericalData)
 local getFFlagUGCValidateRestrictAnimationMovement = require(root.flags.getFFlagUGCValidateRestrictAnimationMovement)
+local getFFlagUGCValidateStopNaNsInfsInAnimationKeys =
+	require(root.flags.getFFlagUGCValidateStopNaNsInfsInAnimationKeys)
+local getFFlagUGCValidateStopNaNsInfsInCalculatedData =
+	require(root.flags.getFFlagUGCValidateStopNaNsInfsInCalculatedData)
 
 local function joinTables(...)
 	local result = {}
@@ -283,6 +287,8 @@ if getFFlagRefactorBodyAttachmentOrientationsCheck() then
 		"validateBodyPartChildAttachmentOrientations_RotatedRig"
 	Analytics.ErrorType.validateBodyPartChildAttachmentOrientations_RotatedGrip =
 		"validateBodyPartChildAttachmentOrientations_RotatedGrip"
+	Analytics.ErrorType.validateBodyPartChildAttachmentOrientations_RotatedBasic =
+		"validateBodyPartChildAttachmentOrientations_RotatedBasic"
 end
 
 if getFFlagValidateDeformedLayeredClothingIsInBounds() then
@@ -304,7 +310,11 @@ if getFFlagUGCValidateEmoteAnimationExtendedTests() then
 	Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta = "validateCurveAnimation_UnacceptableFrameDelta"
 end
 
-if getFFlagUGCValidateIncorrectNumericalData() then
+if
+	getFFlagUGCValidateIncorrectNumericalData()
+	or getFFlagUGCValidateStopNaNsInfsInAnimationKeys()
+	or getFFlagUGCValidateStopNaNsInfsInCalculatedData()
+then
 	Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData = "validateCurveAnimation_IncorrectNumericalData"
 end
 

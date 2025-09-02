@@ -3,7 +3,7 @@ name = "SignalsReact"
 version = "0.5.0"
 source = "registry"
 dependencies = [
-    "React React 17.3.2 registry",
+    "React React 17.3.3 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
     "Signals Signals 0.5.0 registry",
 ]

@@ -9,6 +9,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
 local View = require(Foundation.Components.View)
 local EventConnection = ReactUtils.EventConnection
+local Flags = require(Foundation.Utility.Flags)
 
 --selene: allow(roblox_internal_custom_color)
 local WHITE = Color3.new(1, 1, 1)
@@ -46,43 +47,52 @@ local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<F
 			CornerRadius = props.cornerRadius,
 		}),
 		UIStroke = React.createElement("UIStroke", {
-			Color = WHITE,
-			Transparency = 0,
+			Color = if Flags.FoundationRemoveSelectionCursorHeartbeat
+				then tokens.Color.Selection.Start.Color3
+				else WHITE,
+			Transparency = if Flags.FoundationRemoveSelectionCursorHeartbeat
+				then tokens.Color.Selection.Start.Transparency
+				else 0,
 			Thickness = props.borderWidth,
 		}, {
-			UIGradient = React.createElement("UIGradient", {
-				Rotation = rotation,
-				Color = color,
-				Transparency = transparency,
-			}),
+			UIGradient = if Flags.FoundationRemoveSelectionCursorHeartbeat
+				then nil
+				else React.createElement("UIGradient", {
+					Rotation = rotation,
+					Color = color,
+					Transparency = transparency,
+				}),
 		}),
-		HeartbeatConnection = props.isVisible and React.createElement(EventConnection, {
-			event = RunService.Heartbeat :: RBXScriptSignal,
-			callback = function()
-				-- TODO(UIBLOX-497): Normalize animation speed of heartbeat callback
-				local r = rotation:getValue() + GRADIENT_ROTATION_SPEED
-				local c = colorSequence
-				local t = transparencySequence
+		HeartbeatConnection = if Flags.FoundationRemoveSelectionCursorHeartbeat
+			then nil
+			else props.isVisible
+				and React.createElement(EventConnection, {
+					event = RunService.Heartbeat :: RBXScriptSignal,
+					callback = function()
+						-- TODO(UIBLOX-497): Normalize animation speed of heartbeat callback
+						local r = rotation:getValue() + GRADIENT_ROTATION_SPEED
+						local c = colorSequence
+						local t = transparencySequence
 
-				-- When reducedMotion is enabled, instead of a rotating gradient,
-				-- the border fades between the first and last color in the sequence.
-				if reducedMotion then
-					local position = (math.sin(math.rad(r)) + 1) / 2
+						-- When reducedMotion is enabled, instead of a rotating gradient,
+						-- the border fades between the first and last color in the sequence.
+						if reducedMotion then
+							local position = (math.sin(math.rad(r)) + 1) / 2
 
-					local c0 = c.Keypoints[1].Value
-					local c1 = c.Keypoints[#c.Keypoints].Value
-					c = ColorSequence.new(c0:Lerp(c1, position))
+							local c0 = c.Keypoints[1].Value
+							local c1 = c.Keypoints[#c.Keypoints].Value
+							c = ColorSequence.new(c0:Lerp(c1, position))
 
-					local t0 = t.Keypoints[1].Value
-					local t1 = t.Keypoints[#t.Keypoints].Value
-					t = NumberSequence.new(t0 + (t1 - t0) * position)
-				end
+							local t0 = t.Keypoints[1].Value
+							local t1 = t.Keypoints[#t.Keypoints].Value
+							t = NumberSequence.new(t0 + (t1 - t0) * position)
+						end
 
-				updateRotation(r)
-				updateColor(c)
-				updateTransparency(t)
-			end,
-		}),
+						updateRotation(r)
+						updateColor(c)
+						updateTransparency(t)
+					end,
+				}),
 	})
 end)
 

@@ -3,23 +3,65 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 
-local Knob = require(script.Parent.Knob)
+local View = require(Foundation.Components.View)
+local Types = require(Foundation.Components.Types)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local Flags = require(Foundation.Utility.Flags)
+
 local InputSize = require(Foundation.Enums.InputSize)
+type InputSize = InputSize.InputSize
 
-local function Story(props)
-	local controls = props.controls
+local Knob = require(script.Parent.Knob)
 
-	return React.createElement(Knob, {
-		size = controls.size,
-		isDisabled = controls.isDisabled,
-	})
+type StoryProps = {
+	style: Types.ColorStyleValue,
+	stroke: Types.Stroke?,
+}
+
+local function Story(props: StoryProps)
+	return React.createElement(
+		View,
+		{
+			tag = "row gap-medium auto-y size-full-0 align-y-center",
+		},
+		Dash.map(
+			{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
+			function(size)
+				return React.createElement(Knob, {
+					size = size,
+					style = props.style,
+					stroke = props.stroke,
+				})
+			end
+		)
+	)
 end
 
 return {
 	summary = "Knob component",
-	story = Story,
+	stories = {
+		{
+			name = "Basic",
+			story = Story,
+		} :: unknown,
+		{
+			name = "With Stroke",
+			story = function(props)
+				Flags.FoundationFixKnobStroke = props.controls.fixKnobStroke
+				local tokens = useTokens()
+
+				return Story({
+					style = tokens.Color.None,
+					stroke = {
+						Color = tokens.Color.Content.Emphasis.Color3,
+						Thickness = tokens.Stroke.Thicker,
+						Transparency = tokens.Color.Content.Emphasis.Transparency,
+					},
+				})
+			end,
+		},
+	},
 	controls = {
-		isDisabled = false,
-		size = Dash.values(InputSize),
+		fixKnobStroke = Flags.FoundationFixKnobStroke,
 	},
 }

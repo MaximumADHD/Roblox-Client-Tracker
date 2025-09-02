@@ -60,6 +60,7 @@ PlayerTile.validateProps = t.strictInterface({
 		onActivated = t.optional(t.callback),
 		fontStyle = t.optional(t.union(validateFontInfo, validateTypographyInfo)),
 		horizontalAlignment = t.optional(t.EnumItem),
+		textXAlignment = t.optional(t.EnumItem),
 	}),
 	-- The size of the tile
 	tileSize = t.optional(t.UDim2),
@@ -120,6 +121,7 @@ local function footer(props)
 			iconSize = UDim2.fromOffset(tokens.Global.Size_150, tokens.Global.Size_150),
 			textHeight = tokens.Global.Size_350,
 			horizontalAlignment = props.horizontalAlignment,
+			textXAlignment = props.textXAlignment,
 		}, props.playerContext)
 
 		return Roact.createElement("Frame", {

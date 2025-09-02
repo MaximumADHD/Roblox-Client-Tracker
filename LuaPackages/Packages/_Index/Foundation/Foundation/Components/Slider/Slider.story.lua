@@ -158,7 +158,7 @@ return {
 							stroke = {
 								Color = tokens.Color.System.Neutral.Color3,
 								Transparency = tokens.Color.System.Neutral.Transparency,
-								Thickness = tokens.Stroke.Thick,
+								Thickness = math.round(tokens.Stroke.Thick),
 							},
 							hasShadow = true,
 						}),

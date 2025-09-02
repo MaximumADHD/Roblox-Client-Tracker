@@ -9,6 +9,7 @@ local AnimatedGradient = require(script.Parent.AnimatedGradient)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local Flags = require(Foundation.Utility.Flags)
 
 --selene: allow(roblox_internal_custom_color)
 local WHITE = Color3.new(1, 1, 1)
@@ -159,14 +160,18 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 			local position = UDim2.new(0.5, -size.X.Offset / 2, 0.5, -size.Y.Offset / 2)
 			return React.createElement(Image, {
 				Image = cursorDetails.Image,
-				imageStyle = {
-					Color3 = WHITE,
-				},
+				imageStyle = if Flags.FoundationRemoveSelectionCursorHeartbeat
+					then tokens.Color.Selection.Start
+					else {
+						Color3 = WHITE,
+					},
 				Size = size,
 				Position = position,
 				ref = ref,
 			}, {
-				AnimatedGradient = if props.isVisible then React.createElement(AnimatedGradient) else nil,
+				AnimatedGradient = if Flags.FoundationRemoveSelectionCursorHeartbeat
+					then nil
+					else if props.isVisible then React.createElement(AnimatedGradient) else nil,
 			})
 		elseif cursorDetails.Tag == "SlicedImage" then
 			local inset = cursorDetails.InsetAdjustment
@@ -181,9 +186,11 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 				else nil
 			return React.createElement(Image, {
 				Image = cursorDetails.Image,
-				imageStyle = {
-					Color3 = WHITE,
-				},
+				imageStyle = if Flags.FoundationRemoveSelectionCursorHeartbeat
+					then tokens.Color.Selection.Start
+					else {
+						Color3 = WHITE,
+					},
 				slice = {
 					center = cursorDetails.SliceCenter,
 				},
@@ -192,7 +199,9 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 				ref = ref,
 			}, {
 				Padding = padding,
-				AnimatedGradient = if props.isVisible then React.createElement(AnimatedGradient) else nil,
+				AnimatedGradient = if Flags.FoundationRemoveSelectionCursorHeartbeat
+					then nil
+					else if props.isVisible then React.createElement(AnimatedGradient) else nil,
 			})
 		elseif cursorDetails.Tag == "RoundedImage" then
 			local roundedCursorDetails = cursorDetails

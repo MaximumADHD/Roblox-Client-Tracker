@@ -42,6 +42,8 @@ local getFFlagUGCValidateRestrictAnimationMovementPerPart =
 local GetFStringUGCValidateMaxAnimationMovementPerPart = require(flags.GetFStringUGCValidateMaxAnimationMovementPerPart)
 local getFFlagUGCValidateRestrictAnimationMovementCurvesFix =
 	require(flags.getFFlagUGCValidateRestrictAnimationMovementCurvesFix)
+local getFFlagUGCValidateStopNaNsInfsInAnimationKeys = require(flags.getFFlagUGCValidateStopNaNsInfsInAnimationKeys)
+local getFFlagUGCValidateStopNaNsInfsInCalculatedData = require(flags.getFFlagUGCValidateStopNaNsInfsInCalculatedData)
 
 local ValidateCurveAnimation = {}
 
@@ -538,7 +540,9 @@ local function hasRotationKeys(rotationCurveOpt: EulerRotationCurve?): boolean
 end
 
 -- this function manually ready the animation data from the CurveAnimation and applys it to the character in order to get the CFrame data for the body parts at each animation frame
-local function calculateAnimFramesAtOriginManual(curveAnim: CurveAnimation): ({ any }, number, { any }, { any })
+local function calculateAnimFramesAtOriginManual(
+	curveAnim: CurveAnimation
+): ({ { string: CFrame } }, number, { { string: number } }, { any })
 	local function getCurveTracks(): any
 		local tracks = {}
 
@@ -684,13 +688,13 @@ end
 
 -- the body parts cannot move beyond a set boundary during the course of the animation
 function ValidateCurveAnimation.validateBounds(
-	animFrames: { any },
+	animFrames: { { string: CFrame } },
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local maxBounds = 0
 	for _, frame in animFrames do
 		for _, cframe in frame do
-			maxBounds = math.max(maxBounds, cframe.Position.Magnitude)
+			maxBounds = math.max(maxBounds, (cframe :: CFrame).Position.Magnitude)
 		end
 	end
 	if maxBounds > GetFStringUGCValidationMaxAnimationBounds.asNumber() then
@@ -705,7 +709,7 @@ end
 
 -- each body part cannot move more than a maximum distance between animation frames
 function ValidateCurveAnimation.validateFrameDeltas(
-	animFrames: { any },
+	animFrames: { { string: CFrame } },
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local prevFrame = {}
@@ -716,7 +720,7 @@ function ValidateCurveAnimation.validateFrameDeltas(
 				continue
 			end
 
-			local delta = (cframe.Position - prevCFrame.Position).Magnitude
+			local delta = ((cframe :: CFrame).Position - prevCFrame.Position).Magnitude
 			if delta > GetFStringUGCValidationMaxAnimationDeltas.asNumber() then
 				return reportFailure(
 					`Body part {bodyPartName} in CurveAnimation moves more than {GetFStringUGCValidationMaxAnimationDeltas.asString()} studs between frames. Please fix the animation.`,
@@ -828,6 +832,26 @@ function ValidateCurveAnimation.validateStructure(
 	return validateAnimationHierarchy(inst, validationContext)
 end
 
+local function areNumbersGood(...): boolean
+	local function isNaN(value: number): boolean
+		return value ~= value
+	end
+
+	local function isInfinite(value: number): boolean
+		return value == math.huge or value == -math.huge
+	end
+
+	for _, value in { ... } do
+		if isNaN(value) then
+			return false
+		end
+		if isInfinite(value) then
+			return false
+		end
+	end
+	return true
+end
+
 function ValidateCurveAnimation.validateData(
 	inst: Instance,
 	validationContext: Types.ValidationContext
@@ -853,7 +877,9 @@ function ValidateCurveAnimation.validateData(
 			for __, marker in allMarkers do
 				if
 					not marker.Time
-					or isNaN(marker.Time)
+					or (if getFFlagUGCValidateStopNaNsInfsInAnimationKeys()
+						then not areNumbersGood(marker.Time)
+						else isNaN(marker.Time))
 					or not marker.Value
 					or #marker.Value > getFIntUGCValidateMaxMarkerCurveValueLength()
 				then
@@ -881,9 +907,51 @@ function ValidateCurveAnimation.validateData(
 		end
 
 		for __, key in allKeys do
-			if not key.Time or isNaN(key.Time) or not key.Value or isNaN(key.Value) then
+			if
+				not key.Time
+				or (if getFFlagUGCValidateStopNaNsInfsInAnimationKeys()
+					then not areNumbersGood(key.Time)
+					else isNaN(key.Time))
+				or not key.Value
+				or (
+					if getFFlagUGCValidateStopNaNsInfsInAnimationKeys()
+						then not areNumbersGood(key.Value)
+						else isNaN(key.Value)
+				)
+			then
 				return reportFailure(
 					"CurveAnimation contains Curves with invalid Time or Value. Please fix the animation.",
+					Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
+					validationContext
+				)
+			end
+		end
+	end
+	return true
+end
+
+function ValidateCurveAnimation.validateCalculatedData(
+	animFrames: { { string: CFrame } },
+	positionMagnitudeFrames: { { string: number } },
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	for _, frame in animFrames do
+		for __, cframe in frame do
+			if not areNumbersGood((cframe :: CFrame):GetComponents()) then
+				return reportFailure(
+					"CurveAnimation contains Curves with invalid numerical data. Please fix the animation.",
+					Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
+					validationContext
+				)
+			end
+		end
+	end
+
+	for _, frame in positionMagnitudeFrames do
+		for __, magnitude in frame do
+			if not areNumbersGood(magnitude) then
+				return reportFailure(
+					"CurveAnimation contains Curves with invalid numerical data. Please fix the animation.",
 					Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
 					validationContext
 				)
@@ -900,7 +968,7 @@ function ValidateCurveAnimation.calculateAnimFramesAtOrigin(
 end
 
 function ValidateCurveAnimation.validatePositionMagnitudes(
-	positionMagnitudeFrames: { any },
+	positionMagnitudeFrames: { { string: number } },
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local maxMovementsCached = {}
@@ -913,9 +981,9 @@ function ValidateCurveAnimation.validatePositionMagnitudes(
 
 			if not maxMovementsCached[bodyPartName] then
 				maxMovementsCached[bodyPartName] =
-					GetFStringUGCValidateMaxAnimationMovementPerPart.asNumber(bodyPartName)
+					GetFStringUGCValidateMaxAnimationMovementPerPart.asNumber(bodyPartName :: string)
 			end
-			if magnitude > maxMovementsCached[bodyPartName] then
+			if (magnitude :: number) > maxMovementsCached[bodyPartName] then
 				return reportFailure(
 					`CurveAnimation contains positional separation of body parts. Only LowerTorso can change position. All other body parts can only change their orientation. {bodyPartName} moves more than {maxMovementsCached[bodyPartName]} studs from its parent. Please fix the animation.`,
 					Analytics.ErrorType.validateCurveAnimation_PositionalMovement,
@@ -975,6 +1043,14 @@ function ValidateCurveAnimation.validateFrames(
 ): (boolean, { string }?)
 	local animFrames, animLength, positionMagnitudeFrames, tracks =
 		ValidateCurveAnimation.calculateAnimFramesAtOrigin(curveAnim)
+
+	if getFFlagUGCValidateStopNaNsInfsInCalculatedData() then
+		local calculatedDataSuccess, calculatedDataReasons =
+			ValidateCurveAnimation.validateCalculatedData(animFrames, positionMagnitudeFrames, validationContext)
+		if not calculatedDataSuccess then
+			return calculatedDataSuccess, calculatedDataReasons
+		end
+	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 

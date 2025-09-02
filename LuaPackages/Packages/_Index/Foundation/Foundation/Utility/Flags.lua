@@ -26,5 +26,7 @@ return {
 	FoundationShowErrorAboutFoundationProvider = SafeFlags.createGetFFlag("FoundationShowErrorAboutFoundationProvider")(),
 	FoundationChipSelectable = SafeFlags.createGetFFlag("FoundationChipSelectable")(),
 	FoundationFixImageSlice = SafeFlags.createGetFFlag("FoundationFixImageSlice")(),
+	FoundationRemoveSelectionCursorHeartbeat = SafeFlags.createGetFFlag("FoundationRemoveSelectionCursorHeartbeat")(),
+	FoundationFixKnobStroke = SafeFlags.createGetFFlag("FoundationFixKnobStroke")(),
 	FoundationPseudoChildSelectors = SafeFlags.createGetFFlag("FoundationPseudoChildSelectors")(),
 }

@@ -8,9 +8,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
-local FFlagUgcValidationImproveTextureSizeErrorMessages =
-	game:DefineFastFlag("UgcValidationImproveTextureSizeErrorMessages", false)
-
 local function validateTextureSize(
 	textureInfo: Types.TextureInfo,
 	allowNoTexture: boolean?,
@@ -64,34 +61,20 @@ local function validateTextureSize(
 			} :: { any }
 	elseif imageSize.X > maxTextureSize or imageSize.Y > maxTextureSize then
 		Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_TextureTooBig, nil, validationContext)
-		if FFlagUgcValidationImproveTextureSizeErrorMessages then
-			local isUsingNonDefaultMaxTextureSize = maxTextureSize ~= Constants.MAX_TEXTURE_SIZE
-			if isUsingNonDefaultMaxTextureSize then
-				return false,
-					{
-						string.format(
-							"Texture resolution %dx%d px found in '%s' is higher than max size supported value of %dx%d px for field '%s'.",
-							imageSize.X,
-							imageSize.Y,
-							textureInfo.fullName,
-							maxTextureSize,
-							maxTextureSize,
-							textureInfo.fieldName
-						),
-					}
-			else
-				return false,
-					{
-						string.format(
-							"Texture resolution %dx%d px found in '%s' is higher than max size supported value of %dx%d px. You need to reduce the texture resolution",
-							imageSize.X,
-							imageSize.Y,
-							textureInfo.fullName,
-							maxTextureSize,
-							maxTextureSize
-						),
-					}
-			end
+		local isUsingNonDefaultMaxTextureSize = maxTextureSize ~= Constants.MAX_TEXTURE_SIZE
+		if isUsingNonDefaultMaxTextureSize then
+			return false,
+				{
+					string.format(
+						"Texture resolution %dx%d px found in '%s' is higher than max size supported value of %dx%d px for field '%s'.",
+						imageSize.X,
+						imageSize.Y,
+						textureInfo.fullName,
+						maxTextureSize,
+						maxTextureSize,
+						textureInfo.fieldName
+					),
+				}
 		else
 			return false,
 				{

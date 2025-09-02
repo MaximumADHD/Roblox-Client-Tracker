@@ -37,7 +37,7 @@ local function Story(props)
 	end
 
 	return React.createElement(View, {
-		tag = "col gap-large auto-xy padding-larger size-3000",
+		tag = "col gap-large auto-xy padding-xlarge size-3000",
 	}, {
 		InternalTextInput = React.createElement(InternalTextInput, {
 			text = text,

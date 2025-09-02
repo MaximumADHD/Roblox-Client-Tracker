@@ -1,6 +1,5 @@
 local root = script
 
-local getFFlagMeshPartAccessoryPBRSupport = require(root.flags.getFFlagMeshPartAccessoryPBRSupport)
 local getFFlagUGCValidateUseDataCache = require(root.flags.getFFlagUGCValidateUseDataCache)
 local getEngineFeatureUGCValidationWithContextEntrypoint =
 	require(root.flags.getEngineFeatureUGCValidationWithContextEntrypoint)
@@ -28,8 +27,15 @@ local validateShoes = require(root.validation.validateShoes)
 local validateBundleReadyForUpload = require(root.validation.validateBundleReadyForUpload)
 local validateShoesBundleReadyForUpload = require(root.validation.validateShoesBundleReadyForUpload)
 local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynamicHeadMeshPartFormat)
+local ValidationManager = require(root.validationSystem.ValidationManager)
 
 local UGCValidation = {}
+
+-- New endpoints, all other .validate endpoints should be deprecated
+UGCValidation.getAssetValidationData = ValidationManager.ValidateAsset
+--UGCValidation.getLegacyResults = ValidationManager.getErrorMessagesFromContext
+
+-- End of new endpoints
 
 if getEngineFeatureUGCValidationWithContextEntrypoint() then
 	function UGCValidation.validateWithContext(validationContext: Types.ValidationContext)
@@ -123,17 +129,6 @@ function UGCValidation.validate(
 		end
 	end
 
-	local shouldValidateMeshPartAccessories
-	if getFFlagMeshPartAccessoryPBRSupport() then
-		-- default to true if the flag is enabled
-		shouldValidateMeshPartAccessories = if validateMeshPartAccessories ~= nil
-			then validateMeshPartAccessories
-			else true
-	else
-		-- old logic, defaults to false
-		shouldValidateMeshPartAccessories = if validateMeshPartAccessories then true else false
-	end
-
 	local validationContext = {
 		instances = instances :: { Instance },
 		assetTypeEnum = assetTypeEnum :: Enum.AssetType,
@@ -145,7 +140,7 @@ function UGCValidation.validate(
 		isAsync = false,
 		allowEditableInstances = allowEditableInstances :: boolean,
 		bypassFlags = bypassFlags,
-		validateMeshPartAccessories = shouldValidateMeshPartAccessories,
+		validateMeshPartAccessories = if validateMeshPartAccessories ~= nil then validateMeshPartAccessories else true,
 		lastTickSeconds = tick(),
 		shouldYield = shouldYield,
 		editableMeshes = result.editableMeshes :: Types.EditableMeshes,

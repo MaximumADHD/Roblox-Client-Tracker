@@ -1,0 +1,1 @@
+This is a schema check to ensure all required parts of an asset are present and no unknown descendents are present.

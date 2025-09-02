@@ -122,37 +122,41 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 			ref = ref,
 			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else 0,
 		}),
-		React.createElement(PresentationContext.Provider, { value = { isInverse = props.isChecked, isIconSize = true } }, {
-			Leading = if leading
-				then React.createElement(Accessory, {
-					isLeading = true,
-					config = leading,
-					size = props.size,
-					chipBackgroundStyle = variantProps.chip.backgroundStyle,
-					contentStyle = variantProps.text.contentStyle,
-					isDisabled = props.isDisabled,
-				})
-				else nil,
-			Text = if props.text and props.text ~= ""
-				then React.createElement(Text, {
-					Text = props.text,
-					textStyle = variantProps.text.contentStyle,
-					LayoutOrder = 2,
-					tag = variantProps.text.tag,
-					padding = variantProps.text.padding,
-				})
-				else nil,
-			Trailing = if trailing
-				then React.createElement(Accessory, {
-					isLeading = false,
-					config = trailing,
-					size = props.size,
-					chipBackgroundStyle = variantProps.chip.backgroundStyle,
-					contentStyle = variantProps.text.contentStyle,
-					isDisabled = props.isDisabled,
-				})
-				else nil,
-		})
+		React.createElement(
+			PresentationContext.Provider,
+			{ value = { isInverse = props.isChecked, isIconSize = true } },
+			{
+				Leading = if leading
+					then React.createElement(Accessory, {
+						isLeading = true,
+						config = leading,
+						size = props.size,
+						chipBackgroundStyle = variantProps.chip.backgroundStyle,
+						contentStyle = variantProps.text.contentStyle,
+						isDisabled = props.isDisabled,
+					})
+					else nil,
+				Text = if props.text and props.text ~= ""
+					then React.createElement(Text, {
+						Text = props.text,
+						textStyle = variantProps.text.contentStyle,
+						LayoutOrder = 2,
+						tag = variantProps.text.tag,
+						padding = variantProps.text.padding,
+					})
+					else nil,
+				Trailing = if trailing
+					then React.createElement(Accessory, {
+						isLeading = false,
+						config = trailing,
+						size = props.size,
+						chipBackgroundStyle = variantProps.chip.backgroundStyle,
+						contentStyle = variantProps.text.contentStyle,
+						isDisabled = props.isDisabled,
+					})
+					else nil,
+			}
+		)
 	)
 end
 

@@ -8,8 +8,10 @@ local Components = Foundation.Components
 local Image = require(Components.Image)
 local View = require(Components.View)
 local Types = require(Components.Types)
+type Bindable<T> = Types.Bindable<T>
 type ColorStyleValue = Types.ColorStyleValue
 
+local Flags = require(Foundation.Utility.Flags)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -44,6 +46,22 @@ local function Knob(knobProps: KnobProps)
 		}
 	end, { tokens })
 
+	local circleSize = React.useMemo(function(): Bindable<UDim2>
+		local size = variantProps.knob.size
+		if props.stroke and props.stroke.Thickness then
+			if ReactIs.isBinding(props.stroke.Thickness) then
+				return (props.stroke.Thickness :: React.Binding<number>):map(function(thickness: number)
+					return size - UDim2.fromOffset(thickness * 2, thickness * 2)
+				end)
+			end
+
+			local thickness = props.stroke.Thickness :: number
+			size -= UDim2.fromOffset(thickness * 2, thickness * 2)
+		end
+
+		return size
+	end, { variantProps :: unknown, props.stroke })
+
 	return React.createElement(
 		View,
 		withCommonProps(props, {
@@ -53,7 +71,7 @@ local function Knob(knobProps: KnobProps)
 			Circle = React.createElement(View, {
 				tag = variantProps.knob.tag,
 				backgroundStyle = knobStyle,
-				Size = variantProps.knob.size,
+				Size = if Flags.FoundationFixKnobStroke then circleSize else variantProps.knob.size,
 				stroke = props.stroke,
 				ZIndex = 4,
 			}),

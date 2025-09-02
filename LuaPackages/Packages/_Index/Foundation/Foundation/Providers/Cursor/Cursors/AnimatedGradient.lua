@@ -7,6 +7,8 @@ local React = require(Packages.React)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
 
+-- Can remove this component with FoundationRemoveSelectionCursorHeartbeat
+
 local GRADIENT_ROTATION_SPEED = 2
 
 --[[

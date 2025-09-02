@@ -26,6 +26,7 @@ return function(UrlBuilder)
 			end
 			return UrlBuilder.fromString(giftCardsUrl)({ source = sourceCode })
 		end,
+		redeem = UrlBuilder.fromString("www:redeem"),
 		amazonStore = UrlBuilder.fromString("https://www.amazon.com/roblox"),
 		help = UrlBuilder.fromString(isQQ() and "corp:faq" or "www:help"),
 		appealsPortal = {

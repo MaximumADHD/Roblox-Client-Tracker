@@ -1,6 +1,6 @@
 [package]
 name = "ReactIs"
-version = "17.3.2"
+version = "17.3.3"
 content_root = "src"
 files = [
     "*",
@@ -16,9 +16,13 @@ authors = [
     "Olivier Trepanier <otrepanier@roblox.com>",
     "Hugh Collins <hcollins@roblox.com>",
 ]
+[dependencies.ReactGlobals]
+package = "ReactGlobals"
+version = "^17.3.3"
+
 [dependencies.SafeFlags]
 version = "^0.1.1"
 
 [dependencies.Shared]
 package = "Shared"
-version = "^17.3.2"
+version = "^17.3.3"

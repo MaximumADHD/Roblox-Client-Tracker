@@ -577,7 +577,7 @@ return {
 							}),
 							TileFooter = React.createElement(Tile.Footer, {}, {
 								RelevancyInfo = React.createElement(View, {
-									tag = "row gap-xsmall auto-y items-y-center size-full-0",
+									tag = "row gap-xsmall auto-y size-full-0",
 								}, {
 									Icon = React.createElement(Icon, {
 										name = relevancyInfo.icon,

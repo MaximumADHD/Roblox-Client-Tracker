@@ -5,6 +5,7 @@ local Cryo = require(root.Parent.Cryo)
 local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
 
 local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
+local ValidationEnums = require(root.validationSystem.ValidationEnums)
 
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
@@ -576,5 +577,14 @@ if getFFlagUGCValidationConsolidateGetMeshInfos() then
 		[Constants.MESH_CONTENT_TYPE.INNER_CAGE] = "ReferenceMeshId",
 	}
 end
+
+Constants.AllAssetValidationEnums = {
+	-- For tests that run on all categories
+	ValidationEnums.UploadCategory.BODY_PART,
+	ValidationEnums.UploadCategory.DYNAMIC_HEAD,
+	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
+	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
+	ValidationEnums.UploadCategory.EMOTE_ANIMATION,
+}
 
 return Constants

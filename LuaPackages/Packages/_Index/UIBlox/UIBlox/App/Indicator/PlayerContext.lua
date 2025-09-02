@@ -18,8 +18,6 @@ local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local PlayerContext = Roact.PureComponent:extend("PlayerContext")
 
 local SECONDARY_CONTENT_STATE_COLOR = {
@@ -69,6 +67,8 @@ PlayerContext.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.number),
 	-- The horizontal alignment
 	horizontalAlignment = t.optional(t.EnumItem),
+	-- The text horizontal alignment
+	textXAlignment = t.optional(t.EnumItem),
 })
 
 PlayerContext.defaultProps = {
@@ -81,6 +81,7 @@ PlayerContext.defaultProps = {
 	iconTextSpacing = 4,
 	layoutOrder = 1,
 	horizontalAlignment = Enum.HorizontalAlignment.Left,
+	textXAlignment = Enum.TextXAlignment.Left,
 }
 
 function PlayerContext:init()
@@ -160,15 +161,11 @@ function PlayerContext:render()
 				}),
 			}),
 			Text = text and Roact.createElement(GenericTextLabel, {
-				AutomaticSize = if UIBloxConfig.fixPlayerContextTextWidth
-					then Enum.AutomaticSize.Y
-					else Enum.AutomaticSize.XY,
-				Size = if UIBloxConfig.fixPlayerContextTextWidth
-					then UDim2.new(1, if icon then -(iconFrameWidth + iconTextSpacing) else 0, 0, 0)
-					else UDim2.fromOffset(0, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Size = UDim2.new(1, if icon then -(iconFrameWidth + iconTextSpacing) else 0, 0, 0),
 				Text = text,
 				TextWrapped = true,
-				TextXAlignment = Enum.TextXAlignment.Left,
+				TextXAlignment = self.props.textXAlignment,
 				fontStyle = fontStyle,
 				colorStyle = textColorStyle,
 				LayoutOrder = 2,

@@ -13,7 +13,6 @@ local validateSurfaceAppearances = require(root.validation.validateSurfaceAppear
 local validateSurfaceAppearanceTextureSize = require(root.validation.validateSurfaceAppearanceTextureSize)
 local validateSurfaceAppearanceTransparency = require(root.validation.validateSurfaceAppearanceTransparency)
 
-local getFFlagMeshPartAccessoryPBRSupport = require(root.flags.getFFlagMeshPartAccessoryPBRSupport)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 
 local function validateLegacyAccessoryMeshPartAssetFormat(
@@ -46,19 +45,17 @@ local function validateLegacyAccessoryMeshPartAssetFormat(
 		return false, reasons
 	end
 
-	if getFFlagMeshPartAccessoryPBRSupport() then
-		success, reasons = validateSurfaceAppearances(meshPartAssetFormatAccessory, validationContext)
-		if not success then
-			return false, reasons
-		end
-		success, reasons = validateSurfaceAppearanceTextureSize(meshPartAssetFormatAccessory, validationContext)
-		if not success then
-			return false, reasons
-		end
-		success, reasons = validateSurfaceAppearanceTransparency(meshPartAssetFormatAccessory, validationContext)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateSurfaceAppearances(meshPartAssetFormatAccessory, validationContext)
+	if not success then
+		return false, reasons
+	end
+	success, reasons = validateSurfaceAppearanceTextureSize(meshPartAssetFormatAccessory, validationContext)
+	if not success then
+		return false, reasons
+	end
+	success, reasons = validateSurfaceAppearanceTransparency(meshPartAssetFormatAccessory, validationContext)
+	if not success then
+		return false, reasons
 	end
 
 	if getFFlagUGCValidationNameCheck() and isServer then

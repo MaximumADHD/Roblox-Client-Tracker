@@ -1,6 +1,6 @@
 [package]
 name = "UrlBuilder"
-version = "1.2.12"
+version = "1.2.13"
 readme = "README.md"
 content_root = "src"
 files = [
