@@ -262,6 +262,7 @@ Ctrl + Shift + Drag: Select region<br>
 Space: Zoom to Selection<br>
 Ctrl + Drag: Pan<br>
 Click + Drag: Pan<br>
+Ctrl + f: Search scope names<br>
 z: Toggle ToolTip<br>
 x: Toggle X-Ray view<br>
 c: Toggle X-Ray count/sum modes<br>
@@ -2374,9 +2375,7 @@ function PreprocessTimerSubstitutions(timerPredicate, newTimerNameFunc) {
                     // ENTER SCOPE
                     if (tt[xx] === 1 && subsPerID[ti[xx]] !== undefined) {
                         // get label from next log entry
-                        if (xx + 1 >= tt.length || tt[xx + 1] !== 3)
-                            continue;
-                        const label = tl[ti[xx + 1]];
+                        const label = (xx + 1 < tt.length && tt[xx + 1] === 3) ? tl[ti[xx + 1]] : "UNLABELED_CUSTOM_TIMER";
                         // get new timer name
                         const oldTimer = TimerInfo[ti[xx]];
                         const newTimerName = newTimerNameFunc(oldTimer.group.name, oldTimer.name, label);
@@ -6547,11 +6546,7 @@ function KeyUp(evt) {
 
     }
     if (Mode == ModeDetailed) {
-        if (evt.keyCode == 189) {
-            ToggleFilterInput(0);
-            evt.preventDefault();
-        }
-        else if (evt.keyCode == 13 && (FilterInputTimerString || FilterInputGroupString)) {
+        if (evt.keyCode == 13 && (FilterInputTimerString || FilterInputGroupString)) {
             var tokenCompareString = FilterInputTimerString ? FilterInputTimerString.toLowerCase() : "";
             var tokenGroupCompareString = FilterInputGroupString ? FilterInputGroupString.toLowerCase() : "";
             var Token = 0;
@@ -6661,8 +6656,7 @@ function KeyDown(evt) {
 
         if (isFindKey) {
             evt.preventDefault();
-            var hide = ShowFilterInput();
-            ToggleFilterInput(hide);
+            ToggleFilterInput(0);
         }
 
         if (isFindNextKey) {
@@ -7177,7 +7171,7 @@ function PreprocessMinimal() {
             (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label,
         );
     } else {
-        PreprocessTimerSubstitutions('Lua', '$Script');
+        PreprocessTimerSubstitutions('Script', '$Script');
         PreprocessTimerSubstitutions('LuaBridge', '$namecall');
         PreprocessTimerSubstitutions('LuaBridge', '$index');
         PreprocessTimerSubstitutions('LuaBridge', '$newindex');

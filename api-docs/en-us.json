@@ -7762,9 +7762,11 @@
     "documentation": "Instance which facilitates and encourages interaction with UI elements in an experience.",
     "keys": {
       "ActivatedCursorIcon": "@roblox/globaltype/UIDragDetector.ActivatedCursorIcon",
+      "ActivatedCursorIconContent": "@roblox/globaltype/UIDragDetector.ActivatedCursorIconContent",
       "BoundingBehavior": "@roblox/globaltype/UIDragDetector.BoundingBehavior",
       "BoundingUI": "@roblox/globaltype/UIDragDetector.BoundingUI",
       "CursorIcon": "@roblox/globaltype/UIDragDetector.CursorIcon",
+      "CursorIconContent": "@roblox/globaltype/UIDragDetector.CursorIconContent",
       "DragAxis": "@roblox/globaltype/UIDragDetector.DragAxis",
       "DragRelativity": "@roblox/globaltype/UIDragDetector.DragRelativity",
       "DragRotation": "@roblox/globaltype/UIDragDetector.DragRotation",
@@ -7794,6 +7796,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIDragDetector#ActivatedCursorIcon",
     "code_sample": ""
   },
+  "@roblox/globaltype/UIDragDetector.ActivatedCursorIconContent": {
+    "documentation": "Sets the cursor icon to display when the mouse is activated over the parent of this <code>UIDragDetector</code>. Only supports asset URIs",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIDragDetector#ActivatedCursorIconContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/UIDragDetector.BoundingBehavior": {
     "documentation": "Determines bounding behavior of the dragged UI object when the detector's <code>BoundingUI</code> is set.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIDragDetector#BoundingBehavior",
@@ -7807,6 +7814,11 @@
   "@roblox/globaltype/UIDragDetector.CursorIcon": {
     "documentation": "Sets the cursor icon to display when the mouse is hovered over the parent of this <code>UIDragDetector</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIDragDetector#CursorIcon",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIDragDetector.CursorIconContent": {
+    "documentation": "Sets the cursor icon to display when the mouse is hovered over the parent of this <code>UIDragDetector</code>. Only asset URIs are supported.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIDragDetector#CursorIconContent",
     "code_sample": ""
   },
   "@roblox/globaltype/UIDragDetector.DragAxis": {
@@ -13176,6 +13188,7 @@
     "documentation": "Instance which facilitates and encourages interaction with 3D objects in an experience.",
     "keys": {
       "ActivatedCursorIcon": "@roblox/globaltype/DragDetector.ActivatedCursorIcon",
+      "ActivatedCursorIconContent": "@roblox/globaltype/DragDetector.ActivatedCursorIconContent",
       "ApplyAtCenterOfMass": "@roblox/globaltype/DragDetector.ApplyAtCenterOfMass",
       "Axis": "@roblox/globaltype/DragDetector.Axis",
       "DragFrame": "@roblox/globaltype/DragDetector.DragFrame",
@@ -13213,6 +13226,11 @@
   "@roblox/globaltype/DragDetector.ActivatedCursorIcon": {
     "documentation": "Sets the cursor icon to display when the mouse is activated over the parent of this <code>DragDetector</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DragDetector#ActivatedCursorIcon",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DragDetector.ActivatedCursorIconContent": {
+    "documentation": "Sets the cursor icon to display when the mouse is activated over the parent of this <code>DragDetector</code>. Only supports asset URIs",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DragDetector#ActivatedCursorIconContent",
     "code_sample": ""
   },
   "@roblox/globaltype/DragDetector.ApplyAtCenterOfMass": {
@@ -40779,6 +40797,7 @@
     "documentation": "Allows sending HTTP requests and provides various web-related and JSON methods.",
     "keys": {
       "HttpEnabled": "@roblox/globaltype/HttpService.HttpEnabled",
+      "CreateWebStreamClient": "@roblox/globaltype/HttpService.CreateWebStreamClient",
       "GenerateGUID": "@roblox/globaltype/HttpService.GenerateGUID",
       "GetAsync": "@roblox/globaltype/HttpService.GetAsync",
       "GetSecret": "@roblox/globaltype/HttpService.GetSecret",
@@ -40794,6 +40813,40 @@
   "@roblox/globaltype/HttpService.HttpEnabled": {
     "documentation": "Indicates whether HTTP requests can be sent to external websites.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#HttpEnabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HttpService.CreateWebStreamClient/param/0": {
+    "documentation": "Allows sending HTTP requests and provides various web-related and JSON methods."
+  },
+  "@roblox/globaltype/HttpService.CreateWebStreamClient/param/1": {
+    "documentation": "The type of streaming connection to intiialize the client with."
+  },
+  "@roblox/globaltype/HttpService.CreateWebStreamClient/param/2": {
+    "documentation": "A dictionary containing information to be requested from the server. It is identical to <code>requestOptions</code> in <code>HttpService:RequestAsync()</code>."
+  },
+  "@roblox/globaltype/HttpService.CreateWebStreamClient/return/0": {
+    "documentation": "A stateful client that emits events in the stream lifecycle."
+  },
+  "@roblox/globaltype/HttpService.CreateWebStreamClient": {
+    "documentation": "Creates a client that opens a persistent connection to stream data.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/HttpService.CreateWebStreamClient/param/0"
+      },
+      {
+        "name": "streamClientType",
+        "documentation": "@roblox/globaltype/HttpService.CreateWebStreamClient/param/1"
+      },
+      {
+        "name": "requestOptions",
+        "documentation": "@roblox/globaltype/HttpService.CreateWebStreamClient/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/HttpService.CreateWebStreamClient/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#CreateWebStreamClient",
     "code_sample": ""
   },
   "@roblox/globaltype/HttpService.GenerateGUID/param/0": {
@@ -41058,6 +41111,7 @@
     "documentation": "An object that provides user input on in-experience <code>BaseParts</code> and <code>Models</code>.",
     "keys": {
       "CursorIcon": "@roblox/globaltype/ClickDetector.CursorIcon",
+      "CursorIconContent": "@roblox/globaltype/ClickDetector.CursorIconContent",
       "MaxActivationDistance": "@roblox/globaltype/ClickDetector.MaxActivationDistance"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ClickDetector",
@@ -41066,6 +41120,11 @@
   "@roblox/globaltype/ClickDetector.CursorIcon": {
     "documentation": "Sets the cursor icon to display when the mouse is hovered over the parent of this <code>ClickDetector</code> or <code>DragDetector</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ClickDetector#CursorIcon",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ClickDetector.CursorIconContent": {
+    "documentation": "Sets the cursor icon to display when the mouse is hovered over the parent of this <code>ClickDetector</code> or <code>DragDetector</code>. Only supports asset URIs.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ClickDetector#CursorIconContent",
     "code_sample": ""
   },
   "@roblox/globaltype/ClickDetector.MaxActivationDistance": {
@@ -48138,6 +48197,387 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MLSession#ForwardAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/WebStreamClient": {
+    "documentation": "Maintains a streaming connection.",
+    "keys": {
+      "ConnectionState": "@roblox/globaltype/WebStreamClient.ConnectionState",
+      "Close": "@roblox/globaltype/WebStreamClient.Close"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.ConnectionState": {
+    "documentation": "The current <code>WebStreamClientState</code> of the client.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#ConnectionState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Close/param/0": {
+    "documentation": "Maintains a streaming connection."
+  },
+  "@roblox/globaltype/WebStreamClient.Close": {
+    "documentation": "Closes the client, aborting the ongoing request.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Close/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Close",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Closed": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/WebStreamClient.Closed.Connect",
+      "ConnectParallel": "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel",
+      "Once": "@roblox/globaltype/WebStreamClient.Closed.Once",
+      "Wait": "@roblox/globaltype/WebStreamClient.Closed.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Closed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Error.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Error.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Error.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Error": {
+    "documentation": "Fires if an error is received while establishing the connection or during the connection lifetime.",
+    "keys": {
+      "Connect": "@roblox/globaltype/WebStreamClient.Error.Connect",
+      "ConnectParallel": "@roblox/globaltype/WebStreamClient.Error.ConnectParallel",
+      "Once": "@roblox/globaltype/WebStreamClient.Error.Once",
+      "Wait": "@roblox/globaltype/WebStreamClient.Error.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived": {
+    "documentation": "Fires each time a message is received from the server.",
+    "keys": {
+      "Connect": "@roblox/globaltype/WebStreamClient.MessageReceived.Connect",
+      "ConnectParallel": "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel",
+      "Once": "@roblox/globaltype/WebStreamClient.MessageReceived.Once",
+      "Wait": "@roblox/globaltype/WebStreamClient.MessageReceived.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#MessageReceived",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Opened": {
+    "documentation": "Fires when the a connection is successfully established between the client and server, allowing for events to begin streaming.",
+    "keys": {
+      "Connect": "@roblox/globaltype/WebStreamClient.Opened.Connect",
+      "ConnectParallel": "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel",
+      "Once": "@roblox/globaltype/WebStreamClient.Opened.Once",
+      "Wait": "@roblox/globaltype/WebStreamClient.Opened.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Opened",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RotateP": {
     "documentation": "<strong>Deprecated:</strong> This class works alongside the deprecated <code>SurfaceType</code> and should not be used for future work; use <code>HingeConstraint</code> instead.",
     "keys": {},
@@ -48959,10 +49399,10 @@
     "documentation": "Service responsible for all runtime activity and progression of time."
   },
   "@roblox/globaltype/RunService.IsRunMode/return/0": {
-    "documentation": "Whether the <strong>Run</strong> button has been pressed to run the simulation in Studio."
+    "documentation": "Whether a <strong>Run</strong> playtest has been initiated in Studio."
   },
   "@roblox/globaltype/RunService.IsRunMode": {
-    "documentation": "Returns whether the <strong>Run</strong> button has been pressed to run the simulation in Studio.",
+    "documentation": "Returns whether a <strong>Run</strong> playtest has been initiated in Studio.",
     "params": [
       {
         "name": "self",
@@ -66079,6 +66519,7 @@
       "MouseDeltaSensitivity": "@roblox/globaltype/UserInputService.MouseDeltaSensitivity",
       "MouseEnabled": "@roblox/globaltype/UserInputService.MouseEnabled",
       "MouseIcon": "@roblox/globaltype/UserInputService.MouseIcon",
+      "MouseIconContent": "@roblox/globaltype/UserInputService.MouseIconContent",
       "MouseIconEnabled": "@roblox/globaltype/UserInputService.MouseIconEnabled",
       "OnScreenKeyboardPosition": "@roblox/globaltype/UserInputService.OnScreenKeyboardPosition",
       "OnScreenKeyboardSize": "@roblox/globaltype/UserInputService.OnScreenKeyboardSize",
@@ -66158,6 +66599,11 @@
   "@roblox/globaltype/UserInputService.MouseIcon": {
     "documentation": "The content ID of the image for the user's mouse icon.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#MouseIcon",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UserInputService.MouseIconContent": {
+    "documentation": "The content ID of the image for the user's mouse icon. Only supports asset URIs.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#MouseIconContent",
     "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.MouseIconEnabled": {
@@ -77476,6 +77922,7 @@
     "keys": {
       "Hit": "@roblox/globaltype/Mouse.Hit",
       "Icon": "@roblox/globaltype/Mouse.Icon",
+      "IconContent": "@roblox/globaltype/Mouse.IconContent",
       "Origin": "@roblox/globaltype/Mouse.Origin",
       "Target": "@roblox/globaltype/Mouse.Target",
       "TargetFilter": "@roblox/globaltype/Mouse.TargetFilter",
@@ -77499,6 +77946,11 @@
   "@roblox/globaltype/Mouse.Icon": {
     "documentation": "The content ID of the image used as the <code>Mouse</code> icon.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Mouse#Icon",
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal mouse = Players.LocalPlayer:GetMouse()\nmouse.Icon = \"http://www.roblox.com/asset?id=163023520\""
+  },
+  "@roblox/globaltype/Mouse.IconContent": {
+    "documentation": "The content of the image used as the <code>Mouse</code> icon. Only supports asset URIs.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Mouse#IconContent",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal mouse = Players.LocalPlayer:GetMouse()\nmouse.Icon = \"http://www.roblox.com/asset?id=163023520\""
   },
   "@roblox/globaltype/Mouse.Origin": {
@@ -89281,9 +89733,15 @@
   "@roblox/globaltype/BackpackItem": {
     "documentation": "BackpackItem is an abstract class for backpack items such as HopperBins and Tools.",
     "keys": {
+      "TextureContent": "@roblox/globaltype/BackpackItem.TextureContent",
       "TextureId": "@roblox/globaltype/BackpackItem.TextureId"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BackpackItem",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/BackpackItem.TextureContent": {
+    "documentation": "The texture icon that is displayed for a tool in the player's backpack. Only supports asset URIs.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BackpackItem#TextureContent",
     "code_sample": ""
   },
   "@roblox/globaltype/BackpackItem.TextureId": {
@@ -103684,7 +104142,7 @@
     "code_sample": ""
   },
   "@roblox/enum/DataStoreRequestType.SetIncrementSortedAsync": {
-    "documentation": "Refers to <code>SetAsync()</code> and <code>IncrementAsync()</code> while using an <code>OrderedDataStore</code>.",
+    "documentation": "Refers to <code>SetAsync()</code> <code>IncrementAsync()</code>, <code>RemoveAsync()</code>, and the write of <code>UpdateAsync()</code> while using an <code>OrderedDataStore</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111588,6 +112046,35 @@
       "VelocityPerpendicular": "@roblox/enum/ParticleOrientation.VelocityPerpendicular"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientType.SSE": {
+    "documentation": "Traditional Server-Sent Events (SSE) client. Requires <code>text/event-stream</code> to be returned in the <code>Content-Type</code> header. Messages in the stream will follow the <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format\">event stream format</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#SSE",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientType.RawStream": {
+    "documentation": "The client can connect to any server that provides streaming data transfer (e.g. <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">chunked encoding</a>). It provides no guarantees about the stream format.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#RawStream",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.WebStreamClientType": {
+    "documentation": "Specifies what type of streaming to use when creating a <code>WebStreamClient</code>.",
+    "keys": {
+      "SSE": "@roblox/enum/WebStreamClientType.SSE",
+      "RawStream": "@roblox/enum/WebStreamClientType.RawStream"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType",
     "code_sample": ""
   },
   "@roblox/enum/HapticEffectType.Custom": {
@@ -130224,6 +130711,57 @@
       "Vertical": "@roblox/enum/OutputLayoutMode.Vertical"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OutputLayoutMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientState.Connecting": {
+    "documentation": "The client has sent a request to connect with the server and is waiting for a response.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState#Connecting",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientState.Open": {
+    "documentation": "The client is connected to the server, allowing for data to be streamed between the server and client.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState#Open",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientState.Error": {
+    "documentation": "An unrecoverable error has occured while setting up the connection orduring the connection lifetime, cutting off the stream.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState#Error",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientState.Closed": {
+    "documentation": "The connection has run to completion without issues, either closed naturally by the server or manually by the user.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState#Closed",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.WebStreamClientState": {
+    "documentation": "WebStreamClientState indicates the current state of a WebStreamClient object.",
+    "keys": {
+      "Connecting": "@roblox/enum/WebStreamClientState.Connecting",
+      "Open": "@roblox/enum/WebStreamClientState.Open",
+      "Error": "@roblox/enum/WebStreamClientState.Error",
+      "Closed": "@roblox/enum/WebStreamClientState.Closed"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState",
     "code_sample": ""
   },
   "@roblox/enum/DebuggerFrameType.C": {

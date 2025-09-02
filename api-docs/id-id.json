@@ -47921,6 +47921,387 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MLSession#ForwardAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/WebStreamClient": {
+    "documentation": "Maintains a streaming connection.",
+    "keys": {
+      "ConnectionState": "@roblox/globaltype/WebStreamClient.ConnectionState",
+      "Close": "@roblox/globaltype/WebStreamClient.Close"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.ConnectionState": {
+    "documentation": "The current <code>WebStreamClientState</code> of the client.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#ConnectionState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Close/param/0": {
+    "documentation": "Maintains a streaming connection."
+  },
+  "@roblox/globaltype/WebStreamClient.Close": {
+    "documentation": "Closes the client, aborting the ongoing request.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Close/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Close",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Connect/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Connect": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Once/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Once": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara (untuk satu panggilan) dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Wait/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Closed.Wait": {
+    "documentation": "Menghasilkan thread saat ini sampai sinyal menyala dan mengembalikan argumen yang disediakan oleh sinyal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Closed.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Closed": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/WebStreamClient.Closed.Connect",
+      "ConnectParallel": "@roblox/globaltype/WebStreamClient.Closed.ConnectParallel",
+      "Once": "@roblox/globaltype/WebStreamClient.Closed.Once",
+      "Wait": "@roblox/globaltype/WebStreamClient.Closed.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Closed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Connect/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Connect": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Error.ConnectParallel/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Error.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Error.ConnectParallel": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Once/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Once": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara (untuk satu panggilan) dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Wait/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Error.Wait": {
+    "documentation": "Menghasilkan thread saat ini sampai sinyal menyala dan mengembalikan argumen yang disediakan oleh sinyal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Error.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Error": {
+    "documentation": "Fires if an error is received while establishing the connection or during the connection lifetime.",
+    "keys": {
+      "Connect": "@roblox/globaltype/WebStreamClient.Error.Connect",
+      "ConnectParallel": "@roblox/globaltype/WebStreamClient.Error.ConnectParallel",
+      "Once": "@roblox/globaltype/WebStreamClient.Error.Once",
+      "Wait": "@roblox/globaltype/WebStreamClient.Error.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Error",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Connect/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Connect": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Once/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Once": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara (untuk satu panggilan) dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Wait/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived.Wait": {
+    "documentation": "Menghasilkan thread saat ini sampai sinyal menyala dan mengembalikan argumen yang disediakan oleh sinyal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.MessageReceived.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.MessageReceived": {
+    "documentation": "Fires each time a message is received from the server.",
+    "keys": {
+      "Connect": "@roblox/globaltype/WebStreamClient.MessageReceived.Connect",
+      "ConnectParallel": "@roblox/globaltype/WebStreamClient.MessageReceived.ConnectParallel",
+      "Once": "@roblox/globaltype/WebStreamClient.MessageReceived.Once",
+      "Wait": "@roblox/globaltype/WebStreamClient.MessageReceived.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#MessageReceived",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Connect/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Connect": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Once/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Once": {
+    "documentation": "Hubungkan fungsi yang diberikan ke acara (untuk satu panggilan) dan kembalikan <code>RBXScriptConnection</code> yang mewakili itu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Wait/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terhubung saat terjadi secara spesifik."
+  },
+  "@roblox/globaltype/WebStreamClient.Opened.Wait": {
+    "documentation": "Menghasilkan thread saat ini sampai sinyal menyala dan mengembalikan argumen yang disediakan oleh sinyal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Opened.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/WebStreamClient.Opened": {
+    "documentation": "Fires when the a connection is successfully established between the client and server, allowing for events to begin streaming.",
+    "keys": {
+      "Connect": "@roblox/globaltype/WebStreamClient.Opened.Connect",
+      "ConnectParallel": "@roblox/globaltype/WebStreamClient.Opened.ConnectParallel",
+      "Once": "@roblox/globaltype/WebStreamClient.Opened.Once",
+      "Wait": "@roblox/globaltype/WebStreamClient.Opened.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Opened",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RotateP": {
     "documentation": "<strong>Deprecated:</strong> Kelas ini bekerja bersama dengan deprecated <code>SurfaceType</code> dan tidak boleh digunakan untuk pekerjaan masa depan; gunakan <code>HingeConstraint</code> sebagai gantinya.",
     "keys": {},
@@ -109988,6 +110369,35 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleOrientation",
     "code_sample": ""
   },
+  "@roblox/enum/WebStreamClientType.SSE": {
+    "documentation": "Traditional Server-Sent Events (SSE) client. Requires <code>text/event-stream</code> to be returned in the <code>Content-Type</code> header. Messages in the stream will follow the <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format\">event stream format</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#SSE",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientType.RawStream": {
+    "documentation": "The client can connect to any server that provides streaming data transfer (e.g. <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">chunked encoding</a>). It provides no guarantees about the stream format.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#RawStream",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.WebStreamClientType": {
+    "documentation": "Specifies what type of streaming to use when creating a <code>WebStreamClient</code>.",
+    "keys": {
+      "SSE": "@roblox/enum/WebStreamClientType.SSE",
+      "RawStream": "@roblox/enum/WebStreamClientType.RawStream"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType",
+    "code_sample": ""
+  },
   "@roblox/enum/HapticEffectType.Custom": {
     "documentation": "Memungkinkan penerapan gelombang haptik khusus melalui metode <code>HapticEffect:SetWaveformKeys()</code>.",
     "keys": {
@@ -128578,6 +128988,57 @@
       "Vertical": "@roblox/enum/OutputLayoutMode.Vertical"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OutputLayoutMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientState.Connecting": {
+    "documentation": "The client has sent a request to connect with the server and is waiting for a response.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState#Connecting",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientState.Open": {
+    "documentation": "The client is connected to the server, allowing for data to be streamed between the server and client.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState#Open",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientState.Error": {
+    "documentation": "An unrecoverable error has occured while setting up the connection orduring the connection lifetime, cutting off the stream.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState#Error",
+    "code_sample": ""
+  },
+  "@roblox/enum/WebStreamClientState.Closed": {
+    "documentation": "The connection has run to completion without issues, either closed naturally by the server or manually by the user.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState#Closed",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.WebStreamClientState": {
+    "documentation": "WebStreamClientState indicates the current state of a WebStreamClient object.",
+    "keys": {
+      "Connecting": "@roblox/enum/WebStreamClientState.Connecting",
+      "Open": "@roblox/enum/WebStreamClientState.Open",
+      "Error": "@roblox/enum/WebStreamClientState.Error",
+      "Closed": "@roblox/enum/WebStreamClientState.Closed"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientState",
     "code_sample": ""
   },
   "@roblox/enum/DebuggerFrameType.C": {

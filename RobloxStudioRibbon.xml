@@ -174,8 +174,8 @@
         <addaction name="clearPivotAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.ClearPivot" tooltip="Studio.App.RobloxRibbonMainWindow.ClearPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/ClearPivot.png" modernIcon="ResetPivot" width="16" height="16" />
       </Group>
       <Group name="Alignment" text="Studio.App.RobloxRibbonMainWindow.AlignToolGroup" modernIcon="AlignTool" icon=":/RibbonBar/images/RibbonIcons/Home/Align.png" width="32" height="32">
-        <addaction fflag="EnableRibbonPlugin2" name="alignToolAction" type="plugin" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Align.png" modernIcon="AlignTool" height="32" width="32"/>
-        <addaction fflag="!EnableRibbonPlugin2" name="alignToolAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.AlignTool" icon=":/RibbonBar/images/RibbonIcons/Home/Align.png" modernIcon="AlignTool" tooltip="Studio.App.RobloxRibbonMainWindow.AlignToolTooltip" height="32" width="32"/>
+        <addaction fflag="EnableRibbonPlugin3" name="alignToolAction" type="plugin" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Align.png" modernIcon="AlignTool" height="32" width="32"/>
+        <addaction fflag="!EnableRibbonPlugin3" name="alignToolAction" type="plugin" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.AlignTool" icon=":/RibbonBar/images/RibbonIcons/Home/Align.png" modernIcon="AlignTool" tooltip="Studio.App.RobloxRibbonMainWindow.AlignToolTooltip" height="32" width="32"/>
       </Group>
       <Group name="UI" text="Studio.App.RBXMainWindow.UI" controlsCentering="true" modernIcon="UI">
         <addaction name="RobloxUIEditor" instancename="UIEditor" style="textundericon" text="Studio.App.RBXMainWindow.UIEditor" tooltip="Studio.App.RBXMainWindow.UIEditorVOne" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Home/UIEditor.png" modernIcon="UI" width="32" height="32" />
@@ -275,8 +275,8 @@
           <addaction name="ScriptLargeAction" text="Script" value="Script" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAScript" icon=":/images/server_script.png" modernIcon="Script"/>
           <addaction name="LocalScriptLargeAction" text="LocalScript" value="LocalScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertALocalScript" icon=":/images/local_script.png" modernIcon="LocalScript"/>
           <addaction name="ModuleScriptLargeAction" text="ModuleScript" value="ModuleScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAModuleScript" icon=":/images/module_script.png" modernIcon="ModuleScript"/>
-          <addaction fflagList="DebugHashTableMetrics,EnableRibbonPlugin2" name="BehaviorScriptLargeAction" value="BehaviorScript" icon=":/images/behavior_script.png" modernIcon="Placeholder"/>
-          <addaction fflagList="DebugHashTableMetrics,!EnableRibbonPlugin2" name="BehaviorScriptLargeAction" text="BehaviorScript" value="BehaviorScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertABehaviorScript" icon=":/images/behavior_script.png" modernIcon="Placeholder"/>
+          <addaction fflagList="DebugHashTableMetrics,EnableRibbonPlugin3" name="BehaviorScriptLargeAction" value="BehaviorScript" icon=":/images/behavior_script.png" modernIcon="Placeholder"/>
+          <addaction fflagList="DebugHashTableMetrics,!EnableRibbonPlugin3" name="BehaviorScriptLargeAction" text="BehaviorScript" value="BehaviorScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertABehaviorScript" icon=":/images/behavior_script.png" modernIcon="Placeholder"/>
         </ActionGroup>
       </Group>
     </TabPage>
@@ -310,33 +310,33 @@
         <addcheckbox fflag="DraggerImprovements" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesSnapToParts" name="toggleSnapToPartsAction" text="Studio.App.RobloxRibbonMainWindow.SnapToParts" checked="true"/>
       </Group>
       <Group name="Accessory" text="Studio.Common.Action.Accessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" width="32" height="32">
-        <addaction fflag="EnableRibbonPlugin2" name="layeredClothingEditorAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" style="textundericon" width="32" height="32" />
-        <addaction fflag="EnableRibbonPlugin2" name="createAccessoryAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/createAccessory.png" style="textundericon" width="32" height="32" />
-        <addaction fflag="!EnableRibbonPlugin2" name="layeredClothingEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip" width="32" height="32" />
-        <addaction fflag="!EnableRibbonPlugin2" name="createAccessoryAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.CreateAccessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/createAccessory.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip" width="32" height="32" />
+        <addaction fflag="EnableRibbonPlugin3" name="layeredClothingEditorAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" style="textundericon" width="32" height="32" />
+        <addaction fflag="EnableRibbonPlugin3" name="createAccessoryAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/createAccessory.png" style="textundericon" width="32" height="32" />
+        <addaction fflag="!EnableRibbonPlugin3" name="layeredClothingEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip" width="32" height="32" />
+        <addaction fflag="!EnableRibbonPlugin3" name="createAccessoryAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.CreateAccessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/createAccessory.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip" width="32" height="32" />
       </Group>
       <Group name="File" text="Studio.Common.Action.File" icon=":/RibbonBar/images/RibbonIcons/Avatar/icon_AvatarImporter.png" modernIcon="AvatarImporter" width="32" height="32">
         <addaction name="meshImporterAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.Import3D" icon=":/RibbonBar/images/RibbonIcons/Avatar/Import.png" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip" width="32" height="32" />
       </Group>
       <Group name="Rig" text="Studio.Common.Action.Rig" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" width="32" height="32">
-        <addaction fflag="EnableRibbonPlugin2" name="rigBuilderAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" style="textundericon" width="32" height="32" />
-        <addaction fflag="!EnableRibbonPlugin2" name="rigBuilderAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.RigBuilder" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip" width="32" height="32" />
+        <addaction fflag="EnableRibbonPlugin3" name="rigBuilderAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" style="textundericon" width="32" height="32" />
+        <addaction fflag="!EnableRibbonPlugin3" name="rigBuilderAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.RigBuilder" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip" width="32" height="32" />
       </Group>
       <Group name="Preview" text="Studio.Common.Action.Preview" modernIcon="AvatarPreviewer" width="32" height="32">
-        <addaction fflag="EnableRibbonPlugin2" name="avatarPreviewerAction" type="plugin" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
-        <addaction fflag="!EnableRibbonPlugin2" name="avatarPreviewerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AvatarPreviewer" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
+        <addaction fflag="EnableRibbonPlugin3" name="avatarPreviewerAction" type="plugin" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
+        <addaction fflag="!EnableRibbonPlugin3" name="avatarPreviewerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AvatarPreviewer" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
       </Group>
       <Group fflag="EnableAvatarSettings" name="AvatarSettings" text="Studio.Common.Action.AvatarSettings" modernIcon="AvatarSettings" width="32" height="32">
         <addaction fflag="EnableAvatarSettings" name="avatarSettingsAction" modernIcon="AvatarSettings" style="textundericon" width="32" height="32" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
       </Group>
       <Group name="Animation" text="Studio.Common.Action.Animation" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" width="32" height="32">
-        <addaction fflag="EnableRibbonPlugin2" name="animationEditorAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" width="32" height="32" />
-        <addaction fflag="!EnableRibbonPlugin2" name="animationEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AnimationEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip" width="32" height="32" />
+        <addaction fflag="EnableRibbonPlugin3" name="animationEditorAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" width="32" height="32" />
+        <addaction fflag="!EnableRibbonPlugin3" name="animationEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AnimationEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip" width="32" height="32" />
         <addaction name="compositorDebuggerAction" fflag="CDEnableCompositorDebugger1" type="plugin" text="Studio.App.RobloxRibbonMainWindow.CompositorDebugger" modernIcon="CompositorDebugger" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.CompositorDebuggerTooltip" width="32" height="32" />
       </Group>
       <Group name="AvatarUnification" fflag="DebugR15MigratorPlugin" text="Studio.Common.Action.AvatarUnification" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" width="32" height="32">
-        <addaction name="r15migratorAction" fflagList="DebugR15MigratorPlugin,EnableRibbonPlugin2" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" width="32" height="32" />
-        <addaction name="r15migratorAction" fflagList="DebugR15MigratorPlugin,!EnableRibbonPlugin2" type="plugin" text="Studio.App.RobloxRibbonMainWindow.R15Migrator" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.R15MigratorTooltip" width="32" height="32" />
+        <addaction name="r15migratorAction" fflagList="DebugR15MigratorPlugin,EnableRibbonPlugin3" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" width="32" height="32" />
+        <addaction name="r15migratorAction" fflagList="DebugR15MigratorPlugin,!EnableRibbonPlugin3" type="plugin" text="Studio.App.RobloxRibbonMainWindow.R15Migrator" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="Placeholder" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.R15MigratorTooltip" width="32" height="32" />
       </Group>
     </TabPage>
     <!--
@@ -420,16 +420,16 @@
         <addaction name="luaToolboxAction" style="textbesideicon" icon=":/images/ToolboxIcon.png" modernIcon="Toolbox"/>
         <addaction name="objectBrowserAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Object-Browser.png" modernIcon="ObjectBrowser"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects"/>
         <addaction name="toggleOutputWindowDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="Output" tooltip="Studio.App.RobloxRibbonMainWindow.OutputFeedOfScripts" text="Studio.App.RBXMainWindow.Output"/>
-        <addaction fflag="EnableRibbonPlugin2" name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis"/>
-        <addaction fflagList="CodeSnippet_Alpha4,EnableRibbonPlugin2" name="toggleCodeSnippetsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis"/>
-        <addaction fflag="EnableRibbonPlugin2" name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="CommandBar"/>
-        <addaction fflag="!EnableRibbonPlugin2" name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis"/>
-        <addaction fflagList="CodeSnippet_Alpha4,!EnableRibbonPlugin2" name="toggleCodeSnippetsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCodeSnippet"/>
-        <addaction fflag="!EnableRibbonPlugin2" name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="CommandBar" tooltip="Studio.App.RBXMainWindow.ViewCommandBar" text="Studio.App.RBXMainWindow.CommandBar"/>
+        <addaction fflag="EnableRibbonPlugin3" name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis"/>
+        <addaction fflagList="CodeSnippet_Alpha4,EnableRibbonPlugin3" name="toggleCodeSnippetsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis"/>
+        <addaction fflag="EnableRibbonPlugin3" name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="CommandBar"/>
+        <addaction fflag="!EnableRibbonPlugin3" name="toggleScriptAnalysisDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis"/>
+        <addaction fflagList="CodeSnippet_Alpha4,!EnableRibbonPlugin3" name="toggleCodeSnippetsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="ScriptAnalysis" tooltip="Studio.App.RobloxRibbonMainWindow.ViewCodeSnippet"/>
+        <addaction fflag="!EnableRibbonPlugin3" name="viewCommandBarAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Output.png" modernIcon="CommandBar" tooltip="Studio.App.RBXMainWindow.ViewCommandBar" text="Studio.App.RBXMainWindow.CommandBar"/>
         <addaction name="toggleDiagnosticsDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Diagnostics.png" modernIcon="Performance"  tooltip="Studio.App.RobloxRibbonMainWindow.ViewDiagnosticInfo"/>
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" modernIcon="TaskScheduler" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation"/>
-        <addaction fflag="EnableRibbonPlugin2" name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance"/>
-        <addaction fflag="!EnableRibbonPlugin2" name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat"/>
+        <addaction fflag="EnableRibbonPlugin3" name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance"/>
+        <addaction fflag="!EnableRibbonPlugin3" name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat"/>
         <addaction fflag="!NewFindReplaceTasker4" name="toggleFindReplaceWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
         <addaction fflag="NewFindReplaceTasker4" name="toggleFindReplaceAllWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
         <addaction fflag="EnableAvatarSettings" name="avatarSettingsAction" modernIcon="AvatarSettings" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
@@ -449,7 +449,7 @@
 
         <addaction name="toggleStudioActivityFeedAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip" modernIcon="ActivityHistory" ischeckable="true" />
         <addaction name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
-        <addaction fflag="EnableNewAssistant" name="toggleAssistantDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
+        <addaction fflag="EnableNewAssistant2" name="toggleAssistantDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool"/>
         <addaction name="toggleStudioAnnotationsAction" style="textbesideicon" />
         <addaction fflag="EnablePlaceVersionHistory" name="togglePlaceVersionHistoryAction" style="textbesideicon"/>

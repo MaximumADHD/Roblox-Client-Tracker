@@ -2618,7 +2618,7 @@
         </Item>
       </Item>
     </Item>
-    
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Wire</string>
@@ -3299,6 +3299,67 @@
             <double name="UIMaximum">1000</double>
             <double name="UINumTicks">1000</double>
             <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioTremolo</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <string name="FFlag">EnableAudioTremolo</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Depth</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Duty</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Frequency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Shape</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Skew</string>
+            <double name="UIMinimum">-1</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Square</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">1000</double>
           </Properties>
         </Item>
       </Item>
@@ -4255,7 +4316,7 @@
         </Item>
       </Item>
     </Item>
-    
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UIContainerQuery</string>

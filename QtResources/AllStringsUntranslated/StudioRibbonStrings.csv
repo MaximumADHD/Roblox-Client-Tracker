@@ -2,11 +2,20 @@ Key,Context,Source,en-us
 Studio.Ribbon.Action.AddTab,"Text appearing in a dropdown option that, when clicked, adds a new tab to the Ribbon. The dropdown is a dropdown of all the tabs in the Ribbon, so there is already an established context of tabs here, hence why the source text is just ""Add"".",Add,Add
 Studio.Ribbon.Action.CollapseToolbar,"Action that when checked, will detach the Studio toolbar - Ribbon -  into a floating menu",Collapse toolbar,Collapse toolbar
 Studio.Ribbon.Action.CompactDensity,"Action that when checked will reduce the padding, spacing, text size for the main toolbar in Ribbon, making it more compact",Compact toolbar,Compact toolbar
+Studio.Ribbon.Action.Continue,"Button text for generic Continue actions.
+e.g. ""Restart now to get a new version of Studio"" > ""Continue""
+e.g. ""Download the new version of Studio"" > ""Continue""",Continue,Continue
 Studio.Ribbon.Action.FindAndReplaceAll,Tool to find and replace all instances of something within a script,Find and Replace All,Find and Replace All
 Studio.Ribbon.Action.ImportRobloxModel,Import from file a Roblox model,Import Roblox Model,Import Roblox Model
 Studio.Ribbon.Action.InviteCollaborators,Share your project and start building together,Invite Collaborators,Invite Collaborators
 Studio.Ribbon.Action.Labels,The action that hides/shows labels in the Studio Toolbar - Ribbon,Show labels,Show labels
 Studio.Ribbon.Action.Pivot,Edit the point around which the selected object rotates and translates,Pivot,Pivot
+Studio.Ribbon.Action.ToggleUpdateStatusPanel,Text displayed on the ribbon button used to open the update status panel/dialog.,Get Studio update,Get Studio update
+Studio.Ribbon.Action.UpdateAvailable,The text displayed on the update panel action button when an update is available.,Download update,Download update
+Studio.Ribbon.Action.UpdateFailed,The text displayed on the update panel action button when an update is failed.,Retry update,Retry update
+Studio.Ribbon.Action.UpdateInProgress,The text displayed on the update panel action button when an update is in progress.,Downloading update,Downloading update
+Studio.Ribbon.Action.UpdateReady,The text displayed on the update panel action button when an update is pre-downloaded and ready to apply.,Restart now,Restart now
+Studio.Ribbon.Action.ViewReleaseNotes,Text for a button that links to the latest release notes.,View release notes,View release notes
 Studio.Ribbon.Actions.AdGui,A GUI object that displays ads,AdGui,AdGui
 Studio.Ribbon.Actions.LaunchTestMode,Launches a testing session for the currently selected test mode,Launch Test Mode,Launch Test Mode
 Studio.Ribbon.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject under the control of a UIListLayout.,UIFlexItem,UIFlexItem
@@ -134,9 +143,21 @@ Studio.Ribbon.Plugin.Tooltip.Mode,,Toggle between transforming objects geometric
 Studio.Ribbon.Plugin.Tooltip.Part,,Create a new Part,Create a new Part
 Studio.Ribbon.Plugin.Tooltip.Script,,Create a Script in the selected object,Create a Script in the selected object
 Studio.Ribbon.Plugin.Tooltip.Weld,Tooltip for Weld split button on Ribbon,Connect BaseParts into rigid assemblies,Connect BaseParts into rigid assemblies
+Studio.Ribbon.Plugin.UpdateAvailable,The text displayed on the button used to open the update panel when an update is available.,Update Available,Update Available
+Studio.Ribbon.Plugin.UpdateFailed,The text displayed on the button used to open the update panel when an update is failed.,Update Failed,Update Failed
+Studio.Ribbon.Plugin.UpdateInProgress,The text displayed on the button used to open the update panel when an update is in progress.,Updating...,Updating...
+Studio.Ribbon.Plugin.UpdateReady,The text displayed on the button used to open the update panel when an update is ready.,Update Ready,Update Ready
 Studio.Ribbon.SystemMenu.Help,File menu option for user to get help on what to do in studio,Help,Help
 Studio.Ribbon.SystemMenu.OpenFromFile,Open a roblox game from a file,Open from File,Open from File
 Studio.Ribbon.SystemMenu.Plugins,Plugins that the user owns,Plugins,Plugins
 Studio.Ribbon.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
 Studio.Ribbon.Title.AddNewTab,"Create a new, empty tab for a custom toolbar",Add New Tab,Add New Tab
+Studio.Ribbon.Title.UpdateAvailable,The text displayed on the update panel when an update is available.,Download the new version of Studio,Download the new version of Studio
+Studio.Ribbon.Title.UpdateFailed,The text displayed on the update panel when an update is failed.,The background download failed. Want to try again?,The background download failed. Want to try again?
+Studio.Ribbon.Title.UpdateInProgress,The text displayed on the update panel when an update is in progress.,Downloading update in the background,Downloading update in the background
+Studio.Ribbon.Title.UpdateReady,The text displayed on the update panel when an update is ready.,Restart now to get a new version of Studio,Restart now to get a new version of Studio
 Studio.Ribbon.Tooltip.AddNewTab,"Tooltip for adding a new, empty tab to the ribbon toolbar","Create a new, empty tab for a custom toolbar","Create a new, empty tab for a custom toolbar"
+Studio.Ribbon.Tooltip.UpdateAvailable,The text displayed on the update panel when an update is available.,Download the latest version and launch the installer to complete the update process.,Download the latest version and launch the installer to complete the update process.
+Studio.Ribbon.Tooltip.UpdateFailed,The text displayed on the update panel when an update is failed.,You’ll need to restart Studio and launch the installer to update.,You’ll need to restart Studio and launch the installer to update.
+Studio.Ribbon.Tooltip.UpdateInProgress,The text displayed on the update panel when an update is in progress.,You can disable background updates in settings.,You can disable background updates in settings.
+Studio.Ribbon.Tooltip.UpdateReady,The text displayed on the update panel when an update is ready.,Relaunch to enjoy the latest features and improvements.,Relaunch to enjoy the latest features and improvements.
