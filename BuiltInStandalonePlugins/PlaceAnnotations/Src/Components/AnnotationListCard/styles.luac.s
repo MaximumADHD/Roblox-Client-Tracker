@@ -101,7 +101,7 @@ MAIN:
   SETTABLEKS R20 R19 K42 ["PaddingRight"]
   CALL R17 2 1
   MOVE R18 R3
-  LOADK R19 K44 [":pressed"]
+  LOADK R19 K44 [":press"]
   DUPTABLE R20 K45 [{"BackgroundColor3", "BackgroundTransparency"}]
   LOADK R21 K46 ["$Shift200Color"]
   SETTABLEKS R21 R20 K15 ["BackgroundColor3"]

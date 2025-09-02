@@ -267,7 +267,7 @@ MAIN:
   SETTABLEKS R29 R28 K15 ["BackgroundTransparency"]
   CALL R26 2 1
   MOVE R27 R2
-  LOADK R28 K101 [":pressed"]
+  LOADK R28 K101 [":press"]
   DUPTABLE R29 K98 [{"BackgroundColor3", "BackgroundTransparency"}]
   LOADK R30 K99 ["$Shift200Color"]
   SETTABLEKS R30 R29 K97 ["BackgroundColor3"]

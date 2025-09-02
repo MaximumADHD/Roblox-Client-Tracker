@@ -17,20 +17,8 @@ MAIN:
   GETTABLEKS R4 R0 K9 ["Packages"]
   GETTABLEKS R3 R4 K10 ["Foundation"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["StudioFoundation"]
-  CALL R3 1 1
-  GETTABLEKS R5 R3 K12 ["Util"]
-  GETTABLEKS R4 R5 K13 ["isStyleSheetPolyfillOn"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+6]
-  GETIMPORT R5 K15 [warn]
-  LOADK R6 K16 ["To enable Foundation you must set FoundationDisableStylingPolyfill flag to true"]
-  CALL R5 1 0
-  LOADNIL R5
-  RETURN R5 1
-  GETIMPORT R5 K18 [print]
-  LOADK R6 K19 ["StartPage: Foundation is enabled!"]
-  CALL R5 1 0
+  GETTABLEKS R4 R2 K11 ["Utility"]
+  GETTABLEKS R3 R4 K12 ["Flags"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K13 ["FoundationDisableStylingPolyfill"]
   RETURN R2 1

@@ -25,7 +25,6 @@ local LocalPlayer = Players.LocalPlayer
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 local onBlockButtonActivated = require(RobloxGui.Modules.Settings.onBlockButtonActivated)
 
@@ -129,8 +128,8 @@ end
 
 function PlayerDropDown:createBlockButton(playerRelationship)
 	local selectedPlayer = self.props.selectedPlayer
-	local blockedText = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.Block" else "PlayerDropDown.Block")
-	local unblockText = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.UnBlock" else "PlayerDropDown.UnBlock")
+	local blockedText = RobloxTranslator:FormatByKey("InGame.PlayerDropDown.Block")
+	local unblockText = RobloxTranslator:FormatByKey("InGame.PlayerDropDown.UnBlock")
 	local blockIcon = Images["icons/actions/block"]
 
 	return Roact.createElement(DropDownButton, {
@@ -167,7 +166,7 @@ function PlayerDropDown:createReportButton()
 		contentVisible = self.state.contentVisible,
 		buttonTransparency = self.buttonTransparency,
 		layoutOrder = 5,
-		text = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.Report" else "PlayerDropDown.Report"),
+		text = RobloxTranslator:FormatByKey("InGame.PlayerDropDown.Report"),
 		icon = reportIcon,
 		lastButton = true,
 		forceShowOptions = false,
@@ -193,7 +192,7 @@ function PlayerDropDown:createInspectButton()
 		contentVisible = self.state.contentVisible,
 		buttonTransparency = self.buttonTransparency,
 		layoutOrder = 3,
-		text = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.PlayerDropDown.Examine" else "PlayerDropDown.Examine"),
+		text = RobloxTranslator:FormatByKey("InGame.PlayerDropDown.Examine"),
 		icon = inspectIcon,
 		lastButton = selectedPlayer == LocalPlayer,
 		forceShowOptions = false,

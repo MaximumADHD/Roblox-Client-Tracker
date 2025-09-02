@@ -22,12 +22,16 @@ local StoreId = require(Reducers.StoreId)
 local CollectibleResellableInstances = require(Reducers.CollectibleResellableInstances)
 local CreatingExperiences = require(Reducers.CreatingExperiences)
 local Overlay = require(Reducers.Overlay)
+local InspectAndBuyFolder = script.Parent.Parent
+local FFlagAXEnableFetchAvatarPreview = require(InspectAndBuyFolder.Flags.FFlagAXEnableFetchAvatarPreview)
+local AvatarPreviewDetails = require(Reducers.AvatarPreviewDetails)
 
 return Rodux.combineReducers({
 	view = View,
 	playerId = PlayerId,
 	playerName = PlayerName,
 	assets = Assets,
+	avatarPreviewDetails = if FFlagAXEnableFetchAvatarPreview then AvatarPreviewDetails else nil,
 	bundles = Bundles,
 	assetBundles = AssetBundles,
 	equippedAssets = EquippedAssets,

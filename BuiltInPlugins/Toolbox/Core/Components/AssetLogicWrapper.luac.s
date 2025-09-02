@@ -304,7 +304,7 @@ PROTO_13:
   GETTABLEKS R18 R19 K19 ["tryInsertAfterPermissionsGranted"]
   JUMP [+3]
   GETUPVAL R19 2
-  GETTABLEKS R18 R19 K20 ["tryInsertWithBatchGrantPermissions"]
+  GETTABLEKS R18 R19 K20 ["tryInsertWithBatchGrantPermissions_DEPRECATED"]
   MOVE R19 R18
   DUPTABLE R20 K34 [{"plugin", "assetId", "assetName", "assetSubTypes", "assetTypeId", "assetVersionId", "tutorialLimits", "onSuccess", "currentCategoryName", "categoryName", "layoutMode", "searchTerm", "assetIndex", "getIsIXPVariableEnabled"}]
   SETTABLEKS R16 R20 K21 ["plugin"]

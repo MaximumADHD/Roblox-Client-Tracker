@@ -1,0 +1,189 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K1 ["isEmulationEnabled"]
+  ORK R2 R3 K0 [False]
+  CALL R1 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R3 R0 K3 ["configuredPlayerCount"]
+  ORK R2 R3 K2 [0]
+  CALL R1 1 0
+  GETUPVAL R1 2
+  GETTABLEKS R2 R0 K4 ["parties"]
+  JUMPIF R2 [+1]
+  GETUPVAL R2 3
+  CALL R1 1 0
+  GETUPVAL R1 4
+  GETTABLEKS R2 R0 K5 ["playerMappings"]
+  JUMPIF R2 [+1]
+  GETUPVAL R2 3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["GetEmulatedPartyConfiguration"]
+  CALL R1 1 1
+  JUMPIF R1 [+1]
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["useState"]
+  GETTABLEKS R4 R1 K3 ["isEmulationEnabled"]
+  ORK R3 R4 K2 [False]
+  CALL R2 1 2
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["useState"]
+  GETTABLEKS R6 R1 K5 ["configuredPlayerCount"]
+  ORK R5 R6 K4 [0]
+  CALL R4 1 2
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K1 ["useState"]
+  GETTABLEKS R7 R1 K6 ["parties"]
+  JUMPIF R7 [+1]
+  GETUPVAL R7 1
+  CALL R6 1 2
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K1 ["useState"]
+  GETTABLEKS R9 R1 K7 ["playerMappings"]
+  JUMPIF R9 [+1]
+  GETUPVAL R9 1
+  CALL R8 1 2
+  GETUPVAL R10 3
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K8 ["ConfigurationChanged"]
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE UPVAL U1
+  CAPTURE VAL R9
+  NEWTABLE R13 0 0
+  CALL R10 3 0
+  DUPTABLE R10 K10 [{"isEmulationEnabled", "playerCount", "parties", "playerMappings"}]
+  SETTABLEKS R2 R10 K3 ["isEmulationEnabled"]
+  SETTABLEKS R4 R10 K9 ["playerCount"]
+  SETTABLEKS R6 R10 K6 ["parties"]
+  SETTABLEKS R8 R10 K7 ["playerMappings"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K11 ["createElement"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K12 ["Provider"]
+  DUPTABLE R13 K14 [{"value"}]
+  SETTABLEKS R10 R13 K13 ["value"]
+  GETTABLEKS R14 R0 K15 ["children"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useContext"]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  JUMPIF R0 [+4]
+  GETIMPORT R1 K2 [error]
+  LOADK R2 K3 ["Attempted to access Context outside of provider"]
+  CALL R1 1 0
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useContext"]
+  GETUPVAL R3 1
+  CALL R2 1 1
+  JUMPIF R2 [+4]
+  GETIMPORT R3 K2 [error]
+  LOADK R4 K3 ["Attempted to access Context outside of provider"]
+  CALL R3 1 0
+  MOVE R1 R2
+  GETTABLEKS R0 R1 K4 ["isEmulationEnabled"]
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useContext"]
+  GETUPVAL R3 1
+  CALL R2 1 1
+  JUMPIF R2 [+4]
+  GETIMPORT R3 K2 [error]
+  LOADK R4 K3 ["Attempted to access Context outside of provider"]
+  CALL R3 1 0
+  MOVE R1 R2
+  GETTABLEKS R0 R1 K4 ["playerCount"]
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useContext"]
+  GETUPVAL R3 1
+  CALL R2 1 1
+  JUMPIF R2 [+4]
+  GETIMPORT R3 K2 [error]
+  LOADK R4 K3 ["Attempted to access Context outside of provider"]
+  CALL R3 1 0
+  MOVE R1 R2
+  GETTABLEKS R0 R1 K4 ["parties"]
+  RETURN R0 1
+
+PROTO_6:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useContext"]
+  GETUPVAL R3 1
+  CALL R2 1 1
+  JUMPIF R2 [+4]
+  GETIMPORT R3 K2 [error]
+  LOADK R4 K3 ["Attempted to access Context outside of provider"]
+  CALL R3 1 0
+  MOVE R1 R2
+  GETTABLEKS R0 R1 K4 ["playerMappings"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["PartyEmulatorService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["PartyEmulator"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  NEWTABLE R2 0 0
+  GETTABLEKS R3 R1 K8 ["Packages"]
+  GETTABLEKS R4 R1 K9 ["Src"]
+  GETTABLEKS R5 R4 K10 ["Hooks"]
+  GETIMPORT R6 K12 [require]
+  GETTABLEKS R7 R5 K13 ["useEventConnection"]
+  CALL R6 1 1
+  GETIMPORT R7 K12 [require]
+  GETTABLEKS R8 R3 K14 ["React"]
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K15 ["createContext"]
+  LOADNIL R9
+  CALL R8 1 1
+  DUPCLOSURE R9 K16 [PROTO_1]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  DUPCLOSURE R10 K17 [PROTO_2]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  DUPTABLE R11 K23 [{"provider", "useIsEmulationEnabled", "usePlayerCount", "useParties", "usePlayerMappings"}]
+  SETTABLEKS R9 R11 K18 ["provider"]
+  DUPCLOSURE R12 K24 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  SETTABLEKS R12 R11 K19 ["useIsEmulationEnabled"]
+  DUPCLOSURE R12 K25 [PROTO_4]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  SETTABLEKS R12 R11 K20 ["usePlayerCount"]
+  DUPCLOSURE R12 K26 [PROTO_5]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  SETTABLEKS R12 R11 K21 ["useParties"]
+  DUPCLOSURE R12 K27 [PROTO_6]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  SETTABLEKS R12 R11 K22 ["usePlayerMappings"]
+  RETURN R11 1

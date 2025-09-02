@@ -1,3 +1,24 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnableRibbonPlugin"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnableRibbonPluginFeature"]
+  NAMECALL R0 R0 K3 ["GetEngineFeature"]
+  CALL R0 2 1
+  JUMPIF R0 [+5]
+  GETIMPORT R1 K5 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE REF R0
+  CALL R1 1 0
+  CLOSEUPVALS R0
+  RETURN R0 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
@@ -167,9 +188,16 @@ MAIN:
   NAMECALL R1 R1 K39 ["GetFastFlag"]
   CALL R1 2 1
   SETTABLEKS R1 R0 K36 ["fflagCOLLAB9036KeepNewOpenOnSubmit"]
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K42 ["EnableRibbonPlugin"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
-  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K42 ["EnableRibbonPluginFeature"]
+  NAMECALL R2 R2 K43 ["GetEngineFeature"]
+  CALL R2 2 1
+  JUMPIF R2 [+5]
+  GETIMPORT R3 K45 [pcall]
+  NEWCLOSURE R4 P0
+  CAPTURE REF R2
+  CALL R3 1 0
+  MOVE R1 R2
+  CLOSEUPVALS R2
   SETTABLEKS R1 R0 K37 ["fflagIsModernRibbon"]
   RETURN R0 1

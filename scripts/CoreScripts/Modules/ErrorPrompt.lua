@@ -18,7 +18,6 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 local GetFFlagDisplayChannelNameOnErrorPrompt = require(RobloxGui.Modules.Flags.GetFFlagDisplayChannelNameOnErrorPrompt)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 
@@ -28,33 +27,11 @@ local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut, 0, false, 0)
 -- Animation Preset --
 
-local coreScriptTableTranslator
-local function onLocaleIdChanged()
-	if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then return end
-	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
-end
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
-if not GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-	onLocaleIdChanged()
-	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
-end
-
-
 local function attemptTranslate(key, defaultString, parameters)
-	if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-		local success,result = pcall(function()
-			return locales:Format(key, parameters)
-		end)
-		return success and result or defaultString
-	end
-
-	if not coreScriptTableTranslator then
-		return defaultString
-	end
-
 	local success,result = pcall(function()
-		return coreScriptTableTranslator:FormatByKey(key, parameters)
+		return locales:Format(key, parameters)
 	end)
 	return success and result or defaultString
 end

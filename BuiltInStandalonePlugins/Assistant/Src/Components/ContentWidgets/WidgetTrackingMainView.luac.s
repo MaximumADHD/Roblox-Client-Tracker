@@ -1,0 +1,106 @@
+PROTO_0:
+  GETUPVAL R0 0
+  JUMPIF R0 [+23]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["use"]
+  CALL R0 0 1
+  NAMECALL R1 R0 K1 ["get"]
+  CALL R1 1 1
+  NAMECALL R2 R1 K2 ["GetUri"]
+  CALL R2 1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["join"]
+  MOVE R4 R2
+  DUPTABLE R5 K6 [{"Category", "ItemId"}]
+  LOADK R6 K7 ["Widgets"]
+  SETTABLEKS R6 R5 K4 ["Category"]
+  LOADK R6 K8 ["MainViewWidget"]
+  SETTABLEKS R6 R5 K5 ["ItemId"]
+  CALL R3 2 1
+  SETUPVAL R3 0
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 1
+  CALL R0 1 1
+  GETUPVAL R1 2
+  LOADK R2 K0 ["Frame"]
+  DUPTABLE R3 K5 [{"BackgroundColor3", "BackgroundTransparency", "Size", "ref"}]
+  GETIMPORT R4 K8 [Color3.new]
+  LOADN R5 1
+  LOADN R6 0
+  LOADN R7 1
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K1 ["BackgroundColor3"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K2 ["BackgroundTransparency"]
+  GETIMPORT R4 K11 [UDim2.fromScale]
+  LOADN R5 1
+  LOADN R6 1
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K3 ["Size"]
+  SETTABLEKS R0 R3 K4 ["ref"]
+  DUPTABLE R4 K14 [{"UIListLayout", "MainView"}]
+  GETUPVAL R5 2
+  LOADK R6 K12 ["UIListLayout"]
+  DUPTABLE R7 K16 [{"FillDirection"}]
+  GETIMPORT R8 K19 [Enum.FillDirection.Vertical]
+  SETTABLEKS R8 R7 K15 ["FillDirection"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K12 ["UIListLayout"]
+  GETUPVAL R5 2
+  GETUPVAL R6 3
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K13 ["MainView"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Assistant"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AssistantUI"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["Components"]
+  GETTABLEKS R2 R3 K9 ["MainView"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K10 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K11 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K12 ["StudioFoundation"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K13 ["ContextServices"]
+  GETTABLEKS R7 R6 K14 ["Plugin"]
+  GETTABLEKS R9 R5 K15 ["Util"]
+  GETTABLEKS R8 R9 K16 ["StudioUri"]
+  GETTABLEKS R10 R5 K17 ["Hooks"]
+  GETTABLEKS R9 R10 K18 ["useWidgetRef"]
+  GETTABLEKS R10 R4 K19 ["createElement"]
+  LOADNIL R11
+  NEWCLOSURE R12 P0
+  CAPTURE REF R11
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  DUPCLOSURE R13 K20 [PROTO_1]
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  DUPTABLE R14 K23 [{"WidgetTrackingMainView", "GetMainViewWidgetUri"}]
+  SETTABLEKS R13 R14 K21 ["WidgetTrackingMainView"]
+  SETTABLEKS R12 R14 K22 ["GetMainViewWidgetUri"]
+  CLOSEUPVALS R11
+  RETURN R14 1

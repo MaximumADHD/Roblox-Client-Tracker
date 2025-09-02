@@ -1,0 +1,124 @@
+PROTO_0:
+  GETIMPORT R0 K2 [Instance.new]
+  LOADK R1 K3 ["ScreenGui"]
+  CALL R0 1 1
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K4 ["Parent"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["provideMockContext"]
+  NEWTABLE R2 0 3
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["Plugin"]
+  GETTABLEKS R3 R4 K2 ["new"]
+  DUPTABLE R4 K5 [{"CreateQWidgetPluginGui", "CreateWidgetPluginGui"}]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R4 K3 ["CreateQWidgetPluginGui"]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R4 K4 ["CreateWidgetPluginGui"]
+  CALL R3 1 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K6 ["mock"]
+  CALL R4 0 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["Design"]
+  GETTABLEKS R5 R6 K2 ["new"]
+  GETUPVAL R6 4
+  CALL R5 1 -1
+  SETLIST R2 R3 -1 [1]
+  DUPTABLE R3 K9 [{"FoundationProvider"}]
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K10 ["createElement"]
+  GETUPVAL R7 6
+  GETTABLEKS R6 R7 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["FoundationProviderAdapter"]
+  DUPTABLE R6 K16 [{"theme", "device", "children"}]
+  LOADK R7 K17 ["Dark"]
+  SETTABLEKS R7 R6 K13 ["theme"]
+  LOADK R7 K18 ["Desktop"]
+  SETTABLEKS R7 R6 K14 ["device"]
+  GETUPVAL R7 7
+  SETTABLEKS R7 R6 K15 ["children"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K8 ["FoundationProvider"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_2:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["table"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["Expected children to be a table"]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["Styling"]
+  GETTABLEKS R1 R2 K7 ["registerPluginStyles"]
+  GETUPVAL R2 1
+  CALL R1 1 1
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE VAL R1
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE VAL R0
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["KnowledgeTutorials"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["StudioFoundation"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K10 ["TestHelpers"]
+  GETTABLEKS R5 R2 K11 ["ContextServices"]
+  GETIMPORT R6 K13 [game]
+  LOADK R8 K14 ["CoreGui"]
+  NAMECALL R6 R6 K15 ["GetService"]
+  CALL R6 2 1
+  GETIMPORT R7 K17 [plugin]
+  JUMPIF R7 [+6]
+  GETIMPORT R7 K1 [script]
+  LOADK R9 K18 ["Plugin"]
+  NAMECALL R7 R7 K19 ["FindFirstAncestorWhichIsA"]
+  CALL R7 2 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R12 R0 K20 ["Src"]
+  GETTABLEKS R11 R12 K21 ["Util"]
+  GETTABLEKS R10 R11 K22 ["Telemetry"]
+  GETTABLEKS R9 R10 K23 ["TelemetryContext"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K24 [PROTO_0]
+  CAPTURE VAL R6
+  DUPCLOSURE R10 K25 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  RETURN R10 1

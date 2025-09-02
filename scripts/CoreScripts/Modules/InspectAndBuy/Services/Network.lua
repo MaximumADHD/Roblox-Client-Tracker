@@ -10,8 +10,13 @@ local HttpService = game:GetService("HttpService")
 local Promise = require(CorePackages.Packages.Promise)
 local AvatarEditorService = game:GetService("AvatarEditorService")
 local Url = require(CorePackages.Workspace.Packages.Http).Url
+local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
+local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
+type AvatarPreviewResponse = AvatarExperienceInspectAndBuy.AvatarPreviewResponse
 
 local DEVELOPER_URL = string.format("https://develop.%s", Url.DOMAIN)
+
+type Promise<T = any> = LuauPolyfill.Promise<T>
 
 --[[
 	Expects a Promise. Hits the url given and resolves/rejects appropriately.
@@ -46,6 +51,21 @@ local function createYieldingPromise(options, decodeJson)
 			request(options, decodeJson, resolve, reject)
 		end)()
 	end)
+end
+
+--[[
+   Get a preview of the available marketplace assets and bundles associated with the local player model
+]]
+local function getPreviewAvatar(assets): Promise<AvatarPreviewResponse>
+	local url = Url.APIS_URL .. "look-api/v1/inspect-preview"
+	local options = {
+		Url = url,
+		Method = "POST",
+		Body = HttpService:JSONEncode({
+			assets = assets,
+		}),
+	}
+	return createYieldingPromise(options, true)
 end
 
 --[[
@@ -375,6 +395,7 @@ function Network.new()
 		getExperiencePlayability = getExperiencePlayability,
 		getExperienceInfo = getExperienceInfo,
 		getItemDetails = getItemDetails,
+		getPreviewAvatar = getPreviewAvatar,
 	}
 
 	setmetatable(networkService, {

@@ -27,6 +27,7 @@ local FStringRccInExperienceNameEnabledAllowList = require(RobloxGui.Modules.Com
 local FFlagUseNewDirectChatAPI = game:DefineFastFlag("UseNewDirectChatAPI", false)
 local FFlagEnableCreatePartyNudge = game:DefineFastFlag("EnableCreatePartyNudge", false)
 local FFlagEnablePartyNudgeAfterJoin = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeAfterJoin
+local FFlagEnablePartyNudgeNotification = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeNotification
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
@@ -104,6 +105,13 @@ if FFlagEnablePartyNudgeAfterJoin then
 	RemoteEvent_ShowFriendJoinedPlayerToast = Instance.new("RemoteEvent")
 	RemoteEvent_ShowFriendJoinedPlayerToast.Name = "ShowFriendJoinedPlayerToast"
 	RemoteEvent_ShowFriendJoinedPlayerToast.Parent = RobloxReplicatedStorage
+end
+
+local RemoteEvent_CreateOrJoinParty
+if FFlagEnablePartyNudgeNotification then
+	RemoteEvent_CreateOrJoinParty = Instance.new("RemoteEvent")
+	RemoteEvent_CreateOrJoinParty.Name = "CreateOrJoinParty"
+	RemoteEvent_CreateOrJoinParty.Parent = RobloxReplicatedStorage
 end
 
 -- Map: { UserId -> { UserId -> NumberOfNotificationsSent } }
@@ -372,13 +380,21 @@ local sendFriendExperienceJoinToast = function(newPlayer)
 	end
 
 	local createPartyNudgeSuccess = false
-
 	if
 		FFlagEnableCreatePartyNudge
 		and canCreatePartyNudge(followedPlayer)
 		and canCreatePartyNudge(newPlayer)
 	then
-		createPartyNudgeSuccess, _ = createPartyNudge(newPlayer.UserId, followedPlayer.UserId, "OneToOneNudgeInExperience")
+		local response
+		createPartyNudgeSuccess, response = createPartyNudge(newPlayer.UserId, followedPlayer.UserId, "OneToOneNudgeInExperience")
+		if
+			FFlagEnablePartyNudgeNotification
+			and createPartyNudgeSuccess
+			and response
+			and response.shouldAutoCreateOrJoinGroupUp
+		then
+			RemoteEvent_CreateOrJoinParty:FireClient(newPlayer, "PartyNudge", response.nudge)
+		end
 	end
 
 	if not createPartyNudgeSuccess and #players > 0 then

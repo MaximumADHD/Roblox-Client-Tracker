@@ -118,6 +118,25 @@ PROTO_2:
   RETURN R2 -1
 
 PROTO_3:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+5]
+  DUPTABLE R2 K1 [{"shouldConfirm"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["shouldConfirm"]
+  RETURN R2 1
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["Tools"]
+  LOADK R3 K1 ["ScriptInsertion"]
+  NAMECALL R0 R0 K2 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_5:
   GETTABLEKS R1 R0 K0 ["networking"]
   LOADK R4 K1 ["ScriptInsertionTool_InsertScript"]
   DUPCLOSURE R5 K2 [PROTO_1]
@@ -170,8 +189,14 @@ Before using this tool, execute Luau code to find the script path first
   CALL R4 2 1
   NAMECALL R4 R4 K22 ["build"]
   CALL R4 1 1
-  DUPTABLE R5 K24 [{"definition"}]
+  DUPTABLE R5 K26 [{"definition", "getPreExecuteWarning", "displayNameFunction"}]
   SETTABLEKS R4 R5 K23 ["definition"]
+  DUPCLOSURE R6 K27 [PROTO_3]
+  CAPTURE UPVAL U6
+  SETTABLEKS R6 R5 K24 ["getPreExecuteWarning"]
+  DUPCLOSURE R6 K28 [PROTO_4]
+  CAPTURE UPVAL U7
+  SETTABLEKS R6 R5 K25 ["displayNameFunction"]
   RETURN R5 1
 
 MAIN:
@@ -189,28 +214,39 @@ MAIN:
   GETTABLEKS R3 R4 K11 ["AssistantUI"]
   CALL R2 1 1
   GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R0 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["ModelContextProtocol"]
+  GETTABLEKS R6 R0 K12 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Flags"]
+  GETTABLEKS R4 R5 K14 ["FFlagEnableScriptInsertionToolAcceptFlow"]
   CALL R3 1 1
   GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K13 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Tools"]
-  GETTABLEKS R5 R6 K15 ["ToolTypes"]
+  GETTABLEKS R6 R0 K10 ["Packages"]
+  GETTABLEKS R5 R6 K15 ["ModelContextProtocol"]
   CALL R4 1 1
-  GETTABLEKS R6 R2 K16 ["Guest"]
-  GETTABLEKS R5 R6 K17 ["Environment"]
-  GETTABLEKS R7 R2 K18 ["Utils"]
-  GETTABLEKS R6 R7 K14 ["Tools"]
-  GETTABLEKS R8 R3 K19 ["Util"]
-  GETTABLEKS R7 R8 K20 ["ToolBuilder"]
-  GETTABLEKS R9 R3 K19 ["Util"]
-  GETTABLEKS R8 R9 K21 ["ToolResult"]
-  GETTABLEKS R9 R4 K22 ["ToolNames"]
-  DUPCLOSURE R10 K23 [PROTO_3]
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K16 ["Tools"]
+  GETTABLEKS R6 R7 K17 ["ToolTypes"]
+  CALL R5 1 1
+  GETTABLEKS R8 R2 K18 ["Resources"]
+  GETTABLEKS R7 R8 K19 ["Localization"]
+  GETTABLEKS R6 R7 K20 ["Translator"]
+  GETTABLEKS R8 R2 K21 ["Guest"]
+  GETTABLEKS R7 R8 K22 ["Environment"]
+  GETTABLEKS R9 R2 K23 ["Utils"]
+  GETTABLEKS R8 R9 K16 ["Tools"]
+  GETTABLEKS R10 R4 K24 ["Util"]
+  GETTABLEKS R9 R10 K25 ["ToolBuilder"]
+  GETTABLEKS R11 R4 K24 ["Util"]
+  GETTABLEKS R10 R11 K26 ["ToolResult"]
+  GETTABLEKS R11 R5 K27 ["ToolNames"]
+  GETTABLEKS R12 R3 K28 ["Get"]
+  DUPCLOSURE R13 K29 [PROTO_5]
   CAPTURE VAL R1
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R8
   CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R10
   CAPTURE VAL R9
-  RETURN R10 1
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R6
+  RETURN R13 1

@@ -1,6 +1,7 @@
 local root = script:FindFirstAncestor("AbuseReportMenu")
 local GetFFlagGetHumanoidDescriptionUpdates = require(root.Flags.GetFFlagGetHumanoidDescriptionUpdates)
 local FFlagGetHumanoidDescriptionUpdatesV2A = game:DefineFastFlag("GetHumanoidDescriptionUpdatesV2A", false)
+local FFlagGetHumanoidDescriptionUpdatesV2C = game:DefineFastFlag("GetHumanoidDescriptionUpdatesV2C", false)
 
 local Players = game:GetService("Players")
 
@@ -69,6 +70,20 @@ local transformAccessories = function(accessories)
 			Order = accessory.Order,
 			Puffiness = accessory.Puffiness,
 		})
+	end
+	return result
+end
+
+local transformEmotes = function(getEmotes, getEquippedEmotes)
+	local result = {}
+	for _, equipped in ipairs(getEquippedEmotes) do
+		local assetIdList = getEmotes[equipped.Name]
+		if assetIdList then
+			local limit = math.min(8, #assetIdList) -- take max 8 assetIds for assets of the same name for coverage
+			for i = 1, limit do
+				table.insert(result, assetIdList[i])
+			end
+		end
 	end
 	return result
 end
@@ -188,6 +203,20 @@ local getHumanoidDescription = function(userId: number): (HumanoidDescriptionDat
 				local getEmotesOk, emotes = pcall(description.GetEmotes, description)
 				if getEmotesOk then
 					humanoidDescriptionData.Emotes = emotes
+				else
+					fieldErrorCount = fieldErrorCount + 1
+				end
+			end
+
+			if FFlagGetHumanoidDescriptionUpdatesV2C then
+				local getEquippedEmotesOk, equippedEmotes = pcall(description.GetEquippedEmotes, description)
+				local getEmotesOk, emotes = pcall(description.GetEmotes, description)
+
+				if getEquippedEmotesOk and getEmotesOk then
+					local transformedEmotesOk, transformedEmotes = pcall(transformEmotes, emotes, equippedEmotes)
+					if transformedEmotesOk then
+						humanoidDescriptionData.Emotes = transformedEmotes
+					end
 				else
 					fieldErrorCount = fieldErrorCount + 1
 				end

@@ -355,7 +355,7 @@ MAIN:
   SETTABLEKS R36 R35 K141 ["TextColor3"]
   CALL R33 2 1
   MOVE R34 R2
-  LOADK R35 K146 [":pressed"]
+  LOADK R35 K146 [":press"]
   DUPTABLE R36 K144 [{"TextColor3"}]
   LOADK R37 K145 ["$TextContrast"]
   SETTABLEKS R37 R36 K141 ["TextColor3"]
@@ -609,7 +609,7 @@ MAIN:
   SETTABLEKS R23 R22 K93 ["BackgroundColor3"]
   CALL R20 2 1
   MOVE R21 R2
-  LOADK R22 K146 [":pressed"]
+  LOADK R22 K146 [":press"]
   DUPTABLE R23 K135 [{"BackgroundColor3"}]
   LOADK R24 K133 ["$ActionActivated"]
   SETTABLEKS R24 R23 K93 ["BackgroundColor3"]

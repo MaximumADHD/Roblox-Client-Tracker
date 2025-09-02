@@ -2,8 +2,6 @@
 	Constants for TrustAndSafety module.
 ]]
 local Constants = {
-	ScreenshotFlowStepHandlerRootName = "ScreenshotFlowStepHandler",
-	RestartScreenshotDialogRootName = "RestartScreenshotDialog",
 	EnableCategoryListing = true,
 	InputType = {
 		MouseAndKeyboard = "MouseAndKeyboard",

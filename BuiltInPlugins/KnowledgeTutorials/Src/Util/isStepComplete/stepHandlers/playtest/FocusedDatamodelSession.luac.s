@@ -1,0 +1,19 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R1 R0 K1 ["FocusedDataModelSession"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [plugin]
+  JUMPIF R0 [+6]
+  GETIMPORT R0 K3 [script]
+  LOADK R2 K4 ["Plugin"]
+  NAMECALL R0 R0 K5 ["FindFirstAncestorWhichIsA"]
+  CALL R0 2 1
+  NEWTABLE R1 1 0
+  DUPCLOSURE R2 K6 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R1 K7 ["get"]
+  RETURN R1 1

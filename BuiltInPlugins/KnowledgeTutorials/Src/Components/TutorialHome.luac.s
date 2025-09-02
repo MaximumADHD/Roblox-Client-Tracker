@@ -82,23 +82,25 @@ PROTO_0:
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K4 ["createElement"]
   GETUPVAL R8 5
-  DUPTABLE R9 K46 [{"LayoutOrder", "tag", "text", "variant", "onActivated"}]
+  DUPTABLE R9 K47 [{"LayoutOrder", "tag", "testId", "text", "variant", "onActivated"}]
   LOADN R10 2
   SETTABLEKS R10 R9 K13 ["LayoutOrder"]
-  LOADK R10 K47 ["anchor-bottom-right position-bottom-right"]
+  LOADK R10 K48 ["anchor-bottom-right position-bottom-right"]
   SETTABLEKS R10 R9 K5 ["tag"]
-  LOADK R12 K48 ["Plugin"]
-  LOADK R13 K49 ["Start"]
-  NAMECALL R10 R2 K50 ["getText"]
+  LOADK R10 K49 ["--knowledge-tutorials-NextButton"]
+  SETTABLEKS R10 R9 K43 ["testId"]
+  LOADK R12 K50 ["Plugin"]
+  LOADK R13 K51 ["Start"]
+  NAMECALL R10 R2 K52 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K43 ["text"]
+  SETTABLEKS R10 R9 K44 ["text"]
   GETUPVAL R13 6
-  GETTABLEKS R12 R13 K51 ["Enums"]
-  GETTABLEKS R11 R12 K52 ["ButtonVariant"]
-  GETTABLEKS R10 R11 K53 ["Emphasis"]
-  SETTABLEKS R10 R9 K44 ["variant"]
-  GETTABLEKS R10 R0 K54 ["onStartTutorial"]
-  SETTABLEKS R10 R9 K45 ["onActivated"]
+  GETTABLEKS R12 R13 K53 ["Enums"]
+  GETTABLEKS R11 R12 K54 ["ButtonVariant"]
+  GETTABLEKS R10 R11 K55 ["Emphasis"]
+  SETTABLEKS R10 R9 K45 ["variant"]
+  GETTABLEKS R10 R0 K56 ["onStartTutorial"]
+  SETTABLEKS R10 R9 K46 ["onActivated"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K9 ["StartButton"]
   CALL R3 3 -1

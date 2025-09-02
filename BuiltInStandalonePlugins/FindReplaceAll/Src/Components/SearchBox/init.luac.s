@@ -130,6 +130,33 @@ PROTO_7:
 
 PROTO_8:
   GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOT R0 [+33]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["searchText"]
+  JUMPIFNOT R0 [+29]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  GETTABLEKS R0 R1 K2 ["Text"]
+  JUMPIFNOTEQKS R0 K3 [""] [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["searchText"]
+  SETTABLEKS R1 R0 K2 ["Text"]
+  RETURN R0 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["searchText"]
+  JUMPIFEQKS R0 K3 [""] [+9]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["searchText"]
+  SETTABLEKS R1 R0 K2 ["Text"]
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
   CALL R1 0 1
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["useState"]
@@ -229,140 +256,152 @@ PROTO_8:
   MOVE R23 R2
   SETLIST R22 R23 1 [1]
   CALL R20 2 1
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K5 ["useEffect"]
+  NEWCLOSURE R22 P7
+  CAPTURE VAL R8
+  CAPTURE VAL R0
+  NEWTABLE R23 0 2
+  GETTABLEKS R24 R0 K6 ["searchText"]
+  MOVE R25 R8
+  SETLIST R23 R24 2 [1]
+  CALL R21 2 0
   GETUPVAL R21 6
-  LOADK R22 K5 ["Frame"]
+  LOADK R22 K7 ["Frame"]
   NEWTABLE R23 4 0
-  GETTABLEKS R24 R0 K6 ["LayoutOrder"]
-  SETTABLEKS R24 R23 K6 ["LayoutOrder"]
-  GETTABLEKS R24 R0 K7 ["Visible"]
-  SETTABLEKS R24 R23 K7 ["Visible"]
+  GETTABLEKS R24 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R24 R23 K8 ["LayoutOrder"]
+  GETTABLEKS R24 R0 K9 ["Visible"]
+  SETTABLEKS R24 R23 K9 ["Visible"]
   GETUPVAL R26 1
-  GETTABLEKS R25 R26 K8 ["Change"]
-  GETTABLEKS R24 R25 K9 ["AbsolutePosition"]
+  GETTABLEKS R25 R26 K10 ["Change"]
+  GETTABLEKS R24 R25 K11 ["AbsolutePosition"]
   SETTABLE R14 R23 R24
   GETUPVAL R25 1
-  GETTABLEKS R24 R25 K10 ["Tag"]
-  LOADK R25 K11 ["FindReplaceAll-SearchBox X-Column X-Center X-FitY data-testid=SearchBoxFrame"]
+  GETTABLEKS R24 R25 K12 ["Tag"]
+  LOADK R25 K13 ["FindReplaceAll-SearchBox X-Column X-Center X-FitY data-testid=SearchBoxFrame"]
   SETTABLE R25 R23 R24
-  DUPTABLE R24 K14 [{"SearchBarRow", "Dropdowns"}]
+  DUPTABLE R24 K16 [{"SearchBarRow", "Dropdowns"}]
   GETUPVAL R25 6
-  LOADK R26 K5 ["Frame"]
+  LOADK R26 K7 ["Frame"]
   NEWTABLE R27 4 0
   LOADN R28 1
-  SETTABLEKS R28 R27 K15 ["BackgroundTransparency"]
+  SETTABLEKS R28 R27 K17 ["BackgroundTransparency"]
   MOVE R28 R1
   CALL R28 0 1
-  SETTABLEKS R28 R27 K6 ["LayoutOrder"]
-  GETIMPORT R28 K18 [UDim2.new]
+  SETTABLEKS R28 R27 K8 ["LayoutOrder"]
+  GETIMPORT R28 K20 [UDim2.new]
   LOADN R29 1
   LOADN R30 0
   LOADN R31 0
   GETUPVAL R33 3
-  GETTABLEKS R32 R33 K19 ["searchBarHeight"]
+  GETTABLEKS R32 R33 K21 ["searchBarHeight"]
   CALL R28 4 1
-  SETTABLEKS R28 R27 K20 ["Size"]
+  SETTABLEKS R28 R27 K22 ["Size"]
   GETUPVAL R29 1
-  GETTABLEKS R28 R29 K10 ["Tag"]
-  LOADK R29 K21 ["X-RowS X-Middle data-testid=SearchBarRowFrame"]
+  GETTABLEKS R28 R29 K12 ["Tag"]
+  LOADK R29 K23 ["X-RowS X-Middle data-testid=SearchBarRowFrame"]
   SETTABLE R29 R27 R28
-  DUPTABLE R28 K24 [{"SearchBar", "SettingsButton"}]
+  DUPTABLE R28 K26 [{"SearchBar", "SettingsButton"}]
   GETUPVAL R29 6
   GETUPVAL R30 7
-  DUPTABLE R31 K36 [{"layoutOrder", "onFocused", "onFocusLost", "onTextBoxChanged", "onUpdateSearchHistory", "searchBarRef", "onSearchbarTextChanged", "textBoxRef", "searchBarPlaceholderText", "searchBarToggleOptions", "searchBarLeftIcon"}]
+  DUPTABLE R31 K39 [{"layoutOrder", "onFocused", "onFocusLost", "onTextBoxChanged", "onUpdateSearchHistory", "searchBarRef", "onSearchbarTextChanged", "textBoxRef", "searchBarPlaceholderText", "searchBarToggleOptions", "searchBarLeftIcon", "hasError"}]
   MOVE R32 R1
   CALL R32 0 1
-  SETTABLEKS R32 R31 K25 ["layoutOrder"]
-  SETTABLEKS R15 R31 K26 ["onFocused"]
-  SETTABLEKS R16 R31 K27 ["onFocusLost"]
-  SETTABLEKS R18 R31 K28 ["onTextBoxChanged"]
-  SETTABLEKS R19 R31 K29 ["onUpdateSearchHistory"]
-  SETTABLEKS R10 R31 K30 ["searchBarRef"]
-  GETTABLEKS R32 R0 K31 ["onSearchbarTextChanged"]
-  SETTABLEKS R32 R31 K31 ["onSearchbarTextChanged"]
-  SETTABLEKS R8 R31 K32 ["textBoxRef"]
-  GETTABLEKS R32 R0 K33 ["searchBarPlaceholderText"]
-  SETTABLEKS R32 R31 K33 ["searchBarPlaceholderText"]
-  GETTABLEKS R32 R0 K34 ["searchBarToggleOptions"]
-  SETTABLEKS R32 R31 K34 ["searchBarToggleOptions"]
-  GETTABLEKS R32 R0 K35 ["searchBarLeftIcon"]
-  SETTABLEKS R32 R31 K35 ["searchBarLeftIcon"]
+  SETTABLEKS R32 R31 K27 ["layoutOrder"]
+  SETTABLEKS R15 R31 K28 ["onFocused"]
+  SETTABLEKS R16 R31 K29 ["onFocusLost"]
+  SETTABLEKS R18 R31 K30 ["onTextBoxChanged"]
+  SETTABLEKS R19 R31 K31 ["onUpdateSearchHistory"]
+  SETTABLEKS R10 R31 K32 ["searchBarRef"]
+  GETTABLEKS R32 R0 K33 ["onSearchbarTextChanged"]
+  SETTABLEKS R32 R31 K33 ["onSearchbarTextChanged"]
+  SETTABLEKS R8 R31 K34 ["textBoxRef"]
+  GETTABLEKS R32 R0 K35 ["searchBarPlaceholderText"]
+  SETTABLEKS R32 R31 K35 ["searchBarPlaceholderText"]
+  GETTABLEKS R32 R0 K36 ["searchBarToggleOptions"]
+  SETTABLEKS R32 R31 K36 ["searchBarToggleOptions"]
+  GETTABLEKS R32 R0 K37 ["searchBarLeftIcon"]
+  SETTABLEKS R32 R31 K37 ["searchBarLeftIcon"]
+  GETTABLEKS R32 R0 K38 ["hasError"]
+  SETTABLEKS R32 R31 K38 ["hasError"]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K22 ["SearchBar"]
-  GETTABLEKS R29 R0 K37 ["settingsDropdownItemData"]
+  SETTABLEKS R29 R28 K24 ["SearchBar"]
+  GETTABLEKS R29 R0 K40 ["settingsDropdownItemData"]
   JUMPIFNOT R29 [+76]
   GETUPVAL R29 6
-  LOADK R30 K38 ["ImageButton"]
+  LOADK R30 K41 ["ImageButton"]
   NEWTABLE R31 8 0
   MOVE R32 R1
   CALL R32 0 1
-  SETTABLEKS R32 R31 K6 ["LayoutOrder"]
-  SETTABLEKS R11 R31 K39 ["ref"]
-  GETTABLEKS R33 R4 K40 ["enabled"]
+  SETTABLEKS R32 R31 K8 ["LayoutOrder"]
+  SETTABLEKS R11 R31 K42 ["ref"]
+  GETTABLEKS R33 R4 K43 ["enabled"]
   JUMPIFNOT R33 [+4]
   GETUPVAL R33 3
-  GETTABLEKS R32 R33 K41 ["hoveredTransparency"]
+  GETTABLEKS R32 R33 K44 ["hoveredTransparency"]
   JUMP [+8]
-  GETTABLEKS R33 R5 K40 ["enabled"]
+  GETTABLEKS R33 R5 K43 ["enabled"]
   JUMPIFNOT R33 [+4]
   GETUPVAL R33 3
-  GETTABLEKS R32 R33 K42 ["pressedTransparency"]
+  GETTABLEKS R32 R33 K45 ["pressedTransparency"]
   JUMP [+1]
   LOADNIL R32
-  SETTABLEKS R32 R31 K15 ["BackgroundTransparency"]
+  SETTABLEKS R32 R31 K17 ["BackgroundTransparency"]
   GETUPVAL R34 1
-  GETTABLEKS R33 R34 K43 ["Event"]
-  GETTABLEKS R32 R33 K44 ["MouseButton1Down"]
+  GETTABLEKS R33 R34 K46 ["Event"]
+  GETTABLEKS R32 R33 K47 ["MouseButton1Down"]
   SETTABLE R20 R31 R32
   GETUPVAL R34 1
-  GETTABLEKS R33 R34 K43 ["Event"]
-  GETTABLEKS R32 R33 K45 ["MouseEnter"]
-  GETTABLEKS R33 R4 K46 ["enable"]
+  GETTABLEKS R33 R34 K46 ["Event"]
+  GETTABLEKS R32 R33 K48 ["MouseEnter"]
+  GETTABLEKS R33 R4 K49 ["enable"]
   SETTABLE R33 R31 R32
   GETUPVAL R34 1
-  GETTABLEKS R33 R34 K43 ["Event"]
-  GETTABLEKS R32 R33 K47 ["MouseLeave"]
-  GETTABLEKS R33 R4 K48 ["disable"]
+  GETTABLEKS R33 R34 K46 ["Event"]
+  GETTABLEKS R32 R33 K50 ["MouseLeave"]
+  GETTABLEKS R33 R4 K51 ["disable"]
   SETTABLE R33 R31 R32
   GETUPVAL R33 1
-  GETTABLEKS R32 R33 K10 ["Tag"]
-  LOADK R33 K49 ["FindReplaceAll-BG-Input FindReplaceAll-SearchBox-Corner data-testid=SearchBox-SettingsButton"]
+  GETTABLEKS R32 R33 K12 ["Tag"]
+  LOADK R33 K52 ["FindReplaceAll-BG-Input FindReplaceAll-SearchBox-Corner data-testid=SearchBox-SettingsButton"]
   SETTABLE R33 R31 R32
-  DUPTABLE R32 K52 [{"Icon", "FocusTracker"}]
+  DUPTABLE R32 K55 [{"Icon", "FocusTracker"}]
   GETUPVAL R33 6
-  LOADK R34 K53 ["ImageLabel"]
+  LOADK R34 K56 ["ImageLabel"]
   NEWTABLE R35 1 0
   GETUPVAL R37 1
-  GETTABLEKS R36 R37 K10 ["Tag"]
-  LOADK R37 K54 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard ThreeDotsIcon"]
+  GETTABLEKS R36 R37 K12 ["Tag"]
+  LOADK R37 K57 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard ThreeDotsIcon"]
   SETTABLE R37 R35 R36
   CALL R33 2 1
-  SETTABLEKS R33 R32 K50 ["Icon"]
+  SETTABLEKS R33 R32 K53 ["Icon"]
   GETUPVAL R33 6
   GETUPVAL R34 8
-  DUPTABLE R35 K55 [{"onFocusLost"}]
-  SETTABLEKS R16 R35 K27 ["onFocusLost"]
+  DUPTABLE R35 K58 [{"onFocusLost"}]
+  SETTABLEKS R16 R35 K29 ["onFocusLost"]
   CALL R33 2 1
-  SETTABLEKS R33 R32 K51 ["FocusTracker"]
+  SETTABLEKS R33 R32 K54 ["FocusTracker"]
   CALL R29 3 1
-  SETTABLEKS R29 R28 K23 ["SettingsButton"]
+  SETTABLEKS R29 R28 K25 ["SettingsButton"]
   CALL R25 3 1
-  SETTABLEKS R25 R24 K12 ["SearchBarRow"]
+  SETTABLEKS R25 R24 K14 ["SearchBarRow"]
   GETUPVAL R25 6
   GETUPVAL R26 9
-  DUPTABLE R27 K63 [{"dropdownOverlay", "currentDropdown", "dropdownRef", "searchHistory", "settingsDropdownItemData", "onDropdownItemClicked", "onSettingsDropdownItemClicked", "dropdownOffset"}]
-  GETTABLEKS R28 R0 K56 ["dropdownOverlay"]
-  SETTABLEKS R28 R27 K56 ["dropdownOverlay"]
-  SETTABLEKS R2 R27 K57 ["currentDropdown"]
-  SETTABLEKS R9 R27 K58 ["dropdownRef"]
-  SETTABLEKS R6 R27 K59 ["searchHistory"]
-  GETTABLEKS R28 R0 K37 ["settingsDropdownItemData"]
-  SETTABLEKS R28 R27 K37 ["settingsDropdownItemData"]
-  SETTABLEKS R17 R27 K60 ["onDropdownItemClicked"]
-  GETTABLEKS R28 R0 K61 ["onSettingsDropdownItemClicked"]
-  SETTABLEKS R28 R27 K61 ["onSettingsDropdownItemClicked"]
-  SETTABLEKS R12 R27 K62 ["dropdownOffset"]
+  DUPTABLE R27 K66 [{"dropdownOverlay", "currentDropdown", "dropdownRef", "searchHistory", "settingsDropdownItemData", "onDropdownItemClicked", "onSettingsDropdownItemClicked", "dropdownOffset"}]
+  GETTABLEKS R28 R0 K59 ["dropdownOverlay"]
+  SETTABLEKS R28 R27 K59 ["dropdownOverlay"]
+  SETTABLEKS R2 R27 K60 ["currentDropdown"]
+  SETTABLEKS R9 R27 K61 ["dropdownRef"]
+  SETTABLEKS R6 R27 K62 ["searchHistory"]
+  GETTABLEKS R28 R0 K40 ["settingsDropdownItemData"]
+  SETTABLEKS R28 R27 K40 ["settingsDropdownItemData"]
+  SETTABLEKS R17 R27 K63 ["onDropdownItemClicked"]
+  GETTABLEKS R28 R0 K64 ["onSettingsDropdownItemClicked"]
+  SETTABLEKS R28 R27 K64 ["onSettingsDropdownItemClicked"]
+  SETTABLEKS R12 R27 K65 ["dropdownOffset"]
   CALL R25 2 1
-  SETTABLEKS R25 R24 K13 ["Dropdowns"]
+  SETTABLEKS R25 R24 K15 ["Dropdowns"]
   CALL R21 3 -1
   RETURN R21 -1
 
@@ -423,7 +462,7 @@ MAIN:
   CALL R11 1 1
   GETTABLEKS R10 R11 K21 ["createNextOrder"]
   GETTABLEKS R11 R1 K22 ["createElement"]
-  DUPCLOSURE R12 K23 [PROTO_8]
+  DUPCLOSURE R12 K23 [PROTO_9]
   CAPTURE VAL R10
   CAPTURE VAL R1
   CAPTURE VAL R2

@@ -153,7 +153,7 @@ MAIN:
   SETTABLEKS R27 R26 K28 ["BackgroundTransparency"]
   CALL R24 2 1
   MOVE R25 R3
-  LOADK R26 K65 [":pressed"]
+  LOADK R26 K65 [":press"]
   DUPTABLE R27 K63 [{"BackgroundColor3", "BackgroundTransparency"}]
   LOADK R28 K58 ["$Shift200Color"]
   SETTABLEKS R28 R27 K14 ["BackgroundColor3"]
@@ -218,7 +218,7 @@ MAIN:
   SETTABLEKS R28 R27 K28 ["BackgroundTransparency"]
   CALL R25 2 1
   MOVE R26 R3
-  LOADK R27 K65 [":pressed"]
+  LOADK R27 K65 [":press"]
   DUPTABLE R28 K63 [{"BackgroundColor3", "BackgroundTransparency"}]
   LOADK R29 K58 ["$Shift200Color"]
   SETTABLEKS R29 R28 K14 ["BackgroundColor3"]
@@ -348,7 +348,7 @@ MAIN:
   SETTABLEKS R27 R26 K14 ["BackgroundColor3"]
   CALL R24 2 1
   MOVE R25 R3
-  LOADK R26 K65 [":pressed"]
+  LOADK R26 K65 [":press"]
   DUPTABLE R27 K15 [{"BackgroundColor3"}]
   LOADK R28 K110 ["$EmptyStateButtonSelected"]
   SETTABLEKS R28 R27 K14 ["BackgroundColor3"]
@@ -443,7 +443,7 @@ MAIN:
   SETTABLEKS R25 R24 K14 ["BackgroundColor3"]
   CALL R22 2 1
   MOVE R23 R3
-  LOADK R24 K65 [":pressed"]
+  LOADK R24 K65 [":press"]
   DUPTABLE R25 K15 [{"BackgroundColor3"}]
   LOADK R26 K110 ["$EmptyStateButtonSelected"]
   SETTABLEKS R26 R25 K14 ["BackgroundColor3"]

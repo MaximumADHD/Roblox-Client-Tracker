@@ -7,6 +7,10 @@ local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local SetBundlesAssetIsPartOf = require(InspectAndBuyFolder.Actions.SetBundlesAssetIsPartOf)
 local SetAssetFromBundleInfo = require(InspectAndBuyFolder.Actions.SetAssetFromBundleInfo)
+local SetAvatarPreviewDetails = require(InspectAndBuyFolder.Actions.SetAvatarPreviewDetails)
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local ItemType = AvatarExperienceCommon.Enums.ItemTypeEnum
+local FFlagAXEnableFetchAvatarPreview = require(InspectAndBuyFolder.Flags.FFlagAXEnableFetchAvatarPreview)
 
 return Rodux.createReducer({}, {
 	--[[
@@ -28,6 +32,26 @@ return Rodux.createReducer({}, {
 
 		return assets
 	end,
+
+	--[[
+		Sets the avatar preview details to each AssetInfo
+	]]
+	[SetAvatarPreviewDetails.name] = if FFlagAXEnableFetchAvatarPreview
+		then function(state, action)
+			local avatarPreviewDetails = action.avatarPreviewDetails
+			local look = avatarPreviewDetails.look
+			if look.items then
+				local assets = {}
+				for _, item in look.items do
+					if item.itemType == ItemType.Asset then
+						assets[tostring(item.id)] = AssetInfo.fromAvatarPreviewItem(item)
+					end
+				end
+				return Cryo.Dictionary.join(state, assets)
+			end
+			return state
+		end
+		else nil,
 
 	--[[
 		Sets the list of bundles an asset is part of. At this point

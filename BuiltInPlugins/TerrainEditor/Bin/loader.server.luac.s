@@ -1,19 +1,27 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnableRibbonPlugin"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["ProcessService"]
   NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_1:
+PROTO_2:
   LOADK R0 K0 ["TerrainEditorLuaToolbarName"]
   RETURN R0 1
 
-PROTO_2:
+PROTO_3:
   LOADK R0 K0 ["Editor"]
   RETURN R0 1
 
-PROTO_3:
+PROTO_4:
   MOVE R3 R0
   MOVE R4 R1
   MOVE R5 R2
@@ -22,7 +30,7 @@ PROTO_3:
   CALL R3 4 -1
   RETURN R3 -1
 
-PROTO_4:
+PROTO_5:
   MOVE R3 R0
   MOVE R4 R1
   MOVE R5 R2
@@ -47,13 +55,18 @@ MAIN:
   NAMECALL R2 R2 K11 ["FindFirstAncestor"]
   CALL R2 2 1
   GETIMPORT R3 K7 [game]
-  LOADK R5 K12 ["EnableRibbonPlugin"]
-  NAMECALL R3 R3 K13 ["GetFastFlag"]
+  LOADK R5 K12 ["EnableRibbonPluginFeature"]
+  NAMECALL R3 R3 K13 ["GetEngineFeature"]
   CALL R3 2 1
+  JUMPIF R3 [+5]
   GETIMPORT R4 K15 [pcall]
-  DUPCLOSURE R5 K16 [PROTO_0]
+  NEWCLOSURE R5 P0
+  CAPTURE REF R3
+  CALL R4 1 0
+  GETIMPORT R4 K15 [pcall]
+  DUPCLOSURE R5 K16 [PROTO_1]
   CALL R4 1 2
-  JUMPIFNOT R4 [+91]
+  JUMPIFNOT R4 [+92]
   GETIMPORT R7 K1 [require]
   GETTABLEKS R10 R2 K17 ["Packages"]
   GETTABLEKS R9 R10 K18 ["Dev"]
@@ -108,10 +121,11 @@ MAIN:
   LOADN R12 1
   NAMECALL R10 R5 K43 ["ExitAsync"]
   CALL R10 2 0
-  RETURN R0 0
+  JUMP [+4]
   LOADN R12 0
   NAMECALL R10 R5 K43 ["ExitAsync"]
   CALL R10 2 0
+  CLOSEUPVALS R3
   RETURN R0 0
   GETIMPORT R6 K1 [require]
   GETTABLEKS R8 R2 K17 ["Packages"]
@@ -137,12 +151,12 @@ MAIN:
   SETTABLEKS R11 R10 K54 ["overrideLocaleId"]
   LOADNIL R11
   SETTABLEKS R11 R10 K55 ["localizationNamespace"]
-  DUPCLOSURE R11 K61 [PROTO_1]
+  DUPCLOSURE R11 K61 [PROTO_2]
   SETTABLEKS R11 R10 K56 ["getToolbarName"]
   DUPTABLE R11 K67 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
-  DUPCLOSURE R12 K68 [PROTO_2]
+  DUPCLOSURE R12 K68 [PROTO_3]
   SETTABLEKS R12 R11 K62 ["getName"]
-  DUPCLOSURE R12 K69 [PROTO_3]
+  DUPCLOSURE R12 K69 [PROTO_4]
   SETTABLEKS R12 R11 K63 ["getDescription"]
   JUMPIFNOT R3 [+2]
   LOADK R12 K70 ["rbxlocaltheme://RibbonTerrain"]
@@ -167,7 +181,7 @@ MAIN:
   LOADN R19 200
   CALL R12 7 1
   SETTABLEKS R12 R11 K73 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R12 K84 [PROTO_4]
+  DUPCLOSURE R12 K84 [PROTO_5]
   SETTABLEKS R12 R11 K74 ["getDockTitle"]
   GETIMPORT R12 K87 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R12 R11 K75 ["zIndexBehavior"]
@@ -178,10 +192,12 @@ MAIN:
   GETTABLEKS R12 R11 K89 ["pluginLoader"]
   NAMECALL R12 R12 K90 ["waitForUserInteraction"]
   CALL R12 1 1
-  JUMPIF R12 [+1]
+  JUMPIF R12 [+2]
+  CLOSEUPVALS R3
   RETURN R0 0
   MOVE R13 R0
   GETIMPORT R14 K60 [plugin]
   MOVE R15 R11
   CALL R13 2 0
+  CLOSEUPVALS R3
   RETURN R0 0

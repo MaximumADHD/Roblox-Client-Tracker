@@ -61,7 +61,7 @@ MAIN:
   CALL R9 2 1
   MOVE R10 R3
   LOADK R11 K43 ["> .ReplaceAllDialogText"]
-  DUPTABLE R12 K48 [{"BackgroundTransparency", "TextColor3", "TextXAlignment", "TextSize", "TextWrap", "AutomaticSize", "Size", "BorderSizePixel"}]
+  DUPTABLE R12 K48 [{"BackgroundTransparency", "TextColor3", "TextXAlignment", "TextSize", "TextWrapped", "AutomaticSize", "Size", "BorderSizePixel"}]
   LOADN R13 1
   SETTABLEKS R13 R12 K16 ["BackgroundTransparency"]
   LOADK R13 K49 ["$ColorContentDefault"]
@@ -72,7 +72,7 @@ MAIN:
   MULK R13 R14 K52 [1.257]
   SETTABLEKS R13 R12 K46 ["TextSize"]
   LOADB R13 1
-  SETTABLEKS R13 R12 K47 ["TextWrap"]
+  SETTABLEKS R13 R12 K47 ["TextWrapped"]
   GETIMPORT R13 K25 [Enum.AutomaticSize.Y]
   SETTABLEKS R13 R12 K15 ["AutomaticSize"]
   GETIMPORT R13 K55 [UDim2.fromOffset]
@@ -152,7 +152,7 @@ MAIN:
   MOVE R21 R3
   LOADK R22 K59 ["::UISizeConstraint"]
   DUPTABLE R23 K61 [{"MinSize"}]
-  GETIMPORT R24 K55 [UDim2.fromOffset]
+  GETIMPORT R24 K63 [Vector2.new]
   GETTABLEKS R25 R1 K22 ["widgetHeaderLineHeight"]
   GETTABLEKS R26 R1 K22 ["widgetHeaderLineHeight"]
   CALL R24 2 1

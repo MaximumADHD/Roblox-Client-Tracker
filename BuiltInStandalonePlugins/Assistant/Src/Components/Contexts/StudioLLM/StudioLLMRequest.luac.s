@@ -20,11 +20,15 @@ PROTO_0:
   SETTABLEKS R6 R5 K4 ["messages"]
   GETTABLEKS R6 R1 K5 ["tools"]
   SETTABLEKS R6 R5 K5 ["tools"]
-  DUPTABLE R6 K14 [{"messageId", "requestId", "conversation"}]
-  GETTABLEKS R7 R1 K15 ["messageGuid"]
+  DUPTABLE R6 K16 [{"messageId", "requestId", "conversation", "firstMessage", "useAgenticMode"}]
+  GETTABLEKS R7 R1 K17 ["messageGuid"]
   SETTABLEKS R7 R6 K11 ["messageId"]
   SETTABLEKS R2 R6 K12 ["requestId"]
   SETTABLEKS R5 R6 K13 ["conversation"]
+  GETTABLEKS R7 R1 K18 ["isFirstMessage"]
+  SETTABLEKS R7 R6 K14 ["firstMessage"]
+  GETTABLEKS R7 R1 K19 ["isAgenticMode"]
+  SETTABLEKS R7 R6 K15 ["useAgenticMode"]
   GETUPVAL R7 2
   CALL R7 0 1
   JUMPIFEQKS R7 K0 [""] [+3]
@@ -32,23 +36,23 @@ PROTO_0:
   JUMP [+1]
   GETUPVAL R8 3
   NEWTABLE R9 1 0
-  LOADK R10 K16 ["application/json"]
-  SETTABLEKS R10 R9 K17 ["Content-Type"]
+  LOADK R10 K20 ["application/json"]
+  SETTABLEKS R10 R9 K21 ["Content-Type"]
   JUMPIFEQKS R7 K0 [""] [+10]
-  NAMECALL R11 R0 K18 ["GetUserId"]
+  NAMECALL R11 R0 K22 ["GetUserId"]
   CALL R11 1 -1
   FASTCALL TOSTRING [+2]
-  GETIMPORT R10 K20 [tostring]
+  GETIMPORT R10 K24 [tostring]
   CALL R10 -1 1
-  SETTABLEKS R10 R9 K21 ["robloxctx-authenticated-userid"]
+  SETTABLEKS R10 R9 K25 ["robloxctx-authenticated-userid"]
   GETUPVAL R10 4
   MOVE R12 R8
   GETUPVAL R13 5
   MOVE R15 R6
-  NAMECALL R13 R13 K22 ["JSONEncode"]
+  NAMECALL R13 R13 K26 ["JSONEncode"]
   CALL R13 2 1
   MOVE R14 R9
-  NAMECALL R10 R10 K23 ["post"]
+  NAMECALL R10 R10 K27 ["post"]
   CALL R10 4 -1
   RETURN R10 -1
 

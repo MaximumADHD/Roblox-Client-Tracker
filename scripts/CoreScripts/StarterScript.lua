@@ -80,7 +80,6 @@ local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 	game:DefineFastFlag("EnableExperienceGenericChallengeRenderingOnLoadingScript", false)
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
 local FFlagEnableLinkSharingEvent = game:DefineFastFlag("EnableLinkSharingEvent", false)
-local FFlagUseAppCommonVirtualCursorWithFixes = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUseAppCommonVirtualCursorWithFixes
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -298,9 +297,7 @@ end
 
 coroutine.wrap(safeRequire)(CoreGuiModules.ExperienceEvents.ExperienceEventsApp)
 
-if game:GetEngineFeature("AvatarGenerationSelfieConsentEnabled") then
-	coroutine.wrap(safeRequire)(CoreGuiModules.AvatarGeneration.SelfieConsent)
-end
+coroutine.wrap(safeRequire)(CoreGuiModules.AvatarGeneration.SelfieConsent)
 
 -- Prompt Block Player Script
 ScriptContext:AddCoreScriptLocal("CoreScripts/BlockPlayerPrompt", RobloxGui)
@@ -324,12 +321,7 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.Captures.CapturesApp)
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 
 -- GamepadVirtualCursor
-if FFlagUseAppCommonVirtualCursorWithFixes then
-	-- due to init already requiring VC instance, no longer need to access VirtualCursorMain
-	coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.VirtualCursor) 
-else
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.VirtualCursor.VirtualCursorMain)
-end
+coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.VirtualCursor)
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)

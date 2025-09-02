@@ -6,6 +6,12 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  RETURN R0 0
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
   GETUPVAL R0 0
   JUMPIFEQKNIL R0 [+2]
   RETURN R0 0
@@ -26,14 +32,14 @@ PROTO_1:
   CALL R0 4 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["runCode"]
   GETUPVAL R1 1
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_3:
+PROTO_5:
   GETUPVAL R2 0
   LOADB R4 0
   NAMECALL R2 R2 K0 ["GenerateGUID"]
@@ -122,7 +128,7 @@ PROTO_3:
   CLOSEUPVALS R4
   RETURN R9 1
 
-PROTO_4:
+PROTO_6:
   GETUPVAL R1 0
   LOADNIL R2
   MOVE R3 R0
@@ -146,7 +152,7 @@ PROTO_4:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_7:
   DUPTABLE R1 K2 [{"name", "arguments"}]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K3 ["ExecuteLuau"]
@@ -156,7 +162,7 @@ PROTO_5:
   SETTABLEKS R2 R1 K1 ["arguments"]
   RETURN R1 1
 
-PROTO_6:
+PROTO_8:
   DUPTABLE R0 K3 [{"type", "code", "expanded"}]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K4 ["Type"]
@@ -167,12 +173,12 @@ PROTO_6:
   SETTABLEKS R1 R0 K2 ["expanded"]
   RETURN R0 1
 
-PROTO_7:
+PROTO_9:
   GETUPVAL R1 0
   SETTABLEKS R1 R0 K0 ["code"]
   RETURN R0 0
 
-PROTO_8:
+PROTO_10:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["parseJSONForCode"]
   MOVE R2 R0
@@ -184,65 +190,111 @@ PROTO_8:
   CAPTURE VAL R1
   RETURN R2 1
 
-PROTO_9:
+PROTO_11:
+  JUMPIFNOT R1 [+23]
+  GETTABLEKS R2 R1 K0 ["code"]
+  JUMPIFNOT R2 [+20]
+  GETTABLEKS R3 R1 K0 ["code"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K2 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K3 ["string"] [+13]
+  GETUPVAL R2 0
+  GETTABLEKS R3 R1 K0 ["code"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+7]
+  DUPTABLE R3 K6 [{"shouldConfirm", "warningMessage"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K4 ["shouldConfirm"]
+  SETTABLEKS R2 R3 K5 ["warningMessage"]
+  RETURN R3 1
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_12:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["Tools"]
+  LOADK R3 K1 ["ExecuteLuau"]
+  NAMECALL R0 R0 K2 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_13:
   GETTABLEKS R1 R0 K0 ["networking"]
   LOADK R4 K1 ["ExecuteLuauTool_stopCode"]
   DUPCLOSURE R5 K2 [PROTO_0]
   CAPTURE UPVAL U0
   NAMECALL R2 R1 K3 ["OnHostEvent"]
   CALL R2 3 0
-  LOADK R4 K4 ["ExecuteLuauTool_doLoadstring"]
-  NEWCLOSURE R5 P1
+  LOADK R4 K4 ["ExecuteLuauTool_bindCodeId"]
+  DUPCLOSURE R5 K5 [PROTO_1]
+  NAMECALL R2 R1 K6 ["OnGuestEvent"]
+  CALL R2 3 0
+  LOADK R4 K7 ["ExecuteLuauTool_codeRunStatus"]
+  DUPCLOSURE R5 K8 [PROTO_2]
+  NAMECALL R2 R1 K6 ["OnGuestEvent"]
+  CALL R2 3 0
+  LOADK R4 K9 ["ExecuteLuauTool_doLoadstring"]
+  NEWCLOSURE R5 P3
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
   CAPTURE UPVAL U0
   CAPTURE VAL R1
-  NAMECALL R2 R1 K5 ["OnHostInvokeAsync"]
+  NAMECALL R2 R1 K10 ["OnHostInvokeAsync"]
   CALL R2 3 1
-  NEWCLOSURE R3 P2
+  NEWCLOSURE R3 P4
   CAPTURE VAL R2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   GETUPVAL R5 5
-  GETTABLEKS R4 R5 K6 ["define"]
+  GETTABLEKS R4 R5 K11 ["define"]
   CALL R4 0 1
   GETUPVAL R7 6
-  GETTABLEKS R6 R7 K7 ["ExecuteLuau"]
-  NAMECALL R4 R4 K8 ["setName"]
+  GETTABLEKS R6 R7 K12 ["ExecuteLuau"]
+  NAMECALL R4 R4 K13 ["setName"]
   CALL R4 2 1
-  LOADK R6 K9 ["Executes Luau code in Roblox Studio. Returns the result of the executed code or an error message if the code fails to execute."]
-  NAMECALL R4 R4 K10 ["setDescription"]
+  LOADK R6 K14 ["Executes Luau code in Roblox Studio. Returns the result of the executed code or an error message if the code fails to execute."]
+  NAMECALL R4 R4 K15 ["setDescription"]
   CALL R4 2 1
-  LOADK R6 K11 ["code"]
-  DUPTABLE R7 K14 [{"type", "description"}]
-  LOADK R8 K15 ["string"]
-  SETTABLEKS R8 R7 K12 ["type"]
-  LOADK R8 K16 ["The Luau code to execute"]
-  SETTABLEKS R8 R7 K13 ["description"]
-  NAMECALL R4 R4 K17 ["addArgument"]
+  LOADK R6 K16 ["code"]
+  DUPTABLE R7 K19 [{"type", "description"}]
+  LOADK R8 K20 ["string"]
+  SETTABLEKS R8 R7 K17 ["type"]
+  LOADK R8 K21 ["The Luau code to execute"]
+  SETTABLEKS R8 R7 K18 ["description"]
+  NAMECALL R4 R4 K22 ["addArgument"]
   CALL R4 3 1
   MOVE R6 R3
-  NAMECALL R4 R4 K18 ["setHandler"]
+  NAMECALL R4 R4 K23 ["setHandler"]
   CALL R4 2 1
-  NAMECALL R4 R4 K19 ["build"]
+  NAMECALL R4 R4 K24 ["build"]
   CALL R4 1 1
-  DUPTABLE R5 K22 [{"command", "mapToToolCall"}]
-  LOADK R6 K23 ["run"]
-  SETTABLEKS R6 R5 K20 ["command"]
-  DUPCLOSURE R6 K24 [PROTO_5]
+  DUPTABLE R5 K27 [{"command", "mapToToolCall"}]
+  LOADK R6 K28 ["run"]
+  SETTABLEKS R6 R5 K25 ["command"]
+  DUPCLOSURE R6 K29 [PROTO_7]
   CAPTURE UPVAL U6
-  SETTABLEKS R6 R5 K21 ["mapToToolCall"]
+  SETTABLEKS R6 R5 K26 ["mapToToolCall"]
   NEWTABLE R6 2 0
-  DUPCLOSURE R7 K25 [PROTO_6]
+  DUPCLOSURE R7 K30 [PROTO_8]
   CAPTURE UPVAL U7
-  SETTABLEKS R7 R6 K26 ["transformInitialContent"]
-  DUPCLOSURE R7 K27 [PROTO_8]
+  SETTABLEKS R7 R6 K31 ["transformInitialContent"]
+  DUPCLOSURE R7 K32 [PROTO_10]
   CAPTURE UPVAL U8
-  SETTABLEKS R7 R6 K28 ["getTransformDeltaFn"]
-  DUPTABLE R7 K32 [{"definition", "slashCommand", "streamTransform"}]
-  SETTABLEKS R4 R7 K29 ["definition"]
-  SETTABLEKS R5 R7 K30 ["slashCommand"]
-  SETTABLEKS R6 R7 K31 ["streamTransform"]
+  SETTABLEKS R7 R6 K33 ["getTransformDeltaFn"]
+  DUPTABLE R7 K39 [{"definition", "slashCommands", "streamTransform", "getPreExecuteWarning", "displayNameFunction"}]
+  SETTABLEKS R4 R7 K34 ["definition"]
+  NEWTABLE R8 0 1
+  MOVE R9 R5
+  SETLIST R8 R9 1 [1]
+  SETTABLEKS R8 R7 K35 ["slashCommands"]
+  SETTABLEKS R6 R7 K36 ["streamTransform"]
+  DUPCLOSURE R8 K40 [PROTO_11]
+  CAPTURE UPVAL U9
+  SETTABLEKS R8 R7 K37 ["getPreExecuteWarning"]
+  DUPCLOSURE R8 K41 [PROTO_12]
+  CAPTURE UPVAL U10
+  SETTABLEKS R8 R7 K38 ["displayNameFunction"]
   RETURN R7 1
 
 MAIN:
@@ -269,29 +321,36 @@ MAIN:
   GETTABLEKS R5 R6 K15 ["ToolTypes"]
   CALL R4 1 1
   GETTABLEKS R6 R2 K16 ["Utils"]
-  GETTABLEKS R5 R6 K17 ["CommandExecution"]
-  GETTABLEKS R7 R2 K18 ["Guest"]
-  GETTABLEKS R6 R7 K19 ["Environment"]
-  GETTABLEKS R8 R2 K16 ["Utils"]
-  GETTABLEKS R7 R8 K14 ["Tools"]
+  GETTABLEKS R5 R6 K17 ["CheckCodeSafety"]
+  GETTABLEKS R7 R2 K16 ["Utils"]
+  GETTABLEKS R6 R7 K18 ["CommandExecution"]
+  GETTABLEKS R8 R2 K19 ["Guest"]
+  GETTABLEKS R7 R8 K20 ["Environment"]
   GETTABLEKS R9 R2 K16 ["Utils"]
-  GETTABLEKS R8 R9 K20 ["OutputParser"]
-  GETTABLEKS R11 R2 K21 ["Components"]
-  GETTABLEKS R10 R11 K22 ["BuiltinContentWidgets"]
-  GETTABLEKS R9 R10 K23 ["RunCodeContentWidget"]
-  GETTABLEKS R11 R3 K24 ["Util"]
-  GETTABLEKS R10 R11 K25 ["ToolBuilder"]
-  GETTABLEKS R12 R3 K24 ["Util"]
-  GETTABLEKS R11 R12 K26 ["ToolResult"]
-  GETTABLEKS R12 R4 K27 ["ToolNames"]
-  DUPCLOSURE R13 K28 [PROTO_9]
-  CAPTURE VAL R5
-  CAPTURE VAL R1
+  GETTABLEKS R8 R9 K14 ["Tools"]
+  GETTABLEKS R11 R2 K21 ["Resources"]
+  GETTABLEKS R10 R11 K22 ["Localization"]
+  GETTABLEKS R9 R10 K23 ["Translator"]
+  GETTABLEKS R11 R2 K16 ["Utils"]
+  GETTABLEKS R10 R11 K24 ["OutputParser"]
+  GETTABLEKS R13 R2 K25 ["Components"]
+  GETTABLEKS R12 R13 K26 ["BuiltinContentWidgets"]
+  GETTABLEKS R11 R12 K27 ["RunCodeContentWidget"]
+  GETTABLEKS R13 R3 K28 ["Util"]
+  GETTABLEKS R12 R13 K29 ["ToolBuilder"]
+  GETTABLEKS R14 R3 K28 ["Util"]
+  GETTABLEKS R13 R14 K30 ["ToolResult"]
+  GETTABLEKS R14 R4 K31 ["ToolNames"]
+  DUPCLOSURE R15 K32 [PROTO_13]
   CAPTURE VAL R6
+  CAPTURE VAL R1
   CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R14
   CAPTURE VAL R11
   CAPTURE VAL R10
-  CAPTURE VAL R12
+  CAPTURE VAL R5
   CAPTURE VAL R9
-  CAPTURE VAL R8
-  RETURN R13 1
+  RETURN R15 1

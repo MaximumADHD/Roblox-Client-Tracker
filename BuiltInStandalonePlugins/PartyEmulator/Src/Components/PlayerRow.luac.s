@@ -1,0 +1,211 @@
+PROTO_0:
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [tostring]
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["UNASSIGNED_PARTY_ID"]
+  JUMPIFNOTEQ R1 R2 [+19]
+  GETUPVAL R1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["userId"]
+  LOADK R4 K4 [""]
+  NAMECALL R1 R1 K5 ["SetPlayerPartyId"]
+  CALL R1 3 0
+  GETUPVAL R1 3
+  LOADK R3 K5 ["SetPlayerPartyId"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["userId"]
+  LOADK R5 K4 [""]
+  NAMECALL R1 R1 K6 ["Invoke"]
+  CALL R1 4 0
+  JUMP [+25]
+  GETUPVAL R1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["userId"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [tostring]
+  CALL R4 1 1
+  NAMECALL R1 R1 K5 ["SetPlayerPartyId"]
+  CALL R1 3 0
+  GETUPVAL R1 3
+  LOADK R3 K5 ["SetPlayerPartyId"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["userId"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K1 [tostring]
+  CALL R5 1 1
+  NAMECALL R1 R1 K6 ["Invoke"]
+  CALL R1 4 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K7 ["onDropdownItemChanged"]
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K7 ["onDropdownItemChanged"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  NAMECALL R2 R2 K1 ["get"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K2 ["availableParties"]
+  JUMPIF R3 [+7]
+  NEWTABLE R3 0 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["UNASSIGNED_PARTY_ID"]
+  SETLIST R3 R4 1 [1]
+  NEWTABLE R4 0 0
+  GETIMPORT R5 K5 [ipairs]
+  MOVE R6 R3
+  CALL R5 1 3
+  FORGPREP_INEXT R5
+  DUPTABLE R12 K8 [{"id", "text"}]
+  SETTABLEKS R9 R12 K6 ["id"]
+  GETUPVAL R13 3
+  MOVE R14 R9
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K7 ["text"]
+  FASTCALL2 TABLE_INSERT R4 R12 [+4]
+  MOVE R11 R4
+  GETIMPORT R10 K11 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R5 2 [inext] [-15]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K12 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U5
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NEWTABLE R7 0 0
+  CALL R5 2 1
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K13 ["createElement"]
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K14 ["View"]
+  DUPTABLE R8 K17 [{"tag", "LayoutOrder"}]
+  LOADK R9 K18 ["size-full-0 auto-y row align-y-center gap-small padding-small bg-surface-200 radius-small flex-x-between"]
+  SETTABLEKS R9 R8 K15 ["tag"]
+  GETTABLEKS R9 R0 K16 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K16 ["LayoutOrder"]
+  DUPTABLE R9 K21 [{"PlayerDetailsContainer", "PartyDropdown"}]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K13 ["createElement"]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K14 ["View"]
+  DUPTABLE R12 K17 [{"tag", "LayoutOrder"}]
+  LOADK R13 K22 ["row auto-xy align-y-center gap-small"]
+  SETTABLEKS R13 R12 K15 ["tag"]
+  MOVE R13 R1
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K16 ["LayoutOrder"]
+  DUPTABLE R13 K25 [{"PlayerIcon", "PlayerName"}]
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K13 ["createElement"]
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K26 ["Icon"]
+  DUPTABLE R16 K29 [{"tag", "size", "name", "LayoutOrder"}]
+  LOADK R17 K30 ["align-y-center auto-xy"]
+  SETTABLEKS R17 R16 K15 ["tag"]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K31 ["Enums"]
+  GETTABLEKS R18 R19 K32 ["IconSize"]
+  GETTABLEKS R17 R18 K33 ["Small"]
+  SETTABLEKS R17 R16 K27 ["size"]
+  LOADK R17 K34 ["icons/common/user"]
+  SETTABLEKS R17 R16 K28 ["name"]
+  MOVE R17 R1
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K16 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K23 ["PlayerIcon"]
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K13 ["createElement"]
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K35 ["Text"]
+  DUPTABLE R16 K36 [{"Text", "tag", "LayoutOrder"}]
+  GETTABLEKS R17 R0 K37 ["playerName"]
+  SETTABLEKS R17 R16 K35 ["Text"]
+  LOADK R17 K38 ["text-label-large auto-xy"]
+  SETTABLEKS R17 R16 K15 ["tag"]
+  MOVE R17 R1
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K16 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K24 ["PlayerName"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K19 ["PlayerDetailsContainer"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K13 ["createElement"]
+  GETUPVAL R13 6
+  GETTABLEKS R12 R13 K39 ["Dropdown"]
+  GETTABLEKS R11 R12 K40 ["Root"]
+  DUPTABLE R12 K46 [{"label", "TextXAlignment", "value", "onItemChanged", "items", "LayoutOrder"}]
+  LOADK R13 K47 [""]
+  SETTABLEKS R13 R12 K41 ["label"]
+  GETIMPORT R13 K50 [Enum.TextXAlignment.Right]
+  SETTABLEKS R13 R12 K42 ["TextXAlignment"]
+  GETTABLEKS R13 R0 K51 ["currentPartyId"]
+  SETTABLEKS R13 R12 K43 ["value"]
+  SETTABLEKS R5 R12 K44 ["onItemChanged"]
+  SETTABLEKS R4 R12 K45 ["items"]
+  MOVE R13 R1
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K16 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K20 ["PartyDropdown"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["PartyEmulatorService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["PartyEmulator"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Foundation"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R1 K10 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Framework"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R8 R1 K14 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Util"]
+  GETTABLEKS R6 R7 K16 ["Constants"]
+  CALL R5 1 1
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R9 R1 K14 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Util"]
+  GETTABLEKS R7 R8 K17 ["getPartyName"]
+  CALL R6 1 1
+  GETTABLEKS R8 R4 K15 ["Util"]
+  GETTABLEKS R7 R8 K18 ["counter"]
+  GETTABLEKS R8 R4 K19 ["ContextServices"]
+  GETTABLEKS R9 R8 K20 ["Plugin"]
+  DUPCLOSURE R10 K21 [PROTO_1]
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  RETURN R10 1

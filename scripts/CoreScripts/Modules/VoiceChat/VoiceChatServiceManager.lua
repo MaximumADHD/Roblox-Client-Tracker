@@ -41,7 +41,6 @@ local GetFFlagUseLuaSignalrConsumer = require(VoiceChatCore.Flags.GetFFlagUseLua
 local GetFFlagNonVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNonVoiceFTUX
 local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
-local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
 local GetFFlagEnableSeamlessVoiceConnectDisconnectButton =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceConnectDisconnectButton)
 local GetFIntVoiceReverseNudgeUXDisplayTimeSeconds =
@@ -518,14 +517,12 @@ function VoiceChatServiceManager.new(
 		if getFFlagMicrophoneDevicePermissionsPromptLogging() then
 			MicrophoneDevicePermissionsLogging:setClientSessionId(self.coreVoiceManager:GetSessionId())
 		end
-		if GetFFlagEnableShowVoiceUI() then
-			local inEndedState = newState == (Enum :: any).VoiceChatState.Ended
-			if inEndedState and self.bannedUntil == nil then
-				if not GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
-					self:HideVoiceUI()
-				end
-				self:showPrompt(VoiceChatPromptType.LeaveVoice)
+		local inEndedState = newState == (Enum :: any).VoiceChatState.Ended
+		if inEndedState and self.bannedUntil == nil then
+			if not GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+				self:HideVoiceUI()
 			end
+			self:showPrompt(VoiceChatPromptType.LeaveVoice)
 		end
 	end)
 	self.coreVoiceManager:subscribe("OnPlayerMuted", function()
@@ -535,18 +532,16 @@ function VoiceChatServiceManager.new(
 		self:UpdateAudioDeviceInputDebugger()
 	end)
 
-	if GetFFlagEnableShowVoiceUI() then
-		self.coreVoiceManager:subscribe("OnVoiceChatServiceInitialized", function()
-			self:ShowVoiceUI()
-			if GetFFlagEnableSeamlessVoiceV2() and self:IsSeamlessVoice() then
-				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-			end
-			if FFlagDebugSimulateConnectDisconnect then
-				log:debug("Simulating join voice")
-				self:simulateVoiceConnectDisconnect()
-			end
-		end)
-	end
+	self.coreVoiceManager:subscribe("OnVoiceChatServiceInitialized", function()
+		self:ShowVoiceUI()
+		if GetFFlagEnableSeamlessVoiceV2() and self:IsSeamlessVoice() then
+			ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
+		end
+		if FFlagDebugSimulateConnectDisconnect then
+			log:debug("Simulating join voice")
+			self:simulateVoiceConnectDisconnect()
+		end
+	end)
 
 	self.coreVoiceManager:subscribe("OnAudioDeviceInputRemoved", function()
 		self:UpdateAudioDeviceInputDebugger()
@@ -1174,9 +1169,6 @@ function VoiceChatServiceManager:calculateBanDuration(startTimestamp: number, en
 end
 
 function VoiceChatServiceManager:ShowVoiceUI()
-	if not GetFFlagEnableShowVoiceUI() then
-		return
-	end
 	self.voiceUIVisible = true
 	self.showVoiceUI:Fire()
 
@@ -1186,9 +1178,6 @@ function VoiceChatServiceManager:ShowVoiceUI()
 end
 
 function VoiceChatServiceManager:HideVoiceUI()
-	if not GetFFlagEnableShowVoiceUI() then
-		return
-	end
 	self.voiceUIVisible = false
 	self.hideVoiceUI:Fire()
 

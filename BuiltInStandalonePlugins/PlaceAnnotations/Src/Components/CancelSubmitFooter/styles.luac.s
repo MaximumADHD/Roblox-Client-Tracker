@@ -88,7 +88,7 @@ MAIN:
   SETTABLEKS R18 R17 K41 ["BackgroundColor3"]
   CALL R15 2 1
   MOVE R16 R2
-  LOADK R17 K54 [":pressed"]
+  LOADK R17 K54 [":press"]
   DUPTABLE R18 K52 [{"BackgroundColor3"}]
   GETIMPORT R19 K57 [Color3.fromHex]
   LOADK R20 K58 ["#005D92"]
@@ -114,7 +114,7 @@ MAIN:
   SETTABLEKS R18 R17 K13 ["BackgroundTransparency"]
   CALL R15 2 1
   MOVE R16 R2
-  LOADK R17 K54 [":pressed"]
+  LOADK R17 K54 [":press"]
   DUPTABLE R18 K14 [{"BackgroundTransparency"}]
   LOADK R19 K65 ["$SemanticColorActionSecondaryFillPressTransparency"]
   SETTABLEKS R19 R18 K13 ["BackgroundTransparency"]

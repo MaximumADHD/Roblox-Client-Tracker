@@ -128,41 +128,45 @@ MAIN:
   CALL R4 1 1
   SETTABLEKS R4 R3 K94 ["SemanticColorContentEmphasis"]
   GETIMPORT R4 K61 [Color3.fromHex]
-  LOADK R5 K95 ["#F7F7F8"]
+  LOADK R5 K95 ["#D91C15"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K96 ["ColorActionEmphasisForeground"]
+  SETTABLEKS R4 R3 K96 ["ColorActionAlert"]
   GETIMPORT R4 K61 [Color3.fromHex]
-  LOADK R5 K97 ["#335FFF"]
+  LOADK R5 K97 ["#F7F7F8"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K98 ["ColorActionEmphasisBackground"]
+  SETTABLEKS R4 R3 K98 ["ColorActionEmphasisForeground"]
+  GETIMPORT R4 K61 [Color3.fromHex]
+  LOADK R5 K99 ["#335FFF"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K100 ["ColorActionEmphasisBackground"]
   GETIMPORT R4 K61 [Color3.fromHex]
   LOADK R5 K90 ["#202227"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K99 ["ColorActionStandardForeground"]
+  SETTABLEKS R4 R3 K101 ["ColorActionStandardForeground"]
   GETIMPORT R4 K61 [Color3.fromHex]
   LOADK R5 K76 ["#1B254B"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K100 ["ColorActionStandardBackground"]
+  SETTABLEKS R4 R3 K102 ["ColorActionStandardBackground"]
   LOADK R4 K78 [0.88]
-  SETTABLEKS R4 R3 K101 ["ColorActionStandardBackgroundTransparency"]
+  SETTABLEKS R4 R3 K103 ["ColorActionStandardBackgroundTransparency"]
   GETIMPORT R4 K61 [Color3.fromHex]
   LOADK R5 K92 ["#494D5A"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K102 ["ColorContentDefault"]
+  SETTABLEKS R4 R3 K104 ["ColorContentDefault"]
   GETIMPORT R4 K61 [Color3.fromHex]
   LOADK R5 K84 ["#FFFFFF"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K103 ["ColorSurfaceSurface0"]
+  SETTABLEKS R4 R3 K105 ["ColorSurfaceSurface0"]
   GETIMPORT R4 K61 [Color3.fromHex]
-  LOADK R5 K104 ["#EFF0F1"]
+  LOADK R5 K106 ["#EFF0F1"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K105 ["SemanticColorComponentHoverBackground"]
+  SETTABLEKS R4 R3 K107 ["SemanticColorComponentHoverBackground"]
   GETIMPORT R4 K61 [Color3.fromHex]
-  LOADK R5 K106 ["#D0DAFE"]
+  LOADK R5 K108 ["#D0DAFE"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K107 ["SemanticColorComponentSelectedBackground"]
+  SETTABLEKS R4 R3 K109 ["SemanticColorComponentSelectedBackground"]
   MOVE R4 R2
-  LOADK R5 K108 ["FindReplaceAllLightTheme"]
+  LOADK R5 K110 ["FindReplaceAllLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

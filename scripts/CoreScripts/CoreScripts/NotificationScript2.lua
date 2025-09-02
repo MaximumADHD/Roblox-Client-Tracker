@@ -51,7 +51,6 @@ local FFlagFixOnBadgeAwardedError = game:DefineFastFlag("FixOnBadgeAwardedError"
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
@@ -900,7 +899,7 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 	if fromPlayer == LocalPlayer then
 		if event == Enum.FriendRequestEvent.Accept and (not GetFFlagFriendshipNotifsUseSendr()) then
 			local detailText = RobloxTranslator:FormatByKey(
-				if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.FriendRequestEvent.Accept" else "NotificationScript2.FriendRequestEvent.Accept",
+				"InGame.NotificationScript2.FriendRequestEvent.Accept",
 				{ RBX_NAME = toPlayer.Name }
 			)
 
@@ -924,7 +923,7 @@ local function onFriendRequestEvent(fromPlayer, toPlayer, event)
 			sendFriendNotification(fromPlayer)
 		elseif event == Enum.FriendRequestEvent.Accept then
 			local detailText = RobloxTranslator:FormatByKey(
-				if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.FriendRequestEvent.Accept" else "NotificationScript2.FriendRequestEvent.Accept",
+				"InGame.NotificationScript2.FriendRequestEvent.Accept",
 				{ RBX_NAME = fromPlayer.Name }
 			)
 
@@ -947,19 +946,19 @@ local function onPointsAwarded(userId, pointsAwarded, userBalanceInGame, userTot
 		if pointsAwarded == 1 then
 			title = "Point Awarded"
 			text = RobloxTranslator:FormatByKey(
-				if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.onPointsAwarded.single" else "NotificationScript2.onPointsAwarded.single",
+				"InGame.NotificationScript2.onPointsAwarded.single",
 				{ RBX_NUMBER = tostring(pointsAwarded) }
 			)
 		elseif pointsAwarded > 0 then
 			title = "Points Awarded"
 			text = RobloxTranslator:FormatByKey(
-				if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.onPointsAwarded.multiple" else "NotificationScript2.onPointsAwarded.multiple",
+				"InGame.NotificationScript2.onPointsAwarded.multiple",
 				{ RBX_NUMBER = tostring(pointsAwarded) }
 			)
 		elseif pointsAwarded < 0 then
 			title = "Points Lost"
 			text = RobloxTranslator:FormatByKey(
-				if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.onPointsAwarded.negative" else "NotificationScript2.onPointsAwarded.negative",
+				"InGame.NotificationScript2.onPointsAwarded.negative",
 				{ RBX_NUMBER = tostring(pointsAwarded) }
 			)
 		else
@@ -1017,10 +1016,10 @@ local function onBadgeAwarded(userId, creatorId, badgeId)
 			end
 		end
 		local badgeAwardText = RobloxTranslator:FormatByKey(
-			if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.onBadgeAwardedDetail" else "NotificationScript2.onBadgeAwardedDetail",
+			"InGame.NotificationScript2.onBadgeAwardedDetail",
 			{ RBX_NAME = LocalPlayer.Name, CREATOR_NAME = creatorName, BADGE_NAME = badgeInfo.DisplayName }
 		)
-		local badgeTitle = LocalizedGetString(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.onBadgeAwardedTitle" else "NotificationScript2.onBadgeAwardedTitle")
+		local badgeTitle = LocalizedGetString("InGame.NotificationScript2.onBadgeAwardedTitle" )
 
 		sendNotificationInfo({
 			GroupName = "BadgeAwards",
@@ -1060,12 +1059,12 @@ function onGameSettingsChanged(property, amount)
 
 			if level > CurrentGraphicsQualityLevel then
 				message = RobloxTranslator:FormatByKey(
-					if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Increased" else "NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Increased",
+					"InGame.NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Increased",
 					{ RBX_NUMBER = tostring(level) }
 				)
 			else
 				message = RobloxTranslator:FormatByKey(
-					if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Decreased" else "NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Decreased",
+					"InGame.NotificationScrip2.onCurrentGraphicsQualityLevelChanged.Decreased",
 					{ RBX_NUMBER = tostring(level) }
 				)
 			end
@@ -1103,9 +1102,9 @@ if allowScreenshots then
 	-- Otherwise game.ScreenshotSavedToAlbum signal will be fired, handling in CaptureNotification.lua
 	if not shouldSaveScreenshotToAlbum() then
 		game.ScreenshotReady:Connect(function(path)
-			local titleText = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Screenshot.Title" else "NotificationScript2.Screenshot.Title")
-			local descriptionText = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Screenshot.Description" else "NotificationScript2.Screenshot.Description")
-			local buttonText = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Screenshot.ButtonText" else "NotificationScript2.Screenshot.ButtonText")
+			local titleText = RobloxTranslator:FormatByKey("InGame.NotificationScript2.Screenshot.Title")
+			local descriptionText = RobloxTranslator:FormatByKey("InGame.NotificationScript2.Screenshot.Description")
+			local buttonText = RobloxTranslator:FormatByKey("InGame.NotificationScript2.Screenshot.ButtonText")
 
 			sendNotificationInfo({
 				Title = titleText,
@@ -1124,9 +1123,9 @@ if allowScreenshots then
 	-- FIXME: Add GetService method to RobloxDefinitions.cpp settingsProps
 	(settings() :: any):GetService("GameSettings").VideoRecordingChangeRequest:Connect(function(value)
 		if not value then
-			local titleText = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Video.Title" else "NotificationScript2.Video.Title")
-			local descriptionText = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Video.Description" else "NotificationScript2.Video.Description")
-			local buttonText = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Video.ButtonText" else "NotificationScript2.Video.ButtonText")
+			local titleText = RobloxTranslator:FormatByKey("InGame.NotificationScript2.Video.Title")
+			local descriptionText = RobloxTranslator:FormatByKey("InGame.NotificationScript2.Video.Description")
+			local buttonText = RobloxTranslator:FormatByKey("InGame.NotificationScript2.Video.ButtonText")
 
 			sendNotificationInfo({
 				Title = titleText,

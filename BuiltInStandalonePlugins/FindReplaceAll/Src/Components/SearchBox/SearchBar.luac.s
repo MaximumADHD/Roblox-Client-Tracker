@@ -173,12 +173,14 @@ PROTO_7:
   DUPTABLE R3 K5 [{"SearchIconImage"}]
   GETUPVAL R4 1
   LOADK R5 K6 ["ImageLabel"]
-  NEWTABLE R6 1 0
+  NEWTABLE R6 2 0
+  LOADN R7 0
+  SETTABLEKS R7 R6 K7 ["LayoutOrder"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K2 ["Tag"]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K0 ["searchBarLeftIcon"]
-  GETTABLEKS R8 R9 K7 ["tags"]
+  GETTABLEKS R8 R9 K8 ["tags"]
   SETTABLE R8 R6 R7
   CALL R4 2 1
   SETTABLEKS R4 R3 K4 ["SearchIconImage"]
@@ -280,63 +282,77 @@ PROTO_8:
   GETTABLEKS R17 R18 K15 ["Tag"]
   LOADK R18 K16 ["X-Row X-Middle FindReplaceAll-FillX FindReplaceAll-SidePadS FindReplaceAll-BG-Input FindReplaceAll-SearchBox-Corner FindReplaceAll-SearchBox-SearchBar data-testid=SearchBarFrame"]
   SETTABLE R18 R16 R17
-  DUPTABLE R17 K21 [{"FocusBorder", "SearchIcon", "TextBox", "ClearTextButton"}]
+  DUPTABLE R17 K22 [{"FocusBorder", "ErrorBorder", "SearchIcon", "TextBox", "ClearTextButton"}]
   MOVE R18 R5
+  JUMPIFNOT R18 [+7]
+  GETTABLEKS R19 R0 K23 ["hasError"]
+  NOT R18 R19
   JUMPIFNOT R18 [+3]
   GETUPVAL R18 3
-  LOADK R19 K22 ["UIStroke"]
+  LOADK R19 K24 ["UIStroke"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K17 ["FocusBorder"]
+  GETTABLEKS R18 R0 K23 ["hasError"]
+  JUMPIFNOT R18 [+10]
+  GETUPVAL R18 3
+  LOADK R19 K24 ["UIStroke"]
+  NEWTABLE R20 1 0
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K15 ["Tag"]
+  LOADK R22 K25 ["FindReplaceAll-SearchBar-Error"]
+  SETTABLE R22 R20 R21
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K18 ["ErrorBorder"]
   MOVE R18 R13
   CALL R18 0 1
-  SETTABLEKS R18 R17 K18 ["SearchIcon"]
+  SETTABLEKS R18 R17 K19 ["SearchIcon"]
   GETUPVAL R18 3
-  LOADK R19 K19 ["TextBox"]
+  LOADK R19 K20 ["TextBox"]
   NEWTABLE R20 8 0
-  LOADN R21 0
+  LOADN R21 1
   SETTABLEKS R21 R20 K13 ["LayoutOrder"]
-  GETTABLEKS R21 R0 K23 ["searchBarPlaceholderText"]
-  SETTABLEKS R21 R20 K24 ["PlaceholderText"]
+  GETTABLEKS R21 R0 K26 ["searchBarPlaceholderText"]
+  SETTABLEKS R21 R20 K27 ["PlaceholderText"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K25 ["ShouldEmitUpAndDownArrowEvents"]
+  SETTABLEKS R21 R20 K28 ["ShouldEmitUpAndDownArrowEvents"]
   GETTABLEKS R21 R0 K4 ["textBoxRef"]
   SETTABLEKS R21 R20 K14 ["ref"]
   GETUPVAL R23 0
-  GETTABLEKS R22 R23 K26 ["Change"]
-  GETTABLEKS R21 R22 K27 ["Text"]
+  GETTABLEKS R22 R23 K29 ["Change"]
+  GETTABLEKS R21 R22 K30 ["Text"]
   SETTABLE R11 R20 R21
   GETUPVAL R23 0
-  GETTABLEKS R22 R23 K28 ["Event"]
-  GETTABLEKS R21 R22 K29 ["Focused"]
+  GETTABLEKS R22 R23 K31 ["Event"]
+  GETTABLEKS R21 R22 K32 ["Focused"]
   SETTABLE R8 R20 R21
   GETUPVAL R23 0
-  GETTABLEKS R22 R23 K28 ["Event"]
-  GETTABLEKS R21 R22 K30 ["FocusLost"]
+  GETTABLEKS R22 R23 K31 ["Event"]
+  GETTABLEKS R21 R22 K33 ["FocusLost"]
   SETTABLE R9 R20 R21
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K15 ["Tag"]
-  LOADK R22 K31 ["FindReplaceAll-FillX data-testid=SearchTextBox"]
+  LOADK R22 K34 ["FindReplaceAll-FillX data-testid=SearchTextBox"]
   SETTABLE R22 R20 R21
   CALL R18 2 1
-  SETTABLEKS R18 R17 K19 ["TextBox"]
+  SETTABLEKS R18 R17 K20 ["TextBox"]
   GETUPVAL R18 3
-  LOADK R19 K32 ["ImageButton"]
+  LOADK R19 K35 ["ImageButton"]
   NEWTABLE R20 4 0
-  LOADN R21 1
+  LOADN R21 2
   SETTABLEKS R21 R20 K13 ["LayoutOrder"]
-  NAMECALL R21 R1 K33 ["getValue"]
+  NAMECALL R21 R1 K36 ["getValue"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K34 ["Visible"]
+  SETTABLEKS R21 R20 K37 ["Visible"]
   GETUPVAL R23 0
-  GETTABLEKS R22 R23 K28 ["Event"]
-  GETTABLEKS R21 R22 K35 ["MouseButton1Up"]
+  GETTABLEKS R22 R23 K31 ["Event"]
+  GETTABLEKS R21 R22 K38 ["MouseButton1Up"]
   SETTABLE R10 R20 R21
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K15 ["Tag"]
-  LOADK R22 K36 ["FindReplaceAll-Content-Standard FindReplaceAll-Icon ClearTextIcon data-testid=ClearTextButton"]
+  LOADK R22 K39 ["FindReplaceAll-Content-Standard FindReplaceAll-Icon ClearTextIcon data-testid=ClearTextButton"]
   SETTABLE R22 R20 R21
   CALL R18 2 1
-  SETTABLEKS R18 R17 K20 ["ClearTextButton"]
+  SETTABLEKS R18 R17 K21 ["ClearTextButton"]
   MOVE R18 R12
   CALL R18 0 1
   CALL R14 4 -1

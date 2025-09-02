@@ -1,0 +1,95 @@
+PROTO_0:
+  GETUPVAL R2 0
+  CALL R2 0 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R1 K1 [assert]
+  CALL R1 -1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["use"]
+  CALL R1 0 1
+  GETUPVAL R2 2
+  GETTABLEKS R3 R0 K3 ["Uri"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K4 ["UpdateState"]
+  GETIMPORT R5 K7 [Enum.UpdateState.UpdateNotAvailable]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  NOT R4 R3
+  GETTABLEKS R6 R0 K4 ["UpdateState"]
+  GETIMPORT R7 K9 [Enum.UpdateState.UpdateFailed]
+  JUMPIFEQ R6 R7 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  JUMPIFNOT R5 [+6]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K10 ["ButtonVariant"]
+  GETTABLEKS R6 R7 K11 ["Alert"]
+  JUMP [+5]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K10 ["ButtonVariant"]
+  GETTABLEKS R6 R7 K12 ["Standard"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K13 ["createElement"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K21 [{"ref", "Visible", "LayoutOrder", "size", "text", "variant", "onActivated"}]
+  SETTABLEKS R2 R9 K14 ["ref"]
+  SETTABLEKS R4 R9 K15 ["Visible"]
+  GETTABLEKS R10 R0 K16 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K16 ["LayoutOrder"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K22 ["InputSize"]
+  GETTABLEKS R10 R11 K23 ["XSmall"]
+  SETTABLEKS R10 R9 K17 ["size"]
+  LOADK R12 K24 ["Action"]
+  LOADK R13 K25 ["ToggleUpdateStatusPanel"]
+  NAMECALL R10 R1 K26 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K18 ["text"]
+  SETTABLEKS R6 R9 K19 ["variant"]
+  GETTABLEKS R10 R0 K20 ["onActivated"]
+  SETTABLEKS R10 R9 K20 ["onActivated"]
+  CALL R7 2 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["StudioFoundation"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["SharedFlags"]
+  GETTABLEKS R6 R7 K13 ["getFeatureStudioBackgroundUpdates"]
+  CALL R5 1 1
+  GETTABLEKS R7 R4 K14 ["Hooks"]
+  GETTABLEKS R6 R7 K15 ["useWidgetRef"]
+  GETTABLEKS R7 R2 K16 ["Button"]
+  GETTABLEKS R8 R2 K17 ["Enums"]
+  GETTABLEKS R9 R3 K18 ["ContextServices"]
+  GETTABLEKS R10 R9 K19 ["Localization"]
+  DUPCLOSURE R11 K20 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  RETURN R11 1

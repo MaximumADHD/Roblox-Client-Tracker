@@ -26,18 +26,10 @@ local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
-local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
-local FocusRoot = FocusNavigationUtils.FocusRoot
-local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
-local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
-local useRegistryEntry = FocusNavigationUtils.FocusNavigableSurfaceRegistry.useRegistryEntry
 
 -- Flags
 local FFlagRefactorHelpPage = HelpPage.Flags.FFlagRefactorHelpPage
-local FFlagHelpPageTouch = HelpPage.Flags.FFlagHelpPageTouch
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
-local FFlagHelpPageShowVersion = game:DefineFastFlag("HelpPageShowVersion", false)
-local FFlagHelpPageRemoveNavProvider = game:DefineFastFlag("HelpPageRemoveNavProvider", false)
 
 local Integrations = nil
 local Constants = nil
@@ -50,16 +42,6 @@ end
 
 local tree: ReactRoblox.RootType? = nil
 local getDisplayed, setDisplayed = Signals.createSignal(false)
-
-local function HelpFocusRoot(props)
-    local centralOverlay = useRegistryEntry(FocusNavigableSurfaceIdentifierEnum.CentralOverlay)
-    local shouldAutoFocus = centralOverlay == nil
-
-    return React.createElement(FocusRoot, {
-        surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.Auxiliary,
-        isAutoFocusRoot = shouldAutoFocus,
-    }, props.children)
-end
 
 local function createHelpPage()
     local HelpPage = SettingsPageFactory:CreateNewPage()
@@ -97,23 +79,11 @@ local function createHelpPage()
                 Child = React.createElement(LocalizationProvider, {
                     localization = locales,
                 }, {
-                    FocusRoot = if FFlagHelpPageRemoveNavProvider then React.createElement(HelpReactView)
-                    else React.createElement(HelpFocusRoot, {}, {
-                        Child = React.createElement(HelpReactView)
-                    })
+                    Root = React.createElement(HelpReactView)
                 })
             }) else nil
 
-            local Help: React.React_Node?
-            if displayed and not FFlagHelpPageRemoveNavProvider then
-                Help = React.createElement(CoreScriptsRootProvider, {}, {
-                    Child = Child
-                })
-            else
-                Help = Child
-            end
-
-            return Help
+            return Child
         end
 
         tree = ReactRoblox.createRoot(HelpPage.Page)
@@ -126,27 +96,21 @@ local function createHelpPage()
         createReactTree()
         setDisplayed(true)
 
-        if FFlagHelpPageShowVersion then
-            if HelpPage.HubRef.VersionContainer then
-                HelpPage.HubRef.VersionContainer.Visible = true
-            end
+        if HelpPage.HubRef.VersionContainer then
+            HelpPage.HubRef.VersionContainer.Visible = true
         end
     end)
 
     HelpPage.Hidden.Event:Connect(function()
         setDisplayed(false)
         
-        if FFlagHelpPageShowVersion then
-            if HelpPage.HubRef.VersionContainer then
-                HelpPage.HubRef.VersionContainer.Visible = false
-            end
+        if HelpPage.HubRef.VersionContainer then
+            HelpPage.HubRef.VersionContainer.Visible = false
         end
     end)
 
-    if FFlagHelpPageTouch then
-        HelpPage.Page.Size = UDim2.fromScale(1, 0)
-        HelpPage.Page.AutomaticSize = Enum.AutomaticSize.Y    
-    end
+    HelpPage.Page.Size = UDim2.fromScale(1, 0)
+    HelpPage.Page.AutomaticSize = Enum.AutomaticSize.Y    
 
     return HelpPage
 end

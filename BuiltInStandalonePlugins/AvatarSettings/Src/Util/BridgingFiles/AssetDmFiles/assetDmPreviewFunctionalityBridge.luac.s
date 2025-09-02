@@ -12,7 +12,11 @@ PROTO_0:
 
 PROTO_1:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["cleanupPreview"]
+  GETTABLEKS R0 R1 K0 ["findExistingAvatarPreviewFolder"]
+  CALL R0 0 1
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["cleanupPreview"]
   GETUPVAL R1 1
   CALL R0 1 0
   RETURN R0 0
@@ -47,7 +51,11 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["cleanupPreview"]
+  GETTABLEKS R0 R1 K0 ["findExistingAvatarPreviewFolder"]
+  CALL R0 0 1
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["cleanupPreview"]
   GETUPVAL R1 1
   CALL R0 1 0
   RETURN R0 0

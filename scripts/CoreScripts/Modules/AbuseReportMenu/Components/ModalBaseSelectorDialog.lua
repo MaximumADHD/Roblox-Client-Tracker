@@ -1,7 +1,6 @@
 local root = script:FindFirstAncestor("AbuseReportMenu")
 local CorePackages = game:GetService("CorePackages")
 
-local Constants = require(root.Components.Constants)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local React = require(CorePackages.Packages.React)
 local ScrollingListTable = UIBlox.App.Table.ScrollingListTable
@@ -20,12 +19,10 @@ local Images = UIBlox.App.ImageSet.Images
 
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
-local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagCSFocusWrapperRefactor = SharedFlags.FFlagCSFocusWrapperRefactor
 local GetFFlagModalSelectorCloseButton = require(root.Flags.GetFFlagModalSelectorCloseButton)
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local isInExperienceUIVREnabled =
@@ -214,22 +211,13 @@ end
 
 function DialogWrapper(props)
 	return React.createElement(CoreScriptsRootProvider, {}, {
-		FocusNavigationCoreScriptsWrapper = React.createElement(
-			if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
-			if FFlagCSFocusWrapperRefactor
-				then {
-					surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-					isIsolated = true,
-					isAutoFocusRoot = true,
-				}
-				else {
-					selectionGroupName = Constants.ModalBaseSelectorDialogRootName,
-					focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-				},
-			{
-				DialogContainer = React.createElement(ModalBaseSelectorDialog, props),
-			}
-		),
+		FocusNavigationCoreScriptsWrapper = React.createElement(FocusRoot, {
+			surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+			isIsolated = true,
+			isAutoFocusRoot = true,
+		}, {
+			DialogContainer = React.createElement(ModalBaseSelectorDialog, props),
+		}),
 	})
 end
 

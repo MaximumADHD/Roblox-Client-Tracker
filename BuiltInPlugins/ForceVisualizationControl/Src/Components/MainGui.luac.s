@@ -1,0 +1,649 @@
+PROTO_0:
+  GETIMPORT R1 K1 [ipairs]
+  GETUPVAL R2 0
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  GETTABLEN R6 R5 1
+  JUMPIFNOTEQ R6 R0 [+47]
+  GETTABLEN R6 R5 5
+  JUMPIFNOTEQKS R6 K2 ["physprop"] [+15]
+  GETIMPORT R8 K4 [settings]
+  CALL R8 0 1
+  GETTABLEKS R7 R8 K5 ["Physics"]
+  GETIMPORT R11 K4 [settings]
+  CALL R11 0 1
+  GETTABLEKS R10 R11 K5 ["Physics"]
+  GETTABLE R9 R10 R0
+  NOT R8 R9
+  SETTABLE R8 R7 R0
+  JUMP [+15]
+  GETIMPORT R7 K7 [game]
+  LOADK R10 K8 ["DFFlag"]
+  MOVE R11 R0
+  CONCAT R9 R10 R11
+  GETIMPORT R11 K7 [game]
+  MOVE R13 R0
+  NAMECALL R11 R11 K9 ["GetFastFlag"]
+  CALL R11 2 1
+  NOT R10 R11
+  NAMECALL R7 R7 K10 ["SetFastFlagForTesting"]
+  CALL R7 3 0
+  GETUPVAL R7 1
+  NEWTABLE R9 1 0
+  GETIMPORT R12 K4 [settings]
+  CALL R12 0 1
+  GETTABLEKS R11 R12 K5 ["Physics"]
+  GETTABLE R10 R11 R0
+  SETTABLE R10 R9 R0
+  NAMECALL R7 R7 K11 ["setState"]
+  CALL R7 2 0
+  RETURN R0 0
+  FORGLOOP R1 2 [inext] [-50]
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["onClick"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K6 [{"AnchorPoint", "Position", "Size", "BackgroundColor", "Transparency"}]
+  GETIMPORT R5 K9 [Vector2.new]
+  LOADN R6 0
+  LOADK R7 K10 [0.5]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K1 ["AnchorPoint"]
+  GETIMPORT R5 K12 [UDim2.new]
+  LOADN R7 1
+  SUBK R9 R1 K14 [1]
+  MULK R8 R9 K13 [0.15]
+  ADD R6 R7 R8
+  LOADN R7 4
+  LOADK R8 K10 [0.5]
+  LOADN R9 0
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K2 ["Position"]
+  GETIMPORT R5 K16 [UDim2.fromOffset]
+  LOADN R6 15
+  LOADN R7 15
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K3 ["Size"]
+  SETTABLEKS R0 R4 K4 ["BackgroundColor"]
+  LOADK R5 K17 [0.1]
+  SETTABLEKS R5 R4 K5 ["Transparency"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["map"]
+  MOVE R3 R1
+  DUPCLOSURE R4 K1 [PROTO_2]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETIMPORT R2 K1 [settings]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K2 ["Physics"]
+  GETUPVAL R2 0
+  SETTABLE R0 R1 R2
+  GETUPVAL R1 1
+  NEWTABLE R3 1 0
+  GETUPVAL R4 0
+  SETTABLE R0 R3 R4
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEN R2 R0 1
+  GETTABLEN R3 R0 3
+  GETTABLEN R4 R0 5
+  LOADNIL R5
+  JUMPIFNOTEQKS R4 K0 ["physprop"] [+8]
+  GETIMPORT R7 K2 [settings]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K3 ["Physics"]
+  GETTABLE R5 R6 R2
+  JUMP [+71]
+  JUMPIFNOTEQKS R4 K4 ["section"] [+56]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K12 [{"LayoutOrder", "Size", "Layout", "AutomaticSize", "HorizontalAlignment", "Spacing"}]
+  SETTABLEKS R1 R8 K6 ["LayoutOrder"]
+  GETIMPORT R9 K15 [UDim2.fromOffset]
+  LOADN R10 220
+  LOADN R11 10
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K7 ["Size"]
+  GETIMPORT R9 K19 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K8 ["Layout"]
+  GETIMPORT R9 K21 [Enum.AutomaticSize.Y]
+  SETTABLEKS R9 R8 K9 ["AutomaticSize"]
+  GETIMPORT R9 K23 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K10 ["HorizontalAlignment"]
+  LOADN R9 5
+  SETTABLEKS R9 R8 K11 ["Spacing"]
+  NEWTABLE R9 0 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K26 [{"Text", "Position", "AutomaticSize"}]
+  GETTABLEN R13 R0 1
+  SETTABLEKS R13 R12 K24 ["Text"]
+  GETIMPORT R13 K15 [UDim2.fromOffset]
+  LOADN R14 0
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K25 ["Position"]
+  GETIMPORT R13 K28 [Enum.AutomaticSize.XY]
+  SETTABLEKS R13 R12 K9 ["AutomaticSize"]
+  CALL R10 2 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R6 3 -1
+  RETURN R6 -1
+  GETIMPORT R6 K30 [game]
+  MOVE R8 R2
+  NAMECALL R6 R6 K31 ["GetFastFlag"]
+  CALL R6 2 1
+  MOVE R5 R6
+  GETIMPORT R6 K30 [game]
+  MOVE R8 R2
+  MOVE R9 R5
+  NAMECALL R6 R6 K32 ["DefineFastFlag"]
+  CALL R6 3 0
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K33 ["state"]
+  SETTABLE R5 R6 R2
+  FASTCALL1 TYPE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K35 [type]
+  CALL R6 1 1
+  JUMPIFNOTEQKS R6 K36 ["boolean"] [+64]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K12 [{"LayoutOrder", "Size", "Layout", "AutomaticSize", "HorizontalAlignment", "Spacing"}]
+  SETTABLEKS R1 R8 K6 ["LayoutOrder"]
+  GETIMPORT R9 K15 [UDim2.fromOffset]
+  LOADN R10 220
+  LOADN R11 10
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K7 ["Size"]
+  GETIMPORT R9 K19 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K8 ["Layout"]
+  GETIMPORT R9 K21 [Enum.AutomaticSize.Y]
+  SETTABLEKS R9 R8 K9 ["AutomaticSize"]
+  GETIMPORT R9 K23 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K10 ["HorizontalAlignment"]
+  LOADN R9 5
+  SETTABLEKS R9 R8 K11 ["Spacing"]
+  NEWTABLE R9 0 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K41 [{"Checked", "Text", "Key", "OnClick", "LayoutOrder", "Padding"}]
+  SETTABLEKS R5 R12 K37 ["Checked"]
+  GETTABLEN R13 R0 2
+  SETTABLEKS R13 R12 K24 ["Text"]
+  SETTABLEKS R2 R12 K38 ["Key"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K42 ["onClick"]
+  SETTABLEKS R13 R12 K39 ["OnClick"]
+  SETTABLEKS R1 R12 K6 ["LayoutOrder"]
+  LOADN R13 20
+  SETTABLEKS R13 R12 K40 ["Padding"]
+  GETUPVAL R13 3
+  MOVE R15 R3
+  NAMECALL R13 R13 K43 ["createColorHelper"]
+  CALL R13 2 -1
+  CALL R10 -1 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R6 3 -1
+  RETURN R6 -1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K12 [{"LayoutOrder", "Size", "Layout", "AutomaticSize", "HorizontalAlignment", "Spacing"}]
+  SETTABLEKS R1 R8 K6 ["LayoutOrder"]
+  GETIMPORT R9 K15 [UDim2.fromOffset]
+  LOADN R10 220
+  LOADN R11 30
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K7 ["Size"]
+  GETIMPORT R9 K19 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K8 ["Layout"]
+  GETIMPORT R9 K21 [Enum.AutomaticSize.Y]
+  SETTABLEKS R9 R8 K9 ["AutomaticSize"]
+  GETIMPORT R9 K23 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K10 ["HorizontalAlignment"]
+  LOADN R9 5
+  SETTABLEKS R9 R8 K11 ["Spacing"]
+  NEWTABLE R9 0 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K44 [{"Size", "Layout", "AutomaticSize", "HorizontalAlignment", "Spacing"}]
+  GETIMPORT R13 K15 [UDim2.fromOffset]
+  LOADN R14 220
+  LOADN R15 30
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K7 ["Size"]
+  GETIMPORT R13 K46 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K8 ["Layout"]
+  GETIMPORT R13 K21 [Enum.AutomaticSize.Y]
+  SETTABLEKS R13 R12 K9 ["AutomaticSize"]
+  GETIMPORT R13 K23 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R13 R12 K10 ["HorizontalAlignment"]
+  LOADN R13 5
+  SETTABLEKS R13 R12 K11 ["Spacing"]
+  NEWTABLE R13 0 2
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K5 ["createElement"]
+  GETUPVAL R15 2
+  DUPTABLE R16 K26 [{"Text", "Position", "AutomaticSize"}]
+  GETTABLEN R17 R0 2
+  SETTABLEKS R17 R16 K24 ["Text"]
+  GETIMPORT R17 K15 [UDim2.fromOffset]
+  LOADN R18 0
+  LOADN R19 0
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K25 ["Position"]
+  GETIMPORT R17 K28 [Enum.AutomaticSize.XY]
+  SETTABLEKS R17 R16 K9 ["AutomaticSize"]
+  CALL R14 2 1
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K54 [{"Value", "Min", "Max", "InputPrecision", "SnapIncrement", "OnValueChanged", "Size", "ShowInput"}]
+  SETTABLEKS R5 R17 K47 ["Value"]
+  GETTABLEN R19 R0 4
+  GETTABLEN R18 R19 1
+  SETTABLEKS R18 R17 K48 ["Min"]
+  GETTABLEN R19 R0 4
+  GETTABLEN R18 R19 2
+  SETTABLEKS R18 R17 K49 ["Max"]
+  LOADN R18 4
+  SETTABLEKS R18 R17 K50 ["InputPrecision"]
+  GETTABLEN R19 R0 6
+  ORK R18 R19 K55 [0]
+  SETTABLEKS R18 R17 K51 ["SnapIncrement"]
+  NEWCLOSURE R18 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U3
+  SETTABLEKS R18 R17 K52 ["OnValueChanged"]
+  GETIMPORT R18 K15 [UDim2.fromOffset]
+  LOADN R19 200
+  LOADN R20 15
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K7 ["Size"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K53 ["ShowInput"]
+  CALL R15 2 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["map"]
+  GETUPVAL R2 1
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createPortal"]
+  DUPTABLE R2 K2 [{"WindControl"}]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["createElement"]
+  LOADK R4 K4 ["Folder"]
+  NEWTABLE R5 0 0
+  DUPTABLE R6 K6 [{"Screengui"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K3 ["createElement"]
+  LOADK R8 K7 ["ScreenGui"]
+  NEWTABLE R9 0 0
+  DUPTABLE R10 K9 [{"MainPane"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K3 ["createElement"]
+  GETUPVAL R12 2
+  DUPTABLE R13 K20 [{"ZIndex", "Position", "Layout", "HorizontalAlignment", "Spacing", "Padding", "BackgroundColor", "Size", "Transparency", "AutomaticSize"}]
+  LOADN R14 0
+  SETTABLEKS R14 R13 K10 ["ZIndex"]
+  GETIMPORT R14 K23 [UDim2.fromOffset]
+  LOADN R15 50
+  LOADN R16 50
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K11 ["Position"]
+  GETIMPORT R14 K27 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K12 ["Layout"]
+  GETIMPORT R14 K29 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R14 R13 K13 ["HorizontalAlignment"]
+  LOADN R14 10
+  SETTABLEKS R14 R13 K14 ["Spacing"]
+  LOADN R14 10
+  SETTABLEKS R14 R13 K15 ["Padding"]
+  GETIMPORT R14 K32 [Color3.new]
+  LOADK R15 K33 [0.4]
+  LOADK R16 K33 [0.4]
+  LOADK R17 K33 [0.4]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K16 ["BackgroundColor"]
+  GETIMPORT R14 K23 [UDim2.fromOffset]
+  LOADN R15 220
+  LOADN R16 0
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K17 ["Size"]
+  LOADK R14 K34 [0.25]
+  SETTABLEKS R14 R13 K18 ["Transparency"]
+  GETIMPORT R14 K36 [Enum.AutomaticSize.Y]
+  SETTABLEKS R14 R13 K19 ["AutomaticSize"]
+  NAMECALL R14 R0 K37 ["createSettingsEle"]
+  CALL R14 1 -1
+  CALL R11 -1 1
+  SETTABLEKS R11 R10 K8 ["MainPane"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K5 ["Screengui"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K1 ["WindControl"]
+  GETUPVAL R3 3
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["ReactRoblox"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["LuauPolyfill"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K10 ["Array"]
+  GETTABLEKS R6 R3 K11 ["ContextServices"]
+  GETTABLEKS R7 R6 K12 ["withContext"]
+  GETIMPORT R8 K14 [game]
+  LOADK R10 K15 ["CoreGui"]
+  NAMECALL R8 R8 K16 ["GetService"]
+  CALL R8 2 1
+  GETTABLEKS R10 R3 K17 ["Style"]
+  GETTABLEKS R9 R10 K18 ["Stylizer"]
+  GETTABLEKS R10 R3 K19 ["UI"]
+  GETTABLEKS R11 R10 K20 ["Pane"]
+  GETTABLEKS R12 R10 K21 ["Checkbox"]
+  GETTABLEKS R13 R10 K22 ["Slider"]
+  GETTABLEKS R14 R10 K23 ["TextLabel"]
+  NEWTABLE R15 0 22
+  NEWTABLE R16 0 5
+  LOADK R17 K24 ["Constraints"]
+  LOADK R18 K25 [""]
+  NEWTABLE R19 0 0
+  NEWTABLE R20 0 0
+  LOADK R21 K26 ["section"]
+  SETLIST R16 R17 5 [1]
+  NEWTABLE R17 0 5
+  LOADK R18 K27 ["AreConstraintForcesShownForSelectedOrHoveredInstances"]
+  LOADK R19 K28 ["Forces"]
+  NEWTABLE R20 0 1
+  GETIMPORT R21 K31 [Color3.new]
+  LOADN R22 0
+  LOADN R23 1
+  LOADK R24 K32 [0.5]
+  CALL R21 3 -1
+  SETLIST R20 R21 -1 [1]
+  NEWTABLE R21 0 0
+  LOADK R22 K33 ["physprop"]
+  SETLIST R17 R18 5 [1]
+  NEWTABLE R18 0 5
+  LOADK R19 K34 ["AreConstraintTorquesShownForSelectedOrHoveredInstances"]
+  LOADK R20 K35 ["Torque"]
+  NEWTABLE R21 0 1
+  GETIMPORT R22 K31 [Color3.new]
+  LOADK R23 K36 [0.612]
+  LOADK R24 K37 [0.169]
+  LOADN R25 1
+  CALL R22 3 -1
+  SETLIST R21 R22 -1 [1]
+  NEWTABLE R22 0 0
+  LOADK R23 K33 ["physprop"]
+  SETLIST R18 R19 5 [1]
+  NEWTABLE R19 0 5
+  LOADK R20 K38 ["DrawConstraintsNetForce"]
+  LOADK R21 K39 ["Net"]
+  NEWTABLE R22 0 0
+  NEWTABLE R23 0 0
+  LOADK R24 K33 ["physprop"]
+  SETLIST R19 R20 5 [1]
+  NEWTABLE R20 0 5
+  LOADK R21 K40 ["Contacts"]
+  LOADK R22 K25 [""]
+  NEWTABLE R23 0 0
+  NEWTABLE R24 0 0
+  LOADK R25 K26 ["section"]
+  SETLIST R20 R21 5 [1]
+  NEWTABLE R21 0 5
+  LOADK R22 K41 ["AreContactForcesShownForSelectedOrHoveredAssemblies"]
+  LOADK R23 K28 ["Forces"]
+  NEWTABLE R24 0 2
+  GETIMPORT R25 K31 [Color3.new]
+  LOADN R26 1
+  LOADK R27 K32 [0.5]
+  LOADN R28 0
+  CALL R25 3 1
+  GETIMPORT R26 K31 [Color3.new]
+  LOADN R27 1
+  LOADN R28 0
+  LOADN R29 0
+  CALL R26 3 -1
+  SETLIST R24 R25 -1 [1]
+  NEWTABLE R25 0 0
+  LOADK R26 K33 ["physprop"]
+  SETLIST R21 R22 5 [1]
+  NEWTABLE R22 0 5
+  LOADK R23 K42 ["DrawContactsNetForce"]
+  LOADK R24 K39 ["Net"]
+  NEWTABLE R25 0 0
+  NEWTABLE R26 0 0
+  LOADK R27 K33 ["physprop"]
+  SETLIST R22 R23 5 [1]
+  NEWTABLE R23 0 5
+  LOADK R24 K43 ["Gravity"]
+  LOADK R25 K25 [""]
+  NEWTABLE R26 0 0
+  NEWTABLE R27 0 0
+  LOADK R28 K26 ["section"]
+  SETLIST R23 R24 5 [1]
+  NEWTABLE R24 0 5
+  LOADK R25 K44 ["AreGravityForcesShownForSelectedOrHoveredAssemblies"]
+  LOADK R26 K28 ["Forces"]
+  NEWTABLE R27 0 1
+  GETIMPORT R28 K31 [Color3.new]
+  LOADN R29 0
+  LOADK R30 K32 [0.5]
+  LOADN R31 1
+  CALL R28 3 -1
+  SETLIST R27 R28 -1 [1]
+  NEWTABLE R28 0 0
+  LOADK R29 K33 ["physprop"]
+  SETLIST R24 R25 5 [1]
+  NEWTABLE R25 0 5
+  LOADK R26 K45 ["Fluid forces"]
+  LOADK R27 K25 [""]
+  NEWTABLE R28 0 0
+  NEWTABLE R29 0 0
+  LOADK R30 K26 ["section"]
+  SETLIST R25 R26 5 [1]
+  NEWTABLE R26 0 5
+  LOADK R27 K46 ["ShowFluidForcesForSelectedOrHoveredMechanisms"]
+  LOADK R28 K28 ["Forces"]
+  NEWTABLE R29 0 1
+  GETIMPORT R30 K31 [Color3.new]
+  LOADN R31 0
+  LOADN R32 0
+  LOADN R33 1
+  CALL R30 3 -1
+  SETLIST R29 R30 -1 [1]
+  NEWTABLE R30 0 0
+  LOADK R31 K33 ["physprop"]
+  SETLIST R26 R27 5 [1]
+  NEWTABLE R27 0 5
+  LOADK R28 K47 ["Net force"]
+  LOADK R29 K25 [""]
+  NEWTABLE R30 0 0
+  NEWTABLE R31 0 0
+  LOADK R32 K26 ["section"]
+  SETLIST R27 R28 5 [1]
+  NEWTABLE R28 0 5
+  LOADK R29 K48 ["DrawTotalNetForce"]
+  LOADK R30 K49 ["Enabled"]
+  NEWTABLE R31 0 0
+  NEWTABLE R32 0 0
+  LOADK R33 K33 ["physprop"]
+  SETLIST R28 R29 5 [1]
+  NEWTABLE R29 0 5
+  LOADK R30 K50 ["Scaling"]
+  LOADK R31 K25 [""]
+  NEWTABLE R32 0 0
+  NEWTABLE R33 0 0
+  LOADK R34 K26 ["section"]
+  SETLIST R29 R30 5 [1]
+  NEWTABLE R30 0 5
+  LOADK R31 K51 ["AreMagnitudesShownForDrawnForcesAndTorques"]
+  LOADK R32 K52 ["Show Magnitudes"]
+  NEWTABLE R33 0 0
+  NEWTABLE R34 0 0
+  LOADK R35 K33 ["physprop"]
+  SETLIST R30 R31 5 [1]
+  NEWTABLE R31 0 5
+  LOADK R32 K53 ["ShowInstanceNamesForDrawnForcesAndTorques"]
+  LOADK R33 K54 ["Show Instance Names"]
+  NEWTABLE R34 0 0
+  NEWTABLE R35 0 0
+  LOADK R36 K33 ["physprop"]
+  SETLIST R31 R32 5 [1]
+  SETLIST R15 R16 16 [1]
+  NEWTABLE R16 0 5
+  LOADK R17 K55 ["ForceDrawScale"]
+  LOADK R18 K56 ["Forces Draw Scale"]
+  NEWTABLE R19 0 0
+  NEWTABLE R20 0 2
+  LOADK R21 K57 [1E-07]
+  LOADN R22 3
+  SETLIST R20 R21 2 [1]
+  LOADK R21 K33 ["physprop"]
+  SETLIST R16 R17 5 [1]
+  NEWTABLE R17 0 5
+  LOADK R18 K58 ["FluidForceDrawScale"]
+  LOADK R19 K59 ["Fluid Forces Draw Scale"]
+  NEWTABLE R20 0 0
+  NEWTABLE R21 0 2
+  LOADK R22 K57 [1E-07]
+  LOADN R23 10
+  SETLIST R21 R22 2 [1]
+  LOADK R22 K33 ["physprop"]
+  SETLIST R17 R18 5 [1]
+  NEWTABLE R18 0 5
+  LOADK R19 K60 ["TorqueDrawScale"]
+  LOADK R20 K61 ["Torque Draw Scale"]
+  NEWTABLE R21 0 0
+  NEWTABLE R22 0 2
+  LOADK R23 K57 [1E-07]
+  LOADN R24 10
+  SETLIST R22 R23 2 [1]
+  LOADK R23 K33 ["physprop"]
+  SETLIST R18 R19 5 [1]
+  NEWTABLE R19 0 5
+  LOADK R20 K62 ["Smoothing"]
+  LOADK R21 K25 [""]
+  NEWTABLE R22 0 0
+  NEWTABLE R23 0 0
+  LOADK R24 K26 ["section"]
+  SETLIST R19 R20 5 [1]
+  NEWTABLE R20 0 5
+  LOADK R21 K63 ["EnableForceVisualizationSmoothing"]
+  LOADK R22 K49 ["Enabled"]
+  NEWTABLE R23 0 0
+  NEWTABLE R24 0 0
+  LOADK R25 K33 ["physprop"]
+  SETLIST R20 R21 5 [1]
+  NEWTABLE R21 0 6
+  LOADK R32 K64 ["ForceVisualizationSmoothingSteps"]
+  LOADK R33 K65 ["Frames #"]
+  NEWTABLE R34 0 0
+  NEWTABLE R35 0 2
+  LOADN R36 1
+  LOADN R37 32
+  SETLIST R35 R36 2 [1]
+  LOADK R36 K33 ["physprop"]
+  LOADN R37 1
+  SETLIST R21 R32 6 [1]
+  SETLIST R15 R16 6 [17]
+  GETTABLEKS R16 R1 K66 ["PureComponent"]
+  LOADK R18 K67 ["MainGui"]
+  NAMECALL R16 R16 K68 ["extend"]
+  CALL R16 2 1
+  DUPCLOSURE R17 K69 [PROTO_1]
+  CAPTURE VAL R15
+  SETTABLEKS R17 R16 K70 ["init"]
+  DUPCLOSURE R17 K71 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  SETTABLEKS R17 R16 K72 ["createColorHelper"]
+  DUPCLOSURE R17 K73 [PROTO_6]
+  CAPTURE VAL R5
+  CAPTURE VAL R15
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  CAPTURE VAL R14
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  SETTABLEKS R17 R16 K74 ["createSettingsEle"]
+  DUPCLOSURE R17 K75 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  SETTABLEKS R17 R16 K76 ["render"]
+  MOVE R17 R7
+  DUPTABLE R18 K78 [{"Plugin", "Stylizer"}]
+  GETTABLEKS R19 R6 K77 ["Plugin"]
+  SETTABLEKS R19 R18 K77 ["Plugin"]
+  SETTABLEKS R9 R18 K18 ["Stylizer"]
+  CALL R17 1 1
+  MOVE R18 R16
+  CALL R17 1 1
+  MOVE R16 R17
+  RETURN R16 1

@@ -6,40 +6,37 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["safeGetFastFlag"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["logIfDebug"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Flags"]
-  GETTABLEKS R3 R4 K9 ["getFFlagDebugAmrOutput"]
+  GETTABLEKS R4 R5 K9 ["Flags"]
+  GETTABLEKS R3 R4 K10 ["safeGetFastFlag"]
   CALL R2 1 1
-  CALL R2 0 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K7 ["Flags"]
-  GETTABLEKS R4 R5 K10 ["getFFlagAmrFoundation"]
+  GETTABLEKS R5 R6 K9 ["Flags"]
+  GETTABLEKS R4 R5 K11 ["getFFlagAmrFoundation"]
   CALL R3 1 1
   CALL R3 0 1
   JUMPIF R3 [+2]
   LOADNIL R4
   RETURN R4 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K11 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["Foundation"]
+  GETTABLEKS R6 R0 K12 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Foundation"]
   CALL R4 1 1
-  MOVE R5 R1
-  LOADK R6 K13 ["FoundationStylingPolyfill"]
+  MOVE R5 R2
+  LOADK R6 K14 ["FoundationStylingPolyfill"]
   CALL R5 1 1
-  JUMPIF R5 [+6]
-  JUMPIFNOT R2 [+4]
-  GETIMPORT R5 K15 [print]
-  LOADK R6 K16 ["AssetManager: Foundation is enabled"]
+  JUMPIF R5 [+4]
+  MOVE R5 R1
+  LOADK R6 K15 ["AssetManager: Foundation is enabled"]
   CALL R5 1 0
   RETURN R4 1
-  JUMPIFNOT R2 [+4]
-  GETIMPORT R5 K18 [warn]
-  LOADK R6 K19 ["To enable Foundation you must have FoundationStylingPolyfill=false flags"]
+  MOVE R5 R1
+  LOADK R6 K16 ["To enable Foundation you must have FoundationStylingPolyfill=false flags"]
   CALL R5 1 0
   LOADNIL R5
   RETURN R5 1

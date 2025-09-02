@@ -17,16 +17,6 @@ local StyleWidgets = require(CoreGuiService.RobloxGui.Modules.StyleWidgets)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local mutedError = require(CorePackages.Workspace.Packages.Loggers).mutedError
 
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
-
-function LocalizedGetKey(key)
-  local rtv = key
-  pcall(function()
-    rtv = RobloxTranslator:FormatByKey(key)
-  end)
-  return rtv
-end
-
 function LocalizeWithFallback(key, fallback)
   local success, result = pcall(function()
     return RobloxTranslator:FormatByKey(key)
@@ -134,16 +124,9 @@ StatsUtils.StatMaxNames = {
 
 StatsUtils.NumButtonTypes = #StatsUtils.AllStatTypes
 
-local strSentNetwork
-local strReceivedNetwork
-if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-  local networkStr = LocalizeWithFallback("InGame.UnknownNamespace.Network", "Network")
-  strSentNetwork = LocalizeWithFallback("InGame.UnknownNamespace.Sent", "Sent")  .. "\n" .. networkStr
-  strReceivedNetwork = LocalizeWithFallback("InGame.UnknownNamespace.Received", "Received")  .. "\n" .. networkStr
-else
-  strSentNetwork = LocalizedGetKey("Sent") .. "\n" .. LocalizedGetKey("Network")
-  strReceivedNetwork = LocalizedGetKey("Received") .. "\n" .. LocalizedGetKey("Network")
-end
+local networkStr = LocalizeWithFallback("InGame.UnknownNamespace.Network", "Network")
+local strSentNetwork = LocalizeWithFallback("InGame.UnknownNamespace.Sent", "Sent")  .. "\n" .. networkStr
+local strReceivedNetwork = LocalizeWithFallback("InGame.UnknownNamespace.Received", "Received")  .. "\n" .. networkStr
 
 StatsUtils.TypeToName = {
   [StatsUtils.StatType_Memory] = "Memory",
@@ -208,37 +191,17 @@ end
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local function LocalizedGetString(key, rtv)
-  if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
-    mutedError("CorescriptLocalization is deprecated, do not use LocalizedGetString(key, rtv) here")
-    return 
-  end
-
-  pcall(function()
-    local LocalizationService = game:GetService("LocalizationService")
-    local CorescriptLocalization = LocalizationService:GetCorescriptLocalizations()[1]
-    rtv = CorescriptLocalization:GetString(LocalizationService.RobloxLocaleId, key)
-  end)
-
-  return rtv
-end
 
 function StatsUtils.FormatTypedValue(value, statType)
   if FFlagUseNotificationsLocalization then
     if statType == StatsUtils.StatType_CPU or statType == StatsUtils.StatType_GPU then
       return string.gsub(
-        if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-          LocalizeWithFallback("InGame.StatsUtil.ms",string.format("%.2f MB", value))
-        else
-          LocalizedGetString("StatsUtil.ms",string.format("%.2f MB", value)),
+        LocalizeWithFallback("InGame.StatsUtil.ms",string.format("%.2f MB", value)),
         "{RBX_NUMBER}",string.format("%.2f",value)
       )
     elseif statType == StatsUtils.StatType_NetworkSent or statType == StatsUtils.StatType_NetworkReceived then
       return string.gsub(
-        if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
-          LocalizeWithFallback("InGame.StatsUtil.KBps",string.format("%.2f KB/s", value))
-        else 
-          LocalizedGetString("StatsUtil.KBps",string.format("%.2f KB/s", value)),
+        LocalizeWithFallback("InGame.StatsUtil.KBps",string.format("%.2f KB/s", value)),
         "{RBX_NUMBER}",string.format("%.2f",value)
       )
     end

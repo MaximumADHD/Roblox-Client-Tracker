@@ -335,5 +335,6 @@ Constants.Counters = {
 
 	ItemDetailPageOpened = "ItemDetailPageOpened",
 	TryOnButtonClicked = "TryOnButtonClicked",
+	GetAvatarPreview = "GetAvatarPreview",
 }
 return Constants

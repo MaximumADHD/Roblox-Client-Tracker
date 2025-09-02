@@ -275,38 +275,38 @@ MAIN:
   JUMPIF R2 [+1]
   RETURN R0 0
   GETIMPORT R2 K14 [game]
-  LOADK R4 K17 ["EnableRibbonPlugin"]
-  NAMECALL R2 R2 K16 ["GetFastFlag"]
+  LOADK R4 K17 ["EnableRibbonPluginFeature"]
+  NAMECALL R2 R2 K18 ["GetEngineFeature"]
   CALL R2 2 1
   GETIMPORT R3 K14 [game]
-  LOADK R5 K18 ["StudioService"]
-  NAMECALL R3 R3 K19 ["GetService"]
+  LOADK R5 K19 ["StudioService"]
+  NAMECALL R3 R3 K20 ["GetService"]
   CALL R3 2 1
   GETIMPORT R4 K14 [game]
-  LOADK R6 K20 ["UserInputService"]
-  NAMECALL R4 R4 K19 ["GetService"]
+  LOADK R6 K21 ["UserInputService"]
+  NAMECALL R4 R4 K20 ["GetService"]
   CALL R4 2 1
   GETIMPORT R5 K1 [require]
   GETTABLEKS R8 R0 K11 ["Src"]
-  GETTABLEKS R7 R8 K21 ["Resources"]
-  GETTABLEKS R6 R7 K22 ["ConstraintData"]
+  GETTABLEKS R7 R8 K22 ["Resources"]
+  GETTABLEKS R6 R7 K23 ["ConstraintData"]
   CALL R5 1 1
-  GETIMPORT R6 K24 [plugin]
-  GETTABLEKS R7 R0 K25 ["Name"]
-  SETTABLEKS R7 R6 K25 ["Name"]
+  GETIMPORT R6 K25 [plugin]
+  GETTABLEKS R7 R0 K26 ["Name"]
+  SETTABLEKS R7 R6 K26 ["Name"]
   GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K21 ["Resources"]
-  GETTABLEKS R7 R8 K26 ["Localization"]
-  GETTABLEKS R6 R7 K27 ["SourceStrings"]
+  GETTABLEKS R8 R9 K22 ["Resources"]
+  GETTABLEKS R7 R8 K27 ["Localization"]
+  GETTABLEKS R6 R7 K28 ["SourceStrings"]
   GETTABLEKS R10 R0 K11 ["Src"]
-  GETTABLEKS R9 R10 K21 ["Resources"]
-  GETTABLEKS R8 R9 K26 ["Localization"]
-  GETTABLEKS R7 R8 K28 ["LocalizedStrings"]
+  GETTABLEKS R9 R10 K22 ["Resources"]
+  GETTABLEKS R8 R9 K27 ["Localization"]
+  GETTABLEKS R7 R8 K29 ["LocalizedStrings"]
   GETIMPORT R8 K1 [require]
   GETTABLEKS R10 R0 K8 ["Packages"]
-  GETTABLEKS R9 R10 K29 ["PluginLoader"]
+  GETTABLEKS R9 R10 K30 ["PluginLoader"]
   CALL R8 1 1
-  GETTABLEKS R9 R8 K30 ["PluginLoaderBuilder"]
+  GETTABLEKS R9 R8 K31 ["PluginLoaderBuilder"]
   LOADNIL R10
   NEWTABLE R11 0 0
   LOADB R12 0
@@ -325,55 +325,55 @@ MAIN:
   CAPTURE REF R10
   CAPTURE VAL R11
   CAPTURE REF R13
-  GETTABLEKS R17 R4 K31 ["InputEnded"]
+  GETTABLEKS R17 R4 K32 ["InputEnded"]
   NEWCLOSURE R19 P3
   CAPTURE REF R12
   CAPTURE REF R10
   CAPTURE VAL R11
   CAPTURE REF R13
-  NAMECALL R17 R17 K32 ["Connect"]
+  NAMECALL R17 R17 K33 ["Connect"]
   CALL R17 2 0
   MOVE R17 R5
   LOADNIL R18
   LOADNIL R19
   FORGPREP R17
   JUMPIFNOT R2 [+4]
-  LOADK R23 K33 ["rbxlocaltheme://Ribbon"]
+  LOADK R23 K34 ["rbxlocaltheme://Ribbon"]
   MOVE R24 R20
   CONCAT R22 R23 R24
   JUMP [+11]
   MOVE R25 R20
-  NAMECALL R23 R3 K34 ["GetClassIcon"]
+  NAMECALL R23 R3 K35 ["GetClassIcon"]
   CALL R23 2 1
-  GETTABLEKS R22 R23 K35 ["Image"]
-  LOADK R24 K36 ["Standard"]
-  LOADK R25 K37 ["Large"]
-  NAMECALL R22 R22 K38 ["gsub"]
+  GETTABLEKS R22 R23 K36 ["Image"]
+  LOADK R24 K37 ["Standard"]
+  LOADK R25 K38 ["Large"]
+  NAMECALL R22 R22 K39 ["gsub"]
   CALL R22 3 1
-  JUMPIFNOTEQKS R20 K39 ["Bone"] [+2]
-  LOADK R22 K40 ["rbxlocaltheme://Placeholder"]
-  DUPTABLE R23 K45 [{"getName", "getDescription", "icon", "enabled"}]
-  DUPCLOSURE R24 K46 [PROTO_4]
-  SETTABLEKS R24 R23 K41 ["getName"]
-  DUPCLOSURE R24 K47 [PROTO_5]
-  SETTABLEKS R24 R23 K42 ["getDescription"]
-  SETTABLEKS R22 R23 K43 ["icon"]
+  JUMPIFNOTEQKS R20 K40 ["Bone"] [+2]
+  LOADK R22 K41 ["rbxlocaltheme://Placeholder"]
+  DUPTABLE R23 K46 [{"getName", "getDescription", "icon", "enabled"}]
+  DUPCLOSURE R24 K47 [PROTO_4]
+  SETTABLEKS R24 R23 K42 ["getName"]
+  DUPCLOSURE R24 K48 [PROTO_5]
+  SETTABLEKS R24 R23 K43 ["getDescription"]
+  SETTABLEKS R22 R23 K44 ["icon"]
   LOADB R24 0
-  SETTABLEKS R24 R23 K44 ["enabled"]
-  DUPTABLE R24 K53 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
-  GETIMPORT R25 K24 [plugin]
-  SETTABLEKS R25 R24 K23 ["plugin"]
+  SETTABLEKS R24 R23 K45 ["enabled"]
+  DUPTABLE R24 K54 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
+  GETIMPORT R25 K25 [plugin]
+  SETTABLEKS R25 R24 K24 ["plugin"]
   LOADK R25 K6 ["ConstraintTool"]
-  SETTABLEKS R25 R24 K48 ["pluginName"]
-  SETTABLEKS R7 R24 K49 ["translationResourceTable"]
-  SETTABLEKS R6 R24 K50 ["fallbackResourceTable"]
+  SETTABLEKS R25 R24 K49 ["pluginName"]
+  SETTABLEKS R7 R24 K50 ["translationResourceTable"]
+  SETTABLEKS R6 R24 K51 ["fallbackResourceTable"]
   NEWCLOSURE R25 P6
   CAPTURE VAL R20
-  SETTABLEKS R25 R24 K51 ["getToolbarName"]
-  SETTABLEKS R23 R24 K52 ["buttonInfo"]
+  SETTABLEKS R25 R24 K52 ["getToolbarName"]
+  SETTABLEKS R23 R24 K53 ["buttonInfo"]
   LOADB R25 1
-  SETTABLEKS R25 R23 K44 ["enabled"]
-  GETTABLEKS R25 R9 K54 ["build"]
+  SETTABLEKS R25 R23 K45 ["enabled"]
+  GETTABLEKS R25 R9 K55 ["build"]
   MOVE R26 R24
   CALL R25 1 1
   NEWCLOSURE R26 P7
@@ -381,19 +381,19 @@ MAIN:
   CAPTURE VAL R11
   CAPTURE REF R10
   CAPTURE REF R13
-  DUPTABLE R27 K57 [{"pluginLoaderContext", "enabled", "closeCallback"}]
-  SETTABLEKS R25 R27 K55 ["pluginLoaderContext"]
+  DUPTABLE R27 K58 [{"pluginLoaderContext", "enabled", "closeCallback"}]
+  SETTABLEKS R25 R27 K56 ["pluginLoaderContext"]
   LOADB R28 0
-  SETTABLEKS R28 R27 K44 ["enabled"]
-  SETTABLEKS R26 R27 K56 ["closeCallback"]
+  SETTABLEKS R28 R27 K45 ["enabled"]
+  SETTABLEKS R26 R27 K57 ["closeCallback"]
   SETTABLE R27 R11 R20
   GETIMPORT R27 K1 [require]
   GETIMPORT R30 K3 [script]
   GETTABLEKS R29 R30 K4 ["Parent"]
-  GETTABLEKS R28 R29 K58 ["main"]
+  GETTABLEKS R28 R29 K59 ["main"]
   CALL R27 1 1
   GETTABLE R28 R11 R20
-  GETTABLEKS R29 R25 K59 ["mainButtonClickedSignal"]
+  GETTABLEKS R29 R25 K60 ["mainButtonClickedSignal"]
   NEWCLOSURE R31 P8
   CAPTURE VAL R28
   CAPTURE VAL R20
@@ -401,9 +401,9 @@ MAIN:
   CAPTURE REF R10
   CAPTURE REF R13
   CAPTURE REF R12
-  NAMECALL R29 R29 K32 ["Connect"]
+  NAMECALL R29 R29 K33 ["Connect"]
   CALL R29 2 0
-  GETIMPORT R29 K62 [task.spawn]
+  GETIMPORT R29 K63 [task.spawn]
   NEWCLOSURE R30 P9
   CAPTURE VAL R25
   CAPTURE VAL R27

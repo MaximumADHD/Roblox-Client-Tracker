@@ -18,56 +18,62 @@ PROTO_1:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["createElement"]
   GETUPVAL R3 1
-  DUPTABLE R4 K5 [{"tag", "LayoutOrder", "onActivated"}]
-  LOADK R5 K6 ["size-full-0 auto-y padding-xsmall bg-surface-100"]
+  DUPTABLE R4 K6 [{"tag", "testId", "LayoutOrder", "onActivated"}]
+  LOADK R5 K7 ["size-full-0 auto-y padding-xsmall bg-surface-100"]
   SETTABLEKS R5 R4 K2 ["tag"]
-  GETTABLEKS R5 R0 K7 ["index"]
-  SETTABLEKS R5 R4 K3 ["LayoutOrder"]
-  SETTABLEKS R1 R4 K4 ["onActivated"]
-  DUPTABLE R5 K9 [{"Background"}]
+  LOADK R6 K8 ["--knowledge-tutorials-SectionButton_%*"]
+  GETTABLEKS R8 R0 K9 ["index"]
+  NAMECALL R6 R6 K10 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K3 ["testId"]
+  GETTABLEKS R5 R0 K9 ["index"]
+  SETTABLEKS R5 R4 K4 ["LayoutOrder"]
+  SETTABLEKS R1 R4 K5 ["onActivated"]
+  DUPTABLE R5 K12 [{"Background"}]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K1 ["createElement"]
   GETUPVAL R7 1
-  DUPTABLE R8 K10 [{"tag"}]
-  LOADK R10 K11 ["row gap-medium padding-small align-x-left align-y-center size-full radius-small bg-surface-100"]
-  GETTABLEKS R12 R0 K12 ["isSelected"]
+  DUPTABLE R8 K13 [{"tag"}]
+  LOADK R10 K14 ["row gap-medium padding-small align-x-left align-y-center size-full radius-small bg-surface-100"]
+  GETTABLEKS R12 R0 K15 ["isSelected"]
   JUMPIFNOT R12 [+2]
-  LOADK R11 K13 [" stroke-thick stroke-default"]
+  LOADK R11 K16 [" stroke-thick stroke-default"]
   JUMP [+1]
-  LOADK R11 K14 [""]
+  LOADK R11 K17 [""]
   CONCAT R9 R10 R11
   SETTABLEKS R9 R8 K2 ["tag"]
-  DUPTABLE R9 K17 [{"Number", "Title"}]
+  DUPTABLE R9 K20 [{"Number", "Title"}]
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K1 ["createElement"]
   GETUPVAL R11 2
-  DUPTABLE R12 K19 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R13 K20 ["text-body-medium size-800-800 text-align-x-center radius-circle bg-action-standard content-action-standard"]
+  DUPTABLE R12 K22 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R13 K23 ["text-body-medium size-800-800 text-align-x-center radius-circle bg-action-standard content-action-standard"]
   SETTABLEKS R13 R12 K2 ["tag"]
-  GETTABLEKS R15 R0 K7 ["index"]
-  ADDK R14 R15 K21 [1]
+  GETTABLEKS R15 R0 K9 ["index"]
+  ADDK R14 R15 K24 [1]
   FASTCALL1 TOSTRING R14 [+2]
-  GETIMPORT R13 K23 [tostring]
+  GETIMPORT R13 K26 [tostring]
   CALL R13 1 1
-  SETTABLEKS R13 R12 K18 ["Text"]
+  SETTABLEKS R13 R12 K21 ["Text"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K3 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K4 ["LayoutOrder"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K15 ["Number"]
+  SETTABLEKS R10 R9 K18 ["Number"]
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K1 ["createElement"]
   GETUPVAL R11 2
-  DUPTABLE R12 K19 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R13 K24 ["text-body-medium auto-xy text-align-x-left text-wrap content-action-standard"]
+  DUPTABLE R12 K22 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R13 K27 ["text-body-medium auto-xy text-align-x-left text-wrap content-action-standard"]
   SETTABLEKS R13 R12 K2 ["tag"]
-  GETTABLEKS R13 R0 K25 ["title"]
-  SETTABLEKS R13 R12 K18 ["Text"]
+  GETTABLEKS R13 R0 K28 ["title"]
+  SETTABLEKS R13 R12 K21 ["Text"]
   LOADN R13 1
-  SETTABLEKS R13 R12 K3 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K4 ["LayoutOrder"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K16 ["Title"]
+  SETTABLEKS R10 R9 K19 ["Title"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K8 ["Background"]
+  SETTABLEKS R6 R5 K11 ["Background"]
   CALL R2 3 -1
   RETURN R2 -1
 

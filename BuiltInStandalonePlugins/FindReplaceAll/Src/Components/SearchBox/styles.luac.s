@@ -20,7 +20,7 @@ MAIN:
   DUPTABLE R6 K15 [{"BackgroundTransparency"}]
   LOADN R7 1
   SETTABLEKS R7 R6 K14 ["BackgroundTransparency"]
-  NEWTABLE R7 0 4
+  NEWTABLE R7 0 5
   MOVE R8 R3
   LOADK R9 K16 ["::UIPadding"]
   DUPTABLE R10 K18 [{"PaddingBottom"}]
@@ -94,7 +94,15 @@ MAIN:
   SETTABLEKS R19 R18 K49 ["TextXAlignment"]
   CALL R16 2 -1
   SETLIST R14 R15 -1 [1]
-  CALL R11 3 -1
+  CALL R11 3 1
+  MOVE R12 R3
+  LOADK R13 K64 [">> .FindReplaceAll-SearchBar-Error"]
+  DUPTABLE R14 K38 [{"Color", "Thickness"}]
+  LOADK R15 K65 ["$ColorActionAlert"]
+  SETTABLEKS R15 R14 K36 ["Color"]
+  LOADK R15 K40 [1.5]
+  SETTABLEKS R15 R14 K37 ["Thickness"]
+  CALL R12 2 -1
   SETLIST R7 R8 -1 [1]
   CALL R4 3 -1
   RETURN R4 -1

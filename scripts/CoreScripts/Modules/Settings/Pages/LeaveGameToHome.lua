@@ -48,7 +48,6 @@ if FFlagCollectAnalyticsForSystemMenu then
 end
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 ----------- CLASS DECLARATION --------------
 
@@ -132,13 +131,11 @@ local function Initialize()
 	this.ShouldShowBottomBar = false
 	this.ShouldShowHubBar = false
 
-	local leaveGameConfirmationText = if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-		RobloxTranslator:FormatByKey(
+	local leaveGameConfirmationText = RobloxTranslator:FormatByKey(
 			if FFlagCollectAnalyticsForSystemMenu then
 				Constants.ConfirmLeaveGameLocalizedKey else
 				"CoreScripts.InGameMenu.Prompt.ConfirmLeaveGame"
-		) else 
-		"Are you sure you want to leave the experience?"
+		)
 
 	local leaveGameText =  Create'TextLabel'
 	{
@@ -191,12 +188,10 @@ local function Initialize()
 
 	local dontleaveGameButton = utility:MakeStyledButton(
 		"DontLeaveGame",
-		if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-			RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.DontLeaveButton") else
-			"Don't Leave",
-			nil,
-			this.DontLeaveFromButton
-		)
+		RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.DontLeaveButton"),
+		nil,
+		this.DontLeaveFromButton
+	)
 	dontleaveGameButton.NextSelectionLeft = nil
 	dontleaveGameButton.Parent = leaveButtonContainer
 

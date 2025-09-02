@@ -197,7 +197,7 @@ MAIN:
   SETTABLEKS R20 R19 K79 ["BackgroundTransparency"]
   CALL R17 2 1
   MOVE R18 R3
-  LOADK R19 K84 [":pressed"]
+  LOADK R19 K84 [":press"]
   DUPTABLE R20 K80 [{"BackgroundColor3", "BackgroundTransparency"}]
   GETTABLEKS R22 R2 K53 ["fflagAnnotationsModernColors"]
   JUMPIFNOT R22 [+2]

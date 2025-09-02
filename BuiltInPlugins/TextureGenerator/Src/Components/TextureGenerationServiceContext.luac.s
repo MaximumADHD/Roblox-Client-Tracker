@@ -6,11 +6,13 @@ PROTO_0:
   RETURN R0 -1
 
 PROTO_1:
+  JUMPIFNOTEQKS R0 K0 [""] [+2]
+  RETURN R0 0
   GETUPVAL R1 0
   JUMPIFNOT R1 [+6]
   GETUPVAL R1 1
   MOVE R3 R0
-  NAMECALL R1 R1 K0 ["CancelGenerationRequest"]
+  NAMECALL R1 R1 K1 ["CancelGenerationRequest"]
   CALL R1 2 -1
   RETURN R1 -1
   LOADNIL R1

@@ -1,8 +1,6 @@
 --!nonstrict
-local root = script:FindFirstAncestor("AbuseReportMenu")
 local CorePackages = game:GetService("CorePackages")
 
-local Constants = require(root.ReportAnything.Resources.Constants)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local React = require(CorePackages.Packages.React)
 
@@ -27,14 +25,12 @@ local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local usePreferredInput = Responsive.usePreferredInput
 
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
-local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagCSFocusWrapperRefactor = SharedFlags.FFlagCSFocusWrapperRefactor
 local GetFFlagAvatarIdentificationSafeAreaFix = SharedFlags.GetFFlagAvatarIdentificationSafeAreaFix
 
 local TITLE_HEIGHT = 49
@@ -178,29 +174,20 @@ local function ScreenshotReviewDialog(props: Props)
 				BackgroundTransparency = 1,
 			}, {
 				-- Add focus navigation wrapper so that the gamepad focus locks to the Restart Screenshot dialog
-				FocusNavigationCoreScriptsWrapper = React.createElement(
-					if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
-					if FFlagCSFocusWrapperRefactor
-						then {
-							surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-							isIsolated = true,
-							isAutoFocusRoot = true,
-						}
-						else {
-							selectionGroupName = Constants.RestartScreenshotDialogRootName,
-							focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-						},
-					{
-						DialogBody = React.createElement(RestartScreenshotDialog, {
-							ZIndex = 3,
-							isSmallPortraitMode = props.isSmallPortraitMode,
-							onCancel = function()
-								setShowRestartDialog(false)
-							end,
-							onRestart = onRetake,
-						}),
-					}
-				),
+				FocusNavigationCoreScriptsWrapper = React.createElement(FocusRoot, {
+					surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+					isIsolated = true,
+					isAutoFocusRoot = true,
+				}, {
+					DialogBody = React.createElement(RestartScreenshotDialog, {
+						ZIndex = 3,
+						isSmallPortraitMode = props.isSmallPortraitMode,
+						onCancel = function()
+							setShowRestartDialog(false)
+						end,
+						onRestart = onRetake,
+					}),
+				}),
 			}),
 			RestartDialogMask = isShowRestartDialog and React.createElement(ImageSetButton, {
 				Size = UDim2.fromScale(1, 1),

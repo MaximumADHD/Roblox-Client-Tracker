@@ -154,7 +154,7 @@ MAIN:
   SETTABLEKS R20 R19 K11 ["BackgroundColor3"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K55 [":pressed"]
+  LOADK R19 K55 [":press"]
   DUPTABLE R20 K53 [{"BackgroundColor3"}]
   LOADK R21 K56 ["$ActionActivated"]
   SETTABLEKS R21 R20 K11 ["BackgroundColor3"]

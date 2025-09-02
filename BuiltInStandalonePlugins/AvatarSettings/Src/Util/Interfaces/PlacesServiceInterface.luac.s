@@ -1,0 +1,40 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["PlacesService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K0 ["StartPlaySolo"]
+  CALL R0 1 0
+  RETURN R0 0
+  GETIMPORT R0 K2 [error]
+  LOADK R1 K3 ["Calling startPlaySolo on unmocked PlacesService"]
+  CALL R0 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [pcall]
+  DUPCLOSURE R2 K6 [PROTO_0]
+  CALL R1 1 2
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["Interfaces"]
+  GETTABLEKS R4 R5 K12 ["InterfaceTypes"]
+  CALL R3 1 1
+  DUPTABLE R4 K14 [{"StartPlaySolo"}]
+  DUPCLOSURE R5 K15 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K13 ["StartPlaySolo"]
+  RETURN R4 1

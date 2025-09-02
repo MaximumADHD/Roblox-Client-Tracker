@@ -19,17 +19,13 @@ local focusNavigationService =
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
-local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
+
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local InspectAndBuyFolder = script.Parent.Parent
 local Colors = require(InspectAndBuyFolder.Colors)
 local OverlayComponents = require(InspectAndBuyFolder.Components.OverlayComponents)
-
-local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
-
-local SELECTION_GROUP_NAME = "InspectAndBuyOverlay"
 
 local function selectOverlayComponent(state)
 	return OverlayComponents[state.overlay.overlay]
@@ -49,17 +45,12 @@ local function Overlay(props)
 	}, {
 		FocusNavigationRegistryProvider = React.createElement(FocusNavigationRegistryProvider, nil, {
 			FocusNavigationCoreScriptsWrapper = React.createElement(
-				if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
-				if FFlagCSFocusWrapperRefactor
-					then {
-						surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-						isIsolated = true,
-						isAutoFocusRoot = true,
-					}
-					else {
-						selectionGroupName = SELECTION_GROUP_NAME,
-						focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-					},
+				FocusRoot,
+				{
+					surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+					isIsolated = true,
+					isAutoFocusRoot = true,
+				},
 				{
 					OverlayContainer = React.createElement("Frame", {
 						BackgroundTransparency = style.Tokens.Semantic.Color.Common.Overlay.Transparency,

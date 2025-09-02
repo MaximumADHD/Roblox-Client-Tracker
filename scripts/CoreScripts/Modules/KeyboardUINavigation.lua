@@ -12,7 +12,6 @@ local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 local PlayerGui
 
@@ -99,8 +98,8 @@ local function EnableKeyboardNavigation(actionName, inputState, inputObject)
 
 	-- Only send a notification if we found an element to select
 	if GuiService.SelectedObject then
-		local notificationTitle = LocalizedGetString(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.UINavigation.Title" else "NotificationScript2.UINavigation.Title")
-		local notificationText = LocalizedGetString(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.UINavigation.Text" else "NotificationScript2.UINavigation.Text")
+		local notificationTitle = LocalizedGetString("InGame.NotificationScript2.UINavigation.Title")
+		local notificationText = LocalizedGetString("InGame.NotificationScript2.UINavigation.Text")
 
 		SendNotification:Fire({
 			Title = notificationTitle,

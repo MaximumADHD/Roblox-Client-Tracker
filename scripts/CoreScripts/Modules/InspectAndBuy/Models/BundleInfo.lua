@@ -23,6 +23,9 @@ local Dash = require(CorePackages.Packages.Dash)
 local InspectAndBuyFolder = script.Parent.Parent
 
 local Constants = require(InspectAndBuyFolder.Constants)
+local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
+type AvatarPreviewItem = AvatarExperienceInspectAndBuy.AvatarPreviewItem
+type BundleInfo = AvatarExperienceInspectAndBuy.BundleInfo
 
 local MockId = require(script.Parent.Parent.MockId)
 local BundleInfo = {}
@@ -61,6 +64,45 @@ function BundleInfo.mock()
 	self.productType = ""
 
 	return self
+end
+
+function BundleInfo.fromAvatarPreviewItem(avatarPreviewItem: AvatarPreviewItem): BundleInfo
+	local newBundle: BundleInfo = BundleInfo.new()
+
+	newBundle.name = avatarPreviewItem.name
+	newBundle.description = avatarPreviewItem.description
+	newBundle.price = avatarPreviewItem.priceInRobux
+	newBundle.isForSale = avatarPreviewItem.isPurchasable
+	newBundle.productId = tostring(avatarPreviewItem.productId)
+	newBundle.collectibleItemId = avatarPreviewItem.collectibleItemId
+	newBundle.collectibleProductId = avatarPreviewItem.collectibleProductId
+	newBundle.owned = avatarPreviewItem.quantityOwned > 0
+	newBundle.resellableCount = avatarPreviewItem.quantityOwned
+	newBundle.creatorId = tostring(avatarPreviewItem.creator.id)
+	newBundle.creatorName = avatarPreviewItem.creator.name
+	newBundle.creatorHasVerifiedBadge = avatarPreviewItem.creator.hasVerifiedBadge
+	newBundle.bundleId = tostring(avatarPreviewItem.id)
+	newBundle.bundleType = tostring(avatarPreviewItem.bundleType)
+	newBundle.noPriceStatus = avatarPreviewItem.noPriceStatus
+
+	local assetIds = {}
+	if avatarPreviewItem.assetsInBundle then
+		for _, asset in avatarPreviewItem.assetsInBundle do
+			table.insert(assetIds, tostring(asset.id))
+		end
+	end
+	newBundle.assetIds = assetIds
+
+	-- parse item restrictions for bundle
+	if avatarPreviewItem.itemRestrictions then
+		local itemRestrictions = {}
+		for _, value in avatarPreviewItem.itemRestrictions do
+			itemRestrictions[value] = true
+		end
+		newBundle.itemRestrictions = itemRestrictions
+	end
+
+	return newBundle
 end
 
 function BundleInfo.fromGetAssetBundles(bundleInfo)

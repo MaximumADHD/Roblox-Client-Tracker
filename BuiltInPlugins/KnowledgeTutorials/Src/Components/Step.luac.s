@@ -69,20 +69,22 @@ PROTO_0:
   LOADN R18 0
   SETTABLEKS R18 R17 K14 ["LayoutOrder"]
   DUPTABLE R18 K35 [{"Checkmark"}]
-  JUMPIFNOT R6 [+23]
+  JUMPIFNOT R6 [+26]
   GETUPVAL R20 1
   GETTABLEKS R19 R20 K12 ["createElement"]
   GETUPVAL R20 4
-  DUPTABLE R21 K38 [{"Image", "imageStyle", "tag"}]
-  LOADK R22 K39 ["icons/status/success"]
+  DUPTABLE R21 K39 [{"Image", "imageStyle", "tag", "testId"}]
+  LOADK R22 K40 ["icons/status/success"]
   SETTABLEKS R22 R21 K36 ["Image"]
   GETTABLEKS R25 R4 K27 ["Color"]
   GETTABLEKS R24 R25 K28 ["Extended"]
-  GETTABLEKS R23 R24 K40 ["White"]
-  GETTABLEKS R22 R23 K41 ["White_100"]
+  GETTABLEKS R23 R24 K41 ["White"]
+  GETTABLEKS R22 R23 K42 ["White_100"]
   SETTABLEKS R22 R21 K37 ["imageStyle"]
-  LOADK R22 K42 ["anchor-center-center position-center-center size-500-500"]
+  LOADK R22 K43 ["anchor-center-center position-center-center size-500-500"]
   SETTABLEKS R22 R21 K13 ["tag"]
+  LOADK R22 K44 ["--knowledge-tutorials-StepCheckmark"]
+  SETTABLEKS R22 R21 K38 ["testId"]
   CALL R19 2 1
   JUMP [+1]
   LOADNIL R19
@@ -92,30 +94,30 @@ PROTO_0:
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K12 ["createElement"]
   GETUPVAL R16 2
-  DUPTABLE R17 K44 [{"tag", "Size", "LayoutOrder"}]
-  LOADK R18 K45 ["col gap-small auto-y content-action-standard"]
+  DUPTABLE R17 K46 [{"tag", "Size", "LayoutOrder"}]
+  LOADK R18 K47 ["col gap-small auto-y content-action-standard"]
   SETTABLEKS R18 R17 K13 ["tag"]
-  GETIMPORT R18 K48 [UDim2.new]
+  GETIMPORT R18 K50 [UDim2.new]
   LOADN R19 1
   LOADN R20 216
   LOADN R21 0
   LOADN R22 0
   CALL R18 4 1
-  SETTABLEKS R18 R17 K43 ["Size"]
+  SETTABLEKS R18 R17 K45 ["Size"]
   LOADN R18 1
   SETTABLEKS R18 R17 K14 ["LayoutOrder"]
-  DUPTABLE R18 K50 [{"Elements"}]
+  DUPTABLE R18 K52 [{"Elements"}]
   GETUPVAL R20 1
   GETTABLEKS R19 R20 K12 ["createElement"]
   GETUPVAL R21 1
-  GETTABLEKS R20 R21 K51 ["Fragment"]
+  GETTABLEKS R20 R21 K53 ["Fragment"]
   LOADNIL R21
-  GETTABLEKS R22 R2 K52 ["processChildren"]
-  GETTABLEKS R23 R1 K53 ["children"]
+  GETTABLEKS R22 R2 K54 ["processChildren"]
+  GETTABLEKS R23 R1 K55 ["children"]
   MOVE R24 R2
   CALL R22 2 -1
   CALL R19 -1 1
-  SETTABLEKS R19 R18 K49 ["Elements"]
+  SETTABLEKS R19 R18 K51 ["Elements"]
   CALL R15 3 1
   SETTABLEKS R15 R14 K22 ["Content"]
   CALL R11 3 1

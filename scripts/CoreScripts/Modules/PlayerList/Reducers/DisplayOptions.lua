@@ -6,6 +6,8 @@ local GuiService = game:GetService("GuiService")
 local Rodux = require(CorePackages.Packages.Rodux)
 local Cryo = require(CorePackages.Packages.Cryo)
 
+local PlayerList = script.Parent.Parent
+
 local Actions = script.Parent.Parent.Actions
 local SetPlayerListVisibility = require(Actions.SetPlayerListVisibility)
 local SetPlayerListEnabled = require(Actions.SetPlayerListEnabled)
@@ -19,9 +21,13 @@ local SetHasPermissionToVoiceChat = require(Actions.SetHasPermissionToVoiceChat)
 local SetMinimized = require(Actions.SetMinimized)
 local SetSubjectToChinaPolicies = require(Actions.SetSubjectToChinaPolicies)
 
+local FFlagPlayerListPersistVisibility = require(PlayerList.Flags.FFlagPlayerListPersistVisibility)
+
+local GameSettings = if FFlagPlayerListPersistVisibility then UserSettings().GameSettings else nil
+
 local initialDisplayOptions = {
 	isMinimized = false,
-	setVisible = true, --If the user wants the leaderboard visible or not
+	setVisible = if FFlagPlayerListPersistVisibility then GameSettings.PlayerListVisible else true, --If the user wants the leaderboard visible or not
 	isVisible = true, --Visiblity based on all other display options
 	isSmallTouchDevice = false,
 	performanceStatsVisible = false,
@@ -49,6 +55,10 @@ end
 
 local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetPlayerListVisibility.name] = function(state, action)
+		if FFlagPlayerListPersistVisibility then
+			GameSettings.PlayerListVisible = action.isVisible
+		end
+		
 		return updateIsVisible(Cryo.Dictionary.join(state, {
 			setVisible = action.isVisible,
 		}))

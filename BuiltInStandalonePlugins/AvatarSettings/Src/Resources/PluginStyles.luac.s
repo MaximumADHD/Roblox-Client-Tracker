@@ -73,7 +73,7 @@ MAIN:
   SETTABLEKS R18 R17 K36 ["TextColor3"]
   CALL R15 2 1
   MOVE R16 R2
-  LOADK R17 K40 [":pressed"]
+  LOADK R17 K40 [":press"]
   DUPTABLE R18 K37 [{"BackgroundColor3", "TextColor3"}]
   MOVE R20 R4
   CALL R20 0 1

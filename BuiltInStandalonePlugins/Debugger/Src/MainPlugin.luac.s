@@ -822,56 +822,56 @@ MAIN:
   GETTABLEKS R28 R29 K41 ["DebuggerUIServiceListener"]
   CALL R27 1 1
   GETIMPORT R28 K43 [game]
-  LOADK R30 K44 ["EnableRibbonPlugin"]
-  NAMECALL R28 R28 K45 ["GetFastFlag"]
+  LOADK R30 K44 ["EnableRibbonPluginFeature"]
+  NAMECALL R28 R28 K45 ["GetEngineFeature"]
   CALL R28 2 1
   GETIMPORT R29 K43 [game]
   LOADK R31 K46 ["StudioDebuggingActionsContextConversion"]
-  NAMECALL R29 R29 K45 ["GetFastFlag"]
+  NAMECALL R29 R29 K47 ["GetFastFlag"]
   CALL R29 2 1
   GETIMPORT R30 K5 [require]
   GETTABLEKS R32 R1 K37 ["Util"]
-  GETTABLEKS R31 R32 K47 ["MakePluginActions"]
+  GETTABLEKS R31 R32 K48 ["MakePluginActions"]
   CALL R30 1 1
-  GETTABLEKS R31 R2 K48 ["PureComponent"]
-  LOADK R33 K49 ["MainPlugin"]
-  NAMECALL R31 R31 K50 ["extend"]
+  GETTABLEKS R31 R2 K49 ["PureComponent"]
+  LOADK R33 K50 ["MainPlugin"]
+  NAMECALL R31 R31 K51 ["extend"]
   CALL R31 2 1
-  DUPTABLE R32 K56 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R33 K57 ["Standalone"]
-  SETTABLEKS R33 R32 K51 ["DataModel"]
-  LOADK R33 K58 ["Unknown"]
-  SETTABLEKS R33 R32 K52 ["PluginType"]
-  LOADK R33 K59 ["CallStack"]
-  SETTABLEKS R33 R32 K53 ["PluginId"]
-  LOADK R33 K60 ["Actions"]
-  SETTABLEKS R33 R32 K54 ["Category"]
-  LOADK R33 K61 ["Toggle"]
-  SETTABLEKS R33 R32 K55 ["ItemId"]
-  DUPTABLE R33 K56 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R34 K57 ["Standalone"]
-  SETTABLEKS R34 R33 K51 ["DataModel"]
-  LOADK R34 K58 ["Unknown"]
-  SETTABLEKS R34 R33 K52 ["PluginType"]
+  DUPTABLE R32 K57 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R33 K58 ["Standalone"]
+  SETTABLEKS R33 R32 K52 ["DataModel"]
+  LOADK R33 K59 ["Unknown"]
+  SETTABLEKS R33 R32 K53 ["PluginType"]
+  LOADK R33 K60 ["CallStack"]
+  SETTABLEKS R33 R32 K54 ["PluginId"]
+  LOADK R33 K61 ["Actions"]
+  SETTABLEKS R33 R32 K55 ["Category"]
+  LOADK R33 K62 ["Toggle"]
+  SETTABLEKS R33 R32 K56 ["ItemId"]
+  DUPTABLE R33 K57 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R34 K58 ["Standalone"]
+  SETTABLEKS R34 R33 K52 ["DataModel"]
+  LOADK R34 K59 ["Unknown"]
+  SETTABLEKS R34 R33 K53 ["PluginType"]
   LOADK R34 K30 ["Breakpoints"]
-  SETTABLEKS R34 R33 K53 ["PluginId"]
-  LOADK R34 K60 ["Actions"]
-  SETTABLEKS R34 R33 K54 ["Category"]
-  LOADK R34 K61 ["Toggle"]
-  SETTABLEKS R34 R33 K55 ["ItemId"]
-  DUPTABLE R34 K56 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R35 K57 ["Standalone"]
-  SETTABLEKS R35 R34 K51 ["DataModel"]
-  LOADK R35 K58 ["Unknown"]
-  SETTABLEKS R35 R34 K52 ["PluginType"]
+  SETTABLEKS R34 R33 K54 ["PluginId"]
+  LOADK R34 K61 ["Actions"]
+  SETTABLEKS R34 R33 K55 ["Category"]
+  LOADK R34 K62 ["Toggle"]
+  SETTABLEKS R34 R33 K56 ["ItemId"]
+  DUPTABLE R34 K57 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R35 K58 ["Standalone"]
+  SETTABLEKS R35 R34 K52 ["DataModel"]
+  LOADK R35 K59 ["Unknown"]
+  SETTABLEKS R35 R34 K53 ["PluginType"]
   LOADK R35 K28 ["Watch"]
-  SETTABLEKS R35 R34 K53 ["PluginId"]
-  LOADK R35 K60 ["Actions"]
-  SETTABLEKS R35 R34 K54 ["Category"]
-  LOADK R35 K61 ["Toggle"]
-  SETTABLEKS R35 R34 K55 ["ItemId"]
+  SETTABLEKS R35 R34 K54 ["PluginId"]
+  LOADK R35 K61 ["Actions"]
+  SETTABLEKS R35 R34 K55 ["Category"]
+  LOADK R35 K62 ["Toggle"]
+  SETTABLEKS R35 R34 K56 ["ItemId"]
   AND R35 R28 R29
-  DUPCLOSURE R36 K62 [PROTO_19]
+  DUPCLOSURE R36 K63 [PROTO_19]
   CAPTURE VAL R32
   CAPTURE VAL R33
   CAPTURE VAL R34
@@ -888,13 +888,13 @@ MAIN:
   CAPTURE VAL R16
   CAPTURE VAL R14
   CAPTURE VAL R30
-  SETTABLEKS R36 R31 K63 ["init"]
-  DUPCLOSURE R36 K64 [PROTO_23]
+  SETTABLEKS R36 R31 K64 ["init"]
+  DUPCLOSURE R36 K65 [PROTO_23]
   CAPTURE VAL R2
   CAPTURE VAL R6
   CAPTURE VAL R28
-  SETTABLEKS R36 R31 K65 ["renderButtons"]
-  DUPCLOSURE R36 K66 [PROTO_34]
+  SETTABLEKS R36 R31 K66 ["renderButtons"]
+  DUPCLOSURE R36 K67 [PROTO_34]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R11
@@ -908,8 +908,8 @@ MAIN:
   CAPTURE VAL R20
   CAPTURE VAL R19
   CAPTURE VAL R21
-  SETTABLEKS R36 R31 K67 ["render"]
-  DUPCLOSURE R36 K68 [PROTO_35]
+  SETTABLEKS R36 R31 K68 ["render"]
+  DUPCLOSURE R36 K69 [PROTO_35]
   CAPTURE VAL R35
-  SETTABLEKS R36 R31 K69 ["willUnmount"]
+  SETTABLEKS R36 R31 K70 ["willUnmount"]
   RETURN R31 1

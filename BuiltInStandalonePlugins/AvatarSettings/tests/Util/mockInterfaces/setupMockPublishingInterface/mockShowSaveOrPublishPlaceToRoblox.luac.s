@@ -1,7 +1,7 @@
 PROTO_0:
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["gameIdChanged"]
-  LOADN R4 1
+  GETTABLEKS R3 R4 K0 ["databaseLoaded"]
+  LOADB R4 1
   NAMECALL R1 R0 K1 ["Invoke"]
   CALL R1 3 0
   RETURN R0 0

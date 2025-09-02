@@ -68,7 +68,6 @@ local Text = Foundation.Text
 local View = Foundation.View
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 ----------- CLASS DECLARATION --------------
 
@@ -222,7 +221,7 @@ local function Initialize()
 			end
 		end
 	else
-		local leaveGameConfirmationText = if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then RobloxTranslator:FormatByKey(Constants.ConfirmLeaveGameLocalizedKey) else "Are you sure you want to leave the experience?"
+		local leaveGameConfirmationText = RobloxTranslator:FormatByKey(Constants.ConfirmLeaveGameLocalizedKey)
 
 		local leaveGameText =  Create'TextLabel'
 		{
@@ -275,9 +274,7 @@ local function Initialize()
 
 		local dontleaveGameButton = utility:MakeStyledButton(
 			"DontLeaveGame",
-			if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-				RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.DontLeaveButton") else
-				"Don't Leave",
+			RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.DontLeaveButton"),
 			nil,
 			this.DontLeaveFromButton
 		)

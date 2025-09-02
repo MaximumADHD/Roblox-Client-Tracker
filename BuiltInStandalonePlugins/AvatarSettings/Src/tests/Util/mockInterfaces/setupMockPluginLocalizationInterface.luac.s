@@ -1,0 +1,40 @@
+PROTO_0:
+  MOVE R3 R0
+  LOADK R4 K0 ["."]
+  MOVE R5 R1
+  CONCAT R2 R3 R5
+  RETURN R2 1
+
+PROTO_1:
+  DUPTABLE R3 K1 [{"getText"}]
+  DUPCLOSURE R4 K2 [PROTO_0]
+  SETTABLEKS R4 R3 K0 ["getText"]
+  RETURN R3 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  DUPCLOSURE R1 K0 [PROTO_1]
+  SETTABLEKS R1 R0 K1 ["createLocalization"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarSettings"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["Interfaces"]
+  GETTABLEKS R2 R3 K9 ["InterfaceTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Util"]
+  GETTABLEKS R4 R5 K8 ["Interfaces"]
+  GETTABLEKS R3 R4 K10 ["PluginLocalizationInterface"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K11 [PROTO_2]
+  CAPTURE VAL R2
+  RETURN R3 1

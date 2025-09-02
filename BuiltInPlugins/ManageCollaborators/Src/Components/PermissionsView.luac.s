@@ -383,9 +383,9 @@ PROTO_12:
   CALL R26 2 1
   SETTABLEKS R26 R25 K40 ["Layout"]
   GETUPVAL R26 5
-  JUMPIFNOT R26 [+66]
+  JUMPIFNOT R26 [+70]
   MOVE R26 R13
-  JUMPIFNOT R26 [+64]
+  JUMPIFNOT R26 [+68]
   GETUPVAL R27 7
   GETTABLEKS R26 R27 K32 ["createElement"]
   GETUPVAL R27 8
@@ -405,7 +405,7 @@ PROTO_12:
   GETUPVAL R31 9
   GETTABLEKS R30 R31 K32 ["createElement"]
   GETUPVAL R31 10
-  DUPTABLE R32 K71 [{"Stylizer", "Localization", "IsTeamCreateEnabled", "HasUnsavedChanges", "HasCollaborators", "Plugin", "SaveThenTurnOnTeamCreate", "TurnOnTeamCreate", "Links"}]
+  DUPTABLE R32 K72 [{"Stylizer", "Localization", "IsTeamCreateEnabled", "HasUnsavedChanges", "HasCollaborators", "Plugin", "SaveThenTurnOnTeamCreate", "TurnOnTeamCreate", "Links", "FetchLink"}]
   SETTABLEKS R2 R32 K2 ["Stylizer"]
   SETTABLEKS R3 R32 K3 ["Localization"]
   SETTABLEKS R14 R32 K65 ["IsTeamCreateEnabled"]
@@ -425,6 +425,8 @@ PROTO_12:
   SETTABLEKS R33 R32 K69 ["TurnOnTeamCreate"]
   GETTABLEKS R33 R1 K70 ["Links"]
   SETTABLEKS R33 R32 K70 ["Links"]
+  GETTABLEKS R33 R1 K71 ["FetchLink"]
+  SETTABLEKS R33 R32 K71 ["FetchLink"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K63 ["Header"]
   CALL R26 3 1
@@ -434,7 +436,7 @@ PROTO_12:
   GETUPVAL R27 7
   GETTABLEKS R26 R27 K32 ["createElement"]
   GETUPVAL R27 12
-  DUPTABLE R28 K74 [{"LayoutOrder", "Size", "Layout", "AutomaticCanvasSize", "Spacing"}]
+  DUPTABLE R28 K75 [{"LayoutOrder", "Size", "Layout", "AutomaticCanvasSize", "Spacing"}]
   NAMECALL R29 R20 K62 ["getNextOrder"]
   CALL R29 1 1
   SETTABLEKS R29 R28 K56 ["LayoutOrder"]
@@ -447,80 +449,80 @@ PROTO_12:
   SETTABLEKS R29 R28 K34 ["Size"]
   GETIMPORT R29 K55 [Enum.FillDirection.Vertical]
   SETTABLEKS R29 R28 K40 ["Layout"]
-  GETIMPORT R29 K77 [Enum.AutomaticSize.Y]
-  SETTABLEKS R29 R28 K72 ["AutomaticCanvasSize"]
+  GETIMPORT R29 K78 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K73 ["AutomaticCanvasSize"]
   GETIMPORT R29 K59 [UDim.new]
   LOADN R30 0
   JUMPIFNOT R12 [+5]
-  GETTABLEKS R32 R2 K78 ["scrollingFrame"]
-  GETTABLEKS R31 R32 K79 ["yPadding"]
+  GETTABLEKS R32 R2 K79 ["scrollingFrame"]
+  GETTABLEKS R31 R32 K80 ["yPadding"]
   JUMP [+4]
-  GETTABLEKS R32 R2 K78 ["scrollingFrame"]
-  GETTABLEKS R31 R32 K80 ["yPaddingNonOwner"]
+  GETTABLEKS R32 R2 K79 ["scrollingFrame"]
+  GETTABLEKS R31 R32 K81 ["yPaddingNonOwner"]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K73 ["Spacing"]
-  DUPTABLE R29 K84 [{"SearchBarWidget", "CollaboratorFilterWidget", "Frame", "CollaboratorsWidget"}]
+  SETTABLEKS R29 R28 K74 ["Spacing"]
+  DUPTABLE R29 K85 [{"SearchBarWidget", "CollaboratorFilterWidget", "Frame", "CollaboratorsWidget"}]
   MOVE R30 R12
   JUMPIFNOT R30 [+19]
   GETUPVAL R31 7
   GETTABLEKS R30 R31 K32 ["createElement"]
   GETUPVAL R31 13
-  DUPTABLE R32 K87 [{"LayoutOrder", "Writable", "IsGroupGame"}]
+  DUPTABLE R32 K88 [{"LayoutOrder", "Writable", "IsGroupGame"}]
   NAMECALL R33 R21 K62 ["getNextOrder"]
   CALL R33 1 1
   SETTABLEKS R33 R32 K56 ["LayoutOrder"]
   LOADB R33 1
-  SETTABLEKS R33 R32 K85 ["Writable"]
-  NAMECALL R33 R0 K88 ["isGroupGame"]
+  SETTABLEKS R33 R32 K86 ["Writable"]
+  NAMECALL R33 R0 K89 ["isGroupGame"]
   CALL R33 1 1
-  SETTABLEKS R33 R32 K86 ["IsGroupGame"]
+  SETTABLEKS R33 R32 K87 ["IsGroupGame"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K81 ["SearchBarWidget"]
+  SETTABLEKS R30 R29 K82 ["SearchBarWidget"]
   GETUPVAL R31 7
   GETTABLEKS R30 R31 K32 ["createElement"]
   GETUPVAL R31 14
-  DUPTABLE R32 K89 [{"LayoutOrder"}]
+  DUPTABLE R32 K90 [{"LayoutOrder"}]
   NAMECALL R33 R21 K62 ["getNextOrder"]
   CALL R33 1 1
   SETTABLEKS R33 R32 K56 ["LayoutOrder"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K82 ["CollaboratorFilterWidget"]
+  SETTABLEKS R30 R29 K83 ["CollaboratorFilterWidget"]
   NOT R30 R12
   JUMPIFNOT R30 [+9]
   GETUPVAL R31 7
   GETTABLEKS R30 R31 K32 ["createElement"]
   LOADK R31 K33 ["Frame"]
-  DUPTABLE R32 K91 [{"BackgroundTransparency"}]
+  DUPTABLE R32 K92 [{"BackgroundTransparency"}]
   LOADN R33 1
-  SETTABLEKS R33 R32 K90 ["BackgroundTransparency"]
+  SETTABLEKS R33 R32 K91 ["BackgroundTransparency"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K33 ["Frame"]
   GETUPVAL R31 7
   GETTABLEKS R30 R31 K32 ["createElement"]
   GETUPVAL R31 15
-  DUPTABLE R32 K87 [{"LayoutOrder", "Writable", "IsGroupGame"}]
+  DUPTABLE R32 K88 [{"LayoutOrder", "Writable", "IsGroupGame"}]
   NAMECALL R33 R21 K62 ["getNextOrder"]
   CALL R33 1 1
   SETTABLEKS R33 R32 K56 ["LayoutOrder"]
-  SETTABLEKS R12 R32 K85 ["Writable"]
+  SETTABLEKS R12 R32 K86 ["Writable"]
   GETUPVAL R34 16
   JUMPIFNOT R34 [+4]
-  NAMECALL R33 R0 K88 ["isGroupGame"]
+  NAMECALL R33 R0 K89 ["isGroupGame"]
   CALL R33 1 1
   JUMP [+1]
   LOADNIL R33
-  SETTABLEKS R33 R32 K86 ["IsGroupGame"]
+  SETTABLEKS R33 R32 K87 ["IsGroupGame"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K83 ["CollaboratorsWidget"]
+  SETTABLEKS R30 R29 K84 ["CollaboratorsWidget"]
   CALL R26 3 1
   SETTABLEKS R26 R25 K42 ["ScrollingFrame"]
   JUMPIFNOT R15 [+90]
   GETUPVAL R27 7
   GETTABLEKS R26 R27 K32 ["createElement"]
   LOADK R27 K33 ["Frame"]
-  DUPTABLE R28 K93 [{"BackgroundTransparency", "BackgroundColor3", "LayoutOrder", "Size", "BorderSizePixel"}]
+  DUPTABLE R28 K94 [{"BackgroundTransparency", "BackgroundColor3", "LayoutOrder", "Size", "BorderSizePixel"}]
   LOADN R29 1
-  SETTABLEKS R29 R28 K90 ["BackgroundTransparency"]
+  SETTABLEKS R29 R28 K91 ["BackgroundTransparency"]
   GETTABLEKS R29 R2 K39 ["backgroundColor"]
   SETTABLEKS R29 R28 K35 ["BackgroundColor3"]
   NAMECALL R29 R20 K62 ["getNextOrder"]
@@ -535,44 +537,44 @@ PROTO_12:
   CALL R29 4 1
   SETTABLEKS R29 R28 K34 ["Size"]
   LOADN R29 0
-  SETTABLEKS R29 R28 K92 ["BorderSizePixel"]
-  DUPTABLE R29 K95 [{"Text"}]
+  SETTABLEKS R29 R28 K93 ["BorderSizePixel"]
+  DUPTABLE R29 K96 [{"Text"}]
   GETUPVAL R31 7
   GETTABLEKS R30 R31 K32 ["createElement"]
-  LOADK R31 K96 ["TextLabel"]
+  LOADK R31 K97 ["TextLabel"]
   GETUPVAL R34 17
-  GETTABLEKS R33 R34 K97 ["Dictionary"]
-  GETTABLEKS R32 R33 K98 ["join"]
+  GETTABLEKS R33 R34 K98 ["Dictionary"]
+  GETTABLEKS R32 R33 K99 ["join"]
   GETTABLEKS R34 R2 K29 ["saveMessage"]
-  GETTABLEKS R33 R34 K99 ["textStyle"]
-  DUPTABLE R34 K104 [{"AnchorPoint", "Position", "Text", "TextXAlignment", "BorderSizePixel", "TextWrapped", "Size", "BackgroundTransparency"}]
-  GETIMPORT R35 K106 [Vector2.new]
+  GETTABLEKS R33 R34 K100 ["textStyle"]
+  DUPTABLE R34 K105 [{"AnchorPoint", "Position", "Text", "TextXAlignment", "BorderSizePixel", "TextWrapped", "Size", "BackgroundTransparency"}]
+  GETIMPORT R35 K107 [Vector2.new]
   LOADN R36 0
-  LOADK R37 K107 [0.5]
+  LOADK R37 K108 [0.5]
   CALL R35 2 1
-  SETTABLEKS R35 R34 K100 ["AnchorPoint"]
+  SETTABLEKS R35 R34 K101 ["AnchorPoint"]
   GETTABLEKS R36 R2 K29 ["saveMessage"]
-  GETTABLEKS R35 R36 K108 ["InnerTextPosition"]
-  SETTABLEKS R35 R34 K101 ["Position"]
-  SETTABLEKS R17 R34 K94 ["Text"]
-  GETIMPORT R35 K110 [Enum.TextXAlignment.Left]
-  SETTABLEKS R35 R34 K102 ["TextXAlignment"]
+  GETTABLEKS R35 R36 K109 ["InnerTextPosition"]
+  SETTABLEKS R35 R34 K102 ["Position"]
+  SETTABLEKS R17 R34 K95 ["Text"]
+  GETIMPORT R35 K111 [Enum.TextXAlignment.Left]
+  SETTABLEKS R35 R34 K103 ["TextXAlignment"]
   LOADN R35 0
-  SETTABLEKS R35 R34 K92 ["BorderSizePixel"]
+  SETTABLEKS R35 R34 K93 ["BorderSizePixel"]
   LOADB R35 1
-  SETTABLEKS R35 R34 K103 ["TextWrapped"]
+  SETTABLEKS R35 R34 K104 ["TextWrapped"]
   GETIMPORT R35 K38 [UDim2.new]
-  LOADK R36 K111 [0.55]
+  LOADK R36 K112 [0.55]
   LOADN R37 0
   LOADN R38 1
   LOADN R39 0
   CALL R35 4 1
   SETTABLEKS R35 R34 K34 ["Size"]
   LOADN R35 1
-  SETTABLEKS R35 R34 K90 ["BackgroundTransparency"]
+  SETTABLEKS R35 R34 K91 ["BackgroundTransparency"]
   CALL R32 2 -1
   CALL R30 -1 1
-  SETTABLEKS R30 R29 K94 ["Text"]
+  SETTABLEKS R30 R29 K95 ["Text"]
   CALL R26 3 1
   JUMP [+1]
   LOADNIL R26
@@ -594,20 +596,20 @@ PROTO_12:
   GETTABLEKS R33 R34 K27 ["height"]
   CALL R29 4 1
   SETTABLEKS R29 R28 K34 ["Size"]
-  DUPTABLE R29 K113 [{"Footer"}]
+  DUPTABLE R29 K114 [{"Footer"}]
   GETUPVAL R31 7
   GETTABLEKS R30 R31 K32 ["createElement"]
   GETUPVAL R31 18
-  DUPTABLE R32 K116 [{"IsTeamCreateEnabled", "OnSavePressed", "OnCancelPressed"}]
+  DUPTABLE R32 K117 [{"IsTeamCreateEnabled", "OnSavePressed", "OnCancelPressed"}]
   SETTABLEKS R14 R32 K65 ["IsTeamCreateEnabled"]
   NEWCLOSURE R33 P2
   CAPTURE VAL R0
-  SETTABLEKS R33 R32 K114 ["OnSavePressed"]
+  SETTABLEKS R33 R32 K115 ["OnSavePressed"]
   NEWCLOSURE R33 P3
   CAPTURE VAL R0
-  SETTABLEKS R33 R32 K115 ["OnCancelPressed"]
+  SETTABLEKS R33 R32 K116 ["OnCancelPressed"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K112 ["Footer"]
+  SETTABLEKS R30 R29 K113 ["Footer"]
   CALL R26 3 1
   SETTABLEKS R26 R25 K44 ["FooterContent"]
   NOT R26 R9
@@ -617,48 +619,48 @@ PROTO_12:
   GETUPVAL R27 7
   GETTABLEKS R26 R27 K32 ["createElement"]
   GETUPVAL R27 19
-  DUPTABLE R28 K117 [{"AnchorPoint", "Position"}]
-  GETIMPORT R29 K106 [Vector2.new]
-  LOADK R30 K107 [0.5]
-  LOADK R31 K107 [0.5]
+  DUPTABLE R28 K118 [{"AnchorPoint", "Position"}]
+  GETIMPORT R29 K107 [Vector2.new]
+  LOADK R30 K108 [0.5]
+  LOADK R31 K108 [0.5]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K100 ["AnchorPoint"]
-  GETIMPORT R29 K119 [UDim2.fromScale]
-  LOADK R30 K107 [0.5]
-  LOADK R31 K107 [0.5]
+  SETTABLEKS R29 R28 K101 ["AnchorPoint"]
+  GETIMPORT R29 K120 [UDim2.fromScale]
+  LOADK R30 K108 [0.5]
+  LOADK R31 K108 [0.5]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K101 ["Position"]
+  SETTABLEKS R29 R28 K102 ["Position"]
   CALL R26 2 1
   SETTABLEKS R26 R25 K45 ["LoadingIndicator"]
   MOVE R26 R10
   JUMPIFNOT R26 [+46]
   GETUPVAL R27 7
   GETTABLEKS R26 R27 K32 ["createElement"]
-  LOADK R27 K96 ["TextLabel"]
-  DUPTABLE R28 K123 [{"Text", "AnchorPoint", "Position", "TextColor3", "TextSize", "Font"}]
-  SETTABLEKS R11 R28 K94 ["Text"]
-  GETIMPORT R29 K106 [Vector2.new]
-  LOADK R30 K107 [0.5]
-  LOADK R31 K107 [0.5]
+  LOADK R27 K97 ["TextLabel"]
+  DUPTABLE R28 K124 [{"Text", "AnchorPoint", "Position", "TextColor3", "TextSize", "Font"}]
+  SETTABLEKS R11 R28 K95 ["Text"]
+  GETIMPORT R29 K107 [Vector2.new]
+  LOADK R30 K108 [0.5]
+  LOADK R31 K108 [0.5]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K100 ["AnchorPoint"]
-  GETIMPORT R29 K119 [UDim2.fromScale]
-  LOADK R30 K107 [0.5]
-  LOADK R31 K124 [0.25]
+  SETTABLEKS R29 R28 K101 ["AnchorPoint"]
+  GETIMPORT R29 K120 [UDim2.fromScale]
+  LOADK R30 K108 [0.5]
+  LOADK R31 K125 [0.25]
   CALL R29 2 1
-  SETTABLEKS R29 R28 K101 ["Position"]
-  GETTABLEKS R31 R2 K125 ["fontStyle"]
-  GETTABLEKS R30 R31 K126 ["Normal"]
-  GETTABLEKS R29 R30 K120 ["TextColor3"]
-  SETTABLEKS R29 R28 K120 ["TextColor3"]
-  GETTABLEKS R31 R2 K125 ["fontStyle"]
-  GETTABLEKS R30 R31 K126 ["Normal"]
-  GETTABLEKS R29 R30 K121 ["TextSize"]
-  SETTABLEKS R29 R28 K121 ["TextSize"]
-  GETTABLEKS R31 R2 K125 ["fontStyle"]
-  GETTABLEKS R30 R31 K126 ["Normal"]
-  GETTABLEKS R29 R30 K122 ["Font"]
-  SETTABLEKS R29 R28 K122 ["Font"]
+  SETTABLEKS R29 R28 K102 ["Position"]
+  GETTABLEKS R31 R2 K126 ["fontStyle"]
+  GETTABLEKS R30 R31 K127 ["Normal"]
+  GETTABLEKS R29 R30 K121 ["TextColor3"]
+  SETTABLEKS R29 R28 K121 ["TextColor3"]
+  GETTABLEKS R31 R2 K126 ["fontStyle"]
+  GETTABLEKS R30 R31 K127 ["Normal"]
+  GETTABLEKS R29 R30 K122 ["TextSize"]
+  SETTABLEKS R29 R28 K122 ["TextSize"]
+  GETTABLEKS R31 R2 K126 ["fontStyle"]
+  GETTABLEKS R30 R31 K127 ["Normal"]
+  GETTABLEKS R29 R30 K123 ["Font"]
+  SETTABLEKS R29 R28 K123 ["Font"]
   CALL R26 2 1
   SETTABLEKS R26 R25 K46 ["FailureText"]
   CALL R22 3 -1

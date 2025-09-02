@@ -441,8 +441,8 @@ MAIN:
   GETTABLEKS R25 R23 K34 ["App"]
   CALL R24 1 1
   GETIMPORT R25 K36 [game]
-  LOADK R27 K37 ["EnableRibbonPlugin"]
-  NAMECALL R25 R25 K38 ["GetFastFlag"]
+  LOADK R27 K37 ["EnableRibbonPluginFeature"]
+  NAMECALL R25 R25 K38 ["GetEngineFeature"]
   CALL R25 2 1
   GETTABLEKS R26 R1 K39 ["PureComponent"]
   LOADK R28 K40 ["MainPlugin"]

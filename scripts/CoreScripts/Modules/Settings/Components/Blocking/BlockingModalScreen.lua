@@ -9,16 +9,12 @@ local BlockingModalContainer = require(script.Parent.BlockingModalContainer)
 
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
-local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
-local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 local FFlagEnableNewBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableNewBlockingModal)
 
 local BlockingModalScreen = Roact.PureComponent:extend("BlockingModalScreen")
-
-local SELECTION_GROUP_NAME = "BlockingModalScreen"
 
 BlockingModalScreen.validateProps = t.interface({
 	closeModal = t.callback,
@@ -34,17 +30,12 @@ BlockingModalScreen.validateProps = t.interface({
 
 function BlockingModalScreen:render()
 	local blockingModalContainer = Roact.createElement(
-		if FFlagCSFocusWrapperRefactor then FocusRoot else FocusNavigationCoreScriptsWrapper,
-		if FFlagCSFocusWrapperRefactor
-			then {
-				surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-				isIsolated = true,
-				isAutoFocusRoot = true,
-			}
-			else {
-				selectionGroupName = SELECTION_GROUP_NAME .. tostring(self.props.player.UserId),
-				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-			},
+		FocusRoot,
+		{
+			surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+			isIsolated = true,
+			isAutoFocusRoot = true,
+		},
 		{
 			BlockingModalContainerWrapper = Roact.createElement(BlockingModalContainer, self.props),
 		}

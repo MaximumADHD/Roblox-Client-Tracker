@@ -1,0 +1,130 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["SetIsEmulationEnabled"]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  LOADK R3 K0 ["SetIsEmulationEnabled"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K1 ["Invoke"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  GETUPVAL R3 2
+  NAMECALL R3 R3 K0 ["use"]
+  CALL R3 1 1
+  NAMECALL R3 R3 K1 ["get"]
+  CALL R3 1 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K2 ["useIsEmulationEnabled"]
+  CALL R4 0 1
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K3 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U5
+  CAPTURE VAL R3
+  NEWTABLE R7 0 0
+  CALL R5 2 1
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K5 ["View"]
+  DUPTABLE R8 K8 [{"tag", "LayoutOrder"}]
+  LOADK R9 K9 ["size-full-0 auto-y row align-y-center padding-medium"]
+  SETTABLEKS R9 R8 K6 ["tag"]
+  GETTABLEKS R9 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K7 ["LayoutOrder"]
+  DUPTABLE R9 K13 [{"Title", "Spacer", "ToggleSwitch"}]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K14 ["Text"]
+  DUPTABLE R12 K15 [{"Text", "tag", "LayoutOrder"}]
+  LOADK R15 K16 ["Plugin"]
+  LOADK R16 K17 ["Name"]
+  NAMECALL R13 R2 K18 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K14 ["Text"]
+  LOADK R13 K19 ["text-label-large text-align-x-left"]
+  SETTABLEKS R13 R12 K6 ["tag"]
+  MOVE R13 R1
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K10 ["Title"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K5 ["View"]
+  DUPTABLE R12 K8 [{"tag", "LayoutOrder"}]
+  LOADK R13 K20 ["fill"]
+  SETTABLEKS R13 R12 K6 ["tag"]
+  MOVE R13 R1
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K11 ["Spacer"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K21 ["Toggle"]
+  DUPTABLE R12 K25 [{"label", "isChecked", "onActivated", "LayoutOrder"}]
+  LOADK R13 K26 [""]
+  SETTABLEKS R13 R12 K22 ["label"]
+  SETTABLEKS R4 R12 K23 ["isChecked"]
+  SETTABLEKS R5 R12 K24 ["onActivated"]
+  MOVE R13 R1
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K12 ["ToggleSwitch"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["PartyEmulatorService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["PartyEmulator"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Foundation"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R1 K10 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K14 ["ContextServices"]
+  GETTABLEKS R6 R5 K15 ["Localization"]
+  GETTABLEKS R7 R5 K16 ["Plugin"]
+  GETTABLEKS R9 R1 K17 ["Src"]
+  GETTABLEKS R8 R9 K18 ["Contexts"]
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R10 R8 K19 ["PartyContext"]
+  CALL R9 1 1
+  GETTABLEKS R11 R4 K20 ["Util"]
+  GETTABLEKS R10 R11 K21 ["counter"]
+  DUPCLOSURE R11 K22 [PROTO_1]
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  RETURN R11 1

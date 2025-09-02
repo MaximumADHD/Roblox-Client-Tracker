@@ -17,7 +17,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
@@ -64,8 +63,8 @@ function CaptureNotification:init()
 					Transparency = 0,
 				} or nil,
 				toastTitle = isSuccessToast and RobloxTranslator:FormatByKey(
-					if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Capture.Success.ToastText" else "NotificationScript2.Capture.Success.ToastText"
-				) or RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Capture.Fail.ToastText" else "NotificationScript2.Capture.Fail.ToastText"),
+					"InGame.NotificationScript2.Capture.Success.ToastText"
+				) or RobloxTranslator:FormatByKey("InGame.NotificationScript2.Capture.Fail.ToastText"),
 				onDismissed = function()
 					self:setState({
 						notificationType = NotificationType.None,
@@ -123,11 +122,11 @@ function CaptureNotification:init()
 
 	self.getPermissionAlertBodyText = function()
 		if UserInputService:GetPlatform() == Enum.Platform.IOS then
-			return RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Capture.Permission.AlertTextIOS" else "NotificationScript2.Capture.Permission.AlertTextIOS")
+			return RobloxTranslator:FormatByKey("InGame.NotificationScript2.Capture.Permission.AlertTextIOS")
 		elseif UserInputService:GetPlatform() == Enum.Platform.Android then
-			return RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Capture.Permission.AlertTextAndroid" else "NotificationScript2.Capture.Permission.AlertTextAndroid")
+			return RobloxTranslator:FormatByKey("InGame.NotificationScript2.Capture.Permission.AlertTextAndroid")
 		else
-			return RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Capture.Permission.AlertText" else "NotificationScript2.Capture.Permission.AlertText")
+			return RobloxTranslator:FormatByKey("InGame.NotificationScript2.Capture.Permission.AlertText")
 		end
 	end
 end
@@ -172,7 +171,7 @@ function CaptureNotification:render()
 					Size = UDim2.new(1, 0, 1, 0),
 				}, {
 					PermissionAlert = Roact.createElement(InteractiveAlert, {
-						title = RobloxTranslator:FormatByKey(if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Capture.Permission.AlertTitle" else "NotificationScript2.Capture.Permission.AlertTitle"),
+						title = RobloxTranslator:FormatByKey("InGame.NotificationScript2.Capture.Permission.AlertTitle"),
 						bodyText = self.getPermissionAlertBodyText(),
 						buttonStackInfo = {
 							buttons = {
@@ -181,7 +180,7 @@ function CaptureNotification:render()
 									props = {
 										onActivated = self.dismissPermissionAlert,
 										text = RobloxTranslator:FormatByKey(
-											if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then "InGame.NotificationScript2.Capture.Permission.AlertButtonText" else "NotificationScript2.Capture.Permission.AlertButtonText"
+											"InGame.NotificationScript2.Capture.Permission.AlertButtonText"
 										),
 									},
 								},

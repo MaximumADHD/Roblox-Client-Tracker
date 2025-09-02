@@ -145,7 +145,6 @@ local updateCloneCurrentCoolDown = 0
 
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
-local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
 
 local voiceAnalytics
 if GetFFlagEnableVoiceMuteAnalytics() then
@@ -209,27 +208,16 @@ local hasMicPermissions = false
 local voiceChatServiceEnabled = false
 
 local function getShouldShowMicButton()
-	if GetFFlagEnableShowVoiceUI() then
-		local showVoiceUI = VoiceChatServiceManager.voiceUIVisible
-		if GetFFlagJoinWithoutMicPermissions() then
-			-- This makes sure that the mic button is still shown when the user is connecting to voice chat, but hidden when the user gets banned
-			return showVoiceUI
-				and voiceChatServiceEnabled
-				and (not VoiceChatServiceManager:VoiceChatEnded() or isVoiceConnecting)
-		elseif getFFlagEnableAlwaysAvailableCamera() then
-			return showVoiceUI and hasMicPermissions
-		else
-			return showVoiceUI and hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
-		end
+	local showVoiceUI = VoiceChatServiceManager.voiceUIVisible
+	if GetFFlagJoinWithoutMicPermissions() then
+		-- This makes sure that the mic button is still shown when the user is connecting to voice chat, but hidden when the user gets banned
+		return showVoiceUI
+			and voiceChatServiceEnabled
+			and (not VoiceChatServiceManager:VoiceChatEnded() or isVoiceConnecting)
+	elseif getFFlagEnableAlwaysAvailableCamera() then
+		return showVoiceUI and hasMicPermissions
 	else
-		if GetFFlagJoinWithoutMicPermissions() then
-			-- This makes sure that the mic button is still shown when the user is connecting to voice chat, but hidden when the user gets banned
-			return voiceChatServiceEnabled and (not VoiceChatServiceManager:VoiceChatEnded() or isVoiceConnecting)
-		elseif getFFlagEnableAlwaysAvailableCamera() then
-			return hasMicPermissions
-		else
-			return hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
-		end
+		return showVoiceUI and hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
 	end
 end
 
@@ -374,7 +362,7 @@ function shouldDisplaySelfViewTooltip(tooltipName)
 		return false
 	end
 
-	if GetFFlagEnableShowVoiceUI() and not bottomButtonsFrame then
+	if not bottomButtonsFrame then
 		-- If there are no buttons being displayed, don't show the tooltip
 		return false
 	end
@@ -531,35 +519,7 @@ function initVoiceChatServiceManager()
 			cachedMicState = state
 			cachedLevel = level
 
-			if GetFFlagEnableShowVoiceUI() then
-				if micIcon then
-					if state == VoiceChatServiceManager.VOICE_STATE.MUTED then
-						micIcon.Size = UDim2.fromOffset(32, 32)
-						micIcon.Image = MIC_OFF_IMAGE.Image
-						if micIcon.ImageRectOffset ~= MIC_OFF_IMAGE.ImageRectOffset then
-							micIcon.ImageRectOffset = MIC_OFF_IMAGE.ImageRectOffset
-						end
-						micIcon.ImageRectSize = MIC_OFF_IMAGE.ImageRectSize
-					else
-						local icon = VoiceChatServiceManager:VoiceStateToIcon(state, level, "New")
-						micIcon.Size = UDim2.fromOffset(16, 20)
-						micIcon.Image = icon
-						micIcon.ImageRectOffset = Vector2.new(0, 0)
-						micIcon.ImageRectSize = Vector2.new(0, 0)
-					end
-
-					micIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-
-					if state == VoiceChatServiceManager.VOICE_STATE.INACTIVE then
-						micIcon.Size = UDim2.fromOffset(19, 19)
-						micIcon.Image = MIC_INACTIVE_IMAGE.Image
-						micIcon.ImageRectOffset = MIC_INACTIVE_IMAGE.ImageRectOffset
-						micIcon.ImageRectSize = MIC_INACTIVE_IMAGE.ImageRectSize
-					elseif state == VoiceChatServiceManager.VOICE_STATE.TALKING then
-						micIcon.Position = UDim2.new(0.5, 0, 0.5, -1)
-					end
-				end
-			else
+			if micIcon then
 				if state == VoiceChatServiceManager.VOICE_STATE.MUTED then
 					micIcon.Size = UDim2.fromOffset(32, 32)
 					micIcon.Image = MIC_OFF_IMAGE.Image
@@ -663,20 +623,18 @@ function initVoiceChatServiceManager()
 							updateSelfViewButtonVisibility()
 						end
 					end)
-					if GetFFlagEnableShowVoiceUI() then
-						VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
-							updateSelfViewButtonVisibility()
-							ReInit(Players.LocalPlayer)
-						end)
-						VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
-							updateSelfViewButtonVisibility()
-							if bottomButtonsFrame then
-								bottomButtonsFrame:Destroy()
-							end
-							bottomButtonsFrame = nil
-							ReInit(Players.LocalPlayer)
-						end)
-					end
+					VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
+						updateSelfViewButtonVisibility()
+						ReInit(Players.LocalPlayer)
+					end)
+					VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
+						updateSelfViewButtonVisibility()
+						if bottomButtonsFrame then
+							bottomButtonsFrame:Destroy()
+						end
+						bottomButtonsFrame = nil
+						ReInit(Players.LocalPlayer)
+					end)
 				end
 			end)
 			:catch(function()
@@ -1042,25 +1000,23 @@ end
 function createViewportFrame()
 	local numButtonsShowing = 0
 	local viewportFrameSize = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
-	if GetFFlagEnableShowVoiceUI() then
-		if getFFlagDoNotPromptCameraPermissionsOnMount() and FFlagSelfViewCameraDefaultButtonInViewPort then
-			if isCamEnabledForUserAndPlace() then
-				numButtonsShowing += 1
-			end
-		else
-			if hasCameraPermissions then
-				numButtonsShowing += 1
-			end
-		end
-		if getShouldShowMicButton() then
+	if getFFlagDoNotPromptCameraPermissionsOnMount() and FFlagSelfViewCameraDefaultButtonInViewPort then
+		if isCamEnabledForUserAndPlace() then
 			numButtonsShowing += 1
 		end
-
-		if numButtonsShowing == 0 then
-			viewportFrameSize = UDim2.new(1, 0, 1, 0)
-		else
-			viewportFrameSize = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
+	else
+		if hasCameraPermissions then
+			numButtonsShowing += 1
 		end
+	end
+	if getShouldShowMicButton() then
+		numButtonsShowing += 1
+	end
+
+	if numButtonsShowing == 0 then
+		viewportFrameSize = UDim2.new(1, 0, 1, 0)
+	else
+		viewportFrameSize = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
 	end
 
 	selfViewFrame = Instance.new("Frame")
@@ -1072,9 +1028,7 @@ function createViewportFrame()
 
 	viewportFrame = Instance.new("ViewportFrame")
 	viewportFrame.Position = UDim2.new(0, 0, 0, 0)
-	viewportFrame.Size = if GetFFlagEnableShowVoiceUI()
-		then viewportFrameSize
-		else UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
+	viewportFrame.Size = viewportFrameSize
 	viewportFrame.BackgroundColor3 = Color3.new(0, 0, 0)
 	viewportFrame.BorderColor3 = Color3.new(0.6, 0.5, 0.4)
 	viewportFrame.BorderSizePixel = 2
@@ -1202,7 +1156,7 @@ local function createViewport()
 	local uiCorner
 	local camButton
 
-	if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+	if numButtonsShowing ~= 0 then
 		bottomButtonsFrame = Instance.new("Frame")
 		bottomButtonsFrame.Name = "BottomButtonsFrame"
 		bottomButtonsFrame.Position = UDim2.new(0, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
@@ -1408,7 +1362,7 @@ local function createViewport()
 		local function setButtonButtonsVisibility()
 			-- Show the mic and cam buttons if the user has given permissions
 			if isOpen then
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Visible = true
 					camButton.Visible = true
 				end
@@ -1418,13 +1372,13 @@ local function createViewport()
 				studio normally does not have this option.
 			]]
 			elseif IS_STUDIO and debug then
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Visible = true
 					camButton.Visible = true
 				end
 				closeButton.Visible = true
 			else
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Visible = false
 					camButton.Visible = false
 				end
@@ -1439,7 +1393,7 @@ local function createViewport()
 			if not FFlagSelfViewRemoveVPFWhenClosed then
 				selfViewFrame.Visible = newState
 			end
-			if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+			if numButtonsShowing ~= 0 then
 				bottomButtonsFrame.Visible = newState
 			end
 			closeButtonIcon.Visible = newState
@@ -1447,7 +1401,7 @@ local function createViewport()
 			closeButton.BackgroundTransparency = newState and 1 or 0.5
 
 			if isOpen then
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Position = UDim2.new(0, 0, 0, 0)
 					micButton.Size = UDim2.new(0.5, -4, 1, -4)
 					micButton.ImageTransparency = 0
@@ -1486,7 +1440,7 @@ local function createViewport()
 					end)
 				end
 			else
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Position = UDim2.new(0, 40, 0, -1)
 					micButton.Size = UDim2.new(0, 34, 0, 34)
 					micButton.ImageTransparency = 0.3
@@ -1533,7 +1487,7 @@ local function createViewport()
 				end
 			end
 
-			if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+			if numButtonsShowing ~= 0 then
 				bottomButtonsFrame.Visible = isOpen
 			end
 		end
@@ -1702,7 +1656,7 @@ local function createViewport()
 
 		local function setButtonButtonsVisibility()
 			if isOpen then
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Visible = true
 					camButton.Visible = true
 				end
@@ -1712,13 +1666,13 @@ local function createViewport()
 				studio normally does not have this option.
 			]]
 			elseif IS_STUDIO and debug then
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Visible = true
 					camButton.Visible = true
 				end
 				closeButton.Visible = true
 			else
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Visible = false
 					camButton.Visible = false
 				end
@@ -1733,7 +1687,7 @@ local function createViewport()
 			if not FFlagSelfViewRemoveVPFWhenClosed then
 				selfViewFrame.Visible = newState
 			end
-			if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+			if numButtonsShowing ~= 0 then
 				bottomButtonsFrame.Visible = newState
 			end
 			closeButtonIcon.Visible = newState
@@ -1741,7 +1695,7 @@ local function createViewport()
 			closeButton.BackgroundTransparency = newState and 1 or 0.5
 
 			if isOpen then
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Position = UDim2.new(0, 0, 0, 0)
 					micButton.Size = UDim2.new(0.5, -4, 1, -4)
 					micButton.ImageTransparency = 0
@@ -1781,7 +1735,7 @@ local function createViewport()
 					end)
 				end
 			else
-				if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+				if numButtonsShowing ~= 0 then
 					micButton.Position = UDim2.new(0, 40, 0, -1)
 					micButton.Size = UDim2.new(0, 34, 0, 34)
 					micButton.ImageTransparency = 0.3
@@ -1828,7 +1782,7 @@ local function createViewport()
 				end
 			end
 
-			if not GetFFlagEnableShowVoiceUI() or numButtonsShowing ~= 0 then
+			if numButtonsShowing ~= 0 then
 				bottomButtonsFrame.Visible = isOpen
 			end
 		end

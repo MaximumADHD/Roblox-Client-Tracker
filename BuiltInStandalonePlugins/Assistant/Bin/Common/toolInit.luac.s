@@ -54,7 +54,8 @@ PROTO_1:
   CALL R8 1 0
   GETTABLEKS R8 R5 K22 ["createBuiltinTools"]
   MOVE R9 R7
-  CALL R8 1 0
+  MOVE R10 R0
+  CALL R8 2 0
   GETTABLEKS R8 R1 K12 ["isGuest"]
   JUMPIFNOT R8 [+3]
   GETTABLEKS R8 R5 K23 ["registerBuiltinTools"]

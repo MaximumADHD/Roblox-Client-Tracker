@@ -22,5 +22,9 @@ end
 if RunService:IsServer() then
 	ScriptContext:AddCoreScriptLocal("ServerStarterScript", script.Parent)
 else
+	-- Attach React DevTools if enabled (flag check happens in the module)
+	local ReactDeveloperTools = require(CorePackages.Workspace.Packages.ReactDeveloperTools)
+	ReactDeveloperTools.startup()
+
 	ScriptContext:AddCoreScriptLocal("StarterScript", script.Parent)
 end

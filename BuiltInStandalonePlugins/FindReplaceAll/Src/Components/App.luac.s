@@ -1,24 +1,27 @@
 PROTO_0:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K0 ["ContextStack"]
-  DUPTABLE R2 K2 [{"providers"}]
-  NEWTABLE R3 0 2
-  GETUPVAL R4 0
-  GETUPVAL R5 2
-  CALL R4 1 1
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["ContextStack"]
+  DUPTABLE R3 K2 [{"providers"}]
+  NEWTABLE R4 0 2
   GETUPVAL R5 0
-  GETUPVAL R6 3
-  CALL R5 1 -1
-  SETLIST R3 R4 -1 [1]
-  SETTABLEKS R3 R2 K1 ["providers"]
-  DUPTABLE R3 K4 [{"FindReplaceAllMainView"}]
-  GETUPVAL R4 0
-  GETUPVAL R5 4
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K3 ["FindReplaceAllMainView"]
-  CALL R0 3 -1
-  RETURN R0 -1
+  GETUPVAL R6 2
+  CALL R5 1 1
+  GETUPVAL R6 0
+  GETUPVAL R7 3
+  CALL R6 1 -1
+  SETLIST R4 R5 -1 [1]
+  SETTABLEKS R4 R3 K1 ["providers"]
+  DUPTABLE R4 K4 [{"FindReplaceAllMainView"}]
+  GETUPVAL R5 0
+  GETUPVAL R6 4
+  DUPTABLE R7 K6 [{"findActivationData"}]
+  GETTABLEKS R8 R0 K5 ["findActivationData"]
+  SETTABLEKS R8 R7 K5 ["findActivationData"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K3 ["FindReplaceAllMainView"]
+  CALL R1 3 -1
+  RETURN R1 -1
 
 MAIN:
   PREPVARARGS 0

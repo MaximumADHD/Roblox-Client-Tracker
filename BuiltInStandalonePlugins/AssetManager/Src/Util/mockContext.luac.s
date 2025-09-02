@@ -15,14 +15,15 @@ PROTO_0:
   GETTABLEKS R2 R3 K6 ["values"]
   MOVE R3 R1
   CALL R2 1 1
-  JUMP [+6]
+  JUMP [+8]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K6 ["values"]
-  GETUPVAL R3 1
-  CALL R3 0 -1
-  CALL R2 -1 1
+  GETUPVAL R4 1
+  CALL R4 0 1
+  GETTABLEKS R3 R4 K7 ["ContextItems"]
+  CALL R2 1 1
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K7 ["provideMockContext"]
+  GETTABLEKS R3 R4 K8 ["provideMockContext"]
   MOVE R4 R2
   MOVE R5 R0
   CALL R3 2 -1

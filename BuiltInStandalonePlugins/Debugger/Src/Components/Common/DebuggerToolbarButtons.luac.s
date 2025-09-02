@@ -508,8 +508,8 @@ MAIN:
   GETTABLEKS R13 R14 K23 ["SetPausedState"]
   CALL R12 1 1
   GETIMPORT R13 K25 [game]
-  LOADK R15 K26 ["EnableRibbonPlugin"]
-  NAMECALL R13 R13 K27 ["GetFastFlag"]
+  LOADK R15 K26 ["EnableRibbonPluginFeature"]
+  NAMECALL R13 R13 K27 ["GetEngineFeature"]
   CALL R13 2 1
   GETTABLEKS R14 R1 K28 ["PureComponent"]
   LOADK R16 K29 ["DebuggerToolbarButtons"]

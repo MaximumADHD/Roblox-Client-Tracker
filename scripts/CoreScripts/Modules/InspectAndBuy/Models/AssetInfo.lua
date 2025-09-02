@@ -33,6 +33,10 @@ local InspectAndBuyFolder = script.Parent.Parent
 
 local MockId = require(InspectAndBuyFolder.MockId)
 local Constants = require(InspectAndBuyFolder.Constants)
+local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
+type AvatarPreviewItem = AvatarExperienceInspectAndBuy.AvatarPreviewItem
+type AssetInfo = AvatarExperienceInspectAndBuy.AssetInfo
+type BundleInfo = AvatarExperienceInspectAndBuy.BundleInfo
 
 local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy =
 	require(CoreGui.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy)
@@ -40,11 +44,9 @@ local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy =
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 
-local FFlagParseItemRestrictionsFromCatalog =
-	require(InspectAndBuyFolder.Flags.FFlagParseItemRestrictionsFromCatalog)
+local FFlagParseItemRestrictionsFromCatalog = require(InspectAndBuyFolder.Flags.FFlagParseItemRestrictionsFromCatalog)
 
-local FFlagAXEnableSaleLocationTypeParsing =
-	require(InspectAndBuyFolder.Flags.FFlagAXEnableSaleLocationTypeParsing)
+local FFlagAXEnableSaleLocationTypeParsing = require(InspectAndBuyFolder.Flags.FFlagAXEnableSaleLocationTypeParsing)
 
 local AssetInfo = {}
 
@@ -91,6 +93,36 @@ function AssetInfo.mock()
 	self.creatingUniverseId = nil
 
 	return self
+end
+
+function AssetInfo.fromAvatarPreviewItem(avatarPreviewItem: AvatarPreviewItem): AssetInfo
+	local newAsset: AssetInfo = AssetInfo.new()
+
+	newAsset.name = avatarPreviewItem.name
+	newAsset.description = avatarPreviewItem.description
+	newAsset.price = avatarPreviewItem.priceInRobux
+	newAsset.productId = tostring(avatarPreviewItem.productId)
+	newAsset.collectibleItemId = avatarPreviewItem.collectibleItemId
+	newAsset.owned = avatarPreviewItem.quantityOwned > 0
+	newAsset.resellableCount = avatarPreviewItem.quantityOwned
+	newAsset.creatorId = tostring(avatarPreviewItem.creator.id)
+	newAsset.creatorName = avatarPreviewItem.creator.name
+	newAsset.creatorHasVerifiedBadge = avatarPreviewItem.creator.hasVerifiedBadge
+	newAsset.assetId = tostring(avatarPreviewItem.id)
+	newAsset.assetTypeId = tostring(avatarPreviewItem.assetType)
+	newAsset.productId = tostring(avatarPreviewItem.productId)
+	newAsset.isForSale = avatarPreviewItem.isPurchasable
+	newAsset.noPriceStatus = avatarPreviewItem.noPriceStatus
+
+	-- parse item restrictions
+	if avatarPreviewItem.itemRestrictions then
+		local itemRestrictions = {}
+		for _, value in avatarPreviewItem.itemRestrictions do
+			itemRestrictions[value] = true
+		end
+		newAsset.itemRestrictions = itemRestrictions
+	end
+	return newAsset
 end
 
 function AssetInfo.fromGetProductInfo(assetInfo)

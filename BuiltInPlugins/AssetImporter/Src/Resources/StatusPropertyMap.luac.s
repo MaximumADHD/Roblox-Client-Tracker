@@ -107,7 +107,7 @@ MAIN:
   LOADK R4 K52 ["ValidateUgcButNoInsertError"]
   SETLIST R3 R4 1 [1]
   SETTABLEKS R3 R2 K27 ["ValidateUgcBody"]
-  NEWTABLE R3 0 58
+  NEWTABLE R3 0 59
   LOADK R4 K53 ["MaterialIgnoredWarning"]
   LOADK R5 K54 ["CouldNotReadTextureError"]
   LOADK R6 K55 ["TextureBadFileFormatError"]
@@ -169,15 +169,16 @@ MAIN:
   LOADK R11 K108 ["FacsIncompletePosesWarning"]
   LOADK R12 K109 ["FacsOnlyNeutralError"]
   LOADK R13 K110 ["FacsNoFaceControlsAllowedError"]
-  SETLIST R3 R4 10 [49]
+  LOADK R14 K111 ["DropSpecialJointsWarning"]
+  SETLIST R3 R4 11 [49]
   SETTABLEKS R3 R2 K28 ["ObjectGeneral"]
-  DUPCLOSURE R3 K111 [PROTO_0]
-  GETIMPORT R4 K113 [pairs]
+  DUPCLOSURE R3 K112 [PROTO_0]
+  GETIMPORT R4 K114 [pairs]
   MOVE R5 R2
   CALL R4 1 3
   FORGPREP_NEXT R4
   NEWTABLE R10 0 0
-  GETIMPORT R11 K113 [pairs]
+  GETIMPORT R11 K114 [pairs]
   MOVE R12 R8
   CALL R11 1 3
   FORGPREP_NEXT R11

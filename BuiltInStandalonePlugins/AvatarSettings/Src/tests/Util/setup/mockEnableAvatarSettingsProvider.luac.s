@@ -1,7 +1,9 @@
 PROTO_0:
-  GETIMPORT R0 K1 [error]
-  LOADK R1 K2 ["EnableAvatarSettingsProvider: requestSaveToRoblox should not be called with mockEnableAvatarSettingsProvider"]
-  CALL R0 1 0
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["requestSaveToRoblox"]
+  NAMECALL R0 R0 K1 ["Invoke"]
+  CALL R0 2 0
   RETURN R0 0
 
 PROTO_1:
@@ -9,21 +11,28 @@ PROTO_1:
   GETTABLEKS R1 R2 K0 ["useState"]
   LOADN R2 1
   CALL R1 1 2
-  DUPTABLE R3 K5 [{"default", "currentGameId", "setCurrentGameId", "requestSaveToRoblox"}]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K1 ["default"]
-  SETTABLEKS R1 R3 K2 ["currentGameId"]
-  SETTABLEKS R2 R3 K3 ["setCurrentGameId"]
-  DUPCLOSURE R4 K6 [PROTO_0]
-  SETTABLEKS R4 R3 K4 ["requestSaveToRoblox"]
-  GETUPVAL R4 1
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K7 ["Provider"]
-  DUPTABLE R6 K9 [{"value"}]
-  SETTABLEKS R3 R6 K8 ["value"]
-  GETTABLEKS R7 R0 K10 ["children"]
-  CALL R4 3 -1
-  RETURN R4 -1
+  GETUPVAL R3 1
+  NAMECALL R3 R3 K1 ["use"]
+  CALL R3 1 1
+  NAMECALL R3 R3 K2 ["get"]
+  CALL R3 1 1
+  DUPTABLE R4 K7 [{"default", "currentGameId", "setCurrentGameId", "requestSaveToRoblox"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K3 ["default"]
+  SETTABLEKS R1 R4 K4 ["currentGameId"]
+  SETTABLEKS R2 R4 K5 ["setCurrentGameId"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U2
+  SETTABLEKS R5 R4 K6 ["requestSaveToRoblox"]
+  GETUPVAL R5 3
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K8 ["Provider"]
+  DUPTABLE R7 K10 [{"value"}]
+  SETTABLEKS R4 R7 K9 ["value"]
+  GETTABLEKS R8 R0 K11 ["children"]
+  CALL R5 3 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0
@@ -39,11 +48,24 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["React"]
+  GETTABLEKS R3 R4 K11 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K12 ["createElement"]
-  DUPCLOSURE R4 K13 [PROTO_1]
-  CAPTURE VAL R2
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Util"]
+  GETTABLEKS R5 R6 K14 ["InvokeKeys"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K15 ["ContextServices"]
+  GETTABLEKS R6 R5 K16 ["Plugin"]
+  GETTABLEKS R7 R3 K17 ["createElement"]
+  DUPCLOSURE R8 K18 [PROTO_1]
   CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R7
   CAPTURE VAL R1
-  RETURN R4 1
+  RETURN R8 1

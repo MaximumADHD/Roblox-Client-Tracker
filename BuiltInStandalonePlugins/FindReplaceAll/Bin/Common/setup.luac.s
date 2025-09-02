@@ -25,6 +25,21 @@ PROTO_3:
   RETURN R3 -1
 
 PROTO_4:
+  GETUPVAL R2 0
+  DUPTABLE R3 K2 [{"searchText", "showReplace"}]
+  SETTABLEKS R0 R3 K0 ["searchText"]
+  SETTABLEKS R1 R3 K1 ["showReplace"]
+  SETTABLEKS R3 R2 K3 ["findActivationState"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["mainDockWidget"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K5 ["Enabled"]
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K6 ["Disconnect"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_5:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["Name"]
   SETTABLEKS R2 R0 K0 ["Name"]
@@ -63,7 +78,7 @@ PROTO_4:
   NAMECALL R5 R5 K21 ["IsEdit"]
   CALL R5 1 1
   JUMPIF R4 [+1]
-  JUMPIFNOT R5 [+48]
+  JUMPIFNOT R5 [+67]
   LOADB R6 1
   SETTABLEKS R6 R2 K5 ["enabled"]
   DUPTABLE R6 K26 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
@@ -89,15 +104,30 @@ PROTO_4:
   GETTABLEKS R6 R7 K39 ["build"]
   MOVE R7 R3
   CALL R6 1 1
-  GETTABLEKS R7 R6 K40 ["pluginLoader"]
-  NAMECALL R7 R7 K41 ["waitForUserInteraction"]
-  CALL R7 1 1
-  JUMPIF R7 [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K40 ["findActivationState"]
+  LOADK R9 K41 ["FindReplace"]
+  NAMECALL R7 R0 K42 ["GetPluginComponent"]
+  CALL R7 2 1
+  LOADNIL R8
+  GETTABLEKS R9 R7 K43 ["FindActivated"]
+  NEWCLOSURE R11 P4
+  CAPTURE VAL R6
+  CAPTURE REF R8
+  NAMECALL R9 R9 K44 ["Connect"]
+  CALL R9 2 1
+  MOVE R8 R9
+  GETTABLEKS R9 R6 K45 ["pluginLoader"]
+  NAMECALL R9 R9 K46 ["waitForUserInteraction"]
+  CALL R9 1 1
+  JUMPIF R9 [+2]
+  CLOSEUPVALS R8
   RETURN R0 0
-  MOVE R8 R1
-  MOVE R9 R0
-  MOVE R10 R6
-  CALL R8 2 0
+  MOVE R10 R1
+  MOVE R11 R0
+  MOVE R12 R6
+  CALL R10 2 0
+  CLOSEUPVALS R8
   RETURN R0 0
   GETUPVAL R7 6
   GETTABLEKS R6 R7 K39 ["build"]
@@ -138,7 +168,7 @@ MAIN:
   GETTABLEKS R9 R10 K21 ["Common"]
   GETTABLEKS R8 R9 K22 ["pluginType"]
   CALL R7 1 1
-  DUPCLOSURE R8 K23 [PROTO_4]
+  DUPCLOSURE R8 K23 [PROTO_5]
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R5

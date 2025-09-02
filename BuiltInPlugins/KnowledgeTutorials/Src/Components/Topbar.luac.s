@@ -47,24 +47,26 @@ PROTO_0:
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K1 ["createElement"]
   GETUPVAL R11 3
-  DUPTABLE R12 K26 [{"LayoutOrder", "icon", "isCircular", "size", "onActivated"}]
+  DUPTABLE R12 K27 [{"LayoutOrder", "icon", "isCircular", "size", "onActivated", "testId"}]
   LOADN R13 1
   SETTABLEKS R13 R12 K17 ["LayoutOrder"]
-  GETTABLEKS R14 R0 K27 ["isTableOfContentsOpen"]
+  GETTABLEKS R14 R0 K28 ["isTableOfContentsOpen"]
   JUMPIFNOT R14 [+2]
-  LOADK R13 K28 ["icons/navigation/close"]
+  LOADK R13 K29 ["icons/navigation/close"]
   JUMP [+1]
-  LOADK R13 K29 ["icons/common/hamburgermenu"]
+  LOADK R13 K30 ["icons/common/hamburgermenu"]
   SETTABLEKS R13 R12 K22 ["icon"]
   LOADB R13 1
   SETTABLEKS R13 R12 K23 ["isCircular"]
   GETUPVAL R16 4
-  GETTABLEKS R15 R16 K30 ["Enums"]
-  GETTABLEKS R14 R15 K31 ["IconSize"]
-  GETTABLEKS R13 R14 K32 ["Small"]
+  GETTABLEKS R15 R16 K31 ["Enums"]
+  GETTABLEKS R14 R15 K32 ["IconSize"]
+  GETTABLEKS R13 R14 K33 ["Small"]
   SETTABLEKS R13 R12 K24 ["size"]
-  GETTABLEKS R13 R0 K33 ["onTableOfContentsClicked"]
+  GETTABLEKS R13 R0 K34 ["onTableOfContentsClicked"]
   SETTABLEKS R13 R12 K25 ["onActivated"]
+  LOADK R13 K35 ["--knowledge-tutorials-TableOfContentsButton"]
+  SETTABLEKS R13 R12 K26 ["testId"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K14 ["TableOfContents"]
   CALL R6 3 1
@@ -72,7 +74,7 @@ PROTO_0:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K1 ["createElement"]
   GETUPVAL R7 5
-  DUPTABLE R8 K34 [{"LayoutOrder"}]
+  DUPTABLE R8 K36 [{"LayoutOrder"}]
   LOADN R9 1
   SETTABLEKS R9 R8 K17 ["LayoutOrder"]
   CALL R6 2 1

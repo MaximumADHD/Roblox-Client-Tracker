@@ -122,113 +122,110 @@ PROTO_9:
   GETUPVAL R8 0
   MOVE R9 R7
   CALL R8 1 1
-  JUMPIF R8 [+17]
+  JUMPIF R8 [+13]
   GETUPVAL R8 1
-  CALL R8 0 1
-  JUMPIFNOT R8 [+161]
-  GETIMPORT R8 K1 [warn]
-  LOADK R10 K2 ["Could not convert asset response for asset %*"]
+  LOADK R10 K0 ["Could not convert asset response for asset %*"]
   GETUPVAL R13 2
-  GETTABLEKS R12 R13 K3 ["pretty"]
+  GETTABLEKS R12 R13 K1 ["pretty"]
   MOVE R13 R7
   CALL R12 1 1
-  NAMECALL R10 R10 K4 ["format"]
+  NAMECALL R10 R10 K2 ["format"]
   CALL R10 2 1
   MOVE R9 R10
   CALL R8 1 0
   JUMP [+147]
-  GETTABLEKS R8 R7 K5 ["assetItem"]
-  GETTABLEKS R9 R8 K6 ["asset"]
-  GETTABLEKS R11 R8 K7 ["sources"]
+  GETTABLEKS R8 R7 K3 ["assetItem"]
+  GETTABLEKS R9 R8 K4 ["asset"]
+  GETTABLEKS R11 R8 K5 ["sources"]
   GETTABLEN R10 R11 1
-  GETTABLEKS R13 R8 K6 ["asset"]
-  GETTABLEKS R12 R13 K8 ["creationContext"]
-  GETTABLEKS R11 R12 K9 ["creator"]
-  GETTABLEKS R13 R11 K10 ["userId"]
+  GETTABLEKS R13 R8 K4 ["asset"]
+  GETTABLEKS R12 R13 K6 ["creationContext"]
+  GETTABLEKS R11 R12 K7 ["creator"]
+  GETTABLEKS R13 R11 K8 ["userId"]
   JUMPIFNOT R13 [+3]
-  GETTABLEKS R12 R11 K10 ["userId"]
+  GETTABLEKS R12 R11 K8 ["userId"]
   JUMP [+2]
-  GETTABLEKS R12 R11 K11 ["groupId"]
-  GETTABLEKS R14 R11 K12 ["name"]
+  GETTABLEKS R12 R11 K9 ["groupId"]
+  GETTABLEKS R14 R11 K10 ["name"]
   JUMPIFNOT R14 [+3]
-  GETTABLEKS R13 R11 K12 ["name"]
+  GETTABLEKS R13 R11 K10 ["name"]
   JUMP [+5]
   FASTCALL1 TOSTRING R12 [+3]
   MOVE R14 R12
-  GETIMPORT R13 K14 [tostring]
+  GETIMPORT R13 K12 [tostring]
   CALL R13 1 1
-  GETTABLEKS R15 R11 K10 ["userId"]
+  GETTABLEKS R15 R11 K8 ["userId"]
   JUMPIFNOT R15 [+6]
   GETUPVAL R16 3
-  GETTABLEKS R15 R16 K15 ["Scope"]
-  GETTABLEKS R14 R15 K16 ["User"]
+  GETTABLEKS R15 R16 K13 ["Scope"]
+  GETTABLEKS R14 R15 K14 ["User"]
   JUMP [+5]
   GETUPVAL R16 3
-  GETTABLEKS R15 R16 K15 ["Scope"]
-  GETTABLEKS R14 R15 K17 ["Group"]
-  GETTABLEKS R16 R9 K18 ["state"]
-  JUMPIFEQKS R16 K19 ["STATE_ARCHIVED"] [+2]
+  GETTABLEKS R15 R16 K13 ["Scope"]
+  GETTABLEKS R14 R15 K15 ["Group"]
+  GETTABLEKS R16 R9 K16 ["state"]
+  JUMPIFEQKS R16 K17 ["STATE_ARCHIVED"] [+2]
   LOADB R15 0 +1
   LOADB R15 1
-  GETTABLEKS R17 R10 K20 ["createdDetails"]
+  GETTABLEKS R17 R10 K18 ["createdDetails"]
   JUMPIFNOT R17 [+6]
   GETUPVAL R18 3
-  GETTABLEKS R17 R18 K21 ["AssetSource"]
-  GETTABLEKS R16 R17 K22 ["Uploaded"]
+  GETTABLEKS R17 R18 K19 ["AssetSource"]
+  GETTABLEKS R16 R17 K20 ["Uploaded"]
   JUMP [+19]
-  GETTABLEKS R17 R10 K23 ["purchasedDetails"]
+  GETTABLEKS R17 R10 K21 ["purchasedDetails"]
   JUMPIFNOT R17 [+6]
   GETUPVAL R18 3
-  GETTABLEKS R17 R18 K21 ["AssetSource"]
-  GETTABLEKS R16 R17 K24 ["CreatorStore"]
+  GETTABLEKS R17 R18 K19 ["AssetSource"]
+  GETTABLEKS R16 R17 K22 ["CreatorStore"]
   JUMP [+10]
-  GETTABLEKS R17 R10 K25 ["sharedDetails"]
+  GETTABLEKS R17 R10 K23 ["sharedDetails"]
   JUMPIFNOT R17 [+6]
   GETUPVAL R18 3
-  GETTABLEKS R17 R18 K21 ["AssetSource"]
-  GETTABLEKS R16 R17 K26 ["SharedWithMe"]
+  GETTABLEKS R17 R18 K19 ["AssetSource"]
+  GETTABLEKS R16 R17 K24 ["SharedWithMe"]
   JUMP [+1]
   LOADNIL R16
-  DUPTABLE R17 K38 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived", "IsPackage", "SearchRank"}]
-  GETTABLEKS R18 R9 K39 ["assetId"]
-  SETTABLEKS R18 R17 K27 ["AssetId"]
+  DUPTABLE R17 K36 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived", "IsPackage", "SearchRank"}]
+  GETTABLEKS R18 R9 K37 ["assetId"]
+  SETTABLEKS R18 R17 K25 ["AssetId"]
   GETUPVAL R18 4
-  GETTABLEKS R19 R9 K40 ["assetType"]
+  GETTABLEKS R19 R9 K38 ["assetType"]
   CALL R18 1 1
-  SETTABLEKS R18 R17 K28 ["AssetType"]
-  GETTABLEKS R18 R9 K41 ["displayName"]
-  SETTABLEKS R18 R17 K29 ["DisplayName"]
-  GETTABLEKS R18 R9 K42 ["createTime"]
-  SETTABLEKS R18 R17 K30 ["Created"]
-  GETTABLEKS R18 R9 K43 ["updateTime"]
-  SETTABLEKS R18 R17 K31 ["Modified"]
+  SETTABLEKS R18 R17 K26 ["AssetType"]
+  GETTABLEKS R18 R9 K39 ["displayName"]
+  SETTABLEKS R18 R17 K27 ["DisplayName"]
+  GETTABLEKS R18 R9 K40 ["createTime"]
+  SETTABLEKS R18 R17 K28 ["Created"]
+  GETTABLEKS R18 R9 K41 ["updateTime"]
+  SETTABLEKS R18 R17 K29 ["Modified"]
   GETUPVAL R20 3
-  GETTABLEKS R19 R20 K32 ["ModerationStatus"]
-  GETTABLEKS R18 R19 K44 ["Placeholder"]
-  SETTABLEKS R18 R17 K32 ["ModerationStatus"]
-  DUPTABLE R18 K47 [{"Id", "Name", "Scope"}]
-  SETTABLEKS R12 R18 K45 ["Id"]
-  SETTABLEKS R13 R18 K46 ["Name"]
-  SETTABLEKS R14 R18 K15 ["Scope"]
-  SETTABLEKS R18 R17 K33 ["Creator"]
-  SETTABLEKS R16 R17 K34 ["Source"]
-  SETTABLEKS R15 R17 K35 ["Archived"]
-  GETTABLEKS R18 R8 K48 ["isPackage"]
-  SETTABLEKS R18 R17 K36 ["IsPackage"]
+  GETTABLEKS R19 R20 K30 ["ModerationStatus"]
+  GETTABLEKS R18 R19 K42 ["Placeholder"]
+  SETTABLEKS R18 R17 K30 ["ModerationStatus"]
+  DUPTABLE R18 K45 [{"Id", "Name", "Scope"}]
+  SETTABLEKS R12 R18 K43 ["Id"]
+  SETTABLEKS R13 R18 K44 ["Name"]
+  SETTABLEKS R14 R18 K13 ["Scope"]
+  SETTABLEKS R18 R17 K31 ["Creator"]
+  SETTABLEKS R16 R17 K32 ["Source"]
+  SETTABLEKS R15 R17 K33 ["Archived"]
+  GETTABLEKS R18 R8 K46 ["isPackage"]
+  SETTABLEKS R18 R17 K34 ["IsPackage"]
   GETUPVAL R20 5
-  GETTABLEKS R19 R20 K49 ["_fetchTotalAssets"]
+  GETTABLEKS R19 R20 K47 ["_fetchTotalAssets"]
   ADD R18 R19 R6
-  SETTABLEKS R18 R17 K37 ["SearchRank"]
+  SETTABLEKS R18 R17 K35 ["SearchRank"]
   FASTCALL2 TABLE_INSERT R1 R17 [+5]
   MOVE R19 R1
   MOVE R20 R17
-  GETIMPORT R18 K52 [table.insert]
+  GETIMPORT R18 K50 [table.insert]
   CALL R18 2 0
-  GETTABLEKS R19 R17 K33 ["Creator"]
-  GETTABLEKS R18 R19 K46 ["Name"]
-  GETTABLEKS R19 R17 K33 ["Creator"]
+  GETTABLEKS R19 R17 K31 ["Creator"]
+  GETTABLEKS R18 R19 K44 ["Name"]
+  GETTABLEKS R19 R17 K31 ["Creator"]
   SETTABLE R19 R2 R18
-  FORGLOOP R3 2 [-169]
+  FORGLOOP R3 2 [-165]
   RETURN R1 2
 
 PROTO_10:
@@ -788,40 +785,34 @@ PROTO_22:
 PROTO_23:
   GETTABLEKS R1 R0 K0 ["responseBody"]
   GETTABLEKS R2 R0 K1 ["responseCode"]
-  JUMPIFEQKN R2 K2 [200] [+18]
+  JUMPIFEQKN R2 K2 [200] [+14]
   GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+10]
-  GETIMPORT R2 K4 [warn]
-  LOADK R4 K5 ["Failed to grant permissions to assets: %*"]
+  LOADK R4 K3 ["Failed to grant permissions to assets: %*"]
   GETTABLEKS R6 R0 K1 ["responseCode"]
-  NAMECALL R4 R4 K6 ["format"]
+  NAMECALL R4 R4 K4 ["format"]
   CALL R4 2 1
   MOVE R3 R4
   CALL R2 1 0
   LOADB R2 0
   NEWTABLE R3 0 0
   RETURN R2 2
-  GETTABLEKS R2 R1 K7 ["errors"]
-  JUMPIFNOT R2 [+26]
-  GETTABLEKS R3 R1 K7 ["errors"]
+  GETTABLEKS R2 R1 K5 ["errors"]
+  JUMPIFNOT R2 [+22]
+  GETTABLEKS R3 R1 K5 ["errors"]
   LENGTH R2 R3
-  JUMPIFEQKN R2 K8 [0] [+22]
+  JUMPIFEQKN R2 K6 [0] [+18]
   GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+14]
-  GETIMPORT R2 K4 [warn]
-  LOADK R4 K9 ["Failed to grant permissions to assets: %*\")"]
+  LOADK R4 K7 ["Failed to grant permissions to assets: %*\")"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K10 ["pretty"]
-  GETTABLEKS R7 R1 K7 ["errors"]
+  GETTABLEKS R6 R7 K8 ["pretty"]
+  GETTABLEKS R7 R1 K5 ["errors"]
   CALL R6 1 1
-  NAMECALL R4 R4 K6 ["format"]
+  NAMECALL R4 R4 K4 ["format"]
   CALL R4 2 1
   MOVE R3 R4
   CALL R2 1 0
   LOADB R2 0
-  GETTABLEKS R3 R1 K7 ["errors"]
+  GETTABLEKS R3 R1 K5 ["errors"]
   RETURN R2 2
   LOADB R2 1
   NEWTABLE R3 0 0
@@ -829,13 +820,10 @@ PROTO_23:
 
 PROTO_24:
   GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+12]
-  GETIMPORT R1 K1 [warn]
-  LOADK R3 K2 ["Failed to grant permissions to assets: %* %*"]
-  GETTABLEKS R5 R0 K3 ["responseCode"]
-  GETTABLEKS R6 R0 K4 ["requestErrorMessage"]
-  NAMECALL R3 R3 K5 ["format"]
+  LOADK R3 K0 ["Failed to grant permissions to assets: %* %*"]
+  GETTABLEKS R5 R0 K1 ["responseCode"]
+  GETTABLEKS R6 R0 K2 ["requestErrorMessage"]
+  NAMECALL R3 R3 K3 ["format"]
   CALL R3 3 1
   MOVE R2 R3
   CALL R1 1 0
@@ -919,13 +907,13 @@ PROTO_26:
   MOVE R1 R2
   RETURN R1 1
   GETUPVAL R1 1
-  CALL R1 0 1
-  JUMPIFNOT R1 [+6]
-  GETIMPORT R1 K12 [warn]
-  LOADK R2 K13 ["ExplorerRow: Unsupported Scope type for image icon"]
-  GETTABLEKS R3 R0 K0 ["Scope"]
-  CALL R1 2 0
-  LOADK R1 K14 [""]
+  LOADK R3 K11 ["ExplorerRow: Unsupported Scope type for image icon %*"]
+  GETTABLEKS R5 R0 K0 ["Scope"]
+  NAMECALL R3 R3 K4 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  LOADK R1 K12 [""]
   RETURN R1 1
 
 PROTO_27:
@@ -936,14 +924,14 @@ PROTO_27:
   CALL R2 1 0
   RETURN R0 0
   GETUPVAL R2 1
-  CALL R2 0 1
-  JUMPIFNOT R2 [+5]
-  GETIMPORT R2 K5 [warn]
-  LOADK R3 K6 ["Failed to fetch thumbnail for scope"]
-  GETUPVAL R4 2
-  CALL R2 2 0
+  LOADK R4 K4 ["Failed to fetch thumbnail for scope %*"]
+  GETUPVAL R6 2
+  NAMECALL R4 R4 K5 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
   GETUPVAL R2 0
-  LOADK R3 K7 [""]
+  LOADK R3 K6 [""]
   CALL R2 1 0
   RETURN R0 0
 
@@ -1058,16 +1046,13 @@ PROTO_35:
 
 PROTO_36:
   GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+14]
-  GETIMPORT R1 K1 [warn]
-  LOADK R3 K2 ["Failed to fetch asset dependencies for asset %*: %*"]
+  LOADK R3 K0 ["Failed to fetch asset dependencies for asset %*: %*"]
   GETUPVAL R5 1
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K3 ["pretty"]
+  GETTABLEKS R6 R7 K1 ["pretty"]
   MOVE R7 R0
   CALL R6 1 1
-  NAMECALL R3 R3 K4 ["format"]
+  NAMECALL R3 R3 K2 ["format"]
   CALL R3 3 1
   MOVE R2 R3
   CALL R1 1 0
@@ -1114,16 +1099,13 @@ PROTO_38:
 
 PROTO_39:
   GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+14]
-  GETIMPORT R1 K1 [warn]
-  LOADK R3 K2 ["Failed to fetch package metadata for asset %*: %*"]
+  LOADK R3 K0 ["Failed to fetch package metadata for asset %*: %*"]
   GETUPVAL R5 1
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K3 ["pretty"]
+  GETTABLEKS R6 R7 K1 ["pretty"]
   MOVE R7 R0
   CALL R6 1 1
-  NAMECALL R3 R3 K4 ["format"]
+  NAMECALL R3 R3 K2 ["format"]
   CALL R3 3 1
   MOVE R2 R3
   CALL R1 1 0
@@ -1292,16 +1274,13 @@ PROTO_43:
 
 PROTO_44:
   GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+14]
-  GETIMPORT R1 K1 [warn]
-  LOADK R3 K2 ["Failed to fetch asset details for asset %*: %*"]
+  LOADK R3 K0 ["Failed to fetch asset details for asset %*: %*"]
   GETUPVAL R5 1
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K3 ["pretty"]
+  GETTABLEKS R6 R7 K1 ["pretty"]
   MOVE R7 R0
   CALL R6 1 1
-  NAMECALL R3 R3 K4 ["format"]
+  NAMECALL R3 R3 K2 ["format"]
   CALL R3 3 1
   MOVE R2 R3
   CALL R1 1 0
@@ -1410,17 +1389,17 @@ MAIN:
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K6 ["Src"]
-  GETTABLEKS R17 R18 K28 ["Flags"]
-  GETTABLEKS R16 R17 K29 ["getFFlagDebugAmrOutput"]
+  GETTABLEKS R17 R18 K20 ["Util"]
+  GETTABLEKS R16 R17 K28 ["logIfDebug"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
   GETTABLEKS R19 R0 K6 ["Src"]
-  GETTABLEKS R18 R19 K28 ["Flags"]
+  GETTABLEKS R18 R19 K29 ["Flags"]
   GETTABLEKS R17 R18 K30 ["getFIntAmrAssetFetchCount"]
   CALL R16 1 1
   GETIMPORT R17 K5 [require]
   GETTABLEKS R20 R0 K6 ["Src"]
-  GETTABLEKS R19 R20 K28 ["Flags"]
+  GETTABLEKS R19 R20 K29 ["Flags"]
   GETTABLEKS R18 R19 K31 ["getFFlagAmrFixDependencyPerms"]
   CALL R17 1 1
   NEWTABLE R18 32 0

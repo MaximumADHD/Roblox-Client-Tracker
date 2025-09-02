@@ -1,8 +1,8 @@
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnableRibbonPlugin"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  LOADK R2 K2 ["EnableRibbonPluginFeature"]
+  NAMECALL R0 R0 K3 ["GetEngineFeature"]
   CALL R0 2 1
   NEWTABLE R1 256 0
   LOADK R2 K4 ["AnimationClipEditor"]
@@ -455,7 +455,7 @@ MAIN:
   LOADK R4 K1 [game]
   SETTABLE R4 R2 R3
   GETIMPORT R3 K260 [Enum.PoseEasingStyle.Elastic]
-  LOADK R4 K3 ["GetFastFlag"]
+  LOADK R4 K3 ["GetEngineFeature"]
   SETTABLE R4 R2 R3
   GETIMPORT R3 K262 [Enum.PoseEasingStyle.CubicV2]
   LOADK R4 K1 [game]
@@ -712,7 +712,7 @@ MAIN:
   LOADK R4 K5 ["PLUGIN_NAME"]
   SETTABLE R4 R2 R3
   GETIMPORT R3 K260 [Enum.PoseEasingStyle.Elastic]
-  LOADK R4 K3 ["GetFastFlag"]
+  LOADK R4 K3 ["GetEngineFeature"]
   SETTABLE R4 R2 R3
   GETIMPORT R3 K254 [Enum.PoseEasingStyle.Bounce]
   LOADK R4 K253 ["Bounce"]

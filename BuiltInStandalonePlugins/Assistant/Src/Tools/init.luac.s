@@ -1,32 +1,31 @@
 PROTO_0:
-  GETUPVAL R1 0
-  LOADNIL R2
+  GETUPVAL R2 0
   LOADNIL R3
-  FORGPREP R1
-  MOVE R6 R5
-  DUPTABLE R7 K3 [{"networking", "dataModel", "plugin"}]
-  SETTABLEKS R0 R7 K0 ["networking"]
-  GETIMPORT R8 K5 [game]
-  SETTABLEKS R8 R7 K1 ["dataModel"]
-  GETIMPORT R8 K6 [plugin]
-  SETTABLEKS R8 R7 K2 ["plugin"]
-  CALL R6 1 1
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K7 ["Builtin"]
-  GETTABLE R9 R10 R4
-  NOT R8 R9
-  LOADK R10 K8 ["Tool with name %* already exists"]
-  MOVE R12 R4
-  NAMECALL R10 R10 K9 ["format"]
-  CALL R10 2 1
-  MOVE R9 R10
-  FASTCALL2 ASSERT R8 R9 [+3]
-  GETIMPORT R7 K11 [assert]
-  CALL R7 2 0
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K7 ["Builtin"]
-  SETTABLE R6 R7 R4
-  FORGLOOP R1 2 [-34]
+  LOADNIL R4
+  FORGPREP R2
+  MOVE R7 R6
+  DUPTABLE R8 K3 [{"networking", "dataModel", "plugin"}]
+  SETTABLEKS R0 R8 K0 ["networking"]
+  GETIMPORT R9 K5 [game]
+  SETTABLEKS R9 R8 K1 ["dataModel"]
+  SETTABLEKS R1 R8 K2 ["plugin"]
+  CALL R7 1 1
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K6 ["Builtin"]
+  GETTABLE R10 R11 R5
+  NOT R9 R10
+  LOADK R11 K7 ["Tool with name %* already exists"]
+  MOVE R13 R5
+  NAMECALL R11 R11 K8 ["format"]
+  CALL R11 2 1
+  MOVE R10 R11
+  FASTCALL2 ASSERT R9 R10 [+3]
+  GETIMPORT R8 K10 [assert]
+  CALL R8 2 0
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["Builtin"]
+  SETTABLE R7 R8 R5
+  FORGLOOP R2 2 [-32]
   RETURN R0 0
 
 PROTO_1:

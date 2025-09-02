@@ -1,0 +1,473 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["render"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K3 [{"Node"}]
+  SETTABLEKS R0 R4 K2 ["Node"]
+  CALL R3 1 -1
+  CALL R2 -1 -1
+  CALL R1 -1 1
+  GETTABLEKS R2 R1 K4 ["container"]
+  SETUPVAL R2 3
+  GETUPVAL R2 3
+  JUMPIFNOT R2 [+9]
+  GETUPVAL R2 3
+  LOADK R4 K5 ["ScreenGui"]
+  NAMECALL R2 R2 K6 ["FindFirstAncestorWhichIsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R3 R2 K7 ["Parent"]
+  SETUPVAL R3 4
+  GETIMPORT R2 K10 [task.wait]
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["Container not mounted, ensure render is called"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["GUI root not available, ensure render is called"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R3 0
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["Container not mounted, ensure render is called"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R0 0
+  LOADK R2 K3 ["Node"]
+  LOADB R3 1
+  NAMECALL R0 R0 K4 ["FindFirstChild"]
+  CALL R0 3 1
+  FASTCALL2K ASSERT R0 K5 [+5]
+  MOVE R2 R0
+  LOADK R3 K5 ["Node not found"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETUPVAL R5 1
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K0 [+4]
+  LOADK R5 K0 ["Container not mounted, ensure render is called"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K3 ["getByText"]
+  GETUPVAL R1 2
+  DUPTABLE R2 K5 [{"exact"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K4 ["exact"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETUPVAL R5 1
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K0 [+4]
+  LOADK R5 K0 ["Container not mounted, ensure render is called"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K3 ["getByDisplayValue"]
+  GETUPVAL R1 2
+  DUPTABLE R2 K5 [{"exact"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K4 ["exact"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CALL R1 1 2
+  JUMPIFNOT R1 [+1]
+  RETURN R2 1
+  GETIMPORT R3 K1 [pcall]
+  NEWCLOSURE R4 P1
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CALL R3 1 2
+  JUMPIFNOT R3 [+1]
+  RETURN R4 1
+  GETIMPORT R5 K3 [error]
+  LOADK R7 K4 ["No text object found for message \"%*\".
+%*
+%*"]
+  MOVE R9 R0
+  MOVE R10 R2
+  MOVE R11 R4
+  NAMECALL R7 R7 K5 ["format"]
+  CALL R7 4 1
+  MOVE R6 R7
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETUPVAL R6 1
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K0 [+4]
+  LOADK R6 K0 ["Container not mounted, ensure render is called"]
+  GETIMPORT R4 K2 [assert]
+  CALL R4 2 0
+  GETUPVAL R3 1
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K3 ["queryByTestId"]
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETUPVAL R5 1
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K0 [+4]
+  LOADK R5 K0 ["Container not mounted, ensure render is called"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K3 ["queryByTestId"]
+  LOADK R1 K4 ["--knowledge-tutorials-NextButton"]
+  CALL R0 1 1
+  FASTCALL2K ASSERT R0 K5 [+5]
+  MOVE R2 R0
+  LOADK R3 K5 ["Next button not found"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K6 ["click"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETUPVAL R5 1
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K0 [+4]
+  LOADK R5 K0 ["Container not mounted, ensure render is called"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K3 ["queryByTestId"]
+  LOADK R1 K4 ["--knowledge-tutorials-PrevButton"]
+  CALL R0 1 1
+  FASTCALL2K ASSERT R0 K5 [+5]
+  MOVE R2 R0
+  LOADK R3 K5 ["Prev button not found"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K6 ["click"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETUPVAL R5 1
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K0 [+4]
+  LOADK R5 K0 ["Container not mounted, ensure render is called"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K3 ["queryByTestId"]
+  LOADK R1 K4 ["--knowledge-tutorials-TableOfContentsButton"]
+  CALL R0 1 1
+  FASTCALL2K ASSERT R0 K5 [+5]
+  MOVE R2 R0
+  LOADK R3 K5 ["Table of contents button not found"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K6 ["click"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R2 0
+  GETUPVAL R6 1
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K0 [+4]
+  LOADK R6 K0 ["Container not mounted, ensure render is called"]
+  GETIMPORT R4 K2 [assert]
+  CALL R4 2 0
+  GETUPVAL R3 1
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K3 ["queryByTestId"]
+  LOADK R3 K4 ["--knowledge-tutorials-SectionButton_%*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K5 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 1
+  FASTCALL2K ASSERT R1 K6 [+5]
+  MOVE R3 R1
+  LOADK R4 K6 ["Section button not found"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K7 ["click"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_12:
+  JUMPIFNOT R2 [+9]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["keyDown"]
+  MOVE R4 R0
+  DUPTABLE R5 K2 [{"key"}]
+  SETTABLEKS R1 R5 K1 ["key"]
+  CALL R3 2 0
+  RETURN R0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["keyUp"]
+  MOVE R4 R0
+  DUPTABLE R5 K2 [{"key"}]
+  SETTABLEKS R1 R5 K1 ["key"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_13:
+  LOADK R3 K0 ["ScrollingFrame"]
+  NAMECALL R1 R0 K1 ["FindFirstAncestorWhichIsA"]
+  CALL R1 2 1
+  MOVE R3 R1
+  JUMPIFNOT R3 [+4]
+  LOADK R5 K0 ["ScrollingFrame"]
+  NAMECALL R3 R1 K2 ["IsA"]
+  CALL R3 2 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["Scroll area not found for widget"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  GETTABLEKS R3 R1 K6 ["AbsolutePosition"]
+  GETTABLEKS R5 R0 K6 ["AbsolutePosition"]
+  GETTABLEKS R7 R0 K8 ["AbsoluteSize"]
+  DIVK R6 R7 K7 [2]
+  ADD R4 R5 R6
+  SUB R2 R3 R4
+  GETTABLEKS R3 R1 K9 ["CanvasPosition"]
+  SUB R3 R3 R2
+  SETTABLEKS R3 R1 K9 ["CanvasPosition"]
+  RETURN R0 0
+
+PROTO_14:
+  GETIMPORT R0 K1 [error]
+  GETUPVAL R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["spyOn"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["Util"]
+  GETTABLEKS R3 R4 K2 ["MarkdownParser"]
+  LOADK R4 K3 ["parse"]
+  CALL R2 2 1
+  GETTABLEKS R1 R2 K4 ["mockImplementation"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_16:
+  MOVE R2 R0
+  JUMPIFNOT R2 [+35]
+  GETTABLEKS R3 R2 K0 ["Parent"]
+  LOADK R7 K1 ["Parent not found for element: "]
+  NAMECALL R8 R2 K2 ["GetFullName"]
+  CALL R8 1 1
+  CONCAT R6 R7 R8
+  FASTCALL2 ASSERT R3 R6 [+4]
+  MOVE R5 R3
+  GETIMPORT R4 K4 [assert]
+  CALL R4 2 0
+  LOADK R7 K5 ["GuiObject"]
+  NAMECALL R5 R3 K6 ["IsA"]
+  CALL R5 2 1
+  LOADK R7 K7 ["Parent is not a GuiObject: "]
+  NAMECALL R8 R3 K2 ["GetFullName"]
+  CALL R8 1 1
+  CONCAT R6 R7 R8
+  FASTCALL2 ASSERT R5 R6 [+3]
+  GETIMPORT R4 K4 [assert]
+  CALL R4 2 0
+  MOVE R2 R3
+  MOVE R6 R1
+  NAMECALL R4 R2 K8 ["HasTag"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+1]
+  RETURN R2 1
+  JUMPBACK [-36]
+  LOADK R6 K9 ["Ancestor with tag %* not found for element %*"]
+  MOVE R8 R1
+  NAMECALL R9 R0 K2 ["GetFullName"]
+  CALL R9 1 1
+  NAMECALL R6 R6 K10 ["format"]
+  CALL R6 3 1
+  MOVE R5 R6
+  FASTCALL2 ASSERT R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  RETURN R2 1
+
+PROTO_17:
+  LOADNIL R0
+  LOADNIL R1
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE REF R0
+  CAPTURE REF R1
+  NEWCLOSURE R3 P1
+  CAPTURE REF R0
+  NEWCLOSURE R4 P2
+  CAPTURE REF R1
+  NEWCLOSURE R5 P3
+  CAPTURE REF R0
+  NEWCLOSURE R6 P4
+  CAPTURE UPVAL U3
+  CAPTURE REF R0
+  NEWCLOSURE R7 P5
+  CAPTURE UPVAL U3
+  CAPTURE REF R0
+  NEWCLOSURE R8 P6
+  CAPTURE UPVAL U3
+  CAPTURE REF R0
+  CAPTURE UPVAL U4
+  NEWCLOSURE R9 P7
+  CAPTURE UPVAL U3
+  CAPTURE REF R0
+  CAPTURE UPVAL U4
+  NEWCLOSURE R10 P8
+  CAPTURE UPVAL U3
+  CAPTURE REF R0
+  CAPTURE UPVAL U4
+  NEWCLOSURE R11 P9
+  CAPTURE UPVAL U3
+  CAPTURE REF R0
+  CAPTURE UPVAL U4
+  DUPCLOSURE R12 K0 [PROTO_12]
+  CAPTURE UPVAL U4
+  DUPCLOSURE R13 K1 [PROTO_13]
+  DUPCLOSURE R14 K2 [PROTO_15]
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  DUPCLOSURE R15 K3 [PROTO_16]
+  DUPTABLE R16 K19 [{"render", "cleanup", "getContainer", "getGuiRoot", "getRenderedNode", "getTextObjectWithMessage", "queryByTestId", "clickNextButton", "clickPrevButton", "clickTableOfContentsButton", "clickSectionButton", "setKeyDown", "scrollToElement", "getAncestorWithTag", "throwMarkdownParserError"}]
+  SETTABLEKS R2 R16 K4 ["render"]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K5 ["cleanup"]
+  SETTABLEKS R17 R16 K5 ["cleanup"]
+  SETTABLEKS R3 R16 K6 ["getContainer"]
+  SETTABLEKS R4 R16 K7 ["getGuiRoot"]
+  SETTABLEKS R5 R16 K8 ["getRenderedNode"]
+  SETTABLEKS R6 R16 K9 ["getTextObjectWithMessage"]
+  SETTABLEKS R7 R16 K10 ["queryByTestId"]
+  SETTABLEKS R8 R16 K11 ["clickNextButton"]
+  SETTABLEKS R9 R16 K12 ["clickPrevButton"]
+  SETTABLEKS R10 R16 K13 ["clickTableOfContentsButton"]
+  SETTABLEKS R11 R16 K14 ["clickSectionButton"]
+  SETTABLEKS R12 R16 K15 ["setKeyDown"]
+  SETTABLEKS R13 R16 K16 ["scrollToElement"]
+  SETTABLEKS R15 R16 K17 ["getAncestorWithTag"]
+  SETTABLEKS R14 R16 K18 ["throwMarkdownParserError"]
+  CLOSEUPVALS R0
+  RETURN R16 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["KnowledgeTutorials"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R1 K8 ["Dev"]
+  GETTABLEKS R4 R5 K9 ["JestGlobals"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K10 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R1 K8 ["Dev"]
+  GETTABLEKS R6 R7 K11 ["ReactTestingLibrary"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R10 R0 K12 ["Src"]
+  GETTABLEKS R9 R10 K13 ["Util"]
+  GETTABLEKS R8 R9 K14 ["tests"]
+  GETTABLEKS R7 R8 K15 ["mockContext"]
+  CALL R6 1 1
+  GETTABLEKS R7 R5 K16 ["fireEvent"]
+  GETTABLEKS R8 R5 K17 ["within"]
+  GETTABLEKS R9 R3 K18 ["jest"]
+  DUPCLOSURE R10 K19 [PROTO_17]
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  RETURN R10 1

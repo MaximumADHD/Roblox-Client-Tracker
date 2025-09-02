@@ -32,22 +32,19 @@ PROTO_0:
   CALL R1 2 -1
   RETURN R1 -1
   GETUPVAL R1 3
-  CALL R1 0 1
-  JUMPIFNOT R1 [+4]
-  GETIMPORT R1 K11 [warn]
-  LOADK R2 K12 ["ExplorerRow: Item does not have a scope"]
+  LOADK R2 K10 ["ExplorerRow: Item does not have a scope"]
   CALL R1 1 0
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K2 ["createElement"]
   GETUPVAL R2 4
   NEWTABLE R3 4 0
   GETTABLEKS R4 R0 K3 ["Index"]
-  SETTABLEKS R4 R3 K13 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K11 ["LayoutOrder"]
   GETTABLEKS R4 R0 K5 ["Position"]
   SETTABLEKS R4 R3 K5 ["Position"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K14 ["Tag"]
-  LOADK R5 K15 ["am-size-full-explorerrow"]
+  GETTABLEKS R4 R5 K12 ["Tag"]
+  LOADK R5 K13 ["am-size-full-explorerrow"]
   SETTABLE R5 R3 R4
   CALL R1 2 -1
   RETURN R1 -1
@@ -87,8 +84,8 @@ MAIN:
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K9 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Flags"]
-  GETTABLEKS R10 R11 K18 ["getFFlagDebugAmrOutput"]
+  GETTABLEKS R11 R12 K17 ["Util"]
+  GETTABLEKS R10 R11 K18 ["logIfDebug"]
   CALL R9 1 1
   DUPCLOSURE R10 K19 [PROTO_0]
   CAPTURE VAL R1

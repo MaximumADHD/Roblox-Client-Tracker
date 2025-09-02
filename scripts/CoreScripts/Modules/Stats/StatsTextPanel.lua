@@ -19,7 +19,6 @@ local StatsUtils = require(CoreGuiService.RobloxGui.Modules.Stats.StatsUtils)
 local StatsAggregatorClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsAggregator)
 local DecoratedValueLabelClass = require(CoreGuiService.RobloxGui.Modules.Stats.DecoratedValueLabel)
 
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
@@ -112,7 +111,7 @@ end
 -- TODO APPEXP-2201: Localize Text
 function StatsTextPanelClass:_addCurrentValueWidget()
 	self._currentValueWidget = DecoratedValueLabelClass.new(self._statType, 
-		if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() and FFlagUseNotificationsLocalization then "InGame.UnknownNamespace.Current" else "Current"
+		if FFlagUseNotificationsLocalization then "InGame.UnknownNamespace.Current" else "Current"
 	)
 
 	self._currentValueWidget:PlaceInParent(self._frame, 
@@ -135,7 +134,7 @@ end
 
 function StatsTextPanelClass:_addTargetValueWidget()
 	self._targetValueWidget = DecoratedValueLabelClass.new(self._statType, 
-		if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() and FFlagUseNotificationsLocalization then "InGame.UnknownNamespace.Target" else "Target"
+		if FFlagUseNotificationsLocalization then "InGame.UnknownNamespace.Target" else "Target"
 	)
 
 	self._targetValueWidget:PlaceInParent(self._frame, 
@@ -156,7 +155,7 @@ end
 
 function StatsTextPanelClass:_addAverageValueWidget()
 	self._averageValueWidget = DecoratedValueLabelClass.new(self._statType, 
-		if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() and FFlagUseNotificationsLocalization then "InGame.UnknownNamespace.Average" else "Average"
+		if FFlagUseNotificationsLocalization then "InGame.UnknownNamespace.Average" else "Average"
 	)
 
 	self._averageValueWidget:PlaceInParent(self._frame, 

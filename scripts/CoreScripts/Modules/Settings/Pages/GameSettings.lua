@@ -82,7 +82,6 @@ local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
 local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
-local GetFFlagCoreScriptsMigrateFromLegacyCSVLoc = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCoreScriptsMigrateFromLegacyCSVLoc
 
 local CrossExpVoiceIXPManager = require(CorePackages.Workspace.Packages.CrossExperienceVoice).IXPManager.default
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -141,25 +140,16 @@ local MOVEMENT_MODE_VALUE_ENUM = {
 	TAP_TO_MOVE = "Tap to Move",
 	CLICK_TO_MOVE = "Click to Move",
 }
-local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and (
-	if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-		RobloxTranslator:FormatByKey(Constants.MovementModeDynamicThumbstickKey) else
-		MOVEMENT_MODE_VALUE_ENUM.DEFAULT_THUMBSTICK
-	)
+local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and 
+	RobloxTranslator:FormatByKey(Constants.MovementModeDynamicThumbstickKey)
 	or MOVEMENT_MODE_VALUE_ENUM.DEFAULT_KEYBOARD
 local MOVEMENT_MODE_KEYBOARDMOUSE_STRING = "Keyboard + Mouse"
 local MOVEMENT_MODE_CLICKTOMOVE_STRING = UserInputService.TouchEnabled and MOVEMENT_MODE_VALUE_ENUM.TAP_TO_MOVE or MOVEMENT_MODE_VALUE_ENUM.CLICK_TO_MOVE
 local MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING = "Dynamic Thumbstick"
-local MOVEMENT_MODE_THUMBSTICK_STRING = if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
-	RobloxTranslator:FormatByKey("Feature.SettingsHub.TouchMovementMode.ClassicThumbstick") else 
-	"Classic Thumbstick"
+local MOVEMENT_MODE_THUMBSTICK_STRING = RobloxTranslator:FormatByKey("Feature.SettingsHub.TouchMovementMode.ClassicThumbstick")
 
-local UNAVAILABLE_TEXT
-local GIVE_FEEDBACK_TEXT
-if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-	UNAVAILABLE_TEXT = RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.Unavailable")
-	GIVE_FEEDBACK_TEXT = RobloxTranslator:FormatByKey("CoreScripts.Feedback.EntryPoint.ButtonText")
-end
+local UNAVAILABLE_TEXT = RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.Unavailable")
+local GIVE_FEEDBACK_TEXT = RobloxTranslator:FormatByKey("CoreScripts.Feedback.EntryPoint.ButtonText")
 
 local PLAYER_NAMES_ENABLED_VALUES = {
 	On = 1,
@@ -180,11 +170,7 @@ local function getDefaultMovementMode()
 	local isPreferredInputTouch = if FFlagGameSettingsUsePreferredInputMovement then 
 		UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
 	if isPreferredInputTouch then
-		return (
-			if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
-				RobloxTranslator:FormatByKey(Constants.MovementModeDynamicThumbstickKey) else
-				MOVEMENT_MODE_VALUE_ENUM.DEFAULT_THUMBSTICK
-		)
+		return RobloxTranslator:FormatByKey(Constants.MovementModeDynamicThumbstickKey)
 	else
 		return MOVEMENT_MODE_VALUE_ENUM.DEFAULT_KEYBOARD
 	end
@@ -368,7 +354,6 @@ local FFlagFeedbackEntryPointButtonSizeAdjustment =
 	game:DefineFastFlag("FeedbackEntryPointButtonSizeAdjustment2", false)
 local FFlagFeedbackEntryPointImprovedStrictnessCheck =
 	game:DefineFastFlag("FeedbackEntryPointImprovedStrictnessCheck", false)
-local GetFFlagEnableShowVoiceUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableShowVoiceUI
 local FFlagBuilderIcon = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
@@ -1878,7 +1863,7 @@ local function Initialize()
 				if FFlagFeedbackEntryPointButtonSizeAdjustment then
 					toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton(
 						"toggleFeedbackModeButton",
-						if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then GIVE_FEEDBACK_TEXT else "Give Feedback",
+						GIVE_FEEDBACK_TEXT,
 						UDim2.new(1, 0, 1, -20),
 						onToggleFeedbackMode,
 						this
@@ -1890,7 +1875,7 @@ local function Initialize()
 				else
 					toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton(
 						"toggleFeedbackModeButton",
-						if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then GIVE_FEEDBACK_TEXT else "Give Feedback",
+						GIVE_FEEDBACK_TEXT,
 						UDim2.new(0, 300, 1, -20),
 						onToggleFeedbackMode,
 						this
@@ -1915,9 +1900,7 @@ local function Initialize()
 					local row =
 						utility:AddNewRowObject(
 							this,
-							if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-								RobloxTranslator:FormatByKey("CoreScripts.Feedback.EntryPoint.OptionText") else
-								"Give Translation Feedback",
+							RobloxTranslator:FormatByKey("CoreScripts.Feedback.EntryPoint.OptionText"),
 							toggleFeedbackModeButton,
 							nil,
 							true
@@ -1926,9 +1909,7 @@ local function Initialize()
 				else
 					local row = utility:AddNewRowObject(
 						this,
-						if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then
-							RobloxTranslator:FormatByKey("CoreScripts.Feedback.EntryPoint.OptionText") else
-							"Give Translation Feedback",
+						RobloxTranslator:FormatByKey("CoreScripts.Feedback.EntryPoint.OptionText"),
 						toggleFeedbackModeButton
 					)
 					row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["FeedbackModeButton"]
@@ -2061,11 +2042,9 @@ local function Initialize()
 				this.LanguageSelectorFrame, this.LanguageSelectorLabel, this.LanguageSelectorMode =
 					utility:AddNewRow(
 						this,
-						if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
-							RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.SettingLabel") else 
-							"Experience Language",
+						RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.SettingLabel"),
 						"DropDown",
-						{ if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then UNAVAILABLE_TEXT else "Unavailable" },
+						{ UNAVAILABLE_TEXT },
 						1
 					)
 				this.LanguageSelectorMode:SetInteractable(false)
@@ -2107,9 +2086,7 @@ local function Initialize()
 				this.LanguageSelectorFrame, this.LanguageSelectorLabel, this.LanguageSelectorMode =
 					utility:AddNewRow(
 						this,
-						if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then 
-							RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.SettingLabel") else 
-							"Experience Language",
+						RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.SettingLabel"),
 						"DropDown",
 						languageOptions,
 						startIndex
@@ -3847,44 +3824,42 @@ local function Initialize()
 						end
 					end
 
-					if GetFFlagEnableShowVoiceUI() then
-						VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
-							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
-								return
-							end
-							this.VoiceChatOptionsEnabled = true
-							updateInputDeviceVisibility()
-							if
-								GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
-							then
-								this[VOICE_CONNECT_FRAME_KEY].Visible = false
-							end
-							if
-								GetFFlagEnableConnectDisconnectInSettingsAndChrome()
-								and this[VOICE_DISCONNECT_FRAME_KEY]
-							then
-								this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
-							end
-						end)
-						VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
-							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
-								return
-							end
-							this.VoiceChatOptionsEnabled = false
-							updateInputDeviceVisibility()
-							if
-								GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
-							then
-								this[VOICE_CONNECT_FRAME_KEY].Visible = true
-							end
-							if
-								GetFFlagEnableConnectDisconnectInSettingsAndChrome()
-								and this[VOICE_DISCONNECT_FRAME_KEY]
-							then
-								this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
-							end
-						end)
-					end
+					VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
+						if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
+							return
+						end
+						this.VoiceChatOptionsEnabled = true
+						updateInputDeviceVisibility()
+						if
+							GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
+						then
+							this[VOICE_CONNECT_FRAME_KEY].Visible = false
+						end
+						if
+							GetFFlagEnableConnectDisconnectInSettingsAndChrome()
+							and this[VOICE_DISCONNECT_FRAME_KEY]
+						then
+							this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
+						end
+					end)
+					VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
+						if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
+							return
+						end
+						this.VoiceChatOptionsEnabled = false
+						updateInputDeviceVisibility()
+						if
+							GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
+						then
+							this[VOICE_CONNECT_FRAME_KEY].Visible = true
+						end
+						if
+							GetFFlagEnableConnectDisconnectInSettingsAndChrome()
+							and this[VOICE_DISCONNECT_FRAME_KEY]
+						then
+							this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
+						end
+					end)
 				end)
 				:catch(function()
 					if GetFFlagVoiceChatUILogging() then
@@ -4186,13 +4161,13 @@ local function Initialize()
 				-- Matches with adjustbutton in settings menu for consistency
 				this.toggleFeedbackModeButton.Active = true
 				this.toggleFeedbackModeButton.Enabled.Value = true
-				this.toggleFeedbackModeText.Text = if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then GIVE_FEEDBACK_TEXT else "Give Feedback"
+				this.toggleFeedbackModeText.Text = GIVE_FEEDBACK_TEXT
 			else
 				this.toggleFeedbackModeButton.Active = false
 				this.toggleFeedbackModeButton.Enabled.Value = false
 				this.toggleFeedbackModeText.TextColor3 =
 					Theme.color("ButtonNonInteractable", Color3.fromRGB(100, 100, 100))
-				this.toggleFeedbackModeText.Text = if GetFFlagCoreScriptsMigrateFromLegacyCSVLoc() then UNAVAILABLE_TEXT else "Unavailable"
+				this.toggleFeedbackModeText.Text = UNAVAILABLE_TEXT
 			end
 		end
 

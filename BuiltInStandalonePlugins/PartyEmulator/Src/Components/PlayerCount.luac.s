@@ -1,0 +1,56 @@
+PROTO_0:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["Badge"]
+  DUPTABLE R4 K6 [{"text", "variant", "LayoutOrder"}]
+  LOADK R7 K7 ["Label"]
+  LOADK R8 K8 ["LocalServerPlayers"]
+  DUPTABLE R9 K10 [{"count"}]
+  GETTABLEKS R11 R0 K9 ["count"]
+  FASTCALL1 TOSTRING R11 [+2]
+  GETIMPORT R10 K12 [tostring]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K9 ["count"]
+  NAMECALL R5 R1 K13 ["getText"]
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K3 ["text"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K14 ["Neutral"]
+  SETTABLEKS R5 R4 K4 ["variant"]
+  GETTABLEKS R5 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K5 ["LayoutOrder"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PartyEmulator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K9 ["Enums"]
+  GETTABLEKS R3 R4 K10 ["BadgeVariant"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K11 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K12 ["ContextServices"]
+  GETTABLEKS R6 R5 K13 ["Localization"]
+  DUPCLOSURE R7 K14 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R7 1

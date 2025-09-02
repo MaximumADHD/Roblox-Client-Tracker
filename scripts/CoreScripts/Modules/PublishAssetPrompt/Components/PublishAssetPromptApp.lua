@@ -28,12 +28,10 @@ local focusNavigationService =
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
-local FocusNavigationCoreScriptsWrapper = FocusNavigationUtils.FocusNavigationCoreScriptsWrapper
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 -- flagging roact gamepad for removal due to deprecation - focusNavigation will be used instead for engine navigation
-local FFlagCSFocusWrapperRefactor = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCSFocusWrapperRefactor
 local FFlagPublishAssetPromptNoPromptNoRender = game:DefineFastFlag("PublishAssetPromptNoPromptNoRender", false)
 
 --Displays behind the in-game menu so that developers can't block interaction with the InGameMenu by constantly prompting.
@@ -41,8 +39,6 @@ local FFlagPublishAssetPromptNoPromptNoRender = game:DefineFastFlag("PublishAsse
 local DISPLAY_ORDER = -1
 
 local PublishAssetPromptApp = Roact.PureComponent:extend("PublishAssetPromptApp")
-
-local SELECTION_GROUP_NAME = "PublishAssetPromptApp"
 
 PublishAssetPromptApp.validateProps = t.strictInterface({
 	--Dispatch
@@ -128,24 +124,13 @@ function PublishAssetPromptApp:render()
 								FocusNavigationRegistryProvider,
 								nil,
 								{
-									FocusNavigationCoreScriptsWrapper = Roact.createElement(
-										if FFlagCSFocusWrapperRefactor
-											then FocusRoot
-											else FocusNavigationCoreScriptsWrapper,
-										if FFlagCSFocusWrapperRefactor
-											then {
-												surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-												isIsolated = true,
-												isAutoFocusRoot = true,
-											}
-											else {
-												selectionGroupName = SELECTION_GROUP_NAME,
-												focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-											},
-										{
-											Prompt = promptElement,
-										}
-									),
+									FocusNavigationCoreScriptsWrapper = Roact.createElement(FocusRoot, {
+										surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
+										isIsolated = true,
+										isAutoFocusRoot = true,
+									}, {
+										Prompt = promptElement,
+									}),
 								}
 							),
 						}

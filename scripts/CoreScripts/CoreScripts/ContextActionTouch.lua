@@ -11,6 +11,8 @@ local userInputService = game:GetService("UserInputService")
 local playersService = game:GetService("Players")
 local guiService = game:GetService("GuiService")
 local FFlagCASTouchButtonsUsePreferredInput = game:DefineFastFlag("CASTouchButtonsUsePreferredInput", false)
+local FFlagFixCASGetButtonYielded = game:GetEngineFeature("FixCASGetButtonYielded")
+local FFlagFixCASMaxTouchButtons = game:DefineFastFlag("FixCASMaxTouchButtons", false)
 
 -- remove with FFlagCASTouchButtonsUsePreferredInput
 local isTouchDevice = userInputService.TouchEnabled
@@ -248,7 +250,10 @@ function createNewButton(actionName, functionInfoTable)
 end
 
 function createButton( actionName, functionInfoTable )
-	local button = createNewButton(actionName, functionInfoTable)
+	local button
+	if not FFlagFixCASMaxTouchButtons then
+		button = createNewButton(actionName, functionInfoTable)
+	end
 
 	local position = nil
 	for i = 1,#buttonVector do
@@ -263,7 +268,14 @@ function createButton( actionName, functionInfoTable )
 	end
 
 	if position > maxButtons then
-		return -- todo: let user know we have too many buttons already?
+		if FFlagFixCASMaxTouchButtons then 
+			warn("Maximum of 7 allowed touch buttons, new touch button not created for " .. actionName .. ".")
+		end
+		return
+	end
+
+	if FFlagFixCASMaxTouchButtons then 
+		button = createNewButton(actionName, functionInfoTable)
 	end
 
 	buttonVector[position] = button
@@ -353,4 +365,11 @@ end)
 local boundActions = contextActionService:GetAllBoundActionInfo()
 for actionName, actionData in pairs(boundActions) do
 	addAction(actionName,actionData["createTouchButton"],actionData)
+	
+	if FFlagFixCASGetButtonYielded then 
+		-- proactively fire all action buttons to resume yielded Lua callers before connections
+		if functionTable[actionName] and functionTable[actionName]["button"] then
+			contextActionService:FireActionButtonFoundSignal(actionName, functionTable[actionName]["button"])
+		end
+	end
 end

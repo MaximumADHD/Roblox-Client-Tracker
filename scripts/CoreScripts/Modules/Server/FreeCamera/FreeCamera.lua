@@ -150,7 +150,7 @@ end
 local FFlagUserFreecamPlayerLock
 do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFreecamPlayerLock")
+		return UserSettings():IsUserFeatureEnabled("UserFreecamPlayerLock2")
 	end)
 	FFlagUserFreecamPlayerLock = success and result
 end
@@ -240,8 +240,10 @@ local playerRemovingConnection = nil
 local PLAYER_LOCK_DEFAULT_ZOOM = 20
 local PLAYER_LOCK_MIN_ZOOM = 5
 local PLAYER_LOCK_MAX_ZOOM = 50
+local PLAYER_LOCK_HEIGHT_RANGE = 10
 local playerLockEnabled = false
 local playerLockZoom = 20
+local playerLockHeight = 0
 local playerList = {}
 local currentTargetIndex = 1
 local rootPart = nil
@@ -587,18 +589,31 @@ local Input = {} do
 			lastPressTime[keyCode] = currentTime
 		end
 
-		local function findPlayerLockRootPart()
-			if not playerList or #playerList < 1 then 
+		local function findPlayerLockRootPart(switchDirection)
+			if not playerList or #playerList < 1 then
 				return nil
 			end
-			local targetPlayer = playerList[currentTargetIndex]
-			local targetCharacter = targetPlayer and targetPlayer.Character
-			return targetCharacter and (
-				targetCharacter:FindFirstChild("HumanoidRootPart") or  -- R15 center
-				targetCharacter:FindFirstChild("Torso") or             -- R6 center
-				targetCharacter:FindFirstChild("UpperTorso") or        -- R15 Torso
-				targetCharacter:FindFirstChild("Head")                 -- Last resort if player doesn't have HRP / Torso
-			)
+
+			for i = 1, #playerList do
+				currentTargetIndex = ((currentTargetIndex - 1) + switchDirection) % #playerList + 1
+				
+				local targetPlayer = playerList[currentTargetIndex]
+				local targetCharacter = targetPlayer and targetPlayer.Character
+				
+				if targetCharacter then
+					local humanoid = targetCharacter:FindFirstChildOfClass("Humanoid")
+					if humanoid and humanoid.RootPart then
+						return humanoid.RootPart
+					end
+				end
+
+				if switchDirection == 0 then 
+					switchDirection = 1 -- if re-enabling player lock and the previous character wasn't found, start iterating for next character
+				end
+			end
+
+			playerLockEnabled = false -- couldn't find a valid lockable root part
+			return nil
 		end
 
 		local function Keypress(action, state, input)
@@ -666,14 +681,14 @@ local Input = {} do
 					playerLockEnabled = not playerLockEnabled
 					if playerLockEnabled then
 						playerLockZoom = PLAYER_LOCK_DEFAULT_ZOOM
-						rootPart = findPlayerLockRootPart()
+						rootPart = findPlayerLockRootPart(0)
 					end
 					resetKeys(FREECAM_PLAYER_LOCK_TOGGLE, keyboard)
 				end
 				if FREECAM_PLAYER_LOCK_SWITCH[input.KeyCode] and input.UserInputState == Enum.UserInputState.Begin then 
 					if playerLockEnabled and #playerList > 0 then
-						currentTargetIndex = ((currentTargetIndex - 1) + (keyboard.T - keyboard.R)) % #playerList + 1
-						rootPart = findPlayerLockRootPart()
+						local switchDirection = keyboard.T - keyboard.R
+						rootPart = findPlayerLockRootPart(switchDirection)
 					end
 					resetKeys(FREECAM_PLAYER_LOCK_SWITCH, keyboard)
 				end
@@ -935,8 +950,10 @@ local function StepFreecam(dt)
 	if FFlagUserFreecamPlayerLock then
 		if playerLockEnabled and rootPart then
 			local zoomDelta = vel.Z * NAV_GAIN.Z * dt
+			local heightDelta = vel.Y * NAV_GAIN.Y * dt
 			playerLockZoom = clamp(playerLockZoom + zoomDelta, PLAYER_LOCK_MIN_ZOOM, PLAYER_LOCK_MAX_ZOOM)
-			local targetCFrame = CFrame.new(rootPart.Position)
+			playerLockHeight = clamp(playerLockHeight + heightDelta, -PLAYER_LOCK_HEIGHT_RANGE, PLAYER_LOCK_HEIGHT_RANGE)
+			local targetCFrame = CFrame.new(rootPart.Position + Vector3.new(0, playerLockHeight, 0)) 
 			local rotationCFrame
 			if FFlagUserFreecamTiltControl then
 				rotationCFrame = CFrame.fromOrientation(cameraRot.x, cameraRot.y, cameraRot.z)

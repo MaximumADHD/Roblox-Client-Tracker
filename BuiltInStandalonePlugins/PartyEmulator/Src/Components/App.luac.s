@@ -1,0 +1,318 @@
+PROTO_0:
+  NEWTABLE R0 0 0
+  GETUPVAL R1 0
+  CALL R1 0 1
+  NEWTABLE R2 0 0
+  GETIMPORT R3 K1 [pairs]
+  GETUPVAL R4 1
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  FASTCALL2 TABLE_INSERT R2 R6 [+5]
+  MOVE R9 R2
+  MOVE R10 R6
+  GETIMPORT R8 K4 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-8]
+  GETIMPORT R3 K6 [table.sort]
+  MOVE R4 R2
+  CALL R3 1 0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K7 ["UNASSIGNED_PARTY_ID"]
+  FASTCALL2 TABLE_INSERT R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K4 [table.insert]
+  CALL R3 2 0
+  MOVE R3 R2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K7 ["UNASSIGNED_PARTY_ID"]
+  JUMPIFEQ R7 R8 [+67]
+  GETUPVAL R9 1
+  GETTABLE R8 R9 R7
+  JUMPIFNOT R8 [+63]
+  FASTCALL1 TYPE R8 [+3]
+  MOVE R10 R8
+  GETIMPORT R9 K9 [type]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K2 ["table"] [+57]
+  NEWTABLE R9 0 0
+  GETIMPORT R10 K11 [ipairs]
+  MOVE R11 R8
+  CALL R10 1 3
+  FORGPREP_INEXT R10
+  DUPTABLE R17 K15 [{"userId", "playerName", "currentPartyId"}]
+  SETTABLEKS R14 R17 K12 ["userId"]
+  GETUPVAL R18 3
+  MOVE R19 R14
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K13 ["playerName"]
+  SETTABLEKS R7 R17 K14 ["currentPartyId"]
+  FASTCALL2 TABLE_INSERT R9 R17 [+4]
+  MOVE R16 R9
+  GETIMPORT R15 K4 [table.insert]
+  CALL R15 2 0
+  FORGLOOP R10 2 [inext] [-17]
+  MOVE R11 R0
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K16 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K24 [{"key", "partyId", "partyName", "players", "maxPlayers", "availableParties", "LayoutOrder"}]
+  SETTABLEKS R7 R14 K17 ["key"]
+  SETTABLEKS R7 R14 K18 ["partyId"]
+  GETUPVAL R15 6
+  MOVE R16 R7
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K19 ["partyName"]
+  SETTABLEKS R9 R14 K20 ["players"]
+  LOADN R15 6
+  SETTABLEKS R15 R14 K21 ["maxPlayers"]
+  SETTABLEKS R2 R14 K22 ["availableParties"]
+  MOVE R15 R1
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K23 ["LayoutOrder"]
+  CALL R12 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R10 K4 [table.insert]
+  CALL R10 -1 0
+  FORGLOOP R3 2 [-72]
+  NEWTABLE R3 0 0
+  LOADN R6 255
+  GETUPVAL R7 7
+  MINUS R4 R7
+  LOADN R5 255
+  FORNPREP R4
+  GETUPVAL R8 8
+  FASTCALL1 TOSTRING R6 [+3]
+  MOVE R10 R6
+  GETIMPORT R9 K26 [tostring]
+  CALL R9 1 1
+  GETTABLE R7 R8 R9
+  JUMPIFNOTEQKS R7 K27 [""] [+20]
+  DUPTABLE R9 K15 [{"userId", "playerName", "currentPartyId"}]
+  SETTABLEKS R6 R9 K12 ["userId"]
+  GETUPVAL R10 3
+  MOVE R11 R6
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K13 ["playerName"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K7 ["UNASSIGNED_PARTY_ID"]
+  SETTABLEKS R10 R9 K14 ["currentPartyId"]
+  FASTCALL2 TABLE_INSERT R3 R9 [+4]
+  MOVE R8 R3
+  GETIMPORT R7 K4 [table.insert]
+  CALL R7 2 0
+  FORNLOOP R4
+  MOVE R5 R0
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K16 ["createElement"]
+  GETUPVAL R7 5
+  DUPTABLE R8 K24 [{"key", "partyId", "partyName", "players", "maxPlayers", "availableParties", "LayoutOrder"}]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K7 ["UNASSIGNED_PARTY_ID"]
+  SETTABLEKS R9 R8 K17 ["key"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K7 ["UNASSIGNED_PARTY_ID"]
+  SETTABLEKS R9 R8 K18 ["partyId"]
+  GETUPVAL R9 6
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K7 ["UNASSIGNED_PARTY_ID"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K19 ["partyName"]
+  SETTABLEKS R3 R8 K20 ["players"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K21 ["maxPlayers"]
+  SETTABLEKS R2 R8 K22 ["availableParties"]
+  MOVE R9 R1
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K23 ["LayoutOrder"]
+  CALL R6 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R4 K4 [table.insert]
+  CALL R4 -1 0
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["useParties"]
+  CALL R3 0 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["usePlayerMappings"]
+  CALL R4 0 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["usePlayerCount"]
+  CALL R5 0 1
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K4 ["useMemo"]
+  NEWCLOSURE R7 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  NEWTABLE R8 0 1
+  MOVE R9 R3
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K6 ["View"]
+  DUPTABLE R9 K8 [{"tag"}]
+  LOADK R10 K9 ["size-full-full col gap-medium padding-medium bg-surface-200"]
+  SETTABLEKS R10 R9 K7 ["tag"]
+  DUPTABLE R10 K12 [{"HeaderSection", "ContentContainer"}]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  GETUPVAL R13 8
+  GETTABLEKS R12 R13 K6 ["View"]
+  DUPTABLE R13 K14 [{"tag", "LayoutOrder"}]
+  LOADK R14 K15 ["size-full-0 auto-y col gap-medium"]
+  SETTABLEKS R14 R13 K7 ["tag"]
+  MOVE R14 R1
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K13 ["LayoutOrder"]
+  DUPTABLE R14 K19 [{"ToggleHeader", "Divider", "ActionsSection"}]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  GETUPVAL R16 9
+  DUPTABLE R17 K20 [{"LayoutOrder"}]
+  MOVE R18 R1
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K16 ["ToggleHeader"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  GETUPVAL R17 8
+  GETTABLEKS R16 R17 K17 ["Divider"]
+  DUPTABLE R17 K22 [{"variant", "LayoutOrder"}]
+  GETUPVAL R21 8
+  GETTABLEKS R20 R21 K23 ["Enums"]
+  GETTABLEKS R19 R20 K24 ["DividerVariant"]
+  GETTABLEKS R18 R19 K25 ["Default"]
+  SETTABLEKS R18 R17 K21 ["variant"]
+  MOVE R18 R1
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K17 ["Divider"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  GETUPVAL R16 10
+  DUPTABLE R17 K27 [{"playerCount", "LayoutOrder"}]
+  SETTABLEKS R5 R17 K26 ["playerCount"]
+  MOVE R18 R1
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K18 ["ActionsSection"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K10 ["HeaderSection"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  GETUPVAL R13 8
+  GETTABLEKS R12 R13 K28 ["ScrollView"]
+  DUPTABLE R13 K31 [{"tag", "scroll", "layout", "LayoutOrder"}]
+  LOADK R14 K32 ["size-full-0 fill gap-small padding-medium"]
+  SETTABLEKS R14 R13 K7 ["tag"]
+  DUPTABLE R14 K36 [{"AutomaticCanvasSize", "ScrollingDirection", "CanvasSize"}]
+  GETIMPORT R15 K40 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K33 ["AutomaticCanvasSize"]
+  GETIMPORT R15 K41 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R15 R14 K34 ["ScrollingDirection"]
+  GETIMPORT R15 K44 [UDim2.new]
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K35 ["CanvasSize"]
+  SETTABLEKS R14 R13 K29 ["scroll"]
+  DUPTABLE R14 K49 [{"SortOrder", "FillDirection", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R15 K50 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R15 R14 K45 ["SortOrder"]
+  GETIMPORT R15 K52 [Enum.FillDirection.Vertical]
+  SETTABLEKS R15 R14 K46 ["FillDirection"]
+  GETIMPORT R15 K54 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R15 R14 K47 ["HorizontalAlignment"]
+  GETIMPORT R15 K56 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R15 R14 K48 ["VerticalAlignment"]
+  SETTABLEKS R14 R13 K30 ["layout"]
+  MOVE R14 R1
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K13 ["LayoutOrder"]
+  MOVE R14 R6
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K11 ["ContentContainer"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PartyEmulator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["Localization"]
+  GETTABLEKS R7 R0 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Components"]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Contexts"]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Util"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R8 K16 ["Constants"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R7 K17 ["PartyContext"]
+  CALL R10 1 1
+  GETTABLEKS R12 R3 K15 ["Util"]
+  GETTABLEKS R11 R12 K18 ["counter"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R13 R6 K19 ["ToggleSection"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R14 R6 K20 ["ActionButtonsSection"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R8 K21 ["getPlayerName"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R16 R8 K22 ["getPartyName"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R17 R6 K23 ["PartySection"]
+  CALL R16 1 1
+  DUPCLOSURE R17 K24 [PROTO_1]
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  CAPTURE VAL R10
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R15
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  RETURN R17 1

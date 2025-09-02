@@ -117,45 +117,49 @@ PROTO_1:
   GETUPVAL R13 1
   GETTABLEKS R12 R13 K6 ["createElement"]
   GETUPVAL R13 5
-  DUPTABLE R14 K54 [{"text", "variant", "onActivated", "LayoutOrder"}]
-  LOADK R17 K55 ["Plugin"]
-  LOADK R18 K56 ["Previous"]
-  NAMECALL R15 R2 K57 ["getText"]
+  DUPTABLE R14 K55 [{"text", "variant", "onActivated", "LayoutOrder", "testId"}]
+  LOADK R17 K56 ["Plugin"]
+  LOADK R18 K57 ["Previous"]
+  NAMECALL R15 R2 K58 ["getText"]
   CALL R15 3 1
   SETTABLEKS R15 R14 K51 ["text"]
   GETUPVAL R18 6
-  GETTABLEKS R17 R18 K58 ["Enums"]
-  GETTABLEKS R16 R17 K59 ["ButtonVariant"]
-  GETTABLEKS R15 R16 K60 ["Standard"]
+  GETTABLEKS R17 R18 K59 ["Enums"]
+  GETTABLEKS R16 R17 K60 ["ButtonVariant"]
+  GETTABLEKS R15 R16 K61 ["Standard"]
   SETTABLEKS R15 R14 K52 ["variant"]
-  GETTABLEKS R15 R0 K61 ["onPrevious"]
+  GETTABLEKS R15 R0 K62 ["onPrevious"]
   SETTABLEKS R15 R14 K53 ["onActivated"]
   LOADN R15 0
   SETTABLEKS R15 R14 K15 ["LayoutOrder"]
+  LOADK R15 K63 ["--knowledge-tutorials-PrevButton"]
+  SETTABLEKS R15 R14 K54 ["testId"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K48 ["PreviousButton"]
   GETUPVAL R13 1
   GETTABLEKS R12 R13 K6 ["createElement"]
   GETUPVAL R13 5
-  DUPTABLE R14 K54 [{"text", "variant", "onActivated", "LayoutOrder"}]
-  LOADK R17 K55 ["Plugin"]
-  GETTABLEKS R19 R0 K62 ["showFinish"]
+  DUPTABLE R14 K55 [{"text", "variant", "onActivated", "LayoutOrder", "testId"}]
+  LOADK R17 K56 ["Plugin"]
+  GETTABLEKS R19 R0 K64 ["showFinish"]
   JUMPIFNOT R19 [+2]
-  LOADK R18 K63 ["Finish"]
+  LOADK R18 K65 ["Finish"]
   JUMP [+1]
-  LOADK R18 K64 ["Next"]
-  NAMECALL R15 R2 K57 ["getText"]
+  LOADK R18 K66 ["Next"]
+  NAMECALL R15 R2 K58 ["getText"]
   CALL R15 3 1
   SETTABLEKS R15 R14 K51 ["text"]
   GETUPVAL R18 6
-  GETTABLEKS R17 R18 K58 ["Enums"]
-  GETTABLEKS R16 R17 K59 ["ButtonVariant"]
-  GETTABLEKS R15 R16 K65 ["Emphasis"]
+  GETTABLEKS R17 R18 K59 ["Enums"]
+  GETTABLEKS R16 R17 K60 ["ButtonVariant"]
+  GETTABLEKS R15 R16 K67 ["Emphasis"]
   SETTABLEKS R15 R14 K52 ["variant"]
-  GETTABLEKS R15 R0 K66 ["onNext"]
+  GETTABLEKS R15 R0 K68 ["onNext"]
   SETTABLEKS R15 R14 K53 ["onActivated"]
   LOADN R15 1
   SETTABLEKS R15 R14 K15 ["LayoutOrder"]
+  LOADK R15 K69 ["--knowledge-tutorials-NextButton"]
+  SETTABLEKS R15 R14 K54 ["testId"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K49 ["NextButton"]
   CALL R8 3 1
