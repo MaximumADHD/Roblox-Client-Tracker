@@ -169,6 +169,37 @@ return {
 				})
 			end,
 		},
+		{
+			name = "Rotated",
+			summary = "Sliders in containers rotated",
+			story = function()
+				local value, setValue = React.useBinding(0.5)
+
+				local sliders = {}
+				local numSliders = 7
+				for i = 0, 360, 360 / numSliders do
+					sliders[`Slider_{i}`] = React.createElement(View, {
+						Size = UDim2.fromScale(1 / numSliders, 0),
+					}, {
+						Folder = React.createElement("Folder", {}, {
+							React.createElement(View, {
+								tag = "size-full",
+								Rotation = i,
+							}, {
+								Slider = React.createElement(Slider, {
+									value = value,
+									onValueChanged = setValue,
+								}),
+							}),
+						}),
+					}) :: React.ReactNode
+				end
+
+				return React.createElement(View, {
+					tag = "size-full-3000 row align-y-center",
+				}, sliders)
+			end,
+		},
 	} :: { unknown },
 	controls = {
 		size = Dash.values(InputSize),

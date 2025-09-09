@@ -11,15 +11,17 @@ local useSpinnerMotionStates = require(script.Parent.useSpinnerMotionStates)
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
+local Flags = require(Foundation.Utility.Flags)
 local useRotation = require(Foundation.Utility.useRotation)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-type IconSpinnerProps = {
-	style: Types.ColorStyle,
+type InternalSpinnerProps = {
+	style: React.Binding<Types.ColorStyleValue>,
 	scale: React.Binding<number>,
+	Thickness: number,
 }
 
-local function IconSpinner(props: IconSpinnerProps)
+local function IconSpinner(props: InternalSpinnerProps)
 	local rotation = useRotation(2)
 
 	return React.createElement(Image, {
@@ -34,7 +36,6 @@ local function IconSpinner(props: IconSpinnerProps)
 	})
 end
 
---[[
 -- Right, Top, Left, Bottom
 local SPINNER_CONTROL_POINTS = {
 	Path2DControlPoint.new(UDim2.fromScale(1, 0.5), UDim2.fromScale(0, 0.25), UDim2.fromScale(0, -0.25)),
@@ -43,38 +44,37 @@ local SPINNER_CONTROL_POINTS = {
 	Path2DControlPoint.new(UDim2.fromScale(0.5, 1), UDim2.fromScale(-0.25, 0), UDim2.fromScale(0.25, 0)),
 }
 
-type Path2DSpinnerProps = {
-	color: Color3?,
-	transparency: React.Binding<number>,
-	scale: number,
-}
-
-local function Path2DSpinner(props: Path2DSpinnerProps)
+local function Path2DSpinner(props: InternalSpinnerProps)
 	local pathRef = React.useRef(nil :: Path2D?)
 	local rotation = useRotation(2)
 
 	React.useEffect(function()
 		local path = pathRef.current
-		path:SetControlPoints(SPINNER_CONTROL_POINTS)
+		if path ~= nil then
+			path:SetControlPoints(SPINNER_CONTROL_POINTS)
+		end
 	end, {})
 
 	return React.createElement(View, {
-		tag = "anchor-center-center size-full",
+		tag = "anchor-center-center position-center-center size-full",
 		Rotation = rotation,
 	}, {
 		Circle = React.createElement("Path2D", {
 			ref = pathRef,
 			Closed = false,
-			Color3 = props.color,
-			Transparency = props.transparency,
-			Thickness = 3,
+			Color3 = props.style:map(function(styleValues)
+				return styleValues.Color3
+			end),
+			Transparency = props.style:map(function(styleValues)
+				return styleValues.Transparency
+			end),
+			Thickness = props.Thickness,
 		}),
 		UIScale = React.createElement("UIScale", {
 			Scale = props.scale,
 		}),
 	})
 end
-]]
 
 type SpinnerProps = {
 	style: Types.ColorStyle,
@@ -107,7 +107,7 @@ local function Spinner(spinnerProps: SpinnerProps, ref: React.Ref<GuiObject>?)
 		Size = props.Size,
 		ref = ref,
 	}, {
-		Spinner = React.createElement(IconSpinner, {
+		Spinner = React.createElement(if Flags.FoundationUsePath2DSpinner then Path2DSpinner else IconSpinner, {
 			scale = values.scale,
 			style = React.joinBindings({
 				style = props.style,
@@ -118,6 +118,7 @@ local function Spinner(spinnerProps: SpinnerProps, ref: React.Ref<GuiObject>?)
 					Transparency = styleValues.style.Transparency :: number + (styleValues.transparency :: number) / 2,
 				}
 			end),
+			Thickness = math.max(math.floor(props.Size.X.Offset / 8), 1),
 		}),
 	})
 end

@@ -63,6 +63,15 @@ local function calculateSide(
 	return desiredSide
 end
 
+local function adjustForOnScreenKeyboard(screenRect: Rect, keyboardPosition: Vector2, topGuiInset: Vector2): Rect
+	-- Keyboard position doesn't account for top bar insets, so we need to adjust for that
+	local adjustedKeyboardPosition = keyboardPosition - topGuiInset
+	-- TODO: either manually get the vertical top device inset or fix keyboard positioning in engine
+	--       right now keyboard position originates from the screen's 0,0 without any insets
+	local adjustedMaxY = math.min(screenRect.Max.Y, adjustedKeyboardPosition.Y)
+	return Rect.new(screenRect.Min, Vector2.new(screenRect.Max.X, adjustedMaxY))
+end
+
 local function calculatePositions(
 	side: PopoverSide,
 	sideOffset: number,
@@ -136,6 +145,7 @@ local function calculatePositions(
 end
 
 return {
+	adjustForOnScreenKeyboard = adjustForOnScreenKeyboard,
 	isOnScreen = isOnScreen,
 	calculateSide = calculateSide,
 	calculatePositions = calculatePositions,

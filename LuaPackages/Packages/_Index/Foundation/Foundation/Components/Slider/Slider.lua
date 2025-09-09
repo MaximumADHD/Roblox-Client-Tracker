@@ -15,6 +15,10 @@ local Flags = require(Foundation.Utility.Flags)
 local useLastInputMode = require(Foundation.Utility.Input.useLastInputMode)
 local InputMode = require(Foundation.Utility.Input.InputMode)
 
+local calculateSliderValueFromPosition = require(script.Parent.calculateSliderValueFromPosition)
+local calculateSliderPositionDelta = require(script.Parent.calculateSliderPositionDelta)
+local calculateSliderValueFromDelta = require(script.Parent.calculateSliderValueFromDelta)
+
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
@@ -123,24 +127,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 
 	local calculateValueFromAbsPosition = React.useCallback(function(position: Vector2)
 		if ref.current then
-			local sliderValue
-			local orientation = ref.current.AbsoluteRotation
-			local sliderFrame = ref.current
-
-			local length = sliderFrame.AbsoluteSize.Magnitude
-			local centerPoint = sliderFrame.AbsolutePosition + sliderFrame.AbsoluteSize * 0.5
-
-			local radians = math.rad(orientation)
-			local unit = Vector2.new(math.cos(radians), math.sin(radians))
-
-			local dotProduct = (position - centerPoint):Dot(unit)
-			local percentage = dotProduct / length + 0.5
-			local clampedPercent = math.clamp(percentage, 0, 1)
-
-			local rangeSpan = props.range.Max - props.range.Min
-			sliderValue = clampedPercent * rangeSpan + props.range.Min
-
-			return math.clamp(sliderValue, props.range.Min, props.range.Max)
+			return calculateSliderValueFromPosition(position, ref.current, props.range)
 		else
 			return 0
 		end
@@ -174,31 +161,24 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 		then React.useCallback(function(_rbx, position: Vector2)
 			if ref.current and lastDragPosition.current then
 				local length = ref.current.AbsoluteSize.Magnitude
-				local delta = (position - lastDragPosition.current).X / length
+				local delta = calculateSliderPositionDelta(position, lastDragPosition.current, length)
 
 				lastDragPosition.current = position
 
-				-- When using directional input (Gamepad/WASD/Arrow keys) with a
-				-- Scriptable UIDragDetector, the `position` gets reset when
-				-- making significant directional changes. Examples of this
-				-- include going from Right -> Right+Up or Right -> Left.
+				-- When using directional input (Gamepad/WASD/Arrow keys) with a Scriptable UIDragDetector,
+				-- the `position` gets reset when making significant directional changes.
+				-- Examples of this include going from Right -> Right+Up or Right -> Left.
 				--
-				-- In practice, this means that if the user moves the Slider to
-				-- the right then wants to adjust and move back a bit towards
-				-- the left, this will immediately jump to the center of the
-				-- bar. To work around this, we discard that jump in position by
-				-- making sure the delta isn't too large, then from there we
-				-- receive incremental changes like normal and sliding continues
-				-- to work smoothly.
+				-- In practice, this means that if the user moves the Slider to the right then wants to adjust
+				-- and move back a bit towards the left, this will immediately jump to the center of the
+				-- bar. To work around this, we discard that jump in position by making sure the delta isn't too large,
+				-- then from there we receive incremental changes like normal and sliding continues to work smoothly.
 				if lastInputMode == InputMode.Directional and math.abs(delta) > MAX_DIRECTIONAL_INPUT_DRAG_DELTA then
 					return
 				end
 
-				local current = value:getValue() :: number
-				local rangeSpan = props.range.Max - props.range.Min
-				local scaledDelta = delta * rangeSpan
-				local newValue = math.clamp(current + scaledDelta, props.range.Min, props.range.Max)
-
+				-- Calculate the new value from the delta
+				local newValue = calculateSliderValueFromDelta(value:getValue() :: number, delta, props.range)
 				updateValue(newValue)
 			end
 		end, { ref, lastDragPosition, value, updateValue, lastInputMode } :: { unknown })

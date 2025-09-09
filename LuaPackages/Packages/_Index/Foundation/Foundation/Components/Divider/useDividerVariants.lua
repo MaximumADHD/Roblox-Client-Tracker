@@ -6,8 +6,8 @@ type ColorStyleValue = Types.ColorStyleValue
 local DividerVariant = require(Foundation.Enums.DividerVariant)
 type DividerVariant = DividerVariant.DividerVariant
 
-local DividerOrientation = require(Foundation.Enums.DividerOrientation)
-type DividerOrientation = DividerOrientation.DividerOrientation
+local Orientation = require(Foundation.Enums.Orientation)
+type Orientation = Orientation.Orientation
 
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
@@ -38,8 +38,8 @@ local function variantsFactory(tokens: Tokens)
 		},
 	}
 
-	local orientation: { [DividerOrientation]: VariantProps } = {
-		[DividerOrientation.Horizontal] = {
+	local orientation: { [Orientation]: VariantProps } = {
+		[Orientation.Horizontal] = {
 			container = {
 				tag = "size-full-0 auto-y",
 			},
@@ -47,7 +47,7 @@ local function variantsFactory(tokens: Tokens)
 				Size = UDim2.new(1, 0, 0, tokens.Stroke.Standard),
 			},
 		},
-		[DividerOrientation.Vertical] = {
+		[Orientation.Vertical] = {
 			container = {
 				tag = "size-0-full auto-x",
 			},
@@ -78,11 +78,11 @@ local function variantsFactory(tokens: Tokens)
 	return { common = common, padding = padding, orientation = orientation }
 end
 
-return function(tokens: Tokens, variant: DividerVariant, orientation: DividerOrientation): DividerVariantProps
+return function(tokens: Tokens, variant: DividerVariant, orientation: Orientation): DividerVariantProps
 	local props = VariantsContext.useVariants("Divider", variantsFactory, tokens)
 	return composeStyleVariant(
 		props.common,
-		if orientation == DividerOrientation.Horizontal then props.padding[variant] else {},
+		if orientation == Orientation.Horizontal then props.padding[variant] else {},
 		props.orientation[orientation]
 	)
 end

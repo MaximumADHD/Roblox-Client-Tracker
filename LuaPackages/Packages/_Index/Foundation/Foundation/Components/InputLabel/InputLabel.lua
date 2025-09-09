@@ -6,6 +6,7 @@ local Text = require(Foundation.Components.Text)
 local Translator = require(Foundation.Utility.Localization.Translator)
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -15,6 +16,8 @@ type ControlState = ControlState.ControlState
 
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize
+
+local FoundationInputLabelBoldTypography = Flags.FoundationInputLabelBoldTypography
 
 local REQUIRED_INDICATOR = "*"
 
@@ -75,9 +78,16 @@ local function InputLabel(props: InputLabelProps, ref: React.Ref<GuiObject>?)
 			textStyle = props.textStyle,
 			tag = {
 				["size-0 auto-xy content-default text-align-x-left text-align-y-top text-wrap"] = true,
-				["text-body-small"] = props.size == InputLabelSize.Small,
-				["text-body-medium"] = props.size == InputLabelSize.Medium,
-				["text-body-large"] = props.size == InputLabelSize.Large,
+
+				[`text-{if FoundationInputLabelBoldTypography then "title" else "body"}-small`] = (
+					props.size == InputLabelSize.Small
+				),
+				[`text-{if FoundationInputLabelBoldTypography then "title" else "body"}-medium`] = (
+					props.size == InputLabelSize.Medium
+				),
+				[`text-{if FoundationInputLabelBoldTypography then "title" else "body"}-large`] = (
+					props.size == InputLabelSize.Large
+				),
 			},
 			ref = ref,
 		})

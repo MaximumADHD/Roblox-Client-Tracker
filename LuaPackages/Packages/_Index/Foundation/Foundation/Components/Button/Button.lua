@@ -47,6 +47,7 @@ local Text = require(Foundation.Components.Text)
 
 local Constants = require(Foundation.Constants)
 
+local Flags = require(Foundation.Utility.Flags)
 local getIconScale = require(Foundation.Utility.getIconScale)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -254,7 +255,9 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 					PresenceWrapper = React.createElement(AnimatePresence, {}, {
 						Spinner = if props.isLoading
 							then React.createElement(Spinner, {
-								Size = variantProps.icon.size,
+								Size = variantProps.icon.size - (if Flags.FoundationUsePath2DSpinner
+									then UDim2.fromOffset(tokens.Padding.XSmall, tokens.Padding.XSmall)
+									else UDim2.fromOffset(0, 0)),
 								style = disabledValues.transparency:map(function(transparency)
 									return {
 										Color3 = variantProps.content.style.Color3,

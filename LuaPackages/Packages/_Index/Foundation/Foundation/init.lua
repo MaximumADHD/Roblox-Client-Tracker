@@ -12,6 +12,7 @@ export type CommonProps = Types.CommonProps
 export type StateChangedCallback = Types.StateChangedCallback
 export type StateLayer = Types.StateLayer
 export type Tags = Types.Tags
+export type PopoverAnchor = Types.PopoverAnchor
 export type Preferences = PreferencesProvider.PreferencesProps
 export type PreferencesProviderProps = PreferencesProvider.PreferencesProviderProps
 
@@ -31,7 +32,7 @@ local ControlState = require(script.Enums.ControlState)
 local CursorType = require(script.Enums.CursorType)
 local Device = require(script.Enums.Device)
 local DialogSize = require(script.Enums.DialogSize)
-local DividerOrientation = require(script.Enums.DividerOrientation)
+local Orientation = require(script.Enums.Orientation)
 local DividerVariant = require(script.Enums.DividerVariant)
 local FillBehavior = require(script.Enums.FillBehavior)
 local IconName = BuilderIcons.Icon
@@ -44,6 +45,8 @@ local OnCloseCallbackReason = require(script.Enums.OnCloseCallbackReason)
 local InputLabelSize = require(script.Enums.InputLabelSize)
 local PopoverAlign = require(script.Enums.PopoverAlign)
 local PopoverSide = require(script.Enums.PopoverSide)
+local ProgressShape = require(script.Enums.ProgressShape)
+local ProgressSize = require(script.Enums.ProgressSize)
 local Radius = require(script.Enums.Radius)
 local SliderVariant = require(script.Enums.SliderVariant)
 local StateLayerAffordance = require(script.Enums.StateLayerAffordance)
@@ -64,7 +67,7 @@ export type ControlState = ControlState.ControlState
 export type CursorType = CursorType.CursorType
 export type Device = Device.Device
 export type DialogSize = DialogSize.DialogSize
-export type DividerOrientation = DividerOrientation.DividerOrientation
+export type Orientation = Orientation.Orientation
 export type DividerVariant = DividerVariant.DividerVariant
 export type FillBehavior = FillBehavior.FillBehavior
 export type IconPosition = IconPosition.IconPosition
@@ -77,6 +80,8 @@ export type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputC
 export type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 export type PopoverAlign = PopoverAlign.PopoverAlign
 export type PopoverSide = PopoverSide.PopoverSide
+export type ProgressShape = ProgressShape.ProgressShape
+export type ProgressSize = ProgressSize.ProgressSize
 export type Radius = Radius.Radius
 export type SliderVariant = SliderVariant.SliderVariant
 export type StateLayerAffordance = StateLayerAffordance.StateLayerAffordance
@@ -111,6 +116,9 @@ export type CheckboxProps = Checkbox.CheckboxProps
 
 local Chip = require(script.Components.Chip)
 export type ChipProps = Chip.ChipProps
+
+local ColorPicker = require(script.Components.ColorPicker)
+export type ColorPickerProps = ColorPicker.ColorPickerProps
 
 local Dialog = require(script.Components.Dialog)
 export type DialogProps = Dialog.DialogProps
@@ -162,6 +170,9 @@ export type PopoverProps = Popover.PopoverProps
 export type PopoverAnchorProps = Popover.PopoverAnchorProps
 export type PopoverContentProps = Popover.PopoverContentProps
 
+local Progress = require(script.Components.Progress)
+export type ProgressProps = Progress.ProgressProps
+
 local RadioGroup = require(script.Components.RadioGroup)
 export type RadioGroupProps = RadioGroup.RadioGroupProps
 export type RadioGroupItemProps = RadioGroup.RadioGroupItemProps
@@ -180,6 +191,10 @@ export type SliderProps = Slider.SliderProps
 
 local StatusIndicator = require(script.Components.StatusIndicator)
 export type StatusIndicatorProps = StatusIndicator.StatusIndicatorProps
+
+local Tabs = require(script.Components.Tabs)
+export type TabsProps = Tabs.TabsProps
+export type TabItem = Tabs.TabItem
 
 local Text = require(script.Components.Text)
 export type TextProps = Text.TextProps
@@ -209,6 +224,7 @@ local Foundation = strict({
 	Button = Button,
 	Checkbox = Checkbox,
 	Chip = Chip,
+	ColorPicker = ColorPicker,
 	Dialog = Dialog,
 	Divider = Divider,
 	Dropdown = Dropdown,
@@ -224,12 +240,14 @@ local Foundation = strict({
 	NumberInput = NumberInput,
 	Pill = Chip,
 	Popover = Popover,
+	Progress = Progress,
 	RadioGroup = RadioGroup,
 	ScrollView = ScrollView,
 	SegmentedControl = SegmentedControl,
 	Skeleton = Skeleton,
 	Slider = Slider,
 	StatusIndicator = StatusIndicator,
+	Tabs = Tabs,
 	Text = Text,
 	TextInput = TextInput,
 	Toggle = Toggle,
@@ -244,20 +262,22 @@ local Foundation = strict({
 
 	-- Hooks
 	Hooks = {
+		useCumulativeBackground = require(script.Utility.useCumulativeBackground),
 		useCursor = require(script.Providers.Cursor.useCursor),
-		withCursor = require(script.Providers.Cursor.withCursor),
 		useDefaultTags = require(script.Utility.useDefaultTags),
 		useIconSize = require(script.Utility.useIconSize),
+		useMeasurableRef = require(script.Components.Popover.useMeasurableRef),
+		useOverlay = require(script.Providers.Overlay.useOverlay),
 		usePointerPosition = require(script.Utility.usePointerPosition),
 		usePreferences = require(script.Providers.Preferences.usePreferences),
-		useCumulativeBackground = require(script.Utility.useCumulativeBackground),
+		usePulseBinding = require(script.Utility.usePulseBinding),
 		useRotation = require(script.Utility.useRotation),
 		useScaledValue = require(script.Utility.useScaledValue),
+		useStyleSheet = require(script.Providers.Style.StyleSheetContext).useStyleSheet,
 		useStyleTags = require(script.Providers.Style.useStyleTags),
 		useTextSizeOffset = require(script.Providers.Style.useTextSizeOffset),
 		useTokens = require(script.Providers.Style.useTokens),
-		useOverlay = require(script.Providers.Overlay.useOverlay),
-		useStyleSheet = require(script.Providers.Style.StyleSheetContext).useStyleSheet,
+		withCursor = require(script.Providers.Cursor.withCursor),
 	},
 
 	-- Enums
@@ -275,7 +295,8 @@ local Foundation = strict({
 		CursorType = CursorType,
 		Device = Device,
 		DialogSize = DialogSize,
-		DividerOrientation = DividerOrientation,
+		-- **DEPRECATED**: DividerOrientation is deprecated. Use Orientation instead.
+		DividerOrientation = require(script.Enums.Orientation),
 		DividerVariant = DividerVariant,
 		FillBehavior = FillBehavior,
 		IconName = IconName,
@@ -286,8 +307,11 @@ local Foundation = strict({
 		InputLabelSize = InputLabelSize,
 		NumberInputControlsVariant = NumberInputControlsVariant,
 		OnCloseCallbackReason = OnCloseCallbackReason,
+		Orientation = Orientation,
 		PopoverAlign = PopoverAlign,
 		PopoverSide = PopoverSide,
+		ProgressShape = ProgressShape,
+		ProgressSize = ProgressSize,
 		Radius = Radius,
 		-- **DEPRECATED**: ScrollBarVisibility is deprecated. Use Visibility instead.
 		ScrollBarVisibility = require(script.Enums.Visibility),
@@ -308,13 +332,14 @@ local Foundation = strict({
 	Utility = {
 		composeStyleVariant = require(script.Utility.composeStyleVariant),
 		getRbxThumb = require(script.Utility.getRbxThumb),
+		getIconRichText = require(script.Utility.getIconRichText),
 		indexBindable = require(script.Utility.indexBindable),
 		mockComponent = require(script.Utility.mockComponent),
 		withCommonProps = require(script.Utility.withCommonProps),
 		withDefaults = require(script.Utility.withDefaults),
+		isBuilderIcon = require(script.Utility.isBuilderIcon),
 		isPointInGuiObjectBounds = require(script.Utility.isPointInGuiObjectBounds),
 		Flags = require(script.Utility.Flags),
-		isBuilderIcon = require(script.Utility.isBuilderIcon),
 	},
 
 	-- Unstable APIs, do not use

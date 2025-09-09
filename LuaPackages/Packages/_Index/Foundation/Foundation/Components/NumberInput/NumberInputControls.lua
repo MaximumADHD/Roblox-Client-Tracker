@@ -11,11 +11,10 @@ local View = require(Components.View)
 local Image = require(Components.Image)
 local Icon = require(Components.Icon)
 local FoundationConstants = require(Foundation.Constants)
+local Flags = require(Foundation.Utility.Flags)
 
 local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
 type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControlsVariant
-
-local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 
 local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -79,6 +78,17 @@ local function SplitControls(props: NumberInputControlsProps)
 			isDisabled = props.increment.isDisabled,
 			padding = variantProps.button.padding,
 			Size = buttonSize,
+			stroke = {
+				Color = tokens.Color.Stroke.Emphasis.Color3,
+				Transparency = math.lerp(
+					tokens.Color.Stroke.Emphasis.Transparency,
+					1,
+					if Flags.FoundationNumberInputDisabledStrokeTransparency
+						then (if props.increment.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0)
+						else 0
+				),
+				Thickness = tokens.Stroke.Standard,
+			},
 			tag = variantProps.splitButton.tag,
 			LayoutOrder = 1,
 			GroupTransparency = if props.increment.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
@@ -90,11 +100,21 @@ local function SplitControls(props: NumberInputControlsProps)
 			}),
 		}),
 		ControlDecrement = React.createElement(View, {
-			variant = ButtonVariant.Standard,
 			onActivated = props.decrement.onClick,
 			isDisabled = props.decrement.isDisabled,
 			padding = variantProps.button.padding,
 			Size = buttonSize,
+			stroke = {
+				Color = tokens.Color.Stroke.Emphasis.Color3,
+				Transparency = math.lerp(
+					tokens.Color.Stroke.Emphasis.Transparency,
+					1,
+					if Flags.FoundationNumberInputDisabledStrokeTransparency
+						then (if props.decrement.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0)
+						else 0
+				),
+				Thickness = tokens.Stroke.Standard,
+			},
 			tag = variantProps.splitButton.tag,
 			LayoutOrder = -1,
 			GroupTransparency = if props.decrement.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,

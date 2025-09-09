@@ -51,7 +51,7 @@ local function variantsFactory(tokens: Tokens)
 			tag = "size-full fill padding-top-xsmall",
 		},
 		splitButton = {
-			tag = "bg-shift-100 stroke-emphasis",
+			tag = "bg-shift-100",
 		},
 		icon = {
 			tag = "content-default size-150-100",

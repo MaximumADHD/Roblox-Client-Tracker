@@ -85,11 +85,12 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 					LayoutOrder = 1,
 				})
 				else nil,
-			InputWrapper = React.createElement(
-				View,
-				{ tag = "size-full-0 auto-y", LayoutOrder = 2 },
-				{ Input = props.input(textBoxRef) }
-			),
+			InputWrapper = React.createElement(View, {
+				tag = "size-full-0 auto-y",
+				LayoutOrder = 2,
+			}, {
+				Input = props.input(textBoxRef),
+			}),
 			Hint = if props.hint
 				then React.createElement(HintText, {
 					text = props.hint,

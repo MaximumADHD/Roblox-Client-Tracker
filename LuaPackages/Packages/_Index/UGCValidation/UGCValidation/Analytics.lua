@@ -54,10 +54,13 @@ local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
 	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
 local getFFlagUGCValidateIncorrectNumericalData = require(root.flags.getFFlagUGCValidateIncorrectNumericalData)
 local getFFlagUGCValidateRestrictAnimationMovement = require(root.flags.getFFlagUGCValidateRestrictAnimationMovement)
+local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 local getFFlagUGCValidateStopNaNsInfsInAnimationKeys =
 	require(root.flags.getFFlagUGCValidateStopNaNsInfsInAnimationKeys)
 local getFFlagUGCValidateStopNaNsInfsInCalculatedData =
 	require(root.flags.getFFlagUGCValidateStopNaNsInfsInCalculatedData)
+local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
+	require(root.flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
 
 local function joinTables(...)
 	local result = {}
@@ -322,6 +325,11 @@ if getFFlagUGCValidateRestrictAnimationMovement() then
 	Analytics.ErrorType.validateCurveAnimation_PositionalMovement = "validateCurveAnimation_PositionalMovement"
 end
 
+if getEngineFeatureEngineUGCIsValidR15AnimationRigCheck() then
+	Analytics.ErrorType.validateCurveAnimation_IncorrectAnimationRigData =
+		"validateCurveAnimation_IncorrectAnimationRigData"
+end
+
 if getFFlagCheckAccessoryMeshSize() or getFFlagCheckBodyPartMeshSize() or getFFlagCheckLayeredClothingMeshSize() then
 	Analytics.ErrorType.validateMeshSizeProperty_FailedToLoadMesh = "validateMeshSizeProperty_FailedToLoadMesh"
 	Analytics.ErrorType.validateMeshSizeProperty_Mismatch = "validateMeshSizeProperty_Mismatch"
@@ -332,6 +340,15 @@ if getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15() then
 		"validateBodyPartVertsSkinnedToR15_FailedToFetchSkinning"
 	Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints =
 		"validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints"
+end
+
+if getEngineUGCValidateRelativeSkinningTransfer() then
+	Analytics.ErrorType.validateSkinningTransfer_FailedToExecute = "validateSkinningTransfer_FailedToExecute"
+	Analytics.ErrorType.validateSkinningTransfer_BodyPartsWithSpecialJoints =
+		"validateSkinningTransfer_BodyPartsWithSpecialJoints"
+	Analytics.ErrorType.validateSkinningTransfer_SkinningTransferOverride =
+		"validateSkinningTransfer_SkinningTransferOverride"
+	Analytics.ErrorType.validateSkinningTransfer_Weights = "validateSkinningTransfer_Weights"
 end
 
 setmetatable(Analytics.ErrorType, {

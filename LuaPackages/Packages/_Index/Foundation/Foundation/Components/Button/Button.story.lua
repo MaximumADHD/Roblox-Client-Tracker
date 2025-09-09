@@ -3,6 +3,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 
+local Flags = require(Foundation.Utility.Flags)
 local View = require(Foundation.Components.View)
 local Button = require(Foundation.Components.Button)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -18,6 +19,7 @@ return {
 			name = variant,
 			story = function(props)
 				local controls = props.controls
+				Flags.FoundationUsePath2DSpinner = controls.usePath2DSpinner
 
 				return React.createElement(
 					View,
@@ -76,5 +78,6 @@ return {
 			FillBehavior.Fill,
 		} :: { FillBehavior },
 		inputDelay = 0,
+		usePath2DSpinner = Flags.FoundationUsePath2DSpinner,
 	},
 }

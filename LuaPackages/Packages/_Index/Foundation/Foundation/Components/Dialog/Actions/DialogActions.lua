@@ -7,11 +7,15 @@ local Dash = require(Packages.Dash)
 local Button = require(Foundation.Components.Button)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
+local Orientation = require(Foundation.Enums.Orientation)
+local DialogSize = require(Foundation.Enums.DialogSize)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
+local useDialogLayout = require(script.Parent.Parent.useDialogLayout)
 
 type Bindable<T> = Types.Bindable<T>
 type ButtonVariant = ButtonVariant.ButtonVariant
@@ -28,11 +32,18 @@ export type DialogAction = {
 export type DialogActionsProps = {
 	actions: { DialogAction }?,
 	label: Bindable<string>?,
+	orientation: Orientation.Orientation?,
 	LayoutOrder: Bindable<number>?,
 }
 
-local function DialogActions(props: DialogActionsProps)
+local defaultProps = {
+	orientation = Orientation.Horizontal,
+}
+
+local function DialogActions(dialogActionsProps: DialogActionsProps)
+	local props: DialogActionsProps = withDefaults(dialogActionsProps, defaultProps)
 	local variants = useDialogVariants()
+	local layout = useDialogLayout()
 
 	local actions = React.useMemo(function()
 		if not props.actions then
@@ -55,12 +66,20 @@ local function DialogActions(props: DialogActionsProps)
 		)
 	end, { props.actions })
 
+	local isSmall = layout.responsiveSize == DialogSize.Small
+	local horizontalOrientation = props.orientation == Orientation.Horizontal or not isSmall
+	local verticalOrientation = props.orientation == Orientation.Vertical and isSmall
+
 	return React.createElement(View, {
 		tag = "col gap-large auto-y size-full-0",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		ActionsContainer = React.createElement(View, {
-			tag = "row wrap gap-large auto-y size-full-0",
+			tag = {
+				["gap-large auto-y size-full-0"] = true,
+				["row wrap"] = horizontalOrientation,
+				["col flex-x-fill"] = verticalOrientation,
+			},
 			LayoutOrder = 1,
 		}, {
 			Actions = actions,

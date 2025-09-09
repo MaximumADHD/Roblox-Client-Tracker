@@ -9,20 +9,20 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local DividerVariant = require(Foundation.Enums.DividerVariant)
-local DividerOrientation = require(Foundation.Enums.DividerOrientation)
+local Orientation = require(Foundation.Enums.Orientation)
 local useDividerVariants = require(script.Parent.useDividerVariants)
 
 type DividerVariant = DividerVariant.DividerVariant
-type DividerOrientation = DividerOrientation.DividerOrientation
+type Orientation = Orientation.Orientation
 
 export type DividerProps = {
 	variant: DividerVariant?,
-	orientation: DividerOrientation?,
+	orientation: Orientation?,
 } & Types.CommonProps
 
 local defaultProps = {
 	variant = DividerVariant.Default,
-	orientation = DividerOrientation.Horizontal,
+	orientation = Orientation.Horizontal,
 }
 
 local function Divider(dividerProps: DividerProps, ref: React.Ref<GuiObject>?)
@@ -30,7 +30,7 @@ local function Divider(dividerProps: DividerProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local variantProps = useDividerVariants(tokens, props.variant, props.orientation)
 	local isHeavy = props.variant :: DividerVariant == DividerVariant.Heavy
-		and props.orientation :: DividerOrientation ~= DividerOrientation.Vertical
+		and props.orientation :: Orientation ~= Orientation.Vertical
 
 	return React.createElement(
 		View,

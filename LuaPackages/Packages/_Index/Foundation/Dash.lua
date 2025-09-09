@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["Dash-31ab8d40-3.0.0"]["Dash"])
+local Package = require(PackageIndex["Dash-31ab8d40-3.1.0"]["Dash"])
 
 export type Map<Key, Value> = Package.Map<Key, Value> 
 export type Set<Key> = Package.Set<Key> 

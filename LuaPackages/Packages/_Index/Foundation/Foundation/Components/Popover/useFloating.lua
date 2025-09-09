@@ -5,9 +5,16 @@ local React = require(Packages.React)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local positioning = require(script.Parent.positioning)
+local Services = require(Foundation.Utility.Wrappers).Services
+local UserInputService = Services.UserInputService
+local GuiService = Services.GuiService
+
+local Flags = require(Foundation.Utility.Flags)
+local Types = require(Foundation.Components.Types)
 
 type PopoverSide = PopoverSide.PopoverSide
 type PopoverAlign = PopoverAlign.PopoverAlign
+type PopoverAnchor = Types.PopoverAnchor
 
 export type SideConfig = {
 	position: PopoverSide,
@@ -21,21 +28,26 @@ export type AlignConfig = {
 
 -- Conditionally connects signals, which useEventConnection does not support
 local function useConnectSignals(
-	guiObject: GuiBase2d? | ScreenGui?,
-	signals: { string },
+	instance: PopoverAnchor? | Instance?,
+	signalNames: { string },
 	callbackRef: (() -> ()) | { current: () -> () }
 )
 	local connections = React.useRef({})
 
 	React.useEffect(function()
-		if guiObject ~= nil then
-			for _, signal in signals do
-				connections.current[signal] =
-					guiObject:GetPropertyChangedSignal(signal):Connect(if type(callbackRef) == "table"
+		if instance ~= nil then
+			for _, signalName in signalNames do
+				-- This condition is here because of type system quircks. Feel free to simplify with the solver V2 or make a cast, it's horrific.
+				local signal = if typeof(instance) == "Instance"
+					then instance:GetPropertyChangedSignal(signalName)
+					else instance:GetPropertyChangedSignal(signalName)
+				connections.current[signalName] = (signal :: Types.MeasurableObjectSignal<any>):Connect(
+					if type(callbackRef) == "table"
 						then function()
 							callbackRef.current()
 						end
-						else callbackRef)
+						else callbackRef
+				)
 			end
 		end
 
@@ -44,12 +56,12 @@ local function useConnectSignals(
 				connection:Disconnect()
 			end
 		end
-	end, { guiObject :: any, callbackRef })
+	end, { instance :: any, callbackRef })
 end
 
 local function useFloating(
 	isOpen: boolean,
-	anchor: GuiObject?,
+	anchor: PopoverAnchor?,
 	content: GuiObject?,
 	overlay: GuiBase2d?,
 	sideConfig: SideConfig,
@@ -78,6 +90,14 @@ local function useFloating(
 		local screenPosition = overlay.AbsolutePosition
 		local anchorRect = Rect.new(anchorPosition, anchorPosition + anchorSize)
 		local screenRect = Rect.new(screenPosition, screenPosition + screenSize)
+
+		if Flags.FoundationPopoverOnScreenKeyboard and UserInputService.OnScreenKeyboardVisible then
+			screenRect = positioning.adjustForOnScreenKeyboard(
+				screenRect,
+				UserInputService.OnScreenKeyboardPosition,
+				GuiService:GetGuiInset()
+			)
+		end
 
 		-- If the anchor is not visible on the screen, hide the popover
 		if not positioning.isOnScreen(anchorRect, screenRect) then
@@ -124,6 +144,13 @@ local function useFloating(
 	useConnectSignals(anchor, { "AbsolutePosition", "AbsoluteSize" }, recalculatePositionRef)
 	useConnectSignals(content, { "AbsoluteSize" }, recalculatePositionRef)
 	useConnectSignals(overlay, { "AbsoluteSize" }, recalculatePositionRef)
+	if Flags.FoundationPopoverOnScreenKeyboard then
+		useConnectSignals(
+			UserInputService,
+			{ "OnScreenKeyboardVisible", "OnScreenKeyboardPosition" },
+			recalculatePositionRef
+		)
+	end
 
 	return position, isVisible, contentSize, arrowPosition, screenSize
 end

@@ -20,6 +20,7 @@ local validateCageUVTriangleArea = require(root.validation.validateCageUVTriangl
 local validateMeshTriangleArea = require(root.validation.validateMeshTriangleArea)
 local validateCageUVValues = require(root.validation.validateCageUVValues)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
+local validateSkinningTransfer = require(root.validation.validateSkinningTransfer)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local ParseContentIds = require(root.util.ParseContentIds)
@@ -36,6 +37,7 @@ local getFFlagUGCValidateAllowFlexibleTriangleLimit = require(root.flags.getFFla
 local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
 local getEngineFeatureEngineEditableMeshAvatarPublish =
 	require(root.flags.getEngineFeatureEngineEditableMeshAvatarPublish)
+local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 
 local function validateIsSkinned(
 	obj: MeshPart,
@@ -313,6 +315,10 @@ local function validateDescendantMeshMetrics(
 				validateIsSkinned(data.instance :: MeshPart, isServer, allowEditableInstances, validationContext)
 			)
 			Analytics.recordScriptTime("validateIsSkinned", startTime, validationContext)
+
+			if getEngineUGCValidateRelativeSkinningTransfer() then
+				reasonsAccumulator:updateReasons(validateSkinningTransfer(data.instance :: MeshPart, validationContext))
+			end
 
 			reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
 		elseif data.instance.ClassName == "WrapTarget" then

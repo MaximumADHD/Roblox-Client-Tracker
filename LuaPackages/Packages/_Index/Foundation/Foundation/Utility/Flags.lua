@@ -28,5 +28,18 @@ return {
 	FoundationFixImageSlice = SafeFlags.createGetFFlag("FoundationFixImageSlice")(),
 	FoundationRemoveSelectionCursorHeartbeat = SafeFlags.createGetFFlag("FoundationRemoveSelectionCursorHeartbeat")(),
 	FoundationFixKnobStroke = SafeFlags.createGetFFlag("FoundationFixKnobStroke")(),
+	FoundationUsePath2DSpinner = SafeFlags.createGetFFlag("FoundationUsePath2DSpinner")(),
 	FoundationPseudoChildSelectors = SafeFlags.createGetFFlag("FoundationPseudoChildSelectors")(),
+	FoundationPopoverOnScreenKeyboard = SafeFlags.createGetFFlag("FoundationPopoverOnScreenKeyboard")(),
+	FoundationPopoverContentToggleOnAnchorClick = SafeFlags.createGetFFlag(
+		"FoundationPopoverContentToggleOnAnchorClick"
+	)(),
+	FoundationNumberInputDisabledStrokeTransparency = SafeFlags.createGetFFlag(
+		"FoundationNumberInputDisabledStrokeTransparency"
+	)(),
+	FoundationSkeletonNewReducedTransparencyPulse = SafeFlags.createGetFFlag(
+		"FoundationSkeletonNewReducedTransparencyPulse"
+	)(),
+	FoundationNoArrowOnVirtualRef = SafeFlags.createGetFFlag("FoundationNoArrowOnVirtualRef")(),
+	FoundationInputLabelBoldTypography = SafeFlags.createGetFFlag("FoundationInputLabelBoldTypography")(),
 }

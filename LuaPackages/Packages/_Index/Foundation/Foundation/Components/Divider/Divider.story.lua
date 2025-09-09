@@ -6,7 +6,7 @@ local React = require(Packages.React)
 local View = require(Foundation.Components.View)
 local Divider = require(Foundation.Components.Divider)
 local DividerVariant = require(Foundation.Enums.DividerVariant)
-local DividerOrientation = require(Foundation.Enums.DividerOrientation)
+local Orientation = require(Foundation.Enums.Orientation)
 
 local function Story(props)
 	return React.createElement(View, {
@@ -24,6 +24,6 @@ return {
 	story = Story,
 	controls = {
 		variant = Dash.values(DividerVariant),
-		orientation = Dash.values(DividerOrientation),
+		orientation = Dash.values(Orientation),
 	},
 }

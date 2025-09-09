@@ -2,10 +2,10 @@ local FoundationCloudAssets = script.Parent
 local Assets = require(FoundationCloudAssets.Generated.Assets)
 local ContentProvider = game:GetService("ContentProvider")
 
-local function preloadAsset(assetName: string)
+local function preloadAsset(assetKey: string)
 	-- create image label instance
 	local assetImage = Instance.new("ImageLabel")
-	assetImage.Image = Assets[assetName]
+	assetImage.Image = Assets[assetKey]
 
 	-- preload asset
 	task.spawn(function()

@@ -17,6 +17,7 @@ local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local Radius = require(Foundation.Enums.Radius)
 local PopoverContext = require(Foundation.Components.Popover.PopoverContext)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
+local Logger = require(Foundation.Utility.Logger)
 
 type PopoverAlign = PopoverAlign.PopoverAlign
 type PopoverSide = PopoverSide.PopoverSide
@@ -44,6 +45,10 @@ local function AnchorWrapper(props: { onHover: (isHovered: boolean) -> () } & Po
 
 	React.useEffect(function()
 		if context.anchor ~= nil then
+			if typeof(context.anchor) ~= "Instance" then
+				Logger:warning("MeasurableRef cannot be an anchor for the tooltip")
+				return
+			end
 			listener.current = context.anchor:GetPropertyChangedSignal("GuiState"):Connect(function()
 				props.onHover(context.anchor.GuiState == Enum.GuiState.Hover)
 			end)

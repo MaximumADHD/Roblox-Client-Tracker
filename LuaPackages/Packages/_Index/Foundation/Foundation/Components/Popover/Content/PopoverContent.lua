@@ -15,7 +15,7 @@ local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local Radius = require(Foundation.Enums.Radius)
-
+local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 
@@ -67,8 +67,11 @@ local SHADOW_VERTICAL_OFFSET = 2
 local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: React.Ref<GuiObject>?)
 	local props = withDefaults(contentProps, defaultProps)
 	local popoverContext = React.useContext(PopoverContext)
-	local pointerPosition = usePointerPosition(popoverContext.anchor)
-
+	local hasGuiObjectAnchor = typeof(popoverContext.anchor) == "Instance"
+	local pointerPosition = usePointerPosition(if hasGuiObjectAnchor then popoverContext.anchor :: GuiObject else nil)
+	local hasArrow = if Flags.FoundationNoArrowOnVirtualRef
+		then if hasGuiObjectAnchor then props.hasArrow else false
+		else props.hasArrow
 	local overlay = useOverlay()
 
 	local tokens = useTokens()
@@ -91,7 +94,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 		overlay,
 		props.side,
 		props.align,
-		if props.hasArrow then arrowHeight else 0
+		if hasArrow then arrowHeight else 0
 	)
 
 	local backdropListener = React.useRef(nil :: RBXScriptConnection?)
@@ -104,12 +107,17 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 		if instance ~= nil and props.onPressedOutside then
 			backdropListener.current = instance:GetPropertyChangedSignal("GuiState"):Connect(function()
 				if instance.GuiState == Enum.GuiState.Press then
-					-- If popover anchor is clicked, skip the onPressedOutside callback
-					if popoverContext.anchor then
-						local pointerPositionValue = pointerPosition:getValue()
+					if popoverContext.anchor and hasGuiObjectAnchor then
+						if Flags.FoundationPopoverContentToggleOnAnchorClick then
+							if (popoverContext.anchor :: GuiObject).GuiState ~= Enum.GuiState.Idle then
+								return
+							end
+						else
+							local pointerPositionValue = pointerPosition:getValue()
 
-						if isPointInGuiObjectBounds(popoverContext.anchor, pointerPositionValue) then
-							return
+							if isPointInGuiObjectBounds(popoverContext.anchor :: GuiObject, pointerPositionValue) then
+								return
+							end
 						end
 					end
 
@@ -156,7 +164,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 			imageStyle = tokens.Color.Extended.Black.Black_20,
 			testId = "--foundation-popover-shadow",
 		}),
-		Arrow = if props.hasArrow
+		Arrow = if hasArrow
 			then React.createElement(View, {
 				Size = UDim2.fromOffset(arrowSide, arrowSide),
 				Position = arrowPosition:map(function(value: Vector2)

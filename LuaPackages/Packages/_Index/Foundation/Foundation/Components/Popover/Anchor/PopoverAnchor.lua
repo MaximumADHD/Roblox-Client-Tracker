@@ -7,14 +7,15 @@ local View = require(Foundation.Components.View)
 local PopoverContext = require(script.Parent.Parent.PopoverContext)
 
 local React = require(Packages.React)
+type PopoverAnchor = Types.PopoverAnchor
 
 export type PopoverAnchorProps = {
 	-- The target ref to anchor the popover to. If provided, children will not be rendered.
-	anchorRef: React.Ref<GuiObject>?,
+	anchorRef: React.Ref<PopoverAnchor>?,
 	children: React.ReactNode?,
 } & Types.CommonProps
 
-local function PopoverAnchor(props: PopoverAnchorProps, forwardedRef: React.Ref<GuiObject>?): React.ReactNode
+local function PopoverAnchor(props: PopoverAnchorProps, forwardedRef: React.Ref<PopoverAnchor>?): React.ReactNode
 	local context = React.useContext(PopoverContext)
 
 	local ref = React.useRef(nil)

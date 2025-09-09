@@ -1,0 +1,18 @@
+[package]
+name = "Dash"
+version = "3.1.0"
+readme = "README.md"
+content_root = "src"
+files = ["*"]
+publish = true
+authors = ["hcollins"]
+license = "MIT"
+description = "A collection of core utilities expanding the capabilities of Lua in Roblox."
+repository = "https://github.com/Roblox/dash-internal"
+keywords = ["utilities"]
+documentation = "https://roblox.github.io/dash-internal"
+[dev_dependencies.Jest]
+version = "^3.8.0"
+
+[dev_dependencies.JestGlobals]
+version = "^3.8.0"

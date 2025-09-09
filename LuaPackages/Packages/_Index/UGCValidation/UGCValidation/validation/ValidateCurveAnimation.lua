@@ -44,6 +44,9 @@ local getFFlagUGCValidateRestrictAnimationMovementCurvesFix =
 	require(flags.getFFlagUGCValidateRestrictAnimationMovementCurvesFix)
 local getFFlagUGCValidateStopNaNsInfsInAnimationKeys = require(flags.getFFlagUGCValidateStopNaNsInfsInAnimationKeys)
 local getFFlagUGCValidateStopNaNsInfsInCalculatedData = require(flags.getFFlagUGCValidateStopNaNsInfsInCalculatedData)
+local getFFlagUGCValidateSingleAnimationRigData = require(flags.getFFlagUGCValidateSingleAnimationRigData)
+local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
+	require(flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
 
 local ValidateCurveAnimation = {}
 
@@ -301,6 +304,76 @@ local function validateSingleBodyRoot(
 	return true
 end
 
+function ValidateCurveAnimation.validateSingleAnimationRigData(
+	curveAnim: CurveAnimation,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	local numRoots = 0
+	for _, child in curveAnim:GetChildren() do
+		if child:IsA("AnimationRigData") then
+			numRoots += 1
+			if numRoots > 1 then
+				return reportFailure(
+					"CurveAnimation contains more than one AnimationRigData children. Please ensure there is only one AnimationRigData child.",
+					Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+					validationContext
+				)
+			end
+		end
+	end
+
+	if numRoots == 0 then
+		return reportFailure(
+			"CurveAnimation contains zero AnimationRigData children. Please ensure there is one (and only one) AnimationRigData children.",
+			Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+			validationContext
+		)
+	end
+	return true
+end
+
+function ValidateCurveAnimation.validateAnimationRigDataInternals(
+	curveAnim: CurveAnimation,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	for _, child in curveAnim:GetChildren() do
+		if not child:IsA("AnimationRigData") then
+			continue
+		end
+
+		if not (child :: any):IsValidR15() then
+			return reportFailure(
+				"AnimationRigData failed internal validation. Please ensure the AnimationRigData is set up correctly.",
+				Analytics.ErrorType.validateCurveAnimation_IncorrectAnimationRigData,
+				validationContext
+			)
+		end
+	end
+	return true
+end
+
+local function validateAnimationRigData(
+	curveAnim: CurveAnimation,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	if getFFlagUGCValidateSingleAnimationRigData() then
+		local success, errorMessages =
+			ValidateCurveAnimation.validateSingleAnimationRigData(curveAnim, validationContext)
+		if not success then
+			return false, errorMessages
+		end
+	end
+
+	if getEngineFeatureEngineUGCIsValidR15AnimationRigCheck() then
+		local success, errorMessages =
+			ValidateCurveAnimation.validateAnimationRigDataInternals(curveAnim, validationContext)
+		if not success then
+			return false, errorMessages
+		end
+	end
+	return true
+end
+
 local function validateScripts(
 	curveAnim: CurveAnimation,
 	validationContext: Types.ValidationContext
@@ -404,6 +477,13 @@ local function validateAnimationHierarchy(
 	local success, errorMessages = validateSingleBodyRoot(curveAnim, validationContext)
 	if not success then
 		return false, errorMessages
+	end
+
+	if getFFlagUGCValidateSingleAnimationRigData() or getEngineFeatureEngineUGCIsValidR15AnimationRigCheck() then
+		success, errorMessages = validateAnimationRigData(curveAnim, validationContext)
+		if not success then
+			return false, errorMessages
+		end
 	end
 
 	for _, child in curveAnim:GetChildren() do

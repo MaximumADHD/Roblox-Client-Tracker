@@ -1,0 +1,27 @@
+[package]
+name = "ReactTelemetry"
+version = "17.3.4"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+authors = [
+    "Paul Doyle <pdoyle@roblox.com>",
+    "Matt Hargett <mhargett@roblox.com>",
+    "Max Mines <mmines@roblox.com>",
+    "Carlo Conte <cconte@roblox.com>",
+    "Henry Allen <hallen@roblox.com>",
+    "Olivier Trepanier <otrepanier@roblox.com>",
+    "Hugh Collins <hcollins@roblox.com>",
+]
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.ReactGlobals]
+package = "ReactGlobals"
+version = "^17.3.4"
+
+[dependencies.SafeFlags]
+version = "^0.1.1"

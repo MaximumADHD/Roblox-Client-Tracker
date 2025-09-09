@@ -30,6 +30,37 @@ The `onClose` callback is called when the dialog should be closed. It receives a
 
 This allows you to handle different close scenarios appropriately, such as showing a confirmation prompt when closing via backdrop click.
 
+## Dialog.Actions Behavior
+
+The Dialog.Actions component handles the layout and behavior of action buttons in a dialog. Actions can be arranged either horizontally or vertically based on the dialog's size and the specified orientation.
+
+### Orientation Behavior
+
+The orientation of action buttons is determined by two factors:
+1. The `orientation` prop (defaults to `Orientation.Horizontal`)
+2. The dialog's size
+
+The following rules apply:
+- For `DialogSize.Medium` and `DialogSize.Large`, actions are always arranged horizontally (row layout with wrapping)
+- For `DialogSize.Small`:
+  - If `orientation = Orientation.Horizontal`, actions are arranged horizontally
+  - If `orientation = Orientation.Vertical`, actions are arranged vertically with full width
+
+This responsive behavior ensures optimal button layout across different dialog sizes and screen widths.
+
+### Action Button Properties
+
+Each action in the `actions` array can have the following properties:
+- `text`: The button text
+- `variant`: Button style variant (e.g., ButtonVariant.Standard, ButtonVariant.Emphasis)
+- `icon`: Optional icon to display
+- `onActivated`: Callback function when button is clicked
+- `inputDelay`: Optional delay before the button can be clicked (in seconds)
+
+### Optional Label
+
+You can provide a descriptive label below the action buttons using the `label` prop. This is useful for providing additional context about the actions.
+
 ---
 
 ## Usage

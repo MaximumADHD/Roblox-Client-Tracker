@@ -18,6 +18,7 @@ type InputSize = InputSize.InputSize
 type PopoverSide = PopoverSide.PopoverSide
 type PopoverAlign = PopoverAlign.PopoverAlign
 type OnItemActivated = Types.OnItemActivated
+type PopoverAnchor = Types.PopoverAnchor
 
 export type MenuItem = InternalMenu.MenuItem
 export type MenuProps = {
@@ -39,7 +40,7 @@ export type MenuProps = {
 	-- Should be defined either for the whole Menu, or separately for all the MenuItems
 	onActivated: OnItemActivated?,
 	-- Reference to the element that will serve as an anchor
-	anchorRef: React.Ref<GuiObject>?,
+	anchorRef: React.Ref<PopoverAnchor>?,
 	-- Children to render as the anchor
 	children: React.ReactNode?,
 } & Types.CommonProps

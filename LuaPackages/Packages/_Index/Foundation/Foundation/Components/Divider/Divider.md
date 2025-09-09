@@ -10,7 +10,7 @@ Dividers are layout components used to control visual separation between visual,
 
 ## Usage
 
-Dividers can be used in both horizontal and vertical orientations to achieve visual separation between components in a layout. The orientation is controlled by the `orientation` property, with possible values defined in [[DividerOrientation]] (`Horizontal`/`Vertical`). `Horizontal` is the default.
+Dividers can be used in both horizontal and vertical orientations to achieve visual separation between components in a layout. The orientation is controlled by the `orientation` property, with possible values defined in [[Orientation]] (`Horizontal`/`Vertical`). `Horizontal` is the default.
 
 ### Variants
 
@@ -24,16 +24,16 @@ Note: When `orientation` is set to `Vertical`, the `variant` property is always 
 local Foundation = require(Packages.Foundation)
 local Divider = Foundation.Divider
 local DividerVariant = require(Foundation.Enums.DividerVariant)
-local DividerOrientation = require(Foundation.Enums.DividerOrientation)
+local Orientation = require(Foundation.Enums.Orientation)
 
 -- Horizontal divider with variant
 return React.createElement(Divider, {
 	variant = DividerVariant.Heavy,
-	orientation = DividerOrientation.Horizontal,
+	orientation = Orientation.Horizontal,
 })
 
 -- Vertical divider (always uses Default variant)
 return React.createElement(Divider, {
-	orientation = DividerOrientation.Vertical,
+	orientation = Orientation.Vertical,
 })
 ```
