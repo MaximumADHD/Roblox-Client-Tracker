@@ -176,11 +176,13 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:HasTag(tag: string) -> boolean {🧬Safe}
 	Function Instance:IsAncestorOf(descendant: Instance) -> boolean {🧬Safe}
 	Function Instance:IsDescendantOf(ancestor: Instance) -> boolean {🧬Safe}
+	Function Instance:IsPredicted() -> boolean {🔐InternalTest}
 	Function Instance:IsPropertyModified(property: string) -> boolean
 	Function Instance:Remove() -> () [Deprecated]
 	Function Instance:RemoveTag(tag: string) -> ()
 	Function Instance:ResetPropertyToDefault(property: string) -> ()
 	Function Instance:SetAttribute(attribute: string, value: any) -> ()
+	Function Instance:SetPredictionMode(mode: Enum.PredictionMode) -> () {🔐InternalTest}
 	Function Instance:WaitForChild(childName: string, timeOut: number) -> Instance? [CustomLuaState] [CanYield]
 	Function Instance:children() -> { Instance } [Deprecated]
 	Function Instance:clone() -> Instance? {🔐CreateInstances} [Deprecated]
@@ -328,6 +330,13 @@ Class AnimationRigData : Instance
 	Property AnimationRigData.postTransform: BinaryString {🔐Animation} [Hidden] [NotScriptable]
 	Property AnimationRigData.preTransform: BinaryString {🔐Animation} [Hidden] [NotScriptable]
 	Property AnimationRigData.transform: BinaryString {🔐Animation} [Hidden] [NotScriptable]
+	Function AnimationRigData:GetLabels() -> { any } {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationRigData:GetNames() -> { any } {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationRigData:GetParents() -> { any } {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationRigData:GetPostTransforms() -> { any } {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationRigData:GetPreTransforms() -> { any } {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationRigData:GetTransforms() -> { any } {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationRigData:IsValidR15() -> boolean {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationRigData:LoadFromHumanoid(humanoid: Instance) -> boolean {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationRigData:LoadFromModel(model: Instance) -> boolean {🔐Animation} {RobloxScriptSecurity}
 Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
@@ -383,6 +392,7 @@ Class Animator : Instance
 	Function Animator:LoadStreamAnimationV2(animation: TrackerStreamAnimation, player: Player? = nil, shouldLookupPlayer: boolean? = true, shouldReplicate: boolean? = true) -> AnimationStreamTrack {🔐Animation} {RobloxScriptSecurity}
 	Function Animator:RegisterEvaluationParallelCallback(callback: (...any) -> ...any) -> () {🔐Animation}
 	Function Animator:StepAnimations(deltaTime: number) -> () {🔐Animation} {PluginSecurity}
+	Function Animator:StepAnimationsInternal(deltaTime: number, options: { [string]: any }) -> () {🔐Animation} {RobloxScriptSecurity}
 	Function Animator:SynchronizeWith(otherAnimator: Animator) -> () {🔐Animation} {RobloxScriptSecurity}
 	Event Animator.AnimationPlayed(animationTrack: AnimationTrack) {🔐Animation}
 	Event Animator.AnimationPlayedCoreScript(animationTrack: AnimationTrack) {🔐Animation} {RobloxScriptSecurity}
@@ -893,7 +903,7 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraService:GetRemoteWorldStepId() -> number [Deprecated]
 	Function AuroraService:GetServerView(target: Instance) -> Instance? [Deprecated]
 	Function AuroraService:GetWorldStepId() -> number [Deprecated]
-	Function AuroraService:IsPredicted(target: Instance) -> boolean [Deprecated]
+	Function AuroraService:IsInstancePredicted(target: Instance) -> boolean [Deprecated]
 	Function AuroraService:PlayInputRecording() -> () [Deprecated]
 	Function AuroraService:SetIncomingReplicationLag(seconds: number) -> () [Deprecated]
 	Function AuroraService:SetPropertyIsInput(target: Instance, propertyName: string, isInput: boolean) -> () [Deprecated]
@@ -905,7 +915,7 @@ Class AuroraService : Instance [NotCreatable] [Service] [Deprecated]
 	Function AuroraService:StopPrediction(target: Instance) -> () [Deprecated]
 	Function AuroraService:UpdateProperties(target: Instance) -> () [Deprecated]
 	Event AuroraService.FixedRateTick(deltaTime: number, worldStepId: number) [Deprecated]
-	Event AuroraService.Misprediction(worldStepId: number, mispredictedInstances: { any }) [Deprecated]
+	Event AuroraService.Misprediction(remoteWorldStepId: number, mispredictedInstances: { any }) [Deprecated]
 	Event AuroraService.Rollback(worldStepId: number) [Deprecated]
 	Event AuroraService.Step() [Deprecated]
 Class AvatarAccessoryRules : Instance
@@ -1471,7 +1481,6 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:OnVideoCaptureShared(videoCapture: VideoCapture) -> () {RobloxScriptSecurity}
 	Function CaptureService:PreCaptureShared(capture: Capture) -> string {RobloxScriptSecurity}
 	Function CaptureService:PreVideoCaptureShared(videoCapture: VideoCapture) -> string {RobloxScriptSecurity}
-	Function CaptureService:PromptCaptureGalleryPermission(captureGalleryPermission: Enum.CaptureGalleryPermission, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> () {🔐InternalTest}
 	Function CaptureService:PromptCaptureGalleryPermissionAsync(captureGalleryPermission: Enum.CaptureGalleryPermission) -> boolean [Yields]
 	Function CaptureService:PromptSaveCapturesToGallery(captures: { any }, resultCallback: (...any) -> ...any) -> ()
 	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
@@ -2425,6 +2434,8 @@ Class FaceInstance : Instance [NotCreatable] [NotBrowsable]
 	Property FaceInstance.Face: Enum.NormalId {🔐Basic}
 Class Decal : FaceInstance
 	Property Decal.Color3: Color3 {🔐Basic}
+	Property Decal.ColorMap: string {🔐Basic} [NotReplicated]
+	Property Decal.ColorMapContent: Content {🔐Basic} [NotReplicated]
 	Property Decal.LocalTransparencyModifier: number {🔐Basic} [Hidden] [NotReplicated]
 	Property Decal.MetalnessMap: string {🔐Basic} {PluginSecurity} [Hidden]
 	Property Decal.MetalnessMapContent: Content {🔐Basic} {✏️PluginSecurity}
@@ -3540,6 +3551,7 @@ Class HumanoidDescription : Instance
 	Event HumanoidDescription.EmotesChanged(newEmotes: { [string]: any }) {🔐Avatar}
 	Event HumanoidDescription.EquippedEmotesChanged(newEquippedEmotes: { any }) {🔐Avatar}
 Class HumanoidRigDescription : Instance [NotBrowsable]
+	Property HumanoidRigDescription.OriginOffset: CFrame {🔐Animation} {RobloxScriptSecurity}
 	Property HumanoidRigDescription.Chest: Instance? {🔐Animation}
 	Property HumanoidRigDescription.HeadBase: Instance? {🔐Animation}
 	Property HumanoidRigDescription.LeftAnkle: Instance? {🔐Animation}
@@ -4549,7 +4561,6 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function BasePart:Resize(normalId: Enum.NormalId, deltaAmount: number) -> boolean
 	Function BasePart:SetNetworkOwner(playerInstance: Player? = nil) -> ()
 	Function BasePart:SetNetworkOwnershipAuto() -> ()
-	Function BasePart:SetPredictionMode(mode: Enum.PredictionMode) -> () {RobloxScriptSecurity} [Deprecated]
 	Function BasePart:SubtractAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? {🔐CSG} [Yields]
 	Function BasePart:TorqueToAngularAcceleration(torque: Vector3, angVelocity: Vector3?) -> Vector3
 	Function BasePart:UnionAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? {🔐CSG} [Yields]
@@ -4866,9 +4877,9 @@ Class WorldRoot : Model [NotCreatable]
 	Function WorldRoot:GetAwakeContactParts() -> { any } {RobloxScriptSecurity} [CustomLuaState] {🧬Safe}
 	Function WorldRoot:GetAwakeContactPositions() -> { any } {RobloxScriptSecurity} [CustomLuaState] {🧬Safe}
 	Function WorldRoot:GetAwakeRootParts() -> { Instance } {RobloxScriptSecurity} [CustomLuaState] {🧬Safe}
-	Function WorldRoot:GetPartBoundsInBox(cframe: CFrame, size: Vector3, overlapParams: OverlapParams?) -> { Instance } {🧬Safe}
-	Function WorldRoot:GetPartBoundsInRadius(position: Vector3, radius: number, overlapParams: OverlapParams?) -> { Instance } {🧬Safe}
-	Function WorldRoot:GetPartsInPart(part: BasePart, overlapParams: OverlapParams?) -> { Instance } {🧬Safe}
+	Function WorldRoot:GetPartBoundsInBox(cframe: CFrame, size: Vector3, overlapParams: OverlapParams?) -> { Instance } [CustomLuaState] {🧬Safe}
+	Function WorldRoot:GetPartBoundsInRadius(position: Vector3, radius: number, overlapParams: OverlapParams?) -> { Instance } [CustomLuaState] {🧬Safe}
+	Function WorldRoot:GetPartsInPart(part: BasePart, overlapParams: OverlapParams?) -> { Instance } [CustomLuaState] {🧬Safe}
 	Function WorldRoot:IKMoveTo(part: BasePart, target: CFrame, translateStiffness: number? = 0.5, rotateStiffness: number? = 0.5, collisionsMode: Enum.IKCollisionsMode? = "OtherMechanismsAnchored") -> () {PluginSecurity}
 	Function WorldRoot:IsRegion3Empty(region: Region3, ignoreDescendentsInstance: Instance? = nil) -> boolean [Deprecated]
 	Function WorldRoot:IsRegion3EmptyWithIgnoreList(region: Region3, ignoreDescendentsTable: { Instance }) -> boolean [Deprecated]
@@ -4916,14 +4927,13 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.TerrainWeldsFixed: boolean [Hidden] [NotScriptable]
 	Property Workspace.TouchEventsUseCollisionGroups: Enum.RolloutState [NotScriptable]
 	Property Workspace.TouchesUseCollisionGroups: boolean [NotScriptable]
-	Property Workspace.UseImprovedModelLod: Enum.RolloutState [NotScriptable]
 	Property Workspace.CurrentCamera: Camera? [NotReplicated]
 	Property Workspace.DistributedGameTime: number [NotReplicated]
 	Property Workspace.InsertPoint: Vector3 [NotReplicated]
 	Property Workspace.RejectCharacterDeletions: Enum.RejectCharacterDeletions [NotScriptable]
 	Property Workspace.LuauTypeCheckMode: Enum.LuauTypeCheckMode {PluginSecurity}
 	Property Workspace.UseNewLuauTypeSolver: Enum.RolloutState [NotScriptable]
-	Property Workspace.AuthorityMode: Enum.AuthorityMode {RobloxScriptSecurity}
+	Property Workspace.AuthorityMode: Enum.AuthorityMode {🔐InternalTest}
 	Property Workspace.ModelStreamingBehavior: Enum.ModelStreamingBehavior [NotScriptable]
 	Property Workspace.StreamOutBehavior: Enum.StreamOutBehavior [NotScriptable]
 	Property Workspace.StreamingEnabled: boolean {✏️PluginSecurity}
@@ -4931,6 +4941,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.StreamingMinRadius: number [NotScriptable]
 	Property Workspace.StreamingPauseMode: Enum.StreamingPauseMode [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable]
 	Property Workspace.StreamingTargetRadius: number [NotScriptable]
+	Property Workspace.UseImprovedModelLod: Enum.RolloutState [NotScriptable]
 	Function Workspace:BreakJoints(objects: { Instance }) -> () {PluginSecurity} [Deprecated]
 	Function Workspace:CalculateJumpDistance(gravity: number, jumpPower: number, walkSpeed: number) -> number {RobloxScriptSecurity}
 	Function Workspace:CalculateJumpHeight(gravity: number, jumpPower: number) -> number {RobloxScriptSecurity}
@@ -4969,6 +4980,8 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PackageUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PackageUIService:ConvertToMockPackage(instance: Instance) -> () {RobloxScriptSecurity}
+	Function PackageUIService:ConvertToPackageAsync(sourceRoot: Instance, name: string, cloneRoot: Instance) -> Instance? {RobloxScriptSecurity} [Yields]
+	Function PackageUIService:ConvertToPackageClosedCallback(sourceRoot: Instance) -> () {RobloxScriptSecurity}
 	Function PackageUIService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
 	Function PackageUIService:GetPackageInfo(packageAssetId: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PackageUIService:PublishPackage(packageInstance: Instance, addUndoWayPoint: boolean) -> () {RobloxScriptSecurity} [Yields]
@@ -5707,6 +5720,7 @@ Class RbxAnalyticsService : Instance [NotCreatable] [Service]
 	Function RbxAnalyticsService:UpdateHeartbeatObject(args: { [string]: any }) -> () {RobloxScriptSecurity}
 Class RecommendationService : Instance [NotCreatable] [Service]
 	Function RecommendationService:GenerateItemListAsync(generateRecommendationItemListRequest: { [string]: any }) -> RecommendationPages [Yields]
+	Function RecommendationService:GetRecommendationItemAsync(itemId: string) -> { [string]: any } [Yields]
 	Function RecommendationService:LogActionEvent(actionType: Enum.RecommendationActionType, itemId: string, tracingId: string, actionEventDetails: { [string]: any }? = nil) -> ()
 	Function RecommendationService:LogImpressionEvent(impressionType: Enum.RecommendationImpressionType, itemId: string, tracingId: string, impressionEventDetails: { [string]: any }? = nil) -> ()
 	Function RecommendationService:RegisterItemAsync(player: Player, registerRecommendationItemsRequest: { [string]: any }) -> { [string]: any } [Yields]
@@ -5853,6 +5867,7 @@ Class RtMessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property RunService.ClientGitHash: string {🔐Basic} {RobloxScriptSecurity} [ReadOnly]
 	Property RunService.RunState: Enum.RunState {🔐Basic} {PluginSecurity} [NotReplicated]
+	Property RunService.ServerFrame: number {🔐Basic} [ReadOnly]
 	Function RunService:BindToRenderStep(name: string, priority: number, function: (...any) -> ...any) -> () {🔐Basic}
 	Function RunService:GetControlAndVariantRolloutFlags() -> ...any {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetCoreScriptVersion() -> string {🔐Basic} {RobloxScriptSecurity}
@@ -5873,6 +5888,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:Stop() -> () {🔐Basic} {PluginSecurity}
 	Function RunService:UnbindFromRenderStep(name: string) -> () {🔐Basic}
 	Function RunService:setThrottleFramerateEnabled(enable: boolean) -> () {🔐Basic} {RobloxScriptSecurity}
+	Event RunService.FixedHeartbeat(deltaTime: number) {🔐Basic | InternalTest}
 	Event RunService.Heartbeat(deltaTime: number) {🔐Basic}
 	Event RunService.PostSimulation(deltaTimeSim: number) {🔐Basic}
 	Event RunService.PreAnimation(deltaTimeSim: number) {🔐Basic}
@@ -6957,6 +6973,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function TeleportService:UnblockAsync() -> ...any {RobloxScriptSecurity} [Yields]
 	Event TeleportService.LocalPlayerArrivedFromTeleport(loadingGui: Instance, dataTable: any)
 	Event TeleportService.MenuTeleportAttempt() {RobloxScriptSecurity}
+	Event TeleportService.ReconnectTeleportInitFailed(player: Instance, teleportResult: Enum.TeleportResult, errorMessage: string, placeId: number, teleportOptions: Instance) {RobloxSecurity}
 	Event TeleportService.SendVIPData(player: Instance, vipServerCode: string, dmPlaceID: number) {RobloxSecurity} [Hidden]
 	Event TeleportService.TeleportInProgress(player: Instance, teleportInfo: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event TeleportService.TeleportInitFailed(player: Instance, teleportResult: Enum.TeleportResult, errorMessage: string, placeId: number, teleportOptions: Instance)
@@ -7177,7 +7194,10 @@ Class TextFilterTranslatedResult : Instance [NotCreatable] [NotReplicated]
 	Function TextFilterTranslatedResult:GetTranslationForLocale(locale: string) -> TextFilterResult {🔐UI}
 	Function TextFilterTranslatedResult:GetTranslations() -> { [string]: any } {🔐UI}
 Class TextGenerator : Instance
+	Property TextGenerator.Seed: number
 	Property TextGenerator.SystemPrompt: string
+	Property TextGenerator.Temperature: number
+	Property TextGenerator.TopP: number
 	Function TextGenerator:GenerateTextAsync(request: { [string]: any }) -> { [string]: any } [Yields]
 Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TextService:FilterAndTranslateStringAsync(stringToFilter: string, fromUserId: number, targetLocales: { any }, textContext: Enum.TextFilterContext? = "PrivateChat") -> TextFilterTranslatedResult {🔐UI} [Yields]
@@ -7810,7 +7830,6 @@ Class VideoDeviceInput : Instance [NotReplicated]
 	Property VideoDeviceInput.CaptureQuality: Enum.VideoDeviceCaptureQuality
 	Property VideoDeviceInput.IsReady: boolean [ReadOnly]
 Class VideoPlayer : Instance [NotBrowsable]
-	Property VideoPlayer.Asset: string
 	Property VideoPlayer.IsLoaded: boolean [ReadOnly]
 	Property VideoPlayer.Resolution: Vector2 [ReadOnly]
 	Property VideoPlayer.TimeLength: number [ReadOnly]
@@ -7820,6 +7839,7 @@ Class VideoPlayer : Instance [NotBrowsable]
 	Property VideoPlayer.IsPlaying: boolean [ReadOnly]
 	Property VideoPlayer.Looping: boolean
 	Property VideoPlayer.PlaybackSpeed: number
+	Property VideoPlayer.PlayingReplicating: boolean [Hidden] [NotScriptable]
 	Property VideoPlayer.TimePosition: number
 	Property VideoPlayer.Volume: number
 	Function VideoPlayer:GetConnectedWires(pin: string) -> { Instance }
@@ -7964,6 +7984,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string, clientIp: string, clientPort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RuppInitialToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RuppPeriodicToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number, sourceIpAddress: string, sourcePort: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SsrcFeedIdMappingUpdate(ssrcs: { any }, feedIds: { any }, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscribeStateChange(muteState: Enum.MuteState, userIds: string, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionDropped(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionFeedStarted(eventTag: number, sessionId: string) {RobloxSecurity} [Hidden]
@@ -10302,8 +10323,8 @@ Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
 Enum PredictionMode
 	EnumItem PredictionMode.Auto : 0
-	EnumItem PredictionMode.None : 1
-	EnumItem PredictionMode.Forced : 2 [Deprecated]
+	EnumItem PredictionMode.On : 1
+	EnumItem PredictionMode.Off : 2
 Enum PreferredInput
 	EnumItem PreferredInput.KeyboardAndMouse : 0
 	EnumItem PreferredInput.Gamepad : 1

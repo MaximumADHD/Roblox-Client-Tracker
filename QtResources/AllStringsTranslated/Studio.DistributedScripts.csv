@@ -12,17 +12,37 @@ Studio.DistributedScripts.ResimulatedCoreScript,,,CoreScript (Resim),CoreScript 
 Studio.DistributedScripts.ResimulatedStandalone,,,Standalone (Resim),Standalone (Resim),مستقل (مُعاد محاكاته),Standalone (Resim),Independiente (Resimulado),Autonome (Resim),स्टैंडअलोन (रीसिम्युलेशन),Standalone (Resim),Standalone (Resim),自己完結型（再シミュレーション）,독립형(재시뮬),Samodzielny (Resim),Autônomo (Resimulação),,สแตนด์อโลน (Resim),Bağımsız (Resimülasyon),Độc lập (Resim),,,獨立 (Resim)
 Studio.DistributedScripts.ResimulatedStudio,,,Studio (Resim),Studio (Resim),Studio (مُعاد محاكاته),Studio (Resim),Studio (Resimulado),Studio (Resim),Studio (रीसिम्युलेशन),Studio (Resim),Studio (Resim),Studio（再シミュレーション）,Studio(재시뮬),Studio (Resim),Studio (Resimulação),,สตูดิโอ (Resim),Studio (Resimülasyon),Studio (Resim),,,Studio (Resim)
 Studio.DistributedScripts.BehaviorScript,,,Behavior Script,Behavior Script,النص البرمجي للسلوك,Verhaltensskript,Script Behavior,Script de comportement,बिहेवियर स्क्रिप्ट,Skrip Perilaku,Script di comportamento,動作スクリプト,행동 스크립트,Skrypt zachowania,Script de comportamento,,สคริปต์ลักษณะการทำงาน,Davranış Komut Dosyası,Tập lệnh hành vi,,,行為指令碼
-Studio.DistributedScripts.SelectAuroraScript,,,Select AuroraScript,Select AuroraScript,,AuroraScript auswählen,Seleccionar AuroraScript,,AuroraScript चुनें,Pilih AuroraScript,Seleziona AuroraScript,AuroraScript を選択,AuroraScript 선택,Wybierz AuroraScript,,,เลือก AuroraScript,AuroraScript'i Seç,Chọn AuroraScript,,,選擇 AuroraScript
-Studio.DistributedScripts.SelectAndOpenAuroraScript,,,Select + Open AuroraScript,Select + Open AuroraScript,,AuroraScript auswählen + öffnen,Seleccionar + Abrir AuroraScript,,'+ AuroraScript खोलें' चुनें,Pilih + Buka AuroraScript,Seleziona + Apri AuroraScript,選択して AuroraScript を開く,AuroraScript 선택 및 열기,Wybierz + Otwórz AuroraScript,,,เลือก + เปิด AuroraScript,AuroraScript'i Seç + Aç,Chọn + Mở AuroraScript,,,選擇 + 開啟 AuroraScript
+Studio.DistributedScripts.SelectAuroraScript,,,Select AuroraScript,Select AuroraScript,,AuroraScript auswählen,Seleccionar AuroraScript,Sélectionner AuroraScript,AuroraScript चुनें,Pilih AuroraScript,Seleziona AuroraScript,AuroraScript を選択,AuroraScript 선택,Wybierz AuroraScript,Selecionar AuroraScript,,เลือก AuroraScript,AuroraScript'i Seç,Chọn AuroraScript,,,選擇 AuroraScript
+Studio.DistributedScripts.SelectAndOpenAuroraScript,,,Select + Open AuroraScript,Select + Open AuroraScript,,AuroraScript auswählen + öffnen,Seleccionar + Abrir AuroraScript,Sélectionner + Ouvrir AuroraScript,'+ AuroraScript खोलें' चुनें,Pilih + Buka AuroraScript,Seleziona + Apri AuroraScript,選択して AuroraScript を開く,AuroraScript 선택 및 열기,Wybierz + Otwórz AuroraScript,Selecione e abra o AuroraScript,,เลือก + เปิด AuroraScript,AuroraScript'i Seç + Aç,Chọn + Mở AuroraScript,,,選擇 + 開啟 AuroraScript
 Studio.DistributedScripts.AuroraScriptBindingsUploadWarning,,,"AuroraScript bindings will be removed during upload, which may break functionality. Consider converting to local scripts first.
 
 Continue with upload anyway?","AuroraScript bindings will be removed during upload, which may break functionality. Consider converting to local scripts first.
 
-Continue with upload anyway?",,,"Se eliminarán los enlaces de AuroraScript durante la carga, lo que puede afectar la funcionalidad. Considera convertir primero a scripts locales.
+Continue with upload anyway?",,"AuroraScript-Bindings werden beim Hochladen entfernt, was die Funktionalität beeinträchtigen kann. Wandle sie am besten vorher in LocalScripts um.
 
-¿Continuar con la carga?",,,,,"アップロード中に AuroraScript のバインドは削除されます（これは、機能を壊す可能性があります）。まずローカルスクリプトに変換することを検討してください。
+Upload trotzdem fortsetzen?","Se eliminarán los enlaces de AuroraScript durante la carga, lo que puede afectar la funcionalidad. Considera convertir primero a scripts locales.
+
+¿Continuar con la carga?","Les liaisons AuroraScript seront supprimées pendant le téléchargement, ce qui risque d'interrompre la fonctionnalité. Envisage d'abord de convertir les scripts locaux.","अपलोड के दौरान AuroraScript बाइंडिंग हटा दी जाएगी, जिससे फ़ंक्शनैलिटी ब्रेक हो सकती है. पहले लोकल स्क्रिप्ट में बदलकर देखें.
+
+फिर भी अपलोड जारी रखना है?","AuroraScript binding akan dihapus selama proses upload. Hal ini dapat merusak fungsionalitas. Pertimbangkan untuk mengonversi ke skrip lokal terlebih dahulu.
+
+Lanjutkan proses upload?","I binding AuroraScript verranno rimossi durante il caricamento. Questa azione potrebbe compromettere la funzionalità. Valuta attentamente se effettuare prima la conversione in script locali.
+
+Proseguire comunque con il caricamento?","アップロード中に AuroraScript のバインドは削除されます（これは、機能を壊す可能性があります）。まずローカルスクリプトに変換することを検討してください。
 
 アップロードを続けますか？","업로드 중 AuroraScript 바인딩이 제거되며, 이로 인해 기능이 손상될 수 있습니다. 먼저 로컬 스크립트로 전환하는 것을 고려해 보세요.
 
-그래도 업로드를 계속할까요?",,,,,,,,,
-Studio.DistributedScripts.AuroraScriptUploadError,,,AuroraScripts can't be included in uploads,AuroraScripts can't be included in uploads,,,No se pueden incluir los scripts de AuroraScripts en las cargas,,,,,AuroraScripts をアップロードに入れることはできません,AuroraScripts가 업로드에 포함될 수 없습니다,,,,,,,,,
+그래도 업로드를 계속할까요?","Powiązania AuroraScript zostaną usunięte podczas przesyłania, co może spowodować awarię funkcjonalności. Rozważ najpierw konwersję na skrypty lokalne.
+
+Czy mimo to kontynuować przesyłanie?","As ligações AuroraScript serão removidas durante o upload, o que poderá quebrar funcionalidade. Considere a conversão para scripts locais primeiro.
+
+Continuar com o upload mesmo assim?",,"การผูก AuroraScript จะถูกลบออกระหว่างการอัปโหลด ซึ่งอาจทำให้ฟังก์ชันการทำงานเสียหาย ลองแปลงเป็นสคริปต์ของระบบก่อน
+
+ต้องการอัปโหลดต่อหรือไม่?","AuroraScript bağlamaları yükleme sırasında kaldırılacağı için işlevsellik zarar görebilir. Önce yerel komut dosyalarına dönüştürmeyi düşün.
+
+Yüklemeye yine de devam edilsin mi?","Các liên kết AuroraScript sẽ bị xóa trong quá trình tải lên và làm ảnh hưởng đến chức năng hoạt động. Bạn nên chuyển đổi sang tập lệnh cục bộ trước khi tải lên.
+
+Vẫn tiếp tục tải lên?",,,"AuroraScript 繫結會在上傳期間移除，這可能會導致功能失效。請考慮先轉換為本機指令碼。
+
+是否仍要繼續上傳？"
+Studio.DistributedScripts.AuroraScriptUploadError,,,AuroraScripts can't be included in uploads,AuroraScripts can't be included in uploads,,Es dürfen keine AuroraScripts in Uploads enthalten sein,No se pueden incluir los scripts de AuroraScripts en las cargas,Les AuroraScripts ne peuvent pas être inclus dans les téléchargements,अपलोड में AuroraScripts शामिल नहीं किए जा सकते,AuroraScripts tidak dapat disertakan dalam upload,Gli AuroraScripts non possono essere inclusi nei caricamenti,AuroraScripts をアップロードに入れることはできません,AuroraScripts가 업로드에 포함될 수 없습니다,Nie można przesyłać plików AuroraScript,AuroraScripts não podem ser incluídos em uploads,,ไม่สามารถรวม AuroraScripts ไว้ในการอัปโหลดได้,AuroraScript'ler yüklemelere dâhil edilemez,Không thể tải lên tệp có chứa AuroraScript,,,AuroraScripts 無法納入上傳項目中

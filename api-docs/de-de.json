@@ -24734,7 +24734,7 @@
       "@roblox/globaltype/DataModel.IsLoaded/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#IsLoaded",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- Create a basic loading screen\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"Loading\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- Parent entire screen GUI to player GUI\nscreenGui.Parent = playerGui\n\n-- Remove the default loading screen\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--wait(3)  -- Optionally force screen to appear for a minimum number of seconds\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/0": {
     "documentation": "Die Wurzel der Eltern-Kind-Hierarchie von Roblox.Seine direkten Kinder sind Dienste wie <code>Workspace</code> und <code>Lighting</code>, die als grundlegende Komponenten eines Roblox-Spiels fungieren."
@@ -69300,7 +69300,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequence#RemoveKeyframe",
-    "code_sample": "local keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Parent = workspace\n\nlocal keyframe = Instance.new(\"Keyframe\")\n\nkeyframeSequence:AddKeyframe(keyframe)\n\ntask.wait(2)\n\nkeyframeSequence:AddKeyframe(keyframe)"
+    "code_sample": "local keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Parent = workspace\n\nlocal keyframe = Instance.new(\"Keyframe\")\n\nkeyframeSequence:AddKeyframe(keyframe)\n\ntask.wait(2)\n\nkeyframeSequence:RemoveKeyframe(keyframe)"
   },
   "@roblox/globaltype/Hat": {
     "documentation": "<strong>Deprecated:</strong> Diese Klasse wurde durch die <code>Accessory</code>-Klasse überschritten. Verwende sie nicht für neue Arbeit.",
@@ -79129,7 +79129,7 @@
       "RemoveDefaultLoadingScreen": "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReplicatedFirst",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- Create a basic loading screen\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"Loading\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- Parent entire screen GUI to player GUI\nscreenGui.Parent = playerGui\n\n-- Remove the default loading screen\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--wait(3)  -- Optionally force screen to appear for a minimum number of seconds\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen/param/0": {
     "documentation": "Ein Container, dessen Inhalt zuerst auf alle Clients repliziert wird (aber nicht zurück zum Server), vor allem anderen."
@@ -79144,7 +79144,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReplicatedFirst#RemoveDefaultLoadingScreen",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- Create a basic loading screen\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"Loading\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- Parent entire screen GUI to player GUI\nscreenGui.Parent = playerGui\n\n-- Remove the default loading screen\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--wait(3)  -- Optionally force screen to appear for a minimum number of seconds\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/AssetPatchSettings": {
     "documentation": "",
@@ -79973,6 +79973,65 @@
   "@roblox/globaltype/ExperienceInviteOptions.PromptMessage": {
     "documentation": "Benutzerdefinierter Text, der auf dem Einladungsfenster für den sendenden Spieler:inangezeigt wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ExperienceInviteOptions#PromptMessage",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator": {
+    "documentation": "Gives access to a large language model for text generation.",
+    "keys": {
+      "Seed": "@roblox/globaltype/TextGenerator.Seed",
+      "SystemPrompt": "@roblox/globaltype/TextGenerator.SystemPrompt",
+      "Temperature": "@roblox/globaltype/TextGenerator.Temperature",
+      "TopP": "@roblox/globaltype/TextGenerator.TopP",
+      "GenerateTextAsync": "@roblox/globaltype/TextGenerator.GenerateTextAsync"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.Seed": {
+    "documentation": "Sets a fixed seed for the random number generator, allowing reproducible responses in cases where the same input parameters are used across      multiple requests.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Seed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.SystemPrompt": {
+    "documentation": "Provides context to the model about its role, tone, or behavior during conversation.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#SystemPrompt",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.Temperature": {
+    "documentation": "Controls the \"creativity\" or randomness of the model's responses.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Temperature",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.TopP": {
+    "documentation": "Helps the AI model narrow or expand the range of possible words to sample from while generating the next token.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#TopP",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/0": {
+    "documentation": "Gives access to a large language model for text generation."
+  },
+  "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1": {
+    "documentation": "A dictionary containing optional parameters for the text generation request. The currently supported parameters are <code>UserPrompt</code>,      <code>ContextToken</code>, and <code>MaxTokens</code>."
+  },
+  "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0": {
+    "documentation": "A dictionary containing the LLM's generated response."
+  },
+  "@roblox/globaltype/TextGenerator.GenerateTextAsync": {
+    "documentation": "Returns text generated by an LLM based on the provided system and user prompts.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/0"
+      },
+      {
+        "name": "request",
+        "documentation": "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#GenerateTextAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/Message": {
@@ -82627,6 +82686,49 @@
       "Wait": "@roblox/globaltype/ContextActionService.LocalToolUnequipped.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContextActionService#LocalToolUnequipped",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo": {
+    "documentation": "Creates a trembling effect on a sound by varying the volume of the sound up and down.",
+    "keys": {
+      "Depth": "@roblox/globaltype/AudioTremolo.Depth",
+      "Duty": "@roblox/globaltype/AudioTremolo.Duty",
+      "Frequency": "@roblox/globaltype/AudioTremolo.Frequency",
+      "Shape": "@roblox/globaltype/AudioTremolo.Shape",
+      "Skew": "@roblox/globaltype/AudioTremolo.Skew",
+      "Square": "@roblox/globaltype/AudioTremolo.Square"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Depth": {
+    "documentation": "Controls how much the volume will raise and lower.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Depth",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Duty": {
+    "documentation": "Controls how long the effect will be active during one volume oscillation.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Duty",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Frequency": {
+    "documentation": "Sets how often the effect will oscillate the volume.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Frequency",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Shape": {
+    "documentation": "Controls the shape of the low frequency oscillations.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Shape",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Skew": {
+    "documentation": "Time-skews the low frequency oscillations cycle.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Skew",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Square": {
+    "documentation": "Flatness of the low frequency oscillations shape.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Square",
     "code_sample": ""
   },
   "@roblox/globaltype/ControllerPartSensor": {

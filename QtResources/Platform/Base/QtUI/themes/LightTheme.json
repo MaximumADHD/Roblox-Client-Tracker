@@ -1091,6 +1091,11 @@
             }
         },
         {
+            "CommandBar/ToolBarHandleIcon": {
+                "Default": ":/images/CommandBar/Light/three_dots_vertical.png"
+            }
+        },
+        {
             "ObjectInsertion/ExpandIcon": {
                 "Default": ":/images/InsertObject/multi_light.png"
             }

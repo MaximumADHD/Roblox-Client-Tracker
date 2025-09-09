@@ -3517,6 +3517,21 @@
                     "ThreadSafety": "Safe"
                 },
                 {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "IsPredicted",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Function",
                     "Name": "IsPropertyModified",
                     "Parameters": [
@@ -3604,6 +3619,28 @@
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SetPredictionMode",
+                    "Parameters": [
+                        {
+                            "Name": "mode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "PredictionMode"
                             }
                         }
                     ],
@@ -6415,6 +6452,111 @@
                         "Animation"
                     ],
                     "MemberType": "Function",
+                    "Name": "GetLabels",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetNames",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetParents",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetPostTransforms",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetPreTransforms",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetTransforms",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "IsValidR15",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Function",
                     "Name": "LoadFromHumanoid",
                     "Parameters": [
                         {
@@ -7610,6 +7752,35 @@
                         "Name": "null"
                     },
                     "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "StepAnimationsInternal",
+                    "Parameters": [
+                        {
+                            "Name": "deltaTime",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -28004,42 +28175,6 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
-                    "Capabilities": [
-                        "InternalTest"
-                    ],
-                    "MemberType": "Function",
-                    "Name": "PromptCaptureGalleryPermission",
-                    "Parameters": [
-                        {
-                            "Name": "captureGalleryPermission",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "CaptureGalleryPermission"
-                            }
-                        },
-                        {
-                            "Name": "onAcceptedCallback",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        },
-                        {
-                            "Name": "onDeniedCallback",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "None",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
                     "MemberType": "Function",
                     "Name": "PromptSaveCapturesToGallery",
                     "Parameters": [
@@ -47485,6 +47620,58 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ColorMap",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ColorMapContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -71219,6 +71406,29 @@
                             "Animation"
                         ]
                     },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "OriginOffset",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
                     "Category": "Mapping",
                     "MemberType": "Property",
                     "Name": "Pelvis",
@@ -89024,28 +89234,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "SetPredictionMode",
-                    "Parameters": [
-                        {
-                            "Name": "mode",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "PredictionMode"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "TorqueToAngularAcceleration",
                     "Parameters": [
                         {
@@ -94804,6 +94992,9 @@
                         "Name": "Instances"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
                     "ThreadSafety": "Safe"
                 },
                 {
@@ -94838,6 +95029,9 @@
                         "Name": "Instances"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
                     "ThreadSafety": "Safe"
                 },
                 {
@@ -94865,6 +95059,9 @@
                         "Name": "Instances"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
                     "ThreadSafety": "Safe"
                 },
                 {
@@ -95323,12 +95520,20 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "InternalTest"
+                        ],
+                        "Write": [
+                            "InternalTest"
+                        ]
+                    },
                     "Category": "Server Authority",
                     "MemberType": "Property",
                     "Name": "AuthorityMode",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -96078,7 +96283,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Streaming",
                     "MemberType": "Property",
                     "Name": "UseImprovedModelLod",
                     "Security": {
@@ -96742,6 +96947,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ConvertToPackageClosedCallback",
+                    "Parameters": [
+                        {
+                            "Name": "sourceRoot",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ConvertToPackageUpload",
                     "Parameters": [
                         {
@@ -96771,6 +96995,42 @@
                         "Name": "null"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ConvertToPackageAsync",
+                    "Parameters": [
+                        {
+                            "Name": "sourceRoot",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "cloneRoot",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -111104,6 +111364,28 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetRecommendationItemAsync",
+                    "Parameters": [
+                        {
+                            "Name": "itemId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "RegisterItemAsync",
                     "Parameters": [
                         {
@@ -113199,6 +113481,37 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "InternalTest"
+                        ],
+                        "Write": [
+                            "InternalTest"
+                        ]
+                    },
+                    "Category": "Server Authority",
+                    "MemberType": "Property",
+                    "Name": "ServerFrame",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
                     "Capabilities": [
                         "Basic"
                     ],
@@ -113548,6 +113861,25 @@
                         "Name": "null"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic",
+                        "InternalTest"
+                    ],
+                    "MemberType": "Event",
+                    "Name": "FixedHeartbeat",
+                    "Parameters": [
+                        {
+                            "Name": "deltaTime",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "double"
+                            }
+                        }
+                    ],
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -134190,6 +134522,49 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "ReconnectTeleportInitFailed",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "teleportResult",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "TeleportResult"
+                            }
+                        },
+                        {
+                            "Name": "errorMessage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "teleportOptions",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "TeleportInitFailed",
                     "Parameters": [
                         {
@@ -138741,6 +139116,24 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "Seed",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "SystemPrompt",
                     "Security": {
                         "Read": "None",
@@ -138754,6 +139147,42 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Temperature",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TopP",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -151288,25 +151717,7 @@
         {
             "Members": [
                 {
-                    "Category": "Asset",
-                    "MemberType": "Property",
-                    "Name": "Asset",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "ContentId"
-                    }
-                },
-                {
-                    "Category": "AutoPlayInEditMode",
+                    "Category": "Debug",
                     "MemberType": "Property",
                     "Name": "AutoLoadInStudio",
                     "Security": {
@@ -151328,7 +151739,7 @@
                     }
                 },
                 {
-                    "Category": "AutoPlayInEditMode",
+                    "Category": "Debug",
                     "MemberType": "Property",
                     "Name": "AutoPlayInStudio",
                     "Security": {
@@ -164667,14 +165078,11 @@
                     "Value": 0
                 },
                 {
-                    "Name": "None",
+                    "Name": "On",
                     "Value": 1
                 },
                 {
-                    "Name": "Forced",
-                    "Tags": [
-                        "Deprecated"
-                    ],
+                    "Name": "Off",
                     "Value": 2
                 }
             ],

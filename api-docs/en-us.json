@@ -2802,7 +2802,7 @@
     "documentation": ""
   },
   "@roblox/global/Vector3.new": {
-    "documentation": "Returns a new <code>Vector3</code> from the given x, y, and z components.",
+    "documentation": "Returns a new <code>Vector3</code> from the given <code>x</code>, <code>y</code>, and <code>z</code> components.",
     "params": [
       {
         "name": "x",
@@ -2852,27 +2852,27 @@
     "code_sample": ""
   },
   "@roblox/global/Vector3.zero": {
-    "documentation": "A <code>Vector3</code> with a magnitude of zero.",
+    "documentation": "A <code>Vector3</code> with a magnitude of <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/global/Vector3.one": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on every axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on every axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/global/Vector3.xAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the X axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>X</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.yAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the Y axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>Y</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.zAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the Z axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>Z</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
@@ -2905,52 +2905,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zero": {
-    "documentation": "A <code>Vector3</code> with a magnitude of zero.",
+    "documentation": "A <code>Vector3</code> with a magnitude of <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.one": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on every axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on every axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.xAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the X axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>X</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.yAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the Y axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code>on the <strong>Y</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the Z axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>Z</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.X": {
-    "documentation": "The x-coordinate of the Vector3.",
+    "documentation": "The <strong>X</strong> coordinate of the <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#X",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Y": {
-    "documentation": "The y-coordinate of the Vector3.",
+    "documentation": "The <strong>Y</strong> coordinate of the <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Z": {
-    "documentation": "The z-coordinate of the Vector3.",
+    "documentation": "The <strong>Z</strong> coordinate of the <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Z",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Magnitude": {
-    "documentation": "The length of the Vector3.",
+    "documentation": "The length of the <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Magnitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Unit": {
-    "documentation": "A normalized copy of the <code>Vector3</code> - one that has the same direction as the original but a magnitude of 1.",
+    "documentation": "A normalized copy of the <code>Vector3</code> - one that has the same direction as the original but a magnitude of <code>1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Unit",
     "code_sample": ""
   },
@@ -10396,7 +10396,7 @@
     "documentation": "Values to pass to all <code>OnClientEvent</code> events connected to the same <code>UnreliableRemoteEvent</code>."
   },
   "@roblox/globaltype/UnreliableRemoteEvent.FireAllClients": {
-    "documentation": "Fires the <code>OnClientEvent</code> event for each client connected to the same <code>UnreliableRemoteEvent</code>. Has a 1000 byte limit to the payload of the event. Otherwise, the event is dropped.",
+    "documentation": "Fires the <code>OnClientEvent</code> event for all connected clients. Has a 1000 byte limit to the payload of the event. Events with larger payloads are dropped.",
     "params": [
       {
         "name": "self",
@@ -10421,7 +10421,7 @@
     "documentation": "Values to pass to <code>OnClientEvent</code> events connected to the same <code>UnreliableRemoteEvent</code>."
   },
   "@roblox/globaltype/UnreliableRemoteEvent.FireClient": {
-    "documentation": "Fires the <code>OnClientEvent</code> event for a specific client connected to the same <code>UnreliableRemoteEvent</code>. Has a 1000 byte limit to the payload of the event. Otherwise, the event is dropped.",
+    "documentation": "Fires the <code>OnClientEvent</code> event for a specific client. Has a 1000 byte limit to the payload of the event. Events with larger payloads are dropped.",
     "params": [
       {
         "name": "self",
@@ -10447,7 +10447,7 @@
     "documentation": "Values to pass to <code>OnServerEvent</code> events connected to the same <code>UnreliableRemoteEvent</code>."
   },
   "@roblox/globaltype/UnreliableRemoteEvent.FireServer": {
-    "documentation": "Fires the <code>OnServerEvent</code> event on the server from one client connected to the same <code>UnreliableRemoteEvent</code>. Has a 1000 byte limit to the payload of the event, otherwise event is dropped.",
+    "documentation": "Fires the <code>OnServerEvent</code> event on the server from one connected client. Has a 1000 byte limit to the payload of the event. Events with larger payloads are dropped.",
     "params": [
       {
         "name": "self",
@@ -17512,7 +17512,7 @@
     "documentation": "The base part of an assembly (a collection of parts connected together)."
   },
   "@roblox/globaltype/BasePart.GetRootPart": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns the base part of an assembly of parts.",
+    "documentation": "Returns the base part of an assembly of parts.",
     "params": [
       {
         "name": "self",
@@ -24793,7 +24793,7 @@
       "@roblox/globaltype/DataModel.IsLoaded/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#IsLoaded",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- Create a basic loading screen\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"Loading\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- Parent entire screen GUI to player GUI\nscreenGui.Parent = playerGui\n\n-- Remove the default loading screen\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--wait(3)  -- Optionally force screen to appear for a minimum number of seconds\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SavePlace/param/0": {
     "documentation": "The root of Roblox's parent-child hierarchy. Its direct children are services, such as <code>Workspace</code> and <code>Lighting</code>, that act as the fundamental components of a Roblox game."
@@ -25313,6 +25313,7 @@
     "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world.",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
+      "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
       "AllowThirdPartySales": "@roblox/globaltype/Workspace.AllowThirdPartySales",
       "AuthorityMode": "@roblox/globaltype/Workspace.AuthorityMode",
       "AvatarUnificationMode": "@roblox/globaltype/Workspace.AvatarUnificationMode",
@@ -25354,6 +25355,7 @@
       "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
+      "ExperimentalSolverIsEnabled": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
       "GetRealPhysicsFPS": "@roblox/globaltype/Workspace.GetRealPhysicsFPS",
@@ -25370,6 +25372,11 @@
   "@roblox/globaltype/Workspace.AirDensity": {
     "documentation": "The air density at ground level, used in the aerodynamic force model.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
+    "documentation": "Controls the strength of turbulence present in the wind velocity field, affecting the aerodynamic force model.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AllowThirdPartySales": {
@@ -25592,6 +25599,26 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#BreakJoints",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0": {
+    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ExperimentalSolverIsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
@@ -31744,7 +31771,7 @@
     "documentation": "Values to pass to all <code>OnClientEvent</code> events connected to the same <code>RemoteEvent</code>."
   },
   "@roblox/globaltype/RemoteEvent.FireAllClients": {
-    "documentation": "Fires the <code>OnClientEvent</code> event for each client connected to the same <code>RemoteEvent</code>.",
+    "documentation": "Fires the <code>OnClientEvent</code> event for each connected client.",
     "params": [
       {
         "name": "self",
@@ -31769,7 +31796,7 @@
     "documentation": "Values to pass to <code>OnClientEvent</code> events connected to the same <code>RemoteEvent</code>."
   },
   "@roblox/globaltype/RemoteEvent.FireClient": {
-    "documentation": "Fires the <code>OnClientEvent</code> event for a specific client connected to the same <code>RemoteEvent</code>.",
+    "documentation": "Fires the <code>OnClientEvent</code> event for a specific client.",
     "params": [
       {
         "name": "self",
@@ -31795,7 +31822,7 @@
     "documentation": "Values to pass to <code>OnServerEvent</code> events connected to the same <code>RemoteEvent</code>."
   },
   "@roblox/globaltype/RemoteEvent.FireServer": {
-    "documentation": "Fires the <code>OnServerEvent</code> event on the server from one client connected to the same <code>RemoteEvent</code>.",
+    "documentation": "Fires the <code>OnServerEvent</code> event on the server from one connected client.",
     "params": [
       {
         "name": "self",
@@ -55471,7 +55498,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open.",
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks.",
     "keys": {
       "AutoSelectGuiEnabled": "@roblox/globaltype/GuiService.AutoSelectGuiEnabled",
       "CoreGuiNavigationEnabled": "@roblox/globaltype/GuiService.CoreGuiNavigationEnabled",
@@ -55508,12 +55535,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.AutoSelectGuiEnabled": {
-    "documentation": "If activated, the <code>Select</code> button on a Gamepad or <kbd>Backslash</kbd> will automatically set a GUI as the selected object.",
+    "documentation": "If activated, the <kbd>Select</kbd> button on a gamepad or <kbd>Backslash</kbd> will automatically set a GUI as the selected object.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#AutoSelectGuiEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.CoreGuiNavigationEnabled": {
-    "documentation": "Toggles whether or not objects in the <code>CoreGui</code> can be navigated using a Gamepad.",
+    "documentation": "Toggles whether or not objects in the <code>CoreGui</code> can be navigated using a gamepad.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#CoreGuiNavigationEnabled",
     "code_sample": ""
   },
@@ -55533,29 +55560,29 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.MenuIsOpen": {
-    "documentation": "Returns true if any menu of CoreGui is open.",
+    "documentation": "Returns <code>true</code> if any menu of <code>CoreGui</code> is open.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#MenuIsOpen",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.PreferredTextSize": {
-    "documentation": "",
+    "documentation": "Gets the player's preferred text size as an <code>PreferredTextSize</code> value.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#PreferredTextSize",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.PreferredTransparency": {
-    "documentation": "Gets the user's preferred transparency as a number between 0 and 1, which indicates how opaque they want the backgrounds of certain UI elements to be. The recommended usage is as a multiplier of an element's BackgroundTransparency. Defaults to 1.",
+    "documentation": "Gets the player's preferred transparency as a number between <code>0</code> and <code>1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#PreferredTransparency",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.ReducedMotionEnabled": {
-    "documentation": "Returns <code>true</code> if the user has enabled reduced motion. Defaults to <code>false</code>.",
+    "documentation": "Returns <code>true</code> if the player has enabled reduced motion.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#ReducedMotionEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SelectedObject": {
-    "documentation": "Sets the GuiObject currently being focused on by the GUI Navigator (used for Gamepads).",
+    "documentation": "Sets the <code>GuiObject</code> currently being focused on by the GUI navigator.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#SelectedObject",
-    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal function printChanged(value)\n\tif value == \"SelectedObject\" then\n\t\tprint(\"The SelectedObject changed!\")\n\tend\nend\n\nGuiService.Changed:Connect(printChanged)"
+    "code_sample": ""
   },
   "@roblox/globaltype/GuiService.TopbarInset": {
     "documentation": "Used to determine the absolute size and position of unobstructed area within top bar space.",
@@ -55563,7 +55590,7 @@
     "code_sample": "local GuiService = game:GetService(\"GuiService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\nscreenGui.Parent = Players.LocalPlayer.PlayerGui\n\nlocal frame = Instance.new(\"Frame\")\nframe.BackgroundColor3 = Color3.fromRGB(0, 255, 0)\nframe.Parent = screenGui\n\nGuiService:GetPropertyChangedSignal(\"TopbarInset\"):Connect(function()\n\tlocal inset = GuiService.TopbarInset\n\tframe.Size = UDim2.new(0, inset.Width, 0, inset.Height)\n\tframe.Position = UDim2.new(0, inset.Min.X, 0, inset.Min.Y)\nend)"
   },
   "@roblox/globaltype/GuiService.TouchControlsEnabled": {
-    "documentation": "Used to enable and disable touch controls and touch control display UI. Defaults to true.",
+    "documentation": "Used to enable and disable touch controls and touch control display UI. Defaults to <code>true</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#TouchControlsEnabled",
     "code_sample": ""
   },
@@ -55573,7 +55600,7 @@
     "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal function updateUI()\n\tif (GuiService.ViewportDisplaySize == Enum.DisplaySize.Small) then\n\t\t-- Update UI to small screen\n\telseif (GuiService.ViewportDisplaySize == Enum.DisplaySize.Large) then\n\t\t-- Update UI to large screen\n\telse\n\t\t-- Update UI to medium/default screen\n\tend\nend\n\nGuiService:GetPropertyChangedSignal(\"ViewportDisplaySize\"):Connect(updateUI)\nupdateUI()"
   },
   "@roblox/globaltype/GuiService.AddSelectionParent/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.AddSelectionParent/param/1": {
     "documentation": ""
@@ -55582,7 +55609,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.AddSelectionParent": {
-    "documentation": "<strong>Deprecated:</strong> <br>Creates a gui selection group where gamepad gui navigation will only consider selectable gui objects that are within the group (children of selectionParent).",
+    "documentation": "<strong>Deprecated:</strong> <br>Creates a selection group where gamepad GUI navigation will only consider selectable objects that are within the group.",
     "params": [
       {
         "name": "self",
@@ -55602,7 +55629,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple/param/1": {
     "documentation": "The name of the added selection."
@@ -55631,10 +55658,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.CloseInspectMenu/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.CloseInspectMenu": {
-    "documentation": "Closes the Inspect Menu, if open.",
+    "documentation": "Closes the avatar inspection menu, if open.",
     "params": [
       {
         "name": "self",
@@ -55646,7 +55673,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.DismissNotification/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.DismissNotification/param/1": {
     "documentation": ""
@@ -55673,13 +55700,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen/return/0": {
-    "documentation": "Indicates whether the Emotes menu is open."
+    "documentation": "Whether the emotes menu is open."
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen": {
-    "documentation": "Checks if the player Emotes menu is open.",
+    "documentation": "Checks if the player emotes menu is open.",
     "params": [
       {
         "name": "self",
@@ -55693,13 +55720,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled/return/0": {
-    "documentation": "Whether or not the <code>gameplay paused</code> notification has been disabled."
+    "documentation": "Whether or not the <code>Player.GameplayPaused</code> notification has been disabled."
   },
   "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled": {
-    "documentation": "Returns whether or not the <code>gameplay paused</code> notification has been disabled by the developer.",
+    "documentation": "Returns whether or not the <code>Player.GameplayPaused</code> notification has been disabled.",
     "params": [
       {
         "name": "self",
@@ -55713,13 +55740,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetGuiInset/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.GetGuiInset/return/0": {
-    "documentation": "A tuple of two Vector2 values describing the current specified Gui Inset."
+    "documentation": "A tuple of two <code>Vector2</code> values describing the current specified GUI inset."
   },
   "@roblox/globaltype/GuiService.GetGuiInset": {
-    "documentation": "Returns two <code>Vector2</code> values representing the inset of user GUIs in pixels, from the top left corner of the screen and the bottom right corner of the screen respectively.",
+    "documentation": "Returns two <code>Vector2</code> values representing the inset of user GUIs in pixels, from the top‑left corner of the screen and the bottom‑right corner of the screen respectively.",
     "params": [
       {
         "name": "self",
@@ -55733,13 +55760,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetInspectMenuEnabled/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.GetInspectMenuEnabled/return/0": {
-    "documentation": "A boolean indicating whether the Inspect Menu feature is enabled."
+    "documentation": "Whether the avatar inspection menu is enabled."
   },
   "@roblox/globaltype/GuiService.GetInspectMenuEnabled": {
-    "documentation": "Returns whether the Inspect and Buy menu functionality is enabled.",
+    "documentation": "Returns whether the avatar inspection menu is enabled.",
     "params": [
       {
         "name": "self",
@@ -55753,16 +55780,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription/param/1": {
-    "documentation": "A <code>HumanoidDescription</code> object that contains the assets to show in the Inspect menu."
+    "documentation": "A <code>HumanoidDescription</code> object that contains the assets to show in the inspection menu."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription/param/2": {
-    "documentation": "The name of the player being Inspected to show in the Inspect menu."
+    "documentation": "The name of the player being inspected to show in the menu."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription": {
-    "documentation": "Allows a developer to bring up the Inspect menu showing the assets listed in this <code>HumanoidDescription</code> object.",
+    "documentation": "Allows the avatar inspection menu to appear showing the assets listed in a <code>HumanoidDescription</code> object.",
     "params": [
       {
         "name": "self",
@@ -55779,16 +55806,16 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#InspectPlayerFromHumanoidDescription",
-    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\nhumanoidDescription.HatAccessory = \"3339374070\"\nhumanoidDescription.BackAccessory = \"3339363671\"\n\nGuiService:InspectPlayerFromHumanoidDescription(humanoidDescription, \"MyPlayer\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId/param/1": {
     "documentation": "The <code>UserId</code> of the player to inspect."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId": {
-    "documentation": "Allows the Inspect Menu to appear showing the user that has the given <code>UserId</code>.",
+    "documentation": "Allows the avatar inspection menu to appear showing the user that has the given <code>UserId</code>.",
     "params": [
       {
         "name": "self",
@@ -55801,16 +55828,16 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#InspectPlayerFromUserId",
-    "code_sample": "local GuiService = game:GetService(\"GuiService\")\nGuiService:InspectPlayerFromUserId(772462)"
+    "code_sample": ""
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface": {
-    "documentation": "Returns true if the client is using the ten foot interface, which is a special version of Roblox's UI, exclusive to consoles. This is the only guaranteed way to verify if the user is on a console or not.",
+    "documentation": "Returns <code>true</code> if the client is using the ten foot interface, a special version of Roblox's UI exclusive to consoles.",
     "params": [
       {
         "name": "self",
@@ -55824,13 +55851,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.RemoveSelectionGroup/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.RemoveSelectionGroup/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.RemoveSelectionGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>Removes a group that was created with <code>GuiService:AddSelectionParent()</code> or <code>GuiService:AddSelectionTuple()</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Removes a group that was created with <code>AddSelectionParent()</code> or <code>AddSelectionTuple()</code>.",
     "params": [
       {
         "name": "self",
@@ -55846,13 +55873,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.Select/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.Select/param/1": {
     "documentation": "The parent of selection whose descendants are searched."
   },
   "@roblox/globaltype/GuiService.Select": {
-    "documentation": "Set GuiService.SelectedObject to a child of provided instance selectionParent that is PlayerGui or its descendants.",
+    "documentation": "Sets <code>GuiService.SelectedObject</code> to a child of a provided instance that is the <code>PlayerGui</code> or its descendants.",
     "params": [
       {
         "name": "self",
@@ -55868,7 +55895,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SendNotification/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.SendNotification/param/1": {
     "documentation": ""
@@ -55895,13 +55922,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SetEmotesMenuOpen/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.SetEmotesMenuOpen/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.SetEmotesMenuOpen": {
-    "documentation": "Opens or closes the player Emotes menu.",
+    "documentation": "Opens or closes the player emotes menu.",
     "params": [
       {
         "name": "self",
@@ -55917,13 +55944,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SetGameplayPausedNotificationEnabled/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.SetGameplayPausedNotificationEnabled/param/1": {
     "documentation": "Whether or not the built-in notification GUI is disabled."
   },
   "@roblox/globaltype/GuiService.SetGameplayPausedNotificationEnabled": {
-    "documentation": "Allows developers to disable the built-in notification when a players gameplay is paused.",
+    "documentation": "Lets you disable the built-in notification when a player's gameplay is paused.",
     "params": [
       {
         "name": "self",
@@ -55939,13 +55966,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SetInspectMenuEnabled/param/0": {
-    "documentation": "Allows developers to control what <code>GuiObject</code> is currently being selected by the gamepad navigator, as well as check if Roblox's main menu is currently open."
+    "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
   },
   "@roblox/globaltype/GuiService.SetInspectMenuEnabled/param/1": {
-    "documentation": "A boolean indicating whether to enable or disable the Inspect Menu feature."
+    "documentation": "A boolean indicating whether to enable or disable the menu."
   },
   "@roblox/globaltype/GuiService.SetInspectMenuEnabled": {
-    "documentation": "Allows developers to enable or disable default Inspect and Buy functionality.",
+    "documentation": "Allows you to enable or disable the avatar inspection menu.",
     "params": [
       {
         "name": "self",
@@ -56038,7 +56065,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiService.MenuClosed": {
-    "documentation": "Fires when the user <strong>closes</strong> the Roblox coregui escape menu.",
+    "documentation": "Fires when the user <strong>closes</strong> the Roblox <code>CoreGui</code> escape menu.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiService.MenuClosed.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiService.MenuClosed.ConnectParallel",
@@ -56126,7 +56153,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiService.MenuOpened": {
-    "documentation": "Fires when the user <strong>opens</strong> the Roblox coregui escape menu.",
+    "documentation": "Fires when the user <strong>opens</strong> the Roblox <code>CoreGui</code> escape menu.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiService.MenuOpened.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiService.MenuOpened.ConnectParallel",
@@ -70740,7 +70767,7 @@
     "documentation": "This object stores all of the <code>Keyframes</code> and other data for the animation."
   },
   "@roblox/globaltype/KeyframeSequence.GetKeyframes/return/0": {
-    "documentation": "An array of <code>Keyframe</code>."
+    "documentation": "An array of <code>Keyframes</code>."
   },
   "@roblox/globaltype/KeyframeSequence.GetKeyframes": {
     "documentation": "Returns an array that contains all <code>Keyframes</code> contained in a <code>KeyframeSequence</code>.",
@@ -70763,7 +70790,7 @@
     "documentation": "The <code>Keyframe</code> to be removed."
   },
   "@roblox/globaltype/KeyframeSequence.RemoveKeyframe": {
-    "documentation": "This function removes a <code>Keyframe</code> from the <code>KeyframeSequence</code> by setting its parent to <code>nil</code>.",
+    "documentation": "This method removes a <code>Keyframe</code> from the <code>KeyframeSequence</code> by setting its parent to <code>nil</code>.",
     "params": [
       {
         "name": "self",
@@ -70776,7 +70803,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequence#RemoveKeyframe",
-    "code_sample": "local keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Parent = workspace\n\nlocal keyframe = Instance.new(\"Keyframe\")\n\nkeyframeSequence:AddKeyframe(keyframe)\n\ntask.wait(2)\n\nkeyframeSequence:AddKeyframe(keyframe)"
+    "code_sample": "local keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Parent = workspace\n\nlocal keyframe = Instance.new(\"Keyframe\")\n\nkeyframeSequence:AddKeyframe(keyframe)\n\ntask.wait(2)\n\nkeyframeSequence:RemoveKeyframe(keyframe)"
   },
   "@roblox/globaltype/Hat": {
     "documentation": "<strong>Deprecated:</strong> This class has been superseded by the <code>Accessory</code> class. Do not use it for new work.",
@@ -80617,7 +80644,7 @@
       "RemoveDefaultLoadingScreen": "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReplicatedFirst",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- Create a basic loading screen\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"Loading\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- Parent entire screen GUI to player GUI\nscreenGui.Parent = playerGui\n\n-- Remove the default loading screen\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--wait(3)  -- Optionally force screen to appear for a minimum number of seconds\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen/param/0": {
     "documentation": "A container whose contents are replicated to all clients (but not back to the server) first before anything else."
@@ -80632,7 +80659,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReplicatedFirst#RemoveDefaultLoadingScreen",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- Create a basic loading screen\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"Loading\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- Parent entire screen GUI to player GUI\nscreenGui.Parent = playerGui\n\n-- Remove the default loading screen\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--wait(3)  -- Optionally force screen to appear for a minimum number of seconds\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/AssetPatchSettings": {
     "documentation": "",
@@ -81461,6 +81488,65 @@
   "@roblox/globaltype/ExperienceInviteOptions.PromptMessage": {
     "documentation": "Custom text shown on the invite prompt for the sending player.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ExperienceInviteOptions#PromptMessage",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator": {
+    "documentation": "Gives access to a large language model for text generation.",
+    "keys": {
+      "Seed": "@roblox/globaltype/TextGenerator.Seed",
+      "SystemPrompt": "@roblox/globaltype/TextGenerator.SystemPrompt",
+      "Temperature": "@roblox/globaltype/TextGenerator.Temperature",
+      "TopP": "@roblox/globaltype/TextGenerator.TopP",
+      "GenerateTextAsync": "@roblox/globaltype/TextGenerator.GenerateTextAsync"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.Seed": {
+    "documentation": "Sets a fixed seed for the random number generator, allowing reproducible responses in cases where the same input parameters are used across      multiple requests.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Seed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.SystemPrompt": {
+    "documentation": "Provides context to the model about its role, tone, or behavior during conversation.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#SystemPrompt",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.Temperature": {
+    "documentation": "Controls the \"creativity\" or randomness of the model's responses.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Temperature",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.TopP": {
+    "documentation": "Helps the AI model narrow or expand the range of possible words to sample from while generating the next token.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#TopP",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/0": {
+    "documentation": "Gives access to a large language model for text generation."
+  },
+  "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1": {
+    "documentation": "A dictionary containing optional parameters for the text generation request. The currently supported parameters are <code>UserPrompt</code>,      <code>ContextToken</code>, and <code>MaxTokens</code>."
+  },
+  "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0": {
+    "documentation": "A dictionary containing the LLM's generated response."
+  },
+  "@roblox/globaltype/TextGenerator.GenerateTextAsync": {
+    "documentation": "Returns text generated by an LLM based on the provided system and user prompts.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/0"
+      },
+      {
+        "name": "request",
+        "documentation": "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#GenerateTextAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/Message": {
@@ -84115,6 +84201,49 @@
       "Wait": "@roblox/globaltype/ContextActionService.LocalToolUnequipped.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContextActionService#LocalToolUnequipped",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo": {
+    "documentation": "Creates a trembling effect on a sound by varying the volume of the sound up and down.",
+    "keys": {
+      "Depth": "@roblox/globaltype/AudioTremolo.Depth",
+      "Duty": "@roblox/globaltype/AudioTremolo.Duty",
+      "Frequency": "@roblox/globaltype/AudioTremolo.Frequency",
+      "Shape": "@roblox/globaltype/AudioTremolo.Shape",
+      "Skew": "@roblox/globaltype/AudioTremolo.Skew",
+      "Square": "@roblox/globaltype/AudioTremolo.Square"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Depth": {
+    "documentation": "Controls how much the volume will raise and lower.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Depth",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Duty": {
+    "documentation": "Controls how long the effect will be active during one volume oscillation.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Duty",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Frequency": {
+    "documentation": "Sets how often the effect will oscillate the volume.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Frequency",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Shape": {
+    "documentation": "Controls the shape of the low frequency oscillations.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Shape",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Skew": {
+    "documentation": "Time-skews the low frequency oscillations cycle.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Skew",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTremolo.Square": {
+    "documentation": "Flatness of the low frequency oscillations shape.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Square",
     "code_sample": ""
   },
   "@roblox/globaltype/ControllerPartSensor": {
@@ -88768,7 +88897,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HapticEffect.Waveform": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Waveform",
     "code_sample": ""
   },
@@ -121356,7 +121485,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredTextSize.Medium": {
-    "documentation": "",
+    "documentation": "The player prefers default text size.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121366,7 +121495,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredTextSize.Large": {
-    "documentation": "",
+    "documentation": "The player prefers text size slightly increased beyond default.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121376,7 +121505,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredTextSize.Larger": {
-    "documentation": "",
+    "documentation": "The player prefers text size moderately increased beyond default.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121386,7 +121515,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredTextSize.Largest": {
-    "documentation": "",
+    "documentation": "The player prefers text size considerably increased beyond default.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121396,7 +121525,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PreferredTextSize": {
-    "documentation": "",
+    "documentation": "This enum is used with <code>GuiService.PreferredTextSize</code> to indicate the player's preferred text size.",
     "keys": {
       "Medium": "@roblox/enum/PreferredTextSize.Medium",
       "Large": "@roblox/enum/PreferredTextSize.Large",
@@ -135950,6 +136079,7 @@
       "abs": "@roblox/global/vector.abs",
       "sign": "@roblox/global/vector.sign",
       "clamp": "@roblox/global/vector.clamp",
+      "lerp": "@roblox/global/vector.lerp",
       "max": "@roblox/global/vector.max",
       "min": "@roblox/global/vector.min",
       "zero": "@roblox/global/vector.zero",
@@ -136232,6 +136362,40 @@
       "@roblox/global/vector.clamp/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#clamp",
+    "code_sample": ""
+  },
+  "@roblox/global/vector.lerp/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/1": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/return/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp": {
+    "documentation": "Returns a vector linearly interpolated between two vectors by a fractional alpha.",
+    "params": [
+      {
+        "name": "vec1",
+        "documentation": "@roblox/global/vector.lerp/param/0"
+      },
+      {
+        "name": "vec2",
+        "documentation": "@roblox/global/vector.lerp/param/1"
+      },
+      {
+        "name": "alpha",
+        "documentation": "@roblox/global/vector.lerp/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/global/vector.lerp/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#lerp",
     "code_sample": ""
   },
   "@roblox/global/vector.max/param/0": {

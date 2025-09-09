@@ -1,4 +1,6 @@
 Key,Context,Source,en-us
+Studio.App.ScriptingCmd.ACCEPTAICODE,Accept CodeAssist suggestion,Accept CodeAssist suggestion,Accept CodeAssist suggestion
+Studio.App.ScriptingCmd.ACCEPTAICODETooltip,Accept ScriptEditor AI CodeAssist suggestion,Accept ScriptEditor AI CodeAssist suggestion,Accept ScriptEditor AI CodeAssist suggestion
 Studio.App.ScriptingCmd.ADDCURSORABOVE,,Add cursor above,Add cursor above
 Studio.App.ScriptingCmd.ADDCURSORABOVETooltip,,Insert new cursor above current cursors,Insert new cursor above current cursors
 Studio.App.ScriptingCmd.ADDCURSORBELOW,,Add cursor below,Add cursor below
