@@ -10,6 +10,7 @@ local FFlagEnableReactSessionMetrics = require(CorePackages.Workspace.Packages.S
 local FStringReactSchedulingContext = require(CorePackages.Workspace.Packages.SharedFlags).FStringReactSchedulingContext
 local FStringReactSchedulingPercentiles = game:DefineFastString("ReactSchedulingPercentiles", "10,50,95,99")
 local FIntReactSchedulingKllSketchMaxSize: number = game:DefineFastInt("ReactSchedulingKllSketchMaxSize", 200)
+local FFlagDebugReactSchedulingEnableErrorEvents = game:DefineFastFlag("DebugReactSchedulingEnableErrorEvents", false)
 local FFlagReactSchedulingTrackerLayoutEffects = game:DefineFastFlag("ReactSchedulingTrackerLayoutEffects", false)
 local FFlagReactSchedulingTrackerDataModelUpdate = game:DefineFastFlag("ReactSchedulingTrackerDataModelUpdate", false)
 
@@ -46,6 +47,7 @@ local enableKibana = FIntReactSchedulingTrackerEnableHunderedthsPercent
 local enabled = enableKibana > 0
 local periodReportEnabled = true 
 local rootReportEnabled = true
+local errorReportEnabled = FFlagEnableReactSessionMetrics and FFlagDebugReactSchedulingEnableErrorEvents
 
 if not enabled then
 	if not FFlagEnableReactSessionMetrics then 
@@ -310,6 +312,18 @@ local SessionSummaryEvent = {
 	links = DOCS_LINK,
 }
 
+local SessionErrorSuperset
+if errorReportEnabled then
+	SessionErrorSuperset = {
+		eventName = "ReactSessionErrorEvent",
+		backends = { "EventIngest" },
+		throttlingPercentage = game:DefineFastInt("DebugReactSessionErrorEventThrottleHunderedthsPercent", 0),
+		lastUpdated = { 2025, 8, 7 },
+		description = "Summary of React performance over a game session",
+		links = DOCS_LINK,
+	}
+end
+
 local PeriodSummaryEvent = {
 	eventName = "ReactPeriodSummary",
 	backends = { "EventIngest" },
@@ -405,21 +419,26 @@ type FrameMetrics = {
 type SessionMetrics = {
 	updateTime: {
 		sketches: { [string]: InExperiencePerformance.Sketch },
+		allData: { [string]: {number} },
 		numRoots: number,
 	},
 	commitTime: {
 		sketches: { [string]: InExperiencePerformance.Sketch },
+		allData: { [string]: {number} },
 		numRoots: number,
 	},
 	timeToUpdate: {
 		sketches: { [string]: InExperiencePerformance.Sketch },
+		allData: { [string]: {number} },
 		numRoots: number,
 	},
 	timePerFrame: {
-		sketch: InExperiencePerformance.Sketch
+		sketch: InExperiencePerformance.Sketch,
+		allData: { number },
 	},
 	timePerReactFrame: {
-		sketch: InExperiencePerformance.Sketch
+		sketch: InExperiencePerformance.Sketch,
+		allData: { number },
 	}
 }
 
@@ -457,10 +476,16 @@ export type ReactSchedulingTracker = typeof(setmetatable(
 
 function ReactSchedulingTracker.new(context: string?): ReactSchedulingTracker
 	local updateTimeSketches, commitTimeSketches, timeToUpdateSketches = {}, {}, {}
+	local updateTimeAllData, commitTimeAllData, timeToUpdateAllData = {}, {}, {}
 	if FFlagEnableReactSessionMetrics then
 		updateTimeSketches[SKETCH_ALL_KEY] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
 		commitTimeSketches[SKETCH_ALL_KEY] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
 		timeToUpdateSketches[SKETCH_ALL_KEY] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+		if errorReportEnabled then
+			updateTimeAllData[SKETCH_ALL_KEY] = {}
+			commitTimeAllData[SKETCH_ALL_KEY] = {}
+			timeToUpdateAllData[SKETCH_ALL_KEY] = {}
+		end
 	end
 
 	local self = setmetatable({
@@ -480,21 +505,26 @@ function ReactSchedulingTracker.new(context: string?): ReactSchedulingTracker
 		sessionMetrics = if FFlagEnableReactSessionMetrics then {
 			updateTime = {
 				sketches = updateTimeSketches,
+				allData = if errorReportEnabled then updateTimeAllData else {},
 				numRoots = 1,
 			},
 			commitTime = {
 				sketches = commitTimeSketches,
+				allData = if errorReportEnabled then commitTimeAllData else {},
 				numRoots = 1,
 			},
 			timeToUpdate = {
 				sketches = timeToUpdateSketches,
+				allData = if errorReportEnabled then timeToUpdateAllData else {},
 				numRoots = 1,
 			},
 			timePerFrame = {
-				sketch =  KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+				sketch =  KllSketch.new(FIntReactSchedulingKllSketchMaxSize),
+				allData = {},
 			},
 			timePerReactFrame = {
-				sketch = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+				sketch = KllSketch.new(FIntReactSchedulingKllSketchMaxSize),
+				allData = {},
 			},
 		} else nil,
 		context = context,
@@ -585,6 +615,12 @@ function ReactSchedulingTracker:trackSessionSketches(rootTime: RootTaskTime, roo
 	if rootTime.tag == "RootUpdateTime" then
 		local timeToCompleteMs = getCurrentTimeMs() - rootTime.StartTimeMs
 
+		if errorReportEnabled then
+			table.insert(self.sessionMetrics.updateTime.allData[SKETCH_ALL_KEY], rootTime.RenderMs + rootTime.CommitMs)
+			table.insert(self.sessionMetrics.commitTime.allData[SKETCH_ALL_KEY], rootTime.CommitMs)
+			table.insert(self.sessionMetrics.timeToUpdate.allData[SKETCH_ALL_KEY], timeToCompleteMs)
+		end
+
 		-- insert updates to "all" sketch and corresponding root's sketch
 		self.sessionMetrics.updateTime.sketches[SKETCH_ALL_KEY]:insert(rootTime.RenderMs + rootTime.CommitMs)
 		self.sessionMetrics.commitTime.sketches[SKETCH_ALL_KEY]:insert(rootTime.CommitMs)
@@ -592,21 +628,39 @@ function ReactSchedulingTracker:trackSessionSketches(rootTime: RootTaskTime, roo
 
 		if not self.sessionMetrics.updateTime.sketches[name] then
 			self.sessionMetrics.updateTime.sketches[name] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+			if errorReportEnabled then
+				self.sessionMetrics.updateTime.allData[name] = {}
+			end
 			self.sessionMetrics.updateTime.numRoots += 1
 		end
 		self.sessionMetrics.updateTime.sketches[name]:insert(rootTime.RenderMs + rootTime.CommitMs)
+		if errorReportEnabled then
+			table.insert(self.sessionMetrics.updateTime.allData[name], rootTime.RenderMs + rootTime.CommitMs)
+		end
 
 		if not self.sessionMetrics.commitTime.sketches[name] then
 			self.sessionMetrics.commitTime.sketches[name] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+			if errorReportEnabled then
+				self.sessionMetrics.commitTime.allData[name] = {}
+			end
 			self.sessionMetrics.commitTime.numRoots += 1
 		end
 		self.sessionMetrics.commitTime.sketches[name]:insert(rootTime.CommitMs)
+		if errorReportEnabled then
+			table.insert(self.sessionMetrics.commitTime.allData[name], rootTime.CommitMs)
+		end
 
 		if not self.sessionMetrics.timeToUpdate.sketches[name] then
 			self.sessionMetrics.timeToUpdate.sketches[name] = KllSketch.new(FIntReactSchedulingKllSketchMaxSize)
+			if errorReportEnabled then
+				self.sessionMetrics.timeToUpdate.allData[name] = {}
+			end
 			self.sessionMetrics.timeToUpdate.numRoots += 1
 		end
 		self.sessionMetrics.timeToUpdate.sketches[name]:insert(timeToCompleteMs)
+		if errorReportEnabled then
+			table.insert(self.sessionMetrics.timeToUpdate.allData[name], timeToCompleteMs)
+		end
 	end
 end
 
@@ -765,6 +819,9 @@ function ReactSchedulingTracker:processFrame(frameTimeMs: number)
 	frameMetrics.allFrameHistogram[bucket] += 1
 	if FFlagEnableReactSessionMetrics then
 		self.sessionMetrics.timePerFrame.sketch:insert(reactFrameTimeMs)
+		if errorReportEnabled then
+			table.insert(self.sessionMetrics.timePerFrame.allData, reactFrameTimeMs)
+		end
 	end
 
 	if reactFrameTimeMs > 0 then
@@ -773,6 +830,9 @@ function ReactSchedulingTracker:processFrame(frameTimeMs: number)
 		frameMetrics.reactFrameHistogram[bucket] += 1
 		if FFlagEnableReactSessionMetrics then
 			self.sessionMetrics.timePerReactFrame.sketch:insert(reactFrameTimeMs)
+			if errorReportEnabled then
+				table.insert(self.sessionMetrics.timePerReactFrame.allData, reactFrameTimeMs)
+			end
 		end
 
 		-- update frame summary
@@ -1116,6 +1176,46 @@ function generatePercentilesFromSketches(sketches: { [string]: InExperiencePerfo
 	return output .. "}"
 end
 
+function ReactSchedulingTracker:reportPercentError(dataList, metric, metricName, rootName)
+	table.sort(dataList)
+	local numDatapoints = #dataList
+	if numDatapoints < 1 then
+		return
+	end
+
+	for i, percentile in SKETCH_PERCENTILES do
+		local exact = dataList[math.ceil(((tonumber(percentile) or 0) / 100) * numDatapoints)]
+		local approx: number
+		if metric.sketches then
+			approx = metric.sketches[rootName]:getPercentile(percentile)
+		else
+			approx = metric.sketch:getPercentile(percentile)
+		end
+
+		local approxError = 0
+		if exact == 0 and approx ~= 0 then
+			-- skip reporting if exact is 0 but approx isn't 0, can't commpute error
+			continue
+		elseif exact ~= 0  then
+			approxError = (approx - exact) * 100 / exact
+		end
+
+		local customFields = {
+			rootName = rootName,
+			percentile = percentile,
+			metric = metricName,
+			numDatapoints = numDatapoints,
+			context = self.context,
+			approxError = approxError,
+		}
+
+		TelemetryService:LogEvent(SessionErrorSuperset, {
+			standardizedFields = summaryStandardizedFields,
+			customFields = customFields
+		})
+	end
+end
+
 function ReactSchedulingTracker:reportSession()
 	-- do not report session unless tracking has started (past delay)
 	if not self.started or not FFlagEnableReactSessionMetrics then
@@ -1135,6 +1235,17 @@ function ReactSchedulingTracker:reportSession()
 		timePerFrame = timePerFrame,
 		timePerReactFrame = timePerReactFrame
 	}
+	if errorReportEnabled then
+		for metricName, metric in self.sessionMetrics do
+			if (metric :: { any: any })["sketches"] then
+				for rootName, allDataList in (metric :: { any: any })["allData"] do
+					self:reportPercentError(allDataList, metric, metricName, rootName)
+				end
+			else
+				self:reportPercentError((metric :: { any: any })["allData"], metric, metricName, SKETCH_ALL_KEY)
+			end
+		end
+	end
 			
 	TelemetryService:LogEvent(SessionSummaryEvent, {
 		standardizedFields = summaryStandardizedFields,

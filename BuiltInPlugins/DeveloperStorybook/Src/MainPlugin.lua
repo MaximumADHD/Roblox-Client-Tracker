@@ -27,7 +27,6 @@ local InspectorContext = require(Main.Src.Util.InspectorContext)
 local MakeTheme = require(Main.Src.Resources.MakeTheme)
 
 local registerPluginStyles = Framework.Styling.registerPluginStyles
-local FFlagStudioStyleSheetSwitcher = Framework.SharedFlags.getFFlagStudioStyleSheetSwitcher()
 
 local SourceStrings = Main.Src.Resources.SourceStrings
 local LocalizedStrings = Main.Src.Resources.LocalizedStrings
@@ -106,15 +105,11 @@ function MainPlugin:init(props)
 		},
 	})
 
-	if FFlagStudioStyleSheetSwitcher then
-		local binding, onStyleSheetChange = StudioFoundation.Util.createFoundationDesignBinding()
-		self.onFoundationStyleSheetChange = onStyleSheetChange
-		self.design = registerPluginStyles(props.Plugin, nil, nil, {
-			FoundationBinging = binding,
-		})
-	else
-		self.design = registerPluginStyles(props.Plugin)
-	end
+	local binding, onStyleSheetChange = StudioFoundation.Util.createFoundationDesignBinding()
+	self.onFoundationStyleSheetChange = onStyleSheetChange
+	self.design = registerPluginStyles(props.Plugin, nil, nil, {
+		FoundationBinging = binding,
+	})
 
 	self.theme = MakeTheme()
 

@@ -15,9 +15,13 @@ local Constants = CrossExperience.Constants
 local FIntPartyVoiceUndeafenDelayMS = SharedFlags.FIntPartyVoiceUndeafenDelayMS
 local GetFFlagPartyVoiceMuteScopeFix = SharedFlags.GetFFlagPartyVoiceMuteScopeFix
 
+local FFlagFixJoinVoiceDelayedAFMInit = game:DefineFastFlag("FixJoinVoiceDelayedAFMInit", false)
+
 local wasVoiceEverSuspended = false
 local voiceChatState = nil
+local wasAFMInitialized = false
 local muteWasHandled = false
+local didCanUseServiceAsyncFail = false
 local wasInitialFocusRequestHandled = false
 
 local undeafenTimerHandle: thread? = nil
@@ -51,6 +55,13 @@ if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	end
 
 	function initializeAFM()
+		if FFlagFixJoinVoiceDelayedAFMInit and wasAFMInitialized then
+			log:info("VCSM was already initialized [CEV ExperienceAudioFocusBinder]")
+			return
+		end
+		if FFlagFixJoinVoiceDelayedAFMInit then
+			wasAFMInitialized = true
+		end
 		local success, AudioFocusService = pcall(function()
 			return game:GetService("AudioFocusService")
 		end)
@@ -197,10 +208,22 @@ if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	if canUseService then
 		initializeAFM()
 	elseif canUseService == nil then
+		if FFlagFixJoinVoiceDelayedAFMInit then
+			VoiceChatServiceManager:subscribe("OnVoiceChatServiceInitialized", function()
+				if didCanUseServiceAsyncFail then
+					initializeAFM()
+					didCanUseServiceAsyncFail = false
+				end
+			end)
+		end
+
 		VoiceChatServiceManager:subscribe("OnCanUseServiceResult", function(result)
 			if result then
 				initializeAFM()
 			else
+				if FFlagFixJoinVoiceDelayedAFMInit then
+					didCanUseServiceAsyncFail = true
+				end
 				log:info("VCSM cannot be used [CEV ExperienceAudioFocusBinder]")
 			end
 		end)

@@ -101,103 +101,113 @@ MAIN:
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
-  DUPTABLE R0 K38 [{"fflagAnnotationsModernColors", "fflagAnnotationsMaxTextLength", "fflagAnnotationsReleaseCallout", "fintAnnotationsPointerMaxSize", "fintAnnotationsPointerMinSize", "fflagAnnotationsOpenPanelOnCreate", "fflagAnnotationCreationLocksCamera", "fflagAnnotationsTaggedYouLabel", "fflagCOLLAB8272WidgetEnabled", "fflagCOLLAB8324KeepOpenOnSubmit", "fflagCOLLAB8658AnnotationsDisableNonTCRestore", "fflagCOLLAB8964DoubleClickZoomTo", "fflagCOLLAB8949AnnotationsAddPluginTelemetry", "fintAnnotationsPluginActionThrottleHundredthsPercent", "fflagAnnotationsCancelDeleteDialogDesignLink", "fflagCOLLAB9036DecreaseLineHeight", "fflagCOLLAB9036KeepNewOpenOnSubmit", "fflagIsModernRibbon"}]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K20 ["AnnotationsUseStateCallbacks"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  DUPTABLE R0 K40 [{"fflagAnnotationsModernColors", "fflagAnnotationsMaxTextLength", "fflagAnnotationsReleaseCallout", "fintAnnotationsPointerMaxSize", "fintAnnotationsPointerMinSize", "fflagAnnotationsOpenPanelOnCreate", "fflagAnnotationCreationLocksCamera", "fflagAnnotationsTaggedYouLabel", "fflagCOLLAB8272WidgetEnabled", "fflagCOLLAB8324KeepOpenOnSubmit", "fflagCOLLAB8658AnnotationsDisableNonTCRestore", "fflagCOLLAB8964DoubleClickZoomTo", "fflagCOLLAB8949AnnotationsAddPluginTelemetry", "fintAnnotationsPluginActionThrottleHundredthsPercent", "fflagAnnotationsCancelDeleteDialogDesignLink", "fflagCOLLAB9036DecreaseLineHeight", "fflagCOLLAB9036KeepNewOpenOnSubmit", "fflagIsModernRibbon", "fflagAnnotationsUseStateCallbacks"}]
   GETIMPORT R1 K1 [game]
   LOADK R3 K2 ["AnnotationsModernColors"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K20 ["fflagAnnotationsModernColors"]
+  SETTABLEKS R1 R0 K21 ["fflagAnnotationsModernColors"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K4 ["AnnotationsMaxTextLength"]
-  NAMECALL R1 R1 K40 ["GetFastInt"]
+  NAMECALL R1 R1 K42 ["GetFastInt"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K21 ["fflagAnnotationsMaxTextLength"]
+  SETTABLEKS R1 R0 K22 ["fflagAnnotationsMaxTextLength"]
   GETIMPORT R1 K1 [game]
-  LOADK R3 K41 ["AnnotationsReleaseCallout"]
+  LOADK R3 K43 ["AnnotationsReleaseCallout"]
   LOADB R4 0
   NAMECALL R1 R1 K3 ["DefineFastFlag"]
   CALL R1 3 1
-  SETTABLEKS R1 R0 K22 ["fflagAnnotationsReleaseCallout"]
+  SETTABLEKS R1 R0 K23 ["fflagAnnotationsReleaseCallout"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K6 ["AnnotationsPointerMaxSize"]
-  NAMECALL R1 R1 K40 ["GetFastInt"]
+  NAMECALL R1 R1 K42 ["GetFastInt"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K23 ["fintAnnotationsPointerMaxSize"]
+  SETTABLEKS R1 R0 K24 ["fintAnnotationsPointerMaxSize"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K7 ["AnnotationsPointerMinSize"]
-  NAMECALL R1 R1 K40 ["GetFastInt"]
+  NAMECALL R1 R1 K42 ["GetFastInt"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K24 ["fintAnnotationsPointerMinSize"]
+  SETTABLEKS R1 R0 K25 ["fintAnnotationsPointerMinSize"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K8 ["AnnotationsOpenPanelOnCreate"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K25 ["fflagAnnotationsOpenPanelOnCreate"]
+  SETTABLEKS R1 R0 K26 ["fflagAnnotationsOpenPanelOnCreate"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K9 ["AnnotationCreationLocksCamera"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K26 ["fflagAnnotationCreationLocksCamera"]
+  SETTABLEKS R1 R0 K27 ["fflagAnnotationCreationLocksCamera"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K10 ["AnnotationsTaggedYouLabel"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K27 ["fflagAnnotationsTaggedYouLabel"]
+  SETTABLEKS R1 R0 K28 ["fflagAnnotationsTaggedYouLabel"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K11 ["COLLAB8272WidgetEnabled"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K28 ["fflagCOLLAB8272WidgetEnabled"]
+  SETTABLEKS R1 R0 K29 ["fflagCOLLAB8272WidgetEnabled"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K12 ["COLLAB8324KeepOpenOnSubmit"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K29 ["fflagCOLLAB8324KeepOpenOnSubmit"]
+  SETTABLEKS R1 R0 K30 ["fflagCOLLAB8324KeepOpenOnSubmit"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K13 ["COLLAB8658AnnotationsDisableNonTCRestore2"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K30 ["fflagCOLLAB8658AnnotationsDisableNonTCRestore"]
+  SETTABLEKS R1 R0 K31 ["fflagCOLLAB8658AnnotationsDisableNonTCRestore"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K14 ["COLLAB8964DoubleClickZoomTo"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K31 ["fflagCOLLAB8964DoubleClickZoomTo"]
+  SETTABLEKS R1 R0 K32 ["fflagCOLLAB8964DoubleClickZoomTo"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K15 ["COLLAB8949AnnotationsAddPluginTelemetry"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K32 ["fflagCOLLAB8949AnnotationsAddPluginTelemetry"]
+  SETTABLEKS R1 R0 K33 ["fflagCOLLAB8949AnnotationsAddPluginTelemetry"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K16 ["AnnotationsPluginActionThrottleHundredthsPercent"]
-  NAMECALL R1 R1 K40 ["GetFastInt"]
+  NAMECALL R1 R1 K42 ["GetFastInt"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K33 ["fintAnnotationsPluginActionThrottleHundredthsPercent"]
+  SETTABLEKS R1 R0 K34 ["fintAnnotationsPluginActionThrottleHundredthsPercent"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K17 ["AnnotationsCancelDeleteDialogDesignLink"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K34 ["fflagAnnotationsCancelDeleteDialogDesignLink"]
+  SETTABLEKS R1 R0 K35 ["fflagAnnotationsCancelDeleteDialogDesignLink"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K18 ["COLLAB9036DecreaseLineHeight"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K35 ["fflagCOLLAB9036DecreaseLineHeight"]
+  SETTABLEKS R1 R0 K36 ["fflagCOLLAB9036DecreaseLineHeight"]
   GETIMPORT R1 K1 [game]
   LOADK R3 K19 ["COLLAB9036KeepNewOpenOnSubmit"]
-  NAMECALL R1 R1 K39 ["GetFastFlag"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
   CALL R1 2 1
-  SETTABLEKS R1 R0 K36 ["fflagCOLLAB9036KeepNewOpenOnSubmit"]
+  SETTABLEKS R1 R0 K37 ["fflagCOLLAB9036KeepNewOpenOnSubmit"]
   GETIMPORT R2 K1 [game]
-  LOADK R4 K42 ["EnableRibbonPluginFeature"]
-  NAMECALL R2 R2 K43 ["GetEngineFeature"]
+  LOADK R4 K44 ["EnableRibbonPluginFeature"]
+  NAMECALL R2 R2 K45 ["GetEngineFeature"]
   CALL R2 2 1
   JUMPIF R2 [+5]
-  GETIMPORT R3 K45 [pcall]
+  GETIMPORT R3 K47 [pcall]
   NEWCLOSURE R4 P0
   CAPTURE REF R2
   CALL R3 1 0
   MOVE R1 R2
   CLOSEUPVALS R2
-  SETTABLEKS R1 R0 K37 ["fflagIsModernRibbon"]
+  SETTABLEKS R1 R0 K38 ["fflagIsModernRibbon"]
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K20 ["AnnotationsUseStateCallbacks"]
+  NAMECALL R1 R1 K41 ["GetFastFlag"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K39 ["fflagAnnotationsUseStateCallbacks"]
   RETURN R0 1

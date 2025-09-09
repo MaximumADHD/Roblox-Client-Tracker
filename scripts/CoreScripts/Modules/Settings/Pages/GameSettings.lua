@@ -77,9 +77,11 @@ local GetFFlagAudioDevicesCanDefaultToOSLua = SharedFlags.GetFFlagAudioDevicesCa
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagShowAntiHarassmentSettings = game:DefineFastFlag("ShowAntiHarassmentSettings", false)
 local GetFFlagEnablePlayerNamesEnabledSetting = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
-
+local FFlagUpdatePeopleNamesSettingCopy = require(RobloxGui.Modules.Settings.Flags.FFlagUpdatePeopleNamesSettingCopy)
+local FFlagBadgeVisibilitySettingEnabled = SharedFlags.FFlagBadgeVisibilitySettingEnabled
 local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
 local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
+local FFlagGameSettingsRefactorMovementModeLogic = SettingsFlags.FFlagGameSettingsRefactorMovementModeLogic
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -258,6 +260,7 @@ else
 		["DeveloperConsoleButton"] = 101,
 		-- AntiHarassment Settings
 		["PlayerNamesEnabledFrame"] = if GetFFlagEnablePlayerNamesEnabledSetting() then 105 else nil,
+		["BadgeVisibilityFrame"] = if FFlagBadgeVisibilitySettingEnabled then 106 else nil,
 		["UiToggleRow"] = 200,
 		["UiToggleRowCustom"] = 200, -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true
 		["UiToggleRowBillboards"] = 201,
@@ -355,6 +358,10 @@ local FFlagFeedbackEntryPointButtonSizeAdjustment =
 local FFlagFeedbackEntryPointImprovedStrictnessCheck =
 	game:DefineFastFlag("FeedbackEntryPointImprovedStrictnessCheck", false)
 local FFlagBuilderIcon = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
+local GetFFlagEnableLocalesForExperienceLanguageSwitcher = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLocalesForExperienceLanguageSwitcher)
+local CreateExperienceLanguageSwitcher = require(
+	RobloxGui.Modules.Settings.Pages.GameSettingsRowInitializers.ExperienceLanguageSwitcherInitializer
+)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if
@@ -795,7 +802,9 @@ local function Initialize()
 	end
 
 	local function createPlayerNamesEnabledOptions()
-		local playerNamesEnabledLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.CharacterNames")
+		local playerNamesEnabledLabel = if FFlagUpdatePeopleNamesSettingCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PeopleNames") else RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PlayerNames")
+		local playerNamesEnabledDescription = if FFlagUpdatePeopleNamesSettingCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.PeopleNames.Description") else nil
+
 		local function GetPlayerNamesEnabledStartIndex()
 			if GameSettings.PlayerNamesEnabled then
 				return PLAYER_NAMES_ENABLED_VALUES.On
@@ -809,7 +818,7 @@ local function Initialize()
 		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
 		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
 
-		this.PlayerNamesEnabledFrame, this.playerNamesEnabledLabel, this.playerNamesEnabledMode = utility:AddNewRow(this, playerNamesEnabledLabel, "Selector", { onLabel, offLabel }, startIndex)
+		this.PlayerNamesEnabledFrame, this.playerNamesEnabledLabel, this.playerNamesEnabledMode = utility:AddNewRow(this, playerNamesEnabledLabel, "Selector", { onLabel, offLabel }, startIndex, nil, playerNamesEnabledDescription)
 
 		this.PlayerNamesEnabledFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER.PlayerNamesEnabledFrame
 
@@ -1536,6 +1545,9 @@ local function Initialize()
 		------------------
 		------------------ Movement Mode ---------------------
 		local movementModes = {}
+		local movementEnumToIndex = {}
+		local movementIndexToEnum = {}
+		local movementIndexToDisplayName = {}
 
 		function setMovementModeVisible(visible)
 			if this.MovementMode then
@@ -1602,6 +1614,9 @@ local function Initialize()
 			})
 
 			local function setMovementModeToIndex(index)
+				if FFlagGameSettingsRefactorMovementModeLogic then
+					return
+				end
 				local newEnumSetting = nil
 				local success = pcall(function()
 					newEnumSetting = movementEnumNameToItem[movementEnumNames[index]]
@@ -1631,10 +1646,28 @@ local function Initialize()
 				end
 			end
 
+			local function setMovementMode(movementMode: Enum.TouchMovementMode | Enum.ComputerMovementMode)
+				local oldMovementMode: Enum.TouchMovementMode | Enum.ComputerMovementMode
+				if movementMode.EnumType == Enum.TouchMovementMode then
+					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+						oldMovementMode = GameSettings.TouchMovementMode
+					end
+					GameSettings.TouchMovementMode = movementMode
+				else
+					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+						oldMovementMode = GameSettings.ComputerMovementMode
+					end
+					GameSettings.ComputerMovementMode = movementMode
+				end
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics("movement_mode", oldMovementMode, movementMode)
+				end
+			end
+
 			local function updateMovementModes()
+				local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+					UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
 				if PlayerScripts then
-					local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
-						UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
 					if isTouchInput then
 						movementModes = PlayerScripts:GetRegisteredTouchMovementModes()
 					else
@@ -1642,48 +1675,80 @@ local function Initialize()
 					end
 				end
 
-				movementEnumNames = {}
-				movementEnumNameToItem = {}
+				if FFlagGameSettingsRefactorMovementModeLogic then
+					movementEnumToIndex = {}
+					movementIndexToEnum = {}
+					movementIndexToDisplayName = {}
+					if #movementModes <= 0 then
+						setMovementModeVisible(false)
+						return
+					end
+					setMovementModeVisible(true)
+					for index, movementEnum in movementModes do
+						movementIndexToEnum[index] = movementEnum
+						movementIndexToDisplayName[index] = getDisplayName(movementEnum.Name)
+						movementEnumToIndex[movementEnum] = index
+					end
 
-				if #movementModes <= 0 then
-					setMovementModeVisible(false)
-					return
-				end
+					if this.MovementMode then
+						this.MovementMode:UpdateOptions(movementIndexToDisplayName)
+					end
 
-				setMovementModeVisible(true)
+					local currentMovementMode: Enum.TouchMovementMode | Enum.ComputerMovementMode
+					if isTouchInput then
+						currentMovementMode = GameSettings.TouchMovementMode
+					else
+						currentMovementMode = GameSettings.ComputerMovementMode
+					end
 
-				for i = 1, #movementModes do
-					local movementMode = movementModes[i]
-
-					local displayName = getDisplayName(movementMode.Name)
-
-					movementEnumNames[#movementEnumNames + 1] = displayName
-					movementEnumNameToItem[displayName] = movementMode
-				end
-
-				if this.MovementMode then
-					this.MovementMode:UpdateOptions(movementEnumNames)
-				end
-
-				local currentSavedMode = -1
-
-				local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
-					UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
-				if isTouchInput then
-					currentSavedMode = GameSettings.TouchMovementMode.Value
+					if currentMovementMode then
+						setMovementMode(currentMovementMode)
+						this.MovementMode:SetSelectionIndex(movementEnumToIndex[currentMovementMode])
+					end
 				else
-					currentSavedMode = GameSettings.ComputerMovementMode.Value
-				end
+					movementEnumNames = {}
+					movementEnumNameToItem = {}
 
-				if currentSavedMode > -1 then
-					currentSavedMode = currentSavedMode + 1
-					local savedEnum = nil
-					local exists = pcall(function()
-						savedEnum = movementEnumNameToItem[movementEnumNames[currentSavedMode]]
-					end)
-					if exists and savedEnum then
-						setMovementModeToIndex(savedEnum.Value + 1)
-						this.MovementMode:SetSelectionIndex(savedEnum.Value + 1)
+					if #movementModes <= 0 then
+						setMovementModeVisible(false)
+						return
+					end
+
+					setMovementModeVisible(true)
+
+					for i = 1, #movementModes do
+						local movementMode = movementModes[i]
+
+						local displayName = getDisplayName(movementMode.Name)
+
+						movementEnumNames[#movementEnumNames + 1] = displayName
+						movementEnumNameToItem[displayName] = movementMode
+					end
+
+					if this.MovementMode then
+						this.MovementMode:UpdateOptions(movementEnumNames)
+					end
+
+					local currentSavedMode = -1
+
+					local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+						UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+					if isTouchInput then
+						currentSavedMode = GameSettings.TouchMovementMode.Value
+					else
+						currentSavedMode = GameSettings.ComputerMovementMode.Value
+					end
+
+					if currentSavedMode > -1 then
+						currentSavedMode = currentSavedMode + 1
+						local savedEnum = nil
+						local exists = pcall(function()
+							savedEnum = movementEnumNameToItem[movementEnumNames[currentSavedMode]]
+						end)
+						if exists and savedEnum then
+							setMovementModeToIndex(savedEnum.Value + 1)
+							this.MovementMode:SetSelectionIndex(savedEnum.Value + 1)
+						end
 					end
 				end
 			end
@@ -1711,7 +1776,11 @@ local function Initialize()
 			end
 
 			this.MovementMode.IndexChanged:connect(function(newIndex)
-				setMovementModeToIndex(newIndex)
+				if FFlagGameSettingsRefactorMovementModeLogic then
+					setMovementMode(movementIndexToEnum[newIndex])
+				else
+					setMovementModeToIndex(newIndex)
+				end
 				reportSettingsForAnalytics()
 			end)
 		end
@@ -3194,6 +3263,27 @@ local function Initialize()
 		end)
 	end
 
+	local function createBadgeVisibilityOptions()
+		spawn(function()
+			local isInExperienceNameEnabled = 2
+			if PlayerPermissionsModule.IsPlayerInExperienceNameEnabledAsync(LocalPlayer) then
+				isInExperienceNameEnabled = 1
+			end
+			local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+			local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
+			local badgeDisplayLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.DisplayBadges")
+			local badgeDisplayDescription = RobloxTranslator:FormatByKey("Feature.SettingsHub.Description.DisplayBadges")
+			this.badgeVisibleRow, this.badgeVisibleFrame, this.badgeVisibleSelector =
+				utility:AddNewRow(this, badgeDisplayLabel, "Selector", { offLabel, onLabel }, isInExperienceNameEnabled, nil, badgeDisplayDescription)
+			this.badgeVisibleRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["BadgeVisibilityFrame"]
+	
+			this.badgeVisibleSelector.IndexChanged:connect(function(newIndex)
+				GameSettings.BadgeVisible = newIndex == 2
+				PlayerPermissionsModule.SetPlayerInExperienceNameEnabled(LocalPlayer, newIndex == 1)
+			end)
+		end)
+	end
+
 	------------------------------------------------------
 	------------------
 	------------------ Video Camera Device ---------------
@@ -4059,6 +4149,10 @@ local function Initialize()
 		createOverscanOption()
 	end
 
+	if FFlagShowAntiHarassmentSettings and FFlagBadgeVisibilitySettingEnabled then
+		createBadgeVisibilityOptions()
+	end
+
 	-- dev console option only shows for place/group place owners
 	createDeveloperConsoleOption()
 
@@ -4245,7 +4339,11 @@ local function Initialize()
 		end
 
 		if isLangaugeSelectionDropdownEnabled() then
-			createTranslationOptions()
+			if GetFFlagEnableLocalesForExperienceLanguageSwitcher() then
+				CreateExperienceLanguageSwitcher(this, SETTINGS_MENU_LAYOUT_ORDER, reportSettingsChangeForAnalytics)
+			else
+				createTranslationOptions()
+			end
 		end
 
 		-- Chat translation setting uses dropdowns, which require the hub reference to exist

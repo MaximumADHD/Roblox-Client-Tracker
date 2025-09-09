@@ -3,6 +3,7 @@ local RunService = game:GetService("RunService")
 local ScriptContext = game:GetService("ScriptContext")
 
 local FFlagDebugCoreScriptRoactInspector = game:DefineFastFlag("DebugCoreScriptRoactInspector", false)
+local FFlagDebugEnableHotModuleReplacementStudio = game:DefineFastFlag("DebugEnableHotModuleReplacementStudio", false)
 
 if FFlagDebugCoreScriptRoactInspector then
 	local hasInternalPermission = UserSettings().GameSettings:InStudioMode()
@@ -26,5 +27,26 @@ else
 	local ReactDeveloperTools = require(CorePackages.Workspace.Packages.ReactDeveloperTools)
 	ReactDeveloperTools.startup()
 
-	ScriptContext:AddCoreScriptLocal("StarterScript", script.Parent)
+	if FFlagDebugEnableHotModuleReplacementStudio then
+		local HMR = require(CorePackages.Packages.Dev.HMR)
+
+		local hotRuntime = HMR.Runtime.new()
+
+		local ReactHMR = hotRuntime:require(CorePackages.Packages.Dev.ReactHMR)
+
+		hotRuntime:registerTransformer(ReactHMR.ReactRefresh())
+
+		local function coreScriptTransformer(source: string, _dmPath: string)
+			return source:gsub('ScriptContext:AddCoreScriptLocal%("([^"]+)"%s*,.-%s*%)', function(path)
+					local newPath = path:gsub('/', '.')
+					return 'require(game:GetService("CoreGui").CoreScripts.' .. newPath .. ')'
+			end)
+		end
+
+		hotRuntime:registerTransformer(coreScriptTransformer)
+
+		hotRuntime:require(game:GetService("CoreGui").CoreScripts.StarterScript)
+	else
+		ScriptContext:AddCoreScriptLocal("StarterScript", script.Parent)
+	end
 end

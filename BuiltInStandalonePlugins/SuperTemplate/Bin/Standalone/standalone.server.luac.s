@@ -38,17 +38,30 @@ MAIN:
   JUMPIFEQ R4 R5 [+2]
   RETURN R0 0
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Bin"]
-  GETTABLEKS R6 R7 K7 ["Common"]
-  GETTABLEKS R5 R6 K22 ["setup"]
+  GETTABLEKS R6 R0 K13 ["Packages"]
+  GETTABLEKS R5 R6 K22 ["ReactDeveloperTools"]
   CALL R4 1 1
+  GETTABLEKS R5 R4 K23 ["tryEnableDevtools"]
+  DUPTABLE R6 K27 [{"pluginName", "forceEnable", "profileOnStart"}]
+  LOADK R7 K2 ["SuperTemplate"]
+  SETTABLEKS R7 R6 K24 ["pluginName"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K25 ["forceEnable"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K26 ["profileOnStart"]
+  CALL R5 1 0
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K6 ["Bin"]
   GETTABLEKS R7 R8 K7 ["Common"]
-  GETTABLEKS R6 R7 K23 ["setupMain"]
+  GETTABLEKS R6 R7 K28 ["setup"]
   CALL R5 1 1
-  MOVE R6 R4
-  GETIMPORT R7 K25 [plugin]
-  MOVE R8 R5
-  CALL R6 2 0
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Bin"]
+  GETTABLEKS R8 R9 K7 ["Common"]
+  GETTABLEKS R7 R8 K29 ["setupMain"]
+  CALL R6 1 1
+  MOVE R7 R5
+  GETIMPORT R8 K31 [plugin]
+  MOVE R9 R6
+  CALL R7 2 0
   RETURN R0 0

@@ -138,6 +138,7 @@ local function installStorybookEmbed(parent: Instance)
 	-- There is a weird conflict in a peer dependency installation, so I have to install this one separately,
 	-- though it's already handled by the calls above
 	installWithAllDependencies(root, Main.Packages, "RoactRodux")
+	installWithAllDependencies(root, Main.Packages, "Markdown")
 	local foundation = installWithAllDependencies(root, Main.Packages, "Foundation")
 	if foundation then
 		foundation.Foundation.Utility.Flags.Source = foundation.Foundation.Utility.Flags.Source:gsub(
@@ -175,6 +176,7 @@ local function installStorybookEmbed(parent: Instance)
 	createPackageLink("TestLoader", SrcPackages)
 	createPackageLink("StudioFoundation", SrcPackages)
 	createPackageLink("ViewportToolingFramework", SrcPackages)
+	createPackageLink("Markdown", SrcPackages)
 
 	-- Disable StorybookLocal - will be enabled by runner
 	SrcFolder.Util.StorybookLocal.Enabled = false

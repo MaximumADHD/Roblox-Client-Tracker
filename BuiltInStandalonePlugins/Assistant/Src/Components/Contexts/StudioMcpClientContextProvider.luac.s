@@ -6,8 +6,8 @@ PROTO_0:
   GETTABLEKS R5 R6 K0 ["Components"]
   GETTABLEKS R4 R5 K1 ["Contexts"]
   GETTABLEKS R3 R4 K2 ["McpClientContextProvider"]
-  DUPTABLE R4 K4 [{"clientGetter"}]
-  SETTABLEKS R1 R4 K3 ["clientGetter"]
+  DUPTABLE R4 K4 [{"runWithClient"}]
+  SETTABLEKS R1 R4 K3 ["runWithClient"]
   GETTABLEKS R5 R0 K5 ["children"]
   CALL R2 3 -1
   RETURN R2 -1
@@ -29,7 +29,7 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K9 ["Src"]
   GETTABLEKS R5 R6 K10 ["Hooks"]
-  GETTABLEKS R4 R5 K11 ["useMcpClient"]
+  GETTABLEKS R4 R5 K11 ["useRunWithMcpClient"]
   CALL R3 1 1
   GETTABLEKS R4 R2 K12 ["createElement"]
   DUPCLOSURE R5 K13 [PROTO_0]

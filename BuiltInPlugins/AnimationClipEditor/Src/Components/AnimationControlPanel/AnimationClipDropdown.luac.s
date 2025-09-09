@@ -716,17 +716,10 @@ PROTO_37:
   CALL R28 2 1
   SETTABLEKS R28 R27 K27 ["Size"]
   SETTABLEKS R4 R27 K59 ["Text"]
-  GETUPVAL R29 5
-  CALL R29 0 1
-  JUMPIFNOT R29 [+5]
-  GETTABLEKS R29 R2 K63 ["RootInstance"]
-  JUMPIF R29 [+2]
-  LOADNIL R28
-  JUMP [+2]
-  GETTABLEKS R28 R0 K64 ["validateAnimationName"]
+  GETTABLEKS R28 R0 K63 ["validateAnimationName"]
   SETTABLEKS R28 R27 K60 ["OnValidateText"]
   GETTABLEKS R29 R0 K0 ["props"]
-  GETTABLEKS R28 R29 K65 ["SetAnimationName"]
+  GETTABLEKS R28 R29 K64 ["SetAnimationName"]
   SETTABLEKS R28 R27 K61 ["OnFocusLost"]
   CALL R25 2 -1
   SETLIST R24 R25 -1 [1]
@@ -734,8 +727,8 @@ PROTO_37:
   SETTABLEKS R21 R20 K34 ["AnimationClipLabel"]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 6
-  DUPTABLE R23 K67 [{"AnchorPoint", "Position", "OnActivated"}]
+  GETUPVAL R22 5
+  DUPTABLE R23 K66 [{"AnchorPoint", "Position", "OnActivated"}]
   GETIMPORT R24 K53 [Vector2.new]
   LOADN R25 1
   LOADK R26 K54 [0.5]
@@ -749,240 +742,225 @@ PROTO_37:
   CALL R24 4 1
   SETTABLEKS R24 R23 K50 ["Position"]
   GETTABLEKS R24 R0 K6 ["showMenu"]
-  SETTABLEKS R24 R23 K66 ["OnActivated"]
+  SETTABLEKS R24 R23 K65 ["OnActivated"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K35 ["ContextButton"]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 7
-  DUPTABLE R23 K82 [{"ShowMenu", "CurrentAnimation", "IsLegacyAnimSaves", "IsChannelAnimation", "OnMenuOpened", "OnOverwriteRequested", "OnSaveAsRequested", "OnCreateNewRequested", "OnLoadRequested", "OnImportRequested", "OnImportFbxRequested", "OnCreateFromVideoRequested", "OnPromoteRequested", "OnReduceKeyframesRequested", "OnSanitizeAnimation", "OnGenerateControlRigData"}]
-  SETTABLEKS R7 R23 K68 ["ShowMenu"]
-  SETTABLEKS R4 R23 K69 ["CurrentAnimation"]
+  GETUPVAL R22 6
+  DUPTABLE R23 K81 [{"ShowMenu", "CurrentAnimation", "IsLegacyAnimSaves", "IsChannelAnimation", "OnMenuOpened", "OnOverwriteRequested", "OnSaveAsRequested", "OnCreateNewRequested", "OnLoadRequested", "OnImportRequested", "OnImportFbxRequested", "OnCreateFromVideoRequested", "OnPromoteRequested", "OnReduceKeyframesRequested", "OnSanitizeAnimation", "OnGenerateControlRigData"}]
+  SETTABLEKS R7 R23 K67 ["ShowMenu"]
+  SETTABLEKS R4 R23 K68 ["CurrentAnimation"]
   SETTABLEKS R13 R23 K12 ["IsLegacyAnimSaves"]
   SETTABLEKS R6 R23 K5 ["IsChannelAnimation"]
-  GETTABLEKS R24 R0 K83 ["hideMenu"]
-  SETTABLEKS R24 R23 K70 ["OnMenuOpened"]
-  GETTABLEKS R24 R0 K84 ["showOverwritePrompt"]
-  SETTABLEKS R24 R23 K71 ["OnOverwriteRequested"]
+  GETTABLEKS R24 R0 K82 ["hideMenu"]
+  SETTABLEKS R24 R23 K69 ["OnMenuOpened"]
+  GETTABLEKS R24 R0 K83 ["showOverwritePrompt"]
+  SETTABLEKS R24 R23 K70 ["OnOverwriteRequested"]
   GETTABLEKS R24 R0 K7 ["showSaveAsPrompt"]
-  SETTABLEKS R24 R23 K72 ["OnSaveAsRequested"]
-  GETTABLEKS R24 R0 K85 ["createNew"]
-  SETTABLEKS R24 R23 K73 ["OnCreateNewRequested"]
-  GETTABLEKS R24 R0 K86 ["loadNew"]
-  SETTABLEKS R24 R23 K74 ["OnLoadRequested"]
-  GETTABLEKS R24 R0 K87 ["importRequested"]
-  SETTABLEKS R24 R23 K75 ["OnImportRequested"]
-  GETTABLEKS R24 R0 K88 ["importFbxRequested"]
-  SETTABLEKS R24 R23 K76 ["OnImportFbxRequested"]
-  GETTABLEKS R24 R0 K89 ["createFromVideoRequested"]
-  SETTABLEKS R24 R23 K77 ["OnCreateFromVideoRequested"]
+  SETTABLEKS R24 R23 K71 ["OnSaveAsRequested"]
+  GETTABLEKS R24 R0 K84 ["createNew"]
+  SETTABLEKS R24 R23 K72 ["OnCreateNewRequested"]
+  GETTABLEKS R24 R0 K85 ["loadNew"]
+  SETTABLEKS R24 R23 K73 ["OnLoadRequested"]
+  GETTABLEKS R24 R0 K86 ["importRequested"]
+  SETTABLEKS R24 R23 K74 ["OnImportRequested"]
+  GETTABLEKS R24 R0 K87 ["importFbxRequested"]
+  SETTABLEKS R24 R23 K75 ["OnImportFbxRequested"]
+  GETTABLEKS R24 R0 K88 ["createFromVideoRequested"]
+  SETTABLEKS R24 R23 K76 ["OnCreateFromVideoRequested"]
   GETTABLEKS R24 R0 K11 ["showPromotePrompt"]
-  SETTABLEKS R24 R23 K78 ["OnPromoteRequested"]
-  GETTABLEKS R24 R0 K90 ["showReduceKeyframesDialog"]
-  SETTABLEKS R24 R23 K79 ["OnReduceKeyframesRequested"]
-  GETTABLEKS R24 R0 K91 ["onSanitizeAnimation"]
-  SETTABLEKS R24 R23 K80 ["OnSanitizeAnimation"]
-  GETTABLEKS R24 R0 K92 ["onGenerateControlRigData"]
-  SETTABLEKS R24 R23 K81 ["OnGenerateControlRigData"]
+  SETTABLEKS R24 R23 K77 ["OnPromoteRequested"]
+  GETTABLEKS R24 R0 K89 ["showReduceKeyframesDialog"]
+  SETTABLEKS R24 R23 K78 ["OnReduceKeyframesRequested"]
+  GETTABLEKS R24 R0 K90 ["onSanitizeAnimation"]
+  SETTABLEKS R24 R23 K79 ["OnSanitizeAnimation"]
+  GETTABLEKS R24 R0 K91 ["onGenerateControlRigData"]
+  SETTABLEKS R24 R23 K80 ["OnGenerateControlRigData"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K36 ["AnimationClipMenu"]
   MOVE R21 R8
-  JUMPIFNOT R21 [+89]
+  JUMPIFNOT R21 [+72]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 8
-  DUPTABLE R23 K99 [{"PromptText", "InputText", "NoticeText", "Text", "Buttons", "OnTextSubmitted", "OnClose"}]
-  LOADK R26 K100 ["Title"]
-  LOADK R27 K101 ["SaveAsNew"]
-  NAMECALL R24 R1 K102 ["getText"]
+  GETUPVAL R22 7
+  DUPTABLE R23 K98 [{"PromptText", "InputText", "NoticeText", "Text", "Buttons", "OnTextSubmitted", "OnClose"}]
+  LOADK R26 K99 ["Title"]
+  LOADK R27 K100 ["SaveAsNew"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K93 ["PromptText"]
-  LOADK R26 K103 ["Dialog"]
+  SETTABLEKS R24 R23 K92 ["PromptText"]
+  LOADK R26 K102 ["Dialog"]
   LOADK R27 K3 ["AnimationName"]
-  NAMECALL R24 R1 K102 ["getText"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K94 ["InputText"]
-  LOADK R26 K103 ["Dialog"]
-  LOADK R27 K104 ["SaveLocation"]
-  NAMECALL R24 R1 K102 ["getText"]
+  SETTABLEKS R24 R23 K93 ["InputText"]
+  LOADK R26 K102 ["Dialog"]
+  LOADK R27 K103 ["SaveLocation"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K95 ["NoticeText"]
-  GETUPVAL R25 5
-  CALL R25 0 1
-  JUMPIFNOT R25 [+13]
-  GETTABLEKS R25 R0 K64 ["validateAnimationName"]
-  MOVE R26 R4
-  CALL R25 1 1
-  JUMPIFNOT R25 [+2]
-  MOVE R24 R4
-  JUMP [+7]
-  LOADK R26 K100 ["Title"]
-  LOADK R27 K105 ["DefaultAnimationName"]
-  NAMECALL R24 R1 K102 ["getText"]
-  CALL R24 3 1
-  JUMP [+1]
-  MOVE R24 R4
-  SETTABLEKS R24 R23 K59 ["Text"]
+  SETTABLEKS R24 R23 K94 ["NoticeText"]
+  SETTABLEKS R4 R23 K59 ["Text"]
   NEWTABLE R24 0 2
-  DUPTABLE R25 K108 [{"Key", "Text", "Style"}]
+  DUPTABLE R25 K106 [{"Key", "Text", "Style"}]
   LOADB R26 0
-  SETTABLEKS R26 R25 K106 ["Key"]
-  LOADK R28 K103 ["Dialog"]
-  LOADK R29 K109 ["Cancel"]
-  NAMECALL R26 R1 K102 ["getText"]
+  SETTABLEKS R26 R25 K104 ["Key"]
+  LOADK R28 K102 ["Dialog"]
+  LOADK R29 K107 ["Cancel"]
+  NAMECALL R26 R1 K101 ["getText"]
   CALL R26 3 1
   SETTABLEKS R26 R25 K59 ["Text"]
-  LOADK R26 K110 ["Round"]
-  SETTABLEKS R26 R25 K107 ["Style"]
-  DUPTABLE R26 K108 [{"Key", "Text", "Style"}]
+  LOADK R26 K108 ["Round"]
+  SETTABLEKS R26 R25 K105 ["Style"]
+  DUPTABLE R26 K106 [{"Key", "Text", "Style"}]
   LOADB R27 1
-  SETTABLEKS R27 R26 K106 ["Key"]
-  LOADK R29 K103 ["Dialog"]
-  LOADK R30 K111 ["Save"]
-  NAMECALL R27 R1 K102 ["getText"]
+  SETTABLEKS R27 R26 K104 ["Key"]
+  LOADK R29 K102 ["Dialog"]
+  LOADK R30 K109 ["Save"]
+  NAMECALL R27 R1 K101 ["getText"]
   CALL R27 3 1
   SETTABLEKS R27 R26 K59 ["Text"]
-  LOADK R27 K112 ["RoundPrimary"]
-  SETTABLEKS R27 R26 K107 ["Style"]
+  LOADK R27 K110 ["RoundPrimary"]
+  SETTABLEKS R27 R26 K105 ["Style"]
   SETLIST R24 R25 2 [1]
-  SETTABLEKS R24 R23 K96 ["Buttons"]
+  SETTABLEKS R24 R23 K95 ["Buttons"]
   NEWCLOSURE R24 P0
   CAPTURE VAL R0
   CAPTURE VAL R2
-  SETTABLEKS R24 R23 K97 ["OnTextSubmitted"]
-  GETTABLEKS R24 R0 K113 ["hideSaveAsPrompt"]
-  SETTABLEKS R24 R23 K98 ["OnClose"]
+  SETTABLEKS R24 R23 K96 ["OnTextSubmitted"]
+  GETTABLEKS R24 R0 K111 ["hideSaveAsPrompt"]
+  SETTABLEKS R24 R23 K97 ["OnClose"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K37 ["SaveAsPrompt"]
   MOVE R21 R9
   JUMPIFNOT R21 [+59]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 9
-  DUPTABLE R23 K116 [{"Text", "ButtonWidth", "Buttons", "OnButtonClicked"}]
-  LOADK R26 K117 ["Toast"]
-  LOADK R27 K118 ["AnimationImportModelsDiffer"]
-  NAMECALL R24 R1 K102 ["getText"]
+  GETUPVAL R22 8
+  DUPTABLE R23 K114 [{"Text", "ButtonWidth", "Buttons", "OnButtonClicked"}]
+  LOADK R26 K115 ["Toast"]
+  LOADK R27 K116 ["AnimationImportModelsDiffer"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
   SETTABLEKS R24 R23 K59 ["Text"]
   GETUPVAL R27 1
-  GETTABLEKS R26 R27 K120 ["PROMPT_BUTTON_SIZE"]
-  GETTABLEKS R25 R26 K121 ["X"]
-  MULK R24 R25 K119 [1.5]
-  SETTABLEKS R24 R23 K114 ["ButtonWidth"]
+  GETTABLEKS R26 R27 K118 ["PROMPT_BUTTON_SIZE"]
+  GETTABLEKS R25 R26 K119 ["X"]
+  MULK R24 R25 K117 [1.5]
+  SETTABLEKS R24 R23 K112 ["ButtonWidth"]
   NEWTABLE R24 0 2
-  DUPTABLE R25 K108 [{"Key", "Text", "Style"}]
+  DUPTABLE R25 K106 [{"Key", "Text", "Style"}]
   LOADB R26 1
-  SETTABLEKS R26 R25 K106 ["Key"]
-  LOADK R28 K117 ["Toast"]
-  LOADK R29 K122 ["AnimationImportUseFBX"]
-  NAMECALL R26 R1 K102 ["getText"]
+  SETTABLEKS R26 R25 K104 ["Key"]
+  LOADK R28 K115 ["Toast"]
+  LOADK R29 K120 ["AnimationImportUseFBX"]
+  NAMECALL R26 R1 K101 ["getText"]
   CALL R26 3 1
   SETTABLEKS R26 R25 K59 ["Text"]
-  LOADK R26 K110 ["Round"]
-  SETTABLEKS R26 R25 K107 ["Style"]
-  DUPTABLE R26 K108 [{"Key", "Text", "Style"}]
+  LOADK R26 K108 ["Round"]
+  SETTABLEKS R26 R25 K105 ["Style"]
+  DUPTABLE R26 K106 [{"Key", "Text", "Style"}]
   LOADB R27 0
-  SETTABLEKS R27 R26 K106 ["Key"]
-  LOADK R29 K117 ["Toast"]
-  LOADK R30 K123 ["AnimationImportUseSelected"]
-  NAMECALL R27 R1 K102 ["getText"]
+  SETTABLEKS R27 R26 K104 ["Key"]
+  LOADK R29 K115 ["Toast"]
+  LOADK R30 K121 ["AnimationImportUseSelected"]
+  NAMECALL R27 R1 K101 ["getText"]
   CALL R27 3 1
   SETTABLEKS R27 R26 K59 ["Text"]
-  LOADK R27 K110 ["Round"]
-  SETTABLEKS R27 R26 K107 ["Style"]
+  LOADK R27 K108 ["Round"]
+  SETTABLEKS R27 R26 K105 ["Style"]
   SETLIST R24 R25 2 [1]
-  SETTABLEKS R24 R23 K96 ["Buttons"]
+  SETTABLEKS R24 R23 K95 ["Buttons"]
   NEWCLOSURE R24 P1
   CAPTURE VAL R0
-  SETTABLEKS R24 R23 K115 ["OnButtonClicked"]
+  SETTABLEKS R24 R23 K113 ["OnButtonClicked"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K38 ["ImportAnimModelChoicePrompt"]
   MOVE R21 R10
   JUMPIFNOT R21 [+61]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 10
-  DUPTABLE R23 K124 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
-  LOADK R26 K125 ["Menu"]
-  LOADK R27 K126 ["Overwrite_Migrated"]
-  DUPTABLE R28 K127 [{"overwriteName"}]
+  GETUPVAL R22 9
+  DUPTABLE R23 K122 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
+  LOADK R26 K123 ["Menu"]
+  LOADK R27 K124 ["Overwrite_Migrated"]
+  DUPTABLE R28 K125 [{"overwriteName"}]
   SETTABLEKS R10 R28 K9 ["overwriteName"]
-  NAMECALL R24 R1 K102 ["getText"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 4 1
-  SETTABLEKS R24 R23 K93 ["PromptText"]
+  SETTABLEKS R24 R23 K92 ["PromptText"]
   NEWTABLE R24 0 2
-  DUPTABLE R25 K108 [{"Key", "Text", "Style"}]
+  DUPTABLE R25 K106 [{"Key", "Text", "Style"}]
   LOADB R26 0
-  SETTABLEKS R26 R25 K106 ["Key"]
-  LOADK R28 K103 ["Dialog"]
-  LOADK R29 K128 ["No"]
-  NAMECALL R26 R1 K102 ["getText"]
+  SETTABLEKS R26 R25 K104 ["Key"]
+  LOADK R28 K102 ["Dialog"]
+  LOADK R29 K126 ["No"]
+  NAMECALL R26 R1 K101 ["getText"]
   CALL R26 3 1
   SETTABLEKS R26 R25 K59 ["Text"]
-  LOADK R26 K110 ["Round"]
-  SETTABLEKS R26 R25 K107 ["Style"]
-  DUPTABLE R26 K108 [{"Key", "Text", "Style"}]
+  LOADK R26 K108 ["Round"]
+  SETTABLEKS R26 R25 K105 ["Style"]
+  DUPTABLE R26 K106 [{"Key", "Text", "Style"}]
   LOADB R27 1
-  SETTABLEKS R27 R26 K106 ["Key"]
-  LOADK R29 K103 ["Dialog"]
-  LOADK R30 K129 ["Yes"]
-  NAMECALL R27 R1 K102 ["getText"]
+  SETTABLEKS R27 R26 K104 ["Key"]
+  LOADK R29 K102 ["Dialog"]
+  LOADK R30 K127 ["Yes"]
+  NAMECALL R27 R1 K101 ["getText"]
   CALL R27 3 1
   SETTABLEKS R27 R26 K59 ["Text"]
-  LOADK R27 K112 ["RoundPrimary"]
-  SETTABLEKS R27 R26 K107 ["Style"]
+  LOADK R27 K110 ["RoundPrimary"]
+  SETTABLEKS R27 R26 K105 ["Style"]
   SETLIST R24 R25 2 [1]
-  SETTABLEKS R24 R23 K96 ["Buttons"]
+  SETTABLEKS R24 R23 K95 ["Buttons"]
   NEWCLOSURE R24 P2
   CAPTURE VAL R0
   CAPTURE VAL R2
   CAPTURE VAL R14
   CAPTURE VAL R10
-  SETTABLEKS R24 R23 K115 ["OnButtonClicked"]
-  GETTABLEKS R24 R0 K130 ["hideOverwritePrompt"]
-  SETTABLEKS R24 R23 K98 ["OnClose"]
+  SETTABLEKS R24 R23 K113 ["OnButtonClicked"]
+  GETTABLEKS R24 R0 K128 ["hideOverwritePrompt"]
+  SETTABLEKS R24 R23 K97 ["OnClose"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K39 ["OverwritePrompt"]
   JUMPIFNOT R12 [+57]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 10
-  DUPTABLE R23 K124 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
-  LOADK R26 K103 ["Dialog"]
+  GETUPVAL R22 9
+  DUPTABLE R23 K122 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
+  LOADK R26 K102 ["Dialog"]
   LOADK R27 K40 ["PromotePrompt"]
-  NAMECALL R24 R1 K102 ["getText"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K93 ["PromptText"]
+  SETTABLEKS R24 R23 K92 ["PromptText"]
   NEWTABLE R24 0 2
-  DUPTABLE R25 K108 [{"Key", "Text", "Style"}]
+  DUPTABLE R25 K106 [{"Key", "Text", "Style"}]
   LOADB R26 0
-  SETTABLEKS R26 R25 K106 ["Key"]
-  LOADK R28 K103 ["Dialog"]
-  LOADK R29 K109 ["Cancel"]
-  NAMECALL R26 R1 K102 ["getText"]
+  SETTABLEKS R26 R25 K104 ["Key"]
+  LOADK R28 K102 ["Dialog"]
+  LOADK R29 K107 ["Cancel"]
+  NAMECALL R26 R1 K101 ["getText"]
   CALL R26 3 1
   SETTABLEKS R26 R25 K59 ["Text"]
-  LOADK R26 K110 ["Round"]
-  SETTABLEKS R26 R25 K107 ["Style"]
-  DUPTABLE R26 K108 [{"Key", "Text", "Style"}]
+  LOADK R26 K108 ["Round"]
+  SETTABLEKS R26 R25 K105 ["Style"]
+  DUPTABLE R26 K106 [{"Key", "Text", "Style"}]
   LOADB R27 1
-  SETTABLEKS R27 R26 K106 ["Key"]
-  LOADK R29 K103 ["Dialog"]
-  LOADK R30 K131 ["Confirm"]
-  NAMECALL R27 R1 K102 ["getText"]
+  SETTABLEKS R27 R26 K104 ["Key"]
+  LOADK R29 K102 ["Dialog"]
+  LOADK R30 K129 ["Confirm"]
+  NAMECALL R27 R1 K101 ["getText"]
   CALL R27 3 1
   SETTABLEKS R27 R26 K59 ["Text"]
-  LOADK R27 K112 ["RoundPrimary"]
-  SETTABLEKS R27 R26 K107 ["Style"]
+  LOADK R27 K110 ["RoundPrimary"]
+  SETTABLEKS R27 R26 K105 ["Style"]
   SETLIST R24 R25 2 [1]
-  SETTABLEKS R24 R23 K96 ["Buttons"]
+  SETTABLEKS R24 R23 K95 ["Buttons"]
   NEWCLOSURE R24 P3
   CAPTURE VAL R0
   CAPTURE VAL R2
-  SETTABLEKS R24 R23 K115 ["OnButtonClicked"]
-  GETTABLEKS R24 R0 K132 ["hidePromotePrompt"]
-  SETTABLEKS R24 R23 K98 ["OnClose"]
+  SETTABLEKS R24 R23 K113 ["OnButtonClicked"]
+  GETTABLEKS R24 R0 K130 ["hidePromotePrompt"]
+  SETTABLEKS R24 R23 K97 ["OnClose"]
   CALL R21 2 1
   JUMPIF R21 [+1]
   LOADNIL R21
@@ -991,150 +969,150 @@ PROTO_37:
   JUMPIFNOT R21 [+90]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 8
-  DUPTABLE R23 K133 [{"PromptText", "InputText", "NoticeText", "Text", "Buttons", "OnButtonClicked", "OnTextSubmitted", "OnClose"}]
-  LOADK R26 K100 ["Title"]
-  LOADK R27 K134 ["ConfirmSave"]
-  NAMECALL R24 R1 K102 ["getText"]
+  GETUPVAL R22 7
+  DUPTABLE R23 K131 [{"PromptText", "InputText", "NoticeText", "Text", "Buttons", "OnButtonClicked", "OnTextSubmitted", "OnClose"}]
+  LOADK R26 K99 ["Title"]
+  LOADK R27 K132 ["ConfirmSave"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K93 ["PromptText"]
-  LOADK R26 K103 ["Dialog"]
+  SETTABLEKS R24 R23 K92 ["PromptText"]
+  LOADK R26 K102 ["Dialog"]
   LOADK R27 K3 ["AnimationName"]
-  NAMECALL R24 R1 K102 ["getText"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K94 ["InputText"]
-  LOADK R26 K103 ["Dialog"]
-  LOADK R27 K104 ["SaveLocation"]
-  NAMECALL R24 R1 K102 ["getText"]
+  SETTABLEKS R24 R23 K93 ["InputText"]
+  LOADK R26 K102 ["Dialog"]
+  LOADK R27 K103 ["SaveLocation"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K95 ["NoticeText"]
+  SETTABLEKS R24 R23 K94 ["NoticeText"]
   SETTABLEKS R4 R23 K59 ["Text"]
   NEWTABLE R24 0 3
-  DUPTABLE R25 K108 [{"Key", "Text", "Style"}]
-  LOADK R26 K135 ["Delete"]
-  SETTABLEKS R26 R25 K106 ["Key"]
-  LOADK R28 K103 ["Dialog"]
-  LOADK R29 K135 ["Delete"]
-  NAMECALL R26 R1 K102 ["getText"]
+  DUPTABLE R25 K106 [{"Key", "Text", "Style"}]
+  LOADK R26 K133 ["Delete"]
+  SETTABLEKS R26 R25 K104 ["Key"]
+  LOADK R28 K102 ["Dialog"]
+  LOADK R29 K133 ["Delete"]
+  NAMECALL R26 R1 K101 ["getText"]
   CALL R26 3 1
   SETTABLEKS R26 R25 K59 ["Text"]
-  LOADK R26 K110 ["Round"]
-  SETTABLEKS R26 R25 K107 ["Style"]
-  DUPTABLE R26 K108 [{"Key", "Text", "Style"}]
+  LOADK R26 K108 ["Round"]
+  SETTABLEKS R26 R25 K105 ["Style"]
+  DUPTABLE R26 K106 [{"Key", "Text", "Style"}]
   LOADB R27 0
-  SETTABLEKS R27 R26 K106 ["Key"]
-  LOADK R29 K103 ["Dialog"]
-  LOADK R30 K109 ["Cancel"]
-  NAMECALL R27 R1 K102 ["getText"]
+  SETTABLEKS R27 R26 K104 ["Key"]
+  LOADK R29 K102 ["Dialog"]
+  LOADK R30 K107 ["Cancel"]
+  NAMECALL R27 R1 K101 ["getText"]
   CALL R27 3 1
   SETTABLEKS R27 R26 K59 ["Text"]
-  LOADK R27 K110 ["Round"]
-  SETTABLEKS R27 R26 K107 ["Style"]
-  DUPTABLE R27 K108 [{"Key", "Text", "Style"}]
+  LOADK R27 K108 ["Round"]
+  SETTABLEKS R27 R26 K105 ["Style"]
+  DUPTABLE R27 K106 [{"Key", "Text", "Style"}]
   LOADB R28 1
-  SETTABLEKS R28 R27 K106 ["Key"]
-  LOADK R30 K103 ["Dialog"]
-  LOADK R31 K111 ["Save"]
-  NAMECALL R28 R1 K102 ["getText"]
+  SETTABLEKS R28 R27 K104 ["Key"]
+  LOADK R30 K102 ["Dialog"]
+  LOADK R31 K109 ["Save"]
+  NAMECALL R28 R1 K101 ["getText"]
   CALL R28 3 1
   SETTABLEKS R28 R27 K59 ["Text"]
-  LOADK R28 K112 ["RoundPrimary"]
-  SETTABLEKS R28 R27 K107 ["Style"]
+  LOADK R28 K110 ["RoundPrimary"]
+  SETTABLEKS R28 R27 K105 ["Style"]
   SETLIST R24 R25 3 [1]
-  SETTABLEKS R24 R23 K96 ["Buttons"]
+  SETTABLEKS R24 R23 K95 ["Buttons"]
   NEWCLOSURE R24 P4
   CAPTURE VAL R0
-  SETTABLEKS R24 R23 K115 ["OnButtonClicked"]
+  SETTABLEKS R24 R23 K113 ["OnButtonClicked"]
   NEWCLOSURE R24 P5
   CAPTURE VAL R2
   CAPTURE VAL R0
-  SETTABLEKS R24 R23 K97 ["OnTextSubmitted"]
-  GETTABLEKS R24 R0 K136 ["hideLoadNewPrompt"]
-  SETTABLEKS R24 R23 K98 ["OnClose"]
+  SETTABLEKS R24 R23 K96 ["OnTextSubmitted"]
+  GETTABLEKS R24 R0 K134 ["hideLoadNewPrompt"]
+  SETTABLEKS R24 R23 K97 ["OnClose"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K41 ["LoadNewPrompt"]
   MOVE R21 R15
   JUMPIFNOT R21 [+55]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 10
-  DUPTABLE R23 K124 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
-  LOADK R26 K137 ["AnimationFromVideo"]
-  LOADK R27 K138 ["TutorialText"]
-  NAMECALL R24 R1 K102 ["getText"]
+  GETUPVAL R22 9
+  DUPTABLE R23 K122 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
+  LOADK R26 K135 ["AnimationFromVideo"]
+  LOADK R27 K136 ["TutorialText"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K93 ["PromptText"]
+  SETTABLEKS R24 R23 K92 ["PromptText"]
   NEWTABLE R24 0 2
-  DUPTABLE R25 K108 [{"Key", "Text", "Style"}]
+  DUPTABLE R25 K106 [{"Key", "Text", "Style"}]
   LOADB R26 0
-  SETTABLEKS R26 R25 K106 ["Key"]
-  LOADK R28 K103 ["Dialog"]
-  LOADK R29 K109 ["Cancel"]
-  NAMECALL R26 R1 K102 ["getText"]
+  SETTABLEKS R26 R25 K104 ["Key"]
+  LOADK R28 K102 ["Dialog"]
+  LOADK R29 K107 ["Cancel"]
+  NAMECALL R26 R1 K101 ["getText"]
   CALL R26 3 1
   SETTABLEKS R26 R25 K59 ["Text"]
-  LOADK R26 K110 ["Round"]
-  SETTABLEKS R26 R25 K107 ["Style"]
-  DUPTABLE R26 K108 [{"Key", "Text", "Style"}]
+  LOADK R26 K108 ["Round"]
+  SETTABLEKS R26 R25 K105 ["Style"]
+  DUPTABLE R26 K106 [{"Key", "Text", "Style"}]
   LOADB R27 1
-  SETTABLEKS R27 R26 K106 ["Key"]
-  LOADK R29 K137 ["AnimationFromVideo"]
-  LOADK R30 K139 ["ChooseVideo"]
-  NAMECALL R27 R1 K102 ["getText"]
+  SETTABLEKS R27 R26 K104 ["Key"]
+  LOADK R29 K135 ["AnimationFromVideo"]
+  LOADK R30 K137 ["ChooseVideo"]
+  NAMECALL R27 R1 K101 ["getText"]
   CALL R27 3 1
   SETTABLEKS R27 R26 K59 ["Text"]
-  LOADK R27 K112 ["RoundPrimary"]
-  SETTABLEKS R27 R26 K107 ["Style"]
+  LOADK R27 K110 ["RoundPrimary"]
+  SETTABLEKS R27 R26 K105 ["Style"]
   SETLIST R24 R25 2 [1]
-  SETTABLEKS R24 R23 K96 ["Buttons"]
+  SETTABLEKS R24 R23 K95 ["Buttons"]
   NEWCLOSURE R24 P6
   CAPTURE VAL R0
-  SETTABLEKS R24 R23 K115 ["OnButtonClicked"]
+  SETTABLEKS R24 R23 K113 ["OnButtonClicked"]
   NEWCLOSURE R24 P7
   CAPTURE VAL R0
-  SETTABLEKS R24 R23 K98 ["OnClose"]
+  SETTABLEKS R24 R23 K97 ["OnClose"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K42 ["CreateAnimationFromVideoTutorial"]
   MOVE R21 R16
   JUMPIFNOT R21 [+56]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K20 ["createElement"]
-  GETUPVAL R22 10
-  DUPTABLE R23 K140 [{"Size", "PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
+  GETUPVAL R22 9
+  DUPTABLE R23 K138 [{"Size", "PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
   GETIMPORT R24 K24 [UDim2.new]
   LOADN R25 0
   GETUPVAL R29 1
-  GETTABLEKS R28 R29 K141 ["PROMPT_SIZE"]
-  GETTABLEKS R27 R28 K142 ["Width"]
-  GETTABLEKS R26 R27 K143 ["Offset"]
+  GETTABLEKS R28 R29 K139 ["PROMPT_SIZE"]
+  GETTABLEKS R27 R28 K140 ["Width"]
+  GETTABLEKS R26 R27 K141 ["Offset"]
   LOADN R27 0
   LOADN R28 180
   CALL R24 4 1
   SETTABLEKS R24 R23 K27 ["Size"]
-  LOADK R26 K137 ["AnimationFromVideo"]
-  LOADK R27 K144 ["AgeRestricted"]
-  NAMECALL R24 R1 K102 ["getText"]
+  LOADK R26 K135 ["AnimationFromVideo"]
+  LOADK R27 K142 ["AgeRestricted"]
+  NAMECALL R24 R1 K101 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K93 ["PromptText"]
+  SETTABLEKS R24 R23 K92 ["PromptText"]
   NEWTABLE R24 0 1
-  DUPTABLE R25 K108 [{"Key", "Text", "Style"}]
+  DUPTABLE R25 K106 [{"Key", "Text", "Style"}]
   LOADB R26 0
-  SETTABLEKS R26 R25 K106 ["Key"]
-  LOADK R28 K103 ["Dialog"]
-  LOADK R29 K109 ["Cancel"]
-  NAMECALL R26 R1 K102 ["getText"]
+  SETTABLEKS R26 R25 K104 ["Key"]
+  LOADK R28 K102 ["Dialog"]
+  LOADK R29 K107 ["Cancel"]
+  NAMECALL R26 R1 K101 ["getText"]
   CALL R26 3 1
   SETTABLEKS R26 R25 K59 ["Text"]
-  LOADK R26 K110 ["Round"]
-  SETTABLEKS R26 R25 K107 ["Style"]
+  LOADK R26 K108 ["Round"]
+  SETTABLEKS R26 R25 K105 ["Style"]
   SETLIST R24 R25 1 [1]
-  SETTABLEKS R24 R23 K96 ["Buttons"]
+  SETTABLEKS R24 R23 K95 ["Buttons"]
   NEWCLOSURE R24 P8
   CAPTURE VAL R0
-  SETTABLEKS R24 R23 K115 ["OnButtonClicked"]
+  SETTABLEKS R24 R23 K113 ["OnButtonClicked"]
   NEWCLOSURE R24 P9
   CAPTURE VAL R0
-  SETTABLEKS R24 R23 K98 ["OnClose"]
+  SETTABLEKS R24 R23 K97 ["OnClose"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K43 ["CreateAnimationFromVideoAgeGate"]
   CALL R17 3 -1
@@ -1486,51 +1464,46 @@ MAIN:
   GETTABLEKS R36 R5 K48 ["UI"]
   GETTABLEKS R37 R36 K49 ["Pane"]
   GETTABLEKS R38 R36 K50 ["TextInput"]
-  GETIMPORT R39 K7 [require]
-  GETTABLEKS R41 R4 K51 ["LuaFlags"]
-  GETTABLEKS R40 R41 K52 ["GetFFlagAnimationNameValidation"]
-  CALL R39 1 1
-  GETTABLEKS R40 R6 K53 ["PureComponent"]
-  LOADK R42 K54 ["AnimationClipDropdown"]
-  NAMECALL R40 R40 K55 ["extend"]
-  CALL R40 2 1
-  DUPCLOSURE R41 K56 [PROTO_26]
+  GETTABLEKS R39 R6 K51 ["PureComponent"]
+  LOADK R41 K52 ["AnimationClipDropdown"]
+  NAMECALL R39 R39 K53 ["extend"]
+  CALL R39 2 1
+  DUPCLOSURE R40 K54 [PROTO_26]
   CAPTURE VAL R8
   CAPTURE VAL R6
   CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R0
-  SETTABLEKS R41 R40 K57 ["init"]
-  DUPCLOSURE R41 K58 [PROTO_37]
+  SETTABLEKS R40 R39 K55 ["init"]
+  DUPCLOSURE R40 K56 [PROTO_37]
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R37
   CAPTURE VAL R38
-  CAPTURE VAL R39
   CAPTURE VAL R21
   CAPTURE VAL R20
   CAPTURE VAL R23
   CAPTURE VAL R19
   CAPTURE VAL R22
-  SETTABLEKS R41 R40 K59 ["render"]
-  MOVE R41 R11
-  DUPTABLE R42 K64 [{"Stylizer", "Localization", "Plugin", "Analytics"}]
-  GETTABLEKS R43 R10 K60 ["Stylizer"]
-  SETTABLEKS R43 R42 K60 ["Stylizer"]
-  GETTABLEKS R43 R10 K61 ["Localization"]
-  SETTABLEKS R43 R42 K61 ["Localization"]
-  GETTABLEKS R43 R10 K62 ["Plugin"]
-  SETTABLEKS R43 R42 K62 ["Plugin"]
-  GETTABLEKS R43 R10 K63 ["Analytics"]
-  SETTABLEKS R43 R42 K63 ["Analytics"]
-  CALL R41 1 1
-  MOVE R42 R40
-  CALL R41 1 1
-  MOVE R40 R41
-  DUPCLOSURE R41 K65 [PROTO_38]
-  DUPCLOSURE R42 K66 [PROTO_55]
+  SETTABLEKS R40 R39 K57 ["render"]
+  MOVE R40 R11
+  DUPTABLE R41 K62 [{"Stylizer", "Localization", "Plugin", "Analytics"}]
+  GETTABLEKS R42 R10 K58 ["Stylizer"]
+  SETTABLEKS R42 R41 K58 ["Stylizer"]
+  GETTABLEKS R42 R10 K59 ["Localization"]
+  SETTABLEKS R42 R41 K59 ["Localization"]
+  GETTABLEKS R42 R10 K60 ["Plugin"]
+  SETTABLEKS R42 R41 K60 ["Plugin"]
+  GETTABLEKS R42 R10 K61 ["Analytics"]
+  SETTABLEKS R42 R41 K61 ["Analytics"]
+  CALL R40 1 1
+  MOVE R41 R39
+  CALL R40 1 1
+  MOVE R39 R40
+  DUPCLOSURE R40 K63 [PROTO_38]
+  DUPCLOSURE R41 K64 [PROTO_55]
   CAPTURE VAL R26
   CAPTURE VAL R32
   CAPTURE VAL R31
@@ -1547,10 +1520,10 @@ MAIN:
   CAPTURE VAL R15
   CAPTURE VAL R16
   CAPTURE VAL R17
-  GETTABLEKS R43 R7 K67 ["connect"]
+  GETTABLEKS R42 R7 K65 ["connect"]
+  MOVE R43 R40
   MOVE R44 R41
-  MOVE R45 R42
-  CALL R43 2 1
-  MOVE R44 R40
-  CALL R43 1 -1
-  RETURN R43 -1
+  CALL R42 2 1
+  MOVE R43 R39
+  CALL R42 1 -1
+  RETURN R42 -1

@@ -8,10 +8,6 @@ local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
-local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
-
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagRenameFriendsToConnectionsCoreUI = SharedFlags.FFlagRenameFriendsToConnectionsCoreUI
 
 local DropDownButtonAnimator = require(script.Parent.DropDownButtonAnimator)
 
@@ -47,35 +43,18 @@ local function getFriendTextAndIcon(friendStatus)
 	local addFriendIcon = Images["icons/actions/friends/friendAdd"]
 	local unfriendIcon = Images["icons/actions/friends/friendRemove"]
 
-	local shouldRenameFriends = FFlagRenameFriendsToConnectionsCoreUI and UniversalAppPolicy.getAppFeaturePolicies().getRenameFriendsToConnections()
-
-	local locales 
-	if shouldRenameFriends then
-		locales = Localization.new(LocalizationService.RobloxLocaleId)
-	end
+	local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 	if friendStatus == Enum.FriendStatus.Friend then
-		if shouldRenameFriends then
-			return locales:Format(LOCALIZATION_TEXT.removeConnection), unfriendIcon
-		else
-			return RobloxTranslator:FormatByKey("InGame.PlayerDropDown.Unfriend"), unfriendIcon
-		end
+		return locales:Format(LOCALIZATION_TEXT.removeConnection), unfriendIcon
 	elseif friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
-		if shouldRenameFriends then
-			return locales:Format(LOCALIZATION_TEXT.connectionRequest), addFriendIcon
-		else
-			return RobloxTranslator:FormatByKey("InGame.PlayerDropDown.FriendRequest"), addFriendIcon
-		end
+		return locales:Format(LOCALIZATION_TEXT.connectionRequest), addFriendIcon
 	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
 		return RobloxTranslator:FormatByKey("InGame.PlayerDropDown.CancelRequest"), addFriendIcon
 	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
 		return RobloxTranslator:FormatByKey("InGame.PlayerDropDown.Accept"), addFriendIcon
 	end
-	if shouldRenameFriends then
-		return locales:Format(LOCALIZATION_TEXT.connectionRequest), addFriendIcon
-	else
-		return RobloxTranslator:FormatByKey("InGame.PlayerDropDown.Friend Request"), addFriendIcon
-	end
+	return locales:Format(LOCALIZATION_TEXT.connectionRequest), addFriendIcon
 end
 
 function FriendDropDownButton:init()

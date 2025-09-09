@@ -4,12 +4,15 @@ local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 
+local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
+local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -40,6 +43,7 @@ local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibili
 local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDownVisibility)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
+local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 
 local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
@@ -61,6 +65,7 @@ PlayerDropDown.validateProps = t.strictInterface({
 	})),
 	inspectMenuEnabled = t.boolean,
 	isTenFootInterface = t.boolean,
+	isUsingGamepad = t.optional(t.boolean),
 	subjectToChinaPolicies = t.boolean,
 	preferredTransparency = t.number,
 
@@ -70,6 +75,9 @@ PlayerDropDown.validateProps = t.strictInterface({
 	unblockPlayer = t.callback,
 	requestFriendship = t.callback,
 	setPlayerListVisibility = t.callback,
+
+	focusGuiObject = t.optional(t.callback),
+	focusedGuiObject = t.optional(t.instanceIsA("GuiObject")),
 })
 
 local MOTOR_OPTIONS = {
@@ -82,6 +90,8 @@ function PlayerDropDown:init()
 		allVisible = false,
 		contentVisible = false,
 	}
+
+	self.buttonsContainerRef = React.createRef()
 
 	self.containerScale, self.updateContainerScale = Roact.createBinding(1)
 	self.containerScaleMotor = Otter.createSingleMotor(0)
@@ -275,6 +285,7 @@ function PlayerDropDown:render()
 				Size = UDim2.new(0, layoutValues.PlayerDropDownSizeXMobile, 0, dropDownHeight),
 				BackgroundTransparency = 1,
 				ClipsDescendants = true,
+				[Roact.Ref] = if FFlagAddNewPlayerListMobileFocusNav then self.buttonsContainerRef else nil,
 			}, dropDownButtons),
 		})
 	end)
@@ -305,6 +316,19 @@ function PlayerDropDown:didUpdate(previousProps, previousState)
 	self.containerScaleMotor:setGoal(Otter.spring(self:getScale(), MOTOR_OPTIONS))
 	self.transparencyMotor:setGoal(Otter.spring(self:getTransparency(), MOTOR_OPTIONS))
 	self.buttonTransparencyMotor:setGoal(Otter.spring(self:getButtonTransparency(), MOTOR_OPTIONS))
+
+	if FFlagAddNewPlayerListMobileFocusNav then
+		if self.props.isUsingGamepad and (previousState.contentVisible ~= self.state.contentVisible or not self.props.focusedGuiObject) then
+			if self.state.contentVisible and self.buttonsContainerRef.current then
+				self.props.focusGuiObject(self.buttonsContainerRef.current)
+				self.buttonsContainerRef.current.SelectionGroup = true
+				self.buttonsContainerRef.current.SelectionBehaviorUp = Enum.SelectionBehavior.Stop
+				self.buttonsContainerRef.current.SelectionBehaviorDown = Enum.SelectionBehavior.Stop
+				self.buttonsContainerRef.current.SelectionBehaviorLeft = Enum.SelectionBehavior.Stop
+				self.buttonsContainerRef.current.SelectionBehaviorRight = Enum.SelectionBehavior.Stop
+			end
+		end
+	end
 end
 
 function PlayerDropDown:didMount() end
@@ -332,6 +356,7 @@ local function mapStateToProps(state)
 		playerRelationship = selectedPlayer and state.playerRelationship[selectedPlayer.UserId],
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
 		isTenFootInterface = state.displayOptions.isTenFootInterface,
+		isUsingGamepad = if FFlagAddNewPlayerListMobileFocusNav then state.displayOptions.isUsingGamepad else nil,
 		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
 		preferredTransparency = state.settings.preferredTransparency,
 	}
@@ -365,8 +390,26 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagPlayerListReduceRerenders then
-	return React.memo(RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDown))
+local function PlayerDropDownWrapper(props)
+	local focusGuiObject = ReactFocusNavigation.useFocusGuiObject()
+	local focusedGuiObject = ReactFocusNavigation.useFocusedGuiObject()
+	
+	return Roact.createElement(PlayerDropDown, Cryo.Dictionary.join(props, {
+		focusGuiObject = focusGuiObject,
+		focusedGuiObject = focusedGuiObject,
+	}))
 end
 
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDown)
+if FFlagAddNewPlayerListMobileFocusNav then
+	if FFlagPlayerListReduceRerenders then
+		return React.memo(RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDownWrapper))
+	end
+
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDownWrapper)
+else
+	if FFlagPlayerListReduceRerenders then
+		return React.memo(RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDown))
+	end
+
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDown)
+end

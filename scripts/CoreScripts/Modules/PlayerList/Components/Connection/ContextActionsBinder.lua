@@ -5,6 +5,7 @@ local GuiService = game:GetService("GuiService")
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 local Components = script.Parent.Parent
 local PlayerList = Components.Parent
@@ -14,7 +15,10 @@ local GAMEPAD_CLOSE_CONTEXT_ACTION_NAME = "RbxPlayerListGamepadClose"
 local GAMEPAD_STOP_MOVEMENT_ACTION_NAME = "RbxPlayerListStopMovement"
 
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
+local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
+
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
+local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 
 local ContextActionsBinder = Roact.PureComponent:extend("ContextActionsBinder")
 
@@ -55,7 +59,13 @@ function ContextActionsBinder:bindActions()
 		if inputState ~= Enum.UserInputState.Begin then
 			return Enum.ContextActionResult.Pass
 		end
-		if self.props.displayOptions.isVisible and self.props.displayOptions.isTenFootInterface then
+		if FFlagAddNewPlayerListMobileFocusNav then
+			if self.props.playerDropDown.isVisible then
+				self.props.closePlayerDropDown()
+				return Enum.ContextActionResult.Sink
+			end
+		end
+		if self.props.displayOptions.isVisible then
 			self.props.setVisibility(false)
 			return Enum.ContextActionResult.Sink
 		end
@@ -88,6 +98,7 @@ end
 local function mapStateToProps(state)
 	return {
 		displayOptions = state.displayOptions,
+		playerDropDown = if FFlagAddNewPlayerListMobileFocusNav then state.playerDropDown else nil,
 	}
 end
 
@@ -96,6 +107,11 @@ local function mapDispatchToProps(dispatch)
 		setVisibility = function(value)
 			return dispatch(SetPlayerListVisibility(value))
 		end,
+		closePlayerDropDown = if FFlagAddNewPlayerListMobileFocusNav 
+			then function()
+				return dispatch(ClosePlayerDropDown())
+			end 
+			else nil,
 	}
 end
 

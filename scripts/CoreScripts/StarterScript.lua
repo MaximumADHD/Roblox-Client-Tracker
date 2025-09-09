@@ -85,6 +85,14 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
 UIBlox.init(uiBloxConfig)
 
+-- Add a label for internal React telemetry
+local FFlagReactTelemetryEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagReactTelemetryEnabled
+if FFlagReactTelemetryEnabled then
+	local ReactTelemetry = require(CorePackages.Packages.ReactTelemetry)
+	ReactTelemetry.customFields.context = "in_experience"
+end
+
 -- Set up React Scheduler experiment
 
 local GetReactSchedulerIXPConfig = require(CorePackages.Workspace.Packages.SharedFlags).GetReactSchedulerIXPConfig

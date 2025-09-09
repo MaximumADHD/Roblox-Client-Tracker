@@ -41,6 +41,7 @@ local PlayerNameTag = require(Components.Presentation.PlayerNameTag)
 
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
+local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagRemoveNewPlayerListOverlay = PlayerListPackage.Flags.FFlagRemoveNewPlayerListOverlay
 local FFlagMoveNewPlayerListDividers = require(SharedFlags).FFlagMoveNewPlayerListDividers
 
@@ -663,7 +664,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			BorderSizePixel = 0,
 			Image = "",
 			LayoutOrder = layoutOrder,
-			ref = playerEntryRef,
+			ref = if FFlagAddNewPlayerListMobileFocusNav then entryFrameRef else playerEntryRef,
 
 			onActivated = onActivated,
 			onStateChanged = onStateChanged,

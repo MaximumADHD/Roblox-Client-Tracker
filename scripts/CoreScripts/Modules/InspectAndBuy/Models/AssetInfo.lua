@@ -44,9 +44,8 @@ local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy =
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 
-local FFlagParseItemRestrictionsFromCatalog = require(InspectAndBuyFolder.Flags.FFlagParseItemRestrictionsFromCatalog)
-
-local FFlagAXEnableSaleLocationTypeParsing = require(InspectAndBuyFolder.Flags.FFlagAXEnableSaleLocationTypeParsing)
+local FFlagAXParseAdditionalItemDetailsFromCatalog =
+	require(InspectAndBuyFolder.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog)
 
 local AssetInfo = {}
 
@@ -259,9 +258,8 @@ function AssetInfo.fromGetItemDetails(itemDetails)
 	newAsset.price = itemDetails.Price or 0
 	newAsset.hasResellers = itemDetails.HasResellers
 	newAsset.collectibleItemId = itemDetails.CollectibleItemId
-	newAsset.saleLocationType = if FFlagAXEnableSaleLocationTypeParsing then itemDetails.SaleLocationType else nil
 
-	if FFlagParseItemRestrictionsFromCatalog then
+	if FFlagAXParseAdditionalItemDetailsFromCatalog then
 		local itemRestrictions = {}
 		if itemDetails.ItemRestrictions then
 			for _, value in itemDetails.ItemRestrictions do
@@ -269,6 +267,13 @@ function AssetInfo.fromGetItemDetails(itemDetails)
 			end
 			newAsset.itemRestrictions = itemRestrictions
 		end
+
+		newAsset.saleLocationType = itemDetails.SaleLocationType
+		newAsset.remaining = itemDetails.UnitsAvailableForConsumption
+		newAsset.collectibleQuantityLimitPerUser = itemDetails.TotalQuantity
+		newAsset.collectibleLowestResalePrice = itemDetails.LowestResalePrice
+		newAsset.isOffSale = itemDetails.IsOffSale
+		newAsset.saleLocationType = itemDetails.SaleLocationType
 	end
 
 	return newAsset

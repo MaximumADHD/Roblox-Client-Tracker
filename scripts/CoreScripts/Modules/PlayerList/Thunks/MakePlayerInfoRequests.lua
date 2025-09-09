@@ -14,6 +14,7 @@ local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 local FFlagInExperienceUserProfileSettingsEnabled =
 	require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
+local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -57,17 +58,35 @@ local function isInExperienceNameEnabled(player)
 end
 
 local function getGroupsPermissionsInfo(store, player)
-	if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
-		if not isInExperienceNameEnabled(player) then
-			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
+	if FFlagBadgeVisibilitySettingEnabled then
+		local icon = nil
+		if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
+			icon = SPECIAL_PLAYER_ICONS.Admin
+		elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
+			icon = SPECIAL_PLAYER_ICONS.Star
+		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
+			icon = SPECIAL_PLAYER_ICONS.Intern
 		end
-	elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
-		if not isInExperienceNameEnabled(player) then
-			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+		
+		if icon then
+			local shouldShowIcon = not isInExperienceNameEnabled(player)
+			local finalIcon = shouldShowIcon and icon or nil
+			
+			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, finalIcon))
 		end
-	elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
-		if not isInExperienceNameEnabled(player) then
-			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
+	else
+		if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
+			if not isInExperienceNameEnabled(player) then
+				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
+			end
+		elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
+			if not isInExperienceNameEnabled(player) then
+				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
+			end
+		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
+			if not isInExperienceNameEnabled(player) then
+				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
+			end
 		end
 	end
 end

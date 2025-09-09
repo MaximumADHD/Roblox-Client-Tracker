@@ -5,4 +5,7 @@ local PackageIndex = script.Parent._Index
 
 local Package = require(PackageIndex["StudioFoundation"]["StudioFoundation"])
 
+export type FoundationProviderAdapterProps = Package.FoundationProviderAdapterProps
+
+
 return Package

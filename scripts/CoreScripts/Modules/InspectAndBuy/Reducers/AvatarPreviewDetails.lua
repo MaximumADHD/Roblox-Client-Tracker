@@ -6,20 +6,19 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Packages.Cryo)
 local Rodux = require(CorePackages.Packages.Rodux)
 local InspectAndBuyFolder = script.Parent.Parent
-
 local SetAvatarPreviewDetails = require(InspectAndBuyFolder.Actions.SetAvatarPreviewDetails)
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
+local ItemType = AvatarExperienceCommon.Enums.ItemTypeEnum
+
+type AvatarItem = AvatarExperienceInspectAndBuy.AvatarItem
 
 local FFlagAXEnableFetchAvatarPreview = require(InspectAndBuyFolder.Flags.FFlagAXEnableFetchAvatarPreview)
-
-export type AvatarPreviewDetail = {
-	id: string,
-	itemType: string,
-}
 
 export type AvatarPreviewDetails = {
 	totalPrice: number?,
 	totalValue: number?,
-	items: { AvatarPreviewDetail },
+	items: { AvatarItem },
 }
 
 return Rodux.createReducer({}, {
@@ -38,8 +37,8 @@ return Rodux.createReducer({}, {
 				if look.items then
 					items = Cryo.List.map(look.items, function(item)
 						return {
-							id = item.id,
-							itemType = item.itemType,
+							id = tostring(item.id),
+							itemType = if item.itemType == ItemType.Asset then ItemType.Asset else ItemType.Bundle,
 						}
 					end)
 				end

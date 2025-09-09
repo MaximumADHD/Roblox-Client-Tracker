@@ -6,10 +6,13 @@ local Roact = require(CorePackages.Packages.Roact)
 local Cryo = require(CorePackages.Packages.Cryo)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local AssetCard = require(InspectAndBuyFolder.Components.AssetCard)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local SetAssetFromBundleInfo = require(InspectAndBuyFolder.Actions.SetAssetFromBundleInfo)
+
+local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 
 local AssetList = Roact.PureComponent:extend("AssetList")
 
@@ -41,6 +44,7 @@ function AssetList:init()
 	self.state = {
 		assetCardSizeX = viewMapping.AssetCardMaxSizeX,
 		assetCardSizeY = viewMapping.AssetCardMaxSizeY,
+		assetCardsLoaded = if FFlagAddNewPlayerListMobileFocusNav then false else nil,
 	}
 end
 
@@ -78,6 +82,12 @@ function AssetList:render()
 		for i = 1, NUM_SHIMMER_PANELS do
 			assetCards[i] = Roact.createElement(ShimmerPanel, {
 				Size = UDim2.new(1, 0, 0, assetCardSizeX),
+			})
+		end
+	else
+		if FFlagAddNewPlayerListMobileFocusNav then
+			self:setState({
+				assetCardsLoaded = true,
 			})
 		end
 	end
@@ -162,6 +172,7 @@ function AssetList:didUpdate(prevProps)
 		and self.props.gamepadEnabled
 		and not self.props.detailsInformation.viewingDetails
 		and self.props.visible
+		and (if FFlagAddNewPlayerListMobileFocusNav then self.state.assetCardsLoaded else true)
 	then
 		GuiService.SelectedCoreObject = self.gridFrameRef.current:FindFirstChildWhichIsA("GuiObject")
 	end

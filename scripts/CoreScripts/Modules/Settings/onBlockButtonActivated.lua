@@ -2,6 +2,7 @@
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Packages.Roact)
@@ -9,6 +10,7 @@ local Promise = require(CorePackages.Packages.Promise)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 local BlockingAnalytics = require(script.Parent.Analytics.BlockingAnalytics)
 local BlockingModalScreen = require(script.Parent.Components.Blocking.BlockingModalScreen)
@@ -16,6 +18,7 @@ local BlockingModalScreen = require(script.Parent.Components.Blocking.BlockingMo
 local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
 local FFlagEnableNewBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableNewBlockingModal)
 local FFlagEnableToastForBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableToastForBlockingModal)
+local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 
 local PAGE_CONTEXT_NAME = "BlockingModalScreen"
 
@@ -54,6 +57,9 @@ if FFlagEnableToastForBlockingModal then
 			local closeModal = function()
 				unmount()
 				resolve()
+				if FFlagAddNewPlayerListMobileFocusNav then
+					GuiService.SelectedCoreObject = nil
+				end
 			end
 
 			local blockingScreen = Roact.createElement(BlockingModalScreen, {

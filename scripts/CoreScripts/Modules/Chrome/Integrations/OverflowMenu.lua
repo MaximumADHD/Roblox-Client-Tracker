@@ -43,6 +43,8 @@ local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
 local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated1", false)
+local FFlagFixInventoryFilledIcon = game:DefineFastFlag("FixInventoryFilledIcon", false)
+local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
@@ -177,7 +179,13 @@ local backpack = ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/menu/inventoryOff", "icons/menu/inventory", backpackVisibility)
+			return CommonIcon(
+				"icons/menu/inventoryOff",
+				if FFlagFixInventoryFilledIcon and FFlagBuilderIcons
+					then "icons/menu/inventoryOn"
+					else "icons/menu/inventory",
+				backpackVisibility
+			)
 		end,
 	},
 })

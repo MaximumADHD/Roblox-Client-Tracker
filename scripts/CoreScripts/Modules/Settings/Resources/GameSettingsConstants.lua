@@ -18,6 +18,7 @@ local GetFStringInExperienceMenuIXPVar = require(Modules.Settings.Flags.GetFStri
 local FFlagInExperienceMenuReorderFirstVariant = require(Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
 local FFlagOverrideInExperienceMenuReorderFirstVariant = require(Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant)
 local GetFFlagEnablePlayerNamesEnabledSetting = require(Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
+local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 
 -------------- Modules ----------------
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
@@ -84,6 +85,9 @@ SETTINGS_MENU_LAYOUT_ORDER.DeveloperConsoleButton = 101
 if GetFFlagEnablePlayerNamesEnabledSetting() then
 	SETTINGS_MENU_LAYOUT_ORDER.PlayerNamesEnabledFrame = 105
 end
+if FFlagBadgeVisibilitySettingEnabled then
+	SETTINGS_MENU_LAYOUT_ORDER.BadgeVisibilityFrame = 106
+end
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRow = 200
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowCustom = 200 -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowBillboards = 201
@@ -148,6 +152,9 @@ LAYOUT_REORDER_VARIANT_1.DeveloperConsoleButton = 132
 -- AntiHarassment Settings
 if GetFFlagEnablePlayerNamesEnabledSetting() then
 	LAYOUT_REORDER_VARIANT_1.PlayerNamesEnabledFrame = 136
+end
+if FFlagBadgeVisibilitySettingEnabled then
+	LAYOUT_REORDER_VARIANT_1.BadgeVisibilityFrame = 137
 end
 -- Special
 LAYOUT_REORDER_VARIANT_1.UiToggleRow = 200

@@ -192,11 +192,21 @@ PROTO_10:
   MOVE R3 R0
   NEWTABLE R4 0 2
   LOADK R5 K1 ["List"]
-  LOADK R7 K2 ["Cell_%*"]
+  GETIMPORT R7 K3 [game]
+  LOADK R9 K4 ["DevFrameworkFixMissingKeyErrors2"]
+  NAMECALL R7 R7 K5 ["GetFastFlag"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+7]
+  LOADK R7 K6 ["Cell_%*"]
   MOVE R9 R1
-  NAMECALL R7 R7 K3 ["format"]
+  NAMECALL R7 R7 K7 ["format"]
   CALL R7 2 1
   MOVE R6 R7
+  JUMP [+5]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K9 [tostring]
+  CALL R6 1 1
   SETLIST R4 R5 2 [1]
   CALL R2 2 1
   RETURN R2 1

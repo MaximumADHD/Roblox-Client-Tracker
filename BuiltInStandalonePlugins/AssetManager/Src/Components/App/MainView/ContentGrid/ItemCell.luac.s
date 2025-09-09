@@ -191,17 +191,18 @@ PROTO_4:
   CALL R19 2 1
   SETTABLEKS R19 R18 K28 ["Thumbnail"]
   GETTABLEKS R20 R6 K33 ["IsPackage"]
-  JUMPIFNOT R20 [+30]
+  JUMPIFNOT R20 [+31]
   GETUPVAL R20 14
+  CALL R20 0 1
   JUMPIFNOT R20 [+15]
   GETUPVAL R20 10
   GETTABLEKS R19 R20 K13 ["createElement"]
-  GETUPVAL R21 14
+  GETUPVAL R21 15
   GETTABLEKS R20 R21 K34 ["Image"]
   DUPTABLE R21 K37 [{"ZIndex", "tag"}]
   LOADN R22 2
   SETTABLEKS R22 R21 K35 ["ZIndex"]
-  LOADK R22 K38 ["icon-packageLink anchor-bottom-right am-size-icon bg-paper radius-small data-testid=package-link-icon"]
+  LOADK R22 K38 ["icon-packageLink anchor-bottom-right am-size-icon bg-over-media-0 radius-small data-testid=package-link-icon"]
   SETTABLEKS R22 R21 K36 ["tag"]
   CALL R19 2 1
   JUMP [+14]
@@ -211,7 +212,7 @@ PROTO_4:
   NEWTABLE R21 1 0
   GETUPVAL R23 10
   GETTABLEKS R22 R23 K21 ["Tag"]
-  LOADK R23 K38 ["icon-packageLink anchor-bottom-right am-size-icon bg-paper radius-small data-testid=package-link-icon"]
+  LOADK R23 K40 ["icon-packageLink anchor-bottom-right am-size-icon bg-paper radius-small data-testid=package-link-icon"]
   SETTABLE R23 R21 R22
   CALL R19 2 1
   JUMP [+1]
@@ -223,87 +224,87 @@ PROTO_4:
   GETTABLEKS R15 R16 K13 ["createElement"]
   GETUPVAL R16 11
   NEWTABLE R17 2 0
-  NAMECALL R18 R1 K40 ["getNextOrder"]
+  NAMECALL R18 R1 K41 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K15 ["LayoutOrder"]
   GETUPVAL R19 10
   GETTABLEKS R18 R19 K21 ["Tag"]
-  LOADK R19 K41 ["am-padding-celldata am-size-full-celldata X-Column X-Left X-Middle"]
+  LOADK R19 K42 ["am-padding-celldata am-size-full-celldata X-Column X-Left X-Middle"]
   SETTABLE R19 R17 R18
-  DUPTABLE R18 K44 [{"NameTag", "TypeTag"}]
+  DUPTABLE R18 K45 [{"NameTag", "TypeTag"}]
   GETTABLEKS R20 R6 K4 ["AssetId"]
   JUMPIFNOTEQ R20 R7 [+30]
   GETUPVAL R20 10
   GETTABLEKS R19 R20 K13 ["createElement"]
-  GETUPVAL R20 15
+  GETUPVAL R20 16
   NEWTABLE R21 8 0
-  NAMECALL R22 R1 K40 ["getNextOrder"]
+  NAMECALL R22 R1 K41 ["getNextOrder"]
   CALL R22 1 1
   SETTABLEKS R22 R21 K15 ["LayoutOrder"]
   GETTABLEKS R22 R6 K6 ["DisplayName"]
-  SETTABLEKS R22 R21 K45 ["Text"]
+  SETTABLEKS R22 R21 K46 ["Text"]
   LOADB R22 1
-  SETTABLEKS R22 R21 K46 ["ShouldFocus"]
+  SETTABLEKS R22 R21 K47 ["ShouldFocus"]
   NEWCLOSURE R22 P3
   CAPTURE VAL R4
-  SETTABLEKS R22 R21 K47 ["OnFocusLost"]
+  SETTABLEKS R22 R21 K48 ["OnFocusLost"]
   GETUPVAL R23 10
   GETTABLEKS R22 R23 K21 ["Tag"]
-  LOADK R23 K48 ["Left"]
+  LOADK R23 K49 ["Left"]
   SETTABLE R23 R21 R22
   CALL R19 2 1
   JUMP [+41]
   GETUPVAL R20 10
   GETTABLEKS R19 R20 K13 ["createElement"]
-  GETUPVAL R20 16
+  GETUPVAL R20 17
   NEWTABLE R21 4 0
-  NAMECALL R22 R1 K40 ["getNextOrder"]
+  NAMECALL R22 R1 K41 ["getNextOrder"]
   CALL R22 1 1
   SETTABLEKS R22 R21 K15 ["LayoutOrder"]
   GETTABLEKS R22 R6 K6 ["DisplayName"]
-  SETTABLEKS R22 R21 K45 ["Text"]
-  GETIMPORT R22 K52 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R22 R21 K50 ["TextTruncate"]
+  SETTABLEKS R22 R21 K46 ["Text"]
+  GETIMPORT R22 K53 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R22 R21 K51 ["TextTruncate"]
   GETUPVAL R23 10
   GETTABLEKS R22 R23 K21 ["Tag"]
-  LOADK R23 K48 ["Left"]
+  LOADK R23 K49 ["Left"]
   SETTABLE R23 R21 R22
-  DUPTABLE R22 K54 [{"Tooltip"}]
+  DUPTABLE R22 K55 [{"Tooltip"}]
   JUMPIFNOT R10 [+11]
   GETUPVAL R24 10
   GETTABLEKS R23 R24 K13 ["createElement"]
-  GETUPVAL R24 17
-  DUPTABLE R25 K55 [{"Text"}]
+  GETUPVAL R24 18
+  DUPTABLE R25 K56 [{"Text"}]
   GETTABLEKS R26 R6 K6 ["DisplayName"]
-  SETTABLEKS R26 R25 K45 ["Text"]
+  SETTABLEKS R26 R25 K46 ["Text"]
   CALL R23 2 1
   JUMP [+1]
   LOADNIL R23
-  SETTABLEKS R23 R22 K53 ["Tooltip"]
+  SETTABLEKS R23 R22 K54 ["Tooltip"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K42 ["NameTag"]
+  SETTABLEKS R19 R18 K43 ["NameTag"]
   GETUPVAL R20 10
   GETTABLEKS R19 R20 K13 ["createElement"]
-  GETUPVAL R20 16
+  GETUPVAL R20 17
   NEWTABLE R21 8 0
-  GETIMPORT R22 K58 [Enum.AutomaticSize.XY]
-  SETTABLEKS R22 R21 K56 ["AutomaticSize"]
-  NAMECALL R22 R1 K40 ["getNextOrder"]
+  GETIMPORT R22 K59 [Enum.AutomaticSize.XY]
+  SETTABLEKS R22 R21 K57 ["AutomaticSize"]
+  NAMECALL R22 R1 K41 ["getNextOrder"]
   CALL R22 1 1
   SETTABLEKS R22 R21 K15 ["LayoutOrder"]
   LOADK R24 K31 ["AssetType"]
   GETTABLEKS R25 R6 K31 ["AssetType"]
-  NAMECALL R22 R2 K59 ["getText"]
+  NAMECALL R22 R2 K60 ["getText"]
   CALL R22 3 1
-  SETTABLEKS R22 R21 K45 ["Text"]
-  GETIMPORT R22 K52 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R22 R21 K50 ["TextTruncate"]
+  SETTABLEKS R22 R21 K46 ["Text"]
+  GETIMPORT R22 K53 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R22 R21 K51 ["TextTruncate"]
   GETUPVAL R23 10
   GETTABLEKS R22 R23 K21 ["Tag"]
-  LOADK R23 K60 ["Body"]
+  LOADK R23 K61 ["Body"]
   SETTABLE R23 R21 R22
   CALL R19 2 1
-  SETTABLEKS R19 R18 K43 ["TypeTag"]
+  SETTABLEKS R19 R18 K44 ["TypeTag"]
   CALL R15 3 1
   SETTABLEKS R15 R14 K24 ["CellData"]
   CALL R11 3 -1
@@ -320,71 +321,75 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["Foundation"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Framework"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K12 ["ContextServices"]
-  GETTABLEKS R5 R4 K13 ["Localization"]
-  GETTABLEKS R6 R3 K14 ["UI"]
-  GETTABLEKS R7 R6 K15 ["Pane"]
-  GETTABLEKS R8 R6 K16 ["TextInput"]
-  GETTABLEKS R9 R6 K17 ["TextLabel"]
-  GETTABLEKS R10 R6 K18 ["Tooltip"]
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["Localization"]
+  GETTABLEKS R6 R3 K12 ["UI"]
+  GETTABLEKS R7 R6 K13 ["Pane"]
+  GETTABLEKS R8 R6 K14 ["TextInput"]
+  GETTABLEKS R9 R6 K15 ["TextLabel"]
+  GETTABLEKS R10 R6 K16 ["Tooltip"]
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R15 R0 K8 ["Src"]
-  GETTABLEKS R14 R15 K19 ["Components"]
-  GETTABLEKS R13 R14 K20 ["Shared"]
-  GETTABLEKS R12 R13 K21 ["AssetThumbnail"]
+  GETTABLEKS R15 R0 K17 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Components"]
+  GETTABLEKS R13 R14 K19 ["Shared"]
+  GETTABLEKS R12 R13 K20 ["AssetThumbnail"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K8 ["Src"]
-  GETTABLEKS R14 R15 K22 ["Controllers"]
-  GETTABLEKS R13 R14 K23 ["Input"]
+  GETTABLEKS R15 R0 K17 ["Src"]
+  GETTABLEKS R14 R15 K21 ["Controllers"]
+  GETTABLEKS R13 R14 K22 ["Input"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K8 ["Src"]
-  GETTABLEKS R15 R16 K22 ["Controllers"]
-  GETTABLEKS R14 R15 K24 ["ItemsController"]
+  GETTABLEKS R16 R0 K17 ["Src"]
+  GETTABLEKS R15 R16 K21 ["Controllers"]
+  GETTABLEKS R14 R15 K23 ["ItemsController"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
-  GETTABLEKS R17 R0 K8 ["Src"]
-  GETTABLEKS R16 R17 K22 ["Controllers"]
-  GETTABLEKS R15 R16 K25 ["PluginController"]
+  GETTABLEKS R17 R0 K17 ["Src"]
+  GETTABLEKS R16 R17 K21 ["Controllers"]
+  GETTABLEKS R15 R16 K24 ["PluginController"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
-  GETTABLEKS R18 R0 K8 ["Src"]
-  GETTABLEKS R17 R18 K26 ["Hooks"]
-  GETTABLEKS R16 R17 K27 ["useItemSelection"]
+  GETTABLEKS R18 R0 K17 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Hooks"]
+  GETTABLEKS R16 R17 K26 ["useItemSelection"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
-  GETTABLEKS R19 R0 K8 ["Src"]
-  GETTABLEKS R18 R19 K26 ["Hooks"]
-  GETTABLEKS R17 R18 K28 ["useRenamePlaceId"]
+  GETTABLEKS R19 R0 K17 ["Src"]
+  GETTABLEKS R18 R19 K25 ["Hooks"]
+  GETTABLEKS R17 R18 K27 ["useRenamePlaceId"]
   CALL R16 1 1
   GETIMPORT R17 K5 [require]
-  GETTABLEKS R19 R0 K8 ["Src"]
-  GETTABLEKS R18 R19 K29 ["Types"]
+  GETTABLEKS R19 R0 K17 ["Src"]
+  GETTABLEKS R18 R19 K28 ["Types"]
   CALL R17 1 1
-  GETTABLEKS R19 R3 K9 ["Util"]
+  GETTABLEKS R19 R3 K29 ["Util"]
   GETTABLEKS R18 R19 K30 ["LayoutOrderIterator"]
-  GETTABLEKS R20 R3 K9 ["Util"]
+  GETTABLEKS R20 R3 K29 ["Util"]
   GETTABLEKS R19 R20 K31 ["GetTextSize"]
   GETIMPORT R20 K5 [require]
-  GETTABLEKS R23 R0 K8 ["Src"]
+  GETTABLEKS R23 R0 K17 ["Src"]
   GETTABLEKS R22 R23 K32 ["Resources"]
   GETTABLEKS R21 R22 K33 ["PluginStyles"]
   CALL R20 1 1
   GETIMPORT R21 K5 [require]
-  GETTABLEKS R24 R0 K8 ["Src"]
+  GETTABLEKS R24 R0 K17 ["Src"]
   GETTABLEKS R23 R24 K34 ["Flags"]
   GETTABLEKS R22 R23 K35 ["getFFlagAmrRefactorInput"]
   CALL R21 1 1
-  DUPCLOSURE R22 K36 [PROTO_4]
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R25 R0 K17 ["Src"]
+  GETTABLEKS R24 R25 K34 ["Flags"]
+  GETTABLEKS R23 R24 K36 ["getFFlagAmrFoundation"]
+  CALL R22 1 1
+  DUPCLOSURE R23 K37 [PROTO_4]
   CAPTURE VAL R18
   CAPTURE VAL R5
   CAPTURE VAL R21
@@ -399,8 +404,9 @@ MAIN:
   CAPTURE VAL R7
   CAPTURE VAL R17
   CAPTURE VAL R11
+  CAPTURE VAL R22
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  RETURN R22 1
+  RETURN R23 1

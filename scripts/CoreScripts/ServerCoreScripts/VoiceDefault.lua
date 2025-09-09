@@ -16,8 +16,6 @@ local FFlagSendLikelySpeakingUsers = game:DefineFastFlag("SendLikelySpeakingUser
 local FFlagReceiveLikelySpeakingUsersEvent = game:DefineFastFlag("ReceiveLikelySpeakingUsersEventV3", false)
 local FFlagUseAudioInstanceAdded = game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 
-local FFlagUseOldVoiceCurves = game:DefineFastFlag("UseOldVoiceCurvesLua", false)
-
 local function log(...)
 	if FFlagDebugLogVoiceDefault then
 		print("[VoiceDefault]", ...)
@@ -25,15 +23,13 @@ local function log(...)
 end
 
 local legacyVoiceCurve = {}
-if FFlagUseOldVoiceCurves then
-    local MIN_DISTANCE = 7
-    local MAX_DISTANCE = 80
-    local CURVE_STEP_SIZE = 2
-    for i = MIN_DISTANCE, MAX_DISTANCE, CURVE_STEP_SIZE do
-        legacyVoiceCurve[i] = ((i - MIN_DISTANCE) - (MAX_DISTANCE - MIN_DISTANCE))^2 / (MAX_DISTANCE - MIN_DISTANCE)^2
-    end
-    legacyVoiceCurve[MAX_DISTANCE] = 0
+local MIN_DISTANCE = 7
+local MAX_DISTANCE = 80
+local CURVE_STEP_SIZE = 2
+for i = MIN_DISTANCE, MAX_DISTANCE, CURVE_STEP_SIZE do
+	legacyVoiceCurve[i] = ((i - MIN_DISTANCE) - (MAX_DISTANCE - MIN_DISTANCE))^2 / (MAX_DISTANCE - MIN_DISTANCE)^2
 end
+legacyVoiceCurve[MAX_DISTANCE] = 0
 
 if GetFFlagAvatarChatServiceEnabled() then
 	local ok: boolean, serverFeatures: number = pcall(AvatarChatService.GetServerFeaturesAsync, AvatarChatService)
@@ -80,7 +76,7 @@ local function addEmitterToHead(character): Instance
 	emitter:AddTag("RbxDefaultVoiceEmitter")
 	log("Adding emitter", emitter, " to ", parent)
 
-	if FFlagUseOldVoiceCurves and VoiceChatService.DefaultDistanceAttenuation == Enum.VoiceChatDistanceAttenuationType.Legacy then
+	if VoiceChatService.DefaultDistanceAttenuation == Enum.VoiceChatDistanceAttenuationType.Legacy then
 	    emitter:SetDistanceAttenuation(legacyVoiceCurve :: any)
 	end
 	return emitter

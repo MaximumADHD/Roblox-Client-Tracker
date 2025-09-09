@@ -7,6 +7,7 @@ local ChromeService = require(Chrome.Service)
 local ConnectIcon = require(script.Parent.ConnectIcon)
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
+local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 
 local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
@@ -17,9 +18,13 @@ local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.Sh
 local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 
+local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
+
 local FFlagAppChatInExpForceCursor = game:DefineFastFlag("AppChatInExpForceCursor", false)
 local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExpUseUnibarNotification", false)
 
+local FFlagEnableAppChatFocusableFixes =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAppChatFocusableFixes
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 local GetFFlagAppChatRebrandStringUpdates =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAppChatRebrandStringUpdates
@@ -35,7 +40,20 @@ return function(id: string, initialAvailability: number)
 			then "Feature.Squads.Label.Party" -- translated in some languages
 			else "Feature.Chat.Label.RobloxChat", -- intentionally not translated, temp string before Party launch
 		activated = function()
-			InExperienceAppChatModal:toggleVisibility()
+			if FFlagEnableAppChatFocusableFixes then
+				if InExperienceAppChatModal:getVisible() then
+					InExperienceAppChatModal.default:setVisible(false)
+				else
+					ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+						ChromeFocusUtils.FocusOffChrome(function()
+							InExperienceAppChatModal.default:setVisible(true)
+						end)
+					end)
+				end
+			else
+				InExperienceAppChatModal:toggleVisibility()
+			end
+
 			if FFlagEnableUnibarFtuxTooltips then
 				LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)
 			end

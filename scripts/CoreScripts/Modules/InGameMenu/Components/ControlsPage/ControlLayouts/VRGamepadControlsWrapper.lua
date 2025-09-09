@@ -29,7 +29,7 @@ end
 if FFlagHelpPageMountVR then
     local function VRGamepadControlsWrapper()
         return React.createElement(ControlLayoutContainer, {
-            titleText = "CoreScripts.InGameMenu.Controls.GamepadTitle",
+            titleText = "CoreScripts.InGameMenu.Controls.VrControllerTitle",
         }, {
             Inner = React.createElement(LocalizationProvider, {
                 localization = locales,

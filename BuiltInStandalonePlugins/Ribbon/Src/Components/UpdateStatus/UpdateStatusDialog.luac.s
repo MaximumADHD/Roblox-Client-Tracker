@@ -71,7 +71,11 @@ PROTO_5:
   MOVE R4 R1
   NAMECALL R2 R0 K7 ["ActivateAsync"]
   CALL R2 2 0
-  GETUPVAL R2 2
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K8 ["UpdateState"]
+  GETIMPORT R3 K11 [Enum.UpdateState.UpdateAvailable]
+  JUMPIFNOTEQ R2 R3 [+4]
+  GETUPVAL R2 3
   LOADB R3 1
   CALL R2 1 0
   RETURN R0 0
@@ -230,82 +234,88 @@ PROTO_7:
   GETUPVAL R22 5
   GETTABLEKS R21 R22 K10 ["createElement"]
   GETUPVAL R22 6
-  DUPTABLE R23 K24 [{"tag", "LayoutOrder"}]
-  LOADK R24 K51 ["row gap-small auto-y size-full-0 padding-top-small"]
+  DUPTABLE R23 K51 [{"tag", "Visible", "LayoutOrder"}]
+  LOADK R24 K52 ["row gap-small auto-y size-full-0 padding-top-small"]
   SETTABLEKS R24 R23 K22 ["tag"]
+  NOT R24 R5
+  JUMPIF R24 [+2]
+  GETUPVAL R24 9
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K43 ["Visible"]
   LOADN R24 3
   SETTABLEKS R24 R23 K23 ["LayoutOrder"]
-  DUPTABLE R24 K54 [{"Continue", "ReleaseNotes"}]
+  DUPTABLE R24 K55 [{"Continue", "ReleaseNotes"}]
   GETUPVAL R26 5
   GETTABLEKS R25 R26 K10 ["createElement"]
-  GETUPVAL R26 9
-  DUPTABLE R27 K61 [{"LayoutOrder", "Visible", "fillBehavior", "text", "size", "variant", "isLoading", "onActivated"}]
+  GETUPVAL R26 10
+  DUPTABLE R27 K62 [{"LayoutOrder", "Visible", "fillBehavior", "text", "size", "variant", "isLoading", "onActivated"}]
   LOADN R28 1
   SETTABLEKS R28 R27 K23 ["LayoutOrder"]
   NOT R28 R5
   SETTABLEKS R28 R27 K43 ["Visible"]
-  GETUPVAL R30 10
-  GETTABLEKS R29 R30 K62 ["FillBehavior"]
-  GETTABLEKS R28 R29 K63 ["Fill"]
-  SETTABLEKS R28 R27 K55 ["fillBehavior"]
-  LOADK R30 K64 ["Action"]
-  LOADK R31 K52 ["Continue"]
+  GETUPVAL R30 11
+  GETTABLEKS R29 R30 K63 ["FillBehavior"]
+  GETTABLEKS R28 R29 K64 ["Fill"]
+  SETTABLEKS R28 R27 K56 ["fillBehavior"]
+  LOADK R30 K65 ["Action"]
+  LOADK R31 K53 ["Continue"]
   NAMECALL R28 R1 K41 ["getText"]
   CALL R28 3 1
-  SETTABLEKS R28 R27 K56 ["text"]
-  GETUPVAL R30 10
-  GETTABLEKS R29 R30 K65 ["InputSize"]
-  GETTABLEKS R28 R29 K66 ["XSmall"]
-  SETTABLEKS R28 R27 K57 ["size"]
-  GETUPVAL R30 10
-  GETTABLEKS R29 R30 K67 ["ButtonVariant"]
-  GETTABLEKS R28 R29 K68 ["Emphasis"]
-  SETTABLEKS R28 R27 K58 ["variant"]
-  SETTABLEKS R7 R27 K59 ["isLoading"]
+  SETTABLEKS R28 R27 K57 ["text"]
+  GETUPVAL R30 11
+  GETTABLEKS R29 R30 K66 ["InputSize"]
+  GETTABLEKS R28 R29 K67 ["XSmall"]
+  SETTABLEKS R28 R27 K58 ["size"]
+  GETUPVAL R30 11
+  GETTABLEKS R29 R30 K68 ["ButtonVariant"]
+  GETTABLEKS R28 R29 K69 ["Emphasis"]
+  SETTABLEKS R28 R27 K59 ["variant"]
+  SETTABLEKS R7 R27 K60 ["isLoading"]
   NEWCLOSURE R28 P2
   CAPTURE VAL R2
-  CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
+  CAPTURE VAL R0
   CAPTURE VAL R8
-  SETTABLEKS R28 R27 K60 ["onActivated"]
+  SETTABLEKS R28 R27 K61 ["onActivated"]
   CALL R25 2 1
-  SETTABLEKS R25 R24 K52 ["Continue"]
+  SETTABLEKS R25 R24 K53 ["Continue"]
   GETUPVAL R26 5
   GETTABLEKS R25 R26 K10 ["createElement"]
-  GETUPVAL R26 9
-  DUPTABLE R27 K70 [{"LayoutOrder", "Visible", "fillBehavior", "text", "icon", "size", "variant", "onActivated"}]
+  GETUPVAL R26 10
+  DUPTABLE R27 K71 [{"LayoutOrder", "Visible", "fillBehavior", "text", "icon", "size", "variant", "onActivated"}]
   LOADN R28 2
   SETTABLEKS R28 R27 K23 ["LayoutOrder"]
-  GETUPVAL R28 12
+  GETUPVAL R28 9
   CALL R28 0 1
   SETTABLEKS R28 R27 K43 ["Visible"]
-  GETUPVAL R30 10
-  GETTABLEKS R29 R30 K62 ["FillBehavior"]
-  GETTABLEKS R28 R29 K63 ["Fill"]
-  SETTABLEKS R28 R27 K55 ["fillBehavior"]
-  LOADK R30 K64 ["Action"]
-  LOADK R31 K71 ["ViewReleaseNotes"]
+  GETUPVAL R30 11
+  GETTABLEKS R29 R30 K63 ["FillBehavior"]
+  GETTABLEKS R28 R29 K64 ["Fill"]
+  SETTABLEKS R28 R27 K56 ["fillBehavior"]
+  LOADK R30 K65 ["Action"]
+  LOADK R31 K72 ["ViewReleaseNotes"]
   NAMECALL R28 R1 K41 ["getText"]
   CALL R28 3 1
-  SETTABLEKS R28 R27 K56 ["text"]
-  GETUPVAL R30 10
-  GETTABLEKS R29 R30 K72 ["IconName"]
-  GETTABLEKS R28 R29 K73 ["ArrowUpRightFromSquare"]
-  SETTABLEKS R28 R27 K69 ["icon"]
-  GETUPVAL R30 10
-  GETTABLEKS R29 R30 K65 ["InputSize"]
-  GETTABLEKS R28 R29 K66 ["XSmall"]
-  SETTABLEKS R28 R27 K57 ["size"]
-  GETUPVAL R30 10
-  GETTABLEKS R29 R30 K67 ["ButtonVariant"]
-  GETTABLEKS R28 R29 K74 ["Standard"]
-  SETTABLEKS R28 R27 K58 ["variant"]
+  SETTABLEKS R28 R27 K57 ["text"]
+  GETUPVAL R30 11
+  GETTABLEKS R29 R30 K73 ["IconName"]
+  GETTABLEKS R28 R29 K74 ["ArrowUpRightFromSquare"]
+  SETTABLEKS R28 R27 K70 ["icon"]
+  GETUPVAL R30 11
+  GETTABLEKS R29 R30 K66 ["InputSize"]
+  GETTABLEKS R28 R29 K67 ["XSmall"]
+  SETTABLEKS R28 R27 K58 ["size"]
+  GETUPVAL R30 11
+  GETTABLEKS R29 R30 K68 ["ButtonVariant"]
+  GETTABLEKS R28 R29 K75 ["Standard"]
+  SETTABLEKS R28 R27 K59 ["variant"]
   NEWCLOSURE R28 P3
   CAPTURE VAL R0
   CAPTURE UPVAL U13
   CAPTURE UPVAL U14
-  SETTABLEKS R28 R27 K60 ["onActivated"]
+  SETTABLEKS R28 R27 K61 ["onActivated"]
   CALL R25 2 1
-  SETTABLEKS R25 R24 K53 ["ReleaseNotes"]
+  SETTABLEKS R25 R24 K54 ["ReleaseNotes"]
   CALL R21 3 1
   SETTABLEKS R21 R20 K33 ["DialogActions"]
   CALL R17 3 1
@@ -382,10 +392,10 @@ MAIN:
   CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R11
+  CAPTURE VAL R6
   CAPTURE VAL R10
   CAPTURE VAL R12
   CAPTURE VAL R3
-  CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R7
   RETURN R18 1

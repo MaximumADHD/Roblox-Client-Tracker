@@ -637,14 +637,14 @@ PROTO_10:
   GETTABLEKS R26 R27 K148 ["Button"]
   DUPTABLE R27 K151 [{"text", "variant", "onActivated", "isDisabled", "size", "LayoutOrder"}]
   LOADK R30 K152 ["Buttons"]
-  LOADK R31 K140 ["Export"]
+  LOADK R31 K156 ["ExportRemaining"]
   NAMECALL R28 R1 K51 ["getText"]
   CALL R28 3 1
   SETTABLEKS R28 R27 K61 ["text"]
   GETUPVAL R31 4
   GETTABLEKS R30 R31 K81 ["Enums"]
   GETTABLEKS R29 R30 K153 ["ButtonVariant"]
-  GETTABLEKS R28 R29 K156 ["Emphasis"]
+  GETTABLEKS R28 R29 K157 ["Emphasis"]
   SETTABLEKS R28 R27 K149 ["variant"]
   NEWCLOSURE R28 P6
   CAPTURE VAL R3

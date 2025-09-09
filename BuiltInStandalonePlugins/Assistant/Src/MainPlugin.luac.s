@@ -54,77 +54,94 @@ PROTO_6:
   RETURN R0 1
 
 PROTO_7:
-  DUPTABLE R2 K1 [{"enabled"}]
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"dockWidgetTitle"}]
+  SETTABLEKS R0 R3 K0 ["dockWidgetTitle"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Localization"]
+  GETTABLEKS R2 R3 K1 ["new"]
+  DUPTABLE R3 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R4 1
+  SETTABLEKS R4 R3 K2 ["stringResourceTable"]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K3 ["translationResourceTable"]
+  LOADK R4 K6 ["Assistant"]
+  SETTABLEKS R4 R3 K4 ["pluginName"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K7 ["localization"]
+  DUPTABLE R2 K10 [{"enabled", "dockWidgetTitle"}]
   LOADB R3 0
-  SETTABLEKS R3 R2 K0 ["enabled"]
-  SETTABLEKS R2 R0 K2 ["state"]
+  SETTABLEKS R3 R2 K8 ["enabled"]
+  GETTABLEKS R3 R0 K7 ["localization"]
+  LOADK R5 K11 ["Plugin"]
+  LOADK R6 K12 ["Name"]
+  NAMECALL R3 R3 K13 ["getText"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K9 ["dockWidgetTitle"]
+  SETTABLEKS R2 R0 K14 ["state"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K3 ["toggleEnabled"]
+  SETTABLEKS R2 R0 K15 ["toggleEnabled"]
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K4 ["onClose"]
+  SETTABLEKS R2 R0 K16 ["onClose"]
   NEWCLOSURE R2 P2
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K5 ["onRestore"]
+  SETTABLEKS R2 R0 K17 ["onRestore"]
   NEWCLOSURE R2 P3
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K6 ["onWidgetEnabledChanged"]
+  SETTABLEKS R2 R0 K18 ["onWidgetEnabledChanged"]
   NEWCLOSURE R2 P4
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K7 ["onDockWidgetCreated"]
+  SETTABLEKS R2 R0 K19 ["onDockWidgetCreated"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K8 ["Localization"]
-  GETTABLEKS R2 R3 K9 ["new"]
-  DUPTABLE R3 K13 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  GETUPVAL R4 1
-  SETTABLEKS R4 R3 K10 ["stringResourceTable"]
-  GETUPVAL R4 2
-  SETTABLEKS R4 R3 K11 ["translationResourceTable"]
-  LOADK R4 K14 ["Assistant"]
-  SETTABLEKS R4 R3 K12 ["pluginName"]
-  CALL R2 1 1
-  SETTABLEKS R2 R0 K15 ["localization"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K16 ["Analytics"]
-  GETTABLEKS R2 R3 K9 ["new"]
-  DUPCLOSURE R3 K17 [PROTO_6]
+  GETTABLEKS R3 R4 K20 ["Analytics"]
+  GETTABLEKS R2 R3 K1 ["new"]
+  DUPCLOSURE R3 K21 [PROTO_6]
   NEWTABLE R4 0 0
   CALL R2 2 1
-  SETTABLEKS R2 R0 K18 ["analytics"]
+  SETTABLEKS R2 R0 K22 ["analytics"]
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K9 ["new"]
+  GETTABLEKS R2 R3 K1 ["new"]
   CALL R2 0 1
-  SETTABLEKS R2 R0 K19 ["DEPRECATED_stylizer"]
+  SETTABLEKS R2 R0 K23 ["DEPRECATED_stylizer"]
   GETUPVAL R4 4
-  GETTABLEKS R3 R4 K20 ["Util"]
-  GETTABLEKS R2 R3 K21 ["createFoundationDesignBinding"]
+  GETTABLEKS R3 R4 K24 ["Util"]
+  GETTABLEKS R2 R3 K25 ["createFoundationDesignBinding"]
   CALL R2 0 2
-  SETTABLEKS R3 R0 K22 ["onFoundationStyleSheetChange"]
+  SETTABLEKS R3 R0 K26 ["onFoundationStyleSheetChange"]
   GETUPVAL R4 5
-  GETTABLEKS R5 R1 K23 ["Plugin"]
+  GETTABLEKS R5 R1 K11 ["Plugin"]
   LOADNIL R6
   LOADNIL R7
   NEWTABLE R8 0 1
   MOVE R9 R2
   SETLIST R8 R9 1 [1]
   CALL R4 4 1
-  SETTABLEKS R4 R0 K24 ["design"]
+  SETTABLEKS R4 R0 K27 ["design"]
   GETUPVAL R5 6
-  GETTABLEKS R4 R5 K9 ["new"]
-  GETTABLEKS R5 R1 K23 ["Plugin"]
-  NAMECALL R5 R5 K25 ["getMouse"]
+  GETTABLEKS R4 R5 K1 ["new"]
+  GETTABLEKS R5 R1 K11 ["Plugin"]
+  NAMECALL R5 R5 K28 ["getMouse"]
   CALL R5 1 -1
   CALL R4 -1 1
-  SETTABLEKS R4 R0 K26 ["mouse"]
-  GETTABLEKS R4 R0 K26 ["mouse"]
-  LOADK R6 K27 ["Arrow"]
+  SETTABLEKS R4 R0 K29 ["mouse"]
+  GETTABLEKS R4 R0 K29 ["mouse"]
+  LOADK R6 K30 ["Arrow"]
   LOADN R7 0
-  NAMECALL R4 R4 K28 ["__pushCursor"]
+  NAMECALL R4 R4 K31 ["__pushCursor"]
   CALL R4 3 0
+  NEWCLOSURE R4 P6
+  CAPTURE VAL R0
+  SETTABLEKS R4 R0 K32 ["setDockWidgetTitle"]
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["PluginLoaderContext"]
   GETTABLEKS R1 R2 K2 ["mainButton"]
@@ -134,90 +151,88 @@ PROTO_8:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
   GETTABLEKS R4 R2 K3 ["enabled"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["provide"]
-  DUPTABLE R6 K10 [{"Plugin", "Mouse", "Stylizer", "Localization", "Analytics", "Design"}]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K11 ["new"]
-  MOVE R8 R3
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K2 ["Plugin"]
-  GETTABLEKS R7 R0 K12 ["mouse"]
-  SETTABLEKS R7 R6 K5 ["Mouse"]
-  GETTABLEKS R7 R0 K13 ["DEPRECATED_stylizer"]
-  SETTABLEKS R7 R6 K6 ["Stylizer"]
-  GETTABLEKS R7 R0 K14 ["localization"]
-  SETTABLEKS R7 R6 K7 ["Localization"]
-  GETTABLEKS R7 R0 K15 ["analytics"]
-  SETTABLEKS R7 R6 K8 ["Analytics"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K11 ["new"]
-  GETTABLEKS R8 R0 K16 ["design"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K9 ["Design"]
-  DUPTABLE R7 K18 [{"MainWidget"}]
-  GETUPVAL R8 3
-  GETUPVAL R9 4
-  NEWTABLE R10 16 0
-  LOADK R11 K19 ["Assistant"]
-  SETTABLEKS R11 R10 K20 ["Id"]
-  SETTABLEKS R4 R10 K21 ["Enabled"]
-  GETTABLEKS R11 R0 K14 ["localization"]
-  LOADK R13 K2 ["Plugin"]
-  LOADK R14 K22 ["Name"]
-  NAMECALL R11 R11 K23 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K24 ["Title"]
-  GETIMPORT R11 K28 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R11 R10 K26 ["ZIndexBehavior"]
-  GETIMPORT R11 K31 [Enum.InitialDockState.Left]
-  SETTABLEKS R11 R10 K29 ["InitialDockState"]
-  GETIMPORT R11 K33 [Vector2.new]
-  LOADN R12 128
-  LOADN R13 224
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K34 ["Size"]
-  GETIMPORT R11 K33 [Vector2.new]
-  LOADN R12 250
-  LOADN R13 200
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K35 ["MinSize"]
-  GETTABLEKS R11 R0 K36 ["onClose"]
-  SETTABLEKS R11 R10 K37 ["OnClose"]
-  GETTABLEKS R12 R1 K38 ["PluginLoaderContext"]
-  GETTABLEKS R11 R12 K39 ["mainDockWidget"]
-  SETTABLEKS R11 R10 K40 ["Widget"]
-  GETTABLEKS R11 R0 K41 ["onDockWidgetCreated"]
-  SETTABLEKS R11 R10 K42 ["OnWidgetCreated"]
-  GETTABLEKS R11 R0 K43 ["onRestore"]
-  SETTABLEKS R11 R10 K44 ["OnWidgetRestored"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K45 ["ShouldRestore"]
-  GETUPVAL R13 5
-  GETTABLEKS R12 R13 K46 ["Change"]
-  GETTABLEKS R11 R12 K21 ["Enabled"]
-  GETTABLEKS R12 R0 K47 ["onWidgetEnabledChanged"]
-  SETTABLE R12 R10 R11
-  DUPTABLE R11 K49 [{"App"}]
-  GETUPVAL R12 3
-  GETUPVAL R13 6
-  DUPTABLE R14 K52 [{"dockWidget", "onFoundationStyleSheetChange"}]
-  GETTABLEKS R16 R1 K38 ["PluginLoaderContext"]
-  GETTABLEKS R15 R16 K39 ["mainDockWidget"]
-  SETTABLEKS R15 R14 K50 ["dockWidget"]
-  GETTABLEKS R15 R0 K51 ["onFoundationStyleSheetChange"]
-  SETTABLEKS R15 R14 K51 ["onFoundationStyleSheetChange"]
+  GETTABLEKS R5 R2 K4 ["dockWidgetTitle"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["provide"]
+  DUPTABLE R7 K11 [{"Plugin", "Mouse", "Stylizer", "Localization", "Analytics", "Design"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K12 ["new"]
+  MOVE R9 R3
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K2 ["Plugin"]
+  GETTABLEKS R8 R0 K13 ["mouse"]
+  SETTABLEKS R8 R7 K6 ["Mouse"]
+  GETTABLEKS R8 R0 K14 ["DEPRECATED_stylizer"]
+  SETTABLEKS R8 R7 K7 ["Stylizer"]
+  GETTABLEKS R8 R0 K15 ["localization"]
+  SETTABLEKS R8 R7 K8 ["Localization"]
+  GETTABLEKS R8 R0 K16 ["analytics"]
+  SETTABLEKS R8 R7 K9 ["Analytics"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K12 ["new"]
+  GETTABLEKS R9 R0 K17 ["design"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K10 ["Design"]
+  DUPTABLE R8 K19 [{"MainWidget"}]
+  GETUPVAL R9 3
+  GETUPVAL R10 4
+  NEWTABLE R11 16 0
+  LOADK R12 K20 ["Assistant"]
+  SETTABLEKS R12 R11 K21 ["Id"]
+  SETTABLEKS R4 R11 K22 ["Enabled"]
+  SETTABLEKS R5 R11 K23 ["Title"]
+  GETIMPORT R12 K27 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R12 R11 K25 ["ZIndexBehavior"]
+  GETIMPORT R12 K30 [Enum.InitialDockState.Left]
+  SETTABLEKS R12 R11 K28 ["InitialDockState"]
+  GETIMPORT R12 K32 [Vector2.new]
+  LOADN R13 128
+  LOADN R14 224
   CALL R12 2 1
-  SETTABLEKS R12 R11 K48 ["App"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K17 ["MainWidget"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  SETTABLEKS R12 R11 K33 ["Size"]
+  GETIMPORT R12 K32 [Vector2.new]
+  LOADN R13 250
+  LOADN R14 200
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K34 ["MinSize"]
+  GETTABLEKS R12 R0 K35 ["onClose"]
+  SETTABLEKS R12 R11 K36 ["OnClose"]
+  GETTABLEKS R13 R1 K37 ["PluginLoaderContext"]
+  GETTABLEKS R12 R13 K38 ["mainDockWidget"]
+  SETTABLEKS R12 R11 K39 ["Widget"]
+  GETTABLEKS R12 R0 K40 ["onDockWidgetCreated"]
+  SETTABLEKS R12 R11 K41 ["OnWidgetCreated"]
+  GETTABLEKS R12 R0 K42 ["onRestore"]
+  SETTABLEKS R12 R11 K43 ["OnWidgetRestored"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K44 ["ShouldRestore"]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K45 ["Change"]
+  GETTABLEKS R12 R13 K22 ["Enabled"]
+  GETTABLEKS R13 R0 K46 ["onWidgetEnabledChanged"]
+  SETTABLE R13 R11 R12
+  DUPTABLE R12 K48 [{"App"}]
+  GETUPVAL R13 3
+  GETUPVAL R14 6
+  DUPTABLE R15 K52 [{"dockWidget", "onFoundationStyleSheetChange", "setDockWidgetTitle"}]
+  GETTABLEKS R17 R1 K37 ["PluginLoaderContext"]
+  GETTABLEKS R16 R17 K38 ["mainDockWidget"]
+  SETTABLEKS R16 R15 K49 ["dockWidget"]
+  GETTABLEKS R16 R0 K50 ["onFoundationStyleSheetChange"]
+  SETTABLEKS R16 R15 K50 ["onFoundationStyleSheetChange"]
+  GETTABLEKS R16 R0 K51 ["setDockWidgetTitle"]
+  SETTABLEKS R16 R15 K51 ["setDockWidgetTitle"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K47 ["App"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K18 ["MainWidget"]
+  CALL R6 2 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -266,7 +281,7 @@ MAIN:
   LOADK R17 K30 ["MainPlugin"]
   NAMECALL R15 R15 K31 ["extend"]
   CALL R15 2 1
-  DUPCLOSURE R16 K32 [PROTO_7]
+  DUPCLOSURE R16 K32 [PROTO_8]
   CAPTURE VAL R6
   CAPTURE VAL R12
   CAPTURE VAL R13
@@ -275,9 +290,9 @@ MAIN:
   CAPTURE VAL R11
   CAPTURE VAL R9
   SETTABLEKS R16 R15 K33 ["init"]
-  DUPCLOSURE R16 K34 [PROTO_8]
+  DUPCLOSURE R16 K34 [PROTO_9]
   SETTABLEKS R16 R15 K35 ["didUpdate"]
-  DUPCLOSURE R16 K36 [PROTO_9]
+  DUPCLOSURE R16 K36 [PROTO_10]
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R7

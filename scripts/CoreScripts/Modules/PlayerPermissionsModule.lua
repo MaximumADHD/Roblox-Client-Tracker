@@ -5,8 +5,15 @@ local PlayersService = game:GetService("Players")
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local CorePackages = game:GetService("CorePackages")
+local HttpRbxApiService = game:GetService('HttpRbxApiService')
+local HttpService = game:GetService('HttpService')
+local Settings = UserSettings()
+local GameSettings = Settings.GameSettings
 
+local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
+local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 
 local PlayerInfo = {}
 PlayerInfo.__index = PlayerInfo
@@ -250,6 +257,23 @@ local function IsPlayerInExperienceNameEnabled(player)
 	return false
 end
 
+local function SetPlayerInExperienceNameEnabled(player, value)
+	pcall(function()
+		local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+		local RemoteEvent_UpdatePlayerProfileSettings = RobloxReplicatedStorage:WaitForChild("UpdatePlayerProfileSettings", math.huge)
+		local apiPath = `user-profile-api/v1/user/profiles/settings`
+		local url = Url.APIS_URL .. apiPath
+		local body = HttpService:JSONEncode({
+			userProfileSettings = {
+				isInExperienceNameEnabled = value,
+			},
+		})
+
+		HttpRbxApiService:PostAsyncFullUrl(url, body, Enum.ThrottlingPriority.Default, Enum.HttpContentType.ApplicationJson, Enum.HttpRequestType.Players)
+		RemoteEvent_UpdatePlayerProfileSettings:FireServer({ isInExperienceNameEnabled = value })
+	end)
+end
+
 PlayerPermissionsModule.IsPlayerAdminAsync = NewInGroupFunctionFactory("Admin")
 PlayerPermissionsModule.IsPlayerInternAsync = NewInGroupFunctionFactory("Intern")
 PlayerPermissionsModule.IsPlayerStarAsync = NewInGroupFunctionFactory("Star")
@@ -258,6 +282,9 @@ PlayerPermissionsModule.IsPlayerPlaceOwnerAsync = IsPlaceOwnerFunctionFactory()
 PlayerPermissionsModule.CanPlayerManagePlaceAsync = CanPlayerManagePlace
 if FFlagInExperienceUserProfileSettingsEnabled then
 	PlayerPermissionsModule.IsPlayerInExperienceNameEnabledAsync = IsPlayerInExperienceNameEnabled
+end
+if FFlagBadgeVisibilitySettingEnabled then
+	PlayerPermissionsModule.SetPlayerInExperienceNameEnabled = SetPlayerInExperienceNameEnabled
 end
 
 return PlayerPermissionsModule

@@ -26,7 +26,9 @@ local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Co
 local FStringRccInExperienceNameEnabledAllowList = require(RobloxGui.Modules.Common.Flags.FStringRccInExperienceNameEnabledAllowList)
 local FFlagUseNewDirectChatAPI = game:DefineFastFlag("UseNewDirectChatAPI", false)
 local FFlagEnableCreatePartyNudge = game:DefineFastFlag("EnableCreatePartyNudge", false)
+local FFlagEnableCreatePartyNudgeWithVersion = game:DefineFastFlag("EnableCreatePartyNudgeWithVersion", false)
 local FFlagEnablePartyNudgeAfterJoin = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeAfterJoin
+local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 local FFlagEnablePartyNudgeNotification = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeNotification
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
@@ -94,6 +96,13 @@ RemoteEvent_UpdateLocalPlayerBlockList.Parent = RobloxReplicatedStorage
 local RemoteEvent_SendPlayerProfileSettings = Instance.new("RemoteEvent")
 RemoteEvent_SendPlayerProfileSettings.Name = "SendPlayerProfileSettings"
 RemoteEvent_SendPlayerProfileSettings.Parent = RobloxReplicatedStorage
+
+local RemoteEvent_UpdatePlayerProfileSettings
+if FFlagBadgeVisibilitySettingEnabled then
+	RemoteEvent_UpdatePlayerProfileSettings = Instance.new("RemoteEvent")
+	RemoteEvent_UpdatePlayerProfileSettings.Name = "UpdatePlayerProfileSettings"
+	RemoteEvent_UpdatePlayerProfileSettings.Parent = RobloxReplicatedStorage
+end
 
 local RemoteEvent_ShowFriendJoinedPlayerToast
 local RemoteEvent_ShowPlayerJoinedFriendsToast
@@ -339,6 +348,7 @@ local createPartyNudge = function(inviterUserId, inviteeUserId, nudgeType)
 				placeId = game.PlaceId,
 				gameInstanceId = game.JobId,
 				universeId = game.GameId,
+				version = if FFlagEnableCreatePartyNudgeWithVersion then 1 else nil,
 			}
 		)
 
@@ -446,6 +456,14 @@ RemoteEvent_UpdatePlayerBlockList.OnServerEvent:Connect(function(player, userId,
 		end
 	end
 end)
+
+if FFlagBadgeVisibilitySettingEnabled then
+	RemoteEvent_UpdatePlayerProfileSettings.OnServerEvent:Connect(function(player, profileSettings)
+		local userIdStr = tostring(player.UserId)
+		PlayerToInExperienceNameEnabledMap[userIdStr] = profileSettings.isInExperienceNameEnabled
+		RemoteEvent_SendPlayerProfileSettings:FireAllClients(userIdStr, profileSettings)
+	end)
+end
 
 Players.PlayerAdded:connect(onPlayerAdded)
 for _,player in pairs(Players:GetPlayers()) do

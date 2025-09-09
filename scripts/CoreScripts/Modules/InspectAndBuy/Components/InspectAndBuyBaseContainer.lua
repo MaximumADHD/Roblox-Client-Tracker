@@ -9,6 +9,8 @@ local CoreGui = game:GetService("CoreGui")
 local React = require(CorePackages.Packages.React)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 local useViewBreakpoints = AvatarExperienceInspectAndBuy.Hooks.useViewBreakpoints
+local ResponsivePanelLayout = AvatarExperienceInspectAndBuy.Components.ResponsivePanelLayout
+local useResponsivePanelLayoutProps = AvatarExperienceInspectAndBuy.Hooks.useResponsivePanelLayoutProps
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local useTokens = Foundation.Hooks.useTokens
@@ -17,8 +19,13 @@ local Theme = require(Modules.Settings.Theme)
 local TopBarConstants = require(Modules.TopBar.Constants)
 
 local function InspectAndBuyBaseContainer(props)
+	local onInspectMenuClosed = React.useCallback(function()
+		GuiService:CloseInspectMenu()
+	end, {})
+
 	local viewBreakpoints = useViewBreakpoints(TopBarConstants.TopBarHeight)
 	local tokens = useTokens()
+	local responsivePanelLayoutProps = useResponsivePanelLayoutProps(onInspectMenuClosed)
 
 	-- outer overlay container will close the menu when clicked on
 	return React.createElement(Foundation.View, {
@@ -38,6 +45,7 @@ local function InspectAndBuyBaseContainer(props)
 	}, {
 		ContainerView = React.createElement(Foundation.View, {
 			AnchorPoint = viewBreakpoints.ContainerAnchorPoint,
+			ClipsDescendants = true,
 			Size = viewBreakpoints.ContainerSize,
 			Position = viewBreakpoints.ContainerPosition,
 			backgroundStyle = tokens.Color.Common.Shadow,
@@ -49,7 +57,7 @@ local function InspectAndBuyBaseContainer(props)
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = Theme.DefaultCornerRadius,
 			}),
-			-- TODO: add content here
+			ResponsivePanelLayout = React.createElement(ResponsivePanelLayout, responsivePanelLayoutProps),
 		}),
 	})
 end

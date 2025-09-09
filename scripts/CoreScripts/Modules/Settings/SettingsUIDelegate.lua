@@ -12,9 +12,15 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local GetStyleTokens = require(RobloxGui.Modules.Chrome.ChromeShared.Utility.GetStyleTokens)
 
+local ChatSelector = require(RobloxGui.Modules.ChatSelector)
+
 local CoreScriptVersionEnabled = game:GetEngineFeature("CoreScriptVersionEnabled")
 local FIntSpatialUIDarkenBackgroundTransparency = game:DefineFastInt("SpatialUIDarkenBackgroundTransparency", 0)
 local FIntSpatialUIScaledVersionTextSize = game:DefineFastInt("SpatialUIVersionTextSizeScaled", 1400)
+
+local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
+local FFlagSpatialUIFixMenuPanelChatExclusive = require(RobloxGui.Modules.Settings.Flags.FFlagSpatialUIFixMenuPanelChatExclusive)
+local FFlagSpatialUIFixGameInviteChatExclusive = game:DefineFastFlag("SpatialUIFixGameInviteChatExclusive", false)
 
 type ThemeItem = UIBlox.ThemeItem
 
@@ -245,9 +251,16 @@ end
 function SettingsUIDelegate.updatePanelVisibility(self, panelVisibilityValue)
 	for _, visible in self._windowsVisibilityValues do
 		if visible then
+			if InExperienceUIVRIXP:isMovePanelToCenter() and FFlagSpatialUIFixMenuPanelChatExclusive then
+				ChatSelector:HideTemp(PanelType.MoreMenu, true)
+			end
 			panelVisibilityValue:set(true)
 			return
 		end
+	end
+
+	if InExperienceUIVRIXP:isMovePanelToCenter() and FFlagSpatialUIFixMenuPanelChatExclusive then
+		ChatSelector:HideTemp(PanelType.MoreMenu, false)
 	end
 	panelVisibilityValue:set(false)
 end
@@ -257,6 +270,14 @@ local connectGameInviteVisibility = function(connectCallback)
 
 	local connection: RBXScriptConnection? = GameInviteModalManager.ToggleGameInviteModalEvent.Event:Connect(function(isModalOpen)
 		connectCallback("GameInvite", isModalOpen :: boolean)
+
+		if InExperienceUIVRIXP:isMovePanelToCenter() and FFlagSpatialUIFixGameInviteChatExclusive then
+			if isModalOpen then
+				ChatSelector:HideTemp("SettingsMenu", true)
+			else
+				ChatSelector:HideTemp("SettingsMenu", false)
+			end
+		end	
 	end)
 
 	return function()

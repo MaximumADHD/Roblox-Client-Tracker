@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AXEnableNewInspectAndBuyContainer", false)
+return game:DefineFastFlag("AXEnableNewInspectAndBuyContainer4", false)

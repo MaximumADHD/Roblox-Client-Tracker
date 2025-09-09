@@ -230,19 +230,49 @@ PROTO_8:
   CALL R8 2 0
   GETUPVAL R8 8
   CALL R8 0 1
-  JUMPIFEQKS R8 K21 [""] [+30]
-  GETUPVAL R10 9
+  JUMPIFEQKS R8 K21 [""] [+69]
+  GETIMPORT R9 K23 [game]
+  LOADK R11 K24 ["HttpService"]
+  NAMECALL R9 R9 K25 ["GetService"]
+  CALL R9 2 1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K26 ["HttpEnabled"]
+  GETUPVAL R9 9
+  CALL R9 0 1
+  JUMPIFNOT R9 [+36]
+  LOADK R11 K27 ["|"]
+  NAMECALL R9 R8 K28 ["split"]
+  CALL R9 2 1
+  MOVE R10 R9
+  LOADNIL R11
+  LOADNIL R12
+  FORGPREP R10
+  GETUPVAL R16 10
+  GETTABLEKS R15 R16 K1 ["new"]
+  MOVE R16 R14
+  CALL R15 1 1
+  DUPTABLE R16 K29 [{"identifier", "transport", "clientOptions"}]
+  LOADK R18 K30 ["ExternalMCP_%*"]
+  MOVE R20 R14
+  NAMECALL R18 R18 K31 ["format"]
+  CALL R18 2 1
+  MOVE R17 R18
+  SETTABLEKS R17 R16 K11 ["identifier"]
+  GETTABLEKS R17 R15 K6 ["transport"]
+  SETTABLEKS R17 R16 K6 ["transport"]
+  GETUPVAL R17 5
+  SETTABLEKS R17 R16 K12 ["clientOptions"]
+  MOVE R19 R16
+  NAMECALL R17 R7 K20 ["addClient"]
+  CALL R17 2 0
+  FORGLOOP R10 2 [-26]
+  JUMP [+20]
+  GETUPVAL R10 10
   GETTABLEKS R9 R10 K1 ["new"]
   MOVE R10 R8
   CALL R9 1 1
-  GETIMPORT R10 K23 [game]
-  LOADK R12 K24 ["HttpService"]
-  NAMECALL R10 R10 K25 ["GetService"]
-  CALL R10 2 1
-  LOADB R11 1
-  SETTABLEKS R11 R10 K26 ["HttpEnabled"]
-  DUPTABLE R10 K27 [{"identifier", "transport", "clientOptions"}]
-  LOADK R11 K28 ["ExternalMCP"]
+  DUPTABLE R10 K29 [{"identifier", "transport", "clientOptions"}]
+  LOADK R11 K32 ["ExternalMCP"]
   SETTABLEKS R11 R10 K11 ["identifier"]
   GETTABLEKS R11 R9 K6 ["transport"]
   SETTABLEKS R11 R10 K6 ["transport"]
@@ -273,88 +303,95 @@ MAIN:
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K8 ["Src"]
   GETTABLEKS R4 R5 K9 ["Flags"]
-  GETTABLEKS R3 R4 K10 ["FFlagDebugLogAssistantUI"]
+  GETTABLEKS R3 R4 K10 ["FFlagAssistantMultipleExternalMCPServers"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K8 ["Src"]
   GETTABLEKS R5 R6 K9 ["Flags"]
-  GETTABLEKS R4 R5 K11 ["FStringExternalMCPUrl"]
+  GETTABLEKS R4 R5 K11 ["FFlagDebugLogAssistantUI"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["LuauPolyfill"]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Flags"]
+  GETTABLEKS R5 R6 K12 ["FStringExternalMCPUrl"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R7 R0 K6 ["Packages"]
-  GETTABLEKS R6 R7 K13 ["ModelContextProtocol"]
+  GETTABLEKS R6 R7 K13 ["LuauPolyfill"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Types"]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K14 ["ModelContextProtocol"]
   CALL R6 1 1
-  GETTABLEKS R7 R2 K15 ["Get"]
-  GETTABLEKS R8 R3 K15 ["Get"]
-  GETTABLEKS R10 R1 K16 ["Utils"]
-  GETTABLEKS R9 R10 K17 ["Tools"]
-  GETTABLEKS R11 R5 K18 ["Util"]
-  GETTABLEKS R10 R11 K19 ["Logging"]
-  GETTABLEKS R11 R5 K14 ["Types"]
-  GETTABLEKS R12 R5 K20 ["MultiplexedClient"]
-  GETTABLEKS R13 R5 K21 ["PeerTransport"]
-  GETTABLEKS R14 R5 K22 ["Promise"]
-  GETTABLEKS R15 R5 K23 ["Server"]
-  GETTABLEKS R16 R5 K24 ["ServerRegistry"]
-  GETTABLEKS R18 R5 K25 ["StreamableHttpClient"]
-  GETTABLEKS R17 R18 K26 ["StreamableHttpClientTransport"]
-  GETTABLEKS R18 R5 K27 ["ToolRegistry"]
-  DUPTABLE R19 K29 [{"capabilities"}]
-  DUPTABLE R20 K33 [{"experimental", "roots", "sampling"}]
-  GETTABLEKS R21 R11 K34 ["emptyObject"]
-  CALL R21 0 1
-  SETTABLEKS R21 R20 K30 ["experimental"]
-  GETTABLEKS R21 R11 K34 ["emptyObject"]
-  CALL R21 0 1
-  SETTABLEKS R21 R20 K31 ["roots"]
-  GETTABLEKS R21 R11 K34 ["emptyObject"]
-  CALL R21 0 1
-  SETTABLEKS R21 R20 K32 ["sampling"]
-  SETTABLEKS R20 R19 K28 ["capabilities"]
-  DUPTABLE R20 K29 [{"capabilities"}]
-  DUPTABLE R21 K38 [{"prompts", "resources", "tools"}]
-  GETTABLEKS R22 R11 K34 ["emptyObject"]
-  CALL R22 0 1
-  SETTABLEKS R22 R21 K35 ["prompts"]
-  GETTABLEKS R22 R11 K34 ["emptyObject"]
-  CALL R22 0 1
-  SETTABLEKS R22 R21 K36 ["resources"]
-  DUPTABLE R22 K40 [{"listChanged"}]
-  LOADB R23 1
-  SETTABLEKS R23 R22 K39 ["listChanged"]
-  SETTABLEKS R22 R21 K37 ["tools"]
-  SETTABLEKS R21 R20 K28 ["capabilities"]
-  DUPCLOSURE R21 K41 [PROTO_3]
-  CAPTURE VAL R15
-  CAPTURE VAL R20
-  CAPTURE VAL R18
-  CAPTURE VAL R7
-  CAPTURE VAL R9
-  SETGLOBAL R21 K42 ["getBuiltinServer"]
-  DUPCLOSURE R21 K43 [PROTO_4]
-  CAPTURE VAL R16
-  SETGLOBAL R21 K44 ["startLocalServer"]
-  DUPCLOSURE R21 K45 [PROTO_5]
-  CAPTURE VAL R13
-  DUPCLOSURE R22 K46 [PROTO_8]
-  CAPTURE VAL R10
-  CAPTURE VAL R7
-  CAPTURE VAL R13
-  CAPTURE VAL R14
-  CAPTURE VAL R6
-  CAPTURE VAL R19
-  CAPTURE VAL R12
-  CAPTURE VAL R11
-  CAPTURE VAL R8
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Types"]
+  CALL R7 1 1
+  GETTABLEKS R8 R2 K16 ["Get"]
+  GETTABLEKS R9 R3 K16 ["Get"]
+  GETTABLEKS R10 R4 K16 ["Get"]
+  GETTABLEKS R12 R1 K17 ["Utils"]
+  GETTABLEKS R11 R12 K18 ["Tools"]
+  GETTABLEKS R13 R6 K19 ["Util"]
+  GETTABLEKS R12 R13 K20 ["Logging"]
+  GETTABLEKS R13 R6 K15 ["Types"]
+  GETTABLEKS R14 R6 K21 ["MultiplexedClient"]
+  GETTABLEKS R15 R6 K22 ["PeerTransport"]
+  GETTABLEKS R16 R6 K23 ["Promise"]
+  GETTABLEKS R17 R6 K24 ["Server"]
+  GETTABLEKS R18 R6 K25 ["ServerRegistry"]
+  GETTABLEKS R20 R6 K26 ["StreamableHttpClient"]
+  GETTABLEKS R19 R20 K27 ["StreamableHttpClientTransport"]
+  GETTABLEKS R20 R6 K28 ["ToolRegistry"]
+  DUPTABLE R21 K30 [{"capabilities"}]
+  DUPTABLE R22 K34 [{"experimental", "roots", "sampling"}]
+  GETTABLEKS R23 R13 K35 ["emptyObject"]
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K31 ["experimental"]
+  GETTABLEKS R23 R13 K35 ["emptyObject"]
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K32 ["roots"]
+  GETTABLEKS R23 R13 K35 ["emptyObject"]
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K33 ["sampling"]
+  SETTABLEKS R22 R21 K29 ["capabilities"]
+  DUPTABLE R22 K30 [{"capabilities"}]
+  DUPTABLE R23 K39 [{"prompts", "resources", "tools"}]
+  GETTABLEKS R24 R13 K35 ["emptyObject"]
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K36 ["prompts"]
+  GETTABLEKS R24 R13 K35 ["emptyObject"]
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K37 ["resources"]
+  DUPTABLE R24 K41 [{"listChanged"}]
+  LOADB R25 1
+  SETTABLEKS R25 R24 K40 ["listChanged"]
+  SETTABLEKS R24 R23 K38 ["tools"]
+  SETTABLEKS R23 R22 K29 ["capabilities"]
+  DUPCLOSURE R23 K42 [PROTO_3]
   CAPTURE VAL R17
-  DUPTABLE R23 K48 [{"promiseMcpHost"}]
-  SETTABLEKS R22 R23 K47 ["promiseMcpHost"]
-  RETURN R23 1
+  CAPTURE VAL R22
+  CAPTURE VAL R20
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  SETGLOBAL R23 K43 ["getBuiltinServer"]
+  DUPCLOSURE R23 K44 [PROTO_4]
+  CAPTURE VAL R18
+  SETGLOBAL R23 K45 ["startLocalServer"]
+  DUPCLOSURE R23 K46 [PROTO_5]
+  CAPTURE VAL R15
+  DUPCLOSURE R24 K47 [PROTO_8]
+  CAPTURE VAL R12
+  CAPTURE VAL R9
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  CAPTURE VAL R7
+  CAPTURE VAL R21
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R19
+  DUPTABLE R25 K49 [{"promiseMcpHost"}]
+  SETTABLEKS R24 R25 K48 ["promiseMcpHost"]
+  RETURN R25 1

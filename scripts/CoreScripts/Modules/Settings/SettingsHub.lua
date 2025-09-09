@@ -138,6 +138,7 @@ local FFlagChromeShortcutBarRemoveOnInviteFriends = SharedFlags.FFlagChromeShort
 local FFlagAddMuteSelfTopOfPlayersPane = SharedFlags.FFlagAddMuteSelfTopOfPlayersPane
 local FFlagEnableSettingsHubUIDelegateRollout = SharedFlags.FFlagEnableSettingsHubUIDelegateRollout
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
+local FFlagSpatialUIFixMenuPanelChatExclusive = require(RobloxGui.Modules.Settings.Flags.FFlagSpatialUIFixMenuPanelChatExclusive)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -3509,7 +3510,14 @@ local function CreateSettingsHub()
 			if (if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isMovePanelToCenter() then not VRService.VREnabled else true) then
 				playerList:HideTemp('SettingsMenu', true)
 
-				chat:HideTemp('SettingsMenu', true)
+				if
+					not (isInExperienceUIVREnabled
+					and InExperienceUIVRIXP:isMovePanelToCenter()
+					and FFlagSpatialUIFixMenuPanelChatExclusive
+					and VRService.VREnabled)
+				then
+					chat:HideTemp('SettingsMenu', true)
+				end
 
 				local backpack = require(RobloxGui.Modules.BackpackScript)
 				if backpack.IsOpen then
@@ -3551,7 +3559,10 @@ local function CreateSettingsHub()
 
 			if isInExperienceUIVREnabled and InExperienceUIVRIXP:isMovePanelToCenter() then
 				playerList:HideTemp('SettingsMenu', false)
-				chat:HideTemp('SettingsMenu', false)
+
+				if not (FFlagSpatialUIFixMenuPanelChatExclusive and VRService.VREnabled) then
+					chat:HideTemp('SettingsMenu', false)
+				end
 			end
 
 			if noAnimation or forceNoAnimationIfWeWillShowConnect then

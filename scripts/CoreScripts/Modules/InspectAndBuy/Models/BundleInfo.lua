@@ -26,6 +26,8 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 type AvatarPreviewItem = AvatarExperienceInspectAndBuy.AvatarPreviewItem
 type BundleInfo = AvatarExperienceInspectAndBuy.BundleInfo
+local FFlagAXParseAdditionalItemDetailsFromCatalog =
+	require(InspectAndBuyFolder.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog)
 
 local MockId = require(script.Parent.Parent.MockId)
 local BundleInfo = {}
@@ -161,6 +163,14 @@ function BundleInfo.fromGetItemDetails(itemDetails)
 	newBundle.price = itemDetails.Price or 0
 	newBundle.hasResellers = itemDetails.HasResellers
 	newBundle.collectibleItemId = itemDetails.CollectibleItemId
+
+	if FFlagAXParseAdditionalItemDetailsFromCatalog then
+		newBundle.remaining = itemDetails.UnitsAvailableForConsumption
+		newBundle.collectibleQuantityLimitPerUser = itemDetails.TotalQuantity
+		newBundle.collectibleLowestResalePrice = itemDetails.LowestResalePrice
+		newBundle.isOffSale = itemDetails.IsOffSale
+		newBundle.saleLocationType = itemDetails.SaleLocationType
+	end
 
 	return newBundle
 end
