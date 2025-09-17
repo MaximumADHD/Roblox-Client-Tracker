@@ -1,8 +1,12 @@
 local CorePackages = game:GetService("CorePackages")
 
+local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+
+local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -10,6 +14,8 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local DropDownButton = require(script.Parent.DropDownButton)
+
+local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 
 local POSITION_MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -34,6 +40,8 @@ DropDownAnimator.validateProps = t.strictInterface({
 	onDecline = t.optional(t.callback),
 	onDismiss = t.optional(t.callback),
 	contentVisible = t.boolean,
+
+	layoutValues = t.optional(t.table),
 })
 
 function DropDownAnimator:init()
@@ -122,6 +130,7 @@ end
 
 function DropDownAnimator:render()
 	return WithLayoutValues(function(layoutValues)
+		layoutValues = if FFlagAddMobilePlayerListScaling then self.props.layoutValues else layoutValues
 		local children = {}
 
 		children.CurrentButtonContainer = Roact.createElement("Frame", {
@@ -197,4 +206,16 @@ function DropDownAnimator:willUnmount()
 	self.overlayMotor = nil
 end
 
-return DropDownAnimator
+local DropDownAnimatorWrapper = function(props)
+	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
+
+	return Roact.createElement(DropDownAnimator, Cryo.Dictionary.join(props, {
+		layoutValues = layoutValues,
+	}))
+end
+
+if FFlagAddMobilePlayerListScaling then
+	return DropDownAnimatorWrapper
+else
+	return DropDownAnimator
+end

@@ -31,6 +31,7 @@ local fflagUseConfigurableReconnectWait = game:DefineFastFlag("UseConfigurableRe
 local FIntConfigurableReconnectWaitMs = game:DefineFastInt("ConfigurableReconnectWaitMs", 0)
 
 local fflagReconnectToSameServer = game:DefineFastFlag("ReconnectToSameServer", false)
+local fflagShowScreentimeLockoutKickMessage = game:DefineFastFlag("ShowScreentimeLockoutKickMessage", false)
 
 local connectionEventConfig = {
 	eventName = "ConnectionEvent",
@@ -340,6 +341,10 @@ if coreGuiOverflowDetection then
 	-- Older versions of the engine don't have this variant, using subscript
 	-- syntax instead avoids a possible type error.
 	reconnectDisabledList[Enum.ConnectionError["DisconnectClientFailure"]] = true
+end
+
+if fflagShowScreentimeLockoutKickMessage then
+	reconnectDisabledList[Enum.ConnectionError.ScreentimeLockoutKick] = true
 end
 
 local ButtonList = {
@@ -743,6 +748,10 @@ local enumToLocalizationKey = {
 	[Enum.ConnectionError.TeleportFlooded] = "InGame.ConnectionError.TeleportFlooded",
 	[Enum.ConnectionError.TeleportIsTeleporting] = "InGame.ConnectionError.TeleportIsTeleporting",
 }
+
+if fflagShowScreentimeLockoutKickMessage then
+	enumToLocalizationKey[Enum.ConnectionError.ScreentimeLockoutKick] = "Feature.Screentime.Content.ScreentimeLimitDialog"
+end
 
 -- Localize the error string, with a fallback to the original string upon failure.
 -- If it is a teleport error but not TELEPORT_FAILED, use general string "Reconnect failed."

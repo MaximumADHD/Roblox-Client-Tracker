@@ -13,6 +13,8 @@ local FIntReactSchedulingKllSketchMaxSize: number = game:DefineFastInt("ReactSch
 local FFlagDebugReactSchedulingEnableErrorEvents = game:DefineFastFlag("DebugReactSchedulingEnableErrorEvents", false)
 local FFlagReactSchedulingTrackerLayoutEffects = game:DefineFastFlag("ReactSchedulingTrackerLayoutEffects", false)
 local FFlagReactSchedulingTrackerDataModelUpdate = game:DefineFastFlag("ReactSchedulingTrackerDataModelUpdate", false)
+local EngineFeatureTelemetryServicePlaySessionInfoEnabled = game:GetEngineFeature("TelemetryServicePlaySessionInfoEnabled")
+local FFlagReactSchedulingAddPlaySessionId = game:DefineFastFlag("ReactSchedulingAddPlaySessionId", false)
 
 local MAX_SAMPLE_RATE = 10000
 local SAMPLE_ID_BIAS = 1409
@@ -301,6 +303,9 @@ local summaryStandardizedFields = { "addPlaceId", "addUniverseId", "addSessionId
 if EngineFeatureTelemetryServiceMemoryCPUInfoEnabled then
 	summaryStandardizedFields =
 		{ "addPlaceId", "addUniverseId", "addSessionId", "addOSInfo", "addSessionInfo", "addMemoryInfo", "addCPUInfo" }
+end
+if FFlagReactSchedulingAddPlaySessionId and EngineFeatureTelemetryServicePlaySessionInfoEnabled then
+	table.insert(summaryStandardizedFields, "addPlaySessionId")
 end
 
 local SessionSummaryEvent = {

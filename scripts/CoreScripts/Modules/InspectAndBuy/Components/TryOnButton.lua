@@ -11,14 +11,11 @@ local SetTryingOnInfo = require(InspectAndBuyFolder.Actions.SetTryingOnInfo)
 local TryOnItem = require(InspectAndBuyFolder.Thunks.TryOnItem)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
-local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
 local TryOnShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).TryOn
 
 local TRY_ON_KEY = "InGame.InspectMenu.Action.TryOn"
 local TAKE_OFF_KEY = "InGame.InspectMenu.Action.TakeOff"
 local TEXT_SIZE = 16
-local BUTTON_PADDING = 10
-local ROBLOX_CREATOR_ID = "1"
 
 local TryOnButton = Roact.PureComponent:extend("TryOnButton")
 
@@ -70,11 +67,8 @@ function TryOnButton:render()
 	local showTryOn = self.props.showTryOn
 	local locale = self.props.locale
 	local assetInfo = self.props.assetInfo
-	local creatorId = assetInfo and assetInfo.creatorId or 0
 	local tryOnButtonRef = self.props.tryOnButtonRef
-	local sizeXAdjustment = if FFlagEnableFavoriteButtonForUgc
-		then -32
-		else creatorId == ROBLOX_CREATOR_ID and -32 or -BUTTON_PADDING / 2
+	local sizeXAdjustment = -32
 	local tryOnTextKey
 
 	if tryingOn then

@@ -17,7 +17,9 @@ local UpdateCoreGuiEnabled = require(TopBar.Actions.UpdateCoreGuiEnabled)
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
 
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
-local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 
 local CoreGuiConnector = Roact.PureComponent:extend("CoreGuiConnector")
 

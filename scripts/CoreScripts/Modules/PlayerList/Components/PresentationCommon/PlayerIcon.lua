@@ -4,6 +4,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local FFlagPlayerIconAvatarFix = require(RobloxGui.Modules.Flags.FFlagPlayerIconAvatarFix)
 
+local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
@@ -17,8 +18,12 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+local useLayoutValues = PlayerListPackage.Common.useLayoutValues
+
 local PlayerList = Components.Parent
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
+local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
@@ -41,6 +46,8 @@ PlayerIcon.validateProps = t.strictInterface({
 		isFollowing = t.boolean,
 		isFollower = t.boolean,
 	}),
+
+	layoutValues = t.optional(t.table),
 })
 
 local function getSocialIconImage(layoutValues, relationship)
@@ -77,6 +84,8 @@ end
 
 function PlayerIcon:render()
 	return WithLayoutValues(function(layoutValues)
+		layoutValues = if FFlagAddMobilePlayerListScaling then self.props.layoutValues else layoutValues
+
 		local avatarIcon = nil
 		if FFlagPlayerIconAvatarFix then
 			avatarIcon = self.props.playerIconInfo and self.props.playerIconInfo.avatarIcon
@@ -140,8 +149,16 @@ local function mapStateToProps(state)
 	}
 end
 
-if FFlagPlayerListReduceRerenders then
-	return React.memo(RoactRodux.connect(mapStateToProps, nil)(PlayerIcon))
+local PlayerIconWrapper = function(props)
+	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
+
+	return React.createElement(PlayerIcon, Cryo.Dictionary.join(props, {
+		layoutValues = layoutValues,
+	}))
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(PlayerIcon)
+if FFlagPlayerListReduceRerenders then
+	return React.memo(RoactRodux.connect(mapStateToProps, nil)(if FFlagAddMobilePlayerListScaling then PlayerIconWrapper else PlayerIcon))
+end
+
+return RoactRodux.connect(mapStateToProps, nil)(if FFlagAddMobilePlayerListScaling then PlayerIconWrapper else PlayerIcon)

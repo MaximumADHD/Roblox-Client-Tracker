@@ -9,7 +9,9 @@ local t = require(CorePackages.Packages.t)
 
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
-local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 
 local SetIsDead = require(TopBar.Actions.SetIsDead)
 local UpdateHealth = require(TopBar.Actions.UpdateHealth)

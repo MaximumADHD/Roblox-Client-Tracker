@@ -5,18 +5,26 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
-
+local InspectAndBuyFolder = script.Parent.Parent
 local React = require(CorePackages.Packages.React)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 local useViewBreakpoints = AvatarExperienceInspectAndBuy.Hooks.useViewBreakpoints
 local ResponsivePanelLayout = AvatarExperienceInspectAndBuy.Components.ResponsivePanelLayout
 local useResponsivePanelLayoutProps = AvatarExperienceInspectAndBuy.Hooks.useResponsivePanelLayoutProps
 
+local UpdateBulkPuchaseResults = require(InspectAndBuyFolder.Actions.UpdateBulkPuchaseResults)
+local useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch
+
+local useUnifiedEventListenerInExperience =
+	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).useUnifiedEventListener.useUnifiedEventListenerInExperience
+
 local Foundation = require(CorePackages.Packages.Foundation)
 local useTokens = Foundation.Hooks.useTokens
 local Modules = CoreGui.RobloxGui.Modules
 local Theme = require(Modules.Settings.Theme)
 local TopBarConstants = require(Modules.TopBar.Constants)
+
+type PromptBulkPurchaseFinishedResult = AvatarExperienceInspectAndBuy.PromptBulkPurchaseFinishedResult
 
 local function InspectAndBuyBaseContainer(props)
 	local onInspectMenuClosed = React.useCallback(function()
@@ -25,7 +33,18 @@ local function InspectAndBuyBaseContainer(props)
 
 	local viewBreakpoints = useViewBreakpoints(TopBarConstants.TopBarHeight)
 	local tokens = useTokens()
-	local responsivePanelLayoutProps = useResponsivePanelLayoutProps(onInspectMenuClosed)
+	local dispatch = useDispatch()
+
+	local onBulkPurchaseFinished = React.useCallback(function(player, status, result: PromptBulkPurchaseFinishedResult)
+		dispatch(UpdateBulkPuchaseResults(result))
+	end, { dispatch })
+
+	local responsivePanelLayoutProps = useResponsivePanelLayoutProps({
+		onInspectMenuClosed = onInspectMenuClosed,
+		onBulkPurchaseFinished = onBulkPurchaseFinished,
+	})
+
+	useUnifiedEventListenerInExperience()
 
 	-- outer overlay container will close the menu when clicked on
 	return React.createElement(Foundation.View, {

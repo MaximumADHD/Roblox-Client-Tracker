@@ -1,10 +1,14 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
+local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+
+local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 
 local withStyle = UIBlox.Style.withStyle
 
@@ -19,6 +23,8 @@ local Colors = require(CorePackages.Workspace.Packages.Style).Colors
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
+
+local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
 
@@ -40,6 +46,8 @@ DropDownButton.validateProps = t.strictInterface({
 	animatingAccept = t.optional(t.boolean),
 	animatingDecline = t.optional(t.boolean),
 	animatingPercentage = t.optional(t.number),
+
+	layoutValues = t.optional(t.table),
 })
 
 function DropDownButton:init()
@@ -76,6 +84,8 @@ end
 function DropDownButton:render()
 	return WithLayoutValues(function(layoutValues)
 		return withStyle(function(style)
+			layoutValues = if FFlagAddMobilePlayerListScaling then self.props.layoutValues else layoutValues
+
 			local overlayStyle = {
 				Transparency = 1,
 				Color = Color3.new(1, 1, 1),
@@ -292,6 +302,14 @@ function DropDownButton:render()
 	end)
 end
 
+local DropDownButtonWrapper = function(props)
+	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
+
+	return Roact.createElement(DropDownButton, Cryo.Dictionary.join(props, {
+		layoutValues = layoutValues,
+	}))
+end
+
 local function mapStateToProps(state)
 	return {
 		screenSizeX = state.screenSize.X,
@@ -299,4 +317,8 @@ local function mapStateToProps(state)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(DropDownButton)
+if FFlagAddMobilePlayerListScaling then
+	return RoactRodux.connect(mapStateToProps, nil)(DropDownButtonWrapper)
+else 
+	return RoactRodux.connect(mapStateToProps, nil)(DropDownButton)
+end

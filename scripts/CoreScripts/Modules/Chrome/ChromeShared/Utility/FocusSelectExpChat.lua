@@ -7,10 +7,11 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeFocusOnAndOffUtils = SharedFlags.FFlagChromeFocusOnAndOffUtils
 
 local Chrome = script:FindFirstAncestor("Chrome")
-local ChromeService = require(Chrome.Service)
 local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
-local Types = require(Chrome.ChromeShared.Service.Types)
 local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
+local ChromeService = require(Chrome.Service)
+local FFlagChatIntegrationFixShortcut = require(Chrome.Flags.FFlagChatIntegrationFixShortcut)
+local Types = require(Chrome.ChromeShared.Service.Types)
 
 local InputType = require(CorePackages.Workspace.Packages.InputType)
 local getInputGroup = InputType.getInputGroup
@@ -28,7 +29,9 @@ return function(id: Types.IntegrationId)
 	if FFlagChromeFocusOnAndOffUtils then
 		if ChatSelector:GetVisibility() and isUsingGamepad() then
 			ChromeFocusUtils.FocusOffChrome(function()
-				ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+				if not FFlagChatIntegrationFixShortcut then
+					ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+				end
 				ExpChatFocusNavigationStore.focusChatInputBar()
 			end)
 		end

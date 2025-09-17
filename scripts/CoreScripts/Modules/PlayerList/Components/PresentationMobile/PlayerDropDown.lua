@@ -14,6 +14,8 @@ local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
+local useLayoutValues = PlayerListPackage.Common.useLayoutValues
+
 local Components = script.Parent.Parent
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
@@ -44,6 +46,7 @@ local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDo
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
+local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 
 local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
@@ -78,6 +81,8 @@ PlayerDropDown.validateProps = t.strictInterface({
 
 	focusGuiObject = t.optional(t.callback),
 	focusedGuiObject = t.optional(t.instanceIsA("GuiObject")),
+
+	layoutValues = t.optional(t.table),
 })
 
 local MOTOR_OPTIONS = {
@@ -216,6 +221,8 @@ end
 
 function PlayerDropDown:render()
 	return WithLayoutValues(function(layoutValues)
+		layoutValues = if FFlagAddMobilePlayerListScaling then self.props.layoutValues else layoutValues
+
 		local selectedPlayer = self.props.selectedPlayer
 
 		if not selectedPlayer or self.props.isTenFootInterface then
@@ -391,16 +398,19 @@ local function mapDispatchToProps(dispatch)
 end
 
 local function PlayerDropDownWrapper(props)
+	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
+
 	local focusGuiObject = ReactFocusNavigation.useFocusGuiObject()
 	local focusedGuiObject = ReactFocusNavigation.useFocusedGuiObject()
 	
 	return Roact.createElement(PlayerDropDown, Cryo.Dictionary.join(props, {
 		focusGuiObject = focusGuiObject,
 		focusedGuiObject = focusedGuiObject,
+		layoutValues = layoutValues,
 	}))
 end
 
-if FFlagAddNewPlayerListMobileFocusNav then
+if FFlagAddNewPlayerListMobileFocusNav or FFlagAddMobilePlayerListScaling then
 	if FFlagPlayerListReduceRerenders then
 		return React.memo(RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDownWrapper))
 	end

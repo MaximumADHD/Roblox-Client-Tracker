@@ -47,6 +47,7 @@ end
 
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
+local FStringPlayerListOverrideType = require(PlayerList.Flags.FStringPlayerListOverrideType)
 
 local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
 local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
@@ -57,7 +58,7 @@ local function isSmallTouchScreen()
 	if _G.__TESTEZ_RUNNING_TEST__ then
 		return false
 	end
-	return SettingsUtil:IsSmallTouchScreen()
+	return SettingsUtil:IsSmallTouchScreen() or (FStringPlayerListOverrideType == "mobile")
 end
 
 local function setupSettings(store)

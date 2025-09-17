@@ -23,6 +23,7 @@ local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocus
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
+local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
 
 local ChromeFlags = require(script.Parent.Parent.Parent.Flags)
 local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
@@ -141,6 +142,10 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		else
 			table.insert(nineDot, 2, "camera_entrypoint")
 			table.insert(nineDot, 2, "selfie_view")
+		end
+
+		if FFlagEnableInExperienceAvatarSwitcher then
+			table.insert(nineDot, 3, Constants.AVATAR_SWITCHER_ID)
 		end
 
 		-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged

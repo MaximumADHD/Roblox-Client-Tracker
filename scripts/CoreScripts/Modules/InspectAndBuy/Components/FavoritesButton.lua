@@ -16,12 +16,10 @@ local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
-local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
 local FavoriteShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).Favorite
 
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
 local FAVORITE_IMAGE_NOT_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite_off.png"
-local ROBLOX_CREATOR_ID = "1"
 local FAVORITE_GAMEPAD_SHORTCUT = "FavoriteGamepadShortcut"
 local MAX_FETCH_FAVORITE_RETRIES = 10
 
@@ -74,14 +72,6 @@ function FavoritesButton:activateButton()
 	local createFavoriteForBundle = self.props.createFavoriteForBundle
 	local deleteFavoriteForBundle = self.props.deleteFavoriteForBundle
 	local assetInfo = self.props.assetInfo
-	local creatorId = assetInfo and assetInfo.creatorId or 0
-
-	if not FFlagEnableFavoriteButtonForUgc then
-		-- prevent activation when favorites isn't visible b/c items not created by Roblox are not favoriteable
-		if creatorId ~= ROBLOX_CREATOR_ID then
-			return
-		end
-	end
 
 	if isFavorited then
 		if isDetailsItemPartOfBundleAndOffsale then
@@ -107,8 +97,6 @@ end
 function FavoritesButton:render()
 	local isFavorited = self.props.isFavorited
 	local favoriteButtonRef = self.props.favoriteButtonRef
-	local assetInfo = self.props.assetInfo
-	local creatorId = assetInfo and assetInfo.creatorId or 0
 
 	return Roact.createElement("ImageButton", {
 		AnchorPoint = Vector2.new(0.5, 0),
@@ -121,7 +109,7 @@ function FavoritesButton:render()
 		SliceCenter = Rect.new(5, 5, 120, 20),
 		SelectionImageObject = self.selectedImage,
 		-- Users can only favorite Roblox created items, otherwise they'll be captcha'd. We do not support captchas in game.
-		Visible = if FFlagEnableFavoriteButtonForUgc then true else creatorId == ROBLOX_CREATOR_ID,
+		Visible = true,
 		[Roact.Ref] = favoriteButtonRef,
 		[Roact.Event.Activated] = function()
 			self:activateButton()

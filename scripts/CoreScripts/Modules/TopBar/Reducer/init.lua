@@ -4,8 +4,8 @@ local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperi
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
 local createPersistenceMiddleware = CrossExperience.Middlewares.createPersistenceMiddleware
 
-local TopBar = script.Parent
-local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
 
 local DisplayOptions = require(script.DisplayOptions)

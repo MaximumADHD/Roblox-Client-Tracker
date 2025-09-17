@@ -26,6 +26,8 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 type AvatarPreviewItem = AvatarExperienceInspectAndBuy.AvatarPreviewItem
 type BundleInfo = AvatarExperienceInspectAndBuy.BundleInfo
+type BulkPurchaseResultItem = AvatarExperienceInspectAndBuy.BulkPurchaseResultItem
+
 local FFlagAXParseAdditionalItemDetailsFromCatalog =
 	require(InspectAndBuyFolder.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog)
 
@@ -68,6 +70,20 @@ function BundleInfo.mock()
 	return self
 end
 
+--[[
+    Used to process ownership of a bundle based on the PromptBulkPurchaseFinished result
+]]
+function BundleInfo.fromBulkPurchaseResult(bulkPurchaseResult: BulkPurchaseResultItem): BundleInfo
+	local newBundle = BundleInfo.new()
+	if
+		bulkPurchaseResult.status == Enum.MarketplaceItemPurchaseStatus.Success
+		and bulkPurchaseResult.type == Enum.MarketplaceProductType.AvatarBundle
+	then
+		newBundle.owned = true
+	end
+	return newBundle
+end
+
 function BundleInfo.fromAvatarPreviewItem(avatarPreviewItem: AvatarPreviewItem): BundleInfo
 	local newBundle: BundleInfo = BundleInfo.new()
 
@@ -87,13 +103,8 @@ function BundleInfo.fromAvatarPreviewItem(avatarPreviewItem: AvatarPreviewItem):
 	newBundle.bundleType = tostring(avatarPreviewItem.bundleType)
 	newBundle.noPriceStatus = avatarPreviewItem.noPriceStatus
 
-	local assetIds = {}
-	if avatarPreviewItem.assetsInBundle then
-		for _, asset in avatarPreviewItem.assetsInBundle do
-			table.insert(assetIds, tostring(asset.id))
-		end
-	end
-	newBundle.assetIds = assetIds
+	-- parse assetsInBundle field
+	newBundle.assetsInBundle = avatarPreviewItem.assetsInBundle
 
 	-- parse item restrictions for bundle
 	if avatarPreviewItem.itemRestrictions then
@@ -166,7 +177,7 @@ function BundleInfo.fromGetItemDetails(itemDetails)
 
 	if FFlagAXParseAdditionalItemDetailsFromCatalog then
 		newBundle.remaining = itemDetails.UnitsAvailableForConsumption
-		newBundle.collectibleQuantityLimitPerUser = itemDetails.TotalQuantity
+		newBundle.collectibleTotalQuantity = itemDetails.TotalQuantity
 		newBundle.collectibleLowestResalePrice = itemDetails.LowestResalePrice
 		newBundle.isOffSale = itemDetails.IsOffSale
 		newBundle.saleLocationType = itemDetails.SaleLocationType

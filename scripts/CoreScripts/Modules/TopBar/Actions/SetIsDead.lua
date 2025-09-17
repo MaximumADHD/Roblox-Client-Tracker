@@ -1,8 +1,8 @@
 -- Remove with FFlagTopBarSignalizeHealthBar
 local CorePackages = game:GetService("CorePackages")
 
-local TopBar = script.Parent.Parent
-local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 
 local Action = require(CorePackages.Packages.Rodux).makeActionCreator
 

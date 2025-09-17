@@ -5,7 +5,9 @@ local Roact = require(CorePackages.Packages.Roact)
 local TopBar = script.Parent.Parent
 
 local FFlagRemoveTopBarInputTypeRodux = require(TopBar.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
-local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 
 local CoreGuiConnector = require(script.CoreGuiConnector)
 local MenuConnector = require(script.MenuConnector)

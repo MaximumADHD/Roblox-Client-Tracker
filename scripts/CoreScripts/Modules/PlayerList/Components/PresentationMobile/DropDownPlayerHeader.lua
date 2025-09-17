@@ -1,12 +1,19 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
+local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+
+local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 
 local withStyle = UIBlox.Style.withStyle
+
+local useTokens = Foundation.Hooks.useTokens
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -15,6 +22,8 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local Emoji = UIBlox.App.Emoji.Enum.Emoji
+
+local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 
 local TEXT_HEIGHT = 22
 
@@ -26,11 +35,19 @@ DropDownPlayerHeader.validateProps = t.strictInterface({
 	player = t.instanceIsA("Player"),
 	transparency = t.any,
 	contentVisible = t.boolean,
+
+	layoutValues = t.optional(t.table),
+	tokens = t.optional(t.table),
 })
 
 function DropDownPlayerHeader:render()
 	return WithLayoutValues(function(layoutValues)
 		return withStyle(function(style)
+			layoutValues = if FFlagAddMobilePlayerListScaling then self.props.layoutValues else layoutValues
+			local tokens = if FFlagAddMobilePlayerListScaling then self.props.tokens else nil
+			local xOffset = if FFlagAddMobilePlayerListScaling then tokens.Size.Size_3000 else X_OFFSET
+			local textHeight = if FFlagAddMobilePlayerListScaling then tokens.Size.Size_500 else TEXT_HEIGHT
+
 			local player = self.props.player
 			local avatarBackgroundImage = "rbxasset://textures/ui/PlayerList/NewAvatarBackground.png"
 			local showVerifiedBadge = UserLib.Utils.isPlayerVerified(player)
@@ -54,8 +71,8 @@ function DropDownPlayerHeader:render()
 					TextContainerFrame = Roact.createElement("Frame", {
 						Visible = self.props.contentVisible,
 						BackgroundTransparency = 1,
-						Size = UDim2.new(1, -X_OFFSET, 1, 0),
-						Position = UDim2.new(0, 107, 0, 0),
+						Size = UDim2.new(1, -xOffset, 1, 0),
+						Position = UDim2.new(0, if FFlagAddMobilePlayerListScaling then tokens.Size.Size_2700 else 107, 0, 0),
 					}, {
 						Layout = Roact.createElement("UIListLayout", {
 							SortOrder = Enum.SortOrder.LayoutOrder,
@@ -69,7 +86,7 @@ function DropDownPlayerHeader:render()
 							colorStyle = style.Theme.TextEmphasis,
 							fluidSizing = false,
 							emoji = Emoji.Verified,
-							maxSize = Vector2.new(layoutValues.PlayerDropDownSizeXMobile - X_OFFSET, TEXT_HEIGHT),
+							maxSize = Vector2.new(layoutValues.PlayerDropDownSizeXMobile - xOffset, textHeight),
 							LayoutOrder = 1,
 							Text = player.DisplayName,
 							TextXAlignment = Enum.TextXAlignment.Left,
@@ -78,7 +95,7 @@ function DropDownPlayerHeader:render()
 							TextScaled = true,
 						}) or Roact.createElement("TextLabel", {
 							LayoutOrder = 1,
-							Size = UDim2.new(1, 0, 0, TEXT_HEIGHT),
+							Size = UDim2.new(1, 0, 0, textHeight),
 							Text = player.DisplayName,
 							Font = style.Font.Header2.Font,
 							TextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
@@ -97,7 +114,7 @@ function DropDownPlayerHeader:render()
 
 						PlayerName = Roact.createElement("TextLabel", {
 							LayoutOrder = 2,
-							Size = UDim2.new(1, 0, 0, TEXT_HEIGHT),
+							Size = UDim2.new(1, 0, 0, textHeight),
 							Text = "@" .. player.Name,
 							Font = style.Font.CaptionHeader.Font,
 							TextSize = style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
@@ -117,7 +134,7 @@ function DropDownPlayerHeader:render()
 				}),
 
 				AvatarImage = Roact.createElement("ImageLabel", {
-					Position = UDim2.new(0, 112 / 2, 0, 0),
+					Position = UDim2.new(0, if FFlagAddMobilePlayerListScaling then tokens.Size.Size_1400 else 112 / 2, 0, 0),
 					Size = UDim2.new(0, layoutValues.DropDownHeaderSizeY, 0, layoutValues.DropDownHeaderSizeY),
 					AnchorPoint = Vector2.new(0.5, 0),
 					BackgroundTransparency = 1,
@@ -141,4 +158,18 @@ function DropDownPlayerHeader:render()
 	end)
 end
 
-return DropDownPlayerHeader
+local DropDownPlayerHeaderWrapper = function(props)
+	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
+	local tokens = if FFlagAddMobilePlayerListScaling then useTokens() else nil
+
+	return Roact.createElement(DropDownPlayerHeader, Cryo.Dictionary.join(props, {
+		layoutValues = layoutValues,
+		tokens = tokens,
+	}))
+end
+
+if FFlagAddMobilePlayerListScaling then
+	return DropDownPlayerHeaderWrapper
+else
+	return DropDownPlayerHeader
+end

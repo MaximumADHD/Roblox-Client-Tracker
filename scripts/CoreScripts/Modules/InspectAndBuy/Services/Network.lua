@@ -57,7 +57,7 @@ end
    Get a preview of the available marketplace assets and bundles associated with the local player model
 ]]
 local function getPreviewAvatar(assets): Promise<AvatarPreviewResponse>
-	local url = Url.APIS_URL .. "look-api/v1/resolve-assets-to-bundles"
+	local url = Url.APIS_URL .. "look-api/v1/looks/purchase-details"
 	local options = {
 		Url = url,
 		Method = "POST",

@@ -15,6 +15,7 @@ local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+local FFlagIconHostSetZIndexToDefault = ChromeSharedFlags.FFlagIconHostSetZIndexToDefault
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
@@ -671,7 +672,7 @@ function IconHost(props: IconHostProps)
 		BackgroundTransparency = 1,
 		Position = props.position,
 		Visible = props.visible,
-		ZIndex = props.integration.order,
+		ZIndex = if FFlagIconHostSetZIndexToDefault then nil else props.integration.order,
 	}, {
 
 		React.createElement("Frame", {

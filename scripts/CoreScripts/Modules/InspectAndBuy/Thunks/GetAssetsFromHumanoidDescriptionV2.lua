@@ -28,7 +28,7 @@ local function getAssetIds(humanoidDescription)
 
 	local accessories = humanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
 	for _, accessory in accessories do
-		assets[#assets + 1] = AssetInfo.fromHumanoidDescription(accessory.AssetId)
+		assets[#assets + 1] = AssetInfo.fromHumanoidDescriptionAccessory(accessory)
 	end
 
 	local emotes = humanoidDescription:GetEmotes()

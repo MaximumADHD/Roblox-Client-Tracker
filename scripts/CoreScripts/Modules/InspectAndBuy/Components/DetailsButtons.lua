@@ -14,7 +14,6 @@ local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local tutils = require(CorePackages.Packages.tutils)
 
-local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
 local GetFFlagIBGateUGC4ACollectibleAssetsBundles =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBGateUGC4ACollectibleAssetsBundles)
 local GetFFlagIBEnableCollectiblesSystemSupport =
@@ -29,7 +28,6 @@ local OWNED_KEY = "InGame.InspectMenu.Label.Owned"
 local PREMIUM_ONLY_KEY = "InGame.InspectMenu.Label.PremiumOnly"
 local LIMIT_REACHED_KEY = "InGame.InspectMenu.Action.LimitReached"
 local FROM_RESALE_KEY = "InGame.InspectMenu.Action.FromResale"
-local ROBLOX_CREATOR_ID = "1"
 
 --[[
 	If an asset is an animation (or emotes in the future) we cannot support
@@ -96,24 +94,10 @@ function DetailsButtons:didUpdate(prevProps)
 	local bundlesObtainedAndDetailPageOpened = detailsInformation.viewingDetails
 
 	if bundlesObtainedAndDetailPageOpened then
-		local assetInfo = self.props.assetInfo
-		local showTryOn = not isAnimationAsset(assetInfo.assetTypeId)
 		local visible = self.props.visible
 
 		if gamepadEnabled and visible then
-			local creatorId = assetInfo and assetInfo.creatorId or 0
-
-			if FFlagEnableFavoriteButtonForUgc then
-				GuiService.SelectedCoreObject = self.favoriteButtonRef.current
-			else
-				if creatorId == ROBLOX_CREATOR_ID then
-					GuiService.SelectedCoreObject = self.favoriteButtonRef.current
-				elseif showTryOn then
-					GuiService.SelectedCoreObject = self.tryOnButtonRef.current
-				else
-					GuiService.SelectedCoreObject = self.buyButtonRef.current
-				end
-			end
+			GuiService.SelectedCoreObject = self.favoriteButtonRef.current
 		end
 	elseif self.props.assetInfo.bundlesAssetIsIn == nil and detailsInformation.viewingDetails and gamepadEnabled then
 		GuiService.SelectedCoreObject = nil
@@ -212,7 +196,6 @@ function DetailsButtons:render()
 	local assetInfo = self.props.assetInfo
 	local showRobuxIcon = false
 	local showTryOn = false
-	local creatorId = assetInfo and assetInfo.creatorId or 0
 	local buyText, forSale, partOfBundle, bundleId, itemType, itemId, partOfBundleAndOffsale
 	local collectibleItemId = nil
 	local collectibleLowestResalePrice = nil
@@ -294,7 +277,7 @@ function DetailsButtons:render()
 		ControllerBar = showControllerBar and Roact.createElement(InspectAndBuyControllerBar, {
 			showTryOn = showTryOn,
 			tryingOn = self.props.tryingOn,
-			showFavorite = if FFlagEnableFavoriteButtonForUgc then true else creatorId == ROBLOX_CREATOR_ID, -- only Roblox-authored items are favoriteable
+			showFavorite = true,
 			isFavorited = self.props.isFavorited,
 		}),
 		FavoriteButton = Roact.createElement(FavoritesButton, {

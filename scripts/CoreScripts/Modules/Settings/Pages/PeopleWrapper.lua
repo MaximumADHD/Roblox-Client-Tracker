@@ -20,6 +20,7 @@ local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).U
 local FFlagNavigateToBlockingModal = require(Modules.Common.Flags.FFlagNavigateToBlockingModal)
 local FFlagEnableNewBlockingModal = require(Modules.Common.Flags.FFlagEnableNewBlockingModal)
 local FFlagEnableToastForBlockingModal = require(Modules.Common.Flags.FFlagEnableToastForBlockingModal)
+local FFlagRenderPeoplePageOnTabSwitch = game:DefineFastFlag("RenderPeoplePageOnTabSwitch", false)
 
 -- Chrome check
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
@@ -32,6 +33,7 @@ local LocalizationProvider = require(CorePackages.Workspace.Packages.Localizatio
 local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
+local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
@@ -139,13 +141,23 @@ local function createPeoplePage()
 	end
 
 	PeoplePage.Displayed.Event:Connect(function()
-		createReactTree()
-		setDisplayed(true)
+		if not FFlagRenderPeoplePageOnTabSwitch or not getDisplayed(false) then
+			createReactTree()
+			setDisplayed(true)
+		end
 	end)
 
-	PeoplePage.Hidden.Event:Connect(function()
-		setDisplayed(false)
-	end)
+	if FFlagRenderPeoplePageOnTabSwitch then
+		SettingsShowSignal:connect(function(isOpen)
+			if not isOpen then
+				setDisplayed(false)
+			end
+		end)
+	else
+		PeoplePage.Hidden.Event:Connect(function()
+			setDisplayed(false)
+		end)
+	end
 
 	PeoplePage.Page.Size = UDim2.new(1, 0, 0, 0)
 	PeoplePage.Page.AutomaticSize = Enum.AutomaticSize.Y

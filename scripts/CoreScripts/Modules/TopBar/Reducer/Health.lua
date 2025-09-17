@@ -8,8 +8,8 @@ local Actions = script.Parent.Parent.Actions
 local UpdateHealth = require(Actions.UpdateHealth)
 local SetIsDead = require(Actions.SetIsDead)
 
-local TopBar = script.Parent.Parent
-local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 
 if FFlagTopBarSignalizeHealthBar then 
 	return nil :: never 

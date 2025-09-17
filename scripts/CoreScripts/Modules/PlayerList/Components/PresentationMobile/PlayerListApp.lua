@@ -5,6 +5,7 @@ local Players = game:GetService("Players")
 local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
 
+local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local Otter = require(CorePackages.Packages.Otter)
@@ -16,6 +17,9 @@ local Modules = CoreGui.RobloxGui.Modules
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local TopBarConstants = require(Modules.TopBar.Constants)
 local ChromeEnabled = require(Modules.Chrome.Enabled)()
+
+local Foundation = require(CorePackages.Packages.Foundation)
+local useTokens = Foundation.Hooks.useTokens
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
@@ -42,6 +46,7 @@ local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerLi
 local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDownVisibility)
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
+local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -62,7 +67,7 @@ end
 
 local PlayerListApp = Roact.PureComponent:extend("PlayerListApp")
 
-local function playerListSizeFromViewportSize(self, viewportSize)
+local function playerListSizeFromViewportSize(self, viewportSize, uiScale)
 	-- Turn x/y into min/max to stay independent of aspect ratio
 	local vMin = math.min(viewportSize.x, viewportSize.y)
 	local vMax = math.max(viewportSize.x, viewportSize.y)
@@ -84,6 +89,11 @@ local function playerListSizeFromViewportSize(self, viewportSize)
 	-- Remap from min/max to x/y
 	local sX = viewportSize.x > viewportSize.y and sMax or sMin
 	local sY = viewportSize.y > viewportSize.x and sMax or sMin
+
+	if FFlagAddMobilePlayerListScaling then
+		sX = sX * uiScale
+		sY = sY * uiScale
+	end
 
 	-- Increase y-axis border to avoid chrome overlap on landscape
 	if ChromeEnabled and viewportSize.y < viewportSize.x then
@@ -122,7 +132,7 @@ function PlayerListApp:init()
 		visible = false,
 	}
 
-	if FFlagTopBarStyleUseDisplayUIScale then
+	if FFlagTopBarStyleUseDisplayUIScale or FFlagAddMobilePlayerListScaling then
 		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
 			local DisplayStore = Display.GetDisplayStore(scope)
 			self:setState({
@@ -178,6 +188,9 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 	local contentVisible = self.state.visible
 	local dropDownVisible = self.props.isDropDownVisible
 
+	local headerSizeY = if FFlagAddMobilePlayerListScaling then self.props.tokens.Size.Size_1100 else HEADER_SIZE_Y
+	local closeButtonSize = if FFlagAddMobilePlayerListScaling then self.props.tokens.Size.Size_500 else 22
+
 	return {
 		UIScale = Roact.createElement("UIScale", {
 			Scale = self.frameScale,
@@ -188,12 +201,12 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 		}),
 
 		TitleText = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 0, HEADER_SIZE_Y),
+			Size = UDim2.new(1, 0, 0, headerSizeY),
 			Position = UDim2.new(0, 0, 0, 0),
 			BackgroundTransparency = 1,
 			Font = AppFonts.default:getBold(),
 			Visible = contentVisible and not dropDownVisible,
-			TextSize = 22,
+			TextSize = if FFlagAddMobilePlayerListScaling then self.props.tokens.FontSize.FontSize_500 else 22,
 			TextColor3 = Color3.fromRGB(240, 240, 240),
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
@@ -205,8 +218,8 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 			Image = "rbxasset://textures/ui/InspectMenu/x.png",
 			ImageColor3 = Color3.fromRGB(255, 255, 255),
 			AnchorPoint = Vector2.new(0, 0.5),
-			Size = UDim2.fromOffset(22, 22),
-			Position = UDim2.fromOffset(11, 22),
+			Size = UDim2.fromOffset(closeButtonSize, closeButtonSize),
+			Position = UDim2.fromOffset(closeButtonSize / 2, closeButtonSize),
 			BackgroundTransparency = 1,
 			Visible = contentVisible and not dropDownVisible,
 			ZIndex = 0,
@@ -220,7 +233,7 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 		ContentFrame = Roact.createElement("Frame", {
 			Position = UDim2.new(0.5, 0, 1, 0),
 			AnchorPoint = Vector2.new(0.5, 1),
-			Size = UDim2.new(1, 0, 1, -HEADER_SIZE_Y),
+			Size = UDim2.new(1, 0, 1, -headerSizeY),
 			BackgroundTransparency = 1,
 			Visible = contentVisible and not dropDownVisible,
 			AutoLocalize = false,
@@ -303,7 +316,7 @@ function PlayerListApp:render()
 				})
 				else nil,
 			BodyBackground = Roact.createElement("Frame", {
-				Size = playerListSizeFromViewportSize(self, Vector2.new(self.props.screenSizeX, self.props.screenSizeY)),
+				Size = playerListSizeFromViewportSize(self, Vector2.new(self.props.screenSizeX, self.props.screenSizeY), self.state.UiScale),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				BackgroundColor3 = Color3.fromRGB(17, 18, 20),
@@ -324,7 +337,7 @@ end
 
 function PlayerListApp:willUnmount()
 	self.props.setLayerCollectorEnabled(true)
-	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+	if (FFlagTopBarStyleUseDisplayUIScale or FFlagAddMobilePlayerListScaling) and self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 end
@@ -401,4 +414,16 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListApp)
+local PlayerListAppWrapper = function(props)
+	local tokens = if FFlagAddMobilePlayerListScaling then useTokens() else nil
+
+	return Roact.createElement(PlayerListApp, Cryo.Dictionary.join(props, {
+		tokens = tokens,
+	}))
+end
+
+if FFlagAddMobilePlayerListScaling then
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListAppWrapper)
+else
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListApp)
+end

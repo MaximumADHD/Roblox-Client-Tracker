@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AXEnableFetchAvatarPreview3", false)
+return game:DefineFastFlag("AXEnableFetchAvatarPreview6", false)

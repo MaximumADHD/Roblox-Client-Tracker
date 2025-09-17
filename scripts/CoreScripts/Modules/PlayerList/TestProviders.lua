@@ -14,6 +14,9 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local LayoutValuesProvider = LayoutValues.Provider
 
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+local LayoutValuesContext = PlayerListPackage.Common.LayoutValuesContext
+
 local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
 local ApolloProvider = ApolloClientModule.ApolloProvider
 
@@ -24,6 +27,8 @@ local mockApolloClient = ApolloClientTestUtils.mockApolloClient
 local Array = require(CorePackages.Packages.LuauPolyfill).Array
 
 local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
+
+local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 
 local function TestProviders(props: any)
 	local store = Rodux.Store.new(Reducer)
@@ -65,10 +70,18 @@ local function TestProviders(props: any)
 		ApolloProvider = Roact.createElement(ApolloProvider, {
 			client = props.client or ApolloClientInstance,
 		}, {
-			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+			LayoutValuesProvider_DEPRECATED = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = props.layoutValues or CreateLayoutValues(false),
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {}, props.children),
+				ThemeProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {}, 
+					if FFlagAddMobilePlayerListScaling and LayoutValuesContext 
+						then {
+							LayoutValuesProvider = Roact.createElement(LayoutValuesContext.Provider, {
+								value = props.layoutValues or CreateLayoutValues(false),
+							}, props.children)
+						} 
+						else props.children
+				),
 			}),
 		}),
 	})

@@ -5,6 +5,7 @@ local StarterGui = game:GetService("StarterGui")
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
+local Signals = require(CorePackages.Packages.Signals)
 local Otter = require(CorePackages.Packages.Otter)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -12,13 +13,13 @@ local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicy
 
 local CoreGuiModules = RobloxGui:FindFirstChild("Modules")
 local CommonModules = CoreGuiModules:FindFirstChild("Common")
-local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
 
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
 local Constants = require(TopBar.Constants)
 
-local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 
 local MOTOR_OPTIONS = {
 	frequency = 0.75,
@@ -67,10 +68,6 @@ function HurtOverlay:init()
 			self.prevHealth = currentHealth
 			self.prevIsDead = isDead
 
-			if isAnimating then 
-				return true 
-			end
-
 			if currentHealth < prevHealth then
 				if not (isDead and prevIsDead) then
 					local healthChange = prevHealth - currentHealth
@@ -86,6 +83,18 @@ function HurtOverlay:init()
 			end
 			return false
 		end) 
+
+
+		if CoreGuiCommon.Stores.GetLocalHumanoidStore then 
+			self.localHumanoidStore = CoreGuiCommon.Stores.GetLocalHumanoidStore(false)
+			self.disposeHealthConnection = Signals.createEffect(function(scope) 
+				local healthValue = self.localHumanoidStore.getHealthValue(scope)
+
+				self.setHealth(healthValue.health or Constants.InitialHealth)
+				self.setMaxHealth(healthValue.maxHealth or Constants.InitialHealth)
+				self.setIsDead(healthValue.isDead)
+			end)
+		end
 	else
 		self.state = {
 			isAnimating = false,
@@ -125,36 +134,6 @@ function HurtOverlay:init()
 		self:setState({
 			mountHurtOverlay = getHealthEnabled(),
 		})
-		HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
-			local healthChangedConn
-			local characterRemovingConn
-			local diedConn
-			local function disconnect()
-				healthChangedConn:Disconnect()
-				characterRemovingConn:Disconnect()
-				diedConn:Disconnect()
-			end
-			
-			self.setHealth(humanoid.Health)
-			self.setMaxHealth(humanoid.MaxHealth)
-			self.setIsDead(false)
-
-			healthChangedConn = humanoid.HealthChanged:Connect(function()
-				self.setHealth(humanoid.Health)
-				self.setMaxHealth(humanoid.MaxHealth)
-			end)
-
-			diedConn = humanoid.Died:Connect(function()
-				disconnect()
-				self.setIsDead(true)
-			end)
-
-			characterRemovingConn = player.CharacterRemoving:Connect(function(removedCharacter)
-				if removedCharacter == character then
-					disconnect()
-				end
-			end)
-		end)
 	end
 end
 
@@ -212,6 +191,7 @@ end
 if FFlagTopBarSignalizeHealthBar then
 	function HurtOverlay:onUnmount()
 		self.coreGuiChangedSignalConn:Disconnect()
+		self.disposeHealthConnection()
 	end
 end
 

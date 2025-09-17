@@ -82,6 +82,7 @@ local FFlagBadgeVisibilitySettingEnabled = SharedFlags.FFlagBadgeVisibilitySetti
 local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
 local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
 local FFlagGameSettingsRefactorMovementModeLogic = SettingsFlags.FFlagGameSettingsRefactorMovementModeLogic
+local FFlagGameSettingsRespectDevModes = SettingsFlags.FFlagGameSettingsRespectDevModes
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -1275,11 +1276,35 @@ local function Initialize()
 			end
 		end
 
+		local function setShiftLockSelectorVisible(visible: boolean)
+			local enableShiftLock
+			if FFlagGameSettingsUsePreferredInputMovement then
+				enableShiftLock = visible and LocalPlayer.DevEnableMouseLock
+			else
+				enableShiftLock = visible
+			end
+			if this.ShiftLockMode then
+				this.ShiftLockMode.SelectorFrame.Visible = enableShiftLock
+				this.ShiftLockMode:SetInteractable(enableShiftLock)
+			end
+		end
+
+		local function applyDevOverrideShiftLockSelector()
+			local enableDevOverride = not LocalPlayer.DevEnableMouseLock
+			if this.ShiftLockOverrideText then
+				this.ShiftLockOverrideText.Visible = enableDevOverride
+				setShiftLockSelectorVisible(not enableDevOverride)
+			end
+		end
+
 		if FFlagGameSettingsUsePreferredInputMovement then
 			local function updateShiftLockVisibility()
 				local enableShiftLock = UserInputService.MouseEnabled and UserInputService.KeyboardEnabled
 				if this.ShiftLockFrame then
 					this.ShiftLockFrame.Visible = enableShiftLock
+				end
+				if FFlagGameSettingsRespectDevModes then
+					applyDevOverrideShiftLockSelector()
 				end
 			end
 
@@ -1378,10 +1403,12 @@ local function Initialize()
 					return
 				end
 
-				if GetFFlagGameSettingsCameraModeFixEnabled() then
-					setCameraModeVisible(cameraModeIsUserChoice())
-				else
-					setCameraModeVisible(true)
+				if not FFlagGameSettingsRespectDevModes then
+					if GetFFlagGameSettingsCameraModeFixEnabled() then
+						setCameraModeVisible(cameraModeIsUserChoice())
+					else
+						setCameraModeVisible(true)
+					end
 				end
 
 				for i = 1, #enumsToAdd do
@@ -1427,7 +1454,10 @@ local function Initialize()
 					end
 					updateCurrentCameraMovementIndex(currentSavedMode)
 					this.CameraMode:SetSelectionIndex(currentSavedMode)
-			end
+				end
+				if FFlagGameSettingsRespectDevModes then
+					setCameraModeVisible(cameraModeIsUserChoice())
+				end
 			end
 
 			this.CameraModeFrame, this.CameraModeLabel, this.CameraMode =
@@ -1549,7 +1579,11 @@ local function Initialize()
 		local movementIndexToEnum = {}
 		local movementIndexToDisplayName = {}
 
-		function setMovementModeVisible(visible)
+		local applyDevOverrideMovementModeSelector: (isTouch: boolean) -> () = function(isTouch: boolean)
+			-- dummy func, gets set later but we need the reference now
+		end
+
+		local function setMovementModeVisible(visible)
 			if this.MovementMode then
 				local shouldBeVisible = visible and (#movementModes > 0)
 				this.MovementMode.SelectorFrame.Visible = shouldBeVisible
@@ -1664,6 +1698,20 @@ local function Initialize()
 				end
 			end
 
+			if FFlagGameSettingsRespectDevModes then
+				applyDevOverrideMovementModeSelector = function(isTouch: boolean)
+					local isUserChoice
+					if isTouch then
+						isUserChoice = LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice
+					else
+						isUserChoice = LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice
+					end
+					setMovementModeVisible(isUserChoice)
+					if this.MovementModeOverrideText then
+						this.MovementModeOverrideText.Visible = not isUserChoice
+					end
+				end
+			end
 			local function updateMovementModes()
 				local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
 					UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
@@ -1731,8 +1779,11 @@ local function Initialize()
 
 					local currentSavedMode = -1
 
-					local isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
-						UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+					local isTouchInput
+					if not FFlagGameSettingsRespectDevModes then
+						isTouchInput = if FFlagGameSettingsUsePreferredInputMovement then 
+							UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+					end
 					if isTouchInput then
 						currentSavedMode = GameSettings.TouchMovementMode.Value
 					else
@@ -1750,6 +1801,10 @@ local function Initialize()
 							this.MovementMode:SetSelectionIndex(savedEnum.Value + 1)
 						end
 					end
+				end
+
+				if FFlagGameSettingsRespectDevModes then
+					applyDevOverrideMovementModeSelector(isTouchInput)
 				end
 			end
 
@@ -1788,18 +1843,6 @@ local function Initialize()
 		------------------------------------------------------
 		------------------
 		------------------------- Connection Setup -----------
-		function setShiftLockSelectorVisible(visible: boolean)
-			local enableShiftLock
-			if FFlagGameSettingsUsePreferredInputMovement then
-				enableShiftLock = visible and LocalPlayer.DevEnableMouseLock
-			else
-				enableShiftLock = visible
-			end
-			if this.ShiftLockMode then
-				this.ShiftLockMode.SelectorFrame.Visible = enableShiftLock
-				this.ShiftLockMode:SetInteractable(enableShiftLock)
-			end
-		end
 
 		do -- initial set of dev vs user choice for guis
 			local isUserChoiceCamera = false
@@ -1836,32 +1879,48 @@ local function Initialize()
 				end
 			end
 
-			if this.ShiftLockOverrideText then
-				this.ShiftLockOverrideText.Visible = not LocalPlayer.DevEnableMouseLock
-				setShiftLockSelectorVisible(LocalPlayer.DevEnableMouseLock)
+			if FFlagGameSettingsRespectDevModes then
+				applyDevOverrideShiftLockSelector()
+			else
+				if this.ShiftLockOverrideText then
+					this.ShiftLockOverrideText.Visible = not LocalPlayer.DevEnableMouseLock
+					setShiftLockSelectorVisible(LocalPlayer.DevEnableMouseLock)
+				end
 			end
 		end
 
 		local function updateUserSettingsMenu(property)
-			if this.ShiftLockOverrideText and property == "DevEnableMouseLock" then
-				this.ShiftLockOverrideText.Visible = not LocalPlayer.DevEnableMouseLock
-				setShiftLockSelectorVisible(LocalPlayer.DevEnableMouseLock)
+			if (FFlagGameSettingsRespectDevModes or this.ShiftLockOverrideText) and property == "DevEnableMouseLock" then
+				if FFlagGameSettingsRespectDevModes then
+					applyDevOverrideShiftLockSelector()
+				else
+					this.ShiftLockOverrideText.Visible = not LocalPlayer.DevEnableMouseLock
+					setShiftLockSelectorVisible(LocalPlayer.DevEnableMouseLock)
+				end
 			elseif property == "DevComputerCameraMode" then
 				local isUserChoice = LocalPlayer.DevComputerCameraMode == Enum.DevComputerCameraMovementMode.UserChoice
 				setCameraModeVisible(isUserChoice)
 				this.CameraModeOverrideText.Visible = not isUserChoice
 			elseif property == "DevComputerMovementMode" then
-				-- TOUCH
-				local isUserChoice = LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice
-				setMovementModeVisible(isUserChoice)
-				if this.MovementModeOverrideText then
-					this.MovementModeOverrideText.Visible = not isUserChoice
+				if FFlagGameSettingsRespectDevModes and applyDevOverrideMovementModeSelector ~= nil then
+					applyDevOverrideMovementModeSelector(false)
+				else
+					-- TOUCH
+					local isUserChoice = LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice
+					setMovementModeVisible(isUserChoice)
+					if this.MovementModeOverrideText then
+						this.MovementModeOverrideText.Visible = not isUserChoice
+					end
 				end
 			elseif property == "DevTouchMovementMode" then
-				local isUserChoice = LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice
-				setMovementModeVisible(isUserChoice)
-				if this.MovementModeOverrideText then
-					this.MovementModeOverrideText.Visible = not isUserChoice
+				if FFlagGameSettingsRespectDevModes and applyDevOverrideMovementModeSelector ~= nil then
+					applyDevOverrideMovementModeSelector(true)
+				else
+					local isUserChoice = LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice
+					setMovementModeVisible(isUserChoice)
+					if this.MovementModeOverrideText then
+						this.MovementModeOverrideText.Visible = not isUserChoice
+					end
 				end
 			elseif property == "DevTouchCameraMode" then
 				local isUserChoice = LocalPlayer.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice
@@ -1871,12 +1930,12 @@ local function Initialize()
 		end
 
 		LocalPlayer.Changed:connect(function(property)
-			if UserInputService.TouchEnabled then
+			if FFlagGameSettingsRespectDevModes or UserInputService.TouchEnabled then
 				if TOUCH_CHANGED_PROPS[property] then
 					updateUserSettingsMenu(property)
 				end
 			end
-			if UserInputService.KeyboardEnabled then
+			if FFlagGameSettingsRespectDevModes or UserInputService.KeyboardEnabled then
 				if PC_CHANGED_PROPS[property] then
 					updateUserSettingsMenu(property)
 				end

@@ -16,9 +16,6 @@ local TopBar = Components.Parent
 local Constants = require(TopBar.Constants)
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
-local CoreGuiModules = RobloxGui:FindFirstChild("Modules")
-local CommonModules = CoreGuiModules:FindFirstChild("Common")
-local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
 
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
@@ -28,7 +25,7 @@ local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
-local FFlagTopBarSignalizeHealthBar = require(TopBar.Flags.FFlagTopBarSignalizeHealthBar)
+local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
@@ -131,6 +128,17 @@ function HealthBar:init()
 			return values[1] < values[2]
 		end)
 
+		if CoreGuiCommon.Stores.GetLocalHumanoidStore then 
+			self.localHumanoidStore = CoreGuiCommon.Stores.GetLocalHumanoidStore(false)
+			self.disposeHealthConnection = Signals.createEffect(function(scope) 
+				local healthValue = self.localHumanoidStore.getHealthValue(scope)
+
+				self.setHealth(healthValue.health or Constants.InitialHealth)
+				self.setMaxHealth(healthValue.maxHealth or Constants.InitialHealth)
+				self.setIsDead(healthValue.isDead)
+			end)
+		end
+
 		local function getHealthEnabled()
 			return StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Health)
 		end
@@ -149,36 +157,6 @@ function HealthBar:init()
 		self:setState({
 			mountHealthBar = getHealthEnabled(),
 		})
-		HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
-			local healthChangedConn
-			local characterRemovingConn
-			local diedConn
-			local function disconnect()
-				healthChangedConn:Disconnect()
-				characterRemovingConn:Disconnect()
-				diedConn:Disconnect()
-			end
-			
-			self.setHealth(humanoid.Health)
-			self.setMaxHealth(humanoid.MaxHealth)
-			self.setIsDead(false)
-
-			healthChangedConn = humanoid.HealthChanged:Connect(function()
-				self.setHealth(humanoid.Health)
-				self.setMaxHealth(humanoid.MaxHealth)
-			end)
-
-			diedConn = humanoid.Died:Connect(function()
-				disconnect()
-				self.setIsDead(true)
-			end)
-
-			characterRemovingConn = player.CharacterRemoving:Connect(function(removedCharacter)
-				if removedCharacter == character then
-					disconnect()
-				end
-			end)
-		end)
 	end
 	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
 		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
@@ -209,6 +187,7 @@ end
 function HealthBar:onUnmount()
 	if FFlagTopBarSignalizeHealthBar then 
 		self.coreGuiChangedSignalConn:Disconnect()
+		self.disposeHealthConnection()
 	end
 	if FFlagTopBarSignalizeScreenSize then 
 		self.disposeScreenSize()

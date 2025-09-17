@@ -6,9 +6,12 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
 local Constants = require(InspectAndBuyFolder.Constants)
 local SetAvatarPreviewDetails = require(InspectAndBuyFolder.Actions.SetAvatarPreviewDetails)
+local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
 local ItemType = AvatarExperienceCommon.Enums.ItemTypeEnum
 local GetItemDetails = require(InspectAndBuyFolder.Thunks.GetItemDetails)
+
+type AvatarPreviewResponse = AvatarExperienceInspectAndBuy.AvatarPreviewResponse
 
 local requiredServices = {
 	Network,
@@ -25,12 +28,13 @@ local function GetAvatarPreview(assets)
 			for _, asset in assets do
 				table.insert(assetsRequest, {
 					id = asset.assetId,
+					meta = asset.meta,
 				})
 			end
 		end
 
 		return PerformFetch.Single("PreviewAvatar", function()
-			return network.getPreviewAvatar(assetsRequest):andThen(function(results)
+			return network.getPreviewAvatar(assetsRequest):andThen(function(results: AvatarPreviewResponse)
 				store:dispatch(SetAvatarPreviewDetails(results))
 
 				--[[

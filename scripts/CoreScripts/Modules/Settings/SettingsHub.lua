@@ -27,7 +27,11 @@ local Otter = require(CorePackages.Packages.Otter)
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local FoundationProvider = Foundation.FoundationProvider
+
 --[[ UTILITIES ]]
+local SettingsUtils = require(script.Parent.Integrations.Utils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
@@ -35,6 +39,8 @@ local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local isSubjectToDesktopPolicies = SharedFlags.isSubjectToDesktopPolicies
+local TabHeaderComponents = require(RobloxGui.Modules.Settings.Components.TabHeader)
+local SwitchTabHint = TabHeaderComponents.SwitchTabHint
 local MenuBackButton = require(RobloxGui.Modules.Settings.Components.MenuBackButton)
 local MenuFrontButton = require(RobloxGui.Modules.Settings.Components.MenuFrontButton)
 local MenuButtonsContainer = require(RobloxGui.Modules.Settings.Components.MenuButtons.MenuButtonsContainer)
@@ -80,6 +86,7 @@ local GET_SERVER_CHANNEL_RETRIES = game:DefineFastInt("GetServerChannelRetries",
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
 local FFlagIEMAddSettingsUniverseId = SharedFlags.FFlagIEMAddSettingsUniverseId
+local FFlagAddSwitchTabHintsToIEM = SharedFlags.FFlagAddSwitchTabHintsToIEM
 
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
@@ -2160,6 +2167,66 @@ local function CreateSettingsHub()
 			)
 		end
 
+		if FFlagAddSwitchTabHintsToIEM then
+			local function MountSwitchTabHint(props: {
+				keycode: Enum.KeyCode, 
+				parent: Instance,
+				layoutOrder: number?,
+			})
+				local SwitchTabHintContainer = Create "Frame" {
+					Name = "SwitchTabHintContainer",
+					Size = UDim2.fromScale(0, 1),
+					BackgroundTransparency = 1,
+					AutomaticSize = Enum.AutomaticSize.X,
+					LayoutOrder = props.layoutOrder,
+					Parent = props.parent,
+				}
+
+				local SwitchTabHintRoot = ReactRoblox.createRoot(SwitchTabHintContainer)
+				SwitchTabHintRoot:render(React.createElement(React.Fragment, nil, 
+					React.createElement("UIListLayout", {
+						Name = "SwitchTabHintCenterAlign",
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+					}),
+					React.createElement(FoundationProvider, {
+						theme = Foundation.Enums.Theme.Dark,
+						device = SettingsUtils.getDeviceType(),
+					}, {
+						["SwitchTabHint" .. props.keycode.Name] = React.createElement(SwitchTabHint, {
+							keycode = props.keycode,
+						})
+					})
+				))
+			end
+
+			this.TabHeaderContainer = Create "Frame" {
+				Name = "TabHeaderContainer",
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 1),
+				Parent = this.HubBar,
+			}
+			
+			this.TabHeaderContainerListLayout = Create "UIListLayout" {
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalFlex = Enum.UIFlexAlignment.Fill,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Parent = this.TabHeaderContainer,
+			}
+
+			MountSwitchTabHint({
+				keycode = Enum.KeyCode.ButtonL1,
+				parent = this.TabHeaderContainer,
+				layoutOrder = -999 -- ordered first
+			})
+			MountSwitchTabHint({
+				keycode = Enum.KeyCode.ButtonR1,
+				parent = this.TabHeaderContainer,
+				layoutOrder = 999 -- ordered last
+			})
+		end
+
 		do
 			this.HubBarContainer = Create'ImageLabel'
 			{
@@ -2170,7 +2237,7 @@ local function CreateSettingsHub()
 				BackgroundTransparency = Theme.transparency("HubBarContainerTransparency"),
 				Size = if Theme.ShowHomeButton then UDim2.new(1, -70, 1, 0) else UDim2.new(1, 0, 1, 0),
 				Position = if Theme.ShowHomeButton then UDim2.new(0, 70, 0, 0) else UDim2.new(0, 0, 0, 0),
-				Parent = this.HubBar
+				Parent = if FFlagAddSwitchTabHintsToIEM then this.TabHeaderContainer else this.HubBar,
 			}
 
 			this.HubBar.ImageTransparency = 1

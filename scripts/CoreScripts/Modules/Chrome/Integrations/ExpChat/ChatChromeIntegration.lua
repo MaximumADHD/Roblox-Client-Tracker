@@ -9,14 +9,16 @@ local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 
+local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
+local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
-local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
+local CommonIcon = require(Chrome.Integrations.CommonIcon)
+local FFlagChatIntegrationFixShortcut = require(Chrome.Flags.FFlagChatIntegrationFixShortcut)
 local FocusSelectExpChat = require(Chrome.ChromeShared.Utility.FocusSelectExpChat)
 local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
-local MappedSignal = ChromeUtils.MappedSignal
 local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
-local CommonIcon = require(Chrome.Integrations.CommonIcon)
+local MappedSignal = ChromeUtils.MappedSignal
 local GameSettings = UserSettings().GameSettings
 local GuiService = game:GetService("GuiService")
 local GamepadUtils = require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadUtils
@@ -24,8 +26,12 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 local ChatIconVisibleSignals = require(script.Parent.ChatIconVisibleSignals).default
 local SignalsRoblox = require(CorePackages.Packages.SignalsRoblox)
 
+local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
+local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
@@ -226,6 +232,17 @@ if FFlagExpChatUnibarAvailabilityRefactor then
 
 	ChromeUtils.setCoreGuiAvailability(chatChromeIntegration, Enum.CoreGuiType.Chat, function(enabled)
 		ChatIconVisibleSignals.setCoreGuiEnabled(enabled)
+	end)
+end
+
+if FFlagChatIntegrationFixShortcut and FFlagEnableChromeShortcutBar then
+	SignalsRoblox.createDetachedEffect(function(scope)
+		local isChatInputBarFocused = ExpChatFocusNavigationStore.getChatInputBarFocused(scope)
+		if isChatInputBarFocused then
+			ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
+		else
+			ChromeService:setShortcutBar(nil)
+		end
 	end)
 end
 

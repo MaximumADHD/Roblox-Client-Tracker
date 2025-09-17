@@ -10,14 +10,11 @@ local Colors = require(InspectAndBuyFolder.Colors)
 local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
-local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
 local TEXT_SIZE = 16
 local MIN_SIZE = 32
 local ROBUX_ICON_SIZE = 16
-local BUTTON_PADDING = 10
-local ROBLOX_CREATOR_ID = "1"
 
 local BuyButton = Roact.PureComponent:extend("BuyButton")
 
@@ -49,11 +46,7 @@ function BuyButton:render()
 	local isLimited20OrLimitedCollectible =
 		UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(self.props.assetInfo)
 	local size = UDim2.new(0, self:getBuyButtonTextSize(buyText), 1, 0)
-	local assetInfo = self.props.assetInfo
-	local creatorId = assetInfo and assetInfo.creatorId or 0
-	local sizeXAdjustment = if FFlagEnableFavoriteButtonForUgc
-		then -32
-		else creatorId == ROBLOX_CREATOR_ID and -32 or -BUTTON_PADDING / 2
+	local sizeXAdjustment = -32
 	local transparencyOverride = 0
 
 	if not forSale then

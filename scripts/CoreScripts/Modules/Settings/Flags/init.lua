@@ -1,5 +1,6 @@
 return {
 	FFlagGameSettingsRefactorMovementModeLogic = require(script.FFlagGameSettingsRefactorMovementModeLogic),
+	FFlagGameSettingsRespectDevModes = require(script.FFlagGameSettingsRespectDevModes),
 	FFlagGameSettingsUsePreferredInputMovement = require(script.FFlagGameSettingsUsePreferredInputMovement),
 	FFlagGameSettingsRemoveTextTransparency = require(script.FFlagGameSettingsRemoveTextTransparency),
 	FFlagGameSettingsRemoveMouseButton1Event = require(script.FFlagGameSettingsRemoveMouseButton1Event),

@@ -143,14 +143,15 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
   end
 
   -- Helper function to set selection menu to a dormant state
-  local function setMenuToUninteractableState()
-    utility:AddNewRow(
-      menu,
-      RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.SettingLabel"),
-      "DropDown",
-      { RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.Unavailable") },
-      1
-    )
+  local function createSessionDormantLanguageSwitcherRow()
+    menu.LanguageSelectorFrame, menu.LanguageSelectorLabel, menu.LanguageSelectorMode =
+      utility:AddNewRow(
+        menu,
+        RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.SettingLabel"),
+        "DropDown",
+        { RobloxTranslator:FormatByKey("Feature.SettingsHub.LanguageSelection.Unavailable") },
+        1
+      )
     menu.LanguageSelectorMode:SetInteractable(false)
     menu.LanguageSelectorFrame.LayoutOrder = layoutOrderTable["LanguageSelectorFrame"]
   end
@@ -171,7 +172,7 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
       )
       -- The feature should remain unavailable and user remains in
       -- their locale if required start state info isn't captured
-      setMenuToUninteractableState()
+      createSessionDormantLanguageSwitcherRow()
     else
       -- All GET API calls succeeded, so the feature should be enabled
       -- and starting state calculated
@@ -199,7 +200,7 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
       end
 
       if not sourceOptionAvailable then
-          setMenuToUninteractableState()
+        createSessionDormantLanguageSwitcherRow()
         return
       end
 
