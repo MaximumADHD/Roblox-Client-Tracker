@@ -7,6 +7,8 @@ Studio.App.PlaceManager.AboutToLogOutNewLine,,"Roblox Studio is about to log out
 Studio.App.PlaceManager.FailedToAutoSave,,Failed to AutoSave,Failed to AutoSave
 Studio.App.PlaceManager.FailedToAutoSaveTemporarilyDisable,,Failed to AutoSave.  Do you want to temporarily disable AutoSave?,Failed to AutoSave.  Do you want to temporarily disable AutoSave?
 Studio.App.PlaceManager.FailedToClosePlaceDueToAutoSave,,Failed to close the place because we are auto-saving. Please wait for it to complete and then retry.,Failed to close the place because we are auto-saving. Please wait for it to complete and then retry.
+Studio.App.PlaceManager.FailedToFetchPlaceInfo,One type of failure mode when opening a place in Studio.,Failed to fetch place info.,Failed to fetch place info.
+Studio.App.PlaceManager.FailedToFetchPlacePermission,One type of failure mode when opening a place in Studio,Failed to fetch place permission.,Failed to fetch place permission.
 Studio.App.PlaceManager.FailedToOpenObjectBrowser,PlaceManager fails to open object browser,"Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
 Studio.App.PlaceManager.FileSetToReadOnlyNewLine1,,"%1
 This file is set to read-only.

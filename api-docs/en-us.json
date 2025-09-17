@@ -2802,7 +2802,7 @@
     "documentation": ""
   },
   "@roblox/global/Vector3.new": {
-    "documentation": "Returns a new <code>Vector3</code> from the given <code>x</code>, <code>y</code>, and <code>z</code> components.",
+    "documentation": "Returns a new <code>Vector3</code> from the given x, y, and z components.",
     "params": [
       {
         "name": "x",
@@ -2852,27 +2852,27 @@
     "code_sample": ""
   },
   "@roblox/global/Vector3.zero": {
-    "documentation": "A <code>Vector3</code> with a magnitude of <code>0</code>.",
+    "documentation": "A <code>Vector3</code> with a magnitude of zero.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/global/Vector3.one": {
-    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on every axis.",
+    "documentation": "A <code>Vector3</code> with a value of 1 on every axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/global/Vector3.xAxis": {
-    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>X</strong> axis.",
+    "documentation": "A <code>Vector3</code> with a value of 1 on the X axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.yAxis": {
-    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>Y</strong> axis.",
+    "documentation": "A <code>Vector3</code> with a value of 1 on the Y axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.zAxis": {
-    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>Z</strong> axis.",
+    "documentation": "A <code>Vector3</code> with a value of 1 on the Z axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
@@ -2905,52 +2905,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zero": {
-    "documentation": "A <code>Vector3</code> with a magnitude of <code>0</code>.",
+    "documentation": "A <code>Vector3</code> with a magnitude of zero.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.one": {
-    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on every axis.",
+    "documentation": "A <code>Vector3</code> with a value of 1 on every axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.xAxis": {
-    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>X</strong> axis.",
+    "documentation": "A <code>Vector3</code> with a value of 1 on the X axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.yAxis": {
-    "documentation": "A <code>Vector3</code> with a value of <code>1</code>on the <strong>Y</strong> axis.",
+    "documentation": "A <code>Vector3</code> with a value of 1 on the Y axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zAxis": {
-    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>Z</strong> axis.",
+    "documentation": "A <code>Vector3</code> with a value of 1 on the Z axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.X": {
-    "documentation": "The <strong>X</strong> coordinate of the <code>Vector3</code>.",
+    "documentation": "The x-coordinate of the Vector3.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#X",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Y": {
-    "documentation": "The <strong>Y</strong> coordinate of the <code>Vector3</code>.",
+    "documentation": "The y-coordinate of the Vector3.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Z": {
-    "documentation": "The <strong>Z</strong> coordinate of the <code>Vector3</code>.",
+    "documentation": "The z-coordinate of the Vector3.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Z",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Magnitude": {
-    "documentation": "The length of the <code>Vector3</code>.",
+    "documentation": "The length of the Vector3.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Magnitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Unit": {
-    "documentation": "A normalized copy of the <code>Vector3</code> - one that has the same direction as the original but a magnitude of <code>1</code>.",
+    "documentation": "A normalized copy of the <code>Vector3</code> - one that has the same direction as the original but a magnitude of 1.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Unit",
     "code_sample": ""
   },
@@ -17512,7 +17512,7 @@
     "documentation": "The base part of an assembly (a collection of parts connected together)."
   },
   "@roblox/globaltype/BasePart.GetRootPart": {
-    "documentation": "Returns the base part of an assembly of parts.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the base part of an assembly of parts.",
     "params": [
       {
         "name": "self",
@@ -23490,7 +23490,6 @@
   "@roblox/globaltype/VideoPlayer": {
     "documentation": "",
     "keys": {
-      "Asset": "@roblox/globaltype/VideoPlayer.Asset",
       "AutoLoadInStudio": "@roblox/globaltype/VideoPlayer.AutoLoadInStudio",
       "AutoPlayInStudio": "@roblox/globaltype/VideoPlayer.AutoPlayInStudio",
       "IsLoaded": "@roblox/globaltype/VideoPlayer.IsLoaded",
@@ -23510,11 +23509,6 @@
       "Unload": "@roblox/globaltype/VideoPlayer.Unload"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VideoPlayer.Asset": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#Asset",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.AutoLoadInStudio": {
@@ -25355,7 +25349,6 @@
       "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
-      "ExperimentalSolverIsEnabled": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
       "GetRealPhysicsFPS": "@roblox/globaltype/Workspace.GetRealPhysicsFPS",
@@ -25599,26 +25592,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#BreakJoints",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ExperimentalSolverIsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
@@ -38523,7 +38496,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#SetAngleAttenuation",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal currentCamera = Workspace.CurrentCamera\n\nlocal listener = Instance.new(\"AudioListener\")\nlistener.Parent = currentCamera\nlocal wire = Instance.new(\"Wire\")\nwire.Parent = listener\nlocal output = Instance.new(\"AudioDeviceOutput\")\noutput.Parent = wire\n\nlistener:SetAngleAttenuation({\n\t[0] = 1, -- Emitters directly in front of the listener will be full volume\n\t[180] = 0.5 -- Emitters directly behind the listener will be half volume\n})\n\nwire.SourceInstance = listener\nwire.TargetInstance = output"
   },
   "@roblox/globaltype/AudioListener.SetDistanceAttenuation/param/0": {
     "documentation": "Records an audio stream from its surrounding <code>AudioEmitters</code> in the 3D world."
@@ -43377,7 +43350,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Attachment": {
-    "documentation": "Defines a point and orientation relative to a parent <code>BasePart</code>, <code>Bone</code>, or another <code>Attachment</code>.",
+    "documentation": "Defines a point and orientation relative to an ancestor <code>PVInstance</code>, <code>Bone</code>, or another <code>Attachment</code>.",
     "keys": {
       "Axis": "@roblox/globaltype/Attachment.Axis",
       "CFrame": "@roblox/globaltype/Attachment.CFrame",
@@ -43467,7 +43440,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Attachment.GetAxis/param/0": {
-    "documentation": "Defines a point and orientation relative to a parent <code>BasePart</code>, <code>Bone</code>, or another <code>Attachment</code>."
+    "documentation": "Defines a point and orientation relative to an ancestor <code>PVInstance</code>, <code>Bone</code>, or another <code>Attachment</code>."
   },
   "@roblox/globaltype/Attachment.GetAxis/return/0": {
     "documentation": ""
@@ -43487,7 +43460,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Attachment.GetConstraints/param/0": {
-    "documentation": "Defines a point and orientation relative to a parent <code>BasePart</code>, <code>Bone</code>, or another <code>Attachment</code>."
+    "documentation": "Defines a point and orientation relative to an ancestor <code>PVInstance</code>, <code>Bone</code>, or another <code>Attachment</code>."
   },
   "@roblox/globaltype/Attachment.GetConstraints/return/0": {
     "documentation": ""
@@ -43507,7 +43480,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Attachment.GetSecondaryAxis/param/0": {
-    "documentation": "Defines a point and orientation relative to a parent <code>BasePart</code>, <code>Bone</code>, or another <code>Attachment</code>."
+    "documentation": "Defines a point and orientation relative to an ancestor <code>PVInstance</code>, <code>Bone</code>, or another <code>Attachment</code>."
   },
   "@roblox/globaltype/Attachment.GetSecondaryAxis/return/0": {
     "documentation": ""
@@ -43527,7 +43500,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Attachment.SetAxis/param/0": {
-    "documentation": "Defines a point and orientation relative to a parent <code>BasePart</code>, <code>Bone</code>, or another <code>Attachment</code>."
+    "documentation": "Defines a point and orientation relative to an ancestor <code>PVInstance</code>, <code>Bone</code>, or another <code>Attachment</code>."
   },
   "@roblox/globaltype/Attachment.SetAxis/param/1": {
     "documentation": ""
@@ -43549,7 +43522,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Attachment.SetSecondaryAxis/param/0": {
-    "documentation": "Defines a point and orientation relative to a parent <code>BasePart</code>, <code>Bone</code>, or another <code>Attachment</code>."
+    "documentation": "Defines a point and orientation relative to an ancestor <code>PVInstance</code>, <code>Bone</code>, or another <code>Attachment</code>."
   },
   "@roblox/globaltype/Attachment.SetSecondaryAxis/param/1": {
     "documentation": ""
@@ -50328,7 +50301,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVInstance": {
-    "documentation": "Abstract class for all objects that have a physical location in the world, specifically <code>BaseParts</code> and <code>Models</code>.",
+    "documentation": "Abstract class for all objects that have a physical location in the world.",
     "keys": {
       "Origin": "@roblox/globaltype/PVInstance.Origin",
       "Pivot Offset": "@roblox/globaltype/PVInstance.Pivot Offset",
@@ -50349,7 +50322,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVInstance.GetPivot/param/0": {
-    "documentation": "Abstract class for all objects that have a physical location in the world, specifically <code>BaseParts</code> and <code>Models</code>."
+    "documentation": "Abstract class for all objects that have a physical location in the world."
   },
   "@roblox/globaltype/PVInstance.GetPivot/return/0": {
     "documentation": ""
@@ -50369,7 +50342,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVInstance.PivotTo/param/0": {
-    "documentation": "Abstract class for all objects that have a physical location in the world, specifically <code>BaseParts</code> and <code>Models</code>."
+    "documentation": "Abstract class for all objects that have a physical location in the world."
   },
   "@roblox/globaltype/PVInstance.PivotTo/param/1": {
     "documentation": "The <code>CFrame</code> that the <code>PVInstance</code> pivot should equal after moving it."
@@ -70761,7 +70734,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequence#AddKeyframe",
-    "code_sample": "-- create the keyframesequence\nlocal keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Loop = false\nkeyframeSequence.Priority = Enum.AnimationPriority.Action\n\n--  create a keyframe\nlocal keyframe = Instance.new(\"Keyframe\")\nkeyframe.Time = 0\n\n-- create sample poses\nlocal rootPose = Instance.new(\"Pose\")\nrootPose.Name = \"HumanoidRootPart\"\nrootPose.Weight = 0\n\nlocal lowerTorsoPose = Instance.new(\"Pose\")\nlowerTorsoPose.Name = \"LowerTorso\"\nlowerTorsoPose.Weight = 1\n\n-- set the sequence hierarchy\nrootPose:AddSubPose(lowerTorsoPose) -- lowerTorsoPose.Parent = rootPose\nkeyframe:AddPose(rootPose) -- rootPose.Parent = keyframe\nkeyframeSequence:AddKeyframe(keyframe) -- keyframe.Parent = keyframeSequence\n\n-- parent the sequence\nkeyframeSequence.Parent = workspace"
+    "code_sample": "-- Create the sequence\nlocal keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Loop = false\nkeyframeSequence.Priority = Enum.AnimationPriority.Action\n\n--  Create a keyframe\nlocal keyframe = Instance.new(\"Keyframe\")\nkeyframe.Time = 0\n\n-- Create sample poses\nlocal rootPose = Instance.new(\"Pose\")\nrootPose.Name = \"HumanoidRootPart\"\nrootPose.Weight = 0\nlocal lowerTorsoPose = Instance.new(\"Pose\")\nlowerTorsoPose.Name = \"LowerTorso\"\nlowerTorsoPose.Weight = 1\n\n-- Set the sequence hierarchy\nrootPose:AddSubPose(lowerTorsoPose)\nkeyframe:AddPose(rootPose)\nkeyframeSequence:AddKeyframe(keyframe)\n\n-- Parent the sequence\nkeyframeSequence.Parent = workspace"
   },
   "@roblox/globaltype/KeyframeSequence.GetKeyframes/param/0": {
     "documentation": "This object stores all of the <code>Keyframes</code> and other data for the animation."
@@ -81503,7 +81476,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.Seed": {
-    "documentation": "Sets a fixed seed for the random number generator, allowing reproducible responses in cases where the same input parameters are used across      multiple requests.",
+    "documentation": "Sets a fixed seed for the random number generator, allowing reproducible responses in cases where the same input parameters are used across multiple requests.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Seed",
     "code_sample": ""
   },
@@ -81526,7 +81499,7 @@
     "documentation": "Gives access to a large language model for text generation."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1": {
-    "documentation": "A dictionary containing optional parameters for the text generation request. The currently supported parameters are <code>UserPrompt</code>,      <code>ContextToken</code>, and <code>MaxTokens</code>."
+    "documentation": "A dictionary containing optional parameters for the text generation request. The currently supported parameters are <code>UserPrompt</code>, <code>ContextToken</code>, and <code>MaxTokens</code>."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0": {
     "documentation": "A dictionary containing the LLM's generated response."
@@ -95618,7 +95591,7 @@
   "@roblox/globaltype/AnimationClip.Priority": {
     "documentation": "Determines which clip takes priority when multiple animations are playing simultaneously.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationClip#Priority",
-    "code_sample": "-- create the keyframesequence\nlocal keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Loop = false\nkeyframeSequence.Priority = Enum.AnimationPriority.Action\n\n--  create a keyframe\nlocal keyframe = Instance.new(\"Keyframe\")\nkeyframe.Time = 0\n\n-- create sample poses\nlocal rootPose = Instance.new(\"Pose\")\nrootPose.Name = \"HumanoidRootPart\"\nrootPose.Weight = 0\n\nlocal lowerTorsoPose = Instance.new(\"Pose\")\nlowerTorsoPose.Name = \"LowerTorso\"\nlowerTorsoPose.Weight = 1\n\n-- set the sequence hierarchy\nrootPose:AddSubPose(lowerTorsoPose) -- lowerTorsoPose.Parent = rootPose\nkeyframe:AddPose(rootPose) -- rootPose.Parent = keyframe\nkeyframeSequence:AddKeyframe(keyframe) -- keyframe.Parent = keyframeSequence\n\n-- parent the sequence\nkeyframeSequence.Parent = workspace"
+    "code_sample": "-- Create the sequence\nlocal keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Loop = false\nkeyframeSequence.Priority = Enum.AnimationPriority.Action\n\n--  Create a keyframe\nlocal keyframe = Instance.new(\"Keyframe\")\nkeyframe.Time = 0\n\n-- Create sample poses\nlocal rootPose = Instance.new(\"Pose\")\nrootPose.Name = \"HumanoidRootPart\"\nrootPose.Weight = 0\nlocal lowerTorsoPose = Instance.new(\"Pose\")\nlowerTorsoPose.Name = \"LowerTorso\"\nlowerTorsoPose.Weight = 1\n\n-- Set the sequence hierarchy\nrootPose:AddSubPose(lowerTorsoPose)\nkeyframe:AddPose(rootPose)\nkeyframeSequence:AddKeyframe(keyframe)\n\n-- Parent the sequence\nkeyframeSequence.Parent = workspace"
   },
   "@roblox/globaltype/GuiLabel": {
     "documentation": "An abstract class for non-interactive 2D user interface elements.",
@@ -136079,7 +136052,6 @@
       "abs": "@roblox/global/vector.abs",
       "sign": "@roblox/global/vector.sign",
       "clamp": "@roblox/global/vector.clamp",
-      "lerp": "@roblox/global/vector.lerp",
       "max": "@roblox/global/vector.max",
       "min": "@roblox/global/vector.min",
       "zero": "@roblox/global/vector.zero",
@@ -136362,40 +136334,6 @@
       "@roblox/global/vector.clamp/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#clamp",
-    "code_sample": ""
-  },
-  "@roblox/global/vector.lerp/param/0": {
-    "documentation": ""
-  },
-  "@roblox/global/vector.lerp/param/1": {
-    "documentation": ""
-  },
-  "@roblox/global/vector.lerp/param/2": {
-    "documentation": ""
-  },
-  "@roblox/global/vector.lerp/return/0": {
-    "documentation": ""
-  },
-  "@roblox/global/vector.lerp": {
-    "documentation": "Returns a vector linearly interpolated between two vectors by a fractional alpha.",
-    "params": [
-      {
-        "name": "vec1",
-        "documentation": "@roblox/global/vector.lerp/param/0"
-      },
-      {
-        "name": "vec2",
-        "documentation": "@roblox/global/vector.lerp/param/1"
-      },
-      {
-        "name": "alpha",
-        "documentation": "@roblox/global/vector.lerp/param/2"
-      }
-    ],
-    "returns": [
-      "@roblox/global/vector.lerp/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#lerp",
     "code_sample": ""
   },
   "@roblox/global/vector.max/param/0": {

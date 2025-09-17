@@ -40943,7 +40943,7 @@
       "@roblox/globaltype/HttpService.JSONEncode/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#JSONEncode",
-    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- 記住：這些行是等價的\n\t--[\"message\"] = \"成功\",\n\tmessage = \"成功\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- 記住：這些行是等價的\n\t--[\"message\"] = \"success\",\n\tmessage = \"success\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
   },
   "@roblox/globaltype/HttpService.PostAsync/param/0": {
     "documentation": "允許發送 HTTP 請求並提供各種與網路相關的 JSON 方法。"
@@ -80902,7 +80902,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.Seed": {
-    "documentation": "Sets a fixed seed for the random number generator, allowing reproducible responses in cases where the same input parameters are used across      multiple requests.",
+    "documentation": "Sets a fixed seed for the random number generator, allowing reproducible responses in cases where the same input parameters are used across multiple requests.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Seed",
     "code_sample": ""
   },
@@ -80925,7 +80925,7 @@
     "documentation": "Gives access to a large language model for text generation."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1": {
-    "documentation": "A dictionary containing optional parameters for the text generation request. The currently supported parameters are <code>UserPrompt</code>,      <code>ContextToken</code>, and <code>MaxTokens</code>."
+    "documentation": "A dictionary containing optional parameters for the text generation request. The currently supported parameters are <code>UserPrompt</code>, <code>ContextToken</code>, and <code>MaxTokens</code>."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0": {
     "documentation": "A dictionary containing the LLM's generated response."

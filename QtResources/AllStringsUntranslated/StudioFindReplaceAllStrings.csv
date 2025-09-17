@@ -1,0 +1,41 @@
+Key,Context,Source,en-us
+Studio.FindReplaceAll.BasicExample.Text,[DNT] An example string displayed in a text field.,Capybaras are cute!,Capybaras are cute!
+Studio.FindReplaceAll.CounterExample.Button,[DNT] An example label for a button.,Push me!,Push me!
+Studio.FindReplaceAll.CounterExample.CounterLabel,[DNT] An example label for a counter.,You pressed me {counter} times!,You pressed me {counter} times!
+Studio.FindReplaceAll.FilterSection.PlaceholderText,Placeholder text for the include search bar,Where,Where
+Studio.FindReplaceAll.MaxResultSetting,The setting label for the maximum number of results to display in the Find Replace All widget.,Max Results,Max Results
+Studio.FindReplaceAll.Plugin.Button,Find Replace All,Find Replace All,Find Replace All
+Studio.FindReplaceAll.Plugin.Description,Find and Replace text in your scripts,Find and Replace text in your scripts,Find and Replace text in your scripts
+Studio.FindReplaceAll.Plugin.Name,The name of the plugin,FindReplaceAll,FindReplaceAll
+Studio.FindReplaceAll.Plugin.Title,Plugin title,Find in Place,Find in Place
+Studio.FindReplaceAll.ReplaceAllConfirmationDialog.ConfirmationPrompt,Confirm if the user wants to replace all instances of a searched phrase with another phrase,Are you sure you want to replace all? This action can't be undone,Are you sure you want to replace all? This action can't be undone
+Studio.FindReplaceAll.ReplaceAllConfirmationDialog.No,No,No,No
+Studio.FindReplaceAll.ReplaceAllConfirmationDialog.Yes,Yes,Yes,Yes
+Studio.FindReplaceAll.ResultsLabel.FileString,Singular for file,file,file
+Studio.FindReplaceAll.ResultsLabel.FileStringPlural,Plural for file,files,files
+Studio.FindReplaceAll.ResultsLabel.ResultString,Singular for result,result,result
+Studio.FindReplaceAll.ResultsLabel.ResultStringPlural,Plural string for results,results,results
+Studio.FindReplaceAll.SearchSection.PlaceholderText,Placeholder text for the find search bar,Find in Place,Find in Place
+Studio.FindReplaceAll.SearchSettingsDropdown.Filter,Filter option in search settings dropdown,Where to find,Where to find
+Studio.FindReplaceAll.SearchSettingsDropdown.Replace,Replace option in search settings dropdown,Replace,Replace
+Studio.FindReplaceAll.SettingsCategory,The header for the category in studio settins for Find Replace All,Find Replace All,Find Replace All
+Studio.FindReplaceAll.WidgetBody.ResultsLabel,"Displays the number of results in files accounting for plural and non-plural. For example, 1 result in 1 file vs 2 results in 2 files.",{numResults} {resultString} in {numResultFiles} {fileString},{numResults} {resultString} in {numResultFiles} {fileString}
+Studio.FindReplaceAll.WidgetBody.ResultsText,Display number of results,{numResults} results in {numResultFiles} files,{numResults} results in {numResultFiles} files
+Studio.FindReplaceAll.WidgetBody.Text,Find Replace All Body Example,Body,Body
+Studio.FindReplaceAll.WidgetHeader.FilterLabel,Where to look,Where to look,Where to look
+Studio.FindReplaceAll.WidgetHeader.FilterPlaceholder,Filter placeholder string,eg: Workspace.Baseplate,eg: Workspace.Baseplate
+Studio.FindReplaceAll.WidgetHeader.FilterTooltip,Filter,Filter,Filter
+Studio.FindReplaceAll.WidgetHeader.FindElpPlaceholder,Find with ellipsis,Find...,Find...
+Studio.FindReplaceAll.WidgetHeader.FindNextTooltip,Find Next,Find Next,Find Next
+Studio.FindReplaceAll.WidgetHeader.FindPreviousTooltip,Find Previous,Find Previous,Find Previous
+Studio.FindReplaceAll.WidgetHeader.MatchCaseTooltip,Match Case,Match Case,Match Case
+Studio.FindReplaceAll.WidgetHeader.MatchWholeWordTooltip,Match Whole Word,Match Whole Word,Match Whole Word
+Studio.FindReplaceAll.WidgetHeader.NoResultsFound,Find didn't return anything,No Results Found,No Results Found
+Studio.FindReplaceAll.WidgetHeader.RegExTooltip,Regular Expression,Regular Expression,Regular Expression
+Studio.FindReplaceAll.WidgetHeader.Replace,Replace,Replace,Replace
+Studio.FindReplaceAll.WidgetHeader.ReplaceAll,Replace All,Replace All,Replace All
+Studio.FindReplaceAll.WidgetHeader.ReplaceAllTooltip,Replace All Occurrences,Replace All Occurrences,Replace All Occurrences
+Studio.FindReplaceAll.WidgetHeader.ReplaceElpPlaceholder,Replace with ellipsis,Replace...,Replace...
+Studio.FindReplaceAll.WidgetHeader.ReplaceTooltip,Replace Next,Replace Next,Replace Next
+Studio.FindReplaceAll.WidgetHeader.Text,Find Replace All Header,Header,Header
+Studio.FindReplaceAll.WidgetHeader.ToggleReplaceTooltip,Toggle Replace,Toggle Replace,Toggle Replace

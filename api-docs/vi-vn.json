@@ -40825,7 +40825,7 @@
       "@roblox/globaltype/HttpService.JSONEncode/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#JSONEncode",
-    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- Remember: these lines are equivalent\n\t--[\"message\"] = \"success\",\n\tmessage = \"success\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- Nhớ: những dòng này tương đương nhau\n\t--[\"message\"] = \"thành công\",\n\tmessage = \"thành công\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
   },
   "@roblox/globaltype/HttpService.UrlEncode/param/0": {
     "documentation": "Cho phép gửi yêu cầu HTTP và cung cấp các phương pháp web và JSON khác nhau."
@@ -69258,7 +69258,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequence#AddKeyframe",
-    "code_sample": "-- create the keyframesequence\nlocal keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Loop = false\nkeyframeSequence.Priority = Enum.AnimationPriority.Action\n\n--  create a keyframe\nlocal keyframe = Instance.new(\"Keyframe\")\nkeyframe.Time = 0\n\n-- create sample poses\nlocal rootPose = Instance.new(\"Pose\")\nrootPose.Name = \"HumanoidRootPart\"\nrootPose.Weight = 0\n\nlocal lowerTorsoPose = Instance.new(\"Pose\")\nlowerTorsoPose.Name = \"LowerTorso\"\nlowerTorsoPose.Weight = 1\n\n-- set the sequence hierarchy\nrootPose:AddSubPose(lowerTorsoPose) -- lowerTorsoPose.Parent = rootPose\nkeyframe:AddPose(rootPose) -- rootPose.Parent = keyframe\nkeyframeSequence:AddKeyframe(keyframe) -- keyframe.Parent = keyframeSequence\n\n-- parent the sequence\nkeyframeSequence.Parent = workspace"
+    "code_sample": "-- Create the sequence\nlocal keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Loop = false\nkeyframeSequence.Priority = Enum.AnimationPriority.Action\n\n--  Create a keyframe\nlocal keyframe = Instance.new(\"Keyframe\")\nkeyframe.Time = 0\n\n-- Create sample poses\nlocal rootPose = Instance.new(\"Pose\")\nrootPose.Name = \"HumanoidRootPart\"\nrootPose.Weight = 0\nlocal lowerTorsoPose = Instance.new(\"Pose\")\nlowerTorsoPose.Name = \"LowerTorso\"\nlowerTorsoPose.Weight = 1\n\n-- Set the sequence hierarchy\nrootPose:AddSubPose(lowerTorsoPose)\nkeyframe:AddPose(rootPose)\nkeyframeSequence:AddKeyframe(keyframe)\n\n-- Parent the sequence\nkeyframeSequence.Parent = workspace"
   },
   "@roblox/globaltype/KeyframeSequence.GetKeyframes/param/0": {
     "documentation": "Vật này lưu tất cả dữ liệu <code>Keyframes</code> và dữ liệu khác cho hoạt hiệu ứng động."
@@ -79988,7 +79988,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.Seed": {
-    "documentation": "Sets a fixed seed for the random number generator, allowing reproducible responses in cases where the same input parameters are used across      multiple requests.",
+    "documentation": "Sets a fixed seed for the random number generator, allowing reproducible responses in cases where the same input parameters are used across multiple requests.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Seed",
     "code_sample": ""
   },
@@ -80011,7 +80011,7 @@
     "documentation": "Gives access to a large language model for text generation."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1": {
-    "documentation": "A dictionary containing optional parameters for the text generation request. The currently supported parameters are <code>UserPrompt</code>,      <code>ContextToken</code>, and <code>MaxTokens</code>."
+    "documentation": "A dictionary containing optional parameters for the text generation request. The currently supported parameters are <code>UserPrompt</code>, <code>ContextToken</code>, and <code>MaxTokens</code>."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0": {
     "documentation": "A dictionary containing the LLM's generated response."
@@ -94035,7 +94035,7 @@
   "@roblox/globaltype/AnimationClip.Priority": {
     "documentation": "Xác định đoạn nào có ưu tiên khi nhiều hoạt hình đang chơi cùng lúc.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationClip#Priority",
-    "code_sample": "-- create the keyframesequence\nlocal keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Loop = false\nkeyframeSequence.Priority = Enum.AnimationPriority.Action\n\n--  create a keyframe\nlocal keyframe = Instance.new(\"Keyframe\")\nkeyframe.Time = 0\n\n-- create sample poses\nlocal rootPose = Instance.new(\"Pose\")\nrootPose.Name = \"HumanoidRootPart\"\nrootPose.Weight = 0\n\nlocal lowerTorsoPose = Instance.new(\"Pose\")\nlowerTorsoPose.Name = \"LowerTorso\"\nlowerTorsoPose.Weight = 1\n\n-- set the sequence hierarchy\nrootPose:AddSubPose(lowerTorsoPose) -- lowerTorsoPose.Parent = rootPose\nkeyframe:AddPose(rootPose) -- rootPose.Parent = keyframe\nkeyframeSequence:AddKeyframe(keyframe) -- keyframe.Parent = keyframeSequence\n\n-- parent the sequence\nkeyframeSequence.Parent = workspace"
+    "code_sample": "-- Create the sequence\nlocal keyframeSequence = Instance.new(\"KeyframeSequence\")\nkeyframeSequence.Loop = false\nkeyframeSequence.Priority = Enum.AnimationPriority.Action\n\n--  Create a keyframe\nlocal keyframe = Instance.new(\"Keyframe\")\nkeyframe.Time = 0\n\n-- Create sample poses\nlocal rootPose = Instance.new(\"Pose\")\nrootPose.Name = \"HumanoidRootPart\"\nrootPose.Weight = 0\nlocal lowerTorsoPose = Instance.new(\"Pose\")\nlowerTorsoPose.Name = \"LowerTorso\"\nlowerTorsoPose.Weight = 1\n\n-- Set the sequence hierarchy\nrootPose:AddSubPose(lowerTorsoPose)\nkeyframe:AddPose(rootPose)\nkeyframeSequence:AddKeyframe(keyframe)\n\n-- Parent the sequence\nkeyframeSequence.Parent = workspace"
   },
   "@roblox/globaltype/GuiLabel": {
     "documentation": "Một lớp trừu tượng cho các thành phần giao diện người dùng 2D không tương tác.",

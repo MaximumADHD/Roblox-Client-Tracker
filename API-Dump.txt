@@ -19,7 +19,7 @@ Class VideoCapture : Capture [NotCreatable] [NotReplicated]
 Class ConfigSnapshot : Object [NotCreatable] [NotReplicated]
 	Property ConfigSnapshot.Error: Enum.ConfigSnapshotErrorState [ReadOnly]
 	Property ConfigSnapshot.Outdated: boolean [ReadOnly]
-	Function ConfigSnapshot:GetValue(key: string, defaultValue: any) -> any
+	Function ConfigSnapshot:GetValue(key: string) -> any
 	Function ConfigSnapshot:GetValueChangedSignal(key: string) -> RBXScriptSignal
 	Function ConfigSnapshot:Refresh() -> ()
 	Event ConfigSnapshot.UpdateAvailable()
@@ -170,6 +170,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:GetDebugId(scopeLength: number? = 4) -> string {PluginSecurity} [NotBrowsable]
 	Function Instance:GetDescendants() -> { any } [CustomLuaState] {🧬Safe}
 	Function Instance:GetFullName() -> string {🧬Safe}
+	Function Instance:GetPredictionMode() -> Enum.PredictionMode {🔐InternalTest}
 	Function Instance:GetStyled(name: string) -> any
 	Function Instance:GetStyledPropertyChangedSignal(property: string) -> RBXScriptSignal
 	Function Instance:GetTags() -> { any } {🧬Safe}
@@ -245,6 +246,7 @@ Class AdPortal : Instance
 Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:CreateAdRewardFromDevProductId(devProductId: number) -> AdReward
 	Function AdService:GetAdAvailabilityNowAsync(adFormat: Enum.AdFormat) -> any [Yields]
+	Function AdService:GetAdAvailabilityNowForUniverseAsync(adFormat: Enum.AdFormat, universeId: number, isUniversalAppDM: boolean) -> any {RobloxScriptSecurity} [Yields]
 	Function AdService:GetAdTeleportInfo() -> ...any {RobloxScriptSecurity}
 	Function AdService:GetReportAdInfo() -> { any } {RobloxScriptSecurity}
 	Function AdService:HandleWhyThisAdClicked(advertiserName: string, payerName: string) -> () {RobloxScriptSecurity}
@@ -3721,7 +3723,6 @@ Class ImportSession : Instance [NotCreatable] [NotReplicated]
 	Event ImportSession.UploadComplete(results: { [string]: any })
 	Event ImportSession.UploadProgress(progressRatio: number)
 Class AssetImportSession : ImportSession [NotCreatable] [NotReplicated]
-	Function AssetImportSession:AddKnownAssetsToCache(knownAssets: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function AssetImportSession:ApplyPreset(preset: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function AssetImportSession:CreatePresetFromData(importData: Instance) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:GetImportTree() -> Instance? {RobloxScriptSecurity}
@@ -3898,10 +3899,10 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Lighting.EnvironmentSpecularScale: number {🔐Environment}
 	Property Lighting.ExtendLightRangeTo120: Enum.RolloutState {🔐Environment} [NotScriptable]
 	Property Lighting.GlobalShadows: boolean {🔐Environment}
-	Property Lighting.LightingStyle: Enum.LightingStyle {🔐Environment} [NotScriptable]
+	Property Lighting.LightingStyle: Enum.LightingStyle {🔐Environment} {✏️RobloxScriptSecurity}
 	Property Lighting.OutdoorAmbient: Color3 {🔐Environment}
 	Property Lighting.Outlines: boolean {🔐Environment} [Deprecated]
-	Property Lighting.PrioritizeLightingQuality: boolean {🔐Environment} [NotScriptable]
+	Property Lighting.PrioritizeLightingQuality: boolean {🔐Environment} {✏️RobloxScriptSecurity}
 	Property Lighting.ShadowColor: Color3 {🔐Environment} [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Lighting.ShadowSoftness: number {🔐Environment}
 	Property Lighting.Technology: Enum.Technology {🔐Environment} {RobloxScriptSecurity}
@@ -5326,6 +5327,8 @@ Class Player : Instance
 	Event Player.ConnectDiedSignalBackend() {🔐Players} {RobloxSecurity} [Hidden]
 	Event Player.FriendStatusChanged(player: Player, friendStatus: Enum.FriendStatus) {🔐Players} {RobloxScriptSecurity}
 	Event Player.Idled(time: number) {🔐Players}
+	Event Player.InstancePinned(uniqueIdString: string, depth: number) {🔐Players} {RobloxScriptSecurity}
+	Event Player.InstanceUnpinned(uniqueIdString: string, depth: number) {🔐Players} {RobloxScriptSecurity}
 	Event Player.Kill() {🔐Players} {LocalUserSecurity} [Hidden]
 	Event Player.NotifyStreamingUnpinned(instance: Instance, depth: number) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Player.OnTeleport(teleportState: Enum.TeleportState, placeId: number, spawnName: string) {🔐Players}
@@ -5516,7 +5519,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:OnInvoke(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
 	Function Plugin:OnInvokeSuspendOverride(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
 	Function Plugin:OnSetItem(key: string, callback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity}
-	Function Plugin:OpenScript(script: LuaSourceContainer, lineNumber: number? = 1) -> () {PluginSecurity}
+	Function Plugin:OpenScript(script: LuaSourceContainer, lineNumber: number? = 1) -> () {PluginSecurity} [Deprecated]
 	Function Plugin:OpenWikiPage(url: string) -> () {PluginSecurity}
 	Function Plugin:PauseSound(sound: Instance) -> () {RobloxScriptSecurity}
 	Function Plugin:PlaySound(sound: Instance, normalizedTimePosition: number? = 0) -> () {RobloxScriptSecurity}
@@ -6347,6 +6350,7 @@ Class TremoloSoundEffect : SoundEffect
 Class SoundGroup : Instance
 	Property SoundGroup.Volume: number {🔐LegacySound}
 Class SoundService : Instance [NotCreatable] [Service]
+	Property SoundService.AcousticSimulationEnabled: boolean
 	Property SoundService.AmbientReverb: Enum.ReverbType
 	Property SoundService.AudioApiByDefault: Enum.RolloutState {RobloxScriptSecurity} [Hidden]
 	Property SoundService.AudioPlayerVolumeFix: Enum.RolloutState {RobloxScriptSecurity}
@@ -6588,6 +6592,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.LoadAllBuiltinPluginsInRunModes: boolean {RobloxScriptSecurity}
 	Property Studio.LoadInternalPlugins: boolean {RobloxSecurity}
 	Property Studio.LoadUserPluginsInRunModes: boolean {RobloxScriptSecurity}
+	Property Studio.MaxFindReplaceAllResults: number {RobloxScriptSecurity}
 	Property Studio.ActionOnAutoResumeSync: Enum.ActionOnAutoResumeSync {RobloxScriptSecurity}
 	Property Studio.ActionOnStopSync: Enum.ActionOnStopSync
 	Property Studio.AutoResumeSyncOnPlaceOpen: boolean {RobloxSecurity}
@@ -6698,8 +6703,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Warning Color: Color3 [NotReplicated]
 	Property Studio.Whitespace Color: Color3 [NotReplicated]
 	Property Studio.EnableStudioStreaming: boolean {RobloxScriptSecurity}
-	Property Studio.StudioStreamingMaxRadius: number {RobloxScriptSecurity}
-	Property Studio.StudioStreamingMinRadius: number {RobloxScriptSecurity}
 	Property Studio.Active Color: Color3
 	Property Studio.Active Hover Over Color: Color3
 	Property Studio.Animate Hover Over: boolean
@@ -6724,8 +6727,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Studio:GetAvailableThemes() -> { any } {PluginSecurity}
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function StudioAssetService:AutoSetupAvatarAsync(modelId: string, progressCallback: (...any) -> ...any, notificationCallback: ((...any) -> ...any)?) -> Instance? {RobloxScriptSecurity} [Yields]
-	Function StudioAssetService:AutoSetupSerializedAvatarAsync(serializedInstance: string, publishInfo: { [string]: any }, telemetryMetadata: { [string]: any }, progressCallback: (...any) -> ...any, notificationCallback: ((...any) -> ...any)?) -> Instance? {RobloxScriptSecurity} [Yields]
+	Function StudioAssetService:AutoSetupAvatarAsync(modelId: string, progressCallback: (...any) -> ...any, notificationCallback: ((...any) -> ...any)?, options: { [string]: any }?) -> Instance? {RobloxScriptSecurity} [Yields]
+	Function StudioAssetService:AutoSetupSerializedAvatarAsync(serializedInstance: string, publishInfo: { [string]: any }, telemetryMetadata: { [string]: any }, progressCallback: (...any) -> ...any, notificationCallback: ((...any) -> ...any)?, options: { [string]: any }?) -> Instance? {RobloxScriptSecurity} [Yields]
 	Function StudioAssetService:CancelAutoSetupAvatarAsync(jobId: string) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioAssetService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:DEPRECATED_SerializeInstances(instances: { Instance }) -> string {RobloxScriptSecurity} [Yields]
@@ -7394,6 +7397,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateOverlappingVertices(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidatePartBBoxAfterFullFacs(headEditableMesh: EditableMesh, partEditableMesh: EditableMesh, headScale: Vector3, partScale: Vector3, boundsMaxMultiplier: number) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidatePartBBoxAfterFullFacsFromMeshIds(headMeshId: string, partMeshId: string, headScale: Vector3, partScale: Vector3, boundsMaxMultiplier: number) -> boolean {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:ValidatePropertiesSensible(instance: Instance) -> ...any {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateSkinnedEditableMesh(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateSkinnedMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateTextureAlpha(textureId: string, pixelWidth: number) -> boolean {RobloxScriptSecurity} [Yields]
@@ -7579,6 +7583,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings] [NotReplicated]
 	Property UserGameSettings.OnScreenProfilerEnabled: boolean {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.OnboardingsCompleted: string {RobloxScriptSecurity}
 	Property UserGameSettings.PartyVoiceVolume: number {RobloxScriptSecurity}
+	Property UserGameSettings.PeoplePageLayout: Enum.PeoplePageLayout {RobloxScriptSecurity}
 	Property UserGameSettings.PerformanceStatsVisible: boolean {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.PlayerHeight: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.PlayerListVisible: boolean {RobloxScriptSecurity}
@@ -8043,6 +8048,9 @@ Class Wire : Instance
 	Property Wire.TargetName: string {🔐Basic}
 	Function Wire:RenameToDefault() -> () {🔐Basic} {RobloxScriptSecurity}
 Class WrapTextureTransfer : Instance
+	Property WrapTextureTransfer.ReferenceCageMeshContent: Content {🔐Avatar}
+	Property WrapTextureTransfer.UVMaxBound: Vector2 {🔐Avatar}
+	Property WrapTextureTransfer.UVMinBound: Vector2 {🔐Avatar}
 Class MLSession : Object [NotCreatable] [NotReplicated]
 	Function MLSession:ForwardAsync(data: { [string]: any }) -> { [string]: any } [Yields]
 Class TerrainIterateOperation : Object [NotCreatable] [NotReplicated]
@@ -8279,6 +8287,7 @@ Enum AppUpdateStatus
 	EnumItem AppUpdateStatus.NotAvailable : 3
 	EnumItem AppUpdateStatus.Available : 4
 	EnumItem AppUpdateStatus.AvailableBoundChannel : 5
+	EnumItem AppUpdateStatus.AvailableBetaProgram : 6
 Enum ApplyStrokeMode
 	EnumItem ApplyStrokeMode.Contextual : 0
 	EnumItem ApplyStrokeMode.Border : 1
@@ -8868,6 +8877,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.AndroidAnticheatKick : 304
 	EnumItem ConnectionError.AndroidEmulatorKick : 305
 	EnumItem ConnectionError.AndroidRootedKick : 306
+	EnumItem ConnectionError.ScreentimeLockoutKick : 307
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -10231,6 +10241,9 @@ Enum PathfindingUseImprovedSearch
 	EnumItem PathfindingUseImprovedSearch.Default : 0
 	EnumItem PathfindingUseImprovedSearch.Disabled : 1
 	EnumItem PathfindingUseImprovedSearch.Enabled : 2
+Enum PeoplePageLayout
+	EnumItem PeoplePageLayout.Card : 0
+	EnumItem PeoplePageLayout.List : 1
 Enum PerformanceOverlayMode
 	EnumItem PerformanceOverlayMode.Overdraw : 0
 	EnumItem PerformanceOverlayMode.Transparent : 1

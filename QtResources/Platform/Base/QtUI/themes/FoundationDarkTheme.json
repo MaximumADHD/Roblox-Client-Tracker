@@ -326,14 +326,14 @@
         },
         {
             "InputFieldBackground": {
-                "Default": "#202227",
+                "Default": "#282931",
                 "Disabled": "#202227",
                 "Hover": "#353741"
             }
         },
         {
             "InputFieldBorder": {
-                "Default": "#191A1F",
+                "Default": "#282931",
                 "Hover": "#353741",
                 "Selected": "#528BFF",
                 "Disabled": "#353741"
@@ -341,13 +341,13 @@
         },
         {
             "CheckedFieldBackground": {
-                "Default": "#202227",
+                "Default": "#282931",
                 "Disabled": "#202227"
             }
         },
         {
             "CheckedFieldBorder": {
-                "Default": "#191A1F",
+                "Default": "#282931",
                 "Hover": "#353741",
                 "Disabled": "#353741"
             }
