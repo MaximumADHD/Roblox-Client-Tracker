@@ -1,12 +1,14 @@
 [package]
 name = "BuilderIcons"
-version = "0.1.13"
+version = "0.1.14"
 readme = "README.md"
 content_root = "src"
 files = [
     "*",
     "!*.storybook.lua",
     "!*.story.lua",
+    "!*.test.lua",
+    "!*.config.lua",
 ]
 publish = true
 authors = ["Nick Winans <nwinans@roblox.com>"]

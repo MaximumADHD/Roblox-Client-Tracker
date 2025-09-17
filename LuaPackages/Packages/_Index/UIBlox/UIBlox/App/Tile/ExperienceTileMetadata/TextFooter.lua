@@ -11,6 +11,8 @@ local Fonts = require(App.Style.Fonts)
 
 local FooterFrame = require(ExperienceTileMetadata.FooterFrame)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 export type StyleProps = {
 	-- Corner radius of text label
 	cornerRadius: number?,
@@ -66,6 +68,9 @@ local function TextFooter(props: Props)
 			TextSize = font.BaseSize * textFont.RelativeSize,
 			TextColor3 = textColor.Color,
 			TextTransparency = textColor.Transparency,
+			TextTruncate = if UIBloxConfig.truncateExperienceTileMetadataTextFooter
+				then Enum.TextTruncate.AtEnd
+				else nil,
 		}, {
 			UICorner = if cornerRadius
 				then React.createElement("UICorner", {

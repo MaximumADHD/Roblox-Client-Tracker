@@ -18,6 +18,7 @@ local AssetCalculator = require(util.AssetCalculator)
 local validation = root.validation
 local validateAttributes = require(validation.validateAttributes)
 local validateTags = require(validation.validateTags)
+local ValidatePropertiesSensible = require(validation.ValidatePropertiesSensible)
 
 local flags = root.flags
 local GetFStringUGCValidationMaxAnimationLength = require(flags.GetFStringUGCValidationMaxAnimationLength)
@@ -47,6 +48,11 @@ local getFFlagUGCValidateStopNaNsInfsInCalculatedData = require(flags.getFFlagUG
 local getFFlagUGCValidateSingleAnimationRigData = require(flags.getFFlagUGCValidateSingleAnimationRigData)
 local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
 	require(flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
+local getFFlagUGCValidatePreciseStepThrough = require(flags.getFFlagUGCValidatePreciseStepThrough)
+local getFFlagUGCValidatePreciseCurveLimit = require(flags.getFFlagUGCValidatePreciseCurveLimit)
+local GetFStringUGCValidateFrameDeltaKeyTimeTol = require(flags.GetFStringUGCValidateFrameDeltaKeyTimeTol)
+local getEngineFeatureEngineUGCValidatePropertiesSensible =
+	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
 local ValidateCurveAnimation = {}
 
@@ -576,7 +582,9 @@ local function createDefaultCharacter(removeMotors: boolean): Model
 	return defaultCharacter
 end
 
-local frameDelta = 1.0 / 30.0
+local frameDelta = if getFFlagUGCValidatePreciseStepThrough()
+	then 1.0 / getFIntUGCValidateMaxAnimationFPS()
+	else 1.0 / 30.0
 
 local function getBodyPartFolderRoot(curveAnim: CurveAnimation): Folder?
 	for _, child in curveAnim:GetChildren() do
@@ -792,6 +800,15 @@ function ValidateCurveAnimation.validateFrameDeltas(
 	animFrames: { { string: CFrame } },
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
+	local maxAllowedMovement = nil
+	-- GetFStringUGCValidationMaxAnimationDeltas.asNumber() is presuming a 1/30 seconds between frames, however frameDelta may be
+	-- different to this, and we need to scale GetFStringUGCValidationMaxAnimationDeltas.asNumber() accordingly
+	if getFFlagUGCValidatePreciseStepThrough() then
+		local defaultFrameTime = 1.0 / 30.0
+		local maxMovementMultiplier = frameDelta / defaultFrameTime
+		maxAllowedMovement = GetFStringUGCValidationMaxAnimationDeltas.asNumber() * maxMovementMultiplier
+	end
+
 	local prevFrame = {}
 	for _, frame in animFrames do
 		for bodyPartName, cframe in frame do
@@ -801,7 +818,11 @@ function ValidateCurveAnimation.validateFrameDeltas(
 			end
 
 			local delta = ((cframe :: CFrame).Position - prevCFrame.Position).Magnitude
-			if delta > GetFStringUGCValidationMaxAnimationDeltas.asNumber() then
+			local maxDelta = if getFFlagUGCValidatePreciseStepThrough()
+				then maxAllowedMovement
+				else GetFStringUGCValidationMaxAnimationDeltas.asNumber()
+
+			if delta > maxDelta then
 				return reportFailure(
 					`Body part {bodyPartName} in CurveAnimation moves more than {GetFStringUGCValidationMaxAnimationDeltas.asString()} studs between frames. Please fix the animation.`,
 					Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta,
@@ -943,6 +964,13 @@ function ValidateCurveAnimation.validateData(
 	local maxTotalKeys =
 		math.floor(getFIntUGCValidateMaxAnimationFPS() * GetFStringUGCValidationMaxAnimationLength.asNumber())
 
+	local frameDeltaTol = nil
+	if getFFlagUGCValidatePreciseCurveLimit() then
+		frameDeltaTol = frameDelta * GetFStringUGCValidateFrameDeltaKeyTimeTol.asNumber()
+		local fpsWithTol = 1.0 / frameDeltaTol
+		maxTotalKeys = math.ceil(fpsWithTol * GetFStringUGCValidationMaxAnimationLength.asNumber())
+	end
+
 	for _, desc in inst:GetDescendants() do
 		if desc:IsA("MarkerCurve") then
 			local allMarkers = desc:GetMarkers()
@@ -973,8 +1001,14 @@ function ValidateCurveAnimation.validateData(
 			continue
 		end
 
-		if not desc:IsA("FloatCurve") and not desc:IsA("RotationCurve") then
-			continue
+		if getFFlagUGCValidatePreciseCurveLimit() then
+			if not desc:IsA("FloatCurve") then
+				continue
+			end
+		else
+			if not desc:IsA("FloatCurve") and not desc:IsA("RotationCurve") then
+				continue
+			end
 		end
 
 		local allKeys = desc:GetKeys()
@@ -986,6 +1020,7 @@ function ValidateCurveAnimation.validateData(
 			)
 		end
 
+		local prevTime = nil
 		for __, key in allKeys do
 			if
 				not key.Time
@@ -1004,6 +1039,28 @@ function ValidateCurveAnimation.validateData(
 					Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
 					validationContext
 				)
+			end
+
+			if getFFlagUGCValidatePreciseCurveLimit() then
+				if prevTime then
+					local minTimeAllowed = (prevTime :: number) + frameDeltaTol
+					if key.Time < minTimeAllowed then
+						local grandparentName = if desc.Parent.Parent then desc.Parent.Parent.Name else "-"
+						return reportFailure(
+							`CurveAnimation contains Curve {grandparentName}.{desc.Parent.Name}.{desc.Name} with keys that are too close together in time for a maximum {getFIntUGCValidateMaxAnimationFPS()} fps animation. Please fix the animation.`,
+							Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
+							validationContext
+						)
+					end
+				elseif key.Time < 0 then
+					local grandparentName = if desc.Parent.Parent then desc.Parent.Parent.Name else "-"
+					return reportFailure(
+						`CurveAnimation contains Curve {grandparentName}.{desc.Parent.Name}.{desc.Name} with a key that has a negative time. Please fix the animation.`,
+						Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
+						validationContext
+					)
+				end
+				prevTime = key.Time
 			end
 		end
 	end
@@ -1162,6 +1219,14 @@ function ValidateCurveAnimation.validate(
 	local success, reasons = ValidateCurveAnimation.validateStructure(inst, validationContext)
 	if not success then
 		return success, reasons
+	end
+
+	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
+		local successPropertiesSensible, reasonsPropertiesSensible =
+			ValidatePropertiesSensible.validate(inst, validationContext)
+		if not successPropertiesSensible then
+			return false, reasonsPropertiesSensible
+		end
 	end
 
 	if getFFlagUGCValidateIncorrectNumericalData() then

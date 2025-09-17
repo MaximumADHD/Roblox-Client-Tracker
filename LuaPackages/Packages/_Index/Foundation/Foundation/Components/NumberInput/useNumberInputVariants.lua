@@ -71,7 +71,7 @@ local function variantsFactory(tokens: Tokens)
 			horizontalPadding = tokens.Size.Size_150,
 			upButtonTag = "padding-top-xsmall",
 			downButtonTag = "padding-bottom-xsmall",
-			splitButtonTag = "radius-small",
+			splitButtonTag = "radius-medium",
 			splitButtonSize = tokens.Size.Size_800,
 		}),
 		[InputSize.Medium] = computeProps({
@@ -79,7 +79,7 @@ local function variantsFactory(tokens: Tokens)
 			horizontalPadding = tokens.Size.Size_150,
 			upButtonTag = "padding-top-small",
 			downButtonTag = "padding-bottom-small",
-			splitButtonTag = "radius-small",
+			splitButtonTag = "radius-medium",
 			splitButtonSize = tokens.Size.Size_1000,
 		}),
 		[InputSize.Large] = computeProps({

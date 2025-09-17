@@ -39,7 +39,7 @@ type State = ControlState | "Error"
 
 local function variantsFactory(tokens: Tokens)
 	local common = {
-		container = { tag = "row radius-medium align-y-center flex-x-between stroke-standard" },
+		container = { tag = "row align-y-center flex-x-between stroke-standard" },
 		text = {
 			tag = `auto-xy {if Flags.FoundationFixDropdownValueTuncation then "text-truncate-split shrink" else ""}`,
 		},
@@ -50,7 +50,9 @@ local function variantsFactory(tokens: Tokens)
 			container = {
 				-- TODO (AleksandrSl 26/06/2025): Drop height from containers of all sizes, when FoundationFixInputFieldWidth flag is removed
 				height = UDim.new(0, tokens.Size.Size_600),
-				tag = `padding-small {if Flags.FoundationFixDropdownValueTuncation then "gap-xxsmall" else ""} size-full-600`,
+				tag = `radius-small padding-small {if Flags.FoundationFixDropdownValueTuncation
+					then "gap-xxsmall"
+					else ""} size-full-600`,
 			},
 			text = { tag = "text-body-small" },
 			arrow = { size = InputSize.Small },
@@ -58,7 +60,9 @@ local function variantsFactory(tokens: Tokens)
 		[InputSize.Small] = {
 			container = {
 				height = UDim.new(0, tokens.Size.Size_800),
-				tag = `padding-medium {if Flags.FoundationFixDropdownValueTuncation then "gap-xxsmall" else ""} size-full-800`,
+				tag = `radius-medium padding-medium {if Flags.FoundationFixDropdownValueTuncation
+					then "gap-xxsmall"
+					else ""} size-full-800`,
 			},
 			text = { tag = "text-body-small" },
 			arrow = { size = InputSize.Small },
@@ -67,7 +71,7 @@ local function variantsFactory(tokens: Tokens)
 			container = {
 				size = UDim2.new(1, 0, 0, tokens.Size.Size_1000),
 				height = UDim.new(0, tokens.Size.Size_1000),
-				tag = "padding-medium size-full-1000",
+				tag = "radius-medium padding-medium size-full-1000",
 			},
 			text = { tag = "text-body-medium" },
 			arrow = { size = InputSize.Medium },
@@ -76,7 +80,7 @@ local function variantsFactory(tokens: Tokens)
 			container = {
 				size = UDim2.new(1, 0, 0, tokens.Size.Size_1200),
 				height = UDim.new(0, tokens.Size.Size_1200),
-				tag = "padding-medium size-full-1200",
+				tag = "radius-medium padding-medium size-full-1200",
 			},
 			text = { tag = "text-body-large" },
 			arrow = { size = InputSize.Medium },

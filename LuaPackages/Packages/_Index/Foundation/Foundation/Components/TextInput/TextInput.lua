@@ -93,7 +93,10 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					text = props.text,
 					textInputType = props.textInputType,
 					size = props.size,
-					padding = variantProps.innerContainer.padding,
+					horizontalPadding = {
+						left = variantProps.innerContainer.horizontalPadding,
+						right = variantProps.innerContainer.horizontalPadding,
+					},
 					onChanged = props.onChanged,
 					onFocus = props.onFocusGained,
 					onFocusLost = props.onFocusLost,

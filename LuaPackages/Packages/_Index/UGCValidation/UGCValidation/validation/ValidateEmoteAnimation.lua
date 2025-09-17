@@ -21,10 +21,13 @@ local validateAttributes = require(validation.validateAttributes)
 local validateDependencies = require(validation.validateDependencies)
 local validateModeration = require(validation.validateModeration)
 local ValidateCurveAnimation = require(validation.ValidateCurveAnimation)
+local ValidatePropertiesSensible = require(validation.ValidatePropertiesSensible)
 
 local flags = root.flags
 local getFFlagUGCValidateEmoteAnimationExtendedTests = require(flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
 local getFFlagUGCValidateNoDoubleRoots = require(flags.getFFlagUGCValidateNoDoubleRoots)
+local getEngineFeatureEngineUGCValidatePropertiesSensible =
+	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
 local ValidateEmoteAnimation = {}
 
@@ -73,6 +76,13 @@ function ValidateEmoteAnimation.validate(validationContext: Types.ValidationCont
 				return false, reasons
 			end
 			instance = instOpt :: Instance
+		end
+
+		if getEngineFeatureEngineUGCValidatePropertiesSensible() then
+			local success, reasons = ValidatePropertiesSensible.validate(instance, validationContext)
+			if not success then
+				return false, reasons
+			end
 		end
 
 		do

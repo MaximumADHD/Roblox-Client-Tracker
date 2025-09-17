@@ -17,7 +17,6 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Images = require(AppRoot.ImageSet.Images)
 local ImageSetComponent = require(CoreRoot.ImageSet.ImageSetComponent)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
 
 local MARGIN = 24
@@ -40,7 +39,7 @@ AlertTitle.validateProps = t.strictInterface({
 	onCloseClicked = t.optional(t.callback),
 
 	-- Internal property, selection cursor to use for the close button
-	closeCursor = if UIBloxConfig.fixAlertCloseCursor then t.optional(t.table) else nil,
+	closeCursor = t.optional(t.table),
 })
 
 AlertTitle.defaultProps = {
@@ -112,9 +111,7 @@ function AlertTitle:render()
 							Position = UDim2.new(0, 0, 0.5, 0),
 							[Roact.Event.Activated] = self.props.onCloseClicked,
 
-							SelectionImageObject = if UIBloxConfig.fixAlertCloseCursor
-								then self.props.closeCursor
-								else nil,
+							SelectionImageObject = self.props.closeCursor,
 						}),
 						TitleText = Roact.createElement(GenericTextLabel, {
 							AnchorPoint = Vector2.new(0.5, 0.5),
@@ -149,18 +146,14 @@ function AlertTitle:render()
 	end)
 end
 
-if UIBloxConfig.fixAlertCloseCursor then
-	local function AlertTitleFunctionalWrapper(props)
-		local cursor = useCursor(CLOSE_CURSOR_CORNER_RADIUS)
-		return Roact.createElement(
-			AlertTitle,
-			Cryo.Dictionary.join(props, {
-				closeCursor = cursor,
-			})
-		)
-	end
-
-	return AlertTitleFunctionalWrapper
+local function AlertTitleFunctionalWrapper(props)
+	local cursor = useCursor(CLOSE_CURSOR_CORNER_RADIUS)
+	return Roact.createElement(
+		AlertTitle,
+		Cryo.Dictionary.join(props, {
+			closeCursor = cursor,
+		})
+	)
 end
 
-return AlertTitle
+return AlertTitleFunctionalWrapper

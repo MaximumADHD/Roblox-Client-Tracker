@@ -24,6 +24,11 @@ local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 type InternalTextInputRef = Types.InternalTextInputRef
 type Padding = Types.Padding
+type Bindable<T> = Types.Bindable<T>
+type HorizontalPadding = {
+	left: Bindable<UDim>?,
+	right: Bindable<UDim>?,
+}
 
 type TextInputProps = {
 	-- Input text value
@@ -32,8 +37,8 @@ type TextInputProps = {
 	textInputType: Enum.TextInputType?,
 	-- Size of the text input
 	size: InputSize?,
-	-- Padding around the text input
-	padding: Padding,
+	-- Horizontal-only padding around the text input
+	horizontalPadding: HorizontalPadding?,
 	-- Whether the input is in an error state
 	hasError: boolean?,
 	-- Whether the input is disabled
@@ -183,7 +188,12 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 							Thickness = innerBorderThickness,
 						}
 						else nil,
-					padding = props.padding,
+					padding = if props.horizontalPadding
+						then {
+							left = props.horizontalPadding.left,
+							right = props.horizontalPadding.right,
+						}
+						else nil,
 					tag = variantProps.innerContainer.tag,
 				}, {
 					Leading = if props.leadingElement

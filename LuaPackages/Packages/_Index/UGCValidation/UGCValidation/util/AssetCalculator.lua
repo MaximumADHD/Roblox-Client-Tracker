@@ -13,6 +13,8 @@ calculatePartsLocalToAsset:
 	calculate the cframes for the upper part, lower part, and hand/foot in the local space of the asset cframe
 getBodyPartsToParents:
 	returns a table of each body part name to its parent name
+getAssetMeshesValidationSpaceTransforms:
+	returns a table of asset mesh part name keys to transform entries that can be used to transform each mesh part's mesh to its orientation in straightened limb space
 ]]
 
 local root = script.Parent.Parent
@@ -24,6 +26,7 @@ local Types = require(root.util.Types)
 local canBeNormalized = require(root.util.canBeNormalized)
 local getPartNamesInHierarchyOrder = require(root.util.getPartNamesInHierarchyOrder)
 local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
+local getMeshScales = require(root.util.getMeshScales)
 
 local getFFlagUGCValidateEmoteAnimationExtendedTests =
 	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
@@ -202,7 +205,7 @@ function AssetCalculator.calculateStraightenedLimb(
 	singleAsset: Enum.AssetType,
 	partsCFrames: { string: CFrame },
 	findMeshHandle: (string) -> MeshPart
-): { string: CFrame }
+): { [string]: CFrame }
 	assertTypesToOrient(singleAsset)
 
 	local result = Cryo.Dictionary.join(partsCFrames) -- make a copy
@@ -330,6 +333,53 @@ function AssetCalculator.getBodyPartsToParents(): { string: string }
 
 	calculateAllTransformsInternal(fullBodyAssetHierarchy.root, nil, fullBodyAssetHierarchy)
 	return results
+end
+
+-- returns a table of asset mesh part name keys to transform entries that can be used to transform each mesh part's mesh to its orientation in straightened limb space
+function AssetCalculator.getAssetMeshesValidationSpaceTransforms(
+	inst: Instance,
+	validationContext: Types.ValidationContext
+): { [string]: { CFrame: CFrame, scale: Vector3 } }
+	local assetType = validationContext.assetTypeEnum :: Enum.AssetType
+	assert(assetType)
+
+	-- get all mesh part names in asset
+	local partNames: { [number]: string } = {}
+	if assetType == Enum.AssetType.DynamicHead then
+		table.insert(partNames, inst.Name)
+	else
+		for _, part in inst:GetChildren() do
+			if part:IsA("MeshPart") then
+				table.insert(partNames, part.Name :: string)
+			end
+		end
+	end
+
+	local partCFrames = AssetCalculator.calculateAllTransformsForAsset(assetType, inst)
+
+	local function findMeshHandle(name: string): MeshPart
+		if assetType == Enum.AssetType.DynamicHead then
+			return inst :: MeshPart
+		end
+		return inst:FindFirstChild(name) :: MeshPart
+	end
+
+	if assetType ~= Enum.AssetType.DynamicHead and assetType ~= Enum.AssetType.Torso then
+		local results = AssetCalculator.calculateStraightenedLimb(assetType, partCFrames, findMeshHandle)
+
+		for name, newCFrame in results do
+			partCFrames[name] = newCFrame
+		end
+	end
+
+	local meshScales = getMeshScales(partNames, findMeshHandle, validationContext)
+
+	local validationSpaceTransforms = {}
+	for _, partName in partNames do
+		validationSpaceTransforms[partName] = { CFrame = partCFrames[partName], scale = meshScales[partName] }
+	end
+
+	return validationSpaceTransforms
 end
 
 return AssetCalculator

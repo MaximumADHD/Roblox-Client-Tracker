@@ -189,6 +189,10 @@ export type SkeletonProps = Skeleton.SkeletonProps
 local Slider = require(script.Components.Slider)
 export type SliderProps = Slider.SliderProps
 
+local Snackbar = require(script.Components.Snackbar)
+export type SnackbarProps = Snackbar.SnackbarProps
+export type SnackbarAction = Snackbar.SnackbarAction
+
 local StatusIndicator = require(script.Components.StatusIndicator)
 export type StatusIndicatorProps = StatusIndicator.StatusIndicatorProps
 
@@ -246,6 +250,7 @@ local Foundation = strict({
 	SegmentedControl = SegmentedControl,
 	Skeleton = Skeleton,
 	Slider = Slider,
+	Snackbar = Snackbar,
 	StatusIndicator = StatusIndicator,
 	Tabs = Tabs,
 	Text = Text,

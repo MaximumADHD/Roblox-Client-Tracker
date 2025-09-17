@@ -25,6 +25,7 @@ local validateScaleType = require(root.validation.validateScaleType)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateRigidMeshNotSkinned = require(root.validation.validateRigidMeshNotSkinned)
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
+local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
 local validateDependencies = require(root.validation.validateDependencies)
 
 local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
@@ -45,6 +46,8 @@ local getFFlagCheckAccessoryMeshSize = require(root.flags.getFFlagCheckAccessory
 local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
 local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
+local getEngineFeatureEngineUGCValidatePropertiesSensible =
+	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
 local function validateMeshPartAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	assert(
@@ -87,6 +90,13 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	success, reasons = validateInstanceTree(schema, instance, validationContext)
 	if not success then
 		return false, reasons
+	end
+
+	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
+		success, reasons = ValidatePropertiesSensible.validate(instance, validationContext)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	if getFFlagUGCValidationNameCheck() and isServer then

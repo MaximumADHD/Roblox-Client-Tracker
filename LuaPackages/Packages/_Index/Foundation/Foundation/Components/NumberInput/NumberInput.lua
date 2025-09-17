@@ -204,8 +204,8 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					text = currentText,
 					hasError = props.hasError,
 					size = props.size,
-					padding = {
-						left = variantProps.innerContainer.padding.left,
+					horizontalPadding = {
+						left = variantProps.innerContainer.horizontalPadding,
 					},
 					onChanged = onChanged,
 					onFocusLost = onFocusLost,

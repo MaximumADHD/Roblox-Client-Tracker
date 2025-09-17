@@ -28,7 +28,7 @@ type TextInputVariantProps = {
 	innerContainer: {
 		tag: string,
 		gap: number,
-		padding: any,
+		horizontalPadding: UDim,
 		radius: number,
 	},
 	textBox: {
@@ -64,10 +64,7 @@ local function computeProps(props: {
 		},
 		innerContainer = {
 			tag = props.innerContainerTag,
-			padding = {
-				left = UDim.new(0, props.horizontalPadding),
-				right = UDim.new(0, props.horizontalPadding),
-			},
+			horizontalPadding = UDim.new(0, props.horizontalPadding),
 			gap = props.gap,
 			radius = props.radius,
 		},
@@ -115,7 +112,7 @@ local function variantsFactory(tokens: Tokens)
 		}),
 		[InputSize.Small] = computeProps({
 			canvasTag = "size-full-800",
-			outerContainerTag = "radius-small",
+			outerContainerTag = "radius-medium",
 			radius = tokens.Radius.Small,
 			innerContainerTag = "gap-medium",
 			horizontalPadding = tokens.Padding.Small,
@@ -128,7 +125,7 @@ local function variantsFactory(tokens: Tokens)
 		}),
 		[InputSize.Medium] = computeProps({
 			canvasTag = "size-full-1000",
-			outerContainerTag = "radius-small",
+			outerContainerTag = "radius-medium",
 			radius = tokens.Radius.Small,
 			innerContainerTag = "gap-large",
 			horizontalPadding = tokens.Padding.Small,

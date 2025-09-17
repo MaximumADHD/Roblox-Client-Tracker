@@ -38,12 +38,15 @@ local validatePose = require(root.validation.validatePose)
 local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
 local ValidateAssetBodyPartCages = require(root.validation.ValidateAssetBodyPartCages)
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
+local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
 
 local validateWithSchema = require(root.util.validateWithSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local validateBodyPartVertsSkinnedToR15 = require(root.validation.validateBodyPartVertsSkinnedToR15)
 local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
 	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
+local getEngineFeatureEngineUGCValidatePropertiesSensible =
+	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
 local resetPhysicsData = require(root.util.resetPhysicsData)
 local Types = require(root.util.Types)
@@ -89,6 +92,13 @@ local function validateMeshPartBodyPart(
 	local success, errorMessage = resetPhysicsData({ inst }, validationContext)
 	if not success then
 		return false, { errorMessage :: string }
+	end
+
+	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
+		local sensibleSuccess, sensibleErrorMessages = ValidatePropertiesSensible.validate(inst, validationContext)
+		if not sensibleSuccess then
+			return false, sensibleErrorMessages
+		end
 	end
 
 	if getFFlagUGCValidateMeshMin() then

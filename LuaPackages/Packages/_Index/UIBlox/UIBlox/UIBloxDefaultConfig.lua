@@ -108,6 +108,9 @@ return {
 	-- Enable icon scaling for some icons used by experience details
 	enableScalingForSomeEdpIcons = false,
 
-	-- Use the foundation selection cursor for AlertTitle close button
-	fixAlertCloseCursor = false,
+	-- Disable selectable for certain elements in ModalBottomSheet
+	fixModalBottomSheetSelectable = false,
+
+	-- Add truncation to ExperienceTileMetadata's TextFooter
+	truncateExperienceTileMetadataTextFooter = false,
 }

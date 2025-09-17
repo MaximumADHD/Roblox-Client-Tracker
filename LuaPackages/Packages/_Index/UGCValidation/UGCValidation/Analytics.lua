@@ -61,6 +61,8 @@ local getFFlagUGCValidateStopNaNsInfsInCalculatedData =
 	require(root.flags.getFFlagUGCValidateStopNaNsInfsInCalculatedData)
 local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
 	require(root.flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
+local getEngineFeatureEngineUGCValidatePropertiesSensible =
+	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
 local function joinTables(...)
 	local result = {}
@@ -349,6 +351,11 @@ if getEngineUGCValidateRelativeSkinningTransfer() then
 	Analytics.ErrorType.validateSkinningTransfer_SkinningTransferOverride =
 		"validateSkinningTransfer_SkinningTransferOverride"
 	Analytics.ErrorType.validateSkinningTransfer_Weights = "validateSkinningTransfer_Weights"
+end
+
+if getEngineFeatureEngineUGCValidatePropertiesSensible() then
+	Analytics.ErrorType.validatePropertiesSensible_IncorrectPropertiesFound =
+		"validatePropertiesSensible_IncorrectPropertiesFound"
 end
 
 setmetatable(Analytics.ErrorType, {

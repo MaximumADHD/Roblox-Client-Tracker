@@ -23,6 +23,7 @@ local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateLCInRenderBounds = require(root.validation.validateLayeredClothingInRenderBounds)
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
+local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
 local validateDependencies = require(root.validation.validateDependencies)
 local validateSkinningTransfer = require(root.validation.validateSkinningTransfer)
 
@@ -56,6 +57,8 @@ local getFFlagValidateDeformedLayeredClothingIsInBounds =
 local getFFlagCheckLayeredClothingMeshSize = require(root.flags.getFFlagCheckLayeredClothingMeshSize)
 local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
+local getEngineFeatureEngineUGCValidatePropertiesSensible =
+	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
@@ -94,6 +97,13 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 	success, reasons = validateInstanceTree(schema, instance, validationContext)
 	if not success then
 		return false, reasons
+	end
+
+	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
+		success, reasons = ValidatePropertiesSensible.validate(instance, validationContext)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	if getFFlagUGCValidationNameCheck() and isServer then

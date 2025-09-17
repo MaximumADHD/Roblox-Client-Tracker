@@ -5,6 +5,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
+local validateBinding = require(Validator.validateBinding)
 
 export type ColorInfo = {
 	Color: Color3,
@@ -13,5 +14,5 @@ export type ColorInfo = {
 
 return t.strictInterface({
 	Color = t.Color3,
-	Transparency = t.numberConstrained(0, 1),
+	Transparency = t.union(t.numberConstrained(0, 1), validateBinding),
 })
