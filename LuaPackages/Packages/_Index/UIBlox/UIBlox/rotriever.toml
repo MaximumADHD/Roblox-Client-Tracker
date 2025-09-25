@@ -1,6 +1,6 @@
 [package]
 name = "UIBlox"
-version = "0.2.154"
+version = "0.2.155"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -37,7 +37,7 @@ version = "^0.1"
 
 [dependencies.LuauPolyfill]
 target = "https://github.com/roblox/luau-polyfill"
-version = "^0.3.0"
+version = "^1.2.3"
 
 [dependencies.Lumberyak]
 target = "https://github.com/roblox/lumberyak"

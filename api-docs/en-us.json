@@ -31016,9 +31016,6 @@
   "@roblox/globaltype/ConfigSnapshot.GetValue/param/1": {
     "documentation": ""
   },
-  "@roblox/globaltype/ConfigSnapshot.GetValue/param/2": {
-    "documentation": ""
-  },
   "@roblox/globaltype/ConfigSnapshot.GetValue/return/0": {
     "documentation": ""
   },
@@ -31032,10 +31029,6 @@
       {
         "name": "key",
         "documentation": "@roblox/globaltype/ConfigSnapshot.GetValue/param/1"
-      },
-      {
-        "name": "defaultValue",
-        "documentation": "@roblox/globaltype/ConfigSnapshot.GetValue/param/2"
       }
     ],
     "returns": [
@@ -33272,7 +33265,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.OpenScript": {
-    "documentation": "Used to open the given script instance in an editor window, in Roblox studio, at the given line. If no line is given as an argument it will default to 1.",
+    "documentation": "<strong>Deprecated:</strong> <br>Used to open the given script instance in an editor window, in Roblox studio, at the given line. If no line is given as an argument it will default to 1.",
     "params": [
       {
         "name": "self",
@@ -87965,11 +87958,16 @@
     "documentation": "A service to support developer avatar creators.",
     "keys": {
       "AutoSetupAvatarAsync": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync",
+      "GenerateAvatar2DPreviewAsync": "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync",
+      "GenerateAvatarAsync": "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync",
       "GetBatchTokenDetailsAsync": "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync",
       "GetValidationRules": "@roblox/globaltype/AvatarCreationService.GetValidationRules",
+      "LoadAvatar2DPreviewAsync": "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync",
       "LoadGeneratedAvatarAsync": "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync",
       "PrepareAvatarForPreviewAsync": "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync",
       "PromptCreateAvatarAsync": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync",
+      "PromptSelectAvatarGenerationImageAsync": "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync",
+      "RequestAvatarGenerationSessionAsync": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync",
       "ValidateUGCAccessoryAsync": "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync",
       "ValidateUGCBodyPartAsync": "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync",
       "ValidateUGCFullBodyAsync": "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync"
@@ -88018,6 +88016,60 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AutoSetupAvatarAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/0": {
+    "documentation": "A service to support developer avatar creators."
+  },
+  "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/1": {
+    "documentation": "A table of arguments for 2D preview generation. Type: <code>avatarGeneration2dPreviewParams: {SessionId: string, FileId: string, TextPrompt: string?}</code>"
+  },
+  "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/return/0": {
+    "documentation": "A string previewId"
+  },
+  "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync": {
+    "documentation": "Creates a 2D avatar preview and returns a previewId.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/0"
+      },
+      {
+        "name": "avatarGeneration2dPreviewParams",
+        "documentation": "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#GenerateAvatar2DPreviewAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/0": {
+    "documentation": "A service to support developer avatar creators."
+  },
+  "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/1": {
+    "documentation": "A table of arguments for generating an avatar. Type: <code>avatarGenerationParams: {SessionId: string, PreviewId: string}</code>"
+  },
+  "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/return/0": {
+    "documentation": "A string generationId."
+  },
+  "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync": {
+    "documentation": "Generates an avatar and returns a generationId.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/0"
+      },
+      {
+        "name": "avatarGenerationParams",
+        "documentation": "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#GenerateAvatarAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/0": {
     "documentation": "A service to support developer avatar creators."
   },
@@ -88063,6 +88115,33 @@
       "@roblox/globaltype/AvatarCreationService.GetValidationRules/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#GetValidationRules",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/0": {
+    "documentation": "A service to support developer avatar creators."
+  },
+  "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/1": {
+    "documentation": "Load the preview generated from <code>GenerateAvatar2DPreviewAsync()</code>."
+  },
+  "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/return/0": {
+    "documentation": "An <code>EditableImage</code> containing the preview image."
+  },
+  "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync": {
+    "documentation": "Load an AvatarGeneration 2D preview on the client from a previewId.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/0"
+      },
+      {
+        "name": "previewId",
+        "documentation": "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#LoadAvatar2DPreviewAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/param/0": {
@@ -88153,6 +88232,67 @@
       "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#PromptCreateAvatarAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/0": {
+    "documentation": "A service to support developer avatar creators."
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/1": {
+    "documentation": "The <code>Player</code> to prompt for taking a selfie."
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/return/0": {
+    "documentation": "A string FileId of the selfie."
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync": {
+    "documentation": "Prompt the <code>Player</code> to take a selfie and return the FileId.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#PromptSelectAvatarGenerationImageAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/0": {
+    "documentation": "A service to support developer avatar creators."
+  },
+  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/1": {
+    "documentation": "The <code>Player</code> to request an AvatarGeneration session for."
+  },
+  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/2": {
+    "documentation": "Callback function that is invoked with a SessionInfo table, with information about the session. Type: <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
+  },
+  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/return/0": {
+    "documentation": "A tuple containing a <code>RBXScriptConnection</code> that can be used to cancel the session request and the estimated wait time in seconds."
+  },
+  "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync": {
+    "documentation": "Request an AvatarGeneration session for a <code>Player</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/1"
+      },
+      {
+        "name": "callback",
+        "documentation": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#RequestAvatarGenerationSessionAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/0": {
@@ -91232,7 +91372,7 @@
     "documentation": "A class that allows the display of mobile video ads."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/1": {
-    "documentation": "The format of the requested ad. For example, <code>RewardedOnDemandVideo</code>."
+    "documentation": "The format of the requested ad. For example, <code>RewardedVideo</code>."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/return/0": {
     "documentation": ""

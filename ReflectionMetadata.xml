@@ -1949,6 +1949,19 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">EmissiveMaskContent</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EmissiveStrength</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">40</double>
+            <double name="UINumTicks">2000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">TexturePack</string>
           </Properties>
         </Item>
@@ -5285,6 +5298,20 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">EmissiveMaskContent</string>
+            <string name="PropertyOrder">5</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EmissiveStrength</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">40</double>
+            <double name="UINumTicks">2000</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">StudsPerTile</string>
             <double name="UIMinimum">0.1</double>
             <double name="UIMaximum">20</double>
@@ -5330,6 +5357,21 @@
           <Properties>
             <string name="Name">RoughnessMap</string>
             <string name="PropertyOrder">4</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EmissiveMaskContent</string>
+            <string name="PropertyOrder">5</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EmissiveStrength</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">40</double>
+            <double name="UINumTicks">2000</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -10858,7 +10900,7 @@
           <Properties>
             <string name="Name">Range</string>
             <double name="UIMinimum">0</double>
-            <double name="UIMaximum">60</double>
+            <double name="UIMaximum">120</double>
           </Properties>
         </Item>
       </Item>
@@ -10876,7 +10918,7 @@
           <Properties>
             <string name="Name">Range</string>
             <double name="UIMinimum">0</double>
-            <double name="UIMaximum">60</double>
+            <double name="UIMaximum">120</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -10901,7 +10943,7 @@
           <Properties>
             <string name="Name">Range</string>
             <double name="UIMinimum">0</double>
-            <double name="UIMaximum">60</double>
+            <double name="UIMaximum">120</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

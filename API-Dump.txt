@@ -256,7 +256,9 @@ Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:ReturnToPublisherExperience(adTeleportMethod: Enum.AdTeleportMethod) -> () {RobloxScriptSecurity}
 	Function AdService:SetAdGuiInteractivityHandlerInitialized() -> () {RobloxScriptSecurity}
 	Function AdService:ShowRewardedVideoAdAsync(player: Player, reward: AdReward, placementId: number?) -> Enum.ShowAdResult [Yields]
+	Function AdService:ShowRewardedVideoAdAtClientAsync(universeId: number) -> Enum.ShowAdResult {RobloxScriptSecurity} [Yields]
 	Function AdService:ShowVideoAd() -> () [Deprecated]
+	Function AdService:SubmitAdNotification(universeId: number, isShowAdSuccessful: boolean, earnedReward: boolean, rewardProductName: string, rewardProductImageAssetId: number) -> () {RobloxScriptSecurity}
 	Function AdService:UnregisterAdOpportunity(instance: Instance) -> ()
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
 	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
@@ -1060,12 +1062,14 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:LoadAvatar2DPreviewAsync(previewId: string) -> EditableImage [Yields]
 	Function AvatarCreationService:LoadGeneratedAvatarAsync(generationId: string) -> HumanoidDescription [Yields]
 	Function AvatarCreationService:PrepareAvatarForPreviewAsync(humanoidModel: Model) -> () [Yields]
+	Function AvatarCreationService:PromptCreateAvatarAssetAsync(tokenId: string, player: Player, assetInstance: Instance, assetType: Enum.AvatarAssetType) -> ...any [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(tokenId: string, player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
 	Function AvatarCreationService:PromptSelectAvatarGenerationImageAsync(player: Player) -> string [Yields]
 	Function AvatarCreationService:RequestAvatarGenerationSessionAsync(player: Player, callback: (...any) -> ...any) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCAccessoryAsync(player: Player, accessory: Instance, accessoryType: Enum.AccessoryType) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCBodyPartAsync(player: Player, instance: Instance, bodyPart: Enum.BodyPart) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCFullBodyAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
+	Event AvatarCreationService.AvatarAssetModerationCompleted(assetId: number, moderationStatus: Enum.ModerationStatus)
 	Event AvatarCreationService.AvatarModerationCompleted(outfitId: number, moderationStatus: Enum.ModerationStatus)
 	Event AvatarCreationService.OpenSelfieConsent() {RobloxScriptSecurity}
 	Event AvatarCreationService.ReplicateAvatarGenerationImageId(fileId: string, error: string) {RobloxSecurity} [Hidden]
@@ -1906,6 +1910,7 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ContentProvider:GetAssetFetchStatus(contentId: string) -> Enum.AssetFetchStatus
 	Function ContentProvider:GetAssetFetchStatusChangedSignal(contentId: string) -> RBXScriptSignal
 	Function ContentProvider:GetDependencyContentIds(root: Instance) -> { any } {RobloxScriptSecurity}
+	Function ContentProvider:GetDetailedFailedRequests() -> { any } {RobloxScriptSecurity}
 	Function ContentProvider:GetFailedRequests() -> { any } {RobloxScriptSecurity}
 	Function ContentProvider:ListEncryptedAssets() -> { any }
 	Function ContentProvider:Preload(contentId: string) -> () [Deprecated]
@@ -2578,6 +2583,7 @@ Class GeometryService : Instance [NotCreatable] [Service]
 	Function GeometryService:HashMeshAsync(meshId: string) -> string {🔐CSG} {RobloxScriptSecurity} [Yields]
 	Function GeometryService:IntersectAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
 	Function GeometryService:SubtractAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
+	Function GeometryService:TranscodeMesh(instance: Instance) -> () {🔐CSG} {RobloxScriptSecurity}
 	Function GeometryService:UnionAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
 Class GetTextBoundsParams : Instance [NotReplicated]
 	Property GetTextBoundsParams.Font: Font {🔐UI}
@@ -3315,6 +3321,7 @@ Class HapticEffect : Instance
 	Function HapticEffect:Play() -> ()
 	Function HapticEffect:SetWaveformKeys(keys: { any }) -> ()
 	Function HapticEffect:Stop() -> ()
+	Event HapticEffect.Ended()
 Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HapticService:GetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> ...any
 	Function HapticService:IsMotorSupported(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> boolean
@@ -3370,7 +3377,9 @@ Class HttpService : Instance [NotCreatable] [Service]
 	Function HttpService:GetSecret(key: string) -> Secret {🔐Network} {🧬Safe}
 	Function HttpService:GetUserAgent() -> string {RobloxScriptSecurity}
 	Function HttpService:JSONDecode(input: string) -> any [CustomLuaState] {🧬Safe}
+	Function HttpService:JSONDecodeAsync(input: string) -> any {RobloxScriptSecurity} [Yields]
 	Function HttpService:JSONEncode(input: any) -> string [CustomLuaState] {🧬Safe}
+	Function HttpService:JSONEncodeAsync(obj: any) -> string {RobloxScriptSecurity} [Yields]
 	Function HttpService:PostAsync(url: any, data: string, content_type: Enum.HttpContentType? = "ApplicationJson", compress: boolean? = false, headers: any) -> string {🔐Network} [Yields]
 	Function HttpService:RequestAsync(requestOptions: { [string]: any }) -> { [string]: any } {🔐Network} [Yields]
 	Function HttpService:RequestInternal(options: { [string]: any }) -> Instance? {RobloxScriptSecurity}
@@ -4242,6 +4251,9 @@ Class MaterialVariant : Instance
 	Property MaterialVariant.BaseMaterial: Enum.Material {✏️PluginSecurity}
 	Property MaterialVariant.ColorMap: string {PluginSecurity}
 	Property MaterialVariant.ColorMapContent: Content {PluginSecurity}
+	Property MaterialVariant.EmissiveMaskContent: Content {PluginSecurity}
+	Property MaterialVariant.EmissiveStrength: number
+	Property MaterialVariant.EmissiveTint: Color3
 	Property MaterialVariant.MaterialPattern: Enum.MaterialPattern
 	Property MaterialVariant.MetalnessMap: string {PluginSecurity}
 	Property MaterialVariant.MetalnessMapContent: Content {PluginSecurity}
@@ -4693,7 +4705,6 @@ Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.PhysicalConfigData: SharedString {🔐Basic} {RobloxSecurity} [Hidden] [NotScriptable]
 Class MeshPart : TriangleMeshPart
 	Property MeshPart.DoubleSided: boolean {🔐Basic} {✏️PluginSecurity}
-	Property MeshPart.EditableMeshString: SharedString {🔐Basic} {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property MeshPart.HasJointOffset: boolean {🔐Basic} {✏️NotAccessibleSecurity} [Hidden]
 	Property MeshPart.HasSkinnedMesh: boolean {🔐Basic} {✏️NotAccessibleSecurity} [Hidden]
 	Property MeshPart.MeshContent: Content {🔐Basic} {✏️NotAccessibleSecurity}
@@ -5042,6 +5053,8 @@ Class ParticleEmitter : Instance
 	Property ParticleEmitter.FlipbookIncompatible: string {🔐Basic}
 	Property ParticleEmitter.FlipbookLayout: Enum.ParticleFlipbookLayout {🔐Basic}
 	Property ParticleEmitter.FlipbookMode: Enum.ParticleFlipbookMode {🔐Basic}
+	Property ParticleEmitter.FlipbookSizeX: number {🔐Basic}
+	Property ParticleEmitter.FlipbookSizeY: number {🔐Basic}
 	Property ParticleEmitter.FlipbookStartRandom: boolean {🔐Basic}
 	Property ParticleEmitter.Acceleration: Vector3 {🔐Basic}
 	Property ParticleEmitter.Drag: number {🔐Basic}
@@ -6901,6 +6914,9 @@ Class SurfaceAppearance : Instance
 	Property SurfaceAppearance.Color: Color3 {🔐Basic}
 	Property SurfaceAppearance.ColorMap: string {🔐Basic} {PluginSecurity}
 	Property SurfaceAppearance.ColorMapContent: Content {🔐Basic} {✏️PluginSecurity} [Hidden]
+	Property SurfaceAppearance.EmissiveMaskContent: Content {🔐Basic} {✏️PluginSecurity}
+	Property SurfaceAppearance.EmissiveStrength: number {🔐Basic}
+	Property SurfaceAppearance.EmissiveTint: Color3 {🔐Basic}
 	Property SurfaceAppearance.MetalnessMap: string {🔐Basic} {PluginSecurity}
 	Property SurfaceAppearance.MetalnessMapContent: Content {🔐Basic} {✏️PluginSecurity} [Hidden]
 	Property SurfaceAppearance.NormalMap: string {🔐Basic} {PluginSecurity}
@@ -6986,6 +7002,9 @@ Class TemporaryScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class TerrainDetail : Instance
 	Property TerrainDetail.ColorMap: string {PluginSecurity}
 	Property TerrainDetail.ColorMapContent: Content {PluginSecurity}
+	Property TerrainDetail.EmissiveMaskContent: Content {PluginSecurity}
+	Property TerrainDetail.EmissiveStrength: number
+	Property TerrainDetail.EmissiveTint: Color3
 	Property TerrainDetail.Face: Enum.TerrainFace
 	Property TerrainDetail.MaterialPattern: Enum.MaterialPattern
 	Property TerrainDetail.MetalnessMap: string {PluginSecurity}
@@ -7176,6 +7195,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number) -> () {🔐Chat} {RobloxScriptSecurity}
 	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage) -> () {🔐Chat} {RobloxScriptSecurity}
 	Function TextChatService:SendExpChatWindowScroll() -> () {🔐Chat} {RobloxScriptSecurity}
+	Function TextChatService:SendExpChatWindowStatusChange(timeClosed: number, timeOpen: number, timeIdle: number) -> () {🔐Chat} {RobloxScriptSecurity}
 	Event TextChatService.BubbleDisplayed(partOrCharacter: Instance, textChatMessage: TextChatMessage) {🔐Chat}
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel) {🔐Chat} {RobloxSecurity} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {🔐Chat} {RobloxSecurity} [Hidden]
@@ -7969,7 +7989,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function VoiceChatService:isInternalPublishPaused() -> boolean {RobloxScriptSecurity}
 	Function VoiceChatService:joinVoice() -> () {RobloxScriptSecurity}
 	Function VoiceChatService:lastVoiceChatStats() -> { [string]: any } {RobloxScriptSecurity}
-	Function VoiceChatService:leaveVoice() -> () {RobloxScriptSecurity}
+	Function VoiceChatService:leaveVoice(leaveReason: Enum.VoiceClientLeaveReasons? = "LuaInitiated") -> () {RobloxScriptSecurity}
 	Function VoiceChatService:notifyServerACSCleanup() -> () {RobloxScriptSecurity}
 	Function VoiceChatService:rejoinVoice() -> () {RobloxScriptSecurity}
 	Event VoiceChatService.ACSCleanup() {RobloxSecurity} [Hidden]
@@ -10212,6 +10232,7 @@ Enum ParticleFlipbookLayout
 	EnumItem ParticleFlipbookLayout.Grid2x2 : 1
 	EnumItem ParticleFlipbookLayout.Grid4x4 : 2
 	EnumItem ParticleFlipbookLayout.Grid8x8 : 3
+	EnumItem ParticleFlipbookLayout.Custom : 4
 Enum ParticleFlipbookMode
 	EnumItem ParticleFlipbookMode.Loop : 0
 	EnumItem ParticleFlipbookMode.OneShot : 1
@@ -10335,7 +10356,7 @@ Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.OneAttachment : 0
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
 Enum PredictionMode
-	EnumItem PredictionMode.Auto : 0
+	EnumItem PredictionMode.Automatic : 0
 	EnumItem PredictionMode.On : 1
 	EnumItem PredictionMode.Off : 2
 Enum PreferredInput
@@ -10383,6 +10404,10 @@ Enum PromptCreateAssetResult
 	EnumItem PromptCreateAssetResult.UploadFailed : 4
 	EnumItem PromptCreateAssetResult.NoUserInput : 5
 	EnumItem PromptCreateAssetResult.UnknownFailure : 6
+	EnumItem PromptCreateAssetResult.UGCValidationFailed : 7
+	EnumItem PromptCreateAssetResult.ModeratedName : 8
+	EnumItem PromptCreateAssetResult.PurchaseFailure : 9
+	EnumItem PromptCreateAssetResult.TokenInvalid : 10
 Enum PromptCreateAvatarResult
 	EnumItem PromptCreateAvatarResult.Success : 1
 	EnumItem PromptCreateAvatarResult.PermissionDenied : 2
@@ -11469,6 +11494,16 @@ Enum VoiceChatState
 	EnumItem VoiceChatState.Leaving : 4
 	EnumItem VoiceChatState.Ended : 5
 	EnumItem VoiceChatState.Failed : 6
+Enum VoiceClientLeaveReasons
+	EnumItem VoiceClientLeaveReasons.Unknown : 0
+	EnumItem VoiceClientLeaveReasons.ClientNetworkDisconnected : 1
+	EnumItem VoiceClientLeaveReasons.PlayerLeft : 2
+	EnumItem VoiceClientLeaveReasons.ClientShutdown : 3
+	EnumItem VoiceClientLeaveReasons.PublishFailed : 4
+	EnumItem VoiceClientLeaveReasons.RejoinReceived : 5
+	EnumItem VoiceClientLeaveReasons.VoiceReboot : 6
+	EnumItem VoiceClientLeaveReasons.ImguiDebugLeave : 7
+	EnumItem VoiceClientLeaveReasons.LuaInitiated : 8
 Enum VoiceControlPath
 	EnumItem VoiceControlPath.Publish : 0
 	EnumItem VoiceControlPath.Subscribe : 1

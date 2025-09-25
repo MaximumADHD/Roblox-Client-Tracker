@@ -4861,6 +4861,53 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SubmitAdNotification",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "isShowAdSuccessful",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "earnedReward",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "rewardProductName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "rewardProductImageAssetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "UnregisterAdOpportunity",
                     "Parameters": [
                         {
@@ -4996,6 +5043,28 @@
                         "Name": "ShowAdResult"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShowRewardedVideoAdAtClientAsync",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "ShowAdResult"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ],
@@ -20084,6 +20153,49 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptCreateAvatarAssetAsync",
+                    "Parameters": [
+                        {
+                            "Name": "tokenId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        },
+                        {
+                            "Name": "assetInstance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarAssetType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptCreateAvatarAsync",
                     "Parameters": [
                         {
@@ -20268,6 +20380,28 @@
                     "Tags": [
                         "Yields"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "AvatarAssetModerationCompleted",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "moderationStatus",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ModerationStatus"
+                            }
+                        }
+                    ],
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -36853,6 +36987,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetDetailedFailedRequests",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetFailedRequests",
                     "Parameters": [
                     ],
@@ -49988,6 +50134,28 @@
                         "Name": "Array"
                     },
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "CSG"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "TranscodeMesh",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -65310,6 +65478,14 @@
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Ended",
+                    "Parameters": [
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -66519,6 +66695,50 @@
                         "Name": "string"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "JSONDecodeAsync",
+                    "Parameters": [
+                        {
+                            "Name": "input",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "JSONEncodeAsync",
+                    "Parameters": [
+                        {
+                            "Name": "obj",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ],
@@ -83122,6 +83342,60 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "EmissiveMaskContent",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "EmissiveStrength",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "EmissiveTint",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "MaterialPattern",
                     "Security": {
                         "Read": "None",
@@ -97709,6 +97983,52 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "ParticleFlipbookMode"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Flipbook",
+                    "MemberType": "Property",
+                    "Name": "FlipbookSizeX",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Flipbook",
+                    "MemberType": "Property",
+                    "Name": "FlipbookSizeY",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -133117,6 +133437,75 @@
                     },
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "EmissiveMaskContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "EmissiveStrength",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "EmissiveTint",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "MetalnessMap",
                     "Security": {
                         "Read": "PluginSecurity",
@@ -134761,6 +135150,60 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "EmissiveMaskContent",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "EmissiveStrength",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "EmissiveTint",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
                     }
                 },
                 {
@@ -138743,6 +139186,42 @@
                     "MemberType": "Function",
                     "Name": "SendExpChatWindowScroll",
                     "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Chat"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SendExpChatWindowStatusChange",
+                    "Parameters": [
+                        {
+                            "Name": "timeClosed",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "timeOpen",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "timeIdle",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -154428,6 +154907,14 @@
                     "MemberType": "Function",
                     "Name": "leaveVoice",
                     "Parameters": [
+                        {
+                            "Default": "LuaInitiated",
+                            "Name": "leaveReason",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "VoiceClientLeaveReasons"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -156602,14 +157089,6 @@
                     "Value": 56
                 },
                 {
-                    "Name": "EarAccessory",
-                    "Value": 57
-                },
-                {
-                    "Name": "EyeAccessory",
-                    "Value": 58
-                },
-                {
                     "Name": "EmoteAnimation",
                     "Value": 61
                 },
@@ -156675,6 +157154,14 @@
                 {
                     "Name": "DynamicHead",
                     "Value": 79
+                },
+                {
+                    "Name": "EarAccessory",
+                    "Value": 57
+                },
+                {
+                    "Name": "EyeAccessory",
+                    "Value": 58
                 }
             ],
             "Name": "AssetType"
@@ -164758,6 +165245,10 @@
                 {
                     "Name": "Grid8x8",
                     "Value": 3
+                },
+                {
+                    "Name": "Custom",
+                    "Value": 4
                 }
             ],
             "Name": "ParticleFlipbookLayout"
@@ -165287,7 +165778,7 @@
         {
             "Items": [
                 {
-                    "Name": "Auto",
+                    "Name": "Automatic",
                     "Value": 0
                 },
                 {
@@ -165489,6 +165980,22 @@
                 {
                     "Name": "UnknownFailure",
                     "Value": 6
+                },
+                {
+                    "Name": "UGCValidationFailed",
+                    "Value": 7
+                },
+                {
+                    "Name": "ModeratedName",
+                    "Value": 8
+                },
+                {
+                    "Name": "PurchaseFailure",
+                    "Value": 9
+                },
+                {
+                    "Name": "TokenInvalid",
+                    "Value": 10
                 }
             ],
             "Name": "PromptCreateAssetResult"
@@ -170154,6 +170661,47 @@
                 }
             ],
             "Name": "VoiceChatState"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Unknown",
+                    "Value": 0
+                },
+                {
+                    "Name": "ClientNetworkDisconnected",
+                    "Value": 1
+                },
+                {
+                    "Name": "PlayerLeft",
+                    "Value": 2
+                },
+                {
+                    "Name": "ClientShutdown",
+                    "Value": 3
+                },
+                {
+                    "Name": "PublishFailed",
+                    "Value": 4
+                },
+                {
+                    "Name": "RejoinReceived",
+                    "Value": 5
+                },
+                {
+                    "Name": "VoiceReboot",
+                    "Value": 6
+                },
+                {
+                    "Name": "ImguiDebugLeave",
+                    "Value": 7
+                },
+                {
+                    "Name": "LuaInitiated",
+                    "Value": 8
+                }
+            ],
+            "Name": "VoiceClientLeaveReasons"
         },
         {
             "Items": [

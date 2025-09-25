@@ -37,5 +37,5 @@ Studio.FindReplaceAll.ResultsLabel.ResultString,,,result,result,نتيجة,Ergeb
 Studio.FindReplaceAll.ResultsLabel.ResultStringPlural,,,results,results,النتائج,Ergebnisse,resultados,résultats,रिज़ल्ट्स,hasil,risultati,結果,결과,wyniki(-ów),resultados,,ผลลัพธ์,sonuç,kết quả,,,結果
 Studio.FindReplaceAll.ResultsLabel.FileStringPlural,,,files,files,ملفات,Dateien,archivos,fichiers,फ़ाइलें,file,file,ファイル,파일,plikach,arquivos,,ไฟล์,dosya,tập tin,,,檔案
 Studio.FindReplaceAll.ResultsLabel.FileString,,,file,file,ملف,Datei,archivo,fichier,फ़ाइल,file,file,ファイル,파일,pliku,arquivo,,ไฟล์,dosya,tập tin,,,檔案
-Studio.FindReplaceAll.SettingsCategory,,,Find Replace All,Find Replace All,,,,,,,,,모두 찾고 바꾸기,,,,,,,,,
-Studio.FindReplaceAll.MaxResultSetting,,,Max Results,Max Results,,,,,,,,,최대 결과 수,,,,,,,,,
+Studio.FindReplaceAll.SettingsCategory,,,Find Replace All,Find Replace All,,Alle suchen und ersetzen,,,'सभी बदलें' बटन खोजें,Cari Ganti Semua,Trova e sostituisci tutto,,모두 찾고 바꾸기,Znajdź i zamień wszystko,,,ค้นหาและแทนที่ทั้งหมด,Tümünü Bul ve Değiştir,Tìm thay thế tất cả,,,尋找並取代全部
+Studio.FindReplaceAll.MaxResultSetting,,,Max Results,Max Results,,Max. Ergebnisse,,,ज़्यादा से ज़्यादा रिज़ल्ट,Hasil Maks,Risultati massimi,,최대 결과 수,Maks. liczba wyników,,,ผลการค้นหาสูงสุด,Maks. Sonuç,Số lượng kết quả tối đa,,,結果數上限
