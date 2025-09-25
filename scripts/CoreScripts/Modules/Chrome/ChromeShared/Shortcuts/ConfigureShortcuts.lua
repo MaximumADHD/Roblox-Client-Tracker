@@ -38,6 +38,8 @@ local FFlagRemoveLeaveShortcutFromLeaveConfirm = ChromeSharedFlags.FFlagRemoveLe
 local FFlagRemoveRespawnShortcutFromRespawnConfirmation =
 	ChromeSharedFlags.FFlagRemoveRespawnShortcutFromRespawnConfirmation
 
+local FFlagFixBackOnTopBarTriggeringDevUI = game:DefineFastFlag("FFlagFixBackOnTopBarTriggeringDevUI", false)
+
 local ChatSelector = if FFlagConsoleChatOnExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
@@ -134,6 +136,9 @@ local function activateBack(): Enum.ContextActionResult?
 		if not SettingsHub:GetVisibility() then
 			ChromeService:selectMenuIcon()
 		end
+		if FFlagFixBackOnTopBarTriggeringDevUI then
+			return Enum.ContextActionResult.Sink
+		end
 	elseif inFocusNav or isMenuIconSelected then
 		local subMenuId = ChromeService:currentSubMenu():get()
 		if subMenuId then
@@ -146,14 +151,20 @@ local function activateBack(): Enum.ContextActionResult?
 			if FFlagChromeFixMenuIconBackButton then
 				ChromeFocusUtils.MenuIconSelectedSignal:set(false)
 			end
-			if FFlagConsoleSinglePressIntegrationExit then
+			if not FFlagFixBackOnTopBarTriggeringDevUI and FFlagConsoleSinglePressIntegrationExit then
 				return Enum.ContextActionResult.Pass
 			end
+		end
+		if FFlagFixBackOnTopBarTriggeringDevUI then
+			return Enum.ContextActionResult.Sink
 		end
 	elseif FFlagConsoleChatUseChromeFocusUtils and ExpChatFocusNavigationStore.getChatInputBarFocused(false) then
 		ChromeFocusUtils.FocusOnChrome(function()
 			ExpChatFocusNavigationStore.unfocusChatInputBar()
 		end, "chat")
+		if FFlagFixBackOnTopBarTriggeringDevUI then
+			return Enum.ContextActionResult.Sink
+		end
 	end
 	return
 end

@@ -211,6 +211,7 @@ function PublishAvatarPrompt:renderPromptBody()
 				useFullBodyCameraSettings = true,
 				fieldOfView = CAMERA_FOV,
 				LayoutOrder = 1,
+				isHumanoidModel = true,
 			}),
 			DescriptionInput = Roact.createElement(LabeledTextBox, {
 				LayoutOrder = 2,

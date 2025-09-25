@@ -21,7 +21,12 @@ type ValidationContext = Types.ValidationContext
 local BodyAssetMasksRenderer = {}
 BodyAssetMasksRenderer.__index = BodyAssetMasksRenderer
 
-type BodyAssetMaskEntry = { mask: EditableImage?, view: CFrame, viewSpaceBounds: { max: Vector3, min: Vector3 } }
+export type BodyAssetMaskEntry = {
+	mask: EditableImage?,
+	viewId: string,
+	view: CFrame,
+	viewSpaceBounds: { max: Vector3, min: Vector3 },
+}
 export type BodyAssetMasksMembers = {
 	viewIds: { [string]: string },
 	viewDirections: { [string]: Vector3 },
@@ -72,12 +77,24 @@ function BodyAssetMasksRenderer.getViewToWorldTransforms()
 	return BodyAssetMasksRenderer.views
 end
 
-local function populateViewsToRender(viewIds: { string }?)
+function BodyAssetMasksRenderer.getViewSpacePositionFromNormalized(
+	normalizedImageSpacePosition: Vector2,
+	viewSpaceBounds: { min: Vector3, max: Vector3 }
+): Vector3
+	local normalizedPosition = (normalizedImageSpacePosition - Vector2.new(0.5, 0.5)) * Vector2.new(2.0, -2.0)
+	local meshSize = viewSpaceBounds.max - viewSpaceBounds.min
+	local meshHalfSize = meshSize / 2
+	local meshCenter = viewSpaceBounds.min + meshHalfSize
+	-- z axis defaults to zero. We'll have to rasterize depth if we need z
+	return meshCenter + meshHalfSize * Vector3.new(normalizedPosition.X, normalizedPosition.Y, 0.0)
+end
+
+local function populateViewsToRender(viewIds: { [string]: boolean }?)
 	local allViews = BodyAssetMasksRenderer.getViewToWorldTransforms()
 	local filteredViews = {}
-	if viewIds and #viewIds > 0 then
-		for _, viewId in viewIds do
-			if (allViews :: { [string]: CFrame })[viewId] then
+	if viewIds then
+		for viewId, useView in viewIds do
+			if useView and (allViews :: { [string]: CFrame })[viewId] then
 				filteredViews[viewId] = (allViews :: { [string]: CFrame })[viewId]
 			end
 		end
@@ -182,7 +199,7 @@ end
 local function rasterMesh(
 	meshTriangles: { [number]: { [number]: Vector3 } },
 	viewSpaceBounds: { min: Vector3, max: Vector3 },
-	rasterHeight: number,
+	requestedRasterHeight: number,
 	validationContext: Types.ValidationContext
 ): EditableImage
 	local meshSize = viewSpaceBounds.max - viewSpaceBounds.min
@@ -190,8 +207,14 @@ local function rasterMesh(
 	local meshCenter = viewSpaceBounds.min + meshHalfSize
 
 	local rasterAspect = meshSize.X / meshSize.Y
-	local rasterWidth = rasterAspect * rasterHeight
-	local rasterSize = Vector2.new(rasterWidth, rasterHeight)
+	local rasterWidth = rasterAspect * requestedRasterHeight
+	local rasterSize = Vector2.new(rasterWidth, requestedRasterHeight)
+
+	-- scale down size s.t. X <= 1024 and Y <= 1024
+	local maxDim = math.max(rasterSize.X, rasterSize.Y)
+	local rasterScale = math.min(1024 / maxDim, 1.0)
+	rasterSize = ((rasterSize * rasterScale) + Vector2.new(0.5)):Floor()
+
 	local rasterTarget = (AssetService :: any):CreateEditableImage({
 		Size = rasterSize,
 	})
@@ -258,13 +281,17 @@ local function createBodyAssetMasks(
 	end
 
 	local bodyAssetMasks = {}
-	for viewKey, view in views do
+	for viewId, view in views do
 		local viewSpaceMesh, viewSpaceBounds = getViewSpaceMesh(combinedMeshTris, view)
 		local maskImageHeightSize = getFIntUGCValidationBodyAssetMaskHeightPixels()
 		local meshMaskImage = rasterMesh(viewSpaceMesh, viewSpaceBounds, maskImageHeightSize, validationContext)
-		local bodyAssetMaskEntry =
-			{ mask = meshMaskImage, view = view, viewSpaceBounds = viewSpaceBounds } :: BodyAssetMaskEntry
-		bodyAssetMasks[viewKey :: string] = bodyAssetMaskEntry
+		local bodyAssetMaskEntry = {
+			viewId = viewId,
+			mask = meshMaskImage,
+			view = view,
+			viewSpaceBounds = viewSpaceBounds,
+		} :: BodyAssetMaskEntry
+		bodyAssetMasks[viewId] = bodyAssetMaskEntry
 	end
 
 	return true, bodyAssetMasks
@@ -272,7 +299,7 @@ end
 
 function BodyAssetMasksRenderer.new(
 	inst: Instance,
-	viewIds: { string }?, -- this is an optional parameter. will default to rendering all views if this is nil
+	viewIds: { [string]: boolean }?, -- this is an optional parameter. will default to rendering all views if this is nil
 	validationContext: ValidationContext
 ): (boolean, { string } | BodyAssetMasksRenderer)
 	local new = setmetatable({} :: BodyAssetMasksMembers, BodyAssetMasksRenderer)

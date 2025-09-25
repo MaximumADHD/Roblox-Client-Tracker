@@ -1,3 +1,4 @@
+-- Remove with FFlagTopBarDeprecateCoreGuiRodux
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -6,6 +7,12 @@ local Rodux = require(CorePackages.Packages.Rodux)
 local Cryo = require(CorePackages.Packages.Cryo)
 
 local TopBar = script.Parent.Parent
+
+local FFlagTopBarDeprecateCoreGuiRodux = require(TopBar.Flags.FFlagTopBarDeprecateCoreGuiRodux)
+
+if FFlagTopBarDeprecateCoreGuiRodux then
+	return nil :: never
+end
 
 local Actions = TopBar.Actions
 local UpdateCoreGuiEnabled = require(Actions.UpdateCoreGuiEnabled)

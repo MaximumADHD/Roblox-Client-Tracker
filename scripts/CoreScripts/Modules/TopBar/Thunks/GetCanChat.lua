@@ -1,4 +1,5 @@
 --!nonstrict
+-- Remove with FFlagTopBarDeprecateChatRodux
 local Chat = game:GetService("Chat")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
@@ -6,6 +7,12 @@ local CoreGui = game:GetService("CoreGui")
 
 local TopBar = script.Parent.Parent
 local SetCanChat = require(TopBar.Actions.SetCanChat)
+
+local FFlagTopBarDeprecateChatRodux = require(TopBar.Flags.FFlagTopBarDeprecateChatRodux)
+
+if FFlagTopBarDeprecateChatRodux then
+	return nil :: never
+end
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)

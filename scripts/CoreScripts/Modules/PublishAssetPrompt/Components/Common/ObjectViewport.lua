@@ -18,6 +18,7 @@ local CharacterUtility = require(CorePackages.Packages.Thumbnailing).CharacterUt
 local CameraUtility = require(CorePackages.Packages.Thumbnailing).CameraUtility
 local CFrameUtility = require(CorePackages.Packages.Thumbnailing).CFrameUtility
 local EmoteUtility = require(CorePackages.Packages.Thumbnailing).EmoteUtility
+local getFFlagEnableAvatarAssetPrompt = require(script.Parent.Parent.Parent.Flags.getFFlagEnableAvatarAssetPrompt)
 
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
@@ -40,6 +41,7 @@ ObjectViewport.validateProps = t.strictInterface({
 	useFullBodyCameraSettings = t.optional(t.boolean),
 	openPreviewView = t.optional(t.callback),
 	LayoutOrder = t.optional(t.number),
+	isHumanoidModel = t.optional(t.boolean),
 })
 
 function ObjectViewport:createCamera()
@@ -56,6 +58,71 @@ function ObjectViewport:init()
 	self.worldModelRef = Roact.createRef()
 	self.camera, self.updateCamera = Roact.createBinding(nil)
 	self.isMounted = false
+end
+
+local function getCameraDistance(fov, extentsSize)
+	local xSize, ySize, zSize = extentsSize.X, extentsSize.Y, extentsSize.Z
+	local maxSize = math.max(xSize, ySize, zSize)
+	local fovMultiplier = 1 / math.tan(math.rad(fov) / 2)
+	local halfSize = maxSize / 2
+	return (halfSize * fovMultiplier) + (zSize / 2)
+end
+
+function ObjectViewport:setupViewportForAsset()
+	if not self.props.model then
+		return
+	end
+
+	local input = self.props.model:Clone()
+	input.Parent = self.worldModelRef:getValue()
+
+	local inputCFrame
+	local inputSize
+	if input:IsA("Model") then
+		-- Move model to origin for consistent positioning
+		input:MoveTo(Vector3.new(0, 0, 0))
+		inputCFrame = input:GetModelCFrame()
+		inputSize = input:GetExtentsSize()
+	else
+		-- Accessory: move first MeshPart
+		local meshPart: MeshPart? = input:FindFirstChildWhichIsA("MeshPart", true)
+		if not meshPart then
+			return
+		end
+
+		meshPart.CFrame = CFrame.new(0, 0, 0)
+		inputCFrame = meshPart.CFrame
+		inputSize = meshPart.Size
+	end
+
+	local initialLookVector = inputCFrame.lookVector
+
+	-- Create and setup camera
+	local camera = self:createCamera()
+
+	-- Calculate camera distance based on model size
+	local fov = if self.props.fieldOfView then self.props.fieldOfView else DEFAULT_CAMERA_FOV
+	local cameraDistance = getCameraDistance(fov, inputSize)
+	local cameraDegreesAngle = Vector2.new(5, 20)
+
+	local WORLD_Y_AXIS = Vector3.new(0, 1, 0)
+	local WORLD_X_AXIS = Vector3.new(1, 0, 0)
+
+	local newLookVector = initialLookVector
+	local angleX = math.rad(cameraDegreesAngle.X)
+	local angleY = math.rad(cameraDegreesAngle.Y)
+
+	newLookVector = CFrame.fromAxisAngle(WORLD_X_AXIS, angleX):VectorToWorldSpace(newLookVector)
+	newLookVector = CFrame.fromAxisAngle(WORLD_Y_AXIS, angleY):VectorToWorldSpace(newLookVector)
+
+	-- Position camera using the rotated look vector
+	local cameraPosition = inputCFrame.Position + (newLookVector * cameraDistance)
+	local cameraCFrame = CFrame.new(cameraPosition, inputCFrame.Position)
+
+	camera.CFrame = cameraCFrame
+	camera.FieldOfView = fov
+
+	self.updateCamera(camera)
 end
 
 -- Clone model prop to add to Viewport and setup camera
@@ -107,7 +174,11 @@ function ObjectViewport:didMount()
 	self.isMounted = true
 	task.spawn(function()
 		if not self.props.isLoading then
-			self:setupViewport()
+			if not getFFlagEnableAvatarAssetPrompt() or self.props.isHumanoidModel then
+				self:setupViewport()
+			else
+				self:setupViewportForAsset()
+			end
 		end
 	end)
 end
@@ -116,7 +187,11 @@ function ObjectViewport:didUpdate(prevProps)
 	local shouldSetupViewport = prevProps.isLoading and not self.props.isLoading
 	if shouldSetupViewport then
 		task.spawn(function()
-			self:setupViewport()
+			if not getFFlagEnableAvatarAssetPrompt() or self.props.isHumanoidModel then
+				self:setupViewport()
+			else
+				self:setupViewportForAsset()
+			end
 		end)
 	end
 end

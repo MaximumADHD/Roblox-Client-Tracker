@@ -1,6 +1,7 @@
 --!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local ContextActionService = game:GetService("ContextActionService")
 local TweenService = game:GetService("TweenService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TextService = game:GetService("TextService")
@@ -18,10 +19,14 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 local GetFFlagDisplayChannelNameOnErrorPrompt = require(RobloxGui.Modules.Flags.GetFFlagDisplayChannelNameOnErrorPrompt)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
+local FFlagFixErrorPromptFocus = game:DefineFastFlag("FixErrorPromptFocus", false)
+local FFlagFixErrorPromptRemoveMenuFocus = game:DefineFastFlag("FixErrorPromptRemoveMenuFocus", false)
+
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
+local ERROR_PROMPT_ACTION_NAME = "ErrorPromptAction"
 
 -- Animation Preset --
 local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut, 0, false, 0)
@@ -235,6 +240,10 @@ function ErrorPrompt.new(style, extraConfiguration)
 	return self
 end
 
+local function sinkInput(actionName, inputState, inputObject)
+	return Enum.ContextActionResult.Sink
+end
+
 function ErrorPrompt:_open(errorMsg, errorCode, shouldShowChannelName)
 	self:setErrorText(errorMsg, errorCode, shouldShowChannelName)
 	self:_resizeHeight(RobloxGui.AbsoluteSize.Y)
@@ -252,8 +261,18 @@ function ErrorPrompt:_open(errorMsg, errorCode, shouldShowChannelName)
 		end
 	end
 
-	if self._isOpen and (VRService.VREnabled or GuiService:IsTenFootInterface()) then
-		GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
+	if FFlagFixErrorPromptFocus then
+		if self._isOpen and (VRService.VREnabled or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad) then
+			GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
+		end
+	else
+		if self._isOpen and (VRService.VREnabled or GuiService:IsTenFootInterface()) then
+			GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
+		end
+	end
+
+	if FFlagFixErrorPromptRemoveMenuFocus then
+		ContextActionService:BindCoreAction(ERROR_PROMPT_ACTION_NAME, sinkInput, false, Enum.KeyCode.ButtonSelect, Enum.KeyCode.ButtonStart)
 	end
 end
 
@@ -269,6 +288,10 @@ function ErrorPrompt:_close()
 			self._frame.PromptScale.Scale = 0
 		end
 		self._frame.Visible = false
+
+		if FFlagFixErrorPromptRemoveMenuFocus then
+			ContextActionService:UnbindCoreAction(ERROR_PROMPT_ACTION_NAME)
+		end
 	end
 end
 

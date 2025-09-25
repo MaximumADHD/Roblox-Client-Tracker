@@ -38,6 +38,7 @@ local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerL
 local FFlagUseToBarFocusedToToggleTopBar = game:DefineFastFlag("UseToBarFocusedToToggleTopBar", false)
 local FFlagAddDismissTopBarFocus = game:DefineFastFlag("AddDismissTopBarFocus", false)
 local FFlagRefactorIsTopBarFocused = game:DefineFastFlag("RefactorIsTopBarFocused", false)
+local FFlagShowTopBarAlwaysOnTouchEnabled = game:DefineFastFlag("ShowTopBarAlwaysOnTouchEnabled", false)
 
 local Modules = script.Parent.Parent.Parent
 local TopBar = Modules.TopBar
@@ -191,6 +192,7 @@ function GamepadConnector.new(): GamepadConnector
 				not self._gamepadActive:get() 
 				or self._chromeFocused:get() 
 				or self._selectedCoreObject:get() ~= nil
+				or (FFlagShowTopBarAlwaysOnTouchEnabled and UserInputService.TouchEnabled)
 				or (FFlagEnableChromeShortcutBar and self._tiltMenuOpen:get())
 				or (FFlagAddNewPlayerListFocusNav and self._playerListOpen:get())
 				or (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled)

@@ -11,6 +11,9 @@ local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local AvatarSwitcherChromeWrapper = require(Chrome.Integrations.AvatarSwitcher.AvatarSwitcherChromeWrapper)
 local AvatarSwitcherIcon = require(Chrome.Integrations.AvatarSwitcher.AvatarSwitcherIcon)
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagChromeWindowSignalConstraintsToggle = SharedFlags.FFlagChromeWindowSignalConstraintsToggle
+
 local isActive = MappedSignal.new(ChromeService:onIntegrationStatusChanged(), function()
 	return ChromeService:isWindowOpen(Constants.AVATAR_SWITCHER_ID)
 end)
@@ -18,7 +21,9 @@ end)
 local MAX_WINDOW_WIDTH = 844
 local MAX_WINDOW_HEIGHT = 754
 
-local windowSize = WindowSizeSignal.new(MAX_WINDOW_WIDTH, MAX_WINDOW_HEIGHT)
+local windowSize = if FFlagChromeWindowSignalConstraintsToggle
+	then WindowSizeSignal.new(MAX_WINDOW_WIDTH, MAX_WINDOW_HEIGHT, false, true)
+	else WindowSizeSignal.new(MAX_WINDOW_WIDTH, MAX_WINDOW_HEIGHT, false)
 
 local integration = ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,

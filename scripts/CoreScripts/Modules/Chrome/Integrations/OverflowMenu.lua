@@ -31,9 +31,6 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 
 local SelfieView = require(RobloxGui.Modules.SelfieView)
 
-local AppChat = require(CorePackages.Workspace.Packages.AppChat)
-local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
-
 local GetFFlagUnpinUnavailable = require(Chrome.Flags.GetFFlagUnpinUnavailable)
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
@@ -46,6 +43,7 @@ local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivate
 local FFlagFixInventoryFilledIcon = game:DefineFastFlag("FixInventoryFilledIcon", false)
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
+local FFlagRemoveUnusedTopBarNotifications = game:DefineFastFlag("RemoveUnusedTopBarNotifications", false)
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
@@ -59,7 +57,6 @@ local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 local FIntUnibarConnectIconTooltipPriority = game:DefineFastInt("UnibarConnectTooltipPriority", 2000)
 local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 	and FFlagEnableUnibarFtuxTooltips
-	and InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeDropdownEntryPoint
 	and FFlagAppChatEnabledChromeDropdownFtuxTooltip
 	and GetShouldShowPlatformChatBasedOnPolicy()
 
@@ -330,7 +327,7 @@ end
 
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Pinned,
-	notification = ChromeService:subMenuNotifications("nine_dot"),
+	notification = if FFlagRemoveUnusedTopBarNotifications then nil else ChromeService:subMenuNotifications("nine_dot"),
 	id = "nine_dot",
 	label = "CoreScripts.TopBar.MoreMenu",
 	isActivated = if FFlagFixIntegrationActivated

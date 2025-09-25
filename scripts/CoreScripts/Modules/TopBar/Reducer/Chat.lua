@@ -1,7 +1,15 @@
 --!nonstrict
+-- Remove with FFlagTopBarDeprecateChatRodux
 local CorePackages = game:GetService("CorePackages")
 
 local Rodux = require(CorePackages.Packages.Rodux)
+
+local TopBar = script.Parent.Parent
+local FFlagTopBarDeprecateChatRodux = require(TopBar.Flags.FFlagTopBarDeprecateChatRodux)
+
+if FFlagTopBarDeprecateChatRodux then
+	return nil :: never
+end
 
 local Actions = script.Parent.Parent.Actions
 local UpdateChatMessages = require(Actions.UpdateChatMessages)

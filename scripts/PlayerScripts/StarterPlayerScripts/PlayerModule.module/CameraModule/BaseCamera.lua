@@ -27,6 +27,8 @@ do
 	FFlagUserFixGamepadMaxZoom = success and result
 end
 
+local FFlagUserPSRemoveTouchEnabled = FlagUtil.getUserFlag("UserPSRemoveTouchEnabled")
+
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
 
@@ -103,8 +105,10 @@ function BaseCamera.new()
 
 	self.inFirstPerson = false
 	self.inMouseLockedMode = false
-	self.portraitMode = false
-	self.isSmallTouchScreen = false
+	if not FFlagUserPSRemoveTouchEnabled then
+		self.portraitMode = false
+		self.isSmallTouchScreen = false
+	end
 
 	-- Used by modules which want to reset the camera angle on respawn.
 	self.resetCameraAngle = true
@@ -112,7 +116,9 @@ function BaseCamera.new()
 	self.enabled = false
 
 	self.cameraChangedConn = nil
-	self.viewportSizeChangedConn = nil
+	if not FFlagUserPSRemoveTouchEnabled then
+		self.viewportSizeChangedConn = nil
+	end
 
 	-- VR Support
 	self.shouldUseVRRotation = false
@@ -425,28 +431,32 @@ function BaseCamera:GetSubjectPosition(): Vector3?
 	return result
 end
 
-function BaseCamera:OnViewportSizeChanged()
-	local camera = game.Workspace.CurrentCamera
-	local size = camera.ViewportSize
-	self.portraitMode = size.X < size.Y
-	self.isSmallTouchScreen = UserInputService.TouchEnabled and (size.Y < 500 or size.X < 700)
+if not FFlagUserPSRemoveTouchEnabled then
+	function BaseCamera:OnViewportSizeChanged()
+		local camera = game.Workspace.CurrentCamera
+		local size = camera.ViewportSize
+		self.portraitMode = size.X < size.Y
+		self.isSmallTouchScreen = UserInputService.TouchEnabled and (size.Y < 500 or size.X < 700)
+	end
 end
 
 -- Listener for changes to workspace.CurrentCamera
 function BaseCamera:OnCurrentCameraChanged()
-	if UserInputService.TouchEnabled then
-		if self.viewportSizeChangedConn then
-			self.viewportSizeChangedConn:Disconnect()
-			self.viewportSizeChangedConn = nil
-		end
+	if not FFlagUserPSRemoveTouchEnabled then
+		if UserInputService.TouchEnabled then
+			if self.viewportSizeChangedConn then
+				self.viewportSizeChangedConn:Disconnect()
+				self.viewportSizeChangedConn = nil
+			end
 
-		local newCamera = game.Workspace.CurrentCamera
+			local newCamera = game.Workspace.CurrentCamera
 
-		if newCamera then
-			self:OnViewportSizeChanged()
-			self.viewportSizeChangedConn = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+			if newCamera then
 				self:OnViewportSizeChanged()
-			end)
+				self.viewportSizeChangedConn = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+					self:OnViewportSizeChanged()
+				end)
+			end
 		end
 	end
 
@@ -574,9 +584,11 @@ function BaseCamera:Cleanup()
 		self.subjectStateChangedConn:Disconnect()
 		self.subjectStateChangedConn = nil
 	end
-	if self.viewportSizeChangedConn then
-		self.viewportSizeChangedConn:Disconnect()
-		self.viewportSizeChangedConn = nil
+	if not FFlagUserPSRemoveTouchEnabled then
+		if self.viewportSizeChangedConn then
+			self.viewportSizeChangedConn:Disconnect()
+			self.viewportSizeChangedConn = nil
+		end
 	end
 	if self.cameraChangedConn then 
 		self.cameraChangedConn:Disconnect()

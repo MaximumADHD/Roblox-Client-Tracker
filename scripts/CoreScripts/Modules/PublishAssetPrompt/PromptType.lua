@@ -6,6 +6,7 @@ export type PromptType = "PublishAssetSingleStep" | "PublishAvatar"
 local PromptType = {
 	PublishAssetSingleStep = "PublishAssetSingleStep" :: "PublishAssetSingleStep",
 	PublishAvatar = "PublishAvatar" :: "PublishAvatar",
+	PublishAvatarAsset = "PublishAvatarAsset" :: "PublishAvatarAsset",
 }
 
 return PromptType

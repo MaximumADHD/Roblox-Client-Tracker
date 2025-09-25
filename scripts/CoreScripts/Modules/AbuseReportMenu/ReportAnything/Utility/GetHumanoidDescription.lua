@@ -3,6 +3,10 @@ local GetFFlagGetHumanoidDescriptionUpdates = require(root.Flags.GetFFlagGetHuma
 local FFlagGetHumanoidDescriptionUpdatesV2A = game:DefineFastFlag("GetHumanoidDescriptionUpdatesV2A", false)
 local FFlagGetHumanoidDescriptionUpdatesV2C = game:DefineFastFlag("GetHumanoidDescriptionUpdatesV2C", false)
 
+local CorePackages = game:GetService("CorePackages")
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagGetHumanoidDescriptionUpdatesV2E = SharedFlags.GetFFlagGetHumanoidDescriptionUpdatesV2E
+
 local Players = game:GetService("Players")
 
 -- TODO: Delete this file and replace usage with the one in separate module
@@ -49,6 +53,7 @@ export type HumanoidDescriptionData = {
 	WidthScale: number,
 	AccessoryBlob: { any }?,
 	Emotes: { any }?,
+	CurrentlyPlayingAnimationIds: { string }?,
 	FieldErrorCount: number?,
 }
 
@@ -83,6 +88,18 @@ local transformEmotes = function(getEmotes, getEquippedEmotes)
 			for i = 1, limit do
 				table.insert(result, assetIdList[i])
 			end
+		end
+	end
+	return result
+end
+
+local getCurrentlyPlayingAnimations = function(humanoid)
+	local result = {}
+	local animTracks = (humanoid :: any):GetPlayingAnimationTracks()
+	for _, track in animTracks do
+		local id = string.match(track.Animation.AnimationId, "(%d+)$")
+		if id then
+			table.insert(result, id)
 		end
 	end
 	return result
@@ -216,6 +233,17 @@ local getHumanoidDescription = function(userId: number): (HumanoidDescriptionDat
 					local transformedEmotesOk, transformedEmotes = pcall(transformEmotes, emotes, equippedEmotes)
 					if transformedEmotesOk then
 						humanoidDescriptionData.Emotes = transformedEmotes
+
+						if GetFFlagGetHumanoidDescriptionUpdatesV2E() then
+							local getCurrentlyPlayingAnimationsOk, currentlyPlayingAnimationIds =
+								pcall(getCurrentlyPlayingAnimations, humanoid)
+
+							if getCurrentlyPlayingAnimationsOk then
+								humanoidDescriptionData.CurrentlyPlayingAnimationIds = currentlyPlayingAnimationIds
+							else
+								fieldErrorCount = fieldErrorCount + 1
+							end
+						end
 					end
 				else
 					fieldErrorCount = fieldErrorCount + 1

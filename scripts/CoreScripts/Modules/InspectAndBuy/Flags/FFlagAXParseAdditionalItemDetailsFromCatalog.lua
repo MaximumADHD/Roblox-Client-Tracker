@@ -1,1 +1,1 @@
-return game:DefineFastFlag("AXParseAdditionalItemDetailsFromCatalog2", false)
+return game:DefineFastFlag("AXParseAdditionalItemDetailsFromCatalog4", false)

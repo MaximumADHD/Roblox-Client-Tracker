@@ -105,4 +105,87 @@ function SummedAreaTable.GetAreaDensity(self: SummedAreaTable, areaStart: Vector
 		+ self:ReadValue(upperLeftCoord.X, upperLeftCoord.Y)
 end
 
+-- A version of GetAreaDensity that can find the sum of the all pixels enclosed in a continuous space bounding box,
+-- including pixels that are partially covered by the bounding box.
+-- GetAreaDensity() returns the summed value of all pixels enclosed in a rectangle. But the rectangle in that function is
+-- parameterized by integers so you can only define a rectangle aligned with the discrete pixel grid. The continuous version
+-- takes float values lets you include any partial coverage of a pixel, e.g. if the upper left corner of the rectangle was
+-- set to (0.5, 0.5), it would include the value of the pixel at discrete coordinates (0,0) * 0.25 in the sum of pixels inside
+-- of the rectangle because a quarter of the pixel is inside of the rectangle.
+function SummedAreaTable:GetAreaDensityContinuous(areaStart: Vector2, areaSize: Vector2)
+	local filledArea = 0.0
+
+	local upperLeftPixelSpace = areaStart
+	local lowerRightPixelSpace = areaStart + areaSize
+	--First calculate internal discrete pixels
+	local upperLeftInternalPixel = upperLeftPixelSpace:Ceil()
+	local lowerRightInternalPixel = lowerRightPixelSpace:Floor()
+	local internalSize = lowerRightInternalPixel - upperLeftInternalPixel
+	if internalSize.X > 0 and internalSize.Y > 0 then
+		filledArea += self:GetAreaDensity(upperLeftInternalPixel, internalSize)
+	end
+
+	local upperLeftFractional = upperLeftInternalPixel - upperLeftPixelSpace
+	local lowerRightFractional = lowerRightPixelSpace - lowerRightInternalPixel
+
+	--columns
+	if internalSize.Y > 0 then
+		local columnSize = Vector2.new(1, internalSize.Y)
+		if math.floor(upperLeftPixelSpace.X) < math.floor(lowerRightPixelSpace.X) then
+			local columnStart = upperLeftInternalPixel + Vector2.new(-1, 0)
+			local columnWidth = upperLeftFractional.X
+			filledArea += self:GetAreaDensity(columnStart, columnSize) * columnWidth
+			columnStart = upperLeftInternalPixel + Vector2.new(internalSize.X, 0)
+			columnWidth = lowerRightFractional.X
+			filledArea += self:GetAreaDensity(columnStart, columnSize) * columnWidth
+		else
+			local columnWidth = lowerRightPixelSpace.X - upperLeftPixelSpace.X
+			local columnStart = upperLeftInternalPixel + Vector2.new(-1, 0)
+			filledArea += self:GetAreaDensity(columnStart, columnSize) * columnWidth
+		end
+	end
+
+	--rows
+	if internalSize.X > 0 then
+		local rowSize = Vector2.new(internalSize.X, 1)
+		if math.floor(upperLeftPixelSpace.Y) < math.floor(lowerRightPixelSpace.Y) then
+			local rowStart = upperLeftInternalPixel + Vector2.new(0, -1)
+			local rowWidth = upperLeftFractional.Y
+			filledArea += self:GetAreaDensity(rowStart, rowSize) * rowWidth
+			rowStart = upperLeftInternalPixel + Vector2.new(0, internalSize.Y)
+			rowWidth = lowerRightFractional.Y
+			filledArea += self:GetAreaDensity(rowStart, rowSize) * rowWidth
+		else
+			local rowWidth = lowerRightPixelSpace.Y - upperLeftPixelSpace.Y
+			local rowStart = upperLeftInternalPixel + Vector2.new(0, -1)
+			filledArea += self:GetAreaDensity(rowStart, rowSize) * rowWidth
+		end
+	end
+
+	--upper left corner
+	local leftEdgeWidth = math.min(upperLeftInternalPixel.X, lowerRightPixelSpace.X) - upperLeftPixelSpace.X
+	local upperEdgeHeight = math.min(upperLeftInternalPixel.Y, lowerRightPixelSpace.Y) - upperLeftPixelSpace.Y
+	filledArea += self:GetAreaDensity(upperLeftPixelSpace:Floor(), Vector2.new(1, 1)) * leftEdgeWidth * upperEdgeHeight
+
+	--upper right corner
+	if math.floor(upperLeftPixelSpace.X) < math.floor(lowerRightPixelSpace.X) then
+		local upperRightCornerWidth = lowerRightFractional.X
+		local upperRightCornerStart = Vector2.new(lowerRightPixelSpace.X, upperLeftPixelSpace.Y):Floor()
+		filledArea += self:GetAreaDensity(upperRightCornerStart, Vector2.new(1, 1)) * upperRightCornerWidth * upperEdgeHeight
+		--lower right corner
+		if math.floor(upperLeftPixelSpace.Y) < math.floor(lowerRightPixelSpace.Y) then
+			filledArea += self:GetAreaDensity(lowerRightPixelSpace:Floor(), Vector2.new(1, 1)) * lowerRightFractional.X * lowerRightFractional.Y
+		end
+	end
+
+	--lower left corner
+	if math.floor(upperLeftPixelSpace.Y) < math.floor(lowerRightPixelSpace.Y) then
+		local lowerLeftCornerHeight = lowerRightFractional.Y
+		local lowerLeftCornerStart = Vector2.new(upperLeftPixelSpace.X, lowerRightPixelSpace.Y):Floor()
+		filledArea += self:GetAreaDensity(lowerLeftCornerStart, Vector2.new(1, 1)) * leftEdgeWidth * lowerLeftCornerHeight
+	end
+
+	return filledArea
+end
+
 return SummedAreaTable

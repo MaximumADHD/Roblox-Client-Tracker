@@ -43,6 +43,9 @@ local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnrea
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
+local FFlagTopBarDeprecateGameInfoRodux = require(script.Flags.FFlagTopBarDeprecateGameInfoRodux)
+
+local FFlagTopBarDeprecateChatRodux = require(script.Flags.FFlagTopBarDeprecateChatRodux)
 
 if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing or FFlagTopBarStyleUseDisplayUIScale) then
 	local function SetGlobalGuiInset()
@@ -127,9 +130,14 @@ function TopBar.new()
 	if not FFlagTopBarSignalizeSetCores	then
 		registerSetCores(self.store)
 	end
-	self.store:dispatch(GetCanChat)
+	
+	if not FFlagTopBarDeprecateChatRodux then
+		self.store:dispatch(GetCanChat)
+	end
 
-	self.store:dispatch(GetGameName)
+	if not FFlagTopBarDeprecateGameInfoRodux then
+		self.store:dispatch(GetGameName)
+	end
 
 	if GetFFlagDebugEnableVRFTUXExperienceInStudio() then
 		if isRunningInStudio() then
@@ -233,7 +241,7 @@ function TopBar.new()
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 
 	-- add binding
-	if not GetFFlagSimpleChatUnreadMessageCount() then
+	if not GetFFlagSimpleChatUnreadMessageCount() and not FFlagTopBarDeprecateChatRodux then
 		local TextChatService = game:GetService("TextChatService")
 		TextChatService.MessageReceived:Connect(function()
 			self.store:dispatch(UpdateUnreadMessagesBadge(1))

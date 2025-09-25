@@ -64,6 +64,9 @@ local function getPreviewAvatar(assets): Promise<AvatarPreviewResponse>
 		Body = HttpService:JSONEncode({
 			assets = assets,
 		}),
+		Headers = {
+			["Content-Type"] = "application/json",
+		},
 	}
 	return createYieldingPromise(options, true)
 end

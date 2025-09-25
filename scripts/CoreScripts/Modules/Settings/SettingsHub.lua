@@ -146,6 +146,7 @@ local FFlagAddMuteSelfTopOfPlayersPane = SharedFlags.FFlagAddMuteSelfTopOfPlayer
 local FFlagEnableSettingsHubUIDelegateRollout = SharedFlags.FFlagEnableSettingsHubUIDelegateRollout
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 local FFlagSpatialUIFixMenuPanelChatExclusive = require(RobloxGui.Modules.Settings.Flags.FFlagSpatialUIFixMenuPanelChatExclusive)
+local FFlagFixUninitializedMenuKeyBindings = game:DefineFastFlag("FixUninitializedMenuKeyBindings", false)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -2474,7 +2475,13 @@ local function CreateSettingsHub()
 
 		if shouldShowBottomBar() then
 			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-				this.addMenuKeyBindings()
+				if FFlagFixUninitializedMenuKeyBindings then
+					if this.addMenuKeyBindings then
+						this.addMenuKeyBindings()
+					end
+				else
+					this.addMenuKeyBindings()
+				end
 			else
 				setBottomBarBindings()
 				if FFlagIEMFocusNavToButtons then
@@ -2483,7 +2490,13 @@ local function CreateSettingsHub()
 			end
 		else
 			if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-				this.removeMenuKeyBindings()
+				if FFlagFixUninitializedMenuKeyBindings then
+					if this.removeMenuKeyBindings then
+						this.removeMenuKeyBindings()
+					end
+				else
+					this.removeMenuKeyBindings()
+				end
 			else
 				removeBottomBarBindings()
 			end

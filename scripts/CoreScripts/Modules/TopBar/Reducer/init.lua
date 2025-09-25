@@ -8,6 +8,11 @@ local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 local GetFFlagEnableCrossExpVoice = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExpVoice
 
+local TopBar = script.Parent
+
+local FFlagTopBarDeprecateCoreGuiRodux = require(TopBar.Flags.FFlagTopBarDeprecateCoreGuiRodux)
+local FFlagTopBarDeprecateChatRodux = require(TopBar.Flags.FFlagTopBarDeprecateChatRodux)
+
 local DisplayOptions = require(script.DisplayOptions)
 local CoreGuiEnabled = require(script.CoreGuiEnabled)
 local Health = require(script.Health)
@@ -18,10 +23,10 @@ local GameInfo = require(script.GameInfo)
 
 local reducers = {
 	displayOptions = DisplayOptions,
-	coreGuiEnabled = CoreGuiEnabled,
+	coreGuiEnabled = if FFlagTopBarDeprecateCoreGuiRodux then nil else CoreGuiEnabled,
 	health = if FFlagTopBarSignalizeHealthBar then nil else Health,
 	moreMenu = MoreMenu,
-	chat = Chat,
+	chat = if FFlagTopBarDeprecateChatRodux then nil else Chat,
 	respawn = Respawn,
 	gameInfo = GameInfo,
 }

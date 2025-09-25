@@ -34,11 +34,9 @@ local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
-local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
-local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignalRaceCondition
 local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
@@ -204,14 +202,7 @@ chatChromeIntegration = ChromeService:register({
 				local visualConfig = getExperienceChatVisualConfig()
 				return CommonIcon(visualConfig.icon.off, visualConfig.icon.on, chatVisibilitySignal)
 			else
-				if
-					GetFFlagEnableAppChatInExperience()
-					and InExperienceAppChatExperimentation.default.variant.ShowInExperienceChatNewIcon
-				then
-					return CommonIcon("icons/menu/publicChatOff", "icons/menu/publicChatOn", chatVisibilitySignal)
-				else
-					return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibilitySignal)
-				end
+				return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibilitySignal)
 			end
 		end,
 	},

@@ -13,11 +13,14 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local PublishAssetPrompt = script.Parent
 local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAssetPrompt)
 local OpenPublishAvatarPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAvatarPrompt)
+local OpenPublishAvatarAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAvatarAssetPrompt)
 local OpenResultModal = require(PublishAssetPrompt.Thunks.OpenResultModal)
 local SetHumanoidModel = require(PublishAssetPrompt.Actions.SetHumanoidModel)
+local SetAccessoryInstance = require(PublishAssetPrompt.Actions.SetAccessoryInstance)
 local SetPriceInRobux = require(PublishAssetPrompt.Actions.SetPriceInRobux)
 local OpenValidationErrorModal = require(PublishAssetPrompt.Actions.OpenValidationErrorModal)
 
+local getFFlagEnableAvatarAssetPrompt = require(PublishAssetPrompt.Flags.getFFlagEnableAvatarAssetPrompt)
 local EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled =
 	game:GetEngineFeature("PromptImportAnimationClipFromVideoAsyncEnabled")
 
@@ -70,6 +73,9 @@ local function ConnectAssetServiceEvents(store)
 					store:dispatch(OpenPublishAssetPrompt(instance, metadata["assetType"], guid, scopes))
 				elseif metadata["outfitToPublish"] then
 					store:dispatch(OpenPublishAvatarPrompt(guid, scopes))
+				elseif getFFlagEnableAvatarAssetPrompt() and metadata["accessoryToPublish"] then
+					local accessoryType = metadata["accessoryType"]
+					store:dispatch(OpenPublishAvatarAssetPrompt(accessoryType, guid, scopes))
 				end
 			end
 		end)
@@ -92,6 +98,20 @@ local function ConnectAssetServiceEvents(store)
 			connections,
 			AvatarCreationService.UgcValidationSuccess:Connect(function(guid, serializedModel, priceFromToken)
 				local state = store:getState()
+				if
+					getFFlagEnableAvatarAssetPrompt()
+					and state
+					and state.promptRequest.promptInfo.promptType == "PublishAvatarAsset"
+				then
+					local avatarAssetInstance = AvatarCreationService:DeserializeAvatarModel(serializedModel)
+					store:dispatch(SetAccessoryInstance(avatarAssetInstance))
+
+					if priceFromToken then
+						store:dispatch(SetPriceInRobux(priceFromToken))
+					end
+
+					return
+				end
 
 				-- check that guid matches for the prompt to update humanoid model
 				if state and state.promptRequest.promptInfo.guid == guid then

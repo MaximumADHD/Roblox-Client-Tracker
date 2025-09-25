@@ -27,7 +27,6 @@ local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChat = AppChat.App.InExperienceAppChat
 local AppChatReducer = AppChat.App.AppChatReducer
 local InExperienceAppChatProviders = AppChat.App.InExperienceAppChatProviders
-local InExperienceAppChatExperimentation = AppChat.App.InExperienceAppChatExperimentation
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local renderCoreScriptInExperienceAppChat = AppChat.App.renderCoreScriptInExperienceAppChat
 local ViewportUtil = require(RobloxGui.Modules.Chrome.ChromeShared.Service.ViewportUtil)
@@ -68,9 +67,8 @@ local parentContainerContext: AppChat.ParentContainerContextType = {
 		return InExperienceAppChatModal:getVisible()
 	end,
 	-- todo: ROACTCHAT-1352 consolidate with UA entry point logic
-	entryPoint = if InExperienceAppChatExperimentation.default.variant.ShowPlatformChatChromeUnibarEntryPoint
-		then ChatEntryPointNames.ChromeUnibar
-		else ChatEntryPointNames.ChromeDropdown,
+	entryPoint = 
+		ChatEntryPointNames.ChromeDropdown,
 	hideParentContainer = function()
 		InExperienceAppChatModal.default:setVisible(false)
 	end,

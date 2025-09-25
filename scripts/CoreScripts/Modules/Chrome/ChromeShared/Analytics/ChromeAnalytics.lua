@@ -15,7 +15,6 @@ local ChromeService = require(Root.Service)
 local Constants = require(Root.Unibar.Constants)
 local Types = require(Root.Service.Types)
 local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
-local FFlagEnabledChromeIntegrationIsActivated = game:DefineFastFlag("EnabledChromeIntegrationIsActivated", false)
 local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 
@@ -281,9 +280,7 @@ function ChromeAnalytics:onIconActivated(integrationId: Types.IntegrationId, pro
 			notificationCount = tonumber(notification.value) or 0
 		end
 
-		local isToggleOn = if integration.isActivated and FFlagEnabledChromeIntegrationIsActivated
-			then not integration.isActivated()
-			else nil
+		local isToggleOn = if integration.isActivated then not integration.isActivated() else nil
 
 		self._sendEvent(Constants.ANALYTICS.ICON_ACTIVATED, {
 			integration_id = integrationId,

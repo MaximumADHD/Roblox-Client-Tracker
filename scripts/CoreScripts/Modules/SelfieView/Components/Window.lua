@@ -55,6 +55,7 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 local FFlagSelfieViewReducedCornerWidth = game:DefineFastFlag("SelfieViewReducedCornerWidth", true)
+local FFlagReactDevtoolsFixTopbar = game:DefineFastFlag("ReactDevtoolsFixTopbar", true)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
@@ -387,7 +388,8 @@ local function Window(props: WindowProps): React.ReactNode
 				textXAlignment = Enum.TextXAlignment.Center,
 				layoutOrder = 1,
 				size = UDim2.fromOffset(46, 36),
-				TextWrapped = true,
+				TextWrapped = if FFlagReactDevtoolsFixTopbar then nil else true,
+				textWrapped = if FFlagReactDevtoolsFixTopbar then true else nil,
 			}),
 			Line2 = React.createElement(StyledTextLabel, {
 				text = trackerMessage.status,

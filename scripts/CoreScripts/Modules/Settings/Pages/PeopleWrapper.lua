@@ -21,6 +21,7 @@ local FFlagNavigateToBlockingModal = require(Modules.Common.Flags.FFlagNavigateT
 local FFlagEnableNewBlockingModal = require(Modules.Common.Flags.FFlagEnableNewBlockingModal)
 local FFlagEnableToastForBlockingModal = require(Modules.Common.Flags.FFlagEnableToastForBlockingModal)
 local FFlagRenderPeoplePageOnTabSwitch = game:DefineFastFlag("RenderPeoplePageOnTabSwitch", false)
+local FFlagRemovePeoplePageFoundationProvider = game:DefineFastFlag("RemovePeoplePageFoundationProvider", false)
 
 -- Chrome check
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
@@ -110,28 +111,36 @@ local function createPeoplePage()
 		local PeopleConditionalView = function()
 			local displayed = SignalsReact.useSignalState(getDisplayed)
 
-			local People = if displayed then React.createElement(CoreScriptsRootProvider, {}, {
-				LocalizationProvider = React.createElement(LocalizationProvider, {
-					localization = locales,
-				}, {
-					FoundationProvider = React.createElement(FoundationProvider, {
+			-- Remove function and place elements inline when FFlagRemovePeoplePageFoundationProvider is cleaned up
+			local function withFoundationProvider(children)
+				if FFlagRemovePeoplePageFoundationProvider then
+					return children
+				else
+					return React.createElement(FoundationProvider, {
 						theme = Foundation.Enums.Theme.Dark,
 						device = Utils.getDeviceType(),
-					}, {
-						FocusRoot = React.createElement(PeopleFocusRoot, {}, {
-							PeopleReactView = React.createElement(PeopleReactView, {
-								blockingModalScreen = BlockingModalScreen,
-								blockingFlags = {
-									FFlagNavigateToBlockingModal = FFlagNavigateToBlockingModal,
-									FFlagEnableNewBlockingModal = FFlagEnableNewBlockingModal,
-									FFlagEnableToastForBlockingModal = FFlagEnableToastForBlockingModal,
-								},
-								chromeEnabled = ChromeEnabled,
+					}, children)
+				end
+			end
+
+			local People = if displayed then React.createElement(CoreScriptsRootProvider, {}, {
+					LocalizationProvider = React.createElement(LocalizationProvider, {
+						localization = locales,
+					}, withFoundationProvider({
+							FocusRoot = React.createElement(PeopleFocusRoot, {}, {
+								PeopleReactView = React.createElement(PeopleReactView, {
+									blockingModalScreen = BlockingModalScreen,
+									blockingFlags = {
+										FFlagNavigateToBlockingModal = FFlagNavigateToBlockingModal,
+										FFlagEnableNewBlockingModal = FFlagEnableNewBlockingModal,
+										FFlagEnableToastForBlockingModal = FFlagEnableToastForBlockingModal,
+									},
+									chromeEnabled = ChromeEnabled,
+								})
 							})
 						})
-					})
-				})
-			}) else nil
+					)
+				}) else nil
 
 			return People
 		end

@@ -62,7 +62,6 @@ local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local GetFFlagEnableCrossExpVoiceVolumeIXPCheck = SharedFlags.GetFFlagEnableCrossExpVoiceVolumeIXPCheck
-local GetFFlagEnablePreferredTextSizeSettingInMenus = SharedFlags.GetFFlagEnablePreferredTextSizeSettingInMenus
 local GetFFlagDebounceConnectDisconnectButton = require(RobloxGui.Modules.Flags.GetFFlagDebounceConnectDisconnectButton)
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
 local FFlagInExperienceMenuReorderFirstVariant =
@@ -440,9 +439,7 @@ local function reportSettingsForAnalytics()
 
 	stringTable["reduced_motion"] = tostring(GameSettings.ReducedMotion)
 	stringTable["preferred_transparency"] = tostring(GameSettings.PreferredTransparency)
-	if GetFFlagEnablePreferredTextSizeSettingInMenus() then
-		stringTable["preferred_text_size"] = tostring(GameSettings.PreferredTextSize)
-	end
+	stringTable["preferred_text_size"] = tostring(GameSettings.PreferredTextSize)
 	stringTable["ui_navigation_key_bind_enabled"] = tostring(GameSettings.UiNavigationKeyBindEnabled)
 
 	stringTable["universeid"] = tostring(game.GameId)
@@ -4184,10 +4181,7 @@ local function Initialize()
 		createReducedMotionOptions()
 		createPreferredTransparencyOptions()
 	end
-
-	if GetFFlagEnablePreferredTextSizeSettingInMenus() then
-		createPreferredTextSizeOptions()
-	end
+	createPreferredTextSizeOptions()
 
 	if FFlagGameSettingsUsePreferredInputMovement or UserInputService.KeyboardEnabled then
 		createUiNavigationKeyBindOptions()

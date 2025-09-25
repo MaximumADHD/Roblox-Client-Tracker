@@ -46,6 +46,7 @@ local FFlagUserDynamicThumbstickSafeAreaUpdate do
 end
 
 local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts2")
+local FFlagUserPSRemoveTouchEnabled = FlagUtil.getUserFlag("UserPSRemoveTouchEnabled")
 
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
@@ -453,8 +454,10 @@ end
 -- Choose current Touch control module based on settings (user, dev)
 -- Returns module (possibly nil) and success code to differentiate returning nil due to error vs Scriptable
 function ControlModule:SelectTouchModule(): ({}?, boolean)
-	if not UserInputService.TouchEnabled then
-		return nil, false
+	if not FFlagUserPSRemoveTouchEnabled then
+		if not UserInputService.TouchEnabled then
+			return nil, false
+		end
 	end
 	local touchModule
 	local DevMovementMode = Players.LocalPlayer.DevTouchMovementMode

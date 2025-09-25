@@ -1,4 +1,5 @@
 --!nonstrict
+-- Remove with FFlagTopBarDeprecateGameInfoRodux
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
@@ -16,6 +17,13 @@ local TopBar = Thunks.Parent
 local SetGameName = require(TopBar.Actions.SetGameName)
 
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
+
+local TopBar = script.Parent.Parent
+local FFlagTopBarDeprecateGameInfoRodux = require(TopBar.Flags.FFlagTopBarDeprecateGameInfoRodux)
+
+if FFlagTopBarDeprecateGameInfoRodux then
+	return nil :: never
+end
 
 return function(store)
 	if game.GameId == 0 then

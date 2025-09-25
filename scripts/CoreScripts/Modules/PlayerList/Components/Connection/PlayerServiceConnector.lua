@@ -30,7 +30,9 @@ function PlayerServiceConnector:didMount()
 			self.sendPlayerProfileSettingsConnection = SendPlayerProfileSettings.OnClientEvent:Connect(function(userIdStr: string)
 				local userId = tonumber(userIdStr) :: number
 				local player = Players:GetPlayerByUserId(userId)
-				self.props.makePlayerInfoRequests(player)
+				if player then
+					self.props.makePlayerInfoRequests(player)
+				end
 			end)
 		end)
 	end

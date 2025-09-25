@@ -235,6 +235,16 @@ function AssetInfo.fromGetAssetBundles(assetId, bundleIds)
 	return newAsset
 end
 
+--[[
+	Sets the favorite status of an asset.
+]]
+function AssetInfo.fromGetFavoriteForAsset(id: string, isFavorite: boolean): AssetInfo
+	local newAsset = AssetInfo.new()
+	newAsset.assetId = tostring(id)
+	newAsset.isFavorited = isFavorite
+	return newAsset
+end
+
 function AssetInfo.fromBundleInfo(assetId, bundleInfo)
 	local newAsset = AssetInfo.new()
 	newAsset.assetId = tostring(assetId)
@@ -325,6 +335,8 @@ function AssetInfo.fromGetItemDetails(itemDetails)
 		newAsset.collectibleLowestResalePrice = itemDetails.LowestResalePrice
 		newAsset.isOffSale = itemDetails.IsOffSale
 		newAsset.saleLocationType = itemDetails.SaleLocationType
+		newAsset.numFavorites = itemDetails.FavoriteCount
+		newAsset.catalogPriceStatus = itemDetails.PriceStatus
 	end
 
 	return newAsset

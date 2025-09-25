@@ -31,6 +31,7 @@ local GamepadUtils = require(CorePackages.Workspace.Packages.InputUi).Gamepad.Ga
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local InteractionFrame = require(script.Parent.InteractionFrame)
 local Constants = require(script.Parent.Parent.Parent.Constants)
+local getFFlagEnableAvatarAssetPrompt = require(script.Parent.Parent.Parent.Flags.getFFlagEnableAvatarAssetPrompt)
 
 local Images = UIBlox.App.ImageSet.Images
 local PreviewShrinkIcon = Images["icons/actions/previewShrink"]
@@ -272,8 +273,15 @@ function PreviewViewport:processAsset()
 
 			self:setLoadingState(LoadingState.SUCCESSFULLY_LOADED)
 		end)
-	elseif asset:IsA("Model") then
-		self.model = asset:Clone()
+	elseif asset:IsA("Model") or (getFFlagEnableAvatarAssetPrompt() and asset:IsA("Accessory")) then
+		if asset:IsA("Accessory") then
+			local modelInstance = Instance.new("Model")
+			local accessoryClone = asset:Clone()
+			accessoryClone.Parent = modelInstance
+			self.model = modelInstance
+		else
+			self.model = asset:Clone()
+		end
 		self.model.Parent = nil
 		self:addModelToViewportIfNeeded()
 

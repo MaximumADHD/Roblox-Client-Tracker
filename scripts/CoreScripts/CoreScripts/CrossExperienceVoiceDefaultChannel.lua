@@ -24,10 +24,13 @@ local getMemStorageKey = CrossExperience.Utils.getMemStorageKey
 local CEV_JOIN_ATTEMPT_ID_KEY = CrossExperience.Constants.CEV_JOIN_ATTEMPT_ID_KEY
 local LOCAL_PLAYER_LOADING_TIMEOUT_ENUM = CrossExperience.Constants.LOCAL_PLAYER_LOADING_TIMEOUT_ENUM
 
-local FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds = game:DefineFastInt("BackgroundDMLocalPlayerLoadingTimeoutSeconds", 12)
+local FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds =
+	game:DefineFastInt("BackgroundDMLocalPlayerLoadingTimeoutSeconds", 12)
 
 local localUserId
-if FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable and CEVLogsToEventIngest then
+if
+	FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable and CEVLogsToEventIngest
+then
 	localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
 end
 
@@ -39,7 +42,10 @@ local function sendAnalyticsEvent(eventName: string, args: { [string]: any }?)
 		local cevJoinAttemptId = getMemStorageKey(CEV_JOIN_ATTEMPT_ID_KEY)
 		analyticsPayload.cevJoinAttemptId = cevJoinAttemptId
 		analyticsPayload.clientTimeStamp = os.time()
-		analyticsPayload.userId = if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then nil else localUserId
+		analyticsPayload.userId = if FStringTimeoutLoadingLocalPlayerInBackgroundDM
+				~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable
+			then nil
+			else localUserId
 	end
 
 	AnalyticsService:SendEventDeferred("client", "partyVoice", eventName, analyticsPayload)
@@ -82,24 +88,30 @@ local function ensureLocalPlayerWithTimeout()
 			return "timeout"
 		end)
 
-		Promise.race({ localPlayerPromise, timeoutPromise }):andThen(function(winner)
-			if winner == "loaded" then
-				localPlayer = Players.LocalPlayer
+		Promise.race({ localPlayerPromise, timeoutPromise })
+			:andThen(function(winner)
+				if winner == "loaded" then
+					localPlayer = Players.LocalPlayer
 
-				sendAnalyticsEvent("cevDefaultChannelBackgroundDMLocalPlayerLoaded", {
-					timeoutSeconds = FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds,
-				})
-			else
-				sendAnalyticsEvent("backgroundDMLocalPlayerLoadingTimeout", {
-					timeoutSeconds = FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds,
-				})
+					sendAnalyticsEvent("cevDefaultChannelBackgroundDMLocalPlayerLoaded", {
+						timeoutSeconds = FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds,
+					})
+				else
+					sendAnalyticsEvent("backgroundDMLocalPlayerLoadingTimeout", {
+						timeoutSeconds = FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds,
+					})
 
-				notifyVoiceStatusChange(CrossExperience.Constants.VOICE_STATUS.ERROR_BACKGROUND_DM_LOAD_LOCALPLAYER_TIMEOUT, 
-					"LocalPlayer loading timed out after " .. FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds .. " seconds")
+					notifyVoiceStatusChange(
+						CrossExperience.Constants.VOICE_STATUS.ERROR_BACKGROUND_DM_LOAD_LOCALPLAYER_TIMEOUT,
+						"LocalPlayer loading timed out after "
+							.. FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds
+							.. " seconds"
+					)
 
-				localPlayer = nil
-			end
-		end):await()
+					localPlayer = nil
+				end
+			end)
+			:await()
 	end
 
 	-- If localPlayer is nil, then we timed out, and we block the thread indefinitely until we shut down the script via foreground DM
@@ -118,7 +130,10 @@ if not CEVLogsToEventIngest and FFlagEnableCEVErrorRCCTimeoutLogs then
 	localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
 end
 
-if FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable and FFlagEnableCEVErrorRCCTimeoutLogs then
+if
+	FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable
+	and FFlagEnableCEVErrorRCCTimeoutLogs
+then
 	sendAnalyticsEvent("partyVoiceCEVChannelFileLoaded", {
 		userId = if not CEVLogsToEventIngest then localUserId else nil,
 		clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
@@ -181,8 +196,6 @@ local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDef
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
 local CevReadinessSync = game:GetEngineFeature("CevReadinessSync")
-
-local FFlagCevFixDuplicateObservers = game:DefineFastFlag("CevFixDuplicateObservers", false)
 
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 local Analytics = VoiceChatCore.Analytics.new()
@@ -727,16 +740,14 @@ end
 local setupListenersInitialized = false
 
 local function setupListeners()
-	if FFlagCevFixDuplicateObservers and setupListenersInitialized then
+	if setupListenersInitialized then
 		log:debug("listeners already registered, skipping duplicate setup")
 		return
 	end
 
-	if FFlagCevFixDuplicateObservers then
-		setupListenersInitialized = true
+	setupListenersInitialized = true
 
-		log:debug("setting up listeners for the first time")
-	end
+	log:debug("setting up listeners for the first time")
 	CoreVoiceManager:subscribe("GetPermissions", function(callback, permissions)
 		if FFlagFixPartyVoiceGetPermissions then
 			getPermissions(permissions):andThen(callback)

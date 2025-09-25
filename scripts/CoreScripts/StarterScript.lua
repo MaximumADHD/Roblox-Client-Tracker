@@ -112,17 +112,7 @@ if game:GetEngineFeature("SoundServiceControlsDefaultListenerLocation") then
 end
 
 if GetFFlagEnableAppChatInExperience() then
-	local ExperimentCacheManager =
-		require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
-	ExperimentCacheManager.default:initialize()
-
-	local InExperienceAppChatExperimentation =
-		require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatExperimentation
-	InExperienceAppChatExperimentation.default:initialize()
-
-	if InExperienceAppChatExperimentation.getHasInExperienceAppChatEntryPoint() then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/AppChatMain", RobloxGui)
-	end
+	ScriptContext:AddCoreScriptLocal("CoreScripts/AppChatMain", RobloxGui)
 end
 
 if GetFFlagEnableCrossExpVoice() then

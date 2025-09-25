@@ -41,7 +41,6 @@ local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local pcallDeferred = require(root.util.pcallDeferred)
 
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
-local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidateLCCagesQuality = require(root.flags.getFFlagUGCValidateLCCagesQuality)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getEngineFeatureEngineUGCValidationMaxVerticesCollision =
@@ -280,12 +279,10 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		end
 	end
 
-	if getFFlagUGCValidateThumbnailConfiguration() then
-		success, failedReason = validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
+	success, failedReason = validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
 	end
 
 	do

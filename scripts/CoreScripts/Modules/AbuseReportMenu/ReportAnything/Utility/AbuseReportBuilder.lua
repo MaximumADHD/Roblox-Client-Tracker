@@ -24,6 +24,8 @@ local GetFFlagReportAnythingEnableAdReport =
 local GetFFlagGetHumanoidDescription =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGetHumanoidDescription
 local GetFFlagRAEnableCircleRegion = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRAEnableCircleRegion
+local GetFFlagGetHumanoidDescriptionUpdatesV2E =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGetHumanoidDescriptionUpdatesV2E
 
 local getHumanoidDescription = require(root.ReportAnything.Utility.GetHumanoidDescription).getHumanoidDescription
 local Types = require(root.Components.Types)
@@ -148,6 +150,28 @@ local transformIdentifiedAvatars = function(identifiedAvatars: AvatarIDResults)
 	end
 
 	return outputArray
+end
+
+local getHumanoidDescriptionWithFallback = function(userId: number, raState: Types.ReportAnythingState): (any, string)
+	local humanoidDescription, outputMessage
+
+	if GetFFlagGetHumanoidDescriptionUpdatesV2E() then
+		local avatarIdResult = raState.identificationResults.identifiedAvatars[userId]
+		if
+			avatarIdResult
+			and avatarIdResult.humanoidDescription
+			and avatarIdResult.humanoidDescriptionStatus == "OK"
+		then
+			humanoidDescription = avatarIdResult.humanoidDescription
+			outputMessage = avatarIdResult.humanoidDescriptionStatus
+		else
+			humanoidDescription, outputMessage = getHumanoidDescription(userId)
+		end
+	else
+		humanoidDescription, outputMessage = getHumanoidDescription(userId)
+	end
+
+	return humanoidDescription, outputMessage
 end
 
 local interpretAnnotations = function(raState: Types.ReportAnythingState): ({ Player }, { VisibleAd })
@@ -454,7 +478,9 @@ local buildOtherReportRequest = function(
 		end
 
 		if GetFFlagGetHumanoidDescription() then
-			local humanoidDescription, outputMessage = getHumanoidDescription(selectedAbusers[1].UserId)
+			local humanoidDescription, outputMessage =
+				getHumanoidDescriptionWithFallback(selectedAbusers[1].UserId, raState)
+
 			request.tags.REPORT_TARGET_HUMANOID_DESCRIPTION = {
 				valueList = {
 					{ data = HttpService:JSONEncode(humanoidDescription) },
@@ -469,7 +495,8 @@ local buildOtherReportRequest = function(
 
 			local abuserHumanoidDescriptions = {}
 			for _, player in ipairs(selectedAbusers) do
-				humanoidDescription, outputMessage = getHumanoidDescription(player.UserId)
+				humanoidDescription, outputMessage = getHumanoidDescriptionWithFallback(player.UserId, raState)
+
 				abuserHumanoidDescriptions[#abuserHumanoidDescriptions + 1] = {
 					humanoidDescription = humanoidDescription,
 					outputMessage = outputMessage,
@@ -500,7 +527,9 @@ local buildOtherReportRequest = function(
 		-- that found a user.
 
 		if GetFFlagGetHumanoidDescription() then
-			local humanoidDescription, outputMessage = getHumanoidDescription(formData.formSelectedAbuserUserId)
+			local humanoidDescription, outputMessage =
+				getHumanoidDescriptionWithFallback(formData.formSelectedAbuserUserId, raState)
+
 			request.tags.REPORT_TARGET_HUMANOID_DESCRIPTION = {
 				valueList = {
 					{ data = HttpService:JSONEncode(humanoidDescription) },

@@ -10,6 +10,7 @@ local GuiService = game:GetService("GuiService")
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local FFlagUserCameraInputDt = FlagUtil.getUserFlag("UserCameraInputDt")
+local FFlagUserPSSinkUnknownTouchEvents = FlagUtil.getUserFlag("UserPSSinkUnknownTouchEvents")
 
 local player = Players.LocalPlayer
 
@@ -331,7 +332,11 @@ do
 				
 				-- fixup unknown touches
 				if touches[input] == nil then
-					touches[input] = sunk
+					if FFlagUserPSSinkUnknownTouchEvents then
+						touches[input] = true
+					else
+						touches[input] = sunk
+					end
 				end
 				
 				-- collect unsunk touches

@@ -39,7 +39,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
-local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getFFlagCheckAccessoryMeshSize = require(root.flags.getFFlagCheckAccessoryMeshSize)
 
@@ -207,11 +206,9 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	reasonsAccumulator:updateReasons(validateTextureSize(textureInfo, --[[ allowNoTexture = ]] true, validationContext))
 
-	if getFFlagUGCValidateThumbnailConfiguration() then
-		reasonsAccumulator:updateReasons(
-			validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
-		)
-	end
+	reasonsAccumulator:updateReasons(
+		validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
+	)
 
 	local checkModeration = not isServer
 	if allowUnreviewedAssets then

@@ -11,11 +11,13 @@ local Cryo = require(CorePackages.Packages.Cryo)
 
 local OpenPublishAssetPrompt = require(Root.Actions.OpenPublishAssetPrompt)
 local OpenPublishAvatarPrompt = require(Root.Actions.OpenPublishAvatarPrompt)
+local OpenPublishAvatarAssetPrompt = require(Root.Actions.OpenPublishAvatarAssetPrompt)
 local CloseOpenPrompt = require(Root.Actions.CloseOpenPrompt)
 local OpenResultModal = require(Root.Actions.OpenResultModal)
 local CloseResultModal = require(Root.Actions.CloseResultModal)
 local OpenValidationErrorModal = require(Root.Actions.OpenValidationErrorModal)
 local SetHumanoidModel = require(Root.Actions.SetHumanoidModel)
+local SetAccessoryInstance = require(Root.Actions.SetAccessoryInstance)
 local SetPriceInRobux = require(Root.Actions.SetPriceInRobux)
 local SetPromptVisibility = require(Root.Actions.SetPromptVisibility)
 
@@ -53,10 +55,30 @@ local PromptRequestReducer = Rodux.createReducer(
 			})
 		end,
 
+		[OpenPublishAvatarAssetPrompt.name] = function(state, action: OpenPublishAvatarAssetPrompt.Action)
+			-- Maintain a queue of pending prompts. action.promptInfo should contain
+			-- a promptType and any other information required by that prompt. See OpenPublishAvatarAssetPrompt.lua
+			if state.promptInfo.promptType == nil then
+				return Cryo.Dictionary.join(state, { promptInfo = action.promptInfo })
+			end
+
+			return Cryo.Dictionary.join(state, {
+				queue = Cryo.List.join(state.queue, { action.promptInfo }),
+			})
+		end,
+
 		[SetHumanoidModel.name] = function(state, action)
 			return Cryo.Dictionary.join(state, {
 				promptInfo = Cryo.Dictionary.join(state.promptInfo, {
 					humanoidModel = action.humanoidModel,
+				}),
+			})
+		end,
+
+		[SetAccessoryInstance.name] = function(state, action)
+			return Cryo.Dictionary.join(state, {
+				promptInfo = Cryo.Dictionary.join(state.promptInfo, {
+					accessoryInstance = action.accessoryInstance,
 				}),
 			})
 		end,

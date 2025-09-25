@@ -81,7 +81,8 @@ function HurtOverlay:init()
 					end
 				end
 			end
-			return false
+
+			return isAnimating
 		end) 
 
 

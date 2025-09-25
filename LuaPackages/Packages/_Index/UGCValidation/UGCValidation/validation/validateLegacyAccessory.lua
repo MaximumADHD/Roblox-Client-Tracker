@@ -34,7 +34,6 @@ local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
-local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
@@ -207,12 +206,10 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		end
 	end
 
-	if getFFlagUGCValidateThumbnailConfiguration() then
-		success, failedReason = validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
+	success, failedReason = validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
 	end
 
 	local checkModeration = not isServer

@@ -84,6 +84,16 @@ function BundleInfo.fromBulkPurchaseResult(bulkPurchaseResult: BulkPurchaseResul
 	return newBundle
 end
 
+--[[
+	Sets the favorite status of a bundle.
+]]
+function BundleInfo.fromGetFavoriteForAsset(id: string, isFavorite: boolean): BundleInfo
+	local newBundle = BundleInfo.new()
+	newBundle.bundleId = tostring(id)
+	newBundle.isFavorited = isFavorite
+	return newBundle
+end
+
 function BundleInfo.fromAvatarPreviewItem(avatarPreviewItem: AvatarPreviewItem): BundleInfo
 	local newBundle: BundleInfo = BundleInfo.new()
 
@@ -103,8 +113,19 @@ function BundleInfo.fromAvatarPreviewItem(avatarPreviewItem: AvatarPreviewItem):
 	newBundle.bundleType = tostring(avatarPreviewItem.bundleType)
 	newBundle.noPriceStatus = avatarPreviewItem.noPriceStatus
 
-	-- parse assetsInBundle field
-	newBundle.assetsInBundle = avatarPreviewItem.assetsInBundle
+	-- parse assetsInBundle field and turn the number ids into string ids
+	local stringAssetsInBundle = {}
+	if avatarPreviewItem.assetsInBundle then
+		for _, asset in avatarPreviewItem.assetsInBundle do
+			table.insert(stringAssetsInBundle, {
+				id = tostring(asset.id),
+				assetType = tostring(asset.assetType),
+				isIncluded = asset.isIncluded,
+				meta = asset.meta,
+			})
+		end
+	end
+	newBundle.assetsInBundle = stringAssetsInBundle
 
 	-- parse item restrictions for bundle
 	if avatarPreviewItem.itemRestrictions then
@@ -181,6 +202,18 @@ function BundleInfo.fromGetItemDetails(itemDetails)
 		newBundle.collectibleLowestResalePrice = itemDetails.LowestResalePrice
 		newBundle.isOffSale = itemDetails.IsOffSale
 		newBundle.saleLocationType = itemDetails.SaleLocationType
+		newBundle.numFavorites = itemDetails.FavoriteCount
+		newBundle.catalogPriceStatus = itemDetails.PriceStatus
+
+		-- parse the assets in the bundle
+		local assetsInBundle = {}
+		for _, bundleAsset in itemDetails.BundledItems do
+			table.insert(assetsInBundle, {
+				id = tostring(bundleAsset.Id),
+				name = bundleAsset.Name,
+			})
+		end
+		newBundle.assetsInBundle = assetsInBundle
 	end
 
 	return newBundle
