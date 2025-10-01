@@ -3473,7 +3473,7 @@
     "code_sample": ""
   },
   "@roblox/global/BrickColor": {
-    "documentation": "명명된 색상의 미리 정의된 목록을 제공하는 데이터 유형입니다.",
+    "documentation": "미리 정의된 이름이 있는 색상 목록을 제공하는 데이터 유형입니다.",
     "keys": {
       "new": "@roblox/global/BrickColor.new",
       "palette": "@roblox/global/BrickColor.palette",
@@ -3502,7 +3502,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(number) -> BrickColor": {
-    "documentation": "숫자 인덱스에서 <code>BrickColor</code>를 생성합니다.",
+    "documentation": "<code>BrickColor</code>를 숫자 인덱스에서 생성합니다.",
     "params": [
       {
         "name": "val",
@@ -3523,7 +3523,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(number, number, number) -> BrickColor": {
-    "documentation": "지정된 RGB 구성 요소와 일치할 수 있는 가장 가까운 <code>BrickColor</code>를 생성하여 각각 0과 1 사이입니다.",
+    "documentation": "지정된 RGB 구성 요소에 맞는 가장 가까운 <code>BrickColor</code>를 생성합니다.",
     "params": [
       {
         "name": "r",
@@ -3546,7 +3546,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(string) -> BrickColor": {
-    "documentation": "이름에서 <code>BrickColor</code>를 생성합니다.",
+    "documentation": "<code>BrickColor</code>를 이름에서 생성합니다.",
     "params": [
       {
         "name": "name",
@@ -3561,7 +3561,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(Color3) -> BrickColor": {
-    "documentation": "지정된 <code>BrickColor</code> 와 일치할 수 있는 가장 가까운 구조체를 생성합니다.Constructs the closest <code>Color3</code> that can be matched to the specified  .",
+    "documentation": "지정된 <code>Color3</code>에 맞는 가장 가까운 <code>BrickColor</code>를 생성합니다.",
     "params": [
       {
         "name": "color",
@@ -3588,70 +3588,70 @@
     "code_sample": ""
   },
   "@roblox/global/BrickColor.random": {
-    "documentation": "랜덤 <code>BrickColor</code>를 반환합니다.",
+    "documentation": "무작위로 <code>BrickColor</code>를 반환합니다.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#random",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.White": {
-    "documentation": "반환 \"흰색\" <code>BrickColor</code> .",
+    "documentation": "\"화이트\" <code>BrickColor</code>를 반환합니다.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#White",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Gray": {
-    "documentation": "반환 \"중간 돌 회색\" <code>BrickColor</code> .",
+    "documentation": "\"미디엄 스톤 그레이\" <code>BrickColor</code>를 반환합니다.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Gray",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.DarkGray": {
-    "documentation": "반환 \"어두운 돌 회색\" <code>BrickColor</code> .",
+    "documentation": "\"다크 스톤 그레이\" <code>BrickColor</code>를 반환합니다.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#DarkGray",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Black": {
-    "documentation": "반환 \"검은색\" <code>BrickColor</code> .",
+    "documentation": "\"블랙\" <code>BrickColor</code>를 반환합니다.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Black",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Red": {
-    "documentation": "반환 \"밝은 빨강\" <code>BrickColor</code> .",
+    "documentation": "\"브라이트 레드\" <code>BrickColor</code>를 반환합니다.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Red",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Yellow": {
-    "documentation": "반환 \"밝은 노란색\" <code>BrickColor</code> .",
+    "documentation": "\"브라이트 옐로우\" <code>BrickColor</code>를 반환합니다.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Yellow",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Green": {
-    "documentation": "반환 \"어두운 녹색\" <code>BrickColor</code> .",
+    "documentation": "\"다크 그린\" <code>BrickColor</code>를 반환합니다.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Green",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Blue": {
-    "documentation": "반환 \"밝은 파란색\" <code>BrickColor</code> .",
+    "documentation": "\"브라이트 블루\" <code>BrickColor</code>를 반환합니다.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Blue",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor": {
-    "documentation": "명명된 색상의 미리 정의된 목록을 제공하는 데이터 유형입니다.",
+    "documentation": "미리 정의된 이름이 있는 색상 목록을 제공하는 데이터 유형입니다.",
     "keys": {
       "Number": "@roblox/globaltype/BrickColor.Number",
       "r": "@roblox/globaltype/BrickColor.r",
@@ -3664,32 +3664,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.Number": {
-    "documentation": "<code>BrickColor</code>를 식별하는 고유 번호.",
+    "documentation": "<code>BrickColor</code>를 식별하는 고유한 숫자입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Number",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.r": {
-    "documentation": "빨간색 구성 요소의 <code>BrickColor</code> (0과 1 사이).",
+    "documentation": "<code>BrickColor</code>의 빨간색 구성 요소(0과 1 사이).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#r",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.g": {
-    "documentation": "녹색 구성 요소는 <code>BrickColor</code> (0과 1 사이)입니다.",
+    "documentation": "<code>BrickColor</code>의 녹색 구성 요소(0과 1 사이).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#g",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.b": {
-    "documentation": "<code>BrickColor</code>",
+    "documentation": "<code>BrickColor</code>의 파란색 구성 요소(0과 1 사이).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#b",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.Name": {
-    "documentation": "<code>BrickColor</code>와 연결된 이름.",
+    "documentation": "<code>BrickColor</code>와 관련된 이름입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Name",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.Color": {
-    "documentation": "The <code>Color3</code> 와 연결된 <code>BrickColor</code> .",
+    "documentation": "<code>BrickColor</code>와 관련된 <code>Color3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Color",
     "code_sample": ""
   },
@@ -12633,7 +12633,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter": {
-    "documentation": "사용자가 사용자 정의할 수 있는 2D 입자를 세계에 방출하는 특별한 객체입니다.",
+    "documentation": "사용자가 원하는 2D 입자를 세계에 방출하는 특별한 객체입니다.",
     "keys": {
       "Acceleration": "@roblox/globaltype/ParticleEmitter.Acceleration",
       "Brightness": "@roblox/globaltype/ParticleEmitter.Brightness",
@@ -12644,6 +12644,8 @@
       "FlipbookFramerate": "@roblox/globaltype/ParticleEmitter.FlipbookFramerate",
       "FlipbookIncompatible": "@roblox/globaltype/ParticleEmitter.FlipbookIncompatible",
       "FlipbookLayout": "@roblox/globaltype/ParticleEmitter.FlipbookLayout",
+      "FlipbookSizeX": "@roblox/globaltype/ParticleEmitter.FlipbookSizeX",
+      "FlipbookSizeY": "@roblox/globaltype/ParticleEmitter.FlipbookSizeY",
       "FlipbookMode": "@roblox/globaltype/ParticleEmitter.FlipbookMode",
       "FlipbookStartRandom": "@roblox/globaltype/ParticleEmitter.FlipbookStartRandom",
       "Lifetime": "@roblox/globaltype/ParticleEmitter.Lifetime",
@@ -12677,22 +12679,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Acceleration": {
-    "documentation": "모든 활성 입자의 전역 축 가속도를 결정하며, 측정 단위는 초당 제곱 스터드입니다.",
+    "documentation": "모든 활성 입자의 전역 축 가속도를 결정하며, 초당 스터드 제곱으로 측정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Acceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Brightness": {
-    "documentation": "<code>ParticleEmitter.LightInfluence</code>가 0일 때 방출기에서 방출되는 빛의 크기를 조정합니다.",
+    "documentation": "입자 방출기가 0일 때 방출된 빛의 밝기를 조절합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Brightness",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Color": {
-    "documentation": "개별 입자의 생애에 걸쳐 모든 활성 입자의 색상을 결정합니다.",
+    "documentation": "개별 입자의 수명에 따라 모든 활성 입자의 색상을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Color",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Drag": {
-    "documentation": "입자가 지수 감소를 통해 속도를 절반으로 잃는 비율을 결정합니다.",
+    "documentation": "입자가 평균 속도를 잃는 비율을 결정합니다. 지수 감소를 통해.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Drag",
     "code_sample": ""
   },
@@ -12702,37 +12704,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Enabled": {
-    "documentation": "입자가 방출기에서 방출되는지 여부를 결정합니다.",
+    "documentation": "입자가 방출기로부터 방출되는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookFramerate": {
-    "documentation": "플립북 텍스처의 애니메이션 속도를 초당 프레임 수로 결정합니다.",
+    "documentation": "플립북 텍스처가 초당 프레임으로 애니메이션되는 속도를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookFramerate",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookIncompatible": {
-    "documentation": "플립북에 대해 <code>Texture</code>가 호환되지 않는 경우 표시할 오류 메시지.",
+    "documentation": "플립북에 대해 호환되지 않는 <code>Texture</code> 경우 표시할 오류 메시지입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookIncompatible",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookLayout": {
-    "documentation": "플립북 텍스처의 레이아웃을 결정합니다. None, Grid2x2, Grid4x4, 또는 Grid8x8 중 하나여야 합니다.",
+    "documentation": "플립북 텍스처의 레이아웃을 결정합니다. None, Grid2x2, Grid4x4, Grid8x8 또는 Custom이여야 합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookLayout",
     "code_sample": ""
   },
+  "@roblox/globaltype/ParticleEmitter.FlipbookSizeX": {
+    "documentation": "맞춤형 플립북 레이아웃에서 수평 프레임 수를 정의합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookSizeX",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ParticleEmitter.FlipbookSizeY": {
+    "documentation": "맞춤형 플립북 레이아웃에서 수직 프레임 수를 정의합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookSizeY",
+    "code_sample": ""
+  },
   "@roblox/globaltype/ParticleEmitter.FlipbookMode": {
-    "documentation": "플립북 애니메이션의 유형을 결정합니다. Loop, OneShot, PingPong 또는 Random이어야 합니다.",
+    "documentation": "플립북 애니메이션의 유형을 결정합니다. Loop, OneShot, PingPong 또는 Random이여야 합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookMode",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookStartRandom": {
-    "documentation": "각 입자가 항상 0 프레임에서 시작하는 대신 무작위 프레임에서 시작하도록 설정합니다.",
+    "documentation": "입자가 항상 프레임 제로에서 시작하는 대신에, 각 입자가 랜덤 프레임에서 시작하는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookStartRandom",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Lifetime": {
-    "documentation": "새로 생성되는 입자의 무작위적인 생애 범위를 정의합니다.",
+    "documentation": "새로 방출된 입자에 대해 임의의 나이 범위를 정의합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Lifetime",
     "code_sample": ""
   },
@@ -12742,7 +12754,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.LightInfluence": {
-    "documentation": "입자가 주변 조명의 영향을 얼마나 받는지를 결정합니다.",
+    "documentation": "입자가 주변 빛의 영향을 받는 정도를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#LightInfluence",
     "code_sample": ""
   },
@@ -12752,67 +12764,67 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.LockedToPart": {
-    "documentation": "입자가 방출되는 객체와 함께 단단히 이동하는지 여부를 결정합니다.",
+    "documentation": "입자가 방출된 부품과 함께 강하게 이동하는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#LockedToPart",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Orientation": {
-    "documentation": "입자의 방향을 지정하는 방법을 정의합니다.",
+    "documentation": "입자를 어떻게 방향성을 부여할지 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Orientation",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Rate": {
-    "documentation": "초당 방출되는 입자의 수를 결정합니다.",
+    "documentation": "초당 방출되는 입자 수를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Rate",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.RotSpeed": {
-    "documentation": "방출되는 입자의 각속도 범위를 결정하며, 측정 단위는 초당 도입니다.",
+    "documentation": "방출된 입자의 각속도의 범위를 결정합니다. 초당 도 단위로 측정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#RotSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Rotation": {
-    "documentation": "새로 방출되는 입자의 회전 범위를 도 단위로 결정합니다.",
+    "documentation": "새로 방출된 입자의 각도 범위를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Rotation",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Shape": {
-    "documentation": "방출기의 모양을 상자, 구, 실린더 또는 원반으로 설정합니다.",
+    "documentation": "방출기의 모양을 박스, 구, 실린더 또는 원판 중 하나로 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Shape",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ShapeInOut": {
-    "documentation": "입자가 밖으로만 방출되는지, 안으로만 방출되는지 또는 양쪽 방향 모두로 방출되는지를 설정합니다.",
+    "documentation": "입자가 바깥쪽, 안쪽, 또는 양 방향으로 방출되는지 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ShapeInOut",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ShapePartial": {
-    "documentation": "실린더, 원반, 구 및 상자 형태의 입자 방출에 영향을 미칩니다.",
+    "documentation": "실린더, 원판, 구 및 박스 형태에서 입자 방출에 영향을 미칩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ShapePartial",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ShapeStyle": {
-    "documentation": "입자 방출을 부피 또는 표면 전용 방출로 설정합니다.",
+    "documentation": "입자 방출을 볼륨적으로 또는 표면에서만 방출하도록 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ShapeStyle",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Size": {
-    "documentation": "개별 입자의 생애에 따른 세계 크기를 결정합니다.",
+    "documentation": "개별 입자의 수명 동안 세계 크기를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Size",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Speed": {
-    "documentation": "새로 방출되는 입자가 방출되는 속도(최소에서 최대)를 결정합니다. 측정 단위는 초당 스터드입니다.",
+    "documentation": "새로 방출된 입자가 발생할 속도의 무작위 범위를 결정합니다. 최소에서 최대까지",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.SpreadAngle": {
-    "documentation": "입자가 무작위로 방출될 수 있는 각도를 결정합니다. 측정 단위는 도입니다.",
+    "documentation": "입자가 무작위로 방출될 수 있는 각도를 결정합니다. 도 단위로 측정됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#SpreadAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Squash": {
-    "documentation": "입자의 비균일 스케일링을 허용하며, 생애에 따라 곡선이 제어됩니다.",
+    "documentation": "입자가 수명을 따라 곡선으로 조절된 비균일 스케일링을 허용합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Squash",
     "code_sample": ""
   },
@@ -12822,40 +12834,40 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.TimeScale": {
-    "documentation": "입자 효과의 속도를 제어하는 0에서 1 사이의 값입니다.",
+    "documentation": "입자 효과의 속도를 제어하는 0과 1 사이의 값입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#TimeScale",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Transparency": {
-    "documentation": "개별 생애에 걸쳐 입자의 투명도를 결정합니다.",
+    "documentation": "개별 입자의 수명 동안의 투명도를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.VelocityInheritance": {
-    "documentation": "입자가 방출될 때 부모의 속도가 얼마나 상속되는지를 결정합니다.",
+    "documentation": "입자가 방출될 때 부모의 속도를 얼마나 상속받는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#VelocityInheritance",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.VelocitySpread": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 <code>ParticleEmitter.SpreadAngle</code>로 대체되었으므로 모든 새 작업에서는 이를 사용해야 합니다.<br>입자들이 부모의 로컬 발사기 방향에서 얼마나 오프셋되어 발사될 수 있는지를 결정합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>ParticleEmitter.SpreadAngle</code>로 대체된 속성이므로, 모든 신규 작업에 이 속성을 사용해야 합니다.<br>입자가 부모의 로컬 방출 방향에서 얼마나 오프셋 될 수 있는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#VelocitySpread",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.WindAffectsDrag": {
-    "documentation": "<code>Workspace.GlobalWind</code> 벡터를 따르는 발사된 입자 여부.",
+    "documentation": "방출된 입자가 <code>Workspace.GlobalWind</code> 벡터를 따르는지 여부.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#WindAffectsDrag",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ZOffset": {
-    "documentation": "입자의 전후 렌더 위치를 결정합니다; 어떤 입자가 위에/아래 렌더링되는지를 제어하는 데 사용됩니다.",
+    "documentation": "입자의 전후 렌더링 위치를 결정합니다; 어떤 입자가 위/아래에 렌더링되는지를 제어하는 데 사용됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ZOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Clear/param/0": {
-    "documentation": "사용자가 사용자 정의할 수 있는 2D 입자를 세계에 방출하는 특별한 객체입니다."
+    "documentation": "사용자가 원하는 2D 입자를 세계에 방출하는 특별한 객체입니다."
   },
   "@roblox/globaltype/ParticleEmitter.Clear": {
-    "documentation": "발사된 모든 입자를 지웁니다.",
+    "documentation": "방출된 모든 입자를 지웁니다.",
     "params": [
       {
         "name": "self",
@@ -12867,13 +12879,13 @@
     "code_sample": "local emitter = script.Parent\nwhile true do\n\temitter:Clear()\n\temitter:Emit(10)\n\ttask.wait(2)\nend"
   },
   "@roblox/globaltype/ParticleEmitter.Emit/param/0": {
-    "documentation": "사용자가 사용자 정의할 수 있는 2D 입자를 세계에 방출하는 특별한 객체입니다."
+    "documentation": "사용자가 원하는 2D 입자를 세계에 방출하는 특별한 객체입니다."
   },
   "@roblox/globaltype/ParticleEmitter.Emit/param/1": {
-    "documentation": "발사할 입자의 수."
+    "documentation": "방출할 입자의 수입니다."
   },
   "@roblox/globaltype/ParticleEmitter.Emit": {
-    "documentation": "지정된 수의 입자를 발사합니다.",
+    "documentation": "지정된 수의 입자를 방출합니다.",
     "params": [
       {
         "name": "self",
@@ -25304,7 +25316,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다.",
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다.",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
@@ -25363,17 +25375,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirDensity": {
-    "documentation": "공기 밀도는 지면 수준에서의 공기 밀도로, 공기 역학적 힘 모델에서 사용됩니다.",
+    "documentation": "공중 밀도는 공기역학적 힘 모델에 사용되는 지면 수준의 공기 밀도입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "바람 속도 필드에 존재하는 난기류의 강도를 조절하여 공기 역학적 힘 모델에 영향을 미칩니다.",
+    "documentation": "바람 속도 필드에 존재하는 난기류의 세기를 제어하여 공기역학적 힘 모델에 영향을 미칩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AllowThirdPartySales": {
-    "documentation": "다른 사용자가 생성한 자산이 게임에서 판매될 수 있는지 여부를 결정합니다.",
+    "documentation": "다른 사용자가 만든 자산을 게임에서 판매할 수 있는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AllowThirdPartySales",
     "code_sample": ""
   },
@@ -25388,7 +25400,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ClientAnimatorThrottling": {
-    "documentation": "로컬 클라이언트의 애니메이션 스로틀 모드를 설정합니다.",
+    "documentation": "로컬 클라이언트에 대한 애니메이션 쓰로틀링 모드를 지정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ClientAnimatorThrottling",
     "code_sample": ""
   },
@@ -25398,7 +25410,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "게임이 실행된 시간(초)입니다.",
+    "documentation": "게임이 실행된 시간(초 단위)입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
@@ -25408,32 +25420,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallenPartsDestroyHeight": {
-    "documentation": "떨어진 <code>BaseParts</code> 및 그 조상 <code>Models</code>가 <code>Workspace</code>에서 제거되는 높이를 결정합니다.",
+    "documentation": "떨어지는 <code>BaseParts</code>와 그 조상 <code>Models</code>가 <code>Workspace</code>에서 제거되는 높이를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallenPartsDestroyHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>클라이언트에서 이루어진 변경 사항이 서버에 복제될지 여부를 결정합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>클라이언트에서 변경된 내용이 서버에 복제될지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "<code>BaseParts</code>의 <code>EnableFluidForces</code> 속성이 true일 경우 물리 엔진이 공기 역학적 힘을 계산하는지를 결정합니다.",
+    "documentation": "물리 엔진이 <code>BaseParts</code>에 대해 공기역학적 힘을 계산할지 여부를 결정합니다. 특히 <code>EnableFluidForces</code> 속성이 true인 경우.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GlobalWind": {
-    "documentation": "애니메이션된 지형 풀, 동적 구름, 및 입자에 대한 글로벌 바람 벡터를 지정합니다.",
+    "documentation": "애니메이션 된 테라인 잔디, 동적 구름, 입자를 위한 글로벌 바람 벡터를 지정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#GlobalWind",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Gravity": {
-    "documentation": "떨어진 <code>BaseParts</code>에 적용되는 중력에 의한 가속도를 결정합니다.",
+    "documentation": "떨어지는 <code>BaseParts</code>에 적용되는 중력 가속도를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Gravity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "IKControls에 대한 제약 조건 지원을 활성화합니다. 비활성화되면 IKControls는 물리 제약 조건을 무시합니다.",
+    "documentation": "IKControls에 대한 제약 조건 지원을 활성화합니다. 비활성화하면 IKControls는 물리 제약을 무시합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -25453,7 +25465,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "캐릭터의 머리와 액세서리가 MeshParts로 다운로드되는지 여부를 설정합니다.",
+    "documentation": "캐릭터 머리와 액세서리를 MeshParts로 다운로드할지 여부를 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -25463,7 +25475,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "이동자 제약을 사용할 때 어셈블리 루트 파트를 선택하는 데 사용되는 논리를 제어합니다.",
+    "documentation": "모든 이동 제약을 사용할 때 조립 루트 부품을 선택하기 위해 사용되는 논리를 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
@@ -25478,7 +25490,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "해결사가 물리 시뮬레이션을 시간적으로 앞으로 진행하는 방식을 설정합니다.",
+    "documentation": "해결사가 물리 시뮬레이션을 시간을 위로 전진시키는 방식을 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -25523,12 +25535,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "엔진이 플레이어에게 콘텐츠를 스트리밍하지 않을지 결정하는 방법을 설정합니다.",
+    "documentation": "엔진이 플레이어로부터 콘텐츠를 스트림할 시점을 결정하는 방법을 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "플레이스에 대한 콘텐츠 스트리밍이 활성화되어 있는지 여부입니다.",
+    "documentation": "장소에 대해 콘텐츠 스트리밍이 활성화되어 있는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
@@ -25538,17 +25550,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "높은 우선순위로 플레이어에게 스트리밍될 콘텐츠의 최소 거리를 설정합니다.",
+    "documentation": "콘텐츠가 플레이어에게 높은 우선 순위로 스트리밍되는 최소 거리입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingTargetRadius": {
-    "documentation": "플레이어에게 콘텐츠가 스트리밍되는 최대 거리를 설정합니다.",
+    "documentation": "콘텐츠가 플레이어에게 스트리밍되는 최대 거리입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingTargetRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "워크스페이스에 부모로 하는 <code>Terrain</code> 객체에 대한 참조입니다.",
+    "documentation": "<code>Workspace</code>에 부모를 둔 <code>Terrain</code> 객체에 대한 참조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
@@ -25558,7 +25570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "<code>parts</code>가 서로 충돌하지 않도록 설정된 경우, 충돌 및 터치 이벤트를 무시할지 여부를 결정합니다.",
+    "documentation": "다른 그룹에서 충돌하지 않도록 설정된 <code>parts</code>가 충돌 및 터치 이벤트를 무시할지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
     "code_sample": ""
   },
@@ -25573,13 +25585,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "조인트를 파괴할 <code>BaseParts</code>의 배열입니다."
+    "documentation": "<code>BaseParts</code>의 배열로, 관절을 끊을 부품입니다."
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>제공된 모든 <code>BaseParts</code>를 순회하며 이들에 연결된 조인트를 파괴합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>주어진 모든 <code>BaseParts</code>를 통해 이동하며, 이 부품과 연결된 모든 관절을 분리합니다.",
     "params": [
       {
         "name": "self",
@@ -25595,13 +25607,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
-    "documentation": "깨어있는 파트의 수입니다."
+    "documentation": "정신을 차린 부품의 수입니다."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "<code>BaseParts</code> 중 최근에 물리적인 영향 아래에 있었던 물리적으로 활성으로 간주되는 수를 반환합니다.",
+    "documentation": "물리적으로 최근에 영향을 받은 것으로 간주되는 <code>BaseParts</code>의 수를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -25615,13 +25627,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "현재 물리 시뮬레이션이 조정되고 있는 비율입니다."
+    "documentation": "현재 물리 시뮬레이션이 쓰로틀링된 실제 비율입니다."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "0과 100 사이의 정수를 반환하여 물리 시뮬레이션이 현재 조절되고 있는 실시간 비율을 나타냅니다.",
+    "documentation": "물리 시뮬레이션이 현재 속도를 조절받고 있는 비율을 나타내는 0에서 100 사이의 정수를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -25635,13 +25647,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "현재 물리 시뮬레이션이 이루어지고 있는 초당 프레임 수를 반환합니다."
+    "documentation": "현재 물리 시뮬레이션이 초당 시뮬레이션된 프레임 수를 반환합니다."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "현재 물리 시뮬레이션이 이루어지고 있는 초당 프레임 수를 반환합니다.",
+    "documentation": "현재 물리 시뮬레이션이 초당 시뮬레이션되는 프레임 수를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -25655,7 +25667,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\tplayer:Kick()\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
     "documentation": "서버의 예상 유닉스 타임스탬프입니다."
@@ -25675,16 +25687,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "조인트를 만들 <code>BaseParts</code>의 배열입니다."
+    "documentation": "<code>BaseParts</code>의 배열로, 관절을 생성할 부품입니다."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "사용할 <code>JointCreationMode</code>입니다. <code>Enum.JointCreationMode.All</code> 또는 <code>Enum.JointCreationMode.Surface</code>를 전달하면 Join Always와 동일한 동작입니다."
+    "documentation": "사용할 <code>JointCreationMode</code>입니다. <code>Enum.JointCreationMode.All</code> 또는 <code>Enum.JointCreationMode.Surface</code>를 전달하면 Join Always 동작과 동일합니다."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "지정된 <code>Parts</code>와 접촉하는 모든 파트 사이에 조인트를 생성합니다. 이는 파트의 표면과 지정된 조인트 생성 모드에 따라 다릅니다.",
+    "documentation": "지정된 <code>Parts</code>와 접촉한 부품들 간의 관절을 만들고, 부품의 표면 및 지정된 관절 생성 모드에 따라 행동합니다.",
     "params": [
       {
         "name": "self",
@@ -25704,13 +25716,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "조인트를 만들 <code>parts</code>의 배열입니다."
+    "documentation": "<code>parts</code>의 배열로, 관절을 생성할 부품입니다."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>주어진 모든 <code>BaseParts</code>를 확인합니다. 어떤 파트의 면에 조인트를 만들 수 있는 <code>SurfaceType</code>이 있으면 인접한 파트와 조인트를 생성합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>주어진 모든 <code>BaseParts</code>를 통해 이동하며, 어떤 파트의 면이 관절을 생성할 수 있는 <code>SurfaceType</code>인 경우, 인접한 부품과 관절을 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -25726,13 +25738,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "PGS 솔버가 활성화되어 있으면 True입니다."
+    "documentation": "PGS 솔버가 활성화된 경우 true를 반환합니다."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "게임에서 PGS 물리 솔버가 활성화되어 있으면 <code>true</code>를 반환합니다.",
+    "documentation": "게임에 PGS 물리 솔버가 활성화되어 있으면 <code>true</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -25746,13 +25758,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "조인트를 끊을 <code>BaseParts</code>의 배열입니다."
+    "documentation": "<code>BaseParts</code>의 배열로, 관절을 분리할 부품입니다."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "지정된 <code>BaseParts</code>와 기타 <code>BaseParts</code> 간의 모든 조인트를 끊습니다.",
+    "documentation": "지정된 <code>BaseParts</code>와 다른 <code>BaseParts</code> 간의 모든 관절을 분리합니다.",
     "params": [
       {
         "name": "self",
@@ -25768,10 +25780,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하며, 이는 3D 세계에 렌더링됩니다. 그로부터 파생되지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+    "documentation": "<strong>Workspace</strong>는 3D 세계에 렌더링되는 3D 객체를 포함합니다. 그로부터 유래하지 않는 객체는 3D 세계에서 렌더링되거나 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "<code>Workspace.CurrentCamera</code>의 위치를 조정하고 확대하여 현재 <code>Workspace</code>에 있는 <code>BaseParts</code>의 범위를 보여줍니다.",
+    "documentation": "<code>Workspace.CurrentCamera</code>를 위치시키고 확대하여 현재 <code>Workspace</code>에 있는 <code>BaseParts</code>의 범위를 보여줍니다.",
     "params": [
       {
         "name": "self",
@@ -25860,7 +25872,7 @@
     "returns": []
   },
   "@roblox/globaltype/Workspace.PersistentLoaded": {
-    "documentation": "지속적인 모델이 지정된 플레이어에게 전송되었을 때 발생합니다.",
+    "documentation": "지속적인 모델이 지정된 플레이어에게 전송될 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Workspace.PersistentLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Workspace.PersistentLoaded.ConnectParallel",
@@ -31016,9 +31028,6 @@
   "@roblox/globaltype/ConfigSnapshot.GetValue/param/1": {
     "documentation": ""
   },
-  "@roblox/globaltype/ConfigSnapshot.GetValue/param/2": {
-    "documentation": ""
-  },
   "@roblox/globaltype/ConfigSnapshot.GetValue/return/0": {
     "documentation": ""
   },
@@ -31032,10 +31041,6 @@
       {
         "name": "key",
         "documentation": "@roblox/globaltype/ConfigSnapshot.GetValue/param/1"
-      },
-      {
-        "name": "defaultValue",
-        "documentation": "@roblox/globaltype/ConfigSnapshot.GetValue/param/2"
       }
     ],
     "returns": [
@@ -32787,7 +32792,7 @@
     "code_sample": "assert(plugin, \"이 스크립트는 플러그인으로 실행되어야 합니다!\")\n-- 이 지점을 넘어서 작성된 코드는 스크립트가 플러그인으로 실행될 때만 실행됩니다\n\n-- 모듈을 로드하고 플러그인 참조를 전달합니다\nlocal pluginModule = require(script.Parent.PluginModule)\npluginModule:Initialize(plugin)\n\n-- 플러그인 참조가 초기화되었는지 확인합니다\npluginModule:CheckForPluginGlobal()"
   },
   "@roblox/globaltype/Plugin.CollisionEnabled": {
-    "documentation": "사용자가 모델 탭에서 스튜디오 내 <code>Collisions</code>를 활성화했는지 여부를 반환합니다.",
+    "documentation": "모델 탭 아래 스튜디오에서 사용자가 <code>충돌</code>을 활성화했는지 여부를 반환합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CollisionEnabled",
     "code_sample": ""
   },
@@ -32810,7 +32815,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Activate/param/1": {
-    "documentation": "독점 마우스와 함께 플러그인을 활성화할지 여부를 지정하는 불리언입니다. true일 경우, <code>PluginMouse</code>를 <code>Plugin:GetMouse()</code>를 통해 가져올 수 있습니다."
+    "documentation": "독점 마우스로 플러그인을 활성화할 것인지 여부를 나타내는 불리언입니다. true인 경우, <code>PluginMouse</code>는 <code>Plugin:GetMouse()</code>를 통해 검색할 수 있습니다."
   },
   "@roblox/globaltype/Plugin.Activate": {
     "documentation": "호출하는 플러그인의 상태를 활성화로 설정합니다.",
@@ -32832,16 +32837,16 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/1": {
-    "documentation": "위젯의 도킹 상태 및 기타 내부 세부 정보를 저장하는 데 사용되는 고유하고 일관된 식별자입니다."
+    "documentation": "위젯의 도크 상태 및 기타 내부 세부 정보를 저장하는 데 사용되는 고유하고 일관된 식별자입니다."
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/2": {
-    "documentation": "생성할 <code>DockWidgetPluginGui</code>에 대한 설명입니다(초기 상태, 크기 등)."
+    "documentation": "<code>DockWidgetPluginGui</code>를 생성하는 데 필요한 설명(초기 상태, 크기 등)입니다."
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui": {
-    "documentation": "<code>DockWidgetPluginGuiInfo</code>를 기반으로 <code>DockWidgetPluginGui</code>를 생성합니다.",
+    "documentation": "주어진 <code>DockWidgetPluginGuiInfo</code>에서 <code>DockWidgetPluginGui</code>를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -32866,25 +32871,25 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/1": {
-    "documentation": "이 PluginAction을 다른 것과 구별하는 고유 문자열이어야 합니다."
+    "documentation": "이 PluginAction을 다른 것으로부터 식별하는 고유한 문자열이어야 합니다."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/2": {
-    "documentation": "동작의 표시 이름입니다."
+    "documentation": "액션의 표시 이름입니다."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/3": {
-    "documentation": "동작의 표시 설명입니다."
+    "documentation": "액션의 표시 설명입니다."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/4": {
     "documentation": "플러그인을 표시하는 데 사용되는 아이콘의 이름입니다."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/5": {
-    "documentation": "이 <code>PluginAction</code>이 스튜디오의 단축키 보기에서 숨겨질지 여부입니다. 컨텍스트 동작에 유용합니다. 기본값은 true입니다."
+    "documentation": "<code>PluginAction</code>이 스튜디오의 단축키 보기에서 숨겨질지 여부입니다. 컨텍스트 액션에 유용합니다. 기본값은 true입니다."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "Roblox Studio에서 직접 연관된 <code>Toolbar</code> 또는 <code>Button</code>이 없는 일반적인 수행 가능한 작업을 나타내는 객체인 <code>PluginAction</code>을 생성합니다.",
+    "documentation": "로블록스 스튜디오에서 일반적으로 수행할 수 있는 액션을 나타내는 <code>PluginAction</code>을 생성합니다. 직접 연결된 <code>Toolbar</code>나 <code>Button</code>은 없습니다.",
     "params": [
       {
         "name": "self",
@@ -32933,7 +32938,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu": {
-    "documentation": "새로운 플러그인 메뉴를 생성합니다.",
+    "documentation": "새 플러그인 메뉴를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -32962,13 +32967,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateToolbar/param/1": {
-    "documentation": "도구 모음에 표시되는 가시적인 텍스트로, 포함된 버튼 그룹의 레이블을 나타냅니다."
+    "documentation": "툴바에 표시되는 텍스트로, 포함된 버튼 그룹에 레이블을 붙입니다."
   },
   "@roblox/globaltype/Plugin.CreateToolbar/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateToolbar": {
-    "documentation": "주어진 이름으로 새로운 <code>PluginToolbar</code>를 생성합니다.",
+    "documentation": "주어진 이름으로 새 <code>PluginToolbar</code>를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -33007,7 +33012,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetJoinMode": {
-    "documentation": "사용자가 스튜디오의 모델 탭에서 설정한 <code>JointCreationMode</code>를 반환합니다.",
+    "documentation": "사용자가 모델 탭 아래에서 설정한 <code>JointCreationMode</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33027,7 +33032,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetMouse": {
-    "documentation": "플러그인이 활성화된 동안 사용할 수 있는 <code>Mouse</code>를 반환합니다.",
+    "documentation": "플러그인이 활성화될 때 사용할 수 있는 <code>Mouse</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33070,7 +33075,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetSetting": {
-    "documentation": "주어진 키를 사용하여 이전에 저장된 값을 검색하거나, 주어진 키가 존재하지 않으면 <code>nil</code>을 반환합니다.",
+    "documentation": "주어진 키로 이전에 저장된 값을 검색하거나, 주어진 키가 존재하지 않으면 <code>nil</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33094,7 +33099,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetStudioUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>사용자가 로그인했을 경우 스튜디오 사용자의 userId를 반환하며, 그렇지 않으면 0을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>사용자가 로그인한 경우 스튜디오 사용자의 userId를 반환하고, 그렇지 않으면 0을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33120,7 +33125,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": ".fbx 애니메이션 파일을 열도록 사용자에게 요청하고, 이것을 <code>rigModel</code>에 로드한 다음, <code>KeyframeSequence</code>로 <code>Workspace</code>에 애니메이션을 삽입합니다.",
+    "documentation": ".fbx 애니메이션 파일을 열어 <code>rigModel</code>에 로드할 수 있도록 사용자에게 요청한 후, 애니메이션을 <code>KeyframeSequence</code>로 <code>Workspace</code>에 삽입합니다.",
     "params": [
       {
         "name": "self",
@@ -33151,7 +33156,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": ".fbx 파일을 열도록 사용자에게 요청하고, 모델의 개별 구성 요소를 메시로 업로드한 후, 애니메이션을 위해 사용될 캐릭터 리그를 생성하여 <code>Workspace</code>에 로드합니다.",
+    "documentation": ".fbx 파일을 열어 모델의 개별 구성 요소를 메시로 업로드하고, 애니메이션에 사용할 캐릭터 리그를 생성하여 <code>Workspace</code>에 로드합니다.",
     "params": [
       {
         "name": "self",
@@ -33199,10 +33204,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.IsActivated/return/0": {
-    "documentation": "플러그인이 현재 활성 상태인지 나타내는 불리언입니다."
+    "documentation": "플러그인이 현재 활성 상태인지 여부를 나타내는 불리언입니다."
   },
   "@roblox/globaltype/Plugin.IsActivated": {
-    "documentation": "이 플러그인이 현재 활성 상태인지 true를 반환합니다. 이는 <code>Plugin:Activate()</code> 함수를 통해 활성화된 상태입니다.",
+    "documentation": "이 플러그인이 <code>Plugin:Activate()</code> 함수로 활성화된 후 현재 활성 상태인지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33219,10 +33224,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse/return/0": {
-    "documentation": "이 플러그인이 현재 독점 마우스와 함께 활성 상태인지 여부입니다."
+    "documentation": "이 플러그인이 독점 마우스와 함께 현재 활성 상태인지 여부입니다."
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse": {
-    "documentation": "이 플러그인이 현재 독점 마우스와 함께 활성 상태인지 true를 반환합니다. 이는 <code>Plugin:Activate()</code> 함수를 통해 활성화된 상태입니다.",
+    "documentation": "이 플러그인이 <code>Plugin:Activate()</code> 함수로 활성화된 후 독점 마우스와 함께 현재 활성 상태인지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33245,7 +33250,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "주어진 부품을 반전시키고 결과 NegateOperations를 반환합니다.",
+    "documentation": "주어진 부품을 반전시키고 결과적인 NegateOperations를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33272,7 +33277,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.OpenScript": {
-    "documentation": "주어진 스크립트 인스턴스를 Roblox 스튜디오의 편집기 창에서 주어진 줄에서 엽니다. 인수로 줄이 주어지지 않으면 기본값은 1입니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>주어진 줄에서 로블록스 스튜디오의 편집기 창에서 주어진 스크립트 인스턴스를 엽니다. 줄이 주어지지 않으면 기본적으로 1로 설정됩니다.",
     "params": [
       {
         "name": "self",
@@ -33298,7 +33303,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.OpenWikiPage": {
-    "documentation": "<code>url</code>이 링크하는 위키 페이지로 컨텍스트 도움말 창을 엽니다.",
+    "documentation": "<code>url</code>이 링크하는 위키 페이지에 대한 컨텍스트 도움창을 엽니다.",
     "params": [
       {
         "name": "self",
@@ -33323,7 +33328,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "사용자에게 지정된 <code>assetType</code>에 따라 자산을 선택하라는 메시지를 표시하는 윈도우를 엽니다. 선택된 assetId를 반환합니다. 윈도우가 닫히면 -1을 반환합니다.",
+    "documentation": "사용자에게 지정된 <code>assetType</code>을 기반으로 자산을 선택하라는 메시지를 표시하는 로블록스 스튜디오의 창을 엽니다. 선택된 assetId를 반환하거나 창이 닫히면 -1을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33350,7 +33355,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "지정된 파일 이름으로 현재 선택을 저장하라는 메시지를 사용자에게 표시합니다. 사용자가 파일을 저장했으면 true를 반환합니다.",
+    "documentation": "사용자에게 지정된 파일 이름으로 현재 선택 내용을 저장하라는 메시지를 표시합니다. 사용자가 파일을 저장한 경우 true를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33371,7 +33376,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.SaveSelectedToRoblox": {
-    "documentation": "사용자의 현재 선택에 대한 업로드 창을 엽니다.",
+    "documentation": "사용자의 현재 선택을 위한 업로드 창을 엽니다.",
     "params": [
       {
         "name": "self",
@@ -33392,7 +33397,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.SelectRibbonTool": {
-    "documentation": "지정된 Roblox Studio 도구를 활성화합니다.",
+    "documentation": "지정된 로블록스 스튜디오 도구를 활성화합니다.",
     "params": [
       {
         "name": "self",
@@ -33421,7 +33426,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "주어진 UnionOperations를 분리하고 결과 부품을 반환합니다.",
+    "documentation": "주어진 UnionOperations를 분리하고 결과적인 부품을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33448,7 +33453,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.SetSetting": {
-    "documentation": "주어진 키 아래에 나중에 사용할 값을 저장합니다. 값은 스튜디오가 닫힌 후에도 유지됩니다.",
+    "documentation": "주어진 값이 나중에 사용할 수 있도록 주어진 키 아래에 저장합니다. 값은 스튜디오가 종료된 후에도 지속됩니다.",
     "params": [
       {
         "name": "self",
@@ -33499,7 +33504,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Union": {
-    "documentation": "주어진 부품을 결합하고 결과 UnionOperation을 반환합니다.",
+    "documentation": "주어진 부품을 결합하고 결과적인 UnionOperation을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33594,7 +33599,7 @@
     "returns": []
   },
   "@roblox/globaltype/Plugin.Deactivation": {
-    "documentation": "플러그인이 비활성화될 때 발생합니다.",
+    "documentation": "플러그인이 비활성화될 때 발사됩니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Plugin.Deactivation.Connect",
       "ConnectParallel": "@roblox/globaltype/Plugin.Deactivation.ConnectParallel",
@@ -33682,7 +33687,7 @@
     "returns": []
   },
   "@roblox/globaltype/Plugin.Unloading": {
-    "documentation": "<code>Plugin</code>가 실행을 중지하기 직전에 즉시 발생합니다.",
+    "documentation": "<code>Plugin</code>이 실행을 중지하기 바로 전에 발사됩니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Plugin.Unloading.Connect",
       "ConnectParallel": "@roblox/globaltype/Plugin.Unloading.ConnectParallel",
@@ -34827,7 +34832,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting": {
-    "documentation": "<code>Lighting</code> 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모양과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성이 포함되어 있습니다.",
+    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다.",
     "keys": {
       "Ambient": "@roblox/globaltype/Lighting.Ambient",
       "Brightness": "@roblox/globaltype/Lighting.Brightness",
@@ -34863,7 +34868,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Ambient": {
-    "documentation": "하늘에서 차단된 지역, 예를 들어 실내 지역에 적용되는 조명 색조입니다.",
+    "documentation": "하늘에서 가려진 지역, 예를 들어 실내 지역에 적용되는 조명의 색조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Ambient",
     "code_sample": ""
   },
@@ -34873,27 +34878,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ClockTime": {
-    "documentation": "<code>Lighting</code>에서 사용되는 현재 시간의 수치적 표현(시간 단위)입니다.",
+    "documentation": "'Lighting'에서 사용하는 현재 시간의 시간에 대한 숫자 표현입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ClockTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Bottom": {
-    "documentation": "태양이나 달을 향하지 않은 반대 표면에 반사된 빛에 나타나는 색조입니다.",
+    "documentation": "태양이나 달을 향하지 않은 표면에 반사된 빛에서 나타나는 색조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Bottom",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Top": {
-    "documentation": "태양이나 달을 향한 표면에서 반사된 빛의 색조입니다.",
+    "documentation": "태양이나 달을 향하는 표면에서 반사된 색조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Top",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentDiffuseScale": {
-    "documentation": "환경에서 유래한 주변광입니다.",
+    "documentation": "환경에서 파생된 주변 조명입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentDiffuseScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentSpecularScale": {
-    "documentation": "환경에서 유래한 스페큘러 조명입니다.",
+    "documentation": "환경에서 파생된 스페큘러 조명입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentSpecularScale",
     "code_sample": ""
   },
@@ -34908,78 +34913,78 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogColor": {
-    "documentation": "<code>Lighting</code> 안개 색조를 제공하는 <code>Color3</code> 값입니다.",
+    "documentation": "'Lighting' 안개 색상을 제공하는 'Datatype.Color3' 값입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogEnd": {
-    "documentation": "안개가 완전히 불투명한 상태가 되는 <code>Workspace.CurrentCamera</code>에서의 깊이(스튜드 단위)입니다.",
+    "documentation": "안개가 완전히 불투명하게 되는 'Class.Workspace.CurrentCamera'로부터의 깊이(스튜드).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogEnd",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogStart": {
-    "documentation": "안개가 나타나기 시작하는 <code>Workspace.CurrentCamera</code>에서의 깊이(스튜드 단위)입니다.",
+    "documentation": "안개가 나타나기 시작하는 'Class.Workspace.CurrentCamera'로부터의 깊이(스튜드).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogStart",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GeographicLatitude": {
-    "documentation": "장면의 지리적 위도(도 단위)로, 태양과 달의 위치에 대한 <code>Lighting</code> 시간의 결과에 영향을 줍니다.",
+    "documentation": "장면의 지리적 위도(도), 이는 태양과 달의 위치에 대한 'Lighting' 시간의 결과에 영향을 미칩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GeographicLatitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GlobalShadows": {
-    "documentation": "장소에 대한 복셀 기반의 동적 조명을 토글합니다.",
+    "documentation": "장소에 대한 복셀 기반 동적 조명을 전환합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GlobalShadows",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.LightingStyle": {
-    "documentation": "경험의 조명 뒤에 있는 예술적 의도입니다.",
+    "documentation": "경험에서 조명의 예술적 의도를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#LightingStyle",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.OutdoorAmbient": {
-    "documentation": "실외 지역에 적용되는 조명 색조입니다.",
+    "documentation": "야외 지역에 적용되는 조명의 색조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#OutdoorAmbient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Outlines": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 아웃라인 기능이 Roblox 플랫폼에서 제거되면서 더 이상 지원되지 않습니다.<br>장소에서 아웃라인이 활성화되거나 비활성화되는지 여부를 결정합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 지원되지 않습니다. 윤곽선 기능이 Roblox 플랫폼에서 제거되었습니다.<br>장소에서 윤곽선이 활성화되거나 비활성화되었는지 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Outlines",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "조명/음영 품질과 뷰 거리 중 어떤 것을 먼저 축소할지를 나타냅니다.",
+    "documentation": "조명/음영 품질 또는 뷰 거리 중 누가 먼저 축소되는 것을 선호하는지 표시합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowColor": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며 현재 기능이 없습니다. 새로운 작업에 사용하지 마십시오.<br>이 속성은 플레이어 그림자의 색상을 변경해야 하지만 현재는 아무런 효과가 없습니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며 현재 기능이 없습니다. 새로운 작업에 사용하지 마십시오.<br>플레이어 그림자의 색상을 변경하는 것으로 되어 있지만 현재는 아무런 기능이 없습니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowSoftness": {
-    "documentation": "그림자의 흐리게 정도를 제어합니다.",
+    "documentation": "그림자가 얼마나 흐림 처리되는지를 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowSoftness",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Technology": {
-    "documentation": "3D 세계를 렌더링하기 위한 조명 시스템을 결정합니다. 스크립트에서 수정할 수 없습니다.",
+    "documentation": "3D 세계를 렌더링하기 위한 조명 시스템을 결정합니다. 스크립트로 설정할 수 없습니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Technology",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.TimeOfDay": {
-    "documentation": "<code>Lighting</code>에서 사용되는 현재 시간의 24시간 문자열 표현입니다.",
+    "documentation": "'Lighting'에서 사용하는 현재 시간의 24시간 문자열 표현입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#TimeOfDay",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모양과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성이 포함되어 있습니다."
+    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/return/0": {
-    "documentation": "자정 이후 경과된 분 수입니다."
+    "documentation": "자정 이후의 분 수입니다."
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight": {
-    "documentation": "조명 목적을 위한 자정 이후 경과된 분 수를 반환합니다.",
+    "documentation": "조명용으로 자정 이후 지나간 분 수를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -34993,7 +34998,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/param/0": {
-    "documentation": "<code>Lighting</code> 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모양과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성이 포함되어 있습니다."
+    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/return/0": {
     "documentation": "달의 방향을 나타내는 <code>Vector3</code>입니다."
@@ -35013,7 +35018,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/param/0": {
-    "documentation": "<code>Lighting</code> 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모양과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성이 포함되어 있습니다."
+    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/return/0": {
     "documentation": ""
@@ -35033,7 +35038,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetSunDirection/param/0": {
-    "documentation": "<code>Lighting</code> 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모양과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성이 포함되어 있습니다."
+    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.GetSunDirection/return/0": {
     "documentation": "태양의 방향을 나타내는 <code>Vector3</code>입니다."
@@ -35053,13 +35058,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모양과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성이 포함되어 있습니다."
+    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/1": {
-    "documentation": "자정 이후 경과된 분 수입니다."
+    "documentation": "자정 이후의 분 수입니다."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight": {
-    "documentation": "<code>TimeOfDay</code> 및 <code>ClockTime</code>를 주어진 자정 이후 분 수로 설정합니다.",
+    "documentation": "'Class.Lighting.TimeOfDay|TimeOfDay'와 'Class.Lighting.ClockTime|ClockTime'를 자정 이후 주어진 분 수로 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -35075,13 +35080,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모양과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성이 포함되어 있습니다."
+    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> 이 메소드는 <code>Lighting:GetMinutesAfterMidnight()</code>의 사용이 권장되는 구식 변형입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 'Class.Lighting:GetMinutesAfterMidnight()'의 더 이상 사용되지 않는 변형입니다. 대신 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -35095,13 +35100,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모양과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성이 포함되어 있습니다."
+    "documentation": "'Lighting' 서비스는 경험에서 전역 조명을 제어합니다. 조명의 모습과 다른 객체와의 상호작용 방식을 변경하는 데 사용할 수 있는 다양한 조정 가능한 속성을 포함합니다."
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> 이 메소드는 <code>Lighting:SetMinutesAfterMidnight()</code>의 사용이 권장되는 구식 변형입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 'Class.Lighting:SetMinutesAfterMidnight()'의 더 이상 사용되지 않는 변형입니다. 대신 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -35194,7 +35199,7 @@
     "returns": []
   },
   "@roblox/globaltype/Lighting.LightingChanged": {
-    "documentation": "<code>Lighting</code> 속성이 변경되거나 <code>Sky</code>가 <code>Lighting</code>에 추가되거나 제거되면 이 이벤트가 발생합니다.",
+    "documentation": "이 이벤트는 'Lighting' 속성이 변경되거나 'Class.Sky'가 'Lighting'에 추가되거나 제거될 때 발사됩니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Lighting.LightingChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Lighting.LightingChanged.ConnectParallel",
@@ -40996,7 +41001,7 @@
       "@roblox/globaltype/HttpService.JSONEncode/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#JSONEncode",
-    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- 잊지 마세요: 이 줄들은 동일합니다\n\t--[\"message\"] = \"success\",\n\tmessage = \"success\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- 기억하세요: 이 줄은 동일합니다\n\t--[\"message\"] = \"success\",\n\tmessage = \"success\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
   },
   "@roblox/globaltype/HttpService.PostAsync/param/0": {
     "documentation": "HTTP 요청을 전송할 수 있으며 다양한 웹 관련 및 JSON 방법을 제공합니다."
@@ -44152,7 +44157,7 @@
   "@roblox/globaltype/Player.PartyId": {
     "documentation": "<code>Player</code>가 속한 파티의 고유 식별자입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"플레이어가 ID가 있는 파티에 있습니다: \" .. partyId)\n\telse\n\t\twarn(\"플레이어가 파티에 없습니다\")\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"플레이어가 ID가 있는 파티에 참여했습니다: \" .. partyId)\n\telse\n\t\tprint(\"플레이어가 파티에 없습니다\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"플레이어가 ID가 있는 파티에 참가했습니다: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"플레이어가 파티를 떠났습니다\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
     "documentation": "복제를 집중할 부품을 설정합니다.",
@@ -81464,7 +81469,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator": {
-    "documentation": "텍스트 생성을 위한 대규모 언어 모델에 대한 접근을 제공합니다.",
+    "documentation": "텍스트 생성을 위한 대규모 언어 모델에 접근할 수 있습니다.",
     "keys": {
       "Seed": "@roblox/globaltype/TextGenerator.Seed",
       "SystemPrompt": "@roblox/globaltype/TextGenerator.SystemPrompt",
@@ -81476,7 +81481,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.Seed": {
-    "documentation": "재현 가능한 응답을 가능하게 하기 위해 랜덤 숫자 생성기에 대해 고정 시드를 설정합니다.",
+    "documentation": "무작위 숫자 생성기에 고정 시드를 설정하여 동일한 입력 매개변수가 여러 요청에 걸쳐 사용될 때 재현 가능한 응답을 허용합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Seed",
     "code_sample": ""
   },
@@ -81486,26 +81491,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.Temperature": {
-    "documentation": "모델 응답의 \"창의성\" 또는 무작위성을 제어합니다.",
+    "documentation": "모델의 응답의 \"창의성\" 또는 무작위성을 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Temperature",
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.TopP": {
-    "documentation": "AI 모델이 다음 토큰을 생성하는 동안 샘플링할 수 있는 단어의 범위를 좁히거나 확장하는 데 도움을 줍니다.",
+    "documentation": "AI 모델이 다음 토큰을 생성하는 동안 샘플링할 수 있는 단어의 범위를 좁히거나 확장하도록 돕습니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#TopP",
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/0": {
-    "documentation": "텍스트 생성을 위한 대규모 언어 모델에 대한 접근을 제공합니다."
+    "documentation": "텍스트 생성을 위한 대규모 언어 모델에 접근할 수 있습니다."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1": {
-    "documentation": "텍스트 생성 요청에 대한 선택적 매개변수를 포함하는 딕셔너리입니다. 현재 지원되는 매개변수는 <code>UserPrompt</code>, <code>ContextToken</code>, <code>MaxTokens</code>입니다."
+    "documentation": "텍스트 생성 요청을 위한 선택적 매개변수를 포함하는 사전입니다. 현재 지원되는 매개변수는 <code>UserPrompt</code>, <code>ContextToken</code>, 및 <code>MaxTokens</code>입니다."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0": {
-    "documentation": "LLM이 생성한 응답을 포함하는 딕셔너리입니다."
+    "documentation": "LLM이 생성한 응답을 포함하는 사전입니다."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync": {
-    "documentation": "제공된 시스템 및 사용자의 프롬프트를 기반으로 LLM이 생성한 텍스트를 반환합니다.",
+    "documentation": "제공된 시스템 및 사용자 프롬프트를 기반으로 LLM이 생성한 텍스트를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -91315,13 +91320,13 @@
     "documentation": "모바일 비디오 광고를 표시할 수 있는 클래스입니다."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/1": {
-    "documentation": "보상으로 제공할 개발자 제품의 ID입니다."
+    "documentation": "보상으로 부여할 개발자 제품의 ID입니다."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
-    "documentation": "비디오 광고를 전체 시청한 사용자에게 제공할 보상을 생성합니다.",
+    "documentation": "전국 비디오 광고를 끝까지 시청한 사용자에게 주는 보상을 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -91342,7 +91347,7 @@
     "documentation": "모바일 비디오 광고를 표시할 수 있는 클래스입니다."
   },
   "@roblox/globaltype/AdService.ShowVideoAd": {
-    "documentation": "<strong>Deprecated:</strong> <code>ShowVideoAd</code>가 비활성화되었으며 더 이상 작동하지 않습니다.<br>모바일 비디오 광고를 표시합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>ShowVideoAd</code>가 더 이상 운영되지 않습니다.<br>모바일 비디오 광고를 표시합니다.",
     "params": [
       {
         "name": "self",
@@ -91379,7 +91384,7 @@
     "documentation": "모바일 비디오 광고를 표시할 수 있는 클래스입니다."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/1": {
-    "documentation": "요청된 광고의 형식입니다. 예: <code>RewardedOnDemandVideo</code>."
+    "documentation": "요청된 광고의 형식입니다. 예를 들어, <code>RewardedVideo</code>입니다."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/return/0": {
     "documentation": ""
@@ -91435,19 +91440,19 @@
     "documentation": "모바일 비디오 광고를 표시할 수 있는 클래스입니다."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/1": {
-    "documentation": "광고를 위한 <code>Player</code> 객체입니다."
+    "documentation": "광고를 가져오려는 <code>Player</code> 객체입니다."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/2": {
-    "documentation": "광고를 완료한 사용자에게 제공할 보상 객체입니다."
+    "documentation": "광고를 완료 시청한 사용자에게 주고자하는 보상 객체입니다."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/3": {
-    "documentation": "경험 내에서 보상 비디오 광고의 배치 ID입니다. 개별 광고 배치의 성과를 보고할 수 있습니다."
+    "documentation": "경험 내에서의 보상 비디오 광고의 배치 ID입니다. 개별 광고 배치의 성과를 보고할 수 있습니다."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
-    "documentation": "현재 사용자에게 경험 내에서 비디오 광고를 재생합니다.",
+    "documentation": "경험 내에서 현재 사용자에게 비디오 광고를 재생합니다.",
     "params": [
       {
         "name": "self",
@@ -91550,7 +91555,7 @@
     "returns": []
   },
   "@roblox/globaltype/AdService.VideoAdClosed": {
-    "documentation": "<strong>Deprecated:</strong> <code>VideoAdClosed</code>가 비활성화되었으며 더 이상 작동하지 않습니다.<br><code>AdService</code> 비디오가 닫힐 때 발생합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>VideoAdClosed</code>가 더 이상 운영되지 않습니다.<br><code>AdService</code> 비디오가 닫힐 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/AdService.VideoAdClosed.Connect",
       "ConnectParallel": "@roblox/globaltype/AdService.VideoAdClosed.ConnectParallel",
@@ -100793,7 +100798,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.None": {
-    "documentation": "플립북 기능을 비활성화하고 파티클의 생애 동안 텍스처를 단일 정적 텍스처로 사용합니다.",
+    "documentation": "플립북 기능을 비활성화하고 파티클의 수명 동안 텍스처를 단일 정적 텍스처로 사용합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100803,7 +100808,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.Grid2x2": {
-    "documentation": "4프레임 애니메이션을 위한 2×2 프레임입니다.",
+    "documentation": "4프레임 애니메이션을 위한 2×2 프레임.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100813,7 +100818,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.Grid4x4": {
-    "documentation": "16프레임 애니메이션을 위한 4×4 프레임입니다.",
+    "documentation": "16프레임 애니메이션을 위한 4×4 프레임.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100823,7 +100828,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.Grid8x8": {
-    "documentation": "64프레임 애니메이션을 위한 8×8 프레임입니다.",
+    "documentation": "64프레임 애니메이션을 위한 8×8 프레임.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100832,13 +100837,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Grid8x8",
     "code_sample": ""
   },
+  "@roblox/enum/ParticleFlipbookLayout.Custom": {
+    "documentation": "<code>FlipbookSizeX</code>와 <code>FlipbookSizeY</code>에 의해 정의된 커스텀 그리드 크기.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Custom",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ParticleFlipbookLayout": {
     "documentation": "플립북 텍스처의 레이아웃을 결정합니다.",
     "keys": {
       "None": "@roblox/enum/ParticleFlipbookLayout.None",
       "Grid2x2": "@roblox/enum/ParticleFlipbookLayout.Grid2x2",
       "Grid4x4": "@roblox/enum/ParticleFlipbookLayout.Grid4x4",
-      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
+      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8",
+      "Custom": "@roblox/enum/ParticleFlipbookLayout.Custom"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
     "code_sample": ""
@@ -114535,6 +114551,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicsSteppingMethod",
     "code_sample": ""
   },
+  "@roblox/enum/BorderStrokePosition.Outer": {
+    "documentation": "The stroke renders on the outer border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Outer.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Outer",
+    "code_sample": ""
+  },
+  "@roblox/enum/BorderStrokePosition.Center": {
+    "documentation": "The stroke renders on the center border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Center.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Center",
+    "code_sample": ""
+  },
+  "@roblox/enum/BorderStrokePosition.Inner": {
+    "documentation": "The stroke renders on the inner border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Inner.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Inner",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.BorderStrokePosition": {
+    "documentation": "Used by <code>UIStroke.BorderStrokePosition</code> to determine the stroke's position on its parent's border.",
+    "keys": {
+      "Outer": "@roblox/enum/BorderStrokePosition.Outer",
+      "Center": "@roblox/enum/BorderStrokePosition.Center",
+      "Inner": "@roblox/enum/BorderStrokePosition.Inner"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition",
+    "code_sample": ""
+  },
   "@roblox/enum/TrackerFaceTrackingStatus.FaceTrackingSuccess": {
     "documentation": "",
     "keys": {
@@ -125355,6 +125411,35 @@
       "PerAxis": "@roblox/enum/ForceLimitMode.PerAxis"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ForceLimitMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/StrokeSizingMode.FixedSize": {
+    "documentation": "<code>Thickness</code> is measured in pixels.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode#FixedSize",
+    "code_sample": ""
+  },
+  "@roblox/enum/StrokeSizingMode.ScaledSize": {
+    "documentation": "<code>Thickness</code> is relative to minimum parent width or height. If stroke is on text, thickness is relative to font size.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode#ScaledSize",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.StrokeSizingMode": {
+    "documentation": "Used by <code>UIStroke.StrokeSizingMode</code> to determine whether the stroke's <code>Thickness</code> will be measured in pixels or be relative to the parent.",
+    "keys": {
+      "FixedSize": "@roblox/enum/StrokeSizingMode.FixedSize",
+      "ScaledSize": "@roblox/enum/StrokeSizingMode.ScaledSize"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode",
     "code_sample": ""
   },
   "@roblox/enum/MeshType.Head": {

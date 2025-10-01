@@ -3473,7 +3473,7 @@
     "code_sample": ""
   },
   "@roblox/global/BrickColor": {
-    "documentation": "ประเภทข้อมูลที่ให้รายการที่กําหนดไว้ล่วงหน้าของสีที่มีชื่อ",
+    "documentation": "ประเภทข้อมูลที่ให้รายการสีที่ตั้งชื่อไว้ล่วงหน้า",
     "keys": {
       "new": "@roblox/global/BrickColor.new",
       "palette": "@roblox/global/BrickColor.palette",
@@ -3502,7 +3502,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(number) -> BrickColor": {
-    "documentation": "สร้าง <code>BrickColor</code> จากดัชนีตัวเลขของมัน",
+    "documentation": "สร้าง <code>BrickColor</code> จากค่าดัชนีเชิงตัวเลขของมัน.",
     "params": [
       {
         "name": "val",
@@ -3523,7 +3523,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(number, number, number) -> BrickColor": {
-    "documentation": "สร้างสิ่งที่ใกล้เคียงที่สุด <code>BrickColor</code> ที่สามารถจับคู่กับส่วนประกอบ RGB ที่ระบุได้ แต่ละระหว่าง 0 และ 1",
+    "documentation": "สร้าง <code>BrickColor</code> ที่ใกล้เคียงที่สุดที่สามารถจัดคู่กับ RGB องค์ประกอบที่กำหนดได้ โดยแต่ละองค์ประกอบอยู่ระหว่าง 0 ถึง 1.",
     "params": [
       {
         "name": "r",
@@ -3546,7 +3546,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(string) -> BrickColor": {
-    "documentation": "สร้าง <code>BrickColor</code> จากชื่อของมัน",
+    "documentation": "สร้าง <code>BrickColor</code> จากชื่อของมัน.",
     "params": [
       {
         "name": "name",
@@ -3561,7 +3561,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(Color3) -> BrickColor": {
-    "documentation": "สร้างสิ่งที่ใกล้เคียงที่สุด <code>BrickColor</code> ที่สามารถจับคู่กับ <code>Color3</code> ที่ระบุได้",
+    "documentation": "สร้าง <code>BrickColor</code> ที่ใกล้เคียงที่สุดที่สามารถจัดคู่กับ <code>Color3</code> ที่กำหนด.",
     "params": [
       {
         "name": "color",
@@ -3576,7 +3576,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.palette": {
-    "documentation": "สร้าง <code>BrickColor</code> จากดัชนีจานสีของมัน",
+    "documentation": "สร้าง <code>BrickColor</code> จากดัชนีในพาเลท.",
     "params": [
       {
         "name": "paletteValue",
@@ -3588,70 +3588,70 @@
     "code_sample": ""
   },
   "@roblox/global/BrickColor.random": {
-    "documentation": "ส่งคืนแบบสุ่ม <code>BrickColor</code> .",
+    "documentation": "คืนค่ากลับ <code>BrickColor</code> แบบสุ่ม.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#random",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.White": {
-    "documentation": "คืน \"ขาว\" <code>BrickColor</code> .",
+    "documentation": "คืนค่ากลับ <code>BrickColor</code> \"สีขาว.\"",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#White",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Gray": {
-    "documentation": "ส่งคืน \"สีเทาหินขนาดกลาง\" <code>BrickColor</code> .",
+    "documentation": "คืนค่ากลับ <code>BrickColor</code> \"สีเทากำมะหยี่กลาง.\"",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Gray",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.DarkGray": {
-    "documentation": "ส่งคืน \"สีเทาหินมืด\" <code>BrickColor</code> .",
+    "documentation": "คืนค่ากลับ <code>BrickColor</code> \"สีเทากำมะหยี่เข้ม.\"",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#DarkGray",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Black": {
-    "documentation": "ส่งคืน \"สีดํา\" <code>BrickColor</code> .",
+    "documentation": "คืนค่ากลับ <code>BrickColor</code> \"สีดำ.\"",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Black",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Red": {
-    "documentation": "ส่งคืน \"สีแดงสดใส\" <code>BrickColor</code> .",
+    "documentation": "คืนค่ากลับ <code>BrickColor</code> \"สีแดงสด.\"",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Red",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Yellow": {
-    "documentation": "ส่งคืน \"สีเหลืองสดใส\" <code>BrickColor</code> .",
+    "documentation": "คืนค่ากลับ <code>BrickColor</code> \"สีเหลืองสด.\"",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Yellow",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Green": {
-    "documentation": "ส่งคืน \"สีเขียวเข้ม\" <code>BrickColor</code> .",
+    "documentation": "คืนค่ากลับ <code>BrickColor</code> \"สีเขียวเข้ม.\"",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Green",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Blue": {
-    "documentation": "ส่งคืน \"สีฟ้าสดใส\" <code>BrickColor</code> .",
+    "documentation": "คืนค่ากลับ <code>BrickColor</code> \"สีน้ำเงินสด.\"",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Blue",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor": {
-    "documentation": "ประเภทข้อมูลที่ให้รายการที่กําหนดไว้ล่วงหน้าของสีที่มีชื่อ",
+    "documentation": "ประเภทข้อมูลที่ให้รายการสีที่ตั้งชื่อไว้ล่วงหน้า",
     "keys": {
       "Number": "@roblox/globaltype/BrickColor.Number",
       "r": "@roblox/globaltype/BrickColor.r",
@@ -3664,32 +3664,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.Number": {
-    "documentation": "หมายเลขที่ไม่ซ้ำกันที่ระบุ <code>BrickColor</code> .",
+    "documentation": "หมายเลขเฉพาะที่ระบุ <code>BrickColor</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Number",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.r": {
-    "documentation": "ส่วนสีแดงของ <code>BrickColor</code> (ระหว่าง 0 และ 1)",
+    "documentation": "องค์ประกอบสีแดงของ <code>BrickColor</code> (ระหว่าง 0 ถึง 1).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#r",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.g": {
-    "documentation": "ส่วนสีเขียวของ <code>BrickColor</code> (ระหว่าง 0 และ 1)",
+    "documentation": "องค์ประกอบสีเขียวของ <code>BrickColor</code> (ระหว่าง 0 ถึง 1).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#g",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.b": {
-    "documentation": "ส่วนสีน้ำเงินของ <code>BrickColor</code> (ระหว่าง 0 และ 1)",
+    "documentation": "องค์ประกอบสีน้ำเงินของ <code>BrickColor</code> (ระหว่าง 0 ถึง 1).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#b",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.Name": {
-    "documentation": "ชื่อที่เกี่ยวข้องกับ <code>BrickColor</code> .",
+    "documentation": "ชื่อที่เกี่ยวข้องกับ <code>BrickColor</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Name",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.Color": {
-    "documentation": "The <code>Color3</code> ที่เกี่ยวข้องกับ <code>BrickColor</code> .",
+    "documentation": "<code>Color3</code> ที่เกี่ยวข้องกับ <code>BrickColor</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Color",
     "code_sample": ""
   },
@@ -12633,7 +12633,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter": {
-    "documentation": "วัตถุพิเศษที่ปล่อยอนุภาค 2D ที่ปรับแต่งได้เข้าสู่วงการ.",
+    "documentation": "วัตถุพิเศษที่ปล่อยอนุภาค 2D ที่ปรับแต่งได้เข้าสู่โลก",
     "keys": {
       "Acceleration": "@roblox/globaltype/ParticleEmitter.Acceleration",
       "Brightness": "@roblox/globaltype/ParticleEmitter.Brightness",
@@ -12644,6 +12644,8 @@
       "FlipbookFramerate": "@roblox/globaltype/ParticleEmitter.FlipbookFramerate",
       "FlipbookIncompatible": "@roblox/globaltype/ParticleEmitter.FlipbookIncompatible",
       "FlipbookLayout": "@roblox/globaltype/ParticleEmitter.FlipbookLayout",
+      "FlipbookSizeX": "@roblox/globaltype/ParticleEmitter.FlipbookSizeX",
+      "FlipbookSizeY": "@roblox/globaltype/ParticleEmitter.FlipbookSizeY",
       "FlipbookMode": "@roblox/globaltype/ParticleEmitter.FlipbookMode",
       "FlipbookStartRandom": "@roblox/globaltype/ParticleEmitter.FlipbookStartRandom",
       "Lifetime": "@roblox/globaltype/ParticleEmitter.Lifetime",
@@ -12677,72 +12679,82 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Acceleration": {
-    "documentation": "กำหนดการเร่งความเร็วในแกนทั่วโลกของอนุภาคที่ใช้งานอยู่ทั้งหมด วัดเป็นสตัดต่อวินาทีที่ยกกำลังสอง.",
+    "documentation": "กำหนดความเร่งแบบแกนโลกของอนุภาคที่ใช้งานทั้งหมด วัดเป็น ในหน่วย stud ต่อวินาที ยกกำลังสอง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Acceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Brightness": {
-    "documentation": "ปรับขยายแสงที่ปล่อยออกมาจากอีพีเตอร์เมื่อ <code>ParticleEmitter.LightInfluence</code> เท่ากับ 0.",
+    "documentation": "ปรับขนาดแสงที่ปล่อยจาก emitter เมื่อ <code>ParticleEmitter.LightInfluence</code> เท่ากับ 0",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Brightness",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Color": {
-    "documentation": "กำหนดสีของอนุภาคทั้งหมดในช่วงอายุของแต่ละอนุภาค.",
+    "documentation": "กำหนดสีของอนุภาคที่ใช้งานทั้งหมดตามอายุของแต่ละอัน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Color",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Drag": {
-    "documentation": "กำหนดอัตราที่อนุภาคจะสูญเสียความเร็วครึ่งหนึ่งผ่านการเสื่อมของเอ็กซ์โพเนนเชียล.",
+    "documentation": "กำหนดอัตราที่อนุภาคจะสูญเสียครึ่งหนึ่งของความเร็วผ่าน การเสื่อมสลายแบบเอ็กซ์โพเนนเชียล",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Drag",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.EmissionDirection": {
-    "documentation": "กำหนดด้านหน้าของวัตถุที่อนุภาคปล่อยออกมา.",
+    "documentation": "กำหนดด้านของวัตถุที่อนุภาคปล่อยออกมา",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#EmissionDirection",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Enabled": {
-    "documentation": "กำหนดว่าควรปล่อยอนุภาคจากอีพีเตอร์หรือไม่.",
+    "documentation": "กำหนดว่าอนุภาคจะปล่อยจาก emitter หรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookFramerate": {
-    "documentation": "กำหนดความเร็วในการแอนิเมตของเท็กเจอร์ฟลิปบุกในเฟรมต่อวินาที.",
+    "documentation": "กำหนดความเร็วในการแอนิเมชันของเท็กซ์เจอร์ฟลิปบุ๊กในเฟรมต่อวินาที",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookFramerate",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookIncompatible": {
-    "documentation": "ข้อความแสดงข้อผิดพลาดเพื่อแสดงหาก <code>Texture</code> ไม่เข้ากันกับฟลิปบุก.",
+    "documentation": "ข้อความผิดพลาดที่จะแสดงหาก <code>Texture</code> ไม่เข้ากันกับฟลิปบุ๊ก",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookIncompatible",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookLayout": {
-    "documentation": "กำหนดรูปแบบของเท็กเจอร์ฟลิปบุก ต้องไม่มี, Grid2x2, Grid4x4, หรือ Grid8x8.",
+    "documentation": "กำหนดเลย์เอาต์ของเท็กซ์เจอร์ฟลิปบุ๊ก ต้องเป็น None, Grid2x2, Grid4x4, Grid8x8 หรือ Custom",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookLayout",
     "code_sample": ""
   },
+  "@roblox/globaltype/ParticleEmitter.FlipbookSizeX": {
+    "documentation": "กำหนดจำนวนเฟรมแนวนอนในเค้าร่างฟลิปบุ๊กที่กำหนดเอง",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookSizeX",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ParticleEmitter.FlipbookSizeY": {
+    "documentation": "กำหนดจำนวนเฟรมแนวตั้งในเค้าร่างฟลิปบุ๊กที่กำหนดเอง",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookSizeY",
+    "code_sample": ""
+  },
   "@roblox/globaltype/ParticleEmitter.FlipbookMode": {
-    "documentation": "กำหนดประเภทของอนิเมชันฟลิปบุก ต้องเป็น Loop, OneShot, PingPong, หรือ Random.",
+    "documentation": "กำหนดประเภทของการเคลื่อนไหวในฟลิปบุ๊ก ต้องเป็น Loop, OneShot, PingPong หรือ Random",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookMode",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookStartRandom": {
-    "documentation": "กำหนดว่าอนิเมชันเริ่มต้นจากเฟรมสุ่มที่เลือกต่ออนุภาคแทนที่จะเริ่มจากเฟรมศูนย์เสมอ.",
+    "documentation": "กำหนดว่าอนิเมชั่นเริ่มต้นที่เฟรมสุ่มที่เลือกแต่ละอนุภาคหรือไม่ แทนที่จะเริ่มต้นที่เฟรม 0 เสมอ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookStartRandom",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Lifetime": {
-    "documentation": "กำหนดช่วงอายุสุ่มสำหรับอนุภาคที่ถูกปล่อยใหม่.",
+    "documentation": "กำหนดช่วงอายุสุ่มสำหรับอนุภาคที่ปล่อยใหม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Lifetime",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.LightEmission": {
-    "documentation": "กำหนดว่าอนุภาคมีสีเจือปนกับสีด้านหลังมากน้อยเพียงใด.",
+    "documentation": "กำหนดว่าความเหลื่อมของอนุภาคจะถูกผสมกับสีด้านหลังอย่างไร",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#LightEmission",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.LightInfluence": {
-    "documentation": "กำหนดว่าอนุภาคได้รับอิทธิพลจากแสงสภาพแวดล้อมมากน้อยเพียงใด.",
+    "documentation": "กำหนดว่าอนุภาคจะได้รับอิทธิพลจากแสงของสิ่งแวดล้อมมากน้อยเพียงใด",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#LightInfluence",
     "code_sample": ""
   },
@@ -12752,110 +12764,110 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.LockedToPart": {
-    "documentation": "กำหนดว่าอนุภาคเคลื่อนที่อย่างแข็งกับส่วนที่พวกเขากำลังถูกปล่อยออกมาหรือไม่.",
+    "documentation": "กำหนดว่าอนุภาคจะเคลื่อนที่อย่างแข็งขันกับส่วนที่พวกเขากำลังปล่อยออกมาหรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#LockedToPart",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Orientation": {
-    "documentation": "กำหนดว่าจะปรับ orient อนุภาคอย่างไร.",
+    "documentation": "ระบุวิธีที่อนุภาคจะถูกตั้งค่า",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Orientation",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Rate": {
-    "documentation": "กำหนดจำนวนอนุภาคที่ปล่อยออกมาในแต่ละวินาที.",
+    "documentation": "กำหนดจำนวนอนุภาคที่ปล่อยในแต่ละวินาที",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Rate",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.RotSpeed": {
-    "documentation": "กำหนดช่วงความเร็วเชิงมุมของอนุภาคที่ปล่อยออกมา วัดเป็นองศาต่อวินาที.",
+    "documentation": "กำหนดช่วงความเร็วเชิงมุมของอนุภาคที่ปล่อยออกมา วัดใน หน่วยองศาต่อวินาที",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#RotSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Rotation": {
-    "documentation": "กำหนดช่วงของการหมุนเป็นองศาสำหรับอนุภาคที่ปล่อยใหม่.",
+    "documentation": "กำหนดช่วงการหมุนในองศาสำหรับอนุภาคใหม่ที่ปล่อยออกมา",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Rotation",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Shape": {
-    "documentation": "กำหนดรูปร่างของอีพีเตอร์เป็นกล่อง, 球, แกนหมุน หรือจาน.",
+    "documentation": "ตั้งค่ารูปร่างของ emitter เป็นกล่อง esfera cilindro หรือ disc",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Shape",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ShapeInOut": {
-    "documentation": "กำหนดว่าอนุภาคปล่อยออกมาไปข้างนอกเท่านั้น, เข้าข้างในเท่านั้น, หรือทั้งสองทิศทาง.",
+    "documentation": "ตั้งค่าระเบียบการปล่อยออกจากด้านนอกเท่านั้นด้านในเท่านั้น\\, หรือทั้งสองทิศทาง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ShapeInOut",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ShapePartial": {
-    "documentation": "มีอิทธิพลต่อการปล่อยอนุภาคจากรูปทรงกระบอก, จาน, 球, และกล่อง.",
+    "documentation": "ประเด็นอนุภาคจากทรงกระบอก, แผ่น, esfera, และกล่อง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ShapePartial",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ShapeStyle": {
-    "documentation": "ตั้งค่าการปล่อยอนุภาคเป็นการปล่อยเชิงปริมาตรหรือเฉพาะผิวเท่านั้น.",
+    "documentation": "ตั้งค่าการปล่อยอนุภาคเป็นการปล่อยในปริมาตร หรือตาข่าย",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ShapeStyle",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Size": {
-    "documentation": "กำหนดขนาดของโลกในระยะชีวิตของอนุภาคแต่ละตัว.",
+    "documentation": "กำหนดขนาดโลกตามอายุของอนุภาคแต่ละตัว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Size",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Speed": {
-    "documentation": "กำหนดช่วงของความเร็ว (ขั้นต่ำถึงสูงสุด) ที่อนุภาคใหม่จะปล่อย ซึ่งวัดเป็นสตัดต่อวินาที.",
+    "documentation": "กำหนดช่วงของความเร็ว (ต่ำสุดถึงสูงสุด) ที่อนุภาคใหม่จะปล่อยเมื่อวัดใน หน่วย stud ต่อวินาที",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.SpreadAngle": {
-    "documentation": "กำหนดมุมที่อนุภาคอาจมีการปล่อยสุ่มซึ่งวัดเป็นองศา.",
+    "documentation": "กำหนดมุมที่อนุภาคอาจปล่อยออกแบบสุ่ม วัดเป็นองศา",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#SpreadAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Squash": {
-    "documentation": "อนุญาตให้มีการปรับขนาดที่ไม่เหมือนกันของอนุภาคโดยควบคุมปีกโค้งในช่วงชีวิตของพวกเขา.",
+    "documentation": "อนุญาตให้มีการปรับขนาดที่ไม่เป็นมาตรฐานของอนุภาคตามการควบคุมของเส้นโค้งตลอดอายุของอนุภาค",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Squash",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Texture": {
-    "documentation": "กำหนดภาพที่แสดงบนอนุภาค.",
+    "documentation": "กำหนดภาพที่แสดงผลบนอนุภาค",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Texture",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.TimeScale": {
-    "documentation": "ค่าระหว่าง 0 และ 1 ที่ควบคุมความเร็วของผลอนุภาค.",
+    "documentation": "ค่าอยู่ระหว่าง 0 และ 1 ที่ควบคุมความเร็วของเอฟเฟ็กต์อนุภาค",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#TimeScale",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Transparency": {
-    "documentation": "กำหนดความโปร่งใสของอนุภาคในระหว่างช่วงอายุของพวกเขา.",
+    "documentation": "กำหนดความโปร่งใสของอนุภาคตลอดอายุของแต่ละตัว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.VelocityInheritance": {
-    "documentation": "กำหนดว่าพื้นที่ speed ของพ่อแม่ได้รับผลกระทบจากอนุภาคหรือไม่เมื่อปล่อย.",
+    "documentation": "กำหนดว่าอนุภาคจะสืบทอดความเร็วจากผู้ปกครองเมื่อปล่อย",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#VelocityInheritance",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.VelocitySpread": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกแทนที่โดย <code>ParticleEmitter.SpreadAngle</code> ที่ควรใช้ในงานใหม่ทั้งหมด.<br>กำหนดว่าอนุภาคสามารถยิงออกจากทิศทางของท่อที่มีอยู่ภายในทิศทางของพ่อแม่.",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ได้ถูกแซงหน้าโดย <code>ParticleEmitter.SpreadAngle</code> ที่ควรใช้ในงานใหม่ทั้งหมด.<br>กำหนดว่าอนุภาคสามารถถูกยิงออกจากทิศทางผู้ปล่อยในระดับท้องถิ่นได้มากเพียงใด",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#VelocitySpread",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.WindAffectsDrag": {
-    "documentation": "กำหนดว่าอนุภาคที่ถูกปล่อยตาม <code>Workspace.GlobalWind</code> เวกเตอร์.",
+    "documentation": "กำหนดว่าอนุภาคที่ปล่อยได้ติดตามเวกเตอร์ <code>Workspace.GlobalWind</code> หรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#WindAffectsDrag",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ZOffset": {
-    "documentation": "กำหนดตำแหน่งการเรนเดอร์ไปข้างหน้าไปข้างหลังของอนุภาค; ใช้ในการควบคุมอนุภาคที่เรนเดอร์ด้านบน/ล่าง.",
+    "documentation": "กำหนดตำแหน่งการแสดงผลอนุภาคจากหน้าไปข้างหลัง; ใช้เพื่อควบคุมว่าอนุภาคใดจะแสดงอยู่ด้านบน/ล่าง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ZOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Clear/param/0": {
-    "documentation": "วัตถุพิเศษที่ปล่อยอนุภาค 2D ที่ปรับแต่งได้เข้าสู่วงการ."
+    "documentation": "วัตถุพิเศษที่ปล่อยอนุภาค 2D ที่ปรับแต่งได้เข้าสู่โลก"
   },
   "@roblox/globaltype/ParticleEmitter.Clear": {
-    "documentation": "เคลียร์อนุภาคทั้งหมดที่ถูกปล่อยออกไป.",
+    "documentation": "ลบทุกอนุภาคที่ถูกปล่อยออกมา",
     "params": [
       {
         "name": "self",
@@ -12867,13 +12879,13 @@
     "code_sample": "local emitter = script.Parent\nwhile true do\n\temitter:Clear()\n\temitter:Emit(10)\n\ttask.wait(2)\nend"
   },
   "@roblox/globaltype/ParticleEmitter.Emit/param/0": {
-    "documentation": "วัตถุพิเศษที่ปล่อยอนุภาค 2D ที่ปรับแต่งได้เข้าสู่วงการ."
+    "documentation": "วัตถุพิเศษที่ปล่อยอนุภาค 2D ที่ปรับแต่งได้เข้าสู่โลก"
   },
   "@roblox/globaltype/ParticleEmitter.Emit/param/1": {
-    "documentation": "จำนวนอนุภาคที่จะปล่อย."
+    "documentation": "จำนวนของอนุภาคที่จะถูกปล่อย"
   },
   "@roblox/globaltype/ParticleEmitter.Emit": {
-    "documentation": "ปล่อยจำนวนอนุภาคที่กำหนด.",
+    "documentation": "ปล่อยอนุภาคจำนวนหนึ่ง",
     "params": [
       {
         "name": "self",
@@ -25304,7 +25316,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก",
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก.",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
@@ -25363,17 +25375,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirDensity": {
-    "documentation": "ความหนาแน่นของอากาศที่ระดับพื้น, ใช้ในแบบจำลองแรงอากาศพลศาสตร์",
+    "documentation": "ความหนาแน่นของอากาศที่ระดับพื้นดิน ซึ่งใช้ในแบบจำลองแรงอากาศพลศาสตร์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "ควบคุมความแรงของความไม่สงบที่มีอยู่ในสนามความเร็วลม, ซึ่งมีผลต่อแบบจำลองแรงอากาศพลศาสตร์",
+    "documentation": "ควบคุมความแรงของการปั่นป่วนในสนามความเร็วลม ส่งผลต่อแบบจำลองแรงอากาศพลศาสตร์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AllowThirdPartySales": {
-    "documentation": "กำหนดว่าสินค้าที่สร้างโดยผู้ใช้อื่นสามารถขายในเกมได้หรือไม่",
+    "documentation": "กำหนดว่าสินทรัพย์ที่สร้างโดยผู้ใช้อื่นสามารถขายได้ในเกมหรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AllowThirdPartySales",
     "code_sample": ""
   },
@@ -25388,17 +25400,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ClientAnimatorThrottling": {
-    "documentation": "กำหนดโหมดการควบคุมแนวโน้มของการเคลื่อนไหวสำหรับลูกค้าท้องถิ่น",
+    "documentation": "กำหนดโหมดการลดความเร็วของแอนิเมชั่นสำหรับลูกค้า.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ClientAnimatorThrottling",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.CurrentCamera": {
-    "documentation": "วัตถุ <code>Camera</code> ที่ถูกใช้โดยผู้เล่นท้องถิ่น",
+    "documentation": "วัตถุ <code>Camera</code> ที่ถูกใช้โดยผู้เล่นท้องถิ่น.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#CurrentCamera",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "จำนวนเวลาที่เกมทำงานเป็นวินาที",
+    "documentation": "จำนวนเวลาที่เกมทำงานอยู่ในวินาที.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
@@ -25408,32 +25420,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallenPartsDestroyHeight": {
-    "documentation": "กำหนดความสูงที่วัตถุ <code>BaseParts</code> ที่ตกลงไปและบรรพบุรุษ <code>Models</code> จะถูกลบออกจาก <code>Workspace</code>",
+    "documentation": "กำหนดความสูงที่ซึ่ง <code>BaseParts</code> ที่ตกลงมาและ ผู้ปกครองของพวกเขา <code>Models</code> จะถูกลบออกจาก <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallenPartsDestroyHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>กำหนดว่าการเปลี่ยนแปลงที่ทำจากลูกค้าจะซ้ำไปยังเซิร์ฟเวอร์หรือไม่",
+    "documentation": "<strong>Deprecated:</strong> <br>กำหนดว่าการเปลี่ยนแปลงที่ทำจากลูกค้าจะถูกทำซ้ำไปยัง เซิร์ฟเวอร์หรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "กำหนดว่าชิ้นงานพื้นฐานของฟิสิกส์จะคำนวณแรงอากาศพลศาสตร์หรือไม่ ที่มี <code>EnableFluidForces</code> property เป็นจริง",
+    "documentation": "กำหนดว่าเครื่องยนต์ฟิสิกส์คำนวณแรงอากาศพลศาสตร์ใน <code>BaseParts</code> ที่มี <code>EnableFluidForces</code> เป็นจริงหรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GlobalWind": {
-    "documentation": "กำหนดเวกเตอร์ลมโลกสำหรับหญ้าในพื้นที่แอนิเมชั่น, เมฆที่มีพลศาสตร์และอนุภาค",
+    "documentation": "กำหนดเวกเตอร์ลมทั่วโลกสำหรับหญ้าทุ่งที่เคลื่อนไหว เมฆที่เคลื่อนไหว และอนุภาค.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#GlobalWind",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Gravity": {
-    "documentation": "กำหนดการเร่งแรงเนื่องจากแรงโน้มถ่วงที่ใช้กับ <code>BaseParts</code> ที่ตก",
+    "documentation": "กำหนดความเร่งเนื่องจากแรงโน้มถ่วงที่ใช้กับ <code>BaseParts</code> ที่ตกลง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Gravity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "เปิดใช้งานการสนับสนุนสำหรับข้อจำกัดสำหรับ IKControls หากปิดการใช้งาน IKControls จะไม่สนใจข้อจำกัดทางฟิสิกส์",
+    "documentation": "เปิดใช้งานการสนับสนุนสำหรับข้อจำกัดสำหรับ IKControls หากปิดอยู่ IKControls จะไม่สนใจข้อจำกัดทางฟิสิกส์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -25443,7 +25455,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.InterpolationThrottling": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ไม่ควรใช้สำหรับงานใหม่",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ไม่ควรใช้สำหรับการทำงานใหม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InterpolationThrottling",
     "code_sample": ""
   },
@@ -25453,7 +25465,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "ตั้งค่าให้หัวและอุปกรณ์เสริมของตัวละครต้องดาวน์โหลดเป็น MeshParts",
+    "documentation": "กำหนดว่าหัวและเครื่องประดับของตัวละครควรดาวน์โหลดเป็น MeshParts หรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -25463,7 +25475,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "ควบคุมโลจิกที่ใช้ในการเลือกชิ้นส่วนรากของการประกอบเมื่อใช้การควบคุมการขยับใดๆ",
+    "documentation": "ควบคุมการตัดสินใจในการเลือกส่วนหลักของการประกอบเมื่อใช้ ข้อจำกัดการเคลื่อนไหวใดๆ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
@@ -25478,7 +25490,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "ตั้งค่าให้โซลเวอร์จะก้าวหน้าการจำลองฟิสิกส์ไปข้างหน้าในเวลา",
+    "documentation": "กำหนดวิธีการที่ซอลเวอร์จะขับเคลื่อนการจำลองฟิสิกส์ไปข้างหน้าในเวลา.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -25518,37 +25530,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.SignalBehavior": {
-    "documentation": "กำหนดว่าเมื่อไหร่เครื่องยนต์จะดำเนินการจัดการเหตุการณ์อีกครั้ง",
+    "documentation": "กำหนดเมื่อไหร่เครื่องยนต์จะคืนค่าตัวจัดการเหตุการณ์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#SignalBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "กำหนดวิธีการที่เครื่องยนต์ตัดสินใจเมื่อใดที่จะส่งเนื้อหาไปจากผู้เล่น",
+    "documentation": "กำหนดว่าเครื่องยนต์ตัดสินใจเมื่อใดที่จะสตรีมเนื้อหาออกจาก ผู้เล่น.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "ว่าการสตรีมเนื้อหาเปิดใช้งานสำหรับสถานที่หรือไม่",
+    "documentation": "ว่าการสตรีมเนื้อหาเปิดใช้งานสำหรับสถานที่หรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingIntegrityMode": {
-    "documentation": "กำหนดว่าฟีเจอร์ StreamingIntegrityMode ถูกเปิดใช้งานหรือไม่",
+    "documentation": "กำหนดว่า StreamingIntegrityMode เปิดใช้งานหรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingIntegrityMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "ระยะทางขั้นต่ำที่เนื้อหาจะถูกสตรีมไปยังผู้เล่นด้วยความสำคัญสูง",
+    "documentation": "ระยะทางขั้นต่ำที่เนื้อหาจะถูกสตรีมไปยังผู้เล่นด้วยความสำคัญสูง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingTargetRadius": {
-    "documentation": "ระยะทางสูงสุดที่เนื้อหาจะถูกสตรีมไปยังผู้เล่น",
+    "documentation": "ระยะทางสูงสุดที่เนื้อหาจะถูกสตรีมไปยังผู้เล่น.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingTargetRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "การอ้างอิงไปยังวัตถุ <code>Terrain</code> ที่มีอยู่ใน <code>Workspace</code>.",
+    "documentation": "การอ้างอิงถึงวัตถุ <code>Terrain</code> ที่เป็นพ่อแม่ของ <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
@@ -25558,7 +25570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "กำหนดว่าชิ้นส่วน <code>parts</code> ในกลุ่มต่าง ๆ ที่ถูกตั้งค่าไม่ให้ชนกันจะเพิกเฉยต่อการชนกันและเหตุการณ์สัมผัส",
+    "documentation": "กำหนดว่า <code>parts</code> ในกลุ่มที่ตั้งค่าไม่ให้ชนกันจะละเว้น การชนกันและอีเวนต์สัมผัสหรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
     "code_sample": ""
   },
@@ -25573,13 +25585,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "อาร์เรย์ของ <code>BaseParts</code> ที่จะรื้อข้อต่อ"
+    "documentation": "อาร์เรย์ของ <code>BaseParts</code> สำหรับการทำลายข้อต่อ."
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>ตรวจสอบชิ้นส่วนทั้งหมด <code>BaseParts</code> ที่ให้มา, รื้อข้อต่อที่เชื่อมต่อกับชิ้นส่วนเหล่านี้.",
+    "documentation": "<strong>Deprecated:</strong> <br>ผ่านไปทุก <code>BaseParts</code> ที่ระบุ โดยทำลายข้อต่อที่เชื่อมต่อกับ ชิ้นส่วนเหล่านี้.",
     "params": [
       {
         "name": "self",
@@ -25595,13 +25607,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
-    "documentation": "จำนวนชิ้นส่วนที่ตื่น"
+    "documentation": "จำนวนของส่วนที่ตื่น."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "คืนค่าจำนวนของ <code>BaseParts</code> ที่ถูกพิจารณาว่าเป็น มีความเคลื่อนไหวทางกายภาพ เนื่องจากเพิ่งอยู่ภายใต้แรงกดของฟิสิกส์",
+    "documentation": "คืนค่าจำนวนของ <code>BaseParts</code> ที่ถือว่ามี ปฏิกิริยาทางกายภาพที่ใช้งานอยู่ เนื่องจากเพิ่งอยู่ภายใต้อิทธิพลของฟิสิกส์.",
     "params": [
       {
         "name": "self",
@@ -25615,13 +25627,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "เปอร์เซ็นต์ที่จำลองฟิสิกส์กำลังถูกควบคุมอยู่"
+    "documentation": "เปอร์เซ็นต์ของเวลาจริงที่การจำลองฟิสิกส์กำลังถูก ลดความเร็วอยู่."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "คืนค่าเป็นจำนวนเต็มระหว่าง 0 ถึง 100 แทนเปอร์เซ็นต์ของ เวลาจริงที่การจำลองฟิสิกส์กำลังถูกควบคุม",
+    "documentation": "คืนค่าเป็นจำนวนเต็มระหว่าง 0 และ 100 แสดงถึงเปอร์เซ็นต์ของ เวลาจริงที่การจำลองฟิสิกส์กำลังถูกลดความเร็วอยู่.",
     "params": [
       {
         "name": "self",
@@ -25635,13 +25647,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "คืนค่าจำนวนเฟรมต่อวินาทีที่ฟิสิกส์กำลังมีการจำลองอยู่"
+    "documentation": "คืนค่าจำนวนเฟรมต่อวินาทีที่ฟิสิกส์กำลังถูก จำลองอยู่."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "คืนค่าจำนวนเฟรมต่อวินาทีที่ฟิสิกส์กำลังจำลองอยู่",
+    "documentation": "คืนค่าจำนวนเฟรมต่อวินาทีที่ฟิสิกส์กำลังถูก จำลองอยู่.",
     "params": [
       {
         "name": "self",
@@ -25655,13 +25667,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\t-- หาก FPS ทางฟิสิกส์จริงของ workspace สูงกว่า 65\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\t-- เตะผู้เล่นออก\n\t\tplayer:Kick()\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
-    "documentation": "ประมาณการเวลา Unix timestamp บนเซิร์ฟเวอร์"
+    "documentation": "ประมาณการ Unix timestamp ของเซิร์ฟเวอร์."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
-    "documentation": "คืนเวลาของเซิร์ฟเวอร์ใน Unix เป็นวินาที",
+    "documentation": "คืนค่าเวลา Unix ของเซิร์ฟเวอร์ในหน่วยวินาที.",
     "params": [
       {
         "name": "self",
@@ -25675,16 +25687,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "อาเรย์ของ <code>BaseParts</code> ที่จะทำข้อต่อ"
+    "documentation": "อาร์เรย์ของ <code>BaseParts</code> ที่เพื่อสร้างข้อต่อ."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "<code>JointCreationMode</code> ที่จะใช้ การส่งค่า <code>Enum.JointCreationMode.All</code> หรือ <code>Enum.JointCreationMode.Surface</code> มีพฤติกรรมเหมือนกัน ซึ่งมีความหมายว่า Join Always."
+    "documentation": "โหมดการสร้างข้อต่อ <code>JointCreationMode</code> ที่จะใช้. การส่งค่า <code>Enum.JointCreationMode.All</code> หรือ <code>Enum.JointCreationMode.Surface</code> มีพฤติกรรมเหมือนกัน ซึ่งหมายถึง Join Always."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "สร้างข้อต่อระหว่าง <code>Parts</code> ที่กำหนดและชิ้นส่วนอื่น ๆ ที่สัมผัสขึ้นอยู่กับพื้นผิวของชิ้นส่วนและโหมดการสร้างข้อต่อที่กำหนด",
+    "documentation": "สร้างข้อต่อระหว่าง <code>Parts</code> ที่ระบุและชิ้นส่วนใดๆ ที่สัมผัสขึ้นอยู่กับพื้นผิวของชิ้นส่วนเหล่านั้นและโหมดการสร้างข้อต่อที่กำหนด.",
     "params": [
       {
         "name": "self",
@@ -25704,13 +25716,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "อาเรย์ของ <code>parts</code> ที่จะทำข้อต่อ"
+    "documentation": "อาร์เรย์ของ <code>parts</code> สำหรับการสร้างข้อต่อ."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>ตรวจสอบทุก <code>BaseParts</code> ที่ให้ไว้ ถ้าข้างใดข้างหนึ่งของชิ้นส่วนมี <code>SurfaceType</code> ที่สามารถสร้างข้อต่อ จะสร้างข้อต่อกับชิ้นส่วนที่อยู่ติดกัน",
+    "documentation": "<strong>Deprecated:</strong> <br>ผ่านไปทุก <code>BaseParts</code> ที่ระบุ หากด้านใดด้านหนึ่งของชิ้นส่วนมี <code>Enum.SurfaceType</code> ที่สามารถทำให้เกิดข้อต่อ จะสร้างข้อต่อกับชิ้นส่วนที่อยู่ติดกัน.",
     "params": [
       {
         "name": "self",
@@ -25726,13 +25738,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "True หากเปิดใช้งานตัวแก้ปัญหา PGS"
+    "documentation": "จริงหากซอลเวอร์ PGS ถูกเปิดใช้งาน."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "ส่งคืน <code>true</code> หากเกมมีตัวแก้ปัญหา PGS Physics เปิดใช้งาน",
+    "documentation": "คืนค่า <code>true</code> หากเกมมีซอลเวอร์ฟิสิกส์ PGS เปิดใช้งานอยู่.",
     "params": [
       {
         "name": "self",
@@ -25746,13 +25758,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "อาเรย์ของ <code>BaseParts</code> ที่จะทำลายข้อต่อ"
+    "documentation": "อาร์เรย์ของ <code>BaseParts</code> สำหรับการทำลายข้อต่อ."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "ทำลายข้อต่อทั้งหมดระหว่าง <code>BaseParts</code> ที่กำหนดและ <code>BaseParts</code> อื่น",
+    "documentation": "ทำลายข้อต่อทั้งหมดระหว่าง <code>BaseParts</code> ที่ระบุและ <code>BaseParts</code> อื่น ๆ.",
     "params": [
       {
         "name": "self",
@@ -25768,10 +25780,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>Workspace</strong> เป็นที่อยู่ของวัตถุ 3D ที่ถูกเรนเดอร์ไปยังโลก 3D วัตถุที่ไม่ได้สืบทอดจากมันจะไม่ได้รับการเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับโลก"
+    "documentation": "<strong>Workspace</strong> เป็นที่จัดเก็บวัตถุ 3D ซึ่งถูกเรนเดอร์ไปยังโลก 3D วัตถุ ที่ไม่สืบทอดจากมันจะไม่ถูกเรนเดอร์หรือมีปฏิสัมพันธ์ทางกายภาพกับ โลก."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "จัดตำแหน่งและซูม <code>Workspace.CurrentCamera</code> เพื่อแสดงขอบเขต ของ <code>BaseParts</code> ที่อยู่ใน <code>Workspace</code> ปัจจุบัน",
+    "documentation": "ตำแหน่งและซูม <code>Workspace.CurrentCamera</code> เพื่อแสดงถึงขอบเขต ของ <code>BaseParts</code> ที่มีอยู่ใน <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -25860,7 +25872,7 @@
     "returns": []
   },
   "@roblox/globaltype/Workspace.PersistentLoaded": {
-    "documentation": "เกิดขึ้นเมื่อโมเดลถาวรได้ถูกส่งไปยังผู้เล่นที่ระบุ",
+    "documentation": "เกิดขึ้นเมื่อโมเดลที่คงอยู่ถูกส่งไปยังผู้เล่นที่ระบุ.",
     "keys": {
       "Connect": "@roblox/globaltype/Workspace.PersistentLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Workspace.PersistentLoaded.ConnectParallel",
@@ -31016,9 +31028,6 @@
   "@roblox/globaltype/ConfigSnapshot.GetValue/param/1": {
     "documentation": ""
   },
-  "@roblox/globaltype/ConfigSnapshot.GetValue/param/2": {
-    "documentation": ""
-  },
   "@roblox/globaltype/ConfigSnapshot.GetValue/return/0": {
     "documentation": ""
   },
@@ -31032,10 +31041,6 @@
       {
         "name": "key",
         "documentation": "@roblox/globaltype/ConfigSnapshot.GetValue/param/1"
-      },
-      {
-        "name": "defaultValue",
-        "documentation": "@roblox/globaltype/ConfigSnapshot.GetValue/param/2"
       }
     ],
     "returns": [
@@ -32787,7 +32792,7 @@
     "code_sample": "assert(plugin, \"สคริปต์นี้ต้องทำงานเป็นปลั๊กอิน!\")\n-- โค้ดหลังจากจุดนี้จะทำงานเฉพาะเมื่อสคริปต์ถูกเรียกใช้เป็นปลั๊กอิน\n\n-- โหลดโมดูลและส่งการอ้างอิงปลั๊กอิน\nlocal pluginModule = require(script.Parent.PluginModule)\npluginModule:Initialize(plugin)\n\n-- ตรวจสอบว่าการอ้างอิงปลั๊กอินถูกเริ่มต้นแล้วหรือไม่\npluginModule:CheckForPluginGlobal()"
   },
   "@roblox/globaltype/Plugin.CollisionEnabled": {
-    "documentation": "คืนค่าว่า ผู้ใช้เปิดใช้งาน <code>Collisions</code> ใน Studio ใต้แท็บโมเดลหรือไม่",
+    "documentation": "ส่งกลับว่าผู้ใช้เปิดใช้งาน <code>Collisions</code> ในสตูดิโอภายใต้แท็บโมเดลหรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CollisionEnabled",
     "code_sample": ""
   },
@@ -32797,7 +32802,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plugin.GridSize": {
-    "documentation": "คืนขนาดการติดกับกริดที่ผู้ใช้ตั้งค่าใน Studio",
+    "documentation": "ส่งกลับขนาดของการจับตาข่ายที่ผู้ใช้กำหนดในสตูดิโอ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#GridSize",
     "code_sample": ""
   },
@@ -32810,10 +32815,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Activate/param/1": {
-    "documentation": "เป็นบูลีนที่ระบุว่าให้เปิดใช้งานปลั๊กอินด้วยเมาส์แบบเฉพาะหรือไม่ ถ้าเป็นจริง, จะสามารถดึง <code>PluginMouse</code> ได้ผ่าน <code>Plugin:GetMouse()</code>."
+    "documentation": "บูลีนที่ระบุว่าจะแสดงให้ปลั๊กอินเปิดใช้งานด้วยเมาส์เฉพาะ  หากเป็นจริง, คุณสามารถดึง <code>PluginMouse</code> ผ่าน <code>Plugin:GetMouse()</code>."
   },
   "@roblox/globaltype/Plugin.Activate": {
-    "documentation": "ตั้งค่าสถานะของปลั๊กอินที่เรียกให้ถูกเปิดใช้งาน",
+    "documentation": "ตั้งค่าผลลัพธ์ของปลั๊กอินที่เรียกใช้ให้ถูกเปิดใช้งาน",
     "params": [
       {
         "name": "self",
@@ -32832,10 +32837,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/1": {
-    "documentation": "ตัวระบุที่ไม่ซ้ำและสอดคล้องกันที่ใช้ในการจัดเก็บสถานะการจับวาง และรายละเอียดภายในอื่นๆ"
+    "documentation": "ตัวระบุที่ไม่ซ้ำกันและสม่ำเสมอที่ใช้ในการจัดเก็บสถานะการยึด ของวิดเจ็ตและรายละเอียดภายในอื่น ๆ."
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/2": {
-    "documentation": "อธิบายถึง <code>DockWidgetPluginGui</code> ที่จะสร้างขึ้น (สถานะเริ่มต้น, ขนาด, เป็นต้น)"
+    "documentation": "อธิบายถึง <code>DockWidgetPluginGui</code> ที่จะสร้าง (สถานะเริ่มต้น, ขนาด, ฯลฯ)."
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/return/0": {
     "documentation": ""
@@ -32866,25 +32871,25 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/1": {
-    "documentation": "ต้องเป็นสตริงที่ไม่ซ้ำซึ่งระบุถึง PluginAction นี้จากคนอื่นๆ"
+    "documentation": "ต้องเป็นสตริงที่ไม่ซ้ำกันซึ่งระบุว่า PluginAction นี้แตกต่างจากอื่น ๆ"
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/2": {
-    "documentation": "ชื่อที่แสดงของการกระทำ"
+    "documentation": "ชื่อที่แสดงของการกระทำ."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/3": {
-    "documentation": "คำอธิบายที่แสดงของการกระทำ"
+    "documentation": "คำอธิบายที่แสดงของการกระทำ."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/4": {
-    "documentation": "ชื่อของไอคอนที่ใช้แสดงปลั๊กอิน"
+    "documentation": "ชื่อของไอคอนที่ใช้ในการแสดงปลั๊กอิน."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/5": {
-    "documentation": "Whether the <code>PluginAction</code> will be hidden from Studio's shortcuts view. Useful for contextual actions. Defaults to true."
+    "documentation": "ควรซ่อน <code>PluginAction</code> จากมุมมองทางลัดของสตูดิโอหรือไม่. มีประโยชน์สำหรับการกระทำตามบริบท. ค่าเริ่มต้นเป็นจริง."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "สร้าง <code>PluginAction</code> ซึ่งเป็นวัตถุที่แสดงถึงการกระทำที่สามารถทำได้ ทั่วไปใน Roblox Studio ซึ่งไม่มี <code>Toolbar</code> หรือ <code>Button</code> ที่เชื่อมโยงโดยตรง",
+    "documentation": "สร้าง <code>PluginAction</code> ซึ่งเป็นวัตถุที่แสดงถึงการกระทำที่ สามารถดำเนินการทั่วไปใน Roblox Studio โดยไม่มี <code>Toolbar</code> หรือ <code>Button</code> ที่เชื่อมโยงโดยตรง",
     "params": [
       {
         "name": "self",
@@ -32921,19 +32926,19 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/1": {
-    "documentation": "ID ที่ไม่ซ้ำสำหรับเมนู"
+    "documentation": "ID ที่ไม่ซ้ำสำหรับเมนู."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/2": {
-    "documentation": "ข้อความที่จะถูกแสดงเมื่อใช้เป็นซัมเมนู"
+    "documentation": "ข้อความที่จะถูกแสดงเมื่อใช้เป็นซับเมนู."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/3": {
-    "documentation": "ไอคอนที่จะถูกแสดงเมื่อใช้เป็นซัมเมนู"
+    "documentation": "ไอคอนที่จะถูกแสดงเมื่อใช้เป็นซับเมนู."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu": {
-    "documentation": "สร้างเมนูปลั๊กอินใหม่",
+    "documentation": "สร้างเมนูปลั๊กอินใหม่.",
     "params": [
       {
         "name": "self",
@@ -32962,13 +32967,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateToolbar/param/1": {
-    "documentation": "ข้อความที่แสดงบนแถบเครื่องมือ แท็กกลุ่มของปุ่ม ที่รวมอยู่ภายใน"
+    "documentation": "ข้อความที่มองเห็นได้บนแถบเครื่องมือ โดยทำหน้าที่ติดป้ายกลุ่มของปุ่ม ที่มีอยู่ภายใน."
   },
   "@roblox/globaltype/Plugin.CreateToolbar/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateToolbar": {
-    "documentation": "สร้าง <code>PluginToolbar</code> ใหม่ด้วยชื่อที่กำหนด",
+    "documentation": "สร้าง <code>PluginToolbar</code> ใหม่ด้วยชื่อที่กำหนด.",
     "params": [
       {
         "name": "self",
@@ -32989,7 +32994,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Deactivate": {
-    "documentation": "ปิดใช้งานปลั๊กอิน",
+    "documentation": "ปิดใช้งานปลั๊กอิน.",
     "params": [
       {
         "name": "self",
@@ -33007,7 +33012,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetJoinMode": {
-    "documentation": "คืนค่า <code>JointCreationMode</code> ที่ผู้ใช้ตั้งค่าใน Studio ใต้แท็บ โมเดล",
+    "documentation": "ส่งกลับ <code>JointCreationMode</code> ที่ผู้ใช้กำหนดในสตูดิโอภายใต้ แท็บโมเดล.",
     "params": [
       {
         "name": "self",
@@ -33027,7 +33032,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetMouse": {
-    "documentation": "คืนค่า <code>Mouse</code> ที่สามารถใช้ได้ในขณะปลั๊กอินกำลังเปิดใช้งาน",
+    "documentation": "ส่งกลับ <code>Mouse</code> ที่สามารถใช้ได้เมื่อปลั๊กอินเปิดใช้งาน.",
     "params": [
       {
         "name": "self",
@@ -33047,7 +33052,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetSelectedRibbonTool": {
-    "documentation": "คืนค่า <code>RibbonTool</code> ที่เลือกในปัจจุบัน",
+    "documentation": "ส่งกลับ <code>RibbonTool</code> ที่เลือกในปัจจุบัน.",
     "params": [
       {
         "name": "self",
@@ -33070,7 +33075,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetSetting": {
-    "documentation": "ดึงค่าที่เก็บไว้ก่อนหน้านี้ด้วยคีย์ที่กำหนด หรือ <code>nil</code> หากคีย์ที่กำหนดไม่ อยู่",
+    "documentation": "ดึงค่าที่จัดเก็บไว้ก่อนหน้านี้ด้วยคีย์ที่กำหนด หรือ <code>nil</code> หากคีย์ที่กำหนดไม่มีอยู่.",
     "params": [
       {
         "name": "self",
@@ -33094,7 +33099,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetStudioUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>คืนค่า userId ของผู้ใช้ Studio หากพวกเขาได้เข้าสู่ระบบแล้ว มิฉะนั้น คืนค่า 0.",
+    "documentation": "<strong>Deprecated:</strong> <br>ส่งกลับ userId ของผู้ใช้สตูดิโอหากผู้ได้ลงชื่อเข้าใช้ มิฉะนั้น ส่งกลับ 0.",
     "params": [
       {
         "name": "self",
@@ -33120,7 +33125,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "ชักชวนให้ผู้ใช้เปิดไฟล์แอนิเมชัน .fbx ที่สามารถโหลดไปยัง <code>rigModel</code> จากนั้นดำเนินการแทรกแอนิเมชันเป็น <code>KeyframeSequence</code> ใน <code>Workspace</code>.",
+    "documentation": "เรียกร้องให้ผู้ใช้เปิดไฟล์อนิเมชั่น .fbx ที่สามารถโหลดลงใน <code>rigModel</code>, แล้วดำเนินการโดยการแทรกอนิเมชั่นเป็น <code>KeyframeSequence</code> ใน <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33151,7 +33156,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "ชักชวนให้ผู้ใช้เปิดไฟล์ .fbx อัปโหลดส่วนประกอบต่างๆ ของ โมเดลเป็นเมช และสร้างตัวร่างตัวละครสำหรับการเคลื่อนไหว, ซึ่งถูกโหลดไปยัง <code>Workspace</code>.",
+    "documentation": "เรียกร้องให้ผู้ใช้เปิดไฟล์ .fbx, อัปโหลดส่วนประกอบเฉพาะของ โมเดลเป็น mesh, และสร้าง rig ตัวละครเพื่อใช้ในการอนิเมชั่น, ซึ่งจะถูกโหลดลงใน <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33199,10 +33204,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.IsActivated/return/0": {
-    "documentation": "บูลีนที่ระบุว่าปลั๊กอินกำลังเปิดใช้งานอยู่ในปัจจุบันหรือไม่"
+    "documentation": "บูลีนที่ระบุว่าปลั๊กอินเปิดใช้งานอยู่ในปัจจุบันหรือไม่."
   },
   "@roblox/globaltype/Plugin.IsActivated": {
-    "documentation": "คืนค่า true หากปลั๊กอินนี้กำลังเปิดใช้งานอยู่ หลังจากที่ได้ เปิดใช้งานผ่านฟังก์ชัน <code>Plugin:Activate()</code>.",
+    "documentation": "ส่งกลับ true หากปลั๊กอินนี้เปิดใช้งานอยู่ในปัจจุบัน หลังจากถูก เปิดใช้งานผ่านฟังก์ชัน <code>Plugin:Activate()</code>.",
     "params": [
       {
         "name": "self",
@@ -33219,10 +33224,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse/return/0": {
-    "documentation": "ว่าปลั๊กอินนี้กำลังทำงานอยู่ด้วยเมาส์แบบเฉพาะหรือไม่"
+    "documentation": "ปลั๊กอินนี้เปิดใช้งานอยู่ในปัจจุบันด้วยเมาส์เฉพาะหรือไม่."
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse": {
-    "documentation": "คืนค่า true หากปลั๊กอินนี้กำลังทำงานอยู่ด้วยเมาส์แบบเฉพาะ, หลังจากที่ได้ถูกเปิดใช้งานผ่านฟังก์ชัน <code>Plugin:Activate()</code>.",
+    "documentation": "ส่งกลับ true หากปลั๊กอินนี้เปิดใช้งานอยู่ในปัจจุบันโดยมีเมาส์เฉพาะ, หลังจากที่ถูกเปิดใช้งานผ่านฟังก์ชัน <code>Plugin:Activate()</code>.",
     "params": [
       {
         "name": "self",
@@ -33245,7 +33250,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "ทำให้ส่วนที่กำหนดเป็นลบและคืนค่าการดำเนินการ NegateOperations",
+    "documentation": "ทำให้องค์ประกอบที่กำหนดถูกลบออกและส่งผลให้เกิด NegateOperations.",
     "params": [
       {
         "name": "self",
@@ -33272,7 +33277,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.OpenScript": {
-    "documentation": "ใช้เพื่อเปิดอินสแตนซ์สคริปต์ที่กำหนดในหน้าต่างแก้ไข ใน Roblox studio ที่บรรทัดที่กำหนด หากไม่มีบรรทัดที่กำหนดเป็นอาร์กิวเมนต์ มันจะ ตั้งค่าเริ่มต้นเป็น 1.",
+    "documentation": "<strong>Deprecated:</strong> <br>ใช้สำหรับเปิดตัวอย่างสคริปต์ที่กำหนดในหน้าต่างแก้ไข ของ Roblox studio ที่บรรทัดที่กำหนด หากไม่มีบรรทัดกำหนดเป็นอาร์กิวเมนต์ จะถูกตั้งค่าเป็น 1.",
     "params": [
       {
         "name": "self",
@@ -33298,7 +33303,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.OpenWikiPage": {
-    "documentation": "เปิดหน้าต่างคำแนะนำบริบทไปยังหน้า wiki ที่ <code>url</code> เชื่อมโยงถึง",
+    "documentation": "เปิดหน้าต่างช่วยเหลือบริบทไปยังหน้าวิกิที่ <code>url</code> ลิงก์ไปยัง.",
     "params": [
       {
         "name": "self",
@@ -33323,7 +33328,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "เปิดหน้าต่างใน Roblox Studio ซึ่งชักชวนให้ผู้ใช้เลือกทรัพย์สิน ตาม <code>assetType</code> ที่ระบุ คืนค่าทรัพย์สินที่จะเลือก หรือ -1 หากหน้าต่างถูกปิด",
+    "documentation": "เปิดหน้าต่างใน Roblox Studio, ซึ่งเรียกร้องให้ผู้ใช้เลือกทรัพย์สิน ตามประเภท <code>assetType</code> ที่ระบุ. ส่งกลับ assetId ที่ถูกเลือก, หรือ -1 หากหน้าต่างถูกปิด.",
     "params": [
       {
         "name": "self",
@@ -33350,7 +33355,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "ชักชวนให้ผู้ใช้บันทึกการเลือกในปัจจุบันด้วยชื่อไฟล์ที่กำหนด คืนค่า true หากผู้ใช้ได้บันทึกไฟล์",
+    "documentation": "เรียกร้องให้ผู้ใช้บันทึกการเลือกปัจจุบันด้วยชื่อไฟล์ที่ระบุ. ส่งกลับ true หากผู้ใช้ได้บันทึกไฟล์แล้ว.",
     "params": [
       {
         "name": "self",
@@ -33371,7 +33376,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.SaveSelectedToRoblox": {
-    "documentation": "เปิดหน้าต่างอัปโหลดสำหรับการเลือกในปัจจุบันของผู้ใช้",
+    "documentation": "เปิดหน้าต่างอัปโหลดสำหรับการเลือกปัจจุบันของผู้ใช้.",
     "params": [
       {
         "name": "self",
@@ -33392,7 +33397,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.SelectRibbonTool": {
-    "documentation": "เปิดใช้งานเครื่องมือ Roblox Studio ที่ระบุ",
+    "documentation": "เปิดใช้งานเครื่องมือ Roblox Studio ที่ระบุ.",
     "params": [
       {
         "name": "self",
@@ -33421,7 +33426,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "แยก UnionOperations ที่กำหนดและคืนค่าหมายเลขชิ้นส่วนที่เหลือ",
+    "documentation": "แยก UnionOperations ที่ให้มาและส่งคืนชิ้นส่วนที่ได้.",
     "params": [
       {
         "name": "self",
@@ -33448,7 +33453,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.SetSetting": {
-    "documentation": "จัดเก็บค่าที่กำหนดเพื่อใช้ในภายหลังภายใต้คีย์ที่กำหนด ค่า จะคงอยู่แม้หลังจากที่ Studio ถูกปิด",
+    "documentation": "จัดเก็บค่าที่กำหนดไว้เพื่อใช้ในภายหลังภายใต้คีย์ที่กำหนด ค่าจะ คงอยู่แม้ว่าจะปิดสตูดิโอก็ตาม.",
     "params": [
       {
         "name": "self",
@@ -33474,7 +33479,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.StartDrag": {
-    "documentation": "เริ่มการดำเนินการลากที่กำหนดด้วยพจนานุกรมของพารามิเตอร์",
+    "documentation": "เริ่มการลากด้วยการสัมผัสที่ให้มา ชุดของพารามิเตอร์.",
     "params": [
       {
         "name": "self",
@@ -33499,7 +33504,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Union": {
-    "documentation": "รวมส่วนที่กำหนดและคืนค่าการดำเนินการ UnionOperation",
+    "documentation": "ทำให้ส่วนที่กำหนดรวมกันและส่งผลให้เกิด UnionOperation.",
     "params": [
       {
         "name": "self",
@@ -33594,7 +33599,7 @@
     "returns": []
   },
   "@roblox/globaltype/Plugin.Deactivation": {
-    "documentation": "เกิดขึ้นเมื่อปลั๊กอินถูกปิดใช้งาน",
+    "documentation": "เกิดขึ้นเมื่อปลั๊กอินถูกปิดใช้งาน.",
     "keys": {
       "Connect": "@roblox/globaltype/Plugin.Deactivation.Connect",
       "ConnectParallel": "@roblox/globaltype/Plugin.Deactivation.ConnectParallel",
@@ -33682,7 +33687,7 @@
     "returns": []
   },
   "@roblox/globaltype/Plugin.Unloading": {
-    "documentation": "เกิดขึ้นทันที ก่อนที่ <code>Plugin</code> จะหยุดทำงาน",
+    "documentation": "เกิดขึ้นทันทีที่ <code>Plugin</code> หยุดทำงาน.",
     "keys": {
       "Connect": "@roblox/globaltype/Plugin.Unloading.Connect",
       "ConnectParallel": "@roblox/globaltype/Plugin.Unloading.ConnectParallel",
@@ -34827,7 +34832,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting": {
-    "documentation": "บริการ <code>Lighting</code> จะควบคุมแสงทั่วโลกในประสบการณ์ ซึ่งจะรวมถึง คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นอย่างไร",
+    "documentation": "บริการ <code>Lighting</code> ควบคุมการให้แสงทั่วโลกในประสบการณ์ มันรวมถึง\\คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นๆ อย่างไร",
     "keys": {
       "Ambient": "@roblox/globaltype/Lighting.Ambient",
       "Brightness": "@roblox/globaltype/Lighting.Brightness",
@@ -34863,42 +34868,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Ambient": {
-    "documentation": "เฉดสีของแสงที่ใช้กับพื้นที่ที่อยู่ในที่มืดจากท้องฟ้า เช่น ภายในอาคาร",
+    "documentation": "สีของแสงที่ใช้กับพื้นที่ที่ถูกปิดบังจากท้องฟ้า เช่น พื้นที่ในอาคาร.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Ambient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Brightness": {
-    "documentation": "ความเข้มของการส่องสว่างในสถานที่",
+    "documentation": "ความเข้มของแสงในสถานที่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Brightness",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ClockTime": {
-    "documentation": "การแทนค่าด้วยตัวเลข (เป็นชั่วโมง) ของเวลาปัจจุบันในวันซึ่งใช้โดย <code>Lighting</code>.",
+    "documentation": "การแทนค่าทางตัวเลข (ในชั่วโมง) ของเวลาปัจจุบันของวันที่ใช้โดย <code>Lighting</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ClockTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Bottom": {
-    "documentation": "เฉดสีที่สะท้อนออกมาในแสงจากพื้นผิวที่อยู่ฝั่งตรงข้ามกับที่ หันหน้าไปทางดวงอาทิตย์หรือดวงจันทร์",
+    "documentation": "สีที่แสดงในแสงที่สะท้อนจากพื้นผิวที่หันหน้าไปทางดวงอาทิตย์หรือ ดวงจันทร์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Bottom",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Top": {
-    "documentation": "เฉดสีที่สะท้อนออกมาในแสงจากพื้นผิวที่หันหน้าไปทางดวงอาทิตย์หรือ ดวงจันทร์",
+    "documentation": "สีที่แสดงในแสงที่สะท้อนจากพื้นผิวที่หันหน้าไปทางดวงอาทิตย์หรือ ดวงจันทร์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Top",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentDiffuseScale": {
-    "documentation": "แสงบรรยากาศที่ได้จากสภาพแวดล้อม",
+    "documentation": "แสงบรรยากาศที่มาจากสิ่งแวดล้อม.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentDiffuseScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentSpecularScale": {
-    "documentation": "แสงกระจายที่ได้จากสภาพแวดล้อม",
+    "documentation": "แสงแบบสเปกคูลาร์ที่ derived จากสิ่งแวดล้อม.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentSpecularScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ExposureCompensation": {
-    "documentation": "ค่าชดเชยการเปิดรับแสง",
+    "documentation": "ค่าชดเชยการเปิดรับแสง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ExposureCompensation",
     "code_sample": ""
   },
@@ -34908,78 +34913,78 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogColor": {
-    "documentation": "ค่าของ <code>Color3</code> ซึ่งให้เฉดสีของหมอกใน <code>Lighting</code>.",
+    "documentation": "ค่าของ <code>Color3</code> ที่ให้สีของหมอกใน <code>Lighting</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogEnd": {
-    "documentation": "ความลึกจาก <code>Workspace.CurrentCamera</code> ในหน่วย stud ที่หมอกจะมี ความทึบโดยสมบูรณ์",
+    "documentation": "ความลึกจาก <code>Workspace.CurrentCamera</code>, ใน studs, ที่หมอก จะทึบสนิทอย่างสมบูรณ์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogEnd",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogStart": {
-    "documentation": "ความลึกจาก <code>Workspace.CurrentCamera</code> ในหน่วย stud ที่หมอกเริ่มปรากฏ",
+    "documentation": "ความลึกจาก <code>Workspace.CurrentCamera</code>, ใน studs, ที่หมอก เริ่มแสดง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogStart",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GeographicLatitude": {
-    "documentation": "ละติจูดทางภูมิศาสตร์เป็นองศาของฉาก ซึ่งมีผลต่อผลลัพธ์ ของเวลาของ <code>Lighting</code> ต่อการตำแหน่งของดวงอาทิตย์และดวงจันทร์",
+    "documentation": "ละติจูดทางภูมิศาสตร์ ในองศา ของฉาก ซึ่งมีอิทธิพลต่อผลลัพธ์ ของเวลา <code>Lighting</code> ต่อที่ตั้งของดวงอาทิตย์และดวงจันทร์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GeographicLatitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GlobalShadows": {
-    "documentation": "เปิดหรือปิดการจัดแสงแบบไดนามิกตามพิกเซลในสถานที่",
+    "documentation": "สลับการเปิดใช้งานแสงแบบพิกเซลสำหรับสถานที่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GlobalShadows",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.LightingStyle": {
-    "documentation": "เจตนาทางศิลปะในการจัดแสงในประสบการณ์",
+    "documentation": "เจตนาทางศิลป์เบื้องหลังแสงในประสบการณ์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#LightingStyle",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.OutdoorAmbient": {
-    "documentation": "เฉดสีของแสงที่ใช้กับพื้นที่กลางแจ้ง",
+    "documentation": "สีแสงที่ใช้กับพื้นที่กลางแจ้ง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#OutdoorAmbient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Outlines": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้ไม่ได้รับการสนับสนุนอีกต่อไปเนื่องจากฟีเจอร์สำหรับวงกตถูกลบออกจาก แพลตฟอร์ม Roblox.<br>กำหนดว่าวงกตมีการเปิดใช้งานหรือปิดใช้งานในสถานที่",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ไม่รองรับอีกต่อไปเนื่องจากฟีเจอร์กรอบถูกลบออกจาก แพลตฟอร์ม Roblox.<br>กำหนดว่าจะเปิดใช้งานหรือปิดการใช้งานกรอบในสถานที่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Outlines",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "ระบุว่าคุณต้องการคุณภาพของแสง/เงาหรือระยะการมองเห็น ให้ลดลงก่อน",
+    "documentation": "ระบุว่าคุณต้องการคุณภาพแสง/สีหรือระยะการมองเห็นที่จะ ลดขนาดลงก่อน.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowColor": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้เป็นรายการที่หมดอายุ และไม่มีฟังก์ชันการทำงานในปัจจุบัน ไม่ควรใช้มัน สำหรับการทำงานใหม่.<br>โดยปกติแล้วควรเปลี่ยนสีของเงาผู้เล่น แต่ตอนนี้ ไม่ได้ทำอะไรเลย",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้และไม่มีฟังก์ชันการทำงานในปัจจุบัน อย่าใช้มัน สำหรับงานใหม่.<br>คุณสมบัตินี้ควรเปลี่ยนสีของเงาผู้เล่น แต่ขณะนี้ ไม่มีผลอะไร.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowSoftness": {
-    "documentation": "ควบคุมว่าเงาจะเบลอแค่ไหน",
+    "documentation": "ควบคุมความพร่ามัวของเงา.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowSoftness",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Technology": {
-    "documentation": "กำหนดระบบจัดแสงสำหรับการเรนเดอร์โลก 3 มิติ ไม่สามารถเขียนสคริปต์ได้",
+    "documentation": "กำหนดระบบการให้แสงสำหรับการเรนเดอร์โลก 3D ไม่สามารถใช้งานได้ด้วยสคริปต์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Technology",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.TimeOfDay": {
-    "documentation": "ค่าตัวแทนของเวลาในวันในรูปแบบสตริง 24 ชั่วโมงที่ใช้โดย <code>Lighting</code>.",
+    "documentation": "การแทนค่าผู้แสดงผลเวลาปัจจุบันในรูปแบบสตริง 24 ชั่วโมงที่ใช้โดย <code>Lighting</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#TimeOfDay",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/param/0": {
-    "documentation": "บริการ <code>Lighting</code> จะควบคุมแสงทั่วโลกในประสบการณ์ ซึ่งจะรวมถึง คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นอย่างไร"
+    "documentation": "บริการ <code>Lighting</code> ควบคุมการให้แสงทั่วโลกในประสบการณ์ มันรวมถึง\\คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นๆ อย่างไร"
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/return/0": {
     "documentation": "จำนวนในนาทีหลังเที่ยงคืน."
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight": {
-    "documentation": "ส่งคืนจำนวนนาทีที่ผ่านไปหลังเที่ยงคืนเพื่อวัตถุประสงค์ในการจัดแสง.",
+    "documentation": "คืนค่าจำนวนในนาทีที่ผ่านไปหลังเที่ยงคืนเพื่อจุดประสงค์ในการให้แสง.",
     "params": [
       {
         "name": "self",
@@ -34993,13 +34998,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/param/0": {
-    "documentation": "บริการ <code>Lighting</code> จะควบคุมแสงทั่วโลกในประสบการณ์ ซึ่งจะรวมถึง คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นอย่างไร"
+    "documentation": "บริการ <code>Lighting</code> ควบคุมการให้แสงทั่วโลกในประสบการณ์ มันรวมถึง\\คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นๆ อย่างไร"
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/return/0": {
     "documentation": "<code>Vector3</code> ที่แสดงถึงทิศทางของดวงจันทร์."
   },
   "@roblox/globaltype/Lighting.GetMoonDirection": {
-    "documentation": "ส่งคืน <code>Vector3</code> ที่แสดงถึงทิศทางของดวงจันทร์.",
+    "documentation": "คืนค่าค่า <code>Vector3</code> ที่แสดงถึงทิศทางของดวงจันทร์.",
     "params": [
       {
         "name": "self",
@@ -35013,13 +35018,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/param/0": {
-    "documentation": "บริการ <code>Lighting</code> จะควบคุมแสงทั่วโลกในประสบการณ์ ซึ่งจะรวมถึง คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นอย่างไร"
+    "documentation": "บริการ <code>Lighting</code> ควบคุมการให้แสงทั่วโลกในประสบการณ์ มันรวมถึง\\คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นๆ อย่างไร"
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.GetMoonPhase": {
-    "documentation": "ส่งคืนระยะปัจจุบันของดวงจันทร์.",
+    "documentation": "คืนค่าขั้นตอนปัจจุบันของดวงจันทร์.",
     "params": [
       {
         "name": "self",
@@ -35033,13 +35038,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetSunDirection/param/0": {
-    "documentation": "บริการ <code>Lighting</code> จะควบคุมแสงทั่วโลกในประสบการณ์ ซึ่งจะรวมถึง คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นอย่างไร"
+    "documentation": "บริการ <code>Lighting</code> ควบคุมการให้แสงทั่วโลกในประสบการณ์ มันรวมถึง\\คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นๆ อย่างไร"
   },
   "@roblox/globaltype/Lighting.GetSunDirection/return/0": {
     "documentation": "<code>Vector3</code> ที่แสดงถึงทิศทางของดวงอาทิตย์."
   },
   "@roblox/globaltype/Lighting.GetSunDirection": {
-    "documentation": "ส่งคืน <code>Vector3</code> ที่แสดงถึงทิศทางของดวงอาทิตย์.",
+    "documentation": "คืนค่าค่า <code>Vector3</code> ที่แสดงถึงทิศทางของดวงอาทิตย์.",
     "params": [
       {
         "name": "self",
@@ -35053,13 +35058,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/0": {
-    "documentation": "บริการ <code>Lighting</code> จะควบคุมแสงทั่วโลกในประสบการณ์ ซึ่งจะรวมถึง คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นอย่างไร"
+    "documentation": "บริการ <code>Lighting</code> ควบคุมการให้แสงทั่วโลกในประสบการณ์ มันรวมถึง\\คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นๆ อย่างไร"
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/1": {
-    "documentation": "จำนวนของนาทีที่ผ่านไปหลังเที่ยงคืน."
+    "documentation": "จำนวนในนาทีหลังเที่ยงคืน."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight": {
-    "documentation": "ตั้งค่า <code>TimeOfDay</code> และ <code>ClockTime</code> เป็นจำนวนของนาทีที่ผ่านไปหลัง เที่ยงคืน.",
+    "documentation": "ตั้งค่า <code>TimeOfDay</code> และ <code>ClockTime</code> เป็นจำนวนในนาทีหลังเที่ยงคืนที่กำหนด.",
     "params": [
       {
         "name": "self",
@@ -35075,13 +35080,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/param/0": {
-    "documentation": "บริการ <code>Lighting</code> จะควบคุมแสงทั่วโลกในประสบการณ์ ซึ่งจะรวมถึง คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นอย่างไร"
+    "documentation": "บริการ <code>Lighting</code> ควบคุมการให้แสงทั่วโลกในประสบการณ์ มันรวมถึง\\คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นๆ อย่างไร"
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> วิธีนี้เป็นตัวแปรที่หมดอายุของ <code>Lighting:GetMinutesAfterMidnight()</code> ที่ควรใช้แทน.",
+    "documentation": "<strong>Deprecated:</strong> วิธีนี้เป็นรูปแบบที่เลิกใช้ของ <code>Lighting:GetMinutesAfterMidnight()</code> ซึ่งควรใช้แทน.",
     "params": [
       {
         "name": "self",
@@ -35095,13 +35100,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/0": {
-    "documentation": "บริการ <code>Lighting</code> จะควบคุมแสงทั่วโลกในประสบการณ์ ซึ่งจะรวมถึง คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นอย่างไร"
+    "documentation": "บริการ <code>Lighting</code> ควบคุมการให้แสงทั่วโลกในประสบการณ์ มันรวมถึง\\คุณสมบัติที่ปรับแต่งได้หลากหลายที่คุณสามารถใช้เพื่อเปลี่ยนแปลงว่าแสง ปรากฏและโต้ตอบกับวัตถุอื่นๆ อย่างไร"
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> วิธีนี้เป็นตัวแปรที่หมดอายุของ <code>Lighting:SetMinutesAfterMidnight()</code> ที่ควรใช้แทน.",
+    "documentation": "<strong>Deprecated:</strong> วิธีนี้เป็นรูปแบบที่เลิกใช้ของ <code>Lighting:SetMinutesAfterMidnight()</code> ซึ่งควรใช้แทน.",
     "params": [
       {
         "name": "self",
@@ -35194,7 +35199,7 @@
     "returns": []
   },
   "@roblox/globaltype/Lighting.LightingChanged": {
-    "documentation": "เหตุการณ์นี้จะเกิดขึ้นเมื่อคุณสมบัติของ <code>Lighting</code> ถูกเปลี่ยนแปลง หรือวัตถุ <code>Sky</code> ถูกเพิ่มหรือลบจาก <code>Lighting</code>.",
+    "documentation": "เหตุการณ์นี้จะเกิดขึ้นเมื่อมีการเปลี่ยนแปลงคุณสมบัติ <code>Lighting</code> หรือเมื่อ <code>Sky</code> ถูกเพิ่มหรือ ลบออกจาก <code>Lighting</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Lighting.LightingChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Lighting.LightingChanged.ConnectParallel",
@@ -40996,7 +41001,7 @@
       "@roblox/globaltype/HttpService.JSONEncode/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#JSONEncode",
-    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- จำไว้ว่า: บรรทัดเหล่านี้มีความหมายเท่ากัน\n\t--[\"message\"] = \"success\",\n\tmessage = \"success\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- จำไว้: บรรทัดเหล่านี้มีค่าเท่ากัน\n\t--[\"message\"] = \"success\",\n\tmessage = \"success\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
   },
   "@roblox/globaltype/HttpService.PostAsync/param/0": {
     "documentation": "อนุญาตให้ส่งคำขอแบบ HTTP และให้วิธีการที่เกี่ยวข้องกับเว็บและ JSON หลากหลาย"
@@ -44152,7 +44157,7 @@
   "@roblox/globaltype/Player.PartyId": {
     "documentation": "ตัวระบุที่ไม่ซ้ำกันของปาร์ตี้ที่ผู้เล่น <code>Player</code> สังกัดอยู่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"ผู้เล่นอยู่ในปาร์ตี้ที่มี ID: \" .. partyId)\n\telse\n\t\twarn(\"ผู้เล่นไม่ได้อยู่ในปาร์ตี้\")\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"ผู้เล่นอยู่ในปาร์ตี้ที่มี ID: \" .. partyId)\n\telse\n\t\tprint(\"ผู้เล่นไม่ได้อยู่ในปาร์ตี้\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"ผู้เล่นเข้าร่วมปาร์ตี้ที่มี ID: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"ผู้เล่นออกจากปาร์ตี้\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
     "documentation": "ตั้งค่าส่วนที่จะให้โฟกัสการจำลองรอบ.",
@@ -81476,22 +81481,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.Seed": {
-    "documentation": "ตั้งค่าความสุ่มที่คงที่สำหรับเครื่องสร้างหมายเลขสุ่ม ทำให้สามารถตอบสนองได้อย่างแม่นยำ ในกรณีที่มีการใช้พารามิเตอร์นำเข้าที่เหมือนกันในหลายคำขอ。",
+    "documentation": "ตั้งค่าหมายเลขสุ่มคงที่สำหรับเครื่องสร้างตัวเลขสุ่ม ทำให้สามารถตอบกลับได้แบบซ้ำได้ ในกรณีที่ใช้พารามิเตอร์นำเข้าที่เหมือนกันในคำขอหลายรายการ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Seed",
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.SystemPrompt": {
-    "documentation": "ให้บริบทกับโมเดลเกี่ยวกับบทบาท เสียง หรือพฤติกรรมของมันในระหว่างการสนทนา。",
+    "documentation": "ให้บริบทแก่โมเดลเกี่ยวกับบทบาท น้ำเสียง หรือพฤติกรรมระหว่าง การสนทนา。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#SystemPrompt",
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.Temperature": {
-    "documentation": "ควบคุม \"ความคิดสร้างสรรค์\" หรือความสุ่มของการตอบสนองของโมเดล。",
+    "documentation": "ควบคุม \"ความคิดสร้างสรรค์\" หรือความสุ่มของการตอบกลับของโมเดล。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Temperature",
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.TopP": {
-    "documentation": "ช่วยโมเดล AI จำกัดหรือขยายช่วงของคำที่เป็นไปได้ในการสุ่ม ขณะสร้างโทเค็นถัดไป。",
+    "documentation": "ช่วยให้โมเดล AI แคบหรือขยายช่วงของคำที่เป็นไปได้ในการสุ่ม ขณะสร้างโทเค็นถัดไป。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#TopP",
     "code_sample": ""
   },
@@ -81499,13 +81504,13 @@
     "documentation": "ให้การเข้าถึงโมเดลภาษาขนาดใหญ่สำหรับการสร้างข้อความ。"
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1": {
-    "documentation": "พจนานุกรมที่มีพารามิเตอร์เสริมสำหรับคำขอการสร้างข้อความ ขณะนี้พารามิเตอร์ที่รองรับคือ <code>UserPrompt</code>, <code>ContextToken</code> และ <code>MaxTokens</code>。"
+    "documentation": "พจนานุกรมที่มีพารามิเตอร์ที่เป็นทางเลือกสำหรับคำขอการสร้างข้อความ ค่าพารามิเตอร์ที่รองรับในปัจจุบันคือ <code>UserPrompt</code>, <code>ContextToken</code>, และ <code>MaxTokens</code>。"
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0": {
-    "documentation": "พจนานุกรมที่มีการตอบสนองที่สร้างโดย LLM。"
+    "documentation": "พจนานุกรมที่มีการตอบกลับที่สร้างขึ้นโดย LLM。"
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync": {
-    "documentation": "คืนค่าข้อความที่สร้างโดย LLM ตามคำสั่งระบบและผู้ใช้ที่ให้มา。",
+    "documentation": "ส่งคืนข้อความที่สร้างโดย LLM ตามคำสั่งระบบและคำสั่งผู้ใช้ที่ให้ไว้。",
     "params": [
       {
         "name": "self",
@@ -91299,7 +91304,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService": {
-    "documentation": "คลาสที่อนุญาตให้แสดงโฆษณาวิดีโอบนมือถือ。",
+    "documentation": "คลาสที่ช่วยให้สามารถแสดงโฆษณาวิดีโอมือถือได้。",
     "keys": {
       "CreateAdRewardFromDevProductId": "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId",
       "ShowVideoAd": "@roblox/globaltype/AdService.ShowVideoAd",
@@ -91312,7 +91317,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/0": {
-    "documentation": "คลาสที่อนุญาตให้แสดงโฆษณาวิดีโอบนมือถือ。"
+    "documentation": "คลาสที่ช่วยให้สามารถแสดงโฆษณาวิดีโอมือถือได้。"
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/1": {
     "documentation": "รหัสของผลิตภัณฑ์นักพัฒนาที่คุณต้องการให้เป็นรางวัล。"
@@ -91321,7 +91326,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
-    "documentation": "สร้างรางวัลเพื่อให้กับผู้ใช้ที่ดูโฆษณาวิดีโอจนจบ。",
+    "documentation": "สร้างรางวัลเพื่อให้กับผู้ใช้ที่ดูโฆษณาวิดีโอทั้งหมด。",
     "params": [
       {
         "name": "self",
@@ -91339,10 +91344,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowVideoAd/param/0": {
-    "documentation": "คลาสที่อนุญาตให้แสดงโฆษณาวิดีโอบนมือถือ。"
+    "documentation": "คลาสที่ช่วยให้สามารถแสดงโฆษณาวิดีโอมือถือได้。"
   },
   "@roblox/globaltype/AdService.ShowVideoAd": {
-    "documentation": "<strong>Deprecated:</strong> <code>ShowVideoAd</code> ได้ถูกยกเลิกและไม่มี การใช้งานอีกต่อไป。<br>แสดงโฆษณาวิดีโอบนมือถือ。",
+    "documentation": "<strong>Deprecated:</strong> <code>ShowVideoAd</code> ถูกยกเลิกและไม่สามารถใช้งานได้อีกต่อไป。<br>แสดงโฆษณาวิดีโอมือถือ。",
     "params": [
       {
         "name": "self",
@@ -91354,7 +91359,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/0": {
-    "documentation": "คลาสที่อนุญาตให้แสดงโฆษณาวิดีโอบนมือถือ。"
+    "documentation": "คลาสที่ช่วยให้สามารถแสดงโฆษณาวิดีโอมือถือได้。"
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
     "documentation": ""
@@ -91376,16 +91381,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/0": {
-    "documentation": "คลาสที่อนุญาตให้แสดงโฆษณาวิดีโอบนมือถือ。"
+    "documentation": "คลาสที่ช่วยให้สามารถแสดงโฆษณาวิดีโอมือถือได้。"
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/1": {
-    "documentation": "รูปแบบของโฆษณาที่ร้องขอ เช่น <code>RewardedOnDemandVideo</code>。"
+    "documentation": "รูปแบบของโฆษณาที่ร้องขอ ตัวอย่างเช่น <code>RewardedVideo</code>。"
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync": {
-    "documentation": "ตรวจสอบว่าโฆษณาวิดีโอนั้นสามารถเล่นได้สำหรับผู้ใช้ปัจจุบันใน ประสบการณ์นั้น。",
+    "documentation": "ตรวจสอบว่าโฆษณาวิดีโอนั้นสามารถเล่นให้กับผู้ใช้ปัจจุบันใน ประสบการณ์ได้หรือไม่。",
     "params": [
       {
         "name": "self",
@@ -91403,7 +91408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/0": {
-    "documentation": "คลาสที่อนุญาตให้แสดงโฆษณาวิดีโอบนมือถือ。"
+    "documentation": "คลาสที่ช่วยให้สามารถแสดงโฆษณาวิดีโอมือถือได้。"
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
     "documentation": ""
@@ -91432,22 +91437,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/0": {
-    "documentation": "คลาสที่อนุญาตให้แสดงโฆษณาวิดีโอบนมือถือ。"
+    "documentation": "คลาสที่ช่วยให้สามารถแสดงโฆษณาวิดีโอมือถือได้。"
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/1": {
-    "documentation": "วัตถุ <code>Player</code> สำหรับคนที่คุณกำลังดึงโฆษณาให้。"
+    "documentation": "วัตถุ <code>Player</code> ที่คุณกำลังดึงโฆษณาให้。"
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/2": {
-    "documentation": "วัตถุรางวัลสำหรับรางวัลที่คุณต้องการมอบให้กับผู้ใช้ที่ ดูโฆษณาจนเสร็จสิ้น。"
+    "documentation": "วัตถุรางวัลสำหรับรางวัลที่คุณต้องการให้กับผู้ที่ ดูโฆษณาจนจบ。"
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/3": {
-    "documentation": "รหัสของตำแหน่งโฆษณาวิดีโอที่มีรางวัลภายใน ประสบการณ์ ช่วยให้รายงานประสิทธิภาพของตำแหน่งโฆษณาแต่ละรายการ。"
+    "documentation": "รหัสของตำแหน่งของโฆษณาวิดีโอที่ให้รางวัลภายใน ประสบการณ์ อนุญาตให้รายงานประสิทธิภาพของโฆษณา แต่ละตำแหน่งได้。"
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
-    "documentation": "เล่นโฆษณาวิดีโอสำหรับผู้ใช้ปัจจุบันในประสบการณ์นั้น。",
+    "documentation": "เล่นโฆษณาวิดีโอให้กับผู้ใช้ปัจจุบันในประสบการณ์。",
     "params": [
       {
         "name": "self",
@@ -91550,7 +91555,7 @@
     "returns": []
   },
   "@roblox/globaltype/AdService.VideoAdClosed": {
-    "documentation": "<strong>Deprecated:</strong> <code>VideoAdClosed</code> ได้ถูกยกเลิกและ ไม่มีการใช้งานอีกต่อไป。<br>เกิดเหตุการณ์เมื่อ <code>AdService</code> วิดีโอปิดลง。",
+    "documentation": "<strong>Deprecated:</strong> <code>VideoAdClosed</code> ถูกยกเลิกและไม่สามารถใช้งานได้อีกต่อไป。<br>เกิดขึ้นเมื่อวิดีโอ <code>AdService</code> ปิดลง。",
     "keys": {
       "Connect": "@roblox/globaltype/AdService.VideoAdClosed.Connect",
       "ConnectParallel": "@roblox/globaltype/AdService.VideoAdClosed.ConnectParallel",
@@ -100793,7 +100798,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.None": {
-    "documentation": "ปิดฟีเจอร์ฟลิปบุ๊กและใช้พื้นผิวเป็นพื้นผิวสถิตย์เดียวตลอดอายุการใช้งานของอนุภาค。",
+    "documentation": "ปิดฟีเจอร์ Flipbook และใช้พื้นผิวเป็นพื้นผิวสถิตเดียวตลอดอายุการใช้งานของอนุภาค.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100803,7 +100808,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.Grid2x2": {
-    "documentation": "2&times;2 เฟรมสำหรับอนิเมชัน 4 เฟรม。",
+    "documentation": "2&times;2 เฟรมสำหรับการอนิเมชัน 4 เฟรม.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100813,7 +100818,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.Grid4x4": {
-    "documentation": "4&times;4 เฟรมสำหรับอนิเมชัน 16 เฟรม。",
+    "documentation": "4&times;4 เฟรมสำหรับการอนิเมชัน 16 เฟรม.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100823,7 +100828,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.Grid8x8": {
-    "documentation": "8&times;8 เฟรมสำหรับอนิเมชัน 64 เฟรม。",
+    "documentation": "8&times;8 เฟรมสำหรับการอนิเมชัน 64 เฟรม.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100832,13 +100837,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Grid8x8",
     "code_sample": ""
   },
+  "@roblox/enum/ParticleFlipbookLayout.Custom": {
+    "documentation": "ขนาดกริดที่กำหนดเองโดย <code>FlipbookSizeX</code> และ <code>FlipbookSizeY</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Custom",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ParticleFlipbookLayout": {
-    "documentation": "กำหนดเลย์เอาต์ของพื้นผิวฟลิปบุ๊ก。",
+    "documentation": "กำหนดรูปแบบของพื้นผิว Flipbook.",
     "keys": {
       "None": "@roblox/enum/ParticleFlipbookLayout.None",
       "Grid2x2": "@roblox/enum/ParticleFlipbookLayout.Grid2x2",
       "Grid4x4": "@roblox/enum/ParticleFlipbookLayout.Grid4x4",
-      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
+      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8",
+      "Custom": "@roblox/enum/ParticleFlipbookLayout.Custom"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
     "code_sample": ""
@@ -114535,6 +114551,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicsSteppingMethod",
     "code_sample": ""
   },
+  "@roblox/enum/BorderStrokePosition.Outer": {
+    "documentation": "The stroke renders on the outer border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Outer.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Outer",
+    "code_sample": ""
+  },
+  "@roblox/enum/BorderStrokePosition.Center": {
+    "documentation": "The stroke renders on the center border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Center.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Center",
+    "code_sample": ""
+  },
+  "@roblox/enum/BorderStrokePosition.Inner": {
+    "documentation": "The stroke renders on the inner border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Inner.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Inner",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.BorderStrokePosition": {
+    "documentation": "Used by <code>UIStroke.BorderStrokePosition</code> to determine the stroke's position on its parent's border.",
+    "keys": {
+      "Outer": "@roblox/enum/BorderStrokePosition.Outer",
+      "Center": "@roblox/enum/BorderStrokePosition.Center",
+      "Inner": "@roblox/enum/BorderStrokePosition.Inner"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition",
+    "code_sample": ""
+  },
   "@roblox/enum/TrackerFaceTrackingStatus.FaceTrackingSuccess": {
     "documentation": "",
     "keys": {
@@ -125355,6 +125411,35 @@
       "PerAxis": "@roblox/enum/ForceLimitMode.PerAxis"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ForceLimitMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/StrokeSizingMode.FixedSize": {
+    "documentation": "<code>Thickness</code> is measured in pixels.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode#FixedSize",
+    "code_sample": ""
+  },
+  "@roblox/enum/StrokeSizingMode.ScaledSize": {
+    "documentation": "<code>Thickness</code> is relative to minimum parent width or height. If stroke is on text, thickness is relative to font size.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode#ScaledSize",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.StrokeSizingMode": {
+    "documentation": "Used by <code>UIStroke.StrokeSizingMode</code> to determine whether the stroke's <code>Thickness</code> will be measured in pixels or be relative to the parent.",
+    "keys": {
+      "FixedSize": "@roblox/enum/StrokeSizingMode.FixedSize",
+      "ScaledSize": "@roblox/enum/StrokeSizingMode.ScaledSize"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode",
     "code_sample": ""
   },
   "@roblox/enum/MeshType.Head": {

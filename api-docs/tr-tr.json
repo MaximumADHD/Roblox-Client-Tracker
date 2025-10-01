@@ -3473,7 +3473,7 @@
     "code_sample": ""
   },
   "@roblox/global/BrickColor": {
-    "documentation": "Önceden tanımlanmış bir renk listesi sağlayan bir veri türü.",
+    "documentation": "Önceden tanımlanmış adlandırılmış renklerin bir listesini sağlayan bir veri tipi.",
     "keys": {
       "new": "@roblox/global/BrickColor.new",
       "palette": "@roblox/global/BrickColor.palette",
@@ -3502,7 +3502,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(number) -> BrickColor": {
-    "documentation": "Sayısal indeksinden bir <code>BrickColor</code> oluşturur.",
+    "documentation": "<code>BrickColor</code>'ı sayısal indeksinden oluşturur.",
     "params": [
       {
         "name": "val",
@@ -3523,7 +3523,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(number, number, number) -> BrickColor": {
-    "documentation": "Belirtilen RGB bileşenlerine eşleşebilecek en yakın <code>BrickColor</code> yapıyı oluşturur, her biri 0 ile 1 arasında.",
+    "documentation": "Belirtilen RGB bileşenlerine (her biri 0 ile 1 arasında) eşleştirilebilecek en yakın <code>BrickColor</code>'ı oluşturur.",
     "params": [
       {
         "name": "r",
@@ -3546,7 +3546,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(string) -> BrickColor": {
-    "documentation": "Adından bir <code>BrickColor</code> oluşturur.",
+    "documentation": "<code>BrickColor</code>'ı adından oluşturur.",
     "params": [
       {
         "name": "name",
@@ -3561,7 +3561,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.new/overload/(Color3) -> BrickColor": {
-    "documentation": "Belirtilen <code>BrickColor</code> ile eşleşebilecek en yakın yapıyı oluşturur <code>Color3</code>.",
+    "documentation": "Belirtilen <code>Color3</code> ile eşleştirilebilecek en yakın <code>BrickColor</code>'ı oluşturur.",
     "params": [
       {
         "name": "color",
@@ -3576,7 +3576,7 @@
     "documentation": ""
   },
   "@roblox/global/BrickColor.palette": {
-    "documentation": "Palet indeksinden bir <code>BrickColor</code> oluşturur.",
+    "documentation": "<code>BrickColor</code>'ı palet indeksinden oluşturur.",
     "params": [
       {
         "name": "paletteValue",
@@ -3588,70 +3588,70 @@
     "code_sample": ""
   },
   "@roblox/global/BrickColor.random": {
-    "documentation": "Rastgele bir <code>BrickColor</code> döndürür.",
+    "documentation": "Rastgele bir <code>BrickColor</code> döner.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#random",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.White": {
-    "documentation": "Geri döndürür \"Beyaz\" <code>BrickColor</code> .",
+    "documentation": "\"Beyaz\" <code>BrickColor</code>'ını döner.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#White",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Gray": {
-    "documentation": "Döndürür \"Orta taş grisi\" <code>BrickColor</code> .",
+    "documentation": "\"Orta taş gri\" <code>BrickColor</code>'ını döner.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Gray",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.DarkGray": {
-    "documentation": "Geri döndürür \"Koyu taş grisi\" <code>BrickColor</code> .",
+    "documentation": "\"Koyu taş gri\" <code>BrickColor</code>'ını döner.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#DarkGray",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Black": {
-    "documentation": "Geri döndürür \"Siyah\" <code>BrickColor</code> .",
+    "documentation": "\"Siyah\" <code>BrickColor</code>'ını döner.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Black",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Red": {
-    "documentation": "Geri döndürür \"Parlak Kırmızı\" <code>BrickColor</code> .",
+    "documentation": "\"Parlak Kırmızı\" <code>BrickColor</code>'ını döner.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Red",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Yellow": {
-    "documentation": "Geri döndürür \"Parlak Sarı\" <code>BrickColor</code> .",
+    "documentation": "\"Parlak Sarı\" <code>BrickColor</code>'ını döner.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Yellow",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Green": {
-    "documentation": "Geri döndürür \"Koyu Yeşil\" <code>BrickColor</code> .",
+    "documentation": "\"Koyu Yeşil\" <code>BrickColor</code>'ını döner.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Green",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Blue": {
-    "documentation": "Geri döndürür \"Parlak Mavi\" <code>BrickColor</code> .",
+    "documentation": "\"Parlak Mavi\" <code>BrickColor</code>'ını döner.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Blue",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor": {
-    "documentation": "Önceden tanımlanmış bir renk listesi sağlayan bir veri türü.",
+    "documentation": "Önceden tanımlanmış adlandırılmış renklerin bir listesini sağlayan bir veri tipi.",
     "keys": {
       "Number": "@roblox/globaltype/BrickColor.Number",
       "r": "@roblox/globaltype/BrickColor.r",
@@ -3664,32 +3664,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.Number": {
-    "documentation": "<code>BrickColor</code> 'yi tanımlayan benzersiz sayı.",
+    "documentation": "<code>BrickColor</code>'ı tanımlayan benzersiz numara.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Number",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.r": {
-    "documentation": "Kırmızı bileşen <code>BrickColor</code> (0 ile 1 arasında) (0 ile 1 arasında).",
+    "documentation": "<code>BrickColor</code>'ın kırmızı bileşeni (0 ile 1 arasında).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#r",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.g": {
-    "documentation": "Yeşil bileşen <code>BrickColor</code> (0 ile 1 arasında) (0 ile 1 arasında).",
+    "documentation": "<code>BrickColor</code>'ın yeşil bileşeni (0 ile 1 arasında).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#g",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.b": {
-    "documentation": "Mavi bileşen <code>BrickColor</code> (0 ile 1 arasında) (0 ile 1 arasında).",
+    "documentation": "<code>BrickColor</code>'ın mavi bileşeni (0 ile 1 arasında).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#b",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.Name": {
-    "documentation": "<code>BrickColor</code> ile ilişkili olan isim.",
+    "documentation": "<code>BrickColor</code> ile ilişkili ad.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Name",
     "code_sample": ""
   },
   "@roblox/globaltype/BrickColor.Color": {
-    "documentation": "The <code>Color3</code> ile ilişkili olan <code>BrickColor</code> .",
+    "documentation": "<code>BrickColor</code> ile ilişkili <code>Color3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Color",
     "code_sample": ""
   },
@@ -12633,7 +12633,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter": {
-    "documentation": "Düzenlenebilir 2D parçacıkları dünyaya yayan özel bir nesne.",
+    "documentation": "Dünyaya özelleştirilebilir 2D parçacıklar yayan özel bir nesne.",
     "keys": {
       "Acceleration": "@roblox/globaltype/ParticleEmitter.Acceleration",
       "Brightness": "@roblox/globaltype/ParticleEmitter.Brightness",
@@ -12644,6 +12644,8 @@
       "FlipbookFramerate": "@roblox/globaltype/ParticleEmitter.FlipbookFramerate",
       "FlipbookIncompatible": "@roblox/globaltype/ParticleEmitter.FlipbookIncompatible",
       "FlipbookLayout": "@roblox/globaltype/ParticleEmitter.FlipbookLayout",
+      "FlipbookSizeX": "@roblox/globaltype/ParticleEmitter.FlipbookSizeX",
+      "FlipbookSizeY": "@roblox/globaltype/ParticleEmitter.FlipbookSizeY",
       "FlipbookMode": "@roblox/globaltype/ParticleEmitter.FlipbookMode",
       "FlipbookStartRandom": "@roblox/globaltype/ParticleEmitter.FlipbookStartRandom",
       "Lifetime": "@roblox/globaltype/ParticleEmitter.Lifetime",
@@ -12677,32 +12679,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Acceleration": {
-    "documentation": "Tüm aktif parçacıkların global eksen ivmesini belirler, ölçü birimi stu dur.",
+    "documentation": "Tüm aktif parçacıkların global eksende hızlanmasını belirler, ölçü birimi stud/dakika kare.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Acceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Brightness": {
-    "documentation": "<code>ParticleEmitter.LightInfluence</code> 0 olduğunda yayıcıdan yayılan ışığı ölçeklendirir.",
+    "documentation": "Emitter'dan yayılan ışığı ölçeklendirir, <code>ParticleEmitter.LightInfluence</code> 0 olduğunda.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Brightness",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Color": {
-    "documentation": "Bireysel ömürleri boyunca tüm aktif parçacıkların rengini belirler.",
+    "documentation": "Tüm aktif parçacıkların bireysel yaşam süreleri boyunca rengini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Color",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Drag": {
-    "documentation": "Parçacıkların hızını kaybetme oranını belirler.",
+    "documentation": "Parçacıkların hızlarının yarısına ulaşma oranını belirler. düzenli çürümeyle.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Drag",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.EmissionDirection": {
-    "documentation": "Parçacıkların yayılacağı nesnenin yüzeyini belirler.",
+    "documentation": "Parçacıkların yayıldığı nesnenin yüzünü belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#EmissionDirection",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Enabled": {
-    "documentation": "Parçacıkların yayıcıdan yayılıp yayılmadığını belirler.",
+    "documentation": "Parçacıkların emitter'dan yayılıp yayılmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Enabled",
     "code_sample": ""
   },
@@ -12712,37 +12714,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookIncompatible": {
-    "documentation": "Flipbook için <code>Texture</code> uyumsuzluğu durumunda gösterilecek hata mesajı.",
+    "documentation": "Flipbook için uyumsuz olan <code>Texture</code> varsa gösterilecek hata mesajı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookIncompatible",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookLayout": {
-    "documentation": "Flipbook dokusunun düzenini belirler. None, Grid2x2, Grid4x4 veya Grid8x8 olmalıdır.",
+    "documentation": "Flipbook dokusunun düzenini belirler. Olmamalı, Grid2x2, Grid4x4, Grid8x8 veya Özel olmalıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookLayout",
     "code_sample": ""
   },
+  "@roblox/globaltype/ParticleEmitter.FlipbookSizeX": {
+    "documentation": "Özel flipbook düzenindeki yatay karelerin sayısını tanımlar.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookSizeX",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ParticleEmitter.FlipbookSizeY": {
+    "documentation": "Özel flipbook düzenindeki dikey karelerin sayısını tanımlar.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookSizeY",
+    "code_sample": ""
+  },
   "@roblox/globaltype/ParticleEmitter.FlipbookMode": {
-    "documentation": "Flipbook animasyonunun türünü belirler. Loop, OneShot, PingPong veya Random olmalıdır.",
+    "documentation": "Flipbook animasyonunun türünü belirler. Döngü, Tek Sefer, PingPong veya Rastgele olmalıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookMode",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookStartRandom": {
-    "documentation": "Her parçacığın rastgele bir karede başlamasını belirler.",
+    "documentation": "Animasyonun her parçacık için rastgele bir çerçeveden başlamasını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookStartRandom",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Lifetime": {
-    "documentation": "Yeni yayılan parçacıklar için rastgele bir yaş aralığını tanımlar.",
+    "documentation": "Yeni yayılan parçacıkların rastgele yaş aralığını tanımlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Lifetime",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.LightEmission": {
-    "documentation": "Parçacıkların arkasındaki renklerle ne kadar karıştığını belirler.",
+    "documentation": "Parçacıkların renklerinin arka plandaki renklerle ne kadar harmanlandığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#LightEmission",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.LightInfluence": {
-    "documentation": "Parçacıkların çevresel ışık tarafından ne kadar etkilendiğini belirler.",
+    "documentation": "Parçacıkların çevresel ışıktan ne kadar etkilendiğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#LightInfluence",
     "code_sample": ""
   },
@@ -12752,7 +12764,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.LockedToPart": {
-    "documentation": "Parçacıkların yayıldıkları parçaya sıkı bir şekilde bağlı olup olmadığını belirler.",
+    "documentation": "Parçacıkların yayıldıkları parçayla birlikte hareket edip etkilenmesini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#LockedToPart",
     "code_sample": ""
   },
@@ -12762,57 +12774,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Rate": {
-    "documentation": "Saniyede yayılan parçacık sayısını belirler.",
+    "documentation": "Saniyede yayılan parçacıkların sayısını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Rate",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.RotSpeed": {
-    "documentation": "Yayılan parçacıkların açısal hızlarının aralığını belirler.",
+    "documentation": "Yayılan parçacıkların açısal hızlarının aralığını belirler. derece/saniye cinsinden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#RotSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Rotation": {
-    "documentation": "Yeni yayılan parçacıkların derece cinsinden döngü aralığını belirler.",
+    "documentation": "Yayılan parçacıkların rotasyonları için derece cinsinden aralıkları belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Rotation",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Shape": {
-    "documentation": "Yayıcıyı kutu, küre, silindir veya disk şeklinde belirler.",
+    "documentation": "Emitter'ın şeklini kutu, küre, silindir veya disk olarak ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Shape",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ShapeInOut": {
-    "documentation": "Parçacıkların dışarıya yalnızca, içeriye yalnızca veya her iki yönde yayılıp yayılmadığını belirler.",
+    "documentation": "Parçacıkların yalnızca dışa mı, içe mi, yoksa her iki yönde mi yayıldığını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ShapeInOut",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ShapePartial": {
-    "documentation": "Silindir, disk, küre ve kutu şekillerinden parçacık yayımını etkiler.",
+    "documentation": "Silindir, disk, küre ve kutu şekillerinden parçacıkların yayımını etkiler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ShapePartial",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ShapeStyle": {
-    "documentation": "Parçacık yayımını ya hacimsel ya da yalnızca yüzey yayımı olarak belirler.",
+    "documentation": "Parçacık yayımını ya hacimsel ya da yalnızca yüzey yayımı yapar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ShapeStyle",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Size": {
-    "documentation": "Bireysel parçacıkların ömürleri boyunca dünya boyutunu belirler.",
+    "documentation": "Bireysel parçacıkların yaşam süreleri boyunca dünya boyutunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Size",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Speed": {
-    "documentation": "Yeni parçacıkların yayıldıkları hızların (minimum – maksimum) rastgele aralığını belirler.",
+    "documentation": "Yeni parçacıkların yayıldığı hızların rastgele aralığını tanımlar. minimumdan maksimuma.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.SpreadAngle": {
-    "documentation": "Parçacıkların rastgele yayıldıkları açıyı belirler, ölçü birimi derece cinsindendir.",
+    "documentation": "Parçacıkların rastgele olarak yayıldığı açılar. derece cinsinden belirlenir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#SpreadAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Squash": {
-    "documentation": "Parçacıkların ölçeklerini ömürleri boyunca eğri kontrollü olarak ayarlar.",
+    "documentation": "Parçacıkların ölçeklendirilmesi, yaşam süreleri boyunca eğri kontrolü ile sağlanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Squash",
     "code_sample": ""
   },
@@ -12822,40 +12834,40 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.TimeScale": {
-    "documentation": "Parçacık etkisinin hızını kontrol eden 0 ile 1 arasında bir değer.",
+    "documentation": "Parçacık efektinin hızını kontrol eden 0 ile 1 arasındaki değerdir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#TimeScale",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Transparency": {
-    "documentation": "Parçacıkların bireysel ömürleri boyunca şeffaflığını belirler.",
+    "documentation": "Parçacıkların bireysel yaşam süreleri boyunca şeffaflığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.VelocityInheritance": {
-    "documentation": "Parçacıkların yayıldıkları sırada ebeveynin hızından ne kadar miras aldığını belirler.",
+    "documentation": "Yayıldıklarında ebeveynin hızının ne kadarının parçacıklar tarafından miras alınacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#VelocityInheritance",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.VelocitySpread": {
-    "documentation": "<strong>Deprecated:</strong> Bu özellik, tüm yeni çalışmalar için kullanılmalıdır: <code>ParticleEmitter.SpreadAngle</code><br>Bir parçanın yerel yayıcı yönünden ne kadar uzakta bir parçacığın ateşlenebileceğini belirler.",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik, tüm yeni çalışmalar için kullanılmalıdır <code>ParticleEmitter.SpreadAngle</code> ile değiştirilmiştir.<br>Bir parçacığın ebeveyninin yerel emitter yönünden ne kadar uzakta yayılacağını belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#VelocitySpread",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.WindAffectsDrag": {
-    "documentation": "Yayılan parçacıkların <code>Workspace.GlobalWind</code> vektörünü takip edip etmediğini belirler.",
+    "documentation": "Yayılan parçacıkların <code>Workspace.GlobalWind</code> vektörünü ne kadar takip ettiğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#WindAffectsDrag",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.ZOffset": {
-    "documentation": "Parçacıkların ileri-geri render pozisyonunu belirler. Üstteki/altındaki parçacıkları kontrol etmek için kullanılır.",
+    "documentation": "Parçacıkların ileri-geri render konumunu belirler; hangi parçacıkların üstte/alıda render edileceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#ZOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.Clear/param/0": {
-    "documentation": "Düzenlenebilir 2D parçacıkları dünyaya yayan özel bir nesne."
+    "documentation": "Dünyaya özelleştirilebilir 2D parçacıklar yayan özel bir nesne."
   },
   "@roblox/globaltype/ParticleEmitter.Clear": {
-    "documentation": "Yayılan tüm parçacıkları temizler.",
+    "documentation": "Yayılan tüm parçacıkları siler.",
     "params": [
       {
         "name": "self",
@@ -12867,13 +12879,13 @@
     "code_sample": "local emitter = script.Parent\nwhile true do\n\temitter:Clear()\n\temitter:Emit(10)\n\ttask.wait(2)\nend"
   },
   "@roblox/globaltype/ParticleEmitter.Emit/param/0": {
-    "documentation": "Düzenlenebilir 2D parçacıkları dünyaya yayan özel bir nesne."
+    "documentation": "Dünyaya özelleştirilebilir 2D parçacıklar yayan özel bir nesne."
   },
   "@roblox/globaltype/ParticleEmitter.Emit/param/1": {
-    "documentation": "Yayılacak parçacık sayısı."
+    "documentation": "Yayılan parçacıkların sayısı."
   },
   "@roblox/globaltype/ParticleEmitter.Emit": {
-    "documentation": "Verilen sayıda parçacık yayar.",
+    "documentation": "Belirtilen sayıda parçacık yayar.",
     "params": [
       {
         "name": "self",
@@ -25304,7 +25316,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir.",
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez.",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
@@ -25363,12 +25375,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirDensity": {
-    "documentation": "Aerodinamik kuvvet modelinde kullanılan, yer seviyesindeki hava yoğunluğu.",
+    "documentation": "Yer seviyesindeki hava yoğunluğu, aerodinamik güç modelinde kullanılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "Aerodinamik kuvvet modelini etkileyen rüzgar hızı alanındaki girdap gücünü kontrol eder.",
+    "documentation": "Rüzgar hız alanında mevcut türbülansın gücünü kontrol eder, aerodinamik güç modelini etkiler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
@@ -25388,7 +25400,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ClientAnimatorThrottling": {
-    "documentation": "Yerel istemci için animasyon kısıtlama modunu belirtir.",
+    "documentation": "Yerel istemci için animasyon throttling modunu belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ClientAnimatorThrottling",
     "code_sample": ""
   },
@@ -25398,7 +25410,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "Oyunun ne kadar süredir çalıştığını, saniye cinsinden belirtir.",
+    "documentation": "Oyun süresinin, saniye cinsinden geçen zamanını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
@@ -25408,7 +25420,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallenPartsDestroyHeight": {
-    "documentation": "Düşen <code>BaseParts</code> ve onların üst nesnesi olan <code>Models</code>'in <code>Workspace</code>'ten kaldırılacağı yüksekliğini belirler.",
+    "documentation": "Düşen <code>BaseParts</code> ve onların atası <code>Models</code>in <code>Workspace</code>den ne yükseklikte kaldırılacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallenPartsDestroyHeight",
     "code_sample": ""
   },
@@ -25418,22 +25430,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "<code>BaseParts</code> olarak adlandırılanlerin <code>EnableFluidForces</code> özelliği doğru olduğunda, aerodinamik kuvvetlerin hesaplanıp hesaplanmayacağını belirler.",
+    "documentation": "Fizik motorunun <code>BaseParts</code> üzerindeki aerodinamik güçleri hesaplayıp hesaplamayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GlobalWind": {
-    "documentation": "Animasyonlu arazi çimleri, dinamik bulutlar ve parçacıklar için küresel rüzgar vektörünü belirtir.",
+    "documentation": "Animasyondaki zemin, dinamik bulutlar ve parçacıklar için küresel rüzgar vektörünü belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#GlobalWind",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Gravity": {
-    "documentation": "Düşen <code>BaseParts</code> için uygulanan yer çekimi ivmesini belirler.",
+    "documentation": "Düşen <code>BaseParts</code> üzerinde uygulanan yerçekimi nedeniyle hızlanmayı belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Gravity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "IKControls için kısıtlamalara destek sağlanmasını sağlar. Devre dışı bırakılırsa, IKControls fiziksel kısıtlamaları yok sayar.",
+    "documentation": "İK Kontrolleri için kısıtlamaların desteğini etkinleştirir. Devre dışı bırakıldığında, İK Kontrolleri fizik kısıtlamalarını yok sayar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -25453,7 +25465,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "Karakter Başlarının ve Aksesuarların MeshParts olarak indirilip indirilmeyeceğini ayarlar.",
+    "documentation": "Karakter Başları ve Aksesuarlarının MeshPart olarak indirilip indirilmeyeceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -25463,7 +25475,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "Herhangi bir taşımacı kısıtlamaları kullanıldığında montaj ana parçasını seçme mantığını kontrol eder.",
+    "documentation": "Herhangi bir taşıyıcı kısıtlayıcı kullanıldığında montaj kök parçasını seçmek için kullanılan mantığı kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
@@ -25478,7 +25490,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "Çözücünün fizik simülasyonunu zaman içinde ileriye nasıl başlatacağını ayarlar.",
+    "documentation": "Çözücünün fizik simülasyonunu zamana göre nasıl ilerleteceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -25518,37 +25530,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.SignalBehavior": {
-    "documentation": "Motorun olay işleyicilerini ne zaman yeniden başlatacağını yapılandırır.",
+    "documentation": "Motorun olayı resume etme zamanını yapılandırır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#SignalBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "Motorun, içerikleri oyunculardan nasıl akıtlacağını belirler.",
+    "documentation": "Motorun oyunun içeriklerini oyunculardan ne zaman akıtacağını nasıl belirlediğini yapılandırır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "Yer için içerik akışının etkin olup olmadığını belirtir.",
+    "documentation": "Yer için içerik yayınlamanın etkin olup olmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingIntegrityMode": {
-    "documentation": "StreamingIntegrityMode'un aktif olup olmadığını belirler.",
+    "documentation": "StreamingIntegrityMode'un etkin olup olmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingIntegrityMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "Yüksek öncelikle oyunculara içerik akışının gerçekleştirileceği minimum mesafeyi ayarlar.",
+    "documentation": "Yüksek öncelikle oyunculara akıtılacak içerik için minimum mesafeyi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingTargetRadius": {
-    "documentation": "Oyunculara içerik akışının gerçekleştirileceği maksimum mesafeyi ayarlar.",
+    "documentation": "İçeriğin oyunculara akıtılacak maksimum mesafesini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingTargetRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "<code>Workspace</code>'e ebeveynlenen <code>Terrain</code> nesnesine bir referanstır.",
+    "documentation": "<code>Workspace</code>'e ebeveyn olan <code>Terrain</code> nesnesine bir referanstır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
@@ -25558,7 +25570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "Farklı gruplarda çarpışmayı engellemek üzere ayarlandığında, <code>parts</code> çarpışmaları ve dokunma olaylarını yok sayıp yok saymayacağını belirler.",
+    "documentation": "<code>parts</code>'in farklı gruplarında çarpışmanın yok sayılıp yok sayılmayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
     "code_sample": ""
   },
@@ -25573,13 +25585,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "Eklemlerin kırılacağı <code>BaseParts</code> dizisi."
+    "documentation": "Bağlantıların kırılacağı <code>BaseParts</code>'ın bir array'i."
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code> üzerinden geçer ve bu parçalara bağlı tüm eklemleri kırar.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code>'ı geçer, bunlara bağlı tüm bağlantıları kırar.",
     "params": [
       {
         "name": "self",
@@ -25595,13 +25607,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
     "documentation": "Uyanık parça sayısı."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "Son zamanlarda fizik etkisi altında olduğunu değerlendirilen <code>BaseParts</code> sayısını döndürür.",
+    "documentation": "<code>BaseParts</code>'in fiziksel olarak aktif olduğu ve fizik etkisi altında olan kısım sayısını döndürür.",
     "params": [
       {
         "name": "self",
@@ -25615,13 +25627,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "Fizik simülasyonunun şu anda ne kadar gerçek zamanlı olarak kısıtlandığını temsil eder."
+    "documentation": "Fizik simülasyonunun şu anda hangi yüzde kısıtlandığını gösterir."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "Fizik simülasyonunun şu anda ne kadar gerçek zamanlı olarak kısıtlandığını temsil eden 0 ile 100 arasında bir tam sayı döndürür.",
+    "documentation": "Fizik simülasyonunun şu anda ne yüzde 0 ile 100 arasında kısıtlandığını gösteren bir tam sayı döndürür.",
     "params": [
       {
         "name": "self",
@@ -25635,13 +25647,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "Fizik simülasyonunun şu anda kaç kare/saniye hızında simüle edildiğini döndürür."
+    "documentation": "Fizik şuan kaç karede simüle ediliyor?"
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "Fizik simülasyonunun şu anda kaç kare/saniye hızında simüle edildiğini döndürür.",
+    "documentation": "Fizik şuan kaç karede simüle ediliyorsa bilgisini döndürür.",
     "params": [
       {
         "name": "self",
@@ -25655,10 +25667,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\t-- Eğer workspace:GetRealPhysicsFPS() 65'ten büyükse\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\tplayer:Kick() -- Oyuncuyu at\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
-    "documentation": "Sunucudaki tahmin edilen Unix zaman damgası."
+    "documentation": "Sunucuda tahmin edilen Unix zaman damgası."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
     "documentation": "Sunucunun Unix zamanını saniye cinsinden döndürür.",
@@ -25675,16 +25687,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "Eklemlerin yaratılacağı <code>BaseParts</code> dizisi."
+    "documentation": "Bağlantıların oluşturulacağı <code>BaseParts</code>'ın bir dizi."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "<code>JointCreationMode</code> kullanılacak. <code>Enum.JointCreationMode.All</code> veya <code>Enum.JointCreationMode.Surface</code> geçirmenin etkisi her zaman kaynaşma ile aynı davranışı sergiler."
+    "documentation": "Kullanılacak <code>JointCreationMode</code>. <code>Enum.JointCreationMode.All</code> veya <code>Enum.JointCreationMode.Surface</code> geçirildiğinde benzer davranış sergiler."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "Belirtilen <code>Parts</code> ile bu parçalara dokunan parçalara eklemler oluşturur ve belirtilen eklem oluşturma moduna bağlıdır.",
+    "documentation": "Belirtilen <code>Parts</code> ve herhangi bir temas halindeki parçalar arasında bağlantılar oluşturur; parçaların yüzeylerine ve belirtilen bağlantı oluşturma moduna bağlıdır.",
     "params": [
       {
         "name": "self",
@@ -25704,13 +25716,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "Eklemlerin yaratılacağı <code>parts</code> dizisi."
+    "documentation": "Bağlantıların oluşturulacağı <code>parts</code>'ın bir dizi."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code> üzerinden geçer. Herhangi bir parçanın yüzeyinde eklem yaratımına izin veren bir <code>SurfaceType</code> varsa, dokunan parçalarla eklem oluşturur.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code>'ı geçer. Eğer herhangi bir parçanın yüzeyinde, <code>SurfaceType</code> ile bir bağlantı yapabilecek bir özellik varsa, yanındaki parçalarla bağlantı oluşturur.",
     "params": [
       {
         "name": "self",
@@ -25726,13 +25738,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "PGS çözücüsü etkinse doğru, değilse yanlış döndürür."
+    "documentation": "PGS çözücüsü etkinse doğrudur."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "Oyun PGS Fizik çözücüsünün etkin olup olmadığını döndürür.",
+    "documentation": "<code>Workspace</code> üzerinde PGS Fizik çözücüsünün etkin olup olmadığını gösterir.",
     "params": [
       {
         "name": "self",
@@ -25746,13 +25758,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "Eklemlerin kırılacağı <code>BaseParts</code> dizisi."
+    "documentation": "Bağlantıların kırılacağı <code>BaseParts</code>'ın bir dizi."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "Belirtilen <code>BaseParts</code> ile diğer <code>BaseParts</code> arasında tüm eklemleri kırar.",
+    "documentation": "Belirtilen <code>BaseParts</code> ve diğer <code>BaseParts</code> arasındaki tüm bağlantıları kırar.",
     "params": [
       {
         "name": "self",
@@ -25768,10 +25780,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>Workspace</strong>, 3B nesneleri barındırır ve bunlar 3B dünyaya işlenir. Bu nesnelerden türemeyenler işlenmeyecek veya dünya ile fiziksel olarak etkileşime geçmeyecektir."
+    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "<code>Workspace.CurrentCamera</code>'yı, <code>BaseParts</code>'ın <code>Workspace</code> içindeki kapsamını göstermek için konumlandırır ve yakınlaştırır.",
+    "documentation": "<code>Workspace.CurrentCamera</code>'yı, <code>BaseParts</code>'ın görünümünü gösterecek şekilde pozisyonlar ve zoomlar.",
     "params": [
       {
         "name": "self",
@@ -31016,9 +31028,6 @@
   "@roblox/globaltype/ConfigSnapshot.GetValue/param/1": {
     "documentation": ""
   },
-  "@roblox/globaltype/ConfigSnapshot.GetValue/param/2": {
-    "documentation": ""
-  },
   "@roblox/globaltype/ConfigSnapshot.GetValue/return/0": {
     "documentation": ""
   },
@@ -31032,10 +31041,6 @@
       {
         "name": "key",
         "documentation": "@roblox/globaltype/ConfigSnapshot.GetValue/param/1"
-      },
-      {
-        "name": "defaultValue",
-        "documentation": "@roblox/globaltype/ConfigSnapshot.GetValue/param/2"
       }
     ],
     "returns": [
@@ -32787,7 +32792,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CollisionEnabled": {
-    "documentation": "Kullanıcının Modelle sekmesi altında Stüdyo'da <code>Çarpışmalar</code>ı etkinleştirip etkinleştirmediğini döndürür.",
+    "documentation": "Kullanıcının Stüdyo'da Model sekmesinde <code>Çarpışmalar</code> seçeneğini etkinleştirip etkinleştirmediğini döndürür.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CollisionEnabled",
     "code_sample": ""
   },
@@ -32797,7 +32802,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plugin.GridSize": {
-    "documentation": "Kullanıcının Stüdyo'da ayarladığı ızgara yapıştırma boyutunu döndürür.",
+    "documentation": "Kullanıcının Stüdyo'da ayarladığı ızgara yakalama boyutunu döndürür.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#GridSize",
     "code_sample": ""
   },
@@ -32810,10 +32815,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Activate/param/1": {
-    "documentation": "Eklentiyi özel fare ile etkinleştirip etkinleştirmeyeceklerini belirten bir boolean. Eğer doğruysa, <code>PluginMouse</code> <code>Plugin:GetMouse()</code> aracılığıyla alınabilir."
+    "documentation": "Eklentiyi yalnızca fare ile etkinleştirip etkinleştirmeyeceğini belirten bir boolean. Eğer true ise, <code>PluginMouse</code> <code>Plugin:GetMouse()</code> aracılığıyla alınabilir."
   },
   "@roblox/globaltype/Plugin.Activate": {
-    "documentation": "Çağrılan eklentinin durumunu etkinleştirilmiş olarak ayarlar.",
+    "documentation": "Çağıran eklentinin durumunu etkinleşmiş olarak ayarlar.",
     "params": [
       {
         "name": "self",
@@ -32832,10 +32837,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/1": {
-    "documentation": "Widget'ın iskele durumunu ve diğer dahili ayrıntıları saklamak için kullanılan benzersiz ve tutarlı bir tanımlayıcı."
+    "documentation": "Widget'ın kaydırma durumunu ve diğer iç ayrıntılarını depolamak için kullanılan benzersiz ve tutarlı bir tanımlayıcı."
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/2": {
-    "documentation": "Oluşturulacak <code>DockWidgetPluginGui</code>'yı tanımlayan (ilk durum, boyut vb.)."
+    "documentation": "Oluşturulacak <code>DockWidgetPluginGui</code>'yi tanımlar (ilk durum, boyut vb.)."
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/return/0": {
     "documentation": ""
@@ -32866,7 +32871,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/1": {
-    "documentation": "Bu PluginAction'ı diğerlerinden ayırt eden benzersiz bir dize olmalıdır."
+    "documentation": "Diğer PluginAction'lardan ayırt etmek için benzersiz bir dizi olmalıdır."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/2": {
     "documentation": "Eylemin görüntülenen adı."
@@ -32875,16 +32880,16 @@
     "documentation": "Eylemin görüntülenen açıklaması."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/4": {
-    "documentation": "Eklentiyi görüntülemek için kullanılan ikonun adı."
+    "documentation": "Eklentiyi görüntülemek için kullanılan simgenin adı."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/5": {
-    "documentation": "Eklenti <code>PluginAction</code>'ının Stüdyo'nun kısayol görünümünden gizlenip gizlenmeyeceği. Bağlamsal eylemler için kullanışlıdır. Varsayılan olarak doğrudur."
+    "documentation": "Eklenti eyleminin Stüdyo kısayol görünümünden gizlenip gizlenmeyeceği. Bağlamsal eylemler için faydalıdır. Varsayılan olarak true'dur."
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "Roblox Stüdyo'sunda, doğrudan ilişkili bir <code>Toolbar</code> veya <code>Button</code> olmadan, genel olarak yapılabilir bir eylemi temsil eden bir <code>PluginAction</code> oluşturur.",
+    "documentation": "Roblox Studio'da doğrudan ilişkili bir <code>Toolbar</code> veya <code>Button</code> olmadan genel bir gerçekleştirilebilir eylemi temsil eden bir <code>PluginAction</code> oluşturur.",
     "params": [
       {
         "name": "self",
@@ -32921,13 +32926,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/1": {
-    "documentation": "Menü için benzersiz bir kimlik."
+    "documentation": "Menü için benzersiz kimlik."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/2": {
-    "documentation": "Bir alt menü olarak kullanıldığında görüntülenecek metin."
+    "documentation": "Alt menü olarak kullanıldığında görüntülenecek metin."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/3": {
-    "documentation": "Bir alt menü olarak kullanıldığında görüntülenecek ikon."
+    "documentation": "Alt menü olarak kullanıldığında görüntülenecek simge."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/return/0": {
     "documentation": ""
@@ -32962,13 +32967,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateToolbar/param/1": {
-    "documentation": "Araç çubuğundaki butonların grubunu etiketleyen, görünür metin."
+    "documentation": "Araç çubuğundaki buton grubunu etiketleyen görünür metin."
   },
   "@roblox/globaltype/Plugin.CreateToolbar/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateToolbar": {
-    "documentation": "Verilen ad ile yeni bir <code>PluginToolbar</code> oluşturur.",
+    "documentation": "Belirtilen isimle yeni bir <code>PluginToolbar</code> oluşturur.",
     "params": [
       {
         "name": "self",
@@ -33007,7 +33012,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetJoinMode": {
-    "documentation": "Kullanıcının Stüdyo'da Model sekmesi altında ayarladığı <code>JointCreationMode</code>'u döndürür.",
+    "documentation": "Kullanıcının Stüdyo'da Model sekmesinde ayarladığı <code>JointCreationMode</code>'yi döndürür.",
     "params": [
       {
         "name": "self",
@@ -33047,7 +33052,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetSelectedRibbonTool": {
-    "documentation": "Şu anda seçilen <code>RibbonTool</code>'u döndürür.",
+    "documentation": "Şu anda seçili olan <code>RibbonTool</code>'u döndürür.",
     "params": [
       {
         "name": "self",
@@ -33070,7 +33075,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetSetting": {
-    "documentation": "Verilen anahtar ile daha önce saklanan bir değeri alır veya verilen anahtar mevcut değilse <code>nil</code> döndürür.",
+    "documentation": "Verilen anahtarla daha önce depolanmış bir değeri alır veya verilen anahtar mevcut değilse <code>nil</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -33094,7 +33099,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetStudioUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>Kullanıcı oturum açmışsa Stüdyo kullanıcısının userId'sini döndürür, aksi halde 0 döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Kullanıcı Stüdyo'ya giriş yaptıysa kullanıcıId'sini döndürür, aksi takdirde 0 döndürür.",
     "params": [
       {
         "name": "self",
@@ -33120,7 +33125,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "Kullanıcıdan <code>rigModel</code> üzerinde yüklenebilecek bir .fbx animasyon dosyası açması istenir, daha sonra animasyon <code>KeyframeSequence</code> olarak <code>Workspace</code>'e eklenir.",
+    "documentation": ".fbx animasyon dosyasını açması için kullanıcıyı yönlendirir, bu dosya <code>rigModel</code>'e yüklenebilir, ardından animasyonu bir <code>KeyframeSequence</code> olarak <code>Workspace</code>'e ekler.",
     "params": [
       {
         "name": "self",
@@ -33151,7 +33156,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "Kullanıcıdan bir .fbx dosyası açmasını ister, modelin bireysel bileşenlerini mesh olarak yükler ve animasyon için kullanılacak bir karakter rig'i oluşturur, bu <code>Workspace</code>'e yüklenir.",
+    "documentation": "Kullanıcıyı bir .fbx dosyası açması için yönlendirir, modelin bireysel bileşenlerini mesh olarak yükler ve animasyona yönelik bir karakter rig'i oluşturur, bu da <code>Workspace</code>'e yüklenir.",
     "params": [
       {
         "name": "self",
@@ -33202,7 +33207,7 @@
     "documentation": "Eklentinin şu anda aktif olup olmadığını belirten bir boolean."
   },
   "@roblox/globaltype/Plugin.IsActivated": {
-    "documentation": "Bu eklentinin, <code>Plugin:Activate()</code> işlevi aracılığıyla etkinleştirildikten sonra şu anda aktif olduğunu döndürür.",
+    "documentation": "Bu eklentinin şu anda aktif olduğunu döndürür, <code>Plugin:Activate()</code> fonksiyonu aracılığıyla etkinleştirildikten sonra.",
     "params": [
       {
         "name": "self",
@@ -33219,10 +33224,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse/return/0": {
-    "documentation": "Bu eklentinin şu anda özel bir fare ile aktif olup olmadığını bildirir."
+    "documentation": "Bu eklentinin şu anda yalnızca fare ile aktif olup olmadığını belirtir."
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse": {
-    "documentation": "Bu eklentinin şu anda özel bir fare ile aktif olup olmadığını döndürür; <code>Plugin:Activate()</code> işlevi aracılığıyla etkinleştirildikten sonra.",
+    "documentation": "Bu eklentinin şu anda sadece fare ile aktif olduğunu döndürür, <code>Plugin:Activate()</code> fonksiyonu aracılığıyla etkinleştirildikten sonra.",
     "params": [
       {
         "name": "self",
@@ -33245,7 +33250,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "Verilen parçaları olumsuzlaştırır ve sonuç olarak NegateOperations'ı döndürür.",
+    "documentation": "Verilen parçaları negatife çevirir ve sonuçlanan NegateOperations'u döndürür.",
     "params": [
       {
         "name": "self",
@@ -33272,7 +33277,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.OpenScript": {
-    "documentation": "Verilen script örneğini bir editör penceresinde, Roblox stüdyosunda, verilen satırda açar. Eğer hiçbir satır bir argüman olarak verilmezse 1'e varsayılan olarak ayarlanır.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen script örneğini bir editör penceresinde açmak için kullanılır, Roblox stüdyosunda, verilen satırda. Eğer bir satır argümanı verilmezse varsayılan olarak 1'e ayarlanır.",
     "params": [
       {
         "name": "self",
@@ -33298,7 +33303,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.OpenWikiPage": {
-    "documentation": "<code>url</code>'in bağlantı verdiği wiki sayfasına bağlam yardım penceresini açar.",
+    "documentation": "<code>url</code> bağlantısının yönlendirdiği wiki sayfasına yönelik bağlam yardım penceresini açar.",
     "params": [
       {
         "name": "self",
@@ -33323,7 +33328,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "Kullanıcıdan belirtilen <code>assetType</code>'a bağlı olarak bir varlık seçmesi için bir pencere açar. Hangi assetId'nin seçildiğini döndürür, veya pencere kapatıldıysa -1 döndürür.",
+    "documentation": "Kullanıcıdan belirtilen <code>assetType</code>'a dayalı bir varlık seçmesini isteyen bir pencere açar. Hangi assetId'nin seçildiğini döndürür veya pencere kapatıldıysa -1 döndürür.",
     "params": [
       {
         "name": "self",
@@ -33350,7 +33355,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "Kullanıcıya belirtilen dosya adıyla mevcut seçimini kaydetmesini ister. Kullanıcı dosyayı kaydederse true döner.",
+    "documentation": "Kullanıcıdan geçerli seçimini belirtilen dosya adıyla kaydetmesi istenir. Kullanıcı dosyayı kaydettikten sonra true döndürür.",
     "params": [
       {
         "name": "self",
@@ -33371,7 +33376,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.SaveSelectedToRoblox": {
-    "documentation": "Kullanıcının mevcut seçimi için bir yükleme penceresi açar.",
+    "documentation": "Kullanıcının geçerli seçimi için bir yükleme penceresi açar.",
     "params": [
       {
         "name": "self",
@@ -33392,7 +33397,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.SelectRibbonTool": {
-    "documentation": "Belirtilen Roblox Stüdyo aracını etkinleştirir.",
+    "documentation": "Belirtilen Roblox Studio aracını etkinleştirir.",
     "params": [
       {
         "name": "self",
@@ -33421,7 +33426,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "Verilen UnionOperations'ı ayırır ve sonuç olarak parçaları döndürür.",
+    "documentation": "Verilen UnionOperations'u ayırır ve sonuçlanan parçaları döndürür.",
     "params": [
       {
         "name": "self",
@@ -33448,7 +33453,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.SetSetting": {
-    "documentation": "Verilen anahtar altında daha sonra kullanılmak üzere bir değer saklar. Değer, Stüdyo kapatıldığında bile kalıcıdır.",
+    "documentation": "Verilen değeri belirtilen anahtar altında daha sonra kullanmak için saklar. Değer, Stüdyo kapandığında bile devam edecektir.",
     "params": [
       {
         "name": "self",
@@ -33474,7 +33479,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.StartDrag": {
-    "documentation": "Parametrelerin bir sözlüğü ile bir sürükleme eylemi başlatır.",
+    "documentation": "Bir parametreler sözlüğü ile verilen sürükle işlemine başlar.",
     "params": [
       {
         "name": "self",
@@ -33499,7 +33504,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Union": {
-    "documentation": "Verilen parçaları birleştirir ve sonuç olarak UnionOperation'ı döndürür.",
+    "documentation": "Verilen parçaları birleştirir ve sonucu UnionOperation olarak döndürür.",
     "params": [
       {
         "name": "self",
@@ -34827,7 +34832,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting": {
-    "documentation": "<code>Lighting</code> servisi bir deneyimde global aydınlatmayı kontrol eder. Aydınlatmanın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz bir dizi ayarlanabilir özellik içerir.",
+    "documentation": "<code>Lighting</code> servisi, bir deneyimde küresel ışığı kontrol eder. Işığın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz çeşitli ayarlanabilir özellikler içerir.",
     "keys": {
       "Ambient": "@roblox/globaltype/Lighting.Ambient",
       "Brightness": "@roblox/globaltype/Lighting.Brightness",
@@ -34863,7 +34868,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Ambient": {
-    "documentation": "Gökyüzünden kapalı alanlara uygulanan aydınlatma tonu, örneğin iç mekanlar gibi.",
+    "documentation": "Gökyüzünden gizlenen alanlara uygulanan aydınlatma tonu, örneğin iç mekanlara.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Ambient",
     "code_sample": ""
   },
@@ -34873,32 +34878,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ClockTime": {
-    "documentation": "<code>Lighting</code> tarafından kullanılan mevcut gün saati için sayısal bir temsil (saat cinsinden).",
+    "documentation": "<code>Lighting</code> tarafından kullanılan günün mevcut saatinin sayısal temsili (saat cinsinden).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ClockTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Bottom": {
-    "documentation": "Güneş veya ayın karşısındaki yüzeylerden yansıyan ışıktaki ton.",
+    "documentation": "Güneş veya ayın yüzüne bakan yüzeylerin aksine yansıyan ışıkta temsil edilen ton.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Bottom",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ColorShift_Top": {
-    "documentation": "Güneş veya ayın karşısındaki yüzeylerden yansıyan ışıktaki ton.",
+    "documentation": "Güneş veya ayın yüzüne bakan yüzeylerden yansıyan ışıkta temsil edilen ton.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ColorShift_Top",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentDiffuseScale": {
-    "documentation": "Ortamdan türetilen genel aydınlatma.",
+    "documentation": "OrTamdan türetilen çevresel aydınlatma.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentDiffuseScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.EnvironmentSpecularScale": {
-    "documentation": "Ortamdan türetilen speküler ışık.",
+    "documentation": "OrTamdan türetilen speküler ışık.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#EnvironmentSpecularScale",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ExposureCompensation": {
-    "documentation": "Pozlama telafisi değeridir.",
+    "documentation": "Pozlama telafisi değeri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ExposureCompensation",
     "code_sample": ""
   },
@@ -34913,70 +34918,70 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogEnd": {
-    "documentation": "Sislerin tamamen opak olacağı derinlik, <code>Workspace.CurrentCamera</code> itibariyle, stud cinsindendir.",
+    "documentation": "Sisinin tamamen opak hale geldiği <code>Workspace.CurrentCamera</code>'dan, stud cinsinden derinlik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogEnd",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.FogStart": {
-    "documentation": "Sislerin görünmeye başlayacağı derinlik, <code>Workspace.CurrentCamera</code> itibariyle, stud cinsindendir.",
+    "documentation": "Sisin görünmeye başladığı, <code>Workspace.CurrentCamera</code>'dan, stud cinsinden derinlik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#FogStart",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GeographicLatitude": {
-    "documentation": "Sahnenin coğrafi enlemi, derece cinsinden, güneş ve ayın konumu üzerindeki <code>Lighting</code> zamanının etkisini etkiler.",
+    "documentation": "Manzaranın coğrafi enlemi, derece cinsinden, <code>Lighting</code> zamanının güneş ve ayın konumunu etkilemesi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GeographicLatitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GlobalShadows": {
-    "documentation": "Mekandaki voxeller tabanlı dinamik aydınlatmayı açar veya kapatır.",
+    "documentation": "Mekanda voxel tabanlı dinamik ışığı açar veya kapatır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#GlobalShadows",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.LightingStyle": {
-    "documentation": "Deneyimdeki aydınlatmanın sanatsal amacını belirler.",
+    "documentation": "Deneyimdeki aydınlatmanın sanatsal niyeti.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#LightingStyle",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.OutdoorAmbient": {
-    "documentation": "Açık alanlara uygulanan aydınlatma tonu.",
+    "documentation": "Dış alanlara uygulanan aydınlatma tonu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#OutdoorAmbient",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Outlines": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe desteklenmiyor çünkü kenarlıklar özelliği Roblox platformundan kaldırıldı.<br>Mekanda kenarlıkların etkinleştirilip etkinleştirilmediğini belirler.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe artık desteklenmiyor, çünkü çizgi özelliği Roblox platformundan kaldırıldı.<br>Bir mekanda çizgilerin etkin olup olmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Outlines",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "Işık/gölgeleme kalitesinin veya görünüm mesafesinin önce ölçeklenip ölçeklenmeyeceğini belirtir.",
+    "documentation": "Işık/ton kaliteyi mi yoksa görüş mesafesini mi önce azaltmak istediğinizi belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowColor": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe geçersiz kılınmıştır ve şu anda hiçbir işlevselliği yoktur. Yeni çalışmalar için kullanmayın.<br>Bu, oyuncu gölgelerinin rengini değiştirmek için düşünülmüştü, fakat şu anda hiçbir işlevi yok.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe geçersiz kılındı ve güncel bir işlevselliği yok. Yeni çalışmalarda kullanmayın.<br>Bu, oyuncu gölgelerinin rengini değiştirmek içindi, ancak şu anda hiç etkisi yok.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.ShadowSoftness": {
-    "documentation": "Gölge bulanıklığını kontrol eder.",
+    "documentation": "Gölge ne kadar bulanık olacak kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#ShadowSoftness",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.Technology": {
-    "documentation": "3D dünyayı render etmek için aydınlatma sistemini belirler. Script edilemez.",
+    "documentation": "3D dünyayı render etmek için aydınlatma sistemini belirler. Betik ile değiştirilemez.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#Technology",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.TimeOfDay": {
-    "documentation": "<code>Lighting</code> tarafından kullanılan mevcut gün saati için 24 saatlik string temsili.",
+    "documentation": "Gün içinde <code>Lighting</code> tarafından kullanılan mevcut zamanın 24 saatlik dize temsili.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#TimeOfDay",
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> servisi bir deneyimde global aydınlatmayı kontrol eder. Aydınlatmanın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz bir dizi ayarlanabilir özellik içerir."
+    "documentation": "<code>Lighting</code> servisi, bir deneyimde küresel ışığı kontrol eder. Işığın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz çeşitli ayarlanabilir özellikler içerir."
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight/return/0": {
-    "documentation": "Gece yarısından sonra geçen dakika sayısı."
+    "documentation": "Gece yarısından sonraki dakikaların sayısı."
   },
   "@roblox/globaltype/Lighting.GetMinutesAfterMidnight": {
     "documentation": "Aydınlatma amaçları için gece yarısından sonra geçen dakikaların sayısını döndürür.",
@@ -34993,13 +34998,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/param/0": {
-    "documentation": "<code>Lighting</code> servisi bir deneyimde global aydınlatmayı kontrol eder. Aydınlatmanın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz bir dizi ayarlanabilir özellik içerir."
+    "documentation": "<code>Lighting</code> servisi, bir deneyimde küresel ışığı kontrol eder. Işığın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz çeşitli ayarlanabilir özellikler içerir."
   },
   "@roblox/globaltype/Lighting.GetMoonDirection/return/0": {
     "documentation": "Ayın yönünü temsil eden <code>Vector3</code>."
   },
   "@roblox/globaltype/Lighting.GetMoonDirection": {
-    "documentation": "Ayın yönünü temsil eden bir <code>Vector3</code> döndürür.",
+    "documentation": "Ayın yönünü temsil eden <code>Vector3</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -35013,7 +35018,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/param/0": {
-    "documentation": "<code>Lighting</code> servisi bir deneyimde global aydınlatmayı kontrol eder. Aydınlatmanın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz bir dizi ayarlanabilir özellik içerir."
+    "documentation": "<code>Lighting</code> servisi, bir deneyimde küresel ışığı kontrol eder. Işığın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz çeşitli ayarlanabilir özellikler içerir."
   },
   "@roblox/globaltype/Lighting.GetMoonPhase/return/0": {
     "documentation": ""
@@ -35033,13 +35038,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.GetSunDirection/param/0": {
-    "documentation": "<code>Lighting</code> servisi bir deneyimde global aydınlatmayı kontrol eder. Aydınlatmanın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz bir dizi ayarlanabilir özellik içerir."
+    "documentation": "<code>Lighting</code> servisi, bir deneyimde küresel ışığı kontrol eder. Işığın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz çeşitli ayarlanabilir özellikler içerir."
   },
   "@roblox/globaltype/Lighting.GetSunDirection/return/0": {
     "documentation": "Güneşin yönünü temsil eden <code>Vector3</code>."
   },
   "@roblox/globaltype/Lighting.GetSunDirection": {
-    "documentation": "Güneşin yönünü temsil eden bir <code>Vector3</code> döndürür.",
+    "documentation": "Güneşin yönünü temsil eden <code>Vector3</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -35053,13 +35058,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> servisi bir deneyimde global aydınlatmayı kontrol eder. Aydınlatmanın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz bir dizi ayarlanabilir özellik içerir."
+    "documentation": "<code>Lighting</code> servisi, bir deneyimde küresel ışığı kontrol eder. Işığın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz çeşitli ayarlanabilir özellikler içerir."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight/param/1": {
-    "documentation": "Gece yarısından sonra geçen dakika sayısı."
+    "documentation": "Gece yarısından sonraki dakikaların sayısı."
   },
   "@roblox/globaltype/Lighting.SetMinutesAfterMidnight": {
-    "documentation": "<code>TimeOfDay</code> ve <code>ClockTime</code>'ı verilen gece yarısından sonra geçen dakika sayısına ayarlar.",
+    "documentation": "<code>TimeOfDay</code> ve <code>ClockTime</code>'ı verilen gece yarısından sonraki dakika sayısına ayarlar.",
     "params": [
       {
         "name": "self",
@@ -35075,13 +35080,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> servisi bir deneyimde global aydınlatmayı kontrol eder. Aydınlatmanın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz bir dizi ayarlanabilir özellik içerir."
+    "documentation": "<code>Lighting</code> servisi, bir deneyimde küresel ışığı kontrol eder. Işığın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz çeşitli ayarlanabilir özellikler içerir."
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.getMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, yerine kullanılacak <code>Lighting:GetMinutesAfterMidnight()</code>'in geçersiz bir varyantıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>Lighting:GetMinutesAfterMidnight()</code>'in geçersiz bir varyantıdır ve bunun yerine kullanılmalıdır.",
     "params": [
       {
         "name": "self",
@@ -35095,13 +35100,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/0": {
-    "documentation": "<code>Lighting</code> servisi bir deneyimde global aydınlatmayı kontrol eder. Aydınlatmanın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz bir dizi ayarlanabilir özellik içerir."
+    "documentation": "<code>Lighting</code> servisi, bir deneyimde küresel ışığı kontrol eder. Işığın görünümünü ve diğer nesnelerle etkileşimini değiştirmek için kullanabileceğiniz çeşitli ayarlanabilir özellikler içerir."
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, yerine kullanılacak <code>Lighting:SetMinutesAfterMidnight()</code>'in geçersiz bir varyantıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>Lighting:SetMinutesAfterMidnight()</code>'in geçersiz bir varyantıdır ve bunun yerine kullanılmalıdır.",
     "params": [
       {
         "name": "self",
@@ -35194,7 +35199,7 @@
     "returns": []
   },
   "@roblox/globaltype/Lighting.LightingChanged": {
-    "documentation": "<code>Lighting</code> özelliği değiştiğinde veya <code>Sky</code> <code>Lighting</code>'e eklendiğinde veya kaldırıldığında bu olay tetiklenir.",
+    "documentation": "<code>Lighting</code> özelliği değiştirildiğinde veya <code>Sky</code> eklendiğinde veya çıkarıldığında tetiklenen olaydır.",
     "keys": {
       "Connect": "@roblox/globaltype/Lighting.LightingChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Lighting.LightingChanged.ConnectParallel",
@@ -40996,7 +41001,7 @@
       "@roblox/globaltype/HttpService.JSONEncode/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#JSONEncode",
-    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- Unutmayın: bu satırlar eşdeğerdir\n\t--[\"message\"] = \"başarı\",\n\tmessage = \"başarı\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal tab = {\n\t-- Unutmayın: bu satırlar eşdeğerdir\n\t--[\"message\"] = \"başarılı\",\n\tmessage = \"başarılı\",\n\n\tinfo = {\n\t\tpoints = 123,\n\t\tisLeader = true,\n\t\tuser = {\n\t\t\tid = 12345,\n\t\t\tname = \"JohnDoe\",\n\t\t},\n\t\tpast_scores = { 50, 42, 95 },\n\t\tbest_friend = nil,\n\t},\n}\n\nlocal json = HttpService:JSONEncode(tab)\nprint(json)"
   },
   "@roblox/globaltype/HttpService.PostAsync/param/0": {
     "documentation": "HTTP isteklerinin gönderilmesine izin verir ve çeşitli web ile ilgili ve JSON yöntemleri sağlar."
@@ -44152,7 +44157,7 @@
   "@roblox/globaltype/Player.PartyId": {
     "documentation": "Bir <code>Player</code>'ın ait olduğu partinin benzersiz tanımlayıcısıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Oyuncu, ID'si ile bir partide: \" .. partyId)\n\telse\n\t\twarn(\"Oyuncu bir partide değil\")\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Oyuncu, ID'si ile bir partide: \" .. partyId)\n\telse\n\t\tprint(\"Oyuncu bir partide değil\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"Oyuncu, ID'si ile partiye katıldı: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"Oyuncu partiden ayrıldı\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
     "documentation": "Replication etrafında odaklanacak parçayı ayarlar.",
@@ -81464,7 +81469,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator": {
-    "documentation": "Metin üretimi için büyük bir dil modeline erişim sağlar.",
+    "documentation": "Metin oluşturma için büyük bir dil modeline erişim sağlar.",
     "keys": {
       "Seed": "@roblox/globaltype/TextGenerator.Seed",
       "SystemPrompt": "@roblox/globaltype/TextGenerator.SystemPrompt",
@@ -81476,36 +81481,36 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.Seed": {
-    "documentation": "Rastgele sayı üreticisi için sabit bir tohum belirler, böylece aynı girdi parametrelerinin kullanıldığı durumlarda tekrar edilebilir yanıtlar sağlar.",
+    "documentation": "Rastgele sayı üreteci için sabit bir tohum ayarlar, böylece aynı giriş parametreleri birden fazla istekte kullanıldığında tekrarlanabilir yanıtlara olanak tanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Seed",
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.SystemPrompt": {
-    "documentation": "Model hakkında konuşma sırasında rolü, tonu veya davranışıyla ilgili bağlam sağlar.",
+    "documentation": "Modelin rolü, tonu veya sohbet sırasında davranışı hakkında bağlam sağlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#SystemPrompt",
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.Temperature": {
-    "documentation": "Modelin yanıtlarının \"yaratıcılık\" veya rastgeleliğini kontrol eder.",
+    "documentation": "Modelin yanıtlarının \"yaratıcılığını\" veya rastgeleliğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#Temperature",
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.TopP": {
-    "documentation": "AI modelinin bir sonraki token'i oluştururken örnek almak için mümkün olan kelime aralığını daraltmasına veya genişletmesine yardımcı olur.",
+    "documentation": "AI modelinin bir sonraki token'ı oluştururken örnek alabileceği mümkün kelime yelpazesini daraltır veya genişletir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextGenerator#TopP",
     "code_sample": ""
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/0": {
-    "documentation": "Metin üretimi için büyük bir dil modeline erişim sağlar."
+    "documentation": "Metin oluşturma için büyük bir dil modeline erişim sağlar."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/param/1": {
-    "documentation": "Metin üretim isteği için isteğe bağlı parametreleri içeren bir sözlük. Desteklenen parametreler <code>UserPrompt</code>, <code>ContextToken</code> ve <code>MaxTokens</code>'dur."
+    "documentation": "Metin oluşturma isteği için isteğe bağlı parametreleri içeren bir sözlük. Şu anda desteklenen parametreler <code>UserPrompt</code>, <code>ContextToken</code> ve <code>MaxTokens</code>'dır."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0": {
-    "documentation": "LLM'nin ürettiği yanıtı içeren bir sözlük."
+    "documentation": "LLM'nin oluşturduğu yanıtı içeren bir sözlük."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync": {
-    "documentation": "Verilen sistem ve kullanıcı istemlerine dayalı olarak bir LLM tarafından üretilen metni döner.",
+    "documentation": "Sağlanan sistem ve kullanıcı istemlerine dayalı olarak bir LLM tarafından oluşturulan metni döndürür.",
     "params": [
       {
         "name": "self",
@@ -91299,7 +91304,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf.",
+    "documentation": "Mobil video reklamlarının görüntülenmesine izin veren bir sınıf.",
     "keys": {
       "CreateAdRewardFromDevProductId": "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId",
       "ShowVideoAd": "@roblox/globaltype/AdService.ShowVideoAd",
@@ -91312,7 +91317,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Mobil video reklamlarının görüntülenmesine izin veren bir sınıf."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/1": {
     "documentation": "Ödül olarak vermek istediğiniz geliştirici ürününün kimliği."
@@ -91321,7 +91326,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
-    "documentation": "Tüm video reklamını izleyen kullanıcılara verilecek bir ödül oluşturur.",
+    "documentation": "Tam bir video reklamını izleyen kullanıcılara verilecek bir ödül oluşturur.",
     "params": [
       {
         "name": "self",
@@ -91339,10 +91344,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowVideoAd/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Mobil video reklamlarının görüntülenmesine izin veren bir sınıf."
   },
   "@roblox/globaltype/AdService.ShowVideoAd": {
-    "documentation": "<strong>Deprecated:</strong> <code>ShowVideoAd</code> devre dışı bırakıldı ve artık işlevsel değildir.<br>Mobil video reklamlarını gösterir.",
+    "documentation": "<strong>Deprecated:</strong> <code>ShowVideoAd</code> kullanım dışı bırakıldı ve artık çalışmıyor.<br>Mobil video reklamlarını gösterir.",
     "params": [
       {
         "name": "self",
@@ -91354,7 +91359,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Mobil video reklamlarının görüntülenmesine izin veren bir sınıf."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
     "documentation": ""
@@ -91376,16 +91381,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Mobil video reklamlarının görüntülenmesine izin veren bir sınıf."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/1": {
-    "documentation": "Talep edilen reklamın formatı. Örneğin, <code>RewardedOnDemandVideo</code>."
+    "documentation": "Talep edilen reklamın formatı. Örneğin, <code>RewardedVideo</code>."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync": {
-    "documentation": "Video reklamının mevcut kullanıcıya deneyim içinde oynatılmaya uygun olup olmadığını kontrol eder.",
+    "documentation": "Deneyimin içinde mevcut kullanıcıya oynatılabilecek bir video reklamının mevcut olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -91403,7 +91408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Mobil video reklamlarının görüntülenmesine izin veren bir sınıf."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
     "documentation": ""
@@ -91432,16 +91437,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Mobil video reklamlarının görüntülenmesine izin veren bir sınıf."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/1": {
-    "documentation": "Reklamın alındığı <code>Player</code> nesnesi."
+    "documentation": "Reklamı almak için kullandığınız <code>Player</code> nesnesi."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/2": {
-    "documentation": "Reklamı tamamlama karşılığında kullanıcılara vermek istediğiniz ödül nesnesi."
+    "documentation": "Reklamı tamamlayan kullanıcıya vermek istediğiniz ödül nesnesi."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/3": {
-    "documentation": "Tecrübe içinde ödüllü video reklamının yerleşim kimliği. Bireysel reklam yerleşimlerinin performansını raporlama olanağı sağlar."
+    "documentation": "Deneyim içindeki ödüllü video reklamının yerleşim kimliği. Bireysel reklam yerleşimlerinin performansını raporlamak için izin verir."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/return/0": {
     "documentation": ""
@@ -91550,7 +91555,7 @@
     "returns": []
   },
   "@roblox/globaltype/AdService.VideoAdClosed": {
-    "documentation": "<strong>Deprecated:</strong> <code>VideoAdClosed</code> devre dışı bırakıldı ve artık işlevsel değildir.<br><code>AdService</code> videosu kapandığında tetiklenir.",
+    "documentation": "<strong>Deprecated:</strong> <code>VideoAdClosed</code> kullanım dışı bırakıldı ve artık çalışmıyor.<br><code>AdService</code> video kapandığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/AdService.VideoAdClosed.Connect",
       "ConnectParallel": "@roblox/globaltype/AdService.VideoAdClosed.ConnectParallel",
@@ -100793,7 +100798,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.None": {
-    "documentation": "Flipbook özelliklerini devre dışı bırakın ve dokuyu parçacığın ömrü boyunca tek bir sabit doku olarak kullanın.",
+    "documentation": "Flipbook özelliklerini devre dışı bırakın ve dokuyu parçacığın ömrü boyunca tek bir statik doku olarak kullanın.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100803,7 +100808,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.Grid2x2": {
-    "documentation": "4 kareli animasyon için 2&times;2 kareler.",
+    "documentation": "4 kareli bir animasyon için 2&times;2 kare.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100813,7 +100818,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.Grid4x4": {
-    "documentation": "16 kareli animasyon için 4&times;4 kareler.",
+    "documentation": "16 kareli bir animasyon için 4&times;4 kare.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100823,7 +100828,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ParticleFlipbookLayout.Grid8x8": {
-    "documentation": "64 kareli animasyon için 8&times;8 kareler.",
+    "documentation": "64 kareli bir animasyon için 8&times;8 kare.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -100832,13 +100837,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Grid8x8",
     "code_sample": ""
   },
+  "@roblox/enum/ParticleFlipbookLayout.Custom": {
+    "documentation": "<code>FlipbookSizeX</code> ve <code>FlipbookSizeY</code> ile tanımlanan özel bir ızgara boyutu.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Custom",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ParticleFlipbookLayout": {
-    "documentation": "Flipbook dokusunun düzenini belirler.",
+    "documentation": "Flipbook dokusunun yerleşimini belirler.",
     "keys": {
       "None": "@roblox/enum/ParticleFlipbookLayout.None",
       "Grid2x2": "@roblox/enum/ParticleFlipbookLayout.Grid2x2",
       "Grid4x4": "@roblox/enum/ParticleFlipbookLayout.Grid4x4",
-      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
+      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8",
+      "Custom": "@roblox/enum/ParticleFlipbookLayout.Custom"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
     "code_sample": ""
@@ -114535,6 +114551,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicsSteppingMethod",
     "code_sample": ""
   },
+  "@roblox/enum/BorderStrokePosition.Outer": {
+    "documentation": "The stroke renders on the outer border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Outer.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Outer",
+    "code_sample": ""
+  },
+  "@roblox/enum/BorderStrokePosition.Center": {
+    "documentation": "The stroke renders on the center border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Center.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Center",
+    "code_sample": ""
+  },
+  "@roblox/enum/BorderStrokePosition.Inner": {
+    "documentation": "The stroke renders on the inner border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Inner.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Inner",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.BorderStrokePosition": {
+    "documentation": "Used by <code>UIStroke.BorderStrokePosition</code> to determine the stroke's position on its parent's border.",
+    "keys": {
+      "Outer": "@roblox/enum/BorderStrokePosition.Outer",
+      "Center": "@roblox/enum/BorderStrokePosition.Center",
+      "Inner": "@roblox/enum/BorderStrokePosition.Inner"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition",
+    "code_sample": ""
+  },
   "@roblox/enum/TrackerFaceTrackingStatus.FaceTrackingSuccess": {
     "documentation": "",
     "keys": {
@@ -125355,6 +125411,35 @@
       "PerAxis": "@roblox/enum/ForceLimitMode.PerAxis"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ForceLimitMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/StrokeSizingMode.FixedSize": {
+    "documentation": "<code>Thickness</code> is measured in pixels.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode#FixedSize",
+    "code_sample": ""
+  },
+  "@roblox/enum/StrokeSizingMode.ScaledSize": {
+    "documentation": "<code>Thickness</code> is relative to minimum parent width or height. If stroke is on text, thickness is relative to font size.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode#ScaledSize",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.StrokeSizingMode": {
+    "documentation": "Used by <code>UIStroke.StrokeSizingMode</code> to determine whether the stroke's <code>Thickness</code> will be measured in pixels or be relative to the parent.",
+    "keys": {
+      "FixedSize": "@roblox/enum/StrokeSizingMode.FixedSize",
+      "ScaledSize": "@roblox/enum/StrokeSizingMode.ScaledSize"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode",
     "code_sample": ""
   },
   "@roblox/enum/MeshType.Head": {

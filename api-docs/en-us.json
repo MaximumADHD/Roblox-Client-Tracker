@@ -12644,6 +12644,8 @@
       "FlipbookFramerate": "@roblox/globaltype/ParticleEmitter.FlipbookFramerate",
       "FlipbookIncompatible": "@roblox/globaltype/ParticleEmitter.FlipbookIncompatible",
       "FlipbookLayout": "@roblox/globaltype/ParticleEmitter.FlipbookLayout",
+      "FlipbookSizeX": "@roblox/globaltype/ParticleEmitter.FlipbookSizeX",
+      "FlipbookSizeY": "@roblox/globaltype/ParticleEmitter.FlipbookSizeY",
       "FlipbookMode": "@roblox/globaltype/ParticleEmitter.FlipbookMode",
       "FlipbookStartRandom": "@roblox/globaltype/ParticleEmitter.FlipbookStartRandom",
       "Lifetime": "@roblox/globaltype/ParticleEmitter.Lifetime",
@@ -12717,8 +12719,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookLayout": {
-    "documentation": "Determines the layout of the flipbook texture. Must be None, Grid2x2, Grid4x4, or Grid8x8.",
+    "documentation": "Determines the layout of the flipbook texture. Must be None, Grid2x2, Grid4x4, Grid8x8 or Custom.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookLayout",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ParticleEmitter.FlipbookSizeX": {
+    "documentation": "Defines the number of horizontal frames in a custom flipbook layout.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookSizeX",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ParticleEmitter.FlipbookSizeY": {
+    "documentation": "Defines the number of vertical frames in a custom flipbook layout.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#FlipbookSizeY",
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.FlipbookMode": {
@@ -52522,11 +52534,15 @@
     "documentation": "Applies an outline to text or a UI border.",
     "keys": {
       "ApplyStrokeMode": "@roblox/globaltype/UIStroke.ApplyStrokeMode",
+      "BorderOffset": "@roblox/globaltype/UIStroke.BorderOffset",
+      "BorderStrokePosition": "@roblox/globaltype/UIStroke.BorderStrokePosition",
       "Color": "@roblox/globaltype/UIStroke.Color",
       "Enabled": "@roblox/globaltype/UIStroke.Enabled",
       "LineJoinMode": "@roblox/globaltype/UIStroke.LineJoinMode",
+      "StrokeSizingMode": "@roblox/globaltype/UIStroke.StrokeSizingMode",
       "Thickness": "@roblox/globaltype/UIStroke.Thickness",
-      "Transparency": "@roblox/globaltype/UIStroke.Transparency"
+      "Transparency": "@roblox/globaltype/UIStroke.Transparency",
+      "ZIndex": "@roblox/globaltype/UIStroke.ZIndex"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIStroke",
     "code_sample": ""
@@ -52534,6 +52550,16 @@
   "@roblox/globaltype/UIStroke.ApplyStrokeMode": {
     "documentation": "Determines whether to apply the stroke to the object's border instead of the text itself.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIStroke#ApplyStrokeMode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIStroke.BorderOffset": {
+    "documentation": "Specifies an additional offset to the stroke's position, relative to the parent's minimum height or width.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIStroke#BorderOffset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIStroke.BorderStrokePosition": {
+    "documentation": "Determines the stroke's position on its parent's border.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIStroke#BorderStrokePosition",
     "code_sample": ""
   },
   "@roblox/globaltype/UIStroke.Color": {
@@ -52551,6 +52577,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIStroke#LineJoinMode",
     "code_sample": ""
   },
+  "@roblox/globaltype/UIStroke.StrokeSizingMode": {
+    "documentation": "Determines whether the stroke's <code>Thickness</code> will be measured in pixels or be relative to the parent.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIStroke#StrokeSizingMode",
+    "code_sample": ""
+  },
   "@roblox/globaltype/UIStroke.Thickness": {
     "documentation": "Determines the stroke's thickness.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIStroke#Thickness",
@@ -52559,6 +52590,11 @@
   "@roblox/globaltype/UIStroke.Transparency": {
     "documentation": "Sets the stroke opacity independently of the parent object's <code>BackgroundTransparency</code> or <code>TextTransparency</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIStroke#Transparency",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIStroke.ZIndex": {
+    "documentation": "Determines the order in which the stroke renders relative to sibling <code>UIStroke</code> instances.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIStroke#ZIndex",
     "code_sample": ""
   },
   "@roblox/globaltype/KeyframeMarker": {
@@ -63654,7 +63690,7 @@
     "documentation": "List of face IDs that use the provided color ID."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor": {
-    "documentation": "Returns an array of face IDs that use the given color ID.",
+    "documentation": "Returns an array of vertex IDs that use the given color ID.",
     "params": [
       {
         "name": "self",
@@ -71935,7 +71971,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText": {
-    "documentation": "",
+    "documentation": "Converts spoken audio into text.",
     "keys": {
       "Enabled": "@roblox/globaltype/AudioSpeechToText.Enabled",
       "Text": "@roblox/globaltype/AudioSpeechToText.Text",
@@ -71946,22 +71982,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.Enabled": {
-    "documentation": "",
+    "documentation": "Whether the <code>AudioSpeechToText</code> object is enabled for processing input audio into text.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.Text": {
-    "documentation": "",
+    "documentation": "The text resulting from the conversion of speech audio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.VoiceDetected": {
-    "documentation": "",
+    "documentation": "Whether the <code>AudioSpeechToText</code> object is detecting speech in the incoming audio signal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#VoiceDetected",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0": {
-    "documentation": ""
+    "documentation": "Converts spoken audio into text."
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
     "documentation": ""
@@ -71970,7 +72006,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Returns an array of <code>Wires</code> that are connected to the specified pin.",
     "params": [
       {
         "name": "self",
@@ -72065,7 +72101,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
-    "documentation": "",
+    "documentation": "Fires when another instance is connected to or disconnected from the <code>AudioSpeechToText</code> via a <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
@@ -83472,28 +83508,28 @@
     "documentation": "Used to create <code>Tweens</code> which interpolate, or tween, the properties of instances."
   },
   "@roblox/globaltype/TweenService.SmoothDamp/param/1": {
-    "documentation": "The current position."
+    "documentation": "The current value to smooth."
   },
   "@roblox/globaltype/TweenService.SmoothDamp/param/2": {
-    "documentation": "The target position."
+    "documentation": "The target value to reach."
   },
   "@roblox/globaltype/TweenService.SmoothDamp/param/3": {
-    "documentation": "The initial velocity at which the current position should approach the target position."
+    "documentation": "The current velocity with which the current value should approach the target value. You shouldn't modify this value between calls yourself, it's used to store the stateful velocity. In most cases, initialize this with <code>0</code>, <code>zero</code>, <code>zero</code>, or <code>identity</code> depending on the type, or if needed, with your initial velocity."
   },
   "@roblox/globaltype/TweenService.SmoothDamp/param/4": {
-    "documentation": "The duration in which the total smoothing operation should take place."
+    "documentation": "The duration over which the total smoothing operation should take place. Note that since this is a damped spring, there's no guarantee <code>current</code> will be exactly <code>target</code> after this time, but it will be close. Smaller values result in quicker smoothing."
   },
   "@roblox/globaltype/TweenService.SmoothDamp/param/5": {
-    "documentation": "The maximum speed at which the current position should approach the target position."
+    "documentation": "The maximum speed at which the current value should approach the target value. Leaving this nil defaults to <code>huge</code>, meaning the velocity isn't clamped."
   },
   "@roblox/globaltype/TweenService.SmoothDamp/param/6": {
-    "documentation": "The rate at which the smoothing operation should be applied."
+    "documentation": "The rate at which the smoothing operation should be applied. If left nil, the current engine delta time will be used."
   },
   "@roblox/globaltype/TweenService.SmoothDamp/return/0": {
-    "documentation": "The new position and velocity calculated from the smoothing operation."
+    "documentation": "The new value and new velocity calculated from the smoothing operation."
   },
   "@roblox/globaltype/TweenService.SmoothDamp": {
-    "documentation": "Calculates a value simulating a critically damped spring.",
+    "documentation": "Smoothly interpolates a value towards a target, simulating a critically damped spring.",
     "params": [
       {
         "name": "self",
@@ -89064,6 +89100,94 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Stop",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/HapticEffect.Ended.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/HapticEffect.Ended.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/HapticEffect.Ended.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/HapticEffect.Ended.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/HapticEffect.Ended.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/HapticEffect.Ended.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/HapticEffect.Ended.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/HapticEffect.Ended.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/HapticEffect.Ended.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/HapticEffect.Ended.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/HapticEffect.Ended.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/HapticEffect.Ended.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/HapticEffect.Ended.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/HapticEffect.Ended.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/HapticEffect.Ended.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/HapticEffect.Ended.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/HapticEffect.Ended.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/HapticEffect.Ended.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/HapticEffect.Ended": {
+    "documentation": "Fires when the <code>HapticEffect</code> has completed playback and stopped.",
+    "keys": {
+      "Connect": "@roblox/globaltype/HapticEffect.Ended.Connect",
+      "ConnectParallel": "@roblox/globaltype/HapticEffect.Ended.ConnectParallel",
+      "Once": "@roblox/globaltype/HapticEffect.Ended.Once",
+      "Wait": "@roblox/globaltype/HapticEffect.Ended.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Ended",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService": {
@@ -114528,6 +114652,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PhysicsSteppingMethod",
     "code_sample": ""
   },
+  "@roblox/enum/BorderStrokePosition.Outer": {
+    "documentation": "The stroke renders on the outer border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Outer.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Outer",
+    "code_sample": ""
+  },
+  "@roblox/enum/BorderStrokePosition.Center": {
+    "documentation": "The stroke renders on the center border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Center.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Center",
+    "code_sample": ""
+  },
+  "@roblox/enum/BorderStrokePosition.Inner": {
+    "documentation": "The stroke renders on the inner border of the parent UI element.<br /><br /><img src=\"../../../assets/ui/ui-objects/UIStroke-BorderStrokePosition-Inner.png\" width=\"312\" />",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition#Inner",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.BorderStrokePosition": {
+    "documentation": "Used by <code>UIStroke.BorderStrokePosition</code> to determine the stroke's position on its parent's border.",
+    "keys": {
+      "Outer": "@roblox/enum/BorderStrokePosition.Outer",
+      "Center": "@roblox/enum/BorderStrokePosition.Center",
+      "Inner": "@roblox/enum/BorderStrokePosition.Inner"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BorderStrokePosition",
+    "code_sample": ""
+  },
   "@roblox/enum/TrackerFaceTrackingStatus.FaceTrackingSuccess": {
     "documentation": "",
     "keys": {
@@ -125348,6 +125512,35 @@
       "PerAxis": "@roblox/enum/ForceLimitMode.PerAxis"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ForceLimitMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/StrokeSizingMode.FixedSize": {
+    "documentation": "<code>Thickness</code> is measured in pixels.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode#FixedSize",
+    "code_sample": ""
+  },
+  "@roblox/enum/StrokeSizingMode.ScaledSize": {
+    "documentation": "<code>Thickness</code> is relative to minimum parent width or height. If stroke is on text, thickness is relative to font size.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode#ScaledSize",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.StrokeSizingMode": {
+    "documentation": "Used by <code>UIStroke.StrokeSizingMode</code> to determine whether the stroke's <code>Thickness</code> will be measured in pixels or be relative to the parent.",
+    "keys": {
+      "FixedSize": "@roblox/enum/StrokeSizingMode.FixedSize",
+      "ScaledSize": "@roblox/enum/StrokeSizingMode.ScaledSize"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StrokeSizingMode",
     "code_sample": ""
   },
   "@roblox/enum/MeshType.Head": {
