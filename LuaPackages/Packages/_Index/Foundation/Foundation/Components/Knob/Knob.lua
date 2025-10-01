@@ -11,7 +11,6 @@ local Types = require(Components.Types)
 type Bindable<T> = Types.Bindable<T>
 type ColorStyleValue = Types.ColorStyleValue
 
-local Flags = require(Foundation.Utility.Flags)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -71,7 +70,7 @@ local function Knob(knobProps: KnobProps)
 			Circle = React.createElement(View, {
 				tag = variantProps.knob.tag,
 				backgroundStyle = knobStyle,
-				Size = if Flags.FoundationFixKnobStroke then circleSize else variantProps.knob.size,
+				Size = circleSize,
 				stroke = props.stroke,
 				ZIndex = 4,
 			}),

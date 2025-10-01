@@ -306,15 +306,17 @@ function InspectAndBuy:render()
 	local localPlayerModel = self.localPlayerModel
 
 	if FFlagAXEnableNewInspectAndBuyContainer then
-		return Roact.createElement(CoreScriptsRootProvider, {}, {
-			FocusNavigationWrapper = Roact.createElement(FocusRoot, {
-				surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-			}, {
-				StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
-					store = self.state.store,
+		return Roact.createElement("Folder", { Name = "InspectAndBuyApp" }, {
+			CoreScriptsRootProvider = Roact.createElement(CoreScriptsRootProvider, {}, {
+				FocusNavigationWrapper = Roact.createElement(FocusRoot, {
+					surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
 				}, {
-					Container = Roact.createElement(InspectAndBuyBaseContainer, {
-						localPlayerModel = localPlayerModel,
+					StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+						store = self.state.store,
+					}, {
+						Container = Roact.createElement(InspectAndBuyBaseContainer, {
+							localPlayerModel = localPlayerModel,
+						}),
 					}),
 				}),
 			}),

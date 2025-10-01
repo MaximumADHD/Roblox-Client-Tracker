@@ -73,13 +73,13 @@ MAIN:
   SETTABLEKS R1 R0 K43 ["iconSize"]
   LOADN R1 16
   SETTABLEKS R1 R0 K44 ["fieldSize"]
-  LOADN R1 28
+  LOADN R1 24
   SETTABLEKS R1 R0 K45 ["resultRowHeight"]
   LOADK R1 K46 [0.16]
   SETTABLEKS R1 R0 K47 ["arrowImageTransparency"]
   LOADN R1 10
   SETTABLEKS R1 R0 K48 ["resultListScrollBarThickness"]
-  LOADN R1 10
+  LOADN R1 6
   SETTABLEKS R1 R0 K49 ["circleOffset"]
   DUPTABLE R1 K52 [{"Dark", "Light"}]
   DUPTABLE R2 K56 [{"find", "replaced", "replacement"}]

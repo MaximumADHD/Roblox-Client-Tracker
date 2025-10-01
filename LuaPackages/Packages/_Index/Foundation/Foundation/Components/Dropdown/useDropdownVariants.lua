@@ -1,8 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Flags = require(Foundation.Utility.Flags)
-
 local Cryo = require(Packages.Cryo)
 
 local Types = require(Foundation.Components.Types)
@@ -41,7 +39,7 @@ local function variantsFactory(tokens: Tokens)
 	local common = {
 		container = { tag = "row align-y-center flex-x-between stroke-standard" },
 		text = {
-			tag = `auto-xy {if Flags.FoundationFixDropdownValueTuncation then "text-truncate-split shrink" else ""}`,
+			tag = "auto-xy text-truncate-split shrink",
 		},
 	}
 
@@ -50,9 +48,7 @@ local function variantsFactory(tokens: Tokens)
 			container = {
 				-- TODO (AleksandrSl 26/06/2025): Drop height from containers of all sizes, when FoundationFixInputFieldWidth flag is removed
 				height = UDim.new(0, tokens.Size.Size_600),
-				tag = `radius-small padding-small {if Flags.FoundationFixDropdownValueTuncation
-					then "gap-xxsmall"
-					else ""} size-full-600`,
+				tag = "radius-small padding-small gap-xxsmall size-full-600",
 			},
 			text = { tag = "text-body-small" },
 			arrow = { size = InputSize.Small },
@@ -60,9 +56,7 @@ local function variantsFactory(tokens: Tokens)
 		[InputSize.Small] = {
 			container = {
 				height = UDim.new(0, tokens.Size.Size_800),
-				tag = `radius-medium padding-medium {if Flags.FoundationFixDropdownValueTuncation
-					then "gap-xxsmall"
-					else ""} size-full-800`,
+				tag = "radius-medium padding-medium gap-xxsmall size-full-800",
 			},
 			text = { tag = "text-body-small" },
 			arrow = { size = InputSize.Small },

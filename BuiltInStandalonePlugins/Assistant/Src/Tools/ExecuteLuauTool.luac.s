@@ -153,6 +153,20 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["FFlagMCPAssistantSlashCommandMenu must be enabled"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R0 1
+  LOADK R2 K3 ["SlashCommandDescriptions"]
+  LOADK R3 K4 ["ExecuteLuau"]
+  NAMECALL R0 R0 K5 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_8:
   DUPTABLE R1 K2 [{"name", "arguments"}]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K3 ["ExecuteLuau"]
@@ -162,7 +176,7 @@ PROTO_7:
   SETTABLEKS R2 R1 K1 ["arguments"]
   RETURN R1 1
 
-PROTO_8:
+PROTO_9:
   DUPTABLE R0 K3 [{"type", "code", "expanded"}]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K4 ["Type"]
@@ -173,12 +187,12 @@ PROTO_8:
   SETTABLEKS R1 R0 K2 ["expanded"]
   RETURN R0 1
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R1 0
   SETTABLEKS R1 R0 K0 ["code"]
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["parseJSONForCode"]
   MOVE R2 R0
@@ -190,7 +204,7 @@ PROTO_10:
   CAPTURE VAL R1
   RETURN R2 1
 
-PROTO_11:
+PROTO_12:
   JUMPIFNOT R1 [+23]
   GETTABLEKS R2 R1 K0 ["code"]
   JUMPIFNOT R2 [+20]
@@ -211,7 +225,7 @@ PROTO_11:
   LOADNIL R2
   RETURN R2 1
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R0 0
   LOADK R2 K0 ["Tools"]
   LOADK R3 K1 ["ExecuteLuau"]
@@ -219,7 +233,7 @@ PROTO_12:
   CALL R0 3 -1
   RETURN R0 -1
 
-PROTO_13:
+PROTO_14:
   GETTABLEKS R1 R0 K0 ["networking"]
   LOADK R4 K1 ["ExecuteLuauTool_stopCode"]
   DUPCLOSURE R5 K2 [PROTO_0]
@@ -269,32 +283,36 @@ PROTO_13:
   CALL R4 2 1
   NAMECALL R4 R4 K24 ["build"]
   CALL R4 1 1
-  DUPTABLE R5 K27 [{"command", "mapToToolCall"}]
-  LOADK R6 K28 ["run"]
+  DUPTABLE R5 K28 [{"command", "getDescription", "mapToToolCall"}]
+  LOADK R6 K29 ["run"]
   SETTABLEKS R6 R5 K25 ["command"]
-  DUPCLOSURE R6 K29 [PROTO_7]
-  CAPTURE UPVAL U6
-  SETTABLEKS R6 R5 K26 ["mapToToolCall"]
-  NEWTABLE R6 2 0
-  DUPCLOSURE R7 K30 [PROTO_8]
+  DUPCLOSURE R6 K30 [PROTO_7]
   CAPTURE UPVAL U7
-  SETTABLEKS R7 R6 K31 ["transformInitialContent"]
-  DUPCLOSURE R7 K32 [PROTO_10]
   CAPTURE UPVAL U8
-  SETTABLEKS R7 R6 K33 ["getTransformDeltaFn"]
-  DUPTABLE R7 K39 [{"definition", "slashCommands", "streamTransform", "getPreExecuteWarning", "displayNameFunction"}]
-  SETTABLEKS R4 R7 K34 ["definition"]
+  SETTABLEKS R6 R5 K26 ["getDescription"]
+  DUPCLOSURE R6 K31 [PROTO_8]
+  CAPTURE UPVAL U6
+  SETTABLEKS R6 R5 K27 ["mapToToolCall"]
+  NEWTABLE R6 2 0
+  DUPCLOSURE R7 K32 [PROTO_9]
+  CAPTURE UPVAL U9
+  SETTABLEKS R7 R6 K33 ["transformInitialContent"]
+  DUPCLOSURE R7 K34 [PROTO_11]
+  CAPTURE UPVAL U10
+  SETTABLEKS R7 R6 K35 ["getTransformDeltaFn"]
+  DUPTABLE R7 K41 [{"definition", "slashCommands", "streamTransform", "getPreExecuteWarning", "displayNameFunction"}]
+  SETTABLEKS R4 R7 K36 ["definition"]
   NEWTABLE R8 0 1
   MOVE R9 R5
   SETLIST R8 R9 1 [1]
-  SETTABLEKS R8 R7 K35 ["slashCommands"]
-  SETTABLEKS R6 R7 K36 ["streamTransform"]
-  DUPCLOSURE R8 K40 [PROTO_11]
-  CAPTURE UPVAL U9
-  SETTABLEKS R8 R7 K37 ["getPreExecuteWarning"]
-  DUPCLOSURE R8 K41 [PROTO_12]
-  CAPTURE UPVAL U10
-  SETTABLEKS R8 R7 K38 ["displayNameFunction"]
+  SETTABLEKS R8 R7 K37 ["slashCommands"]
+  SETTABLEKS R6 R7 K38 ["streamTransform"]
+  DUPCLOSURE R8 K42 [PROTO_12]
+  CAPTURE UPVAL U11
+  SETTABLEKS R8 R7 K39 ["getPreExecuteWarning"]
+  DUPCLOSURE R8 K43 [PROTO_13]
+  CAPTURE UPVAL U8
+  SETTABLEKS R8 R7 K40 ["displayNameFunction"]
   RETURN R7 1
 
 MAIN:
@@ -312,45 +330,52 @@ MAIN:
   GETTABLEKS R3 R4 K11 ["AssistantUI"]
   CALL R2 1 1
   GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R0 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["ModelContextProtocol"]
+  GETTABLEKS R6 R0 K12 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Flags"]
+  GETTABLEKS R4 R5 K14 ["FFlagMCPAssistantSlashCommandMenu"]
   CALL R3 1 1
   GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K13 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Tools"]
-  GETTABLEKS R5 R6 K15 ["ToolTypes"]
+  GETTABLEKS R6 R0 K10 ["Packages"]
+  GETTABLEKS R5 R6 K15 ["ModelContextProtocol"]
   CALL R4 1 1
-  GETTABLEKS R6 R2 K16 ["Utils"]
-  GETTABLEKS R5 R6 K17 ["CheckCodeSafety"]
-  GETTABLEKS R7 R2 K16 ["Utils"]
-  GETTABLEKS R6 R7 K18 ["CommandExecution"]
-  GETTABLEKS R8 R2 K19 ["Guest"]
-  GETTABLEKS R7 R8 K20 ["Environment"]
-  GETTABLEKS R9 R2 K16 ["Utils"]
-  GETTABLEKS R8 R9 K14 ["Tools"]
-  GETTABLEKS R11 R2 K21 ["Resources"]
-  GETTABLEKS R10 R11 K22 ["Localization"]
-  GETTABLEKS R9 R10 K23 ["Translator"]
-  GETTABLEKS R11 R2 K16 ["Utils"]
-  GETTABLEKS R10 R11 K24 ["OutputParser"]
-  GETTABLEKS R13 R2 K25 ["Components"]
-  GETTABLEKS R12 R13 K26 ["BuiltinContentWidgets"]
-  GETTABLEKS R11 R12 K27 ["RunCodeContentWidget"]
-  GETTABLEKS R13 R3 K28 ["Util"]
-  GETTABLEKS R12 R13 K29 ["ToolBuilder"]
-  GETTABLEKS R14 R3 K28 ["Util"]
-  GETTABLEKS R13 R14 K30 ["ToolResult"]
-  GETTABLEKS R14 R4 K31 ["ToolNames"]
-  DUPCLOSURE R15 K32 [PROTO_13]
-  CAPTURE VAL R6
-  CAPTURE VAL R1
-  CAPTURE VAL R7
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K16 ["Tools"]
+  GETTABLEKS R6 R7 K17 ["ToolTypes"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K18 ["Get"]
+  GETTABLEKS R8 R2 K19 ["Utils"]
+  GETTABLEKS R7 R8 K20 ["CheckCodeSafety"]
+  GETTABLEKS R9 R2 K19 ["Utils"]
+  GETTABLEKS R8 R9 K21 ["CommandExecution"]
+  GETTABLEKS R10 R2 K22 ["Guest"]
+  GETTABLEKS R9 R10 K23 ["Environment"]
+  GETTABLEKS R11 R2 K19 ["Utils"]
+  GETTABLEKS R10 R11 K16 ["Tools"]
+  GETTABLEKS R13 R2 K24 ["Resources"]
+  GETTABLEKS R12 R13 K25 ["Localization"]
+  GETTABLEKS R11 R12 K26 ["Translator"]
+  GETTABLEKS R13 R2 K19 ["Utils"]
+  GETTABLEKS R12 R13 K27 ["OutputParser"]
+  GETTABLEKS R15 R2 K28 ["Components"]
+  GETTABLEKS R14 R15 K29 ["BuiltinContentWidgets"]
+  GETTABLEKS R13 R14 K30 ["RunCodeContentWidget"]
+  GETTABLEKS R15 R4 K31 ["Util"]
+  GETTABLEKS R14 R15 K32 ["ToolBuilder"]
+  GETTABLEKS R16 R4 K31 ["Util"]
+  GETTABLEKS R15 R16 K33 ["ToolResult"]
+  GETTABLEKS R16 R5 K34 ["ToolNames"]
+  DUPCLOSURE R17 K35 [PROTO_14]
   CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R6
+  CAPTURE VAL R11
   CAPTURE VAL R13
   CAPTURE VAL R12
-  CAPTURE VAL R14
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  CAPTURE VAL R5
-  CAPTURE VAL R9
-  RETURN R15 1
+  CAPTURE VAL R7
+  RETURN R17 1

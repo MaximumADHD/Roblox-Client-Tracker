@@ -15,32 +15,36 @@ PROTO_0:
   FORGPREP R4
   LENGTH R9 R1
   LOADN R10 50
-  JUMPIFLE R10 R9 [+72]
+  JUMPIFLE R10 R9 [+77]
   GETTABLEKS R10 R8 K8 ["ClassName"]
   GETTABLE R9 R2 R10
-  JUMPIFNOT R9 [+65]
+  JUMPIFNOT R9 [+70]
   NAMECALL R9 R8 K9 ["GetFullName"]
   CALL R9 1 1
   LOADK R12 K10 ["^CoreGui"]
   NAMECALL R10 R9 K11 ["find"]
   CALL R10 2 1
-  JUMPIF R10 [+57]
+  JUMPIF R10 [+62]
   LOADK R12 K12 ["^PlayerGui"]
   NAMECALL R10 R9 K11 ["find"]
   CALL R10 2 1
+  JUMPIF R10 [+57]
+  LOADK R12 K13 ["^LoadedCode"]
+  NAMECALL R10 R9 K11 ["find"]
+  CALL R10 2 1
   JUMPIF R10 [+52]
-  GETTABLEKS R10 R8 K13 ["Source"]
+  GETTABLEKS R10 R8 K14 ["Source"]
   NEWTABLE R11 0 0
-  GETIMPORT R12 K16 [string.gmatch]
+  GETIMPORT R12 K17 [string.gmatch]
   MOVE R13 R10
-  LOADK R14 K17 ["[^
+  LOADK R14 K18 ["[^
 ]+"]
   CALL R12 2 3
   FORGPREP R12
   FASTCALL2 TABLE_INSERT R11 R15 [+5]
   MOVE R18 R11
   MOVE R19 R15
-  GETIMPORT R17 K20 [table.insert]
+  GETIMPORT R17 K21 [table.insert]
   CALL R17 2 0
   FORGLOOP R12 1 [-8]
   MOVE R12 R11
@@ -49,45 +53,45 @@ PROTO_0:
   FORGPREP R12
   NAMECALL R17 R16 K4 ["lower"]
   CALL R17 1 1
-  GETIMPORT R18 K21 [string.find]
+  GETIMPORT R18 K22 [string.find]
   MOVE R19 R17
   MOVE R20 R3
   CALL R18 2 1
   JUMPIFNOT R18 [+18]
-  LOADK R21 K22 ["Path: %* | Line: %* | %*"]
+  LOADK R21 K23 ["Path: %* | Line: %* | %*"]
   MOVE R23 R9
   MOVE R24 R15
   MOVE R25 R16
-  NAMECALL R21 R21 K23 ["format"]
+  NAMECALL R21 R21 K24 ["format"]
   CALL R21 4 1
   MOVE R20 R21
   FASTCALL2 TABLE_INSERT R1 R20 [+4]
   MOVE R19 R1
-  GETIMPORT R18 K20 [table.insert]
+  GETIMPORT R18 K21 [table.insert]
   CALL R18 2 0
   LENGTH R18 R1
   LOADN R19 50
   JUMPIFLE R19 R18 [+3]
   FORGLOOP R12 2 [-28]
-  FORGLOOP R4 2 [-74]
+  FORGLOOP R4 2 [-79]
   LENGTH R4 R1
-  JUMPIFNOTEQKN R4 K24 [0] [+3]
-  LOADK R4 K25 ["No matches found for the given query."]
+  JUMPIFNOTEQKN R4 K25 [0] [+3]
+  LOADK R4 K26 ["No matches found for the given query."]
   RETURN R4 1
   LENGTH R4 R1
   LOADN R5 50
   JUMPIFNOTLE R5 R4 [+11]
   MOVE R5 R1
-  GETIMPORT R6 K26 [string.format]
-  LOADK R7 K27 ["... Search stopped after reaching the limit of %d matches."]
+  GETIMPORT R6 K27 [string.format]
+  LOADK R7 K28 ["... Search stopped after reaching the limit of %d matches."]
   LOADN R8 50
   CALL R6 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R4 K20 [table.insert]
+  GETIMPORT R4 K21 [table.insert]
   CALL R4 -1 0
-  GETIMPORT R4 K29 [table.concat]
+  GETIMPORT R4 K30 [table.concat]
   MOVE R5 R1
-  LOADK R6 K30 ["
+  LOADK R6 K31 ["
 "]
   CALL R4 2 -1
   RETURN R4 -1

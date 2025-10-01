@@ -546,71 +546,48 @@ MAIN:
   SETTABLEKS R19 R18 K23 ["Content"]
   SETTABLEKS R18 R17 K195 ["Dropdown"]
   SETTABLEKS R17 R16 K202 ["ErrorWidget"]
-  DUPTABLE R17 K204 [{"Width", "Height", "TextSize", "SubtextSize", "TextLabelSize", "TextAlignment", "SubtextColor", "LoadingButtonColor"}]
-  LOADN R18 244
-  SETTABLEKS R18 R17 K171 ["Width"]
-  LOADN R18 156
-  SETTABLEKS R18 R17 K114 ["Height"]
-  LOADN R18 24
-  SETTABLEKS R18 R17 K104 ["TextSize"]
-  LOADN R18 16
-  SETTABLEKS R18 R17 K121 ["SubtextSize"]
-  GETIMPORT R18 K101 [UDim2.new]
-  LOADN R19 1
-  LOADN R20 246
-  LOADN R21 0
-  LOADN R22 22
-  CALL R18 4 1
-  SETTABLEKS R18 R17 K174 ["TextLabelSize"]
-  GETIMPORT R18 K186 [Enum.TextXAlignment.Center]
-  SETTABLEKS R18 R17 K176 ["TextAlignment"]
-  GETTABLEKS R18 R4 K205 ["SubText"]
-  SETTABLEKS R18 R17 K122 ["SubtextColor"]
-  GETTABLEKS R18 R4 K206 ["ButtonText"]
-  SETTABLEKS R18 R17 K203 ["LoadingButtonColor"]
-  SETTABLEKS R17 R16 K207 ["ParseWidget"]
-  DUPTABLE R17 K208 [{"Image", "Size"}]
-  LOADK R18 K209 ["rbxasset://textures/StudioSharedUI/alert_error@2x.png"]
+  DUPTABLE R17 K203 [{"Image", "Size"}]
+  LOADK R18 K204 ["rbxasset://textures/StudioSharedUI/alert_error@2x.png"]
   SETTABLEKS R18 R17 K87 ["Image"]
   GETIMPORT R18 K92 [UDim2.fromOffset]
   LOADN R19 20
   LOADN R20 20
   CALL R18 2 1
   SETTABLEKS R18 R17 K79 ["Size"]
-  SETTABLEKS R17 R16 K210 ["ErrorIcon"]
-  DUPTABLE R17 K208 [{"Image", "Size"}]
-  LOADK R18 K211 ["rbxasset://textures/StudioSharedUI/alert_warning@2x.png"]
+  SETTABLEKS R17 R16 K205 ["ErrorIcon"]
+  DUPTABLE R17 K203 [{"Image", "Size"}]
+  LOADK R18 K206 ["rbxasset://textures/StudioSharedUI/alert_warning@2x.png"]
   SETTABLEKS R18 R17 K87 ["Image"]
   GETIMPORT R18 K92 [UDim2.fromOffset]
   LOADN R19 20
   LOADN R20 20
   CALL R18 2 1
   SETTABLEKS R18 R17 K79 ["Size"]
-  SETTABLEKS R17 R16 K212 ["WarningIcon"]
-  DUPTABLE R17 K213 [{"TextColor", "TextXAlignment", "TextSize"}]
+  SETTABLEKS R17 R16 K207 ["WarningIcon"]
+  DUPTABLE R17 K208 [{"TextColor", "TextXAlignment", "TextSize"}]
   GETIMPORT R18 K158 [Color3.fromRGB]
   LOADN R19 255
   LOADN R20 85
   LOADN R21 85
   CALL R18 3 1
   SETTABLEKS R18 R17 K103 ["TextColor"]
-  GETIMPORT R18 K214 [Enum.TextXAlignment.Left]
+  GETIMPORT R18 K209 [Enum.TextXAlignment.Left]
   SETTABLEKS R18 R17 K185 ["TextXAlignment"]
   LOADN R18 10
   SETTABLEKS R18 R17 K104 ["TextSize"]
-  SETTABLEKS R17 R16 K215 ["ErrorStatus"]
-  DUPTABLE R17 K213 [{"TextColor", "TextXAlignment", "TextSize"}]
+  SETTABLEKS R17 R16 K210 ["ErrorStatus"]
+  DUPTABLE R17 K208 [{"TextColor", "TextXAlignment", "TextSize"}]
   GETIMPORT R18 K158 [Color3.fromRGB]
   LOADN R19 255
   LOADN R20 170
   LOADN R21 33
   CALL R18 3 1
   SETTABLEKS R18 R17 K103 ["TextColor"]
-  GETIMPORT R18 K214 [Enum.TextXAlignment.Left]
+  GETIMPORT R18 K209 [Enum.TextXAlignment.Left]
   SETTABLEKS R18 R17 K185 ["TextXAlignment"]
   LOADN R18 10
   SETTABLEKS R18 R17 K104 ["TextSize"]
-  SETTABLEKS R17 R16 K216 ["WarningStatus"]
+  SETTABLEKS R17 R16 K211 ["WarningStatus"]
   GETTABLEKS R17 R8 K20 ["ExpandablePane"]
   MOVE R18 R15
   GETTABLEKS R20 R8 K20 ["ExpandablePane"]
@@ -618,7 +595,7 @@ MAIN:
   NEWTABLE R20 1 0
   MOVE R21 R15
   MOVE R22 R13
-  DUPTABLE R23 K217 [{"Content"}]
+  DUPTABLE R23 K212 [{"Content"}]
   MOVE R24 R15
   MOVE R25 R14
   DUPTABLE R26 K193 [{"Padding"}]
@@ -635,18 +612,18 @@ MAIN:
   CALL R24 2 1
   SETTABLEKS R24 R23 K23 ["Content"]
   CALL R21 2 1
-  SETTABLEKS R21 R20 K218 ["&ImportTree"]
+  SETTABLEKS R21 R20 K213 ["&ImportTree"]
   CALL R18 2 1
   SETTABLE R18 R16 R17
-  GETTABLEKS R17 R8 K219 ["LinkText"]
+  GETTABLEKS R17 R8 K214 ["LinkText"]
   MOVE R18 R15
-  GETTABLEKS R20 R8 K219 ["LinkText"]
+  GETTABLEKS R20 R8 K214 ["LinkText"]
   GETTABLE R19 R6 R20
   NEWTABLE R20 1 0
-  DUPTABLE R21 K220 [{"TextColor"}]
-  GETTABLEKS R22 R4 K221 ["ButtonTextDisabled"]
+  DUPTABLE R21 K215 [{"TextColor"}]
+  GETTABLEKS R22 R4 K216 ["ButtonTextDisabled"]
   SETTABLEKS R22 R21 K103 ["TextColor"]
-  SETTABLEKS R21 R20 K222 ["&Disabled"]
+  SETTABLEKS R21 R20 K217 ["&Disabled"]
   CALL R18 2 1
   SETTABLE R18 R16 R17
   GETTABLEKS R17 R8 K18 ["Button"]
@@ -656,7 +633,7 @@ MAIN:
   NEWTABLE R20 1 0
   MOVE R21 R15
   MOVE R22 R12
-  DUPTABLE R23 K223 [{"Size"}]
+  DUPTABLE R23 K218 [{"Size"}]
   GETIMPORT R24 K101 [UDim2.new]
   LOADN R25 0
   LOADN R26 180
@@ -665,109 +642,109 @@ MAIN:
   CALL R24 4 1
   SETTABLEKS R24 R23 K79 ["Size"]
   CALL R21 2 1
-  SETTABLEKS R21 R20 K224 ["&CopyMeshID"]
+  SETTABLEKS R21 R20 K219 ["&CopyMeshID"]
   CALL R18 2 1
   SETTABLE R18 R16 R17
-  GETTABLEKS R17 R8 K225 ["StyledDialog"]
+  GETTABLEKS R17 R8 K220 ["StyledDialog"]
   MOVE R18 R15
-  GETTABLEKS R20 R8 K225 ["StyledDialog"]
+  GETTABLEKS R20 R8 K220 ["StyledDialog"]
   GETTABLE R19 R6 R20
   NEWTABLE R20 1 0
-  DUPTABLE R21 K228 [{"ButtonPadding", "ContentPadding"}]
+  DUPTABLE R21 K223 [{"ButtonPadding", "ContentPadding"}]
   LOADN R22 12
-  SETTABLEKS R22 R21 K226 ["ButtonPadding"]
+  SETTABLEKS R22 R21 K221 ["ButtonPadding"]
   LOADN R22 0
-  SETTABLEKS R22 R21 K227 ["ContentPadding"]
-  SETTABLEKS R21 R20 K229 ["&ImportDialog"]
+  SETTABLEKS R22 R21 K222 ["ContentPadding"]
+  SETTABLEKS R21 R20 K224 ["&ImportDialog"]
   CALL R18 2 1
   SETTABLE R18 R16 R17
   NEWTABLE R17 16 0
-  GETTABLEKS R18 R4 K230 ["RefreshImage"]
-  LOADK R19 K231 ["rbxasset://textures/GameSettings/refresh_dark_theme.png"]
+  GETTABLEKS R18 R4 K225 ["RefreshImage"]
+  LOADK R19 K226 ["rbxasset://textures/GameSettings/refresh_dark_theme.png"]
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K144 ["ResetCameraImage"]
-  LOADK R19 K232 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/CameraReset.png"]
+  LOADK R19 K227 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/CameraReset.png"]
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K146 ["ShowRigVisualizationImage"]
-  LOADK R19 K233 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/RigVisualization.png"]
+  LOADK R19 K228 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/RigVisualization.png"]
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K145 ["ShowWorkspaceImage"]
-  LOADK R19 K234 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/WorkspacePreview.png"]
+  LOADK R19 K229 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/WorkspacePreview.png"]
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K130 ["MenuImage"]
-  LOADK R19 K235 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/OptionsDots.png"]
+  LOADK R19 K230 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/OptionsDots.png"]
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K36 ["OpenImage"]
-  LOADK R19 K236 ["rbxasset://studio_svg_textures/Lua/FileSync/Dark/Standard/Open.png"]
+  LOADK R19 K231 ["rbxasset://studio_svg_textures/Lua/FileSync/Dark/Standard/Open.png"]
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K31 ["CleanupImage"]
-  LOADK R19 K237 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Dark/Standard/Cleanup.png"]
+  LOADK R19 K232 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Dark/Standard/Cleanup.png"]
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K27 ["ErrorIconSolid"]
-  LOADK R19 K238 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Error.png"]
+  LOADK R19 K233 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Error.png"]
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K28 ["SuccessIconSolid"]
-  LOADK R19 K239 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Success.png"]
+  LOADK R19 K234 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Success.png"]
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K64 ["DefaultBackgroundOverride"]
-  GETIMPORT R19 K241 [Color3.fromHex]
-  LOADK R20 K242 ["#2C2C2C"]
+  GETIMPORT R19 K236 [Color3.fromHex]
+  LOADK R20 K237 ["#2C2C2C"]
   CALL R19 1 1
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K65 ["OnHoverBackgroundOverride"]
-  GETIMPORT R19 K241 [Color3.fromHex]
-  LOADK R20 K243 ["#565656"]
+  GETIMPORT R19 K236 [Color3.fromHex]
+  LOADK R20 K238 ["#565656"]
   CALL R19 1 1
   SETTABLE R19 R17 R18
   GETTABLEKS R18 R4 K74 ["AssetListCellBorderOverride"]
-  GETIMPORT R19 K241 [Color3.fromHex]
-  LOADK R20 K244 ["#171717"]
+  GETIMPORT R19 K236 [Color3.fromHex]
+  LOADK R20 K239 ["#171717"]
   CALL R19 1 1
   SETTABLE R19 R17 R18
   NEWTABLE R18 16 0
-  GETTABLEKS R19 R4 K230 ["RefreshImage"]
-  LOADK R20 K245 ["rbxasset://textures/GameSettings/refresh_light_theme.png"]
+  GETTABLEKS R19 R4 K225 ["RefreshImage"]
+  LOADK R20 K240 ["rbxasset://textures/GameSettings/refresh_light_theme.png"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K144 ["ResetCameraImage"]
-  LOADK R20 K246 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/CameraReset.png"]
+  LOADK R20 K241 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/CameraReset.png"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K146 ["ShowRigVisualizationImage"]
-  LOADK R20 K247 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/RigVisualization.png"]
+  LOADK R20 K242 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/RigVisualization.png"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K145 ["ShowWorkspaceImage"]
-  LOADK R20 K248 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/WorkspacePreview.png"]
+  LOADK R20 K243 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/WorkspacePreview.png"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K130 ["MenuImage"]
-  LOADK R20 K249 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/OptionsDots.png"]
+  LOADK R20 K244 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/OptionsDots.png"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K36 ["OpenImage"]
-  LOADK R20 K250 ["rbxasset://studio_svg_textures/Lua/FileSync/Light/Standard/Open.png"]
+  LOADK R20 K245 ["rbxasset://studio_svg_textures/Lua/FileSync/Light/Standard/Open.png"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K31 ["CleanupImage"]
-  LOADK R20 K251 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Light/Standard/Cleanup.png"]
+  LOADK R20 K246 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Light/Standard/Cleanup.png"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K27 ["ErrorIconSolid"]
-  LOADK R20 K252 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Standard/Error.png"]
+  LOADK R20 K247 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Standard/Error.png"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K28 ["SuccessIconSolid"]
-  LOADK R20 K253 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Standard/Success.png"]
+  LOADK R20 K248 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Standard/Success.png"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K64 ["DefaultBackgroundOverride"]
-  GETIMPORT R20 K241 [Color3.fromHex]
-  LOADK R21 K254 ["#F6F6F6"]
+  GETIMPORT R20 K236 [Color3.fromHex]
+  LOADK R21 K249 ["#F6F6F6"]
   CALL R20 1 1
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K65 ["OnHoverBackgroundOverride"]
-  GETIMPORT R20 K241 [Color3.fromHex]
-  LOADK R21 K255 ["#E1E1E1"]
+  GETIMPORT R20 K236 [Color3.fromHex]
+  LOADK R21 K250 ["#E1E1E1"]
   CALL R20 1 1
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R4 K74 ["AssetListCellBorderOverride"]
-  GETIMPORT R20 K241 [Color3.fromHex]
-  LOADK R21 K255 ["#E1E1E1"]
+  GETIMPORT R20 K236 [Color3.fromHex]
+  LOADK R21 K250 ["#E1E1E1"]
   CALL R20 1 1
   SETTABLE R20 R18 R19
-  DUPCLOSURE R19 K256 [PROTO_0]
+  DUPCLOSURE R19 K251 [PROTO_0]
   CAPTURE VAL R7
   CAPTURE VAL R17
   CAPTURE VAL R18

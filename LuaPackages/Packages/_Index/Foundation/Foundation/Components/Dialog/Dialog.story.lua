@@ -15,6 +15,7 @@ local DialogSize = require(Foundation.Enums.DialogSize)
 local Orientation = require(Foundation.Enums.Orientation)
 local OverlayProvider = require(Foundation.Providers.Overlay.OverlayProvider)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local Flags = require(Foundation.Utility.Flags)
 
 type ButtonVariant = ButtonVariant.ButtonVariant
 type DialogSize = DialogSize.DialogSize
@@ -119,7 +120,9 @@ function CustomMedia(props: {
 	aspectRatio: number?,
 })
 	return React.createElement(View, {
-		tag = "auto-y size-full-0 row align-x-center",
+		tag = `auto-y size-full-0 row align-x-center {if Flags.FoundationDialogBodyUpdate
+			then "padding-top-large"
+			else ""}`,
 	}, {
 		Image = React.createElement(Image, {
 			aspectRatio = props.aspectRatio,
@@ -133,7 +136,7 @@ return {
 	summary = "Dialog",
 	stories = {
 		{
-			name = "Hero Image",
+			name = "Hero Image & Title & Content",
 			story = function(props: StoryProps)
 				return React.createElement(Story, props, {
 					DialogTitle = React.createElement(Dialog.Title, {
@@ -160,7 +163,7 @@ return {
 			end,
 		},
 		{
-			name = "No Image",
+			name = "Title & Content",
 			story = function(props: StoryProps)
 				return React.createElement(Story, props, {
 					DialogTitle = React.createElement(Dialog.Title, {
@@ -177,7 +180,7 @@ return {
 			end,
 		},
 		{
-			name = "No Title",
+			name = "Hero Image & Content",
 			story = function(props: StoryProps)
 				return React.createElement(Story, props, {
 					DialogMedia = React.createElement(Dialog.HeroMedia, {
@@ -196,6 +199,23 @@ return {
 						DialogText = React.createElement(Dialog.Text, {
 							Text = props.controls.content :: string,
 						}),
+					}),
+				})
+			end,
+		},
+		{
+			name = "Hero Image only",
+			story = function(props: StoryProps)
+				return React.createElement(Story, props, {
+					DialogMedia = React.createElement(Dialog.HeroMedia, {
+						media = props.controls.media :: string,
+						height = UDim.new(
+							props.controls.heroMediaHeightScale or 0,
+							props.controls.heroMediaHeightOffset or 0
+						),
+						aspectRatio = if props.controls.heroMediaAspectRatio > 0
+							then props.controls.heroMediaAspectRatio :: number
+							else nil,
 					}),
 				})
 			end,
@@ -298,7 +318,7 @@ return {
 	controls = {
 		title = "Welcome Dialog",
 		content = "This is a dialog with a very, very long description that spans multiple lines. Now, I'm not joking when I say that it has a lot to say. Really, a lot of things have a lot to say if you're willing to listen. Do you hear that? That's the sound of the universe vibrating. It's beautiful, but you really have to listen. This may be the most important decision of your life. You need to decide: are you willing to listen?",
-		actionsLabel = "Actions Label",
+		actionsLabel = "By selecting Primary, I consent to Roblox's collection, use, and storage of my data to enable services and for moderation, safety, and improvement of our services and tools.",
 		actionsOrientation = Dash.values(Orientation),
 		hasActions = true,
 		disablePortal = true,

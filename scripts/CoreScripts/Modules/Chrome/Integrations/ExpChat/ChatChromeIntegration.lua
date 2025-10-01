@@ -45,6 +45,7 @@ local GetFFlagDisableLegacyChatSimpleUnreadMessageCount = SharedFlags.GetFFlagDi
 local FFlagExpChatUnibarThumbstickNavigate = game:DefineFastFlag("ExpChatUnibarThumbstickNavigate", false)
 local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUnibarAvailabilityRefactor", false)
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
+local FFlagRemoveLegacyChatConsoleCheck = require(Chrome.Flags.FFlagRemoveLegacyChatConsoleCheck)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
@@ -328,7 +329,7 @@ coroutine.wrap(function()
 	end
 end)()
 
-if FFlagConsoleChatOnExpControls then
+if not FFlagRemoveLegacyChatConsoleCheck and FFlagConsoleChatOnExpControls then
 	-- APPEXP-2427: Remove once legacy chat is fully deprecated
 	local function UnavailableNotOnTCSConsole()
 		if not GuiService:IsTenFootInterface() then

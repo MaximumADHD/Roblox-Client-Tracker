@@ -27,8 +27,8 @@ end
 createFoundationLocalizationTable(GuiService)
 
 local FALLBACK_ENGLISH_TRANSLATOR = (
-	GuiService:FindFirstChild(Constants.LOCALIZATION_TABLE_NAME) :: LocalizationTable
-):GetTranslator("en-us") :: Translator
+		GuiService:FindFirstChild(Constants.LOCALIZATION_TABLE_NAME) :: LocalizationTable
+	):GetTranslator("en-us") :: Translator
 
 local translatorsCache = {}
 

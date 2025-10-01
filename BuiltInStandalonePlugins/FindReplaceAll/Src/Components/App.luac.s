@@ -15,9 +15,13 @@ PROTO_0:
   DUPTABLE R4 K4 [{"FindReplaceAllMainView"}]
   GETUPVAL R5 0
   GETUPVAL R6 4
-  DUPTABLE R7 K6 [{"findActivationData"}]
+  DUPTABLE R7 K8 [{"findActivationData", "enabled", "shouldFocusTextBox"}]
   GETTABLEKS R8 R0 K5 ["findActivationData"]
   SETTABLEKS R8 R7 K5 ["findActivationData"]
+  GETTABLEKS R8 R0 K6 ["enabled"]
+  SETTABLEKS R8 R7 K6 ["enabled"]
+  GETTABLEKS R8 R0 K7 ["shouldFocusTextBox"]
+  SETTABLEKS R8 R7 K7 ["shouldFocusTextBox"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K3 ["FindReplaceAllMainView"]
   CALL R1 3 -1

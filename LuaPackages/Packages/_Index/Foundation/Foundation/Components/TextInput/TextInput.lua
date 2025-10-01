@@ -50,7 +50,7 @@ export type TextInputProps = {
 	-- Width of the component
 	width: UDim?,
 	-- Image before the input
-	iconLeading: string?,
+	leadingIcon: string?,
 	-- Image after the input, can be pressed
 	iconTrailing: string? | {
 		name: string,
@@ -102,12 +102,12 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					onFocusLost = props.onFocusLost,
 					onReturnPressed = props.onReturnPressed,
 					placeholder = props.placeholder,
-					leadingElement = if props.iconLeading
+					leadingElement = if props.leadingIcon
 						then React.createElement(
 							View,
 							{ tag = "size-0-full auto-x row align-y-center" },
 							React.createElement(Icon, {
-								name = props.iconLeading,
+								name = props.leadingIcon,
 								style = variantProps.icon.style,
 								size = variantProps.icon.size,
 							})

@@ -23,22 +23,18 @@ SpinningImage.defaultProps = {
 }
 
 function SpinningImage:init()
-	self.state = {
-		angle = 0,
-	}
+	self.angle, self.updateAngle = Roact.createBinding(0)
 end
 
 function SpinningImage:didMount()
 	self.heartbeatConnection = RunService.Heartbeat:Connect(function(dt)
-		local newAngle = self.state.angle + self.props.rotationRate * dt
+		local newAngle = self.angle:getValue() + self.props.rotationRate * dt
 		if newAngle > 360 then
 			newAngle = newAngle - 360
 		elseif newAngle < 0 then
 			newAngle = newAngle + 360
 		end
-		self:setState({
-			angle = newAngle,
-		})
+		self.updateAngle(newAngle)
 	end)
 end
 
@@ -65,7 +61,7 @@ function SpinningImage:render()
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
 			Image = self.props.image,
-			Rotation = self.state.angle,
+			Rotation = self.angle,
 			BackgroundTransparency = 1,
 		}),
 	})

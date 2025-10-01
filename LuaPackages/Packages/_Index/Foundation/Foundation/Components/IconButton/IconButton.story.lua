@@ -13,8 +13,6 @@ type InputSize = InputSize.InputSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
-local Flags = require(Foundation.Utility.Flags)
-
 -- Only show the supported variants for IconButton
 local SUPPORTED_VARIANTS: { ButtonVariant } = {
 	ButtonVariant.Utility,
@@ -31,7 +29,6 @@ return {
 			name = variant,
 			story = function(props)
 				local controls = props.controls
-				Flags.FoundationUpdateIconButtonSizes = controls.updateIconButtonSizes
 
 				return React.createElement(
 					View,
@@ -63,6 +60,5 @@ return {
 		variant = Dash.values(BuilderIcons.IconVariant),
 		isDisabled = false,
 		isCircular = false,
-		updateIconButtonSizes = Flags.FoundationUpdateIconButtonSizes,
 	},
 }

@@ -1,0 +1,194 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["controlsIdentifierToString"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K9 ["deepFreeze"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Types"]
+  CALL R3 1 1
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Resources"]
+  GETTABLEKS R5 R6 K12 ["ControlDefinitions"]
+  GETTABLEKS R4 R5 K13 ["TabControls"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R4 K14 ["AvatarTab"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R4 K15 ["HomeTab"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R4 K16 ["ModelTab"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R4 K17 ["PluginsTab"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R4 K18 ["ScriptTab"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R4 K19 ["UITab"]
+  CALL R10 1 1
+  GETTABLEKS R14 R0 K6 ["Src"]
+  GETTABLEKS R13 R14 K11 ["Resources"]
+  GETTABLEKS R12 R13 K12 ["ControlDefinitions"]
+  GETTABLEKS R11 R12 K20 ["MezzanineControls"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R13 R11 K21 ["LeftMezzanineDebugPlugin"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R14 R11 K22 ["LeftMezzanineRun"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R11 K23 ["LeftMezzanineServerAndClients"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R16 R11 K24 ["LeftMezzanineTeamTest"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R17 R11 K25 ["LeftMezzanineTestAndTestHere"]
+  CALL R16 1 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R18 R11 K26 ["RightMezzanine"]
+  CALL R17 1 1
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R19 R11 K27 ["RightMezzanineStartPage"]
+  CALL R18 1 1
+  DUPTABLE R19 K28 [{"MezzanineControls", "TabControls"}]
+  NEWTABLE R20 0 0
+  SETTABLEKS R20 R19 K20 ["MezzanineControls"]
+  NEWTABLE R20 0 0
+  SETTABLEKS R20 R19 K13 ["TabControls"]
+  GETTABLEKS R20 R19 K20 ["MezzanineControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K21 ["LeftMezzanineDebugPlugin"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R12 R20 R21
+  GETTABLEKS R20 R19 K20 ["MezzanineControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K22 ["LeftMezzanineRun"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R13 R20 R21
+  GETTABLEKS R20 R19 K20 ["MezzanineControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K23 ["LeftMezzanineServerAndClients"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R14 R20 R21
+  GETTABLEKS R20 R19 K20 ["MezzanineControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K24 ["LeftMezzanineTeamTest"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R15 R20 R21
+  GETTABLEKS R20 R19 K20 ["MezzanineControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K25 ["LeftMezzanineTestAndTestHere"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R16 R20 R21
+  GETTABLEKS R20 R19 K20 ["MezzanineControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K26 ["RightMezzanine"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R17 R20 R21
+  GETTABLEKS R20 R19 K20 ["MezzanineControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K27 ["RightMezzanineStartPage"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R18 R20 R21
+  GETTABLEKS R20 R19 K13 ["TabControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K15 ["HomeTab"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R6 R20 R21
+  GETTABLEKS R20 R19 K13 ["TabControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K14 ["AvatarTab"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R5 R20 R21
+  GETTABLEKS R20 R19 K13 ["TabControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K19 ["UITab"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R10 R20 R21
+  GETTABLEKS R20 R19 K13 ["TabControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K18 ["ScriptTab"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R9 R20 R21
+  GETTABLEKS R20 R19 K13 ["TabControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K16 ["ModelTab"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R7 R20 R21
+  GETTABLEKS R20 R19 K13 ["TabControls"]
+  MOVE R21 R1
+  DUPTABLE R22 K31 [{"Filename", "Type"}]
+  LOADK R23 K17 ["PluginsTab"]
+  SETTABLEKS R23 R22 K29 ["Filename"]
+  LOADK R23 K32 ["BuiltIn"]
+  SETTABLEKS R23 R22 K30 ["Type"]
+  CALL R21 1 1
+  SETTABLE R8 R20 R21
+  MOVE R20 R2
+  MOVE R21 R19
+  CALL R20 1 1
+  MOVE R19 R20
+  RETURN R19 1

@@ -9,6 +9,9 @@ local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local SetEquippedAssets = require(InspectAndBuyFolder.Actions.SetEquippedAssets)
 local Constants = require(InspectAndBuyFolder.Constants)
 local GetAssetBundles = require(InspectAndBuyFolder.Thunks.GetAssetBundles)
+local BatchGetAssets = require(InspectAndBuyFolder.Thunks.BatchGetAssets)
+
+local FFlagAXEnableRegionalFilteringofAssets = require(InspectAndBuyFolder.Flags.FFlagAXEnableRegionalFilteringofAssets)
 
 local requiredServices = {}
 
@@ -50,18 +53,21 @@ local function GetAssetsFromHumanoidDescription(humanoidDescription, isForLocalP
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local assets = getAssetIds(humanoidDescription)
 		if not isForLocalPlayer then
-			-- TODO: Use `Promise.allSettled` instead of `store:dispatch` for `GetProductInfo` and `GetAssetBundles`
-			for _, asset in ipairs(assets) do
-				coroutine.wrap(function()
-					store:dispatch(GetProductInfo(asset.assetId))
+			if FFlagAXEnableRegionalFilteringofAssets then
+				store:dispatch(BatchGetAssets(assets))
+			else
+				-- TODO: Use `Promise.allSettled` instead of `store:dispatch` for `GetProductInfo` and `GetAssetBundles`
+				for _, asset in ipairs(assets) do
+					coroutine.wrap(function()
+						store:dispatch(GetProductInfo(asset.assetId))
 
-					if asset.parentBundleId == nil then
-						-- Because the call are made concurrently, and all the calls are made almost at the same time.
-						-- Thus, any code changes related to GetAssetBundles, we need to consider the concurrency & race condition.
-						store:dispatch(GetAssetBundles(asset.assetId))
-					end
+						if asset.parentBundleId == nil then
+							-- Because the call are made concurrently, and all the calls are made almost at the same time.
+							-- Thus, any code changes related to GetAssetBundles, we need to consider the concurrency & race condition.
+							store:dispatch(GetAssetBundles(asset.assetId))
+						end
 
-					--[[
+						--[[
 						FIXME(dbanks)
 						2023/12/07
 						See https://roblox.atlassian.net/browse/AVBURST-12905
@@ -69,10 +75,11 @@ local function GetAssetsFromHumanoidDescription(humanoidDescription, isForLocalP
 						Either GetProductInfo will get us the "creating universe" id, or we hit different/better
 						endpoint (like generic "get asset details" endpoint to this id.)
 					--]]
-					store:dispatch(GetVersionInfo(asset.assetId))
-				end)()
+						store:dispatch(GetVersionInfo(asset.assetId))
+					end)()
+				end
+				store:dispatch(SetAssets(assets))
 			end
-			store:dispatch(SetAssets(assets))
 		else
 			store:dispatch(SetEquippedAssets(assets))
 		end

@@ -66,47 +66,44 @@ PROTO_4:
   CALL R1 1 1
   GETTABLEKS R3 R1 K2 ["Dialogs"]
   GETTABLEKS R2 R3 K3 ["showPreview"]
-  JUMPIF R2 [+15]
-  GETTABLEKS R3 R1 K2 ["Dialogs"]
-  GETTABLEKS R2 R3 K4 ["showError"]
   JUMPIF R2 [+10]
-  GETTABLEKS R3 R1 K5 ["Sessions"]
-  GETTABLEKS R2 R3 K6 ["uploading"]
+  GETTABLEKS R3 R1 K4 ["Sessions"]
+  GETTABLEKS R2 R3 K5 ["uploading"]
   JUMPIF R2 [+5]
-  GETTABLEKS R3 R1 K5 ["Sessions"]
-  GETTABLEKS R2 R3 K7 ["parsing"]
+  GETTABLEKS R3 R1 K4 ["Sessions"]
+  GETTABLEKS R2 R3 K6 ["parsing"]
   JUMPIFNOT R2 [+1]
   RETURN R0 0
   GETTABLEKS R2 R0 K0 ["_store"]
   GETUPVAL R4 0
   LOADB R5 1
   CALL R4 1 -1
-  NAMECALL R2 R2 K8 ["dispatch"]
+  NAMECALL R2 R2 K7 ["dispatch"]
   CALL R2 -1 0
-  NAMECALL R2 R0 K9 ["requestMultiFilePicker"]
+  NAMECALL R2 R0 K8 ["requestMultiFilePicker"]
   CALL R2 1 1
   GETTABLEKS R3 R0 K0 ["_store"]
   GETUPVAL R5 1
   LOADB R6 1
   CALL R5 1 -1
-  NAMECALL R3 R3 K8 ["dispatch"]
+  NAMECALL R3 R3 K7 ["dispatch"]
   CALL R3 -1 0
   MOVE R5 R2
-  NAMECALL R3 R0 K10 ["_onFilePicked"]
+  NAMECALL R3 R0 K9 ["_onFilePicked"]
   CALL R3 2 0
   GETTABLEKS R3 R0 K0 ["_store"]
   GETUPVAL R5 1
   LOADB R6 0
   CALL R5 1 -1
-  NAMECALL R3 R3 K8 ["dispatch"]
+  NAMECALL R3 R3 K7 ["dispatch"]
   CALL R3 -1 0
   GETTABLEKS R5 R0 K0 ["_store"]
   NAMECALL R5 R5 K1 ["getState"]
   CALL R5 1 1
-  GETTABLEKS R4 R5 K5 ["Sessions"]
-  GETTABLEKS R3 R4 K11 ["sessionQueue"]
+  GETTABLEKS R4 R5 K4 ["Sessions"]
+  GETTABLEKS R3 R4 K10 ["sessionQueue"]
   LENGTH R5 R2
-  JUMPIFEQKN R5 K12 [1] [+2]
+  JUMPIFEQKN R5 K11 [1] [+2]
   LOADB R4 0 +1
   LOADB R4 1
   LENGTH R6 R2
@@ -118,10 +115,10 @@ PROTO_4:
   LOADNIL R5
   LOADB R6 0
   JUMPIFEQKNIL R5 [+12]
-  GETTABLEKS R7 R5 K13 ["state"]
+  GETTABLEKS R7 R5 K12 ["state"]
   GETUPVAL R10 2
-  GETTABLEKS R9 R10 K14 ["SessionState"]
-  GETTABLEKS R8 R9 K15 ["Invalid"]
+  GETTABLEKS R9 R10 K13 ["SessionState"]
+  GETTABLEKS R8 R9 K14 ["Invalid"]
   JUMPIFNOTEQ R7 R8 [+2]
   LOADB R6 0 +1
   LOADB R6 1
@@ -131,10 +128,10 @@ PROTO_4:
   NAMECALL R9 R9 K1 ["getState"]
   CALL R9 1 1
   GETTABLEKS R8 R9 K2 ["Dialogs"]
-  GETTABLEKS R7 R8 K16 ["showQueue"]
+  GETTABLEKS R7 R8 K15 ["showQueue"]
   JUMPIFNOT R7 [+5]
-  GETTABLEKS R9 R5 K17 ["filepath"]
-  NAMECALL R7 R0 K18 ["requestPreview"]
+  GETTABLEKS R9 R5 K16 ["filepath"]
+  NAMECALL R7 R0 K17 ["requestPreview"]
   CALL R7 2 0
   RETURN R0 0
 

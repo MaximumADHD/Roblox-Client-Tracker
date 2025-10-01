@@ -26,10 +26,14 @@ local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 
 -- Flags
 local FFlagRefactorHelpPage = HelpPage.Flags.FFlagRefactorHelpPage
+local FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
+local FStringHelpPageIxpLayer = game:DefineFastString("HelpPageIxpLayer", "")
+
 
 local Integrations = nil
 local Constants = nil
@@ -95,6 +99,10 @@ local function createHelpPage()
     HelpPage.Displayed.Event:Connect(function()
         createReactTree()
         setDisplayed(true)
+
+        if FFlagHelpPageIXPExposure then
+    		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(FStringHelpPageIxpLayer)
+        end
 
         if HelpPage.HubRef.VersionContainer then
             HelpPage.HubRef.VersionContainer.Visible = true

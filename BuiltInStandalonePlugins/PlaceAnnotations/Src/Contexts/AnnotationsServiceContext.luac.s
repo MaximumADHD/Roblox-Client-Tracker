@@ -1,44 +1,48 @@
 PROTO_0:
-  DUPTABLE R1 K7 [{"AnnotationThreads", "AnnotationAddedEvent", "AnnotationDeletedEvent", "AnnotationResolvedEvent", "AnnotationEditedEvent", "Mode", "Mock"}]
+  DUPTABLE R1 K9 [{"AnnotationThreads", "AnnotationAddedEvent", "AnnotationDeletedEvent", "AnnotationResolvedEvent", "AnnotationEditedEvent", "Mode", "Mock", "PlacePreferences", "ChannelPreferences"}]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K0 ["AnnotationThreads"]
-  GETIMPORT R2 K10 [Instance.new]
-  LOADK R3 K11 ["BindableEvent"]
+  GETIMPORT R2 K12 [Instance.new]
+  LOADK R3 K13 ["BindableEvent"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K1 ["AnnotationAddedEvent"]
-  GETIMPORT R2 K10 [Instance.new]
-  LOADK R3 K11 ["BindableEvent"]
+  GETIMPORT R2 K12 [Instance.new]
+  LOADK R3 K13 ["BindableEvent"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K2 ["AnnotationDeletedEvent"]
-  GETIMPORT R2 K10 [Instance.new]
-  LOADK R3 K11 ["BindableEvent"]
+  GETIMPORT R2 K12 [Instance.new]
+  LOADK R3 K13 ["BindableEvent"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K3 ["AnnotationResolvedEvent"]
-  GETIMPORT R2 K10 [Instance.new]
-  LOADK R3 K11 ["BindableEvent"]
+  GETIMPORT R2 K12 [Instance.new]
+  LOADK R3 K13 ["BindableEvent"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K4 ["AnnotationEditedEvent"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K12 ["None"]
+  GETTABLEKS R2 R3 K14 ["None"]
   SETTABLEKS R2 R1 K5 ["Mode"]
   SETTABLEKS R0 R1 K6 ["Mock"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K7 ["PlacePreferences"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K8 ["ChannelPreferences"]
   GETUPVAL R4 1
   FASTCALL2 SETMETATABLE R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K14 [setmetatable]
+  GETIMPORT R2 K16 [setmetatable]
   CALL R2 2 0
   GETTABLEKS R3 R1 K1 ["AnnotationAddedEvent"]
-  GETTABLEKS R2 R3 K15 ["Event"]
-  SETTABLEKS R2 R1 K16 ["AnnotationAdded"]
+  GETTABLEKS R2 R3 K17 ["Event"]
+  SETTABLEKS R2 R1 K18 ["AnnotationAdded"]
   GETTABLEKS R3 R1 K2 ["AnnotationDeletedEvent"]
-  GETTABLEKS R2 R3 K15 ["Event"]
-  SETTABLEKS R2 R1 K17 ["AnnotationDeleted"]
+  GETTABLEKS R2 R3 K17 ["Event"]
+  SETTABLEKS R2 R1 K19 ["AnnotationDeleted"]
   GETTABLEKS R3 R1 K3 ["AnnotationResolvedEvent"]
-  GETTABLEKS R2 R3 K15 ["Event"]
-  SETTABLEKS R2 R1 K18 ["AnnotationResolved"]
+  GETTABLEKS R2 R3 K17 ["Event"]
+  SETTABLEKS R2 R1 K20 ["AnnotationResolved"]
   GETTABLEKS R3 R1 K4 ["AnnotationEditedEvent"]
-  GETTABLEKS R2 R3 K15 ["Event"]
-  SETTABLEKS R2 R1 K19 ["AnnotationEdited"]
+  GETTABLEKS R2 R3 K17 ["Event"]
+  SETTABLEKS R2 R1 K21 ["AnnotationEdited"]
   RETURN R1 1
 
 PROTO_1:
@@ -83,6 +87,98 @@ PROTO_6:
   CALL R4 4 0
   RETURN R0 0
 
+PROTO_7:
+  GETTABLEKS R3 R0 K0 ["Mock"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R4 R0 K1 ["PlacePreferences"]
+  GETTABLE R3 R4 R1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["All"]
+  RETURN R3 1
+  GETUPVAL R3 1
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R3 K3 ["GetPlacePreference"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_8:
+  GETTABLEKS R4 R0 K0 ["Mock"]
+  JUMPIFNOT R4 [+4]
+  GETTABLEKS R4 R0 K1 ["PlacePreferences"]
+  SETTABLE R3 R4 R1
+  RETURN R0 0
+  GETUPVAL R4 0
+  MOVE R6 R1
+  MOVE R7 R2
+  MOVE R8 R3
+  NAMECALL R4 R4 K2 ["CreateOrUpdatePlacePreference"]
+  CALL R4 4 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R3 R0 K0 ["Mock"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R4 R0 K1 ["PlacePreferences"]
+  GETTABLE R3 R4 R2
+  JUMPIF R3 [+3]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["All"]
+  RETURN R3 1
+  GETUPVAL R3 1
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R3 K3 ["GetPlacePreferenceAsync"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_10:
+  GETTABLEKS R4 R0 K0 ["Mock"]
+  JUMPIFNOT R4 [+4]
+  GETTABLEKS R4 R0 K1 ["PlacePreferences"]
+  SETTABLE R2 R4 R3
+  RETURN R0 0
+  GETUPVAL R4 0
+  MOVE R6 R1
+  MOVE R7 R2
+  MOVE R8 R3
+  NAMECALL R4 R4 K2 ["CreateOrUpdatePlacePreferenceAsync"]
+  CALL R4 4 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R4 R0 K0 ["Mock"]
+  JUMPIFNOT R4 [+8]
+  GETTABLEKS R5 R0 K1 ["ChannelPreferences"]
+  GETTABLE R4 R5 R2
+  JUMPIF R4 [+3]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["All"]
+  RETURN R4 1
+  GETUPVAL R4 1
+  MOVE R6 R1
+  MOVE R7 R2
+  MOVE R8 R3
+  NAMECALL R4 R4 K3 ["GetChannelPreferenceAsync"]
+  CALL R4 4 -1
+  RETURN R4 -1
+
+PROTO_12:
+  GETTABLEKS R5 R0 K0 ["Mock"]
+  JUMPIFNOT R5 [+4]
+  GETTABLEKS R5 R0 K1 ["ChannelPreferences"]
+  SETTABLE R4 R5 R2
+  RETURN R0 0
+  GETUPVAL R5 0
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  MOVE R10 R4
+  NAMECALL R5 R5 K2 ["CreateOrUpdateChannelPreferenceAsync"]
+  CALL R5 5 0
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -100,35 +196,71 @@ MAIN:
   GETTABLEKS R5 R6 K11 ["Enums"]
   GETTABLEKS R4 R5 K12 ["AnnotationEditingMode"]
   CALL R3 1 1
-  LOADK R6 K13 ["AnnotationsService"]
-  NAMECALL R4 R2 K14 ["extend"]
-  CALL R4 2 1
-  GETIMPORT R5 K5 [require]
+  GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K15 ["Types"]
+  GETTABLEKS R6 R7 K11 ["Enums"]
+  GETTABLEKS R5 R6 K13 ["PlaceContentPreference"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Enums"]
+  GETTABLEKS R6 R7 K14 ["AnnotationPlaceContentPreference"]
   CALL R5 1 1
-  GETIMPORT R6 K17 [game]
-  LOADK R8 K13 ["AnnotationsService"]
-  NAMECALL R6 R6 K18 ["GetService"]
-  CALL R6 2 1
-  DUPCLOSURE R7 K19 [PROTO_0]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K11 ["Enums"]
+  GETTABLEKS R7 R8 K15 ["AnnotationChannelContentPreference"]
+  CALL R6 1 1
+  LOADK R9 K16 ["AnnotationsService"]
+  NAMECALL R7 R2 K17 ["extend"]
+  CALL R7 2 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K18 ["Types"]
+  CALL R8 1 1
+  GETIMPORT R9 K20 [game]
+  LOADK R11 K16 ["AnnotationsService"]
+  NAMECALL R9 R9 K21 ["GetService"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K22 [PROTO_0]
   CAPTURE VAL R3
+  CAPTURE VAL R7
+  SETTABLEKS R10 R7 K23 ["new"]
+  DUPCLOSURE R10 K24 [PROTO_1]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K25 ["get"]
+  DUPCLOSURE R10 K26 [PROTO_2]
+  SETTABLEKS R10 R7 K27 ["SetTestThreads"]
+  DUPCLOSURE R10 K28 [PROTO_3]
+  SETTABLEKS R10 R7 K29 ["GetAnnotationThreads"]
+  DUPCLOSURE R10 K30 [PROTO_4]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K31 ["GetPropertyChangedSignal"]
+  DUPCLOSURE R10 K32 [PROTO_5]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K33 ["FindFirstChild"]
+  DUPCLOSURE R10 K34 [PROTO_6]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K35 ["LoadAnnotationReplies"]
+  DUPCLOSURE R10 K36 [PROTO_7]
   CAPTURE VAL R4
-  SETTABLEKS R7 R4 K20 ["new"]
-  DUPCLOSURE R7 K21 [PROTO_1]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K37 ["GetPlacePreference"]
+  DUPCLOSURE R10 K38 [PROTO_8]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K39 ["CreateOrUpdatePlacePreference"]
+  DUPCLOSURE R10 K40 [PROTO_9]
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K41 ["GetPlacePreferenceAsync"]
+  DUPCLOSURE R10 K42 [PROTO_10]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K43 ["CreateOrUpdatePlacePreferenceAsync"]
+  DUPCLOSURE R10 K44 [PROTO_11]
   CAPTURE VAL R6
-  SETTABLEKS R7 R4 K22 ["get"]
-  DUPCLOSURE R7 K23 [PROTO_2]
-  SETTABLEKS R7 R4 K24 ["SetTestThreads"]
-  DUPCLOSURE R7 K25 [PROTO_3]
-  SETTABLEKS R7 R4 K26 ["GetAnnotationThreads"]
-  DUPCLOSURE R7 K27 [PROTO_4]
-  CAPTURE VAL R6
-  SETTABLEKS R7 R4 K28 ["GetPropertyChangedSignal"]
-  DUPCLOSURE R7 K29 [PROTO_5]
-  CAPTURE VAL R6
-  SETTABLEKS R7 R4 K30 ["FindFirstChild"]
-  DUPCLOSURE R7 K31 [PROTO_6]
-  CAPTURE VAL R6
-  SETTABLEKS R7 R4 K32 ["LoadAnnotationReplies"]
-  RETURN R4 1
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K45 ["GetChannelPreferenceAsync"]
+  DUPCLOSURE R10 K46 [PROTO_12]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K47 ["CreateOrUpdateChannelPreferenceAsync"]
+  RETURN R7 1

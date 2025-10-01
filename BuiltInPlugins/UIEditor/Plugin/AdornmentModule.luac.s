@@ -531,25 +531,48 @@ PROTO_17:
   GETUPVAL R2 2
   GETIMPORT R3 K11 [Enum.SafeAreaCompatibility.None]
   SETTABLEKS R3 R2 K9 ["SafeAreaCompatibility"]
+  GETIMPORT R2 K4 [Instance.new]
+  LOADK R3 K12 ["Frame"]
+  CALL R2 1 1
+  SETUPVAL R2 3
   GETUPVAL R2 3
-  LOADK R3 K12 ["UIEditorSelectionHandleParent"]
-  CALL R2 1 0
-  GETUPVAL R2 4
+  LOADK R3 K13 ["UIEditorSelectionHandleParent"]
+  SETTABLEKS R3 R2 K14 ["Name"]
+  GETUPVAL R2 3
+  GETIMPORT R3 K16 [Vector2.new]
+  LOADN R4 0
+  LOADN R5 0
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K17 ["AnchorPoint"]
+  GETUPVAL R2 3
+  LOADN R3 1
+  SETTABLEKS R3 R2 K18 ["BackgroundTransparency"]
+  GETUPVAL R2 3
+  GETIMPORT R3 K20 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 255
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K21 ["BackgroundColor3"]
+  GETUPVAL R2 3
+  LOADN R3 0
+  SETTABLEKS R3 R2 K22 ["BorderSizePixel"]
+  GETUPVAL R2 3
   GETUPVAL R3 2
-  SETTABLEKS R3 R2 K13 ["Parent"]
-  GETUPVAL R2 5
-  LOADK R3 K14 ["Selection"]
+  SETTABLEKS R3 R2 K23 ["Parent"]
+  GETUPVAL R2 4
+  LOADK R3 K24 ["Selection"]
   CALL R2 1 0
-  GETUPVAL R2 6
+  GETUPVAL R2 5
   CALL R2 0 0
-  GETUPVAL R2 7
-  GETUPVAL R4 8
-  GETUPVAL R6 9
-  NAMECALL R6 R6 K15 ["getFilteredSelection"]
+  GETUPVAL R2 6
+  GETUPVAL R4 7
+  GETUPVAL R6 8
+  NAMECALL R6 R6 K25 ["getFilteredSelection"]
   CALL R6 1 -1
-  NAMECALL R4 R4 K16 ["getExtentsFromGuis"]
+  NAMECALL R4 R4 K26 ["getExtentsFromGuis"]
   CALL R4 -1 -1
-  NAMECALL R2 R2 K17 ["updateSelectionAdorns"]
+  NAMECALL R2 R2 K27 ["updateSelectionAdorns"]
   CALL R2 -1 0
   GETUPVAL R2 2
   LOADB R3 1
@@ -945,7 +968,6 @@ MAIN:
   CAPTURE REF R12
   CAPTURE VAL R0
   CAPTURE REF R10
-  CAPTURE VAL R25
   CAPTURE REF R11
   CAPTURE VAL R26
   CAPTURE VAL R27

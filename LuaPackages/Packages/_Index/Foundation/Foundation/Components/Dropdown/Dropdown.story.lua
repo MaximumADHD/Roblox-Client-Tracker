@@ -27,25 +27,103 @@ end
 
 return {
 	summary = "Dropdown Group component",
-	story = function(props)
-		local controls = props.controls
-		local id, setId = React.useState(nil :: ItemId?)
-		local items = getItems(controls.hasIcon)
+	stories = {
+		{
+			name = "Base",
+			story = function(props)
+				local controls = props.controls
+				local id, setId = React.useState(nil :: ItemId?)
+				local items = getItems(controls.hasIcon)
 
-		return React.createElement(Dropdown.Root, {
-			value = id,
-			placeholder = if controls.hasPlaceholder then "Choose a value" else nil,
-			onItemChanged = function(itemId: ItemId)
-				print("Checking item with value = " .. itemId)
-				setId(itemId)
+				return React.createElement(Dropdown.Root, {
+					value = id,
+					placeholder = if controls.hasPlaceholder then "Choose a value" else nil,
+					onItemChanged = function(itemId: ItemId)
+						print("Checking item with value = " .. itemId)
+						setId(itemId)
+					end,
+					hasError = controls.hasError,
+					isDisabled = controls.isDisabled,
+					items = items,
+					size = controls.size,
+					label = controls.label,
+				})
 			end,
-			hasError = controls.hasError,
-			isDisabled = controls.isDisabled,
-			items = items,
-			size = controls.size,
-			label = controls.label,
-		})
-	end,
+		} :: any,
+		{
+			name = "Narrow dropdown narrow items",
+			story = function(props)
+				local controls = props.controls
+				local id, setId = React.useState(nil :: ItemId?)
+
+				return React.createElement(Dropdown.Root, {
+					value = id,
+					placeholder = if controls.hasPlaceholder then "Choose a value" else nil,
+					onItemChanged = function(itemId: ItemId)
+						print("Checking item with value = " .. itemId)
+						setId(itemId)
+					end,
+					hasError = controls.hasError,
+					isDisabled = controls.isDisabled,
+					items = {
+						{ id = "A", text = "Item A" },
+						{ id = "B", text = "Item B", isDisabled = true },
+					},
+					size = controls.size,
+					label = controls.label,
+					width = UDim.new(0, 150),
+				})
+			end,
+		},
+		{
+			name = "Narrow dropdown wider items",
+			story = function(props)
+				local controls = props.controls
+				local id, setId = React.useState(nil :: ItemId?)
+				local items = getItems(controls.hasIcon)
+
+				return React.createElement(Dropdown.Root, {
+					value = id,
+					placeholder = if controls.hasPlaceholder then "Choose a value" else nil,
+					onItemChanged = function(itemId: ItemId)
+						print("Checking item with value = " .. itemId)
+						setId(itemId)
+					end,
+					hasError = controls.hasError,
+					isDisabled = controls.isDisabled,
+					items = items,
+					size = controls.size,
+					label = controls.label,
+					width = UDim.new(0, 150),
+				})
+			end,
+		},
+		{
+			name = "Wide dropdown narrow items",
+			story = function(props)
+				local controls = props.controls
+				local id, setId = React.useState(nil :: ItemId?)
+
+				return React.createElement(Dropdown.Root, {
+					value = id,
+					placeholder = if controls.hasPlaceholder then "Choose a value" else nil,
+					onItemChanged = function(itemId: ItemId)
+						print("Checking item with value = " .. itemId)
+						setId(itemId)
+					end,
+					hasError = controls.hasError,
+					isDisabled = controls.isDisabled,
+					items = {
+						{ id = "A", text = "Item A" },
+						{ id = "B", text = "Item B", isDisabled = true },
+					},
+					size = controls.size,
+					label = controls.label,
+					width = UDim.new(1, 0),
+				})
+			end,
+		},
+	},
 	controls = {
 		size = Dash.values(InputSize),
 		isDisabled = false,

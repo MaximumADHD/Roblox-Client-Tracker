@@ -5,9 +5,51 @@ PROTO_0:
   CALL R0 2 -1
   RETURN R0 -1
 
+PROTO_1:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnableFindReplaceAllMaxResultsSetting"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["FindReplaceAllCacheSize"]
+  NAMECALL R0 R0 K3 ["GetFastInt"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["FindReplaceAllEnableCache"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
 MAIN:
   PREPVARARGS 0
-  DUPTABLE R0 K1 [{"getFFlagEnableFindReplaceAll"}]
-  DUPCLOSURE R1 K2 [PROTO_0]
-  SETTABLEKS R1 R0 K0 ["getFFlagEnableFindReplaceAll"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnableFindReplaceAllMaxResultsSetting"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K4 ["FindReplaceAllEnableCache"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K5 ["FindReplaceAllCacheSize"]
+  LOADN R3 100
+  NAMECALL R0 R0 K6 ["DefineFastInt"]
+  CALL R0 3 0
+  DUPTABLE R0 K11 [{"getFFlagEnableFindReplaceAll", "getFFlagEnableFindReplaceAllMaxResultsSetting", "getFFlagFindReplaceAllCacheSize", "getFFlagFindReplaceAllEnableCache"}]
+  DUPCLOSURE R1 K12 [PROTO_0]
+  SETTABLEKS R1 R0 K7 ["getFFlagEnableFindReplaceAll"]
+  DUPCLOSURE R1 K13 [PROTO_1]
+  SETTABLEKS R1 R0 K8 ["getFFlagEnableFindReplaceAllMaxResultsSetting"]
+  DUPCLOSURE R1 K14 [PROTO_2]
+  SETTABLEKS R1 R0 K9 ["getFFlagFindReplaceAllCacheSize"]
+  DUPCLOSURE R1 K15 [PROTO_3]
+  SETTABLEKS R1 R0 K10 ["getFFlagFindReplaceAllEnableCache"]
   RETURN R0 1

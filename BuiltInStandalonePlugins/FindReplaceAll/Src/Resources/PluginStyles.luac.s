@@ -17,7 +17,7 @@ MAIN:
   GETTABLEKS R3 R4 K12 ["createStyleRule"]
   GETTABLEKS R5 R1 K11 ["Styling"]
   GETTABLEKS R4 R5 K13 ["createStyleSheet"]
-  NEWTABLE R5 0 44
+  NEWTABLE R5 0 45
   MOVE R6 R3
   LOADK R7 K14 ["ImageButton"]
   DUPTABLE R8 K16 [{"Size"}]
@@ -534,11 +534,23 @@ MAIN:
   DUPTABLE R19 K188 [{"Font"}]
   GETTABLEKS R20 R2 K186 ["defaultFont"]
   SETTABLEKS R20 R19 K184 ["Font"]
-  CALL R17 2 -1
+  CALL R17 2 1
+  MOVE R18 R3
+  LOADK R19 K190 [".FindReplaceAll-UIStroke"]
+  DUPTABLE R20 K194 [{"Color", "Transparency", "Thickness", "BorderSizePixel"}]
+  LOADK R21 K48 ["$SemanticColorShift300"]
+  SETTABLEKS R21 R20 K191 ["Color"]
+  LOADK R21 K49 ["$SemanticColorShift300Transparency"]
+  SETTABLEKS R21 R20 K192 ["Transparency"]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K193 ["Thickness"]
+  LOADN R21 0
+  SETTABLEKS R21 R20 K58 ["BorderSizePixel"]
+  CALL R18 2 -1
   SETLIST R5 R6 -1 [33]
   NEWTABLE R6 0 0
   MOVE R7 R4
-  LOADK R8 K190 ["FindReplaceAllPlugin"]
+  LOADK R8 K195 ["FindReplaceAllPlugin"]
   MOVE R9 R5
   MOVE R10 R6
   CALL R7 3 -1

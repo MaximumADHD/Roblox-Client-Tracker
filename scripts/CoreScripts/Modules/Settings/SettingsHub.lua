@@ -58,6 +58,7 @@ local AppStyleProvider = require(CorePackages.Packages.UIBlox).App.Style.AppStyl
 local DarkTheme = require(CorePackages.Packages.UIBlox).App.Style.Constants.ThemeName.Dark 
 local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagInExperienceUseAppStyleProvider = SharedFlags.FFlagInExperienceUseAppStyleProvider
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 local Theme = require(script.Parent.Theme)
 
@@ -85,7 +86,6 @@ local GET_SERVER_CHANNEL_RETRIES = game:DefineFastInt("GetServerChannelRetries",
 -- [[ FAST FLAGS ]]
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
-local FFlagIEMAddSettingsUniverseId = SharedFlags.FFlagIEMAddSettingsUniverseId
 local FFlagAddSwitchTabHintsToIEM = SharedFlags.FFlagAddSwitchTabHintsToIEM
 
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
@@ -118,14 +118,12 @@ local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Fla
 local GetFFlagDisplayServerChannel = SharedFlags.GetFFlagDisplayServerChannel
 local FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagSettingsHubIndependentBackgroundVisibility = SharedFlags.getFFlagSettingsHubIndependentBackgroundVisibility()
-local FFlagAppChatReappearIfClosedByTiltMenu = game:DefineFastFlag("AppChatReappearIfClosedByTiltMenu", true)
 local EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons")
 local FFlagInExperienceMenuReorderFirstVariant = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
 local GetFStringInExperienceMenuIXPLayer = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer)
 local GetFStringInExperienceMenuIXPVar = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar)
 local GetFFlagPackagifySettingsShowSignal = SharedFlags.GetFFlagPackagifySettingsShowSignal
 local FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false)
-local FFlagDelayEscCoreActionIEMOpen = game:DefineFastFlag("DelayEscCoreActionIEMOpen", false)
 local GetFFlagRemovePermissionsButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagRemovePermissionsButtons)
 local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
 local FFlagUpdateTiltMenuButtonIcons = SharedFlags.FFlagUpdateTiltMenuButtonIcons
@@ -147,6 +145,8 @@ local FFlagEnableSettingsHubUIDelegateRollout = SharedFlags.FFlagEnableSettingsH
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 local FFlagSpatialUIFixMenuPanelChatExclusive = require(RobloxGui.Modules.Settings.Flags.FFlagSpatialUIFixMenuPanelChatExclusive)
 local FFlagFixUninitializedMenuKeyBindings = game:DefineFastFlag("FixUninitializedMenuKeyBindings", false)
+local FFlagEnableSettingsHubCreateReactPage = SharedFlags.FFlagEnableSettingsHubCreateReactPage
+local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -210,6 +210,8 @@ local MenuLeaveGameTelemetryConfig = require(RobloxGui.Modules.Settings.Analytic
 local MenuResetCharacterTelemetryConfig = require(RobloxGui.Modules.Settings.Analytics.MenuResetCharacterTelemetryConfig)
 local MenuResumeTelemetryConfig = require(RobloxGui.Modules.Settings.Analytics.MenuResumeTelemetryConfig)
 
+local ReactPageAnalytics = require(RobloxGui.Modules.Settings.Analytics.ReactPageAnalytics)
+
 local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
 
 local GameInvitePackage, GameInviteModalManager, GameInviteInviteExperimentVariant, GameInviteConstants
@@ -244,6 +246,9 @@ local SPRING_PARAMS = {
 	frequency = 4,
 	dampingRatio = 1,
 }
+
+local ReactPageFactory = require(RobloxGui.Modules.Settings.ReactPageFactory)
+type ReactPage = ReactPageFactory.ReactPage
 
 export type ExperienceControlStore = {
 	-- Data
@@ -408,6 +413,10 @@ local function CreateSettingsHub()
 	this.playSessionId = ""
 	if FFlagIEMSettingsAddPlaySessionID and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then 
 		this.playSessionId = AnalyticsService:GetPlaySessionId()
+	end
+
+	if FFlagEnableSettingsHubCreateReactPage then
+		this.reactPageAnalytics = ReactPageAnalytics.new()
 	end
 
 	local pageChangeCon = nil
@@ -1080,7 +1089,7 @@ local function CreateSettingsHub()
 					{ 
 						source = source, 
 						playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil,
-						universeid = if FFlagIEMAddSettingsUniverseId then tostring(game.GameId) else nil,
+						universeid = tostring(game.GameId) ,
 					}
 				)
 
@@ -1519,9 +1528,32 @@ local function CreateSettingsHub()
 			AutomaticSize = menuPos.AutomaticSize,
 			Parent = this.Shield
 		}
+
+		if FFlagEnableSettingsHubCreateReactPage then
+			-- Root container for React pages
+			this.ReactPage = Create'Frame'
+			{
+				Name = 'ReactPage',
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(0, 0),
+				Parent = this.MenuContainer
+			}
+
+			-- Container for non-React pages
+			this.Page = Create'Frame'
+			{
+				Name = 'Page',
+				BackgroundTransparency = 1,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Parent = this.MenuContainer
+			}
+		end
+
+		local menuParent = if FFlagEnableSettingsHubCreateReactPage then this.Page else this.MenuContainer
+
 		this.MenuContainerPadding = Create'UIPadding'
 		{
-			Parent = this.MenuContainer,
+			Parent = menuParent,
 		}
 		if not isTenFootInterface then
 			local topCornerInset = GuiService:GetGuiInset()
@@ -1531,7 +1563,6 @@ local function CreateSettingsHub()
 			this.MenuContainerPadding.PaddingTop = UDim.new(0, paddingTop)
 		end
 
-		local menuParent = this.MenuContainer
 		do
 			local pad = Theme.HubPadding()
 			this.MenuContainer.AutoButtonColor = false
@@ -2046,7 +2077,7 @@ local function CreateSettingsHub()
 				{
 					source = source, 
 					playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil, 
-					universeid = if FFlagIEMAddSettingsUniverseId then tostring(game.GameId) else nil,
+					universeid = tostring(game.GameId) ,
 				}
 			)
 			if FFlagIEMResumeButtonPressBugfix then
@@ -2618,6 +2649,14 @@ local function CreateSettingsHub()
 					math.min(pageSize.Y - this.PageView.Size.Y.Offset, usePageSize)
 				)
 			end
+		end
+
+		if FFlagEnableSettingsHubCreateReactPage then
+			-- Set React page size to match the size of the entire menu
+			local padding = Theme.HubPadding()
+			local paddingX = padding.PaddingLeft.Offset + padding.PaddingRight.Offset
+			local paddingY = padding.PaddingTop.Offset + padding.PaddingBottom.Offset
+			this.ReactPage.Size = UDim2.new(0, this.HubBar.AbsoluteSize.X + paddingX, 0, usePageSize + barSize + paddingY)
 		end
 
 		this.PageViewClipper.Size = newPageViewClipperSize
@@ -3576,6 +3615,11 @@ local function CreateSettingsHub()
 				MouseIconOverrideService.push(SETTINGS_HUB_MOUSE_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceShow)
 			end
 
+			if FFlagEnableSettingsHubCreateReactPage then
+				-- Make sure React page is not open by default
+				this:CloseReactPage()
+			end
+
 			if customStartPage then
 				if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
 					this.removeMenuKeyBindings()
@@ -3588,7 +3632,17 @@ local function CreateSettingsHub()
 			end
 
 			if (if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isMovePanelToCenter() then not VRService.VREnabled else true) then
-				playerList:HideTemp('SettingsMenu', true)
+				if FFlagModalPlayerListCloseUnfocused then
+					if playerList:GetIsModal() then
+						-- Close modal PlayerList
+						playerList:SetVisibility(false)
+					else
+						-- Temporarily hide side-view PlayerList
+						playerList:HideTemp('SettingsMenu', true)
+					end
+				else 
+					playerList:HideTemp('SettingsMenu', true)
+				end
 
 				if
 					not (isInExperienceUIVREnabled
@@ -3621,9 +3675,6 @@ local function CreateSettingsHub()
 		else
 			this.CurrentPageSignal:fire("")
 
-			local forceNoAnimationIfWeWillShowConnect = if GetFFlagEnableAppChatInExperience() then (FFlagAppChatReappearIfClosedByTiltMenu and connectWasVisible) else false
-
-
 			if ChromeEnabled and FFlagEnableChromeShortcutBar then
 				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
 				local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
@@ -3632,9 +3683,6 @@ local function CreateSettingsHub()
 
 			if GetFFlagEnableAppChatInExperience() and connectWasVisible then
 				connectWasVisible = false
-				if FFlagAppChatReappearIfClosedByTiltMenu then
-					InExperienceAppChatModal.default:setVisible(true)
-				end
 			end
 
 			if isInExperienceUIVREnabled and InExperienceUIVRIXP:isMovePanelToCenter() then
@@ -3645,7 +3693,7 @@ local function CreateSettingsHub()
 				end
 			end
 
-			if noAnimation or forceNoAnimationIfWeWillShowConnect then
+			if noAnimation then
 				this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 				this.Shield.Visible = this.Visible
 				this.SettingsShowSignal:fire(this.Visible)
@@ -3777,6 +3825,11 @@ local function CreateSettingsHub()
 				MouseIconOverrideService.pop(SETTINGS_HUB_MOUSE_OVERRIDE_KEY)
 			end
 
+			if FFlagEnableSettingsHubCreateReactPage then
+				-- Close React page when IEM is closed
+				this:CloseReactPage()
+			end
+
 			clearMenuStack()
 
 			ContextActionService:UnbindCoreAction("RbxSettingsHubSwitchTab")
@@ -3802,7 +3855,7 @@ local function CreateSettingsHub()
 		local visibilityAnalyticsPayload = {
 			source = analyticsContext,
 			playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil,
-			universeid = if FFlagIEMAddSettingsUniverseId then tostring(game.GameId) else nil,
+			universeid = tostring(game.GameId) ,
 		}
 
 		if visibilityChanged then
@@ -3925,6 +3978,57 @@ local function CreateSettingsHub()
 		this.Shield.BackgroundTransparency = 1
 	end
 
+	if FFlagEnableSettingsHubCreateReactPage then
+		function this:ShowReactPage()
+			if this.reactPage then
+				this.reactPageAnalytics:openPage(this.reactPage.name)
+			end
+
+			this.ReactPage.Visible = true
+			this.Page.Visible = false
+		end
+
+		function this:HideReactPage()
+			if this.reactPage then
+				this.reactPageAnalytics:closePage(this.reactPage.name)
+			end
+
+			this.ReactPage.Visible = false
+			this.Page.Visible = true
+		end
+
+		function this:MountReactPage()
+			if this.reactPageRoot then
+				this:UnmountReactPage()
+			end
+			this.reactPageRoot = ReactRoblox.createRoot(this.ReactPage)
+		end
+
+		function this:UnmountReactPage()
+			if this.reactPageRoot then
+				this.reactPageRoot:unmount()
+				this.reactPageRoot = nil
+			end
+		end
+
+		function this:CloseReactPage()
+			this:HideReactPage()
+			this:UnmountReactPage()
+		end
+
+		function this:SwitchToReactPage(page: ReactPage, props: any)
+			this.reactPage = page
+
+			if not this.reactPageRoot then
+				this:MountReactPage()
+			end
+
+			this.reactPageRoot:render(page:createPage(props))
+			this:ShowReactPage()
+		end
+	end
+
+
 	local thisModuleName = "SettingsMenu"
 	this.GameSettingsPageReorderIXPFetched = false
 	local vrMenuOpened, vrMenuClosed = nil, nil
@@ -4008,25 +4112,6 @@ local function CreateSettingsHub()
 	end
 	UserInputService.Changed:connect(OnVREnabled)
 	OnVREnabled("VREnabled")
-
-
-	if not FFlagDelayEscCoreActionIEMOpen then
-		if not isNewInGameMenuEnabled() then
-			--If the new in game menu is enabled the settings hub is just used for the gamepad leave game prompt
-			--as a special case until gamepad support for the new menu is complete.
-			if not FFlagAddUILessMode or FIntAddUILessModeVariant == 0 then
-				local closeMenuFunc = function(name, inputState, input)
-					if inputState ~= Enum.UserInputState.Begin then return end
-					if FFlagAddUILessMode then
-						this:PopMenu(false, true, Constants.AnalyticsMenuOpenTypes.Keyboard)
-					else
-						this:PopMenu(false, true)
-					end
-				end
-				ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
-			end
-		end
-	end
 
 	this.ResetCharacterPage:SetHub(this)
 
@@ -4172,8 +4257,6 @@ local function CreateSettingsHub()
 	end
 
 	this:InitInPage(this:GetFirstPageWithTabHeader())
-
-	if FFlagDelayEscCoreActionIEMOpen then
 		if not isNewInGameMenuEnabled() then
 			--If the new in game menu is enabled the settings hub is just used for the gamepad leave game prompt
 			--as a special case until gamepad support for the new menu is complete.
@@ -4189,7 +4272,6 @@ local function CreateSettingsHub()
 				ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)
 			end
 		end
-	end
 
 	-- hook up to necessary signals
 
@@ -4356,6 +4438,16 @@ end
 
 function moduleApiTable:GetRespawnBehaviour()
 	return SettingsHubInstance:GetRespawnBehaviour()
+end
+
+if FFlagEnableSettingsHubCreateReactPage then
+	function moduleApiTable:CloseReactPage()
+		SettingsHubInstance:CloseReactPage()
+	end
+
+	function moduleApiTable:SwitchToReactPage(page, props)
+		SettingsHubInstance:SwitchToReactPage(page, props)
+	end
 end
 
 moduleApiTable.RespawnBehaviourChangedEvent = SettingsHubInstance.RespawnBehaviourChangedEvent

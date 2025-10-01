@@ -24,6 +24,9 @@ local InspectAndBuyFolder = script.Parent.Parent
 
 local Constants = require(InspectAndBuyFolder.Constants)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
+local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local ItemRestrictions = AvatarExperienceCommon.Enums.ItemRestrictions
+
 type AvatarPreviewItem = AvatarExperienceInspectAndBuy.AvatarPreviewItem
 type BundleInfo = AvatarExperienceInspectAndBuy.BundleInfo
 type BulkPurchaseResultItem = AvatarExperienceInspectAndBuy.BulkPurchaseResultItem
@@ -73,13 +76,28 @@ end
 --[[
     Used to process ownership of a bundle based on the PromptBulkPurchaseFinished result
 ]]
-function BundleInfo.fromBulkPurchaseResult(bulkPurchaseResult: BulkPurchaseResultItem): BundleInfo
+function BundleInfo.fromBulkPurchaseResult(
+	bulkPurchaseResult: BulkPurchaseResultItem,
+	prevBundle: BundleInfo?
+): BundleInfo
 	local newBundle = BundleInfo.new()
+	local itemRestrictions = if prevBundle and prevBundle.itemRestrictions then prevBundle.itemRestrictions else {}
+	newBundle.resellableCount = if prevBundle and prevBundle.resellableCount then prevBundle.resellableCount else 0
+
 	if
 		bulkPurchaseResult.status == Enum.MarketplaceItemPurchaseStatus.Success
 		and bulkPurchaseResult.type == Enum.MarketplaceProductType.AvatarBundle
 	then
 		newBundle.owned = true
+
+		-- update the resellable count by 1 if the bundle is a collectible
+		if
+			itemRestrictions[ItemRestrictions.Collectible]
+			or itemRestrictions[ItemRestrictions.Limited]
+			or itemRestrictions[ItemRestrictions.LimitedUnique]
+		then
+			newBundle.resellableCount = newBundle.resellableCount + 1
+		end
 	end
 	return newBundle
 end

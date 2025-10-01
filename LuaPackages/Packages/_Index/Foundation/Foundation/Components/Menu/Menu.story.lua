@@ -14,6 +14,7 @@ local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 
 type MenuItem = Menu.MenuItem
+type MenuItems = Menu.MenuItems
 type IconSize = IconSize.IconSize
 type InputSize = InputSize.InputSize
 type PopoverSide = PopoverSide.PopoverSide
@@ -245,6 +246,59 @@ return {
 							print("Always open menu item activated:", id)
 						end,
 						anchorRef = ref,
+					}),
+				})
+			end,
+		},
+		{
+			name = "Grouped",
+			story = function(props)
+				local isOpen, setIsOpen = React.useState(false)
+
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 100),
+					tag = "row align-x-center align-y-center",
+				}, {
+					Menu = React.createElement(Menu, {
+						isOpen = isOpen,
+						items = {
+							{
+								title = "First title" :: string?,
+								items = {
+									{ id = "a1", icon = "icons/common/robux", text = "Alpha 1" } :: MenuItem,
+									{ id = "a2", text = "Alpha 2" },
+								},
+							},
+							{
+								items = {
+									{ id = "b1", text = "Beta 1" },
+									{ id = "b2", isDisabled = true, text = "Beta 2 (disabled)" },
+								},
+							},
+							{
+								items = {
+									{ id = "c1", text = "Untitled group item" },
+								},
+							},
+						} :: MenuItems,
+						size = props.controls.size,
+						side = props.controls.side,
+						align = props.controls.align,
+						onPressedOutside = function()
+							setIsOpen(false)
+						end,
+						onActivated = function(id)
+							print("Menu item activated:", id)
+							setIsOpen(false)
+						end,
+					}, {
+						Button = React.createElement(Button, {
+							text = "Open Menu",
+							size = InputSize.Medium,
+							onActivated = function()
+								setIsOpen(not isOpen)
+							end,
+						}),
 					}),
 				})
 			end,

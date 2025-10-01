@@ -452,11 +452,13 @@ PROTO_17:
   CAPTURE VAL R0
   CAPTURE UPVAL U0
   DUPTABLE R3 K2 [{"ScriptCollabEnabledChanged", "dispatchShutdownAllServers"}]
-  MOVE R4 R1
   LOADK R5 K3 ["ScriptCollabEnabled"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K0 ["ScriptCollabEnabledChanged"]
   NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R5
+  SETTABLEKS R4 R3 K0 ["ScriptCollabEnabledChanged"]
+  NEWCLOSURE R4 P2
   CAPTURE VAL R0
   CAPTURE UPVAL U1
   SETTABLEKS R4 R3 K1 ["dispatchShutdownAllServers"]

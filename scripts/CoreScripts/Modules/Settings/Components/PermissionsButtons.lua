@@ -51,7 +51,6 @@ local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagE
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagEnableConnectDisconnectButtonAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectButtonAnalytics)
-local GetFFlagPassShouldRequestPermsArg = require(RobloxGui.Modules.Flags.GetFFlagPassShouldRequestPermsArg)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagFixPermissionsButtonsEvents =
@@ -160,7 +159,6 @@ function PermissionsButtons:init()
 				-- confirm that we have mic permissions so we can change that state and update the UI accordingly.
 				if
 					GetFFlagEnableInExpVoiceUpsell()
-					and GetFFlagPassShouldRequestPermsArg()
 					and not self.state.hasMicPermissions
 				then
 					self:getMicPermission(false)
@@ -450,7 +448,7 @@ function PermissionsButtons:getMicPermission(shouldRequestPerms: boolean?)
 	getCamMicPermissions(
 		callback,
 		{ PermissionsProtocol.Permissions.MICROPHONE_ACCESS :: string },
-		if GetFFlagPassShouldRequestPermsArg() and shouldRequestPerms ~= nil then not shouldRequestPerms else nil,
+		if shouldRequestPerms ~= nil then not shouldRequestPerms else nil,
 		"PermissionsButtons.getMicPermission"
 	)
 end

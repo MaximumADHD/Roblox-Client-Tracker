@@ -2,13 +2,14 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local Dash = require(Packages.Dash)
+local Assets = require(Packages.FoundationCloudAssets).Assets
 
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local Flags = require(Foundation.Utility.Flags)
 local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 local ThumbnailType = require(Foundation.Enums.ThumbnailType)
 local ThumbnailSize = require(Foundation.Enums.ThumbnailSize)
@@ -153,12 +154,21 @@ return {
 		{
 			name = "Custom 9-slice Image",
 			story = function(props)
-				Flags.FoundationFixImageSlice = props.controls.fixImageSlice
 				return React.createElement(ImageSliceWithChildren, props)
+			end,
+		},
+		{
+			name = "Cloud Asset",
+			story = function(props)
+				return React.createElement(Image, {
+					Image = props.controls.cloudAsset,
+					Size = UDim2.fromOffset(300, 300),
+					tag = "content-emphasis",
+				})
 			end,
 		},
 	},
 	controls = {
-		fixImageSlice = Flags.FoundationFixImageSlice,
+		cloudAsset = Dash.keys(Assets),
 	},
 }

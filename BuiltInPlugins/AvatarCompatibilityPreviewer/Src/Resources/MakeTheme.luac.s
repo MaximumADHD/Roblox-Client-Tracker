@@ -66,7 +66,7 @@ MAIN:
   LOADK R13 K29 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Standard/dots_vertical.png"]
   SETTABLE R13 R11 R12
   GETTABLEKS R12 R5 K30 ["EmptyState"]
-  LOADK R13 K31 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/SI-Standard/empty_state@3x.png"]
+  LOADK R13 K31 ["rbxasset://textures/AvatarCompatibilityPreviewer/empty_state_dark.png"]
   SETTABLE R13 R11 R12
   GETTABLEKS R12 R5 K32 ["Falloff"]
   LOADK R13 K33 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Standard/falloff@2x.png"]
@@ -166,7 +166,7 @@ MAIN:
   LOADK R14 K29 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Standard/dots_vertical.png"]
   SETTABLE R14 R12 R13
   GETTABLEKS R13 R5 K30 ["EmptyState"]
-  LOADK R14 K85 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/SI-Standard/empty_state@3x.png"]
+  LOADK R14 K85 ["rbxasset://textures/AvatarCompatibilityPreviewer/empty_state_light.png"]
   SETTABLE R14 R12 R13
   GETTABLEKS R13 R5 K32 ["Falloff"]
   LOADK R14 K86 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Standard/falloff@2x.png"]

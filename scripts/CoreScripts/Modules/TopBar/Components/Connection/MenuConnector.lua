@@ -1,3 +1,5 @@
+-- Remove with FFlagTopBarSignalizeMenuOpen and FFlagTopBarDeprecateRespawnRodux
+
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -23,6 +25,7 @@ local GetFFlagEnableInGameMenuDurationLogger =
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
+local FFlagTopBarDeprecateRespawnRodux = require(TopBar.Flags.FFlagTopBarDeprecateRespawnRodux)
 
 local MenuConnector = Roact.PureComponent:extend("MenuConnector")
 
@@ -109,7 +112,7 @@ local function mapDispatchToProps(dispatch)
 			return dispatch(SetMenuOpen(open))
 		end,
 
-		setRespawnBehaviour = function(isEnabled, customCallback)
+		setRespawnBehaviour = if FFlagTopBarDeprecateRespawnRodux then nil else function(isEnabled, customCallback)
 			return dispatch(SetRespawnBehaviour(isEnabled, customCallback))
 		end or nil,
 	}

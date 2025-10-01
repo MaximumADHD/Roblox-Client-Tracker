@@ -1,5 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
 
 local Signals = require(CorePackages.Packages.Signals)
@@ -47,6 +48,9 @@ local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDo
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
+local FFlagPlayerListIgnoreDevGamepadBindings = game:DefineFastFlag("PlayerListIgnoreDevGamepadBindings", false)
+
+local PLAYER_LIST_MENU = "PlayerListMenu"
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -345,6 +349,10 @@ end
 function PlayerListApp:didUpdate(previousProps, previousState)
 	local isVisible = self.props.displayOptions.isVisible
 	local isDropDownVisible = self.props.isDropDownVisible
+
+	if FFlagPlayerListIgnoreDevGamepadBindings then
+		GuiService:SetMenuIsOpen(isVisible, PLAYER_LIST_MENU)
+	end
 
 	if not FFlagPlayerListClosedNoRender and isVisible ~= previousProps.displayOptions.isVisible and not isVisible then
 		self:setState({

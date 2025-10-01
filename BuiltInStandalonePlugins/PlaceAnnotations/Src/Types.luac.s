@@ -24,5 +24,20 @@ MAIN:
   GETTABLEKS R6 R7 K7 ["Enums"]
   GETTABLEKS R5 R6 K11 ["AnnotationEditingMode"]
   CALL R4 1 1
-  NEWTABLE R5 0 0
-  RETURN R5 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K7 ["Enums"]
+  GETTABLEKS R6 R7 K12 ["PlaceContentPreference"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K7 ["Enums"]
+  GETTABLEKS R7 R8 K13 ["AnnotationPlaceContentPreference"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K7 ["Enums"]
+  GETTABLEKS R8 R9 K14 ["AnnotationChannelContentPreference"]
+  CALL R7 1 1
+  NEWTABLE R8 0 0
+  RETURN R8 1

@@ -61,7 +61,6 @@ end
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
-local FFlagIEMAddSettingsUniverseId = SharedFlags.FFlagIEMAddSettingsUniverseId
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
@@ -799,7 +798,7 @@ local function Initialize()
 			{ 
 				source = Constants.AnalyticsResumeButtonSource, 
 				playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil,
-				universeid = if FFlagIEMAddSettingsUniverseId then tostring(game.GameId) else nil,
+				universeid = tostring(game.GameId) ,
 			}
 		)
 	end
@@ -1354,7 +1353,7 @@ local function Initialize()
 				Constants.AnalyticsExamineAvatarName,
 				Constants.AnalyticsMenuActionName,
 				{ playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil,
-					universeid = if FFlagIEMAddSettingsUniverseId then tostring(game.GameId) else nil,
+					universeid = tostring(game.GameId) ,
 				}
 
 			)

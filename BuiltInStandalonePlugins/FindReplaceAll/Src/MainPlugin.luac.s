@@ -1,39 +1,102 @@
 PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Plugin"]
+  LOADK R3 K2 ["Widgets"]
+  NAMECALL R1 R0 K3 ["GetPluginComponent"]
+  CALL R1 2 1
+  NAMECALL R2 R0 K4 ["GetUri"]
+  CALL R2 1 1
+  MOVE R5 R2
+  NAMECALL R3 R1 K5 ["GetWidgetAsync"]
+  CALL R3 2 1
+  GETTABLEKS R4 R3 K6 ["Exists"]
+  JUMPIFNOT R4 [+4]
+  MOVE R6 R2
+  NAMECALL R4 R1 K7 ["FocusAsync"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R1 K2 [task.spawn]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
   DUPTABLE R1 K1 [{"enabled"}]
   GETTABLEKS R3 R0 K0 ["enabled"]
   NOT R2 R3
   SETTABLEKS R2 R1 K0 ["enabled"]
   RETURN R1 1
 
-PROTO_1:
+PROTO_3:
   GETUPVAL R0 0
-  DUPCLOSURE R2 K0 [PROTO_0]
+  DUPCLOSURE R2 K0 [PROTO_2]
   NAMECALL R0 R0 K1 ["setState"]
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_4:
   GETUPVAL R0 0
-  DUPTABLE R2 K2 [{"enabled", "findActivationData"}]
+  DUPTABLE R2 K8 [{"Search", "CaseSensitive", "MatchWholeWords", "Regex", "Replace", "IncludeFilter", "ExcludeFilter", "MaxResults"}]
+  LOADK R3 K9 [""]
+  SETTABLEKS R3 R2 K0 ["Search"]
   LOADB R3 0
-  SETTABLEKS R3 R2 K0 ["enabled"]
+  SETTABLEKS R3 R2 K1 ["CaseSensitive"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["MatchWholeWords"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K3 ["Regex"]
   LOADNIL R3
-  SETTABLEKS R3 R2 K1 ["findActivationData"]
-  NAMECALL R0 R0 K3 ["setState"]
+  SETTABLEKS R3 R2 K4 ["Replace"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K5 ["IncludeFilter"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K6 ["ExcludeFilter"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K10 ["MAX_RESULTS"]
+  SETTABLEKS R3 R2 K7 ["MaxResults"]
+  NAMECALL R0 R0 K11 ["UpdateQueryAsync"]
   CALL R0 2 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["props"]
-  GETTABLEKS R1 R2 K5 ["PluginLoaderContext"]
-  GETTABLEKS R0 R1 K6 ["findActivationState"]
-  JUMPIFNOT R0 [+8]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K4 ["props"]
-  GETTABLEKS R0 R1 K5 ["PluginLoaderContext"]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K6 ["findActivationState"]
   RETURN R0 0
 
-PROTO_3:
+PROTO_5:
+  GETIMPORT R0 K1 [pcall]
+  DUPCLOSURE R1 K2 [PROTO_4]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R0 K2 [task.defer]
+  DUPCLOSURE R1 K3 [PROTO_5]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CALL R0 1 0
+  GETUPVAL R0 2
+  DUPTABLE R2 K6 [{"enabled", "findActivationData"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K4 ["enabled"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K5 ["findActivationData"]
+  NAMECALL R0 R0 K7 ["setState"]
+  CALL R0 2 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K8 ["props"]
+  GETTABLEKS R1 R2 K9 ["PluginLoaderContext"]
+  GETTABLEKS R0 R1 K10 ["findActivationState"]
+  JUMPIFNOT R0 [+8]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K8 ["props"]
+  GETTABLEKS R0 R1 K9 ["PluginLoaderContext"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K10 ["findActivationState"]
+  RETURN R0 0
+
+PROTO_7:
   GETUPVAL R1 0
   DUPTABLE R3 K1 [{"enabled"}]
   SETTABLEKS R0 R3 K0 ["enabled"]
@@ -41,7 +104,7 @@ PROTO_3:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_8:
   GETUPVAL R1 0
   DUPTABLE R3 K1 [{"enabled"}]
   GETTABLEKS R4 R0 K2 ["Enabled"]
@@ -50,7 +113,7 @@ PROTO_4:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_9:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["PluginLoaderContext"]
@@ -70,11 +133,29 @@ PROTO_5:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_10:
   NEWTABLE R0 0 0
   RETURN R0 1
 
-PROTO_7:
+PROTO_11:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"shouldFocusTextBox"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["shouldFocusTextBox"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"shouldFocusTextBox"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["shouldFocusTextBox"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_13:
   GETUPVAL R2 0
   DUPTABLE R4 K2 [{"enabled", "findActivationData"}]
   LOADB R5 1
@@ -85,87 +166,110 @@ PROTO_7:
   SETTABLEKS R5 R4 K1 ["findActivationData"]
   NAMECALL R2 R2 K6 ["setState"]
   CALL R2 2 0
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K7 ["focusWidget"]
+  CALL R2 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_14:
   LOADNIL R2
   GETTABLEKS R4 R1 K0 ["PluginLoaderContext"]
   GETTABLEKS R3 R4 K1 ["findActivationState"]
   JUMPIFNOT R3 [+4]
   GETTABLEKS R3 R1 K0 ["PluginLoaderContext"]
   GETTABLEKS R2 R3 K1 ["findActivationState"]
-  DUPTABLE R3 K4 [{"enabled", "findActivationData"}]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K2 ["enabled"]
-  SETTABLEKS R2 R3 K3 ["findActivationData"]
-  SETTABLEKS R3 R0 K5 ["state"]
-  NEWCLOSURE R3 P0
+  LOADB R3 0
+  GETTABLEKS R4 R1 K0 ["PluginLoaderContext"]
+  JUMPIFNOT R4 [+10]
+  GETTABLEKS R5 R1 K0 ["PluginLoaderContext"]
+  GETTABLEKS R4 R5 K2 ["mainDockWidget"]
+  LOADB R5 0
+  JUMPIFEQKNIL R4 [+3]
+  GETTABLEKS R5 R4 K3 ["Enabled"]
+  MOVE R3 R5
+  DUPTABLE R4 K7 [{"enabled", "findActivationData", "shouldFocusTextBox"}]
+  SETTABLEKS R3 R4 K4 ["enabled"]
+  SETTABLEKS R2 R4 K5 ["findActivationData"]
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  SETTABLEKS R5 R4 K6 ["shouldFocusTextBox"]
+  SETTABLEKS R4 R0 K8 ["state"]
+  NEWCLOSURE R4 P0
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K6 ["toggleEnabled"]
-  NEWCLOSURE R3 P1
+  SETTABLEKS R4 R0 K9 ["toggleEnabled"]
+  NEWCLOSURE R4 P1
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K7 ["onClose"]
-  NEWCLOSURE R3 P2
+  SETTABLEKS R4 R0 K10 ["onClose"]
+  NEWCLOSURE R4 P2
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K8 ["onRestore"]
-  NEWCLOSURE R3 P3
+  SETTABLEKS R4 R0 K11 ["onRestore"]
+  NEWCLOSURE R4 P3
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K9 ["onWidgetEnabledChanged"]
-  NEWCLOSURE R3 P4
+  SETTABLEKS R4 R0 K12 ["onWidgetEnabledChanged"]
+  NEWCLOSURE R4 P4
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K10 ["onDockWidgetCreated"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K11 ["new"]
-  GETTABLEKS R4 R1 K12 ["Plugin"]
-  NAMECALL R4 R4 K13 ["getMouse"]
-  CALL R4 1 -1
-  CALL R3 -1 1
-  SETTABLEKS R3 R0 K14 ["mouse"]
-  GETTABLEKS R3 R0 K14 ["mouse"]
-  LOADK R5 K15 ["Arrow"]
-  LOADN R6 0
-  NAMECALL R3 R3 K16 ["__pushCursor"]
-  CALL R3 3 0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K17 ["Localization"]
-  GETTABLEKS R3 R4 K11 ["new"]
-  DUPTABLE R4 K21 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R4 R0 K13 ["onDockWidgetCreated"]
   GETUPVAL R5 2
-  SETTABLEKS R5 R4 K18 ["stringResourceTable"]
-  GETUPVAL R5 3
-  SETTABLEKS R5 R4 K19 ["translationResourceTable"]
+  GETTABLEKS R4 R5 K14 ["new"]
+  GETTABLEKS R5 R1 K15 ["Plugin"]
+  NAMECALL R5 R5 K16 ["getMouse"]
+  CALL R5 1 -1
+  CALL R4 -1 1
+  SETTABLEKS R4 R0 K17 ["mouse"]
+  GETTABLEKS R4 R0 K17 ["mouse"]
+  LOADK R6 K18 ["Arrow"]
+  LOADN R7 0
+  NAMECALL R4 R4 K19 ["__pushCursor"]
+  CALL R4 3 0
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K20 ["Localization"]
+  GETTABLEKS R4 R5 K14 ["new"]
+  DUPTABLE R5 K24 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R6 4
-  GETTABLEKS R5 R6 K22 ["PLUGIN_NAME"]
-  SETTABLEKS R5 R4 K20 ["pluginName"]
-  CALL R3 1 1
-  SETTABLEKS R3 R0 K23 ["localization"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K24 ["Analytics"]
-  GETTABLEKS R3 R4 K11 ["new"]
-  DUPCLOSURE R4 K25 [PROTO_6]
-  NEWTABLE R5 0 0
-  CALL R3 2 1
-  SETTABLEKS R3 R0 K26 ["analytics"]
-  GETUPVAL R4 5
-  GETTABLEKS R3 R4 K11 ["new"]
-  CALL R3 0 1
-  SETTABLEKS R3 R0 K27 ["DEPRECATED_stylizer"]
-  GETUPVAL R3 6
-  GETTABLEKS R4 R1 K12 ["Plugin"]
-  CALL R3 1 1
-  SETTABLEKS R3 R0 K28 ["design"]
-  NEWCLOSURE R3 P6
-  CAPTURE VAL R0
-  SETTABLEKS R3 R0 K29 ["onFindActivationUpdate"]
+  SETTABLEKS R6 R5 K21 ["stringResourceTable"]
+  GETUPVAL R6 5
+  SETTABLEKS R6 R5 K22 ["translationResourceTable"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K25 ["PLUGIN_NAME"]
+  SETTABLEKS R6 R5 K23 ["pluginName"]
+  CALL R4 1 1
+  SETTABLEKS R4 R0 K26 ["localization"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K27 ["Analytics"]
+  GETTABLEKS R4 R5 K14 ["new"]
+  DUPCLOSURE R5 K28 [PROTO_10]
+  NEWTABLE R6 0 0
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K29 ["analytics"]
+  GETUPVAL R5 6
+  GETTABLEKS R4 R5 K14 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R0 K30 ["DEPRECATED_stylizer"]
   GETUPVAL R4 7
-  GETTABLEKS R3 R4 K30 ["FindActivated"]
-  GETTABLEKS R5 R0 K29 ["onFindActivationUpdate"]
-  NAMECALL R3 R3 K31 ["Connect"]
-  CALL R3 2 1
-  SETTABLEKS R3 R0 K32 ["findActivatedConnection"]
+  GETTABLEKS R5 R1 K15 ["Plugin"]
+  CALL R4 1 1
+  SETTABLEKS R4 R0 K31 ["design"]
+  NEWCLOSURE R4 P6
+  CAPTURE VAL R0
+  SETTABLEKS R4 R0 K32 ["onFocus"]
+  NEWCLOSURE R4 P7
+  CAPTURE VAL R0
+  SETTABLEKS R4 R0 K33 ["onFocusReleased"]
+  NEWCLOSURE R4 P8
+  CAPTURE VAL R0
+  SETTABLEKS R4 R0 K34 ["onFindActivationUpdate"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K35 ["FindActivated"]
+  GETTABLEKS R6 R0 K34 ["onFindActivationUpdate"]
+  NAMECALL R4 R4 K36 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K37 ["findActivatedConnection"]
   RETURN R0 0
 
-PROTO_9:
+PROTO_15:
   GETTABLEKS R1 R0 K0 ["findActivatedConnection"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K0 ["findActivatedConnection"]
@@ -173,7 +277,7 @@ PROTO_9:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_16:
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["PluginLoaderContext"]
   GETTABLEKS R1 R2 K2 ["mainButton"]
@@ -183,7 +287,7 @@ PROTO_10:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_17:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
@@ -249,28 +353,35 @@ PROTO_11:
   SETTABLEKS R11 R10 K38 ["Widget"]
   GETTABLEKS R11 R0 K39 ["onDockWidgetCreated"]
   SETTABLEKS R11 R10 K40 ["OnWidgetCreated"]
+  GETTABLEKS R11 R0 K41 ["onFocus"]
+  SETTABLEKS R11 R10 K42 ["OnWidgetFocused"]
+  GETTABLEKS R11 R0 K43 ["onFocusReleased"]
+  SETTABLEKS R11 R10 K44 ["OnWidgetFocusReleased"]
   GETUPVAL R13 4
-  GETTABLEKS R12 R13 K41 ["Change"]
+  GETTABLEKS R12 R13 K45 ["Change"]
   GETTABLEKS R11 R12 K20 ["Enabled"]
-  GETTABLEKS R12 R0 K42 ["onWidgetEnabledChanged"]
+  GETTABLEKS R12 R0 K46 ["onWidgetEnabledChanged"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K46 [{"App", "StyleLink", "WidgetRegister"}]
+  DUPTABLE R11 K50 [{"App", "StyleLink", "WidgetRegister"}]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K17 ["createElement"]
   GETUPVAL R13 6
-  DUPTABLE R14 K48 [{"findActivationData"}]
-  GETTABLEKS R15 R2 K47 ["findActivationData"]
-  SETTABLEKS R15 R14 K47 ["findActivationData"]
+  DUPTABLE R14 K53 [{"findActivationData", "enabled", "shouldFocusTextBox"}]
+  GETTABLEKS R15 R2 K51 ["findActivationData"]
+  SETTABLEKS R15 R14 K51 ["findActivationData"]
+  SETTABLEKS R4 R14 K3 ["enabled"]
+  GETTABLEKS R15 R2 K52 ["shouldFocusTextBox"]
+  SETTABLEKS R15 R14 K52 ["shouldFocusTextBox"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K43 ["App"]
+  SETTABLEKS R12 R11 K47 ["App"]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K17 ["createElement"]
-  LOADK R13 K44 ["StyleLink"]
-  DUPTABLE R14 K50 [{"StyleSheet"}]
+  LOADK R13 K48 ["StyleLink"]
+  DUPTABLE R14 K55 [{"StyleSheet"}]
   GETTABLEKS R15 R0 K14 ["design"]
-  SETTABLEKS R15 R14 K49 ["StyleSheet"]
+  SETTABLEKS R15 R14 K54 ["StyleSheet"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K44 ["StyleLink"]
+  SETTABLEKS R12 R11 K48 ["StyleLink"]
   GETUPVAL R13 7
   CALL R13 0 1
   JUMPIFNOT R13 [+6]
@@ -280,7 +391,7 @@ PROTO_11:
   CALL R12 1 1
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K45 ["WidgetRegister"]
+  SETTABLEKS R12 R11 K49 ["WidgetRegister"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K15 ["MainWidget"]
   CALL R5 2 -1
@@ -351,21 +462,23 @@ MAIN:
   LOADK R21 K36 ["MainPlugin"]
   NAMECALL R19 R19 K37 ["extend"]
   CALL R19 2 1
-  DUPCLOSURE R20 K38 [PROTO_8]
+  DUPCLOSURE R20 K38 [PROTO_1]
+  SETTABLEKS R20 R19 K39 ["focusWidget"]
+  DUPCLOSURE R20 K40 [PROTO_14]
+  CAPTURE VAL R18
+  CAPTURE VAL R11
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R12
   CAPTURE VAL R13
-  CAPTURE VAL R11
   CAPTURE VAL R9
   CAPTURE VAL R10
-  CAPTURE VAL R18
-  SETTABLEKS R20 R19 K39 ["init"]
-  DUPCLOSURE R20 K40 [PROTO_9]
-  SETTABLEKS R20 R19 K41 ["willUnmount"]
-  DUPCLOSURE R20 K42 [PROTO_10]
-  SETTABLEKS R20 R19 K43 ["didUpdate"]
-  DUPCLOSURE R20 K44 [PROTO_11]
+  SETTABLEKS R20 R19 K41 ["init"]
+  DUPCLOSURE R20 K42 [PROTO_15]
+  SETTABLEKS R20 R19 K43 ["willUnmount"]
+  DUPCLOSURE R20 K44 [PROTO_16]
+  SETTABLEKS R20 R19 K45 ["didUpdate"]
+  DUPCLOSURE R20 K46 [PROTO_17]
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R3
@@ -375,5 +488,5 @@ MAIN:
   CAPTURE VAL R14
   CAPTURE VAL R17
   CAPTURE VAL R15
-  SETTABLEKS R20 R19 K45 ["render"]
+  SETTABLEKS R20 R19 K47 ["render"]
   RETURN R19 1

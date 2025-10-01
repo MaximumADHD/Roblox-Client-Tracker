@@ -1,4 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
+local Packages = Foundation.Parent
+local Dash = require(Packages.Dash)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -8,7 +10,7 @@ type ButtonVariant = ButtonVariant.ButtonVariant
 
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
-type Stroke = Types.Stroke
+type StateLayer = Types.StateLayer
 
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
@@ -20,6 +22,8 @@ type VariantProps = composeStyleVariant.VariantProps
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 type CloseAffordanceVariant = CloseAffordanceVariant.CloseAffordanceVariant
 
+local StateLayerMode = require(Foundation.Enums.StateLayerMode)
+
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
@@ -29,9 +33,9 @@ type CloseAffordanceVariantProps = {
 	container: {
 		tag: string,
 		size: UDim2,
-		stroke: Stroke?,
 		radius: number,
 		padding: UDim,
+		stateLayer: StateLayer?,
 	},
 	content: {
 		style: ColorStyleValue,
@@ -43,11 +47,6 @@ local variantsMap = function(tokens: Tokens)
 	local common = {
 		container = {
 			tag = "auto-xy row align-y-center align-x-center clip",
-			radius = tokens.Radius.Medium,
-			stroke = {
-				Color = tokens.Color.ActionLink.Border.Color3,
-				Transparency = tokens.Color.ActionLink.Border.Transparency,
-			},
 		},
 		content = { style = tokens.Color.Content.Emphasis },
 	}
@@ -93,18 +92,35 @@ local variantsMap = function(tokens: Tokens)
 		},
 	}
 
-	local types: { [CloseAffordanceVariant]: VariantProps } = {
-		[CloseAffordanceVariant.OverMedia] = {
-			container = {
-				tag = "bg-over-media-100",
-			},
-		},
+	local types: { [CloseAffordanceVariant]: { [boolean]: VariantProps } } = {
+		[CloseAffordanceVariant.OverMedia] = Dash.map({ [true] = true, [false] = false }, function()
+			return {
+				container = {
+					radius = tokens.Radius.Circle,
+					tag = "bg-over-media-100",
+				},
+			}
+		end),
+		[CloseAffordanceVariant.Utility] = Dash.map({ [true] = true, [false] = false }, function(isInverse)
+			return {
+				container = {
+					radius = tokens.Radius.Medium,
+					stateLayer = if isInverse then { mode = StateLayerMode.Inverse } else nil,
+				},
+				content = if isInverse then { style = tokens.Inverse.Content.Emphasis } else nil,
+			}
+		end),
 	}
 
 	return { common = common, sizes = sizes, types = types }
 end
 
-return function(tokens: Tokens, size: InputSize, variant: CloseAffordanceVariant): CloseAffordanceVariantProps
+return function(
+	tokens: Tokens,
+	size: InputSize,
+	variant: CloseAffordanceVariant,
+	isInverse: boolean?
+): CloseAffordanceVariantProps
 	local variants = VariantsContext.useVariants("CloseAffordance", variantsMap, tokens)
-	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant])
+	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant][isInverse or false])
 end

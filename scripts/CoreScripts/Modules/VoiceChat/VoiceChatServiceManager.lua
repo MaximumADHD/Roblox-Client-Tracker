@@ -110,7 +110,6 @@ local FFlagFixOutputDeviceChange = game:DefineFastFlag("FixOutputDeviceChange", 
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 local Constants = VoiceChat.Constants
 local PostRecordUserSeenGeneralModal = VoiceChat.AgeVerificationOverlay.PostRecordUserSeenGeneralModal
-local VoiceChatFlags = VoiceChat.Flags
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
 local AudioDeviceInputDebugger = require(RobloxGui.Modules.VoiceChat.Components.AudioDeviceInputDebugger)
@@ -144,8 +143,6 @@ local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetSer
 local CaptureService = if GetFFlagEnableVoiceChatMuteForVideoCaptures() then game:GetService("CaptureService") else nil
 
 local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
-
-local GetFFlagUsePostRecordUserSeenGeneralModal = VoiceChatFlags.GetFFlagUsePostRecordUserSeenGeneralModal
 
 local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol.default
 local SettingsRoute = require(CorePackages.Workspace.Packages.LinkingProtocol).Enums.SettingsRoute
@@ -737,10 +734,7 @@ function VoiceChatServiceManager:FetchPhoneVerificationUpsell(
 end
 
 function VoiceChatServiceManager:RecordUserSeenModal(modalId: string): nil
-	if GetFFlagUsePostRecordUserSeenGeneralModal() then
-		return PostRecordUserSeenGeneralModal(bind(self, "PostRequest"), modalId)
-	end
-	return nil
+	return PostRecordUserSeenGeneralModal(bind(self, "PostRequest"), modalId)
 end
 
 function VoiceChatServiceManager:checkAndUpdateSequence(namespace: string, value: number)
@@ -1274,9 +1268,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 					self.Analytics:reportClosedNudge(self:GetNudgeAnalyticsData())
 				end
 				elseif isVoiceConsentModal then function()
-					if GetFFlagUsePostRecordUserSeenGeneralModal() then
-						self:RecordUserSeenModal(VoiceConstants.MODAL_IDS.IN_EXP_UPSELL)
-					end
+					self:RecordUserSeenModal(VoiceConstants.MODAL_IDS.IN_EXP_UPSELL)
 					if
 						GetFFlagShowLikelySpeakingBubbles()
 						and ExperienceChat.Events.ShowLikelySpeakingBubblesChanged

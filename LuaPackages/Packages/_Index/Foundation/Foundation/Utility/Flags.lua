@@ -13,29 +13,25 @@ return {
 	FoundationWarnOnMultipleStyleLinks = SafeFlags.createGetFFlag("DebugFoundationWarnOnMultipleStyleLinks")(),
 	FoundationMigrateIconNames = SafeFlags.createGetFFlag("FoundationMigrateIconNames")(),
 	FoundationUpdateBadgeDesign = SafeFlags.createGetFFlag("FoundationUpdateBadgeDesign")(),
-	FoundationFixDropdownValueTuncation = SafeFlags.createGetFFlag("FoundationFixDropdownValueTuncation")(),
 	FoundationStyleTagsStyleSheetAttributes = SafeFlags.createGetFFlag("FoundationStyleTagsStyleSheetAttributes")(),
-	FoundationUpdateIconButtonSizes = SafeFlags.createGetFFlag("FoundationUpdateIconButtonSizes")(),
-	FoundationFallbackCoreGuiSelectionCursor = SafeFlags.createGetFFlag("FoundationFallbackCoreGuiSelectionCursor")(),
-	FoundationNumberInputIncrementClamp = SafeFlags.createGetFFlag("FoundationNumberInputIncrementClamp")(),
 	FoundationCheckCoreGuiAccessCursorProvider = SafeFlags.createGetFFlag("FoundationCheckCoreGuiAccessCursorProvider")(),
 	FoundationShowErrorAboutFoundationProvider = SafeFlags.createGetFFlag("FoundationShowErrorAboutFoundationProvider")(),
-	FoundationChipSelectable = SafeFlags.createGetFFlag("FoundationChipSelectable")(),
-	FoundationFixImageSlice = SafeFlags.createGetFFlag("FoundationFixImageSlice")(),
 	FoundationRemoveSelectionCursorHeartbeat = SafeFlags.createGetFFlag("FoundationRemoveSelectionCursorHeartbeat")(),
-	FoundationFixKnobStroke = SafeFlags.createGetFFlag("FoundationFixKnobStroke")(),
 	FoundationUsePath2DSpinner = SafeFlags.createGetFFlag("FoundationUsePath2DSpinner")(),
 	FoundationPseudoChildSelectors = SafeFlags.createGetFFlag("FoundationPseudoChildSelectors")(),
 	FoundationPopoverOnScreenKeyboard = SafeFlags.createGetFFlag("FoundationPopoverOnScreenKeyboard")(),
 	FoundationPopoverContentToggleOnAnchorClick = SafeFlags.createGetFFlag(
 		"FoundationPopoverContentToggleOnAnchorClick"
 	)(),
-	FoundationNumberInputDisabledStrokeTransparency = SafeFlags.createGetFFlag(
-		"FoundationNumberInputDisabledStrokeTransparency"
-	)(),
-	FoundationSkeletonNewReducedTransparencyPulse = SafeFlags.createGetFFlag(
-		"FoundationSkeletonNewReducedTransparencyPulse"
-	)(),
 	FoundationNoArrowOnVirtualRef = SafeFlags.createGetFFlag("FoundationNoArrowOnVirtualRef")(),
+	FoundationScrollingFrameBarSmaller = SafeFlags.createGetFFlag("FoundationScrollingFrameBarSmaller")(),
+	FoundationScrollViewMoveClipOutside = SafeFlags.createGetFFlag("FoundationScrollViewMoveClipOutside")(),
 	FoundationInputLabelBoldTypography = SafeFlags.createGetFFlag("FoundationInputLabelBoldTypography")(),
+	FoundationSupportCloudAssetsImage = SafeFlags.createGetFFlag("FoundationSupportCloudAssetsImage2")(),
+	FoundationOverlayNoClip = SafeFlags.createGetFFlag("FoundationOverlayNoClip")(),
+	FoundationDialogHeroImageOnlyFix = SafeFlags.createGetFFlag("FoundationDialogHeroImageOnlyFix")(),
+	FoundationNumberInputDisabledStackedVisual = SafeFlags.createGetFFlag("FoundationNumberInputDisabledStackedVisual")(),
+	FoundationDialogActionsUpdate = SafeFlags.createGetFFlag("FoundationDialogActionsUpdate")(),
+	FoundationMenuWidthGrowth = SafeFlags.createGetFFlag("FoundationMenuWidthGrowth")(),
+	FoundationDialogBodyUpdate = SafeFlags.createGetFFlag("FoundationDialogBodyUpdate")(),
 }

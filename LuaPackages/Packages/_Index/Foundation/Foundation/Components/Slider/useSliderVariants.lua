@@ -6,7 +6,6 @@ type InputSize = InputSize.InputSize
 local SliderVariant = require(Foundation.Enums.SliderVariant)
 type SliderVariant = SliderVariant.SliderVariant
 
-local Flags = require(Foundation.Utility.Flags)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
@@ -81,7 +80,7 @@ local function variantsFactory(tokens: Tokens)
 		[InputSize.Medium] = { hitbox = { height = tokens.Size.Size_500 } },
 		[InputSize.Large] = {
 			hitbox = {
-				height = if Flags.FoundationFixKnobStroke then tokens.Size.Size_700 else tokens.Size.Size_600,
+				height = tokens.Size.Size_700,
 			},
 		},
 	}

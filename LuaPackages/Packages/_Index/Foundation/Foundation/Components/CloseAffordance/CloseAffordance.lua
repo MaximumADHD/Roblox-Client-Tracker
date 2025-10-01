@@ -21,6 +21,7 @@ local Radius = require(Foundation.Enums.Radius)
 type Radius = Radius.Radius
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local usePresentationContext = require(Foundation.Providers.Style.PresentationContext).usePresentationContext
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -48,12 +49,9 @@ local defaultProps = {
 local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(closeAffordanceProps, defaultProps)
 	local tokens = useTokens()
-	local variantProps = useCloseAffordanceVariants(tokens, props.size, props.variant)
-	local isCircular = props.variant == CloseAffordanceVariant.OverMedia
-
-	local componentRadius = if isCircular
-		then UDim.new(0, tokens.Radius.Circle)
-		else UDim.new(0, variantProps.container.radius)
+	local presentationContext = usePresentationContext()
+	local variantProps = useCloseAffordanceVariants(tokens, props.size, props.variant, presentationContext.isInverse)
+	local componentRadius = UDim.new(0, variantProps.container.radius)
 
 	local cursor = React.useMemo(function()
 		return {
@@ -78,7 +76,7 @@ local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: 
 			isDisabled = props.isDisabled,
 			padding = variantProps.container.padding,
 			cornerRadius = componentRadius,
-			stroke = variantProps.container.stroke,
+			stateLayer = variantProps.container.stateLayer,
 			cursor = cursor,
 			tag = variantProps.container.tag,
 			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,

@@ -14,6 +14,8 @@ local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
 local useDialogLayout = require(script.Parent.Parent.useDialogLayout)
 
@@ -71,12 +73,12 @@ local function DialogActions(dialogActionsProps: DialogActionsProps)
 	local verticalOrientation = props.orientation == Orientation.Vertical and isSmall
 
 	return React.createElement(View, {
-		tag = "col gap-large auto-y size-full-0",
+		tag = `col auto-y size-full-0 {if Flags.FoundationDialogActionsUpdate then "" else "gap-large"}`,
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		ActionsContainer = React.createElement(View, {
 			tag = {
-				["gap-large auto-y size-full-0"] = true,
+				[`auto-y size-full-0 {if Flags.FoundationDialogActionsUpdate then "gap-small" else "gap-large"}`] = true,
 				["row wrap"] = horizontalOrientation,
 				["col flex-x-fill"] = verticalOrientation,
 			},

@@ -12,6 +12,8 @@ type VariantProps = composeStyleVariant.VariantProps
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
+local Flags = require(Foundation.Utility.Flags)
+
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
@@ -25,13 +27,13 @@ type DialogVariantProps = {
 	inner: { tag: string, maxWidth: number },
 	body: { tag: string, maxWidth: number },
 	closeAffordance: { offset: number },
-	heroMediaWrapper: { tag: string },
+	heroMediaWrapper: { tag: string | { [string]: boolean } },
 	heroMedia: { tag: string, offsetX: number },
 	title: { tag: string },
 	titleText: { tag: string },
 	content: { tag: string },
 	contentText: { tag: string },
-	actionsLabel: { tag: string },
+	actionsLabel: { tag: string | { [string]: boolean } },
 }
 
 local DIALOG_SIZES: { [DialogSize]: number } = {
@@ -55,10 +57,14 @@ local function variantsFactory(tokens: Tokens)
 			tag = "size-full-0 auto-y shrink-1 bg-surface-100 clip",
 		},
 		body = {
-			tag = "size-full auto-y col padding-bottom-xlarge",
+			tag = `size-full auto-y col padding-bottom-xlarge {if Flags.FoundationDialogBodyUpdate
+				then "gap-xlarge"
+				else ""}`,
 		},
 		heroMediaWrapper = {
-			tag = "auto-y size-full-full position-top-center",
+			tag = `auto-y size-full-full position-top-center {if Flags.FoundationDialogHeroImageOnlyFix
+				then "shrink"
+				else ""}`,
 		},
 		title = {
 			tag = "size-full-0 auto-y",
@@ -70,10 +76,14 @@ local function variantsFactory(tokens: Tokens)
 			tag = "auto-y size-full fill",
 		},
 		contentText = {
-			tag = "text-wrap text-align-x-left text-align-y-top auto-y size-full-0",
+			tag = `text-wrap text-align-x-left text-align-y-top auto-y size-full-0 {if Flags.FoundationDialogBodyUpdate
+				then "padding-right-xxlarge"
+				else ""}`,
 		},
 		actionsLabel = {
-			tag = "text-align-x-left text-wrap text-align-y-top auto-y size-full-0",
+			tag = `text-align-x-left text-wrap text-align-y-top auto-y size-full-0 {if Flags.FoundationDialogActionsUpdate
+				then "text-body-small"
+				else ""}`,
 		},
 	}
 
@@ -87,7 +97,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "radius-medium",
 			},
 			body = {
-				tag = "padding-x-large gap-large",
+				tag = `padding-x-large {if Flags.FoundationDialogBodyUpdate then "" else "gap-large"}`,
 			},
 			closeAffordance = {
 				offset = tokens.Size.Size_300,
@@ -103,7 +113,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "text-body-medium",
 			},
 			actionsLabel = {
-				tag = "text-label-small",
+				tag = if Flags.FoundationDialogActionsUpdate then "padding-top-large" else "text-label-small",
 			},
 		},
 		[DialogSize.Medium] = {
@@ -115,7 +125,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "radius-large",
 			},
 			body = {
-				tag = "padding-x-xlarge gap-xlarge",
+				tag = `padding-x-xlarge {if Flags.FoundationDialogBodyUpdate then "" else "gap-xlarge"}`,
 			},
 			closeAffordance = {
 				offset = tokens.Size.Size_400,
@@ -131,7 +141,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "text-body-medium",
 			},
 			actionsLabel = {
-				tag = "text-label-small",
+				tag = if Flags.FoundationDialogActionsUpdate then "padding-top-xlarge" else "text-label-small",
 			},
 		},
 		[DialogSize.Large] = {
@@ -143,7 +153,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "radius-large",
 			},
 			body = {
-				tag = "padding-x-xlarge gap-xlarge",
+				tag = `padding-x-xlarge {if Flags.FoundationDialogBodyUpdate then "" else "gap-xlarge"}`,
 			},
 			closeAffordance = {
 				offset = tokens.Size.Size_400,
@@ -159,7 +169,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "text-body-large",
 			},
 			actionsLabel = {
-				tag = "text-label-small",
+				tag = if Flags.FoundationDialogActionsUpdate then "padding-top-xlarge" else "text-label-small",
 			},
 		},
 	}

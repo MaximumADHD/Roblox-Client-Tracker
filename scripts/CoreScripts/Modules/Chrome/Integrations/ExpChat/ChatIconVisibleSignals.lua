@@ -5,6 +5,9 @@ local Signals = require(Packages.Signals)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagExpChatGuacChatDisabledReason = SharedFlags.GetFFlagExpChatGuacChatDisabledReason
 
+local Chrome = script.Parent.Parent.Parent
+local FFlagRemoveLegacyChatConsoleCheck = require(Chrome.Flags.FFlagRemoveLegacyChatConsoleCheck)
+
 local UniversalAppPolicy
 if GetFFlagExpChatGuacChatDisabledReason() then
 	UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
@@ -25,7 +28,7 @@ local function new()
 
 	local getIsChatIconVisible = Signals.createComputed(function(scope)
 		-- APPEXP-2427: We can remove this console edge case once legacy chat is fully deprecated
-		if getForceDisableForConsoleUsecase(scope) then
+		if not FFlagRemoveLegacyChatConsoleCheck and getForceDisableForConsoleUsecase(scope) then
 			return false
 		elseif not getIsCoreGuiEnabled(scope) then
 			return false
@@ -53,7 +56,9 @@ local function new()
 		setLocalUserChat = setLocalUserCanChat,
 		setChatActiveCalledByDeveloper = setChatActiveCalledByDeveloper,
 		setVisibleViaChatSelector = setVisibleViaChatSelector,
-		setForceDisableForConsoleUsecase = setForceDisableForConsoleUsecase,
+		setForceDisableForConsoleUsecase = if FFlagRemoveLegacyChatConsoleCheck
+			then (function() end) :: never
+			else setForceDisableForConsoleUsecase,
 	}
 end
 

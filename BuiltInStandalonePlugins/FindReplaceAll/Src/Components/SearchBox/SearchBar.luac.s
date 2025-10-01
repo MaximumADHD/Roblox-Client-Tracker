@@ -127,7 +127,7 @@ PROTO_5:
 
 PROTO_6:
   NEWTABLE R0 0 0
-  LOADN R1 1
+  LOADN R1 2
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["searchBarToggleOptions"]
   JUMPIF R2 [+3]
@@ -340,16 +340,14 @@ PROTO_8:
   NEWTABLE R20 4 0
   LOADN R21 2
   SETTABLEKS R21 R20 K13 ["LayoutOrder"]
-  NAMECALL R21 R1 K36 ["getValue"]
-  CALL R21 1 1
-  SETTABLEKS R21 R20 K37 ["Visible"]
+  SETTABLEKS R1 R20 K36 ["Visible"]
   GETUPVAL R23 0
   GETTABLEKS R22 R23 K31 ["Event"]
-  GETTABLEKS R21 R22 K38 ["MouseButton1Up"]
+  GETTABLEKS R21 R22 K37 ["MouseButton1Up"]
   SETTABLE R10 R20 R21
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K15 ["Tag"]
-  LOADK R22 K39 ["FindReplaceAll-Content-Standard FindReplaceAll-Icon ClearTextIcon data-testid=ClearTextButton"]
+  LOADK R22 K38 ["FindReplaceAll-Content-Standard FindReplaceAll-Icon ClearTextIcon data-testid=ClearTextButton"]
   SETTABLE R22 R20 R21
   CALL R18 2 1
   SETTABLEKS R18 R17 K21 ["ClearTextButton"]

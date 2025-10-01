@@ -216,7 +216,7 @@ PROTO_1:
   LOADNIL R18
   GETUPVAL R19 4
   GETUPVAL R20 5
-  DUPTABLE R21 K39 [{"OnSelect", "Children", "Disabled", "Selected", "Visible", "Checkable", "Checked", "Id", "Icon", "LayoutOrder", "MenuView", "Size", "Text", "Tooltip", "WidgetUri"}]
+  DUPTABLE R21 K40 [{"OnSelect", "Children", "Disabled", "Selected", "Visible", "Checkable", "Checked", "Id", "Icon", "LayoutOrder", "MenuView", "Size", "Text", "Tooltip", "WidgetUri", "ReserveCheckmarkSpace"}]
   NEWCLOSURE R22 P0
   CAPTURE VAL R2
   CAPTURE VAL R0
@@ -257,6 +257,8 @@ PROTO_1:
   SETTABLEKS R22 R21 K37 ["Tooltip"]
   GETTABLEKS R22 R0 K38 ["WidgetUri"]
   SETTABLEKS R22 R21 K38 ["WidgetUri"]
+  GETTABLEKS R22 R2 K39 ["ReserveCheckmarkSpace"]
+  SETTABLEKS R22 R21 K39 ["ReserveCheckmarkSpace"]
   CALL R19 2 -1
   CLOSEUPVALS R3
   RETURN R19 -1

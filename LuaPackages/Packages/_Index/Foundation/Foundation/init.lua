@@ -339,11 +339,13 @@ local Foundation = strict({
 		getRbxThumb = require(script.Utility.getRbxThumb),
 		getIconRichText = require(script.Utility.getIconRichText),
 		indexBindable = require(script.Utility.indexBindable),
+		-- **DEPRECATED**: Utility.mockComponent is deprecated. Use FoundationTestingLibrary.mockComponent instead.
 		mockComponent = require(script.Utility.mockComponent),
 		withCommonProps = require(script.Utility.withCommonProps),
 		withDefaults = require(script.Utility.withDefaults),
 		isBuilderIcon = require(script.Utility.isBuilderIcon),
 		isPointInGuiObjectBounds = require(script.Utility.isPointInGuiObjectBounds),
+		preloadCloudAssets = require(script.Utility.preloadAssets),
 		Flags = require(script.Utility.Flags),
 	},
 

@@ -5,8 +5,6 @@ local React = require(Packages.React)
 local BuilderIcons = require(Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration["uiblox"]
 
-local Flags = require(Foundation.Utility.Flags)
-
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
@@ -35,7 +33,6 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local useIconSize = require(Foundation.Utility.useIconSize)
 local getIconScale = require(Foundation.Utility.getIconScale)
 local useIconButtonVariants = require(script.Parent.useIconButtonVariants)
-local useIconButtonPadding = require(script.Parent.useIconButtonPadding)
 local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
 local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local isMigrated = iconMigrationUtils.isMigrated
@@ -43,7 +40,6 @@ local isBuilderOrMigratedIcon = iconMigrationUtils.isBuilderOrMigratedIcon
 
 local Constants = require(Foundation.Constants)
 
-local Icon = require(Foundation.Components.Icon)
 local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 local Image = require(Foundation.Components.Image)
@@ -65,7 +61,7 @@ export type IconButtonProps = {
 
 local defaultProps = {
 	isDisabled = false,
-	size = if Flags.FoundationUpdateIconButtonSizes then InputSize.Medium else IconSize.Medium,
+	size = InputSize.Medium,
 	isCircular = false,
 	variant = ButtonVariant.Utility,
 }
@@ -87,10 +83,6 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	-- Use variant system for styling
 	local variantProps = useIconButtonVariants(tokens, props.size, props.variant)
 
-	-- Remove with FoundationUpdateIconButtonSizes
-	local paddingOffset = useIconButtonPadding(props.size, isBuilderIcon(iconName))
-	local padding = UDim.new(0, paddingOffset)
-
 	-- Override radius if circular
 	local componentRadius = if props.isCircular
 		then UDim.new(0, tokens.Radius.Circle)
@@ -110,9 +102,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 		View,
 		withCommonProps(props, {
 			onActivated = props.onActivated,
-			Size = if Flags.FoundationUpdateIconButtonSizes
-				then variantProps.container.size
-				else iconSize + UDim2.new(padding, padding) + UDim2.new(padding, padding),
+			Size = variantProps.container.size,
 			selection = {
 				Selectable = if props.isDisabled then false else props.Selectable,
 				NextSelectionUp = props.NextSelectionUp,
@@ -121,44 +111,37 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 				NextSelectionRight = props.NextSelectionRight,
 			},
 			isDisabled = props.isDisabled,
-			padding = if Flags.FoundationUpdateIconButtonSizes then variantProps.container.padding else padding,
+			padding = variantProps.container.padding,
 			cornerRadius = componentRadius,
 			backgroundStyle = variantProps.container.style,
 			stroke = variantProps.container.stroke,
 			cursor = cursor,
-			tag = if Flags.FoundationUpdateIconButtonSizes then variantProps.container.tag else nil,
+			tag = variantProps.container.tag,
 			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
 			ref = ref,
 		}),
 		{
-			Icon = if Flags.FoundationUpdateIconButtonSizes
-				then (if isBuilderOrMigratedIcon(iconName)
-					then React.createElement(Text, {
-						Text = if isMigrated(iconName) then migrationLookup[iconName].name else iconName,
-						fontStyle = {
-							Font = BuilderIcons.Font[if isMigrated(iconName)
-								then migrationLookup[iconName].variant
-								else iconVariant or BuilderIcons.IconVariant.Regular],
-							FontSize = iconSize.Y.Offset,
-						},
-						tag = "anchor-center-center position-center-center",
-						Size = iconSize,
-						textStyle = variantProps.content.style,
-					})
-					else React.createElement(Image, {
-						tag = "anchor-center-center position-center-center",
-						Image = iconName,
-						Size = if intrinsicIconSize
-							then UDim2.fromOffset(intrinsicIconSize.X, intrinsicIconSize.Y)
-							else iconSize,
-						imageStyle = variantProps.content.style,
-						scale = scale,
-					}))
-				else React.createElement(Icon, {
-					name = iconName,
-					variant = iconVariant,
-					size = props.size,
-					style = variantProps.content.style,
+			Icon = if isBuilderOrMigratedIcon(iconName)
+				then React.createElement(Text, {
+					Text = if isMigrated(iconName) then migrationLookup[iconName].name else iconName,
+					fontStyle = {
+						Font = BuilderIcons.Font[if isMigrated(iconName)
+							then migrationLookup[iconName].variant
+							else iconVariant or BuilderIcons.IconVariant.Regular],
+						FontSize = iconSize.Y.Offset,
+					},
+					tag = "anchor-center-center position-center-center",
+					Size = iconSize,
+					textStyle = variantProps.content.style,
+				})
+				else React.createElement(Image, {
+					tag = "anchor-center-center position-center-center",
+					Image = iconName,
+					Size = if intrinsicIconSize
+						then UDim2.fromOffset(intrinsicIconSize.X, intrinsicIconSize.Y)
+						else iconSize,
+					imageStyle = variantProps.content.style,
+					scale = scale,
 				}),
 		}
 	)

@@ -106,7 +106,7 @@ local function Icon(iconProps: IconProps, ref: React.Ref<GuiObject>?)
 						MaxTextSize = fontSize,
 					})
 					else nil,
-				Children = React.createElement(React.Fragment, props.children),
+				Children = React.createElement(React.Fragment, nil, props.children),
 			}
 		)
 	end

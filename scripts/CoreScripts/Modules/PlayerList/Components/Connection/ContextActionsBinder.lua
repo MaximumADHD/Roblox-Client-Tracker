@@ -19,6 +19,7 @@ local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
+local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
 
 local ContextActionsBinder = Roact.PureComponent:extend("ContextActionsBinder")
 
@@ -60,14 +61,18 @@ function ContextActionsBinder:bindActions()
 			return Enum.ContextActionResult.Pass
 		end
 		if FFlagAddNewPlayerListMobileFocusNav then
-			if self.props.playerDropDown.isVisible then
+			if self.props.playerDropDown.isVisible and (if FFlagModalPlayerListCloseUnfocused then inputObject.KeyCode == Enum.KeyCode.ButtonB else true) then
 				self.props.closePlayerDropDown()
 				return Enum.ContextActionResult.Sink
 			end
 		end
 		if self.props.displayOptions.isVisible then
 			self.props.setVisibility(false)
-			return Enum.ContextActionResult.Sink
+			if FFlagModalPlayerListCloseUnfocused then
+				return Enum.ContextActionResult.Pass
+			else
+				return Enum.ContextActionResult.Sink
+			end
 		end
 		return Enum.ContextActionResult.Pass
 	end, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)

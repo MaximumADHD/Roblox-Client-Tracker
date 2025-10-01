@@ -6,6 +6,7 @@ local ReactOtter = require(Packages.ReactOtter)
 
 local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
+local Flags = require(Foundation.Utility.Flags)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -35,7 +36,9 @@ export type ScrollingFrameProps = {
 	AutomaticSize: Enum.AutomaticSize?,
 	AutomaticCanvasSize: Bindable<Enum.AutomaticSize>?,
 	CanvasSize: Bindable<UDim2>?,
+	ClipsDescendants: Bindable<boolean>?,
 	ScrollingDirection: Bindable<Enum.ScrollingDirection>?,
+	ScrollingEnabled: Bindable<boolean>?,
 	VerticalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
 	HorizontalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
 }
@@ -48,12 +51,12 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 	local props = withDefaults(scrollingFrameProps, defaultProps)
 	local tokens = useTokens()
 	local tag = useStyleTags(scrollingFrameProps.tag)
-	local scrollBarStyle = tokens.Semantic.Color.Common.Placeholder
+	local scrollBarStyle = tokens.Color.Shift.Shift_400
 	local scrollBarThickness = React.useMemo(function()
 		if props.scrollBarVisibility == Visibility.None then
 			return 0
 		else
-			return tokens.Size.Size_300
+			return if Flags.FoundationScrollingFrameBarSmaller then tokens.Size.Size_150 else tokens.Size.Size_300
 		end
 	end, { props.scrollBarVisibility })
 	local cursor = useCursor()
@@ -95,7 +98,9 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 		-- Scrolling props
 		AutomaticCanvasSize = props.AutomaticCanvasSize,
 		CanvasSize = props.CanvasSize,
+		ClipsDescendants = props.ClipsDescendants,
 		ScrollingDirection = props.ScrollingDirection,
+		ScrollingEnabled = props.ScrollingEnabled,
 		ScrollBarImageColor3 = scrollBarStyle.Color3,
 		ScrollBarImageTransparency = scrollBarTransparency,
 		ScrollBarThickness = scrollBarThickness,

@@ -7,7 +7,6 @@ local SetFavoriteBundle = require(InspectAndBuyFolder.Actions.SetFavoriteBundle)
 local UpdateBulkPuchaseResults = require(InspectAndBuyFolder.Actions.UpdateBulkPuchaseResults)
 local SetAvatarPreviewDetails = require(InspectAndBuyFolder.Actions.SetAvatarPreviewDetails)
 local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
-local ItemRestrictions = AvatarExperienceCommon.Enums.ItemRestrictions
 local ItemType = AvatarExperienceCommon.Enums.ItemTypeEnum
 
 local FFlagAXEnableFetchAvatarPreview = require(InspectAndBuyFolder.Flags.FFlagAXEnableFetchAvatarPreview)
@@ -49,17 +48,9 @@ return Rodux.createReducer(
 				local items = action.result.Items
 				for _, item in items do
 					if item.type == Enum.MarketplaceProductType.AvatarBundle then
-						local itemRestrictions = state[item.id].itemRestrictions
-						local nextBundle = Cryo.Dictionary.join({}, state[item.id])
-						if
-							itemRestrictions and itemRestrictions[ItemRestrictions.Collectible]
-							or itemRestrictions[ItemRestrictions.Limited]
-							or itemRestrictions[ItemRestrictions.LimitedUnique]
-						then
-							-- update the resellable count by 1 if the bundle is a collectible
-							nextBundle.resellableCount = nextBundle.resellableCount + 1
-						end
-						state[item.id] = Cryo.Dictionary.join(nextBundle, BundleInfo.fromBulkPurchaseResult(item))
+						local prevBundle = Cryo.Dictionary.join({}, state[item.id])
+						state[item.id] =
+							Cryo.Dictionary.join(prevBundle, BundleInfo.fromBulkPurchaseResult(item, prevBundle))
 					end
 				end
 				return state

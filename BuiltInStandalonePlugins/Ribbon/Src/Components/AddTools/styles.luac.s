@@ -71,56 +71,60 @@ MAIN:
   CALL R14 2 1
   MOVE R15 R2
   LOADK R16 K47 [">> TextLabel"]
-  DUPTABLE R17 K53 [{"BackgroundTransparency", "Font", "Text", "TextXAlignment", "TextTruncate", "TextSize", "LayoutOrder", "TextColor3"}]
+  DUPTABLE R17 K52 [{"BackgroundTransparency", "Font", "Text", "TextXAlignment", "TextSize", "LayoutOrder", "TextColor3"}]
   LOADN R18 1
   SETTABLEKS R18 R17 K13 ["BackgroundTransparency"]
-  LOADK R18 K54 ["$FontWeight400"]
+  LOADK R18 K53 ["$FontWeight400"]
   SETTABLEKS R18 R17 K48 ["Font"]
   LOADK R18 K21 [""]
   SETTABLEKS R18 R17 K19 ["Text"]
-  GETIMPORT R18 K56 [Enum.TextXAlignment.Left]
+  GETIMPORT R18 K55 [Enum.TextXAlignment.Left]
   SETTABLEKS R18 R17 K49 ["TextXAlignment"]
-  GETIMPORT R18 K58 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R18 R17 K50 ["TextTruncate"]
-  LOADK R18 K59 ["$FontSize75"]
-  SETTABLEKS R18 R17 K51 ["TextSize"]
+  LOADK R18 K56 ["$FontSize25"]
+  SETTABLEKS R18 R17 K50 ["TextSize"]
   LOADN R18 2
   SETTABLEKS R18 R17 K24 ["LayoutOrder"]
-  LOADK R18 K60 ["$SemanticColorContentStandard"]
-  SETTABLEKS R18 R17 K52 ["TextColor3"]
-  NEWTABLE R18 0 1
+  LOADK R18 K57 ["$SemanticColorContentStandard"]
+  SETTABLEKS R18 R17 K51 ["TextColor3"]
+  NEWTABLE R18 0 2
   MOVE R19 R2
-  LOADK R20 K61 ["#Title"]
-  DUPTABLE R21 K62 [{"Font", "TextSize"}]
-  LOADK R22 K63 ["$FontWeight600"]
+  LOADK R20 K58 ["#Title"]
+  DUPTABLE R21 K59 [{"Font", "TextSize"}]
+  LOADK R22 K60 ["$FontWeight600"]
   SETTABLEKS R22 R21 K48 ["Font"]
-  LOADK R22 K64 ["$FontSize150"]
-  SETTABLEKS R22 R21 K51 ["TextSize"]
-  CALL R19 2 -1
+  LOADK R22 K61 ["$FontSize75"]
+  SETTABLEKS R22 R21 K50 ["TextSize"]
+  CALL R19 2 1
+  MOVE R20 R2
+  LOADK R21 K62 ["#Description"]
+  DUPTABLE R22 K64 [{"TextTruncate"}]
+  GETIMPORT R23 K66 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R23 R22 K63 ["TextTruncate"]
+  CALL R20 2 -1
   SETLIST R18 R19 -1 [1]
   CALL R15 3 1
   MOVE R16 R2
-  LOADK R17 K65 [":hover"]
+  LOADK R17 K67 [":hover"]
   DUPTABLE R18 K14 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R19 K66 ["$SemanticColorStatesHover"]
+  LOADK R19 K68 ["$SemanticColorStatesHover"]
   SETTABLEKS R19 R18 K12 ["BackgroundColor3"]
-  LOADK R19 K67 ["$SemanticColorStatesHoverTransparency"]
+  LOADK R19 K69 ["$SemanticColorStatesHoverTransparency"]
   SETTABLEKS R19 R18 K13 ["BackgroundTransparency"]
   CALL R16 2 1
   MOVE R17 R2
-  LOADK R18 K68 ["::UIPadding"]
-  DUPTABLE R19 K73 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  GETIMPORT R20 K76 [UDim.new]
+  LOADK R18 K70 ["::UIPadding"]
+  DUPTABLE R19 K75 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R20 K78 [UDim.new]
   LOADN R21 0
   LOADN R22 0
   CALL R20 2 1
-  SETTABLEKS R20 R19 K69 ["PaddingLeft"]
-  LOADK R20 K77 ["$GlobalSpace100"]
-  SETTABLEKS R20 R19 K70 ["PaddingRight"]
-  LOADK R20 K77 ["$GlobalSpace100"]
-  SETTABLEKS R20 R19 K71 ["PaddingTop"]
-  LOADK R20 K77 ["$GlobalSpace100"]
-  SETTABLEKS R20 R19 K72 ["PaddingBottom"]
+  SETTABLEKS R20 R19 K71 ["PaddingLeft"]
+  LOADK R20 K79 ["$GlobalSpace100"]
+  SETTABLEKS R20 R19 K72 ["PaddingRight"]
+  LOADK R20 K79 ["$GlobalSpace100"]
+  SETTABLEKS R20 R19 K73 ["PaddingTop"]
+  LOADK R20 K79 ["$GlobalSpace100"]
+  SETTABLEKS R20 R19 K74 ["PaddingBottom"]
   CALL R17 2 -1
   SETLIST R11 R12 -1 [1]
   CALL R8 3 -1

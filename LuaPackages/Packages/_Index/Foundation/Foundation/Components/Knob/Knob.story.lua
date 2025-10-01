@@ -6,7 +6,6 @@ local Dash = require(Packages.Dash)
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local Flags = require(Foundation.Utility.Flags)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -46,8 +45,7 @@ return {
 		} :: unknown,
 		{
 			name = "With Stroke",
-			story = function(props)
-				Flags.FoundationFixKnobStroke = props.controls.fixKnobStroke
+			story = function(_props)
 				local tokens = useTokens()
 
 				return Story({
@@ -61,7 +59,5 @@ return {
 			end,
 		},
 	},
-	controls = {
-		fixKnobStroke = Flags.FoundationFixKnobStroke,
-	},
+	controls = {},
 }

@@ -102,51 +102,40 @@ PROTO_5:
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K13 ["provide"]
   MOVE R5 R3
-  DUPTABLE R6 K18 [{"ImportQueue", "Preview", "UploadWidget", "ParseWidget"}]
+  DUPTABLE R6 K17 [{"ImportQueue", "Preview", "UploadWidget"}]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K19 ["createElement"]
+  GETTABLEKS R7 R8 K18 ["createElement"]
   GETUPVAL R8 3
-  DUPTABLE R9 K21 [{"Title"}]
+  DUPTABLE R9 K20 [{"Title"}]
   LOADK R12 K14 ["ImportQueue"]
-  LOADK R13 K22 ["WindowTitle"]
-  NAMECALL R10 R2 K23 ["getText"]
+  LOADK R13 K21 ["WindowTitle"]
+  NAMECALL R10 R2 K22 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K20 ["Title"]
+  SETTABLEKS R10 R9 K19 ["Title"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K14 ["ImportQueue"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K19 ["createElement"]
+  GETTABLEKS R7 R8 K18 ["createElement"]
   GETUPVAL R8 4
-  DUPTABLE R9 K21 [{"Title"}]
+  DUPTABLE R9 K20 [{"Title"}]
   LOADK R12 K2 ["Plugin"]
-  LOADK R13 K22 ["WindowTitle"]
-  NAMECALL R10 R2 K23 ["getText"]
+  LOADK R13 K21 ["WindowTitle"]
+  NAMECALL R10 R2 K22 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K20 ["Title"]
+  SETTABLEKS R10 R9 K19 ["Title"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K15 ["Preview"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K19 ["createElement"]
+  GETTABLEKS R7 R8 K18 ["createElement"]
   GETUPVAL R8 5
-  DUPTABLE R9 K21 [{"Title"}]
-  LOADK R12 K24 ["Upload"]
-  LOADK R13 K22 ["WindowTitle"]
-  NAMECALL R10 R2 K23 ["getText"]
+  DUPTABLE R9 K20 [{"Title"}]
+  LOADK R12 K23 ["Upload"]
+  LOADK R13 K21 ["WindowTitle"]
+  NAMECALL R10 R2 K22 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K20 ["Title"]
+  SETTABLEKS R10 R9 K19 ["Title"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K16 ["UploadWidget"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K19 ["createElement"]
-  GETUPVAL R8 6
-  DUPTABLE R9 K21 [{"Title"}]
-  LOADK R12 K25 ["Parse"]
-  LOADK R13 K22 ["WindowTitle"]
-  NAMECALL R10 R2 K23 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K20 ["Title"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K17 ["ParseWidget"]
   CALL R4 2 -1
   RETURN R4 -1
 
@@ -179,54 +168,49 @@ MAIN:
   GETTABLEKS R8 R9 K14 ["ImportQueue"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
-  GETTABLEKS R10 R4 K11 ["Dialogs"]
-  GETTABLEKS R9 R10 K15 ["ParseWidget"]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Resources"]
+  GETTABLEKS R9 R10 K16 ["CalloutList"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
   GETTABLEKS R12 R0 K9 ["Src"]
-  GETTABLEKS R11 R12 K16 ["Resources"]
-  GETTABLEKS R10 R11 K17 ["CalloutList"]
+  GETTABLEKS R11 R12 K17 ["Utility"]
+  GETTABLEKS R10 R11 K18 ["GetLocalizedString"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
   GETTABLEKS R13 R0 K9 ["Src"]
-  GETTABLEKS R12 R13 K18 ["Utility"]
-  GETTABLEKS R11 R12 K19 ["GetLocalizedString"]
+  GETTABLEKS R12 R13 K19 ["Flags"]
+  GETTABLEKS R11 R12 K20 ["getFFlagImportQueueRibbonDropdown"]
   CALL R10 1 1
-  GETIMPORT R11 K4 [require]
-  GETTABLEKS R14 R0 K9 ["Src"]
-  GETTABLEKS R13 R14 K20 ["Flags"]
-  GETTABLEKS R12 R13 K21 ["getFFlagImportQueueRibbonDropdown"]
-  CALL R11 1 1
-  DUPTABLE R12 K26 [{"DataModel", "PluginId", "Category", "ItemId"}]
-  LOADK R13 K27 ["Standalone"]
-  SETTABLEKS R13 R12 K22 ["DataModel"]
-  LOADK R13 K28 ["MeshImporter"]
-  SETTABLEKS R13 R12 K23 ["PluginId"]
-  LOADK R13 K29 ["Actions"]
-  SETTABLEKS R13 R12 K24 ["Category"]
-  LOADK R13 K30 ["ToggleQueue"]
-  SETTABLEKS R13 R12 K25 ["ItemId"]
-  GETTABLEKS R13 R1 K31 ["PureComponent"]
-  LOADK R15 K32 ["MainPlugin"]
-  NAMECALL R13 R13 K33 ["extend"]
-  CALL R13 2 1
-  DUPCLOSURE R14 K34 [PROTO_0]
+  DUPTABLE R11 K25 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R12 K26 ["Standalone"]
+  SETTABLEKS R12 R11 K21 ["DataModel"]
+  LOADK R12 K27 ["MeshImporter"]
+  SETTABLEKS R12 R11 K22 ["PluginId"]
+  LOADK R12 K28 ["Actions"]
+  SETTABLEKS R12 R11 K23 ["Category"]
+  LOADK R12 K29 ["ToggleQueue"]
+  SETTABLEKS R12 R11 K24 ["ItemId"]
+  GETTABLEKS R12 R1 K30 ["PureComponent"]
+  LOADK R14 K31 ["MainPlugin"]
+  NAMECALL R12 R12 K32 ["extend"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K33 [PROTO_0]
+  CAPTURE VAL R8
   CAPTURE VAL R9
+  DUPCLOSURE R14 K34 [PROTO_3]
   CAPTURE VAL R10
-  DUPCLOSURE R15 K35 [PROTO_3]
-  CAPTURE VAL R11
   CAPTURE VAL R0
-  CAPTURE VAL R12
-  SETTABLEKS R15 R13 K36 ["init"]
-  DUPCLOSURE R15 K37 [PROTO_4]
-  SETTABLEKS R15 R13 K38 ["didUpdate"]
-  DUPCLOSURE R15 K39 [PROTO_5]
-  CAPTURE VAL R14
+  CAPTURE VAL R11
+  SETTABLEKS R14 R12 K35 ["init"]
+  DUPCLOSURE R14 K36 [PROTO_4]
+  SETTABLEKS R14 R12 K37 ["didUpdate"]
+  DUPCLOSURE R14 K38 [PROTO_5]
+  CAPTURE VAL R13
   CAPTURE VAL R3
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R8
-  SETTABLEKS R15 R13 K40 ["render"]
-  RETURN R13 1
+  SETTABLEKS R14 R12 K39 ["render"]
+  RETURN R12 1

@@ -1318,9 +1318,10 @@ PROTO_38:
   GETTABLEKS R5 R0 K0 ["Settings"]
   GETTABLEKS R4 R5 K1 ["Errors"]
   DUPTABLE R5 K7 [{"Places", "EditPlaceId", "PlaceNameError", "PlacePlayerCountError", "PlaceCustomSocialSlotCountError"}]
-  MOVE R6 R2
-  LOADK R7 K8 ["places"]
-  CALL R6 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R7 R0 K0 ["Settings"]
+  LOADK R8 K8 ["places"]
+  CALL R6 2 1
   SETTABLEKS R6 R5 K2 ["Places"]
   GETTABLEKS R7 R0 K9 ["EditAsset"]
   GETTABLEKS R6 R7 K10 ["editPlaceId"]

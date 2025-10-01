@@ -70,7 +70,7 @@ local function Story(props)
 			size = controls.size,
 			hint = if controls.hint == "" then nil else controls.hint,
 			placeholder = controls.placeholder,
-			iconLeading = if controls.iconLeading == React.None then nil else controls.iconLeading,
+			leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
 			iconTrailing = if controls.iconTrailing == React.None
 				then nil
 				else if controls.trailingButton
@@ -124,7 +124,7 @@ return {
 		label = "Input Label",
 		hint = "Helper text goes here",
 		placeholder = "Placeholder text",
-		iconLeading = {
+		leadingIcon = {
 			"icons/placeholder/placeholderOn_small",
 			"icons/status/private_small",
 			"icons/common/search_small",

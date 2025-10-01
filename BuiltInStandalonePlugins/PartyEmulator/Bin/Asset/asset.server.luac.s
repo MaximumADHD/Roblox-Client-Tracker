@@ -3,8 +3,8 @@ PROTO_0:
   LOADNIL R1
   LOADNIL R2
   FORGPREP R0
-  GETTABLEKS R5 R4 K0 ["Disconnect"]
-  CALL R5 0 0
+  NAMECALL R5 R4 K0 ["Disconnect"]
+  CALL R5 1 0
   FORGLOOP R0 2 [-4]
   RETURN R0 0
 
@@ -36,7 +36,7 @@ MAIN:
   GETTABLEKS R5 R6 K15 ["Common"]
   GETTABLEKS R4 R5 K16 ["defineLuaFlags"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K17 ["getFFlagEnablePartyEmulator"]
+  GETTABLEKS R4 R3 K17 ["getFFlagEnablePartyEmulatorService"]
   CALL R4 0 1
   JUMPIF R4 [+1]
   RETURN R0 0

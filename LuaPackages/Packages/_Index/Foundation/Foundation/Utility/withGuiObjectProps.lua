@@ -14,6 +14,8 @@ type CommonProps = Types.CommonProps
 type NativeCommonProps = Types.NativeCommonProps
 type SelectionGroup = Types.SelectionGroup
 
+type ReactRefGuiObject = React.Ref<GuiObject>
+
 -- Since GuiObjectProps is in a different form than what's actually applied, we need to manually define the applied props
 type AppliedGuiObjectProps = {
 	AnchorPoint: Bindable<Vector2>?,
@@ -23,16 +25,17 @@ type AppliedGuiObjectProps = {
 	BackgroundTransparency: Bindable<number>?,
 	BorderSizePixel: Bindable<number>?,
 	BorderColor3: Bindable<Color3>?,
+	BorderMode: Bindable<Enum.BorderMode>?,
 	ClipsDescendants: Bindable<boolean>?,
 	Rotation: Bindable<number>?,
 	Selectable: Bindable<boolean>?,
-	SelectionImageObject: Bindable<React.Ref<GuiObject>>?,
+	SelectionImageObject: Bindable<ReactRefGuiObject>?,
 	SelectionOrder: Bindable<number>?,
 	SizeConstraint: Bindable<Enum.SizeConstraint>?,
-	NextSelectionDown: Bindable<React.Ref<GuiObject>>?,
-	NextSelectionLeft: Bindable<React.Ref<GuiObject>>?,
-	NextSelectionRight: Bindable<React.Ref<GuiObject>>?,
-	NextSelectionUp: Bindable<React.Ref<GuiObject>>?,
+	NextSelectionDown: Bindable<ReactRefGuiObject>?,
+	NextSelectionLeft: Bindable<ReactRefGuiObject>?,
+	NextSelectionRight: Bindable<ReactRefGuiObject>?,
+	NextSelectionUp: Bindable<ReactRefGuiObject>?,
 	Size: Bindable<UDim2>?,
 } & NativeCommonProps
 
@@ -48,6 +51,7 @@ local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, basePr
 			else nil
 		baseProps.BorderSizePixel = props.BorderSizePixel
 		baseProps.BorderColor3 = props.BorderColor3
+		baseProps.BorderMode = props.BorderMode
 		baseProps.ClipsDescendants = props.ClipsDescendants
 		baseProps.Rotation = props.Rotation
 		baseProps.SizeConstraint = props.SizeConstraint

@@ -54,6 +54,8 @@ return Rodux.createReducer(
 							return {
 								id = tostring(item.id),
 								itemType = if item.itemType == ItemType.Asset then ItemType.Asset else ItemType.Bundle,
+								noPriceStatus = item.noPriceStatus,
+								quantityOwned = item.quantityOwned,
 							}
 						end)
 					end

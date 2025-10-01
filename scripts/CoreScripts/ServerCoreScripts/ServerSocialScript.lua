@@ -29,6 +29,10 @@ local FFlagEnableCreatePartyNudge = game:DefineFastFlag("EnableCreatePartyNudge"
 local FFlagEnableCreatePartyNudgeWithVersion = game:DefineFastFlag("EnableCreatePartyNudgeWithVersion", false)
 local FFlagEnablePartyNudgeAfterJoin = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeAfterJoin
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local FFlagProfileSettingsSlidingWindowRateLimit = game:DefineFastFlag("ProfileSettingsSlidingWindowRateLimit", false)
+local FIntProfileSettingsRateLimitSeconds = game:DefineFastInt("ProfileSettingsRateLimitSeconds", 5)
+local FIntProfileSettingsMaxRequestsPerWindow = game:DefineFastInt("ProfileSettingsMaxRequestsPerWindow", 3)
+local FIntProfileSettingsRateLimitWindowSeconds = game:DefineFastInt("ProfileSettingsRateLimitWindowSeconds", 60)
 local FFlagEnablePartyNudgeNotification = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeNotification
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
@@ -61,6 +65,8 @@ local PlayerToCanManageMap = {}
 
 -- Map of player to if in experience name setting is enabled.
 local PlayerToInExperienceNameEnabledMap = {}
+local PlayerProfileSettingsLastUpdate = {} -- Rate limiting tracking
+local PlayerProfileSettingsRequestHistory = {} -- Rate limiting tracking with request timestamps
 
 game:DefineFastInt("MaxBlockListSize", 500)
 
@@ -459,9 +465,49 @@ end)
 
 if FFlagBadgeVisibilitySettingEnabled then
 	RemoteEvent_UpdatePlayerProfileSettings.OnServerEvent:Connect(function(player, profileSettings)
+		if type(profileSettings) ~= "table" then
+			return
+		end
+		
+		local sanitizedSettings = {}
+		if type(profileSettings.isInExperienceNameEnabled) == "boolean" then
+			sanitizedSettings.isInExperienceNameEnabled = profileSettings.isInExperienceNameEnabled
+		else
+			return 
+		end
+
 		local userIdStr = tostring(player.UserId)
-		PlayerToInExperienceNameEnabledMap[userIdStr] = profileSettings.isInExperienceNameEnabled
-		RemoteEvent_SendPlayerProfileSettings:FireAllClients(userIdStr, profileSettings)
+		local currentTime = tick()
+		
+		if FFlagProfileSettingsSlidingWindowRateLimit then
+			if not PlayerProfileSettingsRequestHistory[userIdStr] then
+				PlayerProfileSettingsRequestHistory[userIdStr] = {}
+			end
+			
+			local requestHistory = PlayerProfileSettingsRequestHistory[userIdStr]
+			local windowStart = currentTime - FIntProfileSettingsRateLimitWindowSeconds
+			for i = #requestHistory, 1, -1 do
+				if requestHistory[i] < windowStart then
+					table.remove(requestHistory, i)
+				end
+			end
+			
+			if #requestHistory >= FIntProfileSettingsMaxRequestsPerWindow then
+				return
+			end
+			
+			table.insert(requestHistory, currentTime)
+		else
+			local lastUpdate = PlayerProfileSettingsLastUpdate[userIdStr]
+			if lastUpdate and (currentTime - lastUpdate) < FIntProfileSettingsRateLimitSeconds then
+				return
+			end
+			
+			PlayerProfileSettingsLastUpdate[userIdStr] = currentTime
+		end
+		PlayerToInExperienceNameEnabledMap[userIdStr] = sanitizedSettings.isInExperienceNameEnabled
+
+		RemoteEvent_SendPlayerProfileSettings:FireAllClients(userIdStr, sanitizedSettings)
 	end)
 end
 
@@ -484,6 +530,17 @@ Players.PlayerRemoving:connect(function(prevPlayer)
 	end
 	if PlayerToInExperienceNameEnabledMap[uid] ~= nil then
 		PlayerToInExperienceNameEnabledMap[uid] = nil
+	end
+	if FFlagBadgeVisibilitySettingEnabled then
+		if FFlagProfileSettingsSlidingWindowRateLimit then
+			if PlayerProfileSettingsRequestHistory[uid] ~= nil then
+				PlayerProfileSettingsRequestHistory[uid] = nil
+			end
+		else
+			if PlayerProfileSettingsLastUpdate[uid] ~= nil then
+				PlayerProfileSettingsLastUpdate[uid] = nil
+			end
+		end
 	end
 end)
 

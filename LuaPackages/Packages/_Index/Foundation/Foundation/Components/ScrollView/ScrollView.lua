@@ -32,6 +32,7 @@ export type Scroll = {
 	AutomaticCanvasSize: Bindable<Enum.AutomaticSize>?,
 	CanvasSize: Bindable<UDim2>?,
 	ScrollingDirection: Bindable<Enum.ScrollingDirection>?,
+	ScrollingEnabled: Bindable<boolean>?,
 	VerticalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
 	HorizontalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
 	scrollBarVisibility: Bindable<Visibility>?,
@@ -54,6 +55,7 @@ local defaultProps = {
 	} :: Scroll,
 	AutoLocalize = false,
 	BorderSizePixel = 0,
+	ClipsDescendants = if Flags.FoundationScrollViewMoveClipOutside then true else nil,
 	isDisabled = false,
 }
 
@@ -125,7 +127,9 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 				AutomaticSize = props.scroll.AutomaticSize,
 				AutomaticCanvasSize = props.scroll.AutomaticCanvasSize,
 				CanvasSize = props.scroll.CanvasSize,
+				ClipsDescendants = if Flags.FoundationScrollViewMoveClipOutside then false else nil,
 				ScrollingDirection = props.scroll.ScrollingDirection,
+				ScrollingEnabled = props.scroll.ScrollingEnabled,
 				VerticalScrollBarInset = props.scroll.VerticalScrollBarInset,
 				HorizontalScrollBarInset = props.scroll.HorizontalScrollBarInset,
 				ref = props.scrollingFrameRef,

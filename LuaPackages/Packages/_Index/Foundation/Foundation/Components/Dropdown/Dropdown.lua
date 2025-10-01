@@ -11,6 +11,8 @@ local InternalMenu = require(Foundation.Components.InternalMenu)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -52,6 +54,8 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 	local props = withDefaults(dropdownProps, defaultProps)
 	local isMenuOpen, setIsMenuOpen = React.useState(false)
 	local inputRef = React.useRef(nil :: GuiObject?)
+	-- This may cause blinking for UDim.new(1, 0) size if the menu is open from the start. Shouldn't be the case?
+	local absoluteWidth, setAbsoluteWidth = React.useBinding(props.width)
 
 	local selectedItem = React.useMemo(function()
 		return Dash.find(props.items, function(item)
@@ -73,6 +77,16 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 		setIsMenuOpen(false)
 		props.onItemChanged(id)
 	end, { props.onItemChanged })
+
+	if Flags.FoundationMenuWidthGrowth then
+		-- We do the copy of props in withDefaults already, no need to make it once more.
+		props.onAbsoluteSizeChanged = React.useCallback(function(frame: GuiObject)
+			if dropdownProps.onAbsoluteSizeChanged then
+				dropdownProps.onAbsoluteSizeChanged(frame)
+			end
+			setAbsoluteWidth(UDim.new(0, frame.AbsoluteSize.X))
+		end, { setAbsoluteWidth :: unknown, dropdownProps.onAbsoluteSizeChanged })
+	end
 
 	return React.createElement(Popover.Root, {
 		isOpen = isMenuOpen,
@@ -109,7 +123,8 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 			},
 			React.createElement(InternalMenu, {
 				size = props.size,
-				width = props.width,
+				couldGrow = if Flags.FoundationMenuWidthGrowth then true else nil,
+				width = if Flags.FoundationMenuWidthGrowth then absoluteWidth else props.width,
 				items = Dash.map(props.items, function(item)
 					return {
 						id = item.id,

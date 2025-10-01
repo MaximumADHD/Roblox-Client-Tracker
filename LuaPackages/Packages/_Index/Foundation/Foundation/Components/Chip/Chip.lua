@@ -27,8 +27,6 @@ type ChipSize = ChipSize.ChipSize
 
 local useChipVariants = require(script.Parent.useChipVariants)
 
-local Flags = require(Foundation.Utility.Flags)
-
 type Accessory = Accessory.Accessory
 
 -- DEPRECATED
@@ -97,13 +95,11 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 		withCommonProps(props, {
 			isDisabled = props.isDisabled,
 			selection = {
-				Selectable = if Flags.FoundationChipSelectable
-					then if props.isDisabled then false else props.Selectable
-					else not props.isDisabled,
-				NextSelectionUp = if Flags.FoundationChipSelectable then props.NextSelectionUp else nil,
-				NextSelectionDown = if Flags.FoundationChipSelectable then props.NextSelectionDown else nil,
-				NextSelectionLeft = if Flags.FoundationChipSelectable then props.NextSelectionLeft else nil,
-				NextSelectionRight = if Flags.FoundationChipSelectable then props.NextSelectionRight else nil,
+				Selectable = if props.isDisabled then false else props.Selectable,
+				NextSelectionUp = props.NextSelectionUp,
+				NextSelectionDown = props.NextSelectionDown,
+				NextSelectionLeft = props.NextSelectionLeft,
+				NextSelectionRight = props.NextSelectionRight,
 			},
 			onActivated = props.onActivated,
 			stateLayer = if props.isChecked

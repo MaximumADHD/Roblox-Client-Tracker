@@ -79,11 +79,15 @@ local function MenuItem(menuItemProps: MenuItemProps, ref: React.Ref<GuiObject>?
 		{
 			Icon = if props.icon
 				then if props.icon ~= "" and isBuilderIconOrMigrated(props.icon)
-					then React.createElement(Icon, {
+					then React.createElement(View, {
 						LayoutOrder = 1,
-						name = if migratedIcon then migratedIcon.name else props.icon,
-						style = variantProps.icon.style,
-						size = variantProps.icon.size,
+						tag = `{variantProps.icon.tag} align-x-center align-y-center`,
+					}, {
+						Icon = React.createElement(Icon, {
+							name = if migratedIcon then migratedIcon.name else props.icon,
+							style = variantProps.icon.style,
+							size = variantProps.icon.size,
+						}),
 					})
 					else React.createElement(Image, {
 						LayoutOrder = 1,

@@ -6,12 +6,15 @@ local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local ReactIs = require(Packages.ReactIs)
 local FoundationImages = require(Packages.FoundationImages)
+local FoundationCloudAssets = require(Packages.FoundationCloudAssets)
 
+local Assets = FoundationCloudAssets.Assets
 local Interactable = require(Foundation.Components.Interactable)
 local Images = FoundationImages.Images
 type ImageSetImage = FoundationImages.ImageSetImage
 local getScaledSlice = require(script.Parent.ImageSet.getScaledSlice)
 local isFoundationImage = require(script.Parent.ImageSet.isFoundationImage)
+local isCloudAsset = require(script.Parent.CloudAsset.isCloudAsset)
 
 local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -51,6 +54,10 @@ local defaultProps = {
 	isDisabled = false,
 }
 
+local function getAspectRatio(size: Vector2)
+	return size.X / size.Y
+end
+
 local DEFAULT_TAGS = "gui-object-defaults"
 local DEFAULT_TAGS_WITH_BG = `{DEFAULT_TAGS} x-default-transparency`
 
@@ -67,19 +74,30 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 
 	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil or props.onSecondaryActivated ~= nil
 
-	local image, imageRectOffset, imageRectSize = React.useMemo(function(): ...any
+	local image, imageRectOffset, imageRectSize, aspectRatio = React.useMemo(function(): ...any
 		-- selene: allow(shadowing)
 		local image = props.Image
 		-- selene: allow(shadowing)
 		local imageRectOffset = if props.imageRect then props.imageRect.offset else nil
 		-- selene: allow(shadowing)
 		local imageRectSize = if props.imageRect then props.imageRect.size else nil
+		-- selene: allow(shadowing)
+		local aspectRatio = props.aspectRatio
 
 		if ReactIs.isBinding(props.Image) then
 			local function getImageBindingValue(prop)
 				return (props.Image :: React.Binding<string>):map(function(value: string)
 					if isFoundationImage(value) then
-						local asset = Images[value]
+						local asset
+						if Flags.FoundationSupportCloudAssetsImage and isCloudAsset(value) then
+							asset = Assets[value]
+							aspectRatio = getAspectRatio(asset.size)
+							if prop == "Image" then
+								return asset.assetId
+							end
+							return nil
+						end
+						asset = Images[value]
 						return if asset then asset[prop] else nil
 					elseif prop == "Image" then
 						return value
@@ -97,15 +115,21 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 			imageRectOffset = getImageBindingValue("ImageRectOffset")
 			imageRectSize = getImageBindingValue("ImageRectSize")
 		elseif typeof(props.Image) == "string" and isFoundationImage(props.Image) then
-			local asset = Images[props.Image]
-			if asset then
-				image = asset.Image
-				imageRectOffset = asset.ImageRectOffset
-				imageRectSize = asset.ImageRectSize
+			if Flags.FoundationSupportCloudAssetsImage and isCloudAsset(props.Image) then
+				local asset = Assets[props.Image]
+				image = asset.assetId
+				aspectRatio = getAspectRatio(asset.size)
+			else
+				local asset = Images[props.Image]
+				if asset then
+					image = asset.Image
+					imageRectOffset = asset.ImageRectOffset
+					imageRectSize = asset.ImageRectSize
+				end
 			end
 		end
 
-		return image, imageRectOffset, imageRectSize
+		return image, imageRectOffset, imageRectSize, aspectRatio
 	end, { props.Image, props.imageRect :: any, Images :: any })
 
 	local sliceCenter, sliceScale, scaleType = nil :: Bindable<Rect?>, nil :: Bindable<number?>, props.ScaleType
@@ -129,11 +153,15 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 				local slice = getScaledSlice(props.slice.center, props.slice.scale)
 				sliceCenter = slice.center
 				sliceScale = slice.scale
-			elseif Flags.FoundationFixImageSlice then
+			else
 				sliceCenter, sliceScale = props.slice.center, props.slice.scale
 			end
 		end
 		scaleType = Enum.ScaleType.Slice
+	end
+
+	if Flags.FoundationSupportCloudAssetsImage then
+		props.aspectRatio = aspectRatio
 	end
 
 	local defaultTags = if props.backgroundStyle ~= nil then DEFAULT_TAGS_WITH_BG else DEFAULT_TAGS

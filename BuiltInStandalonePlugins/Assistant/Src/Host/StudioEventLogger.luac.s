@@ -380,6 +380,74 @@ PROTO_13:
   RETURN R0 0
 
 PROTO_14:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["logEvent"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K3 [{"customFields", "standardizedFields"}]
+  DUPTABLE R4 K7 [{"requestId", "toolName", "warningMessage"}]
+  GETTABLEKS R5 R0 K8 ["messageGuid"]
+  SETTABLEKS R5 R4 K4 ["requestId"]
+  GETTABLEKS R5 R0 K5 ["toolName"]
+  SETTABLEKS R5 R4 K5 ["toolName"]
+  GETTABLEKS R5 R0 K6 ["warningMessage"]
+  SETTABLEKS R5 R4 K6 ["warningMessage"]
+  SETTABLEKS R4 R3 K1 ["customFields"]
+  NEWTABLE R5 0 0
+  GETUPVAL R9 2
+  GETTABLEKS R6 R9 K9 ["StandardizedFields"]
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  FASTCALL2 TABLE_INSERT R5 R10 [+5]
+  MOVE R12 R5
+  MOVE R13 R10
+  GETIMPORT R11 K12 [table.insert]
+  CALL R11 2 0
+  FORGLOOP R6 2 [-8]
+  FASTCALL2K TABLE_INSERT R5 K13 [+5]
+  MOVE R7 R5
+  LOADK R8 K13 ["addSessionInfo"]
+  GETIMPORT R6 K12 [table.insert]
+  CALL R6 2 0
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K2 ["standardizedFields"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["logEvent"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K3 [{"customFields", "standardizedFields"}]
+  DUPTABLE R4 K6 [{"requestId", "result"}]
+  GETTABLEKS R5 R0 K7 ["messageGuid"]
+  SETTABLEKS R5 R4 K4 ["requestId"]
+  GETTABLEKS R5 R0 K5 ["result"]
+  SETTABLEKS R5 R4 K5 ["result"]
+  SETTABLEKS R4 R3 K1 ["customFields"]
+  NEWTABLE R5 0 0
+  GETUPVAL R9 2
+  GETTABLEKS R6 R9 K8 ["StandardizedFields"]
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  FASTCALL2 TABLE_INSERT R5 R10 [+5]
+  MOVE R12 R5
+  MOVE R13 R10
+  GETIMPORT R11 K11 [table.insert]
+  CALL R11 2 0
+  FORGLOOP R6 2 [-8]
+  FASTCALL2K TABLE_INSERT R5 K12 [+5]
+  MOVE R7 R5
+  LOADK R8 K12 ["addSessionInfo"]
+  GETIMPORT R6 K11 [table.insert]
+  CALL R6 2 0
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K2 ["standardizedFields"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_16:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
@@ -424,22 +492,32 @@ PROTO_14:
   CAPTURE UPVAL U0
   CAPTURE UPVAL U13
   CAPTURE UPVAL U3
-  DUPTABLE R11 K18 [{"logUserMessageSent", "logAssistantMessageSent", "logErrorEvent", "logThumbsUp", "logThumbsDown", "logInitialResponseLatency", "logMarkdownError", "logRetry", "logStopGeneration", "logToolStarted", "getMessageGuid", "createMessageGuid"}]
-  SETTABLEKS R1 R11 K6 ["logUserMessageSent"]
-  SETTABLEKS R2 R11 K7 ["logAssistantMessageSent"]
-  SETTABLEKS R3 R11 K8 ["logErrorEvent"]
-  SETTABLEKS R4 R11 K9 ["logThumbsUp"]
-  SETTABLEKS R5 R11 K10 ["logThumbsDown"]
-  SETTABLEKS R6 R11 K11 ["logInitialResponseLatency"]
-  SETTABLEKS R7 R11 K12 ["logMarkdownError"]
-  SETTABLEKS R8 R11 K13 ["logRetry"]
-  SETTABLEKS R9 R11 K14 ["logStopGeneration"]
-  SETTABLEKS R10 R11 K15 ["logToolStarted"]
-  GETUPVAL R12 14
-  SETTABLEKS R12 R11 K16 ["getMessageGuid"]
-  GETUPVAL R12 15
-  SETTABLEKS R12 R11 K17 ["createMessageGuid"]
-  RETURN R11 1
+  DUPCLOSURE R11 K6 [PROTO_14]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U14
+  CAPTURE UPVAL U3
+  DUPCLOSURE R12 K7 [PROTO_15]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U3
+  DUPTABLE R13 K22 [{"logUserMessageSent", "logAssistantMessageSent", "logErrorEvent", "logThumbsUp", "logThumbsDown", "logInitialResponseLatency", "logMarkdownError", "logRetry", "logStopGeneration", "logToolStarted", "logToolConfirmationShown", "logToolConfirmationResult", "getMessageGuid", "createMessageGuid"}]
+  SETTABLEKS R1 R13 K8 ["logUserMessageSent"]
+  SETTABLEKS R2 R13 K9 ["logAssistantMessageSent"]
+  SETTABLEKS R3 R13 K10 ["logErrorEvent"]
+  SETTABLEKS R4 R13 K11 ["logThumbsUp"]
+  SETTABLEKS R5 R13 K12 ["logThumbsDown"]
+  SETTABLEKS R6 R13 K13 ["logInitialResponseLatency"]
+  SETTABLEKS R7 R13 K14 ["logMarkdownError"]
+  SETTABLEKS R8 R13 K15 ["logRetry"]
+  SETTABLEKS R9 R13 K16 ["logStopGeneration"]
+  SETTABLEKS R10 R13 K17 ["logToolStarted"]
+  SETTABLEKS R11 R13 K18 ["logToolConfirmationShown"]
+  SETTABLEKS R12 R13 K19 ["logToolConfirmationResult"]
+  GETUPVAL R14 16
+  SETTABLEKS R14 R13 K20 ["getMessageGuid"]
+  GETUPVAL R14 17
+  SETTABLEKS R14 R13 K21 ["createMessageGuid"]
+  RETURN R13 1
 
 MAIN:
   PREPVARARGS 0
@@ -732,12 +810,48 @@ MAIN:
   SETLIST R25 R26 3 [1]
   SETTABLEKS R25 R24 K28 ["lastUpdated"]
   CALL R23 1 1
-  DUPCLOSURE R24 K64 [PROTO_2]
+  GETIMPORT R24 K24 [table.freeze]
+  DUPTABLE R25 K29 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R26 K64 ["CAPToolConfirmationShown"]
+  SETTABLEKS R26 R25 K25 ["eventName"]
+  NEWTABLE R26 0 1
+  GETTABLEKS R28 R5 K34 ["Backends"]
+  GETTABLEKS R27 R28 K40 ["EventIngest"]
+  SETLIST R26 R27 1 [1]
+  SETTABLEKS R26 R25 K26 ["backends"]
+  LOADK R26 K65 ["Tool confirmation dialog shown event with request ID, tool name, and warning message."]
+  SETTABLEKS R26 R25 K27 ["description"]
+  NEWTABLE R26 0 3
+  LOADN R27 25
+  LOADN R28 9
+  LOADN R29 19
+  SETLIST R26 R27 3 [1]
+  SETTABLEKS R26 R25 K28 ["lastUpdated"]
+  CALL R24 1 1
+  GETIMPORT R25 K24 [table.freeze]
+  DUPTABLE R26 K29 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R27 K66 ["CAPToolConfirmationResult"]
+  SETTABLEKS R27 R26 K25 ["eventName"]
+  NEWTABLE R27 0 1
+  GETTABLEKS R29 R5 K34 ["Backends"]
+  GETTABLEKS R28 R29 K40 ["EventIngest"]
+  SETLIST R27 R28 1 [1]
+  SETTABLEKS R27 R26 K26 ["backends"]
+  LOADK R27 K67 ["Tool confirmation dialog result event with request ID and user choice."]
+  SETTABLEKS R27 R26 K27 ["description"]
+  NEWTABLE R27 0 3
+  LOADN R28 25
+  LOADN R29 9
+  LOADN R30 19
+  SETLIST R27 R28 3 [1]
+  SETTABLEKS R27 R26 K28 ["lastUpdated"]
+  CALL R25 1 1
+  DUPCLOSURE R26 K68 [PROTO_2]
   CAPTURE VAL R9
-  DUPCLOSURE R25 K65 [PROTO_3]
+  DUPCLOSURE R27 K69 [PROTO_3]
   CAPTURE VAL R9
   CAPTURE VAL R1
-  DUPCLOSURE R26 K66 [PROTO_14]
+  DUPCLOSURE R28 K70 [PROTO_16]
   CAPTURE VAL R5
   CAPTURE VAL R12
   CAPTURE VAL R13
@@ -754,4 +868,6 @@ MAIN:
   CAPTURE VAL R23
   CAPTURE VAL R24
   CAPTURE VAL R25
-  RETURN R26 1
+  CAPTURE VAL R26
+  CAPTURE VAL R27
+  RETURN R28 1

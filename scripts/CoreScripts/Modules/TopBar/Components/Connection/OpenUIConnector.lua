@@ -8,6 +8,13 @@ local t = require(CorePackages.Packages.t)
 local Components = script.Parent.Parent
 local TopBar = Components.Parent
 
+local FFlagTopBarDeprecateMoreMenuRodux = require(TopBar.Flags.FFlagTopBarDeprecateMoreMenuRodux)
+
+if FFlagTopBarDeprecateMoreMenuRodux then
+	return nil :: never
+end
+
+
 local SetBackpackOpen = require(TopBar.Actions.SetBackpackOpen)
 local SetEmotesOpen = require(TopBar.Actions.SetEmotesOpen)
 local SetLeaderboardOpen = require(TopBar.Actions.SetLeaderboardOpen)

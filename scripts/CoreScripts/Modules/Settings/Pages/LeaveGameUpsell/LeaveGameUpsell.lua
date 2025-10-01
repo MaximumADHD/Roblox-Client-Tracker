@@ -17,7 +17,7 @@ local ButtonStack = UIBlox.App.Button.ButtonStack
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local useStyle = UIBlox.Core.Style.useStyle
 local PhoneLegalDisclaimer = require(CorePackages.Workspace.Packages.PhoneUpsell).PhoneLegalDisclaimer
-local InGameContainer = require(CorePackages.Workspace.Packages.PhoneUpsell).InGameContainer
+local InExperienceProviderContainer = require(CorePackages.Workspace.Packages.InExperienceContainer).InExperienceProviderContainer
 local PostPhoneUpsellDisplayed =
 	require(CorePackages.Workspace.Packages.PhoneUpsell).Http.Requests.PostPhoneUpsellDisplayed
 local PhoneUpsellController = require(CorePackages.Workspace.Packages.PhoneUpsell).PhoneUpsellController
@@ -437,7 +437,7 @@ local function Initialize()
 	end
 
 	local container = React.createElement(
-		InGameContainer,
+		InExperienceProviderContainer,
 		{},
 		React.createElement(this.LeaveGameComponent, { showWebpage = function() end }, {})
 	)
@@ -464,7 +464,7 @@ function PageInstance:SetUpsellProp(upsellProp)
 	self.handle = Roact.update(
 		self.handle,
 		React.createElement(
-			InGameContainer,
+			InExperienceProviderContainer,
 			{},
 			React.createElement(self.LeaveGameComponent, { showWebpage = function() end }, {})
 		)

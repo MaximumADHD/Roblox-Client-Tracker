@@ -89,6 +89,23 @@ local function getProductInfo(id)
 end
 
 --[[
+	Get the details for a batch of items. (either assets or bundles)
+]]
+local function getBatchItemDetails(itemIds, itemType)
+	return Promise.new(function(resolve, reject)
+		local success, result = pcall(function()
+			return AvatarEditorService:GetBatchItemDetails(itemIds, itemType)
+		end)
+			
+		if success then
+			resolve(result)
+		else
+			reject("Failure in batchGetItemDetails: ", tostring(result))
+		end
+	end)
+end
+
+--[[
 	Get an asset's item details
 ]]
 local function getItemDetails(itemId, itemType)
@@ -399,6 +416,7 @@ function Network.new()
 		getExperienceInfo = getExperienceInfo,
 		getItemDetails = getItemDetails,
 		getPreviewAvatar = getPreviewAvatar,
+		getBatchItemDetails = getBatchItemDetails,
 	}
 
 	setmetatable(networkService, {

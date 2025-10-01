@@ -155,6 +155,14 @@ do
 	FFlagUserFreecamPlayerLock = success and result
 end
 
+local FFlagUserFreecamPlayerLockResetHeight
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFreecamPlayerLockResetHeight")
+	end)
+	FFlagUserFreecamPlayerLockResetHeight = success and result
+end
+
 local FFlagUserFreecamCustomGui
 do
 	local success, result = pcall(function()
@@ -240,6 +248,7 @@ local playerRemovingConnection = nil
 local PLAYER_LOCK_DEFAULT_ZOOM = 20
 local PLAYER_LOCK_MIN_ZOOM = 5
 local PLAYER_LOCK_MAX_ZOOM = 50
+local PLAYER_LOCK_DEFAULT_HEIGHT = 0
 local PLAYER_LOCK_HEIGHT_RANGE = 10
 local playerLockEnabled = false
 local playerLockZoom = 20
@@ -681,6 +690,9 @@ local Input = {} do
 					playerLockEnabled = not playerLockEnabled
 					if playerLockEnabled then
 						playerLockZoom = PLAYER_LOCK_DEFAULT_ZOOM
+						if FFlagUserFreecamPlayerLockResetHeight then 
+							playerLockHeight = PLAYER_LOCK_DEFAULT_HEIGHT
+						end
 						rootPart = findPlayerLockRootPart(0)
 					end
 					resetKeys(FREECAM_PLAYER_LOCK_TOGGLE, keyboard)

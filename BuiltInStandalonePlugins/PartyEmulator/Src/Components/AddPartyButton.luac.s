@@ -10,41 +10,45 @@ PROTO_0:
 
 PROTO_1:
   GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
+  CALL R1 0 1
   GETUPVAL R2 1
   NAMECALL R2 R2 K0 ["use"]
   CALL R2 1 1
-  NAMECALL R2 R2 K1 ["get"]
-  CALL R2 1 1
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K2 ["useCallback"]
-  NEWCLOSURE R4 P0
-  CAPTURE UPVAL U3
-  CAPTURE VAL R2
-  NEWTABLE R5 0 0
-  CALL R3 2 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K3 ["createElement"]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K4 ["Button"]
-  DUPTABLE R6 K10 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
-  LOADK R9 K11 ["Action"]
-  LOADK R10 K12 ["AddParty"]
-  NAMECALL R7 R1 K13 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K5 ["text"]
-  SETTABLEKS R3 R6 K6 ["onActivated"]
-  GETUPVAL R8 5
-  GETTABLEKS R7 R8 K14 ["Subtle"]
-  SETTABLEKS R7 R6 K7 ["variant"]
-  GETUPVAL R8 6
-  GETTABLEKS R7 R8 K15 ["Medium"]
-  SETTABLEKS R7 R6 K8 ["size"]
-  GETTABLEKS R7 R0 K9 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K9 ["LayoutOrder"]
-  CALL R4 2 -1
-  RETURN R4 -1
+  GETUPVAL R3 2
+  NAMECALL R3 R3 K0 ["use"]
+  CALL R3 1 1
+  NAMECALL R3 R3 K1 ["get"]
+  CALL R3 1 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K2 ["useCallback"]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U4
+  CAPTURE VAL R3
+  NEWTABLE R6 0 0
+  CALL R4 2 1
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K3 ["createElement"]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K4 ["Button"]
+  DUPTABLE R7 K11 [{"text", "onActivated", "variant", "size", "LayoutOrder", "isDisabled"}]
+  LOADK R10 K12 ["Action"]
+  LOADK R11 K13 ["AddParty"]
+  NAMECALL R8 R2 K14 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K5 ["text"]
+  SETTABLEKS R4 R7 K6 ["onActivated"]
+  GETUPVAL R9 6
+  GETTABLEKS R8 R9 K15 ["Subtle"]
+  SETTABLEKS R8 R7 K7 ["variant"]
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K16 ["Medium"]
+  SETTABLEKS R8 R7 K8 ["size"]
+  GETTABLEKS R8 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
+  NOT R8 R1
+  SETTABLEKS R8 R7 K10 ["isDisabled"]
+  CALL R5 2 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0
@@ -56,31 +60,37 @@ MAIN:
   LOADK R3 K6 ["PartyEmulator"]
   NAMECALL R1 R1 K7 ["FindFirstAncestor"]
   CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R1 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R1 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["Foundation"]
+  GETTABLEKS R3 R1 K8 ["Src"]
+  GETTABLEKS R2 R3 K9 ["Hooks"]
+  GETIMPORT R3 K11 [require]
+  GETTABLEKS R5 R1 K12 ["Packages"]
+  GETTABLEKS R4 R5 K13 ["React"]
   CALL R3 1 1
-  GETTABLEKS R5 R3 K13 ["Enums"]
-  GETTABLEKS R4 R5 K14 ["ButtonVariant"]
-  GETTABLEKS R6 R3 K13 ["Enums"]
-  GETTABLEKS R5 R6 K15 ["InputSize"]
-  GETIMPORT R6 K9 [require]
-  GETTABLEKS R8 R1 K10 ["Packages"]
-  GETTABLEKS R7 R8 K16 ["Framework"]
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R6 R1 K12 ["Packages"]
+  GETTABLEKS R5 R6 K14 ["Foundation"]
+  CALL R4 1 1
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R7 R1 K12 ["Packages"]
+  GETTABLEKS R6 R7 K15 ["Framework"]
+  CALL R5 1 1
+  GETIMPORT R6 K11 [require]
+  GETTABLEKS R7 R2 K16 ["useServerClientsTestSelected"]
   CALL R6 1 1
-  GETTABLEKS R7 R6 K17 ["ContextServices"]
+  GETTABLEKS R7 R5 K17 ["ContextServices"]
   GETTABLEKS R8 R7 K18 ["Localization"]
   GETTABLEKS R9 R7 K19 ["Plugin"]
-  DUPCLOSURE R10 K20 [PROTO_1]
+  GETTABLEKS R11 R4 K20 ["Enums"]
+  GETTABLEKS R10 R11 K21 ["ButtonVariant"]
+  GETTABLEKS R12 R4 K20 ["Enums"]
+  GETTABLEKS R11 R12 K22 ["InputSize"]
+  DUPCLOSURE R12 K23 [PROTO_1]
+  CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE VAL R2
-  CAPTURE VAL R0
   CAPTURE VAL R3
+  CAPTURE VAL R0
   CAPTURE VAL R4
-  CAPTURE VAL R5
-  RETURN R10 1
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  RETURN R12 1

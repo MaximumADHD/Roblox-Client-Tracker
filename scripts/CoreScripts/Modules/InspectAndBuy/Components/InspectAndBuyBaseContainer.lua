@@ -15,7 +15,6 @@ local useResponsivePanelLayoutProps = AvatarExperienceInspectAndBuy.Hooks.useRes
 
 local UpdateBulkPuchaseResults = require(InspectAndBuyFolder.Actions.UpdateBulkPuchaseResults)
 local GetProductInfo = require(InspectAndBuyFolder.Thunks.GetProductInfo)
-local GetVersionInfo = require(InspectAndBuyFolder.Thunks.GetVersionInfo)
 local GetFavoriteForAsset = require(InspectAndBuyFolder.Thunks.GetFavoriteForAsset)
 local getFavoriteForBundle = require(InspectAndBuyFolder.Thunks.GetFavoriteForBundle)
 local CreateFavoriteForAsset = require(InspectAndBuyFolder.Thunks.CreateFavoriteForAsset)
@@ -43,14 +42,14 @@ local function InspectAndBuyBaseContainer(props)
 	local tokens = useTokens()
 	local dispatch = useDispatch()
 
-    --[[
+	--[[
 		Close and unmount the inspect and buy menu
 	]]
 	local onInspectMenuClosed = React.useCallback(function()
 		GuiService:CloseInspectMenu()
 	end, {})
 
-    --[[
+	--[[
 		When a bulk purchase is finished, update the bulk purchase results (owndership status)
 	]]
 	local onBulkPurchaseFinished = React.useCallback(function(player, status, result: PromptBulkPurchaseFinishedResult)
@@ -67,12 +66,18 @@ local function InspectAndBuyBaseContainer(props)
 	]]
 	local onItemDetailsOpened = React.useCallback(function(item: AvatarItem)
 		-- TODO [ACS-5423]: use the performFetchStatus to check if the data is already fetched as a perf improvement
-		dispatch(GetProductInfo(item.id))
-		dispatch(GetVersionInfo(item.id))
 
-		-- get favorites status for the selected item
+		--[[
+			TODO [ACS-5515]: IEC attribution version info currently only works for assets.
+			We need to update the GetVersionInfo thunk to support bundles as well (purchase-details
+	        endpoint currently groups IEC body assets into a bundle, breaking the current logic). As a
+			workaround, this can be done by invoking the GetVersionInfo thunk on the first asset within
+			a bundle—essentially a hack on top of the existing hack due to backend constraints.
+		]]
+
 		if item.itemType == ItemTypeEnum.Asset then
 			dispatch(GetFavoriteForAsset(item.id))
+			dispatch(GetProductInfo(item.id))
 		elseif item.itemType == ItemTypeEnum.Bundle then
 			dispatch(getFavoriteForBundle(item.id))
 		end
@@ -97,8 +102,7 @@ local function InspectAndBuyBaseContainer(props)
 		end
 	end, { dispatch })
 
-
---[[
+	--[[
 	Prompts a purchase for a single item.
 
 	NOTE: PromptPurchase Thunk enforces stricter parameter types than its implementation needs. 
@@ -132,27 +136,26 @@ local function InspectAndBuyBaseContainer(props)
 ]]
 
 	local onPromptPurchase = function(
-			itemId: any,
-			itemType: any,
-			collectibleItemId: any,
-			collectibleLowestAvailableResaleProductId: any,
-			collectibleLowestAvailableResaleItemInstanceId: any,
-			collectibleLowestResalePrice: any,
-			isLimited20OrLimitedCollectible: any
-		)
-			dispatch(
-				PromptPurchase(
-					itemId,
-					itemType,
-					collectibleItemId,
-					collectibleLowestAvailableResaleProductId,
-					collectibleLowestAvailableResaleItemInstanceId,
-					collectibleLowestResalePrice,
-					isLimited20OrLimitedCollectible
-				)
+		itemId: any,
+		itemType: any,
+		collectibleItemId: any,
+		collectibleLowestAvailableResaleProductId: any,
+		collectibleLowestAvailableResaleItemInstanceId: any,
+		collectibleLowestResalePrice: any,
+		isLimited20OrLimitedCollectible: any
+	)
+		dispatch(
+			PromptPurchase(
+				itemId,
+				itemType,
+				collectibleItemId,
+				collectibleLowestAvailableResaleProductId,
+				collectibleLowestAvailableResaleItemInstanceId,
+				collectibleLowestResalePrice,
+				isLimited20OrLimitedCollectible
 			)
+		)
 	end
-
 
 	local responsivePanelLayoutProps = useResponsivePanelLayoutProps({
 		onInspectMenuClosed = onInspectMenuClosed,

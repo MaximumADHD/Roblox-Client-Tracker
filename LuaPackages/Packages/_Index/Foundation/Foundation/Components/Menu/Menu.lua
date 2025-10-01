@@ -21,11 +21,12 @@ type OnItemActivated = Types.OnItemActivated
 type PopoverAnchor = Types.PopoverAnchor
 
 export type MenuItem = InternalMenu.MenuItem
+export type MenuItems = InternalMenu.MenuItems
 export type MenuProps = {
 	-- Whether the menu is open
 	isOpen: boolean,
 	-- List of items to display in the menu
-	items: { MenuItem },
+	items: MenuItems,
 	-- Size of the menu and its items
 	size: InputSize?,
 	-- Width of the component. If not specified, the menu is sized based on the content.

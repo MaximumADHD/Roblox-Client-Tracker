@@ -13,45 +13,75 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  GETTABLEKS R2 R0 K0 ["Creator"]
-  GETTABLEKS R1 R2 K1 ["Id"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["_selection"]
-  GETTABLEKS R2 R3 K1 ["Id"]
-  JUMPIFEQ R1 R2 [+10]
   GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+24]
+  GETTABLEKS R2 R0 K0 ["Creator"]
+  GETTABLEKS R1 R2 K1 ["Uid"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["_pluginController"]
+  NAMECALL R3 R3 K3 ["getCurrentScope"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K1 ["Uid"]
+  JUMPIFEQ R1 R2 [+31]
+  GETUPVAL R1 1
   GETTABLEKS R4 R0 K0 ["Creator"]
-  GETTABLEKS R3 R4 K1 ["Id"]
+  GETTABLEKS R3 R4 K1 ["Uid"]
   LOADB R4 1
-  NAMECALL R1 R1 K3 ["_setScopeNotification"]
+  NAMECALL R1 R1 K4 ["_setNewItemNotif"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETTABLEKS R2 R0 K0 ["Creator"]
+  GETTABLEKS R1 R2 K5 ["Id"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["_selection"]
+  GETTABLEKS R2 R3 K5 ["Id"]
+  JUMPIFEQ R1 R2 [+10]
+  GETUPVAL R1 1
+  GETTABLEKS R4 R0 K0 ["Creator"]
+  GETTABLEKS R3 R4 K5 ["Id"]
+  LOADB R4 1
+  NAMECALL R1 R1 K7 ["_setScopeNotification"]
   CALL R1 3 0
   RETURN R0 0
 
 PROTO_2:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["_selection"]
-  GETTABLEKS R1 R2 K1 ["Scope"]
+  GETTABLEKS R1 R2 K1 ["Type"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["Scope"]
-  GETTABLEKS R2 R3 K2 ["ProjectPlaces"]
+  GETTABLEKS R3 R4 K2 ["ScopeType"]
+  GETTABLEKS R2 R3 K3 ["ProjectPlaces"]
   JUMPIFEQ R1 R2 [+13]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["_selection"]
-  GETTABLEKS R1 R2 K1 ["Scope"]
+  GETTABLEKS R1 R2 K1 ["Type"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["Scope"]
-  GETTABLEKS R2 R3 K3 ["ProjectShared"]
+  GETTABLEKS R3 R4 K2 ["ScopeType"]
+  GETTABLEKS R2 R3 K4 ["ProjectShared"]
   JUMPIFNOTEQ R1 R2 [+9]
   GETUPVAL R1 0
   GETUPVAL R3 2
-  NAMECALL R3 R3 K4 ["getUser"]
+  NAMECALL R3 R3 K5 ["getUser"]
   CALL R3 1 -1
-  NAMECALL R1 R1 K5 ["setSelection"]
+  NAMECALL R1 R1 K6 ["setSelection"]
   CALL R1 -1 0
   RETURN R0 0
 
 PROTO_3:
-  DUPTABLE R3 K19 [{"_isMock", "_networking", "_pluginController", "_explorerItems", "_groups", "_visibleGroups", "_selection", "_expansion", "_groupOptions", "_toggleSet", "_showScopeOptions", "_scopeNotifications", "_connections", "OnExplorerItemsChanged", "OnExpansionChanged", "OnGroupOptionsChanged", "OnShowScopeOptionsChanged", "OnToggleSetChanged", "OnScopeNotificationsChanged"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_newItemNotifs"]
+  GETTABLEKS R3 R0 K1 ["Uid"]
+  GETTABLE R1 R2 R3
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K1 ["Uid"]
+  NAMECALL R1 R1 K2 ["_toggleNewItemNotif"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R3 K20 [{"_isMock", "_networking", "_pluginController", "_explorerItems", "_groups", "_visibleGroups", "_selection", "_expansion", "_groupOptions", "_toggleSet", "_showScopeOptions", "_scopeNotifications", "_newItemNotifs", "_connections", "OnExplorerItemsChanged", "OnExpansionChanged", "OnGroupOptionsChanged", "OnShowScopeOptionsChanged", "OnToggleSetChanged", "OnScopeNotificationsChanged"}]
   SETTABLEKS R2 R3 K0 ["_isMock"]
   SETTABLEKS R1 R3 K1 ["_networking"]
   SETTABLEKS R0 R3 K2 ["_pluginController"]
@@ -61,7 +91,7 @@ PROTO_3:
   SETTABLEKS R4 R3 K4 ["_groups"]
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K5 ["_visibleGroups"]
-  NAMECALL R4 R0 K20 ["getUser"]
+  NAMECALL R4 R0 K21 ["getUser"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K6 ["_selection"]
   NEWTABLE R4 0 0
@@ -75,78 +105,97 @@ PROTO_3:
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K11 ["_scopeNotifications"]
   NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K12 ["_connections"]
+  SETTABLEKS R4 R3 K12 ["_newItemNotifs"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K13 ["_connections"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K21 ["new"]
+  GETTABLEKS R4 R5 K22 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K13 ["OnExplorerItemsChanged"]
+  SETTABLEKS R4 R3 K14 ["OnExplorerItemsChanged"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K21 ["new"]
+  GETTABLEKS R4 R5 K22 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K14 ["OnExpansionChanged"]
+  SETTABLEKS R4 R3 K15 ["OnExpansionChanged"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K21 ["new"]
+  GETTABLEKS R4 R5 K22 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K15 ["OnGroupOptionsChanged"]
+  SETTABLEKS R4 R3 K16 ["OnGroupOptionsChanged"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K21 ["new"]
+  GETTABLEKS R4 R5 K22 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K16 ["OnShowScopeOptionsChanged"]
+  SETTABLEKS R4 R3 K17 ["OnShowScopeOptionsChanged"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K21 ["new"]
+  GETTABLEKS R4 R5 K22 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K17 ["OnToggleSetChanged"]
+  SETTABLEKS R4 R3 K18 ["OnToggleSetChanged"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K21 ["new"]
+  GETTABLEKS R4 R5 K22 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K18 ["OnScopeNotificationsChanged"]
+  SETTABLEKS R4 R3 K19 ["OnScopeNotificationsChanged"]
   GETUPVAL R6 1
   FASTCALL2 SETMETATABLE R3 R6 [+4]
   MOVE R5 R3
-  GETIMPORT R4 K23 [setmetatable]
+  GETIMPORT R4 K24 [setmetatable]
   CALL R4 2 0
-  NAMECALL R4 R3 K24 ["_createExplorerItems"]
+  NAMECALL R4 R3 K25 ["_createExplorerItems"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K3 ["_explorerItems"]
-  GETTABLEKS R5 R3 K12 ["_connections"]
+  GETTABLEKS R5 R3 K13 ["_connections"]
   GETTABLEKS R7 R3 K2 ["_pluginController"]
-  GETTABLEKS R6 R7 K25 ["OnGameInfoFetched"]
+  GETTABLEKS R6 R7 K26 ["OnGameInfoFetched"]
   NEWCLOSURE R8 P0
   CAPTURE VAL R3
-  NAMECALL R6 R6 K26 ["Connect"]
+  NAMECALL R6 R6 K27 ["Connect"]
   CALL R6 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R4 K29 [table.insert]
+  GETIMPORT R4 K30 [table.insert]
   CALL R4 -1 0
-  GETTABLEKS R5 R3 K12 ["_connections"]
+  GETTABLEKS R5 R3 K13 ["_connections"]
   GETTABLEKS R7 R3 K2 ["_pluginController"]
-  GETTABLEKS R6 R7 K30 ["OnNewAssetFetched"]
+  GETTABLEKS R6 R7 K31 ["OnNewAssetFetched"]
   NEWCLOSURE R8 P1
+  CAPTURE UPVAL U2
   CAPTURE VAL R3
-  NAMECALL R6 R6 K26 ["Connect"]
+  NAMECALL R6 R6 K27 ["Connect"]
   CALL R6 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R4 K29 [table.insert]
+  GETIMPORT R4 K30 [table.insert]
   CALL R4 -1 0
-  GETTABLEKS R5 R3 K12 ["_connections"]
+  GETUPVAL R4 2
+  CALL R4 0 1
+  JUMPIF R4 [+19]
+  GETTABLEKS R5 R3 K13 ["_connections"]
   GETTABLEKS R6 R3 K2 ["_pluginController"]
-  NAMECALL R6 R6 K31 ["getPlugin"]
+  NAMECALL R6 R6 K32 ["getPlugin"]
   CALL R6 1 1
-  LOADK R8 K32 ["GameId"]
+  LOADK R8 K33 ["GameId"]
   NEWCLOSURE R9 P2
   CAPTURE VAL R3
-  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
   CAPTURE VAL R0
-  NAMECALL R6 R6 K33 ["OnSetItem"]
+  NAMECALL R6 R6 K34 ["OnSetItem"]
   CALL R6 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R4 K29 [table.insert]
+  GETIMPORT R4 K30 [table.insert]
   CALL R4 -1 0
-  NAMECALL R4 R3 K34 ["refreshGroups"]
+  GETUPVAL R4 2
+  CALL R4 0 1
+  JUMPIFNOT R4 [+15]
+  GETTABLEKS R5 R3 K13 ["_connections"]
+  GETTABLEKS R7 R3 K2 ["_pluginController"]
+  GETTABLEKS R6 R7 K35 ["OnCurrentScopeChanged"]
+  NEWCLOSURE R8 P3
+  CAPTURE VAL R3
+  NAMECALL R6 R6 K27 ["Connect"]
+  CALL R6 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R4 K30 [table.insert]
+  CALL R4 -1 0
+  NAMECALL R4 R3 K36 ["refreshGroups"]
   CALL R4 1 0
   RETURN R3 1
 
-PROTO_4:
+PROTO_5:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["new"]
   MOVE R3 R0
@@ -155,11 +204,11 @@ PROTO_4:
   CALL R2 3 -1
   RETURN R2 -1
 
-PROTO_5:
+PROTO_6:
   GETTABLEKS R1 R0 K0 ["_isMock"]
   RETURN R1 1
 
-PROTO_6:
+PROTO_7:
   LOADNIL R1
   SETTABLEKS R1 R0 K0 ["_explorerItems"]
   LOADNIL R1
@@ -183,13 +232,13 @@ PROTO_6:
   SETTABLEKS R1 R0 K8 ["_connections"]
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   NEWTABLE R1 0 0
   GETTABLEKS R2 R0 K0 ["_pluginController"]
   NAMECALL R2 R2 K1 ["getGameInfo"]
   CALL R2 1 1
   GETTABLEKS R3 R2 K2 ["Id"]
-  JUMPIFEQKN R3 K3 [0] [+62]
+  JUMPIFEQKN R3 K3 [0] [+84]
   DUPTABLE R5 K5 [{"ExplorerHeader"}]
   GETTABLEKS R6 R2 K6 ["Name"]
   SETTABLEKS R6 R5 K4 ["ExplorerHeader"]
@@ -198,30 +247,44 @@ PROTO_7:
   GETIMPORT R3 K9 [table.insert]
   CALL R3 2 0
   DUPTABLE R5 K11 [{"Scope"}]
-  DUPTABLE R6 K12 [{"Name", "Scope", "Id"}]
+  DUPTABLE R6 K14 [{"Name", "Type", "Id", "Uid"}]
   GETTABLEKS R7 R2 K6 ["Name"]
   SETTABLEKS R7 R6 K6 ["Name"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K10 ["Scope"]
-  GETTABLEKS R7 R8 K13 ["ProjectShared"]
-  SETTABLEKS R7 R6 K10 ["Scope"]
+  GETTABLEKS R8 R9 K15 ["ScopeType"]
+  GETTABLEKS R7 R8 K16 ["ProjectShared"]
+  SETTABLEKS R7 R6 K12 ["Type"]
   GETTABLEKS R7 R2 K2 ["Id"]
   SETTABLEKS R7 R6 K2 ["Id"]
+  GETUPVAL R7 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K15 ["ScopeType"]
+  GETTABLEKS R8 R9 K16 ["ProjectShared"]
+  GETTABLEKS R9 R2 K2 ["Id"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K13 ["Uid"]
   SETTABLEKS R6 R5 K10 ["Scope"]
   FASTCALL2 TABLE_INSERT R1 R5 [+4]
   MOVE R4 R1
   GETIMPORT R3 K9 [table.insert]
   CALL R3 2 0
   DUPTABLE R5 K11 [{"Scope"}]
-  DUPTABLE R6 K12 [{"Name", "Scope", "Id"}]
+  DUPTABLE R6 K14 [{"Name", "Type", "Id", "Uid"}]
   GETTABLEKS R7 R2 K6 ["Name"]
   SETTABLEKS R7 R6 K6 ["Name"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K10 ["Scope"]
-  GETTABLEKS R7 R8 K14 ["ProjectPlaces"]
-  SETTABLEKS R7 R6 K10 ["Scope"]
+  GETTABLEKS R8 R9 K15 ["ScopeType"]
+  GETTABLEKS R7 R8 K17 ["ProjectPlaces"]
+  SETTABLEKS R7 R6 K12 ["Type"]
   GETTABLEKS R7 R2 K2 ["Id"]
   SETTABLEKS R7 R6 K2 ["Id"]
+  GETUPVAL R7 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K15 ["ScopeType"]
+  GETTABLEKS R8 R9 K17 ["ProjectPlaces"]
+  GETTABLEKS R9 R2 K2 ["Id"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K13 ["Uid"]
   SETTABLEKS R6 R5 K10 ["Scope"]
   FASTCALL2 TABLE_INSERT R1 R5 [+4]
   MOVE R4 R1
@@ -230,7 +293,7 @@ PROTO_7:
   DUPTABLE R5 K5 [{"ExplorerHeader"}]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K4 ["ExplorerHeader"]
-  GETTABLEKS R6 R7 K15 ["User"]
+  GETTABLEKS R6 R7 K18 ["User"]
   SETTABLEKS R6 R5 K4 ["ExplorerHeader"]
   FASTCALL2 TABLE_INSERT R1 R5 [+4]
   MOVE R4 R1
@@ -238,7 +301,7 @@ PROTO_7:
   CALL R3 2 0
   DUPTABLE R5 K11 [{"Scope"}]
   GETTABLEKS R6 R0 K0 ["_pluginController"]
-  NAMECALL R6 R6 K16 ["getUser"]
+  NAMECALL R6 R6 K19 ["getUser"]
   CALL R6 1 1
   SETTABLEKS R6 R5 K10 ["Scope"]
   FASTCALL2 TABLE_INSERT R1 R5 [+4]
@@ -248,20 +311,20 @@ PROTO_7:
   DUPTABLE R5 K5 [{"ExplorerHeader"}]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K4 ["ExplorerHeader"]
-  GETTABLEKS R6 R7 K17 ["Groups"]
+  GETTABLEKS R6 R7 K20 ["Groups"]
   SETTABLEKS R6 R5 K4 ["ExplorerHeader"]
   FASTCALL2 TABLE_INSERT R1 R5 [+4]
   MOVE R4 R1
   GETIMPORT R3 K9 [table.insert]
   CALL R3 2 0
-  GETTABLEKS R3 R0 K18 ["_visibleGroups"]
+  GETTABLEKS R3 R0 K21 ["_visibleGroups"]
   LOADNIL R4
   LOADNIL R5
   FORGPREP R3
-  GETTABLEKS R9 R0 K19 ["_groups"]
+  GETTABLEKS R9 R0 K22 ["_groups"]
   FASTCALL1 TOSTRING R7 [+3]
   MOVE R11 R7
-  GETIMPORT R10 K21 [tostring]
+  GETIMPORT R10 K24 [tostring]
   CALL R10 1 1
   GETTABLE R8 R9 R10
   DUPTABLE R11 K11 [{"Scope"}]
@@ -273,7 +336,7 @@ PROTO_7:
   FORGLOOP R3 2 [-18]
   RETURN R1 1
 
-PROTO_8:
+PROTO_9:
   GETTABLEKS R3 R0 K0 ["Name"]
   GETTABLEKS R4 R1 K0 ["Name"]
   JUMPIFLT R3 R4 [+2]
@@ -281,10 +344,10 @@ PROTO_8:
   LOADB R2 1
   RETURN R2 1
 
-PROTO_9:
+PROTO_10:
   GETIMPORT R2 K2 [table.sort]
   MOVE R3 R1
-  DUPCLOSURE R4 K3 [PROTO_8]
+  DUPCLOSURE R4 K3 [PROTO_9]
   CALL R2 2 0
   SETTABLEKS R1 R0 K4 ["_groupOptions"]
   GETTABLEKS R2 R0 K5 ["OnGroupOptionsChanged"]
@@ -293,43 +356,96 @@ PROTO_9:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFEQKB R5 FALSE [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K0 [+4]
+  LOADK R5 K0 ["This function is deprecated with AmrPluginCurrentScope"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
   LOADB R4 1
   JUMPIFEQKNIL R2 [+5]
   JUMPIFEQKB R2 TRUE [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  FASTCALL2K ASSERT R4 K0 [+4]
-  LOADK R5 K0 ["showNotification must be true or nil"]
+  FASTCALL2K ASSERT R4 K3 [+4]
+  LOADK R5 K3 ["showNotification must be true or nil"]
   GETIMPORT R3 K2 [assert]
   CALL R3 2 0
-  GETTABLEKS R4 R0 K3 ["_scopeNotifications"]
+  GETTABLEKS R4 R0 K4 ["_scopeNotifications"]
   GETTABLE R3 R4 R1
   JUMPIFNOTEQ R2 R3 [+2]
   RETURN R0 0
-  GETTABLEKS R3 R0 K3 ["_scopeNotifications"]
+  GETTABLEKS R3 R0 K4 ["_scopeNotifications"]
   SETTABLE R2 R3 R1
-  GETTABLEKS R3 R0 K4 ["OnScopeNotificationsChanged"]
-  GETIMPORT R5 K7 [table.clone]
-  GETTABLEKS R6 R0 K3 ["_scopeNotifications"]
+  GETTABLEKS R3 R0 K5 ["OnScopeNotificationsChanged"]
+  GETIMPORT R5 K8 [table.clone]
+  GETTABLEKS R6 R0 K4 ["_scopeNotifications"]
   CALL R5 1 -1
-  NAMECALL R3 R3 K8 ["Fire"]
+  NAMECALL R3 R3 K9 ["Fire"]
   CALL R3 -1 0
   RETURN R0 0
 
-PROTO_11:
-  GETTABLEKS R3 R0 K0 ["_scopeNotifications"]
+PROTO_12:
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFEQKB R4 FALSE [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["This function is deprecated with AmrPluginCurrentScope"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETTABLEKS R3 R0 K3 ["_scopeNotifications"]
   GETTABLE R2 R3 R1
   MOVE R5 R1
   JUMPIFNOT R2 [+2]
   LOADNIL R6
   JUMP [+1]
   LOADB R6 1
-  NAMECALL R3 R0 K1 ["_setScopeNotification"]
+  NAMECALL R3 R0 K4 ["_setScopeNotification"]
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
+  LOADB R4 1
+  JUMPIFEQKNIL R2 [+5]
+  JUMPIFEQKB R2 TRUE [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K0 [+4]
+  LOADK R5 K0 ["hasNotif must be true or nil"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K3 ["_newItemNotifs"]
+  GETTABLE R3 R4 R1
+  JUMPIFEQ R2 R3 [+14]
+  GETTABLEKS R3 R0 K3 ["_newItemNotifs"]
+  SETTABLE R2 R3 R1
+  GETTABLEKS R3 R0 K4 ["OnScopeNotificationsChanged"]
+  GETIMPORT R5 K7 [table.clone]
+  GETTABLEKS R6 R0 K3 ["_newItemNotifs"]
+  CALL R5 1 -1
+  NAMECALL R3 R3 K8 ["Fire"]
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETTABLEKS R3 R0 K0 ["_newItemNotifs"]
+  GETTABLE R2 R3 R1
+  MOVE R5 R1
+  JUMPIFNOT R2 [+2]
+  LOADNIL R6
+  JUMP [+1]
+  LOADB R6 1
+  NAMECALL R3 R0 K1 ["_setNewItemNotif"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_15:
   GETTABLEKS R3 R0 K0 ["_pluginController"]
   NAMECALL R3 R3 K1 ["getGameInfo"]
   CALL R3 1 1
@@ -356,11 +472,11 @@ PROTO_12:
   GETTABLE R2 R3 R4
   RETURN R2 1
 
-PROTO_13:
+PROTO_16:
   GETTABLEKS R1 R0 K0 ["_visibleGroups"]
   RETURN R1 1
 
-PROTO_14:
+PROTO_17:
   GETTABLEKS R3 R0 K0 ["name"]
   GETTABLEKS R4 R1 K0 ["name"]
   JUMPIFLT R3 R4 [+2]
@@ -368,65 +484,72 @@ PROTO_14:
   LOADB R2 1
   RETURN R2 1
 
-PROTO_15:
+PROTO_18:
   GETTABLEKS R1 R0 K0 ["data"]
   GETIMPORT R2 K3 [table.sort]
   MOVE R3 R1
-  DUPCLOSURE R4 K4 [PROTO_14]
+  DUPCLOSURE R4 K4 [PROTO_17]
   CALL R2 2 0
   MOVE R2 R1
   LOADNIL R3
   LOADNIL R4
   FORGPREP R2
-  DUPTABLE R7 K8 [{"Name", "Id", "Scope"}]
-  GETTABLEKS R8 R6 K9 ["name"]
+  DUPTABLE R7 K9 [{"Name", "Id", "Type", "Uid"}]
+  GETTABLEKS R8 R6 K10 ["name"]
   SETTABLEKS R8 R7 K5 ["Name"]
-  GETTABLEKS R8 R6 K10 ["id"]
+  GETTABLEKS R8 R6 K11 ["id"]
   SETTABLEKS R8 R7 K6 ["Id"]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K7 ["Scope"]
-  GETTABLEKS R8 R9 K11 ["Group"]
-  SETTABLEKS R8 R7 K7 ["Scope"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K12 ["_groups"]
-  GETTABLEKS R10 R6 K10 ["id"]
+  GETTABLEKS R9 R10 K12 ["ScopeType"]
+  GETTABLEKS R8 R9 K13 ["Group"]
+  SETTABLEKS R8 R7 K7 ["Type"]
+  GETUPVAL R8 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K12 ["ScopeType"]
+  GETTABLEKS R9 R10 K13 ["Group"]
+  GETTABLEKS R10 R6 K11 ["id"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K8 ["Uid"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K14 ["_groups"]
+  GETTABLEKS R10 R6 K11 ["id"]
   FASTCALL1 TOSTRING R10 [+2]
-  GETIMPORT R9 K14 [tostring]
+  GETIMPORT R9 K16 [tostring]
   CALL R9 1 1
   SETTABLE R7 R8 R9
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K15 ["_groupOptions"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K17 ["_groupOptions"]
   FASTCALL2 TABLE_INSERT R9 R7 [+4]
   MOVE R10 R7
-  GETIMPORT R8 K17 [table.insert]
+  GETIMPORT R8 K19 [table.insert]
   CALL R8 2 0
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K18 ["_visibleGroups"]
-  GETTABLEKS R10 R6 K10 ["id"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K20 ["_visibleGroups"]
+  GETTABLEKS R10 R6 K11 ["id"]
   FASTCALL2 TABLE_INSERT R9 R10 [+3]
-  GETIMPORT R8 K17 [table.insert]
+  GETIMPORT R8 K19 [table.insert]
   CALL R8 2 0
-  FORGLOOP R2 2 [-46]
-  GETUPVAL R2 1
-  GETUPVAL R3 1
-  NAMECALL R3 R3 K19 ["_createExplorerItems"]
+  FORGLOOP R2 2 [-57]
+  GETUPVAL R2 2
+  GETUPVAL R3 2
+  NAMECALL R3 R3 K21 ["_createExplorerItems"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K20 ["_explorerItems"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K21 ["OnExplorerItemsChanged"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K20 ["_explorerItems"]
-  NAMECALL R2 R2 K22 ["Fire"]
+  SETTABLEKS R3 R2 K22 ["_explorerItems"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K23 ["OnExplorerItemsChanged"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K22 ["_explorerItems"]
+  NAMECALL R2 R2 K24 ["Fire"]
   CALL R2 2 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K23 ["OnGroupOptionsChanged"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K15 ["_groupOptions"]
-  NAMECALL R2 R2 K22 ["Fire"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K25 ["OnGroupOptionsChanged"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K17 ["_groupOptions"]
+  NAMECALL R2 R2 K24 ["Fire"]
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_19:
   GETUPVAL R1 0
   LOADK R3 K0 ["Error fetching groups: %*"]
   MOVE R5 R0
@@ -436,7 +559,7 @@ PROTO_16:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_20:
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K0 ["_groups"]
   NEWTABLE R1 0 0
@@ -446,42 +569,61 @@ PROTO_17:
   GETTABLEKS R1 R0 K3 ["_networking"]
   NEWCLOSURE R3 P0
   CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  DUPCLOSURE R4 K4 [PROTO_16]
   CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  DUPCLOSURE R4 K4 [PROTO_19]
+  CAPTURE UPVAL U2
   NAMECALL R1 R1 K5 ["fetchGroupsAsync"]
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_21:
   GETTABLEKS R1 R0 K0 ["_explorerItems"]
   RETURN R1 1
 
-PROTO_19:
+PROTO_22:
   GETTABLEKS R1 R0 K0 ["_expansion"]
   RETURN R1 1
 
-PROTO_20:
-  GETTABLEKS R1 R0 K0 ["_selection"]
+PROTO_23:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFEQKB R3 FALSE [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["This function is deprecated with AmrPluginCurrentScope"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K3 ["_selection"]
   RETURN R1 1
 
-PROTO_21:
-  SETTABLEKS R1 R0 K0 ["_selection"]
-  GETTABLEKS R3 R0 K1 ["_pluginController"]
-  GETTABLEKS R2 R3 K2 ["OnSelectionChanged"]
-  MOVE R4 R1
-  NAMECALL R2 R2 K3 ["Fire"]
+PROTO_24:
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFEQKB R4 FALSE [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["This function is deprecated with AmrPluginCurrentScope"]
+  GETIMPORT R2 K2 [assert]
   CALL R2 2 0
-  GETTABLEKS R3 R0 K4 ["_scopeNotifications"]
-  GETTABLEKS R4 R1 K5 ["Id"]
+  SETTABLEKS R1 R0 K3 ["_selection"]
+  GETTABLEKS R3 R0 K4 ["_pluginController"]
+  GETTABLEKS R2 R3 K5 ["OnSelectionChanged"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K6 ["Fire"]
+  CALL R2 2 0
+  GETTABLEKS R3 R0 K7 ["_scopeNotifications"]
+  GETTABLEKS R4 R1 K8 ["Id"]
   GETTABLE R2 R3 R4
   JUMPIFNOT R2 [+5]
-  GETTABLEKS R4 R1 K5 ["Id"]
-  NAMECALL R2 R0 K6 ["_toggleScopeNotification"]
+  GETTABLEKS R4 R1 K8 ["Id"]
+  NAMECALL R2 R0 K9 ["_toggleScopeNotification"]
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_25:
   GETTABLEKS R2 R0 K0 ["_visibleGroups"]
   LOADNIL R3
   LOADNIL R4
@@ -514,11 +656,11 @@ PROTO_22:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_26:
   GETTABLEKS R1 R0 K0 ["_showScopeOptions"]
   RETURN R1 1
 
-PROTO_24:
+PROTO_27:
   LOADB R1 1
   SETTABLEKS R1 R0 K0 ["_showScopeOptions"]
   GETTABLEKS R1 R0 K1 ["OnShowScopeOptionsChanged"]
@@ -527,7 +669,7 @@ PROTO_24:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_28:
   GETTABLEKS R1 R0 K0 ["_toggleSet"]
   LOADNIL R2
   LOADNIL R3
@@ -545,7 +687,7 @@ PROTO_25:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_29:
   JUMPIFNOT R1 [+3]
   NAMECALL R2 R0 K0 ["_saveGroupOptions"]
   CALL R2 1 0
@@ -571,11 +713,11 @@ PROTO_26:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_30:
   GETTABLEKS R1 R0 K0 ["_groupOptions"]
   RETURN R1 1
 
-PROTO_28:
+PROTO_31:
   GETTABLEKS R3 R0 K0 ["_toggleSet"]
   GETTABLE R2 R3 R1
   JUMPIFNOT R2 [+5]
@@ -594,7 +736,7 @@ PROTO_28:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_32:
   JUMPIFEQKS R1 K0 [""] [+38]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R0 K1 ["_groupOptions"]
@@ -628,7 +770,7 @@ PROTO_29:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_33:
   GETTABLEKS R2 R0 K0 ["_visibleGroups"]
   LOADNIL R3
   LOADNIL R4
@@ -648,7 +790,7 @@ PROTO_30:
   LOADB R2 1
   RETURN R2 1
 
-PROTO_31:
+PROTO_34:
   GETTABLEKS R1 R0 K0 ["_groupOptions"]
   LOADNIL R2
   LOADNIL R3
@@ -663,11 +805,11 @@ PROTO_31:
   LOADB R1 1
   RETURN R1 1
 
-PROTO_32:
+PROTO_35:
   GETTABLEKS R1 R0 K0 ["_toggleSet"]
   RETURN R1 1
 
-PROTO_33:
+PROTO_36:
   NAMECALL R1 R0 K0 ["hasAllOptionsChecked"]
   CALL R1 1 1
   GETTABLEKS R2 R0 K1 ["_groupOptions"]
@@ -703,7 +845,7 @@ PROTO_33:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_34:
+PROTO_37:
   GETUPVAL R3 0
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K0 ["MenuContext"]
@@ -714,7 +856,7 @@ PROTO_34:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_35:
+PROTO_38:
   GETTABLEKS R5 R0 K0 ["_groups"]
   FASTCALL1 TOSTRING R1 [+3]
   MOVE R7 R1
@@ -736,7 +878,7 @@ PROTO_35:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_36:
+PROTO_39:
   GETTABLEKS R1 R0 K0 ["_pluginController"]
   NAMECALL R1 R1 K1 ["getPlugin"]
   CALL R1 1 -1
@@ -779,81 +921,102 @@ MAIN:
   GETTABLEKS R11 R0 K13 ["Src"]
   GETTABLEKS R10 R11 K17 ["Types"]
   CALL R9 1 1
-  LOADK R12 K18 ["ExplorerController"]
-  NAMECALL R10 R4 K19 ["extend"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K20 [PROTO_3]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K13 ["Src"]
+  GETTABLEKS R12 R13 K11 ["Util"]
+  GETTABLEKS R11 R12 K18 ["makeScopeUid"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K13 ["Src"]
+  GETTABLEKS R13 R14 K19 ["Flags"]
+  GETTABLEKS R12 R13 K20 ["getFFlagAmrPluginCurrentScope"]
+  CALL R11 1 1
+  LOADK R14 K21 ["ExplorerController"]
+  NAMECALL R12 R4 K22 ["extend"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K23 [PROTO_4]
   CAPTURE VAL R5
-  CAPTURE VAL R10
+  CAPTURE VAL R12
+  CAPTURE VAL R11
   CAPTURE VAL R9
-  SETTABLEKS R11 R10 K21 ["new"]
-  DUPCLOSURE R11 K22 [PROTO_4]
-  CAPTURE VAL R10
-  SETTABLEKS R11 R10 K23 ["mock"]
-  DUPCLOSURE R11 K24 [PROTO_5]
-  SETTABLEKS R11 R10 K25 ["getIsMock"]
-  DUPCLOSURE R11 K26 [PROTO_6]
+  SETTABLEKS R13 R12 K24 ["new"]
+  DUPCLOSURE R13 K25 [PROTO_5]
+  CAPTURE VAL R12
+  SETTABLEKS R13 R12 K26 ["mock"]
+  DUPCLOSURE R13 K27 [PROTO_6]
+  SETTABLEKS R13 R12 K28 ["getIsMock"]
+  DUPCLOSURE R13 K29 [PROTO_7]
   CAPTURE VAL R6
-  SETTABLEKS R11 R10 K27 ["destroy"]
-  DUPCLOSURE R11 K28 [PROTO_7]
+  SETTABLEKS R13 R12 K30 ["destroy"]
+  DUPCLOSURE R13 K31 [PROTO_8]
   CAPTURE VAL R9
-  SETTABLEKS R11 R10 K29 ["_createExplorerItems"]
-  DUPCLOSURE R11 K30 [PROTO_9]
-  SETTABLEKS R11 R10 K31 ["_updateGroupOptions"]
-  DUPCLOSURE R11 K32 [PROTO_10]
-  SETTABLEKS R11 R10 K33 ["_setScopeNotification"]
-  DUPCLOSURE R11 K34 [PROTO_11]
-  SETTABLEKS R11 R10 K35 ["_toggleScopeNotification"]
-  DUPCLOSURE R11 K36 [PROTO_12]
-  SETTABLEKS R11 R10 K37 ["getScopeById"]
-  DUPCLOSURE R11 K38 [PROTO_13]
-  SETTABLEKS R11 R10 K39 ["getVisibleGroups"]
-  DUPCLOSURE R11 K40 [PROTO_17]
+  CAPTURE VAL R10
+  SETTABLEKS R13 R12 K32 ["_createExplorerItems"]
+  DUPCLOSURE R13 K33 [PROTO_10]
+  SETTABLEKS R13 R12 K34 ["_updateGroupOptions"]
+  DUPCLOSURE R13 K35 [PROTO_11]
+  CAPTURE VAL R11
+  SETTABLEKS R13 R12 K36 ["_setScopeNotification"]
+  DUPCLOSURE R13 K37 [PROTO_12]
+  CAPTURE VAL R11
+  SETTABLEKS R13 R12 K38 ["_toggleScopeNotification"]
+  DUPCLOSURE R13 K39 [PROTO_13]
+  SETTABLEKS R13 R12 K40 ["_setNewItemNotif"]
+  DUPCLOSURE R13 K41 [PROTO_14]
+  SETTABLEKS R13 R12 K42 ["_toggleNewItemNotif"]
+  DUPCLOSURE R13 K43 [PROTO_15]
+  SETTABLEKS R13 R12 K44 ["getScopeById"]
+  DUPCLOSURE R13 K45 [PROTO_16]
+  SETTABLEKS R13 R12 K46 ["getVisibleGroups"]
+  DUPCLOSURE R13 K47 [PROTO_20]
   CAPTURE VAL R9
+  CAPTURE VAL R10
   CAPTURE VAL R8
-  SETTABLEKS R11 R10 K41 ["refreshGroups"]
-  DUPCLOSURE R11 K42 [PROTO_18]
-  SETTABLEKS R11 R10 K43 ["getExplorerItems"]
-  DUPCLOSURE R11 K44 [PROTO_19]
-  SETTABLEKS R11 R10 K45 ["getExpansion"]
-  DUPCLOSURE R11 K46 [PROTO_20]
-  SETTABLEKS R11 R10 K47 ["getSelection"]
-  DUPCLOSURE R11 K48 [PROTO_21]
-  SETTABLEKS R11 R10 K49 ["setSelection"]
-  DUPCLOSURE R11 K50 [PROTO_22]
-  SETTABLEKS R11 R10 K51 ["toggleVisibleGroup"]
-  DUPCLOSURE R11 K52 [PROTO_23]
-  SETTABLEKS R11 R10 K53 ["getShowScopeOptions"]
-  DUPCLOSURE R11 K54 [PROTO_24]
-  SETTABLEKS R11 R10 K55 ["enableScopeOptions"]
-  DUPCLOSURE R11 K56 [PROTO_25]
-  SETTABLEKS R11 R10 K57 ["_saveGroupOptions"]
-  DUPCLOSURE R11 K58 [PROTO_26]
+  SETTABLEKS R13 R12 K48 ["refreshGroups"]
+  DUPCLOSURE R13 K49 [PROTO_21]
+  SETTABLEKS R13 R12 K50 ["getExplorerItems"]
+  DUPCLOSURE R13 K51 [PROTO_22]
+  SETTABLEKS R13 R12 K52 ["getExpansion"]
+  DUPCLOSURE R13 K53 [PROTO_23]
+  CAPTURE VAL R11
+  SETTABLEKS R13 R12 K54 ["getSelection"]
+  DUPCLOSURE R13 K55 [PROTO_24]
+  CAPTURE VAL R11
+  SETTABLEKS R13 R12 K56 ["setSelection"]
+  DUPCLOSURE R13 K57 [PROTO_25]
+  SETTABLEKS R13 R12 K58 ["toggleVisibleGroup"]
+  DUPCLOSURE R13 K59 [PROTO_26]
+  SETTABLEKS R13 R12 K60 ["getShowScopeOptions"]
+  DUPCLOSURE R13 K61 [PROTO_27]
+  SETTABLEKS R13 R12 K62 ["enableScopeOptions"]
+  DUPCLOSURE R13 K63 [PROTO_28]
+  SETTABLEKS R13 R12 K64 ["_saveGroupOptions"]
+  DUPCLOSURE R13 K65 [PROTO_29]
   CAPTURE VAL R2
-  SETTABLEKS R11 R10 K59 ["closeScopeOptions"]
-  DUPCLOSURE R11 K60 [PROTO_27]
-  SETTABLEKS R11 R10 K61 ["getGroupOptions"]
-  DUPCLOSURE R11 K62 [PROTO_28]
-  SETTABLEKS R11 R10 K63 ["toggleGroupOption"]
-  DUPCLOSURE R11 K64 [PROTO_29]
+  SETTABLEKS R13 R12 K66 ["closeScopeOptions"]
+  DUPCLOSURE R13 K67 [PROTO_30]
+  SETTABLEKS R13 R12 K68 ["getGroupOptions"]
+  DUPCLOSURE R13 K69 [PROTO_31]
+  SETTABLEKS R13 R12 K70 ["toggleGroupOption"]
+  DUPCLOSURE R13 K71 [PROTO_32]
   CAPTURE VAL R2
-  SETTABLEKS R11 R10 K65 ["setFilter"]
-  DUPCLOSURE R11 K66 [PROTO_30]
-  SETTABLEKS R11 R10 K67 ["isGroupOptionChecked"]
-  DUPCLOSURE R11 K68 [PROTO_31]
-  SETTABLEKS R11 R10 K69 ["hasAllOptionsChecked"]
-  DUPCLOSURE R11 K70 [PROTO_32]
-  SETTABLEKS R11 R10 K71 ["getToggleSet"]
-  DUPCLOSURE R11 K72 [PROTO_33]
-  SETTABLEKS R11 R10 K73 ["toggleSelectAllOptions"]
-  DUPCLOSURE R11 K74 [PROTO_34]
+  SETTABLEKS R13 R12 K72 ["setFilter"]
+  DUPCLOSURE R13 K73 [PROTO_33]
+  SETTABLEKS R13 R12 K74 ["isGroupOptionChecked"]
+  DUPCLOSURE R13 K75 [PROTO_34]
+  SETTABLEKS R13 R12 K76 ["hasAllOptionsChecked"]
+  DUPCLOSURE R13 K77 [PROTO_35]
+  SETTABLEKS R13 R12 K78 ["getToggleSet"]
+  DUPCLOSURE R13 K79 [PROTO_36]
+  SETTABLEKS R13 R12 K80 ["toggleSelectAllOptions"]
+  DUPCLOSURE R13 K81 [PROTO_37]
   CAPTURE VAL R7
   CAPTURE VAL R9
-  SETTABLEKS R11 R10 K75 ["handleRightClick"]
-  DUPCLOSURE R11 K76 [PROTO_35]
+  SETTABLEKS R13 R12 K82 ["handleRightClick"]
+  DUPCLOSURE R13 K83 [PROTO_38]
   CAPTURE VAL R7
   CAPTURE VAL R9
-  SETTABLEKS R11 R10 K77 ["handleRowRightClick"]
-  DUPCLOSURE R11 K78 [PROTO_36]
-  SETTABLEKS R11 R10 K79 ["getPlugin"]
-  RETURN R10 1
+  SETTABLEKS R13 R12 K84 ["handleRowRightClick"]
+  DUPCLOSURE R13 K85 [PROTO_39]
+  SETTABLEKS R13 R12 K86 ["getPlugin"]
+  RETURN R12 1

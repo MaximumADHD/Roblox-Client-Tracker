@@ -61,61 +61,61 @@ PROTO_8:
   GETUPVAL R3 0
   MOVE R4 R0
   CALL R3 1 1
-  DUPTABLE R4 K33 [{"GetPropertyChangedSignal", "GetAttributeChangedSignal", "GetAttribute", "GetRequests", "GetChildren", "Destroy", "GetStringUniqueId", "GetAbsolutePosition", "SetAdorneeOffsetFromAbsolutePosition", "SetAttribute", "ChildAdded", "ChildRemoved", "AncestryChanged", "Parent", "Name", "AuthorId", "AuthorColor3", "Contents", "TaggedUsers", "Resolved", "CreationTimeUnix", "LastModifiedTimeUnix", "LoadingReplies", "ReplyCount", "RequestInitiated", "RequestCompleted", "_requestInitiated", "_requestCompleted", "_inner"}]
+  DUPTABLE R4 K34 [{"GetPropertyChangedSignal", "GetAttributeChangedSignal", "GetAttribute", "GetRequests", "GetChildren", "Destroy", "GetStringUniqueId", "GetAbsolutePosition", "SetAdorneeOffsetFromAbsolutePosition", "SetAttribute", "ChildAdded", "ChildRemoved", "AncestryChanged", "Parent", "Name", "AuthorId", "AuthorColor3", "Contents", "TaggedUsers", "Resolved", "CreationTimeUnix", "LastModifiedTimeUnix", "ChannelId", "LoadingReplies", "ReplyCount", "RequestInitiated", "RequestCompleted", "_requestInitiated", "_requestCompleted", "_inner"}]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   NEWCLOSURE R6 P0
   CAPTURE VAL R3
   CALL R5 1 1
   SETTABLEKS R5 R4 K4 ["GetPropertyChangedSignal"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   NEWCLOSURE R6 P1
   CAPTURE VAL R3
   CALL R5 1 1
   SETTABLEKS R5 R4 K5 ["GetAttributeChangedSignal"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   NEWCLOSURE R6 P2
   CAPTURE VAL R3
   CALL R5 1 1
   SETTABLEKS R5 R4 K6 ["GetAttribute"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   NEWCLOSURE R6 P3
   CAPTURE VAL R3
   CALL R5 1 1
   SETTABLEKS R5 R4 K7 ["GetRequests"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   NEWCLOSURE R6 P4
   CAPTURE VAL R3
   CALL R5 1 1
   SETTABLEKS R5 R4 K8 ["GetChildren"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   NEWCLOSURE R6 P5
   CAPTURE VAL R3
   CALL R5 1 1
   SETTABLEKS R5 R4 K9 ["Destroy"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   NEWCLOSURE R6 P6
   CAPTURE VAL R3
   CALL R5 1 1
   SETTABLEKS R5 R4 K10 ["GetStringUniqueId"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   GETTABLEKS R6 R3 K11 ["GetAbsolutePosition"]
   CALL R5 1 1
   SETTABLEKS R5 R4 K11 ["GetAbsolutePosition"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   GETTABLEKS R6 R3 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
   CALL R5 1 1
   SETTABLEKS R5 R4 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["fn"]
+  GETTABLEKS R5 R6 K35 ["fn"]
   NEWCLOSURE R6 P7
   CAPTURE VAL R3
   CALL R5 1 1
@@ -133,14 +133,14 @@ PROTO_8:
   SETTABLEKS R5 R4 K18 ["Name"]
   LOADN R5 210
   SETTABLEKS R5 R4 K19 ["AuthorId"]
-  GETIMPORT R5 K36 [Color3.new]
+  GETIMPORT R5 K37 [Color3.new]
   LOADN R6 0
   LOADN R7 0
   LOADN R8 0
   CALL R5 3 1
   SETTABLEKS R5 R4 K20 ["AuthorColor3"]
   SETTABLEKS R0 R4 K21 ["Contents"]
-  LOADK R5 K37 [""]
+  LOADK R5 K38 [""]
   SETTABLEKS R5 R4 K22 ["TaggedUsers"]
   LOADB R5 0
   SETTABLEKS R5 R4 K23 ["Resolved"]
@@ -148,17 +148,19 @@ PROTO_8:
   SETTABLEKS R5 R4 K24 ["CreationTimeUnix"]
   LOADN R5 0
   SETTABLEKS R5 R4 K25 ["LastModifiedTimeUnix"]
+  LOADK R5 K39 ["TestChannel"]
+  SETTABLEKS R5 R4 K26 ["ChannelId"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K26 ["LoadingReplies"]
+  SETTABLEKS R5 R4 K27 ["LoadingReplies"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K27 ["ReplyCount"]
-  GETTABLEKS R5 R1 K38 ["Event"]
-  SETTABLEKS R5 R4 K28 ["RequestInitiated"]
-  GETTABLEKS R5 R2 K38 ["Event"]
-  SETTABLEKS R5 R4 K29 ["RequestCompleted"]
-  SETTABLEKS R1 R4 K30 ["_requestInitiated"]
-  SETTABLEKS R2 R4 K31 ["_requestCompleted"]
-  SETTABLEKS R3 R4 K32 ["_inner"]
+  SETTABLEKS R5 R4 K28 ["ReplyCount"]
+  GETTABLEKS R5 R1 K40 ["Event"]
+  SETTABLEKS R5 R4 K29 ["RequestInitiated"]
+  GETTABLEKS R5 R2 K40 ["Event"]
+  SETTABLEKS R5 R4 K30 ["RequestCompleted"]
+  SETTABLEKS R1 R4 K31 ["_requestInitiated"]
+  SETTABLEKS R2 R4 K32 ["_requestCompleted"]
+  SETTABLEKS R3 R4 K33 ["_inner"]
   RETURN R4 1
 
 MAIN:

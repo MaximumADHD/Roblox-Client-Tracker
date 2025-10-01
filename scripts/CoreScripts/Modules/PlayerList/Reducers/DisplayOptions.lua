@@ -6,6 +6,8 @@ local GuiService = game:GetService("GuiService")
 local Rodux = require(CorePackages.Packages.Rodux)
 local Cryo = require(CorePackages.Packages.Cryo)
 
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+
 local PlayerList = script.Parent.Parent
 
 local Actions = script.Parent.Parent.Actions
@@ -22,6 +24,7 @@ local SetMinimized = require(Actions.SetMinimized)
 local SetSubjectToChinaPolicies = require(Actions.SetSubjectToChinaPolicies)
 
 local FFlagPlayerListPersistVisibility = require(PlayerList.Flags.FFlagPlayerListPersistVisibility)
+local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
 
 local GameSettings = if FFlagPlayerListPersistVisibility then UserSettings().GameSettings else nil
 
@@ -65,8 +68,16 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	end,
 
 	[SetPlayerListEnabled.name] = function(state, action)
+		local newSetVisible = nil
+		if FFlagModalPlayerListCloseUnfocused then
+			-- Ensure visibility is set to false if the player list is disabled
+			if not action.isEnabled then
+				newSetVisible = false
+			end
+		end
 		return updateIsVisible(Cryo.Dictionary.join(state, {
 			playerlistCoreGuiEnabled = action.isEnabled,
+			setVisible = if FFlagModalPlayerListCloseUnfocused then newSetVisible else nil,
 		}))
 	end,
 

@@ -67,6 +67,7 @@ local getFFlagMicrophoneDevicePermissionsPromptLogging =
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
+local FFlagCASButtonsOnWindowsTouch = game:DefineFastFlag("CASButtonsOnWindowsTouch", false)
 
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
 local FFlagEnablePremiumSponsoredExperienceReporting =
@@ -324,7 +325,11 @@ coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.VirtualCursor)
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)
 
-if UserInputService.TouchEnabled then -- touch devices don't use same control frame
+local hasTouchSupport = if FFlagCASButtonsOnWindowsTouch and game:GetEngineFeature("TouchScreenEnabled")
+	then UserInputService.TouchScreenEnabled
+	else UserInputService.TouchEnabled
+
+if hasTouchSupport then -- touch devices don't use same control frame
 	-- only used for touch device button generation
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ContextActionTouch", RobloxGui)
 
@@ -549,4 +554,8 @@ local CorescriptMemoryTracker = require(CoreGuiModules.Common.CorescriptMemoryTr
 local coreScriptMemoryTracker = CorescriptMemoryTracker(FStringReactSchedulingContext)
 if coreScriptMemoryTracker then
     coreScriptMemoryTracker:start()
+end
+
+if game:GetEngineFeature("RecordingServicePlaybackApiLua") then
+	coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.ExperienceStateReplay)
 end

@@ -58,70 +58,70 @@ PROTO_2:
   JUMPIFNOTEQ R6 R7 [+16]
   GETTABLEKS R8 R1 K0 ["SearchOptions"]
   GETTABLEKS R7 R8 K3 ["ScopeInfo"]
-  GETTABLEKS R6 R7 K4 ["Scope"]
+  GETTABLEKS R6 R7 K4 ["Type"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K4 ["Scope"]
-  GETTABLEKS R7 R8 K5 ["Universe"]
+  GETTABLEKS R8 R9 K5 ["ScopeType"]
+  GETTABLEKS R7 R8 K6 ["Universe"]
   JUMPIFNOTEQ R6 R7 [+2]
   LOADB R5 0 +1
   LOADB R5 1
   JUMPIFNOT R5 [+6]
-  LOADK R8 K6 ["Filters"]
-  LOADK R9 K7 ["PlacesOnlyInUniverseWarning"]
-  NAMECALL R6 R3 K8 ["getText"]
+  LOADK R8 K7 ["Filters"]
+  LOADK R9 K8 ["PlacesOnlyInUniverseWarning"]
+  NAMECALL R6 R3 K9 ["getText"]
   CALL R6 3 1
   JUMP [+17]
-  GETTABLEKS R7 R1 K9 ["ShowSearchOptions"]
+  GETTABLEKS R7 R1 K10 ["ShowSearchOptions"]
   JUMPIFNOT R7 [+9]
-  GETTABLEKS R7 R1 K10 ["IsDefaultSearchState"]
+  GETTABLEKS R7 R1 K11 ["IsDefaultSearchState"]
   JUMPIF R7 [+4]
-  GETTABLEKS R7 R1 K11 ["SearchTerm"]
-  JUMPIFNOTEQKS R7 K12 [""] [+3]
-  LOADK R6 K12 [""]
+  GETTABLEKS R7 R1 K12 ["SearchTerm"]
+  JUMPIFNOTEQKS R7 K13 [""] [+3]
+  LOADK R6 K13 [""]
   JUMP [+5]
-  LOADK R8 K13 ["Plugin"]
-  LOADK R9 K14 ["NoAssets"]
-  NAMECALL R6 R3 K8 ["getText"]
+  LOADK R8 K14 ["Plugin"]
+  LOADK R9 K15 ["NoAssets"]
+  NAMECALL R6 R3 K9 ["getText"]
   CALL R6 3 1
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K15 ["createElement"]
+  GETTABLEKS R7 R8 K16 ["createElement"]
   GETUPVAL R8 2
   NEWTABLE R9 4 0
-  NAMECALL R10 R0 K16 ["getNextOrder"]
+  NAMECALL R10 R0 K17 ["getNextOrder"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K17 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K18 ["LayoutOrder"]
   NEWCLOSURE R10 P0
   CAPTURE VAL R4
   CAPTURE VAL R3
-  SETTABLEKS R10 R9 K18 ["OnRightClick"]
+  SETTABLEKS R10 R9 K19 ["OnRightClick"]
   GETUPVAL R11 1
-  GETTABLEKS R10 R11 K19 ["Tag"]
-  LOADK R11 K20 ["MainContents X-Middle X-Center"]
+  GETTABLEKS R10 R11 K20 ["Tag"]
+  LOADK R11 K21 ["MainContents X-Middle X-Center"]
   SETTABLE R11 R9 R10
-  DUPTABLE R10 K22 [{"PlaceholderText"}]
+  DUPTABLE R10 K23 [{"PlaceholderText"}]
   JUMPIFNOT R2 [+6]
   GETUPVAL R12 1
-  GETTABLEKS R11 R12 K15 ["createElement"]
+  GETTABLEKS R11 R12 K16 ["createElement"]
   GETUPVAL R12 3
   CALL R11 1 1
   JUMP [+22]
   GETUPVAL R12 1
-  GETTABLEKS R11 R12 K15 ["createElement"]
+  GETTABLEKS R11 R12 K16 ["createElement"]
   GETUPVAL R12 4
   NEWTABLE R13 4 0
-  NAMECALL R14 R0 K16 ["getNextOrder"]
+  NAMECALL R14 R0 K17 ["getNextOrder"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K17 ["LayoutOrder"]
-  SETTABLEKS R6 R13 K23 ["Text"]
+  SETTABLEKS R14 R13 K18 ["LayoutOrder"]
+  SETTABLEKS R6 R13 K24 ["Text"]
   GETUPVAL R15 1
-  GETTABLEKS R14 R15 K19 ["Tag"]
+  GETTABLEKS R14 R15 K20 ["Tag"]
   JUMPIFNOT R5 [+2]
-  LOADK R15 K24 ["Error"]
+  LOADK R15 K25 ["Error"]
   JUMP [+1]
-  LOADK R15 K12 [""]
+  LOADK R15 K13 [""]
   SETTABLE R15 R13 R14
   CALL R11 2 1
-  SETTABLEKS R11 R10 K21 ["PlaceholderText"]
+  SETTABLEKS R11 R10 K22 ["PlaceholderText"]
   CALL R7 3 -1
   RETURN R7 -1
 
@@ -165,7 +165,7 @@ PROTO_3:
   SETTABLEKS R15 R14 K4 ["LayoutOrder"]
   GETUPVAL R16 10
   GETTABLEKS R15 R16 K5 ["Tag"]
-  LOADK R16 K6 ["Main X-Stroke X-Top X-Column"]
+  LOADK R16 K6 ["X-Stroke X-Top X-Column"]
   SETTABLE R16 R14 R15
   DUPTABLE R15 K10 [{"HeaderBar", "Contents", "LoadingBarContainer"}]
   GETUPVAL R17 10

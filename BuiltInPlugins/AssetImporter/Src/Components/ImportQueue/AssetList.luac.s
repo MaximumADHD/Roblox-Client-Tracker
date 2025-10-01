@@ -74,30 +74,6 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  JUMPIFNOTEQKN R0 K1 [-1] [+9]
-  GETTABLEKS R2 R1 K2 ["Localization"]
-  LOADK R4 K3 ["UploadDestination"]
-  LOADK R5 K4 ["Me"]
-  NAMECALL R2 R2 K5 ["getText"]
-  CALL R2 3 -1
-  RETURN R2 -1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["props"]
-  GETTABLEKS R2 R3 K6 ["ManagedGroups"]
-  MOVE R3 R2
-  LOADNIL R4
-  LOADNIL R5
-  FORGPREP R3
-  GETTABLEKS R8 R7 K7 ["id"]
-  JUMPIFNOTEQ R8 R0 [+4]
-  GETTABLEKS R8 R7 K8 ["name"]
-  RETURN R8 1
-  FORGLOOP R3 2 [-8]
-  RETURN R0 0
-
-PROTO_6:
   DUPTABLE R1 K1 [{"columns"}]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K0 ["columns"]
@@ -118,15 +94,9 @@ PROTO_6:
   NEWCLOSURE R1 P3
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K6 ["updateCreator"]
-  GETUPVAL R1 4
-  CALL R1 0 1
-  JUMPIF R1 [+4]
-  NEWCLOSURE R1 P4
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K7 ["getCreatorNameById"]
   RETURN R0 0
 
-PROTO_7:
+PROTO_6:
   DUPTABLE R3 K1 [{"columns"}]
   NAMECALL R4 R0 K2 ["_getColumns"]
   CALL R4 1 1
@@ -135,7 +105,7 @@ PROTO_7:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_7:
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["Stylizer"]
   GETTABLEKS R1 R2 K2 ["AssetList"]
@@ -214,7 +184,7 @@ PROTO_8:
   SETLIST R3 R4 6 [1]
   RETURN R3 1
 
-PROTO_9:
+PROTO_8:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["LayoutOrder"]
@@ -255,28 +225,21 @@ PROTO_9:
   SETTABLEKS R14 R13 K15 ["VerticalScrollBarInset"]
   GETUPVAL R14 3
   SETTABLEKS R14 R13 K16 ["CellComponent"]
-  DUPTABLE R14 K39 [{"GetCreatorNameById", "OnCheckboxToggle", "ShowUploadWidget", "UpdateCreator", "Uploading", "Parsing"}]
-  GETUPVAL R16 4
-  CALL R16 0 1
-  JUMPIFNOT R16 [+2]
-  LOADNIL R15
-  JUMP [+2]
-  GETTABLEKS R15 R0 K40 ["getCreatorNameById"]
-  SETTABLEKS R15 R14 K33 ["GetCreatorNameById"]
-  GETTABLEKS R15 R0 K41 ["onCheckboxToggle"]
-  SETTABLEKS R15 R14 K34 ["OnCheckboxToggle"]
-  GETTABLEKS R15 R1 K35 ["ShowUploadWidget"]
-  SETTABLEKS R15 R14 K35 ["ShowUploadWidget"]
-  GETTABLEKS R15 R0 K42 ["updateCreator"]
-  SETTABLEKS R15 R14 K36 ["UpdateCreator"]
-  GETTABLEKS R15 R1 K37 ["Uploading"]
-  SETTABLEKS R15 R14 K37 ["Uploading"]
-  GETTABLEKS R15 R1 K38 ["Parsing"]
-  SETTABLEKS R15 R14 K38 ["Parsing"]
+  DUPTABLE R14 K38 [{"OnCheckboxToggle", "ShowUploadWidget", "UpdateCreator", "Uploading", "Parsing"}]
+  GETTABLEKS R15 R0 K39 ["onCheckboxToggle"]
+  SETTABLEKS R15 R14 K33 ["OnCheckboxToggle"]
+  GETTABLEKS R15 R1 K34 ["ShowUploadWidget"]
+  SETTABLEKS R15 R14 K34 ["ShowUploadWidget"]
+  GETTABLEKS R15 R0 K40 ["updateCreator"]
+  SETTABLEKS R15 R14 K35 ["UpdateCreator"]
+  GETTABLEKS R15 R1 K36 ["Uploading"]
+  SETTABLEKS R15 R14 K36 ["Uploading"]
+  GETTABLEKS R15 R1 K37 ["Parsing"]
+  SETTABLEKS R15 R14 K37 ["Parsing"]
   SETTABLEKS R14 R13 K17 ["CellProps"]
   SETTABLEKS R6 R13 K18 ["ColumnHeaderHeight"]
   SETTABLEKS R5 R13 K5 ["RowHeight"]
-  GETTABLEKS R14 R0 K43 ["onColumnSizesChange"]
+  GETTABLEKS R14 R0 K41 ["onColumnSizesChange"]
   SETTABLEKS R14 R13 K19 ["OnColumnSizesChange"]
   LOADB R14 1
   SETTABLEKS R14 R13 K20 ["UseScale"]
@@ -287,7 +250,7 @@ PROTO_9:
   CALL R7 3 -1
   RETURN R7 -1
 
-PROTO_10:
+PROTO_9:
   GETUPVAL R2 0
   GETUPVAL R3 1
   MOVE R4 R0
@@ -296,7 +259,7 @@ PROTO_10:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_10:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -304,7 +267,7 @@ PROTO_11:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_11:
   DUPTABLE R1 K2 [{"UpdateQueueItem", "ShowUploadWidget"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
@@ -316,28 +279,20 @@ PROTO_12:
   SETTABLEKS R2 R1 K1 ["ShowUploadWidget"]
   RETURN R1 1
 
-PROTO_13:
-  DUPTABLE R1 K5 [{"ManagedGroups", "Parsing", "SessionQueue", "SearchTerm", "Uploading"}]
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+2]
-  LOADNIL R2
-  JUMP [+4]
-  GETTABLEKS R3 R0 K6 ["Dialogs"]
-  GETTABLEKS R2 R3 K7 ["managedGroups"]
-  SETTABLEKS R2 R1 K0 ["ManagedGroups"]
-  GETTABLEKS R3 R0 K8 ["Sessions"]
-  GETTABLEKS R2 R3 K9 ["parsing"]
-  SETTABLEKS R2 R1 K1 ["Parsing"]
-  GETTABLEKS R3 R0 K8 ["Sessions"]
-  GETTABLEKS R2 R3 K10 ["sessionQueue"]
-  SETTABLEKS R2 R1 K2 ["SessionQueue"]
-  GETTABLEKS R3 R0 K8 ["Sessions"]
-  GETTABLEKS R2 R3 K11 ["searchTerm"]
-  SETTABLEKS R2 R1 K3 ["SearchTerm"]
-  GETTABLEKS R3 R0 K8 ["Sessions"]
-  GETTABLEKS R2 R3 K12 ["uploading"]
-  SETTABLEKS R2 R1 K4 ["Uploading"]
+PROTO_12:
+  DUPTABLE R1 K4 [{"Parsing", "SessionQueue", "SearchTerm", "Uploading"}]
+  GETTABLEKS R3 R0 K5 ["Sessions"]
+  GETTABLEKS R2 R3 K6 ["parsing"]
+  SETTABLEKS R2 R1 K0 ["Parsing"]
+  GETTABLEKS R3 R0 K5 ["Sessions"]
+  GETTABLEKS R2 R3 K7 ["sessionQueue"]
+  SETTABLEKS R2 R1 K1 ["SessionQueue"]
+  GETTABLEKS R3 R0 K5 ["Sessions"]
+  GETTABLEKS R2 R3 K8 ["searchTerm"]
+  SETTABLEKS R2 R1 K2 ["SearchTerm"]
+  GETTABLEKS R3 R0 K5 ["Sessions"]
+  GETTABLEKS R2 R3 K9 ["uploading"]
+  SETTABLEKS R2 R1 K3 ["Uploading"]
   RETURN R1 1
 
 MAIN:
@@ -403,51 +358,43 @@ MAIN:
   GETTABLEKS R22 R23 K31 ["Types"]
   GETTABLEKS R21 R22 K32 ["QueuedSession"]
   CALL R20 1 1
-  GETIMPORT R21 K5 [require]
-  GETTABLEKS R24 R0 K22 ["Src"]
-  GETTABLEKS R23 R24 K33 ["Flags"]
-  GETTABLEKS R22 R23 K34 ["getFFlagCinSetDefaultCreator"]
-  CALL R21 1 1
-  GETTABLEKS R22 R1 K35 ["PureComponent"]
-  LOADK R24 K36 ["AssetList"]
-  NAMECALL R22 R22 K37 ["extend"]
-  CALL R22 2 1
-  DUPCLOSURE R23 K38 [PROTO_6]
+  GETTABLEKS R21 R1 K33 ["PureComponent"]
+  LOADK R23 K34 ["AssetList"]
+  NAMECALL R21 R21 K35 ["extend"]
+  CALL R21 2 1
+  DUPCLOSURE R22 K36 [PROTO_5]
   CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R12
   CAPTURE VAL R19
-  CAPTURE VAL R21
-  SETTABLEKS R23 R22 K39 ["init"]
-  DUPCLOSURE R23 K40 [PROTO_7]
-  SETTABLEKS R23 R22 K41 ["didMount"]
-  DUPCLOSURE R23 K42 [PROTO_8]
-  SETTABLEKS R23 R22 K43 ["_getColumns"]
-  DUPCLOSURE R23 K44 [PROTO_9]
+  SETTABLEKS R22 R21 K37 ["init"]
+  DUPCLOSURE R22 K38 [PROTO_6]
+  SETTABLEKS R22 R21 K39 ["didMount"]
+  DUPCLOSURE R22 K40 [PROTO_7]
+  SETTABLEKS R22 R21 K41 ["_getColumns"]
+  DUPCLOSURE R22 K42 [PROTO_8]
   CAPTURE VAL R1
   CAPTURE VAL R11
   CAPTURE VAL R10
   CAPTURE VAL R17
-  CAPTURE VAL R21
-  SETTABLEKS R23 R22 K45 ["render"]
-  MOVE R23 R6
-  DUPTABLE R24 K46 [{"Localization", "Stylizer", "QueueController"}]
-  SETTABLEKS R7 R24 K13 ["Localization"]
-  SETTABLEKS R8 R24 K15 ["Stylizer"]
-  SETTABLEKS R18 R24 K30 ["QueueController"]
-  CALL R23 1 1
-  MOVE R24 R22
-  CALL R23 1 1
-  MOVE R22 R23
-  DUPCLOSURE R23 K47 [PROTO_12]
+  SETTABLEKS R22 R21 K43 ["render"]
+  MOVE R22 R6
+  DUPTABLE R23 K44 [{"Localization", "Stylizer", "QueueController"}]
+  SETTABLEKS R7 R23 K13 ["Localization"]
+  SETTABLEKS R8 R23 K15 ["Stylizer"]
+  SETTABLEKS R18 R23 K30 ["QueueController"]
+  CALL R22 1 1
+  MOVE R23 R21
+  CALL R22 1 1
+  MOVE R21 R22
+  DUPCLOSURE R22 K45 [PROTO_11]
   CAPTURE VAL R15
   CAPTURE VAL R16
-  DUPCLOSURE R24 K48 [PROTO_13]
-  CAPTURE VAL R21
-  GETTABLEKS R25 R2 K49 ["connect"]
-  MOVE R26 R24
-  MOVE R27 R23
-  CALL R25 2 1
+  DUPCLOSURE R23 K46 [PROTO_12]
+  GETTABLEKS R24 R2 K47 ["connect"]
+  MOVE R25 R23
   MOVE R26 R22
-  CALL R25 1 -1
-  RETURN R25 -1
+  CALL R24 2 1
+  MOVE R25 R21
+  CALL R24 1 -1
+  RETURN R24 -1

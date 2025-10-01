@@ -2,6 +2,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local ReactIs = require(Packages.ReactIs)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local Types = require(Foundation.Components.Types)
@@ -14,6 +15,8 @@ local useStatusIndicatorVariants = require(script.Parent.useStatusIndicatorVaria
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 
+type Bindable<T> = Types.Bindable<T>
+
 type StatusIndicatorEmpty = {
 	variant: StatusIndicatorVariant?,
 	[any]: nil,
@@ -21,7 +24,7 @@ type StatusIndicatorEmpty = {
 
 type StatusIndicatorNumeric = {
 	variant: (typeof(StatusIndicatorVariant.Emphasis) | typeof(StatusIndicatorVariant.Standard))?,
-	value: number?,
+	value: Bindable<number>?,
 	[any]: nil,
 } & Types.CommonProps
 
@@ -47,7 +50,9 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 		{
 			Text = if hasValue
 				then React.createElement(Text, {
-					Text = tostring(props.value),
+					Text = if ReactIs.isBinding(props.value)
+						then (props.value :: React.Binding<number>):map(tostring)
+						else tostring(props.value),
 					textStyle = variantProps.content.style,
 					tag = variantProps.content.tag,
 				})

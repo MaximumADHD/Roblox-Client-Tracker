@@ -222,8 +222,8 @@ PROTO_19:
   LOADK R4 K1 ["Workplace annotations must be the children of another annotation or an instance."]
   GETIMPORT R2 K3 [assert]
   CALL R2 2 0
-  DUPTABLE R2 K14 [{"UniqueId", "AuthorId", "CreationTimeUnix", "LastModifiedTimeUnix", "Contents", "Resolved", "ParentId", "HeaderInfo", "ReplyCount", "TaggedUsers"}]
-  NAMECALL R3 R1 K15 ["GetStringUniqueId"]
+  DUPTABLE R2 K15 [{"UniqueId", "AuthorId", "CreationTimeUnix", "LastModifiedTimeUnix", "Contents", "Resolved", "ParentId", "HeaderInfo", "ReplyCount", "TaggedUsers", "ChannelId"}]
+  NAMECALL R3 R1 K16 ["GetStringUniqueId"]
   CALL R3 1 1
   SETTABLEKS R3 R2 K4 ["UniqueId"]
   GETTABLEKS R3 R1 K5 ["AuthorId"]
@@ -239,25 +239,25 @@ PROTO_19:
   GETTABLEKS R4 R1 K0 ["Parent"]
   JUMPIFNOT R4 [+13]
   GETTABLEKS R4 R1 K0 ["Parent"]
-  LOADK R6 K16 ["Annotation"]
-  NAMECALL R4 R4 K17 ["IsA"]
+  LOADK R6 K17 ["Annotation"]
+  NAMECALL R4 R4 K18 ["IsA"]
   CALL R4 2 1
   JUMPIFNOT R4 [+6]
   GETTABLEKS R3 R1 K0 ["Parent"]
-  NAMECALL R3 R3 K15 ["GetStringUniqueId"]
+  NAMECALL R3 R3 K16 ["GetStringUniqueId"]
   CALL R3 1 1
   JUMP [+1]
   LOADNIL R3
   SETTABLEKS R3 R2 K10 ["ParentId"]
-  GETTABLEKS R4 R1 K18 ["Adornee"]
+  GETTABLEKS R4 R1 K19 ["Adornee"]
   JUMPIFNOT R4 [+14]
-  DUPTABLE R3 K21 [{"HeaderText", "AdorneeClass"}]
-  GETTABLEKS R5 R1 K18 ["Adornee"]
-  GETTABLEKS R4 R5 K22 ["Name"]
-  SETTABLEKS R4 R3 K19 ["HeaderText"]
-  GETTABLEKS R5 R1 K18 ["Adornee"]
-  GETTABLEKS R4 R5 K23 ["ClassName"]
-  SETTABLEKS R4 R3 K20 ["AdorneeClass"]
+  DUPTABLE R3 K22 [{"HeaderText", "AdorneeClass"}]
+  GETTABLEKS R5 R1 K19 ["Adornee"]
+  GETTABLEKS R4 R5 K23 ["Name"]
+  SETTABLEKS R4 R3 K20 ["HeaderText"]
+  GETTABLEKS R5 R1 K19 ["Adornee"]
+  GETTABLEKS R4 R5 K24 ["ClassName"]
+  SETTABLEKS R4 R3 K21 ["AdorneeClass"]
   JUMP [+1]
   LOADNIL R3
   SETTABLEKS R3 R2 K11 ["HeaderInfo"]
@@ -265,45 +265,47 @@ PROTO_19:
   SETTABLEKS R3 R2 K12 ["ReplyCount"]
   GETTABLEKS R3 R1 K13 ["TaggedUsers"]
   SETTABLEKS R3 R2 K13 ["TaggedUsers"]
-  GETTABLEKS R3 R1 K18 ["Adornee"]
+  GETTABLEKS R3 R1 K14 ["ChannelId"]
+  SETTABLEKS R3 R2 K14 ["ChannelId"]
+  GETTABLEKS R3 R1 K19 ["Adornee"]
   JUMPIFNOT R3 [+26]
-  GETTABLEKS R3 R1 K18 ["Adornee"]
-  LOADK R5 K22 ["Name"]
-  NAMECALL R3 R3 K24 ["GetPropertyChangedSignal"]
+  GETTABLEKS R3 R1 K19 ["Adornee"]
+  LOADK R5 K23 ["Name"]
+  NAMECALL R3 R3 K25 ["GetPropertyChangedSignal"]
   CALL R3 2 1
   NEWCLOSURE R5 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   CAPTURE VAL R1
-  NAMECALL R3 R3 K25 ["Connect"]
+  NAMECALL R3 R3 K26 ["Connect"]
   CALL R3 2 1
-  LOADK R6 K18 ["Adornee"]
-  NAMECALL R4 R1 K24 ["GetPropertyChangedSignal"]
+  LOADK R6 K19 ["Adornee"]
+  NAMECALL R4 R1 K25 ["GetPropertyChangedSignal"]
   CALL R4 2 1
   NEWCLOSURE R6 P1
   CAPTURE REF R3
   CAPTURE VAL R1
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  NAMECALL R4 R4 K25 ["Connect"]
+  NAMECALL R4 R4 K26 ["Connect"]
   CALL R4 2 0
   CLOSEUPVALS R3
   GETTABLEKS R3 R1 K12 ["ReplyCount"]
   JUMPIFNOT R3 [+11]
   LOADK R5 K12 ["ReplyCount"]
-  NAMECALL R3 R1 K24 ["GetPropertyChangedSignal"]
+  NAMECALL R3 R1 K25 ["GetPropertyChangedSignal"]
   CALL R3 2 1
   NEWCLOSURE R5 P2
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   CAPTURE VAL R1
-  NAMECALL R3 R3 K25 ["Connect"]
+  NAMECALL R3 R3 K26 ["Connect"]
   CALL R3 2 0
   GETTABLEKS R4 R1 K0 ["Parent"]
   JUMPIFNOT R4 [+10]
   GETTABLEKS R4 R1 K0 ["Parent"]
-  LOADK R6 K16 ["Annotation"]
-  NAMECALL R4 R4 K17 ["IsA"]
+  LOADK R6 K17 ["Annotation"]
+  NAMECALL R4 R4 K18 ["IsA"]
   CALL R4 2 1
   JUMPIFNOT R4 [+3]
   GETTABLEKS R3 R1 K0 ["Parent"]
@@ -314,68 +316,68 @@ PROTO_19:
   MOVE R6 R4
   CALL R5 1 1
   JUMPIF R3 [+3]
-  SETTABLEKS R5 R2 K26 ["TaggedUsersInThread"]
+  SETTABLEKS R5 R2 K27 ["TaggedUsersInThread"]
   JUMP [+9]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K27 ["syncStandaloneAnnotation"]
+  GETTABLEKS R6 R7 K28 ["syncStandaloneAnnotation"]
   MOVE R7 R0
   MOVE R8 R3
-  DUPTABLE R9 K28 [{"TaggedUsersInThread"}]
-  SETTABLEKS R5 R9 K26 ["TaggedUsersInThread"]
+  DUPTABLE R9 K29 [{"TaggedUsersInThread"}]
+  SETTABLEKS R5 R9 K27 ["TaggedUsersInThread"]
   CALL R6 3 0
   GETTABLEKS R6 R1 K13 ["TaggedUsers"]
   JUMPIFEQKNIL R6 [+13]
   LOADK R8 K13 ["TaggedUsers"]
-  NAMECALL R6 R1 K24 ["GetPropertyChangedSignal"]
+  NAMECALL R6 R1 K25 ["GetPropertyChangedSignal"]
   CALL R6 2 1
   NEWCLOSURE R8 P3
   CAPTURE UPVAL U2
   CAPTURE VAL R1
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  NAMECALL R6 R6 K25 ["Connect"]
+  NAMECALL R6 R6 K26 ["Connect"]
   CALL R6 2 0
-  NAMECALL R6 R1 K29 ["GetChildren"]
+  NAMECALL R6 R1 K30 ["GetChildren"]
   CALL R6 1 3
   FORGPREP R6
   GETTABLEKS R11 R10 K13 ["TaggedUsers"]
   JUMPIFEQKNIL R11 [+13]
   LOADK R13 K13 ["TaggedUsers"]
-  NAMECALL R11 R10 K24 ["GetPropertyChangedSignal"]
+  NAMECALL R11 R10 K25 ["GetPropertyChangedSignal"]
   CALL R11 2 1
   NEWCLOSURE R13 P4
   CAPTURE UPVAL U3
   CAPTURE VAL R1
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  NAMECALL R11 R11 K25 ["Connect"]
+  NAMECALL R11 R11 K26 ["Connect"]
   CALL R11 2 0
   FORGLOOP R6 2 [-17]
-  GETTABLEKS R6 R1 K30 ["RequestInitiated"]
+  GETTABLEKS R6 R1 K31 ["RequestInitiated"]
   NEWCLOSURE R8 P5
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   CAPTURE VAL R1
   CAPTURE UPVAL U4
-  NAMECALL R6 R6 K25 ["Connect"]
+  NAMECALL R6 R6 K26 ["Connect"]
   CALL R6 2 0
-  GETTABLEKS R6 R1 K31 ["RequestCompleted"]
+  GETTABLEKS R6 R1 K32 ["RequestCompleted"]
   NEWCLOSURE R8 P6
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   CAPTURE VAL R1
   CAPTURE UPVAL U5
-  NAMECALL R6 R6 K25 ["Connect"]
+  NAMECALL R6 R6 K26 ["Connect"]
   CALL R6 2 0
-  GETTABLEKS R6 R1 K32 ["Destroying"]
+  GETTABLEKS R6 R1 K33 ["Destroying"]
   NEWCLOSURE R8 P7
   CAPTURE VAL R0
   CAPTURE VAL R1
-  NAMECALL R6 R6 K33 ["Once"]
+  NAMECALL R6 R6 K34 ["Once"]
   CALL R6 2 0
-  LOADK R8 K34 ["CreateAnnotation"]
+  LOADK R8 K35 ["CreateAnnotation"]
   MOVE R9 R2
-  NAMECALL R6 R0 K35 ["Invoke"]
+  NAMECALL R6 R0 K36 ["Invoke"]
   CALL R6 3 0
   RETURN R0 0
 

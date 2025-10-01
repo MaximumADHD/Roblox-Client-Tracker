@@ -52,6 +52,7 @@ local function DefaultStory(props)
 					step = controls.step,
 					hint = controls.hint,
 					precision = controls.precision,
+					leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
 				})
 			end
 		)
@@ -78,7 +79,13 @@ return {
 		minimum = -5,
 		step = 0.2,
 		precision = 2,
-		baseWidth = 150,
+		baseWidth = 200,
 		controlsVariant = Dash.values(NumberInputControlsVariant),
+		leadingIcon = {
+			"icons/placeholder/placeholderOn_small",
+			"icons/status/private_small",
+			"icons/common/search_small",
+			React.None,
+		},
 	},
 }

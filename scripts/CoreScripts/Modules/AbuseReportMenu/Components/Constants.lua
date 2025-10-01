@@ -175,6 +175,7 @@ local localizationKeys: { [string]: string } = {
 	SceneCaptured = "Feature.SettingsHub.Label.SceneCaptured",
 	CaptureScene = "Feature.SettingsHub.Action.CaptureScene",
 	MethodOfAbuse = "Feature.SettingsHub.Label.MethodOfAbuse",
+	WhichChat = "Feature.SettingsHub.Label.WhichChat",
 	WhichPerson = "Feature.SettingsHub.Label.WhichPlayer",
 	ChooseOne = "Feature.SettingsHub.Label.ChooseOne",
 	ReportCommentPlaceholder = "Feature.SettingsHub.Label.ReportComment",

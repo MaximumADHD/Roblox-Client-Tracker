@@ -36,8 +36,10 @@ PROTO_0:
   SETTABLEKS R1 R2 K23 ["Adornee"]
   LOADK R3 K24 [""]
   SETTABLEKS R3 R2 K25 ["TaggedUsers"]
+  LOADK R3 K26 ["TestChannel"]
+  SETTABLEKS R3 R2 K27 ["ChannelId"]
   JUMPIFNOT R0 [+2]
-  SETTABLEKS R0 R2 K26 ["Contents"]
+  SETTABLEKS R0 R2 K28 ["Contents"]
   RETURN R2 1
 
 MAIN:

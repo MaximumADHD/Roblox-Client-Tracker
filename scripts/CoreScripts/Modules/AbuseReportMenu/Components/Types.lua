@@ -65,12 +65,27 @@ export type ModalSelectorMenuItemType = {
 	componentName: string,
 }
 
+export type ChatModalSelectorMenuItemType = {
+	componentType: "chatModalSelector",
+	getIsVisible: (menuUIStates: ReportPersonState) -> boolean,
+	onUpdateSelectedOption: (
+		selectedItem: any, -- TODO: Strongly type this
+		menuUIStates: ReportPersonState,
+		dispatchUIStates: any,
+		utilityProps: MenuUtilityProps
+	) -> (),
+	getSelectedValue: (menuUIStates: ReportPersonState) -> string?,
+	fieldLabel: string,
+	componentName: string,
+}
+
 export type MenuItemConfigType =
 	GenericMenuItemType
 	| DropdownMenuItemType
 	| ButtonMenuItemType
 	| FreeCommentsMenuItemType
 	| ModalSelectorMenuItemType
+	| ChatModalSelectorMenuItemType
 
 export type ReportType = "Person" | "Experience"
 

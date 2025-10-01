@@ -1,5 +1,13 @@
 --!nonstrict
+-- Remove with FFlagTopBarDeprecateRespawnRodux
 local Players = game:GetService("Players")
+
+local TopBar = script.Parent.Parent
+local FFlagTopBarDeprecateRespawnRodux = require(TopBar.Flags.FFlagTopBarDeprecateRespawnRodux)
+
+if FFlagTopBarDeprecateRespawnRodux then 
+	return nil :: never 
+end
 
 return function(store)
 	local state = store:getState()

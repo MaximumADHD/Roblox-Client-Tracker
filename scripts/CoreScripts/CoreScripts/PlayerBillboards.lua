@@ -48,6 +48,9 @@ local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceived
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
 local GetFFlagExpChatUseVoiceParticipantsStore =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagExpChatUseVoiceParticipantsStore
+local FFlagExpChatUseMessagesStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagExpChatUseMessagesStore
+local FFlagExpChatUseChatConfigStore =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagExpChatUseChatConfigStore
 
 local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
@@ -444,7 +447,14 @@ if game:GetEngineFeature("BubbleChatSettingsApi") then
 	Chat.BubbleChatSettingsChanged:Connect(function(settings)
 		local ok, message = Types.IChatSettings(settings)
 		assert(ok, "Bad settings object passed to Chat:SetBubbleChatSettings:\n" .. (message or ""))
-		chatStore:dispatch(UpdateChatSettings(settings))
+
+		if FFlagExpChatUseChatConfigStore then
+			local getChatConfigurationStore = ExperienceChat.Stores.GetChatConfigurationStore
+			local chatConfigStore = getChatConfigurationStore(false)
+			chatConfigStore.setBubbleChatSettings(settings)
+		else
+			chatStore:dispatch(UpdateChatSettings(settings))
+		end
 	end)
 end
 

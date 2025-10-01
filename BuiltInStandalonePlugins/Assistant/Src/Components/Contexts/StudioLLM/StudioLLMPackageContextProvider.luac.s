@@ -15,7 +15,7 @@ PROTO_0:
   GETTABLEKS R8 R9 K2 ["Components"]
   GETTABLEKS R7 R8 K6 ["Contexts"]
   GETTABLEKS R6 R7 K7 ["LLMPackageContextProvider"]
-  DUPTABLE R7 K14 [{"requestHandler", "processEvent", "createLLMSession", "closeSession", "formatTools", "systemMessage"}]
+  DUPTABLE R7 K14 [{"requestHandler", "processEvent", "createLLMSession", "cancelSession", "formatTools", "systemMessage"}]
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K15 ["createRequestHandler"]
   GETIMPORT R9 K17 [game]
@@ -24,7 +24,7 @@ PROTO_0:
   SETTABLEKS R8 R7 K8 ["requestHandler"]
   SETTABLEKS R2 R7 K9 ["processEvent"]
   SETTABLEKS R3 R7 K10 ["createLLMSession"]
-  SETTABLEKS R4 R7 K11 ["closeSession"]
+  SETTABLEKS R4 R7 K11 ["cancelSession"]
   GETUPVAL R9 4
   GETTABLEKS R8 R9 K12 ["formatTools"]
   SETTABLEKS R8 R7 K12 ["formatTools"]

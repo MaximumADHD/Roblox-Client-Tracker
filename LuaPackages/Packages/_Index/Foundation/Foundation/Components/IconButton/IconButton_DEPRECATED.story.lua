@@ -8,8 +8,6 @@ local IconButton = require(Foundation.Components.IconButton)
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
-local Flags = require(Foundation.Utility.Flags)
-
 local function Story(props)
 	local controls = props.controls
 
@@ -27,8 +25,6 @@ local iconSizes = { IconSize.Small, IconSize.Medium, IconSize.Large, IconSize.XL
 return {
 	summary = "Icon component for displaying icons",
 	story = function(props)
-		Flags.FoundationUpdateIconButtonSizes = props.controls.updateIconButtonSizes
-
 		return React.createElement(
 			View,
 			{ tag = "row gap-medium auto-y size-full-0 align-y-center" },
@@ -52,6 +48,5 @@ return {
 			"icons/controls/voice/video_on_light",
 		},
 		isCircular = false,
-		updateIconButtonSizes = Flags.FoundationUpdateIconButtonSizes,
 	},
 }

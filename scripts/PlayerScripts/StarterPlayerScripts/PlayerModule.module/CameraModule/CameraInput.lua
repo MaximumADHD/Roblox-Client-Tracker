@@ -11,6 +11,7 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local FFlagUserCameraInputDt = FlagUtil.getUserFlag("UserCameraInputDt")
 local FFlagUserPSSinkUnknownTouchEvents = FlagUtil.getUserFlag("UserPSSinkUnknownTouchEvents")
+local FFlagUserPSTextboxResetCameraInput = FlagUtil.getUserFlag("UserPSTextboxResetCameraInput")
 
 local player = Players.LocalPlayer
 
@@ -499,6 +500,9 @@ do
 
 		UserInputService.WindowFocused:Connect(resetInputDevices)
 		UserInputService.WindowFocusReleased:Connect(resetInputDevices)
+		if FFlagUserPSTextboxResetCameraInput then 
+			UserInputService.TextBoxFocusReleased:Connect(resetInputDevices)
+		end
 	end
 end
 

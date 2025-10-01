@@ -89,7 +89,7 @@ PROTO_2:
   SETTABLEKS R14 R13 K15 ["DropdownOverlay"]
   GETUPVAL R14 5
   GETUPVAL R15 6
-  DUPTABLE R16 K30 [{"LayoutOrder", "ZIndex", "dropdownOverlay", "onSearchHeaderSizeChange", "disableConfirmationDialog", "showReplace", "setShowReplace", "resultManager", "findActivationData"}]
+  DUPTABLE R16 K32 [{"LayoutOrder", "ZIndex", "dropdownOverlay", "onSearchHeaderSizeChange", "disableConfirmationDialog", "showReplace", "setShowReplace", "resultManager", "findActivationData", "enabled", "shouldFocusTextBox"}]
   MOVE R17 R1
   CALL R17 0 1
   SETTABLEKS R17 R16 K23 ["LayoutOrder"]
@@ -97,28 +97,32 @@ PROTO_2:
   SETTABLEKS R17 R16 K20 ["ZIndex"]
   SETTABLEKS R3 R16 K24 ["dropdownOverlay"]
   SETTABLEKS R6 R16 K25 ["onSearchHeaderSizeChange"]
-  GETTABLEKS R17 R7 K31 ["disable"]
+  GETTABLEKS R17 R7 K33 ["disable"]
   SETTABLEKS R17 R16 K26 ["disableConfirmationDialog"]
   SETTABLEKS R8 R16 K27 ["showReplace"]
   SETTABLEKS R9 R16 K28 ["setShowReplace"]
   SETTABLEKS R2 R16 K29 ["resultManager"]
   GETTABLEKS R17 R0 K6 ["findActivationData"]
   SETTABLEKS R17 R16 K6 ["findActivationData"]
+  GETTABLEKS R17 R0 K30 ["enabled"]
+  SETTABLEKS R17 R16 K30 ["enabled"]
+  GETTABLEKS R17 R0 K31 ["shouldFocusTextBox"]
+  SETTABLEKS R17 R16 K31 ["shouldFocusTextBox"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K16 ["WidgetHeader"]
   GETUPVAL R14 5
   GETUPVAL R15 7
-  DUPTABLE R16 K35 [{"LayoutOrder", "ZIndex", "headerOffset", "confirmationDialogVisible", "toggleConfirmationDialog", "showReplace", "resultManager"}]
+  DUPTABLE R16 K37 [{"LayoutOrder", "ZIndex", "headerOffset", "confirmationDialogVisible", "toggleConfirmationDialog", "showReplace", "resultManager"}]
   MOVE R17 R1
   CALL R17 0 1
   SETTABLEKS R17 R16 K23 ["LayoutOrder"]
   LOADN R17 2
   SETTABLEKS R17 R16 K20 ["ZIndex"]
-  SETTABLEKS R4 R16 K32 ["headerOffset"]
-  GETTABLEKS R17 R7 K36 ["enabled"]
-  SETTABLEKS R17 R16 K33 ["confirmationDialogVisible"]
-  GETTABLEKS R17 R7 K37 ["toggle"]
-  SETTABLEKS R17 R16 K34 ["toggleConfirmationDialog"]
+  SETTABLEKS R4 R16 K34 ["headerOffset"]
+  GETTABLEKS R17 R7 K30 ["enabled"]
+  SETTABLEKS R17 R16 K35 ["confirmationDialogVisible"]
+  GETTABLEKS R17 R7 K38 ["toggle"]
+  SETTABLEKS R17 R16 K36 ["toggleConfirmationDialog"]
   SETTABLEKS R8 R16 K27 ["showReplace"]
   SETTABLEKS R2 R16 K29 ["resultManager"]
   CALL R14 2 1

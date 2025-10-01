@@ -264,29 +264,29 @@ PROTO_12:
 
 PROTO_13:
   GETTABLEKS R5 R0 K0 ["ScopeInfo"]
-  GETTABLEKS R4 R5 K1 ["Scope"]
+  GETTABLEKS R4 R5 K1 ["Type"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K1 ["Scope"]
-  GETTABLEKS R5 R6 K2 ["Universe"]
+  GETTABLEKS R6 R7 K2 ["ScopeType"]
+  GETTABLEKS R5 R6 K3 ["Universe"]
   JUMPIFEQ R4 R5 [+16]
   GETTABLEKS R5 R0 K0 ["ScopeInfo"]
-  GETTABLEKS R4 R5 K1 ["Scope"]
+  GETTABLEKS R4 R5 K1 ["Type"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K1 ["Scope"]
-  GETTABLEKS R5 R6 K3 ["ProjectPlaces"]
+  GETTABLEKS R6 R7 K2 ["ScopeType"]
+  GETTABLEKS R5 R6 K4 ["ProjectPlaces"]
   JUMPIFEQ R4 R5 [+5]
-  GETTABLEKS R4 R0 K4 ["Resolve"]
+  GETTABLEKS R4 R0 K5 ["Resolve"]
   CALL R4 0 0
   RETURN R0 0
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K5 ["ResumeAsync"]
+  GETTABLEKS R4 R5 K6 ["ResumeAsync"]
   NEWCLOSURE R5 P0
   CAPTURE VAL R3
   CAPTURE VAL R0
   CAPTURE UPVAL U1
   CAPTURE VAL R1
   CAPTURE VAL R2
-  SETTABLEKS R5 R4 K6 ["FetchPlaces"]
+  SETTABLEKS R5 R4 K7 ["FetchPlaces"]
   RETURN R0 0
 
 PROTO_14:
@@ -296,7 +296,7 @@ PROTO_14:
 
 PROTO_15:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["getImageHelper"]
+  GETTABLEKS R0 R1 K0 ["get"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["AvailableImages"]
   GETTABLEKS R1 R2 K2 ["Placeholder"]
@@ -306,7 +306,7 @@ PROTO_15:
 PROTO_16:
   MOVE R2 R1
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["getImageHelper"]
+  GETTABLEKS R3 R4 K0 ["get"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K1 ["AvailableImages"]
   GETTABLEKS R4 R5 K2 ["Placeholder"]
@@ -316,7 +316,7 @@ PROTO_16:
 
 PROTO_17:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["getImageHelper"]
+  GETTABLEKS R0 R1 K0 ["get"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["AvailableImages"]
   GETTABLEKS R1 R2 K2 ["Placeholder"]
@@ -375,34 +375,25 @@ PROTO_20:
   GETTABLEKS R3 R4 K9 ["ModerationStatus"]
   GETTABLEKS R2 R3 K18 ["Approved"]
   SETTABLEKS R2 R1 K9 ["ModerationStatus"]
-  DUPTABLE R2 K22 [{"Id", "Name", "Scope"}]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K19 ["Id"]
-  SETTABLEKS R3 R2 K19 ["Id"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K20 ["Name"]
-  SETTABLEKS R3 R2 K20 ["Name"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K21 ["Scope"]
-  SETTABLEKS R3 R2 K21 ["Scope"]
+  GETUPVAL R2 3
   SETTABLEKS R2 R1 K10 ["Creator"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K23 ["AssetSource"]
-  GETTABLEKS R2 R3 K24 ["Uploaded"]
+  GETTABLEKS R3 R4 K19 ["AssetSource"]
+  GETTABLEKS R2 R3 K20 ["Uploaded"]
   SETTABLEKS R2 R1 K11 ["Source"]
   LOADB R2 0
   SETTABLEKS R2 R1 K12 ["Archived"]
   DUPTABLE R2 K13 [{"AssetId", "AssetType", "DisplayName", "Description", "VersionNumber", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived"}]
   GETUPVAL R4 1
-  ADDK R3 R4 K25 [1]
+  ADDK R3 R4 K21 [1]
   SETTABLEKS R3 R2 K2 ["AssetId"]
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K3 ["AssetType"]
-  GETTABLEKS R3 R4 K26 ["Mesh"]
+  GETTABLEKS R3 R4 K22 ["Mesh"]
   SETTABLEKS R3 R2 K3 ["AssetType"]
-  LOADK R3 K27 ["Mock Dependency Asset"]
+  LOADK R3 K23 ["Mock Dependency Asset"]
   SETTABLEKS R3 R2 K4 ["DisplayName"]
-  LOADK R3 K28 ["A mock asset that another asset depends on"]
+  LOADK R3 K24 ["A mock asset that another asset depends on"]
   SETTABLEKS R3 R2 K5 ["Description"]
   LOADN R3 1
   SETTABLEKS R3 R2 K6 ["VersionNumber"]
@@ -414,20 +405,11 @@ PROTO_20:
   GETTABLEKS R4 R5 K9 ["ModerationStatus"]
   GETTABLEKS R3 R4 K18 ["Approved"]
   SETTABLEKS R3 R2 K9 ["ModerationStatus"]
-  DUPTABLE R3 K22 [{"Id", "Name", "Scope"}]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K19 ["Id"]
-  SETTABLEKS R4 R3 K19 ["Id"]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K20 ["Name"]
-  SETTABLEKS R4 R3 K20 ["Name"]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K21 ["Scope"]
-  SETTABLEKS R4 R3 K21 ["Scope"]
+  GETUPVAL R3 3
   SETTABLEKS R3 R2 K10 ["Creator"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K23 ["AssetSource"]
-  GETTABLEKS R3 R4 K24 ["Uploaded"]
+  GETTABLEKS R4 R5 K19 ["AssetSource"]
+  GETTABLEKS R3 R4 K20 ["Uploaded"]
   SETTABLEKS R3 R2 K11 ["Source"]
   LOADB R3 0
   SETTABLEKS R3 R2 K12 ["Archived"]

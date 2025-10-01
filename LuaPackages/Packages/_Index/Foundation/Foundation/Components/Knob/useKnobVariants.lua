@@ -3,7 +3,6 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-local Flags = require(Foundation.Utility.Flags)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
@@ -49,9 +48,7 @@ end
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		knob = {
-			tag = `radius-circle{if Flags.FoundationFixKnobStroke
-				then " anchor-center-center position-center-center"
-				else ""}`,
+			tag = `radius-circle{" anchor-center-center position-center-center"}`,
 			style = tokens.Color.Extended.White.White_100,
 		},
 		knobShadow = {

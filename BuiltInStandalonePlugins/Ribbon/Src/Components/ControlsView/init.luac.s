@@ -189,7 +189,7 @@ PROTO_8:
   GETUPVAL R4 11
   GETTABLEKS R5 R1 K0 ["Type"]
   GETTABLE R3 R4 R5
-  JUMPIFNOT R3 [+88]
+  JUMPIFNOT R3 [+95]
   GETUPVAL R4 2
   DUPTABLE R5 K4 [{"self"}]
   SETTABLEKS R0 R5 K3 ["self"]
@@ -214,7 +214,7 @@ PROTO_8:
   GETUPVAL R6 12
   GETTABLEKS R5 R6 K17 ["createElement"]
   MOVE R6 R3
-  DUPTABLE R7 K30 [{"Item", "WidgetUri", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Select", "HideLabels", "MenuData", "MenuView", "Renderers", "ShowContextMenu", "ControlIndices", "Warn"}]
+  DUPTABLE R7 K31 [{"Item", "WidgetUri", "Items", "Activate", "OpenMenu", "CloseMenus", "LayoutOrder", "Select", "HideLabels", "MenuData", "MenuView", "Renderers", "ShowContextMenu", "ControlIndices", "Warn", "MdiInstance"}]
   SETTABLEKS R1 R7 K10 ["Item"]
   GETUPVAL R9 5
   GETTABLEKS R8 R9 K11 ["WidgetUri"]
@@ -250,10 +250,14 @@ PROTO_8:
   SETTABLEKS R8 R7 K28 ["ControlIndices"]
   GETUPVAL R8 10
   SETTABLEKS R8 R7 K29 ["Warn"]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K32 ["Plugin"]
+  GETTABLEKS R8 R9 K33 ["MultipleDocumentInterfaceInstance"]
+  SETTABLEKS R8 R7 K30 ["MdiInstance"]
   CALL R5 2 -1
   RETURN R4 -1
   GETUPVAL R4 10
-  LOADK R6 K31 ["Missing Control for type %*"]
+  LOADK R6 K34 ["Missing Control for type %*"]
   GETTABLEKS R8 R1 K0 ["Type"]
   NAMECALL R6 R6 K9 ["format"]
   CALL R6 2 1
@@ -263,6 +267,8 @@ PROTO_8:
 
 PROTO_9:
   GETUPVAL R1 0
+  CALL R1 0 0
+  GETUPVAL R1 1
   GETTABLEKS R4 R0 K0 ["CanvasPosition"]
   GETTABLEKS R3 R4 K1 ["X"]
   LOADN R4 0
@@ -371,7 +377,7 @@ PROTO_10:
   LOADB R21 0
   CALL R20 1 2
   GETTABLEKS R22 R0 K15 ["Scroll"]
-  JUMPIFNOT R22 [+74]
+  JUMPIFNOT R22 [+75]
   GETUPVAL R22 10
   LOADK R23 K9 ["Frame"]
   NEWTABLE R24 2 0
@@ -389,6 +395,7 @@ PROTO_10:
   GETTABLEKS R30 R31 K12 ["Change"]
   GETTABLEKS R29 R30 K22 ["CanvasPosition"]
   NEWCLOSURE R30 P8
+  CAPTURE VAL R5
   CAPTURE VAL R21
   SETTABLE R30 R28 R29
   GETUPVAL R31 14

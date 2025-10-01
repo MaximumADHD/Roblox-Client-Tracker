@@ -26,6 +26,7 @@ local LOCAL_PLAYER_LOADING_TIMEOUT_ENUM = CrossExperience.Constants.LOCAL_PLAYER
 
 local FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds =
 	game:DefineFastInt("BackgroundDMLocalPlayerLoadingTimeoutSeconds", 12)
+local FFlagDelayBackgroundDMLocalPlayerLoading = game:DefineFastFlag("DelayBackgroundDMLocalPlayerLoading", false)
 
 local localUserId
 if
@@ -123,7 +124,12 @@ local function ensureLocalPlayerWithTimeout()
 end
 
 if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
-	localUserId = ensureLocalPlayerWithTimeout()
+	if FFlagDelayBackgroundDMLocalPlayerLoading then
+		-- Delay loading local player until we need it much later
+		localUserId = -1
+	else
+		localUserId = ensureLocalPlayerWithTimeout()
+	end
 end
 
 if not CEVLogsToEventIngest and FFlagEnableCEVErrorRCCTimeoutLogs then
@@ -169,7 +175,6 @@ local CaptureService = if FFlagEnableVoiceChatMuteForVideoCaptures then game:Get
 
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local FFlagPartyVoiceBlockSync = SharedFlags.FFlagPartyVoiceBlockSync
-local FFlagPartyVoiceBypassCheck = SharedFlags.FFlagPartyVoiceBypassCheck
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
 
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
@@ -184,8 +189,6 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 local GetFFlagEnableCrossExperienceVoiceCaptureMute =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExperienceVoiceCaptureMute
 local FFlagLogPartyVoiceReconnect = game:DefineFastFlag("LogPartyVoiceReconnect", false)
-local FFlagPartyVoiceReportJoinFailed = game:DefineFastFlag("PartyVoiceReportJoinFailed", false)
-local FFlagPartyVoiceCatchError = game:DefineFastFlag("PartyVoiceCatchError", false)
 local FFlagPartyVoiceFixCaptureVideoCheck = game:DefineFastFlag("PartyVoiceFixCaptureVideoCheck", false)
 local FIntPartyVoiceUndeafenDelayMS = SharedFlags.FIntPartyVoiceUndeafenDelayMS
 local FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit =
@@ -219,7 +222,7 @@ if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
 	CoreVoiceManager:setOptions({
 		allowSeamlessVoice = false,
 		passInitErrorInPromiseReject = true,
-		forceVoiceEnabled = FFlagPartyVoiceBypassCheck,
+		forceVoiceEnabled = true,
 	})
 end
 
@@ -875,9 +878,7 @@ local function setupListeners()
 	CoreVoiceManager:subscribe("OnReportJoinFailed", function(result)
 		log:error("CEV OnReportJoinFailed " .. result)
 
-		if FFlagPartyVoiceReportJoinFailed then
-			notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_JOIN, result)
-		end
+		notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_JOIN, result)
 	end)
 end
 
@@ -1050,15 +1051,8 @@ function initializeVoice()
 			log:info("CoreVoiceManager did not initialize {}", err)
 			if FFlagEnableCoreVoiceManagerPassErrorInReject then
 				local detail = "INIT_ERROR_UNKNOWN"
-
-				if FFlagPartyVoiceCatchError then
-					if err then
-						detail = err.code or err
-					end
-				else
-					if err and err.code then
-						detail = err.code
-					end
+				if err then
+					detail = err.code or err
 				end
 
 				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, detail)
@@ -1083,6 +1077,13 @@ end
 
 function startVoice()
 	if validateSetup() then
+		if FFlagDelayBackgroundDMLocalPlayerLoading then
+			-- Call it here instead, right before we actually need the LocalPlayer
+			if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
+				localUserId = ensureLocalPlayerWithTimeout()
+				log:info("Delayed loading of LocalPlayer loaded with UserId: {}", localUserId)
+			end
+		end
 		setupListeners()
 		initializeVoice()
 	end

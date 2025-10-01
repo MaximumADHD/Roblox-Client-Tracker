@@ -58,8 +58,9 @@ local function DefaultSizeRules(type: TextStyle, nominalScale: number): { StyleR
 			},
 			children = {
 				{
-					tag = `text-size-defaults`,
+					tag = "text-size-defaults",
 					pseudo = "UIPadding",
+					priority = 0,
 					properties = {
 						PaddingTop = `$TextPaddingBodyLarge`,
 						PaddingBottom = `$TextPaddingBodyLarge`,
@@ -209,6 +210,7 @@ local function TypographyRules(typography: Typography, nominalScale: number): { 
 				{
 					tag = `text-{name}`,
 					pseudo = "UIPadding",
+					priority = 0,
 					properties = {
 						PaddingTop = `$TextPadding{pascalName}`,
 						PaddingBottom = `$TextPadding{pascalName}`,

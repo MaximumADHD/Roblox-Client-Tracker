@@ -1,0 +1,141 @@
+PROTO_0:
+  NAMECALL R2 R0 K0 ["GetUri"]
+  CALL R2 1 1
+  DUPTABLE R4 K6 [{"floating", "floatingUri", "toggleTask", "watcherThread", "plugin"}]
+  SETTABLEKS R1 R4 K1 ["floating"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["join"]
+  MOVE R6 R2
+  DUPTABLE R7 K10 [{"Category", "ItemId"}]
+  LOADK R8 K11 ["Widgets"]
+  SETTABLEKS R8 R7 K8 ["Category"]
+  LOADK R8 K12 ["Floating"]
+  SETTABLEKS R8 R7 K9 ["ItemId"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K2 ["floatingUri"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K3 ["toggleTask"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K4 ["watcherThread"]
+  SETTABLEKS R0 R4 K5 ["plugin"]
+  DUPTABLE R5 K14 [{"__index"}]
+  GETUPVAL R6 1
+  SETTABLEKS R6 R5 K13 ["__index"]
+  FASTCALL2 SETMETATABLE R4 R5 [+3]
+  GETIMPORT R3 K16 [setmetatable]
+  CALL R3 2 1
+  RETURN R3 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["floating"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K1 ["Enabled"]
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["toggleTask"]
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R0 K2 [task.wait]
+  CALL R0 0 1
+  JUMPIFNOT R0 [+63]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["floating"]
+  GETTABLEKS R0 R1 K4 ["Enabled"]
+  JUMPIFNOT R0 [+56]
+  GETUPVAL R0 1
+  LOADK R2 K5 ["RBX_MousePosition"]
+  NAMECALL R0 R0 K6 ["GetAttribute"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+46]
+  GETTABLEKS R1 R0 K7 ["X"]
+  LOADN R2 0
+  JUMPIFLT R1 R2 [+28]
+  GETTABLEKS R1 R0 K7 ["X"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["floating"]
+  GETTABLEKS R3 R4 K8 ["AbsoluteSize"]
+  GETTABLEKS R2 R3 K7 ["X"]
+  JUMPIFLT R2 R1 [+17]
+  GETTABLEKS R1 R0 K9 ["Y"]
+  LOADN R2 216
+  JUMPIFLT R1 R2 [+12]
+  GETTABLEKS R1 R0 K9 ["Y"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["floating"]
+  GETTABLEKS R3 R4 K8 ["AbsoluteSize"]
+  GETTABLEKS R2 R3 K9 ["Y"]
+  JUMPIFNOTLT R2 R1 [+15]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K10 ["toggleTask"]
+  JUMPIF R1 [+14]
+  GETUPVAL R1 0
+  GETIMPORT R2 K12 [task.delay]
+  GETUPVAL R3 2
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U0
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K10 ["toggleTask"]
+  JUMP [+4]
+  GETUPVAL R1 0
+  LOADNIL R2
+  SETTABLEKS R2 R1 K10 ["toggleTask"]
+  JUMPBACK [-67]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["plugin"]
+  LOADK R3 K1 ["MouseTracker"]
+  NAMECALL R1 R1 K2 ["GetPluginComponent"]
+  CALL R1 2 1
+  GETTABLEKS R4 R0 K3 ["floatingUri"]
+  NAMECALL R2 R1 K4 ["RegisterMouseTrackingRelativeToWidgetAsync"]
+  CALL R2 2 1
+  GETIMPORT R3 K7 [coroutine.create]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K8 ["watcherThread"]
+  GETIMPORT R3 K10 [coroutine.resume]
+  GETTABLEKS R4 R0 K8 ["watcherThread"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETIMPORT R1 K2 [coroutine.close]
+  GETTABLEKS R2 R0 K3 ["watcherThread"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Ribbon"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["RibbonFloatingHideDelayMillis"]
+  LOADN R4 44
+  NAMECALL R1 R1 K7 ["DefineFastInt"]
+  CALL R1 3 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["StudioFoundation"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K12 ["Util"]
+  GETTABLEKS R3 R4 K13 ["StudioUri"]
+  NEWTABLE R4 4 0
+  DIVK R5 R1 K14 [1000]
+  DUPCLOSURE R6 K15 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R6 R4 K16 ["new"]
+  DUPCLOSURE R6 K17 [PROTO_3]
+  CAPTURE VAL R5
+  SETTABLEKS R6 R4 K18 ["start"]
+  DUPCLOSURE R6 K19 [PROTO_4]
+  SETTABLEKS R6 R4 K20 ["stop"]
+  RETURN R4 1

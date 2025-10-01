@@ -4,6 +4,13 @@ local CorePackages = game:GetService("CorePackages")
 local Rodux = require(CorePackages.Packages.Rodux)
 local Cryo = require(CorePackages.Packages.Cryo)
 
+local TopBar = script.Parent.Parent
+local FFlagTopBarDeprecateMoreMenuRodux = require(TopBar.Flags.FFlagTopBarDeprecateMoreMenuRodux)
+
+if FFlagTopBarDeprecateMoreMenuRodux then
+	return nil :: never
+end
+
 local Actions = script.Parent.Parent.Actions
 local SetMoreMenuOpen = require(Actions.SetMoreMenuOpen)
 local SetBackpackOpen = require(Actions.SetBackpackOpen)

@@ -11,7 +11,8 @@ local InspectAndBuy = require(InspectAndBuyModules.Components.InspectAndBuy)
 local InspectAndBuyInstanceHandle = nil
 
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
-local FFlagAXEnableNewInspectAndBuyContainer = require(InspectAndBuyModules.Flags.FFlagAXEnableNewInspectAndBuyContainer)
+local FFlagAXEnableNewInspectAndBuyContainer =
+	require(InspectAndBuyModules.Flags.FFlagAXEnableNewInspectAndBuyContainer)
 
 local TopBar = require(RobloxGui.Modules.TopBar)
 
@@ -50,11 +51,11 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 
 	if FFlagAXEnableNewInspectAndBuyContainer then
 		inspectAndBuy = Roact.createElement(InspectAndBuy, {
-		humanoidDescription = humanoidDescription,
-		playerName = playerName,
-		playerId = userId,
-		ctx = ctx,
-	})
+			humanoidDescription = humanoidDescription,
+			playerName = playerName,
+			playerId = userId,
+			ctx = ctx,
+		})
 	end
 
 	if isInExperienceUIVREnabled and isSpatial() then
@@ -65,7 +66,7 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 	end
 	GuiService:SetMenuIsOpen(true, INSPECT_MENU_KEY)
 
-	if FFlagTopBarSignalizeMenuOpen then 
+	if FFlagTopBarSignalizeMenuOpen then
 		local getInspectAndBuyStore = CoreGuiCommon.Stores.GetInspectAndBuyStore
 		getInspectAndBuyStore(false).setInspectAndBuyOpen(true)
 	else
@@ -79,7 +80,7 @@ local function unmountInspectAndBuy()
 		InspectAndBuyInstanceHandle = nil
 		GuiService:SetMenuIsOpen(false, INSPECT_MENU_KEY)
 
-		if FFlagTopBarSignalizeMenuOpen then 
+		if FFlagTopBarSignalizeMenuOpen then
 			local getInspectAndBuyStore = CoreGuiCommon.Stores.GetInspectAndBuyStore
 			getInspectAndBuyStore(false).setInspectAndBuyOpen(false)
 		else

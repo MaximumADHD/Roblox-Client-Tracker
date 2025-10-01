@@ -27,6 +27,8 @@ end)
 
 local gui = Instance.new("ScreenGui")
 gui.Name = "StorybookEmbed"
+gui.ClipToDeviceSafeArea = false
+gui.SafeAreaCompatibility = Enum.SafeAreaCompatibility.None
 gui.IgnoreGuiInset = true
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.Parent = PlayerGui

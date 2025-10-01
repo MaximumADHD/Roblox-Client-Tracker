@@ -10,62 +10,124 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  DUPTABLE R3 K36 [{"ArrowDownIcon", "ArrowRightIcon", "ArrowUpIcon", "CheckmarkIcon", "ClearIcon", "FilterIcon", "FolderIcon", "GroupDefaultIcon", "GroupFolderIcon", "GroupLargeDefaultIcon", "ImportIcon", "NotificationIcon", "PackageLinkIcon", "PlaceholderAssetIcon", "PlaceholderIcon", "PlacesFolderIcon", "RefreshIcon", "SearchIcon", "SidebarCollapseIcon", "SidebarExpandIcon", "SortIcon", "UniverseDefaultIcon", "UniverseLargeDefaultIcon", "UserDefaultIcon", "UserFolderIcon", "UserLargeDefaultIcon"}]
-  LOADK R4 K37 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowDown.png"]
-  SETTABLEKS R4 R3 K10 ["ArrowDownIcon"]
-  LOADK R4 K38 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowRight.png"]
-  SETTABLEKS R4 R3 K11 ["ArrowRightIcon"]
-  LOADK R4 K39 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowUp.png"]
-  SETTABLEKS R4 R3 K12 ["ArrowUpIcon"]
-  LOADK R4 K40 ["rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/Checkmark.png"]
-  SETTABLEKS R4 R3 K13 ["CheckmarkIcon"]
-  LOADK R4 K41 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Light/Standard/Cleanup.png"]
-  SETTABLEKS R4 R3 K14 ["ClearIcon"]
-  LOADK R4 K42 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/Filter.png"]
-  SETTABLEKS R4 R3 K15 ["FilterIcon"]
-  LOADK R4 K43 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Light/Standard/Folder.png"]
-  SETTABLEKS R4 R3 K16 ["FolderIcon"]
-  LOADK R4 K44 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/Group.png"]
-  SETTABLEKS R4 R3 K17 ["GroupDefaultIcon"]
-  LOADK R4 K45 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Light/Standard/Teams.png"]
-  SETTABLEKS R4 R3 K18 ["GroupFolderIcon"]
-  LOADK R4 K46 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Large/Group.png"]
-  SETTABLEKS R4 R3 K19 ["GroupLargeDefaultIcon"]
-  LOADK R4 K47 ["rbxasset://studio_svg_textures/Lua/FileSync/Light/Large/Import.png"]
-  SETTABLEKS R4 R3 K20 ["ImportIcon"]
-  LOADK R4 K48 ["rbxasset://studio_svg_textures/Lua/Notifications/Light/Standard/NotificationBadgeUnread.png"]
-  SETTABLEKS R4 R3 K21 ["NotificationIcon"]
-  LOADK R4 K49 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Light/Standard/PackageLink.png"]
-  SETTABLEKS R4 R3 K22 ["PackageLinkIcon"]
-  LOADK R4 K50 ["rbxasset://studio_svg_textures/Shared/Placeholder/Light/Standard/Placeholder.png"]
-  SETTABLEKS R4 R3 K23 ["PlaceholderAssetIcon"]
-  LOADK R4 K50 ["rbxasset://studio_svg_textures/Shared/Placeholder/Light/Standard/Placeholder.png"]
-  SETTABLEKS R4 R3 K24 ["PlaceholderIcon"]
-  LOADK R4 K51 ["rbxasset://studio_svg_textures/Lua/AssetManager/Light/Standard/PlacesFolder.png"]
-  SETTABLEKS R4 R3 K25 ["PlacesFolderIcon"]
-  LOADK R4 K52 ["rbxasset://studio_svg_textures/Lua/FileSync/Light/Standard/Refresh.png"]
-  SETTABLEKS R4 R3 K26 ["RefreshIcon"]
-  LOADK R4 K53 ["rbxasset://studio_svg_textures/Lua/DeveloperFramework/Light/Standard/Search.png"]
-  SETTABLEKS R4 R3 K27 ["SearchIcon"]
-  LOADK R4 K54 ["rbxasset://studio_svg_textures/Lua/SystemArrows/Light/Standard/DoubleChevronLeft.png"]
-  SETTABLEKS R4 R3 K28 ["SidebarCollapseIcon"]
-  LOADK R4 K55 ["rbxasset://studio_svg_textures/Lua/SystemArrows/Light/Standard/DoubleChevronRight.png"]
-  SETTABLEKS R4 R3 K29 ["SidebarExpandIcon"]
-  LOADK R4 K56 ["rbxasset://studio_svg_textures/Lua/AssetManager/Light/Standard/Sort.png"]
-  SETTABLEKS R4 R3 K30 ["SortIcon"]
-  LOADK R4 K50 ["rbxasset://studio_svg_textures/Shared/Placeholder/Light/Standard/Placeholder.png"]
-  SETTABLEKS R4 R3 K31 ["UniverseDefaultIcon"]
-  LOADK R4 K50 ["rbxasset://studio_svg_textures/Shared/Placeholder/Light/Standard/Placeholder.png"]
-  SETTABLEKS R4 R3 K32 ["UniverseLargeDefaultIcon"]
-  LOADK R4 K57 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/User.png"]
-  SETTABLEKS R4 R3 K33 ["UserDefaultIcon"]
-  LOADK R4 K58 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Light/Standard/StarterPlayer.png"]
-  SETTABLEKS R4 R3 K34 ["UserFolderIcon"]
-  LOADK R4 K59 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Large/User.png"]
-  SETTABLEKS R4 R3 K35 ["UserLargeDefaultIcon"]
-  MOVE R4 R2
-  LOADK R5 K60 ["AssetManagerLightTheme"]
-  NEWTABLE R6 0 0
-  MOVE R7 R3
-  CALL R4 3 -1
-  RETURN R4 -1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["Images"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K13 ["AvailableImages"]
+  DUPTABLE R5 K41 [{"ArrowDownIcon", "ArrowRightIcon", "ArrowUpIcon", "CheckmarkIcon", "ClearIcon", "FilterIcon", "FolderIcon", "GroupDefaultIcon", "GroupFolderIcon", "GroupLargeDefaultIcon", "ImportIcon", "NotificationIcon", "PackageLinkIcon", "PlaceholderAssetIcon", "PlaceholderIcon", "PlacesFolderIcon", "RefreshIcon", "SearchIcon", "SidebarCollapseIcon", "SidebarExpandIcon", "SortIcon", "UniverseDefaultIcon", "UniverseLargeDefaultIcon", "UserDefaultIcon", "UserFolderIcon", "UserLargeDefaultIcon", "AmContentEmphasis"}]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K43 ["ArrowDown"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K14 ["ArrowDownIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K44 ["ArrowRight"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K15 ["ArrowRightIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K45 ["ArrowUp"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K16 ["ArrowUpIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K46 ["Checkmark"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K17 ["CheckmarkIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K47 ["Clear"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K18 ["ClearIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K48 ["Filter"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K19 ["FilterIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K49 ["Folder"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K20 ["FolderIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K50 ["Group"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K21 ["GroupDefaultIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K51 ["GroupFolder"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K22 ["GroupFolderIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K52 ["GroupLarge"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K23 ["GroupLargeDefaultIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K53 ["Import"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K24 ["ImportIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K54 ["Notification"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K25 ["NotificationIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K55 ["PackageLink"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K26 ["PackageLinkIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K56 ["PlaceholderAsset"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K27 ["PlaceholderAssetIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K57 ["Placeholder"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K28 ["PlaceholderIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K58 ["PlacesFolder"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K29 ["PlacesFolderIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K59 ["Refresh"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K30 ["RefreshIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K60 ["Search"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K31 ["SearchIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K61 ["SidebarCollapse"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K32 ["SidebarCollapseIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K62 ["SidebarExpand"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K33 ["SidebarExpandIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K63 ["Sort"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K34 ["SortIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K64 ["Universe"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K35 ["UniverseDefaultIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K65 ["UniverseLarge"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K36 ["UniverseLargeDefaultIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K66 ["User"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K37 ["UserDefaultIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K67 ["UserFolder"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K38 ["UserFolderIcon"]
+  GETTABLEKS R6 R3 K42 ["getLight"]
+  GETTABLEKS R7 R4 K68 ["UserLarge"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K39 ["UserLargeDefaultIcon"]
+  GETIMPORT R6 K71 [Color3.fromHex]
+  LOADK R7 K72 ["#202227"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K40 ["AmContentEmphasis"]
+  MOVE R6 R2
+  LOADK R7 K73 ["AssetManagerLightTheme"]
+  NEWTABLE R8 0 0
+  MOVE R9 R5
+  CALL R6 3 -1
+  RETURN R6 -1

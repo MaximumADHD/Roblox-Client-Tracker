@@ -16,87 +16,82 @@ MAIN:
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K7 ["COLLAB4802_FixManageCollabLanguageBug"]
+  LOADK R2 K7 ["StudioManageCollabFixFocusError"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K8 ["StudioManageCollabFixFocusError"]
+  LOADK R2 K8 ["Collab7855_HandleUnknownPermission2"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K9 ["Collab7855_HandleUnknownPermission2"]
+  LOADK R2 K9 ["Collab7855_LogUnknownPermissions"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K10 ["Collab7855_LogUnknownPermissions"]
+  LOADK R2 K10 ["StudioFriendToConnection"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K11 ["StudioFriendToConnection"]
+  LOADK R2 K11 ["Collab8766_LogCollabSearchItemClickedEventV3"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K12 ["Collab8766_LogCollabSearchItemClickedEventV3"]
-  LOADB R3 0
-  NAMECALL R0 R0 K5 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K13 ["CollaboratorSearchItemClickedEventThrottleHundrethsPercent"]
+  LOADK R2 K12 ["CollaboratorSearchItemClickedEventThrottleHundrethsPercent"]
   LOADN R3 0
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K14 ["Collab8818_ShowSearchItemDisplayName"]
+  LOADK R2 K13 ["Collab8818_ShowSearchItemDisplayName"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K15 ["COLLAB8937FixPrintNumToString"]
+  LOADK R2 K14 ["COLLAB8937FixPrintNumToString"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K16 ["Collab9031_ManageCollaboratorsEarlyFoundationMigration"]
+  LOADK R2 K15 ["Collab9031_ManageCollaboratorsEarlyFoundationMigration"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K17 ["Collab8864_ShowCopyLinkButton"]
+  LOADK R2 K16 ["Collab8864_ShowCopyLinkButton"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K18 ["Collab9119_LogLinkCopiedEvent"]
+  LOADK R2 K17 ["Collab9119_LogLinkCopiedEvent"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K19 ["LinkCopiedEventThrottleHundrethsPercent"]
+  LOADK R2 K18 ["LinkCopiedEventThrottleHundrethsPercent"]
   LOADN R3 0
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K20 ["Collab9119_LogLinkFetchFailures"]
+  LOADK R2 K19 ["Collab9119_LogLinkFetchFailures"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K21 ["LinkFetchFailuresThrottleHundrethsPercent"]
+  LOADK R2 K20 ["LinkFetchFailuresThrottleHundrethsPercent"]
   LOADN R3 0
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K22 ["Collab8953_EnableLikelyCollaboratorPrefetch"]
+  LOADK R2 K21 ["Collab8953_EnableLikelyCollaboratorPrefetch"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K23 ["Collab8953_EnableLikelyCollaboratorPrefetchExperimentV2"]
+  LOADK R2 K22 ["Collab8953_EnableLikelyCollaboratorPrefetchExperimentV2"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

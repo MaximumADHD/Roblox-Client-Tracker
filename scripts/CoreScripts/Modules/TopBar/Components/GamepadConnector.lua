@@ -34,6 +34,7 @@ local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMen
 local FFlagGamepadFocusRefactor = SharedFlags.FFlagGamepadFocusRefactor
 
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
+local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
 
 local FFlagUseToBarFocusedToToggleTopBar = game:DefineFastFlag("UseToBarFocusedToToggleTopBar", false)
 local FFlagAddDismissTopBarFocus = game:DefineFastFlag("AddDismissTopBarFocus", false)
@@ -407,7 +408,11 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 			end
 			self:_toggleUnibarMenu()
 		end
-		return Enum.ContextActionResult.Sink
+		if FFlagModalPlayerListCloseUnfocused then
+			return Enum.ContextActionResult.Pass
+		else
+			return Enum.ContextActionResult.Sink
+		end
 	end
 
 	return Enum.ContextActionResult.Pass

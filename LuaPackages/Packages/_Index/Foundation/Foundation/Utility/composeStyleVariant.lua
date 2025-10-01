@@ -4,12 +4,42 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 
+local Types = require(Foundation.Components.Types)
+
 export type VariantProps = { [string]: { [string]: any } }
+
+local function tagToTable(tag: Types.Tags)
+	if type(tag) == "string" then
+		return {
+			[tag] = true,
+		}
+	end
+	return tag
+end
+
+local function mergeTags(a: Types.Tags?, b: Types.Tags?)
+	if not a then
+		return b
+	end
+	if not b then
+		return a
+	end
+
+	-- If either input is a table, convert both to tables and merge
+	if type(a) == "table" or type(b) == "table" then
+		local aTable = tagToTable(a)
+		local bTable = tagToTable(b)
+		return Dash.join(aTable, bTable)
+	end
+
+	-- Both are strings, concatenate them
+	return `{a} {b}`
+end
 
 -- Merges props from b to a, overwriting props already existing in a. Except for the tag property.
 local function mergeProps(a: { [string]: unknown }, b: { [string]: unknown })
 	local res = Dash.join(a, b)
-	res.tag = if a.tag and b.tag then `{a.tag} {b.tag}` else if a.tag then a.tag else b.tag
+	res.tag = mergeTags(a.tag :: Types.Tags, b.tag :: Types.Tags)
 	return res
 end
 

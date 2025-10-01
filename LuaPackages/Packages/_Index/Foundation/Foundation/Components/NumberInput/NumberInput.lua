@@ -18,12 +18,12 @@ type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControls
 
 local InternalTextInput = require(Components.InternalTextInput)
 local InputField = require(Components.InputField)
+local Icon = require(Components.Icon)
 local View = require(Components.View)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local Types = require(Components.Types)
-local Flags = require(Foundation.Utility.Flags)
 
 local NumberInputControls = require(script.Parent.NumberInputControls)
 local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
@@ -53,6 +53,8 @@ export type NumberInputProps = {
 	hint: string?,
 	-- Width of the component
 	width: UDim?,
+	-- Image before the input
+	leadingIcon: string?,
 	-- Value that will be added/subtracted every time you press increment/decrement controls
 	step: number?,
 	-- Maximum value input may reach via increment
@@ -98,6 +100,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		label: string,
 		hint: string?,
 		width: UDim,
+		leadingIcon: string?,
 	} & Types.CommonProps
 
 	local tokens = useTokens()
@@ -112,17 +115,10 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	end, { props.minimum, props.maximum })
 
 	if not focused then
-		if Flags.FoundationNumberInputIncrementClamp then
-			upValue = clampValueToRange(round(props.value + props.step, props.precision))
-			isDisabledUp = props.value == props.maximum
-			downValue = clampValueToRange(round(props.value - props.step, props.precision))
-			isDisabledDown = props.value == props.minimum
-		else
-			upValue = round(props.value + props.step, props.precision)
-			isDisabledUp = upValue > props.maximum
-			downValue = round(props.value - props.step, props.precision)
-			isDisabledDown = downValue < props.minimum
-		end
+		upValue = clampValueToRange(round(props.value + props.step, props.precision))
+		isDisabledUp = props.value == props.maximum
+		downValue = clampValueToRange(round(props.value - props.step, props.precision))
+		isDisabledDown = props.value == props.minimum
 	end
 
 	-- Should we have a default value?
@@ -212,6 +208,17 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					onFocus = onFocus,
 					ref = inputRef,
 					trailingElement = if controlsVariant == NumberInputControlsVariant.Stacked then controls else nil,
+					leadingElement = if props.leadingIcon
+						then React.createElement(
+							View,
+							{ tag = "size-0-full auto-x row align-y-center" },
+							React.createElement(Icon, {
+								name = props.leadingIcon,
+								style = variantProps.icon.style,
+								size = variantProps.icon.size,
+							})
+						)
+						else nil,
 					isDisabled = props.isDisabled,
 				})
 

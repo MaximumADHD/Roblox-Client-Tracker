@@ -55,6 +55,10 @@ local function OverlayProvider(props: Props)
 					DisplayOrder = Constants.MAX_LAYOUT_ORDER - 1,
 					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 					ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets,
+					SafeAreaCompatibility = if Flags.FoundationOverlayNoClip
+						then Enum.SafeAreaCompatibility.None
+						else nil,
+					ClipToDeviceSafeArea = if Flags.FoundationOverlayNoClip then false else nil,
 					ref = overlayRefCallback,
 				}, {
 					FoundationStyleLink = if Flags.FoundationDisableStylingPolyfill

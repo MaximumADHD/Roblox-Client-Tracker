@@ -15,7 +15,7 @@ MAIN:
   CALL R2 1 1
   CALL R2 0 1
   NEWTABLE R3 0 0
-  NEWTABLE R4 0 7
+  NEWTABLE R4 0 8
   NEWTABLE R5 0 2
   LOADK R6 K11 ["AccessorySoundToggled"]
   LOADK R7 K12 ["Counter to track whether accessories sound enabled is toggled. Additional fields: enabled = [true, false]"]
@@ -44,110 +44,114 @@ MAIN:
   LOADK R12 K23 ["SwitchedToTab"]
   LOADK R13 K24 ["Counter to track category tab switching. Additional fields: tabName = [General, Body, Clothing,  Accessories, Movement]"]
   SETLIST R11 R12 2 [1]
-  SETLIST R4 R5 7 [1]
+  NEWTABLE R12 0 2
+  LOADK R13 K25 ["PublishedWithPreset"]
+  LOADK R14 K26 ["Counter to track published with preset. Additional fields: presetType = [PlayerChoice, ConsistentGameplay, None]"]
+  SETLIST R12 R13 2 [1]
+  SETLIST R4 R5 8 [1]
   NEWTABLE R5 0 13
   NEWTABLE R6 0 3
-  LOADK R7 K25 ["AccessoriesLimitMethod"]
-  LOADK R8 K26 ["limitMethod"]
-  LOADK R9 K27 ["Scale, Remove"]
+  LOADK R7 K27 ["AccessoriesLimitMethod"]
+  LOADK R8 K28 ["limitMethod"]
+  LOADK R9 K29 ["Scale, Remove"]
   SETLIST R6 R7 3 [1]
   NEWTABLE R7 0 3
-  LOADK R8 K28 ["AccessoryCustomLimitMode"]
-  LOADK R9 K29 ["accessoryCustomLimitMode"]
-  LOADK R10 K30 ["PlayerChoice, CustomLimit"]
+  LOADK R8 K30 ["AccessoryCustomLimitMode"]
+  LOADK R9 K31 ["accessoryCustomLimitMode"]
+  LOADK R10 K32 ["PlayerChoice, CustomLimit"]
   SETLIST R7 R8 3 [1]
   NEWTABLE R8 0 3
-  LOADK R9 K31 ["AnimationClipsMode"]
-  LOADK R10 K32 ["animationClipsMode"]
-  LOADK R11 K33 ["PlayerChoice, CustomClips"]
+  LOADK R9 K33 ["AnimationClipsMode"]
+  LOADK R10 K34 ["animationClipsMode"]
+  LOADK R11 K35 ["PlayerChoice, CustomClips"]
   SETLIST R8 R9 3 [1]
   NEWTABLE R9 0 3
-  LOADK R10 K34 ["AnimationPacksMode"]
-  LOADK R11 K35 ["animationPacksMode"]
-  LOADK R12 K36 ["PlayerChoice, StandardR15, StandardR6"]
+  LOADK R10 K36 ["AnimationPacksMode"]
+  LOADK R11 K37 ["animationPacksMode"]
+  LOADK R12 K38 ["PlayerChoice, StandardR15, StandardR6"]
   SETLIST R9 R10 3 [1]
   NEWTABLE R10 0 3
-  LOADK R11 K37 ["AppearanceMode"]
-  LOADK R12 K38 ["appearanceMode"]
-  LOADK R13 K39 ["PlayerChoice, CustomParts"]
+  LOADK R11 K39 ["AppearanceMode"]
+  LOADK R12 K40 ["appearanceMode"]
+  LOADK R13 K41 ["PlayerChoice, CustomParts"]
   SETLIST R10 R11 3 [1]
   NEWTABLE R11 0 3
-  LOADK R12 K40 ["AvatarType"]
-  LOADK R13 K41 ["avatarType"]
-  LOADK R14 K42 ["R15, R6, PlayerChoice"]
+  LOADK R12 K42 ["AvatarType"]
+  LOADK R13 K43 ["avatarType"]
+  LOADK R14 K44 ["R15, R6, PlayerChoice"]
   SETLIST R11 R12 3 [1]
   NEWTABLE R12 0 3
-  LOADK R13 K43 ["BuildMode"]
-  LOADK R14 K44 ["buildMode"]
-  LOADK R15 K45 ["PlayerChoice, CustomBuild"]
+  LOADK R13 K45 ["BuildMode"]
+  LOADK R14 K46 ["buildMode"]
+  LOADK R15 K47 ["PlayerChoice, CustomBuild"]
   SETLIST R12 R13 3 [1]
   NEWTABLE R13 0 3
-  LOADK R14 K46 ["ClothingCustomLimitMode"]
-  LOADK R15 K47 ["clothingCustomLimitMode"]
-  LOADK R16 K30 ["PlayerChoice, CustomLimit"]
+  LOADK R14 K48 ["ClothingCustomLimitMode"]
+  LOADK R15 K49 ["clothingCustomLimitMode"]
+  LOADK R16 K32 ["PlayerChoice, CustomLimit"]
   SETLIST R13 R14 3 [1]
   NEWTABLE R14 0 3
-  LOADK R15 K48 ["CollisionMode"]
-  LOADK R16 K49 ["mode"]
-  LOADK R17 K50 ["Default, SingleCollider, Legacy"]
+  LOADK R15 K50 ["CollisionMode"]
+  LOADK R16 K51 ["mode"]
+  LOADK R17 K52 ["Default, SingleCollider, Legacy"]
   SETLIST R14 R15 3 [1]
   NEWTABLE R15 0 3
-  LOADK R16 K51 ["CustomAccessoryMode"]
-  LOADK R17 K52 ["customAccessoryMode"]
-  LOADK R18 K53 ["PlayerChoice, CustomAccessories"]
+  LOADK R16 K53 ["CustomAccessoryMode"]
+  LOADK R17 K54 ["customAccessoryMode"]
+  LOADK R18 K55 ["PlayerChoice, CustomAccessories"]
   SETLIST R15 R16 3 [1]
   NEWTABLE R16 0 3
-  LOADK R17 K54 ["CustomClothingMode"]
-  LOADK R18 K47 ["clothingCustomLimitMode"]
-  LOADK R19 K55 ["PlayerChoice, CustomClothing"]
+  LOADK R17 K56 ["CustomClothingMode"]
+  LOADK R18 K49 ["clothingCustomLimitMode"]
+  LOADK R19 K57 ["PlayerChoice, CustomClothing"]
   SETLIST R16 R17 3 [1]
   NEWTABLE R17 0 3
-  LOADK R18 K56 ["Preset"]
-  LOADK R19 K57 ["presetType"]
-  LOADK R20 K58 ["PlayerChoice, ConsistentGameplay"]
+  LOADK R18 K58 ["Preset"]
+  LOADK R19 K59 ["presetType"]
+  LOADK R20 K60 ["PlayerChoice, ConsistentGameplay"]
   SETLIST R17 R18 3 [1]
   NEWTABLE R18 0 3
-  LOADK R19 K59 ["ScaleMode"]
-  LOADK R20 K60 ["scaleMode"]
-  LOADK R21 K61 ["PlayerChoice, CustomScale"]
+  LOADK R19 K61 ["ScaleMode"]
+  LOADK R20 K62 ["scaleMode"]
+  LOADK R21 K63 ["PlayerChoice, CustomScale"]
   SETLIST R18 R19 3 [1]
   SETLIST R5 R6 13 [1]
-  DUPTABLE R6 K66 [{"throttlingPercentage", "lastUpdated", "backends", "links"}]
-  SETTABLEKS R2 R6 K62 ["throttlingPercentage"]
+  DUPTABLE R6 K68 [{"throttlingPercentage", "lastUpdated", "backends", "links"}]
+  SETTABLEKS R2 R6 K64 ["throttlingPercentage"]
   NEWTABLE R7 0 3
   LOADN R8 233
   LOADN R9 8
   LOADN R10 14
   SETLIST R7 R8 3 [1]
-  SETTABLEKS R7 R6 K63 ["lastUpdated"]
+  SETTABLEKS R7 R6 K65 ["lastUpdated"]
   NEWTABLE R7 0 1
-  LOADK R8 K67 ["RobloxTelemetryCounter"]
+  LOADK R8 K69 ["RobloxTelemetryCounter"]
   SETLIST R7 R8 1 [1]
-  SETTABLEKS R7 R6 K64 ["backends"]
-  LOADK R7 K68 ["https://grafana.rbx.com/d/feutjrfrb5kw0b/avatar-settings-plugin-telemetry?orgId=1"]
-  SETTABLEKS R7 R6 K65 ["links"]
+  SETTABLEKS R7 R6 K66 ["backends"]
+  LOADK R7 K70 ["https://grafana.rbx.com/d/feutjrfrb5kw0b/avatar-settings-plugin-telemetry?orgId=1"]
+  SETTABLEKS R7 R6 K67 ["links"]
   MOVE R7 R5
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL1 TABLE_UNPACK R11 [+3]
   MOVE R13 R11
-  GETIMPORT R12 K71 [table.unpack]
+  GETIMPORT R12 K73 [table.unpack]
   CALL R12 1 3
   MOVE R16 R12
-  LOADK R17 K72 ["Selected"]
+  LOADK R17 K74 ["Selected"]
   CONCAT R15 R16 R17
-  GETTABLEKS R17 R1 K73 ["Dictionary"]
-  GETTABLEKS R16 R17 K74 ["join"]
+  GETTABLEKS R17 R1 K75 ["Dictionary"]
+  GETTABLEKS R16 R17 K76 ["join"]
   MOVE R17 R6
-  DUPTABLE R18 K76 [{"description"}]
-  GETIMPORT R19 K79 [string.format]
-  LOADK R20 K80 ["Counter to track %s selections. Additional fields: %s: [%s]"]
+  DUPTABLE R18 K78 [{"description"}]
+  GETIMPORT R19 K81 [string.format]
+  LOADK R20 K82 ["Counter to track %s selections. Additional fields: %s: [%s]"]
   MOVE R21 R12
   MOVE R22 R13
   MOVE R23 R14
   CALL R19 4 1
-  SETTABLEKS R19 R18 K75 ["description"]
+  SETTABLEKS R19 R18 K77 ["description"]
   CALL R16 2 1
   SETTABLE R16 R3 R15
   FORGLOOP R7 2 [-26]
@@ -157,13 +161,13 @@ MAIN:
   FORGPREP R7
   FASTCALL1 TABLE_UNPACK R11 [+3]
   MOVE R13 R11
-  GETIMPORT R12 K71 [table.unpack]
+  GETIMPORT R12 K73 [table.unpack]
   CALL R12 1 2
-  GETTABLEKS R15 R1 K73 ["Dictionary"]
-  GETTABLEKS R14 R15 K74 ["join"]
+  GETTABLEKS R15 R1 K75 ["Dictionary"]
+  GETTABLEKS R14 R15 K76 ["join"]
   MOVE R15 R6
-  DUPTABLE R16 K76 [{"description"}]
-  SETTABLEKS R13 R16 K75 ["description"]
+  DUPTABLE R16 K78 [{"description"}]
+  SETTABLEKS R13 R16 K77 ["description"]
   CALL R14 2 1
   SETTABLE R14 R3 R12
   FORGLOOP R7 2 [-16]
