@@ -1,0 +1,11 @@
+name: lua-module-inspect-and-buy
+description: The Inspect & Buy in-experience UX
+product: lua-module-inspect-and-buy
+repository: Roblox/lua-apps
+code_path: content/scripts/CoreScripts/Modules/InspectAndBuy
+owners:
+# marketplace > expression
+  - ros/1097
+tags:
+  - type:universal-app
+  - lang:lua

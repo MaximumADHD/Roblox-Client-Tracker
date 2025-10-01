@@ -23,15 +23,14 @@ Text and icon content type can be added any of the badges
 
 `Badge` text has `RichText` enabled by default to support custom colorization of the `text` prop.
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Badge = Foundation.Badge
 local BadgeVariant = Foundation.Enums.BadgeVariant
-...
+
 return React.createElement(Badge, {
 	icon = "icons/menu/clothing/limited_on",
 	text = "#100",
 	variant = BadgeVariant.Neutral,
 })
-...
 ```

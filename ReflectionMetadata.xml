@@ -486,6 +486,17 @@
       </Properties>
     </Item>
 
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">WrapTextureTransfer</string>
+        <string name="ClassCategory">Effects</string>
+        <string name="ExplorerOrder">33</string>
+        <string name="PreferredParent">Decal</string>
+        <string name="PreferredParents">Decal</string>
+        <bool name="Insertable">true</bool>
+        <string name="FFlag">WrapTextureTransferEnabled</string>
+      </Properties>
+    </Item>
 
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -4325,45 +4336,6 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Offset</string>
-          </Properties>
-        </Item>
-      </Item>
-    </Item>
-
-    <Item class="ReflectionMetadataClass">
-      <Properties>
-        <string name="Name">UIContainerQuery</string>
-        <string name="ExplorerOrder">30</string>
-        <string name="ExplorerImageIndex">26</string>
-        <string name="ClassCategory">GUI</string>
-        <string name="PreferredParent">GuiBase2d</string>
-        <bool name="FFlag">UIContainerQuery</bool>
-      </Properties>
-
-      <Item class="ReflectionMetadataProperties">
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">MinSize</string>
-            <string name="PropertyOrder">1</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">MaxSize</string>
-            <string name="PropertyOrder">2</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">AspectRatioRange</string>
-            <string name="PropertyOrder">3</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">IsActive</string>
-            <string name="PropertyOrder">4</string>
-            <bool name="EditingDisabled">true</bool>
           </Properties>
         </Item>
       </Item>
@@ -8810,6 +8782,15 @@
         <string name="PreferredParent">StyleSheet</string>
         <string name="ExplorerOrder">200</string>
         <string name="FFlag">FFlagEngineStylingEnabled2</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">StyleQuery</string>
+        <string name="ExplorerOrder">200</string>
+        <string name="ClassCategory">Styling</string>
+        <string name="PreferredParent">GuiBase2d</string>
+        <bool name="FFlag">StyleQuery</bool>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

@@ -21,7 +21,7 @@ If any of the optional fields are not provided then the corresponding components
 
 The action should be provided as an object conforming to the SnackbarAction type:
 
-```lua
+```luau
 type SnackbarAction = {
 	onActivated: () -> nil,
 	text: string,
@@ -30,17 +30,17 @@ type SnackbarAction = {
 
 If the icon is provided as a string, it will be treated as the icon name with default style and variant. You can also provide an `Icon` object:
 
-```lua
+```luau
 type Icon = {
 	name: string,
 	variant: IconVariant?,
 }
 ```
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Snackbar = Foundation.Snackbar
-...
+
 return React.createElement(Snackbar, {
 	title = "this is a snackbar!",
 	icon = "simplified-diamond",
@@ -54,5 +54,4 @@ return React.createElement(Snackbar, {
 		print("Closed")
 	end,
 })
-...
 ```

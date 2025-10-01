@@ -14,22 +14,24 @@ category: Inputs
 You can provide any element as `leadingElement` or `trailingElement`. The input will take the rest space without any paddings by default. 
 
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local InternalTextInput = Foundation.InternalTextInput
-...
-local text, setText = React.useState(0)
-React.createElement(InternalTextInput, {
-	text = text,
-	onChanged = function() end,
-	placeholder = "Placeholder",
-	leadingElement = React.createElement(Icon, { name = "icons/common/search_small", size = IconSize.Small }),
-	trailingElement = React.createElement(IconButton, {
-		onActivated = buttonPress,
-		isDisabled = controls.isDisabled,
-		size = IconSize.Small,
-		icon = controls.trailingComponentIcon,
-	}),
-	LayoutOrder = 1,
-}),
+
+local function Component()
+	local text, setText = React.useState(0)
+	return React.createElement(InternalTextInput, {
+		text = text,
+		onChanged = function() end,
+		placeholder = "Placeholder",
+		leadingElement = React.createElement(Icon, { name = "icons/common/search_small", size = IconSize.Small }),
+		trailingElement = React.createElement(IconButton, {
+			onActivated = buttonPress,
+			isDisabled = controls.isDisabled,
+			size = IconSize.Small,
+			icon = controls.trailingComponentIcon,
+		}),
+		LayoutOrder = 1,
+	})
+end
 ```

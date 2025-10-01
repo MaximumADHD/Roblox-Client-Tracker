@@ -16,7 +16,7 @@ Here’s a breakdown of how to use these wrappers in unit tests with [Jest](http
 ### ✅ 1. Test Signal Subscription with Connect
 To verify that your component listens to a property change signal, spy on the wrapper functions.
 
-```lua
+```luau
 local getPropertyChangedSignalSpy = jest.spyOn(Wrappers.Instance, "GetPropertyChangedSignal")
 local connectSpy = jest.spyOn(Wrappers.Signal, "Connect")
 
@@ -40,7 +40,7 @@ This verifies that:
 ### 🔄 2. Test Disconnecting on Prop Change
 When the gui prop changes, the old signal connection should be disconnected. Use `Disconnect` to confirm proper cleanup.
 
-```lua
+```luau
 local disconnectSpy = jest.spyOn(Wrappers.Connection, "Disconnect")
 
 local testGui = Instance.new("ScreenGui")
@@ -64,7 +64,7 @@ This ensures:
 ### 🔁 3. Cleanup on Unmount
 Unmounting the component should also clean up signal connections:
 
-```lua
+```luau
 root:unmount()
 expect(disconnectSpy).toHaveBeenCalled()
 ```
@@ -78,7 +78,7 @@ Assert on both the arguments passed and the call count to ensure correctness.
 
 Reset mocks in `beforeEach()` to prevent cross-test contamination:
 
-```lua
+```luau
 beforeEach(function()
 	jest.clearAllMocks()
 end)

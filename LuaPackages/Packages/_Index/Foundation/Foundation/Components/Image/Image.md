@@ -24,10 +24,9 @@ In normal cases, you can replace `ImageLabel` and `ImageButton` with `Image` dir
 
 See how to style `Image` quickly with the [[Style Tags]].
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Image = Foundation.Image
-...
 
 local onStateChanged = React.useCallback(function(state)
     print("Image state changed", state)

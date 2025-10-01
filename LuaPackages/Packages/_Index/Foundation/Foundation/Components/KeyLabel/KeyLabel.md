@@ -16,10 +16,10 @@ if `holdBehavior` is provided then KeyLabel will call `onBeginHold` and display 
 
 Here is an example of how to create a `KeyLabel` component with a `holdTime` of 1 second.
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local KeyLabel = Foundation.KeyLabel
-...
+
 return React.createElement(KeyLabel, {
     keyCode = Enum.KeyCode.A,
     holdBehavior = {
@@ -36,5 +36,4 @@ return React.createElement(KeyLabel, {
         end
     }
 })
-...
 ```

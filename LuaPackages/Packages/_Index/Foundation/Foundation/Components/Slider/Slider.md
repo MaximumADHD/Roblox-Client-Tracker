@@ -14,7 +14,7 @@ Slider is designed such that the consumer controls the current bar fill percenta
 
 To create a basic form field the main props to supply are `value` and `onValueChanged`. This is enough to allow the user to drag the bar around, and the `value` binding can then be read when submitting the form.
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Slider = Foundation.Slider
 local SliderVariant = Foundation.Enums.SliderVariant
@@ -37,7 +37,7 @@ end
 
 A more complex example would be a media timeline that progresses independently and allows the user to scrub along it to skip to where they want in the media's playback.
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Slider = Foundation.Slider
 local SliderVariant = Foundation.Enums.SliderVariant
@@ -111,3 +111,4 @@ local function MediaTimeline()
 		}),
 	})
 end
+```

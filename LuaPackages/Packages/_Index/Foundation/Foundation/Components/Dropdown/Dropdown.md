@@ -11,7 +11,7 @@ label while the list of options are hidden, and we show the list of options vert
 
 ## Usage
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Dropdown = Foundation.Dropdown
 
@@ -34,5 +34,5 @@ return React.createElement(Dropdown.Root, {
 			icon = "icons/common/safety",
 		},
     }
-}),
+})
 ```

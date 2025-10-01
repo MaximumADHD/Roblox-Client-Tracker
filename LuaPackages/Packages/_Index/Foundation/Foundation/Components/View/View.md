@@ -22,10 +22,9 @@ In normal cases, you can replace `Frame` and `CanvasGroup` with `View` directly.
 
 See how to style `View` quickly with the [[Style Tags]].
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local View = Foundation.View
-...
 
 local onStateChanged = React.useCallback(function(state)
     print("View state changed", state)

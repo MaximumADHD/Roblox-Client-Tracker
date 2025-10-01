@@ -33,12 +33,12 @@ Each standard size will apply the corresponding font style, padding, border radi
 
 `Button`s will grow to fit their text until they reach their parents boundaries, in which case they will not exceed that width. Button text does *not* wrap to multiple lines.
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Button = Foundation.Button
 local ButtonVariant = Foundation.Enums.ButtonVariant
 local InputSize = Foundation.Enums.InputSize
-...
+
 return React.createElement(Button, {
 	icon = "icons/common/robux",
 	text = "Purchase Item",
@@ -49,5 +49,4 @@ return React.createElement(Button, {
 	isDisabled = false,
 	size = InputSize.Small,
 })
-...
 ```

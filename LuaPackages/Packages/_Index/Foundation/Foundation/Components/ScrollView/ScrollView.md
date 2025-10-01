@@ -22,24 +22,25 @@ In normal cases, you can replace `ScrollingFrame` with `ScrollView` directly. No
 
 See how to style `ScrollView` quickly with the [[Style Tags]].
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local ScrollView = Foundation.ScrollView
 local Visibility = Foundation.Enums.Visibility
-...
 
-local onStateChanged = React.useCallback(function(state)
-    print("ScrollView state changed", state)
-end, {})
+local function Component()
+	local onStateChanged = React.useCallback(function(state)
+		print("ScrollView state changed", state)
+	end, {})
 
-return React.createElement(ScrollView, {
-    onStateChanged = onStateChanged,
-    scroll = {
-        scrollBarVisibility = Visibility.Always,
-	    ScrollingDirection = Enum.ScrollingDirection.Y,
-    },
-    tag = "row align-y-center padding-small",
-}, {
-    ...
-})
+	return React.createElement(ScrollView, {
+		onStateChanged = onStateChanged,
+		scroll = {
+			scrollBarVisibility = Visibility.Always,
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+		},
+		tag = "row align-y-center padding-small",
+	}, {
+		...,
+	})
+end
 ```

@@ -8,10 +8,9 @@ category: Display
 
 ## Usage
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Knob = Foundation.Knob
-...
+
 return React.createElement(Knob, {})
-...
 ```

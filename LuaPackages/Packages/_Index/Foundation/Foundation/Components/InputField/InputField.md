@@ -19,15 +19,14 @@ The `input` property take a function rendering a component which receives a ref 
 The ref should be passed to a component and should have `focus: () -> ()` and `hover: (state: boolean) -> ()` method implemented through `React.useImperativeHandle`. See `InternalTextInput` as an example
 
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local InputField = Foundation.InputField
 local InputComponent = AnyLibrary.InputComponent
-...
 
 return React.createElement(InputField, {
      label = "Label",
-     hint = "True"
+     hint = "True",
      isRequired = true,
      input = function(ref) React.createElement(InputComponent, { ..., ref = ref }) end
 })

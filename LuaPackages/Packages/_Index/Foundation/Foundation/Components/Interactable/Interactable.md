@@ -9,7 +9,7 @@ It accepts all props that can be passed into an `ImageButton` or the props of th
 ## Usage
 
 
-```lua
+```luau
 local YourComponent = function(props: Props)
 	-- create a binding for control state to change button text and color
 	local controlState, updateControlState = React.useBinding(ControlState.Initialize :: ControlState)
@@ -43,14 +43,14 @@ local YourComponent = function(props: Props)
 	end, { stylePalette })
 
 	return React.createElement(Focusable[Interactable], {
-		...
+		...,
 		[React.Event.Activated] = onActivated,
 
 		onStateChanged = onStateChanged,
 		isDisabled = props.isDisabled,
 	}, {
 		ExampleComponent = React.createElement(Text, {
-			...
+			...,
 			Text = controlState:map(function(state)
 				return tostring(state)
 			end),
@@ -63,7 +63,6 @@ local YourComponent = function(props: Props)
 		}),
 	})
 end
-
 ```
 
 ### Important Notes

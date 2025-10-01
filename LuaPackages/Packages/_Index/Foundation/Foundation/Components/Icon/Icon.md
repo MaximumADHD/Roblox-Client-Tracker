@@ -14,17 +14,15 @@ Use the provided [[IconSize]] enum to set the size of the icon. The available si
 
 ## Usage
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Icon = Foundation.Icon
 local Enums = Foundation.Enums
 
-...
-React.createElement(Icon, {
+return React.createElement(Icon, {
     name = Enums.IconName.House,
     size = Enums.IconSize.Medium,
 })
-...
 ```
 
 ## Legacy Icons
@@ -32,12 +30,11 @@ React.createElement(Icon, {
 To browse legacy icons available for use through this component, visit [[Images]]. When possible use the new Builder Icons, as they are true vector graphics.
 
 
-```lua
-...
+```luau
 local Foundation = require(Packages.Foundation)
 local Icon = Foundation.Icon
 local IconSize = Foundation.Enums.IconSize
-...
+
 return React.createElement(Icon, {
     name = "icons/common/search_small",
     size = IconSize.Medium,

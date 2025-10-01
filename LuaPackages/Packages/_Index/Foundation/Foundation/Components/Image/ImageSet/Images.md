@@ -18,7 +18,7 @@ To use these, you'll pass the image's string to the `Image` property of the [[Im
 
 The [[Image]] component is used for graphics that use non standard sizes and other images that require slicing.
 
-```lua title="Image"
+```luau title="Image"
 local Image = Foundation.Image
 local useTokens = Foundation.Hooks.useStyle
 

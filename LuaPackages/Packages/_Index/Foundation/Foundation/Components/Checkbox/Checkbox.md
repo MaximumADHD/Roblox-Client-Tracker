@@ -14,11 +14,11 @@ Checkboxes will automatically size to fit their text, and have a minimum height 
 Checkbox size depends on the size property. Possible values are defined in [[InputSize]].
 `Medium` is the default. 
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Checkbox = Foundation.Checkbox
 local InputSize = Foundation.Enums.InputSize
-...
+
 React.createElement(Checkbox, {
 	label = "Checkbox Option",
 	isChecked = false,
@@ -26,5 +26,5 @@ React.createElement(Checkbox, {
 	onActivated = function() return end,
 	size = InputSize.Medium,
 	LayoutOrder = 1,
-}),
-...
+})
+```

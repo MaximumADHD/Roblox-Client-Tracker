@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.48.0"
+version = "1.51.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -35,6 +35,9 @@ version = "^1.1.0"
 
 [dependencies.Dash]
 version = "^3.1.0"
+
+[dependencies.FoundationCloudAssets]
+version = "^0.2.1"
 
 [dependencies.FoundationImages]
 version = "^1.30.2"

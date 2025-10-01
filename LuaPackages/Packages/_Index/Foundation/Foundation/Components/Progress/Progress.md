@@ -18,21 +18,21 @@ The `Bar` shape only officially supports only one size, `Medium`, as well as an 
 
 ### Determinate
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Progress = Foundation.Progress
 local ProgressShape = Foundation.ProgressShape
 local ProgressSize = Foundation.ProgressSize
 
 -- Determinate Progress Bar
-return React.createElement(Progress, {
+React.createElement(Progress, {
     value = 65,
     shape = ProgressShape.Bar,
     size = ProgressSize.Medium,
 })
 
 -- Determinate Circular Progress
-return React.createElement(Progress, {
+React.createElement(Progress, {
     value = 75,
     shape = ProgressShape.Circle,
     size = ProgressSize.Large,
@@ -41,15 +41,15 @@ return React.createElement(Progress, {
 
 ### Indeterminate
 
-```lua
+```luau
 -- Indeterminate Progress Bar (loading state)
-return React.createElement(Progress, {
+React.createElement(Progress, {
     shape = ProgressShape.Bar,
     size = ProgressSize.Medium,
 })
 
 -- Indeterminate Circular Progress (loading state)
-return React.createElement(Progress, {
+React.createElement(Progress, {
     shape = ProgressShape.Circle,
     size = ProgressSize.Large,
 })
@@ -57,7 +57,7 @@ return React.createElement(Progress, {
 
 ### Progress Label
 
-```lua
+```luau
 -- Progress Circle with progress label shown
 return React.createElement(Progress, {
     value = 75,

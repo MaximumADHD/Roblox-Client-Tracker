@@ -10,7 +10,7 @@
 
 You can reference a token by indexing on the `tokens` object you get from [[FoundationProvider]] through the `useTokens()` hook.
 
-```lua hl_lines="4 5"
+```luau hl_lines="4 5"
 local useTokens = Foundation.Hooks.useTokens
 
 local function MyComponent(props)

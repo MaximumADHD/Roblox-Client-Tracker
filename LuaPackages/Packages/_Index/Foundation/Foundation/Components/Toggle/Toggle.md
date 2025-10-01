@@ -12,11 +12,11 @@ Toggles are controls for turning a boolean value on or off.
 
 A `Toggle` should be used with a standard size defined in [[InputSize]]. `Medium` is the default.
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Toggle = Foundation.Toggle
 local InputSize = Foundation.Enums.InputSize
-...
+
 React.createElement(Toggle, {
 	label = "I am a toggle!",
 	isDisabled = disabled,
@@ -26,5 +26,4 @@ React.createElement(Toggle, {
 	end,
 	size = InputSize.Medium
 })
-...
 ```

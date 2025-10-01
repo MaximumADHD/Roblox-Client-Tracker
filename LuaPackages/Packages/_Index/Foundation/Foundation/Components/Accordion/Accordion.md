@@ -12,7 +12,7 @@ An `Accordion` component provides a series of collapsible inputs or content. It 
 
 ### Default Usage
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local BuilderIcons = require(Packages.BuilderIcons)
 
@@ -22,8 +22,6 @@ local InputSize = Foundation.Enums.InputSize
 type InputSize = InputSize.InputSize
 type IconVariant = BuilderIcons.IconVariant
 
-
-...
 return React.createElement(Accordion, {
     width = UDim.new(0, 100),
     size = InputSize.Large, -- defaults to InputSize.Medium
@@ -48,14 +46,13 @@ return React.createElement(Accordion, {
         accordionItemContent = React.createElement("TextButton", {}),
     }),
 })
-...
 ```
 
 ### Basic Controlled Usage
 
 If you want to allow only one `AccordionItem` to expand at a time, or have some similarly custom behavior, you can use state in the container, and pass `onActivated` to your `Accordion`.
 
-```lua
+```luau
 local expandedItem, setExpandedItem = React.useState(1)
 
 return React.createElement(Accordion, {
@@ -85,13 +82,13 @@ return React.createElement(Accordion, {
         id = 2,
     }, {
         accordionItemContent = React.createElement("TextButton", {}),
-    },
+    })
 })
 ```
 
 The same behavior can be achieved by passing `onActivated` to each individual `AccordionItem`, if you prefer:
 
-```lua
+```luau
 local expandedItem, setExpandedItem = React.useState(1)
 return React.createElement(Accordion, {
     width = UDim.new(0, 400),
@@ -106,7 +103,7 @@ return React.createElement(Accordion, {
             else
                 setExpandedItem(1)
             end
-        end
+        end,
         id = 1,
     }, {
         accordionItemContent = React.createElement("TextButton", {}),
@@ -121,7 +118,7 @@ return React.createElement(Accordion, {
             else
                 setExpandedItem(2)
             end
-        end
+        end,
         id = 2,
     }, {
         accordionItemContent = React.createElement("TextButton", {}),

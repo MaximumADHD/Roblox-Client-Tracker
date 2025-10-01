@@ -22,20 +22,21 @@ In normal cases, you can replace `TextLabel` and `TextButton` with `Text` direct
 
 See how to style `Text` quickly with the [[Style Tags]].
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Text = Foundation.Text
-...
 
-local onStateChanged = React.useCallback(function(state)
-    print("Text state changed", state)
-end, {})
+local function Component()
+	local onStateChanged = React.useCallback(function(state)
+		print("Text state changed", state)
+	end, {})
 
-return React.createElement(Text, {
-    Text = "Hello world!",
-    onStateChanged = onStateChanged,
-    tag = "padding-small grow size-2800",
-})
+	return React.createElement(Text, {
+		Text = "Hello world!",
+		onStateChanged = onStateChanged,
+		tag = "padding-small grow size-2800",
+	})
+end
 ```
 
 !!! warning "Line Height and Padding"

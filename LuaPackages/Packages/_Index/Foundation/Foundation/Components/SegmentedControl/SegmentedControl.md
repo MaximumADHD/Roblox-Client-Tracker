@@ -10,7 +10,7 @@ SegmentedControl is a horizontal control that allows users to select one of seve
 
 ## Usage
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local SegmentedControl = Foundation.SegmentedControl
 local InputSize = Foundation.Enums.InputSize
@@ -26,7 +26,7 @@ local segments = {
 	},
 }
 
-...
+local function Component()
 	return React.createElement(View, {
 		SegmentedControl = React.createElement(SegmentedControl, {
 			size = InputSize.Medium,
@@ -37,5 +37,5 @@ local segments = {
 			end,
 		}),
 	})
-...
+end
 ```

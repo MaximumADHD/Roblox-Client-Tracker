@@ -23,21 +23,23 @@ You can limit `minimum` and `maximum` values with the corresponding props.
 
 `value` is rounded automatically according to a `precision`. e.g. with the precision being 3, 0.0001 will be rounded to 0, 0.0006 to 0.001
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local NumberInput = Foundation.NumberInput
-...
-local value, setValue = React.useState(0)
-React.createElement(NumberInput, {
-	isRequired = true,
-	label = "Padding",
-	onChanged = function(v)
-		setValue(v)
-	end,
-	formatAsString = function(value)
-		return value .. "px"
-	end,
-	LayoutOrder = 1,
-	value = value,
-}),
+
+local function Component()
+	local value, setValue = React.useState(0)
+	return React.createElement(NumberInput, {
+		isRequired = true,
+		label = "Padding",
+		onChanged = function(v)
+			setValue(v)
+		end,
+		formatAsString = function(value)
+			return value .. "px"
+		end,
+		LayoutOrder = 1,
+		value = value,
+	})
+end
 ```

@@ -17,33 +17,34 @@ A `Popover` is a surface that displays content relative to an anchor element. Th
 Anchor could be an element, reference to the element, or a virtual reference (useful for context menus and tooltips following the mouse)
 
 Anchor as an element:
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Popover = Foundation.Popover
 local PopoverSide = Foundation.Enums.PopoverSide
 local Button = Foundation.Button
 local Text = Foundation.Text
 
-...
-local open, setOpen = React.useState(false)
+local function Component()
+	local open, setOpen = React.useState(false)
 
-return React.createElement(Popover.Root, {
-    isOpen = open,
-}, {
-    Anchor = React.createElement(Popover.Anchor, nil, {
-        React.createElement(Button, {
-            text = "Toggle Popover",
-            onActivated = function()
-                setOpen(not open)
-            end,
-        }),
-    }),
-    Content = React.createElement(Popover.Content, nil, {
-        React.createElement(Text, {
-            text = "This is a popover!",
-        }),
-    }),
-})
+	return React.createElement(Popover.Root, {
+		isOpen = open,
+	}, {
+		Anchor = React.createElement(Popover.Anchor, nil, {
+			React.createElement(Button, {
+				text = "Toggle Popover",
+				onActivated = function()
+					setOpen(not open)
+				end,
+			}),
+		}),
+		Content = React.createElement(Popover.Content, nil, {
+			React.createElement(Text, {
+				text = "This is a popover!",
+			}),
+		}),
+	})
+end
 ```
 
 See storybook for more examples.

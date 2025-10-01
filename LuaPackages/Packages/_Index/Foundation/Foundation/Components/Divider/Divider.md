@@ -20,20 +20,20 @@ Note: When `orientation` is set to `Vertical`, the `variant` property is always 
 
 ### Examples
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Divider = Foundation.Divider
 local DividerVariant = require(Foundation.Enums.DividerVariant)
 local Orientation = require(Foundation.Enums.Orientation)
 
 -- Horizontal divider with variant
-return React.createElement(Divider, {
+React.createElement(Divider, {
 	variant = DividerVariant.Heavy,
 	orientation = Orientation.Horizontal,
 })
 
 -- Vertical divider (always uses Default variant)
-return React.createElement(Divider, {
+React.createElement(Divider, {
 	orientation = Orientation.Vertical,
 })
 ```

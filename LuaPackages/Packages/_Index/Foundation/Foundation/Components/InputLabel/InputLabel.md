@@ -14,11 +14,10 @@ category: Display
 
 `InputLabel` also supports `onActivated` and `onHover` callbacks, which are used alongside an input button like a `RadioGroupItem`. 
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local InputLabel = Foundation.InputLabel
 local InputSize = Foundation.Enums.InputSize
-...
 
 return React.createElement(InputLabel, {
     Text = "I'm an <b>InputLabel</b>.",

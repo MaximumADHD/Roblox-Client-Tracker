@@ -15,7 +15,7 @@ category: Inputs
 
 Since ColorPicker is WIP, you need to enable the feature flag before using it:
 
-```lua
+```luau
 -- Enable the feature flag (this would typically be done at the application level)
 game:SetFastFlag("FoundationColorPickerComponent", true)
 
@@ -34,7 +34,7 @@ ColorPicker is designed to be controlled by the consumer. The main props to supp
 
 ### Basic Color Picker
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local ColorPicker = Foundation.ColorPicker
 
@@ -53,7 +53,7 @@ end
 
 ### Color Picker with Alpha Support
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local ColorPicker = Foundation.ColorPicker
 
@@ -78,7 +78,7 @@ end
 
 For use cases where you only need RGB color selection without transparency:
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local ColorPicker = Foundation.ColorPicker
 

@@ -12,7 +12,7 @@ The `Selectable` prop can be set on the `RadioGroup.Root` to control whether the
 
 ## Usage
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local RadioGroup = Foundation.RadioGroup
 
@@ -33,6 +33,6 @@ return React.createElement(RadioGroup.Root, {
         label = "Label C",
         isDisabled = true, -- Disabled items are automatically non-selectable
     }),
-}),
+})
 ```
 

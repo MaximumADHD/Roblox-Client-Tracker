@@ -19,22 +19,24 @@ focuses the textbox.
 <br>`releaseFocus()`, which unfocuses the textbox.
 <br>`getIsFocused()`, which returns whether the TextBox is currently focused.
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local TextInput = Foundation.TextInput
-...
-local text, setText = React.useState("")
-local textBoxRef = React.useRef(nil)
-React.createElement(TextInput, {
-	text = text,
-	placeholder = "Placeholder text",
-	isRequired = true,
-	label = "Username",
-	help = "Must be alphanumeric",
-	textBoxRef = textBoxRef,
-	onChanged = function(txt)
-		setText(txt)
-	end,
-	LayoutOrder = 1,
-}),
+
+local function Component()
+	local text, setText = React.useState("")
+	local textBoxRef = React.useRef(nil)
+	return React.createElement(TextInput, {
+		text = text,
+		placeholder = "Placeholder text",
+		isRequired = true,
+		label = "Username",
+		help = "Must be alphanumeric",
+		textBoxRef = textBoxRef,
+		onChanged = function(txt)
+			setText(txt)
+		end,
+		LayoutOrder = 1,
+	})
+end
 ```

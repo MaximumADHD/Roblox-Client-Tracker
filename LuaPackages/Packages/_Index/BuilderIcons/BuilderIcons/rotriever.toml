@@ -1,6 +1,6 @@
 [package]
 name = "BuilderIcons"
-version = "0.1.14"
+version = "0.1.17"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -20,6 +20,12 @@ keywords = [
 ]
 homepage = "https://icons.foundation.roblox.com"
 documentation = "https://icons.foundation.roblox.com"
+[dev_dependencies.Jest]
+version = "^3.11.1"
+
+[dev_dependencies.JestGlobals]
+version = "^3.11.1"
+
 [dev_dependencies.React]
 version = "^17.0.6"
 

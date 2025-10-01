@@ -12,14 +12,13 @@ To browse icons available for use through this component, visit [[Images]].
 
 ## Usage
 
-```lua
-...
+```luau
 local Foundation = require(Packages.Foundation)
 local IconButton = Foundation.IconButton
 
 local InputSize = require(Foundation.Enums.InputSize)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
-...
+
 return React.createElement(IconButton, {
   size = InputSize.Medium,
   icon = "icons/common/search_small",

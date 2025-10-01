@@ -21,7 +21,7 @@ Style tags help consolidate your styling into a single place, separating it from
 
 Style tags are applied to the `tag` property of Foundation base components like [[View]] and [[Image]], however, not all components support this property.
 
-```lua
+```luau
 React.createElement(View, {
   tag = "bg-surface-100 radius-small",
 })
@@ -35,11 +35,11 @@ Not every tag listed below is rendered. Instead, we conditionally render the tag
 
 Since hooks shouldn't be used in the render function, you'll need to move the hook call to the body of the component. This is what Foundation components do internally.
 
-```lua hl_lines="3 6"
+```luau hl_lines="3 6"
 local useStyleTags = Foundation.Hooks.useStyleTags
 
 local tag = useStyleTags("bg-surface-100 radius-small")
-...
+
 React.createElement("Frame", {
   [React.Tag] = tag,
 })
@@ -69,7 +69,7 @@ You should be using the [Luau Language Server](https://marketplace.visualstudio.
 If you wanted to create a vertical list of centered elements with a gap between them and a rounded corner, you would write that traditionally like this:
 
 
-```lua
+```luau
 React.createElement("Frame", {
   BackgroundColor = Color3.fromRGB(255, 255, 255), -- Not token-ified!
 }, {
@@ -87,7 +87,7 @@ React.createElement("Frame", {
 
 With Foundation utility style tags, you can write the same thing like this:
 
-```lua
+```luau
 React.createElement(View, {
   tag = "col gap-small align-x-center radius-small bg-surface-100",
 }, {
@@ -99,7 +99,7 @@ React.createElement(View, {
 
 You can conditionally apply tags by passing a table of tags to the `tag` property. This is useful for applying different styles based on props. The key is your tag value(s) and the value can be any boolean expression.
 
-```lua
+```luau
 React.createElement(View, {
   tag = {
     ["bg-surface-100"] = not props.isDisabled,

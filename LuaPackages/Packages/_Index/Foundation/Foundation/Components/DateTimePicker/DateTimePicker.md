@@ -11,13 +11,13 @@ There are 2 variant types defined in [[DateTimePickerVariant]]
 * SingleWithTime (WIP)
 
 ## Usage
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local DateTimePicker = Foundation.DateTimePicker
 
 local isInvalidInput, setIsInvalidInput = React.useState(false)
 
-local onChanged(dateTime: DateTime?)
+local function onChanged(dateTime: DateTime?)
     if dateTime then
         -- Do something with the valid DateTime object
     else
@@ -35,7 +35,7 @@ React.createElement(DateTimePicker, {
         endDate = DateTime.fromUnixTimestamp(DateTime.now().UnixTimestamp + (2 * 24 * 60 * 60)), -- 2 days from the current date
     },
     variant = DateTimePickerEnum.Single,
-}), 
+})
 ```
 
 Using the `onChanged` callback will let you grab the user's input as a `DateTime` object if their input could be translated into a valid `DateTime` object. 

@@ -1,0 +1,11 @@
+name: lua-module-emotes-menu
+description: The emotes menu in-experience UX
+product: lua-module-emotes-menu
+repository: Roblox/lua-apps
+code_path: content/scripts/CoreScripts/Modules/EmotesMenu
+owners:
+# Marketplace > Expression
+  - ros/1097
+tags:
+  - type:universal-app
+  - lang:lua

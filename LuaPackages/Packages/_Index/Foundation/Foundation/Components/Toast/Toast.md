@@ -20,7 +20,7 @@ If any of the fields are not provided then the corresponding components will not
 
 Actions should be provided as an array, with entries conforming to the ToastButtonProps type:
 
-```lua
+```luau
 type ToastButtonProps = {
     onActivated : (() -> any),
     variant : ButtonVariant.ButtonVariant?,
@@ -30,13 +30,13 @@ type ToastButtonProps = {
 
 If buttonVariant is not provided, it will default to [[ButtonVariant]].Standard
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Toast = Foundation.Toast
 local ButtonVariant = Foundation.Enums.ButtonVariant
 local ThumbnailType = Foundation.Enums.ThumbnailType
 local getRbxThumb = Foundation.Utility.getRbxThumb
-...
+
 return React.createElement(Toast, {
     title = "Toast Notification",
     text = "This is a toast.",
@@ -56,5 +56,4 @@ return React.createElement(Toast, {
         }
     }
 })
-...
 ```
