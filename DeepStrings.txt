@@ -34228,6 +34228,7 @@ GuiService...
 GuiService.SelectedObject
 GuiServiceChromeSignalAPIAnalytics
 GuiServiceChromeSignalAPIAnalytics_ReportHundredthsPercent
+GuiServiceEnumPropertyValueMetric
 GuiServiceEnumPropertyValueMetrics
 GuiServiceGetScreenScaleApi
 GuiServiceHardwareSafeViewport
@@ -49510,7 +49511,6 @@ PlayerScript
 PlayerScripts
 PlayerScriptsCameraScriptPresent
 PlayerScriptsControlScriptPresent
-PlayerScriptsHundrethsPercent
 PlayerScriptsLoader
 PlayerScriptsLoaderPresent
 PlayerScriptsPresent
@@ -51503,7 +51503,6 @@ QEAAXAEBVQModelIndex
 QEAAXAEBVQPainterPath
 QEAAXAEBVQPalette
 QEAAXAEBVQPen
-QEAAXAEBVQPi
 QEAAXAEBVQPixmap
 QEAAXAEBVQPoint
 QEAAXAEBVQPointF
