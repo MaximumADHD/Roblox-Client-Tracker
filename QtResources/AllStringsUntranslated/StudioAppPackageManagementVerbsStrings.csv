@@ -12,6 +12,8 @@ Studio.App.PackageManagementVerbs.ErrorPrimaryPart,,Error: Models must have a Pr
 Studio.App.PackageManagementVerbs.ErrorPrimaryPartNotArchivable,,Error: Cannot publish a Model package when the PrimaryPart is not Archivable.,Error: Cannot publish a Model package when the PrimaryPart is not Archivable.
 Studio.App.PackageManagementVerbs.ErrorUnpublishedPackages,,Error: Cannot publish because packages cannot contain modified child packages.,Error: Cannot publish because packages cannot contain modified child packages.
 Studio.App.PackageManagementVerbs.GetLatest,,Get Latest,Get Latest
+Studio.App.PackageManagementVerbs.MassUpdatePackagesDisabledDetail,Detail for dialog when mass update is disabled because Studio Streaming is enabled.,"To use Mass Update Packages, disable Studio Streaming in Studio Settings.","To use Mass Update Packages, disable Studio Streaming in Studio Settings."
+Studio.App.PackageManagementVerbs.MassUpdatePackagesDisabledHeader,Header for dialog when mass update is disabled because Studio Streaming is enabled.,Mass Update Packages Not Available During Studio Streaming,Mass Update Packages Not Available During Studio Streaming
 Studio.App.PackageManagementVerbs.PackagePublishError1,,Package publish error: %1,Package publish error: %1
 Studio.App.PackageManagementVerbs.PackagePublishSuccess1,,%1 : Package published successfully,%1 : Package published successfully
 Studio.App.PackageManagementVerbs.PackageScriptDiffError1,,Package Script Diff error: %1,Package Script Diff error: %1

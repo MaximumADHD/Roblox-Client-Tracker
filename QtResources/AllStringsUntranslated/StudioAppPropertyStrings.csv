@@ -68,6 +68,7 @@ Studio.App.Property.BuiltInFunctionColor,,Built-in Function Color,Built-in Funct
 Studio.App.Property.CameraAdaptiveSpeed,,'Zoom To' - Adapt Camera Speed,'Zoom To' - Adapt Camera Speed
 Studio.App.Property.CameraLookSensitivity,Factor applied to the mouse delta when rotating the camera,Camera Look Sensitivity,Camera Look Sensitivity
 Studio.App.Property.CameraMouseWheelSpeed,,Scroll Speed,Scroll Speed
+Studio.App.Property.CameraNavigationModel,Navigation model for the studio camera,Navigation Model,Navigation Model
 Studio.App.Property.CameraOrbitSensitivity,Factor applied to camera orbit movements in Studio,Camera Orbit Sensitivity,Camera Orbit Sensitivity
 Studio.App.Property.CameraPanSensitivity,Factor applied to camera panning movements in Studio,Camera Pan Sensitivity,Camera Pan Sensitivity
 Studio.App.Property.CameraPanSpeed,,Pan Speed,Pan Speed

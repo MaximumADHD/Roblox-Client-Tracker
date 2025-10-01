@@ -31,6 +31,7 @@ Studio.App.PropertyEnum.GeometryComplexity,,GeometryComplexity,GeometryComplexit
 Studio.App.PropertyEnum.HighResolution,,High Resolution,High Resolution
 Studio.App.PropertyEnum.Horizontal,,Horizontal,Horizontal
 Studio.App.PropertyEnum.Hybrid,,Hybrid,Hybrid
+Studio.App.PropertyEnum.IndustryCompatible,"""Industry Compatible"" camera navigation model",Industry Compatible,Industry Compatible
 Studio.App.PropertyEnum.Insert,Insert text,Insert,Insert
 Studio.App.PropertyEnum.InsertOnEnterReplaceOnTab,"When accepting autocomplete suggestions, insert text with Enter key and replace text with Tab key","Insert On Enter, Replace On Tab","Insert On Enter, Replace On Tab"
 Studio.App.PropertyEnum.IterationBased,,Iteration Based,Iteration Based

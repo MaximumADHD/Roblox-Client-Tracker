@@ -1,0 +1,4 @@
+Key,Context,Source,en-us
+Studio.ShutdownManagement.Cancel,Button text to cancel the pending shutdown request,Cancel,Cancel
+Studio.ShutdownManagement.ClosingStudio,Dialog text shown while closing Studio for an update.,Closing all Studio windows,Closing all Studio windows
+Studio.ShutdownManagement.RobloxStudio,RobloxStudio,Roblox Studio,Roblox Studio
