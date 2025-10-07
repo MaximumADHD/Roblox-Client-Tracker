@@ -2,12 +2,14 @@ Key,Context,Source,en-us
 Studio.Actions.ConnectionIndicator,,Connection Status,Connection Status
 Studio.Actions.TBD,,TBD,TBD
 Studio.Actions.Title.Assistant,"Button that opens Studio Assistant - an AI helper that accelerates content creation by helping you get started, supplementing your skills, and assisting with ongoing development",AI Assistant,AI Assistant
-Studio.Actions.Title.Diagnostics,Action to view diagnostic information of your game,Diagnostics,Diagnostics
+Studio.Actions.Title.Diagnostics,Action to view diagnostic information of your game,Performance Diagnostics,Performance Diagnostics
 Studio.Actions.Title.LogoutMenu,Label for the logout menu in Studio,Current User,Current User
 Studio.Actions.Title.MicroProfiler,The MicroProfiler is a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,MicroProfiler,MicroProfiler
+Studio.Actions.Title.SceneMonitor,Scene Monitor,Scene Monitor,Scene Monitor
 Studio.Actions.Tooltip.Assistant,"Tooltip for button that opens Studio Assistant - an AI helper that accelerates content creation by helping you get started, supplementing your skills, and assisting with ongoing development",Chat with Studio Assistant to get help and accelerate creation,Chat with Studio Assistant to get help and accelerate creation
 Studio.Actions.Tooltip.ConnectionIndicator,"Tooltip for the button for connection status, which shows the status of your connection to the Team Create server",This shows the status of your connection to the Team Create server,This shows the status of your connection to the Team Create server
 Studio.Actions.Tooltip.LiveCollaborators,Tooltip for the Social Presence widget in Studio about the current users who are active in the open place,Team members actively creating in this place,Team members actively creating in this place
 Studio.Actions.Tooltip.LogoutMenu,This is the tooltip for the logout menu. The %1 is not supposed to be localized as it's the variable placeholder for the username,You are logged in as %1,You are logged in as %1
 Studio.Actions.Tooltip.MicroProfiler,Tooltip for the MicroProfiler - a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks
+Studio.Actions.Tooltip.SceneMonitor,View triangle and draw call counts for the current camera view,View triangle and draw call counts for the current camera view,View triangle and draw call counts for the current camera view
 Studio.Actions.Tooltip.Share,Tooltip for the share button in Studio for users to get a link to the current experience,Get the public link for this experience,Get the public link for this experience

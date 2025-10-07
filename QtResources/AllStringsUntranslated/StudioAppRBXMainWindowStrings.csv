@@ -263,7 +263,7 @@ Studio.App.RBXMainWindow.PasteAtOriginalLocation,"Inserts copied instances (part
 Studio.App.RBXMainWindow.PasteInto,,Paste Into,Paste Into
 Studio.App.RBXMainWindow.PasteIntoAtOriginalLocation,,Paste At Original Location,Paste At Original Location
 Studio.App.RBXMainWindow.PausesTheRun,,Pause the run,Pause the run
-Studio.App.RBXMainWindow.Performance,This looks like a long list of fairly basic information you might send to someone if you needed help and didn’t know where to start.,Performance Diagnostics,Performance Diagnostics
+Studio.App.RBXMainWindow.Performance,This looks like a long list of fairly basic information you might send to someone if you needed help and didn’t know where to start.,Performance,Performance
 Studio.App.RBXMainWindow.PhysicsStats,,Physics Stats,Physics Stats
 Studio.App.RBXMainWindow.PickColor,,Pick Color,Pick Color
 Studio.App.RBXMainWindow.PicksUpAColorFromAPart,,Picks up a color from a part,Picks up a color from a part
@@ -397,7 +397,7 @@ Studio.App.RBXMainWindow.SmoothSurface,,Smooth surface,Smooth surface
 Studio.App.RBXMainWindow.SmoothSurfaceWithoutOutlines,,Smooth Surface without Outlines,Smooth Surface without Outlines
 Studio.App.RBXMainWindow.StartPlayer,,Start Player,Start Player
 Studio.App.RBXMainWindow.StartRemoteDebug,,Start Remote Debug,Start Remote Debug
-Studio.App.RBXMainWindow.StartScriptSync,,Sync to Disk...,Sync to Disk...
+Studio.App.RBXMainWindow.StartScriptSync,Title for FileSync dialogs,File Sync,File Sync
 Studio.App.RBXMainWindow.StartScriptSyncTooltip,,"Start syncing a Script, LocalScript or ModuleScript with the disk","Start syncing a Script, LocalScript or ModuleScript with the disk"
 Studio.App.RBXMainWindow.StartScriptSyncsTooltip,,"Start syncing a Script, LocalScript or ModuleScript with the disk","Start syncing a Script, LocalScript or ModuleScript with the disk"
 Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server

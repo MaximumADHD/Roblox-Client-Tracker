@@ -34,7 +34,7 @@ Studio.SystemMenu.Title.OpenFromFile,Open a game from local disk,Open from File,
 Studio.SystemMenu.Title.OpenFromRoblox,Open a recent game from Roblox,Open from Roblox,Open from Roblox
 Studio.SystemMenu.Title.PasteAtOriginalLocation,"Inserts copied instances (parts, models, etc.) back into the workspace at the exact coordinates they occupied when they were originally copied",Paste at Original Location,Paste at Original Location
 Studio.SystemMenu.Title.PasteIntoAtOriginalLocation,"Pastes copied instances at their original world coordinates but also preserves their original hierarchical relationship to the currently selected object. Instead of simply placing the copied objects in the workspace, it pastes them as children of the selected object, while maintaining their original positions relative to the workspace",Paste into at Original Location,Paste into at Original Location
-Studio.SystemMenu.Title.Performance,"Menu title that contains the Network Summary, Performance, Physics, Render, and Stats actions for a Roblox Studio experience",Performance,Performance
+Studio.SystemMenu.Title.Performance,A basic performance overlay,Performance Summary,Performance Summary
 Studio.SystemMenu.Title.PlaceAnnotations,"Opens the ""Comments"" panel.",Comments,Comments
 Studio.SystemMenu.Title.PlayerEmulator,"A plugin that allows users to simulate players experiences with things like localization, ad settings, subscriptions, external links, etc.",Player Emulator,Player Emulator
 Studio.SystemMenu.Title.Plugins,Menu that contains actions to take on Studio Plugins,Plugins,Plugins
@@ -64,7 +64,9 @@ Studio.SystemMenu.Title.SuperTemplate,Name of the action to display the Super Te
 Studio.SystemMenu.Title.Test,"Menu title which contains Emulation controls, Debug Errors, and testing controls actions",Test,Test
 Studio.SystemMenu.Title.TwoStuds,"When we toggle the 3d grid, this is the 2 studs grid size",2 Studs,2 Studs
 Studio.SystemMenu.Title.UI,Menu to display UI related studio plugins,UI,UI
+Studio.SystemMenu.Title.UIAuthoring,A placeholder action for toggling the UI Authoring workflow,Designer,Designer
 Studio.SystemMenu.Title.Untitled,"Label used in the Studio System Menu for any plugins or plugin controls that are untitled. Previously, they would just show up as a blank entry.",Untitled,Untitled
 Studio.SystemMenu.Title.View,"Menu in Roblox Studio offers tools and settings to control the display and presentation of the 3D workspace. It allows developers to customize how they view and interact with their game world, providing options for zoom, grid settings, rendering modes, UI visibility, and debugging aids",View,View
 Studio.SystemMenu.Title.Window,"The Window menu in Roblox Studio system menu, which provides access to various tools and panels that allow developers to manage the Studio interface, inspect game objects and performance, and access specialized editors for specific content types",Window,Window
+Studio.SystemMenu.Tooltip.Performance,A basic performance overlay,A basic performance overlay,A basic performance overlay
 Studio.SystemMenu.Tooltip.SaveToRobloxWithNotes,tooltip for saving with version notes,Save active document to Roblox with version notes,Save active document to Roblox with version notes

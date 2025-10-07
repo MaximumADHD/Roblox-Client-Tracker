@@ -31,7 +31,7 @@ Studio.App.LocalSaveHelper.InvalidFilename,,Invalid filename for saving.,Invalid
 Studio.App.LocalSaveHelper.SaveFileFailure,,Save File Failure,Save File Failure
 Studio.App.LocalSaveHelper.SavedToLocalFile1,,Saved to '%1',Saved to '%1'
 Studio.App.LocalSaveHelper.SuccessfullyDownloadedCopyTo1,,Successfully downloaded a copy to '%1',Successfully downloaded a copy to '%1'
-Studio.App.LocalSaveHelper.TeamCreateBackupFileSavedToLocal1,,Team create backup file saved to '%1',Team create backup file saved to '%1'
+Studio.App.LocalSaveHelper.TeamCreateBackupFileSavedToLocal1,Auto recovery local file message with path to where file is saved to,Auto Recovery successful. Place saved to '%1',Auto Recovery successful. Place saved to '%1'
 Studio.App.LocalSaveHelper.TempFileError1,,"Failed to open temporary file while saving.
 
 Make sure the path '%1' is writeble and there is enough disk space.","Failed to open temporary file while saving.
