@@ -1570,10 +1570,9 @@
         "shadowVerticalOffset": 0
     },
     "ToastNotification": {
-        "background": "#F7F7F8",
-        "messageText": "#191A1F",
-        "border": "#E6E7EA",
-        "actionText": "#335FFF",
+        "background": "#121215",
+        "messageText": "#F7F7F8",
+        "actionText": "#528BFF",
         "shadow": {
             "background": "#B0C1C1C1",
             "radius": 12,

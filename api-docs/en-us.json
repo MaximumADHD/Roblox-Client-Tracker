@@ -23377,6 +23377,31 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Dragger#MouseUp",
     "code_sample": ""
   },
+  "@roblox/globaltype/WrapTextureTransfer": {
+    "documentation": "<code>WrapTextureTransfer</code> allows a parent <code>Decal</code> to be wrapped around its parent <code>MeshPart</code> based on the cage of its <code>WrapTarget</code>.",
+    "keys": {
+      "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
+      "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
+      "UVMinBound": "@roblox/globaltype/WrapTextureTransfer.UVMinBound"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
+    "documentation": "An optional reference mesh used for pruning and validating the target cage.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTextureTransfer.UVMaxBound": {
+    "documentation": "Determines the maximum bound of the UV space to include in the transfer.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMaxBound",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WrapTextureTransfer.UVMinBound": {
+    "documentation": "Determines the minimum bound of the UV space to include in the transfer.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMinBound",
+    "code_sample": ""
+  },
   "@roblox/globaltype/ScreenshotCapture": {
     "documentation": "",
     "keys": {},
@@ -23469,7 +23494,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldModel": {
-    "documentation": "Provides some physics features to a <code>ViewportFrame</code>.",
+    "documentation": "Extends limited physics for its children on to a parent <code>ViewportFrame</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WorldModel",
     "code_sample": ""
@@ -23500,7 +23525,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer": {
-    "documentation": "",
+    "documentation": "Used to play video assets.",
     "keys": {
       "AutoLoadInStudio": "@roblox/globaltype/VideoPlayer.AutoLoadInStudio",
       "AutoPlayInStudio": "@roblox/globaltype/VideoPlayer.AutoPlayInStudio",
@@ -23511,6 +23536,7 @@
       "Resolution": "@roblox/globaltype/VideoPlayer.Resolution",
       "TimeLength": "@roblox/globaltype/VideoPlayer.TimeLength",
       "TimePosition": "@roblox/globaltype/VideoPlayer.TimePosition",
+      "VideoContent": "@roblox/globaltype/VideoPlayer.VideoContent",
       "Volume": "@roblox/globaltype/VideoPlayer.Volume",
       "GetConnectedWires": "@roblox/globaltype/VideoPlayer.GetConnectedWires",
       "GetInputPins": "@roblox/globaltype/VideoPlayer.GetInputPins",
@@ -23524,57 +23550,62 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.AutoLoadInStudio": {
-    "documentation": "",
+    "documentation": "Loads the <code>VideoContent</code> while in Studio Edit mode.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#AutoLoadInStudio",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.AutoPlayInStudio": {
-    "documentation": "",
+    "documentation": "Plays the <code>VideoContent</code> while in Studio Edit mode.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#AutoPlayInStudio",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.IsLoaded": {
-    "documentation": "",
+    "documentation": "Indicates when the <code>VideoContent</code> has loaded and is ready to play.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#IsLoaded",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.IsPlaying": {
-    "documentation": "",
+    "documentation": "Denotes whether this <code>VideoPlayer</code> is currently playing.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#IsPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Looping": {
-    "documentation": "",
+    "documentation": "Controls whether this <code>VideoPlayer</code> loops.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#Looping",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.PlaybackSpeed": {
-    "documentation": "",
+    "documentation": "Controls the speed at which the video is played.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#PlaybackSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Resolution": {
-    "documentation": "",
+    "documentation": "Gets the original source resolution of the <code>VideoContent</code> file.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#Resolution",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.TimeLength": {
-    "documentation": "",
+    "documentation": "Indicates the length of the <code>VideoContent</code> in seconds.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.TimePosition": {
-    "documentation": "",
+    "documentation": "Indicates the progress in seconds of the <code>VideoContent</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#TimePosition",
     "code_sample": ""
   },
+  "@roblox/globaltype/VideoPlayer.VideoContent": {
+    "documentation": "The asset to be loaded into the <code>VideoPlayer</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#VideoContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/VideoPlayer.Volume": {
-    "documentation": "",
+    "documentation": "Controls how loudly the audio track will be played.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#Volume",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/0": {
-    "documentation": ""
+    "documentation": "Used to play video assets."
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/1": {
     "documentation": ""
@@ -23583,7 +23614,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Returns an array of <code>Wires</code> that are connected to the specified pin.",
     "params": [
       {
         "name": "self",
@@ -23601,7 +23632,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/param/0": {
-    "documentation": ""
+    "documentation": "Used to play video assets."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/return/0": {
     "documentation": ""
@@ -23621,7 +23652,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/param/0": {
-    "documentation": ""
+    "documentation": "Used to play video assets."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/return/0": {
     "documentation": ""
@@ -23641,13 +23672,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.LoadAsync/param/0": {
-    "documentation": ""
+    "documentation": "Used to play video assets."
   },
   "@roblox/globaltype/VideoPlayer.LoadAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/VideoPlayer.LoadAsync": {
-    "documentation": "",
+    "documentation": "Loads the <code>VideoContent</code> before it is played.",
     "params": [
       {
         "name": "self",
@@ -23661,10 +23692,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Pause/param/0": {
-    "documentation": ""
+    "documentation": "Used to play video assets."
   },
   "@roblox/globaltype/VideoPlayer.Pause": {
-    "documentation": "",
+    "documentation": "Pauses the <code>VideoPlayer</code> wherever its <code>TimePosition</code> is.",
     "params": [
       {
         "name": "self",
@@ -23676,10 +23707,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Play/param/0": {
-    "documentation": ""
+    "documentation": "Used to play video assets."
   },
   "@roblox/globaltype/VideoPlayer.Play": {
-    "documentation": "",
+    "documentation": "Plays the <code>VideoPlayer</code> from wherever its <code>TimePosition</code> is.",
     "params": [
       {
         "name": "self",
@@ -23691,10 +23722,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Unload/param/0": {
-    "documentation": ""
+    "documentation": "Used to play video assets."
   },
   "@roblox/globaltype/VideoPlayer.Unload": {
-    "documentation": "",
+    "documentation": "Unloads the <code>VideoPlayer.VideoContent</code> to save resources.",
     "params": [
       {
         "name": "self",
@@ -23783,7 +23814,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoPlayer.DidEnd": {
-    "documentation": "",
+    "documentation": "Fires when the <code>VideoContent</code> has completed playback and stopped.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoPlayer.DidEnd.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoPlayer.DidEnd.ConnectParallel",
@@ -23871,7 +23902,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoPlayer.DidLoop": {
-    "documentation": "",
+    "documentation": "Fires when the <code>VideoContent</code> loops.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoPlayer.DidLoop.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoPlayer.DidLoop.ConnectParallel",
@@ -24047,7 +24078,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoPlayer.WiringChanged": {
-    "documentation": "",
+    "documentation": "Fires when another instance is connected to or disconnected from the <code>VideoPlayer</code> via a <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoPlayer.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoPlayer.WiringChanged.ConnectParallel",
@@ -38323,7 +38354,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.SimulationFidelity": {
-    "documentation": "Controls how detailed the audio simulation should be for this <code>AudioListener</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Controls how detailed the audio simulation should be for this <code>AudioListener</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#SimulationFidelity",
     "code_sample": ""
   },
@@ -44157,7 +44188,7 @@
   "@roblox/globaltype/Player.PartyId": {
     "documentation": "A unique identifier of the party a <code>Player</code> belongs to.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Player is in a party with ID: \" .. partyId)\n\telse\n\t\twarn(\"Player is not in a party\")\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Player is in a party with ID: \" .. partyId)\n\telse\n\t\tprint(\"Player is not in a party\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"Player joined party with ID: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"Player left party\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
     "documentation": "Sets the part to focus replication around.",
@@ -56744,7 +56775,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.HasJointOffset": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#HasJointOffset",
     "code_sample": ""
   },
@@ -56754,7 +56785,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.JointOffset": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#JointOffset",
     "code_sample": ""
   },
@@ -57057,6 +57088,7 @@
   "@roblox/globaltype/AssetService": {
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API.",
     "keys": {
+      "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
@@ -57079,6 +57111,33 @@
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService",
     "code_sample": ""
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0": {
+    "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync/param/1": {
+    "documentation": "An array of <code>Dictionary</code> tables that maps PBR names to ContentID."
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0": {
+    "documentation": "A new <code>Decal</code> containing the composed texture set."
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync": {
+    "documentation": "Creates a Decal instance that uses composite PBR textures created by layering the provided textures in the order they are provided in the <code>layers</code> array. Textures layer based on the alpha value of the ColorMap.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0"
+      },
+      {
+        "name": "layers",
+        "documentation": "@roblox/globaltype/AssetService.ComposeDecalAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#ComposeDecalAsync",
+    "code_sample": "-- Get AssetService\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- Create two decal instances\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- Build composite info table\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.TextureContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- Compose a new decal using AssetService\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/0": {
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
@@ -76912,13 +76971,13 @@
     "documentation": "The service responsible for in-experience transactions."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/1": {
-    "documentation": ""
+    "documentation": "An array of user IDs."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": ""
+    "documentation": "Returns an array of <code>PriceLevelInfo</code> objects with a dictionary where the keys are user IDs (strings) and their values are the corresponding price levels (integers between 1 and 1000)."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "",
+    "documentation": "Returns the regionalized price level of a user, representing the recommended price for an item in their regional market.",
     "params": [
       {
         "name": "self",
@@ -81717,7 +81776,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BillboardGui.DistanceLowerLimit": {
-    "documentation": "Determines the distance in studs at which the <code>BillboardGui</code> will stop scaling larger in size.",
+    "documentation": "<strong>Deprecated:</strong> <br>Determines the distance in studs at which the <code>BillboardGui</code> will stop scaling larger in size.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BillboardGui#DistanceLowerLimit",
     "code_sample": ""
   },
@@ -81727,7 +81786,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BillboardGui.DistanceUpperLimit": {
-    "documentation": "Determines the distance in studs at which the <code>BillboardGui</code> will stop scaling smaller in size.",
+    "documentation": "<strong>Deprecated:</strong> <br>Determines the distance in studs at which the <code>BillboardGui</code> will stop scaling smaller in size.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BillboardGui#DistanceUpperLimit",
     "code_sample": ""
   },
@@ -86744,7 +86803,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.SimulationFidelity": {
-    "documentation": "Controls how detailed the audio simulation should be for this <code>AudioEmitter</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Controls how detailed the audio simulation should be for this <code>AudioEmitter</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#SimulationFidelity",
     "code_sample": ""
   },
@@ -88750,7 +88809,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function replaceClothes(player)\n\tlocal character = player.Character\n\tif character then\n\t\t-- look for shirts / pants\n\t\tlocal shirt = character:FindFirstChildOfClass(\"Shirt\")\n\t\tlocal pants = character:FindFirstChildOfClass(\"Pants\")\n\t\t-- create shirts / pants if they don't exist\n\t\tif not shirt then\n\t\t\tshirt = Instance.new(\"Shirt\")\n\t\t\tshirt.Parent = character\n\t\tend\n\t\tif not pants then\n\t\t\tpants = Instance.new(\"Pants\")\n\t\t\tpants.Parent = character\n\t\tend\n\t\t-- reset shirt / pants content ids\n\t\tshirt.ShirtTemplate = \"http://www.roblox.com/asset/?id=83326831\"\n\t\tpants.PantsTemplate = \"http://www.roblox.com/asset/?id=10045638\"\n\tend\nend\n\nfor _index, player in ipairs(Players:GetPlayers()) do\n\treplaceClothes(player)\nend"
   },
   "@roblox/globaltype/VideoDisplay": {
-    "documentation": "",
+    "documentation": "A GUI object that displays video content from a connected <code>VideoPlayer</code>.",
     "keys": {
       "ResampleMode": "@roblox/globaltype/VideoDisplay.ResampleMode",
       "ScaleType": "@roblox/globaltype/VideoDisplay.ScaleType",
@@ -88767,12 +88826,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoDisplay.ResampleMode": {
-    "documentation": "",
+    "documentation": "Selects the texture resampling mode for the <code>VideoDisplay</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoDisplay#ResampleMode",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoDisplay.ScaleType": {
-    "documentation": "",
+    "documentation": "Determines how a video will scale if displayed in a UI element whose aspect ratio differs from the source video.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoDisplay#ScaleType",
     "code_sample": ""
   },
@@ -88782,27 +88841,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoDisplay.VideoColor3": {
-    "documentation": "",
+    "documentation": "Determines how a rendered video will be colorized.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoDisplay#VideoColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoDisplay.VideoRectOffset": {
-    "documentation": "",
+    "documentation": "The offset in pixels of the sub-area of a video to be displayed.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoDisplay#VideoRectOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoDisplay.VideoRectSize": {
-    "documentation": "",
+    "documentation": "Determines the size in pixels of the sub-area of a video to be displayed.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoDisplay#VideoRectSize",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoDisplay.VideoTransparency": {
-    "documentation": "",
+    "documentation": "Determines the transparency of the rendered video.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoDisplay#VideoTransparency",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/param/0": {
-    "documentation": ""
+    "documentation": "A GUI object that displays video content from a connected <code>VideoPlayer</code>."
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/param/1": {
     "documentation": ""
@@ -88811,7 +88870,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Returns an array of <code>Wires</code> that are connected to the specified pin.",
     "params": [
       {
         "name": "self",
@@ -88829,7 +88888,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins/param/0": {
-    "documentation": ""
+    "documentation": "A GUI object that displays video content from a connected <code>VideoPlayer</code>."
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins/return/0": {
     "documentation": ""
@@ -88849,7 +88908,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins/param/0": {
-    "documentation": ""
+    "documentation": "A GUI object that displays video content from a connected <code>VideoPlayer</code>."
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins/return/0": {
     "documentation": ""
@@ -88946,7 +89005,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoDisplay.WiringChanged": {
-    "documentation": "",
+    "documentation": "Fires when another instance is connected to or disconnected from the <code>VideoDisplay</code> via a <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoDisplay.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoDisplay.WiringChanged.ConnectParallel",
@@ -95986,6 +96045,7 @@
       "GetPartyAsync": "@roblox/globaltype/SocialService.GetPartyAsync",
       "GetPlayersByPartyId": "@roblox/globaltype/SocialService.GetPlayersByPartyId",
       "HideSelfView": "@roblox/globaltype/SocialService.HideSelfView",
+      "PromptFeedbackSubmissionAsync": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync",
       "PromptGameInvite": "@roblox/globaltype/SocialService.PromptGameInvite",
       "PromptLinkSharing": "@roblox/globaltype/SocialService.PromptLinkSharing",
       "PromptPhoneBook": "@roblox/globaltype/SocialService.PromptPhoneBook",
@@ -96153,6 +96213,21 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#HideSelfView",
     "code_sample": ""
   },
+  "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0": {
+    "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
+  },
+  "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
+    "documentation": "Prompts the player to submit feedback about the current experience.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptFeedbackSubmissionAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/0": {
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
@@ -96186,10 +96261,10 @@
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/1": {
-    "documentation": ""
+    "documentation": "Prompts the given <code>Player</code> with a Roblox platform-level share sheet with a generated share link."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": ""
+    "documentation": "<code>Dictionary</code> that specifies the configuration for the generated link. It includes the following optional key-value pairs: <ul> <li><code>FallbackLinkId</code> (string). Determines how this share link will   direct player to once expired. Default to experience join link.</li> <li><code>ExpirationSeconds</code> (number). Determines time to expiration once the   share link is created. Truncates to nearest integer. Defaults to   86,400.</li> <li><code>PreviewTitle</code> (string) Preview title of the share link.</li> <li><code>PreiviewDescription</code> (string) Preview description of the share   link.</li> <li><code>PreviewAssettId</code> (number) Image asset ID used for share link   preview.</li> <li><code>LaunchData</code> (string). Used to set a parameter in   <code>Player:GetJoinData()</code> when a player joined using the   generated share link.</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
     "documentation": ""
@@ -100949,13 +101024,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Grid8x8",
     "code_sample": ""
   },
+  "@roblox/enum/ParticleFlipbookLayout.Custom": {
+    "documentation": "A custom grid size defined by <code>FlipbookSizeX</code> and <code>FlipbookSizeY</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Custom",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ParticleFlipbookLayout": {
     "documentation": "Determines the layout of the flipbook texture.",
     "keys": {
       "None": "@roblox/enum/ParticleFlipbookLayout.None",
       "Grid2x2": "@roblox/enum/ParticleFlipbookLayout.Grid2x2",
       "Grid4x4": "@roblox/enum/ParticleFlipbookLayout.Grid4x4",
-      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
+      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8",
+      "Custom": "@roblox/enum/ParticleFlipbookLayout.Custom"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
     "code_sample": ""
@@ -112100,14 +112186,14 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DeveloperMemoryTag#PhysicsCollision",
     "code_sample": ""
   },
-  "@roblox/enum/DeveloperMemoryTag.PhysicsParts": {
-    "documentation": "Physics bodies and the components that control their behavior.",
+  "@roblox/enum/DeveloperMemoryTag.BaseParts": {
+    "documentation": "3D parts used for simulation.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DeveloperMemoryTag#PhysicsParts",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DeveloperMemoryTag#BaseParts",
     "code_sample": ""
   },
   "@roblox/enum/DeveloperMemoryTag.GraphicsSolidModels": {
@@ -112280,7 +112366,7 @@
       "LuaHeap": "@roblox/enum/DeveloperMemoryTag.LuaHeap",
       "Script": "@roblox/enum/DeveloperMemoryTag.Script",
       "PhysicsCollision": "@roblox/enum/DeveloperMemoryTag.PhysicsCollision",
-      "PhysicsParts": "@roblox/enum/DeveloperMemoryTag.PhysicsParts",
+      "BaseParts": "@roblox/enum/DeveloperMemoryTag.BaseParts",
       "GraphicsSolidModels": "@roblox/enum/DeveloperMemoryTag.GraphicsSolidModels",
       "GraphicsMeshParts": "@roblox/enum/DeveloperMemoryTag.GraphicsMeshParts",
       "GraphicsParticles": "@roblox/enum/DeveloperMemoryTag.GraphicsParticles",
@@ -129895,7 +129981,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredInput.Touch": {
-    "documentation": "The player's device has touch capability and no other input method is available or connected.",
+    "documentation": "The player's device has touch capability and no other input method is available or was recently interacted with.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133715,7 +133801,7 @@
     "code_sample": ""
   },
   "@luau/global/buffer.create/param/0": {
-    "documentation": "Size of the buffer."
+    "documentation": "Size of the buffer in bytes. Must be a positive integer."
   },
   "@luau/global/buffer.create/return/0": {
     "documentation": ""

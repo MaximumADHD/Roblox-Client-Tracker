@@ -19298,10 +19298,7 @@
             ],
             "MemoryCategory": "Internal",
             "Name": "AudioTremolo",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -32766,6 +32763,72 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Event",
+                    "Name": "SendCreateInstanceFromStudio",
+                    "Parameters": [
+                        {
+                            "Name": "parentInstance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "SendDeleteInstanceFromStudio",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "setParentToNull",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "SendReparentInstanceFromStudio",
+                    "Parameters": [
+                        {
+                            "Name": "parentInstance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
                 {
                     "MemberType": "Event",
                     "Name": "SendTerrainChangeFromStudio",
@@ -63661,10 +63724,7 @@
             ],
             "MemoryCategory": "Gui",
             "Name": "VideoDisplay",
-            "Superclass": "GuiObject",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "GuiObject"
         },
         {
             "Members": [
@@ -73376,6 +73436,32 @@
                         "Name": "WebStreamClient"
                     },
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CreateWebStreamClientInternal",
+                    "Parameters": [
+                        {
+                            "Name": "streamClientType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "WebStreamClientType"
+                            }
+                        },
+                        {
+                            "Name": "requestOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "WebStreamClient"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -83221,6 +83307,36 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "InsertService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "CountChildren",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "InstanceExtensionsService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -120341,6 +120457,13 @@
                                 "Category": "Class",
                                 "Name": "Player"
                             }
+                        },
+                        {
+                            "Name": "reason",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "PlayerExitReason"
+                            }
                         }
                     ],
                     "Security": "None",
@@ -128301,6 +128424,38 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Basic",
+                            "InternalTest"
+                        ],
+                        "Write": [
+                            "InternalTest"
+                        ]
+                    },
+                    "Category": "Server Authority",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "PredictionState",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "PredictionState"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
                             "Basic"
                         ]
                     },
@@ -128692,6 +128847,21 @@
                         "Basic"
                     ],
                     "MemberType": "Function",
+                    "Name": "getThrottleFramerateEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
                     "Name": "setThrottleFramerateEnabled",
                     "Parameters": [
                         {
@@ -128740,6 +128910,32 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "double"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic",
+                        "InternalTest"
+                    ],
+                    "MemberType": "Event",
+                    "Name": "Misprediction",
+                    "Parameters": [
+                        {
+                            "Name": "remoteWorldStepId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "mispredictedInstances",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
                             }
                         }
                     ],
@@ -128887,6 +129083,76 @@
                 "NotCreatable",
                 "Service",
                 "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Event",
+                    "Name": "RuntimeContentFail",
+                    "Parameters": [
+                        {
+                            "Name": "id",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "RuntimeContentQuery",
+                    "Parameters": [
+                        {
+                            "Name": "id",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "content",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "RuntimeContentShare",
+                    "Parameters": [
+                        {
+                            "Name": "id",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "content",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "RuntimeContentService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
             ]
         },
         {
@@ -147139,6 +147405,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SaveOrPublishPlaceToRobloxIsCanceled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetTeamCreateOnPublishInfo",
                     "Parameters": [
                         {
@@ -155466,6 +155744,14 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "TextChatMessage"
+                            }
+                        },
+                        {
+                            "Default": "unknown",
+                            "Name": "messageRenderedSurface",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
                             }
                         }
                     ],
@@ -170121,10 +170407,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "VideoPlayer",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -174454,10 +174737,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "WrapTextureTransfer",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -178003,6 +178283,42 @@
                     "Value": 1
                 },
                 {
+                    "Name": "ConnectErrors",
+                    "Value": 2
+                },
+                {
+                    "Name": "AlreadyConnected",
+                    "Value": 3
+                },
+                {
+                    "Name": "NoFreeIncomingConnections",
+                    "Value": 4
+                },
+                {
+                    "Name": "ConnectionBanned",
+                    "Value": 5
+                },
+                {
+                    "Name": "InvalidPassword",
+                    "Value": 6
+                },
+                {
+                    "Name": "IncompatibleProtocolVersion",
+                    "Value": 7
+                },
+                {
+                    "Name": "IPRecentlyConnected",
+                    "Value": 8
+                },
+                {
+                    "Name": "OurSystemRequiresSecurity",
+                    "Value": 9
+                },
+                {
+                    "Name": "SecurityKeyMismatch",
+                    "Value": 10
+                },
+                {
                     "Name": "DisconnectErrors",
                     "Value": 256
                 },
@@ -178203,6 +178519,10 @@
                     "Value": 307
                 },
                 {
+                    "Name": "DisconnectionNotification",
+                    "Value": 308
+                },
+                {
                     "Name": "PlacelaunchErrors",
                     "Value": 512
                 },
@@ -178331,6 +178651,10 @@
                 {
                     "Name": "Object",
                     "Value": 2
+                },
+                {
+                    "Name": "Opaque",
+                    "Value": 3
                 }
             ],
             "Name": "ContentSourceType"
@@ -184667,6 +184991,23 @@
         {
             "Items": [
                 {
+                    "Name": "Unknown",
+                    "Value": 0
+                },
+                {
+                    "Name": "PlatformKick",
+                    "Value": 1
+                },
+                {
+                    "Name": "CreatorKick",
+                    "Value": 2
+                }
+            ],
+            "Name": "PlayerExitReason"
+        },
+        {
+            "Items": [
+                {
                     "Name": "In",
                     "Value": 0
                 },
@@ -184739,6 +185080,27 @@
                 }
             ],
             "Name": "PredictionMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Idle",
+                    "Value": 0
+                },
+                {
+                    "Name": "Simulating",
+                    "Value": 1
+                },
+                {
+                    "Name": "RollingBack",
+                    "Value": 2
+                },
+                {
+                    "Name": "Resimulating",
+                    "Value": 3
+                }
+            ],
+            "Name": "PredictionState"
         },
         {
             "Items": [
