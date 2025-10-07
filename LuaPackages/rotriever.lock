@@ -5,7 +5,7 @@ registry_index = "https://apis.simulprod.com/rotriever-registry"
 
 [[package]]
 name = "ApolloClient"
-version = "0.3.10"
+version = "0.3.11"
 source = "registry"
 dependencies = [
     "GraphQL GraphQL 15.6.3 registry",
@@ -15,7 +15,7 @@ dependencies = [
     "Promise <patched> Promise 3.5.0 registry",
     "React React 17.3.4 registry",
     "RobloxRequests RobloxRequests 0.1.0 registry",
-    "ZenObservable ZenObservable 0.8.16-roblox.0 registry",
+    "ZenObservable ZenObservable 0.8.16-roblox.1 registry",
 ]
 
 [[package]]
@@ -23,7 +23,7 @@ name = "ApolloClientTesting"
 version = "0.3.10"
 source = "registry"
 dependencies = [
-    "ApolloClient ApolloClient 0.3.10 registry",
+    "ApolloClient ApolloClient 0.3.11 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphQLTag GraphqlTag 2.12.9 registry",
     "Jest Jest 3.13.3 registry",
@@ -33,7 +33,7 @@ dependencies = [
     "Promise <patched> Promise 3.5.0 registry",
     "React React 17.3.4 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
-    "ZenObservable ZenObservable 0.8.16-roblox.0 registry",
+    "ZenObservable ZenObservable 0.8.16-roblox.1 registry",
 ]
 
 [[package]]
@@ -87,7 +87,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 name = "CorePackages"
 version = "0.1.0"
 dependencies = [
-    "ApolloClient ApolloClient 0.3.10 registry",
+    "ApolloClient ApolloClient 0.3.11 registry",
     "ApolloClientTesting ApolloClientTesting 0.3.10 registry",
     "AvatarExperienceDeps AvatarExperienceDeps 0.0.1 registry",
     "BuilderIcons BuilderIcons 0.1.17 registry",
@@ -99,7 +99,7 @@ dependencies = [
     "FitFrame RoactFitComponents 2.0.0 registry",
     "FocusBehaviors FocusBehaviors 1.3.1 registry",
     "Foundation Foundation 1.51.0 registry",
-    "FoundationCloudAssets FoundationCloudAssets 0.2.1 registry",
+    "FoundationCloudAssets FoundationCloudAssets 0.3.0 registry",
     "FoundationImages FoundationImages 1.31.0 registry",
     "FoundationTestingLibrary FoundationTestingLibrary 0.1.1 registry",
     "GraphQL GraphQL 15.6.3 registry",
@@ -114,14 +114,14 @@ dependencies = [
     "JestGlobals3 JestGlobals 3.13.3 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1.8.1 registry",
-    "LuauPolyfill LuauPolyfill 0.4.2 registry",
+    "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Merge Merge 0.3.1 registry",
     "Motion Motion 0.0.7 registry",
     "NetworkingFriends NetworkingFriends 2.12.1 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
-    "Otter Otter 1.3.5 registry",
+    "Otter Otter 1.3.7 registry",
     "PolicyProvider LuaRoactPolicyProvider 0.1.3 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "QRCode QRCode 0.1.0 registry",
@@ -133,7 +133,7 @@ dependencies = [
     "ReactGlobals ReactGlobals 17.3.4 registry",
     "ReactHMR ReactHMR 0.1.1 registry",
     "ReactIs ReactIs 17.3.4 registry",
-    "ReactOtter ReactOtter 1.3.3 registry",
+    "ReactOtter ReactOtter 1.3.7 registry",
     "ReactReconciler ReactReconciler 17.3.4 registry",
     "ReactRoblox ReactRoblox 17.3.4 registry",
     "ReactSceneUnderstanding ReactSceneUnderstanding 0.13.1 registry",
@@ -154,7 +154,7 @@ dependencies = [
     "RoduxContacts RoduxContacts 0.9.1 registry",
     "RoduxDevtools RoduxDevtools 1.0.0-rc.1 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",
-    "RoduxGames RoduxGames 1.4.2 registry",
+    "RoduxGames RoduxGames 1.4.3 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
@@ -186,11 +186,6 @@ source = "registry"
 [[package]]
 name = "Dash"
 version = "0.1.9"
-source = "registry"
-
-[[package]]
-name = "Dash"
-version = "1.1.0"
 source = "registry"
 
 [[package]]
@@ -327,11 +322,11 @@ dependencies = [
     "FoundationImages FoundationImages 1.31.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Motion Motion 0.1.0 registry",
-    "Otter Otter 1.3.5 registry",
+    "Otter Otter 1.3.7 registry",
     "RbxDesignFoundations RbxDesignFoundations 2.0.157 registry",
     "React React 17.3.4 registry",
     "ReactIs ReactIs 17.3.4 registry",
-    "ReactOtter ReactOtter 1.3.3 registry",
+    "ReactOtter ReactOtter 1.3.7 registry",
     "ReactRoblox ReactRoblox 17.3.4 registry",
     "ReactUtils ReactUtils 1.9.0 registry",
     "Roact RoactCompat 17.3.4 registry",
@@ -343,6 +338,11 @@ dependencies = [
 [[package]]
 name = "FoundationCloudAssets"
 version = "0.2.1"
+source = "registry"
+
+[[package]]
+name = "FoundationCloudAssets"
+version = "0.3.0"
 source = "registry"
 
 [[package]]
@@ -1013,7 +1013,7 @@ dependencies = [
     "RoduxCall RoduxCall 1.18.0 registry",
     "RoduxContacts RoduxContacts 0.8.4 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",
-    "RoduxGames RoduxGames 1.4.2 registry",
+    "RoduxGames RoduxGames 1.4.3 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxShareLinks RoduxShareLinks 1.5.1 registry",
@@ -1072,7 +1072,7 @@ version = "0.0.7"
 source = "registry"
 dependencies = [
     "React React 17.3.4 registry",
-    "ReactOtter ReactOtter 1.3.3 registry",
+    "ReactOtter ReactOtter 1.3.7 registry",
     "RoactCompat RoactCompat 17.3.4 registry",
     "tutils tutils 0.1.2 registry",
 ]
@@ -1083,7 +1083,7 @@ version = "0.1.0"
 source = "registry"
 dependencies = [
     "React React 17.3.4 registry",
-    "ReactOtter ReactOtter 1.3.3 registry",
+    "ReactOtter ReactOtter 1.3.7 registry",
     "RoactCompat RoactCompat 17.3.4 registry",
     "tutils tutils 0.1.2 registry",
 ]
@@ -1202,7 +1202,7 @@ source = "registry"
 
 [[package]]
 name = "Otter"
-version = "1.3.5"
+version = "1.3.7"
 source = "registry"
 dependencies = [
     "Collections Collections 1.2.3 registry",
@@ -1383,11 +1383,10 @@ dependencies = [
 
 [[package]]
 name = "ReactOtter"
-version = "1.3.3"
+version = "1.3.7"
 source = "registry"
 dependencies = [
-    "Dash Dash 1.1.0 registry",
-    "Otter Otter 1.3.5 registry",
+    "Otter Otter 1.3.7 registry",
     "React React 17.3.4 registry",
 ]
 
@@ -1688,10 +1687,10 @@ dependencies = [
 
 [[package]]
 name = "RoduxGames"
-version = "1.4.2"
+version = "1.4.3"
 source = "registry"
 dependencies = [
-    "Dash Dash 0.1.9 registry",
+    "Dash Dash 3.1.0 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
@@ -1963,7 +1962,7 @@ dependencies = [
     "RbxDesignFoundations RbxDesignFoundations 1.1.107 registry",
     "RbxDesignFoundationsV2 RbxDesignFoundations 2.0.157 registry",
     "React React 17.3.4 registry",
-    "ReactOtter ReactOtter 1.3.3 registry",
+    "ReactOtter ReactOtter 1.3.7 registry",
     "ReactRoblox ReactRoblox 17.3.4 registry",
     "ReactUtils ReactUtils 1.9.0 registry",
     "Roact RoactCompat 17.3.4 registry",
@@ -2030,17 +2029,17 @@ version = "1.4.3"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "Otter Otter 1.3.5 registry",
+    "Otter Otter 1.3.7 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "React React 17.3.4 registry",
 ]
 
 [[package]]
 name = "ZenObservable"
-version = "0.8.16-roblox.0"
+version = "0.8.16-roblox.1"
 source = "registry"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 0.4.2 registry",
+    "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise <patched> Promise 3.5.0 registry",
 ]
 

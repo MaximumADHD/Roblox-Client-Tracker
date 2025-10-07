@@ -27,7 +27,7 @@ dependencies = [
     "RoduxCall RoduxCall 1.18.0 registry",
     "RoduxContacts RoduxContacts 0.8.4 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",
-    "RoduxGames RoduxGames 1.4.2 registry",
+    "RoduxGames RoduxGames 1.4.3 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxShareLinks RoduxShareLinks 1.5.1 registry",

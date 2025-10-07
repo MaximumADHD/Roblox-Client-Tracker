@@ -1,6 +1,6 @@
 [package]
 name = "RoduxGames"
-version = "1.4.2"
+version = "1.4.3"
 readme = "README.md"
 content_root = "src"
 files = ["*"]
@@ -9,7 +9,7 @@ authors = ["Roblox"]
 license = "MIT"
 [dependencies.Dash]
 target = "https://github.com/roblox/dash"
-version = "^0.1.7"
+version = "^3"
 
 [dependencies.NetworkingGames]
 target = "https://github.com/roblox/networking-games"

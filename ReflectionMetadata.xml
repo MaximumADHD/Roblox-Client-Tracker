@@ -11087,7 +11087,6 @@
         <string name="Name">HapticEffect</string>
         <string name="ExplorerOrder">100</string>
         <string name="PreferredParent">Workspace</string>
-        <bool name="FFlag">NewHapticService</bool>
       </Properties>
     </Item>
   </Item>

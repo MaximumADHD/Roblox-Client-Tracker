@@ -1,0 +1,17 @@
+name: lua-corescript-avatar-editor-prompts
+description: Avatar Editor Prompts Corescripts
+product: lua-corescript-avatar-editor-prompts
+repository: Roblox/lua-apps
+code_path: content/scripts/CoreScripts/Modules/AvatarEditorPrompts
+owners:
+# Marketplace > Expression
+  - ros/1097
+  - email/avatar-core-services@roblox.com
+  - slack/avatar-core-services
+  - slack_handle/@user-journey-oncall
+  - bot_slack/acs-bot-notifications
+  - bot_email/avatar-core-services@roblox.com
+  - pagerduty/e294fc1d6f984f07c0f8a5484c85dace
+tags:
+  - type:universal-app
+  - lang:lua

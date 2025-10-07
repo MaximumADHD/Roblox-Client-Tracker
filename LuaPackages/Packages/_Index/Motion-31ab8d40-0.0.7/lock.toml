@@ -4,7 +4,7 @@ version = "0.0.7"
 source = "registry"
 dependencies = [
     "React React 17.3.4 registry",
-    "ReactOtter ReactOtter 1.3.3 registry",
+    "ReactOtter ReactOtter 1.3.7 registry",
     "RoactCompat RoactCompat 17.3.4 registry",
     "tutils tutils 0.1.2 registry",
 ]

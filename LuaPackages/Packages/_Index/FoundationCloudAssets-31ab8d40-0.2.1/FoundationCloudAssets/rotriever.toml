@@ -1,0 +1,22 @@
+[package]
+name = "FoundationCloudAssets"
+version = "0.2.1"
+readme = "README.md"
+content_root = "src"
+files = ["*"]
+publish = true
+authors = [
+    "Nick Winans <nwinans@roblox.com>",
+    "Wyatt McCarthy <wmccarthy@roblox.com>",
+]
+description = "Source for all cloud assets used in Foundation."
+repository = "https://github.com/Roblox/foundation-images"
+keywords = [
+    "images",
+    "foundation",
+    "icons",
+    "cloud-assets",
+    "illustrations",
+]
+homepage = ""
+documentation = ""

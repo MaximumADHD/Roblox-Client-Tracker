@@ -871,7 +871,7 @@ Class AudioTextToSpeech : Instance
 	Event AudioTextToSpeech.Ended() {🔐Audio}
 	Event AudioTextToSpeech.Looped() {🔐Audio}
 	Event AudioTextToSpeech.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🔐Audio}
-Class AudioTremolo : Instance [NotBrowsable]
+Class AudioTremolo : Instance
 	Property AudioTremolo.Bypass: boolean {🔐Audio}
 	Property AudioTremolo.Depth: number {🔐Audio}
 	Property AudioTremolo.Duty: number {🔐Audio}
@@ -1544,6 +1544,9 @@ Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Event ChangeHistoryService.OnRedo(waypoint: string) {PluginSecurity}
 	Event ChangeHistoryService.OnUndo(waypoint: string) {PluginSecurity}
 Class ChangeHistoryStreamingService : Instance [NotCreatable] [Service]
+	Event ChangeHistoryStreamingService.SendCreateInstanceFromStudio(parentInstance: Instance, instance: Instance) {RobloxScriptSecurity}
+	Event ChangeHistoryStreamingService.SendDeleteInstanceFromStudio(instance: Instance, setParentToNull: boolean) {RobloxScriptSecurity}
+	Event ChangeHistoryStreamingService.SendReparentInstanceFromStudio(parentInstance: Instance, instance: Instance) {RobloxScriptSecurity}
 	Event ChangeHistoryStreamingService.SendTerrainChangeFromStudio(instance: Instance, chunkX: number, chunkY: number, chunkZ: number, cells: string) {RobloxScriptSecurity}
 Class CharacterAppearance : Instance [NotCreatable]
 Class BodyColors : CharacterAppearance
@@ -2914,7 +2917,7 @@ Class TextBox : GuiObject
 	Event TextBox.FocusLost(enterPressed: boolean, inputThatCausedFocusLoss: InputObject) {🔐UI}
 	Event TextBox.Focused() {🔐UI}
 	Event TextBox.ReturnPressedFromOnScreenKeyboard() {🔐UI}
-Class VideoDisplay : GuiObject [NotBrowsable]
+Class VideoDisplay : GuiObject
 	Property VideoDisplay.ResampleMode: Enum.ResamplerMode {🔐UI}
 	Property VideoDisplay.ScaleType: Enum.ScaleType {🔐UI}
 	Property VideoDisplay.TileSize: UDim2 {🔐UI}
@@ -3386,6 +3389,7 @@ Class HttpRequest : Instance [NotCreatable]
 Class HttpService : Instance [NotCreatable] [Service]
 	Property HttpService.HttpEnabled: boolean {🔐Network} {✏️LocalUserSecurity}
 	Function HttpService:CreateWebStreamClient(streamClientType: Enum.WebStreamClientType, requestOptions: { [string]: any }) -> WebStreamClient {🔐Network}
+	Function HttpService:CreateWebStreamClientInternal(streamClientType: Enum.WebStreamClientType, requestOptions: { [string]: any }) -> WebStreamClient {RobloxScriptSecurity}
 	Function HttpService:GenerateGUID(wrapInCurlyBraces: boolean? = true) -> string {🧬Safe}
 	Function HttpService:GetAsync(url: any, nocache: boolean? = false, headers: any) -> string {🔐Network} [Yields]
 	Function HttpService:GetHttpEnabled() -> boolean {RobloxScriptSecurity}
@@ -3826,6 +3830,8 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function InsertService:LoadPackageAssetAsync(url: string) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function InsertService:loadAsset(assetId: number) -> Instance? [Yields] [Deprecated]
 	Event InsertService.InternalDelete(instance: Instance) [Hidden]
+Class InstanceExtensionsService : Instance [NotCreatable] [Service]
+	Function InstanceExtensionsService:CountChildren(instance: Instance) -> number {RobloxScriptSecurity}
 Class InternalSyncItem : Instance [NotReplicated]
 	Property InternalSyncItem.AutoSync: boolean {RobloxScriptSecurity} [NotReplicated]
 	Property InternalSyncItem.Enabled: boolean {RobloxScriptSecurity} [NotReplicated]
@@ -5505,7 +5511,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Event Players.PlayerDisconnecting(player: Player) {🔐Players} {LocalUserSecurity}
 	Event Players.PlayerMembershipChanged(player: Player) {🔐Players}
 	Event Players.PlayerRejoining(player: Player) {🔐Players} {LocalUserSecurity}
-	Event Players.PlayerRemoving(player: Player) {🔐Players}
+	Event Players.PlayerRemoving(player: Player, reason: Enum.PlayerExitReason) {🔐Players}
 	Event Players.PromptGameServerReportEnrichment(reportId: string) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Players.PromptGameServerTargetedChatReportEnrichment(reportId: string, eligibleChatLines: { any }, targetChatLines: { any }) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Players.PromptReportServerEnrichmentAndScan(v1comment: string, submitterId: number, abuserId: number, reportId: string) {🔐Players} {RobloxSecurity} [Hidden]
@@ -5903,6 +5909,7 @@ Class RtMessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property RunService.ClientGitHash: string {🔐Basic} {RobloxScriptSecurity} [ReadOnly]
 	Property RunService.RunState: Enum.RunState {🔐Basic} {PluginSecurity} [NotReplicated]
+	Property RunService.PredictionState: Enum.PredictionState {🔐Basic} [ReadOnly]
 	Property RunService.ServerFrame: number {🔐Basic} [ReadOnly]
 	Function RunService:BindToRenderStep(name: string, priority: number, function: (...any) -> ...any) -> () {🔐Basic}
 	Function RunService:GetControlAndVariantRolloutFlags() -> ...any {🔐Basic} {RobloxScriptSecurity}
@@ -5923,9 +5930,11 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:SetRobloxGuiFocused(focus: boolean) -> () {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:Stop() -> () {🔐Basic} {PluginSecurity}
 	Function RunService:UnbindFromRenderStep(name: string) -> () {🔐Basic}
+	Function RunService:getThrottleFramerateEnabled() -> boolean {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:setThrottleFramerateEnabled(enable: boolean) -> () {🔐Basic} {RobloxScriptSecurity}
 	Event RunService.FixedHeartbeat(deltaTime: number) {🔐Basic | InternalTest}
 	Event RunService.Heartbeat(deltaTime: number) {🔐Basic}
+	Event RunService.Misprediction(remoteWorldStepId: number, mispredictedInstances: { any }) {🔐Basic | InternalTest}
 	Event RunService.PostSimulation(deltaTimeSim: number) {🔐Basic}
 	Event RunService.PreAnimation(deltaTimeSim: number) {🔐Basic}
 	Event RunService.PreRender(deltaTimeRender: number) {🔐Basic}
@@ -5933,6 +5942,10 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event RunService.RenderStepped(deltaTime: number) {🔐Basic}
 	Event RunService.RobloxGuiFocusedChanged(isRobloxGuiFocused: boolean) {🔐Basic} {RobloxScriptSecurity}
 	Event RunService.Stepped(time: number, deltaTime: number) {🔐Basic}
+Class RuntimeContentService : Instance [NotCreatable] [Service]
+	Event RuntimeContentService.RuntimeContentFail(id: string)
+	Event RuntimeContentService.RuntimeContentQuery(id: string, content: string)
+	Event RuntimeContentService.RuntimeContentShare(id: string, content: string)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
 	Property SafetyService.IsCaptureModeForReport: boolean {RobloxScriptSecurity}
@@ -6828,6 +6841,7 @@ Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioPublishService:PublishThenTurnOnTeamCreate() -> () {RobloxScriptSecurity}
 	Function StudioPublishService:RefreshDocumentDisplayName() -> () {RobloxScriptSecurity}
 	Function StudioPublishService:RegisterPublishHold(priority: number, callback: (...any) -> ...any) -> RBXScriptConnection {RobloxScriptSecurity}
+	Function StudioPublishService:SaveOrPublishPlaceToRobloxIsCanceled() -> () {RobloxScriptSecurity}
 	Function StudioPublishService:SetTeamCreateOnPublishInfo(shouldTurnOnTcOnPublish: boolean, newPlaceName: string) -> () {RobloxScriptSecurity}
 	Function StudioPublishService:SetUniverseDisplayName(newName: string) -> () {RobloxScriptSecurity}
 	Function StudioPublishService:SetUploadNames(placeName: string, universeName: string) -> () {RobloxScriptSecurity}
@@ -7223,7 +7237,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {🔐Chat} {RobloxScriptSecurity} [Yields]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> () {🔐Chat}
 	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number) -> () {🔐Chat} {RobloxScriptSecurity}
-	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage) -> () {🔐Chat} {RobloxScriptSecurity}
+	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage, messageRenderedSurface: string? = "unknown") -> () {🔐Chat} {RobloxScriptSecurity}
 	Function TextChatService:SendExpChatWindowScroll() -> () {🔐Chat} {RobloxScriptSecurity}
 	Function TextChatService:SendExpChatWindowStatusChange(timeClosed: number, timeOpen: number, timeIdle: number) -> () {🔐Chat} {RobloxScriptSecurity}
 	Event TextChatService.BubbleDisplayed(partOrCharacter: Instance, textChatMessage: TextChatMessage) {🔐Chat}
@@ -7880,7 +7894,7 @@ Class VideoDeviceInput : Instance [NotReplicated]
 	Property VideoDeviceInput.CameraId: string
 	Property VideoDeviceInput.CaptureQuality: Enum.VideoDeviceCaptureQuality
 	Property VideoDeviceInput.IsReady: boolean [ReadOnly]
-Class VideoPlayer : Instance [NotBrowsable]
+Class VideoPlayer : Instance
 	Property VideoPlayer.IsLoaded: boolean [ReadOnly]
 	Property VideoPlayer.Resolution: Vector2 [ReadOnly]
 	Property VideoPlayer.TimeLength: number [ReadOnly]
@@ -8093,7 +8107,7 @@ Class Wire : Instance
 	Property Wire.TargetInstance: Instance? {🔐Basic}
 	Property Wire.TargetName: string {🔐Basic}
 	Function Wire:RenameToDefault() -> () {🔐Basic} {RobloxScriptSecurity}
-Class WrapTextureTransfer : Instance [NotBrowsable]
+Class WrapTextureTransfer : Instance
 	Property WrapTextureTransfer.ReferenceCageMeshContent: Content {🔐Avatar}
 	Property WrapTextureTransfer.UVMaxBound: Vector2 {🔐Avatar}
 	Property WrapTextureTransfer.UVMinBound: Vector2 {🔐Avatar}
@@ -8883,6 +8897,15 @@ Enum ConfigSnapshotErrorState
 Enum ConnectionError
 	EnumItem ConnectionError.OK : 0
 	EnumItem ConnectionError.Unknown : 1
+	EnumItem ConnectionError.ConnectErrors : 2
+	EnumItem ConnectionError.AlreadyConnected : 3
+	EnumItem ConnectionError.NoFreeIncomingConnections : 4
+	EnumItem ConnectionError.ConnectionBanned : 5
+	EnumItem ConnectionError.InvalidPassword : 6
+	EnumItem ConnectionError.IncompatibleProtocolVersion : 7
+	EnumItem ConnectionError.IPRecentlyConnected : 8
+	EnumItem ConnectionError.OurSystemRequiresSecurity : 9
+	EnumItem ConnectionError.SecurityKeyMismatch : 10
 	EnumItem ConnectionError.DisconnectErrors : 256
 	EnumItem ConnectionError.DisconnectBadhash : 257
 	EnumItem ConnectionError.DisconnectSecurityKeyMismatch : 258
@@ -8933,6 +8956,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.AndroidEmulatorKick : 305
 	EnumItem ConnectionError.AndroidRootedKick : 306
 	EnumItem ConnectionError.ScreentimeLockoutKick : 307
+	EnumItem ConnectionError.DisconnectionNotification : 308
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -8965,6 +8989,7 @@ Enum ContentSourceType
 	EnumItem ContentSourceType.None : 0
 	EnumItem ContentSourceType.Uri : 1
 	EnumItem ContentSourceType.Object : 2
+	EnumItem ContentSourceType.Opaque : 3
 Enum ContextActionPriority
 	EnumItem ContextActionPriority.Low : 1000
 	EnumItem ContextActionPriority.Medium : 2000
@@ -10393,6 +10418,10 @@ Enum PlayerDataLoadFailureBehavior
 	EnumItem PlayerDataLoadFailureBehavior.Failure : 0
 	EnumItem PlayerDataLoadFailureBehavior.FallbackToDefault : 1
 	EnumItem PlayerDataLoadFailureBehavior.Kick : 2
+Enum PlayerExitReason
+	EnumItem PlayerExitReason.Unknown : 0
+	EnumItem PlayerExitReason.PlatformKick : 1
+	EnumItem PlayerExitReason.CreatorKick : 2
 Enum PoseEasingDirection
 	EnumItem PoseEasingDirection.In : 0
 	EnumItem PoseEasingDirection.Out : 1
@@ -10411,6 +10440,11 @@ Enum PredictionMode
 	EnumItem PredictionMode.Automatic : 0
 	EnumItem PredictionMode.On : 1
 	EnumItem PredictionMode.Off : 2
+Enum PredictionState
+	EnumItem PredictionState.Idle : 0
+	EnumItem PredictionState.Simulating : 1
+	EnumItem PredictionState.RollingBack : 2
+	EnumItem PredictionState.Resimulating : 3
 Enum PreferredInput
 	EnumItem PreferredInput.KeyboardAndMouse : 0
 	EnumItem PreferredInput.Gamepad : 1

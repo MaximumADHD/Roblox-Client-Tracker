@@ -1,4 +1,4 @@
-struct PartMaterialParams
+struct PartMaterialConsts
 {
     float textureTiling;
     float plasticRoughness;
@@ -16,4 +16,6 @@ struct PartMaterialParams
     float farNormalCutoffScale;
     float farSpecularCutoffScale;
     float isNonSmoothPlastic;
+    vec3 emissive;
+    float unused2;
 };
