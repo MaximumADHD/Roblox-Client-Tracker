@@ -2,9 +2,9 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-#include <PartMaterialParams.h>
+#include <PartMaterialConsts.h>
 uniform vec4 CB0[61];
-uniform vec4 CB2[4];
+uniform vec4 CB2[5];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;

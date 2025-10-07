@@ -2,9 +2,9 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-#include <SAParams.h>
+#include <SurfaceAppearanceConsts.h>
 uniform vec4 CB0[61];
-uniform vec4 CB3[1];
+uniform vec4 CB3[2];
 in vec4 POSITION;
 in vec4 NORMAL;
 in vec2 TEXCOORD0;

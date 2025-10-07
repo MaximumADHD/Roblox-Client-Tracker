@@ -2,9 +2,9 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-#include <SAParams.h>
+#include <SurfaceAppearanceConsts.h>
 uniform vec4 CB0[61];
-uniform vec4 CB3[1];
+uniform vec4 CB3[2];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -119,7 +119,7 @@ void main()
     vec3 f74 = vec3(f73) + (f29 * (1.0 - f73));
     float f75 = f68 * f68;
     float f76 = (((f69 * f75) - f69) * f69) + 1.0;
-    vec3 f77 = (((((((f53 - (f50 * f52)) * (((((((CB0[40].xyz * f58) + (CB0[42].xyz * f59)) + (CB0[44].xyz * f60)) + (CB0[41].xyz * f61)) + (CB0[43].xyz * f62)) + (CB0[45].xyz * f63)) + (((((((CB0[34].xyz * f58) + (CB0[36].xyz * f59)) + (CB0[38].xyz * f60)) + (CB0[35].xyz * f61)) + (CB0[37].xyz * f62)) + (CB0[39].xyz * f63)) * f38))) * 1.0) + ((CB0[32].xyz + (CB0[33].xyz * f38)) * 1.0)) + ((((f53 - (f74 * f52)) * CB0[15].xyz) * f67) + (CB0[17].xyz * (f51 * clamp(-f65, 0.0, 1.0))))) + (f36.xyz * (f36.w * 120.0))) * f21.xyz) + (((mix(f46, textureLod(PrefilteredEnvTexture, vec4(vec3(f43.x ? f42.x : f27.x, f43.y ? f42.y : f27.y, f43.z ? f42.z : f27.z), f41).xyz, f41).xyz * mix(CB0[31].xyz, CB0[30].xyz, vec3(clamp(f27.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f38)) * f50) * f24) + (((f74 * (((f75 + (f75 * f75)) / (((f76 * f76) * ((f70 * 3.0) + 0.5)) * ((f69 * 0.75) + 0.25))) * f67)) * CB0[15].xyz) * 1.0));
+    vec3 f77 = ((((((CB3[1].xyz * f12.z) + (((f53 - (f50 * f52)) * (((((((CB0[40].xyz * f58) + (CB0[42].xyz * f59)) + (CB0[44].xyz * f60)) + (CB0[41].xyz * f61)) + (CB0[43].xyz * f62)) + (CB0[45].xyz * f63)) + (((((((CB0[34].xyz * f58) + (CB0[36].xyz * f59)) + (CB0[38].xyz * f60)) + (CB0[35].xyz * f61)) + (CB0[37].xyz * f62)) + (CB0[39].xyz * f63)) * f38))) * 1.0)) + ((CB0[32].xyz + (CB0[33].xyz * f38)) * 1.0)) + ((((f53 - (f74 * f52)) * CB0[15].xyz) * f67) + (CB0[17].xyz * (f51 * clamp(-f65, 0.0, 1.0))))) + (f36.xyz * (f36.w * 120.0))) * f21.xyz) + (((mix(f46, textureLod(PrefilteredEnvTexture, vec4(vec3(f43.x ? f42.x : f27.x, f43.y ? f42.y : f27.y, f43.z ? f42.z : f27.z), f41).xyz, f41).xyz * mix(CB0[31].xyz, CB0[30].xyz, vec3(clamp(f27.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(f38)) * f50) * f24) + (((f74 * (((f75 + (f75 * f75)) / (((f76 * f76) * ((f70 * 3.0) + 0.5)) * ((f69 * 0.75) + 0.25))) * f67)) * CB0[15].xyz) * 1.0));
     vec4 f78 = vec4(0.0);
     f78.x = f77.x;
     vec4 f79 = f78;

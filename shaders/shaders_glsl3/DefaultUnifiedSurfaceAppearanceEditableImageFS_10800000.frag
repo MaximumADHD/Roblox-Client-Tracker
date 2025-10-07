@@ -2,13 +2,14 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-#include <SAParams.h>
+#include <SurfaceAppearanceConsts.h>
 uniform vec4 CB0[61];
-uniform vec4 CB3[1];
+uniform vec4 CB3[2];
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
 uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D DiffuseMapTexture;
+uniform sampler2D EditableImageEmissiveMaskTexture;
 
 in vec2 VARYING0;
 in vec4 VARYING2;
@@ -42,7 +43,7 @@ void main()
     vec4 f15 = mix(texture(LightMapTexture, f13), vec4(0.0), f14);
     vec4 f16 = mix(texture(LightGridSkylightTexture, f13), vec4(1.0), f14);
     float f17 = f16.y;
-    vec3 f18 = (((VARYING5.xyz * f17) + min((f15.xyz * (f15.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f16.x)), vec3(CB0[21].w))) * f10.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f10.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f17));
+    vec3 f18 = ((((CB3[1].xyz * texture(EditableImageEmissiveMaskTexture, VARYING0).x) + (VARYING5.xyz * f17)) + min((f15.xyz * (f15.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f16.x)), vec3(CB0[21].w))) * f10.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f10.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f17));
     vec4 f19 = vec4(0.0);
     f19.x = f18.x;
     vec4 f20 = f19;
@@ -78,3 +79,4 @@ void main()
 //$$LightGridSkylightTexture=s7
 //$$PrefilteredEnvTexture=s15
 //$$DiffuseMapTexture=s3
+//$$EditableImageEmissiveMaskTexture=s10
