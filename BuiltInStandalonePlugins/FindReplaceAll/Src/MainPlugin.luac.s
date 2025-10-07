@@ -11,9 +11,12 @@ PROTO_0:
   NAMECALL R3 R1 K5 ["GetWidgetAsync"]
   CALL R3 2 1
   GETTABLEKS R4 R3 K6 ["Exists"]
-  JUMPIFNOT R4 [+4]
+  JUMPIFNOT R4 [+8]
+  GETUPVAL R4 0
+  LOADB R5 1
+  SETTABLEKS R5 R4 K7 ["isProgrammaticallyFocusing"]
   MOVE R6 R2
-  NAMECALL R4 R1 K7 ["FocusAsync"]
+  NAMECALL R4 R1 K8 ["FocusAsync"]
   CALL R4 2 0
   RETURN R0 0
 
@@ -138,12 +141,18 @@ PROTO_10:
   RETURN R0 1
 
 PROTO_11:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["isProgrammaticallyFocusing"]
+  JUMPIFNOT R0 [+12]
   GETUPVAL R0 0
-  DUPTABLE R2 K1 [{"shouldFocusTextBox"}]
+  DUPTABLE R2 K2 [{"shouldFocusTextBox"}]
   LOADB R3 1
-  SETTABLEKS R3 R2 K0 ["shouldFocusTextBox"]
-  NAMECALL R0 R0 K2 ["setState"]
+  SETTABLEKS R3 R2 K1 ["shouldFocusTextBox"]
+  NAMECALL R0 R0 K3 ["setState"]
   CALL R0 2 0
+  GETUPVAL R0 0
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["isProgrammaticallyFocusing"]
   RETURN R0 0
 
 PROTO_12:
@@ -153,6 +162,9 @@ PROTO_12:
   SETTABLEKS R3 R2 K0 ["shouldFocusTextBox"]
   NAMECALL R0 R0 K2 ["setState"]
   CALL R0 2 0
+  GETUPVAL R0 0
+  LOADB R1 0
+  SETTABLEKS R1 R0 K3 ["isProgrammaticallyFocusing"]
   RETURN R0 0
 
 PROTO_13:
@@ -195,78 +207,80 @@ PROTO_14:
   LOADB R5 1
   SETTABLEKS R5 R4 K6 ["shouldFocusTextBox"]
   SETTABLEKS R4 R0 K8 ["state"]
+  LOADB R4 0
+  SETTABLEKS R4 R0 K9 ["isProgrammaticallyFocusing"]
   NEWCLOSURE R4 P0
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K9 ["toggleEnabled"]
+  SETTABLEKS R4 R0 K10 ["toggleEnabled"]
   NEWCLOSURE R4 P1
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K10 ["onClose"]
+  SETTABLEKS R4 R0 K11 ["onClose"]
   NEWCLOSURE R4 P2
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K11 ["onRestore"]
+  SETTABLEKS R4 R0 K12 ["onRestore"]
   NEWCLOSURE R4 P3
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K12 ["onWidgetEnabledChanged"]
+  SETTABLEKS R4 R0 K13 ["onWidgetEnabledChanged"]
   NEWCLOSURE R4 P4
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K13 ["onDockWidgetCreated"]
+  SETTABLEKS R4 R0 K14 ["onDockWidgetCreated"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K14 ["new"]
-  GETTABLEKS R5 R1 K15 ["Plugin"]
-  NAMECALL R5 R5 K16 ["getMouse"]
+  GETTABLEKS R4 R5 K15 ["new"]
+  GETTABLEKS R5 R1 K16 ["Plugin"]
+  NAMECALL R5 R5 K17 ["getMouse"]
   CALL R5 1 -1
   CALL R4 -1 1
-  SETTABLEKS R4 R0 K17 ["mouse"]
-  GETTABLEKS R4 R0 K17 ["mouse"]
-  LOADK R6 K18 ["Arrow"]
+  SETTABLEKS R4 R0 K18 ["mouse"]
+  GETTABLEKS R4 R0 K18 ["mouse"]
+  LOADK R6 K19 ["Arrow"]
   LOADN R7 0
-  NAMECALL R4 R4 K19 ["__pushCursor"]
+  NAMECALL R4 R4 K20 ["__pushCursor"]
   CALL R4 3 0
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K20 ["Localization"]
-  GETTABLEKS R4 R5 K14 ["new"]
-  DUPTABLE R5 K24 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETTABLEKS R5 R6 K21 ["Localization"]
+  GETTABLEKS R4 R5 K15 ["new"]
+  DUPTABLE R5 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R6 4
-  SETTABLEKS R6 R5 K21 ["stringResourceTable"]
+  SETTABLEKS R6 R5 K22 ["stringResourceTable"]
   GETUPVAL R6 5
-  SETTABLEKS R6 R5 K22 ["translationResourceTable"]
+  SETTABLEKS R6 R5 K23 ["translationResourceTable"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K25 ["PLUGIN_NAME"]
-  SETTABLEKS R6 R5 K23 ["pluginName"]
+  GETTABLEKS R6 R7 K26 ["PLUGIN_NAME"]
+  SETTABLEKS R6 R5 K24 ["pluginName"]
   CALL R4 1 1
-  SETTABLEKS R4 R0 K26 ["localization"]
+  SETTABLEKS R4 R0 K27 ["localization"]
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K27 ["Analytics"]
-  GETTABLEKS R4 R5 K14 ["new"]
-  DUPCLOSURE R5 K28 [PROTO_10]
+  GETTABLEKS R5 R6 K28 ["Analytics"]
+  GETTABLEKS R4 R5 K15 ["new"]
+  DUPCLOSURE R5 K29 [PROTO_10]
   NEWTABLE R6 0 0
   CALL R4 2 1
-  SETTABLEKS R4 R0 K29 ["analytics"]
+  SETTABLEKS R4 R0 K30 ["analytics"]
   GETUPVAL R5 6
-  GETTABLEKS R4 R5 K14 ["new"]
+  GETTABLEKS R4 R5 K15 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R0 K30 ["DEPRECATED_stylizer"]
+  SETTABLEKS R4 R0 K31 ["DEPRECATED_stylizer"]
   GETUPVAL R4 7
-  GETTABLEKS R5 R1 K15 ["Plugin"]
+  GETTABLEKS R5 R1 K16 ["Plugin"]
   CALL R4 1 1
-  SETTABLEKS R4 R0 K31 ["design"]
+  SETTABLEKS R4 R0 K32 ["design"]
   NEWCLOSURE R4 P6
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K32 ["onFocus"]
+  SETTABLEKS R4 R0 K33 ["onFocus"]
   NEWCLOSURE R4 P7
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K33 ["onFocusReleased"]
+  SETTABLEKS R4 R0 K34 ["onFocusReleased"]
   NEWCLOSURE R4 P8
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K34 ["onFindActivationUpdate"]
+  SETTABLEKS R4 R0 K35 ["onFindActivationUpdate"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K35 ["FindActivated"]
-  GETTABLEKS R6 R0 K34 ["onFindActivationUpdate"]
-  NAMECALL R4 R4 K36 ["Connect"]
+  GETTABLEKS R4 R5 K36 ["FindActivated"]
+  GETTABLEKS R6 R0 K35 ["onFindActivationUpdate"]
+  NAMECALL R4 R4 K37 ["Connect"]
   CALL R4 2 1
-  SETTABLEKS R4 R0 K37 ["findActivatedConnection"]
+  SETTABLEKS R4 R0 K38 ["findActivatedConnection"]
   RETURN R0 0
 
 PROTO_15:

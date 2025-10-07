@@ -63,6 +63,11 @@ local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBu
 local CloseOverlay = require(InspectAndBuyFolder.Actions.CloseOverlay)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 local getViewType = AvatarExperienceInspectAndBuy.Utils.getViewType
+local InspectAndBuyVersion = AvatarExperienceInspectAndBuy.Enums.InspectAndBuyVersion
+local FFlagEnableInspectAndBuyV2RootFlag =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableInspectAndBuyV2RootFlag
+local FFlagAXEnableInspectAndBuyVersionAnalytics =
+	require(InspectAndBuyFolder.Flags.FFlagAXEnableInspectAndBuyVersionAnalytics)
 
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
@@ -125,7 +130,18 @@ function InspectAndBuy:init()
 	local ctx = self.props.ctx
 	self.connections = {}
 	self.network = self.props.network or Network.new()
-	self.analytics = Analytics.new(playerId, ctx)
+
+	--[[
+		the root flag will determine whether the UI is V1 or V2
+		the analytics flag should be de-coupled from the root flag so it is available on the old and new UI
+	]]
+	self.analytics = if FFlagAXEnableInspectAndBuyVersionAnalytics
+		then Analytics.new(
+			playerId,
+			ctx,
+			if FFlagEnableInspectAndBuyV2RootFlag then InspectAndBuyVersion.Version2 else InspectAndBuyVersion.Version1
+		)
+		else Analytics.new(playerId, ctx)
 	self.humanoidDescription = self.props.humanoidDescription
 
 	self.analytics.reportOpenInspectMenu()

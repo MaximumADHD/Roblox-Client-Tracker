@@ -20,6 +20,7 @@ local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
+local FFlagCheckPlayerListFocusNavSupported = game:DefineFastFlag("CheckPlayerListFocusNavSupported", false)
 
 local ContextActionsBinder = Roact.PureComponent:extend("ContextActionsBinder")
 
@@ -60,20 +61,35 @@ function ContextActionsBinder:bindActions()
 		if inputState ~= Enum.UserInputState.Begin then
 			return Enum.ContextActionResult.Pass
 		end
+
+		-- Pass input if focus nav is not supported
+		if FFlagCheckPlayerListFocusNavSupported and not (self.props.displayOptions.isTenFootInterface or (FFlagAddNewPlayerListMobileFocusNav and self.props.displayOptions.isSmallTouchDevice)) then
+			return Enum.ContextActionResult.Pass
+		end
+
 		if FFlagAddNewPlayerListMobileFocusNav then
 			if self.props.playerDropDown.isVisible and (if FFlagModalPlayerListCloseUnfocused then inputObject.KeyCode == Enum.KeyCode.ButtonB else true) then
 				self.props.closePlayerDropDown()
 				return Enum.ContextActionResult.Sink
 			end
 		end
-		if self.props.displayOptions.isVisible then
-			self.props.setVisibility(false)
-			if FFlagModalPlayerListCloseUnfocused then
-				return Enum.ContextActionResult.Pass
-			else
+
+		if FFlagAddNewPlayerListMobileFocusNav then
+			if self.props.displayOptions.isVisible then
+				self.props.setVisibility(false)
+				if FFlagModalPlayerListCloseUnfocused then
+					return Enum.ContextActionResult.Pass
+				else
+					return Enum.ContextActionResult.Sink
+				end
+			end
+		else
+			if self.props.displayOptions.isVisible and self.props.displayOptions.isTenFootInterface then
+				self.props.setVisibility(false)
 				return Enum.ContextActionResult.Sink
 			end
 		end
+
 		return Enum.ContextActionResult.Pass
 	end, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart)
 	self.boundPlayerListActions = true

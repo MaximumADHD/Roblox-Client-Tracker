@@ -74,47 +74,47 @@ PROTO_1:
   GETUPVAL R6 2
   GETTABLEKS R5 R6 K15 ["createElement"]
   GETUPVAL R6 4
-  NEWTABLE R7 0 0
-  DUPTABLE R8 K17 [{"Controls"}]
+  DUPTABLE R7 K17 [{"ZIndex"}]
+  GETTABLEKS R8 R0 K16 ["ZIndex"]
+  SETTABLEKS R8 R7 K16 ["ZIndex"]
+  DUPTABLE R8 K19 [{"Controls"}]
   GETUPVAL R10 2
   GETTABLEKS R9 R10 K15 ["createElement"]
   GETUPVAL R10 4
-  DUPTABLE R11 K27 [{"AnchorPoint", "Size", "HorizontalAlignment", "Layout", "Position", "ZIndex", "Padding", "Spacing", "Style"}]
-  GETTABLEKS R13 R2 K16 ["Controls"]
-  GETTABLEKS R12 R13 K18 ["AnchorPoint"]
-  SETTABLEKS R12 R11 K18 ["AnchorPoint"]
-  GETIMPORT R12 K30 [UDim2.new]
+  DUPTABLE R11 K28 [{"AnchorPoint", "Size", "HorizontalAlignment", "Layout", "Position", "Padding", "Spacing", "Style"}]
+  GETTABLEKS R13 R2 K18 ["Controls"]
+  GETTABLEKS R12 R13 K20 ["AnchorPoint"]
+  SETTABLEKS R12 R11 K20 ["AnchorPoint"]
+  GETIMPORT R12 K31 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
-  GETTABLEKS R17 R2 K16 ["Controls"]
-  GETTABLEKS R16 R17 K31 ["PaneHeight"]
+  GETTABLEKS R17 R2 K18 ["Controls"]
+  GETTABLEKS R16 R17 K32 ["PaneHeight"]
   CALL R12 4 1
-  SETTABLEKS R12 R11 K19 ["Size"]
-  GETIMPORT R12 K34 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R12 R11 K20 ["HorizontalAlignment"]
-  GETIMPORT R12 K37 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R12 R11 K21 ["Layout"]
-  GETTABLEKS R13 R2 K16 ["Controls"]
-  GETTABLEKS R12 R13 K22 ["Position"]
-  SETTABLEKS R12 R11 K22 ["Position"]
-  GETTABLEKS R12 R0 K23 ["ZIndex"]
-  SETTABLEKS R12 R11 K23 ["ZIndex"]
+  SETTABLEKS R12 R11 K21 ["Size"]
+  GETIMPORT R12 K35 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R12 R11 K22 ["HorizontalAlignment"]
+  GETIMPORT R12 K38 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R12 R11 K23 ["Layout"]
+  GETTABLEKS R13 R2 K18 ["Controls"]
+  GETTABLEKS R12 R13 K24 ["Position"]
+  SETTABLEKS R12 R11 K24 ["Position"]
   LOADN R12 7
-  SETTABLEKS R12 R11 K24 ["Padding"]
+  SETTABLEKS R12 R11 K25 ["Padding"]
   LOADN R12 8
-  SETTABLEKS R12 R11 K25 ["Spacing"]
-  LOADK R12 K38 ["BorderBox"]
-  SETTABLEKS R12 R11 K26 ["Style"]
-  GETTABLEKS R13 R0 K39 ["stateType"]
-  JUMPIFEQKS R13 K40 ["hasSelection"] [+5]
-  GETTABLEKS R13 R0 K39 ["stateType"]
-  JUMPIFNOTEQKS R13 K41 ["error"] [+3]
+  SETTABLEKS R12 R11 K26 ["Spacing"]
+  LOADK R12 K39 ["BorderBox"]
+  SETTABLEKS R12 R11 K27 ["Style"]
+  GETTABLEKS R13 R0 K40 ["stateType"]
+  JUMPIFEQKS R13 K41 ["hasSelection"] [+5]
+  GETTABLEKS R13 R0 K40 ["stateType"]
+  JUMPIFNOTEQKS R13 K42 ["error"] [+3]
   MOVE R12 R4
   JUMP [+2]
   NEWTABLE R12 0 0
   CALL R9 3 1
-  SETTABLEKS R9 R8 K16 ["Controls"]
+  SETTABLEKS R9 R8 K18 ["Controls"]
   CALL R5 3 -1
   RETURN R5 -1
 

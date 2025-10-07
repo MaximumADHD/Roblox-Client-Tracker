@@ -282,24 +282,22 @@ PROTO_10:
   SETLIST R22 R23 1 [1]
   CALL R20 2 1
   GETUPVAL R22 1
-  GETTABLEKS R21 R22 K5 ["useEffect"]
+  GETTABLEKS R21 R22 K5 ["useLayoutEffect"]
   NEWCLOSURE R22 P7
   CAPTURE VAL R8
   CAPTURE VAL R0
-  NEWTABLE R23 0 2
+  NEWTABLE R23 0 1
   GETTABLEKS R24 R0 K6 ["searchText"]
-  MOVE R25 R8
-  SETLIST R23 R24 2 [1]
+  SETLIST R23 R24 1 [1]
   CALL R21 2 0
   GETUPVAL R22 1
-  GETTABLEKS R21 R22 K5 ["useEffect"]
+  GETTABLEKS R21 R22 K5 ["useLayoutEffect"]
   NEWCLOSURE R22 P8
   CAPTURE VAL R0
   CAPTURE VAL R8
-  NEWTABLE R23 0 2
+  NEWTABLE R23 0 1
   GETTABLEKS R24 R0 K7 ["shouldFocusTextBox"]
-  MOVE R25 R8
-  SETLIST R23 R24 2 [1]
+  SETLIST R23 R24 1 [1]
   CALL R21 2 0
   GETUPVAL R21 6
   LOADK R22 K8 ["Frame"]
@@ -340,7 +338,7 @@ PROTO_10:
   DUPTABLE R28 K27 [{"SearchBar", "SettingsButton"}]
   GETUPVAL R29 6
   GETUPVAL R30 7
-  DUPTABLE R31 K40 [{"layoutOrder", "onFocused", "onFocusLost", "onTextBoxChanged", "onUpdateSearchHistory", "searchBarRef", "onSearchbarTextChanged", "textBoxRef", "searchBarPlaceholderText", "searchBarToggleOptions", "searchBarLeftIcon", "hasError"}]
+  DUPTABLE R31 K41 [{"layoutOrder", "onFocused", "onFocusLost", "onTextBoxChanged", "onUpdateSearchHistory", "searchBarRef", "onSearchbarTextChanged", "textBoxRef", "searchBarPlaceholderText", "searchBarToggleOptions", "searchBarLeftIcon", "hasError", "initialSearchText"}]
   MOVE R32 R1
   CALL R32 0 1
   SETTABLEKS R32 R31 K28 ["layoutOrder"]
@@ -360,81 +358,83 @@ PROTO_10:
   SETTABLEKS R32 R31 K38 ["searchBarLeftIcon"]
   GETTABLEKS R32 R0 K39 ["hasError"]
   SETTABLEKS R32 R31 K39 ["hasError"]
+  GETTABLEKS R32 R0 K6 ["searchText"]
+  SETTABLEKS R32 R31 K40 ["initialSearchText"]
   CALL R29 2 1
   SETTABLEKS R29 R28 K25 ["SearchBar"]
-  GETTABLEKS R29 R0 K41 ["settingsDropdownItemData"]
+  GETTABLEKS R29 R0 K42 ["settingsDropdownItemData"]
   JUMPIFNOT R29 [+76]
   GETUPVAL R29 6
-  LOADK R30 K42 ["ImageButton"]
+  LOADK R30 K43 ["ImageButton"]
   NEWTABLE R31 8 0
   MOVE R32 R1
   CALL R32 0 1
   SETTABLEKS R32 R31 K9 ["LayoutOrder"]
-  SETTABLEKS R11 R31 K43 ["ref"]
-  GETTABLEKS R33 R4 K44 ["enabled"]
+  SETTABLEKS R11 R31 K44 ["ref"]
+  GETTABLEKS R33 R4 K45 ["enabled"]
   JUMPIFNOT R33 [+4]
   GETUPVAL R33 3
-  GETTABLEKS R32 R33 K45 ["hoveredTransparency"]
+  GETTABLEKS R32 R33 K46 ["hoveredTransparency"]
   JUMP [+8]
-  GETTABLEKS R33 R5 K44 ["enabled"]
+  GETTABLEKS R33 R5 K45 ["enabled"]
   JUMPIFNOT R33 [+4]
   GETUPVAL R33 3
-  GETTABLEKS R32 R33 K46 ["pressedTransparency"]
+  GETTABLEKS R32 R33 K47 ["pressedTransparency"]
   JUMP [+1]
   LOADNIL R32
   SETTABLEKS R32 R31 K18 ["BackgroundTransparency"]
   GETUPVAL R34 1
-  GETTABLEKS R33 R34 K47 ["Event"]
-  GETTABLEKS R32 R33 K48 ["MouseButton1Down"]
+  GETTABLEKS R33 R34 K48 ["Event"]
+  GETTABLEKS R32 R33 K49 ["MouseButton1Down"]
   SETTABLE R20 R31 R32
   GETUPVAL R34 1
-  GETTABLEKS R33 R34 K47 ["Event"]
-  GETTABLEKS R32 R33 K49 ["MouseEnter"]
-  GETTABLEKS R33 R4 K50 ["enable"]
+  GETTABLEKS R33 R34 K48 ["Event"]
+  GETTABLEKS R32 R33 K50 ["MouseEnter"]
+  GETTABLEKS R33 R4 K51 ["enable"]
   SETTABLE R33 R31 R32
   GETUPVAL R34 1
-  GETTABLEKS R33 R34 K47 ["Event"]
-  GETTABLEKS R32 R33 K51 ["MouseLeave"]
-  GETTABLEKS R33 R4 K52 ["disable"]
+  GETTABLEKS R33 R34 K48 ["Event"]
+  GETTABLEKS R32 R33 K52 ["MouseLeave"]
+  GETTABLEKS R33 R4 K53 ["disable"]
   SETTABLE R33 R31 R32
   GETUPVAL R33 1
   GETTABLEKS R32 R33 K13 ["Tag"]
-  LOADK R33 K53 ["FindReplaceAll-BG-Input FindReplaceAll-SearchBox-Corner data-testid=SearchBox-SettingsButton"]
+  LOADK R33 K54 ["FindReplaceAll-BG-Input FindReplaceAll-SearchBox-Corner data-testid=SearchBox-SettingsButton"]
   SETTABLE R33 R31 R32
-  DUPTABLE R32 K56 [{"Icon", "FocusTracker"}]
+  DUPTABLE R32 K57 [{"Icon", "FocusTracker"}]
   GETUPVAL R33 6
-  LOADK R34 K57 ["ImageLabel"]
+  LOADK R34 K58 ["ImageLabel"]
   NEWTABLE R35 1 0
   GETUPVAL R37 1
   GETTABLEKS R36 R37 K13 ["Tag"]
-  LOADK R37 K58 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard ThreeDotsIcon"]
+  LOADK R37 K59 ["X-AnchorCenter FindReplaceAll-Icon FindReplaceAll-Content-Standard ThreeDotsIcon"]
   SETTABLE R37 R35 R36
   CALL R33 2 1
-  SETTABLEKS R33 R32 K54 ["Icon"]
+  SETTABLEKS R33 R32 K55 ["Icon"]
   GETUPVAL R33 6
   GETUPVAL R34 8
-  DUPTABLE R35 K59 [{"onFocusLost"}]
+  DUPTABLE R35 K60 [{"onFocusLost"}]
   SETTABLEKS R16 R35 K30 ["onFocusLost"]
   CALL R33 2 1
-  SETTABLEKS R33 R32 K55 ["FocusTracker"]
+  SETTABLEKS R33 R32 K56 ["FocusTracker"]
   CALL R29 3 1
   SETTABLEKS R29 R28 K26 ["SettingsButton"]
   CALL R25 3 1
   SETTABLEKS R25 R24 K15 ["SearchBarRow"]
   GETUPVAL R25 6
   GETUPVAL R26 9
-  DUPTABLE R27 K67 [{"dropdownOverlay", "currentDropdown", "dropdownRef", "searchHistory", "settingsDropdownItemData", "onDropdownItemClicked", "onSettingsDropdownItemClicked", "dropdownOffset"}]
-  GETTABLEKS R28 R0 K60 ["dropdownOverlay"]
-  SETTABLEKS R28 R27 K60 ["dropdownOverlay"]
-  SETTABLEKS R2 R27 K61 ["currentDropdown"]
-  SETTABLEKS R9 R27 K62 ["dropdownRef"]
-  SETTABLEKS R6 R27 K63 ["searchHistory"]
-  GETTABLEKS R28 R0 K41 ["settingsDropdownItemData"]
-  SETTABLEKS R28 R27 K41 ["settingsDropdownItemData"]
-  SETTABLEKS R17 R27 K64 ["onDropdownItemClicked"]
-  GETTABLEKS R28 R0 K65 ["onSettingsDropdownItemClicked"]
-  SETTABLEKS R28 R27 K65 ["onSettingsDropdownItemClicked"]
-  SETTABLEKS R12 R27 K66 ["dropdownOffset"]
+  DUPTABLE R27 K68 [{"dropdownOverlay", "currentDropdown", "dropdownRef", "searchHistory", "settingsDropdownItemData", "onDropdownItemClicked", "onSettingsDropdownItemClicked", "dropdownOffset"}]
+  GETTABLEKS R28 R0 K61 ["dropdownOverlay"]
+  SETTABLEKS R28 R27 K61 ["dropdownOverlay"]
+  SETTABLEKS R2 R27 K62 ["currentDropdown"]
+  SETTABLEKS R9 R27 K63 ["dropdownRef"]
+  SETTABLEKS R6 R27 K64 ["searchHistory"]
+  GETTABLEKS R28 R0 K42 ["settingsDropdownItemData"]
+  SETTABLEKS R28 R27 K42 ["settingsDropdownItemData"]
+  SETTABLEKS R17 R27 K65 ["onDropdownItemClicked"]
+  GETTABLEKS R28 R0 K66 ["onSettingsDropdownItemClicked"]
+  SETTABLEKS R28 R27 K66 ["onSettingsDropdownItemClicked"]
+  SETTABLEKS R12 R27 K67 ["dropdownOffset"]
   CALL R25 2 1
   SETTABLEKS R25 R24 K16 ["Dropdowns"]
   CALL R21 3 -1

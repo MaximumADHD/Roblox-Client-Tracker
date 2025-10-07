@@ -8,8 +8,16 @@ local TeleportService = game:GetService("TeleportService")
 
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 
-local FFlagEnableContactListRemoteEventValidation = game:DefineFastFlag("EnableContactListRemoteEventValidation2", false)
+local FFlagEnableContactListRemoteEventValidation =
+	game:DefineFastFlag("EnableContactListRemoteEventValidation2", false)
+local FFlagEnableContactListTeleportWithCallId = game:DefineFastFlag("EnableContactListTeleportWithCallId", false)
+local FFlagDisableContactListTeleportWithoutCallId =
+	game:DefineFastFlag("DisableContactListTeleportWithoutCallId", false)
 local EngineFeatureEnableIrisRerouteToRCC = game:GetEngineFeature("EnableIrisRerouteToRCC")
+
+local kMaxCallIdLength = 50
+local kMaxUserIdLength = 50
+local kNumParticipants = 2
 
 local RemoteInvokeIrisInvite = Instance.new("RemoteEvent")
 RemoteInvokeIrisInvite.Name = "ContactListInvokeIrisInvite"
@@ -56,7 +64,7 @@ Players.PlayerRemoving:Connect(function(player)
 	playerContactListTeleportAttempt[player.UserId] = nil
 end)
 
-RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanceId, reservedServerAccessCode)
+RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanceId, reservedServerAccessCode, callId)
 	local contactListTeleportAttempt = playerContactListTeleportAttempt[player.UserId]
 	-- Rate limit in case of DoS
 	if contactListTeleportAttempt ~= nil and contactListTeleportAttempt > 5 then
@@ -68,7 +76,26 @@ RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanc
 		playerContactListTeleportAttempt[player.UserId] = contactListTeleportAttempt + 1
 	end
 
-	-- Do a sanity check of the type and upperbound length of string, as recommended during security review
+	if FFlagEnableContactListTeleportWithCallId then
+		if typeof(callId) == "string" and #callId <= kMaxCallIdLength then
+			local success, response = pcall(function()
+				local url = Url.APIS_URL .. `call/v1/get-call-status-rcc?callId={callId}&userId={player.UserId}`
+				local response = HttpRbxApiService:GetAsyncFullUrl(url)
+				return HttpService:JSONDecode(response)
+			end)
+
+			if success and response.status == "CallAccepted" and response.reservedServerAccessCode then
+				local teleportOptions = Instance.new("TeleportOptions")
+				teleportOptions.ReservedServerAccessCode = response.reservedServerAccessCode
+				TeleportService:TeleportAsync(placeId, { player }, teleportOptions)
+			end
+		end
+	end
+
+	if FFlagDisableContactListTeleportWithoutCallId then
+		return
+	end
+
 	if
 		typeof(instanceId) ~= "string"
 		or #instanceId > 1000
@@ -137,10 +164,7 @@ local function terminateCall(callId: string)
 	return success
 end
 
-local kMaxCallIdLength = 50
-local kMaxUserIdLength = 50
-local kNumParticipants = 2
-local function sanityCheckParticipants(callParticipants: { [number]: string })
+local function validateCallParticipants(callParticipants: { [number]: string })
 	if typeof(callParticipants) ~= "table" or callParticipants == nil or #callParticipants ~= kNumParticipants then
 		return false
 	end
@@ -154,8 +178,7 @@ local function sanityCheckParticipants(callParticipants: { [number]: string })
 end
 
 local function validateCall(player: Player, callId: string, callParticipants: { [number]: string })
-	-- Sanity check the call infos before sending to backend service
-	if typeof(callId) ~= "string" or #callId > kMaxCallIdLength or not sanityCheckParticipants(callParticipants) then
+	if typeof(callId) ~= "string" or #callId > kMaxCallIdLength or not validateCallParticipants(callParticipants) then
 		return 400
 	end
 	local success, _ = pcall(function()

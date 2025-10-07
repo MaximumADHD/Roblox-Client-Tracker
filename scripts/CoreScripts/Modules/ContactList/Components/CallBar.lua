@@ -33,6 +33,8 @@ local useSelector = dependencies.Hooks.useSelector
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
+local FFlagIrisCancelTeleport = game:DefineFastFlag("IrisCancelTeleport", false)
+
 local localPlayer = Players.LocalPlayer
 local localUserId: number = localPlayer and localPlayer.UserId or 0
 
@@ -148,6 +150,7 @@ local function CallBar(passedProps: Props)
 
 	local isActionButtonEnabled = callStatus == RoduxCall.Enums.Status.Active
 		or callStatus == RoduxCall.Enums.Status.Connecting
+		or (FFlagIrisCancelTeleport and callStatus == RoduxCall.Enums.Status.Teleporting)
 		or isCallEndedInInstance
 
 	local actionButtonCallback = React.useCallback(function()
@@ -158,7 +161,10 @@ local function CallBar(passedProps: Props)
 		elseif callStatus == RoduxCall.Enums.Status.Active then
 			SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
 			props.callProtocol:finishCall(callId)
-		elseif callStatus == RoduxCall.Enums.Status.Connecting then
+		elseif
+			callStatus == RoduxCall.Enums.Status.Connecting
+			or (FFlagIrisCancelTeleport and callStatus == RoduxCall.Enums.Status.Teleporting)
+		then
 			props.callProtocol:cancelCall(callId)
 		end
 

@@ -1,6 +1,11 @@
 PROTO_0:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["Plugin"]
+  JUMPIF R1 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Plugin"]
   LOADK R3 K2 ["universeid"]
   NAMECALL R1 R1 K3 ["GetItem"]
   CALL R1 2 1
@@ -9,7 +14,7 @@ PROTO_0:
   RETURN R2 1
   LOADK R3 K4 ["https://create.roblox.com/dashboard/creations/experiences/"]
   MOVE R4 R1
-  LOADK R5 K5 ["/analytics/configs/studio"]
+  LOADK R5 K5 ["/configs/studio"]
   CONCAT R2 R3 R5
   RETURN R2 1
 
@@ -24,20 +29,11 @@ PROTO_1:
   GETTABLEKS R2 R3 K1 ["state"]
   GETTABLEKS R1 R2 K2 ["configUrl"]
   JUMPIFEQ R0 R1 [+8]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["setState"]
-  DUPTABLE R2 K4 [{"configUrl"}]
-  SETTABLEKS R0 R2 K2 ["configUrl"]
-  CALL R1 1 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K5 ["props"]
-  GETTABLEKS R1 R2 K6 ["WebViewManagerContext"]
-  JUMPIFNOT R1 [+8]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K5 ["props"]
-  GETTABLEKS R1 R2 K6 ["WebViewManagerContext"]
-  NAMECALL R1 R1 K7 ["reloadBrowser"]
-  CALL R1 1 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K3 [{"configUrl"}]
+  SETTABLEKS R0 R3 K2 ["configUrl"]
+  NAMECALL R1 R1 K4 ["setState"]
+  CALL R1 2 0
   RETURN R0 0
 
 PROTO_2:
@@ -64,14 +60,6 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["WebViewManagerContext"]
-  NAMECALL R0 R0 K2 ["showBrowser"]
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_5:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R3 R0 K1 ["state"]
   GETTABLEKS R2 R3 K2 ["configUrl"]
@@ -85,7 +73,7 @@ PROTO_5:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K6 ["createElement"]
   GETUPVAL R4 1
-  DUPTABLE R5 K18 [{"Plugin", "PluginManagerComponent", "Url", "hasValidSize", "hasWebViewEverLoaded", "webViewLoadingStatus", "webViewError", "HandlePassedInitAndLoadingCheck", "onWebViewDidMount", "WebViewManagerContext", "analyticsContext", "offsetHeight"}]
+  DUPTABLE R5 K17 [{"Plugin", "PluginManagerComponent", "Url", "hasValidSize", "hasWebViewEverLoaded", "webViewLoadingStatus", "webViewError", "HandlePassedInitAndLoadingCheck", "WebViewManagerContext", "analyticsContext", "offsetHeight"}]
   GETTABLEKS R6 R1 K3 ["Plugin"]
   SETTABLEKS R6 R5 K3 ["Plugin"]
   SETTABLEKS R2 R5 K7 ["PluginManagerComponent"]
@@ -103,27 +91,14 @@ PROTO_5:
   NEWCLOSURE R6 P0
   CAPTURE VAL R0
   SETTABLEKS R6 R5 K13 ["HandlePassedInitAndLoadingCheck"]
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K14 ["onWebViewDidMount"]
-  GETTABLEKS R6 R1 K15 ["WebViewManagerContext"]
-  SETTABLEKS R6 R5 K15 ["WebViewManagerContext"]
-  LOADK R6 K19 ["creatorConfig"]
-  SETTABLEKS R6 R5 K16 ["analyticsContext"]
+  GETTABLEKS R6 R1 K14 ["WebViewManagerContext"]
+  SETTABLEKS R6 R5 K14 ["WebViewManagerContext"]
+  LOADK R6 K18 ["creatorConfig"]
+  SETTABLEKS R6 R5 K15 ["analyticsContext"]
   LOADN R6 0
-  SETTABLEKS R6 R5 K17 ["offsetHeight"]
+  SETTABLEKS R6 R5 K16 ["offsetHeight"]
   CALL R3 2 -1
   RETURN R3 -1
-
-PROTO_6:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["WebViewManagerContext"]
-  JUMPIFNOT R1 [+7]
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["WebViewManagerContext"]
-  NAMECALL R1 R1 K2 ["destroy"]
-  CALL R1 1 0
-  RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
@@ -147,10 +122,8 @@ MAIN:
   SETTABLEKS R6 R5 K14 ["getConfigUrl"]
   DUPCLOSURE R6 K15 [PROTO_2]
   SETTABLEKS R6 R5 K16 ["init"]
-  DUPCLOSURE R6 K17 [PROTO_5]
+  DUPCLOSURE R6 K17 [PROTO_4]
   CAPTURE VAL R2
   CAPTURE VAL R4
   SETTABLEKS R6 R5 K18 ["render"]
-  DUPCLOSURE R6 K19 [PROTO_6]
-  SETTABLEKS R6 R5 K20 ["willUnmount"]
   RETURN R5 1

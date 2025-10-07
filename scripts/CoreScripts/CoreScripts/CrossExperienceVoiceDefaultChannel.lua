@@ -213,7 +213,6 @@ local Constants = CrossExperience.Constants
 local VOICE_STATUS = Constants.VOICE_STATUS
 
 local FFlagFixPartyVoiceGetPermissions = SharedFlags.GetFFlagFixPartyVoiceGetPermissions()
-local FFlagEnableCoreVoiceManagerPassErrorInReject = SharedFlags.FFlagEnableCoreVoiceManagerPassErrorInReject
 local FFlagEnablePartyVoiceChangersInLua = SharedFlags.FFlagEnablePartyVoiceChangersInLua
 
 local undeafenTimerHandle: thread? = nil
@@ -1049,16 +1048,12 @@ function initializeVoice()
 			-- a unresolved promise error. Don't report an event since the manager
 			-- will handle that.
 			log:info("CoreVoiceManager did not initialize {}", err)
-			if FFlagEnableCoreVoiceManagerPassErrorInReject then
-				local detail = "INIT_ERROR_UNKNOWN"
-				if err then
-					detail = err.code or err
-				end
-
-				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, detail)
-			else
-				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, err)
+			local detail = "INIT_ERROR_UNKNOWN"
+			if err then
+				detail = err.code or err
 			end
+
+			notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_INIT, detail)
 		end)
 end
 

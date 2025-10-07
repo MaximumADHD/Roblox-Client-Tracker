@@ -121,7 +121,20 @@ PROTO_5:
   LOADK R3 K2 ["Text box not mounted"]
   GETIMPORT R1 K4 [assert]
   CALL R1 2 0
-  LOADK R1 K5 [""]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["initialSearchText"]
+  JUMPIFNOT R1 [+15]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["initialSearchText"]
+  SETTABLEKS R1 R0 K6 ["Text"]
+  LOADN R1 1
+  SETTABLEKS R1 R0 K7 ["SelectionStart"]
+  GETTABLEKS R3 R0 K6 ["Text"]
+  LENGTH R2 R3
+  ADDK R1 R2 K8 [1]
+  SETTABLEKS R1 R0 K9 ["CursorPosition"]
+  RETURN R0 0
+  LOADK R1 K10 [""]
   SETTABLEKS R1 R0 K6 ["Text"]
   RETURN R0 0
 

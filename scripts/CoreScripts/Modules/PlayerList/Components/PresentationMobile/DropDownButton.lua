@@ -1,6 +1,8 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
+local PlayerList = script:FindFirstAncestor("PlayerList")
+
 local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
@@ -25,6 +27,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
 local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
+local FFlagPlayerListAddConnectionButtonFocusNav = require(PlayerList.Flags.FFlagPlayerListAddConnectionButtonFocusNav)
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
 
@@ -149,6 +152,7 @@ function DropDownButton:render()
 				BackgroundColor3 = Color3.fromRGB(0, 0, 0),
 				AutoButtonColor = false,
 				BorderSizePixel = 0,
+				Selectable = if FFlagPlayerListAddConnectionButtonFocusNav then not rightButtonsVisible else nil,
 
 				[Roact.Event.Activated] = (not rightButtonsVisible) and self.props.onActivated or nil,
 

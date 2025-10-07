@@ -26,6 +26,8 @@ local OFFSET = 0.10
 local ROW_VALUE_WIDTH = 0.8
 local MICROPROFILER_PRESSED_COUNTERNAME = "MicroprofilerDevConsolePressed"
 
+local FFlagDevConsoleMicroProfilerImproveWording = require(script.Parent.Flags.FFlagDevConsoleMicroProfilerImproveWording)
+
 local MainViewProfiler = Roact.Component:extend("MainViewProfiler")
 
 function MainViewProfiler:init()
@@ -141,7 +143,7 @@ function MainViewProfiler:render()
 				Label = Roact.createElement("TextLabel", {
 					Size = UDim2.new(0, BUTTON_WIDTH, 0, ROW_HEIGHT),
 					Position = UDim2.new(OFFSET, 0, 0, 0),
-					Text = "MicroProfiler",
+					Text = if FFlagDevConsoleMicroProfilerImproveWording then "Client MicroProfiler" else "MicroProfiler",
 					Font = HEADER_FONT,
 					TextSize = TEXT_SIZE,
 					TextColor3 = Constants.Color.Text,
@@ -177,7 +179,7 @@ function MainViewProfiler:render()
 					ClientButton = Roact.createElement("TextButton", {
 						Size = UDim2.new(0.5, 0, 1, 0),
 						Position = UDim2.new(0.5, 0, 0, 0),
-						Text = "Client",
+						Text = if FFlagDevConsoleMicroProfilerImproveWording then "On" else "Client",
 						Font = HEADER_FONT,
 						TextSize = TEXT_SIZE,
 						TextColor3 = Constants.Color.Text,

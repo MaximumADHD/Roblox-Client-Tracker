@@ -127,7 +127,8 @@ return function(callProtocol: CallProtocol.CallProtocolModule)
 					irisInviteTeleportRemoteEvent:FireServer(
 						params.placeId,
 						params.instanceId,
-						params.reservedServerAccessCode
+						params.reservedServerAccessCode,
+						params.callId
 					)
 				end
 			end)()

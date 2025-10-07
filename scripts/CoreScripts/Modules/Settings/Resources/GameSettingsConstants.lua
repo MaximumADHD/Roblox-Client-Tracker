@@ -41,6 +41,7 @@ SETTINGS_MENU_LAYOUT_ORDER.CameraDeviceFrame = 91
 -- Camera Sensitivity
 SETTINGS_MENU_LAYOUT_ORDER.MouseAdvancedFrame = 50
 -- Voice Connect Disconnect
+SETTINGS_MENU_LAYOUT_ORDER.VoiceConnectDisconnectSelector = 17
 SETTINGS_MENU_LAYOUT_ORDER.VoiceConnectFrame = 18
 SETTINGS_MENU_LAYOUT_ORDER.VoiceDisconnectFrame = 19
 -- Experience Language
@@ -114,6 +115,7 @@ if PartyVoiceVolumeFeatureAvailable then
 	LAYOUT_REORDER_VARIANT_1.PartyVoiceVolumeFrame = 11
 end
 -- Voice Connect Disconnect
+LAYOUT_REORDER_VARIANT_1.VoiceConnectDisconnectSelector = 19
 LAYOUT_REORDER_VARIANT_1.VoiceConnectFrame = 20
 LAYOUT_REORDER_VARIANT_1.VoiceDisconnectFrame = 21
 -- Movement and Camera

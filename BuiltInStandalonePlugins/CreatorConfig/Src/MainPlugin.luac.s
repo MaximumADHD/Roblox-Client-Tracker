@@ -132,7 +132,7 @@ PROTO_10:
   NAMECALL R2 R0 K4 ["Connect"]
   CALL R2 2 1
   SETTABLEKS R2 R1 K5 ["actionActivatedConnection"]
-  RETURN R0 0
+  JUMP [+13]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["PluginLoaderContext"]
@@ -141,36 +141,97 @@ PROTO_10:
   GETTABLEKS R2 R3 K3 ["toggleEnabled"]
   NAMECALL R0 R0 K4 ["Connect"]
   CALL R0 2 0
+  GETUPVAL R0 1
+  DUPTABLE R2 K8 [{"dockWidgetCreated"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K7 ["dockWidgetCreated"]
+  NAMECALL R0 R0 K9 ["setState"]
+  CALL R0 2 0
   RETURN R0 0
 
 PROTO_11:
+  GETTABLEKS R1 R0 K0 ["AbsoluteSize"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["state"]
+  GETTABLEKS R2 R3 K2 ["hasValidSize"]
+  JUMPIF R2 [+59]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["prevSize"]
+  JUMPIFEQ R2 R1 [+55]
+  GETTABLEKS R2 R1 K4 ["X"]
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+14]
+  GETTABLEKS R2 R1 K5 ["Y"]
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+9]
+  GETUPVAL R2 0
+  DUPTABLE R4 K6 [{"hasValidSize"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["hasValidSize"]
+  NAMECALL R2 R2 K7 ["setState"]
+  CALL R2 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["prevSize"]
+  JUMPIFNOT R3 [+6]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["prevSize"]
+  GETTABLEKS R2 R3 K4 ["X"]
+  JUMP [+1]
+  LOADN R2 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["prevSize"]
+  JUMPIFNOT R4 [+6]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["prevSize"]
+  GETTABLEKS R3 R4 K5 ["Y"]
+  JUMP [+1]
+  LOADN R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K8 ["onWebViewInitialSizing"]
+  LOADK R5 K9 ["creatorConfig"]
+  MOVE R6 R2
+  MOVE R7 R3
+  GETTABLEKS R8 R1 K4 ["X"]
+  GETTABLEKS R9 R1 K5 ["Y"]
+  CALL R4 5 0
+  GETUPVAL R4 0
+  SETTABLEKS R1 R4 K3 ["prevSize"]
+  RETURN R0 0
+
+PROTO_12:
   NEWTABLE R0 0 0
   RETURN R0 1
 
-PROTO_12:
-  DUPTABLE R2 K1 [{"enabled"}]
+PROTO_13:
+  DUPTABLE R2 K3 [{"enabled", "dockWidgetCreated", "hasValidSize"}]
   LOADB R3 0
   SETTABLEKS R3 R2 K0 ["enabled"]
-  SETTABLEKS R2 R0 K2 ["state"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K1 ["dockWidgetCreated"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["hasValidSize"]
+  SETTABLEKS R2 R0 K4 ["state"]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K5 ["prevSize"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K3 ["toggleEnabled"]
+  SETTABLEKS R2 R0 K6 ["toggleEnabled"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["new"]
-  DUPTABLE R3 K7 [{"namespace", "plugin"}]
-  LOADK R4 K8 ["creatorConfig"]
-  SETTABLEKS R4 R3 K5 ["namespace"]
-  GETTABLEKS R4 R1 K9 ["Plugin"]
-  SETTABLEKS R4 R3 K6 ["plugin"]
+  GETTABLEKS R2 R3 K7 ["new"]
+  DUPTABLE R3 K10 [{"namespace", "plugin"}]
+  LOADK R4 K11 ["creatorConfig"]
+  SETTABLEKS R4 R3 K8 ["namespace"]
+  GETTABLEKS R4 R1 K12 ["Plugin"]
+  SETTABLEKS R4 R3 K9 ["plugin"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K10 ["webViewManagerContext"]
-  GETTABLEKS R2 R1 K9 ["Plugin"]
-  LOADK R4 K11 ["Actions"]
-  NAMECALL R2 R2 K12 ["GetPluginComponent"]
+  SETTABLEKS R2 R0 K13 ["webViewManagerContext"]
+  GETTABLEKS R2 R1 K12 ["Plugin"]
+  LOADK R4 K14 ["Actions"]
+  NAMECALL R2 R2 K15 ["GetPluginComponent"]
   CALL R2 2 1
   GETUPVAL R3 1
   JUMPIFNOT R3 [+7]
-  GETIMPORT R3 K15 [task.spawn]
+  GETIMPORT R3 K18 [task.spawn]
   NEWCLOSURE R4 P1
   CAPTURE VAL R0
   CAPTURE VAL R2
@@ -181,70 +242,74 @@ PROTO_12:
   CAPTURE VAL R0
   CAPTURE VAL R2
   CAPTURE UPVAL U2
-  SETTABLEKS R3 R0 K16 ["onClose"]
+  SETTABLEKS R3 R0 K19 ["onClose"]
   NEWCLOSURE R3 P3
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   CAPTURE VAL R2
   CAPTURE UPVAL U2
-  SETTABLEKS R3 R0 K17 ["onRestore"]
+  SETTABLEKS R3 R0 K20 ["onRestore"]
   NEWCLOSURE R3 P4
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   CAPTURE VAL R2
   CAPTURE UPVAL U2
-  SETTABLEKS R3 R0 K18 ["onWidgetEnabledChanged"]
+  SETTABLEKS R3 R0 K21 ["onWidgetEnabledChanged"]
   NEWCLOSURE R3 P5
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R3 R0 K19 ["onDockWidgetCreated"]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K20 ["Localization"]
-  GETTABLEKS R3 R4 K4 ["new"]
-  DUPTABLE R4 K24 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R3 R0 K22 ["onDockWidgetCreated"]
+  NEWCLOSURE R3 P6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R3 R0 K23 ["onAbsoluteSizeChange"]
   GETUPVAL R5 4
-  SETTABLEKS R5 R4 K21 ["stringResourceTable"]
+  GETTABLEKS R4 R5 K24 ["Localization"]
+  GETTABLEKS R3 R4 K7 ["new"]
+  DUPTABLE R4 K28 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R5 5
-  SETTABLEKS R5 R4 K22 ["translationResourceTable"]
-  LOADK R5 K25 ["CreatorConfig"]
-  SETTABLEKS R5 R4 K23 ["pluginName"]
+  SETTABLEKS R5 R4 K25 ["stringResourceTable"]
+  GETUPVAL R5 6
+  SETTABLEKS R5 R4 K26 ["translationResourceTable"]
+  LOADK R5 K29 ["CreatorConfig"]
+  SETTABLEKS R5 R4 K27 ["pluginName"]
   CALL R3 1 1
-  SETTABLEKS R3 R0 K26 ["localization"]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K27 ["Analytics"]
-  GETTABLEKS R3 R4 K4 ["new"]
-  DUPCLOSURE R4 K28 [PROTO_11]
+  SETTABLEKS R3 R0 K30 ["localization"]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K31 ["Analytics"]
+  GETTABLEKS R3 R4 K7 ["new"]
+  DUPCLOSURE R4 K32 [PROTO_12]
   NEWTABLE R5 0 0
   CALL R3 2 1
-  SETTABLEKS R3 R0 K29 ["analytics"]
-  GETUPVAL R4 6
-  GETTABLEKS R3 R4 K4 ["new"]
+  SETTABLEKS R3 R0 K33 ["analytics"]
+  GETUPVAL R4 7
+  GETTABLEKS R3 R4 K7 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R0 K30 ["DEPRECATED_stylizer"]
-  GETUPVAL R3 7
+  SETTABLEKS R3 R0 K34 ["DEPRECATED_stylizer"]
+  GETUPVAL R3 8
   JUMPIFNOT R3 [+22]
-  GETUPVAL R5 8
-  GETTABLEKS R4 R5 K31 ["Util"]
-  GETTABLEKS R3 R4 K32 ["createFoundationDesignBinding"]
-  CALL R3 0 2
-  SETTABLEKS R4 R0 K33 ["onFoundationStyleSheetChange"]
   GETUPVAL R5 9
-  GETTABLEKS R6 R1 K9 ["Plugin"]
+  GETTABLEKS R4 R5 K35 ["Util"]
+  GETTABLEKS R3 R4 K36 ["createFoundationDesignBinding"]
+  CALL R3 0 2
+  SETTABLEKS R4 R0 K37 ["onFoundationStyleSheetChange"]
+  GETUPVAL R5 10
+  GETTABLEKS R6 R1 K12 ["Plugin"]
   LOADNIL R7
   LOADNIL R8
   NEWTABLE R9 0 1
   MOVE R10 R3
   SETLIST R9 R10 1 [1]
   CALL R5 4 1
-  SETTABLEKS R5 R0 K34 ["design"]
+  SETTABLEKS R5 R0 K38 ["design"]
   RETURN R0 0
-  GETUPVAL R3 9
-  GETTABLEKS R4 R1 K9 ["Plugin"]
+  GETUPVAL R3 10
+  GETTABLEKS R4 R1 K12 ["Plugin"]
   CALL R3 1 1
-  SETTABLEKS R3 R0 K34 ["design"]
+  SETTABLEKS R3 R0 K38 ["design"]
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETUPVAL R1 0
   JUMPIF R1 [+13]
   GETTABLEKS R3 R0 K0 ["props"]
@@ -256,7 +321,7 @@ PROTO_13:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
@@ -334,25 +399,45 @@ PROTO_14:
   DUPTABLE R14 K47 [{"onStyleSheetChange"}]
   GETTABLEKS R15 R0 K48 ["onFoundationStyleSheetChange"]
   SETTABLEKS R15 R14 K46 ["onStyleSheetChange"]
-  DUPTABLE R15 K49 [{"CreatorConfig"}]
+  NEWTABLE R15 0 1
   GETUPVAL R17 4
   GETTABLEKS R16 R17 K13 ["createElement"]
   GETUPVAL R17 7
-  DUPTABLE R18 K55 [{"Plugin", "PluginManagerComponent", "hasValidSize", "hasWebViewEverLoaded", "webViewLoadingStatus", "webViewError"}]
-  GETTABLEKS R19 R1 K2 ["Plugin"]
-  SETTABLEKS R19 R18 K2 ["Plugin"]
-  GETTABLEKS R19 R1 K50 ["PluginManagerComponent"]
-  SETTABLEKS R19 R18 K50 ["PluginManagerComponent"]
-  GETTABLEKS R19 R1 K51 ["hasValidSize"]
-  SETTABLEKS R19 R18 K51 ["hasValidSize"]
-  GETTABLEKS R19 R1 K52 ["hasWebViewEverLoaded"]
-  SETTABLEKS R19 R18 K52 ["hasWebViewEverLoaded"]
-  GETTABLEKS R19 R1 K53 ["webViewLoadingStatus"]
-  SETTABLEKS R19 R18 K53 ["webViewLoadingStatus"]
-  GETTABLEKS R19 R1 K54 ["webViewError"]
-  SETTABLEKS R19 R18 K54 ["webViewError"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K14 ["CreatorConfig"]
+  NEWTABLE R18 1 0
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K42 ["Change"]
+  GETTABLEKS R19 R20 K49 ["AbsoluteSize"]
+  GETTABLEKS R20 R0 K50 ["onAbsoluteSizeChange"]
+  SETTABLE R20 R18 R19
+  DUPTABLE R19 K51 [{"CreatorConfig"}]
+  JUMPIFNOT R4 [+39]
+  GETTABLEKS R21 R2 K52 ["dockWidgetCreated"]
+  JUMPIFNOT R21 [+36]
+  GETTABLEKS R21 R2 K53 ["hasValidSize"]
+  JUMPIFNOT R21 [+33]
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K13 ["createElement"]
+  GETUPVAL R21 8
+  DUPTABLE R22 K58 [{"Plugin", "PluginManagerComponent", "hasValidSize", "hasWebViewEverLoaded", "webViewLoadingStatus", "webViewError"}]
+  GETTABLEKS R23 R1 K2 ["Plugin"]
+  SETTABLEKS R23 R22 K2 ["Plugin"]
+  GETTABLEKS R23 R1 K54 ["PluginManagerComponent"]
+  SETTABLEKS R23 R22 K54 ["PluginManagerComponent"]
+  GETTABLEKS R24 R0 K1 ["state"]
+  GETTABLEKS R23 R24 K53 ["hasValidSize"]
+  SETTABLEKS R23 R22 K53 ["hasValidSize"]
+  GETTABLEKS R23 R1 K55 ["hasWebViewEverLoaded"]
+  SETTABLEKS R23 R22 K55 ["hasWebViewEverLoaded"]
+  GETTABLEKS R23 R1 K56 ["webViewLoadingStatus"]
+  SETTABLEKS R23 R22 K56 ["webViewLoadingStatus"]
+  GETTABLEKS R23 R1 K57 ["webViewError"]
+  SETTABLEKS R23 R22 K57 ["webViewError"]
+  CALL R20 2 1
+  JUMP [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K14 ["CreatorConfig"]
+  CALL R16 3 -1
+  SETLIST R15 R16 -1 [1]
   CALL R12 3 1
   SETTABLEKS R12 R11 K44 ["FoundationProvider"]
   CALL R8 3 1
@@ -360,7 +445,7 @@ PROTO_14:
   CALL R5 2 -1
   RETURN R5 -1
 
-PROTO_15:
+PROTO_16:
   GETTABLEKS R1 R0 K0 ["actionActivatedConnection"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K0 ["actionActivatedConnection"]
@@ -398,78 +483,87 @@ MAIN:
   CALL R5 0 1
   GETTABLEKS R7 R2 K14 ["UI"]
   GETTABLEKS R6 R7 K15 ["DockWidget"]
-  GETTABLEKS R7 R2 K16 ["ContextServices"]
-  GETTABLEKS R8 R7 K17 ["Plugin"]
-  GETTABLEKS R9 R7 K18 ["Mouse"]
-  GETTABLEKS R10 R7 K19 ["Design"]
-  GETTABLEKS R13 R2 K20 ["Style"]
-  GETTABLEKS R12 R13 K21 ["Themes"]
-  GETTABLEKS R11 R12 K22 ["StudioTheme"]
-  GETTABLEKS R13 R3 K23 ["Util"]
-  GETTABLEKS R12 R13 K24 ["StudioUri"]
-  GETTABLEKS R14 R2 K25 ["Styling"]
-  GETTABLEKS R13 R14 K26 ["registerPluginStyles"]
-  GETTABLEKS R17 R0 K27 ["Src"]
-  GETTABLEKS R16 R17 K28 ["Resources"]
-  GETTABLEKS R15 R16 K29 ["Localization"]
-  GETTABLEKS R14 R15 K30 ["SourceStrings"]
-  GETTABLEKS R18 R0 K27 ["Src"]
-  GETTABLEKS R17 R18 K28 ["Resources"]
-  GETTABLEKS R16 R17 K29 ["Localization"]
-  GETTABLEKS R15 R16 K31 ["LocalizedStrings"]
-  GETTABLEKS R17 R0 K27 ["Src"]
-  GETTABLEKS R16 R17 K10 ["Components"]
-  GETIMPORT R17 K5 [require]
-  GETTABLEKS R18 R16 K32 ["CreatorConfigWebViewConnectorWrapper"]
-  CALL R17 1 1
+  GETTABLEKS R8 R2 K14 ["UI"]
+  GETTABLEKS R7 R8 K16 ["Pane"]
+  GETTABLEKS R8 R2 K17 ["ContextServices"]
+  GETTABLEKS R9 R8 K18 ["Plugin"]
+  GETTABLEKS R10 R8 K19 ["Mouse"]
+  GETTABLEKS R11 R8 K20 ["Design"]
+  GETTABLEKS R14 R2 K21 ["Style"]
+  GETTABLEKS R13 R14 K22 ["Themes"]
+  GETTABLEKS R12 R13 K23 ["StudioTheme"]
+  GETTABLEKS R14 R3 K24 ["Util"]
+  GETTABLEKS R13 R14 K25 ["StudioUri"]
+  GETTABLEKS R15 R2 K26 ["Styling"]
+  GETTABLEKS R14 R15 K27 ["registerPluginStyles"]
+  GETTABLEKS R18 R0 K28 ["Src"]
+  GETTABLEKS R17 R18 K29 ["Resources"]
+  GETTABLEKS R16 R17 K30 ["Localization"]
+  GETTABLEKS R15 R16 K31 ["SourceStrings"]
+  GETTABLEKS R19 R0 K28 ["Src"]
+  GETTABLEKS R18 R19 K29 ["Resources"]
+  GETTABLEKS R17 R18 K30 ["Localization"]
+  GETTABLEKS R16 R17 K32 ["LocalizedStrings"]
+  GETTABLEKS R18 R0 K28 ["Src"]
+  GETTABLEKS R17 R18 K10 ["Components"]
   GETIMPORT R18 K5 [require]
-  GETTABLEKS R21 R0 K33 ["Bin"]
-  GETTABLEKS R20 R21 K34 ["Common"]
-  GETTABLEKS R19 R20 K35 ["defineLuaFlags"]
+  GETTABLEKS R19 R17 K33 ["CreatorConfigWebViewConnectorWrapper"]
   CALL R18 1 1
-  GETTABLEKS R19 R18 K36 ["getFFlagEnableRibbonPlugin"]
-  CALL R19 0 1
-  GETTABLEKS R20 R18 K37 ["getFFlagRegisterActionsPluginLoader"]
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K34 ["Bin"]
+  GETTABLEKS R21 R22 K35 ["Common"]
+  GETTABLEKS R20 R21 K36 ["defineLuaFlags"]
+  CALL R19 1 1
+  GETTABLEKS R20 R19 K37 ["getFFlagEnableRibbonPlugin"]
   CALL R20 0 1
-  AND R21 R20 R19
-  GETTABLEKS R22 R1 K38 ["PureComponent"]
-  LOADK R24 K39 ["MainPlugin"]
-  NAMECALL R22 R22 K40 ["extend"]
-  CALL R22 2 1
-  GETIMPORT R24 K5 [require]
-  GETTABLEKS R26 R0 K6 ["Packages"]
-  GETTABLEKS R25 R26 K41 ["WebView"]
-  CALL R24 1 1
-  GETTABLEKS R23 R24 K42 ["WebViewManagerContext"]
-  GETTABLEKS R24 R12 K43 ["fromAction"]
-  LOADK R25 K2 ["CreatorConfig"]
-  LOADK R26 K44 ["Toggle"]
-  CALL R24 2 1
-  DUPCLOSURE R25 K45 [PROTO_12]
-  CAPTURE VAL R23
-  CAPTURE VAL R21
+  GETTABLEKS R21 R19 K38 ["getFFlagRegisterActionsPluginLoader"]
+  CALL R21 0 1
+  AND R22 R21 R20
+  GETTABLEKS R23 R1 K39 ["PureComponent"]
+  LOADK R25 K40 ["MainPlugin"]
+  NAMECALL R23 R23 K41 ["extend"]
+  CALL R23 2 1
+  GETIMPORT R25 K5 [require]
+  GETTABLEKS R27 R0 K6 ["Packages"]
+  GETTABLEKS R26 R27 K42 ["WebView"]
+  CALL R25 1 1
+  GETTABLEKS R24 R25 K43 ["WebViewManagerContext"]
+  GETIMPORT R26 K5 [require]
+  GETTABLEKS R28 R0 K6 ["Packages"]
+  GETTABLEKS R27 R28 K42 ["WebView"]
+  CALL R26 1 1
+  GETTABLEKS R25 R26 K44 ["Analytics"]
+  GETTABLEKS R26 R13 K45 ["fromAction"]
+  LOADK R27 K2 ["CreatorConfig"]
+  LOADK R28 K46 ["Toggle"]
+  CALL R26 2 1
+  DUPCLOSURE R27 K47 [PROTO_13]
   CAPTURE VAL R24
-  CAPTURE VAL R7
-  CAPTURE VAL R14
+  CAPTURE VAL R22
+  CAPTURE VAL R26
+  CAPTURE VAL R25
+  CAPTURE VAL R8
   CAPTURE VAL R15
-  CAPTURE VAL R11
+  CAPTURE VAL R16
+  CAPTURE VAL R12
   CAPTURE VAL R5
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  SETTABLEKS R25 R22 K46 ["init"]
-  DUPCLOSURE R25 K47 [PROTO_13]
-  CAPTURE VAL R21
-  SETTABLEKS R25 R22 K48 ["didUpdate"]
-  DUPCLOSURE R25 K49 [PROTO_14]
-  CAPTURE VAL R7
+  CAPTURE VAL R14
+  SETTABLEKS R27 R23 K48 ["init"]
+  DUPCLOSURE R27 K49 [PROTO_14]
+  CAPTURE VAL R22
+  SETTABLEKS R27 R23 K50 ["didUpdate"]
+  DUPCLOSURE R27 K51 [PROTO_15]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
+  CAPTURE VAL R11
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R4
-  CAPTURE VAL R17
-  SETTABLEKS R25 R22 K50 ["render"]
-  DUPCLOSURE R25 K51 [PROTO_15]
-  SETTABLEKS R25 R22 K52 ["willUnmount"]
-  RETURN R22 1
+  CAPTURE VAL R7
+  CAPTURE VAL R18
+  SETTABLEKS R27 R23 K52 ["render"]
+  DUPCLOSURE R27 K53 [PROTO_16]
+  SETTABLEKS R27 R23 K54 ["willUnmount"]
+  RETURN R23 1

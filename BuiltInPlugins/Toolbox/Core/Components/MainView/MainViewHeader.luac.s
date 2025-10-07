@@ -464,288 +464,276 @@ PROTO_17:
   CONCAT R7 R9 R11
   GETTABLEKS R10 R1 K13 ["containerWidth"]
   ORK R9 R10 K12 [0]
-  GETUPVAL R11 1
-  CALL R11 0 1
-  JUMPIFNOT R11 [+3]
   GETTABLEKS R10 R1 K14 ["headerHeight"]
-  JUMP [+1]
-  LOADN R10 0
   NEWTABLE R11 2 0
   GETTABLEKS R12 R1 K15 ["showTags"]
-  JUMPIFNOT R12 [+550]
-  GETUPVAL R13 1
-  CALL R13 0 1
-  JUMPIFNOT R13 [+1]
-  JUMP [+4]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K16 ["SEARCH_TERMS_HEIGHT"]
-  ADD R10 R10 R13
+  JUMPIFNOT R12 [+526]
   GETTABLEKS R14 R0 K0 ["props"]
-  GETTABLEKS R13 R14 K17 ["Localization"]
-  LOADK R15 K18 ["General"]
-  LOADK R16 K19 ["SearchTagCreator"]
-  NAMECALL R13 R13 K20 ["getText"]
+  GETTABLEKS R13 R14 K16 ["Localization"]
+  LOADK R15 K17 ["General"]
+  LOADK R16 K18 ["SearchTagCreator"]
+  NAMECALL R13 R13 K19 ["getText"]
   CALL R13 3 1
   GETTABLEKS R15 R0 K0 ["props"]
-  GETTABLEKS R14 R15 K17 ["Localization"]
-  LOADK R16 K18 ["General"]
-  LOADK R17 K21 ["SearchTagLength"]
-  NAMECALL R14 R14 K20 ["getText"]
+  GETTABLEKS R14 R15 K16 ["Localization"]
+  LOADK R16 K17 ["General"]
+  LOADK R17 K20 ["SearchTagLength"]
+  NAMECALL R14 R14 K19 ["getText"]
   CALL R14 3 1
   GETTABLEKS R16 R0 K0 ["props"]
-  GETTABLEKS R15 R16 K17 ["Localization"]
-  LOADK R17 K18 ["General"]
-  LOADK R18 K22 ["SearchTagIdUnverified"]
-  NAMECALL R15 R15 K20 ["getText"]
+  GETTABLEKS R15 R16 K16 ["Localization"]
+  LOADK R17 K17 ["General"]
+  LOADK R18 K21 ["SearchTagIdUnverified"]
+  NAMECALL R15 R15 K19 ["getText"]
   CALL R15 3 1
   NEWTABLE R16 0 0
   JUMPIFNOT R3 [+15]
-  DUPTABLE R19 K26 [{"prefix", "text", "onDelete"}]
-  SETTABLEKS R13 R19 K23 ["prefix"]
-  SETTABLEKS R3 R19 K24 ["text"]
-  GETTABLEKS R20 R0 K27 ["onCreatorCleared"]
-  SETTABLEKS R20 R19 K25 ["onDelete"]
+  DUPTABLE R19 K25 [{"prefix", "text", "onDelete"}]
+  SETTABLEKS R13 R19 K22 ["prefix"]
+  SETTABLEKS R3 R19 K23 ["text"]
+  GETTABLEKS R20 R0 K26 ["onCreatorCleared"]
+  SETTABLEKS R20 R19 K24 ["onDelete"]
   FASTCALL2 TABLE_INSERT R16 R19 [+4]
   MOVE R18 R16
-  GETIMPORT R17 K30 [table.insert]
+  GETIMPORT R17 K29 [table.insert]
   CALL R17 2 0
-  GETUPVAL R17 3
+  GETUPVAL R17 1
   CALL R17 0 1
   JUMPIFNOT R17 [+35]
-  GETIMPORT R17 K32 [next]
-  GETTABLEKS R18 R1 K33 ["creatorTargetIds"]
+  GETIMPORT R17 K31 [next]
+  GETTABLEKS R18 R1 K32 ["creatorTargetIds"]
   CALL R17 1 1
   JUMPIFNOT R17 [+29]
-  GETIMPORT R17 K35 [pairs]
-  GETTABLEKS R18 R1 K33 ["creatorTargetIds"]
+  GETIMPORT R17 K34 [pairs]
+  GETTABLEKS R18 R1 K32 ["creatorTargetIds"]
   CALL R17 1 3
   FORGPREP_NEXT R17
-  DUPTABLE R24 K37 [{"prefix", "text", "onDelete", "tagId"}]
-  SETTABLEKS R13 R24 K23 ["prefix"]
+  DUPTABLE R24 K36 [{"prefix", "text", "onDelete", "tagId"}]
+  SETTABLEKS R13 R24 K22 ["prefix"]
   GETTABLEKS R25 R21 K4 ["Name"]
-  SETTABLEKS R25 R24 K24 ["text"]
-  GETTABLEKS R25 R0 K38 ["onCreatorTargetIdRemoved"]
-  SETTABLEKS R25 R24 K25 ["onDelete"]
-  GETTABLEKS R25 R21 K39 ["Id"]
-  SETTABLEKS R25 R24 K36 ["tagId"]
+  SETTABLEKS R25 R24 K23 ["text"]
+  GETTABLEKS R25 R0 K37 ["onCreatorTargetIdRemoved"]
+  SETTABLEKS R25 R24 K24 ["onDelete"]
+  GETTABLEKS R25 R21 K38 ["Id"]
+  SETTABLEKS R25 R24 K35 ["tagId"]
   FASTCALL2 TABLE_INSERT R16 R24 [+4]
   MOVE R23 R16
-  GETIMPORT R22 K30 [table.insert]
+  GETIMPORT R22 K29 [table.insert]
   CALL R22 2 0
   FORGLOOP R17 2 [-22]
-  GETUPVAL R17 3
+  GETUPVAL R17 1
   CALL R17 0 1
   JUMPIFNOT R17 [+35]
-  GETIMPORT R17 K32 [next]
-  GETTABLEKS R18 R1 K40 ["groupTargetIds"]
+  GETIMPORT R17 K31 [next]
+  GETTABLEKS R18 R1 K39 ["groupTargetIds"]
   CALL R17 1 1
   JUMPIFNOT R17 [+29]
-  GETIMPORT R17 K35 [pairs]
-  GETTABLEKS R18 R1 K40 ["groupTargetIds"]
+  GETIMPORT R17 K34 [pairs]
+  GETTABLEKS R18 R1 K39 ["groupTargetIds"]
   CALL R17 1 3
   FORGPREP_NEXT R17
-  DUPTABLE R24 K37 [{"prefix", "text", "onDelete", "tagId"}]
-  SETTABLEKS R13 R24 K23 ["prefix"]
+  DUPTABLE R24 K36 [{"prefix", "text", "onDelete", "tagId"}]
+  SETTABLEKS R13 R24 K22 ["prefix"]
   GETTABLEKS R25 R21 K4 ["Name"]
-  SETTABLEKS R25 R24 K24 ["text"]
-  GETTABLEKS R25 R0 K41 ["onGroupTargetIdRemoved"]
-  SETTABLEKS R25 R24 K25 ["onDelete"]
-  GETTABLEKS R25 R21 K39 ["Id"]
-  SETTABLEKS R25 R24 K36 ["tagId"]
+  SETTABLEKS R25 R24 K23 ["text"]
+  GETTABLEKS R25 R0 K40 ["onGroupTargetIdRemoved"]
+  SETTABLEKS R25 R24 K24 ["onDelete"]
+  GETTABLEKS R25 R21 K38 ["Id"]
+  SETTABLEKS R25 R24 K35 ["tagId"]
   FASTCALL2 TABLE_INSERT R16 R24 [+4]
   MOVE R23 R16
-  GETIMPORT R22 K30 [table.insert]
+  GETIMPORT R22 K29 [table.insert]
   CALL R22 2 0
   FORGLOOP R17 2 [-22]
   JUMPIFNOT R7 [+15]
-  DUPTABLE R19 K26 [{"prefix", "text", "onDelete"}]
-  SETTABLEKS R14 R19 K23 ["prefix"]
-  SETTABLEKS R7 R19 K24 ["text"]
-  GETTABLEKS R20 R0 K42 ["onAudioSearchCleared"]
-  SETTABLEKS R20 R19 K25 ["onDelete"]
+  DUPTABLE R19 K25 [{"prefix", "text", "onDelete"}]
+  SETTABLEKS R14 R19 K22 ["prefix"]
+  SETTABLEKS R7 R19 K23 ["text"]
+  GETTABLEKS R20 R0 K41 ["onAudioSearchCleared"]
+  SETTABLEKS R20 R19 K24 ["onDelete"]
   FASTCALL2 TABLE_INSERT R16 R19 [+4]
   MOVE R18 R16
-  GETIMPORT R17 K30 [table.insert]
+  GETIMPORT R17 K29 [table.insert]
   CALL R17 2 0
-  GETTABLEKS R17 R1 K43 ["additionalAudioSearchInfo"]
+  GETTABLEKS R17 R1 K42 ["additionalAudioSearchInfo"]
   JUMPIF R17 [+2]
   NEWTABLE R17 0 0
-  GETTABLEKS R18 R17 K44 ["artist"]
+  GETTABLEKS R18 R17 K43 ["artist"]
   JUMPIFNOT R18 [+29]
-  DUPTABLE R20 K26 [{"prefix", "text", "onDelete"}]
+  DUPTABLE R20 K25 [{"prefix", "text", "onDelete"}]
   GETTABLEKS R25 R0 K0 ["props"]
-  GETTABLEKS R24 R25 K17 ["Localization"]
-  LOADK R26 K45 ["AudioView"]
-  LOADK R27 K46 ["Artist"]
-  NAMECALL R24 R24 K20 ["getText"]
+  GETTABLEKS R24 R25 K16 ["Localization"]
+  LOADK R26 K44 ["AudioView"]
+  LOADK R27 K45 ["Artist"]
+  NAMECALL R24 R24 K19 ["getText"]
   CALL R24 3 1
   MOVE R22 R24
-  LOADK R23 K47 [":"]
+  LOADK R23 K46 [":"]
   CONCAT R21 R22 R23
-  SETTABLEKS R21 R20 K23 ["prefix"]
-  GETTABLEKS R21 R17 K44 ["artist"]
-  SETTABLEKS R21 R20 K24 ["text"]
-  GETTABLEKS R21 R0 K48 ["onAudioSearchArtistCleared"]
-  SETTABLEKS R21 R20 K25 ["onDelete"]
+  SETTABLEKS R21 R20 K22 ["prefix"]
+  GETTABLEKS R21 R17 K43 ["artist"]
+  SETTABLEKS R21 R20 K23 ["text"]
+  GETTABLEKS R21 R0 K47 ["onAudioSearchArtistCleared"]
+  SETTABLEKS R21 R20 K24 ["onDelete"]
   FASTCALL2 TABLE_INSERT R16 R20 [+4]
   MOVE R19 R16
-  GETIMPORT R18 K30 [table.insert]
+  GETIMPORT R18 K29 [table.insert]
   CALL R18 2 0
-  GETTABLEKS R18 R17 K49 ["categories"]
+  GETTABLEKS R18 R17 K48 ["categories"]
   JUMPIFNOT R18 [+56]
   NEWTABLE R18 0 0
-  GETIMPORT R19 K51 [ipairs]
-  GETTABLEKS R20 R17 K49 ["categories"]
+  GETIMPORT R19 K50 [ipairs]
+  GETTABLEKS R20 R17 K48 ["categories"]
   CALL R19 1 3
   FORGPREP_INEXT R19
   MOVE R25 R18
   GETTABLEKS R27 R0 K0 ["props"]
-  GETTABLEKS R26 R27 K17 ["Localization"]
-  LOADK R28 K52 ["Audio.SoundEffect.Category"]
+  GETTABLEKS R26 R27 K16 ["Localization"]
+  LOADK R28 K51 ["Audio.SoundEffect.Category"]
   MOVE R29 R23
-  NAMECALL R26 R26 K20 ["getText"]
+  NAMECALL R26 R26 K19 ["getText"]
   CALL R26 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R24 K30 [table.insert]
+  GETIMPORT R24 K29 [table.insert]
   CALL R24 -1 0
   FORGLOOP R19 2 [inext] [-15]
-  DUPTABLE R21 K26 [{"prefix", "text", "onDelete"}]
+  DUPTABLE R21 K25 [{"prefix", "text", "onDelete"}]
   GETTABLEKS R26 R0 K0 ["props"]
-  GETTABLEKS R25 R26 K17 ["Localization"]
-  LOADK R27 K45 ["AudioView"]
-  LOADK R28 K53 ["Category"]
-  NAMECALL R25 R25 K20 ["getText"]
+  GETTABLEKS R25 R26 K16 ["Localization"]
+  LOADK R27 K44 ["AudioView"]
+  LOADK R28 K52 ["Category"]
+  NAMECALL R25 R25 K19 ["getText"]
   CALL R25 3 1
   MOVE R23 R25
-  LOADK R24 K47 [":"]
+  LOADK R24 K46 [":"]
   CONCAT R22 R23 R24
-  SETTABLEKS R22 R21 K23 ["prefix"]
-  GETIMPORT R22 K55 [table.concat]
+  SETTABLEKS R22 R21 K22 ["prefix"]
+  GETIMPORT R22 K54 [table.concat]
   MOVE R23 R18
   LOADK R24 K11 [" - "]
   CALL R22 2 1
-  SETTABLEKS R22 R21 K24 ["text"]
-  GETTABLEKS R22 R0 K56 ["onAudioSearchCategoriesCleared"]
-  SETTABLEKS R22 R21 K25 ["onDelete"]
+  SETTABLEKS R22 R21 K23 ["text"]
+  GETTABLEKS R22 R0 K55 ["onAudioSearchCategoriesCleared"]
+  SETTABLEKS R22 R21 K24 ["onDelete"]
   FASTCALL2 TABLE_INSERT R16 R21 [+4]
   MOVE R20 R16
-  GETIMPORT R19 K30 [table.insert]
+  GETIMPORT R19 K29 [table.insert]
   CALL R19 2 0
-  GETTABLEKS R18 R17 K57 ["genre"]
+  GETTABLEKS R18 R17 K56 ["genre"]
   JUMPIFNOT R18 [+37]
-  DUPTABLE R20 K26 [{"prefix", "text", "onDelete"}]
+  DUPTABLE R20 K25 [{"prefix", "text", "onDelete"}]
   GETTABLEKS R25 R0 K0 ["props"]
-  GETTABLEKS R24 R25 K17 ["Localization"]
-  LOADK R26 K18 ["General"]
-  LOADK R27 K58 ["Genre"]
-  NAMECALL R24 R24 K20 ["getText"]
+  GETTABLEKS R24 R25 K16 ["Localization"]
+  LOADK R26 K17 ["General"]
+  LOADK R27 K57 ["Genre"]
+  NAMECALL R24 R24 K19 ["getText"]
   CALL R24 3 1
   MOVE R22 R24
-  LOADK R23 K47 [":"]
+  LOADK R23 K46 [":"]
   CONCAT R21 R22 R23
-  SETTABLEKS R21 R20 K23 ["prefix"]
+  SETTABLEKS R21 R20 K22 ["prefix"]
   GETTABLEKS R22 R0 K0 ["props"]
-  GETTABLEKS R21 R22 K17 ["Localization"]
-  LOADK R23 K59 ["Audio.Music.Genre"]
-  GETTABLEKS R24 R17 K57 ["genre"]
-  NAMECALL R21 R21 K20 ["getText"]
+  GETTABLEKS R21 R22 K16 ["Localization"]
+  LOADK R23 K58 ["Audio.Music.Genre"]
+  GETTABLEKS R24 R17 K56 ["genre"]
+  NAMECALL R21 R21 K19 ["getText"]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K24 ["text"]
-  GETTABLEKS R21 R0 K60 ["onAudioSearchGenreCleared"]
-  SETTABLEKS R21 R20 K25 ["onDelete"]
+  SETTABLEKS R21 R20 K23 ["text"]
+  GETTABLEKS R21 R0 K59 ["onAudioSearchGenreCleared"]
+  SETTABLEKS R21 R20 K24 ["onDelete"]
   FASTCALL2 TABLE_INSERT R16 R20 [+4]
   MOVE R19 R16
-  GETIMPORT R18 K30 [table.insert]
+  GETIMPORT R18 K29 [table.insert]
   CALL R18 2 0
-  GETTABLEKS R18 R17 K61 ["album"]
+  GETTABLEKS R18 R17 K60 ["album"]
   JUMPIFNOT R18 [+29]
-  DUPTABLE R20 K26 [{"prefix", "text", "onDelete"}]
+  DUPTABLE R20 K25 [{"prefix", "text", "onDelete"}]
   GETTABLEKS R25 R0 K0 ["props"]
-  GETTABLEKS R24 R25 K17 ["Localization"]
-  LOADK R26 K45 ["AudioView"]
-  LOADK R27 K62 ["Album"]
-  NAMECALL R24 R24 K20 ["getText"]
+  GETTABLEKS R24 R25 K16 ["Localization"]
+  LOADK R26 K44 ["AudioView"]
+  LOADK R27 K61 ["Album"]
+  NAMECALL R24 R24 K19 ["getText"]
   CALL R24 3 1
   MOVE R22 R24
-  LOADK R23 K47 [":"]
+  LOADK R23 K46 [":"]
   CONCAT R21 R22 R23
-  SETTABLEKS R21 R20 K23 ["prefix"]
-  GETTABLEKS R21 R17 K61 ["album"]
-  SETTABLEKS R21 R20 K24 ["text"]
-  GETTABLEKS R21 R0 K63 ["onAudioSearchAlbumCleared"]
-  SETTABLEKS R21 R20 K25 ["onDelete"]
+  SETTABLEKS R21 R20 K22 ["prefix"]
+  GETTABLEKS R21 R17 K60 ["album"]
+  SETTABLEKS R21 R20 K23 ["text"]
+  GETTABLEKS R21 R0 K62 ["onAudioSearchAlbumCleared"]
+  SETTABLEKS R21 R20 K24 ["onDelete"]
   FASTCALL2 TABLE_INSERT R16 R20 [+4]
   MOVE R19 R16
-  GETIMPORT R18 K30 [table.insert]
+  GETIMPORT R18 K29 [table.insert]
   CALL R18 2 0
-  GETTABLEKS R18 R17 K64 ["audioType"]
+  GETTABLEKS R18 R17 K63 ["audioType"]
   JUMPIFNOT R18 [+37]
   GETTABLEKS R19 R0 K0 ["props"]
-  GETTABLEKS R18 R19 K17 ["Localization"]
-  LOADK R20 K65 ["SearchOptionsType"]
-  GETTABLEKS R21 R17 K64 ["audioType"]
-  NAMECALL R18 R18 K20 ["getText"]
+  GETTABLEKS R18 R19 K16 ["Localization"]
+  LOADK R20 K64 ["SearchOptionsType"]
+  GETTABLEKS R21 R17 K63 ["audioType"]
+  NAMECALL R18 R18 K19 ["getText"]
   CALL R18 3 1
-  DUPTABLE R21 K26 [{"prefix", "text", "onDelete"}]
+  DUPTABLE R21 K25 [{"prefix", "text", "onDelete"}]
   GETTABLEKS R26 R0 K0 ["props"]
-  GETTABLEKS R25 R26 K17 ["Localization"]
-  LOADK R27 K45 ["AudioView"]
-  LOADK R28 K66 ["Type"]
-  NAMECALL R25 R25 K20 ["getText"]
+  GETTABLEKS R25 R26 K16 ["Localization"]
+  LOADK R27 K44 ["AudioView"]
+  LOADK R28 K65 ["Type"]
+  NAMECALL R25 R25 K19 ["getText"]
   CALL R25 3 1
   MOVE R23 R25
-  LOADK R24 K47 [":"]
+  LOADK R24 K46 [":"]
   CONCAT R22 R23 R24
-  SETTABLEKS R22 R21 K23 ["prefix"]
-  SETTABLEKS R18 R21 K24 ["text"]
-  GETTABLEKS R22 R0 K67 ["onAudioSearchTypeCleared"]
-  SETTABLEKS R22 R21 K25 ["onDelete"]
+  SETTABLEKS R22 R21 K22 ["prefix"]
+  SETTABLEKS R18 R21 K23 ["text"]
+  GETTABLEKS R22 R0 K66 ["onAudioSearchTypeCleared"]
+  SETTABLEKS R22 R21 K24 ["onDelete"]
   FASTCALL2 TABLE_INSERT R16 R21 [+4]
   MOVE R20 R16
-  GETIMPORT R19 K30 [table.insert]
+  GETIMPORT R19 K29 [table.insert]
   CALL R19 2 0
   JUMPIFNOT R5 [+58]
   GETTABLEKS R19 R0 K0 ["props"]
-  GETTABLEKS R18 R19 K17 ["Localization"]
-  LOADK R20 K68 ["UiSortIntent"]
+  GETTABLEKS R18 R19 K16 ["Localization"]
+  LOADK R20 K67 ["UiSortIntent"]
   MOVE R21 R5
-  NAMECALL R18 R18 K20 ["getText"]
+  NAMECALL R18 R18 K19 ["getText"]
   CALL R18 3 1
   JUMPIFNOT R6 [+10]
   GETTABLEKS R20 R0 K0 ["props"]
-  GETTABLEKS R19 R20 K17 ["Localization"]
-  LOADK R21 K69 ["SortDirection"]
+  GETTABLEKS R19 R20 K16 ["Localization"]
+  LOADK R21 K68 ["SortDirection"]
   MOVE R22 R6
-  NAMECALL R19 R19 K20 ["getText"]
+  NAMECALL R19 R19 K19 ["getText"]
   CALL R19 3 1
   JUMP [+1]
   LOADNIL R19
-  DUPTABLE R22 K26 [{"prefix", "text", "onDelete"}]
+  DUPTABLE R22 K25 [{"prefix", "text", "onDelete"}]
   GETTABLEKS R27 R0 K0 ["props"]
-  GETTABLEKS R26 R27 K17 ["Localization"]
-  LOADK R28 K18 ["General"]
-  LOADK R29 K70 ["SearchOptionSort"]
-  NAMECALL R26 R26 K20 ["getText"]
+  GETTABLEKS R26 R27 K16 ["Localization"]
+  LOADK R28 K17 ["General"]
+  LOADK R29 K69 ["SearchOptionSort"]
+  NAMECALL R26 R26 K19 ["getText"]
   CALL R26 3 1
   MOVE R24 R26
-  LOADK R25 K47 [":"]
+  LOADK R25 K46 [":"]
   CONCAT R23 R24 R25
-  SETTABLEKS R23 R22 K23 ["prefix"]
+  SETTABLEKS R23 R22 K22 ["prefix"]
   JUMPIFNOT R19 [+8]
-  LOADK R24 K71 ["%*, %*"]
+  LOADK R24 K70 ["%*, %*"]
   MOVE R26 R18
   MOVE R27 R19
-  NAMECALL R24 R24 K72 ["format"]
+  NAMECALL R24 R24 K71 ["format"]
   CALL R24 3 1
   MOVE R23 R24
   JUMP [+1]
   MOVE R23 R18
-  SETTABLEKS R23 R22 K24 ["text"]
-  GETTABLEKS R23 R0 K73 ["onSortIntentRemoved"]
-  SETTABLEKS R23 R22 K25 ["onDelete"]
+  SETTABLEKS R23 R22 K23 ["text"]
+  GETTABLEKS R23 R0 K72 ["onSortIntentRemoved"]
+  SETTABLEKS R23 R22 K24 ["onDelete"]
   FASTCALL2 TABLE_INSERT R16 R22 [+4]
   MOVE R21 R16
-  GETIMPORT R20 K30 [table.insert]
+  GETIMPORT R20 K29 [table.insert]
   CALL R20 2 0
   MOVE R18 R4
   JUMPIF R18 [+3]
@@ -753,155 +741,108 @@ PROTO_17:
   JUMPIF R18 [+1]
   MOVE R18 R7
   JUMPIFNOT R18 [+16]
-  DUPTABLE R21 K26 [{"prefix", "text", "onDelete"}]
-  SETTABLEKS R15 R21 K23 ["prefix"]
+  DUPTABLE R21 K25 [{"prefix", "text", "onDelete"}]
+  SETTABLEKS R15 R21 K22 ["prefix"]
   LOADK R22 K1 [""]
-  SETTABLEKS R22 R21 K24 ["text"]
-  GETTABLEKS R22 R0 K74 ["onIsVerifiedCleared"]
-  SETTABLEKS R22 R21 K25 ["onDelete"]
+  SETTABLEKS R22 R21 K23 ["text"]
+  GETTABLEKS R22 R0 K73 ["onIsVerifiedCleared"]
+  SETTABLEKS R22 R21 K24 ["onDelete"]
   FASTCALL2 TABLE_INSERT R16 R21 [+4]
   MOVE R20 R16
-  GETIMPORT R19 K30 [table.insert]
+  GETIMPORT R19 K29 [table.insert]
   CALL R19 2 0
-  GETUPVAL R20 4
-  GETTABLEKS R19 R20 K75 ["createElement"]
-  GETUPVAL R20 5
-  DUPTABLE R21 K81 [{"Tags", "onClearTags", "searchTerm", "categoryName", "onBackToHome", "LayoutOrder"}]
-  SETTABLEKS R16 R21 K76 ["Tags"]
-  GETTABLEKS R22 R0 K82 ["onTagsCleared"]
-  SETTABLEKS R22 R21 K77 ["onClearTags"]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K74 ["createElement"]
+  GETUPVAL R20 3
+  DUPTABLE R21 K80 [{"Tags", "onClearTags", "searchTerm", "categoryName", "onBackToHome", "LayoutOrder"}]
+  SETTABLEKS R16 R21 K75 ["Tags"]
+  GETTABLEKS R22 R0 K81 ["onTagsCleared"]
+  SETTABLEKS R22 R21 K76 ["onClearTags"]
   SETTABLEKS R2 R21 K2 ["searchTerm"]
-  GETTABLEKS R22 R1 K78 ["categoryName"]
-  SETTABLEKS R22 R21 K78 ["categoryName"]
-  GETTABLEKS R22 R1 K79 ["onBackToHome"]
-  SETTABLEKS R22 R21 K79 ["onBackToHome"]
+  GETTABLEKS R22 R1 K77 ["categoryName"]
+  SETTABLEKS R22 R21 K77 ["categoryName"]
+  GETTABLEKS R22 R1 K78 ["onBackToHome"]
+  SETTABLEKS R22 R21 K78 ["onBackToHome"]
   LOADN R22 1
-  SETTABLEKS R22 R21 K80 ["LayoutOrder"]
+  SETTABLEKS R22 R21 K79 ["LayoutOrder"]
   CALL R19 2 1
-  SETTABLEKS R19 R11 K83 ["SearchTags"]
-  GETUPVAL R20 1
-  CALL R20 0 1
-  JUMPIFNOT R20 [+17]
+  SETTABLEKS R19 R11 K82 ["SearchTags"]
   LOADB R19 0
-  GETTABLEKS R20 R1 K84 ["correctionState"]
-  GETUPVAL R23 6
-  GETTABLEKS R22 R23 K85 ["AutocorrectResponseState"]
-  GETTABLEKS R21 R22 K86 ["CorrectionAvailable"]
-  JUMPIFNOTEQ R20 R21 [+9]
-  GETTABLEKS R20 R1 K87 ["correctedQuery"]
+  GETTABLEKS R20 R1 K83 ["correctionState"]
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K84 ["AutocorrectResponseState"]
+  GETTABLEKS R21 R22 K85 ["CorrectionAvailable"]
+  JUMPIFNOTEQ R20 R21 [+7]
+  GETTABLEKS R20 R1 K86 ["correctedQuery"]
   JUMPIFNOTEQKS R20 K1 [""] [+2]
   LOADB R19 0 +1
   LOADB R19 1
-  JUMP [+1]
-  LOADNIL R19
-  GETUPVAL R21 1
-  CALL R21 0 1
-  JUMPIFNOT R21 [+17]
   LOADB R20 0
-  GETTABLEKS R21 R1 K84 ["correctionState"]
-  GETUPVAL R24 6
-  GETTABLEKS R23 R24 K85 ["AutocorrectResponseState"]
-  GETTABLEKS R22 R23 K88 ["CorrectionAccepted"]
-  JUMPIFNOTEQ R21 R22 [+9]
-  GETTABLEKS R21 R1 K89 ["userQuery"]
+  GETTABLEKS R21 R1 K83 ["correctionState"]
+  GETUPVAL R24 4
+  GETTABLEKS R23 R24 K84 ["AutocorrectResponseState"]
+  GETTABLEKS R22 R23 K87 ["CorrectionAccepted"]
+  JUMPIFNOTEQ R21 R22 [+7]
+  GETTABLEKS R21 R1 K88 ["userQuery"]
   JUMPIFNOTEQKS R21 K1 [""] [+2]
   LOADB R20 0 +1
   LOADB R20 1
-  JUMP [+1]
-  LOADNIL R20
-  GETUPVAL R21 1
-  CALL R21 0 1
-  JUMPIFNOT R21 [+1]
   OR R21 R19 R20
-  GETUPVAL R22 1
-  CALL R22 0 1
-  JUMPIFNOT R22 [+12]
-  GETIMPORT R22 K32 [next]
+  GETIMPORT R22 K31 [next]
   MOVE R23 R16
   CALL R22 1 1
   JUMPIFEQKNIL R22 [+7]
   JUMPIF R21 [+5]
-  GETUPVAL R23 2
-  GETTABLEKS R22 R23 K90 ["MAIN_VIEW_VERTICAL_PADDING"]
+  GETUPVAL R23 5
+  GETTABLEKS R22 R23 K89 ["MAIN_VIEW_VERTICAL_PADDING"]
   ADD R10 R10 R22
   JUMP [0]
   JUMPIFNOT R21 [+24]
-  GETUPVAL R23 4
-  GETTABLEKS R22 R23 K75 ["createElement"]
-  GETUPVAL R23 7
-  DUPTABLE R24 K95 [{"CorrectedQuery", "CorrectionState", "CurrentQuery", "LayoutOrder", "UserQuery"}]
-  GETTABLEKS R25 R1 K87 ["correctedQuery"]
-  SETTABLEKS R25 R24 K91 ["CorrectedQuery"]
-  GETTABLEKS R25 R1 K84 ["correctionState"]
-  SETTABLEKS R25 R24 K92 ["CorrectionState"]
-  SETTABLEKS R2 R24 K93 ["CurrentQuery"]
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K74 ["createElement"]
+  GETUPVAL R23 6
+  DUPTABLE R24 K94 [{"CorrectedQuery", "CorrectionState", "CurrentQuery", "LayoutOrder", "UserQuery"}]
+  GETTABLEKS R25 R1 K86 ["correctedQuery"]
+  SETTABLEKS R25 R24 K90 ["CorrectedQuery"]
+  GETTABLEKS R25 R1 K83 ["correctionState"]
+  SETTABLEKS R25 R24 K91 ["CorrectionState"]
+  SETTABLEKS R2 R24 K92 ["CurrentQuery"]
   LOADN R25 2
-  SETTABLEKS R25 R24 K80 ["LayoutOrder"]
-  GETTABLEKS R25 R1 K89 ["userQuery"]
-  SETTABLEKS R25 R24 K94 ["UserQuery"]
+  SETTABLEKS R25 R24 K79 ["LayoutOrder"]
+  GETTABLEKS R25 R1 K88 ["userQuery"]
+  SETTABLEKS R25 R24 K93 ["UserQuery"]
   CALL R22 2 1
   JUMP [+1]
   LOADNIL R22
-  SETTABLEKS R22 R11 K96 ["Autocorrect"]
-  GETUPVAL R13 1
-  CALL R13 0 1
-  JUMPIFNOT R13 [+1]
-  JUMP [+10]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K97 ["MAIN_VIEW_NO_HEADER_HEIGHT"]
-  FASTCALL2 MATH_MAX R10 R15 [+4]
-  MOVE R14 R10
-  GETIMPORT R13 K100 [math.max]
-  CALL R13 2 1
-  MOVE R10 R13
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K75 ["createElement"]
-  GETUPVAL R15 1
-  CALL R15 0 1
-  JUMPIFNOT R15 [+2]
-  GETUPVAL R14 8
-  JUMP [+1]
-  LOADK R14 K101 ["Frame"]
-  DUPTABLE R15 K109 [{"Position", "Size", "BackgroundTransparency", "HorizontalAlignment", "Layout", "VerticalAlignment", "ZIndex"}]
-  GETIMPORT R16 K112 [UDim2.new]
+  SETTABLEKS R22 R11 K95 ["Autocorrect"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K74 ["createElement"]
+  GETUPVAL R14 7
+  DUPTABLE R15 K103 [{"Position", "Size", "BackgroundTransparency", "HorizontalAlignment", "Layout", "VerticalAlignment", "ZIndex"}]
+  GETIMPORT R16 K106 [UDim2.new]
   LOADN R17 0
   LOADN R18 0
   LOADN R19 0
   LOADN R20 254
   CALL R16 4 1
-  SETTABLEKS R16 R15 K102 ["Position"]
-  GETIMPORT R16 K112 [UDim2.new]
+  SETTABLEKS R16 R15 K96 ["Position"]
+  GETIMPORT R16 K106 [UDim2.new]
   LOADN R17 0
   MOVE R18 R9
   LOADN R19 0
   MOVE R20 R10
   CALL R16 4 1
-  SETTABLEKS R16 R15 K103 ["Size"]
+  SETTABLEKS R16 R15 K97 ["Size"]
   LOADN R16 1
-  SETTABLEKS R16 R15 K104 ["BackgroundTransparency"]
-  GETUPVAL R17 1
-  CALL R17 0 1
-  JUMPIFNOT R17 [+3]
-  GETIMPORT R16 K115 [Enum.HorizontalAlignment.Left]
-  JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K105 ["HorizontalAlignment"]
-  GETUPVAL R17 1
-  CALL R17 0 1
-  JUMPIFNOT R17 [+3]
-  GETIMPORT R16 K118 [Enum.FillDirection.Vertical]
-  JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K106 ["Layout"]
-  GETUPVAL R17 1
-  CALL R17 0 1
-  JUMPIFNOT R17 [+3]
-  GETIMPORT R16 K120 [Enum.VerticalAlignment.Top]
-  JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K107 ["VerticalAlignment"]
+  SETTABLEKS R16 R15 K98 ["BackgroundTransparency"]
+  GETIMPORT R16 K109 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R16 R15 K99 ["HorizontalAlignment"]
+  GETIMPORT R16 K112 [Enum.FillDirection.Vertical]
+  SETTABLEKS R16 R15 K100 ["Layout"]
+  GETIMPORT R16 K114 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R16 R15 K101 ["VerticalAlignment"]
   LOADN R16 2
-  SETTABLEKS R16 R15 K108 ["ZIndex"]
+  SETTABLEKS R16 R15 K102 ["ZIndex"]
   MOVE R16 R11
   CALL R13 3 -1
   RETURN R13 -1
@@ -994,26 +935,11 @@ PROTO_18:
   LOADNIL R8
   SETTABLEKS R8 R7 K4 ["uiSortIntent"]
   SETTABLEKS R6 R7 K5 ["sortDirection"]
-  GETUPVAL R9 3
-  CALL R9 0 1
-  JUMPIFNOT R9 [+3]
   GETTABLEKS R8 R2 K13 ["correctionState"]
-  JUMP [+1]
-  LOADNIL R8
   SETTABLEKS R8 R7 K13 ["correctionState"]
-  GETUPVAL R9 3
-  CALL R9 0 1
-  JUMPIFNOT R9 [+3]
   GETTABLEKS R8 R2 K14 ["correctedQuery"]
-  JUMP [+1]
-  LOADNIL R8
   SETTABLEKS R8 R7 K14 ["correctedQuery"]
-  GETUPVAL R9 3
-  CALL R9 0 1
-  JUMPIFNOT R9 [+3]
   GETTABLEKS R8 R2 K15 ["userQuery"]
-  JUMP [+1]
-  LOADNIL R8
   SETTABLEKS R8 R7 K15 ["userQuery"]
   RETURN R7 1
 
@@ -1107,62 +1033,54 @@ MAIN:
   GETTABLEKS R22 R0 K9 ["Core"]
   GETTABLEKS R21 R22 K10 ["Util"]
   GETTABLEKS R20 R21 K29 ["SharedFlags"]
-  GETTABLEKS R19 R20 K30 ["getFFlagToolboxAddAutocorrect"]
+  GETTABLEKS R19 R20 K30 ["getFFlagToolboxEnableSearchOptionsRefactor"]
   CALL R18 1 1
-  GETIMPORT R19 K5 [require]
-  GETTABLEKS R23 R0 K9 ["Core"]
-  GETTABLEKS R22 R23 K10 ["Util"]
-  GETTABLEKS R21 R22 K29 ["SharedFlags"]
-  GETTABLEKS R20 R21 K31 ["getFFlagToolboxEnableSearchOptionsRefactor"]
-  CALL R19 1 1
-  GETTABLEKS R20 R2 K32 ["PureComponent"]
-  LOADK R22 K33 ["MainViewHeader"]
-  NAMECALL R20 R20 K34 ["extend"]
-  CALL R20 2 1
-  GETIMPORT R21 K5 [require]
-  GETTABLEKS R25 R0 K9 ["Core"]
-  GETTABLEKS R24 R25 K24 ["Components"]
-  GETTABLEKS R23 R24 K35 ["SearchOptions"]
-  GETTABLEKS R22 R23 K36 ["SearchTags"]
-  CALL R21 1 1
-  DUPCLOSURE R22 K37 [PROTO_16]
-  CAPTURE VAL R19
+  GETTABLEKS R19 R2 K31 ["PureComponent"]
+  LOADK R21 K32 ["MainViewHeader"]
+  NAMECALL R19 R19 K33 ["extend"]
+  CALL R19 2 1
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R24 R0 K9 ["Core"]
+  GETTABLEKS R23 R24 K24 ["Components"]
+  GETTABLEKS R22 R23 K34 ["SearchOptions"]
+  GETTABLEKS R21 R22 K35 ["SearchTags"]
+  CALL R20 1 1
+  DUPCLOSURE R21 K36 [PROTO_16]
+  CAPTURE VAL R18
   CAPTURE VAL R13
   CAPTURE VAL R14
   CAPTURE VAL R5
-  SETTABLEKS R22 R20 K38 ["init"]
-  DUPCLOSURE R22 K39 [PROTO_17]
+  SETTABLEKS R21 R19 K37 ["init"]
+  DUPCLOSURE R21 K38 [PROTO_17]
   CAPTURE VAL R6
   CAPTURE VAL R18
-  CAPTURE VAL R5
-  CAPTURE VAL R19
   CAPTURE VAL R2
-  CAPTURE VAL R21
+  CAPTURE VAL R20
   CAPTURE VAL R9
+  CAPTURE VAL R5
   CAPTURE VAL R16
   CAPTURE VAL R15
-  SETTABLEKS R22 R20 K40 ["render"]
-  MOVE R22 R11
-  DUPTABLE R23 K43 [{"Localization", "Settings", "Network"}]
-  GETTABLEKS R24 R10 K41 ["Localization"]
-  SETTABLEKS R24 R23 K41 ["Localization"]
-  SETTABLEKS R7 R23 K14 ["Settings"]
-  SETTABLEKS R12 R23 K42 ["Network"]
-  CALL R22 1 1
-  MOVE R23 R20
-  CALL R22 1 1
-  MOVE R20 R22
-  DUPCLOSURE R22 K44 [PROTO_18]
+  SETTABLEKS R21 R19 K39 ["render"]
+  MOVE R21 R11
+  DUPTABLE R22 K42 [{"Localization", "Settings", "Network"}]
+  GETTABLEKS R23 R10 K40 ["Localization"]
+  SETTABLEKS R23 R22 K40 ["Localization"]
+  SETTABLEKS R7 R22 K14 ["Settings"]
+  SETTABLEKS R12 R22 K41 ["Network"]
+  CALL R21 1 1
+  MOVE R22 R19
+  CALL R21 1 1
+  MOVE R19 R21
+  DUPCLOSURE R21 K43 [PROTO_18]
   CAPTURE VAL R13
   CAPTURE VAL R8
-  CAPTURE VAL R19
   CAPTURE VAL R18
-  DUPCLOSURE R23 K45 [PROTO_20]
+  DUPCLOSURE R22 K44 [PROTO_20]
   CAPTURE VAL R17
-  GETTABLEKS R24 R3 K46 ["connect"]
+  GETTABLEKS R23 R3 K45 ["connect"]
+  MOVE R24 R21
   MOVE R25 R22
-  MOVE R26 R23
-  CALL R24 2 1
-  MOVE R25 R20
-  CALL R24 1 -1
-  RETURN R24 -1
+  CALL R23 2 1
+  MOVE R24 R19
+  CALL R23 1 -1
+  RETURN R23 -1

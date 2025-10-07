@@ -135,8 +135,6 @@ local FFlagUseNotificationsLocalization = success and result
 local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagPauseMuteFix = require(RobloxGui.Modules.Flags.GetFFlagPauseMuteFix)
-local GetFFlagUseFriendsPropsInMuteToggles =
-	require(RobloxGui.Modules.Settings.Flags.GetFFlagUseFriendsPropsInMuteToggles)
 local GetFFlagDefaultFriendingLabelTextNonEmpty =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
 local GetFFlagEnableLeaveGameUpsellEntrypoint =
@@ -365,7 +363,6 @@ local function Initialize()
 	local muteAllButton
 	local muteSelfButton
 	local muteImageButtons = {}
-	local playersFriends = {}
 	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Players")
 	local updateButtonsLayout
 	local lastUsedColumnLayout = false
@@ -487,9 +484,6 @@ local function Initialize()
 		local status
 		if showRightSideButtons(player) then
 			status = getFriendStatus(player)
-			if GetFFlagUseFriendsPropsInMuteToggles() then
-				playersFriends[player.UserId] = status == Enum.FriendStatus.Friend
-			end
 		end
 
 		if getIsBlocked(player) == false then
@@ -537,9 +531,6 @@ local function Initialize()
 			local playerLabel = this.Page:FindFirstChild("PlayerLabel" .. player.Name)
 			if playerLabel then
 				friendStatusCreate(playerLabel, player)
-			end
-			if GetFFlagUseFriendsPropsInMuteToggles() then
-				playersFriends[player.UserId] = friendStatus == Enum.FriendStatus.Friend
 			end
 		end
 	end)
@@ -2285,9 +2276,6 @@ local function Initialize()
 				VoiceChatServiceManager.participantLeft.Event:Connect(function(participants, userLeft)
 					updateAllMuteButtons()
 					muteImageButtons[userLeft] = nil
-					if GetFFlagUseFriendsPropsInMuteToggles() then
-						playersFriends[userLeft] = nil
-					end
 				end)
 				local VCS = VoiceChatServiceManager:getService()
 				VCS.StateChanged:Connect(function(_oldState, newState)
@@ -2343,9 +2331,6 @@ local function Initialize()
 
 	PlayersService.PlayerRemoving:Connect(function(player)
 		livePlayers[player.Name] = nil
-		if GetFFlagUseFriendsPropsInMuteToggles() then
-			playersFriends[player.UserId] = nil
-		end
 
 		local playerLabel = existingPlayerLabels[player.Name]
 

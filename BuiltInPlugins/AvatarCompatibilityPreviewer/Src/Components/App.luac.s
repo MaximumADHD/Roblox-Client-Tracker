@@ -38,72 +38,103 @@ PROTO_1:
   RETURN R4 1
   GETTABLEKS R6 R2 K6 ["state"]
   GETTABLEKS R5 R6 K7 ["type"]
-  JUMPIFEQKS R5 K8 ["none"] [+25]
+  JUMPIFEQKS R5 K8 ["none"] [+71]
+  GETUPVAL R5 6
+  CALL R5 0 1
+  JUMPIFNOT R5 [+43]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K5 ["createElement"]
-  GETUPVAL R6 6
-  DUPTABLE R7 K13 [{"autoSetupState", "cancelAutoSetup", "startAutoSetup", "clearError"}]
+  GETUPVAL R6 7
+  DUPTABLE R7 K10 [{"providers"}]
+  NEWTABLE R8 0 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R11 8
+  GETTABLEKS R10 R11 K11 ["Provider"]
+  CALL R9 1 -1
+  SETLIST R8 R9 -1 [1]
+  SETTABLEKS R8 R7 K9 ["providers"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R9 9
+  DUPTABLE R10 K16 [{"autoSetupState", "cancelAutoSetup", "startAutoSetup", "clearError"}]
+  GETTABLEKS R11 R2 K6 ["state"]
+  SETTABLEKS R11 R10 K12 ["autoSetupState"]
+  GETTABLEKS R11 R2 K13 ["cancelAutoSetup"]
+  SETTABLEKS R11 R10 K13 ["cancelAutoSetup"]
+  GETTABLEKS R11 R2 K14 ["startAutoSetup"]
+  SETTABLEKS R11 R10 K14 ["startAutoSetup"]
+  GETTABLEKS R11 R2 K15 ["clearError"]
+  SETTABLEKS R11 R10 K15 ["clearError"]
+  CALL R8 2 -1
+  CALL R5 -1 1
+  MOVE R4 R5
+  RETURN R4 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R6 9
+  DUPTABLE R7 K16 [{"autoSetupState", "cancelAutoSetup", "startAutoSetup", "clearError"}]
   GETTABLEKS R8 R2 K6 ["state"]
-  SETTABLEKS R8 R7 K9 ["autoSetupState"]
-  GETTABLEKS R8 R2 K10 ["cancelAutoSetup"]
-  SETTABLEKS R8 R7 K10 ["cancelAutoSetup"]
-  GETTABLEKS R8 R2 K11 ["startAutoSetup"]
-  SETTABLEKS R8 R7 K11 ["startAutoSetup"]
-  GETTABLEKS R8 R2 K12 ["clearError"]
-  SETTABLEKS R8 R7 K12 ["clearError"]
+  SETTABLEKS R8 R7 K12 ["autoSetupState"]
+  GETTABLEKS R8 R2 K13 ["cancelAutoSetup"]
+  SETTABLEKS R8 R7 K13 ["cancelAutoSetup"]
+  GETTABLEKS R8 R2 K14 ["startAutoSetup"]
+  SETTABLEKS R8 R7 K14 ["startAutoSetup"]
+  GETTABLEKS R8 R2 K15 ["clearError"]
+  SETTABLEKS R8 R7 K15 ["clearError"]
   CALL R5 2 1
   MOVE R4 R5
   RETURN R4 1
   JUMPIFNOTEQKNIL R1 [+8]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K5 ["createElement"]
-  GETUPVAL R6 7
+  GETUPVAL R6 10
   CALL R5 1 1
   MOVE R4 R5
   RETURN R4 1
-  GETTABLEKS R5 R1 K14 ["avatar"]
+  GETTABLEKS R5 R1 K17 ["avatar"]
   JUMPIFNOT R5 [+68]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K5 ["createElement"]
-  GETUPVAL R6 8
-  DUPTABLE R7 K16 [{"providers"}]
+  GETUPVAL R6 7
+  DUPTABLE R7 K10 [{"providers"}]
   NEWTABLE R8 0 5
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K5 ["createElement"]
-  GETUPVAL R11 9
-  GETTABLEKS R10 R11 K17 ["Provider"]
+  GETUPVAL R11 11
+  GETTABLEKS R10 R11 K11 ["Provider"]
   CALL R9 1 1
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K5 ["createElement"]
-  GETUPVAL R11 10
+  GETUPVAL R11 12
   DUPTABLE R12 K19 [{"root"}]
-  GETTABLEKS R14 R1 K14 ["avatar"]
+  GETTABLEKS R14 R1 K17 ["avatar"]
   GETTABLEKS R13 R14 K20 ["WorldModel"]
   SETTABLEKS R13 R12 K18 ["root"]
   CALL R10 2 1
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K5 ["createElement"]
-  GETUPVAL R12 11
+  GETUPVAL R12 13
   DUPTABLE R13 K19 [{"root"}]
-  GETTABLEKS R15 R1 K14 ["avatar"]
+  GETTABLEKS R15 R1 K17 ["avatar"]
   GETTABLEKS R14 R15 K20 ["WorldModel"]
   SETTABLEKS R14 R13 K18 ["root"]
   CALL R11 2 1
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K5 ["createElement"]
-  GETUPVAL R13 12
+  GETUPVAL R13 14
   CALL R12 1 1
   GETUPVAL R14 0
   GETTABLEKS R13 R14 K5 ["createElement"]
-  GETUPVAL R14 13
+  GETUPVAL R14 15
   CALL R13 1 -1
   SETLIST R8 R9 -1 [1]
-  SETTABLEKS R8 R7 K15 ["providers"]
+  SETTABLEKS R8 R7 K9 ["providers"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K5 ["createElement"]
-  GETUPVAL R9 14
+  GETUPVAL R9 16
   DUPTABLE R10 K23 [{"Avatar", "IsSelected"}]
-  GETTABLEKS R11 R1 K14 ["avatar"]
+  GETTABLEKS R11 R1 K17 ["avatar"]
   SETTABLEKS R11 R10 K21 ["Avatar"]
   GETTABLEKS R11 R1 K24 ["isSelected"]
   SETTABLEKS R11 R10 K22 ["IsSelected"]
@@ -153,64 +184,76 @@ MAIN:
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K9 ["Src"]
   GETTABLEKS R9 R10 K10 ["Components"]
-  GETTABLEKS R8 R9 K16 ["EquipmentStateProvider"]
+  GETTABLEKS R8 R9 K16 ["AutoSetupOptionsContext"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K9 ["Src"]
   GETTABLEKS R10 R11 K10 ["Components"]
-  GETTABLEKS R9 R10 K17 ["OriginalLimbProvider"]
+  GETTABLEKS R9 R10 K17 ["EquipmentStateProvider"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K9 ["Src"]
   GETTABLEKS R11 R12 K10 ["Components"]
-  GETTABLEKS R10 R11 K18 ["RunServiceContext"]
+  GETTABLEKS R10 R11 K18 ["OriginalLimbProvider"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K9 ["Src"]
   GETTABLEKS R12 R13 K10 ["Components"]
-  GETTABLEKS R11 R12 K19 ["SimpleSerializedStateProvider"]
+  GETTABLEKS R11 R12 K19 ["RunServiceContext"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K9 ["Src"]
   GETTABLEKS R13 R14 K10 ["Components"]
-  GETTABLEKS R12 R13 K20 ["UserCatalogFolderContext"]
+  GETTABLEKS R12 R13 K20 ["SimpleSerializedStateProvider"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETTABLEKS R15 R0 K9 ["Src"]
   GETTABLEKS R14 R15 K10 ["Components"]
-  GETTABLEKS R13 R14 K21 ["UserCatalogProvider"]
+  GETTABLEKS R13 R14 K21 ["UserCatalogFolderContext"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R16 R0 K9 ["Src"]
   GETTABLEKS R15 R16 K10 ["Components"]
-  GETTABLEKS R14 R15 K22 ["ContextStack"]
+  GETTABLEKS R14 R15 K22 ["UserCatalogProvider"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K9 ["Src"]
-  GETTABLEKS R16 R17 K23 ["Hooks"]
-  GETTABLEKS R15 R16 K24 ["useAutoSetupState"]
+  GETTABLEKS R16 R17 K10 ["Components"]
+  GETTABLEKS R15 R16 K23 ["ContextStack"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K9 ["Src"]
-  GETTABLEKS R17 R18 K23 ["Hooks"]
-  GETTABLEKS R16 R17 K25 ["useMostRecentSelected"]
+  GETTABLEKS R17 R18 K24 ["Flags"]
+  GETTABLEKS R16 R17 K25 ["getFFlagAvatarAutosetupOptionsInput"]
   CALL R15 1 1
-  GETTABLEKS R17 R1 K26 ["ContextServices"]
-  GETTABLEKS R16 R17 K27 ["Analytics"]
-  DUPCLOSURE R17 K28 [PROTO_1]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K9 ["Src"]
+  GETTABLEKS R18 R19 K26 ["Hooks"]
+  GETTABLEKS R17 R18 K27 ["useAutoSetupState"]
+  CALL R16 1 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K9 ["Src"]
+  GETTABLEKS R19 R20 K26 ["Hooks"]
+  GETTABLEKS R18 R19 K28 ["useMostRecentSelected"]
+  CALL R17 1 1
+  GETTABLEKS R19 R1 K29 ["ContextServices"]
+  GETTABLEKS R18 R19 K30 ["Analytics"]
+  DUPCLOSURE R19 K31 [PROTO_1]
   CAPTURE VAL R2
-  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R17
+  CAPTURE VAL R16
+  CAPTURE VAL R18
+  CAPTURE VAL R6
   CAPTURE VAL R15
   CAPTURE VAL R14
-  CAPTURE VAL R16
-  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R4
   CAPTURE VAL R5
-  CAPTURE VAL R13
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  CAPTURE VAL R7
   CAPTURE VAL R12
+  CAPTURE VAL R11
   CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R9
   CAPTURE VAL R3
-  RETURN R17 1
+  RETURN R19 1

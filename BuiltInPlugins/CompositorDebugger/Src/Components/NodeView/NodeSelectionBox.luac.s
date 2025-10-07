@@ -13,16 +13,12 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  GETIMPORT R1 K2 [Rect.new]
+  GETUPVAL R1 0
   MOVE R2 R0
-  MOVE R3 R0
-  CALL R1 2 1
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 0
-  GETUPVAL R2 1
-  LOADNIL R3
-  CALL R2 1 0
+  CALL R1 1 0
+  GETUPVAL R1 1
+  LOADNIL R2
+  CALL R1 1 0
   RETURN R0 0
 
 PROTO_2:
@@ -160,7 +156,7 @@ PROTO_4:
   SETTABLEKS R18 R17 K17 ["BackgroundTransparency"]
   LOADN R18 1
   SETTABLEKS R18 R17 K18 ["BorderThickness"]
-  ADDK R18 R10 K6 [1]
+  ADDK R18 R10 K33 [90]
   SETTABLEKS R18 R17 K7 ["ZIndex"]
   CALL R15 2 1
   JUMP [+1]
@@ -169,14 +165,14 @@ PROTO_4:
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K8 ["createElement"]
   GETUPVAL R17 2
-  GETTABLEKS R16 R17 K33 ["InputDetector"]
-  DUPTABLE R17 K39 [{"TreatMouseAsAnchor", "OnPress", "OnDragStart", "OnDragMoved", "OnDragEnded", "ZIndex"}]
+  GETTABLEKS R16 R17 K34 ["InputDetector"]
+  DUPTABLE R17 K40 [{"TreatMouseAsAnchor", "OnPress", "OnDragStart", "OnDragMoved", "OnDragEnded", "ZIndex"}]
   LOADB R18 1
-  SETTABLEKS R18 R17 K34 ["TreatMouseAsAnchor"]
-  SETTABLEKS R6 R17 K35 ["OnPress"]
-  SETTABLEKS R7 R17 K36 ["OnDragStart"]
-  SETTABLEKS R8 R17 K37 ["OnDragMoved"]
-  SETTABLEKS R9 R17 K38 ["OnDragEnded"]
+  SETTABLEKS R18 R17 K35 ["TreatMouseAsAnchor"]
+  SETTABLEKS R6 R17 K36 ["OnPress"]
+  SETTABLEKS R7 R17 K37 ["OnDragStart"]
+  SETTABLEKS R8 R17 K38 ["OnDragMoved"]
+  SETTABLEKS R9 R17 K39 ["OnDragEnded"]
   SETTABLEKS R10 R17 K7 ["ZIndex"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K11 ["BoxInputDetector"]

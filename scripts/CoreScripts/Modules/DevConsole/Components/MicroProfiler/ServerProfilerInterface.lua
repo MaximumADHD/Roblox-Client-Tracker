@@ -2,6 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
+local FFlagDevConsoleMicroProfilerImproveWording = require(script.Parent.Flags.FFlagDevConsoleMicroProfilerImproveWording)
+local FFlagDevConsoleMicroProfilerFixAutoTextClear = game:DefineFastFlag("DevConsoleMicroProfilerFixAutoTextClear", false)
+
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
 local Roact = require(CorePackages.Packages.Roact)
@@ -106,7 +109,7 @@ function ServerProfilerInteraface:render()
 		Label = Roact.createElement("TextLabel", {
 			Size = UDim2.new(0, BUTTON_WIDTH, 0, ROW_HEIGHT),
 			Position = UDim2.new(OFFSET, 0, 0, 0),
-			Text = "ServerProfiler",
+			Text = if FFlagDevConsoleMicroProfilerImproveWording then "Server MicroProfiler" else "ServerProfiler",
 			Font = HEADER_FONT,
 			TextSize = TEXT_SIZE,
 			TextColor3 = Constants.Color.Text,
@@ -124,7 +127,7 @@ function ServerProfilerInteraface:render()
 		LabelFPS = Roact.createElement("TextLabel", {
 			Size = UDim2.new(0, BUTTON_WIDTH, 0, ROW_HEIGHT),
 			Position = UDim2.new(OFFSET, 0, 0, ROW_HEIGHT * 1.25),
-			Text = "Frames Per Second",
+			Text = if FFlagDevConsoleMicroProfilerImproveWording then "Frames to dump" else "Frames Per Second",
 			Font = FONT,
 			TextSize = TEXT_SIZE,
 			TextColor3 = Constants.Color.Text,
@@ -145,6 +148,7 @@ function ServerProfilerInteraface:render()
 			TextYAlignment = Enum.TextYAlignment.Center,
 			BackgroundColor3 = BUTTON_COLOR,
 			BackgroundTransparency = 0,
+			ClearTextOnFocus = if FFlagDevConsoleMicroProfilerFixAutoTextClear then false else true,
 
 			[Roact.Event.FocusLost] = self.onFocusLostFrameRate,
 		}),
@@ -152,7 +156,7 @@ function ServerProfilerInteraface:render()
 		LabelTimeFrame = Roact.createElement("TextLabel", {
 			Size = UDim2.new(0, BUTTON_WIDTH, 0, ROW_HEIGHT),
 			Position = UDim2.new(OFFSET, 0, 0, ROW_HEIGHT * 2.25),
-			Text = "Seconds to Record",
+			Text = if FFlagDevConsoleMicroProfilerImproveWording then "Seconds to delay" else "Seconds to Record",
 			Font = FONT,
 			TextSize = TEXT_SIZE,
 			TextColor3 = Constants.Color.Text,
@@ -172,6 +176,7 @@ function ServerProfilerInteraface:render()
 			TextYAlignment = Enum.TextYAlignment.Center,
 			BackgroundColor3 = BUTTON_COLOR,
 			BackgroundTransparency = 0,
+			ClearTextOnFocus = if FFlagDevConsoleMicroProfilerFixAutoTextClear then false else true,
 
 			[Roact.Event.FocusLost] = self.onFocusLostTimeFrame,
 		}, {

@@ -41,19 +41,7 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CollectionService = game:GetService("CollectionService")
 local VRService = game:GetService("VRService")
 local FFlagSelfViewCameraDefaultButtonInViewPort = game:DefineFastFlag("SelfViewCameraDefaultButtonInViewPort", false)
-local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
-local FFlagSelfViewHumanoidNilCheck = game:DefineFastFlag("SelfViewHumanoidNilCheck", false)
-local FFlagSelfViewMoreNilChecks = game:DefineFastFlag("SelfViewMoreNilChecks", false)
-local FFlagSelfViewAvoidErrorOnWrongFaceControlsParenting =
-	game:DefineFastFlag("SelfViewAvoidErrorOnWrongFaceControlsParenting", false)
-local FFlagSelfViewUpdatedCamFraming = game:DefineFastFlag("SelfViewUpdatedCamFraming", false)
-local FFlagSelfViewGetRidOfFalselyRenderedFaceDecal =
-	game:DefineFastFlag("SelfViewGetRidOfFalselyRenderedFaceDecal", false)
-local FFlagSelfViewRemoveVPFWhenClosed = game:DefineFastFlag("SelfViewRemoveVPFWhenClosed", false)
-local FFlagSelfViewTweaksPass = game:DefineFastFlag("SelfViewTweaksPass", false)
 local FFlagInExperienceUpsellSelfViewFix = game:DefineFastFlag("InExperienceUpsellSelfViewFix", false)
-local FFlagRemoveVoiceJoiceDisconnectFix = game:DefineFastFlag("RemoveVoiceJoiceDisconnectFix", false)
-local FFlagFixUpdateMicIconCallBeforeReady = game:DefineFastFlag("FixUpdateMicIconCallBeforeReady", false)
 local FFlagSelfViewAvatarJointUpgrade = game:DefineFastFlag("SelfViewAvatarJointUpgrade", false)
 
 local CorePackages = game:GetService("CorePackages")
@@ -980,20 +968,13 @@ local function setIsOpen(shouldBeOpen)
 			playerScreenOrientationConnection = nil
 		end
 
-		if not FFlagRemoveVoiceJoiceDisconnectFix and voiceJoinProgressChangedConnection then
-			voiceJoinProgressChangedConnection:Disconnect()
-			voiceJoinProgressChangedConnection = nil
-		end
-
 		prepMicAndCamPropertyChangedSignalHandler()
 
 		indicatorCircle.Visible = debug
 
 		trackSelfViewSessionAsNeeded()
 
-		if FFlagSelfViewRemoveVPFWhenClosed then
-			clearViewportFrame()
-		end
+		clearViewportFrame()
 	end
 end
 
@@ -1309,578 +1290,251 @@ local function createViewport()
 		camIcon.ZIndex = 2
 	end
 
-	if FFlagSelfViewRemoveVPFWhenClosed then
+	if isOpen then
+		getViewportFrame()
+	end
+
+	indicatorCircle = Instance.new("ImageLabel")
+	indicatorCircle.Name = "IndicatorCircle"
+	indicatorCircle.Parent = frame
+	indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+	indicatorCircle.Size = UDim2.new(0, 22, 0, 22)
+	indicatorCircle.Image = INDICATOR_OFF_IMAGE
+	indicatorCircle.BackgroundTransparency = 1
+	indicatorCircle.Visible = false
+	indicatorCircle.ZIndex = 4
+
+	local closeButton = Instance.new("ImageButton")
+	closeButton.Name = "CloseButton"
+	closeButton.AnchorPoint = Vector2.new(0, 0.5)
+	closeButton.Parent = frame
+	closeButton.Position = UDim2.fromOffset(0, 16)
+	closeButton.Size = UDim2.new(0, 34, 0, 34)
+	closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
+	closeButton.ImageTransparency = 1
+	closeButton.BackgroundTransparency = 1
+	closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
+	closeButton.ZIndex = 2
+
+	local closeButtonIcon = Instance.new("ImageLabel")
+	closeButtonIcon.Name = "CloseButtonIcon"
+	closeButtonIcon.Parent = closeButton
+	closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	closeButtonIcon.Position = UDim2.new(0, 17, 0, 17)
+	closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
+	closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
+	closeButtonIcon.ImageTransparency = 0
+	closeButtonIcon.BackgroundTransparency = 1
+	closeButtonIcon.ZIndex = 2
+
+	local faceIcon = Instance.new("ImageLabel")
+	faceIcon.Name = "FaceIcon"
+	faceIcon.Parent = frame
+	faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	faceIcon.Position = UDim2.new(0, 17, 0, 17)
+	faceIcon.Size = UDim2.new(0, 32, 0, 32)
+	faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
+	faceIcon.BackgroundTransparency = 1
+	faceIcon.ZIndex = 2
+	faceIcon.Visible = false
+	faceIcon.Parent = closeButton
+
+	local function setButtonButtonsVisibility()
+		-- Show the mic and cam buttons if the user has given permissions
 		if isOpen then
-			getViewportFrame()
-		end
-
-		indicatorCircle = Instance.new("ImageLabel")
-		indicatorCircle.Name = "IndicatorCircle"
-		indicatorCircle.Parent = frame
-		indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
-		indicatorCircle.Size = UDim2.new(0, 22, 0, 22)
-		indicatorCircle.Image = INDICATOR_OFF_IMAGE
-		indicatorCircle.BackgroundTransparency = 1
-		indicatorCircle.Visible = false
-		indicatorCircle.ZIndex = 4
-
-		local closeButton = Instance.new("ImageButton")
-		closeButton.Name = "CloseButton"
-		closeButton.AnchorPoint = Vector2.new(0, 0.5)
-		closeButton.Parent = frame
-		closeButton.Position = UDim2.fromOffset(0, 16)
-		closeButton.Size = UDim2.new(0, 34, 0, 34)
-		closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
-		closeButton.ImageTransparency = 1
-		closeButton.BackgroundTransparency = 1
-		closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
-		closeButton.ZIndex = 2
-
-		local closeButtonIcon = Instance.new("ImageLabel")
-		closeButtonIcon.Name = "CloseButtonIcon"
-		closeButtonIcon.Parent = closeButton
-		closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-		closeButtonIcon.Position = UDim2.new(0, 17, 0, 17)
-		closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
-		closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
-		closeButtonIcon.ImageTransparency = 0
-		closeButtonIcon.BackgroundTransparency = 1
-		closeButtonIcon.ZIndex = 2
-
-		local faceIcon = Instance.new("ImageLabel")
-		faceIcon.Name = "FaceIcon"
-		faceIcon.Parent = frame
-		faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-		faceIcon.Position = UDim2.new(0, 17, 0, 17)
-		faceIcon.Size = UDim2.new(0, 32, 0, 32)
-		faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
-		faceIcon.BackgroundTransparency = 1
-		faceIcon.ZIndex = 2
-		faceIcon.Visible = false
-		faceIcon.Parent = closeButton
-
-		local function setButtonButtonsVisibility()
-			-- Show the mic and cam buttons if the user has given permissions
-			if isOpen then
-				if numButtonsShowing ~= 0 then
-					micButton.Visible = true
-					camButton.Visible = true
-				end
-				closeButton.Visible = true
-			--[[
-				Allow for debugging in studio. This shows the mic option when
-				studio normally does not have this option.
-			]]
-			elseif IS_STUDIO and debug then
-				if numButtonsShowing ~= 0 then
-					micButton.Visible = true
-					camButton.Visible = true
-				end
-				closeButton.Visible = true
-			else
-				if numButtonsShowing ~= 0 then
-					micButton.Visible = false
-					camButton.Visible = false
-				end
-				closeButton.Visible = false
-			end
-		end
-
-		local function showSelfView(newState, position, anchorPoint)
-			setIsOpen(newState)
-			setButtonButtonsVisibility()
-
-			if not FFlagSelfViewRemoveVPFWhenClosed then
-				selfViewFrame.Visible = newState
-			end
 			if numButtonsShowing ~= 0 then
-				bottomButtonsFrame.Visible = newState
+				micButton.Visible = true
+				camButton.Visible = true
 			end
-			closeButtonIcon.Visible = newState
-			faceIcon.Visible = not newState
-			closeButton.BackgroundTransparency = newState and 1 or 0.5
-
-			if isOpen then
-				if numButtonsShowing ~= 0 then
-					micButton.Position = UDim2.new(0, 0, 0, 0)
-					micButton.Size = UDim2.new(0.5, -4, 1, -4)
-					micButton.ImageTransparency = 0
-
-					camButton.Position = UDim2.new(0, 0, 0, 0)
-					camButton.Size = UDim2.new(0.5, -4, 1, -4)
-					camButton.ImageTransparency = 0
-				end
-				indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
-
-				if position ~= nil then
-					frame.Position = position
-				end
-				if anchorPoint ~= nil then
-					frame.AnchorPoint = anchorPoint
-				end
-				frame.Active = true
-				frame.Visible = true
-
-				if shouldDisplaySelfViewTooltip("ShowSelfieViewOpenedTooltip") then
-					mountedOnOpenTooltipInstance = mountSelfViewOnOpenTooltip({
-						fallbackText = "Use your camera to make your avatar smile and move just like you",
-						translationKey = "Feature.Avatar.Message.FTUXSelfieViewOpenedTooltip",
-						anchorPoint = frame.AnchorPoint,
-						position = frame.Position,
-						size = frame.Size,
-						bottomButtonsFramePosition = bottomButtonsFrame.Position,
-						bottomButtonsFrameSize = bottomButtonsFrame.Size,
-						aspectRatio = aspectRatioConstraint.AspectRatio,
-						maxSize = sizeConstraint.MaxSize,
-						minSize = sizeConstraint.MinSize,
-						tooltipLifetime = FIntSelfViewTooltipLifetime,
-					})
-					pcall(function()
-						AppStorageService:SetItem("ShowSelfieViewOpenedTooltip", "false")
-					end)
-				end
-			else
-				if numButtonsShowing ~= 0 then
-					micButton.Position = UDim2.new(0, 40, 0, -1)
-					micButton.Size = UDim2.new(0, 34, 0, 34)
-					micButton.ImageTransparency = 0.3
-
-					camButton.Position = UDim2.new(0, 80, 0, -1)
-					camButton.Size = UDim2.new(0, 34, 0, 34)
-					camButton.ImageTransparency = 0.3
-				end
-
-				indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
-				frame.Active = false
-				frame.Visible = false
-
-				if cloneStreamTrack then
-					local onTrackStoppedConnection = nil
-					local tempCloneStreamTrack = cloneStreamTrack
-					local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
-					onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
-						tempCloneStreamTrack:Destroy()
-
-						if tempNewTrackerStreamAnimation then
-							tempNewTrackerStreamAnimation:Destroy()
-						end
-
-						onTrackStoppedConnection:Disconnect()
-					end)
-
-					cloneStreamTrack:Stop(0.0)
-					cloneStreamTrack = nil
-				elseif newTrackerStreamAnimation then
-					newTrackerStreamAnimation:Destroy()
-					newTrackerStreamAnimation = nil
-				end
-
-				if shouldDisplaySelfViewTooltip("ShowSelfieViewClosedTooltip") then
-					mountSelfViewOnCloseTooltip({
-						fallbackText = "You can find your camera and self-view controls here",
-						translationKey = "Feature.Avatar.Message.FTUXSelfieViewClosedTooltip",
-						tooltipLifetime = FIntSelfViewTooltipLifetime,
-					})
-					pcall(function()
-						AppStorageService:SetItem("ShowSelfieViewClosedTooltip", "false")
-					end)
-				end
-			end
-
+			closeButton.Visible = true
+		--[[
+			Allow for debugging in studio. This shows the mic option when
+			studio normally does not have this option.
+		]]
+		elseif IS_STUDIO and debug then
 			if numButtonsShowing ~= 0 then
-				bottomButtonsFrame.Visible = isOpen
+				micButton.Visible = true
+				camButton.Visible = true
 			end
-		end
-
-		globalShowSelfViewFunction = showSelfView
-
-		closeButton.Activated:Connect(function()
-			showSelfView(not isOpen)
-		end)
-
-		if toggleSelfViewSignalConnection then
-			toggleSelfViewSignalConnection:disconnect()
-		end
-		toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
-			showSelfView(not isOpen)
-		end)
-
-		if selfViewVisibleConnection then
-			selfViewVisibleConnection:Disconnect()
-			selfViewVisibleConnection = nil
-		end
-		if selfViewHiddenConnection then
-			selfViewHiddenConnection:Disconnect()
-			selfViewHiddenConnection = nil
-		end
-		selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
-			-- Calling showSelfView when self view is already visible is no-op
-			if not isOpen then
-				-- use current position
-				local newSelfViewPosition = nil
-				local anchorPoint = nil
-				if selfViewPosition == Enum.SelfViewPosition.TopLeft then
-					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(0, 0)
-				elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
-					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(1, 0)
-				elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
-					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(0, 1)
-				elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
-					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(1, 1)
-				end
-				showSelfView(true, newSelfViewPosition, anchorPoint)
-				if newSelfViewPosition ~= nil then
-					local value = frame.AbsolutePosition.X .. "," .. frame.AbsolutePosition.Y
-					AppStorageService:SetItem("SelfViewPosition", value)
-				end
-			end
-		end)
-		selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
-			-- Calling hideSelfView when self view is not visible is no-op
-			if isOpen then
-				if getFFlagEnableAlwaysAvailableCamera() and mountedOnOpenTooltipInstance then
-					-- If we have mounted a tooltip and the developer calls this API, we want to unmount the tooltip
-					mountedOnOpenTooltipInstance.unmount()
-					mountedOnOpenTooltipInstance = nil
-				end
-				showSelfView(false)
-			end
-		end)
-
-		uiCorner = Instance.new("UICorner")
-		uiCorner.Parent = closeButton
-
-		if not FFlagSelfViewRemoveVPFWhenClosed then
-			uiCorner = Instance.new("UICorner")
-			uiCorner.Parent = selfViewFrame
-
-			uiCorner = Instance.new("UICorner")
-			uiCorner.Parent = viewportFrame
-
-			local uiStroke = Instance.new("UIStroke")
-			uiStroke.Parent = selfViewFrame
-			uiStroke.Thickness = 3
-			uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
-
-			uiStroke = Instance.new("UIStroke")
-			uiStroke.Parent = viewportFrame
-			uiStroke.Thickness = 2.5
-			uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
-		end
-
-		createCloneAnchor()
-
-		if not FFlagSelfViewRemoveVPFWhenClosed then
-			viewportCamera = Instance.new("Camera")
-
-			viewportCamera.FieldOfView = SELF_VIEW_CAMERA_FIELD_OF_VIEW
-
-			viewportFrame.CurrentCamera = viewportCamera
-			viewportCamera.Parent = viewportFrame
-		end
-
-		if not playerScreenOrientationConnection then
-			connectToScreenOrientationChange()
-		end
-	else
-		local selfViewFrame = Instance.new("Frame")
-		selfViewFrame.Name = "SelfViewFrame"
-		selfViewFrame.Position = UDim2.new(0, 0, 0, 0)
-		selfViewFrame.Size = UDim2.new(1, 0, 1, 0)
-		selfViewFrame.BackgroundTransparency = 1
-		selfViewFrame.Parent = frame
-
-		viewportFrame = Instance.new("ViewportFrame")
-		viewportFrame.Position = UDim2.new(0, 0, 0, 0)
-		viewportFrame.Size = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
-		viewportFrame.BackgroundColor3 = Color3.new(0, 0, 0)
-		viewportFrame.BorderColor3 = Color3.new(0.6, 0.5, 0.4)
-		viewportFrame.BorderSizePixel = 2
-		viewportFrame.BackgroundTransparency = BACKGROUND_TRANSPARENCY
-		viewportFrame.Parent = selfViewFrame
-
-		viewportFrame.Ambient = Color3.new(0.7529411765, 0.7098039216, 0.7137254902)
-		viewportFrame.LightColor = Color3.new(1, 0.9960784314, 0.9960784314)
-		viewportFrame.LightDirection = Vector3.new(9.5, -12, 7.5)
-		viewportFrame.BackgroundColor3 = Color3.new(0.0990616, 0.138109, 0.452827)
-		viewportFrame.IsMirrored = true
-
-		indicatorCircle = Instance.new("ImageLabel")
-		indicatorCircle.Name = "IndicatorCircle"
-		indicatorCircle.Parent = frame
-		indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
-		indicatorCircle.Size = UDim2.new(0, 22, 0, 22)
-		indicatorCircle.Image = INDICATOR_OFF_IMAGE
-		indicatorCircle.BackgroundTransparency = 1
-		indicatorCircle.Visible = false
-		indicatorCircle.ZIndex = 4
-
-		local closeButton = Instance.new("ImageButton")
-		closeButton.Name = "CloseButton"
-		closeButton.AnchorPoint = Vector2.new(0, 0.5)
-		closeButton.Parent = frame
-		closeButton.Position = UDim2.fromOffset(0, 16)
-		closeButton.Size = UDim2.new(0, 34, 0, 34)
-		closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
-		closeButton.ImageTransparency = 1
-		closeButton.BackgroundTransparency = 1
-		closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
-		closeButton.ZIndex = 2
-
-		local closeButtonIcon = Instance.new("ImageLabel")
-		closeButtonIcon.Name = "CloseButtonIcon"
-		closeButtonIcon.Parent = closeButton
-		closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-		closeButtonIcon.Position = UDim2.new(0, 17, 0, 17)
-		closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
-		closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
-		closeButtonIcon.ImageTransparency = 0
-		closeButtonIcon.BackgroundTransparency = 1
-		closeButtonIcon.ZIndex = 2
-
-		local faceIcon = Instance.new("ImageLabel")
-		faceIcon.Name = "FaceIcon"
-		faceIcon.Parent = frame
-		faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-		faceIcon.Position = UDim2.new(0, 17, 0, 17)
-		faceIcon.Size = UDim2.new(0, 32, 0, 32)
-		faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
-		faceIcon.BackgroundTransparency = 1
-		faceIcon.ZIndex = 2
-		faceIcon.Visible = false
-		faceIcon.Parent = closeButton
-
-		local function setButtonButtonsVisibility()
-			if isOpen then
-				if numButtonsShowing ~= 0 then
-					micButton.Visible = true
-					camButton.Visible = true
-				end
-				closeButton.Visible = true
-			--[[
-				Allow for debugging in studio. This shows the mic option when
-				studio normally does not have this option.
-			]]
-			elseif IS_STUDIO and debug then
-				if numButtonsShowing ~= 0 then
-					micButton.Visible = true
-					camButton.Visible = true
-				end
-				closeButton.Visible = true
-			else
-				if numButtonsShowing ~= 0 then
-					micButton.Visible = false
-					camButton.Visible = false
-				end
-				closeButton.Visible = false
-			end
-		end
-
-		local function showSelfView(newState, position, anchorPoint)
-			setIsOpen(newState)
-			setButtonButtonsVisibility()
-
-			if not FFlagSelfViewRemoveVPFWhenClosed then
-				selfViewFrame.Visible = newState
-			end
+			closeButton.Visible = true
+		else
 			if numButtonsShowing ~= 0 then
-				bottomButtonsFrame.Visible = newState
+				micButton.Visible = false
+				camButton.Visible = false
 			end
-			closeButtonIcon.Visible = newState
-			faceIcon.Visible = not newState
-			closeButton.BackgroundTransparency = newState and 1 or 0.5
+			closeButton.Visible = false
+		end
+	end
 
-			if isOpen then
-				if numButtonsShowing ~= 0 then
-					micButton.Position = UDim2.new(0, 0, 0, 0)
-					micButton.Size = UDim2.new(0.5, -4, 1, -4)
-					micButton.ImageTransparency = 0
+	local function showSelfView(newState, position, anchorPoint)
+		setIsOpen(newState)
+		setButtonButtonsVisibility()
 
-					camButton.Position = UDim2.new(0, 0, 0, 0)
-					camButton.Size = UDim2.new(0.5, -4, 1, -4)
-					camButton.ImageTransparency = 0
-				end
+		if numButtonsShowing ~= 0 then
+			bottomButtonsFrame.Visible = newState
+		end
+		closeButtonIcon.Visible = newState
+		faceIcon.Visible = not newState
+		closeButton.BackgroundTransparency = newState and 1 or 0.5
 
-				indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
-
-				if position ~= nil then
-					frame.Position = position
-				end
-				if anchorPoint ~= nil then
-					frame.AnchorPoint = anchorPoint
-				end
-				frame.Active = true
-				frame.Visible = true
-
-				if shouldDisplaySelfViewTooltip("ShowSelfieViewOpenedTooltip") then
-					mountedOnOpenTooltipInstance = mountSelfViewOnOpenTooltip({
-						fallbackText = "Use your camera to make your avatar smile and move just like you",
-						translationKey = "Feature.Avatar.Message.FTUXSelfieViewOpenedTooltip",
-						anchorPoint = frame.AnchorPoint,
-						position = frame.Position,
-						size = frame.Size,
-						bottomButtonsFramePosition = bottomButtonsFrame.Position,
-						bottomButtonsFrameSize = bottomButtonsFrame.Size,
-						aspectRatio = aspectRatioConstraint.AspectRatio,
-						maxSize = sizeConstraint.MaxSize,
-						minSize = sizeConstraint.MinSize,
-						tooltipLifetime = FIntSelfViewTooltipLifetime,
-					})
-					pcall(function()
-						AppStorageService:SetItem("ShowSelfieViewOpenedTooltip", "false")
-					end)
-				end
-			else
-				if numButtonsShowing ~= 0 then
-					micButton.Position = UDim2.new(0, 40, 0, -1)
-					micButton.Size = UDim2.new(0, 34, 0, 34)
-					micButton.ImageTransparency = 0.3
-
-					camButton.Position = UDim2.new(0, 80, 0, -1)
-					camButton.Size = UDim2.new(0, 34, 0, 34)
-					camButton.ImageTransparency = 0.3
-				end
-
-				indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
-				frame.Active = false
-				frame.Visible = false
-
-				if cloneStreamTrack then
-					local onTrackStoppedConnection = nil
-					local tempCloneStreamTrack = cloneStreamTrack
-					local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
-					onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
-						tempCloneStreamTrack:Destroy()
-
-						if tempNewTrackerStreamAnimation then
-							tempNewTrackerStreamAnimation:Destroy()
-						end
-
-						onTrackStoppedConnection:Disconnect()
-					end)
-
-					cloneStreamTrack:Stop(0.0)
-					cloneStreamTrack = nil
-				elseif newTrackerStreamAnimation then
-					newTrackerStreamAnimation:Destroy()
-					newTrackerStreamAnimation = nil
-				end
-
-				if shouldDisplaySelfViewTooltip("ShowSelfieViewClosedTooltip") then
-					mountSelfViewOnCloseTooltip({
-						fallbackText = "You can find your camera and self-view controls here",
-						translationKey = "Feature.Avatar.Message.FTUXSelfieViewClosedTooltip",
-						tooltipLifetime = FIntSelfViewTooltipLifetime,
-					})
-					pcall(function()
-						AppStorageService:SetItem("ShowSelfieViewClosedTooltip", "false")
-					end)
-				end
-			end
-
+		if isOpen then
 			if numButtonsShowing ~= 0 then
-				bottomButtonsFrame.Visible = isOpen
+				micButton.Position = UDim2.new(0, 0, 0, 0)
+				micButton.Size = UDim2.new(0.5, -4, 1, -4)
+				micButton.ImageTransparency = 0
+
+				camButton.Position = UDim2.new(0, 0, 0, 0)
+				camButton.Size = UDim2.new(0.5, -4, 1, -4)
+				camButton.ImageTransparency = 0
+			end
+			indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+
+			if position ~= nil then
+				frame.Position = position
+			end
+			if anchorPoint ~= nil then
+				frame.AnchorPoint = anchorPoint
+			end
+			frame.Active = true
+			frame.Visible = true
+
+			if shouldDisplaySelfViewTooltip("ShowSelfieViewOpenedTooltip") then
+				mountedOnOpenTooltipInstance = mountSelfViewOnOpenTooltip({
+					fallbackText = "Use your camera to make your avatar smile and move just like you",
+					translationKey = "Feature.Avatar.Message.FTUXSelfieViewOpenedTooltip",
+					anchorPoint = frame.AnchorPoint,
+					position = frame.Position,
+					size = frame.Size,
+					bottomButtonsFramePosition = bottomButtonsFrame.Position,
+					bottomButtonsFrameSize = bottomButtonsFrame.Size,
+					aspectRatio = aspectRatioConstraint.AspectRatio,
+					maxSize = sizeConstraint.MaxSize,
+					minSize = sizeConstraint.MinSize,
+					tooltipLifetime = FIntSelfViewTooltipLifetime,
+				})
+				pcall(function()
+					AppStorageService:SetItem("ShowSelfieViewOpenedTooltip", "false")
+				end)
+			end
+		else
+			if numButtonsShowing ~= 0 then
+				micButton.Position = UDim2.new(0, 40, 0, -1)
+				micButton.Size = UDim2.new(0, 34, 0, 34)
+				micButton.ImageTransparency = 0.3
+
+				camButton.Position = UDim2.new(0, 80, 0, -1)
+				camButton.Size = UDim2.new(0, 34, 0, 34)
+				camButton.ImageTransparency = 0.3
+			end
+
+			indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
+			frame.Active = false
+			frame.Visible = false
+
+			if cloneStreamTrack then
+				local onTrackStoppedConnection = nil
+				local tempCloneStreamTrack = cloneStreamTrack
+				local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
+				onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
+					tempCloneStreamTrack:Destroy()
+
+					if tempNewTrackerStreamAnimation then
+						tempNewTrackerStreamAnimation:Destroy()
+					end
+
+					onTrackStoppedConnection:Disconnect()
+				end)
+
+				cloneStreamTrack:Stop(0.0)
+				cloneStreamTrack = nil
+			elseif newTrackerStreamAnimation then
+				newTrackerStreamAnimation:Destroy()
+				newTrackerStreamAnimation = nil
+			end
+
+			if shouldDisplaySelfViewTooltip("ShowSelfieViewClosedTooltip") then
+				mountSelfViewOnCloseTooltip({
+					fallbackText = "You can find your camera and self-view controls here",
+					translationKey = "Feature.Avatar.Message.FTUXSelfieViewClosedTooltip",
+					tooltipLifetime = FIntSelfViewTooltipLifetime,
+				})
+				pcall(function()
+					AppStorageService:SetItem("ShowSelfieViewClosedTooltip", "false")
+				end)
 			end
 		end
 
-		globalShowSelfViewFunction = showSelfView
-
-		closeButton.Activated:Connect(function()
-			showSelfView(not isOpen)
-		end)
-
-		if toggleSelfViewSignalConnection then
-			toggleSelfViewSignalConnection:disconnect()
+		if numButtonsShowing ~= 0 then
+			bottomButtonsFrame.Visible = isOpen
 		end
-		toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
-			showSelfView(not isOpen)
-		end)
+	end
 
-		if selfViewVisibleConnection then
-			selfViewVisibleConnection:Disconnect()
-			selfViewVisibleConnection = nil
-		end
-		if selfViewHiddenConnection then
-			selfViewHiddenConnection:Disconnect()
-			selfViewHiddenConnection = nil
-		end
-		selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
-			-- Calling showSelfView when self view is already visible is no-op
-			if not isOpen then
-				-- use current position
-				local newSelfViewPosition = nil
-				local anchorPoint = nil
-				if selfViewPosition == Enum.SelfViewPosition.TopLeft then
-					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(0, 0)
-				elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
-					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(1, 0)
-				elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
-					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(0, 1)
-				elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
-					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(1, 1)
-				end
-				showSelfView(true, newSelfViewPosition, anchorPoint)
-				if newSelfViewPosition ~= nil then
-					local value = frame.AbsolutePosition.X .. "," .. frame.AbsolutePosition.Y
-					AppStorageService:SetItem("SelfViewPosition", value)
-				end
+	globalShowSelfViewFunction = showSelfView
+
+	closeButton.Activated:Connect(function()
+		showSelfView(not isOpen)
+	end)
+
+	if toggleSelfViewSignalConnection then
+		toggleSelfViewSignalConnection:disconnect()
+	end
+	toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
+		showSelfView(not isOpen)
+	end)
+
+	if selfViewVisibleConnection then
+		selfViewVisibleConnection:Disconnect()
+		selfViewVisibleConnection = nil
+	end
+	if selfViewHiddenConnection then
+		selfViewHiddenConnection:Disconnect()
+		selfViewHiddenConnection = nil
+	end
+	selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
+		-- Calling showSelfView when self view is already visible is no-op
+		if not isOpen then
+			-- use current position
+			local newSelfViewPosition = nil
+			local anchorPoint = nil
+			if selfViewPosition == Enum.SelfViewPosition.TopLeft then
+				newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
+				anchorPoint = Vector2.new(0, 0)
+			elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
+				newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
+				anchorPoint = Vector2.new(1, 0)
+			elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
+				newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
+				anchorPoint = Vector2.new(0, 1)
+			elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
+				newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
+				anchorPoint = Vector2.new(1, 1)
 			end
-		end)
-		selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
-			-- Calling hideSelfView when self view is not visible is no-op
-			if isOpen then
-				if getFFlagEnableAlwaysAvailableCamera() and mountedOnOpenTooltipInstance then
-					-- If we have mounted a tooltip and the developer calls this API, we want to unmount the tooltip
-					mountedOnOpenTooltipInstance.unmount()
-					mountedOnOpenTooltipInstance = nil
-				end
-				showSelfView(false)
+			showSelfView(true, newSelfViewPosition, anchorPoint)
+			if newSelfViewPosition ~= nil then
+				local value = frame.AbsolutePosition.X .. "," .. frame.AbsolutePosition.Y
+				AppStorageService:SetItem("SelfViewPosition", value)
 			end
-		end)
-
-		uiCorner = Instance.new("UICorner")
-		uiCorner.Parent = closeButton
-
-		if not FFlagSelfViewRemoveVPFWhenClosed then
-			uiCorner = Instance.new("UICorner")
-			uiCorner.Parent = selfViewFrame
-
-			uiCorner = Instance.new("UICorner")
-			uiCorner.Parent = viewportFrame
-
-			local uiStroke = Instance.new("UIStroke")
-			uiStroke.Parent = selfViewFrame
-			uiStroke.Thickness = 3
-			uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
-
-			uiStroke = Instance.new("UIStroke")
-			uiStroke.Parent = viewportFrame
-			uiStroke.Thickness = 2.5
-			uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
 		end
-
-		createCloneAnchor()
-
-		if not FFlagSelfViewRemoveVPFWhenClosed then
-			viewportCamera = Instance.new("Camera")
-
-			viewportCamera.FieldOfView = SELF_VIEW_CAMERA_FIELD_OF_VIEW
-
-			viewportFrame.CurrentCamera = viewportCamera
-			viewportCamera.Parent = viewportFrame
+	end)
+	selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
+		-- Calling hideSelfView when self view is not visible is no-op
+		if isOpen then
+			if getFFlagEnableAlwaysAvailableCamera() and mountedOnOpenTooltipInstance then
+				-- If we have mounted a tooltip and the developer calls this API, we want to unmount the tooltip
+				mountedOnOpenTooltipInstance.unmount()
+				mountedOnOpenTooltipInstance = nil
+			end
+			showSelfView(false)
 		end
+	end)
 
-		if not playerScreenOrientationConnection then
-			connectToScreenOrientationChange()
-		end
+	uiCorner = Instance.new("UICorner")
+	uiCorner.Parent = closeButton
+
+	createCloneAnchor()
+
+	if not playerScreenOrientationConnection then
+		connectToScreenOrientationChange()
 	end
 end
 
@@ -2025,11 +1679,11 @@ local onUpdateTrackerMode = function()
 end
 
 local function syncTrack(animator, track)
-	if FFlagSelfViewTweaksPass then
-		if not isOpen or viewportFrame == nil then
-			return
-		end
+	
+	if not isOpen or viewportFrame == nil then
+		return
 	end
+	
 	if not animator or not track.Animation then
 		return
 	end
@@ -2093,12 +1747,10 @@ function getNeck(character, head)
 	end
 
 	--in case no neck found it could be using AnimationConstraint, do fallback neck loockup for that
-	if FFlagSelfViewUpdatedCamFraming then
-		for _, child in descendants do
-			if child:IsA("AnimationConstraint") then
-				if child.Parent == head and (child.Attachment0.Name == "NeckRigAttachment" or child.Name == "Neck") then
-					return child
-				end
+	for _, child in descendants do
+		if child:IsA("AnimationConstraint") then
+			if child.Parent == head and (child.Attachment0.Name == "NeckRigAttachment" or child.Name == "Neck") then
+				return child
 			end
 		end
 	end
@@ -2111,14 +1763,8 @@ function findObjectOfNameAndTypeName(name, typeName, character)
 	end
 	local descendants = character:GetDescendants()
 	for _, child in descendants do
-		if FFlagSelfViewTweaksPass then
-			if child:IsA(typeName) and child.Name == name then
-				return child
-			end
-		else
-			if child.Name == name and child:IsA(typeName) then
-				return child
-			end
+		if child:IsA(typeName) and child.Name == name then
+			return child
 		end
 	end
 end
@@ -2133,14 +1779,10 @@ function getHead(character)
 	--lookup for dynamic heads
 	local faceControls = getFaceControls(character)
 	if faceControls ~= nil then
-		if FFlagSelfViewAvoidErrorOnWrongFaceControlsParenting then
-			if faceControls.Parent then
-				if faceControls.Parent.ClassName == "MeshPart" or faceControls.Parent.ClassName == "Part" then
-					head = faceControls.Parent
-				end
+		if faceControls.Parent then
+			if faceControls.Parent.ClassName == "MeshPart" or faceControls.Parent.ClassName == "Part" then
+				head = faceControls.Parent
 			end
-		else
-			head = faceControls.Parent
 		end
 	end
 
@@ -2171,35 +1813,18 @@ function getAnimator(character, timeOut)
 
 	local humanoid = nil
 	if timeOut > 0 then
-		if FFlagSelfViewLookUpHumanoidByType then
-			if FFlagSelfViewHumanoidNilCheck then
-				local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
-				if maybeHumanoid then
-					if maybeHumanoid:IsA("Humanoid") then
-						humanoid = maybeHumanoid
-					else
-						humanoid = character:FindFirstChildWhichIsA("Humanoid")
-					end
-				else
-					humanoid = character:FindFirstChildWhichIsA("Humanoid")
-				end
+		local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+		if maybeHumanoid then
+			if maybeHumanoid:IsA("Humanoid") then
+				humanoid = maybeHumanoid
 			else
-				local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
-				if maybeHumanoid:IsA("Humanoid") then
-					humanoid = maybeHumanoid
-				else
-					humanoid = character:FindFirstChildWhichIsA("Humanoid")
-				end
+				humanoid = character:FindFirstChildWhichIsA("Humanoid")
 			end
 		else
-			humanoid = character:WaitForChild("Humanoid", timeOut)
+			humanoid = character:FindFirstChildWhichIsA("Humanoid")
 		end
 	else
-		if FFlagSelfViewLookUpHumanoidByType then
-			humanoid = character:FindFirstChildWhichIsA("Humanoid")
-		else
-			humanoid = character:FindFirstChild("Humanoid")
-		end
+		humanoid = character:FindFirstChildWhichIsA("Humanoid")
 	end
 
 	if humanoid ~= nil then
@@ -2272,11 +1897,7 @@ function removeTagsFromSelfViewClone(clone)
 	local clonesTags = CollectionService:GetTags(clone)
 	for _, v in ipairs(clonesTags) do
 		--log:trace("removing tag:"..v)
-		if FFlagSelfViewGetRidOfFalselyRenderedFaceDecal then
-			if v ~= "NoFace" then
-				CollectionService:RemoveTag(clone, v)
-			end
-		else
+		if v ~= "NoFace" then
 			CollectionService:RemoveTag(clone, v)
 		end
 	end
@@ -2285,11 +1906,7 @@ function removeTagsFromSelfViewClone(clone)
 		local descendantTags = CollectionService:GetTags(part)
 		for _, v2 in ipairs(descendantTags) do
 			--log:trace("removing tag2:"..v2)
-			if FFlagSelfViewGetRidOfFalselyRenderedFaceDecal then
-				if v2 ~= "NoFace" then
-					CollectionService:RemoveTag(part, v2)
-				end
-			else
+			if v2 ~= "NoFace" then
 				CollectionService:RemoveTag(part, v2)
 			end
 		end
@@ -2336,13 +1953,8 @@ local function updateClone(player)
 
 	clone = character:Clone()
 
-	if FFlagSelfViewMoreNilChecks and clone == nil then
+	if clone == nil then
 		return
-	end
-
-	if not FFlagSelfViewTweaksPass then
-		--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
-		removeTagsFromSelfViewClone(clone)
 	end
 
 	--resetting the joints orientations in the clone since it can happen that body/head IK like code was applied on the player avatar
@@ -2373,18 +1985,14 @@ local function updateClone(player)
 				part.Transparency = 0
 			end
 
-			if FFlagSelfViewTweaksPass then
-				if CollectionService:HasTag(part, ALWAYS_TRANSPARENT_PART_TAG) then
-					part.Transparency = 1
-				end
+			if CollectionService:HasTag(part, ALWAYS_TRANSPARENT_PART_TAG) then
+				part.Transparency = 1
 			end
 		end
 	end
 
-	if FFlagSelfViewTweaksPass then
-		--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
-		removeTagsFromSelfViewClone(clone)
-	end
+	--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
+	removeTagsFromSelfViewClone(clone)
 
 	clone.Name = cloneCharacterName
 
@@ -2431,7 +2039,7 @@ local function updateClone(player)
 			--it does not return the visual mesh's bounding box
 			--and hence is then too small for some heads (like Piggy)
 			local head = getHead(clone)
-			if not FFlagSelfViewMoreNilChecks or head then
+			if head then
 				local headTargetCFrame = CFrameUtility.CalculateTargetCFrame(head.CFrame)
 				local minHeadExtent, maxHeadExtent = CharacterUtility.CalculateHeadExtents(clone, headTargetCFrame)
 				local oMin, oMax =
@@ -2482,11 +2090,7 @@ local function updateClone(player)
 
 	debugPrint("Self View: clone:" .. tostring(clone))
 	local cloneHumanoid = nil
-	if FFlagSelfViewLookUpHumanoidByType then
-		cloneHumanoid = clone:FindFirstChildWhichIsA("Humanoid")
-	else
-		cloneHumanoid = clone:FindFirstChild("Humanoid")
-	end
+	cloneHumanoid = clone:FindFirstChildWhichIsA("Humanoid")
 	if cloneHumanoid then
 		cloneHumanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 	end
@@ -2593,10 +2197,8 @@ function addHumanoidStateChangedObserver(humanoid)
 end
 
 local function characterAdded(character)
-	if FFlagSelfViewTweaksPass then
-		if not isOpen or viewportFrame == nil then
-			return
-		end
+	if not isOpen or viewportFrame == nil then
+		return
 	end
 	headRef = getHead(character)
 	updateCachedHeadColor(headRef)
@@ -2608,21 +2210,15 @@ local function characterAdded(character)
 	clearObserver(Observer.Color)
 
 	local humanoid = nil
-	if FFlagSelfViewLookUpHumanoidByType then
-		humanoid = character:FindFirstChildWhichIsA("Humanoid")
-	else
-		humanoid = character:FindFirstChild("Humanoid")
-	end
+	humanoid = character:FindFirstChildWhichIsA("Humanoid")
 	if humanoid then
 		addHumanoidStateChangedObserver(humanoid)
 	end
 
 	-- listen for updates on the original character's structure
 	observerInstances[Observer.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
-		if FFlagSelfViewTweaksPass then
-			if not isOpen or viewportFrame == nil then
-				return
-			end
+		if not isOpen or viewportFrame == nil then
+			return
 		end
 		--debugPrint("Self View: descendant added,descendant.Name: "..descendant.Name)
 		if descendant.Name == "Head" then
@@ -2642,16 +2238,9 @@ local function characterAdded(character)
 			end
 		end
 
-		if FFlagSelfViewLookUpHumanoidByType then
-			if descendant:IsA("Humanoid") then
-				local humanoid = descendant
-				addHumanoidStateChangedObserver(humanoid)
-			end
-		else
-			if descendant.Name == "Humanoid" or descendant:IsA("Humanoid") then
-				local humanoid = descendant
-				addHumanoidStateChangedObserver(humanoid)
-			end
+		if descendant:IsA("Humanoid") then
+			local humanoid = descendant
+			addHumanoidStateChangedObserver(humanoid)
 		end
 
 		--we only want to refresh the avatar self view clone on descendant added if the descendant is actually visible
@@ -2665,10 +2254,8 @@ local function characterAdded(character)
 		end
 	end)
 	observerInstances[Observer.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
-		if FFlagSelfViewTweaksPass then
-			if not isOpen or viewportFrame == nil then
-				return
-			end
+		if not isOpen or viewportFrame == nil then
+			return
 		end
 
 		--these checks are to avoid unnecessary additional refreshes
@@ -2727,11 +2314,7 @@ local function onCharacterAdded(character)
 	ReInit(Players.LocalPlayer)
 	clearObserver(Observer.HumanoidStateChanged)
 	local humanoid = nil
-	if FFlagSelfViewLookUpHumanoidByType then
-		humanoid = character:FindFirstChildWhichIsA("Humanoid")
-	else
-		humanoid = character:FindFirstChild("Humanoid")
-	end
+	humanoid = character:FindFirstChildWhichIsA("Humanoid")
 	if humanoid then
 		addHumanoidStateChangedObserver(humanoid)
 	end
@@ -3076,113 +2659,68 @@ function startRenderStepped(player)
 						debugPrint("Self View: no neck found")
 					end
 
-					if FFlagSelfViewUpdatedCamFraming then
-						--if webcam is on (FaceAnimatorService.VideoAnimationEnabled) we use the Iris style self view cam framing
-						if
-							FaceAnimatorService
-							and FaceAnimatorService.VideoAnimationEnabled
-							and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport)
-						then
-							if EngineFeaturePlayerViewRemoteEventSupport then
-								local cframe = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView()
-								local boundingBox = cframe.Position
-								local x, y, z = cframe:ToEulerAnglesYXZ()
-								local rotation = CFrame.fromEulerAnglesYXZ(x, y, z)
-								local distanceRatio = 0
+					--if webcam is on (FaceAnimatorService.VideoAnimationEnabled) we use the Iris style self view cam framing
+					if
+						FaceAnimatorService
+						and FaceAnimatorService.VideoAnimationEnabled
+						and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport)
+					then
+						if EngineFeaturePlayerViewRemoteEventSupport then
+							local cframe = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView()
+							local boundingBox = cframe.Position
+							local x, y, z = cframe:ToEulerAnglesYXZ()
+							local rotation = CFrame.fromEulerAnglesYXZ(x, y, z)
+							local distanceRatio = 0
 
-								if boundingBox.Z > 0.0 then
-									distanceRatio = math.clamp(0.5 - (boundingBox.Z * 3), -0.5, 0.5)
-								end
-
-								local distance = -(boundsSize.Z + 1)
-								-- Round to 2 decimal points
-								local offset = Vector3.new(
-									0,
-									0.105,
-									math.floor((distance + (distanceRatio * distance)) * 100) / 100
-								)
-
-								viewportCamera.CFrame = viewportCamera.CFrame:lerp(
-									CFrame.lookAt(rotation * (center + offset), centerLowXimpact),
-									0.5
-								)
-							else
-								local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
-								local x, y, z = trackerData:ToEulerAnglesXYZ()
-								-- Cam orientation will be an inverse of the head rotation
-								local angle = CFrame.Angles(
-									-x * camOrientationWeight,
-									-y * camOrientationWeight,
-									-z * camOrientationWeight
-								)
-								viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
+							if boundingBox.Z > 0.0 then
+								distanceRatio = math.clamp(0.5 - (boundingBox.Z * 3), -0.5, 0.5)
 							end
+
+							local distance = -(boundsSize.Z + 1)
+							-- Round to 2 decimal points
+							local offset = Vector3.new(
+								0,
+								0.105,
+								math.floor((distance + (distanceRatio * distance)) * 100) / 100
+							)
+
+							viewportCamera.CFrame = viewportCamera.CFrame:lerp(
+								CFrame.lookAt(rotation * (center + offset), centerLowXimpact),
+								0.5
+							)
 						else
-							--self view cam framing for when webcam off (no camera tracked framing info coming in)
-							local offset = Vector3.new(0, (headHeight * 0.25) - 1.25, -(boundsSize.Z + 1) + 0.125)
-							--for supporting new movement setup we do the calc using game world avatar head
-							local character = Players.LocalPlayer.Character
-							if character then
-								local headGameWorld = character:FindFirstChild("Head")
-								if headGameWorld then
-									local hrpGameWorld = character:FindFirstChild("HumanoidRootPart")
-									if hrpGameWorld then
-										local calc = hrpGameWorld.CFrame:Inverse() * headGameWorld.CFrame
-
-										local targetPos = Vector3.new(
-											(calc.Position.x * 0.15) + 0.125,
-											calc.Position.y,
-											calc.Position.z * 0.05
-										)
-										viewportCamera.CFrame =
-											CFrame.lookAt(center + offset + targetPos, centerLowXimpact)
-										viewportCamera.Focus = headClone.CFrame
-									end
-								end
-							end
+							local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
+							local x, y, z = trackerData:ToEulerAnglesXYZ()
+							-- Cam orientation will be an inverse of the head rotation
+							local angle = CFrame.Angles(
+								-x * camOrientationWeight,
+								-y * camOrientationWeight,
+								-z * camOrientationWeight
+							)
+							viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
 						end
 					else
-						if
-							trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport
-						then
-							if EngineFeaturePlayerViewRemoteEventSupport then
-								local cframe = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView()
-								local boundingBox = cframe.Position
-								local x, y, z = cframe:ToEulerAnglesYXZ()
-								local rotation = CFrame.fromEulerAnglesYXZ(x, y, z)
-								local distanceRatio = 0
+						--self view cam framing for when webcam off (no camera tracked framing info coming in)
+						local offset = Vector3.new(0, (headHeight * 0.25) - 1.25, -(boundsSize.Z + 1) + 0.125)
+						--for supporting new movement setup we do the calc using game world avatar head
+						local character = Players.LocalPlayer.Character
+						if character then
+							local headGameWorld = character:FindFirstChild("Head")
+							if headGameWorld then
+								local hrpGameWorld = character:FindFirstChild("HumanoidRootPart")
+								if hrpGameWorld then
+									local calc = hrpGameWorld.CFrame:Inverse() * headGameWorld.CFrame
 
-								if boundingBox.Z > 0.0 then
-									distanceRatio = math.clamp(0.5 - (boundingBox.Z * 3), -0.5, 0.5)
+									local targetPos = Vector3.new(
+										(calc.Position.x * 0.15) + 0.125,
+										calc.Position.y,
+										calc.Position.z * 0.05
+									)
+									viewportCamera.CFrame =
+										CFrame.lookAt(center + offset + targetPos, centerLowXimpact)
+									viewportCamera.Focus = headClone.CFrame
 								end
-
-								local distance = -(boundsSize.Z + 1)
-								-- Round to 2 decimal points
-								local offset = Vector3.new(
-									0,
-									0.105,
-									math.floor((distance + (distanceRatio * distance)) * 100) / 100
-								)
-
-								viewportCamera.CFrame = viewportCamera.CFrame:lerp(
-									CFrame.lookAt(rotation * (center + offset), centerLowXimpact),
-									0.5
-								)
-							else
-								local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
-								local x, y, z = trackerData:ToEulerAnglesXYZ()
-								-- Cam orientation will be an inverse of the head rotation
-								local angle = CFrame.Angles(
-									-x * camOrientationWeight,
-									-y * camOrientationWeight,
-									-z * camOrientationWeight
-								)
-								viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
 							end
-						else
-							local offset = Vector3.new(0, (headHeight * 0.25), -(boundsSize.Z + 1))
-							viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
-							viewportCamera.Focus = headClone.CFrame
 						end
 					end
 				end
@@ -3278,9 +2816,7 @@ function Initialize(player)
 		end
 	end
 
-	if FFlagFixUpdateMicIconCallBeforeReady then
-		createViewport()
-	end
+	createViewport()
 
 	if getFFlagDoNotPromptCameraPermissionsOnMount() then
 		getMicPermission()
@@ -3288,9 +2824,6 @@ function Initialize(player)
 		updateSelfViewButtonVisibility()
 	else
 		getPermissions()
-	end
-	if not FFlagFixUpdateMicIconCallBeforeReady then
-		createViewport()
 	end
 
 	playerAdded(player)
@@ -3303,7 +2836,7 @@ function Initialize(player)
 			clearObserver(Observer.CharacterRemoving)
 			clearClone()
 
-			if FFlagRemoveVoiceJoiceDisconnectFix and voiceJoinProgressChangedConnection then
+			if voiceJoinProgressChangedConnection then
 				voiceJoinProgressChangedConnection:Disconnect()
 				voiceJoinProgressChangedConnection = nil
 			end

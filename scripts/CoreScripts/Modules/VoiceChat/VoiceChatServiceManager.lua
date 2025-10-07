@@ -60,6 +60,7 @@ local GetFFlagEnableCrossExperienceVoiceCaptureMute =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExperienceVoiceCaptureMute
 local GetFFlagExpChatUseVoiceParticipantsStore =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagExpChatUseVoiceParticipantsStore
+local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
@@ -100,6 +101,8 @@ local FFlagEnableRetryForLinkingProtocolFetch =
 local FFlagSeamlessVoiceBugfixes = game:DefineFastFlag("SeamlessVoiceBugfixesV1", false)
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
+local GetFFlagInExperiencePhoneUpsellNewCopy =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagInExperiencePhoneUpsellNewCopy
 local GetFFlagCheckUniversePlaceBeforeSuspending =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCheckUniversePlaceBeforeSuspending
 local FIntLinkingProtocolFetchRetries =
@@ -1023,7 +1026,9 @@ function VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(entrypoint: st
 		entryConfig = {
 			titleKey = "Feature.VerificationUpsell.Heading.UnlockVoiceChat",
 			descriptionKey = "Feature.VerificationUpsell.Description.UnlockVoiceChatBody",
-			buttonKey = "Feature.VerificationUpsell.Action.AddPhoneNumber",
+			buttonKey = if GetFFlagInExperiencePhoneUpsellNewCopy()
+				then "Feature.AccountSettings.Action.Verify"
+				else "Feature.VerificationUpsell.Action.AddPhoneNumber",
 			extraButtonConfig = {
 				extraButtonKey = "Feature.VerificationUpsell.Action.NotNow",
 			},
@@ -1069,6 +1074,10 @@ end
 
 function VoiceChatServiceManager:GetVoiceConnectCookieValue(): boolean
 	return self.coreVoiceManager:GetVoiceConnectCookieValue()
+end
+
+function VoiceChatServiceManager:GetVoiceConnectCookie(): string
+	return self.coreVoiceManager:GetVoiceConnectCookie()
 end
 
 function VoiceChatServiceManager:SetVoiceConnectCookieValue(value: boolean): boolean
@@ -1181,7 +1190,6 @@ function VoiceChatServiceManager:HideVoiceUI()
 end
 
 function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptType)
-	
 	if self.promptSignal then
 		self.promptSignal:Destroy()
 		self.promptSignal = nil
@@ -1206,9 +1214,8 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 		end
 	end
 	local isNudge = (
-			promptType == VoiceChatPromptType.VoiceToxicityModal
-			or promptType == VoiceChatPromptType.VoiceToxicityToast
-		)
+		promptType == VoiceChatPromptType.VoiceToxicityModal or promptType == VoiceChatPromptType.VoiceToxicityToast
+	)
 	local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell()
 		and (
 			promptType == VoiceChatPromptType.VoiceConsentModalV1
@@ -1726,20 +1733,41 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 	end
 end
 
+function VoiceChatServiceManager:EligibleForFaeUpsell()
+	local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
+
+	local canVerifyAgeForVoice = ageVerificationOverlayData.voiceSettings.inExperienceFaeUpsell == "Enabled"
+	local placeEnabledForVoice = ageVerificationOverlayData.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice
+
+	return canVerifyAgeForVoice and placeEnabledForVoice
+end
+
 -- Show join voice button in voice enabled experiences, for voice eligible users who haven't enabled voice and voice enabled users with denied mic permissions
 function VoiceChatServiceManager:ShouldShowJoinVoice()
 	-- M3
-	if GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses() then
+	if GetFFlagEnableVoiceUxUpdates() then
 		if
-			GetFFlagEnableConnectDisconnectInSettingsAndChrome()
-			and self:IsSeamlessVoice()
-			and self:verifyUniverseAndPlaceCanUseVoice()
+			self:EligibleForFaeUpsell()
+			or (
+				self:HasSeamlessVoiceFeature(VoiceChatCore.Constants.SeamlessVoiceFeatures.InitialJoinVoice)
+				and self:GetVoiceConnectCookie() == ""
+			)
 		then
-			return not self.voiceUIVisible
+			return true
 		end
 	else
-		if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self:IsSeamlessVoice() then
-			return not self.voiceUIVisible
+		if GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses() then
+			if
+				GetFFlagEnableConnectDisconnectInSettingsAndChrome()
+				and self:IsSeamlessVoice()
+				and self:verifyUniverseAndPlaceCanUseVoice()
+			then
+				return not self.voiceUIVisible
+			end
+		else
+			if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self:IsSeamlessVoice() then
+				return not self.voiceUIVisible
+			end
 		end
 	end
 

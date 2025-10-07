@@ -30,6 +30,9 @@ local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local FoundationProvider = Foundation.FoundationProvider
 
+local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+local Traversal = CoreScriptsRoactCommon.Traversal
+
 --[[ UTILITIES ]]
 local SettingsUtils = require(script.Parent.Integrations.Utils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -88,6 +91,8 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
 local FFlagAddSwitchTabHintsToIEM = SharedFlags.FFlagAddSwitchTabHintsToIEM
 
+local FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton
+
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
@@ -107,6 +112,7 @@ local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableG
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = SharedFlags.GetFStringGameInviteMenuLayer
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
+local FFlagRemoveRecordPage = game:DefineFastFlag("RemoveRecordPage", false)
 local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagEnableConnectDisconnectButtonAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectButtonAnalytics)
 local GetFFlagUseMicPermForEnrollment = SharedFlags.GetFFlagUseMicPermForEnrollment
@@ -147,6 +153,7 @@ local FFlagSpatialUIFixMenuPanelChatExclusive = require(RobloxGui.Modules.Settin
 local FFlagFixUninitializedMenuKeyBindings = game:DefineFastFlag("FixUninitializedMenuKeyBindings", false)
 local FFlagEnableSettingsHubCreateReactPage = SharedFlags.FFlagEnableSettingsHubCreateReactPage
 local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
+local FFlagAddIEMProfilePage = SharedFlags.FFlagAddIEMProfilePage
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -1739,19 +1746,43 @@ local function CreateSettingsHub()
 			Parent = this.HubBar
 		}
 
-		if EngineFeatureTeleportHistoryButtons then
-			this.BackBarRef = Roact.createRef()
-			this.FrontBarRef = Roact.createRef()
-			this.BackBar = if FFlagBuilderIcons then
-				Roact.createElement(RoactAppExperiment.Provider, {
-					value = IXPService,
-				}, 
-				{
-					AppStyleProvider = Roact.createElement(AppStyleProvider, {
-						style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
-							themeName = DarkTheme,
-						} else nil,
-					}, {
+		if not FFlagAddTraversalBackButton then
+			if EngineFeatureTeleportHistoryButtons then
+				this.BackBarRef = Roact.createRef()
+				this.FrontBarRef = Roact.createRef()
+				this.BackBar = if FFlagBuilderIcons then
+					Roact.createElement(RoactAppExperiment.Provider, {
+						value = IXPService,
+					}, 
+					{
+						AppStyleProvider = Roact.createElement(AppStyleProvider, {
+							style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
+								themeName = DarkTheme,
+							} else nil,
+						}, {
+							ButtonsFrame = Roact.createElement("Frame", {
+								BackgroundTransparency = 1,
+								LayoutOrder = -1,
+								AutomaticSize = Enum.AutomaticSize.Y,
+								Size = UDim2.new(1, 0, 0, 0)
+							}, {
+								BackButton = Roact.createElement(MenuBackButton, {
+									BackBarRef = this.BackBarRef,
+									HubBar = this.HubBar,
+									LayoutOrder = 1,
+								}),
+								FrontButton = Roact.createElement(MenuFrontButton, {
+									FrontBarRef = this.FrontBarRef,
+									HubBar = this.HubBar,
+									LayoutOrder = 2,
+								}),
+							})
+						})
+					}) else
+					Roact.createElement(RoactAppExperiment.Provider, {
+						value = IXPService,
+					}, 
+					{
 						ButtonsFrame = Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
 							LayoutOrder = -1,
@@ -1770,50 +1801,28 @@ local function CreateSettingsHub()
 							}),
 						})
 					})
-				}) else
-				Roact.createElement(RoactAppExperiment.Provider, {
-					value = IXPService,
-				}, 
-				{
-					ButtonsFrame = Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						LayoutOrder = -1,
-						AutomaticSize = Enum.AutomaticSize.Y,
-						Size = UDim2.new(1, 0, 0, 0)
+				Roact.mount(this.BackBar, menuParent, "BackBar")	
+			else
+				this.BackBarRef = Roact.createRef()
+				this.BackBar = if FFlagBuilderIcons then 
+					Roact.createElement(RoactAppExperiment.Provider, {
+						value = IXPService,
 					}, {
-						BackButton = Roact.createElement(MenuBackButton, {
-							BackBarRef = this.BackBarRef,
-							HubBar = this.HubBar,
-							LayoutOrder = 1,
-						}),
-						FrontButton = Roact.createElement(MenuFrontButton, {
-							FrontBarRef = this.FrontBarRef,
-							HubBar = this.HubBar,
-							LayoutOrder = 2,
-						}),
-					})
-				})
-			Roact.mount(this.BackBar, menuParent, "BackBar")	
-		else
-			this.BackBarRef = Roact.createRef()
-			this.BackBar = if FFlagBuilderIcons then 
-				Roact.createElement(RoactAppExperiment.Provider, {
-					value = IXPService,
-				}, {
-					AppStyleProvider = Roact.createElement(AppStyleProvider, {
-						style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
-							themeName = DarkTheme,
-						} else nil,
+						AppStyleProvider = Roact.createElement(AppStyleProvider, {
+							style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
+								themeName = DarkTheme,
+							} else nil,
+						}, {
+							BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
+						})
+					}) else
+					Roact.createElement(RoactAppExperiment.Provider, {
+						value = IXPService,
 					}, {
 						BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
 					})
-				}) else
-				Roact.createElement(RoactAppExperiment.Provider, {
-					value = IXPService,
-				}, {
-					BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
-				})
-			Roact.mount(this.BackBar, menuParent, "BackBar")
+				Roact.mount(this.BackBar, menuParent, "BackBar")
+			end
 		end
 
 		if utility:IsSmallTouchScreen() then
@@ -2432,12 +2441,14 @@ local function CreateSettingsHub()
 		local extraSpace = bufferSize*2+barSize*2
 
 		local extraTopPadding = 0
-		if getBackBarVisible() and this.BackBarRef:getValue() then 
-			extraTopPadding = this.BackBarRef:getValue().Size.Y.Offset 
-		end
+		if not FFlagAddTraversalBackButton then
+			if getBackBarVisible() and this.BackBarRef:getValue() then 
+				extraTopPadding = this.BackBarRef:getValue().Size.Y.Offset 
+			end
 
-		if (EngineFeatureTeleportHistoryButtons) and getFrontBarVisible() and this.FrontBarRef:getValue() then
-			extraTopPadding = extraTopPadding + this.FrontBarRef:getValue().Size.Y.Offset
+			if (EngineFeatureTeleportHistoryButtons) and getFrontBarVisible() and this.FrontBarRef:getValue() then
+				extraTopPadding = extraTopPadding + this.FrontBarRef:getValue().Size.Y.Offset
+			end
 		end
 
 		if Theme.EnableVerticalBottomBar then
@@ -2491,9 +2502,11 @@ local function CreateSettingsHub()
 			barSize = this.HubBar.Size.Y.Offset + this.BottomButtonFrame.Size.Y.Offset
 		end
 		extraSpace = bufferSize*2+(if (not FFlagFixDisableTopPaddingError or this.Pages.CurrentPage ~= nil) and this.Pages.CurrentPage.DisableTopPadding then 0 else barSize)
-		extraTopPadding = if getBackBarVisible() and this.BackBarRef:getValue() then this.BackBarRef:getValue().Size.Y.Offset else 0
-		if EngineFeatureTeleportHistoryButtons and getFrontBarVisible() and this.FrontBarRef:getValue() then
-			extraTopPadding = extraTopPadding + this.FrontBarRef:getValue().Size.Y.Offset
+		if not FFlagAddTraversalBackButton then
+			extraTopPadding = if getBackBarVisible() and this.BackBarRef:getValue() then this.BackBarRef:getValue().Size.Y.Offset else 0
+			if EngineFeatureTeleportHistoryButtons and getFrontBarVisible() and this.FrontBarRef:getValue() then
+				extraTopPadding = extraTopPadding + this.FrontBarRef:getValue().Size.Y.Offset
+			end
 		end
 
 		--We need to wait and let the HubBar AbsoluteSize actually update.
@@ -3461,15 +3474,17 @@ local function CreateSettingsHub()
 					onScreenSizeChanged()
 				end
 			end)
-			if this.BackBarRef:getValue() then
-				this.BackBarVisibleConnection = this.BackBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function()
-					onScreenSizeChanged()
-				end)
-			end
-			if EngineFeatureTeleportHistoryButtons and this.FrontBarRef:getValue() then
-				this.FrontBarVisibleConnection = this.FrontBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function()
-					onScreenSizeChanged()
-				end)
+			if not FFlagAddTraversalBackButton then
+				if this.BackBarRef:getValue() then
+					this.BackBarVisibleConnection = this.BackBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function()
+						onScreenSizeChanged()
+					end)
+				end
+				if EngineFeatureTeleportHistoryButtons and this.FrontBarRef:getValue() then
+					this.FrontBarVisibleConnection = this.FrontBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function()
+						onScreenSizeChanged()
+					end)
+				end
 			end
 			onScreenSizeChanged()
 
@@ -4141,11 +4156,13 @@ local function CreateSettingsHub()
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.HelpWrapper)
 	this.HelpPage:SetHub(this)
 
-	local shouldShowRecord = not CachedPolicyService:IsSubjectToChinaPolicies()
+	if not FFlagRemoveRecordPage then
+		local shouldShowRecord = not CachedPolicyService:IsSubjectToChinaPolicies()
 
-	if platform == Enum.Platform.Windows and shouldShowRecord then
-		this.RecordPage = require(RobloxGui.Modules.Settings.Pages.Record)
-		this.RecordPage:SetHub(this)
+		if platform == Enum.Platform.Windows and shouldShowRecord then
+			this.RecordPage = require(RobloxGui.Modules.Settings.Pages.Record)
+			this.RecordPage:SetHub(this)
+		end
 	end
 
 	if InExperienceCapabilities.canListPeopleInSameServer then
@@ -4154,6 +4171,10 @@ local function CreateSettingsHub()
 		if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen() then
 			this.PlayersPage:CreateMenuButtonsContainer()
 		end
+	end
+	
+	if FFlagAddIEMProfilePage then
+		this.PlayerProfilePage = require(RobloxGui.Modules.Settings.Pages.PlayerProfile)
 	end
 
 	if isSubjectToDesktopPolicies() then
@@ -4245,8 +4266,10 @@ local function CreateSettingsHub()
 	end
 
 	this:AddPage(this.HelpPage)
-	if this.RecordPage and not this.CapturesPage then
-		this:AddPage(this.RecordPage)
+	if not FFlagRemoveRecordPage then
+		if this.RecordPage and not this.CapturesPage then
+			this:AddPage(this.RecordPage)
+		end
 	end
 	if this.ExitModalPage then
 		this:AddPage(this.ExitModalPage)

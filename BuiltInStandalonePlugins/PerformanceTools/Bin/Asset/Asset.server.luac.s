@@ -18,7 +18,7 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R0 0
-  JUMPIFNOT R0 [+93]
+  JUMPIFNOT R0 [+88]
   GETUPVAL R1 1
   GETTABLEKS R0 R1 K0 ["SceneTriangleCount"]
   GETUPVAL R2 1
@@ -31,7 +31,7 @@ PROTO_3:
   LOADK R8 K4 ["PerformanceToolsBridge"]
   NAMECALL R6 R6 K5 ["GetPluginComponent"]
   CALL R6 2 1
-  JUMPIFNOT R6 [+26]
+  JUMPIFNOT R6 [+21]
   GETIMPORT R7 K7 [pcall]
   NEWCLOSURE R8 P0
   CAPTURE VAL R6
@@ -44,10 +44,6 @@ PROTO_3:
   CALL R9 1 2
   JUMPIFNOT R9 [+1]
   MOVE R4 R10
-  GETUPVAL R12 2
-  GETTABLEKS R11 R12 K8 ["GetStudioSceneMonitorGetAutomaticGraphicsQuality"]
-  CALL R11 0 1
-  JUMPIFNOT R11 [+7]
   GETIMPORT R11 K7 [pcall]
   NEWCLOSURE R12 P2
   CAPTURE VAL R6
@@ -55,37 +51,37 @@ PROTO_3:
   JUMPIFNOT R11 [+1]
   MOVE R5 R12
   GETUPVAL R7 1
-  LOADK R9 K9 ["FrameRateManager"]
-  NAMECALL R7 R7 K10 ["FindFirstChild"]
+  LOADK R9 K8 ["FrameRateManager"]
+  NAMECALL R7 R7 K9 ["FindFirstChild"]
   CALL R7 2 1
   JUMPIFNOT R7 [+6]
-  GETTABLEKS R8 R7 K11 ["RenderThreadAverage"]
-  NAMECALL R8 R8 K12 ["GetValue"]
+  GETTABLEKS R8 R7 K10 ["RenderThreadAverage"]
+  NAMECALL R8 R8 K11 ["GetValue"]
   CALL R8 1 1
   MOVE R2 R8
   NEWTABLE R8 8 0
-  SETTABLEKS R0 R8 K13 ["triangleCount"]
-  SETTABLEKS R1 R8 K14 ["drawCallCount"]
-  SETTABLEKS R2 R8 K15 ["renderThreadAverageMs"]
-  SETTABLEKS R3 R8 K16 ["taskThreadAverageMs"]
+  SETTABLEKS R0 R8 K12 ["triangleCount"]
+  SETTABLEKS R1 R8 K13 ["drawCallCount"]
+  SETTABLEKS R2 R8 K14 ["renderThreadAverageMs"]
+  SETTABLEKS R3 R8 K15 ["taskThreadAverageMs"]
   GETIMPORT R11 K3 [plugin]
-  GETTABLEKS R10 R11 K17 ["HostDataModelType"]
-  GETIMPORT R11 K21 [Enum.StudioDataModelType.Edit]
+  GETTABLEKS R10 R11 K16 ["HostDataModelType"]
+  GETIMPORT R11 K20 [Enum.StudioDataModelType.Edit]
   JUMPIFEQ R10 R11 [+2]
   LOADB R9 0 +1
   LOADB R9 1
-  SETTABLEKS R9 R8 K22 ["isEditDM"]
-  SETTABLEKS R4 R8 K23 ["microprofilerVisible"]
-  SETTABLEKS R5 R8 K24 ["automaticGraphicsQuality"]
+  SETTABLEKS R9 R8 K21 ["isEditDM"]
+  SETTABLEKS R4 R8 K22 ["microprofilerVisible"]
+  SETTABLEKS R5 R8 K23 ["automaticGraphicsQuality"]
   GETIMPORT R9 K3 [plugin]
-  LOADK R11 K25 ["SetStateAndRefresh"]
+  LOADK R11 K24 ["SetStateAndRefresh"]
   MOVE R12 R8
-  NAMECALL R9 R9 K26 ["Invoke"]
+  NAMECALL R9 R9 K25 ["Invoke"]
   CALL R9 3 0
-  GETIMPORT R9 K28 [wait]
-  LOADK R10 K29 [0.25]
+  GETIMPORT R9 K27 [wait]
+  LOADK R10 K28 [0.25]
   CALL R9 1 0
-  JUMPBACK [-95]
+  JUMPBACK [-90]
   RETURN R0 0
 
 PROTO_4:
@@ -132,17 +128,16 @@ PROTO_7:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
   CALL R0 1 0
   GETIMPORT R0 K3 [plugin]
   LOADK R2 K4 ["ToggleMicroprofiler"]
   DUPCLOSURE R3 K5 [PROTO_6]
   NAMECALL R0 R0 K6 ["OnInvoke"]
   CALL R0 3 1
-  SETUPVAL R0 3
-  GETUPVAL R0 3
+  SETUPVAL R0 2
+  GETUPVAL R0 2
   JUMPIFNOT R0 [+4]
-  GETUPVAL R0 3
+  GETUPVAL R0 2
   LOADK R1 K7 ["toggleMicroprofilerConnection"]
   SETTABLEKS R1 R0 K8 ["Name"]
   RETURN R0 0
@@ -256,7 +251,6 @@ MAIN:
   NEWCLOSURE R6 P0
   CAPTURE REF R4
   CAPTURE VAL R1
-  CAPTURE VAL R3
   CAPTURE REF R5
   NEWCLOSURE R7 P1
   CAPTURE REF R4

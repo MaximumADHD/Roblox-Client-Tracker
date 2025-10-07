@@ -28,6 +28,7 @@ local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
+local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 
 local function JoinVoiceBinder()
 	local isVoiceFocused = useIsVoiceFocused()
@@ -88,7 +89,7 @@ local function JoinVoiceBinder()
 			integration.availability:unavailable()
 		elseif state == VOICE_JOIN_PROGRESS.Idle then
 			applyInitialJoinVoiceState()
-		elseif state == VOICE_JOIN_PROGRESS.Suspended then
+		elseif not GetFFlagEnableVoiceUxUpdates() and state == VOICE_JOIN_PROGRESS.Suspended then
 			integration.availability:available()
 		elseif state == VOICE_JOIN_PROGRESS.Joined then
 			integration.availability:unavailable()
@@ -119,7 +120,9 @@ local function JoinVoiceBinder()
 
 		if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
 			showVoiceUIConnection = VoiceChatServiceManager.showVoiceUI.Event:Connect(onShowVoiceUI)
-			hideVoiceUIConnection = VoiceChatServiceManager.hideVoiceUI.Event:Connect(onHideVoiceUI)
+			if not GetFFlagEnableVoiceUxUpdates() then
+				hideVoiceUIConnection = VoiceChatServiceManager.hideVoiceUI.Event:Connect(onHideVoiceUI)
+			end
 		end
 
 		return function()

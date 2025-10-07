@@ -1,7 +1,6 @@
 --!strict
 local CorePackages = game:GetService("CorePackages")
 local CollectionService = game:GetService("CollectionService")
-local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 local FFlagSelfViewAvatarJointUpgrade = game:DefineFastFlag("SelfViewAvatarJointUpgrade", false)
 local GetFFlagSelfieViewFixMigration = require(script.Parent.Parent.Flags.GetFFlagSelfieViewFixMigration)
 local GetFFlagSelfieViewMoreFixMigration =
@@ -119,35 +118,27 @@ local function getAnimator(character: Model, timeOut: number): Animator?
 
 	local humanoid: Humanoid? = nil
 	if timeOut > 0 then
-		if FFlagSelfViewLookUpHumanoidByType then
-			if GetFFlagSelfieViewMoreFixMigration() then
-				local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
-				if maybeHumanoid then
-					if maybeHumanoid:IsA("Humanoid") then
-						humanoid = maybeHumanoid
-					else
-						humanoid = character:FindFirstChildWhichIsA("Humanoid")
-					end
-				else
-					humanoid = character:FindFirstChildWhichIsA("Humanoid")
-				end
-			else
-				local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+		if GetFFlagSelfieViewMoreFixMigration() then
+			local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+			if maybeHumanoid then
 				if maybeHumanoid:IsA("Humanoid") then
 					humanoid = maybeHumanoid
 				else
 					humanoid = character:FindFirstChildWhichIsA("Humanoid")
 				end
+			else
+				humanoid = character:FindFirstChildWhichIsA("Humanoid")
 			end
 		else
-			humanoid = character:WaitForChild("Humanoid", timeOut) :: Humanoid
+			local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+			if maybeHumanoid:IsA("Humanoid") then
+				humanoid = maybeHumanoid
+			else
+				humanoid = character:FindFirstChildWhichIsA("Humanoid")
+			end
 		end
 	else
-		if FFlagSelfViewLookUpHumanoidByType then
-			humanoid = character:FindFirstChildWhichIsA("Humanoid")
-		else
-			humanoid = character:FindFirstChild("Humanoid") :: Humanoid
-		end
+		humanoid = character:FindFirstChildWhichIsA("Humanoid")
 	end
 
 	if humanoid ~= nil then

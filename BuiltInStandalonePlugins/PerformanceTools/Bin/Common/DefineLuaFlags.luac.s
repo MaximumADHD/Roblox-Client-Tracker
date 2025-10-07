@@ -22,18 +22,6 @@ PROTO_2:
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_3:
-  GETIMPORT R1 K1 [pcall]
-  LOADK R3 K2 ["StudioSceneMonitorGetAutomaticGraphicsQuality"]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R3
-  CALL R1 1 2
-  JUMPIF R1 [+2]
-  LOADB R0 0
-  RETURN R0 1
-  MOVE R0 R2
-  RETURN R0 1
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
@@ -42,9 +30,7 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   DUPCLOSURE R0 K4 [PROTO_1]
-  DUPTABLE R1 K7 [{"GetFFlagRIDE11263EnableFeature", "GetStudioSceneMonitorGetAutomaticGraphicsQuality"}]
-  DUPCLOSURE R2 K8 [PROTO_2]
+  DUPTABLE R1 K6 [{"GetFFlagRIDE11263EnableFeature"}]
+  DUPCLOSURE R2 K7 [PROTO_2]
   SETTABLEKS R2 R1 K5 ["GetFFlagRIDE11263EnableFeature"]
-  DUPCLOSURE R2 K9 [PROTO_3]
-  SETTABLEKS R2 R1 K6 ["GetStudioSceneMonitorGetAutomaticGraphicsQuality"]
   RETURN R1 1

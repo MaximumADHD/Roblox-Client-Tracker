@@ -33,7 +33,7 @@ PROTO_0:
   GETIMPORT R7 K16 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R7 R6 K8 ["ZIndexBehavior"]
   GETIMPORT R7 K19 [Vector2.new]
-  LOADN R8 204
+  LOADN R8 224
   LOADN R9 160
   CALL R7 2 1
   SETTABLEKS R7 R6 K9 ["Size"]

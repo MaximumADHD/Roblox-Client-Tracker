@@ -1,7 +1,7 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["ZoomToExtentsApi"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  NAMECALL R0 R0 K3 ["GetEngineFeature"]
   CALL R0 2 -1
   RETURN R0 -1
 

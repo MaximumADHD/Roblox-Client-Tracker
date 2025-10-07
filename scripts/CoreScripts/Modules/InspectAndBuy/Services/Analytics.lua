@@ -11,6 +11,8 @@ local HttpService = game:GetService("HttpService")
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
 local defaultLoggingProtocol = LoggingProtocol.default
 local EventStreamReporter = require(CorePackages.Workspace.Packages.TelemetryService).EventStreamReporter
+local FFlagAXEnableInspectAndBuyVersionAnalytics = require(script.Parent.Parent.Flags.FFlagAXEnableInspectAndBuyVersionAnalytics)
+
 
 local MarketplaceEventSenderAPI = {
 	SEND_EVENT_DEFERRED = 0,
@@ -27,7 +29,7 @@ end
 
 local INSPECT_TAG = "inspectAndBuy"
 
-function Analytics.new(inspecteeUid, ctx)
+function Analytics.new(inspecteeUid, ctx, version: number?)
 	local service = {}
 
 	setmetatable(service, Analytics)
@@ -39,6 +41,7 @@ function Analytics.new(inspecteeUid, ctx)
 	service.feature = "inspectAndBuy"
 	service.inspecteeUid = inspecteeUid
 	service.ctx = ctx
+	service.version = if FFlagAXEnableInspectAndBuyVersionAnalytics then version else nil
 
 	function service.reportOpenInspectMenu()
 		local eventName = "inspectUser"
@@ -157,6 +160,7 @@ function Analytics:report(eventName, additionalFields)
 		inspecteeUid = self.inspecteeUid,
 		feature = INSPECT_TAG,
 		event_sender_api = MarketplaceEventSenderAPI.SEND_ROBLOX_TELEMETRY_EVENT,
+		inspectAndBuyVersion = if FFlagAXEnableInspectAndBuyVersionAnalytics then self.version else nil,
 	}
 
 	local fields = Cryo.Dictionary.join(requiredFields, additionalFields)

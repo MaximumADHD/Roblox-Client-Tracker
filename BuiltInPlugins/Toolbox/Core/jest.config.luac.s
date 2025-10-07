@@ -11,7 +11,7 @@ MAIN:
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K6 ["WebBrowserContextSTM6463Enabled2"]
+  LOADK R2 K6 ["WebBrowserContextSTM6463Enabled3"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

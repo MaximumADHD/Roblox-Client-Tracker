@@ -17,7 +17,7 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R5 R1 K11 ["SharedFlags"]
   GETTABLEKS R4 R5 K13 ["getFFlagDevFrameworkEnableFoundationColors"]
-  NEWTABLE R5 128 0
+  NEWTABLE R5 64 0
   LOADK R6 K14 ["$Gray1000Gradient"]
   SETTABLEKS R6 R5 K15 ["SemanticColorSurface100Gradient"]
   LOADK R6 K16 ["$WhiteGradient"]
@@ -144,46 +144,36 @@ MAIN:
   SETTABLEKS R6 R5 K102 ["DropDownArrowDown"]
   LOADK R6 K103 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonDropDownArrowUpSmall.png"]
   SETTABLEKS R6 R5 K104 ["DropDownArrowUp"]
-  LOADK R6 K105 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonRadioButtonCheckedDefaultSmall.png"]
-  SETTABLEKS R6 R5 K106 ["RadioButtonCheckedDefault"]
-  LOADK R6 K107 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonRadioButtonCheckedDisabledSmall.png"]
-  SETTABLEKS R6 R5 K108 ["RadioButtonCheckedDisabled"]
-  LOADK R6 K109 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonRadioButtonUncheckedDefaultSmall.png"]
-  SETTABLEKS R6 R5 K110 ["RadioButtonUncheckedDefault"]
-  LOADK R6 K111 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonRadioButtonUncheckedDisabledSmall.png"]
-  SETTABLEKS R6 R5 K112 ["RadioButtonUncheckedDisabled"]
-  LOADK R6 K113 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonRadioButtonUncheckedHoverSmall.png"]
-  SETTABLEKS R6 R5 K114 ["RadioButtonUncheckedHover"]
-  LOADK R6 K115 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonRotateSmall.png"]
-  SETTABLEKS R6 R5 K116 ["Rotate"]
-  LOADK R6 K117 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerUpDefaultSmall.png"]
-  SETTABLEKS R6 R5 K118 ["SpinboxControllerUpDefault"]
-  LOADK R6 K119 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerUpDisabledSmall.png"]
-  SETTABLEKS R6 R5 K120 ["SpinboxControllerUpDisabled"]
-  LOADK R6 K121 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerUpHoverSmall.png"]
-  SETTABLEKS R6 R5 K122 ["SpinboxControllerUpHover"]
-  LOADK R6 K123 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerDownDefaultSmall.png"]
-  SETTABLEKS R6 R5 K124 ["SpinboxControllerDownDefault"]
-  LOADK R6 K125 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerDownDisabledSmall.png"]
-  SETTABLEKS R6 R5 K126 ["SpinboxControllerDownDisabled"]
-  LOADK R6 K127 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerDownHoverSmall.png"]
-  SETTABLEKS R6 R5 K128 ["SpinboxControllerDownHover"]
+  LOADK R6 K105 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonRotateSmall.png"]
+  SETTABLEKS R6 R5 K106 ["Rotate"]
+  LOADK R6 K107 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerUpDefaultSmall.png"]
+  SETTABLEKS R6 R5 K108 ["SpinboxControllerUpDefault"]
+  LOADK R6 K109 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerUpDisabledSmall.png"]
+  SETTABLEKS R6 R5 K110 ["SpinboxControllerUpDisabled"]
+  LOADK R6 K111 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerUpHoverSmall.png"]
+  SETTABLEKS R6 R5 K112 ["SpinboxControllerUpHover"]
+  LOADK R6 K113 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerDownDefaultSmall.png"]
+  SETTABLEKS R6 R5 K114 ["SpinboxControllerDownDefault"]
+  LOADK R6 K115 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerDownDisabledSmall.png"]
+  SETTABLEKS R6 R5 K116 ["SpinboxControllerDownDisabled"]
+  LOADK R6 K117 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/RibbonSpinboxControllerDownHoverSmall.png"]
+  SETTABLEKS R6 R5 K118 ["SpinboxControllerDownHover"]
   MOVE R7 R3
   CALL R7 0 1
   JUMPIFNOT R7 [+2]
   LOADNIL R6
   JUMP [+1]
-  LOADK R6 K129 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaborator.png"]
-  SETTABLEKS R6 R5 K130 ["AddCollaborator"]
+  LOADK R6 K119 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaborator.png"]
+  SETTABLEKS R6 R5 K120 ["AddCollaborator"]
   MOVE R7 R3
   CALL R7 0 1
   JUMPIFNOT R7 [+2]
   LOADNIL R6
   JUMP [+1]
-  LOADK R6 K131 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaboratorInverse.png"]
-  SETTABLEKS R6 R5 K132 ["AddCollaboratorInverse"]
+  LOADK R6 K121 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaboratorInverse.png"]
+  SETTABLEKS R6 R5 K122 ["AddCollaboratorInverse"]
   MOVE R6 R2
-  LOADK R7 K133 ["RibbonDarkTheme"]
+  LOADK R7 K123 ["RibbonDarkTheme"]
   NEWTABLE R8 0 0
   MOVE R9 R5
   CALL R6 3 -1

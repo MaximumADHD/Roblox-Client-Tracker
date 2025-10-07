@@ -81,6 +81,7 @@ local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 	game:DefineFastFlag("EnableExperienceGenericChallengeRenderingOnLoadingScript", false)
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
 local FFlagEnableLinkSharingEvent = game:DefineFastFlag("EnableLinkSharingEvent", false)
+local FFlagPlayerFeedbackPromptEnabled = game:DefineFastFlag("PlayerFeedbackPromptEnabled", false)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -295,6 +296,10 @@ if FFlagAddPublishAssetPrompt then
 end
 
 coroutine.wrap(safeRequire)(CoreGuiModules.ExperienceEvents.ExperienceEventsApp)
+
+if FFlagPlayerFeedbackPromptEnabled then
+	coroutine.wrap(safeRequire)(CoreGuiModules.PlayerFeedback)
+end
 
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarGeneration.SelfieConsent)
 

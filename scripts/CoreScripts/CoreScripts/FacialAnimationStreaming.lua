@@ -27,7 +27,6 @@ game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAni
 game:DefineFastFlag("StopStreamTrackOnDeath", false)
 game:DefineFastFlag("FacialAnimationStreamingClearAllConnectionsFix2", false)
 game:DefineFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C", false)
-local FFlagFacialAnimationStreamingCheckPauseStateAfterEmote2 = game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateAfterEmote2", false)
 local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
@@ -232,15 +231,11 @@ local function handleEmote(player, emoteTrack, isChatTriggered)
 			clearConnection(player, Connections.EmoteFinished)
 			-- resume streaming animations
 			--shouldPlayStreamTrack check here so it does not increase the weight of the stream track if mic/ cam not on and so then idle anims work after emote played
-			if FFlagFacialAnimationStreamingCheckPauseStateAfterEmote2 then
-				local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
-				if shouldPlayStreamTrack then
-					resumeStreamingAnimationForPlayer(player)
-				else
-					pauseStreamingAnimationForPlayer(player)
-				end
-			else
+			local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
+			if shouldPlayStreamTrack then
 				resumeStreamingAnimationForPlayer(player)
+			else
+				pauseStreamingAnimationForPlayer(player)
 			end
 		end)
 	end

@@ -980,7 +980,7 @@ PROTO_40:
   GETTABLEKS R59 R60 K59 ["fflagCOLLAB9285AnnotationsPerPlaceNotifPrefs"]
   JUMPIFNOT R59 [+6]
   GETIMPORT R58 K66 [UDim2.fromOffset]
-  LOADN R59 240
+  LOADN R59 4
   LOADN R60 40
   CALL R58 2 1
   JUMP [+1]
@@ -1028,7 +1028,7 @@ PROTO_40:
   GETUPVAL R61 20
   GETTABLEKS R60 R61 K77 ["View"]
   DUPTABLE R61 K96 [{"tag", "onActivated", "LayoutOrder"}]
-  LOADK R62 K97 ["margin-small padding-left-large padding-right-xlarge size-full-800"]
+  LOADK R62 K97 ["padding-top-xsmall padding-left-large padding-right-xlarge size-full-700"]
   SETTABLEKS R62 R61 K78 ["tag"]
   NEWCLOSURE R62 P11
   CAPTURE VAL R14
@@ -1068,7 +1068,7 @@ PROTO_40:
   GETUPVAL R61 20
   GETTABLEKS R60 R61 K77 ["View"]
   DUPTABLE R61 K96 [{"tag", "onActivated", "LayoutOrder"}]
-  LOADK R62 K107 ["margin-small padding-left-large padding-right-xxlarge size-full-800"]
+  LOADK R62 K107 ["padding-top-xsmall padding-left-large padding-right-xxlarge size-full-700"]
   SETTABLEKS R62 R61 K78 ["tag"]
   NEWCLOSURE R62 P13
   CAPTURE VAL R16
@@ -1144,7 +1144,7 @@ PROTO_40:
   GETUPVAL R61 20
   GETTABLEKS R60 R61 K77 ["View"]
   DUPTABLE R61 K96 [{"tag", "onActivated", "LayoutOrder"}]
-  LOADK R62 K110 ["margin-small padding-left-large padding-right-xxlarge padding-bottom-small size-full-800"]
+  LOADK R62 K110 ["padding-top-xsmall padding-left-large padding-right-xxlarge padding-bottom-small size-full-700"]
   SETTABLEKS R62 R61 K78 ["tag"]
   NEWCLOSURE R62 P16
   CAPTURE UPVAL U21
@@ -1237,7 +1237,7 @@ PROTO_40:
   GETUPVAL R61 20
   GETTABLEKS R60 R61 K77 ["View"]
   DUPTABLE R61 K96 [{"tag", "onActivated", "LayoutOrder"}]
-  LOADK R62 K114 ["padding-left-large padding-right-xxlarge padding-top-xsmall padding-bottom-xsmall size-full-1100"]
+  LOADK R62 K114 ["padding-left-large padding-right-xxlarge margin-top-xsmall margin-bottom-xsmall size-full-1100"]
   SETTABLEKS R62 R61 K78 ["tag"]
   NEWCLOSURE R62 P19
   CAPTURE UPVAL U7
@@ -1297,7 +1297,7 @@ PROTO_40:
   GETUPVAL R61 20
   GETTABLEKS R60 R61 K77 ["View"]
   DUPTABLE R61 K96 [{"tag", "onActivated", "LayoutOrder"}]
-  LOADK R62 K116 ["padding-left-large padding-right-xxlarge padding-top-xsmall padding-bottom-xsmall size-full-1100 text-wrap"]
+  LOADK R62 K114 ["padding-left-large padding-right-xxlarge margin-top-xsmall margin-bottom-xsmall size-full-1100"]
   SETTABLEKS R62 R61 K78 ["tag"]
   NEWCLOSURE R62 P21
   CAPTURE UPVAL U7
@@ -1351,8 +1351,8 @@ PROTO_40:
   GETTABLEKS R59 R60 K19 ["createElement"]
   GETUPVAL R61 20
   GETTABLEKS R60 R61 K77 ["View"]
-  DUPTABLE R61 K117 [{"tag", "LayoutOrder"}]
-  LOADK R62 K118 ["size-3000-100"]
+  DUPTABLE R61 K116 [{"tag", "LayoutOrder"}]
+  LOADK R62 K117 ["size-3000-100"]
   SETTABLEKS R62 R61 K78 ["tag"]
   GETUPVAL R63 14
   JUMPIFNOT R63 [+6]
@@ -1365,9 +1365,9 @@ PROTO_40:
   SETTABLEKS R62 R61 K43 ["LayoutOrder"]
   CALL R59 2 1
   SETTABLEKS R59 R58 K75 ["PaddingLabel"]
-  SETTABLEKS R58 R57 K119 ["DropdownItems"]
-  LOADK R58 K120 ["SettingsIcon"]
-  SETTABLEKS R58 R57 K121 ["ImageTag"]
+  SETTABLEKS R58 R57 K118 ["DropdownItems"]
+  LOADK R58 K119 ["SettingsIcon"]
+  SETTABLEKS R58 R57 K120 ["ImageTag"]
   GETUPVAL R59 4
   GETTABLEKS R58 R59 K35 ["Tag"]
   LOADK R59 K92 ["Dropdown"]
@@ -1391,7 +1391,7 @@ PROTO_40:
   SETTABLEKS R46 R45 K43 ["LayoutOrder"]
   GETUPVAL R47 4
   GETTABLEKS R46 R47 K35 ["Tag"]
-  LOADK R47 K122 ["Component-Divider"]
+  LOADK R47 K121 ["Component-Divider"]
   SETTABLE R47 R45 R46
   CALL R43 2 1
   SETTABLEKS R43 R42 K38 ["Divider"]
@@ -1402,36 +1402,36 @@ PROTO_40:
   DUPTABLE R45 K44 [{"LayoutOrder"}]
   LOADN R46 2
   SETTABLEKS R46 R45 K43 ["LayoutOrder"]
-  DUPTABLE R46 K124 [{"AnnotationScrollingFrame"}]
+  DUPTABLE R46 K123 [{"AnnotationScrollingFrame"}]
   GETUPVAL R48 4
   GETTABLEKS R47 R48 K19 ["createElement"]
-  LOADK R48 K125 ["ScrollingFrame"]
+  LOADK R48 K124 ["ScrollingFrame"]
   NEWTABLE R49 16 0
-  GETIMPORT R50 K126 [UDim2.new]
+  GETIMPORT R50 K125 [UDim2.new]
   LOADN R51 1
   LOADN R52 240
   LOADN R53 0
   MOVE R54 R35
   CALL R50 4 1
-  SETTABLEKS R50 R49 K127 ["CanvasSize"]
+  SETTABLEKS R50 R49 K126 ["CanvasSize"]
   GETUPVAL R52 4
   GETTABLEKS R51 R52 K33 ["Change"]
-  GETTABLEKS R50 R51 K128 ["CanvasPosition"]
+  GETTABLEKS R50 R51 K127 ["CanvasPosition"]
   NEWCLOSURE R51 P23
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLE R51 R49 R50
   LOADN R50 0
-  SETTABLEKS R50 R49 K129 ["BorderSizePixel"]
-  GETIMPORT R50 K132 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R50 R49 K130 ["ScrollingDirection"]
-  GETIMPORT R50 K135 [Enum.ScrollBarInset.Always]
-  SETTABLEKS R50 R49 K136 ["VerticalScrollBarInset"]
+  SETTABLEKS R50 R49 K128 ["BorderSizePixel"]
+  GETIMPORT R50 K131 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R50 R49 K129 ["ScrollingDirection"]
+  GETIMPORT R50 K134 [Enum.ScrollBarInset.Always]
+  SETTABLEKS R50 R49 K135 ["VerticalScrollBarInset"]
   LOADB R50 0
-  SETTABLEKS R50 R49 K137 ["SmoothScroll"]
-  LOADK R50 K138 [0.5]
-  SETTABLEKS R50 R49 K139 ["ScrollRate"]
-  GETIMPORT R50 K141 [UDim2.fromScale]
+  SETTABLEKS R50 R49 K136 ["SmoothScroll"]
+  LOADK R50 K137 [0.5]
+  SETTABLEKS R50 R49 K138 ["ScrollRate"]
+  GETIMPORT R50 K140 [UDim2.fromScale]
   LOADN R51 1
   LOADN R52 1
   CALL R50 2 1
@@ -1440,7 +1440,7 @@ PROTO_40:
   SETTABLEKS R50 R49 K101 ["BackgroundTransparency"]
   MOVE R50 R34
   CALL R47 3 1
-  SETTABLEKS R47 R46 K123 ["AnnotationScrollingFrame"]
+  SETTABLEKS R47 R46 K122 ["AnnotationScrollingFrame"]
   CALL R43 3 1
   JUMP [+1]
   LOADNIL R43
@@ -1455,15 +1455,15 @@ PROTO_40:
   GETUPVAL R47 4
   GETTABLEKS R46 R47 K35 ["Tag"]
   GETUPVAL R47 22
-  LOADK R48 K142 ["X-ColumnM X-Transparent X-Middle X-Center"]
+  LOADK R48 K141 ["X-ColumnM X-Transparent X-Middle X-Center"]
   LENGTH R50 R11
   JUMPIFEQKN R50 K18 [0] [+3]
-  LOADK R49 K143 ["HeaderOffset"]
+  LOADK R49 K142 ["HeaderOffset"]
   JUMP [+1]
   LOADNIL R49
   CALL R47 2 1
   SETTABLE R47 R45 R46
-  DUPTABLE R46 K148 [{"AnnotationIcon", "NoCommentsYet", "ToAdd", "AddButton", "EmptyStateButton"}]
+  DUPTABLE R46 K147 [{"AnnotationIcon", "NoCommentsYet", "ToAdd", "AddButton", "EmptyStateButton"}]
   GETUPVAL R48 4
   GETTABLEKS R47 R48 K19 ["createElement"]
   LOADK R48 K55 ["ImageLabel"]
@@ -1472,10 +1472,10 @@ PROTO_40:
   SETTABLEKS R50 R49 K43 ["LayoutOrder"]
   GETUPVAL R51 4
   GETTABLEKS R50 R51 K35 ["Tag"]
-  LOADK R51 K149 ["X-Transparent"]
+  LOADK R51 K148 ["X-Transparent"]
   SETTABLE R51 R49 R50
   CALL R47 2 1
-  SETTABLEKS R47 R46 K144 ["AnnotationIcon"]
+  SETTABLEKS R47 R46 K143 ["AnnotationIcon"]
   GETUPVAL R48 4
   GETTABLEKS R47 R48 K19 ["createElement"]
   LOADK R48 K91 ["TextLabel"]
@@ -1483,34 +1483,34 @@ PROTO_40:
   LOADN R50 1
   SETTABLEKS R50 R49 K43 ["LayoutOrder"]
   JUMPIFNOT R31 [+6]
-  LOADK R52 K150 ["Plugin"]
-  LOADK R53 K151 ["NoResolvedAnnotations"]
+  LOADK R52 K149 ["Plugin"]
+  LOADK R53 K150 ["NoResolvedAnnotations"]
   NAMECALL R50 R2 K94 ["getText"]
   CALL R50 3 1
   JUMP [+19]
   JUMPIFNOT R32 [+6]
-  LOADK R52 K150 ["Plugin"]
-  LOADK R53 K152 ["NoCommentsForUser"]
+  LOADK R52 K149 ["Plugin"]
+  LOADK R53 K151 ["NoCommentsForUser"]
   NAMECALL R50 R2 K94 ["getText"]
   CALL R50 3 1
   JUMP [+12]
   JUMPIFNOT R33 [+6]
-  LOADK R52 K150 ["Plugin"]
-  LOADK R53 K153 ["NoMatching"]
+  LOADK R52 K149 ["Plugin"]
+  LOADK R53 K152 ["NoMatching"]
   NAMECALL R50 R2 K94 ["getText"]
   CALL R50 3 1
   JUMP [+5]
-  LOADK R52 K150 ["Plugin"]
-  LOADK R53 K154 ["NoAnnotations"]
+  LOADK R52 K149 ["Plugin"]
+  LOADK R53 K153 ["NoAnnotations"]
   NAMECALL R50 R2 K94 ["getText"]
   CALL R50 3 1
   SETTABLEKS R50 R49 K89 ["Text"]
   GETUPVAL R51 4
   GETTABLEKS R50 R51 K35 ["Tag"]
-  LOADK R51 K149 ["X-Transparent"]
+  LOADK R51 K148 ["X-Transparent"]
   SETTABLE R51 R49 R50
   CALL R47 2 1
-  SETTABLEKS R47 R46 K145 ["NoCommentsYet"]
+  SETTABLEKS R47 R46 K144 ["NoCommentsYet"]
   JUMPIF R30 [+23]
   GETUPVAL R48 4
   GETTABLEKS R47 R48 K19 ["createElement"]
@@ -1518,28 +1518,28 @@ PROTO_40:
   NEWTABLE R49 4 0
   LOADN R50 2
   SETTABLEKS R50 R49 K43 ["LayoutOrder"]
-  LOADK R52 K150 ["Plugin"]
-  LOADK R53 K146 ["ToAdd"]
+  LOADK R52 K149 ["Plugin"]
+  LOADK R53 K145 ["ToAdd"]
   NAMECALL R50 R2 K94 ["getText"]
   CALL R50 3 1
   SETTABLEKS R50 R49 K89 ["Text"]
   GETUPVAL R51 4
   GETTABLEKS R50 R51 K35 ["Tag"]
-  LOADK R51 K149 ["X-Transparent"]
+  LOADK R51 K148 ["X-Transparent"]
   SETTABLE R51 R49 R50
   CALL R47 2 1
   JUMP [+1]
   LOADNIL R47
-  SETTABLEKS R47 R46 K146 ["ToAdd"]
+  SETTABLEKS R47 R46 K145 ["ToAdd"]
   JUMPIF R30 [+27]
   GETUPVAL R48 4
   GETTABLEKS R47 R48 K19 ["createElement"]
-  LOADK R48 K155 ["TextButton"]
+  LOADK R48 K154 ["TextButton"]
   NEWTABLE R49 4 0
   LOADN R50 4
   SETTABLEKS R50 R49 K43 ["LayoutOrder"]
-  LOADK R52 K156 ["AddAnnotation"]
-  LOADK R53 K157 ["AddComment"]
+  LOADK R52 K155 ["AddAnnotation"]
+  LOADK R53 K156 ["AddComment"]
   NAMECALL R50 R2 K94 ["getText"]
   CALL R50 3 1
   SETTABLEKS R50 R49 K89 ["Text"]
@@ -1554,50 +1554,50 @@ PROTO_40:
   JUMP [+1]
   LOADNIL R47
   SETTABLEKS R47 R46 K47 ["AddButton"]
-  SETTABLEKS R36 R46 K147 ["EmptyStateButton"]
+  SETTABLEKS R36 R46 K146 ["EmptyStateButton"]
   CALL R43 3 1
   JUMP [+1]
   LOADNIL R43
   SETTABLEKS R43 R42 K40 ["EmptyState"]
   GETUPVAL R45 23
-  GETTABLEKS R44 R45 K158 ["ErrorInternalFailure"]
+  GETTABLEKS R44 R45 K157 ["ErrorInternalFailure"]
   JUMPIFNOTEQ R26 R44 [+2]
   JUMPIFNOT R13 [+6]
   GETUPVAL R45 23
-  GETTABLEKS R44 R45 K158 ["ErrorInternalFailure"]
+  GETTABLEKS R44 R45 K157 ["ErrorInternalFailure"]
   JUMPIFNOTEQ R28 R44 [+66]
   JUMPIFNOT R13 [+64]
   GETUPVAL R44 4
   GETTABLEKS R43 R44 K19 ["createElement"]
   GETUPVAL R44 24
-  DUPTABLE R45 K159 [{"LayoutOrder", "tag"}]
+  DUPTABLE R45 K158 [{"LayoutOrder", "tag"}]
   LOADN R46 99
   SETTABLEKS R46 R45 K43 ["LayoutOrder"]
-  LOADK R46 K160 ["size-full-0 auto-y bg-action-subtle padding-small"]
+  LOADK R46 K159 ["size-full-0 auto-y bg-action-subtle padding-small"]
   SETTABLEKS R46 R45 K78 ["tag"]
-  DUPTABLE R46 K162 [{"ErrorAlert"}]
+  DUPTABLE R46 K161 [{"ErrorAlert"}]
   GETUPVAL R48 4
   GETTABLEKS R47 R48 K19 ["createElement"]
   GETUPVAL R48 25
-  DUPTABLE R49 K166 [{"Message", "IsPopup", "ShowClose"}]
-  LOADK R52 K167 ["Error"]
-  LOADK R53 K168 ["LoadingFailed"]
+  DUPTABLE R49 K165 [{"Message", "IsPopup", "ShowClose"}]
+  LOADK R52 K166 ["Error"]
+  LOADK R53 K167 ["LoadingFailed"]
   NAMECALL R50 R2 K94 ["getText"]
   CALL R50 3 1
-  SETTABLEKS R50 R49 K163 ["Message"]
+  SETTABLEKS R50 R49 K162 ["Message"]
   LOADB R50 1
-  SETTABLEKS R50 R49 K164 ["IsPopup"]
+  SETTABLEKS R50 R49 K163 ["IsPopup"]
   LOADB R50 0
-  SETTABLEKS R50 R49 K165 ["ShowClose"]
-  DUPTABLE R50 K170 [{"TryAgain"}]
+  SETTABLEKS R50 R49 K164 ["ShowClose"]
+  DUPTABLE R50 K169 [{"TryAgain"}]
   GETUPVAL R52 4
   GETTABLEKS R51 R52 K19 ["createElement"]
-  LOADK R52 K155 ["TextButton"]
+  LOADK R52 K154 ["TextButton"]
   NEWTABLE R53 4 0
   LOADN R54 99
   SETTABLEKS R54 R53 K43 ["LayoutOrder"]
-  LOADK R56 K167 ["Error"]
-  LOADK R57 K169 ["TryAgain"]
+  LOADK R56 K166 ["Error"]
+  LOADK R57 K168 ["TryAgain"]
   NAMECALL R54 R2 K94 ["getText"]
   CALL R54 3 1
   SETTABLEKS R54 R53 K89 ["Text"]
@@ -1609,9 +1609,9 @@ PROTO_40:
   CAPTURE VAL R1
   SETTABLE R55 R53 R54
   CALL R51 2 1
-  SETTABLEKS R51 R50 K169 ["TryAgain"]
+  SETTABLEKS R51 R50 K168 ["TryAgain"]
   CALL R47 3 1
-  SETTABLEKS R47 R46 K161 ["ErrorAlert"]
+  SETTABLEKS R47 R46 K160 ["ErrorAlert"]
   CALL R43 3 1
   JUMP [+1]
   LOADNIL R43

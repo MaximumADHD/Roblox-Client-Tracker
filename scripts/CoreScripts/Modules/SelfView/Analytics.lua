@@ -9,8 +9,6 @@ end
 
 debugPrint("Self View Analytics 10-19-2022__1")
 
-local FFlagAvatarChatIncludeSelfViewOnTelemetry = game:DefineFastFlag("AvatarChatIncludeSelfViewOnTelemetry", false)
-
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -166,9 +164,7 @@ function Analytics:reportSelfViewSessionStarted(x, y, width, height, x_relative,
 		height_relative = tostring(height_relative),
 	})
 
-	if FFlagAvatarChatIncludeSelfViewOnTelemetry then
-		RbxAnalyticsService:AddGlobalPointsField("feature/avatarChat/selfViewOn", 1)
-	end
+	RbxAnalyticsService:AddGlobalPointsField("feature/avatarChat/selfViewOn", 1)
 end
 
 function Analytics:reportSelfViewSessionStopped()
@@ -179,9 +175,7 @@ function Analytics:reportSelfViewSessionStopped()
 		sessionid = tostring(self._impl:GetPlaySessionId()),
 	})
 
-	if FFlagAvatarChatIncludeSelfViewOnTelemetry then
-		RbxAnalyticsService:AddGlobalPointsField("feature/avatarChat/selfViewOn", 0)
-	end	
+	RbxAnalyticsService:AddGlobalPointsField("feature/avatarChat/selfViewOn", 0)
 end
 
 function Analytics:reportUserAccountSettings(userAccount_videoEnabled: boolean, userAccount_audioEnabled: boolean)

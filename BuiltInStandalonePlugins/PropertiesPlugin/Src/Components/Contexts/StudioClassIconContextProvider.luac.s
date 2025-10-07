@@ -1,0 +1,48 @@
+PROTO_0:
+  GETUPVAL R1 0
+  JUMPIFNOTEQKS R0 K0 [""] [+3]
+  LOADK R3 K1 ["Instance"]
+  JUMP [+1]
+  MOVE R3 R0
+  NAMECALL R1 R1 K2 ["GetClassIcon"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["Components"]
+  GETTABLEKS R3 R4 K1 ["Contexts"]
+  GETTABLEKS R2 R3 K2 ["ClassIconContext"]
+  DUPTABLE R3 K4 [{"getClassIcon"}]
+  DUPCLOSURE R4 K5 [PROTO_0]
+  CAPTURE UPVAL U2
+  SETTABLEKS R4 R3 K3 ["getClassIcon"]
+  GETTABLEKS R4 R0 K6 ["children"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["PropertiesPlugin"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Properties"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K13 ["createElement"]
+  DUPCLOSURE R5 K14 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  RETURN R5 1

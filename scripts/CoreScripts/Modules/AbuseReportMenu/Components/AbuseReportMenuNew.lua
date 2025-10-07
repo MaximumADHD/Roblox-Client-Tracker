@@ -46,8 +46,6 @@ local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableS
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled)
 local GetFFlagWHAM1707ExperimentForceEnabled = require(root.Flags.GetFFlagWHAM1707ExperimentForceEnabled)
-local FFlagAbuseReportTabRenderPerformanceFixEnabled =
-	require(root.Flags.FFlagAbuseReportTabRenderPerformanceFixEnabled)
 local FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled =
 	require(root.Flags.FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled)
 
@@ -224,7 +222,7 @@ local AbuseReportMenuNew = function(props: Props)
 		end
 	end, { isReportTabVisible, menuWidth } :: { any })
 
-	if FFlagAbuseReportTabRenderPerformanceFixEnabled and not isReportTabVisible then
+	if not isReportTabVisible then
 		return nil
 	end
 

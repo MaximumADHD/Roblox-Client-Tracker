@@ -14,7 +14,9 @@ local Display = require(CorePackages.Workspace.Packages.Display)
 local getUIScale = Display.GetDisplayStore(false).getUIScale
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
 local Interactable = UIBlox.Core.Control.Interactable
+local useStyleSheet = Foundation.Hooks.useStyleSheet
 
 local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
@@ -41,6 +43,8 @@ local GetFFlagSelfieViewMoreFixMigration =
 local FIntChromeWindowLayoutOrder = game:DefineFastInt("ChromeWindowLayoutOrder", 2)
 local FFlagWindowDragDetection = game:DefineFastFlag("WindowDragDetection", false)
 local FIntWindowMinDragDistance = game:DefineFastInt("WindowMinDragDistance", 25)
+
+local FFlagFixWindowStyleSheets = game:DefineFastFlag("FixWindowStyleSheets", false)
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
@@ -449,6 +453,8 @@ local WindowHost = function(props: WindowHostProps)
 
 	local windowDisplayOrder = FIntChromeWindowLayoutOrder
 
+	local styleSheet = useStyleSheet()
+
 	return ReactRoblox.createPortal({
 		Name = React.createElement("ScreenGui", {
 			Name = Constants.WINDOW_HOST_GUI_NAME .. ":" .. props.integration.id,
@@ -509,6 +515,11 @@ local WindowHost = function(props: WindowHostProps)
 					}),
 				}),
 			}),
+			FoundationStyleLink = if FFlagFixWindowStyleSheets
+				then React.createElement("StyleLink", {
+					StyleSheet = styleSheet,
+				})
+				else nil,
 		}),
 	}, CoreGui)
 end

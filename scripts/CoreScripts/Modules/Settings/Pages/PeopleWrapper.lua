@@ -24,7 +24,9 @@ local FFlagRenderPeoplePageOnTabSwitch = game:DefineFastFlag("RenderPeoplePageOn
 local FFlagRemovePeoplePageFoundationProvider = game:DefineFastFlag("RemovePeoplePageFoundationProvider", false)
 
 -- Chrome check
+local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local LocalStore = if ChromeEnabled then require(Chrome.ChromeShared.Service.LocalStore) else nil
 
 -- Modules
 local Foundation = require(CorePackages.Packages.Foundation)
@@ -40,6 +42,7 @@ local locales = Localization.new(LocalizationService.RobloxLocaleId)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local BlockingModalScreen = require(Modules.Settings.Components.Blocking.BlockingModalScreen)
 local migrationLookup = BuilderIcons.Migration['uiblox']
+local PeopleService = require(CorePackages.Workspace.Packages.PeopleService)
 
 -- Focus Navigation
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
@@ -56,6 +59,10 @@ if FFlagRefactorPeoplePage() then
 	Integrations = require(Modules.Settings.Integrations)
 	Utils = Integrations.Utils
 end
+
+-- Flags
+local PeopleFlags = PeopleService.getService("Flags")
+local GetFFlagAddPeoplePageCardLayout = PeopleFlags.GetFFlagAddPeoplePageCardLayout
 
 local tree: ReactRoblox.RootType? = nil
 local getDisplayed, setDisplayed = Signals.createSignal(false)
@@ -136,6 +143,8 @@ local function createPeoplePage()
 										FFlagEnableToastForBlockingModal = FFlagEnableToastForBlockingModal,
 									},
 									chromeEnabled = ChromeEnabled,
+									getUniversesExposedTo = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.getUniversesExposedTo else nil,
+									addUniverseToExposureList = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.addUniverseToExposureList else nil,
 								})
 							})
 						})

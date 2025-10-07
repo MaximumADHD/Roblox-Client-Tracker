@@ -363,18 +363,18 @@ PROTO_10:
   CALL R11 2 0
   GETTABLEKS R12 R7 K20 ["current"]
   GETTABLEKS R11 R12 K17 ["focus"]
-  JUMPIFNOT R2 [+67]
+  JUMPIFNOT R2 [+71]
   GETUPVAL R13 1
   GETTABLEKS R12 R13 K25 ["createElement"]
   GETUPVAL R13 5
-  DUPTABLE R14 K41 [{"Camera", "Model", "FocusPosition", "FocusDirection", "Size", "Ambient", "EnableSky", "LightColor", "LightDirection", "PanSpeedMultiplier", "ShouldClone", "RecenterModelOnUpdate", "RecenterCameraOnUpdate", "Static", "ResetCameraPosition", "OnViewModelLoaded", "ShowResetCamera"}]
+  DUPTABLE R14 K42 [{"Camera", "Model", "FocusPosition", "FocusDirection", "Size", "Ambient", "EnableSky", "LightColor", "LightDirection", "PanSpeedMultiplier", "ShouldClone", "RecenterModelOnUpdate", "RecenterCameraOnUpdate", "Static", "ResetCameraPosition", "OnViewModelLoaded", "ShowResetCamera", "ShowAxisIndicator"}]
   SETTABLEKS R4 R14 K12 ["Camera"]
   SETTABLEKS R2 R14 K0 ["Model"]
-  GETTABLEKS R15 R11 K42 ["Position"]
+  GETTABLEKS R15 R11 K43 ["Position"]
   SETTABLEKS R15 R14 K26 ["FocusPosition"]
-  GETTABLEKS R15 R11 K43 ["LookVector"]
+  GETTABLEKS R15 R11 K44 ["LookVector"]
   SETTABLEKS R15 R14 K27 ["FocusDirection"]
-  GETIMPORT R15 K46 [UDim2.fromScale]
+  GETIMPORT R15 K47 [UDim2.fromScale]
   LOADN R16 1
   LOADN R17 1
   CALL R15 2 1
@@ -399,8 +399,10 @@ PROTO_10:
   SETTABLEKS R15 R14 K37 ["Static"]
   SETTABLEKS R5 R14 K38 ["ResetCameraPosition"]
   SETTABLEKS R10 R14 K39 ["OnViewModelLoaded"]
-  GETTABLEKS R15 R0 K47 ["ShowResetCameraButton"]
+  GETTABLEKS R15 R0 K48 ["ShowResetCameraButton"]
   SETTABLEKS R15 R14 K40 ["ShowResetCamera"]
+  GETTABLEKS R15 R0 K41 ["ShowAxisIndicator"]
+  SETTABLEKS R15 R14 K41 ["ShowAxisIndicator"]
   CALL R12 2 1
   RETURN R12 1
   LOADNIL R12

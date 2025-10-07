@@ -82,6 +82,7 @@ local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
 local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
 local FFlagGameSettingsRefactorMovementModeLogic = SettingsFlags.FFlagGameSettingsRefactorMovementModeLogic
 local FFlagGameSettingsRespectDevModes = SettingsFlags.FFlagGameSettingsRespectDevModes
+local GetFFlagEnableVoiceUxUpdates = SharedFlags.GetFFlagEnableVoiceUxUpdates
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -201,6 +202,7 @@ local CAMERA_DEVICE_INFO_KEY = "CameraDeviceInfo"
 
 local VOICE_CONNECT_FRAME_KEY = "VoiceConnectFrame"
 local VOICE_DISCONNECT_FRAME_KEY = "VoiceDisconnectFrame"
+local VOICE_CONNECT_DISCONNECT_SELECTOR_KEY = "VoiceConnectDisconnectSelector"
 
 ----------- LAYOUT ORDER ------------
 local SETTINGS_MENU_LAYOUT_ORDER
@@ -218,6 +220,8 @@ else
 		["MovementModeFrame"] = 12,
 		["GamepadSensitivityFrame"] = 13,
 		-- Voice Connect Disconnect
+		[VOICE_CONNECT_DISCONNECT_SELECTOR_KEY] = 17,
+		-- TODO: remove these two entries once VoiceConnectDisconnectSelector is fully rolled out
 		[VOICE_CONNECT_FRAME_KEY] = 18,
 		[VOICE_DISCONNECT_FRAME_KEY] = 19,
 		-- Experience Language
@@ -3634,6 +3638,75 @@ local function Initialize()
 		end
 	end
 
+	local micPermissionsDenied = false
+	local function createVoiceChatSelector()
+		local initialIndex = if VoiceChatServiceManager:VoiceChatEnded() then 1 else 2
+		this.VoiceConnectDisconnectFrame, _, this.VoiceConnectDisconnectSelector =
+			utility:AddNewRow(this, "Voice Chat", "Selector", { "Disconnected", "Connected" }, initialIndex)
+		this.VoiceConnectDisconnectFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER[VOICE_CONNECT_DISCONNECT_SELECTOR_KEY]
+
+		-- Update selector based on voice chat state changes
+		if VoiceChatServiceManager:getService() then
+			VoiceChatServiceManager:getService().StateChanged:Connect(function(oldState, newState)
+				if oldState == newState then
+					return
+				elseif newState == (Enum :: any).VoiceChatState.Joined then
+					this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
+				elseif VoiceChatServiceManager:VoiceChatEnded() then
+					this.VoiceConnectDisconnectSelector:SetSelectionIndex(1)
+				end
+			end)
+		end
+
+		local previousIndex = initialIndex
+		local disconnectedIndex = 1
+		local connectedIndex = 2
+
+		this.VoiceConnectDisconnectSelector.IndexChanged:connect(function(newIndex)
+			if newIndex == previousIndex then
+				return
+			end
+
+			previousIndex = newIndex
+
+			VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+				"clicked",
+				VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(newIndex == connectedIndex)
+			)
+
+			if newIndex == connectedIndex then
+				VoiceChatServiceManager:JoinVoice()
+			else
+				if not VoiceChatServiceManager:VoiceChatEnded() then
+					VoiceChatServiceManager:Leave()
+				end
+			end
+
+			if micPermissionsDenied then
+				task.spawn(function()
+					task.wait(0.5)
+					if newIndex ~= disconnectedIndex then
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
+					end
+				end)
+			end
+		end)
+
+		VoiceChatServiceManager:subscribe("OnStateChanged", function(oldState, newState)
+			if newState == (Enum :: any).VoiceChatState.Failed then
+				this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
+			end
+		end)
+
+		VoiceChatServiceManager:subscribe("OnRequestMicPermissionRejected", function()
+			task.spawn(function()
+				task.wait(0.5)
+				micPermissionsDenied = true
+				this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
+			end)
+		end)
+	end
+
 	local function createVoiceConnectDisconnect()
 		if VoiceChatServiceManager:IsSeamlessVoice() and not VoiceChatServiceManager.isShowingFTUX then
 			local voiceConnectButton, voiceConnectText = nil, nil
@@ -3921,91 +3994,115 @@ local function Initialize()
 	local teardownCrossExperienceVoiceListeners = nil
 	if game:GetEngineFeature("VoiceChatSupported") and (if isInExperienceUIVREnabled then not isSpatial() else true) then
 		spawn(function()
+			if GetFFlagEnableVoiceUxUpdates()
+				and (VoiceChatServiceManager:EligibleForFaeUpsell() or VoiceChatServiceManager:IsSeamlessVoice()) then
+				createVoiceChatSelector()
+
+				if isVoiceFocused() and this.VoiceConnectDisconnectFrame then
+					this.VoiceConnectDisconnectFrame.Visible = false
+				end
+				observeIsVoiceFocused(function(isFocused)
+					if isFocused then
+						if this.VoiceConnectDisconnectFrame then
+							this.VoiceConnectDisconnectFrame.Visible = false
+						end
+					else
+						if this.VoiceConnectDisconnectFrame then
+							this.VoiceConnectDisconnectFrame.Visible = true
+						end
+					end
+				end)
+			end
 			VoiceChatServiceManager:asyncInit()
 				:andThen(function()
 					VoiceChatService = VoiceChatServiceManager:getService()
 					checkVoiceChatOptions()
-					local isCurrentlyVoiceFocused = false
-					if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
-						createVoiceConnectDisconnect()
-
-						if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
-							isCurrentlyVoiceFocused = isVoiceFocused()
-
-							observeIsVoiceFocused(function(isFocused)
-								isCurrentlyVoiceFocused = isFocused
-
-								if isFocused then
-									if this[VOICE_CONNECT_FRAME_KEY] then
-										this[VOICE_CONNECT_FRAME_KEY].Visible = false
-									end
-									if this[VOICE_DISCONNECT_FRAME_KEY] then
-										this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
-									end
-								elseif VoiceChatServiceManager:ShouldShowJoinVoice() then
-									if this[VOICE_CONNECT_FRAME_KEY] then
-										this[VOICE_CONNECT_FRAME_KEY].Visible = true
-									end
-									if this[VOICE_DISCONNECT_FRAME_KEY] then
-										this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
-									end
-								end
-							end)
-						end
-					end
 
 					-- Check volume settings. Show prompt if volume is 0
 					if not GetFFlagEnableUniveralVoiceToasts() then
 						VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
 					end
 
-					if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY] then
-						this[VOICE_CONNECT_FRAME_KEY].Visible = false
-					end
-					if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_DISCONNECT_FRAME_KEY] then
-						if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
-							this[VOICE_DISCONNECT_FRAME_KEY].Visible = not isCurrentlyVoiceFocused
-						else
-							this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
-						end
-					end
+					if GetFFlagEnableVoiceUxUpdates() then
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
+					else
+						local isCurrentlyVoiceFocused = false
+						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
+							createVoiceConnectDisconnect()
 
-					VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
-						if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
-							return
+							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
+								isCurrentlyVoiceFocused = isVoiceFocused()
+
+								observeIsVoiceFocused(function(isFocused)
+									isCurrentlyVoiceFocused = isFocused
+
+									if isFocused then
+										if this[VOICE_CONNECT_FRAME_KEY] then
+											this[VOICE_CONNECT_FRAME_KEY].Visible = false
+										end
+										if this[VOICE_DISCONNECT_FRAME_KEY] then
+											this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
+										end
+									elseif VoiceChatServiceManager:ShouldShowJoinVoice() then
+										if this[VOICE_CONNECT_FRAME_KEY] then
+											this[VOICE_CONNECT_FRAME_KEY].Visible = true
+										end
+										if this[VOICE_DISCONNECT_FRAME_KEY] then
+											this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
+										end
+									end
+								end)
+							end
 						end
-						this.VoiceChatOptionsEnabled = true
-						updateInputDeviceVisibility()
-						if
-							GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
-						then
+
+						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY] then
 							this[VOICE_CONNECT_FRAME_KEY].Visible = false
 						end
-						if
-							GetFFlagEnableConnectDisconnectInSettingsAndChrome()
-							and this[VOICE_DISCONNECT_FRAME_KEY]
-						then
-							this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
+						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_DISCONNECT_FRAME_KEY] then
+							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
+								this[VOICE_DISCONNECT_FRAME_KEY].Visible = not isCurrentlyVoiceFocused
+							else
+								this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
+							end
 						end
-					end)
-					VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
-						if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
-							return
-						end
-						this.VoiceChatOptionsEnabled = false
-						updateInputDeviceVisibility()
-						if
-							GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
-						then
-							this[VOICE_CONNECT_FRAME_KEY].Visible = true
-						end
-						if
-							GetFFlagEnableConnectDisconnectInSettingsAndChrome()
-							and this[VOICE_DISCONNECT_FRAME_KEY]
-						then
-							this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
-						end
-					end)
+
+						VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
+							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
+								return
+							end
+							this.VoiceChatOptionsEnabled = true
+							updateInputDeviceVisibility()
+							if
+								GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
+							then
+								this[VOICE_CONNECT_FRAME_KEY].Visible = false
+							end
+							if
+								GetFFlagEnableConnectDisconnectInSettingsAndChrome()
+								and this[VOICE_DISCONNECT_FRAME_KEY]
+							then
+								this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
+							end
+						end)
+						VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
+							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
+								return
+							end
+							this.VoiceChatOptionsEnabled = false
+							updateInputDeviceVisibility()
+							if
+								GetFFlagEnableConnectDisconnectInSettingsAndChrome() and this[VOICE_CONNECT_FRAME_KEY]
+							then
+								this[VOICE_CONNECT_FRAME_KEY].Visible = true
+							end
+							if
+								GetFFlagEnableConnectDisconnectInSettingsAndChrome()
+								and this[VOICE_DISCONNECT_FRAME_KEY]
+							then
+								this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
+							end
+						end)
+					end
 				end)
 				:catch(function()
 					if GetFFlagVoiceChatUILogging() then

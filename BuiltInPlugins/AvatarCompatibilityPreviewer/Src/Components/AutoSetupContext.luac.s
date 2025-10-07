@@ -1,11 +1,8 @@
 PROTO_0:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+13]
   JUMPIFEQKNIL R1 [+12]
   MOVE R2 R1
   DUPTABLE R3 K2 [{"notificationType", "jobId"}]
-  GETUPVAL R5 1
+  GETUPVAL R5 0
   GETTABLEKS R4 R5 K3 ["AUTO_SETUP_JOB_INITIALIZATION"]
   SETTABLEKS R4 R3 K0 ["notificationType"]
   LOADK R4 K4 ["abcd"]
@@ -31,9 +28,6 @@ PROTO_0:
   GETIMPORT R2 K17 [task.wait]
   LOADN R3 5
   CALL R2 1 0
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+17]
   JUMPIFEQKNIL R1 [+16]
   MOVE R2 R1
   DUPTABLE R3 K20 [{"notificationType", "jobId", "level", "message"}]
@@ -86,7 +80,7 @@ PROTO_0:
   GETIMPORT R2 K17 [task.wait]
   LOADN R3 3
   CALL R2 1 0
-  GETUPVAL R2 2
+  GETUPVAL R2 1
   LOADN R4 109
   NAMECALL R2 R2 K28 ["CreateHumanoidModelFromUserId"]
   CALL R2 2 1
@@ -97,7 +91,7 @@ PROTO_0:
   JUMPIFNOTEQKNIL R3 [+2]
   LOADB R5 0 +1
   LOADB R5 1
-  GETUPVAL R7 1
+  GETUPVAL R7 0
   GETTABLEKS R6 R7 K31 ["LUAU_ANALYZE_ERROR"]
   FASTCALL2 ASSERT R5 R6 [+3]
   GETIMPORT R4 K33 [assert]
@@ -288,37 +282,53 @@ PROTO_2:
   RETURN R4 1
 
 PROTO_3:
-  GETUPVAL R5 0
+  GETUPVAL R6 0
+  CALL R6 0 1
+  FASTCALL2K ASSERT R6 K0 [+4]
+  LOADK R7 K0 ["FFlag::NoAvatarAutoSetupInputModelUpload is not enabled"]
+  GETIMPORT R5 K2 [assert]
+  CALL R5 2 0
+  GETUPVAL R5 1
   CALL R5 0 1
-  FASTCALL2K ASSERT R5 K0 [+4]
-  LOADK R6 K0 ["FFlag::NoAvatarAutoSetupInputModelUpload is not enabled"]
-  GETIMPORT R4 K2 [assert]
-  CALL R4 2 0
-  GETUPVAL R4 1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+5]
-  GETUPVAL R4 2
-  MOVE R5 R2
-  MOVE R6 R3
-  CALL R4 2 1
-  RETURN R4 1
-  GETIMPORT R4 K4 [game]
-  LOADK R6 K5 ["StudioAssetService"]
-  NAMECALL R4 R4 K6 ["GetService"]
-  CALL R4 2 1
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K7 ["getCreatorData"]
-  CALL R5 0 1
-  DUPTABLE R6 K10 [{"CreatorId", "CreatorType"}]
-  GETTABLEKS R7 R5 K11 ["creatorId"]
-  SETTABLEKS R7 R6 K8 ["CreatorId"]
-  GETTABLEKS R7 R5 K12 ["creatorType"]
-  SETTABLEKS R7 R6 K9 ["CreatorType"]
-  GETUPVAL R7 4
-  CALL R7 0 1
-  JUMPIFNOT R7 [+22]
-  DUPTABLE R7 K14 [{"AssetDataHash"}]
-  SETTABLEKS R1 R7 K13 ["AssetDataHash"]
+  JUMPIFNOT R5 [+5]
+  GETUPVAL R5 2
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R5 2 1
+  RETURN R5 1
+  GETIMPORT R5 K4 [game]
+  LOADK R7 K5 ["StudioAssetService"]
+  NAMECALL R5 R5 K6 ["GetService"]
+  CALL R5 2 1
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K7 ["getCreatorData"]
+  CALL R6 0 1
+  DUPTABLE R7 K10 [{"CreatorId", "CreatorType"}]
+  GETTABLEKS R8 R6 K11 ["creatorId"]
+  SETTABLEKS R8 R7 K8 ["CreatorId"]
+  GETTABLEKS R8 R6 K12 ["creatorType"]
+  SETTABLEKS R8 R7 K9 ["CreatorType"]
+  GETUPVAL R8 4
+  CALL R8 0 1
+  JUMPIFNOT R8 [+23]
+  DUPTABLE R8 K14 [{"AssetDataHash"}]
+  SETTABLEKS R1 R8 K13 ["AssetDataHash"]
+  GETIMPORT R11 K17 [buffer.tostring]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K18 ["encode"]
+  GETIMPORT R13 K20 [buffer.fromstring]
+  MOVE R14 R0
+  CALL R13 1 -1
+  CALL R12 -1 -1
+  CALL R11 -1 1
+  MOVE R12 R7
+  MOVE R13 R8
+  MOVE R14 R2
+  MOVE R15 R3
+  MOVE R16 R4
+  NAMECALL R9 R5 K21 ["AutoSetupSerializedAvatarAsync"]
+  CALL R9 7 -1
+  RETURN R9 -1
   GETIMPORT R10 K17 [buffer.tostring]
   GETUPVAL R12 5
   GETTABLEKS R11 R12 K18 ["encode"]
@@ -327,48 +337,35 @@ PROTO_3:
   CALL R12 1 -1
   CALL R11 -1 -1
   CALL R10 -1 1
-  MOVE R11 R6
-  MOVE R12 R7
+  MOVE R11 R7
+  NEWTABLE R12 0 0
   MOVE R13 R2
   MOVE R14 R3
-  NAMECALL R8 R4 K21 ["AutoSetupSerializedAvatarAsync"]
-  CALL R8 6 -1
+  MOVE R15 R4
+  NAMECALL R8 R5 K21 ["AutoSetupSerializedAvatarAsync"]
+  CALL R8 7 -1
   RETURN R8 -1
-  GETIMPORT R9 K17 [buffer.tostring]
-  GETUPVAL R11 5
-  GETTABLEKS R10 R11 K18 ["encode"]
-  GETIMPORT R11 K20 [buffer.fromstring]
-  MOVE R12 R0
-  CALL R11 1 -1
-  CALL R10 -1 -1
-  CALL R9 -1 1
-  MOVE R10 R6
-  NEWTABLE R11 0 0
-  MOVE R12 R2
-  MOVE R13 R3
-  NAMECALL R7 R4 K21 ["AutoSetupSerializedAvatarAsync"]
-  CALL R7 6 -1
-  RETURN R7 -1
 
 PROTO_4:
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+5]
-  GETUPVAL R3 1
-  MOVE R4 R1
-  MOVE R5 R2
-  CALL R3 2 1
-  RETURN R3 1
-  GETIMPORT R3 K1 [game]
-  LOADK R5 K2 ["StudioAssetService"]
-  NAMECALL R3 R3 K3 ["GetService"]
-  CALL R3 2 1
-  MOVE R6 R0
-  MOVE R7 R1
-  MOVE R8 R2
-  NAMECALL R4 R3 K4 ["AutoSetupAvatarAsync"]
-  CALL R4 4 -1
-  RETURN R4 -1
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+5]
+  GETUPVAL R4 1
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R4 2 1
+  RETURN R4 1
+  GETIMPORT R4 K1 [game]
+  LOADK R6 K2 ["StudioAssetService"]
+  NAMECALL R4 R4 K3 ["GetService"]
+  CALL R4 2 1
+  MOVE R7 R0
+  MOVE R8 R1
+  MOVE R9 R2
+  MOVE R10 R3
+  NAMECALL R5 R4 K4 ["AutoSetupAvatarAsync"]
+  CALL R5 5 -1
+  RETURN R5 -1
 
 PROTO_5:
   GETUPVAL R0 0
@@ -387,24 +384,18 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["FFlagAvatarAutosetupCancel is not enabled"]
-  GETIMPORT R1 K2 [assert]
-  CALL R1 2 0
-  GETUPVAL R1 1
+  GETUPVAL R1 0
   CALL R1 0 1
   JUMPIFNOT R1 [+1]
   RETURN R0 0
   LENGTH R1 R0
-  JUMPIFNOTEQKN R1 K3 [0] [+2]
+  JUMPIFNOTEQKN R1 K0 [0] [+2]
   RETURN R0 0
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["StudioAssetService"]
-  NAMECALL R1 R1 K7 ["GetService"]
+  GETIMPORT R1 K2 [game]
+  LOADK R3 K3 ["StudioAssetService"]
+  NAMECALL R1 R1 K4 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R2 K10 [task.spawn]
+  GETIMPORT R2 K7 [task.spawn]
   NEWCLOSURE R3 P0
   CAPTURE VAL R1
   CAPTURE VAL R0
@@ -455,69 +446,57 @@ MAIN:
   GETIMPORT R9 K11 [require]
   GETTABLEKS R12 R3 K14 ["Src"]
   GETTABLEKS R11 R12 K20 ["Flags"]
-  GETTABLEKS R10 R11 K21 ["getFFlagAvatarAutosetupCancel"]
+  GETTABLEKS R10 R11 K21 ["getFFlagAvatarAutosetupClientModelHash"]
   CALL R9 1 1
   GETIMPORT R10 K11 [require]
   GETTABLEKS R13 R3 K14 ["Src"]
   GETTABLEKS R12 R13 K20 ["Flags"]
-  GETTABLEKS R11 R12 K22 ["getFFlagAvatarAutosetupClientModelHash"]
+  GETTABLEKS R11 R12 K22 ["getFFlagDebugAvatarPreviewerMockAutoSetup"]
   CALL R10 1 1
   GETIMPORT R11 K11 [require]
   GETTABLEKS R14 R3 K14 ["Src"]
   GETTABLEKS R13 R14 K20 ["Flags"]
-  GETTABLEKS R12 R13 K23 ["getFFlagAvatarAutosetupStatusNotifications"]
+  GETTABLEKS R12 R13 K23 ["getFFlagAvatarPreviewerEditingTools"]
   CALL R11 1 1
   GETIMPORT R12 K11 [require]
   GETTABLEKS R15 R3 K14 ["Src"]
   GETTABLEKS R14 R15 K20 ["Flags"]
-  GETTABLEKS R13 R14 K24 ["getFFlagDebugAvatarPreviewerMockAutoSetup"]
+  GETTABLEKS R13 R14 K24 ["getFFlagNoAvatarAutoSetupInputModelUpload"]
   CALL R12 1 1
-  GETIMPORT R13 K11 [require]
-  GETTABLEKS R16 R3 K14 ["Src"]
-  GETTABLEKS R15 R16 K20 ["Flags"]
-  GETTABLEKS R14 R15 K25 ["getFFlagAvatarPreviewerEditingTools"]
-  CALL R13 1 1
-  GETIMPORT R14 K11 [require]
-  GETTABLEKS R17 R3 K14 ["Src"]
-  GETTABLEKS R16 R17 K20 ["Flags"]
-  GETTABLEKS R15 R16 K26 ["getFFlagNoAvatarAutoSetupInputModelUpload"]
-  CALL R14 1 1
-  DUPCLOSURE R15 K27 [PROTO_0]
-  CAPTURE VAL R11
+  DUPCLOSURE R13 K25 [PROTO_0]
   CAPTURE VAL R5
   CAPTURE VAL R0
-  DUPCLOSURE R16 K28 [PROTO_1]
-  CAPTURE VAL R14
-  DUPCLOSURE R17 K29 [PROTO_2]
+  DUPCLOSURE R14 K26 [PROTO_1]
+  CAPTURE VAL R12
+  DUPCLOSURE R15 K27 [PROTO_2]
+  CAPTURE VAL R10
   CAPTURE VAL R12
   CAPTURE VAL R14
-  CAPTURE VAL R16
-  CAPTURE VAL R13
+  CAPTURE VAL R11
   CAPTURE VAL R7
   CAPTURE VAL R2
   CAPTURE VAL R1
-  DUPCLOSURE R18 K30 [PROTO_3]
-  CAPTURE VAL R14
+  DUPCLOSURE R16 K28 [PROTO_3]
   CAPTURE VAL R12
-  CAPTURE VAL R15
-  CAPTURE VAL R7
   CAPTURE VAL R10
-  CAPTURE VAL R8
-  DUPCLOSURE R19 K31 [PROTO_4]
-  CAPTURE VAL R12
-  CAPTURE VAL R15
-  DUPCLOSURE R20 K32 [PROTO_7]
+  CAPTURE VAL R13
+  CAPTURE VAL R7
   CAPTURE VAL R9
-  CAPTURE VAL R12
-  DUPTABLE R21 K39 [{"uploadModelAsync", "serializeModel", "startSerializedAutoSetupAsync", "startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
-  SETTABLEKS R17 R21 K33 ["uploadModelAsync"]
-  SETTABLEKS R16 R21 K34 ["serializeModel"]
-  SETTABLEKS R18 R21 K35 ["startSerializedAutoSetupAsync"]
-  SETTABLEKS R19 R21 K36 ["startAutoSetupAsync"]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K37 ["autoSetupClickedSignal"]
-  SETTABLEKS R20 R21 K38 ["cancelAutoSetup"]
-  GETTABLEKS R22 R4 K40 ["createContext"]
-  MOVE R23 R21
-  CALL R22 1 1
-  RETURN R22 1
+  CAPTURE VAL R8
+  DUPCLOSURE R17 K29 [PROTO_4]
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  DUPCLOSURE R18 K30 [PROTO_7]
+  CAPTURE VAL R10
+  DUPTABLE R19 K37 [{"uploadModelAsync", "serializeModel", "startSerializedAutoSetupAsync", "startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
+  SETTABLEKS R15 R19 K31 ["uploadModelAsync"]
+  SETTABLEKS R14 R19 K32 ["serializeModel"]
+  SETTABLEKS R16 R19 K33 ["startSerializedAutoSetupAsync"]
+  SETTABLEKS R17 R19 K34 ["startAutoSetupAsync"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K35 ["autoSetupClickedSignal"]
+  SETTABLEKS R18 R19 K36 ["cancelAutoSetup"]
+  GETTABLEKS R20 R4 K38 ["createContext"]
+  MOVE R21 R19
+  CALL R20 1 1
+  RETURN R20 1

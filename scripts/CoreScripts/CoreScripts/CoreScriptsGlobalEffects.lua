@@ -19,19 +19,52 @@ local EventIngestService = game:GetService("EventIngestService")
 local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
 local eventIngest = EventIngest.new(EventIngestService)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+local UserInputService = game:GetService("UserInputService")
+local getInputGroup = require(CorePackages.Workspace.Packages.InputType).getInputGroup
+local useExternalEvent = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.useExternalEvent
+local FFlagRemoveLoggingHookForCorescriptGlobalEffects = game:DefineFastFlag("RemoveLoggingHookForCorescriptGlobalEffects", false)
+
+
+local function getLastInputType()
+	local lastInputType = UserInputService:GetLastInputType()
+	return getInputGroup(lastInputType)
+end
+
+local function sendInputTypeLogging(inputMethod: string?)
+	local gamepadConnected = UserInputService:GetGamepadConnected(Enum.UserInputType.Gamepad1)
+	local sessionId = if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then AnalyticsService:GetPlaySessionId() else nil
+	if inputMethod ~= nil then 
+		eventIngest:sendEventDeferred("inputTypeChanged", "inputTypeChanged", {
+			inputType = inputMethod,
+			gamepadConnected = gamepadConnected,
+			playSessionId = sessionId,
+		})
+	end
+end
 
 -- Mount this at the root to sit persistently while in-experience.
 local function CoreScriptsGlobalEffects(props)
-	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-		useLogInputTypeChanged(eventIngest, AnalyticsService:GetPlaySessionId())
-	else 
-		useLogInputTypeChanged(eventIngest)
-	end
+	if FFlagRemoveLoggingHookForCorescriptGlobalEffects then
+		React.useEffect(function()
+			sendInputTypeLogging(getLastInputType())
+		end, {})
+		local lastInputTypeChangedCallback = React.useCallback(function(lastInputType)
+			sendInputTypeLogging(getInputGroup(lastInputType))
+		end, {})
 
-	if GetFFlagLogOrientationChanged() then
-		local currentScreenOrientation = usePlayerCurrentScreenOrientation()
-		useLogOrientationChanged(eventIngest, currentScreenOrientation)
-	end
+		useExternalEvent(UserInputService.LastInputTypeChanged, lastInputTypeChangedCallback)
+   else
+		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+			useLogInputTypeChanged(eventIngest, AnalyticsService:GetPlaySessionId())
+		else 
+			useLogInputTypeChanged(eventIngest)
+		end
+
+		if GetFFlagLogOrientationChanged() then
+			local currentScreenOrientation = usePlayerCurrentScreenOrientation()
+			useLogOrientationChanged(eventIngest, currentScreenOrientation)
+		end
+    end
 
 	local styleOverride = {
 		deviceType = DeviceTypeEnum.Console,

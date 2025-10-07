@@ -47,6 +47,7 @@ local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListR
 local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
+local FFlagPlayerListAddConnectionButtonFocusNav = require(PlayerList.Flags.FFlagPlayerListAddConnectionButtonFocusNav)
 
 local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
@@ -138,6 +139,7 @@ function PlayerDropDown:createFriendButton(playerRelationship)
 		dropDownOpen = self.props.isVisible,
 		requestFriendship = self.props.requestFriendship,
 		contentVisible = self.state.contentVisible,
+		isUsingGamepad = if FFlagPlayerListAddConnectionButtonFocusNav then self.props.isUsingGamepad else nil,
 	})
 end
 

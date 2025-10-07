@@ -276,6 +276,21 @@ PROTO_6:
   NAMECALL R3 R3 K2 ["ToObjectSpace"]
   CALL R3 2 1
   GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+17]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["serialize"]
+  GETTABLEKS R6 R0 K4 ["Rotation"]
+  GETTABLEKS R8 R3 K5 ["Position"]
+  GETTABLEKS R10 R1 K0 ["state"]
+  GETTABLEKS R9 R10 K6 ["boundingSize"]
+  DIV R7 R8 R9
+  ADD R5 R6 R7
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  RETURN R4 1
+  GETUPVAL R5 1
   GETTABLEKS R4 R5 K3 ["serialize"]
   GETTABLEKS R6 R3 K4 ["Rotation"]
   GETTABLEKS R8 R3 K5 ["Position"]
@@ -285,8 +300,8 @@ PROTO_6:
   ADD R5 R6 R7
   MOVE R6 R1
   MOVE R7 R2
-  CALL R4 3 -1
-  RETURN R4 -1
+  CALL R4 3 1
+  RETURN R4 1
 
 PROTO_7:
   GETUPVAL R4 0
@@ -1780,174 +1795,180 @@ MAIN:
   GETIMPORT R4 K9 [require]
   GETTABLEKS R7 R1 K11 ["Src"]
   GETTABLEKS R6 R7 K14 ["Flags"]
-  GETTABLEKS R5 R6 K15 ["getFFlagAvatarPreviewerAttachmentFix"]
+  GETTABLEKS R5 R6 K15 ["getFFlagAvatarAutosetupOptionsInput"]
   CALL R4 1 1
-  NEWTABLE R5 32 0
-  DUPCLOSURE R6 K16 [PROTO_0]
-  SETTABLEKS R6 R5 K17 ["canEncodeStringSafely"]
-  DUPCLOSURE R6 K18 [PROTO_1]
-  SETTABLEKS R6 R5 K19 ["canEncodeNumberSafely"]
-  DUPCLOSURE R6 K20 [PROTO_2]
-  CAPTURE VAL R5
-  SETTABLEKS R6 R5 K21 ["cutPrecision"]
-  DUPCLOSURE R6 K22 [PROTO_3]
-  SETTABLEKS R6 R5 K23 ["cutListPrecision"]
-  NEWTABLE R6 0 64
-  LOADK R7 K24 ["alphaMode"]
-  LOADK R8 K25 ["archivable"]
-  LOADK R9 K26 ["attachmentPoint"]
-  LOADK R10 K27 ["autoJumpEnabled"]
-  LOADK R11 K28 ["autoRotate"]
-  LOADK R12 K29 ["autoSkin"]
-  LOADK R13 K30 ["automaticScalingEnabled"]
-  LOADK R14 K31 ["bindOffset"]
-  LOADK R15 K32 ["breakJointsOnDeath"]
-  LOADK R16 K33 ["c0"]
-  LOADK R17 K34 ["c1"]
-  LOADK R18 K35 ["cageOrigin"]
-  LOADK R19 K36 ["cameraOffset"]
-  LOADK R20 K37 ["cframe"]
-  LOADK R21 K38 ["children"]
-  LOADK R22 K39 ["className"]
-  SETLIST R6 R7 16 [1]
-  LOADK R7 K40 ["color"]
-  LOADK R8 K41 ["colorMap"]
-  LOADK R9 K42 ["displayDistanceType"]
-  LOADK R10 K43 ["displayName"]
-  LOADK R11 K44 ["enabled"]
-  LOADK R12 K45 ["evaluateStateMachine"]
-  LOADK R13 K46 ["headColor"]
-  LOADK R14 K47 ["health"]
-  LOADK R15 K48 ["healthDisplayDistance"]
-  LOADK R16 K49 ["healthDisplayType"]
-  LOADK R17 K50 ["hipHeight"]
-  LOADK R18 K51 ["importOrigin"]
-  LOADK R19 K52 ["jump"]
-  LOADK R20 K53 ["jumpPower"]
-  LOADK R21 K54 ["leftArmColor"]
-  LOADK R22 K55 ["leftLegColor"]
-  SETLIST R6 R7 16 [17]
-  LOADK R7 K56 ["material"]
-  LOADK R8 K57 ["materialVariant"]
-  LOADK R9 K58 ["maxHealth"]
-  LOADK R10 K59 ["maxSlopeAngle"]
-  LOADK R11 K60 ["meshId"]
-  LOADK R12 K61 ["metalnessMap"]
-  LOADK R13 K62 ["name"]
-  LOADK R14 K63 ["nameDisplayDistance"]
-  LOADK R15 K64 ["nameOcclusion"]
-  LOADK R16 K65 ["normalMap"]
-  LOADK R17 K66 ["order"]
-  LOADK R18 K67 ["part0"]
-  LOADK R19 K68 ["part1"]
-  LOADK R20 K69 ["puffiness"]
-  LOADK R21 K70 ["referenceMeshId"]
-  LOADK R22 K71 ["referenceOrigin"]
-  SETLIST R6 R7 16 [33]
-  LOADK R7 K72 ["reflectance"]
-  LOADK R8 K73 ["requiresNeck"]
-  LOADK R9 K74 ["rigType"]
-  LOADK R10 K75 ["rightArmColor"]
-  LOADK R11 K76 ["rightLegColor"]
-  LOADK R12 K77 ["roughnessMap"]
-  LOADK R13 K78 ["shrinkFactor"]
-  LOADK R14 K79 ["sit"]
-  LOADK R15 K80 ["size"]
-  LOADK R16 K81 ["texture"]
-  LOADK R17 K82 ["textureId"]
-  LOADK R18 K83 ["torsoColor"]
-  LOADK R19 K84 ["transparency"]
-  LOADK R20 K85 ["useJumpPower"]
-  LOADK R21 K86 ["value"]
-  LOADK R22 K87 ["walkSpeed"]
-  SETLIST R6 R7 16 [49]
-  LENGTH R9 R6
-  LOADN R10 64
-  JUMPIFLE R9 R10 [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  FASTCALL2K ASSERT R8 K88 [+4]
-  LOADK R9 K88 ["Too many well known ids"]
-  GETIMPORT R7 K90 [assert]
-  CALL R7 2 0
-  NEWTABLE R7 0 0
-  MOVE R8 R6
-  LOADNIL R9
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R8 R1 K11 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Flags"]
+  GETTABLEKS R6 R7 K16 ["getFFlagAvatarPreviewerAttachmentFix"]
+  CALL R5 1 1
+  NEWTABLE R6 32 0
+  DUPCLOSURE R7 K17 [PROTO_0]
+  SETTABLEKS R7 R6 K18 ["canEncodeStringSafely"]
+  DUPCLOSURE R7 K19 [PROTO_1]
+  SETTABLEKS R7 R6 K20 ["canEncodeNumberSafely"]
+  DUPCLOSURE R7 K21 [PROTO_2]
+  CAPTURE VAL R6
+  SETTABLEKS R7 R6 K22 ["cutPrecision"]
+  DUPCLOSURE R7 K23 [PROTO_3]
+  SETTABLEKS R7 R6 K24 ["cutListPrecision"]
+  NEWTABLE R7 0 64
+  LOADK R8 K25 ["alphaMode"]
+  LOADK R9 K26 ["archivable"]
+  LOADK R10 K27 ["attachmentPoint"]
+  LOADK R11 K28 ["autoJumpEnabled"]
+  LOADK R12 K29 ["autoRotate"]
+  LOADK R13 K30 ["autoSkin"]
+  LOADK R14 K31 ["automaticScalingEnabled"]
+  LOADK R15 K32 ["bindOffset"]
+  LOADK R16 K33 ["breakJointsOnDeath"]
+  LOADK R17 K34 ["c0"]
+  LOADK R18 K35 ["c1"]
+  LOADK R19 K36 ["cageOrigin"]
+  LOADK R20 K37 ["cameraOffset"]
+  LOADK R21 K38 ["cframe"]
+  LOADK R22 K39 ["children"]
+  LOADK R23 K40 ["className"]
+  SETLIST R7 R8 16 [1]
+  LOADK R8 K41 ["color"]
+  LOADK R9 K42 ["colorMap"]
+  LOADK R10 K43 ["displayDistanceType"]
+  LOADK R11 K44 ["displayName"]
+  LOADK R12 K45 ["enabled"]
+  LOADK R13 K46 ["evaluateStateMachine"]
+  LOADK R14 K47 ["headColor"]
+  LOADK R15 K48 ["health"]
+  LOADK R16 K49 ["healthDisplayDistance"]
+  LOADK R17 K50 ["healthDisplayType"]
+  LOADK R18 K51 ["hipHeight"]
+  LOADK R19 K52 ["importOrigin"]
+  LOADK R20 K53 ["jump"]
+  LOADK R21 K54 ["jumpPower"]
+  LOADK R22 K55 ["leftArmColor"]
+  LOADK R23 K56 ["leftLegColor"]
+  SETLIST R7 R8 16 [17]
+  LOADK R8 K57 ["material"]
+  LOADK R9 K58 ["materialVariant"]
+  LOADK R10 K59 ["maxHealth"]
+  LOADK R11 K60 ["maxSlopeAngle"]
+  LOADK R12 K61 ["meshId"]
+  LOADK R13 K62 ["metalnessMap"]
+  LOADK R14 K63 ["name"]
+  LOADK R15 K64 ["nameDisplayDistance"]
+  LOADK R16 K65 ["nameOcclusion"]
+  LOADK R17 K66 ["normalMap"]
+  LOADK R18 K67 ["order"]
+  LOADK R19 K68 ["part0"]
+  LOADK R20 K69 ["part1"]
+  LOADK R21 K70 ["puffiness"]
+  LOADK R22 K71 ["referenceMeshId"]
+  LOADK R23 K72 ["referenceOrigin"]
+  SETLIST R7 R8 16 [33]
+  LOADK R8 K73 ["reflectance"]
+  LOADK R9 K74 ["requiresNeck"]
+  LOADK R10 K75 ["rigType"]
+  LOADK R11 K76 ["rightArmColor"]
+  LOADK R12 K77 ["rightLegColor"]
+  LOADK R13 K78 ["roughnessMap"]
+  LOADK R14 K79 ["shrinkFactor"]
+  LOADK R15 K80 ["sit"]
+  LOADK R16 K81 ["size"]
+  LOADK R17 K82 ["texture"]
+  LOADK R18 K83 ["textureId"]
+  LOADK R19 K84 ["torsoColor"]
+  LOADK R20 K85 ["transparency"]
+  LOADK R21 K86 ["useJumpPower"]
+  LOADK R22 K87 ["value"]
+  LOADK R23 K88 ["walkSpeed"]
+  SETLIST R7 R8 16 [49]
+  LENGTH R10 R7
+  LOADN R11 64
+  JUMPIFLE R10 R11 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  FASTCALL2K ASSERT R9 K89 [+4]
+  LOADK R10 K89 ["Too many well known ids"]
+  GETIMPORT R8 K91 [assert]
+  CALL R8 2 0
+  NEWTABLE R8 0 0
+  MOVE R9 R7
   LOADNIL R10
-  FORGPREP R8
-  LOADK R15 K91 ["0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-"]
-  FASTCALL2 STRING_BYTE R15 R11 [+4]
-  MOVE R16 R11
-  GETIMPORT R14 K94 [string.byte]
-  CALL R14 2 -1
+  LOADNIL R11
+  FORGPREP R9
+  LOADK R16 K92 ["0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-"]
+  FASTCALL2 STRING_BYTE R16 R12 [+4]
+  MOVE R17 R12
+  GETIMPORT R15 K95 [string.byte]
+  CALL R15 2 -1
   FASTCALL STRING_CHAR [+2]
-  GETIMPORT R13 K96 [string.char]
-  CALL R13 -1 1
-  SETTABLE R13 R7 R12
-  FORGLOOP R8 2 [-13]
-  DUPCLOSURE R8 K97 [PROTO_4]
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  SETTABLEKS R8 R5 K98 ["serialize"]
-  DUPCLOSURE R8 K99 [PROTO_5]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R5 K100 ["serializeSize"]
-  DUPCLOSURE R8 K101 [PROTO_6]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R5 K102 ["serializePartCFrame"]
-  DUPCLOSURE R8 K103 [PROTO_7]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R5 K104 ["serializePosition"]
-  DUPCLOSURE R8 K105 [PROTO_8]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R5 K106 ["serializeAttachmentCFrame"]
-  DUPCLOSURE R8 K107 [PROTO_9]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R5 K108 ["serializeAttachmentPosition"]
-  DUPCLOSURE R8 K109 [PROTO_10]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R5 K110 ["serializeScalingHumanoidNumber"]
-  DUPCLOSURE R8 K111 [PROTO_11]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R5 K112 ["serializeReferenceInstance"]
-  NEWTABLE R8 4 0
-  LOADB R9 1
-  SETTABLEKS R9 R8 K113 ["BodyHeightScale"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K114 ["BodyWidthScale"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K115 ["BodyDepthScale"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K116 ["HeadScale"]
-  DUPCLOSURE R9 K117 [PROTO_12]
+  GETIMPORT R14 K97 [string.char]
+  CALL R14 -1 1
+  SETTABLE R14 R8 R13
+  FORGLOOP R9 2 [-13]
+  DUPCLOSURE R9 K98 [PROTO_4]
+  CAPTURE VAL R6
   CAPTURE VAL R8
-  SETTABLEKS R9 R5 K118 ["isScalingHumanoidNumber"]
-  DUPCLOSURE R9 K119 [PROTO_13]
+  SETTABLEKS R9 R6 K99 ["serialize"]
+  DUPCLOSURE R9 K100 [PROTO_5]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R6 K101 ["serializeSize"]
+  DUPCLOSURE R9 K102 [PROTO_6]
   CAPTURE VAL R4
-  SETTABLEKS R9 R5 K120 ["isAttachmentOriginalPositionValue"]
-  DUPCLOSURE R9 K121 [PROTO_14]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R6 K103 ["serializePartCFrame"]
+  DUPCLOSURE R9 K104 [PROTO_7]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R6 K105 ["serializePosition"]
+  DUPCLOSURE R9 K106 [PROTO_8]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R6 K107 ["serializeAttachmentCFrame"]
+  DUPCLOSURE R9 K108 [PROTO_9]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R6 K109 ["serializeAttachmentPosition"]
+  DUPCLOSURE R9 K110 [PROTO_10]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R6 K111 ["serializeScalingHumanoidNumber"]
+  DUPCLOSURE R9 K112 [PROTO_11]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R6 K113 ["serializeReferenceInstance"]
+  NEWTABLE R9 4 0
+  LOADB R10 1
+  SETTABLEKS R10 R9 K114 ["BodyHeightScale"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K115 ["BodyWidthScale"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K116 ["BodyDepthScale"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K117 ["HeadScale"]
+  DUPCLOSURE R10 K118 [PROTO_12]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R6 K119 ["isScalingHumanoidNumber"]
+  DUPCLOSURE R10 K120 [PROTO_13]
   CAPTURE VAL R5
-  CAPTURE VAL R4
-  SETTABLEKS R9 R5 K122 ["serializeInstanceRaw"]
-  DUPCLOSURE R9 K123 [PROTO_16]
-  CAPTURE VAL R4
+  SETTABLEKS R10 R6 K121 ["isAttachmentOriginalPositionValue"]
+  DUPCLOSURE R10 K122 [PROTO_14]
+  CAPTURE VAL R6
   CAPTURE VAL R5
-  SETTABLEKS R9 R5 K124 ["serializeChildren"]
-  DUPCLOSURE R9 K125 [PROTO_19]
-  CAPTURE VAL R4
+  SETTABLEKS R10 R6 K123 ["serializeInstanceRaw"]
+  DUPCLOSURE R10 K124 [PROTO_16]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  SETTABLEKS R10 R6 K125 ["serializeChildren"]
+  DUPCLOSURE R10 K126 [PROTO_19]
+  CAPTURE VAL R5
   CAPTURE VAL R3
-  SETTABLEKS R9 R5 K126 ["computeHashSerializeContext"]
-  LOADNIL R9
-  DUPCLOSURE R10 K127 [PROTO_20]
-  CAPTURE VAL R4
-  CAPTURE VAL R10
-  NEWCLOSURE R11 P18
+  SETTABLEKS R10 R6 K127 ["computeHashSerializeContext"]
+  LOADNIL R10
+  DUPCLOSURE R11 K128 [PROTO_20]
   CAPTURE VAL R5
+  CAPTURE VAL R11
+  NEWCLOSURE R12 P18
+  CAPTURE VAL R6
   CAPTURE VAL R0
   CAPTURE VAL R2
-  CAPTURE VAL R4
-  CAPTURE REF R9
-  CAPTURE VAL R10
-  SETTABLEKS R11 R5 K128 ["hashCharacter"]
-  CLOSEUPVALS R9
-  RETURN R5 1
+  CAPTURE VAL R5
+  CAPTURE REF R10
+  CAPTURE VAL R11
+  SETTABLEKS R12 R6 K129 ["hashCharacter"]
+  CLOSEUPVALS R10
+  RETURN R6 1

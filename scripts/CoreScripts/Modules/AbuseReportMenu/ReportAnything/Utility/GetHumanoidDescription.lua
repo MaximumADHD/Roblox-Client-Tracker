@@ -101,6 +101,9 @@ local getCurrentlyPlayingAnimations = function(humanoid)
 		if id then
 			table.insert(result, id)
 		end
+		if #result >= 8 then
+			break
+		end
 	end
 	return result
 end

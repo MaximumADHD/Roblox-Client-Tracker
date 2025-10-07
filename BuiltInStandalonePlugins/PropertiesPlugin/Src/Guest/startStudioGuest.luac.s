@@ -1,28 +1,42 @@
 PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Guest"]
+  GETTABLEKS R1 R2 K1 ["createInstanceGuestRPCInterface"]
+  MOVE R2 R0
+  DUPTABLE R3 K4 [{"historyTracker", "selection"}]
+  GETUPVAL R4 1
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K2 ["historyTracker"]
+  GETUPVAL R4 2
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K3 ["selection"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_1:
   GETUPVAL R0 0
   CALL R0 0 0
   GETUPVAL R0 1
   CALL R0 0 0
   RETURN R0 0
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 2
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K0 ["Guest"]
   GETTABLEKS R3 R4 K1 ["startGuest"]
-  DUPTABLE R4 K5 [{"guestConnectionObservable", "selection", "historyTracker"}]
+  DUPTABLE R4 K4 [{"guestConnectionObservable", "createInstanceGuestRPCInterface"}]
   SETTABLEKS R1 R4 K2 ["guestConnectionObservable"]
-  GETUPVAL R5 2
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K3 ["selection"]
-  GETUPVAL R5 3
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K4 ["historyTracker"]
+  DUPCLOSURE R5 K5 [PROTO_0]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  SETTABLEKS R5 R4 K3 ["createInstanceGuestRPCInterface"]
   CALL R3 1 1
   GETTABLEKS R4 R0 K6 ["Unloading"]
-  NEWCLOSURE R6 P0
+  NEWCLOSURE R6 P1
   CAPTURE VAL R3
   CAPTURE VAL R2
   NAMECALL R4 R4 K7 ["Connect"]
@@ -54,9 +68,9 @@ MAIN:
   GETTABLEKS R6 R7 K9 ["Guest"]
   GETTABLEKS R5 R6 K12 ["createStudioSelection"]
   CALL R4 1 1
-  DUPCLOSURE R5 K13 [PROTO_1]
+  DUPCLOSURE R5 K13 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R1
-  CAPTURE VAL R4
   CAPTURE VAL R3
+  CAPTURE VAL R4
   RETURN R5 1

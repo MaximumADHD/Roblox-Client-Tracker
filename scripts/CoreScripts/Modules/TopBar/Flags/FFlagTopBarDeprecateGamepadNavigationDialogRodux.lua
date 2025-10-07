@@ -1,0 +1,3 @@
+local FFlagTopBarDeprecateGamepadNavigationDialogRodux = game:DefineFastFlag("TopBarDeprecateGamepadNavigationDialogRodux", false)
+
+return FFlagTopBarDeprecateGamepadNavigationDialogRodux

@@ -12,8 +12,6 @@ local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerV
 
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
-
-local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 local FFlagDebugSelfViewPerfBenchmark = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false)
 local GetFFlagSelfieViewMoreFixMigration =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewMoreFixMigration
@@ -346,11 +344,7 @@ local function updateClone(player: Player?)
 	end
 
 	local cloneHumanoid = nil
-	if FFlagSelfViewLookUpHumanoidByType then
-		cloneHumanoid = clone:FindFirstChildWhichIsA("Humanoid")
-	else
-		cloneHumanoid = clone:FindFirstChild("Humanoid") :: Humanoid
-	end
+	cloneHumanoid = clone:FindFirstChildWhichIsA("Humanoid")
 	if cloneHumanoid then
 		cloneHumanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 	end
@@ -477,11 +471,7 @@ local function characterAdded(character)
 	clearObserver(Observer.Color)
 
 	local humanoid = nil
-	if FFlagSelfViewLookUpHumanoidByType then
-		humanoid = character:FindFirstChildWhichIsA("Humanoid")
-	else
-		humanoid = character:FindFirstChild("Humanoid") :: Humanoid
-	end
+	humanoid = character:FindFirstChildWhichIsA("Humanoid")
 
 	if humanoid then
 		addHumanoidStateChangedObserver(humanoid)
@@ -500,16 +490,9 @@ local function characterAdded(character)
 			updateCachedHeadColor(headRef)
 		end
 
-		if FFlagSelfViewLookUpHumanoidByType then
-			if descendant:IsA("Humanoid") then
-				local humanoid = descendant
-				addHumanoidStateChangedObserver(humanoid)
-			end
-		else
-			if descendant.Name == "Humanoid" or descendant:IsA("Humanoid") then
-				local humanoid = descendant
-				addHumanoidStateChangedObserver(humanoid)
-			end
+		if descendant:IsA("Humanoid") then
+			local humanoid = descendant
+			addHumanoidStateChangedObserver(humanoid)
 		end
 
 		if ModelUtils.shouldMarkCloneDirtyForDescendant(descendant) then
@@ -608,11 +591,7 @@ local function onCharacterAdded(character: Model)
 
 	clearObserver(Observer.HumanoidStateChanged)
 	local humanoid = nil
-	if FFlagSelfViewLookUpHumanoidByType then
-		humanoid = character:FindFirstChildWhichIsA("Humanoid")
-	else
-		humanoid = character:FindFirstChild("Humanoid") :: Humanoid
-	end
+	humanoid = character:FindFirstChildWhichIsA("Humanoid")
 	if humanoid then
 		addHumanoidStateChangedObserver(humanoid)
 	end

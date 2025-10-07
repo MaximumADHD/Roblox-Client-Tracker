@@ -28,6 +28,7 @@ local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
+local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
@@ -197,20 +198,22 @@ if GetFFlagEnableJoinVoiceOnUnibar() and game:GetEngineFeature("VoiceChatSupport
 		VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(HideOrShowJoinVoiceButton)
 	end
 	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
-		VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
-			if FFlagJoinVoiceHideWhenPartyVoiceFocused then
-				setAvailability(ChromeService.AvailabilitySignal.Unavailable)
-			else
-				joinVoice.availability:unavailable()
-			end
-		end)
-		VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
-			if FFlagJoinVoiceHideWhenPartyVoiceFocused then
-				setAvailability(ChromeService.AvailabilitySignal.Available)
-			else
-				joinVoice.availability:available()
-			end
-		end)
+		if not GetFFlagEnableVoiceUxUpdates() then
+			VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
+				if FFlagJoinVoiceHideWhenPartyVoiceFocused then
+					setAvailability(ChromeService.AvailabilitySignal.Unavailable)
+				else
+					joinVoice.availability:unavailable()
+				end
+			end)
+			VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
+				if FFlagJoinVoiceHideWhenPartyVoiceFocused then
+					setAvailability(ChromeService.AvailabilitySignal.Available)
+				else
+					joinVoice.availability:available()
+				end
+			end)
+		end
 	else
 		VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(HideOrShowJoinVoiceButton)
 	end
