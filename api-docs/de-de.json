@@ -3892,6 +3892,80 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/EnumItem#EnumType",
     "code_sample": ""
   },
+  "@roblox/global/ValueCurveKey": {
+    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "keys": {
+      "new": "@roblox/global/ValueCurveKey.new"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey",
+    "code_sample": ""
+  },
+  "@roblox/global/ValueCurveKey.new/param/0": {
+    "documentation": "Time at which to create the new <code>ValueCurveKey</code>."
+  },
+  "@roblox/global/ValueCurveKey.new/param/1": {
+    "documentation": "Value of the new <code>ValueCurveKey</code>."
+  },
+  "@roblox/global/ValueCurveKey.new/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/ValueCurveKey.new": {
+    "documentation": "Returns a new <code>ValueCurveKey</code> from the given time and value.",
+    "params": [
+      {
+        "name": "time",
+        "documentation": "@roblox/global/ValueCurveKey.new/param/0"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/global/ValueCurveKey.new/param/1"
+      },
+      {
+        "name": "Interpolation",
+        "documentation": "@roblox/global/ValueCurveKey.new/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#new",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey": {
+    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "keys": {
+      "Interpolation": "@roblox/globaltype/ValueCurveKey.Interpolation",
+      "Time": "@roblox/globaltype/ValueCurveKey.Time",
+      "Value": "@roblox/globaltype/ValueCurveKey.Value",
+      "RightTangent": "@roblox/globaltype/ValueCurveKey.RightTangent",
+      "LeftTangent": "@roblox/globaltype/ValueCurveKey.LeftTangent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.Interpolation": {
+    "documentation": "The key interpolation mode for the segment started by this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Interpolation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.Time": {
+    "documentation": "The time position of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Time",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.Value": {
+    "documentation": "The value of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Value",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.RightTangent": {
+    "documentation": "The tangent to the right of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#RightTangent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.LeftTangent": {
+    "documentation": "The tangent to the left of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#LeftTangent",
+    "code_sample": ""
+  },
   "@roblox/global/Font": {
     "documentation": "Beschreibt die Schriftart, die zum Rendern von Text verwendet wird.",
     "keys": {
@@ -11868,7 +11942,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann.",
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können.",
     "keys": {
       "FinishRecording": "@roblox/globaltype/ChangeHistoryService.FinishRecording",
       "GetCanRedo": "@roblox/globaltype/ChangeHistoryService.GetCanRedo",
@@ -11885,19 +11959,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/1": {
-    "documentation": "Identifiziert die Aufzeichnung aus dem vorherigen Aufruf von <code>TryBeginRecording()</code>. Wenn die Operation <code>ChangeHistoryService.FinishRecordingOperation.Cancel</code> ist, wird dieser Wert ignoriert und die Aufzeichnung wird kontextabhängig bestimmt."
+    "documentation": "Identifiziert die Aufnahme aus dem vorherigen Aufruf von <code>TryBeginRecording()</code>. Wenn die Operation <code>ChangeHistoryService.FinishRecordingOperation.Cancel</code> ist, wird dieser Wert ignoriert, und die Aufnahme wird durch den Kontext bestimmt."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/2": {
-    "documentation": "Spezifiziert die durchzuführende Operation."
+    "documentation": "Spezifiziert die auszuführende Operation."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/3": {
-    "documentation": "Optionaler Tabelle von Werten, die an <code>OnFinishRecording</code> übergeben werden."
+    "documentation": "Optionale Tabelle von Werten, die an <code>OnFinishRecording</code> übergeben werden."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording": {
-    "documentation": "Kommuniziert mit Studio, dass die identifizierte Aufzeichnung abgeschlossen ist und dass die endgültige Operation durchgeführt werden soll, um die Aufzeichnung abzuschließen.",
+    "documentation": "Kommuniziert an Studio, dass die identifizierte Aufzeichnung abgeschlossen ist und führt die letzte Operation aus, um die Aufnahme abzuschließen.",
     "params": [
       {
         "name": "self",
@@ -11921,13 +11995,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanRedo/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanRedo/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanRedo": {
-    "documentation": "Gibt zurück, ob es Aktionen gibt, die wiederhergestellt werden können, und wenn ja, wird die letzte dieser Aktionen zurückgegeben.",
+    "documentation": "Gibt zurück, ob es Aktionen gibt, die wiederholt werden können, und gibt, falls vorhanden, die letzte davon zurück.",
     "params": [
       {
         "name": "self",
@@ -11941,13 +12015,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanUndo/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanUndo/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanUndo": {
-    "documentation": "Gibt zurück, ob es Aktionen gibt, die rückgängig gemacht werden können, und wenn ja, wird die letzte dieser Aktionen zurückgegeben.",
+    "documentation": "Gibt zurück, ob es Aktionen gibt, die rückgängig gemacht werden können, und gibt, falls vorhanden, die letzte davon zurück.",
     "params": [
       {
         "name": "self",
@@ -11961,7 +12035,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.IsRecordingInProgress/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.IsRecordingInProgress/param/1": {
     "documentation": ""
@@ -11988,7 +12062,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.Redo/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.Redo": {
     "documentation": "Führt die letzte rückgängig gemachte Aktion aus.",
@@ -12003,7 +12077,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.ResetWaypoints/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.ResetWaypoints": {
     "documentation": "Löscht die Historie, wodurch alle Rückgängig/Wiederherstellen-Wegpunkte entfernt werden.",
@@ -12018,7 +12092,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.SetEnabled/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.SetEnabled/param/1": {
     "documentation": ""
@@ -12040,13 +12114,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.SetWaypoint/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.SetWaypoint/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/ChangeHistoryService.SetWaypoint": {
-    "documentation": "Setzt einen neuen Wegpunkt, der als Rückgängig- oder Wiederherstellen-Punkt verwendet werden kann.",
+    "documentation": "Legt einen neuen Wegpunkt fest, der als Rückgängig- oder Wiederherstellungspunkt verwendet werden kann.",
     "params": [
       {
         "name": "self",
@@ -12062,10 +12136,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording/param/1": {
-    "documentation": "Name der durchgeführten Aktion, geeignet für Protokollierungs- und Codierungszwecke."
+    "documentation": "Name der durchgeführten Aktion, geeignet für Protokollierungs- und Codierzwecke."
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording/param/2": {
     "documentation": "Name der durchgeführten Aktion, die dem Benutzer angezeigt wird."
@@ -12074,7 +12148,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording": {
-    "documentation": "Beginnt mit der Verfolgung von Änderungen am Datenmodell in einer Aufzeichnung.",
+    "documentation": "Beginnt, Änderungen am Datenmodell in einer Aufnahme zu verfolgen.",
     "params": [
       {
         "name": "self",
@@ -12096,7 +12170,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.Undo/param/0": {
-    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie man die Änderungen, die sie am Erlebnis vornehmen, rückgängig machen und wiederherstellen kann."
+    "documentation": "<strong>Muss</strong> von Plugins verwendet werden, um Studio mitzuteilen, wie die Änderungen, die sie an der Erfahrung vornehmen, rückgängig gemacht und erneut durchgeführt werden können."
   },
   "@roblox/globaltype/ChangeHistoryService.Undo": {
     "documentation": "Macht die letzte Aktion rückgängig, für die ein Wegpunkt existiert.",
@@ -12276,7 +12350,7 @@
     "returns": []
   },
   "@roblox/globaltype/ChangeHistoryService.OnRecordingStarted": {
-    "documentation": "Wird ausgelöst, wenn der Benutzer eine Aktion beginnt. Die Parameter stammen von <code>TryBeginRecording()</code>.",
+    "documentation": "Wird ausgelöst, wenn der Benutzer mit einer Aktion beginnt. Die Parameter stammen von <code>TryBeginRecording()</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/ChangeHistoryService.OnRecordingStarted.Connect",
       "ConnectParallel": "@roblox/globaltype/ChangeHistoryService.OnRecordingStarted.ConnectParallel",
@@ -12364,7 +12438,7 @@
     "returns": []
   },
   "@roblox/globaltype/ChangeHistoryService.OnRedo": {
-    "documentation": "Wird ausgelöst, wenn der Benutzer den Rückgängig-Befehl umkehrt. Der Wegpunkt beschreibt die Art von Aktion, die wiederhergestellt wurde.",
+    "documentation": "Wird ausgelöst, wenn der Benutzer den Rückgängig-Befehl umkehrt. Der Wegpunkt beschreibt die Art der Aktion, die wiederholt wurde.",
     "keys": {
       "Connect": "@roblox/globaltype/ChangeHistoryService.OnRedo.Connect",
       "ConnectParallel": "@roblox/globaltype/ChangeHistoryService.OnRedo.ConnectParallel",
@@ -12452,7 +12526,7 @@
     "returns": []
   },
   "@roblox/globaltype/ChangeHistoryService.OnUndo": {
-    "documentation": "Wird ausgelöst, wenn der Benutzer eine Aktion in Studio rückgängig macht. Der Wegpunkt beschreibt die Art von Aktion, die rückgängig gemacht wurde.",
+    "documentation": "Wird ausgelöst, wenn der Benutzer eine Aktion in Studio rückgängig macht. Der Wegpunkt beschreibt die action that has been undone.",
     "keys": {
       "Connect": "@roblox/globaltype/ChangeHistoryService.OnUndo.Connect",
       "ConnectParallel": "@roblox/globaltype/ChangeHistoryService.OnUndo.ConnectParallel",
@@ -23378,7 +23452,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer": {
-    "documentation": "<code>WrapTextureTransfer</code> allows a parent <code>Decal</code> to be wrapped around its parent <code>MeshPart</code> based on the cage of its <code>WrapTarget</code>.",
+    "documentation": "<code>WrapTextureTransfer</code> ermöglicht es einem Eltern-<code>Decal</code>, um sein Eltern-<code>MeshPart</code> basierend auf dem Käfig seiner <code>WrapTarget</code> gewickelt zu werden.",
     "keys": {
       "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
       "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
@@ -23388,17 +23462,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
-    "documentation": "An optional reference mesh used for pruning and validating the target cage.",
+    "documentation": "Ein optionales Referenzmesh, das zur Prüfung und Validierung des Zielkäfigs verwendet wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMaxBound": {
-    "documentation": "Determines the maximum bound of the UV space to include in the transfer.",
+    "documentation": "Bestimmt die maximale Grenze des UV-Raums, die im Transfer enthalten sein soll.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMaxBound",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMinBound": {
-    "documentation": "Determines the minimum bound of the UV space to include in the transfer.",
+    "documentation": "Bestimmt die minimale Grenze des UV-Raums, die im Transfer enthalten sein soll.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMinBound",
     "code_sample": ""
   },
@@ -28441,7 +28515,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment": {
-    "documentation": "HandleAdornment ist eine abstrakte Klasse, die von 3D-Griffdekorationen geerbt wird.",
+    "documentation": "Eine abstrakte Klasse, die von 3D-Griffverzierungselementen abgeleitet wird.",
     "keys": {
       "AdornCullingMode": "@roblox/globaltype/HandleAdornment.AdornCullingMode",
       "AlwaysOnTop": "@roblox/globaltype/HandleAdornment.AlwaysOnTop",
@@ -28458,7 +28532,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.AlwaysOnTop": {
-    "documentation": "Zwingt dieses Objekt, über allen 3D-Objekten im Arbeitsbereich angezeigt zu werden.",
+    "documentation": "Zwingt diese Verzierung, über allen 3D-Objekten im Arbeitsbereich gerendert zu werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#AlwaysOnTop",
     "code_sample": ""
   },
@@ -28473,7 +28547,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.ZIndex": {
-    "documentation": "Bestimmt die Zeichnungsreihenfolge der <code>HandleAdornment</code>.",
+    "documentation": "Bestimmt die Zeichenreihenfolge dieser <code>HandleAdornment</code>, wenn <code>AlwaysOnTop</code> <code>true</code> ist.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#ZIndex",
     "code_sample": ""
   },
@@ -28555,7 +28629,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "Wird ausgelöst, wenn ein Benutzer die linke Maustaste drückt, während er über die Dekoration schwebt.",
+    "documentation": "Wird ausgelöst, wenn ein Spieler seine linke Maustaste drückt, während er über die Verzierung schwebt.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -28643,7 +28717,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "Wird ausgelöst, wenn ein Benutzer die linke Maustaste loslässt, während er über die Dekoration schwebt.",
+    "documentation": "Wird ausgelöst, wenn ein Spieler seine linke Maustaste loslässt, während er über die Verzierung schwebt.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -28731,7 +28805,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseEnter": {
-    "documentation": "Wird ausgelöst, wenn ein Benutzer die Maus über die Dekoration bewegt.",
+    "documentation": "Wird ausgelöst, wenn ein Spieler seine Maus über die Verzierung bewegt.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseEnter.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseEnter.ConnectParallel",
@@ -28819,7 +28893,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseLeave": {
-    "documentation": "Wird ausgelöst, wenn ein Benutzer die Maus aus der Dekoration bewegt.",
+    "documentation": "Wird ausgelöst, wenn ein Spieler seine Maus aus der Verzierung bewegt.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseLeave.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseLeave.ConnectParallel",
@@ -35468,7 +35542,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment": {
-    "documentation": "Die PVAdornment-Klasse ist eine abstrakte Klasse, deren Erben an Objekten der PVInstance-Klasse angebracht werden können.",
+    "documentation": "Eine abstrakte Klasse, deren Erben Objekten der Klasse <code>PVInstance</code> zugeordnet werden können.",
     "keys": {
       "Adornee": "@roblox/globaltype/PVAdornment.Adornee"
     },
@@ -35476,7 +35550,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment.Adornee": {
-    "documentation": "Das <code>PVInstance</code>, an das die PVAdornment angehängt ist.",
+    "documentation": "Die <code>PVInstance</code>, an die dieses <code>PVAdornment</code> angehängt ist.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PVAdornment#Adornee",
     "code_sample": ""
   },
@@ -38319,7 +38393,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf.",
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt.",
     "keys": {
       "AngleAttenuation": "@roblox/globaltype/AudioListener.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioListener.AudioInteractionGroup",
@@ -38339,7 +38413,7 @@
     "code_sample": "local listener = Instance.new(\"AudioListener\")\nlocal output = Instance.new(\"AudioDeviceOutput\")\nlocal wire = Instance.new(\"Wire\")\n\nlistener.Parent = workspace.Camera\nwire.Parent = listener\noutput.Parent = wire\n\nwire.SourceInstance = listener\nwire.TargetInstance = output"
   },
   "@roblox/globaltype/AudioListener.AngleAttenuation": {
-    "documentation": "Stellt dar, wie sich die wahrgenommene Lautstärke des emittierten Schalls basierend auf dem Winkel zwischen einem <code>AudioEmitter</code> und dem <code>LookVector</code>, das mit dem <code>AudioListener</code> verbunden ist, ändert.",
+    "documentation": "Stellt dar, wie sich das wahrgenommene Volumen des ausgestrahlten Geräusches je nach einem Winkel zwischen einem <code>AudioEmitter</code> und dem <code>LookVector</code> des <code>AudioListener</code> verändert.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#AngleAttenuation",
     "code_sample": ""
   },
@@ -38349,23 +38423,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.DistanceAttenuation": {
-    "documentation": "Stellt dar, wie sich die wahrgenommene Lautstärke emittierter Geräusche ändert, während sich die Entfernung zwischen <code>AudioEmitters</code> und dem <code>AudioListener</code> erhöht.",
+    "documentation": "Stellt dar, wie sich das wahrgenommene Volumen der ausgestrahlten Geräusche verändert, während die Entfernung zwischen <code>AudioEmitters</code> und dem <code>AudioListener</code> zunimmt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#DistanceAttenuation",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.SimulationFidelity": {
-    "documentation": "Steuert, wie detailliert die Audio-Simulation für diesen <code>AudioListener</code> sein sollte.",
+    "documentation": "<strong>Deprecated:</strong> <br>Steuert, wie detailliert die Audiosimulation für diesen <code>AudioListener</code> sein sollte.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#SimulationFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetAngleAttenuation/param/0": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf."
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt."
   },
   "@roblox/globaltype/AudioListener.GetAngleAttenuation/return/0": {
-    "documentation": "Tabelle, die Winkel auf Lautstärke abbildet, wie oben beschrieben."
+    "documentation": "Tabelle, die Winkel auf Volumen abbildet, wie oben beschrieben."
   },
   "@roblox/globaltype/AudioListener.GetAngleAttenuation": {
-    "documentation": "Bekommt die Winkelabschwächungskurve, die der <code>AudioListener</code> verwendet, oder eine leere Tabelle, wenn die Standardkurve verwendet wird.",
+    "documentation": "Erhält die Winkelabschwächungskurve, die der <code>AudioListener</code> verwendet, oder eine leere Tabelle, wenn die Standardkurve verwendet wird.",
     "params": [
       {
         "name": "self",
@@ -38379,7 +38453,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor/param/0": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf."
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt."
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor/param/1": {
     "documentation": ""
@@ -38406,7 +38480,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/0": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf."
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt."
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/1": {
     "documentation": ""
@@ -38433,13 +38507,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetDistanceAttenuation/param/0": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf."
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt."
   },
   "@roblox/globaltype/AudioListener.GetDistanceAttenuation/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetDistanceAttenuation": {
-    "documentation": "Bekommt die Distanzabschwächungskurve, die der <code>AudioListener</code> verwendet, oder eine leere Tabelle, wenn die Standardkurve verwendet wird.",
+    "documentation": "Erhält die Distanzabschwächungskurve, die der <code>AudioListener</code> verwendet, oder eine leere Tabelle, wenn die Standardkurve verwendet wird.",
     "params": [
       {
         "name": "self",
@@ -38453,7 +38527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetInputPins/param/0": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf."
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt."
   },
   "@roblox/globaltype/AudioListener.GetInputPins/return/0": {
     "documentation": ""
@@ -38473,7 +38547,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters/param/0": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf."
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt."
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters/return/0": {
     "documentation": ""
@@ -38493,7 +38567,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/param/0": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf."
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt."
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/return/0": {
     "documentation": ""
@@ -38513,13 +38587,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.SetAngleAttenuation/param/0": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf."
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt."
   },
   "@roblox/globaltype/AudioListener.SetAngleAttenuation/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.SetAngleAttenuation": {
-    "documentation": "Setzt die Winkelabschwächungskurve, die der <code>AudioListener</code> verwenden sollte, oder verwendet eine konstante Kurve mit Lautstärke <code>1</code>, wenn keine angegeben wird.",
+    "documentation": "Setzt die Winkelabschwächungskurve, die der <code>AudioListener</code> verwenden sollte, oder verwendet eine konstante Kurve mit dem Volumen <code>1</code>, wenn keine bereitgestellt wird.",
     "params": [
       {
         "name": "self",
@@ -38535,13 +38609,13 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal currentCamera = Workspace.CurrentCamera\n\nlocal listener = Instance.new(\"AudioListener\")\nlistener.Parent = currentCamera\nlocal wire = Instance.new(\"Wire\")\nwire.Parent = listener\nlocal output = Instance.new(\"AudioDeviceOutput\")\noutput.Parent = wire\n\nlistener:SetAngleAttenuation({\n\t[0] = 1, --Emitter direkt vor dem Hörer haben die volle Lautstärke\n\t[180] = 0.5 --Emitter direkt hinter dem Hörer haben die halbe Lautstärke\n})\n\nwire.SourceInstance = listener\nwire.TargetInstance = output"
   },
   "@roblox/globaltype/AudioListener.SetDistanceAttenuation/param/0": {
-    "documentation": "Nimmt einen Audio-Stream von seiner Umgebung <code>AudioEmitters</code> in der 3D-Welt auf."
+    "documentation": "Nehmt einen Audiostream von der Umgebung auf <code>AudioEmitters</code> in der 3D-Welt."
   },
   "@roblox/globaltype/AudioListener.SetDistanceAttenuation/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.SetDistanceAttenuation": {
-    "documentation": "Setzt die Distanzabschwächungskurve, die der <code>AudioListener</code> verwenden sollte, oder verwendet eine inverse Abrollkurve, wenn keine angegeben wird.",
+    "documentation": "Setzt die Distanzabschwächungskurve, die der <code>AudioListener</code> verwenden sollte, oder verwendet eine inverse Abrollkurve, wenn keine bereitgestellt wird.",
     "params": [
       {
         "name": "self",
@@ -38634,7 +38708,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioListener.WiringChanged": {
-    "documentation": "Feuert, wenn eine andere Instanz mit dem <code>AudioListener</code> über ein <code>Wire</code> verbunden oder davon getrennt wird.",
+    "documentation": "Wird ausgelöst, wenn eine andere Instanz mit dem <code>AudioListener</code> über einen <code>Wire</code> verbunden oder getrennt wird.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioListener.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioListener.WiringChanged.ConnectParallel",
@@ -44188,7 +44262,7 @@
   "@roblox/globaltype/Player.PartyId": {
     "documentation": "Ein einzigartiger Identifikator der Gruppe, zu der ein <code>Player</code> gehört.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Spieler ist in einer Gruppe mit ID: \" .. partyId)\n\telse\n\t\tprint(\"Spieler ist nicht in einer Gruppe\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"Spieler ist der Gruppe mit ID beigetreten: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"Spieler hat die Gruppe verlassen\")\n\t\tend\n\tend)\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Der Spieler ist in einer Gruppe mit ID: \" .. partyId)\n\telse\n\t\tprint(\"Der Spieler ist nicht in einer Gruppe\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"Spieler ist der Gruppe mit ID beigetreten: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"Spieler hat die Gruppe verlassen\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
     "documentation": "Legt den Teil fest, um den die Replikation fokussiert wird.",
@@ -47540,10 +47614,10 @@
     "documentation": "Die userId des <code>Player</code>."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/return/0": {
-    "documentation": "Gibt <code>TextSource</code> und <code>true</code> zurück, wenn ein neuer <code>TextSource</code> für den Benutzer erstellt wird, <code>TextSource</code> und <code>false</code>, wenn bereits ein existierender <code>TextSource</code> vorliegt, oder <code>nil</code> und <code>false</code>, wenn der Benutzer den Chat ausgeschaltet hat oder sich nicht auf diesem Server befindet."
+    "documentation": "Gibt <code>TextSource</code> und <code>true</code> zurück, wenn eine neue <code>TextSource</code> für den Benutzer erstellt wird, <code>TextSource</code> und <code>false</code>, wenn es eine vorhandene <code>TextSource</code> gibt, oder <code>nil</code> und <code>false</code>, wenn der Benutzer den Chat deaktiviert hat oder sich nicht in  diesem Server befindet."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync": {
-    "documentation": "Fügt einen <code>TextSource</code> zum <code>TextChannel</code> mit der angegebenen userId eines <code>Player</code> hinzu.",
+    "documentation": "Fügt der <code>TextChannel</code> die <code>TextSource</code> des gegebenen userId eines <code>Player</code> hinzu.",
     "params": [
       {
         "name": "self",
@@ -47567,10 +47641,10 @@
     "documentation": "Die Systemnachricht, die an den <code>TextChannel</code> gesendet wird."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/param/2": {
-    "documentation": "Verwenden Sie dies, um Systemnachrichtentypen zu identifizieren, wie z.B. die standardmäßigen Systemnachrichten."
+    "documentation": "Verwendet zur Identifizierung von Systemnachrichtentypen, z. B. der Standard-Systemnachrichten."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/return/0": {
-    "documentation": "Eine <code>TextChatMessage</code> mit der <code>TextChatMessage.Status</code>-Eigenschaft,  die den Zustand der Nachricht angibt."
+    "documentation": "Eine <code>TextChatMessage</code> mit der <code>TextChatMessage.Status</code> Eigenschaft, die den Zustand der Nachricht angibt."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage": {
     "documentation": "Zeigt eine Systemnachricht an den Benutzer an.",
@@ -47601,10 +47675,10 @@
     "documentation": "Die Nachricht, die an den <code>TextChannel</code> gesendet werden soll."
   },
   "@roblox/globaltype/TextChannel.SendAsync/param/2": {
-    "documentation": "Benutzerdefinierte Metadaten, die der Nachricht angehängt werden sollen."
+    "documentation": "Benutzerdefinierte Metadaten, die an die Nachricht angehängt werden sollen."
   },
   "@roblox/globaltype/TextChannel.SendAsync/return/0": {
-    "documentation": "Eine <code>TextChatMessage</code> mit der <code>TextChatMessage.Status</code>-Eigenschaft,  die den Zustand der Nachricht angibt."
+    "documentation": "Eine <code>TextChatMessage</code> mit der <code>TextChatMessage.Status</code>- Eigenschaft, die den Zustand der Nachricht angibt."
   },
   "@roblox/globaltype/TextChannel.SendAsync": {
     "documentation": "Sendet eine <code>TextChatMessage</code> an den Server.",
@@ -47635,7 +47709,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
-    "documentation": "Setzt den <code>DirectChatRequester</code> für den <code>TextChannel</code>. Der <code>TextChannel</code> liefert nur Nachrichten an Benutzer,  die direkte Nachrichten an den <code>DirectChatRequester</code> senden können.",
+    "documentation": "Setzt den <code>DirectChatRequester</code> für den <code>TextChannel</code>. Der <code>TextChannel</code> liefert Nachrichten nur an Benutzer, die direkte Nachrichten an den <code>DirectChatRequester</code> senden können.",
     "params": [
       {
         "name": "self",
@@ -47654,7 +47728,7 @@
     "documentation": "Die eingehende <code>TextChatMessage</code>."
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage/return/0": {
-    "documentation": "Wenn eine <code>TextChatMessageProperties</code> zurückgegeben wird, werden diese Eigenschaften  mit dem <code>TextChatMessage</code>-Parameter zusammengeführt, um eine neue <code>TextChatMessage</code> mit diesen Eigenschaften zu erstellen."
+    "documentation": "Wenn eine <code>TextChatMessageProperties</code> zurückgegeben wird, werden diese Eigenschaften mit dem Parameter <code>TextChatMessage</code> vermengt, um eine neue <code>TextChatMessage</code> mit diesen Eigenschaften zu erstellen."
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage": {
     "documentation": "Wird aufgerufen, wenn <code>TextChannel</code> eine eingehende Nachricht empfängt.",
@@ -47671,7 +47745,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/param/0": {
-    "documentation": "Die gesendete Nachricht, die auch den Absender der Nachricht enthält."
+    "documentation": "Die Nachricht, die gesendet wird, die auch den Absender der Nachricht enthält."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/param/1": {
     "documentation": "Die <code>TextSource</code> des Benutzers, der die Nachricht empfangen wird."
@@ -47680,7 +47754,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
-    "documentation": "Wird für jeden Client aufgerufen, wenn <code>TextChannel</code> eine eingehende Nachricht empfängt, um zu bestimmen, ob sie an diesen Client zugestellt werden soll oder nicht.",
+    "documentation": "Wird für jeden Client aufgerufen, wenn <code>TextChannel</code> eine eingehende Nachricht empfängt, um zu bestimmen, ob sie an diesen Client geliefert werden soll oder nicht.",
     "params": [
       {
         "name": "message",
@@ -47775,7 +47849,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextChannel.MessageReceived": {
-    "documentation": "Wird ausgelöst, wenn <code>TextChannel:DisplaySystemMessage()</code> auf dem Client aufgerufen wird oder wenn der Client eine gültige <code>TextChannel:SendAsync()</code>-Antwort vom Server erhält.",
+    "documentation": "Ausgelöst, wenn <code>TextChannel:DisplaySystemMessage()</code> auf dem Client aufgerufen wird oder wenn der Client eine gültige <code>TextChannel:SendAsync()</code>-Antwort vom Server erhält.",
     "keys": {
       "Connect": "@roblox/globaltype/TextChannel.MessageReceived.Connect",
       "ConnectParallel": "@roblox/globaltype/TextChannel.MessageReceived.ConnectParallel",
@@ -52677,7 +52751,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment": {
-    "documentation": "",
+    "documentation": "Zeichnet ein Drahtgitter-Dekorationsobjekt aus einer oder mehreren Linien auf ein <code>BasePart</code> (einschließlich <code>Terrain</code>) oder in den <code>Workspace</code>.",
     "keys": {
       "Scale": "@roblox/globaltype/WireframeHandleAdornment.Scale",
       "Thickness": "@roblox/globaltype/WireframeHandleAdornment.Thickness",
@@ -52691,26 +52765,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Scale": {
-    "documentation": "",
+    "documentation": "Die <strong>XYZ</strong>-Skalierung der Drahtgitter-Dekoration.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Thickness": {
-    "documentation": "",
+    "documentation": "Dicke der Linien des Drahtgitter-Dekorationsobjekts in Pixel.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/0": {
-    "documentation": ""
+    "documentation": "Zeichnet ein Drahtgitter-Dekorationsobjekt aus einer oder mehreren Linien auf ein <code>BasePart</code> (einschließlich <code>Terrain</code>) oder in den <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/1": {
-    "documentation": ""
+    "documentation": "Startpunkt der Linie."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/2": {
-    "documentation": ""
+    "documentation": "Endpunkt der Linie."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine": {
-    "documentation": "",
+    "documentation": "Fügt eine Linie zur Drahtgitter-Dekoration von einem Startpunkt zu einem Endpunkt relativ zum Mittelpunkt der <code>Adornee</code> hinzu.",
     "params": [
       {
         "name": "self",
@@ -52727,16 +52801,16 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#AddLine",
-    "code_sample": ""
+    "code_sample": "local wireframe = script.Parent\n\nwireframe.Color3 = Color3.fromRGB(255, 0, 0) -- Setzt die nächste Linie auf rot\nwireframe:AddLine(Vector3.new(-10, 0, 0), Vector3.new(10, 0, 0))\nwireframe.Color3 = Color3.fromRGB(0, 255, 0) -- Setzt die nächste Linie auf grün\nwireframe:AddLine(Vector3.new(0, -10, 0), Vector3.new(0, 10, 0))\nwireframe.Color3 = Color3.fromRGB(0, 0, 255) -- Setzt die nächste Linie auf blau\nwireframe:AddLine(Vector3.new(0, 0, -10), Vector3.new(0, 0, 10))"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/0": {
-    "documentation": ""
+    "documentation": "Zeichnet ein Drahtgitter-Dekorationsobjekt aus einer oder mehreren Linien auf ein <code>BasePart</code> (einschließlich <code>Terrain</code>) oder in den <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/1": {
-    "documentation": ""
+    "documentation": "Array von <code>Vector3</code>-Punkten, bei denen jedes Paar als Startpunkt und Endpunkt für eine Linie fungiert."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines": {
-    "documentation": "",
+    "documentation": "Fügt ein oder mehrere Linien zur Drahtgitter-Dekoration mithilfe eines Arrays hinzu.",
     "params": [
       {
         "name": "self",
@@ -52749,19 +52823,19 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#AddLines",
-    "code_sample": ""
+    "code_sample": "local wireframe = script.Parent\n\nlocal linesArray = {\n\tVector3.new(-10, 0, 0), -- Startpunkt der ersten Linie\n\tVector3.new(10, 0, 0), -- Endpunkt der ersten Linie\n\tVector3.new(0, -10, 0), -- Startpunkt der zweiten Linie\n\tVector3.new(0, 10, 0), -- Endpunkt der zweiten Linie\n\tVector3.new(0, 0, -10), -- Startpunkt der dritten Linie\n\tVector3.new(0, 0, 10) -- Endpunkt der dritten Linie\n}\n-- Pfad auf das Schmuckelement anwenden\nwireframe:AddLines(linesArray)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/0": {
-    "documentation": ""
+    "documentation": "Zeichnet ein Drahtgitter-Dekorationsobjekt aus einer oder mehreren Linien auf ein <code>BasePart</code> (einschließlich <code>Terrain</code>) oder in den <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/1": {
-    "documentation": ""
+    "documentation": "Array von <code>Vector3</code>-Punkten, die in Folge mit Liniensegmenten verbunden werden sollen."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/2": {
-    "documentation": ""
+    "documentation": "Ob der Pfad geschlossen wird, indem sein Endpunkt mit einem zusätzlichen Linie zu seinem Startpunkt verbunden wird."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath": {
-    "documentation": "",
+    "documentation": "Fügt mehrere Liniensegmente zur Drahtgitter-Dekoration in einer Folge von Punkt zu Punkt hinzu.",
     "params": [
       {
         "name": "self",
@@ -52781,19 +52855,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/0": {
-    "documentation": ""
+    "documentation": "Zeichnet ein Drahtgitter-Dekorationsobjekt aus einer oder mehreren Linien auf ein <code>BasePart</code> (einschließlich <code>Terrain</code>) oder in den <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/1": {
-    "documentation": ""
+    "documentation": "Position des Textes in der Dekoration."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/2": {
-    "documentation": ""
+    "documentation": "String, der angezeigt werden soll."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/3": {
-    "documentation": ""
+    "documentation": "Größe des Textes."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText": {
-    "documentation": "",
+    "documentation": "Fügt ein Textetikett zur Drahtgitter-Dekoration hinzu.",
     "params": [
       {
         "name": "self",
@@ -52817,10 +52891,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear/param/0": {
-    "documentation": ""
+    "documentation": "Zeichnet ein Drahtgitter-Dekorationsobjekt aus einer oder mehreren Linien auf ein <code>BasePart</code> (einschließlich <code>Terrain</code>) oder in den <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear": {
-    "documentation": "",
+    "documentation": "Löscht sofort alle Linien und Texte in der Drahtgitter-Dekoration.",
     "params": [
       {
         "name": "self",
@@ -56775,7 +56849,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.HasJointOffset": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#HasJointOffset",
     "code_sample": ""
   },
@@ -56785,7 +56859,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.JointOffset": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#JointOffset",
     "code_sample": ""
   },
@@ -57088,6 +57162,7 @@
   "@roblox/globaltype/AssetService": {
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet.",
     "keys": {
+      "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
@@ -57111,6 +57186,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0": {
+    "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync/param/1": {
+    "documentation": "Ein Array von <code>Dictionary</code>-Tabellen, das PBR-Namen mit ContentID verknüpft."
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0": {
+    "documentation": "Ein neues <code>Decal</code>, das das zusammengesetzte Texturset enthält."
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync": {
+    "documentation": "Erstellt eine Decal-Instanz, die komposite PBR-Texturen verwendet, die durch Übereinanderlegen der bereitgestellten Texturen in der Reihenfolge, in der sie im <code>layers</code>-Array bereitgestellt werden, erstellt werden. Texturen werden basierend auf dem Alpha-Wert der ColorMap geschichtet.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0"
+      },
+      {
+        "name": "layers",
+        "documentation": "@roblox/globaltype/AssetService.ComposeDecalAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#ComposeDecalAsync",
+    "code_sample": "-- Hole AssetService ab\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- Erstelle zwei Decal-Instanzen\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- Baue die kombinierte Info-Tabelle\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.TextureContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- Stelle ein neues Decal mit AssetService zusammen\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
+  },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/0": {
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
@@ -57121,13 +57223,13 @@
     "documentation": "Derzeit unterstützte Typen sind: <ul> <li><code>AssetType.Model</code> – mit <code>object</code> als gültigem <code>Instance</code>-Root.</li> <li><code>AssetType.Plugin</code> – mit <code>object</code> als gültigem <code>Instance</code>-Root.</li> <li><code>AssetType.Mesh</code> – mit <code>object</code> als gültigem <code>EditableMesh</code>-Root.</li> <li><code>AssetType.Image</code> – mit <code>object</code> als gültigem <code>EditableImage</code>-Root.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/3": {
-    "documentation": "Options-Tabelle mit Asset-Metadaten: <ul> <li><code>Name</code> – Name des Assets als Zeichenfolge. Standardmäßig <code>[object.Name]</code>.</li> <li><code>Description</code> – Beschreibung des Assets als Zeichenfolge. Standardmäßig   <code>\"Created with AssetService:CreateAssetAsync\"</code>.</li> <li><code>CreatorId</code> – ID des Asset-Erstellers als Zahl. Standardmäßig der   angemeldete Roblox Studio-Benutzer für den Plugin-Kontext. Erforderlich für den Open   Cloud Luau Execution-Kontext.</li> <li><code>CreatorType</code> – <code>AssetCreatorType</code>, das den Typ des Asset-Erstellers angibt.   Standardmäßig <code>AssetCreatorType.User</code> im Plugin-Kontext.   Erforderlich für den Open Cloud Luau Execution-Kontext.</li> <li><code>IsPackage</code> – Boolescher Wert, der nur für den   <code>AssetType.Model</code>-Typ anwendbar ist. Standardmäßig <code>true</code>.</li> </ul>"
+    "documentation": "Options-Tabelle, die Metadaten zum Asset enthält: <ul> <li><code>Name</code> – Name des Assets als Zeichenkette. Standardmäßig <code>[object.Name]</code>.</li> <li><code>Description</code> – Beschreibung des Assets als Zeichenkette. Standardmäßig   <code>\"Erstellt mit AssetService:CreateAssetAsync\"</code>.</li> <li><code>CreatorId</code> – ID des Asset-Erstellers als Zahl. Standardmäßig der   eingeloggte Roblox Studio-Benutzer im Plugin-Kontext. Erforderlich für den Open   Cloud Luau-Ausführungskontext.</li> <li><code>CreatorType</code> – <code>AssetCreatorType</code>, das den Typ des Asset-Erstellers angibt.   Standardmäßig <code>AssetCreatorType.User</code> im Plugin-Kontext. Erforderlich für den Open   Cloud Luau-Ausführungskontext.</li> <li><code>IsPackage</code> – Boolescher Wert, der nur für den   <code>AssetType.Model</code>-Typ anwendbar ist. Standardmäßig <code>true</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/return/0": {
-    "documentation": "Das <code>CreateAssetResult</code> und Asset-ID-Paar, wenn erfolgreich."
+    "documentation": "Das <code>CreateAssetResult</code> und die Asset-ID-Paar, wenn erfolgreich."
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync": {
-    "documentation": "Lädt ein neues Asset von dem angegebenen Objekt nach Roblox hoch.",
+    "documentation": "Lädt ein neues Asset von dem angegebenen Objekt zu Roblox hoch.",
     "params": [
       {
         "name": "self",
@@ -57159,16 +57261,16 @@
     "documentation": "Das Objekt, das als Asset erstellt werden soll."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/2": {
-    "documentation": "Derzeit unterstützte Typen sind: <ul> <li><code>AssetType.Model</code> – mit <code>object</code> als gültigem <code>Instance</code>-Root.</li> <li><code>AssetType.Plugin</code> – mit <code>object</code> als gültigem <code>Instance</code>-Root.</li> <li><code>AssetType.Mesh</code> – mit <code>object</code> als gültigem <code>EditableMesh</code>-Root.</li> <li><code>AssetType.Image</code> – mit <code>object</code> als gültigem <code>EditableImage</code>-Root.</li> </ul>"
+    "documentation": "Derzeit unterstützte Typen sind: <ul> <li><code>AssetType.Model</code> – mit <code>object</code> als beliebigem gültigen <code>Instance</code>   Root.</li> <li><code>AssetType.Plugin</code> – mit <code>object</code> als beliebigem gültigen   <code>Instance</code> Root.</li> <li><code>AssetType.Mesh</code> – mit <code>object</code> als beliebigem gültigen   <code>EditableMesh</code> Root.</li> <li><code>AssetType.Image</code> – mit <code>object</code> als beliebigem gültigen   <code>EditableImage</code> Root.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/3": {
     "documentation": "Die ID des Assets für die neue Version."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/4": {
-    "documentation": "Options-Tabelle mit Asset-Metadaten: <ul> <li><code>Name</code> – Eine <code>string</code>. Name des Assets. Standard: object.Name.</li> <li><code>Description</code> – Eine <code>string</code>. Beschreibung des Assets. Standard:   \"Created with AssetService:CreateAssetAsync\".</li> <li><code>CreatorId</code> – Eine <code>number</code>. ID des Asset-Erstellers. Standard: Der   angemeldete Roblox Studio-Benutzer für den Plugin-Kontext. Erforderlich für den Open   Cloud Luau Execution-Kontext.</li> <li><code>CreatorType</code> – Ein <code>AssetCreatorType</code>. Typ des Asset-Erstellers.   Standard: <code>AssetCreatorType.User</code> im Plugin-Kontext. Erforderlich   für den Open Cloud Luau Execution-Kontext.</li> <li><code>IsPackage</code> – Ein <code>bool</code>. Nur anwendbar auf den   <code>AssetType.Model</code>-Typ. Standard: true.</li> </ul>"
+    "documentation": "Options-Tabelle, die Metadaten zum Asset enthält: <ul> <li><code>Name</code> – Ein <code>string</code>. Name des Assets. Standard: object.Name.</li> <li><code>Description</code> – Ein <code>string</code>. Beschreibung des Assets. Standard:   \"Erstellt mit AssetService:CreateAssetAsync\".</li> <li><code>CreatorId</code> – Eine <code>Zahl</code>. ID des Asset-Erstellers. Standard: Der   eingeloggtet Roblox Studio-Benutzer im Plugin-Kontext. Erforderlich für den Open   Cloud Luau-Ausführungskontext.</li> <li><code>CreatorType</code> – Eine <code>AssetCreatorType</code>. Typ des Asset-Erstellers.   Standard: <code>AssetCreatorType.User</code> im Plugin-Kontext. Erforderlich   für den Open Cloud Luau-Ausführungskontext.</li> <li><code>IsPackage</code> – Ein <code>bool</code>. Nur anwendbar auf den   <code>AssetType.Model</code>-Typ. Standard: true.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/return/0": {
-    "documentation": "Das <code>CreateAssetResult</code> und Asset-Versionsnummer-Paar, wenn erfolgreich."
+    "documentation": "Das <code>CreateAssetResult</code> und die Asset-Versionnummer-Paar, wenn erfolgreich."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync": {
     "documentation": "Lädt eine neue Version für ein vorhandenes Asset von dem angegebenen Objekt hoch.",
@@ -57204,7 +57306,7 @@
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/1": {
-    "documentation": "Options-Tabelle mit Steuerelementen für die Methode: <ul> <li><code>Size</code> – Ein <code>Vector2</code>, der die gewünschte   Breite und Höhe des Bildes angibt.</li> </ul>"
+    "documentation": "Options-Tabelle mit Steuerungen für die Methode: <ul> <li><code>Size</code> – Ein <code>Vector2</code>, das die gewünschte Breite und Höhe des Bildes angibt.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
     "documentation": ""
@@ -57231,10 +57333,10 @@
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "Referenz auf extern gespeicherte Asset-Inhalte oder als Objekt innerhalb des Platzes, das einen einzelnen Wert eines der unterstützten <code>ContentSourceType</code>-Werte umschließt."
+    "documentation": "Referenz auf Asset-Inhalte, die extern oder als Objekt innerhalb   des Ortes gespeichert sind und einen einzelnen Wert einer der unterstützten   <code>ContentSourceType</code>-Werte umschließen."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
-    "documentation": "Tabelle mit Optionen für das erstellte <code>EditableImage</code>. Derzeit sind keine Optionen verfügbar, da das Ändern der Größe über <code>Size</code> nicht unterstützt wird."
+    "documentation": "Tabelle mit Optionen für das erstellte <code>EditableImage</code>. Derzeit sind keine Optionen verfügbar, da eine Größenänderung über <code>Size</code> nicht unterstützt wird."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/return/0": {
     "documentation": "Ein neues <code>EditableImage</code>, das das bereitgestellte Bild enthält."
@@ -57265,7 +57367,7 @@
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/param/1": {
-    "documentation": "Tabelle mit Optionen für das erstellte <code>EditableMesh</code>. Derzeit sind keine Optionen verfügbar, da <code>FixedSize</code> für leere editierbare Meshes immer <code>false</code> sein wird."
+    "documentation": "Tabelle mit Optionen für das erstellte <code>EditableMesh</code>. Derzeit sind keine Optionen verfügbar, da <code>FixedSize</code> immer <code>false</code> für leere editierbare Netze sein wird."
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh/return/0": {
     "documentation": ""
@@ -57295,13 +57397,13 @@
     "documentation": "Referenz auf extern gespeicherte Asset-Inhalte oder als Objekt innerhalb des Platzes, das einen einzelnen Wert eines der unterstützten <code>ContentSourceType</code>-Werte umschließt."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "Options-Tabelle mit Steuerelementen für die Methode: <ul> <li><code>FixedSize</code> – Ein <code>bool</code>. Der Standardwert ist <code>true</code>, und das zurückgegebene   <code>EditableMesh</code> erlaubt Ihnen nicht, Vertices hinzuzufügen oder zu entfernen,   sondern nur ihre Werte zu ändern. Setzen Sie ihn auf <code>false</code>, wenn die Möglichkeit,   die Mesh-Topologie zu ändern, erforderlich ist, was mehr Speicher benötigt.</li> </ul>"
+    "documentation": "Options-Tabelle mit Steuerungen für die Methode: <ul> <li><code>FixedSize</code> – Ein <code>bool</code>. Standardwert ist <code>true</code>, und das zurückgegebene   <code>EditableMesh</code> erlaubt es Ihnen nicht, Vertices hinzuzufügen oder zu entfernen,   sondern nur deren Werte zu ändern. Setzen Sie es auf <code>false</code>, wenn die Möglichkeit,   die Mesh-Topologie zu ändern, erforderlich ist, auf Kosten von mehr Speicher.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
     "documentation": "Die neue <code>EditableMesh</code>-Instanz."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
-    "documentation": "Gibt ein neues <code>EditableMesh</code>-Objekt zurück, das von einer vorhandenen Mesh Inhalts-ID erstellt wurde.",
+    "documentation": "Gibt ein neues <code>EditableMesh</code>-Objekt zurück, das aus einer bestehenden Mesh- Inhalts-ID erstellt wurde.",
     "params": [
       {
         "name": "self",
@@ -57326,16 +57428,16 @@
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "Referenz auf extern gespeicherte Asset-Inhalte oder als Objekt innerhalb des Platzes, das einen einzelnen Wert eines der unterstützten <code>ContentSourceType</code>-Werte umschließt."
+    "documentation": "Referenz auf Asset-Inhalte, die extern oder als Objekt innerhalb   des Ortes gespeichert sind und einen einzelnen Wert einer der unterstützten   <code>ContentSourceType</code>-Werte umschließen."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "Options-Tabelle mit einem oder mehreren Steuerelementen für die Methode: <ul> <li><code>CollisionFidelity</code> – Der Wert von   <code>CollisionFidelity</code> im   resultierenden Teil. Standardmäßig <code>CollisionFidelity.Default</code>, wenn die   Option fehlt oder die <code>options</code>-Tabelle <code>nil</code> ist.</li> <li><code>RenderFidelity</code> – Der Wert von   <code>RenderFidelity</code> im resultierenden   Teil. Standardmäßig <code>RenderFidelity.Automatic</code>, wenn die Option   fehlt oder die <code>options</code>-Tabelle <code>nil</code> ist.</li> <li><code>FluidFidelity</code> – Der Wert von   <code>FluidFidelity</code> im resultierenden Teil.   Standardmäßig <code>FluidFidelity.Automatic</code>, wenn die Option fehlt   oder die <code>options</code>-Tabelle <code>nil</code> ist.</li> </ul>"
+    "documentation": "Options-Tabelle mit einer oder mehreren Steuerungen für die Methode: <ul> <li><code>CollisionFidelity</code> – Der Wert von   <code>CollisionFidelity</code> im   resultierenden Teil. Standardmäßig <code>CollisionFidelity.Default</code>, wenn die   Option fehlt oder die <code>options</code>-Tabelle <code>nil</code> ist.</li> <li><code>RenderFidelity</code> – Der Wert von   <code>RenderFidelity</code> im resultierenden   Teil. Standardmäßig <code>RenderFidelity.Automatic</code>, wenn die Option   fehlt oder die <code>options</code>-Tabelle <code>nil</code> ist.</li> <li><code>FluidFidelity</code> – Der Wert von   <code>FluidFidelity</code> im resultierenden Teil.   Standardmäßig <code>FluidFidelity.Automatic</code>, wenn die Option fehlt   oder die <code>options</code>-Tabelle <code>nil</code> ist.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "Erstellt ein neues <code>MeshPart</code> mit einer angegebenen Mesh-ID und einer optionalen Tabelle von Fidelitätswerten.",
+    "documentation": "Erstellt ein neues <code>MeshPart</code> mit einer angegebenen Mesh-ID und einer optionalen Tabelle von Genauigkeitswerten.",
     "params": [
       {
         "name": "self",
@@ -57360,19 +57462,19 @@
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/1": {
-    "documentation": "Name des neuen Platzes."
+    "documentation": "Name des neuen Ortes."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
-    "documentation": "<code>PlaceId</code> des Platzes, der kopiert werden soll."
+    "documentation": "<code>PlaceId</code> des zu kopierenden Ortes."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
-    "documentation": "Beschreibung des neuen Platzes."
+    "documentation": "Beschreibung des neuen Ortes."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/return/0": {
-    "documentation": "<code>PlaceId</code> des neuen Platzes."
+    "documentation": "<code>PlaceId</code> des neuen Ortes."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
-    "documentation": "Klonet einen Platz über die angegebene <code>templatePlaceID</code>.",
+    "documentation": "Kopiert einen Ort durch die angegebene <code>templatePlaceID</code>.",
     "params": [
       {
         "name": "self",
@@ -57416,7 +57518,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
-    "documentation": "Klonet einen Platz über die angegebene <code>templatePlaceID</code> und fügt ihn in das Inventar des angegebenen Spielers ein.",
+    "documentation": "Kopiert einen Ort durch die angegebene <code>templatePlaceID</code> und legt ihn in das Inventar des angegebenen Spielers.",
     "params": [
       {
         "name": "self",
@@ -57449,13 +57551,13 @@
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Wörterbuch mit den folgenden Schlüssel-Wert-Paaren: <ul> <li><code>ColorMap</code> — Ein <code>Content</code>-Objekt, das die Farbkarte enthält. Standard ist <code>nil</code>.</li> <li><code>MetalnessMap</code> — Ein <code>Content</code>-Objekt, das die Metallizitätskarte enthält. Wenn mehr als ein Kanal vorhanden ist, wird nur der rote Kanal verwendet. Standard ist <code>nil</code>.</li> <li><code>NormalMap</code> — Ein <code>Content</code>-Objekt, das die Normalenkarte enthält. Standard ist <code>nil</code>.</li> <li><code>RoughnessMap</code> — Ein <code>Content</code>-Objekt, das die Rauigkeitskarte enthält. Wenn mehr als ein Kanal vorhanden ist, wird nur der rote Kanal verwendet. Standard ist <code>nil</code>.</li> </ul>"
+    "documentation": "Dictionary, das die folgenden Schlüssel-Wert-Paare enthält: <ul> <li><code>ColorMap</code> — Ein <code>Content</code>-Objekt, das die Farbkarte enthält. Standard ist <code>nil</code>.</li> <li><code>MetalnessMap</code> — Ein <code>Content</code>-Objekt, das die Metallizitätskarte enthält. Wenn mehr als ein Kanal vorhanden ist, wird nur der rote Kanal verwendet. Standard ist <code>nil</code>.</li> <li><code>NormalMap</code> — Ein <code>Content</code>-Objekt, das die Normalmap enthält. Standard ist <code>nil</code>.</li> <li><code>RoughnessMap</code> — Ein <code>Content</code>-Objekt, das die Rauheitskarte enthält. Wenn mehr als ein Kanal vorhanden ist, wird nur der rote Kanal verwendet. Standard ist <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
     "documentation": "Eine neue <code>SurfaceAppearance</code>-Instanz mit den gegebenen Karten aus dem <code>content</code>-Parameter."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "Erstellt ein neues <code>SurfaceAppearance</code>-Objekt mithilfe der bereitgestellten Inhaltskarten.",
+    "documentation": "Erstellt ein neues <code>SurfaceAppearance</code>-Objekt mit den bereitgestellten Inhaltskarten.",
     "params": [
       {
         "name": "self",
@@ -57503,13 +57605,13 @@
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/1": {
-    "documentation": "Array von Asset- oder Inhalts-IDs, für die Metadaten abgerufen werden sollen. Maximal gruppengröße ist 30."
+    "documentation": "Array von Asset- oder Inhalts-IDs, für die Metadaten abgerufen werden sollen. Maximal Batchgröße ist 30."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "Array von Wörterbuch-Tabellen in derselben Reihenfolge wie die Anfrage, wobei jede Tabelle die folgenden Metadaten für ihr Asset/ihren Inhalt enthält: <ul> <li> <code>AssetId</code> (Zeichenfolge) </li> <li> <code>Title</code> (Zeichenfolge) </li> <li> <code>Artist</code> (Zeichenfolge) </li> <li> <code>Duration</code> (Zahl) in Sekunden </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Beachten Sie, dass, wenn ein Fehler beim Abrufen der Metadaten für eines der angeforderten Assets auftritt, zum Beispiel, weil die Asset-ID nicht existiert, die entsprechende Wörterbuch-Tabelle weiterhin im zurückgegebenen Array enthalten ist, aber nur feld <code>AssetId</code> zu Referenzzwecken enthält. Darüber hinaus, wenn der <code>AudioType</code> für ein gegebenes Asset nicht bestimmt werden kann (vielleicht wegen privater Audio), wird das resultierende Wörterbuch keinen <code>AudioType</code>-Eintrag enthalten."
+    "documentation": "Array von Dictionary-Tabellen in der gleichen Reihenfolge wie die Anfrage, wobei jede Tabelle die folgenden Metadaten für ihr Asset/Inhalt enthält: <ul> <li> <code>AssetId</code> (string) </li> <li> <code>Title</code> (string) </li> <li> <code>Artist</code> (string) </li> <li> <code>Duration</code> (number) in Sekunden </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Beachten Sie, dass, falls ein Fehler beim Abrufen der Metadaten für eines der angeforderten Assets auftritt, z. B. wenn die Asset-ID nicht existiert, die entsprechende Dictionary-Tabelle immer noch im zurückgegebenen Array enthalten ist, aber nur das Feld <code>AssetId</code> zu Referenzzwecken enthält. Außerdem, wenn der <code>AudioType</code> für ein bestimmtes Asset nicht bestimmt werden kann (zum Beispiel, weil es sich um private Audiodaten handelt), wird das resultierende Dictionary keinen <code>AudioType</code>-Eintrag enthalten."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
-    "documentation": "Stellt relevante Metadaten zu einer bestimmten Audioquelle bereit.",
+    "documentation": "Bietet relevante Metadaten zu einer spezifischen Audioquelle.",
     "params": [
       {
         "name": "self",
@@ -57533,10 +57635,10 @@
     "documentation": "Die ID des angegebenen Bundles."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "Wörterbuch mit den folgenden Schlüssel-Wert-Paaren, die Details über das angegebene Bundle enthalten: <ul> <li> <code>Id</code> — Bundle-ID (gleich dem übergebenen <code>bundleId</code>-Argument) </li> <li> <code>Name</code> — Bundle-Name </li> <li> <code>Description</code> — Bundle-Beschreibung </li> <li> <code>BundleType</code> — Zeichenfolge, die den <code>BundleType</code> darstellt, zum   Beispiel <code>\"BodyParts\"</code> oder <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array von Elementen im Bundle, die jeweils durch die folgenden Schlüssel   dargestellt werden: </li> <li> <code>Id</code> — Element-ID </li> <li> <code>Name</code> — Element-Name </li> <li> <code>Type</code> — Elementtyp wie <code>\"Asset\"</code>. </li> </ul>"
+    "documentation": "Dictionary mit den folgenden Schlüssel-Wert-Paaren, die Informationen über das angegebene Bundle enthalten: <ul> <li> <code>Id</code> — Bundle-ID (die gleiche wie die übergebene <code>bundleId</code>-Argument) </li> <li> <code>Name</code> — Bundle-Name </li> <li> <code>Description</code> — Bundle-Beschreibung </li> <li> <code>BundleType</code> — Zeichenfolge, die <code>BundleType</code> darstellt, z. B.   <code>\"BodyParts\"</code> oder <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array von Elementen im Bundle, jeweils mit Details, die durch die folgenden Schlüssel dargestellt werden: </li> <li> <code>Id</code> — Element-ID </li> <li> <code>Name</code> — Elementname </li> <li> <code>Type</code> — Elementtyp wie <code>\"Asset\"</code>. </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "Gibt Details zu den Inhalten des angegebenen Bundles zurück.",
+    "documentation": "Gibt die Details des Inhalts eines angegebenen Bundles zurück.",
     "params": [
       {
         "name": "self",
@@ -57563,7 +57665,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> Dieses Element ist veraltet und funktioniert nicht mehr korrekt. Verwenden Sie es nicht für neue Arbeiten.<br>Gibt die UserId des Kontos zurück, das das creationID-Asset erstellt hat.",
+    "documentation": "<strong>Deprecated:</strong> Dieses Element ist veraltet und funktioniert nicht mehr richtig. Verwenden Sie es nicht für neue Arbeiten.<br>Gibt die UserId des Kontos zurück, das das creationID-Asset erstellt hat.",
     "params": [
       {
         "name": "self",
@@ -57587,7 +57689,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "Gibt ein <code>StandardPages</code>-Objekt zurück, das den Namen und die <code>PlaceId</code> der Plätze innerhalb des aktuellen Erlebnisses enthält.",
+    "documentation": "Gibt ein <code>StandardPages</code>-Objekt zurück, das den Namen und <code>PlaceId</code> von Orten innerhalb der aktuellen Erfahrung enthält.",
     "params": [
       {
         "name": "self",
@@ -57604,19 +57706,19 @@
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/1": {
-    "documentation": "Der Benutzer, der eine Asset-Erstellung einreicht."
+    "documentation": "Der Benutzer, der eine Asset-Erstellung einsendet."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/2": {
-    "documentation": "Das zu erstellende Asset. Derzeit können keine Skripte enthalten sein oder nicht-öffentliche Assets geschachtelt werden."
+    "documentation": "Das zu erstellende Asset. Derzeit kann es keine Skripte enthalten oder nicht-öffentliche Assets verschachteln."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/3": {
-    "documentation": "Der Asset-Typ. Derzeit kann nur <code>AssetType.Model</code> sein."
+    "documentation": "Der Asset-Typ. Derzeit kann es nur <code>AssetType.Model</code> sein."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "Das <code>PromptCreateAssetResult</code> und Asset-ID-Paar, wenn erfolgreich."
+    "documentation": "Das <code>PromptCreateAssetResult</code> und das Asset-ID-Paar, wenn erfolgreich."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "Ermöglicht die Asset-Erstellung innerhalb des Erlebnisses für Benutzer durch Aufforderung eines Veröffentlichungsdialogs.",
+    "documentation": "Erlaubt die Erstellung von Assets innerhalb der Erfahrung für Benutzer durch Aufforderung an ein Veröffentlichungs- Dialogfeld.",
     "params": [
       {
         "name": "self",
@@ -57679,10 +57781,10 @@
     "documentation": "Ein nicht-repliziertes Dienstprogramm, das assetbezogene Anfragen an die Roblox-Web-API verarbeitet."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Optionales Wörterbuch, das <code>SaveWithoutPublish</code> enthält, einen Booleschen Wert,  der angibt, ob mit oder ohne Veröffentlichung gespeichert werden soll, und  <code>PlaceId</code>, die Ziel-Platz-ID, die gespeichert werden soll. Ein Beispielaufruf wäre: `AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Wenn PlaceId nicht angegeben ist, ist das Standardverhalten das Speichern über den aktuellen ursprünglichen Platz, der SavePlaceAsync aufruft. Wenn SaveWithoutPublish nicht angegeben ist, ist das Standardverhalten SaveWithoutPublish=false."
+    "documentation": "Optionales Dictionary, das <code>SaveWithoutPublish</code> enthält, einen Booleschen Wert, der angibt, ob mit oder ohne Veröffentlichung gespeichert werden soll, und <code>PlaceId</code>, die Ziel-Place-ID, die überschrieben werden soll. Eine Beispielverwendung wäre: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Wenn die PlaceId nicht bereitgestellt wird, wird das Standardverhalten über den aktuellen Originalort gespeichert, der SavePlaceAsync aufruft. Wenn SaveWithoutPublish nicht bereitgestellt wird, ist das Standardverhalten SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
-    "documentation": "Speichert den Zustand des aktuellen Platzes.",
+    "documentation": "Speichert den Zustand des aktuellen Ortes.",
     "params": [
       {
         "name": "self",
@@ -76946,10 +77048,10 @@
     "documentation": "Ein Array von Benutzer-IDs."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "Gibt ein Array von <code>PriceLevelInfo</code>-Objekten mit einem Wörterbuch zurück, in dem die Schlüssel Benutzer-IDs (Strings) sind und die Werte die entsprechenden Preislevel (ganzzahlen zwischen 1 und 1000)."
+    "documentation": "Gibt ein Array von <code>PriceLevelInfo</code>-Objekten mit einem Wörterbuch zurück, in dem  die Schlüssel Benutzer-IDs (Strings) und ihre Werte die entsprechenden Preislevels (ganzzahlige Werte zwischen 1 und 1000) sind."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "Gibt den regionalisierten Preislevel eines Benutzers zurück.",
+    "documentation": "Gibt das regionalisierte Preisniveau eines Benutzers zurück, das den empfohlenen Preis für einen Artikel auf ihrem regionalen Markt darstellt.",
     "params": [
       {
         "name": "self",
@@ -86775,7 +86877,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.SimulationFidelity": {
-    "documentation": "Kontrolliert, wie detailliert die Audio-Simulation für diesen <code>AudioEmitter</code> sein sollte.",
+    "documentation": "<strong>Deprecated:</strong> <br>Kontrolliert, wie detailliert die Audio-Simulation für diesen <code>AudioEmitter</code> sein sollte.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#SimulationFidelity",
     "code_sample": ""
   },
@@ -90451,17 +90553,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Color3": {
-    "documentation": "Legt die Farbe eines GUI-Objekts fest.",
+    "documentation": "Setzt die Farbe dieses <code>GuiBase3d</code> Objekts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Transparency": {
-    "documentation": "Legt die Transparenz eines GUI-Objekts fest, wobei 1 unsichtbar und 0 vollständig sichtbar ist.",
+    "documentation": "Setzt die Transparenz dieses <code>GuiBase3d</code> Objekts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Visible": {
-    "documentation": "Bestimmt, ob das Objekt und seine Nachkommen angezeigt werden.",
+    "documentation": "Bestimmt, ob dieses <code>GuiBase3d</code> Objekt und seine Nachkommen angezeigt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Visible",
     "code_sample": ""
   },
@@ -96017,6 +96119,7 @@
       "GetPartyAsync": "@roblox/globaltype/SocialService.GetPartyAsync",
       "GetPlayersByPartyId": "@roblox/globaltype/SocialService.GetPlayersByPartyId",
       "HideSelfView": "@roblox/globaltype/SocialService.HideSelfView",
+      "PromptFeedbackSubmissionAsync": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync",
       "PromptGameInvite": "@roblox/globaltype/SocialService.PromptGameInvite",
       "PromptLinkSharing": "@roblox/globaltype/SocialService.PromptLinkSharing",
       "PromptPhoneBook": "@roblox/globaltype/SocialService.PromptPhoneBook",
@@ -96184,17 +96287,32 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#HideSelfView",
     "code_sample": ""
   },
+  "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0": {
+    "documentation": "Ermöglicht soziale Funktionen, die sich auf Beziehungen auswirken, die auf der Roblox Plattform hergestellt werden."
+  },
+  "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
+    "documentation": "Fordert den Spieler auf, Feedback zur aktuellen Erfahrung einzugeben.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptFeedbackSubmissionAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/0": {
     "documentation": "Ermöglicht soziale Funktionen, die sich auf Beziehungen auswirken, die auf der Roblox Plattform hergestellt werden."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/1": {
-    "documentation": "Der <code>Player</code>, der mit dem Einladungspopup aufgefordert wird."
+    "documentation": "Der <code>Player</code>, der mit dem Einladungs-Popup angesprochen wird."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/2": {
-    "documentation": "Optionales <code>ExperienceInviteOptions</code>-Objekt zur Anpassung des Hinweises."
+    "documentation": "Optionales <code>ExperienceInviteOptions</code>-Objekt zur Anpassung des Prompts."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite": {
-    "documentation": "Fordert den angegebenen <code>Player</code> mit dem Einladungsscreen auf.",
+    "documentation": "Fordert den angegebenen <code>Player</code> mit dem Einladungsbildschirm auf.",
     "params": [
       {
         "name": "self",
@@ -96217,10 +96335,10 @@
     "documentation": "Ermöglicht soziale Funktionen, die sich auf Beziehungen auswirken, die auf der Roblox Plattform hergestellt werden."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/1": {
-    "documentation": ""
+    "documentation": "Fordert den angegebenen <code>Player</code> mit einem freigegebenen generierten Link über ein Plattform-eigenes Freigabeblatt auf."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": ""
+    "documentation": "<code>Dictionary</code>, das die Konfiguration für den generierten Link festlegt. Es enthält die folgenden optionalen Schlüssel-Werte-Paare: <ul> <li><code>FallbackLinkId</code> (string). Bestimmt, wie dieser Freigabelink   den Spieler nach Ablauf weiterleitet. Standardmäßig zur Teilnahme an der Erfahrung.</li> <li><code>ExpirationSeconds</code> (number). Bestimmt die Zeit bis zum Ablauf,   nachdem der Freigabelink erstellt wurde. Auf die nächste ganze Zahl gerundet.   Standardmäßig auf 86.400.</li> <li><code>PreviewTitle</code> (string) Vorschautitel des Freigabelinks.</li> <li><code>PreviewDescription</code> (string) Vorschau-Beschreibung des Freigabelinks.</li> <li><code>PreviewAssettId</code> (number) Bild-Asset-ID, die für die Vorschau des Freigabelinks verwendet wird.</li> <li><code>LaunchData</code> (string). Wird verwendet, um einen Parameter in   <code>Player:GetJoinData()</code> festzulegen, wenn ein Spieler den Freigabelink   verwendet hat.</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
     "documentation": ""
@@ -96251,10 +96369,10 @@
     "documentation": "Ermöglicht soziale Funktionen, die sich auf Beziehungen auswirken, die auf der Roblox Plattform hergestellt werden."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/1": {
-    "documentation": "Der Spieler, der mit dem Telefonbuch aufgefordert wird."
+    "documentation": "Der Spieler, der mit dem Telefonbuch angesprochen wird."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/2": {
-    "documentation": "String zur Unterscheidung zwischen verschiedenen \"Einstiegspunkten\" des Telefonbuchs oder ähnlichem. Zum Beispiel können Sie einen String übergeben, der definiert, in welchem Bereich sich der Charakter des aufrufenden Spielers derzeit befindet."
+    "documentation": "String, um zwischen verschiedenen \"Eingabepunkten\" im Telefonbuch zu differenzieren oder ähnlichem. Zum Beispiel können Sie einen String übergeben, der angibt, in welchem Bereich einer Erfahrung sich die Figur des anrufenden Spielers befindet."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook": {
     "documentation": "Fordert den angegebenen <code>Player</code> mit dem Telefonbuch auf.",
@@ -96280,13 +96398,13 @@
     "documentation": "Ermöglicht soziale Funktionen, die sich auf Beziehungen auswirken, die auf der Roblox Plattform hergestellt werden."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1": {
-    "documentation": "Die Ereignis-ID des Ereignisses, für das der Spieler aufgefordert werden soll, seinen RSVP Status zu ändern. Dies muss eine gültige Ereignis-ID sein, die in der aktuellen Erfahrung existiert, dargestellt als String (nicht als Zahl)."
+    "documentation": "Die Ereignis-ID des Ereignisses, für das der Spieler aufgefordert wird, seinen RSVP-Status zu ändern. Dies muss eine gültige Ereignis-ID sein, die in der aktuellen Erfahrung vorhanden ist, dargestellt als String (nicht als Zahl)."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0": {
-    "documentation": "Gibt einen <code>RsvpStatus</code> zurück, der den neuen RSVP-Status des Spielers nach dem Schließen des Hinweises anzeigt. Wenn der Spieler den Hinweis schließt, ohne seinen RSVP-Status zu ändern, wird dies <code>RsvpStatus.None</code> oder ihren alten <code>RsvpStatus</code> zurückgeben, wenn sie bereits einen Status ausgewählt hatten."
+    "documentation": "Gibt einen <code>RsvpStatus</code> zurück, der den neuen RSVP-Status des Spielers nach dem Schließen des Prompts angibt. Wenn der Spieler das Prompt schließt, ohne seinen RSVP-Status zu ändern, wird dies <code>RsvpStatus.None</code> oder einen alten <code>RsvpStatus</code> zurückgeben, wenn er bereits einen Status gewählt hat."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync": {
-    "documentation": "Fordert den lokalen <code>Player</code> mit einem Hinweis auf, ihren RSVP-Status für das angegebene Ereignis zu ändern.",
+    "documentation": "Fordert den lokalen <code>Player</code> mit einer Eingabeaufforderung auf, ihren RSVP-Status für das angegebene Ereignis zu ändern.",
     "params": [
       {
         "name": "self",
@@ -96310,7 +96428,7 @@
     "documentation": "Die Position, um die Selbstansicht zu platzieren."
   },
   "@roblox/globaltype/SocialService.ShowSelfView": {
-    "documentation": "Zeigt die Selbstansicht des aufrufenden Spielers an.",
+    "documentation": "Zeigt die Selbstansicht des anrufenden Spielers an.",
     "params": [
       {
         "name": "self",
@@ -100980,13 +101098,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Grid8x8",
     "code_sample": ""
   },
+  "@roblox/enum/ParticleFlipbookLayout.Custom": {
+    "documentation": "Eine benutzerdefinierte Rastergröße, die definiert ist durch <code>FlipbookSizeX</code> und <code>FlipbookSizeY</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Custom",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ParticleFlipbookLayout": {
     "documentation": "Bestimmt das Layout der Flipbook-Textur.",
     "keys": {
       "None": "@roblox/enum/ParticleFlipbookLayout.None",
       "Grid2x2": "@roblox/enum/ParticleFlipbookLayout.Grid2x2",
       "Grid4x4": "@roblox/enum/ParticleFlipbookLayout.Grid4x4",
-      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
+      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8",
+      "Custom": "@roblox/enum/ParticleFlipbookLayout.Custom"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
     "code_sample": ""
@@ -121916,6 +122045,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CatalogSortType",
     "code_sample": ""
   },
+  "@roblox/enum/PlayerExitReason.Unknown": {
+    "documentation": "Catch-all for all other disconnect reasons.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerExitReason.PlatformKick": {
+    "documentation": "User was kicked by Roblox systems, such as being blocked while in a Private Server.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason#PlatformKick",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerExitReason.CreatorKick": {
+    "documentation": "Creator called <strong>Player:Kick()</strong>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason#CreatorKick",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerExitReason": {
+    "documentation": "An enum that specifies the reason for <strong>Players.PlayerRemoving</strong> signal.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerExitReason.Unknown",
+      "PlatformKick": "@roblox/enum/PlayerExitReason.PlatformKick",
+      "CreatorKick": "@roblox/enum/PlayerExitReason.CreatorKick"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason",
+    "code_sample": ""
+  },
   "@roblox/enum/TextChatMessageStatus.Unknown": {
     "documentation": "Allgemeiner fehlgeschlagener Status für andere <code>TextChannel:SendAsync()</code> Fehler.",
     "keys": {
@@ -129926,7 +130095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredInput.Touch": {
-    "documentation": "Das Gerät des Spielers hat Touch-Fähigkeit und keine andere Eingabemethode ist verfügbar oder verbunden.",
+    "documentation": "Das Gerät des Spielers hat Touch-Funktionalität und keine andere Eingabemethode ist verfügbar oder wurde kürzlich verwendet.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

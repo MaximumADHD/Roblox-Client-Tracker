@@ -3892,6 +3892,80 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/EnumItem#EnumType",
     "code_sample": ""
   },
+  "@roblox/global/ValueCurveKey": {
+    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "keys": {
+      "new": "@roblox/global/ValueCurveKey.new"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey",
+    "code_sample": ""
+  },
+  "@roblox/global/ValueCurveKey.new/param/0": {
+    "documentation": "Time at which to create the new <code>ValueCurveKey</code>."
+  },
+  "@roblox/global/ValueCurveKey.new/param/1": {
+    "documentation": "Value of the new <code>ValueCurveKey</code>."
+  },
+  "@roblox/global/ValueCurveKey.new/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/ValueCurveKey.new": {
+    "documentation": "Returns a new <code>ValueCurveKey</code> from the given time and value.",
+    "params": [
+      {
+        "name": "time",
+        "documentation": "@roblox/global/ValueCurveKey.new/param/0"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/global/ValueCurveKey.new/param/1"
+      },
+      {
+        "name": "Interpolation",
+        "documentation": "@roblox/global/ValueCurveKey.new/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#new",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey": {
+    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "keys": {
+      "Interpolation": "@roblox/globaltype/ValueCurveKey.Interpolation",
+      "Time": "@roblox/globaltype/ValueCurveKey.Time",
+      "Value": "@roblox/globaltype/ValueCurveKey.Value",
+      "RightTangent": "@roblox/globaltype/ValueCurveKey.RightTangent",
+      "LeftTangent": "@roblox/globaltype/ValueCurveKey.LeftTangent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.Interpolation": {
+    "documentation": "The key interpolation mode for the segment started by this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Interpolation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.Time": {
+    "documentation": "The time position of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Time",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.Value": {
+    "documentation": "The value of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Value",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.RightTangent": {
+    "documentation": "The tangent to the right of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#RightTangent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.LeftTangent": {
+    "documentation": "The tangent to the left of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#LeftTangent",
+    "code_sample": ""
+  },
   "@roblox/global/Font": {
     "documentation": "Describes the font used to render text.",
     "keys": {
@@ -8784,13 +8858,13 @@
     "documentation": "A class which defines a view of the 3D world."
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/1": {
-    "documentation": ""
+    "documentation": "The <code>CFrame</code> representing the center and orientation of the bounding box to fit into the viewport."
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/2": {
-    "documentation": ""
+    "documentation": "The <code>Vector3</code> size of the bounding box to fit into the viewport."
   },
   "@roblox/globaltype/Camera.ZoomToExtents": {
-    "documentation": "",
+    "documentation": "Adjusts the <code>CFrame</code> so that the specified bounding box is fully visible within the camera's viewport.",
     "params": [
       {
         "name": "self",
@@ -18712,10 +18786,10 @@
     "documentation": "A special object that gives models the functionality of a character."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "The <code>HumanoidDescription</code> Instance which you want to set the character to match."
+    "documentation": "The <code>HumanoidDescription</code> instance which you want to set the character to match."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ The default value for this parameter will change from <code>ClientOnly</code> to <code>Always</code> after 10/20/2025. See <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">here</a> for details."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
     "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>.",
@@ -18744,7 +18818,7 @@
     "documentation": "The <code>HumanoidDescription</code> instance which you want to set the character to match."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ The default value for this parameter will change from <code>ClientOnly</code> to <code>Always</code> after 10/20/2025. See <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">here</a> for details."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
     "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>, even after external changes.",
@@ -25389,7 +25463,6 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
-      "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
@@ -25603,11 +25676,6 @@
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
     "documentation": "Determines whether <code>parts</code> in different groups set to not collide will ignore collisions and touch events.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.UseImprovedModelLod": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseImprovedModelLod",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
@@ -26283,7 +26351,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plane": {
-    "documentation": "<strong>Deprecated:</strong> <br>Constrains Attachment0 and Attachment1 such that both points lie in an plane with origin at Attachment0's position and unit normal vector equal to Attachment0's primary axis.",
+    "documentation": "<strong>Deprecated:</strong> <br>Constrains Attachment0 and Attachment1 such that both points lie in a plane with origin at Attachment0's position and unit normal vector equal to Attachment0's primary axis.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plane",
     "code_sample": ""
@@ -27874,7 +27942,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "",
+    "documentation": "The texture content displayed by the Decal. Supports <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> and <code>EditableImage</code> objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
@@ -28441,7 +28509,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment": {
-    "documentation": "HandleAdornment is an abstract class inherited by 3D handle adornments.",
+    "documentation": "An abstract class inherited by 3D handle adornments.",
     "keys": {
       "AdornCullingMode": "@roblox/globaltype/HandleAdornment.AdornCullingMode",
       "AlwaysOnTop": "@roblox/globaltype/HandleAdornment.AlwaysOnTop",
@@ -28458,7 +28526,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.AlwaysOnTop": {
-    "documentation": "Forces this object to render on top of all 3D objects in the workspace.",
+    "documentation": "Forces this adornment to render on top of all 3D objects in the workspace.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#AlwaysOnTop",
     "code_sample": ""
   },
@@ -28473,7 +28541,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.ZIndex": {
-    "documentation": "Determines the draw order of the <code>HandleAdornment</code>.",
+    "documentation": "Determines the draw order of this <code>HandleAdornment</code> when <code>AlwaysOnTop</code> is <code>true</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#ZIndex",
     "code_sample": ""
   },
@@ -28555,7 +28623,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "Fires when a user presses down on their left mouse button while hovering over the adornment.",
+    "documentation": "Fires when a player presses down on their left mouse button while hovering over the adornment.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -28643,7 +28711,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "Fires when a user releases their left mouse button while hovering over the adornment.",
+    "documentation": "Fires when a player releases their left mouse button while hovering over the adornment.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -28731,7 +28799,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseEnter": {
-    "documentation": "Fires when a user moves their mouse over the adornment.",
+    "documentation": "Fires when a player moves their mouse over the adornment.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseEnter.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseEnter.ConnectParallel",
@@ -28819,7 +28887,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseLeave": {
-    "documentation": "Fires when a user moves their mouse out of the adornment.",
+    "documentation": "Fires when a player moves their mouse out of the adornment.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseLeave.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseLeave.ConnectParallel",
@@ -35468,7 +35536,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment": {
-    "documentation": "The PVAdornment class is an abstract class of which the inheritors can be adorned to objects of the PVInstance class.",
+    "documentation": "An abstract class of which the inheritors can be adorned to objects of the <code>PVInstance</code> class.",
     "keys": {
       "Adornee": "@roblox/globaltype/PVAdornment.Adornee"
     },
@@ -35476,7 +35544,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment.Adornee": {
-    "documentation": "The <code>PVInstance</code> the PVAdornment is attached to.",
+    "documentation": "The <code>PVInstance</code> which this <code>PVAdornment</code> is attached to.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PVAdornment#Adornee",
     "code_sample": ""
   },
@@ -52677,7 +52745,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment": {
-    "documentation": "",
+    "documentation": "Renders a wireframe adornment consisting of one or more lines onto a <code>BasePart</code> (including <code>Terrain</code>) or into the <code>Workspace</code>.",
     "keys": {
       "Scale": "@roblox/globaltype/WireframeHandleAdornment.Scale",
       "Thickness": "@roblox/globaltype/WireframeHandleAdornment.Thickness",
@@ -52688,29 +52756,29 @@
       "Clear": "@roblox/globaltype/WireframeHandleAdornment.Clear"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment",
-    "code_sample": ""
+    "code_sample": "local wireframe = script.Parent\n\n-- Declare four points in a square arrangement\nlocal pathArray = {\n\tVector3.new(-10, 10, 0),\n\tVector3.new(10, 10, 0),\n\tVector3.new(10, -10, 0),\n\tVector3.new(-10, -10, 0)\n}\n\n-- Apply path to adornment and close it (connect starting and ending points)\nwireframe:AddPath(pathArray, true)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.Scale": {
-    "documentation": "",
+    "documentation": "The <strong>XYZ</strong> scale of the wireframe adornment.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Thickness": {
-    "documentation": "",
+    "documentation": "Thickness of the wireframe adornment's lines in pixels.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/0": {
-    "documentation": ""
+    "documentation": "Renders a wireframe adornment consisting of one or more lines onto a <code>BasePart</code> (including <code>Terrain</code>) or into the <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/1": {
-    "documentation": ""
+    "documentation": "Starting point of the line."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/2": {
-    "documentation": ""
+    "documentation": "Ending point of the line."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine": {
-    "documentation": "",
+    "documentation": "Adds a line to the wireframe adornment from a starting point to an ending point relative to the center of the <code>Adornee</code>.",
     "params": [
       {
         "name": "self",
@@ -52727,16 +52795,16 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#AddLine",
-    "code_sample": ""
+    "code_sample": "local wireframe = script.Parent\n\nwireframe.Color3 = Color3.fromRGB(255, 0, 0) -- Sets next line to red\nwireframe:AddLine(Vector3.new(-10, 0, 0), Vector3.new(10, 0, 0))\nwireframe.Color3 = Color3.fromRGB(0, 255, 0) -- Sets next line to green\nwireframe:AddLine(Vector3.new(0, -10, 0), Vector3.new(0, 10, 0))\nwireframe.Color3 = Color3.fromRGB(0, 0, 255) -- Sets next line to blue\nwireframe:AddLine(Vector3.new(0, 0, -10), Vector3.new(0, 0, 10))"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/0": {
-    "documentation": ""
+    "documentation": "Renders a wireframe adornment consisting of one or more lines onto a <code>BasePart</code> (including <code>Terrain</code>) or into the <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/1": {
-    "documentation": ""
+    "documentation": "Array of <code>Vector3</code> points in which each pair acts as a starting point and ending point for a line."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines": {
-    "documentation": "",
+    "documentation": "Adds one or more lines to the wireframe adornment using an array.",
     "params": [
       {
         "name": "self",
@@ -52749,19 +52817,19 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#AddLines",
-    "code_sample": ""
+    "code_sample": "local wireframe = script.Parent\n\nlocal linesArray = {\n\tVector3.new(-10, 0, 0), -- Starting point of first line\n\tVector3.new(10, 0, 0), -- Ending point of first line\n\tVector3.new(0, -10, 0), -- Starting point of second line\n\tVector3.new(0, 10, 0), -- Ending point of second line\n\tVector3.new(0, 0, -10), -- Starting point of third line\n\tVector3.new(0, 0, 10) -- Ending point of third line\n}\n-- Apply path to adornment\nwireframe:AddLines(linesArray)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/0": {
-    "documentation": ""
+    "documentation": "Renders a wireframe adornment consisting of one or more lines onto a <code>BasePart</code> (including <code>Terrain</code>) or into the <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/1": {
-    "documentation": ""
+    "documentation": "Array of <code>Vector3</code> points to connect in sequence with line segments."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/2": {
-    "documentation": ""
+    "documentation": "Whether the path is closed by connecting its ending point to its starting point with an additional line."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath": {
-    "documentation": "",
+    "documentation": "Adds multiple line segments to the wireframe adornment in a sequence from point to point.",
     "params": [
       {
         "name": "self",
@@ -52778,22 +52846,22 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#AddPath",
-    "code_sample": ""
+    "code_sample": "local wireframe = script.Parent\n\n-- Declare four points in a square arrangement\nlocal pathArray = {\n\tVector3.new(-10, 10, 0),\n\tVector3.new(10, 10, 0),\n\tVector3.new(10, -10, 0),\n\tVector3.new(-10, -10, 0)\n}\n\n-- Apply path to adornment and close it (connect starting and ending points)\nwireframe:AddPath(pathArray, true)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/0": {
-    "documentation": ""
+    "documentation": "Renders a wireframe adornment consisting of one or more lines onto a <code>BasePart</code> (including <code>Terrain</code>) or into the <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/1": {
-    "documentation": ""
+    "documentation": "Position of the text in the adornment."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/2": {
-    "documentation": ""
+    "documentation": "String to display."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/3": {
-    "documentation": ""
+    "documentation": "Size of the text."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText": {
-    "documentation": "",
+    "documentation": "Adds a text label to the wireframe adornment.",
     "params": [
       {
         "name": "self",
@@ -52817,10 +52885,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear/param/0": {
-    "documentation": ""
+    "documentation": "Renders a wireframe adornment consisting of one or more lines onto a <code>BasePart</code> (including <code>Terrain</code>) or into the <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear": {
-    "documentation": "",
+    "documentation": "Instantly clears all lines and text in the wireframe adornment.",
     "params": [
       {
         "name": "self",
@@ -90479,17 +90547,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Color3": {
-    "documentation": "Sets the color of a GUI object.",
+    "documentation": "Sets the color of this <code>GuiBase3d</code> object.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Transparency": {
-    "documentation": "Sets the transparency of a GUI object, where 1 is invisible and 0 is completely visible.",
+    "documentation": "Sets the transparency of this <code>GuiBase3d</code> object.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Visible": {
-    "documentation": "Determines whether the object and its descendants will be displayed.",
+    "documentation": "Determines whether this <code>GuiBase3d</code> object and its descendants will be displayed.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Visible",
     "code_sample": ""
   },
@@ -92697,13 +92765,13 @@
     "documentation": "Specifies whether the returned character will be R6 or R15."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
-    "documentation": "Asset type verification determines if this function will load models or not (You should set this to Always unless you want to load non-catalog assets)."
+    "documentation": "Asset type verification determines if this function will load models or not. ⚠️&nbsp;The default value for this parameter will change from <code>ClientOnly</code> to <code>Always</code> after 10/20/2025. See <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">here</a> for details."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
-    "documentation": "A Humanoid character Model."
+    "documentation": "A <code>Humanoid</code> character <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "Returns a character Model equipped with everything specified in the passed in HumanoidDescription, and is R6 or R15 as specified by the rigType.",
+    "documentation": "Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -96264,10 +96332,10 @@
     "documentation": "Prompts the given <code>Player</code> with a Roblox platform-level share sheet with a generated share link."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Dictionary</code> that specifies the configuration for the generated link. It includes the following optional key-value pairs: <ul> <li><code>FallbackLinkId</code> (string). Determines how this share link will   direct player to once expired. Default to experience join link.</li> <li><code>ExpirationSeconds</code> (number). Determines time to expiration once the   share link is created. Truncates to nearest integer. Defaults to   86,400.</li> <li><code>PreviewTitle</code> (string) Preview title of the share link.</li> <li><code>PreiviewDescription</code> (string) Preview description of the share   link.</li> <li><code>PreviewAssettId</code> (number) Image asset ID used for share link   preview.</li> <li><code>LaunchData</code> (string). Used to set a parameter in   <code>Player:GetJoinData()</code> when a player joined using the   generated share link.</li> </ul>"
+    "documentation": "<code>Dictionary</code> that specifies the configuration for the generated link. It includes the following optional key-value pairs: <ul> <li><code>FallbackLinkId</code> (string). Determines how this share link will   direct player to once expired. Default to experience join link.</li> <li><code>ExpirationSeconds</code> (number). Determines time to expiration once the   share link is created. Truncates to nearest integer. Defaults to   86,400.</li> <li><code>PreviewTitle</code> (string) Preview title of the share link.</li> <li><code>PreviewDescription</code> (string) Preview description of the share link.</li> <li><code>PreviewAssetId</code> (number) Image asset ID used for share link   preview.</li> <li><code>LaunchData</code> (string). Used to set a parameter in   <code>Player:GetJoinData()</code> when a player joined using the   generated share link.</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": ""
+    "documentation": "A tuple containing an <code>PromptLinkSharingResult</code> indicating the result of the link sharing prompt."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -121969,6 +122037,46 @@
       "Bestselling": "@roblox/enum/CatalogSortType.Bestselling"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CatalogSortType",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerExitReason.Unknown": {
+    "documentation": "Catch-all for all other disconnect reasons.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerExitReason.PlatformKick": {
+    "documentation": "User was kicked by Roblox systems, such as being blocked while in a Private Server.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason#PlatformKick",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerExitReason.CreatorKick": {
+    "documentation": "Creator called <strong>Player:Kick()</strong>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason#CreatorKick",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerExitReason": {
+    "documentation": "An enum that specifies the reason for <strong>Players.PlayerRemoving</strong> signal.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerExitReason.Unknown",
+      "PlatformKick": "@roblox/enum/PlayerExitReason.PlatformKick",
+      "CreatorKick": "@roblox/enum/PlayerExitReason.CreatorKick"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason",
     "code_sample": ""
   },
   "@roblox/enum/TextChatMessageStatus.Unknown": {

@@ -10304,6 +10304,28 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CachePartOperationsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "partOperations",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CanEditAssetAsync",
                     "Parameters": [
                         {
@@ -22841,6 +22863,24 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "EmissiveFilePath",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "IsPbr",
                     "Security": {
                         "Read": "None",
@@ -28984,6 +29024,56 @@
                         "Name": "Dictionary"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "InternalCheckPlayabilityAsync",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "InternalGetStartPlaceIdAsync",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    },
+                    "Security": "None",
                     "Tags": [
                         "Yields"
                     ],
@@ -45447,45 +45537,6 @@
                 }
             ],
             "MemoryCategory": "Instances",
-            "Name": "ExampleService",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "MemberType": "Function",
-                    "Name": "PrintHello",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "OnPolo",
-                    "Parameters": [
-                        {
-                            "Name": "message",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                }
-            ],
-            "MemoryCategory": "Instances",
             "Name": "ExampleV2Service",
             "Superclass": "Instance",
             "Tags": [
@@ -49254,6 +49305,57 @@
             "Members": [
                 {
                     "MemberType": "Event",
+                    "Name": "FeatureTimeoutAttempt",
+                    "Parameters": [
+                        {
+                            "Name": "permanent",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "startTime",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "duration",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "featureRestrictionAbuseVector",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "FeatureRestrictionAbuseVector"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ShowFeatureInterventionDetails",
+                    "Parameters": [
+                        {
+                            "Name": "featureRestrictionAbuseVector",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "FeatureRestrictionAbuseVector"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "TimeoutChatAttempt",
                     "Parameters": [
                         {
@@ -50629,6 +50731,28 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "CSG"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "TranscodeModel",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -86124,9 +86248,32 @@
         {
             "Members": [
                 {
-                    "Capabilities": [
-                        "InternalTest"
+                    "MemberType": "Function",
+                    "Name": "BindReviewableContentEventProcessor",
+                    "Parameters": [
+                        {
+                            "Name": "priority",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
                     ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "RBXScriptConnection"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Function",
                     "Name": "CreateReviewableContentKey",
                     "Parameters": [
@@ -86143,6 +86290,28 @@
                         "Name": "string"
                     },
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CreateReviewableContentAsync",
+                    "Parameters": [
+                        {
+                            "Name": "config",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -97152,27 +97321,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Streaming",
-                    "MemberType": "Property",
-                    "Name": "UseImprovedModelLod",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "RolloutState"
                     }
                 },
                 {
@@ -114462,6 +114610,37 @@
                     },
                     "Category": "Server Authority",
                     "MemberType": "Property",
+                    "Name": "FrameNumber",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "InternalTest"
+                        ],
+                        "Write": [
+                            "InternalTest"
+                        ]
+                    },
+                    "Category": "Server Authority",
+                    "MemberType": "Property",
                     "Name": "PredictionState",
                     "Security": {
                         "Read": "None",
@@ -114505,37 +114684,6 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "RunState"
-                    }
-                },
-                {
-                    "Capabilities": {
-                        "Read": [
-                            "Basic",
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
-                        ]
-                    },
-                    "Category": "Server Authority",
-                    "MemberType": "Property",
-                    "Name": "ServerFrame",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int64"
                     }
                 },
                 {
@@ -128502,6 +128650,24 @@
                     }
                 },
                 {
+                    "Category": "Directories",
+                    "MemberType": "Property",
+                    "Name": "DefaultInstancesDir",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "QDir"
+                    }
+                },
+                {
                     "Category": "Browsing",
                     "MemberType": "Property",
                     "Name": "DeprecatedObjectsShown",
@@ -135741,6 +135907,37 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "TeleportTrustedBackHistory",
+                    "Parameters": [
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "TeleportedPlacesBackHistory",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetPlayerPlaceInstanceAsync",
                     "Parameters": [
                         {
@@ -140138,7 +140335,14 @@
                             }
                         },
                         {
-                            "Name": "timeIdle",
+                            "Name": "timeBackgroundIdle",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "timeTextIdle",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int"
@@ -152846,6 +153050,259 @@
             "MemoryCategory": "Instances",
             "Name": "Vector3Value",
             "Superclass": "ValueBase"
+        },
+        {
+            "Members": [
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Length",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ValueType",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetKeyAtIndex",
+                    "Parameters": [
+                        {
+                            "Name": "index",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "ValueCurveKey"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetKeyIndicesAtTime",
+                    "Parameters": [
+                        {
+                            "Name": "time",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetKeys",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetValueAtTime",
+                    "Parameters": [
+                        {
+                            "Name": "time",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant?"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "InsertKey",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "ValueCurveKey"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "InsertKeyValue",
+                    "Parameters": [
+                        {
+                            "Name": "time",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Default": "Constant",
+                            "Name": "keyInterpolationMode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "KeyInterpolationMode"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "RemoveKeyAtIndex",
+                    "Parameters": [
+                        {
+                            "Name": "startingIndex",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Default": "1",
+                            "Name": "count",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SetKeys",
+                    "Parameters": [
+                        {
+                            "Name": "keys",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ValueCurve",
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -165708,15 +166165,16 @@
                     "Value": 0
                 },
                 {
-                    "LegacyNames": [
-                        "Enabled"
-                    ],
                     "Name": "StreamingMesh",
                     "Value": 1
                 },
                 {
-                    "Name": "Disabled",
+                    "Name": "SLIM",
                     "Value": 2
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 3
                 }
             ],
             "Name": "ModelLevelOfDetail"
@@ -165762,6 +166220,72 @@
                 }
             ],
             "Name": "ModelStreamingMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "ViolationDetected",
+                    "Value": 0
+                },
+                {
+                    "Name": "Borderline",
+                    "Value": 1
+                },
+                {
+                    "Name": "NoViolationDetected",
+                    "Value": 2
+                }
+            ],
+            "Name": "ModerationResultCategory"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "ChildExploitation",
+                    "Value": 0
+                },
+                {
+                    "Name": "SuicideSelfInjuryAndHarmfulBehavior",
+                    "Value": 1
+                },
+                {
+                    "Name": "ThreatsBullyingAndHarassment",
+                    "Value": 2
+                },
+                {
+                    "Name": "TerrorismAndViolentExtremism",
+                    "Value": 3
+                },
+                {
+                    "Name": "DiscriminationSlursAndHateSpeech",
+                    "Value": 4
+                },
+                {
+                    "Name": "RealWorldSensitiveEvents",
+                    "Value": 5
+                },
+                {
+                    "Name": "ViolentContentAndGore",
+                    "Value": 6
+                },
+                {
+                    "Name": "RomanticAndSexualContent",
+                    "Value": 7
+                },
+                {
+                    "Name": "IllegalAndRegulatedGoodsAndActivities",
+                    "Value": 8
+                },
+                {
+                    "Name": "Profanity",
+                    "Value": 9
+                },
+                {
+                    "Name": "Other",
+                    "Value": 100
+                }
+            ],
+            "Name": "ModerationResultLabel"
         },
         {
             "Items": [
@@ -167785,6 +168309,23 @@
                 }
             ],
             "Name": "ReverbType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Pending",
+                    "Value": 0
+                },
+                {
+                    "Name": "Completed",
+                    "Value": 1
+                },
+                {
+                    "Name": "Failed",
+                    "Value": 2
+                }
+            ],
+            "Name": "ReviewableContentState"
         },
         {
             "Items": [
@@ -170039,6 +170580,92 @@
                 }
             ],
             "Name": "Technology"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "UNSPECIFIED",
+                    "Value": 0
+                },
+                {
+                    "Name": "EventIngest",
+                    "Value": 1
+                },
+                {
+                    "Name": "Points",
+                    "Value": 2
+                },
+                {
+                    "Name": "Teletune",
+                    "Value": 3
+                },
+                {
+                    "Name": "EphemeralCounter",
+                    "Value": 4
+                },
+                {
+                    "Name": "EphemeralStat",
+                    "Value": 5
+                },
+                {
+                    "Name": "Counter",
+                    "Value": 6
+                },
+                {
+                    "Name": "Stat",
+                    "Value": 7
+                }
+            ],
+            "Name": "TelemetryBackend"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "AddDatacenterId",
+                    "Value": 0
+                },
+                {
+                    "Name": "AddPlaceId",
+                    "Value": 1
+                },
+                {
+                    "Name": "AddUniverseId",
+                    "Value": 2
+                },
+                {
+                    "Name": "AddPlaceInstanceId",
+                    "Value": 3
+                },
+                {
+                    "Name": "AddPlaySessionId",
+                    "Value": 4
+                },
+                {
+                    "Name": "AddCurrentContextName",
+                    "Value": 5
+                },
+                {
+                    "Name": "AddOsInfo",
+                    "Value": 6
+                },
+                {
+                    "Name": "AddArchitectureInfo",
+                    "Value": 7
+                },
+                {
+                    "Name": "AddCpuInfo",
+                    "Value": 8
+                },
+                {
+                    "Name": "AddMemoryInfo",
+                    "Value": 9
+                },
+                {
+                    "Name": "AddSessionInfo",
+                    "Value": 10
+                }
+            ],
+            "Name": "TelemetryStandardizedField"
         },
         {
             "Items": [

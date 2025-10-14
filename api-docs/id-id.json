@@ -3892,6 +3892,80 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/EnumItem#EnumType",
     "code_sample": ""
   },
+  "@roblox/global/ValueCurveKey": {
+    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "keys": {
+      "new": "@roblox/global/ValueCurveKey.new"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey",
+    "code_sample": ""
+  },
+  "@roblox/global/ValueCurveKey.new/param/0": {
+    "documentation": "Time at which to create the new <code>ValueCurveKey</code>."
+  },
+  "@roblox/global/ValueCurveKey.new/param/1": {
+    "documentation": "Value of the new <code>ValueCurveKey</code>."
+  },
+  "@roblox/global/ValueCurveKey.new/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/ValueCurveKey.new": {
+    "documentation": "Returns a new <code>ValueCurveKey</code> from the given time and value.",
+    "params": [
+      {
+        "name": "time",
+        "documentation": "@roblox/global/ValueCurveKey.new/param/0"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/global/ValueCurveKey.new/param/1"
+      },
+      {
+        "name": "Interpolation",
+        "documentation": "@roblox/global/ValueCurveKey.new/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#new",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey": {
+    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "keys": {
+      "Interpolation": "@roblox/globaltype/ValueCurveKey.Interpolation",
+      "Time": "@roblox/globaltype/ValueCurveKey.Time",
+      "Value": "@roblox/globaltype/ValueCurveKey.Value",
+      "RightTangent": "@roblox/globaltype/ValueCurveKey.RightTangent",
+      "LeftTangent": "@roblox/globaltype/ValueCurveKey.LeftTangent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.Interpolation": {
+    "documentation": "The key interpolation mode for the segment started by this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Interpolation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.Time": {
+    "documentation": "The time position of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Time",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.Value": {
+    "documentation": "The value of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Value",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.RightTangent": {
+    "documentation": "The tangent to the right of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#RightTangent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurveKey.LeftTangent": {
+    "documentation": "The tangent to the left of this <code>ValueCurveKey</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#LeftTangent",
+    "code_sample": ""
+  },
   "@roblox/global/Font": {
     "documentation": "Menjelaskan jenis huruf yang digunakan untuk merender teks.",
     "keys": {
@@ -11868,7 +11942,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman.",
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman.",
     "keys": {
       "FinishRecording": "@roblox/globaltype/ChangeHistoryService.FinishRecording",
       "GetCanRedo": "@roblox/globaltype/ChangeHistoryService.GetCanRedo",
@@ -11885,19 +11959,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/1": {
-    "documentation": "Mengidentifikasi rekaman dari panggilan sebelumnya ke <code>TryBeginRecording()</code>. Jika operasinya adalah <code>ChangeHistoryService.FinishRecordingOperation.Cancel</code>, nilai ini akan diabaikan, dan rekaman ditentukan oleh konteks."
+    "documentation": "Mengidentifikasi perekaman dari panggilan sebelumnya untuk <code>TryBeginRecording()</code>. Jika operasi ini adalah <code>ChangeHistoryService.FinishRecordingOperation.Cancel</code>, nilai ini akan diabaikan, dan perekaman ditentukan oleh konteks."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/2": {
-    "documentation": "Menentukan operasi yang akan dilakukan."
+    "documentation": "Menentukan operasi yang akan diambil."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/3": {
-    "documentation": "Tabel opsi nilai yang dapat diteruskan ke <code>OnFinishRecording</code>."
+    "documentation": "Tabel nilai yang bersifat opsional untuk diteruskan ke <code>OnFinishRecording</code>."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording": {
-    "documentation": "Mengkomunikasikan kepada Studio bahwa rekaman yang diidentifikasi telah selesai dan untuk melakukan operasi terakhir untuk menyelesaikan rekaman.",
+    "documentation": "Mengkomunikasikan kepada Studio bahwa perekaman yang diidentifikasi telah selesai dan untuk melakukan operasi terakhir untuk menyelesaikan perekaman.",
     "params": [
       {
         "name": "self",
@@ -11921,13 +11995,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanRedo/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanRedo/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanRedo": {
-    "documentation": "Mengembalikan apakah ada tindakan yang dapat diulang, dan, jika ada, mengembalikan yang terakhir dari tindakan tersebut.",
+    "documentation": "Mengembalikan apakah ada tindakan yang dapat diulang kembali, dan, jika ada, mengembalikan yang terakhir dari mereka.",
     "params": [
       {
         "name": "self",
@@ -11941,13 +12015,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanUndo/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanUndo/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanUndo": {
-    "documentation": "Mengembalikan apakah ada tindakan yang dapat dibatalkan, dan, jika ada, mengembalikan yang terakhir dari tindakan tersebut.",
+    "documentation": "Mengembalikan apakah ada tindakan yang dapat dibatalkan, dan, jika ada, mengembalikan yang terakhir dari mereka.",
     "params": [
       {
         "name": "self",
@@ -11961,7 +12035,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.IsRecordingInProgress/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.IsRecordingInProgress/param/1": {
     "documentation": ""
@@ -11988,10 +12062,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.Redo/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.Redo": {
-    "documentation": "Menjalankan tindakan terakhir yang telah dibatalkan.",
+    "documentation": "Menjalankan tindakan terakhir yang dibatalkan.",
     "params": [
       {
         "name": "self",
@@ -12003,7 +12077,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.ResetWaypoints/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.ResetWaypoints": {
     "documentation": "Menghapus riwayat, menyebabkan semua titik waypoint undo/redo dihapus.",
@@ -12018,7 +12092,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.SetEnabled/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.SetEnabled/param/1": {
     "documentation": ""
@@ -12040,7 +12114,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.SetWaypoint/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.SetWaypoint/param/1": {
     "documentation": ""
@@ -12062,10 +12136,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording/param/1": {
-    "documentation": "Nama tindakan yang sedang dilakukan yang sesuai untuk pencatatan dan pengkodean."
+    "documentation": "Nama tindakan yang sedang dilakukan yang sesuai untuk tujuan pencatatan dan pengkodean."
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording/param/2": {
     "documentation": "Nama tindakan yang sedang dilakukan untuk ditampilkan kepada pengguna."
@@ -12074,7 +12148,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording": {
-    "documentation": "Memulai pelacakan perubahan yang dibuat pada model data menjadi rekaman.",
+    "documentation": "Memulai pelacakan perubahan yang dibuat pada model data ke dalam perekaman.",
     "params": [
       {
         "name": "self",
@@ -12096,10 +12170,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.Undo/param/0": {
-    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio bagaimana cara membatalkan dan mengulang perubahan yang mereka buat pada pengalaman."
+    "documentation": "<strong>Harus</strong> digunakan oleh plugin untuk berkomunikasi dengan Studio tentang cara membatalkan dan mengulangi perubahan yang mereka buat pada pengalaman."
   },
   "@roblox/globaltype/ChangeHistoryService.Undo": {
-    "documentation": "Membatalkan tindakan terakhir yang diambil, di mana ada waypoint yang tersedia.",
+    "documentation": "Membatalkan tindakan terakhir yang dilakukan, untuk tindakan yang memiliki waypoint.",
     "params": [
       {
         "name": "self",
@@ -12188,7 +12262,7 @@
     "returns": []
   },
   "@roblox/globaltype/ChangeHistoryService.OnRecordingFinished": {
-    "documentation": "Dipicu ketika pengguna menyelesaikan sebuah tindakan. Parameter berasal dari <code>TryBeginRecording()</code> dan <code>FinishRecording()</code>.",
+    "documentation": "Dihidupkan ketika pengguna menyelesaikan tindakan. Parameter berasal dari <code>TryBeginRecording()</code> dan <code>FinishRecording()</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/ChangeHistoryService.OnRecordingFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/ChangeHistoryService.OnRecordingFinished.ConnectParallel",
@@ -12276,7 +12350,7 @@
     "returns": []
   },
   "@roblox/globaltype/ChangeHistoryService.OnRecordingStarted": {
-    "documentation": "Dipicu ketika pengguna memulai sebuah tindakan. Parameter berasal dari <code>TryBeginRecording()</code>.",
+    "documentation": "Dihidupkan ketika pengguna memulai tindakan. Parameter berasal dari <code>TryBeginRecording()</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/ChangeHistoryService.OnRecordingStarted.Connect",
       "ConnectParallel": "@roblox/globaltype/ChangeHistoryService.OnRecordingStarted.ConnectParallel",
@@ -12364,7 +12438,7 @@
     "returns": []
   },
   "@roblox/globaltype/ChangeHistoryService.OnRedo": {
-    "documentation": "Dipicu ketika pengguna membalikkan perintah undo. Waypoint menjelaskan jenis tindakan yang telah diulang.",
+    "documentation": "Dihidupkan ketika pengguna membalikkan perintah undo. Waypoint menggambarkan tipe aksi yang telah diulang kembali.",
     "keys": {
       "Connect": "@roblox/globaltype/ChangeHistoryService.OnRedo.Connect",
       "ConnectParallel": "@roblox/globaltype/ChangeHistoryService.OnRedo.ConnectParallel",
@@ -12452,7 +12526,7 @@
     "returns": []
   },
   "@roblox/globaltype/ChangeHistoryService.OnUndo": {
-    "documentation": "Dipicu ketika pengguna membatalkan sebuah tindakan di studio. Waypoint menjelaskan tipe tindakan yang telah dibatalkan.",
+    "documentation": "Dihidupkan ketika pengguna membatalkan tindakan di studio. Waypoint menggambarkan tipe aksi yang telah dibatalkan.",
     "keys": {
       "Connect": "@roblox/globaltype/ChangeHistoryService.OnUndo.Connect",
       "ConnectParallel": "@roblox/globaltype/ChangeHistoryService.OnUndo.ConnectParallel",
@@ -22635,17 +22709,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BaseWrap.CageMeshId": {
-    "documentation": "ID aset untuk mesh kandang.",
+    "documentation": "ID Aset untuk mesh sangkar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BaseWrap#CageMeshId",
     "code_sample": ""
   },
   "@roblox/globaltype/BaseWrap.CageOrigin": {
-    "documentation": "Offset mesh kandang relatif terhadap orangtua <code>MeshPart</code>.",
+    "documentation": "Offset mesh sangkar relatif terhadap induk <code>MeshPart</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BaseWrap#CageOrigin",
     "code_sample": ""
   },
   "@roblox/globaltype/BaseWrap.CageOriginWorld": {
-    "documentation": "Offset mesh kandang dalam ruang dunia.",
+    "documentation": "Offset mesh sangkar dalam ruang dunia.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BaseWrap#CageOriginWorld",
     "code_sample": ""
   },
@@ -22655,12 +22729,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BaseWrap.ImportOrigin": {
-    "documentation": "Menggambarkan di mana nol global berada saat membuat mesh kandang dalam alat pembuatan aset.",
+    "documentation": "Menjelaskan di mana nol global berada saat membuat mesh sangkar di alat pembuatan aset.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BaseWrap#ImportOrigin",
     "code_sample": ""
   },
   "@roblox/globaltype/BaseWrap.ImportOriginWorld": {
-    "documentation": "Menggambarkan di mana asal (dalam ruang dunia) berada saat membuat mesh kandang dalam alat pembuatan aset.",
+    "documentation": "Menjelaskan di mana origin (dalam ruang dunia) berada saat membuat cage mesh di alat pembuatan aset.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BaseWrap#ImportOriginWorld",
     "code_sample": ""
   },
@@ -23378,7 +23452,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer": {
-    "documentation": "<code>WrapTextureTransfer</code> allows a parent <code>Decal</code> to be wrapped around its parent <code>MeshPart</code> based on the cage of its <code>WrapTarget</code>.",
+    "documentation": "<code>WrapTextureTransfer</code> memungkinkan <code>Decal</code> induk dibungkus sekeliling <code>MeshPart</code> induk berdasarkan kandang dari <code>WrapTarget</code>.",
     "keys": {
       "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
       "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
@@ -23388,17 +23462,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
-    "documentation": "An optional reference mesh used for pruning and validating the target cage.",
+    "documentation": "Sebuah mesh referensi opsional yang digunakan untuk pemangkasan dan validasi kandang target.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMaxBound": {
-    "documentation": "Determines the maximum bound of the UV space to include in the transfer.",
+    "documentation": "Menentukan batas maksimum ruang UV untuk disertakan dalam transfer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMaxBound",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMinBound": {
-    "documentation": "Determines the minimum bound of the UV space to include in the transfer.",
+    "documentation": "Menentukan batas minimum ruang UV untuk disertakan dalam transfer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMinBound",
     "code_sample": ""
   },
@@ -28441,7 +28515,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment": {
-    "documentation": "HandleAdornment adalah kelas abstrak yang diwarisi oleh hiasan pegangan 3D.",
+    "documentation": "Kelas abstrak yang diwarisi oleh hiasan pegangan 3D.",
     "keys": {
       "AdornCullingMode": "@roblox/globaltype/HandleAdornment.AdornCullingMode",
       "AlwaysOnTop": "@roblox/globaltype/HandleAdornment.AlwaysOnTop",
@@ -28458,7 +28532,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.AlwaysOnTop": {
-    "documentation": "Memaksa objek ini untuk dirender di atas semua objek 3D di ruang kerja.",
+    "documentation": "Memaksa hiasan ini untuk menggambar di atas semua objek 3D di ruang kerja.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#AlwaysOnTop",
     "code_sample": ""
   },
@@ -28473,7 +28547,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.ZIndex": {
-    "documentation": "Menentukan urutan gambar dari <code>HandleAdornment</code>.",
+    "documentation": "Menentukan urutan gambar dari <code>HandleAdornment</code> ini ketika <code>AlwaysOnTop</code> adalah <code>true</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#ZIndex",
     "code_sample": ""
   },
@@ -28555,7 +28629,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "Dibakar saat pengguna menekan tombol mouse kiri mereka sambil mengarahkan ke hiasan.",
+    "documentation": "Terjadi ketika pemain menekan tombol mouse kiri mereka saat melayang di atas hiasan.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -28643,7 +28717,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "Dibakar saat pengguna melepaskan tombol mouse kiri mereka sambil mengarahkan ke hiasan.",
+    "documentation": "Terjadi ketika pemain melepaskan tombol mouse kiri mereka saat melayang di atas hiasan.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -28731,7 +28805,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseEnter": {
-    "documentation": "Dibakar saat pengguna menggerakkan mouse mereka di atas hiasan.",
+    "documentation": "Terjadi ketika pemain memindahkan mouse mereka di atas hiasan.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseEnter.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseEnter.ConnectParallel",
@@ -28819,7 +28893,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseLeave": {
-    "documentation": "Dibakar saat pengguna menggerakkan mouse mereka keluar dari hiasan.",
+    "documentation": "Terjadi ketika pemain memindahkan mouse mereka keluar dari hiasan.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseLeave.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseLeave.ConnectParallel",
@@ -35468,7 +35542,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment": {
-    "documentation": "Kelas PVAdornment adalah kelas abstrak yang penerusnya dapat dihiasi ke objek dari kelas PVInstance.",
+    "documentation": "Sebuah kelas abstrak yang dapat dipasang pada objek dari kelas <code>PVInstance</code>.",
     "keys": {
       "Adornee": "@roblox/globaltype/PVAdornment.Adornee"
     },
@@ -35476,7 +35550,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment.Adornee": {
-    "documentation": "<code>PVInstance</code> yang terlampir pada PVAdornment.",
+    "documentation": "Kelas <code>PVInstance</code> yang dilampirkan oleh <code>PVAdornment</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PVAdornment#Adornee",
     "code_sample": ""
   },
@@ -37509,7 +37583,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CollectionService": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan.",
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan.",
     "keys": {
       "AddTag": "@roblox/globaltype/CollectionService.AddTag",
       "GetAllTags": "@roblox/globaltype/CollectionService.GetAllTags",
@@ -37525,7 +37599,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CollectionService.AddTag/param/0": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan."
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan."
   },
   "@roblox/globaltype/CollectionService.AddTag/param/1": {
     "documentation": ""
@@ -37534,7 +37608,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/CollectionService.AddTag": {
-    "documentation": "Menerapkan tag pada sebuah <code>Instance</code>.",
+    "documentation": "Menerapkan tag ke sebuah <code>Instance</code>.",
     "params": [
       {
         "name": "self",
@@ -37554,7 +37628,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CollectionService.GetAllTags/param/0": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan."
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan."
   },
   "@roblox/globaltype/CollectionService.GetAllTags/return/0": {
     "documentation": ""
@@ -37574,7 +37648,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CollectionService.GetCollection/param/0": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan."
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan."
   },
   "@roblox/globaltype/CollectionService.GetCollection/param/1": {
     "documentation": ""
@@ -37583,7 +37657,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/CollectionService.GetCollection": {
-    "documentation": "<strong>Deprecated:</strong> Item ini telah digantikan oleh metode penandaan <code>CollectionService</code>. Fungsi setara menggunakan metode baru adalah <code>CollectionService:GetTagged()</code> yang harus digunakan dalam pekerjaan baru.<br>Mengembalikan semua instance dari kelas tertentu yang ada di <code>DataModel</code>.",
+    "documentation": "<strong>Deprecated:</strong> Item ini telah digantikan oleh metode penandaan <code>CollectionService</code>. Fungsi setara menggunakan metode baru adalah <code>CollectionService:GetTagged()</code> yang harus digunakan dalam pekerjaan baru.<br>Mengembalikan semua instansi dari kelas tertentu yang ada dalam <code>DataModel</code>.",
     "params": [
       {
         "name": "self",
@@ -37601,16 +37675,16 @@
     "code_sample": "local CollectionService = game:GetService(\"CollectionService\")\n\nfor _index = 1, 10 do\n\tlocal configuration = Instance.new(\"Configuration\")\n\tconfiguration.Parent = workspace\nend\n\nlocal objects = CollectionService:GetCollection(\"Configuration\")\nprint(#objects)"
   },
   "@roblox/globaltype/CollectionService.GetInstanceAddedSignal/param/0": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan."
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan."
   },
   "@roblox/globaltype/CollectionService.GetInstanceAddedSignal/param/1": {
-    "documentation": "Tag yang akan dipantau."
+    "documentation": "Tag yang akan diawasi."
   },
   "@roblox/globaltype/CollectionService.GetInstanceAddedSignal/return/0": {
-    "documentation": "Sebuah event yang dipicu ketika Anda menambahkan tag ke sebuah instance."
+    "documentation": "Sebuah peristiwa yang terpicu ketika Anda menambahkan tag ke sebuah instansi."
   },
   "@roblox/globaltype/CollectionService.GetInstanceAddedSignal": {
-    "documentation": "Mengembalikan sinyal yang dipicu ketika tag tertentu ditambahkan ke sebuah instance.",
+    "documentation": "Mengembalikan sinyal yang terpicu ketika tag tertentu ditambahkan ke sebuah instansi.",
     "params": [
       {
         "name": "self",
@@ -37628,16 +37702,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CollectionService.GetInstanceRemovedSignal/param/0": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan."
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan."
   },
   "@roblox/globaltype/CollectionService.GetInstanceRemovedSignal/param/1": {
-    "documentation": "Tag yang akan dipantau."
+    "documentation": "Tag yang akan diawasi."
   },
   "@roblox/globaltype/CollectionService.GetInstanceRemovedSignal/return/0": {
-    "documentation": "Sebuah event yang dipicu ketika Anda menghapus tag dari sebuah instance."
+    "documentation": "Sebuah peristiwa yang terpicu ketika Anda menghapus tag dari sebuah instansi."
   },
   "@roblox/globaltype/CollectionService.GetInstanceRemovedSignal": {
-    "documentation": "Mengembalikan sinyal yang dipicu ketika tag tertentu dihapus dari sebuah instance.",
+    "documentation": "Mengembalikan sinyal yang terpicu ketika tag tertentu dihapus dari sebuah instansi.",
     "params": [
       {
         "name": "self",
@@ -37655,16 +37729,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CollectionService.GetTagged/param/0": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan."
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan."
   },
   "@roblox/globaltype/CollectionService.GetTagged/param/1": {
-    "documentation": "Tag yang akan dicari."
+    "documentation": "Tag yang dicari."
   },
   "@roblox/globaltype/CollectionService.GetTagged/return/0": {
-    "documentation": "Array dari semua instance dengan tag tersebut."
+    "documentation": "Sebuah array dari semua instansi dengan tag tersebut."
   },
   "@roblox/globaltype/CollectionService.GetTagged": {
-    "documentation": "Mengembalikan array dari instance dalam permainan dengan tag tertentu.",
+    "documentation": "Mengembalikan array instansi di dalam permainan dengan tag tertentu.",
     "params": [
       {
         "name": "self",
@@ -37682,16 +37756,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CollectionService.GetTags/param/0": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan."
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan."
   },
   "@roblox/globaltype/CollectionService.GetTags/param/1": {
-    "documentation": "Instance yang tag-nya harus dikembalikan."
+    "documentation": "Instansi yang tag-nya harus dikembalikan."
   },
   "@roblox/globaltype/CollectionService.GetTags/return/0": {
-    "documentation": "Array dari string yang adalah tag yang diterapkan pada instance yang diberikan."
+    "documentation": "Sebuah array string yang merupakan tag yang diterapkan pada instansi yang diberikan."
   },
   "@roblox/globaltype/CollectionService.GetTags": {
-    "documentation": "Mengambil array dari semua tag yang diterapkan pada instance tertentu.",
+    "documentation": "Mendapatkan array dari semua tag yang diterapkan pada instansi tertentu.",
     "params": [
       {
         "name": "self",
@@ -37709,19 +37783,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CollectionService.HasTag/param/0": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan."
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan."
   },
   "@roblox/globaltype/CollectionService.HasTag/param/1": {
-    "documentation": "Instance yang akan diperiksa keberadaan tag-nya."
+    "documentation": "Instansi yang akan diperiksa keberadaan tag-nya."
   },
   "@roblox/globaltype/CollectionService.HasTag/param/2": {
     "documentation": "Tag yang akan diperiksa keberadaannya."
   },
   "@roblox/globaltype/CollectionService.HasTag/return/0": {
-    "documentation": "Apakah instance memiliki tag tersebut."
+    "documentation": "Apakah instansi tersebut memiliki tag."
   },
   "@roblox/globaltype/CollectionService.HasTag": {
-    "documentation": "Memeriksa apakah sebuah instance memiliki tag tertentu.",
+    "documentation": "Periksa apakah sebuah instansi memiliki tag tertentu.",
     "params": [
       {
         "name": "self",
@@ -37743,16 +37817,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CollectionService.RemoveTag/param/0": {
-    "documentation": "Sebuah layanan yang mengelola kumpulan instance menggunakan tag yang ditetapkan."
+    "documentation": "Sebuah layanan yang mengelola koleksi instansi menggunakan tag yang ditetapkan."
   },
   "@roblox/globaltype/CollectionService.RemoveTag/param/1": {
-    "documentation": "Instance untuk menghapus tag darinya."
+    "documentation": "Instansi yang ingin dihapus tag-nya."
   },
   "@roblox/globaltype/CollectionService.RemoveTag/param/2": {
-    "documentation": "Tag yang akan dihapus dari instance."
+    "documentation": "Tag yang ingin dihapus dari instansi."
   },
   "@roblox/globaltype/CollectionService.RemoveTag": {
-    "documentation": "Menghapus tag dari sebuah instance.",
+    "documentation": "Menghapus tag dari sebuah instansi.",
     "params": [
       {
         "name": "self",
@@ -37849,7 +37923,7 @@
     "returns": []
   },
   "@roblox/globaltype/CollectionService.ItemAdded": {
-    "documentation": "<strong>Deprecated:</strong> Item ini telah digantikan oleh metode penandaan <code>CollectionService</code>. Saat ini tidak ada cara untuk memeriksa kapan sebuah tag ditambahkan.<br>Dipicu ketika sebuah <code>Configuration</code>, <code>CustomEvent</code>, <code>CustomEventReceiver</code>, <code>Dialog</code>, atau <code>VehicleSeat</code> ditambahkan ke <code>DataModel</code>.",
+    "documentation": "<strong>Deprecated:</strong> Item ini telah digantikan oleh metode penandaan <code>CollectionService</code>. Saat ini tidak ada cara untuk memeriksa ketika tag ditambahkan.<br>Terpicu ketika sebuah <code>Configuration</code>, <code>CustomEvent</code>, <code>CustomEventReceiver</code>, <code>Dialog</code>, atau <code>VehicleSeat</code> ditambahkan ke <code>DataModel</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/CollectionService.ItemAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/CollectionService.ItemAdded.ConnectParallel",
@@ -37937,7 +38011,7 @@
     "returns": []
   },
   "@roblox/globaltype/CollectionService.ItemRemoved": {
-    "documentation": "<strong>Deprecated:</strong> Item ini telah digantikan oleh metode penandaan <code>CollectionService</code>. Saat ini tidak ada cara untuk memeriksa kapan sebuah tag dihapus.<br>Dipicu ketika sebuah <code>Configuration</code>, <code>CustomEvent</code>, <code>CustomEventReceiver</code>, <code>Dialog</code>, atau <code>VehicleSeat</code> dihapus dari <code>DataModel</code>.",
+    "documentation": "<strong>Deprecated:</strong> Item ini telah digantikan oleh metode penandaan <code>CollectionService</code>. Saat ini tidak ada cara untuk memeriksa kapan tag dihapus.<br>Terpicu ketika sebuah <code>Configuration</code>, <code>CustomEvent</code>, <code>CustomEventReceiver</code>, <code>Dialog</code>, atau <code>VehicleSeat</code> dihapus dari <code>DataModel</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/CollectionService.ItemRemoved.Connect",
       "ConnectParallel": "@roblox/globaltype/CollectionService.ItemRemoved.ConnectParallel",
@@ -38025,7 +38099,7 @@
     "returns": []
   },
   "@roblox/globaltype/CollectionService.TagAdded": {
-    "documentation": "Dipicu ketika sebuah tag ditambahkan ke sebuah instance dan tag yang ditambahkan adalah satu-satunya kejadian dari tag tersebut di tempat itu.",
+    "documentation": "Terpicu ketika sebuah tag ditambahkan ke sebuah instansi dan tag yang ditambahkan adalah satu-satunya kemunculan tag tersebut di tempat tersebut.",
     "keys": {
       "Connect": "@roblox/globaltype/CollectionService.TagAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/CollectionService.TagAdded.ConnectParallel",
@@ -38113,7 +38187,7 @@
     "returns": []
   },
   "@roblox/globaltype/CollectionService.TagRemoved": {
-    "documentation": "Dipicu ketika sebuah tag dihapus dari sebuah instance dan tag yang dihapus tidak lagi digunakan di mana pun di tempat itu.",
+    "documentation": "Terpicu ketika sebuah tag dihapus dari sebuah instansi dan tag yang dihapus tidak lagi digunakan di mana pun di tempat tersebut.",
     "keys": {
       "Connect": "@roblox/globaltype/CollectionService.TagRemoved.Connect",
       "ConnectParallel": "@roblox/globaltype/CollectionService.TagRemoved.ConnectParallel",
@@ -38319,7 +38393,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D.",
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D.",
     "keys": {
       "AngleAttenuation": "@roblox/globaltype/AudioListener.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioListener.AudioInteractionGroup",
@@ -38354,18 +38428,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.SimulationFidelity": {
-    "documentation": "Mengontrol seberapa rinci simulasi audio seharusnya untuk <code>AudioListener</code> ini.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mengontrol seberapa detail simulasi audio seharusnya untuk <code>AudioListener</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#SimulationFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetAngleAttenuation/param/0": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D."
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetAngleAttenuation/return/0": {
-    "documentation": "Tabel yang memetakan sudut ke volume, seperti yang dijelaskan di atas."
+    "documentation": "Tabel memetakan sudut ke volume, seperti yang dijelaskan di atas."
   },
   "@roblox/globaltype/AudioListener.GetAngleAttenuation": {
-    "documentation": "Mendapatkan kurva attenuasi sudut yang digunakan oleh <code>AudioListener</code>, atau tabel kosong jika menggunakan kurva default.",
+    "documentation": "Mengambil kurva atenuasi sudut yang digunakan oleh <code>AudioListener</code>, atau tabel kosong jika menggunakan kurva default.",
     "params": [
       {
         "name": "self",
@@ -38379,7 +38453,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor/param/0": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D."
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor/param/1": {
     "documentation": ""
@@ -38388,7 +38462,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetAudibilityFor": {
-    "documentation": "Menghitung seberapa dapat didengarnya <code>AudioEmitter</code> untuk listener ini",
+    "documentation": "Menghitung seberapa terdengar <code>AudioEmitter</code> untuk pendengar ini.",
     "params": [
       {
         "name": "self",
@@ -38406,7 +38480,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/0": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D."
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/1": {
     "documentation": ""
@@ -38433,13 +38507,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetDistanceAttenuation/param/0": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D."
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetDistanceAttenuation/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetDistanceAttenuation": {
-    "documentation": "Mendapatkan kurva attenuasi jarak yang digunakan oleh <code>AudioListener</code>, atau tabel kosong jika menggunakan kurva default.",
+    "documentation": "Mengambil kurva atenuasi jarak yang digunakan oleh <code>AudioListener</code>, atau tabel kosong jika menggunakan kurva default.",
     "params": [
       {
         "name": "self",
@@ -38453,7 +38527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetInputPins/param/0": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D."
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetInputPins/return/0": {
     "documentation": ""
@@ -38473,13 +38547,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters/param/0": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D."
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetInteractingEmitters": {
-    "documentation": "Mendaftarkan semua <code>AudioEmitters</code> yang dapat didengar oleh listener ini.",
+    "documentation": "Mendaftar semua <code>AudioEmitters</code> yang dapat didengar oleh listener ini.",
     "params": [
       {
         "name": "self",
@@ -38493,7 +38567,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/param/0": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D."
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/return/0": {
     "documentation": ""
@@ -38513,13 +38587,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.SetAngleAttenuation/param/0": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D."
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.SetAngleAttenuation/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.SetAngleAttenuation": {
-    "documentation": "Mengatur kurva attenuasi sudut yang harus digunakan oleh <code>AudioListener</code>, atau menggunakan kurva volume konstan <code>1</code> jika tidak ada yang diberikan.",
+    "documentation": "Mengatur kurva atenuasi sudut yang harus digunakan oleh <code>AudioListener</code>, atau menggunakan kurva konstan dengan volume <code>1</code> jika tidak ada yang disediakan.",
     "params": [
       {
         "name": "self",
@@ -38535,13 +38609,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioListener.SetDistanceAttenuation/param/0": {
-    "documentation": "Merekam aliran audio dari lingkungan sekitarnya <code>AudioEmitters</code> di dunia 3D."
+    "documentation": "Merekam aliran audio dari sekelilingnya <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.SetDistanceAttenuation/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.SetDistanceAttenuation": {
-    "documentation": "Mengatur kurva attenuasi jarak yang harus digunakan oleh <code>AudioListener</code>, atau menggunakan kurva rolloff invers jika tidak ada yang diberikan.",
+    "documentation": "Mengatur kurva atenuasi jarak yang harus digunakan oleh <code>AudioListener</code>, atau menggunakan kurva penurunan invers jika tidak ada yang disediakan.",
     "params": [
       {
         "name": "self",
@@ -38634,7 +38708,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioListener.WiringChanged": {
-    "documentation": "Ditembak saat instance lain terhubung atau terputus dari <code>AudioListener</code> melalui <code>Wire</code>.",
+    "documentation": "Ditembak ketika instance lain terhubung ke atau terputus dari <code>AudioListener</code> melalui <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioListener.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioListener.WiringChanged.ConnectParallel",
@@ -44188,7 +44262,7 @@
   "@roblox/globaltype/Player.PartyId": {
     "documentation": "Pengidentifikasi unik kelompok tempat <code>Player</code> menjadi anggotanya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Pemain berada dalam pesta dengan ID: \" .. partyId)\n\telse\n\t\tprint(\"Pemain tidak berada dalam pesta\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"Pemain bergabung dalam pesta dengan ID: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"Pemain meninggalkan pesta\")\n\t\tend\n\tend)\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Pemain berada di pesta dengan ID: \" .. partyId)\n\telse\n\t\tprint(\"Pemain tidak berada di pesta\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"Pemain bergabung dengan pesta dengan ID: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"Pemain keluar dari pesta\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
     "documentation": "Mengatur bagian fokus replikasi.",
@@ -47515,7 +47589,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel": {
-    "documentation": "Mewakili saluran obrolan teks.",
+    "documentation": "Mewakili sebuah saluran obrolan teks.",
     "keys": {
       "DirectChatRequester": "@roblox/globaltype/TextChannel.DirectChatRequester",
       "AddUserAsync": "@roblox/globaltype/TextChannel.AddUserAsync",
@@ -47529,18 +47603,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.DirectChatRequester": {
-    "documentation": "<code>TextChannel</code> hanya akan mengirim pesan kepada pengguna yang dapat mengirim pesan langsung ke <code>DirectChatRequester</code>.",
+    "documentation": "<code>TextChannel</code> hanya akan mengirim pesan kepada pengguna yang dapat mengirim pesan langsung kepada <code>DirectChatRequester</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChannel#DirectChatRequester",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/param/0": {
-    "documentation": "Mewakili saluran obrolan teks."
+    "documentation": "Mewakili sebuah saluran obrolan teks."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/param/1": {
     "documentation": "UserId dari <code>Player</code>."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/return/0": {
-    "documentation": "Mengembalikan <code>TextSource</code> dan <code>true</code> jika <code>TextSource</code> baru dibuat untuk pengguna, <code>TextSource</code> dan <code>false</code> jika ada <code>TextSource</code> yang ada, or <code>nil</code> dan <code>false</code> jika pengguna mematikan obrolan atau tidak berada di server ini."
+    "documentation": "Mengembalikan <code>TextSource</code> dan <code>true</code> jika <code>TextSource</code> baru dibuat untuk pengguna, <code>TextSource</code> dan <code>false</code> jika ada <code>TextSource</code> yang telah ada, atau <code>nil</code> dan <code>false</code> jika pengguna telah mematikan obrolan atau tidak berada di server ini."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync": {
     "documentation": "Menambahkan <code>TextSource</code> ke <code>TextChannel</code> dengan userId dari <code>Player</code>.",
@@ -47561,16 +47635,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/param/0": {
-    "documentation": "Mewakili saluran obrolan teks."
+    "documentation": "Mewakili sebuah saluran obrolan teks."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/param/1": {
     "documentation": "Pesan sistem yang dikirim ke <code>TextChannel</code>."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/param/2": {
-    "documentation": "Gunakan untuk mengidentifikasi jenis pesan sistem, seperti pesan sistem default."
+    "documentation": "Digunakan untuk mengidentifikasi jenis pesan sistem, seperti pesan sistem bawaan."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/return/0": {
-    "documentation": "Sebuah <code>TextChatMessage</code> dengan properti <code>TextChatMessage.Status</code> yang menunjukkan kondisi pesan."
+    "documentation": "Sebuah <code>TextChatMessage</code> dengan properti <code>TextChatMessage.Status</code> yang menunjukkan kondisi pesan tersebut."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage": {
     "documentation": "Menampilkan pesan sistem kepada pengguna.",
@@ -47595,7 +47669,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.SendAsync/param/0": {
-    "documentation": "Mewakili saluran obrolan teks."
+    "documentation": "Mewakili sebuah saluran obrolan teks."
   },
   "@roblox/globaltype/TextChannel.SendAsync/param/1": {
     "documentation": "Pesan yang akan dikirim ke <code>TextChannel</code>."
@@ -47604,7 +47678,7 @@
     "documentation": "Metadata kustom yang dilampirkan pada pesan."
   },
   "@roblox/globaltype/TextChannel.SendAsync/return/0": {
-    "documentation": "Sebuah <code>TextChatMessage</code> dengan properti <code>TextChatMessage.Status</code> yang menunjukkan kondisi pesan."
+    "documentation": "Sebuah <code>TextChatMessage</code> dengan properti <code>TextChatMessage.Status</code> yang menunjukkan kondisi pesan tersebut."
   },
   "@roblox/globaltype/TextChannel.SendAsync": {
     "documentation": "Mengirim <code>TextChatMessage</code> ke server.",
@@ -47629,7 +47703,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/0": {
-    "documentation": "Mewakili saluran obrolan teks."
+    "documentation": "Mewakili sebuah saluran obrolan teks."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
     "documentation": ""
@@ -47657,7 +47731,7 @@
     "documentation": "Jika <code>TextChatMessageProperties</code> dikembalikan, properti tersebut digabungkan dengan parameter <code>TextChatMessage</code> untuk membuat <code>TextChatMessage</code> baru dengan properti tersebut."
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage": {
-    "documentation": "Dipanggil ketika <code>TextChannel</code> menerima pesan yang masuk.",
+    "documentation": "Dipanggil saat <code>TextChannel</code> menerima pesan masuk.",
     "params": [
       {
         "name": "message",
@@ -47674,13 +47748,13 @@
     "documentation": "Pesan yang sedang dikirim, yang juga mencakup pengirim pesan."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/param/1": {
-    "documentation": "<code>TextSource</code> dari pengguna yang akan menerima pesan."
+    "documentation": "<code>TextSource</code> dari pengguna yang akan menerima pesan tersebut."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
-    "documentation": "Dipanggil untuk setiap klien ketika <code>TextChannel</code> menerima pesan masuk untuk menentukan apakah pesan tersebut harus dikirim ke klien tersebut.",
+    "documentation": "Dipanggil untuk setiap klien ketika <code>TextChannel</code> menerima pesan masuk tuk menentukan apakah pesan tersebut harus disampaikan ke klien tersebut.",
     "params": [
       {
         "name": "message",
@@ -47775,7 +47849,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextChannel.MessageReceived": {
-    "documentation": "Dikembangkan ketika <code>TextChannel:DisplaySystemMessage()</code> dipanggil di klien, atau ketika klien menerima tanggapan valid dari <code>TextChannel:SendAsync()</code> dari server.",
+    "documentation": "Dihidupkan ketika <code>TextChannel:DisplaySystemMessage()</code> dipanggil pada klien, atau ketika klien menerima respons valid <code>TextChannel:SendAsync()</code> dari server.",
     "keys": {
       "Connect": "@roblox/globaltype/TextChannel.MessageReceived.Connect",
       "ConnectParallel": "@roblox/globaltype/TextChannel.MessageReceived.ConnectParallel",
@@ -49325,7 +49399,7 @@
     "code_sample": "local function yieldPlayAnimation(animationTrack, fadeTime, weight, speed)\n\tanimationTrack:Play(fadeTime, weight, speed)\n\tanimationTrack.Stopped:Wait()\n\tprint(\"Animasi telah dihentikan\")\nend\n\nlocal animation = Instance.new(\"Animation\")\nanimation.AnimationId = \"rbxassetid://507765644\"\n\nlocal humanoid = script.Parent:WaitForChild(\"Humanoid\")\nlocal animator = humanoid:WaitForChild(\"Animator\")\nlocal animationTrack = animator:LoadAnimation(animation)\n\nyieldPlayAnimation(animationTrack, 1, 0.6, 1)"
   },
   "@roblox/globaltype/RunService": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu.",
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu.",
     "keys": {
       "ClientGitHash": "@roblox/globaltype/RunService.ClientGitHash",
       "RunState": "@roblox/globaltype/RunService.RunState",
@@ -49356,19 +49430,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.BindToRenderStep/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.BindToRenderStep/param/1": {
-    "documentation": "Label untuk ikatan yang dapat digunakan dengan <code>Unbind</code> jika ikatan tersebut tidak lagi diperlukan."
+    "documentation": "Label untuk pengikatan yang dapat digunakan dengan <code>Unbind</code> jika pengikatan tidak lagi diperlukan."
   },
   "@roblox/globaltype/RunService.BindToRenderStep/param/2": {
-    "documentation": "Prioritas ikatan sebagai integer; ini menentukan kapan selama langkah render untuk memanggil fungsi kustom. Semakin rendah angka ini, semakin cepat fungsi kustom akan dipanggil. Jika dua ikatan memiliki prioritas yang sama, Engine Roblox akan secara acak memilih satu untuk dijalankan lebih dulu."
+    "documentation": "Prioritas pengikatan sebagai bilangan bulat; ia menentukan kapan selama langkah render untuk memanggil fungsi kustom. Semakin rendah angka ini, semakin cepat fungsi kustom akan dipanggil. Jika dua pengikatan memiliki prioritas yang sama, mesin Roblox akan secara acak memilih satu untuk dijalankan terlebih dahulu."
   },
   "@roblox/globaltype/RunService.BindToRenderStep/param/3": {
-    "documentation": "Fungsi kustom yang sedang diikat."
+    "documentation": "Fungsi kustom yang diikat."
   },
   "@roblox/globaltype/RunService.BindToRenderStep": {
-    "documentation": "Diberikan nama string dari sebuah fungsi dan prioritas, metode ini mengikat fungsi tersebut ke <code>RunService.PreRender</code>.",
+    "documentation": "Diberikan nama string dari sebuah fungsi dan prioritas, metode ini mengikat fungsi ke <code>RunService.PreRender</code>.",
     "params": [
       {
         "name": "self",
@@ -49392,13 +49466,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.IsClient/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.IsClient/return/0": {
-    "documentation": "Apakah lingkungan saat ini sedang menjalankan klien."
+    "documentation": "Apakah lingkungan saat ini berjalan di klien."
   },
   "@roblox/globaltype/RunService.IsClient": {
-    "documentation": "Mengembalikan apakah lingkungan saat ini sedang berjalan di klien.",
+    "documentation": "Mengembalikan apakah lingkungan saat ini berjalan di klien.",
     "params": [
       {
         "name": "self",
@@ -49412,13 +49486,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.IsEdit/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.IsEdit/return/0": {
-    "documentation": "Apakah lingkungan saat ini dalam mode \"edit\"."
+    "documentation": "Apakah lingkungan saat ini berada di mode \"edit\"."
   },
   "@roblox/globaltype/RunService.IsEdit": {
-    "documentation": "Mengembalikan apakah lingkungan saat ini dalam mode \"Edit\".",
+    "documentation": "Mengembalikan apakah lingkungan saat ini berada di mode <code>Edit</code>.",
     "params": [
       {
         "name": "self",
@@ -49432,13 +49506,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.IsRunMode/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.IsRunMode/return/0": {
-    "documentation": "Apakah <strong>Run</strong> playtest telah diinisiasi di Studio."
+    "documentation": "Apakah <strong>Uji Main</strong> telah dimulai di Studio."
   },
   "@roblox/globaltype/RunService.IsRunMode": {
-    "documentation": "Mengembalikan apakah <strong>Run</strong> playtest telah diinisiasi di Studio.",
+    "documentation": "Mengembalikan apakah <strong>Uji Main</strong> telah dimulai di Studio.",
     "params": [
       {
         "name": "self",
@@ -49452,7 +49526,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.IsRunning/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.IsRunning/return/0": {
     "documentation": "Apakah pengalaman saat ini sedang berjalan."
@@ -49472,7 +49546,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.IsServer/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.IsServer/return/0": {
     "documentation": "Apakah lingkungan saat ini berjalan di server."
@@ -49492,7 +49566,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.IsStudio/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.IsStudio/return/0": {
     "documentation": "Apakah lingkungan saat ini berjalan di Studio."
@@ -49512,10 +49586,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.Pause/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.Pause": {
-    "documentation": "Menghentikan simulasi pengalaman jika sedang berjalan, menangguhkan fisika dan skrip.",
+    "documentation": "Menjeda simulasi pengalaman jika sedang berjalan, menangguhkan fisika dan skrip.",
     "params": [
       {
         "name": "self",
@@ -49527,10 +49601,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.Reset/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.Reset": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan dan tidak boleh digunakan dalam pekerjaan baru.<br>Mengatur ulang game saat ini ke waypoint yang ditetapkan saat <code>RunService:Run()</code> dipanggil.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang dan tidak boleh digunakan dalam pekerjaan baru.<br>Mengatur ulang permainan saat ini ke waypoint yang ditetapkan saat <code>RunService:Run()</code> dipanggil.",
     "params": [
       {
         "name": "self",
@@ -49542,10 +49616,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.Run/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.Run": {
-    "documentation": "Menjalankan simulasi game, menjalankan fisika dan skrip.",
+    "documentation": "Menjalankan simulasi permainan, menjalankan fisika dan skrip.",
     "params": [
       {
         "name": "self",
@@ -49557,7 +49631,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.Stop/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.Stop": {
     "documentation": "Menghentikan simulasi pengalaman jika sedang berjalan.",
@@ -49572,13 +49646,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep/param/0": {
-    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan perkembangan waktu."
+    "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep/param/1": {
     "documentation": "Nama fungsi yang sedang dilepaskan."
   },
   "@roblox/globaltype/RunService.UnbindFromRenderStep": {
-    "documentation": "Melepaskan sebuah fungsi yang telah diikat ke loop render menggunakan <code>RunService:BindToRenderStep()</code>.",
+    "documentation": "Melepaskan fungsi yang terikat ke loop render menggunakan <code>RunService:BindToRenderStep()</code>.",
     "params": [
       {
         "name": "self",
@@ -49671,7 +49745,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.Heartbeat": {
-    "documentation": "Ditembakkan setiap frame, setelah simulasi fisika selesai.",
+    "documentation": "Dipicu setiap frame, setelah simulasi fisika selesai.",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.Heartbeat.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.Heartbeat.ConnectParallel",
@@ -49759,7 +49833,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.PostSimulation": {
-    "documentation": "Ditembakkan setiap frame, setelah simulasi fisika selesai.",
+    "documentation": "Dipicu setiap frame, setelah simulasi fisika selesai.",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.PostSimulation.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.PostSimulation.ConnectParallel",
@@ -49847,7 +49921,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.PreAnimation": {
-    "documentation": "Ditembakkan setiap frame, sebelum simulasi fisika tetapi setelah rendering.",
+    "documentation": "Dipicu setiap frame, sebelum simulasi fisika tetapi setelah rendering.",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.PreAnimation.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.PreAnimation.ConnectParallel",
@@ -49935,7 +50009,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.PreRender": {
-    "documentation": "Ditembakkan setiap frame, sebelum frame dirender.",
+    "documentation": "Dipicu setiap frame, sebelum frame dirender.",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.PreRender.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.PreRender.ConnectParallel",
@@ -50023,7 +50097,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.PreSimulation": {
-    "documentation": "Ditembakkan setiap frame, sebelum simulasi fisika.",
+    "documentation": "Dipicu setiap frame, sebelum simulasi fisika.",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.PreSimulation.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.PreSimulation.ConnectParallel",
@@ -50111,7 +50185,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.RenderStepped": {
-    "documentation": "Ditembakkan setiap frame, sebelum frame dirender.",
+    "documentation": "Dipicu setiap frame, sebelum frame dirender.",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.RenderStepped.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.RenderStepped.ConnectParallel",
@@ -50199,7 +50273,7 @@
     "returns": []
   },
   "@roblox/globaltype/RunService.Stepped": {
-    "documentation": "Ditembakkan setiap frame, sebelum simulasi fisika.",
+    "documentation": "Dipicu setiap frame, sebelum simulasi fisika.",
     "keys": {
       "Connect": "@roblox/globaltype/RunService.Stepped.Connect",
       "ConnectParallel": "@roblox/globaltype/RunService.Stepped.ConnectParallel",
@@ -52677,7 +52751,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment": {
-    "documentation": "",
+    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>.",
     "keys": {
       "Scale": "@roblox/globaltype/WireframeHandleAdornment.Scale",
       "Thickness": "@roblox/globaltype/WireframeHandleAdornment.Thickness",
@@ -52688,29 +52762,29 @@
       "Clear": "@roblox/globaltype/WireframeHandleAdornment.Clear"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment",
-    "code_sample": ""
+    "code_sample": "local wireframe = script.Parent\n\n-- Deklarasikan empat titik dalam susunan persegi\nlocal pathArray = {\n\tVector3.new(-10, 10, 0),\n\tVector3.new(10, 10, 0),\n\tVector3.new(10, -10, 0),\n\tVector3.new(-10, -10, 0)\n}\n\n-- Terapkan jalur ke dekorasi dan tutup itu (hubungkan titik awal dan akhir)\nwireframe:AddPath(pathArray, true)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.Scale": {
-    "documentation": "",
+    "documentation": "Skala <strong>XYZ</strong> dari hiasan wireframe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Thickness": {
-    "documentation": "",
+    "documentation": "Ketebalan garis hiasan wireframe dalam piksel.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/0": {
-    "documentation": ""
+    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/1": {
-    "documentation": ""
+    "documentation": "Titik awal dari garis."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/2": {
-    "documentation": ""
+    "documentation": "Titik akhir dari garis."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine": {
-    "documentation": "",
+    "documentation": "Menambahkan garis ke hiasan wireframe dari titik awal ke titik akhir relatif terhadap pusat <code>Adornee</code>.",
     "params": [
       {
         "name": "self",
@@ -52730,13 +52804,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/0": {
-    "documentation": ""
+    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/1": {
-    "documentation": ""
+    "documentation": "Array titik <code>Vector3</code> di mana setiap pasangan bertindak sebagai titik awal dan titik akhir untuk sebuah garis."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines": {
-    "documentation": "",
+    "documentation": "Menambahkan satu atau lebih garis ke hiasan wireframe menggunakan array.",
     "params": [
       {
         "name": "self",
@@ -52749,19 +52823,19 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#AddLines",
-    "code_sample": ""
+    "code_sample": "local wireframe = script.Parent\n\nlocal linesArray = {\n\tVector3.new(-10, 0, 0), -- Titik awal garis pertama\n\tVector3.new(10, 0, 0), -- Titik akhir garis pertama\n\tVector3.new(0, -10, 0), -- Titik awal garis kedua\n\tVector3.new(0, 10, 0), -- Titik akhir garis kedua\n\tVector3.new(0, 0, -10), -- Titik awal garis ketiga\n\tVector3.new(0, 0, 10) -- Titik akhir garis ketiga\n}\n-- Terapkan jalur ke hiasan\nwireframe:AddLines(linesArray)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/0": {
-    "documentation": ""
+    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/1": {
-    "documentation": ""
+    "documentation": "Array titik <code>Vector3</code> untuk dihubungkan dalam urutan dengan segmen garis."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/2": {
-    "documentation": ""
+    "documentation": "Apakah jalur ditutup dengan menghubungkan titik akhirnya ke titik awalnya dengan garis tambahan."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath": {
-    "documentation": "",
+    "documentation": "Menambahkan beberapa segmen garis ke hiasan wireframe dalam urutan dari titik ke titik.",
     "params": [
       {
         "name": "self",
@@ -52778,22 +52852,22 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WireframeHandleAdornment#AddPath",
-    "code_sample": ""
+    "code_sample": "local wireframe = script.Parent\n\n-- Deklarasikan empat titik dalam susunan persegi\nlocal pathArray = {\n\tVector3.new(-10, 10, 0),\n\tVector3.new(10, 10, 0),\n\tVector3.new(10, -10, 0),\n\tVector3.new(-10, -10, 0)\n}\n\n-- Terapkan jalur ke dekorasi dan tutup itu (hubungkan titik awal dan akhir)\nwireframe:AddPath(pathArray, true)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/0": {
-    "documentation": ""
+    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/1": {
-    "documentation": ""
+    "documentation": "Posisi teks dalam hiasan."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/2": {
-    "documentation": ""
+    "documentation": "String untuk ditampilkan."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/3": {
-    "documentation": ""
+    "documentation": "Ukuran teks."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText": {
-    "documentation": "",
+    "documentation": "Menambahkan label teks ke hiasan wireframe.",
     "params": [
       {
         "name": "self",
@@ -52817,10 +52891,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear/param/0": {
-    "documentation": ""
+    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear": {
-    "documentation": "",
+    "documentation": "Langsung menghapus semua garis dan teks dalam hiasan wireframe.",
     "params": [
       {
         "name": "self",
@@ -56753,7 +56827,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart": {
-    "documentation": "Sebuah bentuk dari <code>BasePart</code> yang termasuk mesh kustom yang disimulasikan secara fisik.",
+    "documentation": "Sebuah bentuk dari <code>BasePart</code> yang mencakup mesh kustom yang disimulasikan secara fisik.",
     "keys": {
       "DoubleSided": "@roblox/globaltype/MeshPart.DoubleSided",
       "HasJointOffset": "@roblox/globaltype/MeshPart.HasJointOffset",
@@ -56770,12 +56844,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.DoubleSided": {
-    "documentation": "Menentukan apakah untuk merender kedua sisi polygon dalam mesh.",
+    "documentation": "Menentukan apakah untuk merender kedua sisi poligon di dalam mesh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#DoubleSided",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.HasJointOffset": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#HasJointOffset",
     "code_sample": ""
   },
@@ -56785,17 +56859,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.JointOffset": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#JointOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshContent": {
-    "documentation": "Mesh yang ditampilkan pada <code>MeshPart</code>. Mendukung <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> dan <code>EditableMesh</code> objects.",
+    "documentation": "Mesh yang ditampilkan di <code>MeshPart</code>. Mendukung <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> dan objek <code>EditableMesh</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshId": {
-    "documentation": "<a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> dari mesh yang ditampilkan pada <code>MeshPart</code>. Membaca dan menulis ke <code>MeshContent</code>.",
+    "documentation": "The <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> dari mesh yang ditampilkan di <code>MeshPart</code>. Membaca dan menulis ke <code>MeshContent</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshId",
     "code_sample": ""
   },
@@ -56805,7 +56879,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureContent": {
-    "documentation": "Tekstur yang diterapkan pada <code>MeshPart</code>. Mendukung <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> dan <code>EditableImage</code> objects.",
+    "documentation": "Tekstur yang diterapkan pada <code>MeshPart</code>. Mendukung <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> dan objek <code>EditableImage</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureContent",
     "code_sample": ""
   },
@@ -56815,13 +56889,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.ApplyMesh/param/0": {
-    "documentation": "Sebuah bentuk dari <code>BasePart</code> yang termasuk mesh kustom yang disimulasikan secara fisik."
+    "documentation": "Sebuah bentuk dari <code>BasePart</code> yang mencakup mesh kustom yang disimulasikan secara fisik."
   },
   "@roblox/globaltype/MeshPart.ApplyMesh/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/MeshPart.ApplyMesh": {
-    "documentation": "Menimpa <code>MeshContent</code>, <code>TextureContent</code>, dan geometri tabrakan properti dari <code>MeshPart</code> ini dari sumber <code>meshPart</code> yang diberikan.",
+    "documentation": "Menimpa properti <code>MeshContent</code>, <code>TextureContent</code>, dan geometri kolisi dari <code>MeshPart</code> ini dari <code>meshPart</code> sumber yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -57088,6 +57162,7 @@
   "@roblox/globaltype/AssetService": {
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API.",
     "keys": {
+      "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
       "CreateEditableImage": "@roblox/globaltype/AssetService.CreateEditableImage",
@@ -57111,6 +57186,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0": {
+    "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync/param/1": {
+    "documentation": "Sebuah array tabel <code>Dictionary</code> yang memetakan nama PBR ke ContentID."
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0": {
+    "documentation": "Sebuah <code>Decal</code> baru yang mengandung set tekstur yang terkumpul."
+  },
+  "@roblox/globaltype/AssetService.ComposeDecalAsync": {
+    "documentation": "Membuat instance Decal yang menggunakan tekstur PBR komposit yang dibuat dengan menumpuk tekstur yang diberikan dalam urutan yang disediakan dalam array <code>layers</code>. Tekstur ditumpuk berdasarkan nilai alpha dari ColorMap.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0"
+      },
+      {
+        "name": "layers",
+        "documentation": "@roblox/globaltype/AssetService.ComposeDecalAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#ComposeDecalAsync",
+    "code_sample": "-- Dapatkan AssetService\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- Buat dua instansi decal\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- Membangun tabel info komposit\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.TextureContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- Komposisikan decal baru menggunakan AssetService\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
+  },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/0": {
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
   },
@@ -57121,7 +57223,7 @@
     "documentation": "Jenis yang saat ini didukung adalah: <ul> <li><code>AssetType.Model</code> – dengan <code>object</code> sebagai <code>Instance</code>   root yang valid.</li> <li><code>AssetType.Plugin</code> – dengan <code>object</code> sebagai <code>Instance</code>   root yang valid.</li> <li><code>AssetType.Mesh</code> – dengan <code>object</code> sebagai <code>EditableMesh</code>   root yang valid.</li> <li><code>AssetType.Image</code> – dengan <code>object</code> sebagai <code>EditableImage</code>   root yang valid.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/3": {
-    "documentation": "Tabel opsi yang berisi metadata aset: <ul> <li><code>Name</code> – Nama aset sebagai string. Default adalah <code>[object.Name]</code>.</li> <li><code>Description</code> – Deskripsi aset sebagai string. Default adalah   <code>\"Dibuat dengan AssetService:CreateAssetAsync\"</code>.</li> <li><code>CreatorId</code> – ID pencipta aset sebagai angka. Default adalah pengguna yang   masuk ke Roblox Studio untuk konteks Plugin. Diperlukan untuk konteks   Eksekusi Luau Cloud Terbuka.</li> <li><code>CreatorType</code> – <code>AssetCreatorType</code> yang menunjukkan jenis pencipta   aset. Default adalah <code>AssetCreatorType.User</code> dalam konteks Plugin.   Diperlukan untuk konteks Eksekusi Luau Cloud Terbuka.</li> <li><code>IsPackage</code> – Nilai boolean, hanya berlaku untuk   jenis <code>AssetType.Model</code>. Default adalah <code>true</code>.</li> </ul>"
+    "documentation": "Tabel opsi yang berisi metadata aset: <ul> <li><code>Name</code> – Nama aset sebagai string. Default adalah <code>[object.Name]</code>.</li> <li><code>Description</code> – Deskripsi aset sebagai string. Default adalah   <code>\"Dibuat dengan AssetService:CreateAssetAsync\"</code>.</li> <li><code>CreatorId</code> – ID pencipta aset sebagai angka. Default untuk pengguna yang telah masuk ke Roblox Studio dalam konteks Plugin. Diperlukan untuk konteks Eksekusi Open Cloud Luau.</li> <li><code>CreatorType</code> – <code>AssetCreatorType</code> yang menunjukkan jenis pencipta aset.   Defaultnya adalah <code>AssetCreatorType.User</code> dalam konteks Plugin.   Diperlukan untuk konteks Eksekusi Open Cloud Luau.</li> <li><code>IsPackage</code> – Nilai Boolean, hanya berlaku untuk jenis   <code>AssetType.Model</code>. Default adalah <code>true</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/return/0": {
     "documentation": "Pasangan <code>CreateAssetResult</code> dan ID aset jika berhasil."
@@ -57159,19 +57261,19 @@
     "documentation": "Objek yang akan dibuat sebagai aset."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/2": {
-    "documentation": "Jenis yang saat ini didukung adalah: <ul> <li><code>AssetType.Model</code> – dengan <code>object</code> sebagai <code>Instance</code>   root yang valid.</li> <li><code>AssetType.Plugin</code> – dengan <code>object</code> sebagai <code>Instance</code>   root yang valid.</li> <li><code>AssetType.Mesh</code> – dengan <code>object</code> sebagai <code>EditableMesh</code>   root yang valid.</li> <li><code>AssetType.Image</code> – dengan <code>object</code> sebagai <code>EditableImage</code>   root yang valid.</li> </ul>"
+    "documentation": "Tipe yang didukung saat ini adalah: <ul> <li><code>AssetType.Model</code> – dengan <code>object</code> sebagai <code>Instance</code>   yang valid.</li> <li><code>AssetType.Plugin</code> – dengan <code>object</code> sebagai <code>Instance</code>   yang valid.</li> <li><code>AssetType.Mesh</code> – dengan <code>object</code> sebagai <code>EditableMesh</code>   yang valid.</li> <li><code>AssetType.Image</code> – dengan <code>object</code> sebagai <code>EditableImage</code>   yang valid.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/3": {
     "documentation": "ID aset untuk versi baru."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/param/4": {
-    "documentation": "Tabel opsi yang berisi metadata aset: <ul> <li><code>Name</code> – Sebuah <code>string</code>. Nama aset. Default: object.Name.</li> <li><code>Description</code> – Sebuah <code>string</code>. Deskripsi aset. Default:   \"Dibuat dengan AssetService:CreateAssetAsync\".</li> <li><code>CreatorId</code> – Sebuah <code>number</code>. ID pencipta aset. Default: Pengguna   yang masuk di Roblox Studio untuk konteks Plugin. Diperlukan untuk Open   Cloud Luau Execution context.</li> <li><code>CreatorType</code> – Sebuah <code>AssetCreatorType</code>. Jenis pencipta aset.   Default: <code>AssetCreatorType.User</code> dalam konteks Plugin. Diperlukan   untuk Open Cloud Luau Execution context.</li> <li><code>IsPackage</code> – Sebuah <code>bool</code>. Hanya berlaku untuk   jenis <code>AssetType.Model</code>. Default: true.</li> </ul>"
+    "documentation": "Tabel opsi yang berisi metadata aset: <ul> <li><code>Name</code> – Sebuah <code>string</code>. Nama aset. Default: object.Name.</li> <li><code>Description</code> – Sebuah <code>string</code>. Deskripsi aset. Default:   \"Dibuat dengan AssetService:CreateAssetAsync\".</li> <li><code>CreatorId</code> – Sebuah <code>number</code>. ID pencipta aset. Default: Pengguna   yang masuk ke Roblox Studio dalam konteks Plugin. Diperlukan untuk konteks   Eksekusi Open Cloud Luau.</li> <li><code>CreatorType</code> – Sebuah <code>AssetCreatorType</code>. Jenis pencipta aset.   Default: <code>AssetCreatorType.User</code> dalam konteks Plugin. Diperlukan   untuk konteks Eksekusi Open Cloud Luau.</li> <li><code>IsPackage</code> – Sebuah <code>bool</code>. Hanya berlaku untuk tipe   <code>AssetType.Model</code>. Default: true.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync/return/0": {
     "documentation": "Pasangan <code>CreateAssetResult</code> dan nomor versi aset jika berhasil."
   },
   "@roblox/globaltype/AssetService.CreateAssetVersionAsync": {
-    "documentation": "Mengunggah versi baru untuk aset yang ada dari objek yang diberikan.",
+    "documentation": "Mengunggah versi baru untuk aset yang sudah ada dari objek yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -57204,7 +57306,7 @@
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/param/1": {
-    "documentation": "Tabel opsi yang berisi kontrol untuk metode: <ul> <li><code>Size</code> – Sebuah <code>Vector2</code> yang menetapkan   lebar dan tinggi yang diinginkan untuk gambar.</li> </ul>"
+    "documentation": "Tabel opsi yang berisi kontrol untuk metode: <ul> <li><code>Size</code> – Sebuah <code>Vector2</code> yang menentukan lebar dan tinggi   gambar yang diinginkan.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableImage/return/0": {
     "documentation": ""
@@ -57231,7 +57333,7 @@
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/1": {
-    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek di dalam  tempat, membungkus satu nilai dari salah satu nilai <code>ContentSourceType</code> yang didukung."
+    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek di dalam tempat, membungkus satu nilai dari salah satu nilai <code>ContentSourceType</code> yang didukung."
   },
   "@roblox/globaltype/AssetService.CreateEditableImageAsync/param/2": {
     "documentation": "Tabel yang berisi opsi untuk <code>EditableImage</code> yang dibuat. Saat ini tidak ada opsi yang tersedia karena pengubahan ukuran melalui <code>Size</code> tidak didukung."
@@ -57271,7 +57373,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreateEditableMesh": {
-    "documentation": "Membuat <code>EditableMesh</code> baru yang kosong.",
+    "documentation": "Membuat <code>EditableMesh</code> kosong yang baru.",
     "params": [
       {
         "name": "self",
@@ -57295,10 +57397,10 @@
     "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek di dalam  tempat, membungkus satu nilai dari salah satu nilai <code>ContentSourceType</code> yang didukung."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/param/2": {
-    "documentation": "Tabel opsi yang berisi satu atau lebih kontrol untuk metode: <ul> <li><code>FixedSize</code> – Sebuah <code>bool</code>. Nilai default adalah <code>true</code>, dan <code>EditableMesh</code>   yang dikembalikan tidak akan mengizinkan Anda menambahkan atau menghapus titik,   hanya memodifikasi nilainya. Atur ke <code>false</code> jika kemampuan untuk mengubah   topologi mesh diperlukan, dengan pengorbanan menggunakan lebih banyak memori.</li> </ul>"
+    "documentation": "Tabel opsi yang berisi kontrol untuk metode: <ul> <li><code>FixedSize</code> – Sebuah <code>bool</code>. Nilai default adalah <code>true</code>, dan <code>EditableMesh</code>   yang dikembalikan tidak akan membiarkan Anda menambahkan atau menghapus vertex,   hanya memodifikasi nilainya. Atur ke <code>false</code> jika kemampuan untuk mengubah   topologi mesh dibutuhkan, dengan mengorbankan penggunaan memori yang lebih banyak.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
-    "documentation": "Instans baru <code>EditableMesh</code>."
+    "documentation": "Instance <code>EditableMesh</code> yang baru."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
     "documentation": "Mengembalikan objek <code>EditableMesh</code> baru yang dibuat dari ID konten mesh yang ada.",
@@ -57326,16 +57428,16 @@
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/1": {
-    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek di dalam  tempat, membungkus satu nilai dari salah satu nilai <code>ContentSourceType</code> yang didukung."
+    "documentation": "Referensi ke konten aset yang disimpan secara eksternal atau sebagai objek di dalam tempat, membungkus satu nilai dari salah satu nilai <code>ContentSourceType</code> yang didukung."
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/param/2": {
-    "documentation": "Tabel opsi yang berisi satu atau lebih kontrol untuk metode: <ul> <li><code>CollisionFidelity</code> – Nilai dari   <code>CollisionFidelity</code> dalam bagian yang   dihasilkan. Default adalah <code>CollisionFidelity.Default</code> jika   opsi tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> <li><code>RenderFidelity</code> – Nilai dari   <code>RenderFidelity</code> dalam bagian yang   dihasilkan. Default adalah <code>RenderFidelity.Automatic</code> jika opsi   tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> <li><code>FluidFidelity</code> – Nilai dari   <code>FluidFidelity</code> dalam bagian yang dihasilkan.   Default adalah <code>FluidFidelity.Automatic</code> jika opsi tidak ada   atau tabel <code>options</code> adalah <code>nil</code>.</li> </ul>"
+    "documentation": "Tabel opsi yang berisi satu atau lebih kontrol untuk metode: <ul> <li><code>CollisionFidelity</code> – Nilai dari   <code>CollisionFidelity</code> di dalam   bagian yang dihasilkan. Default adalah <code>CollisionFidelity.Default</code> jika opsi   tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> <li><code>RenderFidelity</code> – Nilai dari   <code>RenderFidelity</code> di dalam   bagian yang dihasilkan. Default adalah <code>RenderFidelity.Automatic</code> jika opsi   tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> <li><code>FluidFidelity</code> – Nilai dari   <code>FluidFidelity</code> di dalam   bagian yang dihasilkan. Default adalah <code>FluidFidelity.Automatic</code> jika opsi   tidak ada atau tabel <code>options</code> adalah <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreateMeshPartAsync": {
-    "documentation": "Membuat objek <code>MeshPart</code> baru dengan ID mesh yang ditentukan dan tabel nilai fidelitas opsional.",
+    "documentation": "Membuat <code>MeshPart</code> baru dengan ID mesh yang ditentukan dan tabel opsi nilai fidelitas yang bersifat opsional.",
     "params": [
       {
         "name": "self",
@@ -57363,16 +57465,16 @@
     "documentation": "Nama tempat baru."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/2": {
-    "documentation": "<code>PlaceId</code> tempat yang akan dikloning."
+    "documentation": "<code>PlaceId</code> dari tempat yang akan dikloning."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/param/3": {
     "documentation": "Deskripsi tempat baru."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync/return/0": {
-    "documentation": "<code>PlaceId</code> tempat baru."
+    "documentation": "<code>PlaceId</code> dari tempat baru."
   },
   "@roblox/globaltype/AssetService.CreatePlaceAsync": {
-    "documentation": "Mengkloning tempat melalui <code>templatePlaceID</code> yang diberikan.",
+    "documentation": "Mengkloning sebuah tempat melalui <code>templatePlaceID</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -57416,7 +57518,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync": {
-    "documentation": "Mengkloning tempat melalui <code>templatePlaceID</code> yang diberikan dan menempatkannya ke  dalam inventaris pemain yang diberikan.",
+    "documentation": "Mengkloning sebuah tempat melalui <code>templatePlaceID</code> yang diberikan dan meletakkannya ke dalam inventaris pemain yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -57449,13 +57551,13 @@
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Kamus yang berisi pasangan kunci-nilai berikut: <ul> <li><code>ColorMap</code> — Sebuah objek <code>Content</code> yang mengandung peta warna.   Default adalah <code>nil</code>.</li> <li><code>MetalnessMap</code> — Sebuah objek <code>Content</code> yang mengandung   peta metalness. Jika lebih dari satu saluran hadir, hanya saluran merah   yang digunakan. Default adalah <code>nil</code>.</li> <li><code>NormalMap</code> — Sebuah objek <code>Content</code> yang mengandung peta normal.   Default adalah <code>nil</code>.</li> <li><code>RoughnessMap</code> — Sebuah objek <code>Content</code> yang mengandung peta   kekasaran. Jika lebih dari satu saluran hadir, hanya saluran merah   yang digunakan. Default adalah <code>nil</code>.</li> </ul>"
+    "documentation": "Kamus yang berisi pasangan kunci-nilai berikut: <ul> <li><code>ColorMap</code> — Sebuah objek <code>Content</code> yang berisi peta warna.   Default adalah <code>nil</code>.</li> <li><code>MetalnessMap</code> — Sebuah objek <code>Content</code> yang berisi peta metalitas.   Jika lebih dari satu saluran hadir, hanya saluran merah yang digunakan. Default adalah   <code>nil</code>.</li> <li><code>NormalMap</code> — Sebuah objek <code>Content</code> yang berisi peta normal.   Default adalah <code>nil</code>.</li> <li><code>RoughnessMap</code> — Sebuah objek <code>Content</code> yang berisi peta kekasaran.   Jika lebih dari satu saluran hadir, hanya saluran merah yang digunakan. Default adalah   <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "Instans <code>SurfaceAppearance</code> baru dengan peta yang diberikan dari parameter <code>content</code>."
+    "documentation": "Sebuah instance <code>SurfaceAppearance</code> baru dengan peta yang diberikan dari parameter <code>content</code>."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "Membuat objek <code>SurfaceAppearance</code> baru menggunakan peta konten yang disediakan.",
+    "documentation": "Membuat objek <code>SurfaceAppearance</code> baru menggunakan peta konten yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -57479,10 +57581,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage/return/0": {
-    "documentation": "ID aset yang terdapat dalam paket tertentu."
+    "documentation": "ID aset yang terkandung dalam paket tertentu."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage": {
-    "documentation": "Mengembalikan array ID aset yang terdapat dalam paket tertentu.",
+    "documentation": "Mengembalikan array ID aset yang terkandung dalam paket tertentu.",
     "params": [
       {
         "name": "self",
@@ -57503,10 +57605,10 @@
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/param/1": {
-    "documentation": "Array ID aset atau konten yang metadata-nya akan diambil. Ukuran  batch maksimum adalah 30."
+    "documentation": "Array ID aset atau konten untuk pengambilan metadata. Ukuran batch maksimum adalah 30."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync/return/0": {
-    "documentation": "Array tabel kamus dalam urutan yang sama dengan permintaan, di mana setiap kamus berisi metadata berikut untuk aset/konten-nya: <ul> <li> <code>AssetId</code> (string) </li> <li> <code>Title</code> (string) </li> <li> <code>Artist</code> (string) </li> <li> <code>Duration</code> (number) dalam detik </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Perhatikan bahwa jika terjadi kesalahan saat mengambil metadata untuk salah satu dari aset yang diminta, misalnya ID aset tidak ada, tabel kamusnya masih termasuk dalam array yang dikembalikan tetapi hanya berisi field <code>AssetId</code> untuk tujuan referensi. Selain itu, jika <code>AudioType</code> tidak dapat ditentukan untuk aset tertentu (karena mungkin ini adalah audio pribadi), kamus yang dihasilkan tidak akan berisi entri <code>AudioType</code>."
+    "documentation": "Array tabel kamus dalam urutan yang sama dengan permintaan, di mana setiap kamus berisi metadata berikut untuk aset/kontennya: <ul> <li> <code>AssetId</code> (string) </li> <li> <code>Title</code> (string) </li> <li> <code>Artist</code> (string) </li> <li> <code>Duration</code> (number) dalam detik </li> <li> <code>AudioType</code> (<code>AudioSubType</code>) </li> </ul> Perhatikan bahwa jika terjadi kesalahan saat mengambil metadata untuk salah satu aset yang diminta, misalnya ID aset tidak ada, tabel kamusnya masih termasuk dalam array yang dikembalikan tetapi hanya mengandung field <code>AssetId</code> untuk tujuan referensi. Selain itu, jika <code>AudioType</code> tidak dapat ditentukan untuk aset tertentu (mungkin karena audio bersifat pribadi), kamus yang dihasilkan tidak akan mengandung entri <code>AudioType</code>."
   },
   "@roblox/globaltype/AssetService.GetAudioMetadataAsync": {
     "documentation": "Memberikan metadata relevan tentang sumber audio tertentu.",
@@ -57533,10 +57635,10 @@
     "documentation": "ID dari bundle yang ditentukan."
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync/return/0": {
-    "documentation": "Kamus dengan pasangan kunci-nilai berikut yang mengandung detail tentang the bundle yang ditentukan: <ul> <li> <code>Id</code> — ID bundle (sama dengan argumen <code>bundleId</code> yang diteruskan) </li> <li> <code>Name</code> — Nama bundle </li> <li> <code>Description</code> — Deskripsi bundle </li> <li> <code>BundleType</code> — String yang mewakili <code>BundleType</code>, misalnya   <code>\"BodyParts\"</code> atau <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array item dalam bundle, masing-masing dengan detail yang diwakili melalui kunci berikut: </li> <li> <code>Id</code> — ID item </li> <li> <code>Name</code> — Nama item </li> <li> <code>Type</code> — Jenis item seperti <code>\"Aset\"</code>. </li> </ul>"
+    "documentation": "Kamus dengan pasangan kunci-nilai berikut yang berisi rincian tentang bundle yang ditentukan: <ul> <li> <code>Id</code> — ID bundle (sama dengan argumen <code>bundleId</code> yang diberikan) </li> <li> <code>Name</code> — Nama bundle </li> <li> <code>Description</code> — Deskripsi bundle </li> <li> <code>BundleType</code> — String yang mewakili <code>BundleType</code>, misalnya   <code>\"BodyParts\"</code> atau <code>\"DynamicHead\"</code> </li> <li> <code>Items</code> — Array item dalam bundle, masing-masing dengan rincian   yang diwakili melalui kunci berikut: </li> <li> <code>Id</code> — ID item </li> <li> <code>Name</code> — Nama item </li> <li> <code>Type</code> — Jenis item seperti <code>\"Asset\"</code>. </li> </ul>"
   },
   "@roblox/globaltype/AssetService.GetBundleDetailsAsync": {
-    "documentation": "Mengembalikan detail dari isi bundle tertentu.",
+    "documentation": "Mengembalikan rincian konten dari bundle tertentu.",
     "params": [
       {
         "name": "self",
@@ -57563,7 +57665,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetCreatorAssetID": {
-    "documentation": "<strong>Deprecated:</strong> Item ini telah kadaluwarsa dan tidak lagi berfungsi dengan benar. Jangan gunakan untuk  pekerjaan baru.<br>Mengembalikan UserId dari akun yang membuat aset creationID.",
+    "documentation": "<strong>Deprecated:</strong> Item ini telah kedaluwarsa dan tidak lagi berfungsi dengan benar. Jangan gunakan untuk pekerjaan baru.<br>Mengembalikan UserId dari akun yang membuat aset creationID.",
     "params": [
       {
         "name": "self",
@@ -57587,7 +57689,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.GetGamePlacesAsync": {
-    "documentation": "Mengembalikan objek <code>StandardPages</code> yang berisi nama dan <code>PlaceId</code> tempat dalam pengalaman saat ini.",
+    "documentation": "Mengembalikan objek <code>StandardPages</code> yang berisi nama dan <code>PlaceId</code> dari tempat dalam pengalaman saat ini.",
     "params": [
       {
         "name": "self",
@@ -57604,19 +57706,19 @@
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/1": {
-    "documentation": "Pengguna yang mengajukan pembuatan aset."
+    "documentation": "Pengguna yang mengirimkan pembuatan aset."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/2": {
-    "documentation": "Aset yang akan dibuat. Saat ini tidak bisa berisi skrip atau mengelompokkan aset non-publik."
+    "documentation": "Aset yang akan dibuat. Saat ini tidak dapat mengandung skrip atau tempatkan aset yang tidak publik."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/3": {
-    "documentation": "Jenis aset. Saat ini hanya dapat berupa <code>AssetType.Model</code>."
+    "documentation": "Tipe aset. Saat ini hanya bisa <code>AssetType.Model</code>."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "Pasangan <code>PromptCreateAssetResult</code> dan ID aset jika berhasil."
+    "documentation": "Pasangan <code>PromptCreateAssetResult</code> dan ID aset jika sukses."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "Memungkinkan pembuatan aset dalam pengalaman untuk pengguna dengan meminta dialog publikasi.",
+    "documentation": "Memungkinkan penciptaan aset dalam pengalaman untuk pengguna dengan meminta kotak dialog publikasi.",
     "params": [
       {
         "name": "self",
@@ -57679,10 +57781,10 @@
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Kamus opsional yang mencakup <code>SaveWithoutPublish</code>, sebuah boolean menunjukkan apakah akan menyimpan dengan publikasi atau tanpa publikasi, dan <code>PlaceId</code>, ID tempat tujuan untuk disimpan. Contoh penggunaan adalah: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Jika PlaceId tidak disediakan, perilaku default akan menyimpan d atas tempat asli saat ini yang memanggil SavePlaceAsync. Jika SaveWithoutPublish tidak ada, perilaku default adalah SaveWithoutPublish=false."
+    "documentation": "Kamus opsional yang mencakup <code>SaveWithoutPublish</code>, sebuah boolean yang menunjukkan apakah menyimpan dengan publikasi atau tanpa publikasi, dan <code>PlaceId</code>, ID tempat tujuan untuk disimpan. Contoh penggunaan adalah: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Jika PlaceId tidak diberikan, perilaku default akan menyimpan di tempat asli saat ini yang memanggil SavePlaceAsync. Jika SaveWithoutPublish tidak diberikan, perilaku default adalah SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
-    "documentation": "Menyimpan keadaan tempat saat ini.",
+    "documentation": "Menyimpan status tempat saat ini.",
     "params": [
       {
         "name": "self",
@@ -57707,7 +57809,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "Mencari aset audio yang mencocokkan berbagai kriteria pencarian.",
+    "documentation": "Mencari aset audio yang sesuai dengan berbagai kriteria pencarian.",
     "params": [
       {
         "name": "self",
@@ -76946,10 +77048,10 @@
     "documentation": "Sebuah array ID pengguna."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "Mengembalikan array objek <code>PriceLevelInfo</code> dengan sebuah kamus di mana kuncinya adalah ID pengguna (string) dan nilai-nilainya adalah level harga yang sesuai (integer antara 1 dan 1000)."
+    "documentation": "Mengembalikan array dari objek <code>PriceLevelInfo</code> dengan sebuah kamus di mana kunci adalah ID pengguna (string) dan nilai mereka adalah tingkat harga yang sesuai (bilangan bulat antara 1 dan 1000)."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "Mengembalikan level harga yang terregionalisasi dari seorang pengguna.",
+    "documentation": "Mengembalikan tingkat harga yang terregionalisasi dari seorang pengguna, yang mewakili harga yang disarankan untuk suatu item di pasar regional mereka.",
     "params": [
       {
         "name": "self",
@@ -86740,7 +86842,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia.",
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia.",
     "keys": {
       "AngleAttenuation": "@roblox/globaltype/AudioEmitter.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioEmitter.AudioInteractionGroup",
@@ -86760,33 +86862,33 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.AngleAttenuation": {
-    "documentation": "Mewakili bagaimana volume yang dirasakan dari suara yang dipancarkan berubah berdasarkan sudut antara <code>AudioListener</code> dan <code>LookVector</code> yang terkait dengan <code>AudioEmitter</code>.",
+    "documentation": "Mewakili bagaimana persepsi volume suara yang dikeluarkan berubah berdasarkan t sudut antara <code>AudioListener</code> dan <code>LookVector</code> yang terkait dengan <code>AudioEmitter</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#AngleAttenuation",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.AudioInteractionGroup": {
-    "documentation": "Mengontrol <code>AudioListeners</code> mana yang dapat mendengar <code>AudioEmitter</code> ini.",
+    "documentation": "Mengontrol <code>AudioListeners</code> mana yang mampu mendengar <code>AudioEmitter</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#AudioInteractionGroup",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.DistanceAttenuation": {
-    "documentation": "Mewakili bagaimana volume yang dirasakan dari suara yang dipancarkan berubah saat jarak antara <code>AudioListener</code> dan <code>AudioEmitter</code> saling bertambah.",
+    "documentation": "Mewakili bagaimana persepsi volume suara yang dikeluarkan berubah saat distansi antara <code>AudioListener</code> dan <code>AudioEmitter</code> meningkat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#DistanceAttenuation",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.SimulationFidelity": {
-    "documentation": "Mengontrol seberapa detail simulasi audio harus dilakukan untuk <code>AudioEmitter</code> ini.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mengontrol seberapa rinci simulasi audio harus dilakukan untuk <code>AudioEmitter</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#SimulationFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetAngleAttenuation/param/0": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia."
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetAngleAttenuation/return/0": {
     "documentation": "Tabel yang memetakan sudut ke volume, seperti yang dijelaskan di atas."
   },
   "@roblox/globaltype/AudioEmitter.GetAngleAttenuation": {
-    "documentation": "Mengambil kurva redaman sudut yang digunakan oleh <code>AudioEmitter</code>, atau tabel kosong jika menggunakan kurva default.",
+    "documentation": "Mendapatkan kurva attenuasi sudut yang digunakan oleh <code>AudioEmitter</code>, atau tabel kosong jika menggunakan kurva default.",
     "params": [
       {
         "name": "self",
@@ -86800,7 +86902,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetAudibilityFor/param/0": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia."
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetAudibilityFor/param/1": {
     "documentation": ""
@@ -86809,7 +86911,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetAudibilityFor": {
-    "documentation": "Menghitung seberapa terdengar emitter ini untuk <code>AudioListener</code> tertentu.",
+    "documentation": "Menghitung seberapa audible pemancar ini kepada <code>AudioListener</code> tertentu.",
     "params": [
       {
         "name": "self",
@@ -86827,7 +86929,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/0": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia."
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/1": {
     "documentation": ""
@@ -86836,7 +86938,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires": {
-    "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
+    "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -86854,13 +86956,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetDistanceAttenuation/param/0": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia."
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetDistanceAttenuation/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetDistanceAttenuation": {
-    "documentation": "Mengambil kurva redaman jarak yang digunakan oleh <code>AudioEmitter</code>, or tabel kosong jika menggunakan kurva default.",
+    "documentation": "Mendapatkan kurva attenuasi jarak yang digunakan oleh <code>AudioEmitter</code>, atau tabel kosong jika menggunakan kurva default.",
     "params": [
       {
         "name": "self",
@@ -86874,7 +86976,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins/param/0": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia."
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins/return/0": {
     "documentation": ""
@@ -86894,13 +86996,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInteractingListeners/param/0": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia."
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetInteractingListeners/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInteractingListeners": {
-    "documentation": "Mencantumkan semua <code>AudioListeners</code> yang mampu mendengar emitter ini.",
+    "documentation": "Mencantumkan semua <code>AudioListeners</code> yang dapat mendengar pemancar ini.",
     "params": [
       {
         "name": "self",
@@ -86914,7 +87016,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins/param/0": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia."
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins/return/0": {
     "documentation": ""
@@ -86934,13 +87036,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.SetAngleAttenuation/param/0": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia."
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia."
   },
   "@roblox/globaltype/AudioEmitter.SetAngleAttenuation/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.SetAngleAttenuation": {
-    "documentation": "Mengatur kurva redaman sudut yang harus digunakan oleh <code>AudioEmitter</code>, atau menggunakan kurva konstan dengan volume <code>1</code> jika tidak ada yang diberikan.",
+    "documentation": "Mengatur kurva attenuasi sudut yang harus digunakan oleh <code>AudioEmitter</code>, atau menggunakan kurva tetap dengan volume <code>1</code> jika tidak ada yang disediakan.",
     "params": [
       {
         "name": "self",
@@ -86956,13 +87058,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.SetDistanceAttenuation/param/0": {
-    "documentation": "Menghasilkan aliran audio ke dalam dunia."
+    "documentation": "Mengeluarkan aliran audio ke dalam dunia."
   },
   "@roblox/globaltype/AudioEmitter.SetDistanceAttenuation/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.SetDistanceAttenuation": {
-    "documentation": "Mengatur kurva redaman jarak yang harus digunakan oleh <code>AudioEmitter</code>, atau menggunakan kurva rolloff invers jika tidak ada yang diberikan.",
+    "documentation": "Mengatur kurva attenuasi jarak yang harus digunakan oleh <code>AudioEmitter</code>, atau menggunakan kurva rolloff invers jika tidak ada yang disediakan.",
     "params": [
       {
         "name": "self",
@@ -87055,7 +87157,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioEmitter.WiringChanged": {
-    "documentation": "Dipicu ketika instance lain terhubung atau terputus dari <code>AudioEmitter</code> melalui <code>Wire</code>.",
+    "documentation": "Ditembak ketika instance lain terhubung atau terputus dari <code>AudioEmitter</code> melalui <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioEmitter.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioEmitter.WiringChanged.ConnectParallel",
@@ -90451,17 +90553,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Color3": {
-    "documentation": "Mengatur warna objek GUI.",
+    "documentation": "Mengatur warna objek <code>GuiBase3d</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Transparency": {
-    "documentation": "Mengatur transparansi objek GUI, di mana 1 tidak terlihat dan 0 sepenuhnya terlihat.",
+    "documentation": "Mengatur transparansi objek <code>GuiBase3d</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Visible": {
-    "documentation": "Menentukan apakah objek dan keturunannya akan ditampilkan.",
+    "documentation": "Menentukan apakah objek <code>GuiBase3d</code> ini dan keturunannya akan ditampilkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Visible",
     "code_sample": ""
   },
@@ -96017,6 +96119,7 @@
       "GetPartyAsync": "@roblox/globaltype/SocialService.GetPartyAsync",
       "GetPlayersByPartyId": "@roblox/globaltype/SocialService.GetPlayersByPartyId",
       "HideSelfView": "@roblox/globaltype/SocialService.HideSelfView",
+      "PromptFeedbackSubmissionAsync": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync",
       "PromptGameInvite": "@roblox/globaltype/SocialService.PromptGameInvite",
       "PromptLinkSharing": "@roblox/globaltype/SocialService.PromptLinkSharing",
       "PromptPhoneBook": "@roblox/globaltype/SocialService.PromptPhoneBook",
@@ -96184,17 +96287,32 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#HideSelfView",
     "code_sample": ""
   },
+  "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0": {
+    "documentation": "Memfasilitasi fungsi sosial yang berdampak pada hubungan yang dibuat di platform Roblox."
+  },
+  "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
+    "documentation": "Meminta pemain untuk memberikan umpan balik tentang pengalaman saat ini.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptFeedbackSubmissionAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/0": {
     "documentation": "Memfasilitasi fungsi sosial yang berdampak pada hubungan yang dibuat di platform Roblox."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/1": {
-    "documentation": "<code>Player</code> untuk disarankan dengan popup undangan."
+    "documentation": "<code>Player</code> yang akan diminta dengan popup undangan."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/2": {
-    "documentation": "Objek <code>ExperienceInviteOptions</code> opsional untuk menyesuaikan undangan."
+    "documentation": "Opsi <code>ExperienceInviteOptions</code> opsional untuk menyesuaikan prompt."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite": {
-    "documentation": "Memicu <code>Player</code> yang diberikan dengan layar undangan.",
+    "documentation": "Meminta <code>Player</code> yang diberikan dengan layar undangan.",
     "params": [
       {
         "name": "self",
@@ -96217,10 +96335,10 @@
     "documentation": "Memfasilitasi fungsi sosial yang berdampak pada hubungan yang dibuat di platform Roblox."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/1": {
-    "documentation": ""
+    "documentation": "Meminta <code>Player</code> yang diberikan dengan lembar berbagi tingkat platform Roblox berisi tautan berbagi yang dihasilkan."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": ""
+    "documentation": "<code>Dictionary</code> yang menentukan konfigurasi untuk tautan yang dihasilkan. Ini mencakup pasangan kunci-nilai opsional berikut: <ul> <li><code>FallbackLinkId</code> (string). Menentukan bagaimana tautan berbagi ini akan   mengarahkan pemain setelah kedaluwarsa. Secara default ke tautan bergabung pengalaman.</li> <li><code>ExpirationSeconds</code> (number). Menentukan waktu kedaluwarsa setelah tautan   berbagi dibuat. Dipotong ke bilangan bulat terdekat. Secara default ke   86,400.</li> <li><code>PreviewTitle</code> (string) Judul pratayang dari tautan berbagi.</li> <li><code>PreviewDescription</code> (string) Deskripsi pratayang dari tautan berbagi.</li> <li><code>PreviewAssettId</code> (number) ID aset gambar yang digunakan untuk pratayang tautan berbagi.</li> <li><code>LaunchData</code> (string). Digunakan untuk mengatur parameter di   <code>Player:GetJoinData()</code> saat pemain bergabung menggunakan tautan berbagi yang   dihasilkan.</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
     "documentation": ""
@@ -96251,13 +96369,13 @@
     "documentation": "Memfasilitasi fungsi sosial yang berdampak pada hubungan yang dibuat di platform Roblox."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/1": {
-    "documentation": "Pemain untuk disarankan dengan buku telepon."
+    "documentation": "Pemain yang akan diminta dengan buku telepon."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/2": {
-    "documentation": "String untuk membantu membedakan antara berbagai \"titik masuk\" buku telepon atau sejenisnya. Misalnya, Anda dapat melewatkan string yang mendefinisikan wilayah mana dari pengalaman yang saat ini berada karakter pemain yang memanggil."
+    "documentation": "String untuk membantu membedakan antara berbagai \"titik entri\" buku telepon atau yang serupa. Misalnya, Anda dapat memberikan string yang mendefinisikan di bagian mana pengalaman karakter pemain yang sedang menelepon berada saat ini."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook": {
-    "documentation": "Memicu <code>Player</code> yang diberikan dengan buku telepon.",
+    "documentation": "Meminta <code>Player</code> yang diberikan dengan buku telepon.",
     "params": [
       {
         "name": "self",
@@ -96280,13 +96398,13 @@
     "documentation": "Memfasilitasi fungsi sosial yang berdampak pada hubungan yang dibuat di platform Roblox."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1": {
-    "documentation": "ID acara dari acara untuk menyarankan pemain untuk mengubah status RSVP mereka. Ini harus menjadi ID acara yang valid yang ada di pengalaman saat ini, yang direpresentasikan sebagai string (bukan nomor)."
+    "documentation": "ID acara yang diminta kepada pemain untuk mengubah status RSVP mereka. Ini harus merupakan ID acara yang valid yang ada di pengalaman saat ini, diwakili sebagai string (bukan nomor)."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0": {
-    "documentation": "Mengembalikan <code>RsvpStatus</code> yang menunjukkan status RSVP baru pemain setelah undangan ditutup. Jika pemain menutup undangan tanpa mengubah status RSVP mereka, ini akan mengembalikan <code>RsvpStatus.None</code> atau status <code>RsvpStatus</code> lama mereka jika mereka sudah memilih status."
+    "documentation": "Mengembalikan <code>RsvpStatus</code> yang menunjukkan status RSVP baru pemain setelah prompt ditutup. Jika pemain menutup prompt tanpa mengubah status RSVP mereka, ini akan mengembalikan <code>RsvpStatus.None</code> atau status <code>RsvpStatus</code> lama mereka jika mereka sudah memilih status."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync": {
-    "documentation": "Memicu pemain lokal <code>Player</code> dengan undangan untuk mengubah status RSVP mereka ke acara yang diberikan.",
+    "documentation": "Meminta <code>Player</code> lokal dengan prompt untuk mengubah status RSVP mereka t terhadap acara yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -96310,7 +96428,7 @@
     "documentation": "Posisi untuk menempatkan tampilan diri."
   },
   "@roblox/globaltype/SocialService.ShowSelfView": {
-    "documentation": "Menampilkan tampilan diri pemain yang memanggil.",
+    "documentation": "Menampilkan tampilan diri pemain yang melakukan panggilan.",
     "params": [
       {
         "name": "self",
@@ -100980,13 +101098,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Grid8x8",
     "code_sample": ""
   },
+  "@roblox/enum/ParticleFlipbookLayout.Custom": {
+    "documentation": "Ukuran grid kustom yang ditentukan oleh <code>FlipbookSizeX</code> dan <code>FlipbookSizeY</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout#Custom",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ParticleFlipbookLayout": {
     "documentation": "Menentukan tata letak tekstur flipbook.",
     "keys": {
       "None": "@roblox/enum/ParticleFlipbookLayout.None",
       "Grid2x2": "@roblox/enum/ParticleFlipbookLayout.Grid2x2",
       "Grid4x4": "@roblox/enum/ParticleFlipbookLayout.Grid4x4",
-      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8"
+      "Grid8x8": "@roblox/enum/ParticleFlipbookLayout.Grid8x8",
+      "Custom": "@roblox/enum/ParticleFlipbookLayout.Custom"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleFlipbookLayout",
     "code_sample": ""
@@ -121916,6 +122045,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CatalogSortType",
     "code_sample": ""
   },
+  "@roblox/enum/PlayerExitReason.Unknown": {
+    "documentation": "Catch-all for all other disconnect reasons.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerExitReason.PlatformKick": {
+    "documentation": "User was kicked by Roblox systems, such as being blocked while in a Private Server.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason#PlatformKick",
+    "code_sample": ""
+  },
+  "@roblox/enum/PlayerExitReason.CreatorKick": {
+    "documentation": "Creator called <strong>Player:Kick()</strong>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason#CreatorKick",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PlayerExitReason": {
+    "documentation": "An enum that specifies the reason for <strong>Players.PlayerRemoving</strong> signal.",
+    "keys": {
+      "Unknown": "@roblox/enum/PlayerExitReason.Unknown",
+      "PlatformKick": "@roblox/enum/PlayerExitReason.PlatformKick",
+      "CreatorKick": "@roblox/enum/PlayerExitReason.CreatorKick"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PlayerExitReason",
+    "code_sample": ""
+  },
   "@roblox/enum/TextChatMessageStatus.Unknown": {
     "documentation": "Status gagal generik untuk <code>TextChannel:SendAsync()</code> gagal lainnya.",
     "keys": {
@@ -129926,7 +130095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PreferredInput.Touch": {
-    "documentation": "Perangkat pemain memiliki kemampuan sentuh dan tidak ada metode input lain yang tersedia atau terhubung.",
+    "documentation": "Perangkat pemain memiliki kemampuan sentuh dan tidak ada metode input lain yang tersedia atau baru saja berinteraksi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
