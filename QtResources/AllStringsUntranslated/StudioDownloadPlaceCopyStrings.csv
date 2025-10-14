@@ -1,5 +1,6 @@
 Key,Context,Source,en-us
 Studio.DownloadPlaceCopy.DownloadingPlaceFile,place file download in progress message,Downloading place file… this may take some time.,Downloading place file… this may take some time.
+Studio.DownloadPlaceCopy.FallbackToLocal,fall back to saving the local place content,Saving local place content ...,Saving local place content ...
 Studio.DownloadPlaceCopy.PlaceFileDownloaded,message to show after successful place download,Place file saved to: %1,Place file saved to: %1
 Studio.DownloadPlaceCopy.PlaceFileDownloaded1,successfully downloaded the place to disk,Place file downloaded to '%1',Place file downloaded to '%1'
 Studio.DownloadPlaceCopy.PublishInProgress,"publish is in progress, ask user to retry later","Place publish in progress, please retry downloading the place when publishing is complete.","Place publish in progress, please retry downloading the place when publishing is complete."

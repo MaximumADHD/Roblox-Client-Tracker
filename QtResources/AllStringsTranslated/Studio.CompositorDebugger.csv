@@ -35,32 +35,32 @@ Studio.CompositorDebugger.Tooltips.NodeViewTooltip,,,Node View,Node View,,Knoten
 Studio.CompositorDebugger.Tooltips.TreeViewTooltip,,,Tree View,Tree View,,Baumansicht,Vista del árbol,Vue arborescence,ट्री व्यू,Tampilan Tree,Visualizzazione ad albero,,트리 뷰,Widok drzewa,Visualização em árvore,,มุมมองต้นไม้,Ağaç Görünümü,Chế độ xem dạng cây,,,樹狀檢視
 Studio.CompositorDebugger.NodeView.TemporaryWarning,,,WORK IN PROGRESS,WORK IN PROGRESS,,IN BEARBEITUNG,TRABAJO EN CURSO,TRAVAIL EN COURS,काम चल रहा है,PEKERJAAN SEDANG BERLANGSUNG,LAVORI IN CORSO,,작업 진행 중,PRACA W TOKU,TRABALHO EM PROGRESSO,,อยู่ระหว่างดำเนินการ,İŞLEM DEVAM EDİYOR,ĐANG TIẾN HÀNH,,,工作進行中
 Studio.CompositorDebugger.NodeView.Output,,,Output,Output,,Ausgabe,Salida,Sortie,आउटपुट,Output,Output,,출력,Wyjście,Saída,,เอาต์พุต,Çıktı,Đầu ra,,,輸出
-Studio.CompositorDebugger.CompositorMenu.Assets,,,Assets,Assets,,Objekte,,,ऐसेट्स,,Risorse,,,Zasoby,,,ทรัพยากร,,Tài sản,,,
-Studio.CompositorDebugger.CompositorMenu.Load,,,Load,Load,,Laden,,,लोड करें,,Carica,,,Wczytaj,,,โหลด,,Tải,,,
-Studio.CompositorDebugger.CompositorMenu.Save,,,Save,Save,,Speichern,,,सेव करें,,Salva,,,Zapisz,,,บันทึก,,Lưu,,,
-Studio.CompositorDebugger.CompositorMenu.SaveAs,,,Save As,Save As,,Speichern unter,,,इस रूप में सेव करें,,Salva come,,,Zapisz jako,,,บันทึกเป็น,,Lưu dưới dạng,,,
-Studio.CompositorDebugger.CompositorMenu.New,,,New,New,,Neu,,,नया,,Nuovo,,,Nowe,,,ใหม่,,Mới,,,
-Studio.CompositorDebugger.CompositorMenu.Import,,,Import,Import,,Importieren,,,इंपोर्ट करें,,Importa,,,Importuj,,,นำเข้า,,Nhập,,,
-Studio.CompositorDebugger.CompositorMenu.Publish,,,Publish,Publish,,Veröffentlichen,,,पब्लिश करें,,Pubblica,,,Opublikuj,,,เผยแพร่,,Đăng,,,
-Studio.CompositorDebugger.CompositorMenu.PublishAs,,,Publish As,Publish As,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.CopyAssetId,,,Copy Asset ID,Copy Asset ID,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Edit,,,Edit,Edit,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.InsertNode,,,Insert Node,Insert Node,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.InsertParameter,,,Insert Parameter,Insert Parameter,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Cut,,,Cut,Cut,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Copy,,,Copy,Copy,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Paste,,,Paste,Paste,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Duplicate,,,Duplicate,Duplicate,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Delete,,,Delete,Delete,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Rename,,,Rename,Rename,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.WrapGraph,,,Wrap Graph in New Node,Wrap Graph in New Node,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.UnwrapGraph,,,Unwrap Graph,Unwrap Graph,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.BreakConnections,,,Break Connections,Break Connections,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.View,,,View,View,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.FrameSelection,,,Frame Selection,Frame Selection,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.ZoomIn,,,Zoom In,Zoom In,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.ZoomOut,,,Zoom Out,Zoom Out,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Preview,,,Preview,Preview,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Play,,,Play,Play,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Stop,,,Stop,Stop,,,,,,,,,,,,,,,,,,
-Studio.CompositorDebugger.CompositorMenu.Open,,,Open,Open,,,,,,,,,,,,,,,,,,
+Studio.CompositorDebugger.CompositorMenu.Assets,,,Assets,Assets,,Objekte,,,ऐसेट्स,Aset,Risorse,,애셋,Zasoby,,,ทรัพยากร,Varlıklar,Tài sản,,,素材
+Studio.CompositorDebugger.CompositorMenu.Load,,,Load,Load,,Laden,,,लोड करें,Load,Carica,,불러오기,Wczytaj,,,โหลด,Yükle,Tải,,,載入
+Studio.CompositorDebugger.CompositorMenu.Save,,,Save,Save,,Speichern,,,सेव करें,Simpan,Salva,,저장,Zapisz,,,บันทึก,Kaydet,Lưu,,,儲存
+Studio.CompositorDebugger.CompositorMenu.SaveAs,,,Save As,Save As,,Speichern unter,,,इस रूप में सेव करें,Simpan Sebagai,Salva come,,다른 이름으로 저장,Zapisz jako,,,บันทึกเป็น,Farklı Kaydet,Lưu dưới dạng,,,另存新檔
+Studio.CompositorDebugger.CompositorMenu.New,,,New,New,,Neu,,,नया,Baru,Nuovo,,신규,Nowe,,,ใหม่,Yeni,Mới,,,新增
+Studio.CompositorDebugger.CompositorMenu.Import,,,Import,Import,,Importieren,,,इंपोर्ट करें,Impor,Importa,,가져오기,Importuj,,,นำเข้า,İçe aktar,Nhập,,,匯入
+Studio.CompositorDebugger.CompositorMenu.Publish,,,Publish,Publish,,Veröffentlichen,,,पब्लिश करें,Publikasikan,Pubblica,,게시,Opublikuj,,,เผยแพร่,Yayınla,Đăng,,,發佈
+Studio.CompositorDebugger.CompositorMenu.PublishAs,,,Publish As...,Publish As...,,Veröffentlichen als …,,,इस रूप में पब्लिश करें...,Publikasikan Sebagai...,Pubblica come...,,다음으로 게시...,Opublikuj jako...,,,เผยแพร่เป็น...,Şu Şekilde Yayımla:,Đăng thành...,,,發佈為...
+Studio.CompositorDebugger.CompositorMenu.CopyAssetId,,,Copy Asset ID,Copy Asset ID,,Objekt-ID kopieren,,,ऐसेट ID कॉपी करें,Salin ID Aset,Copia ID risorsa,,애셋 ID 복사,Kopiuj identyfikator zasobu,,,คัดลอก ID ทรัพยากร,Varlık Kimliğini Kopyala,Sao chép ID tài sản,,,複製素材編號
+Studio.CompositorDebugger.CompositorMenu.Edit,,,Edit,Edit,,Bearbeiten,,,एडिट करें,Edit,Modifica,,편집,Edytuj,,,แก้ไข,Düzenle,Chỉnh sửa,,,編輯
+Studio.CompositorDebugger.CompositorMenu.InsertNode,,,Insert Node,Insert Node,,Knoten einfügen,,,नोड डालें,Masukkan Node,Inserisci nodo,,노드 삽입,Wstaw węzeł,,,แทรกโหนด,Düğüm Ekle,Chèn nút,,,插入節點
+Studio.CompositorDebugger.CompositorMenu.InsertParameter,,,Insert Parameter,Insert Parameter,,Parameter einfügen,,,पैरामीटर डालें,Masukkan Parameter,Inserisci parametro,,매개 변수 삽입,Wstaw parametr,,,แทรกพารามิเตอร์,Parametre Ekle,Chèn tham số,,,插入參數
+Studio.CompositorDebugger.CompositorMenu.Cut,,,Cut,Cut,,Ausschneiden,,,कट करें,Potong,Taglia,,자르기,Wytnij,,,ตัด,Kes,Cắt,,,剪下
+Studio.CompositorDebugger.CompositorMenu.Copy,,,Copy,Copy,,Kopieren,,,कॉपी करें,Salin,Copia,,복사,Kopiuj,,,คัดลอก,Kopyala,Sao chép,,,複製
+Studio.CompositorDebugger.CompositorMenu.Paste,,,Paste,Paste,,Einfügen,,,पेस्ट करें,Tempel,Incolla,,붙여넣기,Wklej,,,วาง,Yapıştır,Dán,,,貼上
+Studio.CompositorDebugger.CompositorMenu.Duplicate,,,Duplicate,Duplicate,,Duplizieren,,,डुप्लिकेट बनाएँ,Duplikasi,Duplica,,복제,Duplikuj,,,ทำซ้ำ,Çoğalt,Nhân bản,,,複製
+Studio.CompositorDebugger.CompositorMenu.Delete,,,Delete,Delete,,Löschen,,,डिलीट करें,Hapus,Elimina,,삭제,Usuń,,,ลบ,Sil,Xóa,,,刪除
+Studio.CompositorDebugger.CompositorMenu.Rename,,,Rename,Rename,,Umbenennen,,,नाम बदलें,Ganti Nama,Rinomina,,이름 바꾸기,Zmień nazwę,,,เปลี่ยนชื่อ,Yeniden Adlandır,Đổi tên,,,重新命名
+Studio.CompositorDebugger.CompositorMenu.WrapGraph,,,Wrap Graph in New Node,Wrap Graph in New Node,,Graph in neuen Knoten einbinden,,,नए नोड में ग्राफ़ को रैप करें,Bungkus Grafik dalam Node Baru,Inserisci grafico in un nuovo nodo,,신규 노드에 그래프 래핑하기,Opakuj graf w nowy węzeł,,,รวมกราฟเป็นโหนดใหม่,Grafiği Yeni Düğüme Sarmala,Gom biểu đồ thành nút mới,,,在新節點中包覆圖表
+Studio.CompositorDebugger.CompositorMenu.UnwrapGraph,,,Unwrap Graph,Unwrap Graph,,Graph entpacken,,,ग्राफ़ को अनरैप करें,Buka Grafik,Estrai grafico,,그래프 래핑 해제하기,Odpakuj graf,,,แยกกราฟ,Grafiğin Sarmalamasını Aç,Hủy gom biểu đồ,,,取消包覆圖表
+Studio.CompositorDebugger.CompositorMenu.BreakConnections,,,Break Connections,Break Connections,,Connections trennen,,,कनेक्शंस हटाएँ,Putuskan Koneksi,Interrompi connessioni,,연결 끊기,Przerwij połączenia,,,ตัดการเชื่อมต่อ,Bağlantıları Kes,Hủy mối liên kết,,,中斷連結
+Studio.CompositorDebugger.CompositorMenu.View,,,View,View,,Ansehen,,,देखें,Lihat,Visualizza,,보기,Widok,,,มุมมอง,Görünüm,Xem,,,檢視
+Studio.CompositorDebugger.CompositorMenu.FrameSelection,,,Frame Selection,Frame Selection,,Rahmenauswahl,,,फ़्रेम सिलेक्शन,Pilihan Bingkai,Inquadra selezione,,프레임 선택,Dopasuj widok do zaznaczenia,,,การเลือกเฟรม,Çerçeve Seçimi,Căn mục đã chọn vào khung hình,,,框架選擇
+Studio.CompositorDebugger.CompositorMenu.ZoomIn,,,Zoom In,Zoom In,,Vergrößern,,,ज़ूम इन करें,Perbesar,Ingrandisci,,확대,Przybliż,,,ซูมเข้า,Yakınlaştır,Phóng to,,,放大
+Studio.CompositorDebugger.CompositorMenu.ZoomOut,,,Zoom Out,Zoom Out,,Verkleinern,,,ज़ूम आउट करें,Perkecil,Riduci,,축소,Oddal,,,ซูมออก,Uzaklaştır,Thu nhỏ,,,縮小
+Studio.CompositorDebugger.CompositorMenu.Preview,,,Preview,Preview,,Vorschau,,,प्रीव्यू,Preview,Anteprima,,미리보기,Podgląd,,,ดูตัวอย่าง,Ön İzleme,Xem trước,,,預覽
+Studio.CompositorDebugger.CompositorMenu.Play,,,Play,Play,,Abspielen,,,खेलें,Mainkan,Riproduci,,플레이,Odtwórz,,,เล่น,Oynat,Phát,,,播放
+Studio.CompositorDebugger.CompositorMenu.Stop,,,Stop,Stop,,Anhalten,,,रोकें,Berhenti,Interrompi,,중지,Zatrzymaj,,,หยุด,Durdur,Dừng,,,停止
+Studio.CompositorDebugger.CompositorMenu.Open,,,Open,Open,,Öffnen,,,खोलें,Buka,Apri,,열기,Otwórz,,,เปิด,Aç,Mở,,,開啟

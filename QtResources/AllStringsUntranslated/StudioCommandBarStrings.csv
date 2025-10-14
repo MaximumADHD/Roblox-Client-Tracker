@@ -9,6 +9,7 @@ Studio.CommandBar.ExecutionOption.Remote,Commands will execute remotely on the T
 Studio.CommandBar.Label.CommandBarRun,Proper noun for a singular run of a command within the command bar,Command Bar Run,Command Bar Run
 Studio.CommandBar.Label.CommandHistoryTooltip,"Tooltip for button that, when clicked, pulls up the command history drawer within command bar, which includes recent and saved commands ran within the bar previously.",Command history,Command history
 Studio.CommandBar.Label.ExecuteCommandTooltip,"Tooltip label for executing (same as running) a command, where the ""%1"" is a placeholder for a keyboard shortcut explainer",Execute command %1,Execute command %1
+Studio.CommandBar.Label.PlaceholderText,"Placeholder text that appears when the command bar is empty, where the ""%1+%2%3"" is a placeholder for history navigation keyboard shortcut information.",Type a command or use %1+%2%3 for history,Type a command or use %1+%2%3 for history
 Studio.CommandBar.Label.Run,Verb to run a command (implicitly within the command bar),Run,Run
 Studio.CommandBar.Label.RunCommandInStandaloneDM,"Label that informs users that toggling a checkbox would allow them to run a command (of code, in the command bar) within the context of the Standalone Datamodel",Run command in Standalone DataModel,Run command in Standalone DataModel
 Studio.CommandBar.Label.SaveCommandTooltip,"Tooltip for button to save (effectively ""pinning"") the current command entered within the command bar for future use",Save command,Save command
