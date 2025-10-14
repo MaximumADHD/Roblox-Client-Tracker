@@ -438,219 +438,6 @@ PROTO_19:
   CALL R5 3 -1
   RETURN R5 -1
 
-PROTO_20:
-  GETUPVAL R0 0
-  LOADB R1 1
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_21:
-  GETUPVAL R0 0
-  LOADB R1 0
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_22:
-  GETIMPORT R1 K1 [print]
-  LOADK R2 K2 ["Always open menu item activated:"]
-  MOVE R3 R0
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_23:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useRef"]
-  LOADNIL R2
-  CALL R1 1 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["useState"]
-  LOADB R3 0
-  CALL R2 1 2
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["createElement"]
-  GETUPVAL R5 1
-  DUPTABLE R6 K5 [{"Size", "tag"}]
-  GETIMPORT R7 K8 [UDim2.new]
-  LOADN R8 1
-  LOADN R9 0
-  LOADN R10 0
-  LOADN R11 44
-  CALL R7 4 1
-  SETTABLEKS R7 R6 K3 ["Size"]
-  LOADK R7 K9 ["row align-x-center align-y-center"]
-  SETTABLEKS R7 R6 K4 ["tag"]
-  DUPTABLE R7 K12 [{"Anchor", "Menu"}]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K2 ["createElement"]
-  GETUPVAL R9 2
-  DUPTABLE R10 K17 [{"text", "size", "ref", "onActivated"}]
-  LOADK R11 K18 ["Anchor outside of the menu component"]
-  SETTABLEKS R11 R10 K13 ["text"]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K19 ["Medium"]
-  SETTABLEKS R11 R10 K14 ["size"]
-  SETTABLEKS R1 R10 K15 ["ref"]
-  NEWCLOSURE R11 P0
-  CAPTURE VAL R3
-  SETTABLEKS R11 R10 K16 ["onActivated"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K10 ["Anchor"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K2 ["createElement"]
-  GETUPVAL R9 4
-  DUPTABLE R10 K26 [{"isOpen", "items", "size", "side", "align", "onPressedOutside", "onActivated", "anchorRef"}]
-  SETTABLEKS R2 R10 K20 ["isOpen"]
-  GETUPVAL R11 5
-  SETTABLEKS R11 R10 K21 ["items"]
-  GETTABLEKS R12 R0 K27 ["controls"]
-  GETTABLEKS R11 R12 K14 ["size"]
-  SETTABLEKS R11 R10 K14 ["size"]
-  GETTABLEKS R12 R0 K27 ["controls"]
-  GETTABLEKS R11 R12 K22 ["side"]
-  SETTABLEKS R11 R10 K22 ["side"]
-  GETTABLEKS R12 R0 K27 ["controls"]
-  GETTABLEKS R11 R12 K23 ["align"]
-  SETTABLEKS R11 R10 K23 ["align"]
-  NEWCLOSURE R11 P1
-  CAPTURE VAL R3
-  SETTABLEKS R11 R10 K24 ["onPressedOutside"]
-  DUPCLOSURE R11 K28 [PROTO_22]
-  SETTABLEKS R11 R10 K16 ["onActivated"]
-  SETTABLEKS R1 R10 K25 ["anchorRef"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K11 ["Menu"]
-  CALL R4 3 -1
-  RETURN R4 -1
-
-PROTO_24:
-  GETUPVAL R0 0
-  LOADB R1 0
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_25:
-  GETIMPORT R1 K1 [print]
-  LOADK R2 K2 ["Menu item activated:"]
-  MOVE R3 R0
-  CALL R1 2 0
-  GETUPVAL R1 0
-  LOADB R2 0
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_26:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NOT R1 R2
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_27:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useState"]
-  LOADB R2 0
-  CALL R1 1 2
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["createElement"]
-  GETUPVAL R4 1
-  DUPTABLE R5 K4 [{"Size", "tag"}]
-  GETIMPORT R6 K7 [UDim2.new]
-  LOADN R7 1
-  LOADN R8 0
-  LOADN R9 0
-  LOADN R10 100
-  CALL R6 4 1
-  SETTABLEKS R6 R5 K2 ["Size"]
-  LOADK R6 K8 ["row align-x-center align-y-center"]
-  SETTABLEKS R6 R5 K3 ["tag"]
-  DUPTABLE R6 K10 [{"Menu"}]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K1 ["createElement"]
-  GETUPVAL R8 2
-  DUPTABLE R9 K18 [{"isOpen", "items", "size", "side", "align", "onPressedOutside", "onActivated"}]
-  SETTABLEKS R1 R9 K11 ["isOpen"]
-  NEWTABLE R10 0 3
-  DUPTABLE R11 K20 [{"title", "items"}]
-  LOADK R12 K21 ["First title"]
-  SETTABLEKS R12 R11 K19 ["title"]
-  NEWTABLE R12 0 2
-  DUPTABLE R13 K25 [{"id", "icon", "text"}]
-  LOADK R14 K26 ["a1"]
-  SETTABLEKS R14 R13 K22 ["id"]
-  LOADK R14 K27 ["icons/common/robux"]
-  SETTABLEKS R14 R13 K23 ["icon"]
-  LOADK R14 K28 ["Alpha 1"]
-  SETTABLEKS R14 R13 K24 ["text"]
-  DUPTABLE R14 K29 [{"id", "text"}]
-  LOADK R15 K30 ["a2"]
-  SETTABLEKS R15 R14 K22 ["id"]
-  LOADK R15 K31 ["Alpha 2"]
-  SETTABLEKS R15 R14 K24 ["text"]
-  SETLIST R12 R13 2 [1]
-  SETTABLEKS R12 R11 K12 ["items"]
-  DUPTABLE R12 K32 [{"items"}]
-  NEWTABLE R13 0 2
-  DUPTABLE R14 K29 [{"id", "text"}]
-  LOADK R15 K33 ["b1"]
-  SETTABLEKS R15 R14 K22 ["id"]
-  LOADK R15 K34 ["Beta 1"]
-  SETTABLEKS R15 R14 K24 ["text"]
-  DUPTABLE R15 K36 [{"id", "isDisabled", "text"}]
-  LOADK R16 K37 ["b2"]
-  SETTABLEKS R16 R15 K22 ["id"]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K35 ["isDisabled"]
-  LOADK R16 K38 ["Beta 2 (disabled)"]
-  SETTABLEKS R16 R15 K24 ["text"]
-  SETLIST R13 R14 2 [1]
-  SETTABLEKS R13 R12 K12 ["items"]
-  DUPTABLE R13 K32 [{"items"}]
-  NEWTABLE R14 0 1
-  DUPTABLE R15 K29 [{"id", "text"}]
-  LOADK R16 K39 ["c1"]
-  SETTABLEKS R16 R15 K22 ["id"]
-  LOADK R16 K40 ["Untitled group item"]
-  SETTABLEKS R16 R15 K24 ["text"]
-  SETLIST R14 R15 1 [1]
-  SETTABLEKS R14 R13 K12 ["items"]
-  SETLIST R10 R11 3 [1]
-  SETTABLEKS R10 R9 K12 ["items"]
-  GETTABLEKS R11 R0 K41 ["controls"]
-  GETTABLEKS R10 R11 K13 ["size"]
-  SETTABLEKS R10 R9 K13 ["size"]
-  GETTABLEKS R11 R0 K41 ["controls"]
-  GETTABLEKS R10 R11 K14 ["side"]
-  SETTABLEKS R10 R9 K14 ["side"]
-  GETTABLEKS R11 R0 K41 ["controls"]
-  GETTABLEKS R10 R11 K15 ["align"]
-  SETTABLEKS R10 R9 K15 ["align"]
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R2
-  SETTABLEKS R10 R9 K16 ["onPressedOutside"]
-  NEWCLOSURE R10 P1
-  CAPTURE VAL R2
-  SETTABLEKS R10 R9 K17 ["onActivated"]
-  DUPTABLE R10 K43 [{"Button"}]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K1 ["createElement"]
-  GETUPVAL R12 3
-  DUPTABLE R13 K44 [{"text", "size", "onActivated"}]
-  LOADK R14 K45 ["Open Menu"]
-  SETTABLEKS R14 R13 K24 ["text"]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K46 ["Medium"]
-  SETTABLEKS R14 R13 K13 ["size"]
-  NEWCLOSURE R14 P2
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  SETTABLEKS R14 R13 K17 ["onActivated"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K42 ["Button"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K9 ["Menu"]
-  CALL R3 3 -1
-  RETURN R3 -1
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -752,7 +539,7 @@ MAIN:
   DUPTABLE R15 K48 [{"summary", "stories", "controls"}]
   LOADK R16 K49 ["Menu - A popover-based menu component that combines Popover with InternalMenu"]
   SETTABLEKS R16 R15 K45 ["summary"]
-  NEWTABLE R16 0 6
+  NEWTABLE R16 0 4
   DUPTABLE R17 K52 [{"name", "story"}]
   LOADK R18 K53 ["Always Open"]
   SETTABLEKS R18 R17 K50 ["name"]
@@ -799,41 +586,20 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R8
   SETTABLEKS R21 R20 K51 ["story"]
-  DUPTABLE R21 K52 [{"name", "story"}]
-  LOADK R22 K61 ["Reference anchor"]
-  SETTABLEKS R22 R21 K50 ["name"]
-  DUPCLOSURE R22 K62 [PROTO_23]
-  CAPTURE VAL R2
-  CAPTURE VAL R7
-  CAPTURE VAL R5
-  CAPTURE VAL R10
-  CAPTURE VAL R4
-  CAPTURE VAL R13
-  SETTABLEKS R22 R21 K51 ["story"]
-  DUPTABLE R22 K52 [{"name", "story"}]
-  LOADK R23 K63 ["Grouped"]
-  SETTABLEKS R23 R22 K50 ["name"]
-  DUPCLOSURE R23 K64 [PROTO_27]
-  CAPTURE VAL R2
-  CAPTURE VAL R7
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R10
-  SETTABLEKS R23 R22 K51 ["story"]
-  SETLIST R16 R17 6 [1]
+  SETLIST R16 R17 4 [1]
   SETTABLEKS R16 R15 K46 ["stories"]
-  DUPTABLE R16 K68 [{"size", "side", "align"}]
-  GETTABLEKS R17 R3 K69 ["values"]
+  DUPTABLE R16 K64 [{"size", "side", "align"}]
+  GETTABLEKS R17 R3 K65 ["values"]
   MOVE R18 R10
   CALL R17 1 1
-  SETTABLEKS R17 R16 K65 ["size"]
-  GETTABLEKS R17 R3 K69 ["values"]
+  SETTABLEKS R17 R16 K61 ["size"]
+  GETTABLEKS R17 R3 K65 ["values"]
   MOVE R18 R11
   CALL R17 1 1
-  SETTABLEKS R17 R16 K66 ["side"]
-  GETTABLEKS R17 R3 K69 ["values"]
+  SETTABLEKS R17 R16 K62 ["side"]
+  GETTABLEKS R17 R3 K65 ["values"]
   MOVE R18 R12
   CALL R17 1 1
-  SETTABLEKS R17 R16 K67 ["align"]
+  SETTABLEKS R17 R16 K63 ["align"]
   SETTABLEKS R16 R15 K47 ["controls"]
   RETURN R15 1

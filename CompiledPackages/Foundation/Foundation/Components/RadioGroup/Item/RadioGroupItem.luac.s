@@ -42,36 +42,35 @@ PROTO_1:
   GETUPVAL R13 6
   GETUPVAL R14 7
   MOVE R15 R2
-  DUPTABLE R16 K11 [{"isChecked", "isDisabled", "onActivated", "label", "customVariantProps", "size", "Selectable", "ref"}]
+  DUPTABLE R16 K10 [{"isChecked", "isDisabled", "onActivated", "label", "customVariantProps", "size", "Selectable"}]
   SETTABLEKS R7 R16 K6 ["isChecked"]
   SETTABLEKS R3 R16 K0 ["isDisabled"]
   SETTABLEKS R10 R16 K7 ["onActivated"]
-  DUPTABLE R17 K13 [{"text"}]
-  SETTABLEKS R8 R17 K12 ["text"]
+  DUPTABLE R17 K12 [{"text"}]
+  SETTABLEKS R8 R17 K11 ["text"]
   SETTABLEKS R17 R16 K2 ["label"]
-  GETTABLEKS R17 R11 K14 ["input"]
+  GETTABLEKS R17 R11 K13 ["input"]
   SETTABLEKS R17 R16 K8 ["customVariantProps"]
   GETTABLEKS R17 R2 K4 ["size"]
   SETTABLEKS R17 R16 K4 ["size"]
   SETTABLEKS R6 R16 K9 ["Selectable"]
-  SETTABLEKS R1 R16 K10 ["ref"]
   CALL R14 2 1
-  DUPTABLE R15 K16 [{"Center"}]
+  DUPTABLE R15 K15 [{"Center"}]
   JUMPIFNOT R7 [+19]
   GETUPVAL R17 4
   GETTABLEKS R16 R17 K5 ["createElement"]
   GETUPVAL R17 8
-  DUPTABLE R18 K19 [{"tag", "backgroundStyle"}]
-  GETTABLEKS R20 R11 K20 ["checkmark"]
-  GETTABLEKS R19 R20 K17 ["tag"]
-  SETTABLEKS R19 R18 K17 ["tag"]
-  GETTABLEKS R20 R11 K20 ["checkmark"]
-  GETTABLEKS R19 R20 K21 ["style"]
-  SETTABLEKS R19 R18 K18 ["backgroundStyle"]
+  DUPTABLE R18 K18 [{"tag", "backgroundStyle"}]
+  GETTABLEKS R20 R11 K19 ["checkmark"]
+  GETTABLEKS R19 R20 K16 ["tag"]
+  SETTABLEKS R19 R18 K16 ["tag"]
+  GETTABLEKS R20 R11 K19 ["checkmark"]
+  GETTABLEKS R19 R20 K20 ["style"]
+  SETTABLEKS R19 R18 K17 ["backgroundStyle"]
   CALL R16 2 1
   JUMP [+1]
   LOADNIL R16
-  SETTABLEKS R16 R15 K15 ["Center"]
+  SETTABLEKS R16 R15 K14 ["Center"]
   CALL R12 3 -1
   RETURN R12 -1
 

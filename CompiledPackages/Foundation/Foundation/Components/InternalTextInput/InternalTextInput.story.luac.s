@@ -44,7 +44,7 @@ PROTO_4:
   GETTABLEKS R10 R11 K4 ["createElement"]
   GETUPVAL R11 2
   DUPTABLE R12 K6 [{"tag"}]
-  LOADK R13 K7 ["col gap-large auto-xy padding-xlarge size-3000"]
+  LOADK R13 K7 ["col gap-large auto-xy padding-larger size-3000"]
   SETTABLEKS R13 R12 K5 ["tag"]
   DUPTABLE R13 K11 [{"InternalTextInput", "Output", "NumReturnPressed"}]
   GETUPVAL R15 1

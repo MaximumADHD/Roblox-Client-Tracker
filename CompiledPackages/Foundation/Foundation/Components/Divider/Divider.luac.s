@@ -8,61 +8,55 @@ PROTO_0:
   GETUPVAL R4 3
   MOVE R5 R3
   GETTABLEKS R6 R2 K0 ["variant"]
-  GETTABLEKS R7 R2 K1 ["orientation"]
-  CALL R4 3 1
-  LOADB R5 0
+  CALL R4 2 1
   GETTABLEKS R6 R2 K0 ["variant"]
   GETUPVAL R8 4
-  GETTABLEKS R7 R8 K2 ["Heavy"]
-  JUMPIFNOTEQ R6 R7 [+10]
-  GETTABLEKS R6 R2 K1 ["orientation"]
-  GETUPVAL R8 5
-  GETTABLEKS R7 R8 K3 ["Vertical"]
-  JUMPIFNOTEQ R6 R7 [+2]
+  GETTABLEKS R7 R8 K1 ["Heavy"]
+  JUMPIFEQ R6 R7 [+2]
   LOADB R5 0 +1
   LOADB R5 1
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K2 ["createElement"]
   GETUPVAL R7 6
-  GETTABLEKS R6 R7 K4 ["createElement"]
-  GETUPVAL R7 7
-  GETUPVAL R8 8
+  GETUPVAL R8 7
   MOVE R9 R2
-  DUPTABLE R10 K7 [{"tag", "ref"}]
-  GETTABLEKS R12 R4 K8 ["container"]
-  GETTABLEKS R11 R12 K5 ["tag"]
-  SETTABLEKS R11 R10 K5 ["tag"]
-  SETTABLEKS R1 R10 K6 ["ref"]
+  DUPTABLE R10 K5 [{"tag", "ref"}]
+  GETTABLEKS R12 R4 K6 ["container"]
+  GETTABLEKS R11 R12 K3 ["tag"]
+  SETTABLEKS R11 R10 K3 ["tag"]
+  SETTABLEKS R1 R10 K4 ["ref"]
   CALL R8 2 1
-  DUPTABLE R9 K11 [{"DividerStroke", "DividerLine"}]
+  DUPTABLE R9 K9 [{"DividerStroke", "DividerLine"}]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K2 ["createElement"]
   GETUPVAL R11 6
-  GETTABLEKS R10 R11 K4 ["createElement"]
-  GETUPVAL R11 7
-  DUPTABLE R12 K14 [{"Size", "backgroundStyle"}]
-  GETTABLEKS R14 R4 K15 ["stroke"]
-  GETTABLEKS R13 R14 K12 ["Size"]
-  SETTABLEKS R13 R12 K12 ["Size"]
-  GETTABLEKS R14 R4 K15 ["stroke"]
-  GETTABLEKS R13 R14 K13 ["backgroundStyle"]
-  SETTABLEKS R13 R12 K13 ["backgroundStyle"]
+  DUPTABLE R12 K11 [{"tag", "backgroundStyle"}]
+  GETTABLEKS R14 R4 K12 ["stroke"]
+  GETTABLEKS R13 R14 K3 ["tag"]
+  SETTABLEKS R13 R12 K3 ["tag"]
+  GETTABLEKS R14 R4 K12 ["stroke"]
+  GETTABLEKS R13 R14 K10 ["backgroundStyle"]
+  SETTABLEKS R13 R12 K10 ["backgroundStyle"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K9 ["DividerStroke"]
+  SETTABLEKS R10 R9 K7 ["DividerStroke"]
   JUMPIFNOT R5 [+25]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K2 ["createElement"]
   GETUPVAL R11 6
-  GETTABLEKS R10 R11 K4 ["createElement"]
-  GETUPVAL R11 7
-  DUPTABLE R12 K17 [{"tag", "Position", "backgroundStyle"}]
-  GETTABLEKS R14 R4 K18 ["line"]
-  GETTABLEKS R13 R14 K5 ["tag"]
-  SETTABLEKS R13 R12 K5 ["tag"]
-  GETTABLEKS R14 R4 K18 ["line"]
-  GETTABLEKS R13 R14 K19 ["position"]
-  SETTABLEKS R13 R12 K16 ["Position"]
-  GETTABLEKS R14 R4 K18 ["line"]
-  GETTABLEKS R13 R14 K13 ["backgroundStyle"]
-  SETTABLEKS R13 R12 K13 ["backgroundStyle"]
+  DUPTABLE R12 K14 [{"tag", "Position", "backgroundStyle"}]
+  GETTABLEKS R14 R4 K15 ["line"]
+  GETTABLEKS R13 R14 K3 ["tag"]
+  SETTABLEKS R13 R12 K3 ["tag"]
+  GETTABLEKS R14 R4 K15 ["line"]
+  GETTABLEKS R13 R14 K16 ["position"]
+  SETTABLEKS R13 R12 K13 ["Position"]
+  GETTABLEKS R14 R4 K15 ["line"]
+  GETTABLEKS R13 R14 K10 ["backgroundStyle"]
+  SETTABLEKS R13 R12 K10 ["backgroundStyle"]
   CALL R10 2 1
   JUMP [+1]
   LOADNIL R10
-  SETTABLEKS R10 R9 K10 ["DividerLine"]
+  SETTABLEKS R10 R9 K8 ["DividerLine"]
   CALL R6 3 -1
   RETURN R6 -1
 
@@ -102,32 +96,25 @@ MAIN:
   GETTABLEKS R9 R10 K18 ["DividerVariant"]
   CALL R8 1 1
   GETIMPORT R9 K6 [require]
-  GETTABLEKS R11 R0 K17 ["Enums"]
-  GETTABLEKS R10 R11 K19 ["Orientation"]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K4 ["Parent"]
+  GETTABLEKS R10 R11 K19 ["useDividerVariants"]
   CALL R9 1 1
-  GETIMPORT R10 K6 [require]
-  GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K4 ["Parent"]
-  GETTABLEKS R11 R12 K20 ["useDividerVariants"]
-  CALL R10 1 1
-  DUPTABLE R11 K23 [{"variant", "orientation"}]
-  GETTABLEKS R12 R8 K24 ["Default"]
-  SETTABLEKS R12 R11 K21 ["variant"]
-  GETTABLEKS R12 R9 K25 ["Horizontal"]
-  SETTABLEKS R12 R11 K22 ["orientation"]
-  DUPCLOSURE R12 K26 [PROTO_0]
+  DUPTABLE R10 K21 [{"variant"}]
+  GETTABLEKS R11 R8 K22 ["Default"]
+  SETTABLEKS R11 R10 K20 ["variant"]
+  DUPCLOSURE R11 K23 [PROTO_0]
   CAPTURE VAL R6
-  CAPTURE VAL R11
-  CAPTURE VAL R5
   CAPTURE VAL R10
-  CAPTURE VAL R8
+  CAPTURE VAL R5
   CAPTURE VAL R9
+  CAPTURE VAL R8
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R7
-  GETTABLEKS R13 R2 K27 ["memo"]
-  GETTABLEKS R14 R2 K28 ["forwardRef"]
-  MOVE R15 R12
-  CALL R14 1 -1
-  CALL R13 -1 -1
-  RETURN R13 -1
+  GETTABLEKS R12 R2 K24 ["memo"]
+  GETTABLEKS R13 R2 K25 ["forwardRef"]
+  MOVE R14 R11
+  CALL R13 1 -1
+  CALL R12 -1 -1
+  RETURN R12 -1

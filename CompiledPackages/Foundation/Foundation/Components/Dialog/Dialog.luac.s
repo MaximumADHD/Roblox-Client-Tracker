@@ -1,27 +1,4 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["onClose"]
-  JUMPIFNOT R0 [+7]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["onClose"]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["BackdropClick"]
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_1:
-  GETIMPORT R1 K2 [UDim2.fromOffset]
-  GETTABLEKS R3 R0 K4 ["X"]
-  ADDK R2 R3 K3 [32]
-  GETTABLEKS R4 R0 K5 ["Y"]
-  ADDK R3 R4 K3 [32]
-  CALL R1 2 -1
-  RETURN R1 -1
-
-PROTO_2:
-  RETURN R0 0
-
-PROTO_3:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["assign"]
   NEWTABLE R2 0 0
@@ -31,243 +8,150 @@ PROTO_3:
   SETTABLEKS R5 R4 K1 ["LayoutOrder"]
   CALL R1 3 1
   GETUPVAL R2 1
-  CALL R2 0 1
-  GETUPVAL R3 2
-  GETTABLEKS R5 R2 K3 ["inner"]
-  GETTABLEKS R4 R5 K4 ["maxWidth"]
-  CALL R3 1 1
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K5 ["useRef"]
-  LOADNIL R5
-  CALL R4 1 1
-  GETUPVAL R5 4
-  MOVE R6 R4
-  CALL R5 1 1
-  GETUPVAL R6 5
-  CALL R6 0 1
-  GETUPVAL R7 6
-  GETTABLEKS R8 R1 K6 ["size"]
-  CALL R7 1 0
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K7 ["createElement"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K8 ["Fragment"]
-  LOADNIL R9
-  DUPTABLE R10 K11 [{"Backdrop", "DialogShadowWrapper"}]
-  GETTABLEKS R12 R1 K12 ["hasBackdrop"]
-  JUMPIFNOT R12 [+35]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K7 ["createElement"]
-  GETUPVAL R12 7
-  DUPTABLE R13 K19 [{"tag", "stateLayer", "onActivated", "backgroundStyle", "ZIndex", "testId"}]
-  LOADK R14 K20 ["size-full-full"]
-  SETTABLEKS R14 R13 K13 ["tag"]
-  DUPTABLE R14 K22 [{"affordance"}]
-  GETUPVAL R16 8
-  GETTABLEKS R15 R16 K23 ["None"]
-  SETTABLEKS R15 R14 K21 ["affordance"]
-  SETTABLEKS R14 R13 K14 ["stateLayer"]
-  NEWCLOSURE R14 P0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U9
-  SETTABLEKS R14 R13 K15 ["onActivated"]
-  GETTABLEKS R15 R2 K24 ["backdrop"]
-  GETTABLEKS R14 R15 K16 ["backgroundStyle"]
-  SETTABLEKS R14 R13 K16 ["backgroundStyle"]
-  LOADN R14 2
-  SETTABLEKS R14 R13 K17 ["ZIndex"]
-  LOADK R14 K25 ["--foundation-dialog-backdrop"]
-  SETTABLEKS R14 R13 K18 ["testId"]
-  CALL R11 2 1
-  JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K9 ["Backdrop"]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K7 ["createElement"]
-  GETUPVAL R12 7
-  DUPTABLE R13 K26 [{"tag", "ZIndex"}]
-  GETTABLEKS R15 R2 K27 ["container"]
-  GETTABLEKS R14 R15 K13 ["tag"]
-  SETTABLEKS R14 R13 K13 ["tag"]
-  LOADN R14 2
-  SETTABLEKS R14 R13 K17 ["ZIndex"]
-  DUPTABLE R14 K29 [{"Shadow"}]
-  GETUPVAL R16 3
-  GETTABLEKS R15 R16 K7 ["createElement"]
-  GETUPVAL R16 10
-  DUPTABLE R17 K34 [{"Image", "Size", "slice", "imageStyle", "testId"}]
-  LOADK R18 K35 ["component_assets/dropshadow_17_8"]
-  SETTABLEKS R18 R17 K30 ["Image"]
-  DUPCLOSURE R20 K36 [PROTO_1]
-  NAMECALL R18 R5 K37 ["map"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K31 ["Size"]
-  DUPTABLE R18 K40 [{"center", "scale"}]
-  GETIMPORT R19 K43 [Rect.new]
-  LOADN R20 16
-  LOADN R21 16
-  LOADN R22 16
-  LOADN R23 16
-  CALL R19 4 1
-  SETTABLEKS R19 R18 K38 ["center"]
-  LOADN R19 2
-  SETTABLEKS R19 R18 K39 ["scale"]
-  SETTABLEKS R18 R17 K32 ["slice"]
-  GETTABLEKS R19 R2 K44 ["shadow"]
-  GETTABLEKS R18 R19 K33 ["imageStyle"]
-  SETTABLEKS R18 R17 K33 ["imageStyle"]
-  LOADK R18 K45 ["--foundation-dialog-shadow"]
-  SETTABLEKS R18 R17 K18 ["testId"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K28 ["Shadow"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K10 ["DialogShadowWrapper"]
-  DUPTABLE R11 K47 [{"Dialog"}]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K7 ["createElement"]
-  GETUPVAL R13 7
-  DUPTABLE R14 K48 [{"tag", "testId", "ZIndex"}]
-  GETTABLEKS R16 R2 K27 ["container"]
-  GETTABLEKS R15 R16 K13 ["tag"]
-  SETTABLEKS R15 R14 K13 ["tag"]
-  LOADK R15 K49 ["--foundation-dialog"]
-  SETTABLEKS R15 R14 K18 ["testId"]
-  LOADN R15 3
-  SETTABLEKS R15 R14 K17 ["ZIndex"]
-  DUPTABLE R15 K53 [{"DialogFlexStart", "DialogInner", "DialogFlexEnd"}]
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K7 ["createElement"]
-  GETUPVAL R17 7
-  DUPTABLE R18 K54 [{"tag", "LayoutOrder"}]
-  LOADK R19 K55 ["fill"]
-  SETTABLEKS R19 R18 K13 ["tag"]
-  LOADN R19 0
-  SETTABLEKS R19 R18 K1 ["LayoutOrder"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K50 ["DialogFlexStart"]
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K7 ["createElement"]
-  GETUPVAL R17 7
-  GETUPVAL R18 11
-  MOVE R19 R1
-  DUPTABLE R20 K58 [{"tag", "ref", "sizeConstraint", "stateLayer", "onActivated"}]
-  GETTABLEKS R22 R2 K3 ["inner"]
-  GETTABLEKS R21 R22 K13 ["tag"]
-  SETTABLEKS R21 R20 K13 ["tag"]
-  GETTABLEKS R21 R1 K59 ["forwardRef"]
-  SETTABLEKS R21 R20 K56 ["ref"]
-  DUPTABLE R21 K61 [{"MaxSize"}]
-  GETIMPORT R22 K63 [Vector2.new]
-  MOVE R23 R3
-  LOADK R24 K64 [∞]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K60 ["MaxSize"]
-  SETTABLEKS R21 R20 K57 ["sizeConstraint"]
-  DUPTABLE R21 K22 [{"affordance"}]
-  GETUPVAL R23 8
-  GETTABLEKS R22 R23 K23 ["None"]
-  SETTABLEKS R22 R21 K21 ["affordance"]
-  SETTABLEKS R21 R20 K14 ["stateLayer"]
-  DUPCLOSURE R21 K65 [PROTO_2]
-  SETTABLEKS R21 R20 K15 ["onActivated"]
-  CALL R18 2 1
-  DUPTABLE R19 K68 [{"CloseAffordance", "DialogBody"}]
-  GETTABLEKS R21 R1 K69 ["onClose"]
-  JUMPIFNOT R21 [+40]
-  GETUPVAL R21 3
-  GETTABLEKS R20 R21 K7 ["createElement"]
-  GETUPVAL R21 12
-  DUPTABLE R22 K72 [{"onActivated", "Position", "AnchorPoint", "ZIndex", "testId"}]
-  GETTABLEKS R23 R1 K69 ["onClose"]
-  SETTABLEKS R23 R22 K15 ["onActivated"]
-  GETIMPORT R23 K74 [UDim2.new]
-  LOADN R24 1
-  GETTABLEKS R27 R2 K75 ["closeAffordance"]
-  GETTABLEKS R26 R27 K76 ["offset"]
-  MINUS R25 R26
-  LOADN R26 0
-  GETTABLEKS R28 R2 K75 ["closeAffordance"]
-  GETTABLEKS R27 R28 K76 ["offset"]
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K70 ["Position"]
-  GETIMPORT R23 K63 [Vector2.new]
-  LOADN R24 1
-  LOADN R25 0
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K71 ["AnchorPoint"]
-  LOADN R23 2
-  SETTABLEKS R23 R22 K17 ["ZIndex"]
-  LOADK R23 K77 ["--foundation-dialog-close-affordance"]
-  SETTABLEKS R23 R22 K18 ["testId"]
-  CALL R20 2 1
-  JUMP [+1]
-  LOADNIL R20
-  SETTABLEKS R20 R19 K66 ["CloseAffordance"]
-  GETUPVAL R21 3
-  GETTABLEKS R20 R21 K7 ["createElement"]
-  GETUPVAL R21 7
-  DUPTABLE R22 K78 [{"tag", "ref", "testId"}]
-  GETTABLEKS R24 R2 K79 ["body"]
-  GETTABLEKS R23 R24 K13 ["tag"]
-  SETTABLEKS R23 R22 K13 ["tag"]
-  SETTABLEKS R4 R22 K56 ["ref"]
-  LOADK R23 K80 ["--foundation-dialog-body"]
-  SETTABLEKS R23 R22 K18 ["testId"]
-  GETTABLEKS R23 R1 K81 ["children"]
-  CALL R20 3 1
-  SETTABLEKS R20 R19 K67 ["DialogBody"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K51 ["DialogInner"]
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K7 ["createElement"]
-  GETUPVAL R17 7
-  DUPTABLE R18 K54 [{"tag", "LayoutOrder"}]
-  LOADK R19 K55 ["fill"]
-  SETTABLEKS R19 R18 K13 ["tag"]
-  LOADN R19 2
-  SETTABLEKS R19 R18 K1 ["LayoutOrder"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K52 ["DialogFlexEnd"]
+  MOVE R3 R1
+  GETUPVAL R4 2
+  CALL R2 2 1
+  GETUPVAL R3 3
+  CALL R3 0 1
+  GETUPVAL R4 4
+  MOVE R5 R3
+  GETTABLEKS R6 R2 K3 ["size"]
+  CALL R4 2 1
+  GETUPVAL R5 5
+  CALL R5 0 1
+  GETUPVAL R6 6
+  GETTABLEKS R8 R4 K4 ["dialog"]
+  GETTABLEKS R7 R8 K5 ["maxWidth"]
+  CALL R6 1 1
+  GETTABLEKS R8 R5 K6 ["hasMediaBleed"]
+  JUMPIFNOT R8 [+2]
+  LOADN R7 0
+  JUMP [+2]
+  GETTABLEKS R7 R5 K7 ["titleHeight"]
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K8 ["createElement"]
+  GETUPVAL R9 8
+  DUPTABLE R10 K10 [{"tag"}]
+  LOADK R12 K11 ["%* %*"]
+  GETTABLEKS R15 R4 K12 ["container"]
+  GETTABLEKS R14 R15 K9 ["tag"]
+  GETTABLEKS R16 R4 K12 ["container"]
+  GETTABLEKS R15 R16 K13 ["margin"]
+  NAMECALL R12 R12 K14 ["format"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K46 ["Dialog"]
-  CALL R7 4 1
-  GETTABLEKS R8 R1 K82 ["disablePortal"]
-  JUMPIF R8 [+2]
-  JUMPIFNOTEQKNIL R6 [+2]
-  RETURN R7 1
-  GETUPVAL R9 13
-  GETTABLEKS R8 R9 K83 ["createPortal"]
-  MOVE R9 R7
-  MOVE R10 R6
-  CALL R8 2 -1
+  MOVE R11 R12
+  SETTABLEKS R11 R10 K9 ["tag"]
+  DUPTABLE R11 K18 [{"DialogFlexStart", "DialogInner", "DialogFlexEnd"}]
+  GETUPVAL R13 7
+  GETTABLEKS R12 R13 K8 ["createElement"]
+  GETUPVAL R13 8
+  DUPTABLE R14 K19 [{"tag", "LayoutOrder"}]
+  LOADK R15 K20 ["fill"]
+  SETTABLEKS R15 R14 K9 ["tag"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K1 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K15 ["DialogFlexStart"]
+  GETUPVAL R13 7
+  GETTABLEKS R12 R13 K8 ["createElement"]
+  GETUPVAL R13 8
+  GETUPVAL R14 9
+  MOVE R15 R2
+  DUPTABLE R16 K23 [{"tag", "ref", "sizeConstraint"}]
+  GETTABLEKS R18 R4 K4 ["dialog"]
+  GETTABLEKS R17 R18 K9 ["tag"]
+  SETTABLEKS R17 R16 K9 ["tag"]
+  GETTABLEKS R17 R2 K24 ["forwardRef"]
+  SETTABLEKS R17 R16 K21 ["ref"]
+  DUPTABLE R17 K26 [{"MaxSize"}]
+  GETIMPORT R18 K29 [Vector2.new]
+  MOVE R19 R6
+  LOADK R20 K30 [∞]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K25 ["MaxSize"]
+  SETTABLEKS R17 R16 K22 ["sizeConstraint"]
+  CALL R14 2 1
+  DUPTABLE R15 K33 [{"DialogTitle", "DialogBody"}]
+  GETTABLEKS R17 R5 K34 ["isTitleVisible"]
+  JUMPIFNOT R17 [+22]
+  GETUPVAL R17 7
+  GETTABLEKS R16 R17 K8 ["createElement"]
+  GETUPVAL R17 10
+  DUPTABLE R18 K39 [{"title", "onClose", "closeIcon", "ZIndex"}]
+  GETTABLEKS R19 R2 K35 ["title"]
+  SETTABLEKS R19 R18 K35 ["title"]
+  GETTABLEKS R19 R2 K36 ["onClose"]
+  SETTABLEKS R19 R18 K36 ["onClose"]
+  GETTABLEKS R19 R2 K37 ["closeIcon"]
+  SETTABLEKS R19 R18 K37 ["closeIcon"]
+  LOADN R19 2
+  SETTABLEKS R19 R18 K38 ["ZIndex"]
+  CALL R16 2 1
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K31 ["DialogTitle"]
+  GETUPVAL R17 7
+  GETTABLEKS R16 R17 K8 ["createElement"]
+  GETUPVAL R17 8
+  DUPTABLE R18 K41 [{"tag", "ZIndex", "Position"}]
+  NEWTABLE R19 2 0
+  LOADB R20 1
+  SETTABLEKS R20 R19 K42 ["size-full-0 auto-y col align-x-center padding-x-xxlarge padding-bottom-xxlarge gap-xxlarge clip"]
+  GETTABLEKS R21 R5 K6 ["hasMediaBleed"]
+  NOT R20 R21
+  SETTABLEKS R20 R19 K43 ["padding-top-xxlarge"]
+  SETTABLEKS R19 R18 K9 ["tag"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K38 ["ZIndex"]
+  GETIMPORT R19 K46 [UDim2.fromOffset]
+  LOADN R20 0
+  MOVE R21 R7
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K40 ["Position"]
+  GETTABLEKS R19 R2 K47 ["children"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K32 ["DialogBody"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K16 ["DialogInner"]
+  GETUPVAL R13 7
+  GETTABLEKS R12 R13 K8 ["createElement"]
+  GETUPVAL R13 8
+  DUPTABLE R14 K19 [{"tag", "LayoutOrder"}]
+  LOADK R15 K20 ["fill"]
+  SETTABLEKS R15 R14 K9 ["tag"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K1 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K17 ["DialogFlexEnd"]
+  CALL R8 3 -1
   RETURN R8 -1
 
-PROTO_4:
-  GETUPVAL R2 0
-  MOVE R3 R0
+PROTO_1:
+  LOADB R2 1
+  GETTABLEKS R3 R0 K0 ["title"]
+  JUMPIFNOTEQKNIL R3 [+7]
+  GETTABLEKS R3 R0 K1 ["onClose"]
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
   GETUPVAL R4 1
-  CALL R2 2 1
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K0 ["createElement"]
-  GETUPVAL R4 3
-  DUPTABLE R5 K3 [{"size", "responsiveSize"}]
-  GETTABLEKS R6 R2 K1 ["size"]
-  SETTABLEKS R6 R5 K1 ["size"]
-  GETTABLEKS R6 R2 K1 ["size"]
-  SETTABLEKS R6 R5 K2 ["responsiveSize"]
-  DUPTABLE R6 K5 [{"Dialog"}]
+  DUPTABLE R5 K4 [{"isTitleVisible"}]
+  SETTABLEKS R2 R5 K3 ["isTitleVisible"]
+  DUPTABLE R6 K6 [{"Dialog"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K0 ["createElement"]
-  GETUPVAL R8 4
-  GETUPVAL R10 5
-  GETTABLEKS R9 R10 K6 ["assign"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K7 ["assign"]
   NEWTABLE R10 0 0
-  MOVE R11 R2
-  DUPTABLE R12 K8 [{"forwardRef"}]
-  SETTABLEKS R1 R12 K7 ["forwardRef"]
+  MOVE R11 R0
+  DUPTABLE R12 K9 [{"forwardRef"}]
+  SETTABLEKS R1 R12 K8 ["forwardRef"]
   CALL R9 3 -1
   CALL R7 -1 1
-  SETTABLEKS R7 R6 K4 ["Dialog"]
+  SETTABLEKS R7 R6 K5 ["Dialog"]
   CALL R3 3 -1
   RETURN R3 -1
 
@@ -282,109 +166,85 @@ MAIN:
   GETTABLEKS R3 R1 K7 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K6 [require]
-  GETTABLEKS R4 R1 K8 ["ReactRoblox"]
+  GETTABLEKS R4 R1 K8 ["Dash"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R1 K9 ["Dash"]
+  GETTABLEKS R6 R0 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Types"]
   CALL R4 1 1
   GETIMPORT R5 K6 [require]
-  GETTABLEKS R7 R0 K10 ["Components"]
-  GETTABLEKS R6 R7 K11 ["Types"]
+  GETTABLEKS R7 R0 K9 ["Components"]
+  GETTABLEKS R6 R7 K11 ["View"]
   CALL R5 1 1
   GETIMPORT R6 K6 [require]
-  GETTABLEKS R8 R0 K10 ["Components"]
-  GETTABLEKS R7 R8 K12 ["View"]
+  GETTABLEKS R8 R0 K12 ["Enums"]
+  GETTABLEKS R7 R8 K13 ["DialogSize"]
   CALL R6 1 1
   GETIMPORT R7 K6 [require]
-  GETTABLEKS R9 R0 K10 ["Components"]
-  GETTABLEKS R8 R9 K13 ["CloseAffordance"]
+  GETTABLEKS R9 R0 K14 ["Utility"]
+  GETTABLEKS R8 R9 K15 ["withCommonProps"]
   CALL R7 1 1
   GETIMPORT R8 K6 [require]
-  GETTABLEKS R10 R0 K10 ["Components"]
-  GETTABLEKS R9 R10 K14 ["Image"]
+  GETTABLEKS R10 R0 K14 ["Utility"]
+  GETTABLEKS R9 R10 K16 ["withDefaults"]
   CALL R8 1 1
   GETIMPORT R9 K6 [require]
-  GETTABLEKS R11 R0 K15 ["Enums"]
-  GETTABLEKS R10 R11 K16 ["DialogSize"]
+  GETTABLEKS R11 R0 K14 ["Utility"]
+  GETTABLEKS R10 R11 K17 ["useScaledValue"]
   CALL R9 1 1
   GETIMPORT R10 K6 [require]
-  GETTABLEKS R12 R0 K15 ["Enums"]
-  GETTABLEKS R11 R12 K17 ["OnCloseCallbackReason"]
+  GETTABLEKS R13 R0 K18 ["Providers"]
+  GETTABLEKS R12 R13 K19 ["Style"]
+  GETTABLEKS R11 R12 K20 ["useTokens"]
   CALL R10 1 1
   GETIMPORT R11 K6 [require]
-  GETTABLEKS R13 R0 K18 ["Utility"]
-  GETTABLEKS R12 R13 K19 ["withCommonProps"]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K4 ["Parent"]
+  GETTABLEKS R12 R13 K21 ["DialogLayoutProvider"]
   CALL R11 1 1
   GETIMPORT R12 K6 [require]
-  GETTABLEKS R14 R0 K18 ["Utility"]
-  GETTABLEKS R13 R14 K20 ["withDefaults"]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K4 ["Parent"]
+  GETTABLEKS R13 R14 K22 ["Title"]
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
-  GETTABLEKS R15 R0 K18 ["Utility"]
-  GETTABLEKS R14 R15 K21 ["useScaledValue"]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K4 ["Parent"]
+  GETTABLEKS R14 R15 K23 ["Actions"]
   CALL R13 1 1
   GETIMPORT R14 K6 [require]
-  GETTABLEKS R16 R0 K15 ["Enums"]
-  GETTABLEKS R15 R16 K22 ["StateLayerAffordance"]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K4 ["Parent"]
+  GETTABLEKS R15 R16 K24 ["useDialogLayout"]
   CALL R14 1 1
-  GETIMPORT R16 K6 [require]
-  GETIMPORT R19 K1 [script]
-  GETTABLEKS R18 R19 K4 ["Parent"]
-  GETTABLEKS R17 R18 K23 ["useDialogVariants"]
-  CALL R16 1 1
-  GETTABLEKS R15 R16 K23 ["useDialogVariants"]
-  GETIMPORT R16 K6 [require]
-  GETIMPORT R19 K1 [script]
-  GETTABLEKS R18 R19 K4 ["Parent"]
-  GETTABLEKS R17 R18 K24 ["useDialogSize"]
-  CALL R16 1 1
-  GETIMPORT R17 K6 [require]
-  GETIMPORT R20 K1 [script]
-  GETTABLEKS R19 R20 K4 ["Parent"]
-  GETTABLEKS R18 R19 K25 ["useDialogResponsiveSize"]
-  CALL R17 1 1
-  GETIMPORT R18 K6 [require]
-  GETIMPORT R21 K1 [script]
-  GETTABLEKS R20 R21 K4 ["Parent"]
-  GETTABLEKS R19 R20 K26 ["DialogLayoutProvider"]
-  CALL R18 1 1
-  GETIMPORT R19 K6 [require]
-  GETTABLEKS R22 R0 K27 ["Providers"]
-  GETTABLEKS R21 R22 K28 ["Overlay"]
-  GETTABLEKS R20 R21 K29 ["useOverlay"]
-  CALL R19 1 1
-  DUPTABLE R20 K33 [{"size", "disablePortal", "hasBackdrop"}]
-  GETTABLEKS R21 R9 K34 ["Medium"]
-  SETTABLEKS R21 R20 K30 ["size"]
-  LOADB R21 1
-  SETTABLEKS R21 R20 K31 ["disablePortal"]
-  LOADB R21 0
-  SETTABLEKS R21 R20 K32 ["hasBackdrop"]
-  DUPCLOSURE R21 K35 [PROTO_3]
-  CAPTURE VAL R4
-  CAPTURE VAL R15
-  CAPTURE VAL R13
-  CAPTURE VAL R2
-  CAPTURE VAL R16
-  CAPTURE VAL R19
-  CAPTURE VAL R17
-  CAPTURE VAL R6
-  CAPTURE VAL R14
-  CAPTURE VAL R10
-  CAPTURE VAL R8
-  CAPTURE VAL R11
-  CAPTURE VAL R7
+  GETIMPORT R15 K6 [require]
+  GETIMPORT R18 K1 [script]
+  GETTABLEKS R17 R18 K4 ["Parent"]
+  GETTABLEKS R16 R17 K25 ["useDialogVariants"]
+  CALL R15 1 1
+  DUPTABLE R16 K27 [{"size"}]
+  GETTABLEKS R17 R6 K28 ["Large"]
+  SETTABLEKS R17 R16 K26 ["size"]
+  DUPCLOSURE R17 K29 [PROTO_0]
   CAPTURE VAL R3
-  DUPCLOSURE R22 K36 [PROTO_4]
-  CAPTURE VAL R12
-  CAPTURE VAL R20
+  CAPTURE VAL R8
+  CAPTURE VAL R16
+  CAPTURE VAL R10
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  CAPTURE VAL R9
   CAPTURE VAL R2
-  CAPTURE VAL R18
-  CAPTURE VAL R21
-  CAPTURE VAL R4
-  GETTABLEKS R23 R2 K37 ["memo"]
-  GETTABLEKS R24 R2 K38 ["forwardRef"]
-  MOVE R25 R22
-  CALL R24 1 -1
-  CALL R23 -1 -1
-  RETURN R23 -1
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  DUPCLOSURE R18 K30 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  CAPTURE VAL R17
+  CAPTURE VAL R3
+  GETTABLEKS R19 R2 K31 ["memo"]
+  GETTABLEKS R20 R2 K32 ["forwardRef"]
+  MOVE R21 R18
+  CALL R20 1 -1
+  CALL R19 -1 -1
+  RETURN R19 -1

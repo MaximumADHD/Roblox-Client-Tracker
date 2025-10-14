@@ -1,4 +1,0 @@
-MAIN:
-  PREPVARARGS 0
-  LOADK R0 K0 ["InlineElement"]
-  RETURN R0 1

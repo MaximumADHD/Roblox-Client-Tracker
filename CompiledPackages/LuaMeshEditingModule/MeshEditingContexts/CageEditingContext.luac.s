@@ -1,4 +1,202 @@
 PROTO_0:
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K1 [ipairs]
+  NAMECALL R3 R0 K2 ["GetDescendants"]
+  CALL R3 1 -1
+  CALL R2 -1 3
+  FORGPREP_INEXT R2
+  LOADK R9 K3 ["WrapTarget"]
+  NAMECALL R7 R6 K4 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+12]
+  MOVE R8 R1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["new"]
+  GETIMPORT R10 K9 [Enum.CageType.Outer]
+  MOVE R11 R6
+  CALL R9 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R7 K12 [table.insert]
+  CALL R7 -1 0
+  FORGLOOP R2 2 [inext] [-18]
+  LENGTH R2 R1
+  JUMPIFNOTEQKN R2 K13 [0] [+7]
+  LOADK R3 K14 ["Model: "]
+  GETTABLEKS R4 R0 K15 ["Name"]
+  LOADK R5 K16 [" does not contain any MeshPart(s) with a WrapTarget."]
+  CONCAT R2 R3 R5
+  RETURN R2 1
+  RETURN R0 0
+
+PROTO_1:
+  LOADK R4 K0 ["Model"]
+  NAMECALL R2 R0 K1 ["FindFirstAncestorOfClass"]
+  CALL R2 2 1
+  GETUPVAL R3 0
+  MOVE R4 R2
+  MOVE R5 R1
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETIMPORT R3 K3 [Enum.CageType.Inner]
+  JUMPIFNOTEQ R0 R3 [+20]
+  LOADK R5 K4 ["WrapLayer"]
+  NAMECALL R3 R1 K5 ["FindFirstChildOfClass"]
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  LOADK R4 K6 ["MeshPart must contain a WrapLayer"]
+  RETURN R4 1
+  MOVE R5 R2
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["new"]
+  MOVE R7 R0
+  MOVE R8 R3
+  CALL R6 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R4 K10 [table.insert]
+  CALL R4 -1 0
+  RETURN R0 0
+  GETIMPORT R3 K12 [Enum.CageType.Outer]
+  JUMPIFNOTEQ R0 R3 [+34]
+  LOADK R5 K4 ["WrapLayer"]
+  NAMECALL R3 R1 K5 ["FindFirstChildOfClass"]
+  CALL R3 2 1
+  LOADK R6 K13 ["WrapTarget"]
+  NAMECALL R4 R1 K5 ["FindFirstChildOfClass"]
+  CALL R4 2 1
+  JUMPIFNOT R3 [+1]
+  JUMPIF R4 [+2]
+  JUMPIF R3 [+3]
+  JUMPIF R4 [+2]
+  LOADK R5 K14 ["MeshPart must contain either a WrapLayer or a WrapTarget, but not both"]
+  RETURN R5 1
+  JUMPIFNOT R3 [+12]
+  MOVE R6 R2
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["new"]
+  MOVE R8 R0
+  MOVE R9 R3
+  CALL R7 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R5 K10 [table.insert]
+  CALL R5 -1 0
+  RETURN R0 0
+  JUMPIFNOT R4 [+5]
+  GETUPVAL R5 1
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R5 2 -1
+  RETURN R5 -1
+  RETURN R0 0
+
+PROTO_3:
+  JUMPIF R1 [+6]
+  GETIMPORT R3 K1 [error]
+  LOADK R4 K2 ["instance is nil"]
+  CALL R3 1 0
+  LOADB R3 0
+  RETURN R3 1
+  GETIMPORT R3 K6 [Enum.CageType.Inner]
+  JUMPIFEQ R0 R3 [+11]
+  GETIMPORT R3 K8 [Enum.CageType.Outer]
+  JUMPIFEQ R0 R3 [+7]
+  GETIMPORT R3 K1 [error]
+  LOADK R4 K9 ["No valid Enum.CageType was provided"]
+  CALL R3 1 0
+  LOADB R3 0
+  RETURN R3 1
+  LOADNIL R3
+  LOADK R6 K10 ["WrapLayer"]
+  NAMECALL R4 R1 K11 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+12]
+  MOVE R5 R2
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K12 ["new"]
+  MOVE R7 R0
+  MOVE R8 R1
+  CALL R6 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R4 K15 [table.insert]
+  CALL R4 -1 0
+  JUMP [+45]
+  LOADK R6 K16 ["MeshPart"]
+  NAMECALL R4 R1 K11 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+7]
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  MOVE R3 R4
+  JUMP [+33]
+  GETIMPORT R4 K8 [Enum.CageType.Outer]
+  JUMPIFNOTEQ R0 R4 [+29]
+  LOADK R6 K17 ["Model"]
+  NAMECALL R4 R1 K11 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+6]
+  GETUPVAL R4 2
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R4 2 1
+  MOVE R3 R4
+  JUMP [+18]
+  LOADK R6 K18 ["WrapTarget"]
+  NAMECALL R4 R1 K11 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+10]
+  LOADK R6 K17 ["Model"]
+  NAMECALL R4 R1 K19 ["FindFirstAncestorOfClass"]
+  CALL R4 2 1
+  GETUPVAL R5 2
+  MOVE R6 R4
+  MOVE R7 R2
+  CALL R5 2 1
+  MOVE R3 R5
+  JUMP [+3]
+  LOADK R3 K20 ["Instance must be a BaseWrap, Model, or a MeshPart with a valid BaseWrap"]
+  JUMP [+1]
+  LOADK R3 K21 ["Instance must be a WrapLayer or a MeshPart with a valid WrapLayer"]
+  JUMPIFNOT R3 [+6]
+  GETIMPORT R4 K1 [error]
+  MOVE R5 R3
+  CALL R4 1 0
+  LOADB R4 0
+  RETURN R4 1
+  LOADB R4 1
+  RETURN R4 1
+
+PROTO_4:
+  NEWTABLE R3 0 0
+  GETUPVAL R4 0
+  MOVE R5 R1
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R4 3 1
+  JUMPIFNOT R4 [+4]
+  MOVE R6 R3
+  NAMECALL R4 R0 K0 ["updateCageOrigins"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_5:
+  NEWTABLE R3 0 0
+  GETUPVAL R4 0
+  MOVE R5 R1
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R4 3 1
+  JUMPIFNOT R4 [+4]
+  MOVE R6 R3
+  NAMECALL R4 R0 K0 ["init"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["new"]
   CALL R1 0 1
@@ -6,244 +204,49 @@ PROTO_0:
   FASTCALL2 SETMETATABLE R1 R2 [+3]
   GETIMPORT R0 K2 [setmetatable]
   CALL R0 2 1
+  DUPCLOSURE R1 K3 [PROTO_0]
+  CAPTURE UPVAL U2
+  DUPCLOSURE R2 K4 [PROTO_1]
+  CAPTURE VAL R1
+  DUPCLOSURE R3 K5 [PROTO_2]
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  DUPCLOSURE R4 K6 [PROTO_3]
+  CAPTURE UPVAL U2
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  DUPCLOSURE R5 K7 [PROTO_4]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R0 K8 ["updateCageLocationFromInstance"]
+  DUPCLOSURE R5 K9 [PROTO_5]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R0 K10 ["initFromCageMesh"]
   RETURN R0 1
-
-PROTO_1:
-  JUMPIF R1 [+2]
-  LOADNIL R3
-  RETURN R3 1
-  NAMECALL R3 R1 K0 ["GetDescendants"]
-  CALL R3 1 3
-  FORGPREP R3
-  LOADK R10 K1 ["WrapTarget"]
-  NAMECALL R8 R7 K2 ["IsA"]
-  CALL R8 2 1
-  JUMPIFNOT R8 [+12]
-  MOVE R9 R2
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K3 ["new"]
-  GETIMPORT R11 K7 [Enum.CageType.Outer]
-  MOVE R12 R7
-  CALL R10 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R8 K10 [table.insert]
-  CALL R8 -1 0
-  FORGLOOP R3 2 [-18]
-  LENGTH R3 R2
-  JUMPIFNOTEQKN R3 K11 [0] [+7]
-  LOADK R4 K12 ["Model: "]
-  GETTABLEKS R5 R1 K13 ["Name"]
-  LOADK R6 K14 [" does not contain any MeshPart(s) with a WrapTarget."]
-  CONCAT R3 R4 R6
-  RETURN R3 1
-  LOADNIL R3
-  RETURN R3 1
-
-PROTO_2:
-  LOADK R5 K0 ["Model"]
-  NAMECALL R3 R1 K1 ["FindFirstAncestorOfClass"]
-  CALL R3 2 1
-  MOVE R6 R3
-  MOVE R7 R2
-  NAMECALL R4 R0 K2 ["_makeWrapperObjectsFromModel"]
-  CALL R4 3 -1
-  RETURN R4 -1
-
-PROTO_3:
-  GETIMPORT R4 K3 [Enum.CageType.Inner]
-  JUMPIFNOTEQ R1 R4 [+20]
-  LOADK R6 K4 ["WrapLayer"]
-  NAMECALL R4 R2 K5 ["FindFirstChildOfClass"]
-  CALL R4 2 1
-  JUMPIF R4 [+2]
-  LOADK R5 K6 ["MeshPart must contain a WrapLayer"]
-  RETURN R5 1
-  MOVE R6 R3
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K7 ["new"]
-  MOVE R8 R1
-  MOVE R9 R4
-  CALL R7 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R5 K10 [table.insert]
-  CALL R5 -1 0
-  JUMP [+38]
-  GETIMPORT R4 K12 [Enum.CageType.Outer]
-  JUMPIFNOTEQ R1 R4 [+35]
-  LOADK R6 K4 ["WrapLayer"]
-  NAMECALL R4 R2 K5 ["FindFirstChildOfClass"]
-  CALL R4 2 1
-  LOADK R7 K13 ["WrapTarget"]
-  NAMECALL R5 R2 K5 ["FindFirstChildOfClass"]
-  CALL R5 2 1
-  JUMPIFNOT R4 [+1]
-  JUMPIF R5 [+2]
-  JUMPIF R4 [+3]
-  JUMPIF R5 [+2]
-  LOADK R6 K14 ["MeshPart must contain either a WrapLayer or a WrapTarget, but not both"]
-  RETURN R6 1
-  JUMPIFNOT R4 [+12]
-  MOVE R7 R3
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K7 ["new"]
-  MOVE R9 R1
-  MOVE R10 R4
-  CALL R8 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K10 [table.insert]
-  CALL R6 -1 0
-  JUMP [+7]
-  JUMPIFNOT R5 [+6]
-  MOVE R8 R2
-  MOVE R9 R3
-  NAMECALL R6 R0 K15 ["_findModelFromInstanceAndGetCages"]
-  CALL R6 3 -1
-  RETURN R6 -1
-  LOADNIL R4
-  RETURN R4 1
-
-PROTO_4:
-  JUMPIF R2 [+6]
-  GETIMPORT R4 K1 [error]
-  LOADK R5 K2 ["instance is nil"]
-  CALL R4 1 0
-  LOADB R4 0
-  RETURN R4 1
-  GETIMPORT R4 K6 [Enum.CageType.Inner]
-  JUMPIFEQ R1 R4 [+11]
-  GETIMPORT R4 K8 [Enum.CageType.Outer]
-  JUMPIFEQ R1 R4 [+7]
-  GETIMPORT R4 K1 [error]
-  LOADK R5 K9 ["No valid Enum.CageType was provided"]
-  CALL R4 1 0
-  LOADB R4 0
-  RETURN R4 1
-  LOADNIL R4
-  LOADK R7 K10 ["WrapLayer"]
-  NAMECALL R5 R2 K11 ["IsA"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+12]
-  MOVE R6 R3
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K12 ["new"]
-  MOVE R8 R1
-  MOVE R9 R2
-  CALL R7 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R5 K15 [table.insert]
-  CALL R5 -1 0
-  JUMP [+44]
-  LOADK R7 K16 ["MeshPart"]
-  NAMECALL R5 R2 K11 ["IsA"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+8]
-  MOVE R7 R1
-  MOVE R8 R2
-  MOVE R9 R3
-  NAMECALL R5 R0 K17 ["_getCageFromMeshPart"]
-  CALL R5 4 1
-  MOVE R4 R5
-  JUMP [+31]
-  GETIMPORT R5 K8 [Enum.CageType.Outer]
-  JUMPIFNOTEQ R1 R5 [+27]
-  LOADK R7 K18 ["Model"]
-  NAMECALL R5 R2 K11 ["IsA"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+7]
-  MOVE R7 R2
-  MOVE R8 R3
-  NAMECALL R5 R0 K19 ["_makeWrapperObjectsFromModel"]
-  CALL R5 3 1
-  MOVE R4 R5
-  JUMP [+15]
-  LOADK R7 K20 ["WrapTarget"]
-  NAMECALL R5 R2 K11 ["IsA"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+7]
-  MOVE R7 R2
-  MOVE R8 R3
-  NAMECALL R5 R0 K21 ["_findModelFromInstanceAndGetCages"]
-  CALL R5 3 1
-  MOVE R4 R5
-  JUMP [+3]
-  LOADK R4 K22 ["Instance must be a BaseWrap, Model, or a MeshPart with a valid BaseWrap"]
-  JUMP [+1]
-  LOADK R4 K23 ["Instance must be a WrapLayer or a MeshPart with a valid WrapLayer"]
-  JUMPIFNOT R4 [+6]
-  GETIMPORT R5 K1 [error]
-  MOVE R6 R4
-  CALL R5 1 0
-  LOADB R5 0
-  RETURN R5 1
-  LOADB R5 1
-  RETURN R5 1
-
-PROTO_5:
-  NEWTABLE R3 0 0
-  MOVE R6 R1
-  MOVE R7 R2
-  MOVE R8 R3
-  NAMECALL R4 R0 K0 ["_createMeshWrapperObjects"]
-  CALL R4 4 1
-  JUMPIFNOT R4 [+4]
-  MOVE R6 R3
-  NAMECALL R4 R0 K1 ["updateCageOrigins"]
-  CALL R4 2 0
-  RETURN R0 0
-
-PROTO_6:
-  NEWTABLE R3 0 0
-  MOVE R6 R1
-  MOVE R7 R2
-  MOVE R8 R3
-  NAMECALL R4 R0 K0 ["_createMeshWrapperObjects"]
-  CALL R4 4 1
-  JUMPIFNOT R4 [+4]
-  MOVE R6 R3
-  NAMECALL R4 R0 K1 ["init"]
-  CALL R4 2 0
-  RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["LuaMeshEditingModule"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["MeshEditingContexts"]
-  GETTABLEKS R2 R3 K7 ["MeshEditingContextBase"]
-  CALL R1 1 1
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["MeshWrapperObjects"]
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["MeshWrapperObjects"]
-  GETTABLEKS R3 R4 K9 ["CageMeshWrapperObject"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["MeshEditingContextBase"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R0 K10 ["Types"]
+  GETTABLEKS R4 R1 K7 ["CageMeshWrapperObject"]
   CALL R3 1 1
-  NEWTABLE R5 8 0
-  FASTCALL2 SETMETATABLE R5 R1 [+4]
-  MOVE R6 R1
-  GETIMPORT R4 K12 [setmetatable]
+  NEWTABLE R5 2 0
+  DUPTABLE R6 K9 [{"__index"}]
+  SETTABLEKS R2 R6 K8 ["__index"]
+  FASTCALL2 SETMETATABLE R5 R6 [+3]
+  GETIMPORT R4 K11 [setmetatable]
   CALL R4 2 1
-  SETTABLEKS R4 R4 K13 ["__index"]
-  DUPCLOSURE R5 K14 [PROTO_0]
-  CAPTURE VAL R1
+  SETTABLEKS R4 R4 K8 ["__index"]
+  DUPCLOSURE R5 K12 [PROTO_6]
+  CAPTURE VAL R2
   CAPTURE VAL R4
-  SETTABLEKS R5 R4 K15 ["new"]
-  DUPCLOSURE R5 K16 [PROTO_1]
-  CAPTURE VAL R2
-  SETTABLEKS R5 R4 K17 ["_makeWrapperObjectsFromModel"]
-  DUPCLOSURE R5 K18 [PROTO_2]
-  SETTABLEKS R5 R4 K19 ["_findModelFromInstanceAndGetCages"]
-  DUPCLOSURE R5 K20 [PROTO_3]
-  CAPTURE VAL R2
-  SETTABLEKS R5 R4 K21 ["_getCageFromMeshPart"]
-  DUPCLOSURE R5 K22 [PROTO_4]
-  CAPTURE VAL R2
-  SETTABLEKS R5 R4 K23 ["_createMeshWrapperObjects"]
-  DUPCLOSURE R5 K24 [PROTO_5]
-  SETTABLEKS R5 R4 K25 ["updateCageLocationFromInstance"]
-  DUPCLOSURE R5 K26 [PROTO_6]
-  SETTABLEKS R5 R4 K27 ["initFromCageMesh"]
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K13 ["new"]
   RETURN R4 1

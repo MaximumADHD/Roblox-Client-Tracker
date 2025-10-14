@@ -84,7 +84,7 @@ PROTO_7:
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K7 ["createElement"]
   GETUPVAL R19 3
-  DUPTABLE R20 K33 [{"LayoutOrder", "text", "textInputType", "hasError", "isDisabled", "isRequired", "onChanged", "onFocusGained", "onFocusLost", "onReturnPressed", "label", "size", "hint", "placeholder", "leadingIcon", "iconTrailing", "textBoxRef"}]
+  DUPTABLE R20 K33 [{"LayoutOrder", "text", "textInputType", "hasError", "isDisabled", "isRequired", "onChanged", "onFocusGained", "onFocusLost", "onReturnPressed", "label", "size", "hint", "placeholder", "iconLeading", "iconTrailing", "textBoxRef"}]
   LOADN R21 1
   SETTABLEKS R21 R20 K16 ["LayoutOrder"]
   SETTABLEKS R2 R20 K17 ["text"]
@@ -118,14 +118,14 @@ PROTO_7:
   SETTABLEKS R21 R20 K28 ["hint"]
   GETTABLEKS R21 R1 K29 ["placeholder"]
   SETTABLEKS R21 R20 K29 ["placeholder"]
-  GETTABLEKS R22 R1 K30 ["leadingIcon"]
+  GETTABLEKS R22 R1 K30 ["iconLeading"]
   GETUPVAL R24 0
   GETTABLEKS R23 R24 K34 ["None"]
   JUMPIFNOTEQ R22 R23 [+3]
   LOADNIL R21
   JUMP [+2]
-  GETTABLEKS R21 R1 K30 ["leadingIcon"]
-  SETTABLEKS R21 R20 K30 ["leadingIcon"]
+  GETTABLEKS R21 R1 K30 ["iconLeading"]
+  SETTABLEKS R21 R20 K30 ["iconLeading"]
   GETTABLEKS R22 R1 K31 ["iconTrailing"]
   GETUPVAL R24 0
   GETTABLEKS R23 R24 K34 ["None"]
@@ -251,7 +251,7 @@ MAIN:
   LOADK R13 K25 ["Text field"]
   SETTABLEKS R13 R12 K21 ["summary"]
   SETTABLEKS R11 R12 K22 ["story"]
-  DUPTABLE R13 K37 [{"hasError", "isDisabled", "isRequired", "textInputType", "size", "label", "hint", "placeholder", "leadingIcon", "iconTrailing", "trailingButton"}]
+  DUPTABLE R13 K37 [{"hasError", "isDisabled", "isRequired", "textInputType", "size", "label", "hint", "placeholder", "iconLeading", "iconTrailing", "trailingButton"}]
   LOADB R14 0
   SETTABLEKS R14 R13 K26 ["hasError"]
   LOADB R14 0
@@ -285,7 +285,7 @@ MAIN:
   LOADK R17 K53 ["icons/common/search_small"]
   GETTABLEKS R18 R2 K38 ["None"]
   SETLIST R14 R15 4 [1]
-  SETTABLEKS R14 R13 K34 ["leadingIcon"]
+  SETTABLEKS R14 R13 K34 ["iconLeading"]
   NEWTABLE R14 0 6
   LOADK R15 K54 ["icons/placeholder/placeholderOff"]
   LOADK R16 K55 ["icons/actions/edit/clear_small"]

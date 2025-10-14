@@ -1,36 +1,81 @@
+PROTO_0:
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETUPVAL R1 0
+  JUMPIFNOTEQKNIL R1 [+3]
+  LOADNIL R1
+  RETURN R1 1
+  NEWTABLE R1 0 0
+  MOVE R2 R0
+  JUMPIFEQKNIL R2 [+16]
+  GETUPVAL R3 0
+  JUMPIFEQ R2 R3 [+13]
+  LOADN R5 1
+  GETTABLEKS R6 R2 K3 ["Name"]
+  FASTCALL3 TABLE_INSERT R1 R5 R6
+  MOVE R4 R1
+  GETIMPORT R3 K6 [table.insert]
+  CALL R3 3 0
+  GETTABLEKS R2 R2 K2 ["Parent"]
+  JUMPBACK [-17]
+  LOADK R4 K7 ["LuaPackages/"]
+  GETIMPORT R5 K9 [table.concat]
+  MOVE R6 R1
+  LOADK R7 K10 ["/"]
+  CALL R5 2 1
+  CONCAT R3 R4 R5
+  RETURN R3 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOTEQKNIL R0 [+5]
+  LOADK R2 K0 ["rbxassetid://"]
+  GETUPVAL R3 1
+  CONCAT R1 R2 R3
+  RETURN R1 1
+  LOADK R2 K1 ["rbxasset://"]
+  MOVE R3 R0
+  LOADK R4 K2 ["/BuilderIcons.json"]
+  CONCAT R1 R2 R4
+  RETURN R1 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R1 K1 [script]
   GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R2 R0 K5 ["BuilderIconsFallback"]
-  CALL R1 1 1
-  LOADK R3 K6 ["rbxassetid://%*"]
-  MOVE R5 R1
-  NAMECALL R3 R3 K7 ["format"]
-  CALL R3 2 1
-  MOVE R2 R3
-  DUPTABLE R3 K11 [{"Regular", "Filled", "Fallback"}]
-  GETIMPORT R4 K14 [Font.new]
-  LOADK R5 K15 ["rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json"]
-  GETIMPORT R6 K18 [Enum.FontWeight.Regular]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K8 ["Regular"]
-  GETIMPORT R4 K14 [Font.new]
-  LOADK R5 K15 ["rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json"]
-  GETIMPORT R6 K20 [Enum.FontWeight.Bold]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K9 ["Filled"]
-  DUPTABLE R4 K21 [{"Regular", "Filled"}]
-  GETIMPORT R5 K14 [Font.new]
-  MOVE R6 R2
-  GETIMPORT R7 K18 [Enum.FontWeight.Regular]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K8 ["Regular"]
-  GETIMPORT R5 K14 [Font.new]
-  MOVE R6 R2
-  GETIMPORT R7 K20 [Enum.FontWeight.Bold]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K9 ["Filled"]
-  SETTABLEKS R4 R3 K10 ["Fallback"]
-  RETURN R3 1
+  GETIMPORT R1 K1 [script]
+  LOADK R3 K3 ["CorePackages"]
+  NAMECALL R1 R1 K4 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R0 K7 ["BuilderIconsFallback"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE VAL R1
+  DUPCLOSURE R4 K9 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  MOVE R6 R3
+  CALL R6 0 1
+  JUMPIFNOTEQKNIL R6 [+5]
+  LOADK R7 K10 ["rbxassetid://"]
+  MOVE R8 R2
+  CONCAT R5 R7 R8
+  JUMP [+4]
+  LOADK R7 K11 ["rbxasset://"]
+  MOVE R8 R6
+  LOADK R9 K12 ["/BuilderIcons.json"]
+  CONCAT R5 R7 R9
+  DUPTABLE R6 K15 [{"Regular", "Filled"}]
+  GETIMPORT R7 K18 [Font.new]
+  MOVE R8 R5
+  GETIMPORT R9 K21 [Enum.FontWeight.Regular]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K13 ["Regular"]
+  GETIMPORT R7 K18 [Font.new]
+  MOVE R8 R5
+  GETIMPORT R9 K23 [Enum.FontWeight.Bold]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K14 ["Filled"]
+  RETURN R6 1

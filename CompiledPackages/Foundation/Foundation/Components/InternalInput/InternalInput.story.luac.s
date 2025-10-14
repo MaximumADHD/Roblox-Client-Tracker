@@ -18,7 +18,7 @@ PROTO_1:
   GETTABLEKS R6 R7 K2 ["createElement"]
   GETUPVAL R7 2
   DUPTABLE R8 K4 [{"tag"}]
-  LOADK R9 K5 ["col gap-large auto-xy padding-xlarge size-3000"]
+  LOADK R9 K5 ["col gap-large auto-xy padding-larger size-3000"]
   SETTABLEKS R9 R8 K3 ["tag"]
   DUPTABLE R9 K7 [{"InternalInput"}]
   GETUPVAL R11 1

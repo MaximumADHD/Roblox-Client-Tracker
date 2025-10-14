@@ -14,18 +14,18 @@ PROTO_0:
   GETUPVAL R6 5
   GETUPVAL R7 6
   MOVE R8 R2
-  DUPTABLE R9 K13 [{"isChecked", "isDisabled", "onActivated", "label", "customVariantProps", "size", "Selectable", "NextSelectionUp", "NextSelectionDown", "NextSelectionLeft", "NextSelectionRight", "ref"}]
+  DUPTABLE R9 K12 [{"isChecked", "isDisabled", "onActivated", "label", "customVariantProps", "size", "Selectable", "NextSelectionUp", "NextSelectionDown", "NextSelectionLeft", "NextSelectionRight"}]
   GETTABLEKS R10 R2 K2 ["isChecked"]
   SETTABLEKS R10 R9 K2 ["isChecked"]
   GETTABLEKS R10 R2 K3 ["isDisabled"]
   SETTABLEKS R10 R9 K3 ["isDisabled"]
   GETTABLEKS R10 R2 K4 ["onActivated"]
   SETTABLEKS R10 R9 K4 ["onActivated"]
-  DUPTABLE R10 K15 [{"text"}]
+  DUPTABLE R10 K14 [{"text"}]
   GETTABLEKS R11 R2 K5 ["label"]
-  SETTABLEKS R11 R10 K14 ["text"]
+  SETTABLEKS R11 R10 K13 ["text"]
   SETTABLEKS R10 R9 K5 ["label"]
-  GETTABLEKS R10 R4 K16 ["input"]
+  GETTABLEKS R10 R4 K15 ["input"]
   SETTABLEKS R10 R9 K6 ["customVariantProps"]
   GETTABLEKS R10 R2 K0 ["size"]
   SETTABLEKS R10 R9 K0 ["size"]
@@ -39,51 +39,50 @@ PROTO_0:
   SETTABLEKS R10 R9 K10 ["NextSelectionLeft"]
   GETTABLEKS R10 R2 K11 ["NextSelectionRight"]
   SETTABLEKS R10 R9 K11 ["NextSelectionRight"]
-  SETTABLEKS R1 R9 K12 ["ref"]
   CALL R7 2 1
-  DUPTABLE R8 K18 [{"Checkmark"}]
+  DUPTABLE R8 K17 [{"Checkmark"}]
   GETTABLEKS R10 R2 K2 ["isChecked"]
   JUMPIFNOT R10 [+57]
   GETUPVAL R11 7
-  GETTABLEKS R10 R11 K19 ["FoundationMigrateIconNames"]
+  GETTABLEKS R10 R11 K18 ["FoundationMigrateIconNames"]
   JUMPIFNOT R10 [+37]
   GETUPVAL R10 4
   GETTABLEKS R9 R10 K1 ["createElement"]
   GETUPVAL R10 8
-  DUPTABLE R11 K24 [{"Text", "fontStyle", "TextScaled", "tag"}]
+  DUPTABLE R11 K23 [{"Text", "fontStyle", "TextScaled", "tag"}]
   GETUPVAL R14 9
-  GETTABLEKS R13 R14 K25 ["Icon"]
-  GETTABLEKS R12 R13 K26 ["Check"]
-  SETTABLEKS R12 R11 K20 ["Text"]
-  DUPTABLE R12 K28 [{"Font"}]
+  GETTABLEKS R13 R14 K24 ["Icon"]
+  GETTABLEKS R12 R13 K25 ["Check"]
+  SETTABLEKS R12 R11 K19 ["Text"]
+  DUPTABLE R12 K27 [{"Font"}]
   GETUPVAL R15 9
-  GETTABLEKS R14 R15 K27 ["Font"]
+  GETTABLEKS R14 R15 K26 ["Font"]
   GETUPVAL R17 9
-  GETTABLEKS R16 R17 K29 ["IconVariant"]
-  GETTABLEKS R15 R16 K30 ["Filled"]
+  GETTABLEKS R16 R17 K28 ["IconVariant"]
+  GETTABLEKS R15 R16 K29 ["Filled"]
   GETTABLE R13 R14 R15
-  SETTABLEKS R13 R12 K27 ["Font"]
-  SETTABLEKS R12 R11 K21 ["fontStyle"]
+  SETTABLEKS R13 R12 K26 ["Font"]
+  SETTABLEKS R12 R11 K20 ["fontStyle"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K22 ["TextScaled"]
-  GETTABLEKS R13 R4 K31 ["checkmark"]
-  GETTABLEKS R12 R13 K23 ["tag"]
-  SETTABLEKS R12 R11 K23 ["tag"]
+  SETTABLEKS R12 R11 K21 ["TextScaled"]
+  GETTABLEKS R13 R4 K30 ["checkmark"]
+  GETTABLEKS R12 R13 K22 ["tag"]
+  SETTABLEKS R12 R11 K22 ["tag"]
   CALL R9 2 1
   JUMP [+17]
   GETUPVAL R10 4
   GETTABLEKS R9 R10 K1 ["createElement"]
   GETUPVAL R10 10
-  DUPTABLE R11 K33 [{"Image", "tag"}]
-  LOADK R12 K34 ["icons/status/success_small"]
-  SETTABLEKS R12 R11 K32 ["Image"]
-  GETTABLEKS R13 R4 K31 ["checkmark"]
-  GETTABLEKS R12 R13 K23 ["tag"]
-  SETTABLEKS R12 R11 K23 ["tag"]
+  DUPTABLE R11 K32 [{"Image", "tag"}]
+  LOADK R12 K33 ["icons/status/success_small"]
+  SETTABLEKS R12 R11 K31 ["Image"]
+  GETTABLEKS R13 R4 K30 ["checkmark"]
+  GETTABLEKS R12 R13 K22 ["tag"]
+  SETTABLEKS R12 R11 K22 ["tag"]
   CALL R9 2 1
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K17 ["Checkmark"]
+  SETTABLEKS R9 R8 K16 ["Checkmark"]
   CALL R5 3 -1
   RETURN R5 -1
 

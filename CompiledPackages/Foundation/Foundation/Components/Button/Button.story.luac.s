@@ -55,33 +55,30 @@ PROTO_1:
 
 PROTO_2:
   GETTABLEKS R1 R0 K0 ["controls"]
-  GETUPVAL R2 0
-  GETTABLEKS R3 R1 K1 ["usePath2DSpinner"]
-  SETTABLEKS R3 R2 K2 ["FoundationUsePath2DSpinner"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createElement"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K3 ["createElement"]
-  GETUPVAL R3 2
-  DUPTABLE R4 K5 [{"tag"}]
-  LOADK R5 K6 ["row gap-medium auto-y size-full-0 align-y-center"]
-  SETTABLEKS R5 R4 K4 ["tag"]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K7 ["map"]
+  DUPTABLE R4 K3 [{"tag"}]
+  LOADK R5 K4 ["row gap-medium auto-y size-full-0 align-y-center"]
+  SETTABLEKS R5 R4 K2 ["tag"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K5 ["map"]
   NEWTABLE R6 0 4
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K8 ["Large"]
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K9 ["Medium"]
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K10 ["Small"]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K11 ["XSmall"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K6 ["Large"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K7 ["Medium"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K8 ["Small"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K9 ["XSmall"]
   SETLIST R6 R7 4 [1]
   NEWCLOSURE R7 P0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U4
   CAPTURE VAL R1
   CAPTURE VAL R0
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U5
   CALL R5 2 -1
   CALL R2 -1 -1
   RETURN R2 -1
@@ -95,7 +92,6 @@ PROTO_3:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
   CAPTURE VAL R0
   SETTABLEKS R2 R1 K1 ["story"]
   RETURN R1 1
@@ -114,78 +110,71 @@ MAIN:
   GETTABLEKS R4 R1 K8 ["Dash"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
-  GETTABLEKS R6 R0 K9 ["Utility"]
-  GETTABLEKS R5 R6 K10 ["Flags"]
+  GETTABLEKS R6 R0 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["View"]
   CALL R4 1 1
   GETIMPORT R5 K6 [require]
-  GETTABLEKS R7 R0 K11 ["Components"]
-  GETTABLEKS R6 R7 K12 ["View"]
+  GETTABLEKS R7 R0 K9 ["Components"]
+  GETTABLEKS R6 R7 K11 ["Button"]
   CALL R5 1 1
   GETIMPORT R6 K6 [require]
-  GETTABLEKS R8 R0 K11 ["Components"]
-  GETTABLEKS R7 R8 K13 ["Button"]
+  GETTABLEKS R8 R0 K12 ["Enums"]
+  GETTABLEKS R7 R8 K13 ["InputSize"]
   CALL R6 1 1
   GETIMPORT R7 K6 [require]
-  GETTABLEKS R9 R0 K14 ["Enums"]
-  GETTABLEKS R8 R9 K15 ["InputSize"]
+  GETTABLEKS R9 R0 K12 ["Enums"]
+  GETTABLEKS R8 R9 K14 ["ButtonVariant"]
   CALL R7 1 1
   GETIMPORT R8 K6 [require]
-  GETTABLEKS R10 R0 K14 ["Enums"]
-  GETTABLEKS R9 R10 K16 ["ButtonVariant"]
+  GETTABLEKS R10 R0 K12 ["Enums"]
+  GETTABLEKS R9 R10 K15 ["FillBehavior"]
   CALL R8 1 1
-  GETIMPORT R9 K6 [require]
-  GETTABLEKS R11 R0 K14 ["Enums"]
-  GETTABLEKS R10 R11 K17 ["FillBehavior"]
-  CALL R9 1 1
-  DUPTABLE R10 K21 [{"summary", "stories", "controls"}]
-  LOADK R11 K13 ["Button"]
-  SETTABLEKS R11 R10 K18 ["summary"]
-  GETTABLEKS R11 R3 K22 ["map"]
-  MOVE R12 R8
-  DUPCLOSURE R13 K23 [PROTO_3]
-  CAPTURE VAL R4
+  DUPTABLE R9 K19 [{"summary", "stories", "controls"}]
+  LOADK R10 K11 ["Button"]
+  SETTABLEKS R10 R9 K16 ["summary"]
+  GETTABLEKS R10 R3 K20 ["map"]
+  MOVE R11 R7
+  DUPCLOSURE R12 K21 [PROTO_3]
   CAPTURE VAL R2
-  CAPTURE VAL R5
+  CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R7
   CAPTURE VAL R6
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K19 ["stories"]
-  DUPTABLE R11 K31 [{"icon", "text", "isDisabled", "isLoading", "fillBehavior", "inputDelay", "usePath2DSpinner"}]
-  NEWTABLE R12 0 16
-  LOADK R13 K32 ["chain-link"]
-  LOADK R14 K33 ["tilt"]
-  LOADK R15 K34 ["icons/placeholder/placeholderOn"]
-  LOADK R16 K35 ["icons/common/robux"]
-  LOADK R17 K36 ["icons/common/play"]
-  LOADK R18 K37 ["icons/controls/media-play-large"]
-  LOADK R19 K38 ["icons/controls/media-play-medium"]
-  LOADK R20 K39 ["icons/controls/media-play-small"]
-  LOADK R21 K40 ["icons/actions/pumpkin_medium"]
-  LOADK R22 K41 ["icons/actions/accept_small"]
-  LOADK R23 K42 ["icons/actions/friends/friendAdd"]
-  LOADK R24 K43 ["icons/actions/friends/friendAdd_small"]
-  LOADK R25 K44 ["icons/navigation/externallink_medium"]
-  LOADK R26 K45 ["icons/actions/info"]
-  LOADK R27 K46 ["icons/actions/info_small"]
-  LOADK R28 K47 [""]
-  SETLIST R12 R13 16 [1]
-  SETTABLEKS R12 R11 K24 ["icon"]
-  LOADK R12 K48 ["Lorem ipsum"]
-  SETTABLEKS R12 R11 K25 ["text"]
-  LOADB R12 0
-  SETTABLEKS R12 R11 K26 ["isDisabled"]
-  LOADB R12 0
-  SETTABLEKS R12 R11 K27 ["isLoading"]
-  NEWTABLE R12 0 3
-  GETTABLEKS R13 R2 K49 ["None"]
-  GETTABLEKS R14 R9 K50 ["Fit"]
-  GETTABLEKS R15 R9 K51 ["Fill"]
-  SETLIST R12 R13 3 [1]
-  SETTABLEKS R12 R11 K28 ["fillBehavior"]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K29 ["inputDelay"]
-  GETTABLEKS R12 R4 K52 ["FoundationUsePath2DSpinner"]
-  SETTABLEKS R12 R11 K30 ["usePath2DSpinner"]
-  SETTABLEKS R11 R10 K20 ["controls"]
-  RETURN R10 1
+  CAPTURE VAL R5
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K17 ["stories"]
+  DUPTABLE R10 K28 [{"icon", "text", "isDisabled", "isLoading", "fillBehavior", "inputDelay"}]
+  NEWTABLE R11 0 16
+  LOADK R12 K29 ["chain-link"]
+  LOADK R13 K30 ["tilt"]
+  LOADK R14 K31 ["icons/placeholder/placeholderOn"]
+  LOADK R15 K32 ["icons/common/robux"]
+  LOADK R16 K33 ["icons/common/play"]
+  LOADK R17 K34 ["icons/controls/media-play-large"]
+  LOADK R18 K35 ["icons/controls/media-play-medium"]
+  LOADK R19 K36 ["icons/controls/media-play-small"]
+  LOADK R20 K37 ["icons/actions/pumpkin_medium"]
+  LOADK R21 K38 ["icons/actions/accept_small"]
+  LOADK R22 K39 ["icons/actions/friends/friendAdd"]
+  LOADK R23 K40 ["icons/actions/friends/friendAdd_small"]
+  LOADK R24 K41 ["icons/navigation/externallink_medium"]
+  LOADK R25 K42 ["icons/actions/info"]
+  LOADK R26 K43 ["icons/actions/info_small"]
+  LOADK R27 K44 [""]
+  SETLIST R11 R12 16 [1]
+  SETTABLEKS R11 R10 K22 ["icon"]
+  LOADK R11 K45 ["Lorem ipsum"]
+  SETTABLEKS R11 R10 K23 ["text"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K24 ["isDisabled"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K25 ["isLoading"]
+  NEWTABLE R11 0 3
+  GETTABLEKS R12 R2 K46 ["None"]
+  GETTABLEKS R13 R8 K47 ["Fit"]
+  GETTABLEKS R14 R8 K48 ["Fill"]
+  SETLIST R11 R12 3 [1]
+  SETTABLEKS R11 R10 K26 ["fillBehavior"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K27 ["inputDelay"]
+  SETTABLEKS R10 R9 K18 ["controls"]
+  RETURN R9 1

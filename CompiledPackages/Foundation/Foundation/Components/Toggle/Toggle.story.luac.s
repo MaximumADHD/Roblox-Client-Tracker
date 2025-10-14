@@ -130,57 +130,57 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["useState"]
-  LOADB R1 0
-  CALL R0 1 2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["useState"]
-  LOADB R3 1
-  CALL R2 1 2
-  GETUPVAL R4 1
-  CALL R4 0 1
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K1 ["useMemo"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R4
-  NEWTABLE R7 0 1
-  MOVE R8 R4
-  SETLIST R7 R8 1 [1]
-  CALL R5 2 1
-  NEWCLOSURE R6 P1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADB R2 0
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useState"]
+  LOADB R4 1
+  CALL R3 1 2
+  GETUPVAL R5 1
+  CALL R5 0 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["useMemo"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R5
+  NEWTABLE R8 0 1
+  MOVE R9 R5
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  NEWCLOSURE R7 P1
   CAPTURE UPVAL U0
   CAPTURE UPVAL U2
-  CAPTURE VAL R5
+  CAPTURE VAL R6
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R8 2
-  DUPTABLE R9 K4 [{"tag"}]
-  LOADK R10 K5 ["auto-xy col gap-large"]
-  SETTABLEKS R10 R9 K3 ["tag"]
-  DUPTABLE R10 K8 [{"NotificationsCard", "ChatCard"}]
-  MOVE R11 R6
-  LOADK R12 K9 ["Push Notifications"]
-  LOADK R13 K10 ["Receive notifications for messages and updates"]
-  MOVE R14 R2
-  NEWCLOSURE R15 P2
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K4 [{"tag"}]
+  LOADK R11 K5 ["auto-xy col gap-large"]
+  SETTABLEKS R11 R10 K3 ["tag"]
+  DUPTABLE R11 K8 [{"NotificationsCard", "ChatCard"}]
+  MOVE R12 R7
+  LOADK R13 K9 ["Push Notifications"]
+  LOADK R14 K10 ["Receive notifications for messages and updates"]
+  MOVE R15 R3
+  NEWCLOSURE R16 P2
+  CAPTURE VAL R4
   CAPTURE VAL R3
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K6 ["NotificationsCard"]
+  MOVE R12 R7
+  LOADK R13 K11 ["Chat"]
+  LOADK R14 K12 ["Enable chat for real-time communication"]
+  MOVE R15 R1
+  NEWCLOSURE R16 P3
   CAPTURE VAL R2
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K6 ["NotificationsCard"]
-  MOVE R11 R6
-  LOADK R12 K11 ["Chat"]
-  LOADK R13 K12 ["Enable chat for real-time communication"]
-  MOVE R14 R0
-  NEWCLOSURE R15 P3
   CAPTURE VAL R1
-  CAPTURE VAL R0
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K7 ["ChatCard"]
-  CALL R7 3 -1
-  RETURN R7 -1
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K7 ["ChatCard"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0

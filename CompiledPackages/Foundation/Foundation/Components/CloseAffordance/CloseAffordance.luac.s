@@ -20,20 +20,30 @@ PROTO_1:
   GETUPVAL R3 2
   CALL R3 0 1
   GETUPVAL R4 3
-  CALL R4 0 1
-  GETUPVAL R5 4
-  MOVE R6 R3
-  GETTABLEKS R7 R2 K0 ["size"]
-  GETTABLEKS R8 R2 K1 ["variant"]
-  GETTABLEKS R9 R4 K2 ["isInverse"]
-  CALL R5 4 1
+  MOVE R5 R3
+  GETTABLEKS R6 R2 K0 ["size"]
+  GETTABLEKS R7 R2 K1 ["variant"]
+  CALL R4 3 1
+  GETTABLEKS R6 R2 K1 ["variant"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K2 ["OverMedia"]
+  JUMPIFEQ R6 R7 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  JUMPIFNOT R5 [+9]
   GETIMPORT R6 K5 [UDim.new]
   LOADN R7 0
-  GETTABLEKS R9 R5 K6 ["container"]
-  GETTABLEKS R8 R9 K7 ["radius"]
+  GETTABLEKS R9 R3 K6 ["Radius"]
+  GETTABLEKS R8 R9 K7 ["Circle"]
+  CALL R6 2 1
+  JUMP [+8]
+  GETIMPORT R6 K5 [UDim.new]
+  LOADN R7 0
+  GETTABLEKS R9 R4 K8 ["container"]
+  GETTABLEKS R8 R9 K9 ["radius"]
   CALL R6 2 1
   GETUPVAL R8 5
-  GETTABLEKS R7 R8 K8 ["useMemo"]
+  GETTABLEKS R7 R8 K10 ["useMemo"]
   NEWCLOSURE R8 P0
   CAPTURE VAL R6
   CAPTURE VAL R3
@@ -43,72 +53,71 @@ PROTO_1:
   SETLIST R9 R10 2 [1]
   CALL R7 2 1
   GETUPVAL R9 5
-  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETTABLEKS R8 R9 K11 ["createElement"]
   GETUPVAL R9 6
   GETUPVAL R10 7
   MOVE R11 R2
-  DUPTABLE R12 K21 [{"Size", "onActivated", "selection", "isDisabled", "padding", "cornerRadius", "stateLayer", "cursor", "tag", "GroupTransparency", "ref"}]
-  GETTABLEKS R14 R5 K6 ["container"]
+  DUPTABLE R12 K23 [{"Size", "onActivated", "selection", "isDisabled", "padding", "cornerRadius", "stroke", "cursor", "tag", "GroupTransparency", "ref"}]
+  GETTABLEKS R14 R4 K8 ["container"]
   GETTABLEKS R13 R14 K0 ["size"]
-  SETTABLEKS R13 R12 K10 ["Size"]
-  GETTABLEKS R13 R2 K11 ["onActivated"]
-  SETTABLEKS R13 R12 K11 ["onActivated"]
-  DUPTABLE R13 K27 [{"Selectable", "NextSelectionUp", "NextSelectionDown", "NextSelectionLeft", "NextSelectionRight"}]
-  GETTABLEKS R15 R2 K13 ["isDisabled"]
+  SETTABLEKS R13 R12 K12 ["Size"]
+  GETTABLEKS R13 R2 K13 ["onActivated"]
+  SETTABLEKS R13 R12 K13 ["onActivated"]
+  DUPTABLE R13 K29 [{"Selectable", "NextSelectionUp", "NextSelectionDown", "NextSelectionLeft", "NextSelectionRight"}]
+  GETTABLEKS R15 R2 K15 ["isDisabled"]
   JUMPIFNOT R15 [+2]
   LOADB R14 0
   JUMP [+2]
-  GETTABLEKS R14 R2 K22 ["Selectable"]
-  SETTABLEKS R14 R13 K22 ["Selectable"]
-  GETTABLEKS R14 R2 K23 ["NextSelectionUp"]
-  SETTABLEKS R14 R13 K23 ["NextSelectionUp"]
-  GETTABLEKS R14 R2 K24 ["NextSelectionDown"]
-  SETTABLEKS R14 R13 K24 ["NextSelectionDown"]
-  GETTABLEKS R14 R2 K25 ["NextSelectionLeft"]
-  SETTABLEKS R14 R13 K25 ["NextSelectionLeft"]
-  GETTABLEKS R14 R2 K26 ["NextSelectionRight"]
-  SETTABLEKS R14 R13 K26 ["NextSelectionRight"]
-  SETTABLEKS R13 R12 K12 ["selection"]
-  GETTABLEKS R13 R2 K13 ["isDisabled"]
-  SETTABLEKS R13 R12 K13 ["isDisabled"]
-  GETTABLEKS R14 R5 K6 ["container"]
-  GETTABLEKS R13 R14 K14 ["padding"]
-  SETTABLEKS R13 R12 K14 ["padding"]
-  SETTABLEKS R6 R12 K15 ["cornerRadius"]
-  GETTABLEKS R14 R5 K6 ["container"]
-  GETTABLEKS R13 R14 K16 ["stateLayer"]
-  SETTABLEKS R13 R12 K16 ["stateLayer"]
-  SETTABLEKS R7 R12 K17 ["cursor"]
-  GETTABLEKS R14 R5 K6 ["container"]
-  GETTABLEKS R13 R14 K18 ["tag"]
-  SETTABLEKS R13 R12 K18 ["tag"]
-  GETTABLEKS R14 R2 K13 ["isDisabled"]
-  JUMPIFNOT R14 [+4]
-  GETUPVAL R14 8
-  GETTABLEKS R13 R14 K28 ["DISABLED_TRANSPARENCY"]
+  GETTABLEKS R14 R2 K24 ["Selectable"]
+  SETTABLEKS R14 R13 K24 ["Selectable"]
+  GETTABLEKS R14 R2 K25 ["NextSelectionUp"]
+  SETTABLEKS R14 R13 K25 ["NextSelectionUp"]
+  GETTABLEKS R14 R2 K26 ["NextSelectionDown"]
+  SETTABLEKS R14 R13 K26 ["NextSelectionDown"]
+  GETTABLEKS R14 R2 K27 ["NextSelectionLeft"]
+  SETTABLEKS R14 R13 K27 ["NextSelectionLeft"]
+  GETTABLEKS R14 R2 K28 ["NextSelectionRight"]
+  SETTABLEKS R14 R13 K28 ["NextSelectionRight"]
+  SETTABLEKS R13 R12 K14 ["selection"]
+  GETTABLEKS R13 R2 K15 ["isDisabled"]
+  SETTABLEKS R13 R12 K15 ["isDisabled"]
+  GETTABLEKS R14 R4 K8 ["container"]
+  GETTABLEKS R13 R14 K16 ["padding"]
+  SETTABLEKS R13 R12 K16 ["padding"]
+  SETTABLEKS R6 R12 K17 ["cornerRadius"]
+  GETTABLEKS R14 R4 K8 ["container"]
+  GETTABLEKS R13 R14 K18 ["stroke"]
+  SETTABLEKS R13 R12 K18 ["stroke"]
+  SETTABLEKS R7 R12 K19 ["cursor"]
+  GETTABLEKS R14 R4 K8 ["container"]
+  GETTABLEKS R13 R14 K20 ["tag"]
+  SETTABLEKS R13 R12 K20 ["tag"]
+  GETTABLEKS R14 R2 K15 ["isDisabled"]
+  JUMPIFNOT R14 [+2]
+  LOADK R13 K30 [0.5]
   JUMP [+1]
   LOADNIL R13
-  SETTABLEKS R13 R12 K19 ["GroupTransparency"]
-  SETTABLEKS R1 R12 K20 ["ref"]
+  SETTABLEKS R13 R12 K21 ["GroupTransparency"]
+  SETTABLEKS R1 R12 K22 ["ref"]
   CALL R10 2 1
-  DUPTABLE R11 K30 [{"Icon"}]
+  DUPTABLE R11 K32 [{"Icon"}]
   GETUPVAL R13 5
-  GETTABLEKS R12 R13 K9 ["createElement"]
-  GETUPVAL R13 9
-  DUPTABLE R14 K33 [{"name", "variant", "size", "style"}]
-  LOADK R15 K34 ["x"]
-  SETTABLEKS R15 R14 K31 ["name"]
-  GETUPVAL R16 10
-  GETTABLEKS R15 R16 K35 ["Regular"]
+  GETTABLEKS R12 R13 K11 ["createElement"]
+  GETUPVAL R13 8
+  DUPTABLE R14 K35 [{"name", "variant", "size", "style"}]
+  LOADK R15 K36 ["x"]
+  SETTABLEKS R15 R14 K33 ["name"]
+  GETUPVAL R16 9
+  GETTABLEKS R15 R16 K37 ["Regular"]
   SETTABLEKS R15 R14 K1 ["variant"]
-  GETTABLEKS R16 R5 K36 ["content"]
-  GETTABLEKS R15 R16 K37 ["iconSize"]
+  GETTABLEKS R16 R4 K38 ["content"]
+  GETTABLEKS R15 R16 K39 ["iconSize"]
   SETTABLEKS R15 R14 K0 ["size"]
-  GETTABLEKS R16 R5 K36 ["content"]
-  GETTABLEKS R15 R16 K32 ["style"]
-  SETTABLEKS R15 R14 K32 ["style"]
+  GETTABLEKS R16 R4 K38 ["content"]
+  GETTABLEKS R15 R16 K34 ["style"]
+  SETTABLEKS R15 R14 K34 ["style"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K29 ["Icon"]
+  SETTABLEKS R12 R11 K31 ["Icon"]
   CALL R8 3 -1
   RETURN R8 -1
 
@@ -151,58 +160,48 @@ MAIN:
   GETTABLEKS R12 R13 K18 ["Style"]
   GETTABLEKS R11 R12 K19 ["useTokens"]
   CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K20 ["Utility"]
+  GETTABLEKS R12 R13 K21 ["withCommonProps"]
+  CALL R11 1 1
   GETIMPORT R12 K6 [require]
-  GETTABLEKS R15 R0 K17 ["Providers"]
-  GETTABLEKS R14 R15 K18 ["Style"]
-  GETTABLEKS R13 R14 K20 ["PresentationContext"]
-  CALL R12 1 1
-  GETTABLEKS R11 R12 K21 ["usePresentationContext"]
-  GETIMPORT R12 K6 [require]
-  GETTABLEKS R14 R0 K22 ["Utility"]
-  GETTABLEKS R13 R14 K23 ["withCommonProps"]
+  GETTABLEKS R14 R0 K20 ["Utility"]
+  GETTABLEKS R13 R14 K22 ["withDefaults"]
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
-  GETTABLEKS R15 R0 K22 ["Utility"]
-  GETTABLEKS R14 R15 K24 ["withDefaults"]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K4 ["Parent"]
+  GETTABLEKS R14 R15 K23 ["useCloseAffordanceVariants"]
   CALL R13 1 1
   GETIMPORT R14 K6 [require]
-  GETTABLEKS R15 R0 K25 ["Constants"]
+  GETTABLEKS R16 R0 K8 ["Components"]
+  GETTABLEKS R15 R16 K24 ["View"]
   CALL R14 1 1
   GETIMPORT R15 K6 [require]
   GETTABLEKS R17 R0 K8 ["Components"]
-  GETTABLEKS R16 R17 K26 ["View"]
+  GETTABLEKS R16 R17 K25 ["Types"]
   CALL R15 1 1
-  GETIMPORT R16 K6 [require]
-  GETTABLEKS R18 R0 K8 ["Components"]
-  GETTABLEKS R17 R18 K27 ["Types"]
-  CALL R16 1 1
-  GETIMPORT R17 K6 [require]
-  GETIMPORT R20 K1 [script]
-  GETTABLEKS R19 R20 K4 ["Parent"]
-  GETTABLEKS R18 R19 K28 ["useCloseAffordanceVariants"]
-  CALL R17 1 1
-  DUPTABLE R18 K32 [{"isDisabled", "size", "variant"}]
-  LOADB R19 0
-  SETTABLEKS R19 R18 K29 ["isDisabled"]
-  GETTABLEKS R19 R5 K33 ["Medium"]
-  SETTABLEKS R19 R18 K30 ["size"]
-  GETTABLEKS R19 R8 K34 ["OverMedia"]
-  SETTABLEKS R19 R18 K31 ["variant"]
-  DUPCLOSURE R19 K35 [PROTO_1]
-  CAPTURE VAL R13
-  CAPTURE VAL R18
-  CAPTURE VAL R10
-  CAPTURE VAL R11
-  CAPTURE VAL R17
-  CAPTURE VAL R2
-  CAPTURE VAL R15
+  DUPTABLE R16 K29 [{"isDisabled", "size", "variant"}]
+  LOADB R17 0
+  SETTABLEKS R17 R16 K26 ["isDisabled"]
+  GETTABLEKS R17 R5 K30 ["Medium"]
+  SETTABLEKS R17 R16 K27 ["size"]
+  GETTABLEKS R17 R8 K31 ["OverMedia"]
+  SETTABLEKS R17 R16 K28 ["variant"]
+  DUPCLOSURE R17 K32 [PROTO_1]
   CAPTURE VAL R12
+  CAPTURE VAL R16
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R8
+  CAPTURE VAL R2
   CAPTURE VAL R14
+  CAPTURE VAL R11
   CAPTURE VAL R3
   CAPTURE VAL R6
-  GETTABLEKS R20 R2 K36 ["memo"]
-  GETTABLEKS R21 R2 K37 ["forwardRef"]
-  MOVE R22 R19
-  CALL R21 1 -1
-  CALL R20 -1 -1
-  RETURN R20 -1
+  GETTABLEKS R18 R2 K33 ["memo"]
+  GETTABLEKS R19 R2 K34 ["forwardRef"]
+  MOVE R20 R17
+  CALL R19 1 -1
+  CALL R18 -1 -1
+  RETURN R18 -1

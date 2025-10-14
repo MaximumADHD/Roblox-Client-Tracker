@@ -5,27 +5,27 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["createElement"]
-  GETUPVAL R1 1
-  DUPTABLE R2 K3 [{"LayoutOrder", "tag"}]
-  LOADN R3 14
-  SETTABLEKS R3 R2 K1 ["LayoutOrder"]
-  LOADK R3 K4 ["col gap-medium auto-x"]
-  SETTABLEKS R3 R2 K2 ["tag"]
-  DUPTABLE R3 K6 [{"DynamicChip"}]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["createElement"]
-  GETUPVAL R5 2
-  DUPTABLE R6 K9 [{"text", "onActivated"}]
-  LOADK R7 K10 ["Dynamic Chip (focus me!)"]
-  SETTABLEKS R7 R6 K7 ["text"]
-  DUPCLOSURE R7 K11 [PROTO_0]
-  SETTABLEKS R7 R6 K8 ["onActivated"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K5 ["DynamicChip"]
-  CALL R0 3 -1
-  RETURN R0 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K3 [{"LayoutOrder", "tag"}]
+  LOADN R4 14
+  SETTABLEKS R4 R3 K1 ["LayoutOrder"]
+  LOADK R4 K4 ["col gap-medium auto-x"]
+  SETTABLEKS R4 R3 K2 ["tag"]
+  DUPTABLE R4 K6 [{"DynamicChip"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K9 [{"text", "onActivated"}]
+  LOADK R8 K10 ["Dynamic Chip (focus me!)"]
+  SETTABLEKS R8 R7 K7 ["text"]
+  DUPCLOSURE R8 K11 [PROTO_0]
+  SETTABLEKS R8 R7 K8 ["onActivated"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K5 ["DynamicChip"]
+  CALL R1 3 -1
+  RETURN R1 -1
 
 PROTO_2:
   GETIMPORT R0 K1 [print]

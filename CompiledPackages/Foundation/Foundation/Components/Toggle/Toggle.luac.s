@@ -113,20 +113,20 @@ PROTO_5:
   GETUPVAL R11 7
   GETUPVAL R12 8
   MOVE R13 R2
-  DUPTABLE R14 K17 [{"isChecked", "isDisabled", "onActivated", "label", "customVariantProps", "size", "Selectable", "NextSelectionUp", "NextSelectionDown", "NextSelectionLeft", "NextSelectionRight", "ref"}]
+  DUPTABLE R14 K16 [{"isChecked", "isDisabled", "onActivated", "label", "customVariantProps", "size", "Selectable", "NextSelectionUp", "NextSelectionDown", "NextSelectionLeft", "NextSelectionRight"}]
   GETTABLEKS R15 R2 K1 ["isChecked"]
   SETTABLEKS R15 R14 K1 ["isChecked"]
   GETTABLEKS R15 R2 K7 ["isDisabled"]
   SETTABLEKS R15 R14 K7 ["isDisabled"]
   GETTABLEKS R15 R2 K8 ["onActivated"]
   SETTABLEKS R15 R14 K8 ["onActivated"]
-  DUPTABLE R15 K20 [{"text", "position"}]
+  DUPTABLE R15 K19 [{"text", "position"}]
   GETTABLEKS R16 R2 K9 ["label"]
-  SETTABLEKS R16 R15 K18 ["text"]
-  GETIMPORT R16 K24 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R16 R15 K19 ["position"]
+  SETTABLEKS R16 R15 K17 ["text"]
+  GETIMPORT R16 K23 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R16 R15 K18 ["position"]
   SETTABLEKS R15 R14 K9 ["label"]
-  GETTABLEKS R15 R4 K25 ["input"]
+  GETTABLEKS R15 R4 K24 ["input"]
   SETTABLEKS R15 R14 K10 ["customVariantProps"]
   GETTABLEKS R15 R2 K0 ["size"]
   SETTABLEKS R15 R14 K0 ["size"]
@@ -140,25 +140,24 @@ PROTO_5:
   SETTABLEKS R15 R14 K14 ["NextSelectionLeft"]
   GETTABLEKS R15 R2 K15 ["NextSelectionRight"]
   SETTABLEKS R15 R14 K15 ["NextSelectionRight"]
-  SETTABLEKS R1 R14 K16 ["ref"]
   CALL R12 2 1
-  DUPTABLE R13 K27 [{"Knob"}]
+  DUPTABLE R13 K26 [{"Knob"}]
   GETUPVAL R15 4
   GETTABLEKS R14 R15 K6 ["createElement"]
   GETUPVAL R15 9
-  DUPTABLE R16 K30 [{"size", "isDisabled", "AnchorPoint", "Position"}]
+  DUPTABLE R16 K29 [{"size", "isDisabled", "AnchorPoint", "Position"}]
   GETTABLEKS R17 R2 K0 ["size"]
   SETTABLEKS R17 R16 K0 ["size"]
   GETTABLEKS R17 R2 K7 ["isDisabled"]
   SETTABLEKS R17 R16 K7 ["isDisabled"]
-  GETIMPORT R17 K33 [Vector2.new]
+  GETIMPORT R17 K32 [Vector2.new]
   LOADN R18 0
-  LOADK R19 K34 [0.5]
+  LOADK R19 K33 [0.5]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K28 ["AnchorPoint"]
-  SETTABLEKS R9 R16 K29 ["Position"]
+  SETTABLEKS R17 R16 K27 ["AnchorPoint"]
+  SETTABLEKS R9 R16 K28 ["Position"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K26 ["Knob"]
+  SETTABLEKS R14 R13 K25 ["Knob"]
   CALL R10 3 -1
   RETURN R10 -1
 

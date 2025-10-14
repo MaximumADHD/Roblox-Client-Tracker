@@ -1,19 +1,19 @@
 PROTO_0:
-  GETIMPORT R0 K2 [table.clone]
-  GETUPVAL R1 0
-  CALL R0 1 1
-  MOVE R1 R0
-  LOADNIL R2
+  GETIMPORT R1 K2 [table.clone]
+  GETUPVAL R2 0
+  CALL R1 1 1
+  MOVE R2 R1
   LOADNIL R3
-  FORGPREP R1
-  GETTABLEKS R6 R5 K3 ["id"]
-  GETUPVAL R7 1
-  JUMPIFNOTEQ R6 R7 [+6]
-  GETTABLEKS R7 R5 K4 ["isChecked"]
-  NOT R6 R7
-  SETTABLEKS R6 R5 K4 ["isChecked"]
-  FORGLOOP R1 2 [-11]
-  RETURN R0 1
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R6 K3 ["id"]
+  GETUPVAL R8 1
+  JUMPIFNOTEQ R7 R8 [+6]
+  GETTABLEKS R8 R6 K4 ["isChecked"]
+  NOT R7 R8
+  SETTABLEKS R7 R6 K4 ["isChecked"]
+  FORGLOOP R2 2 [-11]
+  RETURN R1 1
 
 PROTO_1:
   GETUPVAL R1 0
@@ -48,18 +48,25 @@ PROTO_4:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
-  DUPTABLE R3 K5 [{"size", "items", "width", "onActivated"}]
-  GETTABLEKS R4 R0 K1 ["size"]
-  SETTABLEKS R4 R3 K1 ["size"]
-  GETTABLEKS R4 R0 K2 ["items"]
-  JUMPIF R4 [+1]
-  GETUPVAL R4 2
-  SETTABLEKS R4 R3 K2 ["items"]
-  GETTABLEKS R4 R0 K3 ["width"]
-  SETTABLEKS R4 R3 K3 ["width"]
-  DUPCLOSURE R4 K6 [PROTO_3]
-  SETTABLEKS R4 R3 K4 ["onActivated"]
-  CALL R1 2 -1
+  DUPTABLE R3 K2 [{"tag"}]
+  LOADK R4 K3 ["size-full-0 auto-y"]
+  SETTABLEKS R4 R3 K1 ["tag"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K8 [{"size", "items", "width", "onActivated"}]
+  GETTABLEKS R7 R0 K4 ["size"]
+  SETTABLEKS R7 R6 K4 ["size"]
+  GETTABLEKS R7 R0 K5 ["items"]
+  JUMPIF R7 [+1]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K5 ["items"]
+  GETTABLEKS R7 R0 K6 ["width"]
+  SETTABLEKS R7 R6 K6 ["width"]
+  DUPCLOSURE R7 K9 [PROTO_3]
+  SETTABLEKS R7 R6 K7 ["onActivated"]
+  CALL R4 2 -1
+  CALL R1 -1 -1
   RETURN R1 -1
 
 PROTO_5:
@@ -133,6 +140,9 @@ PROTO_6:
   RETURN R4 -1
 
 PROTO_7:
+  RETURN R0 0
+
+PROTO_8:
   GETUPVAL R1 0
   NEWTABLE R2 0 3
   DUPTABLE R3 K3 [{"id", "icon", "text"}]
@@ -167,10 +177,22 @@ PROTO_7:
   SETTABLEKS R6 R5 K12 ["size"]
   SETTABLEKS R1 R5 K13 ["items"]
   SETTABLEKS R2 R5 K14 ["onActivated"]
-  CALL R3 2 -1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K17 [{"size", "icon", "onActivated"}]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K18 ["Small"]
+  SETTABLEKS R9 R8 K12 ["size"]
+  LOADK R9 K19 ["icons/common/search_small"]
+  SETTABLEKS R9 R8 K1 ["icon"]
+  DUPCLOSURE R9 K20 [PROTO_7]
+  SETTABLEKS R9 R8 K14 ["onActivated"]
+  CALL R6 2 -1
+  CALL R3 -1 -1
   RETURN R3 -1
 
-PROTO_8:
+PROTO_9:
   GETIMPORT R1 K1 [print]
   LOADK R3 K2 ["Clicked item: "]
   FASTCALL1 TOSTRING R0 [+3]
@@ -181,7 +203,7 @@ PROTO_8:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
@@ -189,7 +211,7 @@ PROTO_9:
   GETTABLEKS R5 R0 K5 ["controls"]
   GETTABLEKS R4 R5 K1 ["size"]
   SETTABLEKS R4 R3 K1 ["size"]
-  DUPCLOSURE R4 K6 [PROTO_8]
+  DUPCLOSURE R4 K6 [PROTO_9]
   SETTABLEKS R4 R3 K2 ["onActivated"]
   NEWTABLE R4 0 3
   DUPTABLE R5 K10 [{"id", "icon", "text"}]
@@ -218,118 +240,68 @@ PROTO_9:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_10:
+PROTO_11:
+  RETURN R0 0
+
+PROTO_12:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
-  GETGLOBAL R2 K1 ["BaseMenu"]
-  DUPTABLE R3 K4 [{"size", "width"}]
-  SETTABLEKS R0 R3 K2 ["size"]
-  GETIMPORT R4 K7 [UDim.new]
-  LOADK R5 K8 [0.25]
+  GETUPVAL R2 1
+  DUPTABLE R3 K5 [{"size", "width", "items", "onActivated"}]
+  SETTABLEKS R0 R3 K1 ["size"]
+  GETIMPORT R4 K8 [UDim.new]
+  LOADK R5 K9 [0.25]
   LOADN R6 232
   CALL R4 2 1
-  SETTABLEKS R4 R3 K3 ["width"]
+  SETTABLEKS R4 R3 K2 ["width"]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K3 ["items"]
+  DUPCLOSURE R4 K10 [PROTO_11]
+  SETTABLEKS R4 R3 K4 ["onActivated"]
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_11:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["createElement"]
-  GETUPVAL R1 1
-  DUPTABLE R2 K2 [{"tag"}]
-  LOADK R3 K3 ["row gap-xxlarge size-full-0 auto-y wrap"]
-  SETTABLEKS R3 R2 K1 ["tag"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K4 ["map"]
-  GETUPVAL R4 3
-  DUPCLOSURE R5 K5 [PROTO_10]
-  CAPTURE UPVAL U0
-  CALL R3 2 -1
-  CALL R0 -1 -1
-  RETURN R0 -1
-
-PROTO_12:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["createElement"]
-  GETGLOBAL R1 K1 ["BaseMenu"]
-  DUPTABLE R2 K3 [{"width"}]
-  GETIMPORT R3 K6 [UDim.new]
-  LOADN R4 0
-  LOADN R5 44
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["width"]
-  CALL R0 2 -1
-  RETURN R0 -1
-
 PROTO_13:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["createElement"]
-  GETGLOBAL R1 K1 ["BaseMenu"]
-  DUPTABLE R2 K3 [{"width"}]
-  GETIMPORT R3 K6 [UDim.new]
-  LOADN R4 1
-  LOADN R5 0
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["width"]
-  CALL R0 2 -1
-  RETURN R0 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K2 [{"tag"}]
+  LOADK R4 K3 ["row gap-xxlarge size-full-0 auto-y wrap"]
+  SETTABLEKS R4 R3 K1 ["tag"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["map"]
+  GETUPVAL R5 3
+  DUPCLOSURE R6 K5 [PROTO_12]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CALL R4 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
 
 PROTO_14:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETGLOBAL R2 K1 ["BaseMenu"]
-  DUPTABLE R3 K4 [{"size", "items"}]
-  GETTABLEKS R5 R0 K5 ["controls"]
-  GETTABLEKS R4 R5 K2 ["size"]
-  SETTABLEKS R4 R3 K2 ["size"]
-  NEWTABLE R4 0 3
-  DUPTABLE R5 K7 [{"title", "items"}]
-  LOADK R6 K8 ["First Title"]
-  SETTABLEKS R6 R5 K6 ["title"]
-  NEWTABLE R6 0 2
-  DUPTABLE R7 K12 [{"id", "icon", "text"}]
-  LOADK R8 K13 ["a1"]
-  SETTABLEKS R8 R7 K9 ["id"]
-  LOADK R8 K14 ["icons/common/robux"]
-  SETTABLEKS R8 R7 K10 ["icon"]
-  LOADK R8 K15 ["Alpha 1"]
-  SETTABLEKS R8 R7 K11 ["text"]
-  DUPTABLE R8 K16 [{"id", "text"}]
-  LOADK R9 K17 ["a2"]
-  SETTABLEKS R9 R8 K9 ["id"]
-  LOADK R9 K18 ["Alpha 2"]
-  SETTABLEKS R9 R8 K11 ["text"]
-  SETLIST R6 R7 2 [1]
-  SETTABLEKS R6 R5 K3 ["items"]
-  DUPTABLE R6 K7 [{"title", "items"}]
-  LOADK R7 K19 ["Second Title"]
-  SETTABLEKS R7 R6 K6 ["title"]
-  NEWTABLE R7 0 2
-  DUPTABLE R8 K16 [{"id", "text"}]
-  LOADK R9 K20 ["b1"]
-  SETTABLEKS R9 R8 K9 ["id"]
-  LOADK R9 K21 ["Beta 1"]
-  SETTABLEKS R9 R8 K11 ["text"]
-  DUPTABLE R9 K23 [{"id", "isDisabled", "text"}]
-  LOADK R10 K24 ["b2"]
-  SETTABLEKS R10 R9 K9 ["id"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K22 ["isDisabled"]
-  LOADK R10 K25 ["Beta 2 (disabled)"]
-  SETTABLEKS R10 R9 K11 ["text"]
-  SETLIST R7 R8 2 [1]
-  SETTABLEKS R7 R6 K3 ["items"]
-  DUPTABLE R7 K26 [{"items"}]
-  NEWTABLE R8 0 1
-  DUPTABLE R9 K16 [{"id", "text"}]
-  LOADK R10 K27 ["c1"]
-  SETTABLEKS R10 R9 K9 ["id"]
-  LOADK R10 K28 ["Untitled group item"]
-  SETTABLEKS R10 R9 K11 ["text"]
-  SETLIST R8 R9 1 [1]
-  SETTABLEKS R8 R7 K3 ["items"]
-  SETLIST R4 R5 3 [1]
-  SETTABLEKS R4 R3 K3 ["items"]
+  DUPTABLE R3 K3 [{"width"}]
+  GETIMPORT R4 K6 [UDim.new]
+  LOADN R5 0
+  LOADN R6 44
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["width"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_15:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETGLOBAL R2 K1 ["BaseMenu"]
+  DUPTABLE R3 K3 [{"width"}]
+  GETIMPORT R4 K6 [UDim.new]
+  LOADN R5 1
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["width"]
   CALL R1 2 -1
   RETURN R1 -1
 
@@ -362,117 +334,124 @@ MAIN:
   GETTABLEKS R8 R9 K13 ["View"]
   CALL R7 1 1
   GETIMPORT R8 K6 [require]
-  GETTABLEKS R10 R0 K14 ["Enums"]
-  GETTABLEKS R9 R10 K15 ["InputSize"]
+  GETTABLEKS R10 R0 K10 ["Components"]
+  GETTABLEKS R9 R10 K14 ["IconButton"]
   CALL R8 1 1
-  NEWTABLE R9 0 0
-  GETIMPORT R10 K17 [pairs]
-  GETTABLEKS R13 R4 K19 ["Migration"]
-  GETTABLEKS R11 R13 K18 ["uiblox"]
-  CALL R10 1 3
-  FORGPREP_NEXT R10
-  FASTCALL2 TABLE_INSERT R9 R13 [+5]
-  MOVE R16 R9
-  MOVE R17 R13
-  GETIMPORT R15 K22 [table.insert]
-  CALL R15 2 0
-  FORGLOOP R10 2 [-8]
-  DUPCLOSURE R10 K23 [PROTO_2]
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K15 ["Enums"]
+  GETTABLEKS R10 R11 K16 ["IconSize"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K15 ["Enums"]
+  GETTABLEKS R11 R12 K17 ["InputSize"]
+  CALL R10 1 1
+  NEWTABLE R11 0 0
+  GETIMPORT R12 K19 [pairs]
+  GETTABLEKS R15 R4 K21 ["Migration"]
+  GETTABLEKS R13 R15 K20 ["uiblox"]
+  CALL R12 1 3
+  FORGPREP_NEXT R12
+  FASTCALL2 TABLE_INSERT R11 R15 [+5]
+  MOVE R18 R11
+  MOVE R19 R15
+  GETIMPORT R17 K24 [table.insert]
+  CALL R17 2 0
+  FORGLOOP R12 2 [-8]
+  DUPCLOSURE R12 K25 [PROTO_2]
   CAPTURE VAL R2
-  NEWTABLE R11 0 3
-  DUPTABLE R12 K27 [{"id", "icon", "text"}]
-  LOADK R13 K28 ["1"]
-  SETTABLEKS R13 R12 K24 ["id"]
-  LOADK R13 K29 ["icons/common/robux"]
-  SETTABLEKS R13 R12 K25 ["icon"]
-  LOADK R13 K30 ["Item"]
-  SETTABLEKS R13 R12 K26 ["text"]
-  DUPTABLE R13 K32 [{"id", "icon", "isChecked", "text"}]
-  LOADK R14 K33 ["2"]
-  SETTABLEKS R14 R13 K24 ["id"]
-  LOADK R14 K34 ["icons/menu/gem_medium"]
-  SETTABLEKS R14 R13 K25 ["icon"]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K31 ["isChecked"]
-  LOADK R14 K30 ["Item"]
-  SETTABLEKS R14 R13 K26 ["text"]
-  DUPTABLE R14 K36 [{"id", "isDisabled", "text"}]
-  LOADK R15 K37 ["3"]
-  SETTABLEKS R15 R14 K24 ["id"]
-  LOADB R15 1
-  SETTABLEKS R15 R14 K35 ["isDisabled"]
-  LOADK R15 K30 ["Item"]
-  SETTABLEKS R15 R14 K26 ["text"]
-  SETLIST R11 R12 3 [1]
-  DUPCLOSURE R12 K38 [PROTO_4]
+  NEWTABLE R13 0 3
+  DUPTABLE R14 K29 [{"id", "icon", "text"}]
+  LOADK R15 K30 ["1"]
+  SETTABLEKS R15 R14 K26 ["id"]
+  LOADK R15 K31 ["icons/common/robux"]
+  SETTABLEKS R15 R14 K27 ["icon"]
+  LOADK R15 K32 ["Item"]
+  SETTABLEKS R15 R14 K28 ["text"]
+  DUPTABLE R15 K34 [{"id", "icon", "isChecked", "text"}]
+  LOADK R16 K35 ["2"]
+  SETTABLEKS R16 R15 K26 ["id"]
+  LOADK R16 K31 ["icons/common/robux"]
+  SETTABLEKS R16 R15 K27 ["icon"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K33 ["isChecked"]
+  LOADK R16 K32 ["Item"]
+  SETTABLEKS R16 R15 K28 ["text"]
+  DUPTABLE R16 K37 [{"id", "isDisabled", "text"}]
+  LOADK R17 K38 ["3"]
+  SETTABLEKS R17 R16 K26 ["id"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K36 ["isDisabled"]
+  LOADK R17 K32 ["Item"]
+  SETTABLEKS R17 R16 K28 ["text"]
+  SETLIST R13 R14 3 [1]
+  DUPCLOSURE R14 K39 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R13
+  SETGLOBAL R14 K40 ["BaseMenu"]
+  DUPTABLE R14 K44 [{"summary", "stories", "controls"}]
+  LOADK R15 K45 ["Menu"]
+  SETTABLEKS R15 R14 K41 ["summary"]
+  NEWTABLE R15 0 6
+  DUPTABLE R16 K48 [{"name", "story"}]
+  LOADK R17 K49 ["Base"]
+  SETTABLEKS R17 R16 K46 ["name"]
+  DUPCLOSURE R17 K50 [PROTO_6]
+  CAPTURE VAL R2
+  SETTABLEKS R17 R16 K47 ["story"]
+  DUPTABLE R17 K48 [{"name", "story"}]
+  LOADK R18 K51 ["Multi select"]
+  SETTABLEKS R18 R17 K46 ["name"]
+  DUPCLOSURE R18 K52 [PROTO_8]
+  CAPTURE VAL R12
   CAPTURE VAL R2
   CAPTURE VAL R6
-  CAPTURE VAL R11
-  SETGLOBAL R12 K39 ["BaseMenu"]
-  DUPTABLE R12 K43 [{"summary", "stories", "controls"}]
-  LOADK R13 K44 ["Menu"]
-  SETTABLEKS R13 R12 K40 ["summary"]
-  NEWTABLE R13 0 7
-  DUPTABLE R14 K47 [{"name", "story"}]
-  LOADK R15 K48 ["Base"]
-  SETTABLEKS R15 R14 K45 ["name"]
-  DUPCLOSURE R15 K49 [PROTO_6]
-  CAPTURE VAL R2
-  SETTABLEKS R15 R14 K46 ["story"]
-  DUPTABLE R15 K47 [{"name", "story"}]
-  LOADK R16 K50 ["Multi select"]
-  SETTABLEKS R16 R15 K45 ["name"]
-  DUPCLOSURE R16 K51 [PROTO_7]
-  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  SETTABLEKS R18 R17 K47 ["story"]
+  DUPTABLE R18 K48 [{"name", "story"}]
+  LOADK R19 K53 ["Actions menu"]
+  SETTABLEKS R19 R18 K46 ["name"]
+  DUPCLOSURE R19 K54 [PROTO_10]
   CAPTURE VAL R2
   CAPTURE VAL R6
-  SETTABLEKS R16 R15 K46 ["story"]
-  DUPTABLE R16 K47 [{"name", "story"}]
-  LOADK R17 K52 ["Actions menu"]
-  SETTABLEKS R17 R16 K45 ["name"]
-  DUPCLOSURE R17 K53 [PROTO_9]
-  CAPTURE VAL R2
-  CAPTURE VAL R6
-  SETTABLEKS R17 R16 K46 ["story"]
-  DUPTABLE R17 K47 [{"name", "story"}]
-  LOADK R18 K54 ["All Sizes"]
-  SETTABLEKS R18 R17 K45 ["name"]
-  DUPCLOSURE R18 K55 [PROTO_11]
+  SETTABLEKS R19 R18 K47 ["story"]
+  DUPTABLE R19 K48 [{"name", "story"}]
+  LOADK R20 K55 ["All Sizes"]
+  SETTABLEKS R20 R19 K46 ["name"]
+  DUPCLOSURE R20 K56 [PROTO_13]
   CAPTURE VAL R2
   CAPTURE VAL R7
   CAPTURE VAL R3
-  CAPTURE VAL R8
-  SETTABLEKS R18 R17 K46 ["story"]
-  DUPTABLE R18 K47 [{"name", "story"}]
-  LOADK R19 K56 ["Fixed width"]
-  SETTABLEKS R19 R18 K45 ["name"]
-  DUPCLOSURE R19 K57 [PROTO_12]
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R13
+  SETTABLEKS R20 R19 K47 ["story"]
+  DUPTABLE R20 K48 [{"name", "story"}]
+  LOADK R21 K57 ["Fixed width"]
+  SETTABLEKS R21 R20 K46 ["name"]
+  DUPCLOSURE R21 K58 [PROTO_14]
   CAPTURE VAL R2
-  SETTABLEKS R19 R18 K46 ["story"]
-  DUPTABLE R19 K47 [{"name", "story"}]
-  LOADK R20 K58 ["Full width"]
-  SETTABLEKS R20 R19 K45 ["name"]
-  DUPCLOSURE R20 K59 [PROTO_13]
+  SETTABLEKS R21 R20 K47 ["story"]
+  DUPTABLE R21 K48 [{"name", "story"}]
+  LOADK R22 K59 ["Full width"]
+  SETTABLEKS R22 R21 K46 ["name"]
+  DUPCLOSURE R22 K60 [PROTO_15]
   CAPTURE VAL R2
-  SETTABLEKS R20 R19 K46 ["story"]
-  DUPTABLE R20 K47 [{"name", "story"}]
-  LOADK R21 K60 ["Grouped"]
-  SETTABLEKS R21 R20 K45 ["name"]
-  DUPCLOSURE R21 K61 [PROTO_14]
-  CAPTURE VAL R2
-  SETTABLEKS R21 R20 K46 ["story"]
-  SETLIST R13 R14 7 [1]
-  SETTABLEKS R13 R12 K41 ["stories"]
-  DUPTABLE R13 K64 [{"size", "icon", "hasIcon"}]
-  GETTABLEKS R14 R3 K65 ["values"]
-  MOVE R15 R8
-  CALL R14 1 1
-  SETTABLEKS R14 R13 K62 ["size"]
-  GETTABLEKS R14 R3 K65 ["values"]
-  MOVE R15 R9
-  CALL R14 1 1
-  SETTABLEKS R14 R13 K25 ["icon"]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K63 ["hasIcon"]
-  SETTABLEKS R13 R12 K42 ["controls"]
-  RETURN R12 1
+  SETTABLEKS R22 R21 K47 ["story"]
+  SETLIST R15 R16 6 [1]
+  SETTABLEKS R15 R14 K42 ["stories"]
+  DUPTABLE R15 K63 [{"size", "icon", "hasIcon"}]
+  GETTABLEKS R16 R3 K64 ["values"]
+  MOVE R17 R10
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K61 ["size"]
+  GETTABLEKS R16 R3 K64 ["values"]
+  MOVE R17 R11
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K27 ["icon"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K62 ["hasIcon"]
+  SETTABLEKS R15 R14 K43 ["controls"]
+  RETURN R14 1

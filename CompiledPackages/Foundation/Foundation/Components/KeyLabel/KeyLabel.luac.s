@@ -141,109 +141,108 @@ PROTO_3:
   GETUPVAL R11 6
   GETUPVAL R12 7
   MOVE R13 R0
-  DUPTABLE R14 K9 [{"Size", "ref"}]
+  DUPTABLE R14 K8 [{"Size"}]
   GETTABLEKS R15 R0 K7 ["Size"]
   SETTABLEKS R15 R14 K7 ["Size"]
-  SETTABLEKS R1 R14 K8 ["ref"]
   CALL R12 2 1
-  DUPTABLE R13 K13 [{"Image", "Indicator", "InputBeganConnection", "InputEndedConnection"}]
+  DUPTABLE R13 K12 [{"Image", "Indicator", "InputBeganConnection", "InputEndedConnection"}]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K6 ["createElement"]
   GETUPVAL R15 8
-  DUPTABLE R16 K18 [{"Image", "Size", "ScaleType", "imageStyle", "slice", "tag"}]
+  DUPTABLE R16 K17 [{"Image", "Size", "ScaleType", "imageStyle", "slice", "tag"}]
   JUMPIFNOT R9 [+3]
-  GETTABLEKS R17 R8 K19 ["key"]
+  GETTABLEKS R17 R8 K18 ["key"]
   JUMP [+1]
-  LOADK R17 K20 ["icons/controls/keys/key_single"]
+  LOADK R17 K19 ["icons/controls/keys/key_single"]
   SETTABLEKS R17 R16 K5 ["Image"]
-  GETTABLEKS R17 R8 K21 ["size"]
+  GETTABLEKS R17 R8 K20 ["size"]
   SETTABLEKS R17 R16 K7 ["Size"]
   JUMPIF R9 [+3]
-  GETIMPORT R17 K24 [Enum.ScaleType.Slice]
+  GETIMPORT R17 K23 [Enum.ScaleType.Slice]
   JUMP [+1]
   LOADNIL R17
-  SETTABLEKS R17 R16 K14 ["ScaleType"]
+  SETTABLEKS R17 R16 K13 ["ScaleType"]
   JUMPIFNOT R4 [+7]
-  GETTABLEKS R19 R3 K25 ["Color"]
-  GETTABLEKS R18 R19 K26 ["Content"]
-  GETTABLEKS R17 R18 K27 ["Emphasis"]
+  GETTABLEKS R19 R3 K24 ["Color"]
+  GETTABLEKS R18 R19 K25 ["Content"]
+  GETTABLEKS R17 R18 K26 ["Emphasis"]
   JUMP [+6]
-  GETTABLEKS R19 R3 K25 ["Color"]
-  GETTABLEKS R18 R19 K26 ["Content"]
-  GETTABLEKS R17 R18 K28 ["Muted"]
-  SETTABLEKS R17 R16 K15 ["imageStyle"]
+  GETTABLEKS R19 R3 K24 ["Color"]
+  GETTABLEKS R18 R19 K25 ["Content"]
+  GETTABLEKS R17 R18 K27 ["Muted"]
+  SETTABLEKS R17 R16 K14 ["imageStyle"]
   JUMPIF R9 [+5]
-  DUPTABLE R17 K30 [{"center"}]
+  DUPTABLE R17 K29 [{"center"}]
   GETUPVAL R18 9
-  SETTABLEKS R18 R17 K29 ["center"]
+  SETTABLEKS R18 R17 K28 ["center"]
   JUMP [+1]
   LOADNIL R17
-  SETTABLEKS R17 R16 K16 ["slice"]
-  LOADK R17 K31 ["position-center-center anchor-center-center"]
-  SETTABLEKS R17 R16 K17 ["tag"]
-  DUPTABLE R17 K34 [{"CustomPadding", "Text"}]
+  SETTABLEKS R17 R16 K15 ["slice"]
+  LOADK R17 K30 ["position-center-center anchor-center-center"]
+  SETTABLEKS R17 R16 K16 ["tag"]
+  DUPTABLE R17 K33 [{"CustomPadding", "Text"}]
   JUMPIF R9 [+14]
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K6 ["createElement"]
-  LOADK R19 K35 ["UIPadding"]
-  DUPTABLE R20 K37 [{"PaddingBottom"}]
-  GETIMPORT R21 K40 [UDim.new]
+  LOADK R19 K34 ["UIPadding"]
+  DUPTABLE R20 K36 [{"PaddingBottom"}]
+  GETIMPORT R21 K39 [UDim.new]
   LOADN R22 0
   LOADN R23 3
   CALL R21 2 1
-  SETTABLEKS R21 R20 K36 ["PaddingBottom"]
+  SETTABLEKS R21 R20 K35 ["PaddingBottom"]
   CALL R18 2 1
   JUMP [+1]
   LOADNIL R18
-  SETTABLEKS R18 R17 K32 ["CustomPadding"]
+  SETTABLEKS R18 R17 K31 ["CustomPadding"]
   JUMPIF R9 [+30]
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K6 ["createElement"]
   GETUPVAL R19 10
-  DUPTABLE R20 K42 [{"Text", "textStyle", "tag"}]
-  GETTABLEKS R21 R8 K19 ["key"]
-  SETTABLEKS R21 R20 K33 ["Text"]
+  DUPTABLE R20 K41 [{"Text", "textStyle", "tag"}]
+  GETTABLEKS R21 R8 K18 ["key"]
+  SETTABLEKS R21 R20 K32 ["Text"]
   JUMPIFNOT R4 [+7]
-  GETTABLEKS R23 R3 K25 ["Color"]
-  GETTABLEKS R22 R23 K26 ["Content"]
-  GETTABLEKS R21 R22 K27 ["Emphasis"]
+  GETTABLEKS R23 R3 K24 ["Color"]
+  GETTABLEKS R22 R23 K25 ["Content"]
+  GETTABLEKS R21 R22 K26 ["Emphasis"]
   JUMP [+6]
-  GETTABLEKS R23 R3 K25 ["Color"]
-  GETTABLEKS R22 R23 K26 ["Content"]
-  GETTABLEKS R21 R22 K28 ["Muted"]
-  SETTABLEKS R21 R20 K41 ["textStyle"]
-  LOADK R21 K43 ["text-body-medium auto-xy size-full-full text-align-x-center"]
-  SETTABLEKS R21 R20 K17 ["tag"]
+  GETTABLEKS R23 R3 K24 ["Color"]
+  GETTABLEKS R22 R23 K25 ["Content"]
+  GETTABLEKS R21 R22 K27 ["Muted"]
+  SETTABLEKS R21 R20 K40 ["textStyle"]
+  LOADK R21 K42 ["text-body-medium auto-xy size-full-full text-align-x-center"]
+  SETTABLEKS R21 R20 K16 ["tag"]
   CALL R18 2 1
   JUMP [+1]
   LOADNIL R18
-  SETTABLEKS R18 R17 K33 ["Text"]
+  SETTABLEKS R18 R17 K32 ["Text"]
   CALL R14 3 1
   SETTABLEKS R14 R13 K5 ["Image"]
   JUMPIFNOT R2 [+19]
-  GETTABLEKS R15 R2 K44 ["holdTime"]
+  GETTABLEKS R15 R2 K43 ["holdTime"]
   LOADN R16 0
   JUMPIFNOTLT R16 R15 [+15]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K6 ["createElement"]
   GETUPVAL R15 11
-  DUPTABLE R16 K46 [{"progress", "tag"}]
-  SETTABLEKS R6 R16 K45 ["progress"]
-  LOADK R17 K47 ["size-full-full"]
-  SETTABLEKS R17 R16 K17 ["tag"]
+  DUPTABLE R16 K45 [{"progress", "tag"}]
+  SETTABLEKS R6 R16 K44 ["progress"]
+  LOADK R17 K46 ["size-full-full"]
+  SETTABLEKS R17 R16 K16 ["tag"]
   NEWTABLE R17 0 0
   CALL R14 3 1
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K10 ["Indicator"]
+  SETTABLEKS R14 R13 K9 ["Indicator"]
   JUMPIFNOT R2 [+22]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K6 ["createElement"]
   GETUPVAL R15 12
-  DUPTABLE R16 K50 [{"event", "callback"}]
+  DUPTABLE R16 K49 [{"event", "callback"}]
   GETUPVAL R18 13
-  GETTABLEKS R17 R18 K51 ["InputBegan"]
-  SETTABLEKS R17 R16 K48 ["event"]
+  GETTABLEKS R17 R18 K50 ["InputBegan"]
+  SETTABLEKS R17 R16 K47 ["event"]
   NEWCLOSURE R17 P1
   CAPTURE VAL R4
   CAPTURE VAL R0
@@ -252,19 +251,19 @@ PROTO_3:
   CAPTURE REF R7
   CAPTURE UPVAL U4
   CAPTURE REF R6
-  SETTABLEKS R17 R16 K49 ["callback"]
+  SETTABLEKS R17 R16 K48 ["callback"]
   CALL R14 2 1
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K11 ["InputBeganConnection"]
+  SETTABLEKS R14 R13 K10 ["InputBeganConnection"]
   JUMPIFNOT R2 [+21]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K6 ["createElement"]
   GETUPVAL R15 12
-  DUPTABLE R16 K50 [{"event", "callback"}]
+  DUPTABLE R16 K49 [{"event", "callback"}]
   GETUPVAL R18 13
-  GETTABLEKS R17 R18 K52 ["InputEnded"]
-  SETTABLEKS R17 R16 K48 ["event"]
+  GETTABLEKS R17 R18 K51 ["InputEnded"]
+  SETTABLEKS R17 R16 K47 ["event"]
   NEWCLOSURE R17 P2
   CAPTURE VAL R4
   CAPTURE VAL R2
@@ -272,11 +271,11 @@ PROTO_3:
   CAPTURE REF R7
   CAPTURE UPVAL U4
   CAPTURE REF R6
-  SETTABLEKS R17 R16 K49 ["callback"]
+  SETTABLEKS R17 R16 K48 ["callback"]
   CALL R14 2 1
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K12 ["InputEndedConnection"]
+  SETTABLEKS R14 R13 K11 ["InputEndedConnection"]
   CALL R10 3 -1
   CLOSEUPVALS R6
   RETURN R10 -1

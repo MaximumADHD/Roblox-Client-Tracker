@@ -1,6 +1,0 @@
-MAIN:
-  PREPVARARGS 0
-  DUPTABLE R0 K1 [{"Single"}]
-  LOADK R1 K0 ["Single"]
-  SETTABLEKS R1 R0 K0 ["Single"]
-  RETURN R0 1

@@ -11,51 +11,51 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["useState"]
-  LOADK R1 K1 ["I'm a chip"]
-  CALL R0 1 2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["createElement"]
-  GETUPVAL R3 1
-  DUPTABLE R4 K4 [{"tag"}]
-  LOADK R5 K5 ["row gap-small wrap auto-y size-full-0"]
-  SETTABLEKS R5 R4 K3 ["tag"]
-  DUPTABLE R5 K8 [{"Chip1", "Chip2"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K2 ["createElement"]
-  GETUPVAL R7 2
-  DUPTABLE R8 K13 [{"icon", "text", "onActivated", "isChecked"}]
-  LOADK R9 K14 ["icons/common/robux"]
-  SETTABLEKS R9 R8 K9 ["icon"]
-  LOADK R9 K1 ["I'm a chip"]
-  SETTABLEKS R9 R8 K10 ["text"]
-  NEWCLOSURE R9 P0
-  CAPTURE VAL R1
-  SETTABLEKS R9 R8 K11 ["onActivated"]
-  JUMPIFEQKS R0 K1 ["I'm a chip"] [+2]
-  LOADB R9 0 +1
-  LOADB R9 1
-  SETTABLEKS R9 R8 K12 ["isChecked"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K6 ["Chip1"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K2 ["createElement"]
-  GETUPVAL R7 2
-  DUPTABLE R8 K15 [{"text", "onActivated", "isChecked"}]
-  LOADK R9 K16 ["I'm a dale"]
-  SETTABLEKS R9 R8 K10 ["text"]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R1
-  SETTABLEKS R9 R8 K11 ["onActivated"]
-  JUMPIFEQKS R0 K16 ["I'm a dale"] [+2]
-  LOADB R9 0 +1
-  LOADB R9 1
-  SETTABLEKS R9 R8 K12 ["isChecked"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K7 ["Chip2"]
-  CALL R2 3 -1
-  RETURN R2 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADK R2 K1 ["I'm a chip"]
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K4 [{"tag"}]
+  LOADK R6 K5 ["row gap-small wrap auto-y size-full-0"]
+  SETTABLEKS R6 R5 K3 ["tag"]
+  DUPTABLE R6 K8 [{"Chip1", "Chip2"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K13 [{"icon", "text", "onActivated", "isChecked"}]
+  LOADK R10 K14 ["icons/common/robux"]
+  SETTABLEKS R10 R9 K9 ["icon"]
+  LOADK R10 K1 ["I'm a chip"]
+  SETTABLEKS R10 R9 K10 ["text"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R2
+  SETTABLEKS R10 R9 K11 ["onActivated"]
+  JUMPIFEQKS R1 K1 ["I'm a chip"] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K12 ["isChecked"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K6 ["Chip1"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K15 [{"text", "onActivated", "isChecked"}]
+  LOADK R10 K16 ["I'm a dale"]
+  SETTABLEKS R10 R9 K10 ["text"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R2
+  SETTABLEKS R10 R9 K11 ["onActivated"]
+  JUMPIFEQKS R1 K16 ["I'm a dale"] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K12 ["isChecked"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K7 ["Chip2"]
+  CALL R3 3 -1
+  RETURN R3 -1
 
 MAIN:
   PREPVARARGS 0

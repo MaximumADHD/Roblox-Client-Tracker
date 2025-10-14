@@ -9,13 +9,10 @@ PROTO_0:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
   GETUPVAL R6 2
-  DUPTABLE R7 K8 [{"variant", "orientation"}]
-  GETTABLEKS R9 R0 K9 ["controls"]
+  DUPTABLE R7 K7 [{"variant"}]
+  GETTABLEKS R9 R0 K8 ["controls"]
   GETTABLEKS R8 R9 K6 ["variant"]
   SETTABLEKS R8 R7 K6 ["variant"]
-  GETTABLEKS R9 R0 K9 ["controls"]
-  GETTABLEKS R8 R9 K7 ["orientation"]
-  SETTABLEKS R8 R7 K7 ["orientation"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K4 ["Divider"]
   CALL R1 3 -1
@@ -46,26 +43,18 @@ MAIN:
   GETTABLEKS R8 R0 K12 ["Enums"]
   GETTABLEKS R7 R8 K13 ["DividerVariant"]
   CALL R6 1 1
-  GETIMPORT R7 K6 [require]
-  GETTABLEKS R9 R0 K12 ["Enums"]
-  GETTABLEKS R8 R9 K14 ["Orientation"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K15 [PROTO_0]
+  DUPCLOSURE R7 K14 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R5
-  DUPTABLE R9 K19 [{"summary", "story", "controls"}]
-  LOADK R10 K11 ["Divider"]
-  SETTABLEKS R10 R9 K16 ["summary"]
-  SETTABLEKS R8 R9 K17 ["story"]
-  DUPTABLE R10 K22 [{"variant", "orientation"}]
-  GETTABLEKS R11 R2 K23 ["values"]
-  MOVE R12 R6
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K20 ["variant"]
-  GETTABLEKS R11 R2 K23 ["values"]
-  MOVE R12 R7
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K21 ["orientation"]
-  SETTABLEKS R10 R9 K18 ["controls"]
-  RETURN R9 1
+  DUPTABLE R8 K18 [{"summary", "story", "controls"}]
+  LOADK R9 K11 ["Divider"]
+  SETTABLEKS R9 R8 K15 ["summary"]
+  SETTABLEKS R7 R8 K16 ["story"]
+  DUPTABLE R9 K20 [{"variant"}]
+  GETTABLEKS R10 R2 K21 ["values"]
+  MOVE R11 R6
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K19 ["variant"]
+  SETTABLEKS R9 R8 K17 ["controls"]
+  RETURN R8 1

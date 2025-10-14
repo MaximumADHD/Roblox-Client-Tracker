@@ -76,24 +76,21 @@ PROTO_2:
   CALL R6 1 1
   LOADB R7 1
   GETTABLEKS R8 R3 K5 ["onStateChanged"]
-  JUMPIFNOTEQKNIL R8 [+12]
-  LOADB R7 1
-  GETTABLEKS R8 R3 K6 ["onActivated"]
   JUMPIFNOTEQKNIL R8 [+7]
-  GETTABLEKS R8 R3 K7 ["onSecondaryActivated"]
+  GETTABLEKS R8 R3 K6 ["onActivated"]
   JUMPIFNOTEQKNIL R8 [+2]
   LOADB R7 0 +1
   LOADB R7 1
   GETUPVAL R9 7
-  GETTABLEKS R8 R9 K8 ["useMemo"]
+  GETTABLEKS R8 R9 K7 ["useMemo"]
   NEWCLOSURE R9 P0
   CAPTURE VAL R3
   NEWTABLE R10 0 1
-  GETTABLEKS R11 R3 K9 ["GroupTransparency"]
+  GETTABLEKS R11 R3 K8 ["GroupTransparency"]
   SETLIST R10 R11 1 [1]
   CALL R8 2 1
   GETUPVAL R10 7
-  GETTABLEKS R9 R10 K8 ["useMemo"]
+  GETTABLEKS R9 R10 K7 ["useMemo"]
   NEWCLOSURE R10 P1
   CAPTURE VAL R8
   CAPTURE VAL R7
@@ -107,49 +104,47 @@ PROTO_2:
   GETUPVAL R10 9
   MOVE R11 R3
   NEWTABLE R12 4 0
-  JUMPIFNOTEQKS R9 K10 ["ImageButton"] [+3]
+  JUMPIFNOTEQKS R9 K9 ["ImageButton"] [+3]
   LOADB R13 0
   JUMP [+1]
   LOADNIL R13
-  SETTABLEKS R13 R12 K11 ["AutoButtonColor"]
+  SETTABLEKS R13 R12 K10 ["AutoButtonColor"]
   JUMPIFNOT R8 [+3]
-  GETTABLEKS R13 R3 K9 ["GroupTransparency"]
+  GETTABLEKS R13 R3 K8 ["GroupTransparency"]
   JUMP [+1]
   LOADNIL R13
-  SETTABLEKS R13 R12 K9 ["GroupTransparency"]
-  SETTABLEKS R1 R12 K12 ["ref"]
+  SETTABLEKS R13 R12 K8 ["GroupTransparency"]
+  SETTABLEKS R1 R12 K11 ["ref"]
   GETUPVAL R14 7
-  GETTABLEKS R13 R14 K13 ["Tag"]
+  GETTABLEKS R13 R14 K12 ["Tag"]
   SETTABLE R6 R12 R13
   CALL R10 2 1
   JUMPIFNOT R7 [+2]
   GETUPVAL R11 10
   JUMP [+1]
   MOVE R11 R9
-  JUMPIFNOT R7 [+35]
+  JUMPIFNOT R7 [+31]
   GETUPVAL R14 11
-  GETTABLEKS R13 R14 K14 ["Dictionary"]
-  GETTABLEKS R12 R13 K15 ["union"]
+  GETTABLEKS R13 R14 K13 ["Dictionary"]
+  GETTABLEKS R12 R13 K14 ["union"]
   MOVE R13 R10
-  DUPTABLE R14 K20 [{"component", "onActivated", "onSecondaryActivated", "onStateChanged", "stateLayer", "isDisabled", "cursor"}]
-  SETTABLEKS R9 R14 K16 ["component"]
+  DUPTABLE R14 K19 [{"component", "onActivated", "onStateChanged", "stateLayer", "isDisabled", "cursor"}]
+  SETTABLEKS R9 R14 K15 ["component"]
   GETTABLEKS R15 R3 K6 ["onActivated"]
   SETTABLEKS R15 R14 K6 ["onActivated"]
-  GETTABLEKS R15 R3 K7 ["onSecondaryActivated"]
-  SETTABLEKS R15 R14 K7 ["onSecondaryActivated"]
   GETTABLEKS R15 R3 K5 ["onStateChanged"]
   SETTABLEKS R15 R14 K5 ["onStateChanged"]
-  GETTABLEKS R15 R3 K17 ["stateLayer"]
-  SETTABLEKS R15 R14 K17 ["stateLayer"]
-  GETTABLEKS R15 R3 K18 ["isDisabled"]
-  SETTABLEKS R15 R14 K18 ["isDisabled"]
-  GETTABLEKS R15 R3 K19 ["cursor"]
-  SETTABLEKS R15 R14 K19 ["cursor"]
+  GETTABLEKS R15 R3 K16 ["stateLayer"]
+  SETTABLEKS R15 R14 K16 ["stateLayer"]
+  GETTABLEKS R15 R3 K17 ["isDisabled"]
+  SETTABLEKS R15 R14 K17 ["isDisabled"]
+  GETTABLEKS R15 R3 K18 ["cursor"]
+  SETTABLEKS R15 R14 K18 ["cursor"]
   CALL R12 2 1
   JUMP [+1]
   MOVE R12 R10
   GETUPVAL R14 7
-  GETTABLEKS R13 R14 K21 ["createElement"]
+  GETTABLEKS R13 R14 K20 ["createElement"]
   MOVE R14 R11
   MOVE R15 R12
   GETUPVAL R16 12

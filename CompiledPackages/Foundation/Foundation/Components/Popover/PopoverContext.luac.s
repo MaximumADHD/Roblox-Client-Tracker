@@ -19,18 +19,14 @@ MAIN:
   GETTABLEKS R5 R0 K8 ["Utility"]
   GETTABLEKS R4 R5 K9 ["Logger"]
   CALL R3 1 1
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R6 R0 K10 ["Components"]
-  GETTABLEKS R5 R6 K11 ["Types"]
-  CALL R4 1 1
-  GETTABLEKS R5 R2 K12 ["createContext"]
-  DUPTABLE R6 K16 [{"anchor", "setAnchor", "isOpen"}]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K13 ["anchor"]
-  DUPCLOSURE R7 K17 [PROTO_0]
+  GETTABLEKS R4 R2 K10 ["createContext"]
+  DUPTABLE R5 K14 [{"anchor", "setAnchor", "isOpen"}]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K11 ["anchor"]
+  DUPCLOSURE R6 K15 [PROTO_0]
   CAPTURE VAL R3
-  SETTABLEKS R7 R6 K14 ["setAnchor"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K15 ["isOpen"]
-  CALL R5 1 -1
-  RETURN R5 -1
+  SETTABLEKS R6 R5 K12 ["setAnchor"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K13 ["isOpen"]
+  CALL R4 1 -1
+  RETURN R4 -1

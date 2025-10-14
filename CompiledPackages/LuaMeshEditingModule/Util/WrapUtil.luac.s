@@ -1,21 +1,45 @@
 PROTO_0:
   GETIMPORT R2 K3 [Enum.CageType.Inner]
-  JUMPIFNOTEQ R0 R2 [+9]
+  JUMPIFNOTEQ R0 R2 [+27]
   LOADK R4 K4 ["WrapLayer"]
   NAMECALL R2 R1 K5 ["IsA"]
   CALL R2 2 1
-  JUMPIFNOT R2 [+3]
-  GETTABLEKS R2 R1 K6 ["ReferenceOrigin"]
+  JUMPIFNOT R2 [+21]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+10]
+  GETTABLEKS R3 R1 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["CFrame"]
+  GETTABLEKS R4 R1 K8 ["ReferenceOrigin"]
+  NAMECALL R2 R2 K9 ["ToWorldSpace"]
+  CALL R2 2 1
   RETURN R2 1
-  GETIMPORT R2 K8 [Enum.CageType.Outer]
-  JUMPIFNOTEQ R0 R2 [+9]
-  LOADK R4 K9 ["BaseWrap"]
+  GETTABLEKS R3 R1 K8 ["ReferenceOrigin"]
+  GETTABLEKS R5 R1 K6 ["Parent"]
+  GETTABLEKS R4 R5 K7 ["CFrame"]
+  MUL R2 R3 R4
+  RETURN R2 1
+  GETIMPORT R2 K11 [Enum.CageType.Outer]
+  JUMPIFNOTEQ R0 R2 [+27]
+  LOADK R4 K12 ["BaseWrap"]
   NAMECALL R2 R1 K5 ["IsA"]
   CALL R2 2 1
-  JUMPIFNOT R2 [+3]
-  GETTABLEKS R2 R1 K10 ["CageOrigin"]
+  JUMPIFNOT R2 [+21]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+10]
+  GETTABLEKS R3 R1 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["CFrame"]
+  GETTABLEKS R4 R1 K13 ["CageOrigin"]
+  NAMECALL R2 R2 K9 ["ToWorldSpace"]
+  CALL R2 2 1
   RETURN R2 1
-  GETIMPORT R2 K13 [CFrame.new]
+  GETTABLEKS R3 R1 K13 ["CageOrigin"]
+  GETTABLEKS R5 R1 K6 ["Parent"]
+  GETTABLEKS R4 R5 K7 ["CFrame"]
+  MUL R2 R3 R4
+  RETURN R2 1
+  GETIMPORT R2 K15 [CFrame.new]
   CALL R2 0 -1
   RETURN R2 -1
 
@@ -39,13 +63,18 @@ PROTO_2:
   GETIMPORT R5 K3 [print]
   MOVE R6 R4
   CALL R5 1 0
-  GETUPVAL R6 0
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+8]
+  GETUPVAL R6 1
   GETTABLEKS R5 R6 K4 ["scaleVertices"]
   MOVE R6 R1
   MOVE R7 R2
   CALL R5 2 -1
   CLOSEUPVALS R2
   RETURN R5 -1
+  CLOSEUPVALS R2
+  RETURN R2 1
 
 PROTO_3:
   GETUPVAL R0 1
@@ -72,11 +101,17 @@ PROTO_4:
 
 PROTO_5:
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["getScaleFactor"]
+  CALL R3 0 1
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["Scaling vertices is only supported with getFFlagAvatarPreviewerCageEditingTools"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["getScaleFactor"]
   MOVE R3 R0
   CALL R2 1 1
-  GETTABLEKS R3 R0 K1 ["CageOrigin"]
-  GETIMPORT R4 K4 [table.create]
+  GETTABLEKS R3 R0 K4 ["CageOrigin"]
+  GETIMPORT R4 K7 [table.create]
   LENGTH R5 R1
   CALL R4 1 1
   MOVE R5 R1
@@ -84,23 +119,29 @@ PROTO_5:
   LOADNIL R7
   FORGPREP R5
   MOVE R15 R9
-  NAMECALL R13 R3 K5 ["PointToWorldSpace"]
+  NAMECALL R13 R3 K8 ["PointToWorldSpace"]
   CALL R13 2 1
   MUL R12 R13 R2
-  NAMECALL R10 R3 K6 ["PointToObjectSpace"]
+  NAMECALL R10 R3 K9 ["PointToObjectSpace"]
   CALL R10 2 1
   SETTABLE R10 R4 R8
   FORGLOOP R5 2 [-10]
   RETURN R4 1
 
 PROTO_6:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["getScaleFactor"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["Scaling vertices is only supported with getFFlagAvatarPreviewerCageEditingTools"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["getScaleFactor"]
   MOVE R4 R0
   CALL R3 1 1
-  DIVRK R2 R0 K3 ["table"]
-  GETTABLEKS R3 R0 K2 ["CageOrigin"]
-  GETIMPORT R4 K5 [table.create]
+  DIVRK R2 R3 K3 [1]
+  GETTABLEKS R3 R0 K5 ["CageOrigin"]
+  GETIMPORT R4 K8 [table.create]
   LENGTH R5 R1
   CALL R4 1 1
   MOVE R5 R1
@@ -108,26 +149,32 @@ PROTO_6:
   LOADNIL R7
   FORGPREP R5
   MOVE R15 R9
-  NAMECALL R13 R3 K6 ["PointToWorldSpace"]
+  NAMECALL R13 R3 K9 ["PointToWorldSpace"]
   CALL R13 2 1
   MUL R12 R13 R2
-  NAMECALL R10 R3 K7 ["PointToObjectSpace"]
+  NAMECALL R10 R3 K10 ["PointToObjectSpace"]
   CALL R10 2 1
   SETTABLE R10 R4 R8
   FORGLOOP R5 2 [-10]
   RETURN R4 1
 
 PROTO_7:
-  GETTABLEKS R1 R0 K0 ["Parent"]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["Scaling vertices is only supported with getFFlagAvatarPreviewerCageEditingTools"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K3 ["Parent"]
   JUMPIFEQKNIL R1 [+6]
-  LOADK R4 K1 ["MeshPart"]
-  NAMECALL R2 R1 K2 ["IsA"]
+  LOADK R4 K4 ["MeshPart"]
+  NAMECALL R2 R1 K5 ["IsA"]
   CALL R2 2 1
   JUMPIF R2 [+2]
-  LOADK R2 K3 [{1, 1, 1}]
+  LOADK R2 K6 [{1, 1, 1}]
   RETURN R2 1
-  GETTABLEKS R3 R1 K4 ["Size"]
-  GETTABLEKS R4 R1 K5 ["MeshSize"]
+  GETTABLEKS R3 R1 K7 ["Size"]
+  GETTABLEKS R4 R1 K8 ["MeshSize"]
   DIV R2 R3 R4
   RETURN R2 1
 
@@ -138,22 +185,28 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R2 R0 K6 ["Types"]
+  GETTABLEKS R3 R0 K6 ["Flags"]
+  GETTABLEKS R2 R3 K7 ["getFFlagAvatarPreviewerCageEditingTools"]
   CALL R1 1 1
   NEWTABLE R2 8 0
-  DUPCLOSURE R3 K7 [PROTO_0]
-  SETTABLEKS R3 R2 K8 ["getCageOrigin"]
-  DUPCLOSURE R3 K9 [PROTO_2]
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K9 ["getCageOrigin"]
+  DUPCLOSURE R3 K10 [PROTO_2]
+  CAPTURE VAL R1
   CAPTURE VAL R2
-  SETTABLEKS R3 R2 K10 ["getVerticesFromWrap"]
-  DUPCLOSURE R3 K11 [PROTO_4]
-  SETTABLEKS R3 R2 K12 ["getFacesForWrap"]
-  DUPCLOSURE R3 K13 [PROTO_5]
+  SETTABLEKS R3 R2 K11 ["getVerticesFromWrap"]
+  DUPCLOSURE R3 K12 [PROTO_4]
+  SETTABLEKS R3 R2 K13 ["getFacesForWrap"]
+  DUPCLOSURE R3 K14 [PROTO_5]
+  CAPTURE VAL R1
   CAPTURE VAL R2
-  SETTABLEKS R3 R2 K14 ["scaleVertices"]
-  DUPCLOSURE R3 K15 [PROTO_6]
+  SETTABLEKS R3 R2 K15 ["scaleVertices"]
+  DUPCLOSURE R3 K16 [PROTO_6]
+  CAPTURE VAL R1
   CAPTURE VAL R2
-  SETTABLEKS R3 R2 K16 ["unscaleVertices"]
-  DUPCLOSURE R3 K17 [PROTO_7]
-  SETTABLEKS R3 R2 K18 ["getScaleFactor"]
+  SETTABLEKS R3 R2 K17 ["unscaleVerticies"]
+  DUPCLOSURE R3 K18 [PROTO_7]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K19 ["getScaleFactor"]
   RETURN R2 1

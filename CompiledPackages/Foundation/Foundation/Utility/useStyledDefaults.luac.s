@@ -98,27 +98,15 @@ PROTO_1:
   RETURN R1 1
 
 PROTO_2:
-  JUMPIF R1 [+14]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["FoundationShowErrorAboutFoundationProvider"]
-  JUMPIFNOT R6 [+5]
-  GETIMPORT R6 K2 [error]
-  LOADK R7 K3 ["applyRules: rules is nil - make sure FoundationProvider is used to wrap your component"]
-  CALL R6 1 0
-  RETURN R0 0
-  GETIMPORT R6 K5 [warn]
-  LOADK R7 K3 ["applyRules: rules is nil - make sure FoundationProvider is used to wrap your component"]
-  CALL R6 1 0
-  RETURN R0 0
   JUMPIFNOT R0 [+17]
-  GETIMPORT R6 K8 [string.gmatch]
+  GETIMPORT R6 K2 [string.gmatch]
   MOVE R7 R0
-  LOADK R8 K9 ["%S+"]
+  LOADK R8 K3 ["%S+"]
   CALL R6 2 3
   FORGPREP R6
   GETTABLE R11 R1 R9
   JUMPIFNOT R11 [+7]
-  GETUPVAL R11 1
+  GETUPVAL R11 0
   GETTABLE R12 R1 R9
   MOVE R13 R2
   MOVE R14 R3
@@ -271,7 +259,6 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R10
   DUPCLOSURE R12 K22 [PROTO_2]
-  CAPTURE VAL R9
   CAPTURE VAL R11
   DUPCLOSURE R13 K23 [PROTO_3]
   DUPCLOSURE R14 K24 [PROTO_5]

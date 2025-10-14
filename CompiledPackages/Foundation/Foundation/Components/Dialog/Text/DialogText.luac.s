@@ -1,21 +1,18 @@
 PROTO_0:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["createElement"]
-  GETUPVAL R3 2
-  DUPTABLE R4 K5 [{"Text", "RichText", "tag", "LayoutOrder"}]
-  GETTABLEKS R5 R0 K1 ["Text"]
-  SETTABLEKS R5 R4 K1 ["Text"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K2 ["RichText"]
-  GETTABLEKS R6 R1 K6 ["contentText"]
-  GETTABLEKS R5 R6 K3 ["tag"]
-  SETTABLEKS R5 R4 K3 ["tag"]
-  GETTABLEKS R5 R0 K4 ["LayoutOrder"]
-  SETTABLEKS R5 R4 K4 ["LayoutOrder"]
-  CALL R2 2 -1
-  RETURN R2 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K5 [{"Text", "RichText", "tag", "LayoutOrder"}]
+  GETTABLEKS R4 R0 K1 ["Text"]
+  SETTABLEKS R4 R3 K1 ["Text"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K2 ["RichText"]
+  LOADK R4 K6 ["text-body-large text-wrap text-align-x-left text-align-y-top auto-y size-full-0"]
+  SETTABLEKS R4 R3 K3 ["tag"]
+  GETTABLEKS R4 R0 K4 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K4 ["LayoutOrder"]
+  CALL R1 2 -1
+  RETURN R1 -1
 
 MAIN:
   PREPVARARGS 0
@@ -35,15 +32,7 @@ MAIN:
   GETTABLEKS R6 R0 K8 ["Components"]
   GETTABLEKS R5 R6 K10 ["Types"]
   CALL R4 1 1
-  GETIMPORT R6 K6 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K4 ["Parent"]
-  GETTABLEKS R8 R9 K4 ["Parent"]
-  GETTABLEKS R7 R8 K11 ["useDialogVariants"]
-  CALL R6 1 1
-  GETTABLEKS R5 R6 K11 ["useDialogVariants"]
-  DUPCLOSURE R6 K12 [PROTO_0]
-  CAPTURE VAL R5
+  DUPCLOSURE R5 K11 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R3
-  RETURN R6 1
+  RETURN R5 1

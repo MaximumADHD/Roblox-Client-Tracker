@@ -1,4 +1,41 @@
 PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  LOADK R3 K1 ["UIGradient"]
+  DUPTABLE R4 K4 [{"Rotation", "Transparency"}]
+  GETIMPORT R6 K8 [Enum.FillDirection.Vertical]
+  JUMPIFNOTEQ R0 R6 [+3]
+  LOADN R5 90
+  JUMP [+1]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K2 ["Rotation"]
+  GETIMPORT R5 K11 [NumberSequence.new]
+  NEWTABLE R6 0 3
+  GETIMPORT R7 K13 [NumberSequenceKeypoint.new]
+  LOADN R8 0
+  JUMPIFNOT R1 [+2]
+  LOADN R9 0
+  JUMP [+1]
+  LOADN R9 1
+  CALL R7 2 1
+  GETIMPORT R8 K13 [NumberSequenceKeypoint.new]
+  LOADK R9 K14 [0.5]
+  LOADN R10 0
+  CALL R8 2 1
+  GETIMPORT R9 K13 [NumberSequenceKeypoint.new]
+  LOADN R10 1
+  JUMPIFNOT R1 [+2]
+  LOADN R11 1
+  JUMP [+1]
+  LOADN R11 0
+  CALL R9 2 -1
+  SETLIST R6 R7 -1 [1]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K3 ["Transparency"]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["id"]
   JUMPIFEQKNIL R0 [+6]
@@ -15,7 +52,7 @@ PROTO_0:
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R1 0
   MOVE R2 R0
   GETUPVAL R3 1
@@ -63,144 +100,134 @@ PROTO_1:
   CALL R7 2 1
   GETTABLEKS R9 R2 K13 ["isContained"]
   AND R8 R9 R7
-  JUMPIFNOT R8 [+14]
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K14 ["createElement"]
-  GETUPVAL R10 7
-  DUPTABLE R11 K17 [{"fillDirection", "top"}]
-  GETTABLEKS R12 R2 K15 ["fillDirection"]
-  SETTABLEKS R12 R11 K15 ["fillDirection"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K16 ["top"]
+  JUMPIFNOT R8 [+6]
+  GETUPVAL R9 7
+  GETTABLEKS R10 R2 K14 ["fillDirection"]
+  LOADB R11 1
   CALL R9 2 1
   JUMP [+1]
   LOADNIL R9
-  JUMPIFNOT R8 [+14]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K14 ["createElement"]
-  GETUPVAL R11 7
-  DUPTABLE R12 K17 [{"fillDirection", "top"}]
-  GETTABLEKS R13 R2 K15 ["fillDirection"]
-  SETTABLEKS R13 R12 K15 ["fillDirection"]
-  LOADB R13 0
-  SETTABLEKS R13 R12 K16 ["top"]
+  JUMPIFNOT R8 [+6]
+  GETUPVAL R10 7
+  GETTABLEKS R11 R2 K14 ["fillDirection"]
+  LOADB R12 0
   CALL R10 2 1
   JUMP [+1]
   LOADNIL R10
   GETUPVAL R12 4
-  GETTABLEKS R11 R12 K14 ["createElement"]
+  GETTABLEKS R11 R12 K15 ["createElement"]
   JUMPIFNOT R5 [+2]
   GETUPVAL R12 8
   JUMP [+1]
   GETUPVAL R12 9
-  DUPTABLE R13 K27 [{"Image", "imageStyle", "backgroundStyle", "Size", "ZIndex", "LayoutOrder", "aspectRatio", "cornerRadius", "onStateChanged"}]
-  SETTABLEKS R5 R13 K18 ["Image"]
+  DUPTABLE R13 K25 [{"Image", "imageStyle", "backgroundStyle", "Size", "ZIndex", "LayoutOrder", "aspectRatio", "cornerRadius", "onStateChanged"}]
+  SETTABLEKS R5 R13 K16 ["Image"]
   JUMPIFNOT R5 [+2]
   MOVE R14 R4
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K19 ["imageStyle"]
+  SETTABLEKS R14 R13 K17 ["imageStyle"]
   JUMPIFNOT R5 [+2]
   LOADNIL R14
   JUMP [+1]
   MOVE R14 R4
-  SETTABLEKS R14 R13 K20 ["backgroundStyle"]
-  GETTABLEKS R15 R2 K15 ["fillDirection"]
-  GETIMPORT R16 K31 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K18 ["backgroundStyle"]
+  GETTABLEKS R15 R2 K14 ["fillDirection"]
+  GETIMPORT R16 K29 [Enum.FillDirection.Vertical]
   JUMPIFNOTEQ R15 R16 [+7]
-  GETIMPORT R14 K34 [UDim2.fromScale]
+  GETIMPORT R14 K32 [UDim2.fromScale]
   LOADN R15 1
   LOADN R16 0
   CALL R14 2 1
   JUMP [+5]
-  GETIMPORT R14 K34 [UDim2.fromScale]
+  GETIMPORT R14 K32 [UDim2.fromScale]
   LOADN R15 0
   LOADN R16 1
   CALL R14 2 1
-  SETTABLEKS R14 R13 K21 ["Size"]
+  SETTABLEKS R14 R13 K19 ["Size"]
   LOADN R14 0
-  SETTABLEKS R14 R13 K22 ["ZIndex"]
-  GETTABLEKS R14 R1 K23 ["LayoutOrder"]
-  SETTABLEKS R14 R13 K23 ["LayoutOrder"]
-  DUPTABLE R14 K38 [{"AspectRatio", "AspectType", "DominantAxis"}]
+  SETTABLEKS R14 R13 K20 ["ZIndex"]
+  GETTABLEKS R14 R1 K21 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K21 ["LayoutOrder"]
+  DUPTABLE R14 K36 [{"AspectRatio", "AspectType", "DominantAxis"}]
   GETUPVAL R16 10
   GETTABLEKS R17 R1 K6 ["shape"]
   GETTABLE R15 R16 R17
-  SETTABLEKS R15 R14 K35 ["AspectRatio"]
-  GETIMPORT R15 K40 [Enum.AspectType.ScaleWithParentSize]
-  SETTABLEKS R15 R14 K36 ["AspectType"]
-  GETTABLEKS R16 R2 K15 ["fillDirection"]
-  GETIMPORT R17 K31 [Enum.FillDirection.Vertical]
+  SETTABLEKS R15 R14 K33 ["AspectRatio"]
+  GETIMPORT R15 K38 [Enum.AspectType.ScaleWithParentSize]
+  SETTABLEKS R15 R14 K34 ["AspectType"]
+  GETTABLEKS R16 R2 K14 ["fillDirection"]
+  GETIMPORT R17 K29 [Enum.FillDirection.Vertical]
   JUMPIFNOTEQ R16 R17 [+4]
-  GETIMPORT R15 K42 [Enum.DominantAxis.Width]
+  GETIMPORT R15 K40 [Enum.DominantAxis.Width]
   JUMP [+2]
-  GETIMPORT R15 K44 [Enum.DominantAxis.Height]
-  SETTABLEKS R15 R14 K37 ["DominantAxis"]
-  SETTABLEKS R14 R13 K24 ["aspectRatio"]
-  SETTABLEKS R7 R13 K25 ["cornerRadius"]
-  GETTABLEKS R14 R1 K26 ["onStateChanged"]
-  SETTABLEKS R14 R13 K26 ["onStateChanged"]
-  DUPTABLE R14 K47 [{"TransparencyGradient", "MiddleCorners", "Image"}]
-  SETTABLEKS R9 R14 K45 ["TransparencyGradient"]
+  GETIMPORT R15 K42 [Enum.DominantAxis.Height]
+  SETTABLEKS R15 R14 K35 ["DominantAxis"]
+  SETTABLEKS R14 R13 K22 ["aspectRatio"]
+  SETTABLEKS R7 R13 K23 ["cornerRadius"]
+  GETTABLEKS R14 R1 K24 ["onStateChanged"]
+  SETTABLEKS R14 R13 K24 ["onStateChanged"]
+  DUPTABLE R14 K45 [{"TransparencyGradient", "MiddleCorners", "Image"}]
+  SETTABLEKS R9 R14 K43 ["TransparencyGradient"]
   JUMPIFNOT R8 [+50]
   GETUPVAL R16 4
-  GETTABLEKS R15 R16 K14 ["createElement"]
+  GETTABLEKS R15 R16 K15 ["createElement"]
   GETUPVAL R16 8
-  DUPTABLE R17 K49 [{"Image", "imageStyle", "backgroundStyle", "ZIndex", "tag"}]
-  SETTABLEKS R5 R17 K18 ["Image"]
+  DUPTABLE R17 K47 [{"Image", "imageStyle", "backgroundStyle", "ZIndex", "tag"}]
+  SETTABLEKS R5 R17 K16 ["Image"]
   JUMPIFNOT R5 [+2]
   MOVE R18 R4
   JUMP [+1]
   LOADNIL R18
-  SETTABLEKS R18 R17 K19 ["imageStyle"]
+  SETTABLEKS R18 R17 K17 ["imageStyle"]
   JUMPIFNOT R5 [+2]
   LOADNIL R18
   JUMP [+1]
   MOVE R18 R4
-  SETTABLEKS R18 R17 K20 ["backgroundStyle"]
+  SETTABLEKS R18 R17 K18 ["backgroundStyle"]
   LOADN R18 0
-  SETTABLEKS R18 R17 K22 ["ZIndex"]
-  LOADK R18 K50 ["size-full"]
-  SETTABLEKS R18 R17 K48 ["tag"]
-  DUPTABLE R18 K51 [{"TransparencyGradient", "Image"}]
-  SETTABLEKS R10 R18 K45 ["TransparencyGradient"]
+  SETTABLEKS R18 R17 K20 ["ZIndex"]
+  LOADK R18 K48 ["size-full"]
+  SETTABLEKS R18 R17 K46 ["tag"]
+  DUPTABLE R18 K49 [{"TransparencyGradient", "Image"}]
+  SETTABLEKS R10 R18 K43 ["TransparencyGradient"]
   GETUPVAL R20 4
-  GETTABLEKS R19 R20 K14 ["createElement"]
+  GETTABLEKS R19 R20 K15 ["createElement"]
   GETUPVAL R20 8
-  DUPTABLE R21 K52 [{"Image", "imageStyle", "tag"}]
-  SETTABLEKS R6 R21 K18 ["Image"]
+  DUPTABLE R21 K50 [{"Image", "imageStyle", "tag"}]
+  SETTABLEKS R6 R21 K16 ["Image"]
   GETTABLEKS R22 R1 K1 ["style"]
-  SETTABLEKS R22 R21 K19 ["imageStyle"]
-  LOADK R22 K50 ["size-full"]
-  SETTABLEKS R22 R21 K48 ["tag"]
-  DUPTABLE R22 K53 [{"TransparencyGradient"}]
-  SETTABLEKS R10 R22 K45 ["TransparencyGradient"]
+  SETTABLEKS R22 R21 K17 ["imageStyle"]
+  LOADK R22 K48 ["size-full"]
+  SETTABLEKS R22 R21 K46 ["tag"]
+  DUPTABLE R22 K51 [{"TransparencyGradient"}]
+  SETTABLEKS R10 R22 K43 ["TransparencyGradient"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K18 ["Image"]
+  SETTABLEKS R19 R18 K16 ["Image"]
   CALL R15 3 1
   JUMP [+1]
   LOADNIL R15
-  SETTABLEKS R15 R14 K46 ["MiddleCorners"]
+  SETTABLEKS R15 R14 K44 ["MiddleCorners"]
   GETUPVAL R16 4
-  GETTABLEKS R15 R16 K14 ["createElement"]
+  GETTABLEKS R15 R16 K15 ["createElement"]
   GETUPVAL R16 8
-  DUPTABLE R17 K54 [{"Image", "cornerRadius", "imageStyle", "tag"}]
-  SETTABLEKS R6 R17 K18 ["Image"]
-  SETTABLEKS R7 R17 K25 ["cornerRadius"]
+  DUPTABLE R17 K52 [{"Image", "cornerRadius", "imageStyle", "tag"}]
+  SETTABLEKS R6 R17 K16 ["Image"]
+  SETTABLEKS R7 R17 K23 ["cornerRadius"]
   GETTABLEKS R18 R1 K1 ["style"]
-  SETTABLEKS R18 R17 K19 ["imageStyle"]
+  SETTABLEKS R18 R17 K17 ["imageStyle"]
   NEWTABLE R18 2 0
   LOADB R19 1
-  SETTABLEKS R19 R18 K50 ["size-full"]
-  GETTABLEKS R20 R1 K55 ["children"]
+  SETTABLEKS R19 R18 K48 ["size-full"]
+  GETTABLEKS R20 R1 K53 ["children"]
   JUMPIFNOTEQKNIL R20 [+2]
   LOADB R19 0 +1
   LOADB R19 1
-  SETTABLEKS R19 R18 K56 ["padding-medium"]
-  SETTABLEKS R18 R17 K48 ["tag"]
-  GETTABLEKS R18 R1 K55 ["children"]
+  SETTABLEKS R19 R18 K54 ["padding-medium"]
+  SETTABLEKS R18 R17 K46 ["tag"]
+  GETTABLEKS R18 R1 K53 ["children"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K18 ["Image"]
+  SETTABLEKS R15 R14 K16 ["Image"]
   CALL R11 3 -1
   RETURN R11 -1
 
@@ -245,53 +272,51 @@ MAIN:
   CALL R9 1 1
   GETIMPORT R10 K6 [require]
   GETTABLEKS R12 R0 K13 ["Components"]
-  GETTABLEKS R11 R12 K19 ["Gradient"]
+  GETTABLEKS R11 R12 K19 ["Image"]
   CALL R10 1 1
   GETIMPORT R11 K6 [require]
   GETTABLEKS R13 R0 K13 ["Components"]
-  GETTABLEKS R12 R13 K20 ["Image"]
+  GETTABLEKS R12 R13 K20 ["View"]
   CALL R11 1 1
   GETIMPORT R12 K6 [require]
-  GETTABLEKS R14 R0 K13 ["Components"]
-  GETTABLEKS R13 R14 K21 ["View"]
+  GETTABLEKS R15 R0 K21 ["Providers"]
+  GETTABLEKS R14 R15 K22 ["Style"]
+  GETTABLEKS R13 R14 K23 ["useTokens"]
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
-  GETTABLEKS R16 R0 K22 ["Providers"]
-  GETTABLEKS R15 R16 K23 ["Style"]
-  GETTABLEKS R14 R15 K24 ["useTokens"]
+  GETTABLEKS R15 R0 K13 ["Components"]
+  GETTABLEKS R14 R15 K24 ["Types"]
   CALL R13 1 1
-  GETIMPORT R14 K6 [require]
-  GETTABLEKS R16 R0 K13 ["Components"]
-  GETTABLEKS R15 R16 K25 ["Types"]
-  CALL R14 1 1
-  NEWTABLE R15 4 0
-  GETTABLEKS R16 R6 K26 ["Circle"]
-  LOADN R17 1
-  SETTABLE R17 R15 R16
-  GETTABLEKS R16 R6 K27 ["Square"]
-  LOADN R17 1
-  SETTABLE R17 R15 R16
-  GETTABLEKS R16 R6 K28 ["Landscape"]
-  LOADK R17 K29 [1.77777777777778]
-  SETTABLE R17 R15 R16
-  GETTABLEKS R16 R6 K30 ["Portrait"]
-  LOADK R17 K31 [0.5625]
-  SETTABLE R17 R15 R16
-  DUPTABLE R16 K34 [{"shape", "LayoutOrder"}]
-  GETTABLEKS R17 R6 K27 ["Square"]
-  SETTABLEKS R17 R16 K32 ["shape"]
-  LOADN R17 1
-  SETTABLEKS R17 R16 K33 ["LayoutOrder"]
-  DUPCLOSURE R17 K35 [PROTO_1]
+  NEWTABLE R14 4 0
+  GETTABLEKS R15 R6 K25 ["Circle"]
+  LOADN R16 1
+  SETTABLE R16 R14 R15
+  GETTABLEKS R15 R6 K26 ["Square"]
+  LOADN R16 1
+  SETTABLE R16 R14 R15
+  GETTABLEKS R15 R6 K27 ["Landscape"]
+  LOADK R16 K28 [1.77777777777778]
+  SETTABLE R16 R14 R15
+  GETTABLEKS R15 R6 K29 ["Portrait"]
+  LOADK R16 K30 [0.5625]
+  SETTABLE R16 R14 R15
+  DUPTABLE R15 K33 [{"shape", "LayoutOrder"}]
+  GETTABLEKS R16 R6 K26 ["Square"]
+  SETTABLEKS R16 R15 K31 ["shape"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K32 ["LayoutOrder"]
+  DUPCLOSURE R16 K34 [PROTO_0]
+  CAPTURE VAL R2
+  DUPCLOSURE R17 K35 [PROTO_2]
   CAPTURE VAL R8
-  CAPTURE VAL R16
+  CAPTURE VAL R15
   CAPTURE VAL R7
-  CAPTURE VAL R13
+  CAPTURE VAL R12
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R6
+  CAPTURE VAL R16
   CAPTURE VAL R10
   CAPTURE VAL R11
-  CAPTURE VAL R12
-  CAPTURE VAL R15
+  CAPTURE VAL R14
   RETURN R17 1

@@ -151,24 +151,6 @@ PROTO_2:
   RETURN R0 1
 
 PROTO_3:
-  SUB R3 R1 R2
-  GETTABLEKS R6 R0 K0 ["Max"]
-  GETTABLEKS R5 R6 K1 ["Y"]
-  GETTABLEKS R6 R3 K1 ["Y"]
-  FASTCALL2 MATH_MIN R5 R6 [+3]
-  GETIMPORT R4 K4 [math.min]
-  CALL R4 2 1
-  GETIMPORT R5 K7 [Rect.new]
-  GETTABLEKS R6 R0 K8 ["Min"]
-  GETIMPORT R7 K10 [Vector2.new]
-  GETTABLEKS R9 R0 K0 ["Max"]
-  GETTABLEKS R8 R9 K11 ["X"]
-  MOVE R9 R4
-  CALL R7 2 -1
-  CALL R5 -1 -1
-  RETURN R5 -1
-
-PROTO_4:
   GETTABLEKS R9 R4 K0 ["Max"]
   GETTABLEKS R10 R4 K1 ["Min"]
   SUB R8 R9 R10
@@ -409,12 +391,10 @@ MAIN:
   DUPCLOSURE R5 K11 [PROTO_2]
   CAPTURE VAL R1
   DUPCLOSURE R6 K12 [PROTO_3]
-  DUPCLOSURE R7 K13 [PROTO_4]
   CAPTURE VAL R1
   CAPTURE VAL R2
-  DUPTABLE R8 K18 [{"adjustForOnScreenKeyboard", "isOnScreen", "calculateSide", "calculatePositions"}]
-  SETTABLEKS R6 R8 K14 ["adjustForOnScreenKeyboard"]
-  SETTABLEKS R4 R8 K15 ["isOnScreen"]
-  SETTABLEKS R5 R8 K16 ["calculateSide"]
-  SETTABLEKS R7 R8 K17 ["calculatePositions"]
-  RETURN R8 1
+  DUPTABLE R7 K16 [{"isOnScreen", "calculateSide", "calculatePositions"}]
+  SETTABLEKS R4 R7 K13 ["isOnScreen"]
+  SETTABLEKS R5 R7 K14 ["calculateSide"]
+  SETTABLEKS R6 R7 K15 ["calculatePositions"]
+  RETURN R7 1

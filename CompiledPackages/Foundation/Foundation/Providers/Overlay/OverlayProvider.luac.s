@@ -51,53 +51,37 @@ PROTO_2:
   SETTABLEKS R8 R7 K6 ["value"]
   DUPTABLE R8 K12 [{"FoundationOverlay", "Children"}]
   GETTABLEKS R10 R0 K1 ["gui"]
-  JUMPIF R10 [+69]
+  JUMPIF R10 [+47]
   GETUPVAL R10 3
-  JUMPIFNOT R10 [+67]
+  JUMPIFNOT R10 [+45]
   GETUPVAL R10 4
   GETTABLEKS R9 R10 K13 ["createPortal"]
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K4 ["createElement"]
   LOADK R11 K14 ["ScreenGui"]
-  DUPTABLE R12 K22 [{"Enabled", "DisplayOrder", "ZIndexBehavior", "ScreenInsets", "SafeAreaCompatibility", "ClipToDeviceSafeArea", "ref"}]
+  DUPTABLE R12 K20 [{"Enabled", "DisplayOrder", "ZIndexBehavior", "ScreenInsets", "ref"}]
   LOADB R13 1
   SETTABLEKS R13 R12 K15 ["Enabled"]
-  GETUPVAL R15 5
-  GETTABLEKS R14 R15 K24 ["MAX_LAYOUT_ORDER"]
-  SUBK R13 R14 K23 [1]
+  LOADK R13 K21 [2147483647]
   SETTABLEKS R13 R12 K16 ["DisplayOrder"]
-  GETIMPORT R13 K27 [Enum.ZIndexBehavior.Sibling]
+  GETIMPORT R13 K24 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R13 R12 K17 ["ZIndexBehavior"]
-  GETIMPORT R13 K29 [Enum.ScreenInsets.DeviceSafeInsets]
+  GETIMPORT R13 K26 [Enum.ScreenInsets.DeviceSafeInsets]
   SETTABLEKS R13 R12 K18 ["ScreenInsets"]
-  GETUPVAL R15 6
-  GETTABLEKS R14 R15 K30 ["FoundationOverlayNoClip"]
-  JUMPIFNOT R14 [+3]
-  GETIMPORT R13 K32 [Enum.SafeAreaCompatibility.None]
-  JUMP [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K19 ["SafeAreaCompatibility"]
-  GETUPVAL R15 6
-  GETTABLEKS R14 R15 K30 ["FoundationOverlayNoClip"]
-  JUMPIFNOT R14 [+2]
-  LOADB R13 0
-  JUMP [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K20 ["ClipToDeviceSafeArea"]
-  SETTABLEKS R4 R12 K21 ["ref"]
-  DUPTABLE R13 K34 [{"FoundationStyleLink"}]
-  GETUPVAL R16 6
-  GETTABLEKS R15 R16 K35 ["FoundationDisableStylingPolyfill"]
+  SETTABLEKS R4 R12 K19 ["ref"]
+  DUPTABLE R13 K28 [{"FoundationStyleLink"}]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K29 ["FoundationDisableStylingPolyfill"]
   JUMPIFNOT R15 [+9]
   GETUPVAL R15 0
   GETTABLEKS R14 R15 K4 ["createElement"]
-  LOADK R15 K36 ["StyleLink"]
-  DUPTABLE R16 K38 [{"StyleSheet"}]
-  SETTABLEKS R3 R16 K37 ["StyleSheet"]
+  LOADK R15 K30 ["StyleLink"]
+  DUPTABLE R16 K32 [{"StyleSheet"}]
+  SETTABLEKS R3 R16 K31 ["StyleSheet"]
   CALL R14 2 1
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K33 ["FoundationStyleLink"]
+  SETTABLEKS R14 R13 K27 ["FoundationStyleLink"]
   CALL R10 3 1
   GETUPVAL R11 3
   CALL R9 2 1
@@ -107,9 +91,9 @@ PROTO_2:
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K4 ["createElement"]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K39 ["Fragment"]
+  GETTABLEKS R10 R11 K33 ["Fragment"]
   LOADNIL R11
-  GETTABLEKS R12 R0 K40 ["children"]
+  GETTABLEKS R12 R0 K34 ["children"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K11 ["Children"]
   CALL R5 3 -1
@@ -123,67 +107,63 @@ MAIN:
   CALL R0 2 1
   GETTABLEKS R1 R0 K4 ["Parent"]
   GETIMPORT R2 K6 [require]
-  GETTABLEKS R3 R0 K7 ["Constants"]
+  GETTABLEKS R4 R0 K7 ["Utility"]
+  GETTABLEKS R3 R4 K8 ["Wrappers"]
   CALL R2 1 1
-  GETIMPORT R3 K6 [require]
-  GETTABLEKS R5 R0 K8 ["Utility"]
-  GETTABLEKS R4 R5 K9 ["Wrappers"]
-  CALL R3 1 1
-  GETTABLEKS R5 R3 K10 ["Services"]
-  GETTABLEKS R4 R5 K11 ["CoreGui"]
-  GETTABLEKS R6 R3 K10 ["Services"]
-  GETTABLEKS R5 R6 K12 ["RunService"]
-  GETTABLEKS R7 R3 K10 ["Services"]
-  GETTABLEKS R6 R7 K13 ["Players"]
-  GETTABLEKS R8 R6 K14 ["LocalPlayer"]
-  JUMPIFNOT R8 [+12]
-  NAMECALL R8 R5 K15 ["IsRunning"]
-  CALL R8 1 1
-  JUMPIFNOT R8 [+8]
-  GETTABLEKS R7 R6 K14 ["LocalPlayer"]
-  LOADK R9 K16 ["PlayerGui"]
-  LOADN R10 3
-  NAMECALL R7 R7 K17 ["WaitForChild"]
-  CALL R7 3 1
+  GETTABLEKS R4 R2 K9 ["Services"]
+  GETTABLEKS R3 R4 K10 ["CoreGui"]
+  GETTABLEKS R5 R2 K9 ["Services"]
+  GETTABLEKS R4 R5 K11 ["RunService"]
+  GETTABLEKS R6 R2 K9 ["Services"]
+  GETTABLEKS R5 R6 K12 ["Players"]
+  GETTABLEKS R7 R5 K13 ["LocalPlayer"]
+  JUMPIFNOT R7 [+12]
+  NAMECALL R7 R4 K14 ["IsRunning"]
+  CALL R7 1 1
+  JUMPIFNOT R7 [+8]
+  GETTABLEKS R6 R5 K13 ["LocalPlayer"]
+  LOADK R8 K15 ["PlayerGui"]
+  LOADN R9 3
+  NAMECALL R6 R6 K16 ["WaitForChild"]
+  CALL R6 3 1
   JUMP [+1]
-  LOADNIL R7
+  LOADNIL R6
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K7 ["Utility"]
+  GETTABLEKS R8 R9 K17 ["isPluginSecurity"]
+  CALL R7 1 1
   GETIMPORT R8 K6 [require]
-  GETTABLEKS R10 R0 K8 ["Utility"]
-  GETTABLEKS R9 R10 K18 ["isPluginSecurity"]
+  GETTABLEKS R10 R0 K7 ["Utility"]
+  GETTABLEKS R9 R10 K18 ["Flags"]
   CALL R8 1 1
-  GETIMPORT R9 K6 [require]
-  GETTABLEKS R11 R0 K8 ["Utility"]
-  GETTABLEKS R10 R11 K19 ["Flags"]
-  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R13 R0 K19 ["Providers"]
+  GETTABLEKS R12 R13 K20 ["Style"]
+  GETTABLEKS R11 R12 K21 ["StyleSheetContext"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K22 ["useStyleSheet"]
+  GETIMPORT R10 K6 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K4 ["Parent"]
+  GETTABLEKS R11 R12 K23 ["OverlayContext"]
+  CALL R10 1 1
   GETIMPORT R11 K6 [require]
-  GETTABLEKS R14 R0 K20 ["Providers"]
-  GETTABLEKS R13 R14 K21 ["Style"]
-  GETTABLEKS R12 R13 K22 ["StyleSheetContext"]
-  CALL R11 1 1
-  GETTABLEKS R10 R11 K23 ["useStyleSheet"]
-  GETIMPORT R11 K6 [require]
-  GETIMPORT R14 K1 [script]
-  GETTABLEKS R13 R14 K4 ["Parent"]
-  GETTABLEKS R12 R13 K24 ["OverlayContext"]
+  GETTABLEKS R12 R1 K24 ["React"]
   CALL R11 1 1
   GETIMPORT R12 K6 [require]
-  GETTABLEKS R13 R1 K25 ["React"]
+  GETTABLEKS R13 R1 K25 ["ReactRoblox"]
   CALL R12 1 1
-  GETIMPORT R13 K6 [require]
-  GETTABLEKS R14 R1 K26 ["ReactRoblox"]
-  CALL R13 1 1
-  MOVE R15 R8
-  CALL R15 0 1
-  JUMPIFNOT R15 [+2]
-  MOVE R14 R4
-  JUMP [+1]
   MOVE R14 R7
-  DUPCLOSURE R15 K27 [PROTO_2]
-  CAPTURE VAL R12
-  CAPTURE VAL R10
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  MOVE R13 R3
+  JUMP [+1]
+  MOVE R13 R6
+  DUPCLOSURE R14 K26 [PROTO_2]
   CAPTURE VAL R11
-  CAPTURE VAL R14
-  CAPTURE VAL R13
-  CAPTURE VAL R2
   CAPTURE VAL R9
-  RETURN R15 1
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  RETURN R14 1

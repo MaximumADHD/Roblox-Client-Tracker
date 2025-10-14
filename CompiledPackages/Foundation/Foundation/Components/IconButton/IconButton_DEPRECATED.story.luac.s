@@ -38,17 +38,21 @@ PROTO_2:
   RETURN R1 -1
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K0 ["controls"]
+  GETTABLEKS R2 R3 K1 ["updateIconButtonSizes"]
+  SETTABLEKS R2 R1 K2 ["FoundationUpdateIconButtonSizes"]
   GETUPVAL R2 1
-  DUPTABLE R3 K2 [{"tag"}]
-  LOADK R4 K3 ["row gap-medium auto-y size-full-0 align-y-center"]
-  SETTABLEKS R4 R3 K1 ["tag"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K4 ["map"]
+  GETTABLEKS R1 R2 K3 ["createElement"]
+  GETUPVAL R2 2
+  DUPTABLE R3 K5 [{"tag"}]
+  LOADK R4 K6 ["row gap-medium auto-y size-full-0 align-y-center"]
+  SETTABLEKS R4 R3 K4 ["tag"]
   GETUPVAL R5 3
+  GETTABLEKS R4 R5 K7 ["map"]
+  GETUPVAL R5 4
   NEWCLOSURE R6 P0
-  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   CAPTURE VAL R0
   CALL R4 2 -1
   CALL R1 -1 -1
@@ -79,36 +83,43 @@ MAIN:
   GETTABLEKS R8 R0 K12 ["Enums"]
   GETTABLEKS R7 R8 K13 ["IconSize"]
   CALL R6 1 1
-  DUPCLOSURE R7 K14 [PROTO_1]
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K14 ["Utility"]
+  GETTABLEKS R8 R9 K15 ["Flags"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K16 [PROTO_1]
   CAPTURE VAL R2
   CAPTURE VAL R5
-  NEWTABLE R8 0 5
-  GETTABLEKS R9 R6 K15 ["Small"]
-  GETTABLEKS R10 R6 K16 ["Medium"]
-  GETTABLEKS R11 R6 K17 ["Large"]
-  GETTABLEKS R12 R6 K18 ["XLarge"]
-  GETTABLEKS R13 R6 K19 ["XXLarge"]
-  SETLIST R8 R9 5 [1]
-  DUPTABLE R9 K23 [{"summary", "story", "controls"}]
-  LOADK R10 K24 ["Icon component for displaying icons"]
-  SETTABLEKS R10 R9 K20 ["summary"]
-  DUPCLOSURE R10 K25 [PROTO_3]
+  NEWTABLE R9 0 5
+  GETTABLEKS R10 R6 K17 ["Small"]
+  GETTABLEKS R11 R6 K18 ["Medium"]
+  GETTABLEKS R12 R6 K19 ["Large"]
+  GETTABLEKS R13 R6 K20 ["XLarge"]
+  GETTABLEKS R14 R6 K21 ["XXLarge"]
+  SETLIST R9 R10 5 [1]
+  DUPTABLE R10 K25 [{"summary", "story", "controls"}]
+  LOADK R11 K26 ["Icon component for displaying icons"]
+  SETTABLEKS R11 R10 K22 ["summary"]
+  DUPCLOSURE R11 K27 [PROTO_3]
+  CAPTURE VAL R7
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R3
+  CAPTURE VAL R9
   CAPTURE VAL R8
-  CAPTURE VAL R7
-  SETTABLEKS R10 R9 K21 ["story"]
-  DUPTABLE R10 K28 [{"name", "isCircular"}]
-  NEWTABLE R11 0 5
-  LOADK R12 K29 ["icons/common/notificationOff"]
-  LOADK R13 K30 ["icons/common/robux"]
-  LOADK R14 K31 ["icons/common/search_small"]
-  LOADK R15 K32 ["icons/controls/voice/microphone_off_light"]
-  LOADK R16 K33 ["icons/controls/voice/video_on_light"]
-  SETLIST R11 R12 5 [1]
-  SETTABLEKS R11 R10 K26 ["name"]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K27 ["isCircular"]
-  SETTABLEKS R10 R9 K22 ["controls"]
-  RETURN R9 1
+  SETTABLEKS R11 R10 K23 ["story"]
+  DUPTABLE R11 K31 [{"name", "isCircular", "updateIconButtonSizes"}]
+  NEWTABLE R12 0 5
+  LOADK R13 K32 ["icons/common/notificationOff"]
+  LOADK R14 K33 ["icons/common/robux"]
+  LOADK R15 K34 ["icons/common/search_small"]
+  LOADK R16 K35 ["icons/controls/voice/microphone_off_light"]
+  LOADK R17 K36 ["icons/controls/voice/video_on_light"]
+  SETLIST R12 R13 5 [1]
+  SETTABLEKS R12 R11 K28 ["name"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K29 ["isCircular"]
+  GETTABLEKS R12 R7 K37 ["FoundationUpdateIconButtonSizes"]
+  SETTABLEKS R12 R11 K30 ["updateIconButtonSizes"]
+  SETTABLEKS R11 R10 K24 ["controls"]
+  RETURN R10 1

@@ -1,9 +1,9 @@
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [require]
-  GETIMPORT R2 K3 [script]
-  GETTABLEKS R1 R2 K4 ["Dropdown"]
-  CALL R0 1 1
-  DUPTABLE R1 K6 [{"Root"}]
-  SETTABLEKS R0 R1 K5 ["Root"]
-  RETURN R1 1
+  DUPTABLE R0 K1 [{"Root"}]
+  GETIMPORT R1 K3 [require]
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Dropdown"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K0 ["Root"]
+  RETURN R0 1

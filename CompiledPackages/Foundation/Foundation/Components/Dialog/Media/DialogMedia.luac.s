@@ -1,0 +1,65 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 3
+  DUPTABLE R4 K3 [{"tag", "LayoutOrder"}]
+  LOADK R5 K4 ["auto-y size-full-0 row align-x-center"]
+  SETTABLEKS R5 R4 K1 ["tag"]
+  GETTABLEKS R5 R1 K2 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
+  DUPTABLE R5 K6 [{"Image"}]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K0 ["createElement"]
+  GETUPVAL R7 4
+  DUPTABLE R8 K9 [{"aspectRatio", "Image", "Size"}]
+  GETTABLEKS R9 R1 K7 ["aspectRatio"]
+  SETTABLEKS R9 R8 K7 ["aspectRatio"]
+  GETTABLEKS R9 R1 K10 ["media"]
+  SETTABLEKS R9 R8 K5 ["Image"]
+  GETTABLEKS R9 R1 K8 ["Size"]
+  SETTABLEKS R9 R8 K8 ["Size"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K5 ["Image"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["View"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Image"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K11 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K12 ["Utility"]
+  GETTABLEKS R7 R8 K13 ["withDefaults"]
+  CALL R6 1 1
+  DUPTABLE R7 K15 [{"LayoutOrder"}]
+  LOADN R8 255
+  SETTABLEKS R8 R7 K14 ["LayoutOrder"]
+  DUPCLOSURE R8 K16 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R8 1

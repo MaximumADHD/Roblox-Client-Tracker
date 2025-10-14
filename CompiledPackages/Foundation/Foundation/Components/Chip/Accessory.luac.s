@@ -125,22 +125,20 @@ PROTO_2:
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K7 ["createElement"]
   GETUPVAL R6 9
-  DUPTABLE R7 K27 [{"tag", "padding", "onActivated", "isDisabled", "LayoutOrder"}]
-  LOADK R8 K28 ["auto-xy"]
+  DUPTABLE R7 K26 [{"tag", "padding", "onActivated", "LayoutOrder"}]
+  LOADK R8 K27 ["auto-xy"]
   SETTABLEKS R8 R7 K22 ["tag"]
   GETTABLEKS R9 R3 K14 ["accessory"]
   GETTABLEKS R8 R9 K23 ["padding"]
   SETTABLEKS R8 R7 K23 ["padding"]
   GETTABLEKS R8 R2 K24 ["onActivated"]
   SETTABLEKS R8 R7 K24 ["onActivated"]
-  GETTABLEKS R8 R0 K25 ["isDisabled"]
-  SETTABLEKS R8 R7 K25 ["isDisabled"]
   GETTABLEKS R9 R0 K3 ["isLeading"]
   JUMPIFNOT R9 [+2]
   LOADN R8 1
   JUMP [+1]
   LOADN R8 3
-  SETTABLEKS R8 R7 K26 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K25 ["LayoutOrder"]
   MOVE R8 R4
   CALL R5 3 -1
   RETURN R5 -1

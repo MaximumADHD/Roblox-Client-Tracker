@@ -4,7 +4,7 @@ PROTO_0:
   GETTABLEKS R3 R0 K0 ["cursorType"]
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K1 ["NavHighlight"]
-  JUMPIFNOTEQ R3 R4 [+61]
+  JUMPIFNOTEQ R3 R4 [+73]
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K2 ["createElement"]
   LOADK R4 K3 ["Frame"]
@@ -30,29 +30,39 @@ PROTO_0:
   SETTABLEKS R6 R5 K6 ["Size"]
   LOADN R6 1
   SETTABLEKS R6 R5 K7 ["BorderSizePixel"]
-  GETTABLEKS R9 R2 K18 ["Color"]
-  GETTABLEKS R8 R9 K19 ["Selection"]
-  GETTABLEKS R7 R8 K20 ["Start"]
-  GETTABLEKS R6 R7 K21 ["Color3"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K18 ["FoundationFixCursorStyling"]
+  JUMPIFNOT R7 [+9]
+  GETTABLEKS R9 R2 K19 ["Color"]
+  GETTABLEKS R8 R9 K20 ["Selection"]
+  GETTABLEKS R7 R8 K21 ["Start"]
+  GETTABLEKS R6 R7 K22 ["Color3"]
+  JUMP [+1]
+  GETUPVAL R6 4
   SETTABLEKS R6 R5 K8 ["BackgroundColor3"]
   LOADN R6 0
   SETTABLEKS R6 R5 K9 ["BackgroundTransparency"]
-  GETTABLEKS R9 R2 K18 ["Color"]
-  GETTABLEKS R8 R9 K19 ["Selection"]
-  GETTABLEKS R7 R8 K20 ["Start"]
-  GETTABLEKS R6 R7 K21 ["Color3"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K18 ["FoundationFixCursorStyling"]
+  JUMPIFNOT R7 [+9]
+  GETTABLEKS R9 R2 K19 ["Color"]
+  GETTABLEKS R8 R9 K20 ["Selection"]
+  GETTABLEKS R7 R8 K21 ["Start"]
+  GETTABLEKS R6 R7 K22 ["Color3"]
+  JUMP [+1]
+  GETUPVAL R6 4
   SETTABLEKS R6 R5 K10 ["BorderColor3"]
   SETTABLEKS R1 R5 K11 ["ref"]
   CALL R3 2 -1
   RETURN R3 -1
   GETTABLEKS R3 R0 K0 ["cursorType"]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K22 ["Invisible"]
+  GETTABLEKS R4 R5 K23 ["Invisible"]
   JUMPIFNOTEQ R3 R4 [+22]
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K2 ["createElement"]
   LOADK R4 K3 ["Frame"]
-  DUPTABLE R5 K23 [{"BackgroundTransparency", "Size", "ref"}]
+  DUPTABLE R5 K24 [{"BackgroundTransparency", "Size", "ref"}]
   LOADN R6 1
   SETTABLEKS R6 R5 K9 ["BackgroundTransparency"]
   GETIMPORT R6 K17 [UDim2.new]
@@ -65,53 +75,46 @@ PROTO_0:
   SETTABLEKS R1 R5 K11 ["ref"]
   CALL R3 2 -1
   RETURN R3 -1
-  GETUPVAL R4 3
+  GETUPVAL R4 5
   GETTABLEKS R5 R0 K0 ["cursorType"]
   GETTABLE R3 R4 R5
-  GETTABLEKS R4 R3 K24 ["Tag"]
-  JUMPIFNOTEQKS R4 K25 ["FixedSizeImage"] [+78]
-  GETIMPORT R4 K27 [UDim2.fromOffset]
+  GETTABLEKS R4 R3 K25 ["Tag"]
+  JUMPIFNOTEQKS R4 K26 ["FixedSizeImage"] [+67]
+  GETIMPORT R4 K28 [UDim2.fromOffset]
   GETTABLEKS R5 R3 K6 ["Size"]
   GETTABLEKS R6 R3 K6 ["Size"]
   CALL R4 2 1
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K18 ["FoundationFixCursorStyling"]
+  JUMPIFNOT R6 [+18]
   GETIMPORT R5 K17 [UDim2.new]
-  LOADK R6 K28 [0.5]
-  GETTABLEKS R10 R4 K30 ["X"]
-  GETTABLEKS R9 R10 K31 ["Offset"]
+  LOADK R6 K29 [0.5]
+  GETTABLEKS R10 R4 K31 ["X"]
+  GETTABLEKS R9 R10 K32 ["Offset"]
   MINUS R8 R9
-  DIVK R7 R8 K29 [2]
-  LOADK R8 K28 [0.5]
-  GETTABLEKS R12 R4 K32 ["Y"]
-  GETTABLEKS R11 R12 K31 ["Offset"]
+  DIVK R7 R8 K30 [2]
+  LOADK R8 K29 [0.5]
+  GETTABLEKS R12 R4 K33 ["Y"]
+  GETTABLEKS R11 R12 K32 ["Offset"]
   MINUS R10 R11
-  DIVK R9 R10 K29 [2]
+  DIVK R9 R10 K30 [2]
   CALL R5 4 1
+  JUMP [+1]
+  LOADNIL R5
   GETUPVAL R7 2
   GETTABLEKS R6 R7 K2 ["createElement"]
-  GETUPVAL R7 4
-  DUPTABLE R8 K35 [{"Image", "imageStyle", "Size", "Position", "ref"}]
-  GETTABLEKS R9 R3 K33 ["Image"]
-  SETTABLEKS R9 R8 K33 ["Image"]
-  GETUPVAL R11 5
-  GETTABLEKS R10 R11 K36 ["FoundationRemoveSelectionCursorHeartbeat"]
-  JUMPIFNOT R10 [+7]
-  GETTABLEKS R11 R2 K18 ["Color"]
-  GETTABLEKS R10 R11 K19 ["Selection"]
-  GETTABLEKS R9 R10 K20 ["Start"]
-  JUMP [+4]
+  GETUPVAL R7 6
+  DUPTABLE R8 K36 [{"Image", "imageStyle", "Size", "Position", "ref"}]
+  GETTABLEKS R9 R3 K34 ["Image"]
+  SETTABLEKS R9 R8 K34 ["Image"]
   DUPTABLE R9 K37 [{"Color3"}]
-  GETUPVAL R10 6
-  SETTABLEKS R10 R9 K21 ["Color3"]
-  SETTABLEKS R9 R8 K34 ["imageStyle"]
+  GETUPVAL R10 4
+  SETTABLEKS R10 R9 K22 ["Color3"]
+  SETTABLEKS R9 R8 K35 ["imageStyle"]
   SETTABLEKS R4 R8 K6 ["Size"]
   SETTABLEKS R5 R8 K5 ["Position"]
   SETTABLEKS R1 R8 K11 ["ref"]
   DUPTABLE R9 K39 [{"AnimatedGradient"}]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K36 ["FoundationRemoveSelectionCursorHeartbeat"]
-  JUMPIFNOT R11 [+2]
-  LOADNIL R10
-  JUMP [+10]
   GETTABLEKS R11 R0 K40 ["isVisible"]
   JUMPIFNOT R11 [+6]
   GETUPVAL R11 2
@@ -123,16 +126,16 @@ PROTO_0:
   SETTABLEKS R10 R9 K38 ["AnimatedGradient"]
   CALL R6 3 -1
   RETURN R6 -1
-  GETTABLEKS R4 R3 K24 ["Tag"]
-  JUMPIFNOTEQKS R4 K41 ["SlicedImage"] [+128]
+  GETTABLEKS R4 R3 K25 ["Tag"]
+  JUMPIFNOTEQKS R4 K41 ["SlicedImage"] [+111]
   GETTABLEKS R4 R3 K42 ["InsetAdjustment"]
   GETIMPORT R5 K17 [UDim2.new]
   LOADN R6 1
-  GETTABLEKS R8 R4 K30 ["X"]
-  MULK R7 R8 K29 [2]
+  GETTABLEKS R8 R4 K31 ["X"]
+  MULK R7 R8 K30 [2]
   LOADN R8 1
-  GETTABLEKS R10 R4 K32 ["Y"]
-  MULK R9 R10 K29 [2]
+  GETTABLEKS R10 R4 K33 ["Y"]
+  MULK R9 R10 K30 [2]
   CALL R5 4 1
   GETTABLEKS R7 R3 K43 ["Padding"]
   JUMPIFNOT R7 [+39]
@@ -165,41 +168,29 @@ PROTO_0:
   LOADNIL R6
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R8 4
+  GETUPVAL R8 6
   DUPTABLE R9 K53 [{"Image", "imageStyle", "slice", "Size", "Position", "ref"}]
-  GETTABLEKS R10 R3 K33 ["Image"]
-  SETTABLEKS R10 R9 K33 ["Image"]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K36 ["FoundationRemoveSelectionCursorHeartbeat"]
-  JUMPIFNOT R11 [+7]
-  GETTABLEKS R12 R2 K18 ["Color"]
-  GETTABLEKS R11 R12 K19 ["Selection"]
-  GETTABLEKS R10 R11 K20 ["Start"]
-  JUMP [+4]
+  GETTABLEKS R10 R3 K34 ["Image"]
+  SETTABLEKS R10 R9 K34 ["Image"]
   DUPTABLE R10 K37 [{"Color3"}]
-  GETUPVAL R11 6
-  SETTABLEKS R11 R10 K21 ["Color3"]
-  SETTABLEKS R10 R9 K34 ["imageStyle"]
+  GETUPVAL R11 4
+  SETTABLEKS R11 R10 K22 ["Color3"]
+  SETTABLEKS R10 R9 K35 ["imageStyle"]
   DUPTABLE R10 K55 [{"center"}]
   GETTABLEKS R11 R3 K56 ["SliceCenter"]
   SETTABLEKS R11 R10 K54 ["center"]
   SETTABLEKS R10 R9 K52 ["slice"]
   SETTABLEKS R5 R9 K6 ["Size"]
-  GETIMPORT R10 K27 [UDim2.fromOffset]
-  GETTABLEKS R12 R4 K30 ["X"]
+  GETIMPORT R10 K28 [UDim2.fromOffset]
+  GETTABLEKS R12 R4 K31 ["X"]
   MINUS R11 R12
-  GETTABLEKS R13 R4 K32 ["Y"]
+  GETTABLEKS R13 R4 K33 ["Y"]
   MINUS R12 R13
   CALL R10 2 1
   SETTABLEKS R10 R9 K5 ["Position"]
   SETTABLEKS R1 R9 K11 ["ref"]
   DUPTABLE R10 K57 [{"Padding", "AnimatedGradient"}]
   SETTABLEKS R6 R10 K43 ["Padding"]
-  GETUPVAL R13 5
-  GETTABLEKS R12 R13 K36 ["FoundationRemoveSelectionCursorHeartbeat"]
-  JUMPIFNOT R12 [+2]
-  LOADNIL R11
-  JUMP [+10]
   GETTABLEKS R12 R0 K40 ["isVisible"]
   JUMPIFNOT R12 [+6]
   GETUPVAL R12 2
@@ -211,7 +202,7 @@ PROTO_0:
   SETTABLEKS R11 R10 K38 ["AnimatedGradient"]
   CALL R7 3 -1
   RETURN R7 -1
-  GETTABLEKS R4 R3 K24 ["Tag"]
+  GETTABLEKS R4 R3 K25 ["Tag"]
   JUMPIFNOTEQKS R4 K58 ["RoundedImage"] [+29]
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K2 ["createElement"]
@@ -221,7 +212,7 @@ PROTO_0:
   SETTABLEKS R7 R6 K40 ["isVisible"]
   GETTABLEKS R7 R3 K63 ["CornerRadius"]
   SETTABLEKS R7 R6 K59 ["cornerRadius"]
-  GETTABLEKS R8 R3 K31 ["Offset"]
+  GETTABLEKS R8 R3 K32 ["Offset"]
   GETTABLEKS R9 R3 K64 ["BorderWidth"]
   SUB R7 R8 R9
   SETTABLEKS R7 R6 K60 ["offset"]
@@ -328,23 +319,30 @@ MAIN:
   LOADN R17 12
   CALL R13 4 1
   SETTABLEKS R13 R12 K24 ["SliceCenter"]
+  GETTABLEKS R14 R8 K37 ["FoundationFixCursorStyling"]
+  JUMPIFNOT R14 [+6]
   GETIMPORT R13 K32 [Vector2.new]
   LOADN R14 7
   LOADN R15 0
   CALL R13 2 1
+  JUMP [+5]
+  GETIMPORT R13 K32 [Vector2.new]
+  LOADN R14 14
+  LOADN R15 14
+  CALL R13 2 1
   SETTABLEKS R13 R12 K25 ["InsetAdjustment"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K37 ["SelectionCell"]
-  DUPTABLE R12 K39 [{"Tag", "Image", "SliceCenter", "InsetAdjustment", "Padding"}]
+  GETTABLEKS R11 R6 K38 ["SelectionCell"]
+  DUPTABLE R12 K40 [{"Tag", "Image", "SliceCenter", "InsetAdjustment", "Padding"}]
   LOADK R13 K27 ["SlicedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  LOADK R13 K40 ["component_assets/square_7_stroke_3"]
+  LOADK R13 K41 ["component_assets/square_7_stroke_3"]
   SETTABLEKS R13 R12 K9 ["Image"]
   GETIMPORT R13 K30 [Rect.new]
-  LOADK R14 K41 [3.5]
-  LOADK R15 K41 [3.5]
-  LOADK R16 K41 [3.5]
-  LOADK R17 K41 [3.5]
+  LOADK R14 K42 [3.5]
+  LOADK R15 K42 [3.5]
+  LOADK R16 K42 [3.5]
+  LOADK R17 K42 [3.5]
   CALL R13 4 1
   SETTABLEKS R13 R12 K24 ["SliceCenter"]
   GETIMPORT R13 K32 [Vector2.new]
@@ -353,161 +351,165 @@ MAIN:
   CALL R13 2 1
   SETTABLEKS R13 R12 K25 ["InsetAdjustment"]
   LOADN R13 50
-  SETTABLEKS R13 R12 K38 ["Padding"]
+  SETTABLEKS R13 R12 K39 ["Padding"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K42 ["SelectedKnob"]
-  DUPTABLE R12 K44 [{"Tag", "Image", "Size"}]
-  LOADK R13 K45 ["FixedSizeImage"]
+  GETTABLEKS R11 R6 K43 ["SelectedKnob"]
+  DUPTABLE R12 K45 [{"Tag", "Image", "Size"}]
+  LOADK R13 K46 ["FixedSizeImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  LOADK R13 K46 ["component_assets/circle_42_stroke_3"]
+  LOADK R13 K47 ["component_assets/circle_42_stroke_3"]
   SETTABLEKS R13 R12 K9 ["Image"]
   LOADN R13 42
-  SETTABLEKS R13 R12 K43 ["Size"]
+  SETTABLEKS R13 R12 K44 ["Size"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K47 ["UnselectedKnob"]
-  DUPTABLE R12 K44 [{"Tag", "Image", "Size"}]
-  LOADK R13 K45 ["FixedSizeImage"]
+  GETTABLEKS R11 R6 K48 ["UnselectedKnob"]
+  DUPTABLE R12 K45 [{"Tag", "Image", "Size"}]
+  LOADK R13 K46 ["FixedSizeImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  LOADK R13 K48 ["component_assets/circle_52_stroke_3"]
+  LOADK R13 K49 ["component_assets/circle_52_stroke_3"]
   SETTABLEKS R13 R12 K9 ["Image"]
   LOADN R13 52
-  SETTABLEKS R13 R12 K43 ["Size"]
+  SETTABLEKS R13 R12 K44 ["Size"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K49 ["InputButton"]
-  DUPTABLE R12 K53 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
-  LOADK R13 K54 ["RoundedImage"]
+  GETTABLEKS R11 R6 K50 ["InputButton"]
+  DUPTABLE R12 K54 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
+  LOADK R13 K55 ["RoundedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  GETIMPORT R13 K56 [UDim.new]
+  GETIMPORT R13 K57 [UDim.new]
   LOADN R14 0
   LOADN R15 11
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["CornerRadius"]
+  SETTABLEKS R13 R12 K51 ["CornerRadius"]
   LOADN R13 11
-  SETTABLEKS R13 R12 K51 ["Offset"]
+  SETTABLEKS R13 R12 K52 ["Offset"]
   LOADN R13 3
-  SETTABLEKS R13 R12 K52 ["BorderWidth"]
+  SETTABLEKS R13 R12 K53 ["BorderWidth"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K57 ["RoundedRect"]
-  DUPTABLE R12 K53 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
-  LOADK R13 K54 ["RoundedImage"]
+  GETTABLEKS R11 R6 K58 ["RoundedRect"]
+  DUPTABLE R12 K54 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
+  LOADK R13 K55 ["RoundedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  GETIMPORT R13 K56 [UDim.new]
+  GETIMPORT R13 K57 [UDim.new]
   LOADN R14 0
   LOADN R15 8
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["CornerRadius"]
+  SETTABLEKS R13 R12 K51 ["CornerRadius"]
   LOADN R13 9
-  SETTABLEKS R13 R12 K51 ["Offset"]
+  SETTABLEKS R13 R12 K52 ["Offset"]
   LOADN R13 3
-  SETTABLEKS R13 R12 K52 ["BorderWidth"]
+  SETTABLEKS R13 R12 K53 ["BorderWidth"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K58 ["RoundedRectNoInset"]
-  DUPTABLE R12 K53 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
-  LOADK R13 K54 ["RoundedImage"]
+  GETTABLEKS R11 R6 K59 ["RoundedRectNoInset"]
+  DUPTABLE R12 K54 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
+  LOADK R13 K55 ["RoundedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  GETIMPORT R13 K56 [UDim.new]
+  GETIMPORT R13 K57 [UDim.new]
   LOADN R14 0
   LOADN R15 8
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["CornerRadius"]
+  SETTABLEKS R13 R12 K51 ["CornerRadius"]
+  GETTABLEKS R14 R8 K37 ["FoundationFixCursorStyling"]
+  JUMPIFNOT R14 [+2]
   LOADN R13 0
-  SETTABLEKS R13 R12 K51 ["Offset"]
+  JUMP [+1]
+  LOADN R13 9
+  SETTABLEKS R13 R12 K52 ["Offset"]
   LOADN R13 3
-  SETTABLEKS R13 R12 K52 ["BorderWidth"]
+  SETTABLEKS R13 R12 K53 ["BorderWidth"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K59 ["RoundedSlot"]
-  DUPTABLE R12 K53 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
-  LOADK R13 K54 ["RoundedImage"]
+  GETTABLEKS R11 R6 K60 ["RoundedSlot"]
+  DUPTABLE R12 K54 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
+  LOADK R13 K55 ["RoundedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  GETIMPORT R13 K56 [UDim.new]
+  GETIMPORT R13 K57 [UDim.new]
   LOADN R14 0
   LOADN R15 7
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["CornerRadius"]
+  SETTABLEKS R13 R12 K51 ["CornerRadius"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K51 ["Offset"]
+  SETTABLEKS R13 R12 K52 ["Offset"]
   LOADN R13 3
-  SETTABLEKS R13 R12 K52 ["BorderWidth"]
+  SETTABLEKS R13 R12 K53 ["BorderWidth"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K60 ["SkinToneCircle"]
-  DUPTABLE R12 K53 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
-  LOADK R13 K54 ["RoundedImage"]
+  GETTABLEKS R11 R6 K61 ["SkinToneCircle"]
+  DUPTABLE R12 K54 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
+  LOADK R13 K55 ["RoundedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  GETIMPORT R13 K56 [UDim.new]
-  LOADK R14 K61 [0.5]
+  GETIMPORT R13 K57 [UDim.new]
+  LOADK R14 K62 [0.5]
   LOADN R15 0
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["CornerRadius"]
+  SETTABLEKS R13 R12 K51 ["CornerRadius"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K51 ["Offset"]
+  SETTABLEKS R13 R12 K52 ["Offset"]
   LOADN R13 3
-  SETTABLEKS R13 R12 K52 ["BorderWidth"]
+  SETTABLEKS R13 R12 K53 ["BorderWidth"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K62 ["SmallPill"]
-  DUPTABLE R12 K53 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
-  LOADK R13 K54 ["RoundedImage"]
+  GETTABLEKS R11 R6 K63 ["SmallPill"]
+  DUPTABLE R12 K54 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
+  LOADK R13 K55 ["RoundedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  GETIMPORT R13 K56 [UDim.new]
+  GETIMPORT R13 K57 [UDim.new]
   LOADN R14 0
   LOADN R15 15
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["CornerRadius"]
+  SETTABLEKS R13 R12 K51 ["CornerRadius"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K51 ["Offset"]
+  SETTABLEKS R13 R12 K52 ["Offset"]
   LOADN R13 3
-  SETTABLEKS R13 R12 K52 ["BorderWidth"]
+  SETTABLEKS R13 R12 K53 ["BorderWidth"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K63 ["LargePill"]
-  DUPTABLE R12 K53 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
-  LOADK R13 K54 ["RoundedImage"]
+  GETTABLEKS R11 R6 K64 ["LargePill"]
+  DUPTABLE R12 K54 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
+  LOADK R13 K55 ["RoundedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  GETIMPORT R13 K56 [UDim.new]
+  GETIMPORT R13 K57 [UDim.new]
   LOADN R14 0
   LOADN R15 26
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["CornerRadius"]
+  SETTABLEKS R13 R12 K51 ["CornerRadius"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K51 ["Offset"]
+  SETTABLEKS R13 R12 K52 ["Offset"]
   LOADN R13 3
-  SETTABLEKS R13 R12 K52 ["BorderWidth"]
+  SETTABLEKS R13 R12 K53 ["BorderWidth"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K64 ["Square"]
-  DUPTABLE R12 K53 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
-  LOADK R13 K54 ["RoundedImage"]
+  GETTABLEKS R11 R6 K65 ["Square"]
+  DUPTABLE R12 K54 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
+  LOADK R13 K55 ["RoundedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  GETIMPORT R13 K56 [UDim.new]
+  GETIMPORT R13 K57 [UDim.new]
   LOADN R14 0
   LOADN R15 0
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["CornerRadius"]
+  SETTABLEKS R13 R12 K51 ["CornerRadius"]
   LOADN R13 2
-  SETTABLEKS R13 R12 K51 ["Offset"]
+  SETTABLEKS R13 R12 K52 ["Offset"]
   LOADN R13 3
-  SETTABLEKS R13 R12 K52 ["BorderWidth"]
+  SETTABLEKS R13 R12 K53 ["BorderWidth"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K65 ["Toggle"]
-  DUPTABLE R12 K53 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
-  LOADK R13 K54 ["RoundedImage"]
+  GETTABLEKS R11 R6 K66 ["Toggle"]
+  DUPTABLE R12 K54 [{"Tag", "CornerRadius", "Offset", "BorderWidth"}]
+  LOADK R13 K55 ["RoundedImage"]
   SETTABLEKS R13 R12 K23 ["Tag"]
-  GETIMPORT R13 K56 [UDim.new]
+  GETIMPORT R13 K57 [UDim.new]
   LOADN R14 0
   LOADN R15 13
   CALL R13 2 1
-  SETTABLEKS R13 R12 K50 ["CornerRadius"]
+  SETTABLEKS R13 R12 K51 ["CornerRadius"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K51 ["Offset"]
+  SETTABLEKS R13 R12 K52 ["Offset"]
   LOADN R13 3
-  SETTABLEKS R13 R12 K52 ["BorderWidth"]
+  SETTABLEKS R13 R12 K53 ["BorderWidth"]
   SETTABLE R12 R10 R11
-  GETTABLEKS R11 R2 K66 ["forwardRef"]
-  DUPCLOSURE R12 K67 [PROTO_0]
+  GETTABLEKS R11 R2 K67 ["forwardRef"]
+  DUPCLOSURE R12 K68 [PROTO_0]
   CAPTURE VAL R7
   CAPTURE VAL R6
   CAPTURE VAL R2
-  CAPTURE VAL R10
-  CAPTURE VAL R3
   CAPTURE VAL R8
   CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R4
   CALL R11 1 1

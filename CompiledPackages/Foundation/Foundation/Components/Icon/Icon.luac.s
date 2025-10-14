@@ -11,125 +11,120 @@ PROTO_0:
   GETTABLEKS R6 R2 K0 ["name"]
   CALL R5 1 1
   GETUPVAL R6 5
-  GETTABLEKS R7 R2 K1 ["size"]
-  GETUPVAL R8 6
+  GETTABLEKS R7 R2 K0 ["name"]
+  CALL R6 1 1
+  GETUPVAL R7 6
+  GETTABLEKS R8 R2 K1 ["size"]
+  MOVE R9 R5
+  CALL R7 2 1
+  GETTABLEKS R8 R2 K2 ["variant"]
   GETTABLEKS R9 R2 K0 ["name"]
-  CALL R8 1 -1
-  CALL R6 -1 1
-  GETTABLEKS R7 R2 K2 ["variant"]
-  GETTABLEKS R8 R2 K0 ["name"]
-  FASTCALL1 TYPEOF R6 [+3]
-  MOVE R11 R6
-  GETIMPORT R10 K4 [typeof]
-  CALL R10 1 1
-  JUMPIFNOTEQKS R10 K5 ["table"] [+3]
-  LOADNIL R9
-  JUMP [+4]
-  GETTABLEKS R10 R6 K6 ["Y"]
-  GETTABLEKS R9 R10 K7 ["Offset"]
-  GETUPVAL R10 6
-  MOVE R11 R8
-  CALL R10 1 1
-  JUMPIF R10 [+22]
-  JUMPIFNOT R5 [+21]
-  FASTCALL1 TYPEOF R6 [+3]
-  MOVE R11 R6
-  GETIMPORT R10 K4 [typeof]
-  CALL R10 1 1
-  JUMPIFNOTEQKS R10 K5 ["table"] [+5]
-  GETIMPORT R10 K9 [error]
-  LOADK R11 K10 ["Binding size isn't supported when migrating a UIBlox icon, use Builder Icons directly"]
-  CALL R10 1 0
-  GETTABLEKS R10 R5 K2 ["variant"]
-  OR R7 R10 R7
-  GETTABLEKS R8 R5 K0 ["name"]
-  GETUPVAL R10 7
-  MOVE R11 R9
-  MOVE R12 R3
-  CALL R10 2 1
-  MOVE R9 R10
-  GETTABLEKS R10 R2 K11 ["style"]
-  JUMPIF R10 [+6]
-  GETTABLEKS R12 R3 K12 ["Color"]
-  GETTABLEKS R11 R12 K13 ["Content"]
-  GETTABLEKS R10 R11 K14 ["Default"]
-  GETUPVAL R11 6
-  MOVE R12 R8
+  FASTCALL1 TYPEOF R7 [+3]
+  MOVE R12 R7
+  GETIMPORT R11 K4 [typeof]
   CALL R11 1 1
-  JUMPIF R11 [+34]
-  JUMPIF R5 [+33]
-  GETTABLEKS R11 R0 K2 ["variant"]
-  JUMPIFEQKNIL R11 [+6]
-  GETUPVAL R11 8
-  LOADK R13 K15 ["variant is not supported when using FoundationImages, consider using BuilderIcons"]
-  NAMECALL R11 R11 K16 ["warning"]
-  CALL R11 2 0
-  GETUPVAL R12 9
-  GETTABLEKS R11 R12 K17 ["createElement"]
-  GETUPVAL R12 10
-  GETUPVAL R13 11
-  MOVE R14 R2
-  DUPTABLE R15 K23 [{"imageStyle", "Image", "Size", "ref", "Rotation"}]
-  SETTABLEKS R10 R15 K18 ["imageStyle"]
-  SETTABLEKS R8 R15 K19 ["Image"]
-  SETTABLEKS R6 R15 K20 ["Size"]
-  SETTABLEKS R1 R15 K21 ["ref"]
-  GETTABLEKS R16 R2 K22 ["Rotation"]
-  SETTABLEKS R16 R15 K22 ["Rotation"]
-  CALL R13 2 1
-  GETTABLEKS R14 R2 K24 ["children"]
-  CALL R11 3 1
-  RETURN R11 1
-  GETUPVAL R12 9
-  GETTABLEKS R11 R12 K17 ["createElement"]
-  GETUPVAL R12 12
-  GETUPVAL R13 11
-  MOVE R14 R2
-  DUPTABLE R15 K29 [{"textStyle", "Text", "fontStyle", "TextScaled", "Size", "ref", "Rotation"}]
-  SETTABLEKS R10 R15 K25 ["textStyle"]
-  SETTABLEKS R8 R15 K26 ["Text"]
-  DUPTABLE R16 K32 [{"Font", "FontSize"}]
-  GETUPVAL R18 13
-  GETTABLE R17 R18 R7
-  SETTABLEKS R17 R16 K30 ["Font"]
-  SETTABLEKS R9 R16 K31 ["FontSize"]
-  SETTABLEKS R16 R15 K27 ["fontStyle"]
-  FASTCALL1 TYPEOF R6 [+3]
-  MOVE R18 R6
-  GETIMPORT R17 K4 [typeof]
-  CALL R17 1 1
-  JUMPIFEQKS R17 K5 ["table"] [+2]
-  LOADB R16 0 +1
-  LOADB R16 1
-  SETTABLEKS R16 R15 K28 ["TextScaled"]
-  SETTABLEKS R6 R15 K20 ["Size"]
-  SETTABLEKS R1 R15 K21 ["ref"]
-  GETTABLEKS R16 R2 K22 ["Rotation"]
-  SETTABLEKS R16 R15 K22 ["Rotation"]
-  CALL R13 2 1
-  DUPTABLE R14 K35 [{"UITextSizeConstraint", "Children"}]
-  LOADN R16 0
-  JUMPIFNOTLT R16 R4 [+11]
-  JUMPIFNOT R9 [+9]
-  GETUPVAL R16 9
-  GETTABLEKS R15 R16 K17 ["createElement"]
-  LOADK R16 K33 ["UITextSizeConstraint"]
-  DUPTABLE R17 K37 [{"MaxTextSize"}]
-  SETTABLEKS R9 R17 K36 ["MaxTextSize"]
-  CALL R15 2 1
-  JUMP [+1]
-  LOADNIL R15
-  SETTABLEKS R15 R14 K33 ["UITextSizeConstraint"]
-  GETUPVAL R16 9
-  GETTABLEKS R15 R16 K17 ["createElement"]
+  JUMPIFNOTEQKS R11 K5 ["table"] [+3]
+  LOADNIL R10
+  JUMP [+4]
+  GETTABLEKS R11 R7 K6 ["Y"]
+  GETTABLEKS R10 R11 K7 ["Offset"]
+  JUMPIF R5 [+22]
+  JUMPIFNOT R6 [+21]
+  FASTCALL1 TYPEOF R7 [+3]
+  MOVE R12 R7
+  GETIMPORT R11 K4 [typeof]
+  CALL R11 1 1
+  JUMPIFNOTEQKS R11 K5 ["table"] [+5]
+  GETIMPORT R11 K9 [error]
+  LOADK R12 K10 ["Binding size isn't supported when migrating a UIBlox icon, use Builder Icons directly"]
+  CALL R11 1 0
+  GETTABLEKS R11 R6 K2 ["variant"]
+  OR R8 R11 R8
+  GETTABLEKS R9 R6 K0 ["name"]
+  GETUPVAL R11 7
+  MOVE R12 R10
+  MOVE R13 R3
+  CALL R11 2 1
+  MOVE R10 R11
+  GETTABLEKS R11 R2 K11 ["style"]
+  JUMPIF R11 [+6]
+  GETTABLEKS R13 R3 K12 ["Color"]
+  GETTABLEKS R12 R13 K13 ["Content"]
+  GETTABLEKS R11 R12 K14 ["Default"]
+  JUMPIF R5 [+36]
+  JUMPIF R6 [+35]
+  GETTABLEKS R12 R0 K2 ["variant"]
+  JUMPIFEQKNIL R12 [+6]
+  GETUPVAL R12 8
+  LOADK R14 K15 ["variant is not supported when using FoundationImages, consider using BuilderIcons"]
+  NAMECALL R12 R12 K16 ["warning"]
+  CALL R12 2 0
+  GETUPVAL R13 9
+  GETTABLEKS R12 R13 K17 ["createElement"]
+  GETUPVAL R13 10
+  GETUPVAL R14 11
+  MOVE R15 R2
+  DUPTABLE R16 K23 [{"imageStyle", "Image", "Size", "ref", "Rotation"}]
+  SETTABLEKS R11 R16 K18 ["imageStyle"]
+  GETTABLEKS R17 R2 K0 ["name"]
+  SETTABLEKS R17 R16 K19 ["Image"]
+  SETTABLEKS R7 R16 K20 ["Size"]
+  SETTABLEKS R1 R16 K21 ["ref"]
+  GETTABLEKS R17 R2 K22 ["Rotation"]
+  SETTABLEKS R17 R16 K22 ["Rotation"]
+  CALL R14 2 1
+  GETTABLEKS R15 R2 K24 ["children"]
+  CALL R12 3 1
+  RETURN R12 1
+  GETUPVAL R13 9
+  GETTABLEKS R12 R13 K17 ["createElement"]
+  GETUPVAL R13 12
+  GETUPVAL R14 11
+  MOVE R15 R2
+  DUPTABLE R16 K29 [{"textStyle", "Text", "fontStyle", "TextScaled", "Size", "ref", "Rotation"}]
+  SETTABLEKS R11 R16 K25 ["textStyle"]
+  SETTABLEKS R9 R16 K26 ["Text"]
+  DUPTABLE R17 K32 [{"Font", "FontSize"}]
+  GETUPVAL R19 13
+  GETTABLE R18 R19 R8
+  SETTABLEKS R18 R17 K30 ["Font"]
+  SETTABLEKS R10 R17 K31 ["FontSize"]
+  SETTABLEKS R17 R16 K27 ["fontStyle"]
+  FASTCALL1 TYPEOF R7 [+3]
+  MOVE R19 R7
+  GETIMPORT R18 K4 [typeof]
+  CALL R18 1 1
+  JUMPIFEQKS R18 K5 ["table"] [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  SETTABLEKS R17 R16 K28 ["TextScaled"]
+  SETTABLEKS R7 R16 K20 ["Size"]
+  SETTABLEKS R1 R16 K21 ["ref"]
+  GETTABLEKS R17 R2 K22 ["Rotation"]
+  SETTABLEKS R17 R16 K22 ["Rotation"]
+  CALL R14 2 1
+  DUPTABLE R15 K35 [{"UITextSizeConstraint", "Children"}]
+  LOADN R17 0
+  JUMPIFNOTLT R17 R4 [+11]
+  JUMPIFNOT R10 [+9]
   GETUPVAL R17 9
-  GETTABLEKS R16 R17 K38 ["Fragment"]
-  LOADNIL R17
+  GETTABLEKS R16 R17 K17 ["createElement"]
+  LOADK R17 K33 ["UITextSizeConstraint"]
+  DUPTABLE R18 K37 [{"MaxTextSize"}]
+  SETTABLEKS R10 R18 K36 ["MaxTextSize"]
+  CALL R16 2 1
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K33 ["UITextSizeConstraint"]
+  GETUPVAL R17 9
+  GETTABLEKS R16 R17 K17 ["createElement"]
+  GETUPVAL R18 9
+  GETTABLEKS R17 R18 K38 ["Fragment"]
   GETTABLEKS R18 R2 K24 ["children"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K34 ["Children"]
-  CALL R11 3 -1
-  RETURN R11 -1
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K34 ["Children"]
+  CALL R12 3 -1
+  RETURN R12 -1
 
 MAIN:
   PREPVARARGS 0
@@ -212,9 +207,9 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R10
   CAPTURE VAL R9
+  CAPTURE VAL R15
   CAPTURE VAL R16
   CAPTURE VAL R13
-  CAPTURE VAL R15
   CAPTURE VAL R17
   CAPTURE VAL R14
   CAPTURE VAL R2

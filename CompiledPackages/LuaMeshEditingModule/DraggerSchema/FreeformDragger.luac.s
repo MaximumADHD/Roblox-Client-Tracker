@@ -8,48 +8,44 @@ PROTO_0:
   FASTCALL2 SETMETATABLE R3 R4 [+3]
   GETIMPORT R2 K6 [setmetatable]
   CALL R2 2 1
-  GETTABLEKS R3 R0 K7 ["vertexEditingTool"]
-  NAMECALL R3 R3 K8 ["getPointLocationData"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K9 ["_initialPointLocationData"]
-  NAMECALL R3 R2 K10 ["update"]
+  NAMECALL R3 R2 K7 ["update"]
   CALL R3 1 0
   RETURN R2 1
 
 PROTO_1:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["CurrentCamera"]
+  GETIMPORT R4 K1 [Workspace]
+  GETTABLEKS R3 R4 K2 ["CurrentCamera"]
   MOVE R6 R0
-  NAMECALL R4 R3 K1 ["WorldToScreenPoint"]
+  NAMECALL R4 R3 K3 ["WorldToScreenPoint"]
   CALL R4 2 1
-  GETTABLEKS R7 R4 K2 ["X"]
-  GETTABLEKS R8 R4 K3 ["Y"]
-  NAMECALL R5 R3 K4 ["ScreenPointToRay"]
+  GETTABLEKS R7 R4 K4 ["X"]
+  GETTABLEKS R8 R4 K5 ["Y"]
+  NAMECALL R5 R3 K6 ["ScreenPointToRay"]
   CALL R5 3 1
-  GETTABLEKS R7 R5 K5 ["Origin"]
-  GETTABLEKS R9 R1 K5 ["Origin"]
-  GETTABLEKS R10 R2 K5 ["Origin"]
+  GETTABLEKS R7 R5 K7 ["Origin"]
+  GETTABLEKS R9 R1 K7 ["Origin"]
+  GETTABLEKS R10 R2 K7 ["Origin"]
   SUB R8 R9 R10
   ADD R6 R7 R8
-  GETTABLEKS R11 R5 K6 ["Direction"]
-  GETTABLEKS R10 R11 K7 ["Unit"]
-  GETTABLEKS R12 R1 K6 ["Direction"]
-  GETTABLEKS R11 R12 K7 ["Unit"]
+  GETTABLEKS R11 R5 K8 ["Direction"]
+  GETTABLEKS R10 R11 K9 ["Unit"]
+  GETTABLEKS R12 R1 K8 ["Direction"]
+  GETTABLEKS R11 R12 K9 ["Unit"]
   ADD R9 R10 R11
-  GETTABLEKS R11 R2 K6 ["Direction"]
-  GETTABLEKS R10 R11 K7 ["Unit"]
+  GETTABLEKS R11 R2 K8 ["Direction"]
+  GETTABLEKS R10 R11 K9 ["Unit"]
   SUB R8 R9 R10
-  GETTABLEKS R7 R8 K7 ["Unit"]
+  GETTABLEKS R7 R8 K9 ["Unit"]
   SUB R9 R6 R0
-  GETTABLEKS R8 R9 K7 ["Unit"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K8 ["intersectRayPlanePoint"]
+  GETTABLEKS R8 R9 K9 ["Unit"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K10 ["intersectRayPlanePoint"]
   MOVE R10 R6
   MOVE R11 R7
   MOVE R12 R0
   MOVE R13 R8
   CALL R9 4 1
-  GETIMPORT R10 K11 [CFrame.new]
+  GETIMPORT R10 K13 [CFrame.new]
   MOVE R11 R9
   CALL R10 1 -1
   RETURN R10 -1
@@ -65,12 +61,9 @@ PROTO_4:
   JUMPIFNOTEQKNIL R1 [+10]
   GETTABLEKS R2 R0 K1 ["_draggerContext"]
   GETTABLEKS R1 R2 K2 ["vertexEditingTool"]
-  NAMECALL R1 R1 K3 ["getMouseStartRay"]
+  NAMECALL R1 R1 K3 ["getMouseStartPosition"]
   CALL R1 1 1
   SETTABLEKS R1 R0 K0 ["_mouseStartRay"]
-  GETTABLEKS R1 R0 K0 ["_mouseStartRay"]
-  JUMPIFNOTEQKNIL R1 [+2]
-  RETURN R0 0
   GETTABLEKS R2 R0 K4 ["_draggerToolModel"]
   GETTABLEKS R1 R2 K1 ["_draggerContext"]
   NAMECALL R1 R1 K5 ["getMouseRay"]
@@ -99,64 +92,56 @@ PROTO_4:
   SETTABLEKS R8 R0 K15 ["_totalAngle"]
   GETTABLEKS R8 R0 K1 ["_draggerContext"]
   GETTABLEKS R7 R8 K2 ["vertexEditingTool"]
-  GETTABLEKS R9 R0 K16 ["_initialPointLocationData"]
-  MOVE R10 R4
-  GETTABLEKS R11 R0 K12 ["_baseBoundingBoxCenter"]
-  GETTABLEKS R12 R0 K14 ["_axis"]
-  GETTABLEKS R13 R0 K15 ["_totalAngle"]
-  NAMECALL R7 R7 K17 ["transformSelected"]
-  CALL R7 6 0
-  SETTABLEKS R4 R0 K18 ["_lastAppliedTransform"]
+  MOVE R9 R4
+  GETTABLEKS R10 R0 K12 ["_baseBoundingBoxCenter"]
+  GETTABLEKS R11 R0 K14 ["_axis"]
+  GETTABLEKS R12 R0 K15 ["_totalAngle"]
+  NAMECALL R7 R7 K16 ["transformSelected"]
+  CALL R7 5 0
+  SETTABLEKS R4 R0 K17 ["_lastAppliedTransform"]
   RETURN R0 0
 
 PROTO_5:
   GETTABLEKS R2 R0 K0 ["_draggerContext"]
   GETTABLEKS R1 R2 K1 ["vertexEditingTool"]
-  LOADNIL R3
-  NAMECALL R1 R1 K2 ["setMouseStartRay"]
-  CALL R1 2 0
-  GETTABLEKS R1 R0 K3 ["_initialPointLocationData"]
-  JUMPIFNOT R1 [+9]
+  NAMECALL R1 R1 K2 ["setMouseStartPosition"]
+  CALL R1 1 0
   GETTABLEKS R2 R0 K0 ["_draggerContext"]
   GETTABLEKS R1 R2 K1 ["vertexEditingTool"]
-  GETTABLEKS R3 R0 K3 ["_initialPointLocationData"]
+  NAMECALL R1 R1 K3 ["updateCurrentToolStateData"]
+  CALL R1 1 0
+  GETTABLEKS R2 R0 K0 ["_draggerContext"]
+  GETTABLEKS R1 R2 K1 ["vertexEditingTool"]
   NAMECALL R1 R1 K4 ["addWaypoint"]
-  CALL R1 2 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K3 ["_initialPointLocationData"]
+  CALL R1 1 0
   RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["Workspace"]
-  NAMECALL R0 R0 K3 ["GetService"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["LuaMeshEditingModule"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["LuaMeshEditingModule"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETTABLEKS R2 R1 K8 ["Parent"]
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R4 R2 K11 ["DraggerFramework"]
-  CALL R3 1 1
-  GETTABLEKS R5 R3 K12 ["Utility"]
-  GETTABLEKS R4 R5 K13 ["Math"]
-  NEWTABLE R5 8 0
-  SETTABLEKS R5 R5 K14 ["__index"]
-  DUPCLOSURE R6 K15 [PROTO_0]
-  CAPTURE VAL R5
-  SETTABLEKS R6 R5 K16 ["new"]
-  DUPCLOSURE R6 K17 [PROTO_1]
-  CAPTURE VAL R0
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["DraggerFramework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K8 ["Utility"]
+  GETTABLEKS R3 R4 K9 ["Math"]
+  NEWTABLE R4 8 0
+  SETTABLEKS R4 R4 K10 ["__index"]
+  DUPCLOSURE R5 K11 [PROTO_0]
   CAPTURE VAL R4
-  DUPCLOSURE R7 K18 [PROTO_2]
-  SETTABLEKS R7 R5 K19 ["_selectedIsActive"]
-  DUPCLOSURE R7 K20 [PROTO_3]
-  SETTABLEKS R7 R5 K21 ["render"]
-  DUPCLOSURE R7 K22 [PROTO_4]
-  CAPTURE VAL R6
-  SETTABLEKS R7 R5 K23 ["update"]
-  DUPCLOSURE R7 K24 [PROTO_5]
-  SETTABLEKS R7 R5 K25 ["destroy"]
-  RETURN R5 1
+  SETTABLEKS R5 R4 K12 ["new"]
+  DUPCLOSURE R5 K13 [PROTO_1]
+  CAPTURE VAL R3
+  DUPCLOSURE R6 K14 [PROTO_2]
+  SETTABLEKS R6 R4 K15 ["_selectedIsActive"]
+  DUPCLOSURE R6 K16 [PROTO_3]
+  SETTABLEKS R6 R4 K17 ["render"]
+  DUPCLOSURE R6 K18 [PROTO_4]
+  CAPTURE VAL R5
+  SETTABLEKS R6 R4 K19 ["update"]
+  DUPCLOSURE R6 K20 [PROTO_5]
+  SETTABLEKS R6 R4 K21 ["destroy"]
+  RETURN R4 1

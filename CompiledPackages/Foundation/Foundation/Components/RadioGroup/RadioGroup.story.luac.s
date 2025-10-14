@@ -146,66 +146,66 @@ PROTO_5:
   RETURN R3 -1
 
 PROTO_6:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["useState"]
-  LOADNIL R1
-  CALL R0 1 2
-  GETUPVAL R2 1
-  CALL R2 0 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["useMemo"]
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R2
-  NEWTABLE R5 0 1
-  MOVE R6 R2
-  SETLIST R5 R6 1 [1]
-  CALL R3 2 1
-  NEWCLOSURE R4 P1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADNIL R2
+  CALL R1 1 2
+  GETUPVAL R3 1
+  CALL R3 0 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["useMemo"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R3
+  NEWTABLE R6 0 1
+  MOVE R7 R3
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 1
+  NEWCLOSURE R5 P1
   CAPTURE UPVAL U0
   CAPTURE UPVAL U2
-  CAPTURE VAL R3
-  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["createElement"]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K3 ["Root"]
-  DUPTABLE R7 K7 [{"value", "onValueChanged", "Selectable"}]
-  SETTABLEKS R0 R7 K4 ["value"]
-  SETTABLEKS R1 R7 K5 ["onValueChanged"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K6 ["Selectable"]
-  DUPTABLE R8 K9 [{"Container"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K2 ["createElement"]
-  GETUPVAL R10 2
-  DUPTABLE R11 K11 [{"tag"}]
-  LOADK R12 K12 ["auto-xy row gap-large wrap"]
-  SETTABLEKS R12 R11 K10 ["tag"]
-  DUPTABLE R12 K16 [{"CardA", "CardB", "CardC"}]
-  MOVE R13 R4
-  LOADK R14 K17 ["A"]
-  LOADK R15 K18 ["icons/graphic/success_xlarge"]
-  LOADK R16 K19 ["Success"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K13 ["CardA"]
-  MOVE R13 R4
-  LOADK R14 K20 ["B"]
-  LOADK R15 K21 ["icons/graphic/error_xlarge"]
-  LOADK R16 K22 ["Error"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K14 ["CardB"]
-  MOVE R13 R4
-  LOADK R14 K23 ["C"]
-  LOADK R15 K24 ["icons/graphic/newclothing_xlarge"]
-  LOADK R16 K25 ["Info"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K15 ["CardC"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K8 ["Container"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["createElement"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K3 ["Root"]
+  DUPTABLE R8 K7 [{"value", "onValueChanged", "Selectable"}]
+  SETTABLEKS R1 R8 K4 ["value"]
+  SETTABLEKS R2 R8 K5 ["onValueChanged"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K6 ["Selectable"]
+  DUPTABLE R9 K9 [{"Container"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K2 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K11 [{"tag"}]
+  LOADK R13 K12 ["auto-xy row gap-large wrap"]
+  SETTABLEKS R13 R12 K10 ["tag"]
+  DUPTABLE R13 K16 [{"CardA", "CardB", "CardC"}]
+  MOVE R14 R5
+  LOADK R15 K17 ["A"]
+  LOADK R16 K18 ["icons/graphic/success_xlarge"]
+  LOADK R17 K19 ["Success"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K13 ["CardA"]
+  MOVE R14 R5
+  LOADK R15 K20 ["B"]
+  LOADK R16 K21 ["icons/graphic/error_xlarge"]
+  LOADK R17 K22 ["Error"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K14 ["CardB"]
+  MOVE R14 R5
+  LOADK R15 K23 ["C"]
+  LOADK R16 K24 ["icons/graphic/newclothing_xlarge"]
+  LOADK R17 K25 ["Info"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K15 ["CardC"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K8 ["Container"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0

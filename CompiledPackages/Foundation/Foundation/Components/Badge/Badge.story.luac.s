@@ -58,207 +58,193 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R1 0
-  GETTABLEKS R3 R0 K0 ["controls"]
-  GETTABLEKS R2 R3 K1 ["disableBadgeTruncation"]
-  SETTABLEKS R2 R1 K2 ["FoundationDisableBadgeTruncation"]
-  GETUPVAL R1 0
-  GETTABLEKS R3 R0 K0 ["controls"]
-  GETTABLEKS R2 R3 K3 ["updateBadgeDesign"]
-  SETTABLEKS R2 R1 K4 ["FoundationUpdateBadgeDesign"]
-  GETUPVAL R1 1
   CALL R1 0 1
-  GETTABLEKS R4 R0 K0 ["controls"]
-  GETTABLEKS R3 R4 K3 ["updateBadgeDesign"]
-  JUMPIFNOT R3 [+2]
-  GETUPVAL R2 2
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["useState"]
+  NEWTABLE R3 0 0
+  CALL R2 1 2
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["useEffect"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U2
+  NEWTABLE R6 0 1
+  LOADK R7 K2 [21070012]
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 0
+  GETTABLEKS R5 R0 K3 ["controls"]
+  GETTABLEKS R4 R5 K4 ["onTile"]
+  JUMPIFNOT R4 [+214]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["createElement"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K6 ["Root"]
+  DUPTABLE R6 K10 [{"isContained", "FillDirection", "Size"}]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K7 ["isContained"]
+  GETIMPORT R7 K13 [Enum.FillDirection.Vertical]
+  SETTABLEKS R7 R6 K8 ["FillDirection"]
+  GETUPVAL R7 4
+  SETTABLEKS R7 R6 K9 ["Size"]
+  DUPTABLE R7 K16 [{"TileMedia", "TileContent"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K17 ["Media"]
+  DUPTABLE R10 K22 [{"id", "type", "aspectRatio", "background"}]
+  LOADK R11 K2 [21070012]
+  SETTABLEKS R11 R10 K18 ["id"]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K23 ["Asset"]
+  SETTABLEKS R11 R10 K19 ["type"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K20 ["aspectRatio"]
+  DUPTABLE R11 K25 [{"image"}]
+  LOADK R13 K26 ["component_assets/itemBG_"]
+  GETTABLEKS R17 R1 K27 ["Config"]
+  GETTABLEKS R16 R17 K28 ["Theme"]
+  GETTABLEKS R15 R16 K29 ["Name"]
+  GETUPVAL R17 6
+  GETTABLEKS R16 R17 K30 ["Dark"]
+  JUMPIFNOTEQ R15 R16 [+3]
+  LOADK R14 K31 ["dark"]
   JUMP [+1]
-  GETUPVAL R2 3
-  GETUPVAL R4 4
-  GETTABLEKS R3 R4 K5 ["useState"]
-  NEWTABLE R4 0 0
-  CALL R3 1 2
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K6 ["useEffect"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R4
-  CAPTURE UPVAL U5
-  NEWTABLE R7 0 1
-  LOADK R8 K7 [21070012]
-  SETLIST R7 R8 1 [1]
-  CALL R5 2 0
-  GETTABLEKS R6 R0 K0 ["controls"]
-  GETTABLEKS R5 R6 K8 ["onTile"]
-  JUMPIFNOT R5 [+214]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K9 ["createElement"]
-  GETUPVAL R7 6
-  GETTABLEKS R6 R7 K10 ["Root"]
-  DUPTABLE R7 K14 [{"isContained", "FillDirection", "Size"}]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K11 ["isContained"]
-  GETIMPORT R8 K17 [Enum.FillDirection.Vertical]
-  SETTABLEKS R8 R7 K12 ["FillDirection"]
-  GETUPVAL R8 7
-  SETTABLEKS R8 R7 K13 ["Size"]
-  DUPTABLE R8 K20 [{"TileMedia", "TileContent"}]
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K9 ["createElement"]
-  GETUPVAL R11 6
-  GETTABLEKS R10 R11 K21 ["Media"]
-  DUPTABLE R11 K26 [{"id", "type", "aspectRatio", "background"}]
-  LOADK R12 K7 [21070012]
-  SETTABLEKS R12 R11 K22 ["id"]
-  GETUPVAL R13 8
-  GETTABLEKS R12 R13 K27 ["Asset"]
-  SETTABLEKS R12 R11 K23 ["type"]
-  LOADN R12 1
-  SETTABLEKS R12 R11 K24 ["aspectRatio"]
-  DUPTABLE R12 K29 [{"image"}]
-  LOADK R14 K30 ["component_assets/itemBG_"]
-  GETTABLEKS R18 R1 K31 ["Config"]
-  GETTABLEKS R17 R18 K32 ["Theme"]
-  GETTABLEKS R16 R17 K33 ["Name"]
-  GETUPVAL R18 9
-  GETTABLEKS R17 R18 K34 ["Dark"]
-  JUMPIFNOTEQ R16 R17 [+3]
-  LOADK R15 K35 ["dark"]
+  LOADK R14 K32 ["light"]
+  CONCAT R12 R13 R14
+  SETTABLEKS R12 R11 K24 ["image"]
+  SETTABLEKS R11 R10 K21 ["background"]
+  DUPTABLE R11 K35 [{"UIListLayout", "Badge"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  LOADK R13 K33 ["UIListLayout"]
+  DUPTABLE R14 K39 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R15 K13 [Enum.FillDirection.Vertical]
+  SETTABLEKS R15 R14 K8 ["FillDirection"]
+  GETIMPORT R15 K41 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R15 R14 K36 ["HorizontalAlignment"]
+  GETIMPORT R15 K43 [Enum.VerticalAlignment.Bottom]
+  SETTABLEKS R15 R14 K37 ["VerticalAlignment"]
+  GETIMPORT R15 K45 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R15 R14 K38 ["SortOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K33 ["UIListLayout"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  GETUPVAL R13 7
+  DUPTABLE R14 K51 [{"text", "icon", "size", "isDisabled", "variant"}]
+  GETTABLEKS R16 R0 K3 ["controls"]
+  GETTABLEKS R15 R16 K46 ["text"]
+  SETTABLEKS R15 R14 K46 ["text"]
+  GETTABLEKS R17 R0 K3 ["controls"]
+  GETTABLEKS R16 R17 K47 ["icon"]
+  JUMPIFEQKS R16 K52 [""] [+6]
+  GETTABLEKS R16 R0 K3 ["controls"]
+  GETTABLEKS R15 R16 K47 ["icon"]
   JUMP [+1]
-  LOADK R15 K36 ["light"]
-  CONCAT R13 R14 R15
-  SETTABLEKS R13 R12 K28 ["image"]
-  SETTABLEKS R12 R11 K25 ["background"]
-  DUPTABLE R12 K39 [{"UIListLayout", "Badge"}]
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K9 ["createElement"]
-  LOADK R14 K37 ["UIListLayout"]
-  DUPTABLE R15 K43 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-  GETIMPORT R16 K17 [Enum.FillDirection.Vertical]
-  SETTABLEKS R16 R15 K12 ["FillDirection"]
-  GETIMPORT R16 K45 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R16 R15 K40 ["HorizontalAlignment"]
-  GETIMPORT R16 K47 [Enum.VerticalAlignment.Bottom]
-  SETTABLEKS R16 R15 K41 ["VerticalAlignment"]
-  GETIMPORT R16 K49 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R16 R15 K42 ["SortOrder"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K37 ["UIListLayout"]
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K9 ["createElement"]
-  MOVE R14 R2
-  DUPTABLE R15 K55 [{"text", "icon", "size", "isDisabled", "variant"}]
-  GETTABLEKS R17 R0 K0 ["controls"]
-  GETTABLEKS R16 R17 K50 ["text"]
-  SETTABLEKS R16 R15 K50 ["text"]
-  GETTABLEKS R18 R0 K0 ["controls"]
-  GETTABLEKS R17 R18 K51 ["icon"]
-  JUMPIFEQKS R17 K56 [""] [+6]
-  GETTABLEKS R17 R0 K0 ["controls"]
-  GETTABLEKS R16 R17 K51 ["icon"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K47 ["icon"]
+  GETTABLEKS R16 R0 K3 ["controls"]
+  GETTABLEKS R15 R16 K48 ["size"]
+  SETTABLEKS R15 R14 K48 ["size"]
+  GETTABLEKS R16 R0 K3 ["controls"]
+  GETTABLEKS R15 R16 K49 ["isDisabled"]
+  SETTABLEKS R15 R14 K49 ["isDisabled"]
+  GETTABLEKS R16 R0 K3 ["controls"]
+  GETTABLEKS R15 R16 K50 ["variant"]
+  SETTABLEKS R15 R14 K50 ["variant"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K34 ["Badge"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K14 ["TileMedia"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K53 ["Content"]
+  NEWTABLE R10 0 0
+  DUPTABLE R11 K55 [{"TileHeader"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K56 ["Header"]
+  DUPTABLE R14 K60 [{"title", "subtitle", "spacing"}]
+  DUPTABLE R15 K64 [{"text", "isLoading", "fontStyle", "numLines"}]
+  GETTABLEKS R16 R2 K29 ["Name"]
+  SETTABLEKS R16 R15 K46 ["text"]
+  GETTABLEKS R17 R2 K29 ["Name"]
+  JUMPIFEQKNIL R17 [+2]
+  LOADB R16 0 +1
+  LOADB R16 1
+  SETTABLEKS R16 R15 K61 ["isLoading"]
+  GETTABLEKS R17 R1 K65 ["Typography"]
+  GETTABLEKS R16 R17 K66 ["HeadingSmall"]
+  SETTABLEKS R16 R15 K62 ["fontStyle"]
+  LOADN R16 2
+  SETTABLEKS R16 R15 K63 ["numLines"]
+  SETTABLEKS R15 R14 K57 ["title"]
+  DUPTABLE R15 K68 [{"text", "isLoading", "fontStyle", "colorStyle"}]
+  GETTABLEKS R16 R2 K69 ["PriceText"]
+  SETTABLEKS R16 R15 K46 ["text"]
+  GETTABLEKS R17 R2 K69 ["PriceText"]
+  JUMPIFEQKNIL R17 [+2]
+  LOADB R16 0 +1
+  LOADB R16 1
+  SETTABLEKS R16 R15 K61 ["isLoading"]
+  GETTABLEKS R17 R1 K65 ["Typography"]
+  GETTABLEKS R16 R17 K70 ["BodyLarge"]
+  SETTABLEKS R16 R15 K62 ["fontStyle"]
+  GETTABLEKS R18 R1 K71 ["Color"]
+  GETTABLEKS R17 R18 K53 ["Content"]
+  GETTABLEKS R16 R17 K72 ["Muted"]
+  SETTABLEKS R16 R15 K67 ["colorStyle"]
+  SETTABLEKS R15 R14 K58 ["subtitle"]
+  GETTABLEKS R16 R1 K73 ["Gap"]
+  GETTABLEKS R15 R16 K74 ["Small"]
+  SETTABLEKS R15 R14 K59 ["spacing"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K54 ["TileHeader"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K15 ["TileContent"]
+  CALL R4 3 -1
+  RETURN R4 -1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["createElement"]
+  GETUPVAL R5 7
+  DUPTABLE R6 K51 [{"text", "icon", "size", "isDisabled", "variant"}]
+  GETTABLEKS R8 R0 K3 ["controls"]
+  GETTABLEKS R7 R8 K46 ["text"]
+  SETTABLEKS R7 R6 K46 ["text"]
+  GETTABLEKS R9 R0 K3 ["controls"]
+  GETTABLEKS R8 R9 K47 ["icon"]
+  JUMPIFEQKS R8 K52 [""] [+6]
+  GETTABLEKS R8 R0 K3 ["controls"]
+  GETTABLEKS R7 R8 K47 ["icon"]
   JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K51 ["icon"]
-  GETTABLEKS R17 R0 K0 ["controls"]
-  GETTABLEKS R16 R17 K52 ["size"]
-  SETTABLEKS R16 R15 K52 ["size"]
-  GETTABLEKS R17 R0 K0 ["controls"]
-  GETTABLEKS R16 R17 K53 ["isDisabled"]
-  SETTABLEKS R16 R15 K53 ["isDisabled"]
-  GETTABLEKS R17 R0 K0 ["controls"]
-  GETTABLEKS R16 R17 K54 ["variant"]
-  SETTABLEKS R16 R15 K54 ["variant"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K38 ["Badge"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K18 ["TileMedia"]
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K9 ["createElement"]
-  GETUPVAL R11 6
-  GETTABLEKS R10 R11 K57 ["Content"]
-  NEWTABLE R11 0 0
-  DUPTABLE R12 K59 [{"TileHeader"}]
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K9 ["createElement"]
-  GETUPVAL R15 6
-  GETTABLEKS R14 R15 K60 ["Header"]
-  DUPTABLE R15 K64 [{"title", "subtitle", "spacing"}]
-  DUPTABLE R16 K68 [{"text", "isLoading", "fontStyle", "numLines"}]
-  GETTABLEKS R17 R3 K33 ["Name"]
-  SETTABLEKS R17 R16 K50 ["text"]
-  GETTABLEKS R18 R3 K33 ["Name"]
-  JUMPIFEQKNIL R18 [+2]
-  LOADB R17 0 +1
-  LOADB R17 1
-  SETTABLEKS R17 R16 K65 ["isLoading"]
-  GETTABLEKS R18 R1 K69 ["Typography"]
-  GETTABLEKS R17 R18 K70 ["HeadingSmall"]
-  SETTABLEKS R17 R16 K66 ["fontStyle"]
-  LOADN R17 2
-  SETTABLEKS R17 R16 K67 ["numLines"]
-  SETTABLEKS R16 R15 K61 ["title"]
-  DUPTABLE R16 K72 [{"text", "isLoading", "fontStyle", "colorStyle"}]
-  GETTABLEKS R17 R3 K73 ["PriceText"]
-  SETTABLEKS R17 R16 K50 ["text"]
-  GETTABLEKS R18 R3 K73 ["PriceText"]
-  JUMPIFEQKNIL R18 [+2]
-  LOADB R17 0 +1
-  LOADB R17 1
-  SETTABLEKS R17 R16 K65 ["isLoading"]
-  GETTABLEKS R18 R1 K69 ["Typography"]
-  GETTABLEKS R17 R18 K74 ["BodyLarge"]
-  SETTABLEKS R17 R16 K66 ["fontStyle"]
-  GETTABLEKS R19 R1 K75 ["Color"]
-  GETTABLEKS R18 R19 K57 ["Content"]
-  GETTABLEKS R17 R18 K76 ["Muted"]
-  SETTABLEKS R17 R16 K71 ["colorStyle"]
-  SETTABLEKS R16 R15 K62 ["subtitle"]
-  GETTABLEKS R17 R1 K77 ["Gap"]
-  GETTABLEKS R16 R17 K78 ["Small"]
-  SETTABLEKS R16 R15 K63 ["spacing"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K58 ["TileHeader"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K19 ["TileContent"]
-  CALL R5 3 -1
-  RETURN R5 -1
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K9 ["createElement"]
-  MOVE R6 R2
-  DUPTABLE R7 K55 [{"text", "icon", "size", "isDisabled", "variant"}]
-  GETTABLEKS R9 R0 K0 ["controls"]
-  GETTABLEKS R8 R9 K50 ["text"]
-  SETTABLEKS R8 R7 K50 ["text"]
-  GETTABLEKS R10 R0 K0 ["controls"]
-  GETTABLEKS R9 R10 K51 ["icon"]
-  JUMPIFEQKS R9 K56 [""] [+6]
-  GETTABLEKS R9 R0 K0 ["controls"]
-  GETTABLEKS R8 R9 K51 ["icon"]
-  JUMP [+1]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K51 ["icon"]
-  GETTABLEKS R9 R0 K0 ["controls"]
-  GETTABLEKS R8 R9 K52 ["size"]
-  SETTABLEKS R8 R7 K52 ["size"]
-  GETTABLEKS R9 R0 K0 ["controls"]
-  GETTABLEKS R8 R9 K53 ["isDisabled"]
-  SETTABLEKS R8 R7 K53 ["isDisabled"]
-  GETTABLEKS R9 R0 K0 ["controls"]
-  GETTABLEKS R8 R9 K54 ["variant"]
-  SETTABLEKS R8 R7 K54 ["variant"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  LOADNIL R7
+  SETTABLEKS R7 R6 K47 ["icon"]
+  GETTABLEKS R8 R0 K3 ["controls"]
+  GETTABLEKS R7 R8 K48 ["size"]
+  SETTABLEKS R7 R6 K48 ["size"]
+  GETTABLEKS R8 R0 K3 ["controls"]
+  GETTABLEKS R7 R8 K49 ["isDisabled"]
+  SETTABLEKS R7 R6 K49 ["isDisabled"]
+  GETTABLEKS R8 R0 K3 ["controls"]
+  GETTABLEKS R7 R8 K50 ["variant"]
+  SETTABLEKS R7 R6 K50 ["variant"]
+  CALL R4 2 -1
+  RETURN R4 -1
 
 PROTO_4:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
   DUPTABLE R3 K2 [{"tag"}]
-  LOADK R4 K3 ["col gap-small auto-xy align-x-center"]
+  LOADK R4 K3 ["col gap-medium auto-xy"]
   SETTABLEKS R4 R3 K1 ["tag"]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["createElement"]
   GETUPVAL R5 2
   DUPTABLE R6 K5 [{"tag", "Text"}]
-  LOADK R7 K6 ["auto-xy text-align-x-center text-caption-small"]
+  LOADK R7 K6 ["auto-xy text-align-x-left"]
   SETTABLEKS R7 R6 K1 ["tag"]
   SETTABLEKS R0 R6 K4 ["Text"]
   CALL R4 2 1
@@ -294,43 +280,37 @@ PROTO_4:
   RETURN R1 -1
 
 PROTO_5:
-  GETTABLEKS R3 R0 K0 ["controls"]
-  GETTABLEKS R2 R3 K1 ["updateBadgeDesign"]
-  JUMPIFNOT R2 [+2]
-  GETUPVAL R1 0
-  JUMP [+1]
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K2 ["createElement"]
-  GETUPVAL R3 3
-  DUPTABLE R4 K4 [{"tag"}]
-  LOADK R5 K5 ["row wrap auto-xy gap-xxlarge"]
-  SETTABLEKS R5 R4 K3 ["tag"]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K6 ["map"]
-  GETUPVAL R6 5
-  NEWCLOSURE R7 P0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U6
-  CAPTURE VAL R1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K2 [{"tag"}]
+  LOADK R4 K3 ["row wrap auto-xy gap-xlarge"]
+  SETTABLEKS R4 R3 K1 ["tag"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["map"]
+  GETUPVAL R5 3
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   CAPTURE VAL R0
-  CALL R5 2 -1
-  CALL R2 -1 -1
-  RETURN R2 -1
+  CALL R4 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
 
 PROTO_6:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
   DUPTABLE R3 K2 [{"tag"}]
-  LOADK R4 K3 ["col gap-small auto-xy align-x-center"]
+  LOADK R4 K3 ["col gap-medium auto-xy"]
   SETTABLEKS R4 R3 K1 ["tag"]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["createElement"]
   GETUPVAL R5 2
   DUPTABLE R6 K5 [{"tag", "Text"}]
-  LOADK R7 K6 ["auto-xy text-align-x-center text-caption-small"]
+  LOADK R7 K6 ["auto-xy text-align-x-left"]
   SETTABLEKS R7 R6 K1 ["tag"]
   SETTABLEKS R0 R6 K4 ["Text"]
   CALL R4 2 1
@@ -366,35 +346,29 @@ PROTO_6:
   RETURN R1 -1
 
 PROTO_7:
-  GETTABLEKS R3 R0 K0 ["controls"]
-  GETTABLEKS R2 R3 K1 ["updateBadgeDesign"]
-  JUMPIFNOT R2 [+2]
-  GETUPVAL R1 0
-  JUMP [+1]
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K2 ["createElement"]
-  GETUPVAL R3 3
-  DUPTABLE R4 K4 [{"tag"}]
-  LOADK R5 K5 ["row wrap auto-xy gap-xxlarge"]
-  SETTABLEKS R5 R4 K3 ["tag"]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K6 ["map"]
-  NEWTABLE R6 0 2
-  GETUPVAL R8 5
-  GETTABLEKS R7 R8 K7 ["Primary"]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K8 ["Secondary"]
-  SETLIST R6 R7 2 [1]
-  NEWCLOSURE R7 P0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U6
-  CAPTURE VAL R1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K2 [{"tag"}]
+  LOADK R4 K3 ["row wrap auto-xy gap-xlarge"]
+  SETTABLEKS R4 R3 K1 ["tag"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["map"]
+  NEWTABLE R5 0 2
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K5 ["Primary"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K6 ["Secondary"]
+  SETLIST R5 R6 2 [1]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   CAPTURE VAL R0
-  CALL R5 2 -1
-  CALL R2 -1 -1
-  RETURN R2 -1
+  CALL R4 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
 
 MAIN:
   PREPVARARGS 0
@@ -439,96 +413,79 @@ MAIN:
   GETTABLEKS R11 R12 K20 ["Badge"]
   CALL R10 1 1
   GETIMPORT R11 K10 [require]
-  GETTABLEKS R14 R1 K13 ["Components"]
-  GETTABLEKS R13 R14 K20 ["Badge"]
-  GETTABLEKS R12 R13 K21 ["Badge_DEPRECATED"]
+  GETTABLEKS R13 R1 K15 ["Enums"]
+  GETTABLEKS R12 R13 K21 ["BadgeVariant"]
   CALL R11 1 1
   GETIMPORT R12 K10 [require]
-  GETTABLEKS R14 R1 K15 ["Enums"]
-  GETTABLEKS R13 R14 K22 ["BadgeVariant"]
+  GETTABLEKS R15 R1 K22 ["Providers"]
+  GETTABLEKS R14 R15 K23 ["Style"]
+  GETTABLEKS R13 R14 K24 ["useTokens"]
   CALL R12 1 1
-  GETIMPORT R13 K10 [require]
-  GETTABLEKS R16 R1 K23 ["Providers"]
-  GETTABLEKS R15 R16 K24 ["Style"]
-  GETTABLEKS R14 R15 K25 ["useTokens"]
-  CALL R13 1 1
-  GETIMPORT R14 K10 [require]
-  GETTABLEKS R16 R1 K26 ["Utility"]
-  GETTABLEKS R15 R16 K27 ["Flags"]
-  CALL R14 1 1
-  GETIMPORT R15 K30 [UDim2.fromOffset]
-  LOADN R16 150
-  LOADN R17 240
-  CALL R15 2 1
-  GETTABLEKS R16 R4 K31 ["filter"]
-  GETTABLEKS R17 R4 K32 ["values"]
-  MOVE R18 R12
-  CALL R17 1 1
-  DUPCLOSURE R18 K33 [PROTO_0]
-  CAPTURE VAL R12
-  CALL R16 2 1
-  DUPTABLE R17 K37 [{"summary", "stories", "controls"}]
-  LOADK R18 K20 ["Badge"]
-  SETTABLEKS R18 R17 K34 ["summary"]
-  NEWTABLE R18 0 3
-  DUPTABLE R19 K40 [{"name", "story"}]
-  LOADK R20 K41 ["Base"]
-  SETTABLEKS R20 R19 K38 ["name"]
-  DUPCLOSURE R20 K42 [PROTO_3]
-  CAPTURE VAL R14
-  CAPTURE VAL R13
-  CAPTURE VAL R10
+  GETIMPORT R13 K27 [UDim2.fromOffset]
+  LOADN R14 150
+  LOADN R15 240
+  CALL R13 2 1
+  GETTABLEKS R14 R4 K28 ["filter"]
+  GETTABLEKS R15 R4 K29 ["values"]
+  MOVE R16 R11
+  CALL R15 1 1
+  DUPCLOSURE R16 K30 [PROTO_0]
   CAPTURE VAL R11
+  CALL R14 2 1
+  DUPTABLE R15 K34 [{"summary", "stories", "controls"}]
+  LOADK R16 K20 ["Badge"]
+  SETTABLEKS R16 R15 K31 ["summary"]
+  NEWTABLE R16 0 3
+  DUPTABLE R17 K37 [{"name", "story"}]
+  LOADK R18 K38 ["Base"]
+  SETTABLEKS R18 R17 K35 ["name"]
+  DUPCLOSURE R18 K39 [PROTO_3]
+  CAPTURE VAL R12
   CAPTURE VAL R3
   CAPTURE VAL R0
   CAPTURE VAL R5
-  CAPTURE VAL R15
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R7
-  SETTABLEKS R20 R19 K39 ["story"]
-  DUPTABLE R20 K40 [{"name", "story"}]
-  LOADK R21 K43 ["All variants"]
-  SETTABLEKS R21 R20 K38 ["name"]
-  DUPCLOSURE R21 K44 [PROTO_5]
   CAPTURE VAL R10
-  CAPTURE VAL R11
+  SETTABLEKS R18 R17 K36 ["story"]
+  DUPTABLE R18 K37 [{"name", "story"}]
+  LOADK R19 K40 ["All variants"]
+  SETTABLEKS R19 R18 K35 ["name"]
+  DUPCLOSURE R19 K41 [PROTO_5]
   CAPTURE VAL R3
   CAPTURE VAL R8
   CAPTURE VAL R4
-  CAPTURE VAL R16
+  CAPTURE VAL R14
   CAPTURE VAL R9
-  SETTABLEKS R21 R20 K39 ["story"]
-  DUPTABLE R21 K40 [{"name", "story"}]
-  LOADK R22 K45 ["Deprecated variants"]
-  SETTABLEKS R22 R21 K38 ["name"]
-  DUPCLOSURE R22 K46 [PROTO_7]
   CAPTURE VAL R10
-  CAPTURE VAL R11
+  SETTABLEKS R19 R18 K36 ["story"]
+  DUPTABLE R19 K37 [{"name", "story"}]
+  LOADK R20 K42 ["Deprecated variants"]
+  SETTABLEKS R20 R19 K35 ["name"]
+  DUPCLOSURE R20 K43 [PROTO_7]
   CAPTURE VAL R3
   CAPTURE VAL R8
   CAPTURE VAL R4
-  CAPTURE VAL R12
+  CAPTURE VAL R11
   CAPTURE VAL R9
-  SETTABLEKS R22 R21 K39 ["story"]
-  SETLIST R18 R19 3 [1]
-  SETTABLEKS R18 R17 K35 ["stories"]
-  DUPTABLE R18 K53 [{"text", "icon", "variant", "onTile", "disableBadgeTruncation", "updateBadgeDesign"}]
-  LOADK R19 K54 ["Label"]
-  SETTABLEKS R19 R18 K47 ["text"]
-  NEWTABLE R19 0 5
-  LOADK R20 K55 ["diamond-simplified"]
-  LOADK R21 K56 ["house"]
-  LOADK R22 K57 ["icons/placeholder/placeholderOn_small"]
-  LOADK R23 K58 ["icons/menu/clothing/limited_on"]
-  LOADK R24 K59 [""]
-  SETLIST R19 R20 5 [1]
-  SETTABLEKS R19 R18 K48 ["icon"]
-  SETTABLEKS R16 R18 K49 ["variant"]
-  LOADB R19 0
-  SETTABLEKS R19 R18 K50 ["onTile"]
-  GETTABLEKS R19 R14 K60 ["FoundationDisableBadgeTruncation"]
-  SETTABLEKS R19 R18 K51 ["disableBadgeTruncation"]
-  GETTABLEKS R19 R14 K61 ["FoundationUpdateBadgeDesign"]
-  SETTABLEKS R19 R18 K52 ["updateBadgeDesign"]
-  SETTABLEKS R18 R17 K36 ["controls"]
-  RETURN R17 1
+  CAPTURE VAL R10
+  SETTABLEKS R20 R19 K36 ["story"]
+  SETLIST R16 R17 3 [1]
+  SETTABLEKS R16 R15 K32 ["stories"]
+  DUPTABLE R16 K48 [{"text", "icon", "variant", "onTile"}]
+  LOADK R17 K49 ["Label"]
+  SETTABLEKS R17 R16 K44 ["text"]
+  NEWTABLE R17 0 5
+  LOADK R18 K50 ["diamond-simplified"]
+  LOADK R19 K51 ["house"]
+  LOADK R20 K52 ["icons/placeholder/placeholderOn_small"]
+  LOADK R21 K53 ["icons/menu/clothing/limited_on"]
+  LOADK R22 K54 [""]
+  SETLIST R17 R18 5 [1]
+  SETTABLEKS R17 R16 K45 ["icon"]
+  SETTABLEKS R14 R16 K46 ["variant"]
+  LOADB R17 0
+  SETTABLEKS R17 R16 K47 ["onTile"]
+  SETTABLEKS R16 R15 K33 ["controls"]
+  RETURN R15 1

@@ -5,10 +5,6 @@ PROTO_0:
   FASTCALL2 SETMETATABLE R2 R3 [+3]
   GETIMPORT R1 K3 [setmetatable]
   CALL R1 2 1
-  GETTABLEKS R2 R0 K4 ["vertexEditingTool"]
-  NAMECALL R2 R2 K5 ["getPointLocationData"]
-  CALL R2 1 1
-  SETTABLEKS R2 R1 K6 ["_initialPointLocationData"]
   RETURN R1 1
 
 PROTO_1:
@@ -115,11 +111,10 @@ PROTO_6:
   GETIMPORT R7 K13 [Vector3.new]
   CALL R7 3 1
   GETTABLEKS R8 R0 K14 ["_vertexEditingTool"]
-  GETTABLEKS R10 R0 K15 ["_initialPointLocationData"]
-  GETTABLEKS R11 R0 K16 ["_baseBoundingBox"]
-  MOVE R12 R7
-  NAMECALL R8 R8 K17 ["scaleSelected"]
-  CALL R8 4 0
+  GETTABLEKS R10 R0 K15 ["_baseBoundingBox"]
+  MOVE R11 R7
+  NAMECALL R8 R8 K16 ["scaleSelected"]
+  CALL R8 3 0
   RETURN R1 2
 
 PROTO_7:
@@ -127,12 +122,9 @@ PROTO_7:
   SETTABLEKS R1 R0 K0 ["_baseBoundingBoxSize"]
   LOADNIL R1
   SETTABLEKS R1 R0 K1 ["_baseBoundingBox"]
-  GETTABLEKS R1 R0 K2 ["_initialPointLocationData"]
-  JUMPIFNOT R1 [+7]
-  GETTABLEKS R1 R0 K3 ["_vertexEditingTool"]
-  GETTABLEKS R3 R0 K2 ["_initialPointLocationData"]
-  NAMECALL R1 R1 K4 ["addWaypoint"]
-  CALL R1 2 0
+  GETTABLEKS R1 R0 K2 ["_vertexEditingTool"]
+  NAMECALL R1 R1 K3 ["addWaypoint"]
+  CALL R1 1 0
   RETURN R0 0
 
 PROTO_8:

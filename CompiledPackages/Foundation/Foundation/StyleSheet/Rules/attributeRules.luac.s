@@ -56,39 +56,42 @@ PROTO_4:
   DUPTABLE R5 K13 [{"TextSize", "LineHeight"}]
   LOADK R6 K14 ["$TextSizeBodyLarge"]
   SETTABLEKS R6 R5 K0 ["TextSize"]
-  GETTABLEKS R6 R0 K1 ["LineHeight"]
+  LOADK R6 K15 ["$TextLineHeightBodyLarge"]
   SETTABLEKS R6 R5 K1 ["LineHeight"]
   SETTABLEKS R5 R4 K8 ["properties"]
   NEWTABLE R5 0 1
-  DUPTABLE R6 K16 [{"tag", "pseudo", "priority", "properties", "attributes"}]
+  DUPTABLE R6 K17 [{"tag", "pseudo", "properties", "attributes"}]
   LOADK R7 K12 ["text-size-defaults"]
   SETTABLEKS R7 R6 K6 ["tag"]
-  LOADK R7 K17 ["UIPadding"]
-  SETTABLEKS R7 R6 K15 ["pseudo"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K7 ["priority"]
-  DUPTABLE R7 K20 [{"PaddingTop", "PaddingBottom"}]
-  LOADK R8 K21 ["$TextPaddingBodyLarge"]
-  SETTABLEKS R8 R7 K18 ["PaddingTop"]
-  LOADK R8 K21 ["$TextPaddingBodyLarge"]
-  SETTABLEKS R8 R7 K19 ["PaddingBottom"]
+  LOADK R7 K18 ["UIPadding"]
+  SETTABLEKS R7 R6 K16 ["pseudo"]
+  DUPTABLE R7 K21 [{"PaddingTop", "PaddingBottom"}]
+  LOADK R8 K22 ["$TextPaddingBodyLarge"]
+  SETTABLEKS R8 R7 K19 ["PaddingTop"]
+  LOADK R8 K22 ["$TextPaddingBodyLarge"]
+  SETTABLEKS R8 R7 K20 ["PaddingBottom"]
   SETTABLEKS R7 R6 K8 ["properties"]
   NEWTABLE R7 0 1
-  DUPTABLE R8 K24 [{"name", "value"}]
-  LOADK R9 K25 ["TextPaddingBodyLarge"]
-  SETTABLEKS R9 R8 K22 ["name"]
-  SETTABLEKS R2 R8 K23 ["value"]
+  DUPTABLE R8 K25 [{"name", "value"}]
+  LOADK R9 K26 ["TextPaddingBodyLarge"]
+  SETTABLEKS R9 R8 K23 ["name"]
+  SETTABLEKS R2 R8 K24 ["value"]
   SETLIST R7 R8 1 [1]
   SETTABLEKS R7 R6 K10 ["attributes"]
   SETLIST R5 R6 1 [1]
   SETTABLEKS R5 R4 K9 ["children"]
-  NEWTABLE R5 0 1
-  DUPTABLE R6 K24 [{"name", "value"}]
-  LOADK R7 K26 ["TextSizeBodyLarge"]
-  SETTABLEKS R7 R6 K22 ["name"]
+  NEWTABLE R5 0 2
+  DUPTABLE R6 K25 [{"name", "value"}]
+  LOADK R7 K27 ["TextSizeBodyLarge"]
+  SETTABLEKS R7 R6 K23 ["name"]
   GETTABLEKS R7 R0 K0 ["TextSize"]
-  SETTABLEKS R7 R6 K23 ["value"]
-  SETLIST R5 R6 1 [1]
+  SETTABLEKS R7 R6 K24 ["value"]
+  DUPTABLE R7 K25 [{"name", "value"}]
+  LOADK R8 K28 ["TextLineHeightBodyLarge"]
+  SETTABLEKS R8 R7 K23 ["name"]
+  GETTABLEKS R8 R0 K1 ["LineHeight"]
+  SETTABLEKS R8 R7 K24 ["value"]
+  SETLIST R5 R6 2 [1]
   SETTABLEKS R5 R4 K10 ["attributes"]
   SETLIST R3 R4 1 [1]
   RETURN R3 1
@@ -359,65 +362,76 @@ PROTO_8:
   CALL R15 2 1
   MOVE R14 R15
   SETTABLEKS R14 R13 K0 ["TextSize"]
-  GETTABLEKS R14 R7 K1 ["LineHeight"]
+  LOADK R15 K16 ["$TextLineHeight%*"]
+  MOVE R17 R8
+  NAMECALL R15 R15 K12 ["format"]
+  CALL R15 2 1
+  MOVE R14 R15
   SETTABLEKS R14 R13 K1 ["LineHeight"]
   SETTABLEKS R13 R12 K7 ["properties"]
-  NEWTABLE R13 0 1
-  DUPTABLE R14 K18 [{"name", "value"}]
-  LOADK R16 K19 ["TextSize%*"]
+  NEWTABLE R13 0 2
+  DUPTABLE R14 K19 [{"name", "value"}]
+  LOADK R16 K20 ["TextSize%*"]
   MOVE R18 R8
   NAMECALL R16 R16 K12 ["format"]
   CALL R16 2 1
   MOVE R15 R16
-  SETTABLEKS R15 R14 K16 ["name"]
+  SETTABLEKS R15 R14 K17 ["name"]
   GETTABLEKS R15 R7 K0 ["TextSize"]
-  SETTABLEKS R15 R14 K17 ["value"]
-  SETLIST R13 R14 1 [1]
+  SETTABLEKS R15 R14 K18 ["value"]
+  DUPTABLE R15 K19 [{"name", "value"}]
+  LOADK R17 K21 ["TextLineHeight%*"]
+  MOVE R19 R8
+  NAMECALL R17 R17 K12 ["format"]
+  CALL R17 2 1
+  MOVE R16 R17
+  SETTABLEKS R16 R15 K17 ["name"]
+  GETTABLEKS R16 R7 K1 ["LineHeight"]
+  SETTABLEKS R16 R15 K18 ["value"]
+  SETLIST R13 R14 2 [1]
   SETTABLEKS R13 R12 K8 ["attributes"]
   NEWTABLE R13 0 1
-  DUPTABLE R14 K22 [{"tag", "pseudo", "priority", "properties", "attributes"}]
+  DUPTABLE R14 K23 [{"tag", "pseudo", "properties", "attributes"}]
   LOADK R16 K11 ["text-%*"]
   MOVE R18 R6
   NAMECALL R16 R16 K12 ["format"]
   CALL R16 2 1
   MOVE R15 R16
   SETTABLEKS R15 R14 K6 ["tag"]
-  LOADK R15 K23 ["UIPadding"]
-  SETTABLEKS R15 R14 K20 ["pseudo"]
-  LOADN R15 0
-  SETTABLEKS R15 R14 K21 ["priority"]
-  DUPTABLE R15 K26 [{"PaddingTop", "PaddingBottom"}]
-  LOADK R17 K27 ["$TextPadding%*"]
+  LOADK R15 K24 ["UIPadding"]
+  SETTABLEKS R15 R14 K22 ["pseudo"]
+  DUPTABLE R15 K27 [{"PaddingTop", "PaddingBottom"}]
+  LOADK R17 K28 ["$TextPadding%*"]
   MOVE R19 R8
   NAMECALL R17 R17 K12 ["format"]
   CALL R17 2 1
   MOVE R16 R17
-  SETTABLEKS R16 R15 K24 ["PaddingTop"]
-  LOADK R17 K27 ["$TextPadding%*"]
+  SETTABLEKS R16 R15 K25 ["PaddingTop"]
+  LOADK R17 K28 ["$TextPadding%*"]
   MOVE R19 R8
   NAMECALL R17 R17 K12 ["format"]
   CALL R17 2 1
   MOVE R16 R17
-  SETTABLEKS R16 R15 K25 ["PaddingBottom"]
+  SETTABLEKS R16 R15 K26 ["PaddingBottom"]
   SETTABLEKS R15 R14 K7 ["properties"]
   NEWTABLE R15 0 1
-  DUPTABLE R16 K18 [{"name", "value"}]
-  LOADK R18 K28 ["TextPadding%*"]
+  DUPTABLE R16 K19 [{"name", "value"}]
+  LOADK R18 K29 ["TextPadding%*"]
   MOVE R20 R8
   NAMECALL R18 R18 K12 ["format"]
   CALL R18 2 1
   MOVE R17 R18
-  SETTABLEKS R17 R16 K16 ["name"]
-  SETTABLEKS R9 R16 K17 ["value"]
+  SETTABLEKS R17 R16 K17 ["name"]
+  SETTABLEKS R9 R16 K18 ["value"]
   SETLIST R15 R16 1 [1]
   SETTABLEKS R15 R14 K8 ["attributes"]
   SETLIST R13 R14 1 [1]
   SETTABLEKS R13 R12 K9 ["children"]
   FASTCALL2 TABLE_INSERT R2 R12 [+4]
   MOVE R11 R2
-  GETIMPORT R10 K31 [table.insert]
+  GETIMPORT R10 K32 [table.insert]
   CALL R10 2 0
-  FORGLOOP R3 2 [-130]
+  FORGLOOP R3 2 [-144]
   RETURN R2 1
 
 PROTO_9:

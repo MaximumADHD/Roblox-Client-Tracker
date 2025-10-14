@@ -1,4 +1,8 @@
 PROTO_0:
+  GETTABLEKS R2 R0 K0 ["vertexEditingTool"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setHovered"]
+  CALL R2 2 0
   RETURN R0 0
 
 MAIN:

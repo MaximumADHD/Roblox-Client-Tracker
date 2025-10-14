@@ -97,11 +97,7 @@ PROTO_3:
   GETTABLEKS R6 R0 K3 ["_draggerContext"]
   GETTABLEKS R5 R6 K4 ["vertexEditingTool"]
   SETTABLEKS R5 R0 K5 ["_vertexEditingTool"]
-  GETTABLEKS R5 R0 K5 ["_vertexEditingTool"]
-  NAMECALL R5 R5 K6 ["getPointLocationData"]
-  CALL R5 1 1
-  SETTABLEKS R5 R0 K7 ["_initialPointLocationData"]
-  NAMECALL R5 R0 K8 ["_resetAxisAngleData"]
+  NAMECALL R5 R0 K6 ["_resetAxisAngleData"]
   CALL R5 1 0
   RETURN R0 0
 
@@ -110,29 +106,23 @@ PROTO_4:
   NAMECALL R2 R0 K0 ["_updateAxisAngleData"]
   CALL R2 2 0
   GETTABLEKS R2 R0 K1 ["_vertexEditingTool"]
-  GETTABLEKS R4 R0 K2 ["_initialPointLocationData"]
-  MOVE R5 R1
-  GETTABLEKS R6 R0 K3 ["_baseBoundingBoxCenter"]
-  GETTABLEKS R7 R0 K4 ["_axis"]
-  GETTABLEKS R8 R0 K5 ["_totalAngle"]
-  NAMECALL R2 R2 K6 ["transformSelected"]
-  CALL R2 6 0
+  MOVE R4 R1
+  GETTABLEKS R5 R0 K2 ["_baseBoundingBoxCenter"]
+  GETTABLEKS R6 R0 K3 ["_axis"]
+  GETTABLEKS R7 R0 K4 ["_totalAngle"]
+  NAMECALL R2 R2 K5 ["transformSelected"]
+  CALL R2 5 0
   RETURN R1 1
 
 PROTO_5:
-  GETTABLEKS R1 R0 K0 ["_initialPointLocationData"]
-  JUMPIFNOT R1 [+7]
-  GETTABLEKS R1 R0 K1 ["_vertexEditingTool"]
-  GETTABLEKS R3 R0 K0 ["_initialPointLocationData"]
-  NAMECALL R1 R1 K2 ["addWaypoint"]
-  CALL R1 2 0
+  GETTABLEKS R1 R0 K0 ["_vertexEditingTool"]
+  NAMECALL R1 R1 K1 ["addWaypoint"]
+  CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K0 ["_initialPointLocationData"]
+  SETTABLEKS R1 R0 K0 ["_vertexEditingTool"]
   LOADNIL R1
-  SETTABLEKS R1 R0 K1 ["_vertexEditingTool"]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K3 ["_baseBoundingBoxCenter"]
-  NAMECALL R1 R0 K4 ["_resetAxisAngleData"]
+  SETTABLEKS R1 R0 K2 ["_baseBoundingBoxCenter"]
+  NAMECALL R1 R0 K3 ["_resetAxisAngleData"]
   CALL R1 1 0
   RETURN R0 0
 

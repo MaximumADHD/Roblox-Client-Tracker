@@ -1,54 +1,46 @@
 PROTO_0:
-  LOADB R1 0
-  RETURN R1 1
-
-PROTO_1:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["new"]
-  GETTABLEKS R3 R1 K1 ["VertexToolBase"]
-  CALL R2 1 1
-  SETTABLEKS R2 R0 K2 ["selection"]
-  GETTABLEKS R2 R1 K1 ["VertexToolBase"]
-  GETTABLEKS R4 R1 K3 ["Mouse"]
-  NAMECALL R2 R2 K4 ["setMouse"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K1 ["VertexToolBase"]
-  GETTABLEKS R4 R1 K5 ["Radius"]
-  NAMECALL R2 R2 K6 ["setRadius"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K1 ["VertexToolBase"]
-  GETTABLEKS R4 R1 K7 ["Falloff"]
-  NAMECALL R2 R2 K8 ["setFalloff"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K1 ["VertexToolBase"]
-  GETTABLEKS R4 R1 K9 ["Mannequin"]
-  NAMECALL R2 R2 K10 ["setDummy"]
-  CALL R2 2 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["new"]
-  GETTABLEKS R3 R1 K11 ["Plugin"]
-  GETIMPORT R4 K13 [game]
-  GETIMPORT R5 K15 [settings]
-  CALL R5 0 1
-  GETTABLEKS R6 R0 K2 ["selection"]
-  CALL R2 4 1
-  SETTABLEKS R2 R0 K16 ["draggerContext"]
-  GETTABLEKS R2 R0 K16 ["draggerContext"]
-  GETTABLEKS R3 R1 K1 ["VertexToolBase"]
-  SETTABLEKS R3 R2 K17 ["vertexEditingTool"]
-  GETTABLEKS R2 R1 K18 ["OnChangeSelectedPositions"]
-  JUMPIFNOT R2 [+9]
-  GETTABLEKS R3 R1 K1 ["VertexToolBase"]
-  GETTABLEKS R2 R3 K19 ["selectedPositionsChanged"]
-  GETTABLEKS R4 R1 K18 ["OnChangeSelectedPositions"]
-  NAMECALL R2 R2 K20 ["Connect"]
-  CALL R2 2 0
-  DUPCLOSURE R2 K21 [PROTO_0]
-  GETTABLEKS R3 R0 K16 ["draggerContext"]
-  SETTABLEKS R2 R3 K22 ["shouldExtendSelection"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["Mouse"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["new"]
+  GETTABLEKS R4 R1 K3 ["VertexToolBase"]
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K4 ["selection"]
+  GETTABLEKS R3 R1 K3 ["VertexToolBase"]
+  GETTABLEKS R5 R1 K1 ["Mouse"]
+  NAMECALL R3 R3 K5 ["setMouse"]
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K3 ["VertexToolBase"]
+  GETTABLEKS R5 R1 K6 ["Radius"]
+  NAMECALL R3 R3 K7 ["setRadius"]
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K3 ["VertexToolBase"]
+  GETTABLEKS R5 R1 K8 ["Falloff"]
+  NAMECALL R3 R3 K9 ["setFalloff"]
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K3 ["VertexToolBase"]
+  GETTABLEKS R5 R1 K10 ["Mannequin"]
+  NAMECALL R3 R3 K11 ["setMannequin"]
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K3 ["VertexToolBase"]
+  GETTABLEKS R5 R1 K12 ["OnChangeSelectedPositions"]
+  NAMECALL R3 R3 K13 ["setOnChangeSelectedPositions"]
+  CALL R3 2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["new"]
+  GETTABLEKS R4 R1 K14 ["Plugin"]
+  GETIMPORT R5 K16 [game]
+  GETIMPORT R6 K18 [settings]
+  CALL R6 0 1
+  GETTABLEKS R7 R0 K4 ["selection"]
+  CALL R3 4 1
+  SETTABLEKS R3 R0 K19 ["draggerContext"]
+  GETTABLEKS R3 R0 K19 ["draggerContext"]
+  GETTABLEKS R4 R1 K3 ["VertexToolBase"]
+  SETTABLEKS R4 R3 K20 ["vertexEditingTool"]
   RETURN R0 0
 
-PROTO_2:
+PROTO_1:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["Plugin"]
   LOADB R3 1
@@ -56,22 +48,23 @@ PROTO_2:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_2:
   GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Mouse"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["createElement"]
-  GETUPVAL R4 1
-  DUPTABLE R5 K5 [{"Mouse", "DraggerType", "Context"}]
-  SETTABLEKS R2 R5 K1 ["Mouse"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K3 ["DraggerType"]
-  GETTABLEKS R6 R0 K6 ["draggerContext"]
-  SETTABLEKS R6 R5 K4 ["Context"]
-  CALL R3 2 -1
-  RETURN R3 -1
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Mouse"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K6 [{"Mouse", "DraggerType", "Context"}]
+  SETTABLEKS R3 R6 K2 ["Mouse"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K4 ["DraggerType"]
+  GETTABLEKS R7 R0 K7 ["draggerContext"]
+  SETTABLEKS R7 R6 K5 ["Context"]
+  CALL R4 2 -1
+  RETURN R4 -1
 
-PROTO_4:
+PROTO_3:
   GETTABLEKS R2 R1 K0 ["VertexToolBase"]
   GETTABLEKS R4 R0 K1 ["props"]
   GETTABLEKS R3 R4 K0 ["VertexToolBase"]
@@ -122,7 +115,7 @@ PROTO_4:
   JUMPIFEQ R2 R3 [+8]
   GETTABLEKS R2 R1 K0 ["VertexToolBase"]
   GETTABLEKS R4 R1 K16 ["Mannequin"]
-  NAMECALL R2 R2 K17 ["setDummy"]
+  NAMECALL R2 R2 K17 ["setMannequin"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -153,16 +146,16 @@ MAIN:
   LOADK R11 K16 ["FreeformMeshEditingComponent"]
   NAMECALL R9 R9 K17 ["extend"]
   CALL R9 2 1
-  DUPCLOSURE R10 K18 [PROTO_1]
+  DUPCLOSURE R10 K18 [PROTO_0]
   CAPTURE VAL R8
   CAPTURE VAL R4
   SETTABLEKS R10 R9 K19 ["init"]
-  DUPCLOSURE R10 K20 [PROTO_2]
+  DUPCLOSURE R10 K20 [PROTO_1]
   SETTABLEKS R10 R9 K21 ["didMount"]
-  DUPCLOSURE R10 K22 [PROTO_3]
+  DUPCLOSURE R10 K22 [PROTO_2]
   CAPTURE VAL R3
   CAPTURE VAL R6
   SETTABLEKS R10 R9 K23 ["render"]
-  DUPCLOSURE R10 K24 [PROTO_4]
+  DUPCLOSURE R10 K24 [PROTO_3]
   SETTABLEKS R10 R9 K25 ["didUpdate"]
   RETURN R9 1

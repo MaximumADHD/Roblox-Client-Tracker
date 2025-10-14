@@ -24,86 +24,82 @@ PROTO_0:
 PROTO_1:
   DUPTABLE R1 K2 [{"knob", "knobShadow"}]
   DUPTABLE R2 K5 [{"tag", "style"}]
-  LOADK R4 K6 ["radius-circle%*"]
-  LOADK R6 K7 [" anchor-center-center position-center-center"]
-  NAMECALL R4 R4 K8 ["format"]
-  CALL R4 2 1
-  MOVE R3 R4
+  LOADK R3 K6 ["radius-circle"]
   SETTABLEKS R3 R2 K3 ["tag"]
-  GETTABLEKS R6 R0 K9 ["Color"]
-  GETTABLEKS R5 R6 K10 ["Extended"]
-  GETTABLEKS R4 R5 K11 ["White"]
-  GETTABLEKS R3 R4 K12 ["White_100"]
+  GETTABLEKS R6 R0 K7 ["Color"]
+  GETTABLEKS R5 R6 K8 ["Extended"]
+  GETTABLEKS R4 R5 K9 ["White"]
+  GETTABLEKS R3 R4 K10 ["White_100"]
   SETTABLEKS R3 R2 K4 ["style"]
   SETTABLEKS R2 R1 K0 ["knob"]
-  DUPTABLE R2 K13 [{"tag"}]
-  LOADK R3 K14 ["anchor-center-center position-center-center"]
+  DUPTABLE R2 K11 [{"tag"}]
+  LOADK R3 K12 ["anchor-center-center position-center-center"]
   SETTABLEKS R3 R2 K3 ["tag"]
   SETTABLEKS R2 R1 K1 ["knobShadow"]
   NEWTABLE R2 4 0
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K15 ["XSmall"]
+  GETTABLEKS R3 R4 K13 ["XSmall"]
   GETUPVAL R4 1
-  DUPTABLE R5 K18 [{"size", "shadowPadding"}]
+  DUPTABLE R5 K16 [{"size", "shadowPadding"}]
   GETUPVAL R6 2
   MOVE R7 R0
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K15 ["XSmall"]
+  GETTABLEKS R8 R9 K13 ["XSmall"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K16 ["size"]
-  GETTABLEKS R7 R0 K19 ["Padding"]
-  GETTABLEKS R6 R7 K20 ["XXSmall"]
-  SETTABLEKS R6 R5 K17 ["shadowPadding"]
+  SETTABLEKS R6 R5 K14 ["size"]
+  GETTABLEKS R7 R0 K17 ["Padding"]
+  GETTABLEKS R6 R7 K18 ["XXSmall"]
+  SETTABLEKS R6 R5 K15 ["shadowPadding"]
   CALL R4 1 1
   SETTABLE R4 R2 R3
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K21 ["Small"]
+  GETTABLEKS R3 R4 K19 ["Small"]
   GETUPVAL R4 1
-  DUPTABLE R5 K18 [{"size", "shadowPadding"}]
+  DUPTABLE R5 K16 [{"size", "shadowPadding"}]
   GETUPVAL R6 2
   MOVE R7 R0
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K21 ["Small"]
+  GETTABLEKS R8 R9 K19 ["Small"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K16 ["size"]
-  GETTABLEKS R7 R0 K19 ["Padding"]
-  GETTABLEKS R6 R7 K15 ["XSmall"]
-  SETTABLEKS R6 R5 K17 ["shadowPadding"]
+  SETTABLEKS R6 R5 K14 ["size"]
+  GETTABLEKS R7 R0 K17 ["Padding"]
+  GETTABLEKS R6 R7 K13 ["XSmall"]
+  SETTABLEKS R6 R5 K15 ["shadowPadding"]
   CALL R4 1 1
   SETTABLE R4 R2 R3
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K22 ["Medium"]
+  GETTABLEKS R3 R4 K20 ["Medium"]
   GETUPVAL R4 1
-  DUPTABLE R5 K18 [{"size", "shadowPadding"}]
+  DUPTABLE R5 K16 [{"size", "shadowPadding"}]
   GETUPVAL R6 2
   MOVE R7 R0
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K22 ["Medium"]
+  GETTABLEKS R8 R9 K20 ["Medium"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K16 ["size"]
-  GETTABLEKS R7 R0 K19 ["Padding"]
-  GETTABLEKS R6 R7 K21 ["Small"]
-  SETTABLEKS R6 R5 K17 ["shadowPadding"]
+  SETTABLEKS R6 R5 K14 ["size"]
+  GETTABLEKS R7 R0 K17 ["Padding"]
+  GETTABLEKS R6 R7 K19 ["Small"]
+  SETTABLEKS R6 R5 K15 ["shadowPadding"]
   CALL R4 1 1
   SETTABLE R4 R2 R3
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K23 ["Large"]
+  GETTABLEKS R3 R4 K21 ["Large"]
   GETUPVAL R4 1
-  DUPTABLE R5 K18 [{"size", "shadowPadding"}]
+  DUPTABLE R5 K16 [{"size", "shadowPadding"}]
   GETUPVAL R6 2
   MOVE R7 R0
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K23 ["Large"]
+  GETTABLEKS R8 R9 K21 ["Large"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K16 ["size"]
-  GETTABLEKS R7 R0 K19 ["Padding"]
-  GETTABLEKS R6 R7 K21 ["Small"]
-  SETTABLEKS R6 R5 K17 ["shadowPadding"]
+  SETTABLEKS R6 R5 K14 ["size"]
+  GETTABLEKS R7 R0 K17 ["Padding"]
+  GETTABLEKS R6 R7 K19 ["Small"]
+  SETTABLEKS R6 R5 K15 ["shadowPadding"]
   CALL R4 1 1
   SETTABLE R4 R2 R3
-  DUPTABLE R3 K26 [{"common", "sizes"}]
-  SETTABLEKS R1 R3 K24 ["common"]
-  SETTABLEKS R2 R3 K25 ["sizes"]
+  DUPTABLE R3 K24 [{"common", "sizes"}]
+  SETTABLEKS R1 R3 K22 ["common"]
+  SETTABLEKS R2 R3 K23 ["sizes"]
   RETURN R3 1
 
 PROTO_2:

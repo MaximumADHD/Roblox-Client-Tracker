@@ -41,7 +41,7 @@ PROTO_2:
   GETTABLEKS R5 R6 K3 ["createElement"]
   GETUPVAL R6 1
   DUPTABLE R7 K5 [{"tag"}]
-  LOADK R8 K6 ["gap-large auto-xy padding-xlarge"]
+  LOADK R8 K6 ["col-order-by-name gap-large auto-xy padding-larger"]
   SETTABLEKS R8 R7 K4 ["tag"]
   NEWTABLE R8 0 1
   GETUPVAL R10 0

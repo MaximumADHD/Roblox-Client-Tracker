@@ -18,22 +18,22 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  LOADK R2 K0 ["%q (%s) is not a valid member of %s"]
+  LOADK R3 K0 ["%q (%s) is not a valid member of %s"]
   FASTCALL1 TOSTRING R1 [+3]
-  MOVE R5 R1
-  GETIMPORT R4 K2 [tostring]
-  CALL R4 1 1
-  FASTCALL1 TYPEOF R1 [+3]
   MOVE R6 R1
-  GETIMPORT R5 K4 [typeof]
+  GETIMPORT R5 K2 [tostring]
   CALL R5 1 1
-  GETUPVAL R6 0
-  NAMECALL R2 R2 K5 ["format"]
-  CALL R2 4 1
-  GETIMPORT R3 K7 [error]
-  MOVE R4 R2
-  LOADN R5 2
-  CALL R3 2 0
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K4 [typeof]
+  CALL R6 1 1
+  GETUPVAL R7 0
+  NAMECALL R3 R3 K5 ["format"]
+  CALL R3 4 1
+  GETIMPORT R4 K7 [error]
+  MOVE R5 R3
+  LOADN R6 2
+  CALL R4 2 0
   RETURN R0 0
 
 PROTO_2:

@@ -112,11 +112,6 @@ MAIN:
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R3
-  MOVE R7 R6
-  GETTABLEKS R8 R4 K13 ["Desktop"]
-  GETTABLEKS R9 R3 K14 ["Dark"]
-  CALL R7 2 1
-  DUPTABLE R8 K17 [{"getTokens", "defaultTokens"}]
-  SETTABLEKS R6 R8 K15 ["getTokens"]
-  SETTABLEKS R7 R8 K16 ["defaultTokens"]
-  RETURN R8 1
+  DUPTABLE R7 K14 [{"getTokens"}]
+  SETTABLEKS R6 R7 K13 ["getTokens"]
+  RETURN R7 1

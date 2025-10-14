@@ -15,14 +15,15 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETTABLEKS R3 R0 K0 ["_draggerContext"]
-  GETTABLEKS R2 R3 K1 ["vertexEditingTool"]
-  GETTABLEKS R1 R2 K2 ["boundsChanged"]
-  NEWCLOSURE R3 P0
+  GETTABLEKS R2 R0 K0 ["_draggerContext"]
+  GETTABLEKS R1 R2 K1 ["vertexEditingTool"]
+  NAMECALL R1 R1 K2 ["getBoundsChangedSignal"]
+  CALL R1 1 1
+  NEWCLOSURE R4 P0
   CAPTURE VAL R0
-  NAMECALL R1 R1 K3 ["Connect"]
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K4 ["_boundsChangedConnection"]
+  NAMECALL R2 R1 K3 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K4 ["_boundsChangedConnection"]
   RETURN R0 0
 
 PROTO_3:

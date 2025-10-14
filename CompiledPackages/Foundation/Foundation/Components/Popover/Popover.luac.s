@@ -1,22 +1,22 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useState"]
-  LOADNIL R2
-  CALL R1 1 2
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["createElement"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["Provider"]
-  DUPTABLE R5 K4 [{"value"}]
-  DUPTABLE R6 K8 [{"anchor", "setAnchor", "isOpen"}]
-  SETTABLEKS R1 R6 K5 ["anchor"]
-  SETTABLEKS R2 R6 K6 ["setAnchor"]
-  GETTABLEKS R7 R0 K7 ["isOpen"]
-  SETTABLEKS R7 R6 K7 ["isOpen"]
-  SETTABLEKS R6 R5 K3 ["value"]
-  GETTABLEKS R6 R0 K9 ["children"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useState"]
+  LOADNIL R3
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["createElement"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["Provider"]
+  DUPTABLE R6 K4 [{"value"}]
+  DUPTABLE R7 K8 [{"anchor", "setAnchor", "isOpen"}]
+  SETTABLEKS R2 R7 K5 ["anchor"]
+  SETTABLEKS R3 R7 K6 ["setAnchor"]
+  GETTABLEKS R8 R0 K7 ["isOpen"]
+  SETTABLEKS R8 R7 K7 ["isOpen"]
+  SETTABLEKS R7 R6 K3 ["value"]
+  GETTABLEKS R7 R0 K9 ["children"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -33,11 +33,10 @@ MAIN:
   GETTABLEKS R5 R6 K4 ["Parent"]
   GETTABLEKS R4 R5 K8 ["PopoverContext"]
   CALL R3 1 1
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R6 R0 K9 ["Components"]
-  GETTABLEKS R5 R6 K10 ["Types"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K11 [PROTO_0]
+  DUPCLOSURE R4 K9 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R3
-  RETURN R5 1
+  GETTABLEKS R5 R2 K10 ["forwardRef"]
+  MOVE R6 R4
+  CALL R5 1 -1
+  RETURN R5 -1

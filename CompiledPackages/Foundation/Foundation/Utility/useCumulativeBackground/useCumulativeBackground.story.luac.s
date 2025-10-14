@@ -143,96 +143,64 @@ PROTO_3:
   RETURN R5 -1
 
 PROTO_4:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["useBinding"]
-  LOADK R1 K1 [0.5]
-  CALL R0 1 2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["useBinding"]
-  LOADN R3 0
-  CALL R2 1 2
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["useBinding"]
-  LOADN R5 0
-  CALL R4 1 2
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K2 ["useState"]
-  LOADB R7 1
-  CALL R6 1 2
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K3 ["createElement"]
-  GETUPVAL R9 1
-  DUPTABLE R10 K5 [{"tag"}]
-  LOADK R11 K6 ["auto-xy col gap-large"]
-  SETTABLEKS R11 R10 K4 ["tag"]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K3 ["createElement"]
-  GETUPVAL R12 2
-  DUPTABLE R13 K11 [{"label", "isChecked", "onActivated", "size"}]
-  LOADK R14 K12 ["Use cumulative background"]
-  SETTABLEKS R14 R13 K7 ["label"]
-  SETTABLEKS R6 R13 K8 ["isChecked"]
-  NEWCLOSURE R14 P0
-  CAPTURE VAL R7
-  SETTABLEKS R14 R13 K9 ["onActivated"]
-  GETUPVAL R15 3
-  GETTABLEKS R14 R15 K13 ["XSmall"]
-  SETTABLEKS R14 R13 K10 ["size"]
-  CALL R11 2 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useBinding"]
+  LOADK R2 K1 [0.5]
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useBinding"]
+  LOADN R4 0
+  CALL R3 1 2
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["useBinding"]
+  LOADN R6 0
+  CALL R5 1 2
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["useState"]
+  LOADB R8 1
+  CALL R7 1 2
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K3 ["createElement"]
+  GETUPVAL R10 1
+  DUPTABLE R11 K5 [{"tag"}]
+  LOADK R12 K6 ["auto-xy col gap-large"]
+  SETTABLEKS R12 R11 K4 ["tag"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 1
-  DUPTABLE R14 K5 [{"tag"}]
-  LOADK R15 K14 ["auto-xy col gap-medium"]
-  SETTABLEKS R15 R14 K4 ["tag"]
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K3 ["createElement"]
-  GETUPVAL R16 4
-  DUPTABLE R17 K17 [{"LayoutOrder", "Text", "tag"}]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K15 ["LayoutOrder"]
-  LOADK R18 K18 ["Semi-transparent element background"]
-  SETTABLEKS R18 R17 K16 ["Text"]
-  LOADK R18 K19 ["auto-xy"]
-  SETTABLEKS R18 R17 K4 ["tag"]
-  CALL R15 2 1
+  GETUPVAL R13 2
+  DUPTABLE R14 K11 [{"label", "isChecked", "onActivated", "size"}]
+  LOADK R15 K12 ["Use cumulative background"]
+  SETTABLEKS R15 R14 K7 ["label"]
+  SETTABLEKS R7 R14 K8 ["isChecked"]
+  NEWCLOSURE R15 P0
+  CAPTURE VAL R8
+  SETTABLEKS R15 R14 K9 ["onActivated"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K13 ["XSmall"]
+  SETTABLEKS R15 R14 K10 ["size"]
+  CALL R12 2 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K3 ["createElement"]
+  GETUPVAL R14 1
+  DUPTABLE R15 K5 [{"tag"}]
+  LOADK R16 K14 ["auto-xy col gap-medium"]
+  SETTABLEKS R16 R15 K4 ["tag"]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K3 ["createElement"]
-  GETUPVAL R17 1
-  DUPTABLE R18 K20 [{"LayoutOrder", "tag"}]
-  LOADN R19 2
+  GETUPVAL R17 4
+  DUPTABLE R18 K17 [{"LayoutOrder", "Text", "tag"}]
+  LOADN R19 1
   SETTABLEKS R19 R18 K15 ["LayoutOrder"]
-  LOADK R19 K21 ["size-2600-0 auto-y row gap-large"]
+  LOADK R19 K18 ["Semi-transparent element background"]
+  SETTABLEKS R19 R18 K16 ["Text"]
+  LOADK R19 K19 ["auto-xy"]
   SETTABLEKS R19 R18 K4 ["tag"]
-  GETUPVAL R20 0
-  GETTABLEKS R19 R20 K3 ["createElement"]
-  GETUPVAL R20 5
-  DUPTABLE R21 K22 [{"Text", "size"}]
-  LOADK R22 K23 ["Transparency"]
-  SETTABLEKS R22 R21 K16 ["Text"]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K24 ["Medium"]
-  SETTABLEKS R22 R21 K10 ["size"]
-  CALL R19 2 1
-  GETUPVAL R21 0
-  GETTABLEKS R20 R21 K3 ["createElement"]
-  GETUPVAL R21 6
-  DUPTABLE R22 K28 [{"value", "onValueChanged", "size", "knobVisibility"}]
-  SETTABLEKS R0 R22 K25 ["value"]
-  SETTABLEKS R1 R22 K26 ["onValueChanged"]
-  GETUPVAL R24 3
-  GETTABLEKS R23 R24 K24 ["Medium"]
-  SETTABLEKS R23 R22 K10 ["size"]
-  GETUPVAL R24 7
-  GETTABLEKS R23 R24 K29 ["Always"]
-  SETTABLEKS R23 R22 K27 ["knobVisibility"]
-  CALL R20 2 -1
-  CALL R16 -1 1
+  CALL R16 2 1
   GETUPVAL R18 0
   GETTABLEKS R17 R18 K3 ["createElement"]
   GETUPVAL R18 1
   DUPTABLE R19 K20 [{"LayoutOrder", "tag"}]
-  LOADN R20 3
+  LOADN R20 2
   SETTABLEKS R20 R19 K15 ["LayoutOrder"]
   LOADK R20 K21 ["size-2600-0 auto-y row gap-large"]
   SETTABLEKS R20 R19 K4 ["tag"]
@@ -240,7 +208,7 @@ PROTO_4:
   GETTABLEKS R20 R21 K3 ["createElement"]
   GETUPVAL R21 5
   DUPTABLE R22 K22 [{"Text", "size"}]
-  LOADK R23 K30 ["Hue"]
+  LOADK R23 K23 ["Transparency"]
   SETTABLEKS R23 R22 K16 ["Text"]
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K24 ["Medium"]
@@ -250,8 +218,8 @@ PROTO_4:
   GETTABLEKS R21 R22 K3 ["createElement"]
   GETUPVAL R22 6
   DUPTABLE R23 K28 [{"value", "onValueChanged", "size", "knobVisibility"}]
-  SETTABLEKS R2 R23 K25 ["value"]
-  SETTABLEKS R3 R23 K26 ["onValueChanged"]
+  SETTABLEKS R1 R23 K25 ["value"]
+  SETTABLEKS R2 R23 K26 ["onValueChanged"]
   GETUPVAL R25 3
   GETTABLEKS R24 R25 K24 ["Medium"]
   SETTABLEKS R24 R23 K10 ["size"]
@@ -264,7 +232,7 @@ PROTO_4:
   GETTABLEKS R18 R19 K3 ["createElement"]
   GETUPVAL R19 1
   DUPTABLE R20 K20 [{"LayoutOrder", "tag"}]
-  LOADN R21 4
+  LOADN R21 3
   SETTABLEKS R21 R20 K15 ["LayoutOrder"]
   LOADK R21 K21 ["size-2600-0 auto-y row gap-large"]
   SETTABLEKS R21 R20 K4 ["tag"]
@@ -272,7 +240,7 @@ PROTO_4:
   GETTABLEKS R21 R22 K3 ["createElement"]
   GETUPVAL R22 5
   DUPTABLE R23 K22 [{"Text", "size"}]
-  LOADK R24 K31 ["Saturation"]
+  LOADK R24 K30 ["Hue"]
   SETTABLEKS R24 R23 K16 ["Text"]
   GETUPVAL R25 3
   GETTABLEKS R24 R25 K24 ["Medium"]
@@ -282,8 +250,8 @@ PROTO_4:
   GETTABLEKS R22 R23 K3 ["createElement"]
   GETUPVAL R23 6
   DUPTABLE R24 K28 [{"value", "onValueChanged", "size", "knobVisibility"}]
-  SETTABLEKS R4 R24 K25 ["value"]
-  SETTABLEKS R5 R24 K26 ["onValueChanged"]
+  SETTABLEKS R3 R24 K25 ["value"]
+  SETTABLEKS R4 R24 K26 ["onValueChanged"]
   GETUPVAL R26 3
   GETTABLEKS R25 R26 K24 ["Medium"]
   SETTABLEKS R25 R24 K10 ["size"]
@@ -291,24 +259,56 @@ PROTO_4:
   GETTABLEKS R25 R26 K29 ["Always"]
   SETTABLEKS R25 R24 K27 ["knobVisibility"]
   CALL R22 2 -1
-  CALL R18 -1 -1
-  CALL R12 -1 1
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K3 ["createElement"]
-  NEWCLOSURE R14 P1
+  CALL R18 -1 1
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K3 ["createElement"]
+  GETUPVAL R20 1
+  DUPTABLE R21 K20 [{"LayoutOrder", "tag"}]
+  LOADN R22 4
+  SETTABLEKS R22 R21 K15 ["LayoutOrder"]
+  LOADK R22 K21 ["size-2600-0 auto-y row gap-large"]
+  SETTABLEKS R22 R21 K4 ["tag"]
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K3 ["createElement"]
+  GETUPVAL R23 5
+  DUPTABLE R24 K22 [{"Text", "size"}]
+  LOADK R25 K31 ["Saturation"]
+  SETTABLEKS R25 R24 K16 ["Text"]
+  GETUPVAL R26 3
+  GETTABLEKS R25 R26 K24 ["Medium"]
+  SETTABLEKS R25 R24 K10 ["size"]
+  CALL R22 2 1
+  GETUPVAL R24 0
+  GETTABLEKS R23 R24 K3 ["createElement"]
+  GETUPVAL R24 6
+  DUPTABLE R25 K28 [{"value", "onValueChanged", "size", "knobVisibility"}]
+  SETTABLEKS R5 R25 K25 ["value"]
+  SETTABLEKS R6 R25 K26 ["onValueChanged"]
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K24 ["Medium"]
+  SETTABLEKS R26 R25 K10 ["size"]
+  GETUPVAL R27 7
+  GETTABLEKS R26 R27 K29 ["Always"]
+  SETTABLEKS R26 R25 K27 ["knobVisibility"]
+  CALL R23 2 -1
+  CALL R19 -1 -1
+  CALL R13 -1 1
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K3 ["createElement"]
+  NEWCLOSURE R15 P1
   CAPTURE UPVAL U8
   CAPTURE UPVAL U0
   CAPTURE UPVAL U9
   CAPTURE UPVAL U1
-  CAPTURE VAL R6
-  DUPTABLE R15 K36 [{"transparency", "hue", "saturation", "useCumulative"}]
-  SETTABLEKS R0 R15 K32 ["transparency"]
-  SETTABLEKS R2 R15 K33 ["hue"]
-  SETTABLEKS R4 R15 K34 ["saturation"]
-  SETTABLEKS R6 R15 K35 ["useCumulative"]
-  CALL R13 2 -1
-  CALL R8 -1 -1
-  RETURN R8 -1
+  CAPTURE VAL R7
+  DUPTABLE R16 K36 [{"transparency", "hue", "saturation", "useCumulative"}]
+  SETTABLEKS R1 R16 K32 ["transparency"]
+  SETTABLEKS R3 R16 K33 ["hue"]
+  SETTABLEKS R5 R16 K34 ["saturation"]
+  SETTABLEKS R7 R16 K35 ["useCumulative"]
+  CALL R14 2 -1
+  CALL R9 -1 -1
+  RETURN R9 -1
 
 MAIN:
   PREPVARARGS 0

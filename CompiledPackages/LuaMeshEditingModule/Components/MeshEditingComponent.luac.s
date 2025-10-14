@@ -12,12 +12,13 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  GETTABLEKS R2 R1 K0 ["draggerHandleChanged"]
+  NAMECALL R2 R1 K0 ["getDraggerHandleChangedSignal"]
+  CALL R2 1 1
   NEWCLOSURE R4 P0
   CAPTURE VAL R0
   NAMECALL R2 R2 K1 ["Connect"]
   CALL R2 2 1
-  SETTABLEKS R2 R0 K0 ["draggerHandleChanged"]
+  SETTABLEKS R2 R0 K2 ["draggerHandleChanged"]
   RETURN R0 0
 
 PROTO_2:
@@ -49,12 +50,13 @@ PROTO_2:
   SETTABLEKS R3 R2 K12 ["draggerType"]
   SETTABLEKS R2 R0 K15 ["state"]
   GETTABLEKS R2 R1 K1 ["VertexToolBase"]
-  GETTABLEKS R3 R2 K16 ["draggerHandleChanged"]
+  NAMECALL R3 R2 K16 ["getDraggerHandleChangedSignal"]
+  CALL R3 1 1
   NEWCLOSURE R5 P0
   CAPTURE VAL R0
   NAMECALL R3 R3 K17 ["Connect"]
   CALL R3 2 1
-  SETTABLEKS R3 R0 K16 ["draggerHandleChanged"]
+  SETTABLEKS R3 R0 K18 ["draggerHandleChanged"]
   RETURN R0 0
 
 PROTO_3:
@@ -77,11 +79,11 @@ PROTO_4:
   GETTABLEKS R2 R1 K0 ["VertexToolBase"]
   GETTABLEKS R4 R0 K1 ["props"]
   GETTABLEKS R3 R4 K0 ["VertexToolBase"]
-  JUMPIFEQ R2 R3 [+65]
+  JUMPIFEQ R2 R3 [+66]
   GETTABLEKS R2 R0 K2 ["selection"]
-  JUMPIFNOT R2 [+61]
+  JUMPIFNOT R2 [+62]
   GETTABLEKS R2 R0 K3 ["draggerContext"]
-  JUMPIFNOT R2 [+58]
+  JUMPIFNOT R2 [+59]
   GETTABLEKS R2 R0 K4 ["draggerHandleChanged"]
   JUMPIFNOT R2 [+5]
   GETTABLEKS R2 R0 K4 ["draggerHandleChanged"]
@@ -110,10 +112,11 @@ PROTO_4:
   NAMECALL R2 R2 K13 ["Fire"]
   CALL R2 1 0
   GETTABLEKS R2 R1 K0 ["VertexToolBase"]
-  GETTABLEKS R3 R2 K4 ["draggerHandleChanged"]
+  NAMECALL R3 R2 K14 ["getDraggerHandleChangedSignal"]
+  CALL R3 1 1
   NEWCLOSURE R5 P0
   CAPTURE VAL R0
-  NAMECALL R3 R3 K14 ["Connect"]
+  NAMECALL R3 R3 K15 ["Connect"]
   CALL R3 2 1
   SETTABLEKS R3 R0 K4 ["draggerHandleChanged"]
   RETURN R0 0

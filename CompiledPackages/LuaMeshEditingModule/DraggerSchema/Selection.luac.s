@@ -10,6 +10,10 @@ PROTO_0:
   RETURN R1 1
 
 PROTO_1:
+  GETTABLEKS R2 R0 K0 ["_vertexToolBase"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setSelected"]
+  CALL R2 2 0
   RETURN R0 0
 
 PROTO_2:
@@ -20,12 +24,9 @@ PROTO_2:
 
 PROTO_3:
   SETTABLEKS R1 R0 K0 ["_vertexToolBase"]
-  GETTABLEKS R3 R1 K1 ["selectionChanged"]
-  FASTCALL2K ASSERT R3 K2 [+4]
-  LOADK R4 K2 ["VertexToolBase must have a selectionChanged event"]
-  GETIMPORT R2 K4 [assert]
-  CALL R2 2 1
-  SETTABLEKS R2 R0 K5 ["SelectionChanged"]
+  NAMECALL R2 R1 K1 ["getSelectionChangedSignal"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K2 ["SelectionChanged"]
   RETURN R0 0
 
 PROTO_4:

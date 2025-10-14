@@ -332,11 +332,8 @@ PROTO_12:
   GETTABLEKS R18 R19 K46 ["Neutral"]
   GETTABLEKS R17 R18 K42 ["Transparency"]
   SETTABLEKS R17 R16 K42 ["Transparency"]
-  GETTABLEKS R19 R0 K47 ["Stroke"]
-  GETTABLEKS R18 R19 K48 ["Thick"]
-  FASTCALL1 MATH_ROUND R18 [+2]
-  GETIMPORT R17 K51 [math.round]
-  CALL R17 1 1
+  GETTABLEKS R18 R0 K47 ["Stroke"]
+  GETTABLEKS R17 R18 K48 ["Thick"]
   SETTABLEKS R17 R16 K43 ["Thickness"]
   SETTABLEKS R16 R15 K38 ["stroke"]
   LOADB R16 1
@@ -344,10 +341,10 @@ PROTO_12:
   CALL R13 2 1
   SETTABLEKS R13 R12 K30 ["knob"]
   GETUPVAL R14 7
-  GETTABLEKS R13 R14 K52 ["Always"]
+  GETTABLEKS R13 R14 K49 ["Always"]
   SETTABLEKS R13 R12 K31 ["knobVisibility"]
   SETTABLEKS R2 R12 K32 ["onValueChanged"]
-  GETIMPORT R13 K54 [UDim.new]
+  GETIMPORT R13 K51 [UDim.new]
   LOADN R14 1
   LOADN R15 0
   CALL R13 2 1
@@ -356,69 +353,6 @@ PROTO_12:
   SETTABLEKS R10 R9 K16 ["ColorSlider"]
   CALL R6 3 -1
   RETURN R6 -1
-
-PROTO_13:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["useBinding"]
-  LOADK R1 K1 [0.5]
-  CALL R0 1 2
-  NEWTABLE R2 0 0
-  LOADN R5 0
-  LOADN R3 104
-  LOADK R4 K2 [51.4285714285714]
-  FORNPREP R3
-  LOADK R7 K3 ["Slider_%*"]
-  MOVE R9 R5
-  NAMECALL R7 R7 K4 ["format"]
-  CALL R7 2 1
-  MOVE R6 R7
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K5 ["createElement"]
-  GETUPVAL R8 1
-  DUPTABLE R9 K7 [{"Size"}]
-  GETIMPORT R10 K10 [UDim2.fromScale]
-  LOADK R11 K11 [0.142857142857143]
-  LOADN R12 0
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K6 ["Size"]
-  DUPTABLE R10 K13 [{"Folder"}]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K5 ["createElement"]
-  LOADK R12 K12 ["Folder"]
-  NEWTABLE R13 0 0
-  NEWTABLE R14 0 1
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K5 ["createElement"]
-  GETUPVAL R16 1
-  DUPTABLE R17 K16 [{"tag", "Rotation"}]
-  LOADK R18 K17 ["size-full"]
-  SETTABLEKS R18 R17 K14 ["tag"]
-  SETTABLEKS R5 R17 K15 ["Rotation"]
-  DUPTABLE R18 K19 [{"Slider"}]
-  GETUPVAL R20 0
-  GETTABLEKS R19 R20 K5 ["createElement"]
-  GETUPVAL R20 2
-  DUPTABLE R21 K22 [{"value", "onValueChanged"}]
-  SETTABLEKS R0 R21 K20 ["value"]
-  SETTABLEKS R1 R21 K21 ["onValueChanged"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K18 ["Slider"]
-  CALL R15 3 -1
-  SETLIST R14 R15 -1 [1]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K12 ["Folder"]
-  CALL R7 3 1
-  SETTABLE R7 R2 R6
-  FORNLOOP R3
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K5 ["createElement"]
-  GETUPVAL R4 1
-  DUPTABLE R5 K23 [{"tag"}]
-  LOADK R6 K24 ["size-full-3000 row align-y-center"]
-  SETTABLEKS R6 R5 K14 ["tag"]
-  MOVE R6 R2
-  CALL R3 3 -1
-  RETURN R3 -1
 
 MAIN:
   PREPVARARGS 0
@@ -477,7 +411,7 @@ MAIN:
   DUPTABLE R14 K26 [{"summary", "stories", "controls"}]
   LOADK R15 K27 ["If dragging does not work make sure to deselect any tools in Studio! By default the \"Select\" tool is selected and will interfere with dragging behavior"]
   SETTABLEKS R15 R14 K23 ["summary"]
-  NEWTABLE R15 0 4
+  NEWTABLE R15 0 3
   DUPTABLE R16 K30 [{"name", "summary", "story"}]
   LOADK R17 K31 ["Configurable"]
   SETTABLEKS R17 R16 K28 ["name"]
@@ -518,40 +452,30 @@ MAIN:
   CAPTURE VAL R7
   CAPTURE VAL R11
   SETTABLEKS R19 R18 K29 ["story"]
-  DUPTABLE R19 K30 [{"name", "summary", "story"}]
-  LOADK R20 K40 ["Rotated"]
-  SETTABLEKS R20 R19 K28 ["name"]
-  LOADK R20 K41 ["Sliders in containers rotated"]
-  SETTABLEKS R20 R19 K23 ["summary"]
-  DUPCLOSURE R20 K42 [PROTO_13]
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R13
-  SETTABLEKS R20 R19 K29 ["story"]
-  SETLIST R15 R16 4 [1]
+  SETLIST R15 R16 3 [1]
   SETTABLEKS R15 R14 K24 ["stories"]
-  DUPTABLE R15 K51 [{"size", "knobVisibility", "isDisabled", "isContained", "variant", "hasCustomKnob", "rangeMin", "rangeMax"}]
-  GETTABLEKS R16 R2 K52 ["values"]
+  DUPTABLE R15 K48 [{"size", "knobVisibility", "isDisabled", "isContained", "variant", "hasCustomKnob", "rangeMin", "rangeMax"}]
+  GETTABLEKS R16 R2 K49 ["values"]
   MOVE R17 R9
   CALL R16 1 1
-  SETTABLEKS R16 R15 K43 ["size"]
-  GETTABLEKS R16 R2 K52 ["values"]
+  SETTABLEKS R16 R15 K40 ["size"]
+  GETTABLEKS R16 R2 K49 ["values"]
   MOVE R17 R11
   CALL R16 1 1
-  SETTABLEKS R16 R15 K44 ["knobVisibility"]
+  SETTABLEKS R16 R15 K41 ["knobVisibility"]
   LOADB R16 0
-  SETTABLEKS R16 R15 K45 ["isDisabled"]
+  SETTABLEKS R16 R15 K42 ["isDisabled"]
   LOADB R16 0
-  SETTABLEKS R16 R15 K46 ["isContained"]
-  GETTABLEKS R16 R2 K52 ["values"]
+  SETTABLEKS R16 R15 K43 ["isContained"]
+  GETTABLEKS R16 R2 K49 ["values"]
   MOVE R17 R12
   CALL R16 1 1
-  SETTABLEKS R16 R15 K47 ["variant"]
+  SETTABLEKS R16 R15 K44 ["variant"]
   LOADB R16 0
-  SETTABLEKS R16 R15 K48 ["hasCustomKnob"]
+  SETTABLEKS R16 R15 K45 ["hasCustomKnob"]
   LOADN R16 206
-  SETTABLEKS R16 R15 K49 ["rangeMin"]
+  SETTABLEKS R16 R15 K46 ["rangeMin"]
   LOADN R16 100
-  SETTABLEKS R16 R15 K50 ["rangeMax"]
+  SETTABLEKS R16 R15 K47 ["rangeMax"]
   SETTABLEKS R15 R14 K25 ["controls"]
   RETURN R14 1

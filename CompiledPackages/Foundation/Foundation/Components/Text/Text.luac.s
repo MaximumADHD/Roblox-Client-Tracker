@@ -107,15 +107,12 @@ PROTO_2:
   CALL R3 2 1
   LOADB R4 1
   GETTABLEKS R5 R3 K4 ["onStateChanged"]
-  JUMPIFNOTEQKNIL R5 [+12]
-  LOADB R4 1
-  GETTABLEKS R5 R3 K5 ["onActivated"]
   JUMPIFNOTEQKNIL R5 [+7]
-  GETTABLEKS R5 R3 K6 ["onSecondaryActivated"]
+  GETTABLEKS R5 R3 K5 ["onActivated"]
   JUMPIFNOTEQKNIL R5 [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  GETTABLEKS R6 R3 K7 ["backgroundStyle"]
+  GETTABLEKS R6 R3 K6 ["backgroundStyle"]
   JUMPIFEQKNIL R6 [+3]
   GETUPVAL R5 4
   JUMP [+1]
@@ -128,16 +125,16 @@ PROTO_2:
   MOVE R8 R6
   CALL R7 1 1
   GETUPVAL R9 7
-  GETTABLEKS R8 R9 K8 ["useMemo"]
+  GETTABLEKS R8 R9 K7 ["useMemo"]
   NEWCLOSURE R9 P0
   CAPTURE VAL R3
   CAPTURE UPVAL U8
   NEWTABLE R10 0 1
-  GETTABLEKS R11 R3 K9 ["fontStyle"]
+  GETTABLEKS R11 R3 K8 ["fontStyle"]
   SETLIST R10 R11 1 [1]
   CALL R8 2 1
   GETUPVAL R10 7
-  GETTABLEKS R9 R10 K8 ["useMemo"]
+  GETTABLEKS R9 R10 K7 ["useMemo"]
   NEWCLOSURE R10 P1
   CAPTURE VAL R3
   CAPTURE VAL R8
@@ -145,111 +142,109 @@ PROTO_2:
   CAPTURE UPVAL U9
   NEWTABLE R11 0 2
   MOVE R12 R8
-  GETTABLEKS R13 R3 K9 ["fontStyle"]
+  GETTABLEKS R13 R3 K8 ["fontStyle"]
   SETLIST R11 R12 2 [1]
   CALL R9 2 1
-  GETTABLEKS R10 R3 K10 ["padding"]
+  GETTABLEKS R10 R3 K9 ["padding"]
   JUMPIFNOTEQKNIL R10 [+10]
-  JUMPIFEQKN R9 K11 [0] [+8]
-  GETIMPORT R10 K14 [Vector2.new]
+  JUMPIFEQKN R9 K10 [0] [+8]
+  GETIMPORT R10 K13 [Vector2.new]
   LOADN R11 0
   MOVE R12 R9
   CALL R10 2 1
-  SETTABLEKS R10 R3 K10 ["padding"]
+  SETTABLEKS R10 R3 K9 ["padding"]
   JUMPIFNOT R4 [+2]
-  LOADK R10 K15 ["TextButton"]
+  LOADK R10 K14 ["TextButton"]
   JUMP [+1]
-  LOADK R10 K16 ["TextLabel"]
+  LOADK R10 K15 ["TextLabel"]
   GETUPVAL R11 10
   MOVE R12 R3
   NEWTABLE R13 16 0
-  JUMPIFNOTEQKS R10 K15 ["TextButton"] [+4]
-  GETTABLEKS R14 R3 K17 ["AutoButtonColor"]
+  JUMPIFNOTEQKS R10 K14 ["TextButton"] [+4]
+  GETTABLEKS R14 R3 K16 ["AutoButtonColor"]
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K17 ["AutoButtonColor"]
-  SETTABLEKS R8 R13 K18 ["FontFace"]
-  GETTABLEKS R15 R3 K9 ["fontStyle"]
+  SETTABLEKS R14 R13 K16 ["AutoButtonColor"]
+  SETTABLEKS R8 R13 K17 ["FontFace"]
+  GETTABLEKS R15 R3 K8 ["fontStyle"]
   JUMPIFEQKNIL R15 [+6]
-  GETTABLEKS R15 R3 K9 ["fontStyle"]
-  GETTABLEKS R14 R15 K19 ["LineHeight"]
+  GETTABLEKS R15 R3 K8 ["fontStyle"]
+  GETTABLEKS R14 R15 K18 ["LineHeight"]
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K19 ["LineHeight"]
-  GETTABLEKS R14 R3 K20 ["RichText"]
-  SETTABLEKS R14 R13 K20 ["RichText"]
+  SETTABLEKS R14 R13 K18 ["LineHeight"]
+  GETTABLEKS R14 R3 K19 ["RichText"]
+  SETTABLEKS R14 R13 K19 ["RichText"]
   GETTABLEKS R14 R3 K1 ["Text"]
   SETTABLEKS R14 R13 K1 ["Text"]
-  GETTABLEKS R15 R3 K21 ["textStyle"]
+  GETTABLEKS R15 R3 K20 ["textStyle"]
   JUMPIFNOT R15 [+6]
   GETUPVAL R14 11
-  GETTABLEKS R15 R3 K21 ["textStyle"]
-  LOADK R16 K22 ["Color3"]
+  GETTABLEKS R15 R3 K20 ["textStyle"]
+  LOADK R16 K21 ["Color3"]
   CALL R14 2 1
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K23 ["TextColor3"]
-  GETTABLEKS R15 R3 K21 ["textStyle"]
+  SETTABLEKS R14 R13 K22 ["TextColor3"]
+  GETTABLEKS R15 R3 K20 ["textStyle"]
   JUMPIFNOT R15 [+6]
   GETUPVAL R14 11
-  GETTABLEKS R15 R3 K21 ["textStyle"]
-  LOADK R16 K24 ["Transparency"]
+  GETTABLEKS R15 R3 K20 ["textStyle"]
+  LOADK R16 K23 ["Transparency"]
   CALL R14 2 1
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K25 ["TextTransparency"]
-  GETTABLEKS R14 R3 K26 ["TextDirection"]
-  SETTABLEKS R14 R13 K26 ["TextDirection"]
-  GETTABLEKS R14 R3 K27 ["TextScaled"]
-  SETTABLEKS R14 R13 K27 ["TextScaled"]
-  GETTABLEKS R15 R3 K9 ["fontStyle"]
+  SETTABLEKS R14 R13 K24 ["TextTransparency"]
+  GETTABLEKS R14 R3 K25 ["TextDirection"]
+  SETTABLEKS R14 R13 K25 ["TextDirection"]
+  GETTABLEKS R14 R3 K26 ["TextScaled"]
+  SETTABLEKS R14 R13 K26 ["TextScaled"]
+  GETTABLEKS R15 R3 K8 ["fontStyle"]
   JUMPIFEQKNIL R15 [+6]
-  GETTABLEKS R15 R3 K9 ["fontStyle"]
-  GETTABLEKS R14 R15 K28 ["FontSize"]
+  GETTABLEKS R15 R3 K8 ["fontStyle"]
+  GETTABLEKS R14 R15 K27 ["FontSize"]
   JUMP [+1]
   LOADNIL R14
-  SETTABLEKS R14 R13 K29 ["TextSize"]
-  GETTABLEKS R14 R3 K30 ["TextTruncate"]
-  SETTABLEKS R14 R13 K30 ["TextTruncate"]
-  GETTABLEKS R14 R3 K31 ["TextWrapped"]
-  SETTABLEKS R14 R13 K31 ["TextWrapped"]
-  GETTABLEKS R14 R3 K32 ["TextXAlignment"]
-  SETTABLEKS R14 R13 K32 ["TextXAlignment"]
-  GETTABLEKS R14 R3 K33 ["TextYAlignment"]
-  SETTABLEKS R14 R13 K33 ["TextYAlignment"]
-  SETTABLEKS R1 R13 K34 ["ref"]
+  SETTABLEKS R14 R13 K28 ["TextSize"]
+  GETTABLEKS R14 R3 K29 ["TextTruncate"]
+  SETTABLEKS R14 R13 K29 ["TextTruncate"]
+  GETTABLEKS R14 R3 K30 ["TextWrapped"]
+  SETTABLEKS R14 R13 K30 ["TextWrapped"]
+  GETTABLEKS R14 R3 K31 ["TextXAlignment"]
+  SETTABLEKS R14 R13 K31 ["TextXAlignment"]
+  GETTABLEKS R14 R3 K32 ["TextYAlignment"]
+  SETTABLEKS R14 R13 K32 ["TextYAlignment"]
+  SETTABLEKS R1 R13 K33 ["ref"]
   GETUPVAL R15 7
-  GETTABLEKS R14 R15 K35 ["Tag"]
+  GETTABLEKS R14 R15 K34 ["Tag"]
   SETTABLE R7 R13 R14
   CALL R11 2 1
   JUMPIFNOT R4 [+2]
   GETUPVAL R12 12
   JUMP [+1]
   MOVE R12 R10
-  JUMPIFNOT R4 [+35]
+  JUMPIFNOT R4 [+31]
   GETUPVAL R15 13
-  GETTABLEKS R14 R15 K36 ["Dictionary"]
-  GETTABLEKS R13 R14 K37 ["union"]
+  GETTABLEKS R14 R15 K35 ["Dictionary"]
+  GETTABLEKS R13 R14 K36 ["union"]
   MOVE R14 R11
-  DUPTABLE R15 K42 [{"component", "onActivated", "onSecondaryActivated", "onStateChanged", "stateLayer", "isDisabled", "cursor"}]
-  SETTABLEKS R10 R15 K38 ["component"]
+  DUPTABLE R15 K41 [{"component", "onActivated", "onStateChanged", "stateLayer", "isDisabled", "cursor"}]
+  SETTABLEKS R10 R15 K37 ["component"]
   GETTABLEKS R16 R3 K5 ["onActivated"]
   SETTABLEKS R16 R15 K5 ["onActivated"]
-  GETTABLEKS R16 R3 K6 ["onSecondaryActivated"]
-  SETTABLEKS R16 R15 K6 ["onSecondaryActivated"]
   GETTABLEKS R16 R3 K4 ["onStateChanged"]
   SETTABLEKS R16 R15 K4 ["onStateChanged"]
-  GETTABLEKS R16 R3 K39 ["stateLayer"]
-  SETTABLEKS R16 R15 K39 ["stateLayer"]
-  GETTABLEKS R16 R3 K40 ["isDisabled"]
-  SETTABLEKS R16 R15 K40 ["isDisabled"]
-  GETTABLEKS R16 R3 K41 ["cursor"]
-  SETTABLEKS R16 R15 K41 ["cursor"]
+  GETTABLEKS R16 R3 K38 ["stateLayer"]
+  SETTABLEKS R16 R15 K38 ["stateLayer"]
+  GETTABLEKS R16 R3 K39 ["isDisabled"]
+  SETTABLEKS R16 R15 K39 ["isDisabled"]
+  GETTABLEKS R16 R3 K40 ["cursor"]
+  SETTABLEKS R16 R15 K40 ["cursor"]
   CALL R13 2 1
   JUMP [+1]
   MOVE R13 R11
   GETUPVAL R15 7
-  GETTABLEKS R14 R15 K43 ["createElement"]
+  GETTABLEKS R14 R15 K42 ["createElement"]
   MOVE R15 R12
   MOVE R16 R13
   GETUPVAL R17 14

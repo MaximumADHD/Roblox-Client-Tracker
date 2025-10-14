@@ -29,37 +29,37 @@ PROTO_2:
   RETURN R1 1
 
 PROTO_3:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["useBinding"]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["Initialize"]
-  CALL R0 1 2
-  GETUPVAL R2 2
-  CALL R2 0 1
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["createElement"]
-  GETUPVAL R5 3
-  DUPTABLE R6 K8 [{"Text", "fontStyle", "backgroundStyle", "tag", "onStateChanged"}]
-  DUPCLOSURE R9 K9 [PROTO_2]
-  NAMECALL R7 R0 K10 ["map"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K3 ["Text"]
-  DUPTABLE R7 K12 [{"FontSize"}]
-  LOADN R8 20
-  SETTABLEKS R8 R7 K11 ["FontSize"]
-  SETTABLEKS R7 R6 K4 ["fontStyle"]
-  GETTABLEKS R10 R2 K13 ["Color"]
-  GETTABLEKS R9 R10 K14 ["Extended"]
-  GETTABLEKS R8 R9 K15 ["Purple"]
-  GETTABLEKS R7 R8 K16 ["Purple_500"]
-  SETTABLEKS R7 R6 K5 ["backgroundStyle"]
-  LOADK R7 K17 ["col align-x-center align-y-center size-2800 content-default"]
-  SETTABLEKS R7 R6 K6 ["tag"]
-  SETTABLEKS R3 R6 K7 ["onStateChanged"]
-  CALL R4 2 -1
-  RETURN R4 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useBinding"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Initialize"]
+  CALL R1 1 2
+  GETUPVAL R3 2
+  CALL R3 0 1
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K8 [{"Text", "fontStyle", "backgroundStyle", "tag", "onStateChanged"}]
+  DUPCLOSURE R10 K9 [PROTO_2]
+  NAMECALL R8 R1 K10 ["map"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K3 ["Text"]
+  DUPTABLE R8 K12 [{"FontSize"}]
+  LOADN R9 20
+  SETTABLEKS R9 R8 K11 ["FontSize"]
+  SETTABLEKS R8 R7 K4 ["fontStyle"]
+  GETTABLEKS R11 R3 K13 ["Color"]
+  GETTABLEKS R10 R11 K14 ["Extended"]
+  GETTABLEKS R9 R10 K15 ["Purple"]
+  GETTABLEKS R8 R9 K16 ["Purple_500"]
+  SETTABLEKS R8 R7 K5 ["backgroundStyle"]
+  LOADK R8 K17 ["col align-x-center align-y-center size-2800 content-default"]
+  SETTABLEKS R8 R7 K6 ["tag"]
+  SETTABLEKS R4 R7 K7 ["onStateChanged"]
+  CALL R5 2 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0

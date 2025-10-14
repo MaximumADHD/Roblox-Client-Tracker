@@ -88,103 +88,102 @@ PROTO_2:
   GETUPVAL R6 2
   GETUPVAL R7 3
   MOVE R8 R0
-  DUPTABLE R9 K20 [{"tag", "ref"}]
-  LOADK R10 K21 ["size-full-full"]
+  DUPTABLE R9 K19 [{"tag"}]
+  LOADK R10 K20 ["size-full-full"]
   SETTABLEKS R10 R9 K18 ["tag"]
-  SETTABLEKS R1 R9 K19 ["ref"]
   CALL R7 2 1
-  DUPTABLE R8 K24 [{"LeftGradient", "RightGradient"}]
+  DUPTABLE R8 K23 [{"LeftGradient", "RightGradient"}]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K17 ["createElement"]
   GETUPVAL R10 2
-  DUPTABLE R11 K26 [{"Size", "tag"}]
-  GETIMPORT R12 K29 [UDim2.fromScale]
+  DUPTABLE R11 K25 [{"Size", "tag"}]
+  GETIMPORT R12 K28 [UDim2.fromScale]
   LOADK R13 K10 [0.5]
   LOADN R14 1
   CALL R12 2 1
-  SETTABLEKS R12 R11 K25 ["Size"]
-  LOADK R12 K30 ["position-top-left clip"]
+  SETTABLEKS R12 R11 K24 ["Size"]
+  LOADK R12 K29 ["position-top-left clip"]
   SETTABLEKS R12 R11 K18 ["tag"]
-  DUPTABLE R12 K32 [{"Image"}]
+  DUPTABLE R12 K31 [{"Image"}]
   GETUPVAL R14 1
   GETTABLEKS R13 R14 K17 ["createElement"]
   GETUPVAL R14 4
-  DUPTABLE R15 K33 [{"Image", "Size", "tag"}]
-  LOADK R16 K34 ["rbxasset://textures/ui/Controls/RadialFill.png"]
-  SETTABLEKS R16 R15 K31 ["Image"]
-  GETIMPORT R16 K29 [UDim2.fromScale]
+  DUPTABLE R15 K32 [{"Image", "Size", "tag"}]
+  LOADK R16 K33 ["rbxasset://textures/ui/Controls/RadialFill.png"]
+  SETTABLEKS R16 R15 K30 ["Image"]
+  GETIMPORT R16 K28 [UDim2.fromScale]
   LOADN R17 2
   LOADN R18 1
   CALL R16 2 1
-  SETTABLEKS R16 R15 K25 ["Size"]
-  LOADK R16 K35 ["content-emphasis position-top-left"]
+  SETTABLEKS R16 R15 K24 ["Size"]
+  LOADK R16 K34 ["content-emphasis position-top-left"]
   SETTABLEKS R16 R15 K18 ["tag"]
-  DUPTABLE R16 K37 [{"Gradient"}]
+  DUPTABLE R16 K36 [{"Gradient"}]
   GETUPVAL R18 1
   GETTABLEKS R17 R18 K17 ["createElement"]
-  LOADK R18 K38 ["UIGradient"]
-  DUPTABLE R19 K40 [{"Transparency", "Color", "Rotation"}]
+  LOADK R18 K37 ["UIGradient"]
+  DUPTABLE R19 K39 [{"Transparency", "Color", "Rotation"}]
   SETTABLEKS R3 R19 K8 ["Transparency"]
   SETTABLEKS R4 R19 K5 ["Color"]
-  GETTABLEKS R20 R0 K41 ["progress"]
-  DUPCLOSURE R22 K42 [PROTO_0]
-  NAMECALL R20 R20 K43 ["map"]
+  GETTABLEKS R20 R0 K40 ["progress"]
+  DUPCLOSURE R22 K41 [PROTO_0]
+  NAMECALL R20 R20 K42 ["map"]
   CALL R20 2 1
-  SETTABLEKS R20 R19 K39 ["Rotation"]
+  SETTABLEKS R20 R19 K38 ["Rotation"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K36 ["Gradient"]
+  SETTABLEKS R17 R16 K35 ["Gradient"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K31 ["Image"]
+  SETTABLEKS R13 R12 K30 ["Image"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K22 ["LeftGradient"]
+  SETTABLEKS R9 R8 K21 ["LeftGradient"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K17 ["createElement"]
   GETUPVAL R10 2
-  DUPTABLE R11 K26 [{"Size", "tag"}]
-  GETIMPORT R12 K29 [UDim2.fromScale]
+  DUPTABLE R11 K25 [{"Size", "tag"}]
+  GETIMPORT R12 K28 [UDim2.fromScale]
   LOADK R13 K10 [0.5]
   LOADN R14 1
   CALL R12 2 1
-  SETTABLEKS R12 R11 K25 ["Size"]
-  LOADK R12 K44 ["clip position-top-center"]
+  SETTABLEKS R12 R11 K24 ["Size"]
+  LOADK R12 K43 ["clip position-top-center"]
   SETTABLEKS R12 R11 K18 ["tag"]
-  DUPTABLE R12 K32 [{"Image"}]
+  DUPTABLE R12 K31 [{"Image"}]
   GETUPVAL R14 1
   GETTABLEKS R13 R14 K17 ["createElement"]
   GETUPVAL R14 4
-  DUPTABLE R15 K46 [{"Image", "Size", "Position", "tag"}]
-  LOADK R16 K34 ["rbxasset://textures/ui/Controls/RadialFill.png"]
-  SETTABLEKS R16 R15 K31 ["Image"]
-  GETIMPORT R16 K29 [UDim2.fromScale]
+  DUPTABLE R15 K45 [{"Image", "Size", "Position", "tag"}]
+  LOADK R16 K33 ["rbxasset://textures/ui/Controls/RadialFill.png"]
+  SETTABLEKS R16 R15 K30 ["Image"]
+  GETIMPORT R16 K28 [UDim2.fromScale]
   LOADN R17 2
   LOADN R18 1
   CALL R16 2 1
-  SETTABLEKS R16 R15 K25 ["Size"]
-  GETIMPORT R16 K29 [UDim2.fromScale]
+  SETTABLEKS R16 R15 K24 ["Size"]
+  GETIMPORT R16 K28 [UDim2.fromScale]
   LOADN R17 255
   LOADN R18 0
   CALL R16 2 1
-  SETTABLEKS R16 R15 K45 ["Position"]
-  LOADK R16 K47 ["content-emphasis"]
+  SETTABLEKS R16 R15 K44 ["Position"]
+  LOADK R16 K46 ["content-emphasis"]
   SETTABLEKS R16 R15 K18 ["tag"]
-  DUPTABLE R16 K37 [{"Gradient"}]
+  DUPTABLE R16 K36 [{"Gradient"}]
   GETUPVAL R18 1
   GETTABLEKS R17 R18 K17 ["createElement"]
-  LOADK R18 K38 ["UIGradient"]
-  DUPTABLE R19 K40 [{"Transparency", "Color", "Rotation"}]
+  LOADK R18 K37 ["UIGradient"]
+  DUPTABLE R19 K39 [{"Transparency", "Color", "Rotation"}]
   SETTABLEKS R3 R19 K8 ["Transparency"]
   SETTABLEKS R4 R19 K5 ["Color"]
-  GETTABLEKS R20 R0 K41 ["progress"]
-  DUPCLOSURE R22 K48 [PROTO_1]
-  NAMECALL R20 R20 K43 ["map"]
+  GETTABLEKS R20 R0 K40 ["progress"]
+  DUPCLOSURE R22 K47 [PROTO_1]
+  NAMECALL R20 R20 K42 ["map"]
   CALL R20 2 1
-  SETTABLEKS R20 R19 K39 ["Rotation"]
+  SETTABLEKS R20 R19 K38 ["Rotation"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K36 ["Gradient"]
+  SETTABLEKS R17 R16 K35 ["Gradient"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K31 ["Image"]
+  SETTABLEKS R13 R12 K30 ["Image"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K23 ["RightGradient"]
+  SETTABLEKS R9 R8 K22 ["RightGradient"]
   CALL R5 3 -1
   RETURN R5 -1
 

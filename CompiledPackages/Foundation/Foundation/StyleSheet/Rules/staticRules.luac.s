@@ -1312,93 +1312,93 @@ PROTO_21:
   RETURN R0 1
 
 PROTO_22:
-  NEWTABLE R1 0 0
-  GETTABLEKS R2 R0 K0 ["System"]
-  MOVE R3 R2
-  LOADNIL R4
+  NEWTABLE R2 0 0
+  GETTABLEKS R3 R0 K0 ["System"]
+  MOVE R4 R3
   LOADNIL R5
-  FORGPREP R3
-  LOADN R10 8
-  NAMECALL R8 R6 K1 ["sub"]
-  CALL R8 2 1
-  DUPTABLE R11 K5 [{"tag", "properties", "deprecatedFor"}]
-  LOADK R13 K6 ["bg-%*"]
-  MOVE R15 R8
-  NAMECALL R13 R13 K7 ["format"]
-  CALL R13 2 1
-  MOVE R12 R13
-  SETTABLEKS R12 R11 K2 ["tag"]
-  DUPTABLE R12 K10 [{"BackgroundColor3", "BackgroundTransparency"}]
-  GETTABLEKS R13 R7 K11 ["Color3"]
-  SETTABLEKS R13 R12 K8 ["BackgroundColor3"]
-  GETTABLEKS R13 R7 K12 ["Transparency"]
-  SETTABLEKS R13 R12 K9 ["BackgroundTransparency"]
-  SETTABLEKS R12 R11 K3 ["properties"]
-  LOADK R13 K6 ["bg-%*"]
-  MOVE R15 R6
-  NAMECALL R13 R13 K7 ["format"]
-  CALL R13 2 1
-  MOVE R12 R13
-  SETTABLEKS R12 R11 K4 ["deprecatedFor"]
-  FASTCALL2 TABLE_INSERT R1 R11 [+4]
-  MOVE R10 R1
-  GETIMPORT R9 K15 [table.insert]
-  CALL R9 2 0
-  JUMPIFEQKS R8 K16 ["emphasis"] [+80]
-  DUPTABLE R11 K5 [{"tag", "properties", "deprecatedFor"}]
-  LOADK R13 K17 ["content-%*"]
-  MOVE R15 R8
-  NAMECALL R13 R13 K7 ["format"]
-  CALL R13 2 1
-  MOVE R12 R13
-  SETTABLEKS R12 R11 K2 ["tag"]
-  DUPTABLE R12 K22 [{"ImageColor3", "ImageTransparency", "TextColor3", "TextTransparency"}]
-  GETTABLEKS R13 R7 K11 ["Color3"]
-  SETTABLEKS R13 R12 K18 ["ImageColor3"]
-  GETTABLEKS R13 R7 K12 ["Transparency"]
-  SETTABLEKS R13 R12 K19 ["ImageTransparency"]
-  GETTABLEKS R13 R7 K11 ["Color3"]
-  SETTABLEKS R13 R12 K20 ["TextColor3"]
-  GETTABLEKS R13 R7 K12 ["Transparency"]
-  SETTABLEKS R13 R12 K21 ["TextTransparency"]
-  SETTABLEKS R12 R11 K3 ["properties"]
-  LOADK R13 K17 ["content-%*"]
-  MOVE R15 R6
-  NAMECALL R13 R13 K7 ["format"]
-  CALL R13 2 1
-  MOVE R12 R13
-  SETTABLEKS R12 R11 K4 ["deprecatedFor"]
-  FASTCALL2 TABLE_INSERT R1 R11 [+4]
-  MOVE R10 R1
-  GETIMPORT R9 K15 [table.insert]
-  CALL R9 2 0
-  DUPTABLE R11 K24 [{"tag", "pseudo", "properties", "deprecatedFor"}]
-  LOADK R13 K25 ["stroke-%*"]
-  MOVE R15 R8
-  NAMECALL R13 R13 K7 ["format"]
-  CALL R13 2 1
-  MOVE R12 R13
-  SETTABLEKS R12 R11 K2 ["tag"]
-  LOADK R12 K26 ["UIStroke"]
-  SETTABLEKS R12 R11 K23 ["pseudo"]
-  DUPTABLE R12 K28 [{"Color", "Transparency"}]
-  GETTABLEKS R13 R7 K11 ["Color3"]
-  SETTABLEKS R13 R12 K27 ["Color"]
-  GETTABLEKS R13 R7 K12 ["Transparency"]
-  SETTABLEKS R13 R12 K12 ["Transparency"]
-  SETTABLEKS R12 R11 K3 ["properties"]
-  LOADK R13 K25 ["stroke-%*"]
-  MOVE R15 R6
-  NAMECALL R13 R13 K7 ["format"]
-  CALL R13 2 1
-  MOVE R12 R13
-  SETTABLEKS R12 R11 K4 ["deprecatedFor"]
-  FASTCALL2 TABLE_INSERT R1 R11 [+4]
-  MOVE R10 R1
-  GETIMPORT R9 K15 [table.insert]
-  CALL R9 2 0
-  FORGLOOP R3 2 [-120]
-  RETURN R1 1
+  LOADNIL R6
+  FORGPREP R4
+  LOADN R11 8
+  NAMECALL R9 R7 K1 ["sub"]
+  CALL R9 2 1
+  DUPTABLE R12 K5 [{"tag", "properties", "deprecatedFor"}]
+  LOADK R14 K6 ["bg-%*"]
+  MOVE R16 R9
+  NAMECALL R14 R14 K7 ["format"]
+  CALL R14 2 1
+  MOVE R13 R14
+  SETTABLEKS R13 R12 K2 ["tag"]
+  DUPTABLE R13 K10 [{"BackgroundColor3", "BackgroundTransparency"}]
+  GETTABLEKS R14 R8 K11 ["Color3"]
+  SETTABLEKS R14 R13 K8 ["BackgroundColor3"]
+  GETTABLEKS R14 R8 K12 ["Transparency"]
+  SETTABLEKS R14 R13 K9 ["BackgroundTransparency"]
+  SETTABLEKS R13 R12 K3 ["properties"]
+  LOADK R14 K6 ["bg-%*"]
+  MOVE R16 R7
+  NAMECALL R14 R14 K7 ["format"]
+  CALL R14 2 1
+  MOVE R13 R14
+  SETTABLEKS R13 R12 K4 ["deprecatedFor"]
+  FASTCALL2 TABLE_INSERT R2 R12 [+4]
+  MOVE R11 R2
+  GETIMPORT R10 K15 [table.insert]
+  CALL R10 2 0
+  JUMPIFEQKS R9 K16 ["emphasis"] [+80]
+  DUPTABLE R12 K5 [{"tag", "properties", "deprecatedFor"}]
+  LOADK R14 K17 ["content-%*"]
+  MOVE R16 R9
+  NAMECALL R14 R14 K7 ["format"]
+  CALL R14 2 1
+  MOVE R13 R14
+  SETTABLEKS R13 R12 K2 ["tag"]
+  DUPTABLE R13 K22 [{"ImageColor3", "ImageTransparency", "TextColor3", "TextTransparency"}]
+  GETTABLEKS R14 R8 K11 ["Color3"]
+  SETTABLEKS R14 R13 K18 ["ImageColor3"]
+  GETTABLEKS R14 R8 K12 ["Transparency"]
+  SETTABLEKS R14 R13 K19 ["ImageTransparency"]
+  GETTABLEKS R14 R8 K11 ["Color3"]
+  SETTABLEKS R14 R13 K20 ["TextColor3"]
+  GETTABLEKS R14 R8 K12 ["Transparency"]
+  SETTABLEKS R14 R13 K21 ["TextTransparency"]
+  SETTABLEKS R13 R12 K3 ["properties"]
+  LOADK R14 K17 ["content-%*"]
+  MOVE R16 R7
+  NAMECALL R14 R14 K7 ["format"]
+  CALL R14 2 1
+  MOVE R13 R14
+  SETTABLEKS R13 R12 K4 ["deprecatedFor"]
+  FASTCALL2 TABLE_INSERT R2 R12 [+4]
+  MOVE R11 R2
+  GETIMPORT R10 K15 [table.insert]
+  CALL R10 2 0
+  DUPTABLE R12 K24 [{"tag", "pseudo", "properties", "deprecatedFor"}]
+  LOADK R14 K25 ["stroke-%*"]
+  MOVE R16 R9
+  NAMECALL R14 R14 K7 ["format"]
+  CALL R14 2 1
+  MOVE R13 R14
+  SETTABLEKS R13 R12 K2 ["tag"]
+  LOADK R13 K26 ["UIStroke"]
+  SETTABLEKS R13 R12 K23 ["pseudo"]
+  DUPTABLE R13 K28 [{"Color", "Transparency"}]
+  GETTABLEKS R14 R8 K11 ["Color3"]
+  SETTABLEKS R14 R13 K27 ["Color"]
+  GETTABLEKS R14 R8 K12 ["Transparency"]
+  SETTABLEKS R14 R13 K12 ["Transparency"]
+  SETTABLEKS R13 R12 K3 ["properties"]
+  LOADK R14 K25 ["stroke-%*"]
+  MOVE R16 R7
+  NAMECALL R14 R14 K7 ["format"]
+  CALL R14 2 1
+  MOVE R13 R14
+  SETTABLEKS R13 R12 K4 ["deprecatedFor"]
+  FASTCALL2 TABLE_INSERT R2 R12 [+4]
+  MOVE R11 R2
+  GETIMPORT R10 K15 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R4 2 [-120]
+  RETURN R2 1
 
 PROTO_23:
   NEWTABLE R1 0 0
@@ -1504,7 +1504,8 @@ PROTO_24:
   CALL R15 1 1
   GETUPVAL R16 19
   MOVE R17 R2
-  CALL R16 1 1
+  MOVE R18 R3
+  CALL R16 2 1
   GETUPVAL R17 20
   MOVE R18 R2
   MOVE R19 R3
