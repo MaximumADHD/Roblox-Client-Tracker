@@ -1,0 +1,167 @@
+PROTO_0:
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["AlternateMeshIdAttributeName"]
+  JUMPIFEQ R5 R7 [+29]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["GUIDAttributeName"]
+  JUMPIFEQ R5 R7 [+3]
+  LOADB R7 0
+  RETURN R7 1
+  FASTCALL1 TYPEOF R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K3 [typeof]
+  CALL R7 1 1
+  JUMPIFEQKS R7 K4 ["string"] [+3]
+  LOADB R7 0
+  RETURN R7 1
+  FASTCALL1 STRING_LEN R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K6 [string.len]
+  CALL R7 1 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["GUIDAttributeMaxLength"]
+  JUMPIFNOTLT R8 R7 [+3]
+  LOADB R7 0
+  RETURN R7 1
+  FORGLOOP R2 2 [-35]
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R2 R1 K0 ["allowEditableInstances"]
+  NEWTABLE R3 0 0
+  GETUPVAL R4 0
+  NAMECALL R5 R0 K1 ["GetAttributes"]
+  CALL R5 1 1
+  MOVE R6 R2
+  CALL R4 2 1
+  JUMPIF R4 [+8]
+  MOVE R5 R3
+  NAMECALL R6 R0 K2 ["GetFullName"]
+  CALL R6 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R4 K5 [table.insert]
+  CALL R4 -1 0
+  GETIMPORT R4 K7 [ipairs]
+  NAMECALL R5 R0 K8 ["GetDescendants"]
+  CALL R5 1 -1
+  CALL R4 -1 3
+  FORGPREP_INEXT R4
+  GETUPVAL R9 1
+  CALL R9 0 1
+  JUMPIFNOT R9 [+9]
+  JUMPIFNOT R2 [+20]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K9 ["AlternateMeshIdAttributeName"]
+  NAMECALL R9 R8 K10 ["GetAttribute"]
+  CALL R9 2 1
+  JUMPIF R9 [+29]
+  JUMP [+12]
+  JUMPIFNOT R2 [+11]
+  GETUPVAL R9 3
+  MOVE R10 R8
+  CALL R9 1 1
+  JUMPIF R9 [+23]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K9 ["AlternateMeshIdAttributeName"]
+  NAMECALL R9 R8 K10 ["GetAttribute"]
+  CALL R9 2 1
+  JUMPIF R9 [+16]
+  GETIMPORT R9 K12 [next]
+  NAMECALL R10 R8 K1 ["GetAttributes"]
+  CALL R10 1 -1
+  CALL R9 -1 1
+  JUMPIFEQKNIL R9 [+9]
+  MOVE R10 R3
+  NAMECALL R11 R8 K2 ["GetFullName"]
+  CALL R11 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R9 K5 [table.insert]
+  CALL R9 -1 0
+  FORGLOOP R4 2 [inext] [-41]
+  LENGTH R4 R3
+  LOADN R5 0
+  JUMPIFNOTLT R5 R4 [+53]
+  NEWTABLE R4 0 0
+  GETUPVAL R8 4
+  CALL R8 0 1
+  JUMPIFNOT R8 [+7]
+  GETIMPORT R7 K15 [string.format]
+  LOADK R8 K16 ["'%s' (or its descendants) contain Attributes. You need to remove Attributes from the following: "]
+  GETTABLEKS R9 R0 K17 ["Name"]
+  CALL R7 2 1
+  JUMP [+6]
+  GETIMPORT R7 K15 [string.format]
+  LOADK R8 K18 ["'%s' contains attributes in its properties that are not allowed. You need to remove the following attributes: "]
+  GETTABLEKS R9 R0 K17 ["Name"]
+  CALL R7 2 1
+  FASTCALL2 TABLE_INSERT R4 R7 [+4]
+  MOVE R6 R4
+  GETIMPORT R5 K5 [table.insert]
+  CALL R5 2 0
+  GETIMPORT R5 K20 [pairs]
+  MOVE R6 R3
+  CALL R5 1 3
+  FORGPREP_NEXT R5
+  FASTCALL2 TABLE_INSERT R4 R9 [+5]
+  MOVE R11 R4
+  MOVE R12 R9
+  GETIMPORT R10 K5 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R5 2 [-8]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K21 ["reportFailure"]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K22 ["ErrorType"]
+  GETTABLEKS R6 R7 K23 ["validateAttributes"]
+  LOADNIL R7
+  MOVE R8 R1
+  CALL R5 3 0
+  LOADB R5 0
+  MOVE R6 R4
+  RETURN R5 2
+  LOADB R4 1
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["flags"]
+  GETTABLEKS R2 R3 K6 ["getEngineFeatureRemoveProxyWrap"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["flags"]
+  GETTABLEKS R3 R4 K7 ["getFFlagUGCValidateEmoteAnimationExtendedTests"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R0 K8 ["Analytics"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R0 K9 ["Constants"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K10 ["util"]
+  GETTABLEKS R6 R7 K11 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K10 ["util"]
+  GETTABLEKS R7 R8 K12 ["checkForProxyWrap"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K13 [PROTO_0]
+  CAPTURE VAL R4
+  DUPCLOSURE R8 K14 [PROTO_1]
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R8 1

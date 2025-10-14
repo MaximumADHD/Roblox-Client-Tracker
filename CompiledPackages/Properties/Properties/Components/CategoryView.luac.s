@@ -1,0 +1,305 @@
+PROTO_0:
+  GETIMPORT R1 K2 [UDim2.new]
+  LOADN R2 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["indentWidth"]
+  SUB R4 R0 R5
+  FASTCALL2K MATH_MAX R4 K4 [+4]
+  LOADK R5 K4 [0]
+  GETIMPORT R3 K7 [math.max]
+  CALL R3 2 1
+  LOADN R4 1
+  LOADN R5 0
+  CALL R1 4 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  NOT R4 R5
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Context"]
+  CALL R1 1 1
+  NEWTABLE R2 0 0
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["useState"]
+  LOADB R5 1
+  CALL R4 1 2
+  GETUPVAL R6 3
+  CALL R6 0 1
+  JUMPIFNOT R4 [+197]
+  GETTABLEKS R10 R0 K3 ["category"]
+  GETTABLEKS R7 R10 K4 ["propertiesInOrder"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K8 [{"tag", "LayoutOrder"}]
+  LOADK R15 K9 ["auto-y size-full-0 row"]
+  SETTABLEKS R15 R14 K6 ["tag"]
+  MOVE R15 R3
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K7 ["LayoutOrder"]
+  DUPTABLE R15 K12 [{"PropertyName", "PropertyValue"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K5 ["createElement"]
+  GETUPVAL R17 4
+  DUPTABLE R18 K14 [{"tag", "LayoutOrder", "Size"}]
+  LOADK R19 K15 ["auto-x row"]
+  SETTABLEKS R19 R18 K6 ["tag"]
+  MOVE R19 R3
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K7 ["LayoutOrder"]
+  GETIMPORT R19 K18 [UDim2.fromOffset]
+  LOADN R20 0
+  GETUPVAL R22 5
+  GETTABLEKS R21 R22 K19 ["labelHeight"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K13 ["Size"]
+  DUPTABLE R19 K22 [{"Indent", "Text"}]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K5 ["createElement"]
+  GETUPVAL R21 4
+  DUPTABLE R22 K23 [{"LayoutOrder", "Size"}]
+  MOVE R23 R3
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K7 ["LayoutOrder"]
+  GETIMPORT R23 K25 [UDim2.new]
+  LOADN R24 0
+  GETUPVAL R26 5
+  GETTABLEKS R25 R26 K26 ["indentWidth"]
+  LOADN R26 1
+  LOADN R27 0
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K13 ["Size"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K20 ["Indent"]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K5 ["createElement"]
+  GETUPVAL R21 6
+  DUPTABLE R22 K27 [{"tag", "LayoutOrder", "Text", "Size"}]
+  LOADK R23 K28 ["clip text-no-wrap text-align-x-left text-align-y-center text-body-small"]
+  SETTABLEKS R23 R22 K6 ["tag"]
+  MOVE R23 R3
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K7 ["LayoutOrder"]
+  GETTABLEKS R24 R11 K29 ["id"]
+  GETTABLEKS R23 R24 K30 ["propertyName"]
+  SETTABLEKS R23 R22 K21 ["Text"]
+  GETTABLEKS R23 R0 K31 ["labelWidthBinding"]
+  DUPCLOSURE R25 K32 [PROTO_0]
+  CAPTURE UPVAL U5
+  NAMECALL R23 R23 K33 ["map"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K13 ["Size"]
+  DUPTABLE R23 K35 [{"CoolFade"}]
+  GETUPVAL R25 0
+  GETTABLEKS R24 R25 K5 ["createElement"]
+  GETUPVAL R25 4
+  DUPTABLE R26 K37 [{"tag", "Size", "backgroundStyle"}]
+  LOADK R27 K38 ["anchor-center-right position-center-right"]
+  SETTABLEKS R27 R26 K6 ["tag"]
+  GETIMPORT R27 K25 [UDim2.new]
+  LOADN R28 0
+  GETTABLEKS R30 R6 K39 ["Padding"]
+  GETTABLEKS R29 R30 K40 ["Medium"]
+  LOADN R30 1
+  LOADN R31 0
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K13 ["Size"]
+  DUPTABLE R27 K43 [{"Color3", "Transparency"}]
+  GETUPVAL R29 7
+  CALL R29 0 1
+  JUMPIFNOT R29 [+9]
+  GETTABLEKS R31 R6 K44 ["Color"]
+  GETTABLEKS R30 R31 K45 ["Surface"]
+  GETTABLEKS R29 R30 K46 ["Surface_100"]
+  GETTABLEKS R28 R29 K41 ["Color3"]
+  JUMP [+13]
+  GETTABLEKS R29 R1 K47 ["theme"]
+  JUMPIFNOTEQKS R29 K48 ["Dark"] [+6]
+  GETIMPORT R28 K50 [Color3.fromHex]
+  LOADK R29 K51 ["#2E2E2E"]
+  CALL R28 1 1
+  JUMP [+4]
+  GETIMPORT R28 K50 [Color3.fromHex]
+  LOADK R29 K52 ["#FFFFFF"]
+  CALL R28 1 1
+  SETTABLEKS R28 R27 K41 ["Color3"]
+  LOADN R28 0
+  SETTABLEKS R28 R27 K42 ["Transparency"]
+  SETTABLEKS R27 R26 K36 ["backgroundStyle"]
+  DUPTABLE R27 K54 [{"UIGradient"}]
+  GETUPVAL R29 0
+  GETTABLEKS R28 R29 K5 ["createElement"]
+  LOADK R29 K53 ["UIGradient"]
+  DUPTABLE R30 K55 [{"Transparency"}]
+  GETIMPORT R31 K57 [NumberSequence.new]
+  LOADN R32 1
+  LOADN R33 0
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K42 ["Transparency"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K53 ["UIGradient"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K34 ["CoolFade"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K21 ["Text"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K10 ["PropertyName"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K5 ["createElement"]
+  GETUPVAL R17 8
+  DUPTABLE R18 K61 [{"layoutOrder", "record", "session", "labelWidthBinding"}]
+  MOVE R19 R3
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K58 ["layoutOrder"]
+  SETTABLEKS R11 R18 K59 ["record"]
+  GETTABLEKS R19 R0 K60 ["session"]
+  SETTABLEKS R19 R18 K60 ["session"]
+  GETTABLEKS R19 R0 K31 ["labelWidthBinding"]
+  SETTABLEKS R19 R18 K31 ["labelWidthBinding"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K11 ["PropertyValue"]
+  CALL R12 3 1
+  SETTABLE R12 R2 R10
+  FORGLOOP R7 2 [-189]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R8 4
+  DUPTABLE R9 K62 [{"tag"}]
+  LOADK R10 K63 ["col auto-y size-full-0 grow gap-xsmall"]
+  SETTABLEKS R10 R9 K6 ["tag"]
+  DUPTABLE R10 K65 [{"SectionHeader"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K67 [{"tag", "onActivated"}]
+  LOADK R14 K68 ["size-full-800 row align-y-center"]
+  SETTABLEKS R14 R13 K6 ["tag"]
+  NEWCLOSURE R14 P1
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  SETTABLEKS R14 R13 K66 ["onActivated"]
+  DUPTABLE R14 K71 [{"ChevronContainer", "Label"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  GETUPVAL R16 4
+  DUPTABLE R17 K72 [{"LayoutOrder", "tag"}]
+  MOVE R18 R3
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K7 ["LayoutOrder"]
+  LOADK R18 K73 ["size-700 row align-y-center align-x-center"]
+  SETTABLEKS R18 R17 K6 ["tag"]
+  DUPTABLE R18 K75 [{"ExpandImage"}]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K5 ["createElement"]
+  GETUPVAL R20 9
+  DUPTABLE R21 K78 [{"LayoutOrder", "name", "size"}]
+  MOVE R22 R3
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K7 ["LayoutOrder"]
+  JUMPIFNOT R4 [+2]
+  LOADK R22 K79 ["chevron-small-down"]
+  JUMP [+1]
+  LOADK R22 K80 ["chevron-small-right"]
+  SETTABLEKS R22 R21 K76 ["name"]
+  GETUPVAL R25 10
+  GETTABLEKS R24 R25 K81 ["Enums"]
+  GETTABLEKS R23 R24 K82 ["InputSize"]
+  GETTABLEKS R22 R23 K40 ["Medium"]
+  SETTABLEKS R22 R21 K77 ["size"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K74 ["ExpandImage"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K69 ["ChevronContainer"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  GETUPVAL R16 6
+  DUPTABLE R17 K83 [{"LayoutOrder", "Text", "tag"}]
+  MOVE R18 R3
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K7 ["LayoutOrder"]
+  GETTABLEKS R19 R0 K3 ["category"]
+  GETTABLEKS R18 R19 K84 ["categoryName"]
+  SETTABLEKS R18 R17 K21 ["Text"]
+  LOADK R18 K85 ["size-full-full text-no-wrap text-align-x-left text-align-y-center text-title-small"]
+  SETTABLEKS R18 R17 K6 ["tag"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K70 ["Label"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K64 ["SectionHeader"]
+  MOVE R11 R2
+  CALL R7 4 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["Constants"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Components"]
+  GETTABLEKS R4 R5 K11 ["PropertyView"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R0 K13 ["RpcTypes"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Components"]
+  GETTABLEKS R8 R9 K14 ["Contexts"]
+  GETTABLEKS R7 R8 K15 ["ThemeContext"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Util"]
+  GETTABLEKS R8 R9 K16 ["categorizeProperties"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Util"]
+  GETTABLEKS R9 R10 K17 ["createNextOrder"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K18 ["Flags"]
+  GETTABLEKS R10 R11 K19 ["getFFlagEnableRibbonPlugin"]
+  CALL R9 1 1
+  GETTABLEKS R10 R2 K20 ["Icon"]
+  GETTABLEKS R11 R2 K21 ["Text"]
+  GETTABLEKS R12 R2 K22 ["View"]
+  GETTABLEKS R14 R2 K23 ["Hooks"]
+  GETTABLEKS R13 R14 K24 ["useTokens"]
+  DUPCLOSURE R14 K25 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  RETURN R14 1

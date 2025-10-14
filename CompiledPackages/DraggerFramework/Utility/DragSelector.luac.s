@@ -1,0 +1,365 @@
+PROTO_0:
+  JUMPIFNOTEQKNIL R0 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL1 ASSERT R5 [+2]
+  GETIMPORT R4 K1 [assert]
+  CALL R4 1 0
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL1 ASSERT R5 [+2]
+  GETIMPORT R4 K1 [assert]
+  CALL R4 1 0
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL1 ASSERT R5 [+2]
+  GETIMPORT R4 K1 [assert]
+  CALL R4 1 0
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL1 ASSERT R5 [+2]
+  GETIMPORT R4 K1 [assert]
+  CALL R4 1 0
+  DUPTABLE R4 K12 [{"_isDragging", "_selectionBeforeDrag", "_dragStartLocation", "_dragCandidates", "_selectionWrapper", "_beginBoxSelect", "_updateBoxSelect", "_endBoxSelect", "_insertionOrder", "_insertionOrderNext"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["_isDragging"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K3 ["_selectionBeforeDrag"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K4 ["_dragStartLocation"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K5 ["_dragCandidates"]
+  SETTABLEKS R0 R4 K6 ["_selectionWrapper"]
+  SETTABLEKS R1 R4 K7 ["_beginBoxSelect"]
+  SETTABLEKS R2 R4 K8 ["_updateBoxSelect"]
+  SETTABLEKS R3 R4 K9 ["_endBoxSelect"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K10 ["_insertionOrder"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K11 ["_insertionOrderNext"]
+  GETUPVAL R7 0
+  FASTCALL2 SETMETATABLE R4 R7 [+4]
+  MOVE R6 R4
+  GETIMPORT R5 K14 [setmetatable]
+  CALL R5 2 1
+  RETURN R5 1
+
+PROTO_1:
+  GETIMPORT R3 K2 [Rect.new]
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 1
+  GETIMPORT R6 K4 [Vector2.new]
+  GETTABLEKS R8 R3 K5 ["Min"]
+  GETTABLEKS R7 R8 K6 ["X"]
+  GETTABLEKS R9 R3 K5 ["Min"]
+  GETTABLEKS R8 R9 K7 ["Y"]
+  CALL R6 2 -1
+  NAMECALL R4 R0 K8 ["viewportPointToRay"]
+  CALL R4 -1 1
+  GETIMPORT R7 K4 [Vector2.new]
+  GETTABLEKS R9 R3 K9 ["Max"]
+  GETTABLEKS R8 R9 K6 ["X"]
+  GETTABLEKS R10 R3 K5 ["Min"]
+  GETTABLEKS R9 R10 K7 ["Y"]
+  CALL R7 2 -1
+  NAMECALL R5 R0 K8 ["viewportPointToRay"]
+  CALL R5 -1 1
+  GETIMPORT R8 K4 [Vector2.new]
+  GETTABLEKS R10 R3 K9 ["Max"]
+  GETTABLEKS R9 R10 K6 ["X"]
+  GETTABLEKS R11 R3 K9 ["Max"]
+  GETTABLEKS R10 R11 K7 ["Y"]
+  CALL R8 2 -1
+  NAMECALL R6 R0 K8 ["viewportPointToRay"]
+  CALL R6 -1 1
+  GETIMPORT R9 K4 [Vector2.new]
+  GETTABLEKS R11 R3 K5 ["Min"]
+  GETTABLEKS R10 R11 K6 ["X"]
+  GETTABLEKS R12 R3 K9 ["Max"]
+  GETTABLEKS R11 R12 K7 ["Y"]
+  CALL R9 2 -1
+  NAMECALL R7 R0 K8 ["viewportPointToRay"]
+  CALL R7 -1 1
+  GETTABLEKS R8 R5 K10 ["Direction"]
+  GETTABLEKS R10 R4 K10 ["Direction"]
+  NAMECALL R8 R8 K11 ["FuzzyEq"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+73]
+  GETTABLEKS R9 R5 K12 ["Origin"]
+  GETTABLEKS R10 R4 K12 ["Origin"]
+  SUB R8 R9 R10
+  GETTABLEKS R10 R5 K10 ["Direction"]
+  NAMECALL R8 R8 K13 ["Cross"]
+  CALL R8 2 1
+  GETTABLEKS R10 R6 K12 ["Origin"]
+  GETTABLEKS R11 R5 K12 ["Origin"]
+  SUB R9 R10 R11
+  GETTABLEKS R11 R6 K10 ["Direction"]
+  NAMECALL R9 R9 K13 ["Cross"]
+  CALL R9 2 1
+  GETTABLEKS R11 R7 K12 ["Origin"]
+  GETTABLEKS R12 R6 K12 ["Origin"]
+  SUB R10 R11 R12
+  GETTABLEKS R12 R7 K10 ["Direction"]
+  NAMECALL R10 R10 K13 ["Cross"]
+  CALL R10 2 1
+  GETTABLEKS R12 R4 K12 ["Origin"]
+  GETTABLEKS R13 R7 K12 ["Origin"]
+  SUB R11 R12 R13
+  GETTABLEKS R13 R4 K10 ["Direction"]
+  NAMECALL R11 R11 K13 ["Cross"]
+  CALL R11 2 1
+  NEWTABLE R12 0 4
+  DUPTABLE R13 K16 [{"origin", "normal"}]
+  GETTABLEKS R14 R4 K12 ["Origin"]
+  SETTABLEKS R14 R13 K14 ["origin"]
+  SETTABLEKS R8 R13 K15 ["normal"]
+  DUPTABLE R14 K16 [{"origin", "normal"}]
+  GETTABLEKS R15 R5 K12 ["Origin"]
+  SETTABLEKS R15 R14 K14 ["origin"]
+  SETTABLEKS R9 R14 K15 ["normal"]
+  DUPTABLE R15 K16 [{"origin", "normal"}]
+  GETTABLEKS R16 R6 K12 ["Origin"]
+  SETTABLEKS R16 R15 K14 ["origin"]
+  SETTABLEKS R10 R15 K15 ["normal"]
+  DUPTABLE R16 K16 [{"origin", "normal"}]
+  GETTABLEKS R17 R7 K12 ["Origin"]
+  SETTABLEKS R17 R16 K14 ["origin"]
+  SETTABLEKS R11 R16 K15 ["normal"]
+  SETLIST R12 R13 4 [1]
+  RETURN R12 1
+  GETTABLEKS R8 R7 K10 ["Direction"]
+  GETTABLEKS R10 R4 K10 ["Direction"]
+  NAMECALL R8 R8 K13 ["Cross"]
+  CALL R8 2 1
+  GETTABLEKS R9 R4 K10 ["Direction"]
+  GETTABLEKS R11 R5 K10 ["Direction"]
+  NAMECALL R9 R9 K13 ["Cross"]
+  CALL R9 2 1
+  GETTABLEKS R10 R5 K10 ["Direction"]
+  GETTABLEKS R12 R6 K10 ["Direction"]
+  NAMECALL R10 R10 K13 ["Cross"]
+  CALL R10 2 1
+  GETTABLEKS R11 R6 K10 ["Direction"]
+  GETTABLEKS R13 R7 K10 ["Direction"]
+  NAMECALL R11 R11 K13 ["Cross"]
+  CALL R11 2 1
+  NEWTABLE R12 0 4
+  DUPTABLE R13 K16 [{"origin", "normal"}]
+  GETTABLEKS R14 R4 K12 ["Origin"]
+  SETTABLEKS R14 R13 K14 ["origin"]
+  SETTABLEKS R9 R13 K15 ["normal"]
+  DUPTABLE R14 K16 [{"origin", "normal"}]
+  GETTABLEKS R15 R5 K12 ["Origin"]
+  SETTABLEKS R15 R14 K14 ["origin"]
+  SETTABLEKS R10 R14 K15 ["normal"]
+  DUPTABLE R15 K16 [{"origin", "normal"}]
+  GETTABLEKS R16 R6 K12 ["Origin"]
+  SETTABLEKS R16 R15 K14 ["origin"]
+  SETTABLEKS R11 R15 K15 ["normal"]
+  DUPTABLE R16 K16 [{"origin", "normal"}]
+  GETTABLEKS R17 R7 K12 ["Origin"]
+  SETTABLEKS R17 R16 K14 ["origin"]
+  SETTABLEKS R8 R16 K15 ["normal"]
+  SETLIST R12 R13 4 [1]
+  RETURN R12 1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["_dragStartLocation"]
+  RETURN R1 1
+
+PROTO_3:
+  GETTABLEKS R5 R0 K0 ["_isDragging"]
+  NOT R4 R5
+  FASTCALL2K ASSERT R4 K1 [+4]
+  LOADK R5 K1 ["Cannot begin drag when already dragging."]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  LOADB R3 1
+  SETTABLEKS R3 R0 K0 ["_isDragging"]
+  GETTABLEKS R3 R0 K4 ["_beginBoxSelect"]
+  MOVE R4 R1
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K5 ["_dragCandidates"]
+  GETTABLEKS R3 R0 K6 ["_selectionWrapper"]
+  NAMECALL R3 R3 K7 ["get"]
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K8 ["_selectionBeforeDrag"]
+  MOVE R3 R2
+  JUMPIF R3 [+3]
+  NAMECALL R3 R1 K9 ["getMouseLocation"]
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K10 ["_dragStartLocation"]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R5 0
+  GETTABLE R4 R5 R0
+  ORK R3 R4 K0 [0]
+  GETUPVAL R6 0
+  GETTABLE R5 R6 R1
+  ORK R4 R5 K0 [0]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_5:
+  GETTABLEKS R3 R0 K0 ["_isDragging"]
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["Cannot update drag when no drag in progress."]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  NAMECALL R2 R1 K4 ["shouldExtendSelection"]
+  CALL R2 1 1
+  NAMECALL R3 R1 K5 ["getMouseLocation"]
+  CALL R3 1 1
+  LOADNIL R4
+  JUMPIF R2 [+7]
+  GETTABLEKS R5 R0 K6 ["_selectionWrapper"]
+  NAMECALL R5 R5 K7 ["get"]
+  CALL R5 1 1
+  MOVE R4 R5
+  JUMP [+2]
+  GETTABLEKS R4 R0 K8 ["_selectionBeforeDrag"]
+  GETTABLEKS R5 R0 K9 ["_updateBoxSelect"]
+  MOVE R6 R1
+  GETTABLEKS R7 R0 K10 ["_dragStartLocation"]
+  MOVE R8 R3
+  CALL R5 3 0
+  GETTABLEKS R6 R0 K10 ["_dragStartLocation"]
+  SUB R5 R3 R6
+  GETTABLEKS R6 R5 K11 ["Magnitude"]
+  LOADN R7 3
+  JUMPIFNOTLT R6 R7 [+2]
+  RETURN R0 0
+  GETUPVAL R6 0
+  MOVE R7 R1
+  GETTABLEKS R8 R0 K10 ["_dragStartLocation"]
+  MOVE R9 R3
+  CALL R6 3 1
+  JUMPIF R6 [+1]
+  RETURN R0 0
+  NEWTABLE R7 0 0
+  LOADB R8 0
+  GETTABLEKS R9 R0 K12 ["_insertionOrder"]
+  GETIMPORT R10 K14 [ipairs]
+  GETTABLEKS R11 R0 K15 ["_dragCandidates"]
+  CALL R10 1 3
+  FORGPREP_INEXT R10
+  LOADB R15 1
+  GETIMPORT R16 K14 [ipairs]
+  MOVE R17 R6
+  CALL R16 1 3
+  FORGPREP_INEXT R16
+  GETTABLEKS R22 R14 K16 ["Center"]
+  GETTABLEKS R23 R20 K17 ["origin"]
+  SUB R21 R22 R23
+  GETTABLEKS R23 R20 K18 ["normal"]
+  NAMECALL R21 R21 K19 ["Dot"]
+  CALL R21 2 1
+  LOADN R22 0
+  JUMPIFNOTLT R21 R22 [+3]
+  LOADB R15 0
+  JUMP [+2]
+  FORGLOOP R16 2 [inext] [-16]
+  GETTABLEKS R16 R14 K20 ["Selected"]
+  JUMPIFEQ R15 R16 [+15]
+  SETTABLEKS R15 R14 K20 ["Selected"]
+  LOADB R8 1
+  JUMPIFNOT R15 [+10]
+  GETTABLEKS R16 R14 K21 ["Selectable"]
+  GETTABLEKS R17 R0 K22 ["_insertionOrderNext"]
+  SETTABLE R17 R9 R16
+  GETTABLEKS R16 R0 K22 ["_insertionOrderNext"]
+  ADDK R16 R16 K23 [1]
+  SETTABLEKS R16 R0 K22 ["_insertionOrderNext"]
+  JUMPIFNOT R15 [+8]
+  GETTABLEKS R18 R14 K21 ["Selectable"]
+  FASTCALL2 TABLE_INSERT R7 R18 [+4]
+  MOVE R17 R7
+  GETIMPORT R16 K26 [table.insert]
+  CALL R16 2 0
+  FORGLOOP R10 2 [inext] [-51]
+  JUMPIFNOT R8 [+23]
+  GETIMPORT R10 K28 [table.sort]
+  MOVE R11 R7
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R9
+  CALL R10 2 0
+  LOADNIL R10
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K29 ["updateSelectionWithMultipleSelectables"]
+  MOVE R12 R7
+  MOVE R13 R4
+  MOVE R14 R2
+  CALL R11 3 2
+  MOVE R7 R11
+  MOVE R10 R12
+  GETTABLEKS R11 R0 K6 ["_selectionWrapper"]
+  MOVE R13 R7
+  MOVE R14 R10
+  NAMECALL R11 R11 K30 ["set"]
+  CALL R11 3 0
+  RETURN R0 0
+
+PROTO_6:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["updateDrag"]
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K1 ["_endBoxSelect"]
+  MOVE R3 R1
+  CALL R2 1 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R2 R0 K2 ["_selectionWrapper"]
+  NAMECALL R2 R2 K3 ["flush"]
+  CALL R2 1 0
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K4 ["_selectionBeforeDrag"]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K5 ["_dragStartLocation"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K6 ["_isDragging"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Workspace"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Utility"]
+  GETTABLEKS R3 R4 K10 ["SelectionHelper"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K11 ["Flags"]
+  GETTABLEKS R4 R5 K12 ["getFFlagDraggerShouldBufferSelectionSignals"]
+  CALL R3 1 1
+  NEWTABLE R4 8 0
+  SETTABLEKS R4 R4 K13 ["__index"]
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K15 ["new"]
+  DUPCLOSURE R5 K16 [PROTO_1]
+  DUPCLOSURE R6 K17 [PROTO_2]
+  SETTABLEKS R6 R4 K18 ["getStartLocation"]
+  DUPCLOSURE R6 K19 [PROTO_3]
+  SETTABLEKS R6 R4 K20 ["beginDrag"]
+  DUPCLOSURE R6 K21 [PROTO_5]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  SETTABLEKS R6 R4 K22 ["updateDrag"]
+  DUPCLOSURE R6 K23 [PROTO_6]
+  CAPTURE VAL R3
+  SETTABLEKS R6 R4 K24 ["commitDrag"]
+  RETURN R4 1

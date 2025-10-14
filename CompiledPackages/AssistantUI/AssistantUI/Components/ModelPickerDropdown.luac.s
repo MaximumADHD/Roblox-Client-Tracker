@@ -1,0 +1,80 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  DUPTABLE R3 K2 [{"tag", "LayoutOrder"}]
+  LOADK R4 K3 ["size-0-0 auto-xy items-stretch"]
+  SETTABLEKS R4 R3 K0 ["tag"]
+  GETTABLEKS R4 R0 K1 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K1 ["LayoutOrder"]
+  DUPTABLE R4 K5 [{"ModelViewerDropdown"}]
+  GETUPVAL R5 0
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K6 ["Root"]
+  DUPTABLE R7 K13 [{"label", "placeholder", "onItemChanged", "size", "width", "items"}]
+  LOADK R8 K14 [""]
+  SETTABLEKS R8 R7 K7 ["label"]
+  LOADK R8 K15 ["Claude 3.7"]
+  SETTABLEKS R8 R7 K8 ["placeholder"]
+  DUPCLOSURE R8 K16 [PROTO_0]
+  SETTABLEKS R8 R7 K9 ["onItemChanged"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K17 ["Enums"]
+  GETTABLEKS R9 R10 K18 ["InputSize"]
+  GETTABLEKS R8 R9 K19 ["XSmall"]
+  SETTABLEKS R8 R7 K10 ["size"]
+  GETIMPORT R8 K22 [UDim.new]
+  LOADN R9 0
+  LOADN R10 150
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K11 ["width"]
+  NEWTABLE R8 0 3
+  DUPTABLE R9 K25 [{"id", "text"}]
+  LOADK R10 K26 ["A"]
+  SETTABLEKS R10 R9 K23 ["id"]
+  LOADK R10 K27 ["GPT-4o"]
+  SETTABLEKS R10 R9 K24 ["text"]
+  DUPTABLE R10 K25 [{"id", "text"}]
+  LOADK R11 K28 ["B"]
+  SETTABLEKS R11 R10 K23 ["id"]
+  LOADK R11 K29 ["Gemini 2.0"]
+  SETTABLEKS R11 R10 K24 ["text"]
+  DUPTABLE R11 K31 [{"id", "text", "isDisabled"}]
+  LOADK R12 K32 ["C"]
+  SETTABLEKS R12 R11 K23 ["id"]
+  LOADK R12 K33 ["Llama 3.1"]
+  SETTABLEKS R12 R11 K24 ["text"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K30 ["isDisabled"]
+  SETLIST R8 R9 3 [1]
+  SETTABLEKS R8 R7 K12 ["items"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K4 ["ModelViewerDropdown"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["Dropdown"]
+  GETTABLEKS R4 R1 K10 ["View"]
+  GETTABLEKS R5 R2 K11 ["createElement"]
+  DUPCLOSURE R6 K12 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R6 1

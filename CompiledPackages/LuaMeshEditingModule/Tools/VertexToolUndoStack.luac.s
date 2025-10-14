@@ -1,0 +1,197 @@
+PROTO_0:
+  NEWTABLE R3 8 0
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K1 [setmetatable]
+  CALL R2 2 1
+  LOADN R3 100
+  SETTABLEKS R3 R2 K2 ["_maxStackSize"]
+  SETTABLEKS R0 R2 K3 ["_captureStateCallback"]
+  SETTABLEKS R1 R2 K4 ["_restoreStateCallback"]
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K5 ["_pastStack"]
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K6 ["_futureStack"]
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["_captureStateCallback"]
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["_restoreStateCallback"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K0 ["_pastStack"]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K1 ["_futureStack"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R4 R0 K0 ["_pastStack"]
+  MOVE R5 R1
+  NAMECALL R2 R0 K1 ["_addToStack"]
+  CALL R2 3 1
+  SETTABLEKS R2 R0 K0 ["_pastStack"]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R0 K2 ["_futureStack"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R3 R0 K0 ["_pastStack"]
+  NAMECALL R1 R0 K1 ["_removeFromStack"]
+  CALL R1 2 2
+  SETTABLEKS R1 R0 K0 ["_pastStack"]
+  JUMPIFNOT R2 [+14]
+  GETTABLEKS R5 R0 K2 ["_futureStack"]
+  NAMECALL R6 R0 K3 ["_captureState"]
+  CALL R6 1 -1
+  NAMECALL R3 R0 K4 ["_addToStack"]
+  CALL R3 -1 1
+  SETTABLEKS R3 R0 K2 ["_futureStack"]
+  MOVE R5 R2
+  NAMECALL R3 R0 K5 ["_restoreState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R3 R0 K0 ["_futureStack"]
+  NAMECALL R1 R0 K1 ["_removeFromStack"]
+  CALL R1 2 2
+  SETTABLEKS R1 R0 K0 ["_futureStack"]
+  JUMPIFNOT R2 [+14]
+  GETTABLEKS R5 R0 K2 ["_pastStack"]
+  NAMECALL R6 R0 K3 ["_captureState"]
+  CALL R6 1 -1
+  NAMECALL R3 R0 K4 ["_addToStack"]
+  CALL R3 -1 1
+  SETTABLEKS R3 R0 K2 ["_pastStack"]
+  MOVE R5 R2
+  NAMECALL R3 R0 K5 ["_restoreState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_pastStack"]
+  GETTABLEKS R2 R0 K1 ["_futureStack"]
+  RETURN R1 2
+
+PROTO_8:
+  LOADB R1 1
+  JUMPIFEQKNIL R0 [+6]
+  LENGTH R2 R0
+  JUMPIFEQKN R2 K0 [0] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_9:
+  DUPCLOSURE R3 K0 [PROTO_8]
+  GETTABLEKS R6 R0 K1 ["_pastStack"]
+  LOADB R5 1
+  JUMPIFEQKNIL R6 [+6]
+  LENGTH R7 R6
+  JUMPIFEQKN R7 K2 [0] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  JUMPIF R5 [+10]
+  GETTABLEKS R6 R0 K3 ["_futureStack"]
+  LOADB R5 1
+  JUMPIFEQKNIL R6 [+6]
+  LENGTH R7 R6
+  JUMPIFEQKN R7 K2 [0] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K4 [+4]
+  LOADK R6 K4 ["Trying to restore edit history when existing edit history is not empty!"]
+  GETIMPORT R4 K6 [assert]
+  CALL R4 2 0
+  SETTABLEKS R1 R0 K1 ["_pastStack"]
+  SETTABLEKS R2 R0 K3 ["_futureStack"]
+  RETURN R0 0
+
+PROTO_10:
+  GETIMPORT R3 K2 [table.clone]
+  MOVE R4 R1
+  CALL R3 1 1
+  FASTCALL2 TABLE_INSERT R3 R2 [+5]
+  MOVE R5 R3
+  MOVE R6 R2
+  GETIMPORT R4 K4 [table.insert]
+  CALL R4 2 0
+  LENGTH R4 R3
+  GETTABLEKS R5 R0 K5 ["_maxStackSize"]
+  JUMPIFNOTLE R5 R4 [+6]
+  GETIMPORT R4 K7 [table.remove]
+  MOVE R5 R3
+  LOADN R6 1
+  CALL R4 2 0
+  GETIMPORT R4 K9 [table.freeze]
+  MOVE R5 R3
+  CALL R4 1 -1
+  RETURN R4 -1
+
+PROTO_11:
+  LENGTH R2 R1
+  JUMPIFNOTEQKN R2 K0 [0] [+4]
+  MOVE R2 R1
+  LOADNIL R3
+  RETURN R2 2
+  GETIMPORT R2 K3 [table.clone]
+  MOVE R3 R1
+  CALL R2 1 1
+  GETIMPORT R3 K5 [table.remove]
+  MOVE R4 R2
+  CALL R3 1 1
+  GETIMPORT R4 K7 [table.freeze]
+  MOVE R5 R2
+  CALL R4 1 1
+  MOVE R5 R3
+  RETURN R4 2
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["LuaMeshEditingModule"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["Types"]
+  CALL R1 1 1
+  NEWTABLE R2 16 0
+  SETTABLEKS R2 R2 K7 ["__index"]
+  GETIMPORT R3 K10 [table.freeze]
+  NEWTABLE R4 0 0
+  CALL R3 1 1
+  DUPCLOSURE R4 K11 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R4 R2 K12 ["new"]
+  DUPCLOSURE R4 K13 [PROTO_1]
+  SETTABLEKS R4 R2 K14 ["_captureState"]
+  DUPCLOSURE R4 K15 [PROTO_2]
+  SETTABLEKS R4 R2 K16 ["_restoreState"]
+  DUPCLOSURE R4 K17 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R2 K18 ["clear"]
+  DUPCLOSURE R4 K19 [PROTO_4]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R2 K20 ["addWaypoint"]
+  DUPCLOSURE R4 K21 [PROTO_5]
+  SETTABLEKS R4 R2 K22 ["undo"]
+  DUPCLOSURE R4 K23 [PROTO_6]
+  SETTABLEKS R4 R2 K24 ["redo"]
+  DUPCLOSURE R4 K25 [PROTO_7]
+  SETTABLEKS R4 R2 K26 ["getUndoRedoStack"]
+  DUPCLOSURE R4 K27 [PROTO_9]
+  SETTABLEKS R4 R2 K28 ["restoreUndoRedoStack"]
+  DUPCLOSURE R4 K29 [PROTO_10]
+  SETTABLEKS R4 R2 K30 ["_addToStack"]
+  DUPCLOSURE R4 K31 [PROTO_11]
+  SETTABLEKS R4 R2 K32 ["_removeFromStack"]
+  RETURN R2 1

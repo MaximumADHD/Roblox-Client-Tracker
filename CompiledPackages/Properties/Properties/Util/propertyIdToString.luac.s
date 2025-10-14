@@ -1,0 +1,24 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["isAttribute"]
+  JUMPIFNOT R1 [+7]
+  GETTABLEKS R2 R0 K1 ["className"]
+  LOADK R3 K2 ["Attribute"]
+  GETTABLEKS R4 R0 K3 ["propertyName"]
+  CONCAT R1 R2 R4
+  RETURN R1 1
+  GETTABLEKS R2 R0 K1 ["className"]
+  GETTABLEKS R3 R0 K3 ["propertyName"]
+  CONCAT R1 R2 R3
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["RpcTypes"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_0]
+  RETURN R2 1

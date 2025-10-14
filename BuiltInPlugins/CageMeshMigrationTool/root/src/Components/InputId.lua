@@ -4,7 +4,7 @@ local Roact = require(root.Packages.Roact)
 
 local Framework = require(root.Packages.Framework)
 
-local ContextServices = Framework.ContextServices
+local ContextServices: any = Framework.ContextServices
 
 local UI = Framework.UI
 local Button = UI.Button

@@ -1,0 +1,49 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K5 [{"Text", "RichText", "tag", "LayoutOrder"}]
+  GETTABLEKS R5 R0 K1 ["Text"]
+  SETTABLEKS R5 R4 K1 ["Text"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["RichText"]
+  GETTABLEKS R6 R1 K6 ["contentText"]
+  GETTABLEKS R5 R6 K3 ["tag"]
+  SETTABLEKS R5 R4 K3 ["tag"]
+  GETTABLEKS R5 R0 K4 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K4 ["LayoutOrder"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Text"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R6 K6 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K4 ["Parent"]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K11 ["useDialogVariants"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K11 ["useDialogVariants"]
+  DUPCLOSURE R6 K12 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R6 1

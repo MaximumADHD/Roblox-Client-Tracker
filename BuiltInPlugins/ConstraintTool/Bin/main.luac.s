@@ -214,7 +214,7 @@ PROTO_8:
   GETUPVAL R0 1
   JUMPIFEQKS R0 K0 ["WeldConstraint"] [+4]
   GETUPVAL R0 1
-  JUMPIFNOTEQKS R0 K1 ["NoCollisionConstraint"] [+34]
+  JUMPIFNOTEQKS R0 K1 ["NoCollisionConstraint"] [+44]
   GETUPVAL R0 2
   LOADK R2 K2 ["WeldTool"]
   NAMECALL R0 R0 K3 ["TryBeginRecording"]
@@ -224,6 +224,14 @@ PROTO_8:
   GETUPVAL R1 3
   GETUPVAL R2 1
   CALL R1 1 2
+  GETUPVAL R3 4
+  JUMPIFNOT R3 [+8]
+  GETUPVAL R3 2
+  MOVE R5 R0
+  GETIMPORT R6 K7 [Enum.FinishRecordingOperation.Commit]
+  NAMECALL R3 R3 K8 ["FinishRecording"]
+  CALL R3 3 0
+  JUMP [+16]
   JUMPIFNOT R2 [+8]
   GETUPVAL R3 2
   MOVE R5 R0
@@ -237,37 +245,37 @@ PROTO_8:
   NAMECALL R3 R3 K8 ["FinishRecording"]
   CALL R3 3 0
   JUMPIFNOT R1 [+5]
-  GETUPVAL R4 4
+  GETUPVAL R4 5
   GETTABLEKS R3 R4 K11 ["closeCallback"]
   CALL R3 0 0
   RETURN R0 0
   LOADB R0 1
-  SETUPVAL R0 5
-  GETUPVAL R1 6
+  SETUPVAL R0 6
+  GETUPVAL R1 7
   GETTABLEKS R0 R1 K12 ["mainButton"]
   LOADB R2 1
   NAMECALL R0 R0 K13 ["SetActive"]
   CALL R0 2 0
-  GETUPVAL R1 7
+  GETUPVAL R1 8
   GETTABLEKS R0 R1 K14 ["mount"]
-  GETUPVAL R2 7
-  GETTABLEKS R1 R2 K15 ["createElement"]
   GETUPVAL R2 8
+  GETTABLEKS R1 R2 K15 ["createElement"]
+  GETUPVAL R2 9
   DUPTABLE R3 K27 [{"plugin", "Mouse", "ClosePluginCallback", "SetConstraintToolModelReference", "DraggerContext", "DraggerSchema", "DraggerSettings", "constraintType", "undoAttachmentStack", "redoAttachmentStack", "recordingName"}]
-  GETUPVAL R4 9
+  GETUPVAL R4 10
   SETTABLEKS R4 R3 K16 ["plugin"]
-  GETUPVAL R4 9
+  GETUPVAL R4 10
   NAMECALL R4 R4 K28 ["GetMouse"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K17 ["Mouse"]
-  GETUPVAL R5 4
+  GETUPVAL R5 5
   GETTABLEKS R4 R5 K11 ["closeCallback"]
   SETTABLEKS R4 R3 K18 ["ClosePluginCallback"]
-  GETUPVAL R4 10
-  SETTABLEKS R4 R3 K19 ["SetConstraintToolModelReference"]
   GETUPVAL R4 11
-  SETTABLEKS R4 R3 K20 ["DraggerContext"]
+  SETTABLEKS R4 R3 K19 ["SetConstraintToolModelReference"]
   GETUPVAL R4 12
+  SETTABLEKS R4 R3 K20 ["DraggerContext"]
+  GETUPVAL R4 13
   SETTABLEKS R4 R3 K21 ["DraggerSchema"]
   DUPTABLE R4 K33 [{"AnalyticsName", "AllowDragSelect", "ShowLocalSpaceIndicator", "ShowPivotIndicator"}]
   LOADK R5 K34 ["ConstraintTool"]
@@ -281,11 +289,11 @@ PROTO_8:
   SETTABLEKS R4 R3 K22 ["DraggerSettings"]
   GETUPVAL R4 1
   SETTABLEKS R4 R3 K23 ["constraintType"]
-  GETUPVAL R4 13
-  SETTABLEKS R4 R3 K24 ["undoAttachmentStack"]
   GETUPVAL R4 14
-  SETTABLEKS R4 R3 K25 ["redoAttachmentStack"]
+  SETTABLEKS R4 R3 K24 ["undoAttachmentStack"]
   GETUPVAL R4 15
+  SETTABLEKS R4 R3 K25 ["redoAttachmentStack"]
+  GETUPVAL R4 16
   SETTABLEKS R4 R3 K26 ["recordingName"]
   CALL R1 2 -1
   CALL R0 -1 1
@@ -418,6 +426,7 @@ PROTO_10:
   CAPTURE VAL R3
   CAPTURE UPVAL U1
   CAPTURE VAL R10
+  CAPTURE UPVAL U2
   CAPTURE VAL R2
   CAPTURE REF R13
   CAPTURE VAL R1
@@ -504,7 +513,12 @@ MAIN:
   LOADK R3 K6 ["ChangeHistoryService"]
   NAMECALL R1 R1 K7 ["GetService"]
   CALL R1 2 1
-  DUPCLOSURE R2 K8 [PROTO_10]
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K8 ["FixConstraintToolWeldUndoBug"]
+  NAMECALL R2 R2 K9 ["GetFastFlag"]
+  CALL R2 2 1
+  DUPCLOSURE R3 K10 [PROTO_10]
   CAPTURE VAL R0
   CAPTURE VAL R1
-  RETURN R2 1
+  CAPTURE VAL R2
+  RETURN R3 1

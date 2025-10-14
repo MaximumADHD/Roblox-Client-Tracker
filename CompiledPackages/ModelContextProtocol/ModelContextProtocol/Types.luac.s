@@ -1,0 +1,83 @@
+PROTO_0:
+  MOVE R2 R0
+  JUMPIFNOT R2 [+5]
+  GETTABLE R3 R0 R1
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  DUPTABLE R3 K3 [{"code", "message", "data"}]
+  SETTABLEKS R0 R3 K0 ["code"]
+  SETTABLEKS R1 R3 K1 ["message"]
+  SETTABLEKS R2 R3 K2 ["data"]
+  RETURN R3 1
+
+PROTO_2:
+  GETIMPORT R1 K1 [error]
+  LOADK R3 K2 ["Unexpected value! Expected never, got %*: %*, trace: %*"]
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K4 [typeof]
+  CALL R5 1 1
+  MOVE R6 R0
+  GETIMPORT R7 K7 [debug.traceback]
+  CALL R7 0 1
+  NAMECALL R3 R3 K8 ["format"]
+  CALL R3 4 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  DUPTABLE R0 K1 [{"_"}]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K0 ["_"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModelContextProtocol"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["LuauPolyfill"]
+  CALL R1 1 1
+  NEWTABLE R2 8 0
+  LOADK R3 K8 ["2024-11-05"]
+  SETTABLEKS R3 R2 K9 ["LATEST_PROTOCOL_VERSION"]
+  NEWTABLE R3 0 2
+  GETTABLEKS R4 R2 K9 ["LATEST_PROTOCOL_VERSION"]
+  LOADK R5 K10 ["2024-10-07"]
+  SETLIST R3 R4 2 [1]
+  SETTABLEKS R3 R2 K11 ["SUPPORTED_PROTOCOL_VERSIONS"]
+  LOADK R3 K12 ["2.0"]
+  SETTABLEKS R3 R2 K13 ["JSONRPC_VERSION"]
+  DUPTABLE R3 K21 [{"ConnectionClosed", "RequestTimeout", "ParseError", "InvalidRequest", "MethodNotFound", "InvalidParams", "InternalError"}]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K14 ["ConnectionClosed"]
+  LOADN R4 255
+  SETTABLEKS R4 R3 K15 ["RequestTimeout"]
+  LOADN R4 68
+  SETTABLEKS R4 R3 K16 ["ParseError"]
+  LOADN R4 168
+  SETTABLEKS R4 R3 K17 ["InvalidRequest"]
+  LOADN R4 167
+  SETTABLEKS R4 R3 K18 ["MethodNotFound"]
+  LOADN R4 166
+  SETTABLEKS R4 R3 K19 ["InvalidParams"]
+  LOADN R4 165
+  SETTABLEKS R4 R3 K20 ["InternalError"]
+  SETTABLEKS R3 R2 K22 ["ErrorCode"]
+  DUPCLOSURE R3 K23 [PROTO_0]
+  SETTABLEKS R3 R2 K24 ["fieldExists"]
+  DUPCLOSURE R3 K25 [PROTO_1]
+  SETTABLEKS R3 R2 K26 ["newMcpError"]
+  DUPCLOSURE R3 K27 [PROTO_2]
+  SETTABLEKS R3 R2 K28 ["assertNever"]
+  DUPCLOSURE R3 K29 [PROTO_3]
+  SETTABLEKS R3 R2 K30 ["emptyObject"]
+  RETURN R2 1

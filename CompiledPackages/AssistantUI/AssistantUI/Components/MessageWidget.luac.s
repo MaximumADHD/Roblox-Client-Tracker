@@ -1,0 +1,232 @@
+PROTO_0:
+  GETUPVAL R2 0
+  DUPTABLE R3 K3 [{"messageId", "contentId", "transformFn"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["messageId"]
+  SETTABLEKS R4 R3 K0 ["messageId"]
+  SETTABLEKS R0 R3 K1 ["contentId"]
+  SETTABLEKS R1 R3 K2 ["transformFn"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R0 8 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["size-full-0 auto-y"]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K1 ["padding-left-large"]
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIFNOT R1 [+1]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K2 ["align-x-right"]
+  GETUPVAL R2 0
+  NOT R1 R2
+  SETTABLEKS R1 R0 K3 ["col gap-small"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K4 ["Assistant-MessageWidget"]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K5 ["Assistant-UserMessage"]
+  GETUPVAL R2 0
+  NOT R1 R2
+  SETTABLEKS R1 R0 K6 ["Assistant-AssistantMessage"]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["useContext"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["Context"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K2 ["role"]
+  JUMPIFEQKS R4 K3 ["user"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  NEWTABLE R4 0 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  NEWTABLE R7 0 2
+  MOVE R8 R1
+  GETTABLEKS R9 R0 K5 ["messageId"]
+  SETLIST R7 R8 2 [1]
+  CALL R5 2 1
+  LOADN R6 0
+  GETTABLEKS R7 R0 K6 ["contents"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K7 ["get"]
+  GETTABLEKS R13 R11 K8 ["type"]
+  CALL R12 1 1
+  JUMPIFNOT R12 [+38]
+  GETUPVAL R13 4
+  MOVE R14 R12
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K9 ["Dictionary"]
+  GETTABLEKS R15 R16 K10 ["join"]
+  MOVE R16 R11
+  DUPTABLE R17 K14 [{"messageId", "contentId", "role", "editThisContent", "sendMessage"}]
+  GETTABLEKS R18 R0 K5 ["messageId"]
+  SETTABLEKS R18 R17 K5 ["messageId"]
+  SETTABLEKS R10 R17 K11 ["contentId"]
+  GETTABLEKS R18 R0 K2 ["role"]
+  SETTABLEKS R18 R17 K2 ["role"]
+  SETTABLEKS R5 R17 K12 ["editThisContent"]
+  GETTABLEKS R18 R0 K13 ["sendMessage"]
+  SETTABLEKS R18 R17 K13 ["sendMessage"]
+  CALL R15 2 -1
+  CALL R13 -1 1
+  SETTABLE R13 R4 R10
+  GETTABLEKS R13 R11 K15 ["LayoutOrder"]
+  JUMPIFNOT R13 [+13]
+  GETTABLEKS R13 R11 K15 ["LayoutOrder"]
+  JUMPIFNOTLT R6 R13 [+10]
+  GETTABLEKS R6 R11 K15 ["LayoutOrder"]
+  JUMP [+6]
+  GETIMPORT R13 K17 [warn]
+  LOADK R14 K18 ["No builder for content type:"]
+  GETTABLEKS R15 R11 K8 ["type"]
+  CALL R13 2 0
+  FORGLOOP R7 2 [-52]
+  LOADB R7 0
+  GETTABLEKS R8 R0 K6 ["contents"]
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  GETTABLEKS R13 R12 K19 ["generating"]
+  JUMPIFNOT R13 [+2]
+  LOADB R7 1
+  JUMP [+2]
+  FORGLOOP R8 2 [-6]
+  GETTABLEKS R8 R0 K20 ["isLatestAssistantAndMostRecent"]
+  JUMPIFNOT R8 [+4]
+  GETTABLEKS R8 R2 K21 ["inputEnabled"]
+  JUMPIFNOT R8 [+1]
+  NOT R8 R7
+  JUMPIFNOT R8 [+17]
+  GETUPVAL R9 4
+  GETUPVAL R10 6
+  DUPTABLE R11 K23 [{"LayoutOrder", "retryMessage", "messageId"}]
+  ADDK R12 R6 K24 [1]
+  SETTABLEKS R12 R11 K15 ["LayoutOrder"]
+  GETTABLEKS R12 R0 K22 ["retryMessage"]
+  SETTABLEKS R12 R11 K22 ["retryMessage"]
+  GETTABLEKS R12 R0 K5 ["messageId"]
+  SETTABLEKS R12 R11 K5 ["messageId"]
+  CALL R9 2 1
+  SETTABLEKS R9 R4 K25 ["MessageActions"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K26 ["useMemo"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R3
+  CAPTURE UPVAL U7
+  NEWTABLE R11 0 1
+  MOVE R12 R3
+  SETLIST R11 R12 1 [1]
+  CALL R9 2 1
+  GETIMPORT R10 K28 [next]
+  GETTABLEKS R11 R0 K6 ["contents"]
+  CALL R10 1 1
+  JUMPIFNOTEQKNIL R10 [+5]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K29 ["None"]
+  RETURN R10 1
+  LOADNIL R10
+  GETUPVAL R11 7
+  CALL R11 0 1
+  JUMPIF R11 [+15]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K30 ["createElement"]
+  LOADK R12 K31 ["UIListLayout"]
+  DUPTABLE R13 K33 [{"HorizontalAlignment"}]
+  JUMPIFNOT R3 [+3]
+  GETIMPORT R14 K36 [Enum.HorizontalAlignment.Right]
+  JUMP [+2]
+  GETIMPORT R14 K38 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R14 R13 K32 ["HorizontalAlignment"]
+  CALL R11 2 1
+  MOVE R10 R11
+  GETUPVAL R11 4
+  GETUPVAL R12 8
+  DUPTABLE R13 K40 [{"tag", "LayoutOrder"}]
+  SETTABLEKS R9 R13 K39 ["tag"]
+  GETTABLEKS R14 R0 K15 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K15 ["LayoutOrder"]
+  JUMPIFNOT R3 [+14]
+  DUPTABLE R14 K43 [{"MessageBubble", "Layout"}]
+  GETUPVAL R15 4
+  GETUPVAL R16 8
+  DUPTABLE R17 K44 [{"tag"}]
+  LOADK R18 K45 ["auto-xy bg-shift-300 radius-large padding-medium col"]
+  SETTABLEKS R18 R17 K39 ["tag"]
+  MOVE R18 R4
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K41 ["MessageBubble"]
+  SETTABLEKS R10 R14 K42 ["Layout"]
+  JUMPIF R14 [+1]
+  MOVE R14 R4
+  CALL R11 3 -1
+  RETURN R11 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Components"]
+  GETTABLEKS R2 R3 K7 ["ContentWidgetRegistry"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Flags"]
+  GETTABLEKS R4 R5 K11 ["FFlagFoundationDisableStylingPolyfill"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["Foundation"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Components"]
+  GETTABLEKS R7 R8 K13 ["Contexts"]
+  GETTABLEKS R6 R7 K14 ["InputStateContext"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Components"]
+  GETTABLEKS R7 R8 K15 ["MessageActions"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Parent"]
+  GETTABLEKS R8 R9 K16 ["React"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R0 K17 ["Types"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K18 ["Hooks"]
+  GETTABLEKS R10 R11 K19 ["useEditContent"]
+  CALL R9 1 1
+  GETTABLEKS R10 R3 K20 ["Get"]
+  GETTABLEKS R11 R4 K21 ["View"]
+  GETTABLEKS R12 R7 K22 ["createElement"]
+  DUPCLOSURE R13 K23 [PROTO_2]
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  RETURN R13 1

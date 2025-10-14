@@ -1,0 +1,11 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["combined"]
+  CALL R0 1 1
+  NEWTABLE R1 1 0
+  GETTABLEKS R2 R0 K6 ["eventHandler"]
+  SETTABLEKS R2 R1 K7 ["default"]
+  RETURN R1 1

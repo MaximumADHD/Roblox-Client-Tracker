@@ -1,0 +1,735 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["asyncError"]
+  LOADK R2 K1 ["Invalid: %s() may not be used in a describe block containing no tests."]
+  GETTABLEKS R4 R0 K2 ["type"]
+  NAMECALL R2 R2 K3 ["format"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K4 ["message"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["unhandledErrors"]
+  GETTABLEKS R3 R0 K0 ["asyncError"]
+  FASTCALL2 TABLE_INSERT R2 R3 [+3]
+  GETIMPORT R1 K8 [table.insert]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  LOADB R1 0
+  GETTABLEKS R2 R0 K0 ["type"]
+  JUMPIFNOTEQKS R2 K1 ["test"] [+7]
+  GETTABLEKS R2 R0 K2 ["mode"]
+  JUMPIFEQKS R2 K3 ["only"] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["type"]
+  JUMPIFNOTEQKS R1 K1 ["test"] [+13]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["toJSBoolean"]
+  GETTABLEKS R2 R0 K3 ["mode"]
+  CALL R1 1 1
+  JUMPIF R1 [+5]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["mode"]
+  SETTABLEKS R1 R0 K3 ["mode"]
+  RETURN R0 0
+
+PROTO_3:
+  LOADB R1 0
+  GETTABLEKS R2 R0 K0 ["type"]
+  JUMPIFNOTEQKS R2 K1 ["test"] [+7]
+  GETTABLEKS R2 R0 K2 ["mode"]
+  JUMPIFEQKS R2 K3 ["only"] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_4:
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K1 ["include_test_location_in_result"] [+5]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K2 ["includeTestLocationInResult"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K3 ["hook_start"] [+7]
+  GETTABLEKS R3 R1 K4 ["hook"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K5 ["seenDone"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K6 ["start_describe_definition"] [+45]
+  GETTABLEKS R3 R1 K7 ["blockName"]
+  GETTABLEKS R4 R1 K8 ["mode"]
+  GETTABLEKS R5 R2 K9 ["currentDescribeBlock"]
+  GETTABLEKS R6 R2 K10 ["currentlyRunningTest"]
+  JUMPIFEQKNIL R6 [+19]
+  GETTABLEKS R8 R6 K11 ["errors"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K12 ["new"]
+  LOADK R10 K13 ["Cannot nest a describe inside a test. Describe block \"%s\" cannot run because it is nested within \"%s\"."]
+  MOVE R12 R3
+  GETTABLEKS R13 R6 K0 ["name"]
+  NAMECALL R10 R10 K14 ["format"]
+  CALL R10 3 -1
+  CALL R9 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R7 K17 [table.insert]
+  CALL R7 -1 0
+  RETURN R0 0
+  GETUPVAL R7 1
+  MOVE R8 R3
+  MOVE R9 R5
+  MOVE R10 R4
+  CALL R7 3 1
+  GETTABLEKS R9 R5 K18 ["children"]
+  FASTCALL2 TABLE_INSERT R9 R7 [+4]
+  MOVE R10 R7
+  GETIMPORT R8 K17 [table.insert]
+  CALL R8 2 0
+  SETTABLEKS R7 R2 K9 ["currentDescribeBlock"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K19 ["finish_describe_definition"] [+77]
+  GETTABLEKS R3 R2 K9 ["currentDescribeBlock"]
+  GETUPVAL R4 2
+  MOVE R5 R3
+  LOADK R6 K20 ["currentDescribeBlock must be there"]
+  CALL R4 2 0
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K21 ["toJSBoolean"]
+  GETUPVAL R5 4
+  MOVE R6 R3
+  CALL R5 1 -1
+  CALL R4 -1 1
+  JUMPIF R4 [+8]
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K22 ["forEach"]
+  GETTABLEKS R5 R3 K23 ["hooks"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
+  CALL R4 2 0
+  LOADB R5 0
+  GETTABLEKS R6 R3 K8 ["mode"]
+  JUMPIFNOTEQKS R6 K24 ["only"] [+8]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K25 ["some"]
+  GETTABLEKS R6 R3 K18 ["children"]
+  DUPCLOSURE R7 K26 [PROTO_1]
+  CALL R5 2 1
+  NOT R4 R5
+  JUMPIFNOT R4 [+9]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K22 ["forEach"]
+  GETTABLEKS R6 R3 K18 ["children"]
+  NEWCLOSURE R7 P2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R3
+  CALL R5 2 0
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K21 ["toJSBoolean"]
+  GETTABLEKS R6 R2 K27 ["hasFocusedTests"]
+  CALL R5 1 1
+  JUMPIF R5 [+15]
+  GETTABLEKS R5 R3 K8 ["mode"]
+  JUMPIFEQKS R5 K28 ["skip"] [+12]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K25 ["some"]
+  GETTABLEKS R6 R3 K18 ["children"]
+  DUPCLOSURE R7 K29 [PROTO_3]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+3]
+  LOADB R5 1
+  SETTABLEKS R5 R2 K27 ["hasFocusedTests"]
+  GETTABLEKS R5 R3 K30 ["parent"]
+  JUMPIFEQKNIL R5 [+438]
+  GETTABLEKS R5 R3 K30 ["parent"]
+  SETTABLEKS R5 R2 K9 ["currentDescribeBlock"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K31 ["add_hook"] [+75]
+  GETTABLEKS R3 R2 K9 ["currentDescribeBlock"]
+  GETTABLEKS R4 R2 K10 ["currentlyRunningTest"]
+  GETTABLEKS R5 R2 K32 ["hasStarted"]
+  GETTABLEKS R6 R1 K33 ["asyncError"]
+  GETTABLEKS R7 R1 K34 ["fn"]
+  GETTABLEKS R8 R1 K35 ["hookType"]
+  GETTABLEKS R9 R1 K36 ["timeout"]
+  JUMPIFEQKNIL R4 [+19]
+  GETTABLEKS R11 R4 K11 ["errors"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K12 ["new"]
+  LOADK R13 K37 ["Hooks cannot be defined inside tests. Hook of type \"%s\" is nested within \"%s\"."]
+  MOVE R15 R8
+  GETTABLEKS R16 R4 K0 ["name"]
+  NAMECALL R13 R13 K14 ["format"]
+  CALL R13 3 -1
+  CALL R12 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R10 K17 [table.insert]
+  CALL R10 -1 0
+  RETURN R0 0
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K21 ["toJSBoolean"]
+  MOVE R11 R5
+  CALL R10 1 1
+  JUMPIFNOT R10 [+12]
+  GETTABLEKS R11 R2 K38 ["unhandledErrors"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K12 ["new"]
+  LOADK R13 K39 ["Cannot add a hook after tests have started running. Hooks must be defined synchronously."]
+  CALL R12 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R10 K17 [table.insert]
+  CALL R10 -1 0
+  RETURN R0 0
+  GETTABLEKS R11 R3 K23 ["hooks"]
+  DUPTABLE R12 K41 [{"asyncError", "fn", "parent", "seenDone", "timeout", "type"}]
+  SETTABLEKS R6 R12 K33 ["asyncError"]
+  SETTABLEKS R7 R12 K34 ["fn"]
+  SETTABLEKS R3 R12 K30 ["parent"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K5 ["seenDone"]
+  SETTABLEKS R9 R12 K36 ["timeout"]
+  SETTABLEKS R8 R12 K40 ["type"]
+  FASTCALL2 TABLE_INSERT R11 R12 [+3]
+  GETIMPORT R10 K17 [table.insert]
+  CALL R10 2 0
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K42 ["add_test"] [+94]
+  GETTABLEKS R3 R2 K9 ["currentDescribeBlock"]
+  GETTABLEKS R4 R2 K10 ["currentlyRunningTest"]
+  GETTABLEKS R5 R2 K32 ["hasStarted"]
+  GETTABLEKS R6 R1 K33 ["asyncError"]
+  GETTABLEKS R7 R1 K34 ["fn"]
+  GETTABLEKS R8 R1 K8 ["mode"]
+  GETTABLEKS R9 R1 K43 ["testName"]
+  GETTABLEKS R10 R1 K36 ["timeout"]
+  GETTABLEKS R11 R1 K44 ["failing"]
+  JUMPIFEQKNIL R4 [+19]
+  GETTABLEKS R13 R4 K11 ["errors"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K12 ["new"]
+  LOADK R15 K45 ["Tests cannot be nested. Test \"%s\" cannot run because it is nested within \"%s\"."]
+  MOVE R17 R9
+  GETTABLEKS R18 R4 K0 ["name"]
+  NAMECALL R15 R15 K14 ["format"]
+  CALL R15 3 -1
+  CALL R14 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R12 K17 [table.insert]
+  CALL R12 -1 0
+  RETURN R0 0
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K21 ["toJSBoolean"]
+  MOVE R13 R5
+  CALL R12 1 1
+  JUMPIFNOT R12 [+12]
+  GETTABLEKS R13 R2 K38 ["unhandledErrors"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K12 ["new"]
+  LOADK R15 K46 ["Cannot add a test after tests have started running. Tests must be defined synchronously."]
+  CALL R14 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R12 K17 [table.insert]
+  CALL R12 -1 0
+  RETURN R0 0
+  GETUPVAL R12 6
+  MOVE R13 R7
+  MOVE R14 R8
+  MOVE R15 R9
+  MOVE R16 R3
+  MOVE R17 R10
+  MOVE R18 R6
+  MOVE R19 R11
+  CALL R12 7 1
+  GETTABLEKS R13 R3 K8 ["mode"]
+  JUMPIFEQKS R13 K28 ["skip"] [+8]
+  GETTABLEKS R13 R12 K8 ["mode"]
+  JUMPIFNOTEQKS R13 K24 ["only"] [+4]
+  LOADB R13 1
+  SETTABLEKS R13 R2 K27 ["hasFocusedTests"]
+  GETTABLEKS R14 R3 K18 ["children"]
+  FASTCALL2 TABLE_INSERT R14 R12 [+4]
+  MOVE R15 R12
+  GETIMPORT R13 K17 [table.insert]
+  CALL R13 2 0
+  GETTABLEKS R14 R3 K47 ["tests"]
+  FASTCALL2 TABLE_INSERT R14 R12 [+4]
+  MOVE R15 R12
+  GETIMPORT R13 K17 [table.insert]
+  CALL R13 2 0
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K48 ["hook_failure"] [+59]
+  GETTABLEKS R3 R1 K49 ["test"]
+  GETTABLEKS R4 R1 K50 ["describeBlock"]
+  GETTABLEKS R5 R1 K51 ["error"]
+  GETTABLEKS R6 R1 K4 ["hook"]
+  GETTABLEKS R7 R6 K33 ["asyncError"]
+  GETTABLEKS R8 R6 K40 ["type"]
+  JUMPIFNOTEQKS R8 K52 ["beforeAll"] [+11]
+  GETUPVAL R9 2
+  MOVE R10 R4
+  LOADK R11 K53 ["always present for `*All` hooks"]
+  CALL R9 2 0
+  GETUPVAL R9 7
+  MOVE R10 R4
+  MOVE R11 R5
+  MOVE R12 R7
+  CALL R9 3 0
+  RETURN R0 0
+  JUMPIFNOTEQKS R8 K54 ["afterAll"] [+15]
+  GETTABLEKS R10 R2 K38 ["unhandledErrors"]
+  NEWTABLE R11 0 2
+  MOVE R12 R5
+  MOVE R13 R7
+  SETLIST R11 R12 2 [1]
+  FASTCALL2 TABLE_INSERT R10 R11 [+3]
+  GETIMPORT R9 K17 [table.insert]
+  CALL R9 2 0
+  RETURN R0 0
+  GETUPVAL R9 2
+  MOVE R10 R3
+  LOADK R11 K55 ["always present for `*Each` hooks"]
+  CALL R9 2 0
+  GETTABLEKS R10 R3 K11 ["errors"]
+  NEWTABLE R11 0 2
+  MOVE R12 R5
+  MOVE R13 R7
+  SETLIST R11 R12 2 [1]
+  FASTCALL2 TABLE_INSERT R10 R11 [+3]
+  GETIMPORT R9 K17 [table.insert]
+  CALL R9 2 0
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K56 ["test_skip"] [+7]
+  GETTABLEKS R3 R1 K49 ["test"]
+  LOADK R4 K28 ["skip"]
+  SETTABLEKS R4 R3 K57 ["status"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K58 ["test_todo"] [+7]
+  GETTABLEKS R3 R1 K49 ["test"]
+  LOADK R4 K59 ["todo"]
+  SETTABLEKS R4 R3 K57 ["status"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K60 ["test_done"] [+18]
+  GETTABLEKS R3 R1 K49 ["test"]
+  GETUPVAL R4 8
+  GETTABLEKS R5 R1 K49 ["test"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K61 ["duration"]
+  GETTABLEKS R3 R1 K49 ["test"]
+  LOADK R4 K62 ["done"]
+  SETTABLEKS R4 R3 K57 ["status"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K10 ["currentlyRunningTest"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K63 ["test_start"] [+22]
+  GETTABLEKS R3 R1 K49 ["test"]
+  SETTABLEKS R3 R2 K10 ["currentlyRunningTest"]
+  GETTABLEKS R3 R1 K49 ["test"]
+  GETIMPORT R5 K66 [DateTime.now]
+  CALL R5 0 1
+  GETTABLEKS R4 R5 K67 ["UnixTimestampMillis"]
+  SETTABLEKS R4 R3 K68 ["startedAt"]
+  GETTABLEKS R3 R1 K49 ["test"]
+  GETTABLEKS R4 R3 K69 ["invocations"]
+  ADDK R4 R4 K70 [1]
+  SETTABLEKS R4 R3 K69 ["invocations"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K71 ["test_fn_start"] [+7]
+  GETTABLEKS R3 R1 K49 ["test"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K5 ["seenDone"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K72 ["test_fn_failure"] [+23]
+  GETTABLEKS R3 R1 K51 ["error"]
+  GETTABLEKS R5 R1 K49 ["test"]
+  GETTABLEKS R4 R5 K33 ["asyncError"]
+  GETTABLEKS R7 R1 K49 ["test"]
+  GETTABLEKS R6 R7 K11 ["errors"]
+  NEWTABLE R7 0 2
+  MOVE R8 R3
+  MOVE R9 R4
+  SETLIST R7 R8 2 [1]
+  FASTCALL2 TABLE_INSERT R6 R7 [+3]
+  GETIMPORT R5 K17 [table.insert]
+  CALL R5 2 0
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K73 ["test_retry"] [+8]
+  GETTABLEKS R3 R1 K49 ["test"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K11 ["errors"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K74 ["run_start"] [+20]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K32 ["hasStarted"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K21 ["toJSBoolean"]
+  GETIMPORT R5 K76 [_G]
+  GETUPVAL R6 9
+  GETTABLE R4 R5 R6
+  CALL R3 1 1
+  JUMPIFNOT R3 [+66]
+  GETIMPORT R4 K76 [_G]
+  GETUPVAL R5 9
+  GETTABLE R3 R4 R5
+  SETTABLEKS R3 R2 K77 ["testTimeout"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K78 ["run_finish"] [+2]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K79 ["setup"] [+16]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K21 ["toJSBoolean"]
+  GETTABLEKS R4 R1 K80 ["testNamePattern"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+43]
+  GETUPVAL R3 10
+  GETTABLEKS R4 R1 K80 ["testNamePattern"]
+  LOADK R5 K81 ["i"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K80 ["testNamePattern"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K82 ["teardown"] [+2]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K0 ["name"]
+  JUMPIFNOTEQKS R3 K51 ["error"] [+27]
+  GETTABLEKS R3 R2 K10 ["currentlyRunningTest"]
+  JUMPIFEQKNIL R3 [+13]
+  GETTABLEKS R5 R2 K10 ["currentlyRunningTest"]
+  GETTABLEKS R4 R5 K11 ["errors"]
+  GETTABLEKS R5 R1 K51 ["error"]
+  FASTCALL2 TABLE_INSERT R4 R5 [+3]
+  GETIMPORT R3 K17 [table.insert]
+  CALL R3 2 0
+  RETURN R0 0
+  GETTABLEKS R4 R2 K38 ["unhandledErrors"]
+  GETTABLEKS R5 R1 K51 ["error"]
+  FASTCALL2 TABLE_INSERT R4 R5 [+3]
+  GETIMPORT R3 K17 [table.insert]
+  CALL R3 2 0
+  RETURN R0 0
+  RETURN R0 0
+
+PROTO_5:
+  PREPVARARGS 1
+  NEWTABLE R1 0 0
+  RETURN R1 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  DUPTABLE R2 K2 [{"error", "name"}]
+  SETTABLEKS R0 R2 K0 ["error"]
+  LOADK R3 K0 ["error"]
+  SETTABLEKS R3 R2 K1 ["name"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["slice"]
+  GETUPVAL R2 1
+  LOADK R4 K1 ["uncaughtException"]
+  NAMECALL R2 R2 K2 ["listeners"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["slice"]
+  GETUPVAL R3 1
+  LOADK R5 K3 ["unhandledRejection"]
+  NAMECALL R3 R3 K2 ["listeners"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  LOADK R5 K1 ["uncaughtException"]
+  NAMECALL R3 R0 K4 ["removeAllListeners"]
+  CALL R3 2 0
+  LOADK R5 K3 ["unhandledRejection"]
+  NAMECALL R3 R0 K4 ["removeAllListeners"]
+  CALL R3 2 0
+  LOADK R5 K1 ["uncaughtException"]
+  GETUPVAL R6 2
+  NAMECALL R3 R0 K5 ["on"]
+  CALL R3 3 0
+  LOADK R5 K3 ["unhandledRejection"]
+  GETUPVAL R6 2
+  NAMECALL R3 R0 K5 ["on"]
+  CALL R3 3 0
+  DUPTABLE R3 K6 [{"uncaughtException", "unhandledRejection"}]
+  SETTABLEKS R1 R3 K1 ["uncaughtException"]
+  SETTABLEKS R2 R3 K3 ["unhandledRejection"]
+  RETURN R3 1
+
+PROTO_8:
+  LOADK R4 K0 ["uncaughtException"]
+  GETUPVAL R5 0
+  NAMECALL R2 R0 K1 ["removeListener"]
+  CALL R2 3 0
+  LOADK R4 K2 ["unhandledRejection"]
+  GETUPVAL R5 0
+  NAMECALL R2 R0 K1 ["removeListener"]
+  CALL R2 3 0
+  GETIMPORT R2 K4 [ipairs]
+  GETTABLEKS R3 R1 K0 ["uncaughtException"]
+  CALL R2 1 3
+  FORGPREP_INEXT R2
+  LOADK R9 K0 ["uncaughtException"]
+  MOVE R10 R6
+  NAMECALL R7 R0 K5 ["on"]
+  CALL R7 3 0
+  FORGLOOP R2 2 [inext] [-6]
+  GETIMPORT R2 K4 [ipairs]
+  GETTABLEKS R3 R1 K2 ["unhandledRejection"]
+  CALL R2 1 3
+  FORGPREP_INEXT R2
+  LOADK R9 K2 ["unhandledRejection"]
+  MOVE R10 R6
+  NAMECALL R7 R0 K5 ["on"]
+  CALL R7 3 0
+  FORGLOOP R2 2 [inext] [-6]
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 1
+  DUPTABLE R1 K11 [{"currentDescribeBlock", "currentlyRunningTest", "expand", "hasFocusedTests", "hasStarted", "includeTestLocationInResult", "parentProcess", "rootDescribeBlock", "testNamePattern", "testTimeout", "unhandledErrors"}]
+  SETTABLEKS R0 R1 K0 ["currentDescribeBlock"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K1 ["currentlyRunningTest"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K2 ["expand"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K3 ["hasFocusedTests"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K4 ["hasStarted"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K5 ["includeTestLocationInResult"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K6 ["parentProcess"]
+  SETTABLEKS R0 R1 K7 ["rootDescribeBlock"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K8 ["testNamePattern"]
+  LOADN R2 136
+  SETTABLEKS R2 R1 K9 ["testTimeout"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K10 ["unhandledErrors"]
+  RETURN R1 1
+
+PROTO_10:
+  GETIMPORT R0 K1 [_G]
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  CALL R2 0 1
+  SETTABLE R2 R0 R1
+  RETURN R0 0
+
+PROTO_11:
+  GETIMPORT R1 K1 [_G]
+  GETUPVAL R2 0
+  SETTABLE R0 R1 R2
+  GETIMPORT R2 K1 [_G]
+  GETUPVAL R3 0
+  GETTABLE R1 R2 R3
+  RETURN R1 1
+
+PROTO_12:
+  GETIMPORT R0 K1 [ipairs]
+  GETUPVAL R1 0
+  CALL R0 1 3
+  FORGPREP_INEXT R0
+  MOVE R5 R4
+  LOADNIL R6
+  GETUPVAL R7 1
+  GETUPVAL R8 2
+  CALL R8 0 -1
+  CALL R5 -1 1
+  JUMPIFEQKNIL R5 [+4]
+  NAMECALL R6 R5 K2 ["expect"]
+  CALL R6 1 0
+  FORGLOOP R0 2 [inext] [-12]
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["resolve"]
+  CALL R1 0 1
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  NAMECALL R1 R1 K1 ["andThen"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_14:
+  GETIMPORT R1 K1 [ipairs]
+  GETUPVAL R2 0
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  MOVE R6 R5
+  LOADNIL R7
+  MOVE R8 R0
+  GETUPVAL R9 1
+  CALL R9 0 -1
+  CALL R6 -1 0
+  FORGLOOP R1 2 [inext] [-7]
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R2 0
+  FASTCALL2 TABLE_INSERT R2 R0 [+4]
+  MOVE R3 R0
+  GETIMPORT R1 K2 [table.insert]
+  CALL R1 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 16 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R3 R1 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R2 K5 ["JestTypes"]
+  CALL R3 1 1
+  LOADNIL R4
+  LOADNIL R5
+  LOADNIL R6
+  LOADNIL R7
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R2 K6 ["LuauPolyfill"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K7 ["Array"]
+  GETTABLEKS R10 R8 K8 ["Boolean"]
+  GETTABLEKS R11 R8 K9 ["Error"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R13 R2 K10 ["RegExp"]
+  CALL R12 1 1
+  GETIMPORT R14 K4 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K2 ["Parent"]
+  GETTABLEKS R15 R16 K11 ["types"]
+  CALL R14 1 1
+  GETTABLEKS R13 R14 K12 ["TEST_TIMEOUT_SYMBOL"]
+  GETIMPORT R14 K4 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K2 ["Parent"]
+  GETTABLEKS R15 R16 K13 ["utils"]
+  CALL R14 1 1
+  GETTABLEKS R15 R14 K14 ["addErrorToEachTestUnderDescribe"]
+  GETTABLEKS R16 R14 K15 ["describeBlockHasTests"]
+  GETTABLEKS R17 R14 K16 ["getTestDuration"]
+  GETTABLEKS R18 R14 K17 ["invariant"]
+  GETTABLEKS R19 R14 K18 ["makeDescribe"]
+  GETTABLEKS R20 R14 K19 ["makeTest"]
+  DUPCLOSURE R5 K20 [PROTO_4]
+  CAPTURE VAL R11
+  CAPTURE VAL R19
+  CAPTURE VAL R18
+  CAPTURE VAL R10
+  CAPTURE VAL R16
+  CAPTURE VAL R9
+  CAPTURE VAL R20
+  CAPTURE VAL R15
+  CAPTURE VAL R17
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  SETTABLEKS R5 R0 K21 ["eventHandler"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R2 K6 ["LuauPolyfill"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K7 ["Array"]
+  DUPTABLE R10 K23 [{"listeners"}]
+  DUPCLOSURE R11 K24 [PROTO_5]
+  SETTABLEKS R11 R10 K22 ["listeners"]
+  LOADNIL R11
+  NEWCLOSURE R11 P2
+  CAPTURE REF R4
+  NEWCLOSURE R6 P3
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE REF R11
+  SETTABLEKS R6 R0 K25 ["injectGlobalErrorHandlers"]
+  NEWCLOSURE R7 P4
+  CAPTURE REF R11
+  SETTABLEKS R7 R0 K26 ["restoreGlobalErrorHandlers"]
+  CLOSEUPVALS R11
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R2 K6 ["LuauPolyfill"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R2 K27 ["Promise"]
+  CALL R9 1 1
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K2 ["Parent"]
+  GETTABLEKS R12 R13 K28 ["formatNodeAssertErrors"]
+  CALL R11 1 1
+  GETTABLEKS R10 R11 K29 ["default"]
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K11 ["types"]
+  CALL R12 1 1
+  GETTABLEKS R11 R12 K30 ["STATE_SYM"]
+  GETIMPORT R13 K4 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K2 ["Parent"]
+  GETTABLEKS R14 R15 K13 ["utils"]
+  CALL R13 1 1
+  GETTABLEKS R12 R13 K18 ["makeDescribe"]
+  NEWTABLE R13 0 2
+  MOVE R14 R5
+  MOVE R15 R10
+  SETLIST R13 R14 2 [1]
+  GETIMPORT R14 K4 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K2 ["Parent"]
+  GETTABLEKS R15 R16 K31 ["state_"]
+  CALL R14 1 1
+  GETTABLEKS R15 R14 K32 ["ROOT_DESCRIBE_BLOCK_NAME"]
+  SETTABLEKS R15 R0 K32 ["ROOT_DESCRIBE_BLOCK_NAME"]
+  DUPCLOSURE R16 K33 [PROTO_9]
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  DUPCLOSURE R17 K34 [PROTO_10]
+  CAPTURE VAL R11
+  CAPTURE VAL R16
+  SETTABLEKS R17 R0 K35 ["resetState"]
+  GETIMPORT R18 K37 [_G]
+  MOVE R19 R16
+  CALL R19 0 1
+  SETTABLE R19 R18 R11
+  GETTABLEKS R18 R14 K38 ["getState"]
+  SETTABLEKS R18 R0 K38 ["getState"]
+  DUPCLOSURE R19 K39 [PROTO_11]
+  CAPTURE VAL R11
+  SETTABLEKS R19 R0 K40 ["setState"]
+  DUPCLOSURE R20 K41 [PROTO_13]
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  CAPTURE VAL R18
+  SETTABLEKS R20 R0 K42 ["dispatch"]
+  DUPCLOSURE R4 K43 [PROTO_14]
+  CAPTURE VAL R13
+  CAPTURE VAL R18
+  SETTABLEKS R4 R0 K44 ["dispatchSync"]
+  DUPCLOSURE R21 K45 [PROTO_15]
+  CAPTURE VAL R13
+  SETTABLEKS R21 R0 K46 ["addEventHandler"]
+  CLOSEUPVALS R4
+  RETURN R0 1

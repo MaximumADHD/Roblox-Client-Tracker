@@ -1,0 +1,298 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onStyleSheetChange"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  JUMPIFEQKNIL R0 [+21]
+  GETIMPORT R0 K2 [table.clone]
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K3 ["GetDerives"]
+  CALL R1 1 -1
+  CALL R0 -1 1
+  LOADN R3 1
+  GETUPVAL R4 0
+  FASTCALL3 TABLE_INSERT R0 R3 R4
+  MOVE R2 R0
+  GETIMPORT R1 K5 [table.insert]
+  CALL R1 3 0
+  GETUPVAL R1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K6 ["SetDerives"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Hooks"]
+  GETTABLEKS R1 R2 K1 ["useStyleSheet"]
+  CALL R1 0 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["Design"]
+  GETTABLEKS R2 R3 K3 ["use"]
+  CALL R2 0 1
+  NAMECALL R2 R2 K4 ["get"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K5 ["onStyleSheetChange"]
+  JUMPIFNOT R3 [+15]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["useEffect"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NEWTABLE R5 0 2
+  MOVE R6 R1
+  GETTABLEKS R7 R0 K5 ["onStyleSheetChange"]
+  SETLIST R5 R6 2 [1]
+  CALL R3 2 0
+  JUMP [+19]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["useEffect"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  NEWTABLE R5 0 3
+  MOVE R6 R2
+  MOVE R7 R1
+  GETUPVAL R9 3
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R8 R0 K7 ["themeName"]
+  JUMP [+1]
+  LOADNIL R8
+  SETLIST R5 R6 3 [1]
+  CALL R3 2 0
+  JUMPIF R1 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K8 ["createElement"]
+  GETUPVAL R4 4
+  DUPTABLE R5 K11 [{"tag", "testId"}]
+  LOADK R6 K12 ["size-full"]
+  SETTABLEKS R6 R5 K9 ["tag"]
+  LOADK R6 K13 ["--studio-foundation--stylesheet-wrapper"]
+  SETTABLEKS R6 R5 K10 ["testId"]
+  DUPTABLE R6 K16 [{"Children", "StyleLink"}]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K17 ["Fragment"]
+  LOADNIL R9
+  GETTABLEKS R10 R0 K18 ["children"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K14 ["Children"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  LOADK R8 K15 ["StyleLink"]
+  DUPTABLE R9 K20 [{"StyleSheet"}]
+  SETTABLEKS R2 R9 K19 ["StyleSheet"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K15 ["StyleLink"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["device"]
+  JUMPIF R1 [+3]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["Desktop"]
+  GETTABLEKS R2 R0 K2 ["overlayGui"]
+  JUMPIF R2 [+9]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["Focus"]
+  GETTABLEKS R2 R3 K4 ["use"]
+  CALL R2 0 1
+  NAMECALL R2 R2 K5 ["get"]
+  CALL R2 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["Design"]
+  GETTABLEKS R3 R4 K4 ["use"]
+  CALL R3 0 1
+  NAMECALL R3 R3 K5 ["get"]
+  CALL R3 1 1
+  GETUPVAL R4 2
+  CALL R4 0 1
+  GETUPVAL R6 3
+  JUMPIFNOT R6 [+2]
+  MOVE R5 R4
+  JUMP [+5]
+  GETTABLEKS R5 R0 K7 ["theme"]
+  JUMPIF R5 [+2]
+  GETTABLEKS R5 R4 K8 ["Name"]
+  JUMPIFNOTEQKNIL R2 [+8]
+  GETIMPORT R6 K10 [warn]
+  LOADK R7 K11 ["No overlayGui is provided. Foundation will create a ScreenGui to render Toolips/Menus"]
+  GETIMPORT R8 K14 [debug.traceback]
+  CALL R8 0 -1
+  CALL R6 -1 0
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K15 ["createElement"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K16 ["Fragment"]
+  LOADNIL R8
+  DUPTABLE R9 K19 [{"Wrapper", "StyleLink"}]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K15 ["createElement"]
+  LOADK R11 K20 ["Frame"]
+  DUPTABLE R12 K23 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R13 K26 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K21 ["Size"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K22 ["BackgroundTransparency"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K15 ["createElement"]
+  GETUPVAL R14 5
+  DUPTABLE R15 K27 [{"device", "theme", "overlayGui"}]
+  SETTABLEKS R1 R15 K0 ["device"]
+  SETTABLEKS R5 R15 K7 ["theme"]
+  SETTABLEKS R2 R15 K2 ["overlayGui"]
+  GETUPVAL R17 6
+  JUMPIFNOT R17 [+3]
+  GETTABLEKS R16 R0 K28 ["children"]
+  JUMP [+14]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K15 ["createElement"]
+  GETUPVAL R17 7
+  DUPTABLE R18 K31 [{"themeName", "onStyleSheetChange"}]
+  SETTABLEKS R5 R18 K29 ["themeName"]
+  GETTABLEKS R19 R0 K30 ["onStyleSheetChange"]
+  SETTABLEKS R19 R18 K30 ["onStyleSheetChange"]
+  GETTABLEKS R19 R0 K28 ["children"]
+  CALL R16 3 1
+  CALL R13 3 -1
+  CALL R10 -1 1
+  SETTABLEKS R10 R9 K17 ["Wrapper"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K15 ["createElement"]
+  LOADK R11 K18 ["StyleLink"]
+  DUPTABLE R12 K33 [{"StyleSheet"}]
+  SETTABLEKS R3 R12 K32 ["StyleSheet"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K18 ["StyleLink"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["theme"]
+  JUMPIFNOT R1 [+19]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["createElement"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["Provider"]
+  DUPTABLE R3 K4 [{"value"}]
+  GETTABLEKS R4 R0 K0 ["theme"]
+  SETTABLEKS R4 R3 K3 ["value"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["createElement"]
+  GETUPVAL R5 2
+  MOVE R6 R0
+  CALL R4 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["createElement"]
+  GETUPVAL R2 3
+  LOADNIL R3
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["createElement"]
+  GETUPVAL R5 2
+  MOVE R6 R0
+  CALL R4 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StudioFoundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Foundation"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K10 ["View"]
+  GETTABLEKS R6 R4 K11 ["FoundationProvider"]
+  GETTABLEKS R8 R4 K12 ["Enums"]
+  GETTABLEKS R7 R8 K13 ["Device"]
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K14 ["SharedFlags"]
+  GETTABLEKS R9 R10 K15 ["getFFlagStudioFoundationThemeFix"]
+  CALL R8 1 1
+  CALL R8 0 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K14 ["SharedFlags"]
+  GETTABLEKS R10 R11 K16 ["getFFlagStudioFoundationThemeContext"]
+  CALL R9 1 1
+  CALL R9 0 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K17 ["Hooks"]
+  GETTABLEKS R11 R12 K18 ["useThemeName"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K19 ["Contexts"]
+  GETTABLEKS R12 R13 K20 ["StudioThemeContextProvider"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K19 ["Contexts"]
+  GETTABLEKS R13 R14 K21 ["ThemeContext"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R14 R0 K22 ["Types"]
+  CALL R13 1 1
+  GETTABLEKS R14 R3 K23 ["ContextServices"]
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R17 R0 K24 ["Util"]
+  GETTABLEKS R16 R17 K25 ["isStyleSheetPolyfillOn"]
+  CALL R15 1 1
+  CALL R15 0 1
+  GETIMPORT R16 K27 [game]
+  LOADK R18 K28 ["DebugDeveloperFrameworkSdk"]
+  NAMECALL R16 R16 K29 ["GetFastFlag"]
+  CALL R16 2 1
+  JUMPIFNOT R15 [+8]
+  JUMPIFNOT R16 [+7]
+  GETIMPORT R17 K31 [warn]
+  LOADK R18 K32 ["Your foundation code is running with Foundation styles polyfill. useStyleTag won't work.
+		To test your plugin with FoundationStylesheet support make sure that:
+		1. Foundation version >= 1.48.0
+		2. FoundationDisableStylingPolyfill=true
+		"]
+  GETIMPORT R19 K35 [debug.traceback]
+  CALL R19 0 -1
+  CALL R17 -1 0
+  DUPCLOSURE R17 K36 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R14
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  DUPCLOSURE R18 K37 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R14
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R15
+  CAPTURE VAL R17
+  DUPCLOSURE R19 K38 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R18
+  CAPTURE VAL R11
+  JUMPIFNOT R9 [+1]
+  RETURN R19 1
+  RETURN R18 1

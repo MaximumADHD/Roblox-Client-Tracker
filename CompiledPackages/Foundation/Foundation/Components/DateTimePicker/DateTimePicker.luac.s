@@ -1,0 +1,366 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["getDateTimeFromText"]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["onChanged"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onChanged"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  GETUPVAL R0 2
+  GETUPVAL R1 1
+  LOADK R3 K1 ["L"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K2 ["RobloxLocaleId"]
+  NAMECALL R1 R1 K3 ["FormatLocalTime"]
+  CALL R1 3 -1
+  CALL R0 -1 0
+  GETUPVAL R0 4
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 1
+  GETUPVAL R2 2
+  CALL R2 0 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K0 ["useState"]
+  LOADK R4 K1 [""]
+  CALL R3 1 2
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K0 ["useState"]
+  LOADB R6 0
+  CALL R5 1 2
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K0 ["useState"]
+  GETTABLEKS R8 R1 K2 ["defaultSelectedDate"]
+  CALL R7 1 2
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K3 ["useCallback"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R6
+  NEWTABLE R11 0 0
+  CALL R9 2 1
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K3 ["useCallback"]
+  NEWCLOSURE R11 P1
+  CAPTURE VAL R6
+  NEWTABLE R12 0 0
+  CALL R10 2 1
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K3 ["useCallback"]
+  NEWCLOSURE R12 P2
+  CAPTURE VAL R4
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  NEWTABLE R13 0 0
+  CALL R11 2 1
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K3 ["useCallback"]
+  NEWCLOSURE R13 P3
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE UPVAL U5
+  CAPTURE VAL R9
+  NEWTABLE R14 0 3
+  MOVE R15 R7
+  MOVE R16 R9
+  GETTABLEKS R17 R1 K4 ["onChanged"]
+  SETLIST R14 R15 3 [1]
+  CALL R12 2 1
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K5 ["createElement"]
+  GETUPVAL R14 6
+  GETUPVAL R15 7
+  MOVE R16 R1
+  NEWTABLE R17 0 0
+  CALL R15 2 1
+  DUPTABLE R16 K7 [{"DateTimePicker"}]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K5 ["createElement"]
+  GETUPVAL R19 8
+  GETTABLEKS R18 R19 K8 ["Root"]
+  DUPTABLE R19 K10 [{"isOpen"}]
+  SETTABLEKS R5 R19 K9 ["isOpen"]
+  DUPTABLE R20 K13 [{"DateInput", "Calendar"}]
+  GETUPVAL R22 3
+  GETTABLEKS R21 R22 K5 ["createElement"]
+  GETUPVAL R23 8
+  GETTABLEKS R22 R23 K14 ["Anchor"]
+  LOADNIL R23
+  NEWTABLE R24 0 1
+  GETUPVAL R26 3
+  GETTABLEKS R25 R26 K5 ["createElement"]
+  GETUPVAL R26 9
+  DUPTABLE R27 K28 [{"hasError", "hint", "iconTrailing", "isDisabled", "isRequired", "key", "label", "onChanged", "onFocusGained", "placeholder", "selectableDateRange", "text", "width", "testId"}]
+  GETTABLEKS R28 R1 K15 ["hasError"]
+  SETTABLEKS R28 R27 K15 ["hasError"]
+  GETTABLEKS R28 R1 K16 ["hint"]
+  SETTABLEKS R28 R27 K16 ["hint"]
+  DUPTABLE R28 K31 [{"name", "onActivated"}]
+  GETUPVAL R30 10
+  GETTABLEKS R29 R30 K12 ["Calendar"]
+  SETTABLEKS R29 R28 K29 ["name"]
+  SETTABLEKS R10 R28 K30 ["onActivated"]
+  SETTABLEKS R28 R27 K17 ["iconTrailing"]
+  GETTABLEKS R28 R1 K18 ["isDisabled"]
+  SETTABLEKS R28 R27 K18 ["isDisabled"]
+  GETTABLEKS R28 R1 K19 ["isRequired"]
+  SETTABLEKS R28 R27 K19 ["isRequired"]
+  LOADK R28 K32 ["date-input"]
+  SETTABLEKS R28 R27 K20 ["key"]
+  GETTABLEKS R28 R1 K21 ["label"]
+  SETTABLEKS R28 R27 K21 ["label"]
+  SETTABLEKS R11 R27 K4 ["onChanged"]
+  SETTABLEKS R10 R27 K22 ["onFocusGained"]
+  GETUPVAL R28 11
+  LOADK R30 K33 ["CommonUI.Controls.Label.SelectDate"]
+  NAMECALL R28 R28 K34 ["FormatByKey"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K23 ["placeholder"]
+  GETTABLEKS R28 R1 K24 ["selectableDateRange"]
+  SETTABLEKS R28 R27 K24 ["selectableDateRange"]
+  SETTABLEKS R3 R27 K25 ["text"]
+  GETTABLEKS R28 R1 K26 ["width"]
+  SETTABLEKS R28 R27 K26 ["width"]
+  LOADK R28 K35 ["--foundation-date-time-picker-text-input"]
+  SETTABLEKS R28 R27 K27 ["testId"]
+  CALL R25 2 -1
+  SETLIST R24 R25 -1 [1]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K11 ["DateInput"]
+  GETUPVAL R22 3
+  GETTABLEKS R21 R22 K5 ["createElement"]
+  GETUPVAL R23 8
+  GETTABLEKS R22 R23 K36 ["Content"]
+  DUPTABLE R23 K40 [{"hasArrow", "onPressedOutside", "side"}]
+  LOADB R24 0
+  SETTABLEKS R24 R23 K37 ["hasArrow"]
+  SETTABLEKS R9 R23 K38 ["onPressedOutside"]
+  DUPTABLE R24 K43 [{"position", "offset"}]
+  GETUPVAL R26 12
+  GETTABLEKS R25 R26 K44 ["Bottom"]
+  SETTABLEKS R25 R24 K41 ["position"]
+  GETTABLEKS R27 R2 K45 ["Stroke"]
+  GETTABLEKS R26 R27 K46 ["Standard"]
+  GETTABLEKS R28 R2 K47 ["Padding"]
+  GETTABLEKS R27 R28 K48 ["Small"]
+  ADD R25 R26 R27
+  SETTABLEKS R25 R24 K42 ["offset"]
+  SETTABLEKS R24 R23 K39 ["side"]
+  MOVE R24 R5
+  JUMPIFNOT R24 [+107]
+  GETUPVAL R25 3
+  GETTABLEKS R24 R25 K5 ["createElement"]
+  GETUPVAL R25 6
+  DUPTABLE R26 K50 [{"tag"}]
+  LOADK R27 K51 ["padding-large col auto-xy stroke-default radius-medium"]
+  SETTABLEKS R27 R26 K49 ["tag"]
+  DUPTABLE R27 K53 [{"Calendar", "BottomBar"}]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K5 ["createElement"]
+  GETUPVAL R29 13
+  DUPTABLE R30 K57 [{"defaultSelectedDate", "LayoutOrder", "onSelectedDateChanged", "selectableDateRange", "showCalendarInput"}]
+  GETTABLEKS R31 R1 K2 ["defaultSelectedDate"]
+  SETTABLEKS R31 R30 K2 ["defaultSelectedDate"]
+  LOADN R31 1
+  SETTABLEKS R31 R30 K54 ["LayoutOrder"]
+  SETTABLEKS R8 R30 K55 ["onSelectedDateChanged"]
+  GETTABLEKS R31 R1 K24 ["selectableDateRange"]
+  SETTABLEKS R31 R30 K24 ["selectableDateRange"]
+  GETTABLEKS R32 R1 K58 ["variant"]
+  GETUPVAL R34 14
+  GETTABLEKS R33 R34 K59 ["Single"]
+  JUMPIFEQ R32 R33 [+2]
+  LOADB R31 0 +1
+  LOADB R31 1
+  SETTABLEKS R31 R30 K56 ["showCalendarInput"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K12 ["Calendar"]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K5 ["createElement"]
+  GETUPVAL R29 6
+  DUPTABLE R30 K60 [{"LayoutOrder", "tag"}]
+  LOADN R31 2
+  SETTABLEKS R31 R30 K54 ["LayoutOrder"]
+  LOADK R31 K61 ["row size-full-0 auto-y flex-fill gap-small padding-top-large"]
+  SETTABLEKS R31 R30 K49 ["tag"]
+  DUPTABLE R31 K64 [{"ApplyButton", "CancelButton"}]
+  GETUPVAL R33 3
+  GETTABLEKS R32 R33 K5 ["createElement"]
+  GETUPVAL R33 15
+  DUPTABLE R34 K65 [{"onActivated", "text", "variant", "testId"}]
+  SETTABLEKS R12 R34 K30 ["onActivated"]
+  GETUPVAL R35 11
+  LOADK R37 K66 ["CommonUI.Controls.Action.Apply"]
+  NAMECALL R35 R35 K34 ["FormatByKey"]
+  CALL R35 2 1
+  SETTABLEKS R35 R34 K25 ["text"]
+  GETUPVAL R36 16
+  GETTABLEKS R35 R36 K67 ["Emphasis"]
+  SETTABLEKS R35 R34 K58 ["variant"]
+  LOADK R35 K68 ["--foundation-date-time-picker-apply-button"]
+  SETTABLEKS R35 R34 K27 ["testId"]
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K62 ["ApplyButton"]
+  GETUPVAL R33 3
+  GETTABLEKS R32 R33 K5 ["createElement"]
+  GETUPVAL R33 15
+  DUPTABLE R34 K65 [{"onActivated", "text", "variant", "testId"}]
+  SETTABLEKS R9 R34 K30 ["onActivated"]
+  GETUPVAL R35 11
+  LOADK R37 K69 ["CommonUI.Controls.Action.Cancel"]
+  NAMECALL R35 R35 K34 ["FormatByKey"]
+  CALL R35 2 1
+  SETTABLEKS R35 R34 K25 ["text"]
+  GETUPVAL R36 16
+  GETTABLEKS R35 R36 K46 ["Standard"]
+  SETTABLEKS R35 R34 K58 ["variant"]
+  LOADK R35 K70 ["--foundation-date-time-picker-cancel-button"]
+  SETTABLEKS R35 R34 K27 ["testId"]
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K63 ["CancelButton"]
+  CALL R28 3 1
+  SETTABLEKS R28 R27 K52 ["BottomBar"]
+  CALL R24 3 1
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K12 ["Calendar"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K6 ["DateTimePicker"]
+  CALL R13 3 -1
+  RETURN R13 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["BuilderIcons"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K9 ["Icon"]
+  GETIMPORT R5 K6 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K10 ["Calendar"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K11 ["DateTimeUtilities"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K12 ["Components"]
+  GETTABLEKS R8 R9 K13 ["Button"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K14 ["Enums"]
+  GETTABLEKS R9 R10 K15 ["ButtonVariant"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K14 ["Enums"]
+  GETTABLEKS R10 R11 K16 ["DateTimePickerVariant"]
+  CALL R9 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K17 ["Utility"]
+  GETTABLEKS R13 R14 K18 ["Wrappers"]
+  CALL R12 1 1
+  GETTABLEKS R11 R12 K19 ["Services"]
+  GETTABLEKS R10 R11 K20 ["LocalizationService"]
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K12 ["Components"]
+  GETTABLEKS R12 R13 K21 ["Popover"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K14 ["Enums"]
+  GETTABLEKS R13 R14 K22 ["PopoverSide"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R0 K12 ["Components"]
+  GETTABLEKS R14 R15 K23 ["TextInput"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R17 R0 K17 ["Utility"]
+  GETTABLEKS R16 R17 K24 ["Localization"]
+  GETTABLEKS R15 R16 K25 ["Translator"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R17 R0 K12 ["Components"]
+  GETTABLEKS R16 R17 K26 ["Types"]
+  CALL R15 1 1
+  GETIMPORT R16 K6 [require]
+  GETTABLEKS R18 R0 K12 ["Components"]
+  GETTABLEKS R17 R18 K27 ["View"]
+  CALL R16 1 1
+  GETIMPORT R17 K6 [require]
+  GETTABLEKS R20 R0 K28 ["Providers"]
+  GETTABLEKS R19 R20 K29 ["Style"]
+  GETTABLEKS R18 R19 K30 ["useTokens"]
+  CALL R17 1 1
+  GETIMPORT R18 K6 [require]
+  GETTABLEKS R20 R0 K17 ["Utility"]
+  GETTABLEKS R19 R20 K31 ["withCommonProps"]
+  CALL R18 1 1
+  GETIMPORT R19 K6 [require]
+  GETTABLEKS R21 R0 K17 ["Utility"]
+  GETTABLEKS R20 R21 K32 ["withDefaults"]
+  CALL R19 1 1
+  DUPTABLE R20 K35 [{"defaultSelectedDate", "variant"}]
+  GETIMPORT R21 K38 [DateTime.now]
+  CALL R21 0 1
+  SETTABLEKS R21 R20 K33 ["defaultSelectedDate"]
+  GETTABLEKS R21 R9 K39 ["Single"]
+  SETTABLEKS R21 R20 K34 ["variant"]
+  DUPCLOSURE R21 K40 [PROTO_4]
+  CAPTURE VAL R19
+  CAPTURE VAL R20
+  CAPTURE VAL R17
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R16
+  CAPTURE VAL R18
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R4
+  CAPTURE VAL R14
+  CAPTURE VAL R12
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  GETTABLEKS R22 R3 K41 ["memo"]
+  MOVE R23 R21
+  CALL R22 1 -1
+  RETURN R22 -1

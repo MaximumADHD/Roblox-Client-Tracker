@@ -1,0 +1,10 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K3 [{"Padding", "ButtonWidth", "Height"}]
+  LOADN R1 10
+  SETTABLEKS R1 R0 K0 ["Padding"]
+  LOADN R1 48
+  SETTABLEKS R1 R0 K1 ["ButtonWidth"]
+  LOADN R1 36
+  SETTABLEKS R1 R0 K2 ["Height"]
+  RETURN R0 1

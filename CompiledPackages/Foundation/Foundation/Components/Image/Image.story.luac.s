@@ -1,0 +1,435 @@
+PROTO_0:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 2
+  DUPTABLE R3 K3 [{"backgroundStyle", "tag"}]
+  DUPTABLE R4 K5 [{"Transparency"}]
+  LOADK R5 K6 [0.5]
+  SETTABLEKS R5 R4 K4 ["Transparency"]
+  SETTABLEKS R4 R3 K1 ["backgroundStyle"]
+  LOADK R4 K7 ["col gap-large auto-xy padding-small"]
+  SETTABLEKS R4 R3 K2 ["tag"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 3
+  DUPTABLE R6 K9 [{"Image", "backgroundStyle", "tag"}]
+  LOADK R7 K10 ["rbxassetid://7229442422"]
+  SETTABLEKS R7 R6 K8 ["Image"]
+  GETTABLEKS R10 R0 K11 ["Color"]
+  GETTABLEKS R9 R10 K12 ["Extended"]
+  GETTABLEKS R8 R9 K13 ["White"]
+  GETTABLEKS R7 R8 K14 ["White_100"]
+  SETTABLEKS R7 R6 K1 ["backgroundStyle"]
+  LOADK R7 K15 ["size-2800"]
+  SETTABLEKS R7 R6 K2 ["tag"]
+  CALL R4 2 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K17 [{"Image", "slice", "backgroundStyle", "tag"}]
+  LOADK R8 K18 ["component_assets/circle_22_stroke_3"]
+  SETTABLEKS R8 R7 K8 ["Image"]
+  DUPTABLE R8 K20 [{"center"}]
+  GETIMPORT R9 K23 [Rect.new]
+  LOADN R10 11
+  LOADN R11 11
+  LOADN R12 12
+  LOADN R13 12
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K19 ["center"]
+  SETTABLEKS R8 R7 K16 ["slice"]
+  GETTABLEKS R11 R0 K11 ["Color"]
+  GETTABLEKS R10 R11 K12 ["Extended"]
+  GETTABLEKS R9 R10 K13 ["White"]
+  GETTABLEKS R8 R9 K24 ["White_0"]
+  SETTABLEKS R8 R7 K1 ["backgroundStyle"]
+  LOADK R8 K25 ["size-2800-800 col align-x-center align-y-center"]
+  SETTABLEKS R8 R7 K2 ["tag"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K0 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K29 [{"Text", "AutomaticSize", "textStyle"}]
+  LOADK R11 K30 ["Slice Center"]
+  SETTABLEKS R11 R10 K26 ["Text"]
+  GETIMPORT R11 K33 [Enum.AutomaticSize.XY]
+  SETTABLEKS R11 R10 K27 ["AutomaticSize"]
+  GETTABLEKS R13 R0 K11 ["Color"]
+  GETTABLEKS R12 R13 K34 ["Content"]
+  GETTABLEKS R11 R12 K35 ["Emphasis"]
+  SETTABLEKS R11 R10 K28 ["textStyle"]
+  CALL R8 2 -1
+  CALL R5 -1 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Default"]
+  JUMPIFNOTEQ R0 R1 [+11]
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["Asset"]
+  LOADK R3 K2 [23155839]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K3 ["Large"]
+  CALL R1 3 -1
+  RETURN R1 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["Hover"]
+  JUMPIFNOTEQ R0 R1 [+11]
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["Asset"]
+  LOADK R3 K5 [23155842]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K3 ["Large"]
+  CALL R1 3 -1
+  RETURN R1 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K6 ["Pressed"]
+  JUMPIFNOTEQ R0 R1 [+11]
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["Asset"]
+  LOADK R3 K7 [23155847]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K3 ["Large"]
+  CALL R1 3 -1
+  RETURN R1 -1
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["Asset"]
+  LOADK R3 K8 [23155833]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K3 ["Large"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useBinding"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["Initialize"]
+  CALL R0 1 2
+  GETUPVAL R2 2
+  CALL R2 0 1
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["createElement"]
+  GETUPVAL R5 3
+  DUPTABLE R6 K7 [{"Image", "backgroundStyle", "tag", "onStateChanged"}]
+  DUPCLOSURE R9 K8 [PROTO_2]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  NAMECALL R7 R0 K9 ["map"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K3 ["Image"]
+  GETTABLEKS R10 R2 K10 ["Color"]
+  GETTABLEKS R9 R10 K11 ["Extended"]
+  GETTABLEKS R8 R9 K12 ["Purple"]
+  GETTABLEKS R7 R8 K13 ["Purple_500"]
+  SETTABLEKS R7 R6 K4 ["backgroundStyle"]
+  LOADK R7 K14 ["col align-x-center align-y-center size-2800"]
+  SETTABLEKS R7 R6 K5 ["tag"]
+  SETTABLEKS R3 R6 K6 ["onStateChanged"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_4:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 2
+  DUPTABLE R3 K6 [{"tag", "slice", "backgroundStyle", "Image", "ScaleType"}]
+  LOADK R4 K7 ["auto-xy"]
+  SETTABLEKS R4 R3 K1 ["tag"]
+  DUPTABLE R4 K10 [{"center", "scale"}]
+  GETIMPORT R5 K13 [Rect.new]
+  LOADN R6 52
+  LOADN R7 24
+  LOADN R8 66
+  LOADN R9 32
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K8 ["center"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K9 ["scale"]
+  SETTABLEKS R4 R3 K2 ["slice"]
+  DUPTABLE R4 K15 [{"Transparency"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K14 ["Transparency"]
+  SETTABLEKS R4 R3 K3 ["backgroundStyle"]
+  LOADK R4 K16 ["rbxassetid://78323814447735"]
+  SETTABLEKS R4 R3 K4 ["Image"]
+  GETIMPORT R4 K19 [Enum.ScaleType.Slice]
+  SETTABLEKS R4 R3 K5 ["ScaleType"]
+  DUPTABLE R4 K21 [{"DialogueSpeechBubbleInner"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K23 [{"tag", "padding"}]
+  LOADK R8 K24 ["auto-xy gap-large"]
+  SETTABLEKS R8 R7 K1 ["tag"]
+  DUPTABLE R8 K29 [{"top", "bottom", "left", "right"}]
+  GETIMPORT R9 K31 [UDim.new]
+  LOADN R10 0
+  LOADN R11 30
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K25 ["top"]
+  GETIMPORT R9 K31 [UDim.new]
+  LOADN R10 0
+  LOADN R11 40
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K26 ["bottom"]
+  GETIMPORT R9 K31 [UDim.new]
+  LOADN R10 0
+  LOADN R11 64
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K27 ["left"]
+  GETIMPORT R9 K31 [UDim.new]
+  LOADN R10 0
+  LOADN R11 32
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K28 ["right"]
+  SETTABLEKS R8 R7 K22 ["padding"]
+  DUPTABLE R8 K33 [{"SpeakerContainer"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K0 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K35 [{"tag", "LayoutOrder"}]
+  LOADK R12 K36 ["size-1500"]
+  SETTABLEKS R12 R11 K1 ["tag"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K34 ["LayoutOrder"]
+  DUPTABLE R12 K40 [{"Outer", "Inner", "SpeakerIcon"}]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K0 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K44 [{"tag", "Image", "Size", "imageStyle", "ZIndex"}]
+  LOADK R16 K45 ["anchor-center-center position-center-center"]
+  SETTABLEKS R16 R15 K1 ["tag"]
+  LOADK R16 K46 ["component_assets/circle_36"]
+  SETTABLEKS R16 R15 K4 ["Image"]
+  GETIMPORT R16 K49 [UDim2.fromOffset]
+  LOADN R17 60
+  LOADN R18 60
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K41 ["Size"]
+  GETTABLEKS R17 R0 K50 ["Color"]
+  GETTABLEKS R16 R17 K51 ["None"]
+  SETTABLEKS R16 R15 K42 ["imageStyle"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K43 ["ZIndex"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K37 ["Outer"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K0 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K52 [{"tag", "Image", "Size", "scale", "imageStyle", "ZIndex"}]
+  LOADK R16 K45 ["anchor-center-center position-center-center"]
+  SETTABLEKS R16 R15 K1 ["tag"]
+  LOADK R16 K46 ["component_assets/circle_36"]
+  SETTABLEKS R16 R15 K4 ["Image"]
+  GETIMPORT R16 K49 [UDim2.fromOffset]
+  LOADN R17 60
+  LOADN R18 60
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K41 ["Size"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K9 ["scale"]
+  GETTABLEKS R17 R0 K50 ["Color"]
+  GETTABLEKS R16 R17 K51 ["None"]
+  SETTABLEKS R16 R15 K42 ["imageStyle"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K43 ["ZIndex"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K38 ["Inner"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K0 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K44 [{"tag", "Image", "Size", "imageStyle", "ZIndex"}]
+  LOADK R16 K45 ["anchor-center-center position-center-center"]
+  SETTABLEKS R16 R15 K1 ["tag"]
+  LOADK R16 K53 ["icons/controls/speaker"]
+  SETTABLEKS R16 R15 K4 ["Image"]
+  GETIMPORT R16 K49 [UDim2.fromOffset]
+  LOADN R17 32
+  LOADN R18 32
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K41 ["Size"]
+  GETTABLEKS R19 R0 K50 ["Color"]
+  GETTABLEKS R18 R19 K54 ["Extended"]
+  GETTABLEKS R17 R18 K55 ["Gray"]
+  GETTABLEKS R16 R17 K56 ["Gray_300"]
+  SETTABLEKS R16 R15 K42 ["imageStyle"]
+  LOADN R16 2
+  SETTABLEKS R16 R15 K43 ["ZIndex"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K39 ["SpeakerIcon"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K32 ["SpeakerContainer"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K20 ["DialogueSpeechBubbleInner"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  DUPTABLE R2 K3 [{"Image", "tag"}]
+  LOADK R3 K4 ["icons/graphic/success_xlarge"]
+  SETTABLEKS R3 R2 K1 ["Image"]
+  LOADK R3 K5 ["size-2800"]
+  SETTABLEKS R3 R2 K2 ["tag"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K4 [{"Image", "Size", "tag"}]
+  GETTABLEKS R5 R0 K5 ["controls"]
+  GETTABLEKS R4 R5 K6 ["cloudAsset"]
+  SETTABLEKS R4 R3 K1 ["Image"]
+  GETIMPORT R4 K9 [UDim2.fromOffset]
+  LOADN R5 44
+  LOADN R6 44
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["Size"]
+  LOADK R4 K10 ["content-emphasis"]
+  SETTABLEKS R4 R3 K3 ["tag"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R1 K9 ["FoundationCloudAssets"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K10 ["Assets"]
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K11 ["Components"]
+  GETTABLEKS R6 R7 K12 ["Image"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K11 ["Components"]
+  GETTABLEKS R7 R8 K13 ["View"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K11 ["Components"]
+  GETTABLEKS R8 R9 K14 ["Text"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R11 R0 K15 ["Providers"]
+  GETTABLEKS R10 R11 K16 ["Style"]
+  GETTABLEKS R9 R10 K17 ["useTokens"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K18 ["Utility"]
+  GETTABLEKS R10 R11 K19 ["getRbxThumb"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K20 ["Enums"]
+  GETTABLEKS R11 R12 K21 ["ThumbnailType"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K20 ["Enums"]
+  GETTABLEKS R12 R13 K22 ["ThumbnailSize"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K20 ["Enums"]
+  GETTABLEKS R13 R14 K23 ["ControlState"]
+  CALL R12 1 1
+  DUPCLOSURE R13 K24 [PROTO_0]
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  DUPCLOSURE R14 K25 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  DUPCLOSURE R15 K26 [PROTO_4]
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  DUPTABLE R16 K30 [{"summary", "stories", "controls"}]
+  LOADK R17 K12 ["Image"]
+  SETTABLEKS R17 R16 K27 ["summary"]
+  NEWTABLE R17 0 5
+  DUPTABLE R18 K33 [{"name", "story"}]
+  LOADK R19 K34 ["Basic Image"]
+  SETTABLEKS R19 R18 K31 ["name"]
+  DUPCLOSURE R19 K35 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  SETTABLEKS R19 R18 K32 ["story"]
+  DUPTABLE R19 K33 [{"name", "story"}]
+  LOADK R20 K36 ["Basic Asset Use"]
+  SETTABLEKS R20 R19 K31 ["name"]
+  SETTABLEKS R13 R19 K32 ["story"]
+  DUPTABLE R20 K33 [{"name", "story"}]
+  LOADK R21 K37 ["GUI State Use"]
+  SETTABLEKS R21 R20 K31 ["name"]
+  SETTABLEKS R14 R20 K32 ["story"]
+  DUPTABLE R21 K33 [{"name", "story"}]
+  LOADK R22 K38 ["Custom 9-slice Image"]
+  SETTABLEKS R22 R21 K31 ["name"]
+  DUPCLOSURE R22 K39 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R15
+  SETTABLEKS R22 R21 K32 ["story"]
+  DUPTABLE R22 K33 [{"name", "story"}]
+  LOADK R23 K40 ["Cloud Asset"]
+  SETTABLEKS R23 R22 K31 ["name"]
+  DUPCLOSURE R23 K41 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  SETTABLEKS R23 R22 K32 ["story"]
+  SETLIST R17 R18 5 [1]
+  SETTABLEKS R17 R16 K28 ["stories"]
+  DUPTABLE R17 K43 [{"cloudAsset"}]
+  GETTABLEKS R18 R3 K44 ["keys"]
+  MOVE R19 R4
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K42 ["cloudAsset"]
+  SETTABLEKS R17 R16 K29 ["controls"]
+  RETURN R16 1

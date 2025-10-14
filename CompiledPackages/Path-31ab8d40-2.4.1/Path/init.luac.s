@@ -1,0 +1,26 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  CALL R0 0 1
+  LOADK R3 K1 ["/"]
+  LOADK R4 K1 ["/"]
+  NAMECALL R1 R0 K2 ["initialize"]
+  CALL R1 3 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  GETIMPORT R1 K3 [require]
+  GETTABLEKS R2 R0 K4 ["path"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K5 ["Path"]
+  DUPCLOSURE R3 K6 [PROTO_0]
+  CAPTURE VAL R2
+  SETGLOBAL R3 K7 ["makePathImpl"]
+  DUPTABLE R3 K8 [{"path", "Path"}]
+  GETGLOBAL R4 K7 ["makePathImpl"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K4 ["path"]
+  SETTABLEKS R2 R3 K5 ["Path"]
+  RETURN R3 1

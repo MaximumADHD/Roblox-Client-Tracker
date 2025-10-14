@@ -1,0 +1,377 @@
+PROTO_0:
+  ADD R2 R1 R0
+  RETURN R2 1
+
+PROTO_1:
+  LOADNIL R2
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["MarkerImage"]
+  JUMPIF R4 [+3]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["MarkerImage"]
+  LOADNIL R5
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K2 [type]
+  CALL R6 1 1
+  JUMPIFNOTEQKS R6 K3 ["string"] [+67]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R7 4
+  DUPTABLE R8 K16 [{"AutomaticSize", "Font", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextTruncate", "TextWrapped", "Padding", "TextXAlignment"}]
+  GETIMPORT R9 K19 [Enum.AutomaticSize.XY]
+  SETTABLEKS R9 R8 K5 ["AutomaticSize"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K6 ["Font"]
+  JUMPIF R9 [+3]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K6 ["Font"]
+  SETTABLEKS R9 R8 K6 ["Font"]
+  LOADN R9 2
+  SETTABLEKS R9 R8 K7 ["LayoutOrder"]
+  GETUPVAL R9 5
+  SETTABLEKS R9 R8 K8 ["Size"]
+  SETTABLEKS R0 R8 K9 ["Text"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K10 ["TextColor"]
+  JUMPIF R9 [+3]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K10 ["TextColor"]
+  SETTABLEKS R9 R8 K10 ["TextColor"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["TextSize"]
+  JUMPIF R9 [+3]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K11 ["TextSize"]
+  SETTABLEKS R9 R8 K11 ["TextSize"]
+  GETUPVAL R9 6
+  SETTABLEKS R9 R8 K12 ["TextTruncate"]
+  GETUPVAL R9 7
+  SETTABLEKS R9 R8 K13 ["TextWrapped"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K14 ["Padding"]
+  JUMPIF R9 [+3]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K14 ["Padding"]
+  SETTABLEKS R9 R8 K14 ["Padding"]
+  GETIMPORT R9 K21 [Enum.TextXAlignment.Left]
+  SETTABLEKS R9 R8 K15 ["TextXAlignment"]
+  CALL R6 2 1
+  MOVE R2 R6
+  JUMP [+133]
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K23 [typeof]
+  CALL R6 1 1
+  JUMPIFNOTEQKS R6 K24 ["table"] [+107]
+  GETTABLEKS R6 R0 K9 ["Text"]
+  JUMPIFNOT R6 [+103]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K25 ["SubItemStyle"]
+  GETIMPORT R7 K28 [UDim2.new]
+  LOADN R8 1
+  GETTABLEKS R10 R6 K29 ["ItemOffset"]
+  MINUS R9 R10
+  JUMPIF R9 [+5]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K25 ["SubItemStyle"]
+  GETTABLEKS R9 R10 K29 ["ItemOffset"]
+  LOADN R10 0
+  LOADN R11 0
+  CALL R7 4 1
+  GETTABLEKS R8 R6 K30 ["ItemIndentation"]
+  OR R3 R8 R3
+  GETTABLEKS R8 R6 K31 ["MarkerStyle"]
+  OR R4 R8 R4
+  JUMPIFNOT R3 [+14]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K4 ["createElement"]
+  LOADK R9 K32 ["UIPadding"]
+  DUPTABLE R10 K34 [{"PaddingLeft"}]
+  GETIMPORT R11 K36 [UDim.new]
+  LOADN R12 0
+  MOVE R13 R3
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K33 ["PaddingLeft"]
+  CALL R8 2 1
+  MOVE R5 R8
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K4 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K39 [{"AutomaticSize", "LayoutOrder", "Size", "textStyle", "FontStyle", "Text", "TextWrapped", "TextTruncate", "TextXAlignment"}]
+  GETIMPORT R11 K19 [Enum.AutomaticSize.XY]
+  SETTABLEKS R11 R10 K5 ["AutomaticSize"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K7 ["LayoutOrder"]
+  SETTABLEKS R7 R10 K8 ["Size"]
+  DUPTABLE R11 K41 [{"Color3"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K10 ["TextColor"]
+  JUMPIF R12 [+3]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K10 ["TextColor"]
+  SETTABLEKS R12 R11 K40 ["Color3"]
+  SETTABLEKS R11 R10 K37 ["textStyle"]
+  DUPTABLE R11 K43 [{"Font", "FontSize"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K6 ["Font"]
+  JUMPIF R12 [+3]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K6 ["Font"]
+  SETTABLEKS R12 R11 K6 ["Font"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K11 ["TextSize"]
+  JUMPIF R12 [+3]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K11 ["TextSize"]
+  SETTABLEKS R12 R11 K42 ["FontSize"]
+  SETTABLEKS R11 R10 K38 ["FontStyle"]
+  GETTABLEKS R11 R0 K9 ["Text"]
+  SETTABLEKS R11 R10 K9 ["Text"]
+  GETUPVAL R11 7
+  SETTABLEKS R11 R10 K13 ["TextWrapped"]
+  GETUPVAL R11 6
+  SETTABLEKS R11 R10 K12 ["TextTruncate"]
+  GETIMPORT R11 K21 [Enum.TextXAlignment.Left]
+  SETTABLEKS R11 R10 K15 ["TextXAlignment"]
+  CALL R8 2 1
+  MOVE R2 R8
+  JUMP [+20]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R7 8
+  DUPTABLE R8 K44 [{"AutomaticSize", "LayoutOrder", "Size"}]
+  GETIMPORT R9 K19 [Enum.AutomaticSize.XY]
+  SETTABLEKS R9 R8 K5 ["AutomaticSize"]
+  LOADN R9 2
+  SETTABLEKS R9 R8 K7 ["LayoutOrder"]
+  GETUPVAL R9 5
+  SETTABLEKS R9 R8 K8 ["Size"]
+  DUPTABLE R9 K46 [{"ContentElement"}]
+  SETTABLEKS R0 R9 K45 ["ContentElement"]
+  CALL R6 3 1
+  MOVE R2 R6
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R7 8
+  DUPTABLE R8 K51 [{"key", "testId", "AutomaticSize", "LayoutOrder", "layout", "tag"}]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R10 R1
+  GETIMPORT R9 K53 [tostring]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K47 ["key"]
+  LOADK R9 K54 ["--markdown--bullet-list-item"]
+  SETTABLEKS R9 R8 K48 ["testId"]
+  GETIMPORT R9 K19 [Enum.AutomaticSize.XY]
+  SETTABLEKS R9 R8 K5 ["AutomaticSize"]
+  SETTABLEKS R1 R8 K7 ["LayoutOrder"]
+  DUPTABLE R9 K58 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R10 K60 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R10 R9 K55 ["FillDirection"]
+  GETIMPORT R10 K61 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R10 R9 K56 ["HorizontalAlignment"]
+  GETIMPORT R10 K63 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R10 R9 K57 ["VerticalAlignment"]
+  SETTABLEKS R9 R8 K49 ["layout"]
+  LOADK R9 K64 ["gap-small"]
+  SETTABLEKS R9 R8 K50 ["tag"]
+  DUPTABLE R9 K67 [{"Marker", "Content", "Padding"}]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R11 8
+  DUPTABLE R12 K68 [{"LayoutOrder", "Size"}]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  GETIMPORT R13 K70 [UDim2.fromOffset]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K71 ["MarkerSize"]
+  JUMPIF R14 [+3]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K71 ["MarkerSize"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K72 ["LineHeight"]
+  JUMPIF R15 [+3]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K72 ["LineHeight"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K8 ["Size"]
+  DUPTABLE R13 K74 [{"Image"}]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K4 ["createElement"]
+  GETUPVAL R15 9
+  DUPTABLE R16 K77 [{"Image", "imageStyle", "LayoutOrder", "Position", "Size"}]
+  SETTABLEKS R4 R16 K73 ["Image"]
+  DUPTABLE R17 K41 [{"Color3"}]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K10 ["TextColor"]
+  JUMPIF R18 [+3]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K10 ["TextColor"]
+  SETTABLEKS R18 R17 K40 ["Color3"]
+  SETTABLEKS R17 R16 K75 ["imageStyle"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K7 ["LayoutOrder"]
+  GETIMPORT R17 K79 [UDim2.fromScale]
+  LOADN R18 0
+  LOADK R19 K80 [0.5]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K76 ["Position"]
+  GETIMPORT R17 K70 [UDim2.fromOffset]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K71 ["MarkerSize"]
+  JUMPIF R18 [+3]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K71 ["MarkerSize"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K71 ["MarkerSize"]
+  JUMPIF R19 [+3]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K71 ["MarkerSize"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K8 ["Size"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K73 ["Image"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K65 ["Marker"]
+  SETTABLEKS R2 R9 K66 ["Content"]
+  SETTABLEKS R5 R9 K14 ["Padding"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["TextWrapped"]
+  GETTABLEKS R2 R0 K1 ["TextTruncate"]
+  GETTABLEKS R3 R0 K2 ["ListStyle"]
+  JUMPIF R3 [+1]
+  GETUPVAL R3 0
+  GETTABLEKS R4 R0 K3 ["Items"]
+  GETTABLEKS R5 R3 K4 ["ItemIndentation"]
+  JUMPIF R5 [+3]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["ItemIndentation"]
+  GETTABLEKS R7 R3 K5 ["ItemOffset"]
+  JUMPIF R7 [+3]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["ItemOffset"]
+  GETTABLEKS R8 R3 K6 ["MarkerSize"]
+  JUMPIF R8 [+3]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["MarkerSize"]
+  ADD R6 R8 R7
+  GETIMPORT R7 K9 [UDim2.new]
+  LOADN R8 1
+  MINUS R9 R6
+  LOADN R10 0
+  LOADN R11 0
+  CALL R7 4 1
+  GETUPVAL R8 1
+  MOVE R9 R4
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CALL R8 2 1
+  GETTABLEKS R9 R0 K10 ["Size"]
+  GETTABLEKS R10 R0 K11 ["Position"]
+  GETIMPORT R11 K15 [Enum.AutomaticSize.XY]
+  JUMPIFNOT R9 [+16]
+  GETTABLEKS R13 R9 K16 ["X"]
+  GETTABLEKS R12 R13 K17 ["Scale"]
+  LOADN R13 0
+  JUMPIFLT R13 R12 [+8]
+  GETTABLEKS R13 R9 K16 ["X"]
+  GETTABLEKS R12 R13 K18 ["Offset"]
+  LOADN R13 0
+  JUMPIFNOTLT R13 R12 [+3]
+  GETIMPORT R11 K20 [Enum.AutomaticSize.Y]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K21 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K26 [{"testId", "AutomaticSize", "backgroundStyle", "LayoutOrder", "layout", "Position", "Size"}]
+  LOADK R15 K27 ["--markdown--bullet-list"]
+  SETTABLEKS R15 R14 K22 ["testId"]
+  SETTABLEKS R11 R14 K13 ["AutomaticSize"]
+  DUPTABLE R15 K29 [{"Transparency"}]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K28 ["Transparency"]
+  SETTABLEKS R15 R14 K23 ["backgroundStyle"]
+  GETTABLEKS R16 R0 K24 ["LayoutOrder"]
+  ORK R15 R16 K30 [1]
+  SETTABLEKS R15 R14 K24 ["LayoutOrder"]
+  DUPTABLE R15 K33 [{"HorizontalAlignment", "FillDirection"}]
+  GETIMPORT R16 K35 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R16 R15 K31 ["HorizontalAlignment"]
+  GETIMPORT R16 K37 [Enum.FillDirection.Vertical]
+  SETTABLEKS R16 R15 K32 ["FillDirection"]
+  SETTABLEKS R15 R14 K25 ["layout"]
+  SETTABLEKS R10 R14 K11 ["Position"]
+  SETTABLEKS R9 R14 K10 ["Size"]
+  MOVE R15 R8
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Packages"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K7 ["Dash"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Foundation"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K9 ["map"]
+  GETTABLEKS R5 R3 K10 ["View"]
+  GETTABLEKS R6 R3 K11 ["Image"]
+  GETTABLEKS R7 R3 K12 ["Text"]
+  DUPTABLE R8 K23 [{"ItemOffset", "MarkerImage", "MarkerSize", "Padding", "LineHeight", "Font", "TextColor", "TextSize", "ItemIndentation", "SubItemStyle"}]
+  LOADN R9 12
+  SETTABLEKS R9 R8 K13 ["ItemOffset"]
+  LOADK R9 K24 ["rbxasset://textures/StudioSharedUI/dot.png"]
+  SETTABLEKS R9 R8 K14 ["MarkerImage"]
+  LOADN R9 4
+  SETTABLEKS R9 R8 K15 ["MarkerSize"]
+  LOADN R9 6
+  SETTABLEKS R9 R8 K16 ["Padding"]
+  LOADN R9 18
+  SETTABLEKS R9 R8 K17 ["LineHeight"]
+  GETIMPORT R9 K27 [Enum.Font.BuilderSans]
+  SETTABLEKS R9 R8 K18 ["Font"]
+  GETIMPORT R9 K30 [Color3.fromRGB]
+  LOADN R10 0
+  LOADN R11 0
+  LOADN R12 0
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K19 ["TextColor"]
+  LOADN R9 18
+  SETTABLEKS R9 R8 K20 ["TextSize"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K21 ["ItemIndentation"]
+  DUPTABLE R9 K31 [{"ItemIndentation", "ItemOffset"}]
+  LOADN R10 20
+  SETTABLEKS R10 R9 K21 ["ItemIndentation"]
+  LOADN R10 12
+  SETTABLEKS R10 R9 K13 ["ItemOffset"]
+  SETTABLEKS R9 R8 K22 ["SubItemStyle"]
+  DUPCLOSURE R9 K32 [PROTO_0]
+  DUPCLOSURE R10 K33 [PROTO_2]
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  RETURN R10 1

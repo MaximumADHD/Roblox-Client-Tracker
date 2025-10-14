@@ -1,0 +1,76 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["preferences"]
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R1 R0 K0 ["preferences"]
+  JUMP [+2]
+  NEWTABLE R1 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 1
+  MOVE R4 R1
+  DUPTABLE R5 K3 [{"StyleProvider"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K8 [{"theme", "device", "derives", "scale"}]
+  GETTABLEKS R9 R0 K4 ["theme"]
+  SETTABLEKS R9 R8 K4 ["theme"]
+  GETTABLEKS R9 R0 K5 ["device"]
+  SETTABLEKS R9 R8 K5 ["device"]
+  GETTABLEKS R9 R0 K6 ["derives"]
+  SETTABLEKS R9 R8 K6 ["derives"]
+  GETTABLEKS R9 R1 K7 ["scale"]
+  SETTABLEKS R9 R8 K7 ["scale"]
+  DUPTABLE R9 K10 [{"OverlayProvider"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K1 ["createElement"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K12 [{"gui"}]
+  GETTABLEKS R13 R0 K13 ["overlayGui"]
+  SETTABLEKS R13 R12 K11 ["gui"]
+  DUPTABLE R13 K15 [{"CursorProvider"}]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K1 ["createElement"]
+  GETUPVAL R15 4
+  LOADNIL R16
+  GETTABLEKS R17 R0 K16 ["children"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K14 ["CursorProvider"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K9 ["OverlayProvider"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K2 ["StyleProvider"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETTABLEKS R2 R1 K2 ["Parent"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R2 K5 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K6 ["Preferences"]
+  GETTABLEKS R5 R6 K7 ["PreferencesProvider"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K8 ["Style"]
+  GETTABLEKS R6 R7 K9 ["StyleProvider"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R0 K10 ["Cursor"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R0 K11 ["Overlay"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K12 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  RETURN R8 1

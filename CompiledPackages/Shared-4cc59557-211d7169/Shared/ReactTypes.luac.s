@@ -1,0 +1,10 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 4 0
+  LOADN R1 0
+  SETTABLEKS R1 R0 K0 ["DiscreteEvent"]
+  LOADN R1 1
+  SETTABLEKS R1 R0 K1 ["UserBlockingEvent"]
+  LOADN R1 2
+  SETTABLEKS R1 R0 K2 ["ContinuousEvent"]
+  RETURN R0 1

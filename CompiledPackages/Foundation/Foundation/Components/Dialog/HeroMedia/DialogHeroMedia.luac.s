@@ -1,0 +1,194 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["setHasHeroMedia"]
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["setHasHeroMedia"]
+  LOADB R1 1
+  CALL R0 1 0
+  NEWCLOSURE R0 P0
+  CAPTURE UPVAL U0
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 1
+  GETUPVAL R2 2
+  CALL R2 0 1
+  GETUPVAL R3 3
+  CALL R3 0 1
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K0 ["useEffect"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  NEWTABLE R6 0 0
+  CALL R4 2 0
+  GETTABLEKS R5 R3 K1 ["heroMedia"]
+  GETTABLEKS R4 R5 K2 ["offsetX"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K3 ["createElement"]
+  GETUPVAL R6 5
+  DUPTABLE R7 K7 [{"tag", "LayoutOrder", "testId"}]
+  GETTABLEKS R9 R3 K8 ["heroMediaWrapper"]
+  GETTABLEKS R8 R9 K4 ["tag"]
+  SETTABLEKS R8 R7 K4 ["tag"]
+  GETUPVAL R9 6
+  GETTABLEKS R8 R9 K9 ["MIN_LAYOUT_ORDER"]
+  SETTABLEKS R8 R7 K5 ["LayoutOrder"]
+  LOADK R8 K10 ["--foundation-dialog-hero-media"]
+  SETTABLEKS R8 R7 K6 ["testId"]
+  DUPTABLE R8 K14 [{"TransparencyGradient", "RoundedCorners", "Image"}]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K3 ["createElement"]
+  GETUPVAL R10 7
+  DUPTABLE R11 K17 [{"fillDirection", "top"}]
+  GETIMPORT R12 K21 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K15 ["fillDirection"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K16 ["top"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K11 ["TransparencyGradient"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K3 ["createElement"]
+  GETUPVAL R10 8
+  DUPTABLE R11 K26 [{"Image", "aspectRatio", "Position", "Size", "ZIndex"}]
+  GETTABLEKS R12 R1 K27 ["media"]
+  SETTABLEKS R12 R11 K13 ["Image"]
+  GETTABLEKS R12 R1 K22 ["aspectRatio"]
+  SETTABLEKS R12 R11 K22 ["aspectRatio"]
+  GETIMPORT R12 K30 [UDim2.new]
+  LOADN R13 0
+  MINUS R14 R4
+  LOADN R15 0
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K23 ["Position"]
+  GETIMPORT R12 K30 [UDim2.new]
+  LOADN R13 1
+  MULK R14 R4 K31 [2]
+  GETTABLEKS R16 R1 K32 ["height"]
+  GETTABLEKS R15 R16 K33 ["Scale"]
+  GETTABLEKS R17 R1 K32 ["height"]
+  GETTABLEKS R16 R17 K34 ["Offset"]
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K24 ["Size"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K25 ["ZIndex"]
+  DUPTABLE R12 K35 [{"TransparencyGradient"}]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K3 ["createElement"]
+  GETUPVAL R14 7
+  DUPTABLE R15 K17 [{"fillDirection", "top"}]
+  GETIMPORT R16 K21 [Enum.FillDirection.Vertical]
+  SETTABLEKS R16 R15 K15 ["fillDirection"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K16 ["top"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K11 ["TransparencyGradient"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K12 ["RoundedCorners"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K3 ["createElement"]
+  GETUPVAL R10 8
+  DUPTABLE R11 K36 [{"Image", "tag", "aspectRatio", "Position", "Size"}]
+  GETTABLEKS R12 R1 K27 ["media"]
+  SETTABLEKS R12 R11 K13 ["Image"]
+  GETTABLEKS R13 R3 K1 ["heroMedia"]
+  GETTABLEKS R12 R13 K4 ["tag"]
+  SETTABLEKS R12 R11 K4 ["tag"]
+  GETTABLEKS R12 R1 K22 ["aspectRatio"]
+  SETTABLEKS R12 R11 K22 ["aspectRatio"]
+  GETIMPORT R12 K30 [UDim2.new]
+  LOADN R13 0
+  MINUS R14 R4
+  LOADN R15 0
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K23 ["Position"]
+  GETIMPORT R12 K30 [UDim2.new]
+  LOADN R13 1
+  MULK R14 R4 K31 [2]
+  GETTABLEKS R16 R1 K32 ["height"]
+  GETTABLEKS R15 R16 K33 ["Scale"]
+  GETTABLEKS R17 R1 K32 ["height"]
+  GETTABLEKS R16 R17 K34 ["Offset"]
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K24 ["Size"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K13 ["Image"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["View"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Image"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K11 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R0 K12 ["Constants"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K13 ["Enums"]
+  GETTABLEKS R8 R9 K14 ["DialogSize"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K15 ["Utility"]
+  GETTABLEKS R9 R10 K16 ["withDefaults"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K8 ["Components"]
+  GETTABLEKS R10 R11 K17 ["Gradient"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K4 ["Parent"]
+  GETTABLEKS R12 R13 K4 ["Parent"]
+  GETTABLEKS R11 R12 K18 ["useDialogLayout"]
+  CALL R10 1 1
+  GETIMPORT R12 K6 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K4 ["Parent"]
+  GETTABLEKS R14 R15 K4 ["Parent"]
+  GETTABLEKS R13 R14 K19 ["useDialogVariants"]
+  CALL R12 1 1
+  GETTABLEKS R11 R12 K19 ["useDialogVariants"]
+  DUPTABLE R12 K21 [{"height"}]
+  GETIMPORT R13 K24 [UDim.new]
+  LOADN R14 1
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K20 ["height"]
+  DUPCLOSURE R13 K25 [PROTO_2]
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R4
+  RETURN R13 1

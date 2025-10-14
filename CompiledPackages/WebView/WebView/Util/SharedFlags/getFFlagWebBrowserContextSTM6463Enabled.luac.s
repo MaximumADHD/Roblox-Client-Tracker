@@ -1,0 +1,11 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["createGetSafeFFlag"]
+  CALL R1 1 1
+  MOVE R2 R1
+  LOADK R3 K6 ["WebBrowserContextSTM6463Enabled3"]
+  CALL R2 1 -1
+  RETURN R2 -1

@@ -1,0 +1,70 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["beginEditingAsync"]
+  CALL R1 0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["setPart"]
+  LOADK R2 K2 ["value"]
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["finishEditing"]
+  GETIMPORT R2 K7 [Enum.FinishRecordingOperation.Commit]
+  CALL R1 1 0
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K7 [{"isChecked", "label", "onActivated", "isDisabled", "size", "width"}]
+  GETTABLEKS R7 R0 K8 ["info"]
+  GETTABLEKS R6 R7 K9 ["parts"]
+  GETTABLEKS R5 R6 K10 ["value"]
+  GETTABLEKS R4 R5 K10 ["value"]
+  SETTABLEKS R4 R3 K1 ["isChecked"]
+  LOADK R4 K11 [""]
+  SETTABLEKS R4 R3 K2 ["label"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K3 ["onActivated"]
+  GETTABLEKS R5 R0 K8 ["info"]
+  GETTABLEKS R4 R5 K12 ["readonly"]
+  SETTABLEKS R4 R3 K4 ["isDisabled"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K13 ["XSmall"]
+  SETTABLEKS R4 R3 K5 ["size"]
+  GETIMPORT R4 K16 [UDim.new]
+  LOADN R5 1
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K6 ["width"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K9 ["RpcTypes"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K10 ["Checkbox"]
+  GETTABLEKS R6 R1 K11 ["Enums"]
+  GETTABLEKS R5 R6 K12 ["InputSize"]
+  DUPCLOSURE R6 K13 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  RETURN R6 1

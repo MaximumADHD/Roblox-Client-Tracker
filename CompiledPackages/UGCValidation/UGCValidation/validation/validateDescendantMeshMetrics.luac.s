@@ -1,0 +1,696 @@
+PROTO_0:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+16]
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  LOADK R2 K0 ["MeshId"]
+  GETUPVAL R3 3
+  CALL R0 3 2
+  JUMPIF R0 [+4]
+  GETIMPORT R2 K2 [error]
+  LOADK R3 K3 ["Failed to retrieve MeshContent"]
+  CALL R2 1 0
+  GETUPVAL R2 4
+  MOVE R4 R1
+  NAMECALL R2 R2 K4 ["ValidateSkinnedEditableMesh"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETUPVAL R0 4
+  GETUPVAL R2 5
+  GETUPVAL R3 2
+  GETUPVAL R4 6
+  CALL R2 2 -1
+  NAMECALL R0 R0 K5 ["ValidateSkinnedMesh"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["AlternateMeshIdAttributeName"]
+  NAMECALL R4 R0 K1 ["GetAttribute"]
+  CALL R4 2 1
+  GETTABLEKS R5 R0 K2 ["HasSkinnedMesh"]
+  JUMPIF R5 [+29]
+  JUMPIFEQKNIL R4 [+4]
+  JUMPIFEQKS R4 K3 [""] [+2]
+  JUMPIF R2 [+24]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["reportFailure"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["ErrorType"]
+  GETTABLEKS R6 R7 K6 ["validateDescendantMeshMetrics_NoSkinningInfo"]
+  LOADNIL R7
+  MOVE R8 R3
+  CALL R5 3 0
+  LOADB R5 0
+  NEWTABLE R6 0 1
+  LOADK R8 K7 ["Missing skinning data for %*.MeshId. You need to skin your model."]
+  GETTABLEKS R10 R0 K8 ["Name"]
+  NAMECALL R8 R8 K9 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  SETLIST R6 R7 1 [1]
+  RETURN R5 2
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIF R5 [+2]
+  LOADB R5 1
+  RETURN R5 1
+  GETIMPORT R5 K11 [pcall]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE VAL R2
+  CALL R5 1 2
+  JUMPIF R5 [+23]
+  JUMPIFNOT R1 [+4]
+  GETIMPORT R7 K13 [error]
+  LOADK R8 K14 ["Failed to retrieve mesh data to validate skinned mesh"]
+  CALL R7 1 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K4 ["reportFailure"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["ErrorType"]
+  GETTABLEKS R8 R9 K15 ["validateDescendantMeshMetrics_FailedToLoadMesh"]
+  LOADNIL R9
+  MOVE R10 R3
+  CALL R7 3 0
+  LOADB R7 0
+  NEWTABLE R8 0 1
+  LOADK R9 K14 ["Failed to retrieve mesh data to validate skinned mesh"]
+  SETLIST R8 R9 1 [1]
+  RETURN R7 2
+  JUMPIF R6 [+30]
+  LOADK R8 K16 ["Detected mismatch between model and skinned data for %*. You need to re-skin your model to fix this issue."]
+  GETTABLEKS R10 R0 K8 ["Name"]
+  NAMECALL R8 R8 K9 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  JUMPIFNOT R1 [+4]
+  GETIMPORT R8 K13 [error]
+  MOVE R9 R7
+  CALL R8 1 0
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K4 ["reportFailure"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K5 ["ErrorType"]
+  GETTABLEKS R9 R10 K17 ["validateDescendantMeshMetrics_HasSkinnedMeshMismatch"]
+  LOADNIL R10
+  MOVE R11 R3
+  CALL R8 3 0
+  LOADB R8 0
+  NEWTABLE R9 0 1
+  MOVE R10 R7
+  SETLIST R9 R10 1 [1]
+  RETURN R8 2
+  LOADB R7 1
+  RETURN R7 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["GetEditableMeshTriCount"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_3:
+  LOADN R0 0
+  GETUPVAL R1 0
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETTABLEKS R7 R5 K0 ["instance"]
+  GETTABLEKS R6 R7 K1 ["ClassName"]
+  JUMPIFNOTEQKS R6 K2 ["MeshPart"] [+58]
+  GETTABLEKS R8 R5 K3 ["fieldName"]
+  JUMPIFEQKS R8 K4 ["MeshId"] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  FASTCALL1 ASSERT R7 [+2]
+  GETIMPORT R6 K6 [assert]
+  CALL R6 1 0
+  GETUPVAL R6 1
+  GETTABLEKS R7 R5 K0 ["instance"]
+  GETTABLEKS R8 R5 K3 ["fieldName"]
+  GETUPVAL R9 2
+  CALL R6 3 2
+  JUMPIF R6 [+21]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K7 ["reportFailure"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K8 ["ErrorType"]
+  GETTABLEKS R9 R10 K9 ["validateDescendantMeshMetrics_FailedToLoadMesh"]
+  LOADNIL R10
+  GETUPVAL R11 2
+  CALL R8 3 0
+  LOADB R8 0
+  GETIMPORT R9 K12 [string.format]
+  LOADK R10 K13 ["Failed to load mesh for '%s'. Make sure mesh exists and try again."]
+  GETTABLEKS R12 R5 K0 ["instance"]
+  GETTABLEKS R11 R12 K14 ["Name"]
+  CALL R9 2 -1
+  RETURN R8 -1
+  GETUPVAL R8 4
+  NEWCLOSURE R9 P0
+  CAPTURE UPVAL U5
+  CAPTURE VAL R7
+  GETUPVAL R10 2
+  CALL R8 2 2
+  JUMPIF R8 [+10]
+  LOADB R10 0
+  GETIMPORT R11 K12 [string.format]
+  LOADK R12 K15 ["Failed to execute check for triangle face information for mesh '%s'. Make sure mesh exists and try again."]
+  GETTABLEKS R14 R5 K0 ["instance"]
+  GETTABLEKS R13 R14 K14 ["Name"]
+  CALL R11 2 -1
+  RETURN R10 -1
+  ADD R0 R0 R9
+  FORGLOOP R1 2 [-64]
+  LOADB R1 1
+  LOADNIL R2
+  MOVE R3 R0
+  RETURN R1 3
+
+PROTO_4:
+  GETTABLEKS R3 R2 K0 ["isServer"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["ASSET_RENDER_MESH_MAX_TRIANGLES"]
+  GETTABLEKS R7 R1 K2 ["Name"]
+  GETTABLE R5 R6 R7
+  FASTCALL1 ASSERT R5 [+2]
+  GETIMPORT R4 K4 [assert]
+  CALL R4 1 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R2
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  MOVE R6 R5
+  CALL R6 0 3
+  JUMPIF R6 [+23]
+  JUMPIFNOT R3 [+4]
+  GETIMPORT R9 K6 [error]
+  MOVE R10 R7
+  CALL R9 1 0
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K7 ["reportFailure"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K8 ["ErrorType"]
+  GETTABLEKS R10 R11 K9 ["validateDescendantMeshMetrics_FailedToCalculateTriangles"]
+  LOADNIL R11
+  MOVE R12 R2
+  CALL R9 3 0
+  LOADB R9 0
+  NEWTABLE R10 0 1
+  MOVE R11 R7
+  SETLIST R10 R11 1 [1]
+  RETURN R9 2
+  MOVE R9 R4
+  GETUPVAL R10 5
+  CALL R10 0 1
+  JUMPIFNOT R10 [+5]
+  GETUPVAL R11 6
+  CALL R11 0 1
+  DIVK R10 R11 K10 [100]
+  MUL R11 R4 R10
+  ADD R9 R4 R11
+  JUMPIFNOTLT R9 R8 [+26]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K7 ["reportFailure"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K8 ["ErrorType"]
+  GETTABLEKS R11 R12 K11 ["validateDescendantMeshMetrics_TooManyTriangles"]
+  LOADNIL R12
+  MOVE R13 R2
+  CALL R10 3 0
+  LOADB R10 0
+  NEWTABLE R11 0 1
+  GETIMPORT R12 K14 [string.format]
+  LOADK R13 K15 ["Mesh resolution of '%d' for '%s' is higher than max supported number of triangles '%d'. You need to retopologize your model to reduce the triangle count."]
+  MOVE R14 R8
+  GETTABLEKS R15 R1 K2 ["Name"]
+  MOVE R16 R4
+  CALL R12 4 -1
+  SETLIST R11 R12 -1 [1]
+  RETURN R10 2
+  LOADB R10 1
+  RETURN R10 1
+
+PROTO_5:
+  SUB R5 R2 R1
+  DIVK R4 R5 K0 [2]
+  ADD R5 R1 R4
+  GETTABLEKS R6 R5 K1 ["Magnitude"]
+  LOADK R7 K2 [0.001]
+  JUMPIFNOTLT R7 R6 [+25]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["reportFailure"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["ErrorType"]
+  GETTABLEKS R7 R8 K5 ["validateDescendantMeshMetrics_TooFarFromOrigin"]
+  LOADNIL R8
+  MOVE R9 R3
+  CALL R6 3 0
+  LOADB R6 0
+  NEWTABLE R7 0 1
+  GETIMPORT R8 K8 [string.format]
+  LOADK R9 K9 ["Bounds for the mesh '%s' are not centered at the origin. The max allowed distance is '%f'"]
+  GETTABLEKS R10 R0 K10 ["fullName"]
+  LOADK R11 K2 [0.001]
+  CALL R8 3 -1
+  SETLIST R7 R8 -1 [1]
+  RETURN R6 2
+  LOADB R6 1
+  RETURN R6 1
+
+PROTO_6:
+  GETTABLEKS R2 R1 K0 ["isServer"]
+  GETTABLEKS R5 R1 K1 ["assetTypeEnum"]
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K2 [+4]
+  LOADK R5 K2 ["assetTypeEnum required in validationContext for validateDescendantMeshMetrics"]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K1 ["assetTypeEnum"]
+  GETTABLEKS R4 R1 K5 ["allowEditableInstances"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K6 ["new"]
+  CALL R5 0 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["parse"]
+  MOVE R7 R0
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K8 ["MESH_CONTENT_ID_FIELDS"]
+  MOVE R9 R1
+  CALL R6 3 1
+  GETIMPORT R7 K10 [tick]
+  CALL R7 0 1
+  GETUPVAL R10 3
+  MOVE R11 R6
+  MOVE R12 R3
+  MOVE R13 R1
+  CALL R10 3 -1
+  NAMECALL R8 R5 K11 ["updateReasons"]
+  CALL R8 -1 0
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K12 ["recordScriptTime"]
+  LOADK R9 K13 ["validateTotalAssetTriangles"]
+  MOVE R10 R7
+  MOVE R11 R1
+  CALL R8 3 0
+  MOVE R8 R6
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  DUPTABLE R13 K18 [{"fullName", "fieldName", "contentId", "context"}]
+  GETTABLEKS R14 R12 K19 ["instance"]
+  NAMECALL R14 R14 K20 ["GetFullName"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K14 ["fullName"]
+  GETTABLEKS R14 R12 K15 ["fieldName"]
+  SETTABLEKS R14 R13 K15 ["fieldName"]
+  GETTABLEKS R15 R12 K19 ["instance"]
+  GETTABLEKS R16 R12 K15 ["fieldName"]
+  GETTABLE R14 R15 R16
+  SETTABLEKS R14 R13 K16 ["contentId"]
+  GETTABLEKS R15 R12 K19 ["instance"]
+  GETTABLEKS R14 R15 K21 ["Name"]
+  SETTABLEKS R14 R13 K17 ["context"]
+  GETUPVAL R14 5
+  GETTABLEKS R15 R12 K19 ["instance"]
+  GETTABLEKS R16 R12 K15 ["fieldName"]
+  MOVE R17 R1
+  CALL R14 3 2
+  JUMPIF R14 [+14]
+  LOADB R16 0
+  NEWTABLE R17 0 1
+  GETIMPORT R18 K24 [string.format]
+  LOADK R19 K25 ["Failed to load mesh for '%s'. Make sure mesh exists and try again."]
+  GETTABLEKS R21 R12 K19 ["instance"]
+  GETTABLEKS R20 R21 K21 ["Name"]
+  CALL R18 2 -1
+  SETLIST R17 R18 -1 [1]
+  RETURN R16 2
+  SETTABLEKS R15 R13 K26 ["editableMesh"]
+  GETTABLEKS R17 R12 K19 ["instance"]
+  GETTABLEKS R16 R17 K27 ["ClassName"]
+  JUMPIFNOTEQKS R16 K28 ["MeshPart"] [+150]
+  GETTABLEKS R18 R12 K15 ["fieldName"]
+  JUMPIFEQKS R18 K29 ["MeshId"] [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  FASTCALL1 ASSERT R17 [+2]
+  GETIMPORT R16 K4 [assert]
+  CALL R16 1 0
+  GETUPVAL R16 6
+  MOVE R17 R13
+  MOVE R18 R1
+  CALL R16 2 4
+  JUMPIF R16 [+5]
+  LOADB R22 0
+  MOVE R23 R17
+  NAMECALL R20 R5 K11 ["updateReasons"]
+  CALL R20 3 0
+  JUMPIFNOT R16 [+20]
+  GETIMPORT R20 K10 [tick]
+  CALL R20 0 1
+  MOVE R7 R20
+  GETUPVAL R22 7
+  MOVE R23 R13
+  MOVE R24 R18
+  MOVE R25 R19
+  MOVE R26 R1
+  CALL R22 4 -1
+  NAMECALL R20 R5 K11 ["updateReasons"]
+  CALL R20 -1 0
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K12 ["recordScriptTime"]
+  LOADK R21 K30 ["validateMeshIsAtOrigin"]
+  MOVE R22 R7
+  MOVE R23 R1
+  CALL R20 3 0
+  JUMPIFNOT R18 [+59]
+  JUMPIFNOT R19 [+58]
+  SUB R20 R19 R18
+  GETUPVAL R21 8
+  GETTABLEKS R22 R20 K31 ["X"]
+  LOADN R23 0
+  CALL R21 2 1
+  JUMPIF R21 [+12]
+  GETUPVAL R21 8
+  GETTABLEKS R22 R20 K32 ["Y"]
+  LOADN R23 0
+  CALL R21 2 1
+  JUMPIF R21 [+6]
+  GETUPVAL R21 8
+  GETTABLEKS R22 R20 K33 ["Z"]
+  LOADN R23 0
+  CALL R21 2 1
+  JUMPIFNOT R21 [+14]
+  LOADB R23 0
+  NEWTABLE R24 0 1
+  LOADK R26 K34 ["Mesh size is zero for "]
+  GETTABLEKS R27 R13 K14 ["fullName"]
+  LOADK R28 K35 [". You need to rescale your mesh."]
+  CONCAT R25 R26 R28
+  SETLIST R24 R25 1 [1]
+  NAMECALL R21 R5 K11 ["updateReasons"]
+  CALL R21 3 0
+  JUMP [+25]
+  GETUPVAL R22 9
+  GETTABLEKS R23 R12 K19 ["instance"]
+  MOVE R24 R1
+  CALL R22 2 1
+  DIV R21 R22 R20
+  GETUPVAL R24 10
+  MOVE R25 R13
+  MOVE R26 R21
+  MOVE R27 R1
+  CALL R24 3 -1
+  NAMECALL R22 R5 K11 ["updateReasons"]
+  CALL R22 -1 0
+  GETUPVAL R22 11
+  CALL R22 0 1
+  JUMPIFNOT R22 [+8]
+  GETUPVAL R24 12
+  MOVE R25 R13
+  MOVE R26 R21
+  MOVE R27 R1
+  CALL R24 3 -1
+  NAMECALL R22 R5 K11 ["updateReasons"]
+  CALL R22 -1 0
+  GETUPVAL R22 13
+  MOVE R23 R13
+  LOADB R24 1
+  MOVE R25 R1
+  CALL R22 3 -1
+  NAMECALL R20 R5 K11 ["updateReasons"]
+  CALL R20 -1 0
+  GETIMPORT R20 K10 [tick]
+  CALL R20 0 1
+  MOVE R7 R20
+  GETUPVAL R22 14
+  GETTABLEKS R23 R12 K19 ["instance"]
+  MOVE R24 R2
+  MOVE R25 R4
+  MOVE R26 R1
+  CALL R22 4 -1
+  NAMECALL R20 R5 K11 ["updateReasons"]
+  CALL R20 -1 0
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K12 ["recordScriptTime"]
+  LOADK R21 K36 ["validateIsSkinned"]
+  MOVE R22 R7
+  MOVE R23 R1
+  CALL R20 3 0
+  GETUPVAL R20 15
+  CALL R20 0 1
+  JUMPIFNOT R20 [+8]
+  GETUPVAL R22 16
+  GETTABLEKS R23 R12 K19 ["instance"]
+  MOVE R24 R1
+  CALL R22 2 -1
+  NAMECALL R20 R5 K11 ["updateReasons"]
+  CALL R20 -1 0
+  GETUPVAL R22 17
+  MOVE R23 R13
+  MOVE R24 R1
+  CALL R22 2 -1
+  NAMECALL R20 R5 K11 ["updateReasons"]
+  CALL R20 -1 0
+  JUMP [+64]
+  GETTABLEKS R17 R12 K19 ["instance"]
+  GETTABLEKS R16 R17 K27 ["ClassName"]
+  JUMPIFNOTEQKS R16 K37 ["WrapTarget"] [+59]
+  GETTABLEKS R18 R12 K15 ["fieldName"]
+  JUMPIFEQKS R18 K38 ["CageMeshId"] [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  FASTCALL1 ASSERT R17 [+2]
+  GETIMPORT R16 K4 [assert]
+  CALL R16 1 0
+  GETTABLEKS R17 R13 K14 ["fullName"]
+  LOADK R18 K39 ["OuterCage"]
+  CONCAT R16 R17 R18
+  SETTABLEKS R16 R13 K14 ["fullName"]
+  GETUPVAL R16 18
+  CALL R16 0 1
+  JUMPIFNOT R16 [+7]
+  GETUPVAL R18 19
+  MOVE R19 R13
+  MOVE R20 R1
+  CALL R18 2 -1
+  NAMECALL R16 R5 K11 ["updateReasons"]
+  CALL R16 -1 0
+  GETUPVAL R18 20
+  MOVE R19 R13
+  GETTABLEKS R20 R12 K19 ["instance"]
+  MOVE R21 R1
+  CALL R18 3 -1
+  NAMECALL R16 R5 K11 ["updateReasons"]
+  CALL R16 -1 0
+  GETUPVAL R18 21
+  MOVE R19 R13
+  MOVE R20 R1
+  CALL R18 2 -1
+  NAMECALL R16 R5 K11 ["updateReasons"]
+  CALL R16 -1 0
+  GETUPVAL R18 22
+  MOVE R19 R13
+  GETTABLEKS R20 R12 K19 ["instance"]
+  MOVE R21 R1
+  CALL R18 3 -1
+  NAMECALL R16 R5 K11 ["updateReasons"]
+  CALL R16 -1 0
+  GETUPVAL R18 17
+  MOVE R19 R13
+  MOVE R20 R1
+  CALL R18 2 -1
+  NAMECALL R16 R5 K11 ["updateReasons"]
+  CALL R16 -1 0
+  GETUPVAL R16 18
+  CALL R16 0 1
+  JUMPIFNOT R16 [+7]
+  GETUPVAL R18 23
+  MOVE R19 R13
+  MOVE R20 R1
+  CALL R18 2 -1
+  NAMECALL R16 R5 K11 ["updateReasons"]
+  CALL R16 -1 0
+  FORGLOOP R8 2 [-279]
+  NAMECALL R8 R5 K40 ["getFinalResults"]
+  CALL R8 1 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["UGCValidationService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R3 R1 K9 ["Analytics"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R4 R1 K10 ["Constants"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K11 ["util"]
+  GETTABLEKS R5 R6 K12 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R7 R1 K11 ["util"]
+  GETTABLEKS R6 R7 K13 ["pcallDeferred"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETTABLEKS R8 R1 K14 ["validation"]
+  GETTABLEKS R7 R8 K15 ["validateCoplanarIntersection"]
+  CALL R6 1 1
+  GETIMPORT R7 K8 [require]
+  GETTABLEKS R9 R1 K14 ["validation"]
+  GETTABLEKS R8 R9 K16 ["validateOverlappingVertices"]
+  CALL R7 1 1
+  GETIMPORT R8 K8 [require]
+  GETTABLEKS R10 R1 K14 ["validation"]
+  GETTABLEKS R9 R10 K17 ["validateCageUVs"]
+  CALL R8 1 1
+  GETIMPORT R9 K8 [require]
+  GETTABLEKS R11 R1 K14 ["validation"]
+  GETTABLEKS R10 R11 K18 ["validateFullBodyCageDeletion"]
+  CALL R9 1 1
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R12 R1 K14 ["validation"]
+  GETTABLEKS R11 R12 K19 ["validateMeshVertColors"]
+  CALL R10 1 1
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R13 R1 K14 ["validation"]
+  GETTABLEKS R12 R13 K20 ["validateCageUVTriangleArea"]
+  CALL R11 1 1
+  GETIMPORT R12 K8 [require]
+  GETTABLEKS R14 R1 K14 ["validation"]
+  GETTABLEKS R13 R14 K21 ["validateMeshTriangleArea"]
+  CALL R12 1 1
+  GETIMPORT R13 K8 [require]
+  GETTABLEKS R15 R1 K14 ["validation"]
+  GETTABLEKS R14 R15 K22 ["validateCageUVValues"]
+  CALL R13 1 1
+  GETIMPORT R14 K8 [require]
+  GETTABLEKS R16 R1 K14 ["validation"]
+  GETTABLEKS R15 R16 K23 ["validateTotalSurfaceArea"]
+  CALL R14 1 1
+  GETIMPORT R15 K8 [require]
+  GETTABLEKS R17 R1 K14 ["validation"]
+  GETTABLEKS R16 R17 K24 ["validateSkinningTransfer"]
+  CALL R15 1 1
+  GETIMPORT R16 K8 [require]
+  GETTABLEKS R18 R1 K11 ["util"]
+  GETTABLEKS R17 R18 K25 ["FailureReasonsAccumulator"]
+  CALL R16 1 1
+  GETIMPORT R17 K8 [require]
+  GETTABLEKS R19 R1 K11 ["util"]
+  GETTABLEKS R18 R19 K26 ["ParseContentIds"]
+  CALL R17 1 1
+  GETIMPORT R18 K8 [require]
+  GETTABLEKS R20 R1 K11 ["util"]
+  GETTABLEKS R19 R20 K27 ["getMeshMinMax"]
+  CALL R18 1 1
+  GETIMPORT R19 K8 [require]
+  GETTABLEKS R21 R1 K11 ["util"]
+  GETTABLEKS R20 R21 K28 ["getEditableMeshFromContext"]
+  CALL R19 1 1
+  GETIMPORT R20 K8 [require]
+  GETTABLEKS R22 R1 K11 ["util"]
+  GETTABLEKS R21 R22 K29 ["floatEquals"]
+  CALL R20 1 1
+  GETIMPORT R21 K8 [require]
+  GETTABLEKS R23 R1 K11 ["util"]
+  GETTABLEKS R22 R23 K30 ["getExpectedPartSize"]
+  CALL R21 1 1
+  GETIMPORT R22 K8 [require]
+  GETTABLEKS R24 R1 K11 ["util"]
+  GETTABLEKS R23 R24 K31 ["getMeshIdForSkinningValidation"]
+  CALL R22 1 1
+  GETIMPORT R23 K8 [require]
+  GETTABLEKS R25 R1 K32 ["flags"]
+  GETTABLEKS R24 R25 K33 ["getFFlagUGCValidateCoplanarTriTestBody"]
+  CALL R23 1 1
+  GETIMPORT R24 K8 [require]
+  GETTABLEKS R26 R1 K32 ["flags"]
+  GETTABLEKS R25 R26 K34 ["getFFlagUGCValidateBodyPartsExtendedMeshTests"]
+  CALL R24 1 1
+  GETIMPORT R25 K8 [require]
+  GETTABLEKS R27 R1 K32 ["flags"]
+  GETTABLEKS R26 R27 K35 ["getEngineFeatureEngineUGCValidateBodyParts"]
+  CALL R25 1 1
+  GETIMPORT R26 K8 [require]
+  GETTABLEKS R28 R1 K32 ["flags"]
+  GETTABLEKS R27 R28 K36 ["getFFlagUGCValidateAllowFlexibleTriangleLimit"]
+  CALL R26 1 1
+  GETIMPORT R27 K8 [require]
+  GETTABLEKS R29 R1 K32 ["flags"]
+  GETTABLEKS R28 R29 K37 ["getFIntUGCValidateTriangleLimitTolerance"]
+  CALL R27 1 1
+  GETIMPORT R28 K8 [require]
+  GETTABLEKS R30 R1 K32 ["flags"]
+  GETTABLEKS R29 R30 K38 ["getEngineFeatureEngineEditableMeshAvatarPublish"]
+  CALL R28 1 1
+  GETIMPORT R29 K8 [require]
+  GETTABLEKS R31 R1 K32 ["flags"]
+  GETTABLEKS R30 R31 K39 ["getEngineUGCValidateRelativeSkinningTransfer"]
+  CALL R29 1 1
+  DUPCLOSURE R30 K40 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R25
+  CAPTURE VAL R28
+  CAPTURE VAL R19
+  CAPTURE VAL R0
+  CAPTURE VAL R22
+  DUPCLOSURE R31 K41 [PROTO_4]
+  CAPTURE VAL R3
+  CAPTURE VAL R19
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R0
+  CAPTURE VAL R26
+  CAPTURE VAL R27
+  DUPCLOSURE R32 K42 [PROTO_5]
+  CAPTURE VAL R2
+  DUPCLOSURE R33 K43 [PROTO_6]
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R3
+  CAPTURE VAL R31
+  CAPTURE VAL R2
+  CAPTURE VAL R19
+  CAPTURE VAL R18
+  CAPTURE VAL R32
+  CAPTURE VAL R20
+  CAPTURE VAL R21
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R30
+  CAPTURE VAL R29
+  CAPTURE VAL R15
+  CAPTURE VAL R12
+  CAPTURE VAL R24
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R7
+  RETURN R33 1

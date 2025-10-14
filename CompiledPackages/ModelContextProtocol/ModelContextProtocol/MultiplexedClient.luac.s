@@ -1,0 +1,411 @@
+PROTO_0:
+  NEWTABLE R2 4 0
+  GETUPVAL R3 0
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K1 [setmetatable]
+  CALL R1 2 1
+  SETTABLEKS R0 R1 K2 ["_clientInfo"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K3 ["_clients"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K4 ["_connectedServerNameToClient"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K5 ["_staticToolsToClient"]
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["_clients"]
+  GETTABLEKS R4 R1 K1 ["identifier"]
+  GETTABLE R2 R3 R4
+  JUMPIFNOT R2 [+10]
+  GETIMPORT R2 K3 [error]
+  LOADK R4 K4 ["Client with identifier %* already exists"]
+  GETTABLEKS R6 R1 K1 ["identifier"]
+  NAMECALL R4 R4 K5 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["new"]
+  GETTABLEKS R3 R0 K7 ["_clientInfo"]
+  GETTABLEKS R4 R1 K8 ["clientOptions"]
+  CALL R2 2 1
+  GETTABLEKS R3 R0 K0 ["_clients"]
+  GETTABLEKS R4 R1 K1 ["identifier"]
+  DUPTABLE R5 K11 [{"client", "clientConfig"}]
+  SETTABLEKS R2 R5 K9 ["client"]
+  SETTABLEKS R1 R5 K10 ["clientConfig"]
+  SETTABLE R5 R3 R4
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R1 K0 ["client"]
+  NAMECALL R2 R2 K1 ["getServerInfo"]
+  CALL R2 1 1
+  FASTCALL2K ASSERT R2 K2 [+5]
+  MOVE R4 R2
+  LOADK R5 K2 ["Server info not found after connect"]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["getNewServerName"]
+  GETTABLEKS R4 R2 K6 ["name"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K7 ["_connectedServerNameToClient"]
+  GETTABLE R4 R5 R3
+  JUMPIFNOT R4 [+9]
+  GETIMPORT R4 K9 [error]
+  LOADK R6 K10 ["Server with name %* already connected"]
+  MOVE R8 R3
+  NAMECALL R6 R6 K11 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  CALL R4 1 0
+  SETTABLEKS R3 R1 K12 ["connectedServerIdentifier"]
+  GETTABLEKS R4 R0 K7 ["_connectedServerNameToClient"]
+  SETTABLE R1 R4 R3
+  RETURN R0 0
+
+PROTO_3:
+  NEWTABLE R1 0 0
+  GETUPVAL R5 0
+  GETTABLEKS R2 R5 K0 ["_clients"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R8 R6 K1 ["clientConfig"]
+  GETTABLEKS R7 R8 K2 ["transport"]
+  GETTABLEKS R8 R6 K3 ["client"]
+  MOVE R11 R7
+  GETUPVAL R12 1
+  NAMECALL R9 R8 K4 ["connect"]
+  CALL R9 3 1
+  NAMECALL R9 R9 K5 ["await"]
+  CALL R9 1 2
+  JUMPIF R9 [+9]
+  FASTCALL2K ASSERT R10 K6 [+5]
+  MOVE R12 R10
+  LOADK R13 K6 ["Connect failed without error reason"]
+  GETIMPORT R11 K8 [assert]
+  CALL R11 2 0
+  SETTABLE R10 R1 R5
+  JUMP [+5]
+  GETUPVAL R11 0
+  MOVE R13 R6
+  NAMECALL R11 R11 K9 ["_onNewClientConnected"]
+  CALL R11 2 0
+  FORGLOOP R2 2 [-30]
+  MOVE R2 R0
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["_onNewClientConnected"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_6:
+  MOVE R5 R1
+  NAMECALL R3 R0 K0 ["_getStoredClient"]
+  CALL R3 2 1
+  GETTABLEKS R5 R3 K1 ["clientConfig"]
+  GETTABLEKS R4 R5 K2 ["transport"]
+  GETTABLEKS R5 R3 K3 ["client"]
+  MOVE R8 R4
+  MOVE R9 R2
+  NAMECALL R6 R5 K4 ["connect"]
+  CALL R6 3 1
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  NAMECALL R6 R6 K5 ["andThen"]
+  CALL R6 2 -1
+  RETURN R6 -1
+
+PROTO_7:
+  GETTABLEKS R5 R0 K0 ["_staticToolsToClient"]
+  GETTABLE R4 R5 R1
+  LOADNIL R5
+  JUMPIFNOT R4 [+2]
+  MOVE R5 R1
+  JUMP [+19]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["unpackToolIdentifier"]
+  MOVE R7 R1
+  CALL R6 1 2
+  GETTABLEKS R8 R0 K2 ["_connectedServerNameToClient"]
+  GETTABLE R4 R8 R6
+  JUMPIF R4 [+9]
+  GETIMPORT R8 K4 [error]
+  LOADK R10 K5 ["No client found for server: %*"]
+  MOVE R12 R6
+  NAMECALL R10 R10 K6 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  CALL R8 1 0
+  MOVE R5 R7
+  DUPTABLE R6 K9 [{"name", "arguments"}]
+  SETTABLEKS R5 R6 K7 ["name"]
+  SETTABLEKS R2 R6 K8 ["arguments"]
+  GETTABLEKS R7 R4 K10 ["client"]
+  MOVE R9 R6
+  MOVE R10 R3
+  NAMECALL R7 R7 K11 ["callTool"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+PROTO_8:
+  MOVE R7 R1
+  NAMECALL R5 R0 K0 ["_getStoredClient"]
+  CALL R5 2 1
+  DUPTABLE R6 K3 [{"name", "arguments"}]
+  SETTABLEKS R2 R6 K1 ["name"]
+  SETTABLEKS R3 R6 K2 ["arguments"]
+  GETTABLEKS R7 R5 K4 ["client"]
+  MOVE R9 R6
+  MOVE R10 R4
+  NAMECALL R7 R7 K5 ["callTool"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+PROTO_9:
+  NEWTABLE R1 0 0
+  NEWTABLE R2 0 0
+  GETUPVAL R6 0
+  GETTABLEKS R3 R6 K0 ["_clients"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K1 ["client"]
+  GETTABLEKS R9 R7 K2 ["connectedServerIdentifier"]
+  JUMPIFNOT R9 [+52]
+  GETUPVAL R12 1
+  GETUPVAL R13 2
+  NAMECALL R10 R8 K3 ["listTools"]
+  CALL R10 3 1
+  NAMECALL R10 R10 K4 ["await"]
+  CALL R10 1 2
+  JUMPIFNOT R10 [+38]
+  GETTABLEKS R12 R11 K5 ["tools"]
+  JUMPIFNOT R12 [+40]
+  MOVE R13 R12
+  LOADNIL R14
+  LOADNIL R15
+  FORGPREP R13
+  LOADNIL R18
+  GETTABLEKS R20 R7 K6 ["clientConfig"]
+  GETTABLEKS R19 R20 K7 ["useStaticToolNames"]
+  JUMPIFNOT R19 [+8]
+  MOVE R18 R17
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K8 ["_staticToolsToClient"]
+  GETTABLEKS R20 R17 K9 ["name"]
+  SETTABLE R7 R19 R20
+  JUMP [+7]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K10 ["updateToolDefinitionForServer"]
+  MOVE R20 R9
+  MOVE R21 R17
+  CALL R19 2 1
+  MOVE R18 R19
+  FASTCALL2 TABLE_INSERT R1 R18 [+5]
+  MOVE R20 R1
+  MOVE R21 R18
+  GETIMPORT R19 K13 [table.insert]
+  CALL R19 2 0
+  FORGLOOP R13 2 [-29]
+  JUMP [+5]
+  GETTABLEKS R13 R7 K6 ["clientConfig"]
+  GETTABLEKS R12 R13 K14 ["identifier"]
+  SETTABLE R11 R2 R12
+  FORGLOOP R3 2 [-58]
+  DUPTABLE R3 K15 [{"tools"}]
+  SETTABLEKS R1 R3 K5 ["tools"]
+  MOVE R4 R0
+  DUPTABLE R5 K18 [{"result", "failures"}]
+  SETTABLEKS R3 R5 K16 ["result"]
+  SETTABLEKS R2 R5 K17 ["failures"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["new"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE UPVAL U1
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_11:
+  GETTABLEKS R3 R0 K0 ["_clients"]
+  GETTABLE R2 R3 R1
+  JUMPIF R2 [+9]
+  GETIMPORT R3 K2 [error]
+  LOADK R5 K3 ["Client %* not found"]
+  MOVE R7 R1
+  NAMECALL R5 R5 K4 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  RETURN R2 1
+
+PROTO_12:
+  MOVE R5 R1
+  NAMECALL R3 R0 K0 ["_getStoredClient"]
+  CALL R3 2 1
+  GETTABLEKS R2 R3 K1 ["client"]
+  RETURN R2 1
+
+PROTO_13:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["_getStoredClient"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K1 ["connectedServerIdentifier"]
+  JUMPIF R3 [+9]
+  GETIMPORT R3 K3 [error]
+  LOADK R5 K4 ["Client %* is not connected"]
+  MOVE R7 R1
+  NAMECALL R5 R5 K5 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  GETTABLEKS R3 R2 K1 ["connectedServerIdentifier"]
+  RETURN R3 1
+
+PROTO_14:
+  GETUPVAL R4 0
+  GETTABLEKS R1 R4 K0 ["_clients"]
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETTABLEKS R6 R5 K1 ["client"]
+  NAMECALL R6 R6 K2 ["close"]
+  CALL R6 1 1
+  NAMECALL R6 R6 K3 ["await"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [-9]
+  GETUPVAL R1 0
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K0 ["_clients"]
+  GETUPVAL R1 0
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K4 ["_connectedServerNameToClient"]
+  GETUPVAL R1 0
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K5 ["_staticToolsToClient"]
+  MOVE R1 R0
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_16:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["_getStoredClient"]
+  CALL R2 2 1
+  GETTABLEKS R3 R0 K1 ["_clients"]
+  LOADNIL R4
+  SETTABLE R4 R3 R1
+  GETTABLEKS R3 R0 K2 ["_staticToolsToClient"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R9 R7 K3 ["clientConfig"]
+  GETTABLEKS R8 R9 K4 ["identifier"]
+  JUMPIFNOTEQ R8 R1 [+5]
+  GETTABLEKS R8 R0 K2 ["_staticToolsToClient"]
+  LOADNIL R9
+  SETTABLE R9 R8 R6
+  FORGLOOP R3 2 [-11]
+  GETTABLEKS R3 R2 K5 ["connectedServerIdentifier"]
+  JUMPIFNOT R3 [+6]
+  GETTABLEKS R3 R0 K6 ["_connectedServerNameToClient"]
+  GETTABLEKS R4 R2 K5 ["connectedServerIdentifier"]
+  LOADNIL R5
+  SETTABLE R5 R3 R4
+  GETTABLEKS R3 R2 K7 ["client"]
+  NAMECALL R3 R3 K8 ["close"]
+  CALL R3 1 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModelContextProtocol"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["Client"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["MultiplexUtils"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["Promise"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R0 K11 ["Transport"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Types"]
+  CALL R5 1 1
+  NEWTABLE R6 16 0
+  SETTABLEKS R6 R6 K13 ["__index"]
+  DUPCLOSURE R7 K14 [PROTO_0]
+  CAPTURE VAL R6
+  SETTABLEKS R7 R6 K15 ["new"]
+  DUPCLOSURE R7 K16 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K17 ["addClient"]
+  DUPCLOSURE R7 K18 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K19 ["_onNewClientConnected"]
+  DUPCLOSURE R7 K20 [PROTO_4]
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K21 ["connectAll"]
+  DUPCLOSURE R7 K22 [PROTO_6]
+  SETTABLEKS R7 R6 K23 ["connectClient"]
+  DUPCLOSURE R7 K24 [PROTO_7]
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K25 ["callTool"]
+  DUPCLOSURE R7 K26 [PROTO_8]
+  SETTABLEKS R7 R6 K27 ["callToolForClient"]
+  DUPCLOSURE R7 K28 [PROTO_10]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K29 ["listTools"]
+  DUPCLOSURE R7 K30 [PROTO_11]
+  SETTABLEKS R7 R6 K31 ["_getStoredClient"]
+  DUPCLOSURE R7 K32 [PROTO_12]
+  SETTABLEKS R7 R6 K33 ["getClient"]
+  DUPCLOSURE R7 K34 [PROTO_13]
+  SETTABLEKS R7 R6 K35 ["getServerIdentifier"]
+  DUPCLOSURE R7 K36 [PROTO_15]
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K37 ["close"]
+  DUPCLOSURE R7 K38 [PROTO_16]
+  SETTABLEKS R7 R6 K39 ["closeClient"]
+  RETURN R6 1

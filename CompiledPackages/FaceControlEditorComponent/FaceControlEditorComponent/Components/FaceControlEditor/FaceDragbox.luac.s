@@ -1,0 +1,171 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["updateValue"]
+  JUMPIFNOT R1 [+11]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["updateValue"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["name"]
+  MOVE R3 R0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["setDragboxValues"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["tooltipName"]
+  MOVE R3 R0
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["tooltipValue"]
+  MOVE R4 R0
+  CALL R3 1 1
+  GETUPVAL R4 1
+  CALL R4 0 1
+  GETTABLEKS R6 R0 K2 ["mapping"]
+  GETTABLEKS R5 R6 K3 ["length"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K5 ["View"]
+  DUPTABLE R8 K11 [{"testId", "tag", "Position", "Size", "ref"}]
+  LOADK R9 K12 ["FaceDragboxView"]
+  SETTABLEKS R9 R8 K6 ["testId"]
+  LOADK R9 K13 ["bg-transparency-100"]
+  SETTABLEKS R9 R8 K7 ["tag"]
+  GETTABLEKS R10 R0 K2 ["mapping"]
+  GETTABLEKS R9 R10 K14 ["position"]
+  SETTABLEKS R9 R8 K8 ["Position"]
+  GETIMPORT R9 K17 [UDim2.fromScale]
+  MOVE R10 R5
+  MOVE R11 R5
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K9 ["Size"]
+  GETTABLEKS R9 R4 K18 ["setFrame"]
+  SETTABLEKS R9 R8 K10 ["ref"]
+  DUPTABLE R9 K21 [{"UIAspectRatioConstraint", "Tooltip"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  LOADK R11 K19 ["UIAspectRatioConstraint"]
+  DUPTABLE R12 K24 [{"AspectRatio", "AspectType"}]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K22 ["AspectRatio"]
+  GETIMPORT R13 K27 [Enum.AspectType.ScaleWithParentSize]
+  SETTABLEKS R13 R12 K23 ["AspectType"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K19 ["UIAspectRatioConstraint"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K20 ["Tooltip"]
+  DUPTABLE R12 K31 [{"title", "side", "align"}]
+  GETTABLEN R14 R2 1
+  LOADK R15 K32 [" "]
+  GETIMPORT R21 K35 [string.format]
+  LOADK R22 K36 ["%.2f"]
+  GETTABLEN R23 R3 1
+  CALL R21 2 1
+  MOVE R16 R21
+  LOADK R17 K32 [" "]
+  GETTABLEN R18 R2 2
+  LOADK R19 K32 [" "]
+  GETIMPORT R20 K35 [string.format]
+  LOADK R21 K36 ["%.2f"]
+  GETTABLEN R22 R3 2
+  CALL R20 2 1
+  CONCAT R13 R14 R20
+  SETTABLEKS R13 R12 K28 ["title"]
+  LOADK R13 K37 ["Top"]
+  SETTABLEKS R13 R12 K29 ["side"]
+  LOADK R13 K38 ["Start"]
+  SETTABLEKS R13 R12 K30 ["align"]
+  NEWTABLE R13 0 1
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K4 ["createElement"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K5 ["View"]
+  DUPTABLE R16 K39 [{"Size"}]
+  GETIMPORT R17 K41 [UDim2.fromOffset]
+  GETTABLEKS R19 R4 K42 ["absoluteSize"]
+  GETTABLEKS R18 R19 K43 ["X"]
+  GETTABLEKS R20 R4 K42 ["absoluteSize"]
+  GETTABLEKS R19 R20 K44 ["Y"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K9 ["Size"]
+  DUPTABLE R17 K46 [{"Dragbox"}]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K4 ["createElement"]
+  GETUPVAL R19 4
+  DUPTABLE R20 K56 [{"testId", "value", "minX", "maxX", "minY", "maxY", "knobVisibility", "length", "knobSize", "variant", "onValueChanged"}]
+  LOADK R21 K57 ["FaceDragbox"]
+  SETTABLEKS R21 R20 K6 ["testId"]
+  GETTABLEKS R21 R0 K47 ["value"]
+  SETTABLEKS R21 R20 K47 ["value"]
+  GETTABLEKS R22 R0 K2 ["mapping"]
+  GETTABLEKS R21 R22 K48 ["minX"]
+  SETTABLEKS R21 R20 K48 ["minX"]
+  GETTABLEKS R22 R0 K2 ["mapping"]
+  GETTABLEKS R21 R22 K49 ["maxX"]
+  SETTABLEKS R21 R20 K49 ["maxX"]
+  GETTABLEKS R22 R0 K2 ["mapping"]
+  GETTABLEKS R21 R22 K50 ["minY"]
+  SETTABLEKS R21 R20 K50 ["minY"]
+  GETTABLEKS R22 R0 K2 ["mapping"]
+  GETTABLEKS R21 R22 K51 ["maxY"]
+  SETTABLEKS R21 R20 K51 ["maxY"]
+  LOADK R21 K58 ["Always"]
+  SETTABLEKS R21 R20 K52 ["knobVisibility"]
+  GETIMPORT R21 K61 [UDim.new]
+  LOADN R22 0
+  GETTABLEKS R24 R4 K42 ["absoluteSize"]
+  GETTABLEKS R23 R24 K43 ["X"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K3 ["length"]
+  LOADK R21 K62 ["Medium"]
+  SETTABLEKS R21 R20 K53 ["knobSize"]
+  LOADK R21 K63 ["Standard"]
+  SETTABLEKS R21 R20 K54 ["variant"]
+  SETTABLEKS R1 R20 K55 ["onValueChanged"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K45 ["Dragbox"]
+  CALL R14 3 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K20 ["Tooltip"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FaceControlEditorComponent"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Dragbox"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K10 ["Hooks"]
+  GETTABLEKS R6 R7 K11 ["useAbsoluteSize"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K12 ["Utils"]
+  GETTABLEKS R7 R8 K13 ["FaceControlEditorUtils"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K14 [PROTO_1]
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R7 1

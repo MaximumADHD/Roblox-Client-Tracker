@@ -1,0 +1,310 @@
+PROTO_0:
+  PREPVARARGS 1
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ErrorMessage"]
+  MOVE R4 R0
+  GETVARARGS R5 -1
+  NAMECALL R1 R1 K1 ["getText"]
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_1:
+  JUMPIFNOTEQKS R0 K0 ["quota_exceeded"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K1 ["QuotaErrorTwo"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  JUMPIFNOTEQKS R0 K2 ["too_many_request"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K3 ["TooManyRequest"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  JUMPIFNOTEQKS R0 K4 ["request_failed"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K5 ["ConnectionLostOne"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  JUMPIFNOTEQKS R0 K6 ["timeout"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K7 ["Timeout"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  JUMPIFNOTEQKS R0 K8 ["rate_limit_error"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K9 ["ServersAtMaxCapacity"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  JUMPIFEQKS R0 K10 ["api_connection_error"] [+5]
+  JUMPIFEQKS R0 K11 ["api_status_error"] [+3]
+  JUMPIFNOTEQKS R0 K12 ["generic_error"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K13 ["GeneralError"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  JUMPIFNOTEQKS R0 K14 ["client_error"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K15 ["ClientError"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  JUMPIFNOTEQKS R0 K16 ["token_limit"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K17 ["TokenLimit"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  JUMPIFNOTEQKS R0 K18 ["safety_filter"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K19 ["SafetyFilter"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  JUMPIFNOTEQKS R0 K20 ["max_tool_calls"] [+10]
+  GETUPVAL R1 0
+  LOADK R2 K21 ["MaxToolCalls"]
+  DUPTABLE R3 K23 [{"count"}]
+  GETUPVAL R4 1
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K22 ["count"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  JUMPIFNOTEQKS R0 K24 ["input_disabled"] [+5]
+  GETUPVAL R1 0
+  LOADK R2 K25 ["ExternalError"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K26 ["assertNever"]
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_2:
+  JUMPIFEQKS R0 K0 ["token_limit"] [+15]
+  JUMPIFEQKS R0 K1 ["max_tool_calls"] [+13]
+  JUMPIFEQKS R0 K2 ["timeout"] [+11]
+  JUMPIFEQKS R0 K3 ["api_connection_error"] [+9]
+  JUMPIFEQKS R0 K4 ["api_status_error"] [+7]
+  JUMPIFEQKS R0 K5 ["generic_error"] [+5]
+  JUMPIFEQKS R0 K6 ["rate_limit_error"] [+3]
+  JUMPIFNOTEQKS R0 K7 ["input_disabled"] [+3]
+  LOADB R1 1
+  RETURN R1 1
+  JUMPIFEQKS R0 K8 ["safety_filter"] [+9]
+  JUMPIFEQKS R0 K9 ["quota_exceeded"] [+7]
+  JUMPIFEQKS R0 K10 ["too_many_request"] [+5]
+  JUMPIFEQKS R0 K11 ["request_failed"] [+3]
+  JUMPIFNOTEQKS R0 K12 ["client_error"] [+3]
+  LOADB R1 0
+  RETURN R1 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K13 ["assertNever"]
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["errorType"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_4:
+  DUPTABLE R0 K2 [{"Title", "Continue"}]
+  GETUPVAL R1 0
+  LOADK R3 K3 ["ErrorMessage"]
+  LOADK R4 K0 ["Title"]
+  NAMECALL R1 R1 K4 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K0 ["Title"]
+  GETUPVAL R1 0
+  LOADK R3 K3 ["ErrorMessage"]
+  LOADK R4 K1 ["Continue"]
+  NAMECALL R1 R1 K4 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K1 ["Continue"]
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R0 0
+  DUPTABLE R1 K1 [{"messageId"}]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["messageId"]
+  SETTABLEKS R2 R1 K0 ["messageId"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["sendMessage"]
+  DUPTABLE R1 K2 [{"text"}]
+  LOADK R2 K3 ["Continue"]
+  SETTABLEKS R2 R1 K1 ["text"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["errorType"]
+  CALL R0 1 1
+  JUMPIF R0 [+2]
+  LOADNIL R0
+  RETURN R0 1
+  DUPTABLE R0 K4 [{"Text", "OnClick", "Disabled"}]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K5 ["Continue"]
+  SETTABLEKS R1 R0 K1 ["Text"]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U3
+  SETTABLEKS R1 R0 K2 ["OnClick"]
+  GETUPVAL R2 4
+  NOT R1 R2
+  SETTABLEKS R1 R0 K3 ["Disabled"]
+  RETURN R0 1
+
+PROTO_9:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Context"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K2 ["inputEnabled"]
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["useMemo"]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  NEWTABLE R6 0 2
+  GETTABLEKS R7 R0 K4 ["errorType"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K5 ["locale"]
+  SETLIST R6 R7 2 [1]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["useMemo"]
+  DUPCLOSURE R6 K6 [PROTO_4]
+  CAPTURE UPVAL U4
+  NEWTABLE R7 0 1
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K5 ["locale"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["useCallback"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  NEWTABLE R8 0 2
+  GETTABLEKS R9 R0 K8 ["messageId"]
+  MOVE R10 R3
+  SETLIST R8 R9 2 [1]
+  CALL R6 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["useCallback"]
+  NEWCLOSURE R8 P3
+  CAPTURE VAL R0
+  NEWTABLE R9 0 1
+  GETTABLEKS R10 R0 K9 ["sendMessage"]
+  SETLIST R9 R10 1 [1]
+  CALL R7 2 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["useMemo"]
+  NEWCLOSURE R9 P4
+  CAPTURE UPVAL U5
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  NEWTABLE R10 0 3
+  MOVE R11 R2
+  MOVE R12 R7
+  GETTABLEKS R13 R5 K10 ["Continue"]
+  SETLIST R10 R11 3 [1]
+  CALL R8 2 1
+  GETUPVAL R9 6
+  GETUPVAL R10 7
+  DUPTABLE R11 K15 [{"LayoutOrder", "Text", "ButtonContent", "OnClose"}]
+  GETTABLEKS R12 R0 K11 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K11 ["LayoutOrder"]
+  SETTABLEKS R4 R11 K12 ["Text"]
+  SETTABLEKS R8 R11 K13 ["ButtonContent"]
+  SETTABLEKS R6 R11 K14 ["OnClose"]
+  CALL R9 2 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Components"]
+  GETTABLEKS R2 R3 K7 ["AlertContent"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K8 ["ContentWidgetRegistry"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["FIntMCPAssistantMaxToolCalls"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Components"]
+  GETTABLEKS R6 R7 K11 ["Contexts"]
+  GETTABLEKS R5 R6 K12 ["InputStateContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K13 ["Parent"]
+  GETTABLEKS R6 R7 K14 ["React"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K15 ["Resources"]
+  GETTABLEKS R8 R9 K16 ["Localization"]
+  GETTABLEKS R7 R8 K17 ["Translator"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R0 K18 ["Types"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K19 ["Hooks"]
+  GETTABLEKS R9 R10 K20 ["useRemoveMessage"]
+  CALL R8 1 1
+  GETTABLEKS R9 R3 K21 ["Get"]
+  GETTABLEKS R10 R5 K22 ["createElement"]
+  DUPCLOSURE R11 K23 [PROTO_0]
+  CAPTURE VAL R6
+  DUPCLOSURE R12 K24 [PROTO_1]
+  CAPTURE VAL R11
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  DUPCLOSURE R13 K25 [PROTO_2]
+  CAPTURE VAL R7
+  DUPCLOSURE R14 K26 [PROTO_9]
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R6
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  CAPTURE VAL R1
+  DUPTABLE R15 K29 [{"Type", "ContentWidget"}]
+  LOADK R16 K30 ["Error"]
+  SETTABLEKS R16 R15 K27 ["Type"]
+  GETTABLEKS R16 R5 K31 ["memo"]
+  MOVE R17 R14
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K28 ["ContentWidget"]
+  GETTABLEKS R16 R2 K32 ["registerWidget"]
+  GETTABLEKS R17 R15 K27 ["Type"]
+  GETTABLEKS R18 R15 K28 ["ContentWidget"]
+  CALL R16 2 0
+  RETURN R15 1

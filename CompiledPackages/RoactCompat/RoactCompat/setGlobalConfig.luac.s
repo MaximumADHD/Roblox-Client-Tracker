@@ -1,0 +1,26 @@
+PROTO_0:
+  GETIMPORT R2 K1 [_G]
+  GETTABLEKS R1 R2 K2 ["__DEV__"]
+  JUMPIFNOT R1 [+12]
+  GETIMPORT R2 K1 [_G]
+  GETTABLEKS R1 R2 K3 ["__COMPAT_WARNINGS__"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R1 0
+  LOADK R2 K4 ["setGlobalConfig"]
+  LOADK R4 K5 ["Roact 17 uses a `_G.__DEV__` flag to enable development behavior. "]
+  LOADK R5 K6 ["If you're seeing this warning, you already have it enabled. "]
+  LOADK R6 K7 ["Please remove any redundant uses of `setGlobalConfig`."]
+  CONCAT R3 R4 R6
+  CALL R1 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["warnOnce"]
+  CALL R0 1 1
+  DUPCLOSURE R1 K6 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

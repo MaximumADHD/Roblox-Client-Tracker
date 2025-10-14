@@ -1,0 +1,300 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["unpackToolIdentifier"]
+  GETUPVAL R1 1
+  CALL R0 1 2
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  JUMPIF R0 [+2]
+  LOADK R0 K0 [""]
+  RETURN R0 1
+  GETIMPORT R0 K2 [pcall]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
+  CALL R0 1 2
+  JUMPIF R0 [+2]
+  GETUPVAL R2 0
+  RETURN R2 1
+  RETURN R1 1
+
+PROTO_2:
+  DUPTABLE R0 K3 [{"Generating", "Calling", "Called"}]
+  GETUPVAL R1 0
+  LOADK R3 K4 ["ToolContent"]
+  LOADK R4 K0 ["Generating"]
+  DUPTABLE R5 K6 [{"tool"}]
+  GETUPVAL R6 1
+  SETTABLEKS R6 R5 K5 ["tool"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K0 ["Generating"]
+  GETUPVAL R1 0
+  LOADK R3 K4 ["ToolContent"]
+  LOADK R4 K1 ["Calling"]
+  DUPTABLE R5 K6 [{"tool"}]
+  GETUPVAL R6 1
+  SETTABLEKS R6 R5 K5 ["tool"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K1 ["Calling"]
+  GETUPVAL R1 0
+  LOADK R3 K4 ["ToolContent"]
+  LOADK R4 K2 ["Called"]
+  DUPTABLE R5 K6 [{"tool"}]
+  GETUPVAL R6 1
+  SETTABLEKS R6 R5 K5 ["tool"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K2 ["Called"]
+  RETURN R0 1
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["toolIdentifier"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["useMemo"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  NEWTABLE R4 0 1
+  MOVE R5 R1
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["useMemo"]
+  NEWCLOSURE R4 P1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  NEWTABLE R5 0 1
+  MOVE R6 R2
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R4 3
+  CALL R4 0 1
+  DUPTABLE R5 K4 [{"InputContainer", "ResultContainer"}]
+  GETTABLEKS R6 R0 K5 ["toolUse"]
+  JUMPIFNOT R6 [+26]
+  GETUPVAL R6 4
+  GETUPVAL R7 5
+  DUPTABLE R8 K8 [{"tag", "LayoutOrder"}]
+  LOADK R9 K9 ["size-full-0 auto-y"]
+  SETTABLEKS R9 R8 K6 ["tag"]
+  MOVE R9 R4
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K7 ["LayoutOrder"]
+  DUPTABLE R9 K11 [{"Input"}]
+  GETUPVAL R10 4
+  GETUPVAL R11 6
+  DUPTABLE R12 K12 [{"toolUse", "LayoutOrder"}]
+  GETTABLEKS R13 R0 K5 ["toolUse"]
+  SETTABLEKS R13 R12 K5 ["toolUse"]
+  MOVE R13 R4
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K10 ["Input"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K2 ["InputContainer"]
+  GETTABLEKS R6 R0 K13 ["toolResult"]
+  JUMPIFNOT R6 [+26]
+  GETUPVAL R6 4
+  GETUPVAL R7 5
+  DUPTABLE R8 K8 [{"tag", "LayoutOrder"}]
+  LOADK R9 K9 ["size-full-0 auto-y"]
+  SETTABLEKS R9 R8 K6 ["tag"]
+  MOVE R9 R4
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K7 ["LayoutOrder"]
+  DUPTABLE R9 K15 [{"Result"}]
+  GETUPVAL R10 4
+  GETUPVAL R11 7
+  DUPTABLE R12 K16 [{"toolResult", "LayoutOrder"}]
+  GETTABLEKS R13 R0 K13 ["toolResult"]
+  SETTABLEKS R13 R12 K13 ["toolResult"]
+  MOVE R13 R4
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K14 ["Result"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K3 ["ResultContainer"]
+  GETUPVAL R6 4
+  GETUPVAL R8 8
+  GETTABLEKS R7 R8 K17 ["Root"]
+  DUPTABLE R8 K21 [{"LayoutOrder", "expanded", "contentId", "editThisContent"}]
+  GETTABLEKS R9 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K7 ["LayoutOrder"]
+  GETTABLEKS R9 R0 K18 ["expanded"]
+  SETTABLEKS R9 R8 K18 ["expanded"]
+  GETTABLEKS R9 R0 K19 ["contentId"]
+  SETTABLEKS R9 R8 K19 ["contentId"]
+  GETTABLEKS R9 R0 K20 ["editThisContent"]
+  SETTABLEKS R9 R8 K20 ["editThisContent"]
+  DUPTABLE R9 K24 [{"Header", "Content"}]
+  GETUPVAL R10 4
+  GETUPVAL R12 8
+  GETTABLEKS R11 R12 K22 ["Header"]
+  DUPTABLE R12 K25 [{"LayoutOrder"}]
+  MOVE R13 R4
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  DUPTABLE R13 K27 [{"Text"}]
+  GETUPVAL R14 4
+  GETUPVAL R15 9
+  DUPTABLE R16 K28 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R17 K29 ["size-0-full auto-x text-label-small content-default text-truncate-end"]
+  SETTABLEKS R17 R16 K6 ["tag"]
+  GETTABLEKS R18 R0 K13 ["toolResult"]
+  JUMPIFNOT R18 [+3]
+  GETTABLEKS R17 R3 K30 ["Called"]
+  JUMP [+8]
+  GETTABLEKS R18 R0 K5 ["toolUse"]
+  JUMPIFNOT R18 [+3]
+  GETTABLEKS R17 R3 K31 ["Calling"]
+  JUMP [+2]
+  GETTABLEKS R17 R3 K32 ["Generating"]
+  SETTABLEKS R17 R16 K26 ["Text"]
+  MOVE R17 R4
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K7 ["LayoutOrder"]
+  DUPTABLE R17 K34 [{"Shimmer"}]
+  GETTABLEKS R19 R0 K35 ["generating"]
+  JUMPIF R19 [+6]
+  GETTABLEKS R19 R0 K5 ["toolUse"]
+  JUMPIFNOT R19 [+7]
+  GETTABLEKS R19 R0 K13 ["toolResult"]
+  JUMPIF R19 [+4]
+  GETUPVAL R18 4
+  GETUPVAL R19 10
+  CALL R18 1 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K33 ["Shimmer"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K26 ["Text"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K22 ["Header"]
+  GETUPVAL R10 4
+  GETUPVAL R12 8
+  GETTABLEKS R11 R12 K23 ["Content"]
+  DUPTABLE R12 K37 [{"tag", "LayoutOrder", "UseVisible"}]
+  GETUPVAL R14 11
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  LOADK R13 K38 ["col size-0-0 fill auto-y gap-small"]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K6 ["tag"]
+  MOVE R13 R4
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K36 ["UseVisible"]
+  GETUPVAL R14 11
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  MOVE R13 R5
+  JUMP [+15]
+  DUPTABLE R13 K40 [{"GenericToolContainer"}]
+  GETUPVAL R14 4
+  GETUPVAL R15 5
+  DUPTABLE R16 K8 [{"tag", "LayoutOrder"}]
+  LOADK R17 K38 ["col size-0-0 fill auto-y gap-small"]
+  SETTABLEKS R17 R16 K6 ["tag"]
+  MOVE R17 R4
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K7 ["LayoutOrder"]
+  MOVE R17 R5
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K39 ["GenericToolContainer"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K23 ["Content"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Components"]
+  GETTABLEKS R2 R3 K7 ["Accordion"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K8 ["ContentWidgetRegistry"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["FFlagMCPAssistantRunCodeMaxHeight"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K11 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["Foundation"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Components"]
+  GETTABLEKS R6 R7 K13 ["GenericToolContent"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Parent"]
+  GETTABLEKS R7 R8 K14 ["ModelContextProtocol"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K11 ["Parent"]
+  GETTABLEKS R8 R9 K15 ["React"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K11 ["Parent"]
+  GETTABLEKS R9 R10 K16 ["ReactUtils"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Components"]
+  GETTABLEKS R10 R11 K17 ["ShimmerGradient"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K18 ["Resources"]
+  GETTABLEKS R12 R13 K19 ["Localization"]
+  GETTABLEKS R11 R12 K20 ["Translator"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R12 R0 K21 ["Types"]
+  CALL R11 1 1
+  GETTABLEKS R12 R3 K22 ["Get"]
+  GETTABLEKS R14 R6 K23 ["Util"]
+  GETTABLEKS R13 R14 K24 ["MultiplexUtils"]
+  GETTABLEKS R14 R5 K25 ["ToolInputContent"]
+  GETTABLEKS R15 R5 K26 ["ToolResultContent"]
+  GETTABLEKS R16 R4 K27 ["View"]
+  GETTABLEKS R17 R4 K28 ["Text"]
+  GETTABLEKS R18 R7 K29 ["createElement"]
+  GETTABLEKS R19 R8 K30 ["createNextOrder"]
+  DUPCLOSURE R20 K31 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  CAPTURE VAL R19
+  CAPTURE VAL R18
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R1
+  CAPTURE VAL R17
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  DUPTABLE R21 K34 [{"Type", "ContentWidget"}]
+  LOADK R22 K35 ["GenericTool"]
+  SETTABLEKS R22 R21 K32 ["Type"]
+  GETTABLEKS R22 R7 K36 ["memo"]
+  MOVE R23 R20
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K33 ["ContentWidget"]
+  GETTABLEKS R22 R2 K37 ["registerWidget"]
+  GETTABLEKS R23 R21 K32 ["Type"]
+  GETTABLEKS R24 R21 K33 ["ContentWidget"]
+  CALL R22 2 0
+  RETURN R21 1

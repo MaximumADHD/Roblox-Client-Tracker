@@ -1,0 +1,15 @@
+PROTO_0:
+  GETIMPORT R0 K2 [coroutine.running]
+  CALL R0 0 1
+  GETIMPORT R1 K5 [task.defer]
+  GETIMPORT R2 K7 [task.spawn]
+  MOVE R3 R0
+  CALL R1 2 0
+  GETIMPORT R1 K9 [coroutine.yield]
+  CALL R1 0 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

@@ -1,0 +1,245 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["data"]
+  NAMECALL R0 R0 K1 ["JSONDecode"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+14]
+  GETIMPORT R1 K1 [print]
+  LOADK R3 K2 ["--- OpenAILLMRequest event: %* %* %*"]
+  GETTABLEKS R5 R0 K3 ["id"]
+  GETTABLEKS R6 R0 K4 ["event"]
+  GETTABLEKS R7 R0 K5 ["data"]
+  NAMECALL R3 R3 K6 ["format"]
+  CALL R3 4 1
+  MOVE R2 R3
+  CALL R1 1 0
+  GETIMPORT R1 K8 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CALL R1 1 2
+  JUMPIFNOT R1 [+14]
+  JUMPIFNOT R2 [+13]
+  GETUPVAL R3 2
+  GETTABLEKS R4 R0 K5 ["data"]
+  CALL R3 1 1
+  MOVE R4 R3
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETUPVAL R9 3
+  MOVE R10 R8
+  CALL R9 1 0
+  FORGLOOP R4 2 [-4]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+12]
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["--- OpenAILLMRequest error: %* (%*)"]
+  GETTABLEKS R5 R0 K3 ["message"]
+  GETTABLEKS R6 R0 K4 ["type"]
+  NAMECALL R3 R3 K5 ["format"]
+  CALL R3 3 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+9]
+  GETIMPORT R1 K1 [print]
+  LOADK R3 K2 ["--- OpenAILLMRequest comment: %*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+4]
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["--- OpenAILLMRequest WebStreamClient closed"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["Connected"]
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K4 ["Disconnect"]
+  CALL R0 1 0
+  LOADNIL R0
+  SETUPVAL R0 1
+  LOADNIL R0
+  SETUPVAL R0 2
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  LOADK R4 K0 ["HttpService"]
+  NAMECALL R2 R2 K1 ["GetService"]
+  CALL R2 2 1
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K2 ["messages"]
+  CALL R3 1 1
+  GETTABLEKS R4 R0 K3 ["system"]
+  JUMPIFNOT R4 [+15]
+  LOADN R6 1
+  DUPTABLE R7 K6 [{"role", "content"}]
+  LOADK R8 K3 ["system"]
+  SETTABLEKS R8 R7 K4 ["role"]
+  GETTABLEKS R8 R0 K3 ["system"]
+  SETTABLEKS R8 R7 K5 ["content"]
+  FASTCALL3 TABLE_INSERT R3 R6 R7
+  MOVE R5 R3
+  GETIMPORT R4 K9 [table.insert]
+  CALL R4 3 0
+  DUPTABLE R4 K16 [{"model", "max_tokens", "messages", "tools", "stream", "parallel_tool_calls", "stream_options"}]
+  LOADK R5 K17 ["gpt-4o-2024-08-06"]
+  SETTABLEKS R5 R4 K10 ["model"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K11 ["max_tokens"]
+  SETTABLEKS R3 R4 K2 ["messages"]
+  GETTABLEKS R5 R0 K12 ["tools"]
+  SETTABLEKS R5 R4 K12 ["tools"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K13 ["stream"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K14 ["parallel_tool_calls"]
+  DUPTABLE R5 K19 [{"include_usage"}]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K18 ["include_usage"]
+  SETTABLEKS R5 R4 K15 ["stream_options"]
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+12]
+  GETIMPORT R5 K21 [print]
+  LOADK R7 K22 ["--- OpenAILLMRequest requestBody: %*"]
+  MOVE R11 R4
+  NAMECALL R9 R2 K23 ["JSONEncode"]
+  CALL R9 2 1
+  NAMECALL R7 R7 K24 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  CALL R5 1 0
+  GETIMPORT R7 K28 [Enum.WebStreamClientType.SSE]
+  DUPTABLE R8 K34 [{"Method", "Url", "Headers", "Body", "Compress"}]
+  LOADK R9 K35 ["POST"]
+  SETTABLEKS R9 R8 K29 ["Method"]
+  LOADK R9 K36 ["https://rbx-conv-ai-dev-australia-east.openai.azure.com/openai/deployments/gpt-4o-2024-08-06/chat/completions?api-version=2025-01-01-preview"]
+  SETTABLEKS R9 R8 K30 ["Url"]
+  NEWTABLE R9 2 0
+  LOADK R10 K37 ["application/json"]
+  SETTABLEKS R10 R9 K38 ["content-type"]
+  GETUPVAL R10 3
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K39 ["api-key"]
+  SETTABLEKS R9 R8 K31 ["Headers"]
+  MOVE R11 R4
+  NAMECALL R9 R2 K23 ["JSONEncode"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K32 ["Body"]
+  GETIMPORT R9 K42 [Enum.HttpCompression.None]
+  SETTABLEKS R9 R8 K33 ["Compress"]
+  NAMECALL R5 R2 K43 ["CreateWebStreamClient"]
+  CALL R5 3 1
+  FASTCALL2K ASSERT R5 K44 [+5]
+  MOVE R7 R5
+  LOADK R8 K44 ["WebStreamClient should not be nil"]
+  GETIMPORT R6 K46 [assert]
+  CALL R6 2 0
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K47 ["createParser"]
+  DUPTABLE R7 K51 [{"onEvent", "onError", "onComment"}]
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  CAPTURE UPVAL U5
+  CAPTURE VAL R1
+  SETTABLEKS R8 R7 K48 ["onEvent"]
+  DUPCLOSURE R8 K52 [PROTO_2]
+  CAPTURE UPVAL U2
+  SETTABLEKS R8 R7 K49 ["onError"]
+  DUPCLOSURE R8 K53 [PROTO_3]
+  CAPTURE UPVAL U2
+  SETTABLEKS R8 R7 K50 ["onComment"]
+  CALL R6 1 1
+  GETTABLEKS R7 R5 K54 ["MessageReceived"]
+  GETTABLEKS R9 R6 K55 ["parseNextChunk"]
+  NAMECALL R7 R7 K56 ["Connect"]
+  CALL R7 2 1
+  GETTABLEKS R8 R5 K57 ["Closed"]
+  NEWCLOSURE R10 P3
+  CAPTURE UPVAL U2
+  CAPTURE REF R7
+  CAPTURE REF R5
+  NAMECALL R8 R8 K58 ["Once"]
+  CALL R8 2 0
+  CLOSEUPVALS R5
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["SpyableGame"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["FFlagDebugLogAssistantUI"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["FStringMCPAssistantOpenAIAPIKey"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Contexts"]
+  GETTABLEKS R6 R7 K13 ["DefaultLLMProvider"]
+  GETTABLEKS R5 R6 K14 ["LLMRequest"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K15 ["Parent"]
+  GETTABLEKS R6 R7 K16 ["ModelContextProtocol"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R10 R0 K11 ["Components"]
+  GETTABLEKS R9 R10 K12 ["Contexts"]
+  GETTABLEKS R8 R9 K17 ["OpenAI"]
+  GETTABLEKS R7 R8 K18 ["OpenAILLMAdapter"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K19 ["Get"]
+  GETTABLEKS R8 R3 K19 ["Get"]
+  GETTABLEKS R9 R5 K20 ["EventStreamParser"]
+  GETTABLEKS R10 R6 K21 ["createAdapter"]
+  CALL R10 0 1
+  GETTABLEKS R11 R6 K22 ["convertLLMtoOpenAIMessage"]
+  DUPCLOSURE R12 K23 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  DUPTABLE R13 K26 [{"requestHandler", "createRequestHandler"}]
+  SETTABLEKS R12 R13 K24 ["requestHandler"]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K25 ["createRequestHandler"]
+  RETURN R13 1

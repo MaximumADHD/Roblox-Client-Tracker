@@ -1,0 +1,5102 @@
+PROTO_0:
+  LOADB R1 0
+  JUMPIFEQKNIL R0 [+5]
+  JUMPIFNOTEQKN R0 K0 [1] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_1:
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["ReactNative.findNodeHandle is not implemented"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  PREPVARARGS 0
+  NEWTABLE R0 0 0
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Frame"]
+  DUPTABLE R3 K3 [{"Name"}]
+  LOADK R4 K4 ["RCTRefreshControl"]
+  SETTABLEKS R4 R3 K2 ["Name"]
+  GETTABLEKS R4 R0 K5 ["children"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_4:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADB R1 0
+  RETURN R1 1
+  MOVE R1 R0
+  RETURN R1 1
+
+PROTO_5:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADN R1 10
+  RETURN R1 1
+  MOVE R1 R0
+  RETURN R1 1
+
+PROTO_6:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADN R1 10
+  RETURN R1 1
+  MOVE R1 R0
+  RETURN R1 1
+
+PROTO_7:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADN R1 2
+  RETURN R1 1
+  MOVE R1 R0
+  RETURN R1 1
+
+PROTO_8:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADN R1 50
+  RETURN R1 1
+  MOVE R1 R0
+  RETURN R1 1
+
+PROTO_9:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADN R1 21
+  RETURN R1 1
+  MOVE R1 R0
+  RETURN R1 1
+
+PROTO_10:
+  JUMPIFEQ R0 R1 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_11:
+  JUMPIFNOTEQKNIL R0 [+3]
+  DUPCLOSURE R1 K0 [PROTO_10]
+  RETURN R1 1
+  MOVE R1 R0
+  RETURN R1 1
+
+PROTO_12:
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R1 R5 K1 ["data"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R2 R5 K2 ["getItem"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R3 R5 K3 ["getItemCount"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["getItemLayout"]
+  GETUPVAL R5 1
+  MOVE R7 R3
+  MOVE R8 R1
+  CALL R7 1 1
+  JUMPIFLE R0 R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  LOADK R8 K5 ["Tried to get frame for out of range index "]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R10 R0
+  GETIMPORT R9 K7 [tostring]
+  CALL R9 1 1
+  CONCAT R7 R8 R9
+  CALL R5 2 0
+  MOVE R5 R2
+  MOVE R6 R1
+  MOVE R7 R0
+  CALL R5 2 1
+  JUMPIFEQKNIL R5 [+12]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["_frames"]
+  GETUPVAL R8 0
+  MOVE R10 R5
+  MOVE R11 R0
+  NAMECALL R8 R8 K9 ["_keyExtractor"]
+  CALL R8 3 1
+  GETTABLE R6 R7 R8
+  JUMP [+1]
+  MOVE R6 R5
+  JUMPIFNOT R6 [+4]
+  GETTABLEKS R7 R6 K10 ["index"]
+  JUMPIFEQ R7 R0 [+7]
+  JUMPIFNOT R4 [+5]
+  MOVE R7 R4
+  MOVE R8 R1
+  MOVE R9 R0
+  CALL R7 2 1
+  MOVE R6 R7
+  RETURN R6 1
+
+PROTO_13:
+  LOADNIL R1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["_scrollMetrics"]
+  GETTABLEKS R2 R5 K1 ["contentLength"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["_scrollMetrics"]
+  GETTABLEKS R3 R5 K2 ["offset"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["_scrollMetrics"]
+  GETTABLEKS R4 R5 K3 ["visibleLength"]
+  GETUPVAL R5 1
+  JUMPIF R5 [+70]
+  LOADN R5 0
+  JUMPIFNOTLT R5 R4 [+103]
+  LOADN R5 0
+  JUMPIFNOTLT R5 R2 [+100]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["props"]
+  GETTABLEKS R6 R7 K5 ["initialScrollIndex"]
+  LOADB R5 0
+  JUMPIFEQKNIL R6 [+5]
+  JUMPIFNOTEQKN R6 K6 [1] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  JUMPIFNOT R5 [+10]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K7 ["toJSBoolean"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["_scrollMetrics"]
+  GETTABLEKS R6 R7 K2 ["offset"]
+  CALL R5 1 1
+  JUMPIFNOT R5 [+76]
+  GETUPVAL R5 3
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["props"]
+  GETTABLEKS R6 R7 K8 ["data"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["props"]
+  GETTABLEKS R7 R8 K9 ["getItemCount"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K4 ["props"]
+  GETTABLEKS R9 R10 K10 ["maxToRenderPerBatch"]
+  JUMPIFNOTEQKNIL R9 [+3]
+  LOADN R8 10
+  JUMP [+1]
+  MOVE R8 R9
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K4 ["props"]
+  GETTABLEKS R10 R11 K11 ["windowSize"]
+  JUMPIFNOTEQKNIL R10 [+3]
+  LOADN R9 21
+  JUMP [+1]
+  MOVE R9 R10
+  MOVE R10 R0
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K12 ["_getFrameMetricsApprox"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K0 ["_scrollMetrics"]
+  CALL R5 7 1
+  MOVE R1 R5
+  JUMP [+35]
+  SUB R6 R2 R4
+  SUB R5 R6 R3
+  GETUPVAL R8 4
+  MUL R7 R8 R4
+  JUMPIFNOTLT R5 R7 [+12]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["props"]
+  GETTABLEKS R7 R8 K10 ["maxToRenderPerBatch"]
+  JUMPIFNOTEQKNIL R7 [+3]
+  LOADN R6 10
+  JUMP [+3]
+  MOVE R6 R7
+  JUMP [+1]
+  LOADN R6 0
+  DUPTABLE R7 K15 [{"first", "last"}]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K13 ["first"]
+  GETTABLEKS R10 R0 K14 ["last"]
+  ADD R9 R10 R6
+  GETUPVAL R10 5
+  GETUPVAL R11 6
+  CALL R10 1 -1
+  FASTCALL MATH_MIN [+2]
+  GETIMPORT R8 K18 [math.min]
+  CALL R8 -1 1
+  SETTABLEKS R8 R7 K14 ["last"]
+  MOVE R1 R7
+  JUMPIFEQKNIL R1 [+77]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K19 ["_nestedChildLists"]
+  GETTABLEKS R5 R6 K20 ["size"]
+  LOADN R6 0
+  JUMPIFNOTLT R6 R5 [+69]
+  GETTABLEKS R5 R1 K13 ["first"]
+  GETTABLEKS R6 R1 K14 ["last"]
+  MOVE R7 R5
+  JUMPIFNOTLE R7 R6 [+62]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K21 ["_indicesToKeys"]
+  MOVE R10 R7
+  NAMECALL R8 R8 K22 ["get"]
+  CALL R8 2 1
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K7 ["toJSBoolean"]
+  MOVE R11 R8
+  CALL R10 1 1
+  JUMPIFNOT R10 [+8]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K23 ["_cellKeysToChildListKeys"]
+  MOVE R11 R8
+  NAMECALL R9 R9 K22 ["get"]
+  CALL R9 2 1
+  JUMP [+1]
+  MOVE R9 R8
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K7 ["toJSBoolean"]
+  MOVE R11 R9
+  CALL R10 1 1
+  JUMPIFNOT R10 [+32]
+  LOADB R10 0
+  GETIMPORT R11 K25 [ipairs]
+  MOVE R12 R9
+  CALL R11 1 3
+  FORGPREP_INEXT R11
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K19 ["_nestedChildLists"]
+  MOVE R18 R15
+  NAMECALL R16 R16 K22 ["get"]
+  CALL R16 2 1
+  JUMPIFNOT R16 [+11]
+  GETTABLEKS R17 R16 K26 ["ref"]
+  JUMPIFNOT R17 [+8]
+  GETTABLEKS R17 R16 K26 ["ref"]
+  NAMECALL R17 R17 K27 ["hasMore"]
+  CALL R17 1 1
+  JUMPIFNOT R17 [+2]
+  LOADB R10 1
+  JUMP [+2]
+  FORGLOOP R11 2 [inext] [-20]
+  JUMPIFNOT R10 [+3]
+  SETTABLEKS R7 R1 K14 ["last"]
+  JUMP [+2]
+  ADDK R7 R7 K6 [1]
+  JUMPBACK [-63]
+  JUMPIFEQKNIL R1 [+14]
+  GETTABLEKS R5 R1 K13 ["first"]
+  GETTABLEKS R6 R0 K13 ["first"]
+  JUMPIFNOTEQ R5 R6 [+8]
+  GETTABLEKS R5 R1 K14 ["last"]
+  GETTABLEKS R6 R0 K14 ["last"]
+  JUMPIFNOTEQ R5 R6 [+2]
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_14:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R0 R3 K1 ["data"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R1 R3 K2 ["getItemCount"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["onEndReachedThreshold"]
+  JUMPIFNOTEQKNIL R2 [+3]
+  LOADN R3 2
+  JUMP [+1]
+  MOVE R3 R2
+  GETUPVAL R4 0
+  NAMECALL R4 R4 K4 ["_isVirtualizationDisabled"]
+  CALL R4 1 1
+  GETUPVAL R5 0
+  MOVE R7 R0
+  NAMECALL R5 R5 K5 ["_updateViewableItems"]
+  CALL R5 2 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K6 ["toJSBoolean"]
+  MOVE R6 R0
+  CALL R5 1 1
+  JUMPIF R5 [+1]
+  RETURN R0 0
+  GETUPVAL R5 0
+  NEWCLOSURE R7 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R4
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  NAMECALL R5 R5 K7 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_15:
+  DUPTABLE R1 K2 [{"viewabilityHelper", "onViewableItemsChanged"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["new"]
+  GETTABLEKS R3 R0 K4 ["viewabilityConfig"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K0 ["viewabilityHelper"]
+  GETTABLEKS R2 R0 K1 ["onViewableItemsChanged"]
+  SETTABLEKS R2 R1 K1 ["onViewableItemsChanged"]
+  RETURN R1 1
+
+PROTO_16:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_scrollMetrics"]
+  RETURN R0 1
+
+PROTO_17:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_isNestedWithSameOrientation"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["context"]
+  GETTABLEKS R0 R1 K2 ["getOutermostParentListRef"]
+  CALL R0 0 -1
+  RETURN R0 -1
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_18:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_nestedChildLists"]
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["get"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R2 R1 K2 ["state"]
+  RETURN R2 1
+  MOVE R2 R1
+  RETURN R2 1
+
+PROTO_19:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_cellKeysToChildListKeys"]
+  GETTABLEKS R3 R0 K1 ["cellKey"]
+  NAMECALL R1 R1 K2 ["get"]
+  CALL R1 2 1
+  JUMPIF R1 [+4]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["new"]
+  CALL R1 0 1
+  GETTABLEKS R4 R0 K4 ["key"]
+  NAMECALL R2 R1 K5 ["add"]
+  CALL R2 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_cellKeysToChildListKeys"]
+  GETTABLEKS R4 R0 K1 ["cellKey"]
+  MOVE R5 R1
+  NAMECALL R2 R2 K6 ["set"]
+  CALL R2 3 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["_nestedChildLists"]
+  GETTABLEKS R4 R0 K4 ["key"]
+  NAMECALL R2 R2 K2 ["get"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+34]
+  GETTABLEKS R3 R2 K8 ["ref"]
+  JUMPIFEQKNIL R3 [+31]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K9 ["error"]
+  LOADK R5 K10 ["A VirtualizedList contains a cell which itself contains "]
+  LOADK R6 K11 ["more than one VirtualizedList of the same orientation as the parent "]
+  LOADK R7 K12 ["list. You must pass a unique listKey prop to each sibling list.
+
+"]
+  GETUPVAL R8 3
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K13 ["assign"]
+  NEWTABLE R10 0 0
+  MOVE R11 R0
+  DUPTABLE R12 K15 [{"horizontal"}]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K16 ["toJSBoolean"]
+  GETTABLEKS R16 R0 K8 ["ref"]
+  GETTABLEKS R15 R16 K17 ["props"]
+  GETTABLEKS R14 R15 K14 ["horizontal"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K14 ["horizontal"]
+  CALL R9 3 -1
+  CALL R8 -1 1
+  CONCAT R4 R5 R8
+  CALL R3 1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K7 ["_nestedChildLists"]
+  GETTABLEKS R5 R0 K4 ["key"]
+  DUPTABLE R6 K19 [{"ref", "state"}]
+  GETTABLEKS R7 R0 K8 ["ref"]
+  SETTABLEKS R7 R6 K8 ["ref"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K18 ["state"]
+  NAMECALL R3 R3 K6 ["set"]
+  CALL R3 3 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K20 ["_hasInteracted"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R0 K8 ["ref"]
+  NAMECALL R3 R3 K21 ["recordInteraction"]
+  CALL R3 1 0
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_20:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_nestedChildLists"]
+  GETTABLEKS R3 R0 K1 ["key"]
+  DUPTABLE R4 K4 [{"ref", "state"}]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K2 ["ref"]
+  GETTABLEKS R5 R0 K3 ["state"]
+  SETTABLEKS R5 R4 K3 ["state"]
+  NAMECALL R1 R1 K5 ["set"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_21:
+  LOADB R1 0
+  JUMPIFEQKNIL R0 [+10]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_cellRefs"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K2 [tostring]
+  CALL R3 1 1
+  GETTABLE R1 R2 R3
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["toJSBoolean"]
+  MOVE R3 R1
+  CALL R2 1 1
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R4 2
+  NAMECALL R2 R1 K4 ["updateSeparatorProps"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["forEach"]
+  MOVE R3 R0
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_23:
+  JUMPIFNOT R0 [+2]
+  LOADK R1 K0 ["height"]
+  RETURN R1 1
+  LOADK R1 K1 ["width"]
+  RETURN R1 1
+
+PROTO_24:
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K0 ["_scrollRef"]
+  RETURN R0 0
+
+PROTO_25:
+  GETTABLEKS R1 R0 K0 ["onRefresh"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K1 ["_isNestedWithSameOrientation"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R3 2
+  MOVE R4 R0
+  CALL R2 2 -1
+  RETURN R2 -1
+  JUMPIFNOT R1 [+69]
+  GETUPVAL R2 3
+  GETTABLEKS R5 R0 K3 ["refreshing"]
+  FASTCALL1 TYPEOF R5 [+2]
+  GETIMPORT R4 K5 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K6 ["boolean"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  LOADK R5 K7 ["`refreshing` prop must be set as a boolean in order to use `onRefresh`, but got `"]
+  GETTABLEKS R7 R0 K3 ["refreshing"]
+  JUMPIFNOTEQKNIL R7 [+3]
+  LOADK R6 K8 ["undefined"]
+  JUMP [+9]
+  GETTABLEKS R10 R0 K3 ["refreshing"]
+  FASTCALL1 TOSTRING R10 [+2]
+  GETIMPORT R9 K10 [tostring]
+  CALL R9 1 1
+  MOVE R7 R9
+  LOADK R8 K11 ["`"]
+  CONCAT R6 R7 R8
+  CONCAT R4 R5 R6
+  CALL R2 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R3 4
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K12 ["assign"]
+  GETIMPORT R5 K15 [table.clone]
+  MOVE R6 R0
+  CALL R5 1 1
+  DUPTABLE R6 K17 [{"refreshControl"}]
+  GETTABLEKS R8 R0 K16 ["refreshControl"]
+  JUMPIFNOTEQKNIL R8 [+18]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 6
+  DUPTABLE R9 K19 [{"refreshing", "onRefresh", "progressViewOffset"}]
+  GETTABLEKS R10 R0 K3 ["refreshing"]
+  SETTABLEKS R10 R9 K3 ["refreshing"]
+  SETTABLEKS R1 R9 K0 ["onRefresh"]
+  GETTABLEKS R10 R0 K18 ["progressViewOffset"]
+  SETTABLEKS R10 R9 K18 ["progressViewOffset"]
+  CALL R7 2 1
+  JUMP [+2]
+  GETTABLEKS R7 R0 K16 ["refreshControl"]
+  SETTABLEKS R7 R6 K16 ["refreshControl"]
+  CALL R4 2 -1
+  CALL R2 -1 -1
+  RETURN R2 -1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R3 4
+  MOVE R4 R0
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_26:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_frames"]
+  GETTABLE R1 R2 R0
+  JUMPIFEQKNIL R1 [+16]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_frames"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["assign"]
+  NEWTABLE R4 0 0
+  MOVE R5 R1
+  DUPTABLE R6 K3 [{"inLayout"}]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K2 ["inLayout"]
+  CALL R3 3 1
+  SETTABLE R3 R2 R0
+  RETURN R0 0
+
+PROTO_27:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["_isNestedWithSameOrientation"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K1 ["measureLayoutRelativeToContainingList"]
+  CALL R1 1 0
+  JUMP [+22]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["_scrollMetrics"]
+  GETUPVAL R2 0
+  DUPTABLE R4 K5 [{"width", "height"}]
+  GETTABLEKS R6 R0 K6 ["AbsoluteSize"]
+  GETTABLEKS R5 R6 K7 ["X"]
+  SETTABLEKS R5 R4 K3 ["width"]
+  GETTABLEKS R6 R0 K6 ["AbsoluteSize"]
+  GETTABLEKS R5 R6 K8 ["Y"]
+  SETTABLEKS R5 R4 K4 ["height"]
+  NAMECALL R2 R2 K9 ["_selectLength"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K10 ["visibleLength"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K11 ["props"]
+  GETTABLEKS R1 R2 K12 ["onLayout"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K11 ["props"]
+  GETTABLEKS R1 R2 K12 ["onLayout"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K13 ["_scheduleCellsToRenderUpdate"]
+  CALL R1 1 0
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K14 ["_maybeCallOnEndReached"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_28:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["onLayout"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["onLayout"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_29:
+  GETUPVAL R1 0
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K0 ["_getFooterCellKey"]
+  CALL R3 1 -1
+  NAMECALL R1 R1 K1 ["_triggerRemeasureForChildListsInCell"]
+  CALL R1 -1 0
+  GETUPVAL R1 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K4 [{"height", "width"}]
+  GETTABLEKS R6 R0 K5 ["AbsoluteSize"]
+  GETTABLEKS R5 R6 K6 ["Y"]
+  SETTABLEKS R5 R4 K2 ["height"]
+  GETTABLEKS R6 R0 K5 ["AbsoluteSize"]
+  GETTABLEKS R5 R6 K7 ["X"]
+  SETTABLEKS R5 R4 K3 ["width"]
+  NAMECALL R2 R2 K8 ["_selectLength"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K9 ["_footerLength"]
+  RETURN R0 0
+
+PROTO_30:
+  GETUPVAL R1 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K2 [{"height", "width"}]
+  GETTABLEKS R6 R0 K3 ["AbsoluteSize"]
+  GETTABLEKS R5 R6 K4 ["Y"]
+  SETTABLEKS R5 R4 K0 ["height"]
+  GETTABLEKS R6 R0 K3 ["AbsoluteSize"]
+  GETTABLEKS R5 R6 K5 ["X"]
+  SETTABLEKS R5 R4 K1 ["width"]
+  NAMECALL R2 R2 K6 ["_selectLength"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K7 ["_headerLength"]
+  RETURN R0 0
+
+PROTO_31:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["getScrollRef"]
+  CALL R0 1 1
+  JUMPIFNOTEQKNIL R0 [+5]
+  GETIMPORT R0 K3 [task.wait]
+  CALL R0 0 0
+  JUMPBACK [-10]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["props"]
+  GETTABLEKS R0 R1 K5 ["contentOffset"]
+  JUMPIFNOTEQKNIL R0 [+42]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K0 ["getScrollRef"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K6 ["_nativeRef"]
+  GETTABLEKS R0 R1 K7 ["current"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["props"]
+  GETTABLEKS R1 R2 K8 ["horizontal"]
+  JUMPIFNOT R1 [+14]
+  GETIMPORT R1 K11 [Vector2.new]
+  GETTABLEKS R3 R0 K12 ["AbsoluteCanvasSize"]
+  GETTABLEKS R2 R3 K13 ["X"]
+  GETTABLEKS R4 R0 K14 ["CanvasPosition"]
+  GETTABLEKS R3 R4 K15 ["Y"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K14 ["CanvasPosition"]
+  RETURN R0 0
+  GETIMPORT R1 K11 [Vector2.new]
+  GETTABLEKS R3 R0 K14 ["CanvasPosition"]
+  GETTABLEKS R2 R3 K13 ["X"]
+  GETTABLEKS R4 R0 K12 ["AbsoluteCanvasSize"]
+  GETTABLEKS R3 R4 K15 ["Y"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K14 ["CanvasPosition"]
+  RETURN R0 0
+
+PROTO_32:
+  LOADN R2 0
+  JUMPIFNOTLT R2 R0 [+50]
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+47]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["initialScrollIndex"]
+  JUMPIFEQKNIL R2 [+40]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["initialScrollIndex"]
+  LOADN R3 1
+  JUMPIFNOTLT R3 R2 [+32]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_hasDoneInitialScroll"]
+  JUMPIF R2 [+27]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["contentOffset"]
+  JUMPIFNOTEQKNIL R2 [+16]
+  GETUPVAL R2 0
+  DUPTABLE R4 K6 [{"animated", "index"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K4 ["animated"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["props"]
+  GETTABLEKS R5 R6 K1 ["initialScrollIndex"]
+  SETTABLEKS R5 R4 K5 ["index"]
+  NAMECALL R2 R2 K7 ["scrollToIndex"]
+  CALL R2 2 0
+  GETUPVAL R2 0
+  LOADB R3 1
+  SETTABLEKS R3 R2 K2 ["_hasDoneInitialScroll"]
+  JUMP [+25]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K8 ["inverted"]
+  JUMPIFNOT R2 [+19]
+  LOADN R2 0
+  JUMPIFNOTLT R2 R0 [+17]
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+14]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_hasDoneInitialScroll"]
+  JUMPIF R2 [+9]
+  GETUPVAL R2 0
+  LOADB R3 1
+  SETTABLEKS R3 R2 K2 ["_hasDoneInitialScroll"]
+  GETIMPORT R2 K11 [task.defer]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U0
+  CALL R2 1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K12 ["onContentSizeChange"]
+  JUMPIFNOT R2 [+8]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K12 ["onContentSizeChange"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K13 ["_scrollMetrics"]
+  GETUPVAL R3 0
+  DUPTABLE R5 K16 [{"height", "width"}]
+  SETTABLEKS R1 R5 K14 ["height"]
+  SETTABLEKS R0 R5 K15 ["width"]
+  NAMECALL R3 R3 K17 ["_selectLength"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K18 ["contentLength"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K19 ["_scheduleCellsToRenderUpdate"]
+  CALL R2 1 0
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K20 ["_maybeCallOnEndReached"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_33:
+  GETTABLEKS R2 R0 K0 ["offset"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["_offsetFromParentVirtualizedList"]
+  SUB R1 R2 R3
+  GETTABLEKS R2 R0 K2 ["visibleLength"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["_scrollMetrics"]
+  GETTABLEKS R4 R5 K0 ["offset"]
+  SUB R3 R1 R4
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["_scrollMetrics"]
+  GETTABLEKS R4 R5 K4 ["contentLength"]
+  DUPTABLE R5 K6 [{"visibleLength", "contentLength", "offset", "dOffset"}]
+  SETTABLEKS R2 R5 K2 ["visibleLength"]
+  SETTABLEKS R4 R5 K4 ["contentLength"]
+  SETTABLEKS R1 R5 K0 ["offset"]
+  SETTABLEKS R3 R5 K5 ["dOffset"]
+  RETURN R5 1
+
+PROTO_34:
+  GETTABLEKS R1 R0 K0 ["ref"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R0 K0 ["ref"]
+  GETTABLEKS R1 R2 K1 ["_onScroll"]
+  GETUPVAL R2 0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_35:
+  DUPTABLE R1 K3 [{"scrollPositionDelta", "first", "last"}]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K0 ["scrollPositionDelta"]
+  GETTABLEKS R3 R0 K1 ["first"]
+  GETUPVAL R4 0
+  ADD R2 R3 R4
+  SETTABLEKS R2 R1 K1 ["first"]
+  GETTABLEKS R3 R0 K2 ["last"]
+  GETUPVAL R4 0
+  ADD R2 R3 R4
+  SETTABLEKS R2 R1 K2 ["last"]
+  RETURN R1 1
+
+PROTO_36:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_nestedChildLists"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K1 ["forEach"]
+  CALL R1 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["props"]
+  GETTABLEKS R1 R2 K3 ["onScroll"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["props"]
+  GETTABLEKS R1 R2 K3 ["onScroll"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETIMPORT R1 K6 [os.clock]
+  CALL R1 0 1
+  NAMECALL R3 R0 K7 ["GetChildren"]
+  CALL R3 1 1
+  GETTABLEN R2 R3 1
+  GETUPVAL R3 0
+  DUPTABLE R5 K10 [{"height", "width"}]
+  GETTABLEKS R7 R0 K11 ["AbsoluteSize"]
+  GETTABLEKS R6 R7 K12 ["Y"]
+  SETTABLEKS R6 R5 K8 ["height"]
+  GETTABLEKS R7 R0 K11 ["AbsoluteSize"]
+  GETTABLEKS R6 R7 K13 ["X"]
+  SETTABLEKS R6 R5 K9 ["width"]
+  NAMECALL R3 R3 K14 ["_selectLength"]
+  CALL R3 2 1
+  GETUPVAL R4 0
+  DUPTABLE R6 K10 [{"height", "width"}]
+  GETTABLEKS R8 R2 K11 ["AbsoluteSize"]
+  GETTABLEKS R7 R8 K12 ["Y"]
+  SETTABLEKS R7 R6 K8 ["height"]
+  GETTABLEKS R8 R2 K11 ["AbsoluteSize"]
+  GETTABLEKS R7 R8 K13 ["X"]
+  SETTABLEKS R7 R6 K9 ["width"]
+  NAMECALL R4 R4 K14 ["_selectLength"]
+  CALL R4 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["props"]
+  GETTABLEKS R6 R7 K15 ["inverted"]
+  JUMPIFNOT R6 [+30]
+  GETUPVAL R5 0
+  DUPTABLE R7 K18 [{"x", "y"}]
+  GETTABLEKS R11 R0 K19 ["AbsoluteCanvasSize"]
+  GETTABLEKS R10 R11 K13 ["X"]
+  GETTABLEKS R12 R0 K20 ["CanvasPosition"]
+  GETTABLEKS R11 R12 K13 ["X"]
+  SUB R9 R10 R11
+  SUB R8 R9 R3
+  SETTABLEKS R8 R7 K16 ["x"]
+  GETTABLEKS R11 R0 K19 ["AbsoluteCanvasSize"]
+  GETTABLEKS R10 R11 K12 ["Y"]
+  GETTABLEKS R12 R0 K20 ["CanvasPosition"]
+  GETTABLEKS R11 R12 K12 ["Y"]
+  SUB R9 R10 R11
+  SUB R8 R9 R3
+  SETTABLEKS R8 R7 K17 ["y"]
+  NAMECALL R5 R5 K21 ["_selectOffset"]
+  CALL R5 2 1
+  JUMP [+17]
+  GETUPVAL R5 0
+  DUPTABLE R7 K18 [{"x", "y"}]
+  GETTABLEKS R9 R0 K20 ["CanvasPosition"]
+  GETTABLEKS R8 R9 K13 ["X"]
+  SETTABLEKS R8 R7 K16 ["x"]
+  GETTABLEKS R9 R0 K20 ["CanvasPosition"]
+  GETTABLEKS R8 R9 K12 ["Y"]
+  SETTABLEKS R8 R7 K17 ["y"]
+  NAMECALL R5 R5 K21 ["_selectOffset"]
+  CALL R5 2 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K22 ["_scrollMetrics"]
+  GETTABLEKS R7 R8 K23 ["offset"]
+  SUB R6 R5 R7
+  GETUPVAL R7 0
+  NAMECALL R7 R7 K24 ["_isNestedWithSameOrientation"]
+  CALL R7 1 1
+  JUMPIFNOT R7 [+26]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K22 ["_scrollMetrics"]
+  GETTABLEKS R7 R8 K25 ["contentLength"]
+  JUMPIFNOTEQKN R7 K26 [0] [+2]
+  RETURN R0 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K27 ["_convertParentScrollMetrics"]
+  NEWTABLE R8 0 2
+  MOVE R9 R3
+  MOVE R10 R5
+  SETLIST R8 R9 2 [1]
+  CALL R7 1 1
+  GETTABLEKS R3 R7 K28 ["visibleLength"]
+  GETTABLEKS R4 R7 K25 ["contentLength"]
+  GETTABLEKS R5 R7 K23 ["offset"]
+  GETTABLEKS R6 R7 K29 ["dOffset"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K30 ["toJSBoolean"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K22 ["_scrollMetrics"]
+  GETTABLEKS R9 R10 K31 ["timestamp"]
+  CALL R8 1 1
+  JUMPIFNOT R8 [+14]
+  LOADN R8 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K22 ["_scrollMetrics"]
+  GETTABLEKS R11 R12 K31 ["timestamp"]
+  SUB R10 R1 R11
+  MULK R9 R10 K32 [1000]
+  FASTCALL2 MATH_MAX R8 R9 [+3]
+  GETIMPORT R7 K35 [math.max]
+  CALL R7 2 1
+  JUMP [+1]
+  LOADN R7 1
+  DIV R8 R6 R7
+  LOADN R9 244
+  JUMPIFNOTLT R9 R7 [+43]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K22 ["_scrollMetrics"]
+  GETTABLEKS R9 R10 K36 ["dt"]
+  LOADN R10 244
+  JUMPIFNOTLT R10 R9 [+35]
+  LOADN R10 5
+  MUL R9 R10 R3
+  JUMPIFNOTLT R9 R4 [+31]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K37 ["_hasWarned"]
+  GETTABLEKS R9 R10 K38 ["perf"]
+  JUMPIF R9 [+24]
+  GETUPVAL R9 2
+  LOADK R11 K39 ["VirtualizedList: You have a large list that is slow to update - make sure your "]
+  LOADK R12 K40 ["renderItem function renders components that follow React performance best practices "]
+  LOADK R13 K41 ["like PureComponent, shouldComponentUpdate, etc."]
+  CONCAT R10 R11 R13
+  DUPTABLE R11 K43 [{"dt", "prevDt", "contentLength"}]
+  SETTABLEKS R7 R11 K36 ["dt"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K22 ["_scrollMetrics"]
+  GETTABLEKS R12 R13 K36 ["dt"]
+  SETTABLEKS R12 R11 K42 ["prevDt"]
+  SETTABLEKS R4 R11 K25 ["contentLength"]
+  CALL R9 2 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K37 ["_hasWarned"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K38 ["perf"]
+  GETUPVAL R9 0
+  DUPTABLE R10 K45 [{"contentLength", "dt", "dOffset", "offset", "timestamp", "velocity", "visibleLength"}]
+  SETTABLEKS R4 R10 K25 ["contentLength"]
+  SETTABLEKS R7 R10 K36 ["dt"]
+  SETTABLEKS R6 R10 K29 ["dOffset"]
+  SETTABLEKS R5 R10 K23 ["offset"]
+  SETTABLEKS R1 R10 K31 ["timestamp"]
+  SETTABLEKS R8 R10 K44 ["velocity"]
+  SETTABLEKS R3 R10 K28 ["visibleLength"]
+  SETTABLEKS R10 R9 K22 ["_scrollMetrics"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K46 ["state"]
+  GETTABLEKS R9 R10 K47 ["scrollPositionDelta"]
+  LOADN R10 0
+  JUMPIFNOTLT R10 R9 [+7]
+  GETUPVAL R10 0
+  NEWCLOSURE R12 P1
+  CAPTURE VAL R9
+  NAMECALL R10 R10 K48 ["setState"]
+  CALL R10 2 0
+  GETUPVAL R10 0
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K2 ["props"]
+  GETTABLEKS R12 R13 K49 ["data"]
+  NAMECALL R10 R10 K50 ["_updateViewableItems"]
+  CALL R10 2 0
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K2 ["props"]
+  JUMPIF R10 [+1]
+  RETURN R0 0
+  GETUPVAL R10 0
+  NAMECALL R10 R10 K51 ["_maybeCallOnEndReached"]
+  CALL R10 1 0
+  JUMPIFEQKN R8 K26 [0] [+7]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K52 ["_fillRateHelper"]
+  NAMECALL R10 R10 K53 ["activate"]
+  CALL R10 1 0
+  GETUPVAL R10 0
+  NAMECALL R10 R10 K54 ["_computeBlankness"]
+  CALL R10 1 0
+  GETUPVAL R10 0
+  NAMECALL R10 R10 K55 ["_scheduleCellsToRenderUpdate"]
+  CALL R10 1 0
+  RETURN R0 0
+
+PROTO_37:
+  GETTABLEKS R1 R0 K0 ["ref"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R0 K0 ["ref"]
+  GETTABLEKS R1 R2 K1 ["_onScrollBeginDrag"]
+  GETUPVAL R2 0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_38:
+  GETTABLEKS R1 R0 K0 ["viewabilityHelper"]
+  NAMECALL R1 R1 K1 ["recordInteraction"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_39:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_nestedChildLists"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K1 ["forEach"]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["forEach"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_viewabilityTuples"]
+  DUPCLOSURE R3 K3 [PROTO_38]
+  CALL R1 2 0
+  GETUPVAL R1 0
+  LOADB R2 1
+  SETTABLEKS R2 R1 K4 ["_hasInteracted"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["props"]
+  GETTABLEKS R1 R2 K6 ["onScrollBeginDrag"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["props"]
+  GETTABLEKS R1 R2 K6 ["onScrollBeginDrag"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_40:
+  GETTABLEKS R1 R0 K0 ["ref"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R0 K0 ["ref"]
+  GETTABLEKS R1 R2 K1 ["_onScrollEndDrag"]
+  GETUPVAL R2 0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_41:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_nestedChildLists"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K1 ["forEach"]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["toJSBoolean"]
+  LOADNIL R2
+  CALL R1 1 1
+  JUMPIFNOT R1 [+10]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["_scrollMetrics"]
+  GETUPVAL R2 0
+  LOADNIL R4
+  NAMECALL R2 R2 K4 ["_selectOffset"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K5 ["velocity"]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K6 ["_computeBlankness"]
+  CALL R1 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["props"]
+  GETTABLEKS R1 R2 K8 ["onScrollEndDrag"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["props"]
+  GETTABLEKS R1 R2 K8 ["onScrollEndDrag"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_42:
+  GETTABLEKS R1 R0 K0 ["ref"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R0 K0 ["ref"]
+  GETTABLEKS R1 R2 K1 ["_onMomentumScrollBegin"]
+  GETUPVAL R2 0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_43:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_nestedChildLists"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K1 ["forEach"]
+  CALL R1 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["props"]
+  GETTABLEKS R1 R2 K3 ["onMomentumScrollBegin"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["props"]
+  GETTABLEKS R1 R2 K3 ["onMomentumScrollBegin"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_44:
+  GETTABLEKS R1 R0 K0 ["ref"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R0 K0 ["ref"]
+  GETTABLEKS R1 R2 K1 ["_onMomentumScrollEnd"]
+  GETUPVAL R2 0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_45:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_nestedChildLists"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K1 ["forEach"]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["_scrollMetrics"]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K3 ["velocity"]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K4 ["_computeBlankness"]
+  CALL R1 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["props"]
+  GETTABLEKS R1 R2 K6 ["onMomentumScrollEnd"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["props"]
+  GETTABLEKS R1 R2 K6 ["onMomentumScrollEnd"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_46:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R2 R4 K1 ["data"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["getItem"]
+  MOVE R4 R3
+  MOVE R5 R2
+  MOVE R6 R0
+  CALL R4 2 1
+  DUPTABLE R5 K7 [{"index", "item", "key", "isViewable"}]
+  SETTABLEKS R0 R5 K3 ["index"]
+  SETTABLEKS R4 R5 K4 ["item"]
+  GETUPVAL R6 0
+  MOVE R8 R4
+  MOVE R9 R0
+  NAMECALL R6 R6 K8 ["_keyExtractor"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K5 ["key"]
+  SETTABLEKS R1 R5 K6 ["isViewable"]
+  RETURN R5 1
+
+PROTO_47:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_getFrameMetrics"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFEQKNIL R1 [+6]
+  GETTABLEKS R2 R1 K1 ["index"]
+  JUMPIFNOTEQ R2 R0 [+2]
+  RETURN R1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["props"]
+  GETTABLEKS R2 R3 K3 ["getItemLayout"]
+  GETUPVAL R3 1
+  NOT R4 R2
+  LOADK R5 K4 ["Should not have to estimate frames when a measurement metrics function is provided"]
+  CALL R3 2 0
+  DUPTABLE R3 K7 [{"length", "offset"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K8 ["_averageCellLength"]
+  SETTABLEKS R4 R3 K5 ["length"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["_averageCellLength"]
+  SUBK R6 R0 K9 [1]
+  MUL R4 R5 R6
+  SETTABLEKS R4 R3 K6 ["offset"]
+  RETURN R3 1
+
+PROTO_48:
+  SETTABLEKS R1 R0 K0 ["props"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K1 ["_viewabilityTuples"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K2 ["_averageCellLength"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K4 ["_cellKeysToChildListKeys"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K5 ["_cellRefs"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K6 ["_frames"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K7 ["_footerLength"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K8 ["_hasDoneInitialScroll"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K9 ["_hasInteracted"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K10 ["_hasMore"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K11 ["_hasWarned"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K12 ["_headerLength"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K13 ["_hiPriInProgress"]
+  LOADN R2 1
+  SETTABLEKS R2 R0 K14 ["_highestMeasuredFrameIndex"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K15 ["_indicesToKeys"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K16 ["_nestedChildLists"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K17 ["_offsetFromParentVirtualizedList"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K18 ["_prevParentOffset"]
+  DUPTABLE R2 K26 [{"contentLength", "dOffset", "dt", "offset", "timestamp", "velocity", "visibleLength"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K19 ["contentLength"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K20 ["dOffset"]
+  LOADN R3 10
+  SETTABLEKS R3 R2 K21 ["dt"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K22 ["offset"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["timestamp"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K24 ["velocity"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["visibleLength"]
+  SETTABLEKS R2 R0 K27 ["_scrollMetrics"]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K28 ["_scrollRef"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K29 ["_sentEndForContentLength"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K30 ["_totalCellLength"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K31 ["_totalCellsMeasured"]
+  GETIMPORT R2 K33 [Vector2.new]
+  LOADN R3 0
+  LOADN R4 0
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K34 ["_canvasPosition"]
+  GETIMPORT R2 K36 [UDim2.new]
+  LOADN R3 0
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R2 4 1
+  SETTABLEKS R2 R0 K37 ["_canvasSize"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K38 ["getItemLayout"]
+  JUMPIFNOT R3 [+2]
+  LOADN R2 0
+  JUMP [+5]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K40 ["invertedCanvasLength"]
+  ORK R2 R3 K39 [1000]
+  SETTABLEKS R2 R0 K41 ["_invertedCanvasLength"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R0 K42 ["_getFrameMetrics"]
+  GETUPVAL R2 1
+  GETTABLEKS R5 R1 K43 ["windowSize"]
+  JUMPIFNOTEQKNIL R5 [+3]
+  LOADN R4 21
+  JUMP [+1]
+  MOVE R4 R5
+  LOADN R5 0
+  JUMPIFLT R5 R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  LOADK R4 K44 ["VirtualizedList: The windowSize prop must be present and set to a value greater than 0."]
+  CALL R2 2 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K3 ["new"]
+  GETTABLEKS R3 R0 K42 ["_getFrameMetrics"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K45 ["_fillRateHelper"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R0 K46 ["_updateCellsToRender"]
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K3 ["new"]
+  GETTABLEKS R3 R0 K46 ["_updateCellsToRender"]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K47 ["updateCellsBatchingPeriod"]
+  JUMPIFNOTEQKNIL R5 [+3]
+  LOADN R4 50
+  JUMP [+4]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K47 ["updateCellsBatchingPeriod"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K48 ["_updateCellsToRenderBatcher"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K49 ["viewabilityConfigCallbackPairs"]
+  JUMPIFNOT R2 [+13]
+  GETUPVAL R3 6
+  GETTABLEKS R2 R3 K50 ["map"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K49 ["viewabilityConfigCallbackPairs"]
+  DUPCLOSURE R4 K51 [PROTO_15]
+  CAPTURE UPVAL U7
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K1 ["_viewabilityTuples"]
+  JUMP [+26]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R2 R4 K52 ["onViewableItemsChanged"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K53 ["viewabilityConfig"]
+  JUMPIFNOT R2 [+17]
+  GETTABLEKS R5 R0 K1 ["_viewabilityTuples"]
+  DUPTABLE R6 K55 [{"viewabilityHelper", "onViewableItemsChanged"}]
+  GETUPVAL R8 7
+  GETTABLEKS R7 R8 K3 ["new"]
+  MOVE R8 R3
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K54 ["viewabilityHelper"]
+  SETTABLEKS R2 R6 K52 ["onViewableItemsChanged"]
+  FASTCALL2 TABLE_INSERT R5 R6 [+3]
+  GETIMPORT R4 K58 [table.insert]
+  CALL R4 2 0
+  DUPTABLE R2 K63 [{"first", "last", "firstItemTracked", "scrollPositionDelta"}]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K64 ["initialScrollIndex"]
+  LOADB R4 0
+  JUMPIFEQKNIL R5 [+5]
+  JUMPIFNOTEQKN R5 K65 [1] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K64 ["initialScrollIndex"]
+  JUMP [+1]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K59 ["first"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K66 ["getItemCount"]
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K67 ["data"]
+  CALL R6 1 1
+  ADDK R5 R6 K65 [1]
+  GETTABLEKS R10 R0 K0 ["props"]
+  GETTABLEKS R9 R10 K64 ["initialScrollIndex"]
+  LOADB R8 0
+  JUMPIFEQKNIL R9 [+5]
+  JUMPIFNOTEQKN R9 K65 [1] [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  JUMPIFNOT R8 [+5]
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K64 ["initialScrollIndex"]
+  JUMP [+1]
+  LOADN R7 1
+  GETTABLEKS R10 R0 K0 ["props"]
+  GETTABLEKS R9 R10 K68 ["initialNumToRender"]
+  JUMPIFNOTEQKNIL R9 [+3]
+  LOADN R8 10
+  JUMP [+1]
+  MOVE R8 R9
+  ADD R6 R7 R8
+  FASTCALL2 MATH_MIN R5 R6 [+3]
+  GETIMPORT R4 K71 [math.min]
+  CALL R4 2 1
+  SUBK R3 R4 K65 [1]
+  SETTABLEKS R3 R2 K60 ["last"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K67 ["data"]
+  JUMPIFNOT R4 [+23]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K66 ["getItemCount"]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K67 ["data"]
+  CALL R4 1 1
+  LOADN R5 0
+  JUMPIFNOTLT R5 R4 [+12]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K72 ["getItem"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K67 ["data"]
+  LOADN R5 1
+  CALL R3 2 1
+  JUMP [+3]
+  GETUPVAL R4 8
+  GETTABLEKS R3 R4 K73 ["None"]
+  SETTABLEKS R3 R2 K61 ["firstItemTracked"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K62 ["scrollPositionDelta"]
+  NAMECALL R3 R0 K74 ["_isNestedWithSameOrientation"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+21]
+  GETTABLEKS R4 R0 K75 ["context"]
+  GETTABLEKS R3 R4 K76 ["getNestedChildState"]
+  NAMECALL R4 R0 K77 ["_getListKey"]
+  CALL R4 1 -1
+  CALL R3 -1 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K78 ["toJSBoolean"]
+  MOVE R5 R3
+  CALL R4 1 1
+  JUMPIFNOT R4 [+7]
+  MOVE R2 R3
+  SETTABLEKS R3 R0 K79 ["state"]
+  GETTABLEKS R4 R3 K80 ["frames"]
+  SETTABLEKS R4 R0 K6 ["_frames"]
+  SETTABLEKS R2 R0 K79 ["state"]
+  NEWCLOSURE R3 P3
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K81 ["_getScrollMetrics"]
+  NEWCLOSURE R3 P4
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K82 ["_getOutermostParentListRef"]
+  NEWCLOSURE R3 P5
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K83 ["_getNestedChildState"]
+  NEWCLOSURE R3 P6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U3
+  SETTABLEKS R3 R0 K84 ["_registerAsNestedChild"]
+  NEWCLOSURE R3 P7
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K85 ["_unregisterAsNestedChild"]
+  NEWCLOSURE R3 P8
+  CAPTURE UPVAL U6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R3 R0 K86 ["_onUpdateSeparators"]
+  DUPCLOSURE R3 K87 [PROTO_23]
+  SETTABLEKS R3 R0 K88 ["_getSpacerKey"]
+  NEWCLOSURE R3 P10
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K89 ["_captureScrollRef"]
+  NEWCLOSURE R3 P11
+  CAPTURE VAL R0
+  CAPTURE UPVAL U12
+  CAPTURE UPVAL U13
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U14
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U15
+  SETTABLEKS R3 R0 K90 ["_defaultRenderScrollComponent"]
+  NEWCLOSURE R3 P12
+  CAPTURE VAL R0
+  CAPTURE UPVAL U8
+  SETTABLEKS R3 R0 K91 ["_onCellUnmount"]
+  NEWCLOSURE R3 P13
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K92 ["_onLayout"]
+  NEWCLOSURE R3 P14
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K93 ["_onLayoutEmpty"]
+  NEWCLOSURE R3 P15
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K94 ["_onLayoutFooter"]
+  NEWCLOSURE R3 P16
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K95 ["_onLayoutHeader"]
+  NEWCLOSURE R3 P17
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K96 ["_onContentSizeChange"]
+  NEWCLOSURE R3 P18
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K97 ["_convertParentScrollMetrics"]
+  NEWCLOSURE R3 P19
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U16
+  SETTABLEKS R3 R0 K98 ["_onScroll"]
+  NEWCLOSURE R3 P20
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  SETTABLEKS R3 R0 K99 ["_onScrollBeginDrag"]
+  NEWCLOSURE R3 P21
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R3 R0 K100 ["_onScrollEndDrag"]
+  NEWCLOSURE R3 P22
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K101 ["_onMomentumScrollBegin"]
+  NEWCLOSURE R3 P23
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K102 ["_onMomentumScrollEnd"]
+  NEWCLOSURE R3 P24
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K103 ["_createViewToken"]
+  NEWCLOSURE R3 P25
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R3 R0 K104 ["_getFrameMetricsApprox"]
+  RETURN R0 0
+
+PROTO_49:
+  JUMPIFEQKNIL R1 [+4]
+  GETTABLEKS R2 R1 K0 ["animated"]
+  JUMP [+1]
+  LOADB R2 1
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K2 ["getItemCount"]
+  GETTABLEKS R5 R0 K1 ["props"]
+  GETTABLEKS R4 R5 K3 ["data"]
+  CALL R3 1 1
+  GETTABLEKS R4 R0 K4 ["_getFrameMetricsApprox"]
+  MOVE R5 R3
+  CALL R4 1 1
+  GETTABLEKS R7 R0 K1 ["props"]
+  GETTABLEKS R6 R7 K5 ["inverted"]
+  JUMPIFNOT R6 [+2]
+  LOADN R5 0
+  JUMP [+19]
+  LOADN R6 0
+  GETTABLEKS R10 R4 K6 ["offset"]
+  GETTABLEKS R11 R4 K7 ["length"]
+  ADD R9 R10 R11
+  GETTABLEKS R10 R0 K8 ["_footerLength"]
+  ADD R8 R9 R10
+  GETTABLEKS R10 R0 K9 ["_scrollMetrics"]
+  GETTABLEKS R9 R10 K10 ["visibleLength"]
+  SUB R7 R8 R9
+  FASTCALL2 MATH_MAX R6 R7 [+3]
+  GETIMPORT R5 K13 [math.max]
+  CALL R5 2 1
+  GETTABLEKS R6 R0 K14 ["_scrollRef"]
+  JUMPIFNOTEQKNIL R6 [+2]
+  RETURN R0 0
+  GETTABLEKS R7 R0 K14 ["_scrollRef"]
+  GETTABLEKS R6 R7 K15 ["scrollTo"]
+  JUMPIFNOTEQKNIL R6 [+10]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K16 ["warn"]
+  LOADK R8 K17 ["No scrollTo method provided. This may be because you have two nested "]
+  LOADK R9 K18 ["VirtualizedLists with the same orientation, or because you are "]
+  LOADK R10 K19 ["using a custom component that does not implement scrollTo."]
+  CONCAT R7 R8 R10
+  CALL R6 1 0
+  RETURN R0 0
+  GETTABLEKS R7 R0 K14 ["_scrollRef"]
+  GETTABLEKS R6 R7 K15 ["scrollTo"]
+  GETTABLEKS R10 R0 K1 ["props"]
+  GETTABLEKS R9 R10 K20 ["horizontal"]
+  JUMPIFNOTEQKNIL R9 [+3]
+  LOADB R8 0
+  JUMP [+1]
+  MOVE R8 R9
+  JUMPIFNOT R8 [+6]
+  DUPTABLE R7 K22 [{"x", "animated"}]
+  SETTABLEKS R5 R7 K21 ["x"]
+  SETTABLEKS R2 R7 K0 ["animated"]
+  JUMP [+5]
+  DUPTABLE R7 K24 [{"y", "animated"}]
+  SETTABLEKS R5 R7 K23 ["y"]
+  SETTABLEKS R2 R7 K0 ["animated"]
+  CALL R6 1 0
+  RETURN R0 0
+
+PROTO_50:
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R2 R7 K1 ["data"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R3 R7 K2 ["horizontal"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R4 R7 K3 ["getItemCount"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R5 R7 K4 ["getItemLayout"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K5 ["onScrollToIndexFailed"]
+  GETTABLEKS R7 R1 K6 ["animated"]
+  GETTABLEKS R8 R1 K7 ["index"]
+  GETTABLEKS R9 R1 K8 ["viewOffset"]
+  GETTABLEKS R10 R1 K9 ["viewPosition"]
+  GETUPVAL R11 0
+  LOADN R13 1
+  JUMPIFLE R13 R8 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  LOADK R13 K10 ["scrollToIndex out of range: requested index %d but minimum is 1"]
+  MOVE R15 R8
+  NAMECALL R13 R13 K11 ["format"]
+  CALL R13 2 -1
+  CALL R11 -1 0
+  GETUPVAL R11 0
+  MOVE R13 R4
+  MOVE R14 R2
+  CALL R13 1 1
+  LOADN R14 1
+  JUMPIFLE R14 R13 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  LOADK R13 K12 ["scrollToIndex out of range: item length %d but minimum is 1"]
+  MOVE R15 R4
+  MOVE R16 R2
+  CALL R15 1 -1
+  NAMECALL R13 R13 K11 ["format"]
+  CALL R13 -1 -1
+  CALL R11 -1 0
+  GETUPVAL R11 0
+  MOVE R13 R4
+  MOVE R14 R2
+  CALL R13 1 1
+  JUMPIFLE R8 R13 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  LOADK R13 K13 ["scrollToIndex out of range: requested index %d is out of 1 to %d"]
+  MOVE R15 R8
+  MOVE R16 R4
+  MOVE R17 R2
+  CALL R16 1 -1
+  NAMECALL R13 R13 K11 ["format"]
+  CALL R13 -1 -1
+  CALL R11 -1 0
+  JUMPIF R5 [+28]
+  GETTABLEKS R11 R0 K14 ["_highestMeasuredFrameIndex"]
+  JUMPIFNOTLT R11 R8 [+25]
+  GETUPVAL R11 0
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K15 ["toJSBoolean"]
+  MOVE R13 R6
+  CALL R12 1 1
+  LOADK R14 K16 ["scrollToIndex should be used in conjunction with getItemLayout or onScrollToIndexFailed, "]
+  LOADK R15 K17 ["otherwise there is no way to know the location of offscreen indices or handle failures."]
+  CONCAT R13 R14 R15
+  CALL R11 2 0
+  MOVE R11 R6
+  DUPTABLE R12 K20 [{"averageItemLength", "highestMeasuredFrameIndex", "index"}]
+  GETTABLEKS R13 R0 K21 ["_averageCellLength"]
+  SETTABLEKS R13 R12 K18 ["averageItemLength"]
+  GETTABLEKS R13 R0 K14 ["_highestMeasuredFrameIndex"]
+  SETTABLEKS R13 R12 K19 ["highestMeasuredFrameIndex"]
+  SETTABLEKS R8 R12 K7 ["index"]
+  CALL R11 1 0
+  RETURN R0 0
+  NAMECALL R12 R0 K22 ["getScrollRef"]
+  CALL R12 1 1
+  JUMPIFNOT R12 [+8]
+  NAMECALL R13 R0 K22 ["getScrollRef"]
+  CALL R13 1 1
+  GETTABLEKS R12 R13 K23 ["_nativeRef"]
+  GETTABLEKS R11 R12 K24 ["current"]
+  JUMP [+1]
+  LOADNIL R11
+  JUMPIFNOTEQKNIL R11 [+2]
+  RETURN R0 0
+  GETTABLEKS R12 R11 K25 ["AbsoluteCanvasSize"]
+  GETTABLEKS R13 R11 K26 ["AbsoluteSize"]
+  GETTABLEKS R14 R0 K27 ["_getFrameMetricsApprox"]
+  MOVE R15 R8
+  CALL R14 1 1
+  LOADN R17 0
+  GETTABLEKS R20 R0 K0 ["props"]
+  GETTABLEKS R19 R20 K28 ["inverted"]
+  JUMPIFNOT R19 [+35]
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R21 R12 K29 ["X"]
+  JUMP [+2]
+  GETTABLEKS R21 R12 K30 ["Y"]
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R22 R13 K29 ["X"]
+  JUMP [+2]
+  GETTABLEKS R22 R13 K30 ["Y"]
+  SUB R20 R21 R22
+  GETTABLEKS R21 R14 K31 ["offset"]
+  SUB R19 R20 R21
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K15 ["toJSBoolean"]
+  MOVE R23 R10
+  CALL R22 1 1
+  JUMPIFNOT R22 [+2]
+  MOVE R21 R10
+  JUMPIF R21 [+1]
+  LOADN R21 0
+  GETTABLEKS R24 R0 K32 ["_scrollMetrics"]
+  GETTABLEKS R23 R24 K33 ["visibleLength"]
+  GETTABLEKS R24 R14 K34 ["length"]
+  SUB R22 R23 R24
+  MUL R20 R21 R22
+  SUB R18 R19 R20
+  JUMP [+20]
+  GETTABLEKS R19 R14 K31 ["offset"]
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K15 ["toJSBoolean"]
+  MOVE R23 R10
+  CALL R22 1 1
+  JUMPIFNOT R22 [+2]
+  MOVE R21 R10
+  JUMPIF R21 [+1]
+  LOADN R21 0
+  GETTABLEKS R24 R0 K32 ["_scrollMetrics"]
+  GETTABLEKS R23 R24 K33 ["visibleLength"]
+  GETTABLEKS R24 R14 K34 ["length"]
+  SUB R22 R23 R24
+  MUL R20 R21 R22
+  SUB R18 R19 R20
+  FASTCALL2 MATH_MAX R17 R18 [+3]
+  GETIMPORT R16 K37 [math.max]
+  CALL R16 2 1
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K15 ["toJSBoolean"]
+  MOVE R19 R9
+  CALL R18 1 1
+  JUMPIFNOT R18 [+2]
+  MOVE R17 R9
+  JUMPIF R17 [+1]
+  LOADN R17 0
+  SUB R15 R16 R17
+  GETTABLEKS R16 R0 K38 ["_scrollRef"]
+  JUMPIFNOTEQKNIL R16 [+2]
+  RETURN R0 0
+  GETTABLEKS R17 R0 K38 ["_scrollRef"]
+  GETTABLEKS R16 R17 K39 ["scrollTo"]
+  JUMPIFNOTEQKNIL R16 [+10]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K40 ["warn"]
+  LOADK R18 K41 ["No scrollTo method provided. This may be because you have two nested "]
+  LOADK R19 K42 ["VirtualizedLists with the same orientation, or because you are "]
+  LOADK R20 K43 ["using a custom component that does not implement scrollTo."]
+  CONCAT R17 R18 R20
+  CALL R16 1 0
+  RETURN R0 0
+  GETTABLEKS R17 R0 K38 ["_scrollRef"]
+  GETTABLEKS R16 R17 K39 ["scrollTo"]
+  JUMPIFNOT R3 [+6]
+  DUPTABLE R17 K45 [{"x", "animated"}]
+  SETTABLEKS R15 R17 K44 ["x"]
+  SETTABLEKS R7 R17 K6 ["animated"]
+  JUMP [+5]
+  DUPTABLE R17 K47 [{"y", "animated"}]
+  SETTABLEKS R15 R17 K46 ["y"]
+  SETTABLEKS R7 R17 K6 ["animated"]
+  CALL R16 1 0
+  RETURN R0 0
+
+PROTO_51:
+  GETTABLEKS R2 R1 K0 ["item"]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R3 R6 K2 ["data"]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R4 R6 K3 ["getItem"]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K4 ["getItemCount"]
+  MOVE R6 R5
+  MOVE R7 R3
+  CALL R6 1 1
+  LOADN R7 1
+  JUMPIFNOTLE R7 R6 [+23]
+  MOVE R8 R4
+  MOVE R9 R3
+  MOVE R10 R7
+  CALL R8 2 1
+  JUMPIFNOTEQ R8 R2 [+15]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["assign"]
+  NEWTABLE R11 0 0
+  MOVE R12 R1
+  DUPTABLE R13 K7 [{"index"}]
+  SETTABLEKS R7 R13 K6 ["index"]
+  CALL R10 3 -1
+  NAMECALL R8 R0 K8 ["scrollToIndex"]
+  CALL R8 -1 0
+  RETURN R0 0
+  ADDK R7 R7 K9 [1]
+  JUMPBACK [-24]
+  RETURN R0 0
+
+PROTO_52:
+  NAMECALL R3 R0 K0 ["getScrollRef"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+8]
+  NAMECALL R4 R0 K0 ["getScrollRef"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K1 ["_nativeRef"]
+  GETTABLEKS R2 R3 K2 ["current"]
+  JUMP [+1]
+  LOADNIL R2
+  JUMPIFNOTEQKNIL R2 [+2]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K3 ["animated"]
+  GETTABLEKS R4 R1 K4 ["offset"]
+  GETTABLEKS R5 R0 K5 ["_scrollRef"]
+  JUMPIFNOTEQKNIL R5 [+2]
+  RETURN R0 0
+  GETTABLEKS R6 R0 K6 ["props"]
+  GETTABLEKS R5 R6 K7 ["inverted"]
+  JUMPIFNOT R5 [+26]
+  GETTABLEKS R5 R2 K8 ["AbsoluteCanvasSize"]
+  GETTABLEKS R6 R2 K9 ["AbsoluteSize"]
+  GETTABLEKS R10 R0 K6 ["props"]
+  GETTABLEKS R9 R10 K10 ["horizontal"]
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R8 R5 K11 ["X"]
+  JUMP [+2]
+  GETTABLEKS R8 R5 K12 ["Y"]
+  SUB R7 R8 R4
+  GETTABLEKS R10 R0 K6 ["props"]
+  GETTABLEKS R9 R10 K10 ["horizontal"]
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R8 R6 K11 ["X"]
+  JUMP [+2]
+  GETTABLEKS R8 R6 K12 ["Y"]
+  SUB R4 R7 R8
+  GETTABLEKS R6 R0 K5 ["_scrollRef"]
+  GETTABLEKS R5 R6 K13 ["scrollTo"]
+  JUMPIFNOTEQKNIL R5 [+10]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K14 ["warn"]
+  LOADK R7 K15 ["No scrollTo method provided. This may be because you have two nested "]
+  LOADK R8 K16 ["VirtualizedLists with the same orientation, or because you are "]
+  LOADK R9 K17 ["using a custom component that does not implement scrollTo."]
+  CONCAT R6 R7 R9
+  CALL R5 1 0
+  RETURN R0 0
+  GETTABLEKS R6 R0 K5 ["_scrollRef"]
+  GETTABLEKS R5 R6 K13 ["scrollTo"]
+  GETTABLEKS R9 R0 K6 ["props"]
+  GETTABLEKS R8 R9 K10 ["horizontal"]
+  JUMPIFNOTEQKNIL R8 [+3]
+  LOADB R7 0
+  JUMP [+1]
+  MOVE R7 R8
+  JUMPIFNOT R7 [+6]
+  DUPTABLE R6 K19 [{"x", "animated"}]
+  SETTABLEKS R4 R6 K18 ["x"]
+  SETTABLEKS R3 R6 K3 ["animated"]
+  JUMP [+5]
+  DUPTABLE R6 K21 [{"y", "animated"}]
+  SETTABLEKS R4 R6 K20 ["y"]
+  SETTABLEKS R3 R6 K3 ["animated"]
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_53:
+  GETTABLEKS R1 R0 K0 ["ref"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["ref"]
+  NAMECALL R1 R1 K1 ["recordInteraction"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_54:
+  GETTABLEKS R1 R0 K0 ["viewabilityHelper"]
+  NAMECALL R1 R1 K1 ["recordInteraction"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_55:
+  GETTABLEKS R1 R0 K0 ["_nestedChildLists"]
+  DUPCLOSURE R3 K1 [PROTO_53]
+  NAMECALL R1 R1 K2 ["forEach"]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["forEach"]
+  GETTABLEKS R2 R0 K3 ["_viewabilityTuples"]
+  DUPCLOSURE R3 K4 [PROTO_54]
+  CALL R1 2 0
+  GETTABLEKS R4 R0 K5 ["props"]
+  GETTABLEKS R3 R4 K6 ["data"]
+  NAMECALL R1 R0 K7 ["_updateViewableItems"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_56:
+  GETTABLEKS R1 R0 K0 ["_scrollRef"]
+  JUMPIFNOTEQKNIL R1 [+2]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K0 ["_scrollRef"]
+  NAMECALL R1 R1 K1 ["flashScrollIndicators"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_57:
+  GETTABLEKS R1 R0 K0 ["_scrollRef"]
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R2 R0 K0 ["_scrollRef"]
+  GETTABLEKS R1 R2 K1 ["getScrollResponder"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K0 ["_scrollRef"]
+  NAMECALL R1 R1 K1 ["getScrollResponder"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_58:
+  GETTABLEKS R1 R0 K0 ["_scrollRef"]
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R2 R0 K0 ["_scrollRef"]
+  GETTABLEKS R1 R2 K1 ["getScrollableNode"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K0 ["_scrollRef"]
+  NAMECALL R1 R1 K1 ["getScrollableNode"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["findNodeHandle"]
+  GETTABLEKS R2 R0 K0 ["_scrollRef"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_59:
+  GETTABLEKS R1 R0 K0 ["_scrollRef"]
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R2 R0 K0 ["_scrollRef"]
+  GETTABLEKS R1 R2 K1 ["getScrollRef"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K0 ["_scrollRef"]
+  NAMECALL R1 R1 K1 ["getScrollRef"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  GETTABLEKS R1 R0 K0 ["_scrollRef"]
+  RETURN R1 1
+
+PROTO_60:
+  GETTABLEKS R2 R0 K0 ["_scrollRef"]
+  JUMPIFNOT R2 [+6]
+  GETTABLEKS R2 R0 K0 ["_scrollRef"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setNativeProps"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_61:
+  GETTABLEKS R2 R0 K0 ["context"]
+  JUMPIFNOT R2 [+10]
+  GETTABLEKS R3 R0 K0 ["context"]
+  GETTABLEKS R2 R3 K1 ["cellKey"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R2 R0 K0 ["context"]
+  GETTABLEKS R1 R2 K1 ["cellKey"]
+  RETURN R1 1
+  LOADK R1 K2 ["rootList"]
+  RETURN R1 1
+
+PROTO_62:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["toJSBoolean"]
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K2 ["listKey"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["listKey"]
+  RETURN R1 1
+  NAMECALL R1 R0 K3 ["_getCellKey"]
+  CALL R1 1 1
+  RETURN R1 1
+
+PROTO_63:
+  DUPTABLE R1 K4 [{"listKey", "cellKey", "horizontal", "parent"}]
+  NAMECALL R2 R0 K5 ["_getListKey"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K0 ["listKey"]
+  NAMECALL R2 R0 K6 ["_getCellKey"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K1 ["cellKey"]
+  GETTABLEKS R4 R0 K7 ["props"]
+  GETTABLEKS R3 R4 K2 ["horizontal"]
+  JUMPIFNOTEQKNIL R3 [+3]
+  LOADB R2 0
+  JUMP [+1]
+  MOVE R2 R3
+  SETTABLEKS R2 R1 K2 ["horizontal"]
+  GETTABLEKS R3 R0 K8 ["context"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R0 K8 ["context"]
+  GETTABLEKS R2 R3 K9 ["debugInfo"]
+  JUMP [+1]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K3 ["parent"]
+  RETURN R1 1
+
+PROTO_64:
+  GETTABLEKS R1 R0 K0 ["_hasMore"]
+  RETURN R1 1
+
+PROTO_65:
+  NAMECALL R1 R0 K0 ["_isNestedWithSameOrientation"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+24]
+  GETTABLEKS R2 R0 K1 ["context"]
+  GETTABLEKS R1 R2 K2 ["registerAsNestedChild"]
+  DUPTABLE R2 K7 [{"cellKey", "key", "ref", "parentDebugInfo"}]
+  NAMECALL R3 R0 K8 ["_getCellKey"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K3 ["cellKey"]
+  NAMECALL R3 R0 K9 ["_getListKey"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K4 ["key"]
+  SETTABLEKS R0 R2 K5 ["ref"]
+  GETTABLEKS R4 R0 K1 ["context"]
+  GETTABLEKS R3 R4 K10 ["debugInfo"]
+  SETTABLEKS R3 R2 K6 ["parentDebugInfo"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_66:
+  GETTABLEKS R1 R0 K0 ["viewabilityHelper"]
+  NAMECALL R1 R1 K1 ["dispose"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_67:
+  NAMECALL R1 R0 K0 ["_isNestedWithSameOrientation"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+30]
+  GETTABLEKS R2 R0 K1 ["context"]
+  GETTABLEKS R1 R2 K2 ["unregisterAsNestedChild"]
+  DUPTABLE R2 K5 [{"key", "state"}]
+  NAMECALL R3 R0 K6 ["_getListKey"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K3 ["key"]
+  DUPTABLE R3 K10 [{"first", "last", "frames"}]
+  GETTABLEKS R5 R0 K4 ["state"]
+  GETTABLEKS R4 R5 K7 ["first"]
+  SETTABLEKS R4 R3 K7 ["first"]
+  GETTABLEKS R5 R0 K4 ["state"]
+  GETTABLEKS R4 R5 K8 ["last"]
+  SETTABLEKS R4 R3 K8 ["last"]
+  GETTABLEKS R4 R0 K11 ["_frames"]
+  SETTABLEKS R4 R3 K9 ["frames"]
+  SETTABLEKS R3 R2 K4 ["state"]
+  CALL R1 1 0
+  LOADNIL R3
+  NAMECALL R1 R0 K12 ["_updateViewableItems"]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K13 ["_updateCellsToRenderBatcher"]
+  DUPTABLE R3 K15 [{"abort"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K14 ["abort"]
+  NAMECALL R1 R1 K16 ["dispose"]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K17 ["forEach"]
+  GETTABLEKS R2 R0 K18 ["_viewabilityTuples"]
+  DUPCLOSURE R3 K19 [PROTO_66]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K20 ["_fillRateHelper"]
+  NAMECALL R1 R1 K21 ["deactivateAndFlush"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_68:
+  LOADNIL R2
+  LOADN R5 1
+  LENGTH R3 R0
+  LOADN R4 1
+  FORNPREP R3
+  GETUPVAL R6 0
+  GETTABLE R7 R0 R5
+  MOVE R8 R1
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R2 R5
+  JUMP [+1]
+  FORNLOOP R3
+  JUMPIFNOTEQKNIL R2 [+3]
+  LOADN R3 1
+  RETURN R3 1
+  RETURN R2 1
+
+PROTO_69:
+  GETTABLEKS R2 R0 K0 ["data"]
+  GETTABLEKS R3 R0 K1 ["getItemCount"]
+  GETTABLEKS R4 R0 K2 ["maintainVisibleContentPosition"]
+  GETTABLEKS R5 R1 K3 ["firstItemTracked"]
+  GETTABLEKS R6 R1 K4 ["scrollPositionDelta"]
+  GETTABLEKS R8 R0 K5 ["compareItemData"]
+  JUMPIFNOTEQKNIL R8 [+3]
+  DUPCLOSURE R7 K6 [PROTO_10]
+  JUMP [+1]
+  MOVE R7 R8
+  JUMPIFNOT R2 [+12]
+  MOVE R9 R3
+  MOVE R10 R2
+  CALL R9 1 1
+  LOADN R10 0
+  JUMPIFNOTLT R10 R9 [+7]
+  GETTABLEKS R8 R0 K7 ["getItem"]
+  MOVE R9 R2
+  LOADN R10 1
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R7
+  JUMPIFNOT R4 [+18]
+  JUMPIFNOTEQKN R6 K8 [0] [+17]
+  JUMPIFEQKNIL R5 [+15]
+  JUMPIFEQKNIL R8 [+13]
+  MOVE R10 R7
+  MOVE R11 R5
+  MOVE R12 R8
+  CALL R10 2 1
+  JUMPIFNOT R10 [+2]
+  LOADN R6 0
+  JUMP [+5]
+  MOVE R10 R9
+  MOVE R11 R2
+  MOVE R12 R5
+  CALL R10 2 1
+  SUBK R6 R10 K9 [1]
+  MOVE R10 R3
+  MOVE R11 R2
+  CALL R10 1 1
+  GETTABLEKS R12 R0 K10 ["maxToRenderPerBatch"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADN R11 10
+  JUMP [+1]
+  MOVE R11 R12
+  LOADN R13 1
+  GETTABLEKS R15 R1 K11 ["first"]
+  SUB R16 R10 R11
+  FASTCALL2 MATH_MIN R15 R16 [+3]
+  GETIMPORT R14 K14 [math.min]
+  CALL R14 2 1
+  FASTCALL2 MATH_MAX R13 R14 [+3]
+  GETIMPORT R12 K16 [math.max]
+  CALL R12 2 1
+  LOADN R13 0
+  JUMPIFNOTLT R13 R10 [+14]
+  ADD R13 R12 R6
+  JUMPIFNOTLT R10 R13 [+11]
+  LOADN R6 0
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K17 ["warn"]
+  LOADK R15 K18 ["WARNING: maintainVisibleContentPosition failed because scrollPositionDelta was out of bounds. "]
+  LOADK R16 K19 ["This could indicate that items in `data` are getting removed, items are getting added "]
+  LOADK R17 K20 ["to the middle of `data`, or a different `data` array is getting passed in. Consider "]
+  LOADK R18 K21 ["changing the `key` prop of the List if the `data` prop is significantly altered."]
+  CONCAT R14 R15 R18
+  CALL R13 1 0
+  LOADN R13 0
+  JUMPIFNOTLT R13 R6 [+21]
+  LOADN R15 1
+  FASTCALL2 MATH_MIN R6 R10 [+5]
+  MOVE R17 R6
+  MOVE R18 R10
+  GETIMPORT R16 K14 [math.min]
+  CALL R16 2 1
+  MOVE R13 R16
+  LOADN R14 1
+  FORNPREP R13
+  GETTABLEKS R16 R0 K7 ["getItem"]
+  MOVE R17 R2
+  MOVE R18 R15
+  CALL R16 2 1
+  LOADB R17 1
+  SETTABLEKS R17 R16 K22 ["shouldResizeOnMount"]
+  FORNLOOP R13
+  DUPTABLE R13 K24 [{"first", "last", "firstItemTracked", "scrollPositionDelta"}]
+  SETTABLEKS R12 R13 K11 ["first"]
+  LOADN R15 1
+  GETTABLEKS R17 R1 K23 ["last"]
+  FASTCALL2 MATH_MIN R17 R10 [+4]
+  MOVE R18 R10
+  GETIMPORT R16 K14 [math.min]
+  CALL R16 2 1
+  FASTCALL2 MATH_MAX R15 R16 [+3]
+  GETIMPORT R14 K16 [math.max]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K23 ["last"]
+  MOVE R14 R8
+  JUMPIF R14 [+3]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K25 ["None"]
+  SETTABLEKS R14 R13 K3 ["firstItemTracked"]
+  SETTABLEKS R6 R13 K4 ["scrollPositionDelta"]
+  RETURN R13 1
+
+PROTO_70:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  GETUPVAL R5 2
+  NAMECALL R1 R1 K0 ["_onCellLayout"]
+  CALL R1 4 -1
+  RETURN R1 -1
+
+PROTO_71:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_cellRefs"]
+  GETUPVAL R3 1
+  FASTCALL1 TOSTRING R3 [+2]
+  GETIMPORT R2 K2 [tostring]
+  CALL R2 1 1
+  SETTABLE R0 R1 R2
+  RETURN R0 0
+
+PROTO_72:
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R7 R13 K1 ["CellRendererComponent"]
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R8 R13 K2 ["ItemSeparatorComponent"]
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R9 R13 K3 ["data"]
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R10 R13 K4 ["getItem"]
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R11 R13 K5 ["getItemCount"]
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R12 R13 K6 ["horizontal"]
+  GETTABLEKS R15 R0 K0 ["props"]
+  GETTABLEKS R14 R15 K7 ["ListHeaderComponent"]
+  JUMPIFNOT R14 [+2]
+  LOADN R13 1
+  JUMP [+1]
+  LOADN R13 0
+  MOVE R14 R11
+  MOVE R15 R9
+  CALL R14 1 1
+  LOADNIL R15
+  FASTCALL2 MATH_MIN R14 R5 [+5]
+  MOVE R17 R14
+  MOVE R18 R5
+  GETIMPORT R16 K10 [math.min]
+  CALL R16 2 1
+  MOVE R5 R16
+  MOVE R16 R4
+  JUMPIFNOTLE R16 R5 [+94]
+  MOVE R17 R10
+  MOVE R18 R9
+  MOVE R19 R16
+  CALL R17 2 1
+  MOVE R20 R17
+  MOVE R21 R16
+  NAMECALL R18 R0 K11 ["_keyExtractor"]
+  CALL R18 3 1
+  GETTABLEKS R19 R0 K12 ["_indicesToKeys"]
+  MOVE R21 R16
+  MOVE R22 R18
+  NAMECALL R19 R19 K13 ["set"]
+  CALL R19 3 0
+  ADD R21 R16 R13
+  NAMECALL R19 R3 K14 ["has"]
+  CALL R19 2 1
+  JUMPIFNOT R19 [+7]
+  LENGTH R21 R1
+  FASTCALL2 TABLE_INSERT R2 R21 [+4]
+  MOVE R20 R2
+  GETIMPORT R19 K17 [table.insert]
+  CALL R19 2 0
+  MOVE R19 R16
+  MOVE R21 R1
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K18 ["createElement"]
+  GETUPVAL R23 1
+  DUPTABLE R24 K31 [{"CellRendererComponent", "ItemSeparatorComponent", "cellKey", "fillRateHelper", "horizontal", "index", "inversionStyle", "item", "key", "prevCellKey", "onUpdateSeparators", "onLayout", "onUnmount", "parentProps", "ref"}]
+  SETTABLEKS R7 R24 K1 ["CellRendererComponent"]
+  JUMPIFNOTLT R16 R14 [+3]
+  MOVE R25 R8
+  JUMP [+1]
+  LOADNIL R25
+  SETTABLEKS R25 R24 K2 ["ItemSeparatorComponent"]
+  SETTABLEKS R18 R24 K19 ["cellKey"]
+  GETTABLEKS R25 R0 K32 ["_fillRateHelper"]
+  SETTABLEKS R25 R24 K20 ["fillRateHelper"]
+  SETTABLEKS R12 R24 K6 ["horizontal"]
+  SETTABLEKS R16 R24 K21 ["index"]
+  SETTABLEKS R6 R24 K22 ["inversionStyle"]
+  SETTABLEKS R17 R24 K23 ["item"]
+  SETTABLEKS R18 R24 K24 ["key"]
+  SETTABLEKS R15 R24 K25 ["prevCellKey"]
+  GETTABLEKS R25 R0 K33 ["_onUpdateSeparators"]
+  SETTABLEKS R25 R24 K26 ["onUpdateSeparators"]
+  NEWCLOSURE R25 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R18
+  CAPTURE VAL R19
+  SETTABLEKS R25 R24 K27 ["onLayout"]
+  GETTABLEKS R25 R0 K34 ["_onCellUnmount"]
+  SETTABLEKS R25 R24 K28 ["onUnmount"]
+  GETTABLEKS R25 R0 K0 ["props"]
+  SETTABLEKS R25 R24 K29 ["parentProps"]
+  NEWCLOSURE R25 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R18
+  SETTABLEKS R25 R24 K30 ["ref"]
+  CALL R22 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R20 K17 [table.insert]
+  CALL R20 -1 0
+  MOVE R15 R18
+  ADDK R16 R16 K35 [1]
+  JUMPBACK [-95]
+  RETURN R0 0
+
+PROTO_73:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["disableVirtualization"]
+  JUMPIFEQKNIL R2 [+6]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["disableVirtualization"]
+  RETURN R1 1
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_74:
+  GETTABLEKS R1 R0 K0 ["context"]
+  LOADB R2 0
+  JUMPIFEQKNIL R1 [+20]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["toJSBoolean"]
+  GETTABLEKS R4 R1 K2 ["horizontal"]
+  CALL R3 1 1
+  GETTABLEKS R6 R0 K3 ["props"]
+  GETTABLEKS R5 R6 K2 ["horizontal"]
+  JUMPIFNOTEQKNIL R5 [+3]
+  LOADB R4 0
+  JUMP [+1]
+  MOVE R4 R5
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_75:
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["keyExtractor"]
+  JUMPIFEQKNIL R3 [+9]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["keyExtractor"]
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 -1
+  RETURN R3 -1
+  GETUPVAL R3 0
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 1
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R5 R2
+  GETIMPORT R4 K3 [tostring]
+  CALL R4 1 1
+  JUMPIFNOTEQ R3 R4 [+21]
+  LOADB R4 1
+  SETUPVAL R4 1
+  GETTABLEKS R4 R1 K4 ["type"]
+  JUMPIFEQKNIL R4 [+15]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K5 ["toJSBoolean"]
+  GETTABLEKS R6 R1 K4 ["type"]
+  GETTABLEKS R5 R6 K6 ["displayName"]
+  CALL R4 1 1
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R5 R1 K4 ["type"]
+  GETTABLEKS R4 R5 K6 ["displayName"]
+  SETUPVAL R4 3
+  RETURN R3 1
+
+PROTO_76:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_onLayoutEmpty"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["onLayout"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["onLayout"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_77:
+  JUMPIFEQKNIL R0 [+42]
+  GETTABLEKS R2 R0 K0 ["horizontal"]
+  NOT R1 R2
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["props"]
+  GETTABLEKS R4 R5 K0 ["horizontal"]
+  JUMPIFNOTEQKNIL R4 [+3]
+  LOADB R3 0
+  JUMP [+1]
+  MOVE R3 R4
+  NOT R2 R3
+  JUMPIFNOTEQ R1 R2 [+26]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_hasWarned"]
+  GETTABLEKS R1 R2 K3 ["nesting"]
+  JUMPIF R1 [+19]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["context"]
+  JUMPIFNOTEQKNIL R1 [+15]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K5 ["error"]
+  LOADK R3 K6 ["VirtualizedLists should never be nested inside plain ScrollViews with the same "]
+  LOADK R4 K7 ["orientation because it can break windowing and other functionality - use another "]
+  LOADK R5 K8 ["VirtualizedList-backed container instead."]
+  CONCAT R2 R3 R5
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["_hasWarned"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K3 ["nesting"]
+  GETUPVAL R1 2
+  RETURN R1 1
+
+PROTO_78:
+  GETIMPORT R2 K1 [_G]
+  GETTABLEKS R1 R2 K2 ["__DEV__"]
+  JUMPIFNOT R1 [+19]
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K3 ["props"]
+  GETTABLEKS R2 R3 K4 ["contentContainerStyle"]
+  CALL R1 1 1
+  JUMPIFEQKNIL R1 [+12]
+  GETTABLEKS R2 R1 K5 ["flexWrap"]
+  JUMPIFNOTEQKS R2 K6 ["wrap"] [+8]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K7 ["warn"]
+  LOADK R4 K8 ["`flexWrap: `wrap`` is not supported with the `VirtualizedList` components."]
+  LOADK R5 K9 ["Consider using `numColumns` with `FlatList` instead."]
+  CONCAT R3 R4 R5
+  CALL R2 1 0
+  GETTABLEKS R4 R0 K3 ["props"]
+  GETTABLEKS R1 R4 K10 ["ListEmptyComponent"]
+  GETTABLEKS R4 R0 K3 ["props"]
+  GETTABLEKS R2 R4 K11 ["ListFooterComponent"]
+  GETTABLEKS R4 R0 K3 ["props"]
+  GETTABLEKS R3 R4 K12 ["ListHeaderComponent"]
+  GETTABLEKS R6 R0 K3 ["props"]
+  GETTABLEKS R4 R6 K13 ["data"]
+  GETTABLEKS R6 R0 K3 ["props"]
+  GETTABLEKS R5 R6 K14 ["horizontal"]
+  NAMECALL R6 R0 K15 ["_isVirtualizationDisabled"]
+  CALL R6 1 1
+  GETTABLEKS R9 R0 K3 ["props"]
+  GETTABLEKS R8 R9 K16 ["inverted"]
+  JUMPIFNOT R8 [+18]
+  GETTABLEKS R10 R0 K3 ["props"]
+  GETTABLEKS R9 R10 K14 ["horizontal"]
+  JUMPIFNOTEQKNIL R9 [+3]
+  LOADB R8 0
+  JUMP [+1]
+  MOVE R8 R9
+  JUMPIFNOT R8 [+4]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K17 ["horizontallyInverted"]
+  JUMP [+5]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K18 ["verticallyInverted"]
+  JUMP [+1]
+  LOADNIL R7
+  NEWTABLE R8 0 0
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K19 ["new"]
+  GETTABLEKS R11 R0 K3 ["props"]
+  GETTABLEKS R10 R11 K20 ["stickyHeaderIndices"]
+  CALL R9 1 1
+  NEWTABLE R10 0 0
+  JUMPIFNOT R3 [+112]
+  LOADN R13 0
+  NAMECALL R11 R9 K21 ["has"]
+  CALL R11 2 1
+  JUMPIFNOT R11 [+7]
+  FASTCALL2K TABLE_INSERT R10 K22 [+5]
+  MOVE R12 R10
+  LOADK R13 K22 [0]
+  GETIMPORT R11 K25 [table.insert]
+  CALL R11 2 0
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K26 ["isValidElement"]
+  MOVE R13 R3
+  CALL R12 1 1
+  JUMPIFNOT R12 [+2]
+  MOVE R11 R3
+  JUMP [+6]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K27 ["createElement"]
+  MOVE R12 R3
+  LOADNIL R13
+  CALL R11 2 1
+  MOVE R13 R8
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K27 ["createElement"]
+  GETUPVAL R15 5
+  DUPTABLE R16 K31 [{"cellKey", "key", "Name"}]
+  NAMECALL R20 R0 K32 ["_getCellKey"]
+  CALL R20 1 1
+  MOVE R18 R20
+  LOADK R19 K33 ["-header"]
+  CONCAT R17 R18 R19
+  SETTABLEKS R17 R16 K28 ["cellKey"]
+  LOADK R17 K34 ["$header"]
+  SETTABLEKS R17 R16 K29 ["key"]
+  LOADK R17 K34 ["$header"]
+  SETTABLEKS R17 R16 K30 ["Name"]
+  GETUPVAL R18 4
+  GETTABLEKS R17 R18 K27 ["createElement"]
+  GETUPVAL R18 6
+  DUPTABLE R19 K40 [{"Name", "onLayout", "style", "LayoutOrder", "AutomaticSize", "Size"}]
+  LOADK R20 K12 ["ListHeaderComponent"]
+  SETTABLEKS R20 R19 K30 ["Name"]
+  GETTABLEKS R20 R0 K41 ["_onLayoutHeader"]
+  SETTABLEKS R20 R19 K35 ["onLayout"]
+  GETUPVAL R21 7
+  GETTABLEKS R20 R21 K42 ["compose"]
+  MOVE R21 R7
+  GETTABLEKS R23 R0 K3 ["props"]
+  GETTABLEKS R22 R23 K43 ["ListHeaderComponentStyle"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K36 ["style"]
+  GETTABLEKS R22 R0 K3 ["props"]
+  GETTABLEKS R21 R22 K16 ["inverted"]
+  JUMPIFNOT R21 [+2]
+  LOADK R20 K44 [999999998]
+  JUMP [+1]
+  LOADK R20 K45 [-999999998]
+  SETTABLEKS R20 R19 K37 ["LayoutOrder"]
+  JUMPIFNOT R5 [+3]
+  GETIMPORT R20 K48 [Enum.AutomaticSize.X]
+  JUMP [+2]
+  GETIMPORT R20 K50 [Enum.AutomaticSize.Y]
+  SETTABLEKS R20 R19 K38 ["AutomaticSize"]
+  JUMPIFNOT R5 [+8]
+  GETIMPORT R20 K52 [UDim2.new]
+  LOADN R21 0
+  LOADN R22 0
+  LOADN R23 1
+  LOADN R24 0
+  CALL R20 4 1
+  JUMP [+7]
+  GETIMPORT R20 K52 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 0
+  LOADN R23 0
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K39 ["Size"]
+  MOVE R20 R11
+  CALL R17 3 -1
+  CALL R14 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R12 K25 [table.insert]
+  CALL R12 -1 0
+  GETTABLEKS R12 R0 K3 ["props"]
+  GETTABLEKS R11 R12 K53 ["getItemCount"]
+  MOVE R12 R4
+  CALL R11 1 1
+  LOADN R12 0
+  JUMPIFNOTLT R12 R11 [+404]
+  LOADB R12 0
+  SETUPVAL R12 8
+  LOADK R12 K54 [""]
+  SETUPVAL R12 9
+  GETTABLEKS R12 R0 K55 ["_getSpacerKey"]
+  NOT R13 R5
+  CALL R12 1 1
+  GETTABLEKS R17 R0 K3 ["props"]
+  GETTABLEKS R16 R17 K57 ["initialScrollIndex"]
+  LOADB R15 0
+  JUMPIFEQKNIL R16 [+5]
+  JUMPIFNOTEQKN R16 K56 [1] [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  JUMPIFNOT R15 [+2]
+  LOADN R14 255
+  JUMP [+10]
+  GETTABLEKS R17 R0 K3 ["props"]
+  GETTABLEKS R16 R17 K58 ["initialNumToRender"]
+  JUMPIFNOTEQKNIL R16 [+3]
+  LOADN R15 10
+  JUMP [+1]
+  MOVE R15 R16
+  SUBK R14 R15 K56 [1]
+  ADDK R13 R14 K56 [1]
+  GETTABLEKS R17 R0 K59 ["state"]
+  GETTABLEKS R14 R17 K60 ["first"]
+  GETTABLEKS R17 R0 K59 ["state"]
+  GETTABLEKS R15 R17 K61 ["last"]
+  GETTABLEKS R17 R0 K59 ["state"]
+  GETTABLEKS R16 R17 K62 ["scrollPositionDelta"]
+  LOADN R17 0
+  JUMPIFNOTLT R17 R16 [+3]
+  ADD R14 R14 R16
+  ADD R15 R15 R16
+  MOVE R19 R8
+  MOVE R20 R10
+  MOVE R21 R9
+  LOADN R22 1
+  MOVE R23 R13
+  MOVE R24 R7
+  NAMECALL R17 R0 K63 ["_pushCells"]
+  CALL R17 7 0
+  ADDK R18 R13 K56 [1]
+  FASTCALL2 MATH_MAX R18 R14 [+4]
+  MOVE R19 R14
+  GETIMPORT R17 K66 [math.max]
+  CALL R17 2 1
+  JUMPIF R6 [+220]
+  ADDK R18 R13 K56 [1]
+  JUMPIFNOTLT R18 R14 [+218]
+  LOADB R18 0
+  GETTABLEKS R19 R9 K67 ["size"]
+  LOADN R20 0
+  JUMPIFNOTLT R20 R19 [+146]
+  JUMPIFNOT R3 [+2]
+  LOADN R19 1
+  JUMP [+1]
+  LOADN R19 0
+  SUBK R20 R17 K56 [1]
+  JUMPIFNOTLT R13 R20 [+139]
+  ADD R23 R20 R19
+  NAMECALL R21 R9 K21 ["has"]
+  CALL R21 2 1
+  JUMPIFNOT R21 [+131]
+  GETTABLEKS R21 R0 K68 ["_getFrameMetricsApprox"]
+  MOVE R22 R13
+  CALL R21 1 1
+  GETTABLEKS R22 R0 K68 ["_getFrameMetricsApprox"]
+  MOVE R23 R20
+  CALL R22 1 1
+  GETTABLEKS R25 R22 K69 ["offset"]
+  GETTABLEKS R26 R21 K69 ["offset"]
+  SUB R24 R25 R26
+  GETTABLEKS R28 R0 K3 ["props"]
+  GETTABLEKS R27 R28 K57 ["initialScrollIndex"]
+  LOADB R26 0
+  JUMPIFEQKNIL R27 [+5]
+  JUMPIFNOTEQKN R27 K56 [1] [+2]
+  LOADB R26 0 +1
+  LOADB R26 1
+  JUMPIFNOT R26 [+2]
+  LOADN R25 0
+  JUMP [+2]
+  GETTABLEKS R25 R21 K70 ["length"]
+  SUB R23 R24 R25
+  MOVE R25 R8
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K27 ["createElement"]
+  GETUPVAL R27 6
+  DUPTABLE R28 K71 [{"key", "Name", "style"}]
+  LOADK R29 K72 ["$sticky_lead"]
+  SETTABLEKS R29 R28 K29 ["key"]
+  LOADK R29 K72 ["$sticky_lead"]
+  SETTABLEKS R29 R28 K30 ["Name"]
+  DUPTABLE R29 K73 [{"Size"}]
+  JUMPIFNOTEQKS R12 K74 ["height"] [+9]
+  GETIMPORT R30 K52 [UDim2.new]
+  LOADN R31 1
+  LOADN R32 0
+  LOADN R33 0
+  MOVE R34 R23
+  CALL R30 4 1
+  JUMP [+7]
+  GETIMPORT R30 K52 [UDim2.new]
+  LOADN R31 0
+  MOVE R32 R23
+  LOADN R33 1
+  LOADN R34 0
+  CALL R30 4 1
+  SETTABLEKS R30 R29 K39 ["Size"]
+  SETTABLEKS R29 R28 K36 ["style"]
+  CALL R26 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R24 K25 [table.insert]
+  CALL R24 -1 0
+  MOVE R26 R8
+  MOVE R27 R10
+  MOVE R28 R9
+  MOVE R29 R20
+  MOVE R30 R20
+  MOVE R31 R7
+  NAMECALL R24 R0 K63 ["_pushCells"]
+  CALL R24 7 0
+  GETTABLEKS R27 R0 K68 ["_getFrameMetricsApprox"]
+  MOVE R28 R14
+  CALL R27 1 1
+  GETTABLEKS R26 R27 K69 ["offset"]
+  GETTABLEKS R27 R22 K69 ["offset"]
+  SUB R25 R26 R27
+  GETTABLEKS R26 R22 K70 ["length"]
+  ADD R24 R25 R26
+  MOVE R26 R8
+  GETUPVAL R28 4
+  GETTABLEKS R27 R28 K27 ["createElement"]
+  GETUPVAL R28 6
+  DUPTABLE R29 K71 [{"key", "Name", "style"}]
+  LOADK R30 K75 ["$sticky_trail"]
+  SETTABLEKS R30 R29 K29 ["key"]
+  LOADK R30 K75 ["$sticky_trail"]
+  SETTABLEKS R30 R29 K30 ["Name"]
+  DUPTABLE R30 K73 [{"Size"}]
+  JUMPIFNOTEQKS R12 K74 ["height"] [+9]
+  GETIMPORT R31 K52 [UDim2.new]
+  LOADN R32 1
+  LOADN R33 0
+  LOADN R34 0
+  MOVE R35 R24
+  CALL R31 4 1
+  JUMP [+7]
+  GETIMPORT R31 K52 [UDim2.new]
+  LOADN R32 0
+  MOVE R33 R24
+  LOADN R34 1
+  LOADN R35 0
+  CALL R31 4 1
+  SETTABLEKS R31 R30 K39 ["Size"]
+  SETTABLEKS R30 R29 K36 ["style"]
+  CALL R27 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R25 K25 [table.insert]
+  CALL R25 -1 0
+  LOADB R18 1
+  JUMP [+2]
+  SUBK R20 R20 K56 [1]
+  JUMPBACK [-140]
+  JUMPIF R18 [+65]
+  GETTABLEKS R19 R0 K68 ["_getFrameMetricsApprox"]
+  MOVE R20 R13
+  CALL R19 1 1
+  GETTABLEKS R22 R0 K68 ["_getFrameMetricsApprox"]
+  MOVE R23 R14
+  CALL R22 1 1
+  GETTABLEKS R21 R22 K69 ["offset"]
+  GETTABLEKS R23 R19 K69 ["offset"]
+  GETTABLEKS R24 R19 K70 ["length"]
+  ADD R22 R23 R24
+  SUB R20 R21 R22
+  MOVE R22 R8
+  GETUPVAL R24 4
+  GETTABLEKS R23 R24 K27 ["createElement"]
+  GETUPVAL R24 6
+  DUPTABLE R25 K76 [{"key", "Name", "style", "LayoutOrder"}]
+  LOADK R26 K77 ["$lead_spacer"]
+  SETTABLEKS R26 R25 K29 ["key"]
+  LOADK R26 K77 ["$lead_spacer"]
+  SETTABLEKS R26 R25 K30 ["Name"]
+  DUPTABLE R26 K73 [{"Size"}]
+  JUMPIFNOTEQKS R12 K74 ["height"] [+9]
+  GETIMPORT R27 K52 [UDim2.new]
+  LOADN R28 1
+  LOADN R29 0
+  LOADN R30 0
+  MOVE R31 R20
+  CALL R27 4 1
+  JUMP [+7]
+  GETIMPORT R27 K52 [UDim2.new]
+  LOADN R28 0
+  MOVE R29 R20
+  LOADN R30 1
+  LOADN R31 0
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K39 ["Size"]
+  SETTABLEKS R26 R25 K36 ["style"]
+  GETTABLEKS R28 R0 K3 ["props"]
+  GETTABLEKS R27 R28 K16 ["inverted"]
+  JUMPIFNOT R27 [+2]
+  LOADK R26 K78 [999999999]
+  JUMP [+1]
+  LOADK R26 K79 [-999999999]
+  SETTABLEKS R26 R25 K37 ["LayoutOrder"]
+  CALL R23 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R21 K25 [table.insert]
+  CALL R21 -1 0
+  MOVE R20 R8
+  MOVE R21 R10
+  MOVE R22 R9
+  MOVE R23 R17
+  MOVE R24 R15
+  MOVE R25 R7
+  NAMECALL R18 R0 K63 ["_pushCells"]
+  CALL R18 7 0
+  GETTABLEKS R19 R0 K80 ["_hasWarned"]
+  GETTABLEKS R18 R19 K81 ["keys"]
+  JUMPIF R18 [+15]
+  GETUPVAL R18 8
+  JUMPIFNOT R18 [+13]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K7 ["warn"]
+  LOADK R20 K82 ["VirtualizedList: missing keys for items, make sure to specify a key or id property on each "]
+  LOADK R21 K83 ["item or provide a custom keyExtractor."]
+  CONCAT R19 R20 R21
+  GETUPVAL R20 9
+  CALL R18 2 0
+  GETTABLEKS R18 R0 K80 ["_hasWarned"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K81 ["keys"]
+  JUMPIF R6 [+134]
+  JUMPIFNOTLT R15 R11 [+133]
+  GETTABLEKS R18 R0 K68 ["_getFrameMetricsApprox"]
+  MOVE R19 R15
+  CALL R18 1 1
+  GETTABLEKS R21 R0 K3 ["props"]
+  GETTABLEKS R20 R21 K84 ["getItemLayout"]
+  JUMPIFNOT R20 [+2]
+  MOVE R19 R11
+  JUMP [+8]
+  GETTABLEKS R21 R0 K85 ["_highestMeasuredFrameIndex"]
+  FASTCALL2 MATH_MIN R11 R21 [+4]
+  MOVE R20 R11
+  GETIMPORT R19 K87 [math.min]
+  CALL R19 2 1
+  GETTABLEKS R20 R0 K68 ["_getFrameMetricsApprox"]
+  MOVE R21 R19
+  CALL R20 1 1
+  GETTABLEKS R23 R20 K69 ["offset"]
+  GETTABLEKS R24 R20 K70 ["length"]
+  ADD R22 R23 R24
+  GETTABLEKS R24 R18 K69 ["offset"]
+  GETTABLEKS R25 R18 K70 ["length"]
+  ADD R23 R24 R25
+  SUB R21 R22 R23
+  MOVE R23 R8
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K27 ["createElement"]
+  GETUPVAL R25 6
+  DUPTABLE R26 K76 [{"key", "Name", "style", "LayoutOrder"}]
+  LOADK R27 K88 ["$tail_spacer"]
+  SETTABLEKS R27 R26 K29 ["key"]
+  LOADK R27 K88 ["$tail_spacer"]
+  SETTABLEKS R27 R26 K30 ["Name"]
+  DUPTABLE R27 K73 [{"Size"}]
+  JUMPIFNOTEQKS R12 K74 ["height"] [+9]
+  GETIMPORT R28 K52 [UDim2.new]
+  LOADN R29 1
+  LOADN R30 0
+  LOADN R31 0
+  MOVE R32 R21
+  CALL R28 4 1
+  JUMP [+7]
+  GETIMPORT R28 K52 [UDim2.new]
+  LOADN R29 0
+  MOVE R30 R21
+  LOADN R31 1
+  LOADN R32 0
+  CALL R28 4 1
+  SETTABLEKS R28 R27 K39 ["Size"]
+  SETTABLEKS R27 R26 K36 ["style"]
+  GETTABLEKS R29 R0 K3 ["props"]
+  GETTABLEKS R28 R29 K16 ["inverted"]
+  JUMPIFNOT R28 [+2]
+  LOADK R27 K79 [-999999999]
+  JUMP [+1]
+  LOADK R27 K78 [999999999]
+  SETTABLEKS R27 R26 K37 ["LayoutOrder"]
+  CALL R24 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R22 K25 [table.insert]
+  CALL R22 -1 0
+  JUMP [+48]
+  JUMPIFNOT R1 [+47]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K26 ["isValidElement"]
+  MOVE R14 R1
+  CALL R13 1 1
+  JUMPIFNOT R13 [+2]
+  MOVE R12 R1
+  JUMP [+6]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K27 ["createElement"]
+  MOVE R13 R1
+  LOADNIL R14
+  CALL R12 2 1
+  MOVE R14 R8
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K89 ["cloneElement"]
+  MOVE R16 R12
+  DUPTABLE R17 K90 [{"key", "Name", "onLayout", "style"}]
+  LOADK R18 K91 ["$empty"]
+  SETTABLEKS R18 R17 K29 ["key"]
+  LOADK R18 K91 ["$empty"]
+  SETTABLEKS R18 R17 K30 ["Name"]
+  NEWCLOSURE R18 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R12
+  SETTABLEKS R18 R17 K35 ["onLayout"]
+  GETUPVAL R19 7
+  GETTABLEKS R18 R19 K42 ["compose"]
+  MOVE R19 R7
+  GETTABLEKS R21 R12 K3 ["props"]
+  GETTABLEKS R20 R21 K36 ["style"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K36 ["style"]
+  CALL R15 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R13 K25 [table.insert]
+  CALL R13 -1 0
+  JUMPIFNOT R2 [+97]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K26 ["isValidElement"]
+  MOVE R14 R2
+  CALL R13 1 1
+  JUMPIFNOT R13 [+2]
+  MOVE R12 R2
+  JUMP [+6]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K27 ["createElement"]
+  MOVE R13 R2
+  LOADNIL R14
+  CALL R12 2 1
+  MOVE R14 R8
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K27 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K31 [{"cellKey", "key", "Name"}]
+  NAMECALL R18 R0 K92 ["_getFooterCellKey"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K28 ["cellKey"]
+  LOADK R18 K93 ["$footer"]
+  SETTABLEKS R18 R17 K29 ["key"]
+  LOADK R18 K93 ["$footer"]
+  SETTABLEKS R18 R17 K30 ["Name"]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K27 ["createElement"]
+  GETUPVAL R19 6
+  DUPTABLE R20 K40 [{"Name", "onLayout", "style", "LayoutOrder", "AutomaticSize", "Size"}]
+  LOADK R21 K11 ["ListFooterComponent"]
+  SETTABLEKS R21 R20 K30 ["Name"]
+  GETTABLEKS R21 R0 K94 ["_onLayoutFooter"]
+  SETTABLEKS R21 R20 K35 ["onLayout"]
+  GETUPVAL R22 7
+  GETTABLEKS R21 R22 K42 ["compose"]
+  MOVE R22 R7
+  GETTABLEKS R24 R0 K3 ["props"]
+  GETTABLEKS R23 R24 K95 ["ListFooterComponentStyle"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K36 ["style"]
+  GETTABLEKS R23 R0 K3 ["props"]
+  GETTABLEKS R22 R23 K16 ["inverted"]
+  JUMPIFNOT R22 [+2]
+  LOADK R21 K45 [-999999998]
+  JUMP [+1]
+  LOADK R21 K44 [999999998]
+  SETTABLEKS R21 R20 K37 ["LayoutOrder"]
+  JUMPIFNOT R5 [+3]
+  GETIMPORT R21 K48 [Enum.AutomaticSize.X]
+  JUMP [+2]
+  GETIMPORT R21 K50 [Enum.AutomaticSize.Y]
+  SETTABLEKS R21 R20 K38 ["AutomaticSize"]
+  JUMPIFNOT R5 [+8]
+  GETIMPORT R21 K52 [UDim2.new]
+  LOADN R22 0
+  LOADN R23 0
+  LOADN R24 1
+  LOADN R25 0
+  CALL R21 4 1
+  JUMP [+7]
+  GETIMPORT R21 K52 [UDim2.new]
+  LOADN R22 1
+  LOADN R23 0
+  LOADN R24 0
+  LOADN R25 0
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K39 ["Size"]
+  MOVE R21 R12
+  CALL R18 3 -1
+  CALL R15 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R13 K25 [table.insert]
+  CALL R13 -1 0
+  GETTABLEKS R13 R0 K3 ["props"]
+  GETTABLEKS R12 R13 K16 ["inverted"]
+  JUMPIFNOT R12 [+276]
+  GETTABLEKS R13 R0 K3 ["props"]
+  GETTABLEKS R12 R13 K84 ["getItemLayout"]
+  JUMPIF R12 [+271]
+  NAMECALL R12 R0 K96 ["getScrollRef"]
+  CALL R12 1 1
+  JUMPIFEQKNIL R12 [+222]
+  NAMECALL R14 R0 K96 ["getScrollRef"]
+  CALL R14 1 1
+  GETTABLEKS R13 R14 K97 ["_nativeRef"]
+  GETTABLEKS R12 R13 K98 ["current"]
+  JUMPIFEQKNIL R12 [+213]
+  NAMECALL R14 R0 K96 ["getScrollRef"]
+  CALL R14 1 1
+  GETTABLEKS R13 R14 K97 ["_nativeRef"]
+  GETTABLEKS R12 R13 K98 ["current"]
+  GETTABLEKS R13 R12 K99 ["CanvasPosition"]
+  GETTABLEKS R14 R0 K68 ["_getFrameMetricsApprox"]
+  GETTABLEKS R16 R0 K85 ["_highestMeasuredFrameIndex"]
+  FASTCALL2 MATH_MIN R16 R11 [+4]
+  MOVE R17 R11
+  GETIMPORT R15 K87 [math.min]
+  CALL R15 2 1
+  CALL R14 1 1
+  GETTABLEKS R16 R14 K69 ["offset"]
+  GETTABLEKS R17 R14 K70 ["length"]
+  ADD R15 R16 R17
+  GETTABLEKS R18 R0 K3 ["props"]
+  GETTABLEKS R17 R18 K100 ["optimizeInvertedCanvasResize"]
+  JUMPIFNOT R17 [+10]
+  GETTABLEKS R18 R0 K101 ["_invertedCanvasLength"]
+  GETTABLEKS R19 R0 K102 ["_footerLength"]
+  SUB R17 R18 R19
+  JUMPIFLT R17 R15 [+2]
+  LOADB R16 0 +1
+  LOADB R16 1
+  JUMP [+9]
+  GETTABLEKS R18 R0 K101 ["_invertedCanvasLength"]
+  GETTABLEKS R19 R0 K102 ["_footerLength"]
+  SUB R17 R18 R19
+  JUMPIFNOTEQ R15 R17 [+2]
+  LOADB R16 0 +1
+  LOADB R16 1
+  GETTABLEKS R17 R0 K85 ["_highestMeasuredFrameIndex"]
+  JUMPIFNOTLE R11 R17 [+70]
+  GETTABLEKS R18 R0 K101 ["_invertedCanvasLength"]
+  GETTABLEKS R19 R0 K102 ["_footerLength"]
+  SUB R17 R18 R19
+  JUMPIFEQ R15 R17 [+63]
+  GETTABLEKS R19 R0 K102 ["_footerLength"]
+  ADD R18 R15 R19
+  GETTABLEKS R19 R0 K101 ["_invertedCanvasLength"]
+  SUB R17 R18 R19
+  GETTABLEKS R19 R0 K102 ["_footerLength"]
+  ADD R18 R15 R19
+  SETTABLEKS R18 R0 K101 ["_invertedCanvasLength"]
+  GETTABLEKS R20 R0 K3 ["props"]
+  GETTABLEKS R19 R20 K14 ["horizontal"]
+  JUMPIFNOT R19 [+9]
+  GETIMPORT R18 K52 [UDim2.new]
+  LOADN R19 0
+  GETTABLEKS R20 R0 K101 ["_invertedCanvasLength"]
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  JUMP [+8]
+  GETIMPORT R18 K52 [UDim2.new]
+  LOADN R19 1
+  LOADN R20 0
+  LOADN R21 0
+  GETTABLEKS R22 R0 K101 ["_invertedCanvasLength"]
+  CALL R18 4 1
+  SETTABLEKS R18 R12 K103 ["CanvasSize"]
+  GETTABLEKS R21 R0 K3 ["props"]
+  GETTABLEKS R20 R21 K14 ["horizontal"]
+  JUMPIFNOT R20 [+9]
+  GETIMPORT R19 K105 [Vector2.new]
+  GETTABLEKS R21 R13 K47 ["X"]
+  ADD R20 R21 R17
+  GETTABLEKS R21 R13 K49 ["Y"]
+  CALL R19 2 1
+  JUMP [+8]
+  GETIMPORT R19 K105 [Vector2.new]
+  GETTABLEKS R20 R13 K47 ["X"]
+  GETTABLEKS R22 R13 K49 ["Y"]
+  ADD R21 R22 R17
+  CALL R19 2 1
+  SETTABLEKS R19 R0 K106 ["_canvasPosition"]
+  SETTABLEKS R18 R0 K107 ["_canvasSize"]
+  JUMP [+216]
+  JUMPIFNOT R16 [+215]
+  GETTABLEKS R18 R0 K59 ["state"]
+  GETTABLEKS R17 R18 K62 ["scrollPositionDelta"]
+  JUMPIFNOTEQKN R17 K22 [0] [+210]
+  GETTABLEKS R17 R0 K101 ["_invertedCanvasLength"]
+  GETTABLEKS R21 R0 K109 ["_scrollMetrics"]
+  GETTABLEKS R20 R21 K110 ["visibleLength"]
+  GETTABLEKS R23 R0 K3 ["props"]
+  GETTABLEKS R22 R23 K111 ["windowSize"]
+  JUMPIFNOTEQKNIL R22 [+3]
+  LOADN R21 21
+  JUMP [+1]
+  MOVE R21 R22
+  MUL R19 R20 R21
+  MULK R18 R19 K108 [0.5]
+  GETTABLEKS R21 R14 K69 ["offset"]
+  GETTABLEKS R23 R0 K109 ["_scrollMetrics"]
+  GETTABLEKS R22 R23 K110 ["visibleLength"]
+  ADD R20 R21 R22
+  ADD R19 R20 R18
+  SUB R20 R19 R17
+  SETTABLEKS R19 R0 K101 ["_invertedCanvasLength"]
+  GETTABLEKS R23 R0 K3 ["props"]
+  GETTABLEKS R22 R23 K14 ["horizontal"]
+  JUMPIFNOT R22 [+9]
+  GETIMPORT R21 K52 [UDim2.new]
+  LOADN R22 0
+  GETTABLEKS R23 R0 K101 ["_invertedCanvasLength"]
+  LOADN R24 1
+  LOADN R25 0
+  CALL R21 4 1
+  JUMP [+8]
+  GETIMPORT R21 K52 [UDim2.new]
+  LOADN R22 1
+  LOADN R23 0
+  LOADN R24 0
+  GETTABLEKS R25 R0 K101 ["_invertedCanvasLength"]
+  CALL R21 4 1
+  SETTABLEKS R21 R12 K103 ["CanvasSize"]
+  GETTABLEKS R24 R0 K3 ["props"]
+  GETTABLEKS R23 R24 K14 ["horizontal"]
+  JUMPIFNOT R23 [+9]
+  GETIMPORT R22 K105 [Vector2.new]
+  GETTABLEKS R24 R13 K47 ["X"]
+  ADD R23 R24 R20
+  GETTABLEKS R24 R13 K49 ["Y"]
+  CALL R22 2 1
+  JUMP [+8]
+  GETIMPORT R22 K105 [Vector2.new]
+  GETTABLEKS R23 R13 K47 ["X"]
+  GETTABLEKS R25 R13 K49 ["Y"]
+  ADD R24 R25 R20
+  CALL R22 2 1
+  SETTABLEKS R22 R12 K99 ["CanvasPosition"]
+  GETTABLEKS R22 R12 K99 ["CanvasPosition"]
+  SETTABLEKS R22 R0 K106 ["_canvasPosition"]
+  SETTABLEKS R21 R0 K107 ["_canvasSize"]
+  JUMP [+126]
+  GETTABLEKS R14 R0 K3 ["props"]
+  GETTABLEKS R13 R14 K14 ["horizontal"]
+  JUMPIFNOT R13 [+7]
+  GETIMPORT R12 K105 [Vector2.new]
+  GETTABLEKS R13 R0 K101 ["_invertedCanvasLength"]
+  LOADN R14 0
+  CALL R12 2 1
+  JUMP [+6]
+  GETIMPORT R12 K105 [Vector2.new]
+  LOADN R13 0
+  GETTABLEKS R14 R0 K101 ["_invertedCanvasLength"]
+  CALL R12 2 1
+  SETTABLEKS R12 R0 K106 ["_canvasPosition"]
+  GETTABLEKS R14 R0 K3 ["props"]
+  GETTABLEKS R13 R14 K14 ["horizontal"]
+  JUMPIFNOT R13 [+9]
+  GETIMPORT R12 K52 [UDim2.new]
+  LOADN R13 0
+  GETTABLEKS R14 R0 K101 ["_invertedCanvasLength"]
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  JUMP [+8]
+  GETIMPORT R12 K52 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 0
+  GETTABLEKS R16 R0 K101 ["_invertedCanvasLength"]
+  CALL R12 4 1
+  SETTABLEKS R12 R0 K107 ["_canvasSize"]
+  JUMP [+81]
+  GETTABLEKS R13 R0 K3 ["props"]
+  GETTABLEKS R12 R13 K16 ["inverted"]
+  JUMPIFNOT R12 [+76]
+  GETTABLEKS R13 R0 K3 ["props"]
+  GETTABLEKS R12 R13 K84 ["getItemLayout"]
+  JUMPIFNOT R12 [+71]
+  GETTABLEKS R12 R0 K68 ["_getFrameMetricsApprox"]
+  MOVE R13 R11
+  CALL R12 1 1
+  NAMECALL R13 R0 K96 ["getScrollRef"]
+  CALL R13 1 1
+  JUMPIFEQKNIL R13 [+56]
+  NAMECALL R15 R0 K96 ["getScrollRef"]
+  CALL R15 1 1
+  GETTABLEKS R14 R15 K97 ["_nativeRef"]
+  GETTABLEKS R13 R14 K98 ["current"]
+  JUMPIFEQKNIL R13 [+47]
+  NAMECALL R15 R0 K96 ["getScrollRef"]
+  CALL R15 1 1
+  GETTABLEKS R14 R15 K97 ["_nativeRef"]
+  GETTABLEKS R13 R14 K98 ["current"]
+  GETTABLEKS R14 R13 K99 ["CanvasPosition"]
+  GETTABLEKS R15 R0 K101 ["_invertedCanvasLength"]
+  GETTABLEKS R17 R12 K69 ["offset"]
+  GETTABLEKS R18 R12 K70 ["length"]
+  ADD R16 R17 R18
+  SETTABLEKS R16 R0 K101 ["_invertedCanvasLength"]
+  GETTABLEKS R16 R0 K101 ["_invertedCanvasLength"]
+  JUMPIFEQ R15 R16 [+32]
+  GETTABLEKS R17 R0 K101 ["_invertedCanvasLength"]
+  SUB R16 R17 R15
+  GETTABLEKS R19 R0 K3 ["props"]
+  GETTABLEKS R18 R19 K14 ["horizontal"]
+  JUMPIFNOT R18 [+7]
+  GETIMPORT R18 K105 [Vector2.new]
+  MOVE R19 R16
+  LOADN R20 0
+  CALL R18 2 1
+  ADD R17 R14 R18
+  JUMP [+6]
+  GETIMPORT R18 K105 [Vector2.new]
+  LOADN R19 0
+  MOVE R20 R16
+  CALL R18 2 1
+  ADD R17 R14 R18
+  SETTABLEKS R17 R13 K99 ["CanvasPosition"]
+  JUMP [+7]
+  GETTABLEKS R14 R12 K69 ["offset"]
+  GETTABLEKS R15 R12 K70 ["length"]
+  ADD R13 R14 R15
+  SETTABLEKS R13 R0 K101 ["_invertedCanvasLength"]
+  GETUPVAL R13 10
+  GETTABLEKS R12 R13 K112 ["assign"]
+  GETIMPORT R13 K114 [table.clone]
+  GETTABLEKS R14 R0 K3 ["props"]
+  CALL R13 1 1
+  DUPTABLE R14 K125 [{"onContentSizeChange", "onLayout", "onScroll", "onScrollBeginDrag", "onScrollEndDrag", "onMomentumScrollBegin", "onMomentumScrollEnd", "scrollEventThrottle", "invertStickyHeaders", "stickyHeaderIndices", "style", "layoutStyle", "AutomaticCanvasSize", "CanvasSize", "CanvasPosition"}]
+  GETTABLEKS R15 R0 K126 ["_onContentSizeChange"]
+  SETTABLEKS R15 R14 K115 ["onContentSizeChange"]
+  GETTABLEKS R15 R0 K127 ["_onLayout"]
+  SETTABLEKS R15 R14 K35 ["onLayout"]
+  GETTABLEKS R15 R0 K128 ["_onScroll"]
+  SETTABLEKS R15 R14 K116 ["onScroll"]
+  GETTABLEKS R15 R0 K129 ["_onScrollBeginDrag"]
+  SETTABLEKS R15 R14 K117 ["onScrollBeginDrag"]
+  GETTABLEKS R15 R0 K130 ["_onScrollEndDrag"]
+  SETTABLEKS R15 R14 K118 ["onScrollEndDrag"]
+  GETTABLEKS R15 R0 K131 ["_onMomentumScrollBegin"]
+  SETTABLEKS R15 R14 K119 ["onMomentumScrollBegin"]
+  GETTABLEKS R15 R0 K132 ["_onMomentumScrollEnd"]
+  SETTABLEKS R15 R14 K120 ["onMomentumScrollEnd"]
+  GETTABLEKS R17 R0 K3 ["props"]
+  GETTABLEKS R16 R17 K121 ["scrollEventThrottle"]
+  JUMPIFNOTEQKNIL R16 [+3]
+  LOADN R15 50
+  JUMP [+1]
+  MOVE R15 R16
+  SETTABLEKS R15 R14 K121 ["scrollEventThrottle"]
+  GETTABLEKS R17 R0 K3 ["props"]
+  GETTABLEKS R16 R17 K122 ["invertStickyHeaders"]
+  JUMPIFEQKNIL R16 [+6]
+  GETTABLEKS R16 R0 K3 ["props"]
+  GETTABLEKS R15 R16 K122 ["invertStickyHeaders"]
+  JUMP [+4]
+  GETTABLEKS R16 R0 K3 ["props"]
+  GETTABLEKS R15 R16 K16 ["inverted"]
+  SETTABLEKS R15 R14 K122 ["invertStickyHeaders"]
+  SETTABLEKS R10 R14 K20 ["stickyHeaderIndices"]
+  GETTABLEKS R16 R0 K3 ["props"]
+  GETTABLEKS R15 R16 K36 ["style"]
+  SETTABLEKS R15 R14 K36 ["style"]
+  ORK R15 R7 K133 []
+  SETTABLEKS R15 R14 K123 ["layoutStyle"]
+  GETTABLEKS R17 R0 K3 ["props"]
+  GETTABLEKS R16 R17 K16 ["inverted"]
+  JUMPIFNOT R16 [+8]
+  GETTABLEKS R17 R0 K3 ["props"]
+  GETTABLEKS R16 R17 K84 ["getItemLayout"]
+  JUMPIF R16 [+3]
+  GETIMPORT R15 K135 [Enum.AutomaticSize.None]
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K124 ["AutomaticCanvasSize"]
+  GETTABLEKS R17 R0 K3 ["props"]
+  GETTABLEKS R16 R17 K16 ["inverted"]
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R15 R0 K107 ["_canvasSize"]
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K103 ["CanvasSize"]
+  GETTABLEKS R17 R0 K3 ["props"]
+  GETTABLEKS R16 R17 K16 ["inverted"]
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R15 R0 K106 ["_canvasPosition"]
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K99 ["CanvasPosition"]
+  CALL R12 2 1
+  GETTABLEKS R15 R0 K59 ["state"]
+  GETTABLEKS R14 R15 K61 ["last"]
+  GETTABLEKS R16 R0 K3 ["props"]
+  GETTABLEKS R15 R16 K53 ["getItemCount"]
+  GETTABLEKS R17 R0 K3 ["props"]
+  GETTABLEKS R16 R17 K13 ["data"]
+  CALL R15 1 1
+  JUMPIFLT R14 R15 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  SETTABLEKS R13 R0 K136 ["_hasMore"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K27 ["createElement"]
+  GETUPVAL R14 11
+  DUPTABLE R15 K138 [{"value"}]
+  DUPTABLE R16 K145 [{"cellKey", "getScrollMetrics", "horizontal", "getOutermostParentListRef", "getNestedChildState", "registerAsNestedChild", "unregisterAsNestedChild", "debugInfo"}]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K28 ["cellKey"]
+  GETTABLEKS R17 R0 K146 ["_getScrollMetrics"]
+  SETTABLEKS R17 R16 K139 ["getScrollMetrics"]
+  GETTABLEKS R19 R0 K3 ["props"]
+  GETTABLEKS R18 R19 K14 ["horizontal"]
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADB R17 0
+  JUMP [+1]
+  MOVE R17 R18
+  SETTABLEKS R17 R16 K14 ["horizontal"]
+  GETTABLEKS R17 R0 K147 ["_getOutermostParentListRef"]
+  SETTABLEKS R17 R16 K140 ["getOutermostParentListRef"]
+  GETTABLEKS R17 R0 K148 ["_getNestedChildState"]
+  SETTABLEKS R17 R16 K141 ["getNestedChildState"]
+  GETTABLEKS R17 R0 K149 ["_registerAsNestedChild"]
+  SETTABLEKS R17 R16 K142 ["registerAsNestedChild"]
+  GETTABLEKS R17 R0 K150 ["_unregisterAsNestedChild"]
+  SETTABLEKS R17 R16 K143 ["unregisterAsNestedChild"]
+  NAMECALL R17 R0 K151 ["_getDebugInfo"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K144 ["debugInfo"]
+  SETTABLEKS R16 R15 K137 ["value"]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K89 ["cloneElement"]
+  GETTABLEKS R19 R0 K3 ["props"]
+  GETTABLEKS R18 R19 K152 ["renderScrollComponent"]
+  JUMPIFNOT R18 [+5]
+  GETTABLEKS R18 R0 K3 ["props"]
+  GETTABLEKS R17 R18 K152 ["renderScrollComponent"]
+  JUMP [+2]
+  GETTABLEKS R17 R0 K153 ["_defaultRenderScrollComponent"]
+  MOVE R18 R12
+  CALL R17 1 1
+  DUPTABLE R18 K155 [{"ref"}]
+  GETTABLEKS R19 R0 K156 ["_captureScrollRef"]
+  SETTABLEKS R19 R18 K154 ["ref"]
+  MOVE R19 R8
+  CALL R16 3 -1
+  CALL R13 -1 1
+  MOVE R14 R13
+  GETIMPORT R16 K1 [_G]
+  GETTABLEKS R15 R16 K2 ["__DEV__"]
+  JUMPIFNOT R15 [+15]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K27 ["createElement"]
+  GETUPVAL R18 12
+  GETTABLEKS R17 R18 K157 ["Context"]
+  GETTABLEKS R16 R17 K158 ["Consumer"]
+  LOADNIL R17
+  NEWCLOSURE R18 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R13
+  CALL R15 3 1
+  MOVE R14 R15
+  GETTABLEKS R16 R0 K3 ["props"]
+  GETTABLEKS R15 R16 K159 ["debug"]
+  JUMPIFNOT R15 [+19]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K27 ["createElement"]
+  GETUPVAL R16 6
+  DUPTABLE R17 K160 [{"style", "Name"}]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K159 ["debug"]
+  SETTABLEKS R18 R17 K36 ["style"]
+  LOADK R18 K159 ["debug"]
+  SETTABLEKS R18 R17 K30 ["Name"]
+  MOVE R18 R14
+  NAMECALL R19 R0 K161 ["_renderDebugOverlay"]
+  CALL R19 1 -1
+  CALL R15 -1 -1
+  RETURN R15 -1
+  RETURN R14 1
+
+PROTO_79:
+  GETTABLEKS R1 R0 K0 ["viewabilityHelper"]
+  NAMECALL R1 R1 K1 ["resetViewableIndices"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_80:
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R2 R4 K1 ["data"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["extraData"]
+  GETTABLEKS R4 R1 K1 ["data"]
+  JUMPIFNOTEQ R2 R4 [+5]
+  GETTABLEKS R4 R1 K2 ["extraData"]
+  JUMPIFEQ R3 R4 [+8]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["forEach"]
+  GETTABLEKS R5 R0 K4 ["_viewabilityTuples"]
+  DUPCLOSURE R6 K5 [PROTO_79]
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K6 ["_hiPriInProgress"]
+  NAMECALL R5 R0 K7 ["_scheduleCellsToRenderUpdate"]
+  CALL R5 1 0
+  JUMPIFNOT R4 [+3]
+  LOADB R5 0
+  SETTABLEKS R5 R0 K6 ["_hiPriInProgress"]
+  RETURN R0 0
+
+PROTO_81:
+  GETTABLEKS R1 R0 K0 ["_fillRateHelper"]
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETTABLEKS R4 R0 K2 ["state"]
+  GETTABLEKS R5 R0 K3 ["_scrollMetrics"]
+  NAMECALL R1 R1 K4 ["computeBlankness"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_82:
+  LOADK R3 K0 ["GuiObject"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K2 ["LayoutOrder"]
+  FASTCALL1 MATH_ABS R2 [+2]
+  GETIMPORT R1 K5 [math.abs]
+  CALL R1 1 1
+  GETUPVAL R2 0
+  JUMPIFLE R1 R2 [+4]
+  GETUPVAL R2 1
+  JUMPIFNOTLT R2 R1 [+2]
+  RETURN R0 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["props"]
+  GETTABLEKS R2 R3 K7 ["getItem"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K6 ["props"]
+  GETTABLEKS R3 R4 K8 ["data"]
+  MOVE R4 R1
+  CALL R2 2 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  RETURN R0 0
+  GETUPVAL R3 2
+  MOVE R5 R2
+  MOVE R6 R1
+  NAMECALL R3 R3 K9 ["_keyExtractor"]
+  CALL R3 3 1
+  GETUPVAL R4 2
+  MOVE R6 R0
+  MOVE R7 R3
+  MOVE R8 R1
+  NAMECALL R4 R4 K10 ["_onCellLayout"]
+  CALL R4 4 0
+  RETURN R0 0
+
+PROTO_83:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["_frames"]
+  GETTABLE R2 R3 R0
+  GETTABLEKS R1 R2 K1 ["index"]
+  GETUPVAL R2 1
+  JUMPIFNOTLE R1 R2 [+2]
+  RETURN R0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["_cellRefs"]
+  GETTABLE R2 R3 R0
+  JUMPIFNOT R2 [+8]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_cellRefs"]
+  GETTABLE R1 R2 R0
+  NAMECALL R1 R1 K3 ["getRef"]
+  CALL R1 1 1
+  JUMP [+1]
+  LOADNIL R1
+  JUMPIFNOT R1 [+16]
+  GETTABLEKS R2 R1 K4 ["current"]
+  JUMPIFNOT R2 [+13]
+  GETUPVAL R2 0
+  GETTABLEKS R4 R1 K4 ["current"]
+  MOVE R5 R0
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["_frames"]
+  GETTABLE R7 R8 R0
+  GETTABLEKS R6 R7 K1 ["index"]
+  NAMECALL R2 R2 K5 ["_onCellLayout"]
+  CALL R2 4 0
+  RETURN R0 0
+
+PROTO_84:
+  NAMECALL R5 R0 K0 ["getScrollRef"]
+  CALL R5 1 1
+  JUMPIFNOT R5 [+16]
+  NAMECALL R7 R0 K0 ["getScrollRef"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K1 ["_nativeRef"]
+  GETTABLEKS R5 R6 K2 ["current"]
+  JUMPIFNOT R5 [+8]
+  NAMECALL R6 R0 K0 ["getScrollRef"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K1 ["_nativeRef"]
+  GETTABLEKS R4 R5 K2 ["current"]
+  JUMP [+4]
+  LOADK R6 K3 ["ScrollingFrame"]
+  NAMECALL R4 R1 K4 ["FindFirstAncestorOfClass"]
+  CALL R4 2 1
+  JUMPIFNOTEQKNIL R4 [+20]
+  GETIMPORT R6 K6 [_G]
+  GETTABLEKS R5 R6 K7 ["__DEV__"]
+  JUMPIFNOT R5 [+13]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["warn"]
+  LOADK R7 K9 ["CellLayout failed for index "]
+  FASTCALL1 TOSTRING R3 [+3]
+  MOVE R11 R3
+  GETIMPORT R10 K11 [tostring]
+  CALL R10 1 1
+  MOVE R8 R10
+  LOADK R9 K12 [". this may cause layout issues"]
+  CONCAT R6 R7 R9
+  CALL R5 1 0
+  RETURN R0 0
+  GETTABLEKS R5 R4 K13 ["AbsolutePosition"]
+  GETTABLEKS R6 R4 K14 ["CanvasPosition"]
+  GETTABLEKS R7 R4 K15 ["AbsoluteCanvasSize"]
+  GETTABLEKS R8 R1 K16 ["AbsoluteSize"]
+  GETTABLEKS R9 R1 K13 ["AbsolutePosition"]
+  GETTABLEKS R12 R0 K17 ["props"]
+  GETTABLEKS R11 R12 K18 ["inverted"]
+  JUMPIFNOT R11 [+20]
+  GETTABLEKS R12 R0 K17 ["props"]
+  GETTABLEKS R11 R12 K19 ["horizontal"]
+  JUMPIFNOT R11 [+15]
+  GETTABLEKS R14 R7 K20 ["X"]
+  GETTABLEKS R15 R6 K20 ["X"]
+  SUB R13 R14 R15
+  GETTABLEKS R14 R9 K20 ["X"]
+  SUB R12 R13 R14
+  GETTABLEKS R13 R8 K20 ["X"]
+  SUB R11 R12 R13
+  GETTABLEKS R12 R5 K20 ["X"]
+  ADD R10 R11 R12
+  JUMP [+8]
+  GETTABLEKS R12 R9 K20 ["X"]
+  GETTABLEKS R13 R5 K20 ["X"]
+  SUB R11 R12 R13
+  GETTABLEKS R12 R6 K20 ["X"]
+  ADD R10 R11 R12
+  GETTABLEKS R13 R0 K17 ["props"]
+  GETTABLEKS R12 R13 K18 ["inverted"]
+  JUMPIFNOT R12 [+20]
+  GETTABLEKS R13 R0 K17 ["props"]
+  GETTABLEKS R12 R13 K19 ["horizontal"]
+  JUMPIF R12 [+15]
+  GETTABLEKS R15 R7 K21 ["Y"]
+  GETTABLEKS R16 R6 K21 ["Y"]
+  SUB R14 R15 R16
+  GETTABLEKS R15 R9 K21 ["Y"]
+  SUB R13 R14 R15
+  GETTABLEKS R14 R8 K21 ["Y"]
+  SUB R12 R13 R14
+  GETTABLEKS R13 R5 K21 ["Y"]
+  ADD R11 R12 R13
+  JUMP [+8]
+  GETTABLEKS R13 R9 K21 ["Y"]
+  GETTABLEKS R14 R5 K21 ["Y"]
+  SUB R12 R13 R14
+  GETTABLEKS R13 R6 K21 ["Y"]
+  ADD R11 R12 R13
+  DUPTABLE R12 K26 [{"width", "height", "x", "y"}]
+  GETTABLEKS R14 R1 K16 ["AbsoluteSize"]
+  GETTABLEKS R13 R14 K20 ["X"]
+  SETTABLEKS R13 R12 K22 ["width"]
+  GETTABLEKS R14 R1 K16 ["AbsoluteSize"]
+  GETTABLEKS R13 R14 K21 ["Y"]
+  SETTABLEKS R13 R12 K23 ["height"]
+  SETTABLEKS R10 R12 K24 ["x"]
+  SETTABLEKS R11 R12 K25 ["y"]
+  DUPTABLE R13 K31 [{"offset", "length", "index", "inLayout"}]
+  MOVE R16 R12
+  NAMECALL R14 R0 K32 ["_selectOffset"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K27 ["offset"]
+  MOVE R16 R12
+  NAMECALL R14 R0 K33 ["_selectLength"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K28 ["length"]
+  SETTABLEKS R3 R13 K29 ["index"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K30 ["inLayout"]
+  GETTABLEKS R15 R0 K34 ["_frames"]
+  GETTABLE R14 R15 R2
+  JUMPIFNOT R14 [+22]
+  GETTABLEKS R17 R13 K27 ["offset"]
+  GETTABLEKS R18 R14 K27 ["offset"]
+  SUB R16 R17 R18
+  FASTCALL1 MATH_ABS R16 [+2]
+  GETIMPORT R15 K37 [math.abs]
+  CALL R15 1 1
+  LOADN R16 1
+  JUMPIFLT R16 R15 [+11]
+  GETTABLEKS R15 R13 K28 ["length"]
+  GETTABLEKS R16 R14 K28 ["length"]
+  JUMPIFNOTEQ R15 R16 [+5]
+  GETTABLEKS R15 R14 K29 ["index"]
+  JUMPIFEQ R3 R15 [+194]
+  GETTABLEKS R16 R0 K17 ["props"]
+  GETTABLEKS R15 R16 K38 ["getItem"]
+  GETTABLEKS R17 R0 K17 ["props"]
+  GETTABLEKS R16 R17 K39 ["data"]
+  MOVE R17 R3
+  CALL R15 2 1
+  JUMPIF R14 [+24]
+  GETTABLEKS R17 R0 K17 ["props"]
+  GETTABLEKS R16 R17 K40 ["getItemLayout"]
+  JUMPIF R16 [+19]
+  FASTCALL1 TYPEOF R15 [+3]
+  MOVE R17 R15
+  GETIMPORT R16 K42 [typeof]
+  CALL R16 1 1
+  JUMPIFNOTEQKS R16 K43 ["table"] [+13]
+  GETTABLEKS R16 R15 K44 ["shouldResizeOnMount"]
+  JUMPIFNOT R16 [+9]
+  MOVE R20 R12
+  NAMECALL R18 R0 K33 ["_selectLength"]
+  CALL R18 2 1
+  MOVE R19 R2
+  MOVE R20 R3
+  NAMECALL R16 R0 K45 ["recalculateFrames"]
+  CALL R16 4 0
+  JUMPIFNOT R14 [+65]
+  GETTABLEKS R17 R0 K17 ["props"]
+  GETTABLEKS R16 R17 K40 ["getItemLayout"]
+  JUMPIF R16 [+60]
+  GETTABLEKS R18 R13 K28 ["length"]
+  GETTABLEKS R19 R14 K28 ["length"]
+  SUB R17 R18 R19
+  FASTCALL1 MATH_ABS R17 [+2]
+  GETIMPORT R16 K37 [math.abs]
+  CALL R16 1 1
+  LOADN R17 1
+  JUMPIFNOTLE R17 R16 [+49]
+  GETTABLEKS R17 R0 K17 ["props"]
+  GETTABLEKS R16 R17 K46 ["UNSTABLE_forceSiblingLayoutUpdate"]
+  JUMPIFNOT R16 [+30]
+  LOADK R18 K47 ["Frame"]
+  NAMECALL R16 R1 K4 ["FindFirstAncestorOfClass"]
+  CALL R16 2 1
+  JUMPIFNOT R16 [+4]
+  NAMECALL R17 R16 K48 ["GetChildren"]
+  CALL R17 1 1
+  JUMP [+2]
+  NEWTABLE R17 0 0
+  GETTABLEKS R19 R0 K17 ["props"]
+  GETTABLEKS R18 R19 K49 ["getItemCount"]
+  GETTABLEKS R20 R0 K17 ["props"]
+  GETTABLEKS R19 R20 K39 ["data"]
+  CALL R18 1 1
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K50 ["forEach"]
+  MOVE R20 R17
+  NEWCLOSURE R21 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R18
+  CAPTURE VAL R0
+  CALL R19 2 0
+  JUMP [+13]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K50 ["forEach"]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K51 ["keys"]
+  GETTABLEKS R18 R0 K34 ["_frames"]
+  CALL R17 1 1
+  NEWCLOSURE R18 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CALL R16 2 0
+  GETTABLEKS R16 R0 K52 ["_totalCellLength"]
+  GETTABLEKS R18 R13 K28 ["length"]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K53 ["toJSBoolean"]
+  MOVE R21 R14
+  CALL R20 1 1
+  JUMPIFNOT R20 [+3]
+  GETTABLEKS R19 R14 K28 ["length"]
+  JUMP [+1]
+  LOADN R19 0
+  SUB R17 R18 R19
+  ADD R16 R16 R17
+  SETTABLEKS R16 R0 K52 ["_totalCellLength"]
+  GETTABLEKS R16 R0 K54 ["_totalCellsMeasured"]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K53 ["toJSBoolean"]
+  MOVE R19 R14
+  CALL R18 1 1
+  JUMPIFNOT R18 [+2]
+  LOADN R17 0
+  JUMP [+1]
+  LOADN R17 1
+  ADD R16 R16 R17
+  SETTABLEKS R16 R0 K54 ["_totalCellsMeasured"]
+  GETTABLEKS R17 R0 K52 ["_totalCellLength"]
+  GETTABLEKS R18 R0 K54 ["_totalCellsMeasured"]
+  DIV R16 R17 R18
+  SETTABLEKS R16 R0 K55 ["_averageCellLength"]
+  GETTABLEKS R16 R0 K34 ["_frames"]
+  SETTABLE R13 R16 R2
+  GETTABLEKS R17 R0 K56 ["_highestMeasuredFrameIndex"]
+  FASTCALL2 MATH_MAX R17 R3 [+4]
+  MOVE R18 R3
+  GETIMPORT R16 K58 [math.max]
+  CALL R16 2 1
+  SETTABLEKS R16 R0 K56 ["_highestMeasuredFrameIndex"]
+  NAMECALL R16 R0 K59 ["_scheduleCellsToRenderUpdate"]
+  CALL R16 1 0
+  GETTABLEKS R17 R0 K17 ["props"]
+  GETTABLEKS R16 R17 K18 ["inverted"]
+  JUMPIFNOT R16 [+38]
+  GETTABLEKS R17 R0 K17 ["props"]
+  GETTABLEKS R16 R17 K40 ["getItemLayout"]
+  JUMPIF R16 [+33]
+  GETTABLEKS R17 R0 K60 ["state"]
+  GETTABLEKS R16 R17 K61 ["last"]
+  GETTABLEKS R18 R0 K17 ["props"]
+  GETTABLEKS R17 R18 K49 ["getItemCount"]
+  GETTABLEKS R19 R0 K17 ["props"]
+  GETTABLEKS R18 R19 K39 ["data"]
+  CALL R17 1 1
+  JUMPIFNOTEQ R16 R17 [+19]
+  GETTABLEKS R16 R0 K56 ["_highestMeasuredFrameIndex"]
+  GETTABLEKS R18 R0 K60 ["state"]
+  GETTABLEKS R17 R18 K61 ["last"]
+  JUMPIFNOTEQ R16 R17 [+11]
+  NAMECALL R16 R0 K62 ["forceUpdate"]
+  CALL R16 1 0
+  JUMP [+6]
+  GETTABLEKS R16 R0 K34 ["_frames"]
+  GETTABLE R15 R16 R2
+  LOADB R16 1
+  SETTABLEKS R16 R15 K30 ["inLayout"]
+  MOVE R17 R2
+  NAMECALL R15 R0 K63 ["_triggerRemeasureForChildListsInCell"]
+  CALL R15 2 0
+  NAMECALL R15 R0 K64 ["_computeBlankness"]
+  CALL R15 1 0
+  GETTABLEKS R18 R0 K17 ["props"]
+  GETTABLEKS R17 R18 K39 ["data"]
+  NAMECALL R15 R0 K65 ["_updateViewableItems"]
+  CALL R15 2 0
+  RETURN R0 0
+
+PROTO_85:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_nestedChildLists"]
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["get"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R2 R1 K2 ["ref"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R2 R1 K2 ["ref"]
+  NAMECALL R2 R2 K3 ["measureLayoutRelativeToContainingList"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_86:
+  GETTABLEKS R2 R0 K0 ["_cellKeysToChildListKeys"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["get"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+5]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NAMECALL R3 R2 K2 ["forEach"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_87:
+  GETUPVAL R1 0
+  JUMPIFNOTEQ R0 R1 [+11]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["_frames"]
+  GETTABLE R2 R3 R0
+  GETTABLEKS R1 R2 K1 ["index"]
+  GETUPVAL R2 2
+  JUMPIFNOTLE R2 R1 [+2]
+  RETURN R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["_frames"]
+  GETTABLE R1 R2 R0
+  GETTABLEKS R2 R1 K1 ["index"]
+  ADDK R2 R2 K2 [1]
+  SETTABLEKS R2 R1 K1 ["index"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["_frames"]
+  GETTABLE R1 R2 R0
+  GETTABLEKS R2 R1 K3 ["offset"]
+  GETUPVAL R3 3
+  ADD R2 R2 R3
+  SETTABLEKS R2 R1 K3 ["offset"]
+  RETURN R0 0
+
+PROTO_88:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["forEach"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["keys"]
+  GETTABLEKS R6 R0 K2 ["_frames"]
+  CALL R5 1 1
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K3 ["_highestMeasuredFrameIndex"]
+  ADDK R4 R4 K4 [1]
+  SETTABLEKS R4 R0 K3 ["_highestMeasuredFrameIndex"]
+  RETURN R0 0
+
+PROTO_89:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_nestedChildLists"]
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["get"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R2 R1 K2 ["ref"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R2 R1 K2 ["ref"]
+  NAMECALL R2 R2 K3 ["measureLayoutRelativeToContainingList"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_90:
+  JUMPIFNOT R0 [+5]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U0
+  NAMECALL R1 R0 K0 ["forEach"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_91:
+  GETUPVAL R4 0
+  GETUPVAL R5 0
+  DUPTABLE R7 K2 [{"x", "y"}]
+  SETTABLEKS R0 R7 K0 ["x"]
+  SETTABLEKS R1 R7 K1 ["y"]
+  NAMECALL R5 R5 K3 ["_selectOffset"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K4 ["_offsetFromParentVirtualizedList"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["_scrollMetrics"]
+  GETUPVAL R5 0
+  DUPTABLE R7 K8 [{"width", "height"}]
+  SETTABLEKS R2 R7 K6 ["width"]
+  SETTABLEKS R3 R7 K7 ["height"]
+  NAMECALL R5 R5 K9 ["_selectLength"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["contentLength"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K11 ["_convertParentScrollMetrics"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K12 ["context"]
+  GETTABLEKS R5 R6 K13 ["getScrollMetrics"]
+  CALL R5 0 -1
+  CALL R4 -1 1
+  LOADB R5 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["_scrollMetrics"]
+  GETTABLEKS R6 R7 K14 ["visibleLength"]
+  GETTABLEKS R7 R4 K14 ["visibleLength"]
+  JUMPIFNOTEQ R6 R7 [+12]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["_scrollMetrics"]
+  GETTABLEKS R6 R7 K15 ["offset"]
+  GETTABLEKS R7 R4 K15 ["offset"]
+  JUMPIFNOTEQ R6 R7 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  JUMPIFNOT R5 [+22]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["_scrollMetrics"]
+  GETTABLEKS R7 R4 K14 ["visibleLength"]
+  SETTABLEKS R7 R6 K14 ["visibleLength"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["_scrollMetrics"]
+  GETTABLEKS R7 R4 K15 ["offset"]
+  SETTABLEKS R7 R6 K15 ["offset"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K16 ["_cellKeysToChildListKeys"]
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U0
+  NAMECALL R6 R6 K17 ["forEach"]
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_92:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["warn"]
+  LOADK R3 K1 ["VirtualizedList: Encountered an error while measuring a list's"]
+  LOADK R4 K2 [" offset from its containing VirtualizedList."]
+  CONCAT R2 R3 R4
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_93:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["toJSBoolean"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["_scrollRef"]
+  CALL R0 1 1
+  JUMPIF R0 [+2]
+  LOADNIL R0
+  RETURN R0 1
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["_scrollRef"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["context"]
+  GETTABLEKS R2 R3 K3 ["getOutermostParentListRef"]
+  CALL R2 0 1
+  NAMECALL R2 R2 K4 ["getScrollRef"]
+  CALL R2 1 1
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U1
+  DUPCLOSURE R4 K5 [PROTO_92]
+  CAPTURE UPVAL U2
+  NAMECALL R0 R0 K6 ["measureLayout"]
+  CALL R0 4 0
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_94:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CALL R1 1 2
+  JUMPIF R1 [+7]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["warn"]
+  LOADK R4 K3 ["measureLayoutRelativeToContainingList threw an error"]
+  GETTABLEKS R5 R2 K4 ["stack"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_95:
+  NAMECALL R4 R0 K0 ["_getCellKey"]
+  CALL R4 1 1
+  MOVE R2 R4
+  LOADK R3 K1 ["-footer"]
+  CONCAT R1 R2 R3
+  RETURN R1 1
+
+PROTO_96:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K4 [{"key", "Name", "style"}]
+  LOADK R6 K5 ["f"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R8 R1
+  GETIMPORT R7 K7 [tostring]
+  CALL R7 1 1
+  CONCAT R5 R6 R7
+  SETTABLEKS R5 R4 K1 ["key"]
+  LOADK R6 K5 ["f"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R8 R1
+  GETIMPORT R7 K7 [tostring]
+  CALL R7 1 1
+  CONCAT R5 R6 R7
+  SETTABLEKS R5 R4 K2 ["Name"]
+  NEWTABLE R5 0 3
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K8 ["debugOverlayBase"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K9 ["debugOverlayFrame"]
+  DUPTABLE R8 K12 [{"top", "height"}]
+  GETTABLEKS R10 R0 K13 ["offset"]
+  GETUPVAL R11 3
+  MUL R9 R10 R11
+  SETTABLEKS R9 R8 K10 ["top"]
+  GETTABLEKS R10 R0 K14 ["length"]
+  GETUPVAL R11 3
+  MUL R9 R10 R11
+  SETTABLEKS R9 R8 K11 ["height"]
+  SETLIST R5 R6 3 [1]
+  SETTABLEKS R5 R4 K3 ["style"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_97:
+  GETTABLEKS R3 R0 K0 ["_scrollMetrics"]
+  GETTABLEKS R2 R3 K1 ["visibleLength"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["toJSBoolean"]
+  GETTABLEKS R6 R0 K0 ["_scrollMetrics"]
+  GETTABLEKS R5 R6 K3 ["contentLength"]
+  CALL R4 1 1
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K0 ["_scrollMetrics"]
+  GETTABLEKS R3 R4 K3 ["contentLength"]
+  JUMP [+1]
+  LOADN R3 1
+  DIV R1 R2 R3
+  NEWTABLE R2 0 0
+  GETTABLEKS R4 R0 K4 ["props"]
+  GETTABLEKS R3 R4 K5 ["getItemCount"]
+  GETTABLEKS R5 R0 K4 ["props"]
+  GETTABLEKS R4 R5 K6 ["data"]
+  CALL R3 1 1
+  LOADN R4 1
+  JUMPIFNOTLE R4 R3 [+21]
+  GETTABLEKS R5 R0 K7 ["_getFrameMetricsApprox"]
+  MOVE R6 R4
+  CALL R5 1 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["toJSBoolean"]
+  GETTABLEKS R7 R5 K8 ["inLayout"]
+  CALL R6 1 1
+  JUMPIFNOT R6 [+7]
+  FASTCALL2 TABLE_INSERT R2 R5 [+5]
+  MOVE R7 R2
+  MOVE R8 R5
+  GETIMPORT R6 K11 [table.insert]
+  CALL R6 2 0
+  ADDK R4 R4 K12 [1]
+  JUMPBACK [-22]
+  GETTABLEKS R6 R0 K7 ["_getFrameMetricsApprox"]
+  GETTABLEKS R8 R0 K13 ["state"]
+  GETTABLEKS R7 R8 K14 ["first"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K15 ["offset"]
+  GETTABLEKS R6 R0 K7 ["_getFrameMetricsApprox"]
+  GETTABLEKS R8 R0 K13 ["state"]
+  GETTABLEKS R7 R8 K16 ["last"]
+  CALL R6 1 1
+  GETTABLEKS R9 R6 K15 ["offset"]
+  GETTABLEKS R10 R6 K17 ["length"]
+  ADD R8 R9 R10
+  SUB R7 R8 R5
+  GETTABLEKS R9 R0 K0 ["_scrollMetrics"]
+  GETTABLEKS R8 R9 K15 ["offset"]
+  GETTABLEKS R10 R0 K0 ["_scrollMetrics"]
+  GETTABLEKS R9 R10 K1 ["visibleLength"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K18 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K20 [{"style"}]
+  NEWTABLE R13 0 2
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K21 ["debugOverlayBase"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K22 ["debugOverlay"]
+  SETLIST R13 R14 2 [1]
+  SETTABLEKS R13 R12 K19 ["style"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K23 ["map"]
+  MOVE R14 R2
+  NEWCLOSURE R15 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  CALL R13 2 1
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K18 ["createElement"]
+  GETUPVAL R15 2
+  DUPTABLE R16 K25 [{"Name", "style"}]
+  LOADK R17 K26 ["DebugOverlayLast"]
+  SETTABLEKS R17 R16 K24 ["Name"]
+  NEWTABLE R17 0 3
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K21 ["debugOverlayBase"]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K27 ["debugOverlayFrameLast"]
+  DUPTABLE R20 K30 [{"top", "height"}]
+  MUL R21 R5 R1
+  SETTABLEKS R21 R20 K28 ["top"]
+  MUL R21 R7 R1
+  SETTABLEKS R21 R20 K29 ["height"]
+  SETLIST R17 R18 3 [1]
+  SETTABLEKS R17 R16 K19 ["style"]
+  CALL R14 2 1
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K18 ["createElement"]
+  GETUPVAL R16 2
+  DUPTABLE R17 K25 [{"Name", "style"}]
+  LOADK R18 K31 ["DebugOverlayVis"]
+  SETTABLEKS R18 R17 K24 ["Name"]
+  NEWTABLE R18 0 3
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K21 ["debugOverlayBase"]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K32 ["debugOverlayFrameVis"]
+  DUPTABLE R21 K30 [{"top", "height"}]
+  MUL R22 R8 R1
+  SETTABLEKS R22 R21 K28 ["top"]
+  MUL R22 R9 R1
+  SETTABLEKS R22 R21 K29 ["height"]
+  SETLIST R18 R19 3 [1]
+  SETTABLEKS R18 R17 K19 ["style"]
+  CALL R15 2 -1
+  CALL R10 -1 -1
+  RETURN R10 -1
+
+PROTO_98:
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["horizontal"]
+  JUMPIFNOTEQKNIL R4 [+3]
+  LOADB R3 0
+  JUMP [+1]
+  MOVE R3 R4
+  JUMPIF R3 [+3]
+  GETTABLEKS R2 R1 K2 ["height"]
+  RETURN R2 1
+  GETTABLEKS R2 R1 K3 ["width"]
+  RETURN R2 1
+
+PROTO_99:
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["horizontal"]
+  JUMPIFNOTEQKNIL R4 [+3]
+  LOADB R3 0
+  JUMP [+1]
+  MOVE R3 R4
+  JUMPIF R3 [+3]
+  GETTABLEKS R2 R1 K2 ["y"]
+  RETURN R2 1
+  GETTABLEKS R2 R1 K3 ["x"]
+  RETURN R2 1
+
+PROTO_100:
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R1 R5 K1 ["data"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R2 R5 K2 ["getItemCount"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R3 R5 K3 ["onEndReached"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["onEndReachedThreshold"]
+  GETTABLEKS R8 R0 K5 ["_scrollMetrics"]
+  GETTABLEKS R5 R8 K6 ["contentLength"]
+  GETTABLEKS R8 R0 K5 ["_scrollMetrics"]
+  GETTABLEKS R6 R8 K7 ["visibleLength"]
+  GETTABLEKS R8 R0 K5 ["_scrollMetrics"]
+  GETTABLEKS R7 R8 K8 ["offset"]
+  SUB R9 R5 R6
+  SUB R8 R9 R7
+  JUMPIFEQKNIL R4 [+3]
+  MUL R9 R4 R6
+  JUMP [+1]
+  LOADN R9 2
+  JUMPIFNOT R3 [+31]
+  GETTABLEKS R11 R0 K9 ["state"]
+  GETTABLEKS R10 R11 K10 ["last"]
+  MOVE R11 R2
+  MOVE R12 R1
+  CALL R11 1 1
+  JUMPIFNOTEQ R10 R11 [+23]
+  JUMPIFNOTLT R8 R9 [+21]
+  GETTABLEKS R11 R0 K5 ["_scrollMetrics"]
+  GETTABLEKS R10 R11 K6 ["contentLength"]
+  GETTABLEKS R11 R0 K11 ["_sentEndForContentLength"]
+  JUMPIFEQ R10 R11 [+13]
+  GETTABLEKS R11 R0 K5 ["_scrollMetrics"]
+  GETTABLEKS R10 R11 K6 ["contentLength"]
+  SETTABLEKS R10 R0 K11 ["_sentEndForContentLength"]
+  MOVE R10 R3
+  DUPTABLE R11 K13 [{"distanceFromEnd"}]
+  SETTABLEKS R8 R11 K12 ["distanceFromEnd"]
+  CALL R10 1 0
+  RETURN R0 0
+  JUMPIFNOTLT R9 R8 [+4]
+  LOADN R10 0
+  SETTABLEKS R10 R0 K11 ["_sentEndForContentLength"]
+  RETURN R0 0
+
+PROTO_101:
+  GETTABLEKS R4 R0 K0 ["state"]
+  GETTABLEKS R1 R4 K1 ["first"]
+  GETTABLEKS R4 R0 K0 ["state"]
+  GETTABLEKS R2 R4 K2 ["last"]
+  GETTABLEKS R4 R0 K0 ["state"]
+  GETTABLEKS R3 R4 K3 ["scrollPositionDelta"]
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+2]
+  RETURN R0 0
+  GETTABLEKS R7 R0 K4 ["_scrollMetrics"]
+  GETTABLEKS R4 R7 K5 ["offset"]
+  GETTABLEKS R7 R0 K4 ["_scrollMetrics"]
+  GETTABLEKS R5 R7 K6 ["visibleLength"]
+  GETTABLEKS R7 R0 K4 ["_scrollMetrics"]
+  GETTABLEKS R6 R7 K7 ["velocity"]
+  GETTABLEKS R8 R0 K8 ["props"]
+  GETTABLEKS R7 R8 K9 ["getItemCount"]
+  GETTABLEKS R9 R0 K8 ["props"]
+  GETTABLEKS R8 R9 K10 ["data"]
+  CALL R7 1 1
+  LOADB R8 0
+  GETTABLEKS R11 R0 K8 ["props"]
+  GETTABLEKS R10 R11 K11 ["onEndReachedThreshold"]
+  JUMPIFNOTEQKNIL R10 [+3]
+  LOADN R9 2
+  JUMP [+1]
+  MOVE R9 R10
+  MUL R11 R9 R5
+  DIVK R10 R11 K12 [2]
+  LOADN R11 1
+  JUMPIFNOTLT R11 R1 [+23]
+  GETTABLEKS R13 R0 K13 ["_getFrameMetricsApprox"]
+  MOVE R14 R1
+  CALL R13 1 1
+  GETTABLEKS R12 R13 K5 ["offset"]
+  SUB R11 R4 R12
+  MOVE R12 R8
+  JUMPIF R12 [+12]
+  LOADB R12 1
+  LOADN R13 0
+  JUMPIFLT R11 R13 [+9]
+  LOADB R12 0
+  LOADN R13 254
+  JUMPIFNOTLT R6 R13 [+5]
+  JUMPIFLT R11 R10 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  MOVE R8 R12
+  JUMPIFNOTLT R2 R7 [+21]
+  GETTABLEKS R13 R0 K13 ["_getFrameMetricsApprox"]
+  MOVE R14 R2
+  CALL R13 1 1
+  GETTABLEKS R12 R13 K5 ["offset"]
+  ADD R13 R4 R5
+  SUB R11 R12 R13
+  MOVE R12 R8
+  JUMPIF R12 [+9]
+  LOADB R12 1
+  LOADN R13 0
+  JUMPIFLT R11 R13 [+6]
+  LOADN R13 2
+  JUMPIFLT R13 R6 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  MOVE R8 R12
+  JUMPIFNOT R8 [+31]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K14 ["toJSBoolean"]
+  GETTABLEKS R12 R0 K15 ["_averageCellLength"]
+  CALL R11 1 1
+  JUMPIF R11 [+5]
+  GETTABLEKS R12 R0 K8 ["props"]
+  GETTABLEKS R11 R12 K16 ["getItemLayout"]
+  JUMPIFNOT R11 [+19]
+  GETTABLEKS R11 R0 K17 ["_hiPriInProgress"]
+  JUMPIF R11 [+16]
+  LOADB R11 1
+  SETTABLEKS R11 R0 K17 ["_hiPriInProgress"]
+  GETTABLEKS R11 R0 K18 ["_updateCellsToRenderBatcher"]
+  DUPTABLE R13 K20 [{"abort"}]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K19 ["abort"]
+  NAMECALL R11 R11 K21 ["dispose"]
+  CALL R11 2 0
+  GETTABLEKS R11 R0 K22 ["_updateCellsToRender"]
+  CALL R11 0 0
+  RETURN R0 0
+  GETTABLEKS R11 R0 K18 ["_updateCellsToRenderBatcher"]
+  NAMECALL R11 R11 K23 ["schedule"]
+  CALL R11 1 0
+  RETURN R0 0
+
+PROTO_102:
+  GETTABLEKS R1 R0 K0 ["viewabilityHelper"]
+  GETUPVAL R3 0
+  GETUPVAL R4 1
+  CALL R3 1 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["_scrollMetrics"]
+  GETTABLEKS R4 R5 K2 ["offset"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K1 ["_scrollMetrics"]
+  GETTABLEKS R5 R6 K3 ["visibleLength"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K4 ["_getFrameMetrics"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K5 ["_createViewToken"]
+  GETTABLEKS R8 R0 K6 ["onViewableItemsChanged"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K7 ["state"]
+  NAMECALL R1 R1 K8 ["onUpdate"]
+  CALL R1 8 0
+  RETURN R0 0
+
+PROTO_103:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["getItemCount"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["forEach"]
+  GETTABLEKS R4 R0 K3 ["_viewabilityTuples"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_104:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R0 R2 K1 ["cellKey"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K2 ["prevCellKey"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["onUpdateSeparators"]
+  NEWTABLE R3 0 2
+  MOVE R4 R0
+  MOVE R5 R1
+  SETLIST R3 R4 2 [1]
+  DUPTABLE R4 K5 [{"highlighted"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K4 ["highlighted"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_105:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R0 R2 K1 ["cellKey"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K2 ["prevCellKey"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["onUpdateSeparators"]
+  NEWTABLE R3 0 2
+  MOVE R4 R0
+  MOVE R5 R1
+  SETLIST R3 R4 2 [1]
+  DUPTABLE R4 K5 [{"highlighted"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K4 ["highlighted"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_106:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R2 R4 K1 ["cellKey"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["prevCellKey"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K3 ["onUpdateSeparators"]
+  NEWTABLE R5 0 1
+  JUMPIFNOTEQKS R0 K4 ["leading"] [+3]
+  MOVE R6 R3
+  JUMP [+1]
+  MOVE R6 R2
+  SETLIST R5 R6 1 [1]
+  MOVE R6 R1
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_107:
+  SETTABLEKS R1 R0 K0 ["props"]
+  DUPTABLE R2 K2 [{"separatorProps"}]
+  DUPTABLE R3 K5 [{"highlighted", "leadingItem"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K3 ["highlighted"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K6 ["item"]
+  SETTABLEKS R4 R3 K4 ["leadingItem"]
+  SETTABLEKS R3 R2 K1 ["separatorProps"]
+  SETTABLEKS R2 R0 K7 ["state"]
+  DUPTABLE R2 K11 [{"highlight", "unhighlight", "updateProps"}]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K8 ["highlight"]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K9 ["unhighlight"]
+  NEWCLOSURE R3 P2
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K10 ["updateProps"]
+  SETTABLEKS R2 R0 K12 ["_separators"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K13 ["createRef"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K14 ["_nativeRef"]
+  RETURN R0 0
+
+PROTO_108:
+  DUPTABLE R2 K1 [{"separatorProps"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["assign"]
+  NEWTABLE R4 0 0
+  GETTABLEKS R5 R1 K0 ["separatorProps"]
+  DUPTABLE R6 K4 [{"leadingItem"}]
+  GETTABLEKS R7 R0 K5 ["item"]
+  SETTABLEKS R7 R6 K3 ["leadingItem"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K0 ["separatorProps"]
+  RETURN R2 1
+
+PROTO_109:
+  DUPTABLE R1 K1 [{"separatorProps"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["assign"]
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R0 K0 ["separatorProps"]
+  GETUPVAL R5 1
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K0 ["separatorProps"]
+  RETURN R1 1
+
+PROTO_110:
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  NAMECALL R2 R0 K0 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_111:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["onUnmount"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["cellKey"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_112:
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["toJSBoolean"]
+  MOVE R6 R1
+  CALL R5 1 1
+  JUMPIFNOT R5 [+13]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["toJSBoolean"]
+  MOVE R6 R2
+  CALL R5 1 1
+  JUMPIFNOT R5 [+7]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["warn"]
+  LOADK R7 K2 ["VirtualizedList: Both ListItemComponent and renderItem props are present. ListItemComponent will take"]
+  LOADK R8 K3 [" precedence over renderItem."]
+  CONCAT R6 R7 R8
+  CALL R5 1 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["toJSBoolean"]
+  MOVE R6 R2
+  CALL R5 1 1
+  JUMPIFNOT R5 [+15]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  MOVE R6 R2
+  DUPTABLE R7 K8 [{"item", "index", "separators"}]
+  SETTABLEKS R3 R7 K5 ["item"]
+  SETTABLEKS R4 R7 K6 ["index"]
+  GETTABLEKS R8 R0 K9 ["_separators"]
+  SETTABLEKS R8 R7 K7 ["separators"]
+  CALL R5 2 -1
+  RETURN R5 -1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["toJSBoolean"]
+  MOVE R6 R1
+  CALL R5 1 1
+  JUMPIFNOT R5 [+12]
+  MOVE R5 R1
+  DUPTABLE R6 K8 [{"item", "index", "separators"}]
+  SETTABLEKS R3 R6 K5 ["item"]
+  SETTABLEKS R4 R6 K6 ["index"]
+  GETTABLEKS R7 R0 K9 ["_separators"]
+  SETTABLEKS R7 R6 K7 ["separators"]
+  CALL R5 1 -1
+  RETURN R5 -1
+  GETUPVAL R5 3
+  LOADB R6 0
+  LOADK R7 K10 ["VirtualizedList: Either ListItemComponent or renderItem props are required but none were found."]
+  CALL R5 2 0
+  LOADNIL R5
+  RETURN R5 1
+
+PROTO_113:
+  GETTABLEKS R1 R0 K0 ["_nativeRef"]
+  RETURN R1 1
+
+PROTO_114:
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R1 R9 K1 ["CellRendererComponent"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R2 R9 K2 ["ItemSeparatorComponent"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R3 R9 K3 ["fillRateHelper"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R4 R9 K4 ["horizontal"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R5 R9 K5 ["item"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R6 R9 K6 ["index"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R7 R9 K7 ["inversionStyle"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K8 ["parentProps"]
+  GETTABLEKS R9 R8 K9 ["renderItem"]
+  GETTABLEKS R10 R8 K10 ["getItemLayout"]
+  GETTABLEKS R11 R8 K11 ["ListItemComponent"]
+  MOVE R14 R9
+  MOVE R15 R11
+  MOVE R16 R5
+  MOVE R17 R6
+  NAMECALL R12 R0 K12 ["_renderElement"]
+  CALL R12 5 1
+  JUMPIFNOT R10 [+9]
+  GETTABLEKS R14 R8 K13 ["debug"]
+  JUMPIF R14 [+6]
+  NAMECALL R14 R3 K14 ["enabled"]
+  CALL R14 1 1
+  JUMPIF R14 [+2]
+  LOADNIL R13
+  JUMP [+4]
+  GETTABLEKS R14 R0 K0 ["props"]
+  GETTABLEKS R13 R14 K15 ["onLayout"]
+  JUMPIFNOT R2 [+21]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K16 ["createElement"]
+  MOVE R15 R2
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K17 ["assign"]
+  GETTABLEKS R18 R0 K18 ["state"]
+  GETTABLEKS R17 R18 K19 ["separatorProps"]
+  DUPTABLE R18 K21 [{"LayoutOrder"}]
+  JUMPIFNOT R7 [+2]
+  LOADN R19 255
+  JUMP [+1]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K20 ["LayoutOrder"]
+  CALL R16 2 -1
+  CALL R14 -1 1
+  JUMP [+1]
+  MOVE R14 R2
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K22 ["toJSBoolean"]
+  MOVE R17 R7
+  CALL R16 1 1
+  JUMPIFNOT R16 [+19]
+  JUMPIFNOT R4 [+9]
+  NEWTABLE R15 0 2
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K23 ["rowReverse"]
+  MOVE R17 R7
+  SETLIST R15 R16 2 [1]
+  JUMP [+20]
+  NEWTABLE R15 0 2
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K24 ["columnReverse"]
+  MOVE R17 R7
+  SETLIST R15 R16 2 [1]
+  JUMP [+11]
+  JUMPIFNOT R4 [+9]
+  NEWTABLE R15 0 2
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K25 ["row"]
+  MOVE R17 R7
+  SETLIST R15 R16 2 [1]
+  JUMP [+1]
+  MOVE R15 R7
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K22 ["toJSBoolean"]
+  MOVE R18 R1
+  CALL R17 1 1
+  JUMPIF R17 [+55]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K16 ["createElement"]
+  GETUPVAL R17 4
+  DUPTABLE R18 K30 [{"Name", "style", "onLayout", "LayoutOrder", "AutomaticSize", "nativeRef"}]
+  LOADK R19 K31 ["CellRendererView"]
+  SETTABLEKS R19 R18 K26 ["Name"]
+  SETTABLEKS R15 R18 K27 ["style"]
+  SETTABLEKS R13 R18 K15 ["onLayout"]
+  JUMPIFNOT R7 [+2]
+  MINUS R19 R6
+  JUMP [+1]
+  MOVE R19 R6
+  SETTABLEKS R19 R18 K20 ["LayoutOrder"]
+  JUMPIFNOT R4 [+3]
+  GETIMPORT R19 K34 [Enum.AutomaticSize.X]
+  JUMP [+2]
+  GETIMPORT R19 K36 [Enum.AutomaticSize.Y]
+  SETTABLEKS R19 R18 K28 ["AutomaticSize"]
+  GETTABLEKS R19 R0 K37 ["_nativeRef"]
+  SETTABLEKS R19 R18 K29 ["nativeRef"]
+  JUMPIFNOT R14 [+19]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K16 ["createElement"]
+  LOADK R20 K38 ["UIListLayout"]
+  DUPTABLE R21 K41 [{"SortOrder", "FillDirection"}]
+  GETIMPORT R22 K42 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R22 R21 K39 ["SortOrder"]
+  JUMPIFNOT R4 [+3]
+  GETIMPORT R22 K44 [Enum.FillDirection.Horizontal]
+  JUMP [+2]
+  GETIMPORT R22 K46 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K40 ["FillDirection"]
+  CALL R19 2 1
+  JUMP [+1]
+  LOADNIL R19
+  MOVE R20 R12
+  MOVE R21 R14
+  CALL R16 5 1
+  JUMP [+46]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K16 ["createElement"]
+  MOVE R17 R1
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K17 ["assign"]
+  GETIMPORT R19 K49 [table.clone]
+  GETTABLEKS R20 R0 K0 ["props"]
+  CALL R19 1 1
+  DUPTABLE R20 K50 [{"style", "onLayout", "nativeRef"}]
+  SETTABLEKS R15 R20 K27 ["style"]
+  SETTABLEKS R13 R20 K15 ["onLayout"]
+  GETTABLEKS R21 R0 K37 ["_nativeRef"]
+  SETTABLEKS R21 R20 K29 ["nativeRef"]
+  CALL R18 2 1
+  JUMPIFNOT R14 [+19]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K16 ["createElement"]
+  LOADK R20 K38 ["UIListLayout"]
+  DUPTABLE R21 K41 [{"SortOrder", "FillDirection"}]
+  GETIMPORT R22 K42 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R22 R21 K39 ["SortOrder"]
+  JUMPIFNOT R4 [+3]
+  GETIMPORT R22 K44 [Enum.FillDirection.Horizontal]
+  JUMP [+2]
+  GETIMPORT R22 K46 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K40 ["FillDirection"]
+  CALL R19 2 1
+  JUMP [+1]
+  LOADNIL R19
+  MOVE R20 R12
+  MOVE R21 R14
+  CALL R16 5 1
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K16 ["createElement"]
+  GETUPVAL R18 5
+  DUPTABLE R19 K52 [{"cellKey"}]
+  GETTABLEKS R21 R0 K0 ["props"]
+  GETTABLEKS R20 R21 K51 ["cellKey"]
+  SETTABLEKS R20 R19 K51 ["cellKey"]
+  MOVE R20 R16
+  CALL R17 3 -1
+  RETURN R17 -1
+
+PROTO_115:
+  LOADK R2 K0 ["VirtualizedList trace:
+"]
+  LOADK R6 K1 ["  Child (%s):
+"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K2 ["toJSBoolean"]
+  GETTABLEKS R10 R0 K3 ["horizontal"]
+  CALL R9 1 1
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K3 ["horizontal"]
+  JUMP [+1]
+  LOADK R8 K4 ["vertical"]
+  NAMECALL R6 R6 K5 ["format"]
+  CALL R6 2 1
+  MOVE R3 R6
+  LOADK R6 K6 ["    listKey: %s
+"]
+  GETTABLEKS R8 R0 K7 ["key"]
+  NAMECALL R6 R6 K5 ["format"]
+  CALL R6 2 1
+  MOVE R4 R6
+  LOADK R5 K8 ["    cellKey: %s"]
+  GETTABLEKS R7 R0 K9 ["cellKey"]
+  NAMECALL R5 R5 K5 ["format"]
+  CALL R5 2 1
+  CONCAT R1 R2 R5
+  GETTABLEKS R2 R0 K10 ["parentDebugInfo"]
+  JUMPIFNOT R2 [+29]
+  MOVE R3 R1
+  LOADK R7 K11 ["
+  Parent (%s):
+"]
+  GETTABLEKS R10 R2 K3 ["horizontal"]
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K3 ["horizontal"]
+  JUMP [+1]
+  LOADK R9 K4 ["vertical"]
+  NAMECALL R7 R7 K5 ["format"]
+  CALL R7 2 1
+  MOVE R4 R7
+  LOADK R7 K6 ["    listKey: %s
+"]
+  GETTABLEKS R9 R2 K12 ["listKey"]
+  NAMECALL R7 R7 K5 ["format"]
+  CALL R7 2 1
+  MOVE R5 R7
+  LOADK R6 K8 ["    cellKey: %s"]
+  GETTABLEKS R8 R2 K9 ["cellKey"]
+  NAMECALL R6 R6 K5 ["format"]
+  CALL R6 2 1
+  CONCAT R1 R3 R6
+  GETTABLEKS R2 R2 K13 ["parent"]
+  JUMPBACK [-30]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K6 ["Array"]
+  GETTABLEKS R4 R2 K7 ["Boolean"]
+  GETTABLEKS R5 R2 K8 ["Map"]
+  GETTABLEKS R6 R2 K9 ["Object"]
+  GETTABLEKS R7 R2 K10 ["Set"]
+  GETTABLEKS R8 R2 K11 ["console"]
+  DUPCLOSURE R9 K12 [PROTO_0]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K13 ["Interaction"]
+  GETTABLEKS R11 R12 K14 ["Batchinator"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K2 ["Parent"]
+  GETTABLEKS R12 R13 K15 ["FillRateHelper"]
+  CALL R11 1 1
+  DUPTABLE R12 K17 [{"findNodeHandle"}]
+  DUPCLOSURE R13 K18 [PROTO_1]
+  SETTABLEKS R13 R12 K16 ["findNodeHandle"]
+  LOADNIL R13
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K19 ["Components"]
+  GETTABLEKS R16 R17 K20 ["ScrollView"]
+  GETTABLEKS R15 R16 K20 ["ScrollView"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R17 R0 K21 ["StyleSheet"]
+  GETTABLEKS R16 R17 K21 ["StyleSheet"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K19 ["Components"]
+  GETTABLEKS R18 R19 K22 ["View"]
+  GETTABLEKS R17 R18 K22 ["View"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K2 ["Parent"]
+  GETTABLEKS R18 R19 K23 ["ViewabilityHelper"]
+  CALL R17 1 1
+  DUPCLOSURE R18 K24 [PROTO_2]
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R21 R0 K25 ["Utilities"]
+  GETTABLEKS R20 R21 K26 ["infoLog"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R22 R0 K27 ["jsUtils"]
+  GETTABLEKS R21 R22 K28 ["invariant"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETIMPORT R24 K1 [script]
+  GETTABLEKS R23 R24 K2 ["Parent"]
+  GETTABLEKS R22 R23 K29 ["VirtualizeUtils"]
+  CALL R21 1 1
+  GETTABLEKS R22 R21 K30 ["keyExtractor"]
+  GETTABLEKS R23 R21 K31 ["computeWindowedRenderLimits"]
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R25 R1 K32 ["React"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R28 R0 K19 ["Components"]
+  GETTABLEKS R27 R28 K20 ["ScrollView"]
+  GETTABLEKS R26 R27 K20 ["ScrollView"]
+  CALL R25 1 1
+  GETIMPORT R26 K4 [require]
+  GETIMPORT R29 K1 [script]
+  GETTABLEKS R28 R29 K2 ["Parent"]
+  GETTABLEKS R27 R28 K33 ["VirtualizedListContext"]
+  CALL R26 1 1
+  GETTABLEKS R27 R26 K34 ["VirtualizedListCellContextProvider"]
+  GETTABLEKS R28 R26 K33 ["VirtualizedListContext"]
+  GETTABLEKS R29 R26 K35 ["VirtualizedListContextProvider"]
+  LOADNIL R30
+  LOADNIL R31
+  LOADNIL R32
+  DUPCLOSURE R13 K36 [PROTO_3]
+  CAPTURE VAL R24
+  LOADB R33 0
+  LOADK R34 K37 [""]
+  DUPCLOSURE R35 K38 [PROTO_4]
+  DUPCLOSURE R36 K39 [PROTO_5]
+  DUPCLOSURE R37 K40 [PROTO_6]
+  DUPCLOSURE R38 K41 [PROTO_7]
+  DUPCLOSURE R39 K42 [PROTO_8]
+  DUPCLOSURE R40 K43 [PROTO_9]
+  DUPCLOSURE R41 K44 [PROTO_11]
+  GETTABLEKS R42 R24 K45 ["PureComponent"]
+  LOADK R44 K46 ["VirtualizedList"]
+  NAMECALL R42 R42 K47 ["extend"]
+  CALL R42 2 1
+  SETTABLEKS R28 R42 K48 ["contextType"]
+  NEWCLOSURE R43 P11
+  CAPTURE VAL R5
+  CAPTURE VAL R20
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R23
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R17
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE REF R30
+  CAPTURE VAL R24
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE REF R13
+  CAPTURE VAL R19
+  SETTABLEKS R43 R42 K49 ["init"]
+  DUPCLOSURE R43 K50 [PROTO_49]
+  CAPTURE VAL R8
+  SETTABLEKS R43 R42 K51 ["scrollToEnd"]
+  DUPCLOSURE R43 K52 [PROTO_50]
+  CAPTURE VAL R20
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  SETTABLEKS R43 R42 K53 ["scrollToIndex"]
+  DUPCLOSURE R43 K54 [PROTO_51]
+  CAPTURE VAL R6
+  SETTABLEKS R43 R42 K55 ["scrollToItem"]
+  DUPCLOSURE R43 K56 [PROTO_52]
+  CAPTURE VAL R8
+  SETTABLEKS R43 R42 K57 ["scrollToOffset"]
+  DUPCLOSURE R43 K58 [PROTO_55]
+  CAPTURE VAL R3
+  SETTABLEKS R43 R42 K59 ["recordInteraction"]
+  DUPCLOSURE R43 K60 [PROTO_56]
+  SETTABLEKS R43 R42 K61 ["flashScrollIndicators"]
+  DUPCLOSURE R43 K62 [PROTO_57]
+  SETTABLEKS R43 R42 K63 ["getScrollResponder"]
+  DUPCLOSURE R43 K64 [PROTO_58]
+  CAPTURE VAL R12
+  SETTABLEKS R43 R42 K65 ["getScrollableNode"]
+  DUPCLOSURE R43 K66 [PROTO_59]
+  SETTABLEKS R43 R42 K67 ["getScrollRef"]
+  DUPCLOSURE R43 K68 [PROTO_60]
+  SETTABLEKS R43 R42 K69 ["setNativeProps"]
+  DUPCLOSURE R43 K70 [PROTO_61]
+  SETTABLEKS R43 R42 K71 ["_getCellKey"]
+  DUPCLOSURE R43 K72 [PROTO_62]
+  CAPTURE VAL R4
+  SETTABLEKS R43 R42 K73 ["_getListKey"]
+  DUPCLOSURE R43 K74 [PROTO_63]
+  SETTABLEKS R43 R42 K75 ["_getDebugInfo"]
+  DUPCLOSURE R43 K76 [PROTO_64]
+  SETTABLEKS R43 R42 K77 ["hasMore"]
+  DUPCLOSURE R43 K78 [PROTO_65]
+  SETTABLEKS R43 R42 K79 ["componentDidMount"]
+  DUPCLOSURE R43 K80 [PROTO_67]
+  CAPTURE VAL R3
+  SETTABLEKS R43 R42 K81 ["componentWillUnmount"]
+  DUPCLOSURE R43 K82 [PROTO_69]
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R43 R42 K83 ["getDerivedStateFromProps"]
+  NEWCLOSURE R43 P29
+  CAPTURE VAL R24
+  CAPTURE REF R32
+  SETTABLEKS R43 R42 K84 ["_pushCells"]
+  DUPCLOSURE R43 K85 [PROTO_73]
+  SETTABLEKS R43 R42 K86 ["_isVirtualizationDisabled"]
+  DUPCLOSURE R43 K87 [PROTO_74]
+  CAPTURE VAL R4
+  SETTABLEKS R43 R42 K88 ["_isNestedWithSameOrientation"]
+  NEWCLOSURE R43 P32
+  CAPTURE VAL R22
+  CAPTURE REF R33
+  CAPTURE VAL R4
+  CAPTURE REF R34
+  SETTABLEKS R43 R42 K89 ["_keyExtractor"]
+  NEWCLOSURE R43 P33
+  CAPTURE VAL R18
+  CAPTURE VAL R8
+  CAPTURE REF R31
+  CAPTURE VAL R7
+  CAPTURE VAL R24
+  CAPTURE VAL R27
+  CAPTURE VAL R16
+  CAPTURE VAL R15
+  CAPTURE REF R33
+  CAPTURE REF R34
+  CAPTURE VAL R6
+  CAPTURE VAL R29
+  CAPTURE VAL R14
+  SETTABLEKS R43 R42 K90 ["render"]
+  DUPCLOSURE R43 K91 [PROTO_80]
+  CAPTURE VAL R3
+  SETTABLEKS R43 R42 K92 ["componentDidUpdate"]
+  DUPCLOSURE R43 K93 [PROTO_81]
+  SETTABLEKS R43 R42 K94 ["_computeBlankness"]
+  DUPCLOSURE R43 K95 [PROTO_84]
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  SETTABLEKS R43 R42 K96 ["_onCellLayout"]
+  DUPCLOSURE R43 K97 [PROTO_86]
+  SETTABLEKS R43 R42 K98 ["_triggerRemeasureForChildListsInCell"]
+  DUPCLOSURE R43 K99 [PROTO_88]
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  SETTABLEKS R43 R42 K100 ["recalculateFrames"]
+  DUPCLOSURE R43 K101 [PROTO_94]
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  SETTABLEKS R43 R42 K102 ["measureLayoutRelativeToContainingList"]
+  DUPCLOSURE R43 K103 [PROTO_95]
+  SETTABLEKS R43 R42 K104 ["_getFooterCellKey"]
+  NEWCLOSURE R43 P41
+  CAPTURE VAL R4
+  CAPTURE VAL R24
+  CAPTURE VAL R16
+  CAPTURE REF R31
+  CAPTURE VAL R3
+  SETTABLEKS R43 R42 K105 ["_renderDebugOverlay"]
+  DUPCLOSURE R43 K106 [PROTO_98]
+  SETTABLEKS R43 R42 K107 ["_selectLength"]
+  DUPCLOSURE R43 K108 [PROTO_99]
+  SETTABLEKS R43 R42 K109 ["_selectOffset"]
+  DUPCLOSURE R43 K110 [PROTO_100]
+  SETTABLEKS R43 R42 K111 ["_maybeCallOnEndReached"]
+  DUPCLOSURE R43 K112 [PROTO_101]
+  CAPTURE VAL R4
+  SETTABLEKS R43 R42 K113 ["_scheduleCellsToRenderUpdate"]
+  DUPCLOSURE R43 K114 [PROTO_103]
+  CAPTURE VAL R3
+  SETTABLEKS R43 R42 K115 ["_updateViewableItems"]
+  GETTABLEKS R43 R24 K116 ["Component"]
+  LOADK R45 K117 ["CellRenderer"]
+  NAMECALL R43 R43 K47 ["extend"]
+  CALL R43 2 1
+  MOVE R32 R43
+  DUPCLOSURE R43 K118 [PROTO_107]
+  CAPTURE VAL R24
+  SETTABLEKS R43 R32 K49 ["init"]
+  DUPCLOSURE R43 K119 [PROTO_108]
+  CAPTURE VAL R6
+  SETTABLEKS R43 R32 K83 ["getDerivedStateFromProps"]
+  DUPCLOSURE R43 K120 [PROTO_110]
+  CAPTURE VAL R6
+  SETTABLEKS R43 R32 K121 ["updateSeparatorProps"]
+  DUPCLOSURE R43 K122 [PROTO_111]
+  SETTABLEKS R43 R32 K81 ["componentWillUnmount"]
+  DUPCLOSURE R43 K123 [PROTO_112]
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  CAPTURE VAL R20
+  SETTABLEKS R43 R32 K124 ["_renderElement"]
+  DUPCLOSURE R43 K125 [PROTO_113]
+  SETTABLEKS R43 R32 K126 ["getRef"]
+  NEWCLOSURE R43 P53
+  CAPTURE VAL R24
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE REF R31
+  CAPTURE VAL R16
+  CAPTURE VAL R27
+  SETTABLEKS R43 R32 K90 ["render"]
+  DUPCLOSURE R30 K127 [PROTO_115]
+  CAPTURE VAL R4
+  GETTABLEKS R43 R15 K128 ["create"]
+  DUPTABLE R44 K141 [{"verticallyInverted", "horizontallyInverted", "row", "column", "rowReverse", "columnReverse", "debug", "debugOverlayBase", "debugOverlay", "debugOverlayFrame", "debugOverlayFrameLast", "debugOverlayFrameVis"}]
+  DUPTABLE R45 K144 [{"HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R46 K147 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R46 R45 K142 ["HorizontalAlignment"]
+  GETIMPORT R46 K149 [Enum.VerticalAlignment.Bottom]
+  SETTABLEKS R46 R45 K143 ["VerticalAlignment"]
+  SETTABLEKS R45 R44 K129 ["verticallyInverted"]
+  DUPTABLE R45 K144 [{"HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R46 K151 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R46 R45 K142 ["HorizontalAlignment"]
+  GETIMPORT R46 K152 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R46 R45 K143 ["VerticalAlignment"]
+  SETTABLEKS R45 R44 K130 ["horizontallyInverted"]
+  DUPTABLE R45 K155 [{"AutomaticSize", "Size"}]
+  GETIMPORT R46 K157 [Enum.AutomaticSize.X]
+  SETTABLEKS R46 R45 K153 ["AutomaticSize"]
+  GETIMPORT R46 K160 [UDim2.new]
+  LOADN R47 0
+  LOADN R48 0
+  LOADN R49 1
+  LOADN R50 0
+  CALL R46 4 1
+  SETTABLEKS R46 R45 K154 ["Size"]
+  SETTABLEKS R45 R44 K131 ["row"]
+  DUPTABLE R45 K161 [{"AutomaticSize"}]
+  GETIMPORT R46 K163 [Enum.AutomaticSize.Y]
+  SETTABLEKS R46 R45 K153 ["AutomaticSize"]
+  SETTABLEKS R45 R44 K132 ["column"]
+  DUPTABLE R45 K165 [{"flexDirection", "AutomaticSize", "Size"}]
+  LOADK R46 K166 ["row-reverse"]
+  SETTABLEKS R46 R45 K164 ["flexDirection"]
+  GETIMPORT R46 K157 [Enum.AutomaticSize.X]
+  SETTABLEKS R46 R45 K153 ["AutomaticSize"]
+  GETIMPORT R46 K160 [UDim2.new]
+  LOADN R47 0
+  LOADN R48 0
+  LOADN R49 1
+  LOADN R50 0
+  CALL R46 4 1
+  SETTABLEKS R46 R45 K154 ["Size"]
+  SETTABLEKS R45 R44 K133 ["rowReverse"]
+  DUPTABLE R45 K167 [{"flexDirection", "AutomaticSize"}]
+  LOADK R46 K168 ["column-reverse"]
+  SETTABLEKS R46 R45 K164 ["flexDirection"]
+  GETIMPORT R46 K163 [Enum.AutomaticSize.Y]
+  SETTABLEKS R46 R45 K153 ["AutomaticSize"]
+  SETTABLEKS R45 R44 K134 ["columnReverse"]
+  DUPTABLE R45 K170 [{"flex"}]
+  LOADN R46 1
+  SETTABLEKS R46 R45 K169 ["flex"]
+  SETTABLEKS R45 R44 K135 ["debug"]
+  DUPTABLE R45 K174 [{"position", "top", "right"}]
+  LOADK R46 K175 ["absolute"]
+  SETTABLEKS R46 R45 K171 ["position"]
+  LOADN R46 0
+  SETTABLEKS R46 R45 K172 ["top"]
+  LOADN R46 0
+  SETTABLEKS R46 R45 K173 ["right"]
+  SETTABLEKS R45 R44 K136 ["debugOverlayBase"]
+  DUPTABLE R45 K180 [{"bottom", "width", "borderColor", "borderWidth"}]
+  LOADN R46 0
+  SETTABLEKS R46 R45 K176 ["bottom"]
+  LOADN R46 20
+  SETTABLEKS R46 R45 K177 ["width"]
+  LOADK R46 K181 ["blue"]
+  SETTABLEKS R46 R45 K178 ["borderColor"]
+  LOADN R46 1
+  SETTABLEKS R46 R45 K179 ["borderWidth"]
+  SETTABLEKS R45 R44 K137 ["debugOverlay"]
+  DUPTABLE R45 K184 [{"left", "backgroundColor"}]
+  LOADN R46 0
+  SETTABLEKS R46 R45 K182 ["left"]
+  LOADK R46 K185 ["orange"]
+  SETTABLEKS R46 R45 K183 ["backgroundColor"]
+  SETTABLEKS R45 R44 K138 ["debugOverlayFrame"]
+  DUPTABLE R45 K186 [{"left", "borderColor", "borderWidth"}]
+  LOADN R46 0
+  SETTABLEKS R46 R45 K182 ["left"]
+  LOADK R46 K187 ["green"]
+  SETTABLEKS R46 R45 K178 ["borderColor"]
+  LOADN R46 2
+  SETTABLEKS R46 R45 K179 ["borderWidth"]
+  SETTABLEKS R45 R44 K139 ["debugOverlayFrameLast"]
+  DUPTABLE R45 K186 [{"left", "borderColor", "borderWidth"}]
+  LOADN R46 0
+  SETTABLEKS R46 R45 K182 ["left"]
+  LOADK R46 K188 ["red"]
+  SETTABLEKS R46 R45 K178 ["borderColor"]
+  LOADN R46 2
+  SETTABLEKS R46 R45 K179 ["borderWidth"]
+  SETTABLEKS R45 R44 K140 ["debugOverlayFrameVis"]
+  CALL R43 1 1
+  MOVE R31 R43
+  CLOSEUPVALS R13
+  RETURN R42 1

@@ -1,0 +1,65 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R3 R1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["key"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+36]
+  LOADB R4 0
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K2 [typeof]
+  CALL R5 1 1
+  JUMPIFNOTEQKS R5 K3 ["table"] [+11]
+  GETTABLEKS R6 R2 K4 ["RunContext"]
+  FASTCALL1 TYPEOF R6 [+2]
+  GETIMPORT R5 K2 [typeof]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K5 ["EnumItem"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K6 [+4]
+  LOADK R5 K6 ["Expected scriptState to be a table with an EnumItem field"]
+  GETIMPORT R3 K8 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K4 ["RunContext"]
+  GETIMPORT R4 K11 [Enum.RunContext.Client]
+  JUMPIFNOTEQ R3 R4 [+6]
+  GETTABLEKS R3 R0 K12 ["getClassIcon"]
+  LOADK R4 K13 ["LocalScript"]
+  CALL R3 1 -1
+  RETURN R3 -1
+  GETTABLEKS R3 R0 K12 ["getClassIcon"]
+  GETTABLEKS R5 R1 K14 ["datum"]
+  GETTABLEKS R4 R5 K15 ["className"]
+  CALL R3 1 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["Contexts"]
+  GETTABLEKS R2 R3 K8 ["ClassIconContext"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Fields"]
+  GETTABLEKS R4 R5 K10 ["AllFields"]
+  GETTABLEKS R3 R4 K11 ["ScriptState"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K12 ["Util"]
+  GETTABLEKS R4 R5 K13 ["getField"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K14 ["Hooks"]
+  GETTABLEKS R5 R6 K15 ["useVisibleExplorerNodeRange"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K16 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R5 1

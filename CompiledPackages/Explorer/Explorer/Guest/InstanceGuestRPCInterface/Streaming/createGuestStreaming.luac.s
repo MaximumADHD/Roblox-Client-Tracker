@@ -1,0 +1,185 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K0 ["className"]
+  JUMPIFNOTEQKS R3 K1 ["Camera"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K2 [+4]
+  LOADK R3 K2 ["Shouldn't send cameras over childAdded, because they are local only"]
+  GETIMPORT R1 K4 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 0
+  LOADK R2 K5 ["childAdded(%s, '%s' inside %s)"]
+  GETTABLEKS R3 R0 K6 ["id"]
+  GETTABLEKS R4 R0 K7 ["name"]
+  GETTABLEKS R5 R0 K8 ["parentId"]
+  CALL R1 4 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K9 ["instanceIdsToInstance"]
+  GETTABLEKS R3 R0 K6 ["id"]
+  GETTABLE R1 R2 R3
+  JUMPIFEQKNIL R1 [+9]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K10 ["root"]
+  NAMECALL R2 R1 K11 ["IsDescendantOf"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K12 ["hostRpcInterface"]
+  GETTABLEKS R2 R3 K13 ["instanceAdded"]
+  DUPTABLE R3 K16 [{"id", "name", "className", "parentId", "hasChildren", "isGhost"}]
+  GETTABLEKS R4 R0 K6 ["id"]
+  SETTABLEKS R4 R3 K6 ["id"]
+  GETTABLEKS R4 R0 K7 ["name"]
+  SETTABLEKS R4 R3 K7 ["name"]
+  GETTABLEKS R4 R0 K0 ["className"]
+  SETTABLEKS R4 R3 K0 ["className"]
+  GETTABLEKS R4 R0 K8 ["parentId"]
+  SETTABLEKS R4 R3 K8 ["parentId"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K14 ["hasChildren"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K15 ["isGhost"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
+  LOADK R1 K0 ["childRemoved is referring to %*, which we know about"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K1 ["GetFullName"]
+  CALL R3 1 1
+  NAMECALL R1 R1 K2 ["format"]
+  CALL R1 2 1
+  MOVE R0 R1
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["childMoved(%s)"]
+  GETTABLEKS R3 R0 K1 ["id"]
+  CALL R1 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["instanceIdsToInstance"]
+  GETTABLEKS R3 R0 K1 ["id"]
+  GETTABLE R1 R2 R3
+  JUMPIFEQKNIL R1 [+24]
+  GETTABLEKS R2 R1 K3 ["Parent"]
+  JUMPIFEQKNIL R2 [+20]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["root"]
+  NAMECALL R2 R1 K5 ["IsDescendantOf"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+12]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["expandedInstances"]
+  GETTABLEKS R4 R1 K3 ["Parent"]
+  GETTABLE R2 R3 R4
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R2 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CALL R2 1 0
+  RETURN R0 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K7 ["hostRpcInterface"]
+  GETTABLEKS R2 R3 K8 ["streamedOutInstanceRemoved"]
+  GETTABLEKS R3 R0 K1 ["id"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["hostRpcInterface"]
+  GETTABLEKS R1 R2 K1 ["instancePinned"]
+  GETTABLEKS R2 R0 K2 ["id"]
+  GETTABLEKS R3 R0 K3 ["depth"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["hostRpcInterface"]
+  GETTABLEKS R1 R2 K1 ["instanceUnpinned"]
+  GETTABLEKS R2 R0 K2 ["id"]
+  GETTABLEKS R3 R0 K3 ["depth"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["destroy"]
+  CALL R0 0 0
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 2
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 3
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 4
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R1 K0 ["childAddedSignal"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K1 ["Connect"]
+  CALL R2 2 1
+  GETTABLEKS R3 R1 K2 ["childRemovedSignal"]
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K1 ["Connect"]
+  CALL R3 2 1
+  GETTABLEKS R4 R1 K3 ["pinRequestedSignal"]
+  NEWCLOSURE R6 P2
+  CAPTURE VAL R0
+  NAMECALL R4 R4 K1 ["Connect"]
+  CALL R4 2 1
+  GETTABLEKS R5 R1 K4 ["unpinRequestedSignal"]
+  NEWCLOSURE R7 P3
+  CAPTURE VAL R0
+  NAMECALL R5 R5 K1 ["Connect"]
+  CALL R5 2 1
+  NEWCLOSURE R6 P4
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  DUPTABLE R7 K6 [{"destroy"}]
+  SETTABLEKS R6 R7 K5 ["destroy"]
+  RETURN R7 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Guest"]
+  GETTABLEKS R3 R4 K7 ["InstanceGuestRPCInterface"]
+  GETTABLEKS R2 R3 K8 ["InstanceGuestRPCInterfaceTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Guest"]
+  GETTABLEKS R5 R6 K7 ["InstanceGuestRPCInterface"]
+  GETTABLEKS R4 R5 K9 ["Streaming"]
+  GETTABLEKS R3 R4 K10 ["StreamingInterface"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["createDebugLogger"]
+  CALL R3 1 1
+  MOVE R4 R3
+  LOADK R5 K13 ["createGuestStreaming"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K14 [PROTO_6]
+  CAPTURE VAL R4
+  RETURN R5 1

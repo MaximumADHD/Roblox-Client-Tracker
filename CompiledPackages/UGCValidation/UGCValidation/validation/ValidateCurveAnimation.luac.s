@@ -1,0 +1,2678 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["reportFailure"]
+  MOVE R4 R1
+  LOADNIL R5
+  MOVE R6 R2
+  CALL R3 3 0
+  LOADB R3 0
+  NEWTABLE R4 0 1
+  MOVE R5 R0
+  SETLIST R4 R5 1 [1]
+  RETURN R3 2
+
+PROTO_1:
+  GETUPVAL R0 0
+  JUMPIF R0 [+5]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["getBodyPartsToParents"]
+  CALL R0 0 1
+  SETUPVAL R0 0
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_2:
+  LOADB R1 1
+  GETUPVAL R4 0
+  JUMPIF R4 [+5]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["getBodyPartsToParents"]
+  CALL R4 0 1
+  SETUPVAL R4 0
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R0
+  JUMPIFNOTEQKNIL R2 [+5]
+  JUMPIFEQKS R0 K1 ["HumanoidRootPart"] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETTABLEKS R6 R5 K0 ["ClassName"]
+  GETTABLEKS R7 R0 K0 ["ClassName"]
+  JUMPIFNOTEQ R6 R7 [+14]
+  GETTABLEKS R6 R5 K1 ["Name"]
+  GETTABLEKS R7 R0 K1 ["Name"]
+  JUMPIFNOTEQ R6 R7 [+8]
+  GETIMPORT R6 K4 [table.remove]
+  GETUPVAL R7 0
+  MOVE R8 R4
+  CALL R6 2 0
+  LOADB R6 1
+  RETURN R6 1
+  FORGLOOP R1 2 [-20]
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_4:
+  JUMPIF R0 [+2]
+  LOADB R2 1
+  RETURN R2 1
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  NAMECALL R3 R0 K0 ["GetChildren"]
+  CALL R3 1 3
+  FORGPREP R3
+  MOVE R8 R2
+  MOVE R9 R7
+  CALL R8 1 1
+  JUMPIF R8 [+2]
+  LOADB R8 0
+  RETURN R8 1
+  FORGLOOP R3 2 [-7]
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_5:
+  NEWTABLE R1 0 0
+  GETUPVAL R5 0
+  JUMPIF R5 [+5]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["getBodyPartsToParents"]
+  CALL R5 0 1
+  SETUPVAL R5 0
+  GETUPVAL R2 0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  JUMPIFNOTEQ R6 R0 [+13]
+  DUPTABLE R9 K3 [{"ClassName", "Name"}]
+  LOADK R10 K4 ["Folder"]
+  SETTABLEKS R10 R9 K1 ["ClassName"]
+  SETTABLEKS R5 R9 K2 ["Name"]
+  FASTCALL2 TABLE_INSERT R1 R9 [+4]
+  MOVE R8 R1
+  GETIMPORT R7 K7 [table.insert]
+  CALL R7 2 0
+  FORGLOOP R2 2 [-15]
+  RETURN R1 1
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K0 ["Name"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K0 ["Name"]
+  JUMPIFNOTEQKS R3 K1 ["HumanoidRootPart"] [+2]
+  RETURN R2 1
+  DUPTABLE R5 K3 [{"ClassName", "Name"}]
+  LOADK R6 K4 ["Vector3Curve"]
+  SETTABLEKS R6 R5 K2 ["ClassName"]
+  LOADK R6 K5 ["Position"]
+  SETTABLEKS R6 R5 K0 ["Name"]
+  FASTCALL2 TABLE_INSERT R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K8 [table.insert]
+  CALL R3 2 0
+  DUPTABLE R5 K3 [{"ClassName", "Name"}]
+  JUMPIFNOT R1 [+2]
+  LOADK R6 K9 ["EulerRotationCurve"]
+  JUMP [+1]
+  LOADK R6 K10 ["RotationCurve"]
+  SETTABLEKS R6 R5 K2 ["ClassName"]
+  LOADK R6 K11 ["Rotation"]
+  SETTABLEKS R6 R5 K0 ["Name"]
+  FASTCALL2 TABLE_INSERT R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K8 [table.insert]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K0 ["Name"]
+  JUMPIFEQKS R3 K12 ["Head"] [+2]
+  RETURN R2 1
+  DUPTABLE R5 K3 [{"ClassName", "Name"}]
+  LOADK R6 K13 ["Folder"]
+  SETTABLEKS R6 R5 K2 ["ClassName"]
+  LOADK R6 K14 ["FaceControls"]
+  SETTABLEKS R6 R5 K0 ["Name"]
+  FASTCALL2 TABLE_INSERT R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K8 [table.insert]
+  CALL R3 2 0
+  RETURN R2 1
+
+PROTO_7:
+  NEWTABLE R0 0 3
+  DUPTABLE R1 K2 [{"ClassName", "Name"}]
+  LOADK R2 K3 ["FloatCurve"]
+  SETTABLEKS R2 R1 K0 ["ClassName"]
+  LOADK R2 K4 ["X"]
+  SETTABLEKS R2 R1 K1 ["Name"]
+  DUPTABLE R2 K2 [{"ClassName", "Name"}]
+  LOADK R3 K3 ["FloatCurve"]
+  SETTABLEKS R3 R2 K0 ["ClassName"]
+  LOADK R3 K5 ["Y"]
+  SETTABLEKS R3 R2 K1 ["Name"]
+  DUPTABLE R3 K2 [{"ClassName", "Name"}]
+  LOADK R4 K3 ["FloatCurve"]
+  SETTABLEKS R4 R3 K0 ["ClassName"]
+  LOADK R4 K6 ["Z"]
+  SETTABLEKS R4 R3 K1 ["Name"]
+  SETLIST R0 R1 3 [1]
+  RETURN R0 1
+
+PROTO_8:
+  JUMPIF R0 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  NAMECALL R3 R0 K0 ["GetDescendants"]
+  CALL R3 1 1
+  LENGTH R2 R3
+  NAMECALL R4 R0 K1 ["GetChildren"]
+  CALL R4 1 1
+  LENGTH R3 R4
+  JUMPIFLT R3 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_9:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  LOADB R3 1
+  CALL R1 2 1
+  GETUPVAL R2 1
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 1
+  JUMPIFNOT R2 [+110]
+  GETUPVAL R2 2
+  CALL R2 0 1
+  GETUPVAL R3 1
+  LOADK R6 K0 ["Position"]
+  NAMECALL R4 R0 K1 ["FindFirstChild"]
+  CALL R4 2 1
+  MOVE R5 R2
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  LOADB R3 0
+  RETURN R3 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  MOVE R2 R3
+  GETUPVAL R3 1
+  LOADK R6 K2 ["Rotation"]
+  NAMECALL R4 R0 K1 ["FindFirstChild"]
+  CALL R4 2 1
+  MOVE R5 R2
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  LOADB R3 0
+  RETURN R3 1
+  GETUPVAL R3 3
+  CALL R3 0 1
+  JUMPIFNOT R3 [+80]
+  LOADK R5 K3 ["FaceControls"]
+  NAMECALL R3 R0 K1 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+13]
+  NAMECALL R4 R3 K4 ["GetChildren"]
+  CALL R4 1 3
+  FORGPREP R4
+  LOADK R11 K5 ["FloatCurve"]
+  NAMECALL R9 R8 K6 ["IsA"]
+  CALL R9 2 1
+  JUMPIF R9 [+2]
+  LOADB R9 0
+  RETURN R9 1
+  FORGLOOP R4 2 [-8]
+  LOADK R7 K0 ["Position"]
+  NAMECALL R5 R0 K1 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIF R5 [+2]
+  LOADB R4 0
+  JUMP [+12]
+  NAMECALL R7 R5 K7 ["GetDescendants"]
+  CALL R7 1 1
+  LENGTH R6 R7
+  NAMECALL R8 R5 K4 ["GetChildren"]
+  CALL R8 1 1
+  LENGTH R7 R8
+  JUMPIFLT R7 R6 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIFNOT R4 [+2]
+  LOADB R4 0
+  RETURN R4 1
+  LOADK R7 K2 ["Rotation"]
+  NAMECALL R5 R0 K1 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIF R5 [+2]
+  LOADB R4 0
+  JUMP [+12]
+  NAMECALL R7 R5 K7 ["GetDescendants"]
+  CALL R7 1 1
+  LENGTH R6 R7
+  NAMECALL R8 R5 K4 ["GetChildren"]
+  CALL R8 1 1
+  LENGTH R7 R8
+  JUMPIFLT R7 R6 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIFNOT R4 [+2]
+  LOADB R4 0
+  RETURN R4 1
+  JUMPIF R3 [+2]
+  LOADB R4 0
+  JUMP [+12]
+  NAMECALL R6 R3 K7 ["GetDescendants"]
+  CALL R6 1 1
+  LENGTH R5 R6
+  NAMECALL R7 R3 K4 ["GetChildren"]
+  CALL R7 1 1
+  LENGTH R6 R7
+  JUMPIFLT R6 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIFNOT R4 [+2]
+  LOADB R4 0
+  RETURN R4 1
+  LOADB R3 1
+  RETURN R3 1
+  LOADB R2 0
+  RETURN R2 1
+
+PROTO_10:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+43]
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+15]
+  GETUPVAL R1 2
+  GETIMPORT R2 K2 [string.format]
+  LOADK R3 K3 ["CurveAnimation contains body part Folder %s which has an invalid hierarchy (it has children that are not allowed or set-up incorrectly)"]
+  GETTABLEKS R4 R0 K4 ["Name"]
+  CALL R2 2 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K5 ["ErrorType"]
+  GETTABLEKS R3 R4 K6 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  GETUPVAL R4 4
+  CALL R1 3 -1
+  RETURN R1 -1
+  NAMECALL R1 R0 K7 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K8 ["Folder"]
+  NAMECALL R6 R5 K9 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+11]
+  GETTABLEKS R6 R5 K4 ["Name"]
+  JUMPIFEQKS R6 K10 ["FaceControls"] [+8]
+  GETUPVAL R6 5
+  MOVE R7 R5
+  CALL R6 1 2
+  JUMPIF R6 [+3]
+  LOADB R8 0
+  MOVE R9 R7
+  RETURN R8 2
+  FORGLOOP R1 2 [-17]
+  LOADB R1 1
+  RETURN R1 1
+  NAMECALL R1 R0 K7 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K8 ["Folder"]
+  NAMECALL R6 R5 K9 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+28]
+  GETTABLEKS R6 R5 K4 ["Name"]
+  JUMPIFNOTEQKS R6 K11 ["HumanoidRootPart"] [+3]
+  LOADB R6 0
+  RETURN R6 1
+  GETUPVAL R8 6
+  JUMPIF R8 [+5]
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K12 ["getBodyPartsToParents"]
+  CALL R8 0 1
+  SETUPVAL R8 6
+  GETUPVAL R7 6
+  GETTABLEKS R8 R5 K4 ["Name"]
+  GETTABLE R6 R7 R8
+  JUMPIFNOT R6 [+10]
+  GETTABLEKS R7 R0 K4 ["Name"]
+  JUMPIFEQ R6 R7 [+3]
+  LOADB R7 0
+  RETURN R7 1
+  GETUPVAL R7 5
+  MOVE R8 R5
+  CALL R7 1 -1
+  RETURN R7 -1
+  FORGLOOP R1 2 [-34]
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_11:
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  GETTABLEKS R4 R0 K0 ["Name"]
+  LOADB R3 1
+  GETUPVAL R7 4
+  JUMPIF R7 [+5]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K1 ["getBodyPartsToParents"]
+  CALL R7 0 1
+  SETUPVAL R7 4
+  GETUPVAL R6 4
+  GETTABLE R5 R6 R4
+  JUMPIFNOTEQKNIL R5 [+5]
+  JUMPIFEQKS R4 K2 ["HumanoidRootPart"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  JUMPIF R3 [+2]
+  LOADB R3 1
+  RETURN R3 1
+  MOVE R3 R2
+  MOVE R4 R0
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_12:
+  LOADN R2 0
+  NAMECALL R3 R0 K0 ["GetChildren"]
+  CALL R3 1 3
+  FORGPREP R3
+  LOADK R10 K1 ["Folder"]
+  NAMECALL R8 R7 K2 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+33]
+  GETTABLEKS R9 R7 K3 ["Name"]
+  LOADB R8 1
+  GETUPVAL R12 0
+  JUMPIF R12 [+5]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K4 ["getBodyPartsToParents"]
+  CALL R12 0 1
+  SETUPVAL R12 0
+  GETUPVAL R11 0
+  GETTABLE R10 R11 R9
+  JUMPIFNOTEQKNIL R10 [+5]
+  JUMPIFEQKS R9 K5 ["HumanoidRootPart"] [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  JUMPIFNOT R8 [+14]
+  ADDK R2 R2 K6 [1]
+  LOADN R8 1
+  JUMPIFNOTLT R8 R2 [+11]
+  GETUPVAL R8 2
+  LOADK R9 K7 ["CurveAnimation contains more than one body part or HumanoidRootPart Folder children. Please ensure there is only one child Folder named after a body part or HumanoidRootPart."]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K8 ["ErrorType"]
+  GETTABLEKS R10 R11 K9 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R11 R1
+  CALL R8 3 -1
+  RETURN R8 -1
+  FORGLOOP R3 2 [-39]
+  GETUPVAL R3 4
+  CALL R3 0 1
+  JUMPIFNOT R3 [+12]
+  JUMPIFNOTEQKN R2 K10 [0] [+11]
+  GETUPVAL R3 2
+  LOADK R4 K11 ["CurveAnimation contains zero body part or HumanoidRootPart Folder children. Please ensure there is one (and only one) child Folder named after a body part or HumanoidRootPart."]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K8 ["ErrorType"]
+  GETTABLEKS R5 R6 K9 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R6 R1
+  CALL R3 3 -1
+  RETURN R3 -1
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_13:
+  LOADN R2 0
+  NAMECALL R3 R0 K0 ["GetChildren"]
+  CALL R3 1 3
+  FORGPREP R3
+  LOADK R10 K1 ["AnimationRigData"]
+  NAMECALL R8 R7 K2 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+14]
+  ADDK R2 R2 K3 [1]
+  LOADN R8 1
+  JUMPIFNOTLT R8 R2 [+11]
+  GETUPVAL R8 0
+  LOADK R9 K4 ["CurveAnimation contains more than one AnimationRigData children. Please ensure there is only one AnimationRigData child."]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K5 ["ErrorType"]
+  GETTABLEKS R10 R11 K6 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R11 R1
+  CALL R8 3 -1
+  RETURN R8 -1
+  FORGLOOP R3 2 [-20]
+  JUMPIFNOTEQKN R2 K7 [0] [+11]
+  GETUPVAL R3 0
+  LOADK R4 K8 ["CurveAnimation contains zero AnimationRigData children. Please ensure there is one (and only one) AnimationRigData children."]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["ErrorType"]
+  GETTABLEKS R5 R6 K6 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R6 R1
+  CALL R3 3 -1
+  RETURN R3 -1
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_14:
+  NAMECALL R2 R0 K0 ["GetChildren"]
+  CALL R2 1 3
+  FORGPREP R2
+  LOADK R9 K1 ["AnimationRigData"]
+  NAMECALL R7 R6 K2 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+14]
+  NAMECALL R7 R6 K3 ["IsValidR15"]
+  CALL R7 1 1
+  JUMPIF R7 [+10]
+  GETUPVAL R7 0
+  LOADK R8 K4 ["AnimationRigData failed internal validation. Please ensure the AnimationRigData is set up correctly."]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K5 ["ErrorType"]
+  GETTABLEKS R9 R10 K6 ["validateCurveAnimation_IncorrectAnimationRigData"]
+  MOVE R10 R1
+  CALL R7 3 -1
+  RETURN R7 -1
+  FORGLOOP R2 2 [-20]
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_15:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+10]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["validateSingleAnimationRigData"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 2
+  JUMPIF R2 [+3]
+  LOADB R4 0
+  MOVE R5 R3
+  RETURN R4 2
+  GETUPVAL R2 2
+  CALL R2 0 1
+  JUMPIFNOT R2 [+10]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["validateAnimationRigDataInternals"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 2
+  JUMPIF R2 [+3]
+  LOADB R4 0
+  MOVE R5 R3
+  RETURN R4 2
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_16:
+  NAMECALL R2 R0 K0 ["GetDescendants"]
+  CALL R2 1 3
+  FORGPREP R2
+  LOADK R9 K1 ["Script"]
+  NAMECALL R7 R6 K2 ["IsA"]
+  CALL R7 2 1
+  JUMPIF R7 [+5]
+  LOADK R9 K3 ["ModuleScript"]
+  NAMECALL R7 R6 K2 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+10]
+  GETUPVAL R7 0
+  LOADK R8 K4 ["CurveAnimation hierarchy contains Scripts, LocalScripts, or ModuleScripts. Please remove them."]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K5 ["ErrorType"]
+  GETTABLEKS R9 R10 K6 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R10 R1
+  CALL R7 3 -1
+  RETURN R7 -1
+  FORGLOOP R2 2 [-21]
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_17:
+  NAMECALL R2 R0 K0 ["GetDescendants"]
+  CALL R2 1 3
+  FORGPREP R2
+  LOADB R7 0
+  GETUPVAL R8 0
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  MOVE R15 R12
+  NAMECALL R13 R6 K1 ["IsA"]
+  CALL R13 2 1
+  JUMPIFNOT R13 [+2]
+  LOADB R7 1
+  JUMP [+2]
+  FORGLOOP R8 2 [-8]
+  JUMPIF R7 [+19]
+  GETUPVAL R8 1
+  LOADK R10 K2 ["CurveAnimation hierarchy can only contain %*. Please remove any other Instance types."]
+  GETIMPORT R12 K5 [table.concat]
+  GETUPVAL R13 0
+  LOADK R14 K6 [", "]
+  CALL R12 2 1
+  NAMECALL R10 R10 K7 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K8 ["ErrorType"]
+  GETTABLEKS R10 R11 K9 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R11 R1
+  CALL R8 3 -1
+  RETURN R8 -1
+  FORGLOOP R2 2 [-35]
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_18:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_19:
+  LOADK R4 K0 ["CurveAnimation"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIF R2 [+18]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["reportFailure"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["ErrorType"]
+  GETTABLEKS R3 R4 K4 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  LOADNIL R4
+  MOVE R5 R1
+  CALL R2 3 0
+  LOADB R2 0
+  NEWTABLE R3 0 1
+  LOADK R4 K5 ["Referenced Animation is not a CurveAnimation. Please ensure the animation is uploaded correctly."]
+  SETLIST R3 R4 1 [1]
+  RETURN R2 2
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+25]
+  NAMECALL R3 R0 K6 ["GetDescendants"]
+  CALL R3 1 1
+  LENGTH R2 R3
+  GETUPVAL R3 2
+  CALL R3 0 1
+  JUMPIFNOTLT R3 R2 [+18]
+  GETUPVAL R3 3
+  LOADK R5 K7 ["CurveAnimation has %* descendants. Maximum allowed is %*. Please reduce the number of descendants."]
+  MOVE R7 R2
+  GETUPVAL R8 2
+  CALL R8 0 1
+  NAMECALL R5 R5 K8 ["format"]
+  CALL R5 3 1
+  MOVE R4 R5
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["ErrorType"]
+  GETTABLEKS R5 R6 K4 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R6 R1
+  CALL R3 3 -1
+  RETURN R3 -1
+  GETUPVAL R2 4
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 2
+  JUMPIF R2 [+3]
+  LOADB R4 0
+  MOVE R5 R3
+  RETURN R4 2
+  GETUPVAL R4 5
+  CALL R4 0 1
+  JUMPIF R4 [+3]
+  GETUPVAL R4 6
+  CALL R4 0 1
+  JUMPIFNOT R4 [+34]
+  GETUPVAL R6 5
+  CALL R6 0 1
+  JUMPIFNOT R6 [+10]
+  GETUPVAL R7 7
+  GETTABLEKS R6 R7 K9 ["validateSingleAnimationRigData"]
+  MOVE R7 R0
+  MOVE R8 R1
+  CALL R6 2 2
+  JUMPIF R6 [+3]
+  LOADB R4 0
+  MOVE R5 R7
+  JUMP [+15]
+  GETUPVAL R6 6
+  CALL R6 0 1
+  JUMPIFNOT R6 [+10]
+  GETUPVAL R7 7
+  GETTABLEKS R6 R7 K10 ["validateAnimationRigDataInternals"]
+  MOVE R7 R0
+  MOVE R8 R1
+  CALL R6 2 2
+  JUMPIF R6 [+3]
+  LOADB R4 0
+  MOVE R5 R7
+  JUMP [+2]
+  LOADB R4 1
+  LOADNIL R5
+  MOVE R2 R4
+  MOVE R3 R5
+  JUMPIF R2 [+3]
+  LOADB R4 0
+  MOVE R5 R3
+  RETURN R4 2
+  NAMECALL R4 R0 K11 ["GetChildren"]
+  CALL R4 1 3
+  FORGPREP R4
+  LOADK R11 K12 ["MarkerCurve"]
+  NAMECALL R9 R8 K1 ["IsA"]
+  CALL R9 2 1
+  JUMPIF R9 [+5]
+  LOADK R11 K13 ["AnimationRigData"]
+  NAMECALL R9 R8 K1 ["IsA"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+21]
+  GETUPVAL R9 8
+  CALL R9 0 1
+  JUMPIFNOT R9 [+189]
+  NAMECALL R10 R8 K11 ["GetChildren"]
+  CALL R10 1 1
+  LENGTH R9 R10
+  LOADN R10 0
+  JUMPIFNOTLT R10 R9 [+183]
+  GETUPVAL R9 3
+  LOADK R10 K14 ["CurveAnimation child MarkerCurves and AnimationRigData cannot have children"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["ErrorType"]
+  GETTABLEKS R11 R12 K4 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R12 R1
+  CALL R9 3 -1
+  RETURN R9 -1
+  JUMP [+171]
+  LOADK R11 K15 ["Folder"]
+  NAMECALL R9 R8 K1 ["IsA"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+129]
+  GETUPVAL R9 8
+  CALL R9 0 1
+  JUMPIFNOT R9 [+75]
+  GETTABLEKS R10 R8 K16 ["Name"]
+  LOADB R9 1
+  GETUPVAL R13 9
+  JUMPIF R13 [+5]
+  GETUPVAL R14 10
+  GETTABLEKS R13 R14 K17 ["getBodyPartsToParents"]
+  CALL R13 0 1
+  SETUPVAL R13 9
+  GETUPVAL R12 9
+  GETTABLE R11 R12 R10
+  JUMPIFNOTEQKNIL R11 [+5]
+  JUMPIFEQKS R10 K18 ["HumanoidRootPart"] [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  JUMPIF R9 [+13]
+  GETUPVAL R9 3
+  LOADK R11 K19 ["CurveAnimation contains unexpected child: "]
+  GETTABLEKS R12 R8 K16 ["Name"]
+  CONCAT R10 R11 R12
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["ErrorType"]
+  GETTABLEKS R11 R12 K4 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R12 R1
+  CALL R9 3 -1
+  RETURN R9 -1
+  NEWCLOSURE R11 P0
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  GETTABLEKS R13 R8 K16 ["Name"]
+  LOADB R12 1
+  GETUPVAL R16 9
+  JUMPIF R16 [+5]
+  GETUPVAL R17 10
+  GETTABLEKS R16 R17 K17 ["getBodyPartsToParents"]
+  CALL R16 0 1
+  SETUPVAL R16 9
+  GETUPVAL R15 9
+  GETTABLE R14 R15 R13
+  JUMPIFNOTEQKNIL R14 [+5]
+  JUMPIFEQKS R13 K18 ["HumanoidRootPart"] [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  JUMPIF R12 [+3]
+  LOADB R9 1
+  LOADNIL R10
+  JUMP [+5]
+  MOVE R12 R11
+  MOVE R13 R8
+  CALL R12 1 2
+  MOVE R9 R12
+  MOVE R10 R13
+  MOVE R2 R9
+  MOVE R3 R10
+  JUMPIF R2 [+92]
+  LOADB R9 0
+  MOVE R10 R3
+  RETURN R9 2
+  JUMP [+88]
+  LOADNIL R11
+  NEWCLOSURE R10 P0
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  GETTABLEKS R12 R8 K16 ["Name"]
+  LOADB R11 1
+  GETUPVAL R15 9
+  JUMPIF R15 [+5]
+  GETUPVAL R16 10
+  GETTABLEKS R15 R16 K17 ["getBodyPartsToParents"]
+  CALL R15 0 1
+  SETUPVAL R15 9
+  GETUPVAL R14 9
+  GETTABLE R13 R14 R12
+  JUMPIFNOTEQKNIL R13 [+5]
+  JUMPIFEQKS R12 K18 ["HumanoidRootPart"] [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  JUMPIF R11 [+2]
+  LOADB R9 1
+  JUMP [+4]
+  MOVE R11 R10
+  MOVE R12 R8
+  CALL R11 1 1
+  MOVE R9 R11
+  JUMPIF R9 [+52]
+  GETUPVAL R9 3
+  LOADK R11 K20 ["CurveAnimation contains child body part Folder "]
+  GETTABLEKS R12 R8 K16 ["Name"]
+  LOADK R13 K21 [" which has an invalid hierarchy"]
+  CONCAT R10 R11 R13
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["ErrorType"]
+  GETTABLEKS R11 R12 K4 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R12 R1
+  CALL R9 3 -1
+  RETURN R9 -1
+  JUMP [+37]
+  GETUPVAL R9 12
+  CALL R9 0 1
+  JUMPIFNOT R9 [+13]
+  GETUPVAL R9 3
+  LOADK R11 K19 ["CurveAnimation contains unexpected child: "]
+  GETTABLEKS R12 R8 K16 ["Name"]
+  CONCAT R10 R11 R12
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["ErrorType"]
+  GETTABLEKS R11 R12 K4 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  MOVE R12 R1
+  CALL R9 3 -1
+  RETURN R9 -1
+  LOADK R10 K19 ["CurveAnimation contains unexpected child: "]
+  GETTABLEKS R11 R8 K16 ["Name"]
+  CONCAT R9 R10 R11
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K3 ["ErrorType"]
+  GETTABLEKS R10 R11 K4 ["validateCurveAnimation_AnimationHierarchyIsIncorrect"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K2 ["reportFailure"]
+  MOVE R12 R10
+  LOADNIL R13
+  MOVE R14 R1
+  CALL R11 3 0
+  NEWTABLE R11 0 1
+  MOVE R12 R9
+  SETLIST R11 R12 1 [1]
+  FORGLOOP R4 2 [-203]
+  GETUPVAL R4 13
+  CALL R4 0 1
+  JUMPIF R4 [+3]
+  GETUPVAL R4 14
+  CALL R4 0 1
+  JUMPIFNOT R4 [+28]
+  GETUPVAL R5 15
+  GETTABLEKS R4 R5 K22 ["new"]
+  CALL R4 0 1
+  GETUPVAL R5 13
+  CALL R5 0 1
+  JUMPIFNOT R5 [+7]
+  GETUPVAL R7 16
+  MOVE R8 R0
+  MOVE R9 R1
+  CALL R7 2 -1
+  NAMECALL R5 R4 K23 ["updateReasons"]
+  CALL R5 -1 0
+  GETUPVAL R5 14
+  CALL R5 0 1
+  JUMPIFNOT R5 [+7]
+  GETUPVAL R7 17
+  MOVE R8 R0
+  MOVE R9 R1
+  CALL R7 2 -1
+  NAMECALL R5 R4 K23 ["updateReasons"]
+  CALL R5 -1 0
+  NAMECALL R5 R4 K24 ["getFinalResults"]
+  CALL R5 1 -1
+  RETURN R5 -1
+  LOADB R4 1
+  RETURN R4 1
+
+PROTO_20:
+  GETIMPORT R2 K1 [game]
+  GETTABLEKS R1 R2 K2 ["Players"]
+  GETIMPORT R3 K5 [Instance.new]
+  LOADK R4 K6 ["HumanoidDescription"]
+  CALL R3 1 1
+  GETIMPORT R4 K10 [Enum.HumanoidRigType.R15]
+  NAMECALL R1 R1 K11 ["CreateHumanoidModelFromDescription"]
+  CALL R1 3 1
+  NAMECALL R2 R1 K12 ["GetDescendants"]
+  CALL R2 1 3
+  FORGPREP R2
+  LOADK R9 K13 ["Decal"]
+  NAMECALL R7 R6 K14 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+4]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K15 ["Transparency"]
+  JUMP [+21]
+  LOADK R9 K16 ["MeshPart"]
+  NAMECALL R7 R6 K14 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+7]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K15 ["Transparency"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K17 ["CanCollide"]
+  JUMP [+9]
+  LOADK R9 K18 ["Motor6D"]
+  NAMECALL R7 R6 K14 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+4]
+  JUMPIFNOT R0 [+3]
+  NAMECALL R7 R6 K19 ["Destroy"]
+  CALL R7 1 0
+  FORGLOOP R2 2 [-31]
+  RETURN R1 1
+
+PROTO_21:
+  NAMECALL R1 R0 K0 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K1 ["Folder"]
+  NAMECALL R6 R5 K2 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+20]
+  GETTABLEKS R7 R5 K3 ["Name"]
+  LOADB R6 1
+  GETUPVAL R10 0
+  JUMPIF R10 [+5]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K4 ["getBodyPartsToParents"]
+  CALL R10 0 1
+  SETUPVAL R10 0
+  GETUPVAL R9 0
+  GETTABLE R8 R9 R7
+  JUMPIFNOTEQKNIL R8 [+5]
+  JUMPIFEQKS R7 K5 ["HumanoidRootPart"] [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  JUMPIFNOT R6 [+1]
+  RETURN R5 1
+  FORGLOOP R1 2 [-26]
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_22:
+  LOADK R3 K0 ["X"]
+  NAMECALL R1 R0 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  LOADK R4 K2 ["Y"]
+  NAMECALL R2 R0 K1 ["FindFirstChild"]
+  CALL R2 2 1
+  LOADK R5 K3 ["Z"]
+  NAMECALL R3 R0 K1 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIFNOT R1 [+15]
+  LOADK R6 K4 ["FloatCurve"]
+  NAMECALL R4 R1 K5 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+11]
+  NAMECALL R6 R1 K6 ["GetKeys"]
+  CALL R6 1 1
+  LENGTH R5 R6
+  LOADN R6 0
+  JUMPIFLT R6 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMP [+1]
+  LOADB R4 0
+  JUMPIF R4 [+35]
+  JUMPIFNOT R2 [+15]
+  LOADK R6 K4 ["FloatCurve"]
+  NAMECALL R4 R2 K5 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+11]
+  NAMECALL R6 R2 K6 ["GetKeys"]
+  CALL R6 1 1
+  LENGTH R5 R6
+  LOADN R6 0
+  JUMPIFLT R6 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMP [+1]
+  LOADB R4 0
+  JUMPIF R4 [+17]
+  JUMPIFNOT R3 [+15]
+  LOADK R6 K4 ["FloatCurve"]
+  NAMECALL R4 R3 K5 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+11]
+  NAMECALL R6 R3 K6 ["GetKeys"]
+  CALL R6 1 1
+  LENGTH R5 R6
+  LOADN R6 0
+  JUMPIFLT R6 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  RETURN R4 1
+  LOADB R4 0
+  RETURN R4 1
+
+PROTO_23:
+  JUMPIF R0 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  LOADK R3 K0 ["Vector3Curve"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  RETURN R1 1
+
+PROTO_24:
+  JUMPIF R0 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  LOADK R3 K0 ["EulerRotationCurve"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  RETURN R1 1
+
+PROTO_25:
+  NEWTABLE R0 0 0
+  LOADNIL R1
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+22]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  CALL R2 1 1
+  FASTCALL2K ASSERT R2 K0 [+5]
+  MOVE R4 R2
+  LOADK R5 K0 ["ValidateCurveAnimation.validateStructure() ensures CurveAnimation has one and only one body part Folder child or HumanoidRootPart child."]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  NAMECALL R3 R2 K3 ["GetDescendants"]
+  CALL R3 1 1
+  MOVE R1 R3
+  FASTCALL2 TABLE_INSERT R1 R2 [+5]
+  MOVE R4 R1
+  MOVE R5 R2
+  GETIMPORT R3 K6 [table.insert]
+  CALL R3 2 0
+  JUMP [+5]
+  GETUPVAL R2 2
+  NAMECALL R2 R2 K3 ["GetDescendants"]
+  CALL R2 1 1
+  MOVE R1 R2
+  MOVE R2 R1
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  LOADK R9 K7 ["Folder"]
+  NAMECALL R7 R6 K8 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+123]
+  GETUPVAL R9 3
+  JUMPIF R9 [+5]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K9 ["getBodyPartsToParents"]
+  CALL R9 0 1
+  SETUPVAL R9 3
+  GETUPVAL R8 3
+  GETTABLEKS R9 R6 K10 ["Name"]
+  GETTABLE R7 R8 R9
+  JUMPIFNOT R7 [+111]
+  GETUPVAL R7 5
+  CALL R7 0 1
+  JUMPIFNOT R7 [+68]
+  LOADK R9 K11 ["Position"]
+  NAMECALL R7 R6 K12 ["FindFirstChild"]
+  CALL R7 2 1
+  LOADK R10 K13 ["Rotation"]
+  NAMECALL R8 R6 K12 ["FindFirstChild"]
+  CALL R8 2 1
+  GETTABLEKS R9 R6 K10 ["Name"]
+  DUPTABLE R10 K17 [{"pos", "rot", "faceControls"}]
+  JUMPIF R7 [+2]
+  LOADB R12 0
+  JUMP [+10]
+  LOADK R15 K18 ["Vector3Curve"]
+  NAMECALL R13 R7 K8 ["IsA"]
+  CALL R13 2 1
+  JUMPIF R13 [+2]
+  LOADB R12 0
+  JUMP [+3]
+  GETUPVAL R12 6
+  MOVE R13 R7
+  CALL R12 1 1
+  JUMPIFNOT R12 [+2]
+  MOVE R11 R7
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K14 ["pos"]
+  JUMPIF R8 [+2]
+  LOADB R12 0
+  JUMP [+10]
+  LOADK R15 K19 ["EulerRotationCurve"]
+  NAMECALL R13 R8 K8 ["IsA"]
+  CALL R13 2 1
+  JUMPIF R13 [+2]
+  LOADB R12 0
+  JUMP [+3]
+  GETUPVAL R12 6
+  MOVE R13 R8
+  CALL R12 1 1
+  JUMPIFNOT R12 [+2]
+  MOVE R11 R8
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K15 ["rot"]
+  GETTABLEKS R12 R6 K10 ["Name"]
+  GETUPVAL R15 7
+  GETTABLEKS R14 R15 K20 ["NAMED_R15_BODY_PARTS"]
+  GETTABLEKS R13 R14 K21 ["Head"]
+  JUMPIFNOTEQ R12 R13 [+6]
+  LOADK R13 K22 ["FaceControls"]
+  NAMECALL R11 R6 K12 ["FindFirstChild"]
+  CALL R11 2 1
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K16 ["faceControls"]
+  SETTABLE R10 R0 R9
+  JUMP [+40]
+  LOADK R9 K11 ["Position"]
+  NAMECALL R7 R6 K12 ["FindFirstChild"]
+  CALL R7 2 1
+  LOADK R10 K13 ["Rotation"]
+  NAMECALL R8 R6 K12 ["FindFirstChild"]
+  CALL R8 2 1
+  JUMPIFNOT R7 [+31]
+  LOADK R11 K18 ["Vector3Curve"]
+  NAMECALL R9 R7 K8 ["IsA"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+26]
+  JUMPIFNOT R8 [+25]
+  LOADK R11 K19 ["EulerRotationCurve"]
+  NAMECALL R9 R8 K8 ["IsA"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+20]
+  GETTABLEKS R9 R6 K10 ["Name"]
+  DUPTABLE R10 K17 [{"pos", "rot", "faceControls"}]
+  SETTABLEKS R7 R10 K14 ["pos"]
+  SETTABLEKS R8 R10 K15 ["rot"]
+  GETTABLEKS R12 R6 K10 ["Name"]
+  JUMPIFNOTEQKS R12 K21 ["Head"] [+6]
+  LOADK R13 K22 ["FaceControls"]
+  NAMECALL R11 R6 K12 ["FindFirstChild"]
+  CALL R11 2 1
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K16 ["faceControls"]
+  SETTABLE R10 R0 R9
+  FORGLOOP R2 2 [-129]
+  RETURN R0 1
+
+PROTO_26:
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  NAMECALL R1 R0 K0 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K1 ["FloatCurve"]
+  NAMECALL R6 R5 K2 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+15]
+  NAMECALL R6 R5 K3 ["GetKeys"]
+  CALL R6 1 3
+  FORGPREP R6
+  GETUPVAL R12 0
+  GETTABLEKS R13 R10 K4 ["Time"]
+  FASTCALL2 MATH_MAX R12 R13 [+3]
+  GETIMPORT R11 K7 [math.max]
+  CALL R11 2 1
+  SETUPVAL R11 0
+  FORGLOOP R6 2 [-10]
+  FORGLOOP R1 2 [-21]
+  RETURN R0 0
+
+PROTO_27:
+  LOADN R1 255
+  NEWCLOSURE R2 P0
+  CAPTURE REF R1
+  MOVE R3 R0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  MOVE R8 R2
+  GETTABLEKS R9 R7 K0 ["pos"]
+  CALL R8 1 0
+  MOVE R8 R2
+  GETTABLEKS R9 R7 K1 ["rot"]
+  CALL R8 1 0
+  MOVE R8 R2
+  GETTABLEKS R9 R7 K2 ["faceControls"]
+  CALL R8 1 0
+  FORGLOOP R3 2 [-13]
+  CLOSEUPVALS R1
+  RETURN R1 1
+
+PROTO_28:
+  NEWTABLE R2 0 0
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETUPVAL R8 0
+  CALL R8 0 1
+  JUMPIFNOT R8 [+35]
+  GETTABLEKS R9 R7 K0 ["pos"]
+  JUMPIFNOT R9 [+15]
+  GETTABLEKS R10 R7 K0 ["pos"]
+  MOVE R12 R0
+  NAMECALL R10 R10 K1 ["GetValueAtTime"]
+  CALL R10 2 -1
+  FASTCALL TABLE_UNPACK [+2]
+  GETIMPORT R9 K3 [unpack]
+  CALL R9 -1 -1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R8 K6 [Vector3.new]
+  CALL R8 -1 1
+  JUMP [+1]
+  LOADK R8 K7 [{0, 0, 0}]
+  GETTABLEKS R10 R7 K8 ["rot"]
+  JUMPIFNOT R10 [+7]
+  GETTABLEKS R9 R7 K8 ["rot"]
+  MOVE R11 R0
+  NAMECALL R9 R9 K9 ["GetRotationAtTime"]
+  CALL R9 2 1
+  JUMP [+3]
+  GETIMPORT R9 K11 [CFrame.new]
+  CALL R9 0 1
+  ADD R10 R9 R8
+  SETTABLE R10 R2 R6
+  JUMP [+22]
+  GETTABLEKS R9 R7 K8 ["rot"]
+  MOVE R11 R0
+  NAMECALL R9 R9 K9 ["GetRotationAtTime"]
+  CALL R9 2 1
+  GETTABLEKS R12 R7 K0 ["pos"]
+  MOVE R14 R0
+  NAMECALL R12 R12 K1 ["GetValueAtTime"]
+  CALL R12 2 -1
+  FASTCALL TABLE_UNPACK [+2]
+  GETIMPORT R11 K3 [unpack]
+  CALL R11 -1 -1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R10 K6 [Vector3.new]
+  CALL R10 -1 1
+  ADD R8 R9 R10
+  SETTABLE R8 R2 R6
+  FORGLOOP R3 2 [-61]
+  RETURN R2 1
+
+PROTO_29:
+  NEWTABLE R2 0 0
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K0 ["pos"]
+  JUMPIFNOT R8 [+17]
+  GETTABLEKS R11 R7 K0 ["pos"]
+  MOVE R13 R0
+  NAMECALL R11 R11 K1 ["GetValueAtTime"]
+  CALL R11 2 -1
+  FASTCALL TABLE_UNPACK [+2]
+  GETIMPORT R10 K3 [unpack]
+  CALL R10 -1 -1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R9 K6 [Vector3.new]
+  CALL R9 -1 1
+  GETTABLEKS R8 R9 K7 ["Magnitude"]
+  SETTABLE R8 R2 R6
+  FORGLOOP R3 2 [-21]
+  RETURN R2 1
+
+PROTO_30:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  DUPCLOSURE R2 K0 [PROTO_27]
+  DUPCLOSURE R3 K1 [PROTO_28]
+  CAPTURE UPVAL U4
+  DUPCLOSURE R4 K2 [PROTO_29]
+  GETUPVAL R5 7
+  LOADB R6 0
+  CALL R5 1 1
+  NEWTABLE R6 0 0
+  NAMECALL R7 R5 K3 ["GetChildren"]
+  CALL R7 1 3
+  FORGPREP R7
+  GETTABLEKS R13 R11 K4 ["Name"]
+  LOADB R12 1
+  GETUPVAL R16 2
+  JUMPIF R16 [+5]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K5 ["getBodyPartsToParents"]
+  CALL R16 0 1
+  SETUPVAL R16 2
+  GETUPVAL R15 2
+  GETTABLE R14 R15 R13
+  JUMPIFNOTEQKNIL R14 [+5]
+  JUMPIFEQKS R13 K6 ["HumanoidRootPart"] [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  JUMPIFNOT R12 [+3]
+  GETTABLEKS R12 R11 K4 ["Name"]
+  SETTABLE R11 R6 R12
+  FORGLOOP R7 2 [-23]
+  MOVE R7 R1
+  CALL R7 0 1
+  MOVE R8 R2
+  MOVE R9 R7
+  CALL R8 1 1
+  NEWTABLE R9 0 0
+  NEWTABLE R10 0 0
+  LOADN R11 0
+  JUMPIFNOTLE R11 R8 [+34]
+  MOVE R12 R3
+  MOVE R13 R11
+  MOVE R14 R7
+  CALL R12 2 1
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K7 ["calculateAllTransformsForFullBody"]
+  MOVE R14 R6
+  MOVE R15 R12
+  CALL R13 2 1
+  FASTCALL2 TABLE_INSERT R9 R13 [+5]
+  MOVE R15 R9
+  MOVE R16 R13
+  GETIMPORT R14 K10 [table.insert]
+  CALL R14 2 0
+  GETUPVAL R14 4
+  CALL R14 0 1
+  JUMPIFNOT R14 [+10]
+  MOVE R16 R4
+  MOVE R17 R11
+  MOVE R18 R7
+  CALL R16 2 1
+  FASTCALL2 TABLE_INSERT R10 R16 [+4]
+  MOVE R15 R10
+  GETIMPORT R14 K10 [table.insert]
+  CALL R14 2 0
+  GETUPVAL R14 8
+  ADD R11 R11 R14
+  JUMPBACK [-35]
+  NAMECALL R12 R5 K11 ["Destroy"]
+  CALL R12 1 0
+  MOVE R12 R9
+  MOVE R13 R8
+  MOVE R14 R10
+  MOVE R15 R7
+  RETURN R12 4
+
+PROTO_31:
+  LOADN R2 0
+  JUMPIFLE R0 R2 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["asNumber"]
+  CALL R2 0 1
+  JUMPIFNOTLT R2 R0 [+19]
+  GETUPVAL R2 1
+  LOADK R4 K1 ["CurveAnimation must be between 0 and %* seconds long. Please fix the animation."]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["asString"]
+  CALL R6 0 1
+  NAMECALL R4 R4 K3 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["ErrorType"]
+  GETTABLEKS R4 R5 K5 ["validateCurveAnimation_UnacceptableLength"]
+  MOVE R5 R1
+  CALL R2 3 -1
+  RETURN R2 -1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_32:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+2]
+  LOADK R2 K0 [∞]
+  JUMP [+1]
+  LOADN R2 0
+  LOADN R3 0
+  MOVE R4 R0
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  MOVE R9 R8
+  LOADNIL R10
+  LOADNIL R11
+  FORGPREP R9
+  GETTABLEKS R17 R13 K1 ["Position"]
+  GETTABLEKS R16 R17 K2 ["Magnitude"]
+  FASTCALL2 MATH_MAX R3 R16 [+4]
+  MOVE R15 R3
+  GETIMPORT R14 K5 [math.max]
+  CALL R14 2 1
+  MOVE R3 R14
+  GETUPVAL R14 0
+  CALL R14 0 1
+  JUMPIFNOT R14 [+11]
+  GETTABLEKS R17 R13 K1 ["Position"]
+  GETTABLEKS R16 R17 K6 ["Y"]
+  FASTCALL2 MATH_MIN R2 R16 [+4]
+  MOVE R15 R2
+  GETIMPORT R14 K8 [math.min]
+  CALL R14 2 1
+  MOVE R2 R14
+  FORGLOOP R9 2 [-26]
+  FORGLOOP R4 2 [-32]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+71]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["new"]
+  CALL R4 0 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K10 ["asNumber"]
+  CALL R8 0 1
+  JUMPIFLE R8 R2 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  NEWTABLE R8 0 1
+  LOADK R10 K11 ["Body parts in a CurveAnimation cannot be lower than %* studs from the HumanoidRootPart. Please fix the animation."]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K12 ["asString"]
+  CALL R12 0 1
+  NAMECALL R10 R10 K13 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  SETLIST R8 R9 1 [1]
+  NAMECALL R5 R4 K14 ["updateReasons"]
+  CALL R5 3 0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K10 ["asNumber"]
+  CALL R8 0 1
+  JUMPIFLE R3 R8 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  NEWTABLE R8 0 1
+  LOADK R10 K15 ["Body parts in a CurveAnimation cannot get more than %* studs from the HumanoidRootPart. Please fix the animation."]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K12 ["asString"]
+  CALL R12 0 1
+  NAMECALL R10 R10 K13 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  SETLIST R8 R9 1 [1]
+  NAMECALL R5 R4 K14 ["updateReasons"]
+  CALL R5 3 0
+  NAMECALL R5 R4 K16 ["getFinalResults"]
+  CALL R5 1 1
+  JUMPIF R5 [+11]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K17 ["reportFailure"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K18 ["ErrorType"]
+  GETTABLEKS R6 R7 K19 ["validateCurveAnimation_UnacceptableSizeBounds"]
+  LOADNIL R7
+  MOVE R8 R1
+  CALL R5 3 0
+  NAMECALL R5 R4 K16 ["getFinalResults"]
+  CALL R5 1 -1
+  RETURN R5 -1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K10 ["asNumber"]
+  CALL R4 0 1
+  JUMPIFNOTLT R4 R3 [+19]
+  GETUPVAL R4 5
+  LOADK R6 K15 ["Body parts in a CurveAnimation cannot get more than %* studs from the HumanoidRootPart. Please fix the animation."]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K12 ["asString"]
+  CALL R8 0 1
+  NAMECALL R6 R6 K13 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K18 ["ErrorType"]
+  GETTABLEKS R6 R7 K19 ["validateCurveAnimation_UnacceptableSizeBounds"]
+  MOVE R7 R1
+  CALL R4 3 -1
+  RETURN R4 -1
+  LOADB R4 1
+  RETURN R4 1
+
+PROTO_33:
+  LOADNIL R2
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+7]
+  GETUPVAL R4 1
+  DIVK R3 R4 K0 [0.0333333333333333]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["asNumber"]
+  CALL R4 0 1
+  MUL R2 R4 R3
+  NEWTABLE R3 0 0
+  MOVE R4 R0
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  MOVE R9 R8
+  LOADNIL R10
+  LOADNIL R11
+  FORGPREP R9
+  GETTABLE R14 R3 R12
+  JUMPIFNOT R14 [+37]
+  GETTABLEKS R17 R13 K2 ["Position"]
+  GETTABLEKS R18 R14 K2 ["Position"]
+  SUB R16 R17 R18
+  GETTABLEKS R15 R16 K3 ["Magnitude"]
+  GETUPVAL R17 0
+  CALL R17 0 1
+  JUMPIFNOT R17 [+2]
+  MOVE R16 R2
+  JUMP [+4]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K1 ["asNumber"]
+  CALL R16 0 1
+  JUMPIFNOTLT R16 R15 [+20]
+  GETUPVAL R17 3
+  LOADK R19 K4 ["Body part %* in CurveAnimation moves more than %* studs between frames. Please fix the animation."]
+  MOVE R21 R12
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K5 ["asString"]
+  CALL R22 0 1
+  NAMECALL R19 R19 K6 ["format"]
+  CALL R19 3 1
+  MOVE R18 R19
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K7 ["ErrorType"]
+  GETTABLEKS R19 R20 K8 ["validateCurveAnimation_UnacceptableFrameDelta"]
+  MOVE R20 R1
+  CALL R17 3 -1
+  RETURN R17 -1
+  FORGLOOP R9 2 [-40]
+  MOVE R3 R8
+  FORGLOOP R4 2 [-47]
+  LOADB R4 1
+  RETURN R4 1
+
+PROTO_34:
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R6 K0 ["pos"]
+  JUMPIF R7 [+3]
+  GETTABLEKS R7 R6 K1 ["rot"]
+  JUMPIFNOT R7 [+2]
+  LOADB R7 1
+  RETURN R7 1
+  FORGLOOP R2 2 [-9]
+  GETUPVAL R2 0
+  LOADK R3 K2 ["CurveAnimation does not contain any joint manipulation."]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["ErrorType"]
+  GETTABLEKS R4 R5 K4 ["validateCurveAnimation_AnimationContainsNoJointManipulation"]
+  MOVE R5 R1
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_35:
+  LOADNIL R2
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+22]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  CALL R3 1 1
+  FASTCALL2K ASSERT R3 K0 [+5]
+  MOVE R5 R3
+  LOADK R6 K0 ["ValidateCurveAnimation.validateStructure() ensures CurveAnimation has one and only one body part Folder child or HumanoidRootPart child."]
+  GETIMPORT R4 K2 [assert]
+  CALL R4 2 0
+  NAMECALL R4 R3 K3 ["GetDescendants"]
+  CALL R4 1 1
+  MOVE R2 R4
+  FASTCALL2 TABLE_INSERT R2 R3 [+5]
+  MOVE R5 R2
+  MOVE R6 R3
+  GETIMPORT R4 K6 [table.insert]
+  CALL R4 2 0
+  JUMP [+4]
+  NAMECALL R3 R0 K3 ["GetDescendants"]
+  CALL R3 1 1
+  MOVE R2 R3
+  MOVE R3 R2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  LOADK R10 K7 ["Folder"]
+  NAMECALL R8 R7 K8 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+34]
+  GETUPVAL R10 2
+  JUMPIF R10 [+5]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K9 ["getBodyPartsToParents"]
+  CALL R10 0 1
+  SETUPVAL R10 2
+  GETUPVAL R9 2
+  GETTABLEKS R10 R7 K10 ["Name"]
+  GETTABLE R8 R9 R10
+  JUMPIFNOT R8 [+22]
+  LOADK R10 K11 ["Position"]
+  NAMECALL R8 R7 K12 ["FindFirstChild"]
+  CALL R8 2 1
+  LOADK R11 K13 ["Rotation"]
+  NAMECALL R9 R7 K12 ["FindFirstChild"]
+  CALL R9 2 1
+  JUMPIFNOT R8 [+13]
+  LOADK R12 K14 ["Vector3Curve"]
+  NAMECALL R10 R8 K8 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+8]
+  JUMPIFNOT R9 [+7]
+  LOADK R12 K15 ["EulerRotationCurve"]
+  NAMECALL R10 R9 K8 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+2]
+  LOADB R10 1
+  RETURN R10 1
+  FORGLOOP R3 2 [-40]
+  GETUPVAL R3 4
+  LOADK R4 K16 ["CurveAnimation does not contain any joint manipulation."]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K17 ["ErrorType"]
+  GETTABLEKS R5 R6 K18 ["validateCurveAnimation_AnimationContainsNoJointManipulation"]
+  MOVE R6 R1
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_36:
+  LENGTH R1 R0
+  LOADN R2 30
+  JUMPIFNOTLT R2 R1 [+3]
+  LOADB R1 0
+  RETURN R1 1
+  GETIMPORT R2 K2 [string.match]
+  MOVE R3 R0
+  LOADK R4 K3 ["^[0-9]+$"]
+  CALL R2 2 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_37:
+  NAMECALL R2 R0 K0 ["GetChildren"]
+  CALL R2 1 3
+  FORGPREP R2
+  GETUPVAL R7 0
+  MOVE R8 R6
+  MOVE R9 R1
+  CALL R7 2 2
+  JUMPIF R7 [+1]
+  RETURN R7 2
+  FORGLOOP R2 2 [-7]
+  GETUPVAL R2 1
+  MOVE R4 R0
+  NAMECALL R2 R2 K1 ["GetTags"]
+  CALL R2 2 1
+  LENGTH R3 R2
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+32]
+  LOADN R4 1
+  JUMPIFLT R4 R3 [+19]
+  GETTABLEN R5 R2 1
+  LENGTH R6 R5
+  LOADN R7 30
+  JUMPIFNOTLT R7 R6 [+3]
+  LOADB R4 0
+  JUMP [+10]
+  GETIMPORT R7 K4 [string.match]
+  MOVE R8 R5
+  LOADK R9 K5 ["^[0-9]+$"]
+  CALL R7 2 1
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  MOVE R4 R6
+  JUMPIF R4 [+10]
+  GETUPVAL R4 2
+  LOADK R5 K6 ["CurveAnimation can only contain a single timestamp tag. Please remove all other tags."]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K7 ["ErrorType"]
+  GETTABLEKS R6 R7 K8 ["validateTags"]
+  MOVE R7 R1
+  CALL R4 3 -1
+  RETURN R4 -1
+  LOADB R4 1
+  RETURN R4 1
+
+PROTO_38:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_39:
+  JUMPIFNOTEQ R0 R0 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_40:
+  LOADB R1 1
+  JUMPIFEQKN R0 K0 [∞] [+5]
+  JUMPIFEQKN R0 K1 [-∞] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_41:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_39]
+  DUPCLOSURE R1 K1 [PROTO_40]
+  NEWTABLE R2 0 0
+  GETVARARGS R5 -1
+  SETLIST R2 R5 -1 [1]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  JUMPIFNOTEQ R6 R6 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  JUMPIFNOT R7 [+2]
+  LOADB R7 0
+  RETURN R7 1
+  LOADB R7 1
+  JUMPIFEQKN R6 K2 [∞] [+5]
+  JUMPIFEQKN R6 K3 [-∞] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  JUMPIFNOT R7 [+2]
+  LOADB R7 0
+  RETURN R7 1
+  FORGLOOP R2 2 [-18]
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_42:
+  JUMPIFNOTEQ R0 R0 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_43:
+  DUPCLOSURE R2 K0 [PROTO_42]
+  GETUPVAL R5 0
+  CALL R5 0 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["asNumber"]
+  CALL R6 0 1
+  MUL R4 R5 R6
+  FASTCALL1 MATH_FLOOR R4 [+2]
+  GETIMPORT R3 K4 [math.floor]
+  CALL R3 1 1
+  LOADNIL R4
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+17]
+  GETUPVAL R5 3
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K1 ["asNumber"]
+  CALL R6 0 1
+  MUL R4 R5 R6
+  DIVRK R5 R5 K4 [math.floor]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["asNumber"]
+  CALL R8 0 1
+  MUL R7 R5 R8
+  FASTCALL1 MATH_CEIL R7 [+2]
+  GETIMPORT R6 K7 [math.ceil]
+  CALL R6 1 1
+  MOVE R3 R6
+  NAMECALL R5 R0 K8 ["GetDescendants"]
+  CALL R5 1 3
+  FORGPREP R5
+  LOADK R12 K9 ["MarkerCurve"]
+  NAMECALL R10 R9 K10 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+67]
+  NAMECALL R10 R9 K11 ["GetMarkers"]
+  CALL R10 1 1
+  LENGTH R11 R10
+  JUMPIFNOTLT R3 R11 [+16]
+  GETUPVAL R11 5
+  LOADK R13 K12 ["CurveAnimation contains MarkerCurve with too many markers. %* is the maximum per MarkerCurve. Please fix the animation."]
+  MOVE R15 R3
+  NAMECALL R13 R13 K13 ["format"]
+  CALL R13 2 1
+  MOVE R12 R13
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K14 ["ErrorType"]
+  GETTABLEKS R13 R14 K15 ["validateCurveAnimation_IncorrectNumericalData"]
+  MOVE R14 R1
+  CALL R11 3 -1
+  RETURN R11 -1
+  MOVE R11 R10
+  LOADNIL R12
+  LOADNIL R13
+  FORGPREP R11
+  GETTABLEKS R16 R15 K16 ["Time"]
+  JUMPIFNOT R16 [+26]
+  GETUPVAL R17 7
+  CALL R17 0 1
+  JUMPIFNOT R17 [+6]
+  GETUPVAL R17 8
+  GETTABLEKS R18 R15 K16 ["Time"]
+  CALL R17 1 1
+  NOT R16 R17
+  JUMP [+6]
+  GETTABLEKS R17 R15 K16 ["Time"]
+  JUMPIFNOTEQ R17 R17 [+2]
+  LOADB R16 0 +1
+  LOADB R16 1
+  JUMPIF R16 [+10]
+  GETTABLEKS R16 R15 K17 ["Value"]
+  JUMPIFNOT R16 [+7]
+  GETTABLEKS R17 R15 K17 ["Value"]
+  LENGTH R16 R17
+  GETUPVAL R17 9
+  CALL R17 0 1
+  JUMPIFNOTLT R17 R16 [+11]
+  GETUPVAL R16 5
+  LOADK R17 K18 ["CurveAnimation contains MarkerCurves with invalid Time or Value, or Value is too long. Please fix the animation."]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K14 ["ErrorType"]
+  GETTABLEKS R18 R19 K15 ["validateCurveAnimation_IncorrectNumericalData"]
+  MOVE R19 R1
+  CALL R16 3 -1
+  RETURN R16 -1
+  FORGLOOP R11 2 [-40]
+  JUMP [+182]
+  GETUPVAL R10 2
+  CALL R10 0 1
+  JUMPIFNOT R10 [+6]
+  LOADK R12 K19 ["FloatCurve"]
+  NAMECALL R10 R9 K10 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+174]
+  JUMP [+10]
+  LOADK R12 K19 ["FloatCurve"]
+  NAMECALL R10 R9 K10 ["IsA"]
+  CALL R10 2 1
+  JUMPIF R10 [+5]
+  LOADK R12 K20 ["RotationCurve"]
+  NAMECALL R10 R9 K10 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+163]
+  NAMECALL R10 R9 K21 ["GetKeys"]
+  CALL R10 1 1
+  LENGTH R11 R10
+  JUMPIFNOTLT R3 R11 [+16]
+  GETUPVAL R11 5
+  LOADK R13 K22 ["CurveAnimation contains Curves with too many keys. %* is the maximum per Curve. Please fix the animation."]
+  MOVE R15 R3
+  NAMECALL R13 R13 K13 ["format"]
+  CALL R13 2 1
+  MOVE R12 R13
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K14 ["ErrorType"]
+  GETTABLEKS R13 R14 K15 ["validateCurveAnimation_IncorrectNumericalData"]
+  MOVE R14 R1
+  CALL R11 3 -1
+  RETURN R11 -1
+  LOADNIL R11
+  MOVE R12 R10
+  LOADNIL R13
+  LOADNIL R14
+  FORGPREP R12
+  GETTABLEKS R17 R16 K16 ["Time"]
+  JUMPIFNOT R17 [+35]
+  GETUPVAL R18 7
+  CALL R18 0 1
+  JUMPIFNOT R18 [+6]
+  GETUPVAL R18 8
+  GETTABLEKS R19 R16 K16 ["Time"]
+  CALL R18 1 1
+  NOT R17 R18
+  JUMP [+6]
+  GETTABLEKS R18 R16 K16 ["Time"]
+  JUMPIFNOTEQ R18 R18 [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  JUMPIF R17 [+19]
+  GETTABLEKS R17 R16 K17 ["Value"]
+  JUMPIFNOT R17 [+16]
+  GETUPVAL R18 7
+  CALL R18 0 1
+  JUMPIFNOT R18 [+6]
+  GETUPVAL R18 8
+  GETTABLEKS R19 R16 K17 ["Value"]
+  CALL R18 1 1
+  NOT R17 R18
+  JUMP [+6]
+  GETTABLEKS R18 R16 K17 ["Value"]
+  JUMPIFNOTEQ R18 R18 [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  JUMPIFNOT R17 [+10]
+  GETUPVAL R17 5
+  LOADK R18 K23 ["CurveAnimation contains Curves with invalid Time or Value. Please fix the animation."]
+  GETUPVAL R21 6
+  GETTABLEKS R20 R21 K14 ["ErrorType"]
+  GETTABLEKS R19 R20 K15 ["validateCurveAnimation_IncorrectNumericalData"]
+  MOVE R20 R1
+  CALL R17 3 -1
+  RETURN R17 -1
+  GETUPVAL R17 2
+  CALL R17 0 1
+  JUMPIFNOT R17 [+84]
+  JUMPIFNOT R11 [+42]
+  ADD R17 R11 R4
+  GETTABLEKS R18 R16 K16 ["Time"]
+  JUMPIFNOTLT R18 R17 [+77]
+  GETTABLEKS R20 R9 K24 ["Parent"]
+  GETTABLEKS R19 R20 K24 ["Parent"]
+  JUMPIFNOT R19 [+7]
+  GETTABLEKS R20 R9 K24 ["Parent"]
+  GETTABLEKS R19 R20 K24 ["Parent"]
+  GETTABLEKS R18 R19 K25 ["Name"]
+  JUMP [+1]
+  LOADK R18 K26 ["-"]
+  GETUPVAL R19 5
+  LOADK R21 K27 ["CurveAnimation contains Curve %*.%*.%* with keys that are too close together in time for a maximum %* fps animation. Please fix the animation."]
+  MOVE R23 R18
+  GETTABLEKS R25 R9 K24 ["Parent"]
+  GETTABLEKS R24 R25 K25 ["Name"]
+  GETTABLEKS R25 R9 K25 ["Name"]
+  GETUPVAL R26 0
+  CALL R26 0 1
+  NAMECALL R21 R21 K13 ["format"]
+  CALL R21 5 1
+  MOVE R20 R21
+  GETUPVAL R23 6
+  GETTABLEKS R22 R23 K14 ["ErrorType"]
+  GETTABLEKS R21 R22 K15 ["validateCurveAnimation_IncorrectNumericalData"]
+  MOVE R22 R1
+  CALL R19 3 -1
+  RETURN R19 -1
+  JUMP [+39]
+  GETTABLEKS R17 R16 K16 ["Time"]
+  LOADN R18 0
+  JUMPIFNOTLT R17 R18 [+35]
+  GETTABLEKS R19 R9 K24 ["Parent"]
+  GETTABLEKS R18 R19 K24 ["Parent"]
+  JUMPIFNOT R18 [+7]
+  GETTABLEKS R19 R9 K24 ["Parent"]
+  GETTABLEKS R18 R19 K24 ["Parent"]
+  GETTABLEKS R17 R18 K25 ["Name"]
+  JUMP [+1]
+  LOADK R17 K26 ["-"]
+  GETUPVAL R18 5
+  LOADK R20 K28 ["CurveAnimation contains Curve %*.%*.%* with a key that has a negative time. Please fix the animation."]
+  MOVE R22 R17
+  GETTABLEKS R24 R9 K24 ["Parent"]
+  GETTABLEKS R23 R24 K25 ["Name"]
+  GETTABLEKS R24 R9 K25 ["Name"]
+  NAMECALL R20 R20 K13 ["format"]
+  CALL R20 4 1
+  MOVE R19 R20
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K14 ["ErrorType"]
+  GETTABLEKS R20 R21 K15 ["validateCurveAnimation_IncorrectNumericalData"]
+  MOVE R21 R1
+  CALL R18 3 -1
+  RETURN R18 -1
+  GETTABLEKS R11 R16 K16 ["Time"]
+  FORGLOOP R12 2 [-136]
+  FORGLOOP R5 2 [-255]
+  LOADB R5 1
+  RETURN R5 1
+
+PROTO_44:
+  MOVE R3 R0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  MOVE R8 R7
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  GETUPVAL R13 0
+  NAMECALL R14 R12 K0 ["GetComponents"]
+  CALL R14 1 -1
+  CALL R13 -1 1
+  JUMPIF R13 [+10]
+  GETUPVAL R13 1
+  LOADK R14 K1 ["CurveAnimation contains Curves with invalid numerical data. Please fix the animation."]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K2 ["ErrorType"]
+  GETTABLEKS R15 R16 K3 ["validateCurveAnimation_IncorrectNumericalData"]
+  MOVE R16 R2
+  CALL R13 3 -1
+  RETURN R13 -1
+  FORGLOOP R8 2 [-17]
+  FORGLOOP R3 2 [-23]
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  MOVE R8 R7
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  GETUPVAL R13 0
+  MOVE R14 R12
+  CALL R13 1 1
+  JUMPIF R13 [+10]
+  GETUPVAL R13 1
+  LOADK R14 K1 ["CurveAnimation contains Curves with invalid numerical data. Please fix the animation."]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K2 ["ErrorType"]
+  GETTABLEKS R15 R16 K3 ["validateCurveAnimation_IncorrectNumericalData"]
+  MOVE R16 R2
+  CALL R13 3 -1
+  RETURN R13 -1
+  FORGLOOP R8 2 [-15]
+  FORGLOOP R3 2 [-21]
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_45:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_46:
+  NEWTABLE R2 0 0
+  MOVE R3 R0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  MOVE R8 R7
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K0 ["NAMED_R15_BODY_PARTS"]
+  GETTABLEKS R13 R14 K1 ["LowerTorso"]
+  JUMPIFEQ R11 R13 [+28]
+  GETTABLE R13 R2 R11
+  JUMPIF R13 [+6]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K2 ["asNumber"]
+  MOVE R14 R11
+  CALL R13 1 1
+  SETTABLE R13 R2 R11
+  GETTABLE R13 R2 R11
+  JUMPIFNOTLT R13 R12 [+17]
+  GETUPVAL R13 2
+  LOADK R15 K3 ["CurveAnimation contains positional separation of body parts. Only LowerTorso can change position. All other body parts can only change their orientation. %* moves more than %* studs from its parent. Please fix the animation."]
+  MOVE R17 R11
+  GETTABLE R18 R2 R11
+  NAMECALL R15 R15 K4 ["format"]
+  CALL R15 3 1
+  MOVE R14 R15
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K5 ["ErrorType"]
+  GETTABLEKS R15 R16 K6 ["validateCurveAnimation_PositionalMovement"]
+  MOVE R16 R1
+  CALL R13 3 -1
+  RETURN R13 -1
+  FORGLOOP R8 2 [-35]
+  FORGLOOP R3 2 [-41]
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_47:
+  NAMECALL R2 R0 K0 ["GetDescendants"]
+  CALL R2 1 3
+  FORGPREP R2
+  LOADK R9 K1 ["FloatCurve"]
+  NAMECALL R7 R6 K2 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+101]
+  GETTABLEKS R7 R6 K3 ["Parent"]
+  LOADK R9 K4 ["Vector3Curve"]
+  NAMECALL R7 R7 K2 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+94]
+  GETTABLEKS R8 R6 K3 ["Parent"]
+  GETTABLEKS R7 R8 K5 ["Name"]
+  JUMPIFNOTEQKS R7 K6 ["Position"] [+89]
+  GETTABLEKS R9 R6 K3 ["Parent"]
+  GETTABLEKS R8 R9 K3 ["Parent"]
+  GETTABLEKS R7 R8 K5 ["Name"]
+  JUMPIFEQKS R7 K7 ["LowerTorso"] [+81]
+  NAMECALL R7 R6 K8 ["GetKeys"]
+  CALL R7 1 1
+  GETUPVAL R8 0
+  CALL R8 0 1
+  JUMPIFNOT R8 [+46]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K9 ["asNumber"]
+  GETTABLEKS R11 R6 K3 ["Parent"]
+  GETTABLEKS R10 R11 K3 ["Parent"]
+  GETTABLEKS R9 R10 K5 ["Name"]
+  CALL R8 1 1
+  MOVE R9 R7
+  LOADNIL R10
+  LOADNIL R11
+  FORGPREP R9
+  GETTABLEKS R15 R13 K10 ["Value"]
+  FASTCALL1 MATH_ABS R15 [+2]
+  GETIMPORT R14 K13 [math.abs]
+  CALL R14 1 1
+  JUMPIFNOTLT R8 R14 [+22]
+  GETUPVAL R14 2
+  LOADK R16 K14 ["CurveAnimation contains positional separation of body parts. Only LowerTorso can change position. All other body parts can only change their orientation. %* moves more than %* studs from its parent. Please fix the animation."]
+  GETTABLEKS R20 R6 K3 ["Parent"]
+  GETTABLEKS R19 R20 K3 ["Parent"]
+  GETTABLEKS R18 R19 K5 ["Name"]
+  MOVE R19 R8
+  NAMECALL R16 R16 K15 ["format"]
+  CALL R16 3 1
+  MOVE R15 R16
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K16 ["ErrorType"]
+  GETTABLEKS R16 R17 K17 ["validateCurveAnimation_PositionalMovement"]
+  MOVE R17 R1
+  CALL R14 3 -1
+  RETURN R14 -1
+  FORGLOOP R9 2 [-30]
+  JUMP [+28]
+  MOVE R8 R7
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  GETTABLEKS R14 R12 K10 ["Value"]
+  FASTCALL1 MATH_ABS R14 [+2]
+  GETIMPORT R13 K13 [math.abs]
+  CALL R13 1 1
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K9 ["asNumber"]
+  CALL R14 0 1
+  JUMPIFNOTLT R14 R13 [+11]
+  GETUPVAL R13 2
+  LOADK R14 K18 ["CurveAnimation contains positional separation of body parts. Only LowerTorso can change position. All other body parts can only change their orientation. Please fix the animation."]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K16 ["ErrorType"]
+  GETTABLEKS R15 R16 K17 ["validateCurveAnimation_PositionalMovement"]
+  MOVE R16 R1
+  CALL R13 3 -1
+  RETURN R13 -1
+  FORGLOOP R8 2 [-23]
+  FORGLOOP R2 2 [-107]
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_48:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["calculateAnimFramesAtOrigin"]
+  MOVE R3 R0
+  CALL R2 1 4
+  GETUPVAL R6 1
+  CALL R6 0 1
+  JUMPIFNOT R6 [+9]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["validateCalculatedData"]
+  MOVE R7 R2
+  MOVE R8 R4
+  MOVE R9 R1
+  CALL R6 3 2
+  JUMPIF R6 [+1]
+  RETURN R6 2
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K2 ["new"]
+  CALL R6 0 1
+  GETUPVAL R7 3
+  CALL R7 0 1
+  JUMPIFNOT R7 [+9]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K3 ["validateMinimumTransformations"]
+  MOVE R10 R5
+  MOVE R11 R1
+  CALL R9 2 -1
+  NAMECALL R7 R6 K4 ["updateReasons"]
+  CALL R7 -1 0
+  GETUPVAL R7 4
+  CALL R7 0 1
+  JUMPIFNOT R7 [+22]
+  GETUPVAL R7 3
+  CALL R7 0 1
+  JUMPIFNOT R7 [+10]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["validatePositionMagnitudes"]
+  MOVE R10 R4
+  MOVE R11 R1
+  CALL R9 2 -1
+  NAMECALL R7 R6 K4 ["updateReasons"]
+  CALL R7 -1 0
+  JUMP [+9]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K6 ["validateMovement"]
+  MOVE R10 R0
+  MOVE R11 R1
+  CALL R9 2 -1
+  NAMECALL R7 R6 K4 ["updateReasons"]
+  CALL R7 -1 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["validateAnimationLength"]
+  MOVE R10 R3
+  MOVE R11 R1
+  CALL R9 2 -1
+  NAMECALL R7 R6 K4 ["updateReasons"]
+  CALL R7 -1 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K8 ["validateBounds"]
+  MOVE R10 R2
+  MOVE R11 R1
+  CALL R9 2 -1
+  NAMECALL R7 R6 K4 ["updateReasons"]
+  CALL R7 -1 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K9 ["validateFrameDeltas"]
+  MOVE R10 R2
+  MOVE R11 R1
+  CALL R9 2 -1
+  NAMECALL R7 R6 K4 ["updateReasons"]
+  CALL R7 -1 0
+  NAMECALL R7 R6 K10 ["getFinalResults"]
+  CALL R7 1 -1
+  RETURN R7 -1
+
+PROTO_49:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["validateStructure"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 2
+  JUMPIF R2 [+1]
+  RETURN R2 2
+  GETUPVAL R4 1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+10]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["validate"]
+  MOVE R5 R0
+  MOVE R6 R1
+  CALL R4 2 2
+  JUMPIF R4 [+3]
+  LOADB R6 0
+  MOVE R7 R5
+  RETURN R6 2
+  GETUPVAL R4 3
+  CALL R4 0 1
+  JUMPIFNOT R4 [+8]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["validateData"]
+  MOVE R5 R0
+  MOVE R6 R1
+  CALL R4 2 2
+  JUMPIF R4 [+1]
+  RETURN R4 2
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K3 ["new"]
+  CALL R4 0 1
+  GETUPVAL R7 5
+  MOVE R8 R0
+  MOVE R9 R1
+  CALL R7 2 -1
+  NAMECALL R5 R4 K4 ["updateReasons"]
+  CALL R5 -1 0
+  GETUPVAL R5 6
+  CALL R5 0 1
+  JUMPIFNOT R5 [+9]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["validateAllowedTags"]
+  MOVE R8 R0
+  MOVE R9 R1
+  CALL R7 2 -1
+  NAMECALL R5 R4 K4 ["updateReasons"]
+  CALL R5 -1 0
+  GETUPVAL R5 7
+  CALL R5 0 1
+  JUMPIF R5 [+9]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["validateContainsJointManipulation"]
+  MOVE R8 R0
+  MOVE R9 R1
+  CALL R7 2 -1
+  NAMECALL R5 R4 K4 ["updateReasons"]
+  CALL R5 -1 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["validateFrames"]
+  MOVE R8 R0
+  MOVE R9 R1
+  CALL R7 2 -1
+  NAMECALL R5 R4 K4 ["updateReasons"]
+  CALL R5 -1 0
+  NAMECALL R5 R4 K8 ["getFinalResults"]
+  CALL R5 1 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["CollectionService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R3 R1 K9 ["Analytics"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R4 R1 K10 ["Constants"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K11 ["util"]
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R6 R4 K12 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETTABLEKS R7 R4 K13 ["FailureReasonsAccumulator"]
+  CALL R6 1 1
+  GETIMPORT R7 K8 [require]
+  GETTABLEKS R8 R4 K14 ["AssetCalculator"]
+  CALL R7 1 1
+  GETTABLEKS R8 R1 K15 ["validation"]
+  GETIMPORT R9 K8 [require]
+  GETTABLEKS R10 R8 K16 ["validateAttributes"]
+  CALL R9 1 1
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R11 R8 K17 ["validateTags"]
+  CALL R10 1 1
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R12 R8 K18 ["ValidatePropertiesSensible"]
+  CALL R11 1 1
+  GETTABLEKS R12 R1 K19 ["flags"]
+  GETIMPORT R13 K8 [require]
+  GETTABLEKS R14 R12 K20 ["GetFStringUGCValidationMaxAnimationLength"]
+  CALL R13 1 1
+  GETIMPORT R14 K8 [require]
+  GETTABLEKS R15 R12 K21 ["GetFStringUGCValidationMaxAnimationBounds"]
+  CALL R14 1 1
+  GETIMPORT R15 K8 [require]
+  GETTABLEKS R16 R12 K22 ["GetFStringUGCValidationMaxAnimationDeltas"]
+  CALL R15 1 1
+  GETIMPORT R16 K8 [require]
+  GETTABLEKS R17 R12 K23 ["getFFlagUGCValidateNoScriptsInCurveAnim"]
+  CALL R16 1 1
+  GETIMPORT R17 K8 [require]
+  GETTABLEKS R18 R12 K24 ["getFFlagUGCValidateNoExtraInstsInCurveAnim"]
+  CALL R17 1 1
+  GETIMPORT R18 K8 [require]
+  GETTABLEKS R19 R12 K25 ["getFFlagUGCValidateCurveAnimChildFix"]
+  CALL R18 1 1
+  GETIMPORT R19 K8 [require]
+  GETTABLEKS R20 R12 K26 ["getFFlagUGCValidateAddObjectValueToAcceptableTypes"]
+  CALL R19 1 1
+  GETIMPORT R20 K8 [require]
+  GETTABLEKS R21 R12 K27 ["getFFlagUGCValidateDuplicatesInAnimation"]
+  CALL R20 1 1
+  GETIMPORT R21 K8 [require]
+  GETTABLEKS R22 R12 K28 ["getFFlagUGCValidateLimitMaxTotalInstances"]
+  CALL R21 1 1
+  GETIMPORT R22 K8 [require]
+  GETTABLEKS R23 R12 K29 ["getFFlagUGCValidateMaxTotalInstances"]
+  CALL R22 1 1
+  GETIMPORT R23 K8 [require]
+  GETTABLEKS R24 R12 K30 ["getFFlagUGCValidateNoTagsInCurveAnimations"]
+  CALL R23 1 1
+  GETIMPORT R24 K8 [require]
+  GETTABLEKS R25 R12 K31 ["getFFlagUGCValidateIncorrectNumericalData"]
+  CALL R24 1 1
+  GETIMPORT R25 K8 [require]
+  GETTABLEKS R26 R12 K32 ["getFIntUGCValidateMaxAnimationFPS"]
+  CALL R25 1 1
+  GETIMPORT R26 K8 [require]
+  GETTABLEKS R27 R12 K33 ["getFFlagUGCValidateRestrictAnimationMovement"]
+  CALL R26 1 1
+  GETIMPORT R27 K8 [require]
+  GETTABLEKS R28 R12 K34 ["GetFStringUGCValidateMaxAnimationMovement"]
+  CALL R27 1 1
+  GETIMPORT R28 K8 [require]
+  GETTABLEKS R29 R12 K35 ["getFIntUGCValidateMaxMarkerCurveValueLength"]
+  CALL R28 1 1
+  GETIMPORT R29 K8 [require]
+  GETTABLEKS R30 R12 K36 ["getFFlagUGCValidateRestrictAnimationMovementPerPart"]
+  CALL R29 1 1
+  GETIMPORT R30 K8 [require]
+  GETTABLEKS R31 R12 K37 ["GetFStringUGCValidateMaxAnimationMovementPerPart"]
+  CALL R30 1 1
+  GETIMPORT R31 K8 [require]
+  GETTABLEKS R32 R12 K38 ["getFFlagUGCValidateRestrictAnimationMovementCurvesFix"]
+  CALL R31 1 1
+  GETIMPORT R32 K8 [require]
+  GETTABLEKS R33 R12 K39 ["getFFlagUGCValidateStopNaNsInfsInAnimationKeys"]
+  CALL R32 1 1
+  GETIMPORT R33 K8 [require]
+  GETTABLEKS R34 R12 K40 ["getFFlagUGCValidateStopNaNsInfsInCalculatedData"]
+  CALL R33 1 1
+  GETIMPORT R34 K8 [require]
+  GETTABLEKS R35 R12 K41 ["getFFlagUGCValidateSingleAnimationRigData"]
+  CALL R34 1 1
+  GETIMPORT R35 K8 [require]
+  GETTABLEKS R36 R12 K42 ["getEngineFeatureEngineUGCIsValidR15AnimationRigCheck"]
+  CALL R35 1 1
+  GETIMPORT R36 K8 [require]
+  GETTABLEKS R37 R12 K43 ["getFFlagUGCValidatePreciseStepThrough"]
+  CALL R36 1 1
+  GETIMPORT R37 K8 [require]
+  GETTABLEKS R38 R12 K44 ["getFFlagUGCValidatePreciseCurveLimit"]
+  CALL R37 1 1
+  GETIMPORT R38 K8 [require]
+  GETTABLEKS R39 R12 K45 ["GetFStringUGCValidateFrameDeltaKeyTimeTol"]
+  CALL R38 1 1
+  GETIMPORT R39 K8 [require]
+  GETTABLEKS R41 R1 K19 ["flags"]
+  GETTABLEKS R40 R41 K46 ["getEngineFeatureEngineUGCValidatePropertiesSensible"]
+  CALL R39 1 1
+  GETIMPORT R40 K8 [require]
+  GETTABLEKS R41 R12 K47 ["getFFlagUGCValidateRestrictEmoteHeight"]
+  CALL R40 1 1
+  GETIMPORT R41 K8 [require]
+  GETTABLEKS R42 R12 K48 ["GetFStringUGCValidateAnimationHeightTol"]
+  CALL R41 1 1
+  NEWTABLE R42 32 0
+  DUPCLOSURE R43 K49 [PROTO_0]
+  CAPTURE VAL R2
+  LOADNIL R44
+  NEWCLOSURE R45 P1
+  CAPTURE REF R44
+  CAPTURE VAL R7
+  NEWCLOSURE R46 P2
+  CAPTURE REF R44
+  CAPTURE VAL R7
+  DUPCLOSURE R47 K50 [PROTO_4]
+  NEWCLOSURE R48 P4
+  CAPTURE REF R44
+  CAPTURE VAL R7
+  DUPCLOSURE R49 K51 [PROTO_6]
+  CAPTURE VAL R48
+  DUPCLOSURE R50 K52 [PROTO_7]
+  DUPCLOSURE R51 K53 [PROTO_8]
+  DUPCLOSURE R52 K54 [PROTO_9]
+  CAPTURE VAL R49
+  CAPTURE VAL R47
+  CAPTURE VAL R50
+  CAPTURE VAL R26
+  NEWCLOSURE R53 P9
+  CAPTURE VAL R20
+  CAPTURE VAL R52
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  CAPTURE REF R44
+  CAPTURE VAL R7
+  NEWCLOSURE R54 P10
+  CAPTURE REF R44
+  CAPTURE VAL R7
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  CAPTURE VAL R20
+  DUPCLOSURE R55 K55 [PROTO_13]
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  SETTABLEKS R55 R42 K56 ["validateSingleAnimationRigData"]
+  DUPCLOSURE R55 K57 [PROTO_14]
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  SETTABLEKS R55 R42 K58 ["validateAnimationRigDataInternals"]
+  DUPCLOSURE R55 K59 [PROTO_15]
+  CAPTURE VAL R34
+  CAPTURE VAL R42
+  CAPTURE VAL R35
+  DUPCLOSURE R56 K60 [PROTO_16]
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  NEWTABLE R57 0 7
+  LOADK R58 K61 ["MarkerCurve"]
+  LOADK R59 K62 ["AnimationRigData"]
+  LOADK R60 K63 ["Folder"]
+  LOADK R61 K64 ["Vector3Curve"]
+  LOADK R62 K65 ["EulerRotationCurve"]
+  LOADK R63 K66 ["FloatCurve"]
+  LOADK R64 K67 ["RotationCurve"]
+  SETLIST R57 R58 7 [1]
+  MOVE R58 R31
+  CALL R58 0 1
+  JUMPIFNOT R58 [+14]
+  MOVE R58 R57
+  LOADNIL R59
+  LOADNIL R60
+  FORGPREP R58
+  JUMPIFNOTEQKS R62 K67 ["RotationCurve"] [+7]
+  GETIMPORT R63 K70 [table.remove]
+  MOVE R64 R57
+  MOVE R65 R61
+  CALL R63 2 0
+  JUMP [+2]
+  FORGLOOP R58 2 [-9]
+  MOVE R58 R19
+  CALL R58 0 1
+  JUMPIFNOT R58 [+7]
+  FASTCALL2K TABLE_INSERT R57 K71 [+5]
+  MOVE R59 R57
+  LOADK R60 K71 ["ObjectValue"]
+  GETIMPORT R58 K73 [table.insert]
+  CALL R58 2 0
+  DUPCLOSURE R58 K74 [PROTO_17]
+  CAPTURE VAL R57
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  DUPCLOSURE R59 K75 [PROTO_18]
+  CAPTURE VAL R58
+  SETTABLEKS R59 R42 K76 ["validateExtraInstancesUnitTest"]
+  NEWCLOSURE R59 P17
+  CAPTURE VAL R2
+  CAPTURE VAL R21
+  CAPTURE VAL R22
+  CAPTURE VAL R43
+  CAPTURE VAL R54
+  CAPTURE VAL R34
+  CAPTURE VAL R35
+  CAPTURE VAL R42
+  CAPTURE VAL R20
+  CAPTURE REF R44
+  CAPTURE VAL R7
+  CAPTURE VAL R52
+  CAPTURE VAL R18
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R6
+  CAPTURE VAL R56
+  CAPTURE VAL R58
+  DUPCLOSURE R60 K77 [PROTO_20]
+  MOVE R62 R36
+  CALL R62 0 1
+  JUMPIFNOT R62 [+4]
+  MOVE R62 R25
+  CALL R62 0 1
+  DIVRK R61 R78 K62 ["AnimationRigData"]
+  JUMP [+1]
+  LOADK R61 K79 [0.0333333333333333]
+  NEWCLOSURE R62 P19
+  CAPTURE REF R44
+  CAPTURE VAL R7
+  DUPCLOSURE R63 K80 [PROTO_22]
+  DUPCLOSURE R64 K81 [PROTO_23]
+  CAPTURE VAL R63
+  DUPCLOSURE R65 K82 [PROTO_24]
+  CAPTURE VAL R63
+  NEWCLOSURE R66 P23
+  CAPTURE VAL R20
+  CAPTURE VAL R62
+  CAPTURE REF R44
+  CAPTURE VAL R7
+  CAPTURE VAL R31
+  CAPTURE VAL R63
+  CAPTURE VAL R3
+  CAPTURE VAL R60
+  CAPTURE VAL R61
+  DUPCLOSURE R67 K83 [PROTO_31]
+  CAPTURE VAL R13
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  SETTABLEKS R67 R42 K84 ["validateAnimationLength"]
+  DUPCLOSURE R67 K85 [PROTO_32]
+  CAPTURE VAL R40
+  CAPTURE VAL R6
+  CAPTURE VAL R41
+  CAPTURE VAL R14
+  CAPTURE VAL R2
+  CAPTURE VAL R43
+  SETTABLEKS R67 R42 K86 ["validateBounds"]
+  DUPCLOSURE R67 K87 [PROTO_33]
+  CAPTURE VAL R36
+  CAPTURE VAL R61
+  CAPTURE VAL R15
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  SETTABLEKS R67 R42 K88 ["validateFrameDeltas"]
+  DUPCLOSURE R67 K89 [PROTO_34]
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  SETTABLEKS R67 R42 K90 ["validateMinimumTransformations"]
+  NEWCLOSURE R67 P28
+  CAPTURE VAL R20
+  CAPTURE VAL R62
+  CAPTURE REF R44
+  CAPTURE VAL R7
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  SETTABLEKS R67 R42 K91 ["validateContainsJointManipulation"]
+  DUPCLOSURE R67 K92 [PROTO_36]
+  DUPCLOSURE R68 K93 [PROTO_37]
+  CAPTURE VAL R10
+  CAPTURE VAL R0
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  SETTABLEKS R68 R42 K94 ["validateAllowedTags"]
+  DUPCLOSURE R68 K95 [PROTO_38]
+  CAPTURE VAL R59
+  SETTABLEKS R68 R42 K96 ["validateStructure"]
+  DUPCLOSURE R68 K97 [PROTO_41]
+  DUPCLOSURE R69 K98 [PROTO_43]
+  CAPTURE VAL R25
+  CAPTURE VAL R13
+  CAPTURE VAL R37
+  CAPTURE VAL R61
+  CAPTURE VAL R38
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  CAPTURE VAL R32
+  CAPTURE VAL R68
+  CAPTURE VAL R28
+  SETTABLEKS R69 R42 K99 ["validateData"]
+  DUPCLOSURE R69 K100 [PROTO_44]
+  CAPTURE VAL R68
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  SETTABLEKS R69 R42 K101 ["validateCalculatedData"]
+  DUPCLOSURE R69 K102 [PROTO_45]
+  CAPTURE VAL R66
+  SETTABLEKS R69 R42 K103 ["calculateAnimFramesAtOrigin"]
+  DUPCLOSURE R69 K104 [PROTO_46]
+  CAPTURE VAL R3
+  CAPTURE VAL R30
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  SETTABLEKS R69 R42 K105 ["validatePositionMagnitudes"]
+  DUPCLOSURE R69 K106 [PROTO_47]
+  CAPTURE VAL R29
+  CAPTURE VAL R30
+  CAPTURE VAL R43
+  CAPTURE VAL R2
+  CAPTURE VAL R27
+  SETTABLEKS R69 R42 K107 ["validateMovement"]
+  DUPCLOSURE R69 K108 [PROTO_48]
+  CAPTURE VAL R42
+  CAPTURE VAL R33
+  CAPTURE VAL R6
+  CAPTURE VAL R31
+  CAPTURE VAL R26
+  SETTABLEKS R69 R42 K109 ["validateFrames"]
+  DUPCLOSURE R69 K110 [PROTO_49]
+  CAPTURE VAL R42
+  CAPTURE VAL R39
+  CAPTURE VAL R11
+  CAPTURE VAL R24
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R23
+  CAPTURE VAL R31
+  SETTABLEKS R69 R42 K111 ["validate"]
+  CLOSEUPVALS R44
+  RETURN R42 1

@@ -1,0 +1,38 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["new"]
+  MOVE R4 R1
+  CALL R3 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["new"]
+  LOADK R5 K1 ["StandalonePlugin"]
+  MOVE R6 R0
+  NEWTABLE R7 0 1
+  MOVE R8 R3
+  SETLIST R7 R8 1 [1]
+  CALL R4 3 1
+  MOVE R7 R2
+  NAMECALL R5 R4 K2 ["setGuiOptions"]
+  CALL R5 2 0
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Classes"]
+  GETTABLEKS R2 R3 K6 ["PluginEventBridge"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Classes"]
+  GETTABLEKS R3 R4 K7 ["DebugInterface"]
+  CALL R2 1 1
+  LOADK R5 K8 ["StandalonePluginDebugInterface"]
+  DUPCLOSURE R6 K9 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  NAMECALL R3 R2 K10 ["extend"]
+  CALL R3 3 1
+  RETURN R3 1

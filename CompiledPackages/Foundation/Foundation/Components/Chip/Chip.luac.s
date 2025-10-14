@@ -1,0 +1,326 @@
+PROTO_0:
+  LOADNIL R0
+  LOADNIL R1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["icon"]
+  JUMPIFNOTEQKNIL R2 [+8]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["leading"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["trailing"]
+  RETURN R2 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["icon"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K4 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K5 ["string"] [+9]
+  DUPTABLE R2 K7 [{"iconName"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["icon"]
+  SETTABLEKS R3 R2 K6 ["iconName"]
+  MOVE R0 R2
+  JUMP [+21]
+  DUPTABLE R2 K7 [{"iconName"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["icon"]
+  GETTABLEKS R3 R4 K8 ["name"]
+  SETTABLEKS R3 R2 K6 ["iconName"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["icon"]
+  GETTABLEKS R3 R4 K9 ["position"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K10 ["Left"]
+  JUMPIFNOTEQ R3 R4 [+3]
+  MOVE R0 R2
+  JUMP [+1]
+  MOVE R1 R2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["leading"]
+  OR R2 R3 R0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["trailing"]
+  OR R3 R4 R1
+  RETURN R2 2
+
+PROTO_1:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  CALL R2 2 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K0 ["useMemo"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U4
+  NEWTABLE R6 0 3
+  GETTABLEKS R7 R2 K1 ["leading"]
+  GETTABLEKS R8 R2 K2 ["icon"]
+  GETTABLEKS R9 R2 K3 ["trailing"]
+  SETLIST R6 R7 3 [1]
+  CALL R4 2 2
+  GETUPVAL R6 5
+  MOVE R7 R3
+  GETTABLEKS R8 R2 K4 ["size"]
+  GETTABLEKS R9 R2 K5 ["isChecked"]
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  CALL R6 5 1
+  GETTABLEKS R9 R3 K6 ["Stroke"]
+  GETTABLEKS R8 R9 K7 ["Thicker"]
+  FASTCALL1 MATH_FLOOR R8 [+2]
+  GETIMPORT R7 K10 [math.floor]
+  CALL R7 1 1
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K11 ["createElement"]
+  GETUPVAL R9 6
+  GETUPVAL R10 7
+  MOVE R11 R2
+  DUPTABLE R12 K22 [{"isDisabled", "selection", "onActivated", "stateLayer", "backgroundStyle", "padding", "cursor", "tag", "ref", "GroupTransparency"}]
+  GETTABLEKS R13 R2 K12 ["isDisabled"]
+  SETTABLEKS R13 R12 K12 ["isDisabled"]
+  DUPTABLE R13 K28 [{"Selectable", "NextSelectionUp", "NextSelectionDown", "NextSelectionLeft", "NextSelectionRight"}]
+  GETTABLEKS R15 R2 K12 ["isDisabled"]
+  JUMPIFNOT R15 [+2]
+  LOADB R14 0
+  JUMP [+2]
+  GETTABLEKS R14 R2 K23 ["Selectable"]
+  SETTABLEKS R14 R13 K23 ["Selectable"]
+  GETTABLEKS R14 R2 K24 ["NextSelectionUp"]
+  SETTABLEKS R14 R13 K24 ["NextSelectionUp"]
+  GETTABLEKS R14 R2 K25 ["NextSelectionDown"]
+  SETTABLEKS R14 R13 K25 ["NextSelectionDown"]
+  GETTABLEKS R14 R2 K26 ["NextSelectionLeft"]
+  SETTABLEKS R14 R13 K26 ["NextSelectionLeft"]
+  GETTABLEKS R14 R2 K27 ["NextSelectionRight"]
+  SETTABLEKS R14 R13 K27 ["NextSelectionRight"]
+  SETTABLEKS R13 R12 K13 ["selection"]
+  GETTABLEKS R13 R2 K14 ["onActivated"]
+  SETTABLEKS R13 R12 K14 ["onActivated"]
+  GETTABLEKS R14 R2 K5 ["isChecked"]
+  JUMPIFNOT R14 [+7]
+  DUPTABLE R13 K30 [{"mode"}]
+  GETUPVAL R15 8
+  GETTABLEKS R14 R15 K31 ["Inverse"]
+  SETTABLEKS R14 R13 K29 ["mode"]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K15 ["stateLayer"]
+  GETTABLEKS R14 R6 K32 ["chip"]
+  GETTABLEKS R13 R14 K16 ["backgroundStyle"]
+  SETTABLEKS R13 R12 K16 ["backgroundStyle"]
+  GETTABLEKS R14 R6 K32 ["chip"]
+  GETTABLEKS R13 R14 K17 ["padding"]
+  SETTABLEKS R13 R12 K17 ["padding"]
+  DUPTABLE R13 K36 [{"radius", "offset", "borderWidth"}]
+  GETIMPORT R14 K39 [UDim.new]
+  LOADN R15 0
+  GETTABLEKS R17 R3 K40 ["Radius"]
+  GETTABLEKS R16 R17 K41 ["Circle"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K33 ["radius"]
+  MULK R14 R7 K42 [2]
+  SETTABLEKS R14 R13 K34 ["offset"]
+  SETTABLEKS R7 R13 K35 ["borderWidth"]
+  SETTABLEKS R13 R12 K18 ["cursor"]
+  GETTABLEKS R14 R6 K32 ["chip"]
+  GETTABLEKS R13 R14 K19 ["tag"]
+  SETTABLEKS R13 R12 K19 ["tag"]
+  SETTABLEKS R1 R12 K20 ["ref"]
+  GETTABLEKS R14 R2 K12 ["isDisabled"]
+  JUMPIFNOT R14 [+4]
+  GETUPVAL R14 9
+  GETTABLEKS R13 R14 K43 ["DISABLED_TRANSPARENCY"]
+  JUMP [+1]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K21 ["GroupTransparency"]
+  CALL R10 2 1
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K11 ["createElement"]
+  GETUPVAL R13 10
+  GETTABLEKS R12 R13 K44 ["Provider"]
+  DUPTABLE R13 K46 [{"value"}]
+  DUPTABLE R14 K49 [{"isInverse", "isIconSize"}]
+  GETTABLEKS R15 R2 K5 ["isChecked"]
+  SETTABLEKS R15 R14 K47 ["isInverse"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K48 ["isIconSize"]
+  SETTABLEKS R14 R13 K45 ["value"]
+  DUPTABLE R14 K53 [{"Leading", "Text", "Trailing"}]
+  JUMPIFNOT R4 [+32]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K11 ["createElement"]
+  GETUPVAL R16 11
+  DUPTABLE R17 K58 [{"isLeading", "config", "size", "chipBackgroundStyle", "contentStyle", "isDisabled"}]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K54 ["isLeading"]
+  SETTABLEKS R4 R17 K55 ["config"]
+  GETTABLEKS R18 R2 K4 ["size"]
+  SETTABLEKS R18 R17 K4 ["size"]
+  GETTABLEKS R19 R6 K32 ["chip"]
+  GETTABLEKS R18 R19 K16 ["backgroundStyle"]
+  SETTABLEKS R18 R17 K56 ["chipBackgroundStyle"]
+  GETTABLEKS R19 R6 K59 ["text"]
+  GETTABLEKS R18 R19 K57 ["contentStyle"]
+  SETTABLEKS R18 R17 K57 ["contentStyle"]
+  GETTABLEKS R18 R2 K12 ["isDisabled"]
+  SETTABLEKS R18 R17 K12 ["isDisabled"]
+  CALL R15 2 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K50 ["Leading"]
+  GETTABLEKS R16 R2 K59 ["text"]
+  JUMPIFNOT R16 [+36]
+  GETTABLEKS R16 R2 K59 ["text"]
+  JUMPIFEQKS R16 K60 [""] [+33]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K11 ["createElement"]
+  GETUPVAL R16 12
+  DUPTABLE R17 K63 [{"Text", "textStyle", "LayoutOrder", "tag", "padding"}]
+  GETTABLEKS R18 R2 K59 ["text"]
+  SETTABLEKS R18 R17 K51 ["Text"]
+  GETTABLEKS R19 R6 K59 ["text"]
+  GETTABLEKS R18 R19 K57 ["contentStyle"]
+  SETTABLEKS R18 R17 K61 ["textStyle"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K62 ["LayoutOrder"]
+  GETTABLEKS R19 R6 K59 ["text"]
+  GETTABLEKS R18 R19 K19 ["tag"]
+  SETTABLEKS R18 R17 K19 ["tag"]
+  GETTABLEKS R19 R6 K59 ["text"]
+  GETTABLEKS R18 R19 K17 ["padding"]
+  SETTABLEKS R18 R17 K17 ["padding"]
+  CALL R15 2 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K51 ["Text"]
+  JUMPIFNOT R5 [+32]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K11 ["createElement"]
+  GETUPVAL R16 11
+  DUPTABLE R17 K58 [{"isLeading", "config", "size", "chipBackgroundStyle", "contentStyle", "isDisabled"}]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K54 ["isLeading"]
+  SETTABLEKS R5 R17 K55 ["config"]
+  GETTABLEKS R18 R2 K4 ["size"]
+  SETTABLEKS R18 R17 K4 ["size"]
+  GETTABLEKS R19 R6 K32 ["chip"]
+  GETTABLEKS R18 R19 K16 ["backgroundStyle"]
+  SETTABLEKS R18 R17 K56 ["chipBackgroundStyle"]
+  GETTABLEKS R19 R6 K59 ["text"]
+  GETTABLEKS R18 R19 K57 ["contentStyle"]
+  SETTABLEKS R18 R17 K57 ["contentStyle"]
+  GETTABLEKS R18 R2 K12 ["isDisabled"]
+  SETTABLEKS R18 R17 K12 ["isDisabled"]
+  CALL R15 2 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K52 ["Trailing"]
+  CALL R11 3 -1
+  CALL R8 -1 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Providers"]
+  GETTABLEKS R5 R6 K9 ["Style"]
+  GETTABLEKS R4 R5 K10 ["useTokens"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K11 ["Components"]
+  GETTABLEKS R6 R7 K13 ["View"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K11 ["Components"]
+  GETTABLEKS R7 R8 K14 ["Text"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K15 ["Utility"]
+  GETTABLEKS R8 R9 K16 ["withDefaults"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K15 ["Utility"]
+  GETTABLEKS R9 R10 K17 ["withCommonProps"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R12 R0 K8 ["Providers"]
+  GETTABLEKS R11 R12 K9 ["Style"]
+  GETTABLEKS R10 R11 K18 ["PresentationContext"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R11 R0 K19 ["Constants"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K4 ["Parent"]
+  GETTABLEKS R12 R13 K20 ["Accessory"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K21 ["Enums"]
+  GETTABLEKS R13 R14 K22 ["IconPosition"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R0 K21 ["Enums"]
+  GETTABLEKS R14 R15 K23 ["StateLayerMode"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R16 R0 K21 ["Enums"]
+  GETTABLEKS R15 R16 K24 ["CursorType"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R17 R0 K21 ["Enums"]
+  GETTABLEKS R16 R17 K25 ["ChipSize"]
+  CALL R15 1 1
+  GETIMPORT R16 K6 [require]
+  GETIMPORT R19 K1 [script]
+  GETTABLEKS R18 R19 K4 ["Parent"]
+  GETTABLEKS R17 R18 K26 ["useChipVariants"]
+  CALL R16 1 1
+  DUPTABLE R17 K31 [{"isChecked", "Selectable", "isDisabled", "size"}]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K27 ["isChecked"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K28 ["Selectable"]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K29 ["isDisabled"]
+  GETTABLEKS R18 R15 K32 ["Medium"]
+  SETTABLEKS R18 R17 K30 ["size"]
+  DUPCLOSURE R18 K33 [PROTO_1]
+  CAPTURE VAL R7
+  CAPTURE VAL R17
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R16
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R6
+  GETTABLEKS R19 R2 K34 ["memo"]
+  GETTABLEKS R20 R2 K35 ["forwardRef"]
+  MOVE R21 R18
+  CALL R20 1 -1
+  CALL R19 -1 -1
+  RETURN R19 -1

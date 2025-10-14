@@ -1,0 +1,1260 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["params"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["_requestHandlerAbortControllers"]
+  GETTABLEKS R4 R0 K0 ["params"]
+  GETTABLEKS R3 R4 K2 ["requestId"]
+  GETTABLE R1 R2 R3
+  JUMPIFNOT R1 [+7]
+  GETTABLEKS R5 R0 K0 ["params"]
+  GETTABLEKS R4 R5 K3 ["reason"]
+  NAMECALL R2 R1 K4 ["abort"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_onprogress"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWTABLE R2 0 0
+  RETURN R2 1
+
+PROTO_3:
+  NEWTABLE R2 16 0
+  GETUPVAL R3 0
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K1 [setmetatable]
+  CALL R1 2 1
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K2 ["_options"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K3 ["_transport"]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K4 ["_requestMessageId"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K5 ["_requestHandlers"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K6 ["_requestHandlerAbortControllers"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K7 ["_notificationHandlers"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K8 ["_responseHandlers"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K9 ["_progressHandlers"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K10 ["_timeoutInfo"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K12 ["onProtocolClose"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K13 ["onProtocolError"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K14 ["fallbackRequestHandler"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K15 ["fallbackNotificationHandler"]
+  LOADK R4 K16 ["notifications/cancelled"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R1
+  NAMECALL R2 R1 K17 ["_setNotificationHandlerInternal"]
+  CALL R2 3 0
+  LOADK R4 K18 ["notifications/progress"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R1
+  NAMECALL R2 R1 K17 ["_setNotificationHandlerInternal"]
+  CALL R2 3 0
+  LOADK R4 K19 ["ping"]
+  DUPCLOSURE R5 K20 [PROTO_2]
+  NAMECALL R2 R1 K21 ["_setRequestHandlerInternal"]
+  CALL R2 3 0
+  RETURN R1 1
+
+PROTO_4:
+  GETIMPORT R6 K2 [task.delay]
+  DIVK R7 R2 K3 [1000]
+  MOVE R8 R4
+  CALL R6 2 1
+  GETTABLEKS R7 R0 K4 ["_timeoutInfo"]
+  DUPTABLE R8 K11 [{"timeoutId", "startTime", "timeout", "maxTotalTimeout", "resetTimeoutOnProgress", "onTimeout"}]
+  SETTABLEKS R6 R8 K5 ["timeoutId"]
+  GETIMPORT R9 K14 [os.clock]
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K6 ["startTime"]
+  DIVK R9 R2 K3 [1000]
+  SETTABLEKS R9 R8 K7 ["timeout"]
+  MOVE R9 R3
+  JUMPIFNOT R9 [+1]
+  DIVK R9 R3 K3 [1000]
+  SETTABLEKS R9 R8 K8 ["maxTotalTimeout"]
+  ORK R9 R5 K15 [False]
+  SETTABLEKS R9 R8 K9 ["resetTimeoutOnProgress"]
+  SETTABLEKS R4 R8 K10 ["onTimeout"]
+  SETTABLE R8 R7 R1
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R3 R0 K0 ["_timeoutInfo"]
+  GETTABLE R2 R3 R1
+  JUMPIF R2 [+2]
+  LOADB R3 0
+  RETURN R3 1
+  GETIMPORT R4 K3 [os.clock]
+  CALL R4 0 1
+  GETTABLEKS R5 R2 K4 ["startTime"]
+  SUB R3 R4 R5
+  GETTABLEKS R4 R2 K5 ["maxTotalTimeout"]
+  JUMPIFNOT R4 [+31]
+  GETTABLEKS R4 R2 K5 ["maxTotalTimeout"]
+  JUMPIFNOTLE R4 R3 [+28]
+  GETTABLEKS R4 R0 K0 ["_timeoutInfo"]
+  LOADNIL R5
+  SETTABLE R5 R4 R1
+  DUPTABLE R4 K7 [{"maxTotalTimeout", "totalElapsed"}]
+  GETTABLEKS R6 R2 K5 ["maxTotalTimeout"]
+  MULK R5 R6 K8 [1000]
+  SETTABLEKS R5 R4 K5 ["maxTotalTimeout"]
+  MULK R5 R3 K8 [1000]
+  SETTABLEKS R5 R4 K6 ["totalElapsed"]
+  GETIMPORT R5 K10 [error]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K11 ["newMcpError"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K12 ["ErrorCode"]
+  GETTABLEKS R7 R8 K13 ["RequestTimeout"]
+  LOADK R8 K14 ["Maximum total timeout exceeded"]
+  MOVE R9 R4
+  CALL R6 3 -1
+  CALL R5 -1 0
+  GETIMPORT R4 K17 [task.cancel]
+  GETTABLEKS R5 R2 K18 ["timeoutId"]
+  CALL R4 1 0
+  GETIMPORT R4 K20 [task.delay]
+  GETTABLEKS R5 R2 K21 ["timeout"]
+  GETTABLEKS R6 R2 K22 ["onTimeout"]
+  CALL R4 2 1
+  SETTABLEKS R4 R2 K18 ["timeoutId"]
+  LOADB R4 1
+  RETURN R4 1
+
+PROTO_6:
+  GETTABLEKS R3 R0 K0 ["_timeoutInfo"]
+  GETTABLE R2 R3 R1
+  JUMPIFNOT R2 [+16]
+  GETTABLEKS R3 R2 K1 ["timeoutId"]
+  GETIMPORT R4 K4 [coroutine.running]
+  CALL R4 0 1
+  JUMPIFEQ R3 R4 [+6]
+  GETIMPORT R3 K7 [task.cancel]
+  GETTABLEKS R4 R2 K1 ["timeoutId"]
+  CALL R3 1 0
+  GETTABLEKS R3 R0 K0 ["_timeoutInfo"]
+  LOADNIL R4
+  SETTABLE R4 R3 R1
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_onclose"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_onerror"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_onmessage"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_10:
+  SETTABLEKS R1 R0 K0 ["_transport"]
+  GETTABLEKS R4 R0 K0 ["_transport"]
+  FASTCALL2K ASSERT R4 K1 [+4]
+  LOADK R5 K1 ["Transport must be initialized."]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K0 ["_transport"]
+  GETTABLEKS R3 R4 K4 ["onTransportClose"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K5 ["Connect"]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K0 ["_transport"]
+  GETTABLEKS R3 R4 K6 ["onTransportError"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K5 ["Connect"]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K0 ["_transport"]
+  GETTABLEKS R3 R4 K7 ["onTransportMessage"]
+  NEWCLOSURE R5 P2
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K5 ["Connect"]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K0 ["_transport"]
+  GETTABLEKS R3 R4 K8 ["start"]
+  CALL R3 0 -1
+  RETURN R3 -1
+
+PROTO_11:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["onProtocolError"]
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["Fire"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETIMPORT R1 K1 [pairs]
+  GETTABLEKS R2 R0 K2 ["_responseHandlers"]
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  MOVE R8 R4
+  NAMECALL R6 R0 K3 ["_cleanupTimeout"]
+  CALL R6 2 0
+  DUPTABLE R6 K7 [{"id", "jsonrpc", "error"}]
+  SETTABLEKS R4 R6 K4 ["id"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["JSONRPC_VERSION"]
+  SETTABLEKS R7 R6 K5 ["jsonrpc"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K9 ["newMcpError"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K10 ["ErrorCode"]
+  GETTABLEKS R8 R9 K11 ["ConnectionClosed"]
+  LOADK R9 K12 ["Connection closed"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K6 ["error"]
+  MOVE R7 R5
+  MOVE R8 R6
+  CALL R7 1 0
+  FORGLOOP R1 2 [-28]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K2 ["_responseHandlers"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K13 ["_progressHandlers"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K14 ["_requestHandlerAbortControllers"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K15 ["_timeoutInfo"]
+  GETTABLEKS R1 R0 K16 ["_transport"]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K16 ["_transport"]
+  GETTABLEKS R2 R0 K17 ["onProtocolClose"]
+  NAMECALL R2 R2 K18 ["Fire"]
+  CALL R2 1 0
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R2 R1 K19 ["close"]
+  CALL R2 0 1
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K20 ["catch"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R2 R0 K0 ["onProtocolError"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["Fire"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["fieldExists"]
+  MOVE R3 R1
+  LOADK R4 K1 ["id"]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["fieldExists"]
+  MOVE R4 R1
+  LOADK R5 K2 ["method"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+6]
+  JUMPIFNOT R2 [+5]
+  MOVE R6 R1
+  NAMECALL R4 R0 K3 ["_onrequest"]
+  CALL R4 2 0
+  RETURN R0 0
+  JUMPIFNOT R3 [+5]
+  MOVE R6 R1
+  NAMECALL R4 R0 K4 ["_onnotification"]
+  CALL R4 2 0
+  RETURN R0 0
+  JUMPIFNOT R2 [+5]
+  MOVE R6 R1
+  NAMECALL R4 R0 K5 ["_onresponse"]
+  CALL R4 2 0
+  RETURN R0 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["newMcpError"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["ErrorCode"]
+  GETTABLEKS R7 R8 K8 ["ParseError"]
+  LOADK R8 K9 ["Invalid message received"]
+  MOVE R9 R1
+  CALL R6 3 -1
+  NAMECALL R4 R0 K10 ["_onerror"]
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETTABLEKS R2 R1 K0 ["method"]
+  JUMPIFNOTEQKS R2 K1 ["notifications/progress"] [+6]
+  MOVE R5 R1
+  NAMECALL R3 R0 K2 ["_onprogress"]
+  CALL R3 2 0
+  RETURN R0 0
+  GETTABLEKS R4 R0 K3 ["_notificationHandlers"]
+  GETTABLE R3 R4 R2
+  JUMPIFNOT R3 [+11]
+  GETIMPORT R4 K5 [pcall]
+  MOVE R5 R3
+  MOVE R6 R1
+  CALL R4 2 2
+  JUMPIF R4 [+19]
+  MOVE R8 R5
+  NAMECALL R6 R0 K6 ["_onerror"]
+  CALL R6 2 0
+  RETURN R0 0
+  GETTABLEKS R4 R0 K7 ["fallbackNotificationHandler"]
+  JUMPIFNOT R4 [+11]
+  GETIMPORT R4 K5 [pcall]
+  GETTABLEKS R5 R0 K7 ["fallbackNotificationHandler"]
+  MOVE R6 R1
+  CALL R4 2 2
+  JUMPIF R4 [+4]
+  MOVE R8 R5
+  NAMECALL R6 R0 K6 ["_onerror"]
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["assertRequestHandlerCapability"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_17:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["fallbackRequestHandler"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_18:
+  LOADB R2 1
+  SETTABLEKS R2 R0 K0 ["aborted"]
+  ORK R2 R1 K1 ["Aborted"]
+  SETTABLEKS R2 R0 K2 ["reason"]
+  RETURN R0 0
+
+PROTO_19:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"relatedRequestId"}]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K0 ["relatedRequestId"]
+  NAMECALL R1 R1 K2 ["notification"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_20:
+  GETIMPORT R3 K2 [table.clone]
+  MOVE R4 R2
+  JUMPIF R4 [+2]
+  NEWTABLE R4 0 0
+  CALL R3 1 1
+  GETUPVAL R4 0
+  SETTABLEKS R4 R3 K3 ["relatedRequestId"]
+  GETUPVAL R4 1
+  MOVE R6 R0
+  MOVE R7 R3
+  NAMECALL R4 R4 K4 ["request"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_21:
+  NEWTABLE R2 0 1
+  GETIMPORT R3 K1 [pcall]
+  GETUPVAL R4 0
+  GETUPVAL R5 1
+  GETUPVAL R6 2
+  CALL R3 3 -1
+  SETLIST R2 R3 -1 [1]
+  GETIMPORT R3 K4 [table.remove]
+  MOVE R4 R2
+  LOADN R5 1
+  CALL R3 2 1
+  JUMPIFNOT R3 [+20]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K5 ["is"]
+  GETTABLEN R5 R2 1
+  CALL R4 1 1
+  JUMPIFNOT R4 [+7]
+  GETTABLEN R4 R2 1
+  MOVE R6 R0
+  MOVE R7 R1
+  NAMECALL R4 R4 K6 ["andThen"]
+  CALL R4 3 0
+  JUMP [+7]
+  MOVE R4 R0
+  FASTCALL1 TABLE_UNPACK R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K8 [unpack]
+  CALL R5 1 -1
+  CALL R4 -1 0
+  MOVE R4 R1
+  FASTCALL1 TABLE_UNPACK R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K8 [unpack]
+  CALL R5 1 -1
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_requestHandlerAbortControllers"]
+  GETUPVAL R2 1
+  LOADNIL R3
+  SETTABLE R3 R1 R2
+  DUPTABLE R1 K4 [{"jsonrpc", "id", "result"}]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K5 ["JSONRPC_VERSION"]
+  SETTABLEKS R2 R1 K1 ["jsonrpc"]
+  GETUPVAL R2 1
+  SETTABLEKS R2 R1 K2 ["id"]
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K3 ["result"]
+  GETUPVAL R2 0
+  MOVE R4 R1
+  NAMECALL R2 R2 K6 ["sendResponse"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_23:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_requestHandlerAbortControllers"]
+  GETUPVAL R2 1
+  LOADNIL R3
+  SETTABLE R3 R1 R2
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["ErrorCode"]
+  GETTABLEKS R1 R2 K2 ["InternalError"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K4 [tostring]
+  CALL R2 1 1
+  LOADNIL R3
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K6 [type]
+  CALL R4 1 1
+  JUMPIFNOTEQKS R4 K7 ["table"] [+7]
+  GETTABLEKS R1 R0 K8 ["code"]
+  GETTABLEKS R2 R0 K9 ["message"]
+  GETTABLEKS R3 R0 K10 ["data"]
+  DUPTABLE R4 K14 [{"jsonrpc", "id", "error"}]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K15 ["JSONRPC_VERSION"]
+  SETTABLEKS R5 R4 K11 ["jsonrpc"]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K12 ["id"]
+  DUPTABLE R5 K16 [{"code", "message", "data"}]
+  SETTABLEKS R1 R5 K8 ["code"]
+  SETTABLEKS R2 R5 K9 ["message"]
+  SETTABLEKS R3 R5 K10 ["data"]
+  SETTABLEKS R5 R4 K13 ["error"]
+  GETUPVAL R5 0
+  MOVE R7 R4
+  NAMECALL R5 R5 K17 ["sendResponse"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_24:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_onerror"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_25:
+  GETTABLEKS R2 R1 K0 ["method"]
+  GETTABLEKS R3 R1 K1 ["id"]
+  FASTCALL2K ASSERT R3 K2 [+5]
+  MOVE R5 R3
+  LOADK R6 K2 ["Request ID is required."]
+  GETIMPORT R4 K4 [assert]
+  CALL R4 2 0
+  GETTABLEKS R5 R0 K5 ["_requestHandlers"]
+  GETTABLE R4 R5 R2
+  GETIMPORT R5 K7 [pcall]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CALL R5 1 2
+  JUMPIF R5 [+33]
+  DUPTABLE R7 K10 [{"jsonrpc", "id", "error"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K11 ["JSONRPC_VERSION"]
+  SETTABLEKS R8 R7 K8 ["jsonrpc"]
+  SETTABLEKS R3 R7 K1 ["id"]
+  DUPTABLE R8 K14 [{"code", "message"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K15 ["ErrorCode"]
+  GETTABLEKS R9 R10 K16 ["MethodNotFound"]
+  SETTABLEKS R9 R8 K12 ["code"]
+  LOADK R10 K17 ["Handler capability check failed: "]
+  FASTCALL1 TOSTRING R6 [+3]
+  MOVE R12 R6
+  GETIMPORT R11 K19 [tostring]
+  CALL R11 1 1
+  CONCAT R9 R10 R11
+  SETTABLEKS R9 R8 K13 ["message"]
+  SETTABLEKS R8 R7 K9 ["error"]
+  MOVE R10 R7
+  NAMECALL R8 R0 K20 ["sendResponse"]
+  CALL R8 2 0
+  CLOSEUPVALS R4
+  RETURN R0 0
+  JUMPIF R4 [+5]
+  GETTABLEKS R7 R0 K21 ["fallbackRequestHandler"]
+  JUMPIFNOT R7 [+2]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  JUMPIF R4 [+31]
+  DUPTABLE R7 K10 [{"jsonrpc", "id", "error"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K11 ["JSONRPC_VERSION"]
+  SETTABLEKS R8 R7 K8 ["jsonrpc"]
+  SETTABLEKS R3 R7 K1 ["id"]
+  DUPTABLE R8 K14 [{"code", "message"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K15 ["ErrorCode"]
+  GETTABLEKS R9 R10 K16 ["MethodNotFound"]
+  SETTABLEKS R9 R8 K12 ["code"]
+  LOADK R9 K22 ["Method '%s' not found"]
+  MOVE R11 R2
+  NAMECALL R9 R9 K23 ["format"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K13 ["message"]
+  SETTABLEKS R8 R7 K9 ["error"]
+  MOVE R10 R7
+  NAMECALL R8 R0 K20 ["sendResponse"]
+  CALL R8 2 0
+  CLOSEUPVALS R4
+  RETURN R0 0
+  DUPTABLE R7 K26 [{"aborted", "reason"}]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K24 ["aborted"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K25 ["reason"]
+  DUPCLOSURE R8 K27 [PROTO_18]
+  SETTABLEKS R8 R7 K28 ["abort"]
+  GETTABLEKS R8 R0 K29 ["_requestHandlerAbortControllers"]
+  SETTABLE R7 R8 R3
+  DUPTABLE R8 K34 [{"signal", "sessionId", "sendNotification", "sendRequest"}]
+  SETTABLEKS R7 R8 K30 ["signal"]
+  GETTABLEKS R9 R0 K35 ["_transport"]
+  JUMPIFNOT R9 [+4]
+  GETTABLEKS R10 R0 K35 ["_transport"]
+  GETTABLEKS R9 R10 K31 ["sessionId"]
+  SETTABLEKS R9 R8 K31 ["sessionId"]
+  NEWCLOSURE R9 P3
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLEKS R9 R8 K32 ["sendNotification"]
+  NEWCLOSURE R9 P4
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  SETTABLEKS R9 R8 K33 ["sendRequest"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K36 ["new"]
+  NEWCLOSURE R10 P5
+  CAPTURE REF R4
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE UPVAL U1
+  CALL R9 1 1
+  NEWCLOSURE R11 P6
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U0
+  NEWCLOSURE R12 P7
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U0
+  NAMECALL R9 R9 K37 ["andThen"]
+  CALL R9 3 1
+  NEWCLOSURE R11 P8
+  CAPTURE VAL R0
+  NAMECALL R9 R9 K38 ["catch"]
+  CALL R9 2 0
+  CLOSEUPVALS R4
+  RETURN R0 0
+
+PROTO_26:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["_resetTimeout"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_27:
+  GETTABLEKS R2 R1 K0 ["params"]
+  JUMPIFNOT R2 [+11]
+  GETTABLEKS R3 R2 K1 ["token"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R4 R2 K1 ["token"]
+  FASTCALL1 TYPE R4 [+2]
+  GETIMPORT R3 K3 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K4 ["string"] [+2]
+  RETURN R0 0
+  GETTABLEKS R4 R0 K5 ["_progressHandlers"]
+  GETTABLEKS R5 R2 K1 ["token"]
+  GETTABLE R3 R4 R5
+  JUMPIF R3 [+1]
+  RETURN R0 0
+  GETTABLEKS R4 R2 K1 ["token"]
+  GETTABLEKS R6 R0 K6 ["_timeoutInfo"]
+  GETTABLE R5 R6 R4
+  JUMPIFNOT R5 [+30]
+  GETTABLEKS R6 R5 K7 ["resetTimeoutOnProgress"]
+  JUMPIFNOT R6 [+27]
+  GETIMPORT R6 K9 [pcall]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CALL R6 1 2
+  JUMPIF R6 [+20]
+  GETTABLEKS R9 R0 K10 ["_responseHandlers"]
+  GETTABLE R8 R9 R4
+  JUMPIFNOT R8 [+15]
+  MOVE R11 R4
+  NAMECALL R9 R0 K11 ["_cleanupTimeout"]
+  CALL R9 2 0
+  GETTABLEKS R9 R0 K10 ["_responseHandlers"]
+  LOADNIL R10
+  SETTABLE R10 R9 R4
+  GETTABLEKS R9 R0 K5 ["_progressHandlers"]
+  LOADNIL R10
+  SETTABLE R10 R9 R4
+  MOVE R9 R8
+  MOVE R10 R7
+  CALL R9 1 0
+  RETURN R0 0
+  GETIMPORT R6 K9 [pcall]
+  MOVE R7 R3
+  GETTABLEKS R8 R2 K12 ["value"]
+  CALL R6 2 2
+  JUMPIF R6 [+4]
+  MOVE R10 R7
+  NAMECALL R8 R0 K13 ["_onerror"]
+  CALL R8 2 0
+  RETURN R0 0
+
+PROTO_28:
+  GETTABLEKS R2 R1 K0 ["id"]
+  MOVE R4 R2
+  JUMPIFNOT R4 [+9]
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K2 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K3 ["string"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K4 [+4]
+  LOADK R5 K4 ["Response ID is required."]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K7 ["_responseHandlers"]
+  GETTABLE R3 R4 R2
+  JUMPIF R3 [+15]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["newMcpError"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K9 ["ErrorCode"]
+  GETTABLEKS R7 R8 K10 ["InvalidRequest"]
+  LOADK R8 K11 ["Received response for unknown request ID"]
+  MOVE R9 R2
+  CALL R6 3 -1
+  NAMECALL R4 R0 K12 ["_onerror"]
+  CALL R4 -1 0
+  RETURN R0 0
+  MOVE R6 R2
+  NAMECALL R4 R0 K13 ["_cleanupTimeout"]
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K7 ["_responseHandlers"]
+  LOADNIL R5
+  SETTABLE R5 R4 R2
+  GETTABLEKS R4 R0 K14 ["_progressHandlers"]
+  LOADNIL R5
+  SETTABLE R5 R4 R2
+  MOVE R4 R3
+  MOVE R5 R1
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_29:
+  GETTABLEKS R1 R0 K0 ["_transport"]
+  RETURN R1 1
+
+PROTO_30:
+  GETTABLEKS R1 R0 K0 ["_transport"]
+  JUMPIF R1 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["resolve"]
+  CALL R1 0 -1
+  RETURN R1 -1
+  GETTABLEKS R2 R0 K0 ["_transport"]
+  GETTABLEKS R1 R2 K2 ["close"]
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_31:
+  RETURN R0 0
+
+PROTO_32:
+  RETURN R0 0
+
+PROTO_33:
+  RETURN R0 0
+
+PROTO_34:
+  RETURN R0 0
+
+PROTO_35:
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["method"]
+  NAMECALL R0 R0 K1 ["assertCapabilityForMethod"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_36:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  LOADB R1 1
+  SETUPVAL R1 0
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K2 ["string"] [+3]
+  MOVE R1 R0
+  JUMP [+2]
+  GETTABLEKS R1 R0 K3 ["message"]
+  GETUPVAL R2 1
+  GETUPVAL R4 2
+  NAMECALL R2 R2 K4 ["_cleanupTimeout"]
+  CALL R2 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["_responseHandlers"]
+  GETUPVAL R3 2
+  LOADNIL R4
+  SETTABLE R4 R2 R3
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["_progressHandlers"]
+  GETUPVAL R3 2
+  LOADNIL R4
+  SETTABLE R4 R2 R3
+  GETUPVAL R2 1
+  DUPTABLE R4 K9 [{"method", "params"}]
+  LOADK R5 K10 ["notifications/cancelled"]
+  SETTABLEKS R5 R4 K7 ["method"]
+  DUPTABLE R5 K13 [{"requestId", "reason"}]
+  GETUPVAL R6 2
+  SETTABLEKS R6 R5 K11 ["requestId"]
+  SETTABLEKS R1 R5 K12 ["reason"]
+  SETTABLEKS R5 R4 K8 ["params"]
+  NAMECALL R2 R2 K14 ["notification"]
+  CALL R2 2 0
+  GETUPVAL R2 3
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_37:
+  GETIMPORT R0 K1 [warn]
+  LOADK R1 K2 ["Request timed out for method:"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["method"]
+  LOADK R3 K4 [" id:"]
+  GETUPVAL R4 1
+  LOADK R5 K5 [" after:"]
+  GETUPVAL R6 2
+  LOADK R7 K6 ["ms"]
+  CALL R0 7 0
+  GETUPVAL R0 3
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K7 ["newMcpError"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K8 ["ErrorCode"]
+  GETTABLEKS R2 R3 K9 ["RequestTimeout"]
+  LOADK R3 K10 ["Request timed out"]
+  DUPTABLE R4 K12 [{"timeout"}]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R4 K11 ["timeout"]
+  CALL R1 3 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_38:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["fieldExists"]
+  MOVE R2 R0
+  LOADK R3 K1 ["error"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R1 2
+  GETTABLEKS R3 R0 K1 ["error"]
+  GETTABLEKS R2 R3 K2 ["message"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["fieldExists"]
+  MOVE R2 R0
+  LOADK R3 K3 ["result"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R1 3
+  GETTABLEKS R2 R0 K3 ["result"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R1 2
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["newMcpError"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["ErrorCode"]
+  GETTABLEKS R3 R4 K6 ["InternalError"]
+  LOADK R4 K7 ["Invalid response format received"]
+  MOVE R5 R0
+  CALL R2 3 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_39:
+  GETUPVAL R1 0
+  JUMPIF R1 [+20]
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  NAMECALL R1 R1 K0 ["_cleanupTimeout"]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["_responseHandlers"]
+  GETUPVAL R2 2
+  LOADNIL R3
+  SETTABLE R3 R1 R2
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["_progressHandlers"]
+  GETUPVAL R2 2
+  LOADNIL R3
+  SETTABLE R3 R1 R2
+  GETUPVAL R1 3
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_40:
+  LOADB R2 0
+  NEWCLOSURE R3 P0
+  CAPTURE REF R2
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["timeout"]
+  ORK R4 R5 K0 [5000]
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE UPVAL U4
+  GETUPVAL R6 0
+  GETUPVAL R8 1
+  MOVE R9 R4
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K2 ["maxTotalTimeout"]
+  MOVE R11 R5
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K3 ["resetTimeoutOnProgress"]
+  NAMECALL R6 R6 K4 ["_setupTimeout"]
+  CALL R6 6 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["_responseHandlers"]
+  GETUPVAL R7 1
+  NEWCLOSURE R8 P2
+  CAPTURE REF R2
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLE R8 R6 R7
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["_transport"]
+  GETTABLEKS R6 R7 K7 ["sendRequest"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K9 [{"relatedRequestId"}]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K8 ["relatedRequestId"]
+  SETTABLEKS R9 R8 K8 ["relatedRequestId"]
+  CALL R6 2 1
+  NEWCLOSURE R8 P3
+  CAPTURE REF R2
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  NAMECALL R6 R6 K10 ["catch"]
+  CALL R6 2 0
+  CLOSEUPVALS R2
+  RETURN R0 0
+
+PROTO_41:
+  MOVE R3 R2
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  MOVE R2 R3
+  FASTCALL2K ASSERT R2 K0 [+5]
+  MOVE R4 R2
+  LOADK R5 K0 ["Options are required."]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K3 ["_transport"]
+  FASTCALL2K ASSERT R4 K4 [+4]
+  LOADK R5 K4 ["Transport is not connected."]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETIMPORT R3 K6 [pcall]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R3 1 2
+  JUMPIF R3 [+25]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["reject"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K8 ["newMcpError"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K9 ["ErrorCode"]
+  GETTABLEKS R7 R8 K10 ["InternalError"]
+  LOADK R9 K11 ["Local capability check failed for request method: "]
+  GETTABLEKS R10 R1 K12 ["method"]
+  LOADK R11 K13 [" error: "]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R13 R4
+  GETIMPORT R12 K15 [tostring]
+  CALL R12 1 1
+  CONCAT R8 R9 R12
+  CALL R6 2 -1
+  CALL R5 -1 -1
+  CLOSEUPVALS R2
+  RETURN R5 -1
+  GETTABLEKS R6 R0 K16 ["_requestMessageId"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K15 [tostring]
+  CALL R5 1 1
+  GETTABLEKS R6 R0 K16 ["_requestMessageId"]
+  ADDK R6 R6 K17 [1]
+  SETTABLEKS R6 R0 K16 ["_requestMessageId"]
+  DUPTABLE R6 K21 [{"jsonrpc", "id", "method", "params"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K22 ["JSONRPC_VERSION"]
+  SETTABLEKS R7 R6 K18 ["jsonrpc"]
+  SETTABLEKS R5 R6 K19 ["id"]
+  GETTABLEKS R7 R1 K12 ["method"]
+  SETTABLEKS R7 R6 K12 ["method"]
+  GETTABLEKS R7 R1 K20 ["params"]
+  JUMPIF R7 [+4]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K23 ["emptyObject"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K20 ["params"]
+  GETTABLEKS R7 R2 K24 ["onprogress"]
+  JUMPIFNOT R7 [+16]
+  GETTABLEKS R7 R6 K20 ["params"]
+  GETTABLEKS R8 R7 K25 ["_meta"]
+  JUMPIF R8 [+2]
+  NEWTABLE R8 0 0
+  SETTABLEKS R5 R8 K26 ["progressToken"]
+  SETTABLEKS R8 R7 K25 ["_meta"]
+  GETTABLEKS R9 R0 K27 ["_progressHandlers"]
+  GETTABLEKS R10 R2 K24 ["onprogress"]
+  SETTABLE R10 R9 R5
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K28 ["new"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  CAPTURE REF R2
+  CAPTURE VAL R6
+  CAPTURE UPVAL U1
+  CALL R7 1 -1
+  CLOSEUPVALS R2
+  RETURN R7 -1
+
+PROTO_42:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["assertNotificationCapability"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_43:
+  MOVE R3 R2
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  MOVE R2 R3
+  FASTCALL2K ASSERT R2 K0 [+5]
+  MOVE R4 R2
+  LOADK R5 K0 ["Options are required."]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K3 ["_transport"]
+  FASTCALL2K ASSERT R4 K4 [+4]
+  LOADK R5 K4 ["Transport is not connected."]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K5 ["method"]
+  FASTCALL2K ASSERT R3 K6 [+5]
+  MOVE R5 R3
+  LOADK R6 K6 ["Notification method is required."]
+  GETIMPORT R4 K2 [assert]
+  CALL R4 2 0
+  GETIMPORT R4 K8 [pcall]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CALL R4 1 2
+  JUMPIF R4 [+23]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["reject"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K10 ["newMcpError"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["ErrorCode"]
+  GETTABLEKS R8 R9 K12 ["InternalError"]
+  LOADK R10 K13 ["Local capability check failed for notification method: "]
+  MOVE R11 R3
+  LOADK R12 K14 [" error: "]
+  FASTCALL1 TOSTRING R5 [+3]
+  MOVE R14 R5
+  GETIMPORT R13 K16 [tostring]
+  CALL R13 1 1
+  CONCAT R9 R10 R13
+  CALL R7 2 -1
+  CALL R6 -1 -1
+  RETURN R6 -1
+  DUPTABLE R6 K19 [{"jsonrpc", "method", "params"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K20 ["JSONRPC_VERSION"]
+  SETTABLEKS R7 R6 K17 ["jsonrpc"]
+  GETTABLEKS R7 R1 K5 ["method"]
+  SETTABLEKS R7 R6 K5 ["method"]
+  GETTABLEKS R7 R1 K18 ["params"]
+  SETTABLEKS R7 R6 K18 ["params"]
+  GETTABLEKS R8 R0 K3 ["_transport"]
+  GETTABLEKS R7 R8 K21 ["sendNotification"]
+  MOVE R8 R6
+  DUPTABLE R9 K23 [{"relatedRequestId"}]
+  GETTABLEKS R10 R2 K22 ["relatedRequestId"]
+  SETTABLEKS R10 R9 K22 ["relatedRequestId"]
+  CALL R7 2 -1
+  RETURN R7 -1
+
+PROTO_44:
+  GETTABLEKS R3 R0 K0 ["_requestHandlers"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_45:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["assertCanSetRequestHandler"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_46:
+  GETTABLEKS R3 R1 K0 ["method"]
+  GETIMPORT R4 K2 [pcall]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CALL R4 1 2
+  JUMPIF R4 [+12]
+  GETIMPORT R6 K4 [error]
+  LOADK R8 K5 ["Cannot set request handler for method '"]
+  MOVE R9 R3
+  LOADK R10 K6 ["' due to capability restrictions: "]
+  FASTCALL1 TOSTRING R5 [+3]
+  MOVE R12 R5
+  GETIMPORT R11 K8 [tostring]
+  CALL R11 1 1
+  CONCAT R7 R8 R11
+  CALL R6 1 0
+  GETTABLEKS R6 R0 K9 ["_requestHandlers"]
+  SETTABLE R2 R6 R3
+  RETURN R0 0
+
+PROTO_47:
+  GETTABLEKS R2 R0 K0 ["_requestHandlers"]
+  LOADNIL R3
+  SETTABLE R3 R2 R1
+  RETURN R0 0
+
+PROTO_48:
+  GETTABLEKS R3 R0 K0 ["_notificationHandlers"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_49:
+  GETTABLEKS R3 R0 K0 ["_notificationHandlers"]
+  GETTABLEKS R4 R1 K1 ["method"]
+  SETTABLE R2 R3 R4
+  RETURN R0 0
+
+PROTO_50:
+  GETTABLEKS R2 R0 K0 ["_notificationHandlers"]
+  LOADNIL R3
+  SETTABLE R3 R2 R1
+  RETURN R0 0
+
+PROTO_51:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_onerror"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_52:
+  GETTABLEKS R2 R0 K0 ["_transport"]
+  JUMPIF R2 [+5]
+  LOADK R4 K1 ["Attempted to send response when transport is not connected."]
+  NAMECALL R2 R0 K2 ["_onerror"]
+  CALL R2 2 0
+  RETURN R0 0
+  GETTABLEKS R3 R0 K0 ["_transport"]
+  GETTABLEKS R2 R3 K3 ["sendResponse"]
+  MOVE R3 R1
+  CALL R2 1 1
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K4 ["catch"]
+  CALL R2 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModelContextProtocol"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Promise"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Signal"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Transport"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Types"]
+  CALL R4 1 1
+  NEWTABLE R5 32 0
+  SETTABLEKS R5 R5 K11 ["__index"]
+  DUPCLOSURE R6 K12 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K13 ["new"]
+  DUPCLOSURE R6 K14 [PROTO_4]
+  SETTABLEKS R6 R5 K15 ["_setupTimeout"]
+  DUPCLOSURE R6 K16 [PROTO_5]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K17 ["_resetTimeout"]
+  DUPCLOSURE R6 K18 [PROTO_6]
+  SETTABLEKS R6 R5 K19 ["_cleanupTimeout"]
+  DUPCLOSURE R6 K20 [PROTO_10]
+  SETTABLEKS R6 R5 K21 ["connect"]
+  DUPCLOSURE R6 K22 [PROTO_12]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K23 ["_onclose"]
+  DUPCLOSURE R6 K24 [PROTO_13]
+  SETTABLEKS R6 R5 K25 ["_onerror"]
+  DUPCLOSURE R6 K26 [PROTO_14]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K27 ["_onmessage"]
+  DUPCLOSURE R6 K28 [PROTO_15]
+  SETTABLEKS R6 R5 K29 ["_onnotification"]
+  DUPCLOSURE R6 K30 [PROTO_25]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K31 ["_onrequest"]
+  DUPCLOSURE R6 K32 [PROTO_27]
+  SETTABLEKS R6 R5 K33 ["_onprogress"]
+  DUPCLOSURE R6 K34 [PROTO_28]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K35 ["_onresponse"]
+  DUPCLOSURE R6 K36 [PROTO_29]
+  SETTABLEKS R6 R5 K37 ["getTransport"]
+  DUPCLOSURE R6 K38 [PROTO_30]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K39 ["close"]
+  DUPCLOSURE R6 K40 [PROTO_31]
+  SETTABLEKS R6 R5 K41 ["assertCapabilityForMethod"]
+  DUPCLOSURE R6 K42 [PROTO_32]
+  SETTABLEKS R6 R5 K43 ["assertNotificationCapability"]
+  DUPCLOSURE R6 K44 [PROTO_33]
+  SETTABLEKS R6 R5 K45 ["assertRequestHandlerCapability"]
+  DUPCLOSURE R6 K46 [PROTO_34]
+  SETTABLEKS R6 R5 K47 ["assertCanSetRequestHandler"]
+  DUPCLOSURE R6 K48 [PROTO_41]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K49 ["request"]
+  DUPCLOSURE R6 K50 [PROTO_43]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K51 ["notification"]
+  DUPCLOSURE R6 K52 [PROTO_44]
+  SETTABLEKS R6 R5 K53 ["_setRequestHandlerInternal"]
+  DUPCLOSURE R6 K54 [PROTO_46]
+  SETTABLEKS R6 R5 K55 ["setRequestHandler"]
+  DUPCLOSURE R6 K56 [PROTO_47]
+  SETTABLEKS R6 R5 K57 ["removeRequestHandler"]
+  DUPCLOSURE R6 K58 [PROTO_48]
+  SETTABLEKS R6 R5 K59 ["_setNotificationHandlerInternal"]
+  DUPCLOSURE R6 K60 [PROTO_49]
+  SETTABLEKS R6 R5 K61 ["setNotificationHandler"]
+  DUPCLOSURE R6 K62 [PROTO_50]
+  SETTABLEKS R6 R5 K63 ["removeNotificationHandler"]
+  DUPCLOSURE R6 K64 [PROTO_52]
+  SETTABLEKS R6 R5 K65 ["sendResponse"]
+  RETURN R5 1

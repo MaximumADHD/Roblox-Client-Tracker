@@ -1,0 +1,143 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["getStudioService"]
+  CALL R2 0 -1
+  CALL R1 -1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  GETIMPORT R3 K3 [game]
+  LOADK R5 K4 ["CoreGui"]
+  NAMECALL R3 R3 K5 ["GetService"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["new"]
+  GETIMPORT R4 K3 [game]
+  LOADK R6 K6 ["ReplicatedStorage"]
+  NAMECALL R4 R4 K5 ["GetService"]
+  CALL R4 2 1
+  LOADB R5 1
+  CALL R3 2 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["new"]
+  LOADK R5 K7 ["Inspector"]
+  LOADK R6 K7 ["Inspector"]
+  NEWTABLE R7 0 3
+  MOVE R8 R1
+  MOVE R9 R2
+  MOVE R10 R3
+  SETLIST R7 R8 3 [1]
+  CALL R4 3 1
+  SETTABLEKS R0 R4 K8 ["handlers"]
+  RETURN R4 1
+
+PROTO_1:
+  NAMECALL R1 R0 K0 ["_connectInspector"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["targetApi"]
+  RETURN R1 1
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["targetApi"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["targetApi"]
+  NAMECALL R1 R1 K1 ["close"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["handlers"]
+  GETTABLEKS R1 R2 K1 ["onAddTargets"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPTABLE R3 K2 [{"eventName", "onEvent"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["ShowTargets"]
+  SETTABLEKS R4 R3 K0 ["eventName"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K1 ["onEvent"]
+  NAMECALL R1 R0 K4 ["_connect"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
+  DUPTABLE R3 K1 [{"eventName"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["GetTargets"]
+  SETTABLEKS R4 R3 K0 ["eventName"]
+  NAMECALL R1 R0 K3 ["_send"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["new"]
+  MOVE R4 R0
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 1
+  GETTABLEKS R7 R0 K1 ["handlers"]
+  GETTABLEKS R6 R7 K2 ["RoactInspector"]
+  NAMECALL R4 R3 K3 ["attach"]
+  CALL R4 2 0
+  SETTABLEKS R3 R0 K4 ["targetApi"]
+  GETTABLEKS R4 R0 K4 ["targetApi"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Classes"]
+  GETTABLEKS R2 R3 K6 ["BindableEventBridge"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Classes"]
+  GETTABLEKS R3 R4 K7 ["DebugInterface"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["RoactInspector"]
+  GETTABLEKS R5 R6 K5 ["Classes"]
+  GETTABLEKS R4 R5 K9 ["RoactInspectorApi"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R0 K10 ["Services"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R0 K11 ["EventName"]
+  CALL R5 1 1
+  LOADK R8 K12 ["InspectorDebugInterface"]
+  DUPCLOSURE R9 K13 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  NAMECALL R6 R2 K14 ["extend"]
+  CALL R6 3 1
+  DUPCLOSURE R7 K15 [PROTO_1]
+  SETTABLEKS R7 R6 K16 ["_init"]
+  DUPCLOSURE R7 K17 [PROTO_2]
+  SETTABLEKS R7 R6 K18 ["getTargetApi"]
+  DUPCLOSURE R7 K19 [PROTO_3]
+  SETTABLEKS R7 R6 K20 ["closeTargetApi"]
+  DUPCLOSURE R7 K21 [PROTO_5]
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K22 ["_connectInspector"]
+  DUPCLOSURE R7 K23 [PROTO_6]
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K24 ["getTargets"]
+  DUPCLOSURE R7 K25 [PROTO_7]
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K26 ["attachRoactTree"]
+  RETURN R6 1

@@ -1,0 +1,112 @@
+PROTO_0:
+  MOVE R1 R0
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  DUPTABLE R2 K3 [{"type", "key", "immediate"}]
+  GETUPVAL R3 0
+  SETTABLEKS R3 R2 K0 ["type"]
+  GETTABLEKS R3 R1 K1 ["key"]
+  SETTABLEKS R3 R2 K1 ["key"]
+  GETTABLEKS R3 R1 K2 ["immediate"]
+  SETTABLEKS R3 R2 K2 ["immediate"]
+  RETURN R2 1
+
+PROTO_1:
+  MOVE R1 R0
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  DUPTABLE R2 K2 [{"type", "params"}]
+  GETUPVAL R3 0
+  SETTABLEKS R3 R2 K0 ["type"]
+  GETTABLEKS R3 R1 K1 ["params"]
+  SETTABLEKS R3 R2 K1 ["params"]
+  RETURN R2 1
+
+PROTO_2:
+  MOVE R1 R0
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  DUPTABLE R2 K5 [{"type", "routeName", "params", "action", "key"}]
+  GETUPVAL R3 0
+  SETTABLEKS R3 R2 K0 ["type"]
+  GETTABLEKS R3 R1 K1 ["routeName"]
+  SETTABLEKS R3 R2 K1 ["routeName"]
+  GETTABLEKS R3 R1 K2 ["params"]
+  SETTABLEKS R3 R2 K2 ["params"]
+  GETTABLEKS R3 R1 K3 ["action"]
+  SETTABLEKS R3 R2 K3 ["action"]
+  GETTABLEKS R3 R1 K4 ["key"]
+  SETTABLEKS R3 R2 K4 ["key"]
+  RETURN R2 1
+
+PROTO_3:
+  MOVE R1 R0
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  DUPTABLE R2 K3 [{"type", "key", "params"}]
+  GETUPVAL R3 0
+  SETTABLEKS R3 R2 K0 ["type"]
+  GETTABLEKS R3 R1 K1 ["key"]
+  SETTABLEKS R3 R2 K1 ["key"]
+  GETTABLEKS R3 R1 K2 ["params"]
+  SETTABLEKS R3 R2 K2 ["params"]
+  RETURN R2 1
+
+PROTO_4:
+  MOVE R1 R0
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  DUPTABLE R2 K3 [{"type", "key", "toChildKey"}]
+  GETUPVAL R3 0
+  SETTABLEKS R3 R2 K0 ["type"]
+  GETTABLEKS R3 R1 K1 ["key"]
+  SETTABLEKS R3 R2 K1 ["key"]
+  GETTABLEKS R3 R1 K2 ["toChildKey"]
+  SETTABLEKS R3 R2 K2 ["toChildKey"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["NavigationSymbol"]
+  CALL R0 1 1
+  MOVE R1 R0
+  LOADK R2 K6 ["BACK"]
+  CALL R1 1 1
+  MOVE R2 R0
+  LOADK R3 K7 ["INIT"]
+  CALL R2 1 1
+  MOVE R3 R0
+  LOADK R4 K8 ["NAVIGATE"]
+  CALL R3 1 1
+  MOVE R4 R0
+  LOADK R5 K9 ["SET_PARAMS"]
+  CALL R4 1 1
+  MOVE R5 R0
+  LOADK R6 K10 ["COMPLETE_TRANSITION"]
+  CALL R5 1 1
+  DUPTABLE R6 K16 [{"Back", "Init", "Navigate", "SetParams", "CompleteTransition"}]
+  SETTABLEKS R1 R6 K11 ["Back"]
+  SETTABLEKS R2 R6 K12 ["Init"]
+  SETTABLEKS R3 R6 K13 ["Navigate"]
+  SETTABLEKS R4 R6 K14 ["SetParams"]
+  SETTABLEKS R5 R6 K15 ["CompleteTransition"]
+  SETTABLEKS R6 R6 K17 ["__index"]
+  DUPCLOSURE R7 K18 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K19 ["back"]
+  DUPCLOSURE R7 K20 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K21 ["init"]
+  DUPCLOSURE R7 K22 [PROTO_2]
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K23 ["navigate"]
+  DUPCLOSURE R7 K24 [PROTO_3]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K25 ["setParams"]
+  DUPCLOSURE R7 K26 [PROTO_4]
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K27 ["completeTransition"]
+  RETURN R6 1

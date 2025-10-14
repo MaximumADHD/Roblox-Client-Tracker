@@ -1,0 +1,51 @@
+PROTO_0:
+  GETTABLEKS R3 R1 K0 ["Get"]
+  CALL R3 0 1
+  LENGTH R4 R3
+  JUMPIFNOTEQKN R4 K1 [0] [+2]
+  RETURN R0 0
+  GETTABLEKS R4 R0 K2 ["BeginRecording"]
+  LOADK R5 K3 ["RenameSelection"]
+  LOADK R6 K4 ["Renaming the selection"]
+  CALL R4 2 1
+  LOADB R5 0
+  MOVE R6 R3
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  GETUPVAL R11 0
+  MOVE R12 R10
+  LOADK R13 K5 ["Name"]
+  MOVE R14 R2
+  CALL R11 3 1
+  JUMPIFNOT R11 [+1]
+  LOADB R5 1
+  FORGLOOP R6 2 [-8]
+  JUMPIFNOT R5 [+7]
+  GETTABLEKS R6 R0 K6 ["FinishRecording"]
+  MOVE R7 R4
+  GETIMPORT R8 K10 [Enum.FinishRecordingOperation.Commit]
+  CALL R6 2 0
+  RETURN R0 0
+  GETTABLEKS R6 R0 K6 ["FinishRecording"]
+  MOVE R7 R4
+  GETIMPORT R8 K12 [Enum.FinishRecordingOperation.Cancel]
+  CALL R6 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["RpcTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["safeWriteProperty"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

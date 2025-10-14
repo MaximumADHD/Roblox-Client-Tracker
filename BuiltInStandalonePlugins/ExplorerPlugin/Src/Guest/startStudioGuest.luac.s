@@ -24,7 +24,7 @@ PROTO_2:
   GETUPVAL R5 2
   GETUPVAL R6 3
   CALL R4 2 1
-  DUPTABLE R5 K16 [{"openInsertObjectMenuAsync", "getInstanceId", "listenForVisibilityChanges", "instancePicker", "isServiceVisible", "clickScript", "openScript", "fieldsConfig", "enableOpenContextMenuDelayHack", "DEBUG_dataModelType", "DEBUG_startTime"}]
+  DUPTABLE R5 K17 [{"openInsertObjectMenuAsync", "getInstanceId", "listenForVisibilityChanges", "instancePicker", "streamingInterface", "isServiceVisible", "clickScript", "openScript", "fieldsConfig", "enableOpenContextMenuDelayHack", "DEBUG_dataModelType", "DEBUG_startTime"}]
   NEWCLOSURE R6 P0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U2
@@ -36,43 +36,53 @@ PROTO_2:
   CALL R7 0 1
   JUMPIFNOT R7 [+6]
   GETIMPORT R8 K4 [game]
-  GETTABLEKS R7 R8 K17 ["UniqueId"]
-  JUMPIFNOTEQKS R7 K18 ["00000000-0000-0000-0000-000000000000"] [+3]
+  GETTABLEKS R7 R8 K18 ["UniqueId"]
+  JUMPIFNOTEQKS R7 K19 ["00000000-0000-0000-0000-000000000000"] [+3]
   LOADNIL R6
   JUMP [+2]
-  DUPCLOSURE R6 K19 [PROTO_1]
+  DUPCLOSURE R6 K20 [PROTO_1]
   CAPTURE UPVAL U7
   SETTABLEKS R6 R5 K6 ["getInstanceId"]
   GETUPVAL R6 8
   SETTABLEKS R6 R5 K7 ["listenForVisibilityChanges"]
   GETUPVAL R6 9
   SETTABLEKS R6 R5 K8 ["instancePicker"]
-  GETUPVAL R6 10
-  SETTABLEKS R6 R5 K9 ["isServiceVisible"]
-  GETUPVAL R7 11
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K21 ["Flags"]
+  GETTABLEKS R7 R8 K22 ["getFFlagExplorerStreaming"]
   CALL R7 0 1
-  JUMPIFNOT R7 [+2]
-  GETUPVAL R6 12
+  JUMPIFNOT R7 [+3]
+  GETUPVAL R6 10
+  CALL R6 0 1
   JUMP [+1]
   LOADNIL R6
-  SETTABLEKS R6 R5 K10 ["clickScript"]
+  SETTABLEKS R6 R5 K9 ["streamingInterface"]
+  GETUPVAL R6 11
+  SETTABLEKS R6 R5 K10 ["isServiceVisible"]
+  GETUPVAL R7 12
+  CALL R7 0 1
+  JUMPIFNOT R7 [+2]
   GETUPVAL R6 13
-  SETTABLEKS R6 R5 K11 ["openScript"]
-  DUPTABLE R6 K22 [{"createLiveSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
-  GETUPVAL R7 14
-  SETTABLEKS R7 R6 K20 ["createLiveSyncStatusWatcher"]
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K11 ["clickScript"]
+  GETUPVAL R6 14
+  SETTABLEKS R6 R5 K12 ["openScript"]
+  DUPTABLE R6 K25 [{"createLiveSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
   GETUPVAL R7 15
-  SETTABLEKS R7 R6 K21 ["createCollaboratorSelectionWatcher"]
-  SETTABLEKS R6 R5 K12 ["fieldsConfig"]
+  SETTABLEKS R7 R6 K23 ["createLiveSyncStatusWatcher"]
+  GETUPVAL R7 16
+  SETTABLEKS R7 R6 K24 ["createCollaboratorSelectionWatcher"]
+  SETTABLEKS R6 R5 K13 ["fieldsConfig"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K13 ["enableOpenContextMenuDelayHack"]
+  SETTABLEKS R6 R5 K14 ["enableOpenContextMenuDelayHack"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K23 ["HostDataModelType"]
-  GETTABLEKS R6 R7 K24 ["Name"]
-  SETTABLEKS R6 R5 K14 ["DEBUG_dataModelType"]
-  GETIMPORT R6 K27 [os.clock]
+  GETTABLEKS R7 R8 K26 ["HostDataModelType"]
+  GETTABLEKS R6 R7 K27 ["Name"]
+  SETTABLEKS R6 R5 K15 ["DEBUG_dataModelType"]
+  GETIMPORT R6 K30 [os.clock]
   CALL R6 0 1
-  SETTABLEKS R6 R5 K15 ["DEBUG_startTime"]
+  SETTABLEKS R6 R5 K16 ["DEBUG_startTime"]
   CALL R1 4 -1
   RETURN R1 -1
 
@@ -199,6 +209,7 @@ PROTO_6:
   CAPTURE UPVAL U15
   CAPTURE UPVAL U16
   CAPTURE UPVAL U17
+  CAPTURE UPVAL U18
   SETTABLEKS R10 R9 K4 ["createGuestRpcInterface"]
   CALL R8 1 1
   GETTABLEKS R9 R0 K6 ["Unloading"]
@@ -209,7 +220,7 @@ PROTO_6:
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R1
-  CAPTURE UPVAL U18
+  CAPTURE UPVAL U19
   CAPTURE VAL R0
   NAMECALL R9 R9 K7 ["Connect"]
   CALL R9 2 0
@@ -286,35 +297,41 @@ MAIN:
   GETTABLEKS R14 R15 K27 ["createStudioInstancePicker"]
   CALL R13 1 1
   GETIMPORT R14 K10 [require]
-  GETTABLEKS R17 R2 K13 ["Src"]
-  GETTABLEKS R16 R17 K17 ["Guest"]
-  GETTABLEKS R15 R16 K28 ["isServiceVisible"]
+  GETTABLEKS R18 R2 K13 ["Src"]
+  GETTABLEKS R17 R18 K17 ["Guest"]
+  GETTABLEKS R16 R17 K28 ["Streaming"]
+  GETTABLEKS R15 R16 K29 ["createStudioStreamingInterface"]
   CALL R14 1 1
   GETIMPORT R15 K10 [require]
   GETTABLEKS R18 R2 K13 ["Src"]
   GETTABLEKS R17 R18 K17 ["Guest"]
-  GETTABLEKS R16 R17 K29 ["listenForVisibilityChanges"]
+  GETTABLEKS R16 R17 K30 ["isServiceVisible"]
   CALL R15 1 1
   GETIMPORT R16 K10 [require]
   GETTABLEKS R19 R2 K13 ["Src"]
   GETTABLEKS R18 R19 K17 ["Guest"]
-  GETTABLEKS R17 R18 K30 ["openInsertObjectMenuAsync"]
+  GETTABLEKS R17 R18 K31 ["listenForVisibilityChanges"]
   CALL R16 1 1
   GETIMPORT R17 K10 [require]
   GETTABLEKS R20 R2 K13 ["Src"]
   GETTABLEKS R19 R20 K17 ["Guest"]
-  GETTABLEKS R18 R19 K31 ["openScript"]
+  GETTABLEKS R18 R19 K32 ["openInsertObjectMenuAsync"]
   CALL R17 1 1
-  MOVE R18 R8
-  LOADK R19 K32 ["GetOrCreateUniqueIdMethod"]
+  GETIMPORT R18 K10 [require]
+  GETTABLEKS R21 R2 K13 ["Src"]
+  GETTABLEKS R20 R21 K17 ["Guest"]
+  GETTABLEKS R19 R20 K33 ["openScript"]
   CALL R18 1 1
   MOVE R19 R8
-  LOADK R20 K33 ["OpenScriptDocOptionsLua"]
+  LOADK R20 K34 ["GetOrCreateUniqueIdMethod"]
   CALL R19 1 1
   MOVE R20 R8
-  LOADK R21 K34 ["UniqueIdOverLuau"]
+  LOADK R21 K35 ["OpenScriptDocOptionsLua"]
   CALL R20 1 1
-  DUPCLOSURE R21 K35 [PROTO_6]
+  MOVE R21 R8
+  LOADK R22 K36 ["UniqueIdOverLuau"]
+  CALL R21 1 1
+  DUPCLOSURE R22 K37 [PROTO_6]
   CAPTURE VAL R7
   CAPTURE VAL R4
   CAPTURE VAL R5
@@ -322,16 +339,17 @@ MAIN:
   CAPTURE VAL R13
   CAPTURE VAL R3
   CAPTURE VAL R12
-  CAPTURE VAL R16
-  CAPTURE VAL R18
-  CAPTURE VAL R20
-  CAPTURE VAL R1
-  CAPTURE VAL R15
-  CAPTURE VAL R14
-  CAPTURE VAL R19
-  CAPTURE VAL R6
   CAPTURE VAL R17
+  CAPTURE VAL R19
+  CAPTURE VAL R21
+  CAPTURE VAL R1
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R20
+  CAPTURE VAL R6
+  CAPTURE VAL R18
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R0
-  RETURN R21 1
+  RETURN R22 1

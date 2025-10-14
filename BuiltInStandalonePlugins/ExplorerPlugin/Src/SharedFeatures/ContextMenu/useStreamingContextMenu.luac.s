@@ -1,0 +1,118 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R2 K2 [{"type", "instanceId"}]
+  LOADK R3 K3 ["streamIn"]
+  SETTABLEKS R3 R2 K0 ["type"]
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K1 ["instanceId"]
+  NAMECALL R0 R0 K4 ["Fire"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["ShowAsync"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K1 ["Destroy"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  LOADK R4 K0 ["ExplorerStreaming_%*"]
+  GETUPVAL R6 1
+  NAMECALL R6 R6 K1 ["GenerateGUID"]
+  CALL R6 1 1
+  NAMECALL R4 R4 K2 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  NAMECALL R1 R1 K3 ["CreatePluginMenu"]
+  CALL R1 2 1
+  LOADK R4 K4 ["Stream"]
+  GETUPVAL R8 2
+  LOADK R10 K5 ["ContextMenu"]
+  LOADK R11 K6 ["stream"]
+  NAMECALL R8 R8 K7 ["getText"]
+  CALL R8 3 1
+  MOVE R6 R8
+  LOADK R7 K8 ["     "]
+  CONCAT R5 R6 R7
+  NAMECALL R2 R1 K9 ["AddNewAction"]
+  CALL R2 3 1
+  GETTABLEKS R3 R2 K10 ["Triggered"]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K11 ["Connect"]
+  CALL R3 2 0
+  GETIMPORT R3 K14 [task.spawn]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R1
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["ContextServices"]
+  GETTABLEKS R0 R1 K1 ["Plugin"]
+  NAMECALL R0 R0 K2 ["use"]
+  CALL R0 1 1
+  NAMECALL R0 R0 K3 ["get"]
+  CALL R0 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["ContextServices"]
+  GETTABLEKS R1 R2 K4 ["Localization"]
+  NAMECALL R1 R1 K2 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["useState"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K6 ["Signal"]
+  GETTABLEKS R3 R4 K7 ["new"]
+  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["useCallback"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  NEWTABLE R5 0 2
+  MOVE R6 R0
+  MOVE R7 R1
+  SETLIST R5 R6 2 [1]
+  CALL R3 2 1
+  DUPTABLE R4 K11 [{"showStreamingContextMenu", "streamingActionTriggeredSignal"}]
+  SETTABLEKS R3 R4 K9 ["showStreamingContextMenu"]
+  SETTABLEKS R2 R4 K10 ["streamingActionTriggeredSignal"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["ExplorerPlugin"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Explorer"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R1 K10 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["React"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K14 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  RETURN R5 1

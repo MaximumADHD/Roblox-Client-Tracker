@@ -1,0 +1,457 @@
+PROTO_0:
+  GETUPVAL R3 0
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["update called before the watch completed"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K3 ["value"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["hostRpcInterface"]
+  GETTABLEKS R1 R2 K5 ["updateFieldValue"]
+  GETUPVAL R2 2
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["getInstanceId"]
+  GETUPVAL R4 3
+  CALL R3 1 1
+  MOVE R4 R0
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R4 R2 K0 ["instances"]
+  GETTABLE R3 R4 R0
+  JUMPIFEQKNIL R3 [+4]
+  GETTABLEKS R4 R3 K1 ["value"]
+  RETURN R4 1
+  LOADNIL R4
+  NEWCLOSURE R5 P0
+  CAPTURE REF R4
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  GETTABLEKS R7 R2 K2 ["field"]
+  GETTABLEKS R6 R7 K3 ["watch"]
+  MOVE R7 R0
+  MOVE R8 R5
+  GETTABLEKS R9 R2 K4 ["state"]
+  CALL R6 3 2
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R7
+  DUPTABLE R9 K6 [{"value", "disconnect"}]
+  SETTABLEKS R6 R9 K1 ["value"]
+  GETUPVAL R10 1
+  MOVE R11 R8
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K5 ["disconnect"]
+  MOVE R4 R9
+  GETTABLEKS R9 R2 K0 ["instances"]
+  SETTABLE R4 R9 R0
+  CLOSEUPVALS R4
+  RETURN R6 1
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R0
+  JUMPIFNOTEQKNIL R2 [+10]
+  GETIMPORT R3 K1 [error]
+  LOADK R5 K2 ["Invalid field requested: %*"]
+  MOVE R7 R2
+  NAMECALL R5 R5 K3 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  GETTABLEKS R3 R2 K4 ["validateArgs"]
+  MOVE R4 R1
+  CALL R3 1 2
+  JUMPIF R3 [+10]
+  GETIMPORT R5 K1 [error]
+  LOADK R7 K5 ["Invalid arguments sent to %*: %*"]
+  MOVE R9 R2
+  MOVE R10 R4
+  NAMECALL R7 R7 K3 ["format"]
+  CALL R7 3 1
+  MOVE R6 R7
+  CALL R5 1 0
+  LOADNIL R5
+  LOADNIL R6
+  GETTABLEKS R7 R2 K6 ["init"]
+  JUMPIFNOT R7 [+7]
+  GETTABLEKS R7 R2 K6 ["init"]
+  GETUPVAL R8 1
+  MOVE R9 R1
+  CALL R7 2 2
+  MOVE R5 R7
+  MOVE R6 R8
+  GETUPVAL R7 2
+  GETTABLEKS R8 R2 K7 ["key"]
+  CALL R7 1 1
+  DUPTABLE R8 K12 [{"field", "state", "destructor", "instances"}]
+  SETTABLEKS R2 R8 K8 ["field"]
+  SETTABLEKS R5 R8 K9 ["state"]
+  SETTABLEKS R6 R8 K10 ["destructor"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K11 ["instances"]
+  NEWTABLE R9 0 0
+  GETUPVAL R13 3
+  GETTABLEKS R10 R13 K13 ["instancesInView"]
+  LOADNIL R11
+  LOADNIL R12
+  FORGPREP R10
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K14 ["getInstanceId"]
+  MOVE R16 R13
+  CALL R15 1 1
+  GETUPVAL R16 4
+  MOVE R17 R13
+  MOVE R18 R7
+  MOVE R19 R8
+  CALL R16 3 1
+  SETTABLE R16 R9 R15
+  FORGLOOP R10 1 [-12]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K15 ["trackingFields"]
+  SETTABLE R8 R10 R7
+  MOVE R10 R7
+  MOVE R11 R9
+  RETURN R10 2
+
+PROTO_4:
+  GETIMPORT R1 K1 [error]
+  LOADK R2 K2 ["NYI: deleteField"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  NEWTABLE R1 0 0
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R7 0
+  GETUPVAL R8 1
+  MOVE R9 R6
+  LOADK R10 K0 ["viewing"]
+  CALL R7 3 1
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  FASTCALL2K ASSERT R9 K1 [+4]
+  LOADK R10 K1 ["Guest is viewing an instance we don't know about"]
+  GETIMPORT R8 K3 [assert]
+  CALL R8 2 0
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K4 ["instancesInView"]
+  GETTABLE R8 R9 R7
+  JUMPIFNOT R8 [+5]
+  GETUPVAL R8 2
+  LOADK R9 K5 ["%* is being viewed twice"]
+  MOVE R10 R7
+  CALL R8 2 0
+  JUMP [+40]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K4 ["instancesInView"]
+  LOADB R9 1
+  SETTABLE R9 R8 R7
+  GETIMPORT R8 K7 [next]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K8 ["trackingFields"]
+  CALL R8 1 1
+  JUMPIFEQKNIL R8 [+28]
+  NEWTABLE R8 0 0
+  GETUPVAL R12 1
+  GETTABLEKS R9 R12 K8 ["trackingFields"]
+  LOADNIL R10
+  LOADNIL R11
+  FORGPREP R9
+  JUMPIFNOTEQKNIL R13 [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  FASTCALL2K ASSERT R15 K9 [+4]
+  LOADK R16 K9 ["Luau"]
+  GETIMPORT R14 K3 [assert]
+  CALL R14 2 0
+  GETUPVAL R14 3
+  MOVE R15 R7
+  MOVE R16 R12
+  MOVE R17 R13
+  CALL R14 3 1
+  SETTABLE R14 R8 R12
+  FORGLOOP R9 2 [-17]
+  SETTABLE R8 R1 R6
+  FORGLOOP R2 2 [-66]
+  RETURN R1 1
+
+PROTO_6:
+  PREPVARARGS 3
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["trackingFields"]
+  GETTABLE R3 R4 R1
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K1 [+4]
+  LOADK R6 K1 ["Host performed action on field that we are not tracking"]
+  GETIMPORT R4 K3 [assert]
+  CALL R4 2 0
+  GETUPVAL R4 1
+  GETUPVAL R5 0
+  MOVE R6 R0
+  LOADK R7 K4 ["perform field action"]
+  CALL R4 3 1
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  FASTCALL2K ASSERT R6 K5 [+4]
+  LOADK R7 K5 ["Host performed action on instance that we don't know about"]
+  GETIMPORT R5 K3 [assert]
+  CALL R5 2 0
+  GETTABLEKS R6 R3 K6 ["field"]
+  GETTABLEKS R5 R6 K7 ["actions"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R7 R3 K6 ["field"]
+  GETTABLEKS R6 R7 K7 ["actions"]
+  GETTABLE R5 R6 R2
+  JUMPIFNOTEQKNIL R5 [+14]
+  GETIMPORT R6 K9 [error]
+  LOADK R8 K10 ["Host performed action \"%*\" on %*, which doesn't exist"]
+  MOVE R10 R2
+  GETTABLEKS R12 R3 K6 ["field"]
+  GETTABLEKS R11 R12 K11 ["key"]
+  NAMECALL R8 R8 K12 ["format"]
+  CALL R8 3 1
+  MOVE R7 R8
+  CALL R6 1 0
+  MOVE R6 R5
+  MOVE R7 R4
+  GETTABLEKS R8 R3 K13 ["state"]
+  GETVARARGS R9 -1
+  CALL R6 -1 0
+  RETURN R0 0
+
+PROTO_7:
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R7 0
+  GETUPVAL R8 1
+  MOVE R9 R6
+  LOADK R10 K0 ["stop viewing instances"]
+  CALL R7 3 1
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  FASTCALL2K ASSERT R9 K1 [+4]
+  LOADK R10 K1 ["Host stopped viewing instance we don't know about"]
+  GETIMPORT R8 K3 [assert]
+  CALL R8 2 0
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K4 ["instancesInView"]
+  GETTABLE R8 R9 R7
+  JUMPIFNOTEQKNIL R8 [+44]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["analytics"]
+  GETTABLEKS R8 R9 K6 ["logCounter"]
+  DUPTABLE R9 K12 [{"eventName", "backends", "throttlingPercentage", "description", "lastUpdated"}]
+  LOADK R10 K13 ["LuaExplorerStopViewingInstancesInstanceNotInView"]
+  SETTABLEKS R10 R9 K7 ["eventName"]
+  NEWTABLE R10 0 1
+  LOADK R11 K14 ["RobloxTelemetryCounter"]
+  SETLIST R10 R11 1 [1]
+  SETTABLEKS R10 R9 K8 ["backends"]
+  GETIMPORT R10 K16 [game]
+  LOADK R12 K17 ["LuaExplorerStopViewingInstancesInstanceNotInViewThrottlingHundredthsPercent"]
+  LOADN R13 16
+  NAMECALL R10 R10 K18 ["DefineFastInt"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K9 ["throttlingPercentage"]
+  LOADK R10 K19 ["Fired when stopViewingInstances is called with an instance not in view (SBT-4126)"]
+  SETTABLEKS R10 R9 K10 ["description"]
+  LOADK R10 K20 ["2024-03-03"]
+  SETTABLEKS R10 R9 K11 ["lastUpdated"]
+  DUPTABLE R10 K22 [{"debugContext"}]
+  SETTABLEKS R1 R10 K21 ["debugContext"]
+  CALL R8 2 0
+  GETUPVAL R8 2
+  CALL R8 0 1
+  JUMPIFNOT R8 [+48]
+  GETIMPORT R8 K24 [error]
+  LOADK R9 K25 ["stopViewingInstances called with instance not in view"]
+  CALL R8 1 0
+  JUMP [+43]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K4 ["instancesInView"]
+  LOADNIL R9
+  SETTABLE R9 R8 R7
+  GETUPVAL R11 1
+  GETTABLEKS R8 R11 K26 ["trackingFields"]
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  JUMPIFNOTEQKNIL R12 [+2]
+  LOADB R14 0 +1
+  LOADB R14 1
+  FASTCALL2K ASSERT R14 K27 [+4]
+  LOADK R15 K27 ["Luau"]
+  GETIMPORT R13 K3 [assert]
+  CALL R13 2 0
+  GETTABLEKS R14 R12 K28 ["instances"]
+  GETTABLE R13 R14 R7
+  JUMPIFNOTEQKNIL R13 [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  FASTCALL2K ASSERT R15 K29 [+4]
+  LOADK R16 K29 ["Instance not being tracked by field"]
+  GETIMPORT R14 K3 [assert]
+  CALL R14 2 0
+  GETTABLEKS R14 R13 K30 ["disconnect"]
+  CALL R14 0 0
+  GETTABLEKS R14 R12 K28 ["instances"]
+  LOADNIL R15
+  SETTABLE R15 R14 R7
+  FORGLOOP R8 2 [-31]
+  FORGLOOP R2 2 [-108]
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R3 0
+  GETTABLEKS R0 R3 K0 ["trackingFields"]
+  LOADNIL R1
+  LOADNIL R2
+  FORGPREP R0
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  FASTCALL2K ASSERT R6 K1 [+4]
+  LOADK R7 K1 ["Luau"]
+  GETIMPORT R5 K3 [assert]
+  CALL R5 2 0
+  GETTABLEKS R5 R4 K4 ["instances"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  JUMPIFNOTEQKNIL R9 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  FASTCALL2K ASSERT R11 K1 [+4]
+  LOADK R12 K1 ["Luau"]
+  GETIMPORT R10 K3 [assert]
+  CALL R10 2 0
+  GETTABLEKS R10 R9 K5 ["disconnect"]
+  CALL R10 0 0
+  FORGLOOP R5 2 [-14]
+  GETTABLEKS R5 R4 K6 ["destructor"]
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R5 R4 K6 ["destructor"]
+  CALL R5 0 0
+  FORGLOOP R0 2 [-37]
+  GETIMPORT R0 K9 [table.clear]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["trackingFields"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createUniqueKey"]
+  CALL R2 0 1
+  MOVE R3 R1
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  DUPCLOSURE R6 K1 [PROTO_4]
+  NEWCLOSURE R7 P3
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  CAPTURE VAL R4
+  NEWCLOSURE R8 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  NEWCLOSURE R9 P5
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  NEWCLOSURE R10 P6
+  CAPTURE VAL R0
+  DUPTABLE R11 K8 [{"createFieldAsync", "deleteField", "viewInstancesAsync", "stopViewingInstances", "performFieldAction", "destroy"}]
+  SETTABLEKS R5 R11 K2 ["createFieldAsync"]
+  SETTABLEKS R6 R11 K3 ["deleteField"]
+  SETTABLEKS R7 R11 K4 ["viewInstancesAsync"]
+  SETTABLEKS R9 R11 K5 ["stopViewingInstances"]
+  SETTABLEKS R8 R11 K6 ["performFieldAction"]
+  SETTABLEKS R10 R11 K7 ["destroy"]
+  RETURN R11 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Fields"]
+  GETTABLEKS R2 R3 K7 ["AllFields"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Fields"]
+  GETTABLEKS R3 R4 K8 ["FieldTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Guest"]
+  GETTABLEKS R5 R6 K10 ["InstanceGuestRPCInterface"]
+  GETTABLEKS R4 R5 K11 ["InstanceGuestRPCInterfaceTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Parent"]
+  GETTABLEKS R5 R6 K13 ["ReactUtils"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R0 K14 ["RpcTypes"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K15 ["Util"]
+  GETTABLEKS R7 R8 K16 ["createDebugLogger"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K17 ["Flags"]
+  GETTABLEKS R8 R9 K18 ["getFFlagDebugExplorerMoreEagerErrors"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Guest"]
+  GETTABLEKS R11 R12 K10 ["InstanceGuestRPCInterface"]
+  GETTABLEKS R10 R11 K15 ["Util"]
+  GETTABLEKS R9 R10 K19 ["getInstanceById"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K15 ["Util"]
+  GETTABLEKS R10 R11 K20 ["onlyOnce"]
+  CALL R9 1 1
+  MOVE R10 R6
+  LOADK R11 K21 ["createGuestFields"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K22 [PROTO_9]
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  RETURN R11 1

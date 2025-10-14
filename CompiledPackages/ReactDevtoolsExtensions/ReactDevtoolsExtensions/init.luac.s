@@ -1,0 +1,78 @@
+PROTO_0:
+  GETIMPORT R1 K1 [_G]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K2 ["__DEV__"]
+  GETIMPORT R1 K1 [_G]
+  ORK R2 R0 K3 [False]
+  SETTABLEKS R2 R1 K4 ["__DEBUG__"]
+  GETIMPORT R1 K1 [_G]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K5 ["__PROFILE__"]
+  GETIMPORT R1 K1 [_G]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K6 ["__EXPERIMENTAL__"]
+  GETIMPORT R1 K1 [_G]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K7 ["__REACT_DEVTOOLS_COMPONENT_FILTERS__"]
+  GETIMPORT R1 K9 [require]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["ReactDevtoolsShared"]
+  CALL R1 1 1
+  GETIMPORT R3 K9 [require]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K11 ["ReactDevtoolsExtensions"]
+  GETTABLEKS R4 R5 K12 ["backend"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K13 ["setup"]
+  GETTABLEKS R4 R1 K14 ["hook"]
+  GETTABLEKS R3 R4 K15 ["installHook"]
+  GETTABLEKS R5 R1 K16 ["devtools"]
+  GETTABLEKS R4 R5 K17 ["store"]
+  MOVE R5 R3
+  GETIMPORT R6 K1 [_G]
+  CALL R5 1 0
+  GETIMPORT R5 K9 [require]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K18 ["React"]
+  CALL R5 1 0
+  GETIMPORT R5 K9 [require]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K19 ["ReactRoblox"]
+  CALL R5 1 0
+  GETIMPORT R6 K1 [_G]
+  GETTABLEKS R5 R6 K20 ["__REACT_DEVTOOLS_GLOBAL_HOOK__"]
+  GETIMPORT R7 K9 [require]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K21 ["Shared"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K22 ["ReactFeatureFlags"]
+  GETTABLEKS R7 R6 K23 ["enableSchedulingProfiler"]
+  JUMPIF R7 [+4]
+  GETIMPORT R7 K25 [warn]
+  LOADK R8 K26 ["[DeveloperTools] React was initialized before DeveloperTools. Call inspector.setupReactDevtools before requiring React to enable profiling."]
+  CALL R7 1 0
+  MOVE R7 R2
+  MOVE R8 R5
+  CALL R7 1 1
+  DUPTABLE R8 K29 [{"agent", "bridge", "hook", "store"}]
+  GETTABLEKS R9 R7 K27 ["agent"]
+  SETTABLEKS R9 R8 K27 ["agent"]
+  GETTABLEKS R9 R7 K28 ["bridge"]
+  SETTABLEKS R9 R8 K28 ["bridge"]
+  GETTABLEKS R9 R7 K14 ["hook"]
+  SETTABLEKS R9 R8 K14 ["hook"]
+  GETTABLEKS R9 R4 K30 ["new"]
+  GETTABLEKS R10 R7 K28 ["bridge"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K17 ["store"]
+  RETURN R8 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  DUPTABLE R1 K4 [{"setup"}]
+  DUPCLOSURE R2 K5 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R1 K3 ["setup"]
+  RETURN R1 1

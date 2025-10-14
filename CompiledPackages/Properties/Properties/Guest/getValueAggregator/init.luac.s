@@ -1,0 +1,28 @@
+PROTO_0:
+  JUMPIFNOTEQKS R0 K0 ["Vector3"] [+3]
+  GETUPVAL R1 0
+  RETURN R1 1
+  GETUPVAL R1 1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K6 ["BasicAggregator"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K7 ["RpcTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K8 ["Vector3Aggregator"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K9 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R4 1

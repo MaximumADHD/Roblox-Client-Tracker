@@ -1,0 +1,10 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["vertexEditingTool"]
+  NAMECALL R1 R1 K1 ["getSelectables"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

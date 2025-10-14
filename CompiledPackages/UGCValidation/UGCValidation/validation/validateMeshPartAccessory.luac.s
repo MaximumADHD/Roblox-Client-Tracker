@@ -1,0 +1,596 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["assetTypeEnum"]
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["assetTypeEnum required in validationContext for validateMeshPartAccessory"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K4 ["instances"]
+  GETTABLEKS R2 R0 K0 ["assetTypeEnum"]
+  GETTABLEKS R3 R0 K5 ["isServer"]
+  GETTABLEKS R4 R0 K6 ["allowUnreviewedAssets"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["isRigidAccessoryAllowed"]
+  MOVE R6 R2
+  CALL R5 1 1
+  JUMPIF R5 [+23]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["reportFailure"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K9 ["ErrorType"]
+  GETTABLEKS R6 R7 K10 ["validateLegacyAccessory_AssetTypeNotAllowedAsRigidAccessory"]
+  LOADNIL R7
+  MOVE R8 R0
+  CALL R5 3 0
+  LOADB R5 0
+  NEWTABLE R6 0 1
+  GETIMPORT R7 K13 [string.format]
+  LOADK R8 K14 ["Asset type '%s' is not a rigid accessory category. It can only be used with layered clothing."]
+  GETTABLEKS R9 R2 K15 ["Name"]
+  CALL R7 2 -1
+  SETLIST R6 R7 -1 [1]
+  RETURN R5 2
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K16 ["ASSET_TYPE_INFO"]
+  GETTABLE R5 R6 R2
+  LOADNIL R6
+  LOADNIL R7
+  GETUPVAL R8 3
+  MOVE R9 R1
+  MOVE R10 R0
+  CALL R8 2 2
+  MOVE R6 R8
+  MOVE R7 R9
+  JUMPIF R6 [+3]
+  LOADB R8 0
+  MOVE R9 R7
+  RETURN R8 2
+  GETTABLEN R8 R1 1
+  GETUPVAL R9 4
+  GETTABLEKS R10 R5 K17 ["attachmentNames"]
+  CALL R9 1 1
+  GETUPVAL R10 5
+  MOVE R11 R9
+  MOVE R12 R8
+  MOVE R13 R0
+  CALL R10 3 2
+  MOVE R6 R10
+  MOVE R7 R11
+  JUMPIF R6 [+3]
+  LOADB R10 0
+  MOVE R11 R7
+  RETURN R10 2
+  GETUPVAL R10 6
+  CALL R10 0 1
+  JUMPIFNOT R10 [+12]
+  GETUPVAL R11 7
+  GETTABLEKS R10 R11 K18 ["validate"]
+  MOVE R11 R8
+  MOVE R12 R0
+  CALL R10 2 2
+  MOVE R6 R10
+  MOVE R7 R11
+  JUMPIF R6 [+3]
+  LOADB R10 0
+  MOVE R11 R7
+  RETURN R10 2
+  GETUPVAL R10 8
+  CALL R10 0 1
+  JUMPIFNOT R10 [+10]
+  GETUPVAL R10 9
+  MOVE R11 R8
+  MOVE R12 R0
+  CALL R10 2 2
+  MOVE R6 R10
+  MOVE R7 R11
+  JUMPIF R6 [+3]
+  LOADB R10 0
+  MOVE R11 R7
+  RETURN R10 2
+  LOADK R12 K19 ["Handle"]
+  NAMECALL R10 R8 K20 ["FindFirstChild"]
+  CALL R10 2 1
+  DUPTABLE R11 K25 [{"fullName", "fieldName", "contentId", "context"}]
+  NAMECALL R12 R10 K26 ["GetFullName"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K21 ["fullName"]
+  LOADK R12 K27 ["MeshId"]
+  SETTABLEKS R12 R11 K22 ["fieldName"]
+  GETTABLEKS R12 R10 K27 ["MeshId"]
+  SETTABLEKS R12 R11 K23 ["contentId"]
+  GETTABLEKS R12 R8 K15 ["Name"]
+  SETTABLEKS R12 R11 K24 ["context"]
+  GETUPVAL R13 10
+  GETTABLEKS R12 R13 K28 ["new"]
+  CALL R12 0 1
+  GETTABLEKS R13 R10 K29 ["DoubleSided"]
+  JUMPIFNOT R13 [+26]
+  LOADB R15 0
+  NEWTABLE R16 0 1
+  GETIMPORT R17 K13 [string.format]
+  LOADK R18 K30 ["MeshPart '%s' is double-sided. Double-sided meshes are not allowed in rigid accessories."]
+  NAMECALL R19 R10 K26 ["GetFullName"]
+  CALL R19 1 -1
+  CALL R17 -1 -1
+  SETLIST R16 R17 -1 [1]
+  NAMECALL R13 R12 K31 ["updateReasons"]
+  CALL R13 3 0
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K8 ["reportFailure"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K9 ["ErrorType"]
+  GETTABLEKS R14 R15 K32 ["validateMeshPartAccessory_DoubleSided"]
+  LOADNIL R15
+  MOVE R16 R0
+  CALL R13 3 0
+  LOADB R13 0
+  GETTABLEKS R14 R11 K23 ["contentId"]
+  JUMPIFEQKNIL R14 [+7]
+  GETTABLEKS R14 R11 K23 ["contentId"]
+  JUMPIFNOTEQKS R14 K33 [""] [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  GETUPVAL R14 11
+  MOVE R15 R10
+  LOADK R16 K27 ["MeshId"]
+  MOVE R17 R0
+  CALL R14 3 2
+  JUMPIF R14 [+54]
+  GETTABLEKS R16 R11 K23 ["contentId"]
+  JUMPIF R16 [+28]
+  LOADB R13 0
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K8 ["reportFailure"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K9 ["ErrorType"]
+  GETTABLEKS R17 R18 K34 ["validateMeshPartAccessory_NoMeshId"]
+  LOADNIL R18
+  MOVE R19 R0
+  CALL R16 3 0
+  LOADB R18 0
+  NEWTABLE R19 0 1
+  GETIMPORT R20 K13 [string.format]
+  LOADK R21 K35 ["Accessory MeshPart '%s' must contain a valid meshId. Make sure the mesh referred to by the meshId exists and try again."]
+  NAMECALL R22 R10 K26 ["GetFullName"]
+  CALL R22 1 -1
+  CALL R20 -1 -1
+  SETLIST R19 R20 -1 [1]
+  NAMECALL R16 R12 K31 ["updateReasons"]
+  CALL R16 3 0
+  JUMP [+23]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K8 ["reportFailure"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K9 ["ErrorType"]
+  GETTABLEKS R17 R18 K36 ["validateMeshPartAccessory_FailedToLoadMesh"]
+  LOADNIL R18
+  MOVE R19 R0
+  CALL R16 3 0
+  LOADB R16 0
+  NEWTABLE R17 0 1
+  GETIMPORT R18 K13 [string.format]
+  LOADK R19 K37 ["Failed to load mesh for accessory '%s'. Make sure mesh exists and try again."]
+  GETTABLEKS R20 R8 K15 ["Name"]
+  CALL R18 2 -1
+  SETLIST R17 R18 -1 [1]
+  RETURN R16 2
+  SETTABLEKS R15 R11 K38 ["editableMesh"]
+  LOADB R13 1
+  GETTABLEKS R16 R10 K39 ["TextureID"]
+  DUPTABLE R17 K40 [{"fullName", "fieldName", "contentId"}]
+  NAMECALL R18 R10 K26 ["GetFullName"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K21 ["fullName"]
+  LOADK R18 K39 ["TextureID"]
+  SETTABLEKS R18 R17 K22 ["fieldName"]
+  SETTABLEKS R16 R17 K23 ["contentId"]
+  GETUPVAL R18 12
+  MOVE R19 R10
+  LOADK R20 K39 ["TextureID"]
+  MOVE R21 R0
+  CALL R18 3 2
+  SETTABLEKS R19 R17 K41 ["editableImage"]
+  GETUPVAL R20 13
+  NEWCLOSURE R21 P0
+  CAPTURE UPVAL U14
+  CAPTURE VAL R11
+  MOVE R22 R0
+  CALL R20 2 2
+  JUMPIF R20 [+23]
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K8 ["reportFailure"]
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K9 ["ErrorType"]
+  GETTABLEKS R23 R24 K36 ["validateMeshPartAccessory_FailedToLoadMesh"]
+  LOADNIL R24
+  MOVE R25 R0
+  CALL R22 3 0
+  LOADB R22 0
+  NEWTABLE R23 0 1
+  GETIMPORT R24 K13 [string.format]
+  LOADK R25 K37 ["Failed to load mesh for accessory '%s'. Make sure mesh exists and try again."]
+  GETTABLEKS R26 R8 K15 ["Name"]
+  CALL R24 2 -1
+  SETLIST R23 R24 -1 [1]
+  RETURN R22 2
+  GETUPVAL R23 15
+  MOVE R24 R10
+  MOVE R25 R0
+  CALL R23 2 1
+  DIV R22 R23 R21
+  GETUPVAL R23 16
+  MOVE R24 R10
+  GETTABLEKS R25 R5 K17 ["attachmentNames"]
+  CALL R23 2 1
+  FASTCALL1 ASSERT R23 [+3]
+  MOVE R25 R23
+  GETIMPORT R24 K3 [assert]
+  CALL R24 1 0
+  GETTABLEKS R26 R5 K42 ["bounds"]
+  GETTABLEKS R27 R23 K15 ["Name"]
+  GETTABLE R25 R26 R27
+  LOADK R27 K43 ["Could not find bounds for "]
+  GETTABLEKS R28 R23 K15 ["Name"]
+  CONCAT R26 R27 R28
+  FASTCALL2 ASSERT R25 R26 [+3]
+  GETIMPORT R24 K3 [assert]
+  CALL R24 2 1
+  GETUPVAL R27 17
+  MOVE R28 R8
+  MOVE R29 R0
+  CALL R27 2 -1
+  NAMECALL R25 R12 K31 ["updateReasons"]
+  CALL R25 -1 0
+  GETUPVAL R27 18
+  MOVE R28 R8
+  LOADNIL R29
+  MOVE R30 R0
+  CALL R27 3 -1
+  NAMECALL R25 R12 K31 ["updateReasons"]
+  CALL R25 -1 0
+  GETUPVAL R27 19
+  MOVE R28 R8
+  MOVE R29 R0
+  CALL R27 2 -1
+  NAMECALL R25 R12 K31 ["updateReasons"]
+  CALL R25 -1 0
+  GETUPVAL R27 20
+  MOVE R28 R8
+  MOVE R29 R0
+  CALL R27 2 -1
+  NAMECALL R25 R12 K31 ["updateReasons"]
+  CALL R25 -1 0
+  GETUPVAL R27 21
+  MOVE R28 R17
+  LOADB R29 1
+  MOVE R30 R0
+  CALL R27 3 -1
+  NAMECALL R25 R12 K31 ["updateReasons"]
+  CALL R25 -1 0
+  GETUPVAL R27 22
+  MOVE R28 R8
+  MOVE R29 R10
+  MOVE R30 R11
+  MOVE R31 R22
+  MOVE R32 R0
+  CALL R27 5 -1
+  NAMECALL R25 R12 K31 ["updateReasons"]
+  CALL R25 -1 0
+  NOT R25 R3
+  JUMPIFNOT R4 [+1]
+  LOADB R25 0
+  JUMPIFNOT R25 [+9]
+  GETUPVAL R28 23
+  MOVE R29 R8
+  NEWTABLE R30 0 0
+  MOVE R31 R0
+  CALL R28 3 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  JUMPIFNOT R13 [+60]
+  GETUPVAL R28 24
+  MOVE R29 R11
+  MOVE R30 R22
+  MOVE R31 R0
+  CALL R28 3 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  GETUPVAL R26 25
+  CALL R26 0 1
+  JUMPIFNOT R26 [+9]
+  GETUPVAL R29 26
+  GETTABLEKS R28 R29 K44 ["validateSingleMeshPart"]
+  MOVE R29 R10
+  MOVE R30 R0
+  CALL R28 2 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  GETUPVAL R28 27
+  MOVE R29 R10
+  MOVE R30 R23
+  MOVE R31 R11
+  MOVE R32 R22
+  MOVE R33 R24
+  GETTABLEKS R34 R2 K15 ["Name"]
+  MOVE R35 R0
+  CALL R28 7 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  GETUPVAL R28 28
+  MOVE R29 R11
+  LOADNIL R30
+  MOVE R31 R0
+  CALL R28 3 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  GETUPVAL R26 29
+  CALL R26 0 1
+  JUMPIFNOT R26 [+8]
+  GETUPVAL R28 30
+  MOVE R29 R11
+  LOADB R30 0
+  MOVE R31 R0
+  CALL R28 3 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  GETUPVAL R28 31
+  MOVE R29 R11
+  MOVE R30 R22
+  MOVE R31 R0
+  CALL R28 3 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  GETUPVAL R28 32
+  MOVE R29 R8
+  MOVE R30 R0
+  CALL R28 2 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  GETUPVAL R28 33
+  MOVE R29 R8
+  MOVE R30 R0
+  CALL R28 2 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  GETUPVAL R28 34
+  MOVE R29 R8
+  MOVE R30 R0
+  CALL R28 2 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  GETUPVAL R26 35
+  CALL R26 0 1
+  JUMPIFNOT R26 [+11]
+  GETTABLEKS R26 R0 K45 ["allowEditableInstances"]
+  JUMPIF R26 [+8]
+  GETUPVAL R28 36
+  GETTABLEKS R29 R11 K23 ["contentId"]
+  MOVE R30 R0
+  CALL R28 2 -1
+  NAMECALL R26 R12 K31 ["updateReasons"]
+  CALL R26 -1 0
+  LOADK R28 K46 ["AvatarPartScaleType"]
+  NAMECALL R26 R10 K20 ["FindFirstChild"]
+  CALL R26 2 1
+  JUMPIFNOT R26 [+12]
+  LOADK R29 K47 ["StringValue"]
+  NAMECALL R27 R26 K48 ["IsA"]
+  CALL R27 2 1
+  JUMPIFNOT R27 [+7]
+  GETUPVAL R29 37
+  MOVE R30 R26
+  MOVE R31 R0
+  CALL R29 2 -1
+  NAMECALL R27 R12 K31 ["updateReasons"]
+  CALL R27 -1 0
+  NAMECALL R27 R12 K49 ["getFinalResults"]
+  CALL R27 1 -1
+  RETURN R27 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K7 ["Analytics"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R0 K8 ["Constants"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K9 ["validation"]
+  GETTABLEKS R5 R6 K10 ["validateCoplanarIntersection"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K9 ["validation"]
+  GETTABLEKS R6 R7 K11 ["validateInstanceTree"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K9 ["validation"]
+  GETTABLEKS R7 R8 K12 ["validateMeshTriangles"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K9 ["validation"]
+  GETTABLEKS R8 R9 K13 ["validateModeration"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K9 ["validation"]
+  GETTABLEKS R9 R10 K14 ["validateMaterials"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K9 ["validation"]
+  GETTABLEKS R10 R11 K15 ["validateTags"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K9 ["validation"]
+  GETTABLEKS R11 R12 K16 ["validateMeshBounds"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R13 R0 K9 ["validation"]
+  GETTABLEKS R12 R13 K17 ["validateTextureSize"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R14 R0 K9 ["validation"]
+  GETTABLEKS R13 R14 K18 ["validatePropertyRequirements"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R15 R0 K9 ["validation"]
+  GETTABLEKS R14 R15 K19 ["validateAttributes"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R16 R0 K9 ["validation"]
+  GETTABLEKS R15 R16 K20 ["validateMeshVertColors"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R17 R0 K9 ["validation"]
+  GETTABLEKS R16 R17 K21 ["validateSingleInstance"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R18 R0 K9 ["validation"]
+  GETTABLEKS R17 R18 K22 ["validateThumbnailConfiguration"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R19 R0 K9 ["validation"]
+  GETTABLEKS R18 R19 K23 ["validateSurfaceAppearances"]
+  CALL R17 1 1
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R20 R0 K9 ["validation"]
+  GETTABLEKS R19 R20 K24 ["validateSurfaceAppearanceTextureSize"]
+  CALL R18 1 1
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R21 R0 K9 ["validation"]
+  GETTABLEKS R20 R21 K25 ["validateSurfaceAppearanceTransparency"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R22 R0 K9 ["validation"]
+  GETTABLEKS R21 R22 K26 ["validateScaleType"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R23 R0 K9 ["validation"]
+  GETTABLEKS R22 R23 K27 ["validateTotalSurfaceArea"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R24 R0 K9 ["validation"]
+  GETTABLEKS R23 R24 K28 ["validateRigidMeshNotSkinned"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R25 R0 K9 ["validation"]
+  GETTABLEKS R24 R25 K29 ["ValidateMeshSizeProperty"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R26 R0 K9 ["validation"]
+  GETTABLEKS R25 R26 K30 ["ValidatePropertiesSensible"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R27 R0 K9 ["validation"]
+  GETTABLEKS R26 R27 K31 ["validateDependencies"]
+  CALL R25 1 1
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R28 R0 K5 ["util"]
+  GETTABLEKS R27 R28 K32 ["createMeshPartAccessorySchema"]
+  CALL R26 1 1
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R29 R0 K5 ["util"]
+  GETTABLEKS R28 R29 K33 ["getAttachment"]
+  CALL R27 1 1
+  GETIMPORT R28 K4 [require]
+  GETTABLEKS R30 R0 K5 ["util"]
+  GETTABLEKS R29 R30 K34 ["getMeshSize"]
+  CALL R28 1 1
+  GETIMPORT R29 K4 [require]
+  GETTABLEKS R31 R0 K5 ["util"]
+  GETTABLEKS R30 R31 K35 ["FailureReasonsAccumulator"]
+  CALL R29 1 1
+  GETIMPORT R30 K4 [require]
+  GETTABLEKS R32 R0 K5 ["util"]
+  GETTABLEKS R31 R32 K36 ["getEditableMeshFromContext"]
+  CALL R30 1 1
+  GETIMPORT R31 K4 [require]
+  GETTABLEKS R33 R0 K5 ["util"]
+  GETTABLEKS R32 R33 K37 ["getEditableImageFromContext"]
+  CALL R31 1 1
+  GETIMPORT R32 K4 [require]
+  GETTABLEKS R34 R0 K5 ["util"]
+  GETTABLEKS R33 R34 K38 ["getExpectedPartSize"]
+  CALL R32 1 1
+  GETIMPORT R33 K4 [require]
+  GETTABLEKS R35 R0 K5 ["util"]
+  GETTABLEKS R34 R35 K39 ["pcallDeferred"]
+  CALL R33 1 1
+  GETIMPORT R34 K4 [require]
+  GETTABLEKS R36 R0 K5 ["util"]
+  GETTABLEKS R35 R36 K40 ["RigidOrLayeredAllowed"]
+  CALL R34 1 1
+  GETIMPORT R35 K4 [require]
+  GETTABLEKS R37 R0 K41 ["flags"]
+  GETTABLEKS R36 R37 K42 ["getFFlagUGCValidateMeshVertColors"]
+  CALL R35 1 1
+  GETIMPORT R36 K4 [require]
+  GETTABLEKS R38 R0 K41 ["flags"]
+  GETTABLEKS R37 R38 K43 ["getFFlagCheckAccessoryMeshSize"]
+  CALL R36 1 1
+  GETIMPORT R37 K4 [require]
+  GETTABLEKS R39 R0 K41 ["flags"]
+  GETTABLEKS R38 R39 K44 ["getEngineFeatureEngineUGCValidateRigidNonSkinned"]
+  CALL R37 1 1
+  GETIMPORT R38 K4 [require]
+  GETTABLEKS R40 R0 K41 ["flags"]
+  GETTABLEKS R39 R40 K45 ["getFFlagUGCValidateAccessoriesRCCOwnership"]
+  CALL R38 1 1
+  GETIMPORT R39 K4 [require]
+  GETTABLEKS R41 R0 K41 ["flags"]
+  GETTABLEKS R40 R41 K46 ["getEngineFeatureEngineUGCValidatePropertiesSensible"]
+  CALL R39 1 1
+  DUPCLOSURE R40 K47 [PROTO_1]
+  CAPTURE VAL R34
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R15
+  CAPTURE VAL R26
+  CAPTURE VAL R5
+  CAPTURE VAL R39
+  CAPTURE VAL R24
+  CAPTURE VAL R38
+  CAPTURE VAL R25
+  CAPTURE VAL R29
+  CAPTURE VAL R30
+  CAPTURE VAL R31
+  CAPTURE VAL R33
+  CAPTURE VAL R28
+  CAPTURE VAL R32
+  CAPTURE VAL R27
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  CAPTURE VAL R11
+  CAPTURE VAL R16
+  CAPTURE VAL R7
+  CAPTURE VAL R21
+  CAPTURE VAL R36
+  CAPTURE VAL R23
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R35
+  CAPTURE VAL R14
+  CAPTURE VAL R4
+  CAPTURE VAL R17
+  CAPTURE VAL R18
+  CAPTURE VAL R19
+  CAPTURE VAL R37
+  CAPTURE VAL R22
+  CAPTURE VAL R20
+  RETURN R40 1

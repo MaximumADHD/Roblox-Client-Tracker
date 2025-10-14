@@ -1,0 +1,167 @@
+PROTO_0:
+  NEWTABLE R1 8 0
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K1 [setmetatable]
+  CALL R0 2 1
+  LOADK R1 K2 [""]
+  SETTABLEKS R1 R0 K3 ["name"]
+  LOADK R1 K2 [""]
+  SETTABLEKS R1 R0 K4 ["description"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K5 ["args"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K6 ["handler"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K7 ["mcpDisabled"]
+  RETURN R0 1
+
+PROTO_1:
+  SETTABLEKS R1 R0 K0 ["name"]
+  RETURN R0 1
+
+PROTO_2:
+  SETTABLEKS R1 R0 K0 ["description"]
+  RETURN R0 1
+
+PROTO_3:
+  GETTABLEKS R3 R0 K0 ["args"]
+  DUPTABLE R4 K3 [{"schema", "required"}]
+  SETTABLEKS R2 R4 K1 ["schema"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["required"]
+  SETTABLE R4 R3 R1
+  RETURN R0 1
+
+PROTO_4:
+  GETTABLEKS R3 R0 K0 ["args"]
+  DUPTABLE R4 K3 [{"schema", "required"}]
+  SETTABLEKS R2 R4 K1 ["schema"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["required"]
+  SETTABLE R4 R3 R1
+  RETURN R0 1
+
+PROTO_5:
+  SETTABLEKS R1 R0 K0 ["handler"]
+  RETURN R0 1
+
+PROTO_6:
+  SETTABLEKS R1 R0 K0 ["mcpDisabled"]
+  RETURN R0 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETTABLE R6 R0 R5
+  JUMPIFNOTEQKNIL R6 [+7]
+  GETIMPORT R6 K1 [error]
+  LOADK R8 K2 ["Missing required argument: "]
+  MOVE R9 R5
+  CONCAT R7 R8 R9
+  CALL R6 1 0
+  FORGLOOP R1 2 [-10]
+  GETIMPORT R1 K4 [pcall]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["handler"]
+  MOVE R3 R0
+  CALL R1 2 2
+  JUMPIF R1 [+18]
+  GETUPVAL R3 2
+  CALL R3 0 1
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K7 [tostring]
+  CALL R5 1 1
+  NAMECALL R3 R3 K8 ["addText"]
+  CALL R3 2 1
+  LOADB R5 1
+  NAMECALL R3 R3 K9 ["setError"]
+  CALL R3 2 1
+  NAMECALL R3 R3 K10 ["build"]
+  CALL R3 1 -1
+  RETURN R3 -1
+  RETURN R2 1
+
+PROTO_8:
+  GETTABLEKS R2 R0 K0 ["handler"]
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["Handler must be set before building the tool"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  NEWTABLE R1 0 0
+  NEWTABLE R2 0 0
+  GETTABLEKS R3 R0 K4 ["args"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K5 ["required"]
+  JUMPIFNOT R8 [+7]
+  FASTCALL2 TABLE_INSERT R2 R6 [+5]
+  MOVE R9 R2
+  MOVE R10 R6
+  GETIMPORT R8 K8 [table.insert]
+  CALL R8 2 0
+  GETIMPORT R8 K10 [table.clone]
+  GETTABLEKS R9 R7 K11 ["schema"]
+  CALL R8 1 1
+  SETTABLE R8 R1 R6
+  FORGLOOP R3 2 [-17]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  DUPTABLE R4 K14 [{"type", "properties", "required"}]
+  LOADK R5 K15 ["object"]
+  SETTABLEKS R5 R4 K12 ["type"]
+  SETTABLEKS R1 R4 K13 ["properties"]
+  SETTABLEKS R2 R4 K5 ["required"]
+  DUPTABLE R5 K18 [{"definition", "handler", "mcpDisabled"}]
+  DUPTABLE R6 K22 [{"name", "description", "inputSchema"}]
+  GETTABLEKS R7 R0 K19 ["name"]
+  SETTABLEKS R7 R6 K19 ["name"]
+  GETTABLEKS R7 R0 K20 ["description"]
+  SETTABLEKS R7 R6 K20 ["description"]
+  SETTABLEKS R4 R6 K21 ["inputSchema"]
+  SETTABLEKS R6 R5 K16 ["definition"]
+  SETTABLEKS R3 R5 K0 ["handler"]
+  GETTABLEKS R6 R0 K17 ["mcpDisabled"]
+  SETTABLEKS R6 R5 K17 ["mcpDisabled"]
+  RETURN R5 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModelContextProtocol"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["ToolResult"]
+  CALL R2 1 1
+  NEWTABLE R3 16 0
+  SETTABLEKS R3 R3 K9 ["__index"]
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K11 ["define"]
+  DUPCLOSURE R4 K12 [PROTO_1]
+  SETTABLEKS R4 R3 K13 ["setName"]
+  DUPCLOSURE R4 K14 [PROTO_2]
+  SETTABLEKS R4 R3 K15 ["setDescription"]
+  DUPCLOSURE R4 K16 [PROTO_3]
+  SETTABLEKS R4 R3 K17 ["addOptionalArgument"]
+  DUPCLOSURE R4 K18 [PROTO_4]
+  SETTABLEKS R4 R3 K19 ["addArgument"]
+  DUPCLOSURE R4 K20 [PROTO_5]
+  SETTABLEKS R4 R3 K21 ["setHandler"]
+  DUPCLOSURE R4 K22 [PROTO_6]
+  SETTABLEKS R4 R3 K23 ["setHiddenInRegistry"]
+  DUPCLOSURE R4 K24 [PROTO_8]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K25 ["build"]
+  RETURN R3 1

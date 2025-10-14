@@ -1,0 +1,3591 @@
+Œ	markdownhtmlidsection	foo	baz		bim
+&<pre><code>foo	baz		bim
+</code></pre>
+Tabs  	foo	baz		bim
+    a	a
+    ·Ωê	a
+#<pre><code>a	a
+·Ωê	a
+</code></pre>
+  - foo
+
+	bar
+,<ul>
+<li>
+<p>foo</p>
+<p>bar</p>
+</li>
+</ul>
+- foo
+
+		bar
+@<ul>
+<li>
+<p>foo</p>
+<pre><code>  bar
+</code></pre>
+</li>
+</ul>
+>		foo
+:<blockquote>
+<pre><code>  foo
+</code></pre>
+</blockquote>
+-		foo
+5<ul>
+<li>
+<pre><code>  foo
+</code></pre>
+</li>
+</ul>
+    foo
+	bar
+!<pre><code>foo
+bar
+</code></pre>
+ - foo
+   - bar
+	 - baz
+J<ul>
+<li>foo
+<ul>
+<li>bar
+<ul>
+<li>baz</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+#	Foo
+<h1>Foo</h1>
+*	*	*	
+<hr />
+A\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}\~
+7<p>!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~</p>
+Backslash escapes\	\A\a\ \3\œÜ\¬´
+<p>\	\A\a\ \3\œÜ\¬´</p>
+Ø\*not emphasized*
+\<br/> not a tag
+\[not a link](/foo)
+\`not code`
+1\. not a list
+\* not a list
+\# not a heading
+\[foo]: /url "not a reference"
+\&ouml; not a character entity
+¡<p>*not emphasized*
+&lt;br/&gt; not a tag
+[not a link](/foo)
+`not code`
+1. not a list
+* not a list
+# not a heading
+[foo]: /url &quot;not a reference&quot;
+&amp;ouml; not a character entity</p>
+\\*emphasis*
+<p>\<em>emphasis</em></p>
+	foo\
+bar
+<p>foo<br />
+bar</p>
+`` \[\` ``
+<p><code>\[\`</code></p>
+	    \[\]
+<pre><code>\[\]
+</code></pre>
+~~~
+\[\]
+~~~
+<https://example.com?find=\*>
+O<p><a href="https://example.com?find=%5C*">https://example.com?find=\*</a></p>
+<a href="/bar\/)">
+[foo](/bar\* "ti\*tle")
+.<p><a href="/bar*" title="ti*tle">foo</a></p>
+[foo]
+
+[foo]: /bar\* "ti\*tle"
+``` foo\+bar
+foo
+```
+6<pre><code class="language-foo+bar">foo
+</code></pre>
+n&nbsp; &amp; &copy; &AElig; &Dcaron;
+&frac34; &HilbertSpace; &DifferentialD;
+&ClockwiseContourIntegral; &ngE;
+-<p>  &amp; ¬© √Ü ƒé
+¬æ ‚Ñã ‚ÖÜ
+‚à≤ ‚âßÃ∏</p>
+'Entity and numeric character references&#35; &#1234; &#992; &#0;
+<p># ”í œ† ÔøΩ</p>
+&#X22; &#XD06; &#xcab;
+<p>&quot; ‡¥Ü ‡≤´</p>
+C&nbsp &x; &#; &#x;
+&#87654321;
+&#abcdef0;
+&ThisIsNotDefined; &hi?;
+j<p>&amp;nbsp &amp;x; &amp;#; &amp;#x;
+&amp;#87654321;
+&amp;#abcdef0;
+&amp;ThisIsNotDefined; &amp;hi?;</p>
+&copy
+<p>&amp;copy</p>
+&MadeUpEntity;
+<p>&amp;MadeUpEntity;</p>
+<a href="&ouml;&ouml;.html">
+&[foo](/f&ouml;&ouml; "f&ouml;&ouml;")
+6<p><a href="/f%C3%B6%C3%B6" title="f√∂√∂">foo</a></p>
+-[foo]
+
+[foo]: /f&ouml;&ouml; "f&ouml;&ouml;"
+``` f&ouml;&ouml;
+foo
+```
+4<pre><code class="language-f√∂√∂">foo
+</code></pre>
+`f&ouml;&ouml;`
+*<p><code>f&amp;ouml;&amp;ouml;</code></p>
+    f&ouml;f&ouml;
+0<pre><code>f&amp;ouml;f&amp;ouml;
+</code></pre>
+&#42;foo&#42;
+*foo*
+<p>*foo*
+<em>foo</em></p>
+&#42; foo
+
+* foo
+%<p>* foo</p>
+<ul>
+<li>foo</li>
+</ul>
+foo&#10;&#10;bar
+<p>foo
+
+bar</p>
+&#9;foo
+<p>	foo</p>
+[a](url &quot;tit&quot;)
+ <p>[a](url &quot;tit&quot;)</p>
+- `one
+- two`
+'<ul>
+<li>`one</li>
+<li>two`</li>
+</ul>
+
+Precedence***
+---
+___
+<hr />
+<hr />
+<hr />
+Thematic breaks+++
+<p>+++</p>
+===
+<p>===</p>
+	--
+**
+__
+<p>--
+**
+__</p>
+ ***
+  ***
+   ***
+    ***
+<pre><code>***
+</code></pre>
+Foo
+    ***
+<p>Foo
+***</p>
+&_____________________________________
+ - - -
+ **  * ** * ** * **
+-     -      -      -
+- - - -    
+_ _ _ _ a
+
+a------
+
+---a---
+/<p>_ _ _ _ a</p>
+<p>a------</p>
+<p>---a---</p>
+ *-*
+<p><em>-</em></p>
+- foo
+***
+- bar
+7<ul>
+<li>foo</li>
+</ul>
+<hr />
+<ul>
+<li>bar</li>
+</ul>
+Foo
+***
+bar
+<p>Foo</p>
+<hr />
+<p>bar</p>
+Foo
+---
+bar
+<h2>Foo</h2>
+<p>bar</p>
+* Foo
+* * *
+* Bar
+7<ul>
+<li>Foo</li>
+</ul>
+<hr />
+<ul>
+<li>Bar</li>
+</ul>
+- Foo
+- * * *
+*<ul>
+<li>Foo</li>
+<li>
+<hr />
+</li>
+</ul>
+3# foo
+## foo
+### foo
+#### foo
+##### foo
+###### foo
+N<h1>foo</h1>
+<h2>foo</h2>
+<h3>foo</h3>
+<h4>foo</h4>
+<h5>foo</h5>
+<h6>foo</h6>
+ATX headings####### foo
+<p>####### foo</p>
+#5 bolt
+
+#hashtag
+<p>#5 bolt</p>
+<p>#hashtag</p>
+\## foo
+<p>## foo</p>
+# foo *bar* \*baz\*
+ <h1>foo <em>bar</em> *baz*</h1>
+,#                  foo                     
+<h1>foo</h1>
+ ### foo
+  ## foo
+   # foo
+'<h3>foo</h3>
+<h2>foo</h2>
+<h1>foo</h1>
+
+    # foo
+<pre><code># foo
+</code></pre>
+foo
+    # bar
+<p>foo
+# bar</p>
+## foo ##
+  ###   bar    ###
+<h2>foo</h2>
+<h3>bar</h3>
+6# foo ##################################
+##### foo ##
+<h1>foo</h1>
+<h5>foo</h5>
+### foo ###     
+<h3>foo</h3>
+### foo ### b
+<h3>foo ### b</h3>
+# foo#
+<h1>foo#</h1>
+"### foo \###
+## foo #\##
+# foo \#
+1<h3>foo ###</h3>
+<h2>foo ###</h2>
+<h1>foo #</h1>
+****
+## foo
+****
+<hr />
+<h2>foo</h2>
+<hr />
+Foo bar
+# baz
+Bar foo
++<p>Foo bar</p>
+<h1>baz</h1>
+<p>Bar foo</p>
+## 
+#
+### ###
+<h2></h2>
+<h1></h1>
+<h3></h3>
+)Foo *bar*
+=========
+
+Foo *bar*
+---------
+4<h1>Foo <em>bar</em></h1>
+<h2>Foo <em>bar</em></h2>
+Setext headingsFoo *bar
+baz*
+====
+<h1>Foo <em>bar
+baz</em></h1>
+  Foo *bar
+baz*	
+====
+%Foo
+-------------------------
+
+Foo
+=
+<h2>Foo</h2>
+<h1>Foo</h1>
+%   Foo
+---
+
+  Foo
+-----
+
+  Foo
+  ===
+'<h2>Foo</h2>
+<h2>Foo</h2>
+<h1>Foo</h1>
+    Foo
+    ---
+
+    Foo
+---
+-<pre><code>Foo
+---
+
+Foo
+</code></pre>
+<hr />
+Foo
+   ----      
+<h2>Foo</h2>
+Foo
+    ---
+<p>Foo
+---</p>
+Foo
+= =
+
+Foo
+--- -
+!<p>Foo
+= =</p>
+<p>Foo</p>
+<hr />
+Foo  
+-----
+
+Foo\
+----
+<h2>Foo\</h2>
+.`Foo
+----
+`
+
+<a title="a lot
+---
+of dashes"/>
+T<h2>`Foo</h2>
+<p>`</p>
+<h2>&lt;a title=&quot;a lot</h2>
+<p>of dashes&quot;/&gt;</p>
+
+> Foo
+---
+-<blockquote>
+<p>Foo</p>
+</blockquote>
+<hr />
+> foo
+bar
+===
+.<blockquote>
+<p>foo
+bar
+===</p>
+</blockquote>
+
+- Foo
+---
+<ul>
+<li>Foo</li>
+</ul>
+<hr />
+Foo
+Bar
+---
+<h2>Foo
+Bar</h2>
+---
+Foo
+---
+Bar
+---
+Baz
+,<hr />
+<h2>Foo</h2>
+<h2>Bar</h2>
+<p>Baz</p>
+
+====
+<p>====</p>
+---
+---
+<hr />
+<hr />
+- foo
+-----
+<ul>
+<li>foo</li>
+</ul>
+<hr />
+    foo
+---
+$<pre><code>foo
+</code></pre>
+<hr />
+> foo
+-----
+-<blockquote>
+<p>foo</p>
+</blockquote>
+<hr />
+\> foo
+------
+<h2>&gt; foo</h2>
+Foo
+
+bar
+---
+baz
+#<p>Foo</p>
+<h2>bar</h2>
+<p>baz</p>
+Foo
+bar
+
+---
+
+baz
+!<p>Foo
+bar</p>
+<hr />
+<p>baz</p>
+Foo
+bar
+* * *
+baz
+Foo
+bar
+\---
+baz
+<p>Foo
+bar
+---
+baz</p>
+'    a simple
+      indented code block
+8<pre><code>a simple
+  indented code block
+</code></pre>
+Indented code blocks  - foo
+
+    bar
+1.  foo
+
+    - bar
+9<ol>
+<li>
+<p>foo</p>
+<ul>
+<li>bar</li>
+</ul>
+</li>
+</ol>
+    <a/>
+    *hi*
+
+    - one
+0<pre><code>&lt;a/&gt;
+*hi*
+
+- one
+</code></pre>
+)    chunk1
+
+    chunk2
+  
+ 
+ 
+    chunk3
+2<pre><code>chunk1
+
+chunk2
+
+
+
+chunk3
+</code></pre>
+    chunk1
+      
+      chunk2
+,<pre><code>chunk1
+  
+  chunk2
+</code></pre>
+Foo
+    bar
+
+<p>Foo
+bar</p>
+    foo
+bar
+(<pre><code>foo
+</code></pre>
+<p>bar</p>
+.# Heading
+    foo
+Heading
+------
+    foo
+----
+c<h1>Heading</h1>
+<pre><code>foo
+</code></pre>
+<h2>Heading</h2>
+<pre><code>foo
+</code></pre>
+<hr />
+        foo
+    bar
+%<pre><code>    foo
+bar
+</code></pre>
+
+    
+    foo
+    
+
+<pre><code>foo
+</code></pre>
+
+    foo  
+<pre><code>foo  
+</code></pre>
+```
+<
+ >
+```
+$<pre><code>&lt;
+ &gt;
+</code></pre>
+Fenced code blocks~~~
+<
+ >
+~~~
+
+``
+foo
+``
+<p><code>foo</code></p>
+```
+aaa
+~~~
+```
+!<pre><code>aaa
+~~~
+</code></pre>
+~~~
+aaa
+```
+~~~
+!<pre><code>aaa
+```
+</code></pre>
+````
+aaa
+```
+``````
+~~~~
+aaa
+~~~
+~~~~
+```
+<pre><code></code></pre>
+`````
+
+```
+aaa
+"<pre><code>
+```
+aaa
+</code></pre>
+> ```
+> aaa
+
+bbb
+C<blockquote>
+<pre><code>aaa
+</code></pre>
+</blockquote>
+<p>bbb</p>
+```
+
+  
+```
+<pre><code>
+  
+</code></pre>
+```
+```
+ ```
+ aaa
+aaa
+```
+!<pre><code>aaa
+aaa
+</code></pre>
+  ```
+aaa
+  aaa
+aaa
+  ```
+%<pre><code>aaa
+aaa
+aaa
+</code></pre>
+#   ```
+   aaa
+    aaa
+  aaa
+   ```
+&<pre><code>aaa
+ aaa
+aaa
+</code></pre>
+    ```
+    aaa
+    ```
+%<pre><code>```
+aaa
+```
+</code></pre>
+```
+aaa
+  ```
+<pre><code>aaa
+</code></pre>
+   ```
+aaa
+  ```
+```
+aaa
+    ```
+%<pre><code>aaa
+    ```
+</code></pre>
+``` ```
+aaa
+<p><code> </code>
+aaa</p>
+~~~~~~
+aaa
+~~~ ~~
+$<pre><code>aaa
+~~~ ~~
+</code></pre>
+foo
+```
+bar
+```
+baz
+3<p>foo</p>
+<pre><code>bar
+</code></pre>
+<p>baz</p>
+foo
+---
+~~~
+bar
+~~~
+# baz
+7<h2>foo</h2>
+<pre><code>bar
+</code></pre>
+<h1>baz</h1>
+&```ruby
+def foo(x)
+  return 3
+end
+```
+I<pre><code class="language-ruby">def foo(x)
+  return 3
+end
+</code></pre>
+A~~~~    ruby startline=3 $%@#$
+def foo(x)
+  return 3
+end
+~~~~~~~
+````;
+````
+,<pre><code class="language-;"></code></pre>
+``` aa ```
+foo
+<p><code>aa</code>
+foo</p>
+~~~ aa ``` ~~~
+foo
+~~~
+1<pre><code class="language-aa">foo
+</code></pre>
+```
+``` aaa
+```
+!<pre><code>``` aaa
+</code></pre>
+E<table><tr><td>
+<pre>
+**Hello**,
+
+_world_.
+</pre>
+</td></tr></table>
+R<table><tr><td>
+<pre>
+**Hello**,
+<p><em>world</em>.
+</pre></p>
+</td></tr></table>
+HTML blocksH<table>
+  <tr>
+    <td>
+           hi
+    </td>
+  </tr>
+</table>
+
+okay.
+N<table>
+  <tr>
+    <td>
+           hi
+    </td>
+  </tr>
+</table>
+<p>okay.</p>
+# <div>
+  *hello*
+         <foo><a>
+</div>
+*foo*
+&<DIV CLASS="foo">
+
+*Markdown*
+
+</DIV>
+2<DIV CLASS="foo">
+<p><em>Markdown</em></p>
+</DIV>
+$<div id="foo"
+  class="bar">
+</div>
+(<div id="foo" class="bar
+  baz">
+</div>
+<div>
+*foo*
+
+*bar*
+ <div>
+*foo*
+<p><em>bar</em></p>
+<div id="foo"
+*hi*
+<div class
+foo
+<div *???-&&&-<---
+*foo*
+#<div><a href="bar">*foo*</a></div>
+'<table><tr><td>
+foo
+</td></tr></table>
+"<div></div>
+``` c
+int x = 33;
+```
+<a href="foo">
+*bar*
+</a>
+<Warning>
+*bar*
+</Warning>
+<i class="foo">
+*bar*
+</i>
+</ins>
+*bar*
+<del>
+*foo*
+</del>
+<del>
+
+*foo*
+
+</del>
+!<del>
+<p><em>foo</em></p>
+</del>
+<del>*foo*</del>
+<p><del><em>foo</em></del></p>
+x<pre language="haskell"><code>
+import Text.HTML.TagSoup
+
+main :: IO ()
+main = print $ parseTags tags
+</code></pre>
+okay
+<pre language="haskell"><code>
+import Text.HTML.TagSoup
+
+main :: IO ()
+main = print $ parseTags tags
+</code></pre>
+<p>okay</p>
+á<script type="text/javascript">
+// JavaScript example
+
+document.getElementById("demo").innerHTML = "Hello JavaScript!";
+</script>
+okay
+é<script type="text/javascript">
+// JavaScript example
+
+document.getElementById("demo").innerHTML = "Hello JavaScript!";
+</script>
+<p>okay</p>
+&<textarea>
+
+*foo*
+
+_bar_
+
+</textarea>
+I<style
+  type="text/css">
+h1 {color:red;}
+
+p {color:blue;}
+</style>
+okay
+P<style
+  type="text/css">
+h1 {color:red;}
+
+p {color:blue;}
+</style>
+<p>okay</p>
+<style
+  type="text/css">
+
+foo
+> <div>
+> foo
+
+bar
+0<blockquote>
+<div>
+foo
+</blockquote>
+<p>bar</p>
+- <div>
+- foo
+)<ul>
+<li>
+<div>
+</li>
+<li>foo</li>
+</ul>
+#<style>p{color:red;}</style>
+*foo*
+1<style>p{color:red;}</style>
+<p><em>foo</em></p>
+<!-- foo -->*bar*
+*baz*
+&<!-- foo -->*bar*
+<p><em>baz</em></p>
+<script>
+foo
+</script>1. *bar*
+<!-- Foo
+
+bar
+   baz -->
+okay
+%<!-- Foo
+
+bar
+   baz -->
+<p>okay</p>
+<?php
+
+  echo '>';
+
+?>
+okay
+#<?php
+
+  echo '>';
+
+?>
+<p>okay</p>
+<!DOCTYPE html>
+w<![CDATA[
+function matchwo(a,b)
+{
+  if (a < b && a < 0) then {
+    return 1;
+
+  } else {
+
+    return 0;
+  }
+}
+]]>
+okay
+~<![CDATA[
+function matchwo(a,b)
+{
+  if (a < b && a < 0) then {
+    return 1;
+
+  } else {
+
+    return 0;
+  }
+}
+]]>
+<p>okay</p>
+!  <!-- foo -->
+
+    <!-- foo -->
+;  <!-- foo -->
+<pre><code>&lt;!-- foo --&gt;
+</code></pre>
+  <div>
+
+    <div>
+-  <div>
+<pre><code>&lt;div&gt;
+</code></pre>
+Foo
+<div>
+bar
+</div>
+<p>Foo</p>
+<div>
+bar
+</div>
+<div>
+bar
+</div>
+*foo*
+Foo
+<a href="bar">
+baz
+<p>Foo
+<a href="bar">
+baz</p>
+"<div>
+
+*Emphasized* text.
+
+</div>
+.<div>
+<p><em>Emphasized</em> text.</p>
+</div>
+ <div>
+*Emphasized* text.
+</div>
+.<table>
+
+<tr>
+
+<td>
+Hi
+</td>
+
+</tr>
+
+</table>
+*<table>
+<tr>
+<td>
+Hi
+</td>
+</tr>
+</table>
+@<table>
+
+  <tr>
+
+    <td>
+      Hi
+    </td>
+
+  </tr>
+
+</table>
+U<table>
+  <tr>
+<pre><code>&lt;td&gt;
+  Hi
+&lt;/td&gt;
+</code></pre>
+  </tr>
+</table>
+[foo]: /url "title"
+
+[foo]
+,<p><a href="/url" title="title">foo</a></p>
+Link reference definitions8   [foo]: 
+      /url  
+           'the title'  
+
+[foo]
+0<p><a href="/url" title="the title">foo</a></p>
+8[Foo*bar\]]:my_(url) 'title (with parens)'
+
+[Foo*bar\]]
+C<p><a href="my_(url)" title="title (with parens)">Foo*bar]</a></p>
+'[Foo bar]:
+<my url>
+'title'
+
+[Foo bar]
+4<p><a href="my%20url" title="title">Foo bar</a></p>
+)[foo]: /url '
+title
+line1
+line2
+'
+
+[foo]
+:<p><a href="/url" title="
+title
+line1
+line2
+">foo</a></p>
+,[foo]: /url 'title
+
+with blank line'
+
+[foo]
+?<p>[foo]: /url 'title</p>
+<p>with blank line'</p>
+<p>[foo]</p>
+[foo]:
+/url
+
+[foo]
+<p><a href="/url">foo</a></p>
+[foo]:
+
+[foo]
+<p>[foo]:</p>
+<p>[foo]</p>
+[foo]: <>
+
+[foo]
+<p><a href="">foo</a></p>
+[foo]: <bar>(baz)
+
+[foo]
+&<p>[foo]: <bar>(baz)</p>
+<p>[foo]</p>
++[foo]: /url\bar\*baz "foo\"bar\baz"
+
+[foo]
+A<p><a href="/url%5Cbar*baz" title="foo&quot;bar\baz">foo</a></p>
+[foo]
+
+[foo]: url
+<p><a href="url">foo</a></p>
+"[foo]
+
+[foo]: first
+[foo]: second
+<p><a href="first">foo</a></p>
+[FOO]: /url
+
+[Foo]
+<p><a href="/url">Foo</a></p>
+[ŒëŒìŒ©]: /œÜŒøœÖ
+
+[Œ±Œ≥œâ]
+0<p><a href="/%CF%86%CE%BF%CF%85">Œ±Œ≥œâ</a></p>
+[foo]: /url
+ [
+foo
+]: /url
+bar
+<p>bar</p>
+[foo]: /url "title" ok
+(<p>[foo]: /url &quot;title&quot; ok</p>
+[foo]: /url
+"title" ok
+<p>&quot;title&quot; ok</p>
+    [foo]: /url "title"
+
+[foo]
+D<pre><code>[foo]: /url &quot;title&quot;
+</code></pre>
+<p>[foo]</p>
+```
+[foo]: /url
+```
+
+[foo]
+2<pre><code>[foo]: /url
+</code></pre>
+<p>[foo]</p>
+Foo
+[bar]: /baz
+
+[bar]
+$<p>Foo
+[bar]: /baz</p>
+<p>[bar]</p>
+# [Foo]
+[foo]: /url
+> bar
+F<h1><a href="/url">Foo</a></h1>
+<blockquote>
+<p>bar</p>
+</blockquote>
+[foo]: /url
+bar
+===
+[foo]
++<h1>bar</h1>
+<p><a href="/url">foo</a></p>
+[foo]: /url
+===
+[foo]
+"<p>===
+<a href="/url">foo</a></p>
+S[foo]: /foo-url "foo"
+[bar]: /bar-url
+  "bar"
+[baz]: /baz-url
+
+[foo],
+[bar],
+[baz]
+r<p><a href="/foo-url" title="foo">foo</a>,
+<a href="/bar-url" title="bar">bar</a>,
+<a href="/baz-url">baz</a></p>
+[foo]
+
+> [foo]: /url
+9<p><a href="/url">foo</a></p>
+<blockquote>
+</blockquote>
+	aaa
+
+bbb
+<p>aaa</p>
+<p>bbb</p>
+
+Paragraphsaaa
+bbb
+
+ccc
+ddd
+<p>aaa
+bbb</p>
+<p>ccc
+ddd</p>
+
+aaa
+
+
+bbb
+  aaa
+ bbb
+<p>aaa
+bbb</p>
+@aaa
+             bbb
+                                       ccc
+<p>aaa
+bbb
+ccc</p>
+   aaa
+bbb
+    aaa
+bbb
+(<pre><code>aaa
+</code></pre>
+<p>bbb</p>
+aaa     
+bbb     
+<p>aaa<br />
+bbb</p>
+  
+
+aaa
+  
+
+# aaa
+
+  
+<p>aaa</p>
+<h1>aaa</h1>
+Blank lines> # Foo
+> bar
+> baz
+7<blockquote>
+<h1>Foo</h1>
+<p>bar
+baz</p>
+</blockquote>
+Block quotes># Foo
+>bar
+> baz
+   > # Foo
+   > bar
+ > baz
+     > # Foo
+    > bar
+    > baz
+6<pre><code>&gt; # Foo
+&gt; bar
+&gt; baz
+</code></pre>
+> # Foo
+> bar
+baz
+> bar
+baz
+> foo
+.<blockquote>
+<p>bar
+baz
+foo</p>
+</blockquote>
+
+> foo
+---
+> - foo
+- bar
+K<blockquote>
+<ul>
+<li>foo</li>
+</ul>
+</blockquote>
+<ul>
+<li>bar</li>
+</ul>
+>     foo
+    bar
+U<blockquote>
+<pre><code>foo
+</code></pre>
+</blockquote>
+<pre><code>bar
+</code></pre>
+> ```
+foo
+```
+X<blockquote>
+<pre><code></code></pre>
+</blockquote>
+<p>foo</p>
+<pre><code></code></pre>
+> foo
+    - bar
+,<blockquote>
+<p>foo
+- bar</p>
+</blockquote>
+>
+<blockquote>
+</blockquote>
+	>
+>  
+> 
+>
+> foo
+>  
+&<blockquote>
+<p>foo</p>
+</blockquote>
+> foo
+
+> bar
+L<blockquote>
+<p>foo</p>
+</blockquote>
+<blockquote>
+<p>bar</p>
+</blockquote>
+> foo
+> bar
+*<blockquote>
+<p>foo
+bar</p>
+</blockquote>
+> foo
+>
+> bar
+1<blockquote>
+<p>foo</p>
+<p>bar</p>
+</blockquote>
+
+foo
+> bar
+1<p>foo</p>
+<blockquote>
+<p>bar</p>
+</blockquote>
+> aaa
+***
+> bbb
+S<blockquote>
+<p>aaa</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>bbb</p>
+</blockquote>
+
+> bar
+baz
+*<blockquote>
+<p>bar
+baz</p>
+</blockquote>
+> bar
+
+baz
+1<blockquote>
+<p>bar</p>
+</blockquote>
+<p>baz</p>
+> bar
+>
+baz
+> > > foo
+bar
+`<blockquote>
+<blockquote>
+<blockquote>
+<p>foo
+bar</p>
+</blockquote>
+</blockquote>
+</blockquote>
+>>> foo
+> bar
+>>baz
+d<blockquote>
+<blockquote>
+<blockquote>
+<p>foo
+bar
+baz</p>
+</blockquote>
+</blockquote>
+</blockquote>
+>     code
+
+>    not code
+d<blockquote>
+<pre><code>code
+</code></pre>
+</blockquote>
+<blockquote>
+<p>not code</p>
+</blockquote>
+AA paragraph
+with two lines.
+
+    indented code
+
+> A block quote.
+{<p>A paragraph
+with two lines.</p>
+<pre><code>indented code
+</code></pre>
+<blockquote>
+<p>A block quote.</p>
+</blockquote>
+
+List itemsQ1.  A paragraph
+    with two lines.
+
+        indented code
+
+    > A block quote.
+ë<ol>
+<li>
+<p>A paragraph
+with two lines.</p>
+<pre><code>indented code
+</code></pre>
+<blockquote>
+<p>A block quote.</p>
+</blockquote>
+</li>
+</ol>
+- one
+
+ two
+#<ul>
+<li>one</li>
+</ul>
+<p>two</p>
+- one
+
+  two
+,<ul>
+<li>
+<p>one</p>
+<p>two</p>
+</li>
+</ul>
+ -    one
+
+     two
+6<ul>
+<li>one</li>
+</ul>
+<pre><code> two
+</code></pre>
+ -    one
+
+      two
+   > > 1.  one
+>>
+>>     two
+b<blockquote>
+<blockquote>
+<ol>
+<li>
+<p>one</p>
+<p>two</p>
+</li>
+</ol>
+</blockquote>
+</blockquote>
+>>- one
+>>
+  >  > two
+Y<blockquote>
+<blockquote>
+<ul>
+<li>one</li>
+</ul>
+<p>two</p>
+</blockquote>
+</blockquote>
+-one
+
+2.two
+<p>-one</p>
+<p>2.two</p>
+- foo
+
+
+  bar
+51.  foo
+
+    ```
+    bar
+    ```
+
+    baz
+
+    > bam
+o<ol>
+<li>
+<p>foo</p>
+<pre><code>bar
+</code></pre>
+<p>baz</p>
+<blockquote>
+<p>bam</p>
+</blockquote>
+</li>
+</ol>
+- Foo
+
+      bar
+
+
+      baz
+D<ul>
+<li>
+<p>Foo</p>
+<pre><code>bar
+
+
+baz
+</code></pre>
+</li>
+</ul>
+123456789. ok
+)<ol start="123456789">
+<li>ok</li>
+</ol>
+1234567890. not ok
+<p>1234567890. not ok</p>
+0. ok
+!<ol start="0">
+<li>ok</li>
+</ol>
+003. ok
+!<ol start="3">
+<li>ok</li>
+</ol>
+-1. not ok
+<p>-1. not ok</p>
+- foo
+
+      bar
+><ul>
+<li>
+<p>foo</p>
+<pre><code>bar
+</code></pre>
+</li>
+</ul>
+  10.  foo
+
+           bar
+I<ol start="10">
+<li>
+<p>foo</p>
+<pre><code>bar
+</code></pre>
+</li>
+</ol>
+,    indented code
+
+paragraph
+
+    more code
+[<pre><code>indented code
+</code></pre>
+<p>paragraph</p>
+<pre><code>more code
+</code></pre>
+51.     indented code
+
+   paragraph
+
+       more code
+q<ol>
+<li>
+<pre><code>indented code
+</code></pre>
+<p>paragraph</p>
+<pre><code>more code
+</code></pre>
+</li>
+</ol>
+61.      indented code
+
+   paragraph
+
+       more code
+r<ol>
+<li>
+<pre><code> indented code
+</code></pre>
+<p>paragraph</p>
+<pre><code>more code
+</code></pre>
+</li>
+</ol>
+   foo
+
+bar
+<p>foo</p>
+<p>bar</p>
+-    foo
+
+  bar
+#<ul>
+<li>foo</li>
+</ul>
+<p>bar</p>
+-  foo
+
+   bar
+(-
+  foo
+-
+  ```
+  bar
+  ```
+-
+      baz
+h<ul>
+<li>foo</li>
+<li>
+<pre><code>bar
+</code></pre>
+</li>
+<li>
+<pre><code>baz
+</code></pre>
+</li>
+</ul>
+-   
+  foo
+<ul>
+<li>foo</li>
+</ul>
+	-
+
+  foo
+ <ul>
+<li></li>
+</ul>
+<p>foo</p>
+- foo
+-
+- bar
+/<ul>
+<li>foo</li>
+<li></li>
+<li>bar</li>
+</ul>
+- foo
+-   
+- bar
+1. foo
+2.
+3. bar
+/<ol>
+<li>foo</li>
+<li></li>
+<li>bar</li>
+</ol>
+*
+<ul>
+<li></li>
+</ul>
+foo
+*
+
+foo
+1.
+<p>foo
+*</p>
+<p>foo
+1.</p>
+U 1.  A paragraph
+     with two lines.
+
+         indented code
+
+     > A block quote.
+Y  1.  A paragraph
+      with two lines.
+
+          indented code
+
+      > A block quote.
+]   1.  A paragraph
+       with two lines.
+
+           indented code
+
+       > A block quote.
+a    1.  A paragraph
+        with two lines.
+
+            indented code
+
+        > A block quote.
+m<pre><code>1.  A paragraph
+    with two lines.
+
+        indented code
+
+    &gt; A block quote.
+</code></pre>
+S  1.  A paragraph
+with two lines.
+
+          indented code
+
+      > A block quote.
+&  1.  A paragraph
+    with two lines.
+0<ol>
+<li>A paragraph
+with two lines.</li>
+</ol>
+"> 1. > Blockquote
+continued here.
+n<blockquote>
+<ol>
+<li>
+<blockquote>
+<p>Blockquote
+continued here.</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+$> 1. > Blockquote
+> continued here.
+$- foo
+  - bar
+    - baz
+      - boo
+c<ul>
+<li>foo
+<ul>
+<li>bar
+<ul>
+<li>baz
+<ul>
+<li>boo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+- foo
+ - bar
+  - baz
+   - boo
+?<ul>
+<li>foo</li>
+<li>bar</li>
+<li>baz</li>
+<li>boo</li>
+</ul>
+10) foo
+    - bar
+<<ol start="10">
+<li>foo
+<ul>
+<li>bar</li>
+</ul>
+</li>
+</ol>
+10) foo
+   - bar
+;<ol start="10">
+<li>foo</li>
+</ol>
+<ul>
+<li>bar</li>
+</ul>
+- - foo
+.<ul>
+<li>
+<ul>
+<li>foo</li>
+</ul>
+</li>
+</ul>
+1. - 2. foo
+N<ol>
+<li>
+<ul>
+<li>
+<ol start="2">
+<li>foo</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+- # Foo
+- Bar
+  ---
+  baz
+><ul>
+<li>
+<h1>Foo</h1>
+</li>
+<li>
+<h2>Bar</h2>
+baz</li>
+</ul>
+- foo
+- bar
++ baz
+=<ul>
+<li>foo</li>
+<li>bar</li>
+</ul>
+<ul>
+<li>baz</li>
+</ul>
+Lists1. foo
+2. bar
+3) baz
+G<ol>
+<li>foo</li>
+<li>bar</li>
+</ol>
+<ol start="3">
+<li>baz</li>
+</ol>
+Foo
+- bar
+- baz
+0<p>Foo</p>
+<ul>
+<li>bar</li>
+<li>baz</li>
+</ul>
+DThe number of windows in my house is
+14.  The number of doors is 6.
+K<p>The number of windows in my house is
+14.  The number of doors is 6.</p>
+CThe number of windows in my house is
+1.  The number of doors is 6.
+Z<p>The number of windows in my house is</p>
+<ol>
+<li>The number of doors is 6.</li>
+</ol>
+- foo
+
+- bar
+
+
+- baz
+M<ul>
+<li>
+<p>foo</p>
+</li>
+<li>
+<p>bar</p>
+</li>
+<li>
+<p>baz</p>
+</li>
+</ul>
+$- foo
+  - bar
+    - baz
+
+
+      bim
+^<ul>
+<li>foo
+<ul>
+<li>bar
+<ul>
+<li>
+<p>baz</p>
+<p>bim</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+#- foo
+- bar
+
+<!-- -->
+
+- baz
+- bim
+S<ul>
+<li>foo</li>
+<li>bar</li>
+</ul>
+<!-- -->
+<ul>
+<li>baz</li>
+<li>bim</li>
+</ul>
+2-   foo
+
+    notcode
+
+-   foo
+
+<!-- -->
+
+    code
+m<ul>
+<li>
+<p>foo</p>
+<p>notcode</p>
+</li>
+<li>
+<p>foo</p>
+</li>
+</ul>
+<!-- -->
+<pre><code>code
+</code></pre>
+%- a
+ - b
+  - c
+   - d
+  - e
+ - f
+- g
+X<ul>
+<li>a</li>
+<li>b</li>
+<li>c</li>
+<li>d</li>
+<li>e</li>
+<li>f</li>
+<li>g</li>
+</ul>
+1. a
+
+  2. b
+
+   3. c
+G<ol>
+<li>
+<p>a</p>
+</li>
+<li>
+<p>b</p>
+</li>
+<li>
+<p>c</p>
+</li>
+</ol>
+- a
+ - b
+  - c
+   - d
+    - e
+;<ul>
+<li>a</li>
+<li>b</li>
+<li>c</li>
+<li>d
+- e</li>
+</ul>
+1. a
+
+  2. b
+
+    3. c
+Q<ol>
+<li>
+<p>a</p>
+</li>
+<li>
+<p>b</p>
+</li>
+</ol>
+<pre><code>3. c
+</code></pre>
+- a
+- b
+
+- c
+G<ul>
+<li>
+<p>a</p>
+</li>
+<li>
+<p>b</p>
+</li>
+<li>
+<p>c</p>
+</li>
+</ul>
+* a
+*
+
+* c
+=<ul>
+<li>
+<p>a</p>
+</li>
+<li></li>
+<li>
+<p>c</p>
+</li>
+</ul>
+- a
+- b
+
+  c
+- d
+P<ul>
+<li>
+<p>a</p>
+</li>
+<li>
+<p>b</p>
+<p>c</p>
+</li>
+<li>
+<p>d</p>
+</li>
+</ul>
+- a
+- b
+
+  [ref]: /url
+- d
+G<ul>
+<li>
+<p>a</p>
+</li>
+<li>
+<p>b</p>
+</li>
+<li>
+<p>d</p>
+</li>
+</ul>
+- a
+- ```
+  b
+
+
+  ```
+- c
+I<ul>
+<li>a</li>
+<li>
+<pre><code>b
+
+
+</code></pre>
+</li>
+<li>c</li>
+</ul>
+- a
+  - b
+
+    c
+- d
+J<ul>
+<li>a
+<ul>
+<li>
+<p>b</p>
+<p>c</p>
+</li>
+</ul>
+</li>
+<li>d</li>
+</ul>
+* a
+  > b
+  >
+* c
+F<ul>
+<li>a
+<blockquote>
+<p>b</p>
+</blockquote>
+</li>
+<li>c</li>
+</ul>
+- a
+  > b
+  ```
+  c
+  ```
+- d
+a<ul>
+<li>a
+<blockquote>
+<p>b</p>
+</blockquote>
+<pre><code>c
+</code></pre>
+</li>
+<li>d</li>
+</ul>
+- a
+<ul>
+<li>a</li>
+</ul>
+
+- a
+  - b
+-<ul>
+<li>a
+<ul>
+<li>b</li>
+</ul>
+</li>
+</ul>
+1. ```
+   foo
+   ```
+
+   bar
+><ol>
+<li>
+<pre><code>foo
+</code></pre>
+<p>bar</p>
+</li>
+</ol>
+* foo
+  * bar
+
+  baz
+D<ul>
+<li>
+<p>foo</p>
+<ul>
+<li>bar</li>
+</ul>
+<p>baz</p>
+</li>
+</ul>
+!- a
+  - b
+  - c
+
+- d
+  - e
+  - f
+u<ul>
+<li>
+<p>a</p>
+<ul>
+<li>b</li>
+<li>c</li>
+</ul>
+</li>
+<li>
+<p>d</p>
+<ul>
+<li>e</li>
+<li>f</li>
+</ul>
+</li>
+</ul>
+`hi`lo`
+<p><code>hi</code>lo`</p>
+Inlines`foo`
+
+Code spans`` foo ` bar ``
+<p><code>foo ` bar</code></p>
+` `` `
+<p><code>``</code></p>
+	`  ``  `
+<p><code> `` </code></p>
+` a`
+<p><code> a</code></p>
+` b `
+<p><code> b </code></p>
+	` `
+`  `
+&<p><code> </code>
+<code>  </code></p>
+``
+foo
+bar  
+baz
+``
+"<p><code>foo bar   baz</code></p>
+``
+foo 
+``
+<p><code>foo </code></p>
+`foo   bar 
+baz`
+#<p><code>foo   bar  baz</code></p>
+`foo\`bar`
+<p><code>foo\</code>bar`</p>
+``foo`bar``
+<p><code>foo`bar</code></p>
+` foo `` bar `
+<p><code>foo `` bar</code></p>
+*foo`*`
+<p>*foo<code>*</code></p>
+[not a `link](/foo`)
+'<p>[not a <code>link](/foo</code>)</p>
+`<a href="`">`
+1<p><code>&lt;a href=&quot;</code>&quot;&gt;`</p>
+<a href="`">`
+<p><a href="`">`</p>
+`<https://foo.bar.`baz>`
+1<p><code>&lt;https://foo.bar.</code>baz&gt;`</p>
+<https://foo.bar.`baz>`
+B<p><a href="https://foo.bar.%60baz">https://foo.bar.`baz</a>`</p>
+	```foo``
+<p>```foo``</p>
+`foo
+<p>`foo</p>
+`foo``bar``
+<p>`foo<code>bar</code></p>
+
+*foo bar*
+<p><em>foo bar</em></p>
+Emphasis and strong emphasisa * foo bar*
+<p>a * foo bar*</p>
+	a*"foo"*
+<p>a*&quot;foo&quot;*</p>
+* a *
+<p>* a *</p>
+%*$*alpha.
+
+*¬£*bravo.
+
+*‚Ç¨*charlie.
+8<p>*$*alpha.</p>
+<p>*¬£*bravo.</p>
+<p>*‚Ç¨*charlie.</p>
+	foo*bar*
+<p>foo<em>bar</em></p>
+5*6*78
+<p>5<em>6</em>78</p>
+
+_foo bar_
+_ foo bar_
+<p>_ foo bar_</p>
+	a_"foo"_
+<p>a_&quot;foo&quot;_</p>
+	foo_bar_
+<p>foo_bar_</p>
+5_6_78
+<p>5_6_78</p>
+'–ø—Ä–∏—Å—Ç–∞–Ω—è–º_—Å—Ç—Ä–µ–º—è—Ç—Å—è_
+.<p>–ø—Ä–∏—Å—Ç–∞–Ω—è–º_—Å—Ç—Ä–µ–º—è—Ç—Å—è_</p>
+aa_"bb"_cc
+<p>aa_&quot;bb&quot;_cc</p>
+foo-_(bar)_
+<p>foo-<em>(bar)</em></p>
+_foo*
+<p>_foo*</p>
+*foo bar *
+<p>*foo bar *</p>
+*foo bar
+*
+<p>*foo bar
+*</p>
+*(*foo)
+<p>*(*foo)</p>
+
+*(*foo*)*
+<p><em>(<em>foo</em>)</em></p>
+	*foo*bar
+<p><em>foo</em>bar</p>
+_foo bar _
+<p>_foo bar _</p>
+_(_foo)
+<p>_(_foo)</p>
+
+_(_foo_)_
+	_foo_bar
+<p>_foo_bar</p>
+'_–ø—Ä–∏—Å—Ç–∞–Ω—è–º_—Å—Ç—Ä–µ–º—è—Ç—Å—è
+.<p>_–ø—Ä–∏—Å—Ç–∞–Ω—è–º_—Å—Ç—Ä–µ–º—è—Ç—Å—è</p>
+_foo_bar_baz_
+<p><em>foo_bar_baz</em></p>
+	_(bar)_.
+<p><em>(bar)</em>.</p>
+**foo bar**
+ <p><strong>foo bar</strong></p>
+** foo bar**
+<p>** foo bar**</p>
+a**"foo"**
+<p>a**&quot;foo&quot;**</p>
+foo**bar**
+<p>foo<strong>bar</strong></p>
+__foo bar__
+__ foo bar__
+<p>__ foo bar__</p>
+__
+foo bar__
+<p>__
+foo bar__</p>
+a__"foo"__
+<p>a__&quot;foo&quot;__</p>
+foo__bar__
+<p>foo__bar__</p>
+	5__6__78
+<p>5__6__78</p>
+)–ø—Ä–∏—Å—Ç–∞–Ω—è–º__—Å—Ç—Ä–µ–º—è—Ç—Å—è__
+0<p>–ø—Ä–∏—Å—Ç–∞–Ω—è–º__—Å—Ç—Ä–µ–º—è—Ç—Å—è__</p>
+__foo, __bar__, baz__
+7<p><strong>foo, <strong>bar</strong>, baz</strong></p>
+foo-__(bar)__
+"<p>foo-<strong>(bar)</strong></p>
+**foo bar **
+<p>**foo bar **</p>
+
+**(**foo)
+<p>**(**foo)</p>
+*(**foo**)*
+'<p><em>(<strong>foo</strong>)</em></p>
+K**Gomphocarpus (*Gomphocarpus physocarpus*, syn.
+*Asclepias physocarpa*)**
+m<p><strong>Gomphocarpus (<em>Gomphocarpus physocarpus</em>, syn.
+<em>Asclepias physocarpa</em>)</strong></p>
+**foo "*bar*" foo**
+9<p><strong>foo &quot;<em>bar</em>&quot; foo</strong></p>
+**foo**bar
+<p><strong>foo</strong>bar</p>
+__foo bar __
+<p>__foo bar __</p>
+
+__(__foo)
+<p>__(__foo)</p>
+_(__foo__)_
+__foo__bar
+<p>__foo__bar</p>
+)__–ø—Ä–∏—Å—Ç–∞–Ω—è–º__—Å—Ç—Ä–µ–º—è—Ç—Å—è
+0<p>__–ø—Ä–∏—Å—Ç–∞–Ω—è–º__—Å—Ç—Ä–µ–º—è—Ç—Å—è</p>
+__foo__bar__baz__
+&<p><strong>foo__bar__baz</strong></p>
+__(bar)__.
+<p><strong>(bar)</strong>.</p>
+*foo [bar](/url)*
++<p><em>foo <a href="/url">bar</a></em></p>
+
+*foo
+bar*
+<p><em>foo
+bar</em></p>
+_foo __bar__ baz_
+-<p><em>foo <strong>bar</strong> baz</em></p>
+_foo _bar_ baz_
+%<p><em>foo <em>bar</em> baz</em></p>
+__foo_ bar_
+!<p><em><em>foo</em> bar</em></p>
+*foo *bar**
+!<p><em>foo <em>bar</em></em></p>
+*foo **bar** baz*
+*foo**bar**baz*
++<p><em>foo<strong>bar</strong>baz</em></p>
+*foo**bar*
+<p><em>foo**bar</em></p>
+***foo** bar*
+)<p><em><strong>foo</strong> bar</em></p>
+*foo **bar***
+)<p><em>foo <strong>bar</strong></em></p>
+*foo**bar***
+(<p><em>foo<strong>bar</strong></em></p>
+foo***bar***baz
++<p>foo<em><strong>bar</strong></em>baz</p>
+foo******bar*********baz
+G<p>foo<strong><strong><strong>bar</strong></strong></strong>***baz</p>
+*foo **bar *baz* bim** bop*
+><p><em>foo <strong>bar <em>baz</em> bim</strong> bop</em></p>
+*foo [*bar*](/url)*
+4<p><em>foo <a href="/url"><em>bar</em></a></em></p>
+** is not an empty emphasis
+#<p>** is not an empty emphasis</p>
+%**** is not an empty strong emphasis
+,<p>**** is not an empty strong emphasis</p>
+**foo [bar](/url)**
+3<p><strong>foo <a href="/url">bar</a></strong></p>
+**foo
+bar**
+ <p><strong>foo
+bar</strong></p>
+__foo _bar_ baz__
+-<p><strong>foo <em>bar</em> baz</strong></p>
+__foo __bar__ baz__
+5<p><strong>foo <strong>bar</strong> baz</strong></p>
+____foo__ bar__
+1<p><strong><strong>foo</strong> bar</strong></p>
+**foo **bar****
+1<p><strong>foo <strong>bar</strong></strong></p>
+**foo *bar* baz**
+**foo*bar*baz**
++<p><strong>foo<em>bar</em>baz</strong></p>
+***foo* bar**
+)<p><strong><em>foo</em> bar</strong></p>
+**foo *bar***
+)<p><strong>foo <em>bar</em></strong></p>
+**foo *bar **baz**
+bim* bop**
+F<p><strong>foo <em>bar <strong>baz</strong>
+bim</em> bop</strong></p>
+**foo [*bar*](/url)**
+<<p><strong>foo <a href="/url"><em>bar</em></a></strong></p>
+__ is not an empty emphasis
+#<p>__ is not an empty emphasis</p>
+%____ is not an empty strong emphasis
+,<p>____ is not an empty strong emphasis</p>
+foo ***
+<p>foo ***</p>
+	foo *\**
+<p>foo <em>*</em></p>
+foo *_*
+<p>foo <em>_</em></p>
+
+foo *****
+<p>foo *****</p>
+foo **\***
+<p>foo <strong>*</strong></p>
+
+foo **_**
+<p>foo <strong>_</strong></p>
+**foo*
+<p>*<em>foo</em></p>
+*foo**
+<p><em>foo</em>*</p>
+	***foo**
+<p>*<strong>foo</strong></p>
+	****foo*
+<p>***<em>foo</em></p>
+	**foo***
+<p><strong>foo</strong>*</p>
+	*foo****
+<p><em>foo</em>***</p>
+foo ___
+<p>foo ___</p>
+	foo _\__
+foo _*_
+
+foo _____
+<p>foo _____</p>
+foo __\___
+
+foo __*__
+__foo_
+<p>_<em>foo</em></p>
+_foo__
+<p><em>foo</em>_</p>
+	___foo__
+<p>_<strong>foo</strong></p>
+	____foo_
+<p>___<em>foo</em></p>
+	__foo___
+<p><strong>foo</strong>_</p>
+	_foo____
+<p><em>foo</em>___</p>
+**foo**
+<p><strong>foo</strong></p>
+*_foo_*
+<p><em><em>foo</em></em></p>
+__foo__
+_*foo*_
+****foo****
+-<p><strong><strong>foo</strong></strong></p>
+____foo____
+******foo******
+><p><strong><strong><strong>foo</strong></strong></strong></p>
+
+***foo***
+%<p><em><strong>foo</strong></em></p>
+_____foo_____
+6<p><em><strong><strong>foo</strong></strong></em></p>
+*foo _bar* baz_
+<p><em>foo _bar</em> baz_</p>
+*foo __bar *baz bim__ bam*
+6<p><em>foo <strong>bar *baz bim</strong> bam</em></p>
+**foo **bar baz**
+&<p>**foo <strong>bar baz</strong></p>
+*foo *bar baz*
+<p>*foo <em>bar baz</em></p>
+*[bar*](/url)
+ <p>*<a href="/url">bar*</a></p>
+_foo [bar_](/url)
+$<p>_foo <a href="/url">bar_</a></p>
+*<img src="foo" title="*"/>
+#<p>*<img src="foo" title="*"/></p>
+**<a href="**">
+<p>**<a href="**"></p>
+__<a href="__">
+<p>__<a href="__"></p>
+*a `*`*
+!<p><em>a <code>*</code></em></p>
+_a `_`_
+!<p><em>a <code>_</code></em></p>
+**a<https://foo.bar/?q=**>
+D<p>**a<a href="https://foo.bar/?q=**">https://foo.bar/?q=**</a></p>
+__a<https://foo.bar/?q=__>
+D<p>__a<a href="https://foo.bar/?q=__">https://foo.bar/?q=__</a></p>
+[link](/uri "title")
+-<p><a href="/uri" title="title">link</a></p>
+Links[link](/uri)
+<p><a href="/uri">link</a></p>
+[](./target.md)
+"<p><a href="./target.md"></a></p>
+	[link]()
+<p><a href="">link</a></p>
+[link](<>)
+[]()
+<p><a href=""></a></p>
+[link](/my uri)
+<p>[link](/my uri)</p>
+[link](</my uri>)
+$<p><a href="/my%20uri">link</a></p>
+[link](foo
+bar)
+<p>[link](foo
+bar)</p>
+[link](<foo
+bar>)
+<p>[link](<foo
+bar>)</p>
+[a](<b)c>)
+<p><a href="b)c">a</a></p>
+[link](<foo\>)
+<p>[link](&lt;foo&gt;)</p>
+[a](<b)c
+[a](<b)c>
+[a](<b>c)
+-<p>[a](&lt;b)c
+[a](&lt;b)c&gt;
+[a](<b>c)</p>
+[link](\(foo\))
+ <p><a href="(foo)">link</a></p>
+[link](foo(and(bar)))
+(<p><a href="foo(and(bar))">link</a></p>
+[link](foo(and(bar))
+<p>[link](foo(and(bar))</p>
+[link](foo\(and\(bar\))
+'<p><a href="foo(and(bar)">link</a></p>
+[link](<foo(and(bar)>)
+[link](foo\)\:)
+ <p><a href="foo):">link</a></p>
+`[link](#fragment)
+
+[link](https://example.com#fragment)
+
+[link](https://example.com?foo=3#frag)
+î<p><a href="#fragment">link</a></p>
+<p><a href="https://example.com#fragment">link</a></p>
+<p><a href="https://example.com?foo=3#frag">link</a></p>
+[link](foo\bar)
+$<p><a href="foo%5Cbar">link</a></p>
+[link](foo%20b&auml;)
+(<p><a href="foo%20b%C3%A4">link</a></p>
+[link]("title")
+&<p><a href="%22title%22">link</a></p>
+?[link](/url "title")
+[link](/url 'title')
+[link](/url (title))
+y<p><a href="/url" title="title">link</a>
+<a href="/url" title="title">link</a>
+<a href="/url" title="title">link</a></p>
+[link](/url "title \"&quot;")
+:<p><a href="/url" title="title &quot;&quot;">link</a></p>
+[link](/url "title")
+0<p><a href="/url%C2%A0%22title%22">link</a></p>
+![link](/url "title "and" title")
+<<p>[link](/url &quot;title &quot;and&quot; title&quot;)</p>
+![link](/url 'title "and" title')
+C<p><a href="/url" title="title &quot;and&quot; title">link</a></p>
+[link](   /uri
+  "title"  )
+[link] (/uri)
+<p>[link] (/uri)</p>
+[link [foo [bar]]](/uri)
++<p><a href="/uri">link [foo [bar]]</a></p>
+[link] bar](/uri)
+<p>[link] bar](/uri)</p>
+[link [bar](/uri)
+$<p>[link <a href="/uri">bar</a></p>
+[link \[bar](/uri)
+$<p><a href="/uri">link [bar</a></p>
+[link *foo **bar** `#`*](/uri)
+P<p><a href="/uri">link <em>foo <strong>bar</strong> <code>#</code></em></a></p>
+[![moon](moon.jpg)](/uri)
+<<p><a href="/uri"><img src="moon.jpg" alt="moon" /></a></p>
+[foo [bar](/uri)](/uri)
+*<p>[foo <a href="/uri">bar</a>](/uri)</p>
+&[foo *[bar [baz](/uri)](/uri)*](/uri)
+?<p>[foo <em>[bar <a href="/uri">baz</a>](/uri)</em>](/uri)</p>
+![[[foo](uri1)](uri2)](uri3)
+,<p><img src="uri3" alt="[foo](uri2)" /></p>
+*[foo*](/uri)
+ <p>*<a href="/uri">foo*</a></p>
+[foo *bar](baz*)
+#<p><a href="baz*">foo *bar</a></p>
+*foo [bar* baz]
+<p><em>foo [bar</em> baz]</p>
+[foo <bar attr="](baz)">
+ <p>[foo <bar attr="](baz)"></p>
+[foo`](/uri)`
+ <p>[foo<code>](/uri)</code></p>
+)[foo<https://example.com/?search=](uri)>
+a<p>[foo<a href="https://example.com/?search=%5D(uri)">https://example.com/?search=](uri)</a></p>
+ [foo][bar]
+
+[bar]: /url "title"
+%[link [foo [bar]]][ref]
+
+[ref]: /uri
+[link \[bar][ref]
+
+[ref]: /uri
++[link *foo **bar** `#`*][ref]
+
+[ref]: /uri
+&[![moon](moon.jpg)][ref]
+
+[ref]: /uri
+$[foo [bar](/uri)][ref]
+
+[ref]: /uri
+:<p>[foo <a href="/uri">bar</a>]<a href="/uri">ref</a></p>
+)[foo *bar [baz][ref]*][ref]
+
+[ref]: /uri
+G<p>[foo <em>bar <a href="/uri">baz</a></em>]<a href="/uri">ref</a></p>
+*[foo*][ref]
+
+[ref]: /uri
+[foo *bar][ref]*
+
+[ref]: /uri
+$<p><a href="/uri">foo *bar</a>*</p>
+&[foo <bar attr="][ref]">
+
+[ref]: /uri
+ <p>[foo <bar attr="][ref]"></p>
+[foo`][ref]`
+
+[ref]: /uri
+<p>[foo<code>][ref]</code></p>
+6[foo<https://example.com/?search=][ref]>
+
+[ref]: /uri
+e<p>[foo<a href="https://example.com/?search=%5D%5Bref%5D">https://example.com/?search=][ref]</a></p>
+ [foo][BaR]
+
+[bar]: /url "title"
+[·∫û]
+
+[SS]: /url
+<p><a href="/url">·∫û</a></p>
+"[Foo
+  bar]: /url
+
+[Baz][Foo bar]
+<p><a href="/url">Baz</a></p>
+![foo] [bar]
+
+[bar]: /url "title"
+2<p>[foo] <a href="/url" title="title">bar</a></p>
+![foo]
+[bar]
+
+[bar]: /url "title"
+2<p>[foo]
+<a href="/url" title="title">bar</a></p>
+'[foo]: /url1
+
+[foo]: /url2
+
+[bar][foo]
+<p><a href="/url1">bar</a></p>
+[bar][foo\!]
+
+[foo!]: /url
+<p>[bar][foo!]</p>
+[foo][ref[]
+
+[ref[]: /uri
+'<p>[foo][ref[]</p>
+<p>[ref[]: /uri</p>
+"[foo][ref[bar]]
+
+[ref[bar]]: /uri
+/<p>[foo][ref[bar]]</p>
+<p>[ref[bar]]: /uri</p>
+[[[foo]]]
+
+[[[foo]]]: /url
+(<p>[[[foo]]]</p>
+<p>[[[foo]]]: /url</p>
+[foo][ref\[]
+
+[ref\[]: /uri
+<p><a href="/uri">foo</a></p>
+[bar\\]: /uri
+
+[bar\\]
+<p><a href="/uri">bar\</a></p>
+[]
+
+[]: /uri
+<p>[]</p>
+<p>[]: /uri</p>
+[
+ ]
+
+[
+ ]: /uri
+<p>[
+]</p>
+<p>[
+]: /uri</p>
+[foo][]
+
+[foo]: /url "title"
+)[*foo* bar][]
+
+[*foo* bar]: /url "title"
+9<p><a href="/url" title="title"><em>foo</em> bar</a></p>
+[Foo][]
+
+[foo]: /url "title"
+,<p><a href="/url" title="title">Foo</a></p>
+[foo] 
+[]
+
+[foo]: /url "title"
+/<p><a href="/url" title="title">foo</a>
+[]</p>
+[foo]
+
+[foo]: /url "title"
+'[*foo* bar]
+
+[*foo* bar]: /url "title"
+)[[*foo* bar]]
+
+[*foo* bar]: /url "title"
+;<p>[<a href="/url" title="title"><em>foo</em> bar</a>]</p>
+[[bar [foo]
+
+[foo]: /url
+$<p>[[bar <a href="/url">foo</a></p>
+[Foo]
+
+[foo]: /url "title"
+[foo] bar
+
+[foo]: /url
+"<p><a href="/url">foo</a> bar</p>
+\[foo]
+
+[foo]: /url "title"
+<p>[foo]</p>
+[foo*]: /url
+
+*[foo*]
+ <p>*<a href="/url">foo*</a></p>
+&[foo][bar]
+
+[foo]: /url1
+[bar]: /url2
+<p><a href="/url2">foo</a></p>
+[foo][]
+
+[foo]: /url1
+<p><a href="/url1">foo</a></p>
+[foo]()
+
+[foo]: /url1
+ [foo](not a link)
+
+[foo]: /url1
++<p><a href="/url1">foo</a>(not a link)</p>
+[foo][bar][baz]
+
+[baz]: /url
+#<p>[foo]<a href="/url">bar</a></p>
++[foo][bar][baz]
+
+[baz]: /url1
+[bar]: /url2
+6<p><a href="/url2">foo</a><a href="/url1">baz</a></p>
++[foo][bar][baz]
+
+[baz]: /url1
+[foo]: /url2
+$<p>[foo]<a href="/url1">bar</a></p>
+![foo](/url "title")
+2<p><img src="/url" alt="foo" title="title" /></p>
+Images6![foo *bar*]
+
+[foo *bar*]: train.jpg "train & tracks"
+H<p><img src="train.jpg" alt="foo bar" title="train &amp; tracks" /></p>
+![foo ![bar](/url)](/url2)
+)<p><img src="/url2" alt="foo bar" /></p>
+![foo [bar](/url)](/url2)
+8![foo *bar*][]
+
+[foo *bar*]: train.jpg "train & tracks"
+;![foo *bar*][foobar]
+
+[FOOBAR]: train.jpg "train & tracks"
+![foo](train.jpg)
+)<p><img src="train.jpg" alt="foo" /></p>
+.My ![foo bar](/path/to/train.jpg  "title"   )
+G<p>My <img src="/path/to/train.jpg" alt="foo bar" title="title" /></p>
+![foo](<url>)
+#<p><img src="url" alt="foo" /></p>
+
+![](/url)
+!<p><img src="/url" alt="" /></p>
+![foo][bar]
+
+[bar]: /url
+$<p><img src="/url" alt="foo" /></p>
+![foo][bar]
+
+[BAR]: /url
+![foo][]
+
+[foo]: /url "title"
+*![*foo* bar][]
+
+[*foo* bar]: /url "title"
+6<p><img src="/url" alt="foo bar" title="title" /></p>
+![Foo][]
+
+[foo]: /url "title"
+2<p><img src="/url" alt="Foo" title="title" /></p>
+ ![foo] 
+[]
+
+[foo]: /url "title"
+5<p><img src="/url" alt="foo" title="title" />
+[]</p>
+![foo]
+
+[foo]: /url "title"
+(![*foo* bar]
+
+[*foo* bar]: /url "title"
+ ![[foo]]
+
+[[foo]]: /url "title"
+7<p>![[foo]]</p>
+<p>[[foo]]: /url &quot;title&quot;</p>
+![Foo]
+
+[foo]: /url "title"
+!\[foo]
+
+[foo]: /url "title"
+<p>![foo]</p>
+\![foo]
+
+[foo]: /url "title"
+-<p>!<a href="/url" title="title">foo</a></p>
+<http://foo.bar.baz>
+;<p><a href="http://foo.bar.baz">http://foo.bar.baz</a></p>
+	Autolinks1<https://foo.bar.baz/test?q=hello&id=22&boolean>
+É<p><a href="https://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean">https://foo.bar.baz/test?q=hello&amp;id=22&amp;boolean</a></p>
+<irc://foo.bar:2233/baz>
+C<p><a href="irc://foo.bar:2233/baz">irc://foo.bar:2233/baz</a></p>
+<MAILTO:FOO@BAR.BAZ>
+;<p><a href="MAILTO:FOO@BAR.BAZ">MAILTO:FOO@BAR.BAZ</a></p>
+
+<a+b+c:d>
+%<p><a href="a+b+c:d">a+b+c:d</a></p>
+<made-up-scheme://foo,bar>
+G<p><a href="made-up-scheme://foo,bar">made-up-scheme://foo,bar</a></p>
+<https://../>
+-<p><a href="https://../">https://../</a></p>
+<localhost:5001/foo>
+;<p><a href="localhost:5001/foo">localhost:5001/foo</a></p>
+<https://foo.bar/baz bim>
+'<p>&lt;https://foo.bar/baz bim&gt;</p>
+<https://example.com/\[\>
+K<p><a href="https://example.com/%5C%5B%5C">https://example.com/\[\</a></p>
+<foo@bar.example.com>
+D<p><a href="mailto:foo@bar.example.com">foo@bar.example.com</a></p>
+<foo+special@Bar.baz-bar0.com>
+V<p><a href="mailto:foo+special@Bar.baz-bar0.com">foo+special@Bar.baz-bar0.com</a></p>
+<foo\+@bar.example.com>
+$<p>&lt;foo+@bar.example.com&gt;</p>
+<>
+<p>&lt;&gt;</p>
+< https://foo.bar >
+!<p>&lt; https://foo.bar &gt;</p>
+<m:abc>
+<p>&lt;m:abc&gt;</p>
+<foo.bar.baz>
+<p>&lt;foo.bar.baz&gt;</p>
+https://example.com
+<p>https://example.com</p>
+foo@bar.example.com
+<p>foo@bar.example.com</p>
+<a><bab><c2c>
+<p><a><bab><c2c></p>
+Raw HTML
+<a/><b2/>
+<p><a/><b2/></p>
+<a  /><b2
+data="foo" >
+<p><a  /><b2
+data="foo" ></p>
+@<a foo="bar" bam = 'baz <em>"</em>'
+_boolean zoop:33=zoop:33 />
+G<p><a foo="bar" bam = 'baz <em>"</em>'
+_boolean zoop:33=zoop:33 /></p>
+'Foo <responsive-image src="foo.jpg" />
+.<p>Foo <responsive-image src="foo.jpg" /></p>
+
+<33> <__>
+<p>&lt;33&gt; &lt;__&gt;</p>
+<a h*#ref="hi">
+'<p>&lt;a h*#ref=&quot;hi&quot;&gt;</p>
+<a href="hi'> <a href=hi'>
+3<p>&lt;a href=&quot;hi'&gt; &lt;a href=hi'&gt;</p>
+*< a><
+foo><bar/ >
+<foo bar=baz
+bim!bop />
+I<p>&lt; a&gt;&lt;
+foo&gt;&lt;bar/ &gt;
+&lt;foo bar=baz
+bim!bop /&gt;</p>
+<a href='bar'title=title>
+'<p>&lt;a href='bar'title=title&gt;</p>
+</a></foo >
+<p></a></foo ></p>
+</a href="foo">
+'<p>&lt;/a href=&quot;foo&quot;&gt;</p>
+1foo <!-- this is a --
+comment - with hyphens -->
+8<p>foo <!-- this is a --
+comment - with hyphens --></p>
+&foo <!--> foo -->
+
+foo <!---> foo -->
+9<p>foo <!--> foo --&gt;</p>
+<p>foo <!---> foo --&gt;</p>
+foo <?php echo $a; ?>
+<p>foo <?php echo $a; ?></p>
+foo <!ELEMENT br EMPTY>
+<p>foo <!ELEMENT br EMPTY></p>
+foo <![CDATA[>&<]]>
+<p>foo <![CDATA[>&<]]></p>
+foo <a href="&ouml;">
+<p>foo <a href="&ouml;"></p>
+foo <a href="\*">
+<p>foo <a href="\*"></p>
+<a href="\"">
+)<p>&lt;a href=&quot;&quot;&quot;&gt;</p>
+
+foo  
+baz
+<p>foo<br />
+baz</p>
+Hard line breaks	foo\
+baz
+foo       
+baz
+foo  
+     bar
+foo\
+     bar
+*foo  
+bar*
+<p><em>foo<br />
+bar</em></p>
+*foo\
+bar*
+`code  
+span`
+ <p><code>code   span</code></p>
+`code\
+span`
+<p><code>code\ span</code></p>
+<a href="foo  
+bar">
+<p><a href="foo  
+bar"></p>
+<a href="foo\
+bar">
+<p><a href="foo\
+bar"></p>
+foo\
+<p>foo\</p>
+foo  
+<p>foo</p>
+	### foo\
+<h3>foo\</h3>
+
+### foo  
+foo
+baz
+<p>foo
+baz</p>
+Soft line breaks
+foo 
+ baz
+hello $.;'there
+<p>hello $.;'there</p>
+Textual contentFoo œáœÅ·øÜŒΩ
+<p>Foo œáœÅ·øÜŒΩ</p>
+Multiple     spaces
+<p>Multiple     spaces</p>
+    ÚBA   5   å  6  Z     Õ    Ù    +   6  Z     Õ    Ù    +   6 	 Z    
+ Õ    Ù    +   6  Z     Õ    Ù    +   6  Z     Õ    Ù    +   6  Z     Õ    Ù    +   6  Z     Õ    Ù    +   6 	 	Z    	 	Õ   	 	Ù   	 	+   6	 
+ 
+	Z    
+ 
+	Õ   
+	 
+	Ù   
+ 
+	+   6
+  
+Z     
+Õ   
+ 
+Ù    
++   6  Z     Õ    Ù    +   6  Z     Õ    Ù    +   6  Z     Õ    Ù    +   6   Z    ! Õ    Ù    +   6 " Z    # Õ    Ù    +   6 $ Z    % Õ    Ù    +   7    6 & Z    ' Õ    Ù    +   6 ( Z    ) Õ    Ù    +   6 * Z    ) Õ    Ù    +   6 + Z    , Õ    Ù    +   6 - Z    - Õ    Ù    +   6 . Z    / Õ    Ù    +   6 0 Z    / Õ    Ù    +   6 	1 	Z    	2 	Õ   	 	Ù   	 	+   6	 
+3 
+	Z    
+4 
+	Õ   
+ 
+	Ù   
+5 
+	+   6
+ 6 
+Z    7 
+Õ    
+Ù   5 
++   6 8 Z    9 Õ    Ù   5 +   6 : Z    ; Õ    Ù   5 +   6 < Z    = Õ    Ù   5 +   6 > Z    ? Õ    Ù   5 +   6 @ Z    @ Õ    Ù   5 +   6 A Z    B Õ     Ù   5 +   7    6 C Z    B Õ   ! Ù   5 +   6 D Z    E Õ   " Ù   5 +   6 F Z    G Õ   # Ù   5 +   6 H Z    I Õ   $ Ù   5 +   6 J Z    K Õ   % Ù   5 +   6 L Z    M Õ   & Ù   5 +   6 N Z    O Õ   ' Ù   5 +   6 	P 	Z    	Q 	Õ   	( 	Ù   	5 	+   6	 
+R 
+	Z    
+S 
+	Õ   
+) 
+	Ù   
+5 
+	+   6
+ T 
+Z    U 
+Õ   * 
+Ù   V 
++   6 W Z    X Õ   + Ù   Y +   6 Z Z    [ Õ   , Ù   Y +   6 \ Z    ] Õ   - Ù   Y +   6 ^ Z    _ Õ   . Ù   Y +   6 ` Z    X Õ   / Ù   Y +   6 a Z    b Õ   0 Ù   Y +   7 !   6 c Z    d Õ   1 Ù   Y +   6 e Z     Õ   2 Ù   Y +   6 f Z     Õ   3 Ù   Y +   6 g Z     Õ   4 Ù   Y +   6 h Z     Õ   5 Ù   Y +   6 i Z     Õ   6 Ù   Y +   6 j Z    k Õ   7 Ù   Y +   6 	l 	Z    	m 	Õ   	8 	Ù   	Y 	+   6	 
+n 
+	Z    
+o 
+	Õ   
+9 
+	Ù   
+Y 
+	+   6
+ p 
+Z    q 
+Õ   : 
+Ù   Y 
++   6 r Z    s Õ   ; Ù   Y +   6 t Z    u Õ   < Ù   Y +   6 v Z    w Õ   = Ù   Y +   6 x Z    y Õ   > Ù   z +   6 { Z    | Õ   ? Ù   z +   6 } Z    ~ Õ   @ Ù   z +   7 1   6  Z    Ä Õ   A Ù   z +   6 Å Z    Ç Õ   B Ù   z +   6 É Z    Ñ Õ   C Ù   z +   6 Ö Z    Ü Õ   D Ù   z +   6 á Z    à Õ   E Ù   z +   6 â Z    ä Õ   F Ù   z +   6 ã Z    å Õ   G Ù   z +   6 	ç 	Z    	é 	Õ   	H 	Ù   	z 	+   6	 
+è 
+	Z    
+ê 
+	Õ   
+I 
+	Ù   
+z 
+	+   6
+ ë 
+Z    í 
+Õ   J 
+Ù   z 
++   6 ì Z    î Õ   K Ù   z +   6 ï Z    ñ Õ   L Ù   z +   6 ó Z    ò Õ   M Ù   z +   6 ô Z    ö Õ   N Ù   z +   6 õ Z    ú Õ   O Ù   z +   6 ù Z    û Õ   P Ù   ü +   7 A   6 † Z    ° Õ   Q Ù   ü +   6 ¢ Z    ° Õ   R Ù   ü +   6 £ Z    § Õ   S Ù   ü +   6 • Z    ¶ Õ   T Ù   ü +   6 ß Z    ® Õ   U Ù   ü +   6 © Z    ™ Õ   V Ù   ü +   6 ´ Z    ¨ Õ   W Ù   ü +   6 	≠ 	Z    	Æ 	Õ   	X 	Ù   	ü 	+   6	 
+Ø 
+	Z    
+™ 
+	Õ   
+Y 
+	Ù   
+ü 
+	+   6
+ ∞ 
+Z    ± 
+Õ   Z 
+Ù   ü 
++   6 ≤ Z    ≥ Õ   [ Ù   ü +   6 ¥ Z    µ Õ   \ Ù   ü +   6 ∂ Z    ∑ Õ   ] Ù   ü +   6 ∏ Z    π Õ   ^ Ù   ü +   6 ∫ Z    ª Õ   _ Ù   ü +   6 º Z    Ω Õ   ` Ù   ü +   7 Q   6 æ Z    ø Õ   a Ù   ü +   6 ¿ Z    ¡ Õ   b Ù   ü +   6 ¬ Z    √ Õ   c Ù   ü +   6 ƒ Z    ≈ Õ   d Ù   ü +   6 ∆ Z    « Õ   e Ù   ü +   6 » Z    … Õ   f Ù   ü +   6   Z    À Õ   g Ù   ü +   6 	Ã 	Z    	Õ 	Õ   	h 	Ù   	ü 	+   6	 
+Œ 
+	Z    
+Õ 
+	Õ   
+i 
+	Ù   
+ü 
+	+   6
+ œ 
+Z    – 
+Õ   j 
+Ù   ü 
++   6 — Z    “ Õ   k Ù   ” +   6 ‘ Z     Õ   l Ù   ” +   6 ’ Z    ÷ Õ   m Ù   ” +   6 ◊ Z    ÿ Õ   n Ù   ” +   6 Ÿ Z    ⁄ Õ   o Ù   ” +   6 € Z    ‹ Õ   p Ù   ” +   7 a   6 › Z    ﬁ Õ   q Ù   ” +   6 ﬂ Z    ‡ Õ   r Ù   ” +   6 · Z    ‚ Õ   s Ù   ” +   6 „ Z    ‰ Õ   t Ù   ” +   6 Â Z    Ê Õ   u Ù   ” +   6 Á Z    Ë Õ   v Ù   ” +   6 È Z    Í Õ   w Ù   Î +   6 	Ï 	Z    	Í 	Õ   	x 	Ù   	Î 	+   6	 
+Ì 
+	Z    
+Ó 
+	Õ   
+y 
+	Ù   
+Î 
+	+   6
+ Ô 
+Z     
+Õ   z 
+Ù   Î 
++   6 Ò Z    Ú Õ   { Ù   Î +   6 Û Z    Ú Õ   | Ù   Î +   6 Ù Z     Õ   } Ù   Î +   6 ı Z    ˆ Õ   ~ Ù   Î +   6 ˜ Z    ¯ Õ    Ù   Î +   6 ˘ Z    ˙ Õ   Ä Ù   Î +   7 q   6 ˚ Z    ¸ Õ   Å Ù   Î +   6 ˝ Z    ˆ Õ   Ç Ù   Î +   6 ˛ Z    ˇ Õ   É Ù   Î +   6  Z    Õ   Ñ Ù   Î +   6 Z    Õ   Ö Ù   Î +   6 Z    Õ   Ü Ù   Î +   6 Z    Õ   á Ù   Î +   6 		Z    		Õ   	à 	Ù   	Î 	+   6	 
+	
+	Z    
+
+
+	Õ   
+â 
+	Ù   
+Î 
+	+   6
+ 
+Z    
+Õ   ä 
+Ù   Î 
++   6 Z    Õ   ã Ù   Î +   6 Z    Õ   å Ù   Î +   6 Z    Õ   ç Ù   Î +   6 Z    Õ   é Ù   Î +   6 Z    Õ   è Ù   Î +   6 Z    Õ   ê Ù   Î +   7 Å   6 Z    Õ   ë Ù   Î +   6 Z    Õ   í Ù   Î +   6 Z    Õ   ì Ù   Î +   6 Z    Õ   î Ù    +   6 !Z    "Õ   ï Ù    +   6 #Z    #Õ   ñ Ù    +   6 $Z    $Õ   ó Ù    +   6 	%	Z    	&	Õ   	ò 	Ù   	 	+   6	 
+'
+	Z    
+'
+	Õ   
+ô 
+	Ù   
+ 
+	+   6
+ (
+Z    (
+Õ   ö 
+Ù    
++   6 )Z    *Õ   õ Ù    +   6 +Z    +Õ   ú Ù    +   6 ,Z    ,Õ   ù Ù    +   6 -Z    -Õ   û Ù    +   6 .Z    .Õ   ü Ù    +   6 /Z    /Õ   † Ù    +   7 ë   6 0Z    0Õ   ° Ù    +   6 1Z    1Õ   ¢ Ù    +   6 2Z    2Õ   £ Ù    +   6 3Z    3Õ   § Ù    +   6 4Z    4Õ   • Ù    +   6 5Z    5Õ   ¶ Ù    +   6 6Z    7Õ   ß Ù    +   6 	8	Z    	9	Õ   	® 	Ù   	 	+   6	 
+:
+	Z    
+;
+	Õ   
+© 
+	Ù   
+ 
+	+   6
+ <
+Z    =
+Õ   ™ 
+Ù    
++   6 >Z    >Õ   ´ Ù    +   6 ?Z    @Õ   ¨ Ù    +   6 AZ    AÕ   ≠ Ù    +   6 BZ    CÕ   Æ Ù    +   6 DZ    EÕ   Ø Ù    +   6 FZ    GÕ   ∞ Ù    +   7 °   6 HZ    IÕ   ± Ù    +   6 JZ    JÕ   ≤ Ù    +   6 KZ    LÕ   ≥ Ù    +   6 MZ    NÕ   ¥ Ù    +   6 OZ    OÕ   µ Ù    +   6 PZ    QÕ   ∂ Ù    +   6 RZ    SÕ   ∑ Ù    +   6 	T	Z    	U	Õ   	∏ 	Ù   	 	+   6	 
+V
+	Z    
+W
+	Õ   
+π 
+	Ù   
+ 
+	+   6
+ X
+Z    X
+Õ   ∫ 
+Ù    
++   6 YZ    ZÕ   ª Ù    +   6 [Z    \Õ   º Ù    +   6 ]Z    ]Õ   Ω Ù    +   6 ^Z    _Õ   æ Ù    +   6 `Z    aÕ   ø Ù    +   6 bZ    cÕ   ¿ Ù   d+   7 ±   6 eZ    fÕ   ¡ Ù   d+   6 gZ    hÕ   ¬ Ù   d+   6 iZ    jÕ   √ Ù   d+   6 kZ    lÕ   ƒ Ù   d+   6 mZ    nÕ   ≈ Ù   d+   6 oZ    pÕ   ∆ Ù   d+   6 qZ    rÕ   « Ù   d+   6 	s	Z    	t	Õ   	» 	Ù   	d	+   6	 
+u
+	Z    
+v
+	Õ   
+… 
+	Ù   
+d
+	+   6
+ w
+Z    x
+Õ     
+Ù   d
++   6 yZ    zÕ   À Ù   d+   6 {Z    |Õ   Ã Ù   d+   6 }Z    ~Õ   Õ Ù   d+   6 Z    ÄÕ   Œ Ù   d+   6 ÅZ    ÇÕ   œ Ù   d+   6 ÉZ    ÑÕ   – Ù   d+   7 ¡   6 ÖZ    ÜÕ   — Ù   d+   6 áZ    àÕ   “ Ù   d+   6 âZ    äÕ   ” Ù   d+   6 ãZ    åÕ   ‘ Ù   d+   6 çZ    éÕ   ’ Ù   d+   6 èZ    êÕ   ÷ Ù   d+   6 ëZ    íÕ   ◊ Ù   d+   6 	ì	Z    	î	Õ   	ÿ 	Ù   	d	+   6	 
+ï
+	Z    
+ñ
+	Õ   
+Ÿ 
+	Ù   
+d
+	+   6
+ ó
+Z    ò
+Õ   ⁄ 
+Ù   d
++   6 ôZ    öÕ   € Ù   õ+   6 úZ    ùÕ   ‹ Ù   õ+   6 ûZ    öÕ   › Ù   õ+   6 üZ    †Õ   ﬁ Ù   õ+   6 °Z    ¢Õ   ﬂ Ù   õ+   6 £Z    †Õ   ‡ Ù   õ+   7 —   6 §Z    •Õ   · Ù   õ+   6 ¶Z    ßÕ   ‚ Ù   õ+   6 ®Z    ©Õ   „ Ù   ™+   6 ´Z    ¨Õ   ‰ Ù   ≠+   6 ÆZ    ¨Õ   Â Ù   ≠+   6 ØZ    ¨Õ   Ê Ù   ≠+   6 ∞Z    ±Õ   Á Ù   ≠+   6 	≤	Z    	¨	Õ   	Ë 	Ù   	≠	+   6	 
+≥
+	Z    
+¥
+	Õ   
+È 
+	Ù   
+≠
+	+   6
+ µ
+Z    « 
+Õ   Í 
+Ù   ≠
++   6 ∂Z    ∑Õ   Î Ù   ≠+   6 ∏Z    πÕ   Ï Ù   ≠+   6 ∫Z    ªÕ   Ì Ù   ≠+   6 ºZ    ΩÕ   Ó Ù   ≠+   6 æZ    øÕ   Ô Ù   ≠+   6 ¿Z    øÕ    Ù   ≠+   7 ·   6 ¡Z    ¬Õ   Ò Ù   ≠+   6 √Z    ƒÕ   Ú Ù   ≠+   6 ≈Z    ∆Õ   Û Ù   ≠+   6 «Z    »Õ   Ù Ù   ≠+   6 …Z     Õ   ı Ù   ≠+   6 ÀZ    ÃÕ   ˆ Ù   ≠+   6 ÕZ    ŒÕ   ˜ Ù   ≠+   6 	œ	Z    	–	Õ   	¯ 	Ù   	≠	+   6	 
+—
+	Z    
+–
+	Õ   
+˘ 
+	Ù   
+≠
+	+   6
+ “
+Z    ”
+Õ   ˙ 
+Ù   ≠
++   6 ‘Z    ’Õ   ˚ Ù   ≠+   6 ÷Z    ◊Õ   ¸ Ù   ≠+   6 ÿZ    ŸÕ   ˝ Ù   ⁄+   6 €Z    ‹Õ   ˛ Ù   ⁄+   6 ›Z    ﬁÕ   ˇ Ù   ⁄+   6 ﬂZ    ‡Õ    Ù   ⁄+   7 Ò   6 ·Z    ‚Õ   Ù   ⁄+   6 „Z    ‡Õ   Ù   ⁄+   6 ‰Z    ÂÕ   Ù   ⁄+   6 ÊZ    ÁÕ   Ù   ⁄+   6 ËZ    ÈÕ   Ù   ⁄+   6 ÍZ     Õ   Ù   ⁄+   6 ÎZ    ÏÕ   Ù   ⁄+   6 	Ì	Z    	Ó	Õ   		Ù   	⁄	+   6	 
+Ô
+	Z    
+
+	Õ   
+	
+	Ù   
+⁄
+	+   6
+ Ò
+Z    Ú
+Õ   
+
+Ù   ⁄
++   6 ÛZ    ÙÕ   Ù   ⁄+   6 ıZ    ˆÕ   Ù   ⁄+   6 ˜Z    ¯Õ   Ù   ⁄+   6 ˘Z    ˙Õ   Ù   ⁄+   6 ˚Z    ¸Õ   Ù   ⁄+   6 ˝Z    ˛Õ   Ù   ⁄+   7   6 ˇZ     Õ   Ù   ⁄+   6 Z    Õ   Ù   ⁄+   6 Z    Õ   Ù   ⁄+   6 Z    Õ   Ù   ⁄+   6 Z     Õ   Ù   ⁄+   6 Z    	Õ   Ù   ⁄+   6 
+Z    Õ   Ù   ⁄+   6 		Z    		Õ   		Ù   	⁄	+   6	 
+
+	Z    
+
+	Õ   
+
+	Ù   
+⁄
+	+   6
+ 
+Z    
+Õ   
+Ù   ⁄
++   6 Z    Õ   Ù   ⁄+   6 Z    Õ   Ù   ⁄+   6 Z    Õ   Ù   ⁄+   6 Z    ‹Õ   Ù   ⁄+   6 Z    ‹Õ   Ù   ⁄+   6 Z    ‹Õ    Ù   ⁄+   7   6 Z    Õ   !Ù   ⁄+   6 Z    ‹Õ   "Ù   ⁄+   6 Z    Õ   #Ù   ⁄+   6 Z     Õ   $Ù   ⁄+   6 !Z     Õ   %Ù   ⁄+   6 "Z    #Õ   &Ù   ⁄+   6 $Z    %Õ   'Ù   ⁄+   6 	&	Z    	'	Õ   	(	Ù   	⁄	+   6	 
+(
+	Z    
+)
+	Õ   
+)
+	Ù   
+⁄
+	+   6
+ *
+Z    +
+Õ   *
+Ù   ⁄
++   6 ,Z    -Õ   +Ù   ⁄+   6 .Z    /Õ   ,Ù   ⁄+   6 0Z    1Õ   -Ù   2+   6 3Z    4Õ   .Ù   2+   6 5Z    6Õ   /Ù   2+   6 7Z    8Õ   0Ù   2+   7 !  6 9Z    :Õ   1Ù   2+   6 ;Z    <Õ   2Ù   2+   6 =Z    >Õ   3Ù   2+   6 ?Z    @Õ   4Ù   2+   6 AZ    BÕ   5Ù   2+   6 CZ    DÕ   6Ù   2+   6 EZ    FÕ   7Ù   2+   6 	G	Z    	H	Õ   	8	Ù   	2	+   6	 
+I
+	Z    
+J
+	Õ   
+9
+	Ù   
+2
+	+   6
+ K
+Z    L
+Õ   :
+Ù   2
++   6 MZ    NÕ   ;Ù   2+   6 OZ    PÕ   <Ù   2+   6 QZ    RÕ   =Ù   2+   6 SZ    TÕ   >Ù   2+   6 UZ    VÕ   ?Ù   2+   6 WZ    XÕ   @Ù   2+   7 1  6 YZ    ZÕ   AÙ   2+   6 [Z    \Õ   BÙ   2+   6 ]Z    ^Õ   CÙ   2+   6 _Z    `Õ   DÙ   2+   6 aZ    bÕ   EÙ   2+   6 cZ    dÕ   FÙ   2+   6 eZ    fÕ   GÙ   g+   6 	h	Z    	Ó 	Õ   	H	Ù   	i	+   6	 
+j
+	Z    
+k
+	Õ   
+I
+	Ù   
+i
+	+   6
+ l
+Z    m
+Õ   J
+Ù   i
++   6 nZ    oÕ   KÙ   i+   6 pZ    qÕ   LÙ   i+   6 rZ    sÕ   MÙ   i+   6 tZ    uÕ   NÙ   i+   6 vZ    wÕ   OÙ   i+   6 xZ    yÕ   PÙ   i+   7 A  6 zZ    {Õ   QÙ   i+   6 |Z    }Õ   RÙ   i+   6 ~Z    Õ   SÙ   i+   6 ÄZ    ÅÕ   TÙ   i+   6 ÇZ    ÉÕ   UÙ   i+   6 ÑZ    ÖÕ   VÙ   i+   6 ÜZ    áÕ   WÙ   i+   6 	à	Z    	â	Õ   	X	Ù   	i	+   6	 
+ä
+	Z    
+ã
+	Õ   
+Y
+	Ù   
+i
+	+   6
+ å
+Z    ç
+Õ   Z
+Ù   i
++   6 éZ    èÕ   [Ù   i+   6 êZ    ëÕ   \Ù   i+   6 íZ    ìÕ   ]Ù   i+   6 îZ    ïÕ   ^Ù   ñ+   6 óZ    òÕ   _Ù   ñ+   6 ôZ    öÕ   `Ù   ñ+   7 Q  6 õZ    úÕ   aÙ   ñ+   6 ùZ    ûÕ   bÙ   ñ+   6 üZ    †Õ   cÙ   ñ+   6 °Z    ¢Õ   dÙ   ñ+   6 £Z    ïÕ   eÙ   ñ+   6 §Z    •Õ   fÙ   ñ+   6 ¶Z    ßÕ   gÙ   ñ+   6 	®	Z    	©	Õ   	h	Ù   	ñ	+   6	 
+™
+	Z    
+´
+	Õ   
+i
+	Ù   
+ñ
+	+   6
+ ¨
+Z    ≠
+Õ   j
+Ù   ñ
++   6 ÆZ    ØÕ   kÙ   ñ+   6 ∞Z    ±Õ   lÙ   ñ+   6 ≤Z    ≥Õ   mÙ   ñ+   6 ¥Z    µÕ   nÙ   ñ+   6 ∂Z    ∑Õ   oÙ   ñ+   6 ∏Z    πÕ   pÙ   ñ+   7 a  6 ∫Z    ªÕ   qÙ   ñ+   6 ºZ    ΩÕ   rÙ   ñ+   6 æZ    øÕ   sÙ   ñ+   6 ¿Z    ¡Õ   tÙ   ñ+   6 ¬Z    ªÕ   uÙ   ñ+   6 √Z    ƒÕ   vÙ   ñ+   6 ≈Z    ∆Õ   wÙ   ñ+   6 	«	Z    	»	Õ   	x	Ù   	ñ	+   6	 
+…
+	Z    
+ 
+	Õ   
+y
+	Ù   
+ñ
+	+   6
+ À
+Z    Ã
+Õ   z
+Ù   ñ
++   6 ÕZ    ŒÕ   {Ù   ñ+   6 œZ    –Õ   |Ù   ñ+   6 —Z    “Õ   }Ù   ñ+   6 ”Z    ÃÕ   ~Ù   ñ+   6 ‘Z    ’Õ   Ù   ñ+   6 ÷Z    ◊Õ   ÄÙ   ñ+   7 q  6 ÿZ    ŸÕ   ÅÙ   ñ+   6 ⁄Z    €Õ   ÇÙ   ñ+   6 ‹Z    ›Õ   ÉÙ   ñ+   6 ﬁZ    ﬂÕ   ÑÙ   ñ+   6 ‡Z    ·Õ   ÖÙ   ñ+   6 ‚Z    „Õ   ÜÙ   ñ+   6 ‰Z    ÂÕ   áÙ   ñ+   6 	Ê	Z    	Á	Õ   	à	Ù   	ñ	+   6	 
+Ë
+	Z    
+È
+	Õ   
+â
+	Ù   
+ñ
+	+   6
+ Í
+Z    Î
+Õ   ä
+Ù   ñ
++   6 ÏZ    ÌÕ   ãÙ   ñ+   6 ÓZ    ÔÕ   åÙ   ñ+   6 Z    ÒÕ   çÙ   ñ+   6 ÚZ    ÛÕ   éÙ   ñ+   6 ÙZ    ÈÕ   èÙ   ñ+   6 ıZ    ˆÕ   êÙ   ñ+   7 Å  6 ˜Z    ¯Õ   ëÙ   ñ+   6 ˘Z    ˙Õ   íÙ   ñ+   6 ˚Z    ¸Õ   ìÙ   ñ+   6 ˝Z    ˛Õ   îÙ   ñ+   6 ˇZ     Õ   ïÙ   ñ+   6 Z    Õ   ñÙ   ñ+   6 Z    Õ   óÙ   ñ+   6 		Z    		Õ   	ò	Ù   	ñ	+   6	 
+
+	Z    
+
+	Õ   
+ô
+	Ù   
+ñ
+	+   6
+ 	
+Z    
+Õ   ö
+Ù   ñ
++   6 
+Z    Õ   õÙ   ñ+   6 Z    Õ   úÙ   ñ+   6 Z    Õ   ùÙ   ñ+   6 Z    Õ   ûÙ   ñ+   6 Z    Õ   üÙ   ñ+   6 Z    Õ   †Ù   ñ+   7 ë  6 Z    Õ   °Ù   ñ+   6 Z    Õ   ¢Ù   ñ+   6 Z    Õ   £Ù   ñ+   6 Z    Õ   §Ù   ñ+   6 Z    Õ   •Ù   ñ+   6  Z    !Õ   ¶Ù   ñ+   6 "Z    #Õ   ßÙ   ñ+   6 	$	Z    	%	Õ   	®	Ù   	ñ	+   6	 
+&
+	Z    
+'
+	Õ   
+©
+	Ù   
+ñ
+	+   6
+ (
+Z    )
+Õ   ™
+Ù   ñ
++   6 *Z    +Õ   ´Ù   ñ+   6 ,Z    %Õ   ¨Ù   ñ+   6 -Z    .Õ   ≠Ù   ñ+   6 /Z    0Õ   ÆÙ   ñ+   6 1Z    2Õ   ØÙ   ñ+   6 3Z    4Õ   ∞Ù   ñ+   7 °  6 5Z    6Õ   ±Ù   ñ+   6 7Z    8Õ   ≤Ù   ñ+   6 9Z    :Õ   ≥Ù   ñ+   6 ;Z    <Õ   ¥Ù   ñ+   6 =Z    >Õ   µÙ   ñ+   6 ?Z    @Õ   ∂Ù   ñ+   6 AZ    BÕ   ∑Ù   ñ+   6 	C	Z    	D	Õ   	∏	Ù   	ñ	+   6	 
+E
+	Z    
+F
+	Õ   
+π
+	Ù   
+ñ
+	+   6
+ G
+Z    H
+Õ   ∫
+Ù   ñ
++   6 IZ    JÕ   ªÙ   ñ+   6 KZ    LÕ   ºÙ   ñ+   6 MZ    NÕ   ΩÙ   ñ+   6 OZ    PÕ   æÙ   ñ+   6 QZ    RÕ   øÙ   ñ+   6 SZ    TÕ   ¿Ù   ñ+   7 ±  6 UZ    @Õ   ¡Ù   ñ+   6 VZ    >Õ   ¬Ù   ñ+   6 WZ    XÕ   √Ù   ñ+   6 YZ    FÕ   ƒÙ   ñ+   6 ZZ    DÕ   ≈Ù   ñ+   6 [Z    \Õ   ∆Ù   ñ+   6 ]Z    ^Õ   «Ù   ñ+   6 	_	Z    	`	Õ   	»	Ù   	ñ	+   6	 
+a
+	Z    
+b
+	Õ   
+…
+	Ù   
+ñ
+	+   6
+ c
+Z    d
+Õ    
+Ù   ñ
++   6 eZ    fÕ   ÀÙ   ñ+   6 gZ    hÕ   ÃÙ   ñ+   6 iZ    jÕ   ÕÙ   ñ+   6 kZ    hÕ   ŒÙ   ñ+   6 lZ    jÕ   œÙ   ñ+   6 mZ    nÕ   –Ù   ñ+   7 ¡  6 oZ    nÕ   —Ù   ñ+   6 pZ    qÕ   “Ù   ñ+   6 rZ    sÕ   ”Ù   ñ+   6 tZ    uÕ   ‘Ù   ñ+   6 vZ    wÕ   ’Ù   ñ+   6 xZ    yÕ   ÷Ù   ñ+   6 zZ    {Õ   ◊Ù   ñ+   6 	|	Z    	}	Õ   	ÿ	Ù   	ñ	+   6	 
+~
+	Z    
+
+	Õ   
+Ÿ
+	Ù   
+ñ
+	+   6
+ Ä
+Z    Å
+Õ   ⁄
+Ù   ñ
++   6 ÇZ    ÉÕ   €Ù   ñ+   6 ÑZ    ÖÕ   ‹Ù   ñ+   6 ÜZ    áÕ   ›Ù   ñ+   6 àZ    âÕ   ﬁÙ   ñ+   6 äZ    ãÕ   ﬂÙ   ñ+   6 åZ    çÕ   ‡Ù   ñ+   7 —  6 éZ    èÕ   ·Ù   ñ+   6 êZ    ëÕ   ‚Ù   í+   6 ìZ    îÕ   „Ù   í+   6 ïZ    ñÕ   ‰Ù   í+   6 óZ    òÕ   ÂÙ   í+   6 ôZ    òÕ   ÊÙ   í+   6 öZ    õÕ   ÁÙ   í+   6 	ú	Z    	ù	Õ   	Ë	Ù   	í	+   6	 
+û
+	Z    
+ü
+	Õ   
+È
+	Ù   
+í
+	+   6
+ †
+Z    °
+Õ   Í
+Ù   í
++   6 ¢Z    £Õ   ÎÙ   í+   6 §Z    •Õ   ÏÙ   í+   6 ¶Z    ßÕ   ÌÙ   í+   6 ®Z    ©Õ   ÓÙ   í+   6 ™Z    ´Õ   ÔÙ   í+   6 ¨Z    ≠Õ   Ù   í+   7 ·  6 ÆZ    ØÕ   ÒÙ   í+   6 ∞Z    ±Õ   ÚÙ   í+   6 ≤Z    ±Õ   ÛÙ   í+   6 ≥Z    ¥Õ   ÙÙ   í+   6 µZ    ∂Õ   ıÙ   í+   6 ∑Z    ∏Õ   ˆÙ   í+   6 πZ    ∫Õ   ˜Ù   í+   6 	ª	Z    	º	Õ   	¯	Ù   	í	+   6	 
+Ω
+	Z    
+æ
+	Õ   
+˘
+	Ù   
+í
+	+   6
+ ø
+Z    ¿
+Õ   ˙
+Ù   í
++   6 ¡Z    ¬Õ   ˚Ù   í+   6 √Z    ƒÕ   ¸Ù   í+   6 ≈Z    ∆Õ   ˝Ù   í+   6 «Z    ëÕ   ˛Ù   í+   6 »Z    …Õ   ˇÙ   í+   6  Z    ÀÕ    Ù   í+   7 Ò  6 ÃZ    ÕÕ   Ù   í+   6 ŒZ    œÕ   Ù   í+   6 –Z    —Õ   Ù   í+   6 “Z    ”Õ   Ù   í+   6 ‘Z    ’Õ   Ù   í+   6 ÷Z    ◊Õ   Ù   í+   6 ÿZ    ŸÕ   Ù   í+   6 	⁄	Z    	€	Õ   		Ù   	í	+   6	 
+‹
+	Z    
+›
+	Õ   
+	
+	Ù   
+í
+	+   6
+ ﬁ
+Z    ﬂ
+Õ   
+
+Ù   í
++   6 ‡Z    ·Õ   Ù   í+   6 ‚Z    „Õ   Ù   í+   6 ‰Z    ÂÕ   Ù   í+   6 ÊZ    ÁÕ   Ù   í+   6 ËZ    cÕ   Ù   í+   6 ÈZ    ÀÕ   Ù   í+   7   6 ÍZ    —Õ   Ù   í+   6 ÎZ    ”Õ   Ù   í+   6 ÏZ    ’Õ   Ù   í+   6 ÌZ    ÓÕ   Ù   í+   6 ÔZ    Õ   Ù   í+   6 ÒZ    ›Õ   Ù   í+   6 ÚZ    ÛÕ   Ù   í+   6 	Ù	Z    	ı	Õ   		Ù   	í	+   6	 
+ˆ
+	Z    
+˜
+	Õ   
+
+	Ù   
+í
+	+   6
+ ¯
+Z    ˘
+Õ   
+Ù   í
++   6 ˙Z    cÕ   Ù   í+   6 ˚Z    ¸Õ   Ù   í+   6 ˝Z    ˛Õ   Ù   í+   6 ˇZ     Õ   Ù   í+   6 Z    Õ   Ù   í+   6 Z    Õ    Ù   í+   7   6 Z    Õ   !Ù   í+   6 Z    Õ   "Ù   í+   6 	Z    
+Õ   #Ù   í+   6 Z    Õ   $Ù   í+   6 Z    Õ   %Ù   í+   6 Z    Õ   &Ù   í+   6 Z    Õ   'Ù   í+   6 		Z    		Õ   	(	Ù   	í	+   6	 
+
+	Z    
+c
+	Õ   
+)
+	Ù   
+í
+	+   6
+ 
+Z    
+Õ   *
+Ù   í
++   6 Z    Õ   +Ù   í+   6 Z    Õ   ,Ù   í+   6 Z    cÕ   -Ù   í+   6 Z    Õ   .Ù   í+   6 Z    Õ   /Ù   í+   6  Z    !Õ   0Ù   í+   7 !  6 "Z    Õ   1Ù   í+   6 #Z    $Õ   2Ù   í+   6 %Z    &Õ   3Ù   í+   6 'Z    (Õ   4Ù   í+   6 )Z    *Õ   5Ù   í+   6 +Z    ,Õ   6Ù   í+   6 -Z    tÕ   7Ù   í+   6 	.	Z    	/	Õ   	8	Ù   	í	+   6	 
+0
+	Z    
+1
+	Õ   
+9
+	Ù   
+í
+	+   6
+ 2
+Z    3
+Õ   :
+Ù   í
++   6 4Z    5Õ   ;Ù   í+   6 6Z    7Õ   <Ù   8+   6 9Z    :Õ   =Ù   8+   6 ;Z    <Õ   >Ù   8+   6 =Z    <Õ   ?Ù   8+   6 >Z    :Õ   @Ù   8+   7 1  6 ?Z    :Õ   AÙ   8+   6 @Z    AÕ   BÙ   8+   6 BZ    CÕ   CÙ   8+   6 DZ    EÕ   DÙ   8+   6 FZ    GÕ   EÙ   8+   6 HZ    IÕ   FÙ   8+   6 JZ    IÕ   GÙ   8+   6 	K	Z    	7	Õ   	H	Ù   	8	+   6	 
+L
+	Z    
+M
+	Õ   
+I
+	Ù   
+8
+	+   6
+ N
+Z    O
+Õ   J
+Ù   8
++   6 PZ    QÕ   KÙ   8+   6 RZ    7Õ   LÙ   8+   6 SZ    MÕ   MÙ   8+   6 TZ    UÕ   NÙ   8+   6 VZ    OÕ   OÙ   8+   6 WZ    XÕ   PÙ   8+   7 A  6 YZ    ZÕ   QÙ   8+   6 [Z    \Õ   RÙ   ]+   6 ^Z    _Õ   SÙ   ]+   6 `Z    aÕ   TÙ   ]+   6 bZ    cÕ   UÙ   ]+   6 dZ    eÕ   VÙ   ]+   6 fZ    gÕ   WÙ   ]+   6 	h	Z    	i	Õ   	X	Ù   	]	+   6	 
+j
+	Z    
+k
+	Õ   
+Y
+	Ù   
+]
+	+   6
+ l
+Z    m
+Õ   Z
+Ù   ]
++   6 nZ    oÕ   [Ù   ]+   6 pZ    qÕ   \Ù   ]+   6 rZ    sÕ   ]Ù   ]+   6 tZ    uÕ   ^Ù   ]+   6 vZ    wÕ   _Ù   ]+   6 xZ    yÕ   `Ù   ]+   7 Q  6 zZ    {Õ   aÙ   ]+   6 |Z    }Õ   bÙ   ]+   6 ~Z    Õ   cÙ   ]+   6 ÄZ    ÅÕ   dÙ   ]+   6 ÇZ    ÉÕ   eÙ   Ñ+   6 ÖZ    ÜÕ   fÙ   Ñ+   6 áZ    àÕ   gÙ   Ñ+   6 	â	Z    	ä	Õ   	h	Ù   	Ñ	+   6	 
+ã
+	Z    
+å
+	Õ   
+i
+	Ù   
+Ñ
+	+   6
+ ç
+Z    é
+Õ   j
+Ù   Ñ
++   6 èZ    êÕ   kÙ   Ñ+   6 ëZ    íÕ   lÙ   Ñ+   6 ìZ    îÕ   mÙ   Ñ+   6 ïZ    ñÕ   nÙ   Ñ+   6 óZ    òÕ   oÙ   Ñ+   6 ôZ    öÕ   pÙ   Ñ+   7 a  6 õZ    úÕ   qÙ   Ñ+   6 ùZ    ûÕ   rÙ   Ñ+   6 üZ    †Õ   sÙ   Ñ+   6 °Z    ¢Õ   tÙ   Ñ+   6 £Z    §Õ   uÙ   Ñ+   6 •Z    ¶Õ   vÙ   Ñ+   6 ßZ    ®Õ   wÙ   Ñ+   6 	©	Z    	™	Õ   	x	Ù   	Ñ	+   6	 
+´
+	Z    
+¨
+	Õ   
+y
+	Ù   
+≠
+	+   6
+ Æ
+Z    ¨
+Õ   z
+Ù   ≠
++   6 ØZ    ¨Õ   {Ù   ≠+   6 ∞Z    % Õ   |Ù   ≠+   6 ±Z    % Õ   }Ù   ≠+   6 ≤Z    ≥Õ   ~Ù   ≠+   6 ¥Z    ≥Õ   Ù   ≠+   6 µZ    ∂Õ   ÄÙ   ≠+   7 q  6 ∑Z    ∏Õ   ÅÙ   ≠+   6 πZ    ∫Õ   ÇÙ   ≠+   6 ªZ    ºÕ   ÉÙ   ≠+   6 ΩZ    æÕ   ÑÙ   ≠+   6 øZ    ¿Õ   ÖÙ   ≠+   6 ¡Z    ¬Õ   ÜÙ   ≠+   6 √Z    ê Õ   áÙ   ≠+   6 	ƒ	Z    	≈	Õ   	à	Ù   	∆	+   6	 
+«
+	Z    
+≈
+	Õ   
+â
+	Ù   
+∆
+	+   6
+ »
+Z    …
+Õ   ä
+Ù    
++   6 ÀZ    ÃÕ   ãÙ    +   6 ÕZ    ŒÕ   åÙ    +   7 Å    œ	 	
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇÄ	Å	Ç	É	Ñ	Ö	Ü	á	à	â	ä	ã	å	ç	é	è	ê	ë	í	ì	î	ï	ñ	ó	ò	ô	ö	õ	ú	ù	û	ü	†	°	¢	£	§	•	¶	ß	®	©	™	´	¨	≠	Æ	Ø	∞	±	≤	≥	¥	µ	∂	∑	∏	π	∫	ª	º	Ω	æ	ø	¿	¡	¬	√	ƒ	≈	∆	«	»	…	 	À	Ã	Õ	Œ	  	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             È   Í   Í   Í   Í   Í   Í   Í   Ï   Ë   Ï   Ë   Ï   Ë   Ï   Í     

@@ -1,0 +1,68 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R4 R0
+  GETUPVAL R6 1
+  GETTABLEKS R7 R1 K0 ["Name"]
+  GETTABLE R5 R6 R7
+  NAMECALL R2 R2 K1 ["GetAccessoryHandleScale"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Players"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R3 K6 [Instance.new]
+  LOADK R4 K7 ["HumanoidDescription"]
+  CALL R3 1 1
+  GETIMPORT R4 K11 [Enum.HumanoidRigType.R15]
+  NAMECALL R1 R0 K12 ["CreateHumanoidModelFromDescription"]
+  CALL R1 3 1
+  LOADK R4 K13 ["Humanoid"]
+  NAMECALL R2 R1 K14 ["FindFirstChildOfClass"]
+  CALL R2 2 1
+  FASTCALL2K ASSERT R2 K15 [+5]
+  MOVE R4 R2
+  LOADK R5 K15 ["Humanoid must exist in character model"]
+  GETIMPORT R3 K17 [assert]
+  CALL R3 2 0
+  LOADK R5 K18 ["BodyTypeScale"]
+  NAMECALL R3 R2 K19 ["FindFirstChild"]
+  CALL R3 2 1
+  LOADK R6 K20 ["BodyProportionScale"]
+  NAMECALL R4 R2 K19 ["FindFirstChild"]
+  CALL R4 2 1
+  LOADN R5 0
+  SETTABLEKS R5 R3 K21 ["Value"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K21 ["Value"]
+  NEWTABLE R5 0 0
+  GETIMPORT R6 K23 [pairs]
+  NAMECALL R7 R1 K24 ["GetDescendants"]
+  CALL R7 1 -1
+  CALL R6 -1 3
+  FORGPREP_NEXT R6
+  LOADK R13 K25 ["BasePart"]
+  NAMECALL R11 R10 K26 ["IsA"]
+  CALL R11 2 1
+  JUMPIFNOT R11 [+18]
+  NAMECALL R11 R10 K27 ["GetChildren"]
+  CALL R11 1 3
+  FORGPREP R11
+  LOADK R18 K28 ["Attachment"]
+  NAMECALL R16 R15 K26 ["IsA"]
+  CALL R16 2 1
+  JUMPIFNOT R16 [+7]
+  GETTABLEKS R16 R15 K29 ["Name"]
+  MOVE R19 R10
+  NAMECALL R17 R2 K30 ["GetBodyPartR15"]
+  CALL R17 2 1
+  SETTABLE R17 R5 R16
+  FORGLOOP R11 2 [-13]
+  FORGLOOP R6 2 [-24]
+  DUPCLOSURE R6 K31 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  RETURN R6 1

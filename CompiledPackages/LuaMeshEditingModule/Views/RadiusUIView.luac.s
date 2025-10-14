@@ -1,0 +1,188 @@
+PROTO_0:
+  NEWTABLE R1 8 0
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K1 [setmetatable]
+  CALL R0 2 1
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K5 ["ScreenGui"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K6 ["_screenGui"]
+  GETTABLEKS R1 R0 K6 ["_screenGui"]
+  LOADK R2 K7 ["FreeformRadius"]
+  SETTABLEKS R2 R1 K8 ["Name"]
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K9 ["Frame"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K10 ["_frame"]
+  GETTABLEKS R1 R0 K10 ["_frame"]
+  GETIMPORT R2 K12 [Vector2.new]
+  LOADK R3 K13 [0.5]
+  LOADK R4 K13 [0.5]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K14 ["AnchorPoint"]
+  GETTABLEKS R1 R0 K10 ["_frame"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K15 ["BackgroundTransparency"]
+  GETTABLEKS R1 R0 K10 ["_frame"]
+  GETTABLEKS R2 R0 K6 ["_screenGui"]
+  SETTABLEKS R2 R1 K16 ["Parent"]
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K17 ["UICorner"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K18 ["_corner"]
+  GETTABLEKS R1 R0 K18 ["_corner"]
+  GETTABLEKS R2 R0 K10 ["_frame"]
+  SETTABLEKS R2 R1 K16 ["Parent"]
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K19 ["UIStroke"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K20 ["_uiStroke"]
+  GETTABLEKS R1 R0 K20 ["_uiStroke"]
+  GETUPVAL R2 1
+  SETTABLEKS R2 R1 K21 ["Thickness"]
+  GETTABLEKS R1 R0 K20 ["_uiStroke"]
+  GETTABLEKS R2 R0 K10 ["_frame"]
+  SETTABLEKS R2 R1 K16 ["Parent"]
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K9 ["Frame"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K22 ["_frame2"]
+  GETTABLEKS R1 R0 K22 ["_frame2"]
+  GETIMPORT R2 K12 [Vector2.new]
+  LOADK R3 K13 [0.5]
+  LOADK R4 K13 [0.5]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K14 ["AnchorPoint"]
+  GETTABLEKS R1 R0 K22 ["_frame2"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K15 ["BackgroundTransparency"]
+  GETTABLEKS R1 R0 K22 ["_frame2"]
+  GETTABLEKS R2 R0 K6 ["_screenGui"]
+  SETTABLEKS R2 R1 K16 ["Parent"]
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K17 ["UICorner"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K23 ["_corner2"]
+  GETTABLEKS R1 R0 K23 ["_corner2"]
+  GETTABLEKS R2 R0 K22 ["_frame2"]
+  SETTABLEKS R2 R1 K16 ["Parent"]
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K19 ["UIStroke"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K24 ["_uiStroke2"]
+  GETTABLEKS R1 R0 K24 ["_uiStroke2"]
+  GETUPVAL R2 2
+  SETTABLEKS R2 R1 K21 ["Thickness"]
+  GETTABLEKS R1 R0 K24 ["_uiStroke2"]
+  GETTABLEKS R2 R0 K22 ["_frame2"]
+  SETTABLEKS R2 R1 K16 ["Parent"]
+  GETTABLEKS R1 R0 K6 ["_screenGui"]
+  GETUPVAL R2 3
+  SETTABLEKS R2 R1 K16 ["Parent"]
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R2 R1 K0 ["ScreenDiameter"]
+  GETTABLEKS R3 R1 K1 ["Mouse"]
+  GETTABLEKS R4 R0 K2 ["_frame"]
+  GETIMPORT R5 K5 [UDim2.fromOffset]
+  GETTABLEKS R6 R3 K6 ["X"]
+  GETTABLEKS R7 R3 K7 ["Y"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K8 ["Position"]
+  GETTABLEKS R4 R0 K2 ["_frame"]
+  GETIMPORT R5 K5 [UDim2.fromOffset]
+  MOVE R6 R2
+  MOVE R7 R2
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K9 ["Size"]
+  GETTABLEKS R4 R0 K10 ["_corner"]
+  GETIMPORT R5 K13 [UDim.new]
+  DIVK R6 R2 K14 [2]
+  DIVK R7 R2 K14 [2]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K15 ["CornerRadius"]
+  GETTABLEKS R5 R1 K0 ["ScreenDiameter"]
+  GETTABLEKS R6 R1 K16 ["Falloff"]
+  MUL R4 R5 R6
+  FASTCALL2K MATH_MAX R4 K17 [+5]
+  MOVE R6 R4
+  LOADK R7 K17 [0]
+  GETIMPORT R5 K20 [math.max]
+  CALL R5 2 1
+  MOVE R4 R5
+  GETTABLEKS R5 R0 K21 ["_frame2"]
+  GETIMPORT R6 K5 [UDim2.fromOffset]
+  GETTABLEKS R7 R3 K6 ["X"]
+  GETTABLEKS R8 R3 K7 ["Y"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K8 ["Position"]
+  GETTABLEKS R5 R0 K21 ["_frame2"]
+  GETIMPORT R6 K5 [UDim2.fromOffset]
+  MOVE R7 R4
+  MOVE R8 R4
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K9 ["Size"]
+  GETTABLEKS R5 R0 K22 ["_corner2"]
+  GETIMPORT R6 K13 [UDim.new]
+  DIVK R7 R4 K14 [2]
+  DIVK R8 R4 K14 [2]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K15 ["CornerRadius"]
+  GETTABLEKS R5 R1 K23 ["Shown"]
+  JUMPIFNOT R5 [+11]
+  GETTABLEKS R5 R0 K24 ["_uiStroke"]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K25 ["Transparency"]
+  GETTABLEKS R5 R0 K26 ["_uiStroke2"]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K25 ["Transparency"]
+  RETURN R0 0
+  GETTABLEKS R5 R0 K24 ["_uiStroke"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K25 ["Transparency"]
+  GETTABLEKS R5 R0 K26 ["_uiStroke2"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K25 ["Transparency"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["_screenGui"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["_screenGui"]
+  NAMECALL R1 R1 K1 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_screenGui"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["LuaMeshEditingModule"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["CoreGui"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K10 ["Util"]
+  GETTABLEKS R3 R4 K11 ["Constants"]
+  CALL R2 1 1
+  NEWTABLE R3 4 0
+  SETTABLEKS R3 R3 K12 ["__index"]
+  GETTABLEKS R4 R2 K13 ["DefaultRadiusThickness"]
+  GETTABLEKS R5 R2 K14 ["DefaultInnerRadiusThickness"]
+  DUPCLOSURE R6 K15 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  SETTABLEKS R6 R3 K16 ["new"]
+  DUPCLOSURE R6 K17 [PROTO_1]
+  SETTABLEKS R6 R3 K18 ["render"]
+  DUPCLOSURE R6 K19 [PROTO_2]
+  SETTABLEKS R6 R3 K20 ["cleanup"]
+  RETURN R3 1

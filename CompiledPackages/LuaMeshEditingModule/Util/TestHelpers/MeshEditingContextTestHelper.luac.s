@@ -1,0 +1,78 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getSingleWrapper"]
+  CALL R0 0 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["new"]
+  CALL R1 0 1
+  NEWTABLE R4 0 1
+  MOVE R5 R0
+  SETLIST R4 R5 1 [1]
+  NAMECALL R2 R1 K2 ["init"]
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K3 ["instance"]
+  MOVE R3 R1
+  RETURN R2 2
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getSingleWrapper"]
+  CALL R0 0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["getSecondWrapper"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["new"]
+  CALL R2 0 1
+  GETIMPORT R3 K4 [Instance.new]
+  LOADK R4 K5 ["WrapLayer"]
+  CALL R3 1 1
+  LOADK R4 K6 ["Cube1"]
+  SETTABLEKS R4 R3 K7 ["Name"]
+  GETTABLEKS R4 R0 K8 ["instance"]
+  SETTABLEKS R4 R3 K9 ["Parent"]
+  GETIMPORT R4 K4 [Instance.new]
+  LOADK R5 K10 ["Motor6D"]
+  CALL R4 1 1
+  GETTABLEKS R5 R0 K8 ["instance"]
+  SETTABLEKS R5 R4 K11 ["Part0"]
+  GETTABLEKS R5 R1 K8 ["instance"]
+  SETTABLEKS R5 R4 K12 ["Part1"]
+  GETTABLEKS R5 R1 K8 ["instance"]
+  SETTABLEKS R5 R4 K9 ["Parent"]
+  NEWTABLE R7 0 2
+  MOVE R8 R0
+  MOVE R9 R1
+  SETLIST R7 R8 2 [1]
+  NAMECALL R5 R2 K13 ["init"]
+  CALL R5 2 0
+  GETTABLEKS R5 R0 K8 ["instance"]
+  GETTABLEKS R6 R1 K8 ["instance"]
+  MOVE R7 R2
+  RETURN R5 3
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["LuaMeshEditingModule"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Util"]
+  GETTABLEKS R3 R4 K7 ["TestHelpers"]
+  GETTABLEKS R2 R3 K8 ["MeshWrapperObjectTestHelper"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["MeshEditingContexts"]
+  GETTABLEKS R3 R4 K10 ["MeshEditingContextBase"]
+  CALL R2 1 1
+  NEWTABLE R3 2 0
+  DUPCLOSURE R4 K11 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K12 ["createContextWithSingleWrapper"]
+  DUPCLOSURE R4 K13 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K14 ["createContextWithTwoWrappers"]
+  RETURN R3 1

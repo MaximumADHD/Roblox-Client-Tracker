@@ -1,0 +1,134 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["_dummyPartRef"]
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Size"]
+  LOADK R3 K2 [{1, 1, 1}]
+  NAMECALL R1 R1 K3 ["Min"]
+  CALL R1 2 1
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["Size"]
+  DIVK R3 R4 K4 [2]
+  DIVK R4 R1 K4 [2]
+  SUB R2 R3 R4
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K5 ["Container"]
+  JUMPIF R3 [+1]
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["createElement"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K7 ["Portal"]
+  DUPTABLE R6 K9 [{"target"}]
+  SETTABLEKS R3 R6 K8 ["target"]
+  DUPTABLE R7 K12 [{"DummyModel", "SelectionBox"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  LOADK R9 K13 ["Model"]
+  NEWTABLE R10 1 0
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K14 ["Ref"]
+  GETTABLEKS R12 R0 K15 ["_dummyPartRef"]
+  SETTABLE R12 R10 R11
+  DUPTABLE R11 K18 [{"DummyPart1", "DummyPart2"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K6 ["createElement"]
+  LOADK R13 K19 ["Part"]
+  DUPTABLE R14 K25 [{"Shape", "Anchored", "CanCollide", "CFrame", "Size", "Transparency"}]
+  GETIMPORT R15 K29 [Enum.PartType.Block]
+  SETTABLEKS R15 R14 K20 ["Shape"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K21 ["Anchored"]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K22 ["CanCollide"]
+  GETTABLEKS R17 R0 K0 ["props"]
+  GETTABLEKS R16 R17 K23 ["CFrame"]
+  GETIMPORT R17 K31 [CFrame.new]
+  MINUS R18 R2
+  CALL R17 1 1
+  MUL R15 R16 R17
+  SETTABLEKS R15 R14 K23 ["CFrame"]
+  SETTABLEKS R1 R14 K1 ["Size"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K24 ["Transparency"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K16 ["DummyPart1"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K6 ["createElement"]
+  LOADK R13 K19 ["Part"]
+  DUPTABLE R14 K25 [{"Shape", "Anchored", "CanCollide", "CFrame", "Size", "Transparency"}]
+  GETIMPORT R15 K29 [Enum.PartType.Block]
+  SETTABLEKS R15 R14 K20 ["Shape"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K21 ["Anchored"]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K22 ["CanCollide"]
+  GETTABLEKS R17 R0 K0 ["props"]
+  GETTABLEKS R16 R17 K23 ["CFrame"]
+  GETIMPORT R17 K31 [CFrame.new]
+  MOVE R18 R2
+  CALL R17 1 1
+  MUL R15 R16 R17
+  SETTABLEKS R15 R14 K23 ["CFrame"]
+  SETTABLEKS R1 R14 K1 ["Size"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K24 ["Transparency"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K17 ["DummyPart2"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K10 ["DummyModel"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  LOADK R9 K11 ["SelectionBox"]
+  DUPTABLE R10 K37 [{"Adornee", "Color3", "LineThickness", "SurfaceTransparency", "Transparency", "StudioSelectionBox"}]
+  GETTABLEKS R11 R0 K15 ["_dummyPartRef"]
+  SETTABLEKS R11 R10 K32 ["Adornee"]
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K38 ["Color"]
+  SETTABLEKS R11 R10 K33 ["Color3"]
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K34 ["LineThickness"]
+  SETTABLEKS R11 R10 K34 ["LineThickness"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K35 ["SurfaceTransparency"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K24 ["Transparency"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K36 ["StudioSelectionBox"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K11 ["SelectionBox"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["CoreGui"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETTABLEKS R3 R1 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R2 K9 ["Packages"]
+  GETTABLEKS R4 R5 K10 ["Roact"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K11 ["PureComponent"]
+  LOADK R6 K12 ["StandaloneSelectionBox"]
+  NAMECALL R4 R4 K13 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K15 ["init"]
+  DUPCLOSURE R5 K16 [PROTO_1]
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K17 ["render"]
+  RETURN R4 1

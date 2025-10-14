@@ -1,0 +1,297 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["id"]
+  JUMPIFEQKNIL R0 [+6]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["type"]
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADNIL R0
+  RETURN R0 1
+  GETUPVAL R0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["type"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["id"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 1
+  GETUPVAL R2 2
+  CALL R2 0 1
+  GETUPVAL R3 3
+  CALL R3 0 1
+  GETTABLEKS R5 R1 K0 ["background"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R5 R1 K0 ["background"]
+  GETTABLEKS R4 R5 K1 ["style"]
+  JUMP [+1]
+  LOADNIL R4
+  GETTABLEKS R6 R1 K0 ["background"]
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R1 K0 ["background"]
+  GETTABLEKS R5 R6 K2 ["image"]
+  JUMP [+1]
+  LOADNIL R5
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K3 ["useMemo"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U5
+  NEWTABLE R8 0 2
+  GETTABLEKS R9 R1 K4 ["type"]
+  GETTABLEKS R10 R1 K5 ["id"]
+  SETLIST R8 R9 2 [1]
+  CALL R6 2 1
+  GETTABLEKS R8 R1 K6 ["shape"]
+  GETUPVAL R10 6
+  GETTABLEKS R9 R10 K7 ["Circle"]
+  JUMPIFNOTEQ R8 R9 [+10]
+  GETIMPORT R7 K10 [UDim.new]
+  LOADN R8 0
+  GETTABLEKS R10 R3 K11 ["Radius"]
+  GETTABLEKS R9 R10 K7 ["Circle"]
+  CALL R7 2 1
+  JUMP [+8]
+  GETIMPORT R7 K10 [UDim.new]
+  LOADN R8 0
+  GETTABLEKS R10 R3 K11 ["Radius"]
+  GETTABLEKS R9 R10 K12 ["Medium"]
+  CALL R7 2 1
+  GETTABLEKS R9 R2 K13 ["isContained"]
+  AND R8 R9 R7
+  JUMPIFNOT R8 [+14]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K14 ["createElement"]
+  GETUPVAL R10 7
+  DUPTABLE R11 K17 [{"fillDirection", "top"}]
+  GETTABLEKS R12 R2 K15 ["fillDirection"]
+  SETTABLEKS R12 R11 K15 ["fillDirection"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K16 ["top"]
+  CALL R9 2 1
+  JUMP [+1]
+  LOADNIL R9
+  JUMPIFNOT R8 [+14]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K14 ["createElement"]
+  GETUPVAL R11 7
+  DUPTABLE R12 K17 [{"fillDirection", "top"}]
+  GETTABLEKS R13 R2 K15 ["fillDirection"]
+  SETTABLEKS R13 R12 K15 ["fillDirection"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K16 ["top"]
+  CALL R10 2 1
+  JUMP [+1]
+  LOADNIL R10
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K14 ["createElement"]
+  JUMPIFNOT R5 [+2]
+  GETUPVAL R12 8
+  JUMP [+1]
+  GETUPVAL R12 9
+  DUPTABLE R13 K27 [{"Image", "imageStyle", "backgroundStyle", "Size", "ZIndex", "LayoutOrder", "aspectRatio", "cornerRadius", "onStateChanged"}]
+  SETTABLEKS R5 R13 K18 ["Image"]
+  JUMPIFNOT R5 [+2]
+  MOVE R14 R4
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K19 ["imageStyle"]
+  JUMPIFNOT R5 [+2]
+  LOADNIL R14
+  JUMP [+1]
+  MOVE R14 R4
+  SETTABLEKS R14 R13 K20 ["backgroundStyle"]
+  GETTABLEKS R15 R2 K15 ["fillDirection"]
+  GETIMPORT R16 K31 [Enum.FillDirection.Vertical]
+  JUMPIFNOTEQ R15 R16 [+7]
+  GETIMPORT R14 K34 [UDim2.fromScale]
+  LOADN R15 1
+  LOADN R16 0
+  CALL R14 2 1
+  JUMP [+5]
+  GETIMPORT R14 K34 [UDim2.fromScale]
+  LOADN R15 0
+  LOADN R16 1
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K21 ["Size"]
+  LOADN R14 0
+  SETTABLEKS R14 R13 K22 ["ZIndex"]
+  GETTABLEKS R14 R1 K23 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K23 ["LayoutOrder"]
+  DUPTABLE R14 K38 [{"AspectRatio", "AspectType", "DominantAxis"}]
+  GETUPVAL R16 10
+  GETTABLEKS R17 R1 K6 ["shape"]
+  GETTABLE R15 R16 R17
+  SETTABLEKS R15 R14 K35 ["AspectRatio"]
+  GETIMPORT R15 K40 [Enum.AspectType.ScaleWithParentSize]
+  SETTABLEKS R15 R14 K36 ["AspectType"]
+  GETTABLEKS R16 R2 K15 ["fillDirection"]
+  GETIMPORT R17 K31 [Enum.FillDirection.Vertical]
+  JUMPIFNOTEQ R16 R17 [+4]
+  GETIMPORT R15 K42 [Enum.DominantAxis.Width]
+  JUMP [+2]
+  GETIMPORT R15 K44 [Enum.DominantAxis.Height]
+  SETTABLEKS R15 R14 K37 ["DominantAxis"]
+  SETTABLEKS R14 R13 K24 ["aspectRatio"]
+  SETTABLEKS R7 R13 K25 ["cornerRadius"]
+  GETTABLEKS R14 R1 K26 ["onStateChanged"]
+  SETTABLEKS R14 R13 K26 ["onStateChanged"]
+  DUPTABLE R14 K47 [{"TransparencyGradient", "MiddleCorners", "Image"}]
+  SETTABLEKS R9 R14 K45 ["TransparencyGradient"]
+  JUMPIFNOT R8 [+50]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K14 ["createElement"]
+  GETUPVAL R16 8
+  DUPTABLE R17 K49 [{"Image", "imageStyle", "backgroundStyle", "ZIndex", "tag"}]
+  SETTABLEKS R5 R17 K18 ["Image"]
+  JUMPIFNOT R5 [+2]
+  MOVE R18 R4
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K19 ["imageStyle"]
+  JUMPIFNOT R5 [+2]
+  LOADNIL R18
+  JUMP [+1]
+  MOVE R18 R4
+  SETTABLEKS R18 R17 K20 ["backgroundStyle"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K22 ["ZIndex"]
+  LOADK R18 K50 ["size-full"]
+  SETTABLEKS R18 R17 K48 ["tag"]
+  DUPTABLE R18 K51 [{"TransparencyGradient", "Image"}]
+  SETTABLEKS R10 R18 K45 ["TransparencyGradient"]
+  GETUPVAL R20 4
+  GETTABLEKS R19 R20 K14 ["createElement"]
+  GETUPVAL R20 8
+  DUPTABLE R21 K52 [{"Image", "imageStyle", "tag"}]
+  SETTABLEKS R6 R21 K18 ["Image"]
+  GETTABLEKS R22 R1 K1 ["style"]
+  SETTABLEKS R22 R21 K19 ["imageStyle"]
+  LOADK R22 K50 ["size-full"]
+  SETTABLEKS R22 R21 K48 ["tag"]
+  DUPTABLE R22 K53 [{"TransparencyGradient"}]
+  SETTABLEKS R10 R22 K45 ["TransparencyGradient"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K18 ["Image"]
+  CALL R15 3 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K46 ["MiddleCorners"]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K14 ["createElement"]
+  GETUPVAL R16 8
+  DUPTABLE R17 K54 [{"Image", "cornerRadius", "imageStyle", "tag"}]
+  SETTABLEKS R6 R17 K18 ["Image"]
+  SETTABLEKS R7 R17 K25 ["cornerRadius"]
+  GETTABLEKS R18 R1 K1 ["style"]
+  SETTABLEKS R18 R17 K19 ["imageStyle"]
+  NEWTABLE R18 2 0
+  LOADB R19 1
+  SETTABLEKS R19 R18 K50 ["size-full"]
+  GETTABLEKS R20 R1 K55 ["children"]
+  JUMPIFNOTEQKNIL R20 [+2]
+  LOADB R19 0 +1
+  LOADB R19 1
+  SETTABLEKS R19 R18 K56 ["padding-medium"]
+  SETTABLEKS R18 R17 K48 ["tag"]
+  GETTABLEKS R18 R1 K55 ["children"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K18 ["Image"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Enums"]
+  GETTABLEKS R4 R5 K9 ["MediaType"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Enums"]
+  GETTABLEKS R5 R6 K10 ["ThumbnailType"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Enums"]
+  GETTABLEKS R6 R7 K11 ["ThumbnailSize"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K8 ["Enums"]
+  GETTABLEKS R7 R8 K12 ["MediaShape"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R10 R0 K13 ["Components"]
+  GETTABLEKS R9 R10 K14 ["Tile"]
+  GETTABLEKS R8 R9 K15 ["useTileLayout"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K16 ["Utility"]
+  GETTABLEKS R9 R10 K17 ["withDefaults"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K16 ["Utility"]
+  GETTABLEKS R10 R11 K18 ["getRbxThumb"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K13 ["Components"]
+  GETTABLEKS R11 R12 K19 ["Gradient"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K13 ["Components"]
+  GETTABLEKS R12 R13 K20 ["Image"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K13 ["Components"]
+  GETTABLEKS R13 R14 K21 ["View"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R16 R0 K22 ["Providers"]
+  GETTABLEKS R15 R16 K23 ["Style"]
+  GETTABLEKS R14 R15 K24 ["useTokens"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R16 R0 K13 ["Components"]
+  GETTABLEKS R15 R16 K25 ["Types"]
+  CALL R14 1 1
+  NEWTABLE R15 4 0
+  GETTABLEKS R16 R6 K26 ["Circle"]
+  LOADN R17 1
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R6 K27 ["Square"]
+  LOADN R17 1
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R6 K28 ["Landscape"]
+  LOADK R17 K29 [1.77777777777778]
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R6 K30 ["Portrait"]
+  LOADK R17 K31 [0.5625]
+  SETTABLE R17 R15 R16
+  DUPTABLE R16 K34 [{"shape", "LayoutOrder"}]
+  GETTABLEKS R17 R6 K27 ["Square"]
+  SETTABLEKS R17 R16 K32 ["shape"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K33 ["LayoutOrder"]
+  DUPCLOSURE R17 K35 [PROTO_1]
+  CAPTURE VAL R8
+  CAPTURE VAL R16
+  CAPTURE VAL R7
+  CAPTURE VAL R13
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  RETURN R17 1

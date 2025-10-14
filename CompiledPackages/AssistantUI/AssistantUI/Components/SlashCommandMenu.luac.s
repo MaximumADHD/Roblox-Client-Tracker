@@ -1,0 +1,441 @@
+PROTO_0:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["SlashCommandMenuItem should not be rendered when FFlagMCPAssistantSlashCommandMenu is false"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  DUPTABLE R3 K7 [{"tag", "onActivated", "LayoutOrder", "testId"}]
+  LOADK R4 K8 ["row size-full-1000 padding-x-medium gap-small align-y-center"]
+  SETTABLEKS R4 R3 K3 ["tag"]
+  GETTABLEKS R4 R0 K4 ["onActivated"]
+  SETTABLEKS R4 R3 K4 ["onActivated"]
+  GETTABLEKS R4 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K5 ["LayoutOrder"]
+  LOADK R4 K9 ["Assistant-SlashCommandMenuItem"]
+  SETTABLEKS R4 R3 K6 ["testId"]
+  DUPTABLE R4 K12 [{"Command", "Description"}]
+  GETUPVAL R5 1
+  GETUPVAL R6 3
+  DUPTABLE R7 K14 [{"tag", "Text", "testId"}]
+  LOADK R8 K15 ["auto-xy text-label-medium text-align-y-center text-truncate-split"]
+  SETTABLEKS R8 R7 K3 ["tag"]
+  GETTABLEKS R8 R0 K16 ["command"]
+  SETTABLEKS R8 R7 K13 ["Text"]
+  LOADK R8 K17 ["Assistant-SlashCommandMenuItem-Command"]
+  SETTABLEKS R8 R7 K6 ["testId"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["Command"]
+  GETTABLEKS R5 R0 K18 ["description"]
+  JUMPIFNOT R5 [+11]
+  GETUPVAL R5 1
+  GETUPVAL R6 3
+  DUPTABLE R7 K19 [{"tag", "Text"}]
+  LOADK R8 K20 ["auto-y fill center text-body-small text-align-x-left text-align-y-center text-truncate-split"]
+  SETTABLEKS R8 R7 K3 ["tag"]
+  GETTABLEKS R8 R0 K18 ["description"]
+  SETTABLEKS R8 R7 K13 ["Text"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["Description"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["setTextAndFocus"]
+  MOVE R3 R0
+  LOADK R4 K1 [" "]
+  CONCAT R2 R3 R4
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["textBoxRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["isOpen"]
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["items"]
+  LENGTH R2 R3
+  JUMPIFEQKN R2 K4 [1] [+2]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K5 ["UserInputType"]
+  GETIMPORT R3 K8 [Enum.UserInputType.Keyboard]
+  JUMPIFEQ R2 R3 [+2]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K9 ["KeyCode"]
+  GETIMPORT R3 K11 [Enum.KeyCode.Tab]
+  JUMPIFEQ R2 R3 [+2]
+  RETURN R0 0
+  LOADK R3 K12 ["%*%*"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K13 ["CommandPrefix"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["items"]
+  GETTABLEN R6 R7 1
+  NAMECALL R3 R3 K14 ["format"]
+  CALL R3 3 1
+  MOVE R2 R3
+  GETUPVAL R3 2
+  MOVE R4 R2
+  CALL R3 1 0
+  LOADB R5 0
+  NAMECALL R3 R1 K15 ["ReleaseFocus"]
+  CALL R3 2 0
+  GETIMPORT R3 K18 [task.wait]
+  CALL R3 0 0
+  NAMECALL R3 R1 K19 ["CaptureFocus"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["isOpen"]
+  JUMPIFNOT R1 [+17]
+  JUMPIFNOT R0 [+16]
+  GETIMPORT R1 K4 [UDim2.new]
+  LOADN R2 1
+  LOADN R3 0
+  LOADN R4 0
+  GETUPVAL R5 2
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K5 ["Size"]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K5 ["Size"]
+  GETTABLEKS R1 R2 K6 ["Size_150"]
+  SETTABLEKS R1 R0 K7 ["ScrollBarThickness"]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R4 R0 K0 ["AbsoluteContentSize"]
+  GETTABLEKS R3 R4 K1 ["Y"]
+  GETUPVAL R4 1
+  FASTCALL2 MATH_MIN R3 R4 [+3]
+  GETIMPORT R2 K4 [math.min]
+  CALL R2 2 1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R1 K2 [UDim2.fromOffset]
+  MOVE R2 R0
+  LOADN R3 0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["SlashCommandMenu should not be rendered when FFlagMCPAssistantSlashCommandMenu is false"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["Hooks"]
+  GETTABLEKS R1 R2 K4 ["useTokens"]
+  CALL R1 0 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K5 ["useCallback"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R0 K6 ["setTextAndFocus"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K7 ["useContext"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K8 ["Context"]
+  CALL R3 1 1
+  GETUPVAL R4 4
+  GETTABLEKS R5 R3 K9 ["inputBeganSignal"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  CAPTURE VAL R2
+  NEWTABLE R7 0 3
+  GETTABLEKS R8 R0 K10 ["isOpen"]
+  GETTABLEKS R9 R0 K11 ["items"]
+  MOVE R10 R2
+  SETLIST R7 R8 3 [1]
+  CALL R4 3 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K12 ["useState"]
+  LOADN R5 0
+  CALL R4 1 2
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K13 ["useRef"]
+  LOADNIL R7
+  CALL R6 1 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K14 ["useEffect"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R6
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  NEWTABLE R9 0 2
+  GETTABLEKS R10 R0 K10 ["isOpen"]
+  MOVE R11 R4
+  SETLIST R9 R10 2 [1]
+  CALL R7 2 0
+  GETUPVAL R7 6
+  CALL R7 0 1
+  NEWTABLE R8 0 0
+  GETTABLEKS R9 R0 K11 ["items"]
+  LOADNIL R10
+  LOADNIL R11
+  FORGPREP R9
+  LOADK R15 K15 ["%*%*"]
+  GETUPVAL R18 5
+  GETTABLEKS R17 R18 K16 ["CommandPrefix"]
+  MOVE R18 R13
+  NAMECALL R15 R15 K17 ["format"]
+  CALL R15 3 1
+  MOVE R14 R15
+  GETUPVAL R15 7
+  GETUPVAL R16 8
+  DUPTABLE R17 K22 [{"command", "description", "onActivated", "LayoutOrder"}]
+  SETTABLEKS R14 R17 K18 ["command"]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K23 ["getSlashCommandDescription"]
+  MOVE R19 R13
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K19 ["description"]
+  NEWCLOSURE R18 P3
+  CAPTURE VAL R2
+  CAPTURE VAL R14
+  SETTABLEKS R18 R17 K20 ["onActivated"]
+  MOVE R18 R7
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K21 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLE R15 R8 R13
+  GETTABLEKS R16 R0 K11 ["items"]
+  LENGTH R15 R16
+  JUMPIFNOTLT R12 R15 [+18]
+  LOADK R16 K24 ["Divider-%*"]
+  MOVE R18 R12
+  NAMECALL R16 R16 K17 ["format"]
+  CALL R16 2 1
+  MOVE R15 R16
+  GETUPVAL R16 7
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K25 ["Divider"]
+  DUPTABLE R18 K26 [{"LayoutOrder"}]
+  MOVE R19 R7
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K21 ["LayoutOrder"]
+  CALL R16 2 1
+  SETTABLE R16 R8 R15
+  FORGLOOP R9 2 [-55]
+  GETTABLEKS R10 R1 K27 ["Size"]
+  GETTABLEKS R9 R10 K28 ["Size_1000"]
+  LOADK R12 K30 [5.5]
+  MUL R11 R12 R9
+  ADDK R10 R11 K29 [5]
+  GETUPVAL R11 7
+  LOADK R12 K31 ["UIListLayout"]
+  NEWTABLE R13 4 0
+  GETIMPORT R14 K35 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K33 ["FillDirection"]
+  GETIMPORT R14 K37 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R14 R13 K36 ["SortOrder"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K38 ["Change"]
+  GETTABLEKS R14 R15 K39 ["AbsoluteContentSize"]
+  NEWCLOSURE R15 P4
+  CAPTURE VAL R5
+  CAPTURE VAL R10
+  SETTABLE R15 R13 R14
+  CALL R11 2 1
+  SETTABLEKS R11 R8 K40 ["Layout"]
+  JUMPIFLE R10 R4 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  MOVE R12 R11
+  JUMPIFNOT R12 [+14]
+  GETUPVAL R12 7
+  LOADK R13 K41 ["UIPadding"]
+  DUPTABLE R14 K43 [{"PaddingRight"}]
+  GETIMPORT R15 K46 [UDim.new]
+  LOADN R16 0
+  GETTABLEKS R18 R1 K47 ["Padding"]
+  GETTABLEKS R17 R18 K48 ["XXSmall"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K42 ["PaddingRight"]
+  CALL R12 2 1
+  SETTABLEKS R12 R8 K47 ["Padding"]
+  GETUPVAL R12 7
+  GETUPVAL R14 9
+  GETTABLEKS R13 R14 K49 ["Root"]
+  DUPTABLE R14 K50 [{"isOpen"}]
+  GETTABLEKS R15 R0 K10 ["isOpen"]
+  SETTABLEKS R15 R14 K10 ["isOpen"]
+  DUPTABLE R15 K53 [{"Anchor", "Content"}]
+  GETUPVAL R16 7
+  GETUPVAL R18 9
+  GETTABLEKS R17 R18 K51 ["Anchor"]
+  LOADNIL R18
+  GETTABLEKS R19 R0 K54 ["children"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K51 ["Anchor"]
+  GETUPVAL R16 7
+  GETUPVAL R18 9
+  GETTABLEKS R17 R18 K52 ["Content"]
+  DUPTABLE R18 K57 [{"side", "align"}]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K58 ["Enums"]
+  GETTABLEKS R20 R21 K59 ["PopoverSide"]
+  GETTABLEKS R19 R20 K60 ["Top"]
+  SETTABLEKS R19 R18 K55 ["side"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K58 ["Enums"]
+  GETTABLEKS R20 R21 K61 ["PopoverAlign"]
+  GETTABLEKS R19 R20 K62 ["Center"]
+  SETTABLEKS R19 R18 K56 ["align"]
+  DUPTABLE R19 K64 [{"Container"}]
+  LOADB R20 0
+  GETTABLEKS R22 R0 K11 ["items"]
+  LENGTH R21 R22
+  LOADN R22 0
+  JUMPIFNOTLT R22 R21 [+68]
+  GETUPVAL R20 7
+  LOADK R21 K65 ["CanvasGroup"]
+  DUPTABLE R22 K68 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
+  GETIMPORT R23 K70 [Enum.AutomaticSize.Y]
+  SETTABLEKS R23 R22 K66 ["AutomaticSize"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K67 ["BackgroundTransparency"]
+  GETTABLEKS R23 R0 K71 ["width"]
+  DUPCLOSURE R25 K72 [PROTO_6]
+  NAMECALL R23 R23 K73 ["map"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K27 ["Size"]
+  DUPTABLE R23 K76 [{"Corner", "ScrollView"}]
+  GETUPVAL R24 7
+  LOADK R25 K77 ["UICorner"]
+  DUPTABLE R26 K79 [{"CornerRadius"}]
+  GETIMPORT R27 K46 [UDim.new]
+  LOADN R28 0
+  GETTABLEKS R30 R1 K80 ["Radius"]
+  GETTABLEKS R29 R30 K81 ["Medium"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K78 ["CornerRadius"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K74 ["Corner"]
+  GETUPVAL R24 7
+  GETUPVAL R25 10
+  DUPTABLE R26 K86 [{"tag", "Size", "scroll", "scrollingFrameRef", "testId"}]
+  NEWTABLE R27 2 0
+  LOADB R28 1
+  SETTABLEKS R28 R27 K87 ["auto-y bg-shift-200"]
+  SETTABLEKS R11 R27 K88 ["padding-right-xxsmall"]
+  SETTABLEKS R27 R26 K82 ["tag"]
+  GETIMPORT R27 K91 [UDim2.fromScale]
+  LOADN R28 1
+  LOADN R29 0
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K27 ["Size"]
+  GETUPVAL R27 11
+  SETTABLEKS R27 R26 K83 ["scroll"]
+  SETTABLEKS R6 R26 K84 ["scrollingFrameRef"]
+  LOADK R27 K92 ["Assistant-SlashCommandMenu"]
+  SETTABLEKS R27 R26 K85 ["testId"]
+  MOVE R27 R8
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K75 ["ScrollView"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K63 ["Container"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K52 ["Content"]
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Flags"]
+  GETTABLEKS R2 R3 K7 ["FFlagMCPAssistantSlashCommandMenu"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Parent"]
+  GETTABLEKS R5 R6 K11 ["ReactUtils"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["UIToolRegistry"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K12 ["Components"]
+  GETTABLEKS R8 R9 K14 ["Contexts"]
+  GETTABLEKS R7 R8 K15 ["WindowInputContext"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K16 ["Hooks"]
+  GETTABLEKS R8 R9 K17 ["useEventConnection"]
+  CALL R7 1 1
+  GETTABLEKS R8 R1 K18 ["Get"]
+  GETTABLEKS R9 R2 K19 ["Popover"]
+  GETTABLEKS R10 R2 K20 ["ScrollView"]
+  GETTABLEKS R11 R2 K21 ["Text"]
+  GETTABLEKS R12 R2 K22 ["View"]
+  GETTABLEKS R13 R4 K23 ["createNextOrder"]
+  GETTABLEKS R14 R3 K24 ["createElement"]
+  DUPTABLE R15 K29 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection", "VerticalScrollBarInset"}]
+  GETIMPORT R16 K33 [Enum.AutomaticSize.Y]
+  SETTABLEKS R16 R15 K25 ["AutomaticCanvasSize"]
+  GETIMPORT R16 K36 [UDim2.new]
+  CALL R16 0 1
+  SETTABLEKS R16 R15 K26 ["CanvasSize"]
+  GETIMPORT R16 K37 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R16 R15 K27 ["ScrollingDirection"]
+  GETIMPORT R16 K40 [Enum.ScrollBarInset.ScrollBar]
+  SETTABLEKS R16 R15 K28 ["VerticalScrollBarInset"]
+  DUPCLOSURE R16 K41 [PROTO_0]
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  DUPCLOSURE R17 K42 [PROTO_7]
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R15
+  RETURN R17 1

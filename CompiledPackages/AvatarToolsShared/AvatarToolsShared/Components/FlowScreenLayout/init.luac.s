@@ -1,0 +1,243 @@
+PROTO_0:
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_1:
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["emptyFunc"]
+  RETURN R0 0
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Title"]
+  GETTABLEKS R3 R1 K2 ["PromptText"]
+  GETTABLEKS R4 R1 K3 ["BackButtonText"]
+  GETTABLEKS R6 R1 K5 ["BackButtonEnabled"]
+  ORK R5 R6 K4 [False]
+  GETTABLEKS R6 R1 K6 ["NextButtonEnabled"]
+  GETTABLEKS R7 R1 K7 ["NextButtonText"]
+  GETTABLEKS R8 R1 K8 ["HasBackButton"]
+  GETTABLEKS R10 R1 K10 ["LayoutOrder"]
+  ORK R9 R10 K9 [1]
+  GETTABLEKS R10 R1 K11 ["GoToNext"]
+  GETTABLEKS R11 R1 K12 ["GoToPrevious"]
+  JUMPIF R11 [+2]
+  GETTABLEKS R11 R0 K13 ["emptyFunc"]
+  GETTABLEKS R12 R1 K14 ["RenderContent"]
+  JUMPIF R12 [+2]
+  GETTABLEKS R12 R0 K13 ["emptyFunc"]
+  GETTABLEKS R13 R1 K15 ["Stylizer"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K16 ["new"]
+  CALL R14 0 1
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K17 ["createElement"]
+  GETUPVAL R16 2
+  DUPTABLE R17 K24 [{"Text", "LayoutOrder", "AlwaysExpanded", "Style", "HorizontalAlignment", "VerticalAlignment", "Spacing"}]
+  SETTABLEKS R2 R17 K18 ["Text"]
+  SETTABLEKS R9 R17 K10 ["LayoutOrder"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K19 ["AlwaysExpanded"]
+  LOADK R18 K25 ["Section"]
+  SETTABLEKS R18 R17 K20 ["Style"]
+  GETIMPORT R18 K28 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R18 R17 K21 ["HorizontalAlignment"]
+  GETIMPORT R18 K30 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R18 R17 K22 ["VerticalAlignment"]
+  GETTABLEKS R18 R13 K31 ["ScreenSpacing"]
+  SETTABLEKS R18 R17 K23 ["Spacing"]
+  DUPTABLE R18 K35 [{"Prompt", "Content", "NextAndBackButtonContainer"}]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K17 ["createElement"]
+  GETUPVAL R20 3
+  DUPTABLE R21 K40 [{"TextXAlignment", "TextYAlignment", "AutomaticSize", "Text", "TextWrapped", "LayoutOrder"}]
+  GETIMPORT R22 K41 [Enum.TextXAlignment.Left]
+  SETTABLEKS R22 R21 K36 ["TextXAlignment"]
+  GETIMPORT R22 K43 [Enum.TextYAlignment.Center]
+  SETTABLEKS R22 R21 K37 ["TextYAlignment"]
+  GETIMPORT R22 K45 [Enum.AutomaticSize.XY]
+  SETTABLEKS R22 R21 K38 ["AutomaticSize"]
+  SETTABLEKS R3 R21 K18 ["Text"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K39 ["TextWrapped"]
+  NAMECALL R22 R14 K46 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K10 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K32 ["Prompt"]
+  MOVE R19 R12
+  NAMECALL R20 R14 K46 ["getNextOrder"]
+  CALL R20 1 -1
+  CALL R19 -1 1
+  SETTABLEKS R19 R18 K33 ["Content"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K17 ["createElement"]
+  GETUPVAL R20 4
+  DUPTABLE R21 K48 [{"LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "AutomaticSize", "Spacing"}]
+  NAMECALL R22 R14 K46 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K10 ["LayoutOrder"]
+  GETIMPORT R22 K51 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R22 R21 K47 ["Layout"]
+  GETIMPORT R22 K53 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R22 R21 K21 ["HorizontalAlignment"]
+  GETIMPORT R22 K54 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R22 R21 K22 ["VerticalAlignment"]
+  GETIMPORT R22 K56 [Enum.AutomaticSize.Y]
+  SETTABLEKS R22 R21 K38 ["AutomaticSize"]
+  GETTABLEKS R22 R13 K57 ["ButtonSpacing"]
+  SETTABLEKS R22 R21 K23 ["Spacing"]
+  DUPTABLE R22 K60 [{"BackButton", "NextButton"}]
+  MOVE R23 R8
+  JUMPIFNOT R23 [+41]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K17 ["createElement"]
+  GETUPVAL R24 5
+  DUPTABLE R25 K64 [{"Text", "Style", "StyleModifier", "Size", "OnClick", "LayoutOrder"}]
+  SETTABLEKS R4 R25 K18 ["Text"]
+  LOADK R26 K65 ["Round"]
+  SETTABLEKS R26 R25 K20 ["Style"]
+  JUMPIF R5 [+4]
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K66 ["Disabled"]
+  JUMPIF R26 [+1]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K61 ["StyleModifier"]
+  GETIMPORT R26 K68 [UDim2.new]
+  LOADN R27 0
+  GETTABLEKS R28 R13 K69 ["ButtonWidth"]
+  LOADN R29 0
+  GETTABLEKS R30 R13 K70 ["ButtonHeight"]
+  CALL R26 4 1
+  SETTABLEKS R26 R25 K62 ["Size"]
+  JUMPIFNOT R5 [+2]
+  MOVE R26 R11
+  JUMPIF R26 [+1]
+  DUPCLOSURE R26 K71 [PROTO_2]
+  SETTABLEKS R26 R25 K63 ["OnClick"]
+  NAMECALL R26 R14 K46 ["getNextOrder"]
+  CALL R26 1 1
+  SETTABLEKS R26 R25 K10 ["LayoutOrder"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K58 ["BackButton"]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K17 ["createElement"]
+  GETUPVAL R24 5
+  DUPTABLE R25 K64 [{"Text", "Style", "StyleModifier", "Size", "OnClick", "LayoutOrder"}]
+  SETTABLEKS R7 R25 K18 ["Text"]
+  LOADK R26 K65 ["Round"]
+  SETTABLEKS R26 R25 K20 ["Style"]
+  JUMPIF R6 [+4]
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K66 ["Disabled"]
+  JUMPIF R26 [+1]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K61 ["StyleModifier"]
+  GETIMPORT R26 K68 [UDim2.new]
+  LOADN R27 0
+  GETTABLEKS R28 R13 K69 ["ButtonWidth"]
+  LOADN R29 0
+  GETTABLEKS R30 R13 K70 ["ButtonHeight"]
+  CALL R26 4 1
+  SETTABLEKS R26 R25 K62 ["Size"]
+  JUMPIFNOT R6 [+2]
+  MOVE R26 R10
+  JUMPIF R26 [+1]
+  DUPCLOSURE R26 K72 [PROTO_3]
+  SETTABLEKS R26 R25 K63 ["OnClick"]
+  NAMECALL R26 R14 K46 ["getNextOrder"]
+  CALL R26 1 1
+  SETTABLEKS R26 R25 K10 ["LayoutOrder"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K59 ["NextButton"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K34 ["NextAndBackButtonContainer"]
+  CALL R15 3 -1
+  RETURN R15 -1
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Scrollable"]
+  NAMECALL R3 R0 K2 ["renderPane"]
+  CALL R3 1 1
+  JUMPIF R2 [+1]
+  RETURN R3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 1
+  NEWTABLE R6 0 0
+  DUPTABLE R7 K5 [{"MainFrame"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 2
+  NEWTABLE R10 0 0
+  DUPTABLE R11 K7 [{"ExpandablePane"}]
+  SETTABLEKS R3 R11 K6 ["ExpandablePane"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K4 ["MainFrame"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K6 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K7 ["ContextServices"]
+  GETTABLEKS R4 R3 K8 ["withContext"]
+  GETTABLEKS R5 R2 K9 ["UI"]
+  GETTABLEKS R6 R5 K10 ["Button"]
+  GETTABLEKS R7 R5 K11 ["ExpandablePane"]
+  GETTABLEKS R8 R5 K12 ["Pane"]
+  GETTABLEKS R9 R5 K13 ["ScrollingFrame"]
+  GETTABLEKS R10 R5 K14 ["TextLabel"]
+  GETTABLEKS R11 R2 K15 ["Util"]
+  GETTABLEKS R12 R11 K16 ["StyleModifier"]
+  GETTABLEKS R13 R11 K17 ["LayoutOrderIterator"]
+  GETTABLEKS R14 R1 K18 ["PureComponent"]
+  LOADK R16 K19 ["FlowScreenLayout"]
+  NAMECALL R14 R14 K20 ["extend"]
+  CALL R14 2 1
+  GETTABLEKS R15 R11 K21 ["Typecheck"]
+  GETTABLEKS R16 R15 K22 ["wrap"]
+  MOVE R17 R14
+  GETIMPORT R18 K1 [script]
+  CALL R16 2 0
+  DUPCLOSURE R16 K23 [PROTO_1]
+  SETTABLEKS R16 R14 K24 ["init"]
+  DUPCLOSURE R16 K25 [PROTO_4]
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R12
+  SETTABLEKS R16 R14 K26 ["renderPane"]
+  DUPCLOSURE R16 K27 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  SETTABLEKS R16 R14 K28 ["render"]
+  MOVE R16 R4
+  DUPTABLE R17 K30 [{"Stylizer"}]
+  GETTABLEKS R18 R3 K29 ["Stylizer"]
+  SETTABLEKS R18 R17 K29 ["Stylizer"]
+  CALL R16 1 1
+  MOVE R17 R14
+  CALL R16 1 1
+  MOVE R14 R16
+  RETURN R14 1

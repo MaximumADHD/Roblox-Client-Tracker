@@ -14,7 +14,7 @@ local Rodux = require(root.Packages.Rodux)
 
 local Framework = require(root.Packages.Framework)
 
-local ContextServices = Framework.ContextServices
+local ContextServices: any = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Store = ContextServices.Store
 

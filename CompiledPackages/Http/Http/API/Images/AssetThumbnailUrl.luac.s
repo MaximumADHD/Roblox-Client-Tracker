@@ -1,0 +1,64 @@
+PROTO_0:
+  ORK R1 R1 K0 [100]
+  ORK R2 R2 K0 [100]
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K2 [tonumber]
+  CALL R5 1 1
+  LOADN R6 255
+  JUMPIFLT R6 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K3 [+4]
+  LOADK R5 K3 ["Expected assetId to be a valid number"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K7 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K8 ["number"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K9 [+4]
+  LOADK R5 K9 ["Expected width to be a number"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K7 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K8 ["number"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K10 [+4]
+  LOADK R5 K10 ["Expected height to be a number"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["makeQueryString"]
+  DUPTABLE R4 K15 [{"assetId", "width", "height"}]
+  SETTABLEKS R0 R4 K12 ["assetId"]
+  SETTABLEKS R1 R4 K13 ["width"]
+  SETTABLEKS R2 R4 K14 ["height"]
+  CALL R3 1 1
+  GETIMPORT R4 K18 [string.format]
+  LOADK R5 K19 ["%sasset-thumbnail/image?%s"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K20 ["ASSET_GAME_URL"]
+  MOVE R7 R3
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["BaseUrl"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K6 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

@@ -1,0 +1,35 @@
+PROTO_0:
+  GETIMPORT R2 K1 [_G]
+  GETTABLEKS R1 R2 K2 ["__DEV__"]
+  JUMPIFNOT R1 [+9]
+  GETIMPORT R2 K1 [_G]
+  GETTABLEKS R1 R2 K3 ["__COMPAT_WARNINGS__"]
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R1 0
+  LOADK R2 K4 ["Roact.Portal"]
+  LOADK R3 K5 ["Please use the createPortal API on ReactRoblox instead"]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K6 ["createPortal"]
+  GETTABLEKS R2 R0 K7 ["children"]
+  GETTABLEKS R3 R0 K8 ["target"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["ReactRoblox"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["warnOnce"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K7 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R3 1

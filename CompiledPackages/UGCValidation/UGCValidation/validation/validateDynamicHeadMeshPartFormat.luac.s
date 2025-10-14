@@ -1,0 +1,131 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K0 ["instances"]
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["instances required in validationContext for validateDynamicHeadMeshPartFormat"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K0 ["instances"]
+  GETTABLEKS R2 R0 K4 ["isServer"]
+  GETTABLEKS R4 R0 K5 ["bypassFlags"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K5 ["bypassFlags"]
+  GETTABLEKS R3 R4 K6 ["skipSnapshot"]
+  JUMP [+1]
+  LOADB R3 0
+  GETUPVAL R4 0
+  MOVE R5 R1
+  MOVE R6 R0
+  CALL R4 2 2
+  JUMPIF R4 [+1]
+  RETURN R4 2
+  GETTABLEN R6 R1 1
+  GETUPVAL R7 1
+  MOVE R8 R6
+  GETUPVAL R9 2
+  MOVE R10 R0
+  CALL R9 1 1
+  MOVE R10 R0
+  CALL R7 3 2
+  MOVE R4 R7
+  MOVE R5 R8
+  JUMPIF R4 [+3]
+  LOADB R7 0
+  MOVE R8 R5
+  RETURN R7 2
+  GETUPVAL R7 3
+  CALL R7 0 1
+  JUMPIF R7 [+33]
+  JUMPIFNOT R2 [+3]
+  GETUPVAL R7 4
+  CALL R7 0 1
+  JUMPIF R7 [+4]
+  JUMPIF R2 [+28]
+  GETUPVAL R7 5
+  CALL R7 0 1
+  JUMPIFNOT R7 [+25]
+  JUMPIF R3 [+24]
+  GETIMPORT R7 K8 [tick]
+  CALL R7 0 1
+  GETUPVAL R8 6
+  MOVE R9 R6
+  JUMPIFEQKNIL R2 [+3]
+  MOVE R10 R2
+  JUMP [+1]
+  LOADB R10 0
+  CALL R8 2 2
+  MOVE R4 R8
+  MOVE R5 R9
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K9 ["recordScriptTime"]
+  LOADK R9 K10 ["validateDynamicHeadMood"]
+  MOVE R10 R7
+  MOVE R11 R0
+  CALL R8 3 0
+  JUMPIF R4 [+3]
+  LOADB R8 0
+  MOVE R9 R5
+  RETURN R8 2
+  GETUPVAL R7 8
+  MOVE R8 R6
+  MOVE R9 R0
+  CALL R7 2 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["flags"]
+  GETTABLEKS R2 R3 K6 ["getFFlagUGCValidateDynamicHeadMoodClient"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["flags"]
+  GETTABLEKS R3 R4 K7 ["getFFlagUGCValidateDynamicHeadMoodRCC"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["flags"]
+  GETTABLEKS R4 R5 K8 ["getFFlagValidateFacialBounds"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R0 K9 ["Analytics"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K10 ["validation"]
+  GETTABLEKS R6 R7 K11 ["validateSingleInstance"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K10 ["validation"]
+  GETTABLEKS R7 R8 K12 ["validateMeshPartBodyPart"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K10 ["validation"]
+  GETTABLEKS R8 R9 K13 ["validateDynamicHeadData"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K10 ["validation"]
+  GETTABLEKS R9 R10 K14 ["validateDynamicHeadMood"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K15 ["util"]
+  GETTABLEKS R10 R11 K16 ["Types"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K15 ["util"]
+  GETTABLEKS R11 R12 K17 ["createDynamicHeadMeshPartSchema"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K18 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  RETURN R11 1

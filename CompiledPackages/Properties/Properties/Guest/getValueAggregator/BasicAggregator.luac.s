@@ -1,0 +1,65 @@
+PROTO_0:
+  DUPTABLE R1 K1 [{"value"}]
+  DUPTABLE R2 K3 [{"value", "multiple"}]
+  SETTABLEKS R0 R2 K0 ["value"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["multiple"]
+  SETTABLEKS R2 R1 K0 ["value"]
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R4 R0 K0 ["value"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  GETTABLEKS R4 R0 K0 ["value"]
+  GETTABLEKS R3 R4 K0 ["value"]
+  MOVE R6 R2
+  LENGTH R4 R1
+  LOADN R5 1
+  FORNPREP R4
+  GETTABLE R7 R1 R6
+  JUMPIFEQ R7 R3 [+7]
+  GETTABLEKS R8 R0 K0 ["value"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K1 ["multiple"]
+  JUMP [+1]
+  FORNLOOP R4
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_2:
+  JUMPIFEQKS R2 K0 ["value"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K1 [+4]
+  LOADK R6 K1 ["Basic aggregator does not support sub-parts"]
+  GETIMPORT R4 K3 [assert]
+  CALL R4 2 0
+  MOVE R6 R1
+  LENGTH R4 R0
+  LOADN R5 1
+  FORNPREP R4
+  SETTABLE R3 R0 R6
+  FORNLOOP R4
+  LOADNIL R4
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["RpcTypes"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_0]
+  DUPCLOSURE R3 K8 [PROTO_1]
+  DUPCLOSURE R4 K9 [PROTO_2]
+  DUPTABLE R5 K13 [{"initParts", "aggregateParts", "setPart"}]
+  SETTABLEKS R2 R5 K10 ["initParts"]
+  SETTABLEKS R3 R5 K11 ["aggregateParts"]
+  SETTABLEKS R4 R5 K12 ["setPart"]
+  RETURN R5 1

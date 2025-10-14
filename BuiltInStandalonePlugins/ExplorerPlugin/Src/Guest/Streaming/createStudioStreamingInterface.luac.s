@@ -1,0 +1,215 @@
+PROTO_0:
+  LOADK R0 K0 ["Received update from RCC"]
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  RETURN R0 3
+
+PROTO_1:
+  GETUPVAL R2 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R2 1 0
+  JUMPIFNOTEQKS R0 K0 ["childAdded"] [+7]
+  GETUPVAL R2 1
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["Fire"]
+  CALL R2 2 0
+  RETURN R0 0
+  JUMPIFNOTEQKS R0 K2 ["childRemoved"] [+6]
+  GETUPVAL R2 2
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["Fire"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  DUPTABLE R4 K2 [{"id", "depth"}]
+  SETTABLEKS R0 R4 K0 ["id"]
+  SETTABLEKS R1 R4 K1 ["depth"]
+  NAMECALL R2 R2 K3 ["Fire"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  DUPTABLE R4 K2 [{"id", "depth"}]
+  SETTABLEKS R0 R4 K0 ["id"]
+  SETTABLEKS R1 R4 K1 ["depth"]
+  NAMECALL R2 R2 K3 ["Fire"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Stop"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 2
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["startTrackingInstance"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K1 ["SendUpdate"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  LOADN R4 255
+  NAMECALL R1 R1 K0 ["PinStreamingForInstanceByUniqueId"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["IsStreamedOut"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_8:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["NetworkClient"]
+  NAMECALL R0 R0 K3 ["FindService"]
+  CALL R0 2 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["LocalPlayer"]
+  JUMPIFEQKNIL R1 [+8]
+  JUMPIFEQKNIL R0 [+6]
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K5 ["IsEdit"]
+  CALL R2 1 1
+  JUMPIF R2 [+5]
+  GETUPVAL R2 2
+  LOADK R3 K6 ["Couldn't start streaming interface, not Team Create"]
+  CALL R2 1 0
+  LOADNIL R2
+  RETURN R2 1
+  LOADNIL R2
+  NAMECALL R3 R0 K7 ["GetChildren"]
+  CALL R3 1 3
+  FORGPREP R3
+  LOADK R10 K8 ["ClientReplicator"]
+  NAMECALL R8 R7 K9 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+7]
+  NAMECALL R8 R7 K10 ["GetPlayer"]
+  CALL R8 1 1
+  JUMPIFNOTEQ R8 R1 [+3]
+  MOVE R2 R7
+  JUMP [+2]
+  FORGLOOP R3 2 [-13]
+  JUMPIFNOTEQKNIL R2 [+7]
+  GETUPVAL R3 2
+  LOADK R4 K11 ["Couldn't start streaming interface, couldn't find our own replicator"]
+  CALL R3 1 0
+  LOADNIL R3
+  CLOSEUPVALS R2
+  RETURN R3 1
+  GETUPVAL R3 2
+  LOADK R4 K12 ["Starting Studio streaming interface"]
+  CALL R3 1 0
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K13 ["Signal"]
+  GETTABLEKS R3 R4 K14 ["new"]
+  CALL R3 0 1
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K13 ["Signal"]
+  GETTABLEKS R4 R5 K14 ["new"]
+  CALL R4 0 1
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K13 ["Signal"]
+  GETTABLEKS R5 R6 K14 ["new"]
+  CALL R5 0 1
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K13 ["Signal"]
+  GETTABLEKS R6 R7 K14 ["new"]
+  CALL R6 0 1
+  GETUPVAL R7 4
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K15 ["ExplorerRemoteCommand"]
+  GETTABLEKS R9 R10 K16 ["Value"]
+  NAMECALL R7 R7 K17 ["ExecuteCommand"]
+  CALL R7 2 1
+  GETTABLEKS R8 R7 K18 ["ReceivedUpdate"]
+  NEWCLOSURE R10 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  NAMECALL R8 R8 K19 ["Connect"]
+  CALL R8 2 0
+  GETTABLEKS R8 R1 K20 ["InstancePinned"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R5
+  NAMECALL R8 R8 K19 ["Connect"]
+  CALL R8 2 1
+  GETTABLEKS R9 R1 K21 ["InstanceUnpinned"]
+  NEWCLOSURE R11 P2
+  CAPTURE VAL R6
+  NAMECALL R9 R9 K19 ["Connect"]
+  CALL R9 2 1
+  DUPTABLE R10 K30 [{"destroy", "startTrackingInstanceForStreaming", "requestStreamIn", "isInstanceStreamedOut", "childAddedSignal", "childRemovedSignal", "pinRequestedSignal", "unpinRequestedSignal"}]
+  NEWCLOSURE R11 P3
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  SETTABLEKS R11 R10 K22 ["destroy"]
+  NEWCLOSURE R11 P4
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K23 ["startTrackingInstanceForStreaming"]
+  NEWCLOSURE R11 P5
+  CAPTURE VAL R1
+  SETTABLEKS R11 R10 K24 ["requestStreamIn"]
+  NEWCLOSURE R11 P6
+  CAPTURE REF R2
+  SETTABLEKS R11 R10 K25 ["isInstanceStreamedOut"]
+  SETTABLEKS R3 R10 K26 ["childAddedSignal"]
+  SETTABLEKS R4 R10 K27 ["childRemovedSignal"]
+  SETTABLEKS R5 R10 K28 ["pinRequestedSignal"]
+  SETTABLEKS R6 R10 K29 ["unpinRequestedSignal"]
+  CLOSEUPVALS R2
+  RETURN R10 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Players"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["RemoteCommandService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K5 ["RunService"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K7 [script]
+  LOADK R5 K8 ["ExplorerPlugin"]
+  NAMECALL R3 R3 K9 ["FindFirstAncestor"]
+  CALL R3 2 1
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R6 R3 K12 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Explorer"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K14 ["Util"]
+  GETTABLEKS R5 R6 K15 ["createDebugLogger"]
+  LOADK R6 K16 ["createStudioStreamingInterface"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K17 [PROTO_8]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  RETURN R6 1

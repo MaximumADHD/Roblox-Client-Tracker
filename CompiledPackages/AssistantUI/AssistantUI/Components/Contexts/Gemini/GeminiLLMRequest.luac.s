@@ -1,0 +1,269 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["data"]
+  NAMECALL R0 R0 K1 ["JSONDecode"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+14]
+  GETIMPORT R1 K1 [print]
+  LOADK R3 K2 ["--- GeminiLLMRequest event: %* %* %*"]
+  GETTABLEKS R5 R0 K3 ["id"]
+  GETTABLEKS R6 R0 K4 ["event"]
+  GETTABLEKS R7 R0 K5 ["data"]
+  NAMECALL R3 R3 K6 ["format"]
+  CALL R3 4 1
+  MOVE R2 R3
+  CALL R1 1 0
+  GETIMPORT R1 K8 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CALL R1 1 2
+  JUMPIFNOT R1 [+14]
+  JUMPIFNOT R2 [+13]
+  GETUPVAL R3 2
+  GETTABLEKS R4 R0 K5 ["data"]
+  CALL R3 1 1
+  MOVE R4 R3
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETUPVAL R9 3
+  MOVE R10 R8
+  CALL R9 1 0
+  FORGLOOP R4 2 [-4]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+12]
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["--- GeminiLLMRequest error: %* (%*)"]
+  GETTABLEKS R5 R0 K3 ["message"]
+  GETTABLEKS R6 R0 K4 ["type"]
+  NAMECALL R3 R3 K5 ["format"]
+  CALL R3 3 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+9]
+  GETIMPORT R1 K1 [print]
+  LOADK R3 K2 ["--- GeminiLLMRequest comment: %*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+4]
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["--- GeminiLLMRequest WebStreamClient closed"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["Connected"]
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K4 ["Disconnect"]
+  CALL R0 1 0
+  LOADNIL R0
+  SETUPVAL R0 1
+  LOADNIL R0
+  SETUPVAL R0 2
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  LOADK R4 K0 ["HttpService"]
+  NAMECALL R2 R2 K1 ["GetService"]
+  CALL R2 2 1
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K2 ["messages"]
+  CALL R3 1 1
+  DUPTABLE R4 K7 [{"contents", "tools", "systemInstruction", "generationConfig"}]
+  SETTABLEKS R3 R4 K3 ["contents"]
+  GETTABLEKS R6 R0 K4 ["tools"]
+  JUMPIFNOT R6 [+16]
+  GETTABLEKS R7 R0 K4 ["tools"]
+  LENGTH R6 R7
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+11]
+  NEWTABLE R5 0 1
+  DUPTABLE R6 K9 [{"functionDeclarations"}]
+  GETTABLEKS R7 R0 K4 ["tools"]
+  SETTABLEKS R7 R6 K8 ["functionDeclarations"]
+  SETLIST R5 R6 1 [1]
+  JUMPIF R5 [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K4 ["tools"]
+  GETTABLEKS R6 R0 K10 ["system"]
+  JUMPIFNOT R6 [+13]
+  DUPTABLE R5 K12 [{"parts"}]
+  NEWTABLE R6 0 1
+  DUPTABLE R7 K14 [{"text"}]
+  GETTABLEKS R8 R0 K10 ["system"]
+  SETTABLEKS R8 R7 K13 ["text"]
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K11 ["parts"]
+  JUMPIF R5 [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K5 ["systemInstruction"]
+  DUPTABLE R5 K16 [{"temperature"}]
+  LOADK R6 K17 [0.5]
+  SETTABLEKS R6 R5 K15 ["temperature"]
+  SETTABLEKS R5 R4 K6 ["generationConfig"]
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+12]
+  GETIMPORT R5 K19 [print]
+  LOADK R7 K20 ["--- GeminiLLMRequest requestBody: %*"]
+  MOVE R11 R4
+  NAMECALL R9 R2 K21 ["JSONEncode"]
+  CALL R9 2 1
+  NAMECALL R7 R7 K22 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  CALL R5 1 0
+  GETUPVAL R5 3
+  CALL R5 0 1
+  JUMPIFNOTEQKS R5 K23 [""] [+5]
+  GETIMPORT R6 K25 [warn]
+  LOADK R7 K26 ["Gemini API Key is not set. Please set MCPAssistantGeminiAPIKey in FFlags."]
+  CALL R6 1 0
+  LOADK R7 K27 ["https://generativelanguage.googleapis.com/v1beta/models/%*:streamGenerateContent?alt=sse&key="]
+  LOADK R9 K28 ["gemini-2.5-pro-preview-03-25"]
+  NAMECALL R7 R7 K22 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  FASTCALL1 TYPEOF R5 [+3]
+  MOVE R8 R5
+  GETIMPORT R7 K30 [typeof]
+  CALL R7 1 1
+  JUMPIFNOTEQKS R7 K31 ["Secret"] [+7]
+  MOVE R9 R6
+  NAMECALL R7 R5 K32 ["AddPrefix"]
+  CALL R7 2 1
+  MOVE R6 R7
+  JUMP [+3]
+  MOVE R7 R6
+  MOVE R8 R5
+  CONCAT R6 R7 R8
+  GETIMPORT R9 K36 [Enum.WebStreamClientType.SSE]
+  DUPTABLE R10 K42 [{"Method", "Url", "Headers", "Body", "Compress"}]
+  LOADK R11 K43 ["POST"]
+  SETTABLEKS R11 R10 K37 ["Method"]
+  SETTABLEKS R6 R10 K38 ["Url"]
+  NEWTABLE R11 1 0
+  LOADK R12 K44 ["application/json"]
+  SETTABLEKS R12 R11 K45 ["Content-Type"]
+  SETTABLEKS R11 R10 K39 ["Headers"]
+  MOVE R13 R4
+  NAMECALL R11 R2 K21 ["JSONEncode"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K40 ["Body"]
+  GETIMPORT R11 K48 [Enum.HttpCompression.None]
+  SETTABLEKS R11 R10 K41 ["Compress"]
+  NAMECALL R7 R2 K49 ["CreateWebStreamClient"]
+  CALL R7 3 1
+  FASTCALL2K ASSERT R7 K50 [+5]
+  MOVE R9 R7
+  LOADK R10 K50 ["WebStreamClient should not be nil"]
+  GETIMPORT R8 K52 [assert]
+  CALL R8 2 0
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K53 ["createParser"]
+  DUPTABLE R9 K57 [{"onEvent", "onError", "onComment"}]
+  NEWCLOSURE R10 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  CAPTURE UPVAL U5
+  CAPTURE VAL R1
+  SETTABLEKS R10 R9 K54 ["onEvent"]
+  DUPCLOSURE R10 K58 [PROTO_2]
+  CAPTURE UPVAL U2
+  SETTABLEKS R10 R9 K55 ["onError"]
+  DUPCLOSURE R10 K59 [PROTO_3]
+  CAPTURE UPVAL U2
+  SETTABLEKS R10 R9 K56 ["onComment"]
+  CALL R8 1 1
+  GETTABLEKS R9 R7 K60 ["MessageReceived"]
+  GETTABLEKS R11 R8 K61 ["parseNextChunk"]
+  NAMECALL R9 R9 K62 ["Connect"]
+  CALL R9 2 1
+  GETTABLEKS R10 R7 K63 ["Closed"]
+  NEWCLOSURE R12 P3
+  CAPTURE UPVAL U2
+  CAPTURE REF R9
+  CAPTURE REF R7
+  NAMECALL R10 R10 K64 ["Once"]
+  CALL R10 2 0
+  CLOSEUPVALS R7
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["SpyableGame"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["FFlagDebugLogAssistantUI"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["FStringMCPAssistantGeminiAPIKey"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Contexts"]
+  GETTABLEKS R6 R7 K13 ["Gemini"]
+  GETTABLEKS R5 R6 K14 ["GeminiLLMAdapter"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K11 ["Components"]
+  GETTABLEKS R8 R9 K12 ["Contexts"]
+  GETTABLEKS R7 R8 K15 ["DefaultLLMProvider"]
+  GETTABLEKS R6 R7 K16 ["LLMRequest"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K17 ["Parent"]
+  GETTABLEKS R7 R8 K18 ["ModelContextProtocol"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K19 ["Get"]
+  GETTABLEKS R8 R3 K19 ["Get"]
+  GETTABLEKS R9 R6 K20 ["EventStreamParser"]
+  GETTABLEKS R10 R4 K21 ["createAdapter"]
+  CALL R10 0 1
+  GETTABLEKS R11 R4 K22 ["convertLLMtoGeminiMessage"]
+  DUPCLOSURE R12 K23 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  DUPTABLE R13 K26 [{"requestHandler", "createRequestHandler"}]
+  SETTABLEKS R12 R13 K24 ["requestHandler"]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K25 ["createRequestHandler"]
+  RETURN R13 1

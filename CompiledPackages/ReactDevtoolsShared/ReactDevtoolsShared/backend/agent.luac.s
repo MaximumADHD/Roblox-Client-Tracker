@@ -1,0 +1,1139 @@
+PROTO_0:
+  RETURN R0 1
+
+PROTO_1:
+  RETURN R0 0
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
+  RETURN R0 0
+
+PROTO_4:
+  RETURN R0 0
+
+PROTO_5:
+  RETURN R0 0
+
+PROTO_6:
+  PREPVARARGS 1
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+5]
+  GETIMPORT R1 K1 [print]
+  MOVE R2 R0
+  GETVARARGS R3 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_7:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETVARARGS R2 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_8:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  RETURN R1 1
+
+PROTO_9:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  CALL R2 0 1
+  GETUPVAL R3 1
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K2 [setmetatable]
+  CALL R1 2 1
+  SETTABLEKS R0 R1 K3 ["_bridge"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K4 ["_isProfiling"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K5 ["_recordChangeDescriptions"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K6 ["_rendererInterfaces"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K7 ["_persistedSelection"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K8 ["_persistedSelectionMatch"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K9 ["_traceUpdatesEnabled"]
+  GETUPVAL R2 2
+  GETUPVAL R3 3
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K10 ["true"] [+19]
+  GETUPVAL R3 2
+  GETUPVAL R4 4
+  CALL R3 1 1
+  JUMPIFEQKS R3 K10 ["true"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  SETTABLEKS R2 R1 K5 ["_recordChangeDescriptions"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K4 ["_isProfiling"]
+  GETUPVAL R2 5
+  GETUPVAL R3 4
+  CALL R2 1 0
+  GETUPVAL R2 5
+  GETUPVAL R3 3
+  CALL R2 1 0
+  GETUPVAL R2 2
+  GETUPVAL R3 6
+  CALL R2 1 1
+  JUMPIFEQKNIL R2 [+8]
+  GETUPVAL R4 7
+  GETTABLEKS R3 R4 K11 ["JSONDecode"]
+  MOVE R4 R2
+  CALL R3 1 1
+  SETTABLEKS R3 R1 K7 ["_persistedSelection"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  LOADK R6 K12 ["copyElementPath"]
+  GETTABLEKS R8 R1 K12 ["copyElementPath"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K14 ["deletePath"]
+  GETTABLEKS R8 R1 K14 ["deletePath"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K15 ["getProfilingData"]
+  GETTABLEKS R8 R1 K15 ["getProfilingData"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K16 ["getProfilingStatus"]
+  GETTABLEKS R8 R1 K16 ["getProfilingStatus"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K17 ["getOwnersList"]
+  GETTABLEKS R8 R1 K17 ["getOwnersList"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K18 ["inspectElement"]
+  GETTABLEKS R8 R1 K18 ["inspectElement"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K19 ["logElementToConsole"]
+  GETTABLEKS R8 R1 K19 ["logElementToConsole"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K20 ["overrideSuspense"]
+  GETTABLEKS R8 R1 K20 ["overrideSuspense"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K21 ["overrideValueAtPath"]
+  GETTABLEKS R8 R1 K21 ["overrideValueAtPath"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K22 ["reloadAndProfile"]
+  GETTABLEKS R8 R1 K22 ["reloadAndProfile"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K23 ["renamePath"]
+  GETTABLEKS R8 R1 K23 ["renamePath"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K24 ["setTraceUpdatesEnabled"]
+  GETTABLEKS R8 R1 K24 ["setTraceUpdatesEnabled"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K25 ["startProfiling"]
+  GETTABLEKS R8 R1 K25 ["startProfiling"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K26 ["stopProfiling"]
+  GETTABLEKS R8 R1 K26 ["stopProfiling"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K27 ["storeAsGlobal"]
+  GETTABLEKS R8 R1 K27 ["storeAsGlobal"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K28 ["syncSelectionFromNativeElementsPanel"]
+  GETTABLEKS R8 R1 K28 ["syncSelectionFromNativeElementsPanel"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K29 ["shutdown"]
+  GETTABLEKS R8 R1 K29 ["shutdown"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K30 ["updateConsolePatchSettings"]
+  GETTABLEKS R8 R1 K30 ["updateConsolePatchSettings"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K31 ["updateComponentFilters"]
+  GETTABLEKS R8 R1 K31 ["updateComponentFilters"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K32 ["viewAttributeSource"]
+  GETTABLEKS R8 R1 K32 ["viewAttributeSource"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K33 ["viewElementSource"]
+  GETTABLEKS R8 R1 K33 ["viewElementSource"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K34 ["overrideContext"]
+  GETTABLEKS R8 R1 K34 ["overrideContext"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K35 ["overrideHookState"]
+  GETTABLEKS R8 R1 K35 ["overrideHookState"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K36 ["overrideProps"]
+  GETTABLEKS R8 R1 K36 ["overrideProps"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K37 ["overrideState"]
+  GETTABLEKS R8 R1 K37 ["overrideState"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  NAMECALL R4 R0 K13 ["addListener"]
+  CALL R4 3 0
+  GETTABLEKS R4 R1 K4 ["_isProfiling"]
+  JUMPIFNOT R4 [+5]
+  LOADK R6 K38 ["profilingStatus"]
+  LOADB R7 1
+  NAMECALL R4 R0 K39 ["send"]
+  CALL R4 3 0
+  LOADK R6 K40 ["isBackendStorageAPISupported"]
+  LOADB R7 1
+  NAMECALL R4 R0 K39 ["send"]
+  CALL R4 3 0
+  RETURN R1 1
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["_rendererInterfaces"]
+  RETURN R1 1
+
+PROTO_11:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["path"]
+  GETTABLEKS R4 R1 K2 ["rendererID"]
+  GETTABLEKS R6 R0 K3 ["_rendererInterfaces"]
+  GETTABLE R5 R6 R4
+  JUMPIFNOTEQKNIL R5 [+12]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["warn"]
+  GETIMPORT R7 K7 [string.format]
+  LOADK R8 K8 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R9 R4
+  MOVE R10 R2
+  CALL R7 3 -1
+  CALL R6 -1 0
+  RETURN R0 0
+  GETTABLEKS R6 R5 K9 ["copyElementPath"]
+  MOVE R7 R2
+  MOVE R8 R3
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R2 R1 K0 ["hookID"]
+  GETTABLEKS R3 R1 K1 ["id"]
+  GETTABLEKS R4 R1 K2 ["path"]
+  GETTABLEKS R5 R1 K3 ["rendererID"]
+  GETTABLEKS R6 R1 K4 ["type"]
+  GETTABLEKS R8 R0 K5 ["_rendererInterfaces"]
+  GETTABLE R7 R8 R5
+  JUMPIFNOTEQKNIL R7 [+12]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["warn"]
+  GETIMPORT R9 K9 [string.format]
+  LOADK R10 K10 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R11 R5
+  MOVE R12 R3
+  CALL R9 3 -1
+  CALL R8 -1 0
+  RETURN R0 0
+  GETTABLEKS R8 R7 K11 ["deletePath"]
+  MOVE R9 R6
+  MOVE R10 R3
+  MOVE R11 R2
+  MOVE R12 R4
+  CALL R8 4 0
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["rendererID"]
+  GETTABLEKS R5 R0 K2 ["_rendererInterfaces"]
+  GETTABLE R4 R5 R3
+  JUMPIFNOTEQKNIL R4 [+12]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["warn"]
+  GETIMPORT R6 K6 [string.format]
+  LOADK R7 K7 ["Invalid renderer id \"%d\""]
+  MOVE R8 R3
+  CALL R6 2 -1
+  CALL R5 -1 0
+  LOADNIL R5
+  RETURN R5 1
+  GETTABLEKS R5 R4 K8 ["getInstanceAndStyle"]
+  MOVE R6 R2
+  CALL R5 1 -1
+  RETURN R5 -1
+
+PROTO_14:
+  GETTABLEKS R2 R0 K0 ["_rendererInterfaces"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETIMPORT R7 K2 [pcall]
+  GETTABLEKS R8 R6 K3 ["getFiberIDForNative"]
+  MOVE R9 R1
+  LOADB R10 1
+  CALL R7 3 2
+  JUMPIFNOT R7 [+3]
+  JUMPIFEQKNIL R8 [+2]
+  RETURN R8 1
+  FORGLOOP R2 2 [-12]
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_15:
+  GETTABLEKS R2 R1 K0 ["rendererID"]
+  GETTABLEKS R4 R0 K1 ["_rendererInterfaces"]
+  GETTABLE R3 R4 R2
+  JUMPIFNOTEQKNIL R3 [+10]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["warn"]
+  GETIMPORT R5 K5 [string.format]
+  LOADK R6 K6 ["Invalid renderer id \"%d\""]
+  MOVE R7 R2
+  CALL R5 2 -1
+  CALL R4 -1 0
+  GETTABLEKS R4 R0 K7 ["_bridge"]
+  LOADK R6 K8 ["profilingData"]
+  GETTABLEKS R7 R3 K9 ["getProfilingData"]
+  CALL R7 0 -1
+  NAMECALL R4 R4 K10 ["send"]
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["_bridge"]
+  LOADK R3 K1 ["profilingStatus"]
+  GETTABLEKS R4 R0 K2 ["_isProfiling"]
+  NAMECALL R1 R1 K3 ["send"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_17:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["rendererID"]
+  GETTABLEKS R5 R0 K2 ["_rendererInterfaces"]
+  GETTABLE R4 R5 R3
+  JUMPIFNOTEQKNIL R4 [+12]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["warn"]
+  GETIMPORT R6 K6 [string.format]
+  LOADK R7 K7 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R8 R3
+  MOVE R9 R2
+  CALL R6 3 -1
+  CALL R5 -1 0
+  RETURN R0 0
+  GETTABLEKS R5 R4 K8 ["getOwnersList"]
+  MOVE R6 R2
+  CALL R5 1 1
+  GETTABLEKS R6 R0 K9 ["_bridge"]
+  LOADK R8 K10 ["ownersList"]
+  DUPTABLE R9 K12 [{"id", "owners"}]
+  SETTABLEKS R2 R9 K0 ["id"]
+  SETTABLEKS R5 R9 K11 ["owners"]
+  NAMECALL R6 R6 K13 ["send"]
+  CALL R6 3 0
+  RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["path"]
+  GETTABLEKS R4 R1 K2 ["rendererID"]
+  GETTABLEKS R6 R0 K3 ["_rendererInterfaces"]
+  GETTABLE R5 R6 R4
+  JUMPIFNOTEQKNIL R5 [+12]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["warn"]
+  GETIMPORT R7 K7 [string.format]
+  LOADK R8 K8 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R9 R4
+  MOVE R10 R2
+  CALL R7 3 -1
+  CALL R6 -1 0
+  RETURN R0 0
+  GETTABLEKS R6 R0 K9 ["_bridge"]
+  LOADK R8 K10 ["inspectedElement"]
+  GETTABLEKS R9 R5 K11 ["inspectElement"]
+  MOVE R10 R2
+  MOVE R11 R3
+  CALL R9 2 -1
+  NAMECALL R6 R6 K12 ["send"]
+  CALL R6 -1 0
+  GETTABLEKS R6 R0 K13 ["_persistedSelectionMatch"]
+  JUMPIFEQKNIL R6 [+7]
+  GETTABLEKS R7 R0 K13 ["_persistedSelectionMatch"]
+  GETTABLEKS R6 R7 K0 ["id"]
+  JUMPIFEQ R6 R2 [+16]
+  LOADNIL R6
+  SETTABLEKS R6 R0 K14 ["_persistedSelection"]
+  LOADNIL R6
+  SETTABLEKS R6 R0 K13 ["_persistedSelectionMatch"]
+  GETTABLEKS R6 R5 K15 ["setTrackedPath"]
+  LOADNIL R7
+  CALL R6 1 0
+  MOVE R8 R4
+  MOVE R9 R2
+  NAMECALL R6 R0 K16 ["_throttledPersistSelection"]
+  CALL R6 3 0
+  RETURN R0 0
+
+PROTO_19:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["rendererID"]
+  GETTABLEKS R5 R0 K2 ["_rendererInterfaces"]
+  GETTABLE R4 R5 R3
+  JUMPIFNOTEQKNIL R4 [+12]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["warn"]
+  GETIMPORT R6 K6 [string.format]
+  LOADK R7 K7 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R8 R3
+  MOVE R9 R2
+  CALL R6 3 -1
+  CALL R5 -1 0
+  RETURN R0 0
+  GETTABLEKS R5 R4 K8 ["logElementToConsole"]
+  MOVE R6 R2
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_20:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["rendererID"]
+  GETTABLEKS R4 R1 K2 ["forceFallback"]
+  GETTABLEKS R6 R0 K3 ["_rendererInterfaces"]
+  GETTABLE R5 R6 R3
+  JUMPIFNOTEQKNIL R5 [+12]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["warn"]
+  GETIMPORT R7 K7 [string.format]
+  LOADK R8 K8 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R9 R3
+  MOVE R10 R2
+  CALL R7 3 -1
+  CALL R6 -1 0
+  RETURN R0 0
+  GETTABLEKS R6 R5 K9 ["overrideSuspense"]
+  MOVE R7 R2
+  MOVE R8 R4
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_21:
+  GETTABLEKS R2 R1 K0 ["hookID"]
+  GETTABLEKS R3 R1 K1 ["id"]
+  GETTABLEKS R4 R1 K2 ["path"]
+  GETTABLEKS R5 R1 K3 ["rendererID"]
+  GETTABLEKS R6 R1 K4 ["type"]
+  GETTABLEKS R7 R1 K5 ["value"]
+  GETTABLEKS R9 R0 K6 ["_rendererInterfaces"]
+  GETTABLE R8 R9 R5
+  JUMPIFNOTEQKNIL R8 [+12]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["warn"]
+  GETIMPORT R10 K10 [string.format]
+  LOADK R11 K11 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R12 R5
+  MOVE R13 R3
+  CALL R10 3 -1
+  CALL R9 -1 0
+  RETURN R0 0
+  GETTABLEKS R9 R8 K12 ["overrideValueAtPath"]
+  MOVE R10 R6
+  MOVE R11 R3
+  MOVE R12 R2
+  MOVE R13 R4
+  MOVE R14 R7
+  CALL R9 5 0
+  RETURN R0 0
+
+PROTO_22:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["path"]
+  GETTABLEKS R4 R1 K2 ["rendererID"]
+  GETTABLEKS R5 R1 K3 ["wasForwarded"]
+  GETTABLEKS R6 R1 K4 ["value"]
+  JUMPIF R5 [+15]
+  DUPTABLE R9 K6 [{"id", "path", "rendererID", "type", "value"}]
+  SETTABLEKS R2 R9 K0 ["id"]
+  SETTABLEKS R3 R9 K1 ["path"]
+  SETTABLEKS R4 R9 K2 ["rendererID"]
+  LOADK R10 K7 ["context"]
+  SETTABLEKS R10 R9 K5 ["type"]
+  SETTABLEKS R6 R9 K4 ["value"]
+  NAMECALL R7 R0 K8 ["overrideValueAtPath"]
+  CALL R7 2 0
+  RETURN R0 0
+
+PROTO_23:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["hookID"]
+  GETTABLEKS R4 R1 K2 ["path"]
+  GETTABLEKS R5 R1 K3 ["rendererID"]
+  GETTABLEKS R6 R1 K4 ["wasForwarded"]
+  GETTABLEKS R7 R1 K5 ["value"]
+  JUMPIF R6 [+15]
+  DUPTABLE R10 K7 [{"id", "path", "rendererID", "type", "value"}]
+  SETTABLEKS R2 R10 K0 ["id"]
+  SETTABLEKS R4 R10 K2 ["path"]
+  SETTABLEKS R5 R10 K3 ["rendererID"]
+  LOADK R11 K8 ["hooks"]
+  SETTABLEKS R11 R10 K6 ["type"]
+  SETTABLEKS R7 R10 K5 ["value"]
+  NAMECALL R8 R0 K9 ["overrideValueAtPath"]
+  CALL R8 2 0
+  RETURN R0 0
+
+PROTO_24:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["path"]
+  GETTABLEKS R4 R1 K2 ["rendererID"]
+  GETTABLEKS R5 R1 K3 ["wasForwarded"]
+  GETTABLEKS R6 R1 K4 ["value"]
+  JUMPIF R5 [+15]
+  DUPTABLE R9 K6 [{"id", "path", "rendererID", "type", "value"}]
+  SETTABLEKS R2 R9 K0 ["id"]
+  SETTABLEKS R3 R9 K1 ["path"]
+  SETTABLEKS R4 R9 K2 ["rendererID"]
+  LOADK R10 K7 ["props"]
+  SETTABLEKS R10 R9 K5 ["type"]
+  SETTABLEKS R6 R9 K4 ["value"]
+  NAMECALL R7 R0 K8 ["overrideValueAtPath"]
+  CALL R7 2 0
+  RETURN R0 0
+
+PROTO_25:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["path"]
+  GETTABLEKS R4 R1 K2 ["rendererID"]
+  GETTABLEKS R5 R1 K3 ["wasForwarded"]
+  GETTABLEKS R6 R1 K4 ["value"]
+  JUMPIF R5 [+15]
+  DUPTABLE R9 K6 [{"id", "path", "rendererID", "type", "value"}]
+  SETTABLEKS R2 R9 K0 ["id"]
+  SETTABLEKS R3 R9 K1 ["path"]
+  SETTABLEKS R4 R9 K2 ["rendererID"]
+  LOADK R10 K7 ["state"]
+  SETTABLEKS R10 R9 K5 ["type"]
+  SETTABLEKS R6 R9 K4 ["value"]
+  NAMECALL R7 R0 K8 ["overrideValueAtPath"]
+  CALL R7 2 0
+  RETURN R0 0
+
+PROTO_26:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+2]
+  LOADK R0 K0 ["true"]
+  RETURN R0 1
+  LOADK R0 K1 ["false"]
+  RETURN R0 1
+
+PROTO_27:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  LOADK R4 K0 ["true"]
+  CALL R2 2 0
+  GETUPVAL R2 0
+  GETUPVAL R3 2
+  JUMPIFNOT R1 [+2]
+  LOADK R4 K0 ["true"]
+  JUMP [+1]
+  LOADK R4 K1 ["false"]
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K2 ["_bridge"]
+  LOADK R4 K3 ["reloadAppForProfiling"]
+  NAMECALL R2 R2 K4 ["send"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_28:
+  GETTABLEKS R2 R1 K0 ["hookID"]
+  GETTABLEKS R3 R1 K1 ["id"]
+  GETTABLEKS R4 R1 K2 ["newPath"]
+  GETTABLEKS R5 R1 K3 ["oldPath"]
+  GETTABLEKS R6 R1 K4 ["rendererID"]
+  GETTABLEKS R7 R1 K5 ["type"]
+  GETTABLEKS R9 R0 K6 ["_rendererInterfaces"]
+  GETTABLE R8 R9 R6
+  JUMPIFNOTEQKNIL R8 [+12]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["warn"]
+  GETIMPORT R10 K10 [string.format]
+  LOADK R11 K11 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R12 R6
+  MOVE R13 R3
+  CALL R10 3 -1
+  CALL R9 -1 0
+  RETURN R0 0
+  GETTABLEKS R9 R8 K12 ["renamePath"]
+  MOVE R10 R7
+  MOVE R11 R3
+  MOVE R12 R2
+  MOVE R13 R5
+  MOVE R14 R4
+  CALL R9 5 0
+  RETURN R0 0
+
+PROTO_29:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["getIDForNode"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+8]
+  GETTABLEKS R3 R0 K1 ["_bridge"]
+  LOADK R5 K2 ["selectFiber"]
+  MOVE R6 R2
+  NAMECALL R3 R3 K3 ["send"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_30:
+  GETTABLEKS R3 R0 K0 ["_rendererInterfaces"]
+  SETTABLE R2 R3 R1
+  GETTABLEKS R3 R0 K1 ["_isProfiling"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R2 K2 ["startProfiling"]
+  GETTABLEKS R4 R0 K3 ["_recordChangeDescriptions"]
+  CALL R3 1 0
+  GETTABLEKS R3 R2 K4 ["setTraceUpdatesEnabled"]
+  GETTABLEKS R4 R0 K5 ["_traceUpdatesEnabled"]
+  CALL R3 1 0
+  GETTABLEKS R3 R0 K6 ["_persistedSelection"]
+  JUMPIFEQKNIL R3 [+10]
+  GETTABLEKS R4 R3 K7 ["rendererID"]
+  JUMPIFNOTEQ R4 R1 [+6]
+  GETTABLEKS R4 R2 K8 ["setTrackedPath"]
+  GETTABLEKS R5 R3 K9 ["path"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_31:
+  SETTABLEKS R1 R0 K0 ["_traceUpdatesEnabled"]
+  GETTABLEKS R2 R0 K1 ["_rendererInterfaces"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R6 K2 ["setTraceUpdatesEnabled"]
+  MOVE R8 R1
+  CALL R7 1 0
+  FORGLOOP R2 2 [-5]
+  RETURN R0 0
+
+PROTO_32:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["__REACT_DEVTOOLS_GLOBAL_HOOK__"]
+  GETTABLEKS R1 R2 K0 ["$0"]
+  JUMPIFNOTEQKNIL R1 [+2]
+  RETURN R0 0
+  MOVE R4 R1
+  NAMECALL R2 R0 K2 ["selectNode"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_33:
+  LOADK R3 K0 ["shutdown"]
+  NAMECALL R1 R0 K1 ["emit"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_34:
+  SETTABLEKS R1 R0 K0 ["_recordChangeDescriptions"]
+  LOADB R2 1
+  SETTABLEKS R2 R0 K1 ["_isProfiling"]
+  GETTABLEKS R2 R0 K2 ["_rendererInterfaces"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R6 K3 ["startProfiling"]
+  MOVE R8 R1
+  CALL R7 1 0
+  FORGLOOP R2 2 [-5]
+  GETTABLEKS R2 R0 K4 ["_bridge"]
+  LOADK R4 K5 ["profilingStatus"]
+  GETTABLEKS R5 R0 K1 ["_isProfiling"]
+  NAMECALL R2 R2 K6 ["send"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_35:
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["_isProfiling"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K1 ["_recordChangeDescriptions"]
+  GETTABLEKS R1 R0 K2 ["_rendererInterfaces"]
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETTABLEKS R6 R5 K3 ["stopProfiling"]
+  CALL R6 0 0
+  FORGLOOP R1 2 [-4]
+  GETTABLEKS R1 R0 K4 ["_bridge"]
+  LOADK R3 K5 ["profilingStatus"]
+  GETTABLEKS R4 R0 K0 ["_isProfiling"]
+  NAMECALL R1 R1 K6 ["send"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_36:
+  GETTABLEKS R2 R1 K0 ["count"]
+  GETTABLEKS R3 R1 K1 ["id"]
+  GETTABLEKS R4 R1 K2 ["path"]
+  GETTABLEKS R5 R1 K3 ["rendererID"]
+  GETTABLEKS R7 R0 K4 ["_rendererInterfaces"]
+  GETTABLE R6 R7 R5
+  JUMPIFNOTEQKNIL R6 [+12]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["warn"]
+  GETIMPORT R8 K8 [string.format]
+  LOADK R9 K9 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R10 R5
+  MOVE R11 R3
+  CALL R8 3 -1
+  CALL R7 -1 0
+  RETURN R0 0
+  GETTABLEKS R7 R6 K10 ["storeAsGlobal"]
+  MOVE R8 R3
+  MOVE R9 R4
+  MOVE R10 R2
+  CALL R7 3 0
+  RETURN R0 0
+
+PROTO_37:
+  GETTABLEKS R2 R1 K0 ["appendComponentStack"]
+  GETTABLEKS R3 R1 K1 ["breakOnConsoleErrors"]
+  JUMPIF R2 [+1]
+  JUMPIFNOT R3 [+6]
+  DUPTABLE R4 K2 [{"appendComponentStack", "breakOnConsoleErrors"}]
+  SETTABLEKS R2 R4 K0 ["appendComponentStack"]
+  SETTABLEKS R3 R4 K1 ["breakOnConsoleErrors"]
+  RETURN R0 0
+  RETURN R0 0
+
+PROTO_38:
+  GETTABLEKS R2 R0 K0 ["_rendererInterfaces"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R6 K1 ["updateComponentFilters"]
+  MOVE R8 R1
+  CALL R7 1 0
+  FORGLOOP R2 2 [-5]
+  RETURN R0 0
+
+PROTO_39:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["path"]
+  GETTABLEKS R4 R1 K2 ["rendererID"]
+  GETTABLEKS R6 R0 K3 ["_rendererInterfaces"]
+  GETTABLE R5 R6 R4
+  JUMPIFNOTEQKNIL R5 [+12]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["warn"]
+  GETIMPORT R7 K7 [string.format]
+  LOADK R8 K8 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R9 R4
+  MOVE R10 R2
+  CALL R7 3 -1
+  CALL R6 -1 0
+  RETURN R0 0
+  GETTABLEKS R6 R5 K9 ["prepareViewAttributeSource"]
+  MOVE R7 R2
+  MOVE R8 R3
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_40:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["rendererID"]
+  GETTABLEKS R5 R0 K2 ["_rendererInterfaces"]
+  GETTABLE R4 R5 R3
+  JUMPIFNOTEQKNIL R4 [+12]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["warn"]
+  GETIMPORT R6 K6 [string.format]
+  LOADK R7 K7 ["Invalid renderer id \"%d\" for element \"%d\""]
+  MOVE R8 R3
+  MOVE R9 R2
+  CALL R6 3 -1
+  CALL R5 -1 0
+  RETURN R0 0
+  GETTABLEKS R5 R4 K8 ["prepareViewElementSource"]
+  MOVE R6 R2
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_41:
+  LOADK R4 K0 ["traceUpdates"]
+  MOVE R5 R1
+  NAMECALL R2 R0 K1 ["emit"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_42:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["__DEBUG__"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 1
+  LOADK R3 K1 ["onHookOperations"]
+  MOVE R4 R1
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K2 ["_bridge"]
+  LOADK R4 K3 ["operations"]
+  MOVE R5 R1
+  NAMECALL R2 R2 K4 ["send"]
+  CALL R2 3 0
+  GETTABLEKS R2 R0 K5 ["_persistedSelection"]
+  JUMPIFEQKNIL R2 [+68]
+  GETTABLEN R2 R1 1
+  GETTABLEKS R4 R0 K5 ["_persistedSelection"]
+  GETTABLEKS R3 R4 K6 ["rendererID"]
+  JUMPIFNOTEQ R3 R2 [+61]
+  GETTABLEKS R4 R0 K7 ["_rendererInterfaces"]
+  GETTABLE R3 R4 R2
+  JUMPIFNOTEQKNIL R3 [+11]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["warn"]
+  GETIMPORT R5 K11 [string.format]
+  LOADK R6 K12 ["Invalid renderer id \"%d\""]
+  MOVE R7 R2
+  CALL R5 2 -1
+  CALL R4 -1 0
+  RETURN R0 0
+  GETTABLEKS R4 R0 K13 ["_persistedSelectionMatch"]
+  GETTABLEKS R5 R3 K14 ["getBestMatchForTrackedPath"]
+  CALL R5 0 1
+  SETTABLEKS R5 R0 K13 ["_persistedSelectionMatch"]
+  JUMPIFEQKNIL R4 [+4]
+  GETTABLEKS R6 R4 K15 ["id"]
+  JUMP [+1]
+  LOADNIL R6
+  JUMPIFEQKNIL R5 [+4]
+  GETTABLEKS R7 R5 K15 ["id"]
+  JUMP [+1]
+  LOADNIL R7
+  JUMPIFEQ R6 R7 [+10]
+  JUMPIFEQKNIL R7 [+8]
+  GETTABLEKS R8 R0 K2 ["_bridge"]
+  LOADK R10 K16 ["selectFiber"]
+  MOVE R11 R7
+  NAMECALL R8 R8 K4 ["send"]
+  CALL R8 3 0
+  JUMPIFEQKNIL R5 [+14]
+  GETTABLEKS R8 R5 K17 ["isFullMatch"]
+  JUMPIFNOT R8 [+10]
+  LOADNIL R8
+  SETTABLEKS R8 R0 K5 ["_persistedSelection"]
+  LOADNIL R8
+  SETTABLEKS R8 R0 K13 ["_persistedSelectionMatch"]
+  GETTABLEKS R8 R3 K18 ["setTrackedPath"]
+  LOADNIL R9
+  CALL R8 1 0
+  RETURN R0 0
+
+PROTO_43:
+  GETTABLEKS R2 R0 K0 ["_bridge"]
+  LOADK R4 K1 ["unsupportedRendererVersion"]
+  MOVE R5 R1
+  NAMECALL R2 R2 K2 ["send"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_44:
+  GETUPVAL R0 0
+  JUMPIFEQKNIL R0 [+7]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getPathForElement"]
+  GETUPVAL R1 1
+  CALL R0 1 -1
+  RETURN R0 -1
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_45:
+  GETTABLEKS R4 R0 K0 ["_rendererInterfaces"]
+  GETTABLE R3 R4 R1
+  JUMPIFEQKNIL R3 [+6]
+  GETTABLEKS R4 R3 K1 ["getPathForElement"]
+  MOVE R5 R2
+  CALL R4 1 1
+  JUMP [+1]
+  LOADNIL R4
+  JUMPIFEQKNIL R4 [+14]
+  GETUPVAL R5 0
+  GETUPVAL R6 1
+  GETUPVAL R7 2
+  DUPTABLE R9 K4 [{"rendererID", "path"}]
+  SETTABLEKS R1 R9 K2 ["rendererID"]
+  SETTABLEKS R4 R9 K3 ["path"]
+  NAMECALL R7 R7 K5 ["JSONEncode"]
+  CALL R7 2 -1
+  CALL R5 -1 0
+  RETURN R0 0
+  GETUPVAL R5 3
+  GETUPVAL R6 1
+  CALL R5 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["console"]
+  GETIMPORT R3 K8 [game]
+  LOADK R5 K9 ["HttpService"]
+  NAMECALL R3 R3 K10 ["GetService"]
+  CALL R3 2 1
+  GETIMPORT R4 K12 [_G]
+  GETIMPORT R5 K4 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K2 ["Parent"]
+  GETTABLEKS R6 R7 K13 ["events"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K14 [PROTO_0]
+  GETIMPORT R7 K4 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K2 ["Parent"]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K15 ["constants"]
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K16 ["SESSION_STORAGE_LAST_SELECTION_KEY"]
+  GETTABLEKS R9 R7 K17 ["SESSION_STORAGE_RELOAD_AND_PROFILE_KEY"]
+  GETTABLEKS R10 R7 K18 ["SESSION_STORAGE_RECORD_CHANGE_DESCRIPTIONS_KEY"]
+  GETTABLEKS R11 R7 K19 ["__DEBUG__"]
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K2 ["Parent"]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K20 ["storage"]
+  CALL R12 1 1
+  GETTABLEKS R13 R12 K21 ["sessionStorageGetItem"]
+  GETTABLEKS R14 R12 K22 ["sessionStorageRemoveItem"]
+  GETTABLEKS R15 R12 K23 ["sessionStorageSetItem"]
+  DUPCLOSURE R16 K24 [PROTO_1]
+  DUPCLOSURE R17 K25 [PROTO_2]
+  DUPCLOSURE R18 K26 [PROTO_3]
+  DUPCLOSURE R19 K27 [PROTO_4]
+  DUPCLOSURE R20 K28 [PROTO_5]
+  GETIMPORT R21 K4 [require]
+  GETIMPORT R25 K1 [script]
+  GETTABLEKS R24 R25 K2 ["Parent"]
+  GETTABLEKS R23 R24 K2 ["Parent"]
+  GETTABLEKS R22 R23 K29 ["bridge"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETIMPORT R25 K1 [script]
+  GETTABLEKS R24 R25 K2 ["Parent"]
+  GETTABLEKS R23 R24 K30 ["types"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETIMPORT R27 K1 [script]
+  GETTABLEKS R26 R27 K2 ["Parent"]
+  GETTABLEKS R25 R26 K2 ["Parent"]
+  GETTABLEKS R24 R25 K30 ["types"]
+  CALL R23 1 1
+  DUPCLOSURE R24 K31 [PROTO_6]
+  CAPTURE VAL R11
+  NEWTABLE R26 0 0
+  DUPTABLE R27 K33 [{"__index"}]
+  SETTABLEKS R5 R27 K32 ["__index"]
+  FASTCALL2 SETMETATABLE R26 R27 [+3]
+  GETIMPORT R25 K35 [setmetatable]
+  CALL R25 2 1
+  DUPTABLE R26 K33 [{"__index"}]
+  SETTABLEKS R25 R26 K32 ["__index"]
+  DUPCLOSURE R27 K36 [PROTO_9]
+  CAPTURE VAL R5
+  CAPTURE VAL R26
+  CAPTURE VAL R13
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  SETTABLEKS R27 R25 K37 ["new"]
+  DUPCLOSURE R27 K38 [PROTO_10]
+  SETTABLEKS R27 R25 K39 ["getRendererInterfaces"]
+  DUPCLOSURE R27 K40 [PROTO_11]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K41 ["copyElementPath"]
+  DUPCLOSURE R27 K42 [PROTO_12]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K43 ["deletePath"]
+  DUPCLOSURE R27 K44 [PROTO_13]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K45 ["getInstanceAndStyle"]
+  DUPCLOSURE R27 K46 [PROTO_14]
+  SETTABLEKS R27 R25 K47 ["getIDForNode"]
+  DUPCLOSURE R27 K48 [PROTO_15]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K49 ["getProfilingData"]
+  DUPCLOSURE R27 K50 [PROTO_16]
+  SETTABLEKS R27 R25 K51 ["getProfilingStatus"]
+  DUPCLOSURE R27 K52 [PROTO_17]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K53 ["getOwnersList"]
+  DUPCLOSURE R27 K54 [PROTO_18]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K55 ["inspectElement"]
+  DUPCLOSURE R27 K56 [PROTO_19]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K57 ["logElementToConsole"]
+  DUPCLOSURE R27 K58 [PROTO_20]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K59 ["overrideSuspense"]
+  DUPCLOSURE R27 K60 [PROTO_21]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K61 ["overrideValueAtPath"]
+  DUPCLOSURE R27 K62 [PROTO_22]
+  SETTABLEKS R27 R25 K63 ["overrideContext"]
+  DUPCLOSURE R27 K64 [PROTO_23]
+  SETTABLEKS R27 R25 K65 ["overrideHookState"]
+  DUPCLOSURE R27 K66 [PROTO_24]
+  SETTABLEKS R27 R25 K67 ["overrideProps"]
+  DUPCLOSURE R27 K68 [PROTO_25]
+  SETTABLEKS R27 R25 K69 ["overrideState"]
+  DUPCLOSURE R27 K70 [PROTO_27]
+  CAPTURE VAL R15
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  SETTABLEKS R27 R25 K71 ["reloadAndProfile"]
+  DUPCLOSURE R27 K72 [PROTO_28]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K73 ["renamePath"]
+  DUPCLOSURE R27 K74 [PROTO_29]
+  SETTABLEKS R27 R25 K75 ["selectNode"]
+  DUPCLOSURE R27 K76 [PROTO_30]
+  SETTABLEKS R27 R25 K77 ["setRendererInterface"]
+  DUPCLOSURE R27 K78 [PROTO_31]
+  SETTABLEKS R27 R25 K79 ["setTraceUpdatesEnabled"]
+  DUPCLOSURE R27 K80 [PROTO_32]
+  CAPTURE VAL R4
+  SETTABLEKS R27 R25 K81 ["syncSelectionFromNativeElementsPanel"]
+  DUPCLOSURE R27 K82 [PROTO_33]
+  SETTABLEKS R27 R25 K83 ["shutdown"]
+  DUPCLOSURE R27 K84 [PROTO_34]
+  SETTABLEKS R27 R25 K85 ["startProfiling"]
+  DUPCLOSURE R27 K86 [PROTO_35]
+  SETTABLEKS R27 R25 K87 ["stopProfiling"]
+  DUPCLOSURE R27 K88 [PROTO_36]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K89 ["storeAsGlobal"]
+  DUPCLOSURE R27 K90 [PROTO_37]
+  SETTABLEKS R27 R25 K91 ["updateConsolePatchSettings"]
+  DUPCLOSURE R27 K92 [PROTO_38]
+  SETTABLEKS R27 R25 K93 ["updateComponentFilters"]
+  DUPCLOSURE R27 K94 [PROTO_39]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K95 ["viewAttributeSource"]
+  DUPCLOSURE R27 K96 [PROTO_40]
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K97 ["viewElementSource"]
+  DUPCLOSURE R27 K98 [PROTO_41]
+  SETTABLEKS R27 R25 K99 ["onTraceUpdates"]
+  DUPCLOSURE R27 K100 [PROTO_42]
+  CAPTURE VAL R4
+  CAPTURE VAL R24
+  CAPTURE VAL R2
+  SETTABLEKS R27 R25 K101 ["onHookOperations"]
+  DUPCLOSURE R27 K102 [PROTO_43]
+  SETTABLEKS R27 R25 K103 ["onUnsupportedRenderer"]
+  DUPCLOSURE R28 K104 [PROTO_45]
+  CAPTURE VAL R15
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  MOVE R27 R28
+  SETTABLEKS R27 R25 K105 ["_throttledPersistSelection"]
+  RETURN R25 1

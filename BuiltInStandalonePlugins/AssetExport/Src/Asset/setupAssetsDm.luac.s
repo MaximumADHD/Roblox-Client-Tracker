@@ -108,6 +108,34 @@ PROTO_12:
   RETURN R0 0
 
 PROTO_13:
+  GETIMPORT R1 K1 [pcall]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R1 2 1
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R2 1
+  LOADK R4 K2 ["OnCreateCagesSucceeded"]
+  NAMECALL R2 R2 K3 ["Invoke"]
+  CALL R2 2 0
+  RETURN R0 0
+  GETIMPORT R2 K5 [warn]
+  LOADK R3 K6 ["Failed to create cages"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETIMPORT R1 K1 [pcall]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R1 2 1
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 1
+  LOADK R4 K2 ["OnDestroyCagesSucceeded"]
+  NAMECALL R2 R2 K3 ["Invoke"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_15:
   LOADK R3 K0 ["Actions"]
   NAMECALL R1 R0 K1 ["GetPluginComponent"]
   CALL R1 2 1
@@ -251,6 +279,29 @@ PROTO_13:
   FASTCALL TABLE_INSERT [+2]
   GETIMPORT R3 K6 [table.insert]
   CALL R3 -1 0
+  GETUPVAL R3 3
+  CALL R3 0 1
+  JUMPIFNOT R3 [+24]
+  MOVE R4 R2
+  LOADK R7 K21 ["OnCreateCageParts"]
+  NEWCLOSURE R8 P13
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  NAMECALL R5 R0 K15 ["OnInvoke"]
+  CALL R5 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R3 K6 [table.insert]
+  CALL R3 -1 0
+  MOVE R4 R2
+  LOADK R7 K22 ["OnDestroyCageParts"]
+  NEWCLOSURE R8 P14
+  CAPTURE UPVAL U5
+  CAPTURE VAL R0
+  NAMECALL R5 R0 K15 ["OnInvoke"]
+  CALL R5 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R3 K6 [table.insert]
+  CALL R3 -1 0
   RETURN R2 1
 
 MAIN:
@@ -264,30 +315,48 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Util"]
   GETTABLEKS R2 R3 K8 ["selectAssetsWithId"]
   CALL R1 1 1
-  DUPTABLE R2 K14 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R3 K15 ["Standalone"]
-  SETTABLEKS R3 R2 K9 ["DataModel"]
-  LOADK R3 K16 ["Unknown"]
-  SETTABLEKS R3 R2 K10 ["PluginType"]
-  LOADK R3 K17 ["Export"]
-  SETTABLEKS R3 R2 K11 ["PluginId"]
-  LOADK R3 K18 ["Actions"]
-  SETTABLEKS R3 R2 K12 ["Category"]
-  LOADK R3 K19 ["ExportAsGltf"]
-  SETTABLEKS R3 R2 K13 ["ItemId"]
-  DUPTABLE R3 K14 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R4 K15 ["Standalone"]
-  SETTABLEKS R4 R3 K9 ["DataModel"]
-  LOADK R4 K16 ["Unknown"]
-  SETTABLEKS R4 R3 K10 ["PluginType"]
-  LOADK R4 K17 ["Export"]
-  SETTABLEKS R4 R3 K11 ["PluginId"]
-  LOADK R4 K18 ["Actions"]
-  SETTABLEKS R4 R3 K12 ["Category"]
-  LOADK R4 K20 ["ExportPlaceAsGltf"]
-  SETTABLEKS R4 R3 K13 ["ItemId"]
-  DUPCLOSURE R4 K21 [PROTO_13]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K9 ["createCages"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Util"]
+  GETTABLEKS R4 R5 K10 ["destroyCages"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Flags"]
+  GETTABLEKS R5 R6 K12 ["getFFlagCreateCagesOnAssetDm"]
+  CALL R4 1 1
+  DUPTABLE R5 K18 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R6 K19 ["Standalone"]
+  SETTABLEKS R6 R5 K13 ["DataModel"]
+  LOADK R6 K20 ["Unknown"]
+  SETTABLEKS R6 R5 K14 ["PluginType"]
+  LOADK R6 K21 ["Export"]
+  SETTABLEKS R6 R5 K15 ["PluginId"]
+  LOADK R6 K22 ["Actions"]
+  SETTABLEKS R6 R5 K16 ["Category"]
+  LOADK R6 K23 ["ExportAsGltf"]
+  SETTABLEKS R6 R5 K17 ["ItemId"]
+  DUPTABLE R6 K18 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R7 K19 ["Standalone"]
+  SETTABLEKS R7 R6 K13 ["DataModel"]
+  LOADK R7 K20 ["Unknown"]
+  SETTABLEKS R7 R6 K14 ["PluginType"]
+  LOADK R7 K21 ["Export"]
+  SETTABLEKS R7 R6 K15 ["PluginId"]
+  LOADK R7 K22 ["Actions"]
+  SETTABLEKS R7 R6 K16 ["Category"]
+  LOADK R7 K24 ["ExportPlaceAsGltf"]
+  SETTABLEKS R7 R6 K17 ["ItemId"]
+  DUPCLOSURE R7 K25 [PROTO_15]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R1
-  RETURN R4 1
+  RETURN R7 1

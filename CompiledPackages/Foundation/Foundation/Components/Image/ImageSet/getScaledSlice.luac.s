@@ -1,0 +1,38 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["getResolutionScale"]
+  CALL R2 0 1
+  JUMPIFNOT R0 [+14]
+  GETTABLEKS R4 R0 K1 ["Min"]
+  MUL R3 R4 R2
+  GETTABLEKS R5 R0 K2 ["Max"]
+  MUL R4 R5 R2
+  GETIMPORT R5 K5 [Rect.new]
+  MOVE R6 R3
+  MOVE R7 R4
+  CALL R5 2 1
+  MOVE R0 R5
+  ORK R5 R1 K6 [1]
+  DIV R1 R5 R2
+  DUPTABLE R3 K9 [{"center", "scale"}]
+  SETTABLEKS R0 R3 K7 ["center"]
+  SETTABLEKS R1 R3 K8 ["scale"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R4 R0 K7 ["Components"]
+  GETTABLEKS R3 R4 K8 ["Types"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K9 ["FoundationImages"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R3
+  RETURN R4 1

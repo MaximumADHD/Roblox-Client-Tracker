@@ -1,0 +1,69 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["function"] [+16]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["trim"]
+  GETIMPORT R3 K6 [debug.info]
+  MOVE R4 R0
+  LOADK R5 K7 ["n"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  JUMPIFEQKNIL R2 [+22]
+  JUMPIFEQKS R2 K8 [""] [+20]
+  RETURN R2 1
+  JUMP [+17]
+  JUMPIFEQKS R1 K9 ["number"] [+3]
+  JUMPIFNOTEQKNIL R0 [+11]
+  LOADK R2 K10 ["%s"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K12 [tostring]
+  CALL R4 1 1
+  NAMECALL R2 R2 K13 ["format"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  JUMPIFNOTEQKS R1 K14 ["string"] [+2]
+  RETURN R0 1
+  LOADNIL R2
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K2 ["function"] [+3]
+  LOADK R2 K15 ["[Function anonymous]"]
+  JUMP [+6]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K12 [tostring]
+  CALL R3 1 1
+  MOVE R2 R3
+  GETIMPORT R3 K17 [error]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K18 ["new"]
+  LOADK R5 K19 ["Invalid first argument, %s. It must be a named function, number, or string."]
+  MOVE R7 R2
+  NAMECALL R5 R5 K13 ["format"]
+  CALL R5 2 -1
+  CALL R4 -1 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K6 ["Error"]
+  GETTABLEKS R4 R2 K7 ["String"]
+  NEWTABLE R5 1 0
+  DUPCLOSURE R6 K8 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K9 ["default"]
+  RETURN R5 1

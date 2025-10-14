@@ -8,7 +8,7 @@ local RoactRodux = require(root.Packages.RoactRodux)
 
 local Framework = require(root.Packages.Framework)
 
-local ContextServices = Framework.ContextServices
+local ContextServices: any = Framework.ContextServices
 
 local UI = Framework.UI
 local Button = UI.Button

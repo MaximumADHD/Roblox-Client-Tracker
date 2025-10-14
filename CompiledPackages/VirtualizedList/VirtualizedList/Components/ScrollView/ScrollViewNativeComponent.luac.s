@@ -1,0 +1,479 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_nativeRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  GETIMPORT R2 K4 [Vector2.new]
+  GETTABLEKS R3 R0 K5 ["x"]
+  GETTABLEKS R4 R0 K6 ["y"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K7 ["CanvasPosition"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K0 ["_startAnimatedScroll"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_2:
+  SETTABLEKS R1 R0 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createRef"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K2 ["_nativeRef"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K3 ["lastScrollEventTime"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K4 ["animationConfig"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K4 ["animationConfig"]
+  JUMP [+1]
+  GETUPVAL R2 1
+  SETTABLEKS R2 R0 K4 ["animationConfig"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K5 ["createGroupMotor"]
+  DUPTABLE R3 K8 [{"x", "y"}]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K6 ["x"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K7 ["y"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K9 ["motor"]
+  GETTABLEKS R2 R0 K9 ["motor"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K10 ["onStep"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K11 ["motorStepDisconnect"]
+  GETTABLEKS R2 R0 K2 ["_nativeRef"]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K12 ["animateScrollTo"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R4 R0 K0 ["_nativeRef"]
+  GETTABLEKS R3 R4 K1 ["current"]
+  JUMPIF R3 [+5]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["error"]
+  LOADK R4 K3 ["scrollTo animation failed: ScrollViewNativeComponent._nativeRef instance is undefined"]
+  CALL R3 1 0
+  GETTABLEKS R5 R0 K0 ["_nativeRef"]
+  GETTABLEKS R4 R5 K1 ["current"]
+  GETTABLEKS R3 R4 K4 ["ScrollingDirection"]
+  GETIMPORT R4 K7 [Enum.ScrollingDirection.X]
+  JUMPIFNOTEQ R3 R4 [+48]
+  GETTABLEKS R6 R0 K0 ["_nativeRef"]
+  GETTABLEKS R5 R6 K1 ["current"]
+  GETTABLEKS R4 R5 K8 ["AbsoluteCanvasSize"]
+  GETTABLEKS R3 R4 K6 ["X"]
+  JUMPIFNOTLT R3 R1 [+29]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["warn"]
+  LOADK R5 K10 ["scrollTo animation goal out of bounds, setting X goal to: "]
+  GETTABLEKS R11 R0 K0 ["_nativeRef"]
+  GETTABLEKS R10 R11 K1 ["current"]
+  GETTABLEKS R9 R10 K8 ["AbsoluteCanvasSize"]
+  GETTABLEKS R8 R9 K6 ["X"]
+  GETTABLEKS R12 R0 K0 ["_nativeRef"]
+  GETTABLEKS R11 R12 K1 ["current"]
+  GETTABLEKS R10 R11 K11 ["AbsoluteWindowSize"]
+  GETTABLEKS R9 R10 K6 ["X"]
+  SUB R7 R8 R9
+  FASTCALL1 TOSTRING R7 [+2]
+  GETIMPORT R6 K13 [tostring]
+  CALL R6 1 1
+  CONCAT R4 R5 R6
+  CALL R3 1 0
+  RETURN R0 0
+  LOADN R3 0
+  JUMPIFNOTLT R1 R3 [+53]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["warn"]
+  LOADK R4 K14 ["scrollTo animation goal out of bounds, setting X goal to: 0"]
+  CALL R3 1 0
+  RETURN R0 0
+  GETTABLEKS R6 R0 K0 ["_nativeRef"]
+  GETTABLEKS R5 R6 K1 ["current"]
+  GETTABLEKS R4 R5 K8 ["AbsoluteCanvasSize"]
+  GETTABLEKS R3 R4 K15 ["Y"]
+  JUMPIFNOTLT R3 R2 [+29]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["warn"]
+  LOADK R5 K16 ["scrollTo animation goal out of bounds, setting Y goal to: "]
+  GETTABLEKS R11 R0 K0 ["_nativeRef"]
+  GETTABLEKS R10 R11 K1 ["current"]
+  GETTABLEKS R9 R10 K8 ["AbsoluteCanvasSize"]
+  GETTABLEKS R8 R9 K15 ["Y"]
+  GETTABLEKS R12 R0 K0 ["_nativeRef"]
+  GETTABLEKS R11 R12 K1 ["current"]
+  GETTABLEKS R10 R11 K11 ["AbsoluteWindowSize"]
+  GETTABLEKS R9 R10 K15 ["Y"]
+  SUB R7 R8 R9
+  FASTCALL1 TOSTRING R7 [+2]
+  GETIMPORT R6 K13 [tostring]
+  CALL R6 1 1
+  CONCAT R4 R5 R6
+  CALL R3 1 0
+  RETURN R0 0
+  LOADN R3 0
+  JUMPIFNOTLT R2 R3 [+6]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["warn"]
+  LOADK R4 K17 ["scrollTo animation goal out of bounds, setting Y goal to: 0"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETIMPORT R4 K1 [_G]
+  GETTABLEKS R3 R4 K2 ["__DEV__"]
+  JUMPIFNOT R3 [+5]
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R0 K3 ["_validateAnimatedScrollInputs"]
+  CALL R3 3 0
+  GETTABLEKS R5 R0 K4 ["_nativeRef"]
+  GETTABLEKS R4 R5 K5 ["current"]
+  GETTABLEKS R3 R4 K6 ["CanvasPosition"]
+  GETTABLEKS R4 R0 K7 ["motor"]
+  DUPTABLE R6 K10 [{"x", "y"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K11 ["instant"]
+  GETTABLEKS R8 R3 K12 ["X"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K8 ["x"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K11 ["instant"]
+  GETTABLEKS R8 R3 K13 ["Y"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K9 ["y"]
+  NAMECALL R4 R4 K14 ["setGoal"]
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K7 ["motor"]
+  LOADN R6 0
+  NAMECALL R4 R4 K15 ["step"]
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K7 ["motor"]
+  DUPTABLE R6 K10 [{"x", "y"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K16 ["spring"]
+  MOVE R8 R1
+  GETTABLEKS R9 R0 K17 ["animationConfig"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K8 ["x"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K16 ["spring"]
+  MOVE R8 R2
+  GETTABLEKS R9 R0 K17 ["animationConfig"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K9 ["y"]
+  NAMECALL R4 R4 K14 ["setGoal"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["assign"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_6:
+  GETIMPORT R2 K3 [os.clock]
+  CALL R2 0 1
+  MULK R1 R2 K0 [1000]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["props"]
+  GETTABLEKS R3 R4 K6 ["scrollEventThrottle"]
+  ORK R2 R3 K4 [0]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["lastScrollEventTime"]
+  SUB R3 R1 R4
+  JUMPIFNOTLT R2 R3 [+11]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["props"]
+  GETTABLEKS R3 R4 K8 ["onScroll"]
+  MOVE R4 R0
+  CALL R3 1 0
+  GETUPVAL R3 0
+  SETTABLEKS R1 R3 K7 ["lastScrollEventTime"]
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R2 R1 K0 ["UserInputType"]
+  GETIMPORT R3 K3 [Enum.UserInputType.MouseWheel]
+  JUMPIFEQ R2 R3 [+7]
+  GETTABLEKS R2 R1 K0 ["UserInputType"]
+  GETIMPORT R3 K5 [Enum.UserInputType.Touch]
+  JUMPIFNOTEQ R2 R3 [+12]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["motor"]
+  JUMPIFEQKNIL R2 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["motor"]
+  NAMECALL R2 R2 K7 ["stop"]
+  CALL R2 1 0
+  GETTABLEKS R2 R1 K0 ["UserInputType"]
+  GETIMPORT R3 K5 [Enum.UserInputType.Touch]
+  JUMPIFNOTEQ R2 R3 [+9]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K8 ["props"]
+  GETTABLEKS R2 R3 K9 ["onTouchStart"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R2 R1 K0 ["UserInputType"]
+  GETIMPORT R3 K3 [Enum.UserInputType.Touch]
+  JUMPIFNOTEQ R2 R3 [+9]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K5 ["onTouchEnd"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R2 R1 K0 ["UserInputType"]
+  GETIMPORT R3 K3 [Enum.UserInputType.Touch]
+  JUMPIFNOTEQ R2 R3 [+9]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K5 ["onTouchMove"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["onSelectionChanged"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  MOVE R8 R3
+  CALL R4 4 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["isArray"]
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K2 ["style"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+13]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["reduce"]
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["style"]
+  DUPCLOSURE R3 K4 [PROTO_5]
+  CAPTURE UPVAL U1
+  NEWTABLE R4 0 0
+  CALL R1 3 1
+  JUMP [+4]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["style"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["assign"]
+  NEWTABLE R3 16 0
+  LOADK R4 K6 ["RCTScrollView"]
+  SETTABLEKS R4 R3 K7 ["Name"]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K8 ["scrollEnabled"]
+  JUMPIFEQKNIL R5 [+6]
+  GETTABLEKS R5 R0 K1 ["props"]
+  GETTABLEKS R4 R5 K8 ["scrollEnabled"]
+  JUMP [+1]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K9 ["ScrollingEnabled"]
+  GETIMPORT R4 K12 [UDim2.new]
+  LOADN R5 1
+  LOADN R6 0
+  LOADN R7 1
+  LOADN R8 0
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K13 ["Size"]
+  GETTABLEKS R5 R0 K1 ["props"]
+  GETTABLEKS R4 R5 K14 ["CanvasPosition"]
+  SETTABLEKS R4 R3 K14 ["CanvasPosition"]
+  GETTABLEKS R5 R0 K1 ["props"]
+  GETTABLEKS R4 R5 K15 ["CanvasSize"]
+  JUMPIF R4 [+7]
+  GETIMPORT R4 K12 [UDim2.new]
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  LOADN R8 0
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K15 ["CanvasSize"]
+  GETTABLEKS R5 R0 K1 ["props"]
+  GETTABLEKS R4 R5 K16 ["AutomaticCanvasSize"]
+  JUMPIF R4 [+2]
+  GETIMPORT R4 K20 [Enum.AutomaticSize.XY]
+  SETTABLEKS R4 R3 K16 ["AutomaticCanvasSize"]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K21 ["horizontal"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K22 ["showsHorizontalScrollIndicator"]
+  JUMPIFEQKB R5 FALSE [+12]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K21 ["horizontal"]
+  JUMPIF R5 [+8]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K23 ["showsVerticalScrollIndicator"]
+  JUMPIFNOTEQKB R5 FALSE [+3]
+  LOADN R4 0
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K24 ["ScrollBarThickness"]
+  GETTABLEKS R4 R0 K25 ["_nativeRef"]
+  SETTABLEKS R4 R3 K26 ["ref"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K27 ["AbsoluteWindowSize"]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K28 ["onLayout"]
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K14 ["CanvasPosition"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R0
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K29 ["InputBegan"]
+  NEWCLOSURE R5 P2
+  CAPTURE VAL R0
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K30 ["InputEnded"]
+  NEWCLOSURE R5 P3
+  CAPTURE VAL R0
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K31 ["InputChanged"]
+  NEWCLOSURE R5 P4
+  CAPTURE VAL R0
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K32 ["SelectionChanged"]
+  GETTABLEKS R7 R0 K1 ["props"]
+  GETTABLEKS R6 R7 K33 ["onSelectionChanged"]
+  JUMPIFNOT R6 [+3]
+  NEWCLOSURE R5 P5
+  CAPTURE VAL R0
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLE R5 R3 R4
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K34 ["createElement"]
+  LOADK R4 K35 ["ScrollingFrame"]
+  MOVE R5 R2
+  NEWTABLE R6 1 1
+  GETTABLEKS R9 R0 K1 ["props"]
+  GETTABLEKS R8 R9 K36 ["inverted"]
+  JUMPIFNOT R8 [+36]
+  GETTABLEKS R9 R0 K1 ["props"]
+  GETTABLEKS R8 R9 K37 ["getItemLayout"]
+  JUMPIF R8 [+31]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K34 ["createElement"]
+  LOADK R8 K38 ["UIListLayout"]
+  DUPTABLE R9 K41 [{"HorizontalAlignment", "VerticalAlignment"}]
+  GETTABLEKS R12 R0 K1 ["props"]
+  GETTABLEKS R11 R12 K21 ["horizontal"]
+  JUMPIFNOT R11 [+3]
+  GETIMPORT R10 K43 [Enum.HorizontalAlignment.Right]
+  JUMP [+2]
+  GETIMPORT R10 K45 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R10 R9 K39 ["HorizontalAlignment"]
+  GETTABLEKS R12 R0 K1 ["props"]
+  GETTABLEKS R11 R12 K21 ["horizontal"]
+  JUMPIFNOT R11 [+3]
+  GETIMPORT R10 K46 [Enum.VerticalAlignment.Center]
+  JUMP [+2]
+  GETIMPORT R10 K48 [Enum.VerticalAlignment.Bottom]
+  SETTABLEKS R10 R9 K40 ["VerticalAlignment"]
+  CALL R7 2 1
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K49 ["Layout"]
+  GETTABLEKS R8 R0 K1 ["props"]
+  GETTABLEKS R7 R8 K50 ["children"]
+  SETTABLEN R7 R6 1
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_12:
+  GETTABLEKS R1 R0 K0 ["motor"]
+  JUMPIFEQKNIL R1 [+6]
+  GETTABLEKS R1 R0 K0 ["motor"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["motorStepDisconnect"]
+  JUMPIFEQKNIL R1 [+4]
+  GETTABLEKS R1 R0 K2 ["motorStepDisconnect"]
+  CALL R1 0 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K6 ["console"]
+  GETTABLEKS R4 R2 K7 ["Array"]
+  GETTABLEKS R5 R2 K8 ["Object"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R1 K9 ["React"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K10 ["Change"]
+  GETTABLEKS R8 R6 K11 ["Event"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R1 K12 ["Otter"]
+  CALL R9 1 1
+  DUPTABLE R10 K15 [{"restingPositionLimit", "restingVelocityLimit"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K13 ["restingPositionLimit"]
+  LOADN R11 10
+  SETTABLEKS R11 R10 K14 ["restingVelocityLimit"]
+  GETTABLEKS R11 R6 K16 ["Component"]
+  LOADK R13 K17 ["ScrollViewNativeComponent"]
+  NAMECALL R11 R11 K18 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K19 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  SETTABLEKS R12 R11 K20 ["init"]
+  DUPCLOSURE R12 K21 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R12 R11 K22 ["_validateAnimatedScrollInputs"]
+  DUPCLOSURE R12 K23 [PROTO_4]
+  CAPTURE VAL R9
+  SETTABLEKS R12 R11 K24 ["_startAnimatedScroll"]
+  DUPCLOSURE R12 K25 [PROTO_11]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R12 R11 K26 ["render"]
+  DUPCLOSURE R12 K27 [PROTO_12]
+  SETTABLEKS R12 R11 K28 ["willUnmount"]
+  RETURN R11 1

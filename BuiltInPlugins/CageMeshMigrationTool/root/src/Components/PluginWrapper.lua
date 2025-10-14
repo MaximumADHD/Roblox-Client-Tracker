@@ -16,7 +16,7 @@ local FixStiffness = require(root.src.Thunks.FixStiffness)
 
 local Framework = require(root.Packages.Framework)
 
-local ContextServices = Framework.ContextServices
+local ContextServices: any = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 
 local UI = Framework.UI

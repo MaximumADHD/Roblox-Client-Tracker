@@ -1,0 +1,414 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["selectionChanged"]
+  NAMECALL R0 R0 K1 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["selectedPositionsChanged"]
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["Fire"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWTABLE R2 16 0
+  GETUPVAL R3 0
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K1 [setmetatable]
+  CALL R1 2 1
+  SETTABLEKS R0 R1 K2 ["_meshEditingContext"]
+  GETIMPORT R2 K6 [Enum.RibbonTool.Select]
+  SETTABLEKS R2 R1 K7 ["_currentHandle"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K8 ["_mouse"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K9 ["_mouseStartRay"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K10 ["_dummy"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K12 ["boundsChanged"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K13 ["selectedPositionsChanged"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K14 ["draggerHandleChanged"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K15 ["selectionChanged"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K11 ["new"]
+  GETTABLEKS R3 R1 K2 ["_meshEditingContext"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K16 ["_model"]
+  GETTABLEKS R2 R1 K16 ["_model"]
+  GETTABLEKS R4 R1 K10 ["_dummy"]
+  NAMECALL R2 R2 K17 ["setDummy"]
+  CALL R2 2 0
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K11 ["new"]
+  GETTABLEKS R3 R1 K16 ["_model"]
+  GETTABLEKS R4 R1 K2 ["_meshEditingContext"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K18 ["_view"]
+  GETTABLEKS R3 R1 K16 ["_model"]
+  GETTABLEKS R2 R3 K15 ["selectionChanged"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K19 ["Connect"]
+  CALL R2 2 0
+  GETTABLEKS R3 R1 K16 ["_model"]
+  GETTABLEKS R2 R3 K13 ["selectedPositionsChanged"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K19 ["Connect"]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["_meshEditingContext"]
+  RETURN R1 1
+
+PROTO_4:
+  GETTABLEKS R3 R0 K0 ["_view"]
+  JUMPIFNOTEQKNIL R3 [+3]
+  LOADB R3 0
+  RETURN R3 1
+  GETTABLEKS R3 R0 K0 ["_view"]
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R3 K1 ["isVertexFacingCamera"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["_meshEditingContext"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["getMeshPart"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["getSelectedControlPointWeights"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["getPointLocationData"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_8:
+  GETTABLEKS R2 R0 K0 ["_model"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setDummy"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_9:
+  SETTABLEKS R1 R0 K0 ["_mouse"]
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["_mouse"]
+  RETURN R1 1
+
+PROTO_11:
+  GETTABLEKS R2 R0 K0 ["_model"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setRadius"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["getRadius"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_13:
+  GETTABLEKS R1 R0 K0 ["_currentHandle"]
+  RETURN R1 1
+
+PROTO_14:
+  SETTABLEKS R1 R0 K0 ["_currentHandle"]
+  GETTABLEKS R2 R0 K1 ["draggerHandleChanged"]
+  NAMECALL R2 R2 K2 ["Fire"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETTABLEKS R1 R0 K0 ["_view"]
+  NAMECALL R1 R1 K1 ["getTransparency"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_16:
+  GETTABLEKS R2 R0 K0 ["_view"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setTransparency"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_17:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["getFalloff"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_18:
+  GETTABLEKS R2 R0 K0 ["_model"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setFalloff"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_19:
+  GETTABLEKS R2 R0 K0 ["_model"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["addWaypoint"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_20:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["undo"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_21:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["redo"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_22:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["getUndoRedoStack"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_23:
+  GETTABLEKS R3 R0 K0 ["_model"]
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R3 K1 ["restoreUndoRedoStack"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_24:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  JUMPIF R1 [+3]
+  NEWTABLE R1 0 0
+  RETURN R1 1
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["getSelectedPoints"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_25:
+  GETTABLEKS R2 R0 K0 ["_model"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setSelectedPoints"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_26:
+  GETTABLEKS R2 R0 K0 ["_view"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["getSelectablesForMesh"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_27:
+  GETTABLEKS R1 R0 K0 ["_view"]
+  NAMECALL R1 R1 K1 ["getSelectables"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_28:
+  GETTABLEKS R2 R0 K0 ["_model"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setHoveredPoint"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_29:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  JUMPIF R1 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["getHoveredPoint"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_30:
+  GETTABLEKS R1 R0 K0 ["_model"]
+  NAMECALL R1 R1 K1 ["getHoveredPointPosition"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_31:
+  GETTABLEKS R6 R0 K0 ["_currentHandle"]
+  GETIMPORT R7 K4 [Enum.RibbonTool.Rotate]
+  JUMPIFNOTEQ R6 R7 [+11]
+  GETTABLEKS R6 R0 K5 ["_model"]
+  MOVE R8 R1
+  MOVE R9 R3
+  MOVE R10 R4
+  MOVE R11 R5
+  NAMECALL R6 R6 K6 ["transformRotateSelected"]
+  CALL R6 5 0
+  RETURN R0 0
+  GETTABLEKS R6 R0 K5 ["_model"]
+  MOVE R8 R1
+  MOVE R9 R2
+  NAMECALL R6 R6 K7 ["transformTranslateSelected"]
+  CALL R6 3 0
+  RETURN R0 0
+
+PROTO_32:
+  GETTABLEKS R4 R0 K0 ["_model"]
+  MOVE R6 R1
+  MOVE R7 R2
+  MOVE R8 R3
+  NAMECALL R4 R4 K1 ["transformScaleSelected"]
+  CALL R4 4 0
+  RETURN R0 0
+
+PROTO_33:
+  SETTABLEKS R1 R0 K0 ["_mouseStartRay"]
+  RETURN R0 0
+
+PROTO_34:
+  GETTABLEKS R1 R0 K0 ["_mouseStartRay"]
+  RETURN R1 1
+
+PROTO_35:
+  GETTABLEKS R1 R0 K0 ["_view"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["_view"]
+  NAMECALL R1 R1 K1 ["cleanup"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_view"]
+  GETTABLEKS R1 R0 K2 ["_model"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K2 ["_model"]
+  NAMECALL R1 R1 K1 ["cleanup"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_model"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["LuaMeshEditingModule"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["MeshEditingContexts"]
+  GETTABLEKS R2 R3 K7 ["MeshEditingContextBase"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["Signal"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K10 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K11 ["Tools"]
+  GETTABLEKS R5 R6 K12 ["VertexToolBaseModel"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K11 ["Tools"]
+  GETTABLEKS R6 R7 K13 ["VertexToolBaseView"]
+  CALL R5 1 1
+  NEWTABLE R6 64 0
+  SETTABLEKS R6 R6 K14 ["__index"]
+  DUPCLOSURE R7 K15 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K16 ["new"]
+  DUPCLOSURE R7 K17 [PROTO_3]
+  SETTABLEKS R7 R6 K18 ["getMeshEditingContext"]
+  DUPCLOSURE R7 K19 [PROTO_4]
+  SETTABLEKS R7 R6 K20 ["isVertexFacingCamera"]
+  DUPCLOSURE R7 K21 [PROTO_5]
+  SETTABLEKS R7 R6 K22 ["getMeshPart"]
+  DUPCLOSURE R7 K23 [PROTO_6]
+  SETTABLEKS R7 R6 K24 ["getSelectedControlPointWeights"]
+  DUPCLOSURE R7 K25 [PROTO_7]
+  SETTABLEKS R7 R6 K26 ["getPointLocationData"]
+  DUPCLOSURE R7 K27 [PROTO_8]
+  SETTABLEKS R7 R6 K28 ["setDummy"]
+  DUPCLOSURE R7 K29 [PROTO_9]
+  SETTABLEKS R7 R6 K30 ["setMouse"]
+  DUPCLOSURE R7 K31 [PROTO_10]
+  SETTABLEKS R7 R6 K32 ["getMouse"]
+  DUPCLOSURE R7 K33 [PROTO_11]
+  SETTABLEKS R7 R6 K34 ["setRadius"]
+  DUPCLOSURE R7 K35 [PROTO_12]
+  SETTABLEKS R7 R6 K36 ["getRadius"]
+  DUPCLOSURE R7 K37 [PROTO_13]
+  SETTABLEKS R7 R6 K38 ["getCurrentHandle"]
+  DUPCLOSURE R7 K39 [PROTO_14]
+  SETTABLEKS R7 R6 K40 ["setCurrentHandle"]
+  DUPCLOSURE R7 K41 [PROTO_15]
+  SETTABLEKS R7 R6 K42 ["getTransparency"]
+  DUPCLOSURE R7 K43 [PROTO_16]
+  SETTABLEKS R7 R6 K44 ["setTransparency"]
+  DUPCLOSURE R7 K45 [PROTO_17]
+  SETTABLEKS R7 R6 K46 ["getFalloff"]
+  DUPCLOSURE R7 K47 [PROTO_18]
+  SETTABLEKS R7 R6 K48 ["setFalloff"]
+  DUPCLOSURE R7 K49 [PROTO_19]
+  SETTABLEKS R7 R6 K50 ["addWaypoint"]
+  DUPCLOSURE R7 K51 [PROTO_20]
+  SETTABLEKS R7 R6 K52 ["undo"]
+  DUPCLOSURE R7 K53 [PROTO_21]
+  SETTABLEKS R7 R6 K54 ["redo"]
+  DUPCLOSURE R7 K55 [PROTO_22]
+  SETTABLEKS R7 R6 K56 ["getUndoRedoStack"]
+  DUPCLOSURE R7 K57 [PROTO_23]
+  SETTABLEKS R7 R6 K58 ["restoreUndoRedoStack"]
+  DUPCLOSURE R7 K59 [PROTO_24]
+  SETTABLEKS R7 R6 K60 ["getSelected"]
+  DUPCLOSURE R7 K61 [PROTO_25]
+  SETTABLEKS R7 R6 K62 ["setSelected"]
+  DUPCLOSURE R7 K63 [PROTO_26]
+  SETTABLEKS R7 R6 K64 ["getSelectablesForMesh"]
+  DUPCLOSURE R7 K65 [PROTO_27]
+  SETTABLEKS R7 R6 K66 ["getSelectables"]
+  DUPCLOSURE R7 K67 [PROTO_28]
+  SETTABLEKS R7 R6 K68 ["setHoveredPoint"]
+  DUPCLOSURE R7 K69 [PROTO_29]
+  SETTABLEKS R7 R6 K70 ["getHoveredPoint"]
+  DUPCLOSURE R7 K71 [PROTO_30]
+  SETTABLEKS R7 R6 K72 ["getHoveredPointPosition"]
+  DUPCLOSURE R7 K73 [PROTO_31]
+  SETTABLEKS R7 R6 K74 ["transformSelected"]
+  DUPCLOSURE R7 K75 [PROTO_32]
+  SETTABLEKS R7 R6 K76 ["scaleSelected"]
+  DUPCLOSURE R7 K77 [PROTO_33]
+  SETTABLEKS R7 R6 K78 ["setMouseStartRay"]
+  DUPCLOSURE R7 K79 [PROTO_34]
+  SETTABLEKS R7 R6 K80 ["getMouseStartRay"]
+  DUPCLOSURE R7 K81 [PROTO_35]
+  SETTABLEKS R7 R6 K82 ["cleanup"]
+  RETURN R6 1
