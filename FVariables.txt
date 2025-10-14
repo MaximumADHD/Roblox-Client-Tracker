@@ -10004,7 +10004,6 @@
 [C++] FFlagUseDynamicStrokePositioning
 [C++] FFlagUseExistingPseudoInstance
 [C++] FFlagUseFallbackWindowsDPI
-[Lua] FFlagUseFriendsPropsInMuteToggles2
 [C++] FFlagUseGeneralizedFileCulling
 [C++] FFlagUseGetAdPlacementsRequest
 [C++] FFlagUseMultipleStrokes
