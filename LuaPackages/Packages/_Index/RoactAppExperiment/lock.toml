@@ -4,8 +4,8 @@ version = "0.4.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "React React 17.3.4 registry",
-    "ReactRoblox ReactRoblox 17.3.4 registry",
-    "Roact RoactCompat 17.3.4 registry",
+    "React React 17.3.6 registry",
+    "ReactRoblox ReactRoblox 17.3.6 registry",
+    "Roact RoactCompat 17.3.6 registry",
     "t t 1.2.6 registry",
 ]

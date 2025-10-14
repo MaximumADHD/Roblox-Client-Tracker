@@ -12,6 +12,7 @@ The `StatusIndicator` can display in two states:
 
 * If `value` is not provided, it will show as an empty indicator (no text)
 * If `value` is provided, it will show the number
+* If `value` exceeds the optional `max`, it will show the max value followed by a "+" (e.g., "99+")
 
 !!! warning
 
@@ -36,6 +37,13 @@ React.createElement(StatusIndicator, {
 -- With a numeric value
 React.createElement(StatusIndicator, {
 	value = 5,
+	variant = StatusIndicatorVariant.Emphasis,
+})
+
+-- With a max value (shows "99+" when value exceeds 99)
+React.createElement(StatusIndicator, {
+	value = 150,
+	max = 99,
 	variant = StatusIndicatorVariant.Emphasis,
 })
 ```

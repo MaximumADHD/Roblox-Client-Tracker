@@ -1,6 +1,6 @@
 [package]
 name = "ReactGlobals"
-version = "17.3.4"
+version = "17.3.6"
 content_root = "src"
 files = [
     "*",

@@ -3,7 +3,7 @@ name = "RoduxGames"
 version = "1.4.3"
 source = "registry"
 dependencies = [
-    "Dash Dash 3.1.0 registry",
+    "Dash Dash 3.2.0 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",

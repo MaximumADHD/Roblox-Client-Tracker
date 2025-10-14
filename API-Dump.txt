@@ -523,6 +523,7 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.PatchId: string
 Class AssetService : Instance [NotCreatable] [Service]
 	Property AssetService.AllowInsertFreeAssets: boolean {RobloxScriptSecurity}
+	Function AssetService:CachePartOperationsAsync(partOperations: { any }) -> () {RobloxScriptSecurity} [Yields]
 	Function AssetService:CanEditAssetAsync(content: Content) -> boolean {RobloxScriptSecurity} [Yields]
 	Function AssetService:ComposeDecalAsync(layers: { any }) -> Decal [Yields]
 	Function AssetService:CreateAssetAsync(object: Object, assetType: Enum.AssetType, requestParameters: { [string]: any }? = nil) -> ...any [Yields]
@@ -1194,6 +1195,7 @@ Class GroupImportData : BaseImportData [NotCreatable] [NotReplicated]
 Class JointImportData : BaseImportData [NotCreatable] [NotReplicated]
 Class MaterialImportData : BaseImportData [NotCreatable] [NotReplicated]
 	Property MaterialImportData.DiffuseFilePath: string
+	Property MaterialImportData.EmissiveFilePath: string
 	Property MaterialImportData.IsPbr: boolean [ReadOnly]
 	Property MaterialImportData.MetalnessFilePath: string
 	Property MaterialImportData.NormalFilePath: string
@@ -1484,6 +1486,8 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureUploadDataAsync(capturePath: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetDeviceInfo() -> { [string]: any } {🔐InternalTest}
+	Function CaptureService:InternalCheckPlayabilityAsync(universeId: number) -> boolean {🔐InternalTest} [Yields]
+	Function CaptureService:InternalGetStartPlaceIdAsync(universeId: number) -> number {🔐InternalTest} [Yields]
 	Function CaptureService:IsCapturingVideo() -> boolean {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
@@ -1517,13 +1521,10 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) [Deprecated]
 	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {RobloxScriptSecurity}
 	Event CaptureService.OnCaptureAndMetadataSignatureResult(content: string, captureSignature: string, captureSignatureVersion: number, metadataSignature: string, metadataSignatureVersion: number) {RobloxSecurity} [Hidden]
-	Event CaptureService.OnCaptureSignatureResult(content: string, signature: string, signatureVersion: number) {RobloxSecurity} [Hidden]
 	Event CaptureService.OpenCapturePermissionsPrompt(promptId: number, captureGalleryPermission: Enum.CaptureGalleryPermission) {RobloxScriptSecurity}
 	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, captures: { any }) {RobloxScriptSecurity}
 	Event CaptureService.OpenShareCapturePrompt(promptId: number, captureContent: any, launchData: string) {RobloxScriptSecurity}
 	Event CaptureService.RequestCaptureAndMetadataSignature(content: string, audioAssetIds: string) {RobloxSecurity} [Hidden]
-	Event CaptureService.RequestCaptureSignature(content: string) {RobloxSecurity} [Hidden]
-	Event CaptureService.RequestCaptureSignatureV2(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
 	Event CaptureService.UserVideoCaptureFailed(result: Enum.VideoCaptureResult) {RobloxScriptSecurity}
 	Event CaptureService.UserVideoCaptureStartFailed(result: Enum.VideoCaptureStartedResult) {RobloxScriptSecurity}
@@ -2316,9 +2317,6 @@ Class EventIngestService : Instance [NotCreatable] [Service]
 	Function EventIngestService:SendEventImmediately(target: string, eventContext: string, eventName: string, additionalArgs: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function EventIngestService:SetRBXEvent(target: string, eventContext: string, eventName: string, additionalArgs: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function EventIngestService:SetRBXEventStream(target: string, eventContext: string, eventName: string, additionalArgs: { [string]: any }) -> () {RobloxScriptSecurity}
-Class ExampleService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function ExampleService:PrintHello() -> () {RobloxScriptSecurity}
-	Event ExampleService.OnPolo(message: string) {RobloxScriptSecurity}
 Class ExampleV2Service : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ExampleV2Service:PrintHello() -> () {RobloxScriptSecurity}
 	Event ExampleV2Service.OnPolo(message: string) {RobloxScriptSecurity}
@@ -2510,6 +2508,8 @@ Class Feature : Instance [NotCreatable]
 Class Hole : Feature [Deprecated]
 Class MotorFeature : Feature [Deprecated]
 Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
+	Event FeatureRestrictionManager.FeatureTimeoutAttempt(permanent: boolean, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxScriptSecurity}
+	Event FeatureRestrictionManager.ShowFeatureInterventionDetails(featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxScriptSecurity}
 	Event FeatureRestrictionManager.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
 	Event FeatureRestrictionManager.UpdateClientFeatureTimeout(startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
 	Event FeatureRestrictionManager.UpdateExperienceChatTimeout(startTime: number, duration: number) {RobloxSecurity} [Hidden]
@@ -2602,6 +2602,7 @@ Class GeometryService : Instance [NotCreatable] [Service]
 	Function GeometryService:IntersectAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
 	Function GeometryService:SubtractAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
 	Function GeometryService:TranscodeMesh(instance: Instance) -> () {🔐CSG} {RobloxScriptSecurity}
+	Function GeometryService:TranscodeModel(instance: Instance) -> { any } {🔐CSG} {RobloxScriptSecurity}
 	Function GeometryService:UnionAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
 Class GetTextBoundsParams : Instance [NotReplicated]
 	Property GetTextBoundsParams.Font: Font {🔐UI}
@@ -4046,6 +4047,7 @@ Class LodDataEntity : Instance [NotCreatable]
 	Property LodDataEntity.EntityPosition: CFrame [Hidden] [NotScriptable]
 	Property LodDataEntity.EntityScale: Vector3 [Hidden] [NotScriptable]
 	Property LodDataEntity.EntitySource: Instance? [Hidden] [NotScriptable]
+	Property LodDataEntity.IsSlimEnabled: boolean [Hidden] [NotScriptable]
 Class LodDataService : Instance [NotCreatable] [Service] [NotReplicated]
 Class LogReporterService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LogReporterService:ReportLog(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }) -> boolean {RobloxScriptSecurity}
@@ -4375,10 +4377,12 @@ Class MetaBreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
 Class MicroProfilerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property MicroProfilerService.ContextLabel: string {RobloxScriptSecurity}
 Class ModerationService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function ModerationService:CreateReviewableContentKey(content: Content) -> string {🔐InternalTest}
+	Function ModerationService:BindReviewableContentEventProcessor(priority: number, callback: (...any) -> ...any) -> RBXScriptConnection
+	Function ModerationService:CreateReviewableContentAsync(config: { [string]: any }) -> string [Yields]
+	Function ModerationService:CreateReviewableContentKey(content: Content) -> string
 	Function ModerationService:InternalCreateReviewableContentAsync(config: { [string]: any }) -> string {🔐InternalTest} [Yields]
 	Function ModerationService:InternalRequestReviewableContentReviewAsync(config: { [string]: any }) -> () {🔐InternalTest} [Yields]
-	Event ModerationService.TriggeredCaptureUpload(config: { [string]: any }) {🔐InternalTest} {RobloxSecurity} [Hidden]
+	Event ModerationService.TriggeredCaptureUpload(config: { [string]: any }) {RobloxSecurity} [Hidden]
 	Callback ModerationService.InternalProcessReviewableContentEvent(event: { [string]: any }) -> boolean {🔐InternalTest}
 Class Mouse : Instance [NotCreatable]
 	Property Mouse.Hit: CFrame {🔐Input} [ReadOnly]
@@ -4978,7 +4982,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.StreamingMinRadius: number [NotScriptable]
 	Property Workspace.StreamingPauseMode: Enum.StreamingPauseMode [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable]
 	Property Workspace.StreamingTargetRadius: number [NotScriptable]
-	Property Workspace.UseImprovedModelLod: Enum.RolloutState [NotScriptable]
 	Function Workspace:BreakJoints(objects: { Instance }) -> () {PluginSecurity} [Deprecated]
 	Function Workspace:CalculateJumpDistance(gravity: number, jumpPower: number, walkSpeed: number) -> number {RobloxScriptSecurity}
 	Function Workspace:CalculateJumpHeight(gravity: number, jumpPower: number) -> number {RobloxScriptSecurity}
@@ -5909,8 +5912,8 @@ Class RtMessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property RunService.ClientGitHash: string {🔐Basic} {RobloxScriptSecurity} [ReadOnly]
 	Property RunService.RunState: Enum.RunState {🔐Basic} {PluginSecurity} [NotReplicated]
+	Property RunService.FrameNumber: number {🔐Basic} [ReadOnly]
 	Property RunService.PredictionState: Enum.PredictionState {🔐Basic} [ReadOnly]
-	Property RunService.ServerFrame: number {🔐Basic} [ReadOnly]
 	Function RunService:BindToRenderStep(name: string, priority: number, function: (...any) -> ...any) -> () {🔐Basic}
 	Function RunService:GetControlAndVariantRolloutFlags() -> ...any {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetCoreScriptVersion() -> string {🔐Basic} {RobloxScriptSecurity}
@@ -6647,6 +6650,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.ActionOnAutoResumeSync: Enum.ActionOnAutoResumeSync {RobloxScriptSecurity}
 	Property Studio.ActionOnStopSync: Enum.ActionOnStopSync
 	Property Studio.AutoResumeSyncOnPlaceOpen: boolean {RobloxSecurity}
+	Property Studio.DefaultInstancesDir: QDir {RobloxSecurity}
 	Property Studio.IconOverrideDir: QDir {RobloxScriptSecurity}
 	Property Studio.LocalAssetsFolder: QDir {✏️RobloxScriptSecurity}
 	Property Studio.PluginsDir: QDir
@@ -7033,6 +7037,8 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function TeleportService:TeleportToPrivateServer(placeId: number, reservedServerAccessCode: string, players: { Instance }, spawnName: string? = "", teleportData: any, customLoadingScreen: Instance? = nil) -> ()
 	Function TeleportService:TeleportToSpawnByName(placeId: number, spawnName: string, player: Instance? = nil, teleportData: any, customLoadingScreen: Instance? = nil) -> ()
 	Function TeleportService:TeleportTrustedBackForth(goForth: boolean) -> () {RobloxScriptSecurity}
+	Function TeleportService:TeleportTrustedBackHistory(placeId: number) -> () {RobloxScriptSecurity}
+	Function TeleportService:TeleportedPlacesBackHistory() -> { any } {RobloxScriptSecurity}
 	Function TeleportService:UnblockAsync() -> ...any {RobloxScriptSecurity} [Yields]
 	Event TeleportService.LocalPlayerArrivedFromTeleport(loadingGui: Instance, dataTable: any)
 	Event TeleportService.MenuTeleportAttempt() {RobloxScriptSecurity}
@@ -7239,7 +7245,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number) -> () {🔐Chat} {RobloxScriptSecurity}
 	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage, messageRenderedSurface: string? = "unknown") -> () {🔐Chat} {RobloxScriptSecurity}
 	Function TextChatService:SendExpChatWindowScroll() -> () {🔐Chat} {RobloxScriptSecurity}
-	Function TextChatService:SendExpChatWindowStatusChange(timeClosed: number, timeOpen: number, timeIdle: number) -> () {🔐Chat} {RobloxScriptSecurity}
+	Function TextChatService:SendExpChatWindowStatusChange(timeClosed: number, timeOpen: number, timeBackgroundIdle: number, timeTextIdle: number) -> () {🔐Chat} {RobloxScriptSecurity}
 	Event TextChatService.BubbleDisplayed(partOrCharacter: Instance, textChatMessage: TextChatMessage) {🔐Chat}
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel) {🔐Chat} {RobloxSecurity} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {🔐Chat} {RobloxSecurity} [Hidden]
@@ -7863,6 +7869,18 @@ Class Vector3Value : ValueBase
 	Property Vector3Value.Value: Vector3
 	Event Vector3Value.Changed(value: Vector3)
 	Event Vector3Value.changed(value: Vector3) [Deprecated]
+Class ValueCurve : Instance
+	Property ValueCurve.Length: number {🔐Basic} [ReadOnly]
+	Property ValueCurve.ValueType: string {🔐Basic} [ReadOnly]
+	Property ValueCurve.ValuesAndTimes: BinaryString {🔐Basic} [Hidden] [NotScriptable]
+	Function ValueCurve:GetKeyAtIndex(index: number) -> ValueCurveKey {🔐Basic}
+	Function ValueCurve:GetKeyIndicesAtTime(time: number) -> { any } {🔐Basic}
+	Function ValueCurve:GetKeys() -> { any } {🔐Basic}
+	Function ValueCurve:GetValueAtTime(time: number) -> any? {🔐Basic}
+	Function ValueCurve:InsertKey(key: ValueCurveKey) -> { any } {🔐Basic}
+	Function ValueCurve:InsertKeyValue(time: number, value: any, keyInterpolationMode: Enum.KeyInterpolationMode? = "Constant") -> { any } {🔐Basic}
+	Function ValueCurve:RemoveKeyAtIndex(startingIndex: number, count: number? = 1) -> number {🔐Basic}
+	Function ValueCurve:SetKeys(keys: { any }) -> number {🔐Basic}
 Class Vector3Curve : Instance
 	Function Vector3Curve:GetValueAtTime(time: number) -> { any } {🔐Basic}
 	Function Vector3Curve:X() -> FloatCurve {🔐Basic}
@@ -10182,7 +10200,8 @@ Enum MessageType
 Enum ModelLevelOfDetail
 	EnumItem ModelLevelOfDetail.Automatic : 0
 	EnumItem ModelLevelOfDetail.StreamingMesh : 1
-	EnumItem ModelLevelOfDetail.Disabled : 2
+	EnumItem ModelLevelOfDetail.SLIM : 2
+	EnumItem ModelLevelOfDetail.Disabled : 3
 Enum ModelStreamingBehavior
 	EnumItem ModelStreamingBehavior.Default : 0
 	EnumItem ModelStreamingBehavior.Legacy : 1
@@ -10193,6 +10212,22 @@ Enum ModelStreamingMode
 	EnumItem ModelStreamingMode.Persistent : 2
 	EnumItem ModelStreamingMode.PersistentPerPlayer : 3
 	EnumItem ModelStreamingMode.Nonatomic : 4
+Enum ModerationResultCategory
+	EnumItem ModerationResultCategory.ViolationDetected : 0
+	EnumItem ModerationResultCategory.Borderline : 1
+	EnumItem ModerationResultCategory.NoViolationDetected : 2
+Enum ModerationResultLabel
+	EnumItem ModerationResultLabel.ChildExploitation : 0
+	EnumItem ModerationResultLabel.SuicideSelfInjuryAndHarmfulBehavior : 1
+	EnumItem ModerationResultLabel.ThreatsBullyingAndHarassment : 2
+	EnumItem ModerationResultLabel.TerrorismAndViolentExtremism : 3
+	EnumItem ModerationResultLabel.DiscriminationSlursAndHateSpeech : 4
+	EnumItem ModerationResultLabel.RealWorldSensitiveEvents : 5
+	EnumItem ModerationResultLabel.ViolentContentAndGore : 6
+	EnumItem ModerationResultLabel.RomanticAndSexualContent : 7
+	EnumItem ModerationResultLabel.IllegalAndRegulatedGoodsAndActivities : 8
+	EnumItem ModerationResultLabel.Profanity : 9
+	EnumItem ModerationResultLabel.Other : 100
 Enum ModerationStatus
 	EnumItem ModerationStatus.ReviewedApproved : 1
 	EnumItem ModerationStatus.ReviewedRejected : 2
@@ -10656,6 +10691,10 @@ Enum ReverbType
 	EnumItem ReverbType.ParkingLot : 21
 	EnumItem ReverbType.SewerPipe : 22
 	EnumItem ReverbType.UnderWater : 23
+Enum ReviewableContentState
+	EnumItem ReviewableContentState.Pending : 0
+	EnumItem ReviewableContentState.Completed : 1
+	EnumItem ReviewableContentState.Failed : 2
 Enum RibbonTool
 	EnumItem RibbonTool.Select : 0
 	EnumItem RibbonTool.Scale : 1
@@ -11184,6 +11223,27 @@ Enum Technology
 	EnumItem Technology.ShadowMap : 3
 	EnumItem Technology.Future : 4
 	EnumItem Technology.Unified : 5 [Deprecated]
+Enum TelemetryBackend
+	EnumItem TelemetryBackend.UNSPECIFIED : 0
+	EnumItem TelemetryBackend.EventIngest : 1
+	EnumItem TelemetryBackend.Points : 2
+	EnumItem TelemetryBackend.Teletune : 3
+	EnumItem TelemetryBackend.EphemeralCounter : 4
+	EnumItem TelemetryBackend.EphemeralStat : 5
+	EnumItem TelemetryBackend.Counter : 6
+	EnumItem TelemetryBackend.Stat : 7
+Enum TelemetryStandardizedField
+	EnumItem TelemetryStandardizedField.AddDatacenterId : 0
+	EnumItem TelemetryStandardizedField.AddPlaceId : 1
+	EnumItem TelemetryStandardizedField.AddUniverseId : 2
+	EnumItem TelemetryStandardizedField.AddPlaceInstanceId : 3
+	EnumItem TelemetryStandardizedField.AddPlaySessionId : 4
+	EnumItem TelemetryStandardizedField.AddCurrentContextName : 5
+	EnumItem TelemetryStandardizedField.AddOsInfo : 6
+	EnumItem TelemetryStandardizedField.AddArchitectureInfo : 7
+	EnumItem TelemetryStandardizedField.AddCpuInfo : 8
+	EnumItem TelemetryStandardizedField.AddMemoryInfo : 9
+	EnumItem TelemetryStandardizedField.AddSessionInfo : 10
 Enum TeleportMethod
 	EnumItem TeleportMethod.TeleportToSpawnByName : 0
 	EnumItem TeleportMethod.TeleportToPlaceInstance : 1

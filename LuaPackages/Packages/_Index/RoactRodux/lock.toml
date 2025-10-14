@@ -3,6 +3,6 @@ name = "RoactRodux"
 version = "0.5.1"
 source = "registry"
 dependencies = [
-    "Roact <patched> RoactCompat 17.3.4 registry",
+    "Roact <patched> RoactCompat 17.3.6 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
 ]

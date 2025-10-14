@@ -18,12 +18,12 @@ If any of the fields are not provided then the corresponding components will not
 
 `Toast` will automatically change its layout and resize accordingly based on the props provided. Body text will wrap, header text will not.
 
-Actions should be provided as an array, with entries conforming to the ToastButtonProps type:
+Actions should be provided as an array, with entries conforming to the ActionProps type (shared with other components):
 
 ```luau
-type ToastButtonProps = {
-    onActivated : (() -> any),
-    variant : ButtonVariant.ButtonVariant?,
+type ActionProps = {
+    onActivated : (() -> ()),
+    variant : ButtonVariant?,
     text : string,
 }
 ```

@@ -14,7 +14,7 @@ category: Inputs
 
 The `isRequired` property should only be used on the inputs that fall in the minority. For example, if most inputs are required, only put `isRequired = false,` on the optional inputs, and `isRequired` as `nil` for the required inputs.
 
-Non-numerical values are not allowed. Entering anything that can't be parsed to a number won't update the last value.
+Non-numerical values are not allowed. Entering anything that can't be parsed to a number won't update the last value - but will show an error state until focus is lost, and invalid values are cleared.
 When input is out of focus the value returned by `formatAsString` is displayed. By default, it shows the same value.
 
 Increase and decrease controls change value by the `step`.

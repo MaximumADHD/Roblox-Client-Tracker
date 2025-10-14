@@ -1,6 +1,6 @@
 [package]
 name = "UIBlox"
-version = "0.2.156"
+version = "0.2.164"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -26,7 +26,7 @@ package = "RoactFitComponents"
 version = "^2.0.0"
 
 [dependencies.Foundation]
-version = "^1.34.0"
+version = "^1.54.0"
 
 [dependencies.FoundationImages]
 version = "^1.25.0"

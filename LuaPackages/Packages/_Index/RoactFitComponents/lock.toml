@@ -4,5 +4,5 @@ version = "2.0.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Roact <patched> RoactCompat 17.3.4 registry",
+    "Roact <patched> RoactCompat 17.3.6 registry",
 ]

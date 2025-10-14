@@ -246,6 +246,10 @@ g_Loader.bodyText = `
 </div>
 <canvas id="History" height="130" style="background-color:#474747;margin:0px;padding:0px;"></canvas>
 <canvas id="NetworkHistory" height="150" style="background-color:#474747;margin:0px;padding:0px;display:none;"></canvas>
+<div id="WarningBanner" style="color:#ffffff;background-color:#bb2222;margin:0px;padding:5px;display:none;">
+<div style="display:inline-block;cursor:pointer" onclick='document.getElementById("WarningBanner").style["display"] = "none"'>[X]</div>
+<div id="WarningBannerText" style="display:inline-block;"></div>
+</div>
 <canvas id="DetailedView" height="200" style="background-color:#474747;margin:0px;padding:0px;"></canvas>
 <div id="root" class="root" style="display: none;">
 <div class="helpstart" id="helpwindow" style="left:20px;top:20px">
@@ -1882,6 +1886,8 @@ function SetMode(NewMode, Groups) {
         }
     }
 
+    SetWarningBanner('');
+
     if (NewMode == 'counters' || NewMode == ModeCounters) {
         buttonCounters.style['text-decoration'] = 'underline';
         ilThreads.style['display'] = 'none';
@@ -1889,6 +1895,9 @@ function SetMode(NewMode, Groups) {
         Mode = ModeCounters;
         ModeElement = buttonCounters;
 
+        if (EnabledFastFlags.includes("MicroProfilerMemoryTrackingAlertWeb")) {
+            SetWarningBanner("Memory category counters were disabled when this capture was saved to improve performance on player devices. If you restart the Client app with Microprofiler enabled, memory counters will be active for the duration of that session.");
+        }
     }
     else if (NewMode == 'timers' || NewMode == ModeTimers) {
         TimersGroups = Groups;
@@ -1945,6 +1954,13 @@ function SetReferenceTime(TimeString) {
     WriteCookie();
     RequestRedraw();
 
+}
+
+function SetWarningBanner(BannerString) {
+    bannerDiv = document.getElementById('WarningBanner');
+    bannerDiv.style['display'] = BannerString === '' ? 'none' : 'block';
+    textDiv = document.getElementById('WarningBannerText');
+    textDiv.innerText = BannerString;
 }
 
 function ToggleContextSwitch() {
