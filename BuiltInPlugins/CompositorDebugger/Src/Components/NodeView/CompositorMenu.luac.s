@@ -59,14 +59,20 @@ PROTO_1:
   RETURN R0 1
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["setMenuOpen"]
+  GETUPVAL R0 0
+  LOADK R2 K0 ["Toggling menu {}"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["id"]
+  NAMECALL R0 R0 K2 ["trace"]
+  CALL R0 3 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K3 ["setMenuOpen"]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["id"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["menuOpen"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K4 ["menuOpen"]
   JUMPIFNOTEQ R2 R3 [+3]
-  LOADK R1 K3 [""]
+  LOADK R1 K5 [""]
   JUMP [+3]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K1 ["id"]
@@ -94,7 +100,7 @@ PROTO_3:
   GETTABLEKS R7 R1 K6 ["menus"]
   SETLIST R5 R6 2 [1]
   CALL R3 2 1
-  NEWTABLE R4 0 0
+  NEWTABLE R4 1 0
   MOVE R5 R3
   LOADNIL R6
   LOADNIL R7
@@ -142,21 +148,32 @@ PROTO_3:
   GETTABLEKS R18 R9 K24 ["isDisabled"]
   SETTABLEKS R18 R17 K24 ["isDisabled"]
   NEWCLOSURE R18 P1
-  CAPTURE VAL R0
+  CAPTURE UPVAL U4
   CAPTURE VAL R9
+  CAPTURE VAL R0
   SETTABLEKS R18 R17 K25 ["onActivated"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K19 ["Button"]
   CALL R11 3 1
   SETTABLE R11 R4 R10
-  FORGLOOP R5 2 [-83]
+  FORGLOOP R5 2 [-84]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["createElement"]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K30 ["PlayButton"]
+  DUPTABLE R7 K31 [{"LayoutOrder"}]
+  LENGTH R9 R3
+  ADDK R8 R9 K32 [1]
+  SETTABLEKS R8 R7 K13 ["LayoutOrder"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K30 ["PlayButton"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K8 ["createElement"]
   GETUPVAL R7 3
-  GETTABLEKS R6 R7 K30 ["View"]
-  DUPTABLE R7 K32 [{"tag"}]
-  LOADK R8 K33 ["row align-y-top padding-small gap-small bg-surface-200 border-bottom size-full-0 auto-y"]
-  SETTABLEKS R8 R7 K31 ["tag"]
+  GETTABLEKS R6 R7 K33 ["View"]
+  DUPTABLE R7 K35 [{"tag"}]
+  LOADK R8 K36 ["row align-y-top padding-xsmall gap-xsmall align-y-center bg-surface-200 border-bottom size-full-0 auto-y"]
+  SETTABLEKS R8 R7 K34 ["tag"]
   MOVE R8 R4
   CALL R5 3 -1
   RETURN R5 -1
@@ -173,20 +190,34 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Foundation"]
+  GETTABLEKS R3 R4 K8 ["AnimationEditor"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Contexts"]
-  GETTABLEKS R4 R5 K11 ["MenuItemsContext"]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Foundation"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["React"]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["Logger"]
   CALL R4 1 1
-  DUPCLOSURE R5 K13 [PROTO_3]
-  CAPTURE VAL R4
-  CAPTURE VAL R3
+  LOADK R6 K13 ["CompositorMenu"]
+  NAMECALL R4 R4 K14 ["new"]
+  CALL R4 2 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Contexts"]
+  GETTABLEKS R6 R7 K16 ["MenuItemsContext"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K17 ["React"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K18 [PROTO_3]
+  CAPTURE VAL R6
+  CAPTURE VAL R5
   CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
   CAPTURE VAL R2
-  RETURN R5 1
+  RETURN R7 1

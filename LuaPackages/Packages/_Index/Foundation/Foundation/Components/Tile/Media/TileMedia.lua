@@ -14,7 +14,7 @@ type ThumbnailSize = ThumbnailSize.ThumbnailSize
 local MediaShape = require(Foundation.Enums.MediaShape)
 type MediaShape = MediaShape.MediaShape
 
-local useTileLayout = require(Foundation.Components.Tile.useTileLayout)
+local useTile = require(Foundation.Components.Tile.useTile)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 local Gradient = require(Foundation.Components.Gradient)
@@ -56,7 +56,7 @@ local defaultProps = {
 local function TileMedia(tileMediaProps: TileMediaProps)
 	local props = withDefaults(tileMediaProps, defaultProps)
 
-	local tileLayout = useTileLayout()
+	local tileContext = useTile()
 	local tokens = useTokens()
 
 	local backgroundStyle: ColorStyle? = if props.background then props.background.style :: any else nil
@@ -74,44 +74,37 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 		then UDim.new(0, tokens.Radius.Circle)
 		else UDim.new(0, tokens.Radius.Medium)
 
-	local hasMiddleCorners = tileLayout.isContained and cornerRadius
-	local topGradient = if hasMiddleCorners
-		then React.createElement(Gradient, {
-			fillDirection = tileLayout.fillDirection,
-			top = true,
-		})
-		else nil
-	local bottomGradient = if hasMiddleCorners
-		then React.createElement(Gradient, {
-			fillDirection = tileLayout.fillDirection,
-			top = false,
-		})
-		else nil
+	local hasMiddleCorners = tileContext.isContained and cornerRadius
 
 	return React.createElement(if backgroundImage then Image else View, {
 		Image = backgroundImage,
 		imageStyle = if backgroundImage then backgroundStyle else nil,
 		backgroundStyle = if backgroundImage then nil else backgroundStyle,
-		Size = if tileLayout.fillDirection == Enum.FillDirection.Vertical
+		Size = if tileContext.fillDirection == Enum.FillDirection.Vertical
 			then UDim2.fromScale(1, 0)
 			else UDim2.fromScale(0, 1),
 		ZIndex = 0,
 		LayoutOrder = props.LayoutOrder,
-
 		aspectRatio = {
 			AspectRatio = SHAPE_TO_ASPECT_RATIO[props.shape],
 			AspectType = Enum.AspectType.ScaleWithParentSize,
-			DominantAxis = if tileLayout.fillDirection == Enum.FillDirection.Vertical
+			DominantAxis = if tileContext.fillDirection == Enum.FillDirection.Vertical
 				then Enum.DominantAxis.Width
 				else Enum.DominantAxis.Height,
 		},
 		cornerRadius = cornerRadius,
 		onStateChanged = props.onStateChanged,
+		testId = `{tileContext.testId}--media`,
 	}, {
 		-- If the tile is contained, we only round the top two corners.
 		-- This is achieved by duplicating the background and images, and only
 		-- showing half of each (rounding all four on the first set, and none on the second)
-		TransparencyGradient = topGradient,
+		TransparencyGradient = if hasMiddleCorners
+			then React.createElement(Gradient, {
+				fillDirection = tileContext.fillDirection,
+				top = true,
+			})
+			else nil,
 		MiddleCorners = if hasMiddleCorners
 			then React.createElement(Image, {
 				Image = backgroundImage,
@@ -120,13 +113,9 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 				ZIndex = 0,
 				tag = "size-full",
 			}, {
-				TransparencyGradient = bottomGradient,
-				Image = React.createElement(Image, {
-					Image = image,
-					imageStyle = props.style,
-					tag = "size-full",
-				}, {
-					TransparencyGradient = bottomGradient,
+				TransparencyGradient = React.createElement(Gradient, {
+					fillDirection = tileContext.fillDirection,
+					top = false,
 				}),
 			})
 			else nil,
@@ -138,6 +127,7 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 				["size-full"] = true,
 				["padding-medium"] = props.children ~= nil,
 			},
+			testId = `{tileContext.testId}--media-image`,
 		}, props.children),
 	})
 end

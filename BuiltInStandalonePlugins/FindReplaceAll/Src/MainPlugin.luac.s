@@ -142,29 +142,53 @@ PROTO_10:
 
 PROTO_11:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["isProgrammaticallyFocusing"]
-  JUMPIFNOT R0 [+12]
-  GETUPVAL R0 0
-  DUPTABLE R2 K2 [{"shouldFocusTextBox"}]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K1 ["shouldFocusTextBox"]
-  NAMECALL R0 R0 K3 ["setState"]
-  CALL R0 2 0
-  GETUPVAL R0 0
-  LOADB R1 0
-  SETTABLEKS R1 R0 K0 ["isProgrammaticallyFocusing"]
+  GETTABLEKS R0 R1 K0 ["textBoxRef"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["textBoxRef"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["isProgrammaticallyFocusing"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["textBoxRef"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["state"]
+  GETTABLEKS R2 R3 K4 ["findActivationData"]
+  GETTABLEKS R1 R2 K5 ["searchText"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R2 R0 K6 ["Text"]
+  JUMPIFEQKS R2 K7 [""] [+3]
+  JUMPIFEQKS R1 K7 [""] [+3]
+  SETTABLEKS R1 R0 K6 ["Text"]
+  NAMECALL R2 R0 K8 ["IsFocused"]
+  CALL R2 1 1
+  JUMPIF R2 [+3]
+  NAMECALL R2 R0 K9 ["CaptureFocus"]
+  CALL R2 1 0
+  LOADN R2 1
+  SETTABLEKS R2 R0 K10 ["SelectionStart"]
+  GETTABLEKS R4 R0 K6 ["Text"]
+  LENGTH R3 R4
+  ADDK R2 R3 K11 [1]
+  SETTABLEKS R2 R0 K12 ["CursorPosition"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K13 ["PluginLoaderContext"]
+  GETTABLEKS R2 R3 K14 ["mainDockWidget"]
+  NAMECALL R3 R2 K15 ["RequestRaise"]
+  CALL R3 1 0
+  GETUPVAL R3 0
+  LOADB R4 0
+  SETTABLEKS R4 R3 K2 ["isProgrammaticallyFocusing"]
   RETURN R0 0
 
 PROTO_12:
   GETUPVAL R0 0
-  DUPTABLE R2 K1 [{"shouldFocusTextBox"}]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K0 ["shouldFocusTextBox"]
-  NAMECALL R0 R0 K2 ["setState"]
-  CALL R0 2 0
-  GETUPVAL R0 0
   LOADB R1 0
-  SETTABLEKS R1 R0 K3 ["isProgrammaticallyFocusing"]
+  SETTABLEKS R1 R0 K0 ["isProgrammaticallyFocusing"]
   RETURN R0 0
 
 PROTO_13:
@@ -199,88 +223,89 @@ PROTO_14:
   JUMPIFEQKNIL R4 [+3]
   GETTABLEKS R5 R4 K3 ["Enabled"]
   MOVE R3 R5
-  DUPTABLE R4 K7 [{"enabled", "findActivationData", "shouldFocusTextBox"}]
+  DUPTABLE R4 K6 [{"enabled", "findActivationData"}]
   SETTABLEKS R3 R4 K4 ["enabled"]
   SETTABLEKS R2 R4 K5 ["findActivationData"]
-  JUMPIFNOTEQKNIL R2 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  SETTABLEKS R5 R4 K6 ["shouldFocusTextBox"]
-  SETTABLEKS R4 R0 K8 ["state"]
+  SETTABLEKS R4 R0 K7 ["state"]
   LOADB R4 0
-  SETTABLEKS R4 R0 K9 ["isProgrammaticallyFocusing"]
+  SETTABLEKS R4 R0 K8 ["isProgrammaticallyFocusing"]
   NEWCLOSURE R4 P0
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K10 ["toggleEnabled"]
+  SETTABLEKS R4 R0 K9 ["toggleEnabled"]
   NEWCLOSURE R4 P1
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K11 ["onClose"]
+  SETTABLEKS R4 R0 K10 ["onClose"]
   NEWCLOSURE R4 P2
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K12 ["onRestore"]
+  SETTABLEKS R4 R0 K11 ["onRestore"]
   NEWCLOSURE R4 P3
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K13 ["onWidgetEnabledChanged"]
+  SETTABLEKS R4 R0 K12 ["onWidgetEnabledChanged"]
   NEWCLOSURE R4 P4
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K14 ["onDockWidgetCreated"]
+  SETTABLEKS R4 R0 K13 ["onDockWidgetCreated"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K15 ["new"]
-  GETTABLEKS R5 R1 K16 ["Plugin"]
-  NAMECALL R5 R5 K17 ["getMouse"]
+  GETTABLEKS R4 R5 K14 ["new"]
+  GETTABLEKS R5 R1 K15 ["Plugin"]
+  NAMECALL R5 R5 K16 ["getMouse"]
   CALL R5 1 -1
   CALL R4 -1 1
-  SETTABLEKS R4 R0 K18 ["mouse"]
-  GETTABLEKS R4 R0 K18 ["mouse"]
-  LOADK R6 K19 ["Arrow"]
+  SETTABLEKS R4 R0 K17 ["mouse"]
+  GETTABLEKS R4 R0 K17 ["mouse"]
+  LOADK R6 K18 ["Arrow"]
   LOADN R7 0
-  NAMECALL R4 R4 K20 ["__pushCursor"]
+  NAMECALL R4 R4 K19 ["__pushCursor"]
   CALL R4 3 0
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K21 ["Localization"]
-  GETTABLEKS R4 R5 K15 ["new"]
-  DUPTABLE R5 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETTABLEKS R5 R6 K20 ["Localization"]
+  GETTABLEKS R4 R5 K14 ["new"]
+  DUPTABLE R5 K24 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R6 4
-  SETTABLEKS R6 R5 K22 ["stringResourceTable"]
+  SETTABLEKS R6 R5 K21 ["stringResourceTable"]
   GETUPVAL R6 5
-  SETTABLEKS R6 R5 K23 ["translationResourceTable"]
+  SETTABLEKS R6 R5 K22 ["translationResourceTable"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K26 ["PLUGIN_NAME"]
-  SETTABLEKS R6 R5 K24 ["pluginName"]
+  GETTABLEKS R6 R7 K25 ["PLUGIN_NAME"]
+  SETTABLEKS R6 R5 K23 ["pluginName"]
   CALL R4 1 1
-  SETTABLEKS R4 R0 K27 ["localization"]
+  SETTABLEKS R4 R0 K26 ["localization"]
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K28 ["Analytics"]
-  GETTABLEKS R4 R5 K15 ["new"]
-  DUPCLOSURE R5 K29 [PROTO_10]
+  GETTABLEKS R5 R6 K27 ["Analytics"]
+  GETTABLEKS R4 R5 K14 ["new"]
+  DUPCLOSURE R5 K28 [PROTO_10]
   NEWTABLE R6 0 0
   CALL R4 2 1
-  SETTABLEKS R4 R0 K30 ["analytics"]
+  SETTABLEKS R4 R0 K29 ["analytics"]
   GETUPVAL R5 6
-  GETTABLEKS R4 R5 K15 ["new"]
+  GETTABLEKS R4 R5 K14 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R0 K31 ["DEPRECATED_stylizer"]
+  SETTABLEKS R4 R0 K30 ["DEPRECATED_stylizer"]
   GETUPVAL R4 7
-  GETTABLEKS R5 R1 K16 ["Plugin"]
+  GETTABLEKS R5 R1 K15 ["Plugin"]
   CALL R4 1 1
-  SETTABLEKS R4 R0 K32 ["design"]
+  SETTABLEKS R4 R0 K31 ["design"]
+  GETUPVAL R5 8
+  GETTABLEKS R4 R5 K32 ["createRef"]
+  CALL R4 0 1
+  SETTABLEKS R4 R0 K33 ["textBoxRef"]
   NEWCLOSURE R4 P6
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K33 ["onFocus"]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R0 K34 ["onFocus"]
   NEWCLOSURE R4 P7
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K34 ["onFocusReleased"]
+  SETTABLEKS R4 R0 K35 ["onFocusReleased"]
   NEWCLOSURE R4 P8
   CAPTURE VAL R0
-  SETTABLEKS R4 R0 K35 ["onFindActivationUpdate"]
+  SETTABLEKS R4 R0 K36 ["onFindActivationUpdate"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K36 ["FindActivated"]
-  GETTABLEKS R6 R0 K35 ["onFindActivationUpdate"]
-  NAMECALL R4 R4 K37 ["Connect"]
+  GETTABLEKS R4 R5 K37 ["FindActivated"]
+  GETTABLEKS R6 R0 K36 ["onFindActivationUpdate"]
+  NAMECALL R4 R4 K38 ["Connect"]
   CALL R4 2 1
-  SETTABLEKS R4 R0 K38 ["findActivatedConnection"]
+  SETTABLEKS R4 R0 K39 ["findActivatedConnection"]
   RETURN R0 0
 
 PROTO_15:
@@ -380,12 +405,12 @@ PROTO_17:
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K17 ["createElement"]
   GETUPVAL R13 6
-  DUPTABLE R14 K53 [{"findActivationData", "enabled", "shouldFocusTextBox"}]
+  DUPTABLE R14 K53 [{"findActivationData", "enabled", "textBoxRef"}]
   GETTABLEKS R15 R2 K51 ["findActivationData"]
   SETTABLEKS R15 R14 K51 ["findActivationData"]
   SETTABLEKS R4 R14 K3 ["enabled"]
-  GETTABLEKS R15 R2 K52 ["shouldFocusTextBox"]
-  SETTABLEKS R15 R14 K52 ["shouldFocusTextBox"]
+  GETTABLEKS R15 R0 K52 ["textBoxRef"]
+  SETTABLEKS R15 R14 K52 ["textBoxRef"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K47 ["App"]
   GETUPVAL R13 4
@@ -487,6 +512,7 @@ MAIN:
   CAPTURE VAL R13
   CAPTURE VAL R9
   CAPTURE VAL R10
+  CAPTURE VAL R1
   SETTABLEKS R20 R19 K41 ["init"]
   DUPCLOSURE R20 K42 [PROTO_15]
   SETTABLEKS R20 R19 K43 ["willUnmount"]

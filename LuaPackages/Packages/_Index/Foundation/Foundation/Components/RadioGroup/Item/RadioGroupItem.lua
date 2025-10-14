@@ -17,7 +17,7 @@ local useRadioGroupItemVariants = require(script.Parent.useRadioGroupItemVariant
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-local useRadioGroupValues = require(script.Parent.Parent.useRadioGroupValues)
+local useRadioGroup = require(script.Parent.Parent.useRadioGroup)
 
 export type RadioGroupItemProps = {
 	-- A unique value for the radio item.
@@ -40,19 +40,21 @@ local defaultProps = {
 local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(radioGroupItemProps, defaultProps)
 	local isDisabled = props.isDisabled
-	local value, setValue, selectable = useRadioGroupValues()
+	local radioGroupContext = useRadioGroup()
 
-	local isChecked = value == props.value
+	local isChecked = radioGroupContext.value == props.value
 	local label = props.label or props.value
 
 	local tokens = useTokens()
 
 	local onActivated = React.useCallback(function()
-		setValue(props.value)
-	end, { isDisabled :: any, props.value, setValue })
+		radioGroupContext.onValueChanged(props.value)
+	end, { isDisabled :: any, props.value, radioGroupContext.onValueChanged })
 
 	-- Have to keep variantProps here for checkmark tag
 	local variantProps = useRadioGroupItemVariants(tokens, props.size)
+
+	props.testId = `{radioGroupContext.testId}--item-{props.value}`
 
 	return React.createElement(
 		Input,
@@ -65,7 +67,7 @@ local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: Rea
 			},
 			customVariantProps = variantProps.input,
 			size = props.size,
-			Selectable = selectable,
+			Selectable = radioGroupContext.Selectable,
 			ref = ref,
 		}),
 		{

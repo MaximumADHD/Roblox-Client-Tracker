@@ -8,7 +8,6 @@ local reverse = LuauPolyfill.Array.reverse
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
-local FFlagChromeFocusOnAndOffUtils = SharedFlags.FFlagChromeFocusOnAndOffUtils
 
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
@@ -32,11 +31,9 @@ local ShortcutService = require(Root.Service.ShortcutService)
 local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
 local GetFFlagChromeTrackWindowStatus = require(Root.Parent.Flags.GetFFlagChromeTrackWindowStatus)
 local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
-local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
-local FFlagChromeShortcutDisableRespawn = SharedFlags.FFlagChromeShortcutDisableRespawn
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
@@ -306,22 +303,19 @@ function ChromeService.new(): ChromeService
 			service._currentShortcutBar:set(shortcutBarId)
 		end)
 	end
-
-	if FFlagChromeFocusOnAndOffUtils then
-		FocusOnChromeSignal:connect(function(integrationIdToFocus: Types.IntegrationId?)
-			-- initial focus on submenu integration not supported
-			if integrationIdToFocus and not self._subMenuConfig["nine_dot"][integrationIdToFocus] then
-				service:setSelected(integrationIdToFocus)
-			end
-			service:enableFocusNav()
-		end)
-		FocusOffChromeSignal:connect(function()
-			service:disableFocusNav()
-			if FFlagEnableChromeShortcutBar then
-				service:setShortcutBar(nil)
-			end
-		end)
-	end
+	FocusOnChromeSignal:connect(function(integrationIdToFocus: Types.IntegrationId?)
+		-- initial focus on submenu integration not supported
+		if integrationIdToFocus and not self._subMenuConfig["nine_dot"][integrationIdToFocus] then
+			service:setSelected(integrationIdToFocus)
+		end
+		service:enableFocusNav()
+	end)
+	FocusOffChromeSignal:connect(function()
+		service:disableFocusNav()
+		if FFlagEnableChromeShortcutBar then
+			service:setShortcutBar(nil)
+		end
+	end)
 
 	return service
 end
@@ -1011,26 +1005,23 @@ end
 if FFlagEnableChromeShortcutBar then
 	function ChromeService:registerShortcut(shortcutProps: Types.ShortcutRegisterProps)
 		self._shortcutService:registerShortcut(shortcutProps)
-
-		if FFlagChromeShortcutDisableRespawn then
-			local shortcut = self._shortcutService:getShortcut(shortcutProps.id)
-			if shortcut.integration and self._integrations[shortcut.integration] then
-				local integration = self._integrations[shortcut.integration]
-				if integration.availability:get() == ChromeService.AvailabilitySignal.Unavailable then
-					shortcut.availability:unavailable()
-				end
-				integration.availability:connect(function()
-					local integrationAvailability = integration.availability:get()
-					if integrationAvailability == ChromeService.AvailabilitySignal.Unavailable then
-						shortcut.availability:unavailable()
-					elseif
-						integrationAvailability == ChromeService.AvailabilitySignal.Available
-						or integrationAvailability == ChromeService.AvailabilitySignal.Pinned
-					then
-						shortcut.availability:available()
-					end
-				end)
+		local shortcut = self._shortcutService:getShortcut(shortcutProps.id)
+		if shortcut.integration and self._integrations[shortcut.integration] then
+			local integration = self._integrations[shortcut.integration]
+			if integration.availability:get() == ChromeService.AvailabilitySignal.Unavailable then
+				shortcut.availability:unavailable()
 			end
+			integration.availability:connect(function()
+				local integrationAvailability = integration.availability:get()
+				if integrationAvailability == ChromeService.AvailabilitySignal.Unavailable then
+					shortcut.availability:unavailable()
+				elseif
+					integrationAvailability == ChromeService.AvailabilitySignal.Available
+					or integrationAvailability == ChromeService.AvailabilitySignal.Pinned
+				then
+					shortcut.availability:available()
+				end
+			end)
 		end
 	end
 
@@ -1268,7 +1259,7 @@ function ChromeService:activate(componentId: Types.IntegrationId, props: Types.A
 
 			local success, err = pcall(function()
 				integrationActivated(self._integrations[componentId])
-				if not FFlagConsoleChatOnExpControls and FFlagConnectGamepadChrome then
+				if not FFlagConsoleChatOnExpControls then
 					self:disableFocusNav()
 				end
 			end)

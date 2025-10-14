@@ -5,6 +5,13 @@ local Rodux = require(CorePackages.Packages.Rodux)
 local Cryo = require(CorePackages.Packages.Cryo)
 
 local TopBar = script.Parent.Parent
+
+local FFlagTopBarDeprecateDisplayOptionsRodux = require(TopBar.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
+
+if FFlagTopBarDeprecateDisplayOptionsRodux then 
+	return nil :: never
+end
+
 local Actions = TopBar.Actions
 local SetMenuOpen = require(Actions.SetMenuOpen)
 local SetTopBarEnabled = require(Actions.SetTopBarEnabled)

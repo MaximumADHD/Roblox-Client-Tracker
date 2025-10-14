@@ -8,13 +8,13 @@ local View = require(Foundation.Components.View)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
-local AccordionControlledContext = require(script.Parent.AccordionControlledContext)
-local useAccordionControlled = require(script.Parent.useAccordionControlled)
+local AccordionContext = require(script.Parent.AccordionContext)
+local useAccordion = require(script.Parent.useAccordion)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 type ItemId = Types.ItemId
-type onAccordionItemActivated = useAccordionControlled.onAccordionItemActivated
+type onAccordionItemActivated = useAccordion.onAccordionItemActivated
 
 export type AccordionProps = {
 	-- width of the Accordion and it's items
@@ -29,6 +29,7 @@ export type AccordionProps = {
 local defaultProps = {
 	size = InputSize.Medium,
 	width = UDim.new(1, 0),
+	testId = "--foundation-accordion",
 }
 
 local function Accordion(accordionProps: AccordionProps, ref: React.Ref<GuiObject>?)
@@ -42,10 +43,11 @@ local function Accordion(accordionProps: AccordionProps, ref: React.Ref<GuiObjec
 			ref = ref,
 		}),
 		{
-			ControlledContext = React.createElement(AccordionControlledContext.Provider, {
+			AccordionContext = React.createElement(AccordionContext.Provider, {
 				value = {
 					onAccordionItemActivated = props.onActivated,
 					itemSize = props.size,
+					testId = props.testId,
 				},
 			}, props.children),
 		}

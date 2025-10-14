@@ -14,7 +14,6 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local ChromeService = require(Root.Service)
 local Constants = require(Root.Unibar.Constants)
 local Types = require(Root.Service.Types)
-local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
 local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 
@@ -148,10 +147,6 @@ function ChromeAnalytics.new(): ChromeAnalytics
 
 	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
 		self._defaultProps.playsessionid = AnalyticsService:GetPlaySessionId()
-	end
-
-	if not FFlagEnableChromeAnalytics then
-		return self
 	end
 
 	self._observeIntegration = function(integrationId: Types.IntegrationId)

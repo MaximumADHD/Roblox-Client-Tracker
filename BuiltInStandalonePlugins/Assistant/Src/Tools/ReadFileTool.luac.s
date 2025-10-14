@@ -30,15 +30,26 @@ PROTO_0:
   CALL R7 2 1
   MOVE R6 R7
   CALL R5 1 0
-  GETTABLEKS R6 R4 K12 ["Source"]
-  ORK R5 R6 K11 [""]
+  LOADNIL R5
+  GETUPVAL R6 1
+  CALL R6 0 1
+  JUMPIFNOT R6 [+10]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K11 ["get"]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K12 ["getScriptSource"]
+  MOVE R7 R4
+  CALL R6 1 1
+  MOVE R5 R6
+  JUMP [+2]
+  GETTABLEKS R5 R4 K13 ["Source"]
   JUMPIFNOT R3 [+33]
-  JUMPIFNOTEQKS R5 K11 [""] [+3]
-  LOADK R6 K11 [""]
+  JUMPIFNOTEQKS R5 K14 [""] [+3]
+  LOADK R6 K14 [""]
   RETURN R6 1
-  LOADK R8 K13 ["
+  LOADK R8 K15 ["
 "]
-  NAMECALL R6 R5 K14 ["split"]
+  NAMECALL R6 R5 K16 ["split"]
   CALL R6 2 1
   NEWTABLE R7 0 0
   MOVE R8 R6
@@ -46,52 +57,52 @@ PROTO_0:
   LOADNIL R10
   FORGPREP R8
   MOVE R14 R7
-  GETIMPORT R15 K16 [string.format]
-  LOADK R16 K17 ["%6d→%s"]
+  GETIMPORT R15 K18 [string.format]
+  LOADK R16 K19 ["%6d→%s"]
   MOVE R17 R11
   MOVE R18 R12
   CALL R15 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R13 K20 [table.insert]
+  GETIMPORT R13 K22 [table.insert]
   CALL R13 -1 0
   FORGLOOP R8 2 [-12]
-  GETIMPORT R8 K22 [table.concat]
+  GETIMPORT R8 K24 [table.concat]
   MOVE R9 R7
-  LOADK R10 K13 ["
+  LOADK R10 K15 ["
 "]
   CALL R8 2 -1
   RETURN R8 -1
   JUMPIFNOT R1 [+1]
   JUMPIF R2 [+4]
   GETIMPORT R6 K2 [error]
-  LOADK R7 K23 ["`start_line_one_indexed` and `end_line_one_indexed_inclusive` are required when `should_read_entire_file` is false"]
+  LOADK R7 K25 ["`start_line_one_indexed` and `end_line_one_indexed_inclusive` are required when `should_read_entire_file` is false"]
   CALL R6 1 0
   LOADN R6 1
   JUMPIFNOTLT R1 R6 [+5]
   GETIMPORT R6 K2 [error]
-  LOADK R7 K24 ["`start_line_one_indexed` must be at least 1"]
+  LOADK R7 K26 ["`start_line_one_indexed` must be at least 1"]
   CALL R6 1 0
   JUMPIFNOTLT R2 R1 [+5]
   GETIMPORT R6 K2 [error]
-  LOADK R7 K25 ["`end_line_one_indexed_inclusive` must be >= `start_line_one_indexed`"]
+  LOADK R7 K27 ["`end_line_one_indexed_inclusive` must be >= `start_line_one_indexed`"]
   CALL R6 1 0
-  LOADK R8 K13 ["
+  LOADK R8 K15 ["
 "]
-  NAMECALL R6 R5 K14 ["split"]
+  NAMECALL R6 R5 K16 ["split"]
   CALL R6 2 1
   LENGTH R7 R6
   FASTCALL2 MATH_MIN R2 R7 [+5]
   MOVE R9 R2
   MOVE R10 R7
-  GETIMPORT R8 K28 [math.min]
+  GETIMPORT R8 K30 [math.min]
   CALL R8 2 1
   JUMPIFNOTLT R7 R1 [+10]
   GETIMPORT R9 K2 [error]
-  LOADK R11 K29 ["`start_line_one_indexed` ("]
+  LOADK R11 K31 ["`start_line_one_indexed` ("]
   MOVE R12 R1
-  LOADK R13 K30 [") exceeds file length ("]
+  LOADK R13 K32 [") exceeds file length ("]
   MOVE R14 R7
-  LOADK R15 K31 [")"]
+  LOADK R15 K33 [")"]
   CONCAT R10 R11 R15
   CALL R9 1 0
   NEWTABLE R9 0 0
@@ -100,18 +111,18 @@ PROTO_0:
   LOADN R11 1
   FORNPREP R10
   MOVE R14 R9
-  GETIMPORT R15 K16 [string.format]
-  LOADK R16 K17 ["%6d→%s"]
+  GETIMPORT R15 K18 [string.format]
+  LOADK R16 K19 ["%6d→%s"]
   MOVE R17 R12
   GETTABLE R19 R6 R12
-  ORK R18 R19 K11 [""]
+  ORK R18 R19 K14 [""]
   CALL R15 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R13 K20 [table.insert]
+  GETIMPORT R13 K22 [table.insert]
   CALL R13 -1 0
   FORNLOOP R10
   JUMPIFNOTLT R7 R2 [+14]
-  LOADK R13 K32 ["Note: Requested to read until line %*, but file only has %* lines"]
+  LOADK R13 K34 ["Note: Requested to read until line %*, but file only has %* lines"]
   MOVE R15 R2
   MOVE R16 R7
   NAMECALL R13 R13 K4 ["format"]
@@ -119,11 +130,11 @@ PROTO_0:
   MOVE R12 R13
   FASTCALL2 TABLE_INSERT R9 R12 [+4]
   MOVE R11 R9
-  GETIMPORT R10 K20 [table.insert]
+  GETIMPORT R10 K22 [table.insert]
   CALL R10 2 0
-  GETIMPORT R10 K22 [table.concat]
+  GETIMPORT R10 K24 [table.concat]
   MOVE R11 R9
-  LOADK R12 K13 ["
+  LOADK R12 K15 ["
 "]
   CALL R10 2 -1
   RETURN R10 -1
@@ -280,34 +291,44 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["AssistantUI"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["ModelContextProtocol"]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Flags"]
+  GETTABLEKS R3 R4 K10 ["FFlagAssistantUseGetEditorSource"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Tools"]
-  GETTABLEKS R4 R5 K11 ["ToolTypes"]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["ModelContextProtocol"]
   CALL R3 1 1
-  GETTABLEKS R6 R1 K12 ["Components"]
-  GETTABLEKS R5 R6 K13 ["BuiltinContentWidgets"]
-  GETTABLEKS R4 R5 K14 ["SummarizedContentWidget"]
-  GETTABLEKS R7 R1 K15 ["Resources"]
-  GETTABLEKS R6 R7 K16 ["Localization"]
-  GETTABLEKS R5 R6 K17 ["Translator"]
-  GETTABLEKS R7 R1 K18 ["Utils"]
-  GETTABLEKS R6 R7 K10 ["Tools"]
-  GETTABLEKS R8 R2 K19 ["Util"]
-  GETTABLEKS R7 R8 K20 ["ToolBuilder"]
-  GETTABLEKS R9 R2 K19 ["Util"]
-  GETTABLEKS R8 R9 K21 ["ToolResult"]
-  GETTABLEKS R9 R3 K22 ["ToolNames"]
-  DUPCLOSURE R10 K23 [PROTO_0]
-  CAPTURE VAL R6
-  DUPCLOSURE R11 K24 [PROTO_6]
-  CAPTURE VAL R10
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Tools"]
+  GETTABLEKS R5 R6 K13 ["ToolTypes"]
+  CALL R4 1 1
+  GETTABLEKS R6 R1 K14 ["Guest"]
+  GETTABLEKS R5 R6 K15 ["Environment"]
+  GETTABLEKS R8 R1 K16 ["Components"]
+  GETTABLEKS R7 R8 K17 ["BuiltinContentWidgets"]
+  GETTABLEKS R6 R7 K18 ["SummarizedContentWidget"]
+  GETTABLEKS R9 R1 K19 ["Resources"]
+  GETTABLEKS R8 R9 K20 ["Localization"]
+  GETTABLEKS R7 R8 K21 ["Translator"]
+  GETTABLEKS R9 R1 K22 ["Utils"]
+  GETTABLEKS R8 R9 K12 ["Tools"]
+  GETTABLEKS R10 R3 K23 ["Util"]
+  GETTABLEKS R9 R10 K24 ["ToolBuilder"]
+  GETTABLEKS R11 R3 K23 ["Util"]
+  GETTABLEKS R10 R11 K25 ["ToolResult"]
+  GETTABLEKS R11 R4 K26 ["ToolNames"]
+  GETTABLEKS R12 R2 K27 ["Get"]
+  DUPCLOSURE R13 K28 [PROTO_0]
   CAPTURE VAL R8
-  CAPTURE VAL R7
-  CAPTURE VAL R9
-  CAPTURE VAL R4
+  CAPTURE VAL R12
   CAPTURE VAL R5
-  RETURN R11 1
+  DUPCLOSURE R14 K29 [PROTO_6]
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  RETURN R14 1

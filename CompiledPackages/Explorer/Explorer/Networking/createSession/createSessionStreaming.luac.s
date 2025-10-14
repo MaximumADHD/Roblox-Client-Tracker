@@ -57,21 +57,16 @@ PROTO_1:
   GETTABLEKS R2 R3 K1 ["instanceIdsToNodes"]
   GETTABLE R1 R2 R0
   JUMPIFNOTEQKNIL R1 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K2 [+4]
-  LOADK R4 K2 ["Streaming out instance that we don't know about"]
-  GETIMPORT R2 K4 [assert]
-  CALL R2 2 0
-  GETTABLEKS R3 R1 K5 ["datum"]
-  GETTABLEKS R2 R3 K6 ["isGhost"]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K2 ["datum"]
+  GETTABLEKS R2 R3 K3 ["isGhost"]
   JUMPIF R2 [+1]
   RETURN R0 0
-  GETIMPORT R2 K9 [table.clone]
-  GETTABLEKS R3 R1 K5 ["datum"]
+  GETIMPORT R2 K6 [table.clone]
+  GETTABLEKS R3 R1 K2 ["datum"]
   CALL R2 1 1
   LOADNIL R3
-  SETTABLEKS R3 R2 K10 ["parentId"]
+  SETTABLEKS R3 R2 K7 ["parentId"]
   GETUPVAL R3 1
   MOVE R4 R2
   CALL R3 1 0

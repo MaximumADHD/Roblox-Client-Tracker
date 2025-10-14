@@ -88,6 +88,19 @@ local function CustomSelectionStory()
 	})
 end
 
+local function UncontrolledStory(props)
+	local controls = props.controls
+
+	return React.createElement(Toggle, {
+		isDisabled = controls.isDisabled,
+		onActivated = function(value)
+			print("isChecked: ", value)
+		end,
+		size = controls.size,
+		label = controls.label or "",
+	})
+end
+
 return {
 	summary = "Toggle component",
 	stories = {
@@ -99,6 +112,11 @@ return {
 			name = "Custom Selection",
 			summary = "Select card containers instead of toggles",
 			story = CustomSelectionStory,
+		},
+		{
+			name = "Uncontrolled",
+			summary = "State is controlled by the toggle itself",
+			story = UncontrolledStory,
 		},
 	},
 	controls = {

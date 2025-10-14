@@ -10,6 +10,7 @@ local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
@@ -50,7 +51,12 @@ local function labelText(text: string, isRequired: boolean?): string
 		else Translator:FormatByKey("CommonUI.Controls.Input.Optional", { inputLabel = text })
 end
 
-local function InputLabel(props: InputLabelProps, ref: React.Ref<GuiObject>?)
+local defaultProps = {
+	testId = "--foundation-input-label",
+}
+
+local function InputLabel(inputLabelProps: InputLabelProps, ref: React.Ref<GuiObject>?)
+	local props = withDefaults(inputLabelProps, defaultProps)
 	local onStateChanged = React.useMemo(function(): ((ControlState) -> ())?
 		if props.onHover ~= nil then
 			return function(newState: ControlState)

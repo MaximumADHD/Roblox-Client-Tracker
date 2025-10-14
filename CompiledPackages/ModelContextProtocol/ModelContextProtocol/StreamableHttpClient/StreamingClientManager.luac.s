@@ -90,48 +90,49 @@ PROTO_6:
   ADDK R3 R3 K0 [1]
   SETUPVAL R3 0
   GETUPVAL R2 0
-  GETUPVAL R3 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["connectStreamingClient"]
   MOVE R4 R0
   CALL R3 1 1
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U2
   CAPTURE VAL R2
-  DUPTABLE R5 K4 [{"client", "id", "disconnect"}]
-  SETTABLEKS R3 R5 K1 ["client"]
-  SETTABLEKS R2 R5 K2 ["id"]
-  SETTABLEKS R4 R5 K3 ["disconnect"]
-  GETTABLEKS R6 R1 K5 ["onOpen"]
+  DUPTABLE R5 K5 [{"client", "id", "disconnect"}]
+  SETTABLEKS R3 R5 K2 ["client"]
+  SETTABLEKS R2 R5 K3 ["id"]
+  SETTABLEKS R4 R5 K4 ["disconnect"]
+  GETTABLEKS R6 R1 K6 ["onOpen"]
   JUMPIFNOT R6 [+10]
-  GETTABLEKS R6 R3 K6 ["Opened"]
+  GETTABLEKS R6 R3 K7 ["Opened"]
   NEWCLOSURE R8 P1
   CAPTURE VAL R1
   CAPTURE UPVAL U3
-  NAMECALL R6 R6 K7 ["Connect"]
+  NAMECALL R6 R6 K8 ["Connect"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K8 ["openedConnection"]
-  GETTABLEKS R6 R1 K9 ["onMessage"]
+  SETTABLEKS R6 R5 K9 ["openedConnection"]
+  GETTABLEKS R6 R1 K10 ["onMessage"]
   JUMPIFNOT R6 [+9]
-  GETTABLEKS R6 R3 K10 ["MessageReceived"]
-  GETTABLEKS R8 R1 K9 ["onMessage"]
-  NAMECALL R6 R6 K7 ["Connect"]
+  GETTABLEKS R6 R3 K11 ["MessageReceived"]
+  GETTABLEKS R8 R1 K10 ["onMessage"]
+  NAMECALL R6 R6 K8 ["Connect"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K11 ["messageReceivedConnection"]
-  GETTABLEKS R6 R3 K12 ["Error"]
+  SETTABLEKS R6 R5 K12 ["messageReceivedConnection"]
+  GETTABLEKS R6 R3 K13 ["Error"]
   NEWCLOSURE R8 P2
   CAPTURE VAL R1
   CAPTURE UPVAL U2
   CAPTURE VAL R2
-  NAMECALL R6 R6 K7 ["Connect"]
+  NAMECALL R6 R6 K8 ["Connect"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K13 ["errorConnection"]
-  GETTABLEKS R6 R3 K14 ["Closed"]
+  SETTABLEKS R6 R5 K14 ["errorConnection"]
+  GETTABLEKS R6 R3 K15 ["Closed"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R1
   CAPTURE UPVAL U2
   CAPTURE VAL R2
-  NAMECALL R6 R6 K7 ["Connect"]
+  NAMECALL R6 R6 K8 ["Connect"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K15 ["closedConnection"]
+  SETTABLEKS R6 R5 K16 ["closedConnection"]
   GETUPVAL R6 4
   SETTABLE R5 R6 R2
   RETURN R5 1
@@ -177,15 +178,15 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["StreamableHttpClient"]
-  GETTABLEKS R2 R3 K7 ["Util"]
+  GETTABLEKS R2 R3 K7 ["StreamingClientFactory"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["StreamableHttpClient"]
-  GETTABLEKS R3 R4 K8 ["connectStreamingClient"]
+  GETTABLEKS R3 R4 K8 ["Util"]
   CALL R2 1 1
   NEWTABLE R3 1 0
   DUPCLOSURE R4 K9 [PROTO_8]
-  CAPTURE VAL R2
   CAPTURE VAL R1
+  CAPTURE VAL R2
   SETTABLEKS R4 R3 K10 ["new"]
   RETURN R3 1

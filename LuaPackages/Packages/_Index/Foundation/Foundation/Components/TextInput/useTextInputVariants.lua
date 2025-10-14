@@ -16,6 +16,8 @@ type VariantProps = composeStyleVariant.VariantProps
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
+local Flags = require(Foundation.Utility.Flags)
+
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
 type TextInputVariantProps = {
@@ -24,6 +26,7 @@ type TextInputVariantProps = {
 	},
 	outerContainer: {
 		tag: string,
+		minHeight: number,
 	},
 	innerContainer: {
 		tag: string,
@@ -36,6 +39,7 @@ type TextInputVariantProps = {
 		-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 		Font: Enum.Font,
 		FontSize: number,
+		LineHeight: number,
 		-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 	},
 	icon: {
@@ -54,6 +58,7 @@ local function computeProps(props: {
 	textBoxTag: string,
 	typography: FontStyle,
 	iconSize: IconSize,
+	minContainerHeight: number,
 })
 	return {
 		canvas = {
@@ -61,6 +66,7 @@ local function computeProps(props: {
 		},
 		outerContainer = {
 			tag = props.outerContainerTag,
+			minHeight = props.minContainerHeight,
 		},
 		innerContainer = {
 			tag = props.innerContainerTag,
@@ -73,6 +79,7 @@ local function computeProps(props: {
 			-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			Font = props.typography.Font,
 			FontSize = props.typography.FontSize,
+			LineHeight = props.typography.LineHeight,
 			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 		},
 		icon = {
@@ -96,6 +103,14 @@ local function variantsFactory(tokens: Tokens)
 			style = tokens.Color.Content.Muted,
 		},
 	}
+	local multiline = {
+		canvas = {
+			tag = "auto-y size-full-0",
+		},
+		outerContainer = {
+			tag = "auto-y size-full-0",
+		},
+	}
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = computeProps({
 			canvasTag = "size-full-600",
@@ -109,6 +124,7 @@ local function variantsFactory(tokens: Tokens)
 			typography = tokens.Typography.BodySmall,
 			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			iconSize = IconSize.XSmall,
+			minContainerHeight = tokens.Size.Size_600,
 		}),
 		[InputSize.Small] = computeProps({
 			canvasTag = "size-full-800",
@@ -122,6 +138,7 @@ local function variantsFactory(tokens: Tokens)
 			typography = tokens.Typography.BodyMedium,
 			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			iconSize = IconSize.XSmall,
+			minContainerHeight = tokens.Size.Size_800,
 		}),
 		[InputSize.Medium] = computeProps({
 			canvasTag = "size-full-1000",
@@ -135,6 +152,7 @@ local function variantsFactory(tokens: Tokens)
 			typography = tokens.Typography.BodyMedium,
 			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			iconSize = IconSize.Small,
+			minContainerHeight = tokens.Size.Size_1000,
 		}),
 		[InputSize.Large] = computeProps({
 			canvasTag = "size-full-1200",
@@ -148,13 +166,17 @@ local function variantsFactory(tokens: Tokens)
 			typography = tokens.Typography.BodyLarge,
 			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 			iconSize = IconSize.Small,
+			minContainerHeight = tokens.Size.Size_1200,
 		}),
 	}
 
-	return { common = common, sizes = sizes }
+	return { common = common, sizes = sizes, multiline = multiline }
 end
 
-return function(tokens: Tokens, size: InputSize): TextInputVariantProps
+return function(tokens: Tokens, size: InputSize, isMultiline: boolean?): TextInputVariantProps
 	local props = VariantsContext.useVariants("TextInput", variantsFactory, tokens)
+	if Flags.FoundationInternalTextInputAutoSize or isMultiline then
+		return composeStyleVariant(props.common, props.sizes[size], props.multiline)
+	end
 	return composeStyleVariant(props.common, props.sizes[size])
 end

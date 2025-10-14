@@ -49,7 +49,7 @@ local function applyRule(
 			continue
 		end
 
-		if Flags.FoundationStyleTagsStyleSheetAttributes and type(value) == "string" then
+		if type(value) == "string" then
 			local attributeName = value:sub(2, #value)
 			updateRuleAttributes(rule.attributes, attributesCache, scale)
 			value = attributesCache.values[attributeName]

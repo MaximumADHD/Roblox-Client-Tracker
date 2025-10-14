@@ -35,6 +35,7 @@ local _getCommonParameters = function(
 		personChangeCount = analyticsState.personChangeCount,
 		reasonChangeCount = analyticsState.reasonChangeCount,
 		captureSceneCount = analyticsState.captureSceneCount,
+		chatLineChangeCount = analyticsState.chatLineChangeCount,
 
 		reasonSelection = analyticsState.reasonSelection,
 		commentAdded = analyticsState.commentAdded,

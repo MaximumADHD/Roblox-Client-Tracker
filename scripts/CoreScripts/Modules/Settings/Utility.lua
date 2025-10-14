@@ -56,7 +56,6 @@ local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.
 local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
 
 local SettingsFlags = require(Settings.Flags)
-local FFlagGameSettingsUsePreferredInputMovement = SettingsFlags.FFlagGameSettingsUsePreferredInputMovement
 local FFlagGameSettingsRemoveTextTransparency = SettingsFlags.FFlagGameSettingsRemoveTextTransparency
 local FFlagGameSettingsRemoveMouseButton1Event = SettingsFlags.FFlagGameSettingsRemoveMouseButton1Event
 local FFlagIEMSelectorUnchangedByMouseWheel = SettingsFlags.FFlagIEMSelectorUnchangedByMouseWheel
@@ -214,11 +213,7 @@ function PropertyTweener(instance, prop, start, final, duration, easingFunc, cbF
 end
 
 local function isTouchInput()
-	if FFlagGameSettingsUsePreferredInputMovement then
-		return UserInputService.PreferredInput == Enum.PreferredInput.Touch
-	else
-		return UserInputService.TouchEnabled
-	end
+	return UserInputService.PreferredInput == Enum.PreferredInput.Touch
 end
 
 ----------- CLASS DECLARATION --------------

@@ -7,14 +7,15 @@ local PreferencesProvider = require(script.Providers.Preferences)
 local Packages = script.Parent
 local BuilderIcons = require(Packages.BuilderIcons)
 
+export type ActionProps = Types.ActionProps
 export type Bindable<T> = Types.Bindable<T>
 export type CommonProps = Types.CommonProps
-export type StateChangedCallback = Types.StateChangedCallback
-export type StateLayer = Types.StateLayer
-export type Tags = Types.Tags
 export type PopoverAnchor = Types.PopoverAnchor
 export type Preferences = PreferencesProvider.PreferencesProps
 export type PreferencesProviderProps = PreferencesProvider.PreferencesProviderProps
+export type StateChangedCallback = Types.StateChangedCallback
+export type StateLayer = Types.StateLayer
+export type Tags = Types.Tags
 
 -- Token types
 export type ColorStyle = Types.ColorStyle
@@ -108,11 +109,20 @@ export type AvatarGroupProps = AvatarGroup.AvatarGroupProps
 local Badge = require(script.Components.Badge)
 export type BadgeProps = Badge.BadgeProps
 
+local BaseMenu = require(script.Components.BaseMenu)
+export type BaseMenuProps = BaseMenu.BaseMenuProps
+export type BaseMenuItem = BaseMenu.BaseMenuItem
+export type BaseMenuItems = BaseMenu.BaseMenuItems
+export type BaseMenuItemGroup = BaseMenu.BaseMenuItemGroup
+
 local Button = require(script.Components.Button)
 export type ButtonProps = Button.ButtonProps
 
 local Checkbox = require(script.Components.Checkbox)
 export type CheckboxProps = Checkbox.CheckboxProps
+
+local Coachmark = require(script.Components.Coachmark)
+export type CoachmarkProps = Coachmark.CoachmarkProps
 
 local Chip = require(script.Components.Chip)
 export type ChipProps = Chip.ChipProps
@@ -133,6 +143,12 @@ export type DividerProps = Divider.DividerProps
 
 local Dropdown = require(script.Components.Dropdown)
 export type DropdownProps = Dropdown.DropdownProps
+export type DropdownItem = Dropdown.DropdownItem
+
+local Grid = require(script.Components.Grid)
+export type GridProps = Grid.GridProps
+export type GridCellProps = Grid.GridCellProps
+export type GridDebugProps = Grid.GridDebugProps
 
 local Empty = require(script.Components.Empty)
 export type EmptyProps = Empty.EmptyProps
@@ -161,6 +177,7 @@ export type LoadingProps = Loading.LoadingProps
 local Menu = require(script.Components.Menu)
 export type MenuProps = Menu.MenuProps
 export type MenuItem = Menu.MenuItem
+export type MenuItems = Menu.MenuItems
 
 local NumberInput = require(script.Components.NumberInput)
 export type NumberInputProps = NumberInput.NumberInputProps
@@ -228,10 +245,12 @@ local Foundation = strict({
 	Button = Button,
 	Checkbox = Checkbox,
 	Chip = Chip,
+	Coachmark = Coachmark,
 	ColorPicker = ColorPicker,
 	Dialog = Dialog,
 	Divider = Divider,
 	Dropdown = Dropdown,
+	Grid = Grid,
 	Empty = Empty,
 	Icon = Icon,
 	IconButton = IconButton,
@@ -267,6 +286,9 @@ local Foundation = strict({
 
 	-- Hooks
 	Hooks = {
+		useBreakpoint = require(script.Providers.Responsive.Hooks.useBreakpoint),
+		useResponsiveValue = require(script.Providers.Responsive.Hooks.useResponsiveValue),
+		useResponsive = require(script.Providers.Responsive.useResponsive),
 		useCumulativeBackground = require(script.Utility.useCumulativeBackground),
 		useCursor = require(script.Providers.Cursor.useCursor),
 		useDefaultTags = require(script.Utility.useDefaultTags),
@@ -336,6 +358,7 @@ local Foundation = strict({
 	-- Utility
 	Utility = {
 		composeStyleVariant = require(script.Utility.composeStyleVariant),
+		getGridMetrics = require(script.Utility.getGridMetrics),
 		getRbxThumb = require(script.Utility.getRbxThumb),
 		getIconRichText = require(script.Utility.getIconRichText),
 		indexBindable = require(script.Utility.indexBindable),
@@ -354,6 +377,7 @@ local Foundation = strict({
 		-- Use View/Text/Image instead
 		Interactable = require(script.Components.Interactable),
 		withCursorMigration = require(script.Providers.Cursor.withCursorMigration),
+		BaseMenu = BaseMenu,
 	},
 })
 

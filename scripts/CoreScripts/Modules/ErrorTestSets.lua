@@ -19,6 +19,16 @@ local placeLaunchErrors = {
 
 -- all connection errors
 return {
+	[Enum.ConnectionError.ConnectErrors] = {
+		Enum.ConnectionError.AlreadyConnected,
+		Enum.ConnectionError.NoFreeIncomingConnections,
+		Enum.ConnectionError.IPRecentlyConnected,
+		Enum.ConnectionError.ConnectionBanned,
+		Enum.ConnectionError.InvalidPassword,
+		Enum.ConnectionError.OurSystemRequiresSecurity,
+		Enum.ConnectionError.IncompatibleProtocolVersion,
+		Enum.ConnectionError.DisconnectRaknetErrors,
+	},
 	[Enum.ConnectionError.DisconnectErrors] = {
 		Enum.ConnectionError.DisconnectBadhash,
 		Enum.ConnectionError.DisconnectBlockedIP,
@@ -38,7 +48,6 @@ return {
 		Enum.ConnectionError.DisconnectPlayerless,
 		Enum.ConnectionError.DisconnectPrivateServerKickout,
 		Enum.ConnectionError.DisconnectProtocolMismatch,
-		Enum.ConnectionError.DisconnectRaknetErrors,
 		Enum.ConnectionError.DisconnectReceivePacketError,
 		Enum.ConnectionError.DisconnectReceivePacketStreamError,
 		Enum.ConnectionError.DisconnectRejoin,
@@ -46,7 +55,8 @@ return {
 		Enum.ConnectionError.DisconnectSecurityKeyMismatch,
 		Enum.ConnectionError.DisconnectSendPacketError,
 		Enum.ConnectionError.DisconnectTimeout,
-		Enum.ConnectionError.DisconnectWrongVersion
+		Enum.ConnectionError.DisconnectWrongVersion,
+		Enum.ConnectionError.DisconnectionNotification
 	},
 	[Enum.ConnectionError.PlacelaunchErrors] = placeLaunchErrors,
 	[Enum.ConnectionError.TeleportErrors] = {

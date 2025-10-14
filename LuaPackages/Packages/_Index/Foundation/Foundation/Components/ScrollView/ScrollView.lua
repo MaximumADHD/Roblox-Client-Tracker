@@ -57,6 +57,7 @@ local defaultProps = {
 	BorderSizePixel = 0,
 	ClipsDescendants = if Flags.FoundationScrollViewMoveClipOutside then true else nil,
 	isDisabled = false,
+	testId = "--foundation-scroll-view",
 }
 
 -- TODO: Remove when FoundationFixScrollViewTags is removed

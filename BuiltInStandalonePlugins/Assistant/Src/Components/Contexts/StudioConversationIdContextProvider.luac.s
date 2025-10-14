@@ -1,20 +1,35 @@
 PROTO_0:
   GETUPVAL R1 0
   CALL R1 0 1
-  GETUPVAL R2 1
-  GETUPVAL R6 2
+  JUMPIFNOT R1 [+17]
+  GETUPVAL R1 1
+  CALL R1 0 1
+  GETUPVAL R2 2
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K0 ["Components"]
+  GETTABLEKS R4 R5 K1 ["Contexts"]
+  GETTABLEKS R3 R4 K2 ["ConversationIdContextProvider"]
+  DUPTABLE R4 K4 [{"conversationId"}]
+  SETTABLEKS R1 R4 K3 ["conversationId"]
+  GETTABLEKS R5 R0 K5 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+  GETUPVAL R1 4
+  CALL R1 0 1
+  GETUPVAL R2 2
+  GETUPVAL R6 3
   GETTABLEKS R5 R6 K0 ["Components"]
   GETTABLEKS R4 R5 K1 ["Contexts"]
   GETTABLEKS R3 R4 K2 ["ConversationIdContextProvider"]
   DUPTABLE R4 K4 [{"conversationId"}]
   MOVE R5 R1
   JUMPIFNOT R5 [+6]
-  GETTABLEKS R6 R1 K5 ["SessionId"]
+  GETTABLEKS R6 R1 K6 ["SessionId"]
   FASTCALL1 TOSTRING R6 [+2]
-  GETIMPORT R5 K7 [tostring]
+  GETIMPORT R5 K8 [tostring]
   CALL R5 1 1
   SETTABLEKS R5 R4 K3 ["conversationId"]
-  GETTABLEKS R5 R0 K8 ["children"]
+  GETTABLEKS R5 R0 K5 ["children"]
   CALL R2 3 -1
   RETURN R2 -1
 
@@ -29,17 +44,30 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["AssistantUI"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Flags"]
+  GETTABLEKS R3 R4 K10 ["FFlagAssistantAttachCommonTelemetryFields"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Hooks"]
-  GETTABLEKS R4 R5 K11 ["useFocusedDataModelSession"]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["React"]
   CALL R3 1 1
-  GETTABLEKS R4 R2 K12 ["createElement"]
-  DUPCLOSURE R5 K13 [PROTO_0]
-  CAPTURE VAL R3
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Hooks"]
+  GETTABLEKS R5 R6 K13 ["useConversationId"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Hooks"]
+  GETTABLEKS R6 R7 K14 ["useFocusedDataModelSession"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K15 ["Get"]
+  GETTABLEKS R7 R3 K16 ["createElement"]
+  DUPCLOSURE R8 K17 [PROTO_0]
+  CAPTURE VAL R6
   CAPTURE VAL R4
+  CAPTURE VAL R7
   CAPTURE VAL R1
-  RETURN R5 1
+  CAPTURE VAL R5
+  RETURN R8 1

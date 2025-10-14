@@ -27,7 +27,7 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 
 local FFlagLocalizeMenuNavigationToggleDialog =
 	require(CoreGui.RobloxGui.Modules.TopBar.Flags.FFlagLocalizeMenuNavigationToggleDialog)
-local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local SELECT_ICON_ASSET_ID = "rbxasset://textures/ui/Controls/DesignSystem/ButtonSelect@2x.png"
 local PRE_ICON_LOCALIZATION_KEY = "CoreScripts.InGameMenu.VirtualCursorHintPreIcon"
@@ -108,7 +108,7 @@ local function MenuNavigationToggleDialog(props: Props)
 			else
 				topbarFocus = useObservableValue(props.GamepadConnector:getSelectedCoreObject())
 			end
-		elseif FFlagConnectGamepadChrome then 
+		elseif FFlagEnableConsoleExpControls then 
 			topbarFocus = useObservableValue(ChromeService:inFocusNav())
 		end
 	else 
@@ -122,7 +122,7 @@ local function MenuNavigationToggleDialog(props: Props)
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = props.Position,
 		Visible = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then topbarFocus ~= nil 
-			elseif ChromeEnabled and FFlagConnectGamepadChrome then topbarFocus
+			elseif ChromeEnabled and FFlagEnableConsoleExpControls then topbarFocus
 			else true,
 	}, {
 		Corner = React.createElement("UICorner", {

@@ -86,55 +86,113 @@ PROTO_5:
   RETURN R2 -1
 
 PROTO_6:
+  NEWTABLE R0 4 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["row gap-xsmall radius-medium align-y-center padding-y-xxsmall"]
+  GETUPVAL R2 0
+  NOT R1 R2
+  SETTABLEKS R1 R0 K1 ["size-full-600"]
+  GETUPVAL R3 0
+  NOT R2 R3
+  NOT R1 R2
+  SETTABLEKS R1 R0 K2 ["size-full-0 auto-y"]
+  RETURN R0 1
+
+PROTO_7:
+  NEWTABLE R0 4 0
+  GETUPVAL R2 0
+  JUMPIFEQKS R2 K0 ["small"] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  SETTABLEKS R1 R0 K1 ["size-300-300"]
+  GETUPVAL R2 0
+  JUMPIFEQKS R2 K2 ["medium"] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  SETTABLEKS R1 R0 K3 ["size-600-600"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K4 ["align-x-center align-y-center"]
+  NEWTABLE R1 4 0
+  GETUPVAL R3 0
+  JUMPIFEQKS R3 K0 ["small"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  SETTABLEKS R2 R1 K5 ["size-150-150"]
+  GETUPVAL R3 0
+  JUMPIFEQKS R3 K2 ["medium"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  SETTABLEKS R2 R1 K6 ["size-400-400"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K7 ["content-emphasis"]
+  RETURN R0 2
+
+PROTO_8:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useContext"]
   GETUPVAL R2 1
   CALL R1 1 1
   GETTABLEKS R2 R1 K1 ["isExpanded"]
   GETTABLEKS R3 R1 K2 ["toggleIsExpanded"]
-  GETUPVAL R4 2
-  GETUPVAL R5 3
-  DUPTABLE R6 K7 [{"tag", "onActivated", "LayoutOrder", "testId"}]
-  LOADK R7 K8 ["row gap-xsmall size-full-600 radius-medium align-y-center padding-y-xxsmall"]
-  SETTABLEKS R7 R6 K3 ["tag"]
-  SETTABLEKS R3 R6 K4 ["onActivated"]
-  GETTABLEKS R7 R0 K5 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K5 ["LayoutOrder"]
-  GETTABLEKS R7 R0 K6 ["testId"]
-  SETTABLEKS R7 R6 K6 ["testId"]
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K9 ["Dictionary"]
-  GETTABLEKS R7 R8 K10 ["join"]
-  DUPTABLE R8 K12 [{"ExpandIcon"}]
+  GETTABLEKS R4 R0 K3 ["AutomaticHeight"]
+  GETTABLEKS R6 R0 K5 ["IconSize"]
+  ORK R5 R6 K4 ["small"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["useMemo"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R4
+  NEWTABLE R8 0 1
+  MOVE R9 R4
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["useMemo"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R5
+  NEWTABLE R9 0 1
+  MOVE R10 R5
+  SETLIST R9 R10 1 [1]
+  CALL R7 2 2
   GETUPVAL R9 2
-  GETUPVAL R10 5
-  DUPTABLE R11 K15 [{"icon", "tag", "iconTag", "LayoutOrder"}]
+  GETUPVAL R10 3
+  DUPTABLE R11 K11 [{"tag", "onActivated", "LayoutOrder", "testId"}]
+  SETTABLEKS R6 R11 K7 ["tag"]
+  SETTABLEKS R3 R11 K8 ["onActivated"]
+  GETTABLEKS R12 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K9 ["LayoutOrder"]
+  GETTABLEKS R12 R0 K10 ["testId"]
+  SETTABLEKS R12 R11 K10 ["testId"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K12 ["Dictionary"]
+  GETTABLEKS R12 R13 K13 ["join"]
+  DUPTABLE R13 K15 [{"ExpandIcon"}]
+  GETUPVAL R14 2
+  GETUPVAL R15 5
+  DUPTABLE R16 K18 [{"icon", "tag", "iconTag", "LayoutOrder"}]
   JUMPIFNOT R2 [+2]
-  LOADK R12 K16 ["icons/actions/truncationExpand_small"]
+  LOADK R17 K19 ["icons/actions/truncationExpand_small"]
   JUMP [+1]
-  LOADK R12 K17 ["icons/actions/cycleRight_small"]
-  SETTABLEKS R12 R11 K13 ["icon"]
-  LOADK R12 K18 ["size-300-300 align-x-center align-y-center"]
-  SETTABLEKS R12 R11 K3 ["tag"]
-  LOADK R12 K19 ["size-150-150 content-emphasis"]
-  SETTABLEKS R12 R11 K14 ["iconTag"]
-  LOADN R12 255
-  SETTABLEKS R12 R11 K5 ["LayoutOrder"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["ExpandIcon"]
-  GETTABLEKS R9 R0 K20 ["children"]
-  CALL R7 2 -1
-  CALL R4 -1 -1
-  RETURN R4 -1
+  LOADK R17 K20 ["icons/actions/cycleRight_small"]
+  SETTABLEKS R17 R16 K16 ["icon"]
+  SETTABLEKS R7 R16 K7 ["tag"]
+  SETTABLEKS R8 R16 K17 ["iconTag"]
+  LOADN R17 255
+  SETTABLEKS R17 R16 K9 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K14 ["ExpandIcon"]
+  GETTABLEKS R14 R0 K21 ["children"]
+  CALL R12 2 -1
+  CALL R9 -1 -1
+  RETURN R9 -1
 
-PROTO_7:
+PROTO_9:
   GETUPVAL R1 0
   GETTABLEKS R3 R0 K0 ["AbsoluteSize"]
   GETTABLEKS R2 R3 K1 ["Y"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_10:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["current"]
   JUMPIF R0 [+1]
@@ -145,14 +203,14 @@ PROTO_8:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_11:
   GETIMPORT R1 K2 [UDim2.fromOffset]
   LOADN R2 12
   MOVE R3 R0
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_10:
+PROTO_12:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useContext"]
   GETUPVAL R2 1
@@ -214,7 +272,7 @@ PROTO_10:
   GETUPVAL R12 4
   GETUPVAL R13 5
   DUPTABLE R14 K14 [{"Size", "LayoutOrder"}]
-  DUPCLOSURE R17 K15 [PROTO_9]
+  DUPCLOSURE R17 K15 [PROTO_11]
   NAMECALL R15 R2 K16 ["map"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K12 ["Size"]
@@ -394,14 +452,14 @@ MAIN:
   CAPTURE VAL R13
   CAPTURE VAL R11
   CAPTURE VAL R14
-  DUPCLOSURE R16 K27 [PROTO_6]
+  DUPCLOSURE R16 K27 [PROTO_8]
   CAPTURE VAL R6
   CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R11
   CAPTURE VAL R1
   CAPTURE VAL R2
-  DUPCLOSURE R17 K28 [PROTO_10]
+  DUPCLOSURE R17 K28 [PROTO_12]
   CAPTURE VAL R6
   CAPTURE VAL R14
   CAPTURE VAL R10

@@ -1,0 +1,261 @@
+PROTO_0:
+  DUPTABLE R0 K2 [{"Edit", "Delete"}]
+  LOADK R1 K0 ["Edit"]
+  SETTABLEKS R1 R0 K0 ["Edit"]
+  LOADK R1 K1 ["Delete"]
+  SETTABLEKS R1 R0 K1 ["Delete"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["onEdit"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["onDelete"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useMemo"]
+  DUPCLOSURE R2 K1 [PROTO_0]
+  NEWTABLE R3 0 0
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["useCallback"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  NEWTABLE R6 0 2
+  MOVE R7 R3
+  MOVE R8 R2
+  SETLIST R6 R7 2 [1]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["useCallback"]
+  NEWCLOSURE R6 P2
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  NEWTABLE R7 0 1
+  GETTABLEKS R8 R0 K4 ["onEdit"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["useCallback"]
+  NEWCLOSURE R7 P3
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  NEWTABLE R8 0 1
+  GETTABLEKS R9 R0 K5 ["onDelete"]
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  GETUPVAL R7 1
+  CALL R7 0 1
+  GETUPVAL R8 2
+  GETUPVAL R9 3
+  DUPTABLE R10 K8 [{"tag", "LayoutOrder"}]
+  LOADK R11 K9 ["row auto-xy gap-large padding-small align-y-center"]
+  SETTABLEKS R11 R10 K6 ["tag"]
+  GETTABLEKS R11 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K7 ["LayoutOrder"]
+  DUPTABLE R11 K12 [{"ToggleButton", "Overflow"}]
+  GETUPVAL R12 2
+  GETUPVAL R13 4
+  DUPTABLE R14 K18 [{"testId", "LayoutOrder", "label", "isChecked", "onActivated", "size"}]
+  LOADK R15 K19 ["Assistant-IntegrationItemActions-Toggle"]
+  SETTABLEKS R15 R14 K13 ["testId"]
+  MOVE R15 R7
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K7 ["LayoutOrder"]
+  LOADK R15 K20 [""]
+  SETTABLEKS R15 R14 K14 ["label"]
+  GETTABLEKS R15 R0 K15 ["isChecked"]
+  SETTABLEKS R15 R14 K15 ["isChecked"]
+  GETTABLEKS R15 R0 K21 ["onStatusChange"]
+  SETTABLEKS R15 R14 K16 ["onActivated"]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K22 ["XSmall"]
+  SETTABLEKS R15 R14 K17 ["size"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K10 ["ToggleButton"]
+  GETUPVAL R12 2
+  GETUPVAL R13 3
+  DUPTABLE R14 K8 [{"tag", "LayoutOrder"}]
+  LOADK R15 K23 ["auto-xy"]
+  SETTABLEKS R15 R14 K6 ["tag"]
+  MOVE R15 R7
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K7 ["LayoutOrder"]
+  DUPTABLE R15 K25 [{"OverflowContent"}]
+  GETUPVAL R16 2
+  GETUPVAL R18 6
+  GETTABLEKS R17 R18 K26 ["Root"]
+  DUPTABLE R18 K28 [{"isOpen"}]
+  SETTABLEKS R2 R18 K27 ["isOpen"]
+  DUPTABLE R19 K31 [{"Anchor", "Content"}]
+  GETUPVAL R20 2
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K29 ["Anchor"]
+  LOADNIL R22
+  DUPTABLE R23 K33 [{"Button"}]
+  GETUPVAL R24 2
+  GETUPVAL R25 7
+  DUPTABLE R26 K37 [{"testId", "icon", "tag", "iconRotation", "iconTag", "LayoutOrder", "onActivated"}]
+  LOADK R27 K38 ["Assistant-IntegrationItemActions-OverflowButton"]
+  SETTABLEKS R27 R26 K13 ["testId"]
+  LOADK R27 K39 ["icons/actions/overflow"]
+  SETTABLEKS R27 R26 K34 ["icon"]
+  LOADK R27 K40 ["size-600-600 align-x-center align-y-center"]
+  SETTABLEKS R27 R26 K6 ["tag"]
+  LOADN R27 90
+  SETTABLEKS R27 R26 K35 ["iconRotation"]
+  LOADK R27 K41 ["size-600-600 content-emphasis"]
+  SETTABLEKS R27 R26 K36 ["iconTag"]
+  MOVE R27 R7
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  SETTABLEKS R4 R26 K16 ["onActivated"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K32 ["Button"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K29 ["Anchor"]
+  GETUPVAL R20 2
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K30 ["Content"]
+  DUPTABLE R22 K45 [{"side", "hasArrow", "onPressedOutside"}]
+  GETUPVAL R26 8
+  GETTABLEKS R25 R26 K46 ["Enums"]
+  GETTABLEKS R24 R25 K47 ["PopoverSide"]
+  GETTABLEKS R23 R24 K48 ["Left"]
+  SETTABLEKS R23 R22 K42 ["side"]
+  LOADB R23 0
+  SETTABLEKS R23 R22 K43 ["hasArrow"]
+  SETTABLEKS R4 R22 K44 ["onPressedOutside"]
+  DUPTABLE R23 K49 [{"Content"}]
+  GETUPVAL R24 2
+  GETUPVAL R25 3
+  DUPTABLE R26 K50 [{"LayoutOrder", "testId", "tag"}]
+  MOVE R27 R7
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R27 K51 ["Assistant-IntegrationItemActions-OverflowContent"]
+  SETTABLEKS R27 R26 K13 ["testId"]
+  LOADK R27 K52 ["col size-full-0 auto-y gap-small padding-small"]
+  SETTABLEKS R27 R26 K6 ["tag"]
+  DUPTABLE R27 K55 [{"EditButton", "DeleteButton"}]
+  GETUPVAL R28 2
+  GETUPVAL R29 9
+  DUPTABLE R30 K58 [{"LayoutOrder", "text", "size", "variant", "onActivated"}]
+  MOVE R31 R7
+  CALL R31 0 1
+  SETTABLEKS R31 R30 K7 ["LayoutOrder"]
+  GETTABLEKS R31 R1 K59 ["Edit"]
+  SETTABLEKS R31 R30 K56 ["text"]
+  GETUPVAL R32 10
+  GETTABLEKS R31 R32 K22 ["XSmall"]
+  SETTABLEKS R31 R30 K17 ["size"]
+  GETUPVAL R32 11
+  GETTABLEKS R31 R32 K60 ["Text"]
+  SETTABLEKS R31 R30 K57 ["variant"]
+  SETTABLEKS R5 R30 K16 ["onActivated"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K53 ["EditButton"]
+  GETUPVAL R28 2
+  GETUPVAL R29 9
+  DUPTABLE R30 K58 [{"LayoutOrder", "text", "size", "variant", "onActivated"}]
+  MOVE R31 R7
+  CALL R31 0 1
+  SETTABLEKS R31 R30 K7 ["LayoutOrder"]
+  GETTABLEKS R31 R1 K61 ["Delete"]
+  SETTABLEKS R31 R30 K56 ["text"]
+  GETUPVAL R32 10
+  GETTABLEKS R31 R32 K22 ["XSmall"]
+  SETTABLEKS R31 R30 K17 ["size"]
+  GETUPVAL R32 11
+  GETTABLEKS R31 R32 K60 ["Text"]
+  SETTABLEKS R31 R30 K57 ["variant"]
+  SETTABLEKS R6 R30 K16 ["onActivated"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K54 ["DeleteButton"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K30 ["Content"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K30 ["Content"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K24 ["OverflowContent"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K11 ["Overflow"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Components"]
+  GETTABLEKS R2 R3 K7 ["CustomIconButton"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Parent"]
+  GETTABLEKS R5 R6 K11 ["ReactUtils"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K12 ["View"]
+  GETTABLEKS R7 R2 K13 ["Enums"]
+  GETTABLEKS R6 R7 K14 ["InputSize"]
+  GETTABLEKS R7 R2 K15 ["Toggle"]
+  GETTABLEKS R8 R2 K16 ["Button"]
+  GETTABLEKS R10 R2 K13 ["Enums"]
+  GETTABLEKS R9 R10 K17 ["ButtonSize"]
+  GETTABLEKS R11 R2 K13 ["Enums"]
+  GETTABLEKS R10 R11 K18 ["ButtonVariant"]
+  GETTABLEKS R11 R2 K19 ["Popover"]
+  GETTABLEKS R12 R4 K20 ["createNextOrder"]
+  GETTABLEKS R13 R3 K21 ["createElement"]
+  DUPCLOSURE R14 K22 [PROTO_4]
+  CAPTURE VAL R3
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R11
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  GETTABLEKS R15 R3 K23 ["memo"]
+  MOVE R16 R14
+  CALL R15 1 -1
+  RETURN R15 -1

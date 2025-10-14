@@ -32,15 +32,15 @@ PROTO_0:
   FORGPREP R3
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K7 ["UNASSIGNED_PARTY_ID"]
-  JUMPIFEQ R7 R8 [+67]
+  JUMPIFEQ R7 R8 [+62]
   GETUPVAL R9 2
   GETTABLE R8 R9 R7
-  JUMPIFNOT R8 [+63]
+  JUMPIFNOT R8 [+58]
   FASTCALL1 TYPE R8 [+3]
   MOVE R10 R8
   GETIMPORT R9 K9 [type]
   CALL R9 1 1
-  JUMPIFNOTEQKS R9 K2 ["table"] [+57]
+  JUMPIFNOTEQKS R9 K2 ["table"] [+52]
   NEWTABLE R9 0 0
   GETIMPORT R10 K11 [ipairs]
   MOVE R11 R8
@@ -62,7 +62,7 @@ PROTO_0:
   GETUPVAL R13 5
   GETTABLEKS R12 R13 K16 ["createElement"]
   GETUPVAL R13 6
-  DUPTABLE R14 K24 [{"key", "partyId", "partyName", "players", "maxPlayers", "availableParties", "LayoutOrder"}]
+  DUPTABLE R14 K22 [{"key", "partyId", "partyName", "players", "LayoutOrder"}]
   SETTABLEKS R7 R14 K17 ["key"]
   SETTABLEKS R7 R14 K18 ["partyId"]
   GETUPVAL R15 7
@@ -70,17 +70,14 @@ PROTO_0:
   CALL R15 1 1
   SETTABLEKS R15 R14 K19 ["partyName"]
   SETTABLEKS R9 R14 K20 ["players"]
-  LOADN R15 6
-  SETTABLEKS R15 R14 K21 ["maxPlayers"]
-  SETTABLEKS R2 R14 K22 ["availableParties"]
   MOVE R15 R1
   CALL R15 0 1
-  SETTABLEKS R15 R14 K23 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K21 ["LayoutOrder"]
   CALL R12 2 -1
   FASTCALL TABLE_INSERT [+2]
   GETIMPORT R10 K4 [table.insert]
   CALL R10 -1 0
-  FORGLOOP R3 2 [-72]
+  FORGLOOP R3 2 [-67]
   NEWTABLE R3 0 0
   LOADN R6 255
   GETUPVAL R7 8
@@ -90,10 +87,10 @@ PROTO_0:
   GETUPVAL R8 9
   FASTCALL1 TOSTRING R6 [+3]
   MOVE R10 R6
-  GETIMPORT R9 K26 [tostring]
+  GETIMPORT R9 K24 [tostring]
   CALL R9 1 1
   GETTABLE R7 R8 R9
-  JUMPIFNOTEQKS R7 K27 [""] [+20]
+  JUMPIFNOTEQKS R7 K25 [""] [+20]
   DUPTABLE R9 K15 [{"userId", "playerName", "currentPartyId"}]
   SETTABLEKS R6 R9 K12 ["userId"]
   GETUPVAL R10 4
@@ -112,7 +109,7 @@ PROTO_0:
   GETUPVAL R7 5
   GETTABLEKS R6 R7 K16 ["createElement"]
   GETUPVAL R7 6
-  DUPTABLE R8 K24 [{"key", "partyId", "partyName", "players", "maxPlayers", "availableParties", "LayoutOrder"}]
+  DUPTABLE R8 K22 [{"key", "partyId", "partyName", "players", "LayoutOrder"}]
   GETUPVAL R10 3
   GETTABLEKS R9 R10 K7 ["UNASSIGNED_PARTY_ID"]
   SETTABLEKS R9 R8 K17 ["key"]
@@ -125,12 +122,9 @@ PROTO_0:
   CALL R9 1 1
   SETTABLEKS R9 R8 K19 ["partyName"]
   SETTABLEKS R3 R8 K20 ["players"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K21 ["maxPlayers"]
-  SETTABLEKS R2 R8 K22 ["availableParties"]
   MOVE R9 R1
   CALL R9 0 1
-  SETTABLEKS R9 R8 K23 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K21 ["LayoutOrder"]
   CALL R6 2 -1
   FASTCALL TABLE_INSERT [+2]
   GETIMPORT R4 K4 [table.insert]

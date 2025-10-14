@@ -66,8 +66,8 @@ local function variantsFactory(tokens: Tokens)
 	}
 
 	local isFill: { [boolean]: VariantProps } = {
-		[false] = { container = { tag = "auto-xy" }, content = { tag = "size-0-full auto-x" } },
-		[true] = { container = { tag = "auto-xy grow" }, content = { tag = "size-full-full" } },
+		[false] = { container = { tag = "auto-xy" }, content = { tag = "size-0-0 auto-xy" } },
+		[true] = { container = { tag = "auto-xy grow" }, content = { tag = "size-full-0 auto-y" } },
 	}
 
 	return { common = common, sizes = sizes, isFill = isFill, paddings = paddings }

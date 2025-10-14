@@ -23,15 +23,19 @@ PROTO_1:
   MOVE R5 R2
   GETIMPORT R3 K4 [table.insert]
   CALL R3 2 0
-  DUPTABLE R3 K7 [{"MessageReceived", "Closed"}]
+  DUPTABLE R3 K8 [{"MessageReceived", "Error", "Closed"}]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K8 ["new"]
+  GETTABLEKS R4 R5 K9 ["new"]
   CALL R4 0 1
   SETTABLEKS R4 R3 K5 ["MessageReceived"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K8 ["new"]
+  GETTABLEKS R4 R5 K9 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K6 ["Closed"]
+  SETTABLEKS R4 R3 K6 ["Error"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K7 ["Closed"]
   RETURN R3 1
 
 PROTO_2:

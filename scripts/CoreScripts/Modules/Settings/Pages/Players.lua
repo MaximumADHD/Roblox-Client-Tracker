@@ -67,7 +67,6 @@ local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
-local FFlagAddMuteSelfTopOfPlayersPane = SharedFlags.FFlagAddMuteSelfTopOfPlayersPane
 
 local UserProfileStore = UserProfiles.Stores.UserProfileStore
 local GetFFlagUseUserProfileStore = SharedFlags.GetFFlagUseUserProfileStore
@@ -116,8 +115,8 @@ local LABEL_POSX = 60
 
 local HALF_SIZE_SHARE_GAME_BUTTON_SIZE = UDim2.new(0.5, -10, 0, BUTTON_ROW_HEIGHT)
 local RENDER_NAME_PREFIX = "utility-focus-state"
-local MUTE_SELF_BUTTON_NAME = if FFlagAddMuteSelfTopOfPlayersPane then "MuteSelfButton" else "PlayerMuteButtonButton"
-local MUTE_SELF_IMAGE_LABEL_NAME = if FFlagAddMuteSelfTopOfPlayersPane then "MuteSelfButtonImageLabel" else "PlayerMuteButtonImageLabel"
+local MUTE_SELF_BUTTON_NAME = "MuteSelfButton"
+local MUTE_SELF_IMAGE_LABEL_NAME = "MuteSelfButtonImageLabel"
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -134,7 +133,6 @@ end)
 local FFlagUseNotificationsLocalization = success and result
 local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
-local GetFFlagPauseMuteFix = require(RobloxGui.Modules.Flags.GetFFlagPauseMuteFix)
 local GetFFlagDefaultFriendingLabelTextNonEmpty =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
 local GetFFlagEnableLeaveGameUpsellEntrypoint =
@@ -386,7 +384,7 @@ local function Initialize()
 			table.insert(primaryButtons, muteAllButton)
 		end
 
-		if FFlagAddMuteSelfTopOfPlayersPane and muteSelfButton then
+		if muteSelfButton then
 			table.insert(primaryButtons, muteSelfButton)
 		end
 
@@ -422,17 +420,12 @@ local function Initialize()
 			end
 
 			-- Order the buttons in the same ordering as they were inserted into the table
-			local layoutOrder
-			if FFlagAddMuteSelfTopOfPlayersPane then
-				layoutOrder = 1
-			end
+			local layoutOrder = 1
 			for _, button in primaryButtons do
 				button.Size = buttonSize
 				button.Parent = buttonFrame
-				if FFlagAddMuteSelfTopOfPlayersPane then
-					button.LayoutOrder = layoutOrder
-					layoutOrder = layoutOrder + 1
-				end
+				button.LayoutOrder = layoutOrder
+				layoutOrder = layoutOrder + 1
 			end
 
 			for property, value in buttonFrameLayoutProperties do
@@ -836,33 +829,6 @@ local function Initialize()
 		buttonInstance.AnchorPoint = anchorPoint
 	end
 
-	local function updateButtonRow()
-		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
-			local buttonPaddingY = 0
-			local buttonPaddingX = 12
-			local newButtonSize = 2 / 7
-			local oldButtonContainerSize = 6 / 7
-			updateButtonPosition(
-				"ResumeButton",
-				UDim2.new(1 * oldButtonContainerSize, 0, 0, 0),
-				UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY),
-				Vector2.new(1, 0)
-			)
-			updateButtonPosition(
-				"ResetButton",
-				UDim2.new(0.5 * oldButtonContainerSize, 0, 0, 0),
-				UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY),
-				Vector2.new(0.5, 0)
-			)
-			updateButtonPosition(
-				"LeaveButton",
-				UDim2.new(0 * oldButtonContainerSize, 0, 0, 0),
-				UDim2.new(newButtonSize, -buttonPaddingX, 1, -buttonPaddingY),
-				Vector2.new(0, 0)
-			)
-		end
-	end
-
 	local function muteButtonReset()
 		local buttonInstance = buttonsContainer:FindFirstChild("PlayerMuteButtonButton", true)
 		if buttonInstance then
@@ -894,60 +860,12 @@ local function Initialize()
 		muteButtonReset()
 	end
 
-	local function updateIcon()
-		local buttonInstance = buttonsContainer:FindFirstChild("PlayerMuteButtonImageLabel", true)
-		if not buttonInstance then
-			return
-		end
-		buttonInstance.Image = pollImage()
-	end
-
 	local function updateMuteSelfButtonIcon()
 		local buttonInstance = buttonFrame:FindFirstChild(MUTE_SELF_IMAGE_LABEL_NAME, true)
 		if not buttonInstance then
 			return
 		end
 		buttonInstance.Image = pollImage()
-	end
-
-	local function appendMuteButton()
-		local muteButton, imageLabel = utility:MakeStyledImageButton(
-			"PlayerMuteButton",
-			pollImage(),
-			GetFFlagPauseMuteFix() and UDim2.new(1, 0, 1, 0) or UDim2.new(1 / 5, -5, 4 / 5, 0),
-			GetFFlagPauseMuteFix() and UDim2.new(1, -6, 1, -4) or UDim2.new(0.5, -6, 0.65, -4),
-			function()
-				VoiceChatServiceManager:ToggleMic("InGameMenuPlayers")
-				if voiceAnalytics then
-					voiceAnalytics:onToggleMuteSelf(isLocalPlayerMutedState)
-				end
-			end,
-			nil,
-			nil,
-			"DefaultButton"
-		)
-
-		muteButton.Position = UDim2.new(1, 0, 0, 0)
-		muteButton.Size = UDim2.new(1 / 7, -12, 1, 0)
-		imageLabel.Size = UDim2.new(1, -6, 1, -4)
-		Create("UIAspectRatioConstraint")({
-			AspectRatio = 1,
-			Parent = imageLabel,
-		})
-
-		muteButton.AnchorPoint = Vector2.new(1, 0)
-
-		if GetFFlagPauseMuteFix() then
-			imageLabel.SizeConstraint = Enum.SizeConstraint.RelativeYY
-		end
-		muteButton.Parent = buttonsContainer
-		VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-			isLocalPlayerMutedState = muted
-			updateIcon()
-			if FFlagAddMuteSelfTopOfPlayersPane then
-				updateMuteSelfButtonIcon()
-			end
-		end)
 	end
 
 	utility:OnResized(buttonsContainer, function(newSize, isPortrait)
@@ -1309,12 +1227,8 @@ local function Initialize()
 		if ChromeEnabled then
 			return
 		end
-		if FFlagAddMuteSelfTopOfPlayersPane then
-			createMuteSelfButton()
-		else
-			updateButtonRow()
-			appendMuteButton()
-		end
+
+		createMuteSelfButton()
 	end
 
 	local function createInspectButtonImage(activateInspectAndBuyMenu)
@@ -2218,11 +2132,7 @@ local function Initialize()
 				-- This looks a little less flickery if we only do it once every 3 frames
 				if frame % 3 == 0 then
 					updateAllMuteButtons()
-					if FFlagAddMuteSelfTopOfPlayersPane then
-						updateMuteSelfButtonIcon()
-					else
-						updateIcon()
-					end
+					updateMuteSelfButtonIcon()
 				end
 			end)
 			renderSteppedConnected = true
@@ -2281,9 +2191,7 @@ local function Initialize()
 				VCS.StateChanged:Connect(function(_oldState, newState)
 					if newState == (Enum :: any).VoiceChatState.Ended then
 						muteAllButtonRemove()
-						if FFlagAddMuteSelfTopOfPlayersPane then
-							muteSelfButtonRemove()
-						end
+						muteSelfButtonRemove()
 						voiceChatServiceConnected = false
 					elseif
 						newState == (Enum :: any).VoiceChatState.Joined and voiceChatServiceConnected == false
@@ -2308,9 +2216,7 @@ local function Initialize()
 					if muteAllButton then
 						muteAllButtonRemove()
 					end
-					if FFlagAddMuteSelfTopOfPlayersPane then
-						muteSelfButtonRemove()
-					end
+					muteSelfButtonRemove()
 					destroyAllUserMuteButtons()
 					rebuildPlayerList()
 					resetButtonRow()

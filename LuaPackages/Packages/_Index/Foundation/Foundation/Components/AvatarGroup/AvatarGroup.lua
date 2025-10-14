@@ -36,6 +36,7 @@ local defaultProps = {
 	type = AvatarGroupType.Spread,
 	max = math.huge,
 	size = InputSize.Medium,
+	testId = "--foundation-avatar-group",
 }
 
 local function AvatarOverflow(props: {
@@ -132,7 +133,7 @@ local function AvatarGroup(avatarGroupProps: AvatarGroupProps, ref: React.Ref<Gu
 			LayoutOrder = index,
 			Position = position,
 			ZIndex = ZIndex,
-			testId = "--foundation-avatar-group-avatar",
+			testId = `{props.testId}--avatar-{userId}`,
 		})
 	end
 

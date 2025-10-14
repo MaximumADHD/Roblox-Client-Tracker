@@ -63,7 +63,7 @@ MAIN:
   CALL R3 1 1
   SETTABLEKS R3 R2 K21 ["usePluginSetting"]
   SETTABLEKS R2 R1 K8 ["Hooks"]
-  DUPTABLE R2 K27 [{"StudioUri", "createFoundationDesignBinding", "safeGetFastFlag", "isStyleSheetPolyfillOn"}]
+  DUPTABLE R2 K28 [{"StudioUri", "createFoundationDesignBinding", "safeGetFastFlag", "isStyleSheetPolyfillOn", "uriToTestId"}]
   GETIMPORT R3 K1 [require]
   GETIMPORT R6 K3 [script]
   GETTABLEKS R5 R6 K9 ["Util"]
@@ -88,5 +88,11 @@ MAIN:
   GETTABLEKS R4 R5 K26 ["isStyleSheetPolyfillOn"]
   CALL R3 1 1
   SETTABLEKS R3 R2 K26 ["isStyleSheetPolyfillOn"]
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K27 ["uriToTestId"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K27 ["uriToTestId"]
   SETTABLEKS R2 R1 K9 ["Util"]
   RETURN R1 1

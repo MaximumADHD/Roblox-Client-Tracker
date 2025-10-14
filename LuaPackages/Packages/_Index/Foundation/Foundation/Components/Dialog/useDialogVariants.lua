@@ -18,7 +18,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
-local useDialogLayout = require(script.Parent.useDialogLayout)
+local useDialog = require(script.Parent.useDialog)
 
 type DialogVariantProps = {
 	backdrop: { backgroundStyle: ColorStyleValue },
@@ -183,9 +183,9 @@ end
 function useDialogVariants(): DialogVariantProps
 	local tokens = useTokens()
 	local props = VariantsContext.useVariants("Dialog", variantsFactory, tokens)
-	local layout = useDialogLayout()
+	local dialog = useDialog()
 
-	return composeStyleVariant(props.common, props.size[layout.responsiveSize])
+	return composeStyleVariant(props.common, props.size[dialog.responsiveSize])
 end
 
 return {

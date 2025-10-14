@@ -16,7 +16,7 @@ export type PopoverAnchorProps = {
 } & Types.CommonProps
 
 local function PopoverAnchor(props: PopoverAnchorProps, forwardedRef: React.Ref<PopoverAnchor>?): React.ReactNode
-	local context = React.useContext(PopoverContext)
+	local popoverContext = React.useContext(PopoverContext)
 
 	local ref = React.useRef(nil)
 
@@ -26,15 +26,17 @@ local function PopoverAnchor(props: PopoverAnchorProps, forwardedRef: React.Ref<
 
 	React.useLayoutEffect(function()
 		if typeof(props.anchorRef) == "table" and props.anchorRef.current then
-			context.setAnchor(props.anchorRef.current)
+			popoverContext.setAnchor(props.anchorRef.current)
 		else
-			context.setAnchor(ref.current)
+			popoverContext.setAnchor(ref.current)
 		end
 	end)
 
 	if props.anchorRef then
 		return nil
 	end
+
+	props.testId = `{popoverContext.testId}--anchor`
 
 	return React.createElement(
 		View,

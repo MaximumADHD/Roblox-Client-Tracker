@@ -60,6 +60,7 @@ local useButtonVariants = require(script.Parent.useButtonVariants)
 local useButtonMotionStates = require(script.Parent.useButtonMotionStates)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useTextSizeOffset = require(Foundation.Providers.Style.useTextSizeOffset)
+local usePresentationContext = require(Foundation.Providers.Style.PresentationContext).usePresentationContext
 
 type StateChangedCallback = Types.StateChangedCallback
 
@@ -115,6 +116,7 @@ local defaultProps = {
 	size = InputSize.Medium,
 	width = UDim.new(0, 0),
 	inputDelay = 0,
+	testId = "--foundation-button",
 }
 
 local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
@@ -152,7 +154,9 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 	end, { inputDelay })
 
 	local tokens = useTokens()
-	local variantProps = useButtonVariants(tokens, props.size, props.variant)
+	local presentationContext = usePresentationContext()
+	local variantProps =
+		useButtonVariants(tokens, props.size, props.variant, presentationContext and presentationContext.isInverse)
 
 	local motionStates = useButtonMotionStates(variantProps.content.style.Transparency, Constants.DISABLED_TRANSPARENCY)
 	local disabledValues, animateDisabledValues = useMotion(motionStates.Default)
@@ -264,6 +268,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 										Transparency = transparency,
 									}
 								end),
+								testId = `{props.testId}--spinner`,
 							})
 							else nil,
 						Icon = if not props.isLoading and props.icon
@@ -333,6 +338,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 							}
 						end),
 					LayoutOrder = 2,
+					testId = `{props.testId}--text`,
 				})
 				else nil,
 			Gradient = if isDelaying

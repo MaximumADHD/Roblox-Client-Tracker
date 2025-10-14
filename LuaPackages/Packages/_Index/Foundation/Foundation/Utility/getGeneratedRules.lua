@@ -1,6 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Flags = require(Foundation.Utility.Flags)
 local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
 local StyleTagFormat = require(Foundation.Enums.StyleTagFormat)
@@ -38,9 +37,7 @@ local requirePaths: { [StyleTagFormat]: { [typeof("Common") | Theme | Device]: (
 }
 
 local function getGeneratedRules(theme: Theme, device: Device): any
-	local format: StyleTagFormat = if Flags.FoundationStyleTagsStyleSheetAttributes
-		then StyleTagFormat.Attribute
-		else StyleTagFormat.Static
+	local format: StyleTagFormat = StyleTagFormat.Attribute
 	local themeRules, sizeRules
 
 	local commonRules = requirePaths[StyleTagFormat.Static]["Common"]()

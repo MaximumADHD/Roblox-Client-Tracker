@@ -40,6 +40,7 @@ local defaultProps = {
 		text = Translator:FormatByKey("CommonUI.Controls.Action.Refresh"),
 		onActivated = nil,
 	},
+	testId = "--foundation-empty",
 }
 
 local function Empty(emptyProps: EmptyProps, ref: React.Ref<GuiObject>?)
@@ -62,8 +63,8 @@ local function Empty(emptyProps: EmptyProps, ref: React.Ref<GuiObject>?)
 			Text = React.createElement(Text, {
 				Text = props.text,
 				LayoutOrder = 2,
-
 				tag = "size-full-0 auto-y text-body-large content-default text-wrap text-align-x-center",
+				testId = `{props.testId}--text`,
 			}),
 			Button = if props.button and props.button.onActivated
 				then React.createElement(Button, {

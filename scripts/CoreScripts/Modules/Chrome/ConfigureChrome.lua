@@ -21,8 +21,7 @@ local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
 local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
-local GetFFlagEnableJoinVoiceOnUnibar = SharedFlags.GetFFlagEnableJoinVoiceOnUnibar
-local FFlagChromeCentralizedShortcutConfig = SharedFlags.FFlagChromeCentralizedShortcutConfig
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -57,10 +56,7 @@ local function configureUnibar()
 	end
 
 	local v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
-
-	if GetFFlagEnableJoinVoiceOnUnibar() then
-		table.insert(v4Ordering, 2, "join_voice")
-	end
+	table.insert(v4Ordering, 2, "join_voice")
 
 	if GetFFlagDebugEnableUnibarDummyIntegrations() then
 		table.insert(v4Ordering, 1, "dummy_window")
@@ -109,7 +105,7 @@ local function configureUnibar()
 end
 
 initializeIntegrations()
-if FFlagChromeCentralizedShortcutConfig then
+if FFlagEnableChromeShortcutBar then
 	initializeShortcuts()
 end
 configureUnibar()

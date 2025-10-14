@@ -8,11 +8,10 @@ local Types = require(Foundation.Components.Types)
 local Dropdown = require(Foundation.Components.Dropdown)
 local InputSize = require(Foundation.Enums.InputSize)
 
-local InternalMenu = require(Foundation.Components.InternalMenu)
-type MenuItem = InternalMenu.MenuItem
+type DropdownItem = Dropdown.DropdownItem
 type ItemId = Types.ItemId
 
-local function getItems(hasIcon: boolean): { MenuItem }
+local function getItems(hasIcon: boolean): { DropdownItem }
 	local icon = if hasIcon then "icons/common/safety" else nil
 	return {
 		{ id = "A", text = "Item A" },

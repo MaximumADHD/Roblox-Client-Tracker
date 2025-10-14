@@ -16,6 +16,7 @@ local StyleProviderWithDefaultTheme = Style.StyleProviderWithDefaultTheme
 
 local Constants = require(root.Components.Constants)
 local ChatModalSelectorDialog = require(root.Components.ChatModalSelectorDialog)
+local Types = require(root.Components.Types)
 
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 
@@ -67,7 +68,11 @@ end
 	Mount a ScreenGui with providers and ChatModalSelectorDialog inside.
 	TODO: Add focus navigation support for gamepad/keyboard
 ]]
-local function mountModalSelector(onClose: () -> (), onOpen: () -> ()?)
+local function mountModalSelector(
+	onClose: () -> (),
+	onOpen: () -> ()?,
+	onSelect: (message: Types.Message, orderedMessages: { Types.Message }) -> ()
+)
 	if isInExperienceUIVREnabled and isSpatial() then
 		local panelObject = UIManager.getInstance():getPanelObject(PanelType.MoreMenu)
 		local frame = Instance.new("Frame")
@@ -116,6 +121,7 @@ local function mountModalSelector(onClose: () -> (), onOpen: () -> ()?)
 					ChatModalSelectorDialog = Roact.createElement(ChatModalSelectorDialog, {
 						isShown = true,
 						onClose = onClose,
+						onSelect = onSelect,
 					}),
 				}),
 			}),

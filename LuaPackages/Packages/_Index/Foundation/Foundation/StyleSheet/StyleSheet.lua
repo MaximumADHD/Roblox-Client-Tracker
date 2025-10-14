@@ -5,7 +5,6 @@ local React = require(Packages.React)
 local Types = require(StyleSheetRoot.Rules.Types)
 local createStyleSheetRules = require(StyleSheetRoot.createStyleSheetRules)
 local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
-local Flags = require(Foundation.Utility.Flags)
 
 local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
@@ -26,49 +25,37 @@ type StyleSheetProps = {
 }
 
 local function StyleSheet(props: StyleSheetProps)
-	local sheet, setSheet, attributesCache
-
-	if Flags.FoundationStyleTagsStyleSheetAttributes then
-		sheet, setSheet = React.useState(nil :: StyleSheet?)
-		attributesCache = React.useRef({} :: AttributesCache)
-	else
-		sheet = React.useRef(nil :: StyleSheet?)
-	end
+	local sheet, setSheet = React.useState(nil :: StyleSheet?)
+	local attributesCache = React.useRef({} :: AttributesCache)
 
 	React.useLayoutEffect(function()
-		local styleSheet: any = if Flags.FoundationStyleTagsStyleSheetAttributes then sheet else sheet.current
-
 		if props.setStyleSheetRef and props.setStyleSheetRef.current then
-			props.setStyleSheetRef.current(styleSheet)
+			props.setStyleSheetRef.current(sheet)
 		end
-	end, if Flags.FoundationStyleTagsStyleSheetAttributes then { sheet } else nil)
+	end, { sheet })
 
 	local rules = useGeneratedRules(props.theme, props.device)
 
 	-- Deprecated: remove as soon as StudioPlugins using this are migrated.
 	-- https://roblox.atlassian.net/browse/STUDIOPLAT-38539
 	React.useLayoutEffect(function()
-		local styleSheet: any = if Flags.FoundationStyleTagsStyleSheetAttributes then sheet else sheet.current
-
-		if styleSheet then
-			styleSheet:SetDerives((props.derives or {}) :: { Instance })
+		if sheet then
+			sheet:SetDerives((props.derives or {}) :: { Instance })
 		end
 		-- There is no removeDerives, a new call overwrites the old one.
-	end, if Flags.FoundationStyleTagsStyleSheetAttributes then { sheet :: any, props.derives } else { props.derives })
+	end, { sheet :: any, props.derives })
 
-	local styleRules = if Flags.FoundationStyleTagsStyleSheetAttributes
-		then React.useMemo(function()
-			if sheet then
-				return createStyleSheetRules(rules, props.tags, sheet :: any, attributesCache.current, props.scale)
-			else
-				return nil
-			end
-		end, { sheet :: any, rules, props.tags, props.scale })
-		else createStyleSheetRules(rules, props.tags)
+	local styleRules = React.useMemo(function()
+		if sheet then
+			return createStyleSheetRules(rules, props.tags, sheet :: any, attributesCache.current, props.scale)
+		else
+			return nil
+		end
+	end, { sheet :: any, rules, props.tags, props.scale })
 
 	return React.createElement(React.Fragment, nil, {
 		FoundationStyleSheet = React.createElement("StyleSheet", {
-			ref = if Flags.FoundationStyleTagsStyleSheetAttributes then setSheet else sheet,
+			ref = setSheet,
 		}, styleRules),
 		FoundationStyleLink = React.createElement("StyleLink", {
 			StyleSheet = sheet,

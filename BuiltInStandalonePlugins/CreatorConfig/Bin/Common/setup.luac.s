@@ -59,7 +59,7 @@ PROTO_6:
   LOADNIL R2
   LOADNIL R3
   GETUPVAL R4 1
-  JUMPIFNOT R4 [+50]
+  JUMPIFNOT R4 [+54]
   NEWTABLE R4 0 1
   DUPTABLE R5 K11 [{"uri", "isPreexistingAction", "getText", "getTooltip", "icon", "enabled", "visible", "isCheckable", "checkable", "checked"}]
   GETUPVAL R7 2
@@ -68,6 +68,10 @@ PROTO_6:
   LOADK R8 K14 ["Toggle"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K1 ["uri"]
+  GETUPVAL R7 3
+  JUMPIFNOT R7 [+2]
+  LOADB R6 1
+  JUMP [+1]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["isPreexistingAction"]
   DUPCLOSURE R6 K15 [PROTO_0]
@@ -78,15 +82,15 @@ PROTO_6:
   SETTABLEKS R6 R5 K5 ["icon"]
   LOADB R6 1
   SETTABLEKS R6 R5 K6 ["enabled"]
-  LOADB R6 1
+  LOADB R6 0
   SETTABLEKS R6 R5 K7 ["visible"]
-  GETUPVAL R7 3
+  GETUPVAL R7 4
   JUMPIFNOT R7 [+2]
   LOADNIL R6
   JUMP [+1]
   LOADB R6 1
   SETTABLEKS R6 R5 K8 ["isCheckable"]
-  GETUPVAL R7 3
+  GETUPVAL R7 4
   JUMPIFNOT R7 [+2]
   LOADB R6 1
   JUMP [+1]
@@ -111,9 +115,9 @@ PROTO_6:
   SETTABLEKS R0 R4 K23 ["plugin"]
   LOADK R5 K13 ["CreatorConfig"]
   SETTABLEKS R5 R4 K24 ["pluginName"]
-  GETUPVAL R5 4
-  SETTABLEKS R5 R4 K25 ["translationResourceTable"]
   GETUPVAL R5 5
+  SETTABLEKS R5 R4 K25 ["translationResourceTable"]
+  GETUPVAL R5 6
   SETTABLEKS R5 R4 K26 ["fallbackResourceTable"]
   GETUPVAL R5 1
   SETTABLEKS R5 R4 K27 ["noToolbar"]
@@ -139,10 +143,10 @@ PROTO_6:
   LOADK R7 K35 ["RunService"]
   NAMECALL R5 R5 K36 ["GetService"]
   CALL R5 2 1
-  GETUPVAL R8 6
+  GETUPVAL R8 7
   GETTABLEKS R7 R8 K37 ["get"]
   CALL R7 0 1
-  GETUPVAL R9 6
+  GETUPVAL R9 7
   GETTABLEKS R8 R9 K38 ["Standalone"]
   JUMPIFEQ R7 R8 [+2]
   LOADB R6 0 +1
@@ -173,7 +177,7 @@ PROTO_6:
   GETIMPORT R9 K55 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R9 R8 K43 ["zIndexBehavior"]
   SETTABLEKS R8 R4 K56 ["dockWidgetInfo"]
-  GETUPVAL R9 7
+  GETUPVAL R9 8
   GETTABLEKS R8 R9 K57 ["build"]
   MOVE R9 R4
   CALL R8 1 1
@@ -187,7 +191,7 @@ PROTO_6:
   MOVE R12 R8
   CALL R10 2 0
   RETURN R0 0
-  GETUPVAL R9 7
+  GETUPVAL R9 8
   GETTABLEKS R8 R9 K57 ["build"]
   MOVE R9 R4
   CALL R8 1 0
@@ -232,18 +236,24 @@ MAIN:
   CALL R9 0 1
   GETTABLEKS R10 R7 K22 ["getFFlagRegisterActionsPluginLoader"]
   CALL R10 0 1
-  GETIMPORT R11 K24 [game]
-  LOADK R13 K25 ["ReplaceIsCheckableWithCheckable"]
-  NAMECALL R11 R11 K26 ["GetEngineFeature"]
-  CALL R11 2 1
-  AND R12 R10 R9
-  DUPCLOSURE R13 K27 [PROTO_6]
+  GETTABLEKS R11 R7 K23 ["getFFlagEnableCreatorConfigSystemMenu"]
+  CALL R11 0 1
+  GETIMPORT R12 K25 [game]
+  LOADK R14 K26 ["ReplaceIsCheckableWithCheckable"]
+  NAMECALL R12 R12 K27 ["GetEngineFeature"]
+  CALL R12 2 1
+  JUMPIFNOT R10 [+2]
+  MOVE R13 R9
+  JUMPIF R13 [+1]
+  MOVE R13 R11
+  DUPCLOSURE R14 K28 [PROTO_6]
   CAPTURE VAL R0
-  CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R8
   CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R6
   CAPTURE VAL R2
-  RETURN R13 1
+  RETURN R14 1

@@ -148,51 +148,56 @@ PROTO_3:
   DUPTABLE R9 K26 [{"LayoutOrder", "tag", "testId"}]
   GETTABLEKS R10 R0 K22 ["LayoutOrder"]
   SETTABLEKS R10 R9 K22 ["LayoutOrder"]
-  LOADK R10 K27 ["row size-full-400 auto-y gap-xsmall align-x-center align-y-center"]
+  NEWTABLE R10 2 0
+  LOADB R11 1
+  SETTABLEKS R11 R10 K27 ["row size-full-400 auto-y gap-xsmall align-x-center align-y-center"]
+  GETUPVAL R11 11
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K28 ["padding-y-medium"]
   SETTABLEKS R10 R9 K12 ["tag"]
-  LOADK R10 K28 ["Assistant-InputArea-Footer"]
+  LOADK R10 K29 ["Assistant-InputArea-Footer"]
   SETTABLEKS R10 R9 K13 ["testId"]
-  DUPTABLE R10 K31 [{"Icon", "Text"}]
-  SETTABLEKS R6 R10 K29 ["Icon"]
+  DUPTABLE R10 K32 [{"Icon", "Text"}]
+  SETTABLEKS R6 R10 K30 ["Icon"]
   GETUPVAL R11 6
-  GETUPVAL R12 11
-  DUPTABLE R13 K32 [{"tag", "LayoutOrder", "Text"}]
-  LOADK R14 K33 ["auto-xy text-caption-small content-default text-wrap"]
+  GETUPVAL R12 12
+  DUPTABLE R13 K33 [{"tag", "LayoutOrder", "Text"}]
+  LOADK R14 K34 ["auto-xy text-caption-small content-default text-wrap"]
   SETTABLEKS R14 R13 K12 ["tag"]
   MOVE R14 R3
   CALL R14 0 1
   SETTABLEKS R14 R13 K22 ["LayoutOrder"]
   GETTABLEKS R15 R1 K2 ["reasonDisabled"]
   JUMPIF R15 [+3]
-  GETTABLEKS R14 R4 K34 ["PIINotice"]
+  GETTABLEKS R14 R4 K35 ["PIINotice"]
   JUMP [+37]
   GETTABLEKS R16 R15 K2 ["reasonDisabled"]
   GETUPVAL R18 5
-  GETTABLEKS R17 R18 K35 ["Generation"]
+  GETTABLEKS R17 R18 K36 ["Generation"]
   JUMPIFNOTEQ R16 R17 [+4]
-  GETTABLEKS R14 R4 K34 ["PIINotice"]
+  GETTABLEKS R14 R4 K35 ["PIINotice"]
   JUMP [+27]
   GETUPVAL R18 5
   GETTABLEKS R17 R18 K8 ["QuotaExceeded"]
   JUMPIFEQ R16 R17 [+6]
   GETUPVAL R18 5
-  GETTABLEKS R17 R18 K36 ["TooManyRequest"]
+  GETTABLEKS R17 R18 K37 ["TooManyRequest"]
   JUMPIFNOTEQ R16 R17 [+4]
   GETTABLEKS R14 R4 K8 ["QuotaExceeded"]
   JUMP [+14]
   GETUPVAL R18 5
   GETTABLEKS R17 R18 K6 ["External"]
   JUMPIFNOTEQ R16 R17 [+4]
-  GETTABLEKS R14 R15 K37 ["externalReasonText"]
+  GETTABLEKS R14 R15 K38 ["externalReasonText"]
   JUMP [+6]
-  GETUPVAL R18 12
-  GETTABLEKS R17 R18 K38 ["assertNever"]
+  GETUPVAL R18 13
+  GETTABLEKS R17 R18 K39 ["assertNever"]
   MOVE R18 R16
   CALL R17 1 1
   MOVE R14 R17
-  SETTABLEKS R14 R13 K30 ["Text"]
+  SETTABLEKS R14 R13 K31 ["Text"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K30 ["Text"]
+  SETTABLEKS R11 R10 K31 ["Text"]
   CALL R7 3 -1
   RETURN R7 -1
 
@@ -203,64 +208,70 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Parent"]
-  GETTABLEKS R2 R3 K7 ["Foundation"]
+  GETTABLEKS R3 R0 K6 ["Flags"]
+  GETTABLEKS R2 R3 K7 ["FFlagMCPAssistantManagementMenu"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Components"]
-  GETTABLEKS R4 R5 K9 ["Contexts"]
-  GETTABLEKS R3 R4 K10 ["InputStateContext"]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Foundation"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Parent"]
-  GETTABLEKS R4 R5 K11 ["React"]
+  GETTABLEKS R6 R0 K10 ["Components"]
+  GETTABLEKS R5 R6 K11 ["Contexts"]
+  GETTABLEKS R4 R5 K12 ["InputStateContext"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Parent"]
-  GETTABLEKS R5 R6 K12 ["ReactUtils"]
+  GETTABLEKS R6 R0 K8 ["Parent"]
+  GETTABLEKS R5 R6 K13 ["React"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K13 ["Resources"]
-  GETTABLEKS R7 R8 K14 ["Localization"]
-  GETTABLEKS R6 R7 K15 ["Translator"]
+  GETTABLEKS R7 R0 K8 ["Parent"]
+  GETTABLEKS R6 R7 K14 ["ReactUtils"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R7 R0 K16 ["Types"]
+  GETTABLEKS R9 R0 K15 ["Resources"]
+  GETTABLEKS R8 R9 K16 ["Localization"]
+  GETTABLEKS R7 R8 K17 ["Translator"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K17 ["Hooks"]
-  GETTABLEKS R8 R9 K18 ["useExternalInputWatch"]
+  GETTABLEKS R8 R0 K18 ["Types"]
   CALL R7 1 1
-  GETTABLEKS R8 R1 K19 ["Image"]
-  GETTABLEKS R9 R1 K20 ["Text"]
-  GETTABLEKS R10 R1 K21 ["View"]
-  GETTABLEKS R12 R1 K22 ["Enums"]
-  GETTABLEKS R11 R12 K23 ["IconSize"]
-  GETTABLEKS R12 R1 K24 ["Loading"]
-  GETTABLEKS R13 R4 K25 ["createNextOrder"]
-  GETTABLEKS R14 R3 K26 ["createElement"]
-  GETTABLEKS R15 R2 K27 ["InputDisabledReasons"]
-  DUPCLOSURE R16 K28 [PROTO_0]
-  CAPTURE VAL R15
-  CAPTURE VAL R6
-  DUPCLOSURE R17 K29 [PROTO_1]
-  CAPTURE VAL R15
-  CAPTURE VAL R2
-  DUPCLOSURE R18 K30 [PROTO_3]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K19 ["Hooks"]
+  GETTABLEKS R9 R10 K20 ["useExternalInputWatch"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K21 ["Get"]
+  GETTABLEKS R10 R2 K22 ["Image"]
+  GETTABLEKS R11 R2 K23 ["Text"]
+  GETTABLEKS R12 R2 K24 ["View"]
+  GETTABLEKS R14 R2 K25 ["Enums"]
+  GETTABLEKS R13 R14 K26 ["IconSize"]
+  GETTABLEKS R14 R2 K27 ["Loading"]
+  GETTABLEKS R15 R5 K28 ["createNextOrder"]
+  GETTABLEKS R16 R4 K29 ["createElement"]
+  GETTABLEKS R17 R3 K30 ["InputDisabledReasons"]
+  DUPCLOSURE R18 K31 [PROTO_0]
+  CAPTURE VAL R17
   CAPTURE VAL R7
+  DUPCLOSURE R19 K32 [PROTO_1]
+  CAPTURE VAL R17
   CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R13
-  CAPTURE VAL R5
-  CAPTURE VAL R15
-  CAPTURE VAL R14
-  CAPTURE VAL R10
-  CAPTURE VAL R12
-  CAPTURE VAL R11
+  DUPCLOSURE R20 K33 [PROTO_3]
   CAPTURE VAL R8
-  CAPTURE VAL R9
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R15
   CAPTURE VAL R6
-  GETTABLEKS R19 R3 K31 ["memo"]
-  MOVE R20 R18
-  CALL R19 1 -1
-  RETURN R19 -1
+  CAPTURE VAL R17
+  CAPTURE VAL R16
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  GETTABLEKS R21 R4 K34 ["memo"]
+  MOVE R22 R20
+  CALL R21 1 -1
+  RETURN R21 -1

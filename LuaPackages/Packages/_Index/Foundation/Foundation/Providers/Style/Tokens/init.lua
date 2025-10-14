@@ -31,6 +31,7 @@ local function getTokens(device: Device, theme: Theme, scaleFactor: number?)
 		Color = tokens.Color,
 		Config = tokens.Config,
 		DarkMode = tokens.DarkMode,
+		Ease = tokens.Ease,
 		LightMode = tokens.LightMode,
 		Inverse = tokens.Inverse,
 		Semantic = tokens.Semantic, -- TODO(tokens): Remove once icon sizes are moved
@@ -44,6 +45,7 @@ local function getTokens(device: Device, theme: Theme, scaleFactor: number?)
 		LineHeight = tokens.LineHeight,
 		FontSize = tokens.FontSize,
 		FontWeight = tokens.FontWeight,
+		Time = tokens.Time,
 		Typography = tokens.Typography,
 	}
 

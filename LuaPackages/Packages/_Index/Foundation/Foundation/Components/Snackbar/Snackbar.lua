@@ -18,6 +18,7 @@ local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 type IconVariant = BuilderIcons.IconVariant
 type CommonProps = Types.CommonProps
@@ -45,7 +46,12 @@ local SNACKBAR_WITH_BUTTONS_FIXED_WIDTH = 371
 
 local MAX_LINES = 2
 
-local function Snackbar(props: SnackbarProps, ref: React.Ref<GuiObject>?)
+local defaultProps = {
+	testId = "--foundation-snackbar",
+}
+
+local function Snackbar(snackbarProps: SnackbarProps, ref: React.Ref<GuiObject>?)
+	local props = withDefaults(snackbarProps, defaultProps)
 	local tokens = useTokens()
 
 	local hasIcon = props.icon and props.icon ~= ""
@@ -89,11 +95,16 @@ local function Snackbar(props: SnackbarProps, ref: React.Ref<GuiObject>?)
 			Content = React.createElement(View, {
 				LayoutOrder = 1,
 				tag = "auto-xy align-y-center padding-y-small row fill gap-small",
+				testId = `{props.testId}--content`,
 			}, {
 				Icon = if hasIcon
 					then React.createElement(
 						Icon,
-						Dash.join(iconProps, { style = tokens.Inverse.Content.Emphasis, LayoutOrder = 1 })
+						Dash.join(iconProps, {
+							style = tokens.Inverse.Content.Emphasis,
+							LayoutOrder = 1,
+							testId = `{props.testId}--icon`,
+						})
 					)
 					else nil,
 
@@ -105,6 +116,7 @@ local function Snackbar(props: SnackbarProps, ref: React.Ref<GuiObject>?)
 						MaxSize = Vector2.new(math.huge, maxTitleHeight),
 					},
 					tag = "auto-xy fill text-align-x-left text-caption-large content-inverse-emphasis text-truncate-split text-wrap",
+					testId = `{props.testId}--title`,
 				}),
 			}),
 
@@ -112,6 +124,7 @@ local function Snackbar(props: SnackbarProps, ref: React.Ref<GuiObject>?)
 				then React.createElement(View, {
 					LayoutOrder = 2,
 					tag = "auto-xy align-y-center row gap-xsmall",
+					testId = `{props.testId}--buttons`,
 				}, {
 					Action = if hasAction
 						then React.createElement(Text, {
@@ -122,6 +135,7 @@ local function Snackbar(props: SnackbarProps, ref: React.Ref<GuiObject>?)
 							},
 							Text = action.text,
 							tag = "auto-xy padding-small radius-medium text-label-medium content-inverse-link",
+							testId = `{props.testId}--action`,
 						})
 						else nil,
 
@@ -131,6 +145,7 @@ local function Snackbar(props: SnackbarProps, ref: React.Ref<GuiObject>?)
 							onActivated = props.onClose,
 							size = InputSize.Small,
 							variant = CloseAffordanceVariant.Utility,
+							testId = `{props.testId}--close-affordance`,
 						})
 						else nil,
 				})

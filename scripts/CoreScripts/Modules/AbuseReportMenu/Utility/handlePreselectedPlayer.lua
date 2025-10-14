@@ -1,10 +1,14 @@
 --!nonstrict
 local root = script:FindFirstAncestor("AbuseReportMenu")
+local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui.RobloxGui
 
 local Constants = require(root.Components.Constants)
 local TnSIXPWrapper = require(root.IXP.TnSIXPWrapper)
+
+local FFlagInGameMenuAddChatLineReporting =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagInGameMenuAddChatLineReporting
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local playerUsedVoice = function(player: Player)
@@ -18,29 +22,36 @@ function handlePreselectedPlayer(
 	dispatchUIStates: (any) -> (),
 	analyticsDispatch: (any) -> ()
 )
-	if voiceChatEnabled and playerUsedVoice(player) then
+	if FFlagInGameMenuAddChatLineReporting then
 		dispatchUIStates({
-			type = Constants.PlayerMenuActions.UpdateMethodOfAbuse,
-			methodOfAbuse = Constants.AbuseMethods.VoiceChat,
+			type = Constants.PlayerMenuActions.SetPreselectedPlayer,
+			player = player,
 		})
-		analyticsDispatch({
-			type = Constants.AnalyticsActions.SetTypeOfAbuseSelection,
-			selection = Constants.AbuseMethods.VoiceChat,
-		})
-	elseif TnSIXPWrapper.getReportAnythingAvatarEnabled() then
+	else
+		if voiceChatEnabled and playerUsedVoice(player) then
+			dispatchUIStates({
+				type = Constants.PlayerMenuActions.UpdateMethodOfAbuse,
+				methodOfAbuse = Constants.AbuseMethods.VoiceChat,
+			})
+			analyticsDispatch({
+				type = Constants.AnalyticsActions.SetTypeOfAbuseSelection,
+				selection = Constants.AbuseMethods.VoiceChat,
+			})
+		elseif TnSIXPWrapper.getReportAnythingAvatarEnabled() then
+			dispatchUIStates({
+				type = Constants.PlayerMenuActions.UpdateMethodOfAbuse,
+				methodOfAbuse = Constants.AbuseMethods.TextChat,
+			})
+			analyticsDispatch({
+				type = Constants.AnalyticsActions.SetTypeOfAbuseSelection,
+				selection = Constants.AbuseMethods.TextChat,
+			})
+		end
 		dispatchUIStates({
-			type = Constants.PlayerMenuActions.UpdateMethodOfAbuse,
-			methodOfAbuse = Constants.AbuseMethods.TextChat,
-		})
-		analyticsDispatch({
-			type = Constants.AnalyticsActions.SetTypeOfAbuseSelection,
-			selection = Constants.AbuseMethods.TextChat,
+			type = Constants.PlayerMenuActions.SetPreselectedPlayer,
+			player = player,
 		})
 	end
-	dispatchUIStates({
-		type = Constants.PlayerMenuActions.SetPreselectedPlayer,
-		player = player,
-	})
 end
 
 return handlePreselectedPlayer

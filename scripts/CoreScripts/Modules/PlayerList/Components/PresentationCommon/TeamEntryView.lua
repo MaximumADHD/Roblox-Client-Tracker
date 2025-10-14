@@ -15,6 +15,8 @@ local useStyle = UIBlox.Core.Style.useStyle
 local EntryFrameView = PlayerListPackage.Presentation.EntryFrameView
 local StatEntryContainer = require(PlayerList.Components.Container.StatEntryContainer)
 
+local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+
 local CellExtender = require(Components.Presentation.CellExtender)
 
 type TeamEntry = LeaderboardStore.TeamEntry
@@ -48,12 +50,13 @@ export type TeamEntryViewProps = {
 local function TeamEntryView(props: TeamEntryViewProps)
 	local layoutValues = useLayoutValues()
 	local style = useStyle()
+
 	local isSmallTouchDevice = props.isSmallTouchDevice or false
 	local isDirectionalPreferred = props.isDirectionalPreferred or false
 
 	-- Text styling
 	local textStyle = style.Theme.TextEmphasis
-	local textSize = style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize
+	local textSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.TeamNameTextSize else style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize
 	local textFont = style.Font.CaptionHeader.Font
 	if isDirectionalPreferred then
 		-- Ten-foot styling

@@ -5,6 +5,7 @@ local React = require(Packages.React)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
@@ -14,7 +15,12 @@ type CircularProgressBarProps = {
 	progress: React.Binding<number>,
 } & Types.CommonProps
 
-local function CircularProgressBar(props: CircularProgressBarProps, ref: React.Ref<GuiObject>?)
+local defaultProps = {
+	testId = "--foundation-circular-progress-bar",
+}
+
+local function CircularProgressBar(circularProgressBarProps: CircularProgressBarProps, ref: React.Ref<GuiObject>?)
+	local props = withDefaults(circularProgressBarProps, defaultProps)
 	local tokens = useTokens()
 
 	local TRANSPARENCY_SEQ = NumberSequence.new({
@@ -46,6 +52,7 @@ local function CircularProgressBar(props: CircularProgressBarProps, ref: React.R
 					Image = "rbxasset://textures/ui/Controls/RadialFill.png",
 					Size = UDim2.fromScale(2, 1),
 					tag = "content-emphasis position-top-left",
+					testId = `{props.testId}--left-gradient`,
 				}, {
 					Gradient = React.createElement("UIGradient", {
 						Transparency = TRANSPARENCY_SEQ,
@@ -65,6 +72,7 @@ local function CircularProgressBar(props: CircularProgressBarProps, ref: React.R
 					Size = UDim2.fromScale(2, 1),
 					Position = UDim2.fromScale(-1, 0),
 					tag = "content-emphasis",
+					testId = `{props.testId}--right-gradient`,
 				}, {
 					Gradient = React.createElement("UIGradient", {
 						Transparency = TRANSPARENCY_SEQ,

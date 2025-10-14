@@ -1,9 +1,18 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Components"]
-  GETTABLEKS R2 R3 K1 ["Claude"]
-  GETTABLEKS R1 R2 K2 ["ClaudeLLMSystemMessage"]
-  GETTABLEKS R0 R1 K3 ["getSystemMessage"]
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R0 1
+  CALL R0 0 1
+  JUMPIFEQKS R0 K0 [""] [+2]
+  RETURN R0 1
+  LOADNIL R1
+  RETURN R1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["Components"]
+  GETTABLEKS R2 R3 K2 ["Claude"]
+  GETTABLEKS R1 R2 K3 ["ClaudeLLMSystemMessage"]
+  GETTABLEKS R0 R1 K4 ["getSystemMessage"]
   CALL R0 0 -1
   RETURN R0 -1
 
@@ -17,8 +26,22 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["AssistantUI"]
   CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_0]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Flags"]
+  GETTABLEKS R3 R4 K10 ["FFlagAssistantOmitSystemMessage"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Flags"]
+  GETTABLEKS R4 R5 K11 ["FStringDebugAssistantStudioSystemMessage"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K12 ["Get"]
+  GETTABLEKS R5 R3 K12 ["Get"]
+  DUPCLOSURE R6 K13 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
   CAPTURE VAL R1
-  DUPTABLE R3 K10 [{"getSystemMessage"}]
-  SETTABLEKS R2 R3 K9 ["getSystemMessage"]
-  RETURN R3 1
+  DUPTABLE R7 K15 [{"getSystemMessage"}]
+  SETTABLEKS R6 R7 K14 ["getSystemMessage"]
+  RETURN R7 1

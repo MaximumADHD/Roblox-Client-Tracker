@@ -2,7 +2,7 @@ PROTO_0:
   GETIMPORT R0 K2 [Instance.new]
   LOADK R1 K3 ["Model"]
   CALL R0 1 1
-  LOADK R1 K4 ["AnimationGraph"]
+  LOADK R1 K4 ["AnimationGraphDefinition"]
   SETTABLEKS R1 R0 K5 ["Name"]
   GETIMPORT R1 K2 [Instance.new]
   LOADK R2 K6 ["Folder"]
@@ -70,7 +70,7 @@ PROTO_3:
   GETIMPORT R2 K2 [Instance.new]
   LOADK R3 K3 ["Model"]
   CALL R2 1 1
-  LOADK R3 K4 ["AnimationGraph"]
+  LOADK R3 K4 ["AnimationGraphDefinition"]
   SETTABLEKS R3 R2 K5 ["Name"]
   GETIMPORT R3 K2 [Instance.new]
   LOADK R4 K6 ["Folder"]

@@ -1,0 +1,368 @@
+PROTO_0:
+  GETTABLEKS R4 R0 K0 ["value"]
+  JUMPIF R4 [+8]
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R4 0
+  LOADK R6 K1 ["InstanceRef"]
+  LOADK R7 K2 ["Selecting"]
+  NAMECALL R4 R4 K3 ["getText"]
+  CALL R4 3 -1
+  RETURN R4 -1
+  GETTABLEKS R4 R0 K0 ["value"]
+  JUMPIF R4 [+11]
+  JUMPIFNOT R1 [+10]
+  GETUPVAL R4 0
+  LOADK R6 K1 ["InstanceRef"]
+  LOADK R7 K4 ["SelectInstanceType"]
+  DUPTABLE R8 K6 [{"typeOfInstance"}]
+  SETTABLEKS R3 R8 K5 ["typeOfInstance"]
+  NAMECALL R4 R4 K3 ["getText"]
+  CALL R4 4 -1
+  RETURN R4 -1
+  GETTABLEKS R4 R0 K0 ["value"]
+  JUMPIF R4 [+7]
+  GETUPVAL R4 0
+  LOADK R6 K1 ["InstanceRef"]
+  LOADK R7 K7 ["Empty"]
+  NAMECALL R4 R4 K3 ["getText"]
+  CALL R4 3 -1
+  RETURN R4 -1
+  GETTABLEKS R4 R0 K8 ["multiple"]
+  JUMPIFNOT R4 [+7]
+  GETUPVAL R4 0
+  LOADK R6 K1 ["InstanceRef"]
+  LOADK R7 K9 ["Multiple"]
+  NAMECALL R4 R4 K3 ["getText"]
+  CALL R4 3 -1
+  RETURN R4 -1
+  GETTABLEKS R5 R0 K0 ["value"]
+  GETTABLEKS R4 R5 K10 ["Name"]
+  RETURN R4 1
+
+PROTO_1:
+  JUMPIFNOT R0 [+2]
+  LOADK R4 K0 [""]
+  RETURN R4 1
+  JUMPIFNOT R1 [+2]
+  LOADK R4 K0 [""]
+  RETURN R4 1
+  MOVE R5 R3
+  MOVE R6 R2
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K1 ["Image"]
+  RETURN R4 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  NOT R0 R1
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 0
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K0 ["get"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+5]
+  GETIMPORT R1 K2 [warn]
+  LOADK R2 K3 ["Tried to start selecting when InstancePicker was already active"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K4 ["instancePicker"]
+  GETTABLEKS R1 R2 K5 ["pickInstanceAsync"]
+  NEWTABLE R2 0 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K6 ["info"]
+  GETTABLEKS R3 R4 K7 ["typeof"]
+  SETLIST R2 R3 1 [1]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  LOADB R3 0
+  CALL R2 1 0
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K8 ["beginEditingAsync"]
+  CALL R2 0 0
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K9 ["setPart"]
+  LOADK R3 K10 ["value"]
+  MOVE R4 R1
+  CALL R2 2 0
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K11 ["finishEditing"]
+  GETIMPORT R3 K15 [Enum.FinishRecordingOperation.Commit]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  LOADB R2 1
+  JUMPIFEQKS R0 K0 ["Hover"] [+5]
+  JUMPIFEQKS R0 K1 ["Pressed"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["beginEditingAsync"]
+  CALL R0 0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["setPart"]
+  LOADK R1 K2 ["value"]
+  LOADNIL R2
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["finishEditing"]
+  GETIMPORT R1 K7 [Enum.FinishRecordingOperation.Commit]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R4 R0 K0 ["info"]
+  GETTABLEKS R3 R4 K1 ["typeof"]
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K2 [+4]
+  LOADK R3 K2 ["Type of instance must be well defined."]
+  GETIMPORT R1 K4 [assert]
+  CALL R1 2 0
+  GETTABLEKS R3 R0 K0 ["info"]
+  GETTABLEKS R2 R3 K5 ["parts"]
+  GETTABLEKS R1 R2 K6 ["value"]
+  GETTABLEKS R2 R1 K6 ["value"]
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R3 R2 K7 ["ClassName"]
+  JUMP [+1]
+  LOADK R3 K8 [""]
+  GETTABLEKS R5 R1 K6 ["value"]
+  NOT R4 R5
+  GETTABLEKS R5 R1 K9 ["multiple"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K10 ["useState"]
+  LOADB R7 0
+  CALL R6 1 2
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K10 ["useState"]
+  LOADB R9 0
+  CALL R8 1 2
+  GETTABLEKS R11 R0 K11 ["instancePicker"]
+  GETTABLEKS R10 R11 K12 ["isActive"]
+  GETTABLEKS R12 R0 K11 ["instancePicker"]
+  GETTABLEKS R11 R12 K13 ["pickInstanceAsync"]
+  GETUPVAL R12 1
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R0
+  NEWTABLE R14 0 5
+  MOVE R15 R6
+  GETTABLEKS R16 R0 K14 ["beginEditingAsync"]
+  GETTABLEKS R17 R0 K14 ["beginEditingAsync"]
+  MOVE R18 R10
+  MOVE R19 R11
+  SETLIST R14 R15 5 [1]
+  CALL R12 2 1
+  GETUPVAL R13 1
+  NEWCLOSURE R14 P1
+  CAPTURE VAL R9
+  NEWTABLE R15 0 0
+  CALL R13 2 1
+  GETUPVAL R14 1
+  NEWCLOSURE R15 P2
+  CAPTURE VAL R0
+  NEWTABLE R16 0 3
+  GETTABLEKS R17 R0 K14 ["beginEditingAsync"]
+  GETTABLEKS R18 R0 K15 ["setPart"]
+  GETTABLEKS R19 R0 K14 ["beginEditingAsync"]
+  SETLIST R16 R17 3 [1]
+  CALL R14 2 1
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K16 ["Hooks"]
+  GETTABLEKS R15 R16 K17 ["useTokens"]
+  CALL R15 0 1
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K18 ["useContext"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K19 ["Context"]
+  CALL R16 1 1
+  GETUPVAL R17 4
+  CALL R17 0 1
+  MOVE R18 R8
+  JUMPIFNOT R18 [+4]
+  GETTABLEKS R19 R10 K20 ["get"]
+  CALL R19 0 1
+  NOT R18 R19
+  GETUPVAL R19 5
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K21 ["View"]
+  DUPTABLE R21 K26 [{"tag", "Size", "onActivated", "onStateChanged"}]
+  NEWTABLE R22 4 0
+  LOADB R23 1
+  SETTABLEKS R23 R22 K27 ["row align-y-center flex-around radius-small"]
+  SETTABLEKS R6 R22 K28 ["bg-emphasis"]
+  NOT R23 R6
+  SETTABLEKS R23 R22 K29 ["bg-shift-200"]
+  SETTABLEKS R18 R22 K30 ["stroke-emphasis"]
+  SETTABLEKS R22 R21 K22 ["tag"]
+  GETIMPORT R22 K33 [UDim2.new]
+  LOADN R23 1
+  LOADN R24 0
+  LOADN R25 0
+  GETTABLEKS R27 R15 K23 ["Size"]
+  GETTABLEKS R26 R27 K34 ["Size_600"]
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K23 ["Size"]
+  SETTABLEKS R12 R21 K24 ["onActivated"]
+  SETTABLEKS R13 R21 K25 ["onStateChanged"]
+  DUPTABLE R22 K40 [{"ClassIcon", "InstanceName", "Padding", "Cancel", "UIPadding"}]
+  GETUPVAL R23 5
+  GETUPVAL R25 2
+  GETTABLEKS R24 R25 K41 ["Image"]
+  DUPTABLE R25 K43 [{"tag", "LayoutOrder", "Image"}]
+  LOADK R26 K44 ["size-400-400 position-left-center"]
+  SETTABLEKS R26 R25 K22 ["tag"]
+  MOVE R26 R17
+  CALL R26 0 1
+  SETTABLEKS R26 R25 K42 ["LayoutOrder"]
+  GETTABLEKS R27 R16 K45 ["getClassIcon"]
+  JUMPIFNOT R4 [+2]
+  LOADK R26 K8 [""]
+  JUMP [+8]
+  JUMPIFNOT R5 [+2]
+  LOADK R26 K8 [""]
+  JUMP [+5]
+  MOVE R28 R27
+  MOVE R29 R3
+  CALL R28 1 1
+  GETTABLEKS R26 R28 K41 ["Image"]
+  SETTABLEKS R26 R25 K41 ["Image"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K35 ["ClassIcon"]
+  GETUPVAL R23 5
+  GETUPVAL R25 2
+  GETTABLEKS R24 R25 K46 ["Text"]
+  DUPTABLE R25 K48 [{"tag", "ClipsDescendants", "LayoutOrder", "Text"}]
+  NEWTABLE R26 4 0
+  LOADB R27 1
+  SETTABLEKS R27 R26 K49 ["size-0-full shrink auto-x align-x-left text-label-small padding-left-xsmall text-align-x-left"]
+  SETTABLEKS R6 R26 K50 ["content-action-emphasis"]
+  NOT R27 R4
+  JUMPIFNOT R27 [+1]
+  NOT R27 R6
+  SETTABLEKS R27 R26 K51 ["content-emphasis"]
+  MOVE R27 R4
+  JUMPIFNOT R27 [+1]
+  NOT R27 R6
+  SETTABLEKS R27 R26 K52 ["content-muted"]
+  SETTABLEKS R26 R25 K22 ["tag"]
+  LOADB R26 1
+  SETTABLEKS R26 R25 K47 ["ClipsDescendants"]
+  MOVE R26 R17
+  CALL R26 0 1
+  SETTABLEKS R26 R25 K42 ["LayoutOrder"]
+  GETUPVAL R26 6
+  MOVE R27 R1
+  MOVE R28 R18
+  MOVE R29 R6
+  GETTABLEKS R31 R0 K0 ["info"]
+  GETTABLEKS R30 R31 K1 ["typeof"]
+  CALL R26 4 1
+  SETTABLEKS R26 R25 K46 ["Text"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K36 ["InstanceName"]
+  GETUPVAL R23 5
+  GETUPVAL R25 2
+  GETTABLEKS R24 R25 K21 ["View"]
+  DUPTABLE R25 K53 [{"tag", "LayoutOrder"}]
+  LOADK R26 K54 ["grow size-0-full"]
+  SETTABLEKS R26 R25 K22 ["tag"]
+  MOVE R26 R17
+  CALL R26 0 1
+  SETTABLEKS R26 R25 K42 ["LayoutOrder"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K37 ["Padding"]
+  GETUPVAL R23 5
+  GETUPVAL R24 7
+  DUPTABLE R25 K58 [{"emphasis", "onClose", "LayoutOrder", "Visible"}]
+  SETTABLEKS R6 R25 K55 ["emphasis"]
+  SETTABLEKS R14 R25 K56 ["onClose"]
+  MOVE R26 R17
+  CALL R26 0 1
+  SETTABLEKS R26 R25 K42 ["LayoutOrder"]
+  NOT R26 R4
+  JUMPIFNOT R26 [+1]
+  NOT R26 R6
+  SETTABLEKS R26 R25 K57 ["Visible"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K38 ["Cancel"]
+  GETUPVAL R23 5
+  LOADK R24 K39 ["UIPadding"]
+  DUPTABLE R25 K60 [{"PaddingLeft"}]
+  GETIMPORT R26 K62 [UDim.new]
+  LOADN R27 0
+  GETTABLEKS R29 R15 K23 ["Size"]
+  GETTABLEKS R28 R29 K63 ["Size_150"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K59 ["PaddingLeft"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K39 ["UIPadding"]
+  CALL R19 3 -1
+  RETURN R19 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R5 R0 K7 ["Components"]
+  GETTABLEKS R4 R5 K8 ["Contexts"]
+  GETTABLEKS R3 R4 K9 ["ClassIconContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R6 R0 K7 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["CloseAffordance"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K12 ["Foundation"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K4 ["Parent"]
+  GETTABLEKS R6 R7 K13 ["React"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R0 K14 ["RpcTypes"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R10 R0 K15 ["Resources"]
+  GETTABLEKS R9 R10 K16 ["Localization"]
+  GETTABLEKS R8 R9 K17 ["Translator"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K10 ["Util"]
+  GETTABLEKS R9 R10 K18 ["createNextOrder"]
+  CALL R8 1 1
+  GETTABLEKS R9 R5 K19 ["useCallback"]
+  GETTABLEKS R10 R5 K20 ["createElement"]
+  DUPCLOSURE R11 K21 [PROTO_0]
+  CAPTURE VAL R7
+  DUPCLOSURE R12 K22 [PROTO_1]
+  DUPCLOSURE R13 K23 [PROTO_5]
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R3
+  RETURN R13 1

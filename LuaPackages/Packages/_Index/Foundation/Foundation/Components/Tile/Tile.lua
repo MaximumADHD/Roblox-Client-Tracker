@@ -10,7 +10,7 @@ type StateChangedCallback = Types.StateChangedCallback
 type Bindable<T> = Types.Bindable<T>
 
 local withDefaults = require(Foundation.Utility.withDefaults)
-local TileLayoutContext = require(script.Parent.TileLayoutContext)
+local TileContext = require(script.Parent.TileContext)
 
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
@@ -30,6 +30,7 @@ type TileProps = {
 local defaultProps = {
 	FillDirection = Enum.FillDirection.Vertical,
 	isContained = false,
+	testId = "--foundation-tile",
 }
 
 local function Tile(tileProps: TileProps, ref: React.Ref<GuiObject>?)
@@ -56,10 +57,11 @@ local function Tile(tileProps: TileProps, ref: React.Ref<GuiObject>?)
 		}),
 		{
 			TileContext = if props.children
-				then React.createElement(TileLayoutContext.Provider, {
+				then React.createElement(TileContext.Provider, {
 					value = {
 						isContained = props.isContained,
 						fillDirection = props.FillDirection,
+						testId = props.testId,
 					},
 				}, props.children)
 				else nil,

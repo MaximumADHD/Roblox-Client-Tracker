@@ -14,15 +14,20 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Util"]
-  GETTABLEKS R4 R5 K9 ["ToolBuilder"]
+  GETTABLEKS R4 R5 K9 ["Observable"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K6 ["Util"]
-  GETTABLEKS R5 R6 K10 ["ToolResult"]
+  GETTABLEKS R5 R6 K10 ["ToolBuilder"]
   CALL R4 1 1
-  DUPTABLE R5 K11 [{"ToolBuilder", "ToolResult", "MultiplexUtils", "Logging"}]
-  SETTABLEKS R3 R5 K9 ["ToolBuilder"]
-  SETTABLEKS R4 R5 K10 ["ToolResult"]
-  SETTABLEKS R2 R5 K8 ["MultiplexUtils"]
-  SETTABLEKS R1 R5 K7 ["Logging"]
-  RETURN R5 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Util"]
+  GETTABLEKS R6 R7 K11 ["ToolResult"]
+  CALL R5 1 1
+  DUPTABLE R6 K12 [{"ToolBuilder", "ToolResult", "MultiplexUtils", "Logging", "Observable"}]
+  SETTABLEKS R4 R6 K10 ["ToolBuilder"]
+  SETTABLEKS R5 R6 K11 ["ToolResult"]
+  SETTABLEKS R2 R6 K8 ["MultiplexUtils"]
+  SETTABLEKS R1 R6 K7 ["Logging"]
+  SETTABLEKS R3 R6 K9 ["Observable"]
+  RETURN R6 1

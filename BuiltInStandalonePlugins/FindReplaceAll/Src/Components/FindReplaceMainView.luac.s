@@ -92,7 +92,7 @@ PROTO_2:
   SETTABLEKS R14 R13 K15 ["DropdownOverlay"]
   GETUPVAL R14 5
   GETUPVAL R15 6
-  DUPTABLE R16 K32 [{"LayoutOrder", "ZIndex", "dropdownOverlay", "onSearchHeaderSizeChange", "disableConfirmationDialog", "showReplace", "setShowReplace", "resultManager", "findActivationData", "enabled", "shouldFocusTextBox"}]
+  DUPTABLE R16 K32 [{"LayoutOrder", "ZIndex", "dropdownOverlay", "onSearchHeaderSizeChange", "disableConfirmationDialog", "showReplace", "setShowReplace", "resultManager", "findActivationData", "enabled", "textBoxRef"}]
   MOVE R17 R1
   CALL R17 0 1
   SETTABLEKS R17 R16 K23 ["LayoutOrder"]
@@ -109,8 +109,8 @@ PROTO_2:
   SETTABLEKS R17 R16 K6 ["findActivationData"]
   GETTABLEKS R17 R0 K30 ["enabled"]
   SETTABLEKS R17 R16 K30 ["enabled"]
-  GETTABLEKS R17 R0 K31 ["shouldFocusTextBox"]
-  SETTABLEKS R17 R16 K31 ["shouldFocusTextBox"]
+  GETTABLEKS R17 R0 K31 ["textBoxRef"]
+  SETTABLEKS R17 R16 K31 ["textBoxRef"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K16 ["WidgetHeader"]
   GETUPVAL R14 5

@@ -4,7 +4,7 @@ local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
 local Checkbox = require(Foundation.Components.Checkbox)
-local InternalMenu = require(Foundation.Components.InternalMenu)
+local BaseMenu = require(Foundation.Components.BaseMenu)
 local Chip = require(Foundation.Components.Chip)
 local View = require(Foundation.Components.View)
 local Divider = require(Foundation.Components.Divider)
@@ -66,7 +66,7 @@ local function UseCursorStory()
 
 		Divider2 = React.createElement(Divider, { LayoutOrder = 7 }),
 
-		TestMenu = React.createElement(InternalMenu, {
+		TestMenu = React.createElement(BaseMenu.Root, {
 			LayoutOrder = 8,
 			items = {
 				{

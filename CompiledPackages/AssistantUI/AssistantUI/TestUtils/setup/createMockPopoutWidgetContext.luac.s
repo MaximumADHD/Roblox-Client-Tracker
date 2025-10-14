@@ -91,22 +91,57 @@ PROTO_9:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["new"]
   CALL R1 0 1
-  DUPTABLE R2 K4 [{"root", "show", "hide"}]
-  GETUPVAL R3 1
-  GETUPVAL R4 2
-  DUPTABLE R5 K7 [{"onVisibilityChanged", "contents"}]
-  SETTABLEKS R1 R5 K5 ["onVisibilityChanged"]
-  GETTABLEKS R6 R0 K8 ["Contents"]
-  SETTABLEKS R6 R5 K6 ["contents"]
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K1 ["root"]
-  NEWCLOSURE R3 P0
+  GETUPVAL R2 1
+  LOADK R3 K1 ["ScreenGui"]
+  DUPTABLE R4 K3 [{"ZIndexBehavior"}]
+  GETIMPORT R5 K6 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R5 R4 K2 ["ZIndexBehavior"]
+  DUPTABLE R5 K8 [{"MainContent"}]
+  GETUPVAL R6 1
+  LOADK R7 K9 ["Frame"]
+  DUPTABLE R8 K15 [{"Size", "Position", "AnchorPoint", "BackgroundTransparency", "ClipsDescendants"}]
+  GETIMPORT R9 K18 [UDim2.fromOffset]
+  GETTABLEKS R11 R0 K10 ["Size"]
+  GETTABLEKS R10 R11 K19 ["X"]
+  GETTABLEKS R12 R0 K10 ["Size"]
+  GETTABLEKS R11 R12 K20 ["Y"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K10 ["Size"]
+  GETIMPORT R9 K22 [UDim2.fromScale]
+  LOADK R10 K23 [0.5]
+  LOADK R11 K23 [0.5]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K11 ["Position"]
+  GETIMPORT R9 K25 [Vector2.new]
+  LOADK R10 K23 [0.5]
+  LOADK R11 K23 [0.5]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K12 ["AnchorPoint"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K13 ["BackgroundTransparency"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K14 ["ClipsDescendants"]
+  DUPTABLE R9 K27 [{"Contents"}]
+  GETTABLEKS R10 R0 K26 ["Contents"]
+  SETTABLEKS R10 R9 K26 ["Contents"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K7 ["MainContent"]
+  CALL R2 3 1
+  DUPTABLE R3 K31 [{"root", "show", "hide"}]
+  GETUPVAL R4 1
+  GETUPVAL R5 2
+  DUPTABLE R6 K34 [{"onVisibilityChanged", "contents"}]
+  SETTABLEKS R1 R6 K32 ["onVisibilityChanged"]
+  SETTABLEKS R2 R6 K33 ["contents"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K28 ["root"]
+  NEWCLOSURE R4 P0
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K2 ["show"]
-  NEWCLOSURE R3 P1
+  SETTABLEKS R4 R3 K29 ["show"]
+  NEWCLOSURE R4 P1
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K3 ["hide"]
-  RETURN R2 1
+  SETTABLEKS R4 R3 K30 ["hide"]
+  RETURN R3 1
 
 PROTO_10:
   GETUPVAL R1 1

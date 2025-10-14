@@ -18,6 +18,7 @@ local Radius = require(Foundation.Enums.Radius)
 local PopoverContext = require(Foundation.Components.Popover.PopoverContext)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local Logger = require(Foundation.Utility.Logger)
+local Flags = require(Foundation.Utility.Flags)
 
 type PopoverAlign = PopoverAlign.PopoverAlign
 type PopoverSide = PopoverSide.PopoverSide
@@ -37,6 +38,7 @@ export type TooltipProps = {
 local defaultProps = {
 	align = PopoverAlign.Start,
 	side = PopoverSide.Right,
+	testId = "--foundation-tooltip",
 }
 
 local function AnchorWrapper(props: { onHover: (isHovered: boolean) -> () } & PopoverAnchorProps)
@@ -91,6 +93,7 @@ local function Tooltip(tooltipProps: TooltipProps)
 
 	return React.createElement(Popover.Root, {
 		isOpen = isOpen,
+		testId = props.testId,
 	}, {
 		Anchor = React.createElement(
 			AnchorWrapper,
@@ -135,7 +138,7 @@ local function Tooltip(tooltipProps: TooltipProps)
 								LayoutOrder = 2,
 								Text = shortcutText,
 								tag = "auto-xy text-body-small content-inverse-muted",
-								testId = "--foundation-tooltip-shortcut",
+								testId = `{props.testId}--shortcut`,
 							})
 							else nil,
 					}
@@ -144,8 +147,8 @@ local function Tooltip(tooltipProps: TooltipProps)
 					then React.createElement(Text, {
 						LayoutOrder = 2,
 						Text = props.text,
-						tag = "size-full-0 auto-y text-wrap text-align-x-left text-body-small content-inverse-default",
-						testId = "--foundation-tooltip-text",
+						tag = `{if Flags.FoundationTooltipTextAutosize then "auto-xy" else "size-full-0 auto-y"} text-wrap text-align-x-left text-body-small content-inverse-default`,
+						testId = `{props.testId}--text`,
 					})
 					else nil,
 			})

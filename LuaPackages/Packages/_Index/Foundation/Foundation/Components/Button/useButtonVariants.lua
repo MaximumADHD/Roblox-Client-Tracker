@@ -111,7 +111,7 @@ local variantsMap = function(tokens: Tokens)
 	return { common = common, sizes = sizes, types = sharedVariants.types }
 end
 
-return function(tokens: Tokens, size: InputSize, variant: ButtonVariant): ButtonVariantProps
+return function(tokens: Tokens, size: InputSize, variant: ButtonVariant, isInverse: boolean?): ButtonVariantProps
 	local variants = VariantsContext.useVariants("Button", variantsMap, tokens)
-	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant])
+	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant][isInverse or false])
 end

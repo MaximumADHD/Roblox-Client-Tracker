@@ -6,6 +6,8 @@ local Dash = require(Packages.Dash)
 local Flags = require(Foundation.Utility.Flags)
 local View = require(Foundation.Components.View)
 local Button = require(Foundation.Components.Button)
+local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
@@ -19,34 +21,52 @@ return {
 			name = variant,
 			story = function(props)
 				local controls = props.controls
+				local isInverse = controls.isInverse
+				local contextValue = { isInverse = isInverse }
+				local tokens = useTokens()
 				Flags.FoundationUsePath2DSpinner = controls.usePath2DSpinner
 
-				return React.createElement(
-					View,
-					{
-						tag = "row gap-medium auto-y size-full-0 align-y-center",
-					},
-					Dash.map(
-						{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
-						function(size)
-							return React.createElement(Button, {
-								icon = if controls.icon == "" then nil else props.controls.icon,
-								text = controls.text,
-								variant = variant,
-								isLoading = controls.isLoading,
-								onActivated = function()
-									print(`{variant}Button activated`)
-								end,
-								isDisabled = controls.isDisabled,
-								size = size,
-								fillBehavior = if controls.fillBehavior == React.None
-									then nil
-									else controls.fillBehavior,
-								inputDelay = controls.inputDelay,
-							})
-						end
-					)
-				)
+				return React.createElement(View, {
+					tag = "row gap-medium auto-xy size-0 align-y-center padding-medium radius-medium",
+					backgroundStyle = if variant == ButtonVariant.OverMedia
+						then tokens.Color.Extended.White.White_100
+						elseif isInverse then tokens.Inverse.Surface.Surface_0
+						else nil,
+				}, {
+					Gradient = if variant == ButtonVariant.OverMedia
+						then React.createElement("UIGradient", {
+							Color = ColorSequence.new({
+								ColorSequenceKeypoint.new(0, tokens.Color.Extended.Green.Green_500.Color3),
+								ColorSequenceKeypoint.new(1, tokens.Color.Extended.Blue.Blue_500.Color3),
+							}),
+						})
+						else nil,
+					Buttons = React.createElement(
+						PresentationContext.Provider,
+						{ value = contextValue },
+						Dash.map(
+							{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
+							function(size)
+								return React.createElement(Button, {
+									icon = if controls.icon == "" then nil else props.controls.icon,
+									text = controls.text,
+									variant = variant,
+									isLoading = controls.isLoading,
+									onActivated = function()
+										local contextName = if isInverse then "Inverse" else "Normal"
+										print(`{contextName} {variant} Button ({size}) activated`)
+									end,
+									isDisabled = controls.isDisabled,
+									size = size,
+									fillBehavior = if controls.fillBehavior == React.None
+										then nil
+										else controls.fillBehavior,
+									inputDelay = controls.inputDelay,
+								})
+							end
+						)
+					),
+				})
 			end,
 		}
 	end),
@@ -72,6 +92,7 @@ return {
 		text = "Lorem ipsum",
 		isDisabled = false,
 		isLoading = false,
+		isInverse = false,
 		fillBehavior = {
 			React.None,
 			FillBehavior.Fit,

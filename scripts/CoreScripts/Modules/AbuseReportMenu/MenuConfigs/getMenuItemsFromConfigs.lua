@@ -121,13 +121,14 @@ local function getMenuItemsFromConfigs(
 				menuItems[componentName] = React.createElement(ChatModalSelectorMenuItem, {
 					label = localizedText[config.fieldLabel],
 					layoutOrder = i,
-					onSelect = function(selectedLabel, selectedSublabel, selectedIdentifier)
-						local selectedItem = {
-							label = selectedLabel,
-							subLabel = selectedSublabel,
-							identifier = selectedIdentifier,
-						}
-						config.onUpdateSelectedOption(selectedItem, menuUIStates, dispatchUIStates, utilityProps)
+					onSelect = function(message: Types.Message, orderedMessages: { Types.Message })
+						config.onUpdateSelectedOption(
+							message,
+							orderedMessages,
+							menuUIStates,
+							dispatchUIStates,
+							utilityProps
+						)
 					end,
 					onMenuOpenChange = onMenuOpenChange,
 					menuContainerWidth = utilityProps.menuWidth,
@@ -135,11 +136,9 @@ local function getMenuItemsFromConfigs(
 					selectedValue = if config.getSelectedValue
 						then config.getSelectedValue(menuUIStates) or nil
 						else nil,
-					viewportHeight = utilityProps.viewportDimension.height,
-					viewportWidth = utilityProps.viewportDimension.width,
 					isSmallPortraitViewport = isSmallPortraitViewport,
 					placeholderText = localizedText.ChooseOne,
-				})
+				}) :: React.ReactElement
 			end
 		end
 	end

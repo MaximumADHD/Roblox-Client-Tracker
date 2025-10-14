@@ -15,24 +15,26 @@ PROTO_0:
   GETTABLEKS R8 R9 K2 ["Components"]
   GETTABLEKS R7 R8 K6 ["Contexts"]
   GETTABLEKS R6 R7 K7 ["LLMPackageContextProvider"]
-  DUPTABLE R7 K14 [{"requestHandler", "processEvent", "createLLMSession", "cancelSession", "formatTools", "systemMessage"}]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K15 ["createRequestHandler"]
-  GETIMPORT R9 K17 [game]
-  MOVE R10 R1
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K8 ["requestHandler"]
-  SETTABLEKS R2 R7 K9 ["processEvent"]
-  SETTABLEKS R3 R7 K10 ["createLLMSession"]
-  SETTABLEKS R4 R7 K11 ["cancelSession"]
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K12 ["formatTools"]
-  SETTABLEKS R8 R7 K12 ["formatTools"]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K18 ["getSystemMessage"]
-  CALL R8 0 1
-  SETTABLEKS R8 R7 K13 ["systemMessage"]
-  GETTABLEKS R8 R0 K19 ["children"]
+  DUPTABLE R7 K9 [{"studioProvider"}]
+  DUPTABLE R8 K16 [{"requestHandler", "processEvent", "createLLMSession", "cancelSession", "formatTools", "systemMessage"}]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K17 ["createRequestHandler"]
+  GETIMPORT R10 K19 [game]
+  MOVE R11 R1
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K10 ["requestHandler"]
+  SETTABLEKS R2 R8 K11 ["processEvent"]
+  SETTABLEKS R3 R8 K12 ["createLLMSession"]
+  SETTABLEKS R4 R8 K13 ["cancelSession"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K14 ["formatTools"]
+  SETTABLEKS R9 R8 K14 ["formatTools"]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K20 ["getSystemMessage"]
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K15 ["systemMessage"]
+  SETTABLEKS R8 R7 K8 ["studioProvider"]
+  GETTABLEKS R8 R0 K21 ["children"]
   CALL R5 3 -1
   RETURN R5 -1
 

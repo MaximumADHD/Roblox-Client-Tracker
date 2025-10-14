@@ -46,9 +46,8 @@ export type InputVariantProps = {
 }
 
 type Props = {
-	-- Whether the input is currently checked. If it is left `nil`,
-	-- the input will be considered uncontrolled.
-	isChecked: boolean?,
+	-- Whether the input is currently checked.
+	isChecked: boolean,
 	-- Whether the input is disabled. When `true`, the `onActivated` callback
 	-- will not be invoked, even if the user interacts with the input.
 	isDisabled: boolean?,
@@ -69,6 +68,7 @@ type Props = {
 local defaultProps = {
 	size = InputSize.Medium,
 	Selectable = true,
+	testId = "--foundation-internal-input",
 }
 
 local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
@@ -79,13 +79,6 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 
 	local isHovering, setIsHovering = React.useState(false)
 	local tokens = useTokens()
-
-	local isChecked, setIsChecked = React.useState(props.isChecked or false)
-	React.useEffect(function()
-		if props.isChecked ~= nil then
-			setIsChecked(props.isChecked)
-		end
-	end, { props.isChecked })
 
 	local variantProps = useInputVariants(tokens, props.size)
 
@@ -103,14 +96,14 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 	local values, animate = useMotion(motionStates.Default)
 
 	React.useEffect(function()
-		if isChecked then
+		if props.isChecked then
 			animate(motionStates.Checked)
 		elseif isHovering then
 			animate(motionStates.Hover)
 		else
 			animate(motionStates.Default)
 		end
-	end, { isChecked, isHovering })
+	end, { props.isChecked, isHovering })
 
 	local onInputStateChanged = React.useCallback(function(newState: ControlState)
 		setIsHovering(newState == ControlState.Hover)
@@ -120,11 +113,8 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		if props.isDisabled then
 			return
 		end
-		if props.isChecked == nil then
-			setIsChecked(not isChecked)
-		end
-		props.onActivated(not isChecked)
-	end, { props.isDisabled :: any, props.isChecked, props.onActivated, isChecked })
+		props.onActivated(not props.isChecked)
+	end, { props.isDisabled :: any, props.isChecked, props.onActivated })
 
 	local selectionProps = {
 		Selectable = if props.isDisabled then false else props.Selectable,
@@ -179,7 +169,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 			Source: https://www.w3.org/TR/WCAG20-TECHS/G162.html
 		]]
 		LayoutOrder = if hasLabel then (if labelPosition == Enum.HorizontalAlignment.Left then 1 else -1) else nil,
-		testId = "--foundation-input-container",
+		testId = `{props.testId}--container`,
 	}
 
 	if not hasLabel then
@@ -217,7 +207,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 					Text = label,
 					textStyle = values.labelStyle,
 					size = getInputTextSize(props.size),
-					testId = "--foundation-input-label",
+					testId = `{props.testId}--label`,
 				})
 				else label,
 		}

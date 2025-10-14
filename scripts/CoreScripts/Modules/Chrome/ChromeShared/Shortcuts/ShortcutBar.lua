@@ -19,7 +19,6 @@ local ChromeService = require(Root.Service)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeUnbindShortcutBarOnHide = SharedFlags.FFlagChromeUnbindShortcutBarOnHide
-local FFlagShortcutBarUseTokens = SharedFlags.FFlagShortcutBarUseTokens
 local FFlagChromeShortcutBarInitHide = SharedFlags.FFlagChromeShortcutBarInitHide
 
 function ChromeShortcutBar(props)
@@ -32,10 +31,6 @@ function ChromeShortcutBar(props)
 	local shortcutBarWidth = React.useRef(0)
 
 	local function checkOverflow()
-		if not FFlagShortcutBarUseTokens then
-			return
-		end
-
 		if shortcutBarWidth.current > screenSize.X then
 			local removeIndex = 1
 			for i, s in shortcuts do
@@ -52,20 +47,16 @@ function ChromeShortcutBar(props)
 		end
 	end
 
-	if FFlagShortcutBarUseTokens then
-		React.useEffect(function()
-			setTrimmedShortcuts({})
-			checkOverflow()
-		end, { screenSize })
-	end
+	React.useEffect(function()
+		setTrimmedShortcuts({})
+		checkOverflow()
+	end, { screenSize })
 
 	React.useEffect(function()
 		ChromeService:onShortcutBarChanged():connect(function()
 			local s = ChromeService:getCurrentShortcuts()
 			setShortcuts(s)
-			if FFlagShortcutBarUseTokens then
-				setTrimmedShortcuts({})
-			end
+			setTrimmedShortcuts({})
 		end)
 
 		local showTopBar = GamepadConnector:getShowTopBar()
@@ -93,9 +84,7 @@ function ChromeShortcutBar(props)
 		end
 	end, {})
 
-	local shortcutList = (
-		if FFlagShortcutBarUseTokens and #trimmedShortcuts > 0 then trimmedShortcuts else shortcuts
-	) :: { Types.ShortcutProps }
+	local shortcutList = (if #trimmedShortcuts > 0 then trimmedShortcuts else shortcuts) :: { Types.ShortcutProps }
 	local shortcutItems = {}
 	for _, s in shortcutList do
 		local shortcut = s :: Types.ShortcutProps
@@ -112,46 +101,31 @@ function ChromeShortcutBar(props)
 	end
 
 	return ReactRoblox.createPortal({
-		Name = React.createElement(
-			"ScreenGui",
-			{
-				Name = "ShortcutBar",
-				DisplayOrder = Constants.SHORTCUTBAR_DISPLAYORDER,
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				Enabled = if FFlagChromeUnbindShortcutBarOnHide then nil else showShortcutBar,
-			},
-			if FFlagShortcutBarUseTokens
-				then {
-					React.createElement("Frame", {
-						Name = "ShortcutBarWrapper",
-						AutomaticSize = Enum.AutomaticSize.XY,
-						Position = UDim2.new(0.5, 0, 1, if designTokens then -designTokens.Gap.Medium else 0),
-						AnchorPoint = Vector2.new(0.5, 1),
-						BorderSizePixel = 0,
-						BackgroundTransparency = 1,
-						[React.Change.AbsoluteSize] = if FFlagShortcutBarUseTokens
-							then function(rbx)
-								shortcutBarWidth.current = rbx.AbsoluteSize.X
-								checkOverflow()
-							end
-							else nil,
-					}, {
-						Layout = React.createElement("UIListLayout"),
-						React.createElement(ShortcutBar, {
-							-- ShortcutBar will not render if there are no items
-							items = shortcutItems,
-						}),
-					}),
-				}
-				else {
-					React.createElement(ShortcutBar, {
-						position = UDim2.fromScale(0.5, 0.9),
-						anchorPoint = Vector2.new(0.5, 0),
-						-- ShortcutBar will not render if there are no items
-						items = shortcutItems,
-					}),
-				}
-		),
+		Name = React.createElement("ScreenGui", {
+			Name = "ShortcutBar",
+			DisplayOrder = Constants.SHORTCUTBAR_DISPLAYORDER,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			Enabled = if FFlagChromeUnbindShortcutBarOnHide then nil else showShortcutBar,
+		}, {
+			React.createElement("Frame", {
+				Name = "ShortcutBarWrapper",
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Position = UDim2.new(0.5, 0, 1, if designTokens then -designTokens.Gap.Medium else 0),
+				AnchorPoint = Vector2.new(0.5, 1),
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+				[React.Change.AbsoluteSize] = function(rbx)
+					shortcutBarWidth.current = rbx.AbsoluteSize.X
+					checkOverflow()
+				end,
+			}, {
+				Layout = React.createElement("UIListLayout"),
+				React.createElement(ShortcutBar, {
+					-- ShortcutBar will not render if there are no items
+					items = shortcutItems,
+				}),
+			}),
+		}),
 	}, CoreGui :: Instance)
 end
 

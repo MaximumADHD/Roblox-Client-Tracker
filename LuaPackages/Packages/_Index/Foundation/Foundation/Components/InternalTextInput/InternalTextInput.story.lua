@@ -36,43 +36,60 @@ local function Story(props)
 		end)
 	end
 
-	return React.createElement(View, {
-		tag = "col gap-large auto-xy padding-xlarge size-3000",
-	}, {
-		InternalTextInput = React.createElement(InternalTextInput, {
-			text = text,
-			size = controls.size,
-			hasError = controls.hasError,
-			isDisabled = controls.isDisabled,
-			onChanged = handleChange,
-			onReturnPressed = onReturnPressed,
-			placeholder = controls.placeholder,
-			leadingElement = if controls.leadingComponentIcon == React.None
-				then nil
-				else React.createElement(Icon, { name = controls.leadingComponentIcon, size = IconSize.Small }),
-			trailingElement = if controls.trailingComponentIcon == React.None
-				then nil
-				else React.createElement(IconButton, {
-					onActivated = buttonPress,
-					isDisabled = controls.isDisabled,
-					size = IconSize.Small,
-					icon = controls.trailingComponentIcon,
-				}),
-			textInputType = if controls.textInputType == React.None then nil else controls.textInputType,
-			LayoutOrder = 1,
-		}),
-		Output = React.createElement(Text, {
-			Text = text,
-			textStyle = tokens.Color.System.Alert,
-			LayoutOrder = 2,
-			tag = "auto-xy",
-		}),
-		NumReturnPressed = React.createElement(Text, {
-			LayoutOrder = 3,
-			Text = "Num return pressed: " .. tostring(numReturnPressed),
-			textStyle = tokens.Color.Content.Emphasis,
+	local placeholder = ""
+	if controls.maxLines > 1 then
+		local nums = {}
+		for i = 1, 1000 do
+			table.insert(nums, i)
+		end
+		placeholder = table.concat(nums, "\n")
+	else
+		placeholder = controls.placeholder
+	end
 
-			tag = "auto-xy",
+	return React.createElement(View, {
+		tag = "auto-xy padding-xlarge",
+	}, {
+		WidthContainer = React.createElement(View, {
+			Size = UDim2.fromOffset(controls.width, tokens.Size.Size_3000),
+			tag = "col gap-large auto-y",
+		}, {
+			InternalTextInput = React.createElement(InternalTextInput, {
+				text = text,
+				size = controls.size,
+				hasError = controls.hasError,
+				isDisabled = controls.isDisabled,
+				maxLines = controls.maxLines,
+				onChanged = handleChange,
+				onReturnPressed = onReturnPressed,
+				placeholder = placeholder,
+				leadingElement = if controls.leadingComponentIcon == React.None
+					then nil
+					else React.createElement(Icon, { name = controls.leadingComponentIcon, size = IconSize.Small }),
+				trailingElement = if controls.trailingComponentIcon == React.None
+					then nil
+					else React.createElement(IconButton, {
+						onActivated = buttonPress,
+						isDisabled = controls.isDisabled,
+						size = IconSize.Small,
+						icon = controls.trailingComponentIcon,
+					}),
+				textInputType = if controls.textInputType == React.None then nil else controls.textInputType,
+				LayoutOrder = 1,
+			}),
+			Output = React.createElement(Text, {
+				Text = text,
+				textStyle = tokens.Color.System.Alert,
+				LayoutOrder = 2,
+				tag = "auto-xy",
+			}),
+			NumReturnPressed = React.createElement(Text, {
+				LayoutOrder = 3,
+				Text = "Num return pressed: " .. tostring(numReturnPressed),
+				textStyle = tokens.Color.Content.Emphasis,
+
+				tag = "auto-xy",
+			}),
 		}),
 	})
 end
@@ -84,6 +101,8 @@ return {
 		hasError = false,
 		isDisabled = false,
 		size = Dash.values(InputSize),
+		maxLines = 1,
+		width = 400,
 		placeholder = "Placeholder text",
 		leadingComponentIcon = {
 			"icons/placeholder/placeholderOn_small",

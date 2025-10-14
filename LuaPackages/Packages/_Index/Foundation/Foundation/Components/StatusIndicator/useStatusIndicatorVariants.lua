@@ -1,5 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
+
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 
@@ -78,6 +80,14 @@ function variantsFactory(tokens: Tokens)
 				style = tokens.Color.Content.Emphasis,
 			},
 		},
+		[StatusIndicatorVariant.Contrast_Experiment] = {
+			container = {
+				tag = "bg-system-contrast",
+			},
+			content = {
+				style = tokens.Inverse.Content.Emphasis,
+			},
+		},
 	}
 
 	local hasValue: { [boolean]: any } = {
@@ -89,6 +99,14 @@ function variantsFactory(tokens: Tokens)
 end
 
 return function(tokens: Tokens, variant: StatusIndicatorVariant, hasValue: boolean): StatusIndicatorVariantProps
+	if not Flags.FoundationStatusIndicatorVariantExperiment then
+		if variant == StatusIndicatorVariant.Contrast_Experiment then
+			error("Contrast is not a supported StatusIndicator variant.")
+		end
+		if variant == StatusIndicatorVariant.Alert and hasValue then
+			error("Alert is not a supported numeric StatusIndicator variant.")
+		end
+	end
 	local props = VariantsContext.useVariants("StatusIndicator", variantsFactory, tokens)
 	return composeStyleVariant(props.common, props.variants[variant], props.hasValue[hasValue])
 end

@@ -11,7 +11,9 @@ local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local Otter = require(CorePackages.Packages.Otter)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
+
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 
 local CoreGui = game:GetService("CoreGui")
 local Modules = CoreGui.RobloxGui.Modules
@@ -48,6 +50,7 @@ local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDo
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
+local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListIgnoreDevGamepadBindings = game:DefineFastFlag("PlayerListIgnoreDevGamepadBindings", false)
 
 local PLAYER_LIST_MENU = "PlayerListMenu"
@@ -71,7 +74,7 @@ end
 
 local PlayerListApp = Roact.PureComponent:extend("PlayerListApp")
 
-local function playerListSizeFromViewportSize(self, viewportSize, uiScale)
+local function playerListSizeFromViewportSize(self, viewportSize, uiScale, playerListSizeMinScaled: number?, playerListSizeMaxScaled: number?)
 	-- Turn x/y into min/max to stay independent of aspect ratio
 	local vMin = math.min(viewportSize.x, viewportSize.y)
 	local vMax = math.max(viewportSize.x, viewportSize.y)
@@ -85,16 +88,26 @@ local function playerListSizeFromViewportSize(self, viewportSize, uiScale)
 	-- Max axis: Viewport size 670 -> Frame size 480
 	local sMax = map(vMax, 480, 670, 434, 480)
 
+	-- Set the size to the scaled min/max values if it exceeds (500, 600)
 	-- Clamp the max size to (500, 600)
 	-- Clamp the min size to 270x434, but always keep a 12px border on the edges
-	sMin = math.clamp(sMin, math.min(270, vMin - BORDER_SIZE), 500)
-	sMax = math.clamp(sMax, math.min(434, vMax - BORDER_SIZE), 600)
+	if FFlagEnableMobilePlayerListOnConsole and sMin > 500 then
+		sMin = playerListSizeMinScaled
+	else
+		sMin = math.clamp(sMin, math.min(270, vMin - BORDER_SIZE), 500)
+	end
+	if FFlagEnableMobilePlayerListOnConsole and sMax > 600 then
+		sMax = playerListSizeMaxScaled
+	else
+		sMax = math.clamp(sMax, math.min(434, vMax - BORDER_SIZE), 600)
+	end
 
 	-- Remap from min/max to x/y
 	local sX = viewportSize.x > viewportSize.y and sMax or sMin
 	local sY = viewportSize.y > viewportSize.x and sMax or sMin
 
-	if FFlagAddMobilePlayerListScaling then
+	-- Remove when FFlagEnableMobilePlayerListOnConsole is enabled, even if FFlagAddMobilePlayerListScaling is enabled
+	if FFlagAddMobilePlayerListScaling and not FFlagEnableMobilePlayerListOnConsole then
 		sX = sX * uiScale
 		sY = sY * uiScale
 	end
@@ -250,6 +263,8 @@ function PlayerListApp:render()
 		return Roact.createElement(ContextActionsBinder)
 	end
 	return WithLayoutValues(function(layoutValues)
+		layoutValues = if FFlagEnableMobilePlayerListOnConsole then self.props.layoutValues else layoutValues
+
 		local entrySize
 		if layoutValues.IsTenFoot then
 			entrySize = layoutValues.EntrySizeX
@@ -320,7 +335,13 @@ function PlayerListApp:render()
 				})
 				else nil,
 			BodyBackground = Roact.createElement("Frame", {
-				Size = playerListSizeFromViewportSize(self, Vector2.new(self.props.screenSizeX, self.props.screenSizeY), self.state.UiScale),
+				Size = playerListSizeFromViewportSize(
+					self, 
+					Vector2.new(self.props.screenSizeX, self.props.screenSizeY), 
+					self.state.UiScale, 
+					if FFlagAddMobilePlayerListScaling then layoutValues.PlayerListSizeMin else nil, 
+					if FFlagAddMobilePlayerListScaling then layoutValues.PlayerListSizeMax else nil
+				),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				BackgroundColor3 = Color3.fromRGB(17, 18, 20),
@@ -423,14 +444,16 @@ local function mapDispatchToProps(dispatch)
 end
 
 local PlayerListAppWrapper = function(props)
+	local layoutValues = if FFlagEnableMobilePlayerListOnConsole then useLayoutValues() else nil
 	local tokens = if FFlagAddMobilePlayerListScaling then useTokens() else nil
 
 	return Roact.createElement(PlayerListApp, Cryo.Dictionary.join(props, {
+		layoutValues = if FFlagEnableMobilePlayerListOnConsole then layoutValues else nil,
 		tokens = tokens,
 	}))
 end
 
-if FFlagAddMobilePlayerListScaling then
+if FFlagAddMobilePlayerListScaling or FFlagEnableMobilePlayerListOnConsole then
 	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListAppWrapper)
 else
 	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListApp)

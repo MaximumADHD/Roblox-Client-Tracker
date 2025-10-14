@@ -53,8 +53,6 @@ local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagEnableSeamlessVoiceUX = require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceUX)
 local GetFIntVoiceJoinM3ToastDurationSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceJoinM3ToastDurationSeconds)
-local GetFFlagSendDevicePermissionsModalAnalytics =
-	require(RobloxGui.Modules.Flags.GetFFlagSendDevicePermissionsModalAnalytics)
 local GetFFlagEnableSeamlessVoiceDataConsentToast =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
 
@@ -331,7 +329,7 @@ function VoiceChatPromptFrame:init()
 			end
 		end
 
-		if GetFFlagSendDevicePermissionsModalAnalytics() and IsDevicePermissionsModal(promptType) then
+		if IsDevicePermissionsModal(promptType) then
 			if self.props.Analytics and self.props.VoiceChatServiceManager then
 				self.props.Analytics:reportDevicePermissionsModalEvent(
 					"Shown",

@@ -1,101 +1,98 @@
 PROTO_0:
-  SETTABLE R1 R0 R1
-  RETURN R0 1
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["delete"]
+  CALL R1 2 0
+  RETURN R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  LOADNIL R2
-  SETTABLE R2 R1 R0
-  RETURN R0 0
+  MOVE R1 R0
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["keys"]
+  MOVE R4 R1
+  CALL R3 1 -1
+  CALL R2 -1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["forEach"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["keys"]
+  GETUPVAL R5 3
+  CALL R4 1 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K3 ["size"]
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+13]
+  GETIMPORT R3 K5 [error]
+  LOADK R5 K6 ["Properties that are not part of GlobalConfig type were passed:"]
+  GETUPVAL R6 4
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K7 ["from"]
+  MOVE R8 R2
+  CALL R7 1 -1
+  CALL R6 -1 1
+  CONCAT R4 R5 R6
+  CALL R3 1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["assign"]
+  NEWTABLE R4 0 0
+  GETUPVAL R5 3
+  MOVE R6 R1
+  CALL R3 3 -1
+  RETURN R3 -1
 
 PROTO_2:
-  MOVE R1 R0
-  JUMPIF R1 [+2]
-  NEWTABLE R1 0 0
-  MOVE R0 R1
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["reduce"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["keys"]
-  MOVE R3 R0
-  CALL R2 1 1
-  DUPCLOSURE R3 K2 [PROTO_0]
-  NEWTABLE R4 0 0
-  CALL R1 3 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["forEach"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["keys"]
-  GETUPVAL R4 2
-  CALL R3 1 1
-  NEWCLOSURE R4 P1
-  CAPTURE VAL R1
-  CALL R2 2 0
-  LENGTH R2 R1
-  LOADN R3 0
-  JUMPIFNOTLT R3 R2 [+9]
-  GETIMPORT R2 K5 [error]
-  LOADK R4 K6 ["Properties that are not part of GlobalConfig type were passed:"]
-  GETUPVAL R5 3
-  MOVE R6 R1
-  CALL R5 1 1
-  CONCAT R3 R4 R5
-  CALL R2 1 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K7 ["assign"]
-  GETUPVAL R3 2
-  MOVE R4 R0
-  CALL R2 2 -1
-  RETURN R2 -1
-
-PROTO_3:
-  SETTABLE R1 R0 R1
-  RETURN R0 1
-
-PROTO_4:
   GETUPVAL R1 0
-  LOADNIL R2
-  SETTABLE R2 R1 R0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["delete"]
+  CALL R1 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_3:
   MOVE R1 R0
   JUMPIF R1 [+2]
   NEWTABLE R1 0 0
   MOVE R0 R1
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["reduce"]
+  GETTABLEKS R1 R2 K0 ["new"]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["keys"]
   MOVE R3 R0
-  CALL R2 1 1
-  DUPCLOSURE R3 K2 [PROTO_3]
-  NEWTABLE R4 0 0
-  CALL R1 3 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["forEach"]
+  CALL R2 1 -1
+  CALL R1 -1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["forEach"]
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K1 ["keys"]
-  GETUPVAL R4 2
+  GETUPVAL R4 3
   CALL R3 1 1
-  NEWCLOSURE R4 P1
+  NEWCLOSURE R4 P0
   CAPTURE VAL R1
   CALL R2 2 0
-  LENGTH R2 R1
+  GETTABLEKS R2 R1 K3 ["size"]
   LOADN R3 0
-  JUMPIFNOTLT R3 R2 [+9]
+  JUMPIFNOTLT R3 R2 [+13]
   GETIMPORT R2 K5 [error]
   LOADK R4 K6 ["Properties that are not part of ProjectConfig type were passed:"]
-  GETUPVAL R5 3
-  MOVE R6 R1
-  CALL R5 1 1
+  GETUPVAL R5 4
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["from"]
+  MOVE R7 R1
+  CALL R6 1 -1
+  CALL R5 -1 1
   CONCAT R3 R4 R5
   CALL R2 1 0
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K7 ["assign"]
-  GETUPVAL R3 2
-  MOVE R4 R0
-  CALL R2 2 -1
+  GETTABLEKS R2 R3 K8 ["assign"]
+  NEWTABLE R3 0 0
+  GETUPVAL R4 3
+  MOVE R5 R0
+  CALL R2 3 -1
   RETURN R2 -1
 
 MAIN:
@@ -113,245 +110,256 @@ MAIN:
   GETTABLEKS R5 R3 K8 ["Object"]
   GETTABLEKS R7 R3 K9 ["util"]
   GETTABLEKS R6 R7 K10 ["inspect"]
-  NEWTABLE R7 2 0
-  NEWTABLE R8 64 0
-  LOADN R9 0
-  SETTABLEKS R9 R8 K11 ["bail"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K12 ["changedFilesWithAncestor"]
-  LOADK R9 K13 [""]
-  SETTABLEKS R9 R8 K14 ["changedSince"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K15 ["collectCoverage"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K16 ["collectCoverageFrom"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K17 ["collectCoverageOnlyFrom"]
-  LOADK R9 K18 ["coverage"]
-  SETTABLEKS R9 R8 K19 ["coverageDirectory"]
-  LOADK R9 K20 ["babel"]
-  SETTABLEKS R9 R8 K21 ["coverageProvider"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K22 ["coverageReporters"]
-  DUPTABLE R9 K24 [{"global"}]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K23 ["global"]
-  SETTABLEKS R9 R8 K25 ["coverageThreshold"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K26 ["detectLeaks"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K27 ["detectOpenHandles"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K28 ["errorOnDeprecated"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K29 ["expand"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K30 ["filter"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K31 ["findRelatedTests"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K32 ["forceExit"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K33 ["globalSetup"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K34 ["globalTeardown"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K35 ["json"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K36 ["lastCommit"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K37 ["listTests"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K38 ["logHeapUsage"]
-  LOADN R9 5
-  SETTABLEKS R9 R8 K39 ["maxConcurrency"]
-  LOADN R9 2
-  SETTABLEKS R9 R8 K40 ["maxWorkers"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K41 ["noSCM"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K42 ["noStackTrace"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K43 ["nonFlagArgs"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K44 ["notify"]
-  LOADK R9 K45 ["failure-change"]
-  SETTABLEKS R9 R8 K46 ["notifyMode"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K47 ["onlyChanged"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K48 ["onlyFailures"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K49 ["outputFile"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K50 ["passWithNoTests"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K51 ["projects"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K52 ["replname"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K53 ["reporters"]
-  LOADK R9 K54 ["/test_root_dir/"]
-  SETTABLEKS R9 R8 K55 ["rootDir"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K56 ["runTestsByPath"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K57 ["silent"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K58 ["skipFilter"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K59 ["snapshotFormat"]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K60 ["testFailureExitCode"]
-  LOADK R9 K13 [""]
-  SETTABLEKS R9 R8 K61 ["testNamePattern"]
-  LOADK R9 K13 [""]
-  SETTABLEKS R9 R8 K62 ["testPathPattern"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K63 ["testResultsProcessor"]
-  LOADK R9 K64 ["@jest/test-sequencer"]
-  SETTABLEKS R9 R8 K65 ["testSequencer"]
-  LOADN R9 136
-  SETTABLEKS R9 R8 K66 ["testTimeout"]
-  LOADK R9 K67 ["none"]
-  SETTABLEKS R9 R8 K68 ["updateSnapshot"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K69 ["useStderr"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K70 ["verbose"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K71 ["watch"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K72 ["watchAll"]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K73 ["watchPlugins"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K74 ["watchman"]
+  GETTABLEKS R7 R3 K11 ["Set"]
+  NEWTABLE R8 2 0
   NEWTABLE R9 64 0
+  LOADN R10 0
+  SETTABLEKS R10 R9 K12 ["bail"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K75 ["automock"]
+  SETTABLEKS R10 R9 K13 ["changedFilesWithAncestor"]
+  LOADK R10 K14 [""]
+  SETTABLEKS R10 R9 K15 ["changedSince"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K76 ["cache"]
-  LOADK R10 K77 ["/test_cache_dir/"]
-  SETTABLEKS R10 R9 K78 ["cacheDirectory"]
+  SETTABLEKS R10 R9 K16 ["ci"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K79 ["clearMocks"]
+  SETTABLEKS R10 R9 K17 ["collectCoverage"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K80 ["coveragePathIgnorePatterns"]
-  LOADK R10 K54 ["/test_root_dir/"]
-  SETTABLEKS R10 R9 K81 ["cwd"]
+  SETTABLEKS R10 R9 K18 ["collectCoverageFrom"]
+  GETTABLEKS R10 R5 K19 ["None"]
+  SETTABLEKS R10 R9 K20 ["collectCoverageOnlyFrom"]
+  LOADK R10 K21 ["coverage"]
+  SETTABLEKS R10 R9 K22 ["coverageDirectory"]
+  LOADK R10 K23 ["babel"]
+  SETTABLEKS R10 R9 K24 ["coverageProvider"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K25 ["coverageReporters"]
+  DUPTABLE R10 K27 [{"global"}]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K26 ["global"]
+  SETTABLEKS R10 R9 K28 ["coverageThreshold"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K26 ["detectLeaks"]
+  SETTABLEKS R10 R9 K29 ["detectLeaks"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K27 ["detectOpenHandles"]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K82 ["displayName"]
+  SETTABLEKS R10 R9 K30 ["detectOpenHandles"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K28 ["errorOnDeprecated"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K83 ["extensionsToTreatAsEsm"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K84 ["extraGlobals"]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K30 ["filter"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K85 ["forceCoverageMatch"]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K33 ["globalSetup"]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K34 ["globalTeardown"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K86 ["globals"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K87 ["haste"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K88 ["injectGlobals"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K89 ["moduleDirectories"]
-  NEWTABLE R10 0 1
-  LOADK R11 K90 ["js"]
-  SETLIST R10 R11 1 [1]
-  SETTABLEKS R10 R9 K91 ["moduleFileExtensions"]
-  LOADK R10 K92 ["/test_module_loader_path"]
-  SETTABLEKS R10 R9 K93 ["moduleLoader"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K94 ["moduleNameMapper"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K95 ["modulePathIgnorePatterns"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K96 ["modulePaths"]
-  LOADK R10 K97 ["test_name"]
-  SETTABLEKS R10 R9 K98 ["name"]
-  LOADK R10 K99 ["prettier"]
-  SETTABLEKS R10 R9 K100 ["prettierPath"]
+  SETTABLEKS R10 R9 K31 ["errorOnDeprecated"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K101 ["resetMocks"]
+  SETTABLEKS R10 R9 K32 ["expand"]
+  GETTABLEKS R10 R5 K19 ["None"]
+  SETTABLEKS R10 R9 K33 ["filter"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K102 ["resetModules"]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K103 ["resolver"]
+  SETTABLEKS R10 R9 K34 ["findRelatedTests"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K104 ["restoreMocks"]
-  LOADK R10 K54 ["/test_root_dir/"]
-  SETTABLEKS R10 R9 K55 ["rootDir"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K105 ["roots"]
-  LOADK R10 K106 ["jest-runner"]
-  SETTABLEKS R10 R9 K107 ["runner"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K108 ["setupFiles"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K109 ["setupFilesAfterEnv"]
+  SETTABLEKS R10 R9 K35 ["forceExit"]
+  GETTABLEKS R10 R5 K19 ["None"]
+  SETTABLEKS R10 R9 K36 ["globalSetup"]
+  GETTABLEKS R10 R5 K19 ["None"]
+  SETTABLEKS R10 R9 K37 ["globalTeardown"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K58 ["skipFilter"]
+  SETTABLEKS R10 R9 K38 ["json"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K110 ["skipNodeResolution"]
+  SETTABLEKS R10 R9 K39 ["lastCommit"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K40 ["listTests"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K41 ["logHeapUsage"]
   LOADN R10 5
-  SETTABLEKS R10 R9 K111 ["slowTestThreshold"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K59 ["snapshotFormat"]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K112 ["snapshotResolver"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K113 ["snapshotSerializers"]
-  LOADK R10 K114 ["node"]
-  SETTABLEKS R10 R9 K115 ["testEnvironment"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K116 ["testEnvironmentOptions"]
+  SETTABLEKS R10 R9 K42 ["maxConcurrency"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K43 ["maxWorkers"]
+  GETTABLEKS R10 R5 K19 ["None"]
+  SETTABLEKS R10 R9 K44 ["noSCM"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K117 ["testLocationInResults"]
+  SETTABLEKS R10 R9 K45 ["noStackTrace"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K118 ["testMatch"]
+  SETTABLEKS R10 R9 K46 ["nonFlagArgs"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K47 ["notify"]
+  LOADK R10 K48 ["failure-change"]
+  SETTABLEKS R10 R9 K49 ["notifyMode"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K50 ["onlyChanged"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K51 ["onlyFailures"]
+  GETTABLEKS R10 R5 K19 ["None"]
+  SETTABLEKS R10 R9 K52 ["outputFile"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K53 ["passWithNoTests"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K119 ["testPathIgnorePatterns"]
-  NEWTABLE R10 0 1
-  LOADK R11 K120 ["\.test\.js$"]
-  SETLIST R10 R11 1 [1]
-  SETTABLEKS R10 R9 K121 ["testRegex"]
-  LOADK R10 K122 ["jest-circus/runner"]
-  SETTABLEKS R10 R9 K123 ["testRunner"]
-  LOADK R10 K124 ["http =//localhost"]
-  SETTABLEKS R10 R9 K125 ["testURL"]
-  LOADK R10 K126 ["real"]
-  SETTABLEKS R10 R9 K127 ["timers"]
+  SETTABLEKS R10 R9 K54 ["projects"]
+  GETTABLEKS R10 R5 K19 ["None"]
+  SETTABLEKS R10 R9 K55 ["replname"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K128 ["transform"]
+  SETTABLEKS R10 R9 K56 ["reporters"]
+  LOADK R10 K57 ["/test_root_dir/"]
+  SETTABLEKS R10 R9 K58 ["rootDir"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K59 ["runTestsByPath"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K60 ["silent"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K61 ["skipFilter"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K129 ["transformIgnorePatterns"]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K130 ["unmockedModulePathPatterns"]
+  SETTABLEKS R10 R9 K62 ["snapshotFormat"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K63 ["testFailureExitCode"]
+  LOADK R10 K14 [""]
+  SETTABLEKS R10 R9 K64 ["testNamePattern"]
+  LOADK R10 K14 [""]
+  SETTABLEKS R10 R9 K65 ["testPathPattern"]
+  GETTABLEKS R10 R5 K19 ["None"]
+  SETTABLEKS R10 R9 K66 ["testResultsProcessor"]
+  LOADK R10 K67 ["@jest/test-sequencer"]
+  SETTABLEKS R10 R9 K68 ["testSequencer"]
+  LOADN R10 136
+  SETTABLEKS R10 R9 K69 ["testTimeout"]
+  LOADK R10 K70 ["none"]
+  SETTABLEKS R10 R9 K71 ["updateSnapshot"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K72 ["useStderr"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K73 ["verbose"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K74 ["watch"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K75 ["watchAll"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K131 ["watchPathIgnorePatterns"]
-  DUPCLOSURE R10 K132 [PROTO_2]
-  CAPTURE VAL R4
+  SETTABLEKS R10 R9 K76 ["watchPlugins"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K77 ["watchman"]
+  NEWTABLE R10 64 0
+  LOADB R11 0
+  SETTABLEKS R11 R10 K78 ["automock"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K79 ["cache"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K80 ["clearMocks"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K81 ["coveragePathIgnorePatterns"]
+  LOADK R11 K57 ["/test_root_dir/"]
+  SETTABLEKS R11 R10 K82 ["cwd"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K29 ["detectLeaks"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K30 ["detectOpenHandles"]
+  GETTABLEKS R11 R5 K19 ["None"]
+  SETTABLEKS R11 R10 K83 ["displayName"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K31 ["errorOnDeprecated"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K84 ["extensionsToTreatAsEsm"]
+  DUPTABLE R11 K86 [{"enableGlobally"}]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K85 ["enableGlobally"]
+  SETTABLEKS R11 R10 K87 ["fakeTimers"]
+  GETTABLEKS R11 R5 K19 ["None"]
+  SETTABLEKS R11 R10 K33 ["filter"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K88 ["forceCoverageMatch"]
+  GETTABLEKS R11 R5 K19 ["None"]
+  SETTABLEKS R11 R10 K36 ["globalSetup"]
+  GETTABLEKS R11 R5 K19 ["None"]
+  SETTABLEKS R11 R10 K37 ["globalTeardown"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K89 ["globals"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K90 ["haste"]
+  LOADK R11 K91 ["test_name"]
+  SETTABLEKS R11 R10 K92 ["id"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K93 ["injectGlobals"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K94 ["moduleDirectories"]
+  NEWTABLE R11 0 1
+  LOADK R12 K95 ["js"]
+  SETLIST R11 R12 1 [1]
+  SETTABLEKS R11 R10 K96 ["moduleFileExtensions"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K97 ["moduleNameMapper"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K98 ["modulePathIgnorePatterns"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K99 ["modulePaths"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K100 ["mockDataModel"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K101 ["oldFunctionSpying"]
+  LOADK R11 K102 ["prettier"]
+  SETTABLEKS R11 R10 K103 ["prettierPath"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K104 ["resetMocks"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K105 ["resetModules"]
+  GETTABLEKS R11 R5 K19 ["None"]
+  SETTABLEKS R11 R10 K106 ["resolver"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K107 ["restoreMocks"]
+  LOADK R11 K57 ["/test_root_dir/"]
+  SETTABLEKS R11 R10 K58 ["rootDir"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K108 ["roots"]
+  LOADK R11 K109 ["jest-runner"]
+  SETTABLEKS R11 R10 K110 ["runner"]
+  LOADK R11 K111 ["/test_module_loader_path"]
+  SETTABLEKS R11 R10 K112 ["runtime"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K113 ["sandboxInjectedGlobals"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K114 ["setupFiles"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K115 ["setupFilesAfterEnv"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K61 ["skipFilter"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K116 ["skipNodeResolution"]
+  LOADN R11 5
+  SETTABLEKS R11 R10 K117 ["slowTestThreshold"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K62 ["snapshotFormat"]
+  GETTABLEKS R11 R5 K19 ["None"]
+  SETTABLEKS R11 R10 K118 ["snapshotResolver"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K119 ["snapshotSerializers"]
+  GETTABLEKS R11 R1 K120 ["JestEnvironmentLuau"]
+  SETTABLEKS R11 R10 K121 ["testEnvironment"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K122 ["testEnvironmentOptions"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K123 ["testLocationInResults"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K124 ["testMatch"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K125 ["testPathIgnorePatterns"]
+  NEWTABLE R11 0 1
+  LOADK R12 K126 ["\.test\.js$"]
+  SETLIST R11 R12 1 [1]
+  SETTABLEKS R11 R10 K127 ["testRegex"]
+  LOADK R11 K128 ["jest-circus/runner"]
+  SETTABLEKS R11 R10 K129 ["testRunner"]
+  LOADK R11 K130 ["http =//localhost"]
+  SETTABLEKS R11 R10 K131 ["testURL"]
+  LOADK R11 K132 ["real"]
+  SETTABLEKS R11 R10 K133 ["timers"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K134 ["transform"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K135 ["transformIgnorePatterns"]
+  GETTABLEKS R11 R5 K19 ["None"]
+  SETTABLEKS R11 R10 K136 ["unmockedModulePathPatterns"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K137 ["watchPathIgnorePatterns"]
+  DUPCLOSURE R11 K138 [PROTO_1]
+  CAPTURE VAL R7
   CAPTURE VAL R5
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  SETTABLEKS R10 R7 K133 ["makeGlobalConfig"]
-  DUPCLOSURE R10 K134 [PROTO_5]
   CAPTURE VAL R4
-  CAPTURE VAL R5
   CAPTURE VAL R9
   CAPTURE VAL R6
-  SETTABLEKS R10 R7 K135 ["makeProjectConfig"]
-  RETURN R7 1
+  SETTABLEKS R11 R8 K139 ["makeGlobalConfig"]
+  DUPCLOSURE R11 K140 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  SETTABLEKS R11 R8 K141 ["makeProjectConfig"]
+  RETURN R8 1

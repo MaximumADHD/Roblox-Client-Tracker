@@ -17,7 +17,6 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local InExperienceCapabilities =
 	require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
-local Foundation = require(CorePackages.Packages.Foundation)
 local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
@@ -29,8 +28,9 @@ local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle
 local useFocusGuiObject = ReactFocusNavigation.useFocusGuiObject
 
-local View = Foundation.View
+local Foundation = require(CorePackages.Packages.Foundation)
 local ControlState = Foundation.Enums.ControlState
+local View = Foundation.View
 
 local EntryFrameView = PlayerListPackage.Presentation.EntryFrameView
 local StatEntryContainer = require(PlayerList.Components.Container.StatEntryContainer)
@@ -44,6 +44,7 @@ local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerL
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagRemoveNewPlayerListOverlay = PlayerListPackage.Flags.FFlagRemoveNewPlayerListOverlay
 local FFlagMoveNewPlayerListDividers = require(SharedFlags).FFlagMoveNewPlayerListDividers
+local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 
 type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
@@ -506,14 +507,14 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			if isLocalPlayer then
 				return {
 					Font = style.Font.CaptionHeader.Font,
-					Size = style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize,
-					MinSize = style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
+					Size = if FFlagEnableMobilePlayerListOnConsole then layoutValues.PlayerNameTextSize else style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize,
+					MinSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.PlayerNameTextSize else style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 				}
 			end
 			return {
 				Font = style.Font.CaptionBody.Font,
-				Size = style.Font.CaptionBody.RelativeSize * style.Font.BaseSize,
-				MinSize = style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
+				Size = if FFlagEnableMobilePlayerListOnConsole then layoutValues.PlayerNameTextSize else style.Font.CaptionBody.RelativeSize * style.Font.BaseSize,
+				MinSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.PlayerNameTextSize else style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 			}
 		end
 
@@ -546,12 +547,14 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			MinSize = style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 		}
 	end, { isSmallTouchDevice, isDirectionalPreferred, isLocalPlayer, style, layoutValues } :: { any })
+
 	local backgroundStyle = getBackgroundStyle()
 	local textStyle = getTextStyle()
 	local overlayStyle
 	if not FFlagRemoveNewPlayerListOverlay then
 		overlayStyle = getOverlayStyle()
 	end
+
 	local backgroundFrameProps = React.useMemo(function()
 		return {
 			size = UDim2.new(0, props.entrySizeX, 0, layoutValues.PlayerEntrySizeY),

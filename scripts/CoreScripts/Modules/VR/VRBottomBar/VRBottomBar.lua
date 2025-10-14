@@ -40,6 +40,7 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 
 local FFlagEnableUIManagerPackgify = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUIManagerPackgify
 local GetFFlagEnableVrVoiceParity = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVrVoiceParity
+local GetFFlagEnableVrVoiceConnectDisconnect = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVrVoiceConnectDisconnect
 local FFlagEnableJoinVoiceVrTelemetry = game:DefineFastFlag("EnableJoinVoiceVrTelemetry", false)
 
 local PanelType
@@ -80,7 +81,6 @@ local StarterPlayer = game:GetService("StarterPlayer")
 
 local EngineFeatureEnableVRBottomBarWorksBehindObjects = game:GetEngineFeature("EnableVRBottomBarWorksBehindObjects")
 
-local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local FFlagVRBottomBarDebugPositionConfig = require(RobloxGui.Modules.Flags.FFlagVRBottomBarDebugPositionConfig)
 local FIntVRBottomBarPositionOffsetVerticalNumber =
 	require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetVerticalNumber)
@@ -760,11 +760,13 @@ function VRBottomBar:updateItems()
 		table.insert(enabledItems, Chat)
 	end
 
-	if GetFFlagEnableVrVoiceParity() and VoiceChatServiceManager:ShouldShowJoinVoice() then
+	if GetFFlagEnableVrVoiceConnectDisconnect() and VoiceChatServiceManager:ShouldShowJoinVoiceOnDisconnect() then
+		table.insert(enabledItems, JoinVoice)
+	elseif GetFFlagEnableVrVoiceParity() and VoiceChatServiceManager:ShouldShowJoinVoice() then
 		table.insert(enabledItems, JoinVoice)
 	end
 
-	if FFlagVRMoveVoiceIndicatorToBottomBar and self.props.voiceEnabled then
+	if self.props.voiceEnabled then
 		table.insert(enabledItems, self.getVoiceIcon())
 	end
 
@@ -988,7 +990,7 @@ function VRBottomBar:didUpdate(prevProps, prevState)
 		VRHub:SetShowMoreMenu(false)
 	end
 
-	if FFlagVRMoveVoiceIndicatorToBottomBar and prevProps.voiceEnabled ~= self.props.voiceEnabled then
+	if prevProps.voiceEnabled ~= self.props.voiceEnabled then
 		self.updateItemListState()
 	elseif prevState.yOffset ~= self.state.yOffset or prevState.zOffset ~= self.state.zOffset then
 		-- Remove state.yOffset and state.zOffset when remove FFlagVRBottomBarDebugPositionConfig

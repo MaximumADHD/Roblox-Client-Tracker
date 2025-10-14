@@ -28,7 +28,7 @@ local function CalendarDay(props: Props)
 			["content-emphasis"] = props.isSelectable and props.highlight,
 			["content-inverse-default"] = not props.isSelectable or not props.highlight,
 			["bg-shift-300"] = props.isSelected,
-		},
+		} :: { [string]: boolean },
 		testId = props.testId,
 	})
 end

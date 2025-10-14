@@ -47,7 +47,7 @@ return {
 			end,
 		} :: unknown,
 		{
-			name = "Short",
+			name = "Only title",
 			story = function(props)
 				return React.createElement(
 					Tooltip,
@@ -64,6 +64,36 @@ return {
 							name = "icons/controls/voice/microphone_off_light",
 							size = IconSize.Medium,
 						})
+					)
+				)
+			end,
+		},
+		{
+			name = "Short text",
+			story = function(props)
+				return React.createElement(
+					View,
+					{
+						Size = UDim2.new(1, 0, 0, 300),
+						tag = "row align-x-center align-y-center",
+					},
+					React.createElement(
+						Tooltip,
+						{
+							title = "Test",
+							shortcut = shortcut,
+							side = props.controls.side,
+							align = props.controls.align,
+							text = "Hi!",
+						},
+						React.createElement(
+							View,
+							{ tag = "auto-xy bg-surface-100 radius-medium" },
+							React.createElement(Icon, {
+								name = "icons/controls/voice/microphone_off_light",
+								size = IconSize.Medium,
+							})
+						)
 					)
 				)
 			end,

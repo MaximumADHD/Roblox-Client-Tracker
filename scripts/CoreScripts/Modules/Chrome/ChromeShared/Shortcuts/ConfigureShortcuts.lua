@@ -23,7 +23,6 @@ local FFlagChromeShortcutAddRespawnLeaveToIEM = SharedFlags.FFlagChromeShortcutA
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
-local FFlagShortcutBarUseTokens = SharedFlags.FFlagShortcutBarUseTokens
 local FFlagChromeFixMenuIconBackButton = SharedFlags.FFlagChromeFixMenuIconBackButton
 local FFlagChromeShortcutChatOpenKeyboard = SharedFlags.FFlagChromeShortcutChatOpenKeyboard
 local FFlagAddSwitchTabHintsToIEM = SharedFlags.FFlagAddSwitchTabHintsToIEM
@@ -43,7 +42,7 @@ local FFlagFixBackOnTopBarTriggeringDevUI = game:DefineFastFlag("FFlagFixBackOnT
 local ChatSelector = if FFlagConsoleChatOnExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
-local FFlagConsoleSinglePressIntegrationExit = SharedFlags.FFlagConsoleSinglePressIntegrationExit
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 
 local leaveActionProps = {
@@ -151,7 +150,7 @@ local function activateBack(): Enum.ContextActionResult?
 			if FFlagChromeFixMenuIconBackButton then
 				ChromeFocusUtils.MenuIconSelectedSignal:set(false)
 			end
-			if not FFlagFixBackOnTopBarTriggeringDevUI and FFlagConsoleSinglePressIntegrationExit then
+			if not FFlagFixBackOnTopBarTriggeringDevUI and FFlagEnableChromeShortcutBar then
 				return Enum.ContextActionResult.Pass
 			end
 		end
@@ -277,7 +276,7 @@ function registerShortcuts()
 		id = "back",
 		label = "CoreScripts.TopBar.Back",
 		keyCode = Enum.KeyCode.ButtonB,
-		displayPriority = if FFlagShortcutBarUseTokens then -10 else nil,
+		displayPriority = if FFlagEnableChromeShortcutBar then -10 else nil,
 		integration = nil,
 		actionName = "UnibarGamepadBack",
 		activated = activateBack,

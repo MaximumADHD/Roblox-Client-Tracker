@@ -84,6 +84,7 @@ Constants.PlayerMenuActions = {
 	UpdateComment = "UpdateComment",
 	UpdateMethodOfAbuse = "UpdateMethodOfAbuse",
 	UpdateAbuser = "UpdateAbuser",
+	UpdatedSelectedChatAndOrderedMessages = "UpdatedSelectedChatAndOrderedMessages",
 	UpdatePlayerNameMap = "UpdatePlayerNameMap",
 	SetVoiceEnabled = "SetVoiceEnabled",
 	ClearState = "ClearState",
@@ -113,6 +114,7 @@ Constants.AnalyticsActions = {
 	IncrementPersonChanged = "IncrementPersonChanged",
 	IncrementReasonChanged = "IncrementReasonChanged",
 	IncrementCaptureScene = "IncrementCaptureScene",
+	IncrementChatLineChanged = "IncrementChatLineChanged",
 	SetMemoryRequirementMet = "SetMemoryRequirementMet", -- if device meets memory requirement for Highlight Mode/Select in Scene
 	SetViewportInformation = "SetViewportInformation",
 	SetSubmissionCompleted = "SetSubmissionCompleted",
@@ -180,6 +182,8 @@ local localizationKeys: { [string]: string } = {
 	ChooseOne = "Feature.SettingsHub.Label.ChooseOne",
 	ReportCommentPlaceholder = "Feature.SettingsHub.Label.ReportComment",
 	SubmitButton = "Feature.ReportAbuse.Action.Submit",
+	FooterInformation1 = "Feature.ReportAbuse.Message.OSACopy1",
+	FooterInformation2 = "Feature.ReportAbuse.Message.ReportInformationCopy", -- more verbose version of FooterInformation1 (for UK legal compliance)
 }
 
 Constants.localizationKeys = localizationKeys
@@ -215,6 +219,7 @@ Constants.AnalyticsInitialState = {
 	personChangeCount = 0,
 	reasonChangeCount = 0,
 	captureSceneCount = 0,
+	chatLineChangeCount = 0,
 	viewportSizeX = -1,
 	viewportSizeY = -1,
 	isPortraitMode = false,
@@ -277,6 +282,8 @@ Constants.InitPersonUIState = {
 	modalSelectorCellData = nil,
 	isModalSelectorShown = nil,
 	preselectedPlayer = nil,
+	selectedMessage = nil,
+	orderedMessages = {},
 }
 
 Constants.InitExperienceUIState = {
@@ -285,6 +292,10 @@ Constants.InitExperienceUIState = {
 	abuseReason = Constants.InappropriateContentAbuseReason,
 	menuContainerWidth = 0,
 	-- other initially nil values not listed
+}
+
+Constants.ChatLineReportingVariant = {
+	IGM_CLRv1 = "IGM_CLRv1",
 }
 
 return Constants

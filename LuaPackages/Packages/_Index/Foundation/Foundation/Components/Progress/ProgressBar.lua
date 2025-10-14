@@ -60,7 +60,7 @@ local function ProgressBar(progressProps: ProgressBarProps & {
 				backgroundStyle = tokens.Color.Content.Emphasis,
 				tag = "size-full radius-small",
 				ref = props.ref,
-				testId = "--foundation-progress-fill",
+				testId = `{props.testId}--fill`,
 			}, {
 				Gradient = React.createElement("UIGradient", {
 					Color = ColorSequence.new(tokens.Color.Content.Emphasis.Color3),

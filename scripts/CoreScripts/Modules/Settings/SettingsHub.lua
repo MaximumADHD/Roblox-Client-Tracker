@@ -93,7 +93,6 @@ local FFlagAddSwitchTabHintsToIEM = SharedFlags.FFlagAddSwitchTabHintsToIEM
 
 local FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton
 
-local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
 local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 local FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)()
@@ -113,9 +112,7 @@ local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGu
 local GetFStringGameInviteMenuLayer = SharedFlags.GetFStringGameInviteMenuLayer
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 local FFlagRemoveRecordPage = game:DefineFastFlag("RemoveRecordPage", false)
-local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagEnableConnectDisconnectButtonAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectButtonAnalytics)
-local GetFFlagUseMicPermForEnrollment = SharedFlags.GetFFlagUseMicPermForEnrollment
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = SharedFlags.GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
@@ -146,7 +143,6 @@ local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FFlagIEMEndFocusNavTiltMenuHidden = SharedFlags.FFlagIEMEndFocusNavTiltMenuHidden
 local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
 local FFlagChromeShortcutBarRemoveOnInviteFriends = SharedFlags.FFlagChromeShortcutBarRemoveOnInviteFriends
-local FFlagAddMuteSelfTopOfPlayersPane = SharedFlags.FFlagAddMuteSelfTopOfPlayersPane
 local FFlagEnableSettingsHubUIDelegateRollout = SharedFlags.FFlagEnableSettingsHubUIDelegateRollout
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 local FFlagSpatialUIFixMenuPanelChatExclusive = require(RobloxGui.Modules.Settings.Flags.FFlagSpatialUIFixMenuPanelChatExclusive)
@@ -240,7 +236,6 @@ local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
 local FFlagFixReportButtonCutOff = game:DefineFastFlag("FixReportButtonCutOff", false)
 
-local PlayerMuteStatusIcons = VoiceChatServiceManager.PlayerMuteStatusIcons
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
 
 local SettingsShowSignal = if GetFFlagPackagifySettingsShowSignal() then require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal else nil
@@ -540,39 +535,8 @@ local function CreateSettingsHub()
 		end
 	end
 
-	local function fnOrValue(arg)
-		return (type(arg) == "function") and arg() or arg
-	end
-
-	local function pollImage()
-		local newMuted = VoiceChatServiceManager.localMuted
-		local image
-		if newMuted == nil then
-			image = PlayerMuteStatusIcons.Loading
-		elseif newMuted then
-			image = PlayerMuteStatusIcons.MicOff
-		elseif VoiceChatServiceManager.isTalking then
-			local level = math.random()
-			local roundedLevel = 20 * math.floor(0.5 + 5*level)
-			image = VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), "MicLight")
-		else
-			image = PlayerMuteStatusIcons.MicOn
-		end
-		return image
-	end
-
 	local localeId = LocalizationService.RobloxLocaleId
 	local localization = Localization.new(localeId)
-
-	local function updateIcon()
-		if ChromeEnabled or FFlagAddMuteSelfTopOfPlayersPane then
-			return
-		end
-		local buttonHint = this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true)
-		if buttonHint then
-			buttonHint.Image = pollImage()
-		end
-	end
 
 	local function hideVoiceUx()
 		local wholeButton = (this :: any).MuteButtonButton
@@ -682,89 +646,6 @@ local function CreateSettingsHub()
 		end
 	end
 
-	local function addBottomBarButton(name, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys, sizeOverride, forceHintButton)
-		local buttonName = name .. "Button"
-		local textName = name .. "Text"
-
-		local size = sizeOverride or UDim2.new(0,260,0,70)
-		if isTenFootInterface then
-			size = UDim2.new(0,320,0,BOTTOM_BUTTON_10FT_SIZE)
-		end
-
-		this[buttonName], this[textName] = utility:MakeStyledButton(name .. "Button", text, size, clickFunc, nil, this)
-
-		this[buttonName].Position = position
-		this[buttonName].Parent = this.BottomButtonFrame
-		if isTenFootInterface then
-			this[buttonName].ImageTransparency = 1
-		end
-
-		this[textName].FontSize = Enum.FontSize.Size24
-		local hintLabel = nil
-
-		if (not isTouchDevice) or forceHintButton then
-			if FFlagUseNotificationsLocalization then
-				this[textName].Size = UDim2.new(0.675,0,0.67,0)
-				this[textName].Position = UDim2.new(0.275,0,0.125,0)
-			else
-				this[textName].Size = UDim2.new(0.75,0,0.9,0)
-				this[textName].Position = UDim2.new(0.25,0,0,0)
-			end
-			local hintName = name .. "Hint"
-			local image = ""
-			if UserInputService:GetGamepadConnected(Enum.UserInputType.Gamepad1) or platform == Enum.Platform.XBoxOne then
-				image = fnOrValue(gamepadImage)
-			else
-				image = fnOrValue(keyboardImage)
-			end
-
-			hintLabel = Create'ImageLabel'
-			{
-				Name = hintName,
-				ZIndex = this.Shield.ZIndex + 2,
-				BackgroundTransparency = 1,
-				Image = image,
-				Parent = this[buttonName]
-			};
-
-			hintLabel.AnchorPoint = Vector2.new(0.5,0.5)
-			local imageSize = UDim2.fromOffset(50, 50)
-			hintLabel.Size = text == "" and imageSize or UDim2.new(0,50,0,50)
-			hintLabel.Position = text == "" and UDim2.new(0.5,0,0.475,0) or UDim2.new(0.15,0,0.475,0)
-
-		end
-
-		if isTenFootInterface then
-			this[textName].FontSize = Enum.FontSize.Size36
-		end
-
-		UserInputService.InputBegan:connect(function(inputObject)
-
-			if inputObject.UserInputType == Enum.UserInputType.Gamepad1 or inputObject.UserInputType == Enum.UserInputType.Gamepad2 or
-				inputObject.UserInputType == Enum.UserInputType.Gamepad3 or inputObject.UserInputType == Enum.UserInputType.Gamepad4 then
-				if hintLabel then
-					-- We use `fnOrValue` here so that gamepadImage can change after "addBottomBarButton" has been called.
-					-- Otherwise if we change the image after the fact, it would change to the initial image whenever the user presses
-					-- a key or button.
-					hintLabel.Image = fnOrValue(gamepadImage)
-				end
-			elseif inputObject.UserInputType == Enum.UserInputType.Keyboard then
-				if hintLabel then
-					hintLabel.Image = fnOrValue(keyboardImage)
-				end
-			end
-		end)
-
-		local hotKeyFunc = function(contextName, inputState, inputObject)
-			if inputState == Enum.UserInputState.Begin then
-				clickFunc()
-			end
-		end
-
-		local hotKeyTable = {hotKeyFunc, hotkeys}
-		this.BottomBarButtons[#this.BottomBarButtons + 1] = {buttonName, hotKeyTable}
-	end
-
 	local buttonImageAppend = ""
 
 	if isTenFootInterface then
@@ -785,64 +666,7 @@ local function CreateSettingsHub()
 
 	local buttonStart = UserInputService:GetImageForKeyCode(Enum.KeyCode.ButtonStart)
 
-	local function appendMicButton()
-		if GetFFlagMuteButtonRaceConditionFix() and this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true) then
-			return
-		end
-
-		addBottomBarButton("MuteButton", "", buttonB, pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
-			function ()
-				VoiceChatServiceManager:ToggleMic("InGameMenu")
-			end, {}, UDim2.new(0,Theme.LargeButtonHeight,0,Theme.LargeButtonHeight),
-			--[[forceHintButton = ]] true
-		)
-
-		if not GetFFlagMuteButtonRaceConditionFix() then
-			VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-				updateIcon()
-			end)
-			local renderStepName = 'settings-hub-renderstep'
-			this.SettingsShowSignal:connect(function(isOpen)
-				local frame = 0
-				local renderSteppedConnected = false
-				if isOpen and not renderSteppedConnected then
-					renderSteppedConnected = true
-					RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
-						frame = frame + 1
-						-- This looks a little less flickery if we only do it once every 3 frames
-						if frame % 3 == 0 then
-							updateIcon()
-						end
-					end)
-				elseif renderSteppedConnected then
-					renderSteppedConnected = false
-					RunService:UnbindFromRenderStep(renderStepName)
-				end
-
-				if isOpen then
-					this.lastVoiceRecordingIndicatorTextUpdated = tick()
-					this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-				end
-			end)
-		end
-	end
-
-	local function addMuteButtonToBar()
-		if ChromeEnabled or FFlagAddMuteSelfTopOfPlayersPane then
-			return
-		end
-		local buttonSize = UDim2.new(0,235,0,Theme.LargeButtonHeight)
-		local buttonOffset = -27.5
-		appendMicButton()
-		if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
-			updateButtonPosition("LeaveGame", UDim2.new(0.5,(isTenFootInterface and -160 or -130) + buttonOffset,0.5,-25), buttonSize)
-			updateButtonPosition("ResetCharacter", UDim2.new(0.5,(isTenFootInterface and -550 or -400),0.5,-25), buttonSize)
-			updateButtonPosition("Resume", UDim2.new(0.5, (isTenFootInterface and 200 or 140) + buttonOffset * 2, 0.5,-25), buttonSize)
-		end
-	end
-
 	local voiceChatServiceConnected = false
-	local voiceEnabled = false
 	local muteChangedEvent = nil
 	local settingShowSignalEvent = nil
 	local function setupVoiceListeners()
@@ -851,29 +675,21 @@ local function CreateSettingsHub()
 		then
 			voiceChatServiceConnected = true
 			local function showUI()
-				voiceEnabled = true
 				this.VoiceRecordingText.Visible = true
 				local VCS = VoiceChatServiceManager:getService()
 				VCS.StateChanged:Connect(function(_oldState, newState)
 					if newState == (Enum :: any).VoiceChatState.Joined then
 						-- If voice has been turned off, but now rejoined
-						if voiceEnabled == false then
-							addMuteButtonToBar()
-						end
 						this.VoiceRecordingText.Visible = true
 					end
 				end)
 				VoiceChatServiceManager:SetupParticipantListeners()
-				if GetFFlagEnableInExpJoinVoiceAnalytics() then
-					local callback = function(response)
-						this.hasMicPermissions = response.hasMicPermissions
-					end
-					getCamMicPermissions(callback, nil, true, "PermissionsButtons.getPermissions")
+				local callback = function(response)
+					this.hasMicPermissions = response.hasMicPermissions
 				end
-				addMuteButtonToBar()
+				getCamMicPermissions(callback, nil, true, "PermissionsButtons.getPermissions")
 				if GetFFlagMuteButtonRaceConditionFix() then
 					muteChangedEvent = VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-						updateIcon()
 						this.isMuted = muted
 						this.lastVoiceRecordingIndicatorTextUpdated = tick()
 						this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
@@ -887,7 +703,6 @@ local function CreateSettingsHub()
 			end
 			local function hideUI()
 				this.VoiceRecordingText.Visible = false
-				voiceEnabled = false
 				hideVoiceUx()
 				if muteChangedEvent then
 					muteChangedEvent:Disconnect()
@@ -1640,59 +1455,38 @@ local function CreateSettingsHub()
 			this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.Shield, "PermissionsButtons")
 		end
 
-		if GetFFlagUseMicPermForEnrollment() then
-			local setMicPermissionsCallback = function(response)
-				this.hasMicPermissions = response.hasMicPermissions
-				this.isFetchingMicPermissions = false
-			end
-			getCamMicPermissions(setMicPermissionsCallback, nil, true)
+		local setMicPermissionsCallback = function(response)
+			this.hasMicPermissions = response.hasMicPermissions
+			this.isFetchingMicPermissions = false
 		end
+		getCamMicPermissions(setMicPermissionsCallback, nil, true)
 
-		if GetFFlagEnableInExpJoinVoiceAnalytics() then
-			this.SettingsShowSignal:connect(function(isOpen)
-				if GetFFlagUseMicPermForEnrollment() then
-					if isOpen then
-						if GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and not VoiceChatServiceManager.voiceUIVisible then
-							VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
-						elseif GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and VoiceChatServiceManager.voiceUIVisible then
-							VoiceChatServiceManager.Analytics:reportLeaveVoiceButtonEvent("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
-						end
-
-						if VoiceChatServiceManager:UserVoiceEnabled() then
-							-- We may still be waiting for user to accept or deny mic permissions. If we are still waiting, don't fire the analytic event
-							if this.isFetchingMicPermissions then
-								return
-							end
-						end
-
-						local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
-							or (VoiceChatServiceManager:UserVoiceEnabled() and not this.hasMicPermissions)
-
-						-- Don't fetch age verification overlay data if user is not eligible for upsell
-						if not userVoiceUpsellEligible then
-							return
-						end
-
-						if not GetFFlagEnableConnectDisconnectButtonAnalytics() then
-							local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
-							if userInInExperienceUpsellTreatment then
-								local sessionId = ""
-								if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-									sessionId = AnalyticsService:GetPlaySessionId()
-								end
-								VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEvent("shown", game.GameId, game.PlaceId, sessionId)
-							end
-						end
-					end
-				else
-					local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
-					local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
-						or (VoiceChatServiceManager:UserVoiceEnabled() and not this.hasMicPermissions)
-					if isOpen and GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and not VoiceChatServiceManager.voiceUIVisible then
+		this.SettingsShowSignal:connect(function(isOpen)
+			if isOpen then
+					if GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and not VoiceChatServiceManager.voiceUIVisible then
 						VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
-					elseif isOpen and GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and VoiceChatServiceManager.voiceUIVisible then
+					elseif GetFFlagEnableConnectDisconnectButtonAnalytics() and VoiceChatServiceManager:IsSeamlessVoice() and VoiceChatServiceManager.voiceUIVisible then
 						VoiceChatServiceManager.Analytics:reportLeaveVoiceButtonEvent("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
-					elseif isOpen and userInInExperienceUpsellTreatment and userVoiceUpsellEligible then
+					end
+
+				if VoiceChatServiceManager:UserVoiceEnabled() then
+					-- We may still be waiting for user to accept or deny mic permissions. If we are still waiting, don't fire the analytic event
+					if this.isFetchingMicPermissions then
+						return
+					end
+				end
+
+				local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
+					or (VoiceChatServiceManager:UserVoiceEnabled() and not this.hasMicPermissions)
+
+				-- Don't fetch age verification overlay data if user is not eligible for upsell
+				if not userVoiceUpsellEligible then
+					return
+				end
+
+				if not GetFFlagEnableConnectDisconnectButtonAnalytics() then
+					local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
+					if userInInExperienceUpsellTreatment then
 						local sessionId = ""
 						if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
 							sessionId = AnalyticsService:GetPlaySessionId()
@@ -1700,8 +1494,8 @@ local function CreateSettingsHub()
 						VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEvent("shown", game.GameId, game.PlaceId, sessionId)
 					end
 				end
-			end)
-		end
+			end
+		end)
 
 		this.MenuListLayout = Create'UIListLayout'
 		{
@@ -2363,9 +2157,6 @@ local function CreateSettingsHub()
 		end
 		onWorkspaceChanged("CurrentCamera")
 		-- This is here in the case that createGUI gets called After voice is done initializing
-		if GetFFlagMuteButtonRaceConditionFix() and voiceEnabled then
-			addMuteButtonToBar()
-		end
 		workspace.Changed:Connect(onWorkspaceChanged)
 	end
 

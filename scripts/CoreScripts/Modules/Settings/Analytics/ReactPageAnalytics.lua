@@ -15,7 +15,7 @@ type ReactPageAnalyticsImpl = {
 	__index: ReactPageAnalyticsImpl,
 	new: () -> ReactPageAnalytics,
 	configs: { [string]: TelemetryEventConfig },
-	_logEventWithStandardizedFields: (ReactPageAnalytics, eventConfig: TelemetryEventConfig, customFields: { [string]: any }) -> (),
+	_logEventWithStandardizedFields: (ReactPageAnalytics, eventConfig: TelemetryEventConfig, ctx: string, customFields: { [string]: unknown }?) -> (),
 	openPage: (ReactPageAnalytics, pageName: string) -> (),
 	closePage: (ReactPageAnalytics, pageName: string) -> (),
 }
@@ -54,32 +54,31 @@ function ReactPageAnalytics.new(): ReactPageAnalytics
 	return setmetatable(self, ReactPageAnalytics)
 end
 
-function ReactPageAnalytics:_logEventWithStandardizedFields(eventConfig: TelemetryEventConfig, customFields: { [string]: string })
+function ReactPageAnalytics:_logEventWithStandardizedFields(eventConfig: TelemetryEventConfig, ctx: string, customFields: { [string]: unknown }?)
 	local standardizedFields = { "addPlaceId", "addUniverseId", "addSessionInfo"}
+	local eventCustomFields: { [string]: unknown } = customFields or {}
 
 	if EngineFeatureTelemetryServicePlaySessionInfoEnabled then
 		table.insert(standardizedFields, "addPlaySessionId")
 	else
-		customFields.playsessionid = AnalyticsService:GetPlaySessionId()
+		eventCustomFields.playsessionid = AnalyticsService:GetPlaySessionId()
 	end
 
-	TelemetryService:LogEvent(eventConfig, { standardizedFields = standardizedFields, customFields = customFields })
+	TelemetryService:LogEvent(eventConfig, { 
+		eventContext = ctx,
+		standardizedFields = standardizedFields, 
+		customFields = eventCustomFields 
+	})
 end
 
 function ReactPageAnalytics:openPage(pageName: string)
-	local customFields = {
-		ctx = `open_{pageName}_page`,
-	}
-
-	self:_logEventWithStandardizedFields(self.configs.openPage, customFields)
+	local ctx = `open_{pageName}_page`
+	self:_logEventWithStandardizedFields(self.configs.openPage, ctx)
 end
 
 function ReactPageAnalytics:closePage(pageName: string)
-	local customFields = {
-		ctx = `close_{pageName}_page`,
-	}
-
-	self:_logEventWithStandardizedFields(self.configs.closePage, customFields)
+	local ctx = `close_{pageName}_page`
+	self:_logEventWithStandardizedFields(self.configs.closePage, ctx)
 end
 
 

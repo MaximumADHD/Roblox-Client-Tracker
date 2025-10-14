@@ -1,0 +1,84 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["OnClick"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["OnClick"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnMoved"]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnMoved"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["ImageButton"]
+  DUPTABLE R3 K9 [{"AnchorPoint", "Position", "Rotation", "Size", "Image", "BackgroundColor3", "ZIndex"}]
+  GETTABLEKS R4 R0 K2 ["AnchorPoint"]
+  SETTABLEKS R4 R3 K2 ["AnchorPoint"]
+  GETTABLEKS R4 R0 K3 ["Position"]
+  SETTABLEKS R4 R3 K3 ["Position"]
+  GETTABLEKS R4 R0 K4 ["Rotation"]
+  SETTABLEKS R4 R3 K4 ["Rotation"]
+  GETTABLEKS R4 R0 K5 ["Size"]
+  SETTABLEKS R4 R3 K5 ["Size"]
+  GETTABLEKS R4 R0 K6 ["Image"]
+  SETTABLEKS R4 R3 K6 ["Image"]
+  GETTABLEKS R4 R0 K10 ["Color3"]
+  JUMPIF R4 [+3]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["SCROLLBAR_BUTTON_COLOR3"]
+  SETTABLEKS R4 R3 K7 ["BackgroundColor3"]
+  GETTABLEKS R4 R0 K8 ["ZIndex"]
+  SETTABLEKS R4 R3 K8 ["ZIndex"]
+  DUPTABLE R4 K13 [{"MouseDetector"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K16 [{"AnchorPoint", "OnClick", "OnDragMoved"}]
+  GETTABLEKS R8 R0 K2 ["AnchorPoint"]
+  SETTABLEKS R8 R7 K2 ["AnchorPoint"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K14 ["OnClick"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K15 ["OnDragMoved"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K12 ["MouseDetector"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Graphing"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["InputDetector"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["StyleUtil"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETGLOBAL R5 K13 ["ScrollbarButton"]
+  GETGLOBAL R5 K13 ["ScrollbarButton"]
+  RETURN R5 1

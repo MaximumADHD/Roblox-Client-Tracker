@@ -30,6 +30,7 @@ export type KnobProps = {
 local defaultProps = {
 	size = InputSize.Medium,
 	hasShadow = true,
+	testId = "--foundation-knob",
 }
 
 local function Knob(knobProps: KnobProps)

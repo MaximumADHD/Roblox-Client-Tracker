@@ -7,13 +7,19 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local ChatLineReportSelectionModal = ChatLineReporting.ChatLineReportSelectionModal
 local ChatLineSelectionMode = ChatLineReporting.Enums.ChatLineSelectionMode
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local useStyle = UIBlox.Core.Style.useStyle
 
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
+local FocusRoot = FocusNavigationUtils.FocusRoot
+
+local Types = require(root.Components.Types)
 local useOrderedMessages = require(root.Hooks.useOrderedMessages)
 
 type Props = {
 	isShown: boolean,
 	onClose: () -> (),
+	onSelect: (message: Types.Message, orderedMessages: { Types.Message }) -> (),
 }
 
 --[[
@@ -23,6 +29,11 @@ local function ChatModalSelectorDialog(props: Props): React.ReactElement | nil
 	local style = useStyle()
 	local theme = style.Theme
 	local orderedMessages = useOrderedMessages()
+
+	local onContinue = React.useCallback(function(selectedMessage: {}?)
+		props.onSelect(selectedMessage :: Types.Message, orderedMessages)
+		props.onClose()
+	end, { orderedMessages })
 
 	if not props.isShown then
 		return nil
@@ -56,16 +67,24 @@ local function ChatModalSelectorDialog(props: Props): React.ReactElement | nil
 			},
 			React.createElement(ChatLineReportSelectionModal, {
 				isCentered = true,
-				onContinue = function() end,
+				onContinue = onContinue,
 				onBack = props.onClose,
 				mode = ChatLineSelectionMode.Direct,
 				messages = orderedMessages,
-				selectedMessage = {},
-				setSelectedMessage = function() end,
-				analyticsDispatch = function() end,
+				analyticsDispatch = function() end, -- TODO: Implement analytics if needed? We can do this in this file probably
 			})
 		),
 	})
 end
 
-return ChatModalSelectorDialog
+function DialogWrapper(props: Props)
+	return React.createElement(FocusRoot, {
+		surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+		isIsolated = true,
+		isAutoFocusRoot = true,
+	}, {
+		DialogContainer = React.createElement(ChatModalSelectorDialog, props),
+	})
+end
+
+return DialogWrapper

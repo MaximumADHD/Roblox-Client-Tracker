@@ -1,0 +1,61 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R0 K2 [{"selectedProvider", "setSelectedProvider"}]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K0 ["selectedProvider"]
+  GETUPVAL R1 1
+  SETTABLEKS R1 R0 K1 ["setSelectedProvider"]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADK R2 K1 ["Studio"]
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["useMemo"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  NEWTABLE R5 0 1
+  MOVE R6 R1
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R4 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["Provider"]
+  DUPTABLE R6 K5 [{"value"}]
+  SETTABLEKS R3 R6 K4 ["value"]
+  GETTABLEKS R7 R0 K6 ["children"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["createElement"]
+  DUPTABLE R3 K11 [{"selectedProvider", "setSelectedProvider"}]
+  LOADK R4 K12 ["Studio"]
+  SETTABLEKS R4 R3 K9 ["selectedProvider"]
+  DUPCLOSURE R4 K13 [PROTO_0]
+  SETTABLEKS R4 R3 K10 ["setSelectedProvider"]
+  GETTABLEKS R4 R1 K14 ["createContext"]
+  MOVE R5 R3
+  CALL R4 1 1
+  DUPCLOSURE R5 K15 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  DUPTABLE R6 K18 [{"Context", "Provider"}]
+  SETTABLEKS R4 R6 K16 ["Context"]
+  SETTABLEKS R5 R6 K17 ["Provider"]
+  RETURN R6 1

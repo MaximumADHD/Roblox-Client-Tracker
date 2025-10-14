@@ -5,6 +5,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
 
 local PlayerList = script.Parent
@@ -19,6 +20,8 @@ local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 local PlayerListInitialVisibleState = require(PlayerList.PlayerListInitialVisibleState)
+
+local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 
 local PlayerListSwitcher = Roact.PureComponent:extend("PlayerListSwitcher")
 
@@ -41,7 +44,7 @@ function PlayerListSwitcher:render()
 	return Roact.createElement(
 		LayoutValuesProvider,
 		{
-			layoutValues = CreateLayoutValues(TenFootInterface:IsEnabled()),
+			layoutValues = CreateLayoutValues(if FFlagEnableMobilePlayerListOnConsole then false else TenFootInterface:IsEnabled()),
 		},
 		self:wrapWithUiModeStyleProvider({
 			PlayerListApp = self.props.isSmallTouchDevice and Roact.createElement(PlayerListAppMobile, {

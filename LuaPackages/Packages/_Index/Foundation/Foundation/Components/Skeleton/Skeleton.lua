@@ -33,6 +33,7 @@ export type SkeletonProps = {
 local defaultProps = {
 	radius = Radius.None,
 	Size = UDim2.fromScale(1, 1),
+	testId = "--foundation-skeleton",
 }
 
 local function Skeleton(skeletonProps: SkeletonProps, ref: React.Ref<GuiObject>?)

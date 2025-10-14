@@ -14,10 +14,29 @@ local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 export type StateChangedCallback = (newState: ControlState) -> ()
 
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+type ButtonVariant = ButtonVariant.ButtonVariant
+
+export type ActionProps = {
+	onActivated: () -> (),
+	variant: ButtonVariant?,
+	text: string,
+}
+
 local React = require(Packages.React)
+
 export type Bindable<T> = T | React.Binding<T>
 
 type ReactRefGuiObject = React.Ref<GuiObject>
+
+export type ResponsiveValue<T> = {
+	xs: T,
+	sm: T,
+	md: T,
+	lg: T,
+	xl: T,
+	xxl: T?,
+}
 
 export type NativeCommonProps = {
 	AnchorPoint: Bindable<Vector2>?,

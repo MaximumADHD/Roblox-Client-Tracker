@@ -37,6 +37,7 @@ export type AvatarProps = {
 local defaultProps = {
 	size = InputSize.Medium,
 	userPresence = UserPresence.None :: UserPresence,
+	testId = "--foundation-avatar",
 }
 
 local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)

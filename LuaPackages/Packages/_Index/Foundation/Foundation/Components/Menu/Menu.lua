@@ -5,7 +5,7 @@ local React = require(Packages.React)
 
 local Types = require(Foundation.Components.Types)
 local Popover = require(Foundation.Components.Popover)
-local InternalMenu = require(Foundation.Components.InternalMenu)
+local BaseMenu = require(Foundation.Components.BaseMenu)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -20,8 +20,12 @@ type PopoverAlign = PopoverAlign.PopoverAlign
 type OnItemActivated = Types.OnItemActivated
 type PopoverAnchor = Types.PopoverAnchor
 
-export type MenuItem = InternalMenu.MenuItem
-export type MenuItems = InternalMenu.MenuItems
+-- Such a complex export is due to our export types checker imperfections
+type BaseMenuItem = BaseMenu.BaseMenuItem
+type BaseMenuItems = BaseMenu.BaseMenuItems
+export type MenuItem = BaseMenuItem
+export type MenuItems = BaseMenuItems
+
 export type MenuProps = {
 	-- Whether the menu is open
 	isOpen: boolean,
@@ -50,6 +54,7 @@ local defaultProps = {
 	size = InputSize.Medium,
 	side = PopoverSide.Bottom,
 	align = PopoverAlign.Start,
+	testId = "--foundation-menu",
 }
 
 local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
@@ -60,6 +65,7 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 	return React.createElement(Popover.Root, {
 		isOpen = props.isOpen,
 		ref = ref,
+		testId = props.testId,
 	}, {
 		Anchor = React.createElement(
 			Popover.Anchor,
@@ -80,7 +86,7 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 				ref = ref,
 			},
 			React.createElement(React.Fragment, nil, {
-				Menu = React.createElement(InternalMenu, {
+				Menu = React.createElement(BaseMenu.Root, {
 					items = props.items,
 					size = props.size,
 					width = props.width,

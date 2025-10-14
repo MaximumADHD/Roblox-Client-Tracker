@@ -14,16 +14,21 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K1 [require]
   GETIMPORT R5 K3 [script]
-  GETTABLEKS R4 R5 K7 ["EventNames"]
+  GETTABLEKS R4 R5 K7 ["WebViewPane"]
   CALL R3 1 1
   GETIMPORT R4 K1 [require]
   GETIMPORT R6 K3 [script]
-  GETTABLEKS R5 R6 K8 ["Analytics"]
+  GETTABLEKS R5 R6 K8 ["EventNames"]
   CALL R4 1 1
-  DUPTABLE R5 K9 [{"WebViewManagerContext", "WebViewTypes", "WebViewConnector", "EventNames", "Analytics"}]
-  SETTABLEKS R0 R5 K4 ["WebViewManagerContext"]
-  SETTABLEKS R1 R5 K5 ["WebViewTypes"]
-  SETTABLEKS R2 R5 K6 ["WebViewConnector"]
-  SETTABLEKS R3 R5 K7 ["EventNames"]
-  SETTABLEKS R4 R5 K8 ["Analytics"]
-  RETURN R5 1
+  GETIMPORT R5 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K9 ["Analytics"]
+  CALL R5 1 1
+  DUPTABLE R6 K10 [{"WebViewManagerContext", "WebViewTypes", "WebViewConnector", "WebViewPane", "EventNames", "Analytics"}]
+  SETTABLEKS R0 R6 K4 ["WebViewManagerContext"]
+  SETTABLEKS R1 R6 K5 ["WebViewTypes"]
+  SETTABLEKS R2 R6 K6 ["WebViewConnector"]
+  SETTABLEKS R3 R6 K7 ["WebViewPane"]
+  SETTABLEKS R4 R6 K8 ["EventNames"]
+  SETTABLEKS R5 R6 K9 ["Analytics"]
+  RETURN R6 1

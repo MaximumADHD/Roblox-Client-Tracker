@@ -458,7 +458,7 @@ PROTO_13:
   DUPTABLE R26 K23 [{"SearchHeader", "IncludeFilterHeader", "ReplaceHeader"}]
   GETUPVAL R27 9
   GETUPVAL R28 10
-  DUPTABLE R29 K36 [{"LayoutOrder", "searchBarLeftIcon", "onSearchbarTextChanged", "searchBarPlaceholderText", "searchBarToggleOptions", "settingsDropdownItemData", "onSettingsDropdownItemClicked", "Visible", "dropdownOverlay", "hasError", "searchText", "shouldFocusTextBox"}]
+  DUPTABLE R29 K36 [{"LayoutOrder", "searchBarLeftIcon", "onSearchbarTextChanged", "searchBarPlaceholderText", "searchBarToggleOptions", "settingsDropdownItemData", "onSettingsDropdownItemClicked", "Visible", "dropdownOverlay", "hasError", "searchText", "textBoxRef"}]
   MOVE R30 R2
   CALL R30 0 1
   SETTABLEKS R30 R29 K24 ["LayoutOrder"]
@@ -484,8 +484,8 @@ PROTO_13:
   JUMPIF R30 [+1]
   LOADNIL R30
   SETTABLEKS R30 R29 K34 ["searchText"]
-  GETTABLEKS R30 R0 K35 ["shouldFocusTextBox"]
-  SETTABLEKS R30 R29 K35 ["shouldFocusTextBox"]
+  GETTABLEKS R30 R0 K35 ["textBoxRef"]
+  SETTABLEKS R30 R29 K35 ["textBoxRef"]
   CALL R27 2 1
   SETTABLEKS R27 R26 K20 ["SearchHeader"]
   GETUPVAL R27 9

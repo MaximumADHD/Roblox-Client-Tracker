@@ -26,7 +26,12 @@ MAIN:
   NAMECALL R0 R0 K6 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K11 ["COLLAB9041NewTeamCreateDisabled"]
+  LOADK R2 K11 ["ShowRatingDuringPublish"]
+  LOADB R3 0
+  NAMECALL R0 R0 K6 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K12 ["COLLAB9041NewTeamCreateDisabled"]
   LOADB R3 0
   NAMECALL R0 R0 K6 ["DefineFastFlag"]
   CALL R0 3 0

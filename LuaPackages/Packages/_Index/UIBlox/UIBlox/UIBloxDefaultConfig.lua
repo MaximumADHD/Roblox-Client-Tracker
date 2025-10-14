@@ -1,4 +1,10 @@
 return {
+	-- add testid prop to combo button
+	addTestIdToComboButtonAndCellTailDescription = false,
+
+	-- add testid prop to action bar
+	addTestIdToActionBar = false,
+
 	-- enable trace level log
 	enableTraceLevelLog = false,
 
@@ -17,9 +23,6 @@ return {
 
 	-- Use SurfaceGuiWithAdornee for Panel3D
 	refactorPanel3D = false,
-
-	-- Support ControlState.Selected in the hover controller for TooltipV2
-	supportControlStateSelectedForTooltipHover = false,
 
 	-- Use new designed HeaderBar
 	useNewHeaderBar = false,
@@ -113,4 +116,10 @@ return {
 
 	-- Add truncation to ExperienceTileMetadata's TextFooter
 	truncateExperienceTileMetadataTextFooter = false,
+
+	-- Enable SurfaceGui ref exposure through Panel3D
+	enablePanel3DSurfaceGuiRef = false,
+
+	-- Use StatusIndicator instead of Badge, where applicable
+	useFoundationStatusIndicator = false,
 }

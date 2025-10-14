@@ -2,19 +2,21 @@ PROTO_0:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["Plugin"]
   JUMPIF R1 [+2]
-  LOADNIL R1
+  LOADK R1 K2 ["https://create.roblox.com/dashboard/analytics/studio-configs"]
   RETURN R1 1
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["Plugin"]
-  LOADK R3 K2 ["universeid"]
-  NAMECALL R1 R1 K3 ["GetItem"]
+  LOADK R3 K3 ["universeid"]
+  NAMECALL R1 R1 K4 ["GetItem"]
   CALL R1 2 1
-  JUMPIF R1 [+2]
-  LOADNIL R2
+  JUMPIFNOT R1 [+3]
+  LOADN R2 0
+  JUMPIFNOTLE R1 R2 [+3]
+  LOADK R2 K2 ["https://create.roblox.com/dashboard/analytics/studio-configs"]
   RETURN R2 1
-  LOADK R3 K4 ["https://create.roblox.com/dashboard/creations/experiences/"]
+  LOADK R3 K5 ["https://create.roblox.com/dashboard/creations/experiences/"]
   MOVE R4 R1
-  LOADK R5 K5 ["/configs/studio"]
+  LOADK R5 K6 ["/configs/studio"]
   CONCAT R2 R3 R5
   RETURN R2 1
 
@@ -52,14 +54,6 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["WebViewManagerContext"]
-  NAMECALL R0 R0 K2 ["showBrowser"]
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_4:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R3 R0 K1 ["state"]
   GETTABLEKS R2 R3 K2 ["configUrl"]
@@ -73,30 +67,26 @@ PROTO_4:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K6 ["createElement"]
   GETUPVAL R4 1
-  DUPTABLE R5 K17 [{"Plugin", "PluginManagerComponent", "Url", "hasValidSize", "hasWebViewEverLoaded", "webViewLoadingStatus", "webViewError", "HandlePassedInitAndLoadingCheck", "WebViewManagerContext", "analyticsContext", "offsetHeight"}]
+  DUPTABLE R5 K15 [{"Plugin", "PluginManagerComponent", "WebViewManagerContext", "Url", "analyticsContext", "offsetHeight", "initAutoRetryMaxAttempts", "retryTitle", "retryButtonText"}]
   GETTABLEKS R6 R1 K3 ["Plugin"]
   SETTABLEKS R6 R5 K3 ["Plugin"]
   SETTABLEKS R2 R5 K7 ["PluginManagerComponent"]
+  GETTABLEKS R6 R1 K8 ["WebViewManagerContext"]
+  SETTABLEKS R6 R5 K8 ["WebViewManagerContext"]
   GETTABLEKS R7 R0 K1 ["state"]
   GETTABLEKS R6 R7 K2 ["configUrl"]
-  SETTABLEKS R6 R5 K8 ["Url"]
-  GETTABLEKS R6 R1 K9 ["hasValidSize"]
-  SETTABLEKS R6 R5 K9 ["hasValidSize"]
-  GETTABLEKS R6 R1 K10 ["hasWebViewEverLoaded"]
-  SETTABLEKS R6 R5 K10 ["hasWebViewEverLoaded"]
-  GETTABLEKS R6 R1 K11 ["webViewLoadingStatus"]
-  SETTABLEKS R6 R5 K11 ["webViewLoadingStatus"]
-  GETTABLEKS R6 R1 K12 ["webViewError"]
-  SETTABLEKS R6 R5 K12 ["webViewError"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K13 ["HandlePassedInitAndLoadingCheck"]
-  GETTABLEKS R6 R1 K14 ["WebViewManagerContext"]
-  SETTABLEKS R6 R5 K14 ["WebViewManagerContext"]
-  LOADK R6 K18 ["creatorConfig"]
-  SETTABLEKS R6 R5 K15 ["analyticsContext"]
+  SETTABLEKS R6 R5 K9 ["Url"]
+  LOADK R6 K16 ["creatorConfig"]
+  SETTABLEKS R6 R5 K10 ["analyticsContext"]
   LOADN R6 0
-  SETTABLEKS R6 R5 K16 ["offsetHeight"]
+  SETTABLEKS R6 R5 K11 ["offsetHeight"]
+  GETUPVAL R6 2
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K12 ["initAutoRetryMaxAttempts"]
+  GETTABLEKS R6 R1 K13 ["retryTitle"]
+  SETTABLEKS R6 R5 K13 ["retryTitle"]
+  GETTABLEKS R6 R1 K14 ["retryButtonText"]
+  SETTABLEKS R6 R5 K14 ["retryButtonText"]
   CALL R3 2 -1
   RETURN R3 -1
 
@@ -113,17 +103,24 @@ MAIN:
   GETIMPORT R3 K6 [require]
   GETTABLEKS R4 R1 K8 ["WebView"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K9 ["WebViewConnector"]
-  GETTABLEKS R5 R2 K10 ["PureComponent"]
-  LOADK R7 K11 ["CreatorConfigWebViewConnector"]
-  NAMECALL R5 R5 K12 ["extend"]
-  CALL R5 2 1
-  DUPCLOSURE R6 K13 [PROTO_0]
-  SETTABLEKS R6 R5 K14 ["getConfigUrl"]
-  DUPCLOSURE R6 K15 [PROTO_2]
-  SETTABLEKS R6 R5 K16 ["init"]
-  DUPCLOSURE R6 K17 [PROTO_4]
+  GETTABLEKS R4 R3 K9 ["WebViewPane"]
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K11 ["Util"]
+  GETTABLEKS R7 R8 K12 ["ConfigWebViewInitAutoRetry"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K13 ["getIntMaxAttempts"]
+  GETTABLEKS R6 R2 K14 ["PureComponent"]
+  LOADK R8 K15 ["CreatorConfigWebViewConnector"]
+  NAMECALL R6 R6 K16 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K17 [PROTO_0]
+  SETTABLEKS R7 R6 K18 ["getConfigUrl"]
+  DUPCLOSURE R7 K19 [PROTO_2]
+  SETTABLEKS R7 R6 K20 ["init"]
+  DUPCLOSURE R7 K21 [PROTO_3]
   CAPTURE VAL R2
   CAPTURE VAL R4
-  SETTABLEKS R6 R5 K18 ["render"]
-  RETURN R5 1
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K22 ["render"]
+  RETURN R6 1

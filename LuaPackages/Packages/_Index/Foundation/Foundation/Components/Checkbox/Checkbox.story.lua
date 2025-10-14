@@ -67,6 +67,19 @@ local function CustomSelectionStory(props)
 	})
 end
 
+local function UncontrolledStory(props)
+	local controls = props.controls
+
+	return React.createElement(Checkbox, {
+		isDisabled = controls.isDisabled,
+		onActivated = function(value)
+			print("isChecked: ", value)
+		end,
+		size = controls.size,
+		label = controls.label or "",
+	})
+end
+
 return {
 	summary = "Checkbox component",
 	stories = {
@@ -78,6 +91,11 @@ return {
 			name = "Custom Selection",
 			summary = "Select card container instead of checkbox",
 			story = CustomSelectionStory,
+		},
+		{
+			name = "Uncontrolled",
+			summary = "State is controlled by the checkbox itself",
+			story = UncontrolledStory,
 		},
 	},
 	controls = {

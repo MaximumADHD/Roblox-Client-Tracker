@@ -70,6 +70,7 @@ local defaultProps = {
 	isDisabled = false,
 	isContained = false,
 	knobVisibility = Visibility.Auto,
+	testId = "--foundation-slider",
 }
 
 local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>?)
@@ -221,14 +222,14 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 
 			Bar = React.createElement(View, {
 				tag = variant.bar.tag,
-				testId = "--foundation-slider-bar",
+				testId = `{props.testId}--bar`,
 			}, {
 				Fill = React.createElement(View, {
 					tag = variant.fill.tag,
 					Size = (value :: React.Binding<number>):map(function(alpha: number)
 						return UDim2.fromScale((alpha - props.range.Min) / (props.range.Max - props.range.Min), 1)
 					end),
-					testId = "--foundation-slider-fill",
+					testId = `{props.testId}--fill`,
 				}, {
 					Knob = if props.knob
 						then React.createElement(View, {
@@ -236,7 +237,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 							AnchorPoint = knobAnchorPoint,
 							Position = knobPosition,
 							Visible = isKnobVisible,
-							testId = "--foundation-knob",
+							testId = `{props.testId}--custom-knob`,
 						}, props.knob)
 						else React.createElement(Knob, {
 							AnchorPoint = knobAnchorPoint,
@@ -245,7 +246,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 							style = currentMotionState.knobStyle,
 							stroke = variant.knob.stroke,
 							hasShadow = variant.knob.hasShadow,
-							testId = "--foundation-knob",
+							testId = `{props.testId}--knob`,
 						}),
 				}),
 			}),

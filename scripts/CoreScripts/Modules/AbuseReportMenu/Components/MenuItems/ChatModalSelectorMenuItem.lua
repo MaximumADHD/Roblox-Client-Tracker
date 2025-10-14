@@ -1,18 +1,25 @@
 local root = script:FindFirstAncestor("AbuseReportMenu")
 local CorePackages = game:GetService("CorePackages")
+
 local React = require(CorePackages.Packages.React)
+
 local ChatModalSelector = require(root.Components.ChatModalSelector)
 local ReportMenuItem = require(root.Components.MenuItems.ReportMenuItem)
+local Types = require(root.Components.Types)
 
 type Props = {
+	isSmallPortraitViewport: boolean,
 	label: string,
 	layoutOrder: number,
-	selectorHeight: number,
-	isSmallPortraitViewport: boolean,
+	menuContainerWidth: number,
+	onMenuOpenChange: (boolean) -> (),
+	onSelect: (message: Types.Message, orderedMessages: { Types.Message }) -> (),
 	placeholderText: string,
+	selectorHeight: number,
+	selectedValue: string?,
 }
 
-local ChatModalSelectorMenuItem = function(props: any)
+local ChatModalSelectorMenuItem = function(props: Props)
 	return React.createElement(ReportMenuItem, {
 		label = props.label,
 		layoutOrder = props.layoutOrder,

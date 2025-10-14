@@ -6,7 +6,7 @@ local Dash = require(Packages.Dash)
 
 local Types = require(Foundation.Components.Types)
 local Popover = require(Foundation.Components.Popover)
-local InternalMenu = require(Foundation.Components.InternalMenu)
+local BaseMenu = require(Foundation.Components.BaseMenu)
 
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -20,16 +20,17 @@ type InputSize = InputSize.InputSize
 
 local DropdownControl = require(script.Parent.DropdownControl)
 
-type MenuItem = InternalMenu.MenuItem
+type BaseMenuItem = BaseMenu.BaseMenuItem
 type ItemId = Types.ItemId
 type OnItemActivated = Types.OnItemActivated
+export type DropdownItem = BaseMenuItem
 
 export type DropdownProps = {
 	-- The value of the currently selected dropdown item.
 	-- If `nil`, the dropdown will be considered uncontrolled.
 	value: Types.ItemId?,
 	placeholder: string?,
-	items: { MenuItem },
+	items: { DropdownItem },
 	onItemChanged: OnItemActivated,
 	-- Whether the dropdown is in an error state
 	hasError: boolean?,
@@ -46,6 +47,7 @@ export type DropdownProps = {
 local defaultProps = {
 	width = UDim.new(0, 400),
 	size = InputSize.Medium,
+	testId = "--foundation-dropdown",
 }
 
 local sideConfig = { position = PopoverSide.Bottom, offset = 5 }
@@ -121,7 +123,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				side = sideConfig,
 				onPressedOutside = closeMenu,
 			},
-			React.createElement(InternalMenu, {
+			React.createElement(BaseMenu.Root, {
 				size = props.size,
 				couldGrow = if Flags.FoundationMenuWidthGrowth then true else nil,
 				width = if Flags.FoundationMenuWidthGrowth then absoluteWidth else props.width,
@@ -135,6 +137,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 					}
 				end),
 				onActivated = onActivated,
+				testId = `{props.testId}--menu`,
 			})
 		),
 	})

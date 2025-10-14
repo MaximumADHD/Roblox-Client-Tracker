@@ -24,17 +24,11 @@ local FillBehavior = require(Foundation.Enums.FillBehavior)
 type ButtonVariant = ButtonVariant.ButtonVariant
 type FillBehavior = FillBehavior.FillBehavior
 
-export type ToastButtonProps = {
-	onActivated: () -> nil,
-	variant: ButtonVariant?,
-	text: string,
-}
-
 export type ToastProps = {
 	title: string?,
 	text: string?,
 	icon: string?,
-	actions: { ToastButtonProps }?,
+	actions: { Types.ActionProps }?,
 
 	-- Width of the toast. If not defined, toast will be `400px` wide on desktop.
 	width: UDim?,
@@ -43,13 +37,12 @@ export type ToastProps = {
 local MAX_BUTTON_COUNT = 2
 local DEFAULT_TOAST_WIDTH = 400
 
-local defaultButtonProps = {
-	onActivated = function() end,
-	variant = ButtonVariant.Standard,
-	text = "Button",
+local defaultProps = {
+	testId = "--foundation-toast",
 }
 
-local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
+local function Toast(toastProps: ToastProps, ref: React.Ref<GuiObject>?)
+	local props = withDefaults(toastProps, defaultProps)
 	local tokens = useTokens()
 	local cursor = useCursor({
 		radius = UDim.new(0, tokens.Radius.Medium),
@@ -67,12 +60,12 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 					break
 				end
 
-				local buttonProps = Cryo.Dictionary.union(withDefaults(action, defaultButtonProps), {
+				local buttonProps = Cryo.Dictionary.union(action, {
 					LayoutOrder = #actions - i,
 					size = InputSize.Medium,
 					fillBehavior = FillBehavior.Fill,
 				})
-				buttons["ToastButton" .. i] = React.createElement(Button, buttonProps)
+				buttons["ToastButton" .. i] = React.createElement(Button, buttonProps :: any)
 			end
 		end
 		return buttons
@@ -103,6 +96,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 					LayoutOrder = 1,
 					Image = props.icon,
 					tag = "size-1200-1200",
+					testId = `{props.testId}--media`,
 				})
 				else nil,
 			Content = React.createElement(View, {
@@ -111,12 +105,14 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 					["auto-y fill self-center"] = true,
 					["col gap-xxsmall"] = (hasTitle or hasBody) :: boolean,
 				},
+				testId = `{props.testId}--content`,
 			}, {
 				Header = if hasTitle
 					then React.createElement(Text, {
 						LayoutOrder = 1,
 						Text = props.title,
 						tag = "auto-y size-full-0 text-align-x-left text-title-small content-emphasis text-truncate-end",
+						testId = `{props.testId}--header`,
 					})
 					else nil,
 
@@ -125,6 +121,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 						LayoutOrder = 2,
 						Text = props.text,
 						tag = "auto-y size-full-0 text-wrap text-align-x-left text-body-small content-default",
+						testId = `{props.testId}--body`,
 					})
 					else nil,
 
@@ -135,6 +132,7 @@ local function Toast(props: ToastProps, ref: React.Ref<GuiObject>?)
 							["auto-y row gap-small size-full-0"] = true,
 							["padding-top-small"] = (hasTitle or hasBody) :: boolean,
 						},
+						testId = `{props.testId}--actions`,
 					}, toastButtons)
 					else nil,
 			}),

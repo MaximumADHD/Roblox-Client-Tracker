@@ -6,6 +6,8 @@ local BuilderIcons = require(Packages.BuilderIcons)
 
 local View = require(Foundation.Components.View)
 local IconButton = require(Foundation.Components.IconButton)
+local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -29,29 +31,49 @@ return {
 			name = variant,
 			story = function(props)
 				local controls = props.controls
+				local isInverse = controls.isInverse
+				local contextValue = { isInverse = isInverse }
+				local tokens = useTokens()
 
-				return React.createElement(
-					View,
-					{ tag = "row gap-medium auto-y size-full-0 align-y-center" },
-					Dash.map(
-						{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
-						function(size)
-							return React.createElement(IconButton, {
-								icon = {
-									name = props.controls.name,
-									variant = props.controls.variant,
-								},
-								variant = variant,
-								onActivated = function()
-									print(`{variant} IconButton ({size}) activated`)
-								end,
-								isDisabled = controls.isDisabled,
-								size = size,
-								isCircular = controls.isCircular,
-							})
-						end
-					)
-				)
+				return React.createElement(View, {
+					tag = "row gap-medium auto-xy size-0 align-y-center padding-medium radius-medium",
+					backgroundStyle = if variant == ButtonVariant.OverMedia
+						then tokens.Color.Extended.White.White_100
+						elseif isInverse then tokens.Inverse.Surface.Surface_0
+						else nil,
+				}, {
+					Gradient = if variant == ButtonVariant.OverMedia
+						then React.createElement("UIGradient", {
+							Color = ColorSequence.new({
+								ColorSequenceKeypoint.new(0, tokens.Color.Extended.Green.Green_500.Color3),
+								ColorSequenceKeypoint.new(1, tokens.Color.Extended.Blue.Blue_500.Color3),
+							}),
+						})
+						else nil,
+					IconButtons = React.createElement(
+						PresentationContext.Provider,
+						{ value = contextValue },
+						Dash.map(
+							{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
+							function(size)
+								return React.createElement(IconButton, {
+									icon = {
+										name = props.controls.name,
+										variant = props.controls.variant,
+									},
+									variant = variant,
+									onActivated = function()
+										local contextName = if isInverse then "Inverse" else "Normal"
+										print(`{contextName} {variant} IconButton ({size}) activated`)
+									end,
+									isDisabled = controls.isDisabled,
+									size = size,
+									isCircular = controls.isCircular,
+								})
+							end
+						)
+					),
+				})
 			end,
 		}
 	end),
@@ -60,5 +82,6 @@ return {
 		variant = Dash.values(BuilderIcons.IconVariant),
 		isDisabled = false,
 		isCircular = false,
+		isInverse = false,
 	},
 }

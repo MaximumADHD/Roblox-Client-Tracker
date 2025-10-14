@@ -53,6 +53,7 @@ local function DefaultStory(props)
 					hint = controls.hint,
 					precision = controls.precision,
 					leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
+					isScrubbable = controls.isScrubbable,
 				})
 			end
 		)
@@ -81,6 +82,7 @@ return {
 		precision = 2,
 		baseWidth = 200,
 		controlsVariant = Dash.values(NumberInputControlsVariant),
+		isScrubbable = false,
 		leadingIcon = {
 			"icons/placeholder/placeholderOn_small",
 			"icons/status/private_small",

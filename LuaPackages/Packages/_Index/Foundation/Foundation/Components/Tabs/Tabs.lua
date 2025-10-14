@@ -35,6 +35,7 @@ export type TabsProps = {
 local defaultProps = {
 	fillBehavior = FillBehavior.Fill,
 	size = InputSize.Medium,
+	testId = "--foundation-tabs",
 }
 
 local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
@@ -57,48 +58,57 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	end)
 
 	return React.createElement(View, withCommonProps(props, { ref = ref, tag = "auto-y size-full-0 col" }), {
-		Wrapper = React.createElement(View, { LayoutOrder = 1, tag = "auto-y size-full-0" }, {
-			ScrollContainer = React.createElement(OverflowScrollContainer, {
-				LayoutOrder = 1,
-				size = props.size,
-			}, {
-				TabList = React.createElement(
-					View,
-					{
-						tag = {
-							["row auto-xy flex-y-fill"] = true,
-							["gap-large"] = not isFill,
-							["size-full-0"] = isFill,
+		Wrapper = React.createElement(
+			View,
+			{ LayoutOrder = 1, tag = "auto-y size-full-0", testId = `{props.testId}--wrapper` },
+			{
+				ScrollContainer = React.createElement(OverflowScrollContainer, {
+					LayoutOrder = 1,
+					size = props.size,
+					testId = `{props.testId}--scroll-container`,
+				}, {
+					TabList = React.createElement(
+						View,
+						{
+							tag = {
+								["row auto-xy flex-y-fill"] = true,
+								["gap-large"] = not isFill,
+								["size-full-0"] = isFill,
+							},
+							testId = `{props.testId}--list`,
 						},
-					},
-					Dash.map(props.tabs, function(tab, index)
-						return React.createElement(TabItem, {
-							id = tab.id,
-							text = tab.text,
-							key = tostring(tab.id),
-							icon = tab.icon,
-							isActive = tab.id == activeTabId,
-							onActivated = onActivated,
-							LayoutOrder = index,
-							fillBehavior = props.fillBehavior,
-							size = props.size,
-							isDisabled = tab.isDisabled,
-						})
-					end)
-				),
-			}),
-			Border = React.createElement(View, {
-				LayoutOrder = 2,
-				AnchorPoint = Vector2.new(0, 1),
-				Size = UDim2.new(1, 0, 0, tokens.Stroke.Thick),
-				Position = UDim2.new(0, 0, 1, 0),
-				backgroundStyle = tokens.Color.Stroke.Default,
-			}),
-		}),
+						Dash.map(props.tabs, function(tab, index)
+							return React.createElement(TabItem, {
+								id = tab.id,
+								text = tab.text,
+								key = tostring(tab.id),
+								icon = tab.icon,
+								isActive = tab.id == activeTabId,
+								onActivated = onActivated,
+								LayoutOrder = index,
+								fillBehavior = props.fillBehavior,
+								size = props.size,
+								isDisabled = tab.isDisabled,
+								testId = `{props.testId}--item-{tab.id}`,
+							})
+						end)
+					),
+				}),
+				Border = React.createElement(View, {
+					LayoutOrder = 2,
+					AnchorPoint = Vector2.new(0, 1),
+					Size = UDim2.new(1, 0, 0, tokens.Stroke.Thick),
+					Position = UDim2.new(0, 0, 1, 0),
+					backgroundStyle = tokens.Color.Stroke.Default,
+					testId = `{props.testId}--border`,
+				}),
+			}
+		),
 		Content = if activeTab and activeTab.content
 			then React.createElement(View, {
 				LayoutOrder = 2,
 				tag = "auto-y size-full-0",
+				testId = `{props.testId}--content`,
 			}, activeTab.content)
 			else nil,
 	})

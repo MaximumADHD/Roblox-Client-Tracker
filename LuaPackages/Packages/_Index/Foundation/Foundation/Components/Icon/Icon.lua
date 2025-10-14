@@ -40,6 +40,7 @@ export type IconProps = {
 local defaultProps = {
 	size = IconSize.Medium,
 	variant = IconVariant.Regular,
+	testId = "--foundation-icon",
 }
 
 local function Icon(iconProps: IconProps, ref: React.Ref<GuiObject>?)

@@ -14,6 +14,8 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle
 
+local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+
 type GameStatList = LeaderboardStore.GameStatList
 
 export type TitleBarViewProps = {
@@ -92,7 +94,7 @@ local function TitleBarView(props: TitleBarViewProps)
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextYAlignment = Enum.TextYAlignment.Center,
 		Font = style.Font.Footer.Font,
-		TextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
+		TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.TitleBarTextSize else style.Font.BaseSize * style.Font.Footer.RelativeSize,
 		TextTransparency = textTransparency,
 		TextColor3 = textColor,
 	}, {
@@ -119,7 +121,7 @@ local function TitleBarView(props: TitleBarViewProps)
 				TextXAlignment = Enum.TextXAlignment.Center,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				Font = style.Font.Footer.Font,
-				TextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
+				TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.TitleBarTextSize else style.Font.BaseSize * style.Font.Footer.RelativeSize,
 				TextTransparency = textTransparency,
 				TextColor3 = textColor,
 					TextTruncate = Enum.TextTruncate.AtEnd,

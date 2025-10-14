@@ -9,6 +9,7 @@ type ButtonVariant = ButtonVariant.ButtonVariant
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type Stroke = Types.Stroke
+type StateLayer = Types.StateLayer
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
@@ -27,6 +28,7 @@ type IconButtonVariantProps = {
 		radius: number,
 		style: ColorStyleValue,
 		padding: UDim,
+		stateLayer: StateLayer?,
 	},
 	content: {
 		style: ColorStyleValue,
@@ -88,7 +90,7 @@ local variantsMap = function(tokens: Tokens)
 	return { common = common, sizes = sizes, types = sharedVariants.types }
 end
 
-return function(tokens: Tokens, size: InputSize, variant: ButtonVariant): IconButtonVariantProps
+return function(tokens: Tokens, size: InputSize, variant: ButtonVariant, isInverse: boolean?): IconButtonVariantProps
 	local variants = VariantsContext.useVariants("IconButton", variantsMap, tokens)
-	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant])
+	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant][isInverse or false])
 end

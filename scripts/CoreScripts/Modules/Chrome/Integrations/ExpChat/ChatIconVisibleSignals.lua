@@ -4,6 +4,7 @@ local Signals = require(Packages.Signals)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagExpChatGuacChatDisabledReason = SharedFlags.GetFFlagExpChatGuacChatDisabledReason
+local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 
 local Chrome = script.Parent.Parent.Parent
 local FFlagRemoveLegacyChatConsoleCheck = require(Chrome.Flags.FFlagRemoveLegacyChatConsoleCheck)
@@ -19,6 +20,10 @@ local function new()
 	local getChatActiveCalledByDeveloper, setChatActiveCalledByDeveloper = Signals.createSignal(false)
 	local getVisibleViaChatSelector, setVisibleViaChatSelector = Signals.createSignal(false)
 	local getForceDisableForConsoleUsecase, setForceDisableForConsoleUsecase = Signals.createSignal(false)
+	local getGameSettingsChatVisible, setGameSettingsChatVisible
+	if FFlagExpChatWindowSyncUnibar then
+		getGameSettingsChatVisible, setGameSettingsChatVisible = Signals.createSignal(false)
+	end
 
 	local isChatDisabledRegionLocked = false
 	if GetFFlagExpChatGuacChatDisabledReason() and UniversalAppPolicy then
@@ -36,10 +41,12 @@ local function new()
 			return true
 		-- Edge case: We never want to show chat without the unibar button. This can happen if the developer
 		-- uses SetCore("ChatActive") to toggle chat visibility.
-		elseif getVisibleViaChatSelector(scope) then
+		elseif not FFlagExpChatWindowSyncUnibar and getVisibleViaChatSelector(scope) then
 			return true
 		-- Edge case: developer can reveal chat via SetCore("ChatActive") even if privacy settings are off
-		elseif getChatActiveCalledByDeveloper(scope) then
+		elseif not FFlagExpChatWindowSyncUnibar and getChatActiveCalledByDeveloper(scope) then
+			return true
+		elseif FFlagExpChatWindowSyncUnibar and getGameSettingsChatVisible(scope) then
 			return true
 		end
 
@@ -50,8 +57,22 @@ local function new()
 		end
 	end)
 
+	local getIsChatWindowVisible
+	if FFlagExpChatWindowSyncUnibar then
+		getIsChatWindowVisible = Signals.createComputed(function(scope)
+			if getIsChatIconVisible(scope) then
+				if getGameSettingsChatVisible(scope) then
+					return true
+				end
+			end
+
+			return false
+		end)
+	end
+
 	return {
 		getIsChatIconVisible = getIsChatIconVisible,
+		getIsChatWindowVisible = getIsChatWindowVisible,
 		setCoreGuiEnabled = setCoreGuiEnabled,
 		setLocalUserChat = setLocalUserCanChat,
 		setChatActiveCalledByDeveloper = setChatActiveCalledByDeveloper,
@@ -59,6 +80,7 @@ local function new()
 		setForceDisableForConsoleUsecase = if FFlagRemoveLegacyChatConsoleCheck
 			then (function() end) :: never
 			else setForceDisableForConsoleUsecase,
+		setGameSettingsChatVisible = setGameSettingsChatVisible,
 	}
 end
 

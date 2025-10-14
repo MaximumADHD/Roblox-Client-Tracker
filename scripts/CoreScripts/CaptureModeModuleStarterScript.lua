@@ -10,7 +10,6 @@ UIBlox.init(uiBloxConfig)
 
 -- Flags
 local FFlagFeedbackModuleEarlyFontInitialization = game:DefineFastFlag("FeedbackModuleEarlyFontInitialization", false)
-local FFlagCaptureModeNativeExitSupport = game:DefineFastFlag("CaptureModeNativeExitSupport", false)
 
 if FFlagFeedbackModuleEarlyFontInitialization then
 	-- Early load font to prevent feedback module components from initially rendering with incorrect underlying text widths that cause unexpected text wrapping issues.
@@ -23,15 +22,12 @@ if FFlagFeedbackModuleEarlyFontInitialization then
 	params.Width = 0
 	local _unused = TextService:GetTextBoundsAsync(params)
 end
-
-if FFlagCaptureModeNativeExitSupport then
 	-- TODO: Show exit modal in capture mode rather than just exiting to UGC game.
 	local function handleNativeExit()
 		game:GetService("ExperienceStateCaptureService"):ToggleCaptureMode()
 	end
 
 	game:GetService("GuiService").NativeClose:Connect(handleNativeExit)
-end
 
 	game:WaitForChild("SafetyService")
 	local SafetyService = game:GetService("SafetyService")

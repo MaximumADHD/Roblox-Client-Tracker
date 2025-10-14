@@ -69,6 +69,28 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
+  GETIMPORT R2 K1 [warn]
+  LOADK R4 K2 ["WebStreamClient Error: %* (Code: %*)"]
+  MOVE R6 R1
+  MOVE R7 R0
+  NAMECALL R4 R4 K3 ["format"]
+  CALL R4 3 1
+  MOVE R3 R4
+  CALL R2 1 0
+  DUPTABLE R2 K6 [{"type", "error"}]
+  LOADK R3 K5 ["error"]
+  SETTABLEKS R3 R2 K4 ["type"]
+  LOADK R3 K7 ["external_connection_error"]
+  SETTABLEKS R3 R2 K5 ["error"]
+  GETUPVAL R3 0
+  MOVE R4 R2
+  CALL R3 1 0
+  GETUPVAL R3 1
+  NAMECALL R3 R3 K8 ["Close"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_5:
   GETUPVAL R0 0
   CALL R0 0 1
   JUMPIFNOT R0 [+4]
@@ -85,114 +107,156 @@ PROTO_4:
   CALL R0 1 0
   LOADNIL R0
   SETUPVAL R0 1
+  GETUPVAL R0 2
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K3 ["Connected"]
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R0 2
+  NAMECALL R0 R0 K4 ["Disconnect"]
+  CALL R0 1 0
   LOADNIL R0
   SETUPVAL R0 2
+  LOADNIL R0
+  SETUPVAL R0 3
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R2 0
   LOADK R4 K0 ["HttpService"]
   NAMECALL R2 R2 K1 ["GetService"]
   CALL R2 2 1
-  DUPTABLE R3 K9 [{"model", "max_tokens", "messages", "tools", "system", "stream", "tool_choice"}]
-  LOADK R4 K10 ["claude-4-sonnet-20250514"]
-  SETTABLEKS R4 R3 K2 ["model"]
-  LOADN R4 0
-  SETTABLEKS R4 R3 K3 ["max_tokens"]
-  GETUPVAL R4 1
-  GETTABLEKS R5 R0 K4 ["messages"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K4 ["messages"]
-  GETTABLEKS R4 R0 K5 ["tools"]
-  SETTABLEKS R4 R3 K5 ["tools"]
-  NEWTABLE R4 0 1
-  DUPTABLE R5 K14 [{"type", "text", "cache_control"}]
-  LOADK R6 K12 ["text"]
-  SETTABLEKS R6 R5 K11 ["type"]
-  GETTABLEKS R6 R0 K6 ["system"]
-  SETTABLEKS R6 R5 K12 ["text"]
-  DUPTABLE R6 K15 [{"type"}]
-  LOADK R7 K16 ["ephemeral"]
-  SETTABLEKS R7 R6 K11 ["type"]
-  SETTABLEKS R6 R5 K13 ["cache_control"]
-  SETLIST R4 R5 1 [1]
-  SETTABLEKS R4 R3 K6 ["system"]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K7 ["stream"]
-  DUPTABLE R4 K18 [{"type", "disable_parallel_tool_use"}]
-  LOADK R5 K19 ["auto"]
-  SETTABLEKS R5 R4 K11 ["type"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K17 ["disable_parallel_tool_use"]
-  SETTABLEKS R4 R3 K8 ["tool_choice"]
-  GETUPVAL R4 2
-  CALL R4 0 1
-  JUMPIFNOT R4 [+12]
-  GETIMPORT R4 K21 [print]
-  LOADK R6 K22 ["--- ClaudeLLMRequest requestBody: %*"]
-  MOVE R10 R3
-  NAMECALL R8 R2 K23 ["JSONEncode"]
-  CALL R8 2 1
-  NAMECALL R6 R6 K24 ["format"]
-  CALL R6 2 1
-  MOVE R5 R6
-  CALL R4 1 0
-  GETIMPORT R6 K28 [Enum.WebStreamClientType.SSE]
-  DUPTABLE R7 K34 [{"Method", "Url", "Headers", "Body", "Compress"}]
-  LOADK R8 K35 ["POST"]
-  SETTABLEKS R8 R7 K29 ["Method"]
-  LOADK R8 K36 ["https://api.anthropic.com/v1/messages"]
-  SETTABLEKS R8 R7 K30 ["Url"]
-  NEWTABLE R8 4 0
-  LOADK R9 K37 ["application/json"]
-  SETTABLEKS R9 R8 K38 ["content-type"]
-  GETUPVAL R9 3
-  CALL R9 0 1
-  SETTABLEKS R9 R8 K39 ["x-api-key"]
-  LOADK R9 K40 ["2023-06-01"]
-  SETTABLEKS R9 R8 K41 ["anthropic-version"]
-  SETTABLEKS R8 R7 K31 ["Headers"]
-  MOVE R10 R3
-  NAMECALL R8 R2 K23 ["JSONEncode"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K32 ["Body"]
-  GETIMPORT R8 K44 [Enum.HttpCompression.None]
-  SETTABLEKS R8 R7 K33 ["Compress"]
-  NAMECALL R4 R2 K45 ["CreateWebStreamClient"]
-  CALL R4 3 1
-  FASTCALL2K ASSERT R4 K46 [+5]
-  MOVE R6 R4
-  LOADK R7 K46 ["WebStreamClient should not be nil"]
-  GETIMPORT R5 K48 [assert]
-  CALL R5 2 0
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K49 ["createParser"]
-  DUPTABLE R6 K53 [{"onEvent", "onError", "onComment"}]
-  NEWCLOSURE R7 P0
-  CAPTURE UPVAL U2
+  GETUPVAL R3 1
+  CALL R3 0 1
+  JUMPIFEQKS R3 K2 [""] [+3]
+  MOVE R4 R3
+  JUMPIF R4 [+1]
+  LOADK R4 K3 ["claude-sonnet-4-5-20250929"]
+  DUPTABLE R5 K11 [{"model", "max_tokens", "messages", "tools", "system", "stream", "tool_choice"}]
+  SETTABLEKS R4 R5 K4 ["model"]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K5 ["max_tokens"]
+  GETUPVAL R6 2
+  GETTABLEKS R7 R0 K6 ["messages"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K6 ["messages"]
+  GETTABLEKS R6 R0 K7 ["tools"]
+  SETTABLEKS R6 R5 K7 ["tools"]
+  NEWTABLE R6 0 1
+  DUPTABLE R7 K15 [{"type", "text", "cache_control"}]
+  LOADK R8 K13 ["text"]
+  SETTABLEKS R8 R7 K12 ["type"]
+  GETTABLEKS R8 R0 K8 ["system"]
+  SETTABLEKS R8 R7 K13 ["text"]
+  DUPTABLE R8 K16 [{"type"}]
+  LOADK R9 K17 ["ephemeral"]
+  SETTABLEKS R9 R8 K12 ["type"]
+  SETTABLEKS R8 R7 K14 ["cache_control"]
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K8 ["system"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K9 ["stream"]
+  DUPTABLE R6 K19 [{"type", "disable_parallel_tool_use"}]
+  LOADK R7 K20 ["auto"]
+  SETTABLEKS R7 R6 K12 ["type"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K18 ["disable_parallel_tool_use"]
+  SETTABLEKS R6 R5 K10 ["tool_choice"]
+  GETUPVAL R7 3
+  CALL R7 0 1
+  JUMPIFNOT R7 [+17]
+  GETTABLEKS R7 R0 K21 ["apiKeys"]
+  JUMPIFNOT R7 [+14]
+  GETTABLEKS R8 R0 K21 ["apiKeys"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K22 ["CLAUDE_API_KEY"]
+  GETTABLE R7 R8 R9
+  JUMPIFNOT R7 [+7]
+  GETTABLEKS R7 R0 K21 ["apiKeys"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K22 ["CLAUDE_API_KEY"]
+  GETTABLE R6 R7 R8
+  JUMP [+2]
+  GETUPVAL R6 5
+  CALL R6 0 1
+  GETUPVAL R7 6
+  CALL R7 0 1
+  JUMPIFNOT R7 [+12]
+  GETIMPORT R7 K24 [print]
+  LOADK R9 K25 ["--- ClaudeLLMRequest requestBody: %*"]
+  MOVE R13 R5
+  NAMECALL R11 R2 K26 ["JSONEncode"]
+  CALL R11 2 1
+  NAMECALL R9 R9 K27 ["format"]
+  CALL R9 2 1
+  MOVE R8 R9
+  CALL R7 1 0
+  GETIMPORT R9 K31 [Enum.WebStreamClientType.SSE]
+  DUPTABLE R10 K37 [{"Method", "Url", "Headers", "Body", "Compress"}]
+  LOADK R11 K38 ["POST"]
+  SETTABLEKS R11 R10 K32 ["Method"]
+  LOADK R11 K39 ["https://api.anthropic.com/v1/messages"]
+  SETTABLEKS R11 R10 K33 ["Url"]
+  NEWTABLE R11 4 0
+  LOADK R12 K40 ["application/json"]
+  SETTABLEKS R12 R11 K41 ["content-type"]
+  SETTABLEKS R6 R11 K42 ["x-api-key"]
+  LOADK R12 K43 ["2023-06-01"]
+  SETTABLEKS R12 R11 K44 ["anthropic-version"]
+  SETTABLEKS R11 R10 K34 ["Headers"]
+  MOVE R13 R5
+  NAMECALL R11 R2 K26 ["JSONEncode"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K35 ["Body"]
+  GETIMPORT R11 K47 [Enum.HttpCompression.None]
+  SETTABLEKS R11 R10 K36 ["Compress"]
+  NAMECALL R7 R2 K48 ["CreateWebStreamClient"]
+  CALL R7 3 1
+  FASTCALL2K ASSERT R7 K49 [+5]
+  MOVE R9 R7
+  LOADK R10 K49 ["WebStreamClient should not be nil"]
+  GETIMPORT R8 K51 [assert]
+  CALL R8 2 0
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K52 ["createParser"]
+  DUPTABLE R9 K56 [{"onEvent", "onError", "onComment"}]
+  NEWCLOSURE R10 P0
+  CAPTURE UPVAL U6
   CAPTURE VAL R2
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U8
   CAPTURE VAL R1
-  SETTABLEKS R7 R6 K50 ["onEvent"]
-  DUPCLOSURE R7 K54 [PROTO_2]
-  CAPTURE UPVAL U2
-  SETTABLEKS R7 R6 K51 ["onError"]
-  DUPCLOSURE R7 K55 [PROTO_3]
-  CAPTURE UPVAL U2
-  SETTABLEKS R7 R6 K52 ["onComment"]
-  CALL R5 1 1
-  GETTABLEKS R6 R4 K56 ["MessageReceived"]
-  GETTABLEKS R8 R5 K57 ["parseNextChunk"]
-  NAMECALL R6 R6 K58 ["Connect"]
-  CALL R6 2 1
-  GETTABLEKS R7 R4 K59 ["Closed"]
-  NEWCLOSURE R9 P3
-  CAPTURE UPVAL U2
-  CAPTURE REF R6
-  CAPTURE REF R4
-  NAMECALL R7 R7 K60 ["Once"]
-  CALL R7 2 0
-  CLOSEUPVALS R4
+  SETTABLEKS R10 R9 K53 ["onEvent"]
+  DUPCLOSURE R10 K57 [PROTO_2]
+  CAPTURE UPVAL U6
+  SETTABLEKS R10 R9 K54 ["onError"]
+  DUPCLOSURE R10 K58 [PROTO_3]
+  CAPTURE UPVAL U6
+  SETTABLEKS R10 R9 K55 ["onComment"]
+  CALL R8 1 1
+  GETTABLEKS R9 R7 K59 ["MessageReceived"]
+  GETTABLEKS R11 R8 K60 ["parseNextChunk"]
+  NAMECALL R9 R9 K61 ["Connect"]
+  CALL R9 2 1
+  LOADNIL R10
+  GETUPVAL R11 3
+  CALL R11 0 1
+  JUMPIFNOT R11 [+9]
+  GETTABLEKS R11 R7 K62 ["Error"]
+  NEWCLOSURE R13 P3
+  CAPTURE VAL R1
+  CAPTURE REF R7
+  NAMECALL R11 R11 K61 ["Connect"]
+  CALL R11 2 1
+  MOVE R10 R11
+  GETTABLEKS R11 R7 K63 ["Closed"]
+  NEWCLOSURE R13 P4
+  CAPTURE UPVAL U6
+  CAPTURE REF R9
+  CAPTURE REF R10
+  CAPTURE REF R7
+  NAMECALL R11 R11 K64 ["Once"]
+  CALL R11 2 0
+  CLOSEUPVALS R7
   RETURN R0 0
 
 MAIN:
@@ -217,33 +281,49 @@ MAIN:
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K12 ["Flags"]
-  GETTABLEKS R5 R6 K14 ["FStringMCPAssistantClaudeAPIKey"]
+  GETTABLEKS R5 R6 K14 ["FFlagMCPAssistantExternalAPIKey"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Components"]
-  GETTABLEKS R8 R9 K9 ["Contexts"]
-  GETTABLEKS R7 R8 K15 ["DefaultLLMProvider"]
-  GETTABLEKS R6 R7 K16 ["LLMRequest"]
+  GETTABLEKS R7 R0 K12 ["Flags"]
+  GETTABLEKS R6 R7 K15 ["FStringMCPAssistantClaudeAPIKey"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K17 ["Parent"]
-  GETTABLEKS R7 R8 K18 ["ModelContextProtocol"]
+  GETTABLEKS R8 R0 K12 ["Flags"]
+  GETTABLEKS R7 R8 K16 ["FStringMCPAssistantCustomModelName"]
   CALL R6 1 1
-  GETTABLEKS R7 R3 K19 ["Get"]
-  GETTABLEKS R8 R4 K19 ["Get"]
-  GETTABLEKS R9 R2 K20 ["createAdapter"]
-  CALL R9 0 1
-  GETTABLEKS R10 R2 K21 ["convertLLMtoClaudeMessage"]
-  GETTABLEKS R11 R6 K22 ["EventStreamParser"]
-  DUPCLOSURE R12 K23 [PROTO_5]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Components"]
+  GETTABLEKS R10 R11 K9 ["Contexts"]
+  GETTABLEKS R9 R10 K17 ["DefaultLLMProvider"]
+  GETTABLEKS R8 R9 K18 ["LLMRequest"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K19 ["Parent"]
+  GETTABLEKS R9 R10 K20 ["ModelContextProtocol"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R0 K21 ["Types"]
+  CALL R9 1 1
+  GETTABLEKS R10 R3 K22 ["Get"]
+  GETTABLEKS R11 R4 K22 ["Get"]
+  GETTABLEKS R12 R5 K22 ["Get"]
+  GETTABLEKS R13 R6 K22 ["Get"]
+  GETTABLEKS R14 R2 K23 ["createAdapter"]
+  CALL R14 0 1
+  GETTABLEKS R15 R2 K24 ["convertLLMtoClaudeMessage"]
+  GETTABLEKS R16 R8 K25 ["EventStreamParser"]
+  DUPCLOSURE R17 K26 [PROTO_6]
   CAPTURE VAL R1
-  CAPTURE VAL R10
-  CAPTURE VAL R7
-  CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R15
   CAPTURE VAL R11
   CAPTURE VAL R9
-  DUPTABLE R13 K26 [{"requestHandler", "createRequestHandler"}]
-  SETTABLEKS R12 R13 K24 ["requestHandler"]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K25 ["createRequestHandler"]
-  RETURN R13 1
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  DUPTABLE R18 K29 [{"requestHandler", "createRequestHandler"}]
+  SETTABLEKS R17 R18 K27 ["requestHandler"]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K28 ["createRequestHandler"]
+  RETURN R18 1

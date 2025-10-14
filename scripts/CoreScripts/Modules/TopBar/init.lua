@@ -47,6 +47,7 @@ local FFlagTopBarDeprecateGameInfoRodux = require(script.Flags.FFlagTopBarDeprec
 local FFlagTopBarDeprecateGamepadNavigationDialogRodux = require(script.Flags.FFlagTopBarDeprecateGamepadNavigationDialogRodux)
 
 local FFlagTopBarDeprecateChatRodux = require(script.Flags.FFlagTopBarDeprecateChatRodux)
+local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
 
 if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing or FFlagTopBarStyleUseDisplayUIScale) then
 	local function SetGlobalGuiInset()
@@ -158,9 +159,11 @@ function TopBar.new()
 		InGameMenu.mountInGameMenu()
 	end
 
-	coroutine.wrap(function()
-		self.store:dispatch(SetSmallTouchDevice(SettingsUtil:IsSmallTouchScreen()))
-	end)()
+	if not FFlagTopBarDeprecateDisplayOptionsRodux then
+		coroutine.wrap(function()
+			self.store:dispatch(SetSmallTouchDevice(SettingsUtil:IsSmallTouchScreen()))
+		end)()
+	end
 
 	local appStyleForAppStyleProvider = {
 		themeName = StyleConstants.ThemeName.Dark,
@@ -285,7 +288,9 @@ function TopBar:setGamepadMenuOpen(open)
 end
 
 function TopBar:setGamepadNavigationDialogOpen(open)
-	self.store:dispatch(SetGamepadNavigationDialogOpen(open))
+	if not FFlagTopBarDeprecateDisplayOptionsRodux then
+		self.store:dispatch(SetGamepadNavigationDialogOpen(open))
+	end
 end
 
 return TopBar.new()

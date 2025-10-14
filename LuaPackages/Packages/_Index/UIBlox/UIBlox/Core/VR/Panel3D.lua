@@ -91,7 +91,7 @@ local function Panel3D(providedProps: Props)
 				HorizontalCurvature = if useCurvedPanel then props.curvature else nil,
 				ZOffset = props.zOffset,
 			},
-		}, props.children)
+		} :: any, props.children)
 	else
 		local basePart: Constants.Ref<Part?> = props.partRef or React.useRef(nil)
 		local surfaceGui: Constants.Ref<SurfaceGui?> = React.useRef(nil)
@@ -120,6 +120,12 @@ local function Panel3D(providedProps: Props)
 					return function() end
 				end
 			end, { surfaceGui, props.anchoring, props.connectPanelManagerFunction })
+		end
+
+		if UIBloxConfig.enablePanel3DSurfaceGuiRef and props.surfaceGuiRef then
+			React.useImperativeHandle(props.surfaceGuiRef, function()
+				return surfaceGui.current
+			end, { surfaceGui })
 		end
 
 		return React.createElement("Folder", {

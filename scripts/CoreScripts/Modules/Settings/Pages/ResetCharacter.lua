@@ -53,8 +53,6 @@ local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShort
 local FFlagRespawnActionChromeShortcutTelemetry = require(RobloxGui.Modules.Chrome.Flags.FFlagRespawnActionChromeShortcutTelemetry)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 
-local FFlagResetTelemetryTypeCheckFix = game:DefineFastFlag("ResetTelemetryTypeCheckFix", false)
-
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local focusNavigationService = ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
@@ -251,15 +249,9 @@ local function Initialize()
 		end
 
 		local respawnCustomFields = { confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId) }
-		if FFlagResetTelemetryTypeCheckFix then
 			if FFlagRespawnActionChromeShortcutTelemetry and props and type(props) == "table" and props.resetTelemetryFields then
 				respawnCustomFields = Cryo.Dictionary.join(respawnCustomFields, props.resetTelemetryFields)
 			end
-		else
-			if FFlagRespawnActionChromeShortcutTelemetry and props and props.resetTelemetryFields then
-				respawnCustomFields = Cryo.Dictionary.join(respawnCustomFields, props.resetTelemetryFields)
-			end
-		end
 		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
 			Constants.AnalyticsRespawnCharacterName, respawnCustomFields)
 		AnalyticsService:ReportCounter("InGameMenu-ResetCharacter")

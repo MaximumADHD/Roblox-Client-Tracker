@@ -1,17 +1,14 @@
 PROTO_0:
   DUPTABLE R0 K1 [{"ManageMcpIntegration"}]
-  LOADK R1 K2 ["Manage integrations"]
+  LOADK R1 K2 ["Manage Integrations"]
   SETTABLEKS R1 R0 K0 ["ManageMcpIntegration"]
   RETURN R0 1
 
 PROTO_1:
   GETUPVAL R0 0
   GETUPVAL R1 1
-  DUPTABLE R2 K1 [{"testId"}]
-  LOADK R3 K2 ["Assistant-AddIntegrationDialog"]
-  SETTABLEKS R3 R2 K0 ["testId"]
-  NEWTABLE R3 0 0
-  CALL R0 3 -1
+  NEWTABLE R2 0 0
+  CALL R0 2 -1
   RETURN R0 -1
 
 PROTO_2:
@@ -113,7 +110,7 @@ PROTO_5:
   GETUPVAL R10 9
   CALL R10 0 1
   GETUPVAL R11 4
-  GETUPVAL R12 5
+  GETUPVAL R12 10
   DUPTABLE R13 K18 [{"tag", "LayoutOrder"}]
   LOADK R14 K19 ["auto-xy"]
   SETTABLEKS R14 R13 K16 ["tag"]
@@ -121,7 +118,7 @@ PROTO_5:
   SETTABLEKS R14 R13 K17 ["LayoutOrder"]
   DUPTABLE R14 K23 [{"IconButton", "PopoutMenu", "DialogWidget"}]
   GETUPVAL R15 4
-  GETUPVAL R16 10
+  GETUPVAL R16 11
   DUPTABLE R17 K26 [{"LayoutOrder", "onActivated", "testId"}]
   MOVE R18 R10
   CALL R18 0 1
@@ -149,58 +146,64 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Parent"]
-  GETTABLEKS R3 R4 K8 ["React"]
+  GETTABLEKS R4 R0 K8 ["Components"]
+  GETTABLEKS R3 R4 K9 ["IntegrationManagement"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Parent"]
-  GETTABLEKS R4 R5 K9 ["ReactUtils"]
+  GETTABLEKS R4 R5 K10 ["React"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Components"]
-  GETTABLEKS R5 R6 K11 ["ToolMenuView"]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K11 ["ReactUtils"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K12 ["Resources"]
-  GETTABLEKS R7 R8 K13 ["Localization"]
-  GETTABLEKS R6 R7 K14 ["Translator"]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K12 ["ToolMenuView"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Components"]
-  GETTABLEKS R7 R8 K15 ["WidgetTrackingIconButton"]
+  GETTABLEKS R9 R0 K13 ["Resources"]
+  GETTABLEKS R8 R9 K14 ["Localization"]
+  GETTABLEKS R7 R8 K15 ["Translator"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K16 ["Hooks"]
-  GETTABLEKS R8 R9 K17 ["useGetDialogWidget"]
+  GETTABLEKS R9 R0 K8 ["Components"]
+  GETTABLEKS R8 R9 K16 ["WidgetTrackingIconButton"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K16 ["Hooks"]
-  GETTABLEKS R9 R10 K18 ["useGetPopoutMenu"]
+  GETTABLEKS R10 R0 K17 ["Hooks"]
+  GETTABLEKS R9 R10 K18 ["useGetDialogWidget"]
   CALL R8 1 1
-  GETTABLEKS R9 R1 K19 ["View"]
-  GETTABLEKS R10 R3 K20 ["createNextOrder"]
-  GETTABLEKS R11 R2 K21 ["createElement"]
-  GETIMPORT R12 K24 [Vector2.new]
-  LOADN R13 88
-  LOADN R14 44
-  CALL R12 2 1
-  GETIMPORT R13 K24 [Vector2.new]
-  LOADN R14 0
-  LOADN R15 0
-  CALL R13 2 1
-  DUPCLOSURE R14 K25 [PROTO_5]
-  CAPTURE VAL R7
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K17 ["Hooks"]
+  GETTABLEKS R10 R11 K19 ["useGetPopoutMenu"]
+  CALL R9 1 1
+  GETTABLEKS R10 R2 K20 ["IntegrationMenu"]
+  GETTABLEKS R11 R1 K21 ["View"]
+  GETTABLEKS R12 R4 K22 ["createNextOrder"]
+  GETTABLEKS R13 R3 K23 ["createElement"]
+  GETIMPORT R14 K26 [Vector2.new]
+  LOADN R15 88
+  LOADN R16 44
+  CALL R14 2 1
+  GETIMPORT R15 K26 [Vector2.new]
+  LOADN R16 0
+  LOADN R17 0
+  CALL R15 2 1
+  DUPCLOSURE R16 K27 [PROTO_5]
   CAPTURE VAL R8
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE VAL R11
   CAPTURE VAL R9
-  CAPTURE VAL R12
-  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R6
   CAPTURE VAL R13
   CAPTURE VAL R10
-  CAPTURE VAL R6
-  GETTABLEKS R15 R2 K26 ["memo"]
-  MOVE R16 R14
-  CALL R15 1 -1
-  RETURN R15 -1
+  CAPTURE VAL R14
+  CAPTURE VAL R5
+  CAPTURE VAL R15
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  GETTABLEKS R17 R3 K28 ["memo"]
+  MOVE R18 R16
+  CALL R17 1 -1
+  RETURN R17 -1

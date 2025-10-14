@@ -11,6 +11,7 @@ local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(Core.Style.Validator.validateTypographyInfo)
 
 local Roact = require(Packages.Roact)
+local React = require(Packages.React)
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
@@ -31,11 +32,15 @@ CellTailDescription.validateProps = t.strictInterface({
 	renderTextOverride = t.optional(t.callback),
 	showArrow = t.optional(t.boolean),
 	infoIcon = t.optional(t.string),
+	testId = if UIBloxConfig.addTestIdToComboButtonAndCellTailDescription then t.optional(t.string) else nil,
 })
 
 CellTailDescription.defaultProps = {
 	showArrow = false,
 	infoIcon = nil,
+	testId = if UIBloxConfig.addTestIdToComboButtonAndCellTailDescription
+		then "--uiblox-cell-tail-description"
+		else nil,
 }
 
 function CellTailDescription:init()
@@ -81,6 +86,9 @@ function CellTailDescription:render()
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			AutomaticSize = Enum.AutomaticSize.XY,
+			[React.Tag] = if UIBloxConfig.addTestIdToComboButtonAndCellTailDescription and self.props.testId
+				then `data-testid={self.props.testId}`
+				else nil,
 		}, {
 			ListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,

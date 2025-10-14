@@ -19,6 +19,7 @@ export type LoadingProps = {
 
 local defaultProps = {
 	size = IconSize.Large,
+	testId = "--foundation-loading",
 }
 
 local function Loading(loadingProps: LoadingProps, ref: React.Ref<GuiObject>?)

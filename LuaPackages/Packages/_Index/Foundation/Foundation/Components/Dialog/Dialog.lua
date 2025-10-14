@@ -5,6 +5,7 @@ local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 local Dash = require(Packages.Dash)
 
+local Constants = require(Foundation.Constants)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
@@ -18,7 +19,7 @@ local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local useDialogVariants = require(script.Parent.useDialogVariants).useDialogVariants
 local useDialogSize = require(script.Parent.useDialogSize)
 local useDialogResponsiveSize = require(script.Parent.useDialogResponsiveSize)
-local DialogLayoutProvider = require(script.Parent.DialogLayoutProvider)
+local DialogProvider = require(script.Parent.DialogProvider)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 
 type DialogSize = DialogSize.DialogSize
@@ -30,6 +31,7 @@ export type DialogProps = {
 	disablePortal: boolean?,
 	hasBackdrop: boolean?,
 	children: React.ReactNode,
+	testId: string?,
 } & Types.NativeCallbackProps
 
 type DialogInternalProps = DialogProps & {
@@ -40,10 +42,11 @@ local defaultProps = {
 	size = DialogSize.Medium,
 	disablePortal = true,
 	hasBackdrop = false,
+	testId = "--foundation-dialog",
 }
 
-local SHADOW_IMAGE = "component_assets/dropshadow_17_8"
-local SHADOW_SIZE = 16
+local SHADOW_IMAGE = Constants.SHADOW_IMAGE
+local SHADOW_SIZE = Constants.SHADOW_SIZE
 
 local function Dialog(dialogProps: DialogInternalProps)
 	local props = Dash.assign({}, dialogProps, { LayoutOrder = 1 })
@@ -69,7 +72,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 				end,
 				backgroundStyle = variants.backdrop.backgroundStyle,
 				ZIndex = 2,
-				testId = "--foundation-dialog-backdrop",
+				testId = `{props.testId}--backdrop`,
 			})
 			else nil,
 		DialogShadowWrapper = React.createElement(View, {
@@ -86,13 +89,12 @@ local function Dialog(dialogProps: DialogInternalProps)
 					scale = 2,
 				},
 				imageStyle = variants.shadow.imageStyle,
-				testId = "--foundation-dialog-shadow",
+				testId = `{props.testId}--shadow`,
 			}),
 		}),
 	}, {
 		Dialog = React.createElement(View, {
 			tag = variants.container.tag,
-			testId = "--foundation-dialog",
 			ZIndex = 3,
 		}, {
 			DialogFlexStart = React.createElement(View, {
@@ -124,13 +126,13 @@ local function Dialog(dialogProps: DialogInternalProps)
 							),
 							AnchorPoint = Vector2.new(1, 0),
 							ZIndex = 2,
-							testId = "--foundation-dialog-close-affordance",
+							testId = `{props.testId}--close-affordance`,
 						})
 						else nil,
 					DialogBody = React.createElement(View, {
 						tag = variants.body.tag,
 						ref = dialogBodyRef,
-						testId = "--foundation-dialog-body",
+						testId = `{props.testId}--body`,
 					}, props.children),
 				}
 			),
@@ -151,9 +153,10 @@ end
 local function DialogContainer(dialogContainerProps: DialogProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(dialogContainerProps, defaultProps)
 
-	return React.createElement(DialogLayoutProvider, {
+	return React.createElement(DialogProvider, {
 		size = props.size :: DialogSize,
 		responsiveSize = props.size :: DialogSize,
+		testId = props.testId,
 	}, {
 		Dialog = React.createElement(
 			Dialog,

@@ -33,6 +33,8 @@ local FIntConfigurableReconnectWaitMs = game:DefineFastInt("ConfigurableReconnec
 local fflagReconnectToSameServer = game:DefineFastFlag("ReconnectToSameServer", false)
 local fflagShowScreentimeLockoutKickMessage = game:DefineFastFlag("ShowScreentimeLockoutKickMessage", false)
 
+local fflagShowNewConnectErrorsMessage = game:DefineFastFlag("ShowNewConnectErrorsMessage", false)
+
 local connectionEventConfig = {
 	eventName = "ConnectionEvent",
 	backends = { "RobloxTelemetryCounter" },
@@ -150,6 +152,8 @@ local ConnectionPromptState = {
 	RECONNECT_DISABLED_PLACELAUNCH = 7, -- Unauthorized join
 	RECONNECT_DISABLED = 8, -- General Disable by FFlag, i.e overloaded servers
 	OUT_OF_MEMORY_KEEPPLAYING_LEAVE = 9, -- Show Out Of Memory with Keep Playing/Leave Message
+	RECONNECT_CONNECT_FAILURE = 10, -- Show Connect Failure Reconnect Options
+	RECONNECT_DISABLED_CONNECT_FAILURE = 11, -- i.e. Version out of date
 }
 
 local connectionPromptState = ConnectionPromptState.NONE
@@ -168,6 +172,11 @@ local ErrorTitles = {
 	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_LEAVE] = "Low Memory Warning",
 }
 
+if fflagShowNewConnectErrorsMessage then
+	ErrorTitles[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = "Connection Failed"
+	ErrorTitles[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "Connection Failed"
+end
+
 local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
 	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
@@ -177,6 +186,11 @@ local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_DISABLED] = "InGame.CommonUI.Title.Error",
 	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_LEAVE] = "InGame.ConnectionError.Title.LowMemoryWarning",
 }
+
+if fflagShowNewConnectErrorsMessage then
+	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = "InGame.ConnectionError.Title.ConnectionFailed"
+	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "InGame.ConnectionError.Title.ConnectionFailed"
+end
 
 -- only return success when a valid root id is given
 local function fetchStarterPlaceId(universeId)
@@ -353,6 +367,15 @@ if fflagShowScreentimeLockoutKickMessage then
 	reconnectDisabledList[Enum.ConnectionError.ScreentimeLockoutKick] = true
 end
 
+if fflagShowNewConnectErrorsMessage then
+	reconnectDisabledList[Enum.ConnectionError.IPRecentlyConnected] = true
+	reconnectDisabledList[Enum.ConnectionError.ConnectionBanned] = true
+	reconnectDisabledList[Enum.ConnectionError.InvalidPassword] = true
+	reconnectDisabledList[Enum.ConnectionError.OurSystemRequiresSecurity] = true
+	reconnectDisabledList[Enum.ConnectionError.IncompatibleProtocolVersion] = true
+	reconnectDisabledList[Enum.ConnectionError.DisconnectRaknetErrors] = false
+end
+
 local ButtonList = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = {
 		{
@@ -437,6 +460,33 @@ local ButtonList = {
 	},
 }
 
+if fflagShowNewConnectErrorsMessage then
+	ButtonList[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = {
+		{
+			Text = "Retry",
+			LocalizationKey = "InGame.CommonUI.Button.Retry",
+			LayoutOrder = 2,
+			Callback = reconnectFunction,
+			Primary = true,
+		},
+		{
+			Text = "Cancel",
+			LocalizationKey = "Feature.SettingsHub.Action.CancelSearch",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
+		},
+	}
+	ButtonList[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = {
+		{
+			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
+			Primary = true,
+		},
+	}
+end
+
 local updateFullScreenEffect = {
 	[ConnectionPromptState.NONE] = function()
 		RunService:SetRobloxGuiFocused(false)
@@ -486,6 +536,19 @@ local updateFullScreenEffect = {
 		promptOverlay.Transparency = 1
 	end,
 }
+
+if fflagShowNewConnectErrorsMessage then
+	updateFullScreenEffect[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = function()
+		RunService:SetRobloxGuiFocused(false)
+		promptOverlay.Active = true
+		promptOverlay.Transparency = 0.3
+	end
+	updateFullScreenEffect[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = function()
+		RunService:SetRobloxGuiFocused(false)
+		promptOverlay.Active = true
+		promptOverlay.Transparency = 0.3
+	end
+end
 
 local function onEnter(newState)
 	if not errorPrompt then
@@ -539,6 +602,20 @@ local function stateTransit(errorType, errorCode, oldState)
 			end
 		end
 
+		if fflagShowNewConnectErrorsMessage then
+			if errorType == Enum.ConnectionError.ConnectErrors then
+				graceTimeout = tick() + defaultTimeoutTime
+				errorForReconnect = Enum.ConnectionError.ConnectErrors
+				if reconnectDisabledList[errorCode] then
+					return ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE
+				end
+				if fflagConnectionEventMetrics then
+					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ConnectError"}}, 1.0)
+				end
+				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ConnectFailed"}}, 1.0)
+				return ConnectionPromptState.RECONNECT_CONNECT_FAILURE
+			end
+		end
 		if errorType == Enum.ConnectionError.DisconnectErrors then
 			-- reconnection will be delayed after graceTimeout
 			graceTimeout = tick() + defaultTimeoutTime
@@ -604,6 +681,11 @@ local function stateTransit(errorType, errorCode, oldState)
 					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "DisconnectReconnectFailed"}}, 1.0)
 				end
 				return ConnectionPromptState.RECONNECT_DISCONNECT
+			elseif errorForReconnect == Enum.ConnectionError.ConnectErrors then
+				if fflagConnectionEventMetrics then
+					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ConnectReconnectFailed"}}, 1.0)
+				end
+				return ConnectionPromptState.RECONNECT_CONNECT_FAILURE
 			end
 		end
 	end
@@ -759,6 +841,18 @@ local enumToLocalizationKey = {
 
 if fflagShowScreentimeLockoutKickMessage then
 	enumToLocalizationKey[Enum.ConnectionError.ScreentimeLockoutKick] = "Feature.Screentime.Content.ScreentimeLimitDialog"
+end
+
+if fflagShowNewConnectErrorsMessage then
+	enumToLocalizationKey[Enum.ConnectionError.ConnectErrors] = "InGame.ConnectionError.ConnectErrors"
+	enumToLocalizationKey[Enum.ConnectionError.AlreadyConnected] = "InGame.ConnectionError.ConnectionFailedWaitAndTry"
+	enumToLocalizationKey[Enum.ConnectionError.NoFreeIncomingConnections] = "InGame.ConnectionError.ConnectionFailedWaitAndTry"
+	enumToLocalizationKey[Enum.ConnectionError.IPRecentlyConnected] = "InGame.ConnectionError.ConnectErrors"
+	enumToLocalizationKey[Enum.ConnectionError.ConnectionBanned] = "InGame.ConnectionError.ConnectionBanned"
+	enumToLocalizationKey[Enum.ConnectionError.InvalidPassword] = "InGame.ConnectionError.ConnectionFailedRobloxVersion"
+	enumToLocalizationKey[Enum.ConnectionError.OurSystemRequiresSecurity] = "InGame.ConnectionError.ConnectionFailedRobloxVersion"
+	enumToLocalizationKey[Enum.ConnectionError.IncompatibleProtocolVersion] = "InGame.ConnectionError.ConnectionFailedRobloxVersion"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectRaknetErrors] = "InGame.ConnectionError.DisconnectRaknetErrors"
 end
 
 -- Localize the error string, with a fallback to the original string upon failure.

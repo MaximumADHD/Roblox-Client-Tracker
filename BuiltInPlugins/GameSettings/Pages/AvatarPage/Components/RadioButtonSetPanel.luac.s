@@ -64,29 +64,17 @@ MAIN:
   GETTABLEKS R3 R0 K5 ["Packages"]
   GETTABLEKS R2 R3 K6 ["Roact"]
   CALL R1 1 1
-  GETTABLEKS R2 R0 K7 ["RoactStudioWidgets"]
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Flags"]
-  GETTABLEKS R4 R5 K10 ["getFFlagGameSettingsUseDFRadioButton"]
-  CALL R3 1 1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+10]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Components"]
-  GETTABLEKS R5 R6 K12 ["RadioButtonSet"]
-  CALL R4 1 1
-  JUMP [+5]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R5 R2 K12 ["RadioButtonSet"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K13 ["Component"]
-  LOADK R7 K14 ["ComponentRadioButtonSetPanel"]
-  NAMECALL R5 R5 K15 ["extend"]
-  CALL R5 2 1
-  DUPCLOSURE R6 K16 [PROTO_0]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Components"]
+  GETTABLEKS R3 R4 K9 ["RadioButtonSet"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K10 ["Component"]
+  LOADK R5 K11 ["ComponentRadioButtonSetPanel"]
+  NAMECALL R3 R3 K12 ["extend"]
+  CALL R3 2 1
+  DUPCLOSURE R4 K13 [PROTO_0]
   CAPTURE VAL R1
-  CAPTURE VAL R4
-  SETTABLEKS R6 R5 K17 ["render"]
-  RETURN R5 1
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K14 ["render"]
+  RETURN R3 1

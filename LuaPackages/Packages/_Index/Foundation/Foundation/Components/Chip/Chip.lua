@@ -56,6 +56,7 @@ local defaultProps = {
 	Selectable = true,
 	isDisabled = false,
 	size = ChipSize.Medium,
+	testId = "--foundation-chip",
 }
 
 local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
@@ -130,6 +131,7 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 						chipBackgroundStyle = variantProps.chip.backgroundStyle,
 						contentStyle = variantProps.text.contentStyle,
 						isDisabled = props.isDisabled,
+						testId = `{props.testId}--leading-accessory`,
 					})
 					else nil,
 				Text = if props.text and props.text ~= ""
@@ -149,6 +151,7 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 						chipBackgroundStyle = variantProps.chip.backgroundStyle,
 						contentStyle = variantProps.text.contentStyle,
 						isDisabled = props.isDisabled,
+						testId = `{props.testId}--trailing-accessory`,
 					})
 					else nil,
 			}

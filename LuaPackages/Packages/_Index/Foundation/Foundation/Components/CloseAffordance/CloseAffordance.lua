@@ -44,6 +44,7 @@ local defaultProps = {
 	isDisabled = false,
 	size = InputSize.Medium,
 	variant = CloseAffordanceVariant.OverMedia,
+	testId = "--foundation-close-affordance",
 }
 
 local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: React.Ref<GuiObject>?)

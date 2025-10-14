@@ -63,6 +63,7 @@ local FFlagEnableChromeBackwardsSignalAPI =
 local FFlagFixMenuIconBackground = game:DefineFastFlag("FixMenuIconBackground", false)
 local FFlagEnableReferralRewardTooltip = game:DefineFastFlag("EnableReferralRewardTooltip", false)
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
+local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Parent.Parent.Parent.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -122,7 +123,7 @@ local BADGE_OFFSET = 4
 
 MenuIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
-	setGamepadMenuOpen = t.callback,
+	setGamepadMenuOpen = if FFlagTopBarDeprecateDisplayOptionsRodux then nil else t.callback,
 	iconScale = if FFlagTopBarSignalizeMenuOpen then nil else t.optional(t.number),
 	onAreaChanged = t.optional(t.callback),
 	showBadgeOver12 = t.optional(t.boolean),
@@ -582,9 +583,11 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		setGamepadMenuOpen = function(open)
-			return dispatch(SetGamepadMenuOpen(open))
-		end,
+		setGamepadMenuOpen = if FFlagTopBarDeprecateDisplayOptionsRodux 
+			then nil 
+			else function(open)
+				return dispatch(SetGamepadMenuOpen(open))
+			end,
 		onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas 
 			then nil 
 			else function(id, position, size)

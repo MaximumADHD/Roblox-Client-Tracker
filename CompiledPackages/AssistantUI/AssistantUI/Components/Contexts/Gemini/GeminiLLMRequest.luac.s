@@ -145,74 +145,80 @@ PROTO_5:
   GETIMPORT R6 K25 [warn]
   LOADK R7 K26 ["Gemini API Key is not set. Please set MCPAssistantGeminiAPIKey in FFlags."]
   CALL R6 1 0
-  LOADK R7 K27 ["https://generativelanguage.googleapis.com/v1beta/models/%*:streamGenerateContent?alt=sse&key="]
-  LOADK R9 K28 ["gemini-2.5-pro-preview-03-25"]
-  NAMECALL R7 R7 K22 ["format"]
-  CALL R7 2 1
-  MOVE R6 R7
-  FASTCALL1 TYPEOF R5 [+3]
-  MOVE R8 R5
-  GETIMPORT R7 K30 [typeof]
-  CALL R7 1 1
-  JUMPIFNOTEQKS R7 K31 ["Secret"] [+7]
-  MOVE R9 R6
-  NAMECALL R7 R5 K32 ["AddPrefix"]
-  CALL R7 2 1
-  MOVE R6 R7
-  JUMP [+3]
+  GETUPVAL R6 4
+  CALL R6 0 1
+  JUMPIFEQKS R6 K23 [""] [+3]
   MOVE R7 R6
-  MOVE R8 R5
-  CONCAT R6 R7 R8
-  GETIMPORT R9 K36 [Enum.WebStreamClientType.SSE]
-  DUPTABLE R10 K42 [{"Method", "Url", "Headers", "Body", "Compress"}]
-  LOADK R11 K43 ["POST"]
-  SETTABLEKS R11 R10 K37 ["Method"]
-  SETTABLEKS R6 R10 K38 ["Url"]
-  NEWTABLE R11 1 0
-  LOADK R12 K44 ["application/json"]
-  SETTABLEKS R12 R11 K45 ["Content-Type"]
-  SETTABLEKS R11 R10 K39 ["Headers"]
-  MOVE R13 R4
-  NAMECALL R11 R2 K21 ["JSONEncode"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K40 ["Body"]
-  GETIMPORT R11 K48 [Enum.HttpCompression.None]
-  SETTABLEKS R11 R10 K41 ["Compress"]
-  NAMECALL R7 R2 K49 ["CreateWebStreamClient"]
-  CALL R7 3 1
-  FASTCALL2K ASSERT R7 K50 [+5]
-  MOVE R9 R7
-  LOADK R10 K50 ["WebStreamClient should not be nil"]
-  GETIMPORT R8 K52 [assert]
-  CALL R8 2 0
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K53 ["createParser"]
-  DUPTABLE R9 K57 [{"onEvent", "onError", "onComment"}]
-  NEWCLOSURE R10 P0
+  JUMPIF R7 [+1]
+  LOADK R7 K27 ["gemini-2.5-pro"]
+  LOADK R9 K28 ["https://generativelanguage.googleapis.com/v1beta/models/%*:streamGenerateContent?alt=sse&key="]
+  MOVE R11 R7
+  NAMECALL R9 R9 K22 ["format"]
+  CALL R9 2 1
+  MOVE R8 R9
+  FASTCALL1 TYPEOF R5 [+3]
+  MOVE R10 R5
+  GETIMPORT R9 K30 [typeof]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K31 ["Secret"] [+7]
+  MOVE R11 R8
+  NAMECALL R9 R5 K32 ["AddPrefix"]
+  CALL R9 2 1
+  MOVE R8 R9
+  JUMP [+3]
+  MOVE R9 R8
+  MOVE R10 R5
+  CONCAT R8 R9 R10
+  GETIMPORT R11 K36 [Enum.WebStreamClientType.SSE]
+  DUPTABLE R12 K42 [{"Method", "Url", "Headers", "Body", "Compress"}]
+  LOADK R13 K43 ["POST"]
+  SETTABLEKS R13 R12 K37 ["Method"]
+  SETTABLEKS R8 R12 K38 ["Url"]
+  NEWTABLE R13 1 0
+  LOADK R14 K44 ["application/json"]
+  SETTABLEKS R14 R13 K45 ["Content-Type"]
+  SETTABLEKS R13 R12 K39 ["Headers"]
+  MOVE R15 R4
+  NAMECALL R13 R2 K21 ["JSONEncode"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K40 ["Body"]
+  GETIMPORT R13 K48 [Enum.HttpCompression.None]
+  SETTABLEKS R13 R12 K41 ["Compress"]
+  NAMECALL R9 R2 K49 ["CreateWebStreamClient"]
+  CALL R9 3 1
+  FASTCALL2K ASSERT R9 K50 [+5]
+  MOVE R11 R9
+  LOADK R12 K50 ["WebStreamClient should not be nil"]
+  GETIMPORT R10 K52 [assert]
+  CALL R10 2 0
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K53 ["createParser"]
+  DUPTABLE R11 K57 [{"onEvent", "onError", "onComment"}]
+  NEWCLOSURE R12 P0
   CAPTURE UPVAL U2
   CAPTURE VAL R2
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
   CAPTURE VAL R1
-  SETTABLEKS R10 R9 K54 ["onEvent"]
-  DUPCLOSURE R10 K58 [PROTO_2]
+  SETTABLEKS R12 R11 K54 ["onEvent"]
+  DUPCLOSURE R12 K58 [PROTO_2]
   CAPTURE UPVAL U2
-  SETTABLEKS R10 R9 K55 ["onError"]
-  DUPCLOSURE R10 K59 [PROTO_3]
+  SETTABLEKS R12 R11 K55 ["onError"]
+  DUPCLOSURE R12 K59 [PROTO_3]
   CAPTURE UPVAL U2
-  SETTABLEKS R10 R9 K56 ["onComment"]
-  CALL R8 1 1
-  GETTABLEKS R9 R7 K60 ["MessageReceived"]
-  GETTABLEKS R11 R8 K61 ["parseNextChunk"]
-  NAMECALL R9 R9 K62 ["Connect"]
-  CALL R9 2 1
-  GETTABLEKS R10 R7 K63 ["Closed"]
-  NEWCLOSURE R12 P3
+  SETTABLEKS R12 R11 K56 ["onComment"]
+  CALL R10 1 1
+  GETTABLEKS R11 R9 K60 ["MessageReceived"]
+  GETTABLEKS R13 R10 K61 ["parseNextChunk"]
+  NAMECALL R11 R11 K62 ["Connect"]
+  CALL R11 2 1
+  GETTABLEKS R12 R9 K63 ["Closed"]
+  NEWCLOSURE R14 P3
   CAPTURE UPVAL U2
+  CAPTURE REF R11
   CAPTURE REF R9
-  CAPTURE REF R7
-  NAMECALL R10 R10 K64 ["Once"]
-  CALL R10 2 0
-  CLOSEUPVALS R7
+  NAMECALL R12 R12 K64 ["Once"]
+  CALL R12 2 0
+  CLOSEUPVALS R9
   RETURN R0 0
 
 MAIN:
@@ -231,39 +237,45 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K8 ["Flags"]
-  GETTABLEKS R4 R5 K10 ["FStringMCPAssistantGeminiAPIKey"]
+  GETTABLEKS R4 R5 K10 ["FStringMCPAssistantCustomModelName"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R8 R0 K11 ["Components"]
-  GETTABLEKS R7 R8 K12 ["Contexts"]
-  GETTABLEKS R6 R7 K13 ["Gemini"]
-  GETTABLEKS R5 R6 K14 ["GeminiLLMAdapter"]
+  GETTABLEKS R6 R0 K8 ["Flags"]
+  GETTABLEKS R5 R6 K11 ["FStringMCPAssistantGeminiAPIKey"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Components"]
-  GETTABLEKS R8 R9 K12 ["Contexts"]
-  GETTABLEKS R7 R8 K15 ["DefaultLLMProvider"]
-  GETTABLEKS R6 R7 K16 ["LLMRequest"]
+  GETTABLEKS R9 R0 K12 ["Components"]
+  GETTABLEKS R8 R9 K13 ["Contexts"]
+  GETTABLEKS R7 R8 K14 ["Gemini"]
+  GETTABLEKS R6 R7 K15 ["GeminiLLMAdapter"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K17 ["Parent"]
-  GETTABLEKS R7 R8 K18 ["ModelContextProtocol"]
+  GETTABLEKS R10 R0 K12 ["Components"]
+  GETTABLEKS R9 R10 K13 ["Contexts"]
+  GETTABLEKS R8 R9 K16 ["DefaultLLMProvider"]
+  GETTABLEKS R7 R8 K17 ["LLMRequest"]
   CALL R6 1 1
-  GETTABLEKS R7 R2 K19 ["Get"]
-  GETTABLEKS R8 R3 K19 ["Get"]
-  GETTABLEKS R9 R6 K20 ["EventStreamParser"]
-  GETTABLEKS R10 R4 K21 ["createAdapter"]
-  CALL R10 0 1
-  GETTABLEKS R11 R4 K22 ["convertLLMtoGeminiMessage"]
-  DUPCLOSURE R12 K23 [PROTO_5]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K18 ["Parent"]
+  GETTABLEKS R8 R9 K19 ["ModelContextProtocol"]
+  CALL R7 1 1
+  GETTABLEKS R8 R2 K20 ["Get"]
+  GETTABLEKS R9 R4 K20 ["Get"]
+  GETTABLEKS R10 R3 K20 ["Get"]
+  GETTABLEKS R11 R7 K21 ["EventStreamParser"]
+  GETTABLEKS R12 R5 K22 ["createAdapter"]
+  CALL R12 0 1
+  GETTABLEKS R13 R5 K23 ["convertLLMtoGeminiMessage"]
+  DUPCLOSURE R14 K24 [PROTO_5]
   CAPTURE VAL R1
-  CAPTURE VAL R11
-  CAPTURE VAL R7
+  CAPTURE VAL R13
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  DUPTABLE R13 K26 [{"requestHandler", "createRequestHandler"}]
-  SETTABLEKS R12 R13 K24 ["requestHandler"]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K25 ["createRequestHandler"]
-  RETURN R13 1
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  DUPTABLE R15 K27 [{"requestHandler", "createRequestHandler"}]
+  SETTABLEKS R14 R15 K25 ["requestHandler"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K26 ["createRequestHandler"]
+  RETURN R15 1

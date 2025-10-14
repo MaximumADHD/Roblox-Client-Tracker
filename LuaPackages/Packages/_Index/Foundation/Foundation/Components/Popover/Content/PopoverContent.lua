@@ -10,6 +10,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local usePointerPosition = require(Foundation.Utility.usePointerPosition)
 local isPointInGuiObjectBounds = require(Foundation.Utility.isPointInGuiObjectBounds)
+local Constants = require(Foundation.Constants)
 
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
@@ -60,8 +61,8 @@ local radiusToTag: { [Radius]: string } = {
 	[Radius.Circle] = "radius-circle",
 }
 
-local SHADOW_IMAGE = "component_assets/dropshadow_17_8"
-local SHADOW_SIZE = 16
+local SHADOW_IMAGE = Constants.SHADOW_IMAGE
+local SHADOW_SIZE = Constants.SHADOW_SIZE
 local SHADOW_VERTICAL_OFFSET = 2
 
 local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: React.Ref<GuiObject>?)
@@ -145,7 +146,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				},
 				Size = UDim2.fromScale(1, 1),
 				ref = backdropCallback,
-				testId = "--foundation-popover-backdrop",
+				testId = `{popoverContext.testId}--backdrop`,
 			})
 			else nil,
 		Shadow = React.createElement(Image, {
@@ -162,7 +163,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
 			},
 			imageStyle = tokens.Color.Extended.Black.Black_20,
-			testId = "--foundation-popover-shadow",
+			testId = `{popoverContext.testId}--shadow`,
 		}),
 		Arrow = if hasArrow
 			then React.createElement(View, {
@@ -175,7 +176,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				Visible = isVisible,
 				backgroundStyle = backgroundStyle,
 				tag = "anchor-center-center",
-				testId = "--foundation-popover-arrow",
+				testId = `{popoverContext.testId}--arrow`,
 			})
 			else nil,
 		Content = React.createElement(View, {
@@ -196,7 +197,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 			backgroundStyle = backgroundStyle,
 			tag = `auto-xy {radiusToTag[props.radius]}`,
 			ref = ref,
-			testId = "--foundation-popover-content",
+			testId = `{popoverContext.testId}--content`,
 		}, props.children),
 	})
 

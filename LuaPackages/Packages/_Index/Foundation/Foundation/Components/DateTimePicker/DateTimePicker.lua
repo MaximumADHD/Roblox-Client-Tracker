@@ -63,6 +63,7 @@ export type DateTimePickerProps = {
 local defaultProps = {
 	defaultSelectedDate = DateTime.now(),
 	variant = DateTimePickerVariantEnum.Single,
+	testId = "--foundation-date-time-picker",
 }
 
 local DateTimePicker = function(dateTimePickerProps: DateTimePickerProps)
@@ -123,7 +124,7 @@ local DateTimePicker = function(dateTimePickerProps: DateTimePickerProps)
 					selectableDateRange = props.selectableDateRange,
 					text = inputText,
 					width = props.width,
-					testId = "--foundation-date-time-picker-text-input",
+					testId = `{props.testId}--text-input`,
 				}),
 			}),
 			Calendar = React.createElement(Popover.Content, {
@@ -142,6 +143,7 @@ local DateTimePicker = function(dateTimePickerProps: DateTimePickerProps)
 					onSelectedDateChanged = setCalendarDate,
 					selectableDateRange = props.selectableDateRange,
 					showCalendarInput = props.variant == DateTimePickerVariantEnum.Single,
+					testId = `{props.testId}--calendar`,
 				}),
 				BottomBar = React.createElement(View, {
 					LayoutOrder = 2,
@@ -151,13 +153,13 @@ local DateTimePicker = function(dateTimePickerProps: DateTimePickerProps)
 						onActivated = onApplyActivated,
 						text = Translator:FormatByKey("CommonUI.Controls.Action.Apply"),
 						variant = ButtonVariant.Emphasis,
-						testId = "--foundation-date-time-picker-apply-button",
+						testId = `{props.testId}--apply-button`,
 					}),
 					CancelButton = React.createElement(Button, {
 						onActivated = closeDateTimePicker,
 						text = Translator:FormatByKey("CommonUI.Controls.Action.Cancel"),
 						variant = ButtonVariant.Standard,
-						testId = "--foundation-date-time-picker-cancel-button",
+						testId = `{props.testId}--cancel-button`,
 					}),
 				}),
 			})),

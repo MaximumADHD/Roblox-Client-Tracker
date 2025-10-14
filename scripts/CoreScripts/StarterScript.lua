@@ -81,7 +81,7 @@ local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 	game:DefineFastFlag("EnableExperienceGenericChallengeRenderingOnLoadingScript", false)
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
 local FFlagEnableLinkSharingEvent = game:DefineFastFlag("EnableLinkSharingEvent", false)
-local FFlagPlayerFeedbackPromptEnabled = game:DefineFastFlag("PlayerFeedbackPromptEnabled", false)
+local FFlagPlayerFeedbackPromptEnabled = game:GetEngineFeature("PlayerFeedbackEnabled")
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig

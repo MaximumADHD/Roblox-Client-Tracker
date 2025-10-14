@@ -1,5 +1,5 @@
 --!nonstrict
--- APPEXP-2274: Remove with FFlagConnectGamepadChrome
+-- APPEXP-2274: Remove with FFlagEnableConsoleExpControls
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")

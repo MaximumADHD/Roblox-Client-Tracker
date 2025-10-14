@@ -19,11 +19,15 @@ local Components = script.Parent.Parent
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local useVerifiedBadge = UserProfiles.Hooks.useVerifiedBadge
 
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local Emoji = UIBlox.App.Emoji.Enum.Emoji
 
 local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
+local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+local FFlagEnableVerifiedBadgeStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableVerifiedBadgeStore
 
 local TEXT_HEIGHT = 22
 
@@ -38,6 +42,7 @@ DropDownPlayerHeader.validateProps = t.strictInterface({
 
 	layoutValues = t.optional(t.table),
 	tokens = t.optional(t.table),
+	showVerifiedBadge = t.optional(t.boolean), -- temporarily optional until FFlagEnableVerifiedBadgeStore is enabled
 })
 
 function DropDownPlayerHeader:render()
@@ -50,9 +55,9 @@ function DropDownPlayerHeader:render()
 
 			local player = self.props.player
 			local avatarBackgroundImage = "rbxasset://textures/ui/PlayerList/NewAvatarBackground.png"
-			local showVerifiedBadge = UserLib.Utils.isPlayerVerified(player)
+			local showVerifiedBadge = if FFlagEnableVerifiedBadgeStore then self.props.showVerifiedBadge else UserLib.Utils.isPlayerVerified(player)
 
-			return Roact.createElement("TextButton", {
+			return Roact.createElement("TextButton", { 
 				--Used as a text button instead of a frame so that clicking on this doesn't close the player drop down.
 				BackgroundTransparency = 1,
 				Text = "",
@@ -87,29 +92,33 @@ function DropDownPlayerHeader:render()
 							fluidSizing = false,
 							emoji = Emoji.Verified,
 							maxSize = Vector2.new(layoutValues.PlayerDropDownSizeXMobile - xOffset, textHeight),
+							TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.DropDownHeaderDisplayNameTextSize else style.Font.BaseSize * style.Font.Header2.RelativeSize,
+							AutomaticSize = if FFlagEnableMobilePlayerListOnConsole then Enum.AutomaticSize.X else nil,
 							LayoutOrder = 1,
 							Text = player.DisplayName,
 							TextXAlignment = Enum.TextXAlignment.Left,
 							TextTruncate = Enum.TextTruncate.AtEnd,
 							BackgroundTransparency = 1,
-							TextScaled = true,
+							TextScaled = if FFlagEnableMobilePlayerListOnConsole then nil else true,
 						}) or Roact.createElement("TextLabel", {
 							LayoutOrder = 1,
 							Size = UDim2.new(1, 0, 0, textHeight),
 							Text = player.DisplayName,
 							Font = style.Font.Header2.Font,
-							TextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
+							TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.DropDownHeaderDisplayNameTextSize else style.Font.BaseSize * style.Font.Header2.RelativeSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,
 							TextTransparency = style.Theme.TextEmphasis.Transparency,
 							TextXAlignment = Enum.TextXAlignment.Left,
 							TextTruncate = Enum.TextTruncate.AtEnd,
 							BackgroundTransparency = 1,
-							TextScaled = true,
+							TextScaled = if FFlagEnableMobilePlayerListOnConsole then nil else true,
 						}, {
-							SizeConstraint = Roact.createElement("UITextSizeConstraint", {
-								MaxTextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
-								MinTextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
-							}),
+							SizeConstraint = if FFlagEnableMobilePlayerListOnConsole 
+								then nil 
+								else Roact.createElement("UITextSizeConstraint", {
+									MaxTextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
+									MinTextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
+								}),
 						}),
 
 						PlayerName = Roact.createElement("TextLabel", {
@@ -117,18 +126,20 @@ function DropDownPlayerHeader:render()
 							Size = UDim2.new(1, 0, 0, textHeight),
 							Text = "@" .. player.Name,
 							Font = style.Font.CaptionHeader.Font,
-							TextSize = style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
+							TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.DropDownHeaderPlayerNameTextSize else style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
 							TextColor3 = style.Theme.TextMuted.Color,
 							TextTransparency = style.Theme.TextMuted.Transparency,
 							TextXAlignment = Enum.TextXAlignment.Left,
 							TextTruncate = Enum.TextTruncate.AtEnd,
 							BackgroundTransparency = 1,
-							TextScaled = true,
+							TextScaled = if FFlagEnableMobilePlayerListOnConsole then nil else true,
 						}, {
-							SizeConstraint = Roact.createElement("UITextSizeConstraint", {
-								MaxTextSize = style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
-								MinTextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
-							}),
+							SizeConstraint = if FFlagEnableMobilePlayerListOnConsole 
+								then nil 
+								else Roact.createElement("UITextSizeConstraint", {
+									MaxTextSize = style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
+									MinTextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
+								}),
 						}),
 					}),
 				}),
@@ -161,10 +172,12 @@ end
 local DropDownPlayerHeaderWrapper = function(props)
 	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
 	local tokens = if FFlagAddMobilePlayerListScaling then useTokens() else nil
+	local showVerifiedBadge = if FFlagEnableVerifiedBadgeStore then useVerifiedBadge(props.player) else nil
 
 	return Roact.createElement(DropDownPlayerHeader, Cryo.Dictionary.join(props, {
 		layoutValues = layoutValues,
 		tokens = tokens,
+		showVerifiedBadge = if FFlagEnableVerifiedBadgeStore then showVerifiedBadge else nil,
 	}))
 end
 

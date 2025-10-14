@@ -47,8 +47,6 @@ local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMilli
 
 local FFlagDebugAllowControlButtonsNoVoiceChat = game:DefineFastFlag("DebugAllowControlButtonsNoVoiceChat", false)
 
-local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
-
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local FFlagEasierUnmuting = game:DefineFastFlag("EasierUnmuting3", false)
 local FFlagEasierUnmutingBasedOnCamera = game:DefineFastFlag("EasierUnmutingBasedOnCamera", false)
@@ -619,7 +617,7 @@ function BubbleChatBillboard:getRenderVoiceAndCameraBubble()
 	local isLocalPlayer = self.props.userId == tostring(Players.LocalPlayer.UserId)
 	if isLocalPlayer then
 		-- Hide local player's bubble on VR and when In-Game Controls are enabled
-		if (FFlagVRMoveVoiceIndicatorToBottomBar and VRService.VREnabled) or ChromeEnabled() then
+		if VRService.VREnabled or ChromeEnabled() then
 			return false
 		end
 
@@ -682,7 +680,7 @@ function BubbleChatBillboard:render()
 	end
 
 	-- Hide local user's voice indicator on VR or if Chrome Enabled
-	if ((FFlagVRMoveVoiceIndicatorToBottomBar and VRService.VREnabled) or ChromeEnabled()) and isLocalPlayer then
+	if (VRService.VREnabled or ChromeEnabled()) and isLocalPlayer then
 		showVoiceIndicator = false
 	end
 

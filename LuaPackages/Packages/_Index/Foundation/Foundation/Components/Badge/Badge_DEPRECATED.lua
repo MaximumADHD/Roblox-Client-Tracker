@@ -41,6 +41,7 @@ type BadgeProps = {
 local defaultProps = {
 	variant = BadgeVariant.Primary,
 	size = BadgeSize.Medium,
+	testId = "--foundation-badge",
 }
 
 local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
@@ -85,6 +86,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 					size = IconSize.Small,
 					style = badgeVariants.contentStyle,
 					LayoutOrder = if icon.position == IconPosition.Left then 1 else 3,
+					testId = `{props.testId}--icon`,
 				})
 				else nil,
 			Text = if hasText
@@ -99,6 +101,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 					LayoutOrder = 2,
 					sizeConstraint = textSizeConstraint,
 					tag = textTags,
+					testId = `{props.testId}--text`,
 				})
 				else nil,
 		}

@@ -26,12 +26,10 @@ return {
 				local tokens = useTokens()
 
 				return React.createElement(View, {
-					tag = {
-						["row gap-medium auto-xy size-0-0 align-y-center padding-medium radius-medium"] = true,
-						["bg-system-contrast"] = variant == CloseAffordanceVariant.Utility and isInverse,
-					},
+					tag = "row gap-medium auto-xy size-0-0 align-y-center padding-medium radius-medium",
 					backgroundStyle = if variant == CloseAffordanceVariant.OverMedia
 						then tokens.Color.Extended.White.White_100
+						elseif isInverse then tokens.Inverse.Surface.Surface_0
 						else nil,
 				}, {
 					Gradient = if variant == CloseAffordanceVariant.OverMedia

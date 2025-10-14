@@ -5,8 +5,8 @@ local React = require(Packages.React)
 
 local Components = Foundation.Components
 local View = require(Components.View)
-local InternalMenu = require(Components.InternalMenu)
-type MenuItem = InternalMenu.MenuItem
+local BaseMenu = require(Components.BaseMenu)
+type BaseMenuItem = BaseMenu.BaseMenuItem
 local Text = require(Components.Text)
 local Types = require(Foundation.Components.Types)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
@@ -32,7 +32,7 @@ type CursorType = CursorType.CursorType
 type Props = {
 	hasError: boolean?,
 	isDisabled: boolean?,
-	item: MenuItem?,
+	item: BaseMenuItem?,
 	placeholder: string?,
 	onActivated: () -> (),
 	isMenuOpen: boolean,
@@ -89,7 +89,7 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 					stateLayer = { affordance = StateLayerAffordance.None },
 					tag = variantProps.container.tag,
 					ref = props.inputRef,
-					testId = "--foundation-dropdown-control",
+					testId = `{props.testId}--control`,
 				}, {
 					Text = React.createElement(Text, {
 						LayoutOrder = 1,

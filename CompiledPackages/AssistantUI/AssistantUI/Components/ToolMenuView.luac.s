@@ -36,7 +36,7 @@ PROTO_0:
 
 PROTO_1:
   DUPTABLE R0 K3 [{"ManageMcpIntegration", "FirstPartyTool", "Integrations"}]
-  LOADK R1 K4 ["Manage integrations"]
+  LOADK R1 K4 ["Manage Integrations"]
   SETTABLEKS R1 R0 K0 ["ManageMcpIntegration"]
   LOADK R1 K5 ["First party tools"]
   SETTABLEKS R1 R0 K1 ["FirstPartyTool"]

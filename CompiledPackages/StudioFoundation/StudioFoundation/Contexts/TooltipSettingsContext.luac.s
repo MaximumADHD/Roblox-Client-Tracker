@@ -1,0 +1,125 @@
+PROTO_0:
+  DUPTABLE R0 K3 [{"tooltipsDisabled", "setTooltipsDisabled", "delay"}]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K0 ["tooltipsDisabled"]
+  GETUPVAL R1 1
+  SETTABLEKS R1 R0 K1 ["setTooltipsDisabled"]
+  GETUPVAL R1 2
+  SETTABLEKS R1 R0 K2 ["delay"]
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["delay"]
+  JUMPIF R1 [+17]
+  DUPTABLE R1 K3 [{"open", "close"}]
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+3]
+  GETUPVAL R3 1
+  DIVK R2 R3 K4 [1000]
+  JUMP [+1]
+  LOADK R2 K5 [0.3]
+  SETTABLEKS R2 R1 K1 ["open"]
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+3]
+  GETUPVAL R3 2
+  DIVK R2 R3 K4 [1000]
+  JUMP [+1]
+  LOADK R2 K5 [0.3]
+  SETTABLEKS R2 R1 K2 ["close"]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K6 ["useState"]
+  GETTABLEKS R4 R0 K8 ["initialDisableAllTooltips"]
+  ORK R3 R4 K7 [False]
+  CALL R2 1 2
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K9 ["useMemo"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  NEWTABLE R6 0 3
+  MOVE R7 R2
+  MOVE R8 R1
+  MOVE R9 R3
+  SETLIST R6 R7 3 [1]
+  CALL R4 2 1
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K10 ["createElement"]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K11 ["Provider"]
+  DUPTABLE R7 K13 [{"value"}]
+  SETTABLEKS R4 R7 K12 ["value"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K10 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K15 [{"timeout"}]
+  LOADK R11 K16 [0.5]
+  SETTABLEKS R11 R10 K14 ["timeout"]
+  GETTABLEKS R11 R0 K17 ["children"]
+  CALL R8 3 -1
+  CALL R5 -1 -1
+  RETURN R5 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useContext"]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  FASTCALL2K ASSERT R0 K1 [+5]
+  MOVE R2 R0
+  LOADK R3 K1 ["useTooltipSettings must be used within a TooltipSettingsProvider"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StudioFoundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K9 ["Popover"]
+  GETTABLEKS R5 R6 K10 ["PopoverDelayGroup"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K10 ["PopoverDelayGroup"]
+  GETIMPORT R4 K12 [game]
+  LOADK R6 K13 ["TooltipDelayToFInt2"]
+  LOADB R7 0
+  NAMECALL R4 R4 K14 ["DefineFastFlag"]
+  CALL R4 3 1
+  GETIMPORT R5 K12 [game]
+  LOADK R7 K15 ["TooltipShowDelay"]
+  LOADN R8 44
+  NAMECALL R5 R5 K16 ["DefineFastInt"]
+  CALL R5 3 1
+  GETIMPORT R6 K12 [game]
+  LOADK R8 K17 ["TooltipHideDelay"]
+  LOADN R9 44
+  NAMECALL R6 R6 K16 ["DefineFastInt"]
+  CALL R6 3 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R8 R0 K18 ["Types"]
+  CALL R7 1 1
+  GETTABLEKS R8 R2 K19 ["createContext"]
+  LOADNIL R9
+  CALL R8 1 1
+  DUPCLOSURE R9 K20 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  DUPCLOSURE R10 K21 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  DUPTABLE R11 K24 [{"Provider", "useTooltipSettings"}]
+  SETTABLEKS R9 R11 K22 ["Provider"]
+  SETTABLEKS R10 R11 K23 ["useTooltipSettings"]
+  RETURN R11 1

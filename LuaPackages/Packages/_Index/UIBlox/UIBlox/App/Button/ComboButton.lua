@@ -5,6 +5,7 @@ local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
+local React = require(Packages.React)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
 
@@ -15,6 +16,7 @@ local ControlState = require(Core.Control.Enum.ControlState)
 local GenericButton = require(Core.Button.GenericButton)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local withStyle = require(Core.Style.withStyle)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ComboButton = Roact.PureComponent:extend("ComboButton")
 
@@ -64,10 +66,13 @@ ComboButton.validateProps = t.strictInterface({
 
 	-- the selectionCursor to use
 	cursor = t.optional(t.table),
+
+	testId = if UIBloxConfig.addTestIdToComboButtonAndCellTailDescription then t.optional(t.string) else nil,
 })
 
 ComboButton.defaultProps = {
 	size = UDim2.fromScale(1, 1),
+	testId = if UIBloxConfig.addTestIdToComboButtonAndCellTailDescription then "--uiblox-combo-button" else nil,
 }
 
 function ComboButton:init()
@@ -98,6 +103,9 @@ function ComboButton:renderWithProviders(style, getSelectionCursor, getCursor)
 		Position = self.props.position,
 		Size = size,
 		BackgroundTransparency = 1,
+		[React.Tag] = if UIBloxConfig.addTestIdToComboButtonAndCellTailDescription and self.props.testId
+			then `data-testid={self.props.testId}`
+			else nil,
 	}, {
 		Button = Roact.createElement(GenericButton, {
 			Position = UDim2.fromScale(0, 0),

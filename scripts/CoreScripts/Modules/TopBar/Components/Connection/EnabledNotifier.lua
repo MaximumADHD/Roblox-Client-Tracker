@@ -1,9 +1,17 @@
+-- Remove with FFlagTopBarDeprecateDisplayOptionsRodux
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
+
+local TopBar = script.Parent.Parent.Parent
+local FFlagTopBarDeprecateDisplayOptionsRodux = require(TopBar.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
+
+if FFlagTopBarDeprecateDisplayOptionsRodux then
+	return nil :: never
+end
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)

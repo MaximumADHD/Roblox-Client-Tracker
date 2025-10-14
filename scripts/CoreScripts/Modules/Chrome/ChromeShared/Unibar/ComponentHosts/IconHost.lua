@@ -24,6 +24,9 @@ local useCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.useCurs
 local Badge = Foundation.Badge
 local BadgeVariant = Foundation.Enums.BadgeVariant
 local BadgeSize = Foundation.Enums.BadgeSize
+local FoundationFlags = Foundation.Utility.Flags
+local StatusIndicator = Foundation.StatusIndicator
+local StatusIndicatorVariant = Foundation.Enums.StatusIndicatorVariant
 local MAX_BADGE_VALUE = 99
 local MAX_BADGE_TEXT = "99"
 
@@ -39,7 +42,6 @@ local Constants = require(Root.Unibar.Constants)
 local ChromeService = require(Root.Service)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Root.Service.Types)
-local FFlagEnableChromeAnalytics = SharedFlags.GetFFlagEnableChromeAnalytics()
 local FFlagWindowFixes = SharedFlags.GetFFlagWindowFixes()
 local FFlagHamburgerCursorFix = SharedFlags.FFlagHamburgerCursorFix
 local UnibarStyle = require(Root.Unibar.UnibarStyle)
@@ -88,6 +90,7 @@ local MenuIconContext = if FFlagTiltIconUnibarFocusNav
 
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
+local FFlagMigrateBadgeToStatusIndicator = SharedFlags.FFlagMigrateBadgeToStatusIndicator
 
 type TooltipState = {
 	displaying: boolean,
@@ -148,12 +151,14 @@ function NotificationBadge(props: IconHostProps): any?
 		hideNotificationCountWhileOpen = props.integration.integration.hideNotificationCountWhileOpen or false
 	end
 
-	local notificationBadgeText
-	if notificationCount > 0 then
-		if notificationCount > MAX_BADGE_VALUE then
-			notificationBadgeText = MAX_BADGE_TEXT
-		else
-			notificationBadgeText = tostring(notificationCount)
+	local notificationBadgeText -- remove with FFlagMigrateBadgeToStatusIndicator
+	if not FFlagMigrateBadgeToStatusIndicator then
+		if notificationCount > 0 then
+			if notificationCount > MAX_BADGE_VALUE then
+				notificationBadgeText = MAX_BADGE_TEXT
+			else
+				notificationBadgeText = tostring(notificationCount)
+			end
 		end
 	end
 
@@ -206,6 +211,17 @@ function NotificationBadge(props: IconHostProps): any?
 					tag = "anchor-top-right radius-circle size-200 stroke-thicker",
 					ZIndex = 2,
 				})
+				elseif FFlagMigrateBadgeToStatusIndicator then React.createElement(
+					StatusIndicator,
+					{
+						value = math.min(notificationCount, MAX_BADGE_VALUE),
+						variant = if FoundationFlags.FoundationStatusIndicatorVariantExperiment
+							then StatusIndicatorVariant.Contrast_Experiment
+							else StatusIndicatorVariant.Emphasis,
+						AnchorPoint = Vector2.new(0, 0),
+						Position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
+					} :: any
+				)
 				elseif notificationBadgeText then React.createElement(Badge, {
 					AnchorPoint = Vector2.new(0, 0),
 					Position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
@@ -372,9 +388,7 @@ function TooltipButton(props: TooltipButtonProps)
 		then
 			local dragStartPosition = inputObj.Position
 			setClicked(true, true)
-			if FFlagEnableChromeAnalytics then
-				ChromeAnalytics.default:onIconTouchBegan(props.integration.id)
-			end
+			ChromeAnalytics.default:onIconTouchBegan(props.integration.id)
 
 			if not connection.current then
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
@@ -397,9 +411,7 @@ function TooltipButton(props: TooltipButtonProps)
 					local magnitude = math.abs((dragStartPosition - inputPosition).Magnitude)
 
 					if magnitude > Constants.DRAG_MAGNITUDE_THRESHOLD then
-						if FFlagEnableChromeAnalytics then
-							ChromeAnalytics.default:onIconDrag(props.integration.id)
-						end
+						ChromeAnalytics.default:onIconDrag(props.integration.id)
 						ChromeService:storeChromeInteracted()
 						ChromeService:toggleWindow(props.integration.id)
 						ChromeService:gesture(props.integration.id, connection, inputObj)

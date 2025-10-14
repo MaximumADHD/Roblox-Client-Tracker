@@ -583,43 +583,50 @@ PROTO_14:
   GETUPVAL R31 5
   GETTABLEKS R30 R31 K9 ["createElement"]
   GETUPVAL R31 19
-  DUPTABLE R32 K72 [{"LayoutOrder", "Annotation"}]
+  DUPTABLE R32 K73 [{"LayoutOrder", "Annotation", "OnContentChanged"}]
   LOADN R33 0
   SETTABLEKS R33 R32 K34 ["LayoutOrder"]
   GETTABLEKS R33 R0 K7 ["Annotation"]
   SETTABLEKS R33 R32 K7 ["Annotation"]
+  GETUPVAL R35 13
+  GETTABLEKS R34 R35 K74 ["fflagCOLLAB9449FixAnnotationsHeightCacheEdits"]
+  JUMPIFNOT R34 [+3]
+  GETTABLEKS R33 R0 K72 ["OnContentChanged"]
+  JUMP [+1]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K72 ["OnContentChanged"]
   CALL R30 2 1
   SETTABLEKS R30 R29 K45 ["Comment"]
   GETTABLEKS R32 R0 K7 ["Annotation"]
   GETTABLEKS R31 R32 K46 ["ReplyCount"]
-  JUMPIFEQKN R31 K73 [0] [+50]
+  JUMPIFEQKN R31 K75 [0] [+50]
   GETUPVAL R31 5
   GETTABLEKS R30 R31 K9 ["createElement"]
-  LOADK R31 K74 ["TextLabel"]
-  DUPTABLE R32 K75 [{"Text", "LayoutOrder"}]
+  LOADK R31 K76 ["TextLabel"]
+  DUPTABLE R32 K77 [{"Text", "LayoutOrder"}]
   GETTABLEKS R35 R0 K7 ["Annotation"]
   GETTABLEKS R34 R35 K46 ["ReplyCount"]
-  JUMPIFNOTEQKN R34 K76 [1] [+7]
+  JUMPIFNOTEQKN R34 K78 [1] [+7]
   LOADK R35 K31 ["Card"]
-  LOADK R36 K77 ["SingleReply"]
+  LOADK R36 K79 ["SingleReply"]
   NAMECALL R33 R2 K62 ["getText"]
   CALL R33 3 1
   JUMP [+25]
   LOADK R35 K31 ["Card"]
-  LOADK R36 K78 ["ManyReplies"]
-  DUPTABLE R37 K80 [{"replyCount"}]
+  LOADK R36 K80 ["ManyReplies"]
+  DUPTABLE R37 K82 [{"replyCount"}]
   GETTABLEKS R40 R0 K7 ["Annotation"]
   GETTABLEKS R39 R40 K46 ["ReplyCount"]
   LOADN R40 100
   JUMPIFNOTLT R39 R40 [+10]
-  GETIMPORT R38 K83 [string.format]
-  LOADK R39 K84 ["%d"]
+  GETIMPORT R38 K85 [string.format]
+  LOADK R39 K86 ["%d"]
   GETTABLEKS R41 R0 K7 ["Annotation"]
   GETTABLEKS R40 R41 K46 ["ReplyCount"]
   CALL R38 2 1
   JUMP [+1]
-  LOADK R38 K85 ["99+"]
-  SETTABLEKS R38 R37 K79 ["replyCount"]
+  LOADK R38 K87 ["99+"]
+  SETTABLEKS R38 R37 K81 ["replyCount"]
   NAMECALL R33 R2 K62 ["getText"]
   CALL R33 4 1
   SETTABLEKS R33 R32 K36 ["Text"]
@@ -638,21 +645,21 @@ PROTO_14:
   GETUPVAL R23 5
   GETTABLEKS R22 R23 K9 ["createElement"]
   GETUPVAL R23 20
-  DUPTABLE R24 K88 [{"Text", "OnCancel", "OnDelete"}]
-  LOADK R27 K89 ["ConfirmDeleteDialog"]
+  DUPTABLE R24 K90 [{"Text", "OnCancel", "OnDelete"}]
+  LOADK R27 K91 ["ConfirmDeleteDialog"]
   LOADK R28 K65 ["DeleteThread"]
   NAMECALL R25 R2 K62 ["getText"]
   CALL R25 3 1
   SETTABLEKS R25 R24 K36 ["Text"]
   NEWCLOSURE R25 P8
   CAPTURE VAL R16
-  SETTABLEKS R25 R24 K86 ["OnCancel"]
+  SETTABLEKS R25 R24 K88 ["OnCancel"]
   NEWCLOSURE R25 P9
   CAPTURE VAL R16
   CAPTURE UPVAL U14
   CAPTURE VAL R1
   CAPTURE VAL R0
-  SETTABLEKS R25 R24 K87 ["OnDelete"]
+  SETTABLEKS R25 R24 K89 ["OnDelete"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K16 ["Popup"]
   CALL R18 3 -1

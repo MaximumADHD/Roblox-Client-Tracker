@@ -8,6 +8,7 @@ local Components = Foundation.Components
 local Image = require(Components.Image)
 local Text = require(Components.Text)
 local Input = require(Components.InternalInput)
+local useUncontrolledState = require(Components.InternalInput.useUncontrolledState)
 local Types = require(Components.Types)
 
 local Flags = require(Foundation.Utility.Flags)
@@ -39,6 +40,7 @@ export type CheckboxProps = {
 local defaultProps = {
 	size = InputSize.Medium,
 	Selectable = true,
+	testId = "--foundation-checkbox",
 }
 
 local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?)
@@ -46,12 +48,14 @@ local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?
 	local tokens = useTokens()
 	local variantProps = useCheckboxVariants(tokens, props.size)
 
+	local isChecked, onActivated = useUncontrolledState(props.isChecked, props.onActivated)
+
 	return React.createElement(
 		Input,
 		withCommonProps(props, {
-			isChecked = props.isChecked,
+			isChecked = isChecked,
 			isDisabled = props.isDisabled,
-			onActivated = props.onActivated,
+			onActivated = onActivated,
 			label = {
 				text = props.label,
 			},
@@ -65,7 +69,7 @@ local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?
 			ref = ref,
 		}),
 		{
-			Checkmark = if props.isChecked
+			Checkmark = if isChecked
 				then if Flags.FoundationMigrateIconNames
 					then React.createElement(Text, {
 						Text = BuilderIcons.Icon.Check,
@@ -74,10 +78,12 @@ local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?
 						},
 						TextScaled = true,
 						tag = variantProps.checkmark.tag,
+						testId = `{props.testId}--checkmark`,
 					})
 					else React.createElement(Image, {
 						Image = "icons/status/success_small",
 						tag = variantProps.checkmark.tag,
+						testId = `{props.testId}--checkmark`,
 					})
 				else nil,
 		}

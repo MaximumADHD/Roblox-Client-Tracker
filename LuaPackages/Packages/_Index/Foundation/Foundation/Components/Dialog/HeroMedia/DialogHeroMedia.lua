@@ -11,16 +11,20 @@ local Constants = require(Foundation.Constants)
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
+local Flags = require(Foundation.Utility.Flags)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local Gradient = require(Foundation.Components.Gradient)
-local useDialogLayout = require(script.Parent.Parent.useDialogLayout)
+local useDialog = require(script.Parent.Parent.useDialog)
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
 
 type Bindable<T> = Types.Bindable<T>
 type AspectRatio = Types.AspectRatio
+type ColorStyle = Types.ColorStyle
 
 export type DialogHeroMediaProps = {
 	media: Bindable<string>,
+	mediaStyle: ColorStyle?,
+	backgroundStyle: ColorStyle?,
 	height: UDim?,
 	aspectRatio: AspectRatio?,
 }
@@ -31,14 +35,14 @@ local defaultProps = {
 
 local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 	local props = withDefaults(mediaProps, defaultProps)
-	local layout = useDialogLayout()
+	local dialogContext = useDialog()
 	local variants = useDialogVariants()
 
 	React.useEffect(function()
-		layout.setHasHeroMedia(true)
+		dialogContext.setHasHeroMedia(true)
 
 		return function()
-			layout.setHasHeroMedia(false)
+			dialogContext.setHasHeroMedia(false)
 		end
 	end, {})
 
@@ -47,14 +51,18 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 	return React.createElement(View, {
 		tag = variants.heroMediaWrapper.tag,
 		LayoutOrder = Constants.MIN_LAYOUT_ORDER,
-		testId = "--foundation-dialog-hero-media",
+		testId = `{dialogContext.testId}--hero-media`,
 	}, {
-		TransparencyGradient = React.createElement(Gradient, {
-			fillDirection = Enum.FillDirection.Vertical,
-			top = true,
-		}),
+		TransparencyGradient = if Flags.FoundationDialogHeroMediaGradientFix
+			then nil
+			else React.createElement(Gradient, {
+				fillDirection = Enum.FillDirection.Vertical,
+				top = true,
+			}),
 		RoundedCorners = React.createElement(Image, {
 			Image = props.media,
+			imageStyle = props.mediaStyle,
+			backgroundStyle = props.backgroundStyle,
 			aspectRatio = props.aspectRatio,
 			Position = UDim2.new(0, -offsetX, 0, 0),
 			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
@@ -67,10 +75,19 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 		}),
 		Image = React.createElement(Image, {
 			Image = props.media,
+			imageStyle = props.mediaStyle,
+			backgroundStyle = props.backgroundStyle,
 			tag = variants.heroMedia.tag,
 			aspectRatio = props.aspectRatio,
 			Position = UDim2.new(0, -offsetX, 0, 0),
 			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
+		}, {
+			TransparencyGradient = if Flags.FoundationDialogHeroMediaGradientFix
+				then React.createElement(Gradient, {
+					fillDirection = Enum.FillDirection.Vertical,
+					top = true,
+				})
+				else nil,
 		}),
 	})
 end

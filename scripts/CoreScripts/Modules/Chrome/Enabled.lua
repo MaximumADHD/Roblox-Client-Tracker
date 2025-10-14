@@ -4,7 +4,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 
 local IsExperienceMenuABTestEnabled = require(Chrome.Parent.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(Chrome.Parent.ExperienceMenuABTestManager)
-local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 
 game:DefineFastFlag("EnableInGameMenuChrome", false)
@@ -38,7 +38,7 @@ return function()
 		return true
 	end
 
-	if isTenFootInterface and not FFlagConnectGamepadChrome then
+	if isTenFootInterface and not FFlagEnableConsoleExpControls then
 		-- hard disable on Console so it does not show in Studio emulator
 		return false
 	end

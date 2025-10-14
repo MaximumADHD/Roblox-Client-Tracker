@@ -171,11 +171,7 @@ local function InspectAndBuyBaseContainer(props)
 	return React.createElement(Foundation.View, {
 		Size = viewBreakpoints.OverlaySize,
 		Position = viewBreakpoints.OverlayPosition,
-		backgroundStyle = {
-			-- same theme used by SettingsHub menu
-			Color3 = Theme.color("MenuContainer"),
-			Transparency = Theme.transparency("MenuContainer", 1),
-		},
+		backgroundStyle = tokens.Color.Common.Shadow,
 		stateLayer = {
 			affordance = Foundation.Enums.StateLayerAffordance.None,
 		},
@@ -188,7 +184,10 @@ local function InspectAndBuyBaseContainer(props)
 			ClipsDescendants = true,
 			Size = viewBreakpoints.ContainerSize,
 			Position = viewBreakpoints.ContainerPosition,
-			backgroundStyle = tokens.Color.Common.Shadow,
+			backgroundStyle = {
+				Color3 = Theme.color("MenuContainer"),
+				Transparency = Theme.transparency("MenuContainer", 1) * GuiService.PreferredTransparency,
+			},
 			stateLayer = {
 				affordance = Foundation.Enums.StateLayerAffordance.None,
 			},

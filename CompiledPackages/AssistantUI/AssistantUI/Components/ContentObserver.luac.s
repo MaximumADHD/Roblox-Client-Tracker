@@ -465,6 +465,13 @@ PROTO_18:
   RETURN R9 1
 
 PROTO_19:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getToolCallOptions"]
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_20:
   GETTABLEKS R1 R0 K0 ["editContent"]
   GETTABLEKS R2 R0 K1 ["addContent"]
   GETTABLEKS R3 R0 K2 ["eventLogger"]
@@ -506,16 +513,19 @@ PROTO_19:
   CAPTURE UPVAL U8
   CAPTURE VAL R2
   CAPTURE VAL R1
-  DUPTABLE R12 K10 [{"onNewMessage", "onContentStart", "onContentDelta", "onContentFinished", "onToolResult", "onPreExecuteToolUse", "checkToolConfirmationRequestAsync"}]
-  SETTABLEKS R5 R12 K3 ["onNewMessage"]
-  SETTABLEKS R6 R12 K4 ["onContentStart"]
-  SETTABLEKS R7 R12 K5 ["onContentDelta"]
-  SETTABLEKS R8 R12 K6 ["onContentFinished"]
-  SETTABLEKS R9 R12 K7 ["onToolResult"]
-  SETTABLEKS R10 R12 K8 ["onPreExecuteToolUse"]
-  SETTABLEKS R11 R12 K9 ["checkToolConfirmationRequestAsync"]
+  DUPCLOSURE R12 K3 [PROTO_19]
+  CAPTURE UPVAL U2
+  DUPTABLE R13 K12 [{"onNewMessage", "onContentStart", "onContentDelta", "onContentFinished", "onToolResult", "onPreExecuteToolUse", "checkToolConfirmationRequestAsync", "getToolCallOptions"}]
+  SETTABLEKS R5 R13 K4 ["onNewMessage"]
+  SETTABLEKS R6 R13 K5 ["onContentStart"]
+  SETTABLEKS R7 R13 K6 ["onContentDelta"]
+  SETTABLEKS R8 R13 K7 ["onContentFinished"]
+  SETTABLEKS R9 R13 K8 ["onToolResult"]
+  SETTABLEKS R10 R13 K9 ["onPreExecuteToolUse"]
+  SETTABLEKS R11 R13 K10 ["checkToolConfirmationRequestAsync"]
+  SETTABLEKS R12 R13 K11 ["getToolCallOptions"]
   CLOSEUPVALS R4
-  RETURN R12 1
+  RETURN R13 1
 
 MAIN:
   PREPVARARGS 0
@@ -580,7 +590,7 @@ MAIN:
   GETTABLEKS R13 R3 K27 ["Get"]
   NEWTABLE R14 1 0
   DUPCLOSURE R15 K28 [PROTO_0]
-  DUPCLOSURE R16 K29 [PROTO_19]
+  DUPCLOSURE R16 K29 [PROTO_20]
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R10

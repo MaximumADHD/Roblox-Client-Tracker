@@ -39,12 +39,12 @@ local function toStroke(token: ColorStyleValue): ButtonStroke
 end
 
 -- Helper function to create a standard button variant style
-local function createButtonVariantStyle(buttonStyle: ButtonStyle, stateLayerMode: StateLayerMode?): VariantProps
+local function createButtonVariantStyle(buttonStyle: ButtonStyle, isInverse: boolean?): VariantProps
 	return {
 		container = {
 			style = buttonStyle.Background,
 			stroke = toStroke(buttonStyle.Border),
-			stateLayer = if stateLayerMode
+			stateLayer = if isInverse
 				then {
 					mode = StateLayerMode.Inverse,
 				}
@@ -53,6 +53,18 @@ local function createButtonVariantStyle(buttonStyle: ButtonStyle, stateLayerMode
 		content = {
 			style = buttonStyle.Foreground,
 		},
+	}
+end
+
+-- Wrapper function that creates both normal and inverse variants
+local function createButtonVariantStyles(
+	tokens: Tokens,
+	actionName: string,
+	isInverse: boolean?
+): { [boolean]: VariantProps }
+	return {
+		[false] = createButtonVariantStyle(tokens.Color[actionName], isInverse),
+		[true] = createButtonVariantStyle(tokens.Inverse[actionName], not isInverse),
 	}
 end
 
@@ -69,23 +81,31 @@ type SharedButtonVariantProps = {
 	},
 }
 
--- Returns all button variant types - components can use subset they need
-local function getButtonTypes(tokens: Tokens): { [ButtonVariant]: VariantProps }
+-- Returns all button variant types - indexed by variant then by boolean (isInverse)
+local function getButtonTypes(tokens: Tokens): { [ButtonVariant]: { [boolean]: VariantProps } }
 	return {
-		[ButtonVariant.Utility] = createButtonVariantStyle(tokens.Color.ActionUtility),
-		[ButtonVariant.Standard] = createButtonVariantStyle(tokens.Color.ActionStandard),
-		[ButtonVariant.Emphasis] = createButtonVariantStyle(tokens.Color.ActionEmphasis),
-		[ButtonVariant.Alert] = createButtonVariantStyle(tokens.Color.ActionAlert),
-		[ButtonVariant.SubEmphasis] = createButtonVariantStyle(tokens.Color.ActionSubEmphasis, StateLayerMode.Inverse),
-		[ButtonVariant.SoftEmphasis] = createButtonVariantStyle(tokens.Color.ActionSoftEmphasis),
-		[ButtonVariant.Subtle] = createButtonVariantStyle(tokens.Color.ActionSubtle),
+		[ButtonVariant.Utility] = createButtonVariantStyles(tokens, "ActionUtility"),
+		[ButtonVariant.Standard] = createButtonVariantStyles(tokens, "ActionStandard"),
+		[ButtonVariant.Emphasis] = createButtonVariantStyles(tokens, "ActionEmphasis"),
+		[ButtonVariant.Alert] = createButtonVariantStyles(tokens, "ActionAlert"),
+		[ButtonVariant.SubEmphasis] = createButtonVariantStyles(tokens, "ActionSubEmphasis", true),
+		[ButtonVariant.SoftEmphasis] = createButtonVariantStyles(tokens, "ActionSoftEmphasis"),
+		[ButtonVariant.Subtle] = createButtonVariantStyles(tokens, "ActionSubtle"),
 		[ButtonVariant.Text] = {
-			content = { style = tokens.Color.Content.Emphasis },
+			[false] = { content = { style = tokens.Color.Content.Emphasis } },
+			[true] = {
+				container = { stateLayer = { mode = StateLayerMode.Inverse } },
+				content = { style = tokens.Inverse.Content.Emphasis },
+			},
 		},
 		[ButtonVariant.Link] = {
-			content = { style = tokens.Color.Content.Link },
+			[false] = { content = { style = tokens.Color.Content.Link } },
+			[true] = {
+				container = { stateLayer = { mode = StateLayerMode.Inverse } },
+				content = { style = tokens.Inverse.Content.Link },
+			},
 		},
-		[ButtonVariant.OverMedia] = createButtonVariantStyle(tokens.Color.ActionOverMedia),
+		[ButtonVariant.OverMedia] = createButtonVariantStyles(tokens, "ActionOverMedia", true),
 	}
 end
 
@@ -106,9 +126,10 @@ local function getSizes(tokens: Tokens): { [InputSize]: VariantProps }
 	}
 end
 
-local function getSharedVariants(
-	tokens: Tokens
-): { sizes: { [InputSize]: VariantProps }, types: { [ButtonVariant]: VariantProps } }
+local function getSharedVariants(tokens: Tokens): {
+	sizes: { [InputSize]: VariantProps },
+	types: { [ButtonVariant]: { [boolean]: VariantProps } },
+}
 	local sizes = getSizes(tokens)
 	local types = getButtonTypes(tokens)
 

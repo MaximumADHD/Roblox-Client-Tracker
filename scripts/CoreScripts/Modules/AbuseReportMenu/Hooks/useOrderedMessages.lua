@@ -8,6 +8,11 @@ local useExpChatMessagesReducerSlice = ExpChat.Hooks.useExpChatMessagesReducerSl
 
 local useOrderedMessages = function()
 	local messagesReducerSlice = useExpChatMessagesReducerSlice()
+	-- Cautious check to ensure messagesReducerSlice is valid before using to avoid runtime errors
+	if not messagesReducerSlice then
+		return {}
+	end
+
 	local messages = messagesReducerSlice.byMessageId
 	local messagesIdsInOrder = messagesReducerSlice.windowMessagesInOrder
 

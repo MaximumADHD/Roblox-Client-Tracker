@@ -1,0 +1,41 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["ClassName"]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  LOADK R4 K0 ["ClassName"]
+  NAMECALL R2 R0 K1 ["GetPropertyChangedSignal"]
+  CALL R2 2 1
+  MOVE R4 R1
+  NAMECALL R2 R2 K2 ["Connect"]
+  CALL R2 2 1
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R2
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Fields"]
+  GETTABLEKS R2 R3 K7 ["FieldTypes"]
+  CALL R1 1 1
+  DUPTABLE R2 K12 [{"key", "type", "getValue", "watch"}]
+  LOADK R3 K13 ["ClassName"]
+  SETTABLEKS R3 R2 K8 ["key"]
+  LOADK R3 K14 ["string"]
+  SETTABLEKS R3 R2 K9 ["type"]
+  DUPCLOSURE R3 K15 [PROTO_0]
+  SETTABLEKS R3 R2 K10 ["getValue"]
+  DUPCLOSURE R3 K16 [PROTO_2]
+  SETTABLEKS R3 R2 K11 ["watch"]
+  RETURN R2 1

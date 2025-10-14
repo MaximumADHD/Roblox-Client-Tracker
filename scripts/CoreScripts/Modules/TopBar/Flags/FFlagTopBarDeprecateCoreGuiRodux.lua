@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local Chrome = script.Parent.Parent.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -11,4 +11,4 @@ local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHe
 
 local FFlagTopBarDeprecateCoreGuiRodux = game:DefineFastFlag("TopBarDeprecateCoreGuiRodux", false)
 
-return FFlagTopBarDeprecateCoreGuiRodux and FFlagTopBarSignalizeHealthBar and FFlagConnectGamepadChrome and ChromeEnabled
+return FFlagTopBarDeprecateCoreGuiRodux and FFlagTopBarSignalizeHealthBar and FFlagEnableConsoleExpControls and ChromeEnabled

@@ -14,7 +14,7 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local useAccordionControlled = require(script.Parent.Parent.useAccordionControlled)
+local useAccordion = require(script.Parent.Parent.useAccordion)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -59,9 +59,8 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 		setIsExpanded(props.isExpanded)
 	end, { props.isExpanded })
 
-	local controlledAccordionContext = useAccordionControlled()
-	local onAccordionItemActivated, itemSize =
-		controlledAccordionContext.onAccordionItemActivated, controlledAccordionContext.itemSize
+	local accordionContext = useAccordion()
+	local onAccordionItemActivated, itemSize = accordionContext.onAccordionItemActivated, accordionContext.itemSize
 
 	local variantProps = useAccordionItemVariants(tokens, itemSize :: InputSize, false)
 
@@ -75,7 +74,7 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 			then onAccordionItemActivated(props.id, isExpanded)
 			else defaultOnActivated
 
-	props.testId = `--foundation-accordion-item-{props.id}`
+	props.testId = `{accordionContext.testId}--item-{props.id}`
 
 	return React.createElement(
 		View,
@@ -90,6 +89,7 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 				LayoutOrder = 1,
 				tag = variantProps.header.tag,
 				onActivated = onActivated,
+				testId = `{props.testId}--header`,
 			}, {
 				LeadingIcon = if props.leadingIcon
 					then React.createElement(Icon, {
@@ -98,24 +98,28 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 						variant = if type(props.leadingIcon) == "table" then props.leadingIcon.variant else nil,
 						style = variantProps.icon.style,
 						size = variantProps.icon.size,
+						testId = `{props.testId}--leading-icon`,
 					})
 					else nil,
 				Title = React.createElement(Text, {
 					LayoutOrder = 2,
 					Text = props.text,
 					tag = variantProps.text.tag,
+					testId = `{props.testId}--title`,
 				}),
 				CollapseIcon = React.createElement(Icon, {
 					LayoutOrder = 3,
 					name = if isExpanded then "chevron-large-up" else "chevron-large-down",
 					style = variantProps.icon.style,
 					size = variantProps.icon.size,
+					testId = `{props.testId}--collapse-icon`,
 				}),
 			}),
 			Content = if isExpanded
 				then React.createElement(View, {
 					tag = variantProps.content.tag,
 					LayoutOrder = 2,
+					testId = `{props.testId}--content`,
 				}, {
 					props.children,
 				})
@@ -123,7 +127,7 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 			Divider = if props.hasDivider
 				then React.createElement(Divider, {
 					LayoutOrder = 3,
-					testId = "--foundation-accordion-item-divider",
+					testId = `{props.testId}--divider`,
 				})
 				else nil,
 		}

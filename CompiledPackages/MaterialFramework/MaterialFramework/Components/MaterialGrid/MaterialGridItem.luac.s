@@ -1,0 +1,460 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["GridItemLabelPadding"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["createElement"]
+  GETUPVAL R2 2
+  DUPTABLE R3 K12 [{"AnchorPoint", "AutomaticSize", "Size", "Position", "Text", "TextSize", "TextTruncate", "TextXAlignment", "TextYAlignment", "TextWrapped"}]
+  GETIMPORT R4 K15 [Vector2.new]
+  LOADN R5 0
+  LOADN R6 1
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["AnchorPoint"]
+  GETIMPORT R4 K18 [Enum.AutomaticSize.Y]
+  SETTABLEKS R4 R3 K3 ["AutomaticSize"]
+  GETIMPORT R4 K21 [UDim2.fromScale]
+  LOADN R5 1
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K4 ["Size"]
+  GETIMPORT R4 K21 [UDim2.fromScale]
+  LOADN R5 0
+  LOADN R6 1
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K5 ["Position"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K6 ["Text"]
+  SETTABLEKS R4 R3 K6 ["Text"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["TextSize"]
+  SETTABLEKS R4 R3 K7 ["TextSize"]
+  GETIMPORT R4 K23 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R4 R3 K8 ["TextTruncate"]
+  GETIMPORT R4 K25 [Enum.TextXAlignment.Left]
+  SETTABLEKS R4 R3 K9 ["TextXAlignment"]
+  GETIMPORT R4 K27 [Enum.TextYAlignment.Center]
+  SETTABLEKS R4 R3 K10 ["TextYAlignment"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K11 ["TextWrapped"]
+  DUPTABLE R4 K29 [{"Padding"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["createElement"]
+  LOADK R6 K30 ["UIPadding"]
+  DUPTABLE R7 K33 [{"PaddingBottom", "PaddingLeft"}]
+  GETTABLEKS R8 R0 K31 ["PaddingBottom"]
+  SETTABLEKS R8 R7 K31 ["PaddingBottom"]
+  GETTABLEKS R8 R0 K32 ["PaddingLeft"]
+  SETTABLEKS R8 R7 K32 ["PaddingLeft"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K28 ["Padding"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+8]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["OnMouseEnter"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["OnMouseEnter"]
+  CALL R0 0 0
+  GETUPVAL R0 2
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+8]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["OnMouseLeave"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["OnMouseLeave"]
+  CALL R0 0 0
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["Style"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  LOADB R4 0
+  GETTABLEKS R5 R0 K1 ["ShowGridLabels"]
+  JUMPIFEQKB R5 FALSE [+10]
+  GETTABLEKS R4 R0 K2 ["Text"]
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R5 R0 K2 ["Text"]
+  JUMPIFNOTEQKS R5 K3 [""] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["useState"]
+  LOADB R6 0
+  CALL R5 1 2
+  GETTABLEKS R7 R0 K5 ["Loading"]
+  JUMPIFNOT R7 [+68]
+  GETTABLEKS R7 R2 K6 ["ShimmerSizeOffset"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K11 [{"LayoutOrder", "Position", "Size", "Style"}]
+  GETTABLEKS R11 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K8 ["LayoutOrder"]
+  GETTABLEKS R11 R0 K9 ["Position"]
+  SETTABLEKS R11 R10 K9 ["Position"]
+  GETTABLEKS R11 R0 K10 ["Size"]
+  SETTABLEKS R11 R10 K10 ["Size"]
+  LOADK R11 K12 ["BorderBox"]
+  SETTABLEKS R11 R10 K0 ["Style"]
+  DUPTABLE R11 K14 [{"Shimmer"}]
+  GETUPVAL R13 3
+  JUMPIFNOT R13 [+34]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K17 [{"AnchorPoint", "CornerRadius", "Position", "Size"}]
+  GETIMPORT R15 K20 [Vector2.new]
+  LOADK R16 K21 [0.5]
+  LOADK R17 K21 [0.5]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K15 ["AnchorPoint"]
+  GETTABLEKS R15 R2 K22 ["GridItemCornerRadius"]
+  SETTABLEKS R15 R14 K16 ["CornerRadius"]
+  GETIMPORT R15 K25 [UDim2.fromScale]
+  LOADK R16 K21 [0.5]
+  LOADK R17 K21 [0.5]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K9 ["Position"]
+  GETIMPORT R15 K26 [UDim2.new]
+  LOADN R16 1
+  MINUS R17 R7
+  LOADN R18 1
+  MINUS R19 R7
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K10 ["Size"]
+  CALL R12 2 1
+  JUMP [+5]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  GETUPVAL R13 4
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K13 ["Shimmer"]
+  CALL R8 3 -1
+  RETURN R8 -1
+  LOADNIL R7
+  LOADNIL R8
+  GETUPVAL R9 5
+  CALL R9 0 1
+  JUMPIFNOT R9 [+48]
+  GETTABLEKS R9 R0 K27 ["ShouldCenterTooltip"]
+  JUMPIFNOT R9 [+45]
+  GETIMPORT R9 K25 [UDim2.fromScale]
+  LOADK R10 K21 [0.5]
+  LOADK R11 K21 [0.5]
+  CALL R9 2 1
+  MOVE R7 R9
+  GETTABLEKS R12 R0 K9 ["Position"]
+  GETTABLEKS R11 R12 K28 ["X"]
+  GETTABLEKS R10 R11 K29 ["Offset"]
+  GETTABLEKS R12 R0 K31 ["GridItemSize"]
+  DIVK R11 R12 K30 [2]
+  ADD R9 R10 R11
+  GETTABLEKS R14 R0 K9 ["Position"]
+  GETTABLEKS R13 R14 K32 ["Y"]
+  GETTABLEKS R12 R13 K29 ["Offset"]
+  GETTABLEKS R14 R0 K31 ["GridItemSize"]
+  MULK R13 R14 K33 [0.8]
+  ADD R11 R12 R13
+  GETTABLEKS R13 R0 K34 ["CanvasPosition"]
+  GETTABLEKS R12 R13 K32 ["Y"]
+  SUB R10 R11 R12
+  GETTABLEKS R11 R0 K35 ["ContainerYBounds"]
+  JUMPIFNOT R11 [+5]
+  GETTABLEKS R12 R0 K35 ["ContainerYBounds"]
+  GETTABLEKS R11 R12 K36 ["Min"]
+  ADD R10 R10 R11
+  GETIMPORT R11 K20 [Vector2.new]
+  MOVE R12 R9
+  MOVE R13 R10
+  CALL R11 2 1
+  MOVE R8 R11
+  LOADNIL R9
+  GETUPVAL R10 6
+  CALL R10 0 1
+  JUMPIFNOT R10 [+21]
+  GETTABLEKS R9 R2 K37 ["GridItemBackgroundColor"]
+  GETTABLEKS R10 R0 K38 ["Applied"]
+  JUMPIFNOT R10 [+2]
+  GETTABLEKS R9 R2 K39 ["GridItemBackgroundColorApplied"]
+  GETUPVAL R10 5
+  CALL R10 0 1
+  JUMPIFNOT R10 [+7]
+  JUMPIFNOT R5 [+16]
+  GETTABLEKS R10 R0 K40 ["HoverEffectsEnabled"]
+  JUMPIFNOT R10 [+13]
+  GETTABLEKS R9 R2 K41 ["GridItemBackgroundColorHovered"]
+  JUMP [+10]
+  JUMPIFNOT R5 [+9]
+  GETTABLEKS R9 R2 K41 ["GridItemBackgroundColorHovered"]
+  JUMP [+6]
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R9 R2 K41 ["GridItemBackgroundColorHovered"]
+  JUMP [+2]
+  GETTABLEKS R9 R2 K37 ["GridItemBackgroundColor"]
+  GETTABLEKS R11 R0 K42 ["Selected"]
+  JUMPIFNOT R11 [+3]
+  GETTABLEKS R10 R2 K43 ["GridItemBorderColorSelected"]
+  JUMP [+2]
+  GETTABLEKS R10 R2 K44 ["GridItemBorderColor"]
+  NEWCLOSURE R11 P1
+  CAPTURE UPVAL U6
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  NEWCLOSURE R12 P2
+  CAPTURE UPVAL U6
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  DUPTABLE R13 K50 [{"MaterialPreview", "Label", "UICorner", "UIStroke", "Tooltip"}]
+  GETTABLEKS R15 R0 K51 ["CustomPreview"]
+  JUMPIFNOT R15 [+15]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETTABLEKS R15 R0 K51 ["CustomPreview"]
+  DUPTABLE R16 K52 [{"Size"}]
+  GETIMPORT R17 K25 [UDim2.fromScale]
+  LOADN R18 1
+  LOADN R19 1
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K10 ["Size"]
+  CALL R14 2 1
+  JUMP [+61]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETUPVAL R15 7
+  DUPTABLE R16 K61 [{"AnchorPoint", "BackgroundColor", "InitialDistance", "Material", "MaterialPreviewGeometryType", "MeshPartBackgroundColor", "Position", "Static", "Style", "Transparent", "ref"}]
+  GETIMPORT R17 K20 [Vector2.new]
+  LOADK R18 K21 [0.5]
+  LOADK R19 K21 [0.5]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K15 ["AnchorPoint"]
+  SETTABLEKS R9 R16 K53 ["BackgroundColor"]
+  GETTABLEKS R17 R0 K54 ["InitialDistance"]
+  SETTABLEKS R17 R16 K54 ["InitialDistance"]
+  GETTABLEKS R17 R0 K55 ["Material"]
+  SETTABLEKS R17 R16 K55 ["Material"]
+  GETTABLEKS R17 R0 K56 ["MaterialPreviewGeometryType"]
+  SETTABLEKS R17 R16 K56 ["MaterialPreviewGeometryType"]
+  GETUPVAL R18 6
+  CALL R18 0 1
+  JUMPIFNOT R18 [+3]
+  GETTABLEKS R17 R2 K37 ["GridItemBackgroundColor"]
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K57 ["MeshPartBackgroundColor"]
+  GETIMPORT R17 K25 [UDim2.fromScale]
+  LOADK R18 K21 [0.5]
+  LOADK R19 K21 [0.5]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K9 ["Position"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K58 ["Static"]
+  GETTABLEKS R17 R2 K62 ["MaterialPreviewStyle"]
+  SETTABLEKS R17 R16 K0 ["Style"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K59 ["Transparent"]
+  GETUPVAL R18 6
+  CALL R18 0 1
+  JUMPIFNOT R18 [+2]
+  MOVE R17 R1
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K60 ["ref"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K45 ["MaterialPreview"]
+  JUMPIFNOT R4 [+3]
+  MOVE R14 R3
+  CALL R14 0 1
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K46 ["Label"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  LOADK R15 K47 ["UICorner"]
+  DUPTABLE R16 K63 [{"CornerRadius"}]
+  GETTABLEKS R17 R2 K22 ["GridItemCornerRadius"]
+  SETTABLEKS R17 R16 K16 ["CornerRadius"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K47 ["UICorner"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  LOADK R15 K48 ["UIStroke"]
+  DUPTABLE R16 K67 [{"ApplyStrokeMode", "Color", "Thickness"}]
+  GETIMPORT R17 K70 [Enum.ApplyStrokeMode.Border]
+  SETTABLEKS R17 R16 K64 ["ApplyStrokeMode"]
+  SETTABLEKS R10 R16 K65 ["Color"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K66 ["Thickness"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K48 ["UIStroke"]
+  JUMPIF R4 [+54]
+  GETUPVAL R15 5
+  CALL R15 0 1
+  JUMPIFNOT R15 [+40]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETUPVAL R15 8
+  DUPTABLE R16 K75 [{"AnchorPoint", "ContainerXBounds", "ContainerYBounds", "Enabled", "OnTooltipShown", "Position", "ShowDelay", "Text"}]
+  SETTABLEKS R7 R16 K15 ["AnchorPoint"]
+  GETTABLEKS R17 R0 K71 ["ContainerXBounds"]
+  SETTABLEKS R17 R16 K71 ["ContainerXBounds"]
+  GETTABLEKS R17 R0 K35 ["ContainerYBounds"]
+  SETTABLEKS R17 R16 K35 ["ContainerYBounds"]
+  GETTABLEKS R17 R0 K40 ["HoverEffectsEnabled"]
+  SETTABLEKS R17 R16 K72 ["Enabled"]
+  GETTABLEKS R17 R0 K73 ["OnTooltipShown"]
+  SETTABLEKS R17 R16 K73 ["OnTooltipShown"]
+  SETTABLEKS R8 R16 K9 ["Position"]
+  GETTABLEKS R18 R0 K76 ["InstantTooltipEnabled"]
+  JUMPIFNOT R18 [+2]
+  LOADN R17 0
+  JUMP [+2]
+  GETTABLEKS R17 R0 K77 ["TooltipDelay"]
+  SETTABLEKS R17 R16 K74 ["ShowDelay"]
+  GETTABLEKS R17 R0 K2 ["Text"]
+  SETTABLEKS R17 R16 K2 ["Text"]
+  CALL R14 2 1
+  JUMP [+12]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETUPVAL R15 8
+  DUPTABLE R16 K78 [{"Text"}]
+  GETTABLEKS R17 R0 K2 ["Text"]
+  SETTABLEKS R17 R16 K2 ["Text"]
+  CALL R14 2 1
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K49 ["Tooltip"]
+  LOADNIL R14
+  GETTABLEKS R15 R0 K79 ["OnRenderChildren"]
+  JUMPIFNOT R15 [+4]
+  GETTABLEKS R15 R0 K79 ["OnRenderChildren"]
+  CALL R15 0 1
+  MOVE R14 R15
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  LOADK R16 K80 ["TextButton"]
+  NEWTABLE R17 16 0
+  LOADB R18 0
+  SETTABLEKS R18 R17 K81 ["AutoButtonColor"]
+  SETTABLEKS R9 R17 K82 ["BackgroundColor3"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K83 ["BorderSizePixel"]
+  GETTABLEKS R18 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R18 R17 K8 ["LayoutOrder"]
+  GETTABLEKS R18 R0 K9 ["Position"]
+  SETTABLEKS R18 R17 K9 ["Position"]
+  GETTABLEKS R18 R0 K10 ["Size"]
+  SETTABLEKS R18 R17 K10 ["Size"]
+  LOADK R18 K3 [""]
+  SETTABLEKS R18 R17 K2 ["Text"]
+  GETTABLEKS R18 R0 K2 ["Text"]
+  SETTABLEKS R18 R17 K84 ["Name"]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K85 ["Event"]
+  GETTABLEKS R18 R19 K86 ["Activated"]
+  GETTABLEKS R19 R0 K87 ["OnClick"]
+  SETTABLE R19 R17 R18
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K85 ["Event"]
+  GETTABLEKS R18 R19 K88 ["MouseButton2Click"]
+  GETTABLEKS R19 R0 K89 ["OnRightClick"]
+  SETTABLE R19 R17 R18
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K85 ["Event"]
+  GETTABLEKS R18 R19 K90 ["MouseEnter"]
+  SETTABLE R11 R17 R18
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K85 ["Event"]
+  GETTABLEKS R18 R19 K91 ["MouseLeave"]
+  SETTABLE R12 R17 R18
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K85 ["Event"]
+  GETTABLEKS R18 R19 K92 ["MouseMoved"]
+  GETUPVAL R20 5
+  CALL R20 0 1
+  JUMPIFNOT R20 [+3]
+  GETTABLEKS R19 R0 K93 ["OnMouseMoved"]
+  JUMP [+1]
+  LOADNIL R19
+  SETTABLE R19 R17 R18
+  GETUPVAL R19 9
+  GETTABLEKS R18 R19 K94 ["join"]
+  MOVE R19 R13
+  MOVE R20 R14
+  CALL R18 2 -1
+  CALL R15 -1 -1
+  RETURN R15 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Types"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K2 ["Parent"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R2 K6 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R2 K7 ["Framework"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R2 K8 ["React"]
+  CALL R5 1 1
+  GETTABLEKS R7 R4 K9 ["SharedFlags"]
+  GETTABLEKS R6 R7 K10 ["getFFlagDevFrameworkShimmerImprovements"]
+  CALL R6 0 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K11 ["Flags"]
+  GETTABLEKS R8 R9 K12 ["getFFlagMaterialPickerInstantTooltip"]
+  CALL R7 1 1
+  GETTABLEKS R8 R4 K13 ["UI"]
+  GETTABLEKS R9 R8 K14 ["Pane"]
+  GETTABLEKS R10 R8 K15 ["Shimmer"]
+  GETTABLEKS R11 R8 K16 ["TextLabel"]
+  GETTABLEKS R12 R8 K17 ["Tooltip"]
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R15 R0 K18 ["Components"]
+  GETTABLEKS R14 R15 K19 ["MaterialPreview"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R16 R0 K11 ["Flags"]
+  GETTABLEKS R15 R16 K20 ["getFFlagMaterialPickerUIChanges"]
+  CALL R14 1 1
+  DUPCLOSURE R15 K21 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  GETTABLEKS R16 R5 K22 ["forwardRef"]
+  MOVE R17 R15
+  CALL R16 1 -1
+  RETURN R16 -1

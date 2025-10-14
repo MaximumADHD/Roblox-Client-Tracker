@@ -7,6 +7,7 @@ local TopBar = script.Parent.Parent
 local FFlagRemoveTopBarInputTypeRodux = require(TopBar.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
 local FFlagTopBarDeprecateCoreGuiRodux = require(TopBar.Flags.FFlagTopBarDeprecateCoreGuiRodux)
 local FFlagTopBarDeprecateChatRodux = require(TopBar.Flags.FFlagTopBarDeprecateChatRodux)
+local FFlagTopBarDeprecateDisplayOptionsRodux = require(TopBar.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
 local FFlagTopBarDeprecateRespawnRodux = require(TopBar.Flags.FFlagTopBarDeprecateRespawnRodux)
 local FFlagTopBarDeprecateMoreMenuRodux = require(TopBar.Flags.FFlagTopBarDeprecateMoreMenuRodux)
 
@@ -30,7 +31,7 @@ function Connection:render()
 		MenuConnector = if FFlagTopBarSignalizeMenuOpen and FFlagTopBarDeprecateRespawnRodux then nil else Roact.createElement(MenuConnector),
 		ChatConnector = if FFlagTopBarDeprecateChatRodux then nil else Roact.createElement(ChatConnector),
 		HealthConnector = if FFlagTopBarSignalizeHealthBar then nil else Roact.createElement(HealthConnector),
-		EnabledNotifier = Roact.createElement(EnabledNotifier),
+		EnabledNotifier = if FFlagTopBarDeprecateDisplayOptionsRodux then nil else Roact.createElement(EnabledNotifier),
 		OpenUIConnector = if FFlagTopBarDeprecateMoreMenuRodux then nil else Roact.createElement(OpenUIConnector),
 		LastInputTypeConnector = if FFlagRemoveTopBarInputTypeRodux then nil else Roact.createElement(LastInputTypeConnector),
 	})

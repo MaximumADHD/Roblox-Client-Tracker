@@ -23,6 +23,7 @@ export type DividerProps = {
 local defaultProps = {
 	variant = DividerVariant.Default,
 	orientation = Orientation.Horizontal,
+	testId = "--foundation-divider",
 }
 
 local function Divider(dividerProps: DividerProps, ref: React.Ref<GuiObject>?)

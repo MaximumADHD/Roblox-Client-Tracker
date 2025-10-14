@@ -8,20 +8,20 @@ type DialogSize = DialogSize.DialogSize
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 
-local useDialogLayout = require(script.Parent.useDialogLayout)
+local useDialog = require(script.Parent.useDialog)
 local getResponsiveSize = require(script.Parent.getResponsiveSize)
 
 local function useDialogResponsiveSize(size: DialogSize)
 	local tokens = useTokens()
 	local overlay = useOverlay()
-	local layout = useDialogLayout()
+	local dialog = useDialog()
 
 	local updateSize = React.useCallback(function()
 		if not overlay then
 			return
 		end
-		layout.setResponsiveSize(getResponsiveSize(overlay.AbsoluteSize.X, size, tokens))
-	end, { overlay :: unknown, size, tokens, layout })
+		dialog.setResponsiveSize(getResponsiveSize(overlay.AbsoluteSize.X, size, tokens))
+	end, { overlay :: unknown, size, tokens, dialog.size })
 
 	React.useEffect(function()
 		if not overlay then

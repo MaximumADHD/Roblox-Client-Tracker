@@ -10,6 +10,7 @@ local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useTextSizeOffset = require(Foundation.Providers.Style.useTextSizeOffset)
+local useTile = require(Foundation.Components.Tile.useTile)
 
 type ColorStyle = Types.ColorStyle
 
@@ -33,7 +34,8 @@ local function getTypographyComponent(
 	colorStyle: ColorStyle,
 	textXAlignment: Enum.TextXAlignment?,
 	numLines: number,
-	layoutOrder: number
+	layoutOrder: number,
+	testId: string
 ): React.ReactNode
 	local text = nil :: string?
 	local font = nil :: FontStyle?
@@ -79,6 +81,7 @@ local function getTypographyComponent(
 		TextWrapped = if lines > 1 then true else false,
 		Size = UDim2.new(1, 0, 0, scaledHeight),
 		LayoutOrder = layoutOrder,
+		testId = testId,
 	})
 end
 
@@ -95,6 +98,7 @@ local defaultProps = {
 local function TileHeader(tileHeaderProps: TileHeaderProps)
 	local props = withDefaults(tileHeaderProps, defaultProps)
 	local tokens = useTokens()
+	local tileContext = useTile()
 
 	local title = getTypographyComponent(
 		props.title,
@@ -102,7 +106,8 @@ local function TileHeader(tileHeaderProps: TileHeaderProps)
 		tokens.Color.Content.Emphasis,
 		props.TextXAlignment,
 		if props.subtitle == nil then 2 else 1,
-		1
+		1,
+		`{tileContext.testId}--header-title`
 	)
 
 	return React.createElement(View, {
@@ -115,6 +120,7 @@ local function TileHeader(tileHeaderProps: TileHeaderProps)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		},
 		tag = "auto-y size-full-0 gap-xxsmall",
+		testId = `{tileContext.testId}--header`,
 	}, {
 		Title = title,
 		Subtitle = if props.subtitle ~= nil
@@ -124,7 +130,8 @@ local function TileHeader(tileHeaderProps: TileHeaderProps)
 				tokens.Color.Content.Default,
 				props.TextXAlignment,
 				1,
-				2
+				2,
+				`{tileContext.testId}--header-subtitle`
 			)
 			else nil,
 	})

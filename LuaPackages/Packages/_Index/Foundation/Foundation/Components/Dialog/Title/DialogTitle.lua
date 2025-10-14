@@ -9,7 +9,7 @@ local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local useDialogLayout = require(script.Parent.Parent.useDialogLayout)
+local useDialog = require(script.Parent.Parent.useDialog)
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
 local getBottomSpacing = require(script.Parent.getBottomSpacing)
 
@@ -21,20 +21,20 @@ export type DialogTitleProps = {
 
 local function DialogTitle(props: DialogTitleProps)
 	local tokens = useTokens()
-	local layout = useDialogLayout()
+	local dialogContext = useDialog()
 	local variants = useDialogVariants()
 
 	return React.createElement(View, {
 		tag = variants.title.tag,
 		LayoutOrder = Constants.MIN_LAYOUT_ORDER + 1, -- Ensure Title goes 2nd after HeroMedia
 		padding = {
-			right = if layout.hasHeroMedia
+			right = if dialogContext.hasHeroMedia
 				then nil
 				else UDim.new(0, variants.closeAffordance.offset + tokens.Size.Size_1000),
-			top = if layout.hasHeroMedia then nil else UDim.new(0, tokens.Size.Size_500),
+			top = if dialogContext.hasHeroMedia then nil else UDim.new(0, tokens.Size.Size_500),
 			bottom = getBottomSpacing(tokens),
 		},
-		testId = "--foundation-dialog-title",
+		testId = `{dialogContext.testId}--title`,
 	}, {
 		Title = React.createElement(Text, {
 			tag = variants.titleText.tag,

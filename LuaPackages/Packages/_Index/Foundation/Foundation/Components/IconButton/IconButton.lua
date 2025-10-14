@@ -28,6 +28,7 @@ local Radius = require(Foundation.Enums.Radius)
 type Radius = Radius.Radius
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local usePresentationContext = require(Foundation.Providers.Style.PresentationContext).usePresentationContext
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useIconSize = require(Foundation.Utility.useIconSize)
@@ -64,11 +65,13 @@ local defaultProps = {
 	size = InputSize.Medium,
 	isCircular = false,
 	variant = ButtonVariant.Utility,
+	testId = "--foundation-icon-button",
 }
 
 local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(iconButtonProps, defaultProps)
 	local tokens = useTokens()
+	local presentationContext = usePresentationContext()
 
 	local iconName = if typeof(props.icon) == "table" then props.icon.name else props.icon
 	local iconVariant: BuilderIcons.IconVariant? = if typeof(props.icon) == "table" then props.icon.variant else nil
@@ -81,7 +84,8 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	end
 
 	-- Use variant system for styling
-	local variantProps = useIconButtonVariants(tokens, props.size, props.variant)
+	local variantProps =
+		useIconButtonVariants(tokens, props.size, props.variant, presentationContext and presentationContext.isInverse)
 
 	-- Override radius if circular
 	local componentRadius = if props.isCircular
@@ -111,6 +115,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 				NextSelectionRight = props.NextSelectionRight,
 			},
 			isDisabled = props.isDisabled,
+			stateLayer = variantProps.container.stateLayer,
 			padding = variantProps.container.padding,
 			cornerRadius = componentRadius,
 			backgroundStyle = variantProps.container.style,
@@ -133,6 +138,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 					tag = "anchor-center-center position-center-center",
 					Size = iconSize,
 					textStyle = variantProps.content.style,
+					testId = `{props.testId}--icon`,
 				})
 				else React.createElement(Image, {
 					tag = "anchor-center-center position-center-center",
@@ -142,6 +148,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 						else iconSize,
 					imageStyle = variantProps.content.style,
 					scale = scale,
+					testId = `{props.testId}--image`,
 				}),
 		}
 	)

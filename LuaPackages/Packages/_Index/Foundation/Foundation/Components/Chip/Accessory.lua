@@ -58,6 +58,7 @@ type AccessoryProps<Config = Config> = {
 	contentStyle: any,
 	chipBackgroundStyle: Types.ColorStyle,
 	isDisabled: boolean?,
+	testId: string,
 }
 
 local function AvatarGroupWrapper(props: AccessoryProps<AvatarGroupConfig>)
@@ -117,6 +118,7 @@ local function Accessory(accessoryProps: AccessoryProps)
 		-- No transparency is needed here when disabled, it's handled by the Chip.
 		isDisabled = accessoryProps.isDisabled,
 		LayoutOrder = if accessoryProps.isLeading then 1 else 3,
+		testId = accessoryProps.testId,
 	}, element)
 end
 

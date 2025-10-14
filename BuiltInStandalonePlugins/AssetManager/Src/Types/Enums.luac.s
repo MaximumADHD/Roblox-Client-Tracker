@@ -159,4 +159,10 @@ MAIN:
   LOADK R12 K72 ["Filters"]
   SETTABLEKS R12 R11 K72 ["Filters"]
   SETTABLEKS R11 R2 K74 ["UiZone"]
+  DUPTABLE R12 K77 [{"CommonTypes", "OtherTypes"}]
+  LOADK R13 K75 ["CommonTypes"]
+  SETTABLEKS R13 R12 K75 ["CommonTypes"]
+  LOADK R13 K76 ["OtherTypes"]
+  SETTABLEKS R13 R12 K76 ["OtherTypes"]
+  SETTABLEKS R12 R2 K78 ["FilterGroupType"]
   RETURN R2 1

@@ -1,0 +1,110 @@
+PROTO_0:
+  DUPTABLE R0 K2 [{"userId", "machineTimeStamp"}]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K3 ["GetUserId"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K0 ["userId"]
+  GETIMPORT R1 K6 [os.time]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["machineTimeStamp"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["sendEventDeferred"]
+  LOADK R1 K1 ["click_experience_questionnaire"]
+  GETGLOBAL R2 K2 ["getAdditionalArgs"]
+  CALL R2 0 -1
+  CALL R0 -1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["BuildRobloxUrl"]
+  LOADK R1 K4 ["create"]
+  LOADK R2 K5 ["dashboard/creations/experiences/%d/experience-questionnaire"]
+  GETUPVAL R3 2
+  CALL R0 3 1
+  GETUPVAL R1 3
+  MOVE R3 R0
+  NAMECALL R1 R1 K6 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  FASTCALL1 ASSERT R2 [+2]
+  GETIMPORT R1 K1 [assert]
+  CALL R1 1 0
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["BuildRobloxUrl"]
+  LOADK R1 K1 ["create"]
+  LOADK R2 K2 ["dashboard/creations/experiences/%d/configure"]
+  GETUPVAL R3 1
+  CALL R0 3 1
+  GETUPVAL R1 2
+  MOVE R3 R0
+  NAMECALL R1 R1 K3 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  FASTCALL1 ASSERT R2 [+2]
+  GETIMPORT R1 K1 [assert]
+  CALL R1 1 0
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ShowRatingDuringPublish"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["StudioService"]
+  NAMECALL R1 R1 K5 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K6 ["GuiService"]
+  NAMECALL R2 R2 K5 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R6 K8 [script]
+  GETTABLEKS R5 R6 K9 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Parent"]
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R7 R3 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Network"]
+  GETTABLEKS R5 R6 K14 ["Http"]
+  CALL R4 1 1
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R8 R3 K12 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Util"]
+  GETTABLEKS R6 R7 K16 ["Analytics"]
+  CALL R5 1 1
+  NEWTABLE R6 2 0
+  DUPCLOSURE R7 K17 [PROTO_0]
+  CAPTURE VAL R1
+  SETGLOBAL R7 K18 ["getAdditionalArgs"]
+  DUPCLOSURE R7 K19 [PROTO_2]
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K20 ["OpenExperienceQuestionnaire"]
+  DUPCLOSURE R7 K21 [PROTO_4]
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K22 ["OpenCreatorHubSettings"]
+  RETURN R6 1

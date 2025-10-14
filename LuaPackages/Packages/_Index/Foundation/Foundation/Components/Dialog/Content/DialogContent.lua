@@ -9,6 +9,7 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 
 local useScrollBarPadding = require(script.Parent.useScrollBarPadding)
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
+local useDialog = require(script.Parent.Parent.useDialog)
 
 export type DialogContentProps = {
 	children: React.ReactNode,
@@ -17,6 +18,9 @@ export type DialogContentProps = {
 local function DialogContent(props: DialogContentProps)
 	local scrollBarPadding, updateScrollBarPadding = useScrollBarPadding()
 	local variants = useDialogVariants()
+	local dialogContext = useDialog()
+
+	props.testId = `{dialogContext.testId}--content`
 
 	return React.createElement(
 		ScrollView,

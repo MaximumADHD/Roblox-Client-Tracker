@@ -33,6 +33,7 @@ local FFlagProfileSettingsSlidingWindowRateLimit = game:DefineFastFlag("ProfileS
 local FIntProfileSettingsRateLimitSeconds = game:DefineFastInt("ProfileSettingsRateLimitSeconds", 5)
 local FIntProfileSettingsMaxRequestsPerWindow = game:DefineFastInt("ProfileSettingsMaxRequestsPerWindow", 3)
 local FIntProfileSettingsRateLimitWindowSeconds = game:DefineFastInt("ProfileSettingsRateLimitWindowSeconds", 60)
+local FFlagDisableRCCAntiHarrasmentAllowList = game:DefineFastFlag("DisableRCCAntiHarrasmentAllowList", false)
 local FFlagEnablePartyNudgeNotification = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeNotification
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
@@ -329,7 +330,7 @@ local sendPlayerProfileSettings = function(player)
 	end
 
 	local isInExperienceNameEnabled = false
-	if FStringRccInExperienceNameEnabledAllowList.isAllowListedUserId(player.UserId) then
+	if FStringRccInExperienceNameEnabledAllowList.isAllowListedUserId(player.UserId) or FFlagDisableRCCAntiHarrasmentAllowList then
 		local success, result = fetchPlayerProfileSettings(player)
 		if success and result then
 			isInExperienceNameEnabled = result.isSettingsEnabled and result.userProfileSettings and result.userProfileSettings.isInExperienceNameEnabled

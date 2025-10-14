@@ -1,6 +1,6 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ExplorerStreaming2"]
+  LOADK R2 K2 ["ExplorerStreaming3"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIFNOT R0 [+11]
@@ -40,7 +40,7 @@ MAIN:
   LOADK R6 K11 ["PinStreamingSignals"]
   CALL R5 1 1
   GETIMPORT R6 K13 [game]
-  LOADK R8 K14 ["ExplorerStreaming2"]
+  LOADK R8 K14 ["ExplorerStreaming3"]
   LOADB R9 0
   NAMECALL R6 R6 K15 ["DefineFastFlag"]
   CALL R6 3 0

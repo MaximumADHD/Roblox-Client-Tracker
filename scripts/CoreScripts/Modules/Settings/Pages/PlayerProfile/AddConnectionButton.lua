@@ -26,6 +26,10 @@ local function AddConnectionButton(props: AddConnectionButtonProps): React.React
 		requestSent = "CommonUI.Features.Label.Sent",
 	})
 
+	local PeopleServiceConstants = React.useMemo(function()
+		return PeopleService.getService("Constants")
+	end, {})
+
 	local PeopleAnalyticsManager = React.useMemo(function()
 		return PeopleService.getService("PeopleAnalyticsManager")
 	end, {})
@@ -48,7 +52,7 @@ local function AddConnectionButton(props: AddConnectionButtonProps): React.React
 		isDisabled = isDisabled,
 		LayoutOrder = props.layoutOrder,
 		onActivated = function()
-			PeopleAnalyticsManager:trackRequestFriendship()
+			PeopleAnalyticsManager:trackRequestFriendship(PeopleServiceConstants.ANALYTICS.ENTRY_POINT.PLAYER_PROFILE)
 			FriendStatusStore.sendFriendRequest(player)
 		end,
 	})

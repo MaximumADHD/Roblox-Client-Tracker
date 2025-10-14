@@ -22,7 +22,15 @@ PROTO_0:
   SETTABLEKS R7 R6 K10 ["theme"]
   LOADK R7 K14 ["Desktop"]
   SETTABLEKS R7 R6 K11 ["device"]
-  MOVE R7 R0
+  DUPTABLE R7 K16 [{"PartyContextProvider"}]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K17 ["provider"]
+  NEWTABLE R10 0 0
+  MOVE R11 R0
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K15 ["PartyContextProvider"]
   CALL R4 3 1
   SETTABLEKS R4 R3 K7 ["FoundationProvider"]
   CALL R1 2 -1
@@ -49,36 +57,42 @@ MAIN:
   GETTABLEKS R6 R7 K11 ["Foundation"]
   CALL R5 1 1
   GETTABLEKS R6 R5 K12 ["FoundationProvider"]
+  GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K13 ["Src"]
-  GETTABLEKS R9 R10 K14 ["Resources"]
-  GETTABLEKS R8 R9 K15 ["Localization"]
-  GETTABLEKS R7 R8 K16 ["SourceStrings"]
+  GETTABLEKS R9 R10 K14 ["Util"]
+  GETTABLEKS R8 R9 K15 ["mockPartyContext"]
+  CALL R7 1 1
   GETTABLEKS R11 R0 K13 ["Src"]
-  GETTABLEKS R10 R11 K14 ["Resources"]
-  GETTABLEKS R9 R10 K15 ["Localization"]
-  GETTABLEKS R8 R9 K17 ["LocalizedStrings"]
-  NEWTABLE R9 0 3
-  GETTABLEKS R11 R4 K18 ["Analytics"]
-  GETTABLEKS R10 R11 K19 ["mock"]
-  CALL R10 0 1
-  GETTABLEKS R12 R4 K15 ["Localization"]
-  GETTABLEKS R11 R12 K19 ["mock"]
-  DUPTABLE R12 K23 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  SETTABLEKS R7 R12 K20 ["stringResourceTable"]
-  SETTABLEKS R8 R12 K21 ["translationResourceTable"]
-  LOADK R13 K2 ["PartyEmulator"]
-  SETTABLEKS R13 R12 K22 ["pluginName"]
-  CALL R11 1 1
-  GETTABLEKS R13 R4 K24 ["Design"]
-  GETTABLEKS R12 R13 K19 ["mock"]
-  GETIMPORT R13 K27 [Instance.new]
-  LOADK R14 K28 ["StyleSheet"]
-  CALL R13 1 -1
-  CALL R12 -1 -1
-  SETLIST R9 R10 -1 [1]
-  DUPCLOSURE R10 K29 [PROTO_0]
+  GETTABLEKS R10 R11 K16 ["Resources"]
+  GETTABLEKS R9 R10 K17 ["Localization"]
+  GETTABLEKS R8 R9 K18 ["SourceStrings"]
+  GETTABLEKS R12 R0 K13 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Resources"]
+  GETTABLEKS R10 R11 K17 ["Localization"]
+  GETTABLEKS R9 R10 K19 ["LocalizedStrings"]
+  NEWTABLE R10 0 3
+  GETTABLEKS R12 R4 K20 ["Analytics"]
+  GETTABLEKS R11 R12 K21 ["mock"]
+  CALL R11 0 1
+  GETTABLEKS R13 R4 K17 ["Localization"]
+  GETTABLEKS R12 R13 K21 ["mock"]
+  DUPTABLE R13 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R8 R13 K22 ["stringResourceTable"]
+  SETTABLEKS R9 R13 K23 ["translationResourceTable"]
+  LOADK R14 K2 ["PartyEmulator"]
+  SETTABLEKS R14 R13 K24 ["pluginName"]
+  CALL R12 1 1
+  GETTABLEKS R14 R4 K26 ["Design"]
+  GETTABLEKS R13 R14 K21 ["mock"]
+  GETIMPORT R14 K29 [Instance.new]
+  LOADK R15 K30 ["StyleSheet"]
+  CALL R14 1 -1
+  CALL R13 -1 -1
+  SETLIST R10 R11 -1 [1]
+  DUPCLOSURE R11 K31 [PROTO_0]
   CAPTURE VAL R3
-  CAPTURE VAL R9
+  CAPTURE VAL R10
   CAPTURE VAL R1
   CAPTURE VAL R6
-  RETURN R10 1
+  CAPTURE VAL R7
+  RETURN R11 1

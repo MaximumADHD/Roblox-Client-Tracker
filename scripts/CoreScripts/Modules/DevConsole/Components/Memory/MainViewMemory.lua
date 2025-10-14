@@ -1,5 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
+local Stats = game:GetService("Stats")
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
@@ -15,6 +16,9 @@ local ServerMemoryUpdateSearchFilter = require(Actions.ServerMemoryUpdateSearchF
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local MAIN_ROW_PADDING = Constants.GeneralFormatting.MainRowPadding
+local ALERT_HEIGHT = 20
+
+local FFlagDevConsleMemoryTrackingAlert = game:DefineFastFlag("DevConsoleMemoryTrackingAlert", false)
 
 -- may want to move LogButton into its own module
 local LogButton = Roact.Component:extend("LogButton")
@@ -113,6 +117,10 @@ function MainViewMemory:didUpdate()
 	end
 end
 
+local function shouldDisplayMemoryWarning()
+	return not Stats.MemoryTrackingEnabled
+end
+
 function MainViewMemory:render()
 	local elements = {}
 	local size = self.props.size
@@ -123,6 +131,11 @@ function MainViewMemory:render()
 	local utilTabHeight = self.state.utilTabHeight
 	local isClientView = self.state.isClientView
 	local searchTerm = isClientView and self.props.clientSearchTerm or self.props.serverSearchTerm
+	local shouldEnableMemoryHeader = false
+	
+	if FFlagDevConsleMemoryTrackingAlert then
+		shouldEnableMemoryHeader = shouldDisplayMemoryWarning()
+	end
 
 	elements["UIListLayout"] = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
@@ -147,18 +160,29 @@ function MainViewMemory:render()
 		LogButton and Roact.createElement(LogButton, { isClientView = isClientView }),
 	})
 
+	if shouldEnableMemoryHeader then
+		elements["MemoryHeader"] = Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, 0, 0, ALERT_HEIGHT),
+			Position = UDim2.new(0, 0, 0, 0),
+			Text = "Memory category counters are disabled. Restart the client with Micro Profiler on to guarantee counters are enabled.",
+			TextColor3 = Constants.Color.Text,
+			BackgroundColor3 = Color3.new(1, 0, 0),
+			LayoutOrder = 2,
+		})
+	end
+
 	if utilTabHeight > 0 then
 		if isClientView then
 			elements["ClientMemory"] = Roact.createElement(ClientMemory, {
 				size = UDim2.new(1, 0, 1, -utilTabHeight),
 				searchTerm = searchTerm,
-				layoutOrder = 2,
+				layoutOrder = 3,
 			})
 		else
 			elements["ServerMemory"] = Roact.createElement(ServerMemory, {
 				size = UDim2.new(1, 0, 1, -utilTabHeight),
 				searchTerm = searchTerm,
-				layoutOrder = 2,
+				layoutOrder = 3,
 			})
 		end
 	end
@@ -167,7 +191,7 @@ function MainViewMemory:render()
 		Size = size,
 		BackgroundColor3 = Constants.Color.BaseGray,
 		BackgroundTransparency = 1,
-		LayoutOrder = 3,
+		LayoutOrder = 4,
 	}, elements)
 end
 

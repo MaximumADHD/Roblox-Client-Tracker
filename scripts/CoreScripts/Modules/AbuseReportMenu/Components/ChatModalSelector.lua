@@ -9,13 +9,16 @@ local Text = Foundation.Text
 local View = Foundation.View
 
 local ChatModalSelectorDialogController = require(root.Components.ChatModalSelectorDialogController)
+local Types = require(root.Components.Types)
 
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 
 type Props = {
 	onMenuOpenChange: (boolean) -> (),
+	onSelect: (message: Types.Message, orderedMessages: { Types.Message }) -> (),
 	placeholderText: string,
-	selectedValue: any?,
+	selectedValue: string?,
+	selectorHeight: number, -- Need this prop to determine height of button, otherwise it'll expand indefinitely
 }
 
 --[[
@@ -38,12 +41,12 @@ local function ChatModalSelector(props: Props)
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 1, 0),
+		Size = UDim2.new(1, 0, 0, props.selectorHeight),
 	}, {
 		ControlButton = React.createElement(View, {
 			tag = "size-full stroke-thicker stroke-emphasis radius-medium",
 			onActivated = function()
-				ChatModalSelectorDialogController.mountModalSelector(onClose, onOpen)
+				ChatModalSelectorDialogController.mountModalSelector(onClose, onOpen, props.onSelect)
 			end,
 		}, {
 			Text = React.createElement(Text, {

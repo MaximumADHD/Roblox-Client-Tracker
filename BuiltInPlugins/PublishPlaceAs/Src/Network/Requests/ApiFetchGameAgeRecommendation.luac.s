@@ -3,6 +3,44 @@ PROTO_0:
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["JSONDecode"]
   CALL R1 2 1
+  DUPTABLE R2 K3 [{"minimumAgeByUniverse", "ratingByUniverse"}]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K1 ["minimumAgeByUniverse"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K2 ["ratingByUniverse"]
+  GETIMPORT R3 K5 [pairs]
+  GETTABLEKS R4 R1 K6 ["ageRecommendationDetailsByUniverse"]
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  GETTABLEKS R8 R7 K7 ["ageRecommendationDetails"]
+  JUMPIFNOT R8 [+11]
+  GETTABLEKS R9 R7 K7 ["ageRecommendationDetails"]
+  GETTABLEKS R8 R9 K8 ["ageRecommendationSummary"]
+  JUMPIFNOT R8 [+6]
+  GETTABLEKS R10 R7 K7 ["ageRecommendationDetails"]
+  GETTABLEKS R9 R10 K8 ["ageRecommendationSummary"]
+  GETTABLEKS R8 R9 K9 ["ageRecommendation"]
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R9 R8 K10 ["minimumAge"]
+  JUMPIF R9 [+1]
+  LOADN R9 0
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R10 R8 K11 ["contentMaturity"]
+  JUMPIF R10 [+1]
+  LOADK R10 K12 ["unrated"]
+  GETTABLEKS R11 R7 K13 ["universeId"]
+  GETTABLEKS R12 R2 K1 ["minimumAgeByUniverse"]
+  SETTABLE R9 R12 R11
+  GETTABLEKS R12 R2 K2 ["ratingByUniverse"]
+  SETTABLE R10 R12 R11
+  FORGLOOP R3 2 [-33]
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["JSONDecode"]
+  CALL R1 2 1
   NEWTABLE R2 0 0
   GETIMPORT R3 K2 [pairs]
   GETTABLEKS R4 R1 K3 ["ageRecommendationDetailsByUniverse"]
@@ -19,7 +57,7 @@ PROTO_0:
   FORGLOOP R3 2 [-14]
   RETURN R2 1
 
-PROTO_1:
+PROTO_2:
   DUPTABLE R1 K3 [{"Url", "Method", "Body"}]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K4 ["BuildRobloxUrl"]
@@ -35,11 +73,22 @@ PROTO_1:
   NAMECALL R2 R2 K10 ["JSONEncode"]
   CALL R2 2 1
   SETTABLEKS R2 R1 K2 ["Body"]
+  GETUPVAL R2 2
+  JUMPIFNOT R2 [+11]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K11 ["Request"]
   MOVE R3 R1
   CALL R2 1 1
   DUPCLOSURE R4 K12 [PROTO_0]
+  CAPTURE UPVAL U1
+  NAMECALL R2 R2 K13 ["andThen"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K11 ["Request"]
+  MOVE R3 R1
+  CALL R2 1 1
+  DUPCLOSURE R4 K14 [PROTO_1]
   CAPTURE UPVAL U1
   NAMECALL R2 R2 K13 ["andThen"]
   CALL R2 2 -1
@@ -61,7 +110,12 @@ MAIN:
   LOADK R4 K10 ["HttpService"]
   NAMECALL R2 R2 K11 ["GetService"]
   CALL R2 2 1
-  DUPCLOSURE R3 K12 [PROTO_1]
+  GETIMPORT R3 K9 [game]
+  LOADK R5 K12 ["ShowRatingDuringPublish"]
+  NAMECALL R3 R3 K13 ["GetFastFlag"]
+  CALL R3 2 1
+  DUPCLOSURE R4 K14 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R2
-  RETURN R3 1
+  CAPTURE VAL R3
+  RETURN R4 1

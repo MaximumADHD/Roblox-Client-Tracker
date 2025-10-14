@@ -34,6 +34,7 @@ export type Panel3DProps = {
 	connectPanelManagerFunction: ((arg: any) -> ())?, -- callback to connect to the panel manager function, only used for AnchoringTypes.PanelManaged
 	-- Ref to the Part maintained in the Panel3D component
 	partRef: Ref<any>?,
+	surfaceGuiRef: Ref<any>?,
 }
 
 return {

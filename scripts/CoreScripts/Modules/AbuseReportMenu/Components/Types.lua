@@ -2,7 +2,10 @@ local root = script:FindFirstAncestor("AbuseReportMenu")
 local CorePackages = game:GetService("CorePackages")
 local AvatarIdentificationPkg = require(CorePackages.Workspace.Packages.TnSAvatarIdentification)
 local AdIdentificationPkg = require(CorePackages.Workspace.Packages.TnSAdIdentification)
+local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ReportAnythingAnalytics = require(root.ReportAnything.Utility.ReportAnythingAnalytics)
+
+export type Message = ExpChat.Message
 
 export type GenericMenuItemType = {
 	componentType: "generic",
@@ -69,7 +72,8 @@ export type ChatModalSelectorMenuItemType = {
 	componentType: "chatModalSelector",
 	getIsVisible: (menuUIStates: ReportPersonState) -> boolean,
 	onUpdateSelectedOption: (
-		selectedItem: any, -- TODO: Strongly type this
+		selectedItem: Message,
+		orderedMessages: { Message },
 		menuUIStates: ReportPersonState,
 		dispatchUIStates: any,
 		utilityProps: MenuUtilityProps
@@ -103,6 +107,8 @@ export type ReportPersonState = {
 	playerObjects: { any },
 	isModalSelectorShown: boolean?,
 	preselectedPlayer: Player?, -- will be cleared soon after being set once the Player list is populated
+	selectedMessage: Message?,
+	orderedMessages: { Message },
 	--[[
 		Items not included here but still relevant:
 		* submitter ID (stays the same for the form lifecycle, can grab at any time)
@@ -172,6 +178,7 @@ type PartialAnalyticsState = {
 	personChangeCount: number,
 	reasonChangeCount: number,
 	captureSceneCount: number,
+	chatLineChangeCount: number,
 
 	-- Keep a copy of these in here since we don't have access to the real
 	-- source of truth when at the top level of the menu

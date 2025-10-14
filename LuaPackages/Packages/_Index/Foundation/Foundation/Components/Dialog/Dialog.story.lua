@@ -35,6 +35,7 @@ type StoryProps = {
 		mediaSizeScaleY: number?,
 		mediaSizeOffsetY: number?,
 		mediaAspectRatio: number?,
+		heroMediaBackgroundStyle: boolean?,
 		heroMediaHeightScale: number?,
 		heroMediaHeightOffset: number?,
 		heroMediaAspectRatio: number?,
@@ -47,6 +48,9 @@ type StoryProps = {
 		DialogContent: React.ReactNode?,
 	}?,
 }
+
+local AvatarBG = "component_assets/avatarBG_dark"
+local Pictogram = "pictograms/avatar_setup"
 
 local function Story(props: StoryProps)
 	local children = props.children or { DialogMedia = nil, DialogContent = nil, DialogTitle = nil }
@@ -125,6 +129,9 @@ function CustomMedia(props: {
 			else ""}`,
 	}, {
 		Image = React.createElement(Image, {
+			tag = {
+				["content-emphasis"] = props.media == Pictogram,
+			},
 			aspectRatio = props.aspectRatio,
 			Image = props.media,
 			Size = props.Size,
@@ -138,12 +145,17 @@ return {
 		{
 			name = "Hero Image & Title & Content",
 			story = function(props: StoryProps)
+				local tokens = useTokens()
 				return React.createElement(Story, props, {
 					DialogTitle = React.createElement(Dialog.Title, {
 						text = props.controls.title,
 					}),
 					DialogMedia = React.createElement(Dialog.HeroMedia, {
 						media = props.controls.media :: string,
+						mediaStyle = if props.controls.media == Pictogram then tokens.Color.Content.Emphasis else nil,
+						backgroundStyle = if props.controls.heroMediaBackgroundStyle
+							then tokens.Color.ActionSoftEmphasis.Background
+							else nil,
 						height = UDim.new(
 							props.controls.heroMediaHeightScale or 0,
 							props.controls.heroMediaHeightOffset or 0
@@ -182,9 +194,14 @@ return {
 		{
 			name = "Hero Image & Content",
 			story = function(props: StoryProps)
+				local tokens = useTokens()
 				return React.createElement(Story, props, {
 					DialogMedia = React.createElement(Dialog.HeroMedia, {
 						media = props.controls.media :: string,
+						mediaStyle = if props.controls.media == Pictogram then tokens.Color.Content.Emphasis else nil,
+						backgroundStyle = if props.controls.heroMediaBackgroundStyle
+							then tokens.Color.ActionSoftEmphasis.Background
+							else nil,
 						height = UDim.new(
 							props.controls.heroMediaHeightScale or 0,
 							props.controls.heroMediaHeightOffset or 0
@@ -206,9 +223,14 @@ return {
 		{
 			name = "Hero Image only",
 			story = function(props: StoryProps)
+				local tokens = useTokens()
 				return React.createElement(Story, props, {
 					DialogMedia = React.createElement(Dialog.HeroMedia, {
 						media = props.controls.media :: string,
+						mediaStyle = if props.controls.media == Pictogram then tokens.Color.Content.Emphasis else nil,
+						backgroundStyle = if props.controls.heroMediaBackgroundStyle
+							then tokens.Color.ActionSoftEmphasis.Background
+							else nil,
 						height = UDim.new(
 							props.controls.heroMediaHeightScale or 0,
 							props.controls.heroMediaHeightOffset or 0
@@ -323,12 +345,13 @@ return {
 		hasActions = true,
 		disablePortal = true,
 		hasBackdrop = false,
-		media = "component_assets/avatarBG_dark",
+		media = { Pictogram, AvatarBG },
 		mediaSizeScaleX = 1,
 		mediaSizeScaleY = 0,
 		mediaSizeOffsetX = 0,
 		mediaSizeOffsetY = 100,
 		mediaAspectRatio = 0,
+		heroMediaBackgroundStyle = false,
 		heroMediaAspectRatio = 2.5,
 		heroMediaHeightScale = 1,
 		heroMediaHeightOffset = 0,

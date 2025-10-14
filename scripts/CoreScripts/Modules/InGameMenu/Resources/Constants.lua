@@ -129,7 +129,16 @@ local Constants = {
 		[Enum.UserInputType.Touch] = InputTypes.Touch,
 	},
 
-	FramerateCaps = {
+	FramerateCaps = if game:DefineFastFlag("MoreFramerateOptions", false) then {
+		60,
+		120,
+		144,
+		160,
+		165,
+		180,
+		200,
+		240, -- Anything higher than this will cause weird issues with physics events, as the physics engine runs at 240Hz (CREATORBUG-5874)
+	} else {
 		60,
 		120,
 		144,

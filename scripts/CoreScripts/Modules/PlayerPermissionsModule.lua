@@ -15,6 +15,10 @@ local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local VerifiedBadgeDisplayStore = UserProfiles.Stores.VerifiedBadgeDisplayStore
+local FFlagEnableVerifiedBadgeStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableVerifiedBadgeStore
+
 local PlayerInfo = {}
 PlayerInfo.__index = PlayerInfo
 
@@ -183,6 +187,11 @@ if FFlagInExperienceUserProfileSettingsEnabled then
 				local info = getPlayerInfo(player)
 				if info then
 					info:setProfileSettings(profileSettings)
+				end
+										
+				if FFlagEnableVerifiedBadgeStore and profileSettings.isInExperienceNameEnabled ~= nil then
+					local verifiedBadgeDisplayStore = VerifiedBadgeDisplayStore.get()
+					verifiedBadgeDisplayStore.setBadgeVisibility(player.UserId, not profileSettings.isInExperienceNameEnabled)
 				end
 			end
 		end)

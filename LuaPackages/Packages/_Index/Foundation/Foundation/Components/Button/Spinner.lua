@@ -19,6 +19,7 @@ type InternalSpinnerProps = {
 	style: React.Binding<Types.ColorStyleValue>,
 	scale: React.Binding<number>,
 	Thickness: number,
+	testId: string?,
 }
 
 local function IconSpinner(props: InternalSpinnerProps)
@@ -29,6 +30,7 @@ local function IconSpinner(props: InternalSpinnerProps)
 		imageStyle = props.style,
 		Rotation = rotation,
 		tag = "anchor-center-center position-center-center size-full-full",
+		testId = props.testId,
 	}, {
 		UIScale = React.createElement("UIScale", {
 			Scale = props.scale,
@@ -58,6 +60,7 @@ local function Path2DSpinner(props: InternalSpinnerProps)
 	return React.createElement(View, {
 		tag = "anchor-center-center position-center-center size-full",
 		Rotation = rotation,
+		testId = props.testId,
 	}, {
 		Circle = React.createElement("Path2D", {
 			ref = pathRef,
@@ -79,6 +82,7 @@ end
 type SpinnerProps = {
 	style: Types.ColorStyle,
 	Size: UDim2,
+	testId: string?,
 }
 
 local defaultProps = {
@@ -119,6 +123,7 @@ local function Spinner(spinnerProps: SpinnerProps, ref: React.Ref<GuiObject>?)
 				}
 			end),
 			Thickness = math.max(math.floor(props.Size.X.Offset / 8), 1),
+			testId = props.testId,
 		}),
 	})
 end

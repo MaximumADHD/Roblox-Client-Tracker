@@ -6,28 +6,37 @@ local View = require(Foundation.Components.View)
 local SVPicker = require(Foundation.Components.ColorPicker.SVPicker)
 local ColorSlider = require(Foundation.Components.ColorPicker.ColorSlider)
 local ColorInputs = require(Foundation.Components.ColorPicker.ColorInputs)
+local BrickColorPicker = require(Foundation.Components.ColorPicker.BrickColorPicker)
 local ColorSliderType = require(Foundation.Enums.ColorSliderType)
+local ColorInputMode = require(Foundation.Enums.ColorInputMode)
+type ColorInputMode = ColorInputMode.ColorInputMode
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
 
 local Types = require(Foundation.Components.Types)
-type Bindable<T> = Types.Bindable<T>
 type CommonProps = Types.CommonProps
 
 export type ColorPickerProps = {
 	initialColor: Color3?,
 	initialAlpha: number?,
-	onColorChanged: (newColor: Color3) -> (),
+	onColorChanged: (newColor: Color3, brickColor: BrickColor?) -> (),
 	onAlphaChanged: ((newAlpha: number) -> ())?,
+	availableModes: { ColorInputMode }?,
+	initialMode: ColorInputMode?,
 } & CommonProps
 
 local defaultProps = {
 	initialAlpha = 1,
+	initialMode = ColorInputMode.RGB,
+	testId = "--foundation-color-picker",
 }
 
 local function ColorPicker(colorPickerProps: ColorPickerProps)
+	local availableModes: { ColorInputMode } = colorPickerProps.availableModes
+		or { ColorInputMode.RGB, ColorInputMode.HSV, ColorInputMode.Hex, ColorInputMode.Brick }
+
 	local props = withDefaults(colorPickerProps, defaultProps)
 	local tokens = useTokens()
 
@@ -35,13 +44,33 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 	local currentHue, setCurrentHue = React.useBinding(0)
 	local currentSaturation, setCurrentSaturation = React.useBinding(1)
 	local currentValue, setCurrentValue = React.useBinding(1)
-	local alpha, setAlpha = React.useBinding(props.initialAlpha)
+	local alpha, setAlpha = React.useBinding(props.initialAlpha or 1)
+	local currentMode, setCurrentMode = React.useState(props.initialMode or ColorInputMode.RGB)
 
 	local isUpdatingFromHSV = React.useRef(false)
 
-	local onColorChanged = React.useCallback(function(newColor)
+	React.useEffect(function()
+		local initialMode = props.initialMode
+
+		if initialMode then
+			local isModeAvailable = false
+			for _, mode in availableModes do
+				if mode == initialMode then
+					isModeAvailable = true
+					break
+				end
+			end
+
+			if not isModeAvailable then
+				warn(`ColorPicker: initialMode {initialMode} is not in availableModes. Using first available mode.`)
+				setCurrentMode(availableModes[1])
+			end
+		end
+	end, { props.initialMode })
+
+	local onColorChanged = React.useCallback(function(newColor, brickColor)
 		setColor(newColor)
-		props.onColorChanged(newColor)
+		props.onColorChanged(newColor, brickColor)
 	end, { props.onColorChanged })
 
 	local onAlphaChanged = React.useCallback(function(newAlpha)
@@ -51,28 +80,37 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 		end
 	end, { props.onAlphaChanged })
 
-	local showAlpha = props.onAlphaChanged ~= nil
+	local onBrickColorChanged = React.useCallback(function(newBrickColor: BrickColor)
+		setColor(newBrickColor.Color)
+		onColorChanged(newBrickColor.Color, newBrickColor)
+	end, { onColorChanged })
+
+	local showAlpha = props.onAlphaChanged ~= nil and currentMode ~= ColorInputMode.Brick
+
+	local onCustomColorChanged = React.useCallback(function(newColor)
+		onColorChanged(newColor, nil)
+	end, { onColorChanged })
 
 	local updateColor = React.useCallback(
 		colorUtils.createHSVUpdateHandler(
 			setCurrentHue,
 			setCurrentSaturation,
 			setCurrentValue,
-			onColorChanged,
+			onCustomColorChanged,
 			isUpdatingFromHSV
 		),
-		{ onColorChanged, setCurrentHue, setCurrentSaturation, setCurrentValue, setColor }
+		{ onCustomColorChanged, setCurrentHue, setCurrentSaturation, setCurrentValue, setColor }
 	)
 
 	local onColorInputChanged = React.useCallback(
 		colorUtils.createColorInputChangeHandler(
-			onColorChanged,
+			onCustomColorChanged,
 			isUpdatingFromHSV,
 			setCurrentHue,
 			setCurrentSaturation,
 			setCurrentValue
 		),
-		{ onColorChanged :: any, isUpdatingFromHSV, setCurrentHue, setCurrentSaturation, setCurrentValue }
+		{ onCustomColorChanged, isUpdatingFromHSV :: any, setCurrentHue, setCurrentSaturation, setCurrentValue }
 	)
 
 	React.useEffect(function()
@@ -92,33 +130,51 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 				color = color,
 				alpha = alpha,
 				onColorChanged = onColorInputChanged,
-				onAlphaChanged = if showAlpha then onAlphaChanged else nil,
+				onAlphaChanged = (if showAlpha then onAlphaChanged else nil) :: ((number) -> ())?,
+				mode = currentMode :: ColorInputMode,
+				onModeChanged = setCurrentMode,
+				availableModes = availableModes,
 				LayoutOrder = 1,
+				testId = `{props.testId}--input`,
 			}),
 
-			SVPickerContainer = React.createElement(View, {
-				tag = "auto-xy",
-				LayoutOrder = 2,
-			}, {
-				SVPicker = React.createElement(SVPicker, {
-					hue = currentHue,
-					saturation = currentSaturation,
-					value = currentValue,
-					testId = if props.testId then `{props.testId}-sv-picker` else "color-picker-sv-picker",
-					onChanged = function(newS, newV)
-						updateColor(currentHue:getValue(), newS, newV)
+			BrickPicker = if currentMode == ColorInputMode.Brick
+				then React.createElement(BrickColorPicker, {
+					selectedColor = color,
+					onBrickColorChanged = onBrickColorChanged,
+					LayoutOrder = 2,
+					testId = `{props.testId}--brick-picker`,
+				})
+				else nil,
+
+			SVPickerContainer = if currentMode ~= ColorInputMode.Brick
+				then React.createElement(View, {
+					tag = "auto-xy",
+					LayoutOrder = 2,
+				}, {
+					SVPicker = React.createElement(SVPicker, {
+						hue = currentHue,
+						saturation = currentSaturation,
+						value = currentValue,
+						onChanged = function(newS, newV)
+							updateColor(currentHue:getValue(), newS, newV)
+						end,
+						testId = `{props.testId}--sv-picker`,
+					}),
+				})
+				else nil,
+
+			HueSlider = if currentMode ~= ColorInputMode.Brick
+				then React.createElement(ColorSlider, {
+					sliderType = ColorSliderType.Hue,
+					value = currentHue,
+					onValueChanged = function(newH)
+						updateColor(newH, currentSaturation:getValue(), currentValue:getValue())
 					end,
-				}),
-			}),
-
-			HueSlider = React.createElement(ColorSlider, {
-				sliderType = ColorSliderType.Hue,
-				value = currentHue,
-				onValueChanged = function(newH)
-					updateColor(newH, currentSaturation:getValue(), currentValue:getValue())
-				end,
-				LayoutOrder = 3,
-			}),
+					LayoutOrder = 3,
+					testId = `{props.testId}--hue-slider`,
+				})
+				else nil,
 
 			AlphaSlider = if showAlpha
 				then React.createElement(ColorSlider, {
@@ -127,6 +183,7 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 					baseColor = color,
 					onValueChanged = onAlphaChanged,
 					LayoutOrder = 4,
+					testId = `{props.testId}--alpha-slider`,
 				})
 				else nil,
 		}

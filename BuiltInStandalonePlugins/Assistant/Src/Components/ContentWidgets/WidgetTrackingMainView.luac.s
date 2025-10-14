@@ -31,42 +31,45 @@ PROTO_1:
   RETURN R1 -1
 
 PROTO_2:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  GETUPVAL R1 1
-  MOVE R2 R0
-  CALL R1 1 1
-  GETUPVAL R2 2
-  LOADK R3 K0 ["Frame"]
-  DUPTABLE R4 K5 [{"BackgroundColor3", "BackgroundTransparency", "Size", "ref"}]
-  GETIMPORT R5 K8 [Color3.new]
-  LOADN R6 1
-  LOADN R7 0
-  LOADN R8 1
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K1 ["BackgroundColor3"]
-  LOADN R5 1
-  SETTABLEKS R5 R4 K2 ["BackgroundTransparency"]
-  GETIMPORT R5 K11 [UDim2.fromScale]
-  LOADN R6 1
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  MOVE R3 R1
+  CALL R2 1 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["Frame"]
+  DUPTABLE R5 K5 [{"BackgroundColor3", "BackgroundTransparency", "Size", "ref"}]
+  GETIMPORT R6 K8 [Color3.new]
   LOADN R7 1
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K3 ["Size"]
-  SETTABLEKS R1 R4 K4 ["ref"]
-  DUPTABLE R5 K14 [{"UIListLayout", "MainView"}]
-  GETUPVAL R6 2
-  LOADK R7 K12 ["UIListLayout"]
-  DUPTABLE R8 K16 [{"FillDirection"}]
-  GETIMPORT R9 K19 [Enum.FillDirection.Vertical]
-  SETTABLEKS R9 R8 K15 ["FillDirection"]
+  LOADN R8 0
+  LOADN R9 1
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K1 ["BackgroundColor3"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K2 ["BackgroundTransparency"]
+  GETIMPORT R6 K11 [UDim2.fromScale]
+  LOADN R7 1
+  LOADN R8 1
   CALL R6 2 1
-  SETTABLEKS R6 R5 K12 ["UIListLayout"]
-  GETUPVAL R6 2
-  GETUPVAL R7 3
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K13 ["MainView"]
-  CALL R2 3 -1
-  RETURN R2 -1
+  SETTABLEKS R6 R5 K3 ["Size"]
+  SETTABLEKS R2 R5 K4 ["ref"]
+  DUPTABLE R6 K14 [{"UIListLayout", "MainView"}]
+  GETUPVAL R7 2
+  LOADK R8 K12 ["UIListLayout"]
+  DUPTABLE R9 K16 [{"FillDirection"}]
+  GETIMPORT R10 K19 [Enum.FillDirection.Vertical]
+  SETTABLEKS R10 R9 K15 ["FillDirection"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K12 ["UIListLayout"]
+  GETUPVAL R7 2
+  GETUPVAL R8 3
+  DUPTABLE R9 K21 [{"textBoxRef"}]
+  GETTABLEKS R10 R0 K20 ["textBoxRef"]
+  SETTABLEKS R10 R9 K20 ["textBoxRef"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K13 ["MainView"]
+  CALL R3 3 -1
+  RETURN R3 -1
 
 MAIN:
   PREPVARARGS 0

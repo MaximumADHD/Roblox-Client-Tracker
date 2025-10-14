@@ -9,8 +9,7 @@ local View = require(Foundation.Components.View)
 local TextInput = require(Foundation.Components.TextInput)
 local NumberInput = require(Foundation.Components.NumberInput)
 local Dropdown = require(Foundation.Components.Dropdown)
-local InternalMenu = require(Foundation.Components.InternalMenu)
-type MenuItem = InternalMenu.MenuItem
+type DropdownItem = Dropdown.DropdownItem
 type ItemId = Types.ItemId
 
 local ColorInputMode = require(Foundation.Enums.ColorInputMode)
@@ -34,16 +33,17 @@ local function createInput<T>(
 	tokens: Tokens,
 	config: Config<T, string | number>,
 	index: number,
-	testIdPrefix: string
+	mode: string,
+	testId: string?
 ): React.ReactNode
 	-- Avoid redundant testId / key for single input modes
-	local configKey = if testIdPrefix == config.key:lower() then "" else `-{config.key:lower()}`
+	local configKey = if mode == config.key:lower() then "" else `-{config.key:lower()}`
 	local sharedProps = {
 		size = InputSize.XSmall,
 		label = "",
 		width = config.width or UDim.new(0, tokens.Size.Size_1500),
 		LayoutOrder = index,
-		testId = `--foundation-color-picker-{testIdPrefix}{configKey}-input`,
+		testId = `{testId}-{mode}{configKey}`,
 	}
 
 	if config.key == ColorInputMode.Hex then
@@ -80,6 +80,9 @@ type ColorInputsProps = {
 	alpha: React.Binding<number>?,
 	onColorChanged: (color: Color3) -> (),
 	onAlphaChanged: ((alpha: number) -> ())?,
+	mode: ColorInputMode?,
+	onModeChanged: ((mode: ColorInputMode) -> ())?,
+	availableModes: { ColorInputMode }?,
 } & CommonProps
 
 local defaultProps = {
@@ -87,9 +90,12 @@ local defaultProps = {
 }
 
 local function ColorInputs(colorInputsProps: ColorInputsProps)
+	local availableModes: { ColorInputMode } = colorInputsProps.availableModes
+		or { ColorInputMode.RGB, ColorInputMode.HSV, ColorInputMode.Hex, ColorInputMode.Brick }
+
 	local props = withDefaults(colorInputsProps, defaultProps)
 	local tokens = useTokens()
-	local mode: ColorInputMode, setMode = React.useState(ColorInputMode.RGB :: ColorInputMode)
+	local mode: ColorInputMode = props.mode or ColorInputMode.RGB
 	local color = props.color
 	local alpha = props.alpha
 
@@ -166,26 +172,55 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		end
 	end, { onColorChanged })
 
-	local dropdownOptions = React.useMemo(function(): { MenuItem }
-		local options: { MenuItem } = { { id = ColorInputMode.RGB :: string, text = ColorInputMode.RGB :: string } }
+	local dropdownOptions = React.useMemo(function(): { DropdownItem }
+		local allOptions = {
+			{ id = ColorInputMode.RGB :: string, text = ColorInputMode.RGB :: string },
+			{ id = ColorInputMode.HSV :: string, text = ColorInputMode.HSV :: string },
+			{ id = ColorInputMode.Hex :: string, text = ColorInputMode.Hex :: string },
+			{ id = ColorInputMode.Brick :: string, text = ColorInputMode.Brick :: string },
+		}
 
 		if showAlpha then
-			table.insert(options, { id = ColorInputMode.RGBA :: string, text = ColorInputMode.RGBA :: string })
+			table.insert(allOptions, 2, { id = ColorInputMode.RGBA :: string, text = ColorInputMode.RGBA :: string })
 		end
 
-		table.insert(options, { id = ColorInputMode.HSV :: string, text = ColorInputMode.HSV :: string })
-		table.insert(options, { id = ColorInputMode.Hex :: string, text = ColorInputMode.Hex :: string })
+		local availableModesFromProps = availableModes
+		if not availableModesFromProps then
+			return allOptions
+		end
 
-		return options
+		local filteredOptions: { DropdownItem } = {}
+
+		for _, option in allOptions do
+			local modeId = option.id :: ColorInputMode
+			for _, availableMode in availableModesFromProps do
+				local shouldInclude = modeId == availableMode
+					or (modeId == ColorInputMode.RGBA and availableMode == ColorInputMode.RGB and showAlpha)
+
+				if shouldInclude then
+					table.insert(filteredOptions, option)
+					break
+				end
+			end
+		end
+
+		return filteredOptions
 	end, { showAlpha })
 
 	React.useEffect(function()
 		if mode == ColorInputMode.RGBA and not showAlpha then
-			setMode(ColorInputMode.RGB)
+			if props.onModeChanged then
+				props.onModeChanged(ColorInputMode.RGB)
+			end
 		end
-	end, { mode :: unknown, showAlpha, setMode })
+	end, { mode, showAlpha :: any })
 
 	local renderInputs = function()
+		-- For Brick mode, we don't show any inputs (the picker handles the selection)
+		if mode == ColorInputMode.Brick then
+			return
+		end
+
 		local configs = colorInputUtils.createInputConfigs(
 			rgbValues,
 			hsvValues,
@@ -199,13 +234,12 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		)
 		local modeConfig = configs[mode]
 		if not modeConfig then
-			return {}
+			return
 		end
-		local testIdPrefix = mode:lower()
 		local inputs = {}
 		for index, config in ipairs(modeConfig) do
 			local inputKey = config.key .. "Input"
-			inputs[inputKey] = createInput(tokens, config, index, testIdPrefix)
+			inputs[inputKey] = createInput(tokens, config, index, mode:lower(), props.testId)
 		end
 		return inputs
 	end
@@ -214,22 +248,23 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		View,
 		withCommonProps(props, {
 			tag = "row gap-small auto-xy align-y-center",
-			testId = if props.testId then props.testId else "--foundation-color-picker-input",
 		}),
 		{
-			ModeDropdown = React.createElement(Dropdown.Root, {
-				items = dropdownOptions :: { MenuItem },
-				value = mode :: ItemId,
-				onItemChanged = function(newMode: ItemId)
-					setMode(newMode :: ColorInputMode)
-				end,
-				size = InputSize.XSmall,
-				label = "",
-				width = UDim.new(0, tokens.Size.Size_2000),
-				testId = if props.testId
-					then props.testId .. "-mode-dropdown"
-					else "--foundation-color-picker-mode-dropdown",
-			}),
+			ModeDropdown = if #dropdownOptions > 1
+				then React.createElement(Dropdown.Root, {
+					items = dropdownOptions :: { DropdownItem },
+					value = mode :: ItemId,
+					onItemChanged = function(newMode: ItemId)
+						if props.onModeChanged then
+							props.onModeChanged(newMode :: ColorInputMode)
+						end
+					end,
+					size = InputSize.XSmall,
+					label = "",
+					width = UDim.new(0, tokens.Size.Size_2000),
+					testId = `{props.testId}--mode-dropdown`,
+				})
+				else nil,
 
 			Inputs = React.createElement(View, {
 				tag = "row gap-small auto-xy",

@@ -44,9 +44,14 @@ local defaultHoldBehavior = {
 	resetTime = 0.5,
 }
 
+local defaultProps = {
+	testId = "--foundation-key-label",
+}
+
 local SLICE_CENTER = Rect.new(Vector2.new(10, 9), Vector2.new(25, 25))
 
-local function KeyLabel(props: KeyLabelProps, ref: React.Ref<GuiObject>?)
+local function KeyLabel(keyLabelProps: KeyLabelProps, ref: React.Ref<GuiObject>?)
+	local props = withDefaults(keyLabelProps, defaultProps)
 	local holdBehavior = if props.holdBehavior then withDefaults(props.holdBehavior, defaultHoldBehavior) else nil
 
 	local tokens = useTokens()
@@ -105,6 +110,7 @@ local function KeyLabel(props: KeyLabelProps, ref: React.Ref<GuiObject>?)
 				then React.createElement(CircularProgressBar, {
 					progress = progress,
 					tag = "size-full-full",
+					testId = `{props.testId}--indicator`,
 				}, {})
 				else nil,
 

@@ -1,0 +1,47 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Fields"]
+  GETTABLEKS R3 R4 K7 ["AllFields"]
+  GETTABLEKS R2 R3 K8 ["InstanceClassName"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Fields"]
+  GETTABLEKS R3 R4 K9 ["FieldTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Fields"]
+  GETTABLEKS R5 R6 K7 ["AllFields"]
+  GETTABLEKS R4 R5 K10 ["IsClientScript"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Fields"]
+  GETTABLEKS R6 R7 K7 ["AllFields"]
+  GETTABLEKS R5 R6 K11 ["IsDisabledScript"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Fields"]
+  GETTABLEKS R7 R8 K7 ["AllFields"]
+  GETTABLEKS R6 R7 K12 ["IsHiddenGui"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Fields"]
+  GETTABLEKS R8 R9 K7 ["AllFields"]
+  GETTABLEKS R7 R8 K13 ["InstanceName"]
+  CALL R6 1 1
+  NEWTABLE R7 0 0
+  GETTABLEKS R8 R1 K14 ["key"]
+  SETTABLE R1 R7 R8
+  GETTABLEKS R8 R3 K14 ["key"]
+  SETTABLE R3 R7 R8
+  GETTABLEKS R8 R4 K14 ["key"]
+  SETTABLE R4 R7 R8
+  GETTABLEKS R8 R5 K14 ["key"]
+  SETTABLE R5 R7 R8
+  GETTABLEKS R8 R6 K14 ["key"]
+  SETTABLE R6 R7 R8
+  RETURN R7 1

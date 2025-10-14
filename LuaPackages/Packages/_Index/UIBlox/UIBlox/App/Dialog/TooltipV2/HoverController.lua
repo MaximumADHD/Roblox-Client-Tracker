@@ -32,10 +32,7 @@ local function HoverController(props: Types.HoverControllerProps)
 			setActive(false)
 			return
 		end
-		if
-			newState == ControlState.Hover
-			or (UIBloxConfig.supportControlStateSelectedForTooltipHover and newState == ControlState.Selected)
-		then
+		if newState == ControlState.Hover or newState == ControlState.Selected then
 			local prevTick = lastEndHover.current
 			delay(delayTime, function()
 				-- check that we have not lost hover since the change was initiated
@@ -43,10 +40,7 @@ local function HoverController(props: Types.HoverControllerProps)
 					setActive(true)
 				end
 			end)
-		elseif
-			oldState == ControlState.Hover
-			or (UIBloxConfig.supportControlStateSelectedForTooltipHover and oldState == ControlState.Selected)
-		then
+		elseif oldState == ControlState.Hover or oldState == ControlState.Selected then
 			lastEndHover.current = tick()
 			setActive(false)
 		end

@@ -36,6 +36,9 @@ type Props = {
 
 	-- Whether to show the input bar
 	showCalendarInput: boolean?,
+
+	-- Test id
+	testId: string?,
 }
 
 local function Calendar(props: Props)
@@ -153,7 +156,7 @@ local function Calendar(props: Props)
 						handleDateActivated(day, prevMonth, prevYear)
 					end,
 					Text = tostring(day),
-					testId = "--foundation-prev-month-calendar-day-" .. day,
+					testId = `{props.testId}--prev-month-day-{day}`,
 				})
 			)
 
@@ -187,7 +190,7 @@ local function Calendar(props: Props)
 						handleDateActivated(i, currViewDate.month, currViewDate.year)
 					end,
 					Text = tostring(i),
-					testId = "--foundation-current-month-calendar-day-" .. i,
+					testId = `{props.testId}--current-month-day-{i}`,
 				})
 			)
 
@@ -220,7 +223,7 @@ local function Calendar(props: Props)
 						handleDateActivated(i, nextMonth, nextYear)
 					end,
 					Text = tostring(i),
-					testId = "--foundation-next-month-calendar-day-" .. i,
+					testId = `{props.testId}--next-month-day-{i}`,
 				})
 			)
 
@@ -233,7 +236,6 @@ local function Calendar(props: Props)
 	return React.createElement(View, {
 		LayoutOrder = props.LayoutOrder,
 		tag = "col size-full-0 auto-y",
-		testId = "--foundation-calendar",
 	}, {
 		CalendarHeader = React.createElement(View, {
 			LayoutOrder = 1,
@@ -246,19 +248,19 @@ local function Calendar(props: Props)
 				onActivated = navigateToPreviousMonth,
 				size = InputSize.Small,
 				variant = ButtonVariant.Utility,
-				testId = "--foundation-calendar-previous-month-button",
+				testId = `{props.testId}--previous-month-button`,
 			}),
 			MonthText = React.createElement(Text, {
 				LayoutOrder = 2,
 				Text = DateTimeUtilities.monthMap[currViewDate.month],
 				tag = "grow text-align-x-right auto-xy",
-				testId = "--foundation-calendar-month-text",
+				testId = `{props.testId}--month-text`,
 			}),
 			YearText = React.createElement(Text, {
 				LayoutOrder = 3,
 				Text = tostring(currViewDate.year),
 				tag = "grow text-align-x-left auto-xy",
-				testId = "--foundation-calendar-year-text",
+				testId = `{props.testId}--year-text`,
 			}),
 			NextMonthButton = React.createElement(IconButton, {
 				LayoutOrder = 4,
@@ -267,7 +269,7 @@ local function Calendar(props: Props)
 				onActivated = navigateToNextMonth,
 				size = InputSize.Small,
 				variant = ButtonVariant.Utility,
-				testId = "--foundation-calendar-next-month-button",
+				testId = `{props.testId}--next-month-button`,
 			}),
 		}),
 		CalendarInput = if props.showCalendarInput
@@ -279,7 +281,7 @@ local function Calendar(props: Props)
 				placeholder = "MM/DD/YYYY",
 				text = text,
 				width = UDim.new(1, 0),
-				testId = "--foundation-calendar-input",
+				testId = `{props.testId}--input`,
 			})
 			else nil,
 		WeekAndDates = React.createElement(View, {

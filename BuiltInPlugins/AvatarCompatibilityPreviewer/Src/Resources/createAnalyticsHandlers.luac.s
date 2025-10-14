@@ -107,47 +107,61 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+23]
-  JUMPIFEQKNIL R1 [+22]
-  GETUPVAL R2 1
-  LOADK R3 K0 ["AutoSetupRequested"]
-  DUPTABLE R4 K5 [{"bodyCount", "layeredCount", "rigidCount", "unselectedCount"}]
-  GETTABLEKS R5 R1 K6 ["Body"]
-  SETTABLEKS R5 R4 K1 ["bodyCount"]
-  GETTABLEKS R5 R1 K7 ["Layered"]
-  SETTABLEKS R5 R4 K2 ["layeredCount"]
-  GETTABLEKS R5 R1 K8 ["Rigid"]
-  SETTABLEKS R5 R4 K3 ["rigidCount"]
-  GETTABLEKS R5 R1 K9 ["Unselected"]
-  SETTABLEKS R5 R4 K4 ["unselectedCount"]
-  CALL R2 2 0
-  RETURN R0 0
-  GETUPVAL R2 1
-  LOADK R3 K0 ["AutoSetupRequested"]
-  NEWTABLE R4 0 0
-  CALL R2 2 0
+  GETUPVAL R3 0
+  LOADK R4 K0 ["AutoSetupJobInitialized"]
+  DUPTABLE R5 K3 [{"clientJobId", "jobId"}]
+  SETTABLEKS R1 R5 K1 ["clientJobId"]
+  SETTABLEKS R2 R5 K2 ["jobId"]
+  CALL R3 2 0
   RETURN R0 0
 
 PROTO_8:
-  GETUPVAL R2 0
-  LOADK R3 K0 ["AutoSetupOptions"]
-  DUPTABLE R4 K6 [{"setupType", "decimationOptions", "r15Plus", "alignFrontAngle", "enableAdditionalHeadProcessing"}]
-  GETTABLEKS R5 R1 K7 ["SetupType"]
-  SETTABLEKS R5 R4 K1 ["setupType"]
-  GETTABLEKS R5 R1 K8 ["DecimationOptions"]
-  SETTABLEKS R5 R4 K2 ["decimationOptions"]
-  GETTABLEKS R5 R1 K9 ["R15Plus"]
-  SETTABLEKS R5 R4 K3 ["r15Plus"]
-  GETTABLEKS R5 R1 K10 ["AlignFrontAngle"]
-  SETTABLEKS R5 R4 K4 ["alignFrontAngle"]
-  GETTABLEKS R5 R1 K11 ["EnableAdditionalHeadProcessing"]
-  SETTABLEKS R5 R4 K5 ["enableAdditionalHeadProcessing"]
-  CALL R2 2 0
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+31]
+  JUMPIFEQKNIL R1 [+30]
+  GETUPVAL R4 1
+  LOADK R5 K0 ["AutoSetupRequested"]
+  DUPTABLE R6 K8 [{"clientJobId", "assetHash", "bodyCount", "layeredCount", "rigidCount", "avatarCount", "unselectedCount"}]
+  SETTABLEKS R2 R6 K1 ["clientJobId"]
+  SETTABLEKS R3 R6 K2 ["assetHash"]
+  GETTABLEKS R7 R1 K3 ["bodyCount"]
+  SETTABLEKS R7 R6 K3 ["bodyCount"]
+  GETTABLEKS R7 R1 K4 ["layeredCount"]
+  SETTABLEKS R7 R6 K4 ["layeredCount"]
+  GETTABLEKS R7 R1 K5 ["rigidCount"]
+  SETTABLEKS R7 R6 K5 ["rigidCount"]
+  GETTABLEKS R7 R1 K6 ["avatarCount"]
+  SETTABLEKS R7 R6 K6 ["avatarCount"]
+  GETTABLEKS R7 R1 K7 ["unselectedCount"]
+  SETTABLEKS R7 R6 K7 ["unselectedCount"]
+  CALL R4 2 0
+  RETURN R0 0
+  GETUPVAL R4 1
+  LOADK R5 K0 ["AutoSetupRequested"]
+  NEWTABLE R6 0 0
+  CALL R4 2 0
   RETURN R0 0
 
 PROTO_9:
+  GETUPVAL R3 0
+  LOADK R4 K0 ["AutoSetupOptions"]
+  DUPTABLE R5 K7 [{"clientJobId", "setupType", "decimationOptions", "r15Plus", "alignFrontAngle", "enableAdditionalHeadProcessing"}]
+  SETTABLEKS R2 R5 K1 ["clientJobId"]
+  GETTABLEKS R6 R1 K8 ["SetupType"]
+  SETTABLEKS R6 R5 K2 ["setupType"]
+  GETTABLEKS R6 R1 K9 ["DecimationOptions"]
+  SETTABLEKS R6 R5 K3 ["decimationOptions"]
+  GETTABLEKS R6 R1 K10 ["R15Plus"]
+  SETTABLEKS R6 R5 K4 ["r15Plus"]
+  GETTABLEKS R6 R1 K11 ["AlignFrontAngle"]
+  SETTABLEKS R6 R5 K5 ["alignFrontAngle"]
+  GETTABLEKS R6 R1 K12 ["EnableAdditionalHeadProcessing"]
+  SETTABLEKS R6 R5 K6 ["enableAdditionalHeadProcessing"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_10:
   GETUPVAL R5 0
   LOADK R6 K0 ["AutoSetupCancelled"]
   DUPTABLE R7 K5 [{"assetUrl", "assetHash", "timeToComplete", "cancelReason"}]
@@ -162,14 +176,25 @@ PROTO_9:
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_10:
-  GETUPVAL R2 0
-  LOADK R3 K0 ["AutoSetupClothingOnlyFinish"]
-  MOVE R4 R1
-  CALL R2 2 0
+PROTO_11:
+  GETUPVAL R3 0
+  LOADK R4 K0 ["AutoSetupClothingOnlyFinish"]
+  DUPTABLE R5 K7 [{"clientJobId", "setupType", "decimationOptions", "r15Plus", "alignFrontAngle", "enableAdditionalHeadProcessing"}]
+  SETTABLEKS R2 R5 K1 ["clientJobId"]
+  GETTABLEKS R6 R1 K8 ["SetupType"]
+  SETTABLEKS R6 R5 K2 ["setupType"]
+  GETTABLEKS R6 R1 K9 ["DecimationOptions"]
+  SETTABLEKS R6 R5 K3 ["decimationOptions"]
+  GETTABLEKS R6 R1 K10 ["R15Plus"]
+  SETTABLEKS R6 R5 K4 ["r15Plus"]
+  GETTABLEKS R6 R1 K11 ["AlignFrontAngle"]
+  SETTABLEKS R6 R5 K5 ["alignFrontAngle"]
+  GETTABLEKS R6 R1 K12 ["EnableAdditionalHeadProcessing"]
+  SETTABLEKS R6 R5 K6 ["enableAdditionalHeadProcessing"]
+  CALL R3 2 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
   GETUPVAL R4 0
   LOADK R5 K0 ["AutoSetupFinish"]
   DUPTABLE R6 K4 [{"assetUrl", "assetHash", "timeToComplete"}]
@@ -183,7 +208,7 @@ PROTO_11:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R3 0
   LOADK R4 K0 ["AutoSetupAssetsGenerated"]
   DUPTABLE R5 K3 [{"inputAssetId", "outputAssetIds"}]
@@ -196,7 +221,7 @@ PROTO_12:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETUPVAL R2 0
   LOADK R3 K0 ["BundlesMetadataError"]
   DUPTABLE R4 K2 [{"problem"}]
@@ -204,13 +229,13 @@ PROTO_13:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETUPVAL R0 0
   LOADK R1 K0 ["ChangedLayers"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   GETUPVAL R2 0
   LOADK R3 K0 ["EquipItem"]
   GETUPVAL R4 1
@@ -223,19 +248,19 @@ PROTO_15:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_17:
   GETUPVAL R0 0
   LOADK R1 K0 ["AutoSetupScreenOpen"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_18:
   GETUPVAL R0 0
   LOADK R1 K0 ["AutoSetupOptionsOpen"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_19:
   GETUPVAL R2 0
   LOADK R3 K0 ["EditingToolOpen"]
   DUPTABLE R4 K2 [{"editingTool"}]
@@ -243,7 +268,7 @@ PROTO_18:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_20:
   GETUPVAL R2 0
   LOADK R3 K0 ["PaletteOpen"]
   DUPTABLE R4 K2 [{"paletteKey"}]
@@ -251,13 +276,13 @@ PROTO_19:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_21:
   GETUPVAL R0 0
   LOADK R1 K0 ["PluginOpen"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_22:
   GETUPVAL R2 0
   LOADK R3 K0 ["TabOpen"]
   DUPTABLE R4 K2 [{"tabKey"}]
@@ -265,7 +290,7 @@ PROTO_21:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_23:
   GETUPVAL R2 0
   LOADK R3 K0 ["Publish"]
   DUPTABLE R4 K2 [{"isAutoSetupped"}]
@@ -277,7 +302,7 @@ PROTO_22:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_24:
   GETUPVAL R2 0
   LOADK R3 K0 ["SelectScreenChoice"]
   DUPTABLE R4 K2 [{"choice"}]
@@ -285,7 +310,7 @@ PROTO_23:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_25:
   GETUPVAL R4 0
   LOADK R5 K0 ["AutoSetupSurvey"]
   DUPTABLE R6 K7 [{"userId", "rating", "message", "problems", "inputAssetId", "outputAssetIds"}]
@@ -314,7 +339,7 @@ PROTO_24:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_26:
   GETUPVAL R2 0
   LOADK R3 K0 ["SetStage"]
   DUPTABLE R4 K2 [{"stageKey"}]
@@ -322,13 +347,13 @@ PROTO_25:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_27:
   GETUPVAL R0 0
   LOADK R1 K0 ["TestInExperience"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_28:
   GETUPVAL R2 0
   LOADK R3 K0 ["UnequipItem"]
   GETUPVAL R4 1
@@ -337,7 +362,7 @@ PROTO_27:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_29:
   GETUPVAL R0 0
   LOADK R2 K0 ["AutoSetupPassedValidation"]
   LOADNIL R3
@@ -345,7 +370,7 @@ PROTO_28:
   CALL R0 3 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_30:
   GETUPVAL R0 0
   LOADK R2 K0 ["AutoSetupFailedValidation"]
   LOADNIL R3
@@ -353,7 +378,7 @@ PROTO_29:
   CALL R0 3 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_31:
   GETUPVAL R2 0
   LOADK R4 K0 ["AutoSetupValidationDuration"]
   MOVE R5 R1
@@ -361,7 +386,7 @@ PROTO_30:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_31:
+PROTO_32:
   GETUPVAL R2 0
   LOADK R4 K0 ["AutoSetupValidationErrorCount"]
   MOVE R5 R1
@@ -369,7 +394,7 @@ PROTO_31:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_32:
+PROTO_33:
   DUPTABLE R3 K2 [{"inputAssetId", "errorText"}]
   SETTABLEKS R1 R3 K0 ["inputAssetId"]
   SETTABLEKS R2 R3 K1 ["errorText"]
@@ -381,7 +406,7 @@ PROTO_32:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_33:
+PROTO_34:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
@@ -392,7 +417,7 @@ PROTO_33:
   NEWCLOSURE R4 P3
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  DUPTABLE R5 K28 [{"addUserItems", "autoSetupFailure", "autoSetupRequested", "autoSetupOptions", "autoSetupCancelled", "autoSetupClothingOnlyFinish", "autoSetupFinish", "autoSetupAssetsGenerated", "bundlesMetadataError", "changedLayers", "equipItem", "openAutoSetupScreen", "openAutoSetupOptions", "openEditingTool", "openPalette", "openPlugin", "openTab", "publish", "selectScreenChoice", "sendAutoSetupSurvey", "setStage", "testInExperience", "unequipItem", "autoSetupPassedValidation", "autoSetupFailedValidation", "autoSetupValidationDuration", "autoSetupValidationErrorCount", "autoSetupValidationError"}]
+  DUPTABLE R5 K29 [{"addUserItems", "autoSetupFailure", "autoSetupJobInitialized", "autoSetupRequested", "autoSetupOptions", "autoSetupCancelled", "autoSetupClothingOnlyFinish", "autoSetupFinish", "autoSetupAssetsGenerated", "bundlesMetadataError", "changedLayers", "equipItem", "openAutoSetupScreen", "openAutoSetupOptions", "openEditingTool", "openPalette", "openPlugin", "openTab", "publish", "selectScreenChoice", "sendAutoSetupSurvey", "setStage", "testInExperience", "unequipItem", "autoSetupPassedValidation", "autoSetupFailedValidation", "autoSetupValidationDuration", "autoSetupValidationErrorCount", "autoSetupValidationError"}]
   NEWCLOSURE R6 P4
   CAPTURE VAL R1
   SETTABLEKS R6 R5 K0 ["addUserItems"]
@@ -402,97 +427,100 @@ PROTO_33:
   CAPTURE UPVAL U3
   SETTABLEKS R6 R5 K1 ["autoSetupFailure"]
   NEWCLOSURE R6 P6
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K2 ["autoSetupJobInitialized"]
+  NEWCLOSURE R6 P7
   CAPTURE UPVAL U4
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K2 ["autoSetupRequested"]
-  NEWCLOSURE R6 P7
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K3 ["autoSetupOptions"]
+  SETTABLEKS R6 R5 K3 ["autoSetupRequested"]
   NEWCLOSURE R6 P8
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K4 ["autoSetupOptions"]
+  NEWCLOSURE R6 P9
   CAPTURE VAL R1
   CAPTURE UPVAL U2
   CAPTURE UPVAL U5
-  SETTABLEKS R6 R5 K4 ["autoSetupCancelled"]
-  NEWCLOSURE R6 P9
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K5 ["autoSetupClothingOnlyFinish"]
+  SETTABLEKS R6 R5 K5 ["autoSetupCancelled"]
   NEWCLOSURE R6 P10
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K6 ["autoSetupClothingOnlyFinish"]
+  NEWCLOSURE R6 P11
   CAPTURE VAL R1
   CAPTURE UPVAL U2
   CAPTURE UPVAL U6
-  SETTABLEKS R6 R5 K6 ["autoSetupFinish"]
-  NEWCLOSURE R6 P11
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K7 ["autoSetupAssetsGenerated"]
+  SETTABLEKS R6 R5 K7 ["autoSetupFinish"]
   NEWCLOSURE R6 P12
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K8 ["bundlesMetadataError"]
+  SETTABLEKS R6 R5 K8 ["autoSetupAssetsGenerated"]
   NEWCLOSURE R6 P13
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K9 ["changedLayers"]
+  SETTABLEKS R6 R5 K9 ["bundlesMetadataError"]
   NEWCLOSURE R6 P14
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K10 ["changedLayers"]
+  NEWCLOSURE R6 P15
   CAPTURE VAL R1
   CAPTURE UPVAL U7
   CAPTURE UPVAL U2
   CAPTURE UPVAL U8
-  SETTABLEKS R6 R5 K10 ["equipItem"]
-  NEWCLOSURE R6 P15
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K11 ["openAutoSetupScreen"]
+  SETTABLEKS R6 R5 K11 ["equipItem"]
   NEWCLOSURE R6 P16
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K12 ["openAutoSetupOptions"]
+  SETTABLEKS R6 R5 K12 ["openAutoSetupScreen"]
   NEWCLOSURE R6 P17
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K13 ["openEditingTool"]
+  SETTABLEKS R6 R5 K13 ["openAutoSetupOptions"]
   NEWCLOSURE R6 P18
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K14 ["openPalette"]
+  SETTABLEKS R6 R5 K14 ["openEditingTool"]
   NEWCLOSURE R6 P19
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K15 ["openPlugin"]
+  SETTABLEKS R6 R5 K15 ["openPalette"]
   NEWCLOSURE R6 P20
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K16 ["openTab"]
+  SETTABLEKS R6 R5 K16 ["openPlugin"]
   NEWCLOSURE R6 P21
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K17 ["openTab"]
+  NEWCLOSURE R6 P22
   CAPTURE VAL R1
   CAPTURE UPVAL U2
   CAPTURE UPVAL U9
-  SETTABLEKS R6 R5 K17 ["publish"]
-  NEWCLOSURE R6 P22
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K18 ["selectScreenChoice"]
+  SETTABLEKS R6 R5 K18 ["publish"]
   NEWCLOSURE R6 P23
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K19 ["selectScreenChoice"]
+  NEWCLOSURE R6 P24
   CAPTURE VAL R1
   CAPTURE UPVAL U10
   CAPTURE UPVAL U0
-  SETTABLEKS R6 R5 K19 ["sendAutoSetupSurvey"]
-  NEWCLOSURE R6 P24
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K20 ["setStage"]
+  SETTABLEKS R6 R5 K20 ["sendAutoSetupSurvey"]
   NEWCLOSURE R6 P25
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K21 ["testInExperience"]
+  SETTABLEKS R6 R5 K21 ["setStage"]
   NEWCLOSURE R6 P26
   CAPTURE VAL R1
-  CAPTURE UPVAL U7
-  SETTABLEKS R6 R5 K22 ["unequipItem"]
+  SETTABLEKS R6 R5 K22 ["testInExperience"]
   NEWCLOSURE R6 P27
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K23 ["autoSetupPassedValidation"]
+  CAPTURE VAL R1
+  CAPTURE UPVAL U7
+  SETTABLEKS R6 R5 K23 ["unequipItem"]
   NEWCLOSURE R6 P28
   CAPTURE VAL R0
-  SETTABLEKS R6 R5 K24 ["autoSetupFailedValidation"]
+  SETTABLEKS R6 R5 K24 ["autoSetupPassedValidation"]
   NEWCLOSURE R6 P29
   CAPTURE VAL R0
-  SETTABLEKS R6 R5 K25 ["autoSetupValidationDuration"]
+  SETTABLEKS R6 R5 K25 ["autoSetupFailedValidation"]
   NEWCLOSURE R6 P30
   CAPTURE VAL R0
-  SETTABLEKS R6 R5 K26 ["autoSetupValidationErrorCount"]
+  SETTABLEKS R6 R5 K26 ["autoSetupValidationDuration"]
   NEWCLOSURE R6 P31
   CAPTURE VAL R0
+  SETTABLEKS R6 R5 K27 ["autoSetupValidationErrorCount"]
+  NEWCLOSURE R6 P32
+  CAPTURE VAL R0
   CAPTURE UPVAL U1
-  SETTABLEKS R6 R5 K27 ["autoSetupValidationError"]
+  SETTABLEKS R6 R5 K28 ["autoSetupValidationError"]
   RETURN R5 1
 
 MAIN:
@@ -613,7 +641,7 @@ MAIN:
   SETLIST R12 R13 1 [1]
   SETTABLEKS R12 R11 K22 ["backends"]
   DUPCLOSURE R12 K36 [PROTO_0]
-  DUPCLOSURE R13 K37 [PROTO_33]
+  DUPCLOSURE R13 K37 [PROTO_34]
   CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R2

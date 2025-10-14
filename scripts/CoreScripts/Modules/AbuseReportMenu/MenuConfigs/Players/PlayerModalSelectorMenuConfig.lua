@@ -76,6 +76,14 @@ local PlayerModalSelectorMenuConfig: Types.ModalSelectorMenuItemType = {
 						abuseId = id,
 						abuser = playerObject,
 					})
+					-- Clear selected chat line if the abuser is changed
+					if FFlagInGameMenuAddChatLineReporting then
+						dispatchUIStates({
+							type = Constants.PlayerMenuActions.UpdatedSelectedChatAndOrderedMessages,
+							orderedMessages = {},
+							selectedMessage = nil,
+						})
+					end
 				end
 			end
 		end

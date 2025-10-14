@@ -13,8 +13,6 @@ local GetFFlagAnimateSubMenu = SharedFlags.GetFFlagAnimateSubMenu
 local GetFIntIconSelectionTimeout = SharedFlags.GetFIntIconSelectionTimeout
 local GetFFlagChromeCentralizedConfiguration = SharedFlags.GetFFlagChromeCentralizedConfiguration
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
--- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
-local GetFFlagEnableJoinVoiceOnUnibar = SharedFlags.GetFFlagEnableJoinVoiceOnUnibar
 local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
@@ -107,10 +105,7 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		end
 
 		local v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
-
-		if GetFFlagEnableJoinVoiceOnUnibar() then
-			table.insert(v4Ordering, 2, "join_voice")
-		end
+		table.insert(v4Ordering, 2, "join_voice")
 
 		if GetFFlagDebugEnableUnibarDummyIntegrations() then
 			table.insert(v4Ordering, 1, "dummy_window")

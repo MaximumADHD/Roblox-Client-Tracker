@@ -66,6 +66,7 @@ export type TextInputProps = {
 local defaultProps = {
 	size = InputSize.Large,
 	width = UDim.new(0, 400),
+	testId = "--foundation-text-input",
 }
 
 local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObject>?)
@@ -133,6 +134,7 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 								})
 						)
 						else nil,
+					testId = `{props.testId}--internal-text-input`,
 				})
 			end,
 		})

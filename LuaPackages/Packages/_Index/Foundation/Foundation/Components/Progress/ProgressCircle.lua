@@ -109,7 +109,6 @@ local function ProgressGradient(props: {
 
 				return math.clamp(progressValue * 360, minRotation, maxRotation)
 			end),
-			[React.Tag] = "data-testid=--foundation-progress-fill-left",
 		}) :: React.ReactElement
 	end
 end
@@ -139,11 +138,13 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 				IndeterminateContainer = React.createElement(View, {
 					Size = circleSize,
 					Rotation = rotation,
+					testId = `{props.testId}--indeterminate-container`,
 				}, {
 
 					LeftGradient = React.createElement(View, {
 						Size = UDim2.fromScale(0.5, 1),
 						tag = "position-top-left clip",
+						testId = `{props.testId}--left-gradient`,
 					}, {
 						Image = React.createElement(Image, {
 							Image = "rbxasset://textures/ui/Controls/RadialFill.png",
@@ -162,6 +163,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 					RightGradient = React.createElement(View, {
 						Size = UDim2.fromScale(0.5, 1),
 						tag = "clip position-top-center",
+						testId = `{props.testId}--right-gradient`,
 					}, {
 						Image = React.createElement(Image, {
 							Image = "rbxasset://textures/ui/Controls/RadialFill.png",
@@ -192,6 +194,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 				LeftGradient = React.createElement(View, {
 					Size = UDim2.fromScale(0.5, 1),
 					tag = "position-top-left clip",
+					testId = `{props.testId}--left-gradient`,
 				}, {
 					Image = React.createElement(Image, {
 						Image = "rbxasset://textures/ui/Controls/RadialFill.png",
@@ -210,6 +213,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 				RightGradient = React.createElement(View, {
 					Size = UDim2.fromScale(0.5, 1),
 					tag = "clip position-top-center",
+					testId = `{props.testId}--right-gradient`,
 				}, {
 					Image = React.createElement(Image, {
 						Image = "rbxasset://textures/ui/Controls/RadialFill.png",

@@ -15,13 +15,19 @@ type ProgressShape = ProgressShape.ProgressShape
 local ProgressSize = require(Foundation.Enums.ProgressSize)
 type ProgressSize = ProgressSize.ProgressSize
 
+local withDefaults = require(Foundation.Utility.withDefaults)
+
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
 export type ProgressProps = ProgressBar.ProgressBarProps | ProgressCircle.ProgressCircleProps
 
+local defaultProps = {
+	testId = "--foundation-progress",
+}
+
 local function Progress(progressProps: ProgressProps, ref: React.Ref<GuiObject>?): React.ReactElement
-	local props = table.clone(progressProps) :: any
+	local props = withDefaults(progressProps, defaultProps) :: any
 	props.ref = ref
 
 	if props.shape == ProgressShape.Circle then

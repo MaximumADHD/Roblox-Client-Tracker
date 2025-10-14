@@ -27,7 +27,6 @@ local ChromeService = require(Root.Service)
 local Constants = require(Root.Unibar.Constants)
 local ChromeTypes = require(Root.Service.Types)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
-local FFlagEnableChromeAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableChromeAnalytics()
 local FFlagWindowFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagWindowFixes()
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
 
@@ -175,13 +174,10 @@ local WindowHost = function(props: WindowHostProps)
 				local frameStartPosition =
 					Vector3.new(windowRef.current.AbsolutePosition.X, windowRef.current.AbsolutePosition.Y, 0)
 				local dragStartPosition = frameStartPosition
-
-				if FFlagEnableChromeAnalytics then
-					ChromeAnalytics.default:setWindowDefaultPosition(
-						props.integration.id,
-						Vector2.new(frameStartPosition.X, frameStartPosition.Y)
-					)
-				end
+				ChromeAnalytics.default:setWindowDefaultPosition(
+					props.integration.id,
+					Vector2.new(frameStartPosition.X, frameStartPosition.Y)
+				)
 
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
 					local inputPosition = inputChangedObj.Position
@@ -274,12 +270,10 @@ local WindowHost = function(props: WindowHostProps)
 			inputObj.UserInputType == Enum.UserInputType.MouseButton1
 			or inputObj.UserInputType == Enum.UserInputType.Touch
 		then
-			if FFlagEnableChromeAnalytics then
-				ChromeAnalytics.default:onWindowTouchBegan(
-					props.integration.id,
-					Vector2.new(windowRef.current.AbsolutePosition.X, windowRef.current.AbsolutePosition.Y)
-				)
-			end
+			ChromeAnalytics.default:onWindowTouchBegan(
+				props.integration.id,
+				Vector2.new(windowRef.current.AbsolutePosition.X, windowRef.current.AbsolutePosition.Y)
+			)
 
 			-- Handle dragging
 			if not connection.current and not isRepositioning:getValue() then
@@ -326,10 +320,7 @@ local WindowHost = function(props: WindowHostProps)
 						}
 
 						frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
-
-						if FFlagEnableChromeAnalytics then
-							ChromeAnalytics.default:onWindowDrag(props.integration.id, inputPosition)
-						end
+						ChromeAnalytics.default:onWindowDrag(props.integration.id, inputPosition)
 					end
 				end)
 			end
@@ -431,13 +422,11 @@ local WindowHost = function(props: WindowHostProps)
 			or inputObj.UserInputType == Enum.UserInputType.Touch
 		then
 			if windowRef.current then
-				if FFlagEnableChromeAnalytics then
-					ChromeAnalytics.default:onWindowTouchEnded(
-						props.integration.id,
-						Vector2.new(windowRef.current.AbsolutePosition.X, windowRef.current.AbsolutePosition.Y),
-						requiresRepositioning(windowRef.current)
-					)
-				end
+				ChromeAnalytics.default:onWindowTouchEnded(
+					props.integration.id,
+					Vector2.new(windowRef.current.AbsolutePosition.X, windowRef.current.AbsolutePosition.Y),
+					requiresRepositioning(windowRef.current)
+				)
 			end
 
 			-- Handle dragging

@@ -29,6 +29,7 @@ local getFFlagFireSignalForLegacyWindow = SharedFlags.getFFlagFireSignalForLegac
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
 local FFlagChromeShortcutChatOpenKeyboard = SharedFlags.FFlagChromeShortcutChatOpenKeyboard
+local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 
 -- Hold strong references near root of features so they can be cleaned
 -- up when no longer in use e.g. feature hidden. In this case chat is never explicitly unmounted
@@ -112,7 +113,10 @@ do
 			end
 		end
 
-		ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
+		if not FFlagExpChatWindowSyncUnibar then
+			-- Moving this call to ChatChromeIntegration
+			ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
+		end
 		if ChatWindowState.Visible then
 			transparencyStore.resetAllTransparency()
 		end
@@ -122,8 +126,10 @@ do
 	function moduleApiTable:SetVisible(visible)
 		ChatWindowState.Visible = visible
 
-
-		ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
+		if not FFlagExpChatWindowSyncUnibar then
+			-- Moving this call to ChatChromeIntegration
+			ExperienceChat.Events.ChatTopBarButtonActivated(ChatWindowState.Visible)
+		end
 		if ChatWindowState.Visible then
 			transparencyStore.resetAllTransparency()
 		end

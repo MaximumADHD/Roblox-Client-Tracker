@@ -1,7 +1,12 @@
 local root = script:FindFirstAncestor("AbuseReportMenu")
+local CorePackages = game:GetService("CorePackages")
+
 local Constants = require(root.Components.Constants)
 local Types = require(root.Components.Types)
 local PlayerMenuActions = Constants.PlayerMenuActions
+
+local FFlagInGameMenuAddChatLineReporting =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagInGameMenuAddChatLineReporting
 
 local function reportPersonUIStateReducer(state: Types.ReportPersonState, action: any)
 	local newState = table.clone(state)
@@ -30,6 +35,9 @@ local function reportPersonUIStateReducer(state: Types.ReportPersonState, action
 		newState.modalSelectorCellData = action.cellData
 	elseif type == PlayerMenuActions.SetPreselectedPlayer then
 		newState.preselectedPlayer = action.player
+	elseif FFlagInGameMenuAddChatLineReporting and type == PlayerMenuActions.UpdatedSelectedChatAndOrderedMessages then
+		newState.selectedMessage = action.selectedMessage
+		newState.orderedMessages = action.orderedMessages
 	end
 	return newState
 end

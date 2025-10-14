@@ -30,6 +30,7 @@ export type SegmentedControlProps = {
 
 local defaultProps = {
 	size = InputSize.Medium,
+	testId = "--foundation-segmented-control",
 }
 
 local function SegmentedControl(segmentedControlProps: SegmentedControlProps, ref: React.Ref<GuiObject>?)

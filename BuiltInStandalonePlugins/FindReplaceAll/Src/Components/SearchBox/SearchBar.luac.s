@@ -123,19 +123,21 @@ PROTO_5:
   CALL R1 2 0
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K5 ["initialSearchText"]
-  JUMPIFNOT R1 [+15]
+  JUMPIFNOT R1 [+18]
+  NAMECALL R1 R0 K6 ["CaptureFocus"]
+  CALL R1 1 0
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K5 ["initialSearchText"]
-  SETTABLEKS R1 R0 K6 ["Text"]
+  SETTABLEKS R1 R0 K7 ["Text"]
   LOADN R1 1
-  SETTABLEKS R1 R0 K7 ["SelectionStart"]
-  GETTABLEKS R3 R0 K6 ["Text"]
+  SETTABLEKS R1 R0 K8 ["SelectionStart"]
+  GETTABLEKS R3 R0 K7 ["Text"]
   LENGTH R2 R3
-  ADDK R1 R2 K8 [1]
-  SETTABLEKS R1 R0 K9 ["CursorPosition"]
+  ADDK R1 R2 K9 [1]
+  SETTABLEKS R1 R0 K10 ["CursorPosition"]
   RETURN R0 0
-  LOADK R1 K10 [""]
-  SETTABLEKS R1 R0 K6 ["Text"]
+  LOADK R1 K11 [""]
+  SETTABLEKS R1 R0 K7 ["Text"]
   RETURN R0 0
 
 PROTO_6:

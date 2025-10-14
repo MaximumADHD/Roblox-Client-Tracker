@@ -45,6 +45,7 @@ export type TabItemProps = TabItem & {
 	onActivated: (id: Types.ItemId) -> (),
 	size: InputSize,
 	fillBehavior: FillBehavior,
+	testId: string?,
 }
 
 local function TabItem(props: TabItemProps)
@@ -114,7 +115,7 @@ local function TabItem(props: TabItemProps)
 	return React.createElement(View, {
 		tag = variantProps.container.tag,
 		GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
-		testId = "--foundation-tab-item",
+		testId = props.testId,
 	}, {
 		Interactive = React.createElement(View, {
 			LayoutOrder = 1,
@@ -147,6 +148,7 @@ local function TabItem(props: TabItemProps)
 				Size = UDim2.new(1, 0, 0, borderSize),
 				Position = UDim2.new(0, 0, 1, -borderSize),
 				backgroundStyle = tokens.Color.System.Contrast,
+				testId = `{props.testId}--border`,
 			})
 			else nil,
 	})

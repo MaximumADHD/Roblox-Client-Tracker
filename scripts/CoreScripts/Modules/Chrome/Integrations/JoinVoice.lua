@@ -19,9 +19,6 @@ local VoiceChatConstants = require(CorePackages.Workspace.Packages.VoiceChatCore
 local GetIcon = require(CorePackages.Workspace.Packages.VoiceChat).Utils.GetIcon
 local CEV_CONTEXT_ID =
 	require(CorePackages.Workspace.Packages.CrossExperience).Constants.AUDIO_FOCUS_MANAGEMENT.CEV.CONTEXT_ID
-
-local GetFFlagEnableJoinVoiceOnUnibar =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableJoinVoiceOnUnibar
 local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local GetFFlagIntegratePhoneUpsellJoinVoice =
@@ -171,7 +168,7 @@ if FFlagJoinVoiceHideWhenPartyVoiceFocused then
 	end)
 end
 
-if GetFFlagEnableJoinVoiceOnUnibar() and game:GetEngineFeature("VoiceChatSupported") then
+if game:GetEngineFeature("VoiceChatSupported") then
 	if GetFFlagIntegratePhoneUpsellJoinVoice() then
 		task.spawn(function()
 			-- Only show the join voice button if we're not in the phone upsell flow

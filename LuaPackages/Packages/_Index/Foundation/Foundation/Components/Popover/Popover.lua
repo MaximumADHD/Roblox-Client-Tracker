@@ -3,6 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local withDefaults = require(Foundation.Utility.withDefaults)
+
 local PopoverContext = require(script.Parent.PopoverContext)
 
 local Types = require(Foundation.Components.Types)
@@ -14,7 +16,12 @@ export type PopoverProps = {
 	children: React.ReactNode,
 }
 
-local function Popover(props: PopoverProps)
+local defaultProps = {
+	testId = "--foundation-popover",
+}
+
+local function Popover(popoverProps: PopoverProps)
+	local props = withDefaults(popoverProps, defaultProps)
 	local anchor, setAnchor = React.useState(nil :: PopoverAnchor?)
 
 	return React.createElement(PopoverContext.Provider, {
@@ -22,6 +29,7 @@ local function Popover(props: PopoverProps)
 			anchor = anchor,
 			setAnchor = setAnchor,
 			isOpen = props.isOpen,
+			testId = props.testId,
 		},
 	}, props.children)
 end

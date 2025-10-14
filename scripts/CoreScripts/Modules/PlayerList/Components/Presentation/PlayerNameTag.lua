@@ -16,6 +16,9 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local usePlayerCombinedName = require(PlayerList.Hooks.usePlayerCombinedName)
 local createShallowEqualAndTables = require(PlayerList.createShallowEqualAndTables)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
+local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local useVerifiedBadge = UserProfiles.Hooks.useVerifiedBadge 
+local FFlagEnableVerifiedBadgeStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableVerifiedBadgeStore
 
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
@@ -27,6 +30,7 @@ PlayerNameTag.validateProps = t.strictInterface({
 	isHovered = t.boolean,
 	layoutOrder = t.integer,
 	name = t.union(t.string, t.table),
+	hasVerifiedBadge = t.optional(t.boolean), -- temporarily optional until FFlagEnableVerifiedBadgeStore is enabled
 	textStyle = t.strictInterface({
 		Color = t.Color3,
 		Transparency = t.number,
@@ -69,8 +73,7 @@ function PlayerNameTag:render()
 
 		local playerNameChildren = {}
 		local platformName = self.props.player.PlatformName
-
-		local hasVerifiedBadge = UserLib.Utils.isPlayerVerified(self.props.player)
+		local hasVerifiedBadge = if FFlagEnableVerifiedBadgeStore then self.props.hasVerifiedBadge else UserLib.Utils.isPlayerVerified(self.props.player)
 
 		if layoutValues.IsTenFoot and platformName ~= "" then
 			playerNameChildren["VerticalLayout"] = React.createElement("UIListLayout", {
@@ -179,9 +182,11 @@ end
 
 local function PlayerNameTagContainer(props: Props)
 	local name = usePlayerCombinedName(tostring(props.player.UserId), props.player.DisplayName)
+	local hasVerifiedBadge = if FFlagEnableVerifiedBadgeStore then useVerifiedBadge(props.player) else nil
 
 	return React.createElement(PlayerNameTag, Cryo.Dictionary.join(props, {
-		name = name
+		name = name,
+		hasVerifiedBadge = if FFlagEnableVerifiedBadgeStore then hasVerifiedBadge else nil,
 	}))
 end
 

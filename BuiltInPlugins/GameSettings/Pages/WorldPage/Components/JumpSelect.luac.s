@@ -276,70 +276,59 @@ MAIN:
   GETTABLEKS R2 R3 K2 ["Parent"]
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R1 K5 ["Src"]
-  GETTABLEKS R4 R5 K6 ["Flags"]
-  GETTABLEKS R3 R4 K7 ["getFFlagGameSettingsUseDFRadioButton"]
+  GETTABLEKS R4 R1 K5 ["Packages"]
+  GETTABLEKS R3 R4 K6 ["Roact"]
   CALL R2 1 1
-  CALL R2 0 1
   GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R1 K8 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Roact"]
+  GETTABLEKS R5 R1 K5 ["Packages"]
+  GETTABLEKS R4 R5 K7 ["Framework"]
   CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R1 K8 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["Framework"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K11 ["ContextServices"]
-  GETTABLEKS R6 R5 K12 ["withContext"]
-  GETTABLEKS R7 R4 K13 ["UI"]
-  GETTABLEKS R8 R7 K14 ["TextInput"]
+  GETTABLEKS R4 R3 K8 ["ContextServices"]
+  GETTABLEKS R5 R4 K9 ["withContext"]
+  GETTABLEKS R6 R3 K10 ["UI"]
+  GETTABLEKS R7 R6 K11 ["TextInput"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K8 ["ContextServices"]
+  GETTABLEKS R9 R10 K12 ["WorldRootPhysics"]
+  CALL R8 1 1
   GETIMPORT R9 K4 [require]
-  GETTABLEKS R11 R0 K11 ["ContextServices"]
-  GETTABLEKS R10 R11 K15 ["WorldRootPhysics"]
+  GETTABLEKS R11 R0 K13 ["Util"]
+  GETTABLEKS R10 R11 K14 ["formatNumberForDisplay"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
-  GETTABLEKS R12 R0 K16 ["Util"]
-  GETTABLEKS R11 R12 K17 ["formatNumberForDisplay"]
+  GETTABLEKS R12 R0 K13 ["Util"]
+  GETTABLEKS R11 R12 K15 ["formatNumberForEngine"]
   CALL R10 1 1
-  GETIMPORT R11 K4 [require]
-  GETTABLEKS R13 R0 K16 ["Util"]
-  GETTABLEKS R12 R13 K18 ["formatNumberForEngine"]
-  CALL R11 1 1
-  GETTABLEKS R12 R1 K19 ["RoactStudioWidgets"]
-  JUMPIFNOT R2 [+10]
+  GETTABLEKS R11 R1 K16 ["RoactStudioWidgets"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R1 K17 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Components"]
+  GETTABLEKS R13 R14 K19 ["RadioButtonSet"]
+  CALL R12 1 1
   GETIMPORT R13 K4 [require]
-  GETTABLEKS R16 R1 K5 ["Src"]
-  GETTABLEKS R15 R16 K20 ["Components"]
-  GETTABLEKS R14 R15 K21 ["RadioButtonSet"]
+  GETTABLEKS R14 R11 K20 ["Text"]
   CALL R13 1 1
-  JUMP [+5]
-  GETIMPORT R13 K4 [require]
-  GETTABLEKS R14 R12 K21 ["RadioButtonSet"]
-  CALL R13 1 1
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R15 R12 K22 ["Text"]
-  CALL R14 1 1
-  GETTABLEKS R15 R3 K23 ["PureComponent"]
-  LOADK R17 K24 ["JumpSelect"]
-  NAMECALL R15 R15 K25 ["extend"]
-  CALL R15 2 1
-  DUPCLOSURE R16 K26 [PROTO_5]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  CAPTURE VAL R8
-  CAPTURE VAL R11
+  GETTABLEKS R14 R2 K21 ["PureComponent"]
+  LOADK R16 K22 ["JumpSelect"]
+  NAMECALL R14 R14 K23 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K24 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R7
   CAPTURE VAL R10
-  CAPTURE VAL R14
-  SETTABLEKS R16 R15 K27 ["render"]
-  MOVE R16 R6
-  DUPTABLE R17 K30 [{"Localization", "Mouse", "WorldRootPhysics"}]
-  GETTABLEKS R18 R5 K28 ["Localization"]
-  SETTABLEKS R18 R17 K28 ["Localization"]
-  GETTABLEKS R18 R5 K29 ["Mouse"]
-  SETTABLEKS R18 R17 K29 ["Mouse"]
-  SETTABLEKS R9 R17 K15 ["WorldRootPhysics"]
-  CALL R16 1 1
-  MOVE R17 R15
-  CALL R16 1 1
-  MOVE R15 R16
-  RETURN R15 1
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  SETTABLEKS R15 R14 K25 ["render"]
+  MOVE R15 R5
+  DUPTABLE R16 K28 [{"Localization", "Mouse", "WorldRootPhysics"}]
+  GETTABLEKS R17 R4 K26 ["Localization"]
+  SETTABLEKS R17 R16 K26 ["Localization"]
+  GETTABLEKS R17 R4 K27 ["Mouse"]
+  SETTABLEKS R17 R16 K27 ["Mouse"]
+  SETTABLEKS R8 R16 K12 ["WorldRootPhysics"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  RETURN R14 1

@@ -10,11 +10,14 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 local FFlagInExperienceUserProfileSettingsEnabled =
 	require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -104,7 +107,7 @@ local function getGameCreator(store, player)
 end
 
 local function getPlayerAvatarIcon(store, player)
-	if not TenFootInterface:IsEnabled() then
+	if FFlagEnableMobilePlayerListOnConsole or not TenFootInterface:IsEnabled() then
 		return
 	end
 

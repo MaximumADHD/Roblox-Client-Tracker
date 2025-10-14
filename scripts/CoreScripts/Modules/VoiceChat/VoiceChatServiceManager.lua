@@ -47,8 +47,6 @@ local GetFIntVoiceReverseNudgeUXDisplayTimeSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceReverseNudgeUXDisplayTimeSeconds)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
-local GetFFlagUseMicPermForEnrollment =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUseMicPermForEnrollment
 local GetFFlagEnableSeamlessVoiceDataConsentToast =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
 local GetFFlagSeamlessVoiceConsentToastPolicy =
@@ -78,11 +76,8 @@ local getFFlagMicrophoneDevicePermissionsPromptLogging =
 	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 local GetFIntThrottleParticipantsUpdateMs = require(VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs)
-local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagEnableConnectDisconnectAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectAnalytics)
-local GetFFlagSendDevicePermissionsModalAnalytics =
-	require(RobloxGui.Modules.Flags.GetFFlagSendDevicePermissionsModalAnalytics)
 local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local FStringVoiceUIImprovementsIXPLayerName =
@@ -702,9 +697,7 @@ type AgeVerificationOverlayData = {
 }
 
 function VoiceChatServiceManager:_GetShowAgeVerificationOverlay(hasMicPermissions): nil | AgeVerificationOverlayData
-	return self.coreVoiceManager:_GetShowAgeVerificationOverlay(
-		if GetFFlagUseMicPermForEnrollment() then hasMicPermissions else nil
-	)
+	return self.coreVoiceManager:_GetShowAgeVerificationOverlay(hasMicPermissions)
 end
 
 function VoiceChatServiceManager:simulateVoiceConnectDisconnect()
@@ -723,9 +716,7 @@ function VoiceChatServiceManager:simulateVoiceConnectDisconnect()
 end
 
 function VoiceChatServiceManager:FetchAgeVerificationOverlay(hasMicPermissions): nil | AgeVerificationOverlayData
-	return self.coreVoiceManager:FetchAgeVerificationOverlay(
-		if GetFFlagUseMicPermForEnrollment() then hasMicPermissions else nil
-	)
+	return self.coreVoiceManager:FetchAgeVerificationOverlay(hasMicPermissions)
 end
 
 function VoiceChatServiceManager:FetchPhoneVerificationUpsell(
@@ -1314,13 +1305,11 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 					and promptType == VoiceChatPromptType.DevicePermissionsModal
 				then function()
 					log:debug("Settings app available: {}", self.settingsAppAvailable)
-					if GetFFlagSendDevicePermissionsModalAnalytics() then
-						self.Analytics:reportDevicePermissionsModalEvent(
-							if self.settingsAppAvailable then "OpenedSettings" else "Acknowledged",
-							self:GetSessionId(),
-							self:GetInExpUpsellAnalyticsData()
-						)
-					end
+					self.Analytics:reportDevicePermissionsModalEvent(
+						if self.settingsAppAvailable then "OpenedSettings" else "Acknowledged",
+						self:GetSessionId(),
+						self:GetInExpUpsellAnalyticsData()
+					)
 
 					if self.settingsAppAvailable then
 						log:debug("Switching to settings app")
@@ -1373,10 +1362,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 						self:showPrompt(VoiceChatPromptType.VoiceConsentDeclinedToast)
 					end
 				end
-				elseif
-					GetFFlagSendDevicePermissionsModalAnalytics()
-					and promptType == VoiceChatPromptType.DevicePermissionsModal
-				then function()
+				elseif promptType == VoiceChatPromptType.DevicePermissionsModal then function()
 					self.Analytics:reportDevicePermissionsModalEvent(
 						"Denied",
 						self:GetSessionId(),
@@ -1668,10 +1654,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 	local ageVerificationResponse = self:FetchAgeVerificationOverlay()
 	local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
 	voiceInExpUpsellVariant = voiceInExpUpsellVariant or VoiceConstants.IN_EXP_UPSELL_VARIANT.VARIANT3
-
-	if GetFFlagEnableInExpJoinVoiceAnalytics() then
-		self.Analytics:reportJoinVoiceButtonEvent("clicked", self:GetInExpUpsellAnalyticsData())
-	end
+	self.Analytics:reportJoinVoiceButtonEvent("clicked", self:GetInExpUpsellAnalyticsData())
 
 	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self.previousGroupId then
 		-- previously joined voice and left in the same session
@@ -1734,12 +1717,8 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 end
 
 function VoiceChatServiceManager:EligibleForFaeUpsell()
-	local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
-
-	local canVerifyAgeForVoice = ageVerificationOverlayData.voiceSettings.inExperienceFaeUpsell == "Enabled"
-	local placeEnabledForVoice = ageVerificationOverlayData.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice
-
-	return canVerifyAgeForVoice and placeEnabledForVoice
+	-- TODO: Setup FAE logic (EXPR-2792)
+	return false
 end
 
 -- Show join voice button in voice enabled experiences, for voice eligible users who haven't enabled voice and voice enabled users with denied mic permissions
@@ -1788,6 +1767,10 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 	end
 
 	return userInInExperienceUpsellTreatment and userVoiceUpsellEligible
+end
+
+function VoiceChatServiceManager:ShouldShowJoinVoiceOnDisconnect()
+	return self.coreVoiceManager:ShouldShowJoinVoiceOnDisconnect()
 end
 
 function VoiceChatServiceManager:IsSeamlessVoice()

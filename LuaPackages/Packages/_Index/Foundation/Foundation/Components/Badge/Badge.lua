@@ -50,6 +50,7 @@ export type BadgeProps = {
 
 local defaultProps = {
 	variant = BadgeVariant.Contrast,
+	testId = "--foundation-badge",
 }
 
 -- DEPRECATED Primary and Secondary variants are scheduled for removal in the next major release (2.0)
@@ -92,6 +93,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 				size = iconSize,
 				style = variantProps.content.style,
 				LayoutOrder = layoutOrder,
+				testId = `{props.testId}--icon`,
 			})
 		else
 			local intrinsicIconSize, scale = getIconScale(icon.name, IconSize.XSmall)
@@ -108,6 +110,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.fromScale(0.5, 0.5),
 						LayoutOrder = layoutOrder,
+						testId = `{props.testId}--icon`,
 					})
 				)
 			end
@@ -131,6 +134,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 					RichText = true,
 					LayoutOrder = 2,
 					tag = variantProps.text.tag,
+					testId = `{props.testId}--text`,
 				})
 				else nil,
 		}
