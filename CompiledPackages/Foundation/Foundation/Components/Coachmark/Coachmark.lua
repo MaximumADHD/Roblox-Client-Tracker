@@ -1,0 +1,180 @@
+local Foundation = script:FindFirstAncestor("Foundation")
+local Packages = Foundation.Parent
+
+local React = require(Packages.React)
+local Cryo = require(Packages.Cryo)
+type ReactNode = React.ReactNode
+
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
+local Text = require(Foundation.Components.Text)
+local Button = require(Foundation.Components.Button)
+local CloseAffordance = require(Foundation.Components.CloseAffordance)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
+local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local Radius = require(Foundation.Enums.Radius)
+local InputSize = require(Foundation.Enums.InputSize)
+local FillBehavior = require(Foundation.Enums.FillBehavior)
+local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
+local Logger = require(Foundation.Utility.Logger)
+local Translator = require(Foundation.Utility.Localization.Translator)
+
+type PopoverAlign = PopoverAlign.PopoverAlign
+type PopoverSide = PopoverSide.PopoverSide
+local Popover = require(Foundation.Components.Popover)
+type PopoverAnchorProps = Popover.PopoverAnchorProps
+
+export type CoachmarkProps = {
+	title: string,
+	text: string?,
+	-- Media displayed at the top of the coachmark
+	media: ReactNode?,
+	-- Actions array (up to 2 buttons supported)
+	actions: { Types.ActionProps },
+	isOpen: boolean?,
+	-- Close callback (optional) - if provided, displays a close affordance in the header
+	onClose: (() -> ())?,
+	-- Step indicator (optional) - shows "X of Y" above the header
+	steps: {
+		current: number,
+		total: number,
+	}?,
+	align: PopoverAlign?,
+	side: PopoverSide?,
+	children: ReactNode?,
+} & Types.CommonProps
+
+local defaultProps = {
+	isOpen = false,
+	align = PopoverAlign.Start,
+	side = PopoverSide.Right,
+	testId = "--foundation-coachmark",
+}
+
+local MAX_BUTTON_COUNT = 2
+
+local function stepsText(current: number, total: number)
+	return Translator:FormatByKey("CommonUI.Controls.Label.PageCount", { current = current, total = total })
+end
+
+local function Coachmark(coachmarkProps: CoachmarkProps)
+	local props = withDefaults(coachmarkProps, defaultProps)
+	local tokens = useTokens()
+	local maxXSize = useScaledValue(320)
+	-- Size constraint for text elements when close affordance is present
+	local textSizeConstraint = if props.onClose
+		then {
+			MaxSize = Vector2.new(maxXSize - tokens.Size.Size_1200, math.huge),
+		}
+		else nil
+
+	local coachmarkButtons = React.useMemo(function()
+		local buttons: { [string]: React.Node } = {}
+		for i, action in props.actions do
+			if i > MAX_BUTTON_COUNT then
+				Logger:warning(`Coachmark only supports up to {MAX_BUTTON_COUNT} actions`)
+				break
+			end
+
+			local buttonProps = Cryo.Dictionary.union(action, {
+				LayoutOrder = i,
+				size = InputSize.Medium,
+				fillBehavior = FillBehavior.Fill,
+				testId = `{props.testId}--action-{i}`,
+			})
+			buttons["CoachmarkButton" .. i] = React.createElement(Button, buttonProps :: any)
+		end
+		return buttons
+	end, { props.actions })
+
+	return React.createElement(Popover.Root, {
+		isOpen = props.isOpen,
+		testId = props.testId,
+	}, {
+		Anchor = React.createElement(Popover.Anchor, withCommonProps(props, {}), props.children),
+		Content = React.createElement(
+			Popover.Content,
+			{
+				hasArrow = true,
+				align = props.align,
+				side = {
+					position = props.side,
+					offset = tokens.Size.Size_200,
+				},
+				radius = Radius.Medium,
+				backgroundStyle = tokens.Inverse.Surface.Surface_0,
+			},
+			React.createElement(
+				PresentationContext.Provider,
+				{ value = { isInverse = true } },
+				React.createElement(View, {
+					tag = "col auto-xy gap-medium",
+					sizeConstraint = {
+						MaxSize = Vector2.new(maxXSize, math.huge),
+					},
+				}, {
+					CloseAffordanceContainer = if props.onClose
+						then React.createElement("Folder", {}, {
+							CloseAffordance = React.createElement(CloseAffordance, {
+								onActivated = props.onClose,
+								size = InputSize.Small,
+								variant = CloseAffordanceVariant.Utility,
+								Position = UDim2.new(1, -tokens.Padding.Small, 0, tokens.Padding.Small),
+								AnchorPoint = Vector2.new(1, 0), -- Top-right anchor
+								testId = `{props.testId}--close-affordance`,
+							}),
+						})
+						else nil,
+					Media = if props.media
+						then React.createElement(View, {
+							LayoutOrder = 1,
+							tag = "size-full-0 auto-y",
+						}, props.media)
+						else nil,
+					ContentSection = React.createElement(View, {
+						LayoutOrder = 2,
+						tag = "col gap-xsmall auto-xy padding-top-medium padding-x-medium padding-bottom-xsmall",
+					}, {
+						StepIndicator = if props.steps
+							then React.createElement(Text, {
+								LayoutOrder = 1,
+								Text = stepsText(props.steps.current, props.steps.total),
+								tag = "auto-xy text-label-small text-align-x-left content-inverse-default text-truncate-end",
+								sizeConstraint = textSizeConstraint,
+								testId = `{props.testId}--step-indicator`,
+							})
+							else nil,
+						Header = React.createElement(Text, {
+							LayoutOrder = 2,
+							Text = props.title,
+							tag = "auto-xy text-title-large text-align-x-left content-inverse-emphasis text-truncate-split",
+							sizeConstraint = textSizeConstraint,
+							testId = `{props.testId}--header`,
+						}),
+						Text = if props.text and props.text ~= ""
+							then React.createElement(Text, {
+								LayoutOrder = 3,
+								Text = props.text,
+								tag = "size-full-0 auto-y text-wrap text-align-x-left text-body-medium content-inverse-default",
+								testId = `{props.testId}--text`,
+							})
+							else nil,
+					}),
+					Actions = if props.actions and #props.actions > 0
+						then React.createElement(View, {
+							LayoutOrder = 3,
+							tag = "row gap-small auto-y padding-x-medium padding-bottom-medium size-full-0",
+						}, coachmarkButtons)
+						else nil,
+				})
+			)
+		),
+	})
+end
+
+return React.memo(Coachmark)

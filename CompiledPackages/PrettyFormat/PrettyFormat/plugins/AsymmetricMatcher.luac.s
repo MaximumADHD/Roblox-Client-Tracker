@@ -89,14 +89,6 @@ PROTO_1:
   CALL R10 5 1
   CONCAT R7 R8 R10
   RETURN R7 1
-  GETTABLEKS R8 R0 K20 ["toAsymmetricMatcher"]
-  FASTCALL1 TYPEOF R8 [+2]
-  GETIMPORT R7 K22 [typeof]
-  CALL R7 1 1
-  JUMPIFEQKS R7 K23 ["function"] [+5]
-  GETIMPORT R7 K25 [error]
-  LOADK R8 K26 ["Asymmetric matcher does not implement toAsymmetricMatcher()"]
-  CALL R7 1 0
   NAMECALL R7 R0 K20 ["toAsymmetricMatcher"]
   CALL R7 1 -1
   RETURN R7 -1
@@ -123,28 +115,28 @@ MAIN:
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETTABLEKS R1 R0 K2 ["Parent"]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K6 ["Symbol"]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R5 R0 K7 ["Collections"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K8 ["printListItems"]
-  GETTABLEKS R6 R4 K9 ["printTableEntries"]
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R8 R0 K10 ["Types"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R1 K5 ["LuauPolyfill"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K6 ["Symbol"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Collections"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K8 ["printListItems"]
+  GETTABLEKS R5 R3 K9 ["printTableEntries"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R0 K10 ["Types"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K11 ["for_"]
+  LOADK R8 K12 ["jest.asymmetricMatcher"]
   CALL R7 1 1
-  GETTABLEKS R8 R3 K11 ["for_"]
-  LOADK R9 K12 ["jest.asymmetricMatcher"]
-  CALL R8 1 1
-  DUPCLOSURE R9 K13 [PROTO_0]
-  DUPCLOSURE R10 K14 [PROTO_1]
+  DUPCLOSURE R8 K13 [PROTO_0]
+  DUPCLOSURE R9 K14 [PROTO_1]
+  CAPTURE VAL R4
   CAPTURE VAL R5
-  CAPTURE VAL R6
-  DUPCLOSURE R11 K15 [PROTO_2]
-  CAPTURE VAL R8
-  DUPTABLE R12 K18 [{"serialize", "test"}]
-  SETTABLEKS R10 R12 K16 ["serialize"]
-  SETTABLEKS R11 R12 K17 ["test"]
-  RETURN R12 1
+  DUPCLOSURE R10 K15 [PROTO_2]
+  CAPTURE VAL R7
+  DUPTABLE R11 K18 [{"serialize", "test"}]
+  SETTABLEKS R9 R11 K16 ["serialize"]
+  SETTABLEKS R10 R11 K17 ["test"]
+  RETURN R11 1

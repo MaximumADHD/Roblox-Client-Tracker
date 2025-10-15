@@ -1,6 +1,0 @@
-MAIN:
-  PREPVARARGS 0
-  DUPTABLE R0 K1 [{"OverMedia"}]
-  LOADK R1 K0 ["OverMedia"]
-  SETTABLEKS R1 R0 K0 ["OverMedia"]
-  RETURN R0 1
