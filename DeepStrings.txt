@@ -64457,7 +64457,6 @@ Studio.App.Collaboration.ConnectingtoServer
 Studio.App.Collaboration.FailedToArchiveNewGame
 Studio.App.Collaboration.FailedToUnarchive
 Studio.App.Collaboration.FailedToUnarchiveGame
-Studio.App.ColorPrev
 Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip
 Studio.App.CommandBar.Command
 Studio.App.CommandLine.InvalidArgument2
@@ -82265,6 +82264,7 @@ UniverseIdFromContextInfo
 UniverseIdFromHttp
 UniverseIdLayer
 UniverseIds
+UniverseIdToEventStream
 Universell
 Universelle
 UniverseLoadAssetsTime
@@ -89879,7 +89879,7 @@ WilError_03
 Willkommen
 WillReturn
 WIN32_LEAN_AND_MEAN
-Win64.695.4155
+Win64.695.4141
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
