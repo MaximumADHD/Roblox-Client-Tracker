@@ -1,1 +1,0 @@
--- CoreScript depends on the presence of the Animate file, so we need to keep an empty Animate script.

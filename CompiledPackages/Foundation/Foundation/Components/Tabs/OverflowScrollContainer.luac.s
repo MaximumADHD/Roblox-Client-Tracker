@@ -1,0 +1,382 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  MOVE R4 R0
+  DUPTABLE R5 K2 [{"tag"}]
+  LOADK R7 K3 ["bg-surface-0 size-0-full auto-x col align-y-center %*"]
+  GETTABLEKS R9 R0 K1 ["tag"]
+  NAMECALL R7 R7 K4 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  SETTABLEKS R6 R5 K1 ["tag"]
+  CALL R3 2 1
+  DUPTABLE R4 K7 [{"UIGradient", "Button"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K5 ["UIGradient"]
+  DUPTABLE R7 K9 [{"Transparency"}]
+  GETTABLEKS R8 R0 K10 ["gradient"]
+  SETTABLEKS R8 R7 K8 ["Transparency"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K5 ["UIGradient"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K14 [{"onActivated", "size", "icon"}]
+  GETTABLEKS R8 R0 K11 ["onActivated"]
+  SETTABLEKS R8 R7 K11 ["onActivated"]
+  GETTABLEKS R9 R0 K12 ["size"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K15 ["Large"]
+  JUMPIFEQ R9 R10 [+8]
+  GETTABLEKS R9 R0 K12 ["size"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K16 ["Medium"]
+  JUMPIFNOTEQ R9 R10 [+5]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Small"]
+  JUMP [+3]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K18 ["XSmall"]
+  SETTABLEKS R8 R7 K12 ["size"]
+  DUPTABLE R8 K20 [{"name"}]
+  GETTABLEKS R9 R0 K13 ["icon"]
+  SETTABLEKS R9 R8 K19 ["name"]
+  SETTABLEKS R8 R7 K13 ["icon"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K6 ["Button"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K3 [Vector2.new]
+  MOVE R3 R0
+  LOADN R4 0
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K4 ["CanvasPosition"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["AbsoluteWindowSize"]
+  GETTABLEKS R1 R2 K1 ["X"]
+  JUMPIFNOTEQKN R1 K2 [0] [+2]
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R5 R0 K0 ["AbsoluteWindowSize"]
+  GETTABLEKS R4 R5 K1 ["X"]
+  GETTABLEKS R6 R0 K3 ["CanvasPosition"]
+  GETTABLEKS R5 R6 K1 ["X"]
+  ADD R3 R4 R5
+  GETTABLEKS R6 R0 K5 ["AbsoluteCanvasSize"]
+  GETTABLEKS R5 R6 K1 ["X"]
+  SUBK R4 R5 K4 [1]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  CALL R1 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R4 R0 K3 ["CanvasPosition"]
+  GETTABLEKS R3 R4 K1 ["X"]
+  JUMPIFNOTEQKN R3 K2 [0] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["ease"]
+  GETTABLEKS R6 R1 K2 ["CanvasPosition"]
+  GETTABLEKS R5 R6 K3 ["X"]
+  ADD R4 R5 R0
+  DUPTABLE R5 K6 [{"duration", "easingStyle"}]
+  LOADK R6 K7 [0.2]
+  SETTABLEKS R6 R5 K4 ["duration"]
+  GETIMPORT R6 K11 [Enum.EasingStyle.Quad]
+  SETTABLEKS R6 R5 K5 ["easingStyle"]
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  LOADN R1 166
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  LOADN R1 90
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useBinding"]
+  LOADB R2 0
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useBinding"]
+  LOADB R4 0
+  CALL R3 1 2
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["useRef"]
+  LOADNIL R6
+  CALL R5 1 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K2 ["useMotor"]
+  LOADN R7 0
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R5
+  CALL R6 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["useCallback"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K4 ["throttle"]
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  LOADK R10 K5 [0.2]
+  CALL R8 2 1
+  NEWTABLE R9 0 0
+  CALL R7 2 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["useCallback"]
+  NEWCLOSURE R9 P2
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE UPVAL U3
+  NEWTABLE R10 0 0
+  CALL R8 2 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K6 ["useEffect"]
+  NEWCLOSURE R10 P3
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  NEWTABLE R11 0 0
+  CALL R9 2 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K3 ["useCallback"]
+  NEWCLOSURE R10 P4
+  CAPTURE VAL R8
+  NEWTABLE R11 0 1
+  MOVE R12 R8
+  SETLIST R11 R12 1 [1]
+  CALL R9 2 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K3 ["useCallback"]
+  NEWCLOSURE R11 P5
+  CAPTURE VAL R8
+  NEWTABLE R12 0 1
+  MOVE R13 R8
+  SETLIST R12 R13 1 [1]
+  CALL R10 2 1
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K7 ["createElement"]
+  GETUPVAL R12 4
+  GETUPVAL R13 5
+  MOVE R14 R0
+  DUPTABLE R15 K9 [{"tag"}]
+  LOADK R16 K10 ["auto-y size-full-0"]
+  SETTABLEKS R16 R15 K8 ["tag"]
+  CALL R13 2 1
+  DUPTABLE R14 K14 [{"Scroll", "OverflowStart", "OverflowEnd"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R16 6
+  DUPTABLE R17 K20 [{"LayoutOrder", "tag", "onCanvasPositionChanged", "onAbsoluteWindowSizeChanged", "scrollingFrameRef", "scroll"}]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K15 ["LayoutOrder"]
+  LOADK R18 K21 ["size-full"]
+  SETTABLEKS R18 R17 K8 ["tag"]
+  SETTABLEKS R7 R17 K16 ["onCanvasPositionChanged"]
+  SETTABLEKS R7 R17 K17 ["onAbsoluteWindowSizeChanged"]
+  SETTABLEKS R5 R17 K18 ["scrollingFrameRef"]
+  DUPTABLE R18 K26 [{"AutomaticSize", "AutomaticCanvasSize", "ScrollingDirection", "scrollBarVisibility"}]
+  GETIMPORT R19 K29 [Enum.AutomaticSize.Y]
+  SETTABLEKS R19 R18 K22 ["AutomaticSize"]
+  GETIMPORT R19 K31 [Enum.AutomaticSize.X]
+  SETTABLEKS R19 R18 K23 ["AutomaticCanvasSize"]
+  GETIMPORT R19 K32 [Enum.ScrollingDirection.X]
+  SETTABLEKS R19 R18 K24 ["ScrollingDirection"]
+  GETUPVAL R20 7
+  GETTABLEKS R19 R20 K33 ["None"]
+  SETTABLEKS R19 R18 K25 ["scrollBarVisibility"]
+  SETTABLEKS R18 R17 K19 ["scroll"]
+  GETTABLEKS R18 R0 K34 ["children"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K11 ["Scroll"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R16 8
+  DUPTABLE R17 K43 [{"LayoutOrder", "Position", "size", "isStart", "ZIndex", "Visible", "onActivated", "gradient", "tag", "icon"}]
+  LOADN R18 3
+  SETTABLEKS R18 R17 K15 ["LayoutOrder"]
+  GETIMPORT R18 K46 [UDim2.fromScale]
+  LOADN R19 0
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K35 ["Position"]
+  GETTABLEKS R18 R0 K36 ["size"]
+  SETTABLEKS R18 R17 K36 ["size"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K37 ["isStart"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K38 ["ZIndex"]
+  SETTABLEKS R3 R17 K39 ["Visible"]
+  SETTABLEKS R9 R17 K40 ["onActivated"]
+  GETUPVAL R18 9
+  SETTABLEKS R18 R17 K41 ["gradient"]
+  LOADK R18 K47 ["padding-right-small"]
+  SETTABLEKS R18 R17 K8 ["tag"]
+  LOADK R18 K48 ["chevron-large-left"]
+  SETTABLEKS R18 R17 K42 ["icon"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K12 ["OverflowStart"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R16 8
+  DUPTABLE R17 K49 [{"LayoutOrder", "Position", "size", "ZIndex", "Visible", "onActivated", "gradient", "tag", "icon"}]
+  LOADN R18 4
+  SETTABLEKS R18 R17 K15 ["LayoutOrder"]
+  GETIMPORT R18 K46 [UDim2.fromScale]
+  LOADN R19 1
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K35 ["Position"]
+  GETTABLEKS R18 R0 K36 ["size"]
+  SETTABLEKS R18 R17 K36 ["size"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K38 ["ZIndex"]
+  SETTABLEKS R1 R17 K39 ["Visible"]
+  SETTABLEKS R10 R17 K40 ["onActivated"]
+  GETUPVAL R18 10
+  SETTABLEKS R18 R17 K41 ["gradient"]
+  LOADK R18 K50 ["padding-left-small anchor-top-right"]
+  SETTABLEKS R18 R17 K8 ["tag"]
+  LOADK R18 K51 ["chevron-large-right"]
+  SETTABLEKS R18 R17 K42 ["icon"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K13 ["OverflowEnd"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Otter"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R1 K10 ["ReactOtter"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K11 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Types"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K11 ["Components"]
+  GETTABLEKS R8 R9 K13 ["View"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K11 ["Components"]
+  GETTABLEKS R9 R10 K14 ["ScrollView"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K11 ["Components"]
+  GETTABLEKS R10 R11 K15 ["IconButton"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K16 ["Utility"]
+  GETTABLEKS R11 R12 K17 ["withCommonProps"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K18 ["Enums"]
+  GETTABLEKS R12 R13 K19 ["Visibility"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K18 ["Enums"]
+  GETTABLEKS R13 R14 K20 ["InputSize"]
+  CALL R12 1 1
+  GETIMPORT R13 K23 [NumberSequence.new]
+  NEWTABLE R14 0 3
+  GETIMPORT R15 K25 [NumberSequenceKeypoint.new]
+  LOADN R16 0
+  LOADN R17 0
+  CALL R15 2 1
+  GETIMPORT R16 K25 [NumberSequenceKeypoint.new]
+  LOADK R17 K26 [0.8]
+  LOADN R18 0
+  CALL R16 2 1
+  GETIMPORT R17 K25 [NumberSequenceKeypoint.new]
+  LOADN R18 1
+  LOADN R19 1
+  CALL R17 2 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R13 1 1
+  GETIMPORT R14 K23 [NumberSequence.new]
+  NEWTABLE R15 0 3
+  GETIMPORT R16 K25 [NumberSequenceKeypoint.new]
+  LOADN R17 0
+  LOADN R18 1
+  CALL R16 2 1
+  GETIMPORT R17 K25 [NumberSequenceKeypoint.new]
+  LOADK R18 K27 [0.2]
+  LOADN R19 0
+  CALL R17 2 1
+  GETIMPORT R18 K25 [NumberSequenceKeypoint.new]
+  LOADN R19 1
+  LOADN R20 0
+  CALL R18 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R14 1 1
+  DUPCLOSURE R15 K28 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  DUPCLOSURE R16 K29 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  CAPTURE VAL R15
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  RETURN R16 1

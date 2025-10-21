@@ -1,0 +1,245 @@
+PROTO_0:
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NEWTABLE R5 8 0
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K0 ["Primary"]
+  DUPTABLE R7 K3 [{"backgroundStyle", "contentStyle"}]
+  GETTABLEKS R10 R4 K4 ["Color"]
+  GETTABLEKS R9 R10 K5 ["System"]
+  GETTABLEKS R8 R9 K6 ["Contrast"]
+  SETTABLEKS R8 R7 K1 ["backgroundStyle"]
+  GETTABLEKS R10 R4 K7 ["Inverse"]
+  GETTABLEKS R9 R10 K8 ["Content"]
+  GETTABLEKS R8 R9 K9 ["Emphasis"]
+  SETTABLEKS R8 R7 K2 ["contentStyle"]
+  SETTABLE R7 R5 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K10 ["Secondary"]
+  DUPTABLE R7 K3 [{"backgroundStyle", "contentStyle"}]
+  GETTABLEKS R10 R4 K4 ["Color"]
+  GETTABLEKS R9 R10 K11 ["Shift"]
+  GETTABLEKS R8 R9 K12 ["Shift_200"]
+  SETTABLEKS R8 R7 K1 ["backgroundStyle"]
+  GETTABLEKS R10 R4 K4 ["Color"]
+  GETTABLEKS R9 R10 K8 ["Content"]
+  GETTABLEKS R8 R9 K9 ["Emphasis"]
+  SETTABLEKS R8 R7 K2 ["contentStyle"]
+  SETTABLE R7 R5 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K13 ["Alert"]
+  DUPTABLE R7 K3 [{"backgroundStyle", "contentStyle"}]
+  GETTABLEKS R10 R4 K4 ["Color"]
+  GETTABLEKS R9 R10 K5 ["System"]
+  GETTABLEKS R8 R9 K13 ["Alert"]
+  SETTABLEKS R8 R7 K1 ["backgroundStyle"]
+  GETTABLEKS R10 R4 K14 ["DarkMode"]
+  GETTABLEKS R9 R10 K8 ["Content"]
+  GETTABLEKS R8 R9 K9 ["Emphasis"]
+  SETTABLEKS R8 R7 K2 ["contentStyle"]
+  SETTABLE R7 R5 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K15 ["Success"]
+  DUPTABLE R7 K3 [{"backgroundStyle", "contentStyle"}]
+  GETTABLEKS R10 R4 K4 ["Color"]
+  GETTABLEKS R9 R10 K5 ["System"]
+  GETTABLEKS R8 R9 K15 ["Success"]
+  SETTABLEKS R8 R7 K1 ["backgroundStyle"]
+  GETTABLEKS R10 R4 K16 ["LightMode"]
+  GETTABLEKS R9 R10 K8 ["Content"]
+  GETTABLEKS R8 R9 K9 ["Emphasis"]
+  SETTABLEKS R8 R7 K2 ["contentStyle"]
+  SETTABLE R7 R5 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K17 ["Warning"]
+  DUPTABLE R7 K3 [{"backgroundStyle", "contentStyle"}]
+  GETTABLEKS R10 R4 K4 ["Color"]
+  GETTABLEKS R9 R10 K5 ["System"]
+  GETTABLEKS R8 R9 K17 ["Warning"]
+  SETTABLEKS R8 R7 K1 ["backgroundStyle"]
+  GETTABLEKS R10 R4 K16 ["LightMode"]
+  GETTABLEKS R9 R10 K8 ["Content"]
+  GETTABLEKS R8 R9 K9 ["Emphasis"]
+  SETTABLEKS R8 R7 K2 ["contentStyle"]
+  SETTABLE R7 R5 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K6 ["Contrast"]
+  DUPTABLE R7 K3 [{"backgroundStyle", "contentStyle"}]
+  GETTABLEKS R10 R4 K4 ["Color"]
+  GETTABLEKS R9 R10 K5 ["System"]
+  GETTABLEKS R8 R9 K6 ["Contrast"]
+  SETTABLEKS R8 R7 K1 ["backgroundStyle"]
+  GETTABLEKS R10 R4 K7 ["Inverse"]
+  GETTABLEKS R9 R10 K8 ["Content"]
+  GETTABLEKS R8 R9 K9 ["Emphasis"]
+  SETTABLEKS R8 R7 K2 ["contentStyle"]
+  SETTABLE R7 R5 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K18 ["Neutral"]
+  DUPTABLE R7 K3 [{"backgroundStyle", "contentStyle"}]
+  GETTABLEKS R10 R4 K4 ["Color"]
+  GETTABLEKS R9 R10 K11 ["Shift"]
+  GETTABLEKS R8 R9 K19 ["Shift_300"]
+  SETTABLEKS R8 R7 K1 ["backgroundStyle"]
+  GETTABLEKS R10 R4 K4 ["Color"]
+  GETTABLEKS R9 R10 K8 ["Content"]
+  GETTABLEKS R8 R9 K9 ["Emphasis"]
+  SETTABLEKS R8 R7 K2 ["contentStyle"]
+  SETTABLE R7 R5 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K20 ["OverMedia"]
+  DUPTABLE R7 K3 [{"backgroundStyle", "contentStyle"}]
+  GETTABLEKS R10 R4 K16 ["LightMode"]
+  GETTABLEKS R9 R10 K21 ["Surface"]
+  GETTABLEKS R8 R9 K22 ["Surface_100"]
+  SETTABLEKS R8 R7 K1 ["backgroundStyle"]
+  GETTABLEKS R10 R4 K16 ["LightMode"]
+  GETTABLEKS R9 R10 K8 ["Content"]
+  GETTABLEKS R8 R9 K9 ["Emphasis"]
+  SETTABLEKS R8 R7 K2 ["contentStyle"]
+  SETTABLE R7 R5 R6
+  NEWTABLE R6 2 0
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K23 ["Small"]
+  GETTABLEKS R10 R4 K24 ["Size"]
+  GETTABLEKS R9 R10 K25 ["Size_300"]
+  GETTABLEKS R12 R4 K27 ["Padding"]
+  GETTABLEKS R11 R12 K28 ["XXSmall"]
+  MULK R10 R11 K26 [2]
+  SUB R8 R9 R10
+  SETTABLE R8 R6 R7
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K29 ["Medium"]
+  GETTABLEKS R11 R4 K24 ["Size"]
+  GETTABLEKS R10 R11 K30 ["Size_600"]
+  GETTABLEKS R13 R4 K31 ["Stroke"]
+  GETTABLEKS R12 R13 K32 ["Standard"]
+  MULK R11 R12 K26 [2]
+  SUB R9 R10 R11
+  GETTABLEKS R12 R4 K27 ["Padding"]
+  GETTABLEKS R11 R12 K28 ["XXSmall"]
+  MULK R10 R11 K26 [2]
+  SUB R8 R9 R10
+  SETTABLE R8 R6 R7
+  JUMPIF R2 [+1]
+  JUMPIFNOT R3 [+2]
+  LOADK R7 K33 ["padding-xxsmall"]
+  JUMP [+1]
+  LOADK R7 K34 [""]
+  GETUPVAL R9 3
+  GETTABLE R8 R9 R1
+  JUMPIFNOT R2 [+29]
+  GETIMPORT R9 K37 [Vector2.new]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K38 ["FoundationDisableBadgeTruncation"]
+  JUMPIFNOT R11 [+2]
+  LOADK R10 K39 [∞]
+  JUMP [+18]
+  GETTABLEKS R13 R4 K24 ["Size"]
+  GETTABLEKS R12 R13 K40 ["Size_1600"]
+  GETTABLEKS R16 R4 K41 ["Semantic"]
+  GETTABLEKS R15 R16 K42 ["Icon"]
+  GETTABLEKS R14 R15 K24 ["Size"]
+  GETTABLEKS R13 R14 K23 ["Small"]
+  SUB R11 R12 R13
+  GETTABLEKS R13 R4 K27 ["Padding"]
+  GETTABLEKS R12 R13 K28 ["XXSmall"]
+  SUB R10 R11 R12
+  LOADK R11 K39 [∞]
+  CALL R9 2 1
+  JUMP [+1]
+  LOADNIL R9
+  DUPTABLE R10 K44 [{"MaxSize"}]
+  SETTABLEKS R9 R10 K43 ["MaxSize"]
+  JUMPIF R3 [+1]
+  JUMPIFNOT R2 [+2]
+  GETTABLE R11 R6 R1
+  JUMP [+4]
+  GETTABLEKS R12 R4 K24 ["Size"]
+  GETTABLEKS R11 R12 K45 ["Size_200"]
+  DUPTABLE R12 K47 [{"MinSize", "MaxSize"}]
+  GETIMPORT R13 K37 [Vector2.new]
+  MOVE R14 R11
+  MOVE R15 R11
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K46 ["MinSize"]
+  GETIMPORT R13 K37 [Vector2.new]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K38 ["FoundationDisableBadgeTruncation"]
+  JUMPIFNOT R15 [+2]
+  LOADK R14 K39 [∞]
+  JUMP [+4]
+  GETTABLEKS R15 R4 K24 ["Size"]
+  GETTABLEKS R14 R15 K40 ["Size_1600"]
+  LOADK R15 K39 [∞]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K43 ["MaxSize"]
+  LOADK R14 K48 ["auto-xy radius-circle row align-y-center align-x-center stroke-thick %*"]
+  MOVE R16 R7
+  NAMECALL R14 R14 K49 ["format"]
+  CALL R14 2 1
+  MOVE R13 R14
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K38 ["FoundationDisableBadgeTruncation"]
+  JUMPIFNOT R15 [+8]
+  LOADK R15 K50 ["auto-xy %* %*"]
+  LOADK R17 K51 ["padding-x-xsmall"]
+  MOVE R18 R8
+  NAMECALL R15 R15 K49 ["format"]
+  CALL R15 3 1
+  MOVE R14 R15
+  JUMP [+7]
+  LOADK R15 K52 ["auto-xy text-truncate-end %* %*"]
+  LOADK R17 K51 ["padding-x-xsmall"]
+  MOVE R18 R8
+  NAMECALL R15 R15 K49 ["format"]
+  CALL R15 3 1
+  MOVE R14 R15
+  GETTABLE R15 R5 R0
+  MOVE R16 R12
+  MOVE R17 R10
+  MOVE R18 R13
+  MOVE R19 R14
+  RETURN R15 5
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Enums"]
+  GETTABLEKS R2 R3 K7 ["BadgeVariant"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Enums"]
+  GETTABLEKS R3 R4 K8 ["BadgeSize"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Providers"]
+  GETTABLEKS R5 R6 K10 ["Style"]
+  GETTABLEKS R4 R5 K11 ["useTokens"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Utility"]
+  GETTABLEKS R5 R6 K13 ["Flags"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K14 ["Components"]
+  GETTABLEKS R6 R7 K15 ["Types"]
+  CALL R5 1 1
+  NEWTABLE R6 2 0
+  GETTABLEKS R7 R2 K16 ["Small"]
+  LOADK R8 K17 ["text-caption-small"]
+  SETTABLE R8 R6 R7
+  GETTABLEKS R7 R2 K18 ["Medium"]
+  LOADK R8 K19 ["text-label-small"]
+  SETTABLE R8 R6 R7
+  DUPCLOSURE R7 K20 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  RETURN R7 1

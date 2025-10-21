@@ -1,0 +1,310 @@
+PROTO_0:
+  NEWTABLE R2 0 12
+  LOADN R3 31
+  LOADN R4 28
+  LOADN R5 31
+  LOADN R6 30
+  LOADN R7 31
+  LOADN R8 30
+  LOADN R9 31
+  LOADN R10 31
+  LOADN R11 30
+  LOADN R12 31
+  LOADN R13 30
+  LOADN R14 31
+  SETLIST R2 R3 12 [1]
+  JUMPIFNOTEQKN R0 K0 [2] [+12]
+  MODK R3 R1 K1 [4]
+  JUMPIFNOTEQKN R3 K2 [0] [+4]
+  MODK R3 R1 K3 [100]
+  JUMPIFNOTEQKN R3 K2 [0] [+4]
+  MODK R3 R1 K4 [400]
+  JUMPIFNOTEQKN R3 K2 [0] [+3]
+  LOADN R3 29
+  RETURN R3 1
+  GETTABLE R3 R2 R0
+  RETURN R3 1
+
+PROTO_1:
+  GETIMPORT R2 K2 [DateTime.fromLocalTime]
+  MOVE R3 R1
+  MOVE R4 R0
+  LOADN R5 1
+  CALL R2 3 1
+  JUMPIFNOT R2 [+12]
+  LOADK R5 K3 ["d"]
+  LOADK R6 K4 ["en-us"]
+  NAMECALL R3 R2 K5 ["FormatLocalTime"]
+  CALL R3 3 1
+  FASTCALL1 TONUMBER R3 [+3]
+  MOVE R6 R3
+  GETIMPORT R5 K8 [tonumber]
+  CALL R5 1 1
+  ORK R4 R5 K6 [0]
+  RETURN R4 1
+  LOADN R3 0
+  RETURN R3 1
+
+PROTO_2:
+  GETIMPORT R2 K2 [DateTime.fromLocalTime]
+  MOVE R3 R1
+  MOVE R4 R0
+  GETUPVAL R5 0
+  MOVE R6 R0
+  MOVE R7 R1
+  CALL R5 2 1
+  CALL R2 3 1
+  JUMPIFNOT R2 [+12]
+  LOADK R5 K3 ["d"]
+  LOADK R6 K4 ["en-us"]
+  NAMECALL R3 R2 K5 ["FormatLocalTime"]
+  CALL R3 3 1
+  FASTCALL1 TONUMBER R3 [+3]
+  MOVE R6 R3
+  GETIMPORT R5 K8 [tonumber]
+  CALL R5 1 1
+  ORK R4 R5 K6 [0]
+  RETURN R4 1
+  LOADN R3 0
+  RETURN R3 1
+
+PROTO_3:
+  NAMECALL R1 R0 K0 ["ToLocalTime"]
+  CALL R1 1 1
+  GETIMPORT R3 K3 [DateTime.fromLocalTime]
+  GETTABLEKS R4 R1 K4 ["Year"]
+  GETTABLEKS R5 R1 K5 ["Month"]
+  GETTABLEKS R6 R1 K6 ["Day"]
+  CALL R3 3 1
+  GETTABLEKS R2 R3 K7 ["UnixTimestamp"]
+  RETURN R2 1
+
+PROTO_4:
+  GETTABLEKS R3 R1 K0 ["startDate"]
+  NAMECALL R4 R3 K1 ["ToLocalTime"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [DateTime.fromLocalTime]
+  GETTABLEKS R6 R4 K5 ["Year"]
+  GETTABLEKS R7 R4 K6 ["Month"]
+  GETTABLEKS R8 R4 K7 ["Day"]
+  CALL R5 3 1
+  GETTABLEKS R2 R5 K8 ["UnixTimestamp"]
+  GETTABLEKS R4 R1 K9 ["endDate"]
+  NAMECALL R5 R4 K1 ["ToLocalTime"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [DateTime.fromLocalTime]
+  GETTABLEKS R7 R5 K5 ["Year"]
+  GETTABLEKS R8 R5 K6 ["Month"]
+  GETTABLEKS R9 R5 K7 ["Day"]
+  CALL R6 3 1
+  GETTABLEKS R3 R6 K8 ["UnixTimestamp"]
+  NAMECALL R5 R0 K1 ["ToLocalTime"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [DateTime.fromLocalTime]
+  GETTABLEKS R7 R5 K5 ["Year"]
+  GETTABLEKS R8 R5 K6 ["Month"]
+  GETTABLEKS R9 R5 K7 ["Day"]
+  CALL R6 3 1
+  GETTABLEKS R4 R6 K8 ["UnixTimestamp"]
+  LOADB R5 0
+  JUMPIFNOTLE R2 R4 [+5]
+  JUMPIFLE R4 R3 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  RETURN R5 1
+
+PROTO_5:
+  GETUPVAL R0 0
+  JUMPIFNOTEQKN R0 K0 [3] [+25]
+  GETUPVAL R0 1
+  LOADK R2 K1 ["^(%d%d)[/%.%-](%d%d)[/%.%-](%d%d%d%d)$"]
+  NAMECALL R0 R0 K2 ["match"]
+  CALL R0 2 3
+  GETIMPORT R3 K5 [DateTime.fromLocalTime]
+  FASTCALL1 TONUMBER R2 [+3]
+  MOVE R5 R2
+  GETIMPORT R4 K7 [tonumber]
+  CALL R4 1 1
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K7 [tonumber]
+  CALL R5 1 1
+  FASTCALL1 TONUMBER R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K7 [tonumber]
+  CALL R6 1 1
+  CALL R3 3 -1
+  RETURN R3 -1
+  GETUPVAL R0 0
+  JUMPIFNOTEQKN R0 K8 [5] [+25]
+  GETUPVAL R0 1
+  LOADK R2 K9 ["^(%d%d%d%d)[/%.%-](%d%d)[/%.%-](%d%d)$"]
+  NAMECALL R0 R0 K2 ["match"]
+  CALL R0 2 3
+  GETIMPORT R3 K5 [DateTime.fromLocalTime]
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K7 [tonumber]
+  CALL R4 1 1
+  FASTCALL1 TONUMBER R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K7 [tonumber]
+  CALL R5 1 1
+  FASTCALL1 TONUMBER R2 [+3]
+  MOVE R7 R2
+  GETIMPORT R6 K7 [tonumber]
+  CALL R6 1 1
+  CALL R3 3 -1
+  RETURN R3 -1
+  GETIMPORT R0 K11 [error]
+  LOADK R2 K12 ["Invalid date format: "]
+  GETUPVAL R3 1
+  CONCAT R1 R2 R3
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  LOADK R3 K0 ["[/%.%-]"]
+  NAMECALL R1 R0 K1 ["find"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETIMPORT R2 K3 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CALL R2 1 2
+  JUMPIFNOT R2 [+2]
+  JUMPIFNOT R3 [+1]
+  RETURN R3 1
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_7:
+  JUMPIFNOTEQKN R0 K0 [1] [+4]
+  LOADN R2 12
+  SUBK R3 R1 K0 [1]
+  RETURN R2 2
+  SUBK R2 R0 K0 [1]
+  MOVE R3 R1
+  RETURN R2 2
+
+PROTO_8:
+  JUMPIFNOTEQKN R0 K0 [12] [+4]
+  LOADN R2 1
+  ADDK R3 R1 K1 [1]
+  RETURN R2 2
+  ADDK R2 R0 K1 [1]
+  MOVE R3 R1
+  RETURN R2 2
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Utility"]
+  GETTABLEKS R3 R4 K7 ["Localization"]
+  GETTABLEKS R2 R3 K8 ["Translator"]
+  CALL R1 1 1
+  NEWTABLE R2 0 12
+  LOADK R5 K9 ["CommonUI.Controls.Label.January"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 1
+  LOADK R5 K11 ["CommonUI.Controls.Label.February"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 2
+  LOADK R5 K12 ["CommonUI.Controls.Label.March"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 3
+  LOADK R5 K13 ["CommonUI.Controls.Label.April"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 4
+  LOADK R5 K14 ["CommonUI.Controls.Label.May"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 5
+  LOADK R5 K15 ["CommonUI.Controls.Label.June"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 6
+  LOADK R5 K16 ["CommonUI.Controls.Label.July"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 7
+  LOADK R5 K17 ["CommonUI.Controls.Label.August"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 8
+  LOADK R5 K18 ["CommonUI.Controls.Label.September"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 9
+  LOADK R5 K19 ["CommonUI.Controls.Label.October"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 10
+  LOADK R5 K20 ["CommonUI.Controls.Label.November"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 11
+  LOADK R5 K21 ["CommonUI.Controls.Label.December"]
+  NAMECALL R3 R1 K10 ["FormatByKey"]
+  CALL R3 2 1
+  SETTABLEN R3 R2 12
+  NEWTABLE R3 0 7
+  LOADK R6 K22 ["CommonUI.Controls.Label.SundayAbbreviated"]
+  NAMECALL R4 R1 K10 ["FormatByKey"]
+  CALL R4 2 1
+  SETTABLEN R4 R3 1
+  LOADK R6 K23 ["CommonUI.Controls.Label.MondayAbbreviated"]
+  NAMECALL R4 R1 K10 ["FormatByKey"]
+  CALL R4 2 1
+  SETTABLEN R4 R3 2
+  LOADK R6 K24 ["CommonUI.Controls.Label.TuesdayAbbreviated"]
+  NAMECALL R4 R1 K10 ["FormatByKey"]
+  CALL R4 2 1
+  SETTABLEN R4 R3 3
+  LOADK R6 K25 ["CommonUI.Controls.Label.WednesdayAbbreviation"]
+  NAMECALL R4 R1 K10 ["FormatByKey"]
+  CALL R4 2 1
+  SETTABLEN R4 R3 4
+  LOADK R6 K26 ["CommonUI.Controls.Label.ThursdayAbbreviated"]
+  NAMECALL R4 R1 K10 ["FormatByKey"]
+  CALL R4 2 1
+  SETTABLEN R4 R3 5
+  LOADK R6 K27 ["CommonUI.Controls.Label.FridayAbbreviated"]
+  NAMECALL R4 R1 K10 ["FormatByKey"]
+  CALL R4 2 1
+  SETTABLEN R4 R3 6
+  LOADK R6 K28 ["CommonUI.Controls.Label.SaturdayAbbreviated"]
+  NAMECALL R4 R1 K10 ["FormatByKey"]
+  CALL R4 2 1
+  SETTABLEN R4 R3 7
+  DUPCLOSURE R4 K29 [PROTO_0]
+  DUPCLOSURE R5 K30 [PROTO_1]
+  DUPCLOSURE R6 K31 [PROTO_2]
+  CAPTURE VAL R4
+  DUPCLOSURE R7 K32 [PROTO_3]
+  DUPCLOSURE R8 K33 [PROTO_4]
+  DUPCLOSURE R9 K34 [PROTO_6]
+  DUPCLOSURE R10 K35 [PROTO_7]
+  DUPCLOSURE R11 K36 [PROTO_8]
+  DUPTABLE R12 K46 [{"getDaysInMonth", "getFirstDayOfWeek", "getLastDayOfWeek", "getNextMonthInfo", "getPrevMonthInfo", "isDateWithinRange", "getDateTimeFromText", "monthMap", "weekdays"}]
+  SETTABLEKS R4 R12 K37 ["getDaysInMonth"]
+  SETTABLEKS R5 R12 K38 ["getFirstDayOfWeek"]
+  SETTABLEKS R6 R12 K39 ["getLastDayOfWeek"]
+  SETTABLEKS R11 R12 K40 ["getNextMonthInfo"]
+  SETTABLEKS R10 R12 K41 ["getPrevMonthInfo"]
+  SETTABLEKS R8 R12 K42 ["isDateWithinRange"]
+  SETTABLEKS R9 R12 K43 ["getDateTimeFromText"]
+  SETTABLEKS R2 R12 K44 ["monthMap"]
+  SETTABLEKS R3 R12 K45 ["weekdays"]
+  RETURN R12 1
