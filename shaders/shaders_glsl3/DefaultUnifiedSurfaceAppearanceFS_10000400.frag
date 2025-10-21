@@ -9,7 +9,6 @@ uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
 uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D DiffuseMapTexture;
-uniform sampler2D SpecularMapTexture;
 
 in vec2 VARYING0;
 in vec4 VARYING2;
@@ -48,7 +47,7 @@ void main()
     vec4 f17 = mix(texture(LightMapTexture, f15), vec4(0.0), f16);
     vec4 f18 = mix(texture(LightGridSkylightTexture, f15), vec4(1.0), f16);
     float f19 = f18.y;
-    vec3 f20 = ((((CB3[1].xyz * texture(SpecularMapTexture, VARYING0).z) + (VARYING5.xyz * f19)) + min((f17.xyz * (f17.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f18.x)), vec3(CB0[21].w))) * f12.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f12.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f19));
+    vec3 f20 = (((VARYING5.xyz * f19) + min((f17.xyz * (f17.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f18.x)), vec3(CB0[21].w))) * f12.xyz) + ((CB0[15].xyz * mix(vec3(0.100000001490116119384765625), f12.xyz, vec3(VARYING6.w * CB0[31].w))) * (VARYING5.w * f19));
     vec4 f21 = vec4(0.0);
     f21.x = f20.x;
     vec4 f22 = f21;
@@ -84,4 +83,3 @@ void main()
 //$$LightGridSkylightTexture=s7
 //$$PrefilteredEnvTexture=s15
 //$$DiffuseMapTexture=s3
-//$$SpecularMapTexture=s5
