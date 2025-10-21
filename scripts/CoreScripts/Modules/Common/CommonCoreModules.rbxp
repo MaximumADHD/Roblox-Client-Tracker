@@ -1,0 +1,120 @@
+{
+    "instanceHierarchy": {
+        "tree": {
+            "Flags": {
+                "$path": "Flags",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "AvatarChatConstants": {
+                "$path": "AvatarChatConstants.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "HumanoidReadyUtil": {
+                "$path": "HumanoidReadyUtil.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "CommonUtil": {
+                "$path": "CommonUtil.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "CorescriptMemoryTracker": {
+                "$path": "CorescriptMemoryTracker.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "LegacyThumbnailUrls": {
+                "$path": "LegacyThumbnailUrls.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "ObjectPool": {
+                "$path": "ObjectPool.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "EventConnection": {
+                "$path": "EventConnection.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "Hooks": {
+                "$path": "Hooks",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "RagdollRigging": {
+                "$path": "RagdollRigging.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "GetHasGuiHidingPermission": {
+                "$path": "GetHasGuiHidingPermission.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "GetHasGuiHidingPermission.spec": {
+                "$path": "GetHasGuiHidingPermission.spec.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "httpRequest": {
+                "$path": "httpRequest.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "httpRequest.spec": {
+                "$path": "httpRequest.spec.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "PerfUtils": {
+                "$path": "PerfUtils.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "renderWithCoreScriptsStyleProvider": {
+                "$path": "renderWithCoreScriptsStyleProvider.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "renderWithCoreScriptsStyleProvider.spec": {
+                "$path": "renderWithCoreScriptsStyleProvider.spec.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "ReactPerfTracker": {
+                "$path": "ReactPerfTracker.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "ReactSchedulingTracker": {
+                "$path": "ReactSchedulingTracker.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,101 @@
+{
+    // This project file is required to map ".robloxrc" from outside the Modules tree to individual scripts in order to achieve linting
+    // inside DataModel that matches "covert" behavior which uses file system
+    // The root cause of this is duplicate Modules entry points like CoreScripts/Modules, src/internal/Modules which use different .robloxrc
+    // Alternatives:
+    //  1. fix lint errors - over 500 error in over 20 files - resource intensive (no automation, manual QA, legacy code)
+    //  2. lower lint level for all scripts - bad, as it will reduce code quality over time
+    //  3. Wait until [Packagification](https://confluence.rbx.com/x/7PIaEg) happens - way too long, currently at RFC feedback stage (04/20/2022)
+    //
+    // This code can be removed once Packagification cleanup is done
+    "instanceHierarchy": {
+        "tree": {
+            "StarterPlayerScripts": {
+                "$className": "Folder",
+                "PlayerModule": {
+                    "$className": "ModuleScript",
+                    "$path": "StarterPlayerScripts/PlayerModule.module.lua",
+                    "CameraModule": {
+                        "$className": "ModuleScript",
+                        "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule.lua",
+                        "BaseCamera": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/BaseCamera.lua"
+                        },
+                        "BaseOcclusion": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/BaseOcclusion.lua"
+                        },
+                        "CameraInput": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/CameraInput.lua"
+                        },
+                        "CameraToggleStateController": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/CameraToggleStateController.lua"
+                        },
+                        "CameraUI": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/CameraUI.lua"
+                        },
+                        "CameraUtils": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/CameraUtils.lua"
+                        },
+                        "ClassicCamera": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/ClassicCamera.lua"
+                        },
+                        "Invisicam": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/Invisicam.lua"
+                        },
+                        "LegacyCamera": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/LegacyCamera.lua"
+                        },
+                        "MouseLockController": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/MouseLockController.lua"
+                        },
+                        "OrbitalCamera": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/OrbitalCamera.lua"
+                        },
+                        "Poppercam": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/Poppercam.lua"
+                        },
+                        "TransparencyController": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/TransparencyController.lua"
+                        },
+                        "VRBaseCamera": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/VRBaseCamera.lua"
+                        },
+                        "VRCamera": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/VRCamera.lua"
+                        },
+                        "VRVehicleCamera": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/VRVehicleCamera.lua"
+                        },
+                        "VehicleCamera": {
+                            "$className": "ModuleScript",
+                            "$path": [ "StarterPlayerScripts/PlayerModule.module/CameraModule/VehicleCamera.lua", "StarterPlayerScripts/PlayerModule.module/CameraModule/VehicleCamera"],
+                        },
+                        "ZoomController": {
+                            "$className": "ModuleScript",
+                            "$path": [ "StarterPlayerScripts/PlayerModule.module/CameraModule/ZoomController.lua", "StarterPlayerScripts/PlayerModule.module/CameraModule/ZoomController" ],
+                        }
+                    },
+                    "ControlModule": {
+                        "$className": "ModuleScript",
+                        "$path": ["StarterPlayerScripts/PlayerModule.module/ControlModule.lua", "StarterPlayerScripts/PlayerModule.module/ControlModule" ],
+                    },
+                    "CommonUtils": {
+                        "$className": "Folder",
+                        "$path": "StarterPlayerScripts/PlayerModule.module/CommonUtils"
+                    }
+                }
+            },
+            "StarterPlayerScriptsCommon": {
+                "$className": "Folder",
+                "$path": "StarterPlayerScriptsCommon"
+            },
+            "jest.config": {
+                "$className": "ModuleScript",
+                "$path": "jest.config.lua"
+            },
+            ".robloxrc": {
+                "$path": ".robloxrc"
+            }
+        }
+    }
+}

@@ -7343,6 +7343,7 @@
 [C++] FFlagDebugToolboxGetRolesRequest
 [Lua] FFlagDebugUGCDisableSurfaceAppearanceTests
 [Lua] FFlagDebugUGCValidationNewRunner
+[Lua] FFlagDebugUGCValidationPrintNewStructureResults
 [C++] FFlagDebugUncapWaitingThreads
 [C++] FFlagDebugUniqueIdCollisionDetectorInNonTeamCreate
 [C++] FFlagDebugUseAudioProtectedMemoryResource
@@ -9898,6 +9899,7 @@
 [C++] FFlagUGCValidateCageMeshDistance
 [Lua] FFlagUGCValidateCalculateScaleToValidateBounds
 [C++] FFlagUGCValidateCheckHSRFileData
+[Lua] FFlagUGCValidateCheckHSROwner
 [C++] FFlagUGCValidateCompareTextureOverlap
 [Lua] FFlagUGCValidateCoplanarTriTestBody
 [Lua] FFlagUGCValidateCurveAnimChildFix
@@ -9942,6 +9944,7 @@
 [Lua] FFlagUGCValidateRestrictAnimationMovementCurvesFix
 [Lua] FFlagUGCValidateRestrictAnimationMovementPerPart
 [Com] FFlagUGCValidateRestrictAttachmentPositions
+[Lua] FFlagUGCValidateRestrictEmoteHeight
 [C++] FFlagUGCValidateRigidNonSkinned
 [Lua] FFlagUGCValidateSingleAnimationRigData
 [Lua] FFlagUGCValidateStopNaNsInfsInAnimationKeys
@@ -9952,7 +9955,10 @@
 [Lua] FFlagUGCValidateUseMeshSizeProperty
 [Lua] FFlagUGCValidateWrapLayersEnabled
 [C++] FFlagUGCValidationCageUVDuplicates
+[Lua] FFlagUGCValidationCombineEntrypointResults2
 [Lua] FFlagUGCValidationConsolidateGetMeshInfos
+[Lua] FFlagUGCValidationEnableFolderStructure2
+[Lua] FFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed
 [Lua] FFlagUGCValidationFixBannedNamesTypo
 [Lua] FFlagUGCValidationFixConstantsTypoLeg
 [Lua] FFlagUGCValidationHyperlinksInCageQuality
@@ -10032,6 +10038,7 @@
 [C++] FFlagUpdateThumbnailAssetDataLoaderRetryLogic
 [C++] FFlagUpdateUICachesWithQuadTree3
 [C++] FFlagUpdateVersionGuidTelemetry
+[Lua] FFlagUpdateVoiceConnectionToasts_AEGIS2
 [C++] FFlagUpdateVoiceJoinTimeoutTimerIncludeSubscribe2
 [C++] FFlagUrlParseQueryParamsSupportNoUrlDecode
 [C++] FFlagUseAppCrashpadReporterForAndroidHangMonitor
@@ -11811,6 +11818,7 @@
 [C++] FIntUGCValidateLegZMinSlender
 [Lua] FIntUGCValidateMaxAnimationFPS
 [Lua] FIntUGCValidateMaxCoplanarIntersectionsPercentage
+[Lua] FIntUGCValidateMaxHSRDataLen
 [Lua] FIntUGCValidateMaxMarkerCurveValueLength
 [Com] FIntUGCValidateMaxSensibleBinaryStringLength
 [C++] FIntUGCValidateMaxSensibleSharedStringLength
@@ -11873,6 +11881,7 @@
 [Lua] FIntUGCValidationAttRotLimitWaistFrontAttachment
 [Lua] FIntUGCValidationBodyAssetMaskHeightPixels
 [Lua] FIntUGCValidationCanPublishRequestPageSize
+[Lua] FIntUGCValidationFetchQualityMaxRetry
 [Lua] FIntUGCValidationHeadThreshold
 [Lua] FIntUGCValidationLCHandleScaleOffsetMaximum
 [Lua] FIntUGCValidationLeftArmThresholdBack
@@ -13278,6 +13287,7 @@
 [C++] FStringTtiIxpIntegrationTestLayer
 [Lua] FStringUGCLCAllowedAssetTypeIds
 [Lua] FStringUGCValidateAccurateBoundingBoxInflationThreshold
+[Lua] FStringUGCValidateAnimationHeightTol
 [Lua] FStringUGCValidateBoundsInflationThreshold
 [Lua] FStringUGCValidateFrameDeltaKeyTimeTol
 [Lua] FStringUGCValidateMaxAnimationMovement
