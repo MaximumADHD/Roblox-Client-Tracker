@@ -3893,7 +3893,7 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "Pasangan waktu-nilai yang digunakan dengan instance <code>ValueCurve</code>.",
     "keys": {
       "new": "@roblox/global/ValueCurveKey.new"
     },
@@ -3901,16 +3901,16 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey.new/param/0": {
-    "documentation": "Time at which to create the new <code>ValueCurveKey</code>."
+    "documentation": "Waktu di mana untuk membuat <code>ValueCurveKey</code> baru."
   },
   "@roblox/global/ValueCurveKey.new/param/1": {
-    "documentation": "Value of the new <code>ValueCurveKey</code>."
+    "documentation": "Nilai dari <code>ValueCurveKey</code> baru."
   },
   "@roblox/global/ValueCurveKey.new/param/2": {
     "documentation": ""
   },
   "@roblox/global/ValueCurveKey.new": {
-    "documentation": "Returns a new <code>ValueCurveKey</code> from the given time and value.",
+    "documentation": "Mengembalikan <code>ValueCurveKey</code> baru dari waktu dan nilai yang diberikan.",
     "params": [
       {
         "name": "time",
@@ -3930,7 +3930,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "Pasangan waktu-nilai yang digunakan dengan instance <code>ValueCurve</code>.",
     "keys": {
       "Interpolation": "@roblox/globaltype/ValueCurveKey.Interpolation",
       "Time": "@roblox/globaltype/ValueCurveKey.Time",
@@ -3942,27 +3942,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Interpolation": {
-    "documentation": "The key interpolation mode for the segment started by this <code>ValueCurveKey</code>.",
+    "documentation": "Mode interpolasi kunci untuk segmen yang dimulai oleh <code>ValueCurveKey</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Interpolation",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Time": {
-    "documentation": "The time position of this <code>ValueCurveKey</code>.",
+    "documentation": "Posisi waktu dari <code>ValueCurveKey</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Time",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Value": {
-    "documentation": "The value of this <code>ValueCurveKey</code>.",
+    "documentation": "Nilai dari <code>ValueCurveKey</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Value",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.RightTangent": {
-    "documentation": "The tangent to the right of this <code>ValueCurveKey</code>.",
+    "documentation": "Tangen di sebelah kanan dari <code>ValueCurveKey</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#RightTangent",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.LeftTangent": {
-    "documentation": "The tangent to the left of this <code>ValueCurveKey</code>.",
+    "documentation": "Tangen di sebelah kiri dari <code>ValueCurveKey</code> ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#LeftTangent",
     "code_sample": ""
   },
@@ -8858,13 +8858,13 @@
     "documentation": "Sebuah kelas yang mendefinisikan tampilan dunia 3D."
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/1": {
-    "documentation": ""
+    "documentation": "<code>CFrame</code> yang mewakili pusat dan orientasi kotak pembatas untuk muat dalam viewport."
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/2": {
-    "documentation": ""
+    "documentation": "Ukuran kotak pembatas <code>Vector3</code> yang akan muat ke dalam viewport."
   },
   "@roblox/globaltype/Camera.ZoomToExtents": {
-    "documentation": "",
+    "documentation": "Menyesuaikan <code>CFrame</code> sehingga kotak pembatas yang ditentukan sepenuhnya terlihat dalam tampilan viewport kamera.",
     "params": [
       {
         "name": "self",
@@ -11569,7 +11569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Snap": {
-    "documentation": "<strong>Deprecated:</strong> <br>Menahan dua bagian bersama dan berfungsi identik dengan <code>Weld</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Menjaga dua bagian bersama dan berfungsi identik dengan <code>Weld</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Snap",
     "code_sample": ""
@@ -11693,7 +11693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint": {
-    "documentation": "Sebuah pegas rotasi yang menentang gerakan sudut antara dua sumbu.",
+    "documentation": "Kepanjangan rotasi yang menolak gerakan sudut antara dua sumbu.",
     "keys": {
       "Coils": "@roblox/globaltype/TorsionSpringConstraint.Coils",
       "CurrentAngle": "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle",
@@ -11710,7 +11710,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Coils": {
-    "documentation": "Jumlah kumparan yang divisualisasikan untuk constraint.",
+    "documentation": "Jumlah lilitan yang divisualisasikan untuk constraint.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Coils",
     "code_sample": ""
   },
@@ -11720,17 +11720,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Damping": {
-    "documentation": "Konstanta damping untuk <code>TorsionSpringConstraint</code>. Dikalikan dengan kecepatan dari <code>Attachments</code> constraint untuk mengurangi gaya pegas yang diterapkan.",
+    "documentation": "Konstanta damping untuk <code>TorsionSpringConstraint</code>. Dikalikan dengan kecepatan dari <code>Attachments</code> constraint untuk mengurangi kekuatan pegas yang diterapkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Damping",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitEnabled": {
-    "documentation": "<strong>Deprecated:</strong> Properti ini sudah tidak digunakan. Gunakan <code>LimitsEnabled</code> sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Properti ini sudah tidak digunakan lagi. Gunakan <code>LimitsEnabled</code> sebagai gantinya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitsEnabled": {
-    "documentation": "Membatasi gerakan sudut relatif dari sumbu sekunder pengikat melalui constraint kerucut.",
+    "documentation": "Membatasi gerakan sudut relatif dari sumbu sekunder lampiran melalui sebuah batas kerucut.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
@@ -11745,12 +11745,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Radius": {
-    "documentation": "Jarak visualisasi dari pegas.",
+    "documentation": "Radius visualisasi dari pegas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Restitution": {
-    "documentation": "Koefisien restitusi dari constraint kerucut.",
+    "documentation": "Koefisien restitusi dari batas kerucut.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Restitution",
     "code_sample": ""
   },
@@ -16561,7 +16561,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh.MeshType": {
-    "documentation": "Menentukan jenis mesh yang akan diterapkan ke <code>BasePart</code> yang menjadi induk bagi <code>SpecialMesh</code>.",
+    "documentation": "Menentukan jenis mesh yang akan diterapkan pada <code>BasePart</code> yang dijadikan induk oleh <code>SpecialMesh</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpecialMesh#MeshType",
     "code_sample": ""
   },
@@ -18786,10 +18786,10 @@
     "documentation": "Objek khusus yang memberikan model fungsionalitas karakter."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "Instansi <code>HumanoidDescription</code> yang ingin Anda atur agar karakter sesuai."
+    "documentation": "Instance <code>HumanoidDescription</code> yang ingin Anda atur untuk mencocokkan karakter."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ Nilai default untuk parameter ini akan berubah dari <code>ClientOnly</code> menjadi <code>Always</code> setelah 20/10/2025. Lihat <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">di sini</a> untuk detailnya."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
     "documentation": "Membuat tampilan karakter sesuai dengan yang diberikan di <code>HumanoidDescription</code>.",
@@ -18818,7 +18818,7 @@
     "documentation": "Instansi <code>HumanoidDescription</code> yang ingin Anda atur agar karakter sesuai."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ Nilai default untuk parameter ini akan berubah dari <code>ClientOnly</code> menjadi <code>Always</code> setelah 20/10/2025. Lihat <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">di sini</a> untuk detailnya."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
     "documentation": "Membuat tampilan karakter sesuai dengan yang diberikan di <code>HumanoidDescription</code>, bahkan setelah adanya perubahan eksternal.",
@@ -22623,7 +22623,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateV": {
-    "documentation": "<strong>Deprecated:</strong> Kelas ini bekerja bersama dengan <code>SurfaceType</code> yang sudah tidak didukung dan tidak boleh digunakan untuk pekerjaan masa depan; gunakan <code>HingeConstraint</code> sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Kelas ini bekerja bersama dengan <code>SurfaceType</code> yang sudah tidak digunakan lagi dan tidak boleh digunakan untuk pekerjaan mendatang; gunakan <code>HingeConstraint</code> sebagai gantinya.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateV",
     "code_sample": ""
@@ -24570,7 +24570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint": {
-    "documentation": "Mensimulas dinamika tali, mencegah dua lampiran agar tidak terpisah lebih jauh  daripada panjang yang ditentukan.",
+    "documentation": "Mensimulasikan dinamika tali, mencegah dua lampiran terpisah lebih jauh daripada panjang yang ditentukan.",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RopeConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RopeConstraint.Length",
@@ -24586,22 +24586,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.CurrentDistance": {
-    "documentation": "Jarak saat ini antara  <code>Attachments</code> dari pembatas.",
+    "documentation": "Jarak saat ini antara <code>Attachments</code> pembatas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#CurrentDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Length": {
-    "documentation": "Jarak maksimum antara dua <code>Attachments</code>.",
+    "documentation": "Jarak maksimum terpisah yang dapat dicapai oleh dua <code>Attachments</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Restitution": {
-    "documentation": "Elastisitas dari <code>Attachments</code> yang terhubung oleh  pembatas saat mencapai  maksimum yang ditentukan  <code>Length</code>. Dibatasi antara 0 dan 1.",
+    "documentation": "Elastisitas dari <code>Attachments</code> yang terhubung oleh pembatas saat mencapai <code>Length</code> yang ditentukan. Terbatas antara 0 dan 1.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Thickness": {
-    "documentation": "Ketebalan visual dari <code>RopeConstraint</code>.",
+    "documentation": "Ketebalan yang divisualisasikan dari <code>RopeConstraint</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Thickness",
     "code_sample": ""
   },
@@ -24616,12 +24616,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchResponsiveness": {
-    "documentation": "Ketajaman motor winch dalam mencapai  <code>WinchTarget</code>.",
+    "documentation": "Ketajaman motor winch dalam mencapai <code>WinchTarget</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchSpeed": {
-    "documentation": "Kecepatan yang diinginkan positif di mana motor winch mengubah panjang  tali.",
+    "documentation": "Kecepatan yang diinginkan positif di mana motor winch mengubah panjang tali.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchSpeed",
     "code_sample": ""
   },
@@ -25463,7 +25463,6 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
-      "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
@@ -25677,11 +25676,6 @@
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
     "documentation": "Menentukan apakah <code>parts</code> di grup yang berbeda yang diatur agar tidak bertabrakan akan mengabaikan tabrakan dan acara sentuhan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.UseImprovedModelLod": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseImprovedModelLod",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
@@ -26357,7 +26351,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plane": {
-    "documentation": "<strong>Deprecated:</strong> <br>Membatasi Attachment0 dan Attachment1 sedemikian rupa sehingga kedua titik terletak di sebuah bidang  dengan asal di posisi Attachment0 dan vektor normal unit yang sama dengan  sumbu utama Attachment0.",
+    "documentation": "<strong>Deprecated:</strong> <br>Membatasi Attachment0 dan Attachment1 sehingga kedua titik berada di dalam sebuah bidang  dengan asal di posisi Attachment0 dan vektor normal unit sama dengan  sumbu utama Attachment0.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plane",
     "code_sample": ""
@@ -27948,7 +27942,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "",
+    "documentation": "Konten tekstur yang ditampilkan oleh Decal. Mendukung <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> dan <code>EditableImage</code> objek.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
@@ -28629,7 +28623,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "Terjadi ketika pemain menekan tombol mouse kiri mereka saat melayang di atas hiasan.",
+    "documentation": "Dipicu ketika seorang pemain menekan tombol mouse kiri mereka saat menghover di atas hiasan.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -28717,7 +28711,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "Terjadi ketika pemain melepaskan tombol mouse kiri mereka saat melayang di atas hiasan.",
+    "documentation": "Dipicu ketika seorang pemain melepaskan tombol mouse kiri mereka saat menghover di atas hiasan.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -30263,7 +30257,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Platform": {
-    "documentation": "Secara historis merupakan bentuk dari <code>Seat</code> yang tidak akan menempatkan pemain dalam pose duduk. Objek ini tidak lagi dapat dibuat dan tidak dapat digunakan oleh developer.",
+    "documentation": "Secara historis merupakan bentuk dari <code>Seat</code> yang tidak akan menempatkan pemain dalam pose duduk. Objek ini tidak dapat dibuat lagi dan tidak dapat digunakan oleh developer.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Platform",
     "code_sample": ""
@@ -31303,7 +31297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HopperBin": {
-    "documentation": "<strong>Deprecated:</strong> Kelas yang sudah tidak digunakan lagi ini telah digantikan oleh <code>Tool</code>. Silakan gunakan Tool untuk pekerjaan baru sebaliknya.",
+    "documentation": "<strong>Deprecated:</strong> Kelas yang sudah tidak digunakan ini telah digantikan oleh <code>Tool</code>. Harap gunakan Tool untuk pekerjaan baru sebagai gantinya.",
     "keys": {
       "Active": "@roblox/globaltype/HopperBin.Active",
       "BinType": "@roblox/globaltype/HopperBin.BinType"
@@ -32680,7 +32674,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Seat": {
-    "documentation": "Jenis <code>BasePart</code> yang dapat 'duduk' oleh karakter. Ketika sebuah karakter menyentuh objek Seat yang diaktifkan, itu akan terhubung ke bagian tersebut melalui <code>Weld</code> dan skrip karakter default akan memainkan animasi duduk.",
+    "documentation": "Jenis <code>BasePart</code> yang dapat 'duduk' dalamnya oleh karakter. Ketika karakter touch objek Seat yang diaktifkan, itu akan terikat pada bagian tersebut melalui <code>Weld</code> dan skrip karakter default akan memutar animasi duduk.",
     "keys": {
       "Disabled": "@roblox/globaltype/Seat.Disabled",
       "Occupant": "@roblox/globaltype/Seat.Occupant",
@@ -32690,23 +32684,23 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal seat = Instance.new(\"Seat\")\nseat.Anchored = true\nseat.Position = Vector3.new(0, 1, 0)\nseat.Parent = workspace\n\nlocal currentPlayer = nil\n\nlocal function onOccupantChanged()\n\tlocal humanoid = seat.Occupant\n\tif humanoid then\n\t\tlocal character = humanoid.Parent\n\t\tlocal player = Players:GetPlayerFromCharacter(character)\n\t\tif player then\n\t\t\tprint(player.Name .. \" telah duduk\")\n\t\t\tcurrentPlayer = player\n\t\t\treturn\n\t\tend\n\tend\n\tif currentPlayer then\n\t\tprint(currentPlayer.Name .. \" telah berdiri\")\n\t\tcurrentPlayer = nil\n\tend\nend\n\nseat:GetPropertyChangedSignal(\"Occupant\"):Connect(onOccupantChanged)"
   },
   "@roblox/globaltype/Seat.Disabled": {
-    "documentation": "Apakah tempat duduk dapat digunakan atau tidak. Jika diatur ke true, tempat duduk akan berfungsi sebagai bagian normal.",
+    "documentation": "Apakah kursi tersebut dapat digunakan atau tidak. Jika diatur ke true, kursi akan berfungsi sebagai bagian normal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Disabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Occupant": {
-    "documentation": "Humanoid yang sedang duduk di tempat duduk.",
+    "documentation": "Humanoid yang duduk di kursi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Occupant",
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Sit/param/0": {
-    "documentation": "Jenis <code>BasePart</code> yang dapat 'duduk' oleh karakter. Ketika sebuah karakter menyentuh objek Seat yang diaktifkan, itu akan terhubung ke bagian tersebut melalui <code>Weld</code> dan skrip karakter default akan memainkan animasi duduk."
+    "documentation": "Jenis <code>BasePart</code> yang dapat 'duduk' dalamnya oleh karakter. Ketika karakter touch objek Seat yang diaktifkan, itu akan terikat pada bagian tersebut melalui <code>Weld</code> dan skrip karakter default akan memutar animasi duduk."
   },
   "@roblox/globaltype/Seat.Sit/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Seat.Sit": {
-    "documentation": "Memaksa karakter dengan <code>Humanoid</code> tertentu untuk duduk di Tempat Duduk.",
+    "documentation": "Memaksa karakter dengan <code>Humanoid</code> yang ditentukan untuk duduk di Seat.",
     "params": [
       {
         "name": "self",
@@ -35542,7 +35536,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment": {
-    "documentation": "Sebuah kelas abstrak yang dapat dipasang pada objek dari kelas <code>PVInstance</code>.",
+    "documentation": "Sebuah kelas abstrak di mana para pewaris dapat dihiasi ke objek dari kelas <code>PVInstance</code>.",
     "keys": {
       "Adornee": "@roblox/globaltype/PVAdornment.Adornee"
     },
@@ -38812,7 +38806,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Rotate": {
-    "documentation": "<strong>Deprecated:</strong> Kelas ini bekerja bersama <code>SurfaceType</code> yang sudah tidak digunakan lagi dan tidak boleh digunakan untuk pekerjaan di masa depan; gunakan <code>HingeConstraint</code> sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Kelas ini bekerja bersama <code>SurfaceType</code> yang sudah tidak digunakan lagi dan seharusnya tidak digunakan untuk pekerjaan di masa depan; gunakan <code>HingeConstraint</code> sebagai gantinya.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Rotate",
     "code_sample": ""
@@ -38836,7 +38830,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PrismaticConstraint": {
-    "documentation": "Keterbatasan yang menciptakan sambungan kaku antara dua <code>Attachments</code>, memungkinkan mereka untuk meluncur di sepanjang satu sumbu tetapi tidak berputar.",
+    "documentation": "Keterbatasan yang menciptakan sambungan kaku antara dua <code>Attachments</code>, memungkinkan mereka untuk bergeser di sepanjang satu sumbu tetapi tidak berotasi.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PrismaticConstraint",
     "code_sample": ""
@@ -43066,7 +43060,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
-    "documentation": "Pembatas yang menerapkan torsi untuk menyelaraskan dua lampiran, atau untuk menyelaraskan satu lampiran dengan orientasi tujuan.",
+    "documentation": "Keterbatasan yang menerapkan torsi untuk menyelaraskan dua lampiran, atau untuk menyelaraskan satu lampiran dengan orientasi tujuan.",
     "keys": {
       "AlignType": "@roblox/globaltype/AlignOrientation.AlignType",
       "CFrame": "@roblox/globaltype/AlignOrientation.CFrame",
@@ -43085,62 +43079,62 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.AlignType": {
-    "documentation": "Jenis penyelarasan sumbu dari batasan.",
+    "documentation": "Tipe penyelarasan sumbu dari keterbatasan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#AlignType",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.CFrame": {
-    "documentation": "Orientasi <code>CFrame</code> yang akan dicoba oleh batasan untuk cocok dengan orientasi dari <code>Attachment0</code>.",
+    "documentation": "Orientasi <code>CFrame</code> yang akan dicoba untuk disamakan dengan orientasi <code>Attachment0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#CFrame",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.LookAtPosition": {
-    "documentation": "Lokasi ruang dunia <code>Vector3</code> ke arah mana sumbu utama akan mencoba untuk menyelaraskan.",
+    "documentation": "Lokasi ruang dunia <code>Vector3</code> yang akan dicoba untuk diselaraskan oleh sumbu primer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#LookAtPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxAngularVelocity": {
-    "documentation": "Kecepatan angular maksimum yang dapat digunakan batasan untuk mencapai tujuannya.",
+    "documentation": "Kecepatan sudut maksimum yang dapat digunakan keterbatasan untuk mencapai tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxAngularVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxTorque": {
-    "documentation": "Torsi maksimum yang dapat digunakan batasan untuk mencapai tujuannya.",
+    "documentation": "Torsi maksimum yang dapat digunakan keterbatasan untuk mencapai tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Mode": {
-    "documentation": "Apakah batasan menggunakan satu atau dua lampiran dalam menghitung tujuannya.",
+    "documentation": "Apakah keterbatasan menggunakan satu atau dua lampiran dalam menghitung tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxis": {
-    "documentation": "Arah dari sumbu <strong>X</strong> tujuan, diwakili sebagai unit <code>Vector3</code>.",
+    "documentation": "Arah sumbu <strong>X</strong> dari tujuan, yang direpresentasikan sebagai unit <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#PrimaryAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxisOnly": {
-    "documentation": "Menentukan bagaimana sumbu batasan dipengaruhi oleh torsi.",
+    "documentation": "Menentukan bagaimana sumbu-sumbu keterbatasan dipengaruhi oleh torsi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#PrimaryAxisOnly",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.ReactionTorqueEnabled": {
-    "documentation": "Apakah batasan menerapkan torsi hanya ke <code>Attachment0</code>, atau pada kedua lampiran dalam arah yang sama dan berlawanan.",
+    "documentation": "Apakah keterbatasan menerapkan torsi hanya ke <code>Attachment0</code>, atau ke kedua lampiran dalam arah yang sama dan berlawanan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#ReactionTorqueEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Responsiveness": {
-    "documentation": "Mengontrol seberapa cepat batasan mencapai tujuannya. Nilai yang lebih tinggi menyebabkan lampiran untuk menyelaraskan lebih cepat.",
+    "documentation": "Mengontrol seberapa cepat keterbatasan mencapai tujuannya. Nilai yang lebih tinggi menyebabkan lampiran untuk menyelaraskan lebih cepat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.RigidityEnabled": {
-    "documentation": "Apakah torsi tergantung pada properti lain, atau jika pemecah fisika bereaksi secepat mungkin untuk menyelesaikan penyelarasan.",
+    "documentation": "Apakah torsi tergantung pada properti lain, atau apakah pemecah fisika bereaksi secepat mungkin untuk menyelesaikan penyelarasan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#RigidityEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.SecondaryAxis": {
-    "documentation": "Arah dari sumbu <strong>Y</strong> tujuan, diwakili sebagai unit <code>Vector3</code>.",
+    "documentation": "Arah sumbu <strong>Y</strong> dari tujuan, yang direpresentasikan sebagai unit <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#SecondaryAxis",
     "code_sample": ""
   },
@@ -47017,7 +47011,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal mouse = player:GetMouse()\n\nlocal function onMouseMove()\n\tprint(\"posisi layar mouse: \", mouse.X, mouse.Y)\nend\n\nmouse.Move:Connect(onMouseMove)"
   },
   "@roblox/globaltype/Actor": {
-    "documentation": "<code>Actor</code> adalah wadah untuk kode yang dapat dengan aman dibagi menjadi thread-nya sendiri.",
+    "documentation": "Sebuah <code>Actor</code> adalah sebuah wadah untuk kode yang dapat dengan aman dipisahkan ke dalam thread-nya sendiri.",
     "keys": {
       "BindToMessage": "@roblox/globaltype/Actor.BindToMessage",
       "BindToMessageParallel": "@roblox/globaltype/Actor.BindToMessageParallel",
@@ -47027,19 +47021,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/param/0": {
-    "documentation": "<code>Actor</code> adalah wadah untuk kode yang dapat dengan aman dibagi menjadi thread-nya sendiri."
+    "documentation": "Sebuah <code>Actor</code> adalah sebuah wadah untuk kode yang dapat dengan aman dipisahkan ke dalam thread-nya sendiri."
   },
   "@roblox/globaltype/Actor.BindToMessage/param/1": {
-    "documentation": "Topik yang digunakan untuk mengidentifikasi jenis pesan."
+    "documentation": "Topik yang digunakan untuk mengidentifikasi tipe pesan."
   },
   "@roblox/globaltype/Actor.BindToMessage/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/return/0": {
-    "documentation": "Objek koneksi ini dapat digunakan untuk memutuskan callback Luau  dari menerima pesan."
+    "documentation": "Objek koneksi ini dapat digunakan untuk memutuskan callback Luau dari menerima pesan."
   },
   "@roblox/globaltype/Actor.BindToMessage": {
-    "documentation": "Mengikat callback Luau ke pesan dengan topik yang ditentukan.",
+    "documentation": "Mengikat sebuah callback Luau ke sebuah pesan dengan topik yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -47061,19 +47055,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
-    "documentation": "<code>Actor</code> adalah wadah untuk kode yang dapat dengan aman dibagi menjadi thread-nya sendiri."
+    "documentation": "Sebuah <code>Actor</code> adalah sebuah wadah untuk kode yang dapat dengan aman dipisahkan ke dalam thread-nya sendiri."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/1": {
-    "documentation": "Topik yang digunakan untuk mengidentifikasi jenis pesan."
+    "documentation": "Topik yang digunakan untuk mengidentifikasi tipe pesan."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/return/0": {
-    "documentation": "Objek koneksi ini dapat digunakan untuk memutuskan callback Luau  dari menerima pesan."
+    "documentation": "Objek koneksi ini dapat digunakan untuk memutuskan callback Luau dari menerima pesan."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel": {
-    "documentation": "Mengikat callback Luau ke pesan dengan topik yang ditentukan.",
+    "documentation": "Mengikat sebuah callback Luau ke sebuah pesan dengan topik yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -47095,16 +47089,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.SendMessage/param/0": {
-    "documentation": "<code>Actor</code> adalah wadah untuk kode yang dapat dengan aman dibagi menjadi thread-nya sendiri."
+    "documentation": "Sebuah <code>Actor</code> adalah sebuah wadah untuk kode yang dapat dengan aman dipisahkan ke dalam thread-nya sendiri."
   },
   "@roblox/globaltype/Actor.SendMessage/param/1": {
     "documentation": "Topik yang digunakan untuk mengidentifikasi pesan yang sedang dikirim."
   },
   "@roblox/globaltype/Actor.SendMessage/param/2": {
-    "documentation": "Konten dari pesan untuk dikirim ke Actor."
+    "documentation": "Isi pesan yang akan dikirim ke Actor."
   },
   "@roblox/globaltype/Actor.SendMessage": {
-    "documentation": "Mengirim pesan ke Actor.",
+    "documentation": "Mengirim pesan ke seorang Actor.",
     "params": [
       {
         "name": "self",
@@ -50592,7 +50586,7 @@
     "documentation": "<code>Instance</code> adalah kelas dasar untuk semua kelas dalam hierarki kelas Roblox yang dapat menjadi bagian dari pohon <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "Fungsi ini menghancurkan semua anak dari sebuah instance.",
+    "documentation": "Metode ini menghancurkan semua anak dari sebuah instance.",
     "params": [
       {
         "name": "self",
@@ -51184,10 +51178,10 @@
     "documentation": "Nama properti yang akan ditanyakan."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean yang menunjukkan apakah properti telah diubah."
+    "documentation": "Boolean yang menunjukkan apakah properti telah dimodifikasi dari default yang diinstansiasi kode."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Mengembalikan <code>true</code> jika nilai yang disimpan dalam properti yang ditentukan sama dengan nilai default yang diinstansiasi oleh kode.",
+    "documentation": "Mengembalikan <code>true</code> jika nilai yang disimpan di properti yang ditentukan tidak sama dengan default yang diinstansiasi kode.",
     "params": [
       {
         "name": "self",
@@ -52751,7 +52745,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment": {
-    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>.",
+    "documentation": "Menghasilkan hiasan wireframe yang terdiri dari satu atau lebih garis ke dalam <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>.",
     "keys": {
       "Scale": "@roblox/globaltype/WireframeHandleAdornment.Scale",
       "Thickness": "@roblox/globaltype/WireframeHandleAdornment.Thickness",
@@ -52775,7 +52769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/0": {
-    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
+    "documentation": "Menghasilkan hiasan wireframe yang terdiri dari satu atau lebih garis ke dalam <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/1": {
     "documentation": "Titik awal dari garis."
@@ -52784,7 +52778,7 @@
     "documentation": "Titik akhir dari garis."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine": {
-    "documentation": "Menambahkan garis ke hiasan wireframe dari titik awal ke titik akhir relatif terhadap pusat <code>Adornee</code>.",
+    "documentation": "Menambahkan garis ke hiasan wireframe dari titik awal ke titik akhir relatif terhadap pusat dari <code>Adornee</code>.",
     "params": [
       {
         "name": "self",
@@ -52804,10 +52798,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/0": {
-    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
+    "documentation": "Menghasilkan hiasan wireframe yang terdiri dari satu atau lebih garis ke dalam <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/1": {
-    "documentation": "Array titik <code>Vector3</code> di mana setiap pasangan bertindak sebagai titik awal dan titik akhir untuk sebuah garis."
+    "documentation": "Array dari titik <code>Vector3</code> di mana setiap pasang bertindak sebagai poin awal dan titik akhir untuk sebuah garis."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines": {
     "documentation": "Menambahkan satu atau lebih garis ke hiasan wireframe menggunakan array.",
@@ -52826,13 +52820,13 @@
     "code_sample": "local wireframe = script.Parent\n\nlocal linesArray = {\n\tVector3.new(-10, 0, 0), -- Titik awal garis pertama\n\tVector3.new(10, 0, 0), -- Titik akhir garis pertama\n\tVector3.new(0, -10, 0), -- Titik awal garis kedua\n\tVector3.new(0, 10, 0), -- Titik akhir garis kedua\n\tVector3.new(0, 0, -10), -- Titik awal garis ketiga\n\tVector3.new(0, 0, 10) -- Titik akhir garis ketiga\n}\n-- Terapkan jalur ke hiasan\nwireframe:AddLines(linesArray)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/0": {
-    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
+    "documentation": "Menghasilkan hiasan wireframe yang terdiri dari satu atau lebih garis ke dalam <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/1": {
-    "documentation": "Array titik <code>Vector3</code> untuk dihubungkan dalam urutan dengan segmen garis."
+    "documentation": "Array dari titik <code>Vector3</code> untuk dihubungkan dalam urutan dengan segmen garis."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/2": {
-    "documentation": "Apakah jalur ditutup dengan menghubungkan titik akhirnya ke titik awalnya dengan garis tambahan."
+    "documentation": "Apakah jalur tersebut ditutup dengan menghubungkan titik akhirnya ke poin awalnya dengan garis tambahan."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath": {
     "documentation": "Menambahkan beberapa segmen garis ke hiasan wireframe dalam urutan dari titik ke titik.",
@@ -52855,7 +52849,7 @@
     "code_sample": "local wireframe = script.Parent\n\n-- Deklarasikan empat titik dalam susunan persegi\nlocal pathArray = {\n\tVector3.new(-10, 10, 0),\n\tVector3.new(10, 10, 0),\n\tVector3.new(10, -10, 0),\n\tVector3.new(-10, -10, 0)\n}\n\n-- Terapkan jalur ke dekorasi dan tutup itu (hubungkan titik awal dan akhir)\nwireframe:AddPath(pathArray, true)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/0": {
-    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
+    "documentation": "Menghasilkan hiasan wireframe yang terdiri dari satu atau lebih garis ke dalam <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/1": {
     "documentation": "Posisi teks dalam hiasan."
@@ -52891,7 +52885,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear/param/0": {
-    "documentation": "Menggambar hiasan wireframe yang terdiri dari satu atau lebih garis pada <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
+    "documentation": "Menghasilkan hiasan wireframe yang terdiri dari satu atau lebih garis ke dalam <code>BasePart</code> (termasuk <code>Terrain</code>) atau ke dalam <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear": {
     "documentation": "Langsung menghapus semua garis dan teks dalam hiasan wireframe.",
@@ -53581,7 +53575,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BlockMesh": {
-    "documentation": "Objek BlockMesh menerapkan mesh 'batako' ke <code>BasePart</code> tempat ia berada. Ia berperilaku identik dengan <code>SpecialMesh</code> dengan <code>SpecialMesh.MeshType</code> disetel ke 'Brick'.",
+    "documentation": "Objek BlockMesh menerapkan mesh 'batu' pada <code>BasePart</code> yang di parenting. Ini berperilaku identik dengan <code>SpecialMesh</code> dengan <code>SpecialMesh.MeshType</code> yang diatur ke 'Batu'.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
@@ -53917,7 +53911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint": {
-    "documentation": "Mensimulasikan perilaku pegas dan peredam antara dua penempel.",
+    "documentation": "Mensimulasikan perilaku pegas dan peredam antara dua lampiran.",
     "keys": {
       "Coils": "@roblox/globaltype/SpringConstraint.Coils",
       "CurrentLength": "@roblox/globaltype/SpringConstraint.CurrentLength",
@@ -53935,57 +53929,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Coils": {
-    "documentation": "Jumlah koil yang divisualisasikan pada <code>SpringConstraint</code>.",
+    "documentation": "Jumlah lilitan yang divisualisasikan pada <code>SpringConstraint</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Coils",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.CurrentLength": {
-    "documentation": "Jarak saat ini antara <code>Attachments</code> dari batasan.",
+    "documentation": "Jarak saat ini antara <code>Attachments</code> dari kontrak.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#CurrentLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Damping": {
-    "documentation": "Konsanta peredaman untuk <code>SpringConstraint</code>. Dikalikan dengan kecepatan dari <code>Attachments</code> batasan untuk mengurangi gaya pegas yang diterapkan.",
+    "documentation": "Konsanta peredaman untuk <code>SpringConstraint</code>. Dikalikan dengan kecepatan dari <code>Attachments</code> untuk mengurangi gaya pegas yang diterapkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Damping",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.FreeLength": {
-    "documentation": "Panjang resting alami dari pegas.",
+    "documentation": "Panjang istirahat alami dari pegas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#FreeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.LimitsEnabled": {
-    "documentation": "Menetapkan apakah <code>SpringConstraint</code> menegakkan panjang minimum dan maksimum.",
+    "documentation": "Menetapkan apakah <code>SpringConstraint</code> menerapkan panjang minimum dan maksimum.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MaxForce": {
-    "documentation": "Gaya maksimum yang dapat diterapkan oleh <code>SpringConstraint</code> pada <code>Attachments</code>.",
+    "documentation": "Gaya maksimum yang dapat diterapkan <code>SpringConstraint</code> pada <code>Attachments</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MaxLength": {
-    "documentation": "Pemisahan maksimum yang akan diizinkan oleh SpringConstraint jika <code>LimitsEnabled</code> adalah true.",
+    "documentation": "Pemisahan maksimum yang akan diizinkan SpringConstraint jika <code>LimitsEnabled</code> bernilai true.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MaxLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MinLength": {
-    "documentation": "Pemisahan minimum yang akan diizinkan oleh SpringConstraint jika <code>LimitsEnabled</code> adalah true.",
+    "documentation": "Pemisahan minimum yang akan diizinkan SpringConstraint jika <code>LimitsEnabled</code> bernilai true.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MinLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Radius": {
-    "documentation": "Radius yang divisualisasikan dari koil pegas.",
+    "documentation": "Radius visual pegas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Stiffness": {
-    "documentation": "Kekuatan pegas. Semakin tinggi nilai ini semakin banyak gaya yang akan  diterapkan ketika penempel terpisah pada panjang yang berbeda dari  <code>FreeLength</code>.",
+    "documentation": "Kekuatan pegas. Semakin tinggi nilai ini, semakin banyak gaya yang akan  diterapkan saat lampiran terpisah dengan panjang yang berbeda dari  <code>FreeLength</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Stiffness",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Thickness": {
-    "documentation": "Ketebalan visual dari koil pegas.",
+    "documentation": "Ketebalan visual dari lilitan pegas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Thickness",
     "code_sample": ""
   },
@@ -54476,7 +54470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualGlue": {
-    "documentation": "<strong>Deprecated:</strong> <br>ManualGlue adalah sambungan yang dibuat dengan cara yang mirip dengan kelas <code>ManualWeld</code> . Ini berfungsi identik dengan kelas <code>Glue</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>ManualGlue adalah sambungan yang dibuat dengan cara serupa dengan kelas <code>ManualWeld</code> . Ini berfungsi identik dengan kelas <code>Glue</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualGlue",
     "code_sample": ""
@@ -56444,7 +56438,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce": {
-    "documentation": "Menerapkan gaya sepanjang garis teoritis yang menghubungkan kedua <code>Attachments</code>-nya.",
+    "documentation": "Menerapkan gaya sepanjang garis teoritis yang menghubungkan kedua <code>Attachments</code>.",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/LineForce.ApplyAtCenterOfMass",
       "InverseSquareLaw": "@roblox/globaltype/LineForce.InverseSquareLaw",
@@ -56456,12 +56450,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ApplyAtCenterOfMass": {
-    "documentation": "Apakah gaya diterapkan di pusat massa dari rakitan induk.",
+    "documentation": "Apakah gaya diterapkan pada pusat massa dari assembli induk.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.InverseSquareLaw": {
-    "documentation": "Ketika <code>true</code>, gaya magnitude dikalikan dengan kuadrat terbalik dari jarak.",
+    "documentation": "Ketika <code>true</code>, besar gaya dikalikan dengan kuadrat terbalik dari jarak.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#InverseSquareLaw",
     "code_sample": ""
   },
@@ -56471,12 +56465,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.MaxForce": {
-    "documentation": "Gaya absolut maksimum yang dapat diterapkan.",
+    "documentation": "Gaya maksimum absolut yang dapat diterapkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ReactionForceEnabled": {
-    "documentation": "Mengaktifkan gaya reaksi yang sama dan berlawanan pada induk dari <code>Attachment1</code>.",
+    "documentation": "Mengaktifkan gaya reaksi yang sama dan berlawanan pada induk <code>Attachment1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ReactionForceEnabled",
     "code_sample": ""
   },
@@ -58840,7 +58834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition": {
-    "documentation": "Constraint yang menerapkan gaya untuk menggerakkan dua attachment bersama-sama, atau untuk menggerakkan satu attachment ke posisi tujuan.",
+    "documentation": "Keterampilan yang menerapkan gaya untuk memindahkan dua lampiran bersama, atau untuk memindahkan satu lampiran ke posisi tujuan.",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass",
       "ForceLimitMode": "@roblox/globaltype/AlignPosition.ForceLimitMode",
@@ -58858,52 +58852,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass": {
-    "documentation": "Apakah gaya diterapkan pada orang tua dari <code>Attachment0</code> di lokasi attachment tersebut, yang berarti atau di pusat massa orang tua.",
+    "documentation": "Apakah gaya diterapkan pada induk dari <code>Attachment0</code> di lokasi lampiran tersebut, atau di pusat massa induk.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceLimitMode": {
-    "documentation": "Menentukan bagaimana gaya constraint akan dibatasi. Hanya digunakan jika <code>RigidityEnabled</code> adalah <code>false</code>.",
+    "documentation": "Menentukan bagaimana gaya keterampilan akan dibatasi. Hanya digunakan jika <code>RigidityEnabled</code> adalah <code>false</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceLimitMode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceRelativeTo": {
-    "documentation": "Menentukan sumbu yang digunakan oleh constraint untuk membatasi gaya. Hanya berlaku ketika <code>RigidityEnabled</code> adalah <code>false</code> dan <code>AlignPosition.ForceLimitMode</code> adalah <code>PerAxis</code>.",
+    "documentation": "Menentukan sumbu yang digunakan keterampilan untuk membatasi gaya. Hanya berlaku saat <code>RigidityEnabled</code> adalah <code>false</code> dan <code>AlignPosition.ForceLimitMode</code> adalah <code>PerAxis</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceRelativeTo",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxAxesForce": {
-    "documentation": "Gaya maksimum di sepanjang setiap sumbu yang dapat diterapkan constraint untuk mencapai tujuannya.",
+    "documentation": "Gaya maksimum sepanjang setiap sumbu yang dapat diterapkan keterampilan untuk mencapai tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxForce": {
-    "documentation": "Magnitudo gaya maksimum yang dapat diterapkan constraint untuk mencapai tujuannya.",
+    "documentation": "Magnitudo gaya maksimum yang dapat diterapkan keterampilan untuk mencapai tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxVelocity": {
-    "documentation": "Kecepatan maksimum yang dapat bergerak oleh attachment saat bersatu.",
+    "documentation": "Kecepatan maksimum yang dapat dicapai lampiran saat menyatu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Mode": {
-    "documentation": "Apakah constraint menggunakan satu atau dua attachments dalam menghitung tujuannya.",
+    "documentation": "Apakah keterampilan menggunakan satu atau dua lampiran dalam menghitung tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Position": {
-    "documentation": "Posisi ke mana constraint harus memindahkan  <code>Attachment0</code>.",
+    "documentation": "Posisi di mana keterampilan harus memindahkan <code>Attachment0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Position",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ReactionForceEnabled": {
-    "documentation": "Apakah constraint menerapkan gaya hanya pada  <code>Attachment0</code>, atau pada kedua attachments secara sama dan berlawanan arah.",
+    "documentation": "Apakah keterampilan menerapkan gaya hanya ke <code>Attachment0</code>, atau ke kedua lampiran dalam arah yang sama dan berlawanan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ReactionForceEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Responsiveness": {
-    "documentation": "Mengontrol seberapa cepat constraint mencapai tujuannya. Nilai yang lebih tinggi menyebabkan attachment(s) untuk menyelaraskan lebih cepat.",
+    "documentation": "Mengontrol seberapa cepat keterampilan mencapai tujuannya. Nilai yang lebih tinggi menyebabkan lampiran untuk menyelaraskan lebih cepat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Responsiveness",
     "code_sample": ""
   },
@@ -65781,7 +65775,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint": {
-    "documentation": "Memastikan dua sumbu pada dua objek tetap tegak lurus.",
+    "documentation": "Memastikan dua sumbu pada dua benda tetap tegak lurus.",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/UniversalConstraint.LimitsEnabled",
       "MaxAngle": "@roblox/globaltype/UniversalConstraint.MaxAngle",
@@ -65792,7 +65786,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.LimitsEnabled": {
-    "documentation": "Menentukan apakah gerakan sudut dari sumbu utama lampiran terbatas.",
+    "documentation": "Menentukan apakah gerakan sudut dari sumbu utama lampiran dibatasi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#LimitsEnabled",
     "code_sample": ""
   },
@@ -72825,27 +72819,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C0": {
-    "documentation": "Menentukan bagaimana titik offset terpasang ke <code>JointInstance.Part0</code>.",
+    "documentation": "Menentukan bagaimana titik offset terhubung ke <code>JointInstance.Part0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C0",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C1": {
-    "documentation": "Dikurangi dari properti <code>JointInstance.C0</code> untuk membuat titik offset untuk <code>JointInstance.Part1</code>.",
+    "documentation": "Dikurangi dari properti <code>JointInstance.C0</code> untuk membuat sebuah poin offset untuk <code>JointInstance.Part1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C1",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Enabled": {
-    "documentation": "Menentukan apakah sambungan aktif atau tidak.",
+    "documentation": "Mengatur apakah sambungan aktif atau tidak.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Part0": {
-    "documentation": "Bagian pertama <code>BasePart</code> yang disambungkan oleh sambungan.",
+    "documentation": "<code>BasePart</code> pertama yang disambungkan oleh sambungan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Part0",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Part1": {
-    "documentation": "Bagian kedua <code>BasePart</code> yang disambungkan oleh sambungan.",
+    "documentation": "<code>BasePart</code> kedua yang disambungkan oleh sambungan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Part1",
     "code_sample": ""
   },
@@ -79559,7 +79553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Status": {
-    "documentation": "<strong>Deprecated:</strong> Status adalah objek yang belum selesai yang dirancang untuk menyimpan <code>Humanoid</code> status kustom. Objek ini telah dinyatakan tidak lagi digunakan dan seharusnya tidak digunakan oleh pengembang dalam pekerjaan baru. Pengembang yang ingin menerapkan status <code>Humanoid</code> kustom seharusnya menggunakan <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a>, karena ditulis dalam Luau dan mudah untuk diperluas.<br>Objek yang belum selesai yang tidak menawarkan fungsionalitas kepada pengembang.",
+    "documentation": "<strong>Deprecated:</strong> Status adalah objek yang belum selesai yang dirancang untuk menyimpan <code>Humanoid</code> status kustom. Objek ini telah dihentikan dan tidak boleh digunakan oleh pengembang dalam pekerjaan baru. Pengembang yang ingin menerapkan status <code>Humanoid</code> kustom harus menggunakan <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a>, karena ditulis dalam Luau dan mudah untuk diperluas.<br>Objek yang belum selesai yang tidak menawarkan fungsi kepada pengembang.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Status",
     "code_sample": ""
@@ -89867,7 +89861,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "Menyelaraskan dua <code>BaseParts</code> dengan persendian kinematik atau berbasis gaya yang dapat dianimasikan.",
+    "documentation": "Menyelaraskan dua <code>BaseParts</code> dengan sambungan kinematik yang dapat dianimasikan atau berbasis gaya.",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -89892,17 +89886,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "Mengaktifkan atau menonaktifkan apakah <code>AnimationConstraint</code> bersifat kinematik atau dip simulasikan secara fisik.",
+    "documentation": "Mengalih fungsi apakah <code>AnimationConstraint</code> bersifat kinematik atau disimulasikan secara fisik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxForce": {
-    "documentation": "Magnitudo gaya maksimum yang dapat diterapkan oleh pembatas untuk mencapai tujuannya.",
+    "documentation": "Magnitudo gaya maksimum yang dapat diterapkan oleh batasan untuk mencapai tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxTorque": {
-    "documentation": "Torsi maksimum yang dapat diterapkan oleh pembatas untuk mencapai tujuannya.",
+    "documentation": "Torsi maksimum yang dapat diterapkan oleh batasan untuk mencapai tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxTorque",
     "code_sample": ""
   },
@@ -89917,7 +89911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
-    "documentation": "Mendeskripsikan offset animasi saat ini dari joint <code>AnimationConstraint</code>.",
+    "documentation": "Menjelaskan offset animasi saat ini dari sambungan <code>AnimationConstraint</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Transform",
     "code_sample": ""
   },
@@ -90274,7 +90268,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint": {
-    "documentation": "Kelas dasar untuk batasan yang memungkinkan lampirannya meluncur sepanjang suatu sumbu tetapi tidak berputar.",
+    "documentation": "Kelas dasar untuk batasan yang memungkinkan keterikatannya bergerak sepanjang sumbu tetapi tidak berputar.",
     "keys": {
       "ActuatorType": "@roblox/globaltype/SlidingBallConstraint.ActuatorType",
       "CurrentPosition": "@roblox/globaltype/SlidingBallConstraint.CurrentPosition",
@@ -90296,77 +90290,77 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ActuatorType": {
-    "documentation": "Menentukan apakah penerjemahan dari <code>SlidingBallConstraint</code> di aktifkan dan, jika ya, jenis aktuasinya.",
+    "documentation": "Mengatur apakah terjemahan dari <code>SlidingBallConstraint</code> diatur dan, jika ya, jenis pengaturannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ActuatorType",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.CurrentPosition": {
-    "documentation": "Offset saat ini antara <code>Attachments</code> dari batasan.",
+    "documentation": "Offset saat ini antara <code>Attachments</code> batasan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#CurrentPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LimitsEnabled": {
-    "documentation": "Menentukan apakah <code>SlidingBallConstraint</code> akan membatasi jangkauan penerjemahan.",
+    "documentation": "Mengatur apakah <code>SlidingBallConstraint</code> akan membatasi rentang terjemahan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LinearResponsiveness": {
-    "documentation": "Menentukan \"ketajaman\" motor servo linier dalam mencapai <code>TargetPosition</code>.",
+    "documentation": "Menentukan \"ketajaman\" motor servo linear dalam mencapai <code>TargetPosition</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LinearResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LowerLimit": {
-    "documentation": "Batas posisi bawah sepanjang sumbu <strong>X</strong> dari <code>Attachment0</code> jika <code>LimitsEnabled</code> adalah benar.",
+    "documentation": "Batas posisi bawah sepanjang sumbu <strong>X</strong> dari <code>Attachment0</code> jika <code>LimitsEnabled</code> bernilai true.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LowerLimit",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxAcceleration": {
-    "documentation": "Percepatan maksimum batasan ketika <code>ActuatorType</code> diset ke <code>Motor</code> saat batasan berusaha untuk mencapai <code>Velocity</code> yang diinginkan.",
+    "documentation": "Percepatan maksimum batasan ketika <code>ActuatorType</code> diatur ke <code>Motor</code> saat batasan berusaha mencapai <code>Velocity</code> yang diinginkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxForce": {
-    "documentation": "Gaya maksimum batasan ketika <code>ActuatorType</code> diset ke <code>Motor</code>, saat batasan berusaha untuk mencapai <code>Velocity</code> yang diinginkan.",
+    "documentation": "Gaya maksimum batasan ketika <code>ActuatorType</code> diatur ke <code>Motor</code>, saat batasan berusaha mencapai <code>Velocity</code> yang diinginkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Restitution": {
-    "documentation": "Elastisitas dari <code>Attachments</code> batasan ketika mereka mencapai akhir jangkauan yang ditentukan oleh <code>UpperLimit</code> dan <code>LowerLimit</code>, dengan asumsi <code>LimitsEnabled</code> diset ke true.",
+    "documentation": "Elastisitas dari <code>Attachments</code> batasan ketika mereka mencapai akhir rentang yang ditentukan oleh <code>UpperLimit</code> dan <code>LowerLimit</code>, dengan asumsi <code>LimitsEnabled</code> diatur ke true.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ServoMaxForce": {
-    "documentation": "Gaya maksimum batasan ketika <code>ActuatorType</code> diset ke <code>Servo</code>, saat batasan berusaha untuk mencapai <code>Speed</code> yang diinginkan.",
+    "documentation": "Gaya maksimum batasan ketika <code>ActuatorType</code> diatur ke <code>Servo</code>, saat batasan berusaha mencapai <code>Speed</code> yang diinginkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ServoMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Size": {
-    "documentation": "Ukuran batasan yang divisualisasikan.",
+    "documentation": "Ukuran yang divisualisasikan dari batasan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Size",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.SoftlockServoUponReachingTarget": {
-    "documentation": "<strong>Deprecated:</strong> Properti ini seharusnya tidak digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Properti ini tidak boleh digunakan dalam pekerjaan baru.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#SoftlockServoUponReachingTarget",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Speed": {
-    "documentation": "Kecepatan yang diinginkan dari batasan ketika <code>ActuatorType</code> diset ke <code>Servo</code>, saat batasan menerjemahkan menuju <code>TargetPosition</code>. Diukur dalam stud.",
+    "documentation": "Kecepatan yang diinginkan dari batasan ketika <code>ActuatorType</code> diatur ke <code>Servo</code>, saat batasan menerjemahkan ke arah <code>TargetPosition</code>. Diukur dalam stud per detik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.TargetPosition": {
-    "documentation": "Posisi target yang dicoba oleh batasan ketika <code>ActuatorType</code> diset ke <code>Servo</code>. Diukur dalam stud.",
+    "documentation": "Posisi target yang dicoba dari batasan ketika <code>ActuatorType</code> diatur ke <code>Servo</code>. Diukur dalam studs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#TargetPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.UpperLimit": {
-    "documentation": "Batas posisi atas sepanjang sumbu <strong>X</strong> dari <code>Attachment0</code> jika <code>LimitsEnabled</code> adalah benar.",
+    "documentation": "Batas posisi atas sepanjang sumbu <strong>X</strong> dari <code>Attachment0</code> jika <code>LimitsEnabled</code> bernilai true.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#UpperLimit",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Velocity": {
-    "documentation": "Kecepatan yang dicoba oleh batasan ketika <code>ActuatorType</code> diset ke <code>Motor</code>. Diukur dalam stud per detik.",
+    "documentation": "Kecepatan yang dicoba dari batasan ketika <code>ActuatorType</code> diatur ke <code>Motor</code>. Diukur dalam studs per detik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Velocity",
     "code_sample": ""
   },
@@ -92771,13 +92765,13 @@
     "documentation": "Menentukan apakah karakter yang dikembalikan akan R6 atau R15."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
-    "documentation": "Verifikasi tipe aset menentukan apakah fungsi ini akan memuat model atau tidak (Anda harus menetapkan ini ke Selalu kecuali Anda ingin memuat aset non-katalog)."
+    "documentation": "Verifikasi tipe aset menentukan apakah fungsi ini akan memuat model atau tidak. ⚠️&nbsp;Nilai default untuk parameter ini akan berubah dari <code>ClientOnly</code> menjadi <code>Always</code> setelah 20/10/2025. Lihat <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">di sini</a> untuk detail."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
-    "documentation": "Model karakter Humanoid."
+    "documentation": "Karakter <code>Humanoid</code> <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "Mengembalikan Model karakter yang dilengkapi dengan semuanya yang ditentukan dalam HumanoidDescription yang diberikan, dan R6 atau R15 seperti yang ditentukan oleh rigType.",
+    "documentation": "Mengembalikan karakter <code>Model</code> yang dilengkapi dengan segala sesuatu yang ditentukan dalam <code>HumanoidDescription</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -93839,16 +93833,16 @@
     "documentation": "Kelas dasar untuk menangani simulasi fisika dan kueri spasial 3D."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/1": {
-    "documentation": "Daftar bagian untuk memeriksa apakah ada bagian dalam daftar yang menyentuh bagian-bagian yang tidak ada dalam daftar."
+    "documentation": "Daftar bagian untuk memeriksa apakah ada bagian dalam daftar yang menyentuh  bagian lain yang tidak ada dalam daftar."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/2": {
-    "documentation": "Ambang tumpang tindih bagian dalam studs yang diabaikan sebelum bagian dianggap bersentuhan."
+    "documentation": "Ambang batas tumpang tindih bagian dalam studs yang diabaikan sebelum bagian dianggap  menyentuh."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/return/0": {
-    "documentation": "True jika dan hanya jika salah satu dari <code>parts</code> dalam <code>partList</code> bersentuhan dengan bagian lain (bagian yang tidak ada dalam partList). False jika tidak ada bagian yang dikirim."
+    "documentation": "True jika dan hanya jika salah satu dari <code>parts</code> di <code>partList</code> menyentuh  bagian lain (bagian yang tidak ada dalam partList). False jika tidak ada  bagian yang diberikan."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers": {
-    "documentation": "Mengembalikan true jika salah satu dari <code>BasePart</code> yang diberikan bersentuhan dengan bagian lain.",
+    "documentation": "Mengembalikan true jika salah satu dari <code>BasePart</code> yang diberikan menyentuh  bagian lain.",
     "params": [
       {
         "name": "self",
@@ -93873,22 +93867,22 @@
     "documentation": "Kelas dasar untuk menangani simulasi fisika dan kueri spasial 3D."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/1": {
-    "documentation": "Posisi awal dan rotasi dari bentuk blok yang dikeluarkan."
+    "documentation": "Posisi awal dan rotasi bentuk blok yang ditembakkan."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/2": {
-    "documentation": "Ukuran dari bentuk blok yang dikeluarkan dalam studs. Ukuran maksimum adalah 512 studs."
+    "documentation": "Ukuran bentuk blok yang ditembakkan dalam studs. Ukuran maksimum adalah 512  studs."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/3": {
-    "documentation": "Arah dari bentuk yang dikeluarkan, dengan magnitudo yang mewakili jarak maksimum bentuk dapat bergerak. Jarak maksimum adalah 1024 studs."
+    "documentation": "Arah dari proyeksi bentuk, dengan magnitudo yang mewakili  jarak maksimum yang dapat ditempuh oleh bentuk. Jarak maksimum adalah 1024  studs."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Blockcast/return/0": {
-    "documentation": "Berisi hasil dari operasi bentuk yang dikeluarkan, atau <code>nil</code> jika tidak ada <code>BasePart</code> atau <code>Terrain</code> cell yang terkena."
+    "documentation": "Mengandung hasil dari operasi proyeksi bentuk, atau <code>nil</code> jika tidak ada  <code>BasePart</code> atau <code>Terrain</code> cell yang dapat terkena."
   },
   "@roblox/globaltype/WorldRoot.Blockcast": {
-    "documentation": "Mengeluarkan bentuk blok dalam arah tertentu dan mengembalikan <code>RaycastResult</code> jika bentuk tersebut mengenai <code>BasePart</code> atau <code>Terrain</code> cell.",
+    "documentation": "Melakukan proyeksi bentuk blok ke arah tertentu dan mengembalikan  <code>RaycastResult</code> jika bentuk tersebut mengenai <code>BasePart</code> atau  <code>Terrain</code> cell.",
     "params": [
       {
         "name": "self",
@@ -93969,10 +93963,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/return/0": {
-    "documentation": "<code>BasePart</code> atau <code>Terrain</code> cell yang terkena, titik interseksi <code>Vector3</code>, normal permukaan <code>Vector3</code> di titik interseksi, dan <code>Material</code> dari <code>BasePart</code> atau cell tanah yang terkena."
+    "documentation": "Sel <code>BasePart</code> atau <code>Terrain</code> yang terkena, titik/ <code>Vector3</code>   titik perpotongan, normal permukaan <code>Vector3</code>   pada titik perpotongan, dan <code>Material</code>   dari sel <code>BasePart</code> atau terrain yang terkena."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah tidak digunakan lagi. Gunakan <code>WorldRoot:Raycast()</code> bersamaan  dengan <code>RaycastParams</code> untuk pekerjaan baru.<br>Mengembalikan <code>BasePart</code> atau <code>Terrain</code> cell pertama yang bersentuhan mengenai <code>Ray</code> yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dihentikan. Gunakan <code>WorldRoot:Raycast()</code> bersama  dengan <code>RaycastParams</code> untuk pekerjaan baru.<br>Mengembalikan <code>BasePart</code> pertama atau <code>Terrain</code> cell yang beririsan  dengan <code>Ray</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94017,10 +94011,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/return/0": {
-    "documentation": "<code>BasePart</code> atau <code>Terrain</code> cell yang terkena, titik interseksi <code>Vector3</code>, normal permukaan <code>Vector3</code> di titik interseksi, dan <code>Material</code> dari <code>BasePart</code> atau cell tanah yang terkena."
+    "documentation": "Sel <code>BasePart</code> atau <code>Terrain</code> yang terkena, titik/ <code>Vector3</code>   titik perpotongan, normal permukaan <code>Vector3</code>   pada titik perpotongan, dan <code>Material</code>   dari sel <code>BasePart</code> atau terrain yang terkena."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah tidak digunakan lagi. Gunakan <code>WorldRoot:Raycast()</code> bersamaan dengan <code>RaycastParams</code> untuk pekerjaan baru.<br>Mengembalikan <code>BasePart</code> atau <code>Terrain</code> cell pertama yang bersentuhan mengenai <code>Ray</code> yang diberikan dan bukan dalam, atau keturunan dari objek dalam,  daftar abaikan yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dihentikan. Gunakan <code>WorldRoot:Raycast()</code> bersama  dengan <code>RaycastParams</code> untuk pekerjaan baru.<br>Mengembalikan <code>BasePart</code> pertama atau <code>Terrain</code> cell yang beririsan  dengan <code>Ray</code> yang diberikan yang tidak dalam, atau merupakan turunan dari  objek dalam, daftar abaikan yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94062,10 +94056,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/return/0": {
-    "documentation": "<code>BasePart</code> atau <code>Terrain</code> cell yang terkena, titik interseksi <code>Vector3</code>, normal permukaan <code>Vector3</code> di titik interseksi, dan <code>Material</code> dari <code>BasePart</code> atau cell tanah yang terkena."
+    "documentation": "Sel <code>BasePart</code> atau <code>Terrain</code> yang terkena, titik/ <code>Vector3</code>   titik perpotongan, normal permukaan <code>Vector3</code>   pada titik perpotongan, dan <code>Material</code>   dari sel <code>BasePart</code> atau terrain yang terkena."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah tidak digunakan lagi. Gunakan <code>WorldRoot:Raycast()</code> bersamaan dengan <code>RaycastParams</code> untuk pekerjaan baru.<br>Mengembalikan <code>BasePart</code> atau <code>Terrain</code> cell pertama yang bersentuhan mengenai <code>Ray</code> yang diberikan dan berada di, atau keturunan dari objek dalam, daftar inklusi yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dihentikan. Gunakan <code>WorldRoot:Raycast()</code> bersama  dengan <code>RaycastParams</code> untuk pekerjaan baru.<br>Mengembalikan <code>BasePart</code> pertama atau <code>Terrain</code> cell yang beririsan  dengan <code>Ray</code> yang diberikan yang ada di, atau merupakan turunan dari objek  dalam, daftar inklusi yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94097,16 +94091,16 @@
     "documentation": "<code>Region3</code> yang akan diperiksa."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/2": {
-    "documentation": "Sebuah <code>Instance</code> yang harus diabaikan."
+    "documentation": "Sebuah <code>Instance</code> untuk diabaikan."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/3": {
-    "documentation": "Jumlah maksimum dari <code>BaseParts</code> yang akan dikembalikan."
+    "documentation": "Jumlah maksimum <code>BaseParts</code> yang akan dikembalikan."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/return/0": {
-    "documentation": "Array dari <code>BaseParts</code> dalam <code>Region3</code>."
+    "documentation": "Sekumpulan <code>BaseParts</code> dalam <code>Region3</code>."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah tidak digunakan lagi. Gunakan <code>WorldRoot:GetPartBoundsInBox()</code> bersamaan dengan <code>OverlapParams</code> untuk pekerjaan baru.<br>Mengembalikan array <code>BaseParts</code> dalam <code>Region3</code> yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dihentikan. Gunakan  <code>WorldRoot:GetPartBoundsInBox()</code> bersama dengan <code>OverlapParams</code>  untuk pekerjaan baru.<br>Mengembalikan array <code>BaseParts</code> dalam <code>Region3</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94138,16 +94132,16 @@
     "documentation": "<code>Region3</code> yang akan diperiksa."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/2": {
-    "documentation": "Sebuah array objek yang harus diabaikan."
+    "documentation": "Sebuah array objek untuk diabaikan."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/3": {
-    "documentation": "Jumlah maksimum dari <code>BaseParts</code> yang akan dikembalikan."
+    "documentation": "Jumlah maksimum <code>BaseParts</code> yang akan dikembalikan."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/return/0": {
-    "documentation": "Array dari <code>BaseParts</code> ditemukan dalam <code>Region3</code>."
+    "documentation": "Array <code>BaseParts</code> yang ditemukan dalam <code>Region3</code>."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah tidak digunakan lagi. Gunakan <code>WorldRoot:GetPartBoundsInBox()</code> bersamaan dengan <code>OverlapParams</code> untuk pekerjaan baru.<br>Mengembalikan array <code>BaseParts</code> dalam <code>Region3</code> yang diberikan  yang bukan bagian dari, atau keturunan dari, entri dalam, dalil abaikan yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dihentikan. Gunakan  <code>WorldRoot:GetPartBoundsInBox()</code> bersama dengan <code>OverlapParams</code>  untuk pekerjaan baru.<br>Mengembalikan array <code>BaseParts</code> dalam <code>Region3</code> yang diberikan  yang tidak dalam, atau merupakan turunan dari entri dalam, daftar abaikan yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94179,16 +94173,16 @@
     "documentation": "<code>Region3</code> yang akan diperiksa."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/2": {
-    "documentation": "Sebuah array objek untuk diperiksa."
+    "documentation": "Array objek yang akan diperiksa."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/3": {
-    "documentation": "Jumlah maksimum dari <code>BaseParts</code> yang akan dikembalikan."
+    "documentation": "Jumlah maksimum <code>BaseParts</code> yang akan dikembalikan."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/return/0": {
-    "documentation": "Array dari <code>BaseParts</code> dalam <code>Region3</code>."
+    "documentation": "Array <code>BaseParts</code> yang ada dalam <code>Region3</code>."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah tidak digunakan lagi. Gunakan <code>WorldRoot:GetPartBoundsInBox()</code> bersamaan dengan <code>OverlapParams</code> untuk pekerjaan baru.<br>Mengembalikan array <code>BaseParts</code> dalam <code>Region3</code> yang diberikan  yang berada di, atau keturunan dari entri dalam, daftar inklusi yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dihentikan. Gunakan  <code>WorldRoot:GetPartBoundsInBox()</code> bersama dengan <code>OverlapParams</code>  untuk pekerjaan baru.<br>Mengembalikan array <code>BaseParts</code> dalam <code>Region3</code> yang diberikan  yang berada dalam, atau turunan dari entri dalam, daftar inklusi yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94217,19 +94211,19 @@
     "documentation": "Kelas dasar untuk menangani simulasi fisika dan kueri spasial 3D."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/1": {
-    "documentation": "Lokasi pusat dari volume kotak yang diberikan untuk dijadikan kueri."
+    "documentation": "Lokasi pusat dari volume kotak yang diberikan untuk di-queri."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/2": {
-    "documentation": "Ukuran dari volume kotak yang diberikan untuk dijadikan kueri."
+    "documentation": "Ukuran dari volume kotak yang diberikan untuk di-queri."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/3": {
-    "documentation": "Menyimpan bagian-bagian dari parameter kueri spasial yang dapat digunakan kembali."
+    "documentation": "Mengandung bagian yang dapat digunakan kembali dari parameter kueri spasial."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/return/0": {
-    "documentation": "Array dari <code>BaseParts</code> yang cocok dengan kueri spasial."
+    "documentation": "Array <code>BaseParts</code> yang cocok dengan kueri  spasial."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox": {
-    "documentation": "Mengembalikan array dari bagian yang <strong>bounding boxes</strong>-nya tumpang tindih dengan kotak yang diberikan.",
+    "documentation": "Mengembalikan array bagian yang <strong>kotak batasnya</strong> tumpang tindih dengan kotak yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94258,19 +94252,19 @@
     "documentation": "Kelas dasar untuk menangani simulasi fisika dan kueri spasial 3D."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/1": {
-    "documentation": "Lokasi pusat dari volume bola yang diberikan untuk dijadikan kueri."
+    "documentation": "Lokasi pusat dari volume bola yang diberikan untuk di-queri."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/2": {
-    "documentation": "Radius dari volume bola yang diberikan untuk dijadikan kueri."
+    "documentation": "Radius dari volume bola yang diberikan untuk di-queri."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/3": {
-    "documentation": "Menyimpan bagian-bagian dari parameter kueri spasial yang dapat digunakan kembali."
+    "documentation": "Mengandung bagian yang dapat digunakan kembali dari parameter kueri spasial."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/return/0": {
-    "documentation": "Array dari <code>BaseParts</code> yang cocok dengan kueri spasial."
+    "documentation": "Array <code>BaseParts</code> yang cocok dengan kueri  spasial."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius": {
-    "documentation": "Mengembalikan array dari bagian yang <strong>bounding boxes</strong>-nya tumpang tindih dengan bola yang diberikan.",
+    "documentation": "Mengembalikan array bagian yang <strong>kotak batasnya</strong> tumpang tindih dengan bola yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94302,13 +94296,13 @@
     "documentation": "Bagian yang volumenya akan diperiksa terhadap bagian lain."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/2": {
-    "documentation": "Menyimpan bagian-bagian dari parameter kueri spasial yang dapat digunakan kembali."
+    "documentation": "Mengandung bagian yang dapat digunakan kembali dari parameter kueri spasial."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/return/0": {
-    "documentation": "Array dari <code>BaseParts</code> yang cocok dengan kueri spasial."
+    "documentation": "Array <code>BaseParts</code> yang cocok dengan kueri  spasial."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart": {
-    "documentation": "Mengembalikan array dari bagian yang berbagi ruang yang ditempati dengan bagian yang diberikan.",
+    "documentation": "Mengembalikan array bagian yang ruangnya dibagi dengan bagian yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94336,19 +94330,19 @@
     "documentation": "Bagian yang sedang dipindahkan."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/2": {
-    "documentation": "Lokasi tujuan untuk memindahkan bagian yang ditentukan."
+    "documentation": "Lokasi untuk memindahkan bagian yang ditentukan."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/3": {
-    "documentation": "Angka antara 0 dan 1 yang menunjukkan seberapa agresif mencocokkan posisi bagian dengan posisi bagian dari <code>CFrame</code> target."
+    "documentation": "Angka antara 0 dan 1 yang menunjukkan seberapa agresif untuk mencocokkan  posisi bagian dengan bagian posisi dari <code>CFrame</code> target."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/4": {
-    "documentation": "Angka antara 0 dan 1 yang menunjukkan seberapa agresif mencocokkan rotasi bagian dengan rotasi bagian dari <code>CFrame</code> target."
+    "documentation": "Angka antara 0 dan 1 yang menunjukkan seberapa agresif untuk mencocokkan  rotasi bagian dengan bagian rotasi dari <code>CFrame</code> target."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/5": {
-    "documentation": "Memungkinkan Anda menentukan objek apa yang harus terpengaruh oleh resolusi fisik."
+    "documentation": "Memungkinkan Anda untuk menentukan objek mana yang harus terkena dampak oleh  penyelesaian fisik."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo": {
-    "documentation": "Memindahkan bagian yang ditentukan ke lokasi yang ditentukan melalui kinematika invers bukan dengan memindahkannya secara langsung, untuk memastikan bahwa sambungan, pembatas, atau tabrakan yang diikuti bagian tersebut tetap terjaga secara fisik.",
+    "documentation": "Memindahkan bagian yang ditentukan ke lokasi yang ditentukan melalui  kinematika invers daripada memindahkannya secara langsung, untuk memastikan setiap sambungan,  batasan, atau tabrakan yang diikuti bagian tersebut tetap terjaga secara fisik.",
     "params": [
       {
         "name": "self",
@@ -94386,13 +94380,13 @@
     "documentation": "<code>Region3</code> yang akan diperiksa."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/2": {
-    "documentation": "Sebuah <code>Instance</code> yang harus diabaikan."
+    "documentation": "Sebuah <code>Instance</code> untuk diabaikan."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/return/0": {
     "documentation": "True jika <code>Region3</code> kosong."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah tidak digunakan lagi. Gunakan <code>WorldRoot:GetPartBoundsInBox()</code> bersamaan dengan <code>OverlapParams</code> untuk pekerjaan baru.<br>Mengembalikan nilai boolean yang menunjukkan apakah tidak ada <code>BaseParts</code> yang berada dalam <code>Region3</code> yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dihentikan. Gunakan  <code>WorldRoot:GetPartBoundsInBox()</code> bersama dengan <code>OverlapParams</code>  untuk pekerjaan baru.<br>Mengembalikan bool yang menunjukkan apakah tidak ada <code>BaseParts</code>  dalam <code>Region3</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94420,13 +94414,13 @@
     "documentation": "<code>Region3</code> yang akan diperiksa."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/2": {
-    "documentation": "Sebuah array objek yang harus diabaikan."
+    "documentation": "Array objek untuk diabaikan."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/return/0": {
     "documentation": "True jika <code>Region3</code> kosong."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah tidak digunakan lagi. Gunakan <code>WorldRoot:GetPartBoundsInBox()</code> bersamaan dengan <code>OverlapParams</code> untuk pekerjaan baru.<br>Mengembalikan boolean yang menunjukkan apakah tidak ada <code>BaseParts</code> dalam <code>Region3</code> yang diberikan, mengabaikan  <code>BaseParts</code> yang merupakan keturunan dari objek dalam daftar abaikan yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah dihentikan. Gunakan  <code>WorldRoot:GetPartBoundsInBox()</code> bersama dengan <code>OverlapParams</code>  untuk pekerjaan baru.<br>Mengembalikan boolean yang menunjukkan apakah tidak ada  <code>BaseParts</code> dalam <code>Region3</code> yang diberikan, mengabaikan  setiap <code>BaseParts</code> yang merupakan turunan dari objek dalam  daftar abaikan yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -94454,16 +94448,16 @@
     "documentation": "Titik asal dari sinar."
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/2": {
-    "documentation": "Vektor arah dari sinar. Perhatikan bahwa panjang dari vektor ini penting, karena bagian/terrain yang lebih jauh dari panjangnya tidak akan diuji."
+    "documentation": "Vektor arah dari sinar. Perhatikan bahwa panjang dari vektor ini  itu penting, karena bagian/terrain yang lebih jauh dari panjangnya tidak akan  diuji."
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/3": {
-    "documentation": "Objek yang digunakan untuk menentukan kelayakan tabrakan dalam operasi raycast. Jika tidak diberikan, nilai default digunakan di mana semua bagian dianggap  dan air <code>Terrain</code> tidak diabaikan."
+    "documentation": "Sebuah objek yang digunakan untuk menentukan kelayakan terkena dalam operasi sinar.  Jika tidak diberikan, nilai default digunakan di mana semua bagian dipertimbangkan  dan air <code>Terrain</code> tidak diabaikan."
   },
   "@roblox/globaltype/WorldRoot.Raycast/return/0": {
-    "documentation": "Berisi hasil dari operasi raycast, atau <code>nil</code> jika tidak ada <code>BasePart</code> atau <code>Terrain</code> cell yang terkena."
+    "documentation": "Mengandung hasil dari operasi sinar, atau <code>nil</code> jika tidak ada <code>BasePart</code>  atau <code>Terrain</code> cell yang terkena."
   },
   "@roblox/globaltype/WorldRoot.Raycast": {
-    "documentation": "Mengeluarkan sinar dengan menggunakan asal, arah, dan  optional <code>RaycastParams</code>, kemudian mengembalikan <code>RaycastResult</code> jika sebuah  objek yang memenuhi syarat atau terrain menyentuh sinar.",
+    "documentation": "Melakukan proyeksi sinar menggunakan asal, arah, dan opsional  <code>RaycastParams</code>, kemudian mengembalikan <code>RaycastResult</code> jika ada  objek atau terrain yang memenuhi syarat beririsan dengan sinar.",
     "params": [
       {
         "name": "self",
@@ -94533,22 +94527,22 @@
     "documentation": "Kelas dasar untuk menangani simulasi fisika dan kueri spasial 3D."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/1": {
-    "documentation": "Posisi awal dari bentuk bulat yang dikeluarkan."
+    "documentation": "Posisi awal bentuk bulat yang ditembakkan."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/2": {
-    "documentation": "Radius dari bentuk bulat yang dikeluarkan dalam studs. Radius maksimum adalah 256 studs."
+    "documentation": "Radius dari bentuk bulat yang ditembakkan dalam studs. Radius maksimum adalah  256 studs."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/3": {
-    "documentation": "Arah dari bentuk yang dikeluarkan, dengan magnitudo yang mewakili jarak maksimum bentuk dapat bergerak. Jarak maksimum adalah 1024 studs."
+    "documentation": "Arah dari proyeksi bentuk, dengan magnitudo yang mewakili  jarak maksimum yang dapat ditempuh oleh bentuk. Jarak maksimum adalah 1024  studs."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/return/0": {
-    "documentation": "Berisi hasil dari operasi bentuk yang dikeluarkan, atau <code>nil</code> jika tidak ada <code>BasePart</code> atau <code>Terrain</code> cell yang terkena."
+    "documentation": "Mengandung hasil dari operasi proyeksi bentuk, atau <code>nil</code> jika tidak ada  <code>BasePart</code> atau <code>Terrain</code> cell yang terkena."
   },
   "@roblox/globaltype/WorldRoot.Spherecast": {
-    "documentation": "Mengeluarkan bentuk bulat dalam arah tertentu dan mengembalikan <code>RaycastResult</code> jika bentuk tersebut mengenai <code>BasePart</code> atau <code>Terrain</code> cell.",
+    "documentation": "Melakukan proyeksi bentuk bulat ke arah tertentu dan mengembalikan  <code>RaycastResult</code> jika bentuk tersebut mengenai <code>BasePart</code> atau  <code>Terrain</code> cell.",
     "params": [
       {
         "name": "self",
@@ -94581,13 +94575,13 @@
     "documentation": "Kelas dasar untuk menangani simulasi fisika dan kueri spasial 3D."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/1": {
-    "documentation": "Jumlah waktu yang akan disimulasikan. Argumen ini harus berupa angka positif. Nilai yang lebih besar akan meningkatkan waktu fungsi ini."
+    "documentation": "Jumlah waktu yang akan disimulasikan. Argumen ini harus  angka positif. Nilai yang lebih besar akan meningkatkan waktu eksekusi dari  fungsi ini."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/2": {
-    "documentation": "Array opsional dari bagian yang akan disimulasikan. Set ini harus berisi instansi yang bertipe <code>BasePart</code>; jenis lainnya akan diabaikan."
+    "documentation": "Array opsional dari bagian yang akan disimulasikan. Set ini harus berisi  instansi yang bertipe <code>BasePart</code>; tipe lainnya akan diabaikan."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics": {
-    "documentation": "Memajukan simulasi untuk bagian-bagian dalam dunia ke depan berdasarkan peningkatan waktu yang ditentukan dan sekumpulan <code>BaseParts</code> opsional.",
+    "documentation": "Maju simulasi untuk bagian-bagian di dunia berdasarkan  increment waktu yang ditentukan dan set opsional dari  <code>BaseParts</code>.",
     "params": [
       {
         "name": "self",
@@ -94625,7 +94619,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang tidak digunakan lagi ini adalah varian dari <code>WorldRoot:FindPartOnRay()</code> yang seharusnya digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah tidak digunakan ini adalah varian dari <code>WorldRoot:FindPartOnRay()</code>  yang harus digunakan sebagai gantinya.",
     "params": [
       {
         "name": "self",
@@ -94670,7 +94664,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang tidak digunakan lagi ini adalah varian dari <code>WorldRoot:FindPartsInRegion3()</code> yang seharusnya digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah tidak digunakan ini adalah varian dari  <code>WorldRoot:FindPartsInRegion3()</code> yang harus digunakan sebagai gantinya.",
     "params": [
       {
         "name": "self",
@@ -96338,10 +96332,10 @@
     "documentation": "Meminta <code>Player</code> yang diberikan dengan lembar berbagi tingkat platform Roblox berisi tautan berbagi yang dihasilkan."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Dictionary</code> yang menentukan konfigurasi untuk tautan yang dihasilkan. Ini mencakup pasangan kunci-nilai opsional berikut: <ul> <li><code>FallbackLinkId</code> (string). Menentukan bagaimana tautan berbagi ini akan   mengarahkan pemain setelah kedaluwarsa. Secara default ke tautan bergabung pengalaman.</li> <li><code>ExpirationSeconds</code> (number). Menentukan waktu kedaluwarsa setelah tautan   berbagi dibuat. Dipotong ke bilangan bulat terdekat. Secara default ke   86,400.</li> <li><code>PreviewTitle</code> (string) Judul pratayang dari tautan berbagi.</li> <li><code>PreviewDescription</code> (string) Deskripsi pratayang dari tautan berbagi.</li> <li><code>PreviewAssettId</code> (number) ID aset gambar yang digunakan untuk pratayang tautan berbagi.</li> <li><code>LaunchData</code> (string). Digunakan untuk mengatur parameter di   <code>Player:GetJoinData()</code> saat pemain bergabung menggunakan tautan berbagi yang   dihasilkan.</li> </ul>"
+    "documentation": "<code>Dictionary</code> yang menentukan konfigurasi untuk tautan yang dihasilkan. Ini termasuk pasangan kunci-nilai opsional berikut: <ul> <li><code>FallbackLinkId</code> (string). Menentukan bagaimana tautan bagikan ini akan   mengarahkan pemain setelah kedaluwarsa. Default ke tautan bergabung pengalaman.</li> <li><code>ExpirationSeconds</code> (number). Menentukan waktu hingga kedaluwarsa setelah   tautan bagikan dibuat. Dipotong ke bilangan bulat terdekat. Default ke   86.400.</li> <li><code>PreviewTitle</code> (string) Judul pratinjau tautan bagikan.</li> <li><code>PreviewDescription</code> (string) Deskripsi pratinjau tautan bagikan.</li> <li><code>PreviewAssetId</code> (number) ID aset gambar yang digunakan untuk pratinjau   tautan bagikan.</li> <li><code>LaunchData</code> (string). Digunakan untuk mengatur parameter di   <code>Player:GetJoinData()</code> ketika seorang pemain bergabung menggunakan   tautan bagikan yang dihasilkan.</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah tuple yang berisi <code>PromptLinkSharingResult</code> yang menunjukkan hasil dari prompt bagikan tautan."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -122046,7 +122040,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.Unknown": {
-    "documentation": "Catch-all for all other disconnect reasons.",
+    "documentation": "Menangkap semua alasan putus koneksi lainnya.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122056,7 +122050,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.PlatformKick": {
-    "documentation": "User was kicked by Roblox systems, such as being blocked while in a Private Server.",
+    "documentation": "Pengguna dikeluarkan oleh sistem Roblox, seperti diblokir saat berada di Server Pribadi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122066,7 +122060,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.CreatorKick": {
-    "documentation": "Creator called <strong>Player:Kick()</strong>",
+    "documentation": "Creator memanggil <strong>Player:Kick()</strong>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122076,7 +122070,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PlayerExitReason": {
-    "documentation": "An enum that specifies the reason for <strong>Players.PlayerRemoving</strong> signal.",
+    "documentation": "Enum yang menentukan alasan untuk sinyal <strong>Players.PlayerRemoving</strong>.",
     "keys": {
       "Unknown": "@roblox/enum/PlayerExitReason.Unknown",
       "PlatformKick": "@roblox/enum/PlayerExitReason.PlatformKick",
@@ -126858,7 +126852,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.StreamingMesh": {
-    "documentation": "Mesh \"imposter\" dengan resolusi lebih rendah (mesh berwarna, kasar yang membungkus  semua bagian anak dari model) dirender di luar radius streaming.",
+    "documentation": "Mesh \"imposter\" resolusi lebih rendah (mesh kasar berwarna yang membungkus semua bagian anak dari model) dirender di luar radius streaming.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126868,7 +126862,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
-    "documentation": "Mesh dengan resolusi lebih rendah tidak akan ditampilkan.",
+    "documentation": "Mesh resolusi lebih rendah tidak akan ditampilkan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126878,7 +126872,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ModelLevelOfDetail": {
-    "documentation": "Mengontrol tingkat detail untuk <code>Models</code> dalam pengalaman dengan  streaming instance yang diaktifkan.",
+    "documentation": "Mengontrol tingkat detail untuk <code>Models</code> dalam pengalaman dengan streaming instance diaktifkan.",
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
@@ -130765,7 +130759,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CorrodedMetal": {
-    "documentation": "Berlaku untuk <code>BasePart</code> dan <code>Terrain</code>.",
+    "documentation": "Hanya berlaku untuk <code>BasePart</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

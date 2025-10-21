@@ -3893,7 +3893,7 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "與 <code>ValueCurve</code> 實例一起使用的時間-值對。",
     "keys": {
       "new": "@roblox/global/ValueCurveKey.new"
     },
@@ -3901,16 +3901,16 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey.new/param/0": {
-    "documentation": "Time at which to create the new <code>ValueCurveKey</code>."
+    "documentation": "創建新的 <code>ValueCurveKey</code> 的時間。"
   },
   "@roblox/global/ValueCurveKey.new/param/1": {
-    "documentation": "Value of the new <code>ValueCurveKey</code>."
+    "documentation": "新的 <code>ValueCurveKey</code> 的值。"
   },
   "@roblox/global/ValueCurveKey.new/param/2": {
     "documentation": ""
   },
   "@roblox/global/ValueCurveKey.new": {
-    "documentation": "Returns a new <code>ValueCurveKey</code> from the given time and value.",
+    "documentation": "基於給定的時間和值返回新的 <code>ValueCurveKey</code>。",
     "params": [
       {
         "name": "time",
@@ -3930,7 +3930,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "與 <code>ValueCurve</code> 實例一起使用的時間-值對。",
     "keys": {
       "Interpolation": "@roblox/globaltype/ValueCurveKey.Interpolation",
       "Time": "@roblox/globaltype/ValueCurveKey.Time",
@@ -3942,27 +3942,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Interpolation": {
-    "documentation": "The key interpolation mode for the segment started by this <code>ValueCurveKey</code>.",
+    "documentation": "由此 <code>ValueCurveKey</code> 開始的區段的鍵插值模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Interpolation",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Time": {
-    "documentation": "The time position of this <code>ValueCurveKey</code>.",
+    "documentation": "此 <code>ValueCurveKey</code> 的時間位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Time",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Value": {
-    "documentation": "The value of this <code>ValueCurveKey</code>.",
+    "documentation": "此 <code>ValueCurveKey</code> 的值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Value",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.RightTangent": {
-    "documentation": "The tangent to the right of this <code>ValueCurveKey</code>.",
+    "documentation": "此 <code>ValueCurveKey</code> 右側的切線。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#RightTangent",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.LeftTangent": {
-    "documentation": "The tangent to the left of this <code>ValueCurveKey</code>.",
+    "documentation": "此 <code>ValueCurveKey</code> 左側的切線。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#LeftTangent",
     "code_sample": ""
   },
@@ -8858,13 +8858,13 @@
     "documentation": "一個定義 3D 世界視圖的類別。"
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/1": {
-    "documentation": ""
+    "documentation": "表示要適合視口的邊界框的中心和方向的 <code>CFrame</code>。"
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/2": {
-    "documentation": ""
+    "documentation": "適合視口的邊界框的 <code>Vector3</code> 大小。"
   },
   "@roblox/globaltype/Camera.ZoomToExtents": {
-    "documentation": "",
+    "documentation": "調整 <code>CFrame</code> 以確保指定的邊界框在相機的視口內完全可見。",
     "params": [
       {
         "name": "self",
@@ -11569,7 +11569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Snap": {
-    "documentation": "<strong>Deprecated:</strong> <br>將兩個部分緊密連接，並且功能上與 <code>Weld</code> 相同。",
+    "documentation": "<strong>Deprecated:</strong> <br>將兩個部分固定在一起，並且功能上與 <code>Weld</code> 相同。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Snap",
     "code_sample": ""
@@ -11693,7 +11693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint": {
-    "documentation": "一個抵抗兩個軸之間角運動的扭力彈簧。",
+    "documentation": "一個抵抗兩個軸之間角度運動的旋轉彈簧。",
     "keys": {
       "Coils": "@roblox/globaltype/TorsionSpringConstraint.Coils",
       "CurrentAngle": "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle",
@@ -11715,27 +11715,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle": {
-    "documentation": "限制圓錐的當前角度（以度數表示）。",
+    "documentation": "限制圓錐的當前角度（以度為單位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#CurrentAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Damping": {
-    "documentation": "彈簧約束的減震常數。乘以約束的 <code>Attachments</code> 的速度，以減少施加的彈簧力。",
+    "documentation": "<code>TorsionSpringConstraint</code> 的阻尼常數。乘以約束的 <code>Attachments</code> 的速度以減少施加的彈簧力。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Damping",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitEnabled": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性已廢棄。請改用 <code>LimitsEnabled</code>。",
+    "documentation": "<strong>Deprecated:</strong> 此屬性已被棄用。請改用 <code>LimitsEnabled</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitsEnabled": {
-    "documentation": "通過圓錐約束限制連接次要軸的相對角運動。",
+    "documentation": "通過圓錐約束限制連接的二次軸的相對角運動。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.MaxAngle": {
-    "documentation": "約束限制圓錐的最大角度。",
+    "documentation": "約束的限制圓錐的最大角度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#MaxAngle",
     "code_sample": ""
   },
@@ -11750,7 +11750,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Restitution": {
-    "documentation": "圓錐約束的回彈係數。",
+    "documentation": "圓錐約束的恢復係數。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Restitution",
     "code_sample": ""
   },
@@ -16553,7 +16553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh": {
-    "documentation": "<code>SpecialMesh</code> 物件根據  <code>MeshType</code> 屬性，將網格應用於 <code>BasePart</code>。",
+    "documentation": "<code>SpecialMesh</code> 物件根據 <code>MeshType</code> 屬性將網格應用於 <code>BasePart</code>。",
     "keys": {
       "MeshType": "@roblox/globaltype/SpecialMesh.MeshType"
     },
@@ -16561,7 +16561,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh.MeshType": {
-    "documentation": "確定將應用於其父級的 <code>BasePart</code> 的網格類型   <code>SpecialMesh</code>。",
+    "documentation": "確定將應用於 <code>BasePart</code> 的網格類型，該部分由 <code>SpecialMesh</code> 作為父項。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpecialMesh#MeshType",
     "code_sample": ""
   },
@@ -18786,10 +18786,10 @@
     "documentation": "一個特殊對象，為模型提供角色功能。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "您想要設置角色匹配的 <code>HumanoidDescription</code> 實例。"
+    "documentation": "您要設置的<code>HumanoidDescription</code>實例，以便角色與之匹配。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ 此參數的預設值將在2025年10月20日從 <code>ClientOnly</code>更改為 <code>Always</code>。請參見 <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">這裡</a> 以獲取詳細信息。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
     "documentation": "使角色的外觀與傳入的 <code>HumanoidDescription</code> 匹配。",
@@ -18818,7 +18818,7 @@
     "documentation": "您想要設置角色匹配的 <code>HumanoidDescription</code> 實例。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ 此參數的預設值將在2025年10月20日從 <code>ClientOnly</code>更改為 <code>Always</code>。請參見 <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">這裡</a> 以獲取詳細信息。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
     "documentation": "使角色的外觀與傳入的 <code>HumanoidDescription</code> 匹配，即使在外部變更後。",
@@ -22623,7 +22623,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateV": {
-    "documentation": "<strong>Deprecated:</strong> 這個類別與已棄用的 <code>SurfaceType</code> 一起工作，不應用於未來的工作；請使用 <code>HingeConstraint</code> 代替。",
+    "documentation": "<strong>Deprecated:</strong> 這個類別與已棄用的 <code>SurfaceType</code> 一起工作，不應用於未來的工作；請使用 <code>HingeConstraint</code> 來替代。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateV",
     "code_sample": ""
@@ -23452,7 +23452,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer": {
-    "documentation": "<code>WrapTextureTransfer</code> 允許父 <code>Decal</code> 根據其 <code>WrapTarget</code> 的籠子 來包裹其父 <code>MeshPart</code>。",
+    "documentation": "<code>WrapTextureTransfer</code> 允許一個父 <code>Decal</code> 依據其 <code>WrapTarget</code> 的籠子圍繞其父 <code>MeshPart</code>。",
     "keys": {
       "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
       "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
@@ -23462,17 +23462,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
-    "documentation": "用於修剪和驗證目標籠的可選參考網格。",
+    "documentation": "用於修剪和驗證目標籠子的可選參考網格。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMaxBound": {
-    "documentation": "確定要包含在轉移中的 UV 空間的最大範圍。",
+    "documentation": "確定要包含在轉移中的 UV 空間的最大邊界。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMaxBound",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMinBound": {
-    "documentation": "確定要包含在轉移中的 UV 空間的最小範圍。",
+    "documentation": "確定要包含在轉移中的 UV 空間的最小邊界。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMinBound",
     "code_sample": ""
   },
@@ -23568,7 +23568,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldModel": {
-    "documentation": "將有限的物理擴展到其子級到父級 <code>ViewportFrame</code>。",
+    "documentation": "將有限的物理擴展到其子物件的父項 <code>ViewportFrame</code>。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WorldModel",
     "code_sample": ""
@@ -24570,7 +24570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint": {
-    "documentation": "模擬繩索動力學，防止兩個連接點分開超過定義的長度。",
+    "documentation": "模擬繩索動力學，防止兩個附件之間的距離超過定義的長度。",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RopeConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RopeConstraint.Length",
@@ -24591,42 +24591,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Length": {
-    "documentation": "兩個 <code>Attachments</code> 可以的最大距離。",
+    "documentation": "兩個 <code>Attachments</code> 最大能夠分開的距離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Restitution": {
-    "documentation": "連接到約束的 <code>Attachments</code> 在達到最大定義的 <code>Length</code> 時的彈性。限制在 0 和 1 之間。",
+    "documentation": "當達到最大定義的 <code>Length</code> 時，通過約束連接的 <code>Attachments</code> 的彈性。限制在 0 和 1 之間。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Thickness": {
-    "documentation": "<code>RopeConstraint</code> 的可視化厚度。",
+    "documentation": "可視化的 <code>RopeConstraint</code> 厚度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchEnabled": {
-    "documentation": "啟用卷揚機馬達。",
+    "documentation": "啟用繞線機馬達。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchForce": {
-    "documentation": "卷揚機馬達可以施加的最大力量。",
+    "documentation": "繞線機馬達可以施加的最大力量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchForce",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchResponsiveness": {
-    "documentation": "卷揚機馬達在達到 <code>WinchTarget</code> 時的靈敏度。",
+    "documentation": "繞線機馬達在達到 <code>WinchTarget</code> 時的靈敏度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchSpeed": {
-    "documentation": "卷揚機馬達改變繩索長度的正向期望速度。",
+    "documentation": "繞線機馬達改變繩索長度的正向期望速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchTarget": {
-    "documentation": "卷揚機馬達的目標長度。",
+    "documentation": "繞線機馬達的目標長度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchTarget",
     "code_sample": ""
   },
@@ -25421,7 +25421,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。",
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
@@ -25463,7 +25463,6 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
-      "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
@@ -25480,12 +25479,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirDensity": {
-    "documentation": "地面高度的空氣密度，用於航空力模型。",
+    "documentation": "地面水平的空氣密度，用於空氣動力模型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "控制風速場中存在的湍流強度，影響航空力模型。",
+    "documentation": "控制風速場中存在的湍流強度，影響空氣動力模型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
@@ -25510,12 +25509,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.CurrentCamera": {
-    "documentation": "當前由本地玩家使用的 <code>Camera</code> 物件。",
+    "documentation": "由本地玩家使用的 <code>Camera</code> 物件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#CurrentCamera",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "遊戲運行的時間（以秒為單位）。",
+    "documentation": "遊戲運行的時間，以秒為單位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
@@ -25530,12 +25529,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>決定從客戶端所做的更改是否會複製到服務器。",
+    "documentation": "<strong>Deprecated:</strong> <br>決定客戶端所做的更改是否會複製到伺服器。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "決定物理引擎是否計算對 <code>BaseParts</code> 的航空力，當其 <code>EnableFluidForces</code> 屬性為 true 時。",
+    "documentation": "決定物理引擎是否計算對於 <code>BaseParts</code> 的空氣動力效果，這些物件的 <code>EnableFluidForces</code> 屬性為真。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
@@ -25550,7 +25549,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "啟用對 IKControls 的約束支持。如果禁用，IKControls 將忽略物理約束。",
+    "documentation": "啟用 IKControls 的約束支持。如果禁用，IKControls 將會忽略物理約束。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -25560,7 +25559,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.InterpolationThrottling": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性不應用於新工作。",
+    "documentation": "<strong>Deprecated:</strong> 此屬性不應用於新工作中。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InterpolationThrottling",
     "code_sample": ""
   },
@@ -25570,7 +25569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "設置角色頭部和配件是否應作為 MeshParts 下載。",
+    "documentation": "設置角色的頭部和配件是否應該作為 MeshParts 下載。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -25580,7 +25579,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "控制在使用任何移動器約束時選擇組件根部件的邏輯。",
+    "documentation": "控制使用任何移動約束時選擇組件根部件的邏輯。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
@@ -25595,7 +25594,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "設置求解器如何將物理模擬向前推進。",
+    "documentation": "設置求解器在時間中推進物理模擬的方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -25640,12 +25639,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "配置引擎決定何時從玩家那里流出內容。",
+    "documentation": "配置引擎決定何時從玩家那裡流式加載內容的邏輯。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "該地點的內容流媒體是否啟用。",
+    "documentation": "決定該位置是否啟用了內容流式傳輸。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
@@ -25655,17 +25654,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "內容將以高優先級流向玩家的最小距離。",
+    "documentation": "內容將高優先權流式輸送到玩家的最小距離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingTargetRadius": {
-    "documentation": "內容流向玩家的最大距離。",
+    "documentation": "內容將以高優先權流式傳輸到玩家的最大距離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingTargetRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "指向父屬於 <code>Workspace</code> 的 <code>Terrain</code> 物件的引用。",
+    "documentation": "引用父屬於 <code>Workspace</code> 的 <code>Terrain</code> 物件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
@@ -25675,13 +25674,8 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "決定不同組別中設置為不碰撞的 <code>parts</code> 是否忽略碰撞和接觸事件。",
+    "documentation": "決定在不同組中設定為不碰撞的 <code>parts</code> 是否將忽略碰撞和觸摸事件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.UseImprovedModelLod": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseImprovedModelLod",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
@@ -25690,10 +25684,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "一個 <code>BaseParts</code> 的數組，將要破壞其關節。"
+    "documentation": "一個 <code>BaseParts</code> 的數組，該關節將被破壞。"
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
     "documentation": "<strong>Deprecated:</strong> <br>遍歷所有給定的 <code>BaseParts</code>，破壞與這些部件相連的任何關節。",
@@ -25712,13 +25706,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
     "documentation": "清醒部件的數量。"
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "返回被認為是物理活動的 <code>BaseParts</code> 的數量，因為它們最近受物理影響。",
+    "documentation": "返回被視為由於最近受物理影響而在物理上活躍的 <code>BaseParts</code> 的數量。",
     "params": [
       {
         "name": "self",
@@ -25732,13 +25726,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "物理模擬當前被節流的百分比。"
+    "documentation": "當前物理模擬被節流的百分比。"
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "返回一個整數，介於 0 和 100 之間，表示物理模擬當前被節流的百分比。",
+    "documentation": "返回介於 0 和 100 之間的整數，表示物理模擬當前被節流的百分比。",
     "params": [
       {
         "name": "self",
@@ -25752,13 +25746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "返回當前物理模擬的幀數每秒。"
+    "documentation": "返回物理當前被模擬的幀數。"
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "返回當前物理模擬的幀數每秒。",
+    "documentation": "返回物理當前被模擬的幀數。",
     "params": [
       {
         "name": "self",
@@ -25772,13 +25766,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\tplayer:Kick() -- 踢出玩家\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
-    "documentation": "服務器上估算的 Unix 時間戳。"
+    "documentation": "伺服器上的預估 Unix 時戳。"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
-    "documentation": "返回服務器的 Unix 時間（以秒為單位）。",
+    "documentation": "返回伺服器的 Unix 時間，以秒為單位。",
     "params": [
       {
         "name": "self",
@@ -25792,16 +25786,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "一個將要創建其關節的 <code>BaseParts</code> 數組。"
+    "documentation": "一個 <code>BaseParts</code> 的數組，該關節將被創建。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "要使用的 <code>JointCreationMode</code>。傳遞 <code>Enum.JointCreationMode.All</code> 或 <code>Enum.JointCreationMode.Surface</code> 的行為相同，這等於總是加入。"
+    "documentation": "要使用的 <code>JointCreationMode</code>。傳遞 <code>Enum.JointCreationMode.All</code> 或 <code>Enum.JointCreationMode.Surface</code> 會產生相同的行為，相當於始終關聯。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "根據部件的表面和指定的關節創建模式，創建指定的 <code>Parts</code> 和任何接觸部件之間的關節。",
+    "documentation": "根據部件的表面和指定的關節創建模式，在指定的 <code>Parts</code> 之間創建關節以及任何接觸的部件。",
     "params": [
       {
         "name": "self",
@@ -25821,13 +25815,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "一個 <code>parts</code> 的數組，將要創建其關節。"
+    "documentation": "一個 <code>parts</code> 的數組，該關節將被創建。"
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>遍歷所有給定的 <code>BaseParts</code>。如果任何部件的某一面具有可以創建關節的 <code>SurfaceType</code>，則會與任何相鄰部件創建關節。",
+    "documentation": "<strong>Deprecated:</strong> <br>遍歷所有給定的 <code>BaseParts</code>。如果任何部件的邊側具有可以創建關節的 <code>SurfaceType</code>，則會與任何相鄰的部件創建關節。",
     "params": [
       {
         "name": "self",
@@ -25843,13 +25837,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "如果 PGS 求解器啟用則為 True。"
+    "documentation": "如果啟用了 PGS 求解器，則為真。"
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "如果遊戲啟用了 PGS 物理求解器，則返回 <code>true</code>。",
+    "documentation": "如果該遊戲啟用了 PGS 物理求解器，則返回 <code>true</code>。",
     "params": [
       {
         "name": "self",
@@ -25863,13 +25857,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "一個 <code>BaseParts</code> 的數組，將要破壞其關節。"
+    "documentation": "一個 <code>BaseParts</code> 的數組，該關節將被破壞。"
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "破壞指定的 <code>BaseParts</code> 與其他 <code>BaseParts</code> 之間的所有關節。",
+    "documentation": "破壞指定的 <code>BaseParts</code> 和其他 <code>BaseParts</code> 之間的所有關節。",
     "params": [
       {
         "name": "self",
@@ -25885,10 +25879,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>Workspace</strong> 存放著 3D 物件，這些物件被渲染到 3D 世界中。未從其派生的物件將不會被渲染或與世界進行物理交互。"
+    "documentation": "<strong>工作區</strong>包含渲染到 3D 世界的 3D 物件。未從其繼承的物件將不會被渲染或物理互動於世界中。"
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "將 <code>Workspace.CurrentCamera</code> 定位並縮放以顯示當前在 <code>Workspace</code> 中的 <code>BaseParts</code> 的範圍。",
+    "documentation": "調整和縮放 <code>Workspace.CurrentCamera</code>，以顯示當前 <code>Workspace</code> 中的 <code>BaseParts</code> 的範圍。",
     "params": [
       {
         "name": "self",
@@ -26357,7 +26351,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plane": {
-    "documentation": "<strong>Deprecated:</strong> <br>約束 Attachment0 和 Attachment1，使這兩個點都位於一個平面上， 平面的原點位於 Attachment0 的位置，且單位法向量等於 Attachment0 的主要軸。",
+    "documentation": "<strong>Deprecated:</strong> <br>約束 Attachment0 和 Attachment1，使得這兩個點位於一個平面內，該平面的原點位於 Attachment0 的位置，且單位法向量等於 Attachment0 的主要軸。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plane",
     "code_sample": ""
@@ -27948,7 +27942,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "",
+    "documentation": "材質內容由貼圖顯示。支持 <a href=\"../../../projects/assets/index.md#asset-uris\">資產 URI</a> 和 <code>EditableImage</code> 物件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
@@ -28629,7 +28623,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "當玩家在裝飾上方懸停時按下左鍵鼠標時觸發。",
+    "documentation": "當玩家在裝飾物上懸停時按下左鍵時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -28717,7 +28711,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "當玩家在裝飾上方懸停時釋放左鍵鼠標時觸發。",
+    "documentation": "當玩家在裝飾物上懸停時釋放左鍵時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -30263,7 +30257,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Platform": {
-    "documentation": "歷史上是一種 <code>Seat</code> 的形式，不會讓玩家採取坐姿。此物件不再可被創建，開發者無法使用。",
+    "documentation": "歷史上是一種不會將玩家置於坐姿的 <code>Seat</code> 形式。此物件不再可創建，開發者無法使用。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Platform",
     "code_sample": ""
@@ -31303,7 +31297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HopperBin": {
-    "documentation": "<strong>Deprecated:</strong> 此過時的類已被 <code>Tool</code> 取代。請使用 Tool 進行新的工作。",
+    "documentation": "<strong>Deprecated:</strong> 這個已被淘汰的類別已被 <code>Tool</code> 取代。請在新工作中使用 Tool。",
     "keys": {
       "Active": "@roblox/globaltype/HopperBin.Active",
       "BinType": "@roblox/globaltype/HopperBin.BinType"
@@ -32186,7 +32180,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool": {
-    "documentation": "一個物件，例如武器，可以由 <code>Humanoid</code> 裝備。",
+    "documentation": "可以被 <code>Humanoid</code> 裝備的物件，例如武器。",
     "keys": {
       "CanBeDropped": "@roblox/globaltype/Tool.CanBeDropped",
       "Enabled": "@roblox/globaltype/Tool.Enabled",
@@ -32205,12 +32199,12 @@
     "code_sample": "local tool = script.Parent\n\nlocal function explode(point)\n\tlocal e = Instance.new(\"Explosion\")\n\te.DestroyJointRadiusPercent = 0 -- 使爆炸無害\n\te.Position = point\n\te.Parent = workspace\nend\n\nlocal function onActivated()\n\t-- 獲取啟動工具的 Humanoid\n\tlocal human = tool.Parent.Humanoid\n\t-- 使用 Humanoid 正在瞄準的當前位置調用 explode\n\texplode(human.TargetPoint)\nend\n\ntool.Activated:Connect(onActivated)"
   },
   "@roblox/globaltype/Tool.CanBeDropped": {
-    "documentation": "控制玩家是否可以丟棄工具。",
+    "documentation": "控制玩家是否可以扔掉工具。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#CanBeDropped",
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Enabled": {
-    "documentation": "與工具是否可以使用相關。",
+    "documentation": "關於工具是否可以使用的相關性。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#Enabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"超跳\"\ntool.RequiresHandle = false\ntool.Parent = player.Backpack\n\nfunction toolActivated()\n\thumanoid.JumpPower = 150\n\ttool.Enabled = false\n\ttask.wait(5)\n\ttool.Enabled = true\n\thumanoid.JumpPower = 50\nend\n\ntool.Activated:Connect(toolActivated)\ntool.Unequipped:Connect(function()\n\thumanoid.JumpPower = 50\nend)"
   },
@@ -32220,27 +32214,27 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- 棕色\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripForward": {
-    "documentation": "表示工具握持的 <code>CFrame</code> 旋轉矩陣的 <code>R02</code>、<code>R12</code> 和 <code>R22</code> 值。",
+    "documentation": "表示握持 <code>CFrame</code> 旋轉矩陣的 <code>R02</code>、<code>R12</code> 和 <code>R22</code> 值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripForward",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- 棕色\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripPos": {
-    "documentation": "工具的焊接矩陣的位移。",
+    "documentation": "工具的焊接矩陣的定位偏移量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripPos",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- 棕色\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripRight": {
-    "documentation": "表示工具握持的 <code>CFrame</code> 旋轉矩陣的 <code>R00</code>、<code>R10</code> 和 <code>R20</code> 值。",
+    "documentation": "表示握持 <code>CFrame</code> 旋轉矩陣的 <code>R00</code>、<code>R10</code> 和 <code>R20</code> 值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripRight",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- 棕色\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripUp": {
-    "documentation": "表示工具握持的 <code>CFrame</code> 旋轉矩陣的 <code>R01</code>、<code>R11</code> 和 <code>R21</code> 值。",
+    "documentation": "表示握持 <code>CFrame</code> 旋轉矩陣的 <code>R01</code>、<code>R11</code> 和 <code>R21</code> 值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripUp",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- 棕色\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.ManualActivationOnly": {
-    "documentation": "控制 <code>Tool</code> 是否可以在不執行 <code>Tool:Activate()</code> 的情況下被激活。",
+    "documentation": "控制 <code>Tool</code> 是否可以在不執行 <code>Tool:Activate()</code> 的情況下啟動。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#ManualActivationOnly",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"冲刺\"\ntool.RequiresHandle = false\ntool.Parent = player:WaitForChild(\"Backpack\")\n\nfunction toolActivated()\n\thumanoid.WalkSpeed = 30\n\ttool.ManualActivationOnly = true\n\ttask.wait(5)\n\ttool.ManualActivationOnly = false\n\thumanoid.WalkSpeed = 16\nend\n\ntool.Activated:Connect(toolActivated)\ntool.Unequipped:Connect(function()\n\thumanoid.WalkSpeed = 16\nend)"
   },
@@ -32250,15 +32244,15 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.ToolTip": {
-    "documentation": "控制當玩家的鼠標懸停在他們的背包中的工具上時顯示的消息。",
+    "documentation": "控制當玩家的滑鼠懸停在背包中的工具上時顯示的消息。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#ToolTip",
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Activate/param/0": {
-    "documentation": "一個物件，例如武器，可以由 <code>Humanoid</code> 裝備。"
+    "documentation": "可以被 <code>Humanoid</code> 裝備的物件，例如武器。"
   },
   "@roblox/globaltype/Tool.Activate": {
-    "documentation": "模擬 <code>Tool</code> 的激活。",
+    "documentation": "模擬 <code>Tool</code> 的啟動。",
     "params": [
       {
         "name": "self",
@@ -32270,7 +32264,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Deactivate/param/0": {
-    "documentation": "一個物件，例如武器，可以由 <code>Humanoid</code> 裝備。"
+    "documentation": "可以被 <code>Humanoid</code> 裝備的物件，例如武器。"
   },
   "@roblox/globaltype/Tool.Deactivate": {
     "documentation": "模擬 <code>Tool</code> 的停用。",
@@ -32362,7 +32356,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Activated": {
-    "documentation": "當玩家點擊時觸發，並且該工具被裝備。",
+    "documentation": "當玩家在裝備工具時點擊時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Activated.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Activated.ConnectParallel",
@@ -32450,7 +32444,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Deactivated": {
-    "documentation": "當玩家釋放點擊時觸發，並且該工具被裝備並激活。",
+    "documentation": "當玩家在裝備並啟用工具時釋放點擊觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Deactivated.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Deactivated.ConnectParallel",
@@ -32680,7 +32674,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Seat": {
-    "documentation": "一種 <code>BasePart</code>，角色可以在裡面 ''坐下''。當角色接觸到已啟用的 Seat 對象時，它將通過 <code>Weld</code> 連接到該部件，默認的角色腳本將播放坐下動畫。",
+    "documentation": "一種 <code>BasePart</code>，角色可以在其中「坐下」。當角色接觸到啟用的座位物件時，將通過 <code>Weld</code> 附加到該部分，並且預設的角色腳本將播放坐下的動畫。",
     "keys": {
       "Disabled": "@roblox/globaltype/Seat.Disabled",
       "Occupant": "@roblox/globaltype/Seat.Occupant",
@@ -32690,7 +32684,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal seat = Instance.new(\"Seat\")\nseat.Anchored = true\nseat.Position = Vector3.new(0, 1, 0)\nseat.Parent = workspace\n\nlocal currentPlayer = nil\n\nlocal function onOccupantChanged()\n\tlocal humanoid = seat.Occupant\n\tif humanoid then\n\t\tlocal character = humanoid.Parent\n\t\tlocal player = Players:GetPlayerFromCharacter(character)\n\t\tif player then\n\t\t\tprint(player.Name .. \" 已經坐下\")\n\t\t\tcurrentPlayer = player\n\t\t\treturn\n\t\tend\n\tend\n\tif currentPlayer then\n\t\tprint(currentPlayer.Name .. \" 已經起身\")\n\t\tcurrentPlayer = nil\n\tend\nend\n\nseat:GetPropertyChangedSignal(\"Occupant\"):Connect(onOccupantChanged)"
   },
   "@roblox/globaltype/Seat.Disabled": {
-    "documentation": "座位是否可用。如果設置為 true，則座位將作為普通部件運行。",
+    "documentation": "座位是否可用。如果設置為 true，該座位將作為一個普通部件運作。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Disabled",
     "code_sample": ""
   },
@@ -32700,13 +32694,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Sit/param/0": {
-    "documentation": "一種 <code>BasePart</code>，角色可以在裡面 ''坐下''。當角色接觸到已啟用的 Seat 對象時，它將通過 <code>Weld</code> 連接到該部件，默認的角色腳本將播放坐下動畫。"
+    "documentation": "一種 <code>BasePart</code>，角色可以在其中「坐下」。當角色接觸到啟用的座位物件時，將通過 <code>Weld</code> 附加到該部分，並且預設的角色腳本將播放坐下的動畫。"
   },
   "@roblox/globaltype/Seat.Sit/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Seat.Sit": {
-    "documentation": "強制具有指定 <code>Humanoid</code> 的角色坐在座位上。",
+    "documentation": "強制指定的 <code>Humanoid</code> 角色坐在座位上。",
     "params": [
       {
         "name": "self",
@@ -33803,7 +33797,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform": {
-    "documentation": "<strong>Deprecated:</strong> SkateboardPlatform 對象已被棄用，且不再受 Roblox 支援。尋找創建滑板或類似交通工具的開發者建議編寫自己的系統。此外，可以使用 <code>VehicleSeat</code> 對象快速創建簡單的交通工具。<br>SkateboardPlatform 可用來創建滑板。當角色踩上滑板時，他們會被固定在上面，直到按下逃脫鍵。直到那時，角色將使用滑板動畫並且比步行的角色移動得更快。",
+    "documentation": "<strong>Deprecated:</strong> SkateboardPlatform 物件已被淘汰，並且不再受 Roblox 支援。希望創建滑板或類似載具的開發者建議程序自行開發系統。此外，可以使用 <code>VehicleSeat</code> 物件來快速創建簡單的載具。<br>SkateboardPlatform 可以用來創建滑板。當角色上了滑板後，會被固定在上面，直到他們按下逃脫鍵。在那之前，角色將使用滑板動畫並且移動速度快於步行角色。",
     "keys": {
       "Controller": "@roblox/globaltype/SkateboardPlatform.Controller",
       "ControllingHumanoid": "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid",
@@ -33826,28 +33820,28 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Steer": {
-    "documentation": "綁定到 A 和 D 鍵的移動方向。必須是 1（右）、0（直行）或 -1（左）。除非持續設置，否則將恢復為 0。",
+    "documentation": "移動的方向，與鍵 A 和 D 綁定。必須為 1 (右)、0 (直)，或 -1 (左)。將會重置為 0，除非不斷設置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Steer",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.StickyWheels": {
-    "documentation": "如果為真，沒有用戶輸入時輪子將不會滾動。",
+    "documentation": "如果為 true，輪子在沒有用戶輸入的情況下將不會滾動。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#StickyWheels",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Throttle": {
-    "documentation": "綁定到 W 和 S 鍵的移動方向。必須是整數 1（前進）、0（空白）或 -1（倒退）。除非持續設置，否則將恢復為 0。",
+    "documentation": "移動的方向，與鍵 W 和 S 綁定。必須為整數 1 (前進)、0 (空)、或 -1 (倒退)。將會重置為 0，除非不斷設置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Throttle",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/0": {
-    "documentation": "<strong>Deprecated:</strong> SkateboardPlatform 對象已被棄用，且不再受 Roblox 支援。尋找創建滑板或類似交通工具的開發者建議編寫自己的系統。此外，可以使用 <code>VehicleSeat</code> 對象快速創建簡單的交通工具。<br>SkateboardPlatform 可用來創建滑板。當角色踩上滑板時，他們會被固定在上面，直到按下逃脫鍵。直到那時，角色將使用滑板動畫並且比步行的角色移動得更快。"
+    "documentation": "<strong>Deprecated:</strong> SkateboardPlatform 物件已被淘汰，並且不再受 Roblox 支援。希望創建滑板或類似載具的開發者建議程序自行開發系統。此外，可以使用 <code>VehicleSeat</code> 物件來快速創建簡單的載具。<br>SkateboardPlatform 可以用來創建滑板。當角色上了滑板後，會被固定在上面，直到他們按下逃脫鍵。在那之前，角色將使用滑板動畫並且移動速度快於步行角色。"
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse": {
-    "documentation": "將 ''''impulseWorld'''' 添加到 SkateboardPlatform 的 <code>BasePart.Velocity</code>。",
+    "documentation": "將 ''impulseWorld'' 加入到 SkateboardPlatform 的 <code>BasePart.Velocity</code>。",
     "params": [
       {
         "name": "self",
@@ -34028,7 +34022,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.MoveStateChanged": {
-    "documentation": "當 SkateboardPlatform 的 <code>SkateboardPlatform.ControllingHumanoid</code> 改變對 SkateboardPlatform 使用的力量時觸發。",
+    "documentation": "當 SkateboardPlatform 的 <code>SkateboardPlatform.ControllingHumanoid</code> 更改施加在 SkateboardPlatform 的力量時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.ConnectParallel",
@@ -34116,7 +34110,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.Unequipped": {
-    "documentation": "每當滑板被卸下時觸發。",
+    "documentation": "當滑板被卸下時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.Unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.Unequipped.ConnectParallel",
@@ -34204,7 +34198,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.equipped": {
-    "documentation": "<strong>Deprecated:</strong> 這個棄用事件是 <code>SkateboardPlatform.Equipped</code> 的變體，也已棄用。這兩個事件都不應在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 這個已被淘汰的事件是 <code>SkateboardPlatform.Equipped</code> 的變體，該事件也已被淘汰。這兩個事件都不應該在新工作中使用。",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.equipped.ConnectParallel",
@@ -34292,7 +34286,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.unequipped": {
-    "documentation": "<strong>Deprecated:</strong> 這個棄用事件是 <code>SkateboardPlatform.Unequipped</code> 的變體，也已棄用。這兩個事件都不應在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 這個已被淘汰的事件是 <code>SkateboardPlatform.Unequipped</code> 的變體，該事件也已被淘汰。這兩個事件都不應該在新工作中使用。",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.unequipped.ConnectParallel",
@@ -38769,7 +38763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint": {
-    "documentation": "保持兩個附件之間的距離由其定義的 <code>Length</code> 分隔。",
+    "documentation": "保持兩個附加物由其定義的 <code>Length</code> 分開。",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RodConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RodConstraint.Length",
@@ -38782,27 +38776,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.CurrentDistance": {
-    "documentation": "約束的 <code>Attachments</code> 之間的當前距離。",
+    "documentation": "約束的當前距離 <code>Attachments</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#CurrentDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.Length": {
-    "documentation": "約束試圖保持其 <code>Attachments</code> 的距離。",
+    "documentation": "約束嘗試保持其 <code>Attachments</code> 的距離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitAngle0": {
-    "documentation": "在 <code>LimitsEnabled</code> 為真時，桿和 <code>Attachment0</code> 之間的最大角度。",
+    "documentation": "當 <code>LimitsEnabled</code> 為真時，桿與 <code>Attachment0</code> 之間的最大角度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitAngle0",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitAngle1": {
-    "documentation": "在 <code>LimitsEnabled</code> 為真時，桿和 <code>Attachment1</code> 之間的最大角度。",
+    "documentation": "當 <code>LimitsEnabled</code> 為真時，桿與 <code>Attachment1</code> 之間的最大角度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitAngle1",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitsEnabled": {
-    "documentation": "確定 <code>LimitAngle0</code> 和 <code>LimitAngle1</code> 是否控制桿與相應附件之間的角度。",
+    "documentation": "決定 <code>LimitAngle0</code> 和 <code>LimitAngle1</code> 是否控制桿與相應附加物之間的角度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitsEnabled",
     "code_sample": ""
   },
@@ -38812,7 +38806,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Rotate": {
-    "documentation": "<strong>Deprecated:</strong> 此類別與已棄用的 <code>SurfaceType</code> 一起工作，不應用於未來工作；請使用 <code>HingeConstraint</code> 代替。",
+    "documentation": "<strong>Deprecated:</strong> 此類別與已被淘汰的 <code>SurfaceType</code> 一起使用，不應用於未來的工作；請改用 <code>HingeConstraint</code>。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Rotate",
     "code_sample": ""
@@ -38836,7 +38830,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PrismaticConstraint": {
-    "documentation": "約束，將兩個 <code>Attachments</code> 之間創建一個剛性接頭，允許它們沿著一個軸滑動，但不能旋轉。",
+    "documentation": "約束條件，創建兩個 <code>Attachments</code> 之間的剛性接頭，允許它們沿一個軸滑動，但不 進行旋轉。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PrismaticConstraint",
     "code_sample": ""
@@ -43066,7 +43060,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
-    "documentation": "應用扭矩以對齊兩個附件，或將一個附件與目標方向對齊。",
+    "documentation": "約束條件，這些條件施加扭矩以對齊兩個附加物，或將一個 附加物對齊至目標方向。",
     "keys": {
       "AlignType": "@roblox/globaltype/AlignOrientation.AlignType",
       "CFrame": "@roblox/globaltype/AlignOrientation.CFrame",
@@ -43090,57 +43084,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.CFrame": {
-    "documentation": "約束將嘗試匹配的 <code>CFrame</code> 方向，與 <code>Attachment0</code> 的方向匹配。",
+    "documentation": "約束將試圖匹配 <code>Attachment0</code> 的 <code>CFrame</code> 方向。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#CFrame",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.LookAtPosition": {
-    "documentation": "指向主軸將嘗試對齊的 <code>Vector3</code> 世界空間位置。",
+    "documentation": "一個 <code>Vector3</code> 世界空間位置，主要軸將試圖 對齊到該位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#LookAtPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxAngularVelocity": {
-    "documentation": "約束可以使用來達到其目標的最大角速度。",
+    "documentation": "約束可以用於達到其目標的最大角速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxAngularVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxTorque": {
-    "documentation": "約束可以使用來達到其目標的最大扭矩。",
+    "documentation": "約束可以用於達到其目標的最大扭矩。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Mode": {
-    "documentation": "約束在計算其目標時是否使用一個或兩個附件。",
+    "documentation": "約束在計算其目標時是否使用一個或兩個附加物。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxis": {
-    "documentation": "目標的 <strong>X</strong> 軸方向，以單位 <code>Vector3</code> 表示。",
+    "documentation": "目標 <strong>X</strong> 軸的方向，以單位 <code>Vector3</code> 表示。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#PrimaryAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxisOnly": {
-    "documentation": "確定約束的軸如何受扭矩影響。",
+    "documentation": "確定扭矩如何影響約束的軸。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#PrimaryAxisOnly",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.ReactionTorqueEnabled": {
-    "documentation": "約束是否僅對 <code>Attachment0</code> 施加扭矩，或對兩個附件施加等大反向扭矩。",
+    "documentation": "約束是否僅對 <code>Attachment0</code> 施加扭矩， 還是對兩個附加物施加相等且方向相反的扭矩。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#ReactionTorqueEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Responsiveness": {
-    "documentation": "控制約束達成目標的速度。較高的值會使附件更快速地對齊。",
+    "documentation": "控制約束達到其目標的速度。較高的值使 附加物更快地對齊。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.RigidityEnabled": {
-    "documentation": "扭矩是否依賴於其他屬性，或物理解算器是否盡快反應以完成對齊。",
+    "documentation": "扭矩是否依賴於其他屬性，或者物理解算器 是否盡快響應以完成對齊。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#RigidityEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.SecondaryAxis": {
-    "documentation": "目標的 <strong>Y</strong> 軸方向，以單位 <code>Vector3</code> 表示。",
+    "documentation": "目標 <strong>Y</strong> 軸的方向，以單位 <code>Vector3</code> 表示。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#SecondaryAxis",
     "code_sample": ""
   },
@@ -46533,7 +46527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint": {
-    "documentation": "限制其附件繞著單一軸心旋轉。",
+    "documentation": "將其附件限制旋轉於單一軸心。",
     "keys": {
       "ActuatorType": "@roblox/globaltype/HingeConstraint.ActuatorType",
       "AngularResponsiveness": "@roblox/globaltype/HingeConstraint.AngularResponsiveness",
@@ -46555,22 +46549,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.ActuatorType": {
-    "documentation": "設置 <code>HingeConstraint</code> 的旋轉是否由驅動來實現，並且如果是，使用何種驅動類型。",
+    "documentation": "設定 <code>HingeConstraint</code> 的旋轉是否受到驅動，若是，則使用何種驅動方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#ActuatorType",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularResponsiveness": {
-    "documentation": "指定伺服電機在達到 <code>TargetAngle</code> 時的靈敏度。",
+    "documentation": "指定伺服馬達在達成 <code>TargetAngle</code> 時的靈敏度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularSpeed": {
-    "documentation": "設定 <code>HingeConstraint</code> 在旋轉到其 <code>TargetAngle</code> 時希望維持的角速度。以每秒弧度為單位。",
+    "documentation": "具有 <code>ActuatorType</code> 設置為 <code>Servo</code> 的 <code>HingeConstraint</code> 在旋轉至其 <code>TargetAngle</code> 時，將嘗試保持的期望角速度。以弧度/秒計算。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularVelocity": {
-    "documentation": "設定 <code>HingeConstraint</code> 在其 <code>ActuatorType</code> 設置為 <code>Motor</code> 時希望達到的角速度。以每秒弧度為單位。",
+    "documentation": "具有 <code>ActuatorType</code> 設置為 <code>Motor</code> 的 <code>HingeConstraint</code> 將嘗試達成的角速度。以弧度/秒計算。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularVelocity",
     "code_sample": ""
   },
@@ -46580,22 +46574,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.LimitsEnabled": {
-    "documentation": "設置 <code>HingeConstraint</code> 是否會限制旋轉範圍。",
+    "documentation": "設定 <code>HingeConstraint</code> 是否會限制旋轉範圍。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.LowerAngle": {
-    "documentation": "在 <code>LimitsEnabled</code> 為 true 時，<code>HingeConstraint</code> 允許的最小旋轉角度。",
+    "documentation": "若 <code>LimitsEnabled</code> 為真，則 <code>HingeConstraint</code> 允許的最小旋轉角度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#LowerAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.MotorMaxAcceleration": {
-    "documentation": "設定 <code>HingeConstraint</code> 在其 <code>ActuatorType</code> 設置為 <code>Motor</code> 時可以施加的最大角加速度，以達成其 <code>AngularVelocity</code>。以每秒弧度&sup2;為單位。",
+    "documentation": "設置為 <code>Motor</code> 的 <code>HingeConstraint</code> 能夠施加的最大角加速度，以達成其 <code>AngularVelocity</code>。以弧度/秒&sup2;計算。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.MotorMaxTorque": {
-    "documentation": "設定 <code>HingeConstraint</code> 在其 <code>ActuatorType</code> 設置為 <code>Motor</code> 時可以施加的最大扭矩，當嘗試達到其期望的 <code>AngularVelocity</code> 時。",
+    "documentation": "設置為 <code>Motor</code> 的 <code>HingeConstraint</code> 能夠施加的最大扭矩，當其嘗試達成期望的 <code>AngularVelocity</code> 時。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#MotorMaxTorque",
     "code_sample": ""
   },
@@ -46605,12 +46599,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.Restitution": {
-    "documentation": "當 <code>LimitsEnabled</code> 為 true 時，通過 <code>HingeConstraint</code> 連接的 <code>Attachment</code> 在達到範圍的末端時的彈性。限制在 0 到 1 之間。",
+    "documentation": "當 <code>LimitsEnabled</code> 為真時，透過 <code>HingeConstraint</code> 連接的 <code>Attachment</code> 在達到範圍末端時的彈性。限制在 0 和 1 之間。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.ServoMaxTorque": {
-    "documentation": "設定 <code>HingeConstraint</code> 在其 <code>ActuatorType</code> 設置為 <code>Servo</code> 時可以施加的最大扭矩，當嘗試達到其期望的 <code>TargetAngle</code> 時。",
+    "documentation": "設置為 <code>Servo</code> 的 <code>HingeConstraint</code> 能夠施加的最大扭矩，當其嘗試達成期望的 <code>TargetAngle</code> 時。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#ServoMaxTorque",
     "code_sample": ""
   },
@@ -46620,12 +46614,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.TargetAngle": {
-    "documentation": "當 <code>ActuatorType</code> 設置為 <code>Servo</code> 時，<code>HingeConstraint</code> 會試圖旋轉到的目標角度。以度為單位。",
+    "documentation": "若其 <code>ActuatorType</code> 設置為 <code>Servo</code>，<code>HingeConstraint</code> 將嘗試旋轉至的目標角度。以度數計算。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#TargetAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.UpperAngle": {
-    "documentation": "在 <code>LimitsEnabled</code> 為 true 時，<code>HingeConstraint</code> 允許的最大旋轉角度。",
+    "documentation": "若 <code>LimitsEnabled</code> 為真，則 <code>HingeConstraint</code> 允許的最大旋轉角度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#UpperAngle",
     "code_sample": ""
   },
@@ -47017,7 +47011,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal mouse = player:GetMouse()\n\nlocal function onMouseMove()\n\tprint(\"滑鼠螢幕位置: \", mouse.X, mouse.Y)\nend\n\nmouse.Move:Connect(onMouseMove)"
   },
   "@roblox/globaltype/Actor": {
-    "documentation": "一個 <code>Actor</code> 是一個可以安全地拆分到其自身執行緒的代碼容器。",
+    "documentation": "一個 <code>Actor</code> 是一個可以安全地分割到自己的執行緒中的代碼容器。",
     "keys": {
       "BindToMessage": "@roblox/globaltype/Actor.BindToMessage",
       "BindToMessageParallel": "@roblox/globaltype/Actor.BindToMessageParallel",
@@ -47027,7 +47021,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/param/0": {
-    "documentation": "一個 <code>Actor</code> 是一個可以安全地拆分到其自身執行緒的代碼容器。"
+    "documentation": "一個 <code>Actor</code> 是一個可以安全地分割到自己的執行緒中的代碼容器。"
   },
   "@roblox/globaltype/Actor.BindToMessage/param/1": {
     "documentation": "用於識別消息類型的主題。"
@@ -47036,10 +47030,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/return/0": {
-    "documentation": "此連接對象可以用來斷開 Luau 回調與接收消息的連接。"
+    "documentation": "此連接對象可用於從接收消息中斷開 Luau 回調。"
   },
   "@roblox/globaltype/Actor.BindToMessage": {
-    "documentation": "將一個 Luau 回調綁定到具有指定主題的消息。",
+    "documentation": "將 Luau 回調綁定到具有指定主題的消息。",
     "params": [
       {
         "name": "self",
@@ -47061,7 +47055,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
-    "documentation": "一個 <code>Actor</code> 是一個可以安全地拆分到其自身執行緒的代碼容器。"
+    "documentation": "一個 <code>Actor</code> 是一個可以安全地分割到自己的執行緒中的代碼容器。"
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/1": {
     "documentation": "用於識別消息類型的主題。"
@@ -47070,10 +47064,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/return/0": {
-    "documentation": "此連接對象可以用來斷開 Luau 回調與接收消息的連接。"
+    "documentation": "此連接對象可用於從接收消息中斷開 Luau 回調。"
   },
   "@roblox/globaltype/Actor.BindToMessageParallel": {
-    "documentation": "將一個 Luau 回調綁定到具有指定主題的消息。",
+    "documentation": "將 Luau 回調綁定到具有指定主題的消息。",
     "params": [
       {
         "name": "self",
@@ -47095,16 +47089,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.SendMessage/param/0": {
-    "documentation": "一個 <code>Actor</code> 是一個可以安全地拆分到其自身執行緒的代碼容器。"
+    "documentation": "一個 <code>Actor</code> 是一個可以安全地分割到自己的執行緒中的代碼容器。"
   },
   "@roblox/globaltype/Actor.SendMessage/param/1": {
-    "documentation": "用於識別要發送的消息的主題。"
+    "documentation": "用於識別正在發送的消息的主題。"
   },
   "@roblox/globaltype/Actor.SendMessage/param/2": {
     "documentation": "要發送到 Actor 的消息內容。"
   },
   "@roblox/globaltype/Actor.SendMessage": {
-    "documentation": "向一個 Actor 發送消息。",
+    "documentation": "向 Actor 發送消息。",
     "params": [
       {
         "name": "self",
@@ -47248,7 +47242,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity": {
-    "documentation": "對組件施加力以維持恆定的線性速度。",
+    "documentation": "施加力於組件以維持恆定線性速度。",
     "keys": {
       "ForceLimitMode": "@roblox/globaltype/LinearVelocity.ForceLimitMode",
       "ForceLimitsEnabled": "@roblox/globaltype/LinearVelocity.ForceLimitsEnabled",
@@ -47269,17 +47263,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.ForceLimitMode": {
-    "documentation": "確定約束力將如何受到限制。",
+    "documentation": "決定約束力的限制方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#ForceLimitMode",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.ForceLimitsEnabled": {
-    "documentation": "確定約束力是否會受到限制，或者物理 求解器是否可以施加不受限制的力以達到目標速度。",
+    "documentation": "決定約束力是否會受到限制，或物理解算器是否可以施加無限制的力以達到目標速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#ForceLimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.LineDirection": {
-    "documentation": "用於約束速度沿著直線的標準化 <code>Vector3</code> 方向。",
+    "documentation": "用於約束沿直線速度的歸一化<code>Vector3</code>方向。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#LineDirection",
     "code_sample": ""
   },
@@ -47289,7 +47283,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.MaxAxesForce": {
-    "documentation": "約束施加以達到向量速度的每個軸的最大力。僅在 <code>ForceLimitsEnabled</code> 為 <code>true</code>， <code>ForceLimitMode</code> 為 <code>PerAxis</code>，以及 <code>VelocityConstraintMode</code> 為 <code>Vector</code> 時使用。",
+    "documentation": "約束能施加的最大力沿每個軸以實現向量速度。僅在 <code>ForceLimitsEnabled</code> 為 <code>true</code>， <code>ForceLimitMode</code> 為 <code>PerAxis</code>，以及 <code>VelocityConstraintMode</code> 為 <code>Vector</code> 時使用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#MaxAxesForce",
     "code_sample": ""
   },
@@ -47299,17 +47293,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.MaxPlanarAxesForce": {
-    "documentation": "約束施加以達到平面速度的每個軸的最大力。僅在 <code>ForceLimitsEnabled</code> 為 <code>true</code>， <code>ForceLimitMode</code> 為 <code>PerAxis</code>，以及 <code>VelocityConstraintMode</code> 為 <code>Plane</code> 時使用。",
+    "documentation": "約束可以施加的最大力沿每個軸以實現平面速度。僅在 <code>ForceLimitsEnabled</code> 為 <code>true</code>， <code>ForceLimitMode</code> 為 <code>PerAxis</code>，以及 <code>VelocityConstraintMode</code> 為 <code>Plane</code> 時使用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#MaxPlanarAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.PlaneVelocity": {
-    "documentation": "<code>Vector2</code> 在平面的每個切向方向上的速度值。",
+    "documentation": "<code>Vector2</code> 在平面中每個切線方向的速度值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#PlaneVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.PrimaryTangentAxis": {
-    "documentation": "當 <code>VelocityConstraintMode</code> 設置為 <code>Plane</code> 時的平面主要軸。",
+    "documentation": "當 <code>VelocityConstraintMode</code> 設置為 <code>Plane</code> 時，平面中的主要軸。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#PrimaryTangentAxis",
     "code_sample": ""
   },
@@ -47319,22 +47313,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.RelativeTo": {
-    "documentation": "設置約束的 <code>ActuatorRelativeTo</code> 屬性。",
+    "documentation": "設置該約束的 <code>ActuatorRelativeTo</code> 屬性。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#RelativeTo",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.SecondaryTangentAxis": {
-    "documentation": "當 <code>VelocityConstraintMode</code> 設置為 <code>Plane</code> 時的平面次要軸。",
+    "documentation": "當 <code>VelocityConstraintMode</code> 設置為 <code>Plane</code> 時，平面中的次要軸。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#SecondaryTangentAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.VectorVelocity": {
-    "documentation": "當 <code>VelocityConstraintMode</code> 設置為 <code>Vector</code> 時的 <code>Vector3</code> 速度值。",
+    "documentation": "當 <code>VelocityConstraintMode</code> 設置為 <code>Vector</code> 時，<code>Vector3</code>速度值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#VectorVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.VelocityConstraintMode": {
-    "documentation": "約束的模式。",
+    "documentation": "該約束的模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#VelocityConstraintMode",
     "code_sample": ""
   },
@@ -48689,7 +48683,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateP": {
-    "documentation": "<strong>Deprecated:</strong> 此類別與已棄用的 <code>SurfaceType</code> 一起工作，且不應該用於未來的工作；請改用 <code>HingeConstraint</code>。",
+    "documentation": "<strong>Deprecated:</strong> 這個類別與已停用的 <code>SurfaceType</code> 一起使用，並不應用於未來的工作；請使用 <code>HingeConstraint</code>。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateP",
     "code_sample": ""
@@ -50592,7 +50586,7 @@
     "documentation": "<code>Instance</code> 是 Roblox 類別層級中所有類別的基礎類別，可以作為 <code>DataModel</code> 樹的部分。"
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "此函數摧毀該實例的所有子物件。",
+    "documentation": "此方法會銷毀實例的所有子項目。",
     "params": [
       {
         "name": "self",
@@ -51184,10 +51178,10 @@
     "documentation": "要查詢的屬性名稱。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "指示屬性是否被修改的布林值。"
+    "documentation": "布林值，指示屬性是否從其代碼實例化的默認值進行了修改。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "如果存儲在指定屬性中的值等於程式碼實例化的默認值，則返回 true。",
+    "documentation": "如果指定屬性中存儲的值不等於代碼實例化的默認值，則返回 <code>true</code>。",
     "params": [
       {
         "name": "self",
@@ -52605,7 +52599,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity": {
-    "documentation": "在組件上施加扭矩以保持穩定的角速度。",
+    "documentation": "對組件施加扭矩以維持恆定的角速度。",
     "keys": {
       "AngularVelocity": "@roblox/globaltype/AngularVelocity.AngularVelocity",
       "MaxTorque": "@roblox/globaltype/AngularVelocity.MaxTorque",
@@ -52616,7 +52610,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.AngularVelocity": {
-    "documentation": "一個 <code>Vector3</code>，給出所需或目標的角速度。",
+    "documentation": "一個 <code>Vector3</code>，提供所需或目標的角速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#AngularVelocity",
     "code_sample": ""
   },
@@ -52751,7 +52745,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment": {
-    "documentation": "在 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 上渲染由一條或多條線組成的線框裝飾物。",
+    "documentation": "渲染一個由一條或多條線組成的線框裝飾到 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 中。",
     "keys": {
       "Scale": "@roblox/globaltype/WireframeHandleAdornment.Scale",
       "Thickness": "@roblox/globaltype/WireframeHandleAdornment.Thickness",
@@ -52775,7 +52769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/0": {
-    "documentation": "在 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 上渲染由一條或多條線組成的線框裝飾物。"
+    "documentation": "渲染一個由一條或多條線組成的線框裝飾到 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 中。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/1": {
     "documentation": "線的起點。"
@@ -52784,7 +52778,7 @@
     "documentation": "線的終點。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine": {
-    "documentation": "從起點到終點相對於 <code>Adornee</code> 的中心添加一條線到線框裝飾物中。",
+    "documentation": "從起始點到結束點相對於 <code>Adornee</code> 中心添加一條線到線框裝飾。",
     "params": [
       {
         "name": "self",
@@ -52804,10 +52798,10 @@
     "code_sample": "local wireframe = script.Parent\n\nwireframe.Color3 = Color3.fromRGB(255, 0, 0) -- 將下一行設為紅色\nwireframe:AddLine(Vector3.new(-10, 0, 0), Vector3.new(10, 0, 0))\nwireframe.Color3 = Color3.fromRGB(0, 255, 0) -- 將下一行設為綠色\nwireframe:AddLine(Vector3.new(0, -10, 0), Vector3.new(0, 10, 0))\nwireframe.Color3 = Color3.fromRGB(0, 0, 255) -- 將下一行設為藍色\nwireframe:AddLine(Vector3.new(0, 0, -10), Vector3.new(0, 0, 10))"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/0": {
-    "documentation": "在 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 上渲染由一條或多條線組成的線框裝飾物。"
+    "documentation": "渲染一個由一條或多條線組成的線框裝飾到 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 中。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/1": {
-    "documentation": "一組 <code>Vector3</code> 點的數組，每對作為線的起點和終點。"
+    "documentation": "包含每對作為線條起始點和結束點的 <code>Vector3</code> 點的數組。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines": {
     "documentation": "使用數組向線框裝飾物添加一條或多條線。",
@@ -52826,16 +52820,16 @@
     "code_sample": "local wireframe = script.Parent\n\nlocal linesArray = {\n\tVector3.new(-10, 0, 0), -- 第一條線的起點\n\tVector3.new(10, 0, 0), -- 第一條線的終點\n\tVector3.new(0, -10, 0), -- 第二條線的起點\n\tVector3.new(0, 10, 0), -- 第二條線的終點\n\tVector3.new(0, 0, -10), -- 第三條線的起點\n\tVector3.new(0, 0, 10) -- 第三條線的終點\n}\n-- 將路徑應用於裝飾物\nwireframe:AddLines(linesArray)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/0": {
-    "documentation": "在 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 上渲染由一條或多條線組成的線框裝飾物。"
+    "documentation": "渲染一個由一條或多條線組成的線框裝飾到 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 中。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/1": {
-    "documentation": "要用線段依次連接的 <code>Vector3</code> 點的數組。"
+    "documentation": "要用線段按順序連接的 <code>Vector3</code> 點的數組。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/2": {
-    "documentation": "路徑是否通過用額外的線連接其終點到起點而閉合。"
+    "documentation": "通過額外的線將路徑的結束點連接到其起始點，路徑是否封閉。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath": {
-    "documentation": "從一點到另一點按順序添加多條線段到線框裝飾物中。",
+    "documentation": "按順序從點到點將多條線段添加到線框裝飾中。",
     "params": [
       {
         "name": "self",
@@ -52855,7 +52849,7 @@
     "code_sample": "local wireframe = script.Parent\n\n-- 在方形排列中聲明四個點\nlocal pathArray = {\n\tVector3.new(-10, 10, 0),\n\tVector3.new(10, 10, 0),\n\tVector3.new(10, -10, 0),\n\tVector3.new(-10, -10, 0)\n}\n\n-- 將路徑應用於裝飾並關閉它（連接起始和結束點）\nwireframe:AddPath(pathArray, true)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/0": {
-    "documentation": "在 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 上渲染由一條或多條線組成的線框裝飾物。"
+    "documentation": "渲染一個由一條或多條線組成的線框裝飾到 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 中。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/1": {
     "documentation": "文本在裝飾物中的位置。"
@@ -52891,7 +52885,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear/param/0": {
-    "documentation": "在 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 上渲染由一條或多條線組成的線框裝飾物。"
+    "documentation": "渲染一個由一條或多條線組成的線框裝飾到 <code>BasePart</code>（包括 <code>Terrain</code>）或 <code>Workspace</code> 中。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear": {
     "documentation": "瞬間清除線框裝飾物中的所有線條和文本。",
@@ -53581,7 +53575,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BlockMesh": {
-    "documentation": "BlockMesh 物件將 \"磚\" 網格應用於它所依附的 <code>BasePart</code>。其行為與將 <code>SpecialMesh.MeshType</code> 設定為 \"Brick\" 的 <code>SpecialMesh</code> 完全相同。",
+    "documentation": "BlockMesh 物件將 '磚' 網格應用到其父項的 <code>BasePart</code>。它的行為與 <code>SpecialMesh</code> 相同，並且其 <code>SpecialMesh.MeshType</code> 設置為 'Brick'。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
@@ -53917,7 +53911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint": {
-    "documentation": "模擬兩個附件之間的彈簧和阻尼器行為。",
+    "documentation": "模擬兩個附件之間的彈簧和阻尼行為。",
     "keys": {
       "Coils": "@roblox/globaltype/SpringConstraint.Coils",
       "CurrentLength": "@roblox/globaltype/SpringConstraint.CurrentLength",
@@ -53935,7 +53929,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Coils": {
-    "documentation": "<code>SpringConstraint</code> 上可視化的圈數。",
+    "documentation": "在 <code>SpringConstraint</code> 上可視化的圈數。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Coils",
     "code_sample": ""
   },
@@ -53945,7 +53939,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Damping": {
-    "documentation": "<code>SpringConstraint</code> 的阻尼常數。乘以約束的 <code>Attachments</code> 的速度以減小施加的彈簧力。",
+    "documentation": "<code>SpringConstraint</code> 的阻尼常數。乘以約束的 <code>Attachments</code> 的速度 以減少施加的彈簧力。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Damping",
     "code_sample": ""
   },
@@ -53955,22 +53949,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.LimitsEnabled": {
-    "documentation": "設置 <code>SpringConstraint</code> 是否強制最小和最大長度。",
+    "documentation": "設定 <code>SpringConstraint</code> 是否強制執行最小和最大長度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MaxForce": {
-    "documentation": "<code>SpringConstraint</code> 可以施加的最大力於其 <code>Attachments</code> 上。",
+    "documentation": "<code>SpringConstraint</code> 在其 <code>Attachments</code> 上可以施加的最大力量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MaxLength": {
-    "documentation": "如果 <code>LimitsEnabled</code> 為真，則 SpringConstraint 允許的最大分離。",
+    "documentation": "如果 <code>LimitsEnabled</code> 為真， SpringConstraint 允許的最大分離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MaxLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MinLength": {
-    "documentation": "如果 <code>LimitsEnabled</code> 為真，則 SpringConstraint 允許的最小分離。",
+    "documentation": "如果 <code>LimitsEnabled</code> 為真， SpringConstraint 允許的最小分離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MinLength",
     "code_sample": ""
   },
@@ -53980,7 +53974,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Stiffness": {
-    "documentation": "彈簧的強度。這個值越高，當附件之間的距離與 <code>FreeLength</code> 不同時施加的力就越大。",
+    "documentation": "彈簧的強度。這個值越高，當附件的分離長度不同於 <code>FreeLength</code> 時施加的力量就越大。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Stiffness",
     "code_sample": ""
   },
@@ -54476,7 +54470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualGlue": {
-    "documentation": "<strong>Deprecated:</strong> <br>ManualGlue 是以類似於 <code>ManualWeld</code> 類別的方式創建的接頭。它的功能與 <code>Glue</code> 類別完全相同。",
+    "documentation": "<strong>Deprecated:</strong> <br>ManualGlue 是以類似於 <code>ManualWeld</code> 類別的方式創建的關節。它的功能與 <code>Glue</code> 類別完全相同。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualGlue",
     "code_sample": ""
@@ -56444,7 +56438,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce": {
-    "documentation": "沿著理論線施加力量，連接其兩個 <code>Attachments</code>。",
+    "documentation": "沿著理論上連接兩個 <code>Attachments</code>的線施加一個力。",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/LineForce.ApplyAtCenterOfMass",
       "InverseSquareLaw": "@roblox/globaltype/LineForce.InverseSquareLaw",
@@ -56456,27 +56450,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ApplyAtCenterOfMass": {
-    "documentation": "是否在父物體的質心施加力量。",
+    "documentation": "是否在父組件的質心施加力。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.InverseSquareLaw": {
-    "documentation": "當 <code>true</code> 時，力量的大小會乘以距離的反平方。",
+    "documentation": "當為 <code>true</code> 時，力的大小會乘以距離的反平方。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#InverseSquareLaw",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.Magnitude": {
-    "documentation": "力量的大小。",
+    "documentation": "力的大小。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#Magnitude",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.MaxForce": {
-    "documentation": "可以施加的最大絕對力量。",
+    "documentation": "可以施加的最大絕對力。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ReactionForceEnabled": {
-    "documentation": "對 <code>Attachment1</code> 的父物體啟用相等且相反的反作用力。",
+    "documentation": "在 <code>Attachment1</code> 的父物體上啟用等量反作用力。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ReactionForceEnabled",
     "code_sample": ""
   },
@@ -56844,7 +56838,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.DoubleSided": {
-    "documentation": "決定是否渲染網格中多邊形的兩個面。",
+    "documentation": "決定是否在網格中渲染多邊形的兩個面。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#DoubleSided",
     "code_sample": ""
   },
@@ -56864,7 +56858,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshContent": {
-    "documentation": "顯示在 <code>MeshPart</code> 上的網格。支持 <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> 和 <code>EditableMesh</code> 對象。",
+    "documentation": "顯示在 <code>MeshPart</code> 上的網格。支援 <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> 和 <code>EditableMesh</code> 對象。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshContent",
     "code_sample": ""
   },
@@ -56874,17 +56868,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.RenderFidelity": {
-    "documentation": "渲染 <code>MeshPart</code> 的細節層級。",
+    "documentation": "用於渲染 <code>MeshPart</code> 的詳細程度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#RenderFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureContent": {
-    "documentation": "應用於 <code>MeshPart</code> 的材質。支持 <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> 和 <code>EditableImage</code> 對象。",
+    "documentation": "應用於 <code>MeshPart</code> 的紋理。支援 <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> 和 <code>EditableImage</code> 對象。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureID": {
-    "documentation": "應用於 <code>MeshPart</code> 的材質。讀取和寫入 <code>TextureContent</code>。",
+    "documentation": "應用於 <code>MeshPart</code> 的紋理。讀取和寫入 <code>TextureContent</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureID",
     "code_sample": ""
   },
@@ -58840,7 +58834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition": {
-    "documentation": "約束條件，施加力量以將兩個附件移動在一起，或者將一個附件移動到目標位置。",
+    "documentation": "約束將力量施加於讓兩個附件一起移動，或將一個附件移動到目的位置。",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass",
       "ForceLimitMode": "@roblox/globaltype/AlignPosition.ForceLimitMode",
@@ -58858,27 +58852,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass": {
-    "documentation": "是否將力量施加到 <code>Attachment0</code> 的父物體在該附件的位置，或施加到父物體的質心。",
+    "documentation": "力量是否施加於 <code>Attachment0</code> 的父物件在該附件位置，或施加於父物件的質心。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceLimitMode": {
-    "documentation": "確定約束力量的限制方式。僅在 <code>RigidityEnabled</code> 為 <code>false</code> 時使用。",
+    "documentation": "確定約束力量將如何被限制。僅在 <code>RigidityEnabled</code> 為 <code>false</code> 時使用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceLimitMode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceRelativeTo": {
-    "documentation": "確定約束用於限制力量的軸。僅當 <code>RigidityEnabled</code> 為 <code>false</code> 且 <code>AlignPosition.ForceLimitMode</code> 為 <code>PerAxis</code> 時適用。",
+    "documentation": "確定約束用來限制力量的軸。僅在 <code>RigidityEnabled</code> 為 <code>false</code> 且 <code>AlignPosition.ForceLimitMode</code> 為 <code>PerAxis</code> 時適用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceRelativeTo",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxAxesForce": {
-    "documentation": "約束可以施加的最大力量，以實現其目標。",
+    "documentation": "約束可以施加以達成其目標的每個軸上的最大力量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxForce": {
-    "documentation": "約束可以施加的最大力量大小，以實現其目標。",
+    "documentation": "約束可以施加的最大力量大小，以達成其目標。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxForce",
     "code_sample": ""
   },
@@ -58888,27 +58882,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Mode": {
-    "documentation": "約束在計算其目標時，是否使用一個或兩個附件。",
+    "documentation": "約束在計算其目標時是否使用一個或兩個附件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Position": {
-    "documentation": "約束應將其 <code>Attachment0</code> 移動到的位置。",
+    "documentation": "約束應該將其 <code>Attachment0</code> 移動到的位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Position",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ReactionForceEnabled": {
-    "documentation": "約束是否僅對 <code>Attachment0</code> 施加力量，或者對兩個附件同時施加相等且相反的力量。",
+    "documentation": "約束是否僅對 <code>Attachment0</code> 施加力量，或對兩個附件施加相等且相反的力量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ReactionForceEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Responsiveness": {
-    "documentation": "控制約束到達目標的速度。較高的值會使附件更快地對齊。",
+    "documentation": "控制約束多快達到其目標。值越高，附件對齊得越快。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.RigidityEnabled": {
-    "documentation": "力量是否依賴於其他屬性，或物理求解器是否能盡快反應以完成對齊。",
+    "documentation": "力量是否依賴於其他屬性，或物理求解器是否盡快反應以完成對齊。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#RigidityEnabled",
     "code_sample": ""
   },
@@ -59504,7 +59498,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualWeld": {
-    "documentation": "<strong>Deprecated:</strong> <br>將兩個部件固定在一起，其功能與 <code>Weld</code> 相同。",
+    "documentation": "<strong>Deprecated:</strong> <br>將兩個零件固定在一起，並且功能上與 <code>Weld</code> 相同。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualWeld",
     "code_sample": ""
@@ -65781,7 +65775,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint": {
-    "documentation": "確保兩個物體的兩個軸保持垂直。",
+    "documentation": "確保兩個物體上的兩個軸保持垂直。",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/UniversalConstraint.LimitsEnabled",
       "MaxAngle": "@roblox/globaltype/UniversalConstraint.MaxAngle",
@@ -65792,12 +65786,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.LimitsEnabled": {
-    "documentation": "確定附件主要軸的角運動是否受到限制。",
+    "documentation": "確定附件主要軸的角運動是否被限制。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.MaxAngle": {
-    "documentation": "約束限制圓錐的最大角度（以度為單位）。",
+    "documentation": "約束限制圓錐的最大角度，以度為單位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#MaxAngle",
     "code_sample": ""
   },
@@ -70953,7 +70947,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Glue": {
-    "documentation": "<strong>Deprecated:</strong> 此接頭類型已被棄用，不應在新工作中使用。<br>膠水是一種接頭，當施加足夠的力量時會斷裂。",
+    "documentation": "<strong>Deprecated:</strong> 此類連接類型已被棄用，並且不應在新工作中使用。<br>膠水是一種可以在施加足夠力量時斷裂的連接。",
     "keys": {
       "F0": "@roblox/globaltype/Glue.F0",
       "F1": "@roblox/globaltype/Glue.F1",
@@ -71492,7 +71486,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Part": {
-    "documentation": "一種常見的 <code>BasePart</code> 類型，具有不同的基本形狀。",
+    "documentation": "一種常見的 <code>BasePart</code> 類型，有不同的原始形狀。",
     "keys": {
       "Shape": "@roblox/globaltype/Part.Shape"
     },
@@ -71500,7 +71494,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Name = \"JurassicPart\"\npart.Anchored = true\npart.Shape = Enum.PartType.Ball\npart.Color = Color3.new(1, 1, 1)\npart.Parent = workspace -- 將部件放入工作區"
   },
   "@roblox/globaltype/Part.Shape": {
-    "documentation": "設定物件的整體形狀。",
+    "documentation": "設置對象的整體形狀。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Part#Shape",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Name = \"JurassicPart\"\npart.Anchored = true\npart.Shape = Enum.PartType.Ball\npart.Color = Color3.new(1, 1, 1)\npart.Parent = workspace -- 將部件放入工作區"
   },
@@ -72820,37 +72814,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Active": {
-    "documentation": "決定關節目前在世界中是否活躍。",
+    "documentation": "確定關節當前在世界中是否處於活動狀態。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Active",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C0": {
-    "documentation": "決定偏移點如何附加到 <code>JointInstance.Part0</code>。",
+    "documentation": "確定偏移點如何附加到 <code>JointInstance.Part0</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C0",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C1": {
-    "documentation": "從 <code>JointInstance.C0</code> 屬性中減去以創建 <code>JointInstance.Part1</code> 的偏移點。",
+    "documentation": "從 <code>JointInstance.C0</code> 屬性中扣除，以為 <code>JointInstance.Part1</code> 創建偏移點。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C1",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Enabled": {
-    "documentation": "設置關節是否活躍。",
+    "documentation": "設置關節是否活動的狀態。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Part0": {
-    "documentation": "第一個連接的 <code>BasePart</code>。",
+    "documentation": "第一個與關節連接的 <code>BasePart</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Part0",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Part1": {
-    "documentation": "第二個連接的 <code>BasePart</code>。",
+    "documentation": "第二個與關節連接的 <code>BasePart</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Part1",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.part1": {
-    "documentation": "<strong>Deprecated:</strong> 這個被淘汰的屬性是 <code>JointInstance.Part1</code> 的變體，應該改為使用。",
+    "documentation": "<strong>Deprecated:</strong> 此過時屬性是 <code>JointInstance.Part1</code> 的一個變體，應使用此屬性。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#part1",
     "code_sample": ""
   },
@@ -74418,7 +74412,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
-    "documentation": "<code>SpawnLocations</code>，或稱“出生點”，決定了<code>Player</code>在死亡後重生的位置。它們可以被配置為僅允許某些玩家使用每個出生點，使用<code>Teams</code>。它們還控制新重生玩家的<code>ForceFields</code>的設置。",
+    "documentation": "<code>SpawnLocations</code>，或稱為 \"重生點\"，決定了 <code>Player</code> 死亡後重生的位置。它們可以配置為僅允許某些玩家 使用每個重生點，使用 <code>Teams</code>。它們還控制了 <code>ForceFields</code> 如何設置給新重生的玩家。",
     "keys": {
       "AllowTeamChangeOnTouch": "@roblox/globaltype/SpawnLocation.AllowTeamChangeOnTouch",
       "Duration": "@roblox/globaltype/SpawnLocation.Duration",
@@ -74430,27 +74424,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.AllowTeamChangeOnTouch": {
-    "documentation": "允許<code>Player</code>通過觸碰<code>SpawnLocation</code>來加入隊伍。當設置為true時，如果<code>Player</code>角色接觸到<code>SpawnLocation</code>，則玩家的<code>Player.TeamColor</code>將設置為<code>SpawnLocation.TeamColor</code>。",
+    "documentation": "允許 <code>Player</code> 通過觸碰 <code>SpawnLocation</code> 加入隊伍。 當設置為 true 時，如果 <code>Player</code> 角色接觸到 <code>SpawnLocation</code>， 該玩家的 <code>Player.TeamColor</code> 將設置為 <code>SpawnLocation.TeamColor</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#AllowTeamChangeOnTouch",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.Duration": {
-    "documentation": "在此<code>SpawnLocation</code>重生的<code>Player</code>角色應用<code>ForceField</code>的時間長度，以秒為單位。如果持續時間為零，則不會創建<code>ForceField</code>，並且不會觸發<code>Instance.DescendantAdded</code>或<code>Instance.ChildAdded</code>事件。",
+    "documentation": "在此 <code>SpawnLocation</code> 中，給 <code>Player</code> 角色應用 <code>ForceField</code> 的時間長度， 以秒為單位。如果持續時間為零，則 <code>ForceField</code> 不會被創建，並且不會觸發 <code>Instance.DescendantAdded</code> 或 <code>Instance.ChildAdded</code> 事件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Duration",
     "code_sample": "local spawnLocation = Instance.new(\"SpawnLocation\")\n\n    spawnLocation.Anchored = true\n\n    spawnLocation.Size = Vector3.new(5, 1, 5)\n\n    spawnLocation.Neutral = true -- 任何人都可以在這裡產生\n\n    spawnLocation.Duration = 20\n\n    spawnLocation.Parent = workspace"
   },
   "@roblox/globaltype/SpawnLocation.Enabled": {
-    "documentation": "設置<code>SpawnLocation</code>是否啟用。當禁用時，玩家無法在<code>SpawnLocation</code>重生，並且AllowTeamChangeOnTouch功能被禁用。",
+    "documentation": "設置 <code>SpawnLocation</code> 是否啟用。當禁用時，玩家無法在 <code>SpawnLocation</code> 重生， 且 AllowTeamChangeOnTouch 功能被禁用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Enabled",
     "code_sample": "local spawnLocation = Instance.new(\"SpawnLocation\")\nspawnLocation.Anchored = true\nspawnLocation.Size = Vector3.new(5, 1, 5)\nspawnLocation.Neutral = true -- 任何人都可以在這裡生成\nspawnLocation.Enabled = true\nspawnLocation.Parent = workspace\n\nlocal function onEnabledChanged()\n\tspawnLocation.Transparency = spawnLocation.Enabled and 0 or 0.5\nend\n\nspawnLocation:GetPropertyChangedSignal(\"Enabled\"):Connect(onEnabledChanged)\n\ntask.wait(5)\n\nspawnLocation.Enabled = false -- 透明度 = 0.5"
   },
   "@roblox/globaltype/SpawnLocation.Neutral": {
-    "documentation": "<code>SpawnLocation</code>是否與特定隊伍相關聯。這意味著任何<code>Player</code>，無論是任何<code>Team</code>，都可以在其上重生，前提是此屬性設置為true。",
+    "documentation": "該 <code>SpawnLocation</code> 是否與特定隊伍有關聯。 這意味著如果此屬性設置為 true，任何 <code>Player</code> 的 <code>Team</code> 都可以在其上重生。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Neutral",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.TeamColor": {
-    "documentation": "設置<code>SpawnLocation</code>所屬的隊伍。如果<code>SpawnLocation.Neutral</code>屬性為false，則只有<code>Players</code>的<code>Player.TeamColor</code>與出生點的TeamColor相同時，才能在那裡重生。",
+    "documentation": "設置 <code>SpawnLocation</code> 所屬的隊伍。如果 <code>SpawnLocation.Neutral</code> 屬性為 false，則只有 <code>Players</code> 其 <code>Player.TeamColor</code> 與 重生點的 TeamColor 相同的玩家才可以在那裡重生。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#TeamColor",
     "code_sample": ""
   },
@@ -79345,7 +79339,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Motor6D": {
-    "documentation": "在兩個 <code>BaseParts</code> 之間創建一個可動畫的關節。",
+    "documentation": "創建兩個 <code>BaseParts</code> 之間可動畫的關節。",
     "keys": {
       "ChildName": "@roblox/globaltype/Motor6D.ChildName",
       "ParentName": "@roblox/globaltype/Motor6D.ParentName",
@@ -79365,7 +79359,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Motor6D.Transform": {
-    "documentation": "描述 <code>Motor6D</code> 關節的當前動畫偏移。",
+    "documentation": "描述 <code>Motor6D</code> 關節的當前動畫偏移量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Motor6D#Transform",
     "code_sample": ""
   },
@@ -79559,7 +79553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Status": {
-    "documentation": "<strong>Deprecated:</strong> Status 是一個未完成的物件，旨在存儲自定義 <code>Humanoid</code> 狀態。它已經被棄用，開發者不應在新的工作中使用它。開發者若要實現自定義 <code>Humanoid</code> 狀態應使用 <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a>，因為它們是用 Luau 編寫的，並且易於擴展。<br>一個未完成的物件，對開發者沒有任何功能。",
+    "documentation": "<strong>Deprecated:</strong> Status 是一個未完成的物件，旨在儲存自訂 <code>Humanoid</code> 狀態。它已被棄用，開發者在新的工作中不應使用。 希望實現自訂 <code>Humanoid</code> 狀態的開發者應使用 <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a>， 因為它們是用 Luau 寫成的，並且易於擴展。<br>一個未完成的物件，對開發者沒有任何功能。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Status",
     "code_sample": ""
@@ -79904,7 +79898,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint": {
-    "documentation": "用於防止兩個特定部分之間碰撞的實例。",
+    "documentation": "用於防止兩個特定零件之間發生碰撞的實例。",
     "keys": {
       "Enabled": "@roblox/globaltype/NoCollisionConstraint.Enabled",
       "Part0": "@roblox/globaltype/NoCollisionConstraint.Part0",
@@ -79914,17 +79908,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint.Enabled": {
-    "documentation": "確定兩個連結的 <code>BaseParts</code> 是否會相互碰撞。",
+    "documentation": "確定兩個連接的 <code>BaseParts</code> 是否會彼此碰撞。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NoCollisionConstraint#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint.Part0": {
-    "documentation": "與約束連結的第二個 <code>BasePart</code>。",
+    "documentation": "約束連接的第二個 <code>BasePart</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NoCollisionConstraint#Part0",
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint.Part1": {
-    "documentation": "與約束連結的第一個 <code>BasePart</code>。",
+    "documentation": "約束連接的第一個 <code>BasePart</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NoCollisionConstraint#Part1",
     "code_sample": ""
   },
@@ -80822,7 +80816,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint": {
-    "documentation": "強制其兩個附件到達相同的位置並允許它們在所有三個軸上自由旋轉，可以選擇性地限制傾斜和扭轉。",
+    "documentation": "將兩個附加物強制放置到相同的位置，並允許它們在所有三個軸上自由旋轉，並可選擇性限制傾斜和扭轉。",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/BallSocketConstraint.LimitsEnabled",
       "MaxFrictionTorque": "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque",
@@ -80837,42 +80831,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.LimitsEnabled": {
-    "documentation": "設置 <code>BallSocketConstraint</code> 是否根據 <code>UpperAngle</code> 設置旋轉限制。",
+    "documentation": "設置 <code>BallSocketConstraint</code> 是否根據 <code>UpperAngle</code> 限制旋轉。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque": {
-    "documentation": "設置施加的最大摩擦扭矩，以保持其 <code>Attachments</code> 對齊。",
+    "documentation": "設置應用於保持其 <code>Attachments</code> 對齊的最大摩擦扭矩。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#MaxFrictionTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.Radius": {
-    "documentation": "可視化的 <code>BallSocketConstraint</code> 半徑。",
+    "documentation": "<code>BallSocketConstraint</code> 的可視化半徑。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.Restitution": {
-    "documentation": "當 <code>LimitsEnabled</code> 為 <code>true</code> 時，通過 <code>BallSocketConstraint</code> 連接的 <code>Attachments</code> 在達到由 <code>UpperAngle</code> 指定的範圍結束時的彈性程度。",
+    "documentation": "當連接的 <code>Attachments</code> 到達 <code>UpperAngle</code> 指定的範圍末端時， <code>BallSocketConstraint</code> 將會有多麼彈性，當 <code>LimitsEnabled</code> 為 <code>true</code> 時。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLimitsEnabled": {
-    "documentation": "設置 <code>BallSocketConstraint</code> 是否根據 <code>TwistUpperAngle</code> 和 <code>TwistLowerAngle</code> 設置扭轉旋轉限制。",
+    "documentation": "設置 <code>BallSocketConstraint</code> 是否根據 <code>TwistUpperAngle</code> 和 <code>TwistLowerAngle</code> 限制扭轉旋轉。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLowerAngle": {
-    "documentation": "設置 <code>BallSocketConstraint</code> 的下扭轉旋轉限制，前提是 <code>TwistLimitsEnabled</code> 為 <code>true</code>。",
+    "documentation": "設置 <code>BallSocketConstraint</code> 的下方扭轉旋轉限制，只要 <code>TwistLimitsEnabled</code> 為 <code>true</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLowerAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistUpperAngle": {
-    "documentation": "設置 <code>BallSocketConstraint</code> 的上扭轉旋轉限制，前提是 <code>TwistLimitsEnabled</code> 為 <code>true</code>。",
+    "documentation": "設置 <code>BallSocketConstraint</code> 的上方扭轉旋轉限制，只要 <code>TwistLimitsEnabled</code> 為 <code>true</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistUpperAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.UpperAngle": {
-    "documentation": "設置 <code>BallSocketConstraint</code> 的上旋轉限制，前提是 <code>LimitsEnabled</code> 為 <code>true</code>。",
+    "documentation": "設置 <code>BallSocketConstraint</code> 的上方旋轉限制，只要 <code>LimitsEnabled</code> 為 <code>true</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#UpperAngle",
     "code_sample": ""
   },
@@ -81910,7 +81904,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PlaneConstraint": {
-    "documentation": "將其附加元件移動到一個位置/方向，該位置/方向沿著其法向量是 <code>Attachment0</code> 的主軸的平面。",
+    "documentation": "將其附加物移動到沿著一個平面的某個位置/方向，該平面的法向量是 <code>Attachment0</code> 的主要軸。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PlaneConstraint",
     "code_sample": ""
@@ -84339,7 +84333,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo": {
-    "documentation": "透過調整聲音的音量上下變化來創建顫動效果。",
+    "documentation": "透過變化聲音的音量來創建顫動效果。",
     "keys": {
       "Depth": "@roblox/globaltype/AudioTremolo.Depth",
       "Duty": "@roblox/globaltype/AudioTremolo.Duty",
@@ -84352,32 +84346,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Depth": {
-    "documentation": "控制音量提升和降低的幅度。",
+    "documentation": "控制音量的升高和降低幅度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Depth",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Duty": {
-    "documentation": "控制在一次音量振盪期間效果持續的時間。",
+    "documentation": "控制每次音量震盪期間效果保持的時間。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Duty",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Frequency": {
-    "documentation": "設定效果使音量振盪的頻率。",
+    "documentation": "設置效果震盪音量的頻率。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Frequency",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Shape": {
-    "documentation": "控制低頻振盪的形狀。",
+    "documentation": "控制低頻震盪的形狀。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Shape",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Skew": {
-    "documentation": "時間傾斜低頻振盪的周期。",
+    "documentation": "時間扭曲低頻震盪的週期。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Skew",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Square": {
-    "documentation": "低頻振盪形狀的平坦度。",
+    "documentation": "低頻震盪形狀的扁平程度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Square",
     "code_sample": ""
   },
@@ -89848,7 +89842,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Torque": {
-    "documentation": "從質量中心對一個組件施加恆定的扭矩。",
+    "documentation": "從質心對組件施加恆定的扭矩。",
     "keys": {
       "RelativeTo": "@roblox/globaltype/Torque.RelativeTo",
       "Torque": "@roblox/globaltype/Torque.Torque"
@@ -89867,7 +89861,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "對齊兩個 <code>BaseParts</code>，使用可動畫的運動學或力基關節。",
+    "documentation": "對齊兩個 <code>BaseParts</code>，使用可動畫的運動學或 基於力的關節。",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -89892,17 +89886,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "切換 <code>AnimationConstraint</code> 是否為運動學或物理模擬。",
+    "documentation": "切換 <code>AnimationConstraint</code> 是運動學還是物理模擬。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxForce": {
-    "documentation": "約束可施加的最大力量大小，以達成其目標。",
+    "documentation": "約束可以施加以達成其目標的最大力量幅度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxTorque": {
-    "documentation": "約束可施加的最大扭矩，以達成其目標。",
+    "documentation": "約束可以施加以達成其目標的最大扭矩。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxTorque",
     "code_sample": ""
   },
@@ -90274,7 +90268,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint": {
-    "documentation": "允許其附加件沿著軸滑動但不旋轉的約束的基本類別。",
+    "documentation": "允許其連接點沿著一個軸滑動但不旋轉的限制的基礎類別。",
     "keys": {
       "ActuatorType": "@roblox/globaltype/SlidingBallConstraint.ActuatorType",
       "CurrentPosition": "@roblox/globaltype/SlidingBallConstraint.CurrentPosition",
@@ -90296,27 +90290,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ActuatorType": {
-    "documentation": "設置 <code>SlidingBallConstraint</code> 的移動是否受到驅動，以及如果是的話，採用何種驅動方式。",
+    "documentation": "設置 <code>SlidingBallConstraint</code> 的平移是否由驅動來控制，以及如果是，控制的類型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ActuatorType",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.CurrentPosition": {
-    "documentation": "約束的 <code>Attachments</code> 之間的當前偏移量。",
+    "documentation": "約束所連接的 <code>Attachments</code> 之間的當前偏移量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#CurrentPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LimitsEnabled": {
-    "documentation": "設置 <code>SlidingBallConstraint</code> 是否將限制移動範圍。",
+    "documentation": "設置 <code>SlidingBallConstraint</code> 是否將限制平移範圍。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LinearResponsiveness": {
-    "documentation": "指定線性伺服馬達達到 <code>TargetPosition</code> 的「銳利度」。",
+    "documentation": "指定線性伺服電機在到達 <code>TargetPosition</code> 時的 \"銳利度\"。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LinearResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LowerLimit": {
-    "documentation": "如果 <code>LimitsEnabled</code> 為真，則 <code>Attachment0</code> 沿 <strong>X</strong> 軸的下限位置限制。",
+    "documentation": "如果 <code>LimitsEnabled</code> 為真，則是沿著 <strong>X</strong> 軸的 <code>Attachment0</code> 的下限位置限制。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LowerLimit",
     "code_sample": ""
   },
@@ -90331,7 +90325,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Restitution": {
-    "documentation": "當約束的 <code>Attachments</code> 到達由 <code>UpperLimit</code> 和 <code>LowerLimit</code> 指定的範圍的末端時，假設 <code>LimitsEnabled</code> 設置為真，則約束的彈性。",
+    "documentation": "當約束的 <code>Attachments</code> 到達由 <code>UpperLimit</code> 和 <code>LowerLimit</code> 指定的範圍末端時的彈性，假設 <code>LimitsEnabled</code> 設置為真。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Restitution",
     "code_sample": ""
   },
@@ -90351,22 +90345,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Speed": {
-    "documentation": "當 <code>ActuatorType</code> 設置為 <code>Servo</code> 時，約束的期望速度，因為約束朝向其 <code>TargetPosition</code> 移動。以每秒 studs 測量。",
+    "documentation": "當 <code>ActuatorType</code> 設置為 <code>Servo</code>，約束在向其 <code>TargetPosition</code> 平移時的期望速度。以每秒 studs 計。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.TargetPosition": {
-    "documentation": "當 <code>ActuatorType</code> 設置為 <code>Servo</code> 時，約束的嘗試目標位置。以 studs 測量。",
+    "documentation": "當 <code>ActuatorType</code> 設置為 <code>Servo</code> 時，約束的嘗試目標位置。以 studs 計。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#TargetPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.UpperLimit": {
-    "documentation": "如果 <code>LimitsEnabled</code> 為真，則 <code>Attachment0</code> 沿 <strong>X</strong> 軸的上限位置限制。",
+    "documentation": "如果 <code>LimitsEnabled</code> 為真，則是沿著 <strong>X</strong> 軸的 <code>Attachment0</code> 的上限位置限制。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#UpperLimit",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Velocity": {
-    "documentation": "當 <code>ActuatorType</code> 設置為 <code>Motor</code> 時，約束的嘗試速度。以每秒 studs 測量。",
+    "documentation": "當 <code>ActuatorType</code> 設置為 <code>Motor</code> 時，約束的嘗試速度。以每秒 studs 計。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Velocity",
     "code_sample": ""
   },
@@ -90563,7 +90557,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Visible": {
-    "documentation": "決定這個 <code>GuiBase3d</code> 物件及其子代是否顯示。",
+    "documentation": "決定此 <code>GuiBase3d</code> 物件及其子物件是否將 被顯示。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Visible",
     "code_sample": ""
   },
@@ -92771,13 +92765,13 @@
     "documentation": "指定返回的角色將是 R6 還是 R15。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
-    "documentation": "資產類型驗證確定此函數是否會加載模型（除非您希望加載非目錄資產，否則應將其設置為始終）。"
+    "documentation": "資源類型驗證決定此函數是否會加載模型。 ⚠️&nbsp;此參數的預設值將在 2025 年 10 月 20 日從 <code>ClientOnly</code> 變更為 <code>Always</code>。詳情請見 <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">這裡</a>。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
-    "documentation": "一個 Humanoid 角色模型。"
+    "documentation": "一個 <code>Humanoid</code> 角色 <code>Model</code>。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "返回一個角色模型，配備傳入的 HumanoidDescription 中指定的所有內容，並根據 rigType 指定為 R6 或 R15。",
+    "documentation": "返回一個角色 <code>Model</code>，具備在傳入的 <code>HumanoidDescription</code> 中指定的所有內容。",
     "params": [
       {
         "name": "self",
@@ -93808,7 +93802,7 @@
     "code_sample": "local MemoryStoreService = game:GetService(\"MemoryStoreService\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal queue = MemoryStoreService:GetQueue(\"PlayerQueue\")\nlocal dataStore = DataStoreService:GetDataStore(\"PlayerStore\")\n\nwhile true do\n\tpcall(function()\n\t\t-- 等待處理項目\n\t\tlocal items, id = queue:ReadAsync(1, false, 30)\n\n\t\t-- 檢查是否檢索到項目\n\t\tif #items > 0 then\n\t\t\t-- 標記項目為已處理\n\t\t\tdataStore:UpdateAsync(items[0], function(data)\n\t\t\t\tdata = data or {}\n\t\t\t\tdata.processed = 1\n\t\t\t\treturn data\n\t\t\tend)\n\n\t\t\t-- 從佇列中移除項目\n\t\t\tqueue:RemoveAsync(id)\n\t\tend\n\tend)\nend"
   },
   "@roblox/globaltype/WorldRoot": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。",
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。",
     "keys": {
       "ArePartsTouchingOthers": "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers",
       "Blockcast": "@roblox/globaltype/WorldRoot.Blockcast",
@@ -93836,19 +93830,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/1": {
-    "documentation": "檢查零件列表中的任何零件是否接觸到不在列表中的任何零件的零件列表。"
+    "documentation": "一系列的部分，檢查列表中的任何部分是否觸碰到 列表外的任何部分。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/2": {
-    "documentation": "在零件被認為是接觸之前所忽略的重疊閾值，以 studs 為單位。"
+    "documentation": "考慮接觸之前忽略的部分重疊閾值（單位：studs）。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/return/0": {
-    "documentation": "僅當 <code>partList</code> 中的任何 <code>parts</code> 觸碰到不在 partList 中的任何其他零件時，返回 true。如果未傳遞任何零件則返回 false。"
+    "documentation": "只有當 <code>partList</code> 中的任何 <code>parts</code> 與其他部分（不在 partList 中）接觸時，才返回 true。如果沒有提供部分，則返回 false。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers": {
-    "documentation": "如果給定的任何 <code>BasePart</code> 接觸到任何其他零件，則返回 true。",
+    "documentation": "如果給定的任何 <code>BasePart</code> 觸碰到其他部分則返回 true。",
     "params": [
       {
         "name": "self",
@@ -93870,25 +93864,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/1": {
-    "documentation": "發射形狀的初始位置和旋轉。"
+    "documentation": "投射方塊形狀的初始位置和旋轉。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/2": {
-    "documentation": "發射的方塊形狀的大小，以 studs 為單位。最大大小為 512 studs。"
+    "documentation": "投射方塊形狀的大小（單位：studs）。最大大小為512 studs。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/3": {
-    "documentation": "形狀發射的方向，大小代表形狀可以移動的最大距離。最大距離為 1024 studs。"
+    "documentation": "形狀投射的方向，其大小表示形狀可以移動的最大距離。最大距離為1024 studs。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Blockcast/return/0": {
-    "documentation": "包含形狀發射操作的結果，或者如果未擊中任何符合條件的 <code>BasePart</code> 或 <code>Terrain</code> 單元則為 <code>nil</code>。"
+    "documentation": "包含形狀投射操作的結果，若沒有任何合格的 <code>BasePart</code> 或 <code>Terrain</code> 單元被擊中則為 <code>nil</code>。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast": {
-    "documentation": "在給定的方向上發射一個方塊形狀，並在形狀擊中 <code>BasePart</code> 或 <code>Terrain</code> 單元時返回 <code>RaycastResult</code>。",
+    "documentation": "在給定的方向投射一個方塊形狀，並且如果該形狀擊中 <code>BasePart</code> 或 <code>Terrain</code> 單元，則返回 <code>RaycastResult</code>。",
     "params": [
       {
         "name": "self",
@@ -93918,7 +93912,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/1": {
     "documentation": ""
@@ -93930,7 +93924,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo": {
-    "documentation": "將一組 <code>BaseParts</code> 移動到一組 <code>CFrames</code>。",
+    "documentation": "將 <code>BaseParts</code> 的表移動到 <code>CFrames</code> 的表。",
     "params": [
       {
         "name": "self",
@@ -93954,7 +93948,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/1": {
     "documentation": ""
@@ -93969,10 +93963,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/return/0": {
-    "documentation": "擊中的 <code>BasePart</code> 或 <code>Terrain</code> 單元、<code>Vector3</code> 的交點、交點處的 <code>Vector3</code> 的表面法線，以及擊中的 <code>BasePart</code> 或地形單元的 <code>Material</code>。"
+    "documentation": "被擊中的 <code>BasePart</code> 或 <code>Terrain</code> 單元，交集點的 <code>Vector3</code>，交集點的 <code>Vector3</code> 表面法向，以及被擊中的 <code>BasePart</code> 或地形單元的 <code>Material</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:Raycast()</code> 配合 <code>RaycastParams</code> 進行新的工作。<br>返回第一個與給定的 <code>Ray</code> 交叉的 <code>BasePart</code> 或 <code>Terrain</code> 單元。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:Raycast()</code> 以及 <code>RaycastParams</code> 來進行新的工作。<br>返回與給定的 <code>Ray</code> 相交的第一個 <code>BasePart</code> 或 <code>Terrain</code> 單元。",
     "params": [
       {
         "name": "self",
@@ -94002,7 +93996,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/1": {
     "documentation": ""
@@ -94017,10 +94011,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/return/0": {
-    "documentation": "擊中的 <code>BasePart</code> 或 <code>Terrain</code> 單元、<code>Vector3</code> 的交點、交點的 <code>Vector3</code> 法線，以及擊中的 <code>BasePart</code> 或地形單元的 <code>Material</code>。"
+    "documentation": "被擊中的 <code>BasePart</code> 或 <code>Terrain</code> 單元，交集點的 <code>Vector3</code>，交集點的 <code>Vector3</code> 表面法向，以及被擊中的 <code>BasePart</code> 或地形單元的 <code>Material</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:Raycast()</code> 配合 <code>RaycastParams</code> 進行新的工作。<br>返回第一個與給定 <code>Ray</code> 相交，且不在給定的忽略列表中的 <code>BasePart</code> 或 <code>Terrain</code> 單元。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:Raycast()</code> 以及 <code>RaycastParams</code> 來進行新的工作。<br>返回與給定的 <code>Ray</code> 相交的第一個 <code>BasePart</code> 或 <code>Terrain</code> 單元，且不在給定的忽略列表中，或不是某個對象的後代。",
     "params": [
       {
         "name": "self",
@@ -94050,7 +94044,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/1": {
     "documentation": ""
@@ -94062,10 +94056,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/return/0": {
-    "documentation": "擊中的 <code>BasePart</code> 或 <code>Terrain</code> 單元、<code>Vector3</code> 的交點、交點的 <code>Vector3</code> 法線，以及擊中的 <code>BasePart</code> 或地形單元的 <code>Material</code>。"
+    "documentation": "被擊中的 <code>BasePart</code> 或 <code>Terrain</code> 單元，交集點的 <code>Vector3</code>，交集點的 <code>Vector3</code> 表面法向，以及被擊中的 <code>BasePart</code> 或地形單元的 <code>Material</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:Raycast()</code> 配合 <code>RaycastParams</code> 進行新的工作。<br>返回第一個與給定 <code>Ray</code> 相交，且在給定包含列表中的 <code>BasePart</code> 或 <code>Terrain</code> 單元。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:Raycast()</code> 以及 <code>RaycastParams</code> 來進行新的工作。<br>返回與給定的 <code>Ray</code> 相交的第一個 <code>BasePart</code> 或 <code>Terrain</code> 單元，且在給定的包含列表中，或是某個對象的後代。",
     "params": [
       {
         "name": "self",
@@ -94091,13 +94085,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/1": {
     "documentation": "要檢查的 <code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/2": {
-    "documentation": "要被忽略的 <code>Instance</code>。"
+    "documentation": "要忽略的 <code>Instance</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/3": {
     "documentation": "要返回的 <code>BaseParts</code> 的最大數量。"
@@ -94106,7 +94100,7 @@
     "documentation": "在 <code>Region3</code> 內的 <code>BaseParts</code> 陣列。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 配合 <code>OverlapParams</code> 進行新的工作。<br>返回給定 <code>Region3</code> 中的 <code>BaseParts</code> 陣列。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 以及 <code>OverlapParams</code> 進行新的工作。<br>返回給定 <code>Region3</code> 中的 <code>BaseParts</code> 陣列。",
     "params": [
       {
         "name": "self",
@@ -94132,22 +94126,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/1": {
     "documentation": "要檢查的 <code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/2": {
-    "documentation": "要被忽略的對象陣列。"
+    "documentation": "要忽略的對象陣列。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/3": {
     "documentation": "要返回的 <code>BaseParts</code> 的最大數量。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/return/0": {
-    "documentation": "在 <code>Region3</code> 中找到的 <code>BaseParts</code> 的陣列。"
+    "documentation": "在 <code>Region3</code> 中找到的 <code>BaseParts</code> 陣列。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 配合 <code>OverlapParams</code> 進行新的工作。<br>返回給定 <code>Region3</code> 中的 <code>BaseParts</code> 陣列，這些零件不在給定的忽略列表中或不是列表中任何項目的後代。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 以及 <code>OverlapParams</code> 進行新的工作。<br>返回給定 <code>Region3</code> 中不在、或是給定忽略列表中某個條目的後代的 <code>BaseParts</code> 陣列。",
     "params": [
       {
         "name": "self",
@@ -94173,7 +94167,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/1": {
     "documentation": "要檢查的 <code>Region3</code>。"
@@ -94185,10 +94179,10 @@
     "documentation": "要返回的 <code>BaseParts</code> 的最大數量。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/return/0": {
-    "documentation": "在 <code>Region3</code> 內的 <code>BaseParts</code> 的陣列。"
+    "documentation": "在 <code>Region3</code> 內的 <code>BaseParts</code> 陣列。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 配合 <code>OverlapParams</code> 進行新的工作。<br>返回給定 <code>Region3</code> 中的 <code>BaseParts</code> 陣列，這些零件在給定的包含列表中或是列表中任何項目的後代。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 以及 <code>OverlapParams</code> 進行新的工作。<br>返回給定 <code>Region3</code> 中在或是某個給定包含列表中的後代的 <code>BaseParts</code> 陣列。",
     "params": [
       {
         "name": "self",
@@ -94214,22 +94208,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/1": {
-    "documentation": "要查詢的給定框體的中心位置。"
+    "documentation": "待查詢的盒子體積的中心位置。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/2": {
-    "documentation": "要查詢的給定框體的大小。"
+    "documentation": "待查詢的盒子體積的大小。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/3": {
     "documentation": "包含空間查詢參數可重用部分的對象。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/return/0": {
-    "documentation": "符合空間查詢的 <code>BaseParts</code> 陣列。"
+    "documentation": "與該空間查詢相匹配的 <code>BaseParts</code> 陣列。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox": {
-    "documentation": "返回其 <strong>邊界框</strong> 與給定框重疊的零件的陣列。",
+    "documentation": "返回與給定盒子重疊的部件的 <strong>邊界框</strong> 陣列。",
     "params": [
       {
         "name": "self",
@@ -94255,22 +94249,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/1": {
-    "documentation": "要查詢的給定球體的中心位置。"
+    "documentation": "待查詢的球體體積的中心位置。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/2": {
-    "documentation": "要查詢的給定球體的半徑。"
+    "documentation": "待查詢的球體的半徑。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/3": {
     "documentation": "包含空間查詢參數可重用部分的對象。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/return/0": {
-    "documentation": "符合空間查詢的 <code>BaseParts</code> 陣列。"
+    "documentation": "與該空間查詢相匹配的 <code>BaseParts</code> 陣列。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius": {
-    "documentation": "返回其 <strong>邊界框</strong> 與給定球體重疊的零件的陣列。",
+    "documentation": "返回與給定球體重疊的部件的 <strong>邊界框</strong> 陣列。",
     "params": [
       {
         "name": "self",
@@ -94296,19 +94290,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/1": {
-    "documentation": "要檢查佔用空間的零件。"
+    "documentation": "要檢查與其他部件之間佔用空間的部件。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/2": {
     "documentation": "包含空間查詢參數可重用部分的對象。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/return/0": {
-    "documentation": "符合空間查詢的 <code>BaseParts</code> 陣列。"
+    "documentation": "與該空間查詢相匹配的 <code>BaseParts</code> 陣列。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart": {
-    "documentation": "返回與給定零件共享佔用空間的零件的陣列。",
+    "documentation": "返回與給定部件佔用空間重疊的部件陣列。",
     "params": [
       {
         "name": "self",
@@ -94330,25 +94324,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/1": {
-    "documentation": "正在移動的零件。"
+    "documentation": "要移動的部件。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/2": {
-    "documentation": "要移動該零件的位置。"
+    "documentation": "要移動到的指定位置。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/3": {
-    "documentation": "介於 0 和 1 之間的數字，指定將零件的位移與目標 <code>CFrame</code> 的位移部分匹配的激進程度。"
+    "documentation": "介於0和1之間的數字，指定如何遞進地將部件的位置與目標 <code>CFrame</code> 的位置部分匹配。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/4": {
-    "documentation": "介於 0 和 1 之間的數字，指定將零件的旋轉與目標 <code>CFrame</code> 的旋轉部分匹配的激進程度。"
+    "documentation": "介於0和1之間的數字，指定如何遞進地將部件的旋轉與目標 <code>CFrame</code> 的旋轉部分匹配。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/5": {
-    "documentation": "允許您指定應受物理解析影響的對象。"
+    "documentation": "允許您指定什麼對象應該受到物理解決的影響。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo": {
-    "documentation": "通過逆運動學將指定零件移動到指定位置，而不是直接將其移動到那裡，以確保該零件參與的任何關節、約束或碰撞保持物理上滿足。",
+    "documentation": "通過反向運動學將指定部件移動到指定位置，而不是直接將其移動到那裡，以確保該部件參加的任何關節、約束或碰撞仍保持物理滿足。",
     "params": [
       {
         "name": "self",
@@ -94380,19 +94374,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/1": {
     "documentation": "要檢查的 <code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/2": {
-    "documentation": "要被忽略的 <code>Instance</code>。"
+    "documentation": "要忽略的 <code>Instance</code>。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/return/0": {
-    "documentation": "如果 <code>Region3</code> 為空則為 true。"
+    "documentation": "如果 <code>Region3</code> 為空則為 True。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 配合 <code>OverlapParams</code> 進行新的工作。<br>返回一個布爾值，指示給定 <code>Region3</code> 中是否沒有 <code>BaseParts</code>。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 以及 <code>OverlapParams</code> 進行新的工作。<br>返回一個布林值，指示在給定的 <code>Region3</code> 中是否沒有 <code>BaseParts</code>。",
     "params": [
       {
         "name": "self",
@@ -94414,19 +94408,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/1": {
     "documentation": "要檢查的 <code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/2": {
-    "documentation": "要被忽略的對象陣列。"
+    "documentation": "要忽略的對象陣列。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/return/0": {
-    "documentation": "如果 <code>Region3</code> 為空則為 true。"
+    "documentation": "如果 <code>Region3</code> 為空則為 True。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 配合 <code>OverlapParams</code> 進行新的工作。<br>返回一個布爾值，指示給定的 <code>Region3</code> 中是否沒有 <code>BaseParts</code>，忽略在給定忽略列表中對象的任何 <code>BaseParts</code> 的後代。",
+    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。請使用 <code>WorldRoot:GetPartBoundsInBox()</code> 以及 <code>OverlapParams</code> 進行新的工作。<br>返回布林值，指示在給定的 <code>Region3</code> 中是否沒有 <code>BaseParts</code>，同時忽略任何在給定忽略列表中對象的後代。",
     "params": [
       {
         "name": "self",
@@ -94448,22 +94442,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/1": {
     "documentation": "射線的起始點。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/2": {
-    "documentation": "射線的方向向量。請注意，該向量的長度很重要，因為距離其長度更遠的零件/地形將不會被測試。"
+    "documentation": "射線的方向向量。請注意，該向量的長度很重要，因為距離其長度更遠的部件/地形將不會受到測試。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/3": {
-    "documentation": "用於在射線操作中指定擊中資格的對象。如果不提供，則使用默認值，考慮所有零件並且不忽略 <code>Terrain</code> 水。"
+    "documentation": "用於指定射線操作的擊中合格性對象。如果未提供，則使用默認值，其中所有部件都被考慮並且不忽略 <code>Terrain</code> 的水。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/return/0": {
-    "documentation": "包含射線操作的結果，或者如果未擊中任何符合條件的 <code>BasePart</code> 或 <code>Terrain</code> 單元則為 <code>nil</code>。"
+    "documentation": "包含射線操作的結果，或如果沒有合格的 <code>BasePart</code> 或 <code>Terrain</code> 單元被擊中則為 <code>nil</code>。"
   },
   "@roblox/globaltype/WorldRoot.Raycast": {
-    "documentation": "通過一個原點、方向和可選的 <code>RaycastParams</code> 發射一條射線，然後如果一個符合條件的對象或地形與射線相交，則返回 <code>RaycastResult</code>。",
+    "documentation": "使用起點、方向和可選的 <code>RaycastParams</code> 投射一個射線，然後如果一個合格的對象或地形與該射線相交，則返回一個 <code>RaycastResult</code>。",
     "params": [
       {
         "name": "self",
@@ -94489,7 +94483,7 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal function castRay()\n\t-- 射線的原點\n\tlocal originPosition = Vector3.new(0, 50, 0)\n\t-- 射線投射的方向\n\tlocal direction = -Vector3.yAxis\n\t-- 射線的最大距離\n\tlocal distance = 50\n\n\t-- 發射射線並創建可視化\n\tlocal raycastResult = Workspace:Raycast(originPosition, direction * distance)\n\n\tif raycastResult then\n\t\t-- 如果 RaycastResult 存在，列印所有屬性\n\t\tprint(`射線交叉的對象: {raycastResult.Instance:GetFullName()}`)\n\t\tprint(`交叉位置: {raycastResult.Position}`)\n\t\tprint(`射線原點與結果之間的距離: {raycastResult.Distance}`)\n\t\tprint(`交叉面法向量: {raycastResult.Normal}`)\n\t\tprint(`擊中的材料: {raycastResult.Material.Name}`)\n\telse\n\t\tprint(\"沒有命中任何東西\")\n\tend\nend\n\n-- 每2秒不斷發射射線\nwhile true do\n\tcastRay()\n\ttask.wait(2)\nend"
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/1": {
     "documentation": ""
@@ -94530,25 +94524,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/1": {
-    "documentation": "發射球形形狀的初始位置。"
+    "documentation": "投射球形的初始位置。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/2": {
-    "documentation": "發射的球形形狀的半徑，以 studs 為單位。最大半徑為 256 studs。"
+    "documentation": "投射球形的半徑（單位：studs）。最大半徑為256 studs。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/3": {
-    "documentation": "形狀發射的方向，大小代表形狀可以移動的最大距離。最大距離為 1024 studs。"
+    "documentation": "形狀投射的方向，其大小表示形狀可以移動的最大距離。最大距離為1024 studs。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/return/0": {
-    "documentation": "包含形狀發射操作的結果，或者如果未擊中任何符合條件的 <code>BasePart</code> 或 <code>Terrain</code> 單元則為 <code>nil</code>。"
+    "documentation": "包含形狀投射操作的結果，或如果沒有合格的 <code>BasePart</code> 或 <code>Terrain</code> 單元被擊中則為 <code>nil</code>。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast": {
-    "documentation": "在給定方向上發射一個球形形狀，並在形狀擊中 <code>BasePart</code> 或 <code>Terrain</code> 單元時返回 <code>RaycastResult</code>。",
+    "documentation": "在給定的方向投射一個球形，並且如果該球形擊中 <code>BasePart</code> 或 <code>Terrain</code> 單元，則返回 <code>RaycastResult</code>。",
     "params": [
       {
         "name": "self",
@@ -94578,16 +94572,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/1": {
     "documentation": "將被模擬的時間量。此參數必須為正數。較大的值會增加此函數的運行時間。"
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/2": {
-    "documentation": "可選的將被模擬的零件陣列。該集合必須包含 <code>BasePart</code> 類型的實例；任何其他類型將被忽略。"
+    "documentation": "將被模擬的可選部件陣列。此集合必須包含類型為 <code>BasePart</code> 的實例；任何其他類型將被忽略。"
   },
   "@roblox/globaltype/WorldRoot.StepPhysics": {
-    "documentation": "根據指定的時間增量和可選的 <code>BaseParts</code> 集合向前推進世界中的零件模擬。",
+    "documentation": "根據指定的時間增量和可選的 <code>BaseParts</code> 集合，向前推進世界中的部件模擬。",
     "params": [
       {
         "name": "self",
@@ -94607,7 +94601,7 @@
     "code_sample": "local RunService = game:GetService(\"RunService\")\n\n-- 可選的要模擬的部件數組；否則將模擬所有部件\nlocal partsToSimulate\n     = {\n\tworkspace.Part,\n}\n\nlocal function simulateParts(duration)\n\tlocal\n     time = 0.0\n\tlocal stepJob\n\n\tstepJob = RunService.RenderStepped:Connect(function(dt)\n\t\tif time + dt > duration then\n\t\t\tdt = duration - time\n\t\tend\n\n\t\tworkspace:StepPhysics(dt, partsToSimulate)\n\t\ttime = time + dt\n\t\tif time\n     >= duration then\n\t\t\tstepJob:Disconnect()\n\t\tend\n\tend)\nend\n\n-- 在 5 秒內模擬工作區的部件，每幀步進一次\nsimulateParts(5.0)"
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/1": {
     "documentation": ""
@@ -94625,7 +94619,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用函數是 <code>WorldRoot:FindPartOnRay()</code> 的變體，應該使用此函數。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>WorldRoot:FindPartOnRay()</code> 的變種，應該被使用。",
     "params": [
       {
         "name": "self",
@@ -94655,7 +94649,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/0": {
-    "documentation": "處理物理模擬和 3D 空間查詢的基類。"
+    "documentation": "用來處理物理模擬和3D空間查詢的基礎類別。"
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/1": {
     "documentation": ""
@@ -94670,7 +94664,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用函數是 <code>WorldRoot:FindPartsInRegion3()</code> 的變體，應該使用此函數。",
+    "documentation": "<strong>Deprecated:</strong> 此已棄用的函數是 <code>WorldRoot:FindPartsInRegion3()</code> 的變種，應該被使用。",
     "params": [
       {
         "name": "self",
@@ -96338,10 +96332,10 @@
     "documentation": "向給定的 <code>Player</code> 提示一個帶有生成分享鏈接的 Roblox 平台級分享面板。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Dictionary</code> 指定生成鏈接的配置。包括以下可選的鍵值對： <ul> <li><code>FallbackLinkId</code> (string)。確定此分享鏈接到期後將如何引導玩家。默認為體驗加入鏈接。</li> <li><code>ExpirationSeconds</code> (number)。確定創建分享鏈接後的過期時間。四捨五入到最近的整數。默認為 86,400。</li> <li><code>PreviewTitle</code> (string) 分享鏈接的預覽標題。</li> <li><code>PreiviewDescription</code> (string) 分享鏈接的預覽描述。</li> <li><code>PreviewAssettId</code> (number) 用於分享鏈接預覽的圖像資產 ID。</li> <li><code>LaunchData</code> (string)。用於在玩家使用生成的分享鏈接加入時，在 <code>Player:GetJoinData()</code> 中設置一個參數。</li> </ul>"
+    "documentation": "<code>Dictionary</code> 用於指定生成連結的配置。 它包含以下可選的鍵值對： <ul> <li><code>FallbackLinkId</code> (字串)。確定此共享連結在過期後將如何引導玩家。默認為經驗加入連結。</li> <li><code>ExpirationSeconds</code> (數字)。確定共享連結創建後的過期時間。取整至最接近的整數。默認為 86,400。</li> <li><code>PreviewTitle</code> (字串) 共享連結的預覽標題。</li> <li><code>PreviewDescription</code> (字串) 共享連結的預覽描述。</li> <li><code>PreviewAssetId</code> (數字) 用於共享連結預覽的圖像資產 ID。</li> <li><code>LaunchData</code> (字串)。在玩家使用生成的共享連結加入時，用於在 <code>Player:GetJoinData()</code> 中設置一個參數。</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": ""
+    "documentation": "一個元組，包含一個 <code>PromptLinkSharingResult</code>，指示連結共享提示的結果。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -122046,7 +122040,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.Unknown": {
-    "documentation": "Catch-all for all other disconnect reasons.",
+    "documentation": "所有其他斷線原因的總括。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122056,7 +122050,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.PlatformKick": {
-    "documentation": "User was kicked by Roblox systems, such as being blocked while in a Private Server.",
+    "documentation": "用戶被 Roblox 系統踢出，例如在私人伺服器中被封鎖。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122066,7 +122060,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.CreatorKick": {
-    "documentation": "Creator called <strong>Player:Kick()</strong>",
+    "documentation": "創作者調用了 <strong>Player:Kick()</strong>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122076,7 +122070,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PlayerExitReason": {
-    "documentation": "An enum that specifies the reason for <strong>Players.PlayerRemoving</strong> signal.",
+    "documentation": "一個枚舉，指定 <strong>Players.PlayerRemoving</strong> 信號的原因。",
     "keys": {
       "Unknown": "@roblox/enum/PlayerExitReason.Unknown",
       "PlatformKick": "@roblox/enum/PlayerExitReason.PlatformKick",
@@ -126848,7 +126842,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.Automatic": {
-    "documentation": "預設行為，當前等同於 <strong>禁用</strong>。",
+    "documentation": "預設行為，目前等同於 <strong>Disabled</strong>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126858,7 +126852,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.StreamingMesh": {
-    "documentation": "較低解析度的 \"替代品\" 纖維（有顏色的粗糙網格包裹著所有子部件）在串流半徑外呈現。",
+    "documentation": "較低解析度的 \"imposter\" 網格（有顏色的粗糙網格，包裹在模型的所有子部件外面）會在串流半徑外呈現。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126868,7 +126862,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
-    "documentation": "不會顯示較低解析度的網格。",
+    "documentation": "不顯示較低解析度的網格。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126878,7 +126872,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ModelLevelOfDetail": {
-    "documentation": "控制在啟用實例串流的體驗中 <code>Models</code> 的細節層級。",
+    "documentation": "控制啟用實例串流的體驗中 <code>Models</code> 的細節層級。",
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
@@ -130765,7 +130759,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CorrodedMetal": {
-    "documentation": "適用於 <code>BasePart</code> 和 <code>Terrain</code>。",
+    "documentation": "僅適用於 <code>BasePart</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

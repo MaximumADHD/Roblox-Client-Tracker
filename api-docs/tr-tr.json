@@ -3893,7 +3893,7 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "<code>ValueCurve</code> örnekleri ile kullanılan bir zaman-değer çiftidir.",
     "keys": {
       "new": "@roblox/global/ValueCurveKey.new"
     },
@@ -3901,16 +3901,16 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey.new/param/0": {
-    "documentation": "Time at which to create the new <code>ValueCurveKey</code>."
+    "documentation": "Yeni <code>ValueCurveKey</code> oluşturulacak zaman."
   },
   "@roblox/global/ValueCurveKey.new/param/1": {
-    "documentation": "Value of the new <code>ValueCurveKey</code>."
+    "documentation": "Yeni <code>ValueCurveKey</code> değer."
   },
   "@roblox/global/ValueCurveKey.new/param/2": {
     "documentation": ""
   },
   "@roblox/global/ValueCurveKey.new": {
-    "documentation": "Returns a new <code>ValueCurveKey</code> from the given time and value.",
+    "documentation": "Verilen zaman ve değerden yeni bir <code>ValueCurveKey</code> döner.",
     "params": [
       {
         "name": "time",
@@ -3930,7 +3930,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "<code>ValueCurve</code> örnekleri ile kullanılan bir zaman-değer çiftidir.",
     "keys": {
       "Interpolation": "@roblox/globaltype/ValueCurveKey.Interpolation",
       "Time": "@roblox/globaltype/ValueCurveKey.Time",
@@ -3942,27 +3942,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Interpolation": {
-    "documentation": "The key interpolation mode for the segment started by this <code>ValueCurveKey</code>.",
+    "documentation": "Bu <code>ValueCurveKey</code> ile başlatılan segment için anahtar araştırma modu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Interpolation",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Time": {
-    "documentation": "The time position of this <code>ValueCurveKey</code>.",
+    "documentation": "Bu <code>ValueCurveKey</code> zaman pozisyonu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Time",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Value": {
-    "documentation": "The value of this <code>ValueCurveKey</code>.",
+    "documentation": "Bu <code>ValueCurveKey</code> değer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Value",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.RightTangent": {
-    "documentation": "The tangent to the right of this <code>ValueCurveKey</code>.",
+    "documentation": "Bu <code>ValueCurveKey</code> sağındaki tanjant.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#RightTangent",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.LeftTangent": {
-    "documentation": "The tangent to the left of this <code>ValueCurveKey</code>.",
+    "documentation": "Bu <code>ValueCurveKey</code> solundaki tanjant.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#LeftTangent",
     "code_sample": ""
   },
@@ -8858,13 +8858,13 @@
     "documentation": "3D dünyanın bir görünümünü tanımlayan bir sınıf."
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/1": {
-    "documentation": ""
+    "documentation": "Görüntü alanına sığdırılacak sınırlayıcı kutunun merkezi ve yönelimini temsil eden <code>CFrame</code>."
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/2": {
-    "documentation": ""
+    "documentation": "Görüntü alanına sığdırılacak sınırlayıcı kutunun <code>Vector3</code> boyutu."
   },
   "@roblox/globaltype/Camera.ZoomToExtents": {
-    "documentation": "",
+    "documentation": "Belirtilen sınırlayıcı kutunun, kameranın görüntü alanında tamamen görünür olmasını sağlamak için <code>CFrame</code>'i ayarlar.",
     "params": [
       {
         "name": "self",
@@ -11569,7 +11569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Snap": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>Weld</code> ile aynı şekilde işlev gören ve iki parçayı bir arada tutan bir yapıdır.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>Weld</code> ile aynı şekilde çalışan iki parçayı bir arada tutar.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Snap",
     "code_sample": ""
@@ -11693,7 +11693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint": {
-    "documentation": "İki eksen arasındaki açısal hareketi tersine çeviren bir rotasyonel yay.",
+    "documentation": "İki eksen arasındaki açısal hareketi karşılayan döner bir yay.",
     "keys": {
       "Coils": "@roblox/globaltype/TorsionSpringConstraint.Coils",
       "CurrentAngle": "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle",
@@ -11715,22 +11715,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle": {
-    "documentation": "Kısıtlamanın sınırlayıcı koni açısı, derece cinsinden.",
+    "documentation": "Kısıtlamanın sınırlayıcı konisinin mevcut açısı, derece cinsinden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#CurrentAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Damping": {
-    "documentation": "<code>TorsionSpringConstraint</code> için sönümleme sabiti. Kısıtlamanın <code>Attachments</code> hızıyla çarpılarak yayı uygulanan kuvveti azaltır.",
+    "documentation": "<code>TorsionSpringConstraint</code> için sönümleme sabiti. Uygulanan yay kuvvetini azaltmak için kısıtlamanın <code>Attachments</code> hızına çarpılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Damping",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitEnabled": {
-    "documentation": "<strong>Deprecated:</strong> Bu özellik kullanım dışıdır. Bunun yerine <code>LimitsEnabled</code> kullanın.",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik kullanımdan kaldırılmıştır. Bunun yerine <code>LimitsEnabled</code> kullanın.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitsEnabled": {
-    "documentation": "Bağlantıların ikinci eksenlerinin ilişkili açısal hareketini bir koni kısıtlamasıyla sınırlar.",
+    "documentation": "Bağlantıların ikincil eksenlerinin göreli açısal hareketini bir koni kısıtlaması aracılığıyla sınırlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
@@ -11745,17 +11745,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Radius": {
-    "documentation": "Yayın görselleştirme yarıçapı.",
+    "documentation": "Yayının görselleştirme yarıçapı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Restitution": {
-    "documentation": "Koni kısıtlamasının geri tepme katsayısı.",
+    "documentation": "Koni kısıtlamasının geri dönüşüm katsayısı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Stiffness": {
-    "documentation": "Yayın torksal sertliği.",
+    "documentation": "Yayının torksal sertliği.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Stiffness",
     "code_sample": ""
   },
@@ -16553,7 +16553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh": {
-    "documentation": "<code>SpecialMesh</code> nesnesi, <code>BasePart</code> üzerinde, <code>MeshType</code> özelliğine bağlı olarak bir mesh uygular.",
+    "documentation": "<code>SpecialMesh</code> nesnesi, <code>BasePart</code> nesnesine bir mesh uygular, depending on the <code>MeshType</code> özelliğine bağlıdır.",
     "keys": {
       "MeshType": "@roblox/globaltype/SpecialMesh.MeshType"
     },
@@ -16561,7 +16561,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh.MeshType": {
-    "documentation": "<code>SpecialMesh</code>'in bağlı olduğu <code>BasePart</code>'a uygulanacak mesh türünü belirler.",
+    "documentation": "<code>BasePart</code>'a uygulanacak olan mesh türünü belirler,  <code>SpecialMesh</code> nesnesinin ebeveyni olduğu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpecialMesh#MeshType",
     "code_sample": ""
   },
@@ -18786,10 +18786,10 @@
     "documentation": "Karakterin işlevselliğini veren özel bir nesne."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "Karakterin eşleşmesini istediğiniz <code>HumanoidDescription</code> nesnesi."
+    "documentation": "Belirli bir karakterin eşleşmesi için ayarlamak istediğiniz <code>HumanoidDescription</code> örneği."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ Bu parametrenin varsayılan değeri 10/20/2025 tarihinden itibaren <code>ClientOnly</code>'den <code>Always</code>'e değişecektir. Detaylar için <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">buraya</a> bakın."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
     "documentation": "Karakterin görünümünü, geçirilen <code>HumanoidDescription</code> ile eşleşmesi için ayarlar.",
@@ -18818,7 +18818,7 @@
     "documentation": "Karakterin eşleşmesini istediğiniz <code>HumanoidDescription</code> örneği."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ Bu parametrenin varsayılan değeri 10/20/2025 tarihinden itibaren <code>ClientOnly</code>'den <code>Always</code>'e değişecektir. Detaylar için <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">buraya</a> bakın."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
     "documentation": "Karakterin görünümünü geçen <code>HumanoidDescription</code> ile eşleştirir,  dışsal değişikliklerden sonra bile.",
@@ -22623,7 +22623,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateV": {
-    "documentation": "<strong>Deprecated:</strong> Bu sınıf, kullanılmayan <code>SurfaceType</code> ile birlikte çalışır ve gelecekteki çalışmalar için kullanılmamalıdır; bunun yerine <code>HingeConstraint</code> kullanın.",
+    "documentation": "<strong>Deprecated:</strong> Bu sınıf, kullanımdan kaldırılan <code>SurfaceType</code> ile birlikte çalışır ve gelecekteki işler için kullanılmamalıdır; bunun yerine <code>HingeConstraint</code> kullanın.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateV",
     "code_sample": ""
@@ -23452,7 +23452,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer": {
-    "documentation": "<code>WrapTextureTransfer</code>, bir ebeveyn <code>Decal</code>'in, <code>WrapTarget</code>'ının kafesinin temelinde <code>MeshPart</code>'ının etrafında sarılmasını sağlar.",
+    "documentation": "<code>WrapTextureTransfer</code>, bir üst <code>Decal</code>'in, üst <code>MeshPart</code>'ının etrafında <code>WrapTarget</code>'ının kafesine dayalı olarak sarılmasını sağlar.",
     "keys": {
       "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
       "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
@@ -23462,7 +23462,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
-    "documentation": "Hedef kafesi temizlemek ve doğrulamak için kullanılan isteğe bağlı bir referans kafesidir.",
+    "documentation": "Hedef kafeyi budamak ve doğrulamak için kullanılan isteğe bağlı bir referans ağı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
     "code_sample": ""
   },
@@ -23568,7 +23568,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldModel": {
-    "documentation": "<code>ViewportFrame</code> üzerinde çocuklarına sınırlı fizik uzatır.",
+    "documentation": "<code>ViewportFrame</code> üzerinde çocukları için sınırlı fiziği genişletir.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WorldModel",
     "code_sample": ""
@@ -24570,7 +24570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint": {
-    "documentation": "İki eklemin tanımlı bir uzunluktan daha fazla ayrılmasını önleyen ip dinamiklerini simüle eder.",
+    "documentation": "İki bağlantının belirli bir uzunluktan daha fazla ayrılmasını engelleyen ip dinamiklerini simüle eder.",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RopeConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RopeConstraint.Length",
@@ -24586,17 +24586,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.CurrentDistance": {
-    "documentation": "Kısıtlamanın mevcut mesafesi <code>Attachments</code> arasında.",
+    "documentation": "Kısıtlamanın mevcut uzaklığı <code>Attachments</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#CurrentDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Length": {
-    "documentation": "İki <code>Attachments</code>'ın maksimum mesafesi.",
+    "documentation": "İki <code>Attachments</code>'ın birbirinden ayrılabileceği maksimum mesafe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Restitution": {
-    "documentation": "Kısıtlamanın tanımlı en yüksek <code>Length</code> değerine ulaştığında bağlı olan <code>Attachments</code>'ın elastikliği. 0 ile 1 arasında kısıtlanmıştır.",
+    "documentation": "Kısıtlama ile bağlı <code>Attachments</code>'ın, maksimum belirlenen <code>Length</code> değerine ulaştığında elastikiyeti. 0 ile 1 arasında kısıtlanmıştır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Restitution",
     "code_sample": ""
   },
@@ -24606,27 +24606,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchEnabled": {
-    "documentation": "Makara motorunu etkinleştirir.",
+    "documentation": "Vinç motorunu etkinleştirir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchForce": {
-    "documentation": "Makara motorunun uygulayabileceği maksimum kuvvet.",
+    "documentation": "Vinç motorunun uygulayabileceği maksimum kuvvet.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchForce",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchResponsiveness": {
-    "documentation": "<code>WinchTarget</code>'e ulaşmada makara motorunun keskinliği.",
+    "documentation": "<code>WinchTarget</code>'e ulaşmaktaki vinç motorunun keskinliği.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchSpeed": {
-    "documentation": "Makaralı motorun ip uzunluğunu değiştirdiği pozitif arzu edilen hız.",
+    "documentation": "Vinç motorunun ip uzunluğunu değiştirdiği pozitif istenen hız.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchTarget": {
-    "documentation": "Makara motoru için hedef uzunluk.",
+    "documentation": "Vinç motoru için hedef uzunluk.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchTarget",
     "code_sample": ""
   },
@@ -25421,7 +25421,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez.",
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez.",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
@@ -25463,7 +25463,6 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
-      "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
@@ -25480,12 +25479,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirDensity": {
-    "documentation": "Yer seviyesindeki hava yoğunluğu, aerodinamik güç modelinde kullanılır.",
+    "documentation": "Aerodinamik kuvvet modelinde kullanılan yer seviyesindeki hava yoğunluğu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "Rüzgar hız alanında mevcut türbülansın gücünü kontrol eder, aerodinamik güç modelini etkiler.",
+    "documentation": "Rüzgar hızı alanındaki turbulansa uygulanan gücü kontrol eder, aerodinamik kuvvet modelini etkiler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
@@ -25505,17 +25504,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ClientAnimatorThrottling": {
-    "documentation": "Yerel istemci için animasyon throttling modunu belirtir.",
+    "documentation": "Yerel istemci için animasyon kısıtlama modunu belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ClientAnimatorThrottling",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.CurrentCamera": {
-    "documentation": "Yerel oyuncu tarafından kullanılan <code>Camera</code> nesnesi.",
+    "documentation": "Yerel oyuncu tarafından kullanılan <code>Camera</code> nesnesidir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#CurrentCamera",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "Oyun süresinin, saniye cinsinden geçen zamanını belirler.",
+    "documentation": "Oyun ne kadar süredir çalışıyor, saniye cinsinden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
@@ -25525,32 +25524,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallenPartsDestroyHeight": {
-    "documentation": "Düşen <code>BaseParts</code> ve onların atası <code>Models</code>in <code>Workspace</code>den ne yükseklikte kaldırılacağını belirler.",
+    "documentation": "Düşen <code>BaseParts</code> ve onların ataçları <code>Models</code>'ın <code>Workspace</code>'ten silineceği yüksekliği belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallenPartsDestroyHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>İstemciden yapılan değişikliklerin sunucuya kopyalanıp kopyalanmayacağını belirler.",
+    "documentation": "<strong>Deprecated:</strong> <br>İstemciden yapılan değişikliklerin sunucuya yansıyan yansımadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "Fizik motorunun <code>BaseParts</code> üzerindeki aerodinamik güçleri hesaplayıp hesaplamayacağını belirler.",
+    "documentation": "<code>BaseParts</code>'in <code>EnableFluidForces</code> özelliği doğruysa, fizik motorunun aerodinamik kuvvetleri hesaplayıp hesaplamayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GlobalWind": {
-    "documentation": "Animasyondaki zemin, dinamik bulutlar ve parçacıklar için küresel rüzgar vektörünü belirtir.",
+    "documentation": "Animasyonlu arazi çimi, dinamik bulutlar ve parçacıklar için global rüzgar vektörünü belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#GlobalWind",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Gravity": {
-    "documentation": "Düşen <code>BaseParts</code> üzerinde uygulanan yerçekimi nedeniyle hızlanmayı belirler.",
+    "documentation": "Düşen <code>BaseParts</code>'a uygulanan yerçekimi ivmesini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Gravity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "İK Kontrolleri için kısıtlamaların desteğini etkinleştirir. Devre dışı bırakıldığında, İK Kontrolleri fizik kısıtlamalarını yok sayar.",
+    "documentation": "IKControls için kısıtlama desteğini etkinleştirir. Devre dışı bırakıldığında, IKControls fizik kısıtlamalarını yok sayar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -25570,7 +25569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "Karakter Başları ve Aksesuarlarının MeshPart olarak indirilip indirilmeyeceğini ayarlar.",
+    "documentation": "Karakter Başlarının ve Aksesuarlarının MeshParts olarak indirilip indirilmeyeceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -25580,7 +25579,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "Herhangi bir taşıyıcı kısıtlayıcı kullanıldığında montaj kök parçasını seçmek için kullanılan mantığı kontrol eder.",
+    "documentation": "Herhangi bir hareket ettirici kısıtlaması kullanıldığında montaj kök parçasını seçmek için kullanılan mantığı kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
@@ -25595,7 +25594,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "Çözücünün fizik simülasyonunu zamana göre nasıl ilerleteceğini belirler.",
+    "documentation": "Çözücünün fizik simülasyonunu zamanla ileri almasını nasıl ayarlayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -25635,37 +25634,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.SignalBehavior": {
-    "documentation": "Motorun olayı resume etme zamanını yapılandırır.",
+    "documentation": "Motorun olay işleyicilerini ne zaman yeniden başlatacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#SignalBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "Motorun oyunun içeriklerini oyunculardan ne zaman akıtacağını nasıl belirlediğini yapılandırır.",
+    "documentation": "Motorun içeriği oyunculardan ne zaman akıtacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "Yer için içerik yayınlamanın etkin olup olmadığını belirler.",
+    "documentation": "Yer için içerik akıtma özelliğinin etkin olup olmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingIntegrityMode": {
-    "documentation": "StreamingIntegrityMode'un etkin olup olmadığını belirler.",
+    "documentation": "StreamingIntegrityMode'un aktif olup olmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingIntegrityMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "Yüksek öncelikle oyunculara akıtılacak içerik için minimum mesafeyi belirler.",
+    "documentation": "İçeriğin yüksek öncelikli olarak oyunculara akıtılacağı mesafe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingTargetRadius": {
-    "documentation": "İçeriğin oyunculara akıtılacak maksimum mesafesini belirler.",
+    "documentation": "İçeriğin oyunculara akıtılacağı en uzak mesafe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingTargetRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "<code>Workspace</code>'e ebeveyn olan <code>Terrain</code> nesnesine bir referanstır.",
+    "documentation": "<code>Workspace</code>'e ebeveyn olarak yerleştirilen <code>Terrain</code> nesnesine bir başvuru.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
@@ -25675,13 +25674,8 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "<code>parts</code>'in farklı gruplarında çarpışmanın yok sayılıp yok sayılmayacağını belirler.",
+    "documentation": "Farklı gruplarda çarpışmayı yok saymak için ayarlanmış <code>parts</code>'in çarpışmaları ve dokunma olaylarını yok sayıp saymayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.UseImprovedModelLod": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseImprovedModelLod",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
@@ -25690,13 +25684,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "Bağlantıların kırılacağı <code>BaseParts</code>'ın bir array'i."
+    "documentation": "Kırılacak bağlantılara sahip <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code>'ı geçer, bunlara bağlı tüm bağlantıları kırar.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code> üzerinden geçer ve bu parçalara bağlı olan her türlü bağlantıyı kırar.",
     "params": [
       {
         "name": "self",
@@ -25712,13 +25706,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
-    "documentation": "Uyanık parça sayısı."
+    "documentation": "Uyanık parçaların sayısı."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "<code>BaseParts</code>'in fiziksel olarak aktif olduğu ve fizik etkisi altında olan kısım sayısını döndürür.",
+    "documentation": "Fiziksel olarak etkin sayılan <code>BaseParts</code> sayısını döndürür; fizikler tarafından yakın zamanda etkilenmiş olan parçalardır.",
     "params": [
       {
         "name": "self",
@@ -25732,13 +25726,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "Fizik simülasyonunun şu anda hangi yüzde kısıtlandığını gösterir."
+    "documentation": "Fizik simülasyonunun şu anda ne ölçüde kısıtlandığını gösteren yüzde."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "Fizik simülasyonunun şu anda ne yüzde 0 ile 100 arasında kısıtlandığını gösteren bir tam sayı döndürür.",
+    "documentation": "Fizik simülasyonunun şu anda ne ölçüde kısıtlandığını gösteren 0 ile 100 arasında bir tamsayı döndürür.",
     "params": [
       {
         "name": "self",
@@ -25752,13 +25746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "Fizik şuan kaç karede simüle ediliyor?"
+    "documentation": "Fizik simülasyonunun şu anda ne kadar kare hızında yapıldığını döndürür."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "Fizik şuan kaç karede simüle ediliyorsa bilgisini döndürür.",
+    "documentation": "Fizik simülasyonunun şu anda ne kadar kare hızında yapıldığını döndürür.",
     "params": [
       {
         "name": "self",
@@ -25772,10 +25766,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\t-- Eğer workspace:GetRealPhysicsFPS() 65'ten büyükse\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\tplayer:Kick() -- Oyuncuyu at\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
-    "documentation": "Sunucuda tahmin edilen Unix zaman damgası."
+    "documentation": "Sunucudaki tahmini Unix zaman damgası."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
     "documentation": "Sunucunun Unix zamanını saniye cinsinden döndürür.",
@@ -25792,16 +25786,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "Bağlantıların oluşturulacağı <code>BaseParts</code>'ın bir dizi."
+    "documentation": "Bağlantıların oluşturulacağı <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "Kullanılacak <code>JointCreationMode</code>. <code>Enum.JointCreationMode.All</code> veya <code>Enum.JointCreationMode.Surface</code> geçirildiğinde benzer davranış sergiler."
+    "documentation": "Kullanılacak <code>JointCreationMode</code>'u belirtir. Geçtiğinde <code>Enum.JointCreationMode.All</code> veya <code>Enum.JointCreationMode.Surface</code>, her iki şekilde de aynı davranış sergiler; bu da her zaman birleştirilecektir."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "Belirtilen <code>Parts</code> ve herhangi bir temas halindeki parçalar arasında bağlantılar oluşturur; parçaların yüzeylerine ve belirtilen bağlantı oluşturma moduna bağlıdır.",
+    "documentation": "Belirtilen <code>Parts</code> ile dokunan herhangi bir parçayla, parçaların yüzeyine ve belirtilen bağlantı oluşturma moduna göre bağlantılar oluşturur.",
     "params": [
       {
         "name": "self",
@@ -25821,13 +25815,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "Bağlantıların oluşturulacağı <code>parts</code>'ın bir dizi."
+    "documentation": "Bağlantıların oluşturulacağı <code>parts</code> dizisi."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code>'ı geçer. Eğer herhangi bir parçanın yüzeyinde, <code>SurfaceType</code> ile bir bağlantı yapabilecek bir özellik varsa, yanındaki parçalarla bağlantı oluşturur.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code> üzerinden geçer. Eğer herhangi bir parçanın yüzeyinde <code>SurfaceType</code> varsa ve bu bir bağlantı oluşturabiliyorsa, bitişik parçalarla bir bağlantı oluşturur.",
     "params": [
       {
         "name": "self",
@@ -25843,13 +25837,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "PGS çözücüsü etkinse doğrudur."
+    "documentation": "PGS çözücüsü etkinse doğru."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "<code>Workspace</code> üzerinde PGS Fizik çözücüsünün etkin olup olmadığını gösterir.",
+    "documentation": "Oyun PGS Fizik çözücüsü etkinse <code>true</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -25863,13 +25857,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "Bağlantıların kırılacağı <code>BaseParts</code>'ın bir dizi."
+    "documentation": "Kırılacak bağlantılara sahip <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "Belirtilen <code>BaseParts</code> ve diğer <code>BaseParts</code> arasındaki tüm bağlantıları kırar.",
+    "documentation": "Belirtilen <code>BaseParts</code> ve diğer <code>BaseParts</code> arasındaki bütün bağlantıları kırar.",
     "params": [
       {
         "name": "self",
@@ -25885,10 +25879,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesneleri barındırır ve bunlar 3D dünyaya render edilir. Bunun altındaki nesneler, dünyayla fiziksel etkileşimde bulunamaz veya render edilmez."
+    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "<code>Workspace.CurrentCamera</code>'yı, <code>BaseParts</code>'ın görünümünü gösterecek şekilde pozisyonlar ve zoomlar.",
+    "documentation": "<code>Workspace.CurrentCamera</code>'yı, <code>BaseParts</code>'ın kapsamını göstermek için pozisyonlar ve yakınlaştırır.",
     "params": [
       {
         "name": "self",
@@ -25977,7 +25971,7 @@
     "returns": []
   },
   "@roblox/globaltype/Workspace.PersistentLoaded": {
-    "documentation": "Belirtilen oyuncuya kalıcı modeller gönderildiğinde tetiklenir.",
+    "documentation": "Aynı oyuncuya sürekli olarak gönderilen kalıcı modeller ile ateşlenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Workspace.PersistentLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Workspace.PersistentLoaded.ConnectParallel",
@@ -26357,7 +26351,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plane": {
-    "documentation": "<strong>Deprecated:</strong> <br>Attachment0 ve Attachment1'i kısıtlar, böylece her iki nokta da Attachment0'ın konumunda ve birim normal vektörü Attachment0'ın birincil ekseni ile eşit olan bir düzlemde bulunur.",
+    "documentation": "<strong>Deprecated:</strong> <br>Attachment0 ve Attachment1'i, her iki noktanın Attachment0'ın konumunda ve birim normal vektörünün Attachment0'ın birincil eksenine eşit olduğu bir düzlemde bulunacak şekilde kısıtlar.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plane",
     "code_sample": ""
@@ -27948,7 +27942,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "",
+    "documentation": "Dekal tarafından görüntülenen doku içeriği. Destekler <a href=\"../../../projects/assets/index.md#asset-uris\">varlık URI'leri</a> ve <code>EditableImage</code> nesneleri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
@@ -28547,7 +28541,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.ZIndex": {
-    "documentation": "<code>AlwaysOnTop</code> değeri <code>true</code> olduğunda, bu <code>HandleAdornment</code>'in çizim sırasını belirler.",
+    "documentation": "Bu <code>HandleAdornment</code>'in çizim sırasını belirler, eğer <code>AlwaysOnTop</code> değeri <code>true</code> ise.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#ZIndex",
     "code_sample": ""
   },
@@ -28629,7 +28623,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "Bir oyuncu süslemenin üzerinde dururken sol fare tuşuna basarsa tetiklenir.",
+    "documentation": "Bir oyuncu, süslemenin üzerinde dururken sol fare tuşuna bastığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -28717,7 +28711,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "Bir oyuncu süslemenin üzerinde dururken sol fare tuşunu bıraktığında tetiklenir.",
+    "documentation": "Bir oyuncu, süslemenin üzerinde dururken sol fare tuşunu bıraktığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -30263,7 +30257,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Platform": {
-    "documentation": "Tarihsel olarak oyuncuyu oturma pozisyonuna yerleştirmeyen bir <code>Seat</code> formudur. Bu nesne artık oluşturulamaz ve geliştiriciler tarafından kullanılamaz.",
+    "documentation": "Tarihsel olarak oyuncuyu oturma pozisyonuna yerleştirmeyen bir <code>Seat</code> biçimidir. Bu nesne artık oluşturulamaz ve geliştiriciler tarafından kullanılamaz.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Platform",
     "code_sample": ""
@@ -31303,7 +31297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HopperBin": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılan sınıf, <code>Tool</code> ile değiştirilmiştir. Lütfen yeni çalışmalar için Tool kullanın.",
+    "documentation": "<strong>Deprecated:</strong> Bu eski sınıf, <code>Tool</code> ile değiştirilmiştir. Lütfen yeni çalışmalar için Tool'u kullanın.",
     "keys": {
       "Active": "@roblox/globaltype/HopperBin.Active",
       "BinType": "@roblox/globaltype/HopperBin.BinType"
@@ -32186,7 +32180,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool": {
-    "documentation": "Bir <code>Humanoid</code> tarafından giyilebilen bir nesne, örneğin bir silah.",
+    "documentation": "Bir <code>Humanoid</code> tarafından takılabilen bir nesne, örneğin bir silah.",
     "keys": {
       "CanBeDropped": "@roblox/globaltype/Tool.CanBeDropped",
       "Enabled": "@roblox/globaltype/Tool.Enabled",
@@ -32210,55 +32204,55 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Enabled": {
-    "documentation": "Aracın kullanılıp kullanılamayacağıyla ilgilidir.",
+    "documentation": "Aletin kullanılabilir olup olmadığını ifade eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#Enabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"SüperAtlama\"\ntool.RequiresHandle = false\ntool.Parent = player.Backpack\n\nfunction toolActivated()\n\thumanoid.JumpPower = 150\n\ttool.Enabled = false\n\ttask.wait(5)\n\ttool.Enabled = true\n\thumanoid.JumpPower = 50\nend\n\ntool.Activated:Connect(toolActivated)\ntool.Unequipped:Connect(function()\n\thumanoid.JumpPower = 50\nend)"
   },
   "@roblox/globaltype/Tool.Grip": {
-    "documentation": "Aracın \"tutma\" özelliklerini bir <code>CFrame</code> olarak saklar.",
+    "documentation": "Aracın \"tutma\" özelliklerini tek bir <code>CFrame</code> olarak saklar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#Grip",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Kahverengi\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripForward": {
-    "documentation": "Grip <code>CFrame</code> dönüşüm matrisinin <code>R02</code>, <code>R12</code> ve <code>R22</code> değerlerini temsil eder.",
+    "documentation": "<code>CFrame</code> dönüş matrisinin <code>R02</code>, <code>R12</code>, ve <code>R22</code> değerlerini temsil eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripForward",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Kahverengi\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripPos": {
-    "documentation": "Aracın kaynak matrisinin konumsal kaydırması.",
+    "documentation": "Aracın kaynak matrisinin konumsal kaymasını temsil eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripPos",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Kahverengi\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripRight": {
-    "documentation": "Grip <code>CFrame</code> dönüşüm matrisinin <code>R00</code>, <code>R10</code> ve <code>R20</code> değerlerini temsil eder.",
+    "documentation": "<code>CFrame</code> dönüş matrisinin <code>R00</code>, <code>R10</code>, ve <code>R20</code> değerlerini temsil eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripRight",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Kahverengi\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripUp": {
-    "documentation": "Grip <code>CFrame</code> dönüşüm matrisinin <code>R01</code>, <code>R11</code> ve <code>R21</code> değerlerini temsil eder.",
+    "documentation": "<code>CFrame</code> dönüş matrisinin <code>R01</code>, <code>R11</code>, ve <code>R21</code> değerlerini temsil eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripUp",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Kahverengi\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.ManualActivationOnly": {
-    "documentation": "<code>Tool</code>'un <code>Tool:Activate()</code> çalıştırılmadan aktif hale gelip gelemeyeceğini kontrol eder.",
+    "documentation": "<code>Tool</code>'ün <code>Tool:Activate()</code> yöntemi çağrılmadan etkinleştirilip etkinleştirilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#ManualActivationOnly",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Sprint\"\ntool.RequiresHandle = false\ntool.Parent = player:WaitForChild(\"Backpack\")\n\nfunction toolActivated()\n\thumanoid.WalkSpeed = 30\n\ttool.ManualActivationOnly = true\n\ttask.wait(5)\n\ttool.ManualActivationOnly = false\n\thumanoid.WalkSpeed = 16\nend\n\ntool.Activated:Connect(toolActivated)\ntool.Unequipped:Connect(function()\n\thumanoid.WalkSpeed = 16\nend)"
   },
   "@roblox/globaltype/Tool.RequiresHandle": {
-    "documentation": "Bir <code>Tool</code>'un bir tutacak olmadan işlev görüp görmeyeceğini belirler.",
+    "documentation": "Bir <code>Tool</code>'ün bir tutma parçası olmadan çalışıp çalışmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#RequiresHandle",
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.ToolTip": {
-    "documentation": "Oyuncunun fare imlecini aracın sırt çantasına getirdiğinde gösterilecek mesajı kontrol eder.",
+    "documentation": "Oyuncunun fare imlecinin aracın sırt çantasının üzerine geldiğinde görüntülenen mesajı kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#ToolTip",
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Activate/param/0": {
-    "documentation": "Bir <code>Humanoid</code> tarafından giyilebilen bir nesne, örneğin bir silah."
+    "documentation": "Bir <code>Humanoid</code> tarafından takılabilen bir nesne, örneğin bir silah."
   },
   "@roblox/globaltype/Tool.Activate": {
-    "documentation": "<code>Tool</code>'un aktifleşimini simüle eder.",
+    "documentation": "<code>Tool</code>'ün etkinleştirilmesini simüle eder.",
     "params": [
       {
         "name": "self",
@@ -32270,10 +32264,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Deactivate/param/0": {
-    "documentation": "Bir <code>Humanoid</code> tarafından giyilebilen bir nesne, örneğin bir silah."
+    "documentation": "Bir <code>Humanoid</code> tarafından takılabilen bir nesne, örneğin bir silah."
   },
   "@roblox/globaltype/Tool.Deactivate": {
-    "documentation": "<code>Tool</code>'un devre dışı bırakılmasını simüle eder.",
+    "documentation": "<code>Tool</code>'ün devre dışı bırakılmasını simüle eder.",
     "params": [
       {
         "name": "self",
@@ -32362,7 +32356,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Activated": {
-    "documentation": "Oyuncu tıkladığında ve araç giyili olduğunda tetiklenir.",
+    "documentation": "Araç takılıyken oyuncu tıkladığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Activated.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Activated.ConnectParallel",
@@ -32450,7 +32444,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Deactivated": {
-    "documentation": "Oyuncu tıklama işlemini bıraktığında ve araç giyili ve aktif olduğunda tetiklenir.",
+    "documentation": "Oyuncu aracı takılı ve etkinleştirildiğindeyken tıklamayı bıraktığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Deactivated.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Deactivated.ConnectParallel",
@@ -32538,7 +32532,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Equipped": {
-    "documentation": "Araç giyildiğinde tetiklenir.",
+    "documentation": "Araç takıldığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Equipped.ConnectParallel",
@@ -32626,7 +32620,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Unequipped": {
-    "documentation": "Araç çıkarıldığında tetiklenir.",
+    "documentation": "Araç, ellerden çıkarıldığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Unequipped.ConnectParallel",
@@ -32680,7 +32674,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Seat": {
-    "documentation": "<code>BasePart</code> türünden, karakterlerin 'oturabileceği' bir tür. Bir karakter aktif bir Oturak nesnesine dokunduğunda, parça ile bir <code>Weld</code> ile bağlanacak ve varsayılan karakter betikleri oturma animasyonunu oynayacaktır.",
+    "documentation": "<code>BasePart</code> türünde, karakterlerin 'oturabileceği' bir nesnedir. Bir karakter aktif bir Sandalye nesnesine dokunduğunda, <code>Weld</code> ile parça bağlanır ve varsayılan karakter betikleri oturma animasyonunu oynar.",
     "keys": {
       "Disabled": "@roblox/globaltype/Seat.Disabled",
       "Occupant": "@roblox/globaltype/Seat.Occupant",
@@ -32690,23 +32684,23 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal seat = Instance.new(\"Seat\")\nseat.Anchored = true\nseat.Position = Vector3.new(0, 1, 0)\nseat.Parent = workspace\n\nlocal currentPlayer = nil\n\nlocal function onOccupantChanged()\n\tlocal humanoid = seat.Occupant\n\tif humanoid then\n\t\tlocal character = humanoid.Parent\n\t\tlocal player = Players:GetPlayerFromCharacter(character)\n\t\tif player then\n\t\t\tprint(player.Name .. \" oturdu\")\n\t\t\tcurrentPlayer = player\n\t\t\treturn\n\t\tend\n\tend\n\tif currentPlayer then\n\t\tprint(currentPlayer.Name .. \" kalktı\")\n\t\tcurrentPlayer = nil\n\tend\nend\n\nseat:GetPropertyChangedSignal(\"Occupant\"):Connect(onOccupantChanged)"
   },
   "@roblox/globaltype/Seat.Disabled": {
-    "documentation": "Oturak kullanılabilir mi? true olarak ayarlandığında oturak normal bir parça gibi davranır.",
+    "documentation": "Sandalyenin kullanılabilir olup olmadığını belirtir. <code>true</code> olarak ayarlanırsa, sandalye normal bir parça gibi davranır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Disabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Occupant": {
-    "documentation": "Oturakta oturan humanoid.",
+    "documentation": "Sandalyede oturan humanoid.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Occupant",
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Sit/param/0": {
-    "documentation": "<code>BasePart</code> türünden, karakterlerin 'oturabileceği' bir tür. Bir karakter aktif bir Oturak nesnesine dokunduğunda, parça ile bir <code>Weld</code> ile bağlanacak ve varsayılan karakter betikleri oturma animasyonunu oynayacaktır."
+    "documentation": "<code>BasePart</code> türünde, karakterlerin 'oturabileceği' bir nesnedir. Bir karakter aktif bir Sandalye nesnesine dokunduğunda, <code>Weld</code> ile parça bağlanır ve varsayılan karakter betikleri oturma animasyonunu oynar."
   },
   "@roblox/globaltype/Seat.Sit/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Seat.Sit": {
-    "documentation": "Belirtilen <code>Humanoid</code> ile karakteri oturakta oturmaya zorlar.",
+    "documentation": "Belirtilen <code>Humanoid</code>'e sahip karakteri Sandalyeye oturmaya zorlar.",
     "params": [
       {
         "name": "self",
@@ -33803,7 +33797,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform": {
-    "documentation": "<strong>Deprecated:</strong> SkateboardPlatform nesnesi kullanımdan kaldırılmıştır ve artık Roblox tarafından desteklenmemektedir. Kaykaylar veya benzeri araçlar oluşturmak isteyen geliştiricilerin kendi sistemlerini programlaması önerilir. Ayrıca, <code>VehicleSeat</code> nesnesi, basit araçları hızlı bir şekilde oluşturmak için kullanılabilir.<br>Bir SkateboardPlatform, bir kaykay oluşturmak için kullanılabilir. Karakterler kaykayın üzerine çıktıklarında, kaçış tuşuna basana kadar ona sıkışmış olurlar. O zamana kadar, karakter kaykay animasyonları kullanır ve yayan bir karakterden daha hızlı hareket eder.",
+    "documentation": "<strong>Deprecated:</strong> SkateboardPlatform nesnesi kullanımdan kaldırılmıştır ve artık Roblox tarafından desteklenmemektedir. Kaykaylar veya benzeri araçlar oluşturmak isteyen geliştiricilerin kendi sistemlerini programlamaları önerilir. Ayrıca, <code>VehicleSeat</code> nesnesi basit araçlar oluşturmak için hızlı bir şekilde kullanılabilir.<br>Bir SkateboardPlatform, bir kaykay oluşturmak için kullanılabilir. Karakterler bir kaykayın üzerine çıktıklarında, kaçış tuşuna basana kadar ona yapışırlar. O zamana kadar karakter, kaykay animasyonları kullanır ve yürüyen bir karakterden daha hızlı hareket eder.",
     "keys": {
       "Controller": "@roblox/globaltype/SkateboardPlatform.Controller",
       "ControllingHumanoid": "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid",
@@ -33816,7 +33810,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Controller": {
-    "documentation": "SkateboardPlatform'un aktif SkateboardController'ı.",
+    "documentation": "SkateboardPlatform'un etkin SkateboardController'ı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Controller",
     "code_sample": ""
   },
@@ -33826,28 +33820,28 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Steer": {
-    "documentation": "Hareket yönü, A ve D tuşları ile bağlıdır. 1 (sağ), 0 (düz) veya -1 (sol) olmalıdır. Sürekli ayarlanmıyorsa 0'a geri dönecektir.",
+    "documentation": "A ve D tuşlarına bağlı olan hareket yönü. 1 (sağ), 0 (düz) veya -1 (sol) olmalıdır. Sürekli olarak ayarlanana kadar 0'a geri dönüş yapacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Steer",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.StickyWheels": {
-    "documentation": "Eğer doğruysa, tekerlekler kullanıcı girişi olmadan dönmeyecek.",
+    "documentation": "Doğruysa, tekerlekler kullanıcı girdisi olmadan dönmeyecek.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#StickyWheels",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Throttle": {
-    "documentation": "Hareket yönü, W ve S tuşları ile bağlıdır. 1 (ileri), 0 (null) veya -1 (geri) olmalıdır. Sürekli ayarlanmıyorsa 0'a geri dönecektir.",
+    "documentation": "W ve S tuşlarına bağlı olan hareket yönü. Tam sayi 1 (ileri), 0 (boş) veya -1 (geri) olmalıdır. Sürekli olarak ayarlanana kadar 0'a geri dönüş yapacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Throttle",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/0": {
-    "documentation": "<strong>Deprecated:</strong> SkateboardPlatform nesnesi kullanımdan kaldırılmıştır ve artık Roblox tarafından desteklenmemektedir. Kaykaylar veya benzeri araçlar oluşturmak isteyen geliştiricilerin kendi sistemlerini programlaması önerilir. Ayrıca, <code>VehicleSeat</code> nesnesi, basit araçları hızlı bir şekilde oluşturmak için kullanılabilir.<br>Bir SkateboardPlatform, bir kaykay oluşturmak için kullanılabilir. Karakterler kaykayın üzerine çıktıklarında, kaçış tuşuna basana kadar ona sıkışmış olurlar. O zamana kadar, karakter kaykay animasyonları kullanır ve yayan bir karakterden daha hızlı hareket eder."
+    "documentation": "<strong>Deprecated:</strong> SkateboardPlatform nesnesi kullanımdan kaldırılmıştır ve artık Roblox tarafından desteklenmemektedir. Kaykaylar veya benzeri araçlar oluşturmak isteyen geliştiricilerin kendi sistemlerini programlamaları önerilir. Ayrıca, <code>VehicleSeat</code> nesnesi basit araçlar oluşturmak için hızlı bir şekilde kullanılabilir.<br>Bir SkateboardPlatform, bir kaykay oluşturmak için kullanılabilir. Karakterler bir kaykayın üzerine çıktıklarında, kaçış tuşuna basana kadar ona yapışırlar. O zamana kadar karakter, kaykay animasyonları kullanır ve yürüyen bir karakterden daha hızlı hareket eder."
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse": {
-    "documentation": "SkateboardPlatform'un <code>BasePart.Velocity</code>'sine ''impulseWorld'' ekler.",
+    "documentation": "SkateboardPlatform'un <code>BasePart.Velocity</code>'sına 'impulseWorld' ekler.",
     "params": [
       {
         "name": "self",
@@ -34028,7 +34022,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.MoveStateChanged": {
-    "documentation": "SkateboardPlatform'un <code>SkateboardPlatform.ControllingHumanoid</code>'u, SkateboardPlatform'da kullanılan kuvveti değiştirdiğinde tetiklenir.",
+    "documentation": "SkateboardPlatform'un <code>SkateboardPlatform.ControllingHumanoid</code>'u kaykay platformunda kullanılan gücü değiştirdiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.ConnectParallel",
@@ -34116,7 +34110,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.Unequipped": {
-    "documentation": "Kaykay çıkarıldığında tetiklenir.",
+    "documentation": "Kaykay açıldığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.Unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.Unequipped.ConnectParallel",
@@ -34204,7 +34198,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.equipped": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış olay, <code>SkateboardPlatform.Equipped</code>'in bir varyantıdır ve bu olay da kullanımdan kaldırılmıştır. Her iki olay da yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış event, <code>SkateboardPlatform.Equipped</code>'in bir varyantıdır ve bu da kullanımdan kaldırılmıştır. Her iki olay da yeni işlerde kullanılmamalıdır.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.equipped.ConnectParallel",
@@ -34292,7 +34286,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.unequipped": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış olay, <code>SkateboardPlatform.Unequipped</code>'in bir varyantıdır ve bu olay da kullanımdan kaldırılmıştır. Her iki olay da yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış event, <code>SkateboardPlatform.Unequipped</code>'in bir varyantıdır ve bu da kullanımdan kaldırılmıştır. Her iki olay da yeni işlerde kullanılmamalıdır.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.unequipped.ConnectParallel",
@@ -35542,7 +35536,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment": {
-    "documentation": "İnheritorlerin <code>PVInstance</code> sınıfının nesnelerine süslemek için kullanılabileceği soyut bir sınıf.",
+    "documentation": "Nesne olarak <code>PVInstance</code> sınıfına süslenebilen mirasçıların bulunduğu soyut bir sınıf.",
     "keys": {
       "Adornee": "@roblox/globaltype/PVAdornment.Adornee"
     },
@@ -38769,7 +38763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint": {
-    "documentation": "İki bağlantıyı tanımlanan <code>Length</code> ile ayrı tutar.",
+    "documentation": "İki parçayı tanımlanan <code>Length</code> ile ayırır.",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RodConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RodConstraint.Length",
@@ -38782,37 +38776,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.CurrentDistance": {
-    "documentation": "Kısıtlamanın mevcut mesafesi <code>Attachments</code> arasında.",
+    "documentation": "Kısıtlamanın mevcut uzaklığı <code>Attachments</code> arasındadır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#CurrentDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.Length": {
-    "documentation": "Kısıtlamanın, bağlantılarını <code>Attachments</code> tutmaya çalıştığı mesafe.",
+    "documentation": "Kısıtlamanın, parçaları <code>Attachments</code> tutmaya çalıştığı uzaklık.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitAngle0": {
-    "documentation": "<code>LimitsEnabled</code> doğru olduğunda, roda ve <code>Attachment0</code> arasındaki maksimum açı.",
+    "documentation": "<code>LimitsEnabled</code> true olduğunda, çubuk ile <code>Attachment0</code> arasındaki maksimum açı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitAngle0",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitAngle1": {
-    "documentation": "<code>LimitsEnabled</code> doğru olduğunda, roda ve <code>Attachment1</code> arasındaki maksimum açı.",
+    "documentation": "<code>LimitsEnabled</code> true olduğunda, çubuk ile <code>Attachment1</code> arasındaki maksimum açı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitAngle1",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitsEnabled": {
-    "documentation": "<code>LimitAngle0</code> ve <code>LimitAngle1</code>'in, bir rod ile ilgili bağlantılar arasındaki açıları kontrol edip etmediğini belirler.",
+    "documentation": "<code>LimitAngle0</code> ve <code>LimitAngle1</code>'in çubuk ile ilgili parçalar arasındaki açıları kontrol edip etmediğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.Thickness": {
-    "documentation": "<code>RodConstraint</code>'ın görselleştirilmiş kalınlığı.",
+    "documentation": "<code>RodConstraint</code>'in görselleştirilen kalınlığı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Rotate": {
-    "documentation": "<strong>Deprecated:</strong> Bu sınıf, kullanımdan kaldırılmış <code>SurfaceType</code> ile birlikte çalışır ve gelecekteki işler için kullanılmamalıdır; bunun yerine <code>HingeConstraint</code> kullanın.",
+    "documentation": "<strong>Deprecated:</strong> Bu sınıf, kullanımdan kaldırılan <code>SurfaceType</code> ile birlikte çalışır ve gelecekteki çalışmalar için kullanılmamalıdır; bunun yerine <code>HingeConstraint</code> kullanın.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Rotate",
     "code_sample": ""
@@ -38836,7 +38830,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PrismaticConstraint": {
-    "documentation": "İki <code>Attachments</code> arasında rijit bir bağlantı oluşturan kısıtlama, bir eksen boyunca kaymalarına izin verir ancak dönmelerine izin vermez.",
+    "documentation": "İki <code>Attachment</code> arasında, bir eksen boyunca kaymalarına izin veren ancak dönmelerine izin vermeyen sert bir bağlantı oluşturan kısıtlama.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PrismaticConstraint",
     "code_sample": ""
@@ -39616,7 +39610,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VectorForce": {
-    "documentation": "Bir montaj üzerine sürekli kuvvet uygular.",
+    "documentation": "Bir montaj üzerinde sürekli kuvvet uygular.",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/VectorForce.ApplyAtCenterOfMass",
       "Force": "@roblox/globaltype/VectorForce.Force",
@@ -39626,7 +39620,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VectorForce.ApplyAtCenterOfMass": {
-    "documentation": "Kuvvetin ana montajın kütle merkezi üzerinde uygulanıp uygulanmadığı.",
+    "documentation": "Kuvvetin ana montajın kütle merkezinde uygulanıp uygulanmadığı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VectorForce#ApplyAtCenterOfMass",
     "code_sample": ""
   },
@@ -39636,7 +39630,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VectorForce.RelativeTo": {
-    "documentation": "Kuvvetin ifade edildiği <code>CFrame</code>.",
+    "documentation": "Kuvvetin ifade edildiği 'Datatype.CFrame'.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VectorForce#RelativeTo",
     "code_sample": ""
   },
@@ -43090,12 +43084,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.CFrame": {
-    "documentation": "<code>CFrame</code> yönelimi, kısıtlamanın <code>Attachment0</code>'nin yönelimini eşleştirmeye çalışacağı.",
+    "documentation": "Kısıtlamanın, <code>Attachment0</code> yönelimi ile eşleştirmeye çalışacağı <code>CFrame</code> yönelimi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#CFrame",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.LookAtPosition": {
-    "documentation": "Birincil eksenin hizalamaya çalışacağı <code>Vector3</code> dünya alanındaki konum.",
+    "documentation": "Ana eksenin hizalanmaya çalışacağı bir <code>Vector3</code> dünya uzayı konumu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#LookAtPosition",
     "code_sample": ""
   },
@@ -43110,7 +43104,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Mode": {
-    "documentation": "Kısıtlamanın hedefine ulaşmak için bir veya iki bağlantı kullanıp kullanmadığını.",
+    "documentation": "Kısıtlamanın amacını hesaplarken bir veya iki bağlantı kullanıp kullanmadığı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Mode",
     "code_sample": ""
   },
@@ -43125,17 +43119,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.ReactionTorqueEnabled": {
-    "documentation": "Kısıtlamanın torku yalnızca <code>Attachment0</code>'ya mı yoksa her iki bağlantıya da eşit ve zıt yönlerde mi uygulayıp uygulamadığını kontrol eder.",
+    "documentation": "Kısıtlamanın yalnızca <code>Attachment0</code>'ye tork uygulayıp uygulamadığını veya her iki bağlantıya eşit ve zıt yönlerde tork uygulayıp uygulamadığını belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#ReactionTorqueEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Responsiveness": {
-    "documentation": "Kısıtlamanın hedefine ulaşma hızını kontrol eder. Daha yüksek değerler, bağlantının daha hızlı hizalanmasına neden olur.",
+    "documentation": "Kısıtlamanın hedefine ne kadar hızlı ulaştığını kontrol eder. Daha yüksek değerler bağlantıların daha hızlı hizalanmasını sağlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.RigidityEnabled": {
-    "documentation": "Torkun diğer özelliklere bağlı olup olmadığını veya fizik çözücünün hizalamayı tamamlamak için mümkün olan en kısa sürede tepki verip vermediğini belirtir.",
+    "documentation": "Torkun diğer özelliklere bağımlı olup olmadığını veya fizik çözücüsünün hizalamayı tamamlamak için mümkün olduğunca hızlı bir şekilde yanıt verip vermediğini belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#RigidityEnabled",
     "code_sample": ""
   },
@@ -46533,7 +46527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint": {
-    "documentation": "Bağlantılarını tek bir eksen etrafında döndürme ile sınırlıdır.",
+    "documentation": "Bağlantıların tek bir eksende döndürülmesini kısıtlar.",
     "keys": {
       "ActuatorType": "@roblox/globaltype/HingeConstraint.ActuatorType",
       "AngularResponsiveness": "@roblox/globaltype/HingeConstraint.AngularResponsiveness",
@@ -46555,22 +46549,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.ActuatorType": {
-    "documentation": "<code>HingeConstraint</code>'ın dönüşünün harekete geçirilip geçirilmediğini ve öyleyse hangi türde bir harekete geçirdiğini ayarlar.",
+    "documentation": "<code>HingeConstraint</code> döndürmenin etkinleştirilip etkinleştirilmeyeceğini ve hangi tür etkinleştirmenin kullanılacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#ActuatorType",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularResponsiveness": {
-    "documentation": "<code>TargetAngle</code>'a ulaşmadaki servo motorun keskinliğini belirtir.",
+    "documentation": "Servo motorunun <code>TargetAngle</code> değerine ulaşma keskinliğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularSpeed": {
-    "documentation": "<code>HingeConstraint</code>'ın, <code>ActuatorType</code> değeri <code>Servo</code> olarak ayarlandığında, dönme sırasında hedef açısına ulaşmaya çalıştığı istenen açısal hızı belirtir. Radyan/saniye cinsindendir.",
+    "documentation": "<code>HingeConstraint</code>'ın <code>ActuatorType</code> değeri <code>Servo</code> açıkken <code>TargetAngle</code> değerine dönerken korumaya çalışacağı istenen açısal hız. Radyan/saniye cinsinden ölçülür.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularVelocity": {
-    "documentation": "<code>HingeConstraint</code>'ın, <code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında, elde etmeye çalıştığı açısal hızı belirtir. Radyan/saniye cinsindendir.",
+    "documentation": "<code>HingeConstraint</code>'ın <code>ActuatorType</code> değeri <code>Motor</code> açıkken ulaşmaya çalışacağı açısal hız. Radyan/saniye cinsinden ölçülür.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularVelocity",
     "code_sample": ""
   },
@@ -46580,22 +46574,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.LimitsEnabled": {
-    "documentation": "<code>HingeConstraint</code>'ın döngü aralığını sınırlayıp sınırlamayacağını ayarlar.",
+    "documentation": "<code>HingeConstraint</code>'ın döndürme aralığını sınırlayıp sınırlamayacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.LowerAngle": {
-    "documentation": "<code>LimitsEnabled</code> true ise izin verilen minimum döngü açısını belirtir.",
+    "documentation": "<code>HingeConstraint</code>'ın izin vereceği minimum döndürme açısı, <code>LimitsEnabled</code> true olduğunda.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#LowerAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.MotorMaxAcceleration": {
-    "documentation": "<code>HingeConstraint</code>'ın, <code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında, e ulaşmak için uygulayabileceği maksimum açısal ivmeyi belirtir. Radyan/saniye&sup2; cinsindendir.",
+    "documentation": "<code>HingeConstraint</code>'ın <code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında, hedeflediği <code>AngularVelocity</code>'yi elde etmek için uygulayacağı maksimum açısal ivme. Radyan/saniye&sup2; cinsinden ölçülür.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.MotorMaxTorque": {
-    "documentation": "<code>HingeConstraint</code>'ın, <code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında, istenen <code>AngularVelocity</code> değerine ulaşmaya çalışırken uygulayabileceği maksimum tork.",
+    "documentation": "<code>HingeConstraint</code>'ın <code>ActuatorType</code> değeri <code>Motor</code> açıkken, istenen <code>AngularVelocity</code> değerine ulaşmak için uygulayabileceği maksimum tork.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#MotorMaxTorque",
     "code_sample": ""
   },
@@ -46605,12 +46599,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.Restitution": {
-    "documentation": "<code>HingeConstraint</code> ile bağlı <code>Attachment</code>'ın, sınırlı aralıkta <code>LimitsEnabled</code> true olduğunda sona ulaştıklarında ne kadar elastik olacağını belirtir. 0 ile 1 arasında sınırlıdır.",
+    "documentation": "<code>HingeConstraint</code> ile bağlı <code>Attachment</code>'ların, <code>LimitsEnabled</code> true olduğunda aralığın sonuna ulaştıklarında ne kadar esnek olacağı. 0 ile 1 arasında kısıtlanmıştır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.ServoMaxTorque": {
-    "documentation": "<code>HingeConstraint</code>'ın, <code>ActuatorType</code> değeri <code>Servo</code> olarak ayarlandığında, istenen <code>TargetAngle</code> değerine ulaşmaya çalışırken uygulayabileceği maksimum tork.",
+    "documentation": "<code>HingeConstraint</code>'ın <code>ActuatorType</code> değeri <code>Servo</code> açıkken, istenen <code>TargetAngle</code> değerine ulaşmak için uygulayabileceği maksimum tork.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#ServoMaxTorque",
     "code_sample": ""
   },
@@ -46620,12 +46614,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.TargetAngle": {
-    "documentation": "<code>HingeConstraint</code>'ın, <code>ActuatorType</code> değeri <code>Servo</code> olarak ayarlandığında, ulaşmaya çalışacağı hedef açıyı belirtir. Derece cinsindendir.",
+    "documentation": "<code>HingeConstraint</code>'ın <code>ActuatorType</code> değeri <code>Servo</code> açıkken döndürmeye çalışacağı hedef açı. Derece cinsinden ölçülür.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#TargetAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.UpperAngle": {
-    "documentation": "<code>LimitsEnabled</code> true olduğunda izin verilen maksimum döngü açısı.",
+    "documentation": "<code>HingeConstraint</code>'ın <code>LimitsEnabled</code> true olduğunda izin vereceği maksimum döndürme açısı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#UpperAngle",
     "code_sample": ""
   },
@@ -47017,7 +47011,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal mouse = player:GetMouse()\n\nlocal function onMouseMove()\n\tprint(\"fare ekran konumu: \", mouse.X, mouse.Y)\nend\n\nmouse.Move:Connect(onMouseMove)"
   },
   "@roblox/globaltype/Actor": {
-    "documentation": "Bir <code>Actor</code>, güvenli bir şekilde kendi başına ayrı bir iş parçacığına bölünebilen kodlar için bir konteynerdir.",
+    "documentation": "Bir <code>Actor</code>, kodu güvenli bir şekilde kendi iş parçacığına ayırmak için bir kapsayıcıdır.",
     "keys": {
       "BindToMessage": "@roblox/globaltype/Actor.BindToMessage",
       "BindToMessageParallel": "@roblox/globaltype/Actor.BindToMessageParallel",
@@ -47027,19 +47021,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/param/0": {
-    "documentation": "Bir <code>Actor</code>, güvenli bir şekilde kendi başına ayrı bir iş parçacığına bölünebilen kodlar için bir konteynerdir."
+    "documentation": "Bir <code>Actor</code>, kodu güvenli bir şekilde kendi iş parçacığına ayırmak için bir kapsayıcıdır."
   },
   "@roblox/globaltype/Actor.BindToMessage/param/1": {
-    "documentation": "Mesajın türünü tanımlamak için kullanılan konu."
+    "documentation": "Mesaj türünü tanımlamak için kullanılan konu."
   },
   "@roblox/globaltype/Actor.BindToMessage/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/return/0": {
-    "documentation": "Bu bağlantı nesnesi, Luau geri çağrısını mesaj almak için bağlantısını kesmek için kullanılabilir."
+    "documentation": "Bu bağlantı nesnesi, Luau geri çağrısını mesajları almaktan kesmek için kullanılabilir."
   },
   "@roblox/globaltype/Actor.BindToMessage": {
-    "documentation": "Belirtilen konuya sahip bir mesaj için bir Luau geri çağrısı bağlar.",
+    "documentation": "Belirtilen konuya sahip bir mesaja bir Luau geri çağrısı bağlar.",
     "params": [
       {
         "name": "self",
@@ -47061,19 +47055,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
-    "documentation": "Bir <code>Actor</code>, güvenli bir şekilde kendi başına ayrı bir iş parçacığına bölünebilen kodlar için bir konteynerdir."
+    "documentation": "Bir <code>Actor</code>, kodu güvenli bir şekilde kendi iş parçacığına ayırmak için bir kapsayıcıdır."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/1": {
-    "documentation": "Mesajın türünü tanımlamak için kullanılan konu."
+    "documentation": "Mesaj türünü tanımlamak için kullanılan konu."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/return/0": {
-    "documentation": "Bu bağlantı nesnesi, Luau geri çağrısını mesaj almak için bağlantısını kesmek için kullanılabilir."
+    "documentation": "Bu bağlantı nesnesi, Luau geri çağrısını mesajları almaktan kesmek için kullanılabilir."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel": {
-    "documentation": "Belirtilen konuya sahip bir mesaj için bir Luau geri çağrısı bağlar.",
+    "documentation": "Belirtilen konuya sahip bir mesaja bir Luau geri çağrısı bağlar.",
     "params": [
       {
         "name": "self",
@@ -47095,16 +47089,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.SendMessage/param/0": {
-    "documentation": "Bir <code>Actor</code>, güvenli bir şekilde kendi başına ayrı bir iş parçacığına bölünebilen kodlar için bir konteynerdir."
+    "documentation": "Bir <code>Actor</code>, kodu güvenli bir şekilde kendi iş parçacığına ayırmak için bir kapsayıcıdır."
   },
   "@roblox/globaltype/Actor.SendMessage/param/1": {
     "documentation": "Gönderilen mesajı tanımlamak için kullanılan konu."
   },
   "@roblox/globaltype/Actor.SendMessage/param/2": {
-    "documentation": "Aktöre gönderilecek mesajın içeriği."
+    "documentation": "Aktör'e gönderilecek mesajın içeriği."
   },
   "@roblox/globaltype/Actor.SendMessage": {
-    "documentation": "Bir Aktöre mesaj gönderir.",
+    "documentation": "Bir Aktör'e bir mesaj gönderir.",
     "params": [
       {
         "name": "self",
@@ -47248,7 +47242,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity": {
-    "documentation": "Bir birleşime sürekli lineer hız sağlamak için kuvvet uygular.",
+    "documentation": "Bir montaja sürekli doğrusal hız sağlamak için kuvvet uygular.",
     "keys": {
       "ForceLimitMode": "@roblox/globaltype/LinearVelocity.ForceLimitMode",
       "ForceLimitsEnabled": "@roblox/globaltype/LinearVelocity.ForceLimitsEnabled",
@@ -47269,47 +47263,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.ForceLimitMode": {
-    "documentation": "Kısıtlama kuvvetinin nasıl sınırlanacağını belirler.",
+    "documentation": "Kısıtlama kuvvetinin nasıl sınırlandırılacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#ForceLimitMode",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.ForceLimitsEnabled": {
-    "documentation": "Kısıtlama kuvvetinin sınırlanıp sınırlanmayacağını veya fizik çözücünün hedef hıza ulaşmak için sınırsız kuvvet uygulayıp uygulayamayacağını belirler.",
+    "documentation": "Kısıtlama kuvvetinin sınırlanıp sınırlanamayacağını veya fizik çözümleyicisinin hedef hıza ulaşmak için sınırsız kuvvet uygulayıp uygulayamayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#ForceLimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.LineDirection": {
-    "documentation": "Bir hat boyunca hızın kısıtlanması için normalize edilmiş <code>Vector3</code> yönü.",
+    "documentation": "Bir çizgi boyunca hızı kısıtlamak için normalize edilmiş <code>Vector3</code> yönü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#LineDirection",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.LineVelocity": {
-    "documentation": "<code>VelocityConstraintMode</code> <code>Line</code> olarak ayarlandığında hızın float değeri.",
+    "documentation": "Hız değeri <code>VelocityConstraintMode</code> <code>Line</code> olarak ayarlandığında.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#LineVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.MaxAxesForce": {
-    "documentation": "Vektör hıza ulaşmak için kısıtlamanın uygulayabileceği her eksendeki maksimum kuvvet. Sadece <code>ForceLimitsEnabled</code> <code>true</code> olduğunda, <code>ForceLimitMode</code> <code>PerAxis</code> olduğunda ve <code>VelocityConstraintMode</code> <code>Vector</code> olduğunda kullanılır.",
+    "documentation": "Kısıtlamanın vektör hızını elde etmek için uygulayabileceği maksimum kuvvet her eksen boyunca. Yalnızca <code>ForceLimitsEnabled</code> değeri <code>true</code>, <code>ForceLimitMode</code> <code>PerAxis</code> ve <code>VelocityConstraintMode</code> <code>Vector</code> olduğunda kullanılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#MaxAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.MaxForce": {
-    "documentation": "Kısıtlama tarafından uygulanabilecek kuvvet vektörünün maksimum büyüklüğü.",
+    "documentation": "Kısıtlamanın uygulayabileceği kuvvet vektörünün maksimum büyüklüğü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.MaxPlanarAxesForce": {
-    "documentation": "Düzlem hızına ulaşmak için kısıtlamanın uygulayabileceği her eksendeki maksimum kuvvet. Sadece <code>ForceLimitsEnabled</code> <code>true</code> olduğunda, <code>ForceLimitMode</code> <code>PerAxis</code> olduğunda ve <code>VelocityConstraintMode</code> <code>Plane</code> olduğunda kullanılır.",
+    "documentation": "Düzlem hızını elde etmek için kısıtlamanın her eksen boyunca uygulayabileceği maksimum kuvvet. Yalnızca <code>ForceLimitsEnabled</code> değeri <code>true</code>, <code>ForceLimitMode</code> <code>PerAxis</code> ve <code>VelocityConstraintMode</code> <code>Plane</code> olduğunda kullanılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#MaxPlanarAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.PlaneVelocity": {
-    "documentation": "<code>Vector2</code> düzlemdeki her bir tangens yönündeki hız değeri.",
+    "documentation": "<code>Vector2</code> değerinin düzlemin her bir teğet yönünde hızı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#PlaneVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.PrimaryTangentAxis": {
-    "documentation": "Düzlemdeki birincil eksen, <code>VelocityConstraintMode</code> <code>Plane</code> olarak ayarlandığında.",
+    "documentation": "<code>VelocityConstraintMode</code> <code>Plane</code> olarak ayarlandığında düzlemdeki birincil eksen.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#PrimaryTangentAxis",
     "code_sample": ""
   },
@@ -47319,7 +47313,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.RelativeTo": {
-    "documentation": "<code>ActuatorRelativeTo</code> özelliğini kısıtlama için ayarlar.",
+    "documentation": "Kısıtlama için <code>ActuatorRelativeTo</code> özelliğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#RelativeTo",
     "code_sample": ""
   },
@@ -47329,7 +47323,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.VectorVelocity": {
-    "documentation": "<code>Vector3</code> hız değeri, <code>VelocityConstraintMode</code> <code>Vector</code> olarak ayarlandığında.",
+    "documentation": "<code>Vector3</code> hız değeri <code>VelocityConstraintMode</code> <code>Vector</code> olarak ayarlandığında.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#VectorVelocity",
     "code_sample": ""
   },
@@ -48689,7 +48683,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateP": {
-    "documentation": "<strong>Deprecated:</strong> Bu sınıf, kullanımdan kaldırılmış <code>SurfaceType</code> ile birlikte çalışır ve gelecekteki çalışmalar için kullanılmamalıdır; bunun yerine <code>HingeConstraint</code> kullanın.",
+    "documentation": "<strong>Deprecated:</strong> Bu sınıf, kullanılmayan <code>SurfaceType</code> ile birlikte çalışmaktadır ve gelecek çalışmalar için kullanılmamalıdır; bunun yerine <code>HingeConstraint</code> şeklinde kullanın.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateP",
     "code_sample": ""
@@ -50592,7 +50586,7 @@
     "documentation": "<code>Instance</code> Roblox sınıf hiyerarşisindeki tüm sınıfların temel sınıfıdır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "Bu işlev, bir nesnenin tüm çocuklarını yok eder.",
+    "documentation": "Bu yöntem bir nesnenin tüm çocuklarını yok eder.",
     "params": [
       {
         "name": "self",
@@ -51184,10 +51178,10 @@
     "documentation": "Sorgulanan özelliğin adı."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Özelliğin değiştirilip değiştirilmediği doğru."
+    "documentation": "Özelliğin kod ile başlatılan varsayılan değerinden değiştirildiğini belirten Boole."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Belirtilen kaydın değeri, kodla yerinden kaynaklanan varsayılana eşitse <code>true</code> döndürür.",
+    "documentation": "Belirtilen özelliğin saklanan değeri kod ile başlatılan varsayılan değere eşit değilse <code>true</code> döner.",
     "params": [
       {
         "name": "self",
@@ -52605,7 +52599,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity": {
-    "documentation": "Bir montaja sürekli açısal hız sağlamak için tork uygular.",
+    "documentation": "Bir montaja sabit açısal hızı korumak için moment uygular.",
     "keys": {
       "AngularVelocity": "@roblox/globaltype/AngularVelocity.AngularVelocity",
       "MaxTorque": "@roblox/globaltype/AngularVelocity.MaxTorque",
@@ -52621,12 +52615,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.MaxTorque": {
-    "documentation": "Kısıtlamanın uygulayabileceği maksimum torkun büyüklüğü.",
+    "documentation": "Kısıtlamanın uygulayabileceği maksimum momentin büyüklüğü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#MaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.ReactionTorqueEnabled": {
-    "documentation": "Kısıtlamanın eşit ve zıt reaksiyon kuvvetleri uygulamasını sağlar.",
+    "documentation": "Kısıtlamanın eşit ve zıt tepkisel kuvvetler uygulamasını sağlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#ReactionTorqueEnabled",
     "code_sample": ""
   },
@@ -52751,7 +52745,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment": {
-    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) üstüne ya da <code>Workspace</code> içine bir veya daha fazla çizgiden oluşan bir tel çerçeve süslemesi oluşturur.",
+    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) veya <code>Workspace</code> üzerine bir veya daha fazla çizgiden oluşan bir tel çerçeve süsleme nesnesini döndürür.",
     "keys": {
       "Scale": "@roblox/globaltype/WireframeHandleAdornment.Scale",
       "Thickness": "@roblox/globaltype/WireframeHandleAdornment.Thickness",
@@ -52775,7 +52769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/0": {
-    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) üstüne ya da <code>Workspace</code> içine bir veya daha fazla çizgiden oluşan bir tel çerçeve süslemesi oluşturur."
+    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) veya <code>Workspace</code> üzerine bir veya daha fazla çizgiden oluşan bir tel çerçeve süsleme nesnesini döndürür."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/1": {
     "documentation": "Çizginin başlangıç noktası."
@@ -52784,7 +52778,7 @@
     "documentation": "Çizginin bitiş noktası."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine": {
-    "documentation": "Bir çizgiyi <code>Adornee</code> merkezine göre bir başlangıç noktasından bir bitiş noktasına ekler.",
+    "documentation": "Bir çizgi ekler tel çerçeve süslemesine bir başlangıç noktasından bir bitiş noktasına kadar, <code>Adornee</code> merkezine göre.",
     "params": [
       {
         "name": "self",
@@ -52804,7 +52798,7 @@
     "code_sample": "local wireframe = script.Parent\n\nwireframe.Color3 = Color3.fromRGB(255, 0, 0) -- Sonraki satırı kırmızı yapar\nwireframe:AddLine(Vector3.new(-10, 0, 0), Vector3.new(10, 0, 0))\nwireframe.Color3 = Color3.fromRGB(0, 255, 0) -- Sonraki satırı yeşil yapar\nwireframe:AddLine(Vector3.new(0, -10, 0), Vector3.new(0, 10, 0))\nwireframe.Color3 = Color3.fromRGB(0, 0, 255) -- Sonraki satırı mavi yapar\nwireframe:AddLine(Vector3.new(0, 0, -10), Vector3.new(0, 0, 10))"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/0": {
-    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) üstüne ya da <code>Workspace</code> içine bir veya daha fazla çizgiden oluşan bir tel çerçeve süslemesi oluşturur."
+    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) veya <code>Workspace</code> üzerine bir veya daha fazla çizgiden oluşan bir tel çerçeve süsleme nesnesini döndürür."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/1": {
     "documentation": "Her çiftin bir çizgi için başlangıç noktası ve bitiş noktası olarak işlev gördüğü <code>Vector3</code> noktalarından oluşan dizi."
@@ -52826,16 +52820,16 @@
     "code_sample": "local wireframe = script.Parent\n\nlocal linesArray = {\n\tVector3.new(-10, 0, 0), -- İlk çizginin başlangıç noktası\n\tVector3.new(10, 0, 0), -- İlk çizginin bitiş noktası\n\tVector3.new(0, -10, 0), -- İkinci çizginin başlangıç noktası\n\tVector3.new(0, 10, 0), -- İkinci çizginin bitiş noktası\n\tVector3.new(0, 0, -10), -- Üçüncü çizginin başlangıç noktası\n\tVector3.new(0, 0, 10) -- Üçüncü çizginin bitiş noktası\n}\n-- Süslemede yolu uygula\nwireframe:AddLines(linesArray)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/0": {
-    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) üstüne ya da <code>Workspace</code> içine bir veya daha fazla çizgiden oluşan bir tel çerçeve süslemesi oluşturur."
+    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) veya <code>Workspace</code> üzerine bir veya daha fazla çizgiden oluşan bir tel çerçeve süsleme nesnesini döndürür."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/1": {
-    "documentation": "Çizgi parçalarıyla sırayla bağlanacak <code>Vector3</code> noktalarından oluşan dizi."
+    "documentation": "<code>Vector3</code> noktalarından oluşan diziyi, çizgi parçalarıyla sırayla bağlamak için."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/2": {
-    "documentation": "Yolun, bitiş noktasının başlangıç noktasına ek bir çizgiyle bağlanarak kapatılıp kapatılmayacağı."
+    "documentation": "Yolun bir ek çizgi ile bitiş noktasını başlangıç noktasına bağlayarak kapatılıp kapatılmadığı."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath": {
-    "documentation": "Bir noktadan diğerine bir dizi içerisinde birden fazla çizgi parçası ekler.",
+    "documentation": "Tel çerçeve süslemesine bir dizi çizgi parçasını bir noktadan diğerine ekler.",
     "params": [
       {
         "name": "self",
@@ -52855,7 +52849,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/0": {
-    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) üstüne ya da <code>Workspace</code> içine bir veya daha fazla çizgiden oluşan bir tel çerçeve süslemesi oluşturur."
+    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) veya <code>Workspace</code> üzerine bir veya daha fazla çizgiden oluşan bir tel çerçeve süsleme nesnesini döndürür."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/1": {
     "documentation": "Süslemelerdeki metnin konumu."
@@ -52891,7 +52885,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear/param/0": {
-    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) üstüne ya da <code>Workspace</code> içine bir veya daha fazla çizgiden oluşan bir tel çerçeve süslemesi oluşturur."
+    "documentation": "<code>BasePart</code> (dahil <code>Terrain</code>) veya <code>Workspace</code> üzerine bir veya daha fazla çizgiden oluşan bir tel çerçeve süsleme nesnesini döndürür."
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear": {
     "documentation": "Tel çerçeve süslemesindeki tüm çizgileri ve metinleri anında temizler.",
@@ -53581,7 +53575,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BlockMesh": {
-    "documentation": "BlockMesh nesnesi, bağlandığı <code>BasePart</code> nesnesine bir 'tuğla' ağ uygular. <code>SpecialMesh</code> nesnesiyle aynı şekilde davranır ve <code>SpecialMesh.MeshType</code> değeri 'Brick' olarak ayarlanmıştır.",
+    "documentation": "BlockMesh nesnesi, <code>BasePart</code>'a uygulanan bir 'tuğla' mesh'i uygular. <code>SpecialMesh</code>'e benzer şekilde davranır ve <code>SpecialMesh.MeshType</code> 'Tuğla' olarak ayarlanmıştır.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
@@ -53935,7 +53929,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Coils": {
-    "documentation": "<code>SpringConstraint</code> üzerinde görselleştirilen sargı sayısı.",
+    "documentation": "<code>SpringConstraint</code> üzerinde görselleştirilen yay sarımı sayısı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Coils",
     "code_sample": ""
   },
@@ -53945,47 +53939,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Damping": {
-    "documentation": "<code>SpringConstraint</code> için amortisör sabiti. Kısıtlamanın <code>Attachments</code> hızına çarparak uygulanan yay kuvvetini azaltır.",
+    "documentation": "<code>SpringConstraint</code> için amortisör sabiti. Kısıtlamanın <code>Attachments</code> ın hızına çarpılarak uygulanan yay kuvvetini azaltır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Damping",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.FreeLength": {
-    "documentation": "Yay için doğal dinlenme uzunluğu.",
+    "documentation": "Yaranın doğal dinlenme uzunluğu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#FreeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.LimitsEnabled": {
-    "documentation": "<code>SpringConstraint</code> 'in minimum ve maksimum uzunluğu zorlayıp zorlamadığını ayarlayın.",
+    "documentation": "<code>SpringConstraint</code>'in minimum ve maksimum uzunluk uygulatıp uygulatmayacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MaxForce": {
-    "documentation": "<code>SpringConstraint</code>'in <code>Attachments</code> üzerinde uygulayabileceği maksimum kuvvet.",
+    "documentation": "<code>SpringConstraint</code>'in <code>Attachments</code> üzerine uygulayabileceği maksimum kuvvet.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MaxLength": {
-    "documentation": "<code>LimitsEnabled</code> doğruysa, SpringConstraint'in izin vereceği maksimum ayrılma.",
+    "documentation": "<code>LimitsEnabled</code> doğruysa, SpringConstraint'ın izin vereceği maksimum ayrılma.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MaxLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MinLength": {
-    "documentation": "<code>LimitsEnabled</code> doğruysa, SpringConstraint'in izin vereceği minimum ayrılma.",
+    "documentation": "<code>LimitsEnabled</code> doğruysa, SpringConstraint'ın izin vereceği minimum ayrılma.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MinLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Radius": {
-    "documentation": "Yayın sargılarının görselleştirilen yarıçapı.",
+    "documentation": "Yayın sarımlarının görselleştirilen yarıçapı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Stiffness": {
-    "documentation": "Yayın gücü. Bu değer ne kadar yüksekse, <code>FreeLength</code>'ten farklı bir uzunlukta ayrıldıklarında daha fazla kuvvet uygulanacaktır.",
+    "documentation": "Yayın gücü. Bu değer ne kadar yüksekse, bağlantılar <code>FreeLength</code> uzunluğundan farklı bir uzunlukta ayrıldığında o kadar fazla kuvvet uygulanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Stiffness",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Thickness": {
-    "documentation": "Yayın sargılarının görselleştirilen kalınlığı.",
+    "documentation": "Yayın sarımlarının görselleştirilen kalınlığı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Thickness",
     "code_sample": ""
   },
@@ -54476,7 +54470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualGlue": {
-    "documentation": "<strong>Deprecated:</strong> <br><strong>ManualGlue</strong>, <code>ManualWeld</code> sınıfına benzer bir şekilde oluşturulmuş bir eklemdir. <code>Glue</code> sınıfıyla aynı şekilde çalışır.",
+    "documentation": "<strong>Deprecated:</strong> <br>ManualGlue, <code>ManualWeld</code>  sınıfına benzer bir şekilde oluşturulmuş bir birleşimdir. <code>Glue</code> sınıfıyla aynı şekilde işler.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualGlue",
     "code_sample": ""
@@ -56444,7 +56438,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce": {
-    "documentation": "İki <code>Attachments</code>'ini bağlayan teorik doğrunun boyunca bir kuvvet uygular.",
+    "documentation": "İki <code>Attachments</code>'ının birbirine bağlayan teorik hat boyunca bir kuvvet uygular.",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/LineForce.ApplyAtCenterOfMass",
       "InverseSquareLaw": "@roblox/globaltype/LineForce.InverseSquareLaw",
@@ -56456,12 +56450,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ApplyAtCenterOfMass": {
-    "documentation": "Kuvvetin ebeveyn montajının kütle merkezinde uygulanıp uygulanmadığı.",
+    "documentation": "Kuvvetin ebeveyn montajının kütle merkezi üzerinde uygulanıp uygulanmadığı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.InverseSquareLaw": {
-    "documentation": "<code>true</code> olduğunda, kuvvet büyüklüğü mesafenin ters karesi ile çarpılır.",
+    "documentation": "<code>true</code> olduğunda, kuvvetin büyüklüğü mesafenin ters karesi ile çarpılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#InverseSquareLaw",
     "code_sample": ""
   },
@@ -56476,7 +56470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ReactionForceEnabled": {
-    "documentation": "<code>Attachment1</code> ebeveyninde eşit ve zıt bir tepkisel kuvveti etkinleştirir.",
+    "documentation": "<code>Attachment1</code>'in ebeveynine eşit ve zıt bir tepkisel kuvvetin etkinleştirilmesi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ReactionForceEnabled",
     "code_sample": ""
   },
@@ -56827,7 +56821,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart": {
-    "documentation": "<code>BasePart</code>'ın fiziksel olarak simüle edilmiş özel bir ağ içerdiği bir formu.",
+    "documentation": "Fiziksel olarak simüle edilmiş özel bir şekil içeren <code>BasePart</code>'ın bir biçimi.",
     "keys": {
       "DoubleSided": "@roblox/globaltype/MeshPart.DoubleSided",
       "HasJointOffset": "@roblox/globaltype/MeshPart.HasJointOffset",
@@ -56844,7 +56838,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.DoubleSided": {
-    "documentation": "Ağdaki çokgenlerin her iki yüzünün de render edilip edilmeyeceğini belirler.",
+    "documentation": "Şekildeki çokgenlerin iki yüzünün de renderlanıp renderlanmayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#DoubleSided",
     "code_sample": ""
   },
@@ -56864,38 +56858,38 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshContent": {
-    "documentation": "<code>MeshPart</code> üzerinde görüntülenen ağ. <a href=\"../../../projects/assets/index.md#asset-uris\">varlık URI'lerini</a> ve <code>EditableMesh</code> nesnelerini destekler.",
+    "documentation": "<code>MeshPart</code> üzerinde görüntülenen şekil. <a href=\"../../../projects/assets/index.md#asset-uris\">varlık URI'lerini</a> ve <code>EditableMesh</code> nesnelerini destekler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshId": {
-    "documentation": "<code>MeshPart</code> üzerinde görüntülenen ağın <a href=\"../../../projects/assets/index.md#asset-uris\">varlık URI'leri</a>. <code>MeshContent</code>'e okur ve yazar.",
+    "documentation": "<code>MeshPart</code> üzerinde görüntülenen şeklin <a href=\"../../../projects/assets/index.md#asset-uris\">varlık URI'leri</a>. <code>MeshContent</code> üzerinde okuma ve yazma yapar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshId",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.RenderFidelity": {
-    "documentation": "<code>MeshPart</code> render edilirken kullanılan detay seviyesidir.",
+    "documentation": "<code>MeshPart</code>'ı renderlamak için kullanılan detay seviyesi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#RenderFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureContent": {
-    "documentation": "<code>MeshPart</code> üzerine uygulanan doku. <a href=\"../../../projects/assets/index.md#asset-uris\">varlık URI'lerini</a> ve <code>EditableImage</code> nesnelerini destekler.",
+    "documentation": "<code>MeshPart</code>'a uygulanan doku. <a href=\"../../../projects/assets/index.md#asset-uris\">varlık URI'lerini</a> ve <code>EditableImage</code> nesnelerini destekler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureID": {
-    "documentation": "<code>MeshPart</code> üzerine uygulanan doku. <code>TextureContent</code>'e okur ve yazar.",
+    "documentation": "<code>MeshPart</code>'a uygulanan doku. <code>TextureContent</code> üzerinde okuma ve yazma yapar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureID",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.ApplyMesh/param/0": {
-    "documentation": "<code>BasePart</code>'ın fiziksel olarak simüle edilmiş özel bir ağ içerdiği bir formu."
+    "documentation": "Fiziksel olarak simüle edilmiş özel bir şekil içeren <code>BasePart</code>'ın bir biçimi."
   },
   "@roblox/globaltype/MeshPart.ApplyMesh/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/MeshPart.ApplyMesh": {
-    "documentation": "Bu <code>MeshPart</code>'ın <code>MeshContent</code>, <code>TextureContent</code> ve çarpışma geometrisi özelliklerini verilen kaynak <code>meshPart</code>'tan geçersiz kılar.",
+    "documentation": "Verilen kaynak <code>meshPart</code>'tan bu <code>MeshPart</code>'ın <code>MeshContent</code>, <code>TextureContent</code> ve çarpışma geometrisi özelliklerini üstü kapatır.",
     "params": [
       {
         "name": "self",
@@ -58840,7 +58834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition": {
-    "documentation": "İki eklemeyi bir araya getirmek veya bir eklemeyi bir hedef pozisyona taşımak için kuvvet uygulayan kısıtlama.",
+    "documentation": "İki bağlantıyı birlikte hareket ettirmek için veya bir bağlantıyı bir hedef pozisyona taşımak için kuvvet uygulayan kısıtlama.",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass",
       "ForceLimitMode": "@roblox/globaltype/AlignPosition.ForceLimitMode",
@@ -58858,57 +58852,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass": {
-    "documentation": "Kuvvetin, o eklemin yerinde <code>Attachment0</code>'ın ebeveynine uygulanıp uygulanmadığını, veya ebeveynin kütle merkeziyle uygulanıp uygulanmadığını belirler.",
+    "documentation": "Kuvvetin <code>Attachment0</code>'ın bağlantı noktasındaki ebeveynine ya da ebeveynlerin kütle merkezine uygulanıp uygulanmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceLimitMode": {
-    "documentation": "Kısıtlama kuvvetinin nasıl sınırlandırılacağını belirler. Sadece <code>RigidityEnabled</code> 'nin <code>false</code> olması durumunda kullanılmaktadır.",
+    "documentation": "Kısıtlama kuvvetinin nasıl sınırlanacağını belirler. Sadece <code>RigidityEnabled</code> <code>false</code> ise kullanılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceLimitMode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceRelativeTo": {
-    "documentation": "Kısıtlamanın kuvveti sınırlamak için hangi eksenleri kullandığını belirler. Sadece <code>RigidityEnabled</code> 'nin <code>false</code> ve <code>AlignPosition.ForceLimitMode</code>'nun <code>PerAxis</code> olduğu durumlarda uygulanır.",
+    "documentation": "Kısıtlamanın kuvveti sınırlamak için kullandığı eksenleri belirler. Sadece <code>RigidityEnabled</code> <code>false</code> ve <code>AlignPosition.ForceLimitMode</code> <code>PerAxis</code> olduğunda uygulanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceRelativeTo",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxAxesForce": {
-    "documentation": "Kısıtlamanın hedefini başarmak için uygulayabileceği her eksendeki maksimum kuvvet.",
+    "documentation": "Kısıtlamanın amacına ulaşmak için uygulayabileceği her eksen üzerindeki maksimum kuvvet.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxForce": {
-    "documentation": "Hedefini başarmak için kısıtlamanın uygulayabileceği maksimum kuvvet büyüklüğü.",
+    "documentation": "Kısıtlamanın amacına ulaşmak için uygulayabileceği maksimum kuvvet büyüklüğü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxVelocity": {
-    "documentation": "Eklemelerin yakınsarken hareket edebileceği maksimum hız.",
+    "documentation": "Bağlantıların yakınsarken hareket edebileceği maksimum hız.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Mode": {
-    "documentation": "Kısıtlama, hedefini hesaplamak için bir veya iki eklem kullanıp kullanmadığını belirler.",
+    "documentation": "Kısıtlamanın amacını hesaplamada bir veya iki bağlantı kullanıp kullanmadığı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Position": {
-    "documentation": "Kısıtlamanın, <code>Attachment0</code>'ı taşımak için gerekli pozisyon.",
+    "documentation": "Kısıtlamanın <code>Attachment0</code>'ı taşımak için kullanması gereken pozisyon.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Position",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ReactionForceEnabled": {
-    "documentation": "Kısıtlamanın yalnızca <code>Attachment0</code>'ya kuvvet uygulayıp uygulamadığını, yoksa her iki eklemeye de eşit ve zıt yönlerde kuvvet uygulayıp uygulamadığını belirler.",
+    "documentation": "Kısıtlamanın yalnızca <code>Attachment0</code>'a kuvvet uygulayıp uygulamadığını veya her iki bağlantıya eşit ve zıt yönlerde kuvvet uygulayıp uygulamadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ReactionForceEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Responsiveness": {
-    "documentation": "Kısıtlamanın hedefine ne kadar hızlı ulaşacağını kontrol eder. Daha yüksek değerler, eklemelerin daha hızlı hizalanmasına neden olur.",
+    "documentation": "Kısıtlamanın amacına ne kadar hızlı ulaşacağını kontrol eder. Daha yüksek değerler bağlantıların daha hızlı hizalanmasını sağlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.RigidityEnabled": {
-    "documentation": "Kuvvetin diğer özelliklere bağlı olup olmadığını veya fizik çözücünün hizalamayı tamamlamak için ne kadar hızlı reaksiyon gösterdiğini belirler.",
+    "documentation": "Kuvvetin diğer özelliklere bağımlı olup olmadığını veya fizik çözücünün hizalamayı tamamlamak için mümkün olduğunca hızlı tepki verip vermediğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#RigidityEnabled",
     "code_sample": ""
   },
@@ -65781,7 +65775,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint": {
-    "documentation": "İki gövde üzerindeki iki eksenin dik olmasını sağlar.",
+    "documentation": "İki gövde üzerindeki iki eksenin dik kalmasını sağlar.",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/UniversalConstraint.LimitsEnabled",
       "MaxAngle": "@roblox/globaltype/UniversalConstraint.MaxAngle",
@@ -65792,12 +65786,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.LimitsEnabled": {
-    "documentation": "Bağlantıların birincil eksenlerinin açısal hareketinin sınırlanıp sınırlanmadığını belirler.",
+    "documentation": "Bağlantıların ana eksenlerinin açısal hareketinin kısıtlanıp kısıtlanmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.MaxAngle": {
-    "documentation": "Kısıtlamanın sınırlayıcı konisinin maksimum açısı, derece olarak.",
+    "documentation": "Kısıtlamanın sınırlayıcı konisinin maksimum açısı, derece cinsinden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#MaxAngle",
     "code_sample": ""
   },
@@ -65807,7 +65801,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.Restitution": {
-    "documentation": "Koni kısıtlamasının elastikiyet katsayısı.",
+    "documentation": "Koni kısıtlamasının geri dönüşüm katsayısı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#Restitution",
     "code_sample": ""
   },
@@ -70953,7 +70947,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Glue": {
-    "documentation": "<strong>Deprecated:</strong> Bu eklem türü kullanım dışı bırakılmıştır ve yeni çalışmalarda kullanılmamalıdır.<br>Yapıştırıcı, yeterli kuvvet uygulandığında kırılabilen bir eklem türüdür.",
+    "documentation": "<strong>Deprecated:</strong> Bu eklem türü kullanım dışı bırakıldı ve yeni çalışmalarda kullanılmamalıdır.<br>Yapıştırıcı, yeterli kuvvet uygulandığında kırılabilen bir eklem türüdür.",
     "keys": {
       "F0": "@roblox/globaltype/Glue.F0",
       "F1": "@roblox/globaltype/Glue.F1",
@@ -71500,7 +71494,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Name = \"JurassicPart\"\npart.Anchored = true\npart.Shape = Enum.PartType.Ball\npart.Color = Color3.new(1, 1, 1)\npart.Parent = workspace -- Parçayı Workspace'e koy"
   },
   "@roblox/globaltype/Part.Shape": {
-    "documentation": "Nesnenin genel şeklini belirler.",
+    "documentation": "Nesnenin genel şeklini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Part#Shape",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Name = \"JurassicPart\"\npart.Anchored = true\npart.Shape = Enum.PartType.Ball\npart.Color = Color3.new(1, 1, 1)\npart.Parent = workspace -- Parçayı Workspace'e koy"
   },
@@ -72806,7 +72800,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance": {
-    "documentation": "Eklem için temel sınıf.",
+    "documentation": "Eklemeler için temel sınıf.",
     "keys": {
       "Active": "@roblox/globaltype/JointInstance.Active",
       "C0": "@roblox/globaltype/JointInstance.C0",
@@ -72820,17 +72814,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Active": {
-    "documentation": "Bir eklemin dünyada şu anda aktif olup olmadığını belirler.",
+    "documentation": "Eklemelerin dünyada şu anda aktif olup olmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Active",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C0": {
-    "documentation": "<code>JointInstance.Part0</code>'a nasıl bağlandığını belirler.",
+    "documentation": "<code>JointInstance.Part0</code> ile offset noktası nasıl ilişkilendirildiğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C0",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C1": {
-    "documentation": "<code>JointInstance.Part1</code> için bir kaydırma noktası oluşturmak için <code>JointInstance.C0</code> özelliğinden çıkarılır.",
+    "documentation": "<code>JointInstance.Part1</code> için bir offset noktası oluşturmak üzere <code>JointInstance.C0</code> özelliğinden çıkarılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C1",
     "code_sample": ""
   },
@@ -72840,17 +72834,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Part0": {
-    "documentation": "Eklemle bağlanan ilk <code>BasePart</code>.",
+    "documentation": "Eklemin bağlandığı ilk <code>BasePart</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Part0",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Part1": {
-    "documentation": "Eklemle bağlanan ikinci <code>BasePart</code>.",
+    "documentation": "Eklemin bağlandığı ikinci <code>BasePart</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Part1",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.part1": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanılmayan özellik, yerine kullanılacak <code>JointInstance.Part1</code>'in bir varyantıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu eski özellik, yerine kullanılacak <code>JointInstance.Part1</code>'in bir varyantıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#part1",
     "code_sample": ""
   },
@@ -74333,7 +74327,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RigidConstraint": {
-    "documentation": "İki <code>Attachments</code> veya <code>Bones</code> arasında sert bir bağlantı oluşturur.",
+    "documentation": "İki <code>Attachments</code> veya <code>Bones</code> arasında katı bir bağlantı oluşturur.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RigidConstraint",
     "code_sample": ""
@@ -74418,7 +74412,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
-    "documentation": "<code>SpawnLocations</code>, veya \"spawnlar\" bir <code>Player</code>'ın öldüğünde nerede yeniden doğacağını belirler. Her spawn'ı kullanmak üzere belirli oyunculara izin vermek için <code>Takımlar</code> kullanılarak yapılandırılabilirler. Ayrıca yeni doğan oyuncular için <code>ForceFields</code>'in nasıl ayarlandığını kontrol ederler.",
+    "documentation": "<code>SpawnLocations</code>, ya da \"spawns\", bir <code>Player</code>'ın öldüğünde nerede yeniden doğacağını belirler. Her bir spawn'ı yalnızca belirli oyuncuların kullanmasına izin verecek şekilde yapılandırılabilir, <code>Takımlar</code> kullanarak. Ayrıca, yeni doğmuş oyuncular için <code>ForceFields</code>'ların nasıl ayarlandığını kontrol eder.",
     "keys": {
       "AllowTeamChangeOnTouch": "@roblox/globaltype/SpawnLocation.AllowTeamChangeOnTouch",
       "Duration": "@roblox/globaltype/SpawnLocation.Duration",
@@ -74430,27 +74424,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.AllowTeamChangeOnTouch": {
-    "documentation": "<code>SpawnLocation</code>'a dokunarak bir <code>Player</code>'ın takıma katılmasını sağlar. true olarak ayarlandığında, eğer bir <code>Player</code> karakteri <code>SpawnLocation</code> ile temasa geçerse, oyuncunun <code>Player.TeamColor</code>'ı <code>SpawnLocation.TeamColor</code> olarak ayarlanır.",
+    "documentation": "Oyuncunun <code>SpawnLocation</code>'a dokunarak takıma katılmasını sağlar. Eğer true olarak ayarlanırsa, bir <code>Player</code> karakteri <code>SpawnLocation</code> ile temas ettiğinde, oyuncunun <code>Player.TeamColor</code> değeri <code>SpawnLocation.TeamColor</code> olarak ayarlanacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#AllowTeamChangeOnTouch",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.Duration": {
-    "documentation": "Bu <code>SpawnLocation</code>'da yeniden doğan bir <code>Player</code> karakterine uygulanacak <code>ForceField</code> süresi, saniye cinsinden belirtilir. Süre sıfır ise, <code>ForceField</code> hiç oluşturulmaz ve <code>Instance.DescendantAdded</code> veya <code>Instance.ChildAdded</code> olaylarını tetiklemez.",
+    "documentation": "Bu <code>SpawnLocation</code>'da doğan bir <code>Player</code> karakterine uygulanacak <code>ForceField</code>'in süre uzunluğunu saniye cinsinden ifade eder. Süre sıfır ise, <code>ForceField</code> asla oluşturulmaz ve <code>Instance.DescendantAdded</code> veya <code>Instance.ChildAdded</code> olaylarını tetiklemez.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Duration",
     "code_sample": "local spawnLocation = Instance.new(\"SpawnLocation\")\nspawnLocation.Anchored = true\nspawnLocation.Size = Vector3.new(5, 1, 5)\nspawnLocation.Neutral = true -- herkes burada doğabilir\nspawnLocation.Duration = 20\nspawnLocation.Parent = workspace"
   },
   "@roblox/globaltype/SpawnLocation.Enabled": {
-    "documentation": "<code>SpawnLocation</code>'ın etkin olup olmadığını ayarlar. Devre dışı bırakıldığında oyuncular <code>SpawnLocation</code>'da yeniden doğamaz ve <code>AllowTeamChangeOnTouch</code> işlevselliği devre dışı bırakılır.",
+    "documentation": "<code>SpawnLocation</code>'un etkin olup olmadığını ayarlar. Devre dışı bırakıldığında, oyuncular <code>SpawnLocation</code>'da yeniden doğamaz ve AllowTeamChangeOnTouch işlevselliği devre dışı bırakılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Enabled",
     "code_sample": "local spawnLocation = Instance.new(\"SpawnLocation\")\nspawnLocation.Anchored = true\nspawnLocation.Size = Vector3.new(5, 1, 5)\nspawnLocation.Neutral = true -- herkes burada doğabilir\nspawnLocation.Enabled = true\nspawnLocation.Parent = workspace\n\nlocal function onEnabledChanged()\n\tspawnLocation.Transparency = spawnLocation.Enabled and 0 or 0.5\nend\n\nspawnLocation:GetPropertyChangedSignal(\"Enabled\"):Connect(onEnabledChanged)\n\ntask.wait(5)\n\nspawnLocation.Enabled = false -- saydamlık = 0.5"
   },
   "@roblox/globaltype/SpawnLocation.Neutral": {
-    "documentation": "<code>SpawnLocation</code>'ın belirli bir takımla ilişkili olup olmadığını belirtir. Bu, bu özellik true olarak ayarlandığında, herhangi bir <code>Player</code>'ın, herhangi bir <code>Team</code>'ın üzerinde yeniden doğabileceği anlamına gelir.",
+    "documentation": "Bir <code>SpawnLocation</code>'un belirli bir takım ile ilişkilendirilip ilişkilendirilmediğini belirtir. Bu, bu özellik true olarak ayarlanırsa herhangi bir <code>Player</code>'ın, herhangi bir <code>Team</code>'in üstünde yeniden doğabileceği anlamına gelir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Neutral",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.TeamColor": {
-    "documentation": "<code>SpawnLocation</code>'nın ait olduğu takımı belirler. Eğer <code>SpawnLocation.Neutral</code> özelliği false ise, yalnızca spawn'ın TeamColor'u ile aynı <code>Oyuncular</code> buraya yeniden doğabileceklerdir.",
+    "documentation": "<code>SpawnLocation</code>'un ilişkilendirildiği takımı ayarlar. Eğer <code>SpawnLocation.Neutral</code> özelliği false ise, yalnızca spawn'ın TeamColor'u ile aynı <code>Oyuncular</code> orada yeniden doğabilecektir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#TeamColor",
     "code_sample": ""
   },
@@ -79345,7 +79339,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Motor6D": {
-    "documentation": "İki <code>BaseParts</code> arasında animasyonlu bir eklem oluşturur.",
+    "documentation": "İki <code>BaseParts</code> arasında animasyon yapılabilir bir eklem oluşturur.",
     "keys": {
       "ChildName": "@roblox/globaltype/Motor6D.ChildName",
       "ParentName": "@roblox/globaltype/Motor6D.ParentName",
@@ -79365,7 +79359,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Motor6D.Transform": {
-    "documentation": "<code>Motor6D</code> ekleminin mevcut animasyon ofsetini açıklar.",
+    "documentation": "<code>Motor6D</code> ekleminin mevcut animasyon ofsetini tanımlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Motor6D#Transform",
     "code_sample": ""
   },
@@ -79559,7 +79553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Status": {
-    "documentation": "<strong>Deprecated:</strong> Status, özel <code>Humanoid</code> durumlarını depolamak üzere tasarlanmış tamamlanmamış bir nesnedir. Kullanımdan kaldırılmıştır ve geliştiriciler tarafından yeni çalışmalarda kullanılmamalıdır. Özel <code>Humanoid</code> durumlarını uygulamak isteyen geliştiricilerin, <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a> kullanmaları önerilir, çünkü bunlar Luau ile yazılmıştır ve kolayca genişletilebilir.<br>Geliştiricilere hiçbir işlevsellik sunmayan tamamlanmamış bir nesne.",
+    "documentation": "<strong>Deprecated:</strong> Status, özel <code>Humanoid</code> durumlarını depolamak için tasarlanmış tamamlanmamış bir nesnedir. Kaldırılmıştır ve geliştiricilerin yeni projelerde kullanmamaları önerilmektedir. Özel <code>Humanoid</code> durumlarını uygulamak isteyen geliştiricilerin, <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a> kullanılmaları önerilir, çünkü bunlar Luau ile yazılmıştır ve kolayca genişletilebilir.<br>Geliştirilmemiş bir nesne olup, geliştiricilere hiçbir işlevsellik sunmamaktadır.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Status",
     "code_sample": ""
@@ -79904,7 +79898,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint": {
-    "documentation": "İki belirli parçanın çarpışmalarını önlemek için kullanılan bir örnek.",
+    "documentation": "İki belirli parça arasındaki çarpışmaları önlemek için kullanılan bir örnek.",
     "keys": {
       "Enabled": "@roblox/globaltype/NoCollisionConstraint.Enabled",
       "Part0": "@roblox/globaltype/NoCollisionConstraint.Part0",
@@ -79914,7 +79908,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint.Enabled": {
-    "documentation": "İki bağlı <code>BaseParts</code> parçasının birbiriyle çarpışıp çarpışmayacağını belirler.",
+    "documentation": "Bağlı <code>BaseParts</code>'ın birbirleriyle çarpışıp çarpışmayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NoCollisionConstraint#Enabled",
     "code_sample": ""
   },
@@ -80822,7 +80816,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint": {
-    "documentation": "İki bağlantısını aynı konuma zorlar ve hepsi üç eksen etrafında serbestçe döndürülmesine izin verir, eğilme ve burkulmayı kısıtlamak için isteğe bağlı sınırlarla birlikte.",
+    "documentation": "İki bağlantısını aynı pozisyona zorlar ve her üç eksen etrafında serbestçe dönebilirler; eğilme ve dönüşü kısıtlamak için isteğe bağlı sınırlar ile birlikte.",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/BallSocketConstraint.LimitsEnabled",
       "MaxFrictionTorque": "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque",
@@ -80837,42 +80831,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.LimitsEnabled": {
-    "documentation": "Bir <code>BallSocketConstraint</code>'ın <code>UpperAngle</code> değerine dayanarak döndürme üzerinde bir sınır koyup koymayacağını ayarlar.",
+    "documentation": "<code>BallSocketConstraint</code>'in <code>UpperAngle</code>'a dayalı olarak döngü kısıtlayıp kısıtlamadığını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque": {
-    "documentation": "Bağlantıların hizalanmasını sağlamak için uygulanan maksimum sürtünme torkunu ayarlar.",
+    "documentation": "<code>Attachments</code>'ın hizalı kalmasını sağlamak için uygulanan maksimum sürtünme torkunu ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#MaxFrictionTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.Radius": {
-    "documentation": "<code>BallSocketConstraint</code>'ın görselleştirilen yarıçapı.",
+    "documentation": "<code>BallSocketConstraint</code>'in görselleştirilen yarıçapı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.Restitution": {
-    "documentation": "Bağlı <code>Attachments</code>, <code>LimitsEnabled</code> <code>true</code> olduğunda <code>UpperAngle</code> tarafından belirtilen mesafeye ulaştığında ne kadar elastik olacağını belirtir.",
+    "documentation": "<code>BallSocketConstraint</code> ile bağlı <code>Attachments</code>'ın, <code>LimitsEnabled</code> <code>true</code> olduğunda <code>UpperAngle</code> tarafından belirtilen aralığın sonuna ulaştıklarında ne kadar elastik olacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLimitsEnabled": {
-    "documentation": "Bir <code>BallSocketConstraint</code>'ın <code>TwistUpperAngle</code> ve <code>TwistLowerAngle</code>'ya dayanarak burkulma rotasyonu üzerinde bir sınır koyup koymayacağını ayarlar.",
+    "documentation": "<code>BallSocketConstraint</code>'in <code>TwistUpperAngle</code> ve <code>TwistLowerAngle</code>'a dayalı olarak dönüş kısıtlaması olup olmadığını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLowerAngle": {
-    "documentation": "<code>BallSocketConstraint</code>'ın alt burkulma rotasyon sınırını ayarlar, <code>TwistLimitsEnabled</code> <code>true</code> olduğu sürece.",
+    "documentation": "<code>BallSocketConstraint</code>'in alt dönüş kısıtlama limitini ayarlar, <code>TwistLimitsEnabled</code> <code>true</code> olduğu sürece.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLowerAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistUpperAngle": {
-    "documentation": "<code>BallSocketConstraint</code>'ın üst burkulma rotasyon sınırını ayarlar, <code>TwistLimitsEnabled</code> <code>true</code> olduğu sürece.",
+    "documentation": "<code>BallSocketConstraint</code>'in üst dönüş kısıtlama limitini ayarlar, <code>TwistLimitsEnabled</code> <code>true</code> olduğu sürece.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistUpperAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.UpperAngle": {
-    "documentation": "<code>BallSocketConstraint</code>'ın üst döndürme sınırını ayarlar, <code>LimitsEnabled</code> <code>true</code> olduğu sürece.",
+    "documentation": "<code>BallSocketConstraint</code>'in üst dönüş limitini ayarlar, <code>LimitsEnabled</code> <code>true</code> olduğu sürece.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#UpperAngle",
     "code_sample": ""
   },
@@ -81910,7 +81904,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PlaneConstraint": {
-    "documentation": "Eteşlarını, <code>Attachment0</code>'nın ana ekseni olan bir düzlemdeki bir pozisyona/yönelime taşır.",
+    "documentation": "Eklemelerini, <code>Attachment0</code>'ın birincil ekseninin normal vektörünün olduğu bir düzlem boyunca bir konum/yönlendirmeye taşır.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PlaneConstraint",
     "code_sample": ""
@@ -84339,7 +84333,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo": {
-    "documentation": "Bir ses üzerinde sesin ses seviyesini yukarı ve aşağı değiştirerek titreme etkisi yaratır.",
+    "documentation": "Bir ses üzerinde hacmi yukarı ve aşağı değiştirerek titreme etkisi oluşturur.",
     "keys": {
       "Depth": "@roblox/globaltype/AudioTremolo.Depth",
       "Duty": "@roblox/globaltype/AudioTremolo.Duty",
@@ -84352,32 +84346,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Depth": {
-    "documentation": "Ses seviyesinin ne kadar yükseleceğini ve alçalacağını kontrol eder.",
+    "documentation": "Hacmin ne kadar yükseleceğini ve alçaltılacağını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Depth",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Duty": {
-    "documentation": "Etkisinin bir ses seviyesi osilasyonu sırasında ne kadar süreyle aktif olacağını kontrol eder.",
+    "documentation": "Bir hacim osilasyonu sırasında efektin ne kadar süre aktif olacağını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Duty",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Frequency": {
-    "documentation": "Etkisinin ses seviyesini ne sıklıkla osilasyona sokacağını belirler.",
+    "documentation": "Efektin hacmi ne sıklıkla osilateceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Frequency",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Shape": {
-    "documentation": "Düşük frekans osilasyonlarının şeklini kontrol eder.",
+    "documentation": "Düşük frekanslı osilasyonların şeklini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Shape",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Skew": {
-    "documentation": "Düşük frekans osilasyonlarının döngüsünü zaman kaydırır.",
+    "documentation": "Düşük frekanslı osilasyon döngüsünü zaman kaymasıyla kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Skew",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Square": {
-    "documentation": "Düşük frekans osilasyonlarının şeklinin düzlüğü.",
+    "documentation": "Düşük frekanslı osilasyonların şeklinin düzlüğü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Square",
     "code_sample": ""
   },
@@ -89848,7 +89842,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Torque": {
-    "documentation": "Bir montaja, kütle merkezinden sabit tork uygular.",
+    "documentation": "Kütle merkezinden bir montaja sürekli tork uygular.",
     "keys": {
       "RelativeTo": "@roblox/globaltype/Torque.RelativeTo",
       "Torque": "@roblox/globaltype/Torque.Torque"
@@ -89862,12 +89856,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Torque.Torque": {
-    "documentation": "Torkun kuvveti ve yönü.",
+    "documentation": "Torkun gücü ve yönü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Torque#Torque",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "İki <code>BaseParts</code>'ı animasyonu yapılabilir kinematik veya zorlamalı bir eklem ile hizalar.",
+    "documentation": "İki <code>BaseParts</code> nesnesini animasyon yapılabilir bir kinematik veya güç tabanlı eklem ile hizalar.",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -89892,12 +89886,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "<code>AnimationConstraint</code>'ın kinematik mi yoksa fiziksel olarak simüle edilip edilmediğini değiştirir.",
+    "documentation": "<code>AnimationConstraint</code> öğesinin kinematik mi yoksa fiziksel olarak simüle edileceğini değiştiren bir ayar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxForce": {
-    "documentation": "Kısıtlamanın hedefine ulaşmak için uygulayabileceği maksimum kuvvetin büyüklüğü.",
+    "documentation": "Kısıtlamanın hedefe ulaşmak için uygulayabileceği maksimum kuvvet büyüklüğü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxForce",
     "code_sample": ""
   },
@@ -89917,7 +89911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
-    "documentation": "<code>AnimationConstraint</code> ekleminin mevcut animasyon kaymasını açıklar.",
+    "documentation": "<code>AnimationConstraint</code> birleşiminin mevcut animasyon ofsetini tanımlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Transform",
     "code_sample": ""
   },
@@ -90230,7 +90224,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BackpackItem": {
-    "documentation": "BackpackItem, HopperBins ve Araçlar gibi çanta öğeleri için bir soyut sınıftır.",
+    "documentation": "BackpackItem, HopperBins ve Araçlar gibi sırt çantası öğeleri için soyut bir sınıftır.",
     "keys": {
       "TextureContent": "@roblox/globaltype/BackpackItem.TextureContent",
       "TextureId": "@roblox/globaltype/BackpackItem.TextureId"
@@ -90239,12 +90233,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BackpackItem.TextureContent": {
-    "documentation": "Oyuncunun çantasındaki bir araç için gösterilen doku simgesi. Sadece varlık URI'lerini destekler.",
+    "documentation": "Oyuncunun sırt çantasında bir araç için görüntülenen doku simgesi. Sadece varlık URI'lerini destekler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BackpackItem#TextureContent",
     "code_sample": ""
   },
   "@roblox/globaltype/BackpackItem.TextureId": {
-    "documentation": "Oyuncunun çantasındaki bir araç için gösterilen doku simgesi.",
+    "documentation": "Oyuncunun sırt çantasında bir araç için görüntülenen doku simgesi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BackpackItem#TextureId",
     "code_sample": ""
   },
@@ -90274,7 +90268,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint": {
-    "documentation": "Bağlantılarının bir eksen boyunca kaymasına izin veren, ancak döndürmesine izin vermeyen sınıflar için temel sınıf.",
+    "documentation": "Bağlantıların bir eksen boyunca kaymasına izin veren, ancak döndürmesine izin vermeyen kısıtlamaların temel sınıfı.",
     "keys": {
       "ActuatorType": "@roblox/globaltype/SlidingBallConstraint.ActuatorType",
       "CurrentPosition": "@roblox/globaltype/SlidingBallConstraint.CurrentPosition",
@@ -90296,7 +90290,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ActuatorType": {
-    "documentation": "<code>SlidingBallConstraint</code> çevirisinin gerçekleştirilip gerçekleştirilmeyeceğini ayarlar ve eğer öyleyse, hangi tür eyleme geçirildiğini belirtir.",
+    "documentation": "<code>SlidingBallConstraint</code> çevirisinin harekete geçirilip geçirilmeyeceğini ve eğer öyleyse, hangi tür hareket olduğunu ayarlayın.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ActuatorType",
     "code_sample": ""
   },
@@ -90311,32 +90305,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LinearResponsiveness": {
-    "documentation": "<code>TargetPosition</code>'a ulaşırken lineer servo motorun \"keskinliğini\" belirtir.",
+    "documentation": "<code>TargetPosition</code> değerine ulaşmada doğrusal servo motorun \"keskinliğini\" belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LinearResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LowerLimit": {
-    "documentation": "<code>Attachment0</code>'ın <strong>X</strong> eksenindeki alt pozisyon sınırı, eğer <code>LimitsEnabled</code> doğruysa.",
+    "documentation": "<code>Attachment0</code> üzerindeki <strong>X</strong> ekseninde, <code>LimitsEnabled</code> doğruysa, aşağıdaki konumsal sınırlama.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LowerLimit",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxAcceleration": {
-    "documentation": "<code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında, kısıtlamanın maksimum ivmesi, istediği <code>Velocity</code>'ye ulaşmaya çalışırken.",
+    "documentation": "<code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında,  kısıtlamanın maksimum ivmesi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxForce": {
-    "documentation": "<code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında, kısıtlamanın maksimum kuvveti, istediği <code>Velocity</code>'ye ulaşmaya çalışırken.",
+    "documentation": "<code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında,  kısıtlamanın maksimum kuvveti.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Restitution": {
-    "documentation": "<code>Attachments</code>'ın, <code>UpperLimit</code> ve <code>LowerLimit</code> ile belirtilen aralığı sonunda ulaştığında elastikiyeti. <code>LimitsEnabled</code> doğruysa.",
+    "documentation": "<code>Attachments</code> birleşiminin elastikiyeti,  eğer <code>UpperLimit</code> ve <code>LowerLimit</code> tarafından belirtilen aralığın sonuna ulaşıyorsa , <code>LimitsEnabled</code> doğruysa.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ServoMaxForce": {
-    "documentation": "<code>ActuatorType</code> değeri <code>Servo</code> olarak ayarlandığında, kısıtlamanın maksimum kuvveti, istediği <code>Speed</code>'ye ulaşmaya çalışırken.",
+    "documentation": "<code>ActuatorType</code> değeri <code>Servo</code> olarak ayarlandığında,  kısıtlamanın maksimum kuvveti.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ServoMaxForce",
     "code_sample": ""
   },
@@ -90346,27 +90340,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.SoftlockServoUponReachingTarget": {
-    "documentation": "<strong>Deprecated:</strong> Bu özellik, yeni işlerde kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik yeni çalışmalarda kullanılmamalıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#SoftlockServoUponReachingTarget",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Speed": {
-    "documentation": "<code>ActuatorType</code> değeri <code>Servo</code> olarak ayarlandığında, kısıtlamanın, <code>TargetPosition</code>'a doğru çevirirken istediği hız.",
+    "documentation": "<code>ActuatorType</code> değeri <code>Servo</code> olarak ayarlandığında,  kısıtlamanın hedef hızı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.TargetPosition": {
-    "documentation": "<code>ActuatorType</code> değeri <code>Servo</code> olarak ayarlandığında, kısıtlamanın hedeflediği pozisyon.",
+    "documentation": "<code>ActuatorType</code> değeri <code>Servo</code> olarak ayarlandığında,  kısıtlamanın hedef konumu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#TargetPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.UpperLimit": {
-    "documentation": "<code>Attachment0</code>'ın <strong>X</strong> eksenindeki üst pozisyon sınırı, eğer <code>LimitsEnabled</code> doğruysa.",
+    "documentation": "<code>Attachment0</code> üzerindeki <strong>X</strong> ekseninde, <code>LimitsEnabled</code> doğruysa, üst konumsal sınırlama.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#UpperLimit",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Velocity": {
-    "documentation": "<code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında, kısıtlamanın denediği hız.",
+    "documentation": "<code>ActuatorType</code> değeri <code>Motor</code> olarak ayarlandığında,  kısıtlamanın denenen hızı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Velocity",
     "code_sample": ""
   },
@@ -90563,7 +90557,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Visible": {
-    "documentation": "Bu <code>GuiBase3d</code> nesnesinin ve alt nesnelerinin görüntülenip görüntülenmeyeceğini belirler.",
+    "documentation": "Bu <code>GuiBase3d</code> nesnesinin ve onun alt nesnelerinin gösterilip gösterilmeyeceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Visible",
     "code_sample": ""
   },
@@ -92771,13 +92765,13 @@
     "documentation": "Döndürülen karakterin R6 mı yoksa R15 mi olacağını belirtir."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
-    "documentation": "Varlık türü doğrulaması, bu fonksiyonun modelleri yükleyip yüklemeyeceğini belirler (Bunu her zaman 'Always' olarak ayarlamalısınız; aksi takdirde katalog dışı varlıkları yüklemek isterseniz)."
+    "documentation": "Varlık tipi doğrulaması, bu işlevin modelleri yükleyip yüklemeyeceğini belirler. ⚠️&nbsp;Bu parametre için varsayılan değer, 10/20/2025 tarihinden sonra <code>ClientOnly</code>'dan <code>Always</code>'e değişecektir. Detaylar için <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">buraya</a> bakın."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
-    "documentation": "Bir Humanoid karakter Modeli."
+    "documentation": "Bir <code>Humanoid</code> karakter <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "Verilen <code>HumanoidDescription</code>'da belirtilen her şeyle donatılmış bir karakter Modeli döndürür ve belirtilen rigType ile R6 veya R15'dir.",
+    "documentation": "Verilen <code>HumanoidDescription</code> içeriğine göre donatılmış bir karakter <code>Model</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -93808,7 +93802,7 @@
     "code_sample": "local MemoryStoreService = game:GetService(\"MemoryStoreService\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal queue = MemoryStoreService:GetQueue(\"PlayerQueue\")\nlocal dataStore = DataStoreService:GetDataStore(\"PlayerStore\")\n\nwhile true do\n\tpcall(function()\n\t\t-- Bir öğenin işlenmesi için bekleyin\n\t\tlocal items, id = queue:ReadAsync(1, false, 30)\n\n\t\t-- Bir öğe alınıp alınmadığını kontrol edin\n\t\tif #items > 0 then\n\t\t\t-- öğeyi işlenmiş olarak işaretleyin\n\t\t\tdataStore:UpdateAsync(items[0], function(data)\n\t\t\t\tdata = data or {}\n\t\t\t\tdata.processed = 1\n\t\t\t\treturn data\n\t\t\tend)\n\n\t\t\t-- öğeyi kuyruktan kaldırın\n\t\t\tqueue:RemoveAsync(id)\n\t\tend\n\tend)\nend"
   },
   "@roblox/globaltype/WorldRoot": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf.",
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf.",
     "keys": {
       "ArePartsTouchingOthers": "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers",
       "Blockcast": "@roblox/globaltype/WorldRoot.Blockcast",
@@ -93836,19 +93830,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/1": {
-    "documentation": "Herhangi bir parçanın listede olup olmadığını kontrol etmek için bir parça listesi."
+    "documentation": "Herhangi bir parçanın, listede olmayan parçalara dokunup dokunmadığını kontrol etmek için parça listesi."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/2": {
-    "documentation": "Parçaların temas etmesi için dikkate alınmadan önce göz ardı edilen parça örtüşme eşiği (stud cinsinden)."
+    "documentation": "Parçaların dokunmuş sayılmadan önce göz ardı edilen parça üst üste binme eşiği, studs cinsinden."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/return/0": {
-    "documentation": "Eğer ve yalnızca <code>partList</code> içindeki <code>parts</code>'ların herhangi biri diğer parçalarla (partList dışında) temas ediyorsa true. Hiç parça geçilmediğinde false döner."
+    "documentation": "<code>partList</code> içindeki <code>parts</code> nesnelerinden herhangi biri başka parçalara (partList'teki olmayan) dokunuyorsa yalnızca true döner. Hiç parça geçilmezse false döner."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers": {
-    "documentation": "Verilen <code>BasePart</code>'ların herhangi birinin diğer parçalarla temas etmesi durumunda true döner.",
+    "documentation": "Verilen <code>BasePart</code> nesnelerinden herhangi birinin başka nesnelerle temas halinde olup olmadığını kontrol eder ve true döner.",
     "params": [
       {
         "name": "self",
@@ -93870,25 +93864,25 @@
     "code_sample": "local part1 = Instance.new(\"Part\")\npart1.Name = \"Part1\"\npart1.Anchored = true\npart1.Transparency = 0.5\npart1.Color = Color3.fromRGB(185, 100, 38)\npart1.Size = Vector3.new(2, 2, 2)\npart1.Position = Vector3.new(0, 4, 0)\npart1.Parent = workspace\n\nlocal part2 = Instance.new(\"Part\")\npart2.Name = \"Part2\"\npart2.Anchored = true\npart2.Transparency = 0.5\npart2.Color = Color3.fromRGB(200, 10, 0)\npart2.Size = Vector3.new(2, 2, 2)\npart2.Position = Vector3.new(0, 5, 0)\npart2.Parent = workspace\n\nlocal partList = { part1 }\n\nprint(workspace:ArePartsTouchingOthers(partList, 0)) -- Doğru\nprint(workspace:ArePartsTouchingOthers(partList, 0.999)) -- Doğru\nprint(workspace:ArePartsTouchingOthers(partList, 1)) -- Yanlış"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/1": {
-    "documentation": "Atılan blok şeklin başlangıç konumu ve rotasyonu."
+    "documentation": "Fırlatılan blok şeklin başlangıç konumu ve rotasyonu."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/2": {
-    "documentation": "Atılan blok şeklin boyutu (stud cinsinden). Maksimum boyut 512 studdur."
+    "documentation": "Fırlatılan blok şeklin boyutu, studs cinsinden. Maksimum boyut 512 studs'tır."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/3": {
-    "documentation": "Şapka yönü, büyüklüğü şeklin en fazla kat edebileceği mesafeyi temsil eder. Maksimum mesafe 1024 studdur."
+    "documentation": "Şekil fırlatma yönü, büyüklüğü şeklin kat edebileceği maksimum mesafeyi temsil eder. Maksimum mesafe 1024 studs'tır."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Blockcast/return/0": {
-    "documentation": "Şekil atma işleminin sonuçlarını veya çarpan uygun bir <code>BasePart</code> veya <code>Terrain</code> hücresi yoksa <code>nil</code> döner."
+    "documentation": "Şekil fırlatma işleminin sonucunu içerir veya uygun <code>BasePart</code> veya <code>Terrain</code> hücresinin çarpıldığı durumda <code>nil</code> döner."
   },
   "@roblox/globaltype/WorldRoot.Blockcast": {
-    "documentation": "Verilen bir yönde bir blok şekli atar ve şekil bir <code>BasePart</code> veya <code>Terrain</code> hücresini vurursa bir <code>RaycastResult</code> döner.",
+    "documentation": "Verilen bir yönde bir blok şekli fırlatır ve şekil bir <code>BasePart</code> veya <code>Terrain</code> hücresine çarparsa bir <code>RaycastResult</code> döner.",
     "params": [
       {
         "name": "self",
@@ -93918,7 +93912,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/1": {
     "documentation": ""
@@ -93930,7 +93924,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo": {
-    "documentation": "<code>BaseParts</code> tablosunu <code>CFrames</code> tablosuna taşır.",
+    "documentation": "<code>BaseParts</code> tablosunu bir <code>CFrames</code> tablosuna taşır.",
     "params": [
       {
         "name": "self",
@@ -93954,7 +93948,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/1": {
     "documentation": ""
@@ -93969,10 +93963,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/return/0": {
-    "documentation": "<code>BasePart</code> veya <code>Terrain</code> hücresini, kesişim noktasını temsil eden <code>Vector3</code> noktasını, kesişim noktasındaki <code>Vector3</code> yüzey normalini ve çarpışma olan <code>BasePart</code> veya teren hücresinin <code>Material</code> değerini içerir."
+    "documentation": "Çarpılan <code>BasePart</code> veya <code>Terrain</code> hücresi, kesişim noktasındaki <code>Vector3</code> kesişim noktası, kesişim noktasındaki <code>Vector3</code> yüzey normali ve çarpılan <code>BasePart</code> veya arazi hücresinin <code>Material</code>'ıdır."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev kullanımdan kaldırılmıştır. Yeni çalışmalar için <code>WorldRoot:Raycast()</code> ve <code>RaycastParams</code> kullanın.<br>Verilen <code>Ray</code> ile kesişen ilk <code>BasePart</code> veya <code>Terrain</code> hücresini döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev geçersiz kılınmıştır. Yeni çalışmalar için <code>WorldRoot:Raycast()</code> ile birlikte <code>RaycastParams</code> kullanın.<br>Verilen <code>Ray</code> ile kesişen ilk <code>BasePart</code> veya <code>Terrain</code> hücresini döner.",
     "params": [
       {
         "name": "self",
@@ -94002,7 +93996,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/1": {
     "documentation": ""
@@ -94017,10 +94011,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/return/0": {
-    "documentation": "<code>BasePart</code> veya <code>Terrain</code> hücresini, kesişim noktasını temsil eden <code>Vector3</code> noktasını, kesişim noktasındaki <code>Vector3</code> yüzey normalini ve çarpışma olan <code>BasePart</code> veya teren hücresinin <code>Material</code> değerini içerir."
+    "documentation": "Çarpılan <code>BasePart</code> veya <code>Terrain</code> hücresi, kesişim noktasındaki <code>Vector3</code> kesişim noktası, kesişim noktasındaki <code>Vector3</code> yüzey normali ve çarpılan <code>BasePart</code> veya arazi hücresinin <code>Material</code>'ıdır."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev kullanımdan kaldırılmıştır. Yeni çalışmalar için <code>WorldRoot:Raycast()</code> ve <code>RaycastParams</code> kullanın.<br>Verilen <code>Ray</code> ile kesişen ilk <code>BasePart</code> veya <code>Terrain</code> hücresini, belirtilen ignore listesinde yer almayan veya bu nesnenin bir alt öğesi olmayan bir hücreyi döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev geçersiz kılınmıştır. Yeni çalışmalar için <code>WorldRoot:Raycast()</code> ile birlikte <code>RaycastParams</code> kullanın.<br>Verilen <code>Ray</code> ile kesişen ilk <code>BasePart</code> veya <code>Terrain</code> hücresini döner; ancak verilen göz ardı listesinde değilse veya onun bir alt nesnesi değilse.",
     "params": [
       {
         "name": "self",
@@ -94050,7 +94044,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/1": {
     "documentation": ""
@@ -94062,10 +94056,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/return/0": {
-    "documentation": "<code>BasePart</code> veya <code>Terrain</code> hücresini, kesişim noktasını temsil eden <code>Vector3</code> noktasını, kesişim noktasındaki <code>Vector3</code> yüzey normalini ve çarpışma olan <code>BasePart</code> veya teren hücresinin <code>Material</code> değerini içerir."
+    "documentation": "Çarpılan <code>BasePart</code> veya <code>Terrain</code> hücresi, kesişim noktasındaki <code>Vector3</code> kesişim noktası, kesişim noktasındaki <code>Vector3</code> yüzey normali ve çarpılan <code>BasePart</code> veya arazi hücresinin <code>Material</code>'ıdır."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev kullanımdan kaldırılmıştır. Yeni çalışmalar için <code>WorldRoot:Raycast()</code> ve <code>RaycastParams</code> kullanın.<br>Verilen <code>Ray</code> ile kesişen ilk <code>BasePart</code> veya <code>Terrain</code> hücresini, belirtilen dahil etme listesinde yer alan veya onun alt öğesi olan bir hücreyi döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev geçersiz kılınmıştır. Yeni çalışmalar için <code>WorldRoot:Raycast()</code> ile birlikte <code>RaycastParams</code> kullanın.<br>Verilen <code>Ray</code> ile kesişen ilk <code>BasePart</code> veya <code>Terrain</code> hücresini döner; ancak verilen dahil etme listesinde yer alıyorsa veya onun bir alt nesnesiyse.",
     "params": [
       {
         "name": "self",
@@ -94091,7 +94085,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/1": {
     "documentation": "Kontrol edilecek <code>Region3</code>."
@@ -94103,10 +94097,10 @@
     "documentation": "Döndürülecek <code>BaseParts</code> maksimum miktarı."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/return/0": {
-    "documentation": "Bir <code>Region3</code> içindeki <code>BaseParts</code> dizisi."
+    "documentation": "<code>Region3</code> içindeki <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev kullanımdan kaldırılmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ve <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içindeki <code>BaseParts</code>'ların bir dizisini döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev geçersiz kılınmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ile birlikte <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içinde bulunan <code>BaseParts</code> dizisini döner.",
     "params": [
       {
         "name": "self",
@@ -94132,13 +94126,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/1": {
     "documentation": "Kontrol edilecek <code>Region3</code>."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/2": {
-    "documentation": "Göz ardı edilecek nesne dizisi."
+    "documentation": "Göz ardı edilecek nesnelerin dizisi."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/3": {
     "documentation": "Döndürülecek <code>BaseParts</code> maksimum sayısı."
@@ -94147,7 +94141,7 @@
     "documentation": "<code>Region3</code> içinde bulunan <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev kullanımdan kaldırılmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ve <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içindeki, göz ardı listesinde yer almayan veya onun alt öğesi olmayan <code>BaseParts</code>'ların bir dizisini döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev geçersiz kılınmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ile birlikte <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içinde bulunmayan veya göz ardı listesinde yer almayan <code>BaseParts</code> dizisini döner.",
     "params": [
       {
         "name": "self",
@@ -94173,7 +94167,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/1": {
     "documentation": "Kontrol edilecek <code>Region3</code>."
@@ -94185,10 +94179,10 @@
     "documentation": "Döndürülecek <code>BaseParts</code> maksimum sayısı."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/return/0": {
-    "documentation": "<code>Region3</code> içinde bulunan <code>BaseParts</code> dizisi."
+    "documentation": "<code>Region3</code> içindeki <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev kullanımdan kaldırılmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ve <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içinde, belirtilen dahil etme listesinde yer alan veya onun alt öğesi olan <code>BaseParts</code>'ların bir dizisini döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev geçersiz kılınmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ile birlikte <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içinde bulunan veya dahil etme listesine ait olan <code>BaseParts</code> dizisini döner.",
     "params": [
       {
         "name": "self",
@@ -94214,22 +94208,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/1": {
-    "documentation": "Sorgulanacak verilen kutu hacminin merkezi."
+    "documentation": "Sorgulanacak kutu hacminin merkezinin konumu."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/2": {
-    "documentation": "Sorgulanacak verilen kutu hacminin boyutu."
+    "documentation": "Sorgulanacak kutu hacminin boyutu."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/3": {
-    "documentation": "Mekansal sorgu parametrelerinin tekrar kullanılabilir bölümlerini içeren."
+    "documentation": "Uzamsal sorgu parametrelerinin yeniden kullanılabilir bölümlerini içerir."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/return/0": {
-    "documentation": "Mekansal sorguya uyan <code>BaseParts</code> dizisi."
+    "documentation": "Uzamsal sorguyla eşleşen <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox": {
-    "documentation": "Verilen bir kutuyla <strong>kenar kutularının</strong> örtüşen parçalarının bir dizisini döner.",
+    "documentation": "Verilen kutu ile üst üste binen parçaların dizisini döner.",
     "params": [
       {
         "name": "self",
@@ -94255,22 +94249,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/1": {
-    "documentation": "Sorgulanacak verilen küre hacminin merkezi."
+    "documentation": "Sorgulanacak küre hacminin merkezinin konumu."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/2": {
-    "documentation": "Sorgulanacak verilen küre hacminin yarıçapı."
+    "documentation": "Sorgulanacak küre hacminin yarıçapı."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/3": {
-    "documentation": "Mekansal sorgu parametrelerinin tekrar kullanılabilir bölümlerini içeren."
+    "documentation": "Uzamsal sorgu parametrelerinin yeniden kullanılabilir bölümlerini içerir."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/return/0": {
-    "documentation": "Mekansal sorguya uyan <code>BaseParts</code> dizisi."
+    "documentation": "Uzamsal sorguyla eşleşen <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius": {
-    "documentation": "Verilen bir küreyle <strong>kenar kutularının</strong> örtüşen parçalarının bir dizisini döner.",
+    "documentation": "Verilen küre ile üst üste binen parçaların dizisini döner.",
     "params": [
       {
         "name": "self",
@@ -94296,19 +94290,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/1": {
-    "documentation": "Diğer parçaların kontrol edileceği parça."
+    "documentation": "Diğer parçalarla karşılaştırılacak parçanın hacmi."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/2": {
-    "documentation": "Mekansal sorgu parametrelerinin tekrar kullanılabilir bölümlerini içeren."
+    "documentation": "Uzamsal sorgu parametrelerinin yeniden kullanılabilir bölümlerini içerir."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/return/0": {
-    "documentation": "Mekansal sorguya uyan <code>BaseParts</code> dizisi."
+    "documentation": "Uzamsal sorguyla eşleşen <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart": {
-    "documentation": "Verilen parça ile paylaşılmış olan alanları bulunan parçaların bir dizisini döner.",
+    "documentation": "Belirtilen parça ile paylaşılan alanı kapsayan parçaların dizisini döner.",
     "params": [
       {
         "name": "self",
@@ -94330,25 +94324,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/1": {
     "documentation": "Taşınacak parça."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/2": {
-    "documentation": "Belirtilen parçanın taşınacağı konum."
+    "documentation": "Belirtilen parçayı taşımak için konum."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/3": {
-    "documentation": "Hedef <code>CFrame</code> konumunu parça konumuyla uyumlu hale getirmek için 0 ile 1 arasında bir sayı."
+    "documentation": "Hedef <code>CFrame</code>'in konumuyla parça konumunu ne kadar agresif eşleştireceğini belirten 0 ile 1 arasında bir sayı."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/4": {
-    "documentation": "Hedef <code>CFrame</code> rotasını parça rotasıyla uyumlu hale getirmek için 0 ile 1 arasında bir sayı."
+    "documentation": "Hedef <code>CFrame</code>'in rotasıyla parça rotasını ne kadar agresif eşleştireceğini belirten 0 ile 1 arasında bir sayı."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/5": {
-    "documentation": "Fiziksel çözümlemeyi etkileyen nesneleri belirlemenizi sağlar."
+    "documentation": "Fiziksel çözümden etkilenecek nesneleri belirtmenizi sağlar."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo": {
-    "documentation": "Verilen parçayı doğrudan oraya hareket ettirmek yerine ters kinematik kullanarak belirtilen konuma taşır, böylece parça yer alan tüm eklemler, kısıtlamalar veya çarpışmalar fiziksel olarak tatmin edici kalır.",
+    "documentation": "Belirtilen parçayı, belirtilen konuma ters kinematik yoluyla taşır; böylelikle parçanın katıldığı tüm eklemler, kısıtlamalar veya çarpışmalar fiziksel olarak karşılanır.",
     "params": [
       {
         "name": "self",
@@ -94380,7 +94374,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/1": {
     "documentation": "Kontrol edilecek <code>Region3</code>."
@@ -94392,7 +94386,7 @@
     "documentation": "<code>Region3</code> boşsa true döner."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev kullanımdan kaldırılmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ve <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içinde <code>BaseParts</code> olmadığına dair bir bool değeri döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev geçersiz kılınmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ile birlikte <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içinde <code>BaseParts</code> nesnesi yoksa true dönen bir bool döner.",
     "params": [
       {
         "name": "self",
@@ -94414,19 +94408,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/1": {
     "documentation": "Kontrol edilecek <code>Region3</code>."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/2": {
-    "documentation": "Göz ardı edilecek nesne dizisi."
+    "documentation": "Göz ardı edilecek nesnelerin dizisi."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/return/0": {
     "documentation": "<code>Region3</code> boşsa true döner."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev kullanımdan kaldırılmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ve <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içinde, verilen ignore listesi öğelerinin alt öğesi olmayan herhangi bir <code>BaseParts</code> olmadığına dair bir boolean döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev geçersiz kılınmıştır. Yeni çalışmalar için <code>WorldRoot:GetPartBoundsInBox()</code> ile birlikte <code>OverlapParams</code> kullanın.<br>Verilen <code>Region3</code> içinde <code>BaseParts</code> nesneleri yoksa ve verilen göz ardı listesi içindeki nesnelerin alt nesneleri de hariç tutuluyorsa, bir boolean döner.",
     "params": [
       {
         "name": "self",
@@ -94448,22 +94442,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/1": {
     "documentation": "Işının başlangıç noktası."
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/2": {
-    "documentation": "Işının yönlü vektörü. Bu vektörün uzunluğunun önemli olduğunu unutmayın; nesneler/arazi, vektör uzunluğundan daha uzak olduğunda test edilmez."
+    "documentation": "Işının yön vektörü. Bu vektörün uzunluğu önemlidir, zira uzunluğundan daha uzaktaki parçalar/test edilmeyecektir."
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/3": {
-    "documentation": "Işın atma işleminde çarpışma uygunluğunu belirlemek için kullanılan bir nesne. Eğer sağlanmazsa, varsayılan değerler kullanılır; tüm parçalar dikkate alınır ve <code>Terrain</code> su göz ardı edilmez."
+    "documentation": "Işın fırlatma işlemindeki vurma uygunluğunu belirlemek için kullanılan bir nesne. Sağlanmazsa, varsayılan değerler kullanılır; burada tüm parçalar göz önünde bulundurulur ve <code>Terrain</code> su göz ardı edilmez."
   },
   "@roblox/globaltype/WorldRoot.Raycast/return/0": {
-    "documentation": "Işın atma işleminin sonuçlarını içerir veya uygun bir <code>BasePart</code> veya <code>Terrain</code> hücresi yoksa <code>nil</code> döner."
+    "documentation": "Bir ışın fırlatma işlemine ait sonuçları içerir veya hiçbir uygun <code>BasePart</code> veya <code>Terrain</code> hücresinin vurulmadığı durumda <code>nil</code> döner."
   },
   "@roblox/globaltype/WorldRoot.Raycast": {
-    "documentation": "Bir başlangıç, yön ve isteğe bağlı <code>RaycastParams</code> kullanarak bir ışın atar, ardından ışınla kesişen uygun bir nesne veya arazi varsa bir <code>RaycastResult</code> döner.",
+    "documentation": "Bir başlangıç, yön ve isteğe bağlı <code>RaycastParams</code> kullanarak bir ışın fırlatır; ardından uygun bir nesne veya arazi ışınla kesişirse bir <code>RaycastResult</code> döner.",
     "params": [
       {
         "name": "self",
@@ -94489,7 +94483,7 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal function castRay()\n\t-- Işığın başlangıç noktası\n\tlocal originPosition = Vector3.new(0, 50, 0)\n\t-- Işığın yayılacağı yön\n\tlocal direction = -Vector3.yAxis\n\t-- Işığın maksimum mesafesi\n\tlocal distance = 50\n\n\t-- Işığı yay ve bir görselleştirme oluştur\n\tlocal raycastResult = Workspace:Raycast(originPosition, direction * distance)\n\n\tif raycastResult then\n\t\t-- RaycastResult mevcutsa tüm özellikleri yazdır\n\t\tprint(`Işın şunla kesişti: {raycastResult.Instance:GetFullName()}`)\n\t\tprint(`Kesişim noktası: {raycastResult.Position}`)\n\t\tprint(`Işın başlangıcı ile sonuç arasındaki mesafe: {raycastResult.Distance}`)\n\t\tprint(`Kesişen yüzeyin normal vektörü: {raycastResult.Normal}`)\n\t\tprint(`Çarpılan malzeme: {raycastResult.Material.Name}`)\n\telse\n\t\tprint(\"Hiçbir şey vurulmadı\")\n\tend\nend\n\n-- Her 2 saniyede bir sürekli ışın yay\nwhile true do\n\tcastRay()\n\ttask.wait(2)\nend"
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/1": {
     "documentation": ""
@@ -94530,25 +94524,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/1": {
-    "documentation": "Atılan küresel şeklin başlangıç konumu."
+    "documentation": "Fırlatılan küresel şeklin başlangıç konumu."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/2": {
-    "documentation": "Atılan küresel şeklin yarıçapı (stud cinsinden). Maksimum yarıçap 256 studdur."
+    "documentation": "Fırlatılan küresel şeklin yarıçapı, studs cinsinden. Maksimum yarıçap 256 studs'tır."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/3": {
-    "documentation": "Şapka yönü, büyüklüğü şeklin en fazla kat edebileceği mesafeyi temsil eder. Maksimum mesafe 1024 studdur."
+    "documentation": "Şekil fırlatma yönü, büyüklüğü şeklin kat edebileceği maksimum mesafeyi temsil eder. Maksimum mesafe 1024 studs'tır."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/return/0": {
-    "documentation": "Şekil atma işleminin sonuçlarını içerir veya uygun bir <code>BasePart</code> veya <code>Terrain</code> hücresi yoksa <code>nil</code> döner."
+    "documentation": "Şekil fırlatma işleminin sonucunu içerir veya uygun <code>BasePart</code> veya <code>Terrain</code> hücresinin çarpıldığı durumda <code>nil</code> döner."
   },
   "@roblox/globaltype/WorldRoot.Spherecast": {
-    "documentation": "Verilen bir yönde bir küresel şekil atar ve şekil bir <code>BasePart</code> veya <code>Terrain</code> hücresini vurursa bir <code>RaycastResult</code> döner.",
+    "documentation": "Verilen bir yönde bir küresel şekil fırlatır ve şekil bir <code>BasePart</code> veya <code>Terrain</code> hücresine çarparsa bir <code>RaycastResult</code> döner.",
     "params": [
       {
         "name": "self",
@@ -94578,16 +94572,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/1": {
-    "documentation": "Simüle edilecek zaman miktarı. Bu argüman pozitif bir sayı olmalıdır. Daha büyük değerler bu işlevin çalışma süresini artırır."
+    "documentation": "Simüle edilecek zaman miktarı. Bu argüman pozitif bir sayı olmalıdır. Daha büyük değerler işlevin süresini artırır."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/2": {
-    "documentation": "Simüle edilecek isteğe bağlı parçalar dizisi. Bu küme <code>BasePart</code> türünde nesneler içermelidir; diğer türler göz ardı edilecektir."
+    "documentation": "Simüle edilecek isteğe bağlı parça dizisi. Bu dizi yalnızca <code>BasePart</code> türündeki örnekleri içermelidir; diğer türler göz ardı edilecektir."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics": {
-    "documentation": "Düzenlenmiş parçaların belirli bir zaman artışına ve isteğe bağlı bir <code>BaseParts</code> kümesine göre simülasyonunu ileri taşır.",
+    "documentation": "Düzenli bir zaman artışına ve isteğe bağlı bir <code>BaseParts</code> kümesine dayanarak dünyadaki parçaların simülasyonunu ileri taşır.",
     "params": [
       {
         "name": "self",
@@ -94607,7 +94601,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/1": {
     "documentation": ""
@@ -94625,7 +94619,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış işlev, bunun yerine kullanılacak <code>WorldRoot:FindPartOnRay()</code>'nin bir varyantıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu geçersiz kılınan işlev, bunun yerine kullanılacak <code>WorldRoot:FindPartOnRay()</code>'ın bir varyantıdır.",
     "params": [
       {
         "name": "self",
@@ -94655,7 +94649,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/0": {
-    "documentation": "Fizik simülasyonu ve 3D mekansal sorgulama için temel sınıf."
+    "documentation": "Fizik simülasyonu ve 3D uzamsal sorguları işlemek için temel sınıf."
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/1": {
     "documentation": ""
@@ -94670,7 +94664,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış işlev, bunun yerine kullanılacak <code>WorldRoot:FindPartsInRegion3()</code>'ün bir varyantıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu geçersiz kılınan işlev, bunun yerine kullanılacak <code>WorldRoot:FindPartsInRegion3()</code>'in bir varyantıdır.",
     "params": [
       {
         "name": "self",
@@ -96338,10 +96332,10 @@
     "documentation": "Verilen <code>Player</code> için oluşturulan paylaşım bağlantısıyla Roblox platform düzeyinde bir paylaşım sayfası gösterir."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Dictionary</code>, oluşturulan bağlantının yapılandırmasını belirler. Aşağıdaki isteğe bağlı anahtar-değer çiftlerini içerir: <ul> <li><code>FallbackLinkId</code> (string). Bu paylaşım bağlantısının süresi dolduğunda nasıl yönlendireceğini belirler. Varsayılan olarak deneyim katılma bağlantısını kullanır.</li> <li><code>ExpirationSeconds</code> (number). Paylaşım bağlantısı oluşturulduktan sonraki süresi belirler. En yakın tam sayıya yuvarlar. Varsayılan 86,400'dür.</li> <li><code>PreviewTitle</code> (string) Paylaşım bağlantısının önizleme başlığı.</li> <li><code>PreiviewDescription</code> (string) Paylaşım bağlantısının önizleme açıklaması.</li> <li><code>PreviewAssettId</code> (number) Paylaşım bağlantısı önizlemesi için kullanılan resim varlık ID'si.</li> <li><code>LaunchData</code> (string). Oluşturulan paylaşım bağlantısıyla katılan bir oyuncunun <code>Player:GetJoinData()</code> içindeki bir parametreyi ayarlamak için kullanılır.</li> </ul>"
+    "documentation": "<code>Dictionary</code> oluşturulan bağlantının yapılandırmasını belirtir. Aşağıdaki isteğe bağlı anahtar-değer çiftlerini içerir: <ul> <li><code>FallbackLinkId</code> (string). Bu paylaşım bağlantısının   süresi dolduğunda oyuncuyu yönlendireceği yeri belirler. Varsayılan olarak deneyim katılım bağlantısına yönlendirir.</li> <li><code>ExpirationSeconds</code> (number). Paylaşım bağlantısı oluşturulduktan   sonra geçen sürede süre sona erer. En yakın tam sayıya yuvarlanır. Varsayılan değer 86,400'dür.</li> <li><code>PreviewTitle</code> (string) Paylaşım bağlantısının önizleme başlığı.</li> <li><code>PreviewDescription</code> (string) Paylaşım bağlantısının önizleme açıklaması.</li> <li><code>PreviewAssetId</code> (number) Paylaşım bağlantısı   önizlemesi için kullanılan resim varlık ID'si.</li> <li><code>LaunchData</code> (string). Oluşturulan paylaşım bağlantısını kullanan   bir oyuncu katıldığında <code>Player:GetJoinData()</code>'da bir parametre ayarlamak için kullanılır.</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": ""
+    "documentation": "Bağlantı paylaşım isteminin sonucunu belirten bir <code>PromptLinkSharingResult</code> içeren bir demet."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -122046,7 +122040,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.Unknown": {
-    "documentation": "Catch-all for all other disconnect reasons.",
+    "documentation": "Diğer tüm bağlantı kesme sebepleri için genel bir kapsayıcı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122056,7 +122050,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.PlatformKick": {
-    "documentation": "User was kicked by Roblox systems, such as being blocked while in a Private Server.",
+    "documentation": "Kullanıcı, Özel Sunucu'da engellendiği gibi, Roblox sistemleri tarafından çıkarıldı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122066,7 +122060,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.CreatorKick": {
-    "documentation": "Creator called <strong>Player:Kick()</strong>",
+    "documentation": "Yaratıcı <strong>Player:Kick()</strong> çağrısını yaptı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122076,7 +122070,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PlayerExitReason": {
-    "documentation": "An enum that specifies the reason for <strong>Players.PlayerRemoving</strong> signal.",
+    "documentation": "<strong>Players.PlayerRemoving</strong> sinyalinin sebebini belirten bir enum.",
     "keys": {
       "Unknown": "@roblox/enum/PlayerExitReason.Unknown",
       "PlatformKick": "@roblox/enum/PlayerExitReason.PlatformKick",
@@ -126858,7 +126852,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.StreamingMesh": {
-    "documentation": "Daha düşük çözünürlüklü bir \"imposter\" mesh (modelin tüm çocuk parçalarının çevresine sarılan, renkli ve kaba bir mesh) akış yarıçapının dışında render edilir.",
+    "documentation": "Daha düşük çözünürlüklü bir \"imposter\" ızgara (modelin tüm alt parçalarının etrafını saran, renkli, kaba bir ızgara) akış yarıçapının dışında render edilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126868,7 +126862,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
-    "documentation": "Daha düşük çözünürlüklü bir mesh görüntülenmeyecektir.",
+    "documentation": "Daha düşük çözünürlüklü bir ızgara görüntülenmeyecek.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126878,7 +126872,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ModelLevelOfDetail": {
-    "documentation": "Deneyimlerde <code>Models</code> için ayrıntı seviyesini kontrol eder örnek akışı etkinleştirildiğinde.",
+    "documentation": "<code>Models</code> için deneyimlerde detay seviyesini kontrol eder. örnek akışı etkinleştirildiğinde.",
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
@@ -130765,7 +130759,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CorrodedMetal": {
-    "documentation": "<code>BasePart</code> ve <code>Terrain</code> için geçerlidir.",
+    "documentation": "<code>BasePart</code> sınıfına yalnızca uygulanır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

@@ -3893,7 +3893,7 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "คู่เวลา-ค่า ที่ใช้กับ <code>ValueCurve</code> instances。",
     "keys": {
       "new": "@roblox/global/ValueCurveKey.new"
     },
@@ -3901,16 +3901,16 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey.new/param/0": {
-    "documentation": "Time at which to create the new <code>ValueCurveKey</code>."
+    "documentation": "เวลาที่จะสร้าง <code>ValueCurveKey</code> ใหม่."
   },
   "@roblox/global/ValueCurveKey.new/param/1": {
-    "documentation": "Value of the new <code>ValueCurveKey</code>."
+    "documentation": "ค่าของ <code>ValueCurveKey</code> ใหม่."
   },
   "@roblox/global/ValueCurveKey.new/param/2": {
     "documentation": ""
   },
   "@roblox/global/ValueCurveKey.new": {
-    "documentation": "Returns a new <code>ValueCurveKey</code> from the given time and value.",
+    "documentation": "ส่งคืน <code>ValueCurveKey</code> ใหม่จากเวลาและค่า ที่กำหนดให้.",
     "params": [
       {
         "name": "time",
@@ -3930,7 +3930,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "คู่เวลา-ค่า ที่ใช้กับ <code>ValueCurve</code> instances。",
     "keys": {
       "Interpolation": "@roblox/globaltype/ValueCurveKey.Interpolation",
       "Time": "@roblox/globaltype/ValueCurveKey.Time",
@@ -3942,27 +3942,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Interpolation": {
-    "documentation": "The key interpolation mode for the segment started by this <code>ValueCurveKey</code>.",
+    "documentation": "โหมดการแทรกคีย์สำหรับส่วนที่เริ่มต้นโดย <code>ValueCurveKey</code> นี้。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Interpolation",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Time": {
-    "documentation": "The time position of this <code>ValueCurveKey</code>.",
+    "documentation": "ตำแหน่งเวลา ของ <code>ValueCurveKey</code> นี้。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Time",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Value": {
-    "documentation": "The value of this <code>ValueCurveKey</code>.",
+    "documentation": "ค่าของ <code>ValueCurveKey</code> นี้。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Value",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.RightTangent": {
-    "documentation": "The tangent to the right of this <code>ValueCurveKey</code>.",
+    "documentation": "ความชันทางขวาของ <code>ValueCurveKey</code> นี้。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#RightTangent",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.LeftTangent": {
-    "documentation": "The tangent to the left of this <code>ValueCurveKey</code>.",
+    "documentation": "ความชันทางซ้ายของ <code>ValueCurveKey</code> นี้。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#LeftTangent",
     "code_sample": ""
   },
@@ -8858,13 +8858,13 @@
     "documentation": "คลาสที่กำหนดมุมมองของโลก 3D."
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/1": {
-    "documentation": ""
+    "documentation": "<code>CFrame</code> ที่แสดงถึงจุดศูนย์กลางและทิศทางของ กรอบที่จะเข้าไปอยู่ในมุมมอง"
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/2": {
-    "documentation": ""
+    "documentation": "ขนาดของกรอบในรูปแบบ <code>Vector3</code> ที่จะเข้าไปอยู่ใน มุมมอง"
   },
   "@roblox/globaltype/Camera.ZoomToExtents": {
-    "documentation": "",
+    "documentation": "ปรับ <code>CFrame</code> ให้กรอบที่ระบุ แสดงผลให้ครบถ้วนภายในมุมมองของกล้อง",
     "params": [
       {
         "name": "self",
@@ -11569,7 +11569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Snap": {
-    "documentation": "<strong>Deprecated:</strong> <br>จับคู่สองส่วนเข้าด้วยกันและทำงานเหมือนกับ <code>Weld</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>ยึดสองส่วนเข้าด้วยกันและทำงานเหมือนกันกับ <code>Weld</code>。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Snap",
     "code_sample": ""
@@ -11693,7 +11693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint": {
-    "documentation": "สปริงหมุนที่ต่อต้านการเคลื่อนไหวเชิงมุมระหว่างสองแกน。",
+    "documentation": "สปริงหมุนที่ขัดขวางการเคลื่อนที่มุมระหว่างสองแกน。",
     "keys": {
       "Coils": "@roblox/globaltype/TorsionSpringConstraint.Coils",
       "CurrentAngle": "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle",
@@ -11715,47 +11715,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle": {
-    "documentation": "มุมปัจจุบันเป็นองศาของกรวยขีดจำกัด。",
+    "documentation": "มุมปัจจุบันเป็นองศาของกรวยที่จำกัด。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#CurrentAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Damping": {
-    "documentation": "ค่าคงที่การลดความสั่นสำหรับ <code>TorsionSpringConstraint</code> คูณกับความเร็วของ <code>Attachments</code> ของข้อจำกัดเพื่อลดแรงสปริงที่ใช้。",
+    "documentation": "ค่าคงที่การลดแรงสำหรับ <code>TorsionSpringConstraint</code> คูณกับ ความเร็วของ <code>Attachments</code> ของข้อจำกัดเพื่อลด แรงสปริงที่ใช้。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Damping",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitEnabled": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกยกเลิกแล้ว ใช้ <code>LimitsEnabled</code> แทน。",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้มีการเลิกใช้แล้ว ใช้ <code>LimitsEnabled</code> แทน。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitsEnabled": {
-    "documentation": "จำกัดการเคลื่อนไหวเชิงมุมสัมพัทธ์ของแกนรองของการติดตั้งผ่านข้อจำกัดกรวย。",
+    "documentation": "จำกัดการเคลื่อนที่มุมสัมพัทธ์ของแกนรองของการติดตั้ง ผ่านข้อจำกัดกรวย。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.MaxAngle": {
-    "documentation": "มุมสูงสุดของกรวยขีดจำกัดของข้อจำกัด。",
+    "documentation": "มุมสูงสุดของกรวยที่จำกัดของข้อจำกัด。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#MaxAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.MaxTorque": {
-    "documentation": "แรงบิดสูงสุดที่อนุญาตโดยสปริงหมุน。",
+    "documentation": "แรงบิดสูงสุดที่อนุญาตโดยสปริงทอร์ชั่น。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#MaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Radius": {
-    "documentation": "รัศมีการแสดงภาพของสปริง。",
+    "documentation": "รัศมีการแสดงผลของสปริง。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Restitution": {
-    "documentation": "ค่าความคืนตัวของข้อจำกัดกรวย。",
+    "documentation": "ค่าความยืดหยุ่นของข้อจำกัดกรวย。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Stiffness": {
-    "documentation": "ความแข็งแบบหมุนของสปริง。",
+    "documentation": "ความแข็งทางทอร์ชั่นของสปริง。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Stiffness",
     "code_sample": ""
   },
@@ -16553,7 +16553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh": {
-    "documentation": "วัตถุ <code>SpecialMesh</code> ใช้เสริมผิวให้กับ <code>BasePart</code> ขึ้นอยู่กับ พารามิเตอร์ <code>MeshType</code>。",
+    "documentation": "วัตถุ <code>SpecialMesh</code> ใช้เมชสำหรับ <code>BasePart</code> ขึ้นอยู่กับ คุณสมบัติ <code>MeshType</code>.",
     "keys": {
       "MeshType": "@roblox/globaltype/SpecialMesh.MeshType"
     },
@@ -16561,7 +16561,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh.MeshType": {
-    "documentation": "กำหนดประเภทของผิวที่จะแสดงผลบน <code>BasePart</code> ที่ <code>SpecialMesh</code> ถูกเชื่อมโยงอยู่。",
+    "documentation": "กำหนดประเภทของเมชที่จะถูกใช้กับ <code>BasePart</code> ที่ <code>SpecialMesh</code> เป็นส่วนของ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpecialMesh#MeshType",
     "code_sample": ""
   },
@@ -18786,10 +18786,10 @@
     "documentation": "วัตถุพิเศษที่ให้ฟังก์ชันการทำงานของโมเดลเหมือนกับตัวละคร。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "อุปกรณ์ <code>HumanoidDescription</code> ที่คุณต้องการให้ตัวละครตรงกัน."
+    "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการตั้งค่าให้ ตัวละครตรงกัน。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ ค่าเริ่มต้นสำหรับพารามิเตอร์นี้จะเปลี่ยนจาก <code>ClientOnly</code> เป็น <code>Always</code> หลังจากวันที่ 10/20/2025 โปรดดู <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">ที่นี่</a> สำหรับรายละเอียด。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
     "documentation": "ทำให้รูปลักษณ์ของตัวละครตรงกับที่ของ <code>HumanoidDescription</code> ที่ส่งเข้าไป.",
@@ -18818,7 +18818,7 @@
     "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการให้ตัวละครตรงกัน."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ ค่าเริ่มต้นสำหรับพารามิเตอร์นี้จะเปลี่ยนจาก <code>ClientOnly</code> เป็น <code>Always</code> หลังจากวันที่ 10/20/2025 โปรดดู <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">ที่นี่</a> สำหรับรายละเอียด。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
     "documentation": "ทำให้รูปลักษณ์ของตัวละครตรงกับ <code>HumanoidDescription</code> ที่ส่งเข้าไป, แม้หลังจากการเปลี่ยนแปลงจากภายนอก.",
@@ -22623,7 +22623,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateV": {
-    "documentation": "<strong>Deprecated:</strong> คลาสนี้ทำงานร่วมกับ <code>SurfaceType</code> ที่เลิกใช้งานแล้วและไม่ควรใช้ในการทำงานในอนาคต; ควรใช้ <code>HingeConstraint</code> แทน.",
+    "documentation": "<strong>Deprecated:</strong> คลาสนี้ทำงานร่วมกับ <code>SurfaceType</code> ที่ถูกเลิกใช้งานแล้วและไม่ควรใช้งาน สำหรับงานในอนาคต; ใช้ <code>HingeConstraint</code> แทน。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateV",
     "code_sample": ""
@@ -23452,7 +23452,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer": {
-    "documentation": "<code>WrapTextureTransfer</code> ช่วยให้ <code>Decal</code> ผู้ปกครองสามารถห่อหุ้มรอบๆ <code>MeshPart</code> ของมันตามกรงของ <code>WrapTarget</code> ของมัน",
+    "documentation": "<code>WrapTextureTransfer</code> ช่วยให้ <code>Decal</code> ที่เป็นพ่อแม่ถูกห่อหุ้มรอบ ๆ <code>MeshPart</code> ของพ่อแม่ตามกรงของ <code>WrapTarget</code> ของมัน",
     "keys": {
       "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
       "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
@@ -23462,17 +23462,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
-    "documentation": "Mesh อ้างอิงที่เป็นทางเลือกที่ใช้สำหรับการตัดทอนและการตรวจสอบกรงเป้าหมาย.",
+    "documentation": "เป็น Mesh อ้างอิงที่เป็นทางเลือกสำหรับการตัดและตรวจสอบกรงเป้าหมาย",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMaxBound": {
-    "documentation": "กำหนดขอบสูงสุดของพื้นที่ UV ที่รวมในการถ่ายโอน.",
+    "documentation": "กำหนดขอบเขตสูงสุดของพื้นที่ UV ที่จะรวมในการถ่ายโอน.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMaxBound",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMinBound": {
-    "documentation": "กำหนดขอบต่ำสุดของพื้นที่ UV ที่รวมในการถ่ายโอน.",
+    "documentation": "กำหนดขอบเขตต่ำสุดของพื้นที่ UV ที่จะรวมในการถ่ายโอน.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMinBound",
     "code_sample": ""
   },
@@ -24570,7 +24570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint": {
-    "documentation": "จำลองพลศาสตร์เชือก ซึ่งป้องกันไม่ให้การเชื่อมต่อสองจุดแยกออกจากกันเกินกว่า ความยาวที่กำหนด",
+    "documentation": "จำลองพลศาสตร์ของเชือก ป้องกันไม่ให้การเชื่อมต่อสองจุดแยกออกจากกัน เกินความยาวที่กำหนด",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RopeConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RopeConstraint.Length",
@@ -24586,17 +24586,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.CurrentDistance": {
-    "documentation": "ระยะห่างในปัจจุบันระหว่างการเชื่อมต่อของข้อจำกัด <code>Attachments</code>.",
+    "documentation": "ระยะห่างปัจจุบันระหว่างการเชื่อมต่อ <code>Attachments</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#CurrentDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Length": {
-    "documentation": "ระยะห่างสูงสุดที่การเชื่อมต่อสองจุด <code>Attachments</code> สามารถอยู่ ได้.",
+    "documentation": "ระยะทางสูงสุดที่แยกจากกันได้ของสอง <code>Attachments</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Restitution": {
-    "documentation": "ความยืดหยุ่นของ <code>Attachments</code> ที่เชื่อมต่อกันโดย ข้อจำกัดเมื่อถึงความยาวสูงสุดที่กำหนด <code>Length</code> จำกัดระหว่าง 0 ถึง 1.",
+    "documentation": "ความยืดหยุ่นของ <code>Attachments</code> ที่เชื่อมต่อโดย ข้อจำกัดเมื่อไปถึง <code>Length</code> ที่กำหนดไว้สูงสุด มีการจำกัดอยู่ระหว่าง 0 และ 1.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Restitution",
     "code_sample": ""
   },
@@ -24606,27 +24606,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchEnabled": {
-    "documentation": "เปิดใช้งานมอเตอร์รอก.",
+    "documentation": "เปิดใช้งานมอเตอร์วินซ์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchForce": {
-    "documentation": "แรงสูงสุดที่มอเตอร์รอกสามารถใช้งานได้.",
+    "documentation": "แรงสูงสุดที่มอเตอร์วินซ์สามารถใช้ได้.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchForce",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchResponsiveness": {
-    "documentation": "ความเฉียบคมของมอเตอร์รอกในการเข้าถึง <code>WinchTarget</code>.",
+    "documentation": "ความเฉียบคมของมอเตอร์วินซ์ในการไปถึง <code>WinchTarget</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchSpeed": {
-    "documentation": "ความเร็วที่ต้องการในเชิงบวกซึ่งมอเตอร์รอกเปลี่ยนความยาวเชือก.",
+    "documentation": "ความเร็วที่ต้องการเชิงบวกซึ่งมอเตอร์วินซ์ใช้ในการเปลี่ยนความยาวเชือก.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchTarget": {
-    "documentation": "ความยาวเป้าหมายสำหรับมอเตอร์รอก.",
+    "documentation": "ความยาวเป้าหมายสำหรับมอเตอร์วินซ์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchTarget",
     "code_sample": ""
   },
@@ -25463,7 +25463,6 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
-      "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
@@ -25677,11 +25676,6 @@
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
     "documentation": "กำหนดว่า <code>parts</code> ในกลุ่มที่ตั้งค่าไม่ให้ชนกันจะละเว้น การชนกันและอีเวนต์สัมผัสหรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.UseImprovedModelLod": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseImprovedModelLod",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
@@ -26357,7 +26351,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plane": {
-    "documentation": "<strong>Deprecated:</strong> <br>จำกัด Attachment0 และ Attachment1 เพื่อให้จุดทั้งสองอยู่ในระนาบ ที่มีต้นกำเนิดที่ตำแหน่งของ Attachment0 และเวกเตอร์ปกติตามหน่วยเท่ากับ แกนหลักของ Attachment0.",
+    "documentation": "<strong>Deprecated:</strong> <br>จำกัด Attachment0 และ Attachment1 ทำให้จุดทั้งสองอยู่ในระนาบ โดยมีจุดกำเนิดที่ตำแหน่งของ Attachment0 และเวกเตอร์หน่วยปกติเท่ากับ แกนหลักของ Attachment0.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plane",
     "code_sample": ""
@@ -27948,7 +27942,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "",
+    "documentation": "เนื้อหาพื้นผิวที่แสดงโดย Decal รองรับ <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> และ <code>EditableImage</code> objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
@@ -28629,7 +28623,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "ทำงานเมื่อผู้เล่นกดปุ่มเมาส์ซ้ายในขณะที่อยู่เหนือการตกแต่ง.",
+    "documentation": "เกิดขึ้นเมื่อผู้เล่นกดปุ่มเมาส์ซ้ายขณะเอาเมาส์ไปวางบนสิ่งประดับ",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -28717,7 +28711,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "ทำงานเมื่อผู้เล่นปล่อยปุ่มเมาส์ซ้ายในขณะที่อยู่เหนือการตกแต่ง.",
+    "documentation": "เกิดขึ้นเมื่อผู้เล่นปล่อยปุ่มเมาส์ซ้ายขณะเอาเมาส์ไปวางบนสิ่งประดับ",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -30263,7 +30257,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Platform": {
-    "documentation": "ในอดีตเป็นรูปแบบของ <code>Seat</code> ที่จะไม่วางผู้เล่นในท่าทางนั่ง วัตถุนี้ไม่สามารถสร้างได้อีกต่อไปและไม่สามารถใช้โดยนักพัฒนาได้",
+    "documentation": "ในอดีตเป็นรูปแบบของ <code>Seat</code> ที่จะไม่วางผู้เล่นในท่า นั่ง วัตถุนี้ไม่สามารถสร้างได้อีกต่อไปและไม่สามารถใช้งานโดย\\นักพัฒนาได้",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Platform",
     "code_sample": ""
@@ -31303,7 +31297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HopperBin": {
-    "documentation": "<strong>Deprecated:</strong> คลาสที่เลิกใช้นี้ได้ถูกแทนที่ด้วย <code>Tool</code> กรุณาใช้ Tool สำหรับ งานใหม่แทน",
+    "documentation": "<strong>Deprecated:</strong> คลาสที่เลิกใช้แล้วนี้ถูกแทนที่ด้วย <code>Tool</code>. กรุณาใช้ Tool สำหรับ งานใหม่แทน.",
     "keys": {
       "Active": "@roblox/globaltype/HopperBin.Active",
       "BinType": "@roblox/globaltype/HopperBin.BinType"
@@ -32680,7 +32674,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Seat": {
-    "documentation": "ประเภทของ <code>BasePart</code> ที่ตัวละครสามารถ 'นั่ง' ได้ เมื่อมีตัวละคร สัมผัสกับ Seat object ที่เปิดใช้งาน มันจะถูกแนบกับส่วนโดย <code>Weld</code> และสคริปต์ตัวละครเริ่มต้นจะเล่นอนิเมชั่นการนั่ง",
+    "documentation": "ประเภทของ <code>BasePart</code> ที่ตัวละครสามารถ 'นั่ง' ได้ เมื่อมีตัวละคร สัมผัสกับ Seat object ที่เปิดใช้งาน จะมีการเชื่อมต่อกับส่วนโดยใช้ <code>Weld</code> และสคริปต์ตัวละครปริยายจะเล่นอนิเมชั่นนั่ง.",
     "keys": {
       "Disabled": "@roblox/globaltype/Seat.Disabled",
       "Occupant": "@roblox/globaltype/Seat.Occupant",
@@ -32690,23 +32684,23 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal seat = Instance.new(\"Seat\")\nseat.Anchored = true\nseat.Position = Vector3.new(0, 1, 0)\nseat.Parent = workspace\n\nlocal currentPlayer = nil\n\nlocal function onOccupantChanged()\n\tlocal humanoid = seat.Occupant\n\tif humanoid then\n\t\tlocal character = humanoid.Parent\n\t\tlocal player = Players:GetPlayerFromCharacter(character)\n\t\tif player then\n\t\t\tprint(player.Name .. \" ได้หามานั่ง\")\n\t\t\tcurrentPlayer = player\n\t\t\treturn\n\t\tend\n\tend\n\tif currentPlayer then\n\t\tprint(currentPlayer.Name .. \" ได้ลุกขึ้น\")\n\t\tcurrentPlayer = nil\n\tend\nend\n\nseat:GetPropertyChangedSignal(\"Occupant\"):Connect(onOccupantChanged)"
   },
   "@roblox/globaltype/Seat.Disabled": {
-    "documentation": "ไม่ว่าส่วนที่นั่งจะสามารถใช้งานได้หรือไม่ หากตั้งค่าเป็น true, ที่นั่งจะทำงานเป็น ส่วนปกติ。",
+    "documentation": "ไม่ว่าจะมีการใช้งานที่นั่งหรือไม่ หากตั้งค่าเป็นจริง ที่นั่งจะทำงานเป็น ส่วนปกติ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Disabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Occupant": {
-    "documentation": "Humanoid ที่นั่งอยู่ในที่นั่ง。",
+    "documentation": "humanoid ที่นั่งอยู่ในที่นั่ง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Occupant",
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Sit/param/0": {
-    "documentation": "ประเภทของ <code>BasePart</code> ที่ตัวละครสามารถ 'นั่ง' ได้ เมื่อมีตัวละคร สัมผัสกับ Seat object ที่เปิดใช้งาน มันจะถูกแนบกับส่วนโดย <code>Weld</code> และสคริปต์ตัวละครเริ่มต้นจะเล่นอนิเมชั่นการนั่ง"
+    "documentation": "ประเภทของ <code>BasePart</code> ที่ตัวละครสามารถ 'นั่ง' ได้ เมื่อมีตัวละคร สัมผัสกับ Seat object ที่เปิดใช้งาน จะมีการเชื่อมต่อกับส่วนโดยใช้ <code>Weld</code> และสคริปต์ตัวละครปริยายจะเล่นอนิเมชั่นนั่ง."
   },
   "@roblox/globaltype/Seat.Sit/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Seat.Sit": {
-    "documentation": "บังคับตัวละครที่มี <code>Humanoid</code> ที่ระบุให้นั่งใน ที่นั่ง。",
+    "documentation": "บังคับให้ตัวละครที่มี <code>Humanoid</code> ที่ระบุให้นั่งในที่นั่ง.",
     "params": [
       {
         "name": "self",
@@ -33803,7 +33797,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform": {
-    "documentation": "<strong>Deprecated:</strong> วัตถุ SkateboardPlatform ถูกเลิกใช้งานและไม่สามารถรองรับได้อีกต่อไป โดย Roblox นักพัฒนาที่ต้องการสร้างสเกตบอร์ดหรือยานพาหนะที่คล้ายคลึงกันควร เขียนระบบของตัวเอง นอกจากนี้ วัตถุ <code>VehicleSeat</code> สามารถใช้ เพื่อสร้างยานพาหนะที่ง่ายได้อย่างรวดเร็ว<br>A SkateboardPlatform สามารถใช้สร้างสเกตบอร์ดได้ เมื่อตัวละครขึ้น ไปยังสเกตบอร์ด พวกเขาจะติดอยู่กับมันจนกว่าพวกเขาจะกดปุ่มหลบหนี จนกว่าจะถึงตอนนั้น ตัวละครจะใช้อนิเมชั่นสเกตบอร์ดและเดินทางได้เร็วกว่า ตัวละครที่เดิน",
+    "documentation": "<strong>Deprecated:</strong> วัตถุ SkateboardPlatform ถูกยกเลิกการใช้งานและไม่ถูกสนับสนุนโดย Roblox อีกต่อไป นักพัฒนาที่ต้องการสร้างสเก็ตบอร์ดหรือยานพาหนะที่คล้ายกันนั้นถูกแนะนำให้โปรแกรมระบบของตนเอง นอกจากนี้ วัตถุ <code>VehicleSeat</code> สามารถใช้เพื่อสร้างยานพาหนะง่ายๆได้อย่างรวดเร็ว<br>SkateboardPlatform สามารถใช้สร้างสเก็ตบอร์ดได้ เมื่ออักขระขึ้นอยู่บนสเก็ตบอร์ด พวกเขาจะติดอยู่จนกว่าจะกดปุ่มหลบหนี จนกว่าจะถึงเวลานั้น ตัวละครจะใช้แอนิเมชันของสเก็ตบอร์ดและเดินทางเร็วกว่าตัวละครเดิน",
     "keys": {
       "Controller": "@roblox/globaltype/SkateboardPlatform.Controller",
       "ControllingHumanoid": "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid",
@@ -33816,38 +33810,38 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Controller": {
-    "documentation": "Controller สเกตบอร์ดที่ใช้งานอยู่ของ SkateboardPlatform",
+    "documentation": "Controller สเก็ตบอร์ดที่ใช้งานอยู่ของ SkateboardPlatform",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Controller",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid": {
-    "documentation": "Class.Humanoid ที่ควบคุม SkateboardPlatform",
+    "documentation": "<code>Humanoid</code> ที่ควบคุม SkateboardPlatform",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#ControllingHumanoid",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Steer": {
-    "documentation": "ทิศทางของการเคลื่อนที่เชื่อมโยงกับปุ่ม A และ D ต้องเป็น 1 (ขวา), 0 (ตรง), หรือ -1 (ซ้าย) จะรีเฟรชกลับไปที่ 0 เว้นแต่จะถูกตั้งค่าอย่างต่อเนื่อง",
+    "documentation": "ทิศทางการเคลื่อนที่ ซึ่งผูกติดอยู่กับปุ่ม A และ D ต้องเป็น 1 (ขวา), 0 (ตรง), หรือ -1 (ซ้าย) จะรีเฟรชกลับเป็น 0 เว้นแต่จะถูกตั้งค่าอย่างต่อเนื่อง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Steer",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.StickyWheels": {
-    "documentation": "ถ้าเป็นจริง ล้อจะไม่หมุนหากไม่มีการป้อนข้อมูลจากผู้ใช้",
+    "documentation": "ถ้าเป็นจริง, ล้อจะไม่หมุนโดยไม่ต้องมีการป้อนข้อมูลจากผู้ใช้",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#StickyWheels",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Throttle": {
-    "documentation": "ทิศทางของการเคลื่อนที่เชื่อมโยงกับปุ่ม W และ S ต้องเป็นจำนวนเต็ม 1 (ไปข้างหน้า), 0 (ไม่มีการเคลื่อนที่), หรือ -1 (ถอยหลัง) จะรีเฟรชกลับไปที่ 0 เว้นแต่ จะถูกตั้งค่าอย่างต่อเนื่อง",
+    "documentation": "ทิศทางการเคลื่อนที่ ซึ่งผูกติดอยู่กับปุ่ม W และ S ต้องเป็นจำนวนเต็ม 1 (ข้างหน้า), 0 (ว่างเปล่า), หรือ -1 (ถอยหลัง) จะรีเฟรชกลับเป็น 0 เว้นแต่จะถูกตั้งค่าอย่างต่อเนื่อง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Throttle",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/0": {
-    "documentation": "<strong>Deprecated:</strong> วัตถุ SkateboardPlatform ถูกเลิกใช้งานและไม่สามารถรองรับได้อีกต่อไป โดย Roblox นักพัฒนาที่ต้องการสร้างสเกตบอร์ดหรือยานพาหนะที่คล้ายคลึงกันควร เขียนระบบของตัวเอง นอกจากนี้ วัตถุ <code>VehicleSeat</code> สามารถใช้ เพื่อสร้างยานพาหนะที่ง่ายได้อย่างรวดเร็ว<br>A SkateboardPlatform สามารถใช้สร้างสเกตบอร์ดได้ เมื่อตัวละครขึ้น ไปยังสเกตบอร์ด พวกเขาจะติดอยู่กับมันจนกว่าพวกเขาจะกดปุ่มหลบหนี จนกว่าจะถึงตอนนั้น ตัวละครจะใช้อนิเมชั่นสเกตบอร์ดและเดินทางได้เร็วกว่า ตัวละครที่เดิน"
+    "documentation": "<strong>Deprecated:</strong> วัตถุ SkateboardPlatform ถูกยกเลิกการใช้งานและไม่ถูกสนับสนุนโดย Roblox อีกต่อไป นักพัฒนาที่ต้องการสร้างสเก็ตบอร์ดหรือยานพาหนะที่คล้ายกันนั้นถูกแนะนำให้โปรแกรมระบบของตนเอง นอกจากนี้ วัตถุ <code>VehicleSeat</code> สามารถใช้เพื่อสร้างยานพาหนะง่ายๆได้อย่างรวดเร็ว<br>SkateboardPlatform สามารถใช้สร้างสเก็ตบอร์ดได้ เมื่ออักขระขึ้นอยู่บนสเก็ตบอร์ด พวกเขาจะติดอยู่จนกว่าจะกดปุ่มหลบหนี จนกว่าจะถึงเวลานั้น ตัวละครจะใช้แอนิเมชันของสเก็ตบอร์ดและเดินทางเร็วกว่าตัวละครเดิน"
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse": {
-    "documentation": "เพิ่ม ''impulseWorld'' ไปยัง <code>BasePart.Velocity</code> ของ SkateboardPlatform",
+    "documentation": "เพิ่ม ''impulseWorld'' เข้ากับ <code>BasePart.Velocity</code> ของ SkateboardPlatform",
     "params": [
       {
         "name": "self",
@@ -33940,7 +33934,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.Equipped": {
-    "documentation": "เกิดขึ้นเมื่อสเกตบอร์ดถูกติดตั้ง",
+    "documentation": "เกิดขึ้นเมื่อสเก็ตบอร์ดถูกติดตั้ง",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.Equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.Equipped.ConnectParallel",
@@ -34116,7 +34110,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.Unequipped": {
-    "documentation": "เกิดขึ้นเมื่อสเกตบอร์ดถูกถอดออก",
+    "documentation": "เกิดขึ้นเมื่อสเก็ตบอร์ดถูกถอดออก",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.Unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.Unequipped.ConnectParallel",
@@ -34204,7 +34198,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.equipped": {
-    "documentation": "<strong>Deprecated:</strong> เหตุการณ์ที่ถูกเลิกใช้นี้เป็นเวอร์ชันของ <code>SkateboardPlatform.Equipped</code> ซึ่งก็ถูกเลิกใช้งานเช่นกัน เหตุการณ์ทั้งสองไม่ควรใช้ในงานใหม่",
+    "documentation": "<strong>Deprecated:</strong> เหตุการณ์ที่ถูกยกเลิกนี้เป็นเวอร์ชันของ <code>SkateboardPlatform.Equipped</code> ซึ่งก็ถูกยกเลิกไปแล้วได้เช่นกัน เหตุการณ์ทั้งสองนี้ไม่ควรใช้ในงานใหม่",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.equipped.ConnectParallel",
@@ -34292,7 +34286,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.unequipped": {
-    "documentation": "<strong>Deprecated:</strong> เหตุการณ์ที่ถูกเลิกใช้นี้เป็นเวอร์ชันของ <code>SkateboardPlatform.Unequipped</code> ซึ่งก็ถูกเลิกใช้งานเช่นกัน เหตุการณ์ทั้งสองไม่ควรใช้ในงานใหม่",
+    "documentation": "<strong>Deprecated:</strong> เหตุการณ์ที่ถูกยกเลิกนี้เป็นเวอร์ชันของ <code>SkateboardPlatform.Unequipped</code> ซึ่งก็ถูกยกเลิกไปแล้วได้เช่นกัน เหตุการณ์ทั้งสองนี้ไม่ควรใช้ในงานใหม่",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.unequipped.ConnectParallel",
@@ -35542,7 +35536,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment": {
-    "documentation": "คลาสนามที่สามารถตกแต่งไปยังวัตถุของคลาส <code>PVInstance</code> ได้",
+    "documentation": "คลาสนามที่สามารถตกแต่งให้กับวัตถุของคลาส <code>PVInstance</code> ได้",
     "keys": {
       "Adornee": "@roblox/globaltype/PVAdornment.Adornee"
     },
@@ -38769,7 +38763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint": {
-    "documentation": "เก็บการเชื่อมต่อสองรายการที่แยกออกจากกันโดยมี <code>Length</code> ที่กำหนด",
+    "documentation": "เก็บรักษาอุปกรณ์สองชิ้นแยกจากกันโดยระยะทางที่กำหนด <code>Length</code>.",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RodConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RodConstraint.Length",
@@ -38782,37 +38776,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.CurrentDistance": {
-    "documentation": "ระยะห่างปัจจุบันระหว่างการเชื่อมต่อของข้อกำหนด <code>Attachments</code>。",
+    "documentation": "ระยะทางปัจจุบันระหว่างอุปกรณ์ของข้อจำกัด <code>Attachments</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#CurrentDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.Length": {
-    "documentation": "ระยะห่างที่ข้อกำหนดพยายามจะเก็บการเชื่อมต่อ <code>Attachments</code> ไว้ในระดับ",
+    "documentation": "ระยะทางที่ข้อจำกัดพยายามเก็บรักษาอุปกรณ์ของมัน <code>Attachments</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitAngle0": {
-    "documentation": "มุมสูงสุดระหว่างแท่งและ <code>Attachment0</code> เมื่อ <code>LimitsEnabled</code> เป็นจริง",
+    "documentation": "มุมสูงสุดระหว่างแท่งและ <code>Attachment0</code> เมื่อ <code>LimitsEnabled</code> เป็นจริง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitAngle0",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitAngle1": {
-    "documentation": "มุมสูงสุดระหว่างแท่งและ <code>Attachment1</code> เมื่อ <code>LimitsEnabled</code> เป็นจริง",
+    "documentation": "มุมสูงสุดระหว่างแท่งและ <code>Attachment1</code> เมื่อ <code>LimitsEnabled</code> เป็นจริง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitAngle1",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitsEnabled": {
-    "documentation": "กำหนดว่าคุณสมบัติ <code>LimitAngle0</code> และ <code>LimitAngle1</code> ควบคุมมุมระหว่าง แท่งและการเชื่อมต่อที่เกี่ยวข้องหรือไม่",
+    "documentation": "กำหนดว่าคุณสมบัติ <code>LimitAngle0</code> และ <code>LimitAngle1</code> ควบคุมมุมระหว่าง แท่งและอุปกรณ์ที่เกี่ยวข้องหรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.Thickness": {
-    "documentation": "ความหนาที่แสดงของ <code>RodConstraint</code>。",
+    "documentation": "ความหนาที่แสดงของ <code>RodConstraint</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Rotate": {
-    "documentation": "<strong>Deprecated:</strong> คลาสนี้ทำงานร่วมกับ <code>SurfaceType</code> ที่เลิกใช้แล้ว และไม่ควรใช้สำหรับงานในอนาคต; ให้ใช้ <code>HingeConstraint</code> แทน",
+    "documentation": "<strong>Deprecated:</strong> คลาสนี้ทำงานร่วมกับ <code>SurfaceType</code> ที่เลิกใช้แล้วและไม่ควรนำมาใช้ในงานในอนาคต; ใช้ <code>HingeConstraint</code> แทน",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Rotate",
     "code_sample": ""
@@ -38836,7 +38830,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PrismaticConstraint": {
-    "documentation": "ข้อจำกัดที่สร้างการเชื่อมโยงที่แข็งระหว่างสอง <code>Attachments</code> ซึ่งอนุญาตให้มันเลื่อนไปตามหนึ่งแกนแต่ไม่อนุญาตให้ หมุน",
+    "documentation": "ข้อจำกัดที่สร้างข้อต่อที่แข็งแกร่งระหว่างสอง <code>Attachments</code> ซึ่งอนุญาตให้เลื่อนไปตามแกนหนึ่งแต่ไม่ หมุน.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PrismaticConstraint",
     "code_sample": ""
@@ -43066,7 +43060,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
-    "documentation": "ข้อจำกัดที่ใช้แรงบิดเพื่อให้การเชื่อมต่อสองจุดเรียงตัว หรือเพื่อให้การเชื่อมต่อหนึ่งจัดเรียงตามทิศทางที่กำหนด",
+    "documentation": "ข้อจำกัดที่ใช้แรงบิดเพื่อจัดตำแหน่งการเชื่อมต่อสองจุด หรือเพื่อจัดตำแหน่งหนึ่งการเชื่อมต่อกับทิศทางที่ต้องการ",
     "keys": {
       "AlignType": "@roblox/globaltype/AlignOrientation.AlignType",
       "CFrame": "@roblox/globaltype/AlignOrientation.CFrame",
@@ -43085,62 +43079,62 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.AlignType": {
-    "documentation": "ประเภทการเรียงตัวของแกนของข้อจำกัด.",
+    "documentation": "ประเภทการจัดตำแหน่งแกนของข้อจำกัด.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#AlignType",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.CFrame": {
-    "documentation": "การหมุนของ <code>CFrame</code> ที่ข้อจำกัดจะพยายามทำให้ตรงกับการหมุนของ <code>Attachment0</code>.",
+    "documentation": "ทิศทาง <code>CFrame</code> ที่ข้อจำกัดจะพยายามให้ตรงกับทิศทางของ <code>Attachment0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#CFrame",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.LookAtPosition": {
-    "documentation": "ตำแหน่งในพื้นที่โลกแบบ <code>Vector3</code> ซึ่งแกนหลักจะพยายามเรียงตัว.",
+    "documentation": "สถานที่ในโลกที่เป็น <code>Vector3</code> ซึ่งแกนหลักจะพยายามจัดตำแหน่ง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#LookAtPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxAngularVelocity": {
-    "documentation": "ความเร็วเชิงมุมสูงสุดที่ข้อจำกัดสามารถใช้เพื่อไปถึงเป้าหมาย.",
+    "documentation": "ความเร็วเชิงมุมสูงสุดที่ข้อจำกัดสามารถใช้เพื่อบรรลุเป้าหมาย.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxAngularVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxTorque": {
-    "documentation": "แรงบิดสูงสุดที่ข้อจำกัดสามารถใช้เพื่อไปถึงเป้าหมาย.",
+    "documentation": "แรงบิดสูงสุดที่ข้อจำกัดสามารถใช้เพื่อบรรลุเป้าหมาย.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Mode": {
-    "documentation": "ว่า ข้อจำกัดใช้การเชื่อมต่อหนึ่งหรือสองในการคำนวณเป้าหมายของมัน.",
+    "documentation": "ข้อจำกัดใช้การเชื่อมต่อหนึ่งหรือสองในการคำนวณเป้าหมาย.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxis": {
-    "documentation": "ทิศทางของแกน <strong>X</strong> ของเป้าหมาย แสดงเป็น <code>Vector3</code> หน่วย.",
+    "documentation": "ทิศทางของแกน <strong>X</strong> ของเป้าหมาย ซึ่งแสดงเป็นหน่วย <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#PrimaryAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxisOnly": {
-    "documentation": "กำหนดว่าวิธีที่แกนของข้อจำกัดได้รับผลกระทบจากแรงบิด.",
+    "documentation": "กำหนดว่าแกนของข้อจำกัดได้รับผลกระทบโดยแรงบิดอย่างไร.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#PrimaryAxisOnly",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.ReactionTorqueEnabled": {
-    "documentation": "ว่า ข้อจำกัดใช้แรงบิดเฉพาะกับ <code>Attachment0</code> หรือใช้กับการเชื่อมต่อทั้งสองในทิศทางตรงกันข้ามและเท่ากัน.",
+    "documentation": "ข้อจำกัดใช้แรงบิดเพียงแค่กับ <code>Attachment0</code>, หรือกับการเชื่อมต่อทั้งสองในทิศทางที่เท่ากันและตรงกันข้าม.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#ReactionTorqueEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Responsiveness": {
-    "documentation": "ควบคุมความเร็วที่ข้อจำกัดไปถึงเป้าหมาย ค่าที่สูงกว่าทำให้การเชื่อมต่อเรียงตัวได้เร็วขึ้น.",
+    "documentation": "ควบคุมความเร็วที่ข้อจำกัดบรรลุเป้าหมาย. ค่าที่สูงกว่าจะทำให้การเชื่อมต่อจัดเรียงได้เร็วขึ้น.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.RigidityEnabled": {
-    "documentation": "ว่าแรงบิดขึ้นอยู่กับคุณสมบัติอื่นหรือไม่ หรือว่าตัวแก้ปัญหาฟิสิกส์ตอบสนองอย่างรวดเร็วที่สุดเพื่อทำให้การเรียงตัวเสร็จสมบูรณ์.",
+    "documentation": "ว่าแรงบิดขึ้นอยู่กับคุณสมบัติอื่น ๆ หรือว่า ตัวแก้ปัญหาฟิสิกส์ตอบสนองอย่างเร็วที่สุดเท่าที่จะเป็นไปได้ในการดำเนินการจัดตำแหน่ง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#RigidityEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.SecondaryAxis": {
-    "documentation": "ทิศทางของแกน <strong>Y</strong> ของเป้าหมาย แสดงเป็น <code>Vector3</code>.",
+    "documentation": "ทิศทางของแกน <strong>Y</strong> ของเป้าหมาย ซึ่งแสดงเป็นหน่วย <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#SecondaryAxis",
     "code_sample": ""
   },
@@ -46533,7 +46527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint": {
-    "documentation": "จำกัดการติดตั้งให้หมุนรอบแกนเดียวเท่านั้น。",
+    "documentation": "จำกัดการหมุนของอุปกรณ์ไปตามแกนเดียวเท่านั้น",
     "keys": {
       "ActuatorType": "@roblox/globaltype/HingeConstraint.ActuatorType",
       "AngularResponsiveness": "@roblox/globaltype/HingeConstraint.AngularResponsiveness",
@@ -46555,22 +46549,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.ActuatorType": {
-    "documentation": "กำหนดว่าการหมุนของ <code>HingeConstraint</code> จะถูกกระตุ้นหรือไม่ และ, ถ้าใช่ จะใช้การกระตุ้นประเภทใด。",
+    "documentation": "ตั้งค่าว่าการหมุนของ <code>HingeConstraint</code> จะถูกกระตุ้นหรือไม่ และ, ถ้ามี จะใช้การกระตุ้นแบบใด。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#ActuatorType",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularResponsiveness": {
-    "documentation": "กำหนดความคมชัดของมอเตอร์เซิฟโรในกระบวนการถึง <code>TargetAngle</code>。",
+    "documentation": "ระบุความคมชัดของมอเตอร์เซอร์โวในเรื่องการเข้าถึง <code>TargetAngle</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularSpeed": {
-    "documentation": "ความเร็วเชิงมุมที่ต้องการที่ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งค่าเป็น <code>Servo</code> จะพยายามรักษาในขณะหมุนไปยัง <code>TargetAngle</code> ต้องวัดเป็น เรเดียน/วินาที。",
+    "documentation": "ความเร็วเชิงมุมที่ต้องการของ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งเป็น <code>Servo</code> จะพยายามคงไว้ระหว่างการหมุนไปยัง <code>TargetAngle</code> ซึ่งวัดเป็น เรเดียน/วินาที。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularVelocity": {
-    "documentation": "ความเร็วเชิงมุมที่ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งค่าเป็น <code>Motor</code> จะพยายามบรรลุ ต้องวัดเป็น เรเดียน/วินาที。",
+    "documentation": "ความเร็วเชิงมุมที่ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งเป็น <code>Motor</code> จะพยายามเข้าถึง ซึ่งวัดเป็น เรเดียน/วินาที。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularVelocity",
     "code_sample": ""
   },
@@ -46580,47 +46574,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.LimitsEnabled": {
-    "documentation": "กำหนดว่าการหมุนของ <code>HingeConstraint</code> จะถูกจำกัดหรือไม่。",
+    "documentation": "ตั้งค่าว่า <code>HingeConstraint</code> จะจำกัดช่วงการหมุนหรือไม่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.LowerAngle": {
-    "documentation": "มุมการหมุนต่ำสุดที่ <code>HingeConstraint</code> จะอนุญาตหาก <code>LimitsEnabled</code> เป็นจริง。",
+    "documentation": "มุมการหมุนขั้นต่ำที่ <code>HingeConstraint</code> จะอนุญาตหาก <code>LimitsEnabled</code> เป็นจริง。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#LowerAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.MotorMaxAcceleration": {
-    "documentation": "ความเร่งเชิงมุมสูงสุดที่ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งค่าเป็น <code>Motor</code> สามารถใช้ในการบรรลุ <code>AngularVelocity</code> ได้ ต้องวัดเป็น เรเดียน/วินาที&sup2;。",
+    "documentation": "ความเร็วเชิงมุมสูงสุดที่ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งเป็น <code>Motor</code> สามารถนำไปใช้เพื่อให้ได้ <code>AngularVelocity</code> วัดเป็น เรเดียน/วินาที&sup2;。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.MotorMaxTorque": {
-    "documentation": "แรงบิดสูงสุดที่ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งค่าเป็น <code>Motor</code> สามารถใช้เมื่อพยายามที่จะถึง <code>AngularVelocity</code> ที่ต้องการ。",
+    "documentation": "แรงบิดสูงสุดที่ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งเป็น <code>Motor</code> สามารถใช้เมื่อพยายามเข้าถึง <code>AngularVelocity</code> ที่ต้องการ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#MotorMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.Radius": {
-    "documentation": "รัศมีที่แสดงผลของ <code>HingeConstraint</code>。",
+    "documentation": "รัศมีเชิงภาพของ <code>HingeConstraint</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.Restitution": {
-    "documentation": "ความยืดหยุ่นของ <code>Attachment</code> ที่เชื่อมต่อด้วย <code>HingeConstraint</code> จะเป็นอย่างไรเมื่อมันถึงขีดจำกัดของช่วงเมื่อ <code>LimitsEnabled</code> เป็นจริง มีการจำกัด ระหว่าง 0 และ 1。",
+    "documentation": "ความยืดหยุ่นของ <code>Attachment</code> ที่เชื่อมต่อด้วย <code>HingeConstraint</code> จะมีเมื่อไปถึงขอบเขตสุดท้ายเมื่อ <code>LimitsEnabled</code> เป็นจริง มีการจำกัด ระหว่าง 0 และ 1。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.ServoMaxTorque": {
-    "documentation": "แรงบิดสูงสุดที่ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งค่าเป็น <code>Servo</code> สามารถใช้เมื่อพยายามที่จะถึง <code>TargetAngle</code> ที่ต้องการ。",
+    "documentation": "แรงบิดสูงสุดที่ <code>HingeConstraint</code> ที่มี <code>ActuatorType</code> ตั้งเป็น <code>Servo</code> สามารถใช้เมื่อพยายามเข้าถึง <code>TargetAngle</code> ที่ต้องการ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#ServoMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.SoftlockServoUponReachingTarget": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ไม่ควรใช้ในงานใหม่。",
+    "documentation": "<strong>Deprecated:</strong> ไม่ควรใช้คุณสมบัตินี้ในงานใหม่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#SoftlockServoUponReachingTarget",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.TargetAngle": {
-    "documentation": "มุมเป้าหมายที่ <code>HingeConstraint</code> จะพยายามหมุนไปยังหาก <code>ActuatorType</code> ตั้งค่าเป็น <code>Servo</code> ต้องวัดเป็นองศา。",
+    "documentation": "มุมเป้าหมายที่ <code>HingeConstraint</code> จะพยายามหมุนไปยังหาก <code>ActuatorType</code> ถูกตั้งเป็น <code>Servo</code> วัดเป็นองศา。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#TargetAngle",
     "code_sample": ""
   },
@@ -47017,7 +47011,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal mouse = player:GetMouse()\n\nlocal function onMouseMove()\n\tprint(\"ตำแหน่งจอของเมาส์: \", mouse.X, mouse.Y)\nend\n\nmouse.Move:Connect(onMouseMove)"
   },
   "@roblox/globaltype/Actor": {
-    "documentation": "<code>Actor</code> เป็นตัวเก็บข้อมูลสำหรับโค้ดที่สามารถแยกออกไปได้อย่างปลอดภัยใน เธรดของตัวเอง。",
+    "documentation": "<code>Actor</code> เป็นตัวเก็บที่สามารถจัดการโค้ดที่สามารถแยกออกไปใน เธร็ดของตนเองได้อย่างปลอดภัย",
     "keys": {
       "BindToMessage": "@roblox/globaltype/Actor.BindToMessage",
       "BindToMessageParallel": "@roblox/globaltype/Actor.BindToMessageParallel",
@@ -47027,19 +47021,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/param/0": {
-    "documentation": "<code>Actor</code> เป็นตัวเก็บข้อมูลสำหรับโค้ดที่สามารถแยกออกไปได้อย่างปลอดภัยใน เธรดของตัวเอง。"
+    "documentation": "<code>Actor</code> เป็นตัวเก็บที่สามารถจัดการโค้ดที่สามารถแยกออกไปใน เธร็ดของตนเองได้อย่างปลอดภัย"
   },
   "@roblox/globaltype/Actor.BindToMessage/param/1": {
-    "documentation": "หัวข้อที่ใช้ในการระบุประเภทของข้อความ。"
+    "documentation": "หัวข้อที่ใช้เพื่อระบุประเภทของข้อความ"
   },
   "@roblox/globaltype/Actor.BindToMessage/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/return/0": {
-    "documentation": "วัตถุการเชื่อมต่อนี้สามารถใช้เพื่อยกเลิกการเชื่อมโยง callback ของ Luau จากการรับข้อความได้。"
+    "documentation": "วัตถุการเชื่อมต่อนี้สามารถใช้เพื่อตัดการเชื่อมต่อ callback Luau จากการรับข้อความ"
   },
   "@roblox/globaltype/Actor.BindToMessage": {
-    "documentation": "เชื่อมโยง callback ของ Luau กับข้อความที่มีหัวข้อที่กำหนด。",
+    "documentation": "ผูก callback Luau กับข้อความที่มีหัวข้อที่ระบุ",
     "params": [
       {
         "name": "self",
@@ -47061,19 +47055,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
-    "documentation": "<code>Actor</code> เป็นตัวเก็บข้อมูลสำหรับโค้ดที่สามารถแยกออกไปได้อย่างปลอดภัยใน เธรดของตัวเอง。"
+    "documentation": "<code>Actor</code> เป็นตัวเก็บที่สามารถจัดการโค้ดที่สามารถแยกออกไปใน เธร็ดของตนเองได้อย่างปลอดภัย"
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/1": {
-    "documentation": "หัวข้อที่ใช้ในการระบุประเภทของข้อความ。"
+    "documentation": "หัวข้อที่ใช้เพื่อระบุประเภทของข้อความ"
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/return/0": {
-    "documentation": "วัตถุการเชื่อมต่อนี้สามารถใช้เพื่อยกเลิกการเชื่อมโยง callback ของ Luau จากการรับข้อความได้。"
+    "documentation": "วัตถุการเชื่อมต่อนี้สามารถใช้เพื่อตัดการเชื่อมต่อ callback Luau จากการรับข้อความ"
   },
   "@roblox/globaltype/Actor.BindToMessageParallel": {
-    "documentation": "เชื่อมโยง callback ของ Luau กับข้อความที่มีหัวข้อที่กำหนด。",
+    "documentation": "ผูก callback Luau กับข้อความที่มีหัวข้อที่ระบุ",
     "params": [
       {
         "name": "self",
@@ -47095,16 +47089,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.SendMessage/param/0": {
-    "documentation": "<code>Actor</code> เป็นตัวเก็บข้อมูลสำหรับโค้ดที่สามารถแยกออกไปได้อย่างปลอดภัยใน เธรดของตัวเอง。"
+    "documentation": "<code>Actor</code> เป็นตัวเก็บที่สามารถจัดการโค้ดที่สามารถแยกออกไปใน เธร็ดของตนเองได้อย่างปลอดภัย"
   },
   "@roblox/globaltype/Actor.SendMessage/param/1": {
-    "documentation": "หัวข้อที่ใช้ในการระบุข้อความที่กำลังส่ง。"
+    "documentation": "หัวข้อที่ใช้เพื่อระบุข้อความที่ถูกส่ง"
   },
   "@roblox/globaltype/Actor.SendMessage/param/2": {
-    "documentation": "เนื้อหาของข้อความที่จะส่งไปยัง Actor。"
+    "documentation": "เนื้อหาของข้อความที่จะส่งไปยัง Actor"
   },
   "@roblox/globaltype/Actor.SendMessage": {
-    "documentation": "ส่งข้อความไปยัง Actor。",
+    "documentation": "ส่งข้อความไปยัง Actor",
     "params": [
       {
         "name": "self",
@@ -48689,7 +48683,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateP": {
-    "documentation": "<strong>Deprecated:</strong> คลาสนี้ทำงานร่วมกับ <code>SurfaceType</code> ที่เลิกใช้แล้วและไม่ควรใช้สำหรับ งานในอนาคต; ควรใช้ <code>HingeConstraint</code> แทน。",
+    "documentation": "<strong>Deprecated:</strong> คลาสนี้ทำงานร่วมกับ <code>SurfaceType</code> ที่ถูกเลิกใช้และไม่ควร นำไปใช้ในงานในอนาคต; ควรใช้ <code>HingeConstraint</code> แทน.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateP",
     "code_sample": ""
@@ -50592,7 +50586,7 @@
     "documentation": "<code>Instance</code> เป็นคลาสพื้นฐานสำหรับคลาสทั้งหมดในลำดับชั้นคลาส Roblox ซึ่งสามารถเป็นส่วนหนึ่งของต้นไม้ <code>DataModel</code>。"
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "ฟังก์ชันนี้ทำลายลูกหลานทั้งหมดของอินสแตนซ์。",
+    "documentation": "วิธีนี้ทำลายลูกทั้งหมดของอินสแตนซ์หนึ่ง",
     "params": [
       {
         "name": "self",
@@ -51184,10 +51178,10 @@
     "documentation": "ชื่อของคุณสมบัติที่ต้องการสอบถาม."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean แสดงว่าคุณสมบัติถูกแก้ไข."
+    "documentation": "บูลีนที่ระบุว่าคุณสมบัติได้รับการปรับแต่งจากค่าเริ่มต้นที่ถูกสร้างขึ้นโดยโค้ด"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "ส่งคืน <code>true</code> หากค่าในคุณสมบัติที่ระบุเท่ากับค่าเริ่มต้นที่ใช้ในการสร้าง ด้วยโค้ด.",
+    "documentation": "ส่งคืน <code>true</code> หากค่าที่เก็บอยู่ในคุณสมบัติที่กำหนดไม่เท่ากับค่าดีฟอลต์ที่ถูกสร้างขึ้นโดยโค้ด",
     "params": [
       {
         "name": "self",
@@ -52605,7 +52599,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity": {
-    "documentation": "ใช้แรงบิดกับการประกอบเพื่อรักษาความเร็วเชิงมุมที่คงที่。",
+    "documentation": "ใช้แรงบิดกับการประกอบเพื่อคงความเร็วเชิงมุมที่คงที่。",
     "keys": {
       "AngularVelocity": "@roblox/globaltype/AngularVelocity.AngularVelocity",
       "MaxTorque": "@roblox/globaltype/AngularVelocity.MaxTorque",
@@ -52616,7 +52610,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.AngularVelocity": {
-    "documentation": "เป็น <code>Vector3</code> ที่ให้ความเร็วเชิงมุมเป้าหมายหรือที่ต้องการ。",
+    "documentation": "เป็น <code>Vector3</code> ที่ให้ความเร็วเชิงมุมที่ต้องการหรือเป้าหมาย。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#AngularVelocity",
     "code_sample": ""
   },
@@ -52626,7 +52620,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.ReactionTorqueEnabled": {
-    "documentation": "ทำให้ข้อจำกัดใช้แรงที่ตอบสนองที่เท่ากันและตรงข้าม。",
+    "documentation": "ทำให้ข้อจำกัดใช้แรงตอบสนองที่เท่ากันและตรงกันข้าม。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#ReactionTorqueEnabled",
     "code_sample": ""
   },
@@ -52751,7 +52745,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment": {
-    "documentation": "เรนเดอร์ตกแต่งกรอบลวดที่ประกอบด้วยเส้นหนึ่งเส้นหรือมากกว่านั้นไปยัง <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>.",
+    "documentation": "เรนเดอร์การตกแต่งแบบ wireframe ที่ประกอบไปด้วยเส้นหนึ่งเส้นหรือมากกว่าลงบน <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>。",
     "keys": {
       "Scale": "@roblox/globaltype/WireframeHandleAdornment.Scale",
       "Thickness": "@roblox/globaltype/WireframeHandleAdornment.Thickness",
@@ -52775,7 +52769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/0": {
-    "documentation": "เรนเดอร์ตกแต่งกรอบลวดที่ประกอบด้วยเส้นหนึ่งเส้นหรือมากกว่านั้นไปยัง <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>."
+    "documentation": "เรนเดอร์การตกแต่งแบบ wireframe ที่ประกอบไปด้วยเส้นหนึ่งเส้นหรือมากกว่าลงบน <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/1": {
     "documentation": "จุดเริ่มต้นของเส้น."
@@ -52784,7 +52778,7 @@
     "documentation": "จุดสิ้นสุดของเส้น."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine": {
-    "documentation": "เพิ่มเส้นไปยังตกแต่งกรอบลวดจากจุดเริ่มต้นไปยังจุดสิ้นสุดสัมพันธ์กับศูนย์กลางของ <code>Adornee</code>.",
+    "documentation": "เพิ่มเส้นให้กับการตกแต่งแบบ wireframe จากจุดเริ่มต้นไปยังจุดสิ้นสุด ที่สัมพันธ์กับศูนย์ของ <code>Adornee</code>。",
     "params": [
       {
         "name": "self",
@@ -52804,10 +52798,10 @@
     "code_sample": "local wireframe = script.Parent\n\nwireframe.Color3 = Color3.fromRGB(255, 0, 0) -- ตั้งค่าสายถัดไปเป็นสีแดง\nwireframe:AddLine(Vector3.new(-10, 0, 0), Vector3.new(10, 0, 0))\nwireframe.Color3 = Color3.fromRGB(0, 255, 0) -- ตั้งค่าสายถัดไปเป็นสีเขียว\nwireframe:AddLine(Vector3.new(0, -10, 0), Vector3.new(0, 10, 0))\nwireframe.Color3 = Color3.fromRGB(0, 0, 255) -- ตั้งค่าสายถัดไปเป็นสีน้ำเงิน\nwireframe:AddLine(Vector3.new(0, 0, -10), Vector3.new(0, 0, 10))"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/0": {
-    "documentation": "เรนเดอร์ตกแต่งกรอบลวดที่ประกอบด้วยเส้นหนึ่งเส้นหรือมากกว่านั้นไปยัง <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>."
+    "documentation": "เรนเดอร์การตกแต่งแบบ wireframe ที่ประกอบไปด้วยเส้นหนึ่งเส้นหรือมากกว่าลงบน <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/1": {
-    "documentation": "อาร์เรย์ของจุด <code>Vector3</code> ซึ่งแต่ละคู่ทำหน้าที่เป็นจุดเริ่มต้นและจุดสิ้นสุดของเส้น."
+    "documentation": "อาร์เรย์ของจุด <code>Vector3</code> ซึ่งแต่ละคู่ทำหน้าที่เป็นจุดเริ่มต้นและจุดสิ้นสุดสำหรับเส้น。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines": {
     "documentation": "เพิ่มเส้นหนึ่งเส้นหรือมากกว่าไปยังกระตกแต่งกรอบลวดโดยใช้อาร์เรย์.",
@@ -52826,16 +52820,16 @@
     "code_sample": "local wireframe = script.Parent\n\nlocal linesArray = {\n\tVector3.new(-10, 0, 0), -- จุดเริ่มต้นของเส้นแรก\n\tVector3.new(10, 0, 0), -- จุดสิ้นสุดของเส้นแรก\n\tVector3.new(0, -10, 0), -- จุดเริ่มต้นของเส้นที่สอง\n\tVector3.new(0, 10, 0), -- จุดสิ้นสุดของเส้นที่สอง\n\tVector3.new(0, 0, -10), -- จุดเริ่มต้นของเส้นที่สาม\n\tVector3.new(0, 0, 10) -- จุดสิ้นสุดของเส้นที่สาม\n}\n-- ใช้เส้นทางสำหรับการตกแต่ง\nwireframe:AddLines(linesArray)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/0": {
-    "documentation": "เรนเดอร์ตกแต่งกรอบลวดที่ประกอบด้วยเส้นหนึ่งเส้นหรือมากกว่านั้นไปยัง <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>."
+    "documentation": "เรนเดอร์การตกแต่งแบบ wireframe ที่ประกอบไปด้วยเส้นหนึ่งเส้นหรือมากกว่าลงบน <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/1": {
-    "documentation": "อาร์เรย์ของจุด <code>Vector3</code> ที่เชื่อมต่อเป็นลำดับด้วยช่วงเส้น."
+    "documentation": "อาร์เรย์ของจุด <code>Vector3</code> ที่จะเชื่อมต่อในลำดับด้วยส่วนเส้น。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/2": {
-    "documentation": "ว่าจุดสิ้นสุดเชื่อมต่อกับจุดเริ่มต้นด้วยเส้นเพิ่มเติมหรือไม่."
+    "documentation": "ว่าทางเป็นเชิงปิดโดยการเชื่อมต่อจุดสิ้นสุดกับจุดเริ่มต้นโดยการเพิ่มเส้นอีกเส้นหนึ่ง。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath": {
-    "documentation": "เพิ่มช่วงเส้นหลายช่วงให้กับตกแต่งกรอบลวดในลำดับจากจุดหนึ่งไปยังอีกจุดหนึ่ง.",
+    "documentation": "เพิ่มหลายส่วนเส้นให้กับการตกแต่งแบบ wireframe ในลำดับจากจุดหนึ่งไปยังอีกจุดหนึ่ง。",
     "params": [
       {
         "name": "self",
@@ -52855,7 +52849,7 @@
     "code_sample": "local wireframe = script.Parent\n\n-- ประกาศสี่จุดในรูปแบบสี่เหลี่ยม\nlocal pathArray = {\n\tVector3.new(-10, 10, 0),\n\tVector3.new(10, 10, 0),\n\tVector3.new(10, -10, 0),\n\tVector3.new(-10, -10, 0)\n}\n\n-- นำเส้นทางไปใช้กับการตกแต่งและปิดมัน (เชื่อมต่อจุดเริ่มต้นและจุดสิ้นสุด)\nwireframe:AddPath(pathArray, true)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/0": {
-    "documentation": "เรนเดอร์ตกแต่งกรอบลวดที่ประกอบด้วยเส้นหนึ่งเส้นหรือมากกว่านั้นไปยัง <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>."
+    "documentation": "เรนเดอร์การตกแต่งแบบ wireframe ที่ประกอบไปด้วยเส้นหนึ่งเส้นหรือมากกว่าลงบน <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/1": {
     "documentation": "ตำแหน่งของข้อความในตกแต่ง."
@@ -52891,7 +52885,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear/param/0": {
-    "documentation": "เรนเดอร์ตกแต่งกรอบลวดที่ประกอบด้วยเส้นหนึ่งเส้นหรือมากกว่านั้นไปยัง <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>."
+    "documentation": "เรนเดอร์การตกแต่งแบบ wireframe ที่ประกอบไปด้วยเส้นหนึ่งเส้นหรือมากกว่าลงบน <code>BasePart</code> (รวมถึง <code>Terrain</code>) หรือใน <code>Workspace</code>。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear": {
     "documentation": "เคลียร์เส้นและข้อความทั้งหมดในตกแต่งกรอบลวดทันที.",
@@ -53581,7 +53575,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BlockMesh": {
-    "documentation": "วัตถุ BlockMesh ใช้ 'brick' mesh กับ <code>BasePart</code> ที่มันเป็น พ่อแม่ให้ มันทำงานเหมือนกับ <code>SpecialMesh</code> ที่มี <code>SpecialMesh.MeshType</code> ตั้งค่าเป็น 'Brick'.",
+    "documentation": "วัตถุ BlockMesh จะใช้ 'ทำให้เป็นอิฐ' สำหรับ <code>BasePart</code> ที่มัน มีพ่อแม่อยู่ในนั้น มันทำงานเหมือนกับ <code>SpecialMesh</code> ที่มี <code>SpecialMesh.MeshType</code> ตั้งค่าเป็น 'Brick'.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
@@ -53917,7 +53911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint": {
-    "documentation": "จำลองพฤติกรรมของสปริงและแดมเปอร์ระหว่างการยึดสองอัน",
+    "documentation": "จำลองพฤติกรรมของสปริงและดัมเปอร์ระหว่างการยึดติดสองชิ้น.",
     "keys": {
       "Coils": "@roblox/globaltype/SpringConstraint.Coils",
       "CurrentLength": "@roblox/globaltype/SpringConstraint.CurrentLength",
@@ -53935,17 +53929,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Coils": {
-    "documentation": "จำนวนของลวดที่แสดงบน <code>SpringConstraint</code>.",
+    "documentation": "จำนวนของขดสปริงที่แสดงใน <code>SpringConstraint</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Coils",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.CurrentLength": {
-    "documentation": "ระยะห่างปัจจุบันระหว่างการยึดของข้อจำกัด <code>Attachments</code>.",
+    "documentation": "ระยะห่างปัจจุบันระหว่าง <code>Attachments</code> ของข้อจำกัด.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#CurrentLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Damping": {
-    "documentation": "ค่าคงที่การลดแรงสำหรับ <code>SpringConstraint</code>. คูณกับ ความเร็วของการยึด <code>Attachments</code> เพื่อช่วยลด แรงสปริงที่ใช้.",
+    "documentation": "ค่าคงที่การลดแรงดันสำหรับ <code>SpringConstraint</code>. ถูกคูณเข้ากับ ความเร็วของ <code>Attachments</code> ของข้อจำกัดเพื่อลดแรงสปริงที่นำมาใช้.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Damping",
     "code_sample": ""
   },
@@ -53955,7 +53949,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.LimitsEnabled": {
-    "documentation": "ตั้งค่าว่าจะให้ <code>SpringConstraint</code> บังคับความยาวขั้นต่ำและสูงสุดหรือไม่.",
+    "documentation": "ตั้งค่าว่า <code>SpringConstraint</code> จะบังคับระยะยาวขั้นต่ำและสูงสุดหรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
@@ -53970,22 +53964,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MinLength": {
-    "documentation": "การแยกขั้นต่ำที่ SpringConstraint จะอนุญาตหาก <code>LimitsEnabled</code> เป็นจริง.",
+    "documentation": "การแยกต่ำสุดที่ SpringConstraint จะอนุญาตหาก <code>LimitsEnabled</code> เป็นจริง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MinLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Radius": {
-    "documentation": "รัศมีที่แสดงของขดลวดสปริง.",
+    "documentation": "รัศมีที่แสดงของขดสปริง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Stiffness": {
-    "documentation": "ความแข็งแรงของสปริง ค่าที่สูงขึ้นจะทำให้แรงมีมากขึ้นเมื่อ การยึดถูกแยกออกด้วยความยาวต่างจาก <code>FreeLength</code>.",
+    "documentation": "ความแข็งแรงของสปริง ค่าที่สูงขึ้นหมายความว่าจะมีแรงมากขึ้น เมื่อการยึดติดถูกแยกออกในระยะที่แตกต่างจาก <code>FreeLength</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Stiffness",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Thickness": {
-    "documentation": "ความหนาที่แสดงของขดลวดสปริง.",
+    "documentation": "ความหนาที่แสดงของขดสปริง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Thickness",
     "code_sample": ""
   },
@@ -54476,7 +54470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualGlue": {
-    "documentation": "<strong>Deprecated:</strong> <br>ManualGlue เป็นข้อต่อที่สร้างขึ้นในลักษณะเดียวกับคลาส <code>ManualWeld</code> มันทำงานเหมือนกันกับคลาส <code>Glue</code>。",
+    "documentation": "<strong>Deprecated:</strong> <br>ManualGlue เป็นข้อต่อที่สร้างขึ้นในลักษณะเดียวกับคลาส <code>ManualWeld</code> มันทำงานเหมือนกับคลาส <code>Glue</code> อย่างแน่นอน",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualGlue",
     "code_sample": ""
@@ -56444,7 +56438,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce": {
-    "documentation": "ใช้แรงตามเส้นทฤษฎีที่เชื่อมต่อ <code>Attachments</code> สองตัวของมัน",
+    "documentation": "ใช้แรงตามแนวทฤษฎีที่เชื่อมโยง <code>Attachments</code> สองตัว",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/LineForce.ApplyAtCenterOfMass",
       "InverseSquareLaw": "@roblox/globaltype/LineForce.InverseSquareLaw",
@@ -56456,12 +56450,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ApplyAtCenterOfMass": {
-    "documentation": "ว่าแรงถูกใช้ที่ศูนย์กลางมวลของหน่วยพาเรนต์หรือไม่",
+    "documentation": "ว่าจะแรงถูกใช้ที่จุดศูนย์กลางมวลของการประกอบพ่อแม่หรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.InverseSquareLaw": {
-    "documentation": "เมื่อเป็น <code>true</code> ขนาดของแรงจะถูกคูณด้วยกำลังสองผกผันของระยะทาง",
+    "documentation": "เมื่อ <code>true</code> ขนาดแรงจะถูกคูณด้วยกำลังที่กลับด้านของระยะทาง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#InverseSquareLaw",
     "code_sample": ""
   },
@@ -56471,12 +56465,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.MaxForce": {
-    "documentation": "แรงสูงสุดที่สามารถใช้งานได้",
+    "documentation": "แรงสูงสุดที่สามารถนำไปใช้ได้",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ReactionForceEnabled": {
-    "documentation": "เปิดใช้งานแรงตอบสนองที่เท่ากันและตรงกันข้ามบนพาเรนต์ของ <code>Attachment1</code>.",
+    "documentation": "เปิดใช้งานแรงตอบสนองที่เท่ากันและตรงข้ามกันบนพ่อแม่ของ <code>Attachment1</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ReactionForceEnabled",
     "code_sample": ""
   },
@@ -58840,7 +58834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition": {
-    "documentation": "ข้อจำกัดที่ใช้แรงเพื่อเคลื่อนที่สองการยึดติดเข้าด้วยกัน หรือเพื่อเคลื่อนที่ การยึดติดหนึ่งไปยังตำแหน่งเป้าหมาย。",
+    "documentation": "ข้อจำกัดซึ่งใช้แรงเพื่อเคลื่อนย้ายสองการเชื่อมต่อเข้าด้วยกัน หรือเพื่อเคลื่อนย้ายการเชื่อมต่อหนึ่งไปยังตำแหน่งเป้าหมาย",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass",
       "ForceLimitMode": "@roblox/globaltype/AlignPosition.ForceLimitMode",
@@ -58858,57 +58852,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass": {
-    "documentation": "ว่าแรงจะถูกนำไปใช้กับผู้ปกครองของ <code>Attachment0</code> ที่ตำแหน่งของการยึดติดนั้น, หรือตรงที่ศูนย์กลางมวลของผู้ปกครอง。",
+    "documentation": "ระบุว่าแรงจะถูกนำไปใช้กับพ่อแม่ของ <code>Attachment0</code> ที่ตำแหน่งการเชื่อมต่อนั้น ๆ หรือที่ศูนย์ของมวลของพ่อแม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceLimitMode": {
-    "documentation": "กำหนดว่าข้อจำกัดแรงจะถูกจำกัดอย่างไร ใช้เฉพาะเมื่อ <code>RigidityEnabled</code> เป็น <code>false</code>。",
+    "documentation": "กำหนดวิธีการจำกัดแรงของข้อจำกัด จะถูกใช้เมื่อ <code>RigidityEnabled</code> เป็น <code>false</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceLimitMode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceRelativeTo": {
-    "documentation": "กำหนดแกนที่ข้อจำกัดใช้เพื่อจำกัดแรง ใช้เฉพาะเมื่อ <code>RigidityEnabled</code> เป็น <code>false</code> และ <code>AlignPosition.ForceLimitMode</code> เป็น <code>PerAxis</code>。",
+    "documentation": "กำหนดแกนที่ข้อจำกัดใช้เพื่อจำกัดแรง ใช้เฉพาะเมื่อ <code>RigidityEnabled</code> เป็น <code>false</code> และ <code>AlignPosition.ForceLimitMode</code> <code>PerAxis</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceRelativeTo",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxAxesForce": {
-    "documentation": "แรงสูงสุดตามแต่ละแกนที่ข้อจำกัดสามารถนำไปใช้เพื่อให้บรรลุเป้าหมาย。",
+    "documentation": "แรงสูงสุดตามแต่ละแกนที่ข้อจำกัดสามารถนำไปใช้เพื่อบรรลุเป้าหมาย",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxForce": {
-    "documentation": "ขนาดแรงสูงสุดที่ข้อจำกัดสามารถนำไปใช้เพื่อให้บรรลุเป้าหมาย。",
+    "documentation": "ขนาดแรงสูงสุดที่ข้อจำกัดสามารถนำไปใช้เพื่อบรรลุเป้าหมาย",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxVelocity": {
-    "documentation": "ความเร็วสูงสุดที่การยึดติดสามารถเคลื่อนที่เมื่อรวมเข้า。",
+    "documentation": "ความเร็วสูงสุดที่การเชื่อมต่อสามารถเคลื่อนที่เมื่อรวมตัว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Mode": {
-    "documentation": "ว่าข้อจำกัดใช้หนึ่งหรือสองการยึดติดในการคำนวณเป้าหมายของมัน。",
+    "documentation": "ระบุว่าข้อจำกัดใช้การเชื่อมต่อหนึ่งหรือสองในการคำนวณเป้าหมาย",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Position": {
-    "documentation": "ตำแหน่งที่ข้อจำกัดควรจะเคลื่อนที่ไปยัง <code>Attachment0</code>。",
+    "documentation": "ตำแหน่งที่ข้อจำกัดควรเคลื่อนที่ไปยัง <code>Attachment0</code> ของมัน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Position",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ReactionForceEnabled": {
-    "documentation": "ว่าข้อจำกัดใช้แรงเฉพาะกับ <code>Attachment0</code> หรือกับการยึดติดทั้งสองใน ทิศทางที่เท่ากันและตรงข้าม。",
+    "documentation": "ระบุว่าข้อจำกัดใช้แรงเฉพาะกับ <code>Attachment0</code> หรือทั้งสองการเชื่อมต่อในทิศทางที่เท่ากันและตรงข้าม",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ReactionForceEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Responsiveness": {
-    "documentation": "ควบคุมว่าข้อจำกัดจะไปถึงเป้าหมายได้เร็วเพียงใด ค่าที่สูงขึ้นทำให้ การยึดติดเรียงตัวเร็วขึ้น。",
+    "documentation": "ควบคุมว่าอย่างไรข้อจำกัดจะถึงเป้าหมายได้รวดเร็ว ถ้าค่ามาก ควบคุมการจัดเรียงของการเชื่อมต่อ(s) ได้เร็วขึ้น",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.RigidityEnabled": {
-    "documentation": "ว่าแรงขึ้นอยู่กับคุณสมบัติอื่นหรือว่า ตัวแก้สมการฟิสิกส์ ตอบสนองได้เร็วที่สุดเท่าที่จะทำได้เพื่อให้การจัดตำแหน่งเสร็จสิ้น。",
+    "documentation": "ระบุว่าแรงขึ้นอยู่กับคุณสมบัติอื่นๆ หรือไม่ หรือตัวแก้ปัญหาฟิสิกส์ตอบสนองอย่างรวดเร็วที่สุดเพื่อทำให้การจัดเรียงเสร็จ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#RigidityEnabled",
     "code_sample": ""
   },
@@ -59504,7 +59498,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualWeld": {
-    "documentation": "<strong>Deprecated:</strong> <br>ยึดสองชิ้นส่วนเข้าด้วยกันและทำงานเหมือนกับ <code>Weld</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>ยึดสองส่วนเข้าด้วยกันและทำงานเหมือนกับ <code>Weld</code>。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualWeld",
     "code_sample": ""
@@ -65781,7 +65775,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint": {
-    "documentation": "รับประกันว่าทางสองทางบนสองร่างจะยังคงตั้งฉากกันอยู่",
+    "documentation": "รับประกันว่าทั้งสองแกนบนสองตัวจะตั้งฉากกันได้.",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/UniversalConstraint.LimitsEnabled",
       "MaxAngle": "@roblox/globaltype/UniversalConstraint.MaxAngle",
@@ -65792,22 +65786,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.LimitsEnabled": {
-    "documentation": "กำหนดว่าการเคลื่อนที่เชิงมุมของแกนหลักของการติดตั้งนั้น ถูกจำกัดหรือไม่",
+    "documentation": "กำหนดว่าการเคลื่อนไหวเชิงมุมของแกนหลักของการเชื่อมต่อมี การจำกัดหรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.MaxAngle": {
-    "documentation": "องศาสูงสุดในกรวยจำกัดของข้อจำกัด",
+    "documentation": "มุมสูงสุดในองศาของกรวยการจำกัด.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#MaxAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.Radius": {
-    "documentation": "รัศมีการสร้างภาพของข้อจำกัด",
+    "documentation": "รัศมีการแสดงผลของข้อจำกัด.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.Restitution": {
-    "documentation": "สัมประสิทธิ์การคืนตัวของข้อจำกัดกรวย",
+    "documentation": "ค่าความยืดหยุ่นของกรวยข้อจำกัด.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#Restitution",
     "code_sample": ""
   },
@@ -72806,7 +72800,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance": {
-    "documentation": "คลาสพื้นฐานสำหรับข้อต่อ.",
+    "documentation": "คลาสพื้นฐานสำหรับข้อต่อ。",
     "keys": {
       "Active": "@roblox/globaltype/JointInstance.Active",
       "C0": "@roblox/globaltype/JointInstance.C0",
@@ -72820,37 +72814,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Active": {
-    "documentation": "กำหนดว่าข้อต่อปัจจุบันทำงานอยู่ในโลกหรือไม่.",
+    "documentation": "กำหนดว่าข้อต่อกำลังมีผลใช้งานอยู่ในโลกหรือไม่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Active",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C0": {
-    "documentation": "กำหนดวิธีที่จุดออฟเซ็ตถูกแนบไปที่ <code>JointInstance.Part0</code>.",
+    "documentation": "กำหนดวิธีที่จุดเบี่ยงเบนถูกเชื่อมโยงกับ <code>JointInstance.Part0</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C0",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C1": {
-    "documentation": "จะถูกลบออกจากคุณสมบัติ <code>JointInstance.C0</code> เพื่อสร้าง จุดออฟเซ็ตสำหรับ <code>JointInstance.Part1</code>.",
+    "documentation": "ถูกลบออกจากคุณสมบัติ <code>JointInstance.C0</code> เพื่อสร้างจุดเบี่ยงเบนสำหรับ <code>JointInstance.Part1</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C1",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Enabled": {
-    "documentation": "กำหนดว่าข้อต่อทำงานอยู่หรือไม่.",
+    "documentation": "ตั้งค่าข้อต่อว่าใช้งานอยู่หรือไม่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Part0": {
-    "documentation": "ส่วนแรก <code>BasePart</code> ที่ข้อต่อเชื่อมต่อ.",
+    "documentation": "ส่วนแรกของ <code>BasePart</code> ที่ข้อต่อเชื่อมโยง。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Part0",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Part1": {
-    "documentation": "ส่วนที่สอง <code>BasePart</code> ที่ข้อต่อเชื่อมต่อ.",
+    "documentation": "ส่วนที่สองของ <code>BasePart</code> ที่ข้อต่อเชื่อมโยง。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Part1",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.part1": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้เป็นตัวแปรของ <code>JointInstance.Part1</code> ซึ่ง ควรใช้แทน.",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกยกเลิกแล้ว เป็นเวอร์ชันหนึ่งของ <code>JointInstance.Part1</code> ที่ ควรจะใช้งานแทน。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#part1",
     "code_sample": ""
   },
@@ -74333,7 +74327,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RigidConstraint": {
-    "documentation": "สร้างการเชื่อมต่อที่แข็งแรงระหว่างสอง <code>Attachments</code> หรือ <code>Bones</code>.",
+    "documentation": "สร้างการเชื่อมต่อที่แข็งเป็นหนึ่งระหว่างสอง <code>Attachments</code> หรือ <code>Bones</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RigidConstraint",
     "code_sample": ""
@@ -79559,7 +79553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Status": {
-    "documentation": "<strong>Deprecated:</strong> Status เป็นวัตถุที่ยังไม่เสร็จซึ่งออกแบบมาเพื่อเก็บสถานะ <code>Humanoid</code> ที่กำหนดเอง。 มันได้ถูกเลิกใช้งานและไม่ควรถูกใช้โดยนักพัฒนาในงานใหม่。 นักพัฒนาที่ต้องการนำเข้าสถานะ <code>Humanoid</code> ที่กำหนดเองควรใช้ <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a>， เนื่องจากพวกมันเขียนด้วย Luau และสามารถขยายได้อย่างง่ายดาย。<br>วัตถุที่ยังไม่เสร็จซึ่งไม่มีฟังก์ชันการทำงานสำหรับนักพัฒนา。",
+    "documentation": "<strong>Deprecated:</strong> Status เป็นวัตถุที่ยังไม่เสร็จซึ่งออกแบบมาเพื่อเก็บสถานะ <code>Humanoid</code> ที่กำหนดเอง มันถูกเลิกใช้และไม่ควรนำไปใช้โดยนักพัฒนาในงานใหม่ นักพัฒนาที่มองหาการดำเนินการสถานะ <code>Humanoid</code> ที่กำหนดเอง ควรใช้ <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a> เนื่องจากพวกมันเขียนด้วย Luau และสามารถขยายได้อย่างง่ายดาย<br>วัตถุที่ยังไม่เสร็จซึ่งไม่มีฟังก์ชันการทำงานใด ๆ สำหรับนักพัฒนา",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Status",
     "code_sample": ""
@@ -79904,7 +79898,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint": {
-    "documentation": "อินสแตนซ์ที่ใช้ในการป้องกันการชนกันระหว่างสองชิ้นส่วนเฉพาะ",
+    "documentation": "อินสแตนซ์ที่ใช้เพื่อป้องกันการชนกันระหว่างสองชิ้นส่วนเฉพาะ.",
     "keys": {
       "Enabled": "@roblox/globaltype/NoCollisionConstraint.Enabled",
       "Part0": "@roblox/globaltype/NoCollisionConstraint.Part0",
@@ -79914,7 +79908,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint.Enabled": {
-    "documentation": "กำหนดว่าชิ้นส่วน <code>BaseParts</code> สองชิ้นที่เชื่อมโยงกันจะชนกัน กับอีกชิ้นหนึ่งหรือไม่.",
+    "documentation": "กำหนดว่าชิ้นส่วน <code>BaseParts</code> สองชิ้นที่เชื่อมโยงจะชนกันหรือไม่ กับกัน.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NoCollisionConstraint#Enabled",
     "code_sample": ""
   },
@@ -80822,7 +80816,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint": {
-    "documentation": "บังคับให้การติดตั้งสองตัวอยู่ในตำแหน่งเดียวกันและอนุญาตให้หมุนได้อย่างอิสระ รอบแกนทั้งสาม โดยมีขีดจำกัดเลือกได้เพื่อจำกัดทั้งมุมเอียงและ หมุน.",
+    "documentation": "บังคับให้การเชื่อมต่อสองตัวอยู่ในตำแหน่งเดียวกันและอนุญาตให้หมุนได้อย่างอิสระ รอบทุกแกนทั้งสาม โดยมีข้อจำกัดเพิ่มเติมเพื่อจำกัดทั้งการเอียงและ การบิด",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/BallSocketConstraint.LimitsEnabled",
       "MaxFrictionTorque": "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque",
@@ -80837,42 +80831,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.LimitsEnabled": {
-    "documentation": "ตั้งค่าว่า <code>BallSocketConstraint</code> จะตั้งค่าขีดจำกัดในการหมุนตาม <code>UpperAngle</code> หรือไม่.",
+    "documentation": "ตั้งค่าการที่ <code>BallSocketConstraint</code> ตั้งข้อจำกัดในการหมุนตาม <code>UpperAngle</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque": {
-    "documentation": "ตั้งค่าความต้านทานแรงเสียดทานสูงสุดที่ใช้ในการทำให้ <code>Attachments</code> อยู่ในแนวเดียวกัน.",
+    "documentation": "ตั้งค่าสูงสุดของแรงบิดเสียดทานที่ใช้เพื่อให้ <code>Attachments</code> ของมันเรียงตัวกัน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#MaxFrictionTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.Radius": {
-    "documentation": "รัศมีที่ถูกแสดงผลของ <code>BallSocketConstraint</code>.",
+    "documentation": "รัศมีที่แสดงของ <code>BallSocketConstraint</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.Restitution": {
-    "documentation": "ความยืดหยุ่นของ <code>Attachments</code> ที่เชื่อมต่อโดย <code>BallSocketConstraint</code> จะเป็นอย่างไรเมื่อถึงปลายของช่วง ที่กำหนดโดย <code>UpperAngle</code> เมื่อ <code>LimitsEnabled</code> เป็น <code>true</code>.",
+    "documentation": "ความยืดหยุ่นของ <code>Attachments</code> ที่เชื่อมต่อโดย <code>BallSocketConstraint</code> จะเป็นอย่างไรเมื่อถึงจุดสิ้นสุดของช่วง ที่กำหนดโดย <code>UpperAngle</code> เมื่อ <code>LimitsEnabled</code> มีค่าเป็น <code>true</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLimitsEnabled": {
-    "documentation": "ตั้งค่าว่า <code>BallSocketConstraint</code> จะตั้งค่าขีดจำกัดในการหมุนได้หรือไม่ ตาม <code>TwistUpperAngle</code> และ <code>TwistLowerAngle</code>.",
+    "documentation": "ตั้งค่าการที่ <code>BallSocketConstraint</code> ตั้งข้อจำกัดในการหมุนการบิด ตาม <code>TwistUpperAngle</code> และ <code>TwistLowerAngle</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLowerAngle": {
-    "documentation": "ตั้งค่าขีดจำกัดการหมุนหมุนต่ำสุดของ <code>BallSocketConstraint</code> ตราบเท่าที่ <code>TwistLimitsEnabled</code> เป็น <code>true</code>.",
+    "documentation": "ตั้งค่าข้อจำกัดการหมุนการบิดต่ำสุดของ <code>BallSocketConstraint</code> ตราบใดที่ <code>TwistLimitsEnabled</code> มีค่าเป็น <code>true</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLowerAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistUpperAngle": {
-    "documentation": "ตั้งค่าขีดจำกัดการหมุนหมุนสูงสุดของ <code>BallSocketConstraint</code> ตราบเท่าที่ <code>TwistLimitsEnabled</code> เป็น <code>true</code>.",
+    "documentation": "ตั้งค่าข้อจำกัดการหมุนการบิดสูงสุดของ <code>BallSocketConstraint</code> ตราบใดที่ <code>TwistLimitsEnabled</code> มีค่าเป็น <code>true</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistUpperAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.UpperAngle": {
-    "documentation": "ตั้งค่าขีดจำกัดการหมุนสูงสุดของ <code>BallSocketConstraint</code> ตราบเท่าที่ <code>LimitsEnabled</code> เป็น <code>true</code>.",
+    "documentation": "ตั้งค่าข้อจำกัดการหมุนสูงสุดของ <code>BallSocketConstraint</code> ตราบใดที่ <code>LimitsEnabled</code> มีค่าเป็น <code>true</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#UpperAngle",
     "code_sample": ""
   },
@@ -81910,7 +81904,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PlaneConstraint": {
-    "documentation": "ย้ายการเชื่อมต่อไปยังตำแหน่ง/ทิศทางตามระนาบที่มีเวกเตอร์ปกติ ซึ่งมีแกนหลักเป็น <code>Attachment0</code>.",
+    "documentation": "ย้ายการเชื่อมต่อเข้าไปในตำแหน่ง/การจัดแนวตามระนาบที่มีเวกเตอร์ นอร์มัลเป็นแกนหลักของ <code>Attachment0</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PlaneConstraint",
     "code_sample": ""
@@ -84419,7 +84413,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualSurfaceJointInstance": {
-    "documentation": "<strong>Deprecated:</strong> <br>ManualSurfaceJointInstance เป็นคลาสหลักสำหรับ <code>ManualGlue</code> และ <code>ManualWeld</code>。",
+    "documentation": "<strong>Deprecated:</strong> <br>ManualSurfaceJointInstance เป็นคลาสพื้นฐานสำหรับ <code>ManualGlue</code> และ <code>ManualWeld</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualSurfaceJointInstance",
     "code_sample": ""
@@ -89867,7 +89861,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "จัดตำแหน่ง <code>BaseParts</code> สองตัวด้วยข้อต่อที่สามารถเคลื่อนไหวได้หรือ อิงจากแรง.",
+    "documentation": "จัดตำแหน่ง <code>BaseParts</code> สองตัวด้วยข้อต่อที่สามารถเคลื่อนไหวได้หรือ อิงจากแรง",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -89892,17 +89886,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "เปิดหรือปิดว่าข้อต่อ <code>AnimationConstraint</code> เป็นแบบเคลื่อนไหวได้หรือเป็นฟิสิกส์ จำลอง.",
+    "documentation": "สลับว่า <code>AnimationConstraint</code> เป็นคีเนมาติกหรือจำลองทางกายภาพ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxForce": {
-    "documentation": "ขนาดแรงสูงสุดที่ข้อจำกัดสามารถใช้เพื่อบรรลุเป้าหมาย.",
+    "documentation": "ขอบเขตแรงสูงสุดที่ข้อจำกัดสามารถใช้เพื่อบรรลุเป้าหมายของมัน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxTorque": {
-    "documentation": "แรงบิดสูงสุดที่ข้อจำกัดสามารถใช้เพื่อบรรลุเป้าหมาย.",
+    "documentation": "แรงบิดสูงสุดที่ข้อจำกัดสามารถใช้เพื่อตอบสนองเป้าหมายของมัน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxTorque",
     "code_sample": ""
   },
@@ -89917,7 +89911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
-    "documentation": "อธิบายการเลื่อนของการเคลื่อนไหวในปัจจุบันของข้อจำกัด <code>AnimationConstraint</code> .",
+    "documentation": "อธิบายการชดเชยการเคลื่อนไหวของ <code>AnimationConstraint</code> ที่เชื่อมต่อ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Transform",
     "code_sample": ""
   },
@@ -90274,7 +90268,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint": {
-    "documentation": "คลาสหลักสำหรับข้อกำหนดที่อนุญาตให้การเชื่อมต่อเลื่อนตาม แกนแต่ไม่หมุนได้。",
+    "documentation": "คลาสพื้นฐานสำหรับข้อจำกัดที่อนุญาตให้การเชื่อมต่อเลื่อนตาม แกนแต่ไม่หมุน",
     "keys": {
       "ActuatorType": "@roblox/globaltype/SlidingBallConstraint.ActuatorType",
       "CurrentPosition": "@roblox/globaltype/SlidingBallConstraint.CurrentPosition",
@@ -90296,77 +90290,77 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ActuatorType": {
-    "documentation": "กำหนดว่าการแปลของ <code>SlidingBallConstraint</code> จะถูกกระตุ้นหรือไม่ และถ้าใช่ เป็นการกระตุ้นประเภทใด。",
+    "documentation": "ตั้งค่าการแปลของ <code>SlidingBallConstraint</code> ว่าจะ ถูกกระตุ้นหรือไม่ และหากถูกกระตุ้นจะเป็นการกระตุ้นประเภทใด",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ActuatorType",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.CurrentPosition": {
-    "documentation": "ออฟเซ็ตปัจจุบันระหว่างการเชื่อมต่อ <code>Attachments</code>",
+    "documentation": "การเลื่อนระหว่างการเชื่อมต่อของข้อจำกัด <code>Attachments</code> ปัจจุบัน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#CurrentPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LimitsEnabled": {
-    "documentation": "กำหนดว่าข้อกำหนด <code>SlidingBallConstraint</code> จะจำกัดช่วงการแปลหรือไม่。",
+    "documentation": "ตั้งค่าข้อจำกัดของ <code>SlidingBallConstraint</code> ว่าจะจำกัดช่วง ของการเลื่อนหรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LinearResponsiveness": {
-    "documentation": "ระบุ \"ความเฉียบคม\" ของมอเตอร์เซอร์โวเชิงเส้นในการเข้าถึง <code>TargetPosition</code>。",
+    "documentation": "ระบุ \"ความคมชัด\" ของมอเตอร์เซอร์โวเชิงเส้นในการเข้าถึง <code>TargetPosition</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LinearResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LowerLimit": {
-    "documentation": "ข้อจำกัดตำแหน่งต่ำสุดตามแกน <strong>X</strong> ของ <code>Attachment0</code> หาก <code>LimitsEnabled</code> เป็นจริง。",
+    "documentation": "ขีดจำกัดตำแหน่งต่ำสุดตามแกน <strong>X</strong> ของ <code>Attachment0</code> หาก <code>LimitsEnabled</code> เป็นจริง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LowerLimit",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxAcceleration": {
-    "documentation": "ความเร่งสูงสุดของข้อกำหนดเมื่อ <code>ActuatorType</code> ถูกตั้งไว้เป็น <code>Motor</code> เนื่องจากข้อกำหนดมีความพยายามที่จะเข้าถึง <code>Velocity</code> ที่ต้องการ。",
+    "documentation": "ความเร่งสูงสุดของข้อจำกัดเมื่อ <code>ActuatorType</code> ถูกตั้งค่าเป็น <code>Motor</code> เมื่อข้อจำกัดพยายามที่จะถึงความเร็ว <code>Velocity</code> ที่ต้องการ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxForce": {
-    "documentation": "แรงสูงสุดของข้อกำหนดเมื่อ <code>ActuatorType</code> ถูกตั้งไว้เป็น <code>Motor</code> เนื่องจากข้อกำหนดมีความพยายามที่จะเข้าถึง <code>Velocity</code> ที่ต้องการ。",
+    "documentation": "แรงสูงสุดของข้อจำกัดเมื่อ <code>ActuatorType</code> ถูกตั้งค่าเป็น <code>Motor</code> เมื่อข้อจำกัดพยายามที่จะถึงความเร็ว <code>Velocity</code> ที่ต้องการ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Restitution": {
-    "documentation": "ความยืดหยุ่นของข้อกำหนด <code>Attachments</code> เมื่อ มันถึงจุดสิ้นสุดของช่วงที่กำหนดโดย <code>UpperLimit</code> และ <code>LowerLimit</code> หาก <code>LimitsEnabled</code> ถูกตั้งเป็นจริง。",
+    "documentation": "ความยืดหยุ่นของการเชื่อมต่อของข้อจำกัด <code>Attachments</code> เมื่อ พวกเขาถึงขีดจำกัดของช่วงที่กำหนดโดย <code>UpperLimit</code> และ <code>LowerLimit</code> โดยสมมติว่า <code>LimitsEnabled</code> ถูกตั้งค่าเป็นจริง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ServoMaxForce": {
-    "documentation": "แรงสูงสุดของข้อกำหนดเมื่อ <code>ActuatorType</code> ถูกตั้งไว้เป็น <code>Servo</code> เนื่องจากข้อกำหนดมีความพยายามที่จะเข้าถึง <code>Speed</code> ที่ต้องการ。",
+    "documentation": "แรงสูงสุดของข้อจำกัดเมื่อ <code>ActuatorType</code> ถูกตั้งค่าเป็น <code>Servo</code> เมื่อข้อจำกัดพยายามที่จะถึงความเร็วที่ต้องการ <code>Speed</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ServoMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Size": {
-    "documentation": "ขนาดที่เห็นได้ของข้อกำหนด。",
+    "documentation": "ขนาดที่แสดงผลของข้อจำกัด",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Size",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.SoftlockServoUponReachingTarget": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ไม่ควรใช้ในงานใหม่。",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ไม่ควรใช้ในงานใหม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#SoftlockServoUponReachingTarget",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Speed": {
-    "documentation": "ความเร็วที่ต้องการของข้อกำหนดเมื่อ <code>ActuatorType</code> ถูกตั้งไว้เป็น <code>Servo</code> ขณะที่ข้อกำหนดแปลไปยัง <code>TargetPosition</code> มันวัดเป็น studs ต่อวินาที。",
+    "documentation": "ความเร็วที่ต้องการของข้อจำกัดเมื่อ <code>ActuatorType</code> ถูกตั้งค่าเป็น <code>Servo</code> เมื่อข้อจำกัดแปลไปยัง <code>TargetPosition</code>. วัดเป็น studs ต่อวินาที.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.TargetPosition": {
-    "documentation": "ตำแหน่งเป้าหมายที่พยายามของข้อกำหนดเมื่อ <code>ActuatorType</code> ถูกตั้งไว้เป็น <code>Servo</code> มันวัดเป็น studs。",
+    "documentation": "ตำแหน่งเป้าหมายที่พยายามของข้อจำกัดเมื่อ <code>ActuatorType</code> ถูกตั้งเป็น <code>Servo</code>. วัดเป็น studs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#TargetPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.UpperLimit": {
-    "documentation": "ข้อจำกัดตำแหน่งสูงสุดตามแกน <strong>X</strong> ของ <code>Attachment0</code> หาก <code>LimitsEnabled</code> เป็นจริง。",
+    "documentation": "ขีดจำกัดตำแหน่งสูงสุดตามแกน <strong>X</strong> ของ <code>Attachment0</code> หาก <code>LimitsEnabled</code> เป็นจริง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#UpperLimit",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Velocity": {
-    "documentation": "ความเร็วที่พยายามของข้อกำหนดเมื่อ <code>ActuatorType</code> ถูกตั้งไว้เป็น <code>Motor</code> มันวัดเป็น studs ต่อวินาที。",
+    "documentation": "ความเร็วที่ข้อจำกัดพยายามที่จะไปถึงเมื่อ <code>ActuatorType</code> ถูกตั้งเป็น <code>Motor</code>. วัดเป็น studs ต่อวินาที.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Velocity",
     "code_sample": ""
   },
@@ -90563,7 +90557,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Visible": {
-    "documentation": "กำหนดว่าวัตถุนี้ <code>GuiBase3d</code> และลูกหลานของมันจะแสดงผลหรือไม่.",
+    "documentation": "กำหนดว่าวัตถุ <code>GuiBase3d</code> นี้และลูกหลานของมันจะ ถูกแสดงหรือไม่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Visible",
     "code_sample": ""
   },
@@ -92771,13 +92765,13 @@
     "documentation": "ระบุว่าตัวละครที่ส่งคืนจะอยู่ในรูปแบบ R6 หรือ R15"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
-    "documentation": "การตรวจสอบประเภทสินทรัพย์จะกำหนดว่าฟังก์ชันนี้จะโหลดโมเดลหรือไม่ (คุณควรตั้งค่านี้เป็น Always เว้นแต่คุณต้องการโหลดสินทรัพย์ที่ไม่อยู่ในแคตตาล็อก)"
+    "documentation": "การตรวจสอบประเภทสินทรัพย์จะกำหนดว่าฟังก์ชันนี้จะโหลดโมเดล หรือไม่ ⚠️&nbsp;ค่าพื้นฐานสำหรับพารามิเตอร์นี้จะเปลี่ยนจาก <code>ClientOnly</code> เป็น <code>Always</code> หลังจากวันที่ 20/10/2025 ดู <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">ที่นี่</a> สำหรับรายละเอียด"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
-    "documentation": "โมเดล Humanoid ตัวละคร"
+    "documentation": "ตัวละคร <code>Humanoid</code> <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "ส่งคืนโมเดลตัวละครที่มีอุปกรณ์ครบครันตามที่กำหนดใน HumanoidDescription ที่ส่งเข้าไป และอยู่ในรูปแบบ R6 หรือ R15 ตามที่ระบุโดย rigType",
+    "documentation": "ส่งคืนตัวละคร <code>Model</code> ที่ติดตั้งด้วยทุกอย่างที่ระบุใน <code>HumanoidDescription</code> ที่ส่งเข้ามา",
     "params": [
       {
         "name": "self",
@@ -93808,7 +93802,7 @@
     "code_sample": "local MemoryStoreService = game:GetService(\"MemoryStoreService\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal queue = MemoryStoreService:GetQueue(\"PlayerQueue\")\nlocal dataStore = DataStoreService:GetDataStore(\"PlayerStore\")\n\nwhile true do\n\tpcall(function()\n\t\t-- รอให้มีรายการหนึ่งเพื่อทำการประมวลผล\n\t\tlocal items, id = queue:ReadAsync(1, false, 30)\n\n\t\t-- ตรวจสอบว่ามีรายการถูกดึงมาไหม\n\t\tif #items > 0 then\n\t\t\t-- ทำเครื่องหมายว่ารายการนั้นได้ประมวลผลแล้ว\n\t\t\tdataStore:UpdateAsync(items[0], function(data)\n\t\t\t\tdata = data or {}\n\t\t\t\tdata.processed = 1\n\t\t\t\treturn data\n\t\t\tend)\n\n\t\t\t-- ลบรายการออกจากคิว\n\t\t\tqueue:RemoveAsync(id)\n\t\tend\n\tend)\nend"
   },
   "@roblox/globaltype/WorldRoot": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ.",
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。",
     "keys": {
       "ArePartsTouchingOthers": "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers",
       "Blockcast": "@roblox/globaltype/WorldRoot.Blockcast",
@@ -93836,19 +93830,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/1": {
-    "documentation": "รายการของชิ้นส่วนเพื่อดูว่าชิ้นส่วนใดในรายการกำลังสัมผัสกับชิ้นส่วนที่ไม่อยู่ในรายการ."
+    "documentation": "รายการของชิ้นส่วนเพื่อตรวจสอบว่าชิ้นส่วนในรายการสัมผัสกับ ชิ้นส่วนที่ไม่อยู่ในรายการหรือไม่。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/2": {
-    "documentation": "เกณฑ์การทับซ้อนของชิ้นส่วนใน studs ที่จะถูกมองข้ามก่อนที่ชิ้นส่วนจะถูกพิจารณาว่ากำลังสัมผัส."
+    "documentation": "ค่าความทับซ้อนของชิ้นส่วนใน studs ที่ไม่รวมก่อนที่ชิ้นส่วนจะถูก ถือว่ากำลังสัมผัส。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/return/0": {
-    "documentation": "True หากและเฉพาะในกรณีที่ <code>parts</code> ใน <code>partList</code> กำลังสัมผัสกับชิ้นส่วนอื่น ๆ (ชิ้นส่วนที่ไม่อยู่ใน partList) False หากไม่มีชิ้นส่วนถูกส่ง."
+    "documentation": "true หากใน <code>partList</code> มี <code>parts</code> ที่สัมผัสกับชิ้นส่วนอื่น ๆ (ชิ้นส่วนที่ไม่มีใน partList) false หากไม่มีชิ้นส่วนถูกส่ง。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers": {
-    "documentation": "คืนค่า true หาก <code>BasePart</code> ที่กำหนดกำลังสัมผัสกับชิ้นส่วนอื่น ๆ.",
+    "documentation": "คืนค่า true หากมี <code>BasePart</code> ที่กำหนดใด ๆ ติดต่อกับชิ้นส่วนอื่น ๆ",
     "params": [
       {
         "name": "self",
@@ -93870,25 +93864,25 @@
     "code_sample": "local part1 = Instance.new(\"Part\")\npart1.Name = \"Part1\"\npart1.Anchored = true\npart1.Transparency = 0.5\npart1.Color = Color3.fromRGB(185, 100, 38)\npart1.Size = Vector3.new(2, 2, 2)\npart1.Position = Vector3.new(0, 4, 0)\npart1.Parent = workspace\n\nlocal part2 = Instance.new(\"Part\")\npart2.Name = \"Part2\"\npart2.Anchored = true\npart2.Transparency = 0.5\npart2.Color = Color3.fromRGB(200, 10, 0)\npart2.Size = Vector3.new(2, 2, 2)\npart2.Position = Vector3.new(0, 5, 0)\npart2.Parent = workspace\n\nlocal partList = { part1 }\n\nprint(workspace:ArePartsTouchingOthers(partList, 0)) -- จริง\nprint(workspace:ArePartsTouchingOthers(partList, 0.999)) -- จริง\nprint(workspace:ArePartsTouchingOthers(partList, 1)) -- เท็จ"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/1": {
-    "documentation": "ตำแหน่งเริ่มต้นและการหมุนของรูปร่างบล็อคที่โยน."
+    "documentation": "ตำแหน่งเริ่มต้นและการหมุนของรูปร่างที่ถูกขว้างออก。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/2": {
-    "documentation": "ขนาดของรูปร่างบล็อคที่โยนใน studs ขนาดสูงสุดคือ 512 studs."
+    "documentation": "ขนาดของรูปร่างบล็อกที่ถูกขว้างออกใน studs ขนาดสูงสุดคือ 512 studs。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/3": {
-    "documentation": "ทิศทางของการสร้างรูปทรง, โดยมีขนาดหมายถึงระยะทางสูงสุดที่รูปร่างสามารถเดินทางได้ ขนาดสูงสุดคือ 1024 studs."
+    "documentation": "ทิศทางของการสร้างรูปร่าง, โดยมีความยาวแสดงถึงระยะทางสูงสุดที่รูปร่างสามารถเดินทางได้ ระยะทางสูงสุดคือ 1024 studs。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Blockcast/return/0": {
-    "documentation": "มีผลลัพธ์ของการทำรูปร่าง, หรือ <code>nil</code> หากไม่มี <code>BasePart</code> หรือเซลล์ <code>Terrain</code> ที่ eligible โดนชน."
+    "documentation": "มีผลลัพธ์ของการดำเนินการสร้างรูปร่าง หรือ <code>nil</code> หากไม่มี <code>BasePart</code> หรือ <code>Terrain</code> cell ที่ถูกตี。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast": {
-    "documentation": "โยนรูปร่างบล็อคในทิศทางที่กำหนดและคืนค่า <code>RaycastResult</code> หากรูปร่างทำการชนกับ <code>BasePart</code> หรือเซลล์ <code>Terrain</code>.",
+    "documentation": "สร้างรูปร่างบล็อกในทิศทางที่กำหนดและคืนค่าผลลัพธ์ <code>RaycastResult</code> หากรูปร่างถูกตียัง <code>BasePart</code> หรือ <code>Terrain</code> cell。",
     "params": [
       {
         "name": "self",
@@ -93918,7 +93912,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/1": {
     "documentation": ""
@@ -93930,7 +93924,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo": {
-    "documentation": "ย้ายตารางของ <code>BaseParts</code> ไปยังตารางของ <code>CFrames</code>.",
+    "documentation": "ย้ายตารางของ <code>BaseParts</code> ไปยังตาราง <code>CFrames</code>。",
     "params": [
       {
         "name": "self",
@@ -93954,7 +93948,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/1": {
     "documentation": ""
@@ -93969,10 +93963,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/return/0": {
-    "documentation": "ชิ้นส่วน <code>BasePart</code> หรือเซลล์ <code>Terrain</code> ที่ตัด, จุดตัด <code>Vector3</code>, ปกติผิว <code>Vector3</code> ที่จุดตัด, และ <code>Material</code> ของชิ้นส่วน <code>BasePart</code> หรือเซลล์ภูมิประเทศที่ถูกตี."
+    "documentation": "ชิ้นส่วน <code>BasePart</code> หรือ <code>Terrain</code> cell ที่ถูกตี, จุดตัด <code>Vector3</code>, และพื้นผิวปกติของ <code>Vector3</code> ณ จุดตัด, และ <code>Material</code> ของ <code>BasePart</code> หรือ cell แห่งพื้นที่ที่ถูกตี。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกยกเลิกแล้ว. ใช้ <code>WorldRoot:Raycast()</code> พร้อมกับ <code>RaycastParams</code> สำหรับงานใหม่.<br>คืนค่าชิ้นส่วน <code>BasePart</code> หรือเซลล์ <code>Terrain</code> ที่ตัดกับ <code>Ray</code> ที่กำหนด.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้แล้ว ใช้ <code>WorldRoot:Raycast()</code> พร้อม กับ <code>RaycastParams</code> สำหรับงานใหม่。<br>คืนค่า <code>BasePart</code> หรือ <code>Terrain</code> cell ครั้งแรกที่ ตัดกับ <code>Ray</code> ที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -94002,7 +93996,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/1": {
     "documentation": ""
@@ -94017,10 +94011,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/return/0": {
-    "documentation": "ชิ้นส่วน <code>BasePart</code> หรือเซลล์ <code>Terrain</code> ที่ถูกตี, จุดตัด <code>Vector3</code>, ปกติผิว <code>Vector3</code> ที่จุดตัด, และ <code>Material</code> ของชิ้นส่วน <code>BasePart</code> หรือเซลล์ภูมิประเทศที่ถูกตี."
+    "documentation": "ชิ้นส่วน <code>BasePart</code> หรือ <code>Terrain</code> cell ที่ถูกตี, จุดตัด <code>Vector3</code>, พื้นผิวปกติ <code>Vector3</code> ณ จุดตัด, และ <code>Material</code> ของชิ้นส่วนหรือ cell พื้นที่ที่ถูกตี。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกยกเลิกแล้ว. ใช้ <code>WorldRoot:Raycast()</code> พร้อมกับ <code>RaycastParams</code> สำหรับงานใหม่.<br>คืนค่าชิ้นส่วน <code>BasePart</code> หรือเซลล์ <code>Terrain</code> ที่ตัดกับ <code>Ray</code> ที่กำหนด ซึ่งไม่อยู่ใน, หรือลูกหลานของวัตถุในรายการที่ส่งมา.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้แล้ว ใช้ <code>WorldRoot:Raycast()</code> พร้อม กับ <code>RaycastParams</code> สำหรับงานใหม่。<br>คืนค่าชิ้นส่วน <code>BasePart</code> หรือ <code>Terrain</code> cell แรกที่ตัดกับ <code>Ray</code> ที่กำหนด ซึ่งไม่อยู่ใน, หรือลูกหลานของวัตถุใน, รายการละเว้นที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -94050,7 +94044,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/1": {
     "documentation": ""
@@ -94062,10 +94056,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/return/0": {
-    "documentation": "ชิ้นส่วน <code>BasePart</code> หรือเซลล์ <code>Terrain</code> ที่ถูกตี, จุดตัด <code>Vector3</code>, ปกติผิว <code>Vector3</code> ที่จุดตัด, และ <code>Material</code> ของชิ้นส่วน <code>BasePart</code> หรือเซลล์ภูมิประเทศที่ถูกตี."
+    "documentation": "ชิ้นส่วน <code>BasePart</code> หรือ <code>Terrain</code> cell ที่ถูกตี, จุดตัด <code>Vector3</code>, พื้นผิวปกติ <code>Vector3</code> ณ จุดตัด, และ <code>Material</code> ของชิ้นส่วนหรือ cell พื้นที่ที่ถูกตี。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกยกเลิกแล้ว. ใช้ <code>WorldRoot:Raycast()</code> พร้อมกับ <code>RaycastParams</code> สำหรับงานใหม่.<br>คืนค่าชิ้นส่วน <code>BasePart</code> หรือเซลล์ <code>Terrain</code> ที่ตัดกับ <code>Ray</code> ที่กำหนด ซึ่งอยู่ใน, หรือเป็นลูกหลานของวัตถุในรายการที่รวม.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้แล้ว ใช้ <code>WorldRoot:Raycast()</code> พร้อม กับ <code>RaycastParams</code> สำหรับงานใหม่。<br>คืนค่าชิ้นส่วน <code>BasePart</code> หรือ <code>Terrain</code> cell แรกที่ตัดกับ <code>Ray</code> ที่กำหนดซึ่งอยู่ใน, หรือมีลูกหลานของวัตถุใน, รายการรวมที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -94091,22 +94085,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/1": {
-    "documentation": "<code>Region3</code> ที่จะตรวจสอบ."
+    "documentation": "ข้อมูล <code>Region3</code> ที่จะถูกตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/2": {
-    "documentation": "อินสแตนซ์ <code>Instance</code> ที่จะถูกมองข้าม."
+    "documentation": "อินสแตนซ์ <code>Instance</code> ที่จะถูกละเลย。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/3": {
-    "documentation": "จำนวนสูงสุดของ <code>BaseParts</code> ที่จะถูกคืนค่า."
+    "documentation": "จำนวนสูงสุดของ <code>BaseParts</code> ที่จะถูกคืนค่า。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/return/0": {
-    "documentation": "รายการของ <code>BaseParts</code> ภายใน <code>Region3</code>."
+    "documentation": "อาเรย์ของ <code>BaseParts</code> ภายใน <code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกยกเลิกแล้ว. ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่.<br>คืนค่ารายการของ <code>BaseParts</code> ใน <code>Region3</code> ที่กำหนด.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้แล้ว ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่。<br>คืนค่าอาเรย์ของ <code>BaseParts</code> ใน <code>Region3</code> ที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -94132,22 +94126,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/1": {
-    "documentation": "<code>Region3</code> ที่จะตรวจสอบ."
+    "documentation": "ข้อมูล <code>Region3</code> ที่จะถูกตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/2": {
-    "documentation": "รายการของวัตถุที่จะถูกมองข้าม."
+    "documentation": "อาเรย์ของวัตถุที่ต้องการละเลย。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/3": {
-    "documentation": "จำนวนสูงสุดของ <code>BaseParts</code> ที่จะถูกคืนค่า."
+    "documentation": "จำนวนสูงสุดของ <code>BaseParts</code> ที่จะถูกคืนค่า。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/return/0": {
-    "documentation": "รายการของ <code>BaseParts</code> ที่พบภายใน <code>Region3</code>."
+    "documentation": "อาเรย์ของ <code>BaseParts</code> ที่พบภายใน <code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกยกเลิกแล้ว. ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่.<br>คืนค่ารายการของ <code>BaseParts</code> ใน <code>Region3</code> ที่กำหนดซึ่งไม่อยู่ใน, หรือเป็นลูกหลานของเอนทรี่ในรายการที่ถูกมองข้าม.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้แล้ว ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่。<br>คืนค่าอาเรย์ของ <code>BaseParts</code> ใน <code>Region3</code> ที่กำหนดซึ่งไม่อยู่ใน, หรือลูกหลานของรายการละเว้นที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -94173,22 +94167,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/1": {
-    "documentation": "<code>Region3</code> ที่จะตรวจสอบ."
+    "documentation": "ข้อมูล <code>Region3</code> ที่จะถูกตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/2": {
-    "documentation": "รายการของวัตถุที่จะตรวจสอบ."
+    "documentation": "อาเรย์ของวัตถุที่ต้องการตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/3": {
-    "documentation": "จำนวนสูงสุดของ <code>BaseParts</code> ที่จะถูกคืนค่า."
+    "documentation": "จำนวนสูงสุดของ <code>BaseParts</code> ที่จะถูกคืนค่า。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/return/0": {
-    "documentation": "รายการของ <code>BaseParts</code> ภายใน <code>Region3</code>."
+    "documentation": "อาเรย์ของ <code>BaseParts</code> ภายใน <code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกยกเลิกแล้ว. ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่.<br>คืนค่ารายการของ <code>BaseParts</code> ใน <code>Region3</code> ที่กำหนดซึ่งอยู่ใน, หรือลูกหลานของเอนทรี่ในรายการที่รวม.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้แล้ว ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่。<br>คืนค่าอาเรย์ของ <code>BaseParts</code> ใน <code>Region3</code> ที่กำหนดซึ่งอยู่ใน, หรือลูกหลานของรายการรวมที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -94214,22 +94208,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/1": {
-    "documentation": "ตำแหน่งของศูนย์กลางของปริมาณกล่องที่กำหนดที่จะค้นหา."
+    "documentation": "ตำแหน่งของศูนย์กลางของปริมาตรกล่องที่ต้องการตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/2": {
-    "documentation": "ขนาดของปริมาณกล่องที่กำหนดที่จะค้นหา."
+    "documentation": "ขนาดของปริมาณกล่องที่จะต้องตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/3": {
-    "documentation": "มีส่วนที่ใช้ซ้ำได้ของพารามิเตอร์การค้นหาทางกายภาพ."
+    "documentation": "เก็บบางส่วนที่สามารถนำมาใช้ซ้ำได้จากพารามิเตอร์คำถามเชิงพื้นที่。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/return/0": {
-    "documentation": "รายการของ <code>BaseParts</code> ที่ตรงกับการค้นหาทางกายภาพ."
+    "documentation": "อาเรย์ของ <code>BaseParts</code> ที่ตรงกับคำถามเชิงพื้นที่。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox": {
-    "documentation": "คืนค่ารายการของชิ้นส่วนที่ <strong>กล่องขอบเขต</strong> ทับซ้อนกับกล่องที่กำหนด.",
+    "documentation": "คืนค่าอาเรย์ของชิ้นส่วนที่มี <strong>กล่องขอบ</strong> ทับซ้อนกับกล่องที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -94255,22 +94249,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/1": {
-    "documentation": "ตำแหน่งของศูนย์กลางของปริมาณทรงกลมที่กำหนดที่จะค้นหา."
+    "documentation": "ตำแหน่งของศูนย์กลางของปริมาตรทรงกลมที่จะต้องตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/2": {
-    "documentation": "รัศมีของปริมาณทรงกลมที่กำหนดที่จะค้นหา."
+    "documentation": "รัศมีของปริมาตรทรงกลมที่จะต้องตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/3": {
-    "documentation": "มีส่วนที่ใช้ซ้ำได้ของพารามิเตอร์การค้นหาทางกายภาพ."
+    "documentation": "เก็บบางส่วนที่สามารถนำมาใช้ซ้ำได้จากพารามิเตอร์คำถามเชิงพื้นที่。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/return/0": {
-    "documentation": "รายการของ <code>BaseParts</code> ที่ตรงกับการค้นหาทางกายภาพ."
+    "documentation": "อาเรย์ของ <code>BaseParts</code> ที่ตรงกับคำถามเชิงพื้นที่。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius": {
-    "documentation": "คืนค่ารายการของชิ้นส่วนที่ <strong>กล่องขอบเขต</strong> ทับซ้อนกับทรงกลมที่กำหนด.",
+    "documentation": "คืนค่าอาเรย์ของชิ้นส่วนที่มี <strong>กล่องขอบ</strong> ทับซ้อนกับทรงกลมที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -94296,19 +94290,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/1": {
-    "documentation": "ชิ้นส่วนที่ต้องตรวจสอบปริมาณกับชิ้นส่วนอื่น ๆ."
+    "documentation": "ชิ้นส่วนที่มีปริมาตรต้องถูกตรวจสอบกับชิ้นส่วนอื่น ๆ。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/2": {
-    "documentation": "มีส่วนที่ใช้ซ้ำได้ของพารามิเตอร์การค้นหาทางกายภาพ."
+    "documentation": "เก็บบางส่วนที่สามารถนำมาใช้ซ้ำได้จากพารามิเตอร์คำถามเชิงพื้นที่。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/return/0": {
-    "documentation": "รายการของ <code>BaseParts</code> ที่ตรงกับการค้นหาทางกายภาพ."
+    "documentation": "อาเรย์ของ <code>BaseParts</code> ที่ตรงกับคำถามเชิงพื้นที่。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart": {
-    "documentation": "คืนค่ารายการของชิ้นส่วนที่ใช้พื้นที่ร่วมกับชิ้นส่วนที่กำหนด.",
+    "documentation": "คืนค่าอาเรย์ของชิ้นส่วนที่มีพื้นที่ถูกแบ่งปันกับชิ้นส่วนที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -94330,25 +94324,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/1": {
-    "documentation": "ชิ้นส่วนที่กำลังถูกเคลื่อนที่."
+    "documentation": "ชิ้นส่วนที่กำลังถูกย้าย。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/2": {
-    "documentation": "ตำแหน่งเพื่อย้ายชิ้นส่วนที่กำหนด."
+    "documentation": "ตำแหน่งที่จะย้ายชิ้นส่วนที่กำหนดไปยัง。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/3": {
-    "documentation": "ตัวเลขระหว่าง 0 และ 1 ระบุว่าต้องตรงกับตำแหน่งของชิ้นส่วนกับตำแหน่งของส่วนของ <code>CFrame</code> เป้าหมายด้วยความเข้มงวดแค่ไหน."
+    "documentation": "หมายเลขอยู่ระหว่าง 0 และ 1 โดยบอกถึงความเข้มแข็งในการเคลื่อนไหวของตำแหน่งชิ้นส่วน ไปยังตำแหน่งใน <code>CFrame</code> เป้าหมาย。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/4": {
-    "documentation": "ตัวเลขระหว่าง 0 และ 1 ระบุว่าต้องตรงกับการหมุนของชิ้นส่วนกับการหมุนของส่วนของ <code>CFrame</code> เป้าหมายด้วยความเข้มงวดแค่ไหน."
+    "documentation": "หมายเลขอยู่ระหว่าง 0 และ 1 โดยบอกถึงความเข้มแข็งในการหมุนของตำแหน่งชิ้นส่วน ไปยังการหมุนใน <code>CFrame</code> เป้าหมาย。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/5": {
-    "documentation": "อนุญาตให้คุณระบุว่าวัตถุใดควรได้รับผลกระทบจากการแก้ไขทางกายภาพ."
+    "documentation": "ช่วยให้คุณสามารถระบุว่าวัตถุใดควรได้รับผลกระทบจากการแก้ไขทางกายภาพ。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo": {
-    "documentation": "ย้ายชิ้นส่วนที่กำหนดไปยังตำแหน่งที่กำหนดผ่านการเคลื่อนที่ย้อนกลับแทนที่จะย้ายมันไปที่นั่นโดยตรง, เพื่อให้แน่ใจว่าสมาชิก, ข้อจำกัด, หรือการชนกันที่ชิ้นส่วนนั้นมีส่วนร่วมคงอยู่ตลอดไป.",
+    "documentation": "ย้ายชิ้นส่วนที่กำหนดไปยังตำแหน่งที่กำหนดผ่านการเคลื่อนที่แบบย้อนกลับ แทนที่จะเคลื่อนที่ตรง ๆ เพื่อให้แน่ใจว่าข้อต่อ, ข้อจำกัด, หรือการชนที่ชิ้นส่วนนั้นมีอยู่ยังคงได้รับการยอมรับทางกายภาพ。",
     "params": [
       {
         "name": "self",
@@ -94380,19 +94374,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/1": {
-    "documentation": "<code>Region3</code> ที่จะถูกตรวจสอบ."
+    "documentation": "ข้อมูล <code>Region3</code> ที่จะถูกตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/2": {
-    "documentation": "อินสแตนซ์ <code>Instance</code> ที่จะถูกมองข้าม."
+    "documentation": "อินสแตนซ์ <code>Instance</code> ที่จะถูกละเลย。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/return/0": {
-    "documentation": "True หาก <code>Region3</code> เป็นพื้นที่ว่าง."
+    "documentation": "true หาก <code>Region3</code> ว่างเปล่า。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกยกเลิกแล้ว. ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่.<br>คืนค่า bool แสดงว่าสิ่งใด ๆ ไม่มี <code>BaseParts</code> ภายใน <code>Region3</code> ที่กำหนด.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้แล้ว ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่。<br>คืนค่า bool ที่ระบุว่ามีชิ้นส่วน <code>BaseParts</code> ไม่มีภายใน <code>Region3</code> ที่กำหนดหรือไม่。",
     "params": [
       {
         "name": "self",
@@ -94414,19 +94408,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/1": {
-    "documentation": "<code>Region3</code> ที่จะถูกตรวจสอบ."
+    "documentation": "ข้อมูล <code>Region3</code> ที่จะถูกตรวจสอบ。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/2": {
-    "documentation": "รายการของวัตถุที่จะถูกมองข้าม."
+    "documentation": "อาเรย์ของวัตถุที่จะต้องละเลย。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/return/0": {
-    "documentation": "True หาก <code>Region3</code> เป็นพื้นที่ว่าง."
+    "documentation": "true หาก <code>Region3</code> ว่างเปล่า。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกยกเลิกแล้ว. ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่.<br>คืนค่า boolean แสดงว่าสิ่งใด ๆ ไม่มี <code>BaseParts</code> ภายใน <code>Region3</code> ที่กำหนด, โดยมองข้าม <code>BaseParts</code> ที่เป็นลูกหลานของวัตถุที่อยู่ในรายการที่ถูกมองข้าม.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้แล้ว ใช้ <code>WorldRoot:GetPartBoundsInBox()</code> พร้อมกับ <code>OverlapParams</code> สำหรับงานใหม่。<br>คืนค่า boolean ที่บ่งบอกว่ามีชิ้นส่วน <code>BaseParts</code> ไม่มีภายใน <code>Region3</code> ที่กำหนด โดยไม่คำนึงถึง <code>BaseParts</code> ที่เป็นลูกหลานของวัตถุใน, รายการละเว้นที่กำหนด.",
     "params": [
       {
         "name": "self",
@@ -94448,22 +94442,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/1": {
-    "documentation": "จุดกำเนิดของรังสี."
+    "documentation": "จุดเริ่มต้นของรังสี。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/2": {
-    "documentation": "เวกเตอร์ทิศทางของรังสี โปรดทราบว่าความยาวของเวกเตอร์นี้มีความสำคัญ เนื่องจากส่วนต่างๆ/ภูมิประเทศที่อยู่ไกลกว่าความยาวจะไม่ได้ถูกทดสอบ."
+    "documentation": "เวกเตอร์ทิศทางของรังสี. โปรดทราบว่าความยาวของเวกเตอร์นี้มีความสำคัญ, เนื่องจากชิ้นส่วน/ดินที่อยู่ห่างกว่าระยะทางของมันจะไม่ถูกทดสอบ."
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/3": {
-    "documentation": "วัตถุที่ใช้ระบุความมีสิทธิ์ในการถูกตีในกระบวนการรังสี หากไม่ระบุ จะใช้ค่าปริยายซึ่งพิจารณาทุกส่วนและน้ำ <code>Terrain</code> จะไม่ถูกละเว้น."
+    "documentation": "วัตถุที่ใช้เพื่อระบุว่ามีวัตถุที่มีสิทธิ์ในรังสีหรือไม่. หากไม่ได้ให้ค่า, จะใช้ค่าเริ่มต้นซึ่งถือว่าชิ้นส่วนทั้งหมดยกเว้น และไม่ละเลยน้ำ <code>Terrain</code>。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/return/0": {
-    "documentation": "ประกอบด้วยผลลัพธ์จากการดำเนินการรังสี หรือ <code>nil</code> หากไม่มี <code>BasePart</code> หรือเซลล์ <code>Terrain</code> ที่มีสิทธิ์ถูกตี."
+    "documentation": "ประกอบด้วยผลลัพธ์ของการดำเนินการ raycast, หรือ <code>nil</code> หากไม่มี <code>BasePart</code> ที่มีสิทธิ์หรือ cell <code>Terrain</code> ถูกตี。"
   },
   "@roblox/globaltype/WorldRoot.Raycast": {
-    "documentation": "โยนลำแสงโดยใช้ต้นกำเนิด, ทิศทาง, และค่าว่าง <code>RaycastParams</code> ที่เลือกได้, จากนั้นคืนค่า <code>RaycastResult</code> หากวัตถุที่มีคุณสมบัติหรือภูมิประเทศชนกับลำแสง.",
+    "documentation": "สร้างรังสีโดยใช้จุดเริ่มต้น, ทิศทาง, และ <code>RaycastParams</code> ออปชั่น, จากนั้นคืนค่าผลลัพธ์ <code>RaycastResult</code> หากมีวัตถุหรือการดินที่มีสิทธิ์ตัดกับรังสี",
     "params": [
       {
         "name": "self",
@@ -94489,7 +94483,7 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal function castRay()\n\t-- จุดเริ่มต้นของรังสี\n\tlocal originPosition = Vector3.new(0, 50, 0)\n\t-- ทิศทางที่รังสีถูกสร้างขึ้น\n\tlocal direction = -Vector3.yAxis\n\t-- ระยะทางสูงสุดของรังสี\n\tlocal distance = 50\n\n\t-- สร้างรังสีและสร้างการแสดงภาพของมัน\n\tlocal raycastResult = Workspace:Raycast(originPosition, direction * distance)\n\n\tif raycastResult then\n\t\t-- พิมพ์คุณสมบัติทั้งหมดของ RaycastResult หากมันมี\n\t\tprint(`รังสีชนกับ: {raycastResult.Instance:GetFullName()}`)\n\t\tprint(`จุดการตัดกัน: {raycastResult.Position}`)\n\t\tprint(`ระยะทางระหว่างจุดเริ่มต้นของรังสีและผลลัพธ์: {raycastResult.Distance}`)\n\t\tprint(`เวกเตอร์ปกติของพื้นผิวที่ถูกชน: {raycastResult.Normal}`)\n\t\tprint(`วัสดุที่ชน: {raycastResult.Material.Name}`)\n\telse\n\t\tprint(\"ไม่มีอะไรถูกชน\")\n\tend\nend\n\n-- ทำการสร้างรังสีทุก 2 วินาที\nwhile true do\n\tcastRay()\n\ttask.wait(2)\nend"
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/1": {
     "documentation": ""
@@ -94530,25 +94524,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/1": {
-    "documentation": "ตำแหน่งเริ่มต้นของรูปทรงกลมที่สร้างขึ้น."
+    "documentation": "ตำแหน่งเริ่มต้นของรูปร่างกลมที่ถูกขว้างออก。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/2": {
-    "documentation": "รัศมีของรูปทรงกลมที่สร้างขึ้นในสตั๊ด รัศมีสูงสุดคือ 256 สตั๊ด."
+    "documentation": "รัศมีของรูปร่างกลมที่ถูกขว้างออกใน studs ขนาดสูงสุดคือ 256 studs."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/3": {
-    "documentation": "ทิศทางของการเรียกการสร้างรูปร่าง โดยที่ขนาดแสดงระยะทางสูงสุดที่รูปร่างสามารถเดินทางได้ ระยะทางสูงสุดคือ 1024 สตั๊ด."
+    "documentation": "ทิศทางของการสร้างรูปร่าง, โดยมีความยาวที่แสดงถึงระยะทางสูงสุดที่รูปร่างสามารถเดินทางได้ ระยะทางสูงสุดคือ 1024 studs."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/return/0": {
-    "documentation": "ประกอบด้วยผลลัพธ์จากการสร้างรูปทรงหรือ <code>nil</code> หากไม่มี <code>BasePart</code> หรือเซลล์ <code>Terrain</code> ที่มีสิทธิ์ถูกตี."
+    "documentation": "มีผลลัพธ์ของการดำเนินการสร้างรูปร่าง, หรือ <code>nil</code> หากไม่มี <code>BasePart</code> หรือ <code>Terrain</code> cell ที่ถูกตี。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast": {
-    "documentation": "สร้างรูปร่างทรงกลมในทิศทางที่กำหนดและคืนค่า <code>RaycastResult</code> หากรูปร่างชนกับ <code>BasePart</code> หรือเซลล์ <code>Terrain</code>.",
+    "documentation": "สร้างรูปร่างกลมในทิศทางที่กำหนดและคืนค่าผลลัพธ์ <code>RaycastResult</code> หากรูปร่างถูกตียังคงมี <code>BasePart</code> หรือ <code>Terrain</code> cell.",
     "params": [
       {
         "name": "self",
@@ -94578,16 +94572,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/1": {
-    "documentation": "จำนวนเวลาที่จะถูกจำลอง อาร์กิวเมนต์นี้ต้องเป็นหมายเลขบวก ค่าที่มากขึ้นจะทำให้เวลาทำงานของฟังก์ชันนี้เพิ่มขึ้น."
+    "documentation": "ระยะเวลาในการจำลอง. อาร์กิวเมนต์นี้ต้องเป็นค่าเชิงบวก ค่าที่มากขึ้นจะเพิ่มเวลาในการทำงานของ ฟังก์ชันนี้."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/2": {
-    "documentation": "อาร์เรย์ที่เลือกได้ของส่วนที่ต้องการจำลอง ชุดนี้ต้องประกอบด้วยอินสแตนซ์ของประเภท <code>BasePart</code>; ประเภทอื่นๆจะถูกละเว้น."
+    "documentation": "อาเรย์ของชิ้นส่วนที่จะถูกจำลองที่เป็นทางเลือก. ชุดนี้ต้องประกอบด้วย instances ที่มีประเภท <code>BasePart</code>; ประเภทอื่น ๆ ทั้งหมดจะถูกละเลย."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics": {
-    "documentation": "ก้าวหน้าไปยังการจำลองสำหรับส่วนต่างๆในโลกตามการเพิ่มเวลา และชุดของ <code>BaseParts</code> ที่เลือกได้.",
+    "documentation": "เลื่อนการจำลองสำหรับชิ้นส่วนในโลกออกพึ่งจากการเพิ่มปริมาณเวลา ที่ระบุและชุด <code>BaseParts</code> ที่เป็นทางเลือก。",
     "params": [
       {
         "name": "self",
@@ -94607,7 +94601,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/1": {
     "documentation": ""
@@ -94625,7 +94619,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันที่เลิกใช้นี้เป็นตัวแปรของ <code>WorldRoot:FindPartOnRay()</code> ซึ่งควรใช้แทน.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันที่ถูกเลิกใช้แล้วนี้เป็นตัวแปรของ <code>WorldRoot:FindPartOnRay()</code> ซึ่งควรใช้แทน。",
     "params": [
       {
         "name": "self",
@@ -94655,7 +94649,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/0": {
-    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3 มิติ."
+    "documentation": "คลาสพื้นฐานสำหรับการจัดการการจำลองฟิสิกส์และการค้นหาข้อมูลเชิงพื้นที่ 3D。"
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/1": {
     "documentation": ""
@@ -94670,7 +94664,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันที่เลิกใช้นี้เป็นตัวแปรของ <code>WorldRoot:FindPartsInRegion3()</code> ซึ่งควรใช้แทน.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันที่ถูกเลิกใช้แล้วนี้เป็นตัวแปรของ <code>WorldRoot:FindPartsInRegion3()</code> ซึ่งควรใช้แทน。",
     "params": [
       {
         "name": "self",
@@ -96338,10 +96332,10 @@
     "documentation": "เรียกร้องให้ <code>Player</code> ที่กำหนดด้วยแผ่นแชร์ที่มีลิงก์แชร์ที่สร้างขึ้น。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Dictionary</code> ที่ระบุการกำหนดค่าสำหรับลิงก์ที่สร้างขึ้น ประกอบด้วยคู่คีย์-ค่าอ๊อบเจ็กต์ที่เป็นทางเลือกต่อไปนี้: <ul> <li><code>FallbackLinkId</code> (string) กำหนดว่าลิงก์แชร์นี้จะนำผู้เล่นไปที่ไหนเมื่อหมดอายุ ค่าเริ่มต้นเป็นลิงก์เข้าร่วมประสบการณ์。</li> <li><code>ExpirationSeconds</code> (number) กำหนดเวลาหมดอายุเมื่อสร้างลิงก์แชร์ ตัดเป็นจำนวนเต็มที่ใกล้ที่สุด ค่าเริ่มต้นเป็น 86,400。</li> <li><code>PreviewTitle</code> (string) ชื่อพรีวิวของลิงก์แชร์。</li> <li><code>PreiviewDescription</code> (string) คำอธิบายพรีวิวของลิงก์แชร์。</li> <li><code>PreviewAssettId</code> (number) ID แอสเซตภาพที่ใช้สำหรับพรีวิวลิงก์แชร์。</li> <li><code>LaunchData</code> (string) ใช้ในการตั้งค่าพารามิเตอร์ใน   <code>Player:GetJoinData()</code> เมื่อตัวละครผู้เล่นเข้าร่วมโดยใช้ลิงก์แชร์ที่สร้างขึ้น。</li> </ul>"
+    "documentation": "<code>Dictionary</code> ที่ระบุการกำหนดค่าของลิงก์ที่สร้างขึ้น มันรวมถึงคู่คีย์-ค่าแบบเลือกได้ต่อไปนี้: <ul> <li><code>FallbackLinkId</code> (string). กำหนดว่าสิ่งนี้ลิงก์แบ่งปันจะ   ส่งผู้เล่นไปยังที่ใดเมื่อหมดอายุ ค่าเริ่มต้นคือ ลิงก์เข้าร่วมประสบการณ์</li> <li><code>ExpirationSeconds</code> (number). กำหนดระยะเวลาหมดอายุเมื่อ   ลิงก์แบ่งปันถูกสร้าง ข้อมูลจะถูกตัดให้เป็นจำนวนเต็มที่ใกล้ที่สุด ค่าเริ่มต้นคือ   86,400.</li> <li><code>PreviewTitle</code> (string) ชื่อพรีวิวของลิงก์แบ่งปัน</li> <li><code>PreviewDescription</code> (string) คำอธิบายพรีวิวของลิงก์แบ่งปัน</li> <li><code>PreviewAssetId</code> (number) รหัสสินทรัพย์ภาพที่ใช้สำหรับการพรีวิวของลิงก์แบ่งปัน</li> <li><code>LaunchData</code> (string). ใช้ตั้งค่าพารามิเตอร์ใน   <code>Player:GetJoinData()</code> เมื่อผู้เล่นเข้าร่วมโดยใช้ลิงก์แบ่งปันที่สร้างขึ้น</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": ""
+    "documentation": "คู่ที่ประกอบด้วย <code>PromptLinkSharingResult</code> ที่ระบุผลลัพธ์ของการขอแบ่งปันลิงก์"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -122046,7 +122040,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.Unknown": {
-    "documentation": "Catch-all for all other disconnect reasons.",
+    "documentation": "จับทุกเหตุผลในการตัดการเชื่อมต่ออื่นๆ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122056,7 +122050,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.PlatformKick": {
-    "documentation": "User was kicked by Roblox systems, such as being blocked while in a Private Server.",
+    "documentation": "ผู้ใช้ถูกเตะโดยระบบของ Roblox เช่น ถูกบล็อกขณะอยู่ใน เซิร์ฟเวอร์ส่วนตัว.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122066,7 +122060,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.CreatorKick": {
-    "documentation": "Creator called <strong>Player:Kick()</strong>",
+    "documentation": "ผู้สร้างเรียก <strong>Player:Kick()</strong>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122076,7 +122070,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PlayerExitReason": {
-    "documentation": "An enum that specifies the reason for <strong>Players.PlayerRemoving</strong> signal.",
+    "documentation": "อีนัมที่ระบุเหตุผลสำหรับสัญญาณ <strong>Players.PlayerRemoving</strong>.",
     "keys": {
       "Unknown": "@roblox/enum/PlayerExitReason.Unknown",
       "PlatformKick": "@roblox/enum/PlayerExitReason.PlatformKick",
@@ -126848,7 +126842,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.Automatic": {
-    "documentation": "พฤติกรรมเริ่มต้น ซึ่งในขณะนี้เทียบเท่ากับ <strong>Disabled</strong>.",
+    "documentation": "พฤติกรรมเริ่มต้นซึ่งเทียบเท่ากับ <strong>ปิดใช้งาน</strong> ในปัจจุบัน",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126858,7 +126852,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.StreamingMesh": {
-    "documentation": "เมช \"imposter\" ที่ความละเอียดต่ำกว่า (เมชที่มีสีซึ่งมีความหยาบซึ่งหุ้มรอบ ทุกส่วนของโมเดล) จะเรนเดอร์นอกระยะการสตรีม",
+    "documentation": "แบบ mesh \"imposter\" ที่มีความละเอียดต่ำกว่า (mesh ที่มีสีและมักจะหยาบซึ่งห่อหุ้ม ส่วนเด็กทั้งหมดของโมเดล) จะถูกเรนเดอร์นอกเขตการสตรีม",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126868,7 +126862,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
-    "documentation": "เมชที่มีความละเอียดต่ำกว่าจะไม่แสดง.",
+    "documentation": "แบบ mesh ที่มีความละเอียดต่ำกว่าจะไม่ถูกแสดงผล",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126878,7 +126872,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ModelLevelOfDetail": {
-    "documentation": "ควบคุมระดับความละเอียดสำหรับ <code>Models</code> ในประสบการณ์ที่เปิดใช้งาน การสตรีมอินสแตนซ์",
+    "documentation": "ควบคุมระดับรายละเอียดสำหรับ <code>Models</code> ในประสบการณ์ที่มี การสตรีมอินสแตนซ์เปิดใช้งานอยู่",
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
@@ -130765,7 +130759,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CorrodedMetal": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้ได้เฉพาะกับ <code>BasePart</code> เท่านั้น.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

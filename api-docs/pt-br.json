@@ -3893,7 +3893,7 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "Um par de tempo-valor usado com instâncias de <code>ValueCurve</code>.",
     "keys": {
       "new": "@roblox/global/ValueCurveKey.new"
     },
@@ -3901,16 +3901,16 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey.new/param/0": {
-    "documentation": "Time at which to create the new <code>ValueCurveKey</code>."
+    "documentation": "Tempo em que criar a nova <code>ValueCurveKey</code>."
   },
   "@roblox/global/ValueCurveKey.new/param/1": {
-    "documentation": "Value of the new <code>ValueCurveKey</code>."
+    "documentation": "Valor da nova <code>ValueCurveKey</code>."
   },
   "@roblox/global/ValueCurveKey.new/param/2": {
     "documentation": ""
   },
   "@roblox/global/ValueCurveKey.new": {
-    "documentation": "Returns a new <code>ValueCurveKey</code> from the given time and value.",
+    "documentation": "Retorna uma nova <code>ValueCurveKey</code> a partir do tempo e valor dados.",
     "params": [
       {
         "name": "time",
@@ -3930,7 +3930,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "Um par de tempo-valor usado com instâncias de <code>ValueCurve</code>.",
     "keys": {
       "Interpolation": "@roblox/globaltype/ValueCurveKey.Interpolation",
       "Time": "@roblox/globaltype/ValueCurveKey.Time",
@@ -3942,27 +3942,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Interpolation": {
-    "documentation": "The key interpolation mode for the segment started by this <code>ValueCurveKey</code>.",
+    "documentation": "O modo de interpolação da chave para o segmento iniciado por esta <code>ValueCurveKey</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Interpolation",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Time": {
-    "documentation": "The time position of this <code>ValueCurveKey</code>.",
+    "documentation": "A posição de tempo desta <code>ValueCurveKey</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Time",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Value": {
-    "documentation": "The value of this <code>ValueCurveKey</code>.",
+    "documentation": "O valor desta <code>ValueCurveKey</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Value",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.RightTangent": {
-    "documentation": "The tangent to the right of this <code>ValueCurveKey</code>.",
+    "documentation": "A tangente à direita desta <code>ValueCurveKey</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#RightTangent",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.LeftTangent": {
-    "documentation": "The tangent to the left of this <code>ValueCurveKey</code>.",
+    "documentation": "A tangente à esquerda desta <code>ValueCurveKey</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#LeftTangent",
     "code_sample": ""
   },
@@ -8858,13 +8858,13 @@
     "documentation": "Uma classe que define uma visão do mundo 3D."
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/1": {
-    "documentation": ""
+    "documentation": "O <code>CFrame</code> representando o centro e a orientação da caixa delimitadora a ser ajustada no campo de visão."
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/2": {
-    "documentation": ""
+    "documentation": "O <code>Vector3</code> tamanho da caixa delimitadora a ser ajustada no campo de visão."
   },
   "@roblox/globaltype/Camera.ZoomToExtents": {
-    "documentation": "",
+    "documentation": "Ajusta o <code>CFrame</code> para que a caixa delimitadora especificada esteja totalmente visível dentro do campo de visão da câmera.",
     "params": [
       {
         "name": "self",
@@ -11569,7 +11569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Snap": {
-    "documentation": "<strong>Deprecated:</strong> <br>Une duas partes juntas e funciona de forma idêntica a <code>Weld</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Une os dois partes juntas e funciona de forma idêntica ao <code>Weld</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Snap",
     "code_sample": ""
@@ -11710,32 +11710,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Coils": {
-    "documentation": "O número de espirais visualizadas para o constraint.",
+    "documentation": "O número de espirais visualizadas para o restritor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Coils",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle": {
-    "documentation": "O ângulo atual, em graus, do cone limitador.",
+    "documentation": "O ângulo atual, em graus, do cone limitante.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#CurrentAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Damping": {
-    "documentation": "Constante de amortecimento para o <code>TorsionSpringConstraint</code>. Multiplicada à velocidade dos <code>Attachments</code> do constraint para reduzir a força da mola aplicada.",
+    "documentation": "Constante de amortecimento para o <code>TorsionSpringConstraint</code>. Multiplicada à velocidade da <code>Attachments</code> do restritor para reduzir a força da mola aplicada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Damping",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitEnabled": {
-    "documentation": "<strong>Deprecated:</strong> Esta propriedade está obsoleta. Use <code>LimitsEnabled</code> em seu lugar.",
+    "documentation": "<strong>Deprecated:</strong> Esta propriedade está obsoleta. Use <code>LimitsEnabled</code> em vez disso.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitsEnabled": {
-    "documentation": "Limita o movimento angular relativo dos eixos secundários dos acessórios através de um constraint de cone.",
+    "documentation": "Limita o movimento angular relativo dos eixos secundários das conexões por meio de um restritor de cone.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.MaxAngle": {
-    "documentation": "O ângulo máximo do cone limitador do constraint.",
+    "documentation": "O ângulo máximo do cone limitante do restritor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#MaxAngle",
     "code_sample": ""
   },
@@ -11750,7 +11750,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Restitution": {
-    "documentation": "O coeficiente de restituição do constraint de cone.",
+    "documentation": "O coeficiente de restituição do restritor de cone.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Restitution",
     "code_sample": ""
   },
@@ -16561,7 +16561,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh.MeshType": {
-    "documentation": "Determina o tipo de malha que será aplicada ao <code>BasePart</code> ao qual o <code>SpecialMesh</code> está parentado.",
+    "documentation": "Determina o tipo de malha que será aplicada ao <code>BasePart</code> a qual o <code>SpecialMesh</code> está vinculado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpecialMesh#MeshType",
     "code_sample": ""
   },
@@ -18786,10 +18786,10 @@
     "documentation": "Um objeto especial que dá aos modelos a funcionalidade de um personagem."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "A instância <code>HumanoidDescription</code> à qual você deseja que o personagem corresponda."
+    "documentation": "A instância <code>HumanoidDescription</code> que você deseja definir para que o personagem corresponda."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ O valor padrão para este parâmetro mudará de <code>ClientOnly</code> para <code>Always</code> após 20/10/2025. Veja <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">aqui</a> para mais detalhes."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
     "documentation": "Faz com que a aparência do personagem corresponda à passada em <code>HumanoidDescription</code>.",
@@ -18818,7 +18818,7 @@
     "documentation": "A instância <code>HumanoidDescription</code> à qual você deseja que o personagem corresponda."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ O valor padrão para este parâmetro mudará de <code>ClientOnly</code> para <code>Always</code> após 20/10/2025. Veja <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">aqui</a> para mais detalhes."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
     "documentation": "Faz com que a aparência do personagem corresponda à passada em <code>HumanoidDescription</code>, mesmo após alterações externas.",
@@ -22623,7 +22623,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateV": {
-    "documentation": "<strong>Deprecated:</strong> Esta classe funciona em conjunto com o <code>SurfaceType</code> obsoleto e não deve ser usada para trabalhos futuros; use <code>HingeConstraint</code> em vez disso.",
+    "documentation": "<strong>Deprecated:</strong> Essa classe funciona ao lado do <code>SurfaceType</code> obsoleto e não deve ser usada para trabalhos futuros; use <code>HingeConstraint</code> em vez disso.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateV",
     "code_sample": ""
@@ -23462,17 +23462,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent": {
-    "documentation": "Uma malha de referência opcional usada para poda e validação da jaula destino.",
+    "documentation": "Uma malha de referência opcional usada para podar e validar a jaula de destino.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#ReferenceCageMeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMaxBound": {
-    "documentation": "Determina o limite máximo do espaço UV a ser incluído na transferência.",
+    "documentation": "Determina o limite máximo do espaço UV a incluir na transferência.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMaxBound",
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer.UVMinBound": {
-    "documentation": "Determina o limite mínimo do espaço UV a ser incluído na transferência.",
+    "documentation": "Determina o limite mínimo do espaço UV a incluir na transferência.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapTextureTransfer#UVMinBound",
     "code_sample": ""
   },
@@ -23568,7 +23568,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldModel": {
-    "documentation": "Estende física limitada para seus filhos em uma <code>ViewportFrame</code>.",
+    "documentation": "Estende a física limitada para seus filhos em um <code>ViewportFrame</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WorldModel",
     "code_sample": ""
@@ -24570,7 +24570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint": {
-    "documentation": "Simula a dinâmica de corda, impedindo que duas ligações se separem mais longe do que um comprimento definido.",
+    "documentation": "Simula a dinâmica de cordas, impedindo que duas conexões se separem além de um comprimento definido.",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RopeConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RopeConstraint.Length",
@@ -24591,17 +24591,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Length": {
-    "documentation": "A distância máxima que as duas <code>Attachments</code> podem estar.",
+    "documentation": "A distância máxima que as duas <code>Attachments</code> podem ter.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Restitution": {
-    "documentation": "Elasticidade das <code>Attachments</code> conectadas pela restrição ao alcançar a máxima definida <code>Length</code>. Constrangida entre 0 e 1.",
+    "documentation": "Elasticidade das <code>Attachments</code> conectadas pela restrição ao atingir o máximo definido <code>Length</code>. Conter entre 0 e 1.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Thickness": {
-    "documentation": "A espessura visualizada do <code>RopeConstraint</code>.",
+    "documentation": "A espessura visualizada da <code>RopeConstraint</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Thickness",
     "code_sample": ""
   },
@@ -24616,12 +24616,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchResponsiveness": {
-    "documentation": "A precisão do motor do guincho em alcançar o <code>WinchTarget</code>.",
+    "documentation": "A agilidade do motor do guincho em alcançar o <code>WinchTarget</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchSpeed": {
-    "documentation": "Uma velocidade desejada positiva à qual o motor do guincho altera o comprimento da corda.",
+    "documentation": "Uma velocidade desejada positiva na qual o motor do guincho altera o comprimento da corda.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchSpeed",
     "code_sample": ""
   },
@@ -25421,7 +25421,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo.",
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo.",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
@@ -25463,7 +25463,6 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
-      "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
@@ -25485,12 +25484,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "Controla a intensidade da turbulência presente no campo de velocidade do vento, afetando o modelo de força aerodinâmica.",
+    "documentation": "Controla a intensidade da turbulência presente no campo de velocidade do vento, afetando o modelo da força aerodinâmica.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AllowThirdPartySales": {
-    "documentation": "Determina se ativos criados por outros usuários podem ser vendidos no jogo.",
+    "documentation": "Determina se os ativos criados por outros usuários podem ser vendidos no jogo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AllowThirdPartySales",
     "code_sample": ""
   },
@@ -25515,7 +25514,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "A quantidade de tempo, em segundos, que o jogo está em execução.",
+    "documentation": "A quantidade de tempo, em segundos, que o jogo está rodando.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
@@ -25525,32 +25524,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallenPartsDestroyHeight": {
-    "documentation": "Determina a altura na qual <code>BaseParts</code> que caem e seu ti ancestral <code>Models</code> são removidos de <code>Workspace</code>.",
+    "documentation": "Determina a altura na qual <code>BaseParts</code> em queda e seus ancestrais <code>Models</code> são removidos do <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallenPartsDestroyHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>Determina se as alterações feitas pelo cliente serão replicadas para o servidor ou não.",
+    "documentation": "<strong>Deprecated:</strong> <br>Determina se as alterações feitas pelo cliente serão replicadas no servidor ou não.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "Determina se o motor de física calcula forças aerodinâmicas em <code>BaseParts</code> cuja propriedade <code>EnableFluidForces</code> é verdadeira.",
+    "documentation": "Determina se o motor de física calcula forças aerodinâmicas em <code>BaseParts</code> cuja <code>EnableFluidForces</code> propriedade é verdadeira.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GlobalWind": {
-    "documentation": "Especifica o vetor de vento global para grama de terreno animada, nuvens  dinâmicas e partículas.",
+    "documentation": "Especifica o vetor de vento global para grama de terreno animada, nuvens dinâmicas e partículas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#GlobalWind",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Gravity": {
-    "documentation": "Determina a aceleração devido à gravidade aplicada a <code>BaseParts</code> que caem.",
+    "documentation": "Determina a aceleração devido à gravidade aplicada a <code>BaseParts</code> em queda.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Gravity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "Ativa o suporte a restrições para IKControls. Se desativado, IKControls  ignoram as restrições de física.",
+    "documentation": "Habilita o suporte para restrições para IKControls. Se desativado, IKControls ignorará restrições físicas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -25570,7 +25569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "Define se as cabeças e acessórios dos personagens devem ser baixados como MeshParts.",
+    "documentation": "Define se as Cabeças e Acessórios dos personagens devem ser baixados como MeshParts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -25580,7 +25579,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "Controla a lógica usada para selecionar a parte raiz de montagem ao usar qualquer um dos tipos de restrições de movimento.",
+    "documentation": "Controla a lógica usada para selecionar a parte raiz de montagem ao usar qualquer um dos mover restrições.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
@@ -25595,7 +25594,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "Define como o resolvedor avançará a simulação de física para frente no tempo.",
+    "documentation": "Define como o solucionador vai avançar a simulação física no tempo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -25635,37 +25634,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.SignalBehavior": {
-    "documentation": "Configura quando o motor retoma manipuladores de eventos.",
+    "documentation": "Configura quando o motor retoma os manipuladores de eventos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#SignalBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "Configura como o motor decide quando transmitir conteúdo para longe dos  jogadores.",
+    "documentation": "Configura como o motor decide quando Stream o conteúdo afasta dos jogadores.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "Se a transmissão de conteúdo está habilitada para o lugar.",
+    "documentation": "Se o streaming de conteúdo está habilitado para o lugar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingIntegrityMode": {
-    "documentation": "Determina se o modo StreamingIntegrityMode está ativo.",
+    "documentation": "Determina se o StreamingIntegrityMode está ativo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingIntegrityMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "Distância mínima que o conteúdo será transmitido para jogadores com alta  prioridade.",
+    "documentation": "Distância mínima que o conteúdo será transmitido para os jogadores com alta prioridade.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingTargetRadius": {
-    "documentation": "Distância máxima que o conteúdo será transmitido para jogadores.",
+    "documentation": "Distância máxima que o conteúdo será transmitido para os jogadores.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingTargetRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "Uma referência ao objeto <code>Terrain</code> parentado ao  <code>Workspace</code>.",
+    "documentation": "Uma referência ao objeto <code>Terrain</code> parentado ao <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
@@ -25675,13 +25674,8 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "Determina se <code>parts</code> em grupos diferentes configurados para não colidir ignorarão colisões e eventos de toque.",
+    "documentation": "Determina se <code>parts</code> em diferentes grupos configurados para não colidir ignoraram colisões e eventos de toque.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.UseImprovedModelLod": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseImprovedModelLod",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
@@ -25690,13 +25684,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "Um array de <code>BaseParts</code> cujas juntas devem ser quebradas."
+    "documentation": "Um array de <code>BaseParts</code> para os quais as juntas devem ser quebradas."
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Percorre todos os <code>BaseParts</code> dados, quebrando quaisquer juntas conectadas a essas partes.",
+    "documentation": "<strong>Deprecated:</strong> <br>Percorre todos os <code>BaseParts</code> fornecidos, quebrando quaisquer juntas conectadas a essas partes.",
     "params": [
       {
         "name": "self",
@@ -25712,13 +25706,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
     "documentation": "O número de partes acordadas."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "Retorna o número de <code>BaseParts</code> que são considerados  fisicamente ativos, devido a estarem recentemente sob a influência da física.",
+    "documentation": "Retorna o número de <code>BaseParts</code> que são considerados fisicamente ativos, devido a terem estado recentemente sob a influência da física.",
     "params": [
       {
         "name": "self",
@@ -25732,13 +25726,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "A porcentagem de tempo real que a simulação de física está atualmente sendo  limitada."
+    "documentation": "A porcentagem do tempo real que a simulação física está atualmente sendo limitada."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "Retorna um número inteiro, entre 0 e 100, representando a porcentagem de  tempo real que a simulação de física está atualmente sendo limitada.",
+    "documentation": "Retorna um inteiro, entre 0 e 100, representando a porcentagem de tempo real que a simulação física está atualmente sendo limitada.",
     "params": [
       {
         "name": "self",
@@ -25752,13 +25746,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "Retorna o número de quadros por segundo que a física está atualmente  sendo simulada."
+    "documentation": "Retorna o número de quadros por segundo que a física está atualmente sendo simulada."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "Retorna o número de quadros por segundo que a física está atualmente sendo  simulada.",
+    "documentation": "Retorna o número de quadros por segundo que a física está atualmente sendo simulada.",
     "params": [
       {
         "name": "self",
@@ -25772,7 +25766,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\t-- Se o FPS de física real estiver acima de 65, kick o jogador\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\tplayer:Kick()\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
     "documentation": "O timestamp Unix estimado no servidor."
@@ -25792,16 +25786,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "Um array de <code>BaseParts</code> para quem as juntas devem ser feitas."
+    "documentation": "Um array de <code>BaseParts</code> para os quais as juntas devem ser feitas."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "O <code>JointCreationMode</code> a ser usado. Passar <code>Enum.JointCreationMode.All</code> ou <code>Enum.JointCreationMode.Surface</code> tem o mesmo comportamento que equivale a Sempre Juntar."
+    "documentation": "O <code>JointCreationMode</code> a ser usado. Passar <code>Enum.JointCreationMode.All</code> ou <code>Enum.JointCreationMode.Surface</code> tem o mesmo comportamento, que equivale a Juntar Sempre."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "Cria juntas entre os <code>Parts</code> especificados e quaisquer  partes adjacentes dependendo das superfícies das partes e do modo de criação de juntas  especificado.",
+    "documentation": "Cria juntas entre os <code>Parts</code> especificados e quaisquer partes tocantes dependendo das superfícies das partes e do modo de criação de juntas especificado.",
     "params": [
       {
         "name": "self",
@@ -25821,13 +25815,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "Um array de <code>parts</code> para quem as juntas devem ser feitas."
+    "documentation": "Um array de <code>parts</code> para os quais as juntas devem ser feitas."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Percorre todos os <code>BaseParts</code> dados. Se algum lado da parte  tiver um <code>SurfaceType</code> que possa fazer uma junta, ele criará uma junta com quaisquer  partes adjacentes.",
+    "documentation": "<strong>Deprecated:</strong> <br>Percorre todos os <code>BaseParts</code> fornecidos. Se o lado de qualquer parte tiver um <code>SurfaceType</code> que possa fazer uma junta, ela criará uma junta com qualquer parte adjacente.",
     "params": [
       {
         "name": "self",
@@ -25843,13 +25837,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "Verdadeiro se o resolvedor PGS estiver habilitado."
+    "documentation": "Verdadeiro se o solucionador PGS estiver habilitado."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "Retorna <code>true</code> se o jogo tiver o resolvedor de física PGS habilitado.",
+    "documentation": "Retorna <code>true</code> se o jogo tiver o solucionador de física PGS habilitado.",
     "params": [
       {
         "name": "self",
@@ -25863,13 +25857,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "Um array de <code>BaseParts</code> para quem as juntas devem ser quebradas."
+    "documentation": "Um array de <code>BaseParts</code> para os quais as juntas devem ser quebradas."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "Quebra todas as juntas entre os <code>BaseParts</code> especificados e  outros <code>BaseParts</code>.",
+    "documentation": "Quebra todas as juntas entre os <code>BaseParts</code> especificados e outros <code>BaseParts</code>.",
     "params": [
       {
         "name": "self",
@@ -25885,10 +25879,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados ou interagirão fisicamente com o mundo."
+    "documentation": "<strong>Workspace</strong> abriga objetos 3D que são renderizados no mundo 3D. Objetos que não descendem dele não serão renderizados nem interagirão fisicamente com o mundo."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "Posiciona e aproxima a <code>Workspace.CurrentCamera</code> para mostrar a extensão  dos <code>BaseParts</code> atualmente no <code>Workspace</code>.",
+    "documentation": "Posiciona e dá zoom na <code>Workspace.CurrentCamera</code> para mostrar a extensão dos <code>BaseParts</code> atualmente no <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -25977,7 +25971,7 @@
     "returns": []
   },
   "@roblox/globaltype/Workspace.PersistentLoaded": {
-    "documentation": "Dispara quando modelos persistentes foram enviados para o jogador especificado.",
+    "documentation": "É acionado quando modelos persistentes foram enviados para o jogador especificado.",
     "keys": {
       "Connect": "@roblox/globaltype/Workspace.PersistentLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Workspace.PersistentLoaded.ConnectParallel",
@@ -26357,7 +26351,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plane": {
-    "documentation": "<strong>Deprecated:</strong> <br>Restringe Attachment0 e Attachment1 de modo que ambos os pontos estejam em um plano com origem na posição de Attachment0 e vetor normal unitário igual ao eixo principal de Attachment0.",
+    "documentation": "<strong>Deprecated:</strong> <br>Restringe Attachment0 e Attachment1 de modo que ambos os pontos fiquem em um plano com origem na posição de Attachment0 e vetor normal unitário igual ao  eixo principal de Attachment0.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plane",
     "code_sample": ""
@@ -27948,7 +27942,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "",
+    "documentation": "O conteúdo da textura exibida pelo Decal. Suporta <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> e <code>EditableImage</code> objetos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
@@ -28629,7 +28623,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "Dispara quando um jogador pressiona o botão esquerdo do mouse enquanto passa o mouse sobre o adorno.",
+    "documentation": "Dispara quando um jogador pressiona o botão esquerdo do mouse enquanto está passando o mouse sobre o adorno.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -28717,7 +28711,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "Dispara quando um jogador solta o botão esquerdo do mouse enquanto passa o mouse sobre o adorno.",
+    "documentation": "Dispara quando um jogador solta o botão esquerdo do mouse enquanto está passando o mouse sobre o adorno.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -30263,7 +30257,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Platform": {
-    "documentation": "Historicamente uma forma de <code>Seat</code> que não colocaria o jogador em uma pose sentada. Este objeto não pode mais ser criado e não pode ser usado por desenvolvedores.",
+    "documentation": "Historicamente uma forma de <code>Seat</code> que não colocava o jogador em uma posição sentada. Este objeto não pode mais ser criado e não pode ser usado por desenvolvedores.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Platform",
     "code_sample": ""
@@ -31303,7 +31297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HopperBin": {
-    "documentation": "<strong>Deprecated:</strong> Esta classe desatualizada foi substituída por <code>Tool</code>. Por favor, use Tool para novos trabalhos em vez disso.",
+    "documentation": "<strong>Deprecated:</strong> Esta classe descontinuada foi substituída por <code>Tool</code>. Por favor, use Tool para novo trabalho.",
     "keys": {
       "Active": "@roblox/globaltype/HopperBin.Active",
       "BinType": "@roblox/globaltype/HopperBin.BinType"
@@ -32210,17 +32204,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Enabled": {
-    "documentation": "Relaciona se a ferramenta pode ser usada ou não.",
+    "documentation": "Relaciona-se com se a ferramenta pode ser usada ou não.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#Enabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"SuperJump\"\ntool.RequiresHandle = false\ntool.Parent = player.Backpack\n\nfunction toolActivated()\n\thumanoid.JumpPower = 150\n\ttool.Enabled = false\n\ttask.wait(5)\n\ttool.Enabled = true\n\thumanoid.JumpPower = 50\nend\n\ntool.Activated:Connect(toolActivated)\ntool.Unequipped:Connect(function()\n\thumanoid.JumpPower = 50\nend)"
   },
   "@roblox/globaltype/Tool.Grip": {
-    "documentation": "Armazena as propriedades de \"grip\" da ferramenta como um <code>CFrame</code>.",
+    "documentation": "Armazena as propriedades de \"pegada\" da ferramenta como um <code>CFrame</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#Grip",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Bastão\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Manejo\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Marrom\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripForward": {
-    "documentation": "Representa os valores <code>R02</code>, <code>R12</code>, e <code>R22</code> da matriz de rotação do grip <code>CFrame</code>.",
+    "documentation": "Representa os valores <code>R02</code>, <code>R12</code> e <code>R22</code> da matriz de rotação <code>CFrame</code> da pegada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripForward",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Bastão\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Manejo\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Marrom\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
@@ -32230,27 +32224,27 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Bastão\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Manejo\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Marrom\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripRight": {
-    "documentation": "Representa os valores <code>R00</code>, <code>R10</code>, e <code>R20</code> da matriz de rotação do grip <code>CFrame</code>.",
+    "documentation": "Representa os valores <code>R00</code>, <code>R10</code> e <code>R20</code> da matriz de rotação <code>CFrame</code> da pegada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripRight",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Bastão\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Manejo\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Marrom\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripUp": {
-    "documentation": "Representa os valores <code>R01</code>, <code>R11</code>, e <code>R21</code> da matriz de rotação do grip <code>CFrame</code>.",
+    "documentation": "Representa os valores <code>R01</code>, <code>R11</code> e <code>R21</code> da matriz de rotação <code>CFrame</code> da pegada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripUp",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Bastão\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Manejo\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- Marrom\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.ManualActivationOnly": {
-    "documentation": "Controla se a <code>Tool</code> pode ser ativada sem executar <code>Tool:Activate()</code>.",
+    "documentation": "Controla se o <code>Tool</code> pode ser ativado sem executar <code>Tool:Activate()</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#ManualActivationOnly",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Sprint\"\ntool.RequiresHandle = false\ntool.Parent = player:WaitForChild(\"Backpack\")\n\nfunction toolActivated()\n\thumanoid.WalkSpeed = 30\n\ttool.ManualActivationOnly = true\n\ttask.wait(5)\n\ttool.ManualActivationOnly = false\n\thumanoid.WalkSpeed = 16\nend\n\ntool.Activated:Connect(toolActivated)\ntool.Unequipped:Connect(function()\n\thumanoid.WalkSpeed = 16\nend)"
   },
   "@roblox/globaltype/Tool.RequiresHandle": {
-    "documentation": "Determina se uma <code>Tool</code> funciona sem um cabo.",
+    "documentation": "Determina se um <code>Tool</code> funciona sem um cabo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#RequiresHandle",
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.ToolTip": {
-    "documentation": "Controla a mensagem exibida quando o mouse do jogador paira sobre a ferramenta em sua mochila.",
+    "documentation": "Controla a mensagem exibida quando o mouse do jogador passa sobre a tool no seu inventário.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#ToolTip",
     "code_sample": ""
   },
@@ -32258,7 +32252,7 @@
     "documentation": "Um objeto, como uma arma, que pode ser equipado por um <code>Humanoid</code>."
   },
   "@roblox/globaltype/Tool.Activate": {
-    "documentation": "Simula a ativação da <code>Tool</code>.",
+    "documentation": "Simula a ativação do <code>Tool</code>.",
     "params": [
       {
         "name": "self",
@@ -32273,7 +32267,7 @@
     "documentation": "Um objeto, como uma arma, que pode ser equipado por um <code>Humanoid</code>."
   },
   "@roblox/globaltype/Tool.Deactivate": {
-    "documentation": "Simula a desativação da <code>Tool</code>.",
+    "documentation": "Simula a desativação do <code>Tool</code>.",
     "params": [
       {
         "name": "self",
@@ -32538,7 +32532,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Equipped": {
-    "documentation": "Dispara quando a ferramenta é equipada.",
+    "documentation": "Dispara quando a ferramenta está equipada.",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Equipped.ConnectParallel",
@@ -32626,7 +32620,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Unequipped": {
-    "documentation": "Dispara quando a ferramenta é desequipada.",
+    "documentation": "Dispara quando a ferramenta é desenfiada.",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Unequipped.ConnectParallel",
@@ -32680,7 +32674,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Seat": {
-    "documentation": "Um tipo de <code>BasePart</code> no qual os personagens podem 'sentar-se'. Quando um personagem toca um objeto Seat habilitado, ele será preso à peça por um <code>Weld</code> e os scripts padrão do personagem tocarão uma animação de sentar.",
+    "documentation": "Um tipo de <code>BasePart</code> em que os personagens podem 'sentar'. Quando um personagem toca um objeto Seat habilitado, ele será preso à parte por um <code>Weld</code> e os scripts padrão do personagem executarão uma animação de sentar.",
     "keys": {
       "Disabled": "@roblox/globaltype/Seat.Disabled",
       "Occupant": "@roblox/globaltype/Seat.Occupant",
@@ -32690,7 +32684,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal seat = Instance.new(\"Seat\")\nseat.Anchored = true\nseat.Position = Vector3.new(0, 1, 0)\nseat.Parent = workspace\n\nlocal currentPlayer = nil\n\nlocal function onOccupantChanged()\n\tlocal humanoid = seat.Occupant\n\tif humanoid then\n\t\tlocal character = humanoid.Parent\n\t\tlocal player = Players:GetPlayerFromCharacter(character)\n\t\tif player then\n\t\t\tprint(player.Name .. \" se sentou\")\n\t\t\tcurrentPlayer = player\n\t\t\treturn\n\t\tend\n\tend\n\tif currentPlayer then\n\t\tprint(currentPlayer.Name .. \" se levantou\")\n\t\tcurrentPlayer = nil\n\tend\nend\n\nseat:GetPropertyChangedSignal(\"Occupant\"):Connect(onOccupantChanged)"
   },
   "@roblox/globaltype/Seat.Disabled": {
-    "documentation": "Se o assento é utilizável ou não. Se definido como verdadeiro, o assento atuará como um parte normal.",
+    "documentation": "Se o assento é utilizável ou não. Se definido como verdadeiro, o assento agirão como uma parte normal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Disabled",
     "code_sample": ""
   },
@@ -32700,13 +32694,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Sit/param/0": {
-    "documentation": "Um tipo de <code>BasePart</code> no qual os personagens podem 'sentar-se'. Quando um personagem toca um objeto Seat habilitado, ele será preso à peça por um <code>Weld</code> e os scripts padrão do personagem tocarão uma animação de sentar."
+    "documentation": "Um tipo de <code>BasePart</code> em que os personagens podem 'sentar'. Quando um personagem toca um objeto Seat habilitado, ele será preso à parte por um <code>Weld</code> e os scripts padrão do personagem executarão uma animação de sentar."
   },
   "@roblox/globaltype/Seat.Sit/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Seat.Sit": {
-    "documentation": "Força o personagem com o <code>Humanoid</code> especificado a sentar-se no Seat.",
+    "documentation": "Força o personagem com o <code>Humanoid</code> especificado a sentar-se no assento.",
     "params": [
       {
         "name": "self",
@@ -33803,7 +33797,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform": {
-    "documentation": "<strong>Deprecated:</strong> O objeto SkateboardPlatform foi descartado e não é mais suportado pela Roblox. Desenvolvedores que desejam criar skates ou veículos similares são aconselhados a programar seus próprios sistemas. Além disso, o objeto <code>VehicleSeat</code> pode ser usado para criar rapidamente veículos simples.<br>Uma SkateboardPlatform pode ser usada para criar um skate. Quando os personagens sobem em um skate, eles ficam presos a ele até pressionarem a tecla de escape. Até então, o personagem usa animações de skate e se desloca mais rápido do que um personagem andando.",
+    "documentation": "<strong>Deprecated:</strong> O objeto SkateboardPlatform foi tornado obsoleto e não é mais suportado pelo Roblox. Desenvolvedores que desejam criar skates ou veículos semelhantes são aconselhados a programar seus próprios sistemas. Além disso, o objeto <code>VehicleSeat</code> pode ser usado para criar veículos simples rapidamente.<br>Um SkateboardPlatform pode ser usado para criar um skate. Quando os personagens sobem em um skate, eles ficam grudadose até pressionarem a tecla de escape. Até lá, o personagem utiliza animações de skate e viaja mais rápido do que um personagem caminhando.",
     "keys": {
       "Controller": "@roblox/globaltype/SkateboardPlatform.Controller",
       "ControllingHumanoid": "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid",
@@ -33816,38 +33810,38 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Controller": {
-    "documentation": "O SkateboardController ativo da SkateboardPlatform.",
+    "documentation": "O SkateboardController ativo do SkateboardPlatform.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Controller",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid": {
-    "documentation": "O <code>Humanoid</code> que está controlando a SkateboardPlatform.",
+    "documentation": "O <code>Humanoid</code> que está controlando o SkateboardPlatform.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#ControllingHumanoid",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Steer": {
-    "documentation": "A direção do movimento, ligada às teclas A e D. Deve ser 1 (direita), 0 (reto), ou -1 (esquerda). Retornará a 0 a menos que seja constantemente configurada.",
+    "documentation": "A direção do movimento, atrelada às teclas A e D. Deve ser 1 (direita), 0 (reta) ou -1 (esquerda). Irá reiniciar para 0 a menos que seja constantemente configurada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Steer",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.StickyWheels": {
-    "documentation": "Se verdadeiro, as rodas não vão girar sem entrada do usuário.",
+    "documentation": "Se verdadeiro, as rodas não irão rolar sem input do usuário.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#StickyWheels",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Throttle": {
-    "documentation": "A direção do movimento, ligada às teclas W e S. Deve ser um inteiro 1 (frente), 0 (nulo), ou -1 (reverso). Retornará a 0 a menos que seja constantemente configurada.",
+    "documentation": "A direção do movimento, atrelada às teclas W e S. Deve ser um inteiro 1 (frente), 0 (nulo) ou -1 (reverso). Irá reiniciar para 0 a menos que seja constantemente configurada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Throttle",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/0": {
-    "documentation": "<strong>Deprecated:</strong> O objeto SkateboardPlatform foi descartado e não é mais suportado pela Roblox. Desenvolvedores que desejam criar skates ou veículos similares são aconselhados a programar seus próprios sistemas. Além disso, o objeto <code>VehicleSeat</code> pode ser usado para criar rapidamente veículos simples.<br>Uma SkateboardPlatform pode ser usada para criar um skate. Quando os personagens sobem em um skate, eles ficam presos a ele até pressionarem a tecla de escape. Até então, o personagem usa animações de skate e se desloca mais rápido do que um personagem andando."
+    "documentation": "<strong>Deprecated:</strong> O objeto SkateboardPlatform foi tornado obsoleto e não é mais suportado pelo Roblox. Desenvolvedores que desejam criar skates ou veículos semelhantes são aconselhados a programar seus próprios sistemas. Além disso, o objeto <code>VehicleSeat</code> pode ser usado para criar veículos simples rapidamente.<br>Um SkateboardPlatform pode ser usado para criar um skate. Quando os personagens sobem em um skate, eles ficam grudadose até pressionarem a tecla de escape. Até lá, o personagem utiliza animações de skate e viaja mais rápido do que um personagem caminhando."
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse": {
-    "documentation": "Adiciona ''impulseWorld'' à <code>BasePart.Velocity</code> da SkateboardPlatform.",
+    "documentation": "Adiciona ''impulseWorld'' à <code>BasePart.Velocity</code> do SkateboardPlatform.",
     "params": [
       {
         "name": "self",
@@ -34028,7 +34022,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.MoveStateChanged": {
-    "documentation": "Disparado quando o <code>SkateboardPlatform.ControllingHumanoid</code> da SkateboardPlatform muda a força que está sendo usada na SkateboardPlatform.",
+    "documentation": "Disparado quando o <code>SkateboardPlatform.ControllingHumanoid</code> do SkateboardPlatform muda a força aplicada no SkateboardPlatform.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.ConnectParallel",
@@ -34116,7 +34110,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.Unequipped": {
-    "documentation": "Disparado sempre que o skate é desencolado.",
+    "documentation": "Disparado sempre que o skate é desequipado.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.Unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.Unequipped.ConnectParallel",
@@ -34204,7 +34198,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.equipped": {
-    "documentation": "<strong>Deprecated:</strong> Este evento obsoleto é uma variante de <code>SkateboardPlatform.Equipped</code> que também foi descartada. Nenhum dos eventos deve ser usado em novos trabalhos.",
+    "documentation": "<strong>Deprecated:</strong> Este evento obsoleto é uma variação de <code>SkateboardPlatform.Equipped</code> que também foi tornado obsoleto. Nenhum dos eventos deve ser usado em novos trabalhos.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.equipped.ConnectParallel",
@@ -34292,7 +34286,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.unequipped": {
-    "documentation": "<strong>Deprecated:</strong> Este evento obsoleto é uma variante de <code>SkateboardPlatform.Unequipped</code> que também foi descartada. Nenhum dos eventos deve ser usado em novos trabalhos.",
+    "documentation": "<strong>Deprecated:</strong> Este evento obsoleto é uma variação de <code>SkateboardPlatform.Unequipped</code> que também foi tornado obsoleto. Nenhum dos eventos deve ser usado em novos trabalhos.",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.unequipped.ConnectParallel",
@@ -35542,7 +35536,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment": {
-    "documentation": "Uma classe abstrata da qual os herdeiros podem ser adornados a objetos da classe <code>PVInstance</code>.",
+    "documentation": "Uma classe abstrata cujos herdeiros podem ser adornados a objetos da classe <code>PVInstance</code>.",
     "keys": {
       "Adornee": "@roblox/globaltype/PVAdornment.Adornee"
     },
@@ -38769,7 +38763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint": {
-    "documentation": "Mantém dois anexos separados pela sua <code>Length</code>.",
+    "documentation": "Mantém dois anexos separados por seu definido <code>Length</code>.",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RodConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RodConstraint.Length",
@@ -38782,12 +38776,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.CurrentDistance": {
-    "documentation": "A distância atual entre os <code>Attachments</code> do constrangimento.",
+    "documentation": "A distância atual entre os <code>Attachments</code> da restrição.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#CurrentDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.Length": {
-    "documentation": "A distância à qual o constrangimento tenta manter seus <code>Attachments</code>.",
+    "documentation": "A distância à qual a restrição tenta manter seus <code>Attachments</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#Length",
     "code_sample": ""
   },
@@ -38802,7 +38796,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitsEnabled": {
-    "documentation": "Determina se <code>LimitAngle0</code> e <code>LimitAngle1</code> controlam os ângulos entre a vara e os respectivos anexos.",
+    "documentation": "Determina se <code>LimitAngle0</code> e <code>LimitAngle1</code> controlam os ângulos entre a vara e os anexos respectivos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitsEnabled",
     "code_sample": ""
   },
@@ -38812,7 +38806,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Rotate": {
-    "documentation": "<strong>Deprecated:</strong> Esta classe funciona junto com o <code>SurfaceType</code> que está obsoleto e não deve ser usada para trabalhos futuros; use <code>HingeConstraint</code> em vez disso.",
+    "documentation": "<strong>Deprecated:</strong> Esta classe funciona em conjunto com o <code>SurfaceType</code> depreciado e não deve ser usada para trabalhos futuros; use <code>HingeConstraint</code> em vez disso.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Rotate",
     "code_sample": ""
@@ -38836,7 +38830,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PrismaticConstraint": {
-    "documentation": "Restrição que cria uma junta rígida entre dois <code>Attachments</code>, permitindo que deslizem ao longo de um eixo, mas não girem.",
+    "documentation": "Restrição que cria uma junta rígida entre dois <code>Attachments</code>, permitindo que deslizem ao longo de um eixo, mas não rotacionem.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PrismaticConstraint",
     "code_sample": ""
@@ -43066,7 +43060,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
-    "documentation": "Restrição que aplica torque para alinhar dois anexos, ou para alinhar um anexo com uma orientação desejada.",
+    "documentation": "Restrição que aplica torque para alinhar duas conexões, ou para alinhar uma conexão com uma orientação desejada.",
     "keys": {
       "AlignType": "@roblox/globaltype/AlignOrientation.AlignType",
       "CFrame": "@roblox/globaltype/AlignOrientation.CFrame",
@@ -43085,7 +43079,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.AlignType": {
-    "documentation": "O tipo de alinhamento dos eixos da restrição.",
+    "documentation": "O tipo de alinhamento de eixos da restrição.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#AlignType",
     "code_sample": ""
   },
@@ -43095,27 +43089,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.LookAtPosition": {
-    "documentation": "Uma localização no espaço mundial <code>Vector3</code> para a qual o eixo primário tentará se alinhar.",
+    "documentation": "Uma localização no espaço mundial <code>Vector3</code> para a qual o eixo primário tentará alinhar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#LookAtPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxAngularVelocity": {
-    "documentation": "Velocidade angular máxima que a restrição pode usar para alcançar seu objetivo.",
+    "documentation": "Máxima velocidade angular que a restrição pode usar para alcançar seu objetivo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxAngularVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxTorque": {
-    "documentation": "Torque máximo que a restrição pode usar para alcançar seu objetivo.",
+    "documentation": "Máximo torque que a restrição pode usar para alcançar seu objetivo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Mode": {
-    "documentation": "Se a restrição usa um ou dois anexos ao calcular seu objetivo.",
+    "documentation": "Se a restrição usa uma ou duas conexões ao calcular seu objetivo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxis": {
-    "documentation": "A direção do eixo <strong>X</strong> do objetivo, representada como um vetor unitário <code>Vector3</code>.",
+    "documentation": "A direção do eixo <strong>X</strong> do objetivo, representada como um <code>Vector3</code> unitário.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#PrimaryAxis",
     "code_sample": ""
   },
@@ -43125,22 +43119,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.ReactionTorqueEnabled": {
-    "documentation": "Se a restrição aplica torque apenas a <code>Attachment0</code>, ou a ambos os anexos em direções iguais e opostas.",
+    "documentation": "Se a restrição aplica torque apenas a <code>Attachment0</code>, ou a ambas as conexões em direções iguais e opostas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#ReactionTorqueEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Responsiveness": {
-    "documentation": "Controla quão rapidamente a restrição alcança seu objetivo. Valores mais altos fazem com que o(s) anexo(s) se alinhem mais rapidamente.",
+    "documentation": "Controla quão rapidamente a restrição alcança seu objetivo. Valores mais altos fazem as conexões se alinharem mais rapidamente.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.RigidityEnabled": {
-    "documentation": "Se o torque depende de outras propriedades, ou se o solucionador físico reage o mais rapidamente possível para completar o alinhamento.",
+    "documentation": "Se o torque depende de outras propriedades, ou se o resolvedor de física reage o mais rápido possível para completar o alinhamento.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#RigidityEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.SecondaryAxis": {
-    "documentation": "A direção do eixo <strong>Y</strong> do objetivo, representada como um vetor unitário <code>Vector3</code>.",
+    "documentation": "A direção do eixo <strong>Y</strong> do objetivo, representada como um <code>Vector3</code> unitário.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#SecondaryAxis",
     "code_sample": ""
   },
@@ -46533,7 +46527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint": {
-    "documentation": "Restringe seus anexos a rotacionar em torno de um único eixo.",
+    "documentation": "Restringe seus anexos a girar em torno de um único eixo.",
     "keys": {
       "ActuatorType": "@roblox/globaltype/HingeConstraint.ActuatorType",
       "AngularResponsiveness": "@roblox/globaltype/HingeConstraint.AngularResponsiveness",
@@ -46555,22 +46549,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.ActuatorType": {
-    "documentation": "Define se a rotação do <code>HingeConstraint</code> é acionada e, se sim, qual tipo de atuação ele usa.",
+    "documentation": "Define se a rotação do <code>HingeConstraint</code> é acionada e, se sim, que tipo de acionamento utiliza.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#ActuatorType",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularResponsiveness": {
-    "documentation": "Especifica a precisão do motor servo em alcançar o <code>TargetAngle</code>.",
+    "documentation": "Especifica a rapidez do motor servo em atingir o <code>TargetAngle</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularSpeed": {
-    "documentation": "A velocidade angular desejada que um <code>HingeConstraint</code> com <code>ActuatorType</code> definido como <code>Servo</code> tentará manter enquanto rotaciona em direção ao seu <code>TargetAngle</code>. Medido em radianos/segundo.",
+    "documentation": "A velocidade angular desejada que um <code>HingeConstraint</code> com <code>ActuatorType</code> definido como <code>Servo</code> tentará manter enquanto gira em direção ao seu <code>TargetAngle</code>. Medido em radianos/segundo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularVelocity": {
-    "documentation": "A velocidade angular que um <code>HingeConstraint</code> com <code>ActuatorType</code> definido como <code>Motor</code> tentará atingir. Medido em radianos/segundo.",
+    "documentation": "A velocidade angular que um <code>HingeConstraint</code> com <code>ActuatorType</code> definido como <code>Motor</code> tentará alcançar. Medido em radianos/segundo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularVelocity",
     "code_sample": ""
   },
@@ -46580,17 +46574,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.LimitsEnabled": {
-    "documentation": "Define se o <code>HingeConstraint</code> irá limitar a faixa de rotação.",
+    "documentation": "Define se o <code>HingeConstraint</code> limitará o intervalo de rotação.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.LowerAngle": {
-    "documentation": "O ângulo de rotação mínimo que o <code>HingeConstraint</code> permitirá se <code>LimitsEnabled</code> for verdadeiro.",
+    "documentation": "O ângulo mínimo de rotação que o <code>HingeConstraint</code> permitirá se <code>LimitsEnabled</code> for verdadeiro.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#LowerAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.MotorMaxAcceleration": {
-    "documentation": "A máxima aceleração angular que um <code>HingeConstraint</code> com <code>ActuatorType</code> definido como <code>Motor</code> pode aplicar para alcançar sua <code>AngularVelocity</code>. Medido em radianos/segundo&sup2;.",
+    "documentation": "A aceleração angular máxima que um <code>HingeConstraint</code> com <code>ActuatorType</code> definido como <code>Motor</code> pode aplicar para alcançar sua <code>AngularVelocity</code>. Medido em radianos/segundo&sup2;.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
@@ -46605,7 +46599,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.Restitution": {
-    "documentation": "Quão elástico <code>Attachment</code> conectado por um <code>HingeConstraint</code> será quando atingirem o final da faixa quando <code>LimitsEnabled</code> for verdadeiro. Restringido entre 0 e 1.",
+    "documentation": "Quão elásticos serão os <code>Attachment</code> conectados por um <code>HingeConstraint</code> quando alcançarem o final do intervalo quando <code>LimitsEnabled</code> for verdadeiro. Restrito entre 0 e 1.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#Restitution",
     "code_sample": ""
   },
@@ -46620,7 +46614,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.TargetAngle": {
-    "documentation": "O ângulo alvo que um <code>HingeConstraint</code> tentará rotacionar se seu <code>ActuatorType</code> estiver definido como <code>Servo</code>. Medido em graus.",
+    "documentation": "O ângulo alvo que um <code>HingeConstraint</code> tentará girar se seu <code>ActuatorType</code> estiver definido como <code>Servo</code>. Medido em graus.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#TargetAngle",
     "code_sample": ""
   },
@@ -47017,7 +47011,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal mouse = player:GetMouse()\n\nlocal function onMouseMove()\n\tprint(\"posição da tela do mouse: \", mouse.X, mouse.Y)\nend\n\nmouse.Move:Connect(onMouseMove)"
   },
   "@roblox/globaltype/Actor": {
-    "documentation": "Um <code>Actor</code> é um contêiner para código que pode ser seguro dividir em sua própria thread.",
+    "documentation": "Um <code>Actor</code> é um contêiner para código que pode ser dividido com segurança em sua própria thread.",
     "keys": {
       "BindToMessage": "@roblox/globaltype/Actor.BindToMessage",
       "BindToMessageParallel": "@roblox/globaltype/Actor.BindToMessageParallel",
@@ -47027,7 +47021,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/param/0": {
-    "documentation": "Um <code>Actor</code> é um contêiner para código que pode ser seguro dividir em sua própria thread."
+    "documentation": "Um <code>Actor</code> é um contêiner para código que pode ser dividido com segurança em sua própria thread."
   },
   "@roblox/globaltype/Actor.BindToMessage/param/1": {
     "documentation": "O tópico usado para identificar o tipo de mensagem."
@@ -47061,7 +47055,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
-    "documentation": "Um <code>Actor</code> é um contêiner para código que pode ser seguro dividir em sua própria thread."
+    "documentation": "Um <code>Actor</code> é um contêiner para código que pode ser dividido com segurança em sua própria thread."
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/1": {
     "documentation": "O tópico usado para identificar o tipo de mensagem."
@@ -47095,13 +47089,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.SendMessage/param/0": {
-    "documentation": "Um <code>Actor</code> é um contêiner para código que pode ser seguro dividir em sua própria thread."
+    "documentation": "Um <code>Actor</code> é um contêiner para código que pode ser dividido com segurança em sua própria thread."
   },
   "@roblox/globaltype/Actor.SendMessage/param/1": {
     "documentation": "O tópico usado para identificar a mensagem que está sendo enviada."
   },
   "@roblox/globaltype/Actor.SendMessage/param/2": {
-    "documentation": "O conteúdo da mensagem a ser enviada ao Actor."
+    "documentation": "O conteúdo da mensagem a ser enviada para o Actor."
   },
   "@roblox/globaltype/Actor.SendMessage": {
     "documentation": "Envia uma mensagem para um Actor.",
@@ -47274,7 +47268,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.ForceLimitsEnabled": {
-    "documentation": "Determina se a força da restrição será limitada ou se o solucionador de física pode aplicar uma força ilimitada para alcançar a velocidade alvo.",
+    "documentation": "Determina se a força da restrição será limitada ou se o resolvedor de física pode aplicar uma força ilimitada para alcançar a velocidade alvo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#ForceLimitsEnabled",
     "code_sample": ""
   },
@@ -47284,7 +47278,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.LineVelocity": {
-    "documentation": "Valor float da velocidade quando <code>VelocityConstraintMode</code> está definido como <code>Line</code>.",
+    "documentation": "Valor float da velocidade quando <code>VelocityConstraintMode</code> é definido como <code>Line</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#LineVelocity",
     "code_sample": ""
   },
@@ -47309,7 +47303,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.PrimaryTangentAxis": {
-    "documentation": "O eixo primário no plano, quando <code>VelocityConstraintMode</code> está definido como <code>Plane</code>.",
+    "documentation": "O eixo primário no plano, quando <code>VelocityConstraintMode</code> é definido como <code>Plane</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#PrimaryTangentAxis",
     "code_sample": ""
   },
@@ -47324,12 +47318,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.SecondaryTangentAxis": {
-    "documentation": "O eixo secundário no plano, quando <code>VelocityConstraintMode</code> está definido como <code>Plane</code>.",
+    "documentation": "O eixo secundário no plano, quando <code>VelocityConstraintMode</code> é definido como <code>Plane</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#SecondaryTangentAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.VectorVelocity": {
-    "documentation": "<code>Vector3</code> valor de velocidade quando <code>VelocityConstraintMode</code> está definido como <code>Vector</code>.",
+    "documentation": "<code>Vector3</code> valor de velocidade quando <code>VelocityConstraintMode</code> é definido como <code>Vector</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#VectorVelocity",
     "code_sample": ""
   },
@@ -48689,7 +48683,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateP": {
-    "documentation": "<strong>Deprecated:</strong> Esta classe funciona juntamente com o <code>SurfaceType</code> obsoleto e não deve ser usada para trabalhos futuros; use <code>HingeConstraint</code> em vez disso.",
+    "documentation": "<strong>Deprecated:</strong> Esta classe funciona junto com o <code>SurfaceType</code> obsoleto e não deve ser usada para trabalhos futuros; use <code>HingeConstraint</code> em vez disso.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateP",
     "code_sample": ""
@@ -50592,7 +50586,7 @@
     "documentation": "<code>Instance</code> é a classe base para todas as classes na hierarquia de classes do Roblox que podem fazer parte da árvore <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "Esta função destrói todos os filhos de uma instância.",
+    "documentation": "Este método destrói todos os filhos de uma instância.",
     "params": [
       {
         "name": "self",
@@ -51184,10 +51178,10 @@
     "documentation": "Nome da propriedade a ser consultada."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Booleano indicando se a propriedade foi modificada."
+    "documentation": "Booleano indicando se a propriedade foi modificada em relação ao seu padrão instanciado por código."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Retorna <code>true</code> se o valor armazenado na propriedade especificada é igual ao default instanciado em código.",
+    "documentation": "Retorna <code>true</code> se o valor armazenado na propriedade especificada não for igual ao padrão instanciado por código.",
     "params": [
       {
         "name": "self",
@@ -52605,7 +52599,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity": {
-    "documentation": "Aplica torque em uma montagem para manter uma velocidade angular constante.",
+    "documentation": "Aplica torque em um conjunto para manter uma velocidade angular constante.",
     "keys": {
       "AngularVelocity": "@roblox/globaltype/AngularVelocity.AngularVelocity",
       "MaxTorque": "@roblox/globaltype/AngularVelocity.MaxTorque",
@@ -52616,7 +52610,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.AngularVelocity": {
-    "documentation": "Um <code>Vector3</code> que dá a velocidade angular desejada ou alvo.",
+    "documentation": "Um <code>Vector3</code> que fornece a velocidade angular desejada ou alvo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#AngularVelocity",
     "code_sample": ""
   },
@@ -52626,7 +52620,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.ReactionTorqueEnabled": {
-    "documentation": "Faz com que a restrição aplique forças de reação iguais e opostas.",
+    "documentation": "Faz com que a restrição aplique forças reativas iguais e opostas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#ReactionTorqueEnabled",
     "code_sample": ""
   },
@@ -52751,7 +52745,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment": {
-    "documentation": "Renderiza um adorno de wireframe consistindo de uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>.",
+    "documentation": "Renderiza um adorno de wireframe consistindo em uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>.",
     "keys": {
       "Scale": "@roblox/globaltype/WireframeHandleAdornment.Scale",
       "Thickness": "@roblox/globaltype/WireframeHandleAdornment.Thickness",
@@ -52775,7 +52769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/0": {
-    "documentation": "Renderiza um adorno de wireframe consistindo de uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
+    "documentation": "Renderiza um adorno de wireframe consistindo em uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/1": {
     "documentation": "Ponto de partida da linha."
@@ -52784,7 +52778,7 @@
     "documentation": "Ponto final da linha."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine": {
-    "documentation": "Adiciona uma linha ao adorno de wireframe de um ponto de partida a um ponto final relativo ao centro do <code>Adornee</code>.",
+    "documentation": "Adiciona uma linha ao adorno de wireframe de um ponto de partida a um ponto de chegada relativo ao centro do <code>Adornee</code>.",
     "params": [
       {
         "name": "self",
@@ -52804,10 +52798,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/0": {
-    "documentation": "Renderiza um adorno de wireframe consistindo de uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
+    "documentation": "Renderiza um adorno de wireframe consistindo em uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/1": {
-    "documentation": "Array de pontos <code>Vector3</code> em que cada par atua como um ponto de partida e um ponto final para uma linha."
+    "documentation": "Array de pontos <code>Vector3</code> em que cada par atua como um ponto de partida e um ponto de chegada para uma linha."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines": {
     "documentation": "Adiciona uma ou mais linhas ao adorno de wireframe usando um array.",
@@ -52826,13 +52820,13 @@
     "code_sample": "local wireframe = script.Parent\n\nlocal linesArray = {\n\tVector3.new(-10, 0, 0), -- Ponto de partida da primeira linha\n\tVector3.new(10, 0, 0), -- Ponto final da primeira linha\n\tVector3.new(0, -10, 0), -- Ponto de partida da segunda linha\n\tVector3.new(0, 10, 0), -- Ponto final da segunda linha\n\tVector3.new(0, 0, -10), -- Ponto de partida da terceira linha\n\tVector3.new(0, 0, 10) -- Ponto final da terceira linha\n}\n-- Aplique o caminho ao adorno\nwireframe:AddLines(linesArray)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/0": {
-    "documentation": "Renderiza um adorno de wireframe consistindo de uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
+    "documentation": "Renderiza um adorno de wireframe consistindo em uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/1": {
-    "documentation": "Array de pontos <code>Vector3</code> para conectar em sequência com segmentos de linha."
+    "documentation": "Array de pontos <code>Vector3</code> a serem conectados em sequência com segmentos de linha."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/2": {
-    "documentation": "Se o caminho está fechado conectando seu ponto final ao seu ponto de partida com uma linha adicional."
+    "documentation": "Se o caminho é fechado conectando seu ponto de chegada ao seu ponto de partida com uma linha adicional."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath": {
     "documentation": "Adiciona múltiplos segmentos de linha ao adorno de wireframe em uma sequência de ponto a ponto.",
@@ -52855,7 +52849,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/0": {
-    "documentation": "Renderiza um adorno de wireframe consistindo de uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
+    "documentation": "Renderiza um adorno de wireframe consistindo em uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/1": {
     "documentation": "Posição do texto no adorno."
@@ -52891,7 +52885,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear/param/0": {
-    "documentation": "Renderiza um adorno de wireframe consistindo de uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
+    "documentation": "Renderiza um adorno de wireframe consistindo em uma ou mais linhas em um <code>BasePart</code> (incluindo <code>Terrain</code>) ou dentro do <code>Workspace</code>."
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear": {
     "documentation": "Limpa instantaneamente todas as linhas e texto no adorno de wireframe.",
@@ -53581,7 +53575,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BlockMesh": {
-    "documentation": "O objeto BlockMesh aplica uma malha de 'tijolo' ao <code>BasePart</code> ao qual está anexado. Ele se comporta idêntico a um <code>SpecialMesh</code> com <code>SpecialMesh.MeshType</code> definido como 'Tijolo'.",
+    "documentation": "O objeto BlockMesh aplica uma malha 'tijolo' ao <code>BasePart</code> ao qual está pai. Comporta-se de forma idêntica a um <code>SpecialMesh</code> com <code>SpecialMesh.MeshType</code> definido como 'Tijolo'.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
@@ -53917,7 +53911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint": {
-    "documentation": "Simula o comportamento de mola e amortecedor entre dois componentes.",
+    "documentation": "Simula o comportamento de mola e amortecedor entre dois anexos.",
     "keys": {
       "Coils": "@roblox/globaltype/SpringConstraint.Coils",
       "CurrentLength": "@roblox/globaltype/SpringConstraint.CurrentLength",
@@ -53935,22 +53929,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Coils": {
-    "documentation": "O número de espirais visualizadas no <code>SpringConstraint</code>.",
+    "documentation": "O número de espiras visualizadas no <code>SpringConstraint</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Coils",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.CurrentLength": {
-    "documentation": "A distância atual entre os <code>Attachments</code> da restrição.",
+    "documentation": "A distância atual entre o(s) <code>Attachments</code> do constraint.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#CurrentLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Damping": {
-    "documentation": "Constante de amortecimento para o <code>SpringConstraint</code>. Multiplicado à velocidade dos <code>Attachments</code> da restrição para reduzir a força da mola aplicada.",
+    "documentation": "Constante de amortecimento para o <code>SpringConstraint</code>. Multiplicada à velocidade do(s) <code>Attachments</code> do constraint para reduzir a força da mola aplicada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Damping",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.FreeLength": {
-    "documentation": "Comprimento natural de descanso da mola.",
+    "documentation": "Comprimento de repouso natural da mola.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#FreeLength",
     "code_sample": ""
   },
@@ -53960,32 +53954,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MaxForce": {
-    "documentation": "A força máxima que o <code>SpringConstraint</code> pode aplicar em seus <code>Attachments</code>.",
+    "documentation": "A força máxima que o <code>SpringConstraint</code> pode aplicar em seu(s) <code>Attachments</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MaxLength": {
-    "documentation": "A separação máxima que o SpringConstraint permitirá se <code>LimitsEnabled</code> for verdadeiro.",
+    "documentation": "A separação máxima que o SpringConstraint permitirá se <code>LimitsEnabled</code> estiver habilitado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MaxLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MinLength": {
-    "documentation": "A separação mínima que o SpringConstraint permitirá se <code>LimitsEnabled</code> for verdadeiro.",
+    "documentation": "A separação mínima que o SpringConstraint permitirá se <code>LimitsEnabled</code> estiver habilitado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MinLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Radius": {
-    "documentation": "O raio visualizado das espirais da mola.",
+    "documentation": "O raio visualizado das espiras da mola.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Stiffness": {
-    "documentation": "A força da mola. Quanto maior este valor, mais força será aplicada quando os componentes estiverem separados a um comprimento diferente do <code>FreeLength</code>.",
+    "documentation": "A força da mola. Quanto maior esse valor, mais força será aplicada quando os anexos estiverem separados por um comprimento diferente do que <code>FreeLength</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Stiffness",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Thickness": {
-    "documentation": "A espessura visualizada das espirais da mola.",
+    "documentation": "A espessura visualizada das espiras da mola.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Thickness",
     "code_sample": ""
   },
@@ -54476,7 +54470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualGlue": {
-    "documentation": "<strong>Deprecated:</strong> <br>ManualGlue é um conjunto criado de maneira semelhante à classe <code>ManualWeld</code>. Ele funciona de forma idêntica à classe <code>Glue</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>ManualGlue é uma junta criada de maneira semelhante à classe <code>ManualWeld</code> . Ela funciona de forma idêntica à classe <code>Glue</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualGlue",
     "code_sample": ""
@@ -56444,7 +56438,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce": {
-    "documentation": "Aplica uma força ao longo da linha teórica que conecta seus dois <code>Attachments</code>.",
+    "documentation": "Aplica uma força ao longo da linha teórica conectando suas duas <code>Attachments</code>.",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/LineForce.ApplyAtCenterOfMass",
       "InverseSquareLaw": "@roblox/globaltype/LineForce.InverseSquareLaw",
@@ -56471,12 +56465,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.MaxForce": {
-    "documentation": "A força máxima absoluta que pode ser aplicada.",
+    "documentation": "Força absoluta máxima que pode ser aplicada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ReactionForceEnabled": {
-    "documentation": "Habilita uma força de reação igual e oposta sobre o pai de <code>Attachment1</code>.",
+    "documentation": "Habilita uma força reativa igual e oposta no pai de <code>Attachment1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ReactionForceEnabled",
     "code_sample": ""
   },
@@ -56844,7 +56838,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.DoubleSided": {
-    "documentation": "Determina se renderiza ambas as faces dos polígonos na malha.",
+    "documentation": "Determina se ambos os lados dos polígonos na malha devem ser renderizados.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#DoubleSided",
     "code_sample": ""
   },
@@ -56864,12 +56858,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshContent": {
-    "documentation": "A malha que é exibida no <code>MeshPart</code>. Suporta <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> e objetos <code>EditableMesh</code>.",
+    "documentation": "A malha que é exibida no <code>MeshPart</code>. Suporta <a href=\"../../../projects/assets/index.md#asset-uris\">URIs de ativos</a> e objetos <code>EditableMesh</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshId": {
-    "documentation": "Os <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> da malha que é exibida no <code>MeshPart</code>. Lê e escreve em <code>MeshContent</code>.",
+    "documentation": "Os <a href=\"../../../projects/assets/index.md#asset-uris\">URIs de ativos</a> da malha que é exibida no <code>MeshPart</code>. Lê e escreve em <code>MeshContent</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshId",
     "code_sample": ""
   },
@@ -56879,7 +56873,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureContent": {
-    "documentation": "A textura aplicada ao <code>MeshPart</code>. Suporta <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> e objetos <code>EditableImage</code>.",
+    "documentation": "A textura aplicada ao <code>MeshPart</code>. Suporta <a href=\"../../../projects/assets/index.md#asset-uris\">URIs de ativos</a> e objetos <code>EditableImage</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureContent",
     "code_sample": ""
   },
@@ -56895,7 +56889,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MeshPart.ApplyMesh": {
-    "documentation": "Sobrescreve as propriedades <code>MeshContent</code>, <code>TextureContent</code> e geometria de colisão nesta <code>MeshPart</code> a partir do <code>meshPart</code> fonte fornecido.",
+    "documentation": "Sobrescreve o <code>MeshContent</code>, <code>TextureContent</code>, e as propriedades da geometria de colisão deste <code>MeshPart</code> a partir do <code>meshPart</code> fonte dado.",
     "params": [
       {
         "name": "self",
@@ -58840,7 +58834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition": {
-    "documentation": "Restrição que aplica força para mover dois anexos juntos, ou para mover um anexo para uma posição alvo.",
+    "documentation": "Restrição que aplica força para mover duas conexões juntas, ou para mover uma conexão para uma posição alvo.",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass",
       "ForceLimitMode": "@roblox/globaltype/AlignPosition.ForceLimitMode",
@@ -58858,37 +58852,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass": {
-    "documentation": "Se a força é aplicada ao pai de <code>Attachment0</code> na localização desse anexo, ou no centro de massa dos pais.",
+    "documentation": "Se a força é aplicada ao pai de <code>Attachment0</code> na localização dessa conexão, ou no centro de massa dos pais.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceLimitMode": {
-    "documentation": "Determina como a força da restrição será limitada. Apenas utilizado se <code>RigidityEnabled</code> for <code>false</code>.",
+    "documentation": "Determina como a força da restrição será limitada. Usado somente se <code>RigidityEnabled</code> for <code>false</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceLimitMode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceRelativeTo": {
-    "documentation": "Determina os eixos que a restrição usa para limitar a força. Apenas aplica quando <code>RigidityEnabled</code> é <code>false</code> e <code>AlignPosition.ForceLimitMode</code> é <code>PerAxis</code>. .",
+    "documentation": "Determina os eixos que a restrição usa para limitar a força. Aplica-se apenas quando <code>RigidityEnabled</code> for <code>false</code> e <code>AlignPosition.ForceLimitMode</code> for <code>PerAxis</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceRelativeTo",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxAxesForce": {
-    "documentation": "Força máxima ao longo de cada eixo que a restrição pode aplicar para atingir seu objetivo.",
+    "documentation": "Força máxima ao longo de cada eixo que a restrição pode aplicar para alcançar seu objetivo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxForce": {
-    "documentation": "Magnitude máxima da força que a restrição pode aplicar para atingir seu objetivo.",
+    "documentation": "Magnitude máxima da força que a restrição pode aplicar para alcançar seu objetivo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxVelocity": {
-    "documentation": "Velocidade máxima que os anexos podem mover ao convergir.",
+    "documentation": "Velocidade máxima que as conexões podem mover ao convergir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Mode": {
-    "documentation": "Se a restrição usa um ou dois anexos ao calcular seu objetivo.",
+    "documentation": "Se a restrição usa uma ou duas conexões para calcular seu objetivo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Mode",
     "code_sample": ""
   },
@@ -58898,12 +58892,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ReactionForceEnabled": {
-    "documentation": "Se a restrição aplica força apenas a <code>Attachment0</code>, ou a ambos os anexos em direções iguais e opostas.",
+    "documentation": "Se a restrição aplica força apenas em <code>Attachment0</code>, ou em ambas as conexões em direções opostas e iguais.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ReactionForceEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Responsiveness": {
-    "documentation": "Controla quão rapidamente a restrição atinge seu objetivo. Valores mais altos fazem com que o(s) anexo(s) se alinhem mais rapidamente.",
+    "documentation": "Controla quão rapidamente a restrição atinge seu objetivo. Valores mais altos fazem as conexões se alinhar mais rapidamente.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Responsiveness",
     "code_sample": ""
   },
@@ -59504,7 +59498,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualWeld": {
-    "documentation": "<strong>Deprecated:</strong> <br>Une os dois objetos juntos e funciona de forma idêntica a <code>Weld</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mantém duas partes juntas e funciona de forma idêntica a <code>Weld</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualWeld",
     "code_sample": ""
@@ -65792,7 +65786,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.LimitsEnabled": {
-    "documentation": "Determina se o movimento angular dos eixos principais das conexões está limitado.",
+    "documentation": "Determina se o movimento angular dos eixos primários das conexões é limitado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#LimitsEnabled",
     "code_sample": ""
   },
@@ -70953,7 +70947,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Glue": {
-    "documentation": "<strong>Deprecated:</strong> Este tipo de junta foi desaprovado e não deve ser usado em novos trabalhos.<br>A Cola é um tipo de junta que pode se romper quando uma força suficiente é aplicada.",
+    "documentation": "<strong>Deprecated:</strong> Este tipo de junta foi descontinuado e não deve ser usado em novos trabalhos.<br>A cola é um tipo de junta que pode quebrar quando força suficiente é aplicada.",
     "keys": {
       "F0": "@roblox/globaltype/Glue.F0",
       "F1": "@roblox/globaltype/Glue.F1",
@@ -70964,22 +70958,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Glue.F0": {
-    "documentation": "Determina a face de uma <code>Glue</code>.",
+    "documentation": "Determina a face de um <code>Glue</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Glue#F0",
     "code_sample": ""
   },
   "@roblox/globaltype/Glue.F1": {
-    "documentation": "Determina a face de uma <code>Glue</code>.",
+    "documentation": "Determina a face de um <code>Glue</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Glue#F1",
     "code_sample": ""
   },
   "@roblox/globaltype/Glue.F2": {
-    "documentation": "Determina a face de uma <code>Glue</code>.",
+    "documentation": "Determina a face de um <code>Glue</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Glue#F2",
     "code_sample": ""
   },
   "@roblox/globaltype/Glue.F3": {
-    "documentation": "Determina a face de uma <code>Glue</code>.",
+    "documentation": "Determina a face de um <code>Glue</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Glue#F3",
     "code_sample": ""
   },
@@ -72825,7 +72819,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C0": {
-    "documentation": "Determina como o ponto de deslocamento está preso a <code>JointInstance.Part0</code>.",
+    "documentation": "Determina como o ponto de deslocamento está anexado a <code>JointInstance.Part0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C0",
     "code_sample": ""
   },
@@ -72850,7 +72844,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.part1": {
-    "documentation": "<strong>Deprecated:</strong> Esta propriedade obsoleta é uma variante de <code>JointInstance.Part1</code> que deve ser usada em seu lugar.",
+    "documentation": "<strong>Deprecated:</strong> Esta propriedade depreciada é uma variante de <code>JointInstance.Part1</code> que deve ser usada em seu lugar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#part1",
     "code_sample": ""
   },
@@ -74418,7 +74412,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
-    "documentation": "<code>SpawnLocations</code>, ou \"spawns\", determinam onde um <code>Player</code> renasce quando morre. Eles podem ser configurados para permitir apenas certos jogadores a usarem cada spawn, usando <code>Teams</code>. Eles também controlam como <code>ForceFields</code> são configurados para jogadores recém-renascidos.",
+    "documentation": "<code>SpawnLocations</code>, ou \"spawns\" determinam onde um <code>Player</code> renasce quando morre. Eles podem ser configurados para permitir que apenas certos jogadores usem cada spawn, usando <code>Teams</code>. Eles também controlam como <code>ForceFields</code> são configurados para jogadores que recém-renasceram.",
     "keys": {
       "AllowTeamChangeOnTouch": "@roblox/globaltype/SpawnLocation.AllowTeamChangeOnTouch",
       "Duration": "@roblox/globaltype/SpawnLocation.Duration",
@@ -74430,27 +74424,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.AllowTeamChangeOnTouch": {
-    "documentation": "Permite que um <code>Player</code> se junte ao time ao tocar na <code>SpawnLocation</code>. Quando configurado como verdadeiro, se um personagem <code>Player</code> entrar em contato com o <code>SpawnLocation</code>, a <code>Player.TeamColor</code> do jogador será configurada para <code>SpawnLocation.TeamColor</code>.",
+    "documentation": "Permite que um <code>Player</code> junte-se à equipe tocando o <code>SpawnLocation</code>. Quando configurado como verdadeiro, se um personagem de <code>Player</code>  entrar em contato com o <code>SpawnLocation</code>, a <code>Player.TeamColor</code> do jogador será definida como <code>SpawnLocation.TeamColor</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#AllowTeamChangeOnTouch",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.Duration": {
-    "documentation": "O tempo, em segundos, que um <code>ForceField</code> será aplicado a um personagem <code>Player</code> renascendo neste <code>SpawnLocation</code>. Se a Duração for zero, o <code>ForceField</code> nunca é criado, e não acionará os eventos <code>Instance.DescendantAdded</code> ou <code>Instance.ChildAdded</code>.",
+    "documentation": "O tempo, em segundos, que um <code>ForceField</code> será aplicado a um <code>Player</code> renascendo neste <code>SpawnLocation</code>. Se a Duração for zero, o <code>ForceField</code> nunca é criado, e não ativará os eventos <code>Instance.DescendantAdded</code> ou <code>Instance.ChildAdded</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Duration",
     "code_sample": "local spawnLocation = Instance.new(\"SpawnLocation\")\nspawnLocation.Anchored = true\nspawnLocation.Size = Vector3.new(5, 1, 5)\nspawnLocation.Neutral = true -- qualquer um pode nascer aqui\nspawnLocation.Duration = 20\nspawnLocation.Parent = workspace"
   },
   "@roblox/globaltype/SpawnLocation.Enabled": {
-    "documentation": "Define se o <code>SpawnLocation</code> está habilitado ou não. Quando desabilitado, os jogadores não podem renascer no <code>SpawnLocation</code> e a funcionalidade AllowTeamChangeOnTouch é desabilitada.",
+    "documentation": "Define se o <code>SpawnLocation</code> está ativado ou não. Quando desativado,  os jogadores não podem renascer no <code>SpawnLocation</code> e a funcionalidade AllowTeamChangeOnTouch está desabilitada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Enabled",
     "code_sample": "local spawnLocation = Instance.new(\"SpawnLocation\")\nspawnLocation.Anchored = true\nspawnLocation.Size = Vector3.new(5, 1, 5)\nspawnLocation.Neutral = true -- qualquer um pode renascer aqui\nspawnLocation.Enabled = true\nspawnLocation.Parent = workspace\n\nlocal function onEnabledChanged()\n\tspawnLocation.Transparency = spawnLocation.Enabled and 0 or 0.5\nend\n\nspawnLocation:GetPropertyChangedSignal(\"Enabled\"):Connect(onEnabledChanged)\n\ntask.wait(5)\n\nspawnLocation.Enabled = false -- transparência = 0.5"
   },
   "@roblox/globaltype/SpawnLocation.Neutral": {
-    "documentation": "Se um <code>SpawnLocation</code> está afiliado a um time específico ou não. Isso significa que qualquer <code>Player</code>, de qualquer <code>Team</code>, pode renascer nele se esta propriedade estiver configurada como verdadeira.",
+    "documentation": "Se um <code>SpawnLocation</code> está afiliado a uma equipe específica ou não. Isso significa que qualquer <code>Player</code>, de qualquer <code>Team</code>, pode renascer nele se esta propriedade estiver configurada como verdadeira.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Neutral",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.TeamColor": {
-    "documentation": "Define a que time o <code>SpawnLocation</code> está afiliado. Se a propriedade <code>SpawnLocation.Neutral</code> for falsa, apenas <code>Players</code> com o mesmo <code>Player.TeamColor</code> que o TeamColor do spawn poderão renascer lá.",
+    "documentation": "Define a que equipe o <code>SpawnLocation</code> está afiliado. Se a propriedade <code>SpawnLocation.Neutral</code> for falsa, apenas <code>Players</code> com a mesma <code>Player.TeamColor</code> que a TeamColor do spawn poderão renascer lá.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#TeamColor",
     "code_sample": ""
   },
@@ -79559,7 +79553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Status": {
-    "documentation": "<strong>Deprecated:</strong> Status é um objeto inacabado projetado para armazenar status personalizados de <code>Humanoid</code>. Ele foi descontinuado e não deve ser utilizado por desenvolvedores em novos trabalhos. Desenvolvedores que buscam implementar status personalizados de <code>Humanoid</code> devem usar <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Controladores de Física do Personagem</a>, pois estão escritos em Luau e são facilmente extensíveis.<br>Um objeto inacabado que não oferece funcionalidade para os desenvolvedores.",
+    "documentation": "<strong>Deprecated:</strong> Status é um objeto incompleto projetado para armazenar <code>Humanoid</code> status personalizados. Ele foi descontinuado e não deve ser usado por desenvolvedores em novos trabalhos. Desenvolvedores que buscam implementar status <code>Humanoid</code> personalizados devem usar <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a>, pois estão escritos em Luau e são facilmente extensíveis.<br>Um objeto incompleto que não oferece funcionalidade para desenvolvedores.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Status",
     "code_sample": ""
@@ -79914,7 +79908,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint.Enabled": {
-    "documentation": "Determina se as duas <code>BaseParts</code> vinculadas colidirão entre si.",
+    "documentation": "Determina se as duas <code>BaseParts</code> ligadas irão colidir entre si.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NoCollisionConstraint#Enabled",
     "code_sample": ""
   },
@@ -80822,7 +80816,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint": {
-    "documentation": "Força suas duas conexões para a mesma posição e permite que elas girem livremente em torno de todos os três eixos, com limites opcionais para restringir tanto a inclinação quanto a torção.",
+    "documentation": "Força suas duas anexos na mesma posição e permite que eles girem livremente em todos os três eixos, com limites opcionais para restringir tanto a inclinação quanto as rotações.",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/BallSocketConstraint.LimitsEnabled",
       "MaxFrictionTorque": "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque",
@@ -80837,12 +80831,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.LimitsEnabled": {
-    "documentation": "Define se o <code>BallSocketConstraint</code> define um limite na rotação com base em <code>UpperAngle</code>.",
+    "documentation": "Define se o <code>BallSocketConstraint</code> define um limite na rotação baseado em <code>UpperAngle</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque": {
-    "documentation": "Define o torque de atrito máximo aplicado para manter seus <code>Attachments</code> alinhados.",
+    "documentation": "Define o torque de fricção máximo aplicado para manter seus <code>Attachments</code> alinhados.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#MaxFrictionTorque",
     "code_sample": ""
   },
@@ -80852,22 +80846,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.Restitution": {
-    "documentation": "Quão elásticos serão os <code>Attachments</code> conectados por um <code>BallSocketConstraint</code> quando chegarem ao final do alcance especificado por <code>UpperAngle</code> quando <code>LimitsEnabled</code> for <code>true</code>.",
+    "documentation": "Quão elásticos serão os <code>Attachments</code> conectados por um <code>BallSocketConstraint</code> quando atingirem o fim da faixa especificada por <code>UpperAngle</code> quando <code>LimitsEnabled</code> for <code>true</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLimitsEnabled": {
-    "documentation": "Define se o <code>BallSocketConstraint</code> define um limite na rotação de torção com base em <code>TwistUpperAngle</code> e <code>TwistLowerAngle</code>.",
+    "documentation": "Define se o <code>BallSocketConstraint</code> define um limite na rotação de torque baseado em <code>TwistUpperAngle</code> e <code>TwistLowerAngle</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLowerAngle": {
-    "documentation": "Define o limite inferior de rotação de torção do <code>BallSocketConstraint</code>, desde que <code>TwistLimitsEnabled</code> seja <code>true</code>.",
+    "documentation": "Define o limite inferior da rotação de torque do <code>BallSocketConstraint</code>, desde que <code>TwistLimitsEnabled</code> seja <code>true</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLowerAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistUpperAngle": {
-    "documentation": "Define o limite superior de rotação de torção do <code>BallSocketConstraint</code>, desde que <code>TwistLimitsEnabled</code> seja <code>true</code>.",
+    "documentation": "Define o limite superior da rotação de torque do <code>BallSocketConstraint</code>, desde que <code>TwistLimitsEnabled</code> seja <code>true</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistUpperAngle",
     "code_sample": ""
   },
@@ -81910,7 +81904,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PlaneConstraint": {
-    "documentation": "Move seus anexos para uma posição/orientação ao longo de um plano cujo vetor normal é o eixo primário de <code>Attachment0</code>.",
+    "documentation": "Move seus anexos para uma posição/orientação ao longo de um plano cujo vetor normal é o eixo principal de <code>Attachment0</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PlaneConstraint",
     "code_sample": ""
@@ -84357,7 +84351,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Duty": {
-    "documentation": "Controla quanto tempo o efeito permanecerá ativo durante uma oscilação de volume.",
+    "documentation": "Controla quanto tempo o efeito estará ativo durante uma oscilação de volume.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Duty",
     "code_sample": ""
   },
@@ -84372,7 +84366,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Skew": {
-    "documentation": "Desvios temporais do ciclo das oscilações de baixa frequência.",
+    "documentation": "Desloca o ciclo de oscilações de baixa frequência no tempo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Skew",
     "code_sample": ""
   },
@@ -89848,7 +89842,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Torque": {
-    "documentation": "Aplica torque constante a uma montagem a partir do seu centro de massa.",
+    "documentation": "Aplica torque constante a um conjunto a partir do seu centro de massa.",
     "keys": {
       "RelativeTo": "@roblox/globaltype/Torque.RelativeTo",
       "Torque": "@roblox/globaltype/Torque.Torque"
@@ -89867,7 +89861,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "Alinha dois <code>BaseParts</code> com uma articulação cinemática ou baseada em força animável.",
+    "documentation": "Alinha duas <code>BaseParts</code> com uma junta cinemática ou baseada em força animável.",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -89917,7 +89911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
-    "documentation": "Descreve o deslocamento atual da animação da junta <code>AnimationConstraint</code>.",
+    "documentation": "Descreve o deslocamento de animação atual da junta <code>AnimationConstraint</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Transform",
     "code_sample": ""
   },
@@ -90239,7 +90233,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BackpackItem.TextureContent": {
-    "documentation": "O ícone de textura que é exibido para uma ferramenta na mochila do jogador.",
+    "documentation": "O ícone de textura que é exibido para uma ferramenta na mochila do jogador. Apenas suporta URIs de ativos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BackpackItem#TextureContent",
     "code_sample": ""
   },
@@ -90274,7 +90268,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint": {
-    "documentation": "A classe base para restrições que permitem que seus anexos deslizem ao longo de um eixo, mas não girem.",
+    "documentation": "A classe base para restrições que permitem que suas fixações deslizem ao longo de um eixo, mas não girem.",
     "keys": {
       "ActuatorType": "@roblox/globaltype/SlidingBallConstraint.ActuatorType",
       "CurrentPosition": "@roblox/globaltype/SlidingBallConstraint.CurrentPosition",
@@ -90301,17 +90295,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.CurrentPosition": {
-    "documentation": "O deslocamento atual entre os anexos da restrição <code>Attachments</code>.",
+    "documentation": "O deslocamento atual entre as <code>Attachments</code> da restrição.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#CurrentPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LimitsEnabled": {
-    "documentation": "Define se o <code>SlidingBallConstraint</code> limitará a faixa de tradução.",
+    "documentation": "Define se o <code>SlidingBallConstraint</code> irá limitar a faixa de tradução.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LinearResponsiveness": {
-    "documentation": "Especifica a \"agudeza\" do motor de servo linear ao atingir a <code>TargetPosition</code>.",
+    "documentation": "Especifica a \"nitidez\" do motor servo linear ao alcançar o <code>TargetPosition</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LinearResponsiveness",
     "code_sample": ""
   },
@@ -90321,22 +90315,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxAcceleration": {
-    "documentation": "A aceleração máxima da restrição quando <code>ActuatorType</code> estiver definido como <code>Motor</code> enquanto a restrição tenta atingir sua <code>Velocity</code> desejada.",
+    "documentation": "A aceleração máxima da restrição quando <code>ActuatorType</code> está definido como <code>Motor</code>, enquanto a restrição tenta atingir sua <code>Velocity</code> desejada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxForce": {
-    "documentation": "A força máxima da restrição quando <code>ActuatorType</code> estiver definido como <code>Motor</code>, enquanto a restrição tenta atingir sua <code>Velocity</code> desejada.",
+    "documentation": "A força máxima da restrição quando <code>ActuatorType</code> está definido como <code>Motor</code>, enquanto a restrição tenta atingir sua <code>Velocity</code> desejada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Restitution": {
-    "documentation": "A elasticidade dos <code>Attachments</code> da restrição quando eles atingem o final da faixa especificada por <code>UpperLimit</code> e <code>LowerLimit</code>, assumindo que <code>LimitsEnabled</code> esteja definido como verdadeiro.",
+    "documentation": "A elasticidade das <code>Attachments</code> da restrição quando elas alcançam o final da faixa especificada por <code>UpperLimit</code> e <code>LowerLimit</code>, assumindo que <code>LimitsEnabled</code> está definido como verdadeiro.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ServoMaxForce": {
-    "documentation": "A força máxima da restrição quando <code>ActuatorType</code> estiver definido como <code>Servo</code>, enquanto a restrição tenta atingir sua <code>Speed</code> desejada.",
+    "documentation": "A força máxima da restrição quando <code>ActuatorType</code> está definido como <code>Servo</code>, enquanto a restrição tenta atingir sua <code>Speed</code> desejada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ServoMaxForce",
     "code_sample": ""
   },
@@ -90351,12 +90345,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Speed": {
-    "documentation": "A velocidade desejada da restrição quando <code>ActuatorType</code> estiver definido como <code>Servo</code>, enquanto a restrição traduz para sua <code>TargetPosition</code>. Medido em studs por segundo.",
+    "documentation": "A velocidade desejada da restrição quando <code>ActuatorType</code> está definido como <code>Servo</code>, enquanto a restrição se traduz em direção ao <code>TargetPosition</code>. Medido em studs por segundo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.TargetPosition": {
-    "documentation": "A posição alvo tentada da restrição quando <code>ActuatorType</code> estiver definida como <code>Servo</code>. Medido em studs.",
+    "documentation": "A posição alvo tentativa da restrição quando <code>ActuatorType</code> está definido como <code>Servo</code>. Medido em studs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#TargetPosition",
     "code_sample": ""
   },
@@ -90366,7 +90360,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Velocity": {
-    "documentation": "A velocidade tentada da restrição quando <code>ActuatorType</code> estiver definida como <code>Motor</code>. Medido em studs por segundo.",
+    "documentation": "A velocidade tentada da restrição quando <code>ActuatorType</code> está definido como <code>Motor</code>. Medido em studs por segundo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Velocity",
     "code_sample": ""
   },
@@ -90563,7 +90557,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Visible": {
-    "documentation": "Determina se este <code>GuiBase3d</code> object e seus descendentes serão exibidos.",
+    "documentation": "Determina se este objeto <code>GuiBase3d</code> e seus descendentes serão exibidos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Visible",
     "code_sample": ""
   },
@@ -92771,13 +92765,13 @@
     "documentation": "Especifica se o personagem retornado será R6 ou R15."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
-    "documentation": "A verificação do tipo de ativo determina se esta função carregará modelos ou não (Você deve definir isso como Sempre, a menos que deseje carregar ativos não catalogados)."
+    "documentation": "A verificação do tipo de ativo determina se esta função irá carregar modelos ou não. ⚠️&nbsp;O valor padrão para este parâmetro mudará de <code>ClientOnly</code> para <code>Always</code> após 20/10/2025. Veja <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">aqui</a> para detalhes."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
-    "documentation": "Um modelo de personagem Humanoid."
+    "documentation": "Um personagem <code>Humanoid</code> <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "Retorna um modelo de personagem equipado com tudo especificado na descrição de Humanoid passada, e é R6 ou R15 conforme especificado pelo rigType.",
+    "documentation": "Retorna um personagem <code>Model</code> equipado com tudo especificado em descrição <code>HumanoidDescription</code> passada.",
     "params": [
       {
         "name": "self",
@@ -93808,7 +93802,7 @@
     "code_sample": "local MemoryStoreService = game:GetService(\"MemoryStoreService\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal queue = MemoryStoreService:GetQueue(\"PlayerQueue\")\nlocal dataStore = DataStoreService:GetDataStore(\"PlayerStore\")\n\nwhile true do\n\tpcall(function()\n\t\t-- aguarde um item para processar\n\t\tlocal items, id = queue:ReadAsync(1, false, 30)\n\n\t\t-- verifique se um item foi recuperado\n\t\tif #items > 0 then\n\t\t\t-- marque o item como processado\n\t\t\tdataStore:UpdateAsync(items[0], function(data)\n\t\t\t\tdata = data or {}\n\t\t\t\tdata.processed = 1\n\t\t\t\treturn data\n\t\t\tend)\n\n\t\t\t-- remova o item da fila\n\t\t\tqueue:RemoveAsync(id)\n\t\tend\n\tend)\nend"
   },
   "@roblox/globaltype/WorldRoot": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D.",
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D.",
     "keys": {
       "ArePartsTouchingOthers": "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers",
       "Blockcast": "@roblox/globaltype/WorldRoot.Blockcast",
@@ -93836,19 +93830,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/1": {
-    "documentation": "Uma lista de partes que verifica se alguma parte na lista está tocando qualquer parte não na lista."
+    "documentation": "Uma lista de partes que verifica se alguma parte da lista está tocando partes que não estão na lista."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/2": {
-    "documentation": "O limite de sobreposição de partes em studs que é ignorado antes que as partes sejam consideradas como tocando."
+    "documentation": "O limite de sobreposição de partes em studs que é ignorado antes que as partes sejam consideradas como tocadas."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/return/0": {
-    "documentation": "Verdadeiro se e somente se qualquer um dos <code>parts</code> em <code>partList</code> estiver tocando qualquer outra parte (partes não na partList). Falso se nenhuma parte for passada."
+    "documentation": "Verdadeiro se e somente se qualquer um dos <code>parts</code> em <code>partList</code> estiver tocando outras partes (partes que não estão em partList). Falso se nenhuma parte for passada."
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers": {
-    "documentation": "Retorna verdadeiro se qualquer um dos <code>BasePart</code> fornecidos estiver tocando qualquer outra parte.",
+    "documentation": "Retorna verdadeiro se qualquer um dos <code>BasePart</code> fornecidos estiver tocando outras partes.",
     "params": [
       {
         "name": "self",
@@ -93870,7 +93864,7 @@
     "code_sample": "local part1 = Instance.new(\"Part\")\npart1.Name = \"Part1\"\npart1.Anchored = true\npart1.Transparency = 0.5\npart1.Color = Color3.fromRGB(185, 100, 38)\npart1.Size = Vector3.new(2, 2, 2)\npart1.Position = Vector3.new(0, 4, 0)\npart1.Parent = workspace\n\nlocal part2 = Instance.new(\"Part\")\npart2.Name = \"Part2\"\npart2.Anchored = true\npart2.Transparency = 0.5\npart2.Color = Color3.fromRGB(200, 10, 0)\npart2.Size = Vector3.new(2, 2, 2)\npart2.Position = Vector3.new(0, 5, 0)\npart2.Parent = workspace\n\nlocal partList = { part1 }\n\nprint(workspace:ArePartsTouchingOthers(partList, 0)) -- Verdadeiro\nprint(workspace:ArePartsTouchingOthers(partList, 0.999)) -- Verdadeiro\nprint(workspace:ArePartsTouchingOthers(partList, 1)) -- Falso"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/1": {
     "documentation": "A posição inicial e a rotação da forma de bloco lançada."
@@ -93879,16 +93873,16 @@
     "documentation": "O tamanho da forma de bloco lançada em studs. O tamanho máximo é 512 studs."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/3": {
-    "documentation": "Direção do lançamento da forma, com a magnitude representando a distância máxima que a forma pode percorrer. A distância máxima é 1024 studs."
+    "documentation": "Direção do lançamento, com a magnitude representando a distância máxima que a forma pode percorrer. A distância máxima é 1024 studs."
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Blockcast/return/0": {
-    "documentation": "Contém o resultado da operação de lançamento da forma, ou <code>nil</code> se nenhuma célula <code>BasePart</code> ou <code>Terrain</code> elegível foi atingida."
+    "documentation": "Contém o resultado da operação de lançamento, ou <code>nil</code> se nenhum <code>BasePart</code> ou célula de <code>Terrain</code> elegível foi atingido."
   },
   "@roblox/globaltype/WorldRoot.Blockcast": {
-    "documentation": "Lança uma forma de bloco em uma direção dada e retorna um <code>RaycastResult</code> se a forma atingir um <code>BasePart</code> ou célula de <code>Terrain</code>.",
+    "documentation": "Lança uma forma de bloco em uma direção específica e retorna um <code>RaycastResult</code> se a forma atingir um <code>BasePart</code> ou uma célula de <code>Terrain</code>.",
     "params": [
       {
         "name": "self",
@@ -93918,7 +93912,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/1": {
     "documentation": ""
@@ -93954,7 +93948,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/1": {
     "documentation": ""
@@ -93969,10 +93963,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/return/0": {
-    "documentation": "O <code>BasePart</code> ou célula de <code>Terrain</code> atingida, o ponto de interseção <code>Vector3</code>, a normal da superfície <code>Vector3</code> no ponto de interseção, e o <code>Material</code> do <code>BasePart</code> ou célula de terreno atingida."
+    "documentation": "O <code>BasePart</code> ou célula de <code>Terrain</code> atingido, o ponto <code>Vector3</code> de interseção, a normal da superfície <code>Vector3</code> no ponto de interseção e o <code>Material</code> do <code>BasePart</code> ou célula de terreno atingido."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> Esta função foi desaprovada. Use <code>WorldRoot:Raycast()</code> junto com <code>RaycastParams</code> para novos trabalhos.<br>Retorna o primeiro <code>BasePart</code> ou célula de <code>Terrain</code> que intersecta com o <code>Ray</code> dado.",
+    "documentation": "<strong>Deprecated:</strong> Esta função foi descontinuada. Use <code>WorldRoot:Raycast()</code> junto com <code>RaycastParams</code> para novos trabalhos.<br>Retorna o primeiro <code>BasePart</code> ou célula de <code>Terrain</code> que intersecta o <code>Ray</code> fornecido.",
     "params": [
       {
         "name": "self",
@@ -94002,7 +93996,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/1": {
     "documentation": ""
@@ -94017,10 +94011,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/return/0": {
-    "documentation": "O <code>BasePart</code> ou célula de <code>Terrain</code> atingida, o ponto de interseção <code>Vector3</code>, a normal da superfície <code>Vector3</code> no ponto de interseção, e o <code>Material</code> do <code>BasePart</code> ou célula de terreno atingida."
+    "documentation": "O <code>BasePart</code> ou célula de <code>Terrain</code> atingido, o ponto <code>Vector3</code> de interseção, a normal da superfície <code>Vector3</code> no ponto de interseção e o <code>Material</code> do <code>BasePart</code> ou célula de terreno atingido."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> Esta função foi desaprovada. Use <code>WorldRoot:Raycast()</code> junto com <code>RaycastParams</code> para novos trabalhos.<br>Retorna o primeiro <code>BasePart</code> ou célula de <code>Terrain</code> que intersecta com o <code>Ray</code> dado que não está em, nem é um descendente de um objeto na lista de exclusão dada.",
+    "documentation": "<strong>Deprecated:</strong> Esta função foi descontinuada. Use <code>WorldRoot:Raycast()</code> junto com <code>RaycastParams</code> para novos trabalhos.<br>Retorna o primeiro <code>BasePart</code> ou célula de <code>Terrain</code> que intersecta o <code>Ray</code> fornecido que não está na lista de ignorar, nem é um descendente de um objeto na lista de ignorar dada.",
     "params": [
       {
         "name": "self",
@@ -94050,7 +94044,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/1": {
     "documentation": ""
@@ -94062,10 +94056,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/return/0": {
-    "documentation": "O <code>BasePart</code> ou célula de <code>Terrain</code> atingida, o ponto de interseção <code>Vector3</code>, a normal da superfície <code>Vector3</code> no ponto de interseção, e o <code>Material</code> do <code>BasePart</code> ou célula de terreno atingida."
+    "documentation": "O <code>BasePart</code> ou célula de <code>Terrain</code> atingido, o ponto <code>Vector3</code> de interseção, a normal da superfície <code>Vector3</code> no ponto de interseção e o <code>Material</code> do <code>BasePart</code> ou célula de terreno atingido."
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist": {
-    "documentation": "<strong>Deprecated:</strong> Esta função foi desaprovada. Use <code>WorldRoot:Raycast()</code> junto com <code>RaycastParams</code> para novos trabalhos.<br>Retorna o primeiro <code>BasePart</code> ou célula de <code>Terrain</code> que intersecta com o <code>Ray</code> dado que está em, ou é um descendente de um objeto na lista de inclusão dada.",
+    "documentation": "<strong>Deprecated:</strong> Esta função foi descontinuada. Use <code>WorldRoot:Raycast()</code> junto com <code>RaycastParams</code> para novos trabalhos.<br>Retorna o primeiro <code>BasePart</code> ou célula de <code>Terrain</code> que intersecta o <code>Ray</code> fornecido que está na lista de inclusão ou é um descendente de um objeto na lista de inclusão dada.",
     "params": [
       {
         "name": "self",
@@ -94091,7 +94085,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/1": {
     "documentation": "A <code>Region3</code> a ser verificada."
@@ -94100,13 +94094,13 @@
     "documentation": "Uma <code>Instance</code> a ser ignorada."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/3": {
-    "documentation": "A quantidade máxima de <code>BaseParts</code> a ser retornada."
+    "documentation": "A quantidade máxima de <code>BaseParts</code> a serem retornadas."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/return/0": {
     "documentation": "Um array de <code>BaseParts</code> dentro da <code>Region3</code>."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> Esta função foi desaprovada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um array de <code>BaseParts</code> na <code>Region3</code> dada.",
+    "documentation": "<strong>Deprecated:</strong> Esta função foi descontinuada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um array de <code>BaseParts</code> na <code>Region3</code> dada.",
     "params": [
       {
         "name": "self",
@@ -94132,7 +94126,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/1": {
     "documentation": "A <code>Region3</code> a ser verificada."
@@ -94141,13 +94135,13 @@
     "documentation": "Um array de objetos a serem ignorados."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/3": {
-    "documentation": "A quantidade máxima de <code>BaseParts</code> a ser retornada."
+    "documentation": "O número máximo de <code>BaseParts</code> a serem retornados."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/return/0": {
     "documentation": "Um array de <code>BaseParts</code> encontrados dentro da <code>Region3</code>."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> Esta função foi desaprovada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um array de <code>BaseParts</code> na <code>Region3</code> dada que não estão em, ou não são descendentes de uma entrada na lista de exclusão dada.",
+    "documentation": "<strong>Deprecated:</strong> Esta função foi descontinuada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um array de <code>BaseParts</code> na <code>Region3</code> dada que não estão na lista de ignorar, nem são descendentes de uma entrada na lista de ignorar dada.",
     "params": [
       {
         "name": "self",
@@ -94173,22 +94167,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/1": {
     "documentation": "A <code>Region3</code> a ser verificada."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/2": {
-    "documentation": "Um array de objetos a serem checados."
+    "documentation": "Um array de objetos a serem verificados."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/3": {
-    "documentation": "A quantidade máxima de <code>BaseParts</code> a ser retornada."
+    "documentation": "O número máximo de <code>BaseParts</code> a serem retornados."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/return/0": {
     "documentation": "Um array de <code>BaseParts</code> dentro da <code>Region3</code>."
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList": {
-    "documentation": "<strong>Deprecated:</strong> Esta função foi desaprovada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um array de <code>BaseParts</code> na <code>Region3</code> dada que estão em, ou são descendentes de uma entrada na lista de inclusão dada.",
+    "documentation": "<strong>Deprecated:</strong> Esta função foi descontinuada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um array de <code>BaseParts</code> na <code>Region3</code> dada que estão na lista de inclusão ou são descendentes de uma entrada na lista de inclusão dada.",
     "params": [
       {
         "name": "self",
@@ -94214,22 +94208,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/1": {
-    "documentation": "A localização do centro do volume da caixa dada a ser consultada."
+    "documentation": "A localização do centro do volume da caixa fornecida a ser consultada."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/2": {
-    "documentation": "O tamanho do volume da caixa dada a ser consultada."
+    "documentation": "O tamanho do volume da caixa fornecida a ser consultada."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/3": {
     "documentation": "Contém partes reutilizáveis dos parâmetros da consulta espacial."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/return/0": {
-    "documentation": "Um array de <code>BaseParts</code> que corresponde à consulta espacial."
+    "documentation": "Um array de <code>BaseParts</code> que correspondem à consulta espacial."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox": {
-    "documentation": "Retorna um array de partes cujas <strong>caixas delimitadoras</strong> se sobrepõem a uma caixa dada.",
+    "documentation": "Retorna um array de partes cujos <strong>caixas de contorno</strong> se sobrepõem a uma caixa dada.",
     "params": [
       {
         "name": "self",
@@ -94255,22 +94249,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/1": {
-    "documentation": "A localização do centro do volume da esfera dada a ser consultada."
+    "documentation": "A localização do centro do volume da esfera fornecida a ser consultada."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/2": {
-    "documentation": "O raio do volume da esfera dada a ser consultada."
+    "documentation": "O raio do volume da esfera fornecida a ser consultada."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/3": {
     "documentation": "Contém partes reutilizáveis dos parâmetros da consulta espacial."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/return/0": {
-    "documentation": "Um array de <code>BaseParts</code> que corresponde à consulta espacial."
+    "documentation": "Um array de <code>BaseParts</code> que correspondem à consulta espacial."
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius": {
-    "documentation": "Retorna um array de partes cujas <strong>caixas delimitadoras</strong> se sobrepõem a uma esfera dada.",
+    "documentation": "Retorna um array de partes cujas <strong>caixas de contorno</strong> se sobrepõem a uma esfera dada.",
     "params": [
       {
         "name": "self",
@@ -94296,19 +94290,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/1": {
-    "documentation": "A parte cujo volume será verificado contra outras partes."
+    "documentation": "A parte cujo volume deve ser verificado em relação a outras partes."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/2": {
     "documentation": "Contém partes reutilizáveis dos parâmetros da consulta espacial."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/return/0": {
-    "documentation": "Um array de <code>BaseParts</code> que corresponde à consulta espacial."
+    "documentation": "Um array de <code>BaseParts</code> que correspondem à consulta espacial."
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart": {
-    "documentation": "Retorna um array de partes cuja espaço ocupado é compartilhado com a parte dada.",
+    "documentation": "Retorna um array de partes cujo espaço ocupado é compartilhado com a parte dada.",
     "params": [
       {
         "name": "self",
@@ -94330,25 +94324,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/1": {
-    "documentation": "A parte sendo movida."
+    "documentation": "A parte que está sendo movida."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/2": {
     "documentation": "A localização para mover a parte especificada."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/3": {
-    "documentation": "Um número entre 0 e 1 especificando quão agressivamente igualar a posição da parte à parte de posição do <code>CFrame</code> alvo."
+    "documentation": "Um número entre 0 e 1 que especifica quão agressivamente combinar a posição da parte com a parte da posição do <code>CFrame</code> alvo."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/4": {
-    "documentation": "Um número entre 0 e 1 especificando quão agressivamente igualar a rotação da parte à parte de rotação do <code>CFrame</code> alvo."
+    "documentation": "Um número entre 0 e 1 que especifica quão agressivamente combinar a rotação da parte com a parte da rotação do <code>CFrame</code> alvo."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/5": {
     "documentation": "Permite especificar quais objetos devem ser afetados pela resolução física."
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo": {
-    "documentation": "Move a parte especificada para a localização especificada via cinemática inversa em vez de movê-la diretamente, para garantir que quaisquer juntas, restrições ou colisões das quais a parte está participando permaneçam fisicamente satisfeitas.",
+    "documentation": "Move a parte especificada para a localização especificada através de cinemática inversa, em vez de movê-la diretamente, para garantir que quaisquer juntas, restrições ou colisões que a parte está participando permaneçam fisicamente satisfeitas.",
     "params": [
       {
         "name": "self",
@@ -94380,7 +94374,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/1": {
     "documentation": "A <code>Region3</code> a ser verificada."
@@ -94389,10 +94383,10 @@
     "documentation": "Uma <code>Instance</code> a ser ignorada."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/return/0": {
-    "documentation": "Verdadeiro se a <code>Region3</code> estiver vazia."
+    "documentation": "Verdadeiro se a <code>Region3</code> está vazia."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty": {
-    "documentation": "<strong>Deprecated:</strong> Esta função foi desaprovada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um bool indicando se não há <code>BaseParts</code> dentro da <code>Region3</code> dada.",
+    "documentation": "<strong>Deprecated:</strong> Esta função foi descontinuada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um bool indicando se não há <code>BaseParts</code> dentro da <code>Region3</code> dada.",
     "params": [
       {
         "name": "self",
@@ -94414,7 +94408,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/1": {
     "documentation": "A <code>Region3</code> a ser verificada."
@@ -94423,10 +94417,10 @@
     "documentation": "Um array de objetos a serem ignorados."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/return/0": {
-    "documentation": "Verdadeiro se a <code>Region3</code> estiver vazia."
+    "documentation": "Verdadeiro se a <code>Region3</code> está vazia."
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> Esta função foi desaprovada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um booleano indicando se não há <code>BaseParts</code> dentro da <code>Region3</code> dada, ignorando qualquer <code>BaseParts</code> que são descendentes dos objetos dentro da lista de exclusão dada.",
+    "documentation": "<strong>Deprecated:</strong> Esta função foi descontinuada. Use <code>WorldRoot:GetPartBoundsInBox()</code> junto com <code>OverlapParams</code> para novos trabalhos.<br>Retorna um booleano indicando se não há <code>BaseParts</code> dentro da <code>Region3</code> dada, ignorando quaisquer <code>BaseParts</code> que são descendentes dos objetos dentro da lista de ignorar dada.",
     "params": [
       {
         "name": "self",
@@ -94448,22 +94442,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/1": {
     "documentation": "O ponto de origem do raio."
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/2": {
-    "documentation": "O vetor direcional do raio. Note que o comprimento deste vetor importa, pois partes/terreno mais distantes que seu comprimento não serão testados."
+    "documentation": "O vetor direcional do raio. Observe que o comprimento deste vetor importa, pois partes/terreno mais distantes do que seu comprimento não serão testadas."
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/3": {
-    "documentation": "Um objeto usado para especificar a elegibilidade para impacto na operação de raycast. Se não fornecido, valores padrão são usados, onde todas as partes são consideradas e a água <code>Terrain</code> não é ignorada."
+    "documentation": "Um objeto usado para especificar elegibilidade de impacto na operação de raycast. Se não fornecido, valores padrão são usados, onde todas as partes são consideradas e água de <code>Terrain</code> não é ignorada."
   },
   "@roblox/globaltype/WorldRoot.Raycast/return/0": {
-    "documentation": "Contém os resultados de uma operação de raycast, ou <code>nil</code> se nenhuma célula <code>BasePart</code> ou <code>Terrain</code> elegível foi atingida."
+    "documentation": "Contém os resultados de uma operação de raycast, ou <code>nil</code> se nenhum <code>BasePart</code> ou célula de <code>Terrain</code> elegível foi atingido."
   },
   "@roblox/globaltype/WorldRoot.Raycast": {
-    "documentation": "Lança um raio usando uma origem, direção e <code>RaycastParams</code> opcionais, e retorna um <code>RaycastResult</code> se um objeto ou terreno elegível intersectar o raio.",
+    "documentation": "Lança um raio usando uma origem, direção e opcional <code>RaycastParams</code>, e então retorna um <code>RaycastResult</code> se um objeto ou terreno elegível intersectar o raio.",
     "params": [
       {
         "name": "self",
@@ -94489,7 +94483,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/1": {
     "documentation": ""
@@ -94530,7 +94524,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/1": {
     "documentation": "A posição inicial da forma esférica lançada."
@@ -94539,16 +94533,16 @@
     "documentation": "O raio da forma esférica lançada em studs. O raio máximo é 256 studs."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/3": {
-    "documentation": "Direção do lançamento da forma, com a magnitude representando a distância máxima que a forma pode percorrer. A distância máxima é 1024 studs."
+    "documentation": "Direção do lançamento, com a magnitude representando a distância máxima que a forma pode percorrer. A distância máxima é 1024 studs."
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/return/0": {
-    "documentation": "Contém o resultado da operação de lançamento da forma, ou <code>nil</code> se nenhuma célula <code>BasePart</code> ou <code>Terrain</code> elegível foi atingida."
+    "documentation": "Contém o resultado da operação de lançamento, ou <code>nil</code> se nenhuma célula <code>BasePart</code> ou <code>Terrain</code> elegível foi atingida."
   },
   "@roblox/globaltype/WorldRoot.Spherecast": {
-    "documentation": "Lança uma forma esférica em uma direção dada e retorna um <code>RaycastResult</code> se a forma atingiu um <code>BasePart</code> ou célula de <code>Terrain</code>.",
+    "documentation": "Lança uma forma esférica em uma direção dada e retorna um <code>RaycastResult</code> se a forma atingir um <code>BasePart</code> ou célula de <code>Terrain</code>.",
     "params": [
       {
         "name": "self",
@@ -94578,13 +94572,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/1": {
     "documentation": "A quantidade de tempo que será simulada. Este argumento deve ser um número positivo. Valores maiores aumentarão o tempo de execução desta função."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/2": {
-    "documentation": "Array opcional de partes que serão simuladas. Este conjunto deve conter instâncias do tipo <code>BasePart</code>; quaisquer outros tipos serão ignorados."
+    "documentation": "Array opcional de partes que serão simuladas. Este conjunto deve conter instâncias do tipo <code>BasePart</code>; qualquer outro tipo será ignorado."
   },
   "@roblox/globaltype/WorldRoot.StepPhysics": {
     "documentation": "Avança a simulação para partes no mundo com base em um incremento de tempo especificado e um conjunto opcional de <code>BaseParts</code>.",
@@ -94607,7 +94601,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/1": {
     "documentation": ""
@@ -94625,7 +94619,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> Esta função desaprovada é uma variante de <code>WorldRoot:FindPartOnRay()</code> que deve ser usada em vez disso.",
+    "documentation": "<strong>Deprecated:</strong> Esta função descontinuada é uma variante de <code>WorldRoot:FindPartOnRay()</code> que deve ser usada em vez disso.",
     "params": [
       {
         "name": "self",
@@ -94655,7 +94649,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/0": {
-    "documentation": "Classe base para manipulação de simulação de física e consultas espaciais 3D."
+    "documentation": "Classe base para manipular simulação de física e consultas espaciais 3D."
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/1": {
     "documentation": ""
@@ -94670,7 +94664,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> Esta função desaprovada é uma variante de <code>WorldRoot:FindPartsInRegion3()</code> que deve ser usada em vez disso.",
+    "documentation": "<strong>Deprecated:</strong> Esta função descontinuada é uma variante de <code>WorldRoot:FindPartsInRegion3()</code> que deve ser usada em vez disso.",
     "params": [
       {
         "name": "self",
@@ -96338,10 +96332,10 @@
     "documentation": "Solicita o <code>Player</code> dado com uma folha de compartilhamento de nível plataforma do Roblox com um link compartilhado gerado."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Dictionary</code> que especifica a configuração para o link gerado. Inclui os seguintes pares chave-valor opcionais: <ul> <li><code>FallbackLinkId</code> (string). Determina para onde esse link de compartilhamento   direcionará o jogador após expirar. Por padrão, vai para o link de entrada da experiência.</li> <li><code>ExpirationSeconds</code> (número). Determina o tempo para expiração assim que o   link de compartilhamento é criado. Truncado para o inteiro mais próximo.   Por padrão, é 86.400.</li> <li><code>PreviewTitle</code> (string) Título de pré-visualização do link de compartilhamento.</li> <li><code>PreiviewDescription</code> (string) Descrição de pré-visualização do link de compartilhamento.</li> <li><code>PreviewAssettId</code> (número) ID do ativo de imagem usado para a pré-visualização do   link de compartilhamento.</li> <li><code>LaunchData</code> (string). Usado para definir um parâmetro em   <code>Player:GetJoinData()</code> quando um jogador se junta usando o   link de compartilhamento gerado.</li> </ul>"
+    "documentation": "<code>Dictionary</code> que especifica a configuração para o link gerado. Inclui os seguintes pares de chave-valor opcionais: <ul> <li><code>FallbackLinkId</code> (string). Determina como este link de compartilhamento   direcionará o jogador uma vez expirado. Padrão é o link de entrar na experiência.</li> <li><code>ExpirationSeconds</code> (número). Determina o tempo para a expiração assim que o   link de compartilhamento é criado. Trunca para o inteiro mais próximo. O padrão é   86.400.</li> <li><code>PreviewTitle</code> (string) Título de pré-visualização do link de compartilhamento.</li> <li><code>PreviewDescription</code> (string) Descrição de pré-visualização do link de compartilhamento.</li> <li><code>PreviewAssetId</code> (número) ID do ativo de imagem usado para a pré-visualização do link de compartilhamento.</li> <li><code>LaunchData</code> (string). Usado para definir um parâmetro em   <code>Player:GetJoinData()</code> quando um jogador se junta usando o   link de compartilhamento gerado.</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": ""
+    "documentation": "Uma tupla contendo um <code>PromptLinkSharingResult</code> indicando o resultado do prompt de compartilhamento de link."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -122046,7 +122040,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.Unknown": {
-    "documentation": "Catch-all for all other disconnect reasons.",
+    "documentation": "Categorização para todas as outras razões de desconexão.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122056,7 +122050,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.PlatformKick": {
-    "documentation": "User was kicked by Roblox systems, such as being blocked while in a Private Server.",
+    "documentation": "Usuário foi expulso pelos sistemas Roblox, como sendo bloqueado enquanto em um Servidor Privado.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122066,7 +122060,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.CreatorKick": {
-    "documentation": "Creator called <strong>Player:Kick()</strong>",
+    "documentation": "Criador chamou <strong>Player:Kick()</strong>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122076,7 +122070,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PlayerExitReason": {
-    "documentation": "An enum that specifies the reason for <strong>Players.PlayerRemoving</strong> signal.",
+    "documentation": "Um enum que especifica a razão para o sinal <strong>Players.PlayerRemoving</strong>.",
     "keys": {
       "Unknown": "@roblox/enum/PlayerExitReason.Unknown",
       "PlatformKick": "@roblox/enum/PlayerExitReason.PlatformKick",
@@ -126848,7 +126842,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.Automatic": {
-    "documentation": "Comportamento padrão, atualmente equivalente a <strong>Desativado</strong>.",
+    "documentation": "Comportamento padrão, atualmente equivalente a <strong>Desabilitado</strong>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126858,7 +126852,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.StreamingMesh": {
-    "documentation": "Uma malha \"impostor\" de resolução mais baixa (malha colorida e grosseira que envolve todas as partes-filho do modelo) é renderizada fora do raio de streaming.",
+    "documentation": "Uma malha de \"imposter\" de resolução mais baixa (malha colorida e grossa que envolve todas as partes filhas do modelo) é renderizada fora do raio de streaming.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126878,7 +126872,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ModelLevelOfDetail": {
-    "documentation": "Controla o nível de detalhe para <code>Models</code> em experiências com streaming de instância habilitado.",
+    "documentation": "Controla o nível de detalhe para <code>Models</code> em experiências com streaming de instâncias habilitado.",
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
@@ -130765,7 +130759,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CorrodedMetal": {
-    "documentation": "Aplica-se a <code>BasePart</code> e <code>Terrain</code>.",
+    "documentation": "Aplica-se apenas a <code>BasePart</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

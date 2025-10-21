@@ -2802,7 +2802,7 @@
     "documentation": ""
   },
   "@roblox/global/Vector3.new": {
-    "documentation": "Returns a new <code>Vector3</code> from the given x, y, and z components.",
+    "documentation": "Returns a new <code>Vector3</code> from the given <code>x</code>, <code>y</code>, and <code>z</code> components.",
     "params": [
       {
         "name": "x",
@@ -2852,27 +2852,27 @@
     "code_sample": ""
   },
   "@roblox/global/Vector3.zero": {
-    "documentation": "A <code>Vector3</code> with a magnitude of zero.",
+    "documentation": "A <code>Vector3</code> with a magnitude of <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/global/Vector3.one": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on every axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on every axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/global/Vector3.xAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the X axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>X</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.yAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the Y axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>Y</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.zAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the Z axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>Z</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
@@ -2905,52 +2905,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zero": {
-    "documentation": "A <code>Vector3</code> with a magnitude of zero.",
+    "documentation": "A <code>Vector3</code> with a magnitude of <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.one": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on every axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on every axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.xAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the X axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>X</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.yAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the Y axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code>on the <strong>Y</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zAxis": {
-    "documentation": "A <code>Vector3</code> with a value of 1 on the Z axis.",
+    "documentation": "A <code>Vector3</code> with a value of <code>1</code> on the <strong>Z</strong> axis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.X": {
-    "documentation": "The x-coordinate of the Vector3.",
+    "documentation": "The <strong>X</strong> coordinate of the <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#X",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Y": {
-    "documentation": "The y-coordinate of the Vector3.",
+    "documentation": "The <strong>Y</strong> coordinate of the <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Z": {
-    "documentation": "The z-coordinate of the Vector3.",
+    "documentation": "The <strong>Z</strong> coordinate of the <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Z",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Magnitude": {
-    "documentation": "The length of the Vector3.",
+    "documentation": "The length of the <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Magnitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Unit": {
-    "documentation": "A normalized copy of the <code>Vector3</code> - one that has the same direction as the original but a magnitude of 1.",
+    "documentation": "A normalized copy of the <code>Vector3</code> - one that has the same direction as the original but a magnitude of <code>1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Unit",
     "code_sample": ""
   },
@@ -50586,7 +50586,7 @@
     "documentation": "<code>Instance</code> is the base class for all classes in the Roblox class hierarchy which can be part of the <code>DataModel</code> tree."
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "This function destroys all of an instance's children.",
+    "documentation": "This method destroys all of an instance's children.",
     "params": [
       {
         "name": "self",
@@ -51178,10 +51178,10 @@
     "documentation": "Name of the property to query."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean indicating whether the property is modified."
+    "documentation": "Boolean indicating whether the property is modified from its code‑instantiated default."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Returns <code>true</code> if the value stored in the specified property is equal to the code-instantiated default.",
+    "documentation": "Returns <code>true</code> if the value stored in the specified property is not equal to the code-instantiated default.",
     "params": [
       {
         "name": "self",
@@ -130759,7 +130759,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CorrodedMetal": {
-    "documentation": "Applies to <code>BasePart</code> and <code>Terrain</code>.",
+    "documentation": "Applies to <code>BasePart</code> only.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136579,6 +136579,7 @@
       "abs": "@roblox/global/vector.abs",
       "sign": "@roblox/global/vector.sign",
       "clamp": "@roblox/global/vector.clamp",
+      "lerp": "@roblox/global/vector.lerp",
       "max": "@roblox/global/vector.max",
       "min": "@roblox/global/vector.min",
       "zero": "@roblox/global/vector.zero",
@@ -136861,6 +136862,40 @@
       "@roblox/global/vector.clamp/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#clamp",
+    "code_sample": ""
+  },
+  "@roblox/global/vector.lerp/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/1": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/return/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp": {
+    "documentation": "Returns a vector linearly interpolated between two vectors by a fractional alpha.",
+    "params": [
+      {
+        "name": "vec1",
+        "documentation": "@roblox/global/vector.lerp/param/0"
+      },
+      {
+        "name": "vec2",
+        "documentation": "@roblox/global/vector.lerp/param/1"
+      },
+      {
+        "name": "alpha",
+        "documentation": "@roblox/global/vector.lerp/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/global/vector.lerp/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#lerp",
     "code_sample": ""
   },
   "@roblox/global/vector.max/param/0": {

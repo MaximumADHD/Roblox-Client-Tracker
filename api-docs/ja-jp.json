@@ -3893,7 +3893,7 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "<code>ValueCurve</code>インスタンスで使用される時間-値ペアです。",
     "keys": {
       "new": "@roblox/global/ValueCurveKey.new"
     },
@@ -3901,16 +3901,16 @@
     "code_sample": ""
   },
   "@roblox/global/ValueCurveKey.new/param/0": {
-    "documentation": "Time at which to create the new <code>ValueCurveKey</code>."
+    "documentation": "新しい<code>ValueCurveKey</code>を作成する時間。"
   },
   "@roblox/global/ValueCurveKey.new/param/1": {
-    "documentation": "Value of the new <code>ValueCurveKey</code>."
+    "documentation": "新しい<code>ValueCurveKey</code>の値。"
   },
   "@roblox/global/ValueCurveKey.new/param/2": {
     "documentation": ""
   },
   "@roblox/global/ValueCurveKey.new": {
-    "documentation": "Returns a new <code>ValueCurveKey</code> from the given time and value.",
+    "documentation": "指定された時間と値から新しい<code>ValueCurveKey</code>を返します。",
     "params": [
       {
         "name": "time",
@@ -3930,7 +3930,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey": {
-    "documentation": "A time-value pair used with <code>ValueCurve</code> instances.",
+    "documentation": "<code>ValueCurve</code>インスタンスで使用される時間-値ペアです。",
     "keys": {
       "Interpolation": "@roblox/globaltype/ValueCurveKey.Interpolation",
       "Time": "@roblox/globaltype/ValueCurveKey.Time",
@@ -3942,27 +3942,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Interpolation": {
-    "documentation": "The key interpolation mode for the segment started by this <code>ValueCurveKey</code>.",
+    "documentation": "この<code>ValueCurveKey</code>によって開始されるセグメントのキー補間モード。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Interpolation",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Time": {
-    "documentation": "The time position of this <code>ValueCurveKey</code>.",
+    "documentation": "この<code>ValueCurveKey</code>の時間位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Time",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.Value": {
-    "documentation": "The value of this <code>ValueCurveKey</code>.",
+    "documentation": "この<code>ValueCurveKey</code>の値。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#Value",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.RightTangent": {
-    "documentation": "The tangent to the right of this <code>ValueCurveKey</code>.",
+    "documentation": "この<code>ValueCurveKey</code>の右側の接線。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#RightTangent",
     "code_sample": ""
   },
   "@roblox/globaltype/ValueCurveKey.LeftTangent": {
-    "documentation": "The tangent to the left of this <code>ValueCurveKey</code>.",
+    "documentation": "この<code>ValueCurveKey</code>の左側の接線。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/ValueCurveKey#LeftTangent",
     "code_sample": ""
   },
@@ -8858,13 +8858,13 @@
     "documentation": "3D ワールドのビューを定義するクラスです。"
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/1": {
-    "documentation": ""
+    "documentation": "ビューポートにフィットさせるためのバウンディングボックスの中心と向きを表す<code>CFrame</code>。"
   },
   "@roblox/globaltype/Camera.ZoomToExtents/param/2": {
-    "documentation": ""
+    "documentation": "ビューポートにフィットさせるためのバウンディングボックスの<code>Vector3</code>サイズ。"
   },
   "@roblox/globaltype/Camera.ZoomToExtents": {
-    "documentation": "",
+    "documentation": "<code>CFrame</code>を調整して、指定されたバウンディング ボックスがカメラのビューポート内に完全に表示されるようにします。",
     "params": [
       {
         "name": "self",
@@ -11569,7 +11569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Snap": {
-    "documentation": "<strong>Deprecated:</strong> <br>2つのパーツを一緒に保持し、<code>Weld</code>と同様に機能します。",
+    "documentation": "<strong>Deprecated:</strong> <br><code>Weld</code>と同様に、2つのパーツを一緒に保持します。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Snap",
     "code_sample": ""
@@ -11693,7 +11693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint": {
-    "documentation": "2つの軸間の角度の動きを反対する回転スプリング。",
+    "documentation": "二つの軸の間の角度運動に対抗する回転スプリングです。",
     "keys": {
       "Coils": "@roblox/globaltype/TorsionSpringConstraint.Coils",
       "CurrentAngle": "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle",
@@ -11710,17 +11710,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Coils": {
-    "documentation": "制約のために視覚化されるコイルの数。",
+    "documentation": "制約のために視覚化されたコイルの数。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Coils",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.CurrentAngle": {
-    "documentation": "制限コーンの現在の角度（度）。",
+    "documentation": "制限コーンの現在の角度（度単位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#CurrentAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.Damping": {
-    "documentation": "<code>TorsionSpringConstraint</code>のダンピング定数。制約の<code>Attachments</code>の速度に掛け算して、適用されるスプリング力を減少させます。",
+    "documentation": "<code>TorsionSpringConstraint</code>の減衰定数。スプリング力を減少させるために制約の<code>Attachments</code>の速度に掛け算されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#Damping",
     "code_sample": ""
   },
@@ -11730,7 +11730,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.LimitsEnabled": {
-    "documentation": "取り付け部分の二次軸の相対的な角運動をコーン制約を介して制限します。",
+    "documentation": "取り付けの二次軸の相対的な角運動をコーン制約を通じて制限します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
@@ -11740,7 +11740,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TorsionSpringConstraint.MaxTorque": {
-    "documentation": "トーションスプリングが提供する最大許容トルク。",
+    "documentation": "トーションスプリングによって提供される最大トルク。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TorsionSpringConstraint#MaxTorque",
     "code_sample": ""
   },
@@ -16553,7 +16553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh": {
-    "documentation": "<code>SpecialMesh</code> オブジェクトは、<code>BasePart</code> に対してメッシュを適用します。これは、<code>MeshType</code> プロパティに依存します。",
+    "documentation": "<code>SpecialMesh</code> オブジェクトは、<code>BasePart</code> にメッシュを適用します。 これは <code>MeshType</code> プロパティに依存します。",
     "keys": {
       "MeshType": "@roblox/globaltype/SpecialMesh.MeshType"
     },
@@ -16561,7 +16561,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpecialMesh.MeshType": {
-    "documentation": "<code>SpecialMesh</code> が親される <code>BasePart</code> に適用されるメッシュのタイプを決定します。",
+    "documentation": "<code>SpecialMesh</code> が親付けされている <code>BasePart</code> に適用されるメッシュのタイプを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpecialMesh#MeshType",
     "code_sample": ""
   },
@@ -18786,10 +18786,10 @@
     "documentation": "キャラクターの機能をモデルに提供する特別なオブジェクトです。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "キャラクターが一致させることを希望する <code>HumanoidDescription</code> インスタンスです。"
+    "documentation": "設定したい <code>HumanoidDescription</code> インスタンスで、キャラクターの見た目を合わせます。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ このパラメータのデフォルト値は、2025年10月20日以降に <code>ClientOnly</code> から <code>Always</code> に変更されます。詳細については <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">こちら</a>を参照してください。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
     "documentation": "キャラクターの外観を渡された <code>HumanoidDescription</code> に一致させます。",
@@ -18818,7 +18818,7 @@
     "documentation": "キャラクターが一致させることを希望する <code>HumanoidDescription</code> インスタンスです。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
-    "documentation": ""
+    "documentation": "⚠️ このパラメータのデフォルト値は、2025年10月20日以降に <code>ClientOnly</code> から <code>Always</code> に変更されます。詳細については <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">こちら</a>を参照してください。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
     "documentation": "キャラクターの外観を渡された <code>HumanoidDescription</code> に一致させます。外部の変更があっても。",
@@ -22623,7 +22623,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateV": {
-    "documentation": "<strong>Deprecated:</strong> このクラスは非推奨の <code>SurfaceType</code> と一緒に動作し、今後の作業には使用しないでください。代わりに <code>HingeConstraint</code> を使用してください。",
+    "documentation": "<strong>Deprecated:</strong> このクラスは非推奨の <code>SurfaceType</code> と一緒に作動し、今後の作業には使用すべきではありません。代わりに <code>HingeConstraint</code> を使用してください。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateV",
     "code_sample": ""
@@ -23452,7 +23452,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapTextureTransfer": {
-    "documentation": "<code>WrapTextureTransfer</code> は、親 <code>Decal</code> をその親 <code>MeshPart</code> の周りにラップすることを可能にします。 その <code>WrapTarget</code> のケージに基づいています。",
+    "documentation": "<code>WrapTextureTransfer</code>は、親の<code>Decal</code>がその親の<code>MeshPart</code>の周囲にラップされることを可能にします。 その<code>WrapTarget</code>のケージに基づいています。",
     "keys": {
       "ReferenceCageMeshContent": "@roblox/globaltype/WrapTextureTransfer.ReferenceCageMeshContent",
       "UVMaxBound": "@roblox/globaltype/WrapTextureTransfer.UVMaxBound",
@@ -23568,7 +23568,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldModel": {
-    "documentation": "<code>ViewportFrame</code>の親に対して、その子に限定された物理を拡張します。",
+    "documentation": "<code>ViewportFrame</code> に対してその子供のために制限付き物理を拡張します。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WorldModel",
     "code_sample": ""
@@ -24570,7 +24570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint": {
-    "documentation": "ロープの動力学をシミュレートし、2つのアタッチメントが定義された長さを超えて分離するのを防ぎます。",
+    "documentation": "ロープダイナミクスをシミュレートし、2つのアタッチメントが定義された長さ以上に分離するのを防ぎます。",
     "keys": {
       "CurrentDistance": "@roblox/globaltype/RopeConstraint.CurrentDistance",
       "Length": "@roblox/globaltype/RopeConstraint.Length",
@@ -24586,22 +24586,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.CurrentDistance": {
-    "documentation": "制約の<code>Attachments</code>間の現在の距離。",
+    "documentation": "制約の間の現在の距離です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#CurrentDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Length": {
-    "documentation": "2つの<code>Attachments</code>が分離できる最大距離。",
+    "documentation": "2つの <code>Attachments</code> の間の最大距離です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Restitution": {
-    "documentation": "最大定義された<code>Length</code>に達したときの、制約によって接続された<code>Attachments</code>の弾性。0と1の間に制約されています。",
+    "documentation": "最大定義された <code>Length</code> に達したときに制約で接続された <code>Attachments</code> の弾性です。0から1の間に制約されています。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.Thickness": {
-    "documentation": "<code>RopeConstraint</code>の視覚的な厚さ。",
+    "documentation": "<code>RopeConstraint</code> の視覚化された厚さです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#Thickness",
     "code_sample": ""
   },
@@ -24611,22 +24611,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchForce": {
-    "documentation": "ウインチモーターが適用できる最大の力。",
+    "documentation": "ウインチモーターが適用できる最大の力です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchForce",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchResponsiveness": {
-    "documentation": "<code>WinchTarget</code>に達する際のウインチモーターの鋭さ。",
+    "documentation": "<code>WinchTarget</code> に到達する際のウインチモーターの鋭さです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchSpeed": {
-    "documentation": "ウインチモーターがロープの長さを変化させる際の、正の希望速度。",
+    "documentation": "ウインチモーターがロープの長さを変更するための正の希望速度です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/RopeConstraint.WinchTarget": {
-    "documentation": "ウインチモーターの目標長さ。",
+    "documentation": "ウインチモーターのターゲット長です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RopeConstraint#WinchTarget",
     "code_sample": ""
   },
@@ -25421,7 +25421,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。",
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。",
     "keys": {
       "AirDensity": "@roblox/globaltype/Workspace.AirDensity",
       "AirTurbulenceIntensity": "@roblox/globaltype/Workspace.AirTurbulenceIntensity",
@@ -25463,7 +25463,6 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
-      "UseImprovedModelLod": "@roblox/globaltype/Workspace.UseImprovedModelLod",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
@@ -25480,17 +25479,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirDensity": {
-    "documentation": "地上レベルの空気密度であり、空気力学的力モデルで使用されます。",
+    "documentation": "地面レベルでの空気密度で、空力力モデルで使用されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirDensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "風速場に存在する乱流の強さを制御し、空気力学的力モデルに影響します。",
+    "documentation": "風速場に存在する乱流の強度を制御し、空力力モデルに影響を与えます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AllowThirdPartySales": {
-    "documentation": "他のユーザーが作成したアセットをゲーム内で販売できるかどうかを決定します。",
+    "documentation": "他のユーザーによって作成されたアセットがゲーム内で販売できるかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AllowThirdPartySales",
     "code_sample": ""
   },
@@ -25505,17 +25504,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ClientAnimatorThrottling": {
-    "documentation": "ローカルクライアントのアニメーショントロットリングモードを指定します。",
+    "documentation": "ローカルクライアントのアニメーションスロットルモードを指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ClientAnimatorThrottling",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.CurrentCamera": {
-    "documentation": "ローカルプレイヤーが使用している <code>Camera</code> オブジェクトです。",
+    "documentation": "ローカルプレイヤーが使用している <code>Camera</code> オブジェクト。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#CurrentCamera",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.DistributedGameTime": {
-    "documentation": "ゲームが実行されている時間（秒単位）です。",
+    "documentation": "ゲームが実行されていた合計時間（秒単位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
     "code_sample": ""
   },
@@ -25525,32 +25524,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallenPartsDestroyHeight": {
-    "documentation": "落下する <code>BaseParts</code> とその祖先 <code>Models</code> が <code>Workspace</code> から削除される高さを決定します。",
+    "documentation": "落下する <code>BaseParts</code> とその親 <code>Models</code> が <code>Workspace</code> から削除される高さを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallenPartsDestroyHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>クライアントから行われた変更がサーバーに複製されるかどうかを決定します。",
+    "documentation": "<strong>Deprecated:</strong> <br>クライアントからの変更がサーバーに複製されるかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FluidForces": {
-    "documentation": "物理エンジンが <code>BaseParts</code> の <code>EnableFluidForces</code> プロパティが true の場合、空気力学的力を計算するかどうかを決定します。",
+    "documentation": "物理エンジンが、 <code>BaseParts</code> の <code>EnableFluidForces</code> プロパティが true の場合に空力力を計算するかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FluidForces",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GlobalWind": {
-    "documentation": "アニメーションされた地形の草、動的な雲、パーティクルのためのグローバル風ベクトルを指定します。",
+    "documentation": "アニメーションされた地形草、動的雲、および粒子のためのグローバル風ベクトルを指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#GlobalWind",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Gravity": {
-    "documentation": "落下する <code>BaseParts</code> に適用される重力加速度を決定します。",
+    "documentation": "落下中の <code>BaseParts</code> に適用される重力による加速度を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Gravity",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.IKControlConstraintSupport": {
-    "documentation": "IKControls のための制約のサポートを有効にします。無効にすると、IKControls は物理制約を無視します。",
+    "documentation": "IKControls の制約サポートを有効にします。無効にすると、IKControls は 物理制約を無視します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
@@ -25560,7 +25559,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.InterpolationThrottling": {
-    "documentation": "<strong>Deprecated:</strong> このプロパティは新しい作業には使用しないでください。",
+    "documentation": "<strong>Deprecated:</strong> このプロパティは新しい作業に使用すべきではありません。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InterpolationThrottling",
     "code_sample": ""
   },
@@ -25570,7 +25569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories": {
-    "documentation": "キャラクターのヘッドとアクセサリが MeshParts としてダウンロードされるかどうかを設定します。",
+    "documentation": "キャラクターの頭部とアクセサリーを MeshParts としてダウンロードするかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MeshPartHeadsAndAccessories",
     "code_sample": ""
   },
@@ -25580,7 +25579,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "モーバー制約を使用する際に組み立てのルートパートを選択するためのロジックを制御します。",
+    "documentation": "モーバー制約を使用する際に、アセンブリのルート部品を選択するための論理を制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
@@ -25595,7 +25594,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsSteppingMethod": {
-    "documentation": "ソルバーが物理シミュレーションを時間が進む方向に進める方法を設定します。",
+    "documentation": "ソルバーが物理シミュレーションを時間的に前進させる方法を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsSteppingMethod",
     "code_sample": ""
   },
@@ -25635,27 +25634,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.SignalBehavior": {
-    "documentation": "エンジンがイベントハンドラーを再開するタイミングを構成します。",
+    "documentation": "エンジンがイベントハンドラーを再開するタイミングを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#SignalBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamOutBehavior": {
-    "documentation": "エンジンがプレイヤーからコンテンツをストリームし、いつコンテンツをストリームするかを決定します。",
+    "documentation": "エンジンがプレイヤーからコンテンツをストリームアウトするタイミングを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamOutBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingEnabled": {
-    "documentation": "プレイスのためにコンテンツストリーミングが有効であるかどうか。",
+    "documentation": "その場所に対してコンテンツストリーミングが有効かどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingIntegrityMode": {
-    "documentation": "StreamingIntegrityMode がアクティブであるかどうかを決定します。",
+    "documentation": "StreamingIntegrityMode がアクティブかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingIntegrityMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.StreamingMinRadius": {
-    "documentation": "コンテンツがプレイヤーに高優先度でストリーミングされる最小距離。",
+    "documentation": "高優先度でプレイヤーにストリーミングされるコンテンツの最小距離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#StreamingMinRadius",
     "code_sample": ""
   },
@@ -25665,7 +25664,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Terrain": {
-    "documentation": "<code>Workspace</code> に親子関係がある <code>Terrain</code> オブジェクトへの参照。",
+    "documentation": "<code>Workspace</code> に親付けされた <code>Terrain</code> オブジェクトへの参照。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Terrain",
     "code_sample": ""
   },
@@ -25675,13 +25674,8 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.TouchesUseCollisionGroups": {
-    "documentation": "<code>parts</code> が異なるグループで衝突しない場合、衝突とタッチイベントを無視するかどうかを決定します。",
+    "documentation": "異なるグループに設定された <code>parts</code> が衝突を無視するか、タッチイベントを無視するかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchesUseCollisionGroups",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.UseImprovedModelLod": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseImprovedModelLod",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
@@ -25690,13 +25684,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/1": {
-    "documentation": "<code>BaseParts</code> の関節を破壊する配列です。"
+    "documentation": "ジョイントを破壊する対象の <code>BaseParts</code> の配列。"
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>指定されたすべての <code>BaseParts</code> を通過し、これらのパーツに接続された関節を破壊します。",
+    "documentation": "<strong>Deprecated:</strong> <br>与えられたすべての <code>BaseParts</code> を対象にし、接続されたジョイントを破壊します。",
     "params": [
       {
         "name": "self",
@@ -25712,10 +25706,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
-    "documentation": "アウェイのパーツの数を返します。"
+    "documentation": "覚醒した部品の数。"
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
     "documentation": "物理的にアクティブと見なされる <code>BaseParts</code> の数を返します。",
@@ -25732,10 +25726,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "現在の物理シミュレーションがスロットルされている割合。"
+    "documentation": "物理シミュレーションが現在スロットルされている割合。"
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
     "documentation": "物理シミュレーションが現在スロットルされている割合を示す 0 から 100 の整数を返します。",
@@ -25752,10 +25746,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "物理が現在シミュレーションされているフレーム数を返します。"
+    "documentation": "物理が現在シミュレーションされているフレーム数。"
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
     "documentation": "物理が現在シミュレーションされているフレーム数を返します。",
@@ -25772,13 +25766,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile task.wait(1) do\n\tif workspace:GetRealPhysicsFPS() > 65 then\n\t\tplayer:Kick()\n\tend\nend"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
-    "documentation": "サーバーの推定 Unix タイムスタンプ。"
+    "documentation": "サーバー上の推定Unixタイムスタンプ。"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
-    "documentation": "サーバーの Unix 時間を秒単位で返します。",
+    "documentation": "サーバーのUnix時間を秒単位で返します。",
     "params": [
       {
         "name": "self",
@@ -25792,16 +25786,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "<code>BaseParts</code> のためにジョイントを作成する配列です。"
+    "documentation": "ジョイントを作成する対象の <code>BaseParts</code> の配列。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "使用する <code>JointCreationMode</code>。<code>Enum.JointCreationMode.All</code> または <code>Enum.JointCreationMode.Surface</code> を渡すことで、挙動は Join Always と同じになります。"
+    "documentation": "使用する <code>JointCreationMode</code>。 <code>Enum.JointCreationMode.All</code> または <code>Enum.JointCreationMode.Surface</code> を渡すことは、常に参加することに等しいです。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "指定された <code>Parts</code> と接触しているパーツに基づいて、指定されたジョイント作成モードに従って関節を作成します。",
+    "documentation": "指定された <code>Parts</code> と、その表面および指定されたジョイント作成モードに基づいて 接触している部品の間にジョイントを作成します。",
     "params": [
       {
         "name": "self",
@@ -25821,13 +25815,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "<code>parts</code> のためのジョイントを作成する配列です。"
+    "documentation": "ジョイントを作成する対象の <code>parts</code> の配列。"
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>指定されたすべての <code>BaseParts</code> を通過します。任意のパーツの側に <code>SurfaceType</code> があれば、 それは接触しているパーツとの間にジョイントが作成されます。",
+    "documentation": "<strong>Deprecated:</strong> <br>与えられたすべての <code>BaseParts</code> に対して調べます。もしパーツの任意の側にジョイントを作成できる <code>SurfaceType</code> があれば、 それは隣接する部品との間にジョイントを作成します。",
     "params": [
       {
         "name": "self",
@@ -25843,13 +25837,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "PGS ソルバーが有効な場合、<code>true</code> を返します。"
+    "documentation": "PGS ソルバーが有効な場合は真。"
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "<code>PGS Physics</code> ソルバーが有効かどうかを返します。",
+    "documentation": "ゲームに PGS物理ソルバーが有効になっている場合は <code>true</code> を返します。",
     "params": [
       {
         "name": "self",
@@ -25863,13 +25857,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "<code>BaseParts</code> のためにジョイントが破壊される配列です。"
+    "documentation": "ジョイントを壊す対象の <code>BaseParts</code> の配列。"
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "指定された <code>BaseParts</code> と他の <code>BaseParts</code> の間のすべての関節を破壊します。",
+    "documentation": "指定された <code>BaseParts</code> と他の <code>BaseParts</code> の間のすべてのジョイントを破壊します。",
     "params": [
       {
         "name": "self",
@@ -25885,10 +25879,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ZoomToExtents/param/0": {
-    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを格納し、それらは3D世界にレンダリングされます。 それから派生していないオブジェクトは、レンダリングされず、世界と物理的に相互作用することはありません。"
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "指定された <code>BaseParts</code> が <code>Workspace</code> 内で表示される範囲を示すために、 <code>Workspace.CurrentCamera</code> を位置付け、ズームします。",
+    "documentation": "<code>Workspace.CurrentCamera</code> の位置を設定し、ズームして、 <code>Workspace</code> に現在存在する <code>BaseParts</code> の範囲を表示します。",
     "params": [
       {
         "name": "self",
@@ -25977,7 +25971,7 @@
     "returns": []
   },
   "@roblox/globaltype/Workspace.PersistentLoaded": {
-    "documentation": "指定されたプレイヤーに永続的なモデルが送信されたときに発生します。",
+    "documentation": "指定されたプレイヤーに永続的なモデルが送信されたときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Workspace.PersistentLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Workspace.PersistentLoaded.ConnectParallel",
@@ -26357,7 +26351,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plane": {
-    "documentation": "<strong>Deprecated:</strong> <br>Attachment0 と Attachment1 を制約し、両方のポイントが Attachment0 の位置に原点を持ち、単位法線ベクトルが Attachment0 の主軸と等しい平面内にあるようにします。",
+    "documentation": "<strong>Deprecated:</strong> <br>Attachment0 と Attachment1 の制約を設定し、両方のポイントが平面に配置されるようにします その原点は Attachment0 の位置にあり、単位法線ベクトルは Attachment0 の主軸に等しいです。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plane",
     "code_sample": ""
@@ -27948,7 +27942,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "",
+    "documentation": "デカールによって表示されるテクスチャコンテンツ。\\n<a href=\"../../../projects/assets/index.md#asset-uris\">アセットURI</a>および\\n<code>EditableImage</code>オブジェクトをサポートしています。\\n",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
@@ -28629,7 +28623,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "プレイヤーが装飾の上にカーソルを合わせているときに、左マウスボタンを押したときに発火します。",
+    "documentation": "プレイヤーが装飾の上にカーソルを置きながら左マウスボタンを押したときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -28717,7 +28711,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "プレイヤーが装飾の上にカーソルを合わせているときに、左マウスボタンを放したときに発火します。",
+    "documentation": "プレイヤーが装飾の上にカーソルを置きながら左マウスボタンを放したときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -30263,7 +30257,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Platform": {
-    "documentation": "<code>Seat</code> の一形態であり、プレイヤーを座っているポーズにしないものです。 このオブジェクトはもはや作成できず、開発者は使用できません。",
+    "documentation": "歴史的には、プレイヤーを座っているポーズにしない<code>Seat</code>の一形態です。このオブジェクトはもはや作成できず、開発者は使用できません。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Platform",
     "code_sample": ""
@@ -31303,7 +31297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HopperBin": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨クラスは <code>Tool</code> に置き換えられました。新しい作業にはToolを使用してください。",
+    "documentation": "<strong>Deprecated:</strong> この廃止されたクラスは<code>Tool</code>で置き換えられました。新しい作業にはToolを使用してください。",
     "keys": {
       "Active": "@roblox/globaltype/HopperBin.Active",
       "BinType": "@roblox/globaltype/HopperBin.BinType"
@@ -32186,7 +32180,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool": {
-    "documentation": "<code>Humanoid</code>によって装備可能なオブジェクト、例えば武器。",
+    "documentation": "<code>Humanoid</code>によって装備できるオブジェクト、例えば武器。",
     "keys": {
       "CanBeDropped": "@roblox/globaltype/Tool.CanBeDropped",
       "Enabled": "@roblox/globaltype/Tool.Enabled",
@@ -32210,7 +32204,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Enabled": {
-    "documentation": "ツールが使用可能かどうかに関連します。",
+    "documentation": "ツールが使用できるかどうかに関連します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#Enabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"SuperJump\"\ntool.RequiresHandle = false\ntool.Parent = player.Backpack\n\nfunction toolActivated()\n\thumanoid.JumpPower = 150\n\ttool.Enabled = false\n\ttask.wait(5)\n\ttool.Enabled = true\n\thumanoid.JumpPower = 50\nend\n\ntool.Activated:Connect(toolActivated)\ntool.Unequipped:Connect(function()\n\thumanoid.JumpPower = 50\nend)"
   },
@@ -32225,7 +32219,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- 茶色\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.GripPos": {
-    "documentation": "ツールのウェルドマトリックスの位置オフセットを表します。",
+    "documentation": "ツールのウェルド行列の位置オフセットを表します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#GripPos",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- 茶色\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
@@ -32240,7 +32234,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Stick\"\ntool.Parent = player.Backpack\n\nlocal handle = Instance.new(\"Part\")\nhandle.Name = \"Handle\"\nhandle.Parent = tool\nhandle.Size = Vector3.new(0.1, 3, 0.1)\nhandle.Color = Color3.fromRGB(108, 88, 75) -- 茶色\n\ntool.Activated:Connect(function()\n\tprint(tool.Grip)\n\tprint(tool.GripUp)\n\tprint(tool.GripRight)\n\tprint(tool.GripForward)\n\tprint(tool.GripPos)\nend)"
   },
   "@roblox/globaltype/Tool.ManualActivationOnly": {
-    "documentation": "<code>Tool</code>が<code>Tool:Activate()</code>を実行せずにアクティブ化できるかどうかを制御します。",
+    "documentation": "<code>Tool:Activate()</code>を実行せずに<code>Tool</code>をアクティブ化できるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#ManualActivationOnly",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\nlocal humanoid = character:WaitForChild(\"Humanoid\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.Name = \"Sprint\"\ntool.RequiresHandle = false\ntool.Parent = player:WaitForChild(\"Backpack\")\n\nfunction toolActivated()\n\thumanoid.WalkSpeed = 30\n\ttool.ManualActivationOnly = true\n\ttask.wait(5)\n\ttool.ManualActivationOnly = false\n\thumanoid.WalkSpeed = 16\nend\n\ntool.Activated:Connect(toolActivated)\ntool.Unequipped:Connect(function()\n\thumanoid.WalkSpeed = 16\nend)"
   },
@@ -32250,15 +32244,15 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.ToolTip": {
-    "documentation": "プレイヤーのマウスがバックパック内のツールにホバーしたときに表示されるメッセージを制御します。",
+    "documentation": "プレイヤーのマウスがバックパック内のツールの上にホバーしたときに表示されるメッセージを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#ToolTip",
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Activate/param/0": {
-    "documentation": "<code>Humanoid</code>によって装備可能なオブジェクト、例えば武器。"
+    "documentation": "<code>Humanoid</code>によって装備できるオブジェクト、例えば武器。"
   },
   "@roblox/globaltype/Tool.Activate": {
-    "documentation": "<code>Tool</code>のアクティベーションをシミュレートします。",
+    "documentation": "<code>Tool</code>のアクティブ化をシミュレートします。",
     "params": [
       {
         "name": "self",
@@ -32270,10 +32264,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Tool.Deactivate/param/0": {
-    "documentation": "<code>Humanoid</code>によって装備可能なオブジェクト、例えば武器。"
+    "documentation": "<code>Humanoid</code>によって装備できるオブジェクト、例えば武器。"
   },
   "@roblox/globaltype/Tool.Deactivate": {
-    "documentation": "<code>Tool</code>の非アクティベーションをシミュレートします。",
+    "documentation": "<code>Tool</code>の非アクティブ化をシミュレートします。",
     "params": [
       {
         "name": "self",
@@ -32362,7 +32356,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Activated": {
-    "documentation": "ツールが装備されている間にプレイヤーがクリックすると発火します。",
+    "documentation": "プレイヤーがツールを装備しているときにクリックすると発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Activated.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Activated.ConnectParallel",
@@ -32450,7 +32444,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Deactivated": {
-    "documentation": "ツールが装備され、アクティブ化されている間にプレイヤーがクリックをリリースしたときに発火します。",
+    "documentation": "ツールが装備され、アクティブな状態でプレイヤーがクリックを離したときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Deactivated.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Deactivated.ConnectParallel",
@@ -32626,7 +32620,7 @@
     "returns": []
   },
   "@roblox/globaltype/Tool.Unequipped": {
-    "documentation": "ツールが装備解除されたときに発火します。",
+    "documentation": "ツールが非装備されたときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Tool.Unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/Tool.Unequipped.ConnectParallel",
@@ -32680,7 +32674,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Seat": {
-    "documentation": "<code>BasePart</code> の一種で、キャラクターが「座る」ことができるものです。キャラクターが有効化された座席オブジェクトに触れると、そのパーツに <code>Weld</code> を介して接続され、デフォルトのキャラクタースクリプトが座るアニメーションを再生します。",
+    "documentation": "<code>BasePart</code> の一種であり、キャラクターが「座る」ことができるオブジェクトです。キャラクターが有効な Seat オブジェクトに触れると、それはパートに <code>Weld</code> によって取り付けられ、デフォルトのキャラクタースクリプトが座るアニメーションを再生します。",
     "keys": {
       "Disabled": "@roblox/globaltype/Seat.Disabled",
       "Occupant": "@roblox/globaltype/Seat.Occupant",
@@ -32690,23 +32684,23 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal seat = Instance.new(\"Seat\")\nseat.Anchored = true\nseat.Position = Vector3.new(0, 1, 0)\nseat.Parent = workspace\n\nlocal currentPlayer = nil\n\nlocal function onOccupantChanged()\n\tlocal humanoid = seat.Occupant\n\tif humanoid then\n\t\tlocal character = humanoid.Parent\n\t\tlocal player = Players:GetPlayerFromCharacter(character)\n\t\tif player then\n\t\t\tprint(player.Name .. \" は座りました\")\n\t\t\tcurrentPlayer = player\n\t\t\treturn\n\t\tend\n\tend\n\tif currentPlayer then\n\t\tprint(currentPlayer.Name .. \" は立ち上がりました\")\n\t\tcurrentPlayer = nil\n\tend\nend\n\nseat:GetPropertyChangedSignal(\"Occupant\"):Connect(onOccupantChanged)"
   },
   "@roblox/globaltype/Seat.Disabled": {
-    "documentation": "座席が使用可能かどうか。true に設定されている場合、座席は通常のパーツとして機能します。",
+    "documentation": "シートが使用可能かどうか。true に設定すると、シートは通常のパートとして機能します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Disabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Occupant": {
-    "documentation": "座っているヒューマノイド。",
+    "documentation": "シートに座っているヒューマノイド。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Seat#Occupant",
     "code_sample": ""
   },
   "@roblox/globaltype/Seat.Sit/param/0": {
-    "documentation": "<code>BasePart</code> の一種で、キャラクターが「座る」ことができるものです。キャラクターが有効化された座席オブジェクトに触れると、そのパーツに <code>Weld</code> を介して接続され、デフォルトのキャラクタースクリプトが座るアニメーションを再生します。"
+    "documentation": "<code>BasePart</code> の一種であり、キャラクターが「座る」ことができるオブジェクトです。キャラクターが有効な Seat オブジェクトに触れると、それはパートに <code>Weld</code> によって取り付けられ、デフォルトのキャラクタースクリプトが座るアニメーションを再生します。"
   },
   "@roblox/globaltype/Seat.Sit/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Seat.Sit": {
-    "documentation": "指定された <code>Humanoid</code> を持つキャラクターを座席に座らせます。",
+    "documentation": "指定された <code>Humanoid</code> を持つキャラクターを強制的にシートに座らせます。",
     "params": [
       {
         "name": "self",
@@ -33803,7 +33797,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform": {
-    "documentation": "<strong>Deprecated:</strong> SkateboardPlatformオブジェクトは非推奨となり、Robloxではもはやサポートされていません。スケートボードや類似の車両を作成しようとする開発者は、自分のシステムをプログラムすることをお勧めします。さらに、<code>VehicleSeat</code>オブジェクトを使用して、簡単な車両を迅速に作成することができます。<br>SkateboardPlatformはスケートボードを作成するために使用できます。キャラクターがスケートボードに乗ると、エスケープキーを押すまでそれにくっついています。それまでは、キャラクターはスケートボードのアニメーションを使用し、歩行キャラクターよりも速く移動します。",
+    "documentation": "<strong>Deprecated:</strong> SkateboardPlatformオブジェクトは廃止され、Robloxによってサポートされなくなりました。スケートボードや類似の車両を作成することを考えている開発者は、自分自身のシステムをプログラムすることをお勧めします。さらに、<code>VehicleSeat</code>オブジェクトを使用して、簡単な車両を迅速に作成することができます。<br>SkateboardPlatformはスケートボードを作成するために使用できます。キャラクターがスケートボードに乗ると、エスケープキーを押すまでそれに固定されます。その間、キャラクターはスケートボードのアニメーションを使用し、歩いているキャラクターよりも速く移動します。",
     "keys": {
       "Controller": "@roblox/globaltype/SkateboardPlatform.Controller",
       "ControllingHumanoid": "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid",
@@ -33821,27 +33815,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ControllingHumanoid": {
-    "documentation": "SkateboardPlatformを制御している<code>Humanoid</code>です。",
+    "documentation": "SkateboardPlatformを操作している<code>Humanoid</code>です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#ControllingHumanoid",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Steer": {
-    "documentation": "動きの方向で、AキーとDキーに関連付けられています。1（右）、0（直進）、または-1（左）である必要があります。常に設定されない限り、0にリセットされます。",
+    "documentation": "移動の方向はAキーとDキーに関連しています。1（右）、0（直進）、または-1（左）でなければなりません。常に設定されていない限り、0にリフレッシュされます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Steer",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.StickyWheels": {
-    "documentation": "trueの場合、ホイールはユーザー入力なしでは回転しません。",
+    "documentation": "trueの場合、ホイールはユーザーの入力なしで回転しません。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#StickyWheels",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.Throttle": {
-    "documentation": "動きの方向で、WキーとSキーに関連付けられています。1（前進）、0（無）、または-1（逆）である必要があります。常に設定されない限り、0にリセットされます。",
+    "documentation": "移動の方向はWキーとSキーに関連しています。整数の1（前進）、0（null）、または-1（逆転）でなければなりません。常に設定されていない限り、0にリフレッシュされます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SkateboardPlatform#Throttle",
     "code_sample": ""
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/0": {
-    "documentation": "<strong>Deprecated:</strong> SkateboardPlatformオブジェクトは非推奨となり、Robloxではもはやサポートされていません。スケートボードや類似の車両を作成しようとする開発者は、自分のシステムをプログラムすることをお勧めします。さらに、<code>VehicleSeat</code>オブジェクトを使用して、簡単な車両を迅速に作成することができます。<br>SkateboardPlatformはスケートボードを作成するために使用できます。キャラクターがスケートボードに乗ると、エスケープキーを押すまでそれにくっついています。それまでは、キャラクターはスケートボードのアニメーションを使用し、歩行キャラクターよりも速く移動します。"
+    "documentation": "<strong>Deprecated:</strong> SkateboardPlatformオブジェクトは廃止され、Robloxによってサポートされなくなりました。スケートボードや類似の車両を作成することを考えている開発者は、自分自身のシステムをプログラムすることをお勧めします。さらに、<code>VehicleSeat</code>オブジェクトを使用して、簡単な車両を迅速に作成することができます。<br>SkateboardPlatformはスケートボードを作成するために使用できます。キャラクターがスケートボードに乗ると、エスケープキーを押すまでそれに固定されます。その間、キャラクターはスケートボードのアニメーションを使用し、歩いているキャラクターよりも速く移動します。"
   },
   "@roblox/globaltype/SkateboardPlatform.ApplySpecificImpulse/param/1": {
     "documentation": ""
@@ -34028,7 +34022,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.MoveStateChanged": {
-    "documentation": "SkateboardPlatformの<code>SkateboardPlatform.ControllingHumanoid</code>がSkateboardPlatformに使用されている力を変更したときに発火します。",
+    "documentation": "SkateboardPlatformの<code>SkateboardPlatform.ControllingHumanoid</code>がSkateboardPlatformに使用される力を変更したときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.MoveStateChanged.ConnectParallel",
@@ -34116,7 +34110,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.Unequipped": {
-    "documentation": "スケートボードが未装備にされたときに発火します。",
+    "documentation": "スケートボードが非装備になったときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.Unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.Unequipped.ConnectParallel",
@@ -34204,7 +34198,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.equipped": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨イベントは<code>SkateboardPlatform.Equipped</code>のバリアントであり、これも非推奨となっています。どちらのイベントも新しい作業には使用すべきではありません。",
+    "documentation": "<strong>Deprecated:</strong> この廃止されたイベントは、<code>SkateboardPlatform.Equipped</code>の変種であり、こちらも廃止されています。どちらのイベントも新しい作業には使用しないでください。",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.equipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.equipped.ConnectParallel",
@@ -34292,7 +34286,7 @@
     "returns": []
   },
   "@roblox/globaltype/SkateboardPlatform.unequipped": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨イベントは<code>SkateboardPlatform.Unequipped</code>のバリアントであり、これも非推奨となっています。どちらのイベントも新しい作業には使用すべきではありません。",
+    "documentation": "<strong>Deprecated:</strong> この廃止されたイベントは、<code>SkateboardPlatform.Unequipped</code>の変種であり、こちらも廃止されています。どちらのイベントも新しい作業には使用しないでください。",
     "keys": {
       "Connect": "@roblox/globaltype/SkateboardPlatform.unequipped.Connect",
       "ConnectParallel": "@roblox/globaltype/SkateboardPlatform.unequipped.ConnectParallel",
@@ -35542,7 +35536,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PVAdornment": {
-    "documentation": "継承者が <code>PVInstance</code> クラスのオブジェクトに装飾することができる抽象クラスです。",
+    "documentation": "<code>PVInstance</code> クラスのオブジェクトに飾られることができる継承者の抽象クラスです。",
     "keys": {
       "Adornee": "@roblox/globaltype/PVAdornment.Adornee"
     },
@@ -38787,7 +38781,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.Length": {
-    "documentation": "制約がその<code>Attachments</code>を維持しようとする間の距離。",
+    "documentation": "制約が<code>Attachments</code>を維持しようとする距離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#Length",
     "code_sample": ""
   },
@@ -38802,7 +38796,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RodConstraint.LimitsEnabled": {
-    "documentation": "<code>LimitAngle0</code>と<code>LimitAngle1</code>がロッドとそれぞれのアタッチメント間の角度を制御するかどうかを決定します。",
+    "documentation": "<code>LimitAngle0</code>および<code>LimitAngle1</code>がロッドと各アタッチメント間の角度を制御するかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RodConstraint#LimitsEnabled",
     "code_sample": ""
   },
@@ -38812,7 +38806,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Rotate": {
-    "documentation": "<strong>Deprecated:</strong> このクラスは非推奨の <code>SurfaceType</code> と一緒に動作し、将来の作業には使用すべきではありません。代わりに <code>HingeConstraint</code> を使用してください。",
+    "documentation": "<strong>Deprecated:</strong> このクラスは非推奨の <code>SurfaceType</code> と共に作動し、今後の作業には使用すべきではありません。代わりに <code>HingeConstraint</code> を使用してください。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Rotate",
     "code_sample": ""
@@ -38836,7 +38830,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PrismaticConstraint": {
-    "documentation": "2つの <code>Attachments</code>の間に剛性ジョイントを作成し、1つの軸に沿ってスライドさせることができるが、回転はできない制約です。",
+    "documentation": "2つの <code>Attachments</code>の間に剛性ジョイントを作成する制約で、1つの軸に沿ってスライドすることはできますが、回転することはできません。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PrismaticConstraint",
     "code_sample": ""
@@ -43066,7 +43060,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
-    "documentation": "2つのアタッチメントを整列させるためのトルクを適用する制約、または1つのアタッチメントを目標の向きに整列させるための制約です。",
+    "documentation": "二つのアタッチメントを整列させるためにトルクを適用する制約、または一つのアタッチメントを目標のオリエンテーションに整列させるための制約。",
     "keys": {
       "AlignType": "@roblox/globaltype/AlignOrientation.AlignType",
       "CFrame": "@roblox/globaltype/AlignOrientation.CFrame",
@@ -43090,57 +43084,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.CFrame": {
-    "documentation": "<code>CFrame</code>の向きで、制約は<code>Attachment0</code>の向きに合わせるように試みます。",
+    "documentation": "制約が <code>Attachment0</code> のオリエンテーションに一致させようとする <code>CFrame</code> オリエンテーション。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#CFrame",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.LookAtPosition": {
-    "documentation": "主要な軸が整列しようとする方向の<code>Vector3</code>のワールド空間位置。",
+    "documentation": "プライマリ軸が整列しようとする <code>Vector3</code> ワールド空間の位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#LookAtPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxAngularVelocity": {
-    "documentation": "制約が目標に到達するために使用できる最大角速度。",
+    "documentation": "制約が目標に達するために使用できる最大角速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxAngularVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.MaxTorque": {
-    "documentation": "制約が目標に到達するために使用できる最大トルク。",
+    "documentation": "制約が目標に達するために使用できる最大トルク。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#MaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Mode": {
-    "documentation": "制約が目標を計算する際に1つまたは2つのアタッチメントを使用するかどうか。",
+    "documentation": "制約が目標を計算する際に一つのアタッチメントを使用するか二つのアタッチメントを使用するか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxis": {
-    "documentation": "目標の<strong>X</strong>軸の方向を、単位<code>Vector3</code>として表す。",
+    "documentation": "目標の <strong>X</strong> 軸の方向。単位は <code>Vector3</code> です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#PrimaryAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxisOnly": {
-    "documentation": "制約の軸がトルクによってどのように影響を受けるかを決定します。",
+    "documentation": "トルクによって制約の軸がどのように影響されるかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#PrimaryAxisOnly",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.ReactionTorqueEnabled": {
-    "documentation": "制約がトルクを<code>Attachment0</code>にのみ適用するか、または等しい反対方向で両方のアタッチメントに適用するかを制御します。",
+    "documentation": "制約がトルクを <code>Attachment0</code> にのみ適用するか、両方のアタッチメントに等しい反対方向のトルクを適用するか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#ReactionTorqueEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.Responsiveness": {
-    "documentation": "制約が目標に到達する速度を制御します。より高い値はアタッチメントがより迅速に整列する原因となります。",
+    "documentation": "制約が目標に達する速度を制御します。値が高いほど、アタッチメントはより迅速に整列します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.RigidityEnabled": {
-    "documentation": "トルクが他のプロパティに依存するかどうか、または物理ソルバが整列を完了するためにできるだけ早く反応するかどうか。",
+    "documentation": "トルクが他のプロパティに依存するか、物理ソルバーが整列を完了するためにできるだけ早く反応するか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#RigidityEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation.SecondaryAxis": {
-    "documentation": "目標の<strong>Y</strong>軸の方向を、単位<code>Vector3</code>として表す。",
+    "documentation": "目標の <strong>Y</strong> 軸の方向。単位は <code>Vector3</code> です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignOrientation#SecondaryAxis",
     "code_sample": ""
   },
@@ -46533,7 +46527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint": {
-    "documentation": "添付物が単一の軸の周りで回転するように制約します。",
+    "documentation": "添付の回転を単一の軸の周りに制限します。",
     "keys": {
       "ActuatorType": "@roblox/globaltype/HingeConstraint.ActuatorType",
       "AngularResponsiveness": "@roblox/globaltype/HingeConstraint.AngularResponsiveness",
@@ -46555,22 +46549,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.ActuatorType": {
-    "documentation": "<code>HingeConstraint</code>の回転が作動するかどうか、作動する場合はその種類を設定します。",
+    "documentation": "<code>HingeConstraint</code>の回転が駆動されるかどうか、および駆動される場合は、どのような駆動方法を使用するかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#ActuatorType",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularResponsiveness": {
-    "documentation": "<code>TargetAngle</code>に到達する際のサーボモーターのシャープさを指定します。",
+    "documentation": "<code>TargetAngle</code>に到達する際のサーボモーターの鋭さを指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularSpeed": {
-    "documentation": "<code>HingeConstraint</code>が<code>ActuatorType</code>を<code>Servo</code>に設定しているときに、<code>TargetAngle</code>に向けて回転しながら維持しようとする望ましい角速度。 測定単位はラジアン/秒です。",
+    "documentation": "<code>HingeConstraint</code>で、<code>ActuatorType</code>が<code>Servo</code>に設定されている場合、<code>TargetAngle</code>に向かって回転しながら維持しようとする望ましい角速度。単位はラジアン/秒。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.AngularVelocity": {
-    "documentation": "<code>HingeConstraint</code>が<code>ActuatorType</code>を<code>Motor</code>に設定しているときに達成しようとする角速度。 測定単位はラジアン/秒です。",
+    "documentation": "<code>HingeConstraint</code>で、<code>ActuatorType</code>が<code>Motor</code>に設定されている場合、達成しようとする角速度。単位はラジアン/秒。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#AngularVelocity",
     "code_sample": ""
   },
@@ -46590,37 +46584,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.MotorMaxAcceleration": {
-    "documentation": "<code>HingeConstraint</code>が<code>ActuatorType</code>を<code>Motor</code>に設定して、その<code>AngularVelocity</code>を達成するために適用できる最大角加速度。 測定単位はラジアン/秒&sup2;です。",
+    "documentation": "<code>HingeConstraint</code>で、<code>ActuatorType</code>が<code>Motor</code>に設定されている場合、<code>AngularVelocity</code>を達成するために適用できる最大角加速度。単位はラジアン/秒&sup2;。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.MotorMaxTorque": {
-    "documentation": "<code>HingeConstraint</code>が<code>ActuatorType</code>を<code>Motor</code>に設定して、その望ましい<code>AngularVelocity</code>に達成するために適用できる最大トルク。",
+    "documentation": "<code>HingeConstraint</code>で、<code>ActuatorType</code>が<code>Motor</code>に設定されている場合、望ましい<code>AngularVelocity</code>を達成しようとする際に適用できる最大トルク。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#MotorMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.Radius": {
-    "documentation": "<code>HingeConstraint</code>の視覚的に表示された半径。",
+    "documentation": "<code>HingeConstraint</code>の視覚化された半径。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.Restitution": {
-    "documentation": "<code>HingeConstraint</code>によって接続された<code>Attachment</code>が、<code>LimitsEnabled</code>がtrueの場合に範囲の端に達した時の弾性。 0から1の間に制約されます。",
+    "documentation": "<code>HingeConstraint</code>によって接続された<code>Attachment</code>が、<code>LimitsEnabled</code>がtrueの場合に範囲の端に達した際の弾性。0から1の間で制約されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.ServoMaxTorque": {
-    "documentation": "<code>HingeConstraint</code>が<code>ActuatorType</code>を<code>Servo</code>に設定して、その望ましい<code>TargetAngle</code>に達成するために適用できる最大トルク。",
+    "documentation": "<code>HingeConstraint</code>で<code>ActuatorType</code>が<code>Servo</code>に設定されている場合、望ましい<code>TargetAngle</code>を達成しようとする際に適用できる最大トルク。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#ServoMaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.SoftlockServoUponReachingTarget": {
-    "documentation": "<strong>Deprecated:</strong> このプロパティは新しい作業では使用しないでください。",
+    "documentation": "<strong>Deprecated:</strong> このプロパティは、新しい作業では使用しないでください。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#SoftlockServoUponReachingTarget",
     "code_sample": ""
   },
   "@roblox/globaltype/HingeConstraint.TargetAngle": {
-    "documentation": "<code>HingeConstraint</code>が<code>ActuatorType</code>を<code>Servo</code>に設定して、回転しようとする目標角度。 測定単位は度です。",
+    "documentation": "<code>HingeConstraint</code>が<code>ActuatorType</code>を<code>Servo</code>に設定されている場合に、回転しようとするターゲット角度。単位は度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HingeConstraint#TargetAngle",
     "code_sample": ""
   },
@@ -47017,7 +47011,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal mouse = player:GetMouse()\n\nlocal function onMouseMove()\n\tprint(\"マウスのスクリーン位置: \", mouse.X, mouse.Y)\nend\n\nmouse.Move:Connect(onMouseMove)"
   },
   "@roblox/globaltype/Actor": {
-    "documentation": "<code>Actor</code> は、安全に独自のスレッドに分割できるコードのコンテナです。",
+    "documentation": "<code>Actor</code> は、コードを安全に独自のスレッドに分割できるコンテナです。",
     "keys": {
       "BindToMessage": "@roblox/globaltype/Actor.BindToMessage",
       "BindToMessageParallel": "@roblox/globaltype/Actor.BindToMessageParallel",
@@ -47027,19 +47021,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/param/0": {
-    "documentation": "<code>Actor</code> は、安全に独自のスレッドに分割できるコードのコンテナです。"
+    "documentation": "<code>Actor</code> は、コードを安全に独自のスレッドに分割できるコンテナです。"
   },
   "@roblox/globaltype/Actor.BindToMessage/param/1": {
-    "documentation": "メッセージのタイプを識別するために使用されるトピック。"
+    "documentation": "メッセージのタイプを識別するために使用されるトピックです。"
   },
   "@roblox/globaltype/Actor.BindToMessage/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessage/return/0": {
-    "documentation": "この接続オブジェクトは、Luau コールバックをメッセージの受信から切断するために使用できます。"
+    "documentation": "この接続オブジェクトは、Luau コールバックをメッセージを受信することから切断するのに使用できます。"
   },
   "@roblox/globaltype/Actor.BindToMessage": {
-    "documentation": "指定されたトピックのメッセージに Luau コールバックをバインドします。",
+    "documentation": "指定されたトピックを持つメッセージに Luau コールバックをバインドします。",
     "params": [
       {
         "name": "self",
@@ -47061,19 +47055,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
-    "documentation": "<code>Actor</code> は、安全に独自のスレッドに分割できるコードのコンテナです。"
+    "documentation": "<code>Actor</code> は、コードを安全に独自のスレッドに分割できるコンテナです。"
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/1": {
-    "documentation": "メッセージのタイプを識別するために使用されるトピック。"
+    "documentation": "メッセージのタイプを識別するために使用されるトピックです。"
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/return/0": {
-    "documentation": "この接続オブジェクトは、Luau コールバックをメッセージの受信から切断するために使用できます。"
+    "documentation": "この接続オブジェクトは、Luau コールバックをメッセージを受信することから切断するのに使用できます。"
   },
   "@roblox/globaltype/Actor.BindToMessageParallel": {
-    "documentation": "指定されたトピックのメッセージに Luau コールバックをバインドします。",
+    "documentation": "指定されたトピックを持つメッセージに Luau コールバックをバインドします。",
     "params": [
       {
         "name": "self",
@@ -47095,16 +47089,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Actor.SendMessage/param/0": {
-    "documentation": "<code>Actor</code> は、安全に独自のスレッドに分割できるコードのコンテナです。"
+    "documentation": "<code>Actor</code> は、コードを安全に独自のスレッドに分割できるコンテナです。"
   },
   "@roblox/globaltype/Actor.SendMessage/param/1": {
-    "documentation": "送信されるメッセージを識別するために使用されるトピック。"
+    "documentation": "送信されるメッセージを識別するために使用されるトピックです。"
   },
   "@roblox/globaltype/Actor.SendMessage/param/2": {
-    "documentation": "Actor に送信するメッセージの内容。"
+    "documentation": "アクターに送信するメッセージの内容です。"
   },
   "@roblox/globaltype/Actor.SendMessage": {
-    "documentation": "Actor にメッセージを送信します。",
+    "documentation": "アクターにメッセージを送信します。",
     "params": [
       {
         "name": "self",
@@ -47274,42 +47268,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.ForceLimitsEnabled": {
-    "documentation": "制約の力が制限されるか、物理ソルバーがターゲット速度を達成するために無制限の力を加えることができるかどうかを決定します。",
+    "documentation": "制約の力が制限されるか、物理ソルバーが目標速度を達成するために無制限の力を適用できるかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#ForceLimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.LineDirection": {
-    "documentation": "ラインに沿って速度を制約するための正規化された <code>Vector3</code> の方向。",
+    "documentation": "線に沿った速度を制約するための正規化された<code>Vector3</code>方向。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#LineDirection",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.LineVelocity": {
-    "documentation": "<code>VelocityConstraintMode</code> が<code>Line</code>に設定されているときの速度の浮動小数点値。",
+    "documentation": "線に設定されているときの速度の浮動小数点値。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#LineVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.MaxAxesForce": {
-    "documentation": "ベクトル速度を達成するために制約が適用できる各軸に沿った最大力。これは、<code>ForceLimitsEnabled</code>が<code>true</code>、<code>ForceLimitMode</code>が<code>PerAxis</code>、および<code>VelocityConstraintMode</code>が<code>Vector</code>の場合にのみ使用されます。",
+    "documentation": "ベクトル速度を達成するために制約が適用できる各軸に沿った最大の力。<code>ForceLimitsEnabled</code>が<code>true</code>、<code>ForceLimitMode</code>が<code>PerAxis</code>、および<code>VelocityConstraintMode</code>が<code>Vector</code>であるときにのみ使用されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#MaxAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.MaxForce": {
-    "documentation": "制約が適用できる力ベクトルの最大大きさ。",
+    "documentation": "制約が適用できる力ベクトルの最大の大きさ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.MaxPlanarAxesForce": {
-    "documentation": "平面の速度を達成するために制約が適用できる各軸に沿った最大力。これは、<code>ForceLimitsEnabled</code>が<code>true</code>、<code>ForceLimitMode</code>が<code>PerAxis</code>、および<code>VelocityConstraintMode</code>が<code>Plane</code>の場合にのみ使用されます。",
+    "documentation": "平面速度を達成するために制約が適用できる各軸に沿った最大の力。<code>ForceLimitsEnabled</code>が<code>true</code>、<code>ForceLimitMode</code>が<code>PerAxis</code>、および<code>VelocityConstraintMode</code>が<code>Plane</code>であるときにのみ使用されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#MaxPlanarAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.PlaneVelocity": {
-    "documentation": "平面の各接線方向の速度の <code>Vector2</code> 値。",
+    "documentation": "平面の各接線方向における速度の<code>Vector2</code>値。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#PlaneVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.PrimaryTangentAxis": {
-    "documentation": "<code>VelocityConstraintMode</code> が<code>Plane</code>に設定されているときの、平面の主要な軸。",
+    "documentation": "平面における主軸。<code>VelocityConstraintMode</code>が<code>Plane</code>に設定されている場合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#PrimaryTangentAxis",
     "code_sample": ""
   },
@@ -47319,17 +47313,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.RelativeTo": {
-    "documentation": "制約のための <code>ActuatorRelativeTo</code> プロパティを設定します。",
+    "documentation": "制約のための<code>ActuatorRelativeTo</code>プロパティを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#RelativeTo",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.SecondaryTangentAxis": {
-    "documentation": "<code>VelocityConstraintMode</code> が<code>Plane</code>に設定されているときの、平面の二次軸。",
+    "documentation": "平面における二次軸。<code>VelocityConstraintMode</code>が<code>Plane</code>に設定されている場合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#SecondaryTangentAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/LinearVelocity.VectorVelocity": {
-    "documentation": "<code>Vector3</code> の速度値が、<code>VelocityConstraintMode</code> が<code>Vector</code>に設定されているとき。",
+    "documentation": "<code>Vector3</code>速度値が<code>VelocityConstraintMode</code>が<code>Vector</code>に設定されている場合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LinearVelocity#VectorVelocity",
     "code_sample": ""
   },
@@ -48689,7 +48683,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RotateP": {
-    "documentation": "<strong>Deprecated:</strong> このクラスは非推奨の <code>SurfaceType</code> とともに動作し、将来の作業には使用すべきではありません; 代わりに <code>HingeConstraint</code> を使用してください。",
+    "documentation": "<strong>Deprecated:</strong> このクラスは廃止された<code>SurfaceType</code>と連携して動作し、今後の作業に使用すべきではありません；代わりに<code>HingeConstraint</code>を使用してください。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RotateP",
     "code_sample": ""
@@ -50592,7 +50586,7 @@
     "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "インスタンスの全ての子供を破壊します。",
+    "documentation": "このメソッドは、インスタンスのすべての子要素を破棄します。",
     "params": [
       {
         "name": "self",
@@ -51184,10 +51178,10 @@
     "documentation": "クエリするプロパティの名前。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "プロパティが変更されているかどうかを示すブーリアン。"
+    "documentation": "プロパティがコードによってインスタンス化されたデフォルトから変更されているかどうかを示すブール値。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "指定されたプロパティに格納されている値がコードによって生成されたデフォルトと等しい場合は<code>true</code>を返します。",
+    "documentation": "指定されたプロパティに保存されている値が、コードによってインスタンス化されたデフォルトと等しくない場合は <code>true</code> を返します。",
     "params": [
       {
         "name": "self",
@@ -52605,7 +52599,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity": {
-    "documentation": "アセンブリにトルクを適用して、一定の角速度を維持します。",
+    "documentation": "アセンブリにトルクを適用して一定の角速度を維持します。",
     "keys": {
       "AngularVelocity": "@roblox/globaltype/AngularVelocity.AngularVelocity",
       "MaxTorque": "@roblox/globaltype/AngularVelocity.MaxTorque",
@@ -52616,17 +52610,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.AngularVelocity": {
-    "documentation": "desiredまたはtargetの角速度を示す <code>Vector3</code> です。",
+    "documentation": "<code>Vector3</code> で、希望するまたは目標とする角速度を指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#AngularVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.MaxTorque": {
-    "documentation": "制約が適用できる最大トルクの大きさです。",
+    "documentation": "制約が適用できる最大トルクの大きさ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#MaxTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/AngularVelocity.ReactionTorqueEnabled": {
-    "documentation": "制約が等しい反対の反作用力を適用します。",
+    "documentation": "制約が等しい反作用力を適用するようにします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AngularVelocity#ReactionTorqueEnabled",
     "code_sample": ""
   },
@@ -52751,7 +52745,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment": {
-    "documentation": "<code>BasePart</code>（<code>Terrain</code>を含む）または<code>Workspace</code>に1本以上の線からなるワイヤーフレーム装飾を描画します。",
+    "documentation": "1つ以上の線からなるワイヤーフレーム装飾を<code></code>BasePart<code>（</code>Terrain<code>を含む）または</code>Workspace`にレンダリングします。",
     "keys": {
       "Scale": "@roblox/globaltype/WireframeHandleAdornment.Scale",
       "Thickness": "@roblox/globaltype/WireframeHandleAdornment.Thickness",
@@ -52775,7 +52769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/0": {
-    "documentation": "<code>BasePart</code>（<code>Terrain</code>を含む）または<code>Workspace</code>に1本以上の線からなるワイヤーフレーム装飾を描画します。"
+    "documentation": "1つ以上の線からなるワイヤーフレーム装飾を<code></code>BasePart<code>（</code>Terrain<code>を含む）または</code>Workspace`にレンダリングします。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine/param/1": {
     "documentation": "線の開始点。"
@@ -52784,7 +52778,7 @@
     "documentation": "線の終了点。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLine": {
-    "documentation": "<code>Adornee</code>の中心に対する開始点から終了点までの線をワイヤーフレーム装飾に追加します。",
+    "documentation": "ワイヤーフレーム装飾に開始点から終了点までの線を追加します。 <code>Adornee</code>の中心に対して相対的です。",
     "params": [
       {
         "name": "self",
@@ -52804,10 +52798,10 @@
     "code_sample": "local wireframe = script.Parent\n\nwireframe.Color3 = Color3.fromRGB(255, 0, 0) -- 次の行を赤に設定\nwireframe:AddLine(Vector3.new(-10, 0, 0), Vector3.new(10, 0, 0))\nwireframe.Color3 = Color3.fromRGB(0, 255, 0) -- 次の行を緑に設定\nwireframe:AddLine(Vector3.new(0, -10, 0), Vector3.new(0, 10, 0))\nwireframe.Color3 = Color3.fromRGB(0, 0, 255) -- 次の行を青に設定\nwireframe:AddLine(Vector3.new(0, 0, -10), Vector3.new(0, 0, 10))"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/0": {
-    "documentation": "<code>BasePart</code>（<code>Terrain</code>を含む）または<code>Workspace</code>に1本以上の線からなるワイヤーフレーム装飾を描画します。"
+    "documentation": "1つ以上の線からなるワイヤーフレーム装飾を<code></code>BasePart<code>（</code>Terrain<code>を含む）または</code>Workspace`にレンダリングします。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines/param/1": {
-    "documentation": "各対が線の開始点と終了点として機能する<code>Vector3</code>ポイントの配列。"
+    "documentation": "各ペアが線の開始点と終了点として機能する<code>Vector3</code>ポイントの配列です。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddLines": {
     "documentation": "配列を使用して、ワイヤーフレーム装飾に1本以上の線を追加します。",
@@ -52826,16 +52820,16 @@
     "code_sample": "local wireframe = script.Parent\n\nlocal linesArray = {\n\tVector3.new(-10, 0, 0), -- 最初のラインの始点\n\tVector3.new(10, 0, 0), -- 最初のラインの終点\n\tVector3.new(0, -10, 0), -- 2番目のラインの始点\n\tVector3.new(0, 10, 0), -- 2番目のラインの終点\n\tVector3.new(0, 0, -10), -- 3番目のラインの始点\n\tVector3.new(0, 0, 10) -- 3番目のラインの終点\n}\n-- 装飾のためにパスを適用\nwireframe:AddLines(linesArray)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/0": {
-    "documentation": "<code>BasePart</code>（<code>Terrain</code>を含む）または<code>Workspace</code>に1本以上の線からなるワイヤーフレーム装飾を描画します。"
+    "documentation": "1つ以上の線からなるワイヤーフレーム装飾を<code></code>BasePart<code>（</code>Terrain<code>を含む）または</code>Workspace`にレンダリングします。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/1": {
-    "documentation": "線分で接続する<code>Vector3</code>ポイントの配列。"
+    "documentation": "線分で接続する<code>Vector3</code>ポイントの配列です。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath/param/2": {
-    "documentation": "追加の線で終了点を開始点に接続することでパスが閉じられるかどうか。"
+    "documentation": "終了点を追加の線で開始点に接続することで、パスが閉じられるかどうか。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddPath": {
-    "documentation": "点から点へと連続してワイヤーフレーム装飾に複数の線分を追加します。",
+    "documentation": "ポイントからポイントへの一連の線分をワイヤーフレーム装飾に追加します。",
     "params": [
       {
         "name": "self",
@@ -52855,7 +52849,7 @@
     "code_sample": "local wireframe = script.Parent\n\n-- 四つの点を正方形の配置で宣言する\nlocal pathArray = {\n\tVector3.new(-10, 10, 0),\n\tVector3.new(10, 10, 0),\n\tVector3.new(10, -10, 0),\n\tVector3.new(-10, -10, 0)\n}\n\n-- パスを装飾に適用し、閉じる（開始点と終了点を接続する）\nwireframe:AddPath(pathArray, true)"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/0": {
-    "documentation": "<code>BasePart</code>（<code>Terrain</code>を含む）または<code>Workspace</code>に1本以上の線からなるワイヤーフレーム装飾を描画します。"
+    "documentation": "1つ以上の線からなるワイヤーフレーム装飾を<code></code>BasePart<code>（</code>Terrain<code>を含む）または</code>Workspace`にレンダリングします。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.AddText/param/1": {
     "documentation": "装飾内のテキストの位置。"
@@ -52891,7 +52885,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear/param/0": {
-    "documentation": "<code>BasePart</code>（<code>Terrain</code>を含む）または<code>Workspace</code>に1本以上の線からなるワイヤーフレーム装飾を描画します。"
+    "documentation": "1つ以上の線からなるワイヤーフレーム装飾を<code></code>BasePart<code>（</code>Terrain<code>を含む）または</code>Workspace`にレンダリングします。"
   },
   "@roblox/globaltype/WireframeHandleAdornment.Clear": {
     "documentation": "ワイヤーフレーム装飾内のすべての線とテキストを即座にクリアします。",
@@ -53581,7 +53575,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BlockMesh": {
-    "documentation": "BlockMesh オブジェクトは、親子関係にある <code>BasePart</code> に 'brick' メッシュを適用します。それは、<code>SpecialMesh</code> の <code>SpecialMesh.MeshType</code> が 'Brick' に設定されているのと同様に動作します。",
+    "documentation": "BlockMeshオブジェクトは、親としている<code>BasePart</code>に「レンガ」メッシュを適用します。それは、<code>SpecialMesh</code>で<code>SpecialMesh.MeshType</code>が「レンガ」に設定されているのと同様に振る舞います。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BlockMesh",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Position = Vector3.new(0, 2, 0)\npart.Size = Vector3.new(5, 2, 5)\npart.Anchored = true\n\nlocal mesh = Instance.new(\"BlockMesh\")\nmesh.Scale = Vector3.new(0.5, 0.5, 0.5)\nmesh.Offset = Vector3.new(0, 2, 0)\nmesh.Parent = part\n\nlocal adornment = Instance.new(\"SelectionBox\")\nadornment.Adornee = part\nadornment.Parent = part\n\npart.Parent = workspace"
@@ -53917,7 +53911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint": {
-    "documentation": "二つのアタッチメント間のバネとダンパーの挙動をシミュレートします。",
+    "documentation": "二つのアタッチメントの間のスプリングとダンパーの動作をシミュレートします。",
     "keys": {
       "Coils": "@roblox/globaltype/SpringConstraint.Coils",
       "CurrentLength": "@roblox/globaltype/SpringConstraint.CurrentLength",
@@ -53935,7 +53929,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Coils": {
-    "documentation": "<code>SpringConstraint</code>上に視覚化されたコイルの数。",
+    "documentation": "<code>SpringConstraint</code>上に視覚化されるコイルの数。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Coils",
     "code_sample": ""
   },
@@ -53945,22 +53939,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Damping": {
-    "documentation": "<code>SpringConstraint</code>のダンピング定数。制約の<code>Attachments</code>の速度に乗じて、適用されるバネの力を減少させます。",
+    "documentation": "<code>SpringConstraint</code>のダンピング定数。この値は、制約の<code>Attachments</code>の速度に掛け算されて、適用されるスプリング力を減少させます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Damping",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.FreeLength": {
-    "documentation": "バネの自然安定長。",
+    "documentation": "スプリングの自然な休止長。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#FreeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.LimitsEnabled": {
-    "documentation": "<code>SpringConstraint</code>が最小および最大の長さを強制するかどうかを設定します。",
+    "documentation": "<code>SpringConstraint</code>が最小および最大長を強制するかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.MaxForce": {
-    "documentation": "<code>SpringConstraint</code>がその<code>Attachments</code>に加えることができる最大の力。",
+    "documentation": "<code>SpringConstraint</code>が<code>Attachments</code>に適用できる最大力。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#MaxForce",
     "code_sample": ""
   },
@@ -53975,17 +53969,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Radius": {
-    "documentation": "バネのコイルの視覚化された半径。",
+    "documentation": "スプリングのコイルの視覚化された半径。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Stiffness": {
-    "documentation": "バネの強さ。この値が高いほど、アタッチメントが<code>FreeLength</code>とは異なる長さに分離したときに、より多くの力が適用されます。",
+    "documentation": "スプリングの強度。この値が高いほど、<code>FreeLength</code>と異なる長さにアタッチメントが離れた際に適用される力が大きくなります。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Stiffness",
     "code_sample": ""
   },
   "@roblox/globaltype/SpringConstraint.Thickness": {
-    "documentation": "バネのコイルの視覚化された厚さ。",
+    "documentation": "スプリングのコイルの視覚化された厚さ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpringConstraint#Thickness",
     "code_sample": ""
   },
@@ -54476,7 +54470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualGlue": {
-    "documentation": "<strong>Deprecated:</strong> <br>ManualGlueは、<code>ManualWeld</code>クラスと同様の方法で作成されたジョイントです。 <code>Glue</code>クラスと同様に機能します。",
+    "documentation": "<strong>Deprecated:</strong> <br>ManualGlueは、<code>ManualWeld</code>クラスと同様の方法で作成されたジョイントです。 <code>Glue</code>クラスと同じように機能します。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualGlue",
     "code_sample": ""
@@ -56444,7 +56438,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce": {
-    "documentation": "その二つの <code>Attachments</code> をつなぐ理論的な線に沿って力を適用します。",
+    "documentation": "2つの<code>Attachments</code>を接続する理論的な線に沿って力を適用します。",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/LineForce.ApplyAtCenterOfMass",
       "InverseSquareLaw": "@roblox/globaltype/LineForce.InverseSquareLaw",
@@ -56456,12 +56450,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ApplyAtCenterOfMass": {
-    "documentation": "親アセンブリの重心で力が適用されるかどうか。",
+    "documentation": "親アセンブリの重心に力が適用されるかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.InverseSquareLaw": {
-    "documentation": "<code>true</code> の場合、力の大きさは距離の逆二乗で乗算されます。",
+    "documentation": "<code>true</code>の場合、力の大きさは距離の逆二乗で掛け算されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#InverseSquareLaw",
     "code_sample": ""
   },
@@ -56476,7 +56470,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineForce.ReactionForceEnabled": {
-    "documentation": "<code>Attachment1</code> の親に対して等しい反対の反作用力を有効にします。",
+    "documentation": "<code>Attachment1</code>の親に対して等しく反対の反作用力を有効にします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineForce#ReactionForceEnabled",
     "code_sample": ""
   },
@@ -56827,7 +56821,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart": {
-    "documentation": "<code>BasePart</code> の物理的にシミュレートされたカスタムメッシュを含む一形態。",
+    "documentation": "<code>BasePart</code> の物理シミュレーションされたカスタムメッシュを含む形式。",
     "keys": {
       "DoubleSided": "@roblox/globaltype/MeshPart.DoubleSided",
       "HasJointOffset": "@roblox/globaltype/MeshPart.HasJointOffset",
@@ -56864,38 +56858,38 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshContent": {
-    "documentation": "<code>MeshPart</code> に表示されるメッシュです。支持される <a href=\"../../../projects/assets/index.md#asset-uris\">アセット URI</a> と <code>EditableMesh</code> オブジェクト。",
+    "documentation": "<code>MeshPart</code> に表示されるメッシュです。サポートされています <a href=\"../../../projects/assets/index.md#asset-uris\">アセットURI</a> および <code>EditableMesh</code> オブジェクト。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.MeshId": {
-    "documentation": "<code>MeshPart</code> に表示されるメッシュの <a href=\"../../../projects/assets/index.md#asset-uris\">アセット URI</a> です。 <code>MeshContent</code> への読み取りと書き込みを提供します。",
+    "documentation": "<code>MeshPart</code> に表示されるメッシュの <a href=\"../../../projects/assets/index.md#asset-uris\">アセットURI</a> です。 <code>MeshContent</code> への読み書きが行われます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#MeshId",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.RenderFidelity": {
-    "documentation": "<code>MeshPart</code> をレンダリングするために使用される詳細レベル。",
+    "documentation": "<code>MeshPart</code> をレンダリングするために使用される詳細レベルです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#RenderFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureContent": {
-    "documentation": "<code>MeshPart</code> に適用されるテクスチャです。支持される <a href=\"../../../projects/assets/index.md#asset-uris\">アセット URI</a> と <code>EditableImage</code> オブジェクト。",
+    "documentation": "<code>MeshPart</code> に適用されるテクスチャ。サポートされています <a href=\"../../../projects/assets/index.md#asset-uris\">アセットURI</a> および <code>EditableImage</code> オブジェクト。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.TextureID": {
-    "documentation": "<code>MeshPart</code> に適用されるテクスチャです。<code>TextureContent</code> への読み取りと書き込みを提供します。",
+    "documentation": "<code>MeshPart</code> に適用されるテクスチャ。<code>TextureContent</code> への読み書きが行われます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MeshPart#TextureID",
     "code_sample": ""
   },
   "@roblox/globaltype/MeshPart.ApplyMesh/param/0": {
-    "documentation": "<code>BasePart</code> の物理的にシミュレートされたカスタムメッシュを含む一形態。"
+    "documentation": "<code>BasePart</code> の物理シミュレーションされたカスタムメッシュを含む形式。"
   },
   "@roblox/globaltype/MeshPart.ApplyMesh/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/MeshPart.ApplyMesh": {
-    "documentation": "指定されたソース <code>meshPart</code> からこの <code>MeshPart</code> の <code>MeshContent</code> 、<code>TextureContent</code> 、および衝突幾何学プロパティを上書きします。",
+    "documentation": "この <code>MeshPart</code> の <code>MeshContent</code>、 <code>TextureContent</code>、および衝突ジオメトリプロパティを、指定されたソースの <code>meshPart</code> から上書きします。",
     "params": [
       {
         "name": "self",
@@ -58840,7 +58834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition": {
-    "documentation": "2つのアタッチメントを一緒に動かすために力を適用する制約、または1つのアタッチメントを目標位置に動かすためのものです。",
+    "documentation": "2つのアタッチメントを一緒に移動させるための力を適用する制約、または1つのアタッチメントを目標位置に移動させるための力を適用します。",
     "keys": {
       "ApplyAtCenterOfMass": "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass",
       "ForceLimitMode": "@roblox/globaltype/AlignPosition.ForceLimitMode",
@@ -58858,57 +58852,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass": {
-    "documentation": "<code>Attachment0</code>のそのアタッチメントの位置で親に力が適用されるか、親の重心で適用されるかどうかを示します。",
+    "documentation": "<code>Attachment0</code> のそのアタッチメントの位置に親に力を適用するか、親の重心に力を適用するかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ApplyAtCenterOfMass",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceLimitMode": {
-    "documentation": "制約力がどのように制限されるかを決定します。<code>RigidityEnabled</code>が<code>false</code>の場合のみ使用されます。",
+    "documentation": "制約力がどのように制限されるかを決定します。 <code>RigidityEnabled</code> が <code>false</code> の場合にのみ使用されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceLimitMode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ForceRelativeTo": {
-    "documentation": "制約が力を制限するために使用する軸を決定します。<code>RigidityEnabled</code>が<code>false</code>で、<code>AlignPosition.ForceLimitMode</code>が<code>PerAxis</code>の場合にのみ適用されます。",
+    "documentation": "制約が力を制限するために使用する軸を決定します。 <code>RigidityEnabled</code> が <code>false</code> で、 <code>AlignPosition.ForceLimitMode</code> が <code>PerAxis</code> の場合にのみ適用されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ForceRelativeTo",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxAxesForce": {
-    "documentation": "制約が目標を達成するために適用できる各軸に沿った最大力。",
+    "documentation": "目標を達成するために制約が適用できる各軸の最大力。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxAxesForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxForce": {
-    "documentation": "制約が目標を達成するために適用できる最大力の大きさ。",
+    "documentation": "目標を達成するために制約が適用できる最大力の大きさ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.MaxVelocity": {
-    "documentation": "アタッチメントが収束する際に動ける最大速度。",
+    "documentation": "収束時にアタッチメントが移動できる最大速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#MaxVelocity",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Mode": {
-    "documentation": "制約がその目標を計算する際に1つまたは2つのアタッチメントを使用するかどうか。",
+    "documentation": "制約が目標を計算する際に1つまたは2つのアタッチメントを使用するかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Position": {
-    "documentation": "制約がその<code>Attachment0</code>を移動させるべき位置。",
+    "documentation": "制約が <code>Attachment0</code> を移動させるべき位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Position",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.ReactionForceEnabled": {
-    "documentation": "制約が<code>Attachment0</code>のみに力を適用するか、または両方のアタッチメントに等しい逆方向の力を適用するかどうか。",
+    "documentation": "制約が <code>Attachment0</code> のみに力を適用するか、両方のアタッチメントに等しい反対方向に力を適用するか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#ReactionForceEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.Responsiveness": {
-    "documentation": "制約がその目標に到達する速度を制御します。値が高いほど、アタッチメントがより迅速に整列されます。",
+    "documentation": "制約が目標に達する速度を制御します。値が高いほど、アタッチメントがより速く整列します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#Responsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignPosition.RigidityEnabled": {
-    "documentation": "力が他のプロパティに依存するか、物理ソルバーが整列を完了するために可能な限り迅速に反応するかどうか。",
+    "documentation": "力が他のプロパティに依存するか、物理ソルバーができるだけ早く整列を完了させるように反応するかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AlignPosition#RigidityEnabled",
     "code_sample": ""
   },
@@ -59504,7 +59498,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ManualWeld": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>Weld</code>と同様に、2つのパーツを一緒に保持します。",
+    "documentation": "<strong>Deprecated:</strong> <br><code>Weld</code> と同じように機能し、二つのパーツを一緒に保持します。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ManualWeld",
     "code_sample": ""
@@ -65781,7 +65775,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint": {
-    "documentation": "2 つのボディの 2 つの軸が直交していることを保証します。",
+    "documentation": "2つのボディ上の2つの軸が直交していることを保証します。",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/UniversalConstraint.LimitsEnabled",
       "MaxAngle": "@roblox/globaltype/UniversalConstraint.MaxAngle",
@@ -65792,12 +65786,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.LimitsEnabled": {
-    "documentation": "アタッチメントの主軸の角運動が制限されているかどうかを決定します。",
+    "documentation": "アタッチメントの主軸の角運動が制限されているかどうかを判断します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.MaxAngle": {
-    "documentation": "制約の制限円錐の最大角度（度単位）です。",
+    "documentation": "制約の制限コーンの最大角度（度）です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#MaxAngle",
     "code_sample": ""
   },
@@ -65807,7 +65801,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UniversalConstraint.Restitution": {
-    "documentation": "円錐制約の復元係数です。",
+    "documentation": "コーン制約の復元係数です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UniversalConstraint#Restitution",
     "code_sample": ""
   },
@@ -70953,7 +70947,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Glue": {
-    "documentation": "<strong>Deprecated:</strong> この接合タイプは非推奨となっており、新しい作業では使用すべきではありません。<br>接着剤は、十分な力が加えられると壊れることができる接合部の一種です。",
+    "documentation": "<strong>Deprecated:</strong> この接合タイプは非推奨となっており、新しい作業では使用すべきではありません。<br>グルーは、十分な力が加えられたときに破損する可能性のある接合部の一種です。",
     "keys": {
       "F0": "@roblox/globaltype/Glue.F0",
       "F1": "@roblox/globaltype/Glue.F1",
@@ -71492,7 +71486,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Part": {
-    "documentation": "異なる原始的な形状を持つ一般的な <code>BasePart</code> のタイプです。",
+    "documentation": "<code>BasePart</code>の一般的なタイプで、異なる基本的な形状が存在します。",
     "keys": {
       "Shape": "@roblox/globaltype/Part.Shape"
     },
@@ -72806,7 +72800,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance": {
-    "documentation": "ジョイントの基本クラス。",
+    "documentation": "ジョイントのベースクラス。",
     "keys": {
       "Active": "@roblox/globaltype/JointInstance.Active",
       "C0": "@roblox/globaltype/JointInstance.C0",
@@ -72820,17 +72814,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Active": {
-    "documentation": "ジョイントが現在世界でアクティブかどうかを決定します。",
+    "documentation": "ジョイントが現在、ワールド内でアクティブかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Active",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C0": {
-    "documentation": "オフセットポイントが <code>JointInstance.Part0</code> にどのように接続されるかを決定します。",
+    "documentation": "<code>JointInstance.Part0</code> へのオフセットポイントの接続方法を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C0",
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C1": {
-    "documentation": "<code>JointInstance.C0</code> プロパティから減算され、<code>JointInstance.Part1</code> のためのオフセットポイントを作成します。",
+    "documentation": "<code>JointInstance.C0</code> プロパティから減算され、 <code>JointInstance.Part1</code> のオフセットポイントを作成します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C1",
     "code_sample": ""
   },
@@ -72845,7 +72839,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.Part1": {
-    "documentation": "ジョイントが接続する二番目の <code>BasePart</code>。",
+    "documentation": "ジョイントが接続する2番目の <code>BasePart</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#Part1",
     "code_sample": ""
   },
@@ -74333,7 +74327,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RigidConstraint": {
-    "documentation": "2 つの <code>Attachments</code> または <code>Bones</code> の間に剛体接続を作成します。",
+    "documentation": "2つの <code>Attachments</code> または <code>Bones</code> の間に剛直接続を作成します。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RigidConstraint",
     "code_sample": ""
@@ -74418,7 +74412,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
-    "documentation": "<code>SpawnLocations</code>、または「スポーン」は、<code>Player</code> が死亡した際にどこで再出現するかを決定します。各スポーンを使用できるプレイヤーを制限するために、<code>Teams</code> を使用して構成することができます。また、再出現したプレイヤーに対して <code>ForceFields</code> がどのように設定されるかも制御します。",
+    "documentation": "<code>SpawnLocations</code> または「スポーン」は、<code>Player</code> が 死亡したときに再出現する場所を決定します。これらは、各スポーンを使用できる 特定のプレイヤーのみを許可するように構成することができ、<code>Teams</code> を使用します。 また、再出現したプレイヤーのために <code>ForceFields</code> がどのように設定されているかを 制御します。",
     "keys": {
       "AllowTeamChangeOnTouch": "@roblox/globaltype/SpawnLocation.AllowTeamChangeOnTouch",
       "Duration": "@roblox/globaltype/SpawnLocation.Duration",
@@ -74430,27 +74424,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.AllowTeamChangeOnTouch": {
-    "documentation": "<code>SpawnLocation</code> に触れることで <code>Player</code> がチームに参加できるようにします。trueに設定されている場合、<code>Player</code> のキャラクターが <code>SpawnLocation</code> に接触すると、プレイヤーの <code>Player.TeamColor</code> が <code>SpawnLocation.TeamColor</code> に設定されます。",
+    "documentation": "<code>SpawnLocation</code> に触れることで、<code>Player</code> がチームに参加できるようにします。 true に設定されている場合、<code>Player</code> キャラクターが <code>SpawnLocation</code> に 接触すると、プレイヤーの <code>Player.TeamColor</code> が <code>SpawnLocation.TeamColor</code> に 設定されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#AllowTeamChangeOnTouch",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.Duration": {
-    "documentation": "この <code>SpawnLocation</code> でスポーンする <code>Player</code> キャラクターに適用される <code>ForceField</code> の秒数です。Duration がゼロの場合、<code>ForceField</code> は作成されず、<code>Instance.DescendantAdded</code> または <code>Instance.ChildAdded</code> イベントはトリガーされません。",
+    "documentation": "この <code>SpawnLocation</code> でスポーンする <code>Player</code> キャラクターに <code>ForceField</code> が適用される時間（秒）です。期間がゼロの場合、 <code>ForceField</code> は決して作成されず、<code>Instance.DescendantAdded</code> や <code>Instance.ChildAdded</code> イベントはトリガーされません。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Duration",
     "code_sample": "local spawnLocation = Instance.new(\"SpawnLocation\")\nspawnLocation.Anchored = true\nspawnLocation.Size = Vector3.new(5, 1, 5)\nspawnLocation.Neutral = true -- ここには誰でもスポーンできます\nspawnLocation.Duration = 20\nspawnLocation.Parent = workspace"
   },
   "@roblox/globaltype/SpawnLocation.Enabled": {
-    "documentation": "<code>SpawnLocation</code> が有効かどうかを設定します。無効にすると、プレイヤーは <code>SpawnLocation</code> でスポーンできず、AllowTeamChangeOnTouch機能は無効になります。",
+    "documentation": "<code>SpawnLocation</code> が有効かどうかを設定します。無効になっていると、 プレイヤーは <code>SpawnLocation</code> でスポーンできず、 AllowTeamChangeOnTouch 機能は無効になります。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Enabled",
     "code_sample": "local spawnLocation = Instance.new(\"SpawnLocation\")\nspawnLocation.Anchored = true\nspawnLocation.Size = Vector3.new(5, 1, 5)\nspawnLocation.Neutral = true -- 誰でもここにスポーンできます\nspawnLocation.Enabled = true\nspawnLocation.Parent = workspace\n\nlocal function onEnabledChanged()\n\tspawnLocation.Transparency = spawnLocation.Enabled and 0 or 0.5\nend\n\nspawnLocation:GetPropertyChangedSignal(\"Enabled\"):Connect(onEnabledChanged)\n\ntask.wait(5)\n\nspawnLocation.Enabled = false -- 透明度 = 0.5"
   },
   "@roblox/globaltype/SpawnLocation.Neutral": {
-    "documentation": "<code>SpawnLocation</code> が特定のチームと関連付けられているかどうかを示します。これは、このプロパティが true に設定されている場合、いかなる <code>Player</code> が、いかなる <code>Team</code> に対しても、スポーンできることを意味します。",
+    "documentation": "<code>SpawnLocation</code> が特定のチームに関連付けられているかどうか。 このプロパティが true に設定されている場合、任意の <code>Player</code> が、 任意の <code>Team</code> の上にスポーンできます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#Neutral",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation.TeamColor": {
-    "documentation": "<code>SpawnLocation</code> が関連付けられているチームを設定します。<code>SpawnLocation.Neutral</code> プロパティが false の場合、同じ <code>Player.TeamColor</code> を持つ <code>Players</code> のみがそこにスポーンできるようになります。",
+    "documentation": "<code>SpawnLocation</code> が関連付けられているチームを設定します。もし <code>SpawnLocation.Neutral</code> プロパティが false であれば、 同じ <code>Player.TeamColor</code> を持つ (Class.SpawnLocation) の TeamColor にはスポーンできません。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SpawnLocation#TeamColor",
     "code_sample": ""
   },
@@ -79559,7 +79553,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Status": {
-    "documentation": "<strong>Deprecated:</strong> Statusはカスタム<code>Humanoid</code>ステータスを保存するために設計された未完成のオブジェクトです。 非推奨となっており、新しい作業において開発者は使用すべきではありません。 カスタム<code>Humanoid</code>ステータスを実装しようとしている開発者は、 <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a>を使用すべきで、 それはLuauで書かれており、簡単に拡張可能です。<br>開発者に機能を提供しない未完成のオブジェクトです。",
+    "documentation": "<strong>Deprecated:</strong> Status はカスタム <code>Humanoid</code> ステータスを格納するために設計された未完成のオブジェクトです。 それは非推奨となっており、新しい作業で開発者によって使用すべきではありません。 カスタム <code>Humanoid</code> ステータスを実装しようとしている開発者は、 <a href=\"https://devforum.roblox.com/t/releasing-character-physics-controllers/2623426\">Character Physics Controllers</a> を使用するべきです。 それらは Luau で書かれており、簡単に拡張可能です。<br>機能を提供しない未完成のオブジェクトです。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Status",
     "code_sample": ""
@@ -79904,7 +79898,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint": {
-    "documentation": "二つの特定の部品間の衝突を防ぐために使用されるインスタンス。",
+    "documentation": "二つの特定のパーツ間の衝突を防ぐためのインスタンスです。",
     "keys": {
       "Enabled": "@roblox/globaltype/NoCollisionConstraint.Enabled",
       "Part0": "@roblox/globaltype/NoCollisionConstraint.Part0",
@@ -79914,17 +79908,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint.Enabled": {
-    "documentation": "<code>BaseParts</code> の二つのリンクされた部品が互いに衝突するかどうかを決定します。",
+    "documentation": "リンクされた二つの <code>BaseParts</code> が互いに衝突するかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NoCollisionConstraint#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint.Part0": {
-    "documentation": "制約が接続する二つの <code>BasePart</code> のうちの二つ目。",
+    "documentation": "制約が接続する二つ目の <code>BasePart</code> です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NoCollisionConstraint#Part0",
     "code_sample": ""
   },
   "@roblox/globaltype/NoCollisionConstraint.Part1": {
-    "documentation": "制約が接続する二つの <code>BasePart</code> のうちの一つ目。",
+    "documentation": "制約が接続する一つ目の <code>BasePart</code> です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NoCollisionConstraint#Part1",
     "code_sample": ""
   },
@@ -80822,7 +80816,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint": {
-    "documentation": "2つのアタッチメントを同じ位置に強制的に配置し、すべての3つの軸の周りで自由に回転できるようにし、両方の傾きとねじりを制限するオプションの制限を提供します。",
+    "documentation": "その二つのアタッチメントを同じ位置に強制的に配置し、すべての三つの軸を自由に回転させることができる。また、傾きとねじれを制限するオプションの制限もある。",
     "keys": {
       "LimitsEnabled": "@roblox/globaltype/BallSocketConstraint.LimitsEnabled",
       "MaxFrictionTorque": "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque",
@@ -80837,42 +80831,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.LimitsEnabled": {
-    "documentation": "<code>BallSocketConstraint</code>が<code>UpperAngle</code>に基づいて回転の制限を設定するかどうかを設定します。",
+    "documentation": "<code>BallSocketConstraint</code> が <code>UpperAngle</code> に基づいて回転を制限するかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.MaxFrictionTorque": {
-    "documentation": "<code>Attachments</code>を整列させるために適用される最大摩擦トルクを設定します。",
+    "documentation": "<code>Attachments</code> を整列させるために適用される最大摩擦トルクを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#MaxFrictionTorque",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.Radius": {
-    "documentation": "<code>BallSocketConstraint</code>の視覚化された半径。",
+    "documentation": "<code>BallSocketConstraint</code> の視覚化された半径。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#Radius",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.Restitution": {
-    "documentation": "<code>LimitsEnabled</code>が<code>true</code>の場合、<code>BallSocketConstraint</code>で接続された<code>Attachments</code>が指定された<code>UpperAngle</code>の範囲の端に達したときの弾力性。",
+    "documentation": "<code>LimitsEnabled</code> が <code>true</code> の場合に、 <code>BallSocketConstraint</code> に接続された <code>Attachments</code> が、<code>UpperAngle</code> で指定された範囲の終わりに達したとき、どれだけ弾性を持つか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLimitsEnabled": {
-    "documentation": "<code>TwistUpperAngle</code>と<code>TwistLowerAngle</code>に基づいて、<code>BallSocketConstraint</code>がねじれ回転の制限を設定するかどうかを設定します。",
+    "documentation": "<code>BallSocketConstraint</code> が、 <code>TwistUpperAngle</code> と <code>TwistLowerAngle</code> に基づいてねじれ回転に制限を設けるかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistLowerAngle": {
-    "documentation": "<code>TwistLimitsEnabled</code>が<code>true</code>の場合に、<code>BallSocketConstraint</code>の下ねじれ回転制限を設定します。",
+    "documentation": "<code>BallSocketConstraint</code> の下ねじれ回転制限を設定します。 <code>TwistLimitsEnabled</code> が <code>true</code> の場合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistLowerAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.TwistUpperAngle": {
-    "documentation": "<code>TwistLimitsEnabled</code>が<code>true</code>の場合に、<code>BallSocketConstraint</code>の上ねじれ回転制限を設定します。",
+    "documentation": "<code>BallSocketConstraint</code> の上ねじれ回転制限を設定します。 <code>TwistLimitsEnabled</code> が <code>true</code> の場合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#TwistUpperAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/BallSocketConstraint.UpperAngle": {
-    "documentation": "<code>LimitsEnabled</code>が<code>true</code>の場合に、<code>BallSocketConstraint</code>の上回転限度を設定します。",
+    "documentation": "<code>BallSocketConstraint</code> の上回転制限を設定します。 <code>LimitsEnabled</code> が <code>true</code> の場合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BallSocketConstraint#UpperAngle",
     "code_sample": ""
   },
@@ -81910,7 +81904,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PlaneConstraint": {
-    "documentation": "添付物を、<code>Attachment0</code>の主軸である法線ベクターに沿った平面上の位置/向きに移動します。",
+    "documentation": "アタッチメントを、<code>Attachment0</code> の主軸の法線ベクトルに沿った平面内の位置/方向に移動します。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PlaneConstraint",
     "code_sample": ""
@@ -84339,7 +84333,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo": {
-    "documentation": "音のボリュームを上下に変化させることで、音に震え効果を作成します。",
+    "documentation": "音の音量を上下に変化させることで、音に震え効果を生み出します。",
     "keys": {
       "Depth": "@roblox/globaltype/AudioTremolo.Depth",
       "Duty": "@roblox/globaltype/AudioTremolo.Duty",
@@ -84352,17 +84346,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Depth": {
-    "documentation": "ボリュームがどれだけ上昇および下降するかを制御します。",
+    "documentation": "音量がどれだけ上昇・降下するかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Depth",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Duty": {
-    "documentation": "1回のボリューム振動中に効果がどれだけ長くアクティブであるかを制御します。",
+    "documentation": "1回の音量振動中に効果がどれだけ持続するかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Duty",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Frequency": {
-    "documentation": "効果がボリュームをどれだけ頻繁に振動させるかを設定します。",
+    "documentation": "効果が音量をどれくらいの頻度で振動させるかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Frequency",
     "code_sample": ""
   },
@@ -84372,7 +84366,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTremolo.Skew": {
-    "documentation": "低周波振動のサイクルを時間の歪みにします。",
+    "documentation": "低周波振動のサイクルの時間を歪めます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTremolo#Skew",
     "code_sample": ""
   },
@@ -89857,7 +89851,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Torque.RelativeTo": {
-    "documentation": "<code>CFrame</code> の中でトルクが表現されます。",
+    "documentation": "トルクが表現される <code>CFrame</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Torque#RelativeTo",
     "code_sample": ""
   },
@@ -89867,7 +89861,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "アニメーション可能な運動学的または力に基づくジョイントで、2つの <code>BaseParts</code> を整列させます。",
+    "documentation": "2つの <code>BaseParts</code> をアニメーション可能な運動学的または 力ベースのジョイントで整列させます。",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -89892,17 +89886,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "<code>AnimationConstraint</code> が運動学的か物理的にシミュレートされるかを切り替えます。",
+    "documentation": "<code>AnimationConstraint</code> が運動学的か物理的に シミュレーションされるかを切り替えます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxForce": {
-    "documentation": "制約が目標を達成するために適用できる最大力の大きさ。",
+    "documentation": "Maximum force magnitude the constraint can apply to achieve its goal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxTorque": {
-    "documentation": "目標を達成するために制約が適用できる最大トルク。",
+    "documentation": "Maximum torque the constraint can apply to reach its goal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxTorque",
     "code_sample": ""
   },
@@ -89917,7 +89911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
-    "documentation": "<code>AnimationConstraint</code> ジョイントの現在のアニメーションオフセットを示します。",
+    "documentation": "Describes the current animation offset of the <code>AnimationConstraint</code> joint.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Transform",
     "code_sample": ""
   },
@@ -90230,7 +90224,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BackpackItem": {
-    "documentation": "BackpackItem は、HopperBins や Tools といったバックパックアイテムのための抽象クラスです。",
+    "documentation": "BackpackItemは、HopperBinsやツールなどのバックパックアイテムのための抽象クラスです。",
     "keys": {
       "TextureContent": "@roblox/globaltype/BackpackItem.TextureContent",
       "TextureId": "@roblox/globaltype/BackpackItem.TextureId"
@@ -90239,7 +90233,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BackpackItem.TextureContent": {
-    "documentation": "プレイヤーのバックパックに表示されるツールのテクスチャアイコンです。 アセット URI のみをサポートしています。",
+    "documentation": "プレイヤーのバックパックに表示されるツールのテクスチャアイコンです。 アセットURIのみサポートされています。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BackpackItem#TextureContent",
     "code_sample": ""
   },
@@ -90274,7 +90268,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint": {
-    "documentation": "アタッチメントが軸に沿ってスライドできるが、回転はできない制約の基本クラスです。",
+    "documentation": "添付物が軸に沿ってスライドできるが、回転はできない制約の基本クラスです。",
     "keys": {
       "ActuatorType": "@roblox/globaltype/SlidingBallConstraint.ActuatorType",
       "CurrentPosition": "@roblox/globaltype/SlidingBallConstraint.CurrentPosition",
@@ -90296,47 +90290,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ActuatorType": {
-    "documentation": "<code>SlidingBallConstraint</code>の変位がアクチュエートされるかどうか、またその場合はどのようなアクチュエーションかを設定します。",
+    "documentation": "<code>SlidingBallConstraint</code> の移動がアクチュエートされるかどうか、およびその場合はどのタイプのアクチュエーションであるかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ActuatorType",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.CurrentPosition": {
-    "documentation": "制約の<code>Attachments</code>間の現在のオフセット。",
+    "documentation": "制約の <code>Attachments</code> 間の現在のオフセット。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#CurrentPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LimitsEnabled": {
-    "documentation": "<code>SlidingBallConstraint</code>が変位の範囲を制限するかどうかを設定します。",
+    "documentation": "<code>SlidingBallConstraint</code> が移動の範囲を制限するかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LimitsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LinearResponsiveness": {
-    "documentation": "<code>TargetPosition</code>に到達する際の線形サーボモーターの「シャープネス」を指定します。",
+    "documentation": "<code>TargetPosition</code> に到達する際の線形サーボモーターの「鋭さ」を指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LinearResponsiveness",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.LowerLimit": {
-    "documentation": "<code>LimitsEnabled</code>が真の場合の<code>Attachment0</code>の<strong>X</strong>軸に沿った下限位置制限。",
+    "documentation": "<code>Attachment0</code> の <strong>X</strong> 軸に沿った下位位置制限。 <code>LimitsEnabled</code> が真である場合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#LowerLimit",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxAcceleration": {
-    "documentation": "<code>ActuatorType</code>が<code>Motor</code>に設定されているときの制約の最大加速度です。この制約は、目標の<code>Velocity</code>に到達しようとします。",
+    "documentation": "<code>ActuatorType</code> が <code>Motor</code> に設定されているときの制約の最大加速度。 制約が希望する <code>Velocity</code> に到達しようとします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxAcceleration",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.MotorMaxForce": {
-    "documentation": "<code>ActuatorType</code>が<code>Motor</code>に設定されているときの制約の最大力です。この制約は、目標の<code>Velocity</code>に到達しようとします。",
+    "documentation": "<code>ActuatorType</code> が <code>Motor</code> に設定されているときの制約の最大力。 制約が希望する <code>Velocity</code> に到達しようとします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#MotorMaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Restitution": {
-    "documentation": "<code>LimitsEnabled</code>が真の場合に、制約の<code>Attachments</code>が<code>UpperLimit</code>および <code>LowerLimit</code>で指定された範囲の終端に達したときの弾力性。",
+    "documentation": "<code>Attachments</code> が <code>UpperLimit</code> および <code>LowerLimit</code> で指定された範囲の端に達したときの弾性。<code></code>LimitsEnabled` が真に設定されていると仮定されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Restitution",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.ServoMaxForce": {
-    "documentation": "<code>ActuatorType</code>が<code>Servo</code>に設定されているときの制約の最大力です。この制約は、目標の<code>Speed</code>に到達しようとします。",
+    "documentation": "<code>ActuatorType</code> が <code>Servo</code> に設定されているときの制約の最大力。 制約が希望する <code>Speed</code> に到達しようとします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#ServoMaxForce",
     "code_sample": ""
   },
@@ -90346,27 +90340,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.SoftlockServoUponReachingTarget": {
-    "documentation": "<strong>Deprecated:</strong> このプロパティは新しい作業で使用すべきではありません。",
+    "documentation": "<strong>Deprecated:</strong> このプロパティは新しい作業には使用しないでください。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#SoftlockServoUponReachingTarget",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Speed": {
-    "documentation": "<code>ActuatorType</code>が<code>Servo</code>に設定されているときの制約の目標速度です。この制約は、 <code>TargetPosition</code>に向かって変位します。単位はスタッド毎秒です。",
+    "documentation": "<code>ActuatorType</code> が <code>Servo</code> に設定されているときの制約の希望する速度。 制約がその <code>TargetPosition</code> に向かって移動します。単位はスタッド毎秒です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.TargetPosition": {
-    "documentation": "<code>ActuatorType</code>が<code>Servo</code>に設定されているときの制約の目指されるターゲット位置です。単位はスタッドです。",
+    "documentation": "<code>ActuatorType</code> が <code>Servo</code> に設定されているときの制約の試みる目標位置。 単位はスタッドです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#TargetPosition",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.UpperLimit": {
-    "documentation": "<code>LimitsEnabled</code>が真の場合の<code>Attachment0</code>の<strong>X</strong>軸に沿った上限位置制限。",
+    "documentation": "<code>Attachment0</code> の <strong>X</strong> 軸に沿った上位位置制限。 <code>LimitsEnabled</code> が真である場合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#UpperLimit",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint.Velocity": {
-    "documentation": "<code>ActuatorType</code>が<code>Motor</code>に設定されているときの制約の試みられた速度です。単位はスタッド毎秒です。",
+    "documentation": "<code>ActuatorType</code> が <code>Motor</code> に設定されているときの制約の試みる速度。 単位はスタッド毎秒です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SlidingBallConstraint#Velocity",
     "code_sample": ""
   },
@@ -90563,7 +90557,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiBase3d.Visible": {
-    "documentation": "この <code>GuiBase3d</code> オブジェクトとその子孫が表示されるかどうかを決定します。",
+    "documentation": "この <code>GuiBase3d</code> オブジェクトとその子孫が表示されるかどうかを 決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase3d#Visible",
     "code_sample": ""
   },
@@ -92771,13 +92765,13 @@
     "documentation": "返されるキャラクターが R6 または R15 になるかを指定します。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
-    "documentation": "アセットタイプの検証により、この関数がモデルをロードするかどうかを決定します（カタログ外アセットを読み込む場合を除き、常に設定すべきです）。"
+    "documentation": "アセットタイプの検証は、この関数がモデルをロードするかどうかを判断します。 ⚠️&nbsp;このパラメータのデフォルト値は、<code>ClientOnly</code> から <code>Always</code> に、2025年10月20日以降に変更されます。詳細については <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">こちら</a>をご覧ください。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
-    "documentation": "Humanoid キャラクターモデル。"
+    "documentation": "キャラクター <code>Model</code> の <code>Humanoid</code>。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "渡された HumanoidDescription で装備されたキャラクターモデルを返し、rigType によって R6 または R15 となります。",
+    "documentation": "指定されたすべての内容で装備されたキャラクター <code>Model</code> を返します。 渡された <code>HumanoidDescription</code> に基づきます。",
     "params": [
       {
         "name": "self",
@@ -93808,7 +93802,7 @@
     "code_sample": "local MemoryStoreService = game:GetService(\"MemoryStoreService\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal queue = MemoryStoreService:GetQueue(\"PlayerQueue\")\nlocal dataStore = DataStoreService:GetDataStore(\"PlayerStore\")\n\nwhile true do\n\tpcall(function()\n\t\t-- 項目を処理するのを待つ\n\t\tlocal items, id = queue:ReadAsync(1, false, 30)\n\n\t\t-- 項目が取得されているか確認する\n\t\tif #items > 0 then\n\t\t\t-- 項目を処理済みとしてマークする\n\t\t\tdataStore:UpdateAsync(items[0], function(data)\n\t\t\t\tdata = data or {}\n\t\t\t\tdata.processed = 1\n\t\t\t\treturn data\n\t\t\tend)\n\n\t\t\t-- 項目をキューから削除する\n\t\t\tqueue:RemoveAsync(id)\n\t\tend\n\tend)\nend"
   },
   "@roblox/globaltype/WorldRoot": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。",
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。",
     "keys": {
       "ArePartsTouchingOthers": "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers",
       "Blockcast": "@roblox/globaltype/WorldRoot.Blockcast",
@@ -93836,19 +93830,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/1": {
-    "documentation": "他の部品に触れているか確認する部分のリスト。"
+    "documentation": "リスト内のパーツがリスト外のパーツと接触しているかをチェックします。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/param/2": {
-    "documentation": "接触と見なされる前に無視される部品の重なりの閾値（スタッド単位）。"
+    "documentation": "パーツが接触していると見なされる前に無視されるパーツの重なりの閾値（スタッド単位）。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers/return/0": {
-    "documentation": "<code>partList</code>内の<code>parts</code>のいずれかが他の部品（partListにない部品）に触れている場合にのみtrueを返します。部品が渡されていない場合はfalseを返します。"
+    "documentation": "<code>partList</code>の<code>parts</code>のいずれかが他のパーツ（partListに含まれていないパーツ）に接触している場合にのみtrue。パーツが渡されなかった場合はfalse。"
   },
   "@roblox/globaltype/WorldRoot.ArePartsTouchingOthers": {
-    "documentation": "与えられた<code>BasePart</code>の中に、他の部品に触れているものがあればtrueを返します。",
+    "documentation": "与えられた<code>BasePart</code>が他のパーツに接触している場合、trueを返します。",
     "params": [
       {
         "name": "self",
@@ -93870,25 +93864,25 @@
     "code_sample": "local part1 = Instance.new(\"Part\")\npart1.Name = \"Part1\"\npart1.Anchored = true\npart1.Transparency = 0.5\npart1.Color = Color3.fromRGB(185, 100, 38)\npart1.Size = Vector3.new(2, 2, 2)\npart1.Position = Vector3.new(0, 4, 0)\npart1.Parent = workspace\n\nlocal part2 = Instance.new(\"Part\")\npart2.Name = \"Part2\"\npart2.Anchored = true\npart2.Transparency = 0.5\npart2.Color = Color3.fromRGB(200, 10, 0)\npart2.Size = Vector3.new(2, 2, 2)\npart2.Position = Vector3.new(0, 5, 0)\npart2.Parent = workspace\n\nlocal partList = { part1 }\n\nprint(workspace:ArePartsTouchingOthers(partList, 0)) -- 真\nprint(workspace:ArePartsTouchingOthers(partList, 0.999)) -- 真\nprint(workspace:ArePartsTouchingOthers(partList, 1)) -- 偽"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/1": {
-    "documentation": "キャストするブロック形状の初期位置と回転。"
+    "documentation": "キャストされるブロック形状の初期位置と回転。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/2": {
-    "documentation": "キャストするブロック形状のサイズ（スタッド単位）。最大サイズは512スタッドです。"
+    "documentation": "ブロック形状のスタッドでのサイズ。最大サイズは512スタッドです。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/3": {
-    "documentation": "シェイプキャストの方向で、大きさは形状が移動できる最大距離を表します。最大距離は1024スタッドです。"
+    "documentation": "形状キャストの方向、マグニチュードは形状が移動できる最大距離を表します。最大距離は1024スタッドです。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Blockcast/return/0": {
-    "documentation": "シェイプキャスト操作の結果を含むか、適格な<code>BasePart</code>または<code>Terrain</code>セルがヒットしなかった場合は<code>nil</code>を返します。"
+    "documentation": "形状キャスト操作の結果を含む、または当該の<code>BasePart</code>または<code>Terrain</code>セルがヒットしなかった場合は<code>nil</code>。"
   },
   "@roblox/globaltype/WorldRoot.Blockcast": {
-    "documentation": "指定された方向にブロック形状をキャストし、<code>BasePart</code>または<code>Terrain</code>セルに命中した場合、<code>RaycastResult</code>を返します。",
+    "documentation": "与えられた方向にブロック形状をキャストし、<code>BasePart</code>または<code>Terrain</code>セルに当たった場合、<code>RaycastResult</code>を返します。",
     "params": [
       {
         "name": "self",
@@ -93918,7 +93912,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.BulkMoveTo/param/1": {
     "documentation": ""
@@ -93954,7 +93948,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/param/1": {
     "documentation": ""
@@ -93969,10 +93963,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay/return/0": {
-    "documentation": "ヒットした<code>BasePart</code>または<code>Terrain</code>セル、交差点の<code>Vector3</code>ポイント、交差点での表面法線の<code>Vector3</code>、およびヒットした<code>BasePart</code>または地形セルの<code>Material</code>。"
+    "documentation": "<code>BasePart</code>または<code>Terrain</code>セルがヒットした点、交差点の<code>Vector3</code>、交差点での表面法線の<code>Vector3</code>、およびヒットした<code>BasePart</code>または地形セルの<code>Material</code>を含みます。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨となりました。新しい作業には、<code>WorldRoot:Raycast()</code>と<code>RaycastParams</code>を使用してください。<br>与えられた<code>Ray</code>と交差する最初の<code>BasePart</code>または<code>Terrain</code>セルを返します。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:Raycast()</code>を使用し、<code>RaycastParams</code>を併用してください。<br>与えられた<code>Ray</code>と交差する最初の<code>BasePart</code>または<code>Terrain</code>セルを返します。",
     "params": [
       {
         "name": "self",
@@ -94002,7 +93996,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/param/1": {
     "documentation": ""
@@ -94017,10 +94011,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList/return/0": {
-    "documentation": "ヒットした<code>BasePart</code>または<code>Terrain</code>セル、交差点の<code>Vector3</code>ポイント、交差点での表面法線の<code>Vector3</code>、およびヒットした<code>BasePart</code>または地形セルの<code>Material</code>。"
+    "documentation": "<code>BasePart</code>または<code>Terrain</code>セルがヒットした点、交差点の<code>Vector3</code>、交差点での表面法線の<code>Vector3</code>、およびヒットした<code>BasePart</code>または地形セルの<code>Material</code>を含みます。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨となりました。新しい作業には、<code>WorldRoot:Raycast()</code>と<code>RaycastParams</code>を使用してください。<br>与えられた<code>Ray</code>と交差する最初の<code>BasePart</code>または<code>Terrain</code>セルを返しますが、そのセルが指定した無視リストの中にないか、無視リスト内のオブジェクトの子孫でない場合。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:Raycast()</code>を使用し、<code>RaycastParams</code>を併用してください。<br>与えられた<code>Ray</code>と交差する最初の<code>BasePart</code>または<code>Terrain</code>セルを返しますが、与えられた無視リストの中のオブジェクトに含まれない、あるいはその子ではないセルです。",
     "params": [
       {
         "name": "self",
@@ -94050,7 +94044,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/param/1": {
     "documentation": ""
@@ -94062,10 +94056,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist/return/0": {
-    "documentation": "ヒットした<code>BasePart</code>または<code>Terrain</code>セル、交差点の<code>Vector3</code>ポイント、交差点での表面法線の<code>Vector3</code>、およびヒットした<code>BasePart</code>または地形セルの<code>Material</code>。"
+    "documentation": "<code>BasePart</code>または<code>Terrain</code>セルがヒットした点、交差点の<code>Vector3</code>、交差点での表面法線の<code>Vector3</code>、およびヒットした<code>BasePart</code>または地形セルの<code>Material</code>を含みます。"
   },
   "@roblox/globaltype/WorldRoot.FindPartOnRayWithWhitelist": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨となりました。新しい作業には、<code>WorldRoot:Raycast()</code>と<code>RaycastParams</code>を使用してください。<br>与えられた<code>Ray</code>と交差する最初の<code>BasePart</code>または<code>Terrain</code>セルを返しますが、そのセルが指定した含めリストの中にあるか、含めリスト内のオブジェクトの子孫である場合。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:Raycast()</code>を使用し、<code>RaycastParams</code>を併用してください。<br>与えられた<code>Ray</code>と交差する最初の<code>BasePart</code>または<code>Terrain</code>セルを返しますが、与えられた含めリストの中のオブジェクトに含まれている、あるいはその子であるセルです。",
     "params": [
       {
         "name": "self",
@@ -94091,10 +94085,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/1": {
-    "documentation": "チェックする<code>Region3</code>。"
+    "documentation": "チェックされる<code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3/param/2": {
     "documentation": "無視されるべき<code>Instance</code>。"
@@ -94106,7 +94100,7 @@
     "documentation": "<code>Region3</code>内の<code>BaseParts</code>の配列。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨となりました。新しい作業には <code>WorldRoot:GetPartBoundsInBox()</code>と<code>OverlapParams</code>を使用してください。<br>指定された<code>Region3</code>内の<code>BaseParts</code>の配列を返します。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:GetPartBoundsInBox()</code>を使用し、<code>OverlapParams</code>を併用してください。<br>与えられた<code>Region3</code>内の<code>BaseParts</code>の配列を返します。",
     "params": [
       {
         "name": "self",
@@ -94132,10 +94126,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/1": {
-    "documentation": "チェックする<code>Region3</code>。"
+    "documentation": "チェックされる<code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/param/2": {
     "documentation": "無視されるべきオブジェクトの配列。"
@@ -94144,10 +94138,10 @@
     "documentation": "返される<code>BaseParts</code>の最大数。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList/return/0": {
-    "documentation": "<code>Region3</code>内で見つかった<code>BaseParts</code>の配列。"
+    "documentation": "<code>Region3</code>に見つかった<code>BaseParts</code>の配列。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨となりました。新しい作業には <code>WorldRoot:GetPartBoundsInBox()</code>と<code>OverlapParams</code>を使用してください。<br>与えられた<code>Region3</code>内で、無視リストのエントリにないか、エントリの子孫ではない<code>BaseParts</code>の配列を返します。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:GetPartBoundsInBox()</code>を使用し、<code>OverlapParams</code>を併用してください。<br>与えられた<code>Region3</code>内の<code>BaseParts</code>の配列で、無視リストの中のエントリーに含まれない、またはその子ではないものを返します。",
     "params": [
       {
         "name": "self",
@@ -94173,10 +94167,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/1": {
-    "documentation": "チェックする<code>Region3</code>。"
+    "documentation": "チェックされる<code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList/param/2": {
     "documentation": "チェックするオブジェクトの配列。"
@@ -94188,7 +94182,7 @@
     "documentation": "<code>Region3</code>内の<code>BaseParts</code>の配列。"
   },
   "@roblox/globaltype/WorldRoot.FindPartsInRegion3WithWhiteList": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨となりました。新しい作業には <code>WorldRoot:GetPartBoundsInBox()</code>と<code>OverlapParams</code>を使用してください。<br>与えられた<code>Region3</code>内で、含めリストのエントリにあるか、その子孫である<code>BaseParts</code>の配列を返します。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:GetPartBoundsInBox()</code>を使用し、<code>OverlapParams</code>を併用してください。<br>与えられた<code>Region3</code>内の<code>BaseParts</code>の配列で、含めリストの中のエントリーに含まれる、またはその子であるものを返します。",
     "params": [
       {
         "name": "self",
@@ -94214,22 +94208,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/1": {
-    "documentation": "クエリされるボックス体積の中心となる位置。"
+    "documentation": "クエリされるボックスボリュームの中心の位置。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/2": {
-    "documentation": "クエリされるボックス体積のサイズ。"
+    "documentation": "クエリされるボックスボリュームのサイズ。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/param/3": {
-    "documentation": "空間クエリパラメータの再利用可能な部分が含まれます。"
+    "documentation": "空間クエリパラメータのリユーザブルな部分を含みます。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox/return/0": {
-    "documentation": "空間クエリに一致した<code>BaseParts</code>の配列。"
+    "documentation": "空間クエリに一致する<code>BaseParts</code>の配列。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInBox": {
-    "documentation": "与えられたボックスに<strong>バウンディングボックス</strong>が重なっている部品の配列を返します。",
+    "documentation": "与えられたボックスと<strong>境界ボックス</strong>が重なっているパーツの配列を返します。",
     "params": [
       {
         "name": "self",
@@ -94255,22 +94249,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/1": {
-    "documentation": "クエリ対象の指定された球体ボリュームの中心の位置。"
+    "documentation": "クエリされる球ボリュームの中心の位置。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/2": {
-    "documentation": "クエリ対象の指定された球体ボリュームの半径。"
+    "documentation": "クエリされる球ボリュームの半径。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/param/3": {
-    "documentation": "空間クエリパラメータの再利用可能な部分を含みます。"
+    "documentation": "空間クエリパラメータのリユーザブルな部分を含みます。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius/return/0": {
-    "documentation": "空間クエリに一致した<code>BaseParts</code>の配列。"
+    "documentation": "空間クエリに一致する<code>BaseParts</code>の配列。"
   },
   "@roblox/globaltype/WorldRoot.GetPartBoundsInRadius": {
-    "documentation": "指定された球体と重なる<strong>バウンディングボックス</strong>を持つ部品の配列を返します。",
+    "documentation": "与えられた球と<strong>境界ボックス</strong>が重なっているパーツの配列を返します。",
     "params": [
       {
         "name": "self",
@@ -94296,19 +94290,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/1": {
-    "documentation": "他の部品と照合するためのボリュームを持つ部品。"
+    "documentation": "他のパーツと比較してチェックされるパーツ。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/param/2": {
-    "documentation": "空間クエリパラメータの再利用可能な部分を含みます。"
+    "documentation": "空間クエリパラメータのリユーザブルな部分を含みます。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart/return/0": {
-    "documentation": "空間クエリに一致した<code>BaseParts</code>の配列。"
+    "documentation": "空間クエリに一致する<code>BaseParts</code>の配列。"
   },
   "@roblox/globaltype/WorldRoot.GetPartsInPart": {
-    "documentation": "指定された部品と占有スペースを共有する部品の配列を返します。",
+    "documentation": "与えられたパーツと占有空間を共有しているパーツの配列を返します。",
     "params": [
       {
         "name": "self",
@@ -94330,25 +94324,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/1": {
-    "documentation": "移動される部品。"
+    "documentation": "移動されるパーツ。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/2": {
-    "documentation": "指定された部品を移動する位置。"
+    "documentation": "指定されたパーツを移動する位置。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/3": {
-    "documentation": "ターゲット<code>CFrame</code>の位置部分にどれだけ積極的に一致させるかを指定する0から1の間の数値。"
+    "documentation": "ターゲット<code>CFrame</code>の位置にパーツの位置を合わせるためにどの程度正確にマッチさせるかを指定する0から1の数値。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/4": {
-    "documentation": "ターゲット<code>CFrame</code>の回転部分にどれだけ積極的に一致させるかを指定する0から1の間の数値。"
+    "documentation": "ターゲット<code>CFrame</code>の回転にパーツの回転をどの程度正確にマッチさせるかを指定する0から1の数値。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo/param/5": {
-    "documentation": "物理的な解決に影響を与えるオブジェクトを指定できます。"
+    "documentation": "物理解決に影響を与えるべきオブジェクトを指定できます。"
   },
   "@roblox/globaltype/WorldRoot.IKMoveTo": {
-    "documentation": "指定された関節、制約、またはその部品が参加している衝突を物理的に満たすのを保証するために、指定された場所へ逆運動学を介して指定された部品を移動させます。",
+    "documentation": "指定されたパーツを指定された位置に逆運動学を通じて移動させます。これにより、そのパーツが参加しているすべてのジョイント、制約、および衝突が物理的に満たされていることを確認します。",
     "params": [
       {
         "name": "self",
@@ -94380,19 +94374,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/1": {
-    "documentation": "チェックする<code>Region3</code>。"
+    "documentation": "チェックされる<code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/param/2": {
-    "documentation": "無視される<code>Instance</code>。"
+    "documentation": "無視されるべき<code>Instance</code>。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty/return/0": {
-    "documentation": "<code>Region3</code>が空の場合はTrue。"
+    "documentation": "<code>Region3</code>が空である場合はtrue。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3Empty": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:GetPartBoundsInBox()</code>と<code>OverlapParams</code>を使用してください。<br>指定された<code>Region3</code>内に<code>BaseParts</code>が存在しないかどうかを示すbool値を返します。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:GetPartBoundsInBox()</code>を使用し、<code>OverlapParams</code>を併用してください。<br>与えられた<code>Region3</code>内に<code>BaseParts</code>が存在しないかどうかを示すboolを返します。",
     "params": [
       {
         "name": "self",
@@ -94414,19 +94408,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/1": {
-    "documentation": "チェックする<code>Region3</code>。"
+    "documentation": "チェックされる<code>Region3</code>。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/param/2": {
-    "documentation": "無視されるオブジェクトの配列。"
+    "documentation": "無視されるべきオブジェクトの配列。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList/return/0": {
-    "documentation": "<code>Region3</code>が空の場合はTrue。"
+    "documentation": "<code>Region3</code>が空である場合はtrue。"
   },
   "@roblox/globaltype/WorldRoot.IsRegion3EmptyWithIgnoreList": {
-    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:GetPartBoundsInBox()</code>と<code>OverlapParams</code>を使用してください。<br>指定された無視リスト内のオブジェクトの子孫である<code>BaseParts</code>を無視し、指定された<code>Region3</code>内に<code>BaseParts</code>が存在しないかどうかを示すブール値を返します。",
+    "documentation": "<strong>Deprecated:</strong> この関数は非推奨です。新しい作業には<code>WorldRoot:GetPartBoundsInBox()</code>を使用し、<code>OverlapParams</code>を併用してください。<br>与えられた<code>Region3</code>内に<code>BaseParts</code>が存在しないかどうかを示す、無視リスト内のオブジェクトの子を無視したboolを返します。",
     "params": [
       {
         "name": "self",
@@ -94448,22 +94442,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/1": {
-    "documentation": "レイの原点。"
+    "documentation": "レイの起点。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/2": {
-    "documentation": "レイの方向ベクトル。このベクトルの長さが重要で、長さよりも遠い部品/地形はテストされません。"
+    "documentation": "レイの方向ベクトル。このベクトルの長さは重要であり、その長さよりも遠くにあるパーツ/地形はテストされません。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/param/3": {
-    "documentation": "レイキャスト操作におけるヒットの適格性を指定するために使用されるオブジェクト。提供されない場合は、すべての部品が考慮され、<code>Terrain</code>の水は無視されません。"
+    "documentation": "レイキャスト操作のヒット適格性を指定するために使用されるオブジェクト。提供されていない場合、すべてのパーツが考慮され、<code>Terrain</code>の水は無視されません。"
   },
   "@roblox/globaltype/WorldRoot.Raycast/return/0": {
-    "documentation": "レイキャスト操作の結果を含む，または適格な<code>BasePart</code>または<code>Terrain</code>セルがヒットしなかった場合は<code>nil</code>。"
+    "documentation": "レイキャスト操作の結果を含む、または該当する<code>BasePart</code>または<code>Terrain</code>セルがヒットしなかった場合は<code>nil</code>。"
   },
   "@roblox/globaltype/WorldRoot.Raycast": {
-    "documentation": "元点、方向、およびオプションの<code>RaycastParams</code>を使用してレイをキャストし、適格なオブジェクトまたは地形がレイと交差する場合に<code>RaycastResult</code>を返します。",
+    "documentation": "起点、方向、およびオプションの<code>RaycastParams</code>を使用してレイをキャストし、該当するオブジェクトまたは地形がレイと交差している場合、<code>RaycastResult</code>を返します。",
     "params": [
       {
         "name": "self",
@@ -94489,7 +94483,7 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal function castRay()\n\t-- レイの始点\n\tlocal originPosition = Vector3.new(0, 50, 0)\n\t-- レイが放たれる方向\n\tlocal direction = -Vector3.yAxis\n\t-- レイの最大距離\n\tlocal distance = 50\n\n\t-- レイを放ち、その可視化を作成する\n\tlocal raycastResult = Workspace:Raycast(originPosition, direction * distance)\n\n\tif raycastResult then\n\t\t-- RaycastResultが存在する場合、そのすべてのプロパティを印刷する\n\t\tprint(`レイが交差した: {raycastResult.Instance:GetFullName()}`)\n\t\tprint(`交差位置: {raycastResult.Position}`)\n\t\tprint(`レイの始点と結果の距離: {raycastResult.Distance}`)\n\t\tprint(`交差した面の法線ベクトル: {raycastResult.Normal}`)\n\t\tprint(`ヒットしたマテリアル: {raycastResult.Material.Name}`)\n\telse\n\t\tprint(\"何もヒットしませんでした\")\n\tend\nend\n\n-- 2秒ごとに常にレイを放つ\nwhile true do\n\tcastRay()\n\ttask.wait(2)\nend"
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.Shapecast/param/1": {
     "documentation": ""
@@ -94530,25 +94524,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/1": {
     "documentation": "キャストされる球状形状の初期位置。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/2": {
-    "documentation": "スタッド単位でのキャストされた球状形状の半径。最大半径は256スタッドです。"
+    "documentation": "スタッドでのキャストされる球状形状の半径。最大半径は256スタッドです。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/3": {
-    "documentation": "形状キャストの方向。大きさは形状が移動できる最大距離を表します。最大距離は1024スタッドです。"
+    "documentation": "形状キャストの方向、マグニチュードは形状が移動できる最大距離を表します。最大距離は1024スタッドです。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast/param/4": {
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.Spherecast/return/0": {
-    "documentation": "形状キャスト操作の結果を含む，または適格な<code>BasePart</code>または<code>Terrain</code>セルがヒットしなかった場合は<code>nil</code>。"
+    "documentation": "形状キャスト操作の結果を含む、または当該の<code>BasePart</code>または<code>Terrain</code>セルがヒットしなかった場合は<code>nil</code>。"
   },
   "@roblox/globaltype/WorldRoot.Spherecast": {
-    "documentation": "指定された方向に球状の形状をキャストし、形状が<code>BasePart</code>または<code>Terrain</code>セルにヒットした場合に<code>RaycastResult</code>を返します。",
+    "documentation": "与えられた方向に球形状をキャストし、<code>BasePart</code>または<code>Terrain</code>セルに当たった場合、<code>RaycastResult</code>を返します。",
     "params": [
       {
         "name": "self",
@@ -94578,16 +94572,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/1": {
-    "documentation": "シミュレーションされる時間の量。この引数は正の数でなければなりません。大きな値はこの関数の実行時間を増加させます。"
+    "documentation": "シミュレーションされる時間の量。この引数は正の数でなければなりません。大きな値は、この関数の実行時間を増加させます。"
   },
   "@roblox/globaltype/WorldRoot.StepPhysics/param/2": {
-    "documentation": "シミュレーションされる部品のオプション配列。このセットは<code>BasePart</code>タイプのインスタンスを含む必要があります。他のタイプは無視されます。"
+    "documentation": "シミュレーションされるオプションのパーツの配列。このセットには、<code>BasePart</code>型のインスタンスが含まれている必要があります。その他の型は無視されます。"
   },
   "@roblox/globaltype/WorldRoot.StepPhysics": {
-    "documentation": "指定された時間の増分に基づいて、世界の部品のシミュレーションを前進させ、オプションの<code>BaseParts</code>のセットに従って操作を行います。",
+    "documentation": "指定された時間の増分に基づいて、世界内のパーツのシミュレーションを前進させます。オプションとして<code>BaseParts</code>のセットも使用可能です。",
     "params": [
       {
         "name": "self",
@@ -94607,7 +94601,7 @@
     "code_sample": "local RunService = game:GetService(\"RunService\")\n\n-- シミュレートする部品のオプション配列; そうでなければ、すべての部品がシミュレートされます\nlocal partsToSimulate = {\n\tworkspace.Part,\n}\n\nlocal function simulateParts(duration)\n\tlocal time = 0.0\n\tlocal stepJob\n\n\tstepJob = RunService.RenderStepped:Connect(function(dt)\n\t\tif time + dt > duration then\n\t\t\tdt = duration - time\n\t\tend\n\n\t\tworkspace:StepPhysics(dt, partsToSimulate)\n\t\ttime = time + dt\n\t\tif time >= duration then\n\t\t\tstepJob:Disconnect()\n\t\tend\n\tend)\nend\n\n-- ワークスペースの部品を5秒間シミュレートし、フレームごとに部品を進めます\nsimulateParts(5.0)"
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay/param/1": {
     "documentation": ""
@@ -94625,7 +94619,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartOnRay": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき<code>WorldRoot:FindPartOnRay()</code>の変種です。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき<code>WorldRoot:FindPartOnRay()</code>のバリアントです。",
     "params": [
       {
         "name": "self",
@@ -94655,7 +94649,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/0": {
-    "documentation": "物理シミュレーションと3D空間クエリを処理するための基底クラス。"
+    "documentation": "物理シミュレーションおよび3D空間クエリを扱うための基本クラス。"
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3/param/1": {
     "documentation": ""
@@ -94670,7 +94664,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/WorldRoot.findPartsInRegion3": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき<code>WorldRoot:FindPartsInRegion3()</code>の変種です。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき<code>WorldRoot:FindPartsInRegion3()</code>のバリアントです。",
     "params": [
       {
         "name": "self",
@@ -96338,10 +96332,10 @@
     "documentation": "指定された <code>Player</code> に生成された共有リンクを持つRobloxプラットフォームレベルの共有シートを表示します。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Dictionary</code> は生成されたリンクの構成を指定します。以下のオプションのキーと値のペアが含まれます。 <ul> <li><code>FallbackLinkId</code> (string)。有効期限が切れたときにこの共有リンクがプレイヤーをどのように導くかを決定します。デフォルトは体験参加リンクです。</li> <li><code>ExpirationSeconds</code> (number)。共有リンクが作成されてからの有効期限を決定します。最も近い整数に切り捨てます。デフォルトは86,400です。</li> <li><code>PreviewTitle</code> (string) 共有リンクのプレビュータイトル。</li> <li><code>PreviewDescription</code> (string) 共有リンクのプレビュー説明。</li> <li><code>PreviewAssetId</code> (number) 共有リンクプレビューに使用される画像アセットID。</li> <li><code>LaunchData</code> (string)。生成された共有リンクを使用して参加したときに、<code>Player:GetJoinData()</code> のパラメータを設定するために使用されます。</li> </ul>"
+    "documentation": "<code>Dictionary</code> は生成されたリンクの設定を指定します。 以下のオプションのキー-バリュー対を含みます: <ul> <li><code>FallbackLinkId</code> (string). 期限切れになった後、この共有リンクが   プレイヤーをどこに導くかを決定します。デフォルトは体験参加リンクです。</li> <li><code>ExpirationSeconds</code> (number). 共有リンクが作成された後の   期限までの時間を決定します。最も近い整数に切り捨てます。デフォルトは   86,400です。</li> <li><code>PreviewTitle</code> (string) 共有リンクのプレビュータイトル。</li> <li><code>PreviewDescription</code> (string) 共有リンクのプレビュー説明。</li> <li><code>PreviewAssetId</code> (number) 共有リンクプレビューに使用されるイメージ資産ID。</li> <li><code>LaunchData</code> (string). 生成された共有リンクを使用して参加したときに   <code>Player:GetJoinData()</code> でパラメータを設定するために使用されます。</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": ""
+    "documentation": "<code>PromptLinkSharingResult</code> を含むタプルで、リンク共有プロンプトの結果を示します。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -122046,7 +122040,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.Unknown": {
-    "documentation": "Catch-all for all other disconnect reasons.",
+    "documentation": "その他すべての切断理由のための網羅的な項目です。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122056,7 +122050,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.PlatformKick": {
-    "documentation": "User was kicked by Roblox systems, such as being blocked while in a Private Server.",
+    "documentation": "ユーザーは、プライベートサーバーにいる最中にブロックされるなど、Robloxシステムによってキックされました。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122066,7 +122060,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerExitReason.CreatorKick": {
-    "documentation": "Creator called <strong>Player:Kick()</strong>",
+    "documentation": "クリエイターが <strong>Player:Kick()</strong> を呼び出しました。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122076,7 +122070,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PlayerExitReason": {
-    "documentation": "An enum that specifies the reason for <strong>Players.PlayerRemoving</strong> signal.",
+    "documentation": "<strong>Players.PlayerRemoving</strong> シグナルの理由を指定する列挙型です。",
     "keys": {
       "Unknown": "@roblox/enum/PlayerExitReason.Unknown",
       "PlatformKick": "@roblox/enum/PlayerExitReason.PlatformKick",
@@ -126848,7 +126842,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.Automatic": {
-    "documentation": "デフォルトの動作で、現在は <strong>無効</strong> に相当します。",
+    "documentation": "デフォルトの動作で、現在は <strong>無効</strong> と同等です。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126858,7 +126852,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ModelLevelOfDetail.StreamingMesh": {
-    "documentation": "ストリーミング半径外で描画される、低解像度の \"インポスター\" メッシュ（色付けされた粗いメッシュ）が モデルのすべての子パーツを包み込みます。",
+    "documentation": "低解像度の「偽装」メッシュ（モデルのすべての子パーツを囲む、色付きの粗いメッシュ）がストリーミング半径の外でレンダリングされます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126878,7 +126872,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ModelLevelOfDetail": {
-    "documentation": "<code>Models</code>の詳細度を操作します。インスタンスストリーミングが 有効になっているエクスペリエンスで使用されます。",
+    "documentation": "<code>Models</code> の詳細レベルを、インスタンスストリーミングが有効な体験で制御します。",
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
@@ -130765,7 +130759,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CorrodedMetal": {
-    "documentation": "<code>BasePart</code> および <code>Terrain</code> に適用されます。",
+    "documentation": "<code>BasePart</code> のみ適用されます。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
