@@ -25,7 +25,6 @@ local SummedAreaTable = require(root.util.SummedAreaTable)
 
 local ConstantsTransparencyValidation = require(root.ConstantsTransparencyValidation)
 
-local getFFlagUGCValidateFixTransparencyReporting = require(root.flags.getFFlagUGCValidateFixTransparencyReporting)
 local getFFlagUGCValidateMinBoundsVisibility = require(root.flags.getFFlagUGCValidateMinBoundsVisibility)
 local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
 
@@ -37,17 +36,13 @@ local function getViews()
 		{
 			axis1 = Vector3.new(1, 0, 0),
 			axis2 = Vector3.new(0, 1, 0),
-			normal = if getFFlagUGCValidateFixTransparencyReporting()
-				then Vector3.new(0, 0, 1)
-				else Vector3.new(0, 0, -1),
+			normal = Vector3.new(0, 0, 1),
 			viewId = ConstantsTransparencyValidation.CAMERA_ANGLES.Front,
 		},
 		{
 			axis1 = Vector3.new(1, 0, 0),
 			axis2 = Vector3.new(0, 1, 0),
-			normal = if getFFlagUGCValidateFixTransparencyReporting()
-				then Vector3.new(0, 0, -1)
-				else Vector3.new(0, 0, 1),
+			normal = Vector3.new(0, 0, -1),
 			viewId = ConstantsTransparencyValidation.CAMERA_ANGLES.Back,
 		},
 		{
@@ -184,26 +179,12 @@ local function addTransformedTriangle(
 	local p2_local = srcMesh:GetPosition(verts[2])
 	local p3_local = srcMesh:GetPosition(verts[3])
 
-	if getFFlagUGCValidateFixTransparencyReporting() then
-		local p1_world, p2_world, p3_world, normal_world =
-			TransparencyUtil.transformTriangleToWorld(p1_local, p2_local, p3_local, origin, scale :: Vector3)
-		table.insert(triangleData.orderedVerts, p1_world)
-		table.insert(triangleData.orderedVerts, p2_world)
-		table.insert(triangleData.orderedVerts, p3_world)
-		triangleData.normal = normal_world
-	else
-		local edge1 = p2_local - p1_local
-		local edge2 = p3_local - p1_local
-		triangleData.normal = edge1:Cross(edge2).Unit
-
-		local p1_world = origin * p1_local
-		local p2_world = origin * p2_local
-		local p3_world = origin * p3_local
-
-		table.insert(triangleData.orderedVerts, p1_world)
-		table.insert(triangleData.orderedVerts, p2_world)
-		table.insert(triangleData.orderedVerts, p3_world)
-	end
+	local p1_world, p2_world, p3_world, normal_world =
+		TransparencyUtil.transformTriangleToWorld(p1_local, p2_local, p3_local, origin, scale :: Vector3)
+	table.insert(triangleData.orderedVerts, p1_world)
+	table.insert(triangleData.orderedVerts, p2_world)
+	table.insert(triangleData.orderedVerts, p3_world)
+	triangleData.normal = normal_world
 
 	table.insert(combinedMeshData, triangleData)
 
@@ -243,13 +224,7 @@ local function getCombinedMeshData(
 )
 	local triangles = srcMesh:GetFaces()
 	for _, triangleId in triangles do
-		local newTriangle = addTransformedTriangle(
-			srcMesh,
-			combinedMeshData,
-			triangleId,
-			origin,
-			if getFFlagUGCValidateFixTransparencyReporting() then scale else nil
-		)
+		local newTriangle = addTransformedTriangle(srcMesh, combinedMeshData, triangleId, origin, scale)
 		updateMinMaxBounds(boundsData, newTriangle)
 		tryYield(validationContext)
 	end
@@ -430,12 +405,10 @@ local function validateAssetTransparency(inst: Instance, validationContext: Vali
 		local srcMesh = srcMeshOpt :: EditableMesh
 		srcMesh:Triangulate()
 
-		local meshScaling = nil
-		if getFFlagUGCValidateFixTransparencyReporting() then
-			-- for in-experience creation these two calls to getExpectedPartSize() will return the same result meaning the meshScaling will be 1
-			meshScaling = getExpectedPartSize(meshPart, validationContext)
-				/ getExpectedPartSize(meshPart, validationContext, true)
-		end
+		-- for in-experience creation these two calls to getExpectedPartSize() will return the same result meaning the meshScaling will be 1
+		local meshScaling = getExpectedPartSize(meshPart, validationContext)
+			/ getExpectedPartSize(meshPart, validationContext, true)
+
 		getCombinedMeshData(
 			srcMesh,
 			combinedMeshData,
@@ -545,20 +518,13 @@ local function validateAssetTransparency(inst: Instance, validationContext: Vali
 			end
 			if opacity < threshold then
 				reasonsAccumulator:updateReasons(false, {
-					if getFFlagUGCValidateFixTransparencyReporting()
-						then string.format(
-							"%s is not opaque enough from the %s. Opacity is %.2f but needs to be above %.2f.",
-							assetTypeEnum.Name,
-							view.viewId,
-							opacity,
-							threshold
-						)
-						else string.format(
-							"%s is not opague enough. Opacity is %f but needs to be above %f.",
-							assetTypeEnum.Name,
-							opacity,
-							threshold
-						),
+					string.format(
+						"%s is not opaque enough from the %s. Opacity is %.2f but needs to be above %.2f.",
+						assetTypeEnum.Name,
+						view.viewId,
+						opacity,
+						threshold
+					),
 				})
 			end
 			editableImage:Destroy()

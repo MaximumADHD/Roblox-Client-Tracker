@@ -271,7 +271,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				-- TODO: Update to border affordance
 				stateLayer = { affordance = StateLayerAffordance.None },
 				tag = variantProps.outerContainer.tag,
-				testId = "--foundation-internal-text-input--outer-container",
+				testId = `{props.testId}--outer-container`,
 			}, {
 				DragDetector = dragDetector,
 				Background = props.backgroundElement,

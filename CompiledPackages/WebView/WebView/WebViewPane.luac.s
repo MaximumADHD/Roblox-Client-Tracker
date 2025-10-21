@@ -82,7 +82,7 @@ PROTO_1:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["state"]
   GETTABLEKS R0 R1 K13 ["hasWebViewEverLoaded"]
-  JUMPIF R0 [+34]
+  JUMPIF R0 [+43]
   GETUPVAL R0 0
   DUPTABLE R2 K14 [{"webViewLoadingStatus", "webViewError", "webViewRetryAttempt", "hasWebViewEverLoaded", "webViewReloading"}]
   GETUPVAL R5 1
@@ -100,6 +100,12 @@ PROTO_1:
   SETTABLEKS R3 R2 K4 ["webViewReloading"]
   NAMECALL R0 R0 K9 ["setState"]
   CALL R0 2 0
+  GETUPVAL R1 3
+  GETTABLEKS R0 R1 K16 ["onWebViewInit"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["props"]
+  GETTABLEKS R1 R2 K17 ["analyticsContext"]
+  CALL R0 1 0
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K10 ["props"]
   GETTABLEKS R0 R1 K11 ["WebViewManagerContext"]
@@ -147,6 +153,7 @@ PROTO_3:
   CAPTURE VAL R0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U2
+  CAPTURE UPVAL U1
   SETTABLEKS R1 R0 K12 ["handledWebViewLoaded"]
   NEWCLOSURE R1 P2
   CAPTURE VAL R0

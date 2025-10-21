@@ -45,47 +45,58 @@ PROTO_2:
   LOADB R8 1
   NAMECALL R5 R0 K1 ["FindFirstChildWhichIsA"]
   CALL R5 3 1
-  JUMPIF R5 [+23]
-  GETIMPORT R6 K10 [game]
-  LOADK R8 K11 ["KeyframeSequenceProvider"]
-  NAMECALL R6 R6 K12 ["GetService"]
-  CALL R6 2 1
+  JUMPIF R5 [+18]
+  GETUPVAL R6 0
   MOVE R8 R1
-  NAMECALL R6 R6 K13 ["RegisterKeyframeSequence"]
+  NAMECALL R6 R6 K9 ["RegisterKeyframeSequence"]
   CALL R6 2 1
   GETIMPORT R7 K5 [Instance.new]
   LOADK R8 K8 ["Animation"]
   CALL R7 1 1
   MOVE R5 R7
-  GETTABLEKS R7 R1 K14 ["Name"]
-  SETTABLEKS R7 R5 K14 ["Name"]
-  SETTABLEKS R6 R5 K15 ["AnimationId"]
+  GETTABLEKS R7 R1 K10 ["Name"]
+  SETTABLEKS R7 R5 K10 ["Name"]
+  SETTABLEKS R6 R5 K11 ["AnimationId"]
   SETTABLEKS R2 R5 K6 ["Parent"]
   MOVE R8 R5
-  NAMECALL R6 R4 K16 ["LoadAnimation"]
+  NAMECALL R6 R4 K12 ["LoadAnimation"]
   CALL R6 2 1
   LOADB R7 1
-  SETTABLEKS R7 R6 K17 ["Looped"]
-  NAMECALL R7 R6 K18 ["Play"]
+  SETTABLEKS R7 R6 K13 ["Looped"]
+  NAMECALL R7 R6 K14 ["Play"]
   CALL R7 1 0
-  GETIMPORT R8 K10 [game]
-  LOADK R10 K19 ["RunService"]
-  NAMECALL R8 R8 K12 ["GetService"]
-  CALL R8 2 1
-  GETTABLEKS R7 R8 K20 ["Heartbeat"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K15 ["Heartbeat"]
   NEWCLOSURE R9 P0
   CAPTURE REF R4
-  NAMECALL R7 R7 K21 ["Connect"]
+  NAMECALL R7 R7 K16 ["Connect"]
   CALL R7 2 1
-  GETTABLEKS R8 R0 K22 ["Destroying"]
+  GETTABLEKS R8 R0 K17 ["Destroying"]
   NEWCLOSURE R10 P1
   CAPTURE VAL R7
-  NAMECALL R8 R8 K21 ["Connect"]
+  NAMECALL R8 R8 K16 ["Connect"]
   CALL R8 2 0
   CLOSEUPVALS R4
   RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_2]
-  RETURN R0 1
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["Services"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["KeyframeSequenceProvider"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["GetService"]
+  LOADK R4 K11 ["RunService"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K12 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R4 1

@@ -16,12 +16,18 @@ local PublishInfoList = require(Components.Common.PublishInfoList)
 local PurchasePrompt = require(CorePackages.Workspace.Packages.PurchasePrompt)
 local Analytics = PurchasePrompt.PublishAssetAnalytics
 
-local Actions = script.Parent.Parent.Parent.Actions
+local PublishAssetPrompt = Components.Parent
+
+local Actions = PublishAssetPrompt.Actions
 local SetPromptVisibility = require(Actions.SetPromptVisibility)
 
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
 local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
+
+local Constants = require(PublishAssetPrompt.Constants)
+
+local FFlagFixAssetIECPromptNaming = game:DefineFastFlag("FixAssetIECPromptNaming", false)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
@@ -47,8 +53,15 @@ local function PublishAvatarAssetPrompt(props: Props)
 
 	local dispatch = useDispatch()
 
-	local accessoryTypeString = promptInfo.accessoryType.Name
-	local defaultText = LocalPlayer.Name .. "'s " .. accessoryTypeString
+	local defaultText
+	if FFlagFixAssetIECPromptNaming then
+		-- UGC creation does not localize similar text, so we don't localize here
+		local defaultAvatarAssetTypeName = Constants.AvatarAssetTypeDefaultName[promptInfo.accessoryType]
+		defaultText = LocalPlayer.Name .. "'s " .. defaultAvatarAssetTypeName
+	else
+		local accessoryTypeString = promptInfo.accessoryType.Name
+		defaultText = LocalPlayer.Name .. "'s " .. accessoryTypeString
+	end
 
 	-- state
 	local showingPreviewView, setShowingPreviewView = React.useState(false)
@@ -168,6 +181,14 @@ local function PublishAvatarAssetPrompt(props: Props)
 		end
 	end, {})
 
+	local typeName = promptInfo.accessoryType.Name
+	if FFlagFixAssetIECPromptNaming then
+		local categoryLocalized = RobloxTranslator:FormatByKey("Feature.Avatar.Label.Accessory")
+		local avatarAssetTypeLocalized =
+			RobloxTranslator:FormatByKey(Constants.AvatarAssetTypeLocalized[promptInfo.accessoryType])
+		typeName = categoryLocalized .. " | " .. avatarAssetTypeLocalized
+	end
+
 	local renderPromptBody = React.useCallback(function()
 		local isLoading = promptInfo.accessoryInstance == nil
 		return React.createElement(React.Fragment, nil, {
@@ -200,7 +221,7 @@ local function PublishAvatarAssetPrompt(props: Props)
 				invalidInputText = RobloxTranslator:FormatByKey(DESC_INVALID_KEY),
 			}),
 			InfoList = React.createElement(PublishInfoList, {
-				typeName = promptInfo.accessoryType.Name,
+				typeName = typeName,
 				LayoutOrder = 3,
 			}),
 		})

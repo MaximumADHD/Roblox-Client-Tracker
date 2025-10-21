@@ -32,6 +32,7 @@ local function FlagsStory()
 	local function handleFlagChange(key)
 		return function(checked)
 			Flags[key] = checked
+			game:SetFastFlagForTesting(key, checked)
 			setFlags(function(current)
 				local newFlags = table.clone(current)
 				newFlags[key] = checked

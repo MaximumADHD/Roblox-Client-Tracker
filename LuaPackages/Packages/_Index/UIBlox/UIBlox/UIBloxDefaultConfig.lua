@@ -114,9 +114,6 @@ return {
 	-- Disable selectable for certain elements in ModalBottomSheet
 	fixModalBottomSheetSelectable = false,
 
-	-- Add truncation to ExperienceTileMetadata's TextFooter
-	truncateExperienceTileMetadataTextFooter = false,
-
 	-- Enable SurfaceGui ref exposure through Panel3D
 	enablePanel3DSurfaceGuiRef = false,
 

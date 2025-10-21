@@ -6,6 +6,6 @@ MAIN:
   GETTABLEKS R2 R0 K5 ["createGetSafeFFlag"]
   CALL R1 1 1
   MOVE R2 R1
-  LOADK R3 K6 ["WebBrowserContextSTM6463Enabled3"]
+  LOADK R3 K6 ["WebBrowserContextSTM6463Enabled"]
   CALL R2 1 -1
   RETURN R2 -1

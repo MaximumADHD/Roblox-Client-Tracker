@@ -21,7 +21,7 @@ MAIN:
   CALL R0 1 1
   DUPTABLE R1 K10 [{"getFFlagEnableCreatorConfig", "getFFlagEnableRibbonPlugin", "getFFlagRegisterActionsPluginLoader", "getFFlagEnableCreatorConfigSystemMenu"}]
   MOVE R2 R0
-  LOADK R3 K11 ["EnableCreatorConfig6"]
+  LOADK R3 K11 ["EnableCreatorConfig"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K6 ["getFFlagEnableCreatorConfig"]
   DUPCLOSURE R2 K12 [PROTO_0]

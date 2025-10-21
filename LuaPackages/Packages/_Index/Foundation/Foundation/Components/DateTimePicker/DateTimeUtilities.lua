@@ -65,7 +65,7 @@ local function getLastDayOfWeek(month: number, year: number): number
 end
 
 -- Helper function to round a DateTime to the start of the day
-local function _roundToStartOfDay(dateTime: DateTime): number
+local function roundToStartOfDay(dateTime: DateTime): number
 	local localTime = dateTime:ToLocalTime()
 	return DateTime.fromLocalTime(localTime.Year, localTime.Month, localTime.Day).UnixTimestamp
 end
@@ -79,9 +79,9 @@ local function isDateWithinRange(
 	}
 ): boolean
 	-- Round all timestamps to the start of the day for date-only comparison
-	local startTimestamp = _roundToStartOfDay(selectableDateRange.startDate)
-	local endTimestamp = _roundToStartOfDay(selectableDateRange.endDate)
-	local checkTimestamp = _roundToStartOfDay(date)
+	local startTimestamp = roundToStartOfDay(selectableDateRange.startDate)
+	local endTimestamp = roundToStartOfDay(selectableDateRange.endDate)
+	local checkTimestamp = roundToStartOfDay(date)
 
 	return checkTimestamp >= startTimestamp and checkTimestamp <= endTimestamp
 end
@@ -92,6 +92,9 @@ end
 	Supported formats: MM/DD/YYYY, YYYY/MM/DD
 ]]
 local function getDateTimeFromText(dateStr: string): DateTime?
+	-- Trim whitespace from the start and end of the text
+	dateStr = dateStr:match("^%s*(.-)%s*$") or ""
+
 	-- Determine format by finding the first delimiter position
 	local firstDelimiterPos = dateStr:find("[/%.%-]")
 	if not firstDelimiterPos then
@@ -135,6 +138,7 @@ local function getNextMonthInfo(month: number, year: number)
 end
 
 return {
+	DATE_COMPOSITE_TOKEN = "L",
 	getDaysInMonth = getDaysInMonth,
 	getFirstDayOfWeek = getFirstDayOfWeek,
 	getLastDayOfWeek = getLastDayOfWeek,
@@ -143,5 +147,6 @@ return {
 	isDateWithinRange = isDateWithinRange,
 	getDateTimeFromText = getDateTimeFromText,
 	monthMap = monthMap,
+	roundToStartOfDay = roundToStartOfDay,
 	weekdays = weekdays,
 }

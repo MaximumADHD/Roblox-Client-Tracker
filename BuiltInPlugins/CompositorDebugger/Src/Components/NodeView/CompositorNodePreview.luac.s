@@ -137,7 +137,7 @@ PROTO_3:
   GETUPVAL R6 2
   GETTABLEKS R5 R6 K4 ["View"]
   DUPTABLE R6 K7 [{"tag", "LayoutOrder"}]
-  LOADK R7 K8 ["bg-surface-300 auto-y padding-y-xsmall padding-x-xsmall radius-xsmall size-full-0"]
+  LOADK R7 K8 ["padding-y-xsmall size-full-700 align-y-center"]
   SETTABLEKS R7 R6 K5 ["tag"]
   GETTABLEKS R7 R0 K6 ["LayoutOrder"]
   SETTABLEKS R7 R6 K6 ["LayoutOrder"]
@@ -149,7 +149,7 @@ PROTO_3:
   DUPTABLE R10 K12 [{"tag", "Text", "LayoutOrder"}]
   NEWTABLE R11 2 0
   LOADB R12 1
-  SETTABLEKS R12 R11 K13 ["text-body-small text-align-x-center auto-xy"]
+  SETTABLEKS R12 R11 K13 ["text-body-small text-align-x-left size-full-full"]
   GETTABLEKS R12 R0 K14 ["disabled"]
   SETTABLEKS R12 R11 K15 ["content-inverse-muted"]
   SETTABLEKS R11 R10 K5 ["tag"]

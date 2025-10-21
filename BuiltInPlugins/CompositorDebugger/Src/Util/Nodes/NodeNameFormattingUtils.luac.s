@@ -1,0 +1,100 @@
+PROTO_0:
+  GETIMPORT R1 K2 [string.gsub]
+  MOVE R2 R0
+  LOADK R3 K3 ["%s*Animation%s*"]
+  LOADK R4 K4 [""]
+  CALL R1 3 1
+  MOVE R0 R1
+  GETIMPORT R1 K2 [string.gsub]
+  MOVE R2 R0
+  LOADK R3 K5 ["%s*Node%s*"]
+  LOADK R4 K4 [""]
+  CALL R1 3 1
+  MOVE R0 R1
+  GETIMPORT R1 K2 [string.gsub]
+  MOVE R2 R0
+  LOADK R3 K6 ["([a-z])([A-Z])"]
+  LOADK R4 K7 ["%1 %2"]
+  CALL R1 3 1
+  MOVE R0 R1
+  RETURN R0 1
+
+PROTO_1:
+  JUMPIFNOT R0 [+40]
+  JUMPIFNOT R1 [+39]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["formatName"]
+  MOVE R3 R1
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["formatName"]
+  MOVE R4 R0
+  CALL R3 1 1
+  JUMPIFNOTEQ R3 R2 [+2]
+  RETURN R3 1
+  GETIMPORT R4 K3 [string.gsub]
+  MOVE R5 R3
+  LOADK R7 K4 ["\b%*\b"]
+  MOVE R9 R2
+  NAMECALL R7 R7 K5 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  LOADK R7 K6 [""]
+  CALL R4 3 1
+  MOVE R3 R4
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["formatName"]
+  MOVE R5 R3
+  CALL R4 1 1
+  MOVE R3 R4
+  LOADK R5 K7 ["%* (%*)"]
+  MOVE R7 R3
+  MOVE R8 R2
+  NAMECALL R5 R5 K5 ["format"]
+  CALL R5 3 1
+  MOVE R4 R5
+  RETURN R4 1
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["formatName"]
+  MOVE R3 R0
+  CALL R2 1 -1
+  RETURN R2 -1
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["formatName"]
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+  LOADK R2 K8 ["Untitled"]
+  RETURN R2 1
+
+PROTO_2:
+  JUMPIFNOTEQKS R0 K0 ["animationId"] [+3]
+  LOADK R1 K1 ["Clip"]
+  RETURN R1 1
+  GETIMPORT R1 K4 [string.gsub]
+  MOVE R2 R0
+  LOADK R3 K5 ["([a-z])([A-Z])"]
+  LOADK R4 K6 ["%1 %2"]
+  CALL R1 3 1
+  MOVE R0 R1
+  GETIMPORT R1 K4 [string.gsub]
+  MOVE R2 R0
+  LOADK R3 K7 ["^%l"]
+  GETIMPORT R4 K9 [string.upper]
+  CALL R1 3 1
+  MOVE R0 R1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 4 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["formatName"]
+  DUPCLOSURE R1 K2 [PROTO_1]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["getDisplayName"]
+  DUPCLOSURE R1 K4 [PROTO_2]
+  SETTABLEKS R1 R0 K5 ["formatPropertyName"]
+  RETURN R0 1

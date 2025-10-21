@@ -12,6 +12,7 @@ local DateTimeUtilities = require(script.Parent.DateTimeUtilities)
 local Button = require(Foundation.Components.Button)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local DateTimePickerVariantEnum = require(Foundation.Enums.DateTimePickerVariant)
+local InputSize = require(Foundation.Enums.InputSize)
 local LocalizationService = require(Foundation.Utility.Wrappers).Services.LocalizationService
 local Popover = require(Foundation.Components.Popover)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
@@ -26,8 +27,9 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 type DateTimePickerVariant = DateTimePickerVariantEnum.DateTimePickerVariant
 
 export type DateTimePickerProps = {
-	-- Default selected date. If not provided, the current date will be used
-	defaultSelectedDate: DateTime?,
+	-- Default dates selected. If not provided, the current date will be used
+	-- If variant is Dual, then the first date will be used as the start date and the second date (if provided) will be used as the end date.
+	defaultDates: (DateTime | { DateTime })?,
 
 	-- Whether the input has an error
 	hasError: boolean?,
@@ -44,8 +46,8 @@ export type DateTimePickerProps = {
 	-- Label used for the text input
 	label: string,
 
-	-- On input text change. dateTime is nil if not a valid DateTime
-	onChanged: (dateTime: DateTime?) -> (),
+	-- On input text change. dateTimes are nil if not valid DateTimes. endDateTime is the end date if variant is Dual
+	onChanged: (startDateTime: DateTime?, endDateTime: DateTime?) -> (),
 
 	-- Selectable date range (inclusive). Note, these dates will be rounded to the start of the day for date-only comparison
 	selectableDateRange: {
@@ -61,20 +63,24 @@ export type DateTimePickerProps = {
 } & Types.CommonProps
 
 local defaultProps = {
-	defaultSelectedDate = DateTime.now(),
+	defaultDates = { DateTime.now() },
 	variant = DateTimePickerVariantEnum.Single,
 	testId = "--foundation-date-time-picker",
 }
 
 local DateTimePicker = function(dateTimePickerProps: DateTimePickerProps)
-	local props = withDefaults(dateTimePickerProps, defaultProps)
+	local props: DateTimePickerProps = withDefaults(dateTimePickerProps, defaultProps)
 
 	local tokens = useTokens()
 	local inputText, setInputText = React.useState("")
 	local isOpen, setIsOpen = React.useState(false)
 
-	-- DateTime object that we track under the hood to monitor valid calendar changes
-	local calendarDate, setCalendarDate = React.useState(props.defaultSelectedDate)
+	if props.defaultDates and typeof(props.defaultDates) ~= "table" then
+		props.defaultDates = { props.defaultDates :: DateTime }
+	end
+
+	-- DateTime objects that we track under the hood to monitor valid calendar changes
+	local calendarDates, setCalendarDates = React.useState(props.defaultDates)
 
 	local closeDateTimePicker = React.useCallback(function()
 		setIsOpen(false)
@@ -88,19 +94,64 @@ local DateTimePicker = function(dateTimePickerProps: DateTimePickerProps)
 	local updateInputText = React.useCallback(function(txt: string)
 		setInputText(txt)
 
-		local dateTime = DateTimeUtilities.getDateTimeFromText(txt)
-		props.onChanged(dateTime)
-	end, {})
+		-- Don't call onChanged for empty or whitespace-only input (prevents unwanted calls on mount)
+		if txt:match("^%s*$") then
+			return
+		end
+
+		if props.variant == DateTimePickerVariantEnum.Dual then
+			local dateTimes = txt:split("-")
+			local dateTime1 = DateTimeUtilities.getDateTimeFromText(dateTimes[1])
+			local dateTime2 = DateTimeUtilities.getDateTimeFromText(dateTimes[2])
+			props.onChanged(dateTime1, dateTime2)
+		else
+			-- trim whitespace from the start and end of the text
+			local trimmedText = txt:match("^%s*(.-)%s*$") or ""
+			local dateTime = DateTimeUtilities.getDateTimeFromText(trimmedText)
+			props.onChanged(dateTime)
+		end
+	end, { props.onChanged })
 
 	-- We update calendarDate only when it is a valid DateTime.
 	-- Thus we can directly call onChanged when apply is activated
 	local onApplyActivated = React.useCallback(function()
-		props.onChanged(calendarDate)
+		if props.variant == DateTimePickerVariantEnum.Dual then
+			local formattedDate = (calendarDates[1] :: DateTime):FormatLocalTime(
+				DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+				LocalizationService.RobloxLocaleId
+			)
+			local formattedDate2 = if calendarDates[2]
+				then (calendarDates[2] :: DateTime):FormatLocalTime(
+					DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+					LocalizationService.RobloxLocaleId
+				)
+				else ""
+			setInputText(formattedDate .. " - " .. formattedDate2)
+		else
+			setInputText(
+				calendarDates[1]:FormatLocalTime(
+					DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+					LocalizationService.RobloxLocaleId
+				)
+			)
+		end
 
-		setInputText(calendarDate:FormatLocalTime("L", LocalizationService.RobloxLocaleId))
+		props.onChanged(calendarDates[1], calendarDates[2])
 
 		closeDateTimePicker()
-	end, { calendarDate, closeDateTimePicker, props.onChanged } :: { any })
+	end, { calendarDates, closeDateTimePicker, props.onChanged } :: { any })
+
+	local isApplyButtonDisabled = function()
+		if props.variant == DateTimePickerVariantEnum.Single then
+			return calendarDates[1] == nil
+		elseif props.variant == DateTimePickerVariantEnum.Dual then
+			return calendarDates[1] == nil
+				or calendarDates[2] == nil
+				or calendarDates[1].UnixTimestamp > calendarDates[2].UnixTimestamp
+		end
+
+		return false
+	end
 
 	return React.createElement(View, withCommonProps(props, {}), {
 		DateTimePicker = React.createElement(Popover.Root, {
@@ -122,6 +173,7 @@ local DateTimePicker = function(dateTimePickerProps: DateTimePickerProps)
 					onFocusGained = showDateTimePicker,
 					placeholder = Translator:FormatByKey("CommonUI.Controls.Label.SelectDate"),
 					selectableDateRange = props.selectableDateRange,
+					size = InputSize.Medium,
 					text = inputText,
 					width = props.width,
 					testId = `{props.testId}--text-input`,
@@ -135,21 +187,24 @@ local DateTimePicker = function(dateTimePickerProps: DateTimePickerProps)
 					offset = tokens.Stroke.Standard + tokens.Padding.Small,
 				},
 			}, isOpen and React.createElement(View, {
-				tag = "padding-large col auto-xy stroke-default radius-medium",
+				tag = "padding-large col stroke-default radius-medium auto-xy",
 			}, {
 				Calendar = React.createElement(Calendar, {
-					defaultSelectedDate = props.defaultSelectedDate,
+					defaultDates = calendarDates,
 					LayoutOrder = 1,
-					onSelectedDateChanged = setCalendarDate,
+					onSelectedDateChanged = setCalendarDates,
 					selectableDateRange = props.selectableDateRange,
-					showCalendarInput = props.variant == DateTimePickerVariantEnum.Single,
-					testId = `{props.testId}--calendar`,
+					showStartDateTimeCalendarInput = props.variant == DateTimePickerVariantEnum.Single
+						or props.variant == DateTimePickerVariantEnum.Dual,
+					showEndDateTimeCalendarInput = props.variant == DateTimePickerVariantEnum.Dual,
+					testId = `--foundation-calendar`,
 				}),
 				BottomBar = React.createElement(View, {
 					LayoutOrder = 2,
 					tag = "row size-full-0 auto-y flex-fill gap-small padding-top-large",
 				}, {
 					ApplyButton = React.createElement(Button, {
+						isDisabled = isApplyButtonDisabled(),
 						onActivated = onApplyActivated,
 						text = Translator:FormatByKey("CommonUI.Controls.Action.Apply"),
 						variant = ButtonVariant.Emphasis,

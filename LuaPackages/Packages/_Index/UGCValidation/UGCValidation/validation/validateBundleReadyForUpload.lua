@@ -16,6 +16,10 @@ local validateFullBody = require(root.validation.validateFullBody)
 
 local getFFlagUGCValidateDontUseRestrictedUserTable = require(root.flags.getFFlagUGCValidateDontUseRestrictedUserTable)
 
+local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
+local LegacyValidationAdapter = require(root.util.LegacyValidationAdapter)
+local HttpService = game:GetService("HttpService")
+
 -- The order in which validation is performed
 local SORTED_ASSET_TYPES = {
 	Enum.AssetType.DynamicHead,
@@ -151,6 +155,10 @@ local function validateBundleReadyForUpload(
 	}
 
 	progressCallback(response)
+	local telemetry_bundle_id
+	if getFFlagUGCValidationEnableFolderStructure() then
+		telemetry_bundle_id = HttpService:GenerateGUID()
+	end
 
 	-- Calling serially because the UGC validation service gets throttled fast.
 	return Promise.each(pieces, function(piece: AvatarValidationPiece, index: number)
@@ -177,7 +185,7 @@ local function validateBundleReadyForUpload(
 			requireAllFolders = false,
 		} :: Types.ValidationContext
 
-		local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
+		local createSuccess, result = createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 		-- assuming isServer is false
 		if not createSuccess then
 			problems = result
@@ -187,6 +195,14 @@ local function validateBundleReadyForUpload(
 			validationContext.editableImages = result.editableImages :: Types.EditableImages
 
 			success, problems = validateInternal(validationContext)
+			if getFFlagUGCValidationEnableFolderStructure() then
+				success, problems = LegacyValidationAdapter.studioRFUAssetValidation(
+					validationContext,
+					telemetry_bundle_id,
+					success,
+					problems
+				)
+			end
 
 			destroyEditableInstances(
 				validationContext.editableMeshes :: Types.EditableMeshes,
@@ -253,7 +269,8 @@ local function validateBundleReadyForUpload(
 					end
 				end
 
-				local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
+				local createSuccess, result =
+					createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 				if not createSuccess then
 					failures = result
 					success = false
@@ -262,6 +279,16 @@ local function validateBundleReadyForUpload(
 					validationContext.editableImages = result.editableImages :: Types.EditableImages
 
 					success, failures = validateFullBody(validationContext)
+					if getFFlagUGCValidationEnableFolderStructure() then
+						success, failures = LegacyValidationAdapter.studioRFUBundleValidation(
+							fullBodyData,
+							Enum.BundleType.BodyParts,
+							validationContext,
+							telemetry_bundle_id,
+							success,
+							failures
+						)
+					end
 
 					destroyEditableInstances(
 						validationContext.editableMeshes :: Types.EditableMeshes,

@@ -8,7 +8,6 @@ local SheetContext = require(Sheet.SheetContext)
 local SheetType = require(Sheet.SheetType)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 
 local View = require(Foundation.Components.View)
 
@@ -16,8 +15,7 @@ export type SheetActionsProps = {
 	children: React.ReactNode,
 }
 
-local function SheetActions(sheetActionsProps: SheetActionsProps, ref: React.Ref<GuiObject>?)
-	local overlay = useOverlay()
+local function SheetActions(props: SheetActionsProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 
 	local sheetContext = React.useContext(SheetContext)
@@ -32,6 +30,8 @@ local function SheetActions(sheetActionsProps: SheetActionsProps, ref: React.Ref
 		sheetHeightAvailable and actionsHeight and setActionsHeight and safeAreaPadding and bottomPadding and testId,
 		"SheetActions must be used within a Sheet"
 	)
+
+	local innerSurface = sheetContext.innerSurface
 
 	local isBottomSheet = sheetType == SheetType.Bottom
 
@@ -69,10 +69,10 @@ local function SheetActions(sheetActionsProps: SheetActionsProps, ref: React.Ref
 			else nil,
 		LayoutOrder = 3,
 		ref = ref,
-	}, sheetActionsProps.children)
+	}, props.children)
 
 	if isBottomSheet then
-		return overlay and ReactRoblox.createPortal(sheetActions, overlay)
+		return innerSurface and ReactRoblox.createPortal(sheetActions, innerSurface)
 	end
 
 	return sheetActions

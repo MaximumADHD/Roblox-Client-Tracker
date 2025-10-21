@@ -22,9 +22,6 @@ local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-local TEST_ID_INCREMENT_BUTTON = "--foundation-numberinput-increment"
-local TEST_ID_DECREMENT_BUTTON = "--foundation-numberinput-decrement"
-
 type NumberInputControlProps = {
 	isDisabled: boolean,
 	onClick: () -> (),
@@ -36,6 +33,7 @@ type NumberInputControlsProps = {
 	size: InputSize,
 	increment: NumberInputControlProps,
 	decrement: NumberInputControlProps,
+	testId: string,
 	LayoutOrder: number?,
 }
 
@@ -105,12 +103,13 @@ local function SplitControls(props: NumberInputControlsProps)
 			tag = variantProps.splitButton.tag,
 			LayoutOrder = 1,
 			GroupTransparency = if props.increment.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
-			testId = TEST_ID_INCREMENT_BUTTON,
+			testId = `{props.testId}--increment`,
 		}, {
 			Icon = React.createElement(Icon, {
 				name = BuilderIcons.Icon.PlusSmall,
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
+				testId = `{props.testId}--increment-icon`,
 			}),
 		}),
 		ControlDecrement = React.createElement(View, {
@@ -130,12 +129,13 @@ local function SplitControls(props: NumberInputControlsProps)
 			tag = variantProps.splitButton.tag,
 			LayoutOrder = -1,
 			GroupTransparency = if props.decrement.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
-			testId = TEST_ID_DECREMENT_BUTTON,
+			testId = `{props.testId}--decrement`,
 		}, {
 			Icon = React.createElement(Icon, {
 				name = BuilderIcons.Icon.MinusSmall,
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
+				testId = `{props.testId}--decrement-icon`,
 			}),
 		}),
 	})
@@ -169,13 +169,13 @@ local function StackedControls(props: NumberInputControlsProps)
 			isDisabled = props.increment.isDisabled,
 			padding = variantProps.button.padding,
 			tag = variantProps.upButton.tag,
-			testId = TEST_ID_INCREMENT_BUTTON,
+			testId = `{props.testId}--increment`,
 		}, {
 			Icon = React.createElement(Image, {
 				Image = "component_assets/triangleUp_16",
 				imageStyle = if Flags.FoundationNumberInputDisabledStackedVisual then incrementImageStyle else nil,
 				tag = variantProps.icon.tag,
-				testId = "--foundation-numberinput-stacked-increment-image",
+				testId = `{props.testId}--increment-icon`,
 			}),
 		}),
 		ControlDecrement = React.createElement(StackedIconButton, {
@@ -183,13 +183,13 @@ local function StackedControls(props: NumberInputControlsProps)
 			onActivated = props.decrement.onClick,
 			isDisabled = props.decrement.isDisabled,
 			padding = variantProps.button.padding,
-			testId = TEST_ID_DECREMENT_BUTTON,
+			testId = `{props.testId}--decrement`,
 		}, {
 			Icon = React.createElement(Image, {
 				Image = "component_assets/triangleDown_16",
 				imageStyle = if Flags.FoundationNumberInputDisabledStackedVisual then decrementImageStyle else nil,
 				tag = variantProps.icon.tag,
-				testId = "--foundation-numberinput-stacked-decrement-image",
+				testId = `{props.testId}--decrement-icon`,
 			}),
 		}),
 	})

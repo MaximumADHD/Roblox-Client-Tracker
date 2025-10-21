@@ -13,9 +13,6 @@ local floatEquals = require(util.floatEquals)
 local getExpectedPartSize = require(util.getExpectedPartSize)
 local FailureReasonsAccumulator = require(util.FailureReasonsAccumulator)
 
-local flags = root.flags
-local getFFlagUGCValidateMeshMin = require(flags.getFFlagUGCValidateMeshMin)
-
 local ValidateBodyBlockingTests = {}
 
 local meshSizeAsDefault = true
@@ -50,14 +47,8 @@ function ValidateBodyBlockingTests.validateInternal(
 	local success, errorMessages = ValidateBodyBlockingTests.validateMeshMin(meshSize, meshHandle.Name)
 	reasonsAccumulator:updateReasons(success, errorMessages)
 	if not success then
-		if getFFlagUGCValidateMeshMin() then
-			if reportFailure then
-				Analytics.reportFailure(
-					Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize,
-					nil,
-					validationContext
-				)
-			end
+		if reportFailure then
+			Analytics.reportFailure(Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize, nil, validationContext)
 		end
 	end
 	return reasonsAccumulator:getFinalResults()

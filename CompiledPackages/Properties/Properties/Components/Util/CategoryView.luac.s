@@ -12,59 +12,66 @@ PROTO_1:
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 2
   DUPTABLE R3 K3 [{"tag", "onActivated"}]
-  LOADK R4 K4 ["size-full-800 row align-y-center"]
+  LOADK R4 K4 ["size-full-700 row align-y-center padding-left-medium padding-y-xxsmall gap-small"]
   SETTABLEKS R4 R3 K1 ["tag"]
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   SETTABLEKS R4 R3 K2 ["onActivated"]
-  DUPTABLE R4 K7 [{"ChevronContainer", "Label"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K9 [{"LayoutOrder", "tag"}]
+  DUPTABLE R4 K8 [{"Arrow", "Label", "RightIcon"}]
+  GETUPVAL R5 5
+  GETUPVAL R6 6
+  DUPTABLE R7 K11 [{"LayoutOrder", "arrow"}]
   MOVE R8 R0
   CALL R8 0 1
-  SETTABLEKS R8 R7 K8 ["LayoutOrder"]
-  LOADK R8 K10 ["size-700 row align-y-center align-x-center"]
-  SETTABLEKS R8 R7 K1 ["tag"]
-  DUPTABLE R8 K12 [{"ExpandImage"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K0 ["createElement"]
-  GETUPVAL R10 5
-  DUPTABLE R11 K15 [{"LayoutOrder", "name", "size"}]
-  MOVE R12 R0
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
-  GETUPVAL R13 4
-  JUMPIFNOT R13 [+2]
-  LOADK R12 K16 ["chevron-small-down"]
-  JUMP [+1]
-  LOADK R12 K17 ["chevron-small-right"]
-  SETTABLEKS R12 R11 K13 ["name"]
-  GETUPVAL R15 6
-  GETTABLEKS R14 R15 K18 ["Enums"]
-  GETTABLEKS R13 R14 K19 ["InputSize"]
-  GETTABLEKS R12 R13 K20 ["Medium"]
-  SETTABLEKS R12 R11 K14 ["size"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["ExpandImage"]
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K5 ["ChevronContainer"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K0 ["createElement"]
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
+  DUPTABLE R8 K13 [{"expanded"}]
+  GETUPVAL R9 4
+  SETTABLEKS R9 R8 K12 ["expanded"]
+  SETTABLEKS R8 R7 K10 ["arrow"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K5 ["Arrow"]
+  GETUPVAL R5 5
   GETUPVAL R6 7
-  DUPTABLE R7 K22 [{"LayoutOrder", "Text", "tag"}]
+  DUPTABLE R7 K15 [{"LayoutOrder", "Text", "tag"}]
   MOVE R8 R0
   CALL R8 0 1
-  SETTABLEKS R8 R7 K8 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
   GETUPVAL R9 8
-  GETTABLEKS R8 R9 K23 ["categoryName"]
-  SETTABLEKS R8 R7 K21 ["Text"]
-  LOADK R8 K24 ["size-full-full text-no-wrap text-align-x-left text-align-y-center text-title-small"]
+  GETTABLEKS R8 R9 K16 ["categoryName"]
+  SETTABLEKS R8 R7 K14 ["Text"]
+  LOADK R8 K17 ["shrink size-full-full text-no-wrap text-align-x-left text-align-y-center text-title-small clip"]
   SETTABLEKS R8 R7 K1 ["tag"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K6 ["Label"]
+  GETUPVAL R6 8
+  GETTABLEKS R5 R6 K18 ["trailingIcon"]
+  JUMPIFNOT R5 [+37]
+  GETUPVAL R5 5
+  GETUPVAL R7 9
+  GETTABLEKS R6 R7 K19 ["IconButton"]
+  DUPTABLE R7 K22 [{"onActivated", "LayoutOrder", "icon", "size"}]
+  GETUPVAL R10 8
+  GETTABLEKS R9 R10 K18 ["trailingIcon"]
+  GETTABLEKS R8 R9 K2 ["onActivated"]
+  SETTABLEKS R8 R7 K2 ["onActivated"]
+  MOVE R8 R0
+  CALL R8 0 1
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
+  DUPTABLE R8 K25 [{"name", "variant"}]
+  GETUPVAL R11 8
+  GETTABLEKS R10 R11 K18 ["trailingIcon"]
+  GETTABLEKS R9 R10 K23 ["name"]
+  SETTABLEKS R9 R8 K23 ["name"]
+  GETUPVAL R10 10
+  GETTABLEKS R9 R10 K26 ["Filled"]
+  SETTABLEKS R9 R8 K24 ["variant"]
+  SETTABLEKS R8 R7 K20 ["icon"]
+  GETUPVAL R9 11
+  GETTABLEKS R8 R9 K27 ["XSmall"]
+  SETTABLEKS R8 R7 K21 ["size"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K7 ["RightIcon"]
   CALL R1 3 -1
   RETURN R1 -1
 
@@ -73,38 +80,43 @@ PROTO_2:
   GETTABLEKS R1 R2 K0 ["useState"]
   LOADB R2 1
   CALL R1 1 2
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["useMemo"]
-  NEWCLOSURE R4 P0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U0
+  GETUPVAL R3 1
+  CALL R3 0 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["useMemo"]
+  NEWCLOSURE R5 P0
   CAPTURE UPVAL U2
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U3
   CAPTURE VAL R2
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
   CAPTURE VAL R0
-  NEWTABLE R5 0 3
-  MOVE R6 R1
-  GETTABLEKS R7 R0 K2 ["layoutOrder"]
-  GETTABLEKS R8 R0 K3 ["categoryName"]
-  SETLIST R5 R6 3 [1]
-  CALL R3 2 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["createElement"]
-  GETUPVAL R5 2
-  DUPTABLE R6 K6 [{"tag"}]
-  LOADK R7 K7 ["col auto-y size-full-0 grow gap-xsmall"]
-  SETTABLEKS R7 R6 K5 ["tag"]
-  DUPTABLE R7 K9 [{"SectionHeader"}]
-  SETTABLEKS R3 R7 K8 ["SectionHeader"]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  NEWTABLE R6 0 4
+  MOVE R7 R1
+  GETTABLEKS R8 R0 K2 ["layoutOrder"]
+  GETTABLEKS R9 R0 K3 ["categoryName"]
+  MOVE R10 R3
+  SETLIST R6 R7 4 [1]
+  CALL R4 2 1
+  GETUPVAL R5 4
+  GETUPVAL R6 3
+  DUPTABLE R7 K5 [{"tag"}]
+  LOADK R8 K6 ["col auto-y size-full-0 gap-none"]
+  SETTABLEKS R8 R7 K4 ["tag"]
+  DUPTABLE R8 K8 [{"SectionHeader"}]
+  SETTABLEKS R4 R8 K7 ["SectionHeader"]
   JUMPIFNOT R1 [+3]
-  GETTABLEKS R8 R0 K10 ["children"]
+  GETTABLEKS R9 R0 K9 ["children"]
   JUMP [+1]
-  LOADNIL R8
-  CALL R4 4 -1
-  RETURN R4 -1
+  LOADNIL R9
+  CALL R5 4 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0
@@ -117,21 +129,36 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Parent"]
-  GETTABLEKS R3 R4 K8 ["React"]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["LeftArrowSpacer"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Util"]
-  GETTABLEKS R4 R5 K10 ["createNextOrder"]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K11 ["Icon"]
-  GETTABLEKS R5 R1 K12 ["Text"]
-  GETTABLEKS R6 R1 K13 ["View"]
-  DUPCLOSURE R7 K14 [PROTO_2]
-  CAPTURE VAL R2
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Util"]
+  GETTABLEKS R5 R6 K12 ["createNextOrder"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K13 ["Text"]
+  GETTABLEKS R6 R1 K14 ["View"]
+  GETTABLEKS R7 R3 K15 ["createElement"]
+  GETTABLEKS R9 R1 K16 ["Hooks"]
+  GETTABLEKS R8 R9 K17 ["useTokens"]
+  GETTABLEKS R10 R1 K18 ["Enums"]
+  GETTABLEKS R9 R10 K19 ["IconSize"]
+  GETTABLEKS R11 R1 K18 ["Enums"]
+  GETTABLEKS R10 R11 K20 ["IconVariant"]
+  DUPCLOSURE R11 K21 [PROTO_2]
   CAPTURE VAL R3
-  CAPTURE VAL R6
+  CAPTURE VAL R8
   CAPTURE VAL R4
-  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R2
   CAPTURE VAL R5
-  RETURN R7 1
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  RETURN R11 1

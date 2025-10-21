@@ -24,9 +24,6 @@ local flags = root.flags
 local GetFStringUGCValidationMaxAnimationLength = require(flags.GetFStringUGCValidationMaxAnimationLength)
 local GetFStringUGCValidationMaxAnimationBounds = require(flags.GetFStringUGCValidationMaxAnimationBounds)
 local GetFStringUGCValidationMaxAnimationDeltas = require(flags.GetFStringUGCValidationMaxAnimationDeltas)
-local getFFlagUGCValidateNoScriptsInCurveAnim = require(flags.getFFlagUGCValidateNoScriptsInCurveAnim)
-local getFFlagUGCValidateNoExtraInstsInCurveAnim = require(flags.getFFlagUGCValidateNoExtraInstsInCurveAnim)
-local getFFlagUGCValidateCurveAnimChildFix = require(flags.getFFlagUGCValidateCurveAnimChildFix)
 local getFFlagUGCValidateAddObjectValueToAcceptableTypes =
 	require(flags.getFFlagUGCValidateAddObjectValueToAcceptableTypes)
 local getFFlagUGCValidateDuplicatesInAnimation = require(flags.getFFlagUGCValidateDuplicatesInAnimation)
@@ -53,6 +50,8 @@ local getFFlagUGCValidatePreciseCurveLimit = require(flags.getFFlagUGCValidatePr
 local GetFStringUGCValidateFrameDeltaKeyTimeTol = require(flags.GetFStringUGCValidateFrameDeltaKeyTimeTol)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
+local getFFlagUGCValidateRestrictEmoteHeight = require(flags.getFFlagUGCValidateRestrictEmoteHeight)
+local GetFStringUGCValidateAnimationHeightTol = require(flags.GetFStringUGCValidateAnimationHeightTol)
 
 local ValidateCurveAnimation = {}
 
@@ -450,6 +449,13 @@ function ValidateCurveAnimation.validateExtraInstancesUnitTest(
 	return validateExtraInstances(curveAnim, validationContext)
 end
 
+function ValidateCurveAnimation.validateScriptsUnitTest(
+	curveAnim: CurveAnimation,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	return validateScripts(curveAnim, validationContext)
+end
+
 -- the root Instance must be a CurveAnimation. Its children can be MarkerCurves, AnimationRigData, and Folders
 -- Folders that have body part names are checked by validateCurveAnimationBodyPartFolder()
 local function validateAnimationHierarchy(
@@ -534,33 +540,17 @@ local function validateAnimationHierarchy(
 			continue
 		end
 
-		if getFFlagUGCValidateCurveAnimChildFix() then
-			return reportFailure(
-				"CurveAnimation contains unexpected child: " .. child.Name,
-				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
-				validationContext
-			)
-		else
-			reportFailure(
-				"CurveAnimation contains unexpected child: " .. child.Name,
-				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
-				validationContext
-			)
-		end
+		return reportFailure(
+			"CurveAnimation contains unexpected child: " .. child.Name,
+			Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+			validationContext
+		)
 	end
 
-	if getFFlagUGCValidateNoScriptsInCurveAnim() or getFFlagUGCValidateNoExtraInstsInCurveAnim() then
-		local reasonsAccumulator = FailureReasonsAccumulator.new()
-		if getFFlagUGCValidateNoScriptsInCurveAnim() then
-			reasonsAccumulator:updateReasons(validateScripts(curveAnim, validationContext))
-		end
-		if getFFlagUGCValidateNoExtraInstsInCurveAnim() then
-			reasonsAccumulator:updateReasons(validateExtraInstances(curveAnim, validationContext))
-		end
-		return reasonsAccumulator:getFinalResults()
-	else
-		return true
-	end
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+	reasonsAccumulator:updateReasons(validateScripts(curveAnim, validationContext))
+	reasonsAccumulator:updateReasons(validateExtraInstances(curveAnim, validationContext))
+	return reasonsAccumulator:getFinalResults()
 end
 
 local function createDefaultCharacter(removeMotors: boolean): Model
@@ -779,18 +769,45 @@ function ValidateCurveAnimation.validateBounds(
 	animFrames: { { string: CFrame } },
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
+	local minHeight = if getFFlagUGCValidateRestrictEmoteHeight() then math.huge else 0
 	local maxBounds = 0
 	for _, frame in animFrames do
 		for _, cframe in frame do
 			maxBounds = math.max(maxBounds, (cframe :: CFrame).Position.Magnitude)
+
+			if getFFlagUGCValidateRestrictEmoteHeight() then
+				minHeight = math.min(minHeight, (cframe :: CFrame).Position.Y)
+			end
 		end
 	end
-	if maxBounds > GetFStringUGCValidationMaxAnimationBounds.asNumber() then
-		return reportFailure(
+
+	if getFFlagUGCValidateRestrictEmoteHeight() then
+		local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+		reasonsAccumulator:updateReasons(minHeight >= GetFStringUGCValidateAnimationHeightTol.asNumber(), {
+			`Body parts in a CurveAnimation cannot be lower than {GetFStringUGCValidateAnimationHeightTol.asString()} studs from the HumanoidRootPart. Please fix the animation.`,
+		})
+		reasonsAccumulator:updateReasons(maxBounds <= GetFStringUGCValidationMaxAnimationBounds.asNumber(), {
 			`Body parts in a CurveAnimation cannot get more than {GetFStringUGCValidationMaxAnimationBounds.asString()} studs from the HumanoidRootPart. Please fix the animation.`,
-			Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds,
-			validationContext
-		)
+		})
+
+		if not (reasonsAccumulator:getFinalResults()) then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds,
+				nil,
+				validationContext
+			)
+		end
+
+		return reasonsAccumulator:getFinalResults()
+	else
+		if maxBounds > GetFStringUGCValidationMaxAnimationBounds.asNumber() then
+			return reportFailure(
+				`Body parts in a CurveAnimation cannot get more than {GetFStringUGCValidationMaxAnimationBounds.asString()} studs from the HumanoidRootPart. Please fix the animation.`,
+				Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds,
+				validationContext
+			)
+		end
 	end
 	return true
 end

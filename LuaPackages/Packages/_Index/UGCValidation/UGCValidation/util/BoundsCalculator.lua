@@ -17,16 +17,11 @@ local Types = require(root.util.Types)
 local ConstantsInterface = require(root.ConstantsInterface)
 local AssetCalculator = require(root.util.AssetCalculator)
 local getPartNamesInHierarchyOrder = require(root.util.getPartNamesInHierarchyOrder)
-local getMeshMinMax = require(root.util.getMeshMinMax)
 local getMeshVerts = require(root.util.getMeshVerts)
 local getMeshInfo = require(root.util.getMeshInfo)
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
-local getFFlagUGCValidateCalculateScaleToValidateBounds =
-	require(root.flags.getFFlagUGCValidateCalculateScaleToValidateBounds)
-local getFFlagUGCValidateUseMeshSizeProperty = require(root.flags.getFFlagUGCValidateUseMeshSizeProperty)
-local getFFlagUGCValidateUseDataCache = require(root.flags.getFFlagUGCValidateUseDataCache)
 local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
 
 local BoundsCalculator = {}
@@ -91,56 +86,28 @@ local function calculateBoundsDataForPart(
 	validationContext: Types.ValidationContext,
 	dataCache: Types.DataCache?
 ): (boolean, { string }?, Types.BoundsData?)
-	if getFFlagUGCValidateUseDataCache() then
-		assert((meshInfo ~= nil) ~= (dataCache ~= nil)) --exclusive or, meshInfo or dataCache, not both, not neither
-	end
+	assert((meshInfo ~= nil) ~= (dataCache ~= nil)) --exclusive or, meshInfo or dataCache, not both, not neither
 
-	local meshBounds = nil
-	if getFFlagUGCValidateUseMeshSizeProperty() then
-		meshBounds = part.MeshSize
-	else
-		if getFFlagUGCValidateUseDataCache() then
-			if dataCache then
-				if dataCache.meshData and dataCache.meshData[part.MeshId] then
-					local meshMinOpt = dataCache.meshData[part.MeshId].meshMin
-					local meshMaxOpt = dataCache.meshData[part.MeshId].meshMax
-					if meshMinOpt and meshMaxOpt then
-						meshBounds = (meshMaxOpt :: Vector3) - (meshMinOpt :: Vector3)
-					end
-				end
-				if not meshBounds then
-					return false, { "Mesh bounds not found in data cache" }
-				end
-			end
-		end
+	local meshBounds = part.MeshSize
 
-		if not getFFlagUGCValidateUseDataCache() or not meshBounds then
-			local success, failureReasons, meshMinOpt, meshMaxOpt =
-				getMeshMinMax(meshInfo :: Types.MeshInfo, validationContext)
-			if not success then
-				return success, failureReasons
-			end
-			meshBounds = (meshMaxOpt :: Vector3) - (meshMinOpt :: Vector3)
-		end
-	end
 	local partSize = getExpectedPartSize(part, validationContext)
 	local scale = partSize / meshBounds
 
 	local verts = nil
-	if getFFlagUGCValidateUseDataCache() then
-		if dataCache then
-			if dataCache.meshData and dataCache.meshData[part.MeshId] then
-				local vertsOpt = dataCache.meshData[part.MeshId].verts
-				if vertsOpt then
-					verts = vertsOpt :: { Vector3 }
-				end
-			end
-			if not verts then
-				return false, { "Verts not found in data cache" }
+
+	if dataCache then
+		if dataCache.meshData and dataCache.meshData[part.MeshId] then
+			local vertsOpt = dataCache.meshData[part.MeshId].verts
+			if vertsOpt then
+				verts = vertsOpt :: { Vector3 }
 			end
 		end
+		if not verts then
+			return false, { "Verts not found in data cache" }
+		end
 	end
-	if not getFFlagUGCValidateUseDataCache() or not verts then
+
+	if not verts then
 		local success, failureReasons, vertsOpt = getMeshVerts(meshInfo :: Types.MeshInfo, validationContext)
 		if not success then
 			return success, failureReasons
@@ -154,24 +121,13 @@ local function calculateBoundsDataForPart(
 	end
 
 	for _, attachName in ConstantsInterface.getAttachments(nil, part.Name) do
-		local attach
-		if getFFlagUGCValidateCalculateScaleToValidateBounds() then
-			local isRigAttachment = string.match(attachName, "RigAttachment$") ~= nil
-			if not isRigAttachment then
-				continue
-			end
-
-			attach = part:FindFirstChild(attachName) :: Attachment
-			assert(attach)
-		else
-			attach = part:FindFirstChild(attachName) :: Attachment
-			assert(attach)
-
-			local isRigAttachment = string.match(attach.Name, "RigAttachment$") ~= nil
-			if not isRigAttachment then
-				continue
-			end
+		local isRigAttachment = string.match(attachName, "RigAttachment$") ~= nil
+		if not isRigAttachment then
+			continue
 		end
+
+		local attach = part:FindFirstChild(attachName) :: Attachment
+		assert(attach)
 
 		local world = cframe * attach.CFrame
 		BoundsDataUtils.expandRigAttachmentBounds(resultMinMaxBounds, world.Position)
@@ -192,7 +148,7 @@ local function calculateAllPartsBoundsData(
 		local meshPart = findMeshHandle(meshPartName :: string)
 
 		local meshInfo = nil
-		if not getFFlagUGCValidateUseDataCache() or not dataCache then
+		if not dataCache then
 			local success, failureReasons, meshInfoOpt
 			if getFFlagUGCValidationConsolidateGetMeshInfos() then
 				success, failureReasons, meshInfoOpt =

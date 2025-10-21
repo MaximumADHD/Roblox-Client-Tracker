@@ -2,7 +2,8 @@
 local CorePackages = game:GetService("CorePackages")
 local UGCValidationService = game:GetService("UGCValidationService")
 local UGCValidation = require(CorePackages.Packages.UGCValidation)
-local EngineFeatureUGCValidationWithContextEntrypoint = game:GetEngineFeature("UGCValidationWithContextEntrypointFeature")
+local EngineFeatureUGCValidationWithContextEntrypoint =
+	game:GetEngineFeature("UGCValidationWithContextEntrypointFeature")
 
 local function UGCValidationFunction(args)
 	local objectInstances = args["instances"]
@@ -79,6 +80,30 @@ local function UGCValidationFunction(args)
 				true, --validateMeshPartAccessories
 				requireAllFolders
 			)
+		end
+	end
+
+	if UGCValidation.isFolderStructureEnabled and UGCValidation.isFolderStructureEnabled() then -- isFolderStructureEnabled returns a flag state, this is flagged
+		local valConfigs = {
+			source = (isServer and "InExpServer" or "InExpClient") :: any,
+			enforceR15FolderStructure = requireAllFolders or false,
+			telemetry_bundle_id = "", -- TODO: Send IDs from cpp for proper telemetry
+			telemetry_root_id = "",
+		}
+
+		local validationData
+		if fullBodyData then
+			validationData = UGCValidation.ValidateFinalizedBundle(fullBodyData, Enum.BundleType.BodyParts, valConfigs)
+		else
+			validationData = UGCValidation.ValidateAsset(
+				objectInstances :: { Instance },
+				assetTypeEnum :: Enum.AssetType,
+				valConfigs
+			)
+		end
+
+		if UGCValidation.isEntrypointMergingEnabled and UGCValidation.isEntrypointMergingEnabled() then
+			success, reasons = UGCValidation.combineResultsIntoLegacy(success, reasons, validationData)
 		end
 	end
 

@@ -51,6 +51,18 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
+  NEWTABLE R0 0 0
+  RETURN R0 1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["mockComponents"]
+  DUPTABLE R2 K2 [{"GetCustomizedStylablePropertiesAsync"}]
+  DUPCLOSURE R3 K3 [PROTO_6]
+  SETTABLEKS R3 R2 K1 ["GetCustomizedStylablePropertiesAsync"]
+  SETTABLEKS R2 R1 K4 ["CustomizedDefaultInstances"]
+  RETURN R0 0
+
+PROTO_8:
   MOVE R1 R0
   JUMPIF R1 [+1]
   GETUPVAL R1 0
@@ -76,39 +88,44 @@ PROTO_6:
   NEWCLOSURE R7 P0
   CAPTURE VAL R1
   SETTABLEKS R7 R2 K6 ["CreatePluginMenu"]
-  DUPTABLE R7 K11 [{"Plugin", "Localization", "Networking", "Telemetry", "recordChange"}]
-  SETTABLEKS R2 R7 K7 ["Plugin"]
+  GETTABLEKS R7 R2 K7 ["mockComponents"]
+  DUPTABLE R8 K9 [{"GetCustomizedStylablePropertiesAsync"}]
+  DUPCLOSURE R9 K10 [PROTO_6]
+  SETTABLEKS R9 R8 K8 ["GetCustomizedStylablePropertiesAsync"]
+  SETTABLEKS R8 R7 K11 ["CustomizedDefaultInstances"]
+  DUPTABLE R7 K16 [{"Plugin", "Localization", "Networking", "Telemetry", "recordChange"}]
+  SETTABLEKS R2 R7 K12 ["Plugin"]
   SETTABLEKS R5 R7 K5 ["Localization"]
-  SETTABLEKS R3 R7 K8 ["Networking"]
-  SETTABLEKS R4 R7 K9 ["Telemetry"]
-  SETTABLEKS R6 R7 K10 ["recordChange"]
+  SETTABLEKS R3 R7 K13 ["Networking"]
+  SETTABLEKS R4 R7 K14 ["Telemetry"]
+  SETTABLEKS R6 R7 K15 ["recordChange"]
   GETUPVAL R8 7
   MOVE R9 R7
   CALL R8 1 1
-  DUPTABLE R9 K19 [{"_config", "_destroyed", "plugin", "localization", "networking", "telemetry", "store"}]
-  SETTABLEKS R1 R9 K12 ["_config"]
+  DUPTABLE R9 K24 [{"_config", "_destroyed", "plugin", "localization", "networking", "telemetry", "store"}]
+  SETTABLEKS R1 R9 K17 ["_config"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K13 ["_destroyed"]
-  SETTABLEKS R2 R9 K14 ["plugin"]
-  SETTABLEKS R5 R9 K15 ["localization"]
-  SETTABLEKS R3 R9 K16 ["networking"]
-  SETTABLEKS R4 R9 K17 ["telemetry"]
-  SETTABLEKS R8 R9 K18 ["store"]
+  SETTABLEKS R10 R9 K18 ["_destroyed"]
+  SETTABLEKS R2 R9 K19 ["plugin"]
+  SETTABLEKS R5 R9 K20 ["localization"]
+  SETTABLEKS R3 R9 K21 ["networking"]
+  SETTABLEKS R4 R9 K22 ["telemetry"]
+  SETTABLEKS R8 R9 K23 ["store"]
   GETUPVAL R13 8
-  GETTABLEKS R12 R13 K20 ["__index"]
+  GETTABLEKS R12 R13 K25 ["__index"]
   FASTCALL2 SETMETATABLE R9 R12 [+4]
   MOVE R11 R9
-  GETIMPORT R10 K22 [setmetatable]
+  GETIMPORT R10 K27 [setmetatable]
   CALL R10 2 1
   RETURN R10 1
 
-PROTO_7:
+PROTO_9:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["UpdateUnitTestOnly"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_10:
   JUMPIFNOT R0 [+68]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["_config"]
@@ -163,7 +180,7 @@ PROTO_8:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_11:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["useState"]
   LOADNIL R1
@@ -182,7 +199,7 @@ PROTO_9:
   LOADNIL R3
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K4 ["useLayoutEffect"]
-  DUPCLOSURE R5 K5 [PROTO_7]
+  DUPCLOSURE R5 K5 [PROTO_9]
   CAPTURE UPVAL U3
   CALL R4 1 0
   GETUPVAL R5 0
@@ -209,7 +226,7 @@ PROTO_9:
   CALL R4 3 -1
   RETURN R4 -1
 
-PROTO_10:
+PROTO_12:
   GETTABLEKS R4 R0 K0 ["_destroyed"]
   JUMPIFEQKB R4 FALSE [+2]
   LOADB R3 0 +1
@@ -244,7 +261,7 @@ PROTO_10:
   CALL R3 1 -1
   RETURN R3 -1
 
-PROTO_11:
+PROTO_13:
   GETTABLEKS R3 R0 K0 ["_destroyed"]
   JUMPIFEQKB R3 FALSE [+2]
   LOADB R2 0 +1
@@ -352,7 +369,8 @@ MAIN:
   NEWTABLE R20 0 0
   SETTABLEKS R20 R20 K32 ["__index"]
   DUPCLOSURE R21 K33 [PROTO_5]
-  DUPCLOSURE R22 K34 [PROTO_6]
+  DUPCLOSURE R22 K34 [PROTO_7]
+  DUPCLOSURE R23 K35 [PROTO_8]
   CAPTURE VAL R19
   CAPTURE VAL R7
   CAPTURE VAL R6
@@ -362,15 +380,15 @@ MAIN:
   CAPTURE VAL R0
   CAPTURE VAL R13
   CAPTURE VAL R20
-  SETTABLEKS R22 R20 K35 ["new"]
-  DUPCLOSURE R22 K36 [PROTO_10]
+  SETTABLEKS R23 R20 K36 ["new"]
+  DUPCLOSURE R23 K37 [PROTO_12]
   CAPTURE VAL R4
   CAPTURE VAL R8
   CAPTURE VAL R1
   CAPTURE VAL R12
   CAPTURE VAL R9
   CAPTURE VAL R15
-  SETTABLEKS R22 R20 K37 ["provide"]
-  DUPCLOSURE R22 K38 [PROTO_11]
-  SETTABLEKS R22 R20 K39 ["destroy"]
+  SETTABLEKS R23 R20 K38 ["provide"]
+  DUPCLOSURE R23 K39 [PROTO_13]
+  SETTABLEKS R23 R20 K40 ["destroy"]
   RETURN R20 1

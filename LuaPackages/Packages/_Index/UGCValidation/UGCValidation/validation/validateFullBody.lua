@@ -8,9 +8,6 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 
-local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
-local getEngineFeatureUGCValidateBodyMaxCageMeshDistance =
-	require(root.flags.getEngineFeatureUGCValidateBodyMaxCageMeshDistance)
 local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
 
 local Types = require(root.util.Types)
@@ -224,23 +221,17 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 		local allBodyParts: Types.AllBodyParts = createAllBodyPartsTable(folderName, fullBodyData)
 		assert(allBodyParts) -- if validateInstanceHierarchy() has passed, this should not have any problems
 
-		if getFFlagUGCValidateMeshMin() then
-			-- anything which would cause a crash later on, we check in here and exit early
-			if not ValidateBodyBlockingTests.validateAll(allBodyParts, validationContext) then
-				Analytics.reportFailure(Analytics.ErrorType.validateFullBody_ZeroMeshSize, nil, validationContext)
-				-- don't need more detailed error, as this is a check which has been done for each individual asset
-				return false,
-					{
-						"Unable to run full body validation due to previous errors detected while processing individual body parts.",
-					}
-			end
+		-- anything which would cause a crash later on, we check in here and exit early
+		if not ValidateBodyBlockingTests.validateAll(allBodyParts, validationContext) then
+			Analytics.reportFailure(Analytics.ErrorType.validateFullBody_ZeroMeshSize, nil, validationContext)
+			-- don't need more detailed error, as this is a check which has been done for each individual asset
+			return false,
+				{
+					"Unable to run full body validation due to previous errors detected while processing individual body parts.",
+				}
 		end
 
-		if getEngineFeatureUGCValidateBodyMaxCageMeshDistance() then
-			reasonsAccumulator:updateReasons(
-				ValidateAssetBodyPartCages.validateFullBody(allBodyParts, validationContext)
-			)
-		end
+		reasonsAccumulator:updateReasons(ValidateAssetBodyPartCages.validateFullBody(allBodyParts, validationContext))
 		reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, validationContext))
 
 		if getEngineFeatureUGCValidationFullBodyFacs() then

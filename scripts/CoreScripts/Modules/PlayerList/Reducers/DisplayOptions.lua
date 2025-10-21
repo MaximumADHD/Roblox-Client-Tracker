@@ -25,12 +25,13 @@ local SetSubjectToChinaPolicies = require(Actions.SetSubjectToChinaPolicies)
 
 local FFlagPlayerListPersistVisibility = require(PlayerList.Flags.FFlagPlayerListPersistVisibility)
 local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
+local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
 
 local GameSettings = if FFlagPlayerListPersistVisibility then UserSettings().GameSettings else nil
 
 local initialDisplayOptions = {
 	isMinimized = false,
-	setVisible = if FFlagPlayerListPersistVisibility then GameSettings.PlayerListVisible else true, --If the user wants the leaderboard visible or not
+	setVisible = if FFlagPlayerListUseMobileOnSmallDisplay then false else if FFlagPlayerListPersistVisibility then GameSettings.PlayerListVisible else true, --If the user wants the leaderboard visible or not
 	isVisible = true, --Visiblity based on all other display options
 	isSmallTouchDevice = false,
 	performanceStatsVisible = false,

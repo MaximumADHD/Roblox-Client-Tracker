@@ -2,6 +2,10 @@
 	This file contains tables in the format of {string = same string}.
 	The point is that indexing these tables with a typo will give you an error instead of nil, so they can be treated as enums.
 	We use ValidationEnums as a source of truth to run validations, log telemetry, etc.
+
+	- For validation modules, since they are going to be match module names we will use TitleCase
+	- For shared data, since they are going to be accessed in regular tests and match Types.lua, we will use camelCase
+	- For remaining enums, since they are intended to be checked for exact matches ( ie Status == PASS), we will use UPPER_CASE
 ]]
 
 local ValidationEnums = {}
@@ -37,32 +41,48 @@ end
 ValidationEnums.ValidationModule = {
 	--[[
 	If a test doesn't have an enum, it will not be recognized and does not exist.
-    This table is a mapping of TestEnum = TestEnum with strict indexing, so it behaves like a real enum
+    This table is a mapping of (string) TestEnum = (string) TestEnum with strict indexing, so it behaves like an enum
 
     Enum naming rules:
         - Unique
         - Short (<= 3 words, with a hard limit at 4 words)
-        - Human readable and error descriptive
         - Capitalized, with underscores for spaces
+		
+        - Human readable and describes the expectation for PROPER marketplace uploads
+			- Good examples: HeadIsDynamic, CagingIsRelevant, AccurateBoundingBox, AssetVisible
+			- Bad example: DynamicHead, Tags, ValidateMeshSize
     --]]
-	ASSET_SCHEMA = "ASSET_SCHEMA",
-	INSTANCE_TAGS = "INSTANCE_TAGS",
+	ExpectedRootSchema = "ExpectedRootSchema",
+	SingleInstanceSelected = "SingleInstanceSelected",
+	NoExtraTags = "NoExtraTags",
+	HeadIsDynamic = "HeadIsDynamic",
 } :: { [string]: string }
 finalizeEnumTable("ValidationModule")
 
 ValidationEnums.SharedDataMember = {
-	-- Enum for Data that is made and used by validation tests. Should match Types.ValidationSharedData
-	-- Guaranteed data
-	ROOT_INSTANCE = "ROOT_INSTANCE",
-	UPLOAD_CATEGORY = "UPLOAD_CATEGORY",
-	CREATION_SOURCE = "CREATION_SOURCE",
+	--[[ 
+	Enum for Data that is made and used by validation tests. Should match Types.ValidationSharedData. 
+	This exists twice as type export allows selene to run while the enum system allows code usage.
+	
+	If there is a common data calculation that happens in multiple tests, especially if they are calling a util, it should be preloaded here.
+	For example, if multiple tests need to straighten out the limbs or compute the mesh scale, we should create that information only once to avoid inconsistencies.
+	On the otherhand, if a test needs to know an LC's ImportOrigin or the PBR's metalness map, it can just directly get it from the root instance
+	--]]
 
-	-- Provided whenever the upload contains this data
-	ASSET_TYPE_ENUM = "ASSET_TYPE_ENUM",
-	BUNDLE_TYPE_ENUM = "BUNDLE_TYPE_ENUM",
+	-- ==== Guaranteed data ====
+	jobId = "jobId",
+	entrypointInput = "entrypointInput",
+	rootInstance = "rootInstance",
+	uploadCategory = "uploadCategory",
+	uploadEnum = "uploadEnum",
+	consumerConfig = "consumerConfig",
 
-	-- Data that will only be provided if a test requests it
-	QUALITY_RESULTS = "QUALITY_RESULTS",
+	-- ==== Data available upon request by any test ====
+	qualityResults = "qualityResults",
+	renderMeshesData = "renderMeshesData",
+	innerCagesData = "innerCagesData",
+	outerCagesData = "outerCagesData",
+	meshTextures = "meshTextures",
 } :: { [string]: string }
 finalizeEnumTable("SharedDataMember")
 
@@ -79,7 +99,7 @@ finalizeEnumTable("Status")
 ValidationEnums.UploadCategory = {
 	-- Every upload will be strictly ONE group.
 	-- Tests can be configured to be run for multiple groups
-	BODY_PART = "BODY_PART",
+	TORSO_AND_LIMBS = "TORSO_AND_LIMBS",
 	DYNAMIC_HEAD = "DYNAMIC_HEAD",
 	LAYERED_CLOTHING = "LAYERED_CLOTHING",
 	RIGID_ACCESSORY = "RIGID_ACCESSORY",
@@ -92,10 +112,10 @@ finalizeEnumTable("UploadCategory")
 
 ValidationEnums.ValidationConfig = {
 	FFLAG = "FFLAG", -- Value will be a function that returns true/false, intended to be a function that gets the fflag. If false, the test is IGNORED.
-	IS_QUALITY = "IS_QUALITY", -- If true, we will include the test enum in the request to asset quality, and pass the results to the test
 	CATEGORIES = "CATEGORIES", -- List of UploadCategory to run the test against. If missing, the test does NOT run.
 	REQUIRED_DATA = "REQUIRED_DATA", -- List of SharedData enums that we need to fetch before we can run the test
 	PREREQ_TESTS = "PREREQ_TESTS", -- List of Tests that must pass before running this test. If they fail, we get status CANNOT_START
+	EXPECTED_FAILURES = "EXPECTED_FAILURES", -- List of System tests that we expect to fail this specific check. For bundles, you must specify Name.AssetType or Name.FullBody
 	RUN = "RUN", -- The main validation function
 } :: { [string]: string }
 finalizeEnumTable("ValidationConfig")

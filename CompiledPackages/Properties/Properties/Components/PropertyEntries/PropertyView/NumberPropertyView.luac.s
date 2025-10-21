@@ -1,0 +1,176 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["beginEditingAsync"]
+  CALL R1 0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["part"]
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["setPart"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["part"]
+  MOVE R3 R0
+  CALL R1 2 0
+  JUMP [+6]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["setPart"]
+  LOADK R2 K3 ["value"]
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["finishEditing"]
+  GETIMPORT R2 K8 [Enum.FinishRecordingOperation.Commit]
+  CALL R1 1 0
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  GETTABLEKS R2 R0 K1 ["value"]
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["useCallback"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NEWTABLE R5 0 4
+  GETTABLEKS R6 R0 K3 ["beginEditingAsync"]
+  GETTABLEKS R7 R0 K4 ["finishEditing"]
+  GETTABLEKS R8 R0 K5 ["setPart"]
+  GETTABLEKS R9 R0 K6 ["part"]
+  SETLIST R5 R6 4 [1]
+  CALL R3 2 1
+  LOADNIL R4
+  GETTABLEKS R5 R0 K7 ["editable"]
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R4 R0 K7 ["editable"]
+  JUMP [+10]
+  GETTABLEKS R5 R0 K8 ["info"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R0 K8 ["info"]
+  GETTABLEKS R5 R6 K9 ["readonly"]
+  NOT R4 R5
+  JUMP [+1]
+  LOADB R4 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K10 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K20 [{"controlsVariant", "value", "precision", "isScrubbable", "isDisabled", "width", "onChanged", "label", "size", "step"}]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K21 ["None"]
+  SETTABLEKS R8 R7 K11 ["controlsVariant"]
+  SETTABLEKS R1 R7 K1 ["value"]
+  LOADN R8 2
+  SETTABLEKS R8 R7 K12 ["precision"]
+  SETTABLEKS R4 R7 K13 ["isScrubbable"]
+  NOT R8 R4
+  SETTABLEKS R8 R7 K14 ["isDisabled"]
+  GETTABLEKS R9 R0 K18 ["size"]
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R8 R0 K18 ["size"]
+  JUMP [+5]
+  GETIMPORT R8 K24 [UDim.new]
+  LOADN R9 1
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["width"]
+  SETTABLEKS R3 R7 K16 ["onChanged"]
+  LOADK R8 K25 [""]
+  SETTABLEKS R8 R7 K17 ["label"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K26 ["XSmall"]
+  SETTABLEKS R8 R7 K18 ["size"]
+  GETTABLEKS R9 R0 K19 ["step"]
+  ORK R8 R9 K27 [1]
+  SETTABLEKS R8 R7 K19 ["step"]
+  DUPTABLE R8 K29 [{"Chip"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K10 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K33 [{"backgroundStyle", "tag", "ZIndex"}]
+  DUPTABLE R12 K36 [{"Color3", "Transparency"}]
+  GETTABLEKS R13 R0 K37 ["color"]
+  SETTABLEKS R13 R12 K34 ["Color3"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K35 ["Transparency"]
+  SETTABLEKS R12 R11 K30 ["backgroundStyle"]
+  LOADK R12 K38 ["size-full radius-small"]
+  SETTABLEKS R12 R11 K31 ["tag"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K32 ["ZIndex"]
+  DUPTABLE R12 K40 [{"Gradient"}]
+  GETTABLEKS R14 R0 K37 ["color"]
+  JUMPIFNOT R14 [+46]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K10 ["createElement"]
+  LOADK R14 K41 ["UIGradient"]
+  DUPTABLE R15 K44 [{"Color", "Transparency", "Rotation"}]
+  GETIMPORT R16 K46 [ColorSequence.new]
+  GETTABLEKS R17 R0 K37 ["color"]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K42 ["Color"]
+  GETIMPORT R16 K48 [NumberSequence.new]
+  NEWTABLE R17 0 4
+  GETIMPORT R18 K50 [NumberSequenceKeypoint.new]
+  LOADN R19 0
+  LOADN R20 0
+  CALL R18 2 1
+  GETIMPORT R19 K50 [NumberSequenceKeypoint.new]
+  LOADK R20 K51 [0.05]
+  LOADN R21 0
+  CALL R19 2 1
+  GETIMPORT R20 K50 [NumberSequenceKeypoint.new]
+  LOADK R21 K52 [0.06]
+  LOADN R22 1
+  CALL R20 2 1
+  GETIMPORT R21 K50 [NumberSequenceKeypoint.new]
+  LOADN R22 1
+  LOADN R23 1
+  CALL R21 2 -1
+  SETLIST R17 R18 -1 [1]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K35 ["Transparency"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K43 ["Rotation"]
+  CALL R13 2 1
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K39 ["Gradient"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K28 ["Chip"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["NumberInput"]
+  GETTABLEKS R4 R1 K10 ["View"]
+  GETTABLEKS R6 R1 K11 ["Enums"]
+  GETTABLEKS R5 R6 K12 ["NumberInputControlsVariant"]
+  GETTABLEKS R7 R1 K11 ["Enums"]
+  GETTABLEKS R6 R7 K13 ["InputSize"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R0 K14 ["RpcTypes"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K15 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  RETURN R8 1

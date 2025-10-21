@@ -28,7 +28,7 @@ type Tokens = Tokens.Tokens
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
 type DropdownVariantProps = {
-	container: { tag: string, height: UDim },
+	container: { tag: string },
 	text: { tag: string },
 	arrow: { size: IconSize },
 }
@@ -38,44 +38,27 @@ type State = ControlState | "Error"
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		container = { tag = "row align-y-center flex-x-between stroke-standard" },
-		text = {
-			tag = "auto-xy text-truncate-split shrink",
-		},
+		text = { tag = "auto-xy text-truncate-split shrink" },
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			container = {
-				-- TODO (AleksandrSl 26/06/2025): Drop height from containers of all sizes, when FoundationFixInputFieldWidth flag is removed
-				height = UDim.new(0, tokens.Size.Size_600),
-				tag = "radius-small padding-small gap-xxsmall size-full-600",
-			},
+			container = { tag = "radius-small padding-small gap-xxsmall size-full-600" },
 			text = { tag = "text-body-small" },
 			arrow = { size = InputSize.Small },
 		},
 		[InputSize.Small] = {
-			container = {
-				height = UDim.new(0, tokens.Size.Size_800),
-				tag = "radius-medium padding-medium gap-xxsmall size-full-800",
-			},
+			container = { tag = "radius-medium padding-medium gap-xxsmall size-full-800" },
 			text = { tag = "text-body-small" },
 			arrow = { size = InputSize.Small },
 		},
 		[InputSize.Medium] = {
-			container = {
-				size = UDim2.new(1, 0, 0, tokens.Size.Size_1000),
-				height = UDim.new(0, tokens.Size.Size_1000),
-				tag = "radius-medium padding-medium size-full-1000",
-			},
+			container = { tag = "radius-medium padding-medium size-full-1000" },
 			text = { tag = "text-body-medium" },
 			arrow = { size = InputSize.Medium },
 		},
 		[InputSize.Large] = {
-			container = {
-				size = UDim2.new(1, 0, 0, tokens.Size.Size_1200),
-				height = UDim.new(0, tokens.Size.Size_1200),
-				tag = "radius-medium padding-medium size-full-1200",
-			},
+			container = { tag = "radius-medium padding-medium size-full-1200" },
 			text = { tag = "text-body-large" },
 			arrow = { size = InputSize.Medium },
 		},

@@ -41,14 +41,13 @@ end
 local preloads = {}
 for _, testEnum in ValidationEnums.ValidationModule do
 	-- First, ensure the module actually exists
-	local folderName = string.lower(testEnum)
-	local valFolder = testFolders:FindFirstChild(folderName)
+	local valFolder = testFolders:FindFirstChild(testEnum)
 	if valFolder == nil then
 		error(`{testEnum} validation folder is missing from validationFolders`)
 	end
 
-	local valFile = valFolder:FindFirstChild(folderName)
-	if valFolder == nil or not valFile:IsA("ModuleScript") then
+	local valFile = valFolder:FindFirstChild(testEnum)
+	if valFile == nil or not valFile:IsA("ModuleScript") then
 		error(`{testEnum}.lua validation file is missing from validationFolders/{testEnum}`)
 	end
 
@@ -69,9 +68,9 @@ for _, testEnum in ValidationEnums.ValidationModule do
 	-- Fill in default values for unspecified configs. CANNOT BE NIL (as we later enforce that indexing nil is an error)
 	valModule.fflag = valModule.fflag or defaultFlagCheck
 	valModule.categories = valModule.categories or {}
-	valModule.is_quality = valModule.is_quality or false
 	valModule.required_data = valModule.required_data or {}
 	valModule.prereq_tests = valModule.prereq_tests or {}
+	valModule.expected_failures = valModule.expected_failures or {}
 	if valModule.run == nil or typeof(valModule.run) ~= "function" then
 		error(`Missing module run function in {testEnum}`)
 	end
@@ -86,9 +85,6 @@ for _, testEnum in ValidationEnums.ValidationModule do
 	-- Ensure all module parameters are the expected types
 	if typeof(valModule.fflag) ~= "function" or typeof(valModule.fflag()) ~= "boolean" then
 		error(`Invalid FFlag config in {testEnum}`)
-	end
-	if typeof(valModule.is_quality) ~= "boolean" then
-		error(`Invalid IS_QUALITY config in {testEnum}`)
 	end
 	tableOnlyHasExistingEnums(testEnum, valModule.categories, "UploadCategory")
 	tableOnlyHasExistingEnums(testEnum, valModule.required_data, "SharedDataMember")

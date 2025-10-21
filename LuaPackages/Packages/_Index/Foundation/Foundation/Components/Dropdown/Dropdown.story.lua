@@ -50,6 +50,43 @@ return {
 			end,
 		} :: any,
 		{
+			name = "Overflow",
+			story = function(props)
+				local controls = props.controls
+				local id, setId = React.useState(nil :: ItemId?)
+
+				local items = React.useMemo(function()
+					local tempItems = {}
+					for i = 1, 100 do
+						local itemId = tostring(i)
+						table.insert(tempItems, {
+							id = itemId,
+							icon = "icons/common/robux",
+							text = `Item {itemId}`,
+							isDisabled = i % 7 == 0,
+						})
+					end
+					return tempItems :: { DropdownItem }
+				end, {})
+
+				return React.createElement(Dropdown.Root, {
+					value = id,
+					placeholder = if controls.hasPlaceholder then "Choose a value" else nil,
+					onItemChanged = function(itemId: ItemId)
+						print("Checking item with value = " .. itemId)
+						setId(itemId)
+					end,
+					hasError = controls.hasError,
+					isDisabled = controls.isDisabled,
+					items = items,
+					size = controls.size,
+					label = controls.label,
+					width = UDim.new(0, 150),
+					maxHeight = 500,
+				})
+			end,
+		},
+		{
 			name = "Narrow dropdown narrow items",
 			story = function(props)
 				local controls = props.controls

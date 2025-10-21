@@ -66,10 +66,7 @@ PROTO_0:
   LOADB R12 0
   MOVE R13 R11
   RETURN R12 2
-  GETUPVAL R10 8
-  CALL R10 0 1
-  JUMPIFNOT R10 [+10]
-  GETUPVAL R11 9
+  GETUPVAL R11 8
   GETTABLEKS R10 R11 K14 ["validate"]
   MOVE R11 R0
   MOVE R12 R2
@@ -78,10 +75,7 @@ PROTO_0:
   LOADB R12 0
   MOVE R13 R11
   RETURN R12 2
-  GETUPVAL R10 10
-  CALL R10 0 1
-  JUMPIFNOT R10 [+10]
-  GETUPVAL R11 11
+  GETUPVAL R11 9
   GETTABLEKS R10 R11 K15 ["validateBodyAsset"]
   MOVE R11 R0
   MOVE R12 R2
@@ -90,26 +84,36 @@ PROTO_0:
   LOADB R12 0
   MOVE R13 R11
   RETURN R12 2
-  GETUPVAL R11 12
+  GETUPVAL R11 10
   GETTABLEKS R10 R11 K16 ["new"]
   CALL R10 0 1
-  GETUPVAL R13 13
+  GETUPVAL R13 11
   MOVE R14 R0
   MOVE R15 R2
   CALL R13 2 -1
   NAMECALL R11 R10 K17 ["updateReasons"]
   CALL R11 -1 0
-  GETUPVAL R11 14
+  GETUPVAL R11 12
   CALL R11 0 1
   JUMPIFNOT R11 [+9]
-  GETUPVAL R14 15
+  GETUPVAL R14 13
   GETTABLEKS R13 R14 K18 ["validateSingleBodyPart"]
   MOVE R14 R0
   MOVE R15 R2
   CALL R13 2 -1
   NAMECALL R11 R10 K17 ["updateReasons"]
   CALL R11 -1 0
-  GETUPVAL R13 16
+  GETUPVAL R13 14
+  MOVE R14 R0
+  MOVE R15 R2
+  CALL R13 2 -1
+  NAMECALL R11 R10 K17 ["updateReasons"]
+  CALL R11 -1 0
+  GETUPVAL R11 15
+  CALL R11 0 1
+  JUMPIFNOT R11 [+9]
+  GETUPVAL R14 16
+  GETTABLEKS R13 R14 K19 ["runValidation"]
   MOVE R14 R0
   MOVE R15 R2
   CALL R13 2 -1
@@ -125,38 +129,28 @@ PROTO_0:
   CALL R13 2 -1
   NAMECALL R11 R10 K17 ["updateReasons"]
   CALL R11 -1 0
-  GETUPVAL R11 19
-  CALL R11 0 1
-  JUMPIFNOT R11 [+9]
-  GETUPVAL R14 20
-  GETTABLEKS R13 R14 K19 ["runValidation"]
+  GETUPVAL R13 19
   MOVE R14 R0
   MOVE R15 R2
   CALL R13 2 -1
   NAMECALL R11 R10 K17 ["updateReasons"]
   CALL R11 -1 0
-  GETUPVAL R13 21
-  MOVE R14 R0
-  MOVE R15 R2
-  CALL R13 2 -1
-  NAMECALL R11 R10 K17 ["updateReasons"]
-  CALL R11 -1 0
-  GETUPVAL R13 22
+  GETUPVAL R13 20
   LOADNIL R14
   MOVE R15 R0
   MOVE R16 R2
   CALL R13 3 -1
   NAMECALL R11 R10 K17 ["updateReasons"]
   CALL R11 -1 0
-  GETUPVAL R11 23
+  GETUPVAL R11 21
   CALL R11 0 1
   JUMPIFNOT R11 [+34]
-  GETUPVAL R12 24
+  GETUPVAL R12 22
   GETTABLEKS R11 R12 K20 ["getBoundsViewsForAssetType"]
   MOVE R12 R4
   CALL R11 1 1
   LOADNIL R12
-  GETUPVAL R14 25
+  GETUPVAL R14 23
   GETTABLEKS R13 R14 K16 ["new"]
   MOVE R14 R0
   MOVE R15 R11
@@ -166,7 +160,7 @@ PROTO_0:
   MOVE R12 R14
   JUMPIFNOT R8 [+12]
   MOVE R13 R12
-  GETUPVAL R17 24
+  GETUPVAL R17 22
   GETTABLEKS R16 R17 K14 ["validate"]
   MOVE R17 R0
   MOVE R18 R13
@@ -180,9 +174,21 @@ PROTO_0:
   NAMECALL R13 R10 K17 ["updateReasons"]
   CALL R13 3 0
   JUMP [+10]
-  GETUPVAL R11 26
+  GETUPVAL R11 24
   CALL R11 0 1
   JUMPIFNOT R11 [+7]
+  GETUPVAL R13 25
+  MOVE R14 R0
+  MOVE R15 R2
+  CALL R13 2 -1
+  NAMECALL R11 R10 K17 ["updateReasons"]
+  CALL R11 -1 0
+  GETUPVAL R13 26
+  MOVE R14 R0
+  MOVE R15 R2
+  CALL R13 2 -1
+  NAMECALL R11 R10 K17 ["updateReasons"]
+  CALL R11 -1 0
   GETUPVAL R13 27
   MOVE R14 R0
   MOVE R15 R2
@@ -195,21 +201,9 @@ PROTO_0:
   CALL R13 2 -1
   NAMECALL R11 R10 K17 ["updateReasons"]
   CALL R11 -1 0
-  GETUPVAL R13 29
-  MOVE R14 R0
-  MOVE R15 R2
-  CALL R13 2 -1
-  NAMECALL R11 R10 K17 ["updateReasons"]
-  CALL R11 -1 0
-  GETUPVAL R13 30
-  MOVE R14 R0
-  MOVE R15 R2
-  CALL R13 2 -1
-  NAMECALL R11 R10 K17 ["updateReasons"]
-  CALL R11 -1 0
   GETIMPORT R11 K22 [tick]
   CALL R11 0 1
-  GETUPVAL R14 31
+  GETUPVAL R14 29
   MOVE R15 R0
   MOVE R16 R2
   CALL R14 2 -1
@@ -221,6 +215,19 @@ PROTO_0:
   MOVE R14 R11
   MOVE R15 R2
   CALL R12 3 0
+  GETUPVAL R14 30
+  MOVE R15 R0
+  MOVE R16 R2
+  CALL R14 2 -1
+  NAMECALL R12 R10 K17 ["updateReasons"]
+  CALL R12 -1 0
+  GETUPVAL R14 31
+  MOVE R15 R0
+  MOVE R16 R4
+  MOVE R17 R2
+  CALL R14 3 -1
+  NAMECALL R12 R10 K17 ["updateReasons"]
+  CALL R12 -1 0
   GETUPVAL R14 32
   MOVE R15 R0
   MOVE R16 R2
@@ -229,9 +236,8 @@ PROTO_0:
   CALL R12 -1 0
   GETUPVAL R14 33
   MOVE R15 R0
-  MOVE R16 R4
-  MOVE R17 R2
-  CALL R14 3 -1
+  MOVE R16 R2
+  CALL R14 2 -1
   NAMECALL R12 R10 K17 ["updateReasons"]
   CALL R12 -1 0
   GETUPVAL R14 34
@@ -240,24 +246,12 @@ PROTO_0:
   CALL R14 2 -1
   NAMECALL R12 R10 K17 ["updateReasons"]
   CALL R12 -1 0
-  GETUPVAL R14 35
-  MOVE R15 R0
-  MOVE R16 R2
-  CALL R14 2 -1
-  NAMECALL R12 R10 K17 ["updateReasons"]
-  CALL R12 -1 0
-  GETUPVAL R14 36
-  MOVE R15 R0
-  MOVE R16 R2
-  CALL R14 2 -1
-  NAMECALL R12 R10 K17 ["updateReasons"]
-  CALL R12 -1 0
-  GETUPVAL R12 37
+  GETUPVAL R12 35
   CALL R12 0 1
   JUMPIFNOT R12 [+11]
   GETIMPORT R12 K28 [Enum.AssetType.DynamicHead]
   JUMPIFEQ R4 R12 [+8]
-  GETUPVAL R14 38
+  GETUPVAL R14 36
   MOVE R15 R0
   MOVE R16 R2
   CALL R14 2 -1
@@ -267,7 +261,7 @@ PROTO_0:
   JUMPIFNOT R5 [+1]
   LOADB R12 0
   JUMPIFNOT R12 [+8]
-  GETUPVAL R15 39
+  GETUPVAL R15 37
   MOVE R16 R0
   MOVE R17 R6
   MOVE R18 R2
@@ -292,205 +286,195 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K4 [require]
   GETTABLEKS R5 R0 K6 ["flags"]
-  GETTABLEKS R4 R5 K8 ["getFFlagUGCValidateMeshMin"]
+  GETTABLEKS R4 R5 K8 ["getFFlagUGCValidateIndividualPartBBoxes"]
   CALL R3 1 1
   GETIMPORT R4 K4 [require]
   GETTABLEKS R6 R0 K6 ["flags"]
-  GETTABLEKS R5 R6 K9 ["getFFlagUGCValidateIndividualPartBBoxes"]
+  GETTABLEKS R5 R6 K9 ["getEngineFeatureUGCValidateBodyPartCageMeshDistance"]
   CALL R4 1 1
   GETIMPORT R5 K4 [require]
   GETTABLEKS R7 R0 K6 ["flags"]
-  GETTABLEKS R6 R7 K10 ["getEngineFeatureUGCValidateBodyPartCageMeshDistance"]
+  GETTABLEKS R6 R7 K10 ["getFFlagRefactorBodyAttachmentOrientationsCheck"]
   CALL R5 1 1
   GETIMPORT R6 K4 [require]
   GETTABLEKS R8 R0 K6 ["flags"]
-  GETTABLEKS R7 R8 K11 ["getFFlagRefactorBodyAttachmentOrientationsCheck"]
+  GETTABLEKS R7 R8 K11 ["getFFlagUGCValidateBoundsManipulation"]
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
   GETTABLEKS R9 R0 K6 ["flags"]
-  GETTABLEKS R8 R9 K12 ["getFFlagUGCValidateBoundsManipulation"]
+  GETTABLEKS R8 R9 K12 ["getFFlagUGCValidateAccurateBoundingBoxRasterMethod"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
-  GETTABLEKS R10 R0 K6 ["flags"]
-  GETTABLEKS R9 R10 K13 ["getFFlagCheckBodyPartMeshSize"]
+  GETTABLEKS R10 R0 K13 ["validation"]
+  GETTABLEKS R9 R10 K14 ["validateBodyPartMeshBounds"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
-  GETTABLEKS R11 R0 K6 ["flags"]
-  GETTABLEKS R10 R11 K14 ["getFFlagUGCValidateAccurateBoundingBoxRasterMethod"]
+  GETTABLEKS R11 R0 K13 ["validation"]
+  GETTABLEKS R10 R11 K15 ["validateAssetBounds"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
-  GETTABLEKS R12 R0 K15 ["validation"]
-  GETTABLEKS R11 R12 K16 ["validateBodyPartMeshBounds"]
+  GETTABLEKS R12 R0 K13 ["validation"]
+  GETTABLEKS R11 R12 K16 ["validateAccurateBoundingBox"]
   CALL R10 1 1
-  GETIMPORT R11 K4 [require]
-  GETTABLEKS R13 R0 K15 ["validation"]
-  GETTABLEKS R12 R13 K17 ["validateAssetBounds"]
-  CALL R11 1 1
+  LOADNIL R11
+  MOVE R12 R7
+  CALL R12 0 1
+  JUMPIFNOT R12 [+8]
   GETIMPORT R12 K4 [require]
-  GETTABLEKS R14 R0 K15 ["validation"]
-  GETTABLEKS R13 R14 K18 ["validateAccurateBoundingBox"]
+  GETTABLEKS R14 R0 K13 ["validation"]
+  GETTABLEKS R13 R14 K17 ["validateAccurateBoundingBoxRasterMethod"]
   CALL R12 1 1
-  LOADNIL R13
-  MOVE R14 R9
-  CALL R14 0 1
-  JUMPIFNOT R14 [+8]
+  MOVE R11 R12
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R14 R0 K13 ["validation"]
+  GETTABLEKS R13 R14 K18 ["validateBodyPartChildAttachmentBounds"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R15 R0 K13 ["validation"]
+  GETTABLEKS R14 R15 K19 ["validateBodyPartChildAttachmentOrientations"]
+  CALL R13 1 1
   GETIMPORT R14 K4 [require]
-  GETTABLEKS R16 R0 K15 ["validation"]
-  GETTABLEKS R15 R16 K19 ["validateAccurateBoundingBoxRasterMethod"]
-  CALL R14 1 1
-  MOVE R13 R14
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R16 R0 K15 ["validation"]
-  GETTABLEKS R15 R16 K20 ["validateBodyPartChildAttachmentBounds"]
+  GETTABLEKS R16 R0 K13 ["validation"]
+  GETTABLEKS R15 R16 K20 ["validateBodyPartExtentsRelativeToParent"]
   CALL R14 1 1
   GETIMPORT R15 K4 [require]
-  GETTABLEKS R17 R0 K15 ["validation"]
-  GETTABLEKS R16 R17 K21 ["validateBodyPartChildAttachmentOrientations"]
+  GETTABLEKS R17 R0 K13 ["validation"]
+  GETTABLEKS R16 R17 K21 ["validateDependencies"]
   CALL R15 1 1
   GETIMPORT R16 K4 [require]
-  GETTABLEKS R18 R0 K15 ["validation"]
-  GETTABLEKS R17 R18 K22 ["validateBodyPartExtentsRelativeToParent"]
+  GETTABLEKS R18 R0 K13 ["validation"]
+  GETTABLEKS R17 R18 K22 ["validateDescendantMeshMetrics"]
   CALL R16 1 1
   GETIMPORT R17 K4 [require]
-  GETTABLEKS R19 R0 K15 ["validation"]
-  GETTABLEKS R18 R19 K23 ["validateDependencies"]
+  GETTABLEKS R19 R0 K13 ["validation"]
+  GETTABLEKS R18 R19 K23 ["validateDescendantTextureMetrics"]
   CALL R17 1 1
   GETIMPORT R18 K4 [require]
-  GETTABLEKS R20 R0 K15 ["validation"]
-  GETTABLEKS R19 R20 K24 ["validateDescendantMeshMetrics"]
+  GETTABLEKS R20 R0 K13 ["validation"]
+  GETTABLEKS R19 R20 K24 ["validateSurfaceAppearances"]
   CALL R18 1 1
   GETIMPORT R19 K4 [require]
-  GETTABLEKS R21 R0 K15 ["validation"]
-  GETTABLEKS R20 R21 K25 ["validateDescendantTextureMetrics"]
+  GETTABLEKS R21 R0 K13 ["validation"]
+  GETTABLEKS R20 R21 K25 ["validateMaterials"]
   CALL R19 1 1
   GETIMPORT R20 K4 [require]
-  GETTABLEKS R22 R0 K15 ["validation"]
-  GETTABLEKS R21 R22 K26 ["validateSurfaceAppearances"]
+  GETTABLEKS R22 R0 K13 ["validation"]
+  GETTABLEKS R21 R22 K26 ["validateTags"]
   CALL R20 1 1
   GETIMPORT R21 K4 [require]
-  GETTABLEKS R23 R0 K15 ["validation"]
-  GETTABLEKS R22 R23 K27 ["validateMaterials"]
+  GETTABLEKS R23 R0 K13 ["validation"]
+  GETTABLEKS R22 R23 K27 ["validatePropertyRequirements"]
   CALL R21 1 1
   GETIMPORT R22 K4 [require]
-  GETTABLEKS R24 R0 K15 ["validation"]
-  GETTABLEKS R23 R24 K28 ["validateTags"]
+  GETTABLEKS R24 R0 K13 ["validation"]
+  GETTABLEKS R23 R24 K28 ["validateAttributes"]
   CALL R22 1 1
   GETIMPORT R23 K4 [require]
-  GETTABLEKS R25 R0 K15 ["validation"]
-  GETTABLEKS R24 R25 K29 ["validatePropertyRequirements"]
+  GETTABLEKS R25 R0 K13 ["validation"]
+  GETTABLEKS R24 R25 K29 ["validateHSR"]
   CALL R23 1 1
   GETIMPORT R24 K4 [require]
-  GETTABLEKS R26 R0 K15 ["validation"]
-  GETTABLEKS R25 R26 K30 ["validateAttributes"]
+  GETTABLEKS R26 R0 K13 ["validation"]
+  GETTABLEKS R25 R26 K30 ["validateBodyPartCollisionFidelity"]
   CALL R24 1 1
   GETIMPORT R25 K4 [require]
-  GETTABLEKS R27 R0 K15 ["validation"]
-  GETTABLEKS R26 R27 K31 ["validateHSR"]
+  GETTABLEKS R27 R0 K13 ["validation"]
+  GETTABLEKS R26 R27 K31 ["validateModeration"]
   CALL R25 1 1
   GETIMPORT R26 K4 [require]
-  GETTABLEKS R28 R0 K15 ["validation"]
-  GETTABLEKS R27 R28 K32 ["validateBodyPartCollisionFidelity"]
+  GETTABLEKS R28 R0 K13 ["validation"]
+  GETTABLEKS R27 R28 K32 ["validateAssetTransparency"]
   CALL R26 1 1
   GETIMPORT R27 K4 [require]
-  GETTABLEKS R29 R0 K15 ["validation"]
-  GETTABLEKS R28 R29 K33 ["validateModeration"]
+  GETTABLEKS R29 R0 K13 ["validation"]
+  GETTABLEKS R28 R29 K33 ["validatePose"]
   CALL R27 1 1
   GETIMPORT R28 K4 [require]
-  GETTABLEKS R30 R0 K15 ["validation"]
-  GETTABLEKS R29 R30 K34 ["validateAssetTransparency"]
+  GETTABLEKS R30 R0 K34 ["util"]
+  GETTABLEKS R29 R30 K35 ["ValidateBodyBlockingTests"]
   CALL R28 1 1
   GETIMPORT R29 K4 [require]
-  GETTABLEKS R31 R0 K15 ["validation"]
-  GETTABLEKS R30 R31 K35 ["validatePose"]
+  GETTABLEKS R31 R0 K13 ["validation"]
+  GETTABLEKS R30 R31 K36 ["ValidateAssetBodyPartCages"]
   CALL R29 1 1
   GETIMPORT R30 K4 [require]
-  GETTABLEKS R32 R0 K36 ["util"]
-  GETTABLEKS R31 R32 K37 ["ValidateBodyBlockingTests"]
+  GETTABLEKS R32 R0 K13 ["validation"]
+  GETTABLEKS R31 R32 K37 ["ValidateMeshSizeProperty"]
   CALL R30 1 1
   GETIMPORT R31 K4 [require]
-  GETTABLEKS R33 R0 K15 ["validation"]
-  GETTABLEKS R32 R33 K38 ["ValidateAssetBodyPartCages"]
+  GETTABLEKS R33 R0 K13 ["validation"]
+  GETTABLEKS R32 R33 K38 ["ValidatePropertiesSensible"]
   CALL R31 1 1
   GETIMPORT R32 K4 [require]
-  GETTABLEKS R34 R0 K15 ["validation"]
-  GETTABLEKS R33 R34 K39 ["ValidateMeshSizeProperty"]
+  GETTABLEKS R34 R0 K34 ["util"]
+  GETTABLEKS R33 R34 K39 ["validateWithSchema"]
   CALL R32 1 1
   GETIMPORT R33 K4 [require]
-  GETTABLEKS R35 R0 K15 ["validation"]
-  GETTABLEKS R34 R35 K40 ["ValidatePropertiesSensible"]
+  GETTABLEKS R35 R0 K34 ["util"]
+  GETTABLEKS R34 R35 K40 ["FailureReasonsAccumulator"]
   CALL R33 1 1
   GETIMPORT R34 K4 [require]
-  GETTABLEKS R36 R0 K36 ["util"]
-  GETTABLEKS R35 R36 K41 ["validateWithSchema"]
+  GETTABLEKS R36 R0 K13 ["validation"]
+  GETTABLEKS R35 R36 K41 ["validateBodyPartVertsSkinnedToR15"]
   CALL R34 1 1
   GETIMPORT R35 K4 [require]
-  GETTABLEKS R37 R0 K36 ["util"]
-  GETTABLEKS R36 R37 K42 ["FailureReasonsAccumulator"]
+  GETTABLEKS R37 R0 K34 ["util"]
+  GETTABLEKS R36 R37 K42 ["bodyAssetMasksRenderer"]
   CALL R35 1 1
   GETIMPORT R36 K4 [require]
-  GETTABLEKS R38 R0 K15 ["validation"]
-  GETTABLEKS R37 R38 K43 ["validateBodyPartVertsSkinnedToR15"]
+  GETTABLEKS R38 R0 K6 ["flags"]
+  GETTABLEKS R37 R38 K43 ["getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15"]
   CALL R36 1 1
   GETIMPORT R37 K4 [require]
-  GETTABLEKS R39 R0 K36 ["util"]
-  GETTABLEKS R38 R39 K44 ["bodyAssetMasksRenderer"]
+  GETTABLEKS R39 R0 K6 ["flags"]
+  GETTABLEKS R38 R39 K44 ["getEngineFeatureEngineUGCValidatePropertiesSensible"]
   CALL R37 1 1
   GETIMPORT R38 K4 [require]
-  GETTABLEKS R40 R0 K6 ["flags"]
-  GETTABLEKS R39 R40 K45 ["getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15"]
+  GETTABLEKS R40 R0 K34 ["util"]
+  GETTABLEKS R39 R40 K45 ["resetPhysicsData"]
   CALL R38 1 1
   GETIMPORT R39 K4 [require]
-  GETTABLEKS R41 R0 K6 ["flags"]
-  GETTABLEKS R40 R41 K46 ["getEngineFeatureEngineUGCValidatePropertiesSensible"]
+  GETTABLEKS R41 R0 K34 ["util"]
+  GETTABLEKS R40 R41 K46 ["Types"]
   CALL R39 1 1
-  GETIMPORT R40 K4 [require]
-  GETTABLEKS R42 R0 K36 ["util"]
-  GETTABLEKS R41 R42 K47 ["resetPhysicsData"]
-  CALL R40 1 1
-  GETIMPORT R41 K4 [require]
-  GETTABLEKS R43 R0 K36 ["util"]
-  GETTABLEKS R42 R43 K48 ["Types"]
-  CALL R41 1 1
-  NEWCLOSURE R42 P0
-  CAPTURE VAL R34
+  NEWCLOSURE R40 P0
+  CAPTURE VAL R32
   CAPTURE VAL R1
   CAPTURE VAL R2
-  CAPTURE VAL R20
-  CAPTURE VAL R17
-  CAPTURE VAL R40
-  CAPTURE VAL R39
-  CAPTURE VAL R33
-  CAPTURE VAL R3
-  CAPTURE VAL R30
-  CAPTURE VAL R8
-  CAPTURE VAL R32
-  CAPTURE VAL R35
-  CAPTURE VAL R10
-  CAPTURE VAL R5
-  CAPTURE VAL R31
-  CAPTURE VAL R14
-  CAPTURE VAL R4
-  CAPTURE VAL R16
-  CAPTURE VAL R6
-  CAPTURE VAL R15
-  CAPTURE VAL R29
-  CAPTURE VAL R11
-  CAPTURE VAL R9
-  CAPTURE REF R13
-  CAPTURE VAL R37
-  CAPTURE VAL R7
-  CAPTURE VAL R12
   CAPTURE VAL R18
-  CAPTURE VAL R19
-  CAPTURE VAL R25
+  CAPTURE VAL R15
+  CAPTURE VAL R38
+  CAPTURE VAL R37
+  CAPTURE VAL R31
   CAPTURE VAL R28
-  CAPTURE VAL R21
+  CAPTURE VAL R30
+  CAPTURE VAL R33
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  CAPTURE VAL R29
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  CAPTURE VAL R27
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE REF R11
+  CAPTURE VAL R35
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R16
+  CAPTURE VAL R17
   CAPTURE VAL R23
   CAPTURE VAL R26
-  CAPTURE VAL R22
+  CAPTURE VAL R19
+  CAPTURE VAL R21
   CAPTURE VAL R24
-  CAPTURE VAL R38
+  CAPTURE VAL R20
+  CAPTURE VAL R22
   CAPTURE VAL R36
-  CAPTURE VAL R27
-  CLOSEUPVALS R13
-  RETURN R42 1
+  CAPTURE VAL R34
+  CAPTURE VAL R25
+  CLOSEUPVALS R11
+  RETURN R40 1

@@ -9,8 +9,6 @@ local InGameMenuConstants = require(CoreGui.RobloxGui.Modules.InGameMenuConstant
 local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
 local eventIngest = EventIngest.new(EventIngestService)
 
-local GetFFlagGamepadAnalytics = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGamepadAnalytics
-
 type ReactNode = React.ReactNode
 
 local function CoreScriptsGamepadDisconnectListener(): ReactNode?
@@ -22,11 +20,7 @@ local function CoreScriptsGamepadDisconnectListener(): ReactNode?
 		setShouldShow(true)
 	end, { setShouldShow } :: { any })
 
-	if GetFFlagGamepadAnalytics() then
-		useGamepadDisconnectOverlayEffect(showOverlay, hideOverlay, eventIngest, "InExperience")
-	else
-		useGamepadDisconnectOverlayEffect(showOverlay, hideOverlay)
-	end
+	useGamepadDisconnectOverlayEffect(showOverlay, hideOverlay, eventIngest, "InExperience")
 
 	-- We should probably migrate some version of CentralOverlay to be usable in CoreScripts
 	-- For now, we can just make a ScreenGui and mount it for each case.

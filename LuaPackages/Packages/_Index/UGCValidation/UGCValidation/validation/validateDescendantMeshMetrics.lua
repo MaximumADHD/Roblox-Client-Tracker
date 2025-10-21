@@ -33,7 +33,6 @@ local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningVal
 local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
-local getFFlagUGCValidateAllowFlexibleTriangleLimit = require(root.flags.getFFlagUGCValidateAllowFlexibleTriangleLimit)
 local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
 local getEngineFeatureEngineEditableMeshAvatarPublish =
 	require(root.flags.getEngineFeatureEngineEditableMeshAvatarPublish)
@@ -171,11 +170,8 @@ local function validateTotalAssetTriangles(
 		return false, { message :: string }
 	end
 
-	local maxTriangleCountWithTolerance = maxTriangleCount
-	if getFFlagUGCValidateAllowFlexibleTriangleLimit() then
-		local tolerance = getFIntUGCValidateTriangleLimitTolerance() / 100
-		maxTriangleCountWithTolerance = maxTriangleCount + (maxTriangleCount * tolerance)
-	end
+	local tolerance = getFIntUGCValidateTriangleLimitTolerance() / 100
+	local maxTriangleCountWithTolerance = maxTriangleCount + (maxTriangleCount * tolerance)
 
 	if totalAssetTriangles :: number > maxTriangleCountWithTolerance then
 		Analytics.reportFailure(

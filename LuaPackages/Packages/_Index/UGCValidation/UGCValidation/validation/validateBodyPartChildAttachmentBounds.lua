@@ -11,8 +11,6 @@ local BoundsCalculator = require(root.util.BoundsCalculator)
 local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local MeshSpaceUtils = require(root.util.MeshSpaceUtils)
 
-local getFFlagUGCValidatePreciseAttachmentErrorMessage =
-	require(root.flags.getFFlagUGCValidatePreciseAttachmentErrorMessage)
 local getFStringUGCValidationAttachmentErrorLink = require(root.flags.getFStringUGCValidationAttachmentErrorLink)
 local getFFlagRefactorBodyAttachmentOrientationsCheck =
 	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
@@ -48,50 +46,36 @@ local function validateInMeshSpace(
 				validationContext
 			)
 
-			local attachmentClampedCFrame = nil
-			local acceptablePosition = nil
-			local acceptableOrientation = nil
-			local acceptableDimensions = nil
-			if getFFlagUGCValidatePreciseAttachmentErrorMessage() then
-				attachmentClampedCFrame =
-					MeshSpaceUtils.clampAttachmentToBounds(att, transformData, boundsInfoMeshSpace, 0.001)
+			local attachmentClampedCFrame =
+				MeshSpaceUtils.clampAttachmentToBounds(att, transformData, boundsInfoMeshSpace, 0.001)
 
-				assert(meshCenterOpt and meshDimensionsOpt, "meshCenterOpt and meshDimensionsOpt must be defined")
-				local acceptableCFrameLocal
-				acceptableCFrameLocal, acceptableDimensions = MeshSpaceUtils.calculateAcceptableBoundsLocalSpace(
-					boundsInfoMeshSpace,
-					transformData,
-					meshDimensionsOpt :: Vector3,
-					meshCenterOpt :: Vector3
-				)
-				acceptablePosition = acceptableCFrameLocal.Position
-				local acceptableOriX, acceptableOriY, acceptableOriZ = acceptableCFrameLocal.Rotation:ToOrientation()
-				acceptableOrientation =
-					Vector3.new(math.deg(acceptableOriX), math.deg(acceptableOriY), math.deg(acceptableOriZ))
-			end
+			assert(meshCenterOpt and meshDimensionsOpt, "meshCenterOpt and meshDimensionsOpt must be defined")
+			local acceptableCFrameLocal, acceptableDimensions = MeshSpaceUtils.calculateAcceptableBoundsLocalSpace(
+				boundsInfoMeshSpace,
+				transformData,
+				meshDimensionsOpt :: Vector3,
+				meshCenterOpt :: Vector3
+			)
+			local acceptablePosition = acceptableCFrameLocal.Position
+			local acceptableOriX, acceptableOriY, acceptableOriZ = acceptableCFrameLocal.Rotation:ToOrientation()
+			local acceptableOrientation =
+				Vector3.new(math.deg(acceptableOriX), math.deg(acceptableOriY), math.deg(acceptableOriZ))
 
 			return false,
 				{
-					if getFFlagUGCValidatePreciseAttachmentErrorMessage()
-						then string.format(
-							"Attachment (%s) in %s is placed at position [%s] that is outside the valid range. The closest valid position is [%s]. (the attachment must be within the oriented bounding box - Position: [%s], Orientation: [%s], Size: [%s]%s)",
-							att.Name,
-							part.Name,
-							prettyPrintVector3(att.CFrame.Position, 3),
-							prettyPrintVector3(attachmentClampedCFrame.Position, 3),
-							prettyPrintVector3(acceptablePosition, 3),
-							prettyPrintVector3(acceptableOrientation, 3),
-							prettyPrintVector3(acceptableDimensions, 3),
-							if getFStringUGCValidationAttachmentErrorLink() ~= ""
-								then ". See " .. getFStringUGCValidationAttachmentErrorLink() .. " for further explanation"
-								else ""
-						)
-						else string.format(
-							"Attachment (%s) in %s is placed at a position [%s] that is outside the valid range. You need to adjust the attachment position.",
-							att.Name,
-							part.Name,
-							prettyPrintVector3(att.CFrame.Position)
-						),
+					string.format(
+						"Attachment (%s) in %s is placed at position [%s] that is outside the valid range. The closest valid position is [%s]. (the attachment must be within the oriented bounding box - Position: [%s], Orientation: [%s], Size: [%s]%s)",
+						att.Name,
+						part.Name,
+						prettyPrintVector3(att.CFrame.Position, 3),
+						prettyPrintVector3(attachmentClampedCFrame.Position, 3),
+						prettyPrintVector3(acceptablePosition, 3),
+						prettyPrintVector3(acceptableOrientation, 3),
+						prettyPrintVector3(acceptableDimensions, 3),
+						if getFStringUGCValidationAttachmentErrorLink() ~= ""
+							then ". See " .. getFStringUGCValidationAttachmentErrorLink() .. " for further explanation"
+							else ""
+					),
 				}
 		end
 	end

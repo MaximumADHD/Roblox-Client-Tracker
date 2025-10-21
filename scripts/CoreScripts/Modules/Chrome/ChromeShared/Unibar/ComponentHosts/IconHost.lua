@@ -90,7 +90,7 @@ local MenuIconContext = if FFlagTiltIconUnibarFocusNav
 
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
-local FFlagMigrateBadgeToStatusIndicator = SharedFlags.FFlagMigrateBadgeToStatusIndicator
+local FFlagMigrateBadgeToStatusIndicatorInExperience = SharedFlags.FFlagMigrateBadgeToStatusIndicatorInExperience
 
 type TooltipState = {
 	displaying: boolean,
@@ -152,7 +152,7 @@ function NotificationBadge(props: IconHostProps): any?
 	end
 
 	local notificationBadgeText -- remove with FFlagMigrateBadgeToStatusIndicator
-	if not FFlagMigrateBadgeToStatusIndicator then
+	if not FFlagMigrateBadgeToStatusIndicatorInExperience then
 		if notificationCount > 0 then
 			if notificationCount > MAX_BADGE_VALUE then
 				notificationBadgeText = MAX_BADGE_TEXT
@@ -211,7 +211,7 @@ function NotificationBadge(props: IconHostProps): any?
 					tag = "anchor-top-right radius-circle size-200 stroke-thicker",
 					ZIndex = 2,
 				})
-				elseif FFlagMigrateBadgeToStatusIndicator then React.createElement(
+				elseif FFlagMigrateBadgeToStatusIndicatorInExperience then React.createElement(
 					StatusIndicator,
 					{
 						value = math.min(notificationCount, MAX_BADGE_VALUE),

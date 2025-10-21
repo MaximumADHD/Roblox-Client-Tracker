@@ -83,6 +83,7 @@ local FFlagGameSettingsRefactorMovementModeLogic = SettingsFlags.FFlagGameSettin
 local FFlagGameSettingsRespectDevModes = SettingsFlags.FFlagGameSettingsRespectDevModes
 local GetFFlagEnableVoiceUxUpdates = SharedFlags.GetFFlagEnableVoiceUxUpdates
 local GetFFlagEnableVrVoiceConnectDisconnect = SharedFlags.GetFFlagEnableVrVoiceConnectDisconnect
+local FFlagEnableVoiceSelectorTranslations = game:DefineFastFlag("EnableVoiceSelectorTranslations_AEGIS2", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -3592,9 +3593,19 @@ local function Initialize()
 
 	local micPermissionsDenied = false
 	local function createVoiceChatSelector()
+		local frameText = "Voice Chat"
+		local disconnectedText = "Disconnected"
+		local connectedText = "Connected"
+
+		if FFlagEnableVoiceSelectorTranslations then
+			frameText = locales:Format("Feature.GameDetails.Label.VoiceChat")
+			disconnectedText = locales:Format("Feature.SettingsHub.Label.Disconnected")
+			connectedText = locales:Format("Feature.SettingsHub.Label.Connected")
+		end
+
 		local initialIndex = if VoiceChatServiceManager:VoiceChatEnded() then 1 else 2
 		this.VoiceConnectDisconnectFrame, _, this.VoiceConnectDisconnectSelector =
-			utility:AddNewRow(this, "Voice Chat", "Selector", { "Disconnected", "Connected" }, initialIndex)
+			utility:AddNewRow(this, frameText, "Selector", { disconnectedText, connectedText }, initialIndex)
 		this.VoiceConnectDisconnectFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER[VOICE_CONNECT_DISCONNECT_SELECTOR_KEY]
 
 		-- Update selector based on voice chat state changes

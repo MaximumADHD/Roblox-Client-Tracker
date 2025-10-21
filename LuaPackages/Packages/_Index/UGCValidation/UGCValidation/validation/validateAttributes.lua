@@ -1,8 +1,6 @@
 local root = script.Parent.Parent
 
 local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
-local getFFlagUGCValidateEmoteAnimationExtendedTests =
-	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -70,15 +68,10 @@ local function validateAttributes(
 		local reasons = {}
 		table.insert(
 			reasons,
-			if getFFlagUGCValidateEmoteAnimationExtendedTests()
-				then string.format(
-					"'%s' (or its descendants) contain Attributes. You need to remove Attributes from the following: ",
-					instance.Name
-				)
-				else string.format(
-					"'%s' contains attributes in its properties that are not allowed. You need to remove the following attributes: ",
-					instance.Name
-				)
+			string.format(
+				"'%s' (or its descendants) contain Attributes. You need to remove Attributes from the following: ",
+				instance.Name
+			)
 		)
 		for _, name in pairs(attributesFailures) do
 			table.insert(reasons, name)

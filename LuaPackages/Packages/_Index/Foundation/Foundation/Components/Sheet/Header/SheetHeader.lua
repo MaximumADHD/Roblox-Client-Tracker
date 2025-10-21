@@ -16,7 +16,7 @@ export type SheetHeaderProps = {
 	children: React.ReactNode,
 }
 
-local function SheetHeader(sheetHeaderProps: SheetHeaderProps, ref: React.Ref<GuiObject>?)
+local function SheetHeader(props: SheetHeaderProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local sheet = React.useContext(SheetContext)
 
@@ -36,9 +36,7 @@ local function SheetHeader(sheetHeaderProps: SheetHeaderProps, ref: React.Ref<Gu
 		end
 	end, {})
 
-	local hasCloseAffordance = if sheetHeaderProps.hasCloseAffordance == nil
-		then not isBottomSheet
-		else sheetHeaderProps.hasCloseAffordance
+	local hasCloseAffordance = if props.hasCloseAffordance == nil then not isBottomSheet else props.hasCloseAffordance
 
 	return React.createElement(View, {
 		ZIndex = 2,
@@ -57,7 +55,7 @@ local function SheetHeader(sheetHeaderProps: SheetHeaderProps, ref: React.Ref<Gu
 			SubContent = React.createElement(View, {
 				LayoutOrder = 1,
 				tag = "size-full-0 auto-y row gap-small items-center shrink",
-			}, sheetHeaderProps.children),
+			}, props.children),
 			CloseAffordance = if hasCloseAffordance
 				then React.createElement(CloseAffordance, {
 					onActivated = closeSheet,

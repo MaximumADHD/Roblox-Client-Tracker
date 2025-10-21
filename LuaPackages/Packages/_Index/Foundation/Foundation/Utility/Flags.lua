@@ -39,4 +39,15 @@ return {
 	FoundationTooltipTextAutosize = SafeFlags.createGetFFlag("FoundationTooltipTextAutosize")(),
 	FoundationNumberInputInvalidError = SafeFlags.createGetFFlag("FoundationNumberInputInvalidError")(),
 	FoundationStatusIndicatorVariantExperiment = SafeFlags.createGetFFlag("FoundationStatusIndicatorVariantExperiment")(),
+	FoundationBaseMenuScroll = SafeFlags.createGetFFlag("FoundationBaseMenuScroll")(),
+	FoundationFixUseScaledValueWarning = SafeFlags.createGetFFlag("FoundationFixUseScaledValueWarning")(),
+	FoundationDialogBackdropColorUpdate = SafeFlags.createGetFFlag("FoundationDialogBackdropColorUpdate")(),
+	FoundationLazyOverlayLoading = SafeFlags.createGetFFlag("FoundationLazyOverlayLoading")(),
+	FoundationIconButtonBiggerBuilderIcons = SafeFlags.createGetFFlag("FoundationIconButtonBiggerBuilderIcons")(),
+	FoundationOverlayProviderFrameTiming = SafeFlags.createGetFFlag("FoundationOverlayProviderFrameTiming")(),
+	FoundationDialogRootZIndex = SafeFlags.createGetFFlag("FoundationDialogRootZIndex")(),
+	FoundationDialogUpdateZIndex = SafeFlags.createGetFFlag("FoundationDialogUpdateZIndex")(),
+	FoundationInternalInputSelectedStylesAndSpacing = SafeFlags.createGetFFlag(
+		"FoundationInternalInputSelectedStylesAndSpacing"
+	)(),
 }

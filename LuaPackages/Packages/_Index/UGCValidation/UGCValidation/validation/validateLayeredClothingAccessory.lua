@@ -19,7 +19,6 @@ local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateHSR = require(root.validation.validateHSR)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
-local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateLCInRenderBounds = require(root.validation.validateLayeredClothingInRenderBounds)
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
@@ -30,6 +29,7 @@ local validateSkinningTransfer = require(root.validation.validateSkinningTransfe
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 local validateMaxCubeDensity = require(root.validation.validateMaxCubeDensity)
+local ValidateHSRData = require(root.validation.ValidateHSRData)
 
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
@@ -42,7 +42,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUGCValidateLCCagesQuality = require(root.flags.getFFlagUGCValidateLCCagesQuality)
-local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getEngineFeatureEngineUGCValidationMaxVerticesCollision =
 	require(root.flags.getEngineFeatureEngineUGCValidationMaxVerticesCollision)
 
@@ -53,11 +52,13 @@ local getFIntUGCValidationLCHandleScaleOffsetMaximum =
 	require(root.flags.getFIntUGCValidationLCHandleScaleOffsetMaximum) -- / 1000
 local getFFlagValidateDeformedLayeredClothingIsInBounds =
 	require(root.flags.getFFlagValidateDeformedLayeredClothingIsInBounds)
-local getFFlagCheckLayeredClothingMeshSize = require(root.flags.getFFlagCheckLayeredClothingMeshSize)
 local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
+local getEngineFeatureUGCValidateCheckHSRFileData = require(root.flags.getEngineFeatureUGCValidateCheckHSRFileData)
+
+local FFlagDontValidateHSRInExperience = game:DefineFastFlag("DontValidateHSRInExperience", false)
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
@@ -100,13 +101,6 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 
 	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
 		success, reasons = ValidatePropertiesSensible.validate(instance, validationContext)
-		if not success then
-			return false, reasons
-		end
-	end
-
-	if getFFlagUGCValidationNameCheck() and isServer then
-		success, reasons = validateAccessoryName(instance, validationContext)
 		if not success then
 			return false, reasons
 		end
@@ -308,6 +302,27 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
 			end
+
+			if getEngineFeatureUGCValidateCheckHSRFileData() then
+				if FFlagDontValidateHSRInExperience then
+					local allowEditableInstances = validationContext.allowEditableInstances
+					if not allowEditableInstances then
+						-- If editable instances are allowed, we skip HSR file data validation
+						-- because HSR may be created after publish in this case.
+						success, failedReason = ValidateHSRData.validate(wrapLayer, validationContext)
+						if not success then
+							table.insert(reasons, table.concat(failedReason, "\n"))
+							validationResult = false
+						end
+					end
+				else
+					success, failedReason = ValidateHSRData.validate(wrapLayer, validationContext)
+					if not success then
+						table.insert(reasons, table.concat(failedReason, "\n"))
+						validationResult = false
+					end
+				end
+			end
 		end
 	end
 
@@ -330,12 +345,10 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 			validationResult = false
 		end
 
-		if getFFlagCheckLayeredClothingMeshSize() then
-			success, failedReason = ValidateMeshSizeProperty.validateSingleMeshPart(handle, validationContext)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
+		success, failedReason = ValidateMeshSizeProperty.validateSingleMeshPart(handle, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
 
 		success, failedReason = validateMeshBounds(

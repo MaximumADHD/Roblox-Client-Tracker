@@ -122,7 +122,7 @@ PROTO_3:
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K16 ["Enums"]
   GETTABLEKS R15 R16 K17 ["InputSize"]
-  GETTABLEKS R14 R15 K18 ["Medium"]
+  GETTABLEKS R14 R15 K18 ["XSmall"]
   SETTABLEKS R14 R13 K12 ["size"]
   SETTABLEKS R8 R13 K13 ["LayoutOrder"]
   DUPTABLE R14 K20 [{"Button"}]
@@ -138,12 +138,12 @@ PROTO_3:
   GETUPVAL R21 3
   GETTABLEKS R20 R21 K16 ["Enums"]
   GETTABLEKS R19 R20 K17 ["InputSize"]
-  GETTABLEKS R18 R19 K27 ["Small"]
+  GETTABLEKS R18 R19 K18 ["XSmall"]
   SETTABLEKS R18 R17 K12 ["size"]
   GETUPVAL R21 3
   GETTABLEKS R20 R21 K16 ["Enums"]
-  GETTABLEKS R19 R20 K28 ["ButtonVariant"]
-  GETTABLEKS R18 R19 K29 ["Text"]
+  GETTABLEKS R19 R20 K27 ["ButtonVariant"]
+  GETTABLEKS R18 R19 K28 ["Text"]
   SETTABLEKS R18 R17 K23 ["variant"]
   GETTABLEKS R18 R9 K24 ["isDisabled"]
   SETTABLEKS R18 R17 K24 ["isDisabled"]
@@ -160,20 +160,20 @@ PROTO_3:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K8 ["createElement"]
   GETUPVAL R7 5
-  GETTABLEKS R6 R7 K30 ["PlayButton"]
-  DUPTABLE R7 K31 [{"LayoutOrder"}]
+  GETTABLEKS R6 R7 K29 ["PlayButton"]
+  DUPTABLE R7 K30 [{"LayoutOrder"}]
   LENGTH R9 R3
-  ADDK R8 R9 K32 [1]
+  ADDK R8 R9 K31 [1]
   SETTABLEKS R8 R7 K13 ["LayoutOrder"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K30 ["PlayButton"]
+  SETTABLEKS R5 R4 K29 ["PlayButton"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K8 ["createElement"]
   GETUPVAL R7 3
-  GETTABLEKS R6 R7 K33 ["View"]
-  DUPTABLE R7 K35 [{"tag"}]
-  LOADK R8 K36 ["row align-y-top padding-xsmall gap-xsmall align-y-center bg-surface-200 border-bottom size-full-0 auto-y"]
-  SETTABLEKS R8 R7 K34 ["tag"]
+  GETTABLEKS R6 R7 K32 ["View"]
+  DUPTABLE R7 K34 [{"tag"}]
+  LOADK R8 K35 ["row align-y-top padding-xsmall gap-xsmall align-y-center bg-surface-200 border-bottom size-full-0 auto-y"]
+  SETTABLEKS R8 R7 K33 ["tag"]
   MOVE R8 R4
   CALL R5 3 -1
   RETURN R5 -1

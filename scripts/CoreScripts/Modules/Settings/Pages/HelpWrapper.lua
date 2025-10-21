@@ -31,8 +31,8 @@ local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrap
 -- Flags
 local FFlagRefactorHelpPage = HelpPage.Flags.FFlagRefactorHelpPage
 local FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure
+local FStringHelpPageIXPLayer = HelpPage.Flags.FStringHelpPageIXPLayer
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
-local FStringHelpPageIxpLayer = game:DefineFastString("HelpPageIxpLayer", "")
 
 
 local Integrations = nil
@@ -101,7 +101,7 @@ local function createHelpPage()
         setDisplayed(true)
 
         if FFlagHelpPageIXPExposure then
-    		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(FStringHelpPageIxpLayer)
+    		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(FStringHelpPageIXPLayer)
         end
 
         if HelpPage.HubRef.VersionContainer then

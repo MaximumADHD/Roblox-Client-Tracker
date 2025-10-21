@@ -143,14 +143,26 @@ PROTO_20:
   RETURN R0 0
 
 PROTO_21:
+  GETIMPORT R1 K1 [error]
+  LOADK R2 K2 ["getSecureSettingsAsync is not available for this environment"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_22:
+  GETIMPORT R2 K1 [error]
+  LOADK R3 K2 ["setSecureSettingsAsync is not available for this environment"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_23:
   GETTABLEKS R1 R0 K0 ["Source"]
   RETURN R1 1
 
-PROTO_22:
+PROTO_24:
   GETUPVAL R0 0
   RETURN R0 1
 
-PROTO_23:
+PROTO_25:
   SETUPVAL R0 0
   RETURN R0 0
 
@@ -181,64 +193,71 @@ MAIN:
   GETTABLEKS R6 R7 K13 ["RecordingHandlers"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K14 ["Util"]
-  GETTABLEKS R7 R8 K15 ["getNextCodeCounter"]
+  GETTABLEKS R7 R0 K14 ["Types"]
   CALL R6 1 1
-  GETTABLEKS R7 R3 K16 ["Get"]
-  DUPTABLE R8 K39 [{"isDevFrameworkAvailable", "isRobloxScriptSecurity", "getNetworking", "loadCode", "stopCode", "updateScriptSource", "convertImageDataToTempIdAsync", "captureScreenshot", "releaseTempIdAsync", "getImageDataBase64Async", "loadImageAsync", "getUserId", "publishAssetAsync", "searchAssetAsync", "EventLogger", "copyToClipboard", "getClassIcon", "loadAssetAsync", "startRecording", "endRecording", "getSettingsAsync", "setSettingsAsync", "getScriptSource"}]
-  DUPCLOSURE R9 K40 [PROTO_0]
-  SETTABLEKS R9 R8 K17 ["isDevFrameworkAvailable"]
-  DUPCLOSURE R9 K41 [PROTO_1]
-  SETTABLEKS R9 R8 K18 ["isRobloxScriptSecurity"]
-  DUPCLOSURE R9 K42 [PROTO_2]
-  SETTABLEKS R9 R8 K19 ["getNetworking"]
-  DUPCLOSURE R9 K43 [PROTO_3]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K20 ["loadCode"]
-  DUPCLOSURE R9 K44 [PROTO_4]
-  SETTABLEKS R9 R8 K21 ["stopCode"]
-  DUPCLOSURE R9 K45 [PROTO_5]
-  SETTABLEKS R9 R8 K22 ["updateScriptSource"]
-  DUPCLOSURE R9 K46 [PROTO_6]
-  SETTABLEKS R9 R8 K23 ["convertImageDataToTempIdAsync"]
-  DUPCLOSURE R9 K47 [PROTO_7]
-  SETTABLEKS R9 R8 K24 ["captureScreenshot"]
-  DUPCLOSURE R9 K48 [PROTO_8]
-  SETTABLEKS R9 R8 K25 ["releaseTempIdAsync"]
-  DUPCLOSURE R9 K49 [PROTO_9]
-  SETTABLEKS R9 R8 K26 ["getImageDataBase64Async"]
-  DUPCLOSURE R9 K50 [PROTO_10]
-  SETTABLEKS R9 R8 K27 ["loadImageAsync"]
-  DUPCLOSURE R9 K51 [PROTO_11]
-  SETTABLEKS R9 R8 K28 ["getUserId"]
-  DUPCLOSURE R9 K52 [PROTO_12]
-  SETTABLEKS R9 R8 K29 ["publishAssetAsync"]
-  DUPCLOSURE R9 K53 [PROTO_13]
-  SETTABLEKS R9 R8 K30 ["searchAssetAsync"]
-  SETTABLEKS R2 R8 K8 ["EventLogger"]
-  DUPCLOSURE R9 K54 [PROTO_14]
-  SETTABLEKS R9 R8 K31 ["copyToClipboard"]
-  DUPCLOSURE R9 K55 [PROTO_15]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K15 ["Util"]
+  GETTABLEKS R8 R9 K16 ["getNextCodeCounter"]
+  CALL R7 1 1
+  GETTABLEKS R8 R3 K17 ["Get"]
+  DUPTABLE R9 K42 [{"isDevFrameworkAvailable", "isRobloxScriptSecurity", "getNetworking", "loadCode", "stopCode", "updateScriptSource", "convertImageDataToTempIdAsync", "captureScreenshot", "releaseTempIdAsync", "getImageDataBase64Async", "loadImageAsync", "getUserId", "publishAssetAsync", "searchAssetAsync", "EventLogger", "copyToClipboard", "getClassIcon", "loadAssetAsync", "startRecording", "endRecording", "getSettingsAsync", "setSettingsAsync", "getSecureSettingsAsync", "setSecureSettingsAsync", "getScriptSource"}]
+  DUPCLOSURE R10 K43 [PROTO_0]
+  SETTABLEKS R10 R9 K18 ["isDevFrameworkAvailable"]
+  DUPCLOSURE R10 K44 [PROTO_1]
+  SETTABLEKS R10 R9 K19 ["isRobloxScriptSecurity"]
+  DUPCLOSURE R10 K45 [PROTO_2]
+  SETTABLEKS R10 R9 K20 ["getNetworking"]
+  DUPCLOSURE R10 K46 [PROTO_3]
   CAPTURE VAL R7
-  SETTABLEKS R9 R8 K32 ["getClassIcon"]
-  DUPCLOSURE R9 K56 [PROTO_16]
-  SETTABLEKS R9 R8 K33 ["loadAssetAsync"]
-  DUPCLOSURE R9 K57 [PROTO_17]
-  SETTABLEKS R9 R8 K34 ["startRecording"]
-  DUPCLOSURE R9 K58 [PROTO_18]
-  SETTABLEKS R9 R8 K35 ["endRecording"]
-  DUPCLOSURE R9 K59 [PROTO_19]
-  SETTABLEKS R9 R8 K36 ["getSettingsAsync"]
-  DUPCLOSURE R9 K60 [PROTO_20]
-  SETTABLEKS R9 R8 K37 ["setSettingsAsync"]
-  DUPCLOSURE R9 K61 [PROTO_21]
-  SETTABLEKS R9 R8 K38 ["getScriptSource"]
-  DUPTABLE R9 K64 [{"get", "set"}]
-  NEWCLOSURE R10 P22
-  CAPTURE REF R8
-  SETTABLEKS R10 R9 K62 ["get"]
-  NEWCLOSURE R10 P23
-  CAPTURE REF R8
-  SETTABLEKS R10 R9 K63 ["set"]
-  CLOSEUPVALS R8
-  RETURN R9 1
+  SETTABLEKS R10 R9 K21 ["loadCode"]
+  DUPCLOSURE R10 K47 [PROTO_4]
+  SETTABLEKS R10 R9 K22 ["stopCode"]
+  DUPCLOSURE R10 K48 [PROTO_5]
+  SETTABLEKS R10 R9 K23 ["updateScriptSource"]
+  DUPCLOSURE R10 K49 [PROTO_6]
+  SETTABLEKS R10 R9 K24 ["convertImageDataToTempIdAsync"]
+  DUPCLOSURE R10 K50 [PROTO_7]
+  SETTABLEKS R10 R9 K25 ["captureScreenshot"]
+  DUPCLOSURE R10 K51 [PROTO_8]
+  SETTABLEKS R10 R9 K26 ["releaseTempIdAsync"]
+  DUPCLOSURE R10 K52 [PROTO_9]
+  SETTABLEKS R10 R9 K27 ["getImageDataBase64Async"]
+  DUPCLOSURE R10 K53 [PROTO_10]
+  SETTABLEKS R10 R9 K28 ["loadImageAsync"]
+  DUPCLOSURE R10 K54 [PROTO_11]
+  SETTABLEKS R10 R9 K29 ["getUserId"]
+  DUPCLOSURE R10 K55 [PROTO_12]
+  SETTABLEKS R10 R9 K30 ["publishAssetAsync"]
+  DUPCLOSURE R10 K56 [PROTO_13]
+  SETTABLEKS R10 R9 K31 ["searchAssetAsync"]
+  SETTABLEKS R2 R9 K8 ["EventLogger"]
+  DUPCLOSURE R10 K57 [PROTO_14]
+  SETTABLEKS R10 R9 K32 ["copyToClipboard"]
+  DUPCLOSURE R10 K58 [PROTO_15]
+  CAPTURE VAL R8
+  SETTABLEKS R10 R9 K33 ["getClassIcon"]
+  DUPCLOSURE R10 K59 [PROTO_16]
+  SETTABLEKS R10 R9 K34 ["loadAssetAsync"]
+  DUPCLOSURE R10 K60 [PROTO_17]
+  SETTABLEKS R10 R9 K35 ["startRecording"]
+  DUPCLOSURE R10 K61 [PROTO_18]
+  SETTABLEKS R10 R9 K36 ["endRecording"]
+  DUPCLOSURE R10 K62 [PROTO_19]
+  SETTABLEKS R10 R9 K37 ["getSettingsAsync"]
+  DUPCLOSURE R10 K63 [PROTO_20]
+  SETTABLEKS R10 R9 K38 ["setSettingsAsync"]
+  DUPCLOSURE R10 K64 [PROTO_21]
+  SETTABLEKS R10 R9 K39 ["getSecureSettingsAsync"]
+  DUPCLOSURE R10 K65 [PROTO_22]
+  SETTABLEKS R10 R9 K40 ["setSecureSettingsAsync"]
+  DUPCLOSURE R10 K66 [PROTO_23]
+  SETTABLEKS R10 R9 K41 ["getScriptSource"]
+  DUPTABLE R10 K69 [{"get", "set"}]
+  NEWCLOSURE R11 P24
+  CAPTURE REF R9
+  SETTABLEKS R11 R10 K67 ["get"]
+  NEWCLOSURE R11 P25
+  CAPTURE REF R9
+  SETTABLEKS R11 R10 K68 ["set"]
+  CLOSEUPVALS R9
+  RETURN R10 1

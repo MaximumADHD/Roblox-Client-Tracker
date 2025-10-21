@@ -34,6 +34,7 @@ return {
 					variant = props.controls.variant,
 					isDisabled = props.controls.isDisabled,
 					isContained = props.controls.isContained,
+					step = props.controls.step,
 					onValueChanged = setValue,
 					knob = if props.controls.hasCustomKnob
 						then React.createElement(Icon, {
@@ -42,10 +43,10 @@ return {
 						})
 						else nil,
 					onDragStarted = function()
-						print("Drag started")
+						print("Drag started. Previous value:", value:getValue())
 					end,
 					onDragEnded = function()
-						print("Drag ended")
+						print("Drag ended. Final value:", value:getValue())
 					end,
 				})
 			end,
@@ -210,5 +211,6 @@ return {
 		hasCustomKnob = false,
 		rangeMin = -50,
 		rangeMax = 100,
+		step = 0,
 	},
 }

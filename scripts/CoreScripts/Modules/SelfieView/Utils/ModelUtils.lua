@@ -5,6 +5,7 @@ local FFlagSelfViewAvatarJointUpgrade = game:DefineFastFlag("SelfViewAvatarJoint
 local GetFFlagSelfieViewFixMigration = require(script.Parent.Parent.Flags.GetFFlagSelfieViewFixMigration)
 local GetFFlagSelfieViewMoreFixMigration =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewMoreFixMigration
+local FFlagSelfViewFixMakeup = game:DefineFastFlag("SelfViewFixMakeup", false)
 
 --we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
 --so for triggering dirty on DescendantAdded or DescendantRemoving we only trigger it for things which make a visual difference
@@ -307,6 +308,7 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	Folder = if GetFFlagSelfieViewFixMigration() then "Folder" else nil,
 	--some games like Winds of Fortune connect things like hair with constraints so we keep those in
 	RigidConstraint = if GetFFlagSelfieViewFixMigration() then "RigidConstraint" else nil,
+	WrapTextureTransfer = if FFlagSelfViewFixMakeup then "WrapTextureTransfer" else nil,
 }
 local function disableScripts(instance: Instance)
 	for _, child in instance:GetChildren() do

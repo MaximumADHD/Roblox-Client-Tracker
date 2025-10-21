@@ -10,8 +10,6 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local tryYield = require(root.util.tryYield)
 
-local getFFlagUGCValidateFixTransparencyReporting = require(root.flags.getFFlagUGCValidateFixTransparencyReporting)
-
 local RasterUtil = {}
 
 export type View = {
@@ -36,15 +34,7 @@ local function orthoProjectCoordinate(axis1: Vector3, axis2: Vector3, position: 
 end
 
 local function shouldRenderTriangle(normal: Vector3, planeNormal: Vector3): boolean
-	if getFFlagUGCValidateFixTransparencyReporting() then
-		return normal:Dot(planeNormal) < 0
-	else
-		-- a dot b = ||a||||b||cos(angle)
-		-- angle = acos(a dot b) if a and b are normalized
-
-		local angleDeg = math.deg(math.abs(math.acos(normal:Dot(planeNormal))))
-		return angleDeg < 90
-	end
+	return normal:Dot(planeNormal) < 0
 end
 
 function RasterUtil.shouldRenderTriangle_UNIT_TEST(normal: Vector3, planeNormal: Vector3): boolean

@@ -9,64 +9,9 @@ PROTO_0:
   CALL R1 1 1
   LOADK R2 K7 ["AnimGraph"]
   SETTABLEKS R2 R1 K5 ["Name"]
-  GETIMPORT R2 K2 [Instance.new]
-  LOADK R3 K6 ["Folder"]
-  CALL R2 1 1
-  LOADK R3 K8 ["Graph"]
-  SETTABLEKS R3 R2 K5 ["Name"]
-  SETTABLEKS R1 R2 K9 ["Parent"]
   RETURN R1 1
 
 PROTO_1:
-  LOADK R5 K0 ["Graph"]
-  NAMECALL R3 R0 K1 ["FindFirstChild"]
-  CALL R3 2 1
-  FASTCALL2K ASSERT R3 K2 [+5]
-  MOVE R5 R3
-  LOADK R6 K2 ["Graph folder not found in mock AnimationGraph"]
-  GETIMPORT R4 K4 [assert]
-  CALL R4 2 0
-  GETIMPORT R4 K7 [Instance.new]
-  LOADK R5 K8 ["StringValue"]
-  CALL R4 1 1
-  SETTABLEKS R1 R4 K9 ["Name"]
-  LOADK R5 K10 ["ClipNode"]
-  SETTABLEKS R5 R4 K11 ["Value"]
-  SETTABLEKS R3 R4 K12 ["Parent"]
-  GETIMPORT R5 K7 [Instance.new]
-  LOADK R6 K13 ["Folder"]
-  CALL R5 1 1
-  LOADK R6 K14 ["Connections"]
-  SETTABLEKS R6 R5 K9 ["Name"]
-  SETTABLEKS R4 R5 K12 ["Parent"]
-  DUPTABLE R6 K18 [{"instance", "position", "size"}]
-  SETTABLEKS R4 R6 K15 ["instance"]
-  GETUPVAL R7 0
-  SETTABLEKS R7 R6 K16 ["position"]
-  GETUPVAL R7 1
-  SETTABLEKS R7 R6 K17 ["size"]
-  SETTABLE R6 R2 R1
-  RETURN R4 1
-
-PROTO_2:
-  LOADK R4 K0 ["Connections"]
-  NAMECALL R2 R0 K1 ["FindFirstChild"]
-  CALL R2 2 1
-  FASTCALL2K ASSERT R2 K2 [+5]
-  MOVE R4 R2
-  LOADK R5 K2 ["Connections folder not found in origin node within mock animation graph"]
-  GETIMPORT R3 K4 [assert]
-  CALL R3 2 0
-  GETIMPORT R3 K7 [Instance.new]
-  LOADK R4 K8 ["ObjectValue"]
-  CALL R3 1 1
-  GETTABLEKS R4 R1 K9 ["Name"]
-  SETTABLEKS R4 R3 K9 ["Name"]
-  SETTABLEKS R1 R3 K10 ["Value"]
-  SETTABLEKS R2 R3 K11 ["Parent"]
-  RETURN R3 1
-
-PROTO_3:
   GETIMPORT R2 K2 [Instance.new]
   LOADK R3 K3 ["Model"]
   CALL R2 1 1
@@ -77,57 +22,8 @@ PROTO_3:
   CALL R3 1 1
   LOADK R4 K7 ["AnimGraph"]
   SETTABLEKS R4 R3 K5 ["Name"]
-  GETIMPORT R4 K2 [Instance.new]
-  LOADK R5 K6 ["Folder"]
-  CALL R4 1 1
-  LOADK R5 K8 ["Graph"]
-  SETTABLEKS R5 R4 K5 ["Name"]
-  SETTABLEKS R3 R4 K9 ["Parent"]
   MOVE R1 R3
   NEWTABLE R2 0 0
-  MOVE R3 R0
-  LOADNIL R4
-  LOADNIL R5
-  FORGPREP R3
-  GETTABLE R8 R2 R6
-  JUMPIF R8 [+5]
-  GETUPVAL R8 0
-  MOVE R9 R1
-  MOVE R10 R6
-  MOVE R11 R2
-  CALL R8 3 0
-  MOVE R8 R7
-  LOADNIL R9
-  LOADNIL R10
-  FORGPREP R8
-  GETTABLE R13 R2 R12
-  JUMPIF R13 [+5]
-  GETUPVAL R13 0
-  MOVE R14 R1
-  MOVE R15 R12
-  MOVE R16 R2
-  CALL R13 3 0
-  GETTABLE R13 R2 R12
-  GETTABLE R15 R2 R6
-  GETTABLEKS R14 R15 K10 ["instance"]
-  GETTABLEKS R15 R13 K10 ["instance"]
-  LOADK R18 K11 ["Connections"]
-  NAMECALL R16 R14 K12 ["FindFirstChild"]
-  CALL R16 2 1
-  FASTCALL2K ASSERT R16 K13 [+5]
-  MOVE R18 R16
-  LOADK R19 K13 ["Connections folder not found in origin node within mock animation graph"]
-  GETIMPORT R17 K15 [assert]
-  CALL R17 2 0
-  GETIMPORT R17 K2 [Instance.new]
-  LOADK R18 K16 ["ObjectValue"]
-  CALL R17 1 1
-  GETTABLEKS R18 R15 K5 ["Name"]
-  SETTABLEKS R18 R17 K5 ["Name"]
-  SETTABLEKS R15 R17 K17 ["Value"]
-  SETTABLEKS R16 R17 K9 ["Parent"]
-  FORGLOOP R8 2 [-37]
-  FORGLOOP R3 2 [-50]
   MOVE R3 R2
   MOVE R4 R1
   RETURN R3 2
@@ -142,19 +38,6 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Src"]
   GETTABLEKS R2 R3 K7 ["Types"]
   CALL R1 1 1
-  GETIMPORT R2 K10 [Vector2.new]
-  LOADN R3 0
-  LOADN R4 0
-  CALL R2 2 1
-  GETIMPORT R3 K10 [Vector2.new]
-  LOADN R4 100
-  LOADN R5 100
-  CALL R3 2 1
-  DUPCLOSURE R4 K11 [PROTO_0]
-  DUPCLOSURE R5 K12 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  DUPCLOSURE R6 K13 [PROTO_2]
-  DUPCLOSURE R7 K14 [PROTO_3]
-  CAPTURE VAL R5
-  RETURN R7 1
+  DUPCLOSURE R2 K8 [PROTO_0]
+  DUPCLOSURE R3 K9 [PROTO_1]
+  RETURN R3 1

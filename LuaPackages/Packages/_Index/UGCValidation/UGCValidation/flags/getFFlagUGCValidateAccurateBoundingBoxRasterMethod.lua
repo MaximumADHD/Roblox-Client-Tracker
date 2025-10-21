@@ -1,5 +1,5 @@
-game:DefineFastFlag("UGCValidateAccurateBoundingBoxRasterMethod", false)
+game:DefineFastFlag("UGCValidateAccurateBoundingBoxRasterMethod2", false)
 
 return function()
-	return game:GetFastFlag("UGCValidateAccurateBoundingBoxRasterMethod")
+	return game:GetFastFlag("UGCValidateAccurateBoundingBoxRasterMethod2")
 end

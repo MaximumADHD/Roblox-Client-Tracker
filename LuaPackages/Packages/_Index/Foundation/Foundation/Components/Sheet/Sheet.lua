@@ -14,7 +14,7 @@ type DialogSize = DialogSize.DialogSize
 
 local SheetTypes = require(script.Parent.Types)
 type SheetRef = SheetTypes.SheetRef
-type SheetProps = SheetTypes.SheetProps
+export type SheetProps = SheetTypes.SheetProps
 
 local defaultProps = {
 	testId = "--foundation-sheet",
@@ -32,7 +32,7 @@ local function Sheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>): React.R
 
 	React.useImperativeHandle(props.sheetRef, function()
 		return sheetRef.current
-	end)
+	end, {})
 
 	React.useEffect(function()
 		if props.isOpen == false and sheetRef.current then

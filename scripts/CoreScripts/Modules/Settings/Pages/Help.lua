@@ -37,6 +37,8 @@ local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
+local HelpPage = require(CorePackages.Workspace.Packages.HelpPage)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -51,6 +53,9 @@ local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Fla
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
+
+local FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure
+local FStringHelpPageIXPLayer = HelpPage.Flags.FStringHelpPageIXPLayer
 
 ------------ Localization -------------------
 local locales = nil
@@ -704,6 +709,10 @@ local function Initialize()
 	end
 
 	function this:PageDisplayed()
+        if FFlagHelpPageIXPExposure then
+    		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(FStringHelpPageIXPLayer)
+        end
+
 		if not this.LastInputTypeChangedConnection then
 			this.LastInputTypeChangedConnection = UserInputService.LastInputTypeChanged:Connect(function(inputType: Enum.UserInputType)
 				if inputType ~= Enum.UserInputType.Focus and inputType ~= Enum.UserInputType.None then

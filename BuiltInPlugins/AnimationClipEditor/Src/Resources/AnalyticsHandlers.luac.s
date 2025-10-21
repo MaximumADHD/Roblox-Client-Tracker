@@ -147,6 +147,34 @@ PROTO_8:
   RETURN R0 0
 
 PROTO_9:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["importAnimationFromFile"]
+  DUPTABLE R4 K2 [{"guid"}]
+  JUMPIFNOT R1 [+5]
+  GETIMPORT R5 K5 [string.lower]
+  MOVE R6 R1
+  CALL R5 1 1
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K1 ["guid"]
+  CALL R2 2 0
+  LOADK R3 K6 ["studio"]
+  LOADK R4 K7 ["."]
+  LOADK R5 K8 ["animationEditor"]
+  LOADK R6 K7 ["."]
+  LOADK R7 K9 ["AnimationImportedFromFile"]
+  CONCAT R2 R3 R7
+  GETUPVAL R3 1
+  MOVE R5 R2
+  LOADN R6 1
+  NAMECALL R3 R3 K10 ["ReportCounter"]
+  CALL R3 3 0
+  GETUPVAL R2 0
+  LOADK R3 K9 ["AnimationImportedFromFile"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_10:
   LOADK R3 K0 ["studio"]
   LOADK R4 K1 ["."]
   LOADK R5 K2 ["animationEditor"]
@@ -171,7 +199,7 @@ PROTO_9:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   LOADK R3 K0 ["studio"]
   LOADK R4 K1 ["."]
   LOADK R5 K2 ["animationEditor"]
@@ -196,7 +224,7 @@ PROTO_10:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
   GETUPVAL R5 0
   LOADK R6 K0 ["exportAnimation"]
   DUPTABLE R7 K5 [{"animationType", "hasFacs", "assetId", "guid"}]
@@ -213,7 +241,7 @@ PROTO_11:
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R7 0
   LOADK R8 K0 ["loadAnimation"]
   DUPTABLE R9 K7 [{"animationType", "name", "numKeyframes", "numPoses", "numEvents", "guid"}]
@@ -232,7 +260,7 @@ PROTO_12:
   CALL R7 2 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETUPVAL R7 0
   LOADK R8 K0 ["saveAnimation"]
   DUPTABLE R9 K7 [{"animationType", "name", "numKeyframes", "numPoses", "numEvents", "guid"}]
@@ -284,7 +312,7 @@ PROTO_13:
   CALL R8 3 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETUPVAL R3 0
   LOADK R4 K0 ["createNewAnimation"]
   DUPTABLE R5 K3 [{"name", "guid"}]
@@ -299,7 +327,7 @@ PROTO_14:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   GETUPVAL R2 0
   LOADK R3 K0 ["quantizeSelection"]
   DUPTABLE R4 K2 [{"didQuantize"}]
@@ -307,7 +335,7 @@ PROTO_15:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_17:
   GETUPVAL R2 0
   LOADK R3 K0 ["timeUnitChanged"]
   DUPTABLE R4 K2 [{"timeUnit"}]
@@ -315,7 +343,7 @@ PROTO_16:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_18:
   GETUPVAL R2 0
   LOADK R3 K0 ["keyframeSnapChanged"]
   DUPTABLE R4 K2 [{"keyframeSnap"}]
@@ -323,7 +351,7 @@ PROTO_17:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_19:
   GETUPVAL R2 0
   LOADK R3 K0 ["toolChanged"]
   DUPTABLE R4 K2 [{"tool"}]
@@ -331,7 +359,7 @@ PROTO_18:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_20:
   GETUPVAL R2 0
   LOADK R3 K0 ["ikEnabled"]
   DUPTABLE R4 K2 [{"guid"}]
@@ -359,7 +387,7 @@ PROTO_19:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_21:
   GETUPVAL R3 0
   LOADK R4 K0 ["ikDisabled"]
   DUPTABLE R5 K3 [{"timeOpen", "guid"}]
@@ -374,7 +402,7 @@ PROTO_20:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_22:
   GETUPVAL R2 0
   LOADK R3 K0 ["controlPressed"]
   DUPTABLE R4 K2 [{"control"}]
@@ -382,7 +410,7 @@ PROTO_21:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_23:
   GETUPVAL R4 0
   LOADK R5 K0 ["trackAdded"]
   DUPTABLE R6 K4 [{"trackName", "editorMode", "guid"}]
@@ -398,7 +426,7 @@ PROTO_22:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_24:
   GETUPVAL R5 0
   LOADK R6 K0 ["trackDeleted"]
   DUPTABLE R7 K5 [{"trackName", "hadKeyframes", "editorMode", "guid"}]
@@ -415,7 +443,7 @@ PROTO_23:
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_25:
   GETUPVAL R5 0
   LOADK R6 K0 ["trackSelected"]
   DUPTABLE R7 K5 [{"trackName", "source", "editorMode", "guid"}]
@@ -432,7 +460,7 @@ PROTO_24:
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_26:
   GETUPVAL R3 0
   LOADK R4 K0 ["renameKeyframe"]
   DUPTABLE R5 K3 [{"name", "guid"}]
@@ -447,7 +475,7 @@ PROTO_25:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_27:
   GETUPVAL R5 0
   LOADK R6 K0 ["addEvent"]
   DUPTABLE R7 K5 [{"name", "parameter", "editorMode", "guid"}]
@@ -478,7 +506,7 @@ PROTO_26:
   CALL R5 1 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_28:
   GETUPVAL R4 0
   LOADK R5 K0 ["addKeyframe"]
   DUPTABLE R6 K4 [{"trackName", "editorMode", "guid"}]
@@ -508,7 +536,7 @@ PROTO_27:
   CALL R4 1 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_29:
   GETUPVAL R4 0
   LOADK R5 K0 ["deleteKeyframe"]
   DUPTABLE R6 K4 [{"trackName", "editorMode", "guid"}]
@@ -524,7 +552,7 @@ PROTO_28:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_30:
   GETUPVAL R6 0
   LOADK R7 K0 ["promoteAnimation"]
   DUPTABLE R8 K6 [{"name", "numKeyframes", "numTracks", "numEvents", "guid"}]
@@ -542,14 +570,14 @@ PROTO_29:
   CALL R6 2 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_31:
   GETUPVAL R1 0
   LOADK R2 K0 ["animationEditorImportVideoCreate"]
   NEWTABLE R3 0 0
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_31:
+PROTO_32:
   GETUPVAL R2 0
   LOADK R3 K0 ["animationEditorImportVideoUploadCancel"]
   DUPTABLE R4 K2 [{"duration"}]
@@ -557,7 +585,7 @@ PROTO_31:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_32:
+PROTO_33:
   GETUPVAL R2 0
   LOADK R3 K0 ["animationEditorImportVideoUploadSucceed"]
   DUPTABLE R4 K2 [{"duration"}]
@@ -565,7 +593,7 @@ PROTO_32:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_33:
+PROTO_34:
   GETUPVAL R3 0
   LOADK R4 K0 ["animationEditorImportVideoError"]
   DUPTABLE R5 K3 [{"errorMsg", "duration"}]
@@ -574,21 +602,21 @@ PROTO_33:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_34:
+PROTO_35:
   GETUPVAL R1 0
   LOADK R2 K0 ["facialAnimationRecordingEnabled"]
   NEWTABLE R3 0 0
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_35:
+PROTO_36:
   GETUPVAL R1 0
   LOADK R2 K0 ["facialAnimationRecordingStartRecording"]
   NEWTABLE R3 0 0
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_36:
+PROTO_37:
   GETUPVAL R2 0
   LOADK R3 K0 ["facialAnimationRecordingEndRecording"]
   DUPTABLE R4 K2 [{"duration"}]
@@ -596,14 +624,14 @@ PROTO_36:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_37:
+PROTO_38:
   GETUPVAL R1 0
   LOADK R2 K0 ["facialAnimationRecordingReRecordPressed"]
   NEWTABLE R3 0 0
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_38:
+PROTO_39:
   GETUPVAL R5 0
   LOADK R6 K0 ["editorModeSwitch"]
   DUPTABLE R7 K5 [{"oldMode", "newMode", "duration", "guid"}]
@@ -620,7 +648,7 @@ PROTO_38:
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_39:
+PROTO_40:
   GETUPVAL R7 0
   LOADK R8 K0 ["keyframeReductionApply"]
   DUPTABLE R9 K7 [{"isChannelAnimation", "tracks", "before", "after", "hasMoved", "guid"}]
@@ -639,7 +667,7 @@ PROTO_39:
   CALL R7 2 0
   RETURN R0 0
 
-PROTO_40:
+PROTO_41:
   GETUPVAL R5 0
   LOADK R6 K0 ["keyframeReductionCancel"]
   DUPTABLE R7 K5 [{"isChannelAnimation", "tracks", "hasMoved", "guid"}]
@@ -656,7 +684,7 @@ PROTO_40:
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_41:
+PROTO_42:
   GETUPVAL R2 0
   LOADK R3 K0 ["createFromVideo"]
   DUPTABLE R4 K2 [{"guid"}]
@@ -670,7 +698,7 @@ PROTO_41:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_42:
+PROTO_43:
   GETUPVAL R2 0
   LOADK R3 K0 ["clipboardOperation"]
   DUPTABLE R4 K2 [{"operation"}]
@@ -678,7 +706,7 @@ PROTO_42:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_43:
+PROTO_44:
   GETUPVAL R5 0
   LOADK R6 K0 ["migrateAnimations"]
   DUPTABLE R7 K5 [{"migrate", "delete", "ignore", "skipped"}]
@@ -689,7 +717,7 @@ PROTO_43:
   CALL R5 2 0
   RETURN R0 0
 
-PROTO_44:
+PROTO_45:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
@@ -715,116 +743,120 @@ PROTO_44:
   CAPTURE VAL R0
   SETTABLEKS R6 R5 K4 ["onImportFbxAnimation"]
   NEWCLOSURE R6 P8
-  CAPTURE VAL R0
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K5 ["onUserChoseFBXModelForAnimImport"]
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K5 ["onImportAnimationFromFile"]
   NEWCLOSURE R6 P9
   CAPTURE VAL R0
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K6 ["onUserChoseSelectedModelForAnimImport"]
+  SETTABLEKS R6 R5 K6 ["onUserChoseFBXModelForAnimImport"]
   NEWCLOSURE R6 P10
+  CAPTURE VAL R0
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K7 ["onExportAnimation"]
+  SETTABLEKS R6 R5 K7 ["onUserChoseSelectedModelForAnimImport"]
   NEWCLOSURE R6 P11
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K8 ["onLoadAnimation"]
+  SETTABLEKS R6 R5 K8 ["onExportAnimation"]
   NEWCLOSURE R6 P12
   CAPTURE VAL R1
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K9 ["onSaveAnimation"]
+  SETTABLEKS R6 R5 K9 ["onLoadAnimation"]
   NEWCLOSURE R6 P13
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K10 ["onCreateNewAnimation"]
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K10 ["onSaveAnimation"]
   NEWCLOSURE R6 P14
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K11 ["onQuantizeSelection"]
+  SETTABLEKS R6 R5 K11 ["onCreateNewAnimation"]
   NEWCLOSURE R6 P15
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K12 ["onTimeUnitChanged"]
+  SETTABLEKS R6 R5 K12 ["onQuantizeSelection"]
   NEWCLOSURE R6 P16
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K13 ["onKeyframeSnapChanged"]
+  SETTABLEKS R6 R5 K13 ["onTimeUnitChanged"]
   NEWCLOSURE R6 P17
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K14 ["onToolChanged"]
+  SETTABLEKS R6 R5 K14 ["onKeyframeSnapChanged"]
   NEWCLOSURE R6 P18
   CAPTURE VAL R1
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K15 ["onIkEnabled"]
+  SETTABLEKS R6 R5 K15 ["onToolChanged"]
   NEWCLOSURE R6 P19
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K16 ["onIkDisabled"]
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K16 ["onIkEnabled"]
   NEWCLOSURE R6 P20
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K17 ["onControlPressed"]
+  SETTABLEKS R6 R5 K17 ["onIkDisabled"]
   NEWCLOSURE R6 P21
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K18 ["onTrackAdded"]
+  SETTABLEKS R6 R5 K18 ["onControlPressed"]
   NEWCLOSURE R6 P22
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K19 ["onTrackDeleted"]
+  SETTABLEKS R6 R5 K19 ["onTrackAdded"]
   NEWCLOSURE R6 P23
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K20 ["onTrackSelected"]
+  SETTABLEKS R6 R5 K20 ["onTrackDeleted"]
   NEWCLOSURE R6 P24
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K21 ["onRenameKeyframe"]
+  SETTABLEKS R6 R5 K21 ["onTrackSelected"]
   NEWCLOSURE R6 P25
   CAPTURE VAL R1
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K22 ["onAddEvent"]
+  SETTABLEKS R6 R5 K22 ["onRenameKeyframe"]
   NEWCLOSURE R6 P26
   CAPTURE VAL R1
   CAPTURE VAL R0
-  SETTABLEKS R6 R5 K23 ["onAddKeyframe"]
+  SETTABLEKS R6 R5 K23 ["onAddEvent"]
   NEWCLOSURE R6 P27
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K24 ["onDeleteKeyframe"]
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K24 ["onAddKeyframe"]
   NEWCLOSURE R6 P28
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K25 ["onPromoteAnimation"]
+  SETTABLEKS R6 R5 K25 ["onDeleteKeyframe"]
   NEWCLOSURE R6 P29
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K26 ["onAnimationEditorImportVideoCreate"]
+  SETTABLEKS R6 R5 K26 ["onPromoteAnimation"]
   NEWCLOSURE R6 P30
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K27 ["onAnimationEditorImportVideoUploadCancel"]
+  SETTABLEKS R6 R5 K27 ["onAnimationEditorImportVideoCreate"]
   NEWCLOSURE R6 P31
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K28 ["onAnimationEditorImportVideoUploadSucceed"]
+  SETTABLEKS R6 R5 K28 ["onAnimationEditorImportVideoUploadCancel"]
   NEWCLOSURE R6 P32
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K29 ["onAnimationEditorImportVideoError"]
+  SETTABLEKS R6 R5 K29 ["onAnimationEditorImportVideoUploadSucceed"]
   NEWCLOSURE R6 P33
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K30 ["onFacialAnimationRecordingEnabled"]
+  SETTABLEKS R6 R5 K30 ["onAnimationEditorImportVideoError"]
   NEWCLOSURE R6 P34
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K31 ["onFacialAnimationRecordingStartRecording"]
+  SETTABLEKS R6 R5 K31 ["onFacialAnimationRecordingEnabled"]
   NEWCLOSURE R6 P35
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K32 ["onFacialAnimationRecordingEndRecording"]
+  SETTABLEKS R6 R5 K32 ["onFacialAnimationRecordingStartRecording"]
   NEWCLOSURE R6 P36
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K33 ["onFacialAnimationRecordingReRecordPressed"]
+  SETTABLEKS R6 R5 K33 ["onFacialAnimationRecordingEndRecording"]
   NEWCLOSURE R6 P37
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K34 ["onEditorModeSwitch"]
+  SETTABLEKS R6 R5 K34 ["onFacialAnimationRecordingReRecordPressed"]
   NEWCLOSURE R6 P38
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K35 ["onKeyframeReductionApply"]
+  SETTABLEKS R6 R5 K35 ["onEditorModeSwitch"]
   NEWCLOSURE R6 P39
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K36 ["onKeyframeReductionCancel"]
+  SETTABLEKS R6 R5 K36 ["onKeyframeReductionApply"]
   NEWCLOSURE R6 P40
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K37 ["onCreateFromVideo"]
+  SETTABLEKS R6 R5 K37 ["onKeyframeReductionCancel"]
   NEWCLOSURE R6 P41
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K38 ["onClipboardOperation"]
+  SETTABLEKS R6 R5 K38 ["onCreateFromVideo"]
   NEWCLOSURE R6 P42
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K39 ["onMigrateAnimations"]
+  SETTABLEKS R6 R5 K39 ["onClipboardOperation"]
+  NEWCLOSURE R6 P43
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K40 ["onMigrateAnimations"]
   RETURN R5 1
 
 MAIN:
@@ -842,7 +874,7 @@ MAIN:
   GETTABLEKS R3 R4 K11 ["Cryo"]
   CALL R2 1 1
   DUPCLOSURE R3 K12 [PROTO_0]
-  DUPCLOSURE R4 K13 [PROTO_44]
+  DUPCLOSURE R4 K13 [PROTO_45]
   CAPTURE VAL R2
   CAPTURE VAL R0
   RETURN R4 1

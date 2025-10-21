@@ -126,46 +126,50 @@ MAIN:
   LOADK R2 K2 ["AssetImporter"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["BrowserService"]
-  NAMECALL R1 R1 K7 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R0 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["Framework"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["Services"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["BrowserService"]
   CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R0 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["RoactCompat"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Framework"]
   CALL R3 1 1
-  GETTABLEKS R4 R2 K13 ["ContextServices"]
-  GETTABLEKS R5 R4 K14 ["withContext"]
-  GETTABLEKS R6 R4 K15 ["Localization"]
-  GETTABLEKS R8 R2 K16 ["Style"]
-  GETTABLEKS R7 R8 K17 ["Stylizer"]
-  GETTABLEKS R8 R2 K18 ["UI"]
-  GETTABLEKS R9 R8 K19 ["Pane"]
-  GETTABLEKS R10 R8 K20 ["TextLabel"]
-  GETTABLEKS R11 R8 K21 ["TextWithLinks"]
-  GETTABLEKS R12 R3 K22 ["PureComponent"]
-  LOADK R14 K23 ["SuccessWidget"]
-  NAMECALL R12 R12 K24 ["extend"]
-  CALL R12 2 1
-  DUPCLOSURE R13 K25 [PROTO_1]
-  CAPTURE VAL R1
-  SETTABLEKS R13 R12 K26 ["init"]
-  DUPCLOSURE R13 K27 [PROTO_2]
-  CAPTURE VAL R3
-  CAPTURE VAL R9
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["RoactCompat"]
+  CALL R4 1 1
+  GETTABLEKS R5 R3 K14 ["ContextServices"]
+  GETTABLEKS R6 R5 K15 ["withContext"]
+  GETTABLEKS R7 R5 K16 ["Localization"]
+  GETTABLEKS R9 R3 K17 ["Style"]
+  GETTABLEKS R8 R9 K18 ["Stylizer"]
+  GETTABLEKS R9 R3 K19 ["UI"]
+  GETTABLEKS R10 R9 K20 ["Pane"]
+  GETTABLEKS R11 R9 K21 ["TextLabel"]
+  GETTABLEKS R12 R9 K22 ["TextWithLinks"]
+  GETTABLEKS R13 R4 K23 ["PureComponent"]
+  LOADK R15 K24 ["SuccessWidget"]
+  NAMECALL R13 R13 K25 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K26 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R14 R13 K27 ["init"]
+  DUPCLOSURE R14 K28 [PROTO_2]
+  CAPTURE VAL R4
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R13 R12 K28 ["render"]
-  MOVE R13 R5
-  DUPTABLE R14 K29 [{"Localization", "Stylizer"}]
-  SETTABLEKS R6 R14 K15 ["Localization"]
-  SETTABLEKS R7 R14 K17 ["Stylizer"]
-  CALL R13 1 1
-  MOVE R14 R12
-  CALL R13 1 1
-  MOVE R12 R13
-  RETURN R12 1
+  CAPTURE VAL R12
+  SETTABLEKS R14 R13 K29 ["render"]
+  MOVE R14 R6
+  DUPTABLE R15 K30 [{"Localization", "Stylizer"}]
+  SETTABLEKS R7 R15 K16 ["Localization"]
+  SETTABLEKS R8 R15 K18 ["Stylizer"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  RETURN R13 1

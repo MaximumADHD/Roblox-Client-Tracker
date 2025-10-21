@@ -15,22 +15,61 @@ local Types = require(util.Types)
 local getFIntUGCValidateMaxSensibleStringLength = require(root.flags.getFIntUGCValidateMaxSensibleStringLength)
 local getFIntUGCValidateMaxSensibleBinaryStringLength =
 	require(root.flags.getFIntUGCValidateMaxSensibleBinaryStringLength)
+local getEngineFeatureUGCValidateCheckHSRFileData = require(root.flags.getEngineFeatureUGCValidateCheckHSRFileData)
+local getFIntUGCValidateMaxHSRDataLen = require(root.flags.getFIntUGCValidateMaxHSRDataLen)
+local getEngineFeatureEngineUGCValidatePropertiesSensible =
+	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
 local ValidatePropertiesSensible = {}
 
+local PropertyLengthRestrictions: any = nil
+
+local function createPropertyLengthRestrictions()
+	if PropertyLengthRestrictions then
+		return
+	end
+
+	PropertyLengthRestrictions = {
+		HiddenSurfaceRemovalAsset = { HSRData = getFIntUGCValidateMaxHSRDataLen() },
+	}
+end
+
+function ValidatePropertiesSensible.resetPropertyLengthRestrictions()
+	PropertyLengthRestrictions = nil
+end
+
 local function validateIndividual(inst: Instance): (boolean, { string }?)
-	local result, problematicProperties = (UGCValidationService :: any):ValidatePropertiesSensible(inst)
-	if not result then
-		return false,
-			{
-				string.format(
-					"Instance %s has invalid properties: %s. These properties may be numeric values with NaNs or Infs, strings longer than %d characters, or BinaryStrings longer than %d characters.",
-					inst:GetFullName(),
-					table.concat(problematicProperties, ", "),
-					getFIntUGCValidateMaxSensibleStringLength(),
-					getFIntUGCValidateMaxSensibleBinaryStringLength()
-				),
-			}
+	if getEngineFeatureUGCValidateCheckHSRFileData() then
+		local result, problematicProperties = (UGCValidationService :: any):ValidatePropertiesSensible(
+			inst,
+			PropertyLengthRestrictions[inst.ClassName]
+		)
+
+		if not result then
+			return false,
+				{
+					string.format(
+						"%s %s has invalid properties: %s. These properties may be numeric values with NaNs or Infs, or strings/BinaryStrings longer than the max number of characters.",
+						inst.ClassName,
+						inst:GetFullName(),
+						table.concat(problematicProperties, ", ")
+					),
+				}
+		end
+	else
+		local result, problematicProperties = (UGCValidationService :: any):ValidatePropertiesSensible(inst)
+		if not result then
+			return false,
+				{
+					string.format(
+						"Instance %s has invalid properties: %s. These properties may be numeric values with NaNs or Infs, strings longer than %d characters, or BinaryStrings longer than %d characters.",
+						inst:GetFullName(),
+						table.concat(problematicProperties, ", "),
+						getFIntUGCValidateMaxSensibleStringLength(),
+						getFIntUGCValidateMaxSensibleBinaryStringLength()
+					),
+				}
+		end
 	end
 	return true
 end
@@ -39,7 +78,15 @@ function ValidatePropertiesSensible.validate(
 	inst: Instance,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
+	if not getEngineFeatureEngineUGCValidatePropertiesSensible() then
+		return true
+	end
+
 	local startTime = tick()
+
+	if getEngineFeatureUGCValidateCheckHSRFileData() then
+		createPropertyLengthRestrictions()
+	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 

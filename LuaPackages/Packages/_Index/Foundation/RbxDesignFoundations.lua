@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["RbxDesignFoundations-31ab8d40-2.0.157"]["RbxDesignFoundations"])
+local Package = require(PackageIndex["RbxDesignFoundations-31ab8d40-2.0.163"]["RbxDesignFoundations"])
 
 return Package

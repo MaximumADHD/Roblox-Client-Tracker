@@ -43,9 +43,9 @@ return {
 		local theme = themeName:lower()
 
 		if theme == Constants.ThemeName.Dark:lower() then
-			return foundationTokens.FoundationDark
+			return foundationTokens.Dark
 		elseif theme == Constants.ThemeName.Light:lower() then
-			return foundationTokens.FoundationLight
+			return foundationTokens.Light
 		else
 			return nil
 		end

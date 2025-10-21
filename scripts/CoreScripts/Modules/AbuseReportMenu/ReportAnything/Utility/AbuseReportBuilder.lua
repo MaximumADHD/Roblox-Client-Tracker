@@ -418,7 +418,7 @@ local buildOtherReportRequest = function(
 	formData: OtherFormData,
 	raState: Types.ReportAnythingState,
 	analyticsState: ReportAnythingAnalytics.ReportAnythingAnalyticsState
-)
+): AbuseReportRequest | string
 	local request: AbuseReportRequest = {
 		tags = {
 			ENTRY_POINT = {
@@ -550,7 +550,11 @@ local buildOtherReportRequest = function(
 		}
 	end
 
-	return HttpService:JSONEncode(request)
+	if game:GetEngineFeature("WHAM2165") then
+		return request
+	else
+		return HttpService:JSONEncode(request)
+	end
 end
 
 return {

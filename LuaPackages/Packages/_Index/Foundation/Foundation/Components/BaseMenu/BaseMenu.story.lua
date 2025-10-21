@@ -160,7 +160,6 @@ return {
 					Dash.map(InputSize, function(size)
 						return React.createElement(BaseMenu.Root, {
 							size = size,
-							width = UDim.new(0.25, -24),
 							items = BASE_ITEMS,
 							onActivated = Dash.noop(),
 						})
@@ -245,6 +244,27 @@ return {
 						React.createElement(BaseMenu.Item, { LayoutOrder = 3, id = "b3", text = "Text 33" })
 					)
 				)
+			end,
+		},
+		{
+			name = "Overflow",
+			story = function(props)
+				local items = {}
+				for i = 1, 100 do
+					table.insert(items, {
+						id = tostring(i),
+						icon = "icons/common/robux",
+						text = "Item " .. tostring(i),
+						isChecked = i % 3 == 0,
+						isDisabled = i % 7 == 0,
+					})
+				end
+				return React.createElement(BaseMenu.Root, {
+					size = props.controls.size,
+					items = items,
+					maxHeight = 500,
+					onActivated = Dash.noop(),
+				})
 			end,
 		},
 	},

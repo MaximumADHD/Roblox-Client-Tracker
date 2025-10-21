@@ -22,7 +22,7 @@ local useDialog = require(script.Parent.useDialog)
 
 type DialogVariantProps = {
 	backdrop: { backgroundStyle: ColorStyleValue },
-	shadow: { imageStyle: ColorStyleValue },
+	shadow: { imageStyle: ColorStyleValue, tag: string },
 	container: { tag: string },
 	inner: { tag: string, maxWidth: number },
 	body: { tag: string, maxWidth: number },
@@ -45,9 +45,12 @@ local DIALOG_SIZES: { [DialogSize]: number } = {
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		backdrop = {
-			backgroundStyle = tokens.Color.OverMedia.OverMedia_200,
+			backgroundStyle = if Flags.FoundationDialogBackdropColorUpdate
+				then tokens.Color.Common.Backdrop
+				else tokens.Color.OverMedia.OverMedia_200,
 		},
 		shadow = {
+			tag = "auto-xy",
 			imageStyle = tokens.Color.Extended.Black.Black_15,
 		},
 		container = {
@@ -89,8 +92,11 @@ local function variantsFactory(tokens: Tokens)
 
 	local size: { [DialogSize]: VariantProps } = {
 		[DialogSize.Small] = {
-			container = {
+			shadow = {
 				tag = "padding-large",
+			},
+			container = {
+				tag = if Flags.FoundationDialogRootZIndex then nil else "padding-large",
 			},
 			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Small],
@@ -117,8 +123,11 @@ local function variantsFactory(tokens: Tokens)
 			},
 		},
 		[DialogSize.Medium] = {
-			container = {
+			shadow = {
 				tag = "padding-xlarge",
+			},
+			container = {
+				tag = if Flags.FoundationDialogRootZIndex then nil else "padding-xlarge",
 			},
 			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Medium],
@@ -145,8 +154,11 @@ local function variantsFactory(tokens: Tokens)
 			},
 		},
 		[DialogSize.Large] = {
-			container = {
+			shadow = {
 				tag = "padding-xlarge",
+			},
+			container = {
+				tag = if Flags.FoundationDialogRootZIndex then nil else "padding-xlarge",
 			},
 			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Large],

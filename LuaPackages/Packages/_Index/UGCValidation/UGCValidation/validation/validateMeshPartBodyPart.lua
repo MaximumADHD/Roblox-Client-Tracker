@@ -7,21 +7,22 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
-local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
 local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
 local getEngineFeatureUGCValidateBodyPartCageMeshDistance =
 	require(root.flags.getEngineFeatureUGCValidateBodyPartCageMeshDistance)
 local getFFlagRefactorBodyAttachmentOrientationsCheck =
 	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
 local getFFlagUGCValidateBoundsManipulation = require(root.flags.getFFlagUGCValidateBoundsManipulation)
-local getFFlagCheckBodyPartMeshSize = require(root.flags.getFFlagCheckBodyPartMeshSize)
 local getFFlagUGCValidateAccurateBoundingBoxRasterMethod =
 	require(root.flags.getFFlagUGCValidateAccurateBoundingBoxRasterMethod)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
 local validateAccurateBoundingBox = require(root.validation.validateAccurateBoundingBox)
-local validateAccurateBoundingBoxRasterMethod = require(root.validation.validateAccurateBoundingBoxRasterMethod)
+local validateAccurateBoundingBoxRasterMethod = nil
+if getFFlagUGCValidateAccurateBoundingBoxRasterMethod() then
+	validateAccurateBoundingBoxRasterMethod = require(root.validation.validateAccurateBoundingBoxRasterMethod)
+end
 local validateBodyPartChildAttachmentBounds = require(root.validation.validateBodyPartChildAttachmentBounds)
 local validateBodyPartChildAttachmentOrientations = require(root.validation.validateBodyPartChildAttachmentOrientations)
 local validateBodyPartExtentsRelativeToParent = require(root.validation.validateBodyPartExtentsRelativeToParent)
@@ -107,7 +108,7 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
-	if getFFlagUGCValidateMeshMin() then
+	do
 		-- anything which would cause a crash later on, we check in here and exit early
 		local successBlocking, errorMessageBlocking = ValidateBodyBlockingTests.validate(inst, validationContext)
 		if not successBlocking then
@@ -115,7 +116,7 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
-	if getFFlagCheckBodyPartMeshSize() then
+	do
 		local successValidateMeshSizeProperty, errors =
 			ValidateMeshSizeProperty.validateBodyAsset(inst, validationContext)
 		if not successValidateMeshSizeProperty then

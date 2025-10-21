@@ -20,7 +20,7 @@ type SheetRef = SheetTypes.SheetRef
 type SheetProps = SheetTypes.SheetProps
 local SheetType = require(script.Parent.SheetType)
 
-local getHardwareSafeAreaInsets = require(script.Parent.getHardwareSafeAreaInsets)
+local useHardwareInsets = require(script.Parent.useHardwareInsets)
 
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
@@ -44,7 +44,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 	local props = withDefaults(sideSheetProps, defaultProps)
 	local overlay = useOverlay()
 	local tokens = useTokens()
-	local safeAreaPadding = getHardwareSafeAreaInsets().right
+	local safeAreaPadding = useHardwareInsets(overlay).right
 
 	local isSmallDisplay = props.displaySize == Enum.DisplaySize.Small
 
@@ -75,7 +75,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 		}))
 	end, { width })
 
-	local closeSheet = function()
+	local closeSheet = React.useCallback(function()
 		if closing.current then
 			return
 		end
@@ -87,7 +87,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 			duration = tokens.Time.Time_100,
 		}))
 		closing.current = true
-	end
+	end, { closedPosition })
 
 	React.useImperativeHandle(props.sheetRef, function()
 		return {
@@ -111,95 +111,107 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 		)
 	end)
 
+	local contextValue = React.useMemo(function()
+		return {
+			actionsHeight = 0,
+			setActionsHeight = Dash.noop,
+			sheetHeightAvailable = 0,
+			setSheetHeightAvailable = Dash.noop,
+			safeAreaPadding = 0,
+			bottomPadding = 0,
+			innerScrollingEnabled = true,
+			innerScrollY = innerScrollY,
+			setInnerScrollY = setInnerScrollY,
+			hasHeader = hasHeader,
+			setHasHeader = setHasHeader,
+			closeSheet = closeSheet,
+			sheetType = SheetType.Side,
+			testId = props.testId,
+		}
+	end, { props.testId :: unknown, closeSheet })
+
 	return overlay
-		and ReactRoblox.createPortal({
-			Sheet = React.createElement(View, {
-				Size = sheetSize,
-				Position = sheetPosition,
-				ClipsDescendants = true,
-				ZIndex = 3,
-				padding = if isSmallDisplay and safeAreaPadding > 0
-					then {
-						right = UDim.new(0, safeAreaPadding),
-					}
-					else nil,
-				stateLayer = {
-					affordance = StateLayerAffordance.None,
-				},
-				-- Needed to sink the onActivated event to the backdrop
-				onActivated = Dash.noop,
-				ref = ref,
-				tag = {
-					["bg-surface-100 stroke-default stroke-standard"] = true,
-					["radius-large"] = not isSmallDisplay,
-				},
-				testId = props.testId,
+		and ReactRoblox.createPortal(
+			React.createElement(View, {
+				ZIndex = 5,
+				tag = "size-full",
 			}, {
-				Content = React.createElement(
-					View,
-					{
-						tag = "size-full-full col items-center clip",
+				Sheet = React.createElement(View, {
+					Size = sheetSize,
+					Position = sheetPosition,
+					ClipsDescendants = true,
+					ZIndex = 3,
+					padding = if isSmallDisplay and safeAreaPadding > 0
+						then {
+							right = UDim.new(0, safeAreaPadding),
+						}
+						else nil,
+					stateLayer = {
+						affordance = StateLayerAffordance.None,
 					},
-					React.createElement(SheetContext.Provider, {
-						value = {
-							actionsHeight = 0,
-							setActionsHeight = Dash.noop,
-							sheetHeightAvailable = 0,
-							setSheetHeightAvailable = Dash.noop,
-							safeAreaPadding = safeAreaPadding,
-							bottomPadding = 0,
-							innerScrollingEnabled = true,
-							innerScrollY = innerScrollY,
-							setInnerScrollY = setInnerScrollY,
-							hasHeader = hasHeader,
-							setHasHeader = setHasHeader,
-							closeSheet = closeSheet,
-							sheetType = SheetType.Side,
-							testId = props.testId,
+					-- Needed to sink the onActivated event to the backdrop
+					onActivated = Dash.noop,
+					ref = ref,
+					selection = SheetTypes.nonSelectable,
+					selectionGroup = SheetTypes.isolatedSelectionGroup,
+					tag = {
+						["bg-surface-100 stroke-default stroke-standard"] = true,
+						["radius-large"] = not isSmallDisplay,
+					},
+					testId = props.testId,
+				}, {
+					Content = React.createElement(
+						View,
+						{
+							tag = "size-full-full col items-center clip",
 						},
-					}, props.children)
-				),
-				CloseAffordance = React.createElement(CloseAffordance, {
-					onActivated = closeSheet,
-					variant = CloseAffordanceVariant.Utility,
-					Position = UDim2.new(1, -tokens.Margin.Small, 0, tokens.Margin.Small),
-					AnchorPoint = Vector2.new(1, 0),
-					Visible = hasHeader:map(function(value: boolean)
-						return not value
+						React.createElement(SheetContext.Provider, {
+							value = contextValue,
+						}, props.children)
+					),
+					CloseAffordance = React.createElement(CloseAffordance, {
+						onActivated = closeSheet,
+						variant = CloseAffordanceVariant.Utility,
+						Position = UDim2.new(1, -tokens.Margin.Small, 0, tokens.Margin.Small),
+						AnchorPoint = Vector2.new(1, 0),
+						Visible = hasHeader:map(function(value: boolean)
+							return not value
+						end),
+						testId = `{props.testId}--close-affordance`,
+					}),
+				}),
+				Shadow = React.createElement(Image, {
+					Image = SHADOW_IMAGE,
+					Size = sheetSize + UDim2.fromOffset(SHADOW_SIZE * 2, SHADOW_SIZE * 2),
+					Position = sheetPosition:map(function(value: UDim2)
+						return value + UDim2.fromOffset(-SHADOW_SIZE, -SHADOW_SIZE)
 					end),
-					testId = `{props.testId}--close-affordance`,
+					ZIndex = 2,
+					slice = {
+						center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
+						scale = 2,
+					},
+					imageStyle = tokens.Color.Extended.Black.Black_10,
+				}),
+				Backdrop = React.createElement(View, {
+					Size = UDim2.fromScale(2, 2),
+					Position = UDim2.fromScale(-0.5, -0.5),
+					ZIndex = 1,
+					stateLayer = {
+						affordance = StateLayerAffordance.None,
+					},
+					backgroundStyle = backdropTransparency:map(function(value: number)
+						return {
+							Color3 = tokens.Color.Common.Backdrop.Color3,
+							Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
+						}
+					end),
+					onActivated = closeSheet,
+					testId = `{props.testId}--backdrop`,
 				}),
 			}),
-			Shadow = React.createElement(Image, {
-				Image = SHADOW_IMAGE,
-				Size = sheetSize + UDim2.fromOffset(SHADOW_SIZE * 2, SHADOW_SIZE * 2),
-				Position = sheetPosition:map(function(value: UDim2)
-					return value + UDim2.fromOffset(-SHADOW_SIZE, -SHADOW_SIZE)
-				end),
-				ZIndex = 2,
-				slice = {
-					center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
-					scale = 2,
-				},
-				imageStyle = tokens.Color.Extended.Black.Black_10,
-			}),
-			Backdrop = React.createElement(View, {
-				Size = UDim2.fromScale(2, 2),
-				Position = UDim2.fromScale(-0.5, -0.5),
-				ZIndex = 1,
-				stateLayer = {
-					affordance = StateLayerAffordance.None,
-				},
-				backgroundStyle = backdropTransparency:map(function(value: number)
-					return {
-						Color3 = tokens.Color.Common.Backdrop.Color3,
-						Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
-					}
-				end),
-				onActivated = closeSheet,
-				testId = `{props.testId}--backdrop`,
-			}),
-		}, overlay)
+			overlay
+		)
 end
 
 return React.memo(React.forwardRef(SideSheet))

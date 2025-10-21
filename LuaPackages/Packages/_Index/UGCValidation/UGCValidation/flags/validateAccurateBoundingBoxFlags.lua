@@ -54,4 +54,53 @@ function validateAccurateBoundingBoxFlags.inflationThreshold(): number
 	return tonumber(game:GetFastString("UGCValidateAccurateBoundingBoxInflationThreshold")) :: number
 end
 
+game:DefineFastString("UGCValidationInflationThresholdDynamicHeadX", "0.334")
+game:DefineFastString("UGCValidationInflationThresholdDynamicHeadY", "0.334")
+game:DefineFastString("UGCValidationInflationThresholdDynamicHeadZ", "0.334")
+
+game:DefineFastString("UGCValidationInflationThresholdTorsoX", "0.334")
+game:DefineFastString("UGCValidationInflationThresholdTorsoY", "0.334")
+game:DefineFastString("UGCValidationInflationThresholdTorsoZ", "0.334")
+
+game:DefineFastString("UGCValidationInflationThresholdArmsX", "1.0")
+game:DefineFastString("UGCValidationInflationThresholdArmsY", "0.334")
+game:DefineFastString("UGCValidationInflationThresholdArmsZ", "1.0")
+
+game:DefineFastString("UGCValidationInflationThresholdLegsX", "0.7")
+game:DefineFastString("UGCValidationInflationThresholdLegsY", "0.334")
+game:DefineFastString("UGCValidationInflationThresholdLegsZ", "0.7")
+
+local DynamicHeadAxisThresholds = {
+	X = tonumber(game:GetFastString("UGCValidationInflationThresholdDynamicHeadX")) :: number,
+	Y = tonumber(game:GetFastString("UGCValidationInflationThresholdDynamicHeadY")) :: number,
+	Z = tonumber(game:GetFastString("UGCValidationInflationThresholdDynamicHeadZ")) :: number,
+}
+
+local TorsoAxisThresholds = {
+	X = tonumber(game:GetFastString("UGCValidationInflationThresholdTorsoX")) :: number,
+	Y = tonumber(game:GetFastString("UGCValidationInflationThresholdTorsoY")) :: number,
+	Z = tonumber(game:GetFastString("UGCValidationInflationThresholdTorsoZ")) :: number,
+}
+
+local ArmsAxisThresholds = {
+	X = tonumber(game:GetFastString("UGCValidationInflationThresholdArmsX")) :: number,
+	Y = tonumber(game:GetFastString("UGCValidationInflationThresholdArmsY")) :: number,
+	Z = tonumber(game:GetFastString("UGCValidationInflationThresholdArmsZ")) :: number,
+}
+
+local LegsAxisThresholds = {
+	X = tonumber(game:GetFastString("UGCValidationInflationThresholdLegsX")) :: number,
+	Y = tonumber(game:GetFastString("UGCValidationInflationThresholdLegsY")) :: number,
+	Z = tonumber(game:GetFastString("UGCValidationInflationThresholdLegsZ")) :: number,
+}
+
+validateAccurateBoundingBoxFlags.AssetTypeToAxisThresholds = {
+	[Enum.AssetType.DynamicHead] = DynamicHeadAxisThresholds,
+	[Enum.AssetType.Torso] = TorsoAxisThresholds,
+	[Enum.AssetType.LeftArm] = ArmsAxisThresholds,
+	[Enum.AssetType.RightArm] = ArmsAxisThresholds,
+	[Enum.AssetType.LeftLeg] = LegsAxisThresholds,
+	[Enum.AssetType.RightLeg] = LegsAxisThresholds,
+}
+
 return validateAccurateBoundingBoxFlags

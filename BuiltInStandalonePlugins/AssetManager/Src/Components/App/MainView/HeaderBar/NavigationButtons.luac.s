@@ -1,0 +1,108 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["backHistory"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["forwardHistory"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["use"]
+  CALL R1 0 1
+  GETUPVAL R2 1
+  MOVE R3 R1
+  CALL R2 1 2
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["createElement"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K2 ["View"]
+  DUPTABLE R6 K5 [{"LayoutOrder", "tag"}]
+  GETTABLEKS R7 R0 K3 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K3 ["LayoutOrder"]
+  LOADK R7 K6 ["size-0 auto-xy row"]
+  SETTABLEKS R7 R6 K4 ["tag"]
+  DUPTABLE R7 K9 [{"BackButton", "ForwardButton"}]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K10 ["IconButton"]
+  DUPTABLE R10 K15 [{"LayoutOrder", "icon", "size", "onActivated", "isDisabled"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K3 ["LayoutOrder"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K16 ["Enums"]
+  GETTABLEKS R12 R13 K17 ["IconName"]
+  GETTABLEKS R11 R12 K18 ["ChevronLargeLeft"]
+  SETTABLEKS R11 R10 K11 ["icon"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K16 ["Enums"]
+  GETTABLEKS R12 R13 K19 ["IconSize"]
+  GETTABLEKS R11 R12 K20 ["XSmall"]
+  SETTABLEKS R11 R10 K12 ["size"]
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R1
+  SETTABLEKS R11 R10 K13 ["onActivated"]
+  SETTABLEKS R2 R10 K14 ["isDisabled"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K7 ["BackButton"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K10 ["IconButton"]
+  DUPTABLE R10 K15 [{"LayoutOrder", "icon", "size", "onActivated", "isDisabled"}]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K3 ["LayoutOrder"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K16 ["Enums"]
+  GETTABLEKS R12 R13 K17 ["IconName"]
+  GETTABLEKS R11 R12 K21 ["ChevronLargeRight"]
+  SETTABLEKS R11 R10 K11 ["icon"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K16 ["Enums"]
+  GETTABLEKS R12 R13 K19 ["IconSize"]
+  GETTABLEKS R11 R12 K20 ["XSmall"]
+  SETTABLEKS R11 R10 K12 ["size"]
+  NEWCLOSURE R11 P1
+  CAPTURE VAL R1
+  SETTABLEKS R11 R10 K13 ["onActivated"]
+  SETTABLEKS R3 R10 K14 ["isDisabled"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K8 ["ForwardButton"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetManager"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Controllers"]
+  GETTABLEKS R4 R5 K11 ["ExplorerController"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Hooks"]
+  GETTABLEKS R5 R6 K13 ["useCurrentScopeHistory"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K14 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R5 1

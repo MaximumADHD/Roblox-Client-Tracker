@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type Padding = Types.Padding
@@ -34,17 +35,28 @@ local function variantsFactory(tokens: Tokens)
 		input = { stroke = { thickness = strokeThickness } },
 	}
 
-	local sizes: { [InputSize]: VariantProps } = {
-		[InputSize.XSmall] = { container = { tag = "gap-small" } },
-		[InputSize.Small] = { container = { tag = "gap-small" } },
-		[InputSize.Medium] = { container = { tag = "gap-medium" } },
-		[InputSize.Large] = { container = { tag = "gap-large" } },
-	}
+	local sizes: { [InputSize]: VariantProps }
+	-- TODO: Remove sizes and move gap to common when we remove the flag FoundationInternalInputSelectedStylesAndSpacing
+	if Flags.FoundationInternalInputSelectedStylesAndSpacing then
+		sizes = {
+			[InputSize.XSmall] = { container = { tag = "gap-medium" } },
+			[InputSize.Small] = { container = { tag = "gap-medium" } },
+			[InputSize.Medium] = { container = { tag = "gap-medium" } },
+			[InputSize.Large] = { container = { tag = "gap-medium" } },
+		}
+	else
+		sizes = {
+			[InputSize.XSmall] = { container = { tag = "gap-small" } },
+			[InputSize.Small] = { container = { tag = "gap-small" } },
+			[InputSize.Medium] = { container = { tag = "gap-medium" } },
+			[InputSize.Large] = { container = { tag = "gap-large" } },
+		}
+	end
 
 	return { common = common, sizes = sizes }
 end
 
 return function(tokens: Tokens, size: InputSize): InputVariantProps
 	local props = VariantsContext.useVariants("InternalInput", variantsFactory, tokens)
-	return composeStyleVariant(props.common, props.sizes[size])
+	return composeStyleVariant(props.common, (props.sizes)[size])
 end

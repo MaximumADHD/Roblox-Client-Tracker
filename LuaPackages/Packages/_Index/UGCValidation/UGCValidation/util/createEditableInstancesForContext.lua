@@ -2,6 +2,7 @@
 --!nocheck
 
 local root = script.Parent.Parent
+local createEditableInstancesForContext = {}
 
 local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
 local getEngineFeatureEngineEditableMeshAvatarPublish =
@@ -50,7 +51,12 @@ local function createEditableInstanceFromId(content, contentIdMap, contentType)
 	}
 end
 
-local function getEditableInstanceInfo(content, contentIdMap, contentType, allowEditableInstances)
+function createEditableInstancesForContext.getEditableInstanceInfo(
+	content,
+	contentIdMap,
+	contentType,
+	allowEditableInstances
+)
 	local created = false
 	local editableInstance
 	if allowEditableInstances then
@@ -181,7 +187,7 @@ local function getMeshContentMap(instance, contentIdToContentMap, allowEditableI
 	end
 end
 
-local function getOrCreateEditableInstances(
+function createEditableInstancesForContext.getOrCreateEditableInstances(
 	instance,
 	contentIdMap,
 	editableInstances,
@@ -193,8 +199,12 @@ local function getOrCreateEditableInstances(
 
 	for key, contentInfo in contentIdToContentMap do
 		local contentType = contentInfo.contentType
-		local success, result =
-			getEditableInstanceInfo(contentInfo.content :: any, contentIdMap, contentType, allowEditableInstances)
+		local success, result = createEditableInstancesForContext.getEditableInstanceInfo(
+			contentInfo.content :: any,
+			contentIdMap,
+			contentType,
+			allowEditableInstances
+		)
 		if not success then
 			return success, result
 		end
@@ -205,7 +215,10 @@ local function getOrCreateEditableInstances(
 	return true
 end
 
-return function(instances: { Instance }, allowEditableInstances: boolean?): (boolean, any)
+function createEditableInstancesForContext.processAll(
+	instances: { Instance },
+	allowEditableInstances: boolean?
+): (boolean, any)
 	local result = {
 		editableMeshes = {},
 		editableImages = {},
@@ -221,8 +234,12 @@ return function(instances: { Instance }, allowEditableInstances: boolean?): (boo
 		table.insert(descendantsAndObject, instance)
 
 		for _, descendant in pairs(descendantsAndObject) do
-			local success, reason =
-				getOrCreateEditableInstances(descendant, contentIdMap, result, allowEditableInstances)
+			local success, reason = createEditableInstancesForContext.getOrCreateEditableInstances(
+				descendant,
+				contentIdMap,
+				result,
+				allowEditableInstances
+			)
 			if not success then
 				destroyEditableInstances(
 					result.editableMeshes :: Types.EditableMeshes,
@@ -235,3 +252,5 @@ return function(instances: { Instance }, allowEditableInstances: boolean?): (boo
 
 	return true, result
 end
+
+return createEditableInstancesForContext

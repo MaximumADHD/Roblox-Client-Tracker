@@ -9,7 +9,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 type ControlState = ControlState.ControlState
 
 local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
-local Tokens = RbxDesignFoundations.Tokens.FoundationDark(1)
+local Tokens = RbxDesignFoundations.Tokens.Dark(1)
 local Typography = Tokens.Typography
 local NominalScale = Tokens.Config.Text.NominalScale
 

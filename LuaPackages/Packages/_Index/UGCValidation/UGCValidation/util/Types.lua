@@ -23,6 +23,8 @@ export type BypassFlags = {
 	skipSnapshot: boolean?,
 	skipValidateHSR: boolean?,
 	skipPhysicsDataReset: boolean?,
+	studioPluginName: string?,
+	localizationCallback: ((failureStringContext) -> string)?,
 }
 export type ScriptTimes = { [string]: number }
 export type PartSizes = { [Instance]: Vector3 }
@@ -61,21 +63,43 @@ export type MeshInfo = {
 }
 
 -- ========== Validation System data types ==========
+export type UploadEnum = { assetType: Enum.AssetType, bundleType: Enum.BundleType }
+
+export type EditableMeshData = {
+	editable: EditableMesh,
+	createdInValidation: boolean,
+	originalSize: Vector3,
+	scale: Vector3,
+}
+
+export type EditableCageData = {
+	editable: EditableMesh,
+	createdInValidation: boolean,
+	originalSize: Vector3,
+	origin: CFrame,
+}
+
+export type EditableImageData = {
+	editable: EditableImage,
+	createdInValidation: boolean,
+}
+
 export type SharedData = {
-	-- Names should match ValidationEnums.SharedDataMember
+	-- Names should match ValidationEnums.SharedDataMember.
+	-- NOT ALL THIS DATA IS GAURANTEED TO EXIST - If your test requires it, you should specify it in your test configs
+	-- These members are marked as never nil because the assumption is you are only using data you specified you needed
+	jobId: string,
+	entrypointInput: any,
+	rootInstance: Instance,
+	uploadCategory: string,
+	uploadEnum: UploadEnum,
+	consumerConfig: UGCValidationConsumerConfigs,
+	qualityResults: { [string]: string },
 
-	-- NOT ALL THIS DATA IS GAURANTEED TO EXIST - If your test requires it, you must specify it in your test configs
-	-- These members are marked as never nil because the assumption is you are only using data you specified you need
-	-- Otherwise, you will have to keep writing assert(data.prop) even though the validationRunner will only run your test when the data exists
-
-	root_instance: Instance,
-	upload_category: string,
-	creation_source: string,
-
-	asset_type_enum: Enum.AssetType,
-	bundle_type_enum: Enum.BundleType,
-
-	quality_results: {},
+	renderMeshesData: { [string]: EditableMeshData },
+	innerCagesData: { [string]: EditableCageData },
+	outerCagesData: { [string]: EditableCageData },
+	meshTextures: { [string]: EditableImageData },
 }
 
 export type failureStringContext = {
@@ -91,6 +115,7 @@ export type SingleValidationResult = {
 
 export type ValidationResultData = {
 	pass: boolean,
+	numFailures: number,
 	states: { [string]: string },
 	errorTranslationContexts: { failureStringContext },
 	internalData: { [string]: {} },
@@ -98,10 +123,10 @@ export type ValidationResultData = {
 
 export type ValidationReporterFailMethod = (
 	self: ValidationReporter,
+	errorKey: string,
 	errorLabelVariables: { [string]: any }?,
-	errorKeyOverride: string?,
 	internalContext: {}?,
-	telemetryContext: any? -- TODO: specify type allowed for analytics
+	telemetryContext: string?
 ) -> nil
 
 export type ValidationReporter = {
@@ -115,25 +140,32 @@ export type SingleValidationFileData = {
 	isQuality: boolean,
 }
 
+export type UGCValidationConsumerName = "Toolbox" | "AutoSetup" | "Backend" | "InExpClient" | "InExpServer"
+
 export type UGCValidationConsumerConfigs = {
-	source: "StudioPlugin" | "Backend" | "InExpClient" | "InExpServer",
+	source: UGCValidationConsumerName,
+	enforceR15FolderStructure: boolean,
+	telemetry_bundle_id: string,
+	telemetry_root_id: string,
+	preloadedEditableMeshes: { string: EditableMesh }?,
+	preloadedEditableImages: { string: EditableImage }?,
 }
 
 export type ValidationModule = {
 	fflag: (() -> boolean)?,
-	is_quality: boolean?,
 	categories: { string }?,
 	required_data: { string }?,
 	prereq_tests: { string }?,
+	expected_failures: { string }?,
 	run: (ValidationReporter, SharedData) -> nil,
 }
 
 export type PreloadedValidationModule = {
 	fflag: () -> boolean,
-	is_quality: boolean,
 	categories: { string },
 	required_data: { string },
 	prereq_tests: { string },
+	expected_failures: { string },
 	run: (ValidationReporter, SharedData) -> nil,
 }
 

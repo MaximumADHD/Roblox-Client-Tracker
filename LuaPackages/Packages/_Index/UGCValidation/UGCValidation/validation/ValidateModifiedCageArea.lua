@@ -19,14 +19,10 @@ local StringUtil = require(root.util.StringUtil)
 local FIntUGCValidateExcludedUVModifyRequirements = game:DefineFastInt("UGCValidateExcludedUVModifyRequirements", 14)
 local FIntUGCValidatePartUVModifyRequirements = game:DefineFastInt("UGCValidatePartUVModifyRequirements", 45)
 local FIntUGCValidateRenderMeshInsideModifiedArea = game:DefineFastInt("UGCValidateRenderMeshInsideModifiedArea", 70)
-local FFlagUGCValidateModifiedAreaUsePadding = game:DefineFastFlag("UGCValidateModifiedAreaUsePadding", false)
 local FStringUGCValidateModifiedAreaPaddingModifier =
 	game:DefineFastString("UGCValidateModifiedAreaPaddingModifier", "1.1")
 
-local modifiedAreaPadding = nil
-if FFlagUGCValidateModifiedAreaUsePadding then
-	modifiedAreaPadding = tonumber(FStringUGCValidateModifiedAreaPaddingModifier)
-end
+local modifiedAreaPadding = tonumber(FStringUGCValidateModifiedAreaPaddingModifier)
 
 local ValidateModifiedCageArea = {}
 
@@ -299,9 +295,8 @@ function ValidateModifiedCageArea.validateRenderMeshInsideModifiedOuterCageArea(
 		)
 	end
 
-	if FFlagUGCValidateModifiedAreaUsePadding then
-		modifiedAreaSize = modifiedAreaSize * modifiedAreaPadding
-	end
+	modifiedAreaSize = modifiedAreaSize * modifiedAreaPadding
+
 	local numVertsInModifiedArea = 0
 	for _, vertPos in renderMeshVerts do
 		if CollisionTestUtil.pointInAxisAlignedBounds(vertPos, modifiedAreaPosition, modifiedAreaSize) then

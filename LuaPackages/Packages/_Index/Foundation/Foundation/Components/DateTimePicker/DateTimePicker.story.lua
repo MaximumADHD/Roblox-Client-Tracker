@@ -1,20 +1,14 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local DateTimePicker = require(Foundation.Components.DateTimePicker)
-local DateTimePickerVariant = require(Foundation.Enums.DateTimePickerVariant)
+local DateTimePickerVariantEnum = require(Foundation.Enums.DateTimePickerVariant)
 local View = require(Foundation.Components.View)
-
-type DateTimePickerVariant = DateTimePickerVariant.DateTimePickerVariant
-
-local dateTimePickerVariants = Dash.values(DateTimePickerVariant) :: { DateTimePickerVariant }
 
 type Props = {
 	controls: {
-		variant: DateTimePickerVariant,
 		defaultSelectedDate: boolean?,
 		hasError: boolean?,
 		isDisabled: boolean?,
@@ -28,7 +22,7 @@ return {
 	summary = "DateTimePicker",
 	stories = {
 		{
-			name = "DateTimePicker with no default selected date",
+			name = "DateTimePicker - Dual",
 			story = function(props: Props)
 				local currDate = DateTime.now()
 				return React.createElement(View, {
@@ -46,14 +40,14 @@ return {
 								endDate = DateTime.fromUnixTimestamp(currDate.UnixTimestamp + (2 * 24 * 60 * 60)),
 							}
 							else nil,
-						variant = props.controls.variant,
+						variant = DateTimePickerVariantEnum.Dual,
 						width = UDim.new(0, props.controls.width),
 					}),
 				})
 			end,
 		},
 		{
-			name = "DateTimePicker with default selected date",
+			name = "DateTimePicker - Single",
 			story = function(props: Props)
 				local currDate = DateTime.now()
 				return React.createElement(View, {
@@ -61,7 +55,6 @@ return {
 					tag = "row",
 				}, {
 					DateTimePicker = React.createElement(DateTimePicker, {
-						defaultSelectedDate = DateTime.fromLocalTime(2000, 1, 1),
 						hasError = props.controls.hasError,
 						isDisabled = props.controls.isDisabled,
 						label = props.controls.label,
@@ -72,7 +65,59 @@ return {
 								endDate = DateTime.fromUnixTimestamp(currDate.UnixTimestamp + (2 * 24 * 60 * 60)),
 							}
 							else nil,
-						variant = props.controls.variant,
+						variant = DateTimePickerVariantEnum.Single,
+						width = UDim.new(0, props.controls.width),
+					}),
+				})
+			end,
+		},
+		{
+			name = "DateTimePicker - Single with default selected date 1/1/2000",
+			story = function(props: Props)
+				local currDate = DateTime.now()
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 100),
+					tag = "row",
+				}, {
+					DateTimePicker = React.createElement(DateTimePicker, {
+						defaultDates = DateTime.fromLocalTime(2000, 1, 1),
+						hasError = props.controls.hasError,
+						isDisabled = props.controls.isDisabled,
+						label = props.controls.label,
+						onChanged = function() end,
+						selectableDateRange = if props.controls.showUnselectableDates
+							then {
+								startDate = currDate,
+								endDate = DateTime.fromUnixTimestamp(currDate.UnixTimestamp + (2 * 24 * 60 * 60)),
+							}
+							else nil,
+						variant = DateTimePickerVariantEnum.Single,
+						width = UDim.new(0, props.controls.width),
+					}),
+				})
+			end,
+		},
+		{
+			name = "DateTimePicker - Dual with default selected date 1/1/2000 - 1/3/2000",
+			story = function(props: Props)
+				local currDate = DateTime.now()
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 100),
+					tag = "row",
+				}, {
+					DateTimePicker = React.createElement(DateTimePicker, {
+						defaultDates = { DateTime.fromLocalTime(2000, 1, 1), DateTime.fromLocalTime(2000, 1, 3) },
+						hasError = props.controls.hasError,
+						isDisabled = props.controls.isDisabled,
+						label = props.controls.label,
+						onChanged = function() end,
+						selectableDateRange = if props.controls.showUnselectableDates
+							then {
+								startDate = currDate,
+								endDate = DateTime.fromUnixTimestamp(currDate.UnixTimestamp + (2 * 24 * 60 * 60)),
+							}
+							else nil,
+						variant = DateTimePickerVariantEnum.Dual,
 						width = UDim.new(0, props.controls.width),
 					}),
 				})
@@ -80,7 +125,6 @@ return {
 		},
 	},
 	controls = {
-		variant = dateTimePickerVariants,
 		hasError = false,
 		isDisabled = false,
 		label = "Date",

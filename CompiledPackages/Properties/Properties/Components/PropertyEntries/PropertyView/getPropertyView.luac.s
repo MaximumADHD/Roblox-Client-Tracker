@@ -52,31 +52,40 @@ MAIN:
   GETTABLEKS R8 R0 K6 ["Components"]
   GETTABLEKS R7 R8 K7 ["PropertyEntries"]
   GETTABLEKS R6 R7 K8 ["PropertyView"]
-  GETTABLEKS R5 R6 K12 ["StringPropertyView"]
+  GETTABLEKS R5 R6 K12 ["NumberPropertyView"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R9 R0 K6 ["Components"]
   GETTABLEKS R8 R9 K7 ["PropertyEntries"]
   GETTABLEKS R7 R8 K8 ["PropertyView"]
-  GETTABLEKS R6 R7 K13 ["Vector3PropertyView"]
+  GETTABLEKS R6 R7 K13 ["StringPropertyView"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K14 ["Util"]
-  GETTABLEKS R7 R8 K15 ["isInstanceClassName"]
+  GETTABLEKS R10 R0 K6 ["Components"]
+  GETTABLEKS R9 R10 K7 ["PropertyEntries"]
+  GETTABLEKS R8 R9 K8 ["PropertyView"]
+  GETTABLEKS R7 R8 K14 ["Vector3PropertyView"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R8 R0 K16 ["RpcTypes"]
+  GETTABLEKS R9 R0 K15 ["Util"]
+  GETTABLEKS R8 R9 K16 ["isInstanceClassName"]
   CALL R7 1 1
-  DUPTABLE R8 K22 [{"string", "Vector3", "boolean", "bool", "Instance"}]
-  SETTABLEKS R4 R8 K17 ["string"]
-  SETTABLEKS R5 R8 K18 ["Vector3"]
-  SETTABLEKS R2 R8 K19 ["boolean"]
-  SETTABLEKS R2 R8 K20 ["bool"]
-  SETTABLEKS R3 R8 K21 ["Instance"]
-  NEWTABLE R9 0 0
-  DUPCLOSURE R10 K23 [PROTO_0]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R0 K17 ["RpcTypes"]
+  CALL R8 1 1
+  DUPTABLE R9 K26 [{"int", "int64", "float", "string", "Vector3", "boolean", "bool", "Instance"}]
+  SETTABLEKS R4 R9 K18 ["int"]
+  SETTABLEKS R4 R9 K19 ["int64"]
+  SETTABLEKS R4 R9 K20 ["float"]
+  SETTABLEKS R5 R9 K21 ["string"]
+  SETTABLEKS R6 R9 K22 ["Vector3"]
+  SETTABLEKS R2 R9 K23 ["boolean"]
+  SETTABLEKS R2 R9 K24 ["bool"]
+  SETTABLEKS R3 R9 K25 ["Instance"]
+  NEWTABLE R10 0 0
+  DUPCLOSURE R11 K27 [PROTO_0]
+  CAPTURE VAL R10
   CAPTURE VAL R9
-  CAPTURE VAL R8
-  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R1
-  RETURN R10 1
+  RETURN R11 1

@@ -86,6 +86,7 @@ local defaultProps = {
 	formatAsString = defaultFormatAsString,
 	width = UDim.new(0, 400),
 	isScruabble = false,
+	testId = "--foundation-number-input",
 }
 
 local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<GuiObject>?)
@@ -107,6 +108,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		width: UDim,
 		leadingIcon: string?,
 		isScrubbable: boolean?,
+		testId: string,
 	} & Types.CommonProps
 
 	local tokens = useTokens()
@@ -235,6 +237,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			isDisabled = props.isDisabled or isDisabledDown,
 			onClick = onDecrement,
 		},
+		testId = props.testId,
 	})
 
 	local widthOffset = React.useMemo(function()
@@ -359,7 +362,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 						)
 						else nil,
 					isDisabled = props.isDisabled,
-					testId = "--foundation-numberinput-field",
+					testId = `{props.testId}--field`,
 				})
 
 				return if isSplitVariant

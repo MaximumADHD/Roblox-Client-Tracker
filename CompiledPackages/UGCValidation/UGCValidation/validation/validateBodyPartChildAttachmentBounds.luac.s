@@ -38,7 +38,7 @@ PROTO_0:
   JUMPIFLT R18 R19 [+5]
   GETTABLE R18 R10 R17
   GETTABLE R19 R12 R17
-  JUMPIFNOTLT R19 R18 [+141]
+  JUMPIFNOTLT R19 R18 [+111]
   GETUPVAL R19 1
   GETTABLEKS R18 R19 K14 ["reportFailure"]
   GETUPVAL R21 1
@@ -47,40 +47,33 @@ PROTO_0:
   LOADNIL R20
   MOVE R21 R3
   CALL R18 3 0
-  LOADNIL R18
-  LOADNIL R19
-  LOADNIL R20
-  LOADNIL R21
-  GETUPVAL R22 2
-  CALL R22 0 1
-  JUMPIFNOT R22 [+54]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K17 ["clampAttachmentToBounds"]
-  MOVE R23 R0
-  MOVE R24 R4
-  MOVE R25 R2
-  LOADK R26 K18 [0.001]
-  CALL R22 4 1
-  MOVE R18 R22
-  AND R23 R6 R7
-  FASTCALL2K ASSERT R23 K19 [+4]
-  LOADK R24 K19 ["meshCenterOpt and meshDimensionsOpt must be defined"]
-  GETIMPORT R22 K21 [assert]
-  CALL R22 2 0
-  LOADNIL R22
-  GETUPVAL R24 3
-  GETTABLEKS R23 R24 K22 ["calculateAcceptableBoundsLocalSpace"]
-  MOVE R24 R2
-  MOVE R25 R4
-  MOVE R26 R7
-  MOVE R27 R6
-  CALL R23 4 2
-  MOVE R22 R23
-  MOVE R21 R24
-  GETTABLEKS R19 R22 K7 ["Position"]
-  GETTABLEKS R23 R22 K23 ["Rotation"]
-  NAMECALL R23 R23 K24 ["ToOrientation"]
-  CALL R23 1 3
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K17 ["clampAttachmentToBounds"]
+  MOVE R19 R0
+  MOVE R20 R4
+  MOVE R21 R2
+  LOADK R22 K18 [0.001]
+  CALL R18 4 1
+  AND R20 R6 R7
+  FASTCALL2K ASSERT R20 K19 [+4]
+  LOADK R21 K19 ["meshCenterOpt and meshDimensionsOpt must be defined"]
+  GETIMPORT R19 K21 [assert]
+  CALL R19 2 0
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K22 ["calculateAcceptableBoundsLocalSpace"]
+  MOVE R20 R2
+  MOVE R21 R4
+  MOVE R22 R7
+  MOVE R23 R6
+  CALL R19 4 2
+  GETTABLEKS R21 R19 K7 ["Position"]
+  GETTABLEKS R22 R19 K23 ["Rotation"]
+  NAMECALL R22 R22 K24 ["ToOrientation"]
+  CALL R22 1 3
+  FASTCALL1 MATH_DEG R22 [+3]
+  MOVE R27 R22
+  GETIMPORT R26 K27 [math.deg]
+  CALL R26 1 1
   FASTCALL1 MATH_DEG R23 [+3]
   MOVE R28 R23
   GETIMPORT R27 K27 [math.deg]
@@ -89,69 +82,51 @@ PROTO_0:
   MOVE R29 R24
   GETIMPORT R28 K27 [math.deg]
   CALL R28 1 1
-  FASTCALL1 MATH_DEG R25 [+3]
-  MOVE R30 R25
-  GETIMPORT R29 K27 [math.deg]
-  CALL R29 1 1
   FASTCALL VECTOR [+2]
-  GETIMPORT R26 K30 [Vector3.new]
-  CALL R26 3 1
-  MOVE R20 R26
-  LOADB R22 0
-  NEWTABLE R23 0 1
-  GETUPVAL R25 2
-  CALL R25 0 1
-  JUMPIFNOT R25 [+45]
-  GETIMPORT R24 K33 [string.format]
-  LOADK R25 K34 ["Attachment (%s) in %s is placed at position [%s] that is outside the valid range. The closest valid position is [%s]. (the attachment must be within the oriented bounding box - Position: [%s], Orientation: [%s], Size: [%s]%s)"]
-  GETTABLEKS R26 R0 K6 ["Name"]
-  GETTABLEKS R27 R1 K6 ["Name"]
-  GETUPVAL R28 4
-  GETTABLEKS R30 R0 K1 ["CFrame"]
-  GETTABLEKS R29 R30 K7 ["Position"]
-  LOADN R30 3
-  CALL R28 2 1
-  GETUPVAL R29 4
-  GETTABLEKS R30 R18 K7 ["Position"]
-  LOADN R31 3
-  CALL R29 2 1
-  GETUPVAL R30 4
-  MOVE R31 R19
-  LOADN R32 3
-  CALL R30 2 1
-  GETUPVAL R31 4
-  MOVE R32 R20
-  LOADN R33 3
-  CALL R31 2 1
-  GETUPVAL R32 4
-  MOVE R33 R21
+  GETIMPORT R25 K30 [Vector3.new]
+  CALL R25 3 1
+  LOADB R26 0
+  NEWTABLE R27 0 1
+  GETIMPORT R28 K33 [string.format]
+  LOADK R29 K34 ["Attachment (%s) in %s is placed at position [%s] that is outside the valid range. The closest valid position is [%s]. (the attachment must be within the oriented bounding box - Position: [%s], Orientation: [%s], Size: [%s]%s)"]
+  GETTABLEKS R30 R0 K6 ["Name"]
+  GETTABLEKS R31 R1 K6 ["Name"]
+  GETUPVAL R32 3
+  GETTABLEKS R34 R0 K1 ["CFrame"]
+  GETTABLEKS R33 R34 K7 ["Position"]
   LOADN R34 3
   CALL R32 2 1
-  GETUPVAL R34 5
-  CALL R34 0 1
-  JUMPIFEQKS R34 K35 [""] [+8]
-  LOADK R34 K36 [". See "]
-  GETUPVAL R37 5
-  CALL R37 0 1
-  MOVE R35 R37
-  LOADK R36 K37 [" for further explanation"]
-  CONCAT R33 R34 R36
+  GETUPVAL R33 3
+  GETTABLEKS R34 R18 K7 ["Position"]
+  LOADN R35 3
+  CALL R33 2 1
+  GETUPVAL R34 3
+  MOVE R35 R21
+  LOADN R36 3
+  CALL R34 2 1
+  GETUPVAL R35 3
+  MOVE R36 R25
+  LOADN R37 3
+  CALL R35 2 1
+  GETUPVAL R36 3
+  MOVE R37 R20
+  LOADN R38 3
+  CALL R36 2 1
+  GETUPVAL R38 4
+  CALL R38 0 1
+  JUMPIFEQKS R38 K35 [""] [+8]
+  LOADK R38 K36 [". See "]
+  GETUPVAL R41 4
+  CALL R41 0 1
+  MOVE R39 R41
+  LOADK R40 K37 [" for further explanation"]
+  CONCAT R37 R38 R40
   JUMP [+1]
-  LOADK R33 K35 [""]
-  CALL R24 9 1
-  JUMP [+14]
-  GETIMPORT R24 K33 [string.format]
-  LOADK R25 K38 ["Attachment (%s) in %s is placed at a position [%s] that is outside the valid range. You need to adjust the attachment position."]
-  GETTABLEKS R26 R0 K6 ["Name"]
-  GETTABLEKS R27 R1 K6 ["Name"]
-  GETUPVAL R28 4
-  GETTABLEKS R30 R0 K1 ["CFrame"]
-  GETTABLEKS R29 R30 K7 ["Position"]
-  CALL R28 1 -1
-  CALL R24 -1 1
-  SETLIST R23 R24 1 [1]
-  RETURN R22 2
-  FORGLOOP R13 2 [-149]
+  LOADK R37 K35 [""]
+  CALL R28 9 -1
+  SETLIST R27 R28 -1 [1]
+  RETURN R26 2
+  FORGLOOP R13 2 [-119]
   LOADB R13 1
   RETURN R13 1
 
@@ -388,36 +363,31 @@ MAIN:
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
   GETTABLEKS R12 R0 K15 ["flags"]
-  GETTABLEKS R11 R12 K16 ["getFFlagUGCValidatePreciseAttachmentErrorMessage"]
+  GETTABLEKS R11 R12 K16 ["getFStringUGCValidationAttachmentErrorLink"]
   CALL R10 1 1
   GETIMPORT R11 K4 [require]
   GETTABLEKS R13 R0 K15 ["flags"]
-  GETTABLEKS R12 R13 K17 ["getFStringUGCValidationAttachmentErrorLink"]
+  GETTABLEKS R12 R13 K17 ["getFFlagRefactorBodyAttachmentOrientationsCheck"]
   CALL R11 1 1
-  GETIMPORT R12 K4 [require]
-  GETTABLEKS R14 R0 K15 ["flags"]
-  GETTABLEKS R13 R14 K18 ["getFFlagRefactorBodyAttachmentOrientationsCheck"]
-  CALL R12 1 1
-  DUPCLOSURE R13 K19 [PROTO_0]
+  DUPCLOSURE R12 K18 [PROTO_0]
   CAPTURE VAL R8
   CAPTURE VAL R2
-  CAPTURE VAL R10
   CAPTURE VAL R9
   CAPTURE VAL R5
-  CAPTURE VAL R11
-  DUPCLOSURE R14 K20 [PROTO_1]
+  CAPTURE VAL R10
+  DUPCLOSURE R13 K19 [PROTO_1]
   CAPTURE VAL R4
-  CAPTURE VAL R13
-  DUPCLOSURE R15 K21 [PROTO_2]
+  CAPTURE VAL R12
+  DUPCLOSURE R14 K20 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R6
-  DUPCLOSURE R16 K22 [PROTO_3]
+  DUPCLOSURE R15 K21 [PROTO_3]
   CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R12
-  CAPTURE VAL R15
-  CAPTURE VAL R7
+  CAPTURE VAL R11
   CAPTURE VAL R14
+  CAPTURE VAL R7
+  CAPTURE VAL R13
   CAPTURE VAL R2
-  RETURN R16 1
+  RETURN R15 1

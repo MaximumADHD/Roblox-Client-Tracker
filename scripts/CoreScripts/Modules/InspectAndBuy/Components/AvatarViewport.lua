@@ -10,6 +10,7 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local Colors = require(InspectAndBuyFolder.Colors)
 local CharacterModelPool = require(InspectAndBuyFolder.CharacterModelPool)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+local FFlagEnableNewAvatarViewportProps = require(InspectAndBuyFolder.Flags.FFlagEnableNewAvatarViewportProps)
 
 local CHARACTER_ROTATION_SPEED = 0.0065
 local STICK_ROTATION_MULTIPLIER = 3
@@ -55,6 +56,15 @@ end
 
 function AvatarViewport:didUpdate(prevProps, prevState)
 	if self.props.visible and self.props.humanoidDescription ~= prevProps.humanoidDescription and self.model then
+		if FFlagEnableNewAvatarViewportProps and self.props.resetCameraAndAutoRotationOnModelChange then
+			-- Reset camera rotation when humanoid description changes (this is needed when auto rotation is disabled)
+			self.xRotation = 0
+			self.yRotation = 0
+			if not self.props.disableAutoRotation then
+				self.lastInputTime = tick() -- Reset input time to reset the avatar's auto-rotation (if enabled)
+			end
+		end
+
 		coroutine.wrap(function()
 			self.characterModelPool:maybeUpdateCharacter(self.props.humanoidDescription)
 		end)()
@@ -76,18 +86,28 @@ end
 -- Note: Because the camera is the object moving, the character will always be upright.
 function AvatarViewport:setRotation()
 	local currentCharacter = self.model
-	local view = self.props.view
-	local viewMapping
-	viewMapping = self.props.views[view]
 
 	if currentCharacter then
 		local hrp = currentCharacter.HumanoidRootPart
 		-- Set the camera's position relative to the initialHrpPosition rather than the current hrp.Position
 		-- So that moving the model for Popin fix purposes will not also move the camera
 		local hrpPosition = self.initialHrpPosition or hrp.Position
-		local offset = viewMapping.DefaultCameraOffset
-		if self.model:FindFirstChildOfClass("Tool") then
-			offset = viewMapping.ToolOffset
+
+		local offset
+		if FFlagEnableNewAvatarViewportProps and self.props.offsetOptions then
+			offset = self.props.offsetOptions.defaultCameraOffset
+			if self.model:FindFirstChildOfClass("Tool") then
+				offset = self.props.offsetOptions.toolOffset
+			end
+		else
+			-- old logic
+			local view = self.props.view
+			local viewMapping
+			viewMapping = self.props.views[view]
+			offset = viewMapping.DefaultCameraOffset
+			if self.model:FindFirstChildOfClass("Tool") then
+				offset = viewMapping.ToolOffset
+			end
 		end
 
 		local cameraPosition = (CFrame.new(hrpPosition) * CFrame.Angles(0, -self.yRotation, 0) * CFrame.Angles(
@@ -97,6 +117,11 @@ function AvatarViewport:setRotation()
 		) * offset).p
 
 		self.viewportCamera.CFrame = CFrame.new(cameraPosition, hrpPosition)
+
+		-- camera field of view controls the zoom of the viewport's camera
+		if FFlagEnableNewAvatarViewportProps and self.props.cameraFieldOfView then
+			self.viewportCamera.FieldOfView = self.props.cameraFieldOfView
+		end
 	end
 end
 
@@ -121,7 +146,15 @@ function AvatarViewport:render()
 			if input.UserInputState == Enum.UserInputState.Begin then
 				self.mouseOrTouchDown = true
 				self.lastPosition = input.Position
-				setScrollingEnabled(false)
+
+				-- make this an optional prop in the new 2.0 flow
+				if FFlagEnableNewAvatarViewportProps then
+					if setScrollingEnabled then
+						setScrollingEnabled(false)
+					end
+				else
+					setScrollingEnabled(false)
+				end
 				local changedConnection = UserInputService.InputChanged:connect(
 					function(inputObject, gameProcessedEvent)
 						if
@@ -146,7 +179,15 @@ function AvatarViewport:render()
 							self.lastInputTime = tick()
 							self:removeConnections()
 						end
-						setScrollingEnabled(true)
+
+						-- make this an optional prop in the new 2.0 flow
+						if FFlagEnableNewAvatarViewportProps then
+							if setScrollingEnabled then
+								setScrollingEnabled(true)
+							end
+						else
+							setScrollingEnabled(true)
+						end
 					end
 				end)
 				table.insert(self.connections, changedConnection)
@@ -173,7 +214,9 @@ function AvatarViewport:handleSpin()
 				and not self.mouseOrTouchDown
 				and not self.gamepadRotating
 			then
-				isSpinning = true
+				if not (FFlagEnableNewAvatarViewportProps and self.props.disableAutoRotation) then
+					isSpinning = true
+				end
 			else
 				isSpinning = false
 			end

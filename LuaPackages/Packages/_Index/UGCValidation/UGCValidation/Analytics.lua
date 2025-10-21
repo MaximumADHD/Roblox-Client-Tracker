@@ -30,24 +30,12 @@ local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 
 local getFFlagUGCValidateLCHandleScale = require(root.flags.getFFlagUGCValidateLCHandleScale)
 local getFFlagUGCValidatePartMass = require(root.flags.getFFlagUGCValidatePartMass)
-local getFFlagUGCValidateMeshMin = require(root.flags.getFFlagUGCValidateMeshMin)
-local getFFlagUGCValidateUseAnalyticsEntryPoint = require(root.flags.getFFlagUGCValidateUseAnalyticsEntryPoint)
-local getEngineFeatureUGCValidateExtraShoesTests = require(root.flags.getEngineFeatureUGCValidateExtraShoesTests)
-local getEngineFeatureUGCValidateBodyPartCageMeshDistance =
-	require(root.flags.getEngineFeatureUGCValidateBodyPartCageMeshDistance)
-local getEngineFeatureUGCValidateBodyMaxCageMeshDistance =
-	require(root.flags.getEngineFeatureUGCValidateBodyMaxCageMeshDistance)
 local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
 local getFFlagRefactorBodyAttachmentOrientationsCheck =
 	require(root.flags.getFFlagRefactorBodyAttachmentOrientationsCheck)
 local getFFlagValidateDeformedLayeredClothingIsInBounds =
 	require(root.flags.getFFlagValidateDeformedLayeredClothingIsInBounds)
 local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
-local getFFlagUGCValidateEmoteAnimationExtendedTests =
-	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
-local getFFlagCheckAccessoryMeshSize = require(root.flags.getFFlagCheckAccessoryMeshSize)
-local getFFlagCheckBodyPartMeshSize = require(root.flags.getFFlagCheckBodyPartMeshSize)
-local getFFlagCheckLayeredClothingMeshSize = require(root.flags.getFFlagCheckLayeredClothingMeshSize)
 
 local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
 local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
@@ -63,6 +51,7 @@ local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
 	require(root.flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
+local getEngineFeatureUGCValidateCheckHSRFileData = require(root.flags.getEngineFeatureUGCValidateCheckHSRFileData)
 
 local function joinTables(...)
 	local result = {}
@@ -78,7 +67,6 @@ local Analytics = {}
 
 Analytics.ErrorType = {
 	resetPhysicsData_FailedToLoadMesh = "resetPhysicsData_FailedToLoadMesh",
-	validateAccessoryName = "validateAccessoryName",
 	validateAccurateBoundingBox = if getFFlagReportVisibilityAndIslandTelemetry()
 		then "validateAccurateBoundingBox"
 		else nil,
@@ -204,6 +192,14 @@ Analytics.ErrorType = {
 	validateTotalSurfaceArea_maxTotalSurfaceAreaExceeded = "validateTotalSurfaceArea_maxTotalSurfaceAreaExceeded",
 	validateCoplanarIntersection_FailedToExecute = "validateCoplanarIntersection_FailedToExecute",
 	validateCoplanarIntersection_CoplanarIntersection = "validateCoplanarIntersection_CoplanarIntersection",
+	validateExcludedModifiedCageUVs_FailedToExecute = "validateExcludedModifiedCageUVs_FailedToExecute",
+	validateExcludedModifiedCageUVs_UnexpectedUVValue = "validateExcludedModifiedCageUVs_UnexpectedUVValue",
+	validateMainModifiedCageUVs_FailedToExecute = "validateMainModifiedCageUVs_FailedToExecute",
+	validateMainModifiedCageUVs_TooFewModifiedUVsFound = "validateMainModifiedCageUVs_TooFewModifiedUVsFound",
+	validateRenderMeshInsideModifiedOuterCageArea_FailedToExecute = "validateRenderMeshInsideModifiedOuterCageArea_FailedToExecute",
+	validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly = "validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly",
+	validateBodyPartCage_FailedToExecute = "validateBodyPartCage_FailedToExecute",
+	validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh = "validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh",
 }
 
 if getEngineFeatureUGCValidationFullBodyFacs() then
@@ -234,28 +230,6 @@ if getEngineFeatureEngineUGCValidationCageUVDuplicates() then
 	Analytics.ErrorType.validateCageUVDuplicate_UnexpectedUVValue = "validateCageUVDuplicate_UnexpectedUVValue"
 end
 
-if getEngineFeatureUGCValidateExtraShoesTests() then
-	Analytics.ErrorType.validateExcludedModifiedCageUVs_FailedToExecute =
-		"validateExcludedModifiedCageUVs_FailedToExecute"
-	Analytics.ErrorType.validateExcludedModifiedCageUVs_UnexpectedUVValue =
-		"validateExcludedModifiedCageUVs_UnexpectedUVValue"
-
-	Analytics.ErrorType.validateMainModifiedCageUVs_FailedToExecute = "validateMainModifiedCageUVs_FailedToExecute"
-	Analytics.ErrorType.validateMainModifiedCageUVs_TooFewModifiedUVsFound =
-		"validateMainModifiedCageUVs_TooFewModifiedUVsFound"
-
-	Analytics.ErrorType.validateRenderMeshInsideModifiedOuterCageArea_FailedToExecute =
-		"validateRenderMeshInsideModifiedOuterCageArea_FailedToExecute"
-	Analytics.ErrorType.validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly =
-		"validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly"
-end
-
-if getEngineFeatureUGCValidateBodyPartCageMeshDistance() or getEngineFeatureUGCValidateBodyMaxCageMeshDistance() then
-	Analytics.ErrorType.validateBodyPartCage_FailedToExecute = "validateBodyPartCage_FailedToExecute"
-	Analytics.ErrorType.validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh =
-		"validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh"
-end
-
 if getFFlagUGCValidatePartSizeWithinRenderSizeLimits() then
 	Analytics.ErrorType.validatePartSizeWithinRenderSizeLimits_SizeExceeded =
 		"validatePartSizeWithinRenderSizeLimits_SizeExceeded"
@@ -275,10 +249,8 @@ if getEngineFeatureEngineUGCValidateRigidNonSkinned() then
 	Analytics.ErrorType.validateRigidMeshSkinning_BonesFoundInMesh = "validateRigidMeshSkinning_BonesFoundInMesh"
 end
 
-if getFFlagUGCValidateMeshMin() then
-	Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize = "validateBodyBlockingTests_ZeroMeshSize"
-	Analytics.ErrorType.validateFullBody_ZeroMeshSize = "validateFullBody_ZeroMeshSize"
-end
+Analytics.ErrorType.validateBodyBlockingTests_ZeroMeshSize = "validateBodyBlockingTests_ZeroMeshSize"
+Analytics.ErrorType.validateFullBody_ZeroMeshSize = "validateFullBody_ZeroMeshSize"
 
 if getFFlagUGCValidateIndividualPartBBoxes() then
 	Analytics.ErrorType.validateBodyAttPosRelativeToParent_PartAboveParent =
@@ -303,17 +275,15 @@ if getFFlagValidateDeformedLayeredClothingIsInBounds() then
 		"validateDeformedLayeredClothingInRenderBounds_ClothingOutOfBounds"
 end
 
-if getFFlagUGCValidateEmoteAnimationExtendedTests() then
-	Analytics.ErrorType.validateEmoteAnimation_FailedToDownloadCurveAnimation =
-		"validateEmoteAnimation_FailedToDownloadCurveAnimation"
-	Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect =
-		"validateCurveAnimation_AnimationHierarchyIsIncorrect"
-	Analytics.ErrorType.validateCurveAnimation_AnimationContainsNoJointManipulation =
-		"validateCurveAnimation_AnimationContainsNoJointManipulation"
-	Analytics.ErrorType.validateCurveAnimation_UnacceptableLength = "validateCurveAnimation_UnacceptableLength"
-	Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds = "validateCurveAnimation_UnacceptableSizeBounds"
-	Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta = "validateCurveAnimation_UnacceptableFrameDelta"
-end
+Analytics.ErrorType.validateEmoteAnimation_FailedToDownloadCurveAnimation =
+	"validateEmoteAnimation_FailedToDownloadCurveAnimation"
+Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect =
+	"validateCurveAnimation_AnimationHierarchyIsIncorrect"
+Analytics.ErrorType.validateCurveAnimation_AnimationContainsNoJointManipulation =
+	"validateCurveAnimation_AnimationContainsNoJointManipulation"
+Analytics.ErrorType.validateCurveAnimation_UnacceptableLength = "validateCurveAnimation_UnacceptableLength"
+Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds = "validateCurveAnimation_UnacceptableSizeBounds"
+Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta = "validateCurveAnimation_UnacceptableFrameDelta"
 
 if
 	getFFlagUGCValidateIncorrectNumericalData()
@@ -332,10 +302,8 @@ if getEngineFeatureEngineUGCIsValidR15AnimationRigCheck() then
 		"validateCurveAnimation_IncorrectAnimationRigData"
 end
 
-if getFFlagCheckAccessoryMeshSize() or getFFlagCheckBodyPartMeshSize() or getFFlagCheckLayeredClothingMeshSize() then
-	Analytics.ErrorType.validateMeshSizeProperty_FailedToLoadMesh = "validateMeshSizeProperty_FailedToLoadMesh"
-	Analytics.ErrorType.validateMeshSizeProperty_Mismatch = "validateMeshSizeProperty_Mismatch"
-end
+Analytics.ErrorType.validateMeshSizeProperty_FailedToLoadMesh = "validateMeshSizeProperty_FailedToLoadMesh"
+Analytics.ErrorType.validateMeshSizeProperty_Mismatch = "validateMeshSizeProperty_Mismatch"
 
 if getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15() then
 	Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_FailedToFetchSkinning =
@@ -356,6 +324,10 @@ end
 if getEngineFeatureEngineUGCValidatePropertiesSensible() then
 	Analytics.ErrorType.validatePropertiesSensible_IncorrectPropertiesFound =
 		"validatePropertiesSensible_IncorrectPropertiesFound"
+end
+
+if getEngineFeatureUGCValidateCheckHSRFileData() then
+	Analytics.ErrorType.validateHSR_FileDataInvalid = "validateHSR_FileDataInvalid"
 end
 
 setmetatable(Analytics.ErrorType, {
@@ -452,27 +424,20 @@ function Analytics.reportScriptTimes(validationContext: Types.ValidationContext)
 	end
 
 	if validationContext.isServer and not RunService:IsStudio() and validationContext.scriptTimes then
-		if getFFlagUGCValidateUseAnalyticsEntryPoint() then
-			assert(Analytics.metadata, "Metadata is never nil")
-			local entrypoint = (Analytics.metadata :: any).entrypoint
+		assert(Analytics.metadata, "Metadata is never nil")
+		local entrypoint = (Analytics.metadata :: any).entrypoint
 
-			local typeForTelemetry = "FullBody"
-			if validationContext.assetTypeEnum then
-				typeForTelemetry = validationContext.assetTypeEnum.Name
-			elseif entrypoint and "string" == type(entrypoint) and #entrypoint > 0 then
-				typeForTelemetry = entrypoint
-			end
-
-			(UGCValidationService :: any):ReportUGCValidationTelemetry(
-				typeForTelemetry,
-				validationContext.scriptTimes :: Types.ScriptTimes
-			)
-		else
-			(UGCValidationService :: any):ReportUGCValidationTelemetry(
-				if validationContext.assetTypeEnum then validationContext.assetTypeEnum.Name else "FullBody",
-				validationContext.scriptTimes :: Types.ScriptTimes
-			)
+		local typeForTelemetry = "FullBody"
+		if validationContext.assetTypeEnum then
+			typeForTelemetry = validationContext.assetTypeEnum.Name
+		elseif entrypoint and "string" == type(entrypoint) and #entrypoint > 0 then
+			typeForTelemetry = entrypoint
 		end
+
+		(UGCValidationService :: any):ReportUGCValidationTelemetry(
+			typeForTelemetry,
+			validationContext.scriptTimes :: Types.ScriptTimes
+		)
 	end
 end
 

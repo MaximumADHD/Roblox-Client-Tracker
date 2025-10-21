@@ -15,6 +15,7 @@ type VariantProps = composeStyleVariant.VariantProps
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
+local Flags = require(Foundation.Utility.Flags)
 local getKnobSize = require(Foundation.Components.Knob.getKnobSize)
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
@@ -49,7 +50,9 @@ local function variantsFactory(tokens: Tokens)
 	local common = {
 		input = {
 			checkedStyle = tokens.Color.ActionEmphasis.Background,
-			cursorRadius = UDim.new(0, tokens.Radius.Medium),
+			cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
+				then UDim.new(0, tokens.Radius.Circle)
+				else UDim.new(0, tokens.Radius.Medium),
 		},
 	}
 

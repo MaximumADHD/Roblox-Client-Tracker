@@ -14,7 +14,7 @@ export type SheetContentProps = {
 	children: React.ReactNode,
 }
 
-local function SheetContent(sheetContentProps: SheetContentProps, ref: React.Ref<GuiObject>?)
+local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local sheet = React.useContext(SheetContext)
 
@@ -66,7 +66,7 @@ local function SheetContent(sheetContentProps: SheetContentProps, ref: React.Ref
 		},
 		React.createElement(View, {
 			tag = "col size-full-0 auto-y padding-x-medium gap-medium align-x-center",
-		}, sheetContentProps.children)
+		}, props.children)
 	)
 end
 

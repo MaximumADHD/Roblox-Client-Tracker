@@ -1627,21 +1627,22 @@ PROTO_72:
   RETURN R3 -1
 
 PROTO_73:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["constructAssetSavedVersionString"]
-  MOVE R4 R1
-  MOVE R5 R2
-  CALL R3 2 1
-  GETUPVAL R4 1
-  LOADK R5 K1 ["getVersionsHistory"]
-  LOADK R6 K2 ["GET"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["constructAssetSavedVersionString"]
+  MOVE R5 R1
+  MOVE R6 R2
   MOVE R7 R3
-  CALL R4 3 0
-  GETTABLEKS R4 R0 K3 ["_networkImp"]
-  MOVE R6 R3
-  NAMECALL R4 R4 K4 ["httpGet"]
-  CALL R4 2 -1
-  RETURN R4 -1
+  CALL R4 3 1
+  GETUPVAL R5 1
+  LOADK R6 K1 ["getVersionsHistory"]
+  LOADK R7 K2 ["GET"]
+  MOVE R8 R4
+  CALL R5 3 0
+  GETTABLEKS R5 R0 K3 ["_networkImp"]
+  MOVE R7 R4
+  NAMECALL R5 R5 K4 ["httpGet"]
+  CALL R5 2 -1
+  RETURN R5 -1
 
 PROTO_74:
   GETUPVAL R4 0

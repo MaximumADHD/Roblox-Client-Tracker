@@ -92,7 +92,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 		then UDim.new(0, tokens.Radius.Circle)
 		else UDim.new(0, variantProps.container.radius or tokens.Radius.Large)
 
-	local iconSize = useIconSize(props.size, isBuilderIcon(iconName)) :: UDim2 -- We don't support bindings for IconButton size
+	local iconSize = useIconSize(props.size, isBuilderIcon(iconName), true) :: UDim2 -- We don't support bindings for IconButton size
 
 	local cursor = React.useMemo(function()
 		return {

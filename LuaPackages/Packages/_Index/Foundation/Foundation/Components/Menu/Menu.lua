@@ -64,7 +64,6 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 
 	return React.createElement(Popover.Root, {
 		isOpen = props.isOpen,
-		ref = ref,
 		testId = props.testId,
 	}, {
 		Anchor = React.createElement(

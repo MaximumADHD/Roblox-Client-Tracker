@@ -87,11 +87,16 @@ PROTO_1:
   RETURN R1 1
 
 PROTO_2:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["_lastSelectionSet"]
+  GETUPVAL R1 0
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["This assertion keeps the listener alive while the signal is alive"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
   GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["_lastSelectionSet"]
+  GETUPVAL R3 2
   GETTABLE R1 R2 R3
-  ORK R0 R1 K0 [False]
+  ORK R0 R1 K3 [False]
   RETURN R0 1
 
 PROTO_3:
@@ -102,19 +107,23 @@ PROTO_3:
   GETTABLE R3 R4 R1
   GETTABLEKS R2 R3 K1 ["isSelected"]
   RETURN R2 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["createSignal"]
-  NEWCLOSURE R3 P0
+  LOADNIL R2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createSignal"]
+  NEWCLOSURE R4 P0
+  CAPTURE REF R2
   CAPTURE VAL R0
   CAPTURE VAL R1
-  CALL R2 1 2
-  DUPTABLE R4 K5 [{"instance", "isSelected", "setIsSelected"}]
-  SETTABLEKS R1 R4 K3 ["instance"]
-  SETTABLEKS R2 R4 K1 ["isSelected"]
-  SETTABLEKS R3 R4 K4 ["setIsSelected"]
+  CALL R3 1 2
+  DUPTABLE R5 K5 [{"instance", "isSelected", "setIsSelected"}]
+  SETTABLEKS R1 R5 K3 ["instance"]
+  SETTABLEKS R3 R5 K1 ["isSelected"]
+  SETTABLEKS R4 R5 K4 ["setIsSelected"]
+  MOVE R2 R5
   GETTABLEKS R5 R0 K0 ["_selectionListeners"]
-  SETTABLE R4 R5 R1
-  GETTABLEKS R5 R4 K1 ["isSelected"]
+  SETTABLE R2 R5 R1
+  GETTABLEKS R5 R2 K1 ["isSelected"]
+  CLOSEUPVALS R2
   RETURN R5 1
 
 PROTO_4:

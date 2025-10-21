@@ -42,6 +42,8 @@ export type DropdownProps = {
 	label: string,
 	hint: string?,
 	size: InputSize?,
+	-- Maximum height after which the menu starts scrolling
+	maxHeight: number?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -136,6 +138,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 						isChecked = item.id == props.value,
 					}
 				end),
+				maxHeight = props.maxHeight,
 				onActivated = onActivated,
 				testId = `{props.testId}--menu`,
 			})

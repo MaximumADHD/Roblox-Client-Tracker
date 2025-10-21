@@ -153,48 +153,50 @@ MAIN:
   LOADK R2 K2 ["AssetImporter"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["InsertService"]
-  NAMECALL R1 R1 K7 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K5 [game]
-  LOADK R4 K8 ["Selection"]
-  NAMECALL R2 R2 K7 ["GetService"]
-  CALL R2 2 1
-  GETIMPORT R3 K5 [game]
-  LOADK R5 K9 ["ChangeHistoryService"]
-  NAMECALL R3 R3 K7 ["GetService"]
-  CALL R3 2 1
-  GETIMPORT R4 K11 [require]
-  GETTABLEKS R7 R0 K12 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Utility"]
-  GETTABLEKS R5 R6 K14 ["getWorkspaceInsertPosition"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["Services"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["InsertService"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["GetService"]
+  LOADK R4 K11 ["Selection"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K9 ["GetService"]
+  LOADK R5 K12 ["ChangeHistoryService"]
   CALL R4 1 1
-  GETIMPORT R5 K11 [require]
-  GETTABLEKS R8 R0 K12 ["Src"]
-  GETTABLEKS R7 R8 K15 ["Flags"]
-  GETTABLEKS R6 R7 K16 ["getFFlagCinFixUploadResults"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K7 ["Utility"]
+  GETTABLEKS R6 R7 K13 ["getWorkspaceInsertPosition"]
   CALL R5 1 1
-  GETIMPORT R6 K11 [require]
-  GETTABLEKS R9 R0 K12 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Flags"]
-  GETTABLEKS R7 R8 K17 ["getFFlagAssetImportSetSourceAssetId"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Flags"]
+  GETTABLEKS R7 R8 K15 ["getFFlagCinFixUploadResults"]
   CALL R6 1 1
-  GETIMPORT R7 K11 [require]
-  GETTABLEKS R10 R0 K12 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Flags"]
-  GETTABLEKS R8 R9 K18 ["getFFlagEnableQuickImporter"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Flags"]
+  GETTABLEKS R8 R9 K16 ["getFFlagAssetImportSetSourceAssetId"]
   CALL R7 1 1
-  DUPCLOSURE R8 K19 [PROTO_0]
-  DUPCLOSURE R9 K20 [PROTO_1]
-  CAPTURE VAL R6
-  CAPTURE VAL R5
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R3
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Flags"]
+  GETTABLEKS R9 R10 K17 ["getFFlagEnableQuickImporter"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K18 [PROTO_0]
+  DUPCLOSURE R10 K19 [PROTO_1]
   CAPTURE VAL R7
+  CAPTURE VAL R6
   CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
   CAPTURE VAL R8
-  DUPCLOSURE R10 K21 [PROTO_3]
+  CAPTURE VAL R3
   CAPTURE VAL R9
-  RETURN R10 1
+  DUPCLOSURE R11 K20 [PROTO_3]
+  CAPTURE VAL R10
+  RETURN R11 1

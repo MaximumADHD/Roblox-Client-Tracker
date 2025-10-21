@@ -7,8 +7,6 @@ local Types = require(root.util.Types)
 local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
 local ConstantsInterface = require(root.ConstantsInterface)
 
-local getFFlagUGCValidateFixDeprecatedTransparency = require(root.flags.getFFlagUGCValidateFixDeprecatedTransparency)
-
 return function(
 	transparentPart: MeshPart,
 	inst: Instance,
@@ -20,10 +18,10 @@ return function(
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
 		AssetTraversalUtils.calculateBounds(
 			assetTypeEnum,
-			if getFFlagUGCValidateFixDeprecatedTransparency() then instOrig :: MeshPart else inst :: MeshPart,
+			instOrig :: MeshPart,
 			CFrame.new(),
 			minMaxBounds,
-			if getFFlagUGCValidateFixDeprecatedTransparency() then validationContext else nil
+			validationContext
 		)
 		transparentPart.CFrame = CFrame.new();
 		(inst :: MeshPart).CFrame = CFrame.new()
@@ -33,14 +31,14 @@ return function(
 		local hierarchy = AssetTraversalUtils.assetHierarchy[assetTypeEnum :: Enum.AssetType]
 		AssetTraversalUtils.traverseHierarchy(
 			nil,
-			if getFFlagUGCValidateFixDeprecatedTransparency() then instOrig :: Folder else inst :: Folder,
+			instOrig :: Folder,
 			assetTypeEnum,
 			nil,
 			CFrame.new(),
 			hierarchy.root,
 			hierarchy,
 			minMaxBounds,
-			if getFFlagUGCValidateFixDeprecatedTransparency() then validationContext else nil
+			validationContext
 		)
 		local function moveParts(folder: Folder?, parentName: string?, parentCFrame: CFrame, name: string, details: any)
 			local meshHandle = (folder :: Folder):FindFirstChild(name) :: MeshPart

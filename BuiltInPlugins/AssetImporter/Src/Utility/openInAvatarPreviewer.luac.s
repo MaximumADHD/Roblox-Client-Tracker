@@ -36,15 +36,22 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["MemStorageService"]
-  NAMECALL R0 R0 K3 ["GetService"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["Selection"]
-  NAMECALL R1 R1 K3 ["GetService"]
-  CALL R1 2 1
-  DUPCLOSURE R2 K5 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R0
-  RETURN R2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["Services"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["MemStorageService"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["GetService"]
+  LOADK R4 K11 ["Selection"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K12 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R4 1

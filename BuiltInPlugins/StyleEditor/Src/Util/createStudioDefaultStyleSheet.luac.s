@@ -129,6 +129,141 @@ PROTO_0:
   CALL R4 2 1
   RETURN R4 1
 
+PROTO_1:
+  DUPTABLE R0 K4 [{"Size", "BackgroundColor3", "BorderColor3", "BorderSizePixel"}]
+  GETIMPORT R1 K7 [UDim2.fromOffset]
+  LOADN R2 100
+  LOADN R3 100
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K0 ["Size"]
+  GETIMPORT R1 K10 [Color3.new]
+  LOADN R2 1
+  LOADN R3 1
+  LOADN R4 1
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K1 ["BackgroundColor3"]
+  GETIMPORT R1 K10 [Color3.new]
+  LOADN R2 0
+  LOADN R3 0
+  LOADN R4 0
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K2 ["BorderColor3"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K3 ["BorderSizePixel"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K11 ["Dictionary"]
+  GETTABLEKS R1 R2 K12 ["join"]
+  MOVE R2 R0
+  DUPTABLE R3 K16 [{"Size", "FontFace", "TextSize", "TextColor3"}]
+  GETIMPORT R4 K7 [UDim2.fromOffset]
+  LOADN R5 200
+  LOADN R6 50
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K0 ["Size"]
+  GETIMPORT R4 K19 [Font.fromEnum]
+  GETIMPORT R5 K22 [Enum.Font.SourceSans]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K13 ["FontFace"]
+  LOADN R4 14
+  SETTABLEKS R4 R3 K14 ["TextSize"]
+  GETIMPORT R4 K10 [Color3.new]
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K15 ["TextColor3"]
+  CALL R1 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["Dictionary"]
+  GETTABLEKS R2 R3 K12 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K24 [{"Image"}]
+  LOADK R5 K25 ["rbxasset://textures/ui/GuiImagePlaceholder.png"]
+  SETTABLEKS R5 R4 K23 ["Image"]
+  CALL R2 2 1
+  DUPTABLE R3 K27 [{"SortOrder"}]
+  GETIMPORT R4 K29 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R4 R3 K26 ["SortOrder"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K11 ["Dictionary"]
+  GETTABLEKS R4 R5 K12 ["join"]
+  MOVE R5 R0
+  DUPTABLE R6 K32 [{"Active", "ScrollBarImageColor3"}]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K30 ["Active"]
+  GETIMPORT R7 K10 [Color3.new]
+  LOADN R8 0
+  LOADN R9 0
+  LOADN R10 0
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K31 ["ScrollBarImageColor3"]
+  CALL R4 2 1
+  DUPTABLE R5 K47 [{"Frame", "ScrollingFrame", "TextLabel", "TextButton", "TextBox", "ImageButton", "ImageLabel", "ViewportFrame", "VideoFrame", "CanvasGroup", "UIListLayout", "UIGridLayout", "UIPageLayout", "UITableLayout"}]
+  SETTABLEKS R0 R5 K33 ["Frame"]
+  SETTABLEKS R4 R5 K34 ["ScrollingFrame"]
+  SETTABLEKS R1 R5 K35 ["TextLabel"]
+  SETTABLEKS R1 R5 K36 ["TextButton"]
+  SETTABLEKS R1 R5 K37 ["TextBox"]
+  SETTABLEKS R2 R5 K38 ["ImageButton"]
+  SETTABLEKS R2 R5 K39 ["ImageLabel"]
+  SETTABLEKS R0 R5 K40 ["ViewportFrame"]
+  SETTABLEKS R0 R5 K41 ["VideoFrame"]
+  SETTABLEKS R0 R5 K42 ["CanvasGroup"]
+  SETTABLEKS R3 R5 K43 ["UIListLayout"]
+  SETTABLEKS R3 R5 K44 ["UIGridLayout"]
+  SETTABLEKS R3 R5 K45 ["UIPageLayout"]
+  SETTABLEKS R3 R5 K46 ["UITableLayout"]
+  RETURN R5 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIF R1 [+3]
+  GETUPVAL R1 1
+  CALL R1 0 1
+  RETURN R1 1
+  MOVE R1 R0
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  MOVE R6 R5
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  GETUPVAL R12 2
+  GETTABLE R11 R12 R9
+  JUMPIFNOT R11 [+2]
+  LOADNIL R11
+  SETTABLE R11 R5 R9
+  FORGLOOP R6 2 [-6]
+  FORGLOOP R1 2 [-12]
+  GETUPVAL R1 3
+  CALL R1 0 3
+  FORGPREP R1
+  GETTABLE R6 R0 R4
+  JUMPIF R6 [+1]
+  SETTABLE R5 R0 R4
+  FORGLOOP R1 2 [-4]
+  NEWTABLE R1 0 0
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  MOVE R8 R1
+  GETUPVAL R9 4
+  MOVE R10 R5
+  MOVE R11 R6
+  CALL R9 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R7 K2 [table.insert]
+  CALL R7 -1 0
+  FORGLOOP R2 2 [-10]
+  GETUPVAL R2 5
+  LOADK R3 K3 ["BaseStyleSheet"]
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -147,8 +282,51 @@ MAIN:
   GETTABLEKS R3 R4 K9 ["createStyleRule"]
   GETTABLEKS R5 R1 K8 ["Styling"]
   GETTABLEKS R4 R5 K10 ["createStyleSheet"]
-  DUPCLOSURE R5 K11 [PROTO_0]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Flags"]
+  GETTABLEKS R6 R7 K13 ["getEngineFeatureCustomizedDefaultInstances"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K14 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R3
-  RETURN R5 1
+  DUPTABLE R7 K29 [{"BorderColor", "BackgroundColor", "TextColor", "FontSize", "Font", "Transparency", "TextWrap", "Video", "Image", "TopImage", "MidImage", "BottomImage", "HoverImage", "PressedImage"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K15 ["BorderColor"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K16 ["BackgroundColor"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K17 ["TextColor"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K18 ["FontSize"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K19 ["Font"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K20 ["Transparency"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K21 ["TextWrap"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K22 ["Video"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K23 ["Image"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K24 ["TopImage"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K25 ["MidImage"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K26 ["BottomImage"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K27 ["HoverImage"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K28 ["PressedImage"]
+  DUPCLOSURE R8 K30 [PROTO_1]
+  CAPTURE VAL R2
+  DUPCLOSURE R9 K31 [PROTO_2]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R9 1

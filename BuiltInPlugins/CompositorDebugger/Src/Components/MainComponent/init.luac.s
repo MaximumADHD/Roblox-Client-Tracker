@@ -151,8 +151,8 @@ PROTO_5:
   GETTABLEKS R11 R12 K13 ["Tag"]
   LOADK R12 K14 ["MainPane X-Fill"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K17 [{"CompositorSelector", "MainSplitPane"}]
-  GETTABLEKS R13 R0 K18 ["useMockPayload"]
+  DUPTABLE R11 K18 [{"CompositorSelector", "NodeView", "MainSplitPane"}]
+  GETTABLEKS R13 R0 K19 ["useMockPayload"]
   JUMPIF R13 [+6]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K12 ["createElement"]
@@ -161,9 +161,31 @@ PROTO_5:
   JUMP [+1]
   LOADNIL R12
   SETTABLEKS R12 R11 K15 ["CompositorSelector"]
+  GETUPVAL R13 5
+  CALL R13 0 1
+  JUMPIFNOT R13 [+18]
+  GETTABLEKS R14 R0 K20 ["context"]
+  GETTABLEKS R13 R14 K21 ["viewMode"]
+  JUMPIFNOTEQKS R13 K16 ["NodeView"] [+13]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K12 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K24 [{"LayoutOrder", "FramePayload"}]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K22 ["LayoutOrder"]
+  SETTABLEKS R7 R14 K23 ["FramePayload"]
+  CALL R12 2 1
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K16 ["NodeView"]
   GETUPVAL R13 5
+  CALL R13 0 1
+  JUMPIFNOT R13 [+2]
+  LOADNIL R12
+  JUMP [+106]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K12 ["createElement"]
+  GETUPVAL R13 7
   NEWTABLE R14 0 0
   NEWTABLE R15 0 2
   GETUPVAL R17 2
@@ -171,67 +193,50 @@ PROTO_5:
   GETUPVAL R17 3
   NEWTABLE R18 2 0
   LOADN R19 1
-  SETTABLEKS R19 R18 K19 ["LayoutOrder"]
+  SETTABLEKS R19 R18 K22 ["LayoutOrder"]
   GETUPVAL R20 2
   GETTABLEKS R19 R20 K13 ["Tag"]
-  LOADK R20 K20 ["X-ColumnS"]
+  LOADK R20 K25 ["X-ColumnS"]
   SETTABLE R20 R18 R19
-  DUPTABLE R19 K24 [{"Toolbar", "LayerTree", "NodeView"}]
-  GETUPVAL R21 2
-  GETTABLEKS R20 R21 K12 ["createElement"]
-  GETUPVAL R21 6
-  DUPTABLE R22 K25 [{"FrameBuffer", "LayoutOrder"}]
-  GETTABLEKS R23 R1 K6 ["FrameBuffer"]
-  SETTABLEKS R23 R22 K6 ["FrameBuffer"]
-  LOADN R23 1
-  SETTABLEKS R23 R22 K19 ["LayoutOrder"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K21 ["Toolbar"]
-  GETUPVAL R21 7
-  CALL R21 0 1
-  JUMPIFNOT R21 [+6]
-  GETTABLEKS R22 R0 K26 ["context"]
-  GETTABLEKS R21 R22 K27 ["viewMode"]
-  JUMPIFNOTEQKS R21 K28 ["TreeView"] [+21]
+  DUPTABLE R19 K28 [{"Toolbar", "LayerTree"}]
   GETUPVAL R21 2
   GETTABLEKS R20 R21 K12 ["createElement"]
   GETUPVAL R21 8
-  DUPTABLE R22 K32 [{"LayoutOrder", "FramePayload", "Adornments", "OnToggleAdornment"}]
-  LOADN R23 2
-  SETTABLEKS R23 R22 K19 ["LayoutOrder"]
-  SETTABLEKS R7 R22 K29 ["FramePayload"]
-  GETTABLEKS R23 R1 K30 ["Adornments"]
-  SETTABLEKS R23 R22 K30 ["Adornments"]
-  GETTABLEKS R23 R0 K33 ["onToggleAdornment"]
-  SETTABLEKS R23 R22 K31 ["OnToggleAdornment"]
+  DUPTABLE R22 K29 [{"FrameBuffer", "LayoutOrder"}]
+  GETTABLEKS R23 R1 K6 ["FrameBuffer"]
+  SETTABLEKS R23 R22 K6 ["FrameBuffer"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K22 ["LayoutOrder"]
   CALL R20 2 1
-  JUMP [+1]
-  LOADNIL R20
-  SETTABLEKS R20 R19 K22 ["LayerTree"]
-  GETUPVAL R21 7
+  SETTABLEKS R20 R19 K26 ["Toolbar"]
+  GETUPVAL R21 5
   CALL R21 0 1
-  JUMPIFNOT R21 [+18]
-  GETTABLEKS R22 R0 K26 ["context"]
-  GETTABLEKS R21 R22 K27 ["viewMode"]
-  JUMPIFNOTEQKS R21 K23 ["NodeView"] [+13]
+  JUMPIFNOT R21 [+6]
+  GETTABLEKS R22 R0 K20 ["context"]
+  GETTABLEKS R21 R22 K21 ["viewMode"]
+  JUMPIFNOTEQKS R21 K30 ["TreeView"] [+21]
   GETUPVAL R21 2
   GETTABLEKS R20 R21 K12 ["createElement"]
   GETUPVAL R21 9
-  DUPTABLE R22 K34 [{"LayoutOrder", "FramePayload"}]
+  DUPTABLE R22 K33 [{"LayoutOrder", "FramePayload", "Adornments", "OnToggleAdornment"}]
   LOADN R23 2
-  SETTABLEKS R23 R22 K19 ["LayoutOrder"]
-  SETTABLEKS R7 R22 K29 ["FramePayload"]
+  SETTABLEKS R23 R22 K22 ["LayoutOrder"]
+  SETTABLEKS R7 R22 K23 ["FramePayload"]
+  GETTABLEKS R23 R1 K31 ["Adornments"]
+  SETTABLEKS R23 R22 K31 ["Adornments"]
+  GETTABLEKS R23 R0 K34 ["onToggleAdornment"]
+  SETTABLEKS R23 R22 K32 ["OnToggleAdornment"]
   CALL R20 2 1
   JUMP [+1]
   LOADNIL R20
-  SETTABLEKS R20 R19 K23 ["NodeView"]
+  SETTABLEKS R20 R19 K27 ["LayerTree"]
   CALL R16 3 1
   GETUPVAL R18 2
   GETTABLEKS R17 R18 K12 ["createElement"]
   GETUPVAL R18 10
   DUPTABLE R19 K37 [{"LayoutOrder", "LayerData", "FrameBuffer", "HistoryFrame", "SelectedLayer", "ExpandedSections", "Overrides", "ShowRawPayload"}]
   LOADN R20 2
-  SETTABLEKS R20 R19 K19 ["LayoutOrder"]
+  SETTABLEKS R20 R19 K22 ["LayoutOrder"]
   SETTABLEKS R6 R19 K35 ["LayerData"]
   GETTABLEKS R20 R1 K6 ["FrameBuffer"]
   SETTABLEKS R20 R19 K6 ["FrameBuffer"]
@@ -247,7 +252,7 @@ PROTO_5:
   CALL R17 2 -1
   SETLIST R15 R16 -1 [1]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K16 ["MainSplitPane"]
+  SETTABLEKS R12 R11 K17 ["MainSplitPane"]
   CALL R8 3 -1
   RETURN R8 -1
 
@@ -503,11 +508,11 @@ MAIN:
   CAPTURE VAL R4
   CAPTURE VAL R14
   CAPTURE VAL R20
+  CAPTURE VAL R7
+  CAPTURE VAL R9
   CAPTURE VAL R23
   CAPTURE VAL R24
-  CAPTURE VAL R7
   CAPTURE VAL R22
-  CAPTURE VAL R9
   CAPTURE VAL R21
   CAPTURE VAL R26
   SETTABLEKS R35 R34 K60 ["render"]

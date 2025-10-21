@@ -18,7 +18,6 @@ local validateAttributes = require(root.validation.validateAttributes)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
-local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateRigidMeshNotSkinned = require(root.validation.validateRigidMeshNotSkinned)
@@ -34,7 +33,6 @@ local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
-local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
 local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
@@ -85,13 +83,6 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
 		success, reasons = ValidatePropertiesSensible.validate(instance, validationContext)
-		if not success then
-			return false, reasons
-		end
-	end
-
-	if getFFlagUGCValidationNameCheck() and isServer then
-		success, reasons = validateAccessoryName(instance, validationContext)
 		if not success then
 			return false, reasons
 		end

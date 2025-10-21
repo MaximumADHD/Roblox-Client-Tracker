@@ -11,8 +11,6 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
-local getEngineFeatureEngineUGCValidateCalculateUniqueUV =
-	require(root.flags.getEngineFeatureEngineUGCValidateCalculateUniqueUV)
 local getFIntUniqueUVTolerance = require(root.flags.getFIntUniqueUVTolerance)
 
 local UGCValidationService = game:GetService("UGCValidationService")
@@ -37,40 +35,11 @@ local function validateCageUVs(
 	local testExecutedSuccessfully
 	local testPassed
 	local uniqueUVCount
-	if getEngineFeatureEngineUGCValidateCalculateUniqueUV() then
-		testExecutedSuccessfully, testPassed = pcallDeferred(function()
-			uniqueUVCount =
-				UGCValidationService:CalculateEditableMeshUniqueUVCount(meshInfo.editableMesh :: EditableMesh)
-			return math.abs(uniqueUVCount - requiredUVCount) <= getFIntUniqueUVTolerance()
-		end, validationContext)
-	else
-		testExecutedSuccessfully, testPassed = pcallDeferred(function()
-			for tolIter = 0, getFIntUniqueUVTolerance() do
-				if
-					UGCValidationService:ValidateEditableMeshUniqueUVCount(
-						meshInfo.editableMesh :: EditableMesh,
-						requiredUVCount + tolIter
-					)
-				then
-					return true
-				end
 
-				if 0 == tolIter or (requiredUVCount - tolIter) < 0 then
-					continue
-				end
-
-				if
-					UGCValidationService:ValidateEditableMeshUniqueUVCount(
-						meshInfo.editableMesh :: EditableMesh,
-						requiredUVCount - tolIter
-					)
-				then
-					return true
-				end
-			end
-			return false
-		end, validationContext)
-	end
+	testExecutedSuccessfully, testPassed = pcallDeferred(function()
+		uniqueUVCount = UGCValidationService:CalculateEditableMeshUniqueUVCount(meshInfo.editableMesh :: EditableMesh)
+		return math.abs(uniqueUVCount - requiredUVCount) <= getFIntUniqueUVTolerance()
+	end, validationContext)
 
 	if not testExecutedSuccessfully then
 		local errorMsg = string.format(

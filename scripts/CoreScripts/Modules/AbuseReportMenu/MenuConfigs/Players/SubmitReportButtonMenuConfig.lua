@@ -145,7 +145,12 @@ local SubmitReportButtonMenuConfig: Types.ButtonMenuItemType = {
 							utilityProps.reportAnythingState,
 							utilityProps.reportAnythingAnalytics.getAccumulatedParameters()
 						)
-						PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
+
+						if game:GetEngineFeature("WHAM2165") and methodOfAbuse == Constants.AbuseMethods.Avatar then
+							PlayersService:ReportAvatarAbuse(allegedAbuserId, request)
+						else
+							PlayersService:ReportAbuseV3(PlayersService.LocalPlayer, request)
+						end
 
 						utilityProps.analyticsDispatch({ type = Constants.AnalyticsActions.SetSubmissionCompleted })
 						local successToastMessage = getToastMessageFromAbuseReason(abuseReason, true)

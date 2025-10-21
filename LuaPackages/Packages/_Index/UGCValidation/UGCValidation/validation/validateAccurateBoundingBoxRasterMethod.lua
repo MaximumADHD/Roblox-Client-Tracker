@@ -366,63 +366,57 @@ local function getBodyPartAssetEditableMeshes(
 end
 
 local function tryReportInflationError(inflationPerAxis: AxisInflations, assetType: Enum.AssetType)
-	local inflationThreshold = validateAccurateBoundingBoxFlags.inflationThreshold() :: number
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+	local inflationThresholdsForAsset = validateAccurateBoundingBoxFlags.AssetTypeToAxisThresholds[assetType]
 
-	local largestInflationScale = 0.0
-	local largestInflationAxisName = nil
 	for _, axis in { "X", "Y", "Z" } do
-		local axisInflation = inflationPerAxis[axis]
-		local computedAxisInflation = axisInflation.negative.inflationScale + axisInflation.positive.inflationScale
-		if computedAxisInflation > largestInflationScale then
-			largestInflationAxisName = axis
-			largestInflationScale = computedAxisInflation
-		end
-	end
+		local axisInflationDirections = inflationPerAxis[axis]
+		local axisInflation = axisInflationDirections.negative.inflationScale
+			+ axisInflationDirections.positive.inflationScale
+		local inflationThreshold = inflationThresholdsForAsset[axis]
 
-	if largestInflationScale > inflationThreshold and largestInflationAxisName then
-		local largestInflationAxis = inflationPerAxis[largestInflationAxisName]
-
-		local positionHints = {}
-		if largestInflationAxis.positive.inflationScale > inflationThreshold * 0.2 then -- Don't report position as hint if it's not that far
-			table.insert(positionHints, largestInflationAxis.positive.furthestPointWorldSpace)
-		end
-		if largestInflationAxis.negative.inflationScale > inflationThreshold * 0.2 then
-			table.insert(positionHints, largestInflationAxis.negative.furthestPointWorldSpace)
-		end
-
-		local positionHintString = ""
-		if #positionHints > 0 then
-			positionHintString = " near "
-			positionHintString = positionHintString
-				.. string.format("{%.4f, %.4f, %.4f}", positionHints[1].X, positionHints[1].Y, positionHints[1].Z)
-			if #positionHints > 1 then
-				positionHintString = positionHintString
-					.. string.format(
-						", and {%.4f, %.4f, %.4f}",
-						positionHints[1].X,
-						positionHints[1].Y,
-						positionHints[1].Z
-					)
+		if axisInflation > inflationThreshold then
+			local positionHints = {}
+			if axisInflationDirections.positive.inflationScale > inflationThreshold * 0.2 then -- Don't report position as hint if it's not that far
+				table.insert(positionHints, axisInflationDirections.positive.furthestPointWorldSpace)
 			end
-		end
+			if axisInflationDirections.negative.inflationScale > inflationThreshold * 0.2 then
+				table.insert(positionHints, axisInflationDirections.negative.furthestPointWorldSpace)
+			end
 
-		local largestInflationPercentage = largestInflationScale * 100.0
-		local inflationThresholdPercentage = inflationThreshold * 100.0
+			local positionHintString = ""
+			if #positionHints > 0 then
+				positionHintString = " near "
+				positionHintString = positionHintString
+					.. string.format("{%.4f, %.4f, %.4f}", positionHints[1].X, positionHints[1].Y, positionHints[1].Z)
+				if #positionHints > 1 then
+					positionHintString = positionHintString
+						.. string.format(
+							", and {%.4f, %.4f, %.4f}",
+							positionHints[2].X,
+							positionHints[2].Y,
+							positionHints[2].Z
+						)
+				end
+			end
 
-		return false,
-			{
+			local inflationPercentage = axisInflation * 100.0
+			local inflationThresholdPercentage = inflationThreshold * 100.0
+
+			reasonsAccumulator:updateReasons(false, {
 				string.format(
 					"Detected low visibility geometry%s that increases %s bounding box size by %.2f%% (threshold is %.2f%%) in the %s axis. Remove the geometry or increase its size so that it is more visible",
 					positionHintString,
 					assetType.Name,
-					largestInflationPercentage,
+					inflationPercentage,
 					inflationThresholdPercentage,
-					largestInflationAxisName
+					axis
 				),
-			}
+			})
+		end
 	end
 
-	return true, {}
+	return reasonsAccumulator
 end
 
 local module = {}
@@ -525,9 +519,7 @@ function module.validate(
 	end
 	local inflationPerAxis = result :: AxisInflations
 
-	local reasonsAccumulator = FailureReasonsAccumulator.new()
-
-	reasonsAccumulator:updateReasons(tryReportInflationError(inflationPerAxis, assetType))
+	local reasonsAccumulator = tryReportInflationError(inflationPerAxis, assetType)
 
 	if not (reasonsAccumulator:getFinalResults()) then
 		Analytics.reportFailure(Analytics.ErrorType.validateAccurateBoundingBox :: string, nil, validationContext)

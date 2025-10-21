@@ -10,6 +10,7 @@ local BuilderIcons = require(Packages.BuilderIcons)
 export type ActionProps = Types.ActionProps
 export type Bindable<T> = Types.Bindable<T>
 export type CommonProps = Types.CommonProps
+export type Padding = Types.Padding
 export type PopoverAnchor = Types.PopoverAnchor
 export type Preferences = PreferencesProvider.PreferencesProps
 export type PreferencesProviderProps = PreferencesProvider.PreferencesProviderProps
@@ -32,6 +33,7 @@ local ChipSize = require(script.Enums.ChipSize)
 local ControlState = require(script.Enums.ControlState)
 local CursorType = require(script.Enums.CursorType)
 local Device = require(script.Enums.Device)
+local DateTimePickerVariant = require(script.Enums.DateTimePickerVariant)
 local DialogSize = require(script.Enums.DialogSize)
 local Orientation = require(script.Enums.Orientation)
 local DividerVariant = require(script.Enums.DividerVariant)
@@ -67,6 +69,7 @@ export type ChipSize = ChipSize.ChipSize
 export type ControlState = ControlState.ControlState
 export type CursorType = CursorType.CursorType
 export type Device = Device.Device
+export type DateTimePickerVariant = DateTimePickerVariant.DateTimePickerVariant
 export type DialogSize = DialogSize.DialogSize
 export type Orientation = Orientation.Orientation
 export type DividerVariant = DividerVariant.DividerVariant
@@ -138,6 +141,9 @@ export type DialogTextProps = Dialog.DialogTextProps
 export type DialogHeroMediaProps = Dialog.DialogHeroMediaProps
 export type DialogTitleProps = Dialog.DialogTitleProps
 
+local DateTimePicker = require(script.Components.DateTimePicker)
+export type DateTimePickerProps = DateTimePicker.DateTimePickerProps
+
 local Divider = require(script.Components.Divider)
 export type DividerProps = Divider.DividerProps
 
@@ -200,6 +206,13 @@ export type ScrollViewProps = ScrollView.ScrollViewProps
 local SegmentedControl = require(script.Components.SegmentedControl)
 export type SegmentedControlProps = SegmentedControl.SegmentedControlProps
 
+local Sheet = require(script.Components.Sheet)
+export type SheetProps = Sheet.SheetProps
+export type SheetActionsProps = Sheet.SheetActionsProps
+export type SheetContentProps = Sheet.SheetContentProps
+export type SheetHeaderProps = Sheet.SheetHeaderProps
+export type SheetRef = Sheet.SheetRef
+
 local Skeleton = require(script.Components.Skeleton)
 export type SkeletonProps = Skeleton.SkeletonProps
 
@@ -247,6 +260,7 @@ local Foundation = strict({
 	Chip = Chip,
 	Coachmark = Coachmark,
 	ColorPicker = ColorPicker,
+	DateTimePicker = DateTimePicker,
 	Dialog = Dialog,
 	Divider = Divider,
 	Dropdown = Dropdown,
@@ -267,6 +281,7 @@ local Foundation = strict({
 	RadioGroup = RadioGroup,
 	ScrollView = ScrollView,
 	SegmentedControl = SegmentedControl,
+	Sheet = Sheet,
 	Skeleton = Skeleton,
 	Slider = Slider,
 	Snackbar = Snackbar,
@@ -320,6 +335,7 @@ local Foundation = strict({
 		ControlState = ControlState,
 		ChipSize = ChipSize,
 		CursorType = CursorType,
+		DateTimePickerVariant = DateTimePickerVariant,
 		Device = Device,
 		DialogSize = DialogSize,
 		-- **DEPRECATED**: DividerOrientation is deprecated. Use Orientation instead.

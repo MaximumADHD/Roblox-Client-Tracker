@@ -32,7 +32,9 @@ local function variantsFactory(tokens: Tokens)
 		input = {
 			tag = "radius-small",
 			checkedStyle = tokens.Color.ActionSubEmphasis.Background,
-			cursorRadius = UDim.new(0, 0),
+			cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
+				then UDim.new(0, tokens.Radius.Small)
+				else UDim.new(0, 0),
 		},
 		checkmark = { tag = "position-center-center anchor-center-center content-action-sub-emphasis" },
 	}

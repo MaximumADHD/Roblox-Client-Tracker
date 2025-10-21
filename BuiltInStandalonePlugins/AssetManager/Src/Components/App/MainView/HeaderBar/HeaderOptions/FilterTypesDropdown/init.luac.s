@@ -44,203 +44,207 @@ PROTO_3:
   GETUPVAL R5 3
   GETTABLEKS R4 R5 K0 ["use"]
   CALL R4 0 1
-  GETUPVAL R5 4
-  LOADK R6 K1 [""]
-  CALL R5 1 2
-  GETUPVAL R8 5
-  GETTABLEKS R7 R8 K2 ["useRef"]
-  LOADNIL R8
-  CALL R7 1 1
-  GETUPVAL R8 6
-  MOVE R9 R1
-  MOVE R10 R2
-  MOVE R11 R4
-  CALL R8 3 1
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K0 ["use"]
+  CALL R5 0 1
+  GETUPVAL R6 5
+  LOADK R7 K1 [""]
+  CALL R6 1 2
+  GETUPVAL R9 6
+  GETTABLEKS R8 R9 K2 ["useRef"]
+  LOADNIL R9
+  CALL R8 1 1
   GETUPVAL R9 7
-  MOVE R10 R3
-  CALL R9 1 3
-  GETUPVAL R13 5
-  GETTABLEKS R12 R13 K3 ["useCallback"]
-  NEWCLOSURE R13 P0
-  CAPTURE VAL R6
+  MOVE R10 R1
+  MOVE R11 R2
+  MOVE R12 R3
+  MOVE R13 R5
+  CALL R9 4 1
+  GETUPVAL R10 8
+  MOVE R11 R4
+  CALL R10 1 3
+  GETUPVAL R14 6
+  GETTABLEKS R13 R14 K3 ["useCallback"]
+  NEWCLOSURE R14 P0
   CAPTURE VAL R7
-  CALL R12 1 1
-  GETUPVAL R14 5
-  GETTABLEKS R13 R14 K4 ["createElement"]
-  GETUPVAL R14 8
-  DUPTABLE R15 K6 [{"tag"}]
-  LOADK R16 K7 ["col gap-small padding-small auto-xy bg-surface-200 radius-medium"]
-  SETTABLEKS R16 R15 K5 ["tag"]
-  NEWTABLE R16 0 1
-  GETUPVAL R18 5
-  GETTABLEKS R17 R18 K4 ["createElement"]
-  GETUPVAL R18 9
-  DUPTABLE R19 K12 [{"Size", "layout", "scroll", "scrollingFrameRef"}]
-  GETIMPORT R20 K15 [UDim2.fromOffset]
-  GETUPVAL R22 10
-  GETTABLEKS R21 R22 K16 ["AMR_FILTERTYPES_WIDTH"]
-  GETUPVAL R24 10
-  GETTABLEKS R23 R24 K17 ["AMR_FILTERTYPES_HEIGHT"]
-  GETUPVAL R26 10
-  GETTABLEKS R25 R26 K18 ["AMR_HEADERROW_HEIGHT"]
-  SUB R24 R10 R25
-  FASTCALL2 MATH_MIN R23 R24 [+3]
-  GETIMPORT R22 K21 [math.min]
-  CALL R22 2 1
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K8 ["Size"]
-  DUPTABLE R20 K23 [{"FillDirection"}]
-  GETIMPORT R21 K26 [Enum.FillDirection.Vertical]
-  SETTABLEKS R21 R20 K22 ["FillDirection"]
-  SETTABLEKS R20 R19 K9 ["layout"]
-  DUPTABLE R20 K31 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection", "VerticalScrollBarInset"}]
-  GETIMPORT R21 K34 [Enum.AutomaticSize.Y]
-  SETTABLEKS R21 R20 K27 ["AutomaticCanvasSize"]
+  CAPTURE VAL R8
+  CALL R13 1 1
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K4 ["createElement"]
+  GETUPVAL R15 9
+  DUPTABLE R16 K6 [{"tag"}]
+  LOADK R17 K7 ["col gap-small padding-small auto-xy bg-surface-200 radius-medium"]
+  SETTABLEKS R17 R16 K5 ["tag"]
+  NEWTABLE R17 0 1
+  GETUPVAL R19 6
+  GETTABLEKS R18 R19 K4 ["createElement"]
+  GETUPVAL R19 10
+  DUPTABLE R20 K12 [{"Size", "layout", "scroll", "scrollingFrameRef"}]
   GETIMPORT R21 K15 [UDim2.fromOffset]
-  LOADN R22 0
-  LOADN R23 0
+  GETUPVAL R23 11
+  GETTABLEKS R22 R23 K16 ["AMR_FILTERTYPES_WIDTH"]
+  GETUPVAL R25 11
+  GETTABLEKS R24 R25 K17 ["AMR_FILTERTYPES_HEIGHT"]
+  GETUPVAL R27 11
+  GETTABLEKS R26 R27 K18 ["AMR_HEADERROW_HEIGHT"]
+  SUB R25 R11 R26
+  FASTCALL2 MATH_MIN R24 R25 [+3]
+  GETIMPORT R23 K21 [math.min]
+  CALL R23 2 1
   CALL R21 2 1
-  SETTABLEKS R21 R20 K28 ["CanvasSize"]
-  GETIMPORT R21 K35 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R21 R20 K29 ["ScrollingDirection"]
-  GETIMPORT R21 K38 [Enum.ScrollBarInset.ScrollBar]
-  SETTABLEKS R21 R20 K30 ["VerticalScrollBarInset"]
-  SETTABLEKS R20 R19 K10 ["scroll"]
-  SETTABLEKS R7 R19 K11 ["scrollingFrameRef"]
-  DUPTABLE R20 K42 [{"HeaderView", "ItemView", "FooterView"}]
-  GETUPVAL R22 5
-  GETTABLEKS R21 R22 K4 ["createElement"]
-  GETUPVAL R22 8
-  DUPTABLE R23 K44 [{"LayoutOrder", "tag"}]
-  LOADN R24 1
-  SETTABLEKS R24 R23 K43 ["LayoutOrder"]
-  LOADK R24 K45 ["col size-full-0 auto-y gap-small padding-bottom-small"]
-  SETTABLEKS R24 R23 K5 ["tag"]
-  DUPTABLE R24 K48 [{"Title", "SearchInput"}]
-  GETUPVAL R26 5
-  GETTABLEKS R25 R26 K4 ["createElement"]
-  GETUPVAL R26 11
-  DUPTABLE R27 K50 [{"LayoutOrder", "Text", "tag"}]
-  LOADN R28 1
-  SETTABLEKS R28 R27 K43 ["LayoutOrder"]
-  LOADK R30 K51 ["FiltersByType"]
-  LOADK R31 K46 ["Title"]
-  NAMECALL R28 R4 K52 ["getText"]
-  CALL R28 3 1
-  SETTABLEKS R28 R27 K49 ["Text"]
-  LOADK R28 K53 ["text-title-medium content-emphasis auto-xy"]
-  SETTABLEKS R28 R27 K5 ["tag"]
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K46 ["Title"]
-  GETUPVAL R26 5
-  GETTABLEKS R25 R26 K4 ["createElement"]
-  GETUPVAL R26 12
-  DUPTABLE R27 K61 [{"LayoutOrder", "label", "placeholder", "text", "onChanged", "width", "size", "textBoxRef"}]
-  LOADN R28 2
-  SETTABLEKS R28 R27 K43 ["LayoutOrder"]
-  LOADK R28 K1 [""]
-  SETTABLEKS R28 R27 K54 ["label"]
-  LOADK R30 K51 ["FiltersByType"]
-  LOADK R31 K62 ["SearchPlaceholder"]
-  NAMECALL R28 R4 K52 ["getText"]
-  CALL R28 3 1
-  SETTABLEKS R28 R27 K55 ["placeholder"]
-  LOADK R28 K1 [""]
-  SETTABLEKS R28 R27 K56 ["text"]
-  SETTABLEKS R12 R27 K57 ["onChanged"]
-  GETIMPORT R28 K65 [UDim.new]
+  SETTABLEKS R21 R20 K8 ["Size"]
+  DUPTABLE R21 K23 [{"FillDirection"}]
+  GETIMPORT R22 K26 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K22 ["FillDirection"]
+  SETTABLEKS R21 R20 K9 ["layout"]
+  DUPTABLE R21 K31 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection", "VerticalScrollBarInset"}]
+  GETIMPORT R22 K34 [Enum.AutomaticSize.Y]
+  SETTABLEKS R22 R21 K27 ["AutomaticCanvasSize"]
+  GETIMPORT R22 K15 [UDim2.fromOffset]
+  LOADN R23 0
+  LOADN R24 0
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K28 ["CanvasSize"]
+  GETIMPORT R22 K35 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R22 R21 K29 ["ScrollingDirection"]
+  GETIMPORT R22 K38 [Enum.ScrollBarInset.ScrollBar]
+  SETTABLEKS R22 R21 K30 ["VerticalScrollBarInset"]
+  SETTABLEKS R21 R20 K10 ["scroll"]
+  SETTABLEKS R8 R20 K11 ["scrollingFrameRef"]
+  DUPTABLE R21 K42 [{"HeaderView", "ItemView", "FooterView"}]
+  GETUPVAL R23 6
+  GETTABLEKS R22 R23 K4 ["createElement"]
+  GETUPVAL R23 9
+  DUPTABLE R24 K44 [{"LayoutOrder", "tag"}]
+  LOADN R25 1
+  SETTABLEKS R25 R24 K43 ["LayoutOrder"]
+  LOADK R25 K45 ["col size-full-0 auto-y gap-small padding-bottom-small"]
+  SETTABLEKS R25 R24 K5 ["tag"]
+  DUPTABLE R25 K48 [{"Title", "SearchInput"}]
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K4 ["createElement"]
+  GETUPVAL R27 12
+  DUPTABLE R28 K50 [{"LayoutOrder", "Text", "tag"}]
   LOADN R29 1
-  LOADN R30 0
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K58 ["width"]
-  GETUPVAL R30 13
-  GETTABLEKS R29 R30 K66 ["InputSize"]
-  GETTABLEKS R28 R29 K67 ["Small"]
-  SETTABLEKS R28 R27 K59 ["size"]
-  GETTABLEKS R28 R0 K68 ["searchTextBoxRef"]
-  SETTABLEKS R28 R27 K60 ["textBoxRef"]
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K47 ["SearchInput"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K39 ["HeaderView"]
-  GETUPVAL R22 5
-  GETTABLEKS R21 R22 K4 ["createElement"]
-  GETUPVAL R22 8
-  DUPTABLE R23 K44 [{"LayoutOrder", "tag"}]
-  LOADN R24 2
-  SETTABLEKS R24 R23 K43 ["LayoutOrder"]
-  LOADK R24 K69 ["col auto-xy gap-small"]
-  SETTABLEKS R24 R23 K5 ["tag"]
-  NEWTABLE R24 0 1
-  GETUPVAL R26 14
-  GETTABLEKS R25 R26 K70 ["map"]
-  GETUPVAL R26 15
-  MOVE R27 R8
-  MOVE R28 R5
+  SETTABLEKS R29 R28 K43 ["LayoutOrder"]
+  LOADK R31 K51 ["FiltersByType"]
+  LOADK R32 K46 ["Title"]
+  NAMECALL R29 R5 K52 ["getText"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K49 ["Text"]
+  LOADK R29 K53 ["text-title-medium content-emphasis auto-xy"]
+  SETTABLEKS R29 R28 K5 ["tag"]
   CALL R26 2 1
-  DUPCLOSURE R27 K71 [PROTO_1]
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U16
-  CALL R25 2 -1
-  SETLIST R24 R25 -1 [1]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K40 ["ItemView"]
-  GETUPVAL R22 5
-  GETTABLEKS R21 R22 K4 ["createElement"]
-  GETUPVAL R22 8
-  DUPTABLE R23 K44 [{"LayoutOrder", "tag"}]
-  LOADN R24 3
-  SETTABLEKS R24 R23 K43 ["LayoutOrder"]
-  LOADK R24 K72 ["col size-full-0 auto-y padding-top-small"]
-  SETTABLEKS R24 R23 K5 ["tag"]
-  DUPTABLE R24 K75 [{"BottomDivider", "ResetButton"}]
-  GETUPVAL R26 5
-  GETTABLEKS R25 R26 K4 ["createElement"]
-  GETUPVAL R26 17
-  DUPTABLE R27 K77 [{"LayoutOrder", "orientation"}]
-  LOADN R28 1
-  SETTABLEKS R28 R27 K43 ["LayoutOrder"]
-  GETUPVAL R30 13
-  GETTABLEKS R29 R30 K78 ["DividerOrientation"]
-  GETTABLEKS R28 R29 K79 ["Horizontal"]
-  SETTABLEKS R28 R27 K76 ["orientation"]
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K73 ["BottomDivider"]
-  GETUPVAL R26 5
-  GETTABLEKS R25 R26 K4 ["createElement"]
-  GETUPVAL R26 18
-  DUPTABLE R27 K82 [{"LayoutOrder", "text", "onActivated", "variant", "width", "size"}]
-  LOADN R28 2
-  SETTABLEKS R28 R27 K43 ["LayoutOrder"]
-  LOADK R30 K83 ["Filters"]
-  LOADK R31 K84 ["ResetFilters"]
-  NAMECALL R28 R4 K52 ["getText"]
-  CALL R28 3 1
-  SETTABLEKS R28 R27 K56 ["text"]
-  NEWCLOSURE R28 P2
-  CAPTURE VAL R2
-  SETTABLEKS R28 R27 K80 ["onActivated"]
-  GETUPVAL R30 13
-  GETTABLEKS R29 R30 K85 ["ButtonVariant"]
-  GETTABLEKS R28 R29 K86 ["Utility"]
-  SETTABLEKS R28 R27 K81 ["variant"]
-  GETIMPORT R28 K65 [UDim.new]
+  SETTABLEKS R26 R25 K46 ["Title"]
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K4 ["createElement"]
+  GETUPVAL R27 13
+  DUPTABLE R28 K61 [{"LayoutOrder", "label", "placeholder", "text", "onChanged", "width", "size", "textBoxRef"}]
+  LOADN R29 2
+  SETTABLEKS R29 R28 K43 ["LayoutOrder"]
+  LOADK R29 K1 [""]
+  SETTABLEKS R29 R28 K54 ["label"]
+  LOADK R31 K51 ["FiltersByType"]
+  LOADK R32 K62 ["SearchPlaceholder"]
+  NAMECALL R29 R5 K52 ["getText"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K55 ["placeholder"]
+  LOADK R29 K1 [""]
+  SETTABLEKS R29 R28 K56 ["text"]
+  SETTABLEKS R13 R28 K57 ["onChanged"]
+  GETIMPORT R29 K65 [UDim.new]
+  LOADN R30 1
+  LOADN R31 0
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K58 ["width"]
+  GETUPVAL R31 14
+  GETTABLEKS R30 R31 K66 ["InputSize"]
+  GETTABLEKS R29 R30 K67 ["Small"]
+  SETTABLEKS R29 R28 K59 ["size"]
+  GETTABLEKS R29 R0 K68 ["searchTextBoxRef"]
+  SETTABLEKS R29 R28 K60 ["textBoxRef"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K47 ["SearchInput"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K39 ["HeaderView"]
+  GETUPVAL R23 6
+  GETTABLEKS R22 R23 K4 ["createElement"]
+  GETUPVAL R23 9
+  DUPTABLE R24 K44 [{"LayoutOrder", "tag"}]
+  LOADN R25 2
+  SETTABLEKS R25 R24 K43 ["LayoutOrder"]
+  LOADK R25 K69 ["col auto-xy gap-small"]
+  SETTABLEKS R25 R24 K5 ["tag"]
+  NEWTABLE R25 0 1
+  GETUPVAL R27 15
+  GETTABLEKS R26 R27 K70 ["map"]
+  GETUPVAL R27 16
+  MOVE R28 R9
+  MOVE R29 R6
+  CALL R27 2 1
+  DUPCLOSURE R28 K71 [PROTO_1]
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U17
+  CALL R26 2 -1
+  SETLIST R25 R26 -1 [1]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K40 ["ItemView"]
+  GETUPVAL R23 6
+  GETTABLEKS R22 R23 K4 ["createElement"]
+  GETUPVAL R23 9
+  DUPTABLE R24 K44 [{"LayoutOrder", "tag"}]
+  LOADN R25 3
+  SETTABLEKS R25 R24 K43 ["LayoutOrder"]
+  LOADK R25 K72 ["col size-full-0 auto-y padding-top-small"]
+  SETTABLEKS R25 R24 K5 ["tag"]
+  DUPTABLE R25 K75 [{"BottomDivider", "ResetButton"}]
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K4 ["createElement"]
+  GETUPVAL R27 18
+  DUPTABLE R28 K77 [{"LayoutOrder", "orientation"}]
   LOADN R29 1
-  LOADN R30 0
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K58 ["width"]
-  GETUPVAL R30 13
-  GETTABLEKS R29 R30 K66 ["InputSize"]
-  GETTABLEKS R28 R29 K67 ["Small"]
-  SETTABLEKS R28 R27 K59 ["size"]
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K74 ["ResetButton"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K41 ["FooterView"]
-  CALL R17 3 -1
-  SETLIST R16 R17 -1 [1]
-  CALL R13 3 -1
-  RETURN R13 -1
+  SETTABLEKS R29 R28 K43 ["LayoutOrder"]
+  GETUPVAL R31 14
+  GETTABLEKS R30 R31 K78 ["DividerOrientation"]
+  GETTABLEKS R29 R30 K79 ["Horizontal"]
+  SETTABLEKS R29 R28 K76 ["orientation"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K73 ["BottomDivider"]
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K4 ["createElement"]
+  GETUPVAL R27 19
+  DUPTABLE R28 K82 [{"LayoutOrder", "text", "onActivated", "variant", "width", "size"}]
+  LOADN R29 2
+  SETTABLEKS R29 R28 K43 ["LayoutOrder"]
+  LOADK R31 K83 ["Filters"]
+  LOADK R32 K84 ["ResetFilters"]
+  NAMECALL R29 R5 K52 ["getText"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K56 ["text"]
+  NEWCLOSURE R29 P2
+  CAPTURE VAL R3
+  SETTABLEKS R29 R28 K80 ["onActivated"]
+  GETUPVAL R31 14
+  GETTABLEKS R30 R31 K85 ["ButtonVariant"]
+  GETTABLEKS R29 R30 K86 ["Utility"]
+  SETTABLEKS R29 R28 K81 ["variant"]
+  GETIMPORT R29 K65 [UDim.new]
+  LOADN R30 1
+  LOADN R31 0
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K58 ["width"]
+  GETUPVAL R31 14
+  GETTABLEKS R30 R31 K66 ["InputSize"]
+  GETTABLEKS R29 R30 K67 ["Small"]
+  SETTABLEKS R29 R28 K59 ["size"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K74 ["ResetButton"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K41 ["FooterView"]
+  CALL R18 3 -1
+  SETLIST R17 R18 -1 [1]
+  CALL R14 3 -1
+  RETURN R14 -1
 
 PROTO_4:
   GETUPVAL R0 0
@@ -434,36 +438,42 @@ MAIN:
   CALL R22 1 1
   GETIMPORT R23 K5 [require]
   GETTABLEKS R26 R0 K6 ["Src"]
-  GETTABLEKS R25 R26 K32 ["Util"]
-  GETTABLEKS R24 R25 K33 ["hasActiveFilters"]
+  GETTABLEKS R25 R26 K28 ["Controllers"]
+  GETTABLEKS R24 R25 K32 ["PluginController"]
   CALL R23 1 1
   GETIMPORT R24 K5 [require]
-  GETIMPORT R26 K1 [script]
-  GETTABLEKS R25 R26 K34 ["useFilterTypeTable"]
+  GETTABLEKS R27 R0 K6 ["Src"]
+  GETTABLEKS R26 R27 K33 ["Util"]
+  GETTABLEKS R25 R26 K34 ["hasActiveFilters"]
   CALL R24 1 1
   GETIMPORT R25 K5 [require]
   GETIMPORT R27 K1 [script]
-  GETTABLEKS R26 R27 K35 ["searchFilterTypes"]
+  GETTABLEKS R26 R27 K35 ["useFilterTypeTable"]
   CALL R25 1 1
   GETIMPORT R26 K5 [require]
-  GETTABLEKS R29 R0 K6 ["Src"]
-  GETTABLEKS R28 R29 K36 ["Hooks"]
-  GETTABLEKS R27 R28 K37 ["usePluginSize"]
+  GETIMPORT R28 K1 [script]
+  GETTABLEKS R27 R28 K36 ["searchFilterTypes"]
   CALL R26 1 1
   GETIMPORT R27 K5 [require]
   GETTABLEKS R30 R0 K6 ["Src"]
-  GETTABLEKS R29 R30 K36 ["Hooks"]
-  GETTABLEKS R28 R29 K38 ["useSortFilter"]
+  GETTABLEKS R29 R30 K37 ["Hooks"]
+  GETTABLEKS R28 R29 K38 ["usePluginSize"]
   CALL R27 1 1
-  DUPCLOSURE R28 K39 [PROTO_3]
+  GETIMPORT R28 K5 [require]
+  GETTABLEKS R31 R0 K6 ["Src"]
+  GETTABLEKS R30 R31 K37 ["Hooks"]
+  GETTABLEKS R29 R30 K39 ["useSortFilter"]
+  CALL R28 1 1
+  DUPCLOSURE R29 K40 [PROTO_3]
+  CAPTURE VAL R23
   CAPTURE VAL R20
   CAPTURE VAL R21
   CAPTURE VAL R22
   CAPTURE VAL R4
   CAPTURE VAL R7
   CAPTURE VAL R6
-  CAPTURE VAL R24
-  CAPTURE VAL R26
+  CAPTURE VAL R25
+  CAPTURE VAL R27
   CAPTURE VAL R10
   CAPTURE VAL R11
   CAPTURE VAL R1
@@ -471,20 +481,20 @@ MAIN:
   CAPTURE VAL R15
   CAPTURE VAL R9
   CAPTURE VAL R5
-  CAPTURE VAL R25
+  CAPTURE VAL R26
   CAPTURE VAL R19
   CAPTURE VAL R16
   CAPTURE VAL R13
-  DUPCLOSURE R29 K40 [PROTO_6]
+  DUPCLOSURE R30 K41 [PROTO_6]
   CAPTURE VAL R7
   CAPTURE VAL R6
   CAPTURE VAL R21
   CAPTURE VAL R4
-  CAPTURE VAL R27
-  CAPTURE VAL R23
+  CAPTURE VAL R28
+  CAPTURE VAL R24
   CAPTURE VAL R12
   CAPTURE VAL R17
   CAPTURE VAL R9
   CAPTURE VAL R18
-  CAPTURE VAL R28
-  RETURN R29 1
+  CAPTURE VAL R29
+  RETURN R30 1

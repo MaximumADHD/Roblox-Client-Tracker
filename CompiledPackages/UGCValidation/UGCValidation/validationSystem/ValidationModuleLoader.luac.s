@@ -106,183 +106,165 @@ MAIN:
   LOADNIL R10
   LOADNIL R11
   FORGPREP R9
-  GETIMPORT R14 K18 [string.lower]
-  MOVE R15 R13
-  CALL R14 1 1
-  MOVE R17 R14
-  NAMECALL R15 R3 K19 ["FindFirstChild"]
+  MOVE R16 R13
+  NAMECALL R14 R3 K16 ["FindFirstChild"]
+  CALL R14 2 1
+  JUMPIFNOTEQKNIL R14 [+10]
+  GETIMPORT R15 K18 [error]
+  LOADK R17 K19 ["%* validation folder is missing from validationFolders"]
+  MOVE R19 R13
+  NAMECALL R17 R17 K20 ["format"]
+  CALL R17 2 1
+  MOVE R16 R17
+  CALL R15 1 0
+  MOVE R17 R13
+  NAMECALL R15 R14 K16 ["FindFirstChild"]
   CALL R15 2 1
-  JUMPIFNOTEQKNIL R15 [+10]
-  GETIMPORT R16 K21 [error]
-  LOADK R18 K22 ["%* validation folder is missing from validationFolders"]
+  JUMPIFEQKNIL R15 [+6]
+  LOADK R18 K21 ["ModuleScript"]
+  NAMECALL R16 R15 K22 ["IsA"]
+  CALL R16 2 1
+  JUMPIF R16 [+10]
+  GETIMPORT R16 K18 [error]
+  LOADK R18 K23 ["%*.lua validation file is missing from validationFolders/%*"]
   MOVE R20 R13
-  NAMECALL R18 R18 K23 ["format"]
-  CALL R18 2 1
+  MOVE R21 R13
+  NAMECALL R18 R18 K20 ["format"]
+  CALL R18 3 1
   MOVE R17 R18
   CALL R16 1 0
-  MOVE R18 R14
-  NAMECALL R16 R15 K19 ["FindFirstChild"]
-  CALL R16 2 1
-  JUMPIFEQKNIL R16 [+6]
-  LOADK R19 K24 ["ModuleScript"]
-  NAMECALL R17 R16 K25 ["IsA"]
-  CALL R17 2 1
-  JUMPIF R17 [+10]
-  GETIMPORT R17 K21 [error]
-  LOADK R19 K26 ["%*.lua validation file is missing from validationFolders/%*"]
+  GETIMPORT R16 K4 [require]
+  MOVE R17 R15
+  CALL R16 1 1
+  MOVE R17 R16
+  LOADNIL R18
+  LOADNIL R19
+  FORGPREP R17
+  FASTCALL1 TYPEOF R20 [+3]
+  MOVE R23 R20
+  GETIMPORT R22 K11 [typeof]
+  CALL R22 1 1
+  JUMPIFEQKS R22 K24 ["string"] [+17]
+  GETIMPORT R22 K18 [error]
+  LOADK R26 K25 ["%*.lua contains non-string key "]
+  MOVE R28 R13
+  NAMECALL R26 R26 K20 ["format"]
+  CALL R26 2 1
+  MOVE R24 R26
+  FASTCALL1 TOSTRING R20 [+3]
+  MOVE R26 R20
+  GETIMPORT R25 K27 [tostring]
+  CALL R25 1 1
+  CONCAT R23 R24 R25
+  CALL R22 1 0
+  JUMP [+38]
+  NAMECALL R22 R20 K28 ["lower"]
+  CALL R22 1 1
+  JUMPIFEQ R22 R20 [+17]
+  GETIMPORT R22 K18 [error]
+  LOADK R26 K29 ["%*.lua contains non-lowercase key "]
+  MOVE R28 R13
+  NAMECALL R26 R26 K20 ["format"]
+  CALL R26 2 1
+  MOVE R24 R26
+  FASTCALL1 TOSTRING R20 [+3]
+  MOVE R26 R20
+  GETIMPORT R25 K27 [tostring]
+  CALL R25 1 1
+  CONCAT R23 R24 R25
+  CALL R22 1 0
+  JUMP [+17]
+  GETTABLEKS R23 R5 K30 ["ValidationConfig"]
+  NAMECALL R24 R20 K31 ["upper"]
+  CALL R24 1 1
+  GETTABLE R22 R23 R24
+  JUMPIF R22 [+10]
+  GETIMPORT R22 K18 [error]
+  LOADK R24 K32 ["%*.lua contains unexpected member %*. Check for typos or add an extra ValidationEnums.ValidationConfig"]
+  MOVE R26 R13
+  MOVE R27 R20
+  NAMECALL R24 R24 K20 ["format"]
+  CALL R24 3 1
+  MOVE R23 R24
+  CALL R22 1 0
+  FORGLOOP R17 2 [-62]
+  GETTABLEKS R18 R16 K33 ["fflag"]
+  OR R17 R18 R7
+  SETTABLEKS R17 R16 K33 ["fflag"]
+  GETTABLEKS R17 R16 K34 ["categories"]
+  JUMPIF R17 [+2]
+  NEWTABLE R17 0 0
+  SETTABLEKS R17 R16 K34 ["categories"]
+  GETTABLEKS R17 R16 K35 ["required_data"]
+  JUMPIF R17 [+2]
+  NEWTABLE R17 0 0
+  SETTABLEKS R17 R16 K35 ["required_data"]
+  GETTABLEKS R17 R16 K36 ["prereq_tests"]
+  JUMPIF R17 [+2]
+  NEWTABLE R17 0 0
+  SETTABLEKS R17 R16 K36 ["prereq_tests"]
+  GETTABLEKS R17 R16 K37 ["expected_failures"]
+  JUMPIF R17 [+2]
+  NEWTABLE R17 0 0
+  SETTABLEKS R17 R16 K37 ["expected_failures"]
+  GETTABLEKS R17 R16 K38 ["run"]
+  JUMPIFEQKNIL R17 [+9]
+  GETTABLEKS R18 R16 K38 ["run"]
+  FASTCALL1 TYPEOF R18 [+2]
+  GETIMPORT R17 K11 [typeof]
+  CALL R17 1 1
+  JUMPIFEQKS R17 K39 ["function"] [+10]
+  GETIMPORT R17 K18 [error]
+  LOADK R19 K40 ["Missing module run function in %*"]
   MOVE R21 R13
-  MOVE R22 R13
-  NAMECALL R19 R19 K23 ["format"]
-  CALL R19 3 1
+  NAMECALL R19 R19 K20 ["format"]
+  CALL R19 2 1
   MOVE R18 R19
   CALL R17 1 0
-  GETIMPORT R17 K4 [require]
-  MOVE R18 R16
-  CALL R17 1 1
-  MOVE R18 R17
-  LOADNIL R19
-  LOADNIL R20
-  FORGPREP R18
-  FASTCALL1 TYPEOF R21 [+3]
-  MOVE R24 R21
-  GETIMPORT R23 K11 [typeof]
-  CALL R23 1 1
-  JUMPIFEQKS R23 K16 ["string"] [+17]
-  GETIMPORT R23 K21 [error]
-  LOADK R27 K27 ["%*.lua contains non-string key "]
-  MOVE R29 R13
-  NAMECALL R27 R27 K23 ["format"]
-  CALL R27 2 1
-  MOVE R25 R27
-  FASTCALL1 TOSTRING R21 [+3]
-  MOVE R27 R21
-  GETIMPORT R26 K29 [tostring]
-  CALL R26 1 1
-  CONCAT R24 R25 R26
-  CALL R23 1 0
-  JUMP [+38]
-  NAMECALL R23 R21 K17 ["lower"]
-  CALL R23 1 1
-  JUMPIFEQ R23 R21 [+17]
-  GETIMPORT R23 K21 [error]
-  LOADK R27 K30 ["%*.lua contains non-lowercase key "]
-  MOVE R29 R13
-  NAMECALL R27 R27 K23 ["format"]
-  CALL R27 2 1
-  MOVE R25 R27
-  FASTCALL1 TOSTRING R21 [+3]
-  MOVE R27 R21
-  GETIMPORT R26 K29 [tostring]
-  CALL R26 1 1
-  CONCAT R24 R25 R26
-  CALL R23 1 0
-  JUMP [+17]
-  GETTABLEKS R24 R5 K31 ["ValidationConfig"]
-  NAMECALL R25 R21 K32 ["upper"]
-  CALL R25 1 1
-  GETTABLE R23 R24 R25
-  JUMPIF R23 [+10]
-  GETIMPORT R23 K21 [error]
-  LOADK R25 K33 ["%*.lua contains unexpected member %*. Check for typos or add an extra ValidationEnums.ValidationConfig"]
-  MOVE R27 R13
-  MOVE R28 R21
-  NAMECALL R25 R25 K23 ["format"]
-  CALL R25 3 1
-  MOVE R24 R25
-  CALL R23 1 0
-  FORGLOOP R18 2 [-62]
-  GETTABLEKS R19 R17 K34 ["fflag"]
-  OR R18 R19 R7
-  SETTABLEKS R18 R17 K34 ["fflag"]
-  GETTABLEKS R18 R17 K35 ["categories"]
-  JUMPIF R18 [+2]
-  NEWTABLE R18 0 0
-  SETTABLEKS R18 R17 K35 ["categories"]
-  GETTABLEKS R19 R17 K37 ["is_quality"]
-  ORK R18 R19 K36 [False]
-  SETTABLEKS R18 R17 K37 ["is_quality"]
-  GETTABLEKS R18 R17 K38 ["required_data"]
-  JUMPIF R18 [+2]
-  NEWTABLE R18 0 0
-  SETTABLEKS R18 R17 K38 ["required_data"]
-  GETTABLEKS R18 R17 K39 ["prereq_tests"]
-  JUMPIF R18 [+2]
-  NEWTABLE R18 0 0
-  SETTABLEKS R18 R17 K39 ["prereq_tests"]
-  GETTABLEKS R18 R17 K40 ["expected_failures"]
-  JUMPIF R18 [+2]
-  NEWTABLE R18 0 0
-  SETTABLEKS R18 R17 K40 ["expected_failures"]
-  GETTABLEKS R18 R17 K41 ["run"]
-  JUMPIFEQKNIL R18 [+9]
-  GETTABLEKS R19 R17 K41 ["run"]
-  FASTCALL1 TYPEOF R19 [+2]
-  GETIMPORT R18 K11 [typeof]
-  CALL R18 1 1
-  JUMPIFEQKS R18 K42 ["function"] [+10]
-  GETIMPORT R18 K21 [error]
-  LOADK R20 K43 ["Missing module run function in %*"]
-  MOVE R22 R13
-  NAMECALL R20 R20 K23 ["format"]
-  CALL R20 2 1
-  MOVE R19 R20
-  CALL R18 1 0
-  DUPTABLE R20 K45 [{"__index"}]
-  NEWCLOSURE R21 P2
+  DUPTABLE R19 K42 [{"__index"}]
+  NEWCLOSURE R20 P2
   CAPTURE VAL R13
-  SETTABLEKS R21 R20 K44 ["__index"]
-  FASTCALL2 SETMETATABLE R17 R20 [+4]
-  MOVE R19 R17
-  GETIMPORT R18 K47 [setmetatable]
-  CALL R18 2 0
-  GETTABLEKS R19 R17 K34 ["fflag"]
-  FASTCALL1 TYPEOF R19 [+2]
-  GETIMPORT R18 K11 [typeof]
-  CALL R18 1 1
-  JUMPIFNOTEQKS R18 K42 ["function"] [+10]
-  GETTABLEKS R19 R17 K34 ["fflag"]
-  CALL R19 0 -1
+  SETTABLEKS R20 R19 K41 ["__index"]
+  FASTCALL2 SETMETATABLE R16 R19 [+4]
+  MOVE R18 R16
+  GETIMPORT R17 K44 [setmetatable]
+  CALL R17 2 0
+  GETTABLEKS R18 R16 K33 ["fflag"]
+  FASTCALL1 TYPEOF R18 [+2]
+  GETIMPORT R17 K11 [typeof]
+  CALL R17 1 1
+  JUMPIFNOTEQKS R17 K39 ["function"] [+10]
+  GETTABLEKS R18 R16 K33 ["fflag"]
+  CALL R18 0 -1
   FASTCALL TYPEOF [+2]
-  GETIMPORT R18 K11 [typeof]
-  CALL R18 -1 1
-  JUMPIFEQKS R18 K48 ["boolean"] [+10]
-  GETIMPORT R18 K21 [error]
-  LOADK R20 K49 ["Invalid FFlag config in %*"]
-  MOVE R22 R13
-  NAMECALL R20 R20 K23 ["format"]
-  CALL R20 2 1
-  MOVE R19 R20
-  CALL R18 1 0
-  GETTABLEKS R19 R17 K37 ["is_quality"]
-  FASTCALL1 TYPEOF R19 [+2]
-  GETIMPORT R18 K11 [typeof]
-  CALL R18 1 1
-  JUMPIFEQKS R18 K48 ["boolean"] [+10]
-  GETIMPORT R18 K21 [error]
-  LOADK R20 K50 ["Invalid IS_QUALITY config in %*"]
-  MOVE R22 R13
-  NAMECALL R20 R20 K23 ["format"]
-  CALL R20 2 1
-  MOVE R19 R20
-  CALL R18 1 0
-  MOVE R18 R6
-  MOVE R19 R13
-  GETTABLEKS R20 R17 K35 ["categories"]
-  LOADK R21 K51 ["UploadCategory"]
-  CALL R18 3 0
-  MOVE R18 R6
-  MOVE R19 R13
-  GETTABLEKS R20 R17 K38 ["required_data"]
-  LOADK R21 K52 ["SharedDataMember"]
-  CALL R18 3 0
-  MOVE R18 R6
-  MOVE R19 R13
-  GETTABLEKS R20 R17 K39 ["prereq_tests"]
-  LOADK R21 K15 ["ValidationModule"]
-  CALL R18 3 0
-  SETTABLE R17 R8 R13
-  FORGLOOP R9 2 [-244]
-  DUPCLOSURE R9 K53 [PROTO_3]
+  GETIMPORT R17 K11 [typeof]
+  CALL R17 -1 1
+  JUMPIFEQKS R17 K45 ["boolean"] [+10]
+  GETIMPORT R17 K18 [error]
+  LOADK R19 K46 ["Invalid FFlag config in %*"]
+  MOVE R21 R13
+  NAMECALL R19 R19 K20 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  CALL R17 1 0
+  MOVE R17 R6
+  MOVE R18 R13
+  GETTABLEKS R19 R16 K34 ["categories"]
+  LOADK R20 K47 ["UploadCategory"]
+  CALL R17 3 0
+  MOVE R17 R6
+  MOVE R18 R13
+  GETTABLEKS R19 R16 K35 ["required_data"]
+  LOADK R20 K48 ["SharedDataMember"]
+  CALL R17 3 0
+  MOVE R17 R6
+  MOVE R18 R13
+  GETTABLEKS R19 R16 K36 ["prereq_tests"]
+  LOADK R20 K15 ["ValidationModule"]
+  CALL R17 3 0
+  SETTABLE R16 R8 R13
+  FORGLOOP R9 2 [-218]
+  DUPCLOSURE R9 K49 [PROTO_3]
   CAPTURE VAL R8
-  SETTABLEKS R9 R4 K54 ["getValidationModule"]
+  SETTABLEKS R9 R4 K50 ["getValidationModule"]
   RETURN R4 1

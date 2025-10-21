@@ -2,6 +2,9 @@
 local root = script.Parent.Parent
 local Cryo = require(root.Parent.Cryo)
 
+local getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed =
+	require(root.flags.getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed)
+
 local function round(num, numDecimalPlaces)
 	local mult = 10 ^ (numDecimalPlaces or 0)
 	return math.floor(num * mult + 0.5) / mult
@@ -20,6 +23,16 @@ local function valueToString(propValue)
 			math.floor(propValue.g * 255),
 			math.floor(propValue.b * 255)
 		)
+	elseif
+		getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed()
+		and valueType == "table"
+		and propValue[1] ~= nil
+	then
+		local result = tostring(propValue[1])
+		for i = 2, #propValue do
+			result = result .. ", " .. valueToString(propValue[i])
+		end
+		return result
 	else
 		return tostring(propValue)
 	end

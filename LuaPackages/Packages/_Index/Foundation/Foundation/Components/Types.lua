@@ -108,7 +108,7 @@ export type SelectionProps = {
 }
 
 -- Unfortunately SelectionProps can't be unioned with Selection
--- without anlyze becoming incredibly unhappy, so we jsut duplicate them.
+-- without anlyze becoming incredibly unhappy, so we just duplicate them.
 export type Selection = {
 	-- SelectionProps
 	Selectable: Bindable<boolean>?,

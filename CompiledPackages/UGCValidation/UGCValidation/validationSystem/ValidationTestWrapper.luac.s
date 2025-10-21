@@ -1,8 +1,8 @@
 PROTO_0:
   DUPTABLE R5 K6 [{"validationJobId", "validationSource", "validationEnum", "status", "durationMs", "additional_info"}]
-  GETTABLEKS R6 R1 K7 ["job_id"]
+  GETTABLEKS R6 R1 K7 ["jobId"]
   SETTABLEKS R6 R5 K0 ["validationJobId"]
-  GETTABLEKS R7 R1 K8 ["consumer_config"]
+  GETTABLEKS R7 R1 K8 ["consumerConfig"]
   GETTABLEKS R6 R7 K9 ["source"]
   SETTABLEKS R6 R5 K1 ["validationSource"]
   SETTABLEKS R0 R5 K2 ["validationEnum"]
@@ -34,64 +34,62 @@ PROTO_2:
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
-  NAMECALL R10 R8 K2 ["lower"]
-  CALL R10 1 1
-  GETTABLE R9 R1 R10
+  GETTABLE R9 R1 R8
   JUMPIFNOTEQKNIL R9 [+29]
   GETUPVAL R9 1
   MOVE R10 R0
   MOVE R11 R1
   GETUPVAL R14 2
-  GETTABLEKS R13 R14 K3 ["Status"]
-  GETTABLEKS R12 R13 K4 ["CANNOT_START"]
-  LOADK R13 K5 [""]
+  GETTABLEKS R13 R14 K2 ["Status"]
+  GETTABLEKS R12 R13 K3 ["CANNOT_START"]
+  LOADK R13 K4 [""]
   LOADN R14 0
   CALL R9 5 0
-  DUPTABLE R9 K9 [{"status", "errorTranslationContexts", "internalData"}]
+  DUPTABLE R9 K8 [{"status", "errorTranslationContexts", "internalData"}]
   GETUPVAL R12 2
-  GETTABLEKS R11 R12 K3 ["Status"]
-  GETTABLEKS R10 R11 K4 ["CANNOT_START"]
-  SETTABLEKS R10 R9 K6 ["status"]
+  GETTABLEKS R11 R12 K2 ["Status"]
+  GETTABLEKS R10 R11 K3 ["CANNOT_START"]
+  SETTABLEKS R10 R9 K5 ["status"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K7 ["errorTranslationContexts"]
+  SETTABLEKS R10 R9 K6 ["errorTranslationContexts"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K8 ["internalData"]
+  SETTABLEKS R10 R9 K7 ["internalData"]
   RETURN R9 1
-  FORGLOOP R4 2 [-35]
-  GETTABLEKS R4 R3 K10 ["prereq_tests"]
+  FORGLOOP R4 2 [-32]
+  GETTABLEKS R4 R3 K9 ["prereq_tests"]
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
   GETTABLE R9 R2 R8
   GETUPVAL R12 2
-  GETTABLEKS R11 R12 K3 ["Status"]
-  GETTABLEKS R10 R11 K11 ["PASS"]
+  GETTABLEKS R11 R12 K2 ["Status"]
+  GETTABLEKS R10 R11 K10 ["PASS"]
   JUMPIFEQ R9 R10 [+29]
   GETUPVAL R9 1
   MOVE R10 R0
   MOVE R11 R1
   GETUPVAL R14 2
-  GETTABLEKS R13 R14 K3 ["Status"]
-  GETTABLEKS R12 R13 K4 ["CANNOT_START"]
-  LOADK R13 K5 [""]
+  GETTABLEKS R13 R14 K2 ["Status"]
+  GETTABLEKS R12 R13 K3 ["CANNOT_START"]
+  LOADK R13 K4 [""]
   LOADN R14 0
   CALL R9 5 0
-  DUPTABLE R9 K9 [{"status", "errorTranslationContexts", "internalData"}]
+  DUPTABLE R9 K8 [{"status", "errorTranslationContexts", "internalData"}]
   GETUPVAL R12 2
-  GETTABLEKS R11 R12 K3 ["Status"]
-  GETTABLEKS R10 R11 K4 ["CANNOT_START"]
-  SETTABLEKS R10 R9 K6 ["status"]
+  GETTABLEKS R11 R12 K2 ["Status"]
+  GETTABLEKS R10 R11 K3 ["CANNOT_START"]
+  SETTABLEKS R10 R9 K5 ["status"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K7 ["errorTranslationContexts"]
+  SETTABLEKS R10 R9 K6 ["errorTranslationContexts"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K8 ["internalData"]
+  SETTABLEKS R10 R9 K7 ["internalData"]
   RETURN R9 1
   FORGLOOP R4 2 [-37]
   GETUPVAL R5 3
-  GETTABLEKS R4 R5 K12 ["new"]
+  GETTABLEKS R4 R5 K11 ["new"]
   MOVE R5 R0
   CALL R4 1 1
-  GETIMPORT R5 K14 [pcall]
+  GETIMPORT R5 K13 [pcall]
   NEWCLOSURE R6 P0
   CAPTURE VAL R3
   CAPTURE VAL R4
@@ -101,28 +99,28 @@ PROTO_2:
   GETUPVAL R7 4
   CALL R7 0 1
   JUMPIFNOT R7 [+14]
-  GETIMPORT R7 K16 [print]
-  LOADK R8 K17 ["Validation error:"]
+  GETIMPORT R7 K15 [print]
+  LOADK R8 K16 ["Validation error:"]
   MOVE R9 R6
   CALL R7 2 0
-  GETIMPORT R7 K16 [print]
-  LOADK R8 K18 ["As this is in debug mode, we will re-call the function for a full error trace: "]
+  GETIMPORT R7 K15 [print]
+  LOADK R8 K17 ["As this is in debug mode, we will re-call the function for a full error trace: "]
   CALL R7 1 0
-  GETTABLEKS R7 R3 K19 ["run"]
+  GETTABLEKS R7 R3 K18 ["run"]
   MOVE R8 R4
   MOVE R9 R1
   CALL R7 2 0
   MOVE R9 R6
-  NAMECALL R7 R4 K20 ["_err"]
+  NAMECALL R7 R4 K19 ["_err"]
   CALL R7 2 0
-  NAMECALL R7 R4 K21 ["_complete"]
+  NAMECALL R7 R4 K20 ["_complete"]
   CALL R7 1 1
   GETUPVAL R8 1
   MOVE R9 R0
   MOVE R10 R1
-  GETTABLEKS R11 R7 K6 ["status"]
-  GETTABLEKS R12 R7 K22 ["telemetryContext"]
-  GETTABLEKS R13 R7 K23 ["duration"]
+  GETTABLEKS R11 R7 K5 ["status"]
+  GETTABLEKS R12 R7 K21 ["telemetryContext"]
+  GETTABLEKS R13 R7 K22 ["duration"]
   CALL R8 5 0
   RETURN R7 1
 

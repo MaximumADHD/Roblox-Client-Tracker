@@ -8,10 +8,12 @@ local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local InspectAndBuyFolder = script.Parent.Parent
 local React = require(CorePackages.Packages.React)
+local AvatarViewport = require(InspectAndBuyFolder.Components.AvatarViewport)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 local useViewBreakpoints = AvatarExperienceInspectAndBuy.Hooks.useViewBreakpoints
 local ResponsivePanelLayout = AvatarExperienceInspectAndBuy.Components.ResponsivePanelLayout
 local useResponsivePanelLayoutProps = AvatarExperienceInspectAndBuy.Hooks.useResponsivePanelLayoutProps
+local applyTryOnItemToHumanoidDescription = AvatarExperienceInspectAndBuy.Utils.applyTryOnItemToHumanoidDescription
 
 local UpdateBulkPuchaseResults = require(InspectAndBuyFolder.Actions.UpdateBulkPuchaseResults)
 local GetProductInfo = require(InspectAndBuyFolder.Thunks.GetProductInfo)
@@ -22,6 +24,7 @@ local DeleteFavoriteForAsset = require(InspectAndBuyFolder.Thunks.DeleteFavorite
 local CreateFavoriteForBundle = require(InspectAndBuyFolder.Thunks.CreateFavoriteForBundle)
 local DeleteFavoriteForBundle = require(InspectAndBuyFolder.Thunks.DeleteFavoriteForBundle)
 local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
+local GetItemDetails = require(InspectAndBuyFolder.Thunks.GetItemDetails)
 local useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch
 local ItemTypeEnum = require(CorePackages.Workspace.Packages.AvatarExperienceCommon).Enums.ItemTypeEnum
 
@@ -36,6 +39,17 @@ local TopBarConstants = require(Modules.TopBar.Constants)
 
 type PromptBulkPurchaseFinishedResult = AvatarExperienceInspectAndBuy.PromptBulkPurchaseFinishedResult
 type AvatarItem = AvatarExperienceInspectAndBuy.AvatarItem
+type TryOnItem = AvatarExperienceInspectAndBuy.TryOnItem
+type LocalPlayerModel = AvatarExperienceInspectAndBuy.LocalPlayerModel
+
+-- this flag controls whether the avatar model rotates when the user is not interacting with it
+local FFlagEnableAvatarViewportAutoRotation = game:DefineFastFlag("EnableAvatarViewportAutoRotation", false)
+-- this fint controls the zoom of the viewport camera
+local FIntViewportCameraFieldOfView = game:DefineFastInt("AXViewportCameraFieldOfView", 68)
+
+export type InspectAndBuyBaseContainerProps = {
+	localPlayerModel: LocalPlayerModel?,
+}
 
 local function InspectAndBuyBaseContainer(props)
 	local viewBreakpoints = useViewBreakpoints(TopBarConstants.TopBarHeight)
@@ -54,6 +68,15 @@ local function InspectAndBuyBaseContainer(props)
 	]]
 	local onBulkPurchaseFinished = React.useCallback(function(player, status, result: PromptBulkPurchaseFinishedResult)
 		dispatch(UpdateBulkPuchaseResults(result))
+
+		-- refresh the item card price line content (mainly for resale items)
+		for _, item in result.Items do
+			if item.type == Enum.MarketplaceProductType.AvatarAsset then
+				dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Asset))
+			elseif item.type == Enum.MarketplaceProductType.AvatarBundle then
+				dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Bundle))
+			end
+		end
 	end, { dispatch })
 
 	--[[
@@ -157,12 +180,38 @@ local function InspectAndBuyBaseContainer(props)
 		)
 	end
 
+	local renderTryOnViewport = React.useCallback(function(tryOnItem: TryOnItem): React.ReactElement<any>?
+		if props.localPlayerModel and props.localPlayerModel.Humanoid then
+			local humanoid = props.localPlayerModel.Humanoid
+			local humanoidDescription = humanoid.HumanoidDescription:Clone()
+			applyTryOnItemToHumanoidDescription(tryOnItem, humanoidDescription)
+			return React.createElement(AvatarViewport, {
+				size = UDim2.new(1, 0, 1, 0),
+				position = UDim2.new(0.5, 0, 0.5, 0),
+				humanoidDescription = humanoidDescription,
+				model = props.localPlayerModel,
+				visible = true,
+				backgroundTransparency = 1,
+				disableAutoRotation = not FFlagEnableAvatarViewportAutoRotation,
+				offsetOptions = {
+					defaultCameraOffset = CFrame.new(0, 0.5, -5),
+					toolOffset = CFrame.new(0, 2, -8),
+				},
+				cameraFieldOfView = FIntViewportCameraFieldOfView,
+				resetCameraAndAutoRotationOnModelChange = true,
+			})
+		end
+		return nil
+	end, { props.localPlayerModel })
+
 	local responsivePanelLayoutProps = useResponsivePanelLayoutProps({
 		onInspectMenuClosed = onInspectMenuClosed,
 		onBulkPurchaseFinished = onBulkPurchaseFinished,
 		onItemDetailsOpened = onItemDetailsOpened,
 		onToggleFavorite = onToggleFavorite,
 		onPromptPurchase = onPromptPurchase,
+		renderTryOnViewport = renderTryOnViewport,
+		localPlayerModel = props.localPlayerModel :: LocalPlayerModel,
 	})
 
 	useUnifiedEventListenerInExperience()

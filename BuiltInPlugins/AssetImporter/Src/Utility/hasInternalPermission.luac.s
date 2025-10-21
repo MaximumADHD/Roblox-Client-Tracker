@@ -1,9 +1,6 @@
 PROTO_0:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["StudioService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  NAMECALL R0 R0 K4 ["HasInternalPermission"]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["HasInternalPermission"]
   CALL R0 1 -1
   RETURN R0 -1
 
@@ -13,10 +10,23 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [pcall]
-  DUPCLOSURE R1 K2 [PROTO_0]
-  CALL R0 1 2
-  AND R2 R0 R1
-  DUPCLOSURE R3 K3 [PROTO_1]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["Services"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["StudioService"]
+  CALL R2 1 1
+  GETIMPORT R3 K12 [pcall]
+  DUPCLOSURE R4 K13 [PROTO_0]
   CAPTURE VAL R2
-  RETURN R3 1
+  CALL R3 1 2
+  AND R5 R3 R4
+  DUPCLOSURE R6 K14 [PROTO_1]
+  CAPTURE VAL R5
+  RETURN R6 1

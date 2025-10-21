@@ -68,6 +68,9 @@ local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.
 local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
+local SettingsFlags = require(script.Parent.Parent.Flags)
+local FFlagIEMButtonsResponsiveLayout = SettingsFlags.FFlagIEMButtonsResponsiveLayout
+
 local UserProfileStore = UserProfiles.Stores.UserProfileStore
 local GetFFlagUseUserProfileStore = SharedFlags.GetFFlagUseUserProfileStore
 
@@ -719,6 +722,10 @@ local function Initialize()
 		Visible = false,
 	})
 
+	if FFlagIEMButtonsResponsiveLayout then
+		this.ButtonsContainer = buttonsContainer
+	end
+
 	if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
 		buttonsContainer.Parent = nil
 	end
@@ -751,6 +758,27 @@ local function Initialize()
 	leaveButton.Position = UDim2.new(0, 0, 0, 0)
 	leaveLabel.Size = UDim2.new(1, -4, 1, 0)
 	leaveLabel.Position = UDim2.new(0, 2, 0, 0)
+	if FFlagIEMButtonsResponsiveLayout then
+		Create "UIListLayout" {
+			FillDirection = Enum.FillDirection.Horizontal,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+
+			Parent = leaveButton,
+		}
+		Create "UIPadding" {
+			PaddingLeft = UDim.new(0.025, 0),
+
+			Parent = leaveButton,
+		}
+		-- replacing full width with flex grow width
+		leaveLabel.Size = UDim2.new(0, 0, 1, 0)
+
+		Create "UIFlexItem" {
+			FlexMode = Enum.UIFlexMode.Grow,
+			Parent = leaveLabel,
+		}
+	end
 
 	if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
 		leaveButton.Parent = buttonsContainer

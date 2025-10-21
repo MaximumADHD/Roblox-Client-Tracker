@@ -23,29 +23,15 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["flags"]
-  GETTABLEKS R2 R3 K6 ["getFFlagUGCValidateAllowThumbnailFieldOfView"]
-  CALL R1 1 1
-  NEWTABLE R2 0 6
-  LOADK R3 K7 ["ThumbnailCharacterRotation"]
-  LOADK R4 K8 ["ThumbnailHorizontalOffset"]
-  LOADK R5 K9 ["ThumbnailKeyframe"]
-  LOADK R6 K10 ["ThumbnailVerticalOffset"]
-  LOADK R7 K11 ["ThumbnailZoom"]
-  LOADK R8 K12 ["ThumbnailTime"]
-  SETLIST R2 R3 6 [1]
-  MOVE R3 R1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+7]
-  FASTCALL2K TABLE_INSERT R2 K13 [+5]
-  MOVE R4 R2
-  LOADK R5 K13 ["ThumbnailFieldOfView"]
-  GETIMPORT R3 K16 [table.insert]
-  CALL R3 2 0
-  DUPCLOSURE R3 K17 [PROTO_0]
-  CAPTURE VAL R2
-  RETURN R3 1
+  NEWTABLE R0 0 7
+  LOADK R1 K0 ["ThumbnailCharacterRotation"]
+  LOADK R2 K1 ["ThumbnailHorizontalOffset"]
+  LOADK R3 K2 ["ThumbnailKeyframe"]
+  LOADK R4 K3 ["ThumbnailVerticalOffset"]
+  LOADK R5 K4 ["ThumbnailZoom"]
+  LOADK R6 K5 ["ThumbnailTime"]
+  LOADK R7 K6 ["ThumbnailFieldOfView"]
+  SETLIST R0 R1 7 [1]
+  DUPCLOSURE R1 K7 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

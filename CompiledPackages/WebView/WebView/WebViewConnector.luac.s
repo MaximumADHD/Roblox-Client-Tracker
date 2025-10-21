@@ -7,6 +7,12 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  JUMPIFEQKS R0 K0 ["MarketplaceAssetImpression"] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_2:
   GETUPVAL R1 0
   JUMPIFNOT R1 [+8]
   GETUPVAL R1 1
@@ -22,21 +28,36 @@ PROTO_1:
   LOADK R1 K4 ["lightStudio"]
   RETURN R1 1
 
-PROTO_2:
+PROTO_3:
   LOADNIL R1
   SETTABLEKS R1 R0 K0 ["isMounted"]
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K1 ["_webViewListeners"]
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K2 ["_browserSignalConnections"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["setInitTimestamp"]
-  GETTABLEKS R3 R0 K4 ["props"]
-  GETTABLEKS R2 R3 K5 ["analyticsContext"]
-  CALL R1 1 0
+  GETTABLEKS R2 R0 K3 ["props"]
+  GETTABLEKS R1 R2 K4 ["Plugin"]
+  JUMPIF R1 [+7]
+  GETTABLEKS R3 R0 K3 ["props"]
+  GETTABLEKS R2 R3 K5 ["HandleFailedInitCheck"]
+  LOADK R3 K6 ["Unable to find Plugin"]
+  CALL R2 1 0
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["setInitTimestamp"]
+  GETTABLEKS R4 R0 K3 ["props"]
+  GETTABLEKS R3 R4 K8 ["analyticsContext"]
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["setPluginUri"]
+  GETTABLEKS R4 R0 K3 ["props"]
+  GETTABLEKS R3 R4 K4 ["Plugin"]
+  NAMECALL R3 R3 K10 ["GetUri"]
+  CALL R3 1 -1
+  CALL R2 -1 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["_managerComponent"]
   DUPTABLE R2 K4 [{"Url", "OffsetHeight", "BrowserUri"}]
@@ -60,7 +81,7 @@ PROTO_3:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   LOADN R0 10
   LOADN R1 0
   GETIMPORT R2 K2 [task.wait]
@@ -121,7 +142,7 @@ PROTO_4:
   JUMPBACK [-83]
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["_retryInitializeWebviewCoroutine"]
   JUMPIFNOT R0 [+1]
@@ -136,7 +157,7 @@ PROTO_5:
   SETTABLEKS R1 R0 K0 ["_retryInitializeWebviewCoroutine"]
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["isMounted"]
   JUMPIFNOT R2 [+24]
@@ -159,7 +180,7 @@ PROTO_6:
   CALL R2 0 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   JUMPIFNOTEQKS R0 K0 ["beforeInteractive"] [+18]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["onWebViewTimingEvent"]
@@ -196,7 +217,7 @@ PROTO_7:
   CALL R1 0 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["onWebViewTimingEvent"]
   GETUPVAL R3 1
@@ -210,7 +231,7 @@ PROTO_8:
   CALL R0 4 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   GETIMPORT R1 K2 [string.find]
   MOVE R2 R0
   LOADK R3 K3 ["WEBVIEW_INVALID_WIDGET"]
@@ -258,108 +279,102 @@ PROTO_9:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Plugin"]
+  GETTABLEKS R2 R1 K1 ["PluginManagerComponent"]
+  SETTABLEKS R2 R0 K2 ["_managerComponent"]
+  GETTABLEKS R2 R0 K2 ["_managerComponent"]
   JUMPIF R2 [+5]
-  GETTABLEKS R3 R1 K2 ["HandleFailedInitCheck"]
-  LOADK R4 K3 ["Unable to find Plugin"]
-  CALL R3 1 0
+  GETTABLEKS R2 R1 K3 ["HandleFailedInitCheck"]
+  LOADK R3 K4 ["Unable to find PluginManagerComponent"]
+  CALL R2 1 0
   RETURN R0 0
-  GETTABLEKS R3 R1 K4 ["PluginManagerComponent"]
-  SETTABLEKS R3 R0 K5 ["_managerComponent"]
-  GETTABLEKS R3 R0 K5 ["_managerComponent"]
-  JUMPIF R3 [+5]
-  GETTABLEKS R3 R1 K2 ["HandleFailedInitCheck"]
-  LOADK R4 K6 ["Unable to find PluginManagerComponent"]
+  LOADNIL R2
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+13]
+  GETTABLEKS R3 R1 K5 ["WebViewManagerContext"]
+  NAMECALL R3 R3 K6 ["get"]
+  CALL R3 1 1
+  MOVE R2 R3
+  JUMPIF R2 [+6]
+  GETTABLEKS R3 R1 K3 ["HandleFailedInitCheck"]
+  LOADK R4 K7 ["Unable to find WebViewManagerContext"]
   CALL R3 1 0
+  CLOSEUPVALS R2
   RETURN R0 0
-  LOADNIL R3
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIFNOT R4 [+13]
-  GETTABLEKS R4 R1 K7 ["WebViewManagerContext"]
-  NAMECALL R4 R4 K8 ["get"]
-  CALL R4 1 1
-  MOVE R3 R4
+  GETTABLEKS R3 R1 K8 ["Url"]
+  SETTABLEKS R3 R0 K9 ["_url"]
+  GETTABLEKS R3 R0 K9 ["_url"]
   JUMPIF R3 [+6]
-  GETTABLEKS R4 R1 K2 ["HandleFailedInitCheck"]
-  LOADK R5 K9 ["Unable to find WebViewManagerContext"]
-  CALL R4 1 0
-  CLOSEUPVALS R3
+  GETTABLEKS R3 R1 K3 ["HandleFailedInitCheck"]
+  LOADK R4 K10 ["Unable to find Url"]
+  CALL R3 1 0
+  CLOSEUPVALS R2
   RETURN R0 0
-  GETTABLEKS R4 R1 K10 ["Url"]
-  SETTABLEKS R4 R0 K11 ["_url"]
-  GETTABLEKS R4 R0 K11 ["_url"]
-  JUMPIF R4 [+6]
-  GETTABLEKS R4 R1 K2 ["HandleFailedInitCheck"]
-  LOADK R5 K12 ["Unable to find Url"]
-  CALL R4 1 0
-  CLOSEUPVALS R3
-  RETURN R0 0
-  LOADN R4 0
-  SETTABLEKS R4 R0 K13 ["_autoRetryCount"]
-  NEWCLOSURE R4 P0
+  LOADN R3 0
+  SETTABLEKS R3 R0 K11 ["_autoRetryCount"]
+  NEWCLOSURE R3 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
-  CAPTURE REF R3
-  SETTABLEKS R4 R0 K14 ["initializeWebView"]
-  NEWCLOSURE R4 P1
+  CAPTURE REF R2
+  SETTABLEKS R3 R0 K12 ["initializeWebView"]
+  NEWCLOSURE R3 P1
   CAPTURE VAL R0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
-  SETTABLEKS R4 R0 K15 ["startRetryInitializeWebViewLoop"]
-  NEWCLOSURE R4 P2
+  SETTABLEKS R3 R0 K13 ["startRetryInitializeWebViewLoop"]
+  NEWCLOSURE R3 P2
   CAPTURE VAL R0
   CAPTURE UPVAL U2
-  SETTABLEKS R4 R0 K16 ["autoRetryBeforeWebViewErrorShown"]
-  GETUPVAL R5 0
-  CALL R5 0 1
-  JUMPIFNOT R5 [+3]
-  GETTABLEKS R4 R3 K17 ["BrowserLoadProgressEvent"]
+  SETTABLEKS R3 R0 K14 ["autoRetryBeforeWebViewErrorShown"]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+3]
+  GETTABLEKS R3 R2 K15 ["BrowserLoadProgressEvent"]
   JUMP [+4]
-  GETTABLEKS R5 R0 K5 ["_managerComponent"]
-  GETTABLEKS R4 R5 K18 ["WebBrowserWidgetLoadProgressEvent"]
-  NEWCLOSURE R7 P3
+  GETTABLEKS R4 R0 K2 ["_managerComponent"]
+  GETTABLEKS R3 R4 K16 ["WebBrowserWidgetLoadProgressEvent"]
+  NEWCLOSURE R6 P3
   CAPTURE UPVAL U2
   CAPTURE VAL R0
   CAPTURE UPVAL U3
-  NAMECALL R5 R4 K19 ["Connect"]
+  NAMECALL R4 R3 K17 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K18 ["_webBrowserLoadProgressConnection"]
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R4 R2 K19 ["BrowserLoadedEvent"]
+  JUMP [+4]
+  GETTABLEKS R5 R0 K2 ["_managerComponent"]
+  GETTABLEKS R4 R5 K20 ["WebBrowserWidgetLoadedEvent"]
+  NEWCLOSURE R7 P4
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  NAMECALL R5 R4 K17 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K20 ["_webBrowserLoadProgressConnection"]
+  SETTABLEKS R5 R0 K21 ["_webBrowserLoadedConnection"]
   GETUPVAL R6 0
   CALL R6 0 1
   JUMPIFNOT R6 [+3]
-  GETTABLEKS R5 R3 K21 ["BrowserLoadedEvent"]
+  GETTABLEKS R5 R2 K22 ["BrowserErrorEvent"]
   JUMP [+4]
-  GETTABLEKS R6 R0 K5 ["_managerComponent"]
-  GETTABLEKS R5 R6 K22 ["WebBrowserWidgetLoadedEvent"]
-  NEWCLOSURE R8 P4
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  NAMECALL R6 R5 K19 ["Connect"]
-  CALL R6 2 1
-  SETTABLEKS R6 R0 K23 ["_webBrowserLoadedConnection"]
-  GETUPVAL R7 0
-  CALL R7 0 1
-  JUMPIFNOT R7 [+3]
-  GETTABLEKS R6 R3 K24 ["BrowserErrorEvent"]
-  JUMP [+4]
-  GETTABLEKS R7 R0 K5 ["_managerComponent"]
-  GETTABLEKS R6 R7 K25 ["WebBrowserWidgetErrorEvent"]
-  NEWCLOSURE R9 P5
+  GETTABLEKS R6 R0 K2 ["_managerComponent"]
+  GETTABLEKS R5 R6 K23 ["WebBrowserWidgetErrorEvent"]
+  NEWCLOSURE R8 P5
   CAPTURE VAL R0
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  NAMECALL R7 R6 K19 ["Connect"]
-  CALL R7 2 1
-  SETTABLEKS R7 R0 K26 ["_webBrowserErrorConnection"]
-  GETTABLEKS R7 R0 K14 ["initializeWebView"]
-  CALL R7 0 0
-  CLOSEUPVALS R3
+  NAMECALL R6 R5 K17 ["Connect"]
+  CALL R6 2 1
+  SETTABLEKS R6 R0 K24 ["_webBrowserErrorConnection"]
+  GETTABLEKS R6 R0 K12 ["initializeWebView"]
+  CALL R6 0 0
+  CLOSEUPVALS R2
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
   MOVE R6 R2
   MOVE R7 R3
   NAMECALL R4 R1 K0 ["setListener"]
@@ -379,7 +394,7 @@ PROTO_11:
   SETTABLE R6 R5 R2
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
   NEWTABLE R1 0 0
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["props"]
@@ -397,7 +412,7 @@ PROTO_12:
   SETTABLEKS R1 R2 K3 ["capabilities"]
   RETURN R2 1
 
-PROTO_13:
+PROTO_14:
   GETTABLEKS R2 R0 K1 ["analyticsEventName"]
   ORK R1 R2 K0 [""]
   GETTABLEKS R2 R0 K2 ["analyticsEventData"]
@@ -410,7 +425,7 @@ PROTO_13:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETTABLEKS R2 R0 K1 ["analyticsEventName"]
   ORK R1 R2 K0 [""]
   GETTABLEKS R2 R0 K2 ["analyticsEventData"]
@@ -427,11 +442,27 @@ PROTO_14:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K7 ["analyticsSid"]
   SETTABLEKS R4 R3 K8 ["toolboxSid"]
+  GETGLOBAL R4 K9 ["shouldUseDeferredAnalytics"]
+  MOVE R5 R1
+  CALL R4 1 1
+  JUMPIFNOT R4 [+17]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K9 ["sendEventImmediately"]
+  GETTABLEKS R4 R5 K10 ["sendEventDeferred"]
   GETUPVAL R7 3
-  GETTABLEKS R6 R7 K10 ["ANALYTICS_TARGET"]
-  GETTABLEKS R5 R6 K11 ["WebView"]
+  GETTABLEKS R6 R7 K11 ["ANALYTICS_TARGET"]
+  GETTABLEKS R5 R6 K12 ["WebView"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K4 ["props"]
+  GETTABLEKS R6 R7 K5 ["analyticsContext"]
+  MOVE R7 R1
+  MOVE R8 R3
+  CALL R4 4 0
+  RETURN R0 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K13 ["sendEventImmediately"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K11 ["ANALYTICS_TARGET"]
+  GETTABLEKS R5 R6 K12 ["WebView"]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K4 ["props"]
   GETTABLEKS R6 R7 K5 ["analyticsContext"]
@@ -440,7 +471,7 @@ PROTO_14:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["hasWebViewEverLoaded"]
@@ -459,7 +490,7 @@ PROTO_15:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_17:
   GETTABLEKS R1 R0 K0 ["props"]
   LOADB R2 1
   SETTABLEKS R2 R0 K1 ["isMounted"]
@@ -485,7 +516,7 @@ PROTO_16:
   SETTABLE R5 R3 R4
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K9 ["SEND_ANALYTICS_COUNTER_EVENT_NAME"]
-  DUPCLOSURE R5 K10 [PROTO_13]
+  DUPCLOSURE R5 K10 [PROTO_14]
   CAPTURE UPVAL U2
   SETTABLE R5 R3 R4
   GETUPVAL R5 1
@@ -539,7 +570,7 @@ PROTO_16:
   CALL R4 1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_18:
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["manualRetryAttempt"]
   JUMPIFNOT R2 [+13]
@@ -574,7 +605,7 @@ PROTO_17:
   CALL R2 0 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_19:
   GETTABLEKS R1 R0 K0 ["_webBrowserLoadProgressConnection"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K0 ["_webBrowserLoadProgressConnection"]
@@ -597,7 +628,7 @@ PROTO_18:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_20:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["WebViewManagerContext"]
   NAMECALL R1 R1 K2 ["get"]
@@ -620,14 +651,14 @@ PROTO_19:
   SETTABLEKS R2 R0 K5 ["_webViewListeners"]
   RETURN R0 0
 
-PROTO_20:
+PROTO_21:
   GETIMPORT R0 K2 [task.cancel]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K3 ["_retryInitializeWebviewCoroutine"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_22:
   NAMECALL R1 R0 K0 ["disconnectAllSignals"]
   CALL R1 1 0
   NAMECALL R1 R0 K1 ["removeAllListeners"]
@@ -657,7 +688,7 @@ PROTO_21:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_23:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   LOADK R2 K1 ["Frame"]
@@ -743,43 +774,45 @@ MAIN:
   LOADK R19 K33 ["WebViewConnector"]
   NAMECALL R17 R17 K34 ["extend"]
   CALL R17 2 1
-  NEWCLOSURE R18 P1
+  DUPCLOSURE R18 K35 [PROTO_1]
+  SETGLOBAL R18 K36 ["shouldUseDeferredAnalytics"]
+  NEWCLOSURE R18 P2
   CAPTURE REF R10
   CAPTURE VAL R9
-  SETGLOBAL R18 K35 ["getStudioThemeName"]
-  DUPCLOSURE R18 K36 [PROTO_2]
+  SETGLOBAL R18 K37 ["getStudioThemeName"]
+  DUPCLOSURE R18 K38 [PROTO_3]
   CAPTURE VAL R5
-  SETTABLEKS R18 R17 K37 ["init"]
-  DUPCLOSURE R18 K38 [PROTO_10]
+  SETTABLEKS R18 R17 K39 ["init"]
+  DUPCLOSURE R18 K40 [PROTO_11]
   CAPTURE VAL R14
   CAPTURE VAL R8
   CAPTURE VAL R5
   CAPTURE VAL R11
   CAPTURE VAL R12
   CAPTURE VAL R13
-  SETTABLEKS R18 R17 K39 ["setUpManagerComponent"]
-  DUPCLOSURE R18 K40 [PROTO_11]
+  SETTABLEKS R18 R17 K41 ["setUpManagerComponent"]
+  DUPCLOSURE R18 K42 [PROTO_12]
   CAPTURE VAL R3
-  SETTABLEKS R18 R17 K41 ["_setUpListener"]
-  DUPCLOSURE R18 K42 [PROTO_16]
+  SETTABLEKS R18 R17 K43 ["_setUpListener"]
+  DUPCLOSURE R18 K44 [PROTO_17]
   CAPTURE VAL R14
   CAPTURE VAL R15
   CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R16
   CAPTURE VAL R7
-  SETTABLEKS R18 R17 K43 ["didMount"]
-  DUPCLOSURE R18 K44 [PROTO_17]
-  SETTABLEKS R18 R17 K45 ["didUpdate"]
+  SETTABLEKS R18 R17 K45 ["didMount"]
   DUPCLOSURE R18 K46 [PROTO_18]
-  SETTABLEKS R18 R17 K47 ["disconnectAllSignals"]
+  SETTABLEKS R18 R17 K47 ["didUpdate"]
   DUPCLOSURE R18 K48 [PROTO_19]
-  SETTABLEKS R18 R17 K49 ["removeAllListeners"]
-  DUPCLOSURE R18 K50 [PROTO_21]
-  CAPTURE VAL R14
-  SETTABLEKS R18 R17 K51 ["willUnmount"]
+  SETTABLEKS R18 R17 K49 ["disconnectAllSignals"]
+  DUPCLOSURE R18 K50 [PROTO_20]
+  SETTABLEKS R18 R17 K51 ["removeAllListeners"]
   DUPCLOSURE R18 K52 [PROTO_22]
+  CAPTURE VAL R14
+  SETTABLEKS R18 R17 K53 ["willUnmount"]
+  DUPCLOSURE R18 K54 [PROTO_23]
   CAPTURE VAL R2
-  SETTABLEKS R18 R17 K53 ["render"]
+  SETTABLEKS R18 R17 K55 ["render"]
   CLOSEUPVALS R10
   RETURN R17 1

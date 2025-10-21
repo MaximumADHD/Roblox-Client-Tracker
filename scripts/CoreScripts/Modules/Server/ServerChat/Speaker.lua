@@ -81,12 +81,14 @@ methods.__index = function (self, k)
         rawset(self, k, Instance.new("BindableEvent"))
     end
     local lazySignalEventName = lazySignalNames[k]
-    if lazySignalEventName and not rawget(self, k) then
-        if not rawget(self, lazySignalEventName) then
-            rawset(self, lazySignalEventName, Instance.new("BindableEvent"))
-        end
-        rawset(self, k, rawget(self, lazySignalEventName).Event)
-    end
+	if lazySignalEventName and not rawget(self, k) then
+		local signalEvent = rawget(self, lazySignalEventName)
+		if not signalEvent then
+			signalEvent = Instance.new("BindableEvent")
+			rawset(self, lazySignalEventName, signalEvent)
+		end
+		rawset(self, k, signalEvent.Event)
+	end
     return rawget(self, k)
 end
 

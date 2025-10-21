@@ -2,10 +2,6 @@
 	describes the Instance hierarchy for an Emote
 ]]
 
-local root = script.Parent.Parent
-
-local getFFlagUGCValidateAllowThumbnailFieldOfView = require(root.flags.getFFlagUGCValidateAllowThumbnailFieldOfView)
-
 local NumberValueNames = {
 	"ThumbnailCharacterRotation",
 	"ThumbnailHorizontalOffset",
@@ -13,11 +9,8 @@ local NumberValueNames = {
 	"ThumbnailVerticalOffset",
 	"ThumbnailZoom",
 	"ThumbnailTime",
+	"ThumbnailFieldOfView",
 }
-
-if getFFlagUGCValidateAllowThumbnailFieldOfView() then
-	table.insert(NumberValueNames, "ThumbnailFieldOfView")
-end
 
 local function createEmoteSchema()
 	local result = {

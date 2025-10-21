@@ -1,0 +1,60 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["OnChanged"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["Property"]
+  GETTABLEKS R2 R3 K2 ["Value"]
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useCallback"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  NEWTABLE R3 0 2
+  GETTABLEKS R5 R0 K1 ["Property"]
+  GETTABLEKS R4 R5 K2 ["Value"]
+  GETTABLEKS R5 R0 K3 ["OnChanged"]
+  SETLIST R3 R4 2 [1]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["createElement"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["Checkbox"]
+  DUPTABLE R4 K11 [{"size", "label", "isChecked", "onActivated", "LayoutOrder"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K12 ["Enums"]
+  GETTABLEKS R6 R7 K13 ["InputSize"]
+  GETTABLEKS R5 R6 K14 ["XSmall"]
+  SETTABLEKS R5 R4 K6 ["size"]
+  LOADK R5 K15 [""]
+  SETTABLEKS R5 R4 K7 ["label"]
+  GETTABLEKS R6 R0 K1 ["Property"]
+  GETTABLEKS R5 R6 K2 ["Value"]
+  SETTABLEKS R5 R4 K8 ["isChecked"]
+  SETTABLEKS R1 R4 K9 ["onActivated"]
+  GETTABLEKS R5 R0 K10 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K10 ["LayoutOrder"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R3 1

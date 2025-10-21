@@ -859,9 +859,6 @@ PROTO_14:
   GETIMPORT R6 K8 [tick]
   CALL R6 0 1
   LOADNIL R7
-  GETUPVAL R8 1
-  CALL R8 0 1
-  JUMPIFNOT R8 [+1]
   JUMPIF R5 [+38]
   NEWTABLE R8 0 0
   MOVE R9 R0
@@ -875,7 +872,7 @@ PROTO_14:
   CALL R14 2 0
   FORGLOOP R9 2 [-8]
   LOADNIL R9
-  GETUPVAL R11 2
+  GETUPVAL R11 1
   GETTABLEKS R10 R11 K12 ["processAll"]
   MOVE R11 R8
   MOVE R12 R2
@@ -903,25 +900,19 @@ PROTO_14:
   CALL R9 0 1
   SETTABLEKS R9 R8 K21 ["lastTickSeconds"]
   SETTABLEKS R4 R8 K22 ["shouldYield"]
-  GETUPVAL R9 1
-  CALL R9 0 1
-  JUMPIFNOT R9 [+1]
   JUMPIF R5 [+8]
   GETTABLEKS R9 R7 K24 ["editableMeshes"]
   SETTABLEKS R9 R8 K24 ["editableMeshes"]
   GETTABLEKS R9 R7 K25 ["editableImages"]
   SETTABLEKS R9 R8 K25 ["editableImages"]
-  GETUPVAL R10 3
+  GETUPVAL R10 2
   GETTABLEKS R9 R10 K5 ["calculateScaleToValidateBoundsAsync"]
   MOVE R10 R0
   MOVE R11 R8
   MOVE R12 R5
   CALL R9 3 1
-  GETUPVAL R10 1
-  CALL R10 0 1
-  JUMPIFNOT R10 [+1]
   JUMPIF R5 [+6]
-  GETUPVAL R10 4
+  GETUPVAL R10 3
   GETTABLEKS R11 R8 K24 ["editableMeshes"]
   GETTABLEKS R12 R8 K25 ["editableImages"]
   CALL R10 2 0
@@ -944,214 +935,209 @@ MAIN:
   GETIMPORT R0 K1 [script]
   GETIMPORT R1 K3 [require]
   GETTABLEKS R3 R0 K4 ["flags"]
-  GETTABLEKS R2 R3 K5 ["getFFlagUGCValidateUseDataCache"]
+  GETTABLEKS R2 R3 K5 ["getEngineFeatureUGCValidationWithContextEntrypoint"]
   CALL R1 1 1
   GETIMPORT R2 K3 [require]
-  GETTABLEKS R4 R0 K4 ["flags"]
-  GETTABLEKS R3 R4 K6 ["getEngineFeatureUGCValidationWithContextEntrypoint"]
+  GETTABLEKS R3 R0 K6 ["Analytics"]
   CALL R2 1 1
   GETIMPORT R3 K3 [require]
-  GETTABLEKS R4 R0 K7 ["Analytics"]
+  GETTABLEKS R4 R0 K7 ["Constants"]
   CALL R3 1 1
   GETIMPORT R4 K3 [require]
-  GETTABLEKS R5 R0 K8 ["Constants"]
+  GETTABLEKS R6 R0 K8 ["util"]
+  GETTABLEKS R5 R6 K9 ["BundlesMetadata"]
   CALL R4 1 1
   GETIMPORT R5 K3 [require]
-  GETTABLEKS R7 R0 K9 ["util"]
-  GETTABLEKS R6 R7 K10 ["BundlesMetadata"]
+  GETTABLEKS R7 R0 K8 ["util"]
+  GETTABLEKS R6 R7 K10 ["canUploadBundlesAsync"]
   CALL R5 1 1
   GETIMPORT R6 K3 [require]
-  GETTABLEKS R8 R0 K9 ["util"]
-  GETTABLEKS R7 R8 K11 ["canUploadBundlesAsync"]
+  GETTABLEKS R8 R0 K8 ["util"]
+  GETTABLEKS R7 R8 K11 ["createUGCBodyPartFolders"]
   CALL R6 1 1
   GETIMPORT R7 K3 [require]
-  GETTABLEKS R9 R0 K9 ["util"]
-  GETTABLEKS R8 R9 K12 ["createUGCBodyPartFolders"]
+  GETTABLEKS R9 R0 K8 ["util"]
+  GETTABLEKS R8 R9 K12 ["isLayeredClothing"]
   CALL R7 1 1
   GETIMPORT R8 K3 [require]
-  GETTABLEKS R10 R0 K9 ["util"]
-  GETTABLEKS R9 R10 K13 ["isLayeredClothing"]
+  GETTABLEKS R10 R0 K8 ["util"]
+  GETTABLEKS R9 R10 K13 ["RigidOrLayeredAllowed"]
   CALL R8 1 1
   GETIMPORT R9 K3 [require]
-  GETTABLEKS R11 R0 K9 ["util"]
-  GETTABLEKS R10 R11 K14 ["RigidOrLayeredAllowed"]
+  GETTABLEKS R11 R0 K8 ["util"]
+  GETTABLEKS R10 R11 K14 ["Types"]
   CALL R9 1 1
   GETIMPORT R10 K3 [require]
-  GETTABLEKS R12 R0 K9 ["util"]
-  GETTABLEKS R11 R12 K15 ["Types"]
+  GETTABLEKS R12 R0 K8 ["util"]
+  GETTABLEKS R11 R12 K15 ["createEditableInstancesForContext"]
   CALL R10 1 1
   GETIMPORT R11 K3 [require]
-  GETTABLEKS R13 R0 K9 ["util"]
-  GETTABLEKS R12 R13 K16 ["createEditableInstancesForContext"]
+  GETTABLEKS R13 R0 K8 ["util"]
+  GETTABLEKS R12 R13 K16 ["destroyEditableInstances"]
   CALL R11 1 1
   GETIMPORT R12 K3 [require]
-  GETTABLEKS R14 R0 K9 ["util"]
-  GETTABLEKS R13 R14 K17 ["destroyEditableInstances"]
+  GETTABLEKS R14 R0 K8 ["util"]
+  GETTABLEKS R13 R14 K17 ["ValidationHints"]
   CALL R12 1 1
   GETIMPORT R13 K3 [require]
-  GETTABLEKS R15 R0 K9 ["util"]
-  GETTABLEKS R14 R15 K18 ["ValidationHints"]
+  GETTABLEKS R15 R0 K18 ["validation"]
+  GETTABLEKS R14 R15 K19 ["validateInternal"]
   CALL R13 1 1
   GETIMPORT R14 K3 [require]
-  GETTABLEKS R16 R0 K19 ["validation"]
-  GETTABLEKS R15 R16 K20 ["validateInternal"]
+  GETTABLEKS R16 R0 K18 ["validation"]
+  GETTABLEKS R15 R16 K20 ["validateLayeredClothingAccessoryMeshPartAssetFormat"]
   CALL R14 1 1
   GETIMPORT R15 K3 [require]
-  GETTABLEKS R17 R0 K19 ["validation"]
-  GETTABLEKS R16 R17 K21 ["validateLayeredClothingAccessoryMeshPartAssetFormat"]
+  GETTABLEKS R17 R0 K18 ["validation"]
+  GETTABLEKS R16 R17 K21 ["validateLegacyAccessoryMeshPartAssetFormat"]
   CALL R15 1 1
   GETIMPORT R16 K3 [require]
-  GETTABLEKS R18 R0 K19 ["validation"]
-  GETTABLEKS R17 R18 K22 ["validateLegacyAccessoryMeshPartAssetFormat"]
+  GETTABLEKS R18 R0 K18 ["validation"]
+  GETTABLEKS R17 R18 K22 ["validateFullBody"]
   CALL R16 1 1
   GETIMPORT R17 K3 [require]
-  GETTABLEKS R19 R0 K19 ["validation"]
-  GETTABLEKS R18 R19 K23 ["validateFullBody"]
+  GETTABLEKS R19 R0 K18 ["validation"]
+  GETTABLEKS R18 R19 K23 ["validateShoes"]
   CALL R17 1 1
   GETIMPORT R18 K3 [require]
-  GETTABLEKS R20 R0 K19 ["validation"]
-  GETTABLEKS R19 R20 K24 ["validateShoes"]
+  GETTABLEKS R20 R0 K18 ["validation"]
+  GETTABLEKS R19 R20 K24 ["validateBundleReadyForUpload"]
   CALL R18 1 1
   GETIMPORT R19 K3 [require]
-  GETTABLEKS R21 R0 K19 ["validation"]
-  GETTABLEKS R20 R21 K25 ["validateBundleReadyForUpload"]
+  GETTABLEKS R21 R0 K18 ["validation"]
+  GETTABLEKS R20 R21 K25 ["validateShoesBundleReadyForUpload"]
   CALL R19 1 1
   GETIMPORT R20 K3 [require]
-  GETTABLEKS R22 R0 K19 ["validation"]
-  GETTABLEKS R21 R22 K26 ["validateShoesBundleReadyForUpload"]
+  GETTABLEKS R22 R0 K18 ["validation"]
+  GETTABLEKS R21 R22 K26 ["validateDynamicHeadMeshPartFormat"]
   CALL R20 1 1
   GETIMPORT R21 K3 [require]
-  GETTABLEKS R23 R0 K19 ["validation"]
-  GETTABLEKS R22 R23 K27 ["validateDynamicHeadMeshPartFormat"]
+  GETTABLEKS R23 R0 K27 ["validationSystem"]
+  GETTABLEKS R22 R23 K28 ["ValidationManager"]
   CALL R21 1 1
   GETIMPORT R22 K3 [require]
-  GETTABLEKS R24 R0 K28 ["validationSystem"]
-  GETTABLEKS R23 R24 K29 ["ValidationManager"]
+  GETTABLEKS R24 R0 K4 ["flags"]
+  GETTABLEKS R23 R24 K29 ["getFFlagUGCValidationEnableFolderStructure"]
   CALL R22 1 1
   GETIMPORT R23 K3 [require]
   GETTABLEKS R25 R0 K4 ["flags"]
-  GETTABLEKS R24 R25 K30 ["getFFlagUGCValidationEnableFolderStructure"]
+  GETTABLEKS R24 R25 K30 ["getFFlagUGCValidationCombineEntrypointResults"]
   CALL R23 1 1
   GETIMPORT R24 K3 [require]
-  GETTABLEKS R26 R0 K4 ["flags"]
-  GETTABLEKS R25 R26 K31 ["getFFlagUGCValidationCombineEntrypointResults"]
+  GETTABLEKS R26 R0 K8 ["util"]
+  GETTABLEKS R25 R26 K31 ["LegacyValidationAdapter"]
   CALL R24 1 1
-  GETIMPORT R25 K3 [require]
-  GETTABLEKS R27 R0 K9 ["util"]
-  GETTABLEKS R26 R27 K32 ["LegacyValidationAdapter"]
-  CALL R25 1 1
-  NEWTABLE R26 32 0
-  GETTABLEKS R27 R22 K33 ["ValidateAsset"]
-  SETTABLEKS R27 R26 K33 ["ValidateAsset"]
-  GETTABLEKS R27 R22 K34 ["ValidateFinalizedBundle"]
-  SETTABLEKS R27 R26 K34 ["ValidateFinalizedBundle"]
-  GETTABLEKS R27 R25 K35 ["combineResultsIntoLegacy"]
-  SETTABLEKS R27 R26 K35 ["combineResultsIntoLegacy"]
-  SETTABLEKS R23 R26 K36 ["isFolderStructureEnabled"]
-  SETTABLEKS R24 R26 K37 ["isEntrypointMergingEnabled"]
-  MOVE R27 R2
-  CALL R27 0 1
-  JUMPIFNOT R27 [+7]
-  DUPCLOSURE R27 K38 [PROTO_0]
-  CAPTURE VAL R3
+  NEWTABLE R25 32 0
+  GETTABLEKS R26 R21 K32 ["ValidateAsset"]
+  SETTABLEKS R26 R25 K32 ["ValidateAsset"]
+  GETTABLEKS R26 R21 K33 ["ValidateFinalizedBundle"]
+  SETTABLEKS R26 R25 K33 ["ValidateFinalizedBundle"]
+  GETTABLEKS R26 R24 K34 ["combineResultsIntoLegacy"]
+  SETTABLEKS R26 R25 K34 ["combineResultsIntoLegacy"]
+  SETTABLEKS R22 R25 K35 ["isFolderStructureEnabled"]
+  SETTABLEKS R23 R25 K36 ["isEntrypointMergingEnabled"]
+  MOVE R26 R1
+  CALL R26 0 1
+  JUMPIFNOT R26 [+7]
+  DUPCLOSURE R26 K37 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R13
   CAPTURE VAL R11
+  SETTABLEKS R26 R25 K38 ["validateWithContext"]
+  DUPCLOSURE R26 K39 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R11
+  SETTABLEKS R26 R25 K40 ["validate"]
+  DUPCLOSURE R26 K41 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R11
+  SETTABLEKS R26 R25 K42 ["validateAsync"]
+  DUPCLOSURE R26 K43 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R20
+  CAPTURE VAL R11
+  SETTABLEKS R26 R25 K44 ["validateMeshPartFormat"]
+  DUPCLOSURE R26 K45 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R20
+  CAPTURE VAL R11
+  SETTABLEKS R26 R25 K46 ["validateAsyncMeshPartFormat"]
+  MOVE R26 R1
+  CALL R26 0 1
+  JUMPIFNOT R26 [+9]
+  DUPCLOSURE R26 K47 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R7
   CAPTURE VAL R14
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K39 ["validateWithContext"]
-  DUPCLOSURE R27 K40 [PROTO_1]
-  CAPTURE VAL R3
-  CAPTURE VAL R11
-  CAPTURE VAL R14
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K41 ["validate"]
-  DUPCLOSURE R27 K42 [PROTO_3]
-  CAPTURE VAL R3
-  CAPTURE VAL R11
-  CAPTURE VAL R14
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K43 ["validateAsync"]
-  DUPCLOSURE R27 K44 [PROTO_4]
-  CAPTURE VAL R3
-  CAPTURE VAL R11
-  CAPTURE VAL R21
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K45 ["validateMeshPartFormat"]
-  DUPCLOSURE R27 K46 [PROTO_6]
-  CAPTURE VAL R3
-  CAPTURE VAL R11
-  CAPTURE VAL R21
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K47 ["validateAsyncMeshPartFormat"]
-  MOVE R27 R2
-  CALL R27 0 1
-  JUMPIFNOT R27 [+9]
-  DUPCLOSURE R27 K48 [PROTO_7]
-  CAPTURE VAL R3
-  CAPTURE VAL R11
-  CAPTURE VAL R8
   CAPTURE VAL R15
-  CAPTURE VAL R16
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K49 ["validateMeshPartAssetFormatWithContext"]
-  DUPCLOSURE R27 K50 [PROTO_8]
-  CAPTURE VAL R3
   CAPTURE VAL R11
-  CAPTURE VAL R8
+  SETTABLEKS R26 R25 K48 ["validateMeshPartAssetFormatWithContext"]
+  DUPCLOSURE R26 K49 [PROTO_8]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  CAPTURE VAL R14
   CAPTURE VAL R15
+  CAPTURE VAL R11
+  SETTABLEKS R26 R25 K50 ["validateMeshPartAssetFormat2"]
+  SETTABLEKS R18 R25 K24 ["validateBundleReadyForUpload"]
+  SETTABLEKS R19 R25 K25 ["validateShoesBundleReadyForUpload"]
+  DUPTABLE R26 K51 [{"BundlesMetadata", "createUGCBodyPartFolders", "canUploadBundlesAsync"}]
+  SETTABLEKS R4 R26 K9 ["BundlesMetadata"]
+  SETTABLEKS R6 R26 K11 ["createUGCBodyPartFolders"]
+  SETTABLEKS R5 R26 K10 ["canUploadBundlesAsync"]
+  SETTABLEKS R26 R25 K8 ["util"]
+  GETTABLEKS R26 R25 K8 ["util"]
+  GETTABLEKS R27 R8 K52 ["isLayeredClothingAllowed"]
+  SETTABLEKS R27 R26 K52 ["isLayeredClothingAllowed"]
+  GETTABLEKS R26 R25 K8 ["util"]
+  GETTABLEKS R27 R8 K53 ["isRigidAccessoryAllowed"]
+  SETTABLEKS R27 R26 K53 ["isRigidAccessoryAllowed"]
+  MOVE R26 R1
+  CALL R26 0 1
+  JUMPIFNOT R26 [+7]
+  DUPCLOSURE R26 K54 [PROTO_9]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
   CAPTURE VAL R16
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K51 ["validateMeshPartAssetFormat2"]
-  SETTABLEKS R19 R26 K25 ["validateBundleReadyForUpload"]
-  SETTABLEKS R20 R26 K26 ["validateShoesBundleReadyForUpload"]
-  DUPTABLE R27 K52 [{"BundlesMetadata", "createUGCBodyPartFolders", "canUploadBundlesAsync"}]
-  SETTABLEKS R5 R27 K10 ["BundlesMetadata"]
-  SETTABLEKS R7 R27 K12 ["createUGCBodyPartFolders"]
-  SETTABLEKS R6 R27 K11 ["canUploadBundlesAsync"]
-  SETTABLEKS R27 R26 K9 ["util"]
-  GETTABLEKS R27 R26 K9 ["util"]
-  GETTABLEKS R28 R9 K53 ["isLayeredClothingAllowed"]
-  SETTABLEKS R28 R27 K53 ["isLayeredClothingAllowed"]
-  GETTABLEKS R27 R26 K9 ["util"]
-  GETTABLEKS R28 R9 K54 ["isRigidAccessoryAllowed"]
-  SETTABLEKS R28 R27 K54 ["isRigidAccessoryAllowed"]
-  MOVE R27 R2
-  CALL R27 0 1
-  JUMPIFNOT R27 [+7]
-  DUPCLOSURE R27 K55 [PROTO_9]
-  CAPTURE VAL R3
   CAPTURE VAL R11
+  SETTABLEKS R26 R25 K55 ["validateFullBodyWithContext"]
+  DUPCLOSURE R26 K56 [PROTO_10]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R16
+  CAPTURE VAL R11
+  SETTABLEKS R26 R25 K22 ["validateFullBody"]
+  DUPCLOSURE R26 K57 [PROTO_11]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
   CAPTURE VAL R17
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K56 ["validateFullBodyWithContext"]
-  DUPCLOSURE R27 K57 [PROTO_10]
-  CAPTURE VAL R3
   CAPTURE VAL R11
-  CAPTURE VAL R17
+  SETTABLEKS R26 R25 K58 ["validateShoesWithContext"]
+  DUPCLOSURE R26 K59 [PROTO_12]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
   CAPTURE VAL R12
-  SETTABLEKS R27 R26 K23 ["validateFullBody"]
-  DUPCLOSURE R27 K58 [PROTO_11]
-  CAPTURE VAL R3
   CAPTURE VAL R11
-  CAPTURE VAL R18
+  SETTABLEKS R26 R25 K60 ["preprocessDataAsync"]
+  DUPCLOSURE R26 K61 [PROTO_13]
+  CAPTURE VAL R2
   CAPTURE VAL R12
-  SETTABLEKS R27 R26 K59 ["validateShoesWithContext"]
-  DUPCLOSURE R27 K60 [PROTO_12]
-  CAPTURE VAL R3
+  SETTABLEKS R26 R25 K62 ["isPreprocessDataCached"]
+  DUPCLOSURE R26 K63 [PROTO_14]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R12
   CAPTURE VAL R11
-  CAPTURE VAL R13
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K61 ["preprocessDataAsync"]
-  DUPCLOSURE R27 K62 [PROTO_13]
-  CAPTURE VAL R3
-  CAPTURE VAL R13
-  SETTABLEKS R27 R26 K63 ["isPreprocessDataCached"]
-  DUPCLOSURE R27 K64 [PROTO_14]
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  CAPTURE VAL R11
-  CAPTURE VAL R13
-  CAPTURE VAL R12
-  SETTABLEKS R27 R26 K65 ["calculateScaleToValidateBoundsAsync"]
-  GETTABLEKS R27 R4 K66 ["GUIDAttributeName"]
-  SETTABLEKS R27 R26 K66 ["GUIDAttributeName"]
-  RETURN R26 1
+  SETTABLEKS R26 R25 K64 ["calculateScaleToValidateBoundsAsync"]
+  GETTABLEKS R26 R3 K65 ["GUIDAttributeName"]
+  SETTABLEKS R26 R25 K65 ["GUIDAttributeName"]
+  RETURN R25 1

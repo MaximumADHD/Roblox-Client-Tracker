@@ -322,9 +322,9 @@ SubscriptionObserver.__index = function(t, k)
 		return t._subscription._state == "closed"
 	end
 	if rawget(SubscriptionObserver, k) then
-		return rawget(SubscriptionObserver, k)
+		return rawget(SubscriptionObserver, k) :: any
 	end
-	return rawget(t, k)
+	return rawget(t, k) :: any
 end
 SubscriptionObserver.__newindex = function(t, k, v)
 	if k == "closed" then

@@ -14,14 +14,19 @@ local PlayerList = script.Parent
 local FFlagPlayerListPersistVisibility = require(PlayerList.Flags.FFlagPlayerListPersistVisibility)
 local FStringPlayerListOverrideType = require(PlayerList.Flags.FStringPlayerListOverrideType)
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
 
 local function isSmallTouchScreen()
 	if _G.__TESTEZ_RUNNING_TEST__ then
 		return false
 	end
+	local isSmallDisplaySize = if FFlagPlayerListUseMobileOnSmallDisplay then GuiService.ViewportDisplaySize == Enum.DisplaySize.Small else false
 	local isLargeDisplaySize = if FFlagEnableMobilePlayerListOnConsole then GuiService.ViewportDisplaySize == Enum.DisplaySize.Large else false
 	local isTouchOrGamepad = if FFlagEnableMobilePlayerListOnConsole then UserInputService.PreferredInput == Enum.PreferredInput.Touch or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad else false
-	return SettingsUtil:IsSmallTouchScreen() or (FFlagEnableMobilePlayerListOnConsole and isLargeDisplaySize and isTouchOrGamepad) or (FStringPlayerListOverrideType == "mobile")
+	return SettingsUtil:IsSmallTouchScreen() 
+		or (FFlagEnableMobilePlayerListOnConsole and isLargeDisplaySize and isTouchOrGamepad) 
+		or (FFlagPlayerListUseMobileOnSmallDisplay and isSmallDisplaySize) 
+		or (FStringPlayerListOverrideType == "mobile")
 end
 
 return function()

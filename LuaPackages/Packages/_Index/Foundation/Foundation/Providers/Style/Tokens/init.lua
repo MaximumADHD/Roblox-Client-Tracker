@@ -21,9 +21,7 @@ end
 local function getTokens(device: Device, theme: Theme, scaleFactor: number?)
 	local generators = RbxDesignFoundations.Tokens
 	local scale = getPlatformScale(device, scaleFactor)
-	local themeTokens: typeof(generators.FoundationDark) = if theme == Theme.Dark
-		then generators.FoundationDark
-		else generators.FoundationLight
+	local themeTokens: typeof(generators.Dark) = if theme == Theme.Dark then generators.Dark else generators.Light
 
 	local tokens = themeTokens(scale)
 

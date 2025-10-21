@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
+local Types = require(Foundation.Components.Types)
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
@@ -9,14 +10,32 @@ export type SheetRef = {
 }
 
 export type SheetProps = {
+	-- Whether the sheet is open, false does not mean the sheet is finished closing, use `onClose` to know when the sheet is closed
 	isOpen: boolean?,
+	-- Ref containing a `close` method to close the sheet
 	sheetRef: React.Ref<SheetRef>?,
+	-- Prefer using center sheet over side sheet
 	preferCenterSheet: boolean?,
+	-- The size of the sheet, only applies to center sheets
 	size: DialogSize?,
+	-- Callback fired when the sheet is closed
 	onClose: () -> (),
-	snapPoints: { number }?,
+	-- List of snap points for bottom sheets, values should be between 0 and 1 representing the percentage of the screen height or absolute pixel values (e.g. 300) make sure to scale pixel values with `useScaledValue`
+	snapPoints: { number },
+	-- The default snap point index to open the sheet to, defaults to the first snap point
+	defaultSnapPointIndex: number?,
 	testId: string?,
 	children: React.ReactNode,
 }
 
-return nil
+return {
+	nonSelectable = {
+		Selectable = false,
+	} :: Types.Selection,
+	isolatedSelectionGroup = {
+		SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
+		SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
+		SelectionBehaviorDown = Enum.SelectionBehavior.Stop,
+		SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
+	},
+}

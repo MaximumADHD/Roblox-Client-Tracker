@@ -12,7 +12,6 @@ local getFFlagUGCValidationHyperlinksInCageQuality = require(root.flags.getFFlag
 
 local getEngineFeatureEngineUGCValidationCageUVDuplicates =
 	require(root.flags.getEngineFeatureEngineUGCValidationCageUVDuplicates)
-local getEngineFeatureUGCValidateExtraShoesTests = require(root.flags.getEngineFeatureUGCValidateExtraShoesTests)
 
 local validateVerticesSimilarity = require(root.validation.validateVerticesSimilarity)
 local validateLCCagingRelevancy = require(root.validation.validateLCCagingRelevancy)
@@ -110,7 +109,7 @@ local function validateLCCageQuality(
 		end
 	end
 
-	if getEngineFeatureUGCValidateExtraShoesTests() then
+	do
 		local success, failedReason = ValidateModifiedCageArea.validate(
 			innerCage,
 			wrapLayer.ReferenceOrigin,

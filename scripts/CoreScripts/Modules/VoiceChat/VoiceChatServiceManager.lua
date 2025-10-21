@@ -28,6 +28,7 @@ local GetFFlagDisableConsentModalForExistingUsers =
 	require(script.Parent.Flags.GetFFlagDisableConsentModalForExistingUsers)
 local GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses =
 	require(script.Parent.Flags.GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses)
+local GetFFlagUpdateVoiceConnectionToasts = require(script.Parent.Flags.GetFFlagUpdateVoiceConnectionToasts)
 
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
@@ -591,7 +592,11 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe("OnVoiceJoin", function()
 		if GetFFlagNonVoiceFTUX() and self.hasLeftFTUX then
 			self.hasLeftFTUX = false
-			self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
+			if GetFFlagUpdateVoiceConnectionToasts() then
+				self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
+			else
+				self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
+			end
 			if GetFFlagEnableConnectDisconnectAnalytics() then
 				self.Analytics:reportConnectDisconnectEvents(
 					"voiceConnectFtuxLeaveEvent",
@@ -604,7 +609,9 @@ function VoiceChatServiceManager.new(
 			and self:IsSeamlessVoice()
 		then
 			ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-			if FFlagSeamlessVoiceV2JoinVoiceToast and self.isInitialJoin then
+			if GetFFlagUpdateVoiceConnectionToasts() then
+				self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
+			elseif FFlagSeamlessVoiceV2JoinVoiceToast and self.isInitialJoin then
 				self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
 			else
 				self:showPrompt(VoiceChatPromptType.JoinVoice)
@@ -1659,7 +1666,11 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self.previousGroupId then
 		-- previously joined voice and left in the same session
 		self:RejoinPreviousChannel()
-		self:showPrompt(VoiceChatPromptType.JoinVoice)
+		if GetFFlagUpdateVoiceConnectionToasts() then
+			self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
+		else
+			self:showPrompt(VoiceChatPromptType.JoinVoice)
+		end
 		self:ShowVoiceUI()
 		self:SetVoiceConnectCookieValue(true)
 	elseif GetFFlagNonVoiceFTUX() and self.isShowingFTUX then

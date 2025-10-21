@@ -17,7 +17,6 @@ local validateAttributes = require(root.validation.validateAttributes)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
-local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateSurfaceAppearances = require(root.validation.validateSurfaceAppearances)
 local validateSurfaceAppearanceTextureSize = require(root.validation.validateSurfaceAppearanceTextureSize)
 local validateSurfaceAppearanceTransparency = require(root.validation.validateSurfaceAppearanceTransparency)
@@ -39,8 +38,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 
 local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
-local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
-local getFFlagCheckAccessoryMeshSize = require(root.flags.getFFlagCheckAccessoryMeshSize)
 
 local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
@@ -93,13 +90,6 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
 		success, reasons = ValidatePropertiesSensible.validate(instance, validationContext)
-		if not success then
-			return false, reasons
-		end
-	end
-
-	if getFFlagUGCValidationNameCheck() and isServer then
-		success, reasons = validateAccessoryName(instance, validationContext)
 		if not success then
 			return false, reasons
 		end
@@ -220,10 +210,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	if hasMeshContent then
 		reasonsAccumulator:updateReasons(validateTotalSurfaceArea(meshInfo, meshScale, validationContext))
-
-		if getFFlagCheckAccessoryMeshSize() then
-			reasonsAccumulator:updateReasons(ValidateMeshSizeProperty.validateSingleMeshPart(handle, validationContext))
-		end
+		reasonsAccumulator:updateReasons(ValidateMeshSizeProperty.validateSingleMeshPart(handle, validationContext))
 
 		reasonsAccumulator:updateReasons(
 			validateMeshBounds(

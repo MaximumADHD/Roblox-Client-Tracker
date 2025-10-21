@@ -1,6 +1,5 @@
 local root = script
 
-local getFFlagUGCValidateUseDataCache = require(root.flags.getFFlagUGCValidateUseDataCache)
 local getEngineFeatureUGCValidationWithContextEntrypoint =
 	require(root.flags.getEngineFeatureUGCValidationWithContextEntrypoint)
 
@@ -28,14 +27,20 @@ local validateBundleReadyForUpload = require(root.validation.validateBundleReady
 local validateShoesBundleReadyForUpload = require(root.validation.validateShoesBundleReadyForUpload)
 local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynamicHeadMeshPartFormat)
 local ValidationManager = require(root.validationSystem.ValidationManager)
+local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
+local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+local LegacyValidationAdapter = require(root.util.LegacyValidationAdapter)
 
 local UGCValidation = {}
 
--- New endpoints, all other .validate endpoints should be deprecated
-UGCValidation.getAssetValidationData = ValidationManager.ValidateAsset
---UGCValidation.getLegacyResults = ValidationManager.getErrorMessagesFromContext
+-- New endpoints, all other .validate endpoints should be removed, then we can move these here and keep init.lua super clean
+UGCValidation.ValidateAsset = ValidationManager.ValidateAsset
+UGCValidation.ValidateFinalizedBundle = ValidationManager.ValidateFinalizedBundle
+UGCValidation.combineResultsIntoLegacy = LegacyValidationAdapter.combineResultsIntoLegacy
+UGCValidation.isFolderStructureEnabled = getFFlagUGCValidationEnableFolderStructure
+UGCValidation.isEntrypointMergingEnabled = getFFlagUGCValidationCombineEntrypointResults
 
--- End of new endpoints
+-- Old endpoints that we need to remove:
 
 if getEngineFeatureUGCValidationWithContextEntrypoint() then
 	function UGCValidation.validateWithContext(validationContext: Types.ValidationContext)
@@ -58,7 +63,7 @@ if getEngineFeatureUGCValidationWithContextEntrypoint() then
 			isServer = isServer,
 		})
 
-		local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+		local success, result = createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 		if not success then
 			if isServer then
 				error(result[1])
@@ -120,7 +125,7 @@ function UGCValidation.validate(
 		isServer = isServer,
 	})
 
-	local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+	local success, result = createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 	if not success then
 		if isServer then
 			error(result[1])
@@ -183,7 +188,7 @@ function UGCValidation.validateAsync(
 		isServer = isServer,
 	})
 
-	local success, result = createEditableInstancesForContext(instances)
+	local success, result = createEditableInstancesForContext.processAll(instances)
 	if not success then
 		if isServer then
 			error(result[1])
@@ -232,7 +237,7 @@ function UGCValidation.validateMeshPartFormat(
 	-- but for DynamicHeads they upload the MeshPart version
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
 
-	local success, result = createEditableInstancesForContext(instances)
+	local success, result = createEditableInstancesForContext.processAll(instances)
 	if not success then
 		if isServer then
 			error(result[1])
@@ -280,7 +285,7 @@ function UGCValidation.validateAsyncMeshPartFormat(
 	-- but for DynamicHeads they upload the MeshPart version
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
 
-	local success, result = createEditableInstancesForContext(instances)
+	local success, result = createEditableInstancesForContext.processAll(instances)
 	if not success then
 		if isServer then
 			error(result[1])
@@ -330,7 +335,7 @@ if getEngineFeatureUGCValidationWithContextEntrypoint() then
 			isServer = isServer,
 		})
 
-		local success, result = createEditableInstancesForContext(instances)
+		local success, result = createEditableInstancesForContext.processAll(instances)
 		if not success then
 			if isServer then
 				error(result[1])
@@ -378,7 +383,7 @@ function UGCValidation.validateMeshPartAssetFormat2(
 		isServer = isServer,
 	})
 
-	local success, result = createEditableInstancesForContext(instances)
+	local success, result = createEditableInstancesForContext.processAll(instances)
 	if not success then
 		if isServer then
 			error(result[1])
@@ -495,7 +500,7 @@ if getEngineFeatureUGCValidationWithContextEntrypoint() then
 			end
 		end
 
-		local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+		local success, result = createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 		if not success then
 			if isServer then
 				error(result[1])
@@ -554,7 +559,7 @@ function UGCValidation.validateFullBody(
 		end
 	end
 
-	local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+	local success, result = createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 	if not success then
 		if isServer then
 			error(result[1])
@@ -615,7 +620,7 @@ function UGCValidation.validateShoesWithContext(validationContext: Types.Validat
 		end
 	end
 
-	local success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+	local success, result = createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 	if not success then
 		if isServer then
 			error(result[1])
@@ -666,7 +671,7 @@ function UGCValidation.preprocessDataAsync(
 	end
 
 	local successEditableInstancesForContext, resultEditableMeshesImages =
-		createEditableInstancesForContext(instances, allowEditableInstances)
+		createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 	if not successEditableInstancesForContext then
 		if isServer then
 			error(resultEditableMeshesImages[1])
@@ -747,7 +752,7 @@ function UGCValidation.calculateScaleToValidateBoundsAsync(
 
 	local resultEditableMeshesImages
 
-	if not getFFlagUGCValidateUseDataCache() or not dataCache then
+	if not dataCache then
 		local instances = {}
 		for _, instance in allBodyData do
 			table.insert(instances, instance)
@@ -755,7 +760,7 @@ function UGCValidation.calculateScaleToValidateBoundsAsync(
 
 		local successEditableInstancesForContext
 		successEditableInstancesForContext, resultEditableMeshesImages =
-			createEditableInstancesForContext(instances, allowEditableInstances)
+			createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 		if not successEditableInstancesForContext then
 			if isServer then
 				error(resultEditableMeshesImages[1])
@@ -777,7 +782,7 @@ function UGCValidation.calculateScaleToValidateBoundsAsync(
 		shouldYield = shouldYield,
 	} :: Types.ValidationContext
 
-	if not getFFlagUGCValidateUseDataCache() or not dataCache then
+	if not dataCache then
 		validationContext.editableMeshes = resultEditableMeshesImages.editableMeshes :: Types.EditableMeshes
 		validationContext.editableImages = resultEditableMeshesImages.editableImages :: Types.EditableImages
 	end
@@ -785,7 +790,7 @@ function UGCValidation.calculateScaleToValidateBoundsAsync(
 	local validationResults =
 		ValidationHints.calculateScaleToValidateBoundsAsync(allBodyData, validationContext, dataCache)
 
-	if not getFFlagUGCValidateUseDataCache() or not dataCache then
+	if not dataCache then
 		destroyEditableInstances(
 			validationContext.editableMeshes :: Types.EditableMeshes,
 			validationContext.editableImages :: Types.EditableImages

@@ -21,11 +21,7 @@ local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local ParseContentIds = require(root.util.ParseContentIds)
 local getMeshInfo = require(root.util.getMeshInfo)
 local getMeshVerts = require(root.util.getMeshVerts)
-local calculateMinMax = require(root.util.calculateMinMax)
 
-local getFFlagUGCValidateCalculateScaleToValidateBounds =
-	require(root.flags.getFFlagUGCValidateCalculateScaleToValidateBounds)
-local getFFlagUGCValidateUseMeshSizeProperty = require(root.flags.getFFlagUGCValidateUseMeshSizeProperty)
 local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
 
 local ValidationHints = {}
@@ -231,20 +227,6 @@ function ValidationHints.preprocessDataAsync(
 				} :: Types.ErrorValidateBoundsResult
 			end
 			data.verts = vertsOpt :: { Vector3 }
-
-			if not getFFlagUGCValidateUseMeshSizeProperty() then
-				local verts = data.verts
-				if not verts or 0 == #verts then
-					return {
-						ok = false,
-						errors = { "Mesh: " .. meshInfo.fullName .. " contains no verts" },
-					} :: Types.ErrorValidateBoundsResult
-				end
-
-				for _, vertPos in verts do
-					data.meshMin, data.meshMax = calculateMinMax(data.meshMin, data.meshMax, vertPos, vertPos)
-				end
-			end
 		end
 	end
 	return {
@@ -282,12 +264,6 @@ function ValidationHints.isPreprocessDataCached(allBodyData: Types.AllBodyParts,
 			if not meshDataForPart.verts then
 				return false
 			end
-
-			if not getFFlagUGCValidateUseMeshSizeProperty() then
-				if not meshDataForPart.meshMin or not meshDataForPart.meshMax then
-					return false
-				end
-			end
 		end
 	end
 	return true
@@ -300,13 +276,6 @@ function ValidationHints.calculateScaleToValidateBoundsAsync(
 	validationContext: Types.ValidationContext,
 	dataCache: Types.DataCache?
 ): Types.ValidateBoundsResult
-	if not getFFlagUGCValidateCalculateScaleToValidateBounds() then
-		return {
-			ok = false,
-			errors = { "Feature flag not enabled" },
-		} :: Types.ErrorValidateBoundsResult
-	end
-
 	local validateAllMeshPartsSuccess, validateAllMeshPartsErrors = validateAllMeshParts(allBodyData, validationContext)
 	if not validateAllMeshPartsSuccess then
 		return {

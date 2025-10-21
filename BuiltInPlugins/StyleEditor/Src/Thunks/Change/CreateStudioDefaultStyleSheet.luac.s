@@ -1,34 +1,48 @@
 PROTO_0:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["createAndInsertStudioDefaultStyleSheet"]
-  CALL R0 0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
   GETIMPORT R0 K4 [Enum.FinishRecordingOperation.Commit]
   RETURN R0 1
 
 PROTO_1:
-  GETTABLEKS R2 R1 K0 ["recordChange"]
-  DUPTABLE R3 K4 [{"Name", "DisplayName", "DoChange"}]
-  LOADK R4 K5 ["StyleEditor/CreateStudioDefaultStyleSheet"]
-  SETTABLEKS R4 R3 K1 ["Name"]
-  LOADK R4 K6 ["StyleEditor - Create Studio Default StyleSheet"]
-  SETTABLEKS R4 R3 K2 ["DisplayName"]
-  DUPCLOSURE R4 K7 [PROTO_0]
-  CAPTURE UPVAL U0
-  SETTABLEKS R4 R3 K3 ["DoChange"]
-  CALL R2 1 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K8 ["StudioDefaultStyleSheet"]
-  JUMPIFNOT R2 [+13]
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K9 ["createItemId"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K8 ["StudioDefaultStyleSheet"]
-  CALL R2 1 1
-  GETUPVAL R5 3
-  MOVE R6 R2
-  CALL R5 1 -1
-  NAMECALL R3 R0 K10 ["dispatch"]
-  CALL R3 -1 0
+  LOADNIL R2
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+10]
+  GETTABLEKS R3 R1 K0 ["Plugin"]
+  LOADK R5 K1 ["CustomizedDefaultInstances"]
+  NAMECALL R3 R3 K2 ["GetPluginComponent"]
+  CALL R3 2 1
+  NAMECALL R4 R3 K3 ["GetCustomizedStylablePropertiesAsync"]
+  CALL R4 1 1
+  MOVE R2 R4
+  GETTABLEKS R3 R1 K4 ["recordChange"]
+  DUPTABLE R4 K8 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R5 K9 ["StyleEditor/CreateStudioDefaultStyleSheet"]
+  SETTABLEKS R5 R4 K5 ["Name"]
+  LOADK R5 K10 ["StyleEditor - Create Studio Default StyleSheet"]
+  SETTABLEKS R5 R4 K6 ["DisplayName"]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE REF R2
+  SETTABLEKS R5 R4 K7 ["DoChange"]
+  CALL R3 1 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K11 ["StudioDefaultStyleSheet"]
+  JUMPIFNOT R3 [+13]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K12 ["createItemId"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K11 ["StudioDefaultStyleSheet"]
+  CALL R3 1 1
+  GETUPVAL R6 4
+  MOVE R7 R3
+  CALL R6 1 -1
+  NAMECALL R4 R0 K13 ["dispatch"]
+  CALL R4 -1 0
+  CLOSEUPVALS R2
   RETURN R0 0
 
 PROTO_2:
@@ -37,6 +51,7 @@ PROTO_2:
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   RETURN R0 1
 
 MAIN:
@@ -71,9 +86,15 @@ MAIN:
   GETTABLEKS R8 R9 K16 ["Thunks"]
   GETTABLEKS R7 R8 K17 ["Types"]
   CALL R6 1 1
-  DUPCLOSURE R7 K18 [PROTO_2]
+  GETIMPORT R7 K8 [require]
+  GETTABLEKS R10 R1 K9 ["Src"]
+  GETTABLEKS R9 R10 K18 ["Flags"]
+  GETTABLEKS R8 R9 K19 ["getEngineFeatureCustomizedDefaultInstances"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K20 [PROTO_2]
+  CAPTURE VAL R7
   CAPTURE VAL R2
   CAPTURE VAL R0
   CAPTURE VAL R3
   CAPTURE VAL R5
-  RETURN R7 1
+  RETURN R8 1

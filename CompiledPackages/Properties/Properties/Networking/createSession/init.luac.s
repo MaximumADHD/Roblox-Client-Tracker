@@ -206,94 +206,108 @@ PROTO_8:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["create"]
   GETIMPORT R5 K3 [table.freeze]
-  DUPTABLE R6 K6 [{"instanceCount", "fieldParts"}]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K4 ["instanceCount"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K5 ["fieldParts"]
-  CALL R5 1 -1
-  CALL R4 -1 2
+  NEWTABLE R6 0 0
+  CALL R5 1 1
+  CALL R4 1 2
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K0 ["create"]
-  LOADB R7 0
+  GETIMPORT R7 K3 [table.freeze]
+  NEWTABLE R8 0 0
+  CALL R7 1 1
   CALL R6 1 2
-  LOADNIL R8
-  LOADNIL R9
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K7 ["createNetworkedHostToGuestRPCInterface"]
-  MOVE R11 R0
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["create"]
+  GETIMPORT R9 K3 [table.freeze]
+  DUPTABLE R10 K6 [{"instanceCount", "fieldParts"}]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K4 ["instanceCount"]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K5 ["fieldParts"]
+  CALL R9 1 -1
+  CALL R8 -1 2
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K0 ["create"]
+  LOADB R11 0
   CALL R10 1 2
-  NEWCLOSURE R12 P0
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  NEWCLOSURE R13 P1
+  LOADNIL R12
+  LOADNIL R13
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K7 ["createNetworkedHostToGuestRPCInterface"]
+  MOVE R15 R0
+  CALL R14 1 2
+  NEWCLOSURE R16 P0
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  NEWCLOSURE R17 P1
   CAPTURE VAL R1
   CAPTURE VAL R3
-  MOVE R14 R13
-  CALL R14 0 0
-  NEWCLOSURE R14 P2
-  CAPTURE REF R8
+  MOVE R18 R17
+  CALL R18 0 0
+  NEWCLOSURE R18 P2
+  CAPTURE REF R12
   CAPTURE UPVAL U2
-  CAPTURE REF R9
+  CAPTURE REF R13
   CAPTURE UPVAL U3
   CAPTURE VAL R1
-  CAPTURE VAL R13
-  NEWCLOSURE R15 P3
+  CAPTURE VAL R17
+  NEWCLOSURE R19 P3
   CAPTURE VAL R1
   CAPTURE UPVAL U3
-  CAPTURE VAL R13
-  GETUPVAL R16 4
-  CALL R16 0 1
-  DUPTABLE R17 K12 [{"updateSummary", "showProperties", "clearProperties", "instancePickerActiveChanged"}]
-  SETTABLEKS R12 R17 K8 ["updateSummary"]
-  SETTABLEKS R14 R17 K9 ["showProperties"]
-  SETTABLEKS R15 R17 K10 ["clearProperties"]
-  GETTABLEKS R18 R16 K11 ["instancePickerActiveChanged"]
-  SETTABLEKS R18 R17 K11 ["instancePickerActiveChanged"]
-  GETUPVAL R19 1
-  GETTABLEKS R18 R19 K13 ["addNetworkLayerToHostRPCInterface"]
-  MOVE R19 R0
-  MOVE R20 R17
-  CALL R18 2 1
-  NEWCLOSURE R19 P4
-  CAPTURE REF R8
+  CAPTURE VAL R17
+  GETUPVAL R20 4
+  CALL R20 0 1
+  DUPTABLE R21 K12 [{"updateSummary", "showProperties", "clearProperties", "instancePickerActiveChanged"}]
+  SETTABLEKS R16 R21 K8 ["updateSummary"]
+  SETTABLEKS R18 R21 K9 ["showProperties"]
+  SETTABLEKS R19 R21 K10 ["clearProperties"]
+  GETTABLEKS R22 R20 K11 ["instancePickerActiveChanged"]
+  SETTABLEKS R22 R21 K11 ["instancePickerActiveChanged"]
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K13 ["addNetworkLayerToHostRPCInterface"]
+  MOVE R23 R0
+  MOVE R24 R21
+  CALL R22 2 1
+  NEWCLOSURE R23 P4
+  CAPTURE REF R12
   CAPTURE UPVAL U2
-  CAPTURE VAL R10
-  CAPTURE REF R9
   CAPTURE VAL R14
-  NEWCLOSURE R20 P5
-  CAPTURE REF R8
-  CAPTURE VAL R19
-  CAPTURE VAL R10
-  NEWCLOSURE R21 P6
-  CAPTURE REF R8
+  CAPTURE REF R13
+  CAPTURE VAL R18
+  NEWCLOSURE R24 P5
+  CAPTURE REF R12
+  CAPTURE VAL R23
+  CAPTURE VAL R14
+  NEWCLOSURE R25 P6
+  CAPTURE REF R12
   CAPTURE UPVAL U2
   CAPTURE VAL R1
   CAPTURE UPVAL U3
-  CAPTURE VAL R10
-  NEWCLOSURE R22 P7
-  CAPTURE REF R8
-  CAPTURE VAL R19
-  CAPTURE VAL R18
-  CAPTURE VAL R11
-  DUPTABLE R23 K23 [{"beginEditingPropertyAsync", "finishEditingProperty", "setPropertyPart", "propertiesObservable", "summaryObservable", "pendingObservable", "instancePicker", "renameSelection", "destroy"}]
-  SETTABLEKS R20 R23 K14 ["beginEditingPropertyAsync"]
-  SETTABLEKS R19 R23 K15 ["finishEditingProperty"]
-  SETTABLEKS R21 R23 K16 ["setPropertyPart"]
-  SETTABLEKS R2 R23 K17 ["propertiesObservable"]
-  SETTABLEKS R4 R23 K18 ["summaryObservable"]
-  SETTABLEKS R6 R23 K19 ["pendingObservable"]
-  DUPTABLE R24 K26 [{"isActive", "pickInstanceAsync"}]
-  GETTABLEKS R25 R16 K27 ["instancePickerActiveObservable"]
-  SETTABLEKS R25 R24 K24 ["isActive"]
-  GETTABLEKS R25 R10 K28 ["instancePickerPickInstanceAsync"]
-  SETTABLEKS R25 R24 K25 ["pickInstanceAsync"]
-  SETTABLEKS R24 R23 K20 ["instancePicker"]
-  GETTABLEKS R24 R10 K21 ["renameSelection"]
-  SETTABLEKS R24 R23 K21 ["renameSelection"]
-  SETTABLEKS R22 R23 K22 ["destroy"]
-  CLOSEUPVALS R8
-  RETURN R23 1
+  CAPTURE VAL R14
+  NEWCLOSURE R26 P7
+  CAPTURE REF R12
+  CAPTURE VAL R23
+  CAPTURE VAL R22
+  CAPTURE VAL R15
+  DUPTABLE R27 K25 [{"beginEditingPropertyAsync", "finishEditingProperty", "setPropertyPart", "propertiesObservable", "tagsObservable", "attributesObservable", "summaryObservable", "pendingObservable", "instancePicker", "renameSelection", "destroy"}]
+  SETTABLEKS R24 R27 K14 ["beginEditingPropertyAsync"]
+  SETTABLEKS R23 R27 K15 ["finishEditingProperty"]
+  SETTABLEKS R25 R27 K16 ["setPropertyPart"]
+  SETTABLEKS R2 R27 K17 ["propertiesObservable"]
+  SETTABLEKS R4 R27 K18 ["tagsObservable"]
+  SETTABLEKS R6 R27 K19 ["attributesObservable"]
+  SETTABLEKS R8 R27 K20 ["summaryObservable"]
+  SETTABLEKS R10 R27 K21 ["pendingObservable"]
+  DUPTABLE R28 K28 [{"isActive", "pickInstanceAsync"}]
+  GETTABLEKS R29 R20 K29 ["instancePickerActiveObservable"]
+  SETTABLEKS R29 R28 K26 ["isActive"]
+  GETTABLEKS R29 R14 K30 ["instancePickerPickInstanceAsync"]
+  SETTABLEKS R29 R28 K27 ["pickInstanceAsync"]
+  SETTABLEKS R28 R27 K22 ["instancePicker"]
+  GETTABLEKS R28 R14 K23 ["renameSelection"]
+  SETTABLEKS R28 R27 K23 ["renameSelection"]
+  SETTABLEKS R26 R27 K24 ["destroy"]
+  CLOSEUPVALS R12
+  RETURN R27 1
 
 MAIN:
   PREPVARARGS 0

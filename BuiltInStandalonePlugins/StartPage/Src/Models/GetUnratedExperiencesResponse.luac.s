@@ -1,0 +1,60 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K2 ["table"] [+12]
+  LOADK R2 K3 ["Expected table, got %*"]
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  NAMECALL R2 R2 K4 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  RETURN R1 1
+  GETTABLEKS R1 R0 K5 ["universeIds"]
+  JUMPIFEQKNIL R1 [+44]
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K2 ["table"] [+12]
+  LOADK R3 K6 ["\"universeIds\" > Expected table or nil, got %*"]
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K1 [typeof]
+  CALL R5 1 1
+  NAMECALL R3 R3 K4 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  RETURN R2 1
+  MOVE R2 R1
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  FASTCALL1 TYPEOF R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K1 [typeof]
+  CALL R7 1 1
+  JUMPIFEQKS R7 K7 ["number"] [+13]
+  LOADK R8 K8 ["\"universeIds\" > [%*] > Expected number, got %*"]
+  MOVE R10 R5
+  FASTCALL1 TYPEOF R6 [+3]
+  MOVE R12 R6
+  GETIMPORT R11 K1 [typeof]
+  CALL R11 1 1
+  NAMECALL R8 R8 K4 ["format"]
+  CALL R8 3 1
+  MOVE R7 R8
+  RETURN R7 1
+  FORGLOOP R2 2 [-20]
+  LOADNIL R2
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  DUPTABLE R1 K2 [{"validate"}]
+  SETTABLEKS R0 R1 K1 ["validate"]
+  RETURN R1 1

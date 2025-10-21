@@ -23,6 +23,9 @@ local function StoryScrolling(props)
 			layout = {
 				FillDirection = Enum.FillDirection.Vertical,
 			},
+			selection = {
+				Selectable = controls.selectable,
+			},
 			scroll = {
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				CanvasSize = UDim2.fromOffset(0, 0),
@@ -43,6 +46,9 @@ local function StoryScrolling(props)
 			Size = UDim2.new(0, 120, 0, 120),
 			layout = {
 				FillDirection = Enum.FillDirection.Horizontal,
+			},
+			selection = {
+				Selectable = controls.selectable,
 			},
 			scroll = {
 				AutomaticCanvasSize = Enum.AutomaticSize.X,
@@ -81,8 +87,11 @@ local function StoryScrollViewWithTags(props)
 	return React.createElement(View, {
 		tag = "col gap-large auto-y size-full-0",
 	}, {
-		ScrollView1 = React.createElement(ScrollView, {
+		ScrollView = React.createElement(ScrollView, {
 			tag = tag,
+			selection = {
+				Selectable = controls.selectable,
+			},
 			scroll = {
 				AutomaticCanvasSize = Enum.AutomaticSize.X,
 				CanvasSize = UDim2.fromScale(0, 1),
@@ -116,6 +125,7 @@ return {
 			"Always",
 			"None",
 		},
+		selectable = true,
 		fixScrollViewTags = Flags.FoundationFixScrollViewTags,
 	},
 }

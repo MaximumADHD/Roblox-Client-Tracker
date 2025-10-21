@@ -24,7 +24,6 @@ local ValidateCurveAnimation = require(validation.ValidateCurveAnimation)
 local ValidatePropertiesSensible = require(validation.ValidatePropertiesSensible)
 
 local flags = root.flags
-local getFFlagUGCValidateEmoteAnimationExtendedTests = require(flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
 local getFFlagUGCValidateNoDoubleRoots = require(flags.getFFlagUGCValidateNoDoubleRoots)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
@@ -68,81 +67,74 @@ function ValidateEmoteAnimation.validateStructure(
 end
 
 function ValidateEmoteAnimation.validate(validationContext: Types.ValidationContext): (boolean, { string }?)
-	if getFFlagUGCValidateEmoteAnimationExtendedTests() then
-		local instance
-		do
-			local success, reasons, instOpt = ValidateEmoteAnimation.validateStructure(validationContext)
-			if not success then
-				return false, reasons
+	local instance
+	do
+		local success, reasons, instOpt = ValidateEmoteAnimation.validateStructure(validationContext)
+		if not success then
+			return false, reasons
+		end
+		instance = instOpt :: Instance
+	end
+
+	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
+		local success, reasons = ValidatePropertiesSensible.validate(instance, validationContext)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	do
+		local success, reasons = validateDependencies(instance, validationContext)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	local anim = nil
+	do
+		local successfullyExecuted, animOpt = pcallDeferred(function()
+			local resultTab = game:GetObjectsAllOrNone((instance :: Animation).AnimationId)
+			if getFFlagUGCValidateNoDoubleRoots() then
+				return resultTab
+			else
+				return if resultTab and #resultTab > 0 then resultTab[1] else nil
 			end
-			instance = instOpt :: Instance
+		end, validationContext)
+
+		if not successfullyExecuted or not animOpt then
+			return reportError(
+				"Could not download Curve animation.",
+				Analytics.ErrorType.validateEmoteAnimation_FailedToDownloadCurveAnimation,
+				validationContext
+			)
 		end
 
-		if getEngineFeatureEngineUGCValidatePropertiesSensible() then
-			local success, reasons = ValidatePropertiesSensible.validate(instance, validationContext)
-			if not success then
-				return false, reasons
-			end
-		end
-
-		do
-			local success, reasons = validateDependencies(instance, validationContext)
-			if not success then
-				return false, reasons
-			end
-		end
-
-		local anim = nil
-		do
-			local successfullyExecuted, animOpt = pcallDeferred(function()
-				local resultTab = game:GetObjectsAllOrNone((instance :: Animation).AnimationId)
-				if getFFlagUGCValidateNoDoubleRoots() then
-					return resultTab
-				else
-					return if resultTab and #resultTab > 0 then resultTab[1] else nil
-				end
-			end, validationContext)
-
-			if not successfullyExecuted or not animOpt then
-				return reportError(
-					"Could not download Curve animation.",
-					Analytics.ErrorType.validateEmoteAnimation_FailedToDownloadCurveAnimation,
+		if getFFlagUGCValidateNoDoubleRoots() then
+			if #animOpt == 1 then
+				anim = animOpt[1]
+			else
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+					nil,
 					validationContext
 				)
+				return false, { "Downloaded Curve animation did not have exactly one root. Please fix the animation." }
 			end
-
-			if getFFlagUGCValidateNoDoubleRoots() then
-				if #animOpt == 1 then
-					anim = animOpt[1]
-				else
-					Analytics.reportFailure(
-						Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
-						nil,
-						validationContext
-					)
-					return false,
-						{ "Downloaded Curve animation did not have exactly one root. Please fix the animation." }
-				end
-			else
-				anim = animOpt :: Instance
-			end
+		else
+			anim = animOpt :: Instance
 		end
-
-		local reasonsAccumulator = FailureReasonsAccumulator.new()
-		reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
-		reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
-		reasonsAccumulator:updateReasons(ValidateCurveAnimation.validate(anim, validationContext))
-
-		reasonsAccumulator:updateReasons(
-			validateModeration(instance, validationContext.restrictedUserIds, validationContext)
-		)
-
-		return reasonsAccumulator:getFinalResults()
-	else
-		local reasonsAccumulator = FailureReasonsAccumulator.new()
-		reasonsAccumulator:updateReasons(validateSingleInstance(validationContext.instances or {}, validationContext))
-		return reasonsAccumulator:getFinalResults()
 	end
+
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+	reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
+	reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
+	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validate(anim, validationContext))
+
+	reasonsAccumulator:updateReasons(
+		validateModeration(instance, validationContext.restrictedUserIds, validationContext)
+	)
+
+	return reasonsAccumulator:getFinalResults()
 end
 
 return ValidateEmoteAnimation

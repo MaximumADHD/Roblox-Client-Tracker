@@ -1,4 +1,19 @@
 PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["findAnimatorParentFromAnimSaves"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFNOT R1 [+1]
+  RETURN R1 1
+  LOADK R4 K1 ["Humanoid"]
+  NAMECALL R2 R0 K2 ["FindFirstAncestorWhichIsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+1]
+  RETURN R2 1
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_1:
   LOADK R3 K0 ["ObjectValue"]
   NAMECALL R1 R0 K1 ["FindFirstAncestorWhichIsA"]
   CALL R1 2 1
@@ -23,7 +38,7 @@ PROTO_0:
   RETURN R4 1
   RETURN R3 1
 
-PROTO_1:
+PROTO_2:
   LOADK R3 K0 ["Humanoid"]
   NAMECALL R1 R0 K1 ["IsA"]
   CALL R1 2 1
@@ -34,7 +49,7 @@ PROTO_1:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R0 1
   GETUPVAL R2 2
   NAMECALL R0 R0 K0 ["LoadFromHumanoid"]
@@ -42,7 +57,7 @@ PROTO_2:
   SETUPVAL R0 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   JUMPIF R0 [+2]
   LOADB R2 0
   RETURN R2 1
@@ -69,7 +84,71 @@ PROTO_3:
   CLOSEUPVALS R2
   RETURN R5 1
 
-PROTO_4:
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getOrCreateAnimSavesObjectValue"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETTABLEKS R2 R1 K1 ["Value"]
+  JUMPIFNOT R2 [+7]
+  GETIMPORT R5 K3 [game]
+  NAMECALL R3 R2 K4 ["IsDescendantOf"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+1]
+  RETURN R2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["getOrCreateServerStorageContainer"]
+  CALL R3 0 1
+  GETIMPORT R4 K8 [Instance.new]
+  LOADK R5 K9 ["ObjectValue"]
+  CALL R4 1 1
+  GETTABLEKS R5 R0 K10 ["Name"]
+  SETTABLEKS R5 R4 K10 ["Name"]
+  SETTABLEKS R0 R4 K1 ["Value"]
+  SETTABLEKS R3 R4 K11 ["Parent"]
+  SETTABLEKS R4 R1 K1 ["Value"]
+  RETURN R4 1
+
+PROTO_6:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["RBX_ANIMSAVES"]
+  NAMECALL R0 R0 K1 ["FindFirstChild"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+1]
+  RETURN R0 1
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K5 ["Model"]
+  CALL R1 1 1
+  MOVE R0 R1
+  LOADK R1 K0 ["RBX_ANIMSAVES"]
+  SETTABLEKS R1 R0 K6 ["Name"]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K7 ["Parent"]
+  RETURN R0 1
+
+PROTO_7:
+  LOADK R3 K0 ["AnimSaves"]
+  NAMECALL R1 R0 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+6]
+  LOADK R4 K2 ["ObjectValue"]
+  NAMECALL R2 R1 K3 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+1]
+  RETURN R1 1
+  GETIMPORT R2 K6 [Instance.new]
+  LOADK R3 K2 ["ObjectValue"]
+  CALL R2 1 1
+  MOVE R1 R2
+  LOADK R2 K0 ["AnimSaves"]
+  SETTABLEKS R2 R1 K7 ["Name"]
+  SETTABLEKS R0 R1 K8 ["Parent"]
+  RETURN R1 1
+
+PROTO_8:
   LOADK R4 K0 ["AnimationRigData"]
   NAMECALL R2 R0 K1 ["FindFirstChildWhichIsA"]
   CALL R2 2 1
@@ -102,7 +181,7 @@ PROTO_4:
   RETURN R7 1
   RETURN R5 1
 
-PROTO_5:
+PROTO_9:
   LOADK R3 K0 ["AnimationRigData"]
   NAMECALL R1 R0 K1 ["FindFirstChildWhichIsA"]
   CALL R1 2 1
@@ -137,17 +216,32 @@ PROTO_5:
 
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 8 0
-  DUPCLOSURE R1 K0 [PROTO_0]
-  SETTABLEKS R1 R0 K1 ["findAnimatorParent"]
-  DUPCLOSURE R1 K2 [PROTO_1]
-  SETTABLEKS R1 R0 K3 ["findHumanoidInParent"]
-  DUPCLOSURE R1 K4 [PROTO_3]
-  SETTABLEKS R1 R0 K5 ["loadAnimationRig"]
-  DUPCLOSURE R1 K6 [PROTO_4]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ServerStorage"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NEWTABLE R1 16 0
+  DUPCLOSURE R2 K4 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K5 ["findAnimatorParent"]
+  DUPCLOSURE R2 K6 [PROTO_1]
+  SETTABLEKS R2 R1 K7 ["findAnimatorParentFromAnimSaves"]
+  DUPCLOSURE R2 K8 [PROTO_2]
+  SETTABLEKS R2 R1 K9 ["findHumanoidInParent"]
+  DUPCLOSURE R2 K10 [PROTO_4]
+  SETTABLEKS R2 R1 K11 ["loadAnimationRig"]
+  DUPCLOSURE R2 K12 [PROTO_5]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K13 ["getOrCreateAnimSavesFolder"]
+  DUPCLOSURE R2 K14 [PROTO_6]
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K7 ["ensureAnimationRigDataInAnimationClip"]
-  DUPCLOSURE R1 K8 [PROTO_5]
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K9 ["ensureAnimationRigDataInHumanoid"]
-  RETURN R0 1
+  SETTABLEKS R2 R1 K15 ["getOrCreateServerStorageContainer"]
+  DUPCLOSURE R2 K16 [PROTO_7]
+  SETTABLEKS R2 R1 K17 ["getOrCreateAnimSavesObjectValue"]
+  DUPCLOSURE R2 K18 [PROTO_8]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K19 ["ensureAnimationRigDataInAnimationClip"]
+  DUPCLOSURE R2 K20 [PROTO_9]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K21 ["ensureAnimationRigDataInHumanoid"]
+  RETURN R1 1

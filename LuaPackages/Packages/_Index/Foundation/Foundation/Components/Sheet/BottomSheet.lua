@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
+local ReactUtils = require(Packages.ReactUtils)
 local ReactRoblox = require(Packages.ReactRoblox)
 local Otter = require(Packages.Otter)
 local ReactOtter = require(Packages.ReactOtter)
@@ -18,7 +19,8 @@ type SheetRef = SheetTypes.SheetRef
 type SheetProps = SheetTypes.SheetProps
 local SheetType = require(script.Parent.SheetType)
 
-local getHardwareSafeAreaInsets = require(script.Parent.getHardwareSafeAreaInsets)
+local useHardwareInsets = require(script.Parent.useHardwareInsets)
+local useScreenHeight = require(script.Parent.useScreenHeight)
 
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
@@ -31,7 +33,6 @@ local ENGINE_INERTIA_FRICTION = 2.35
 local BOTTOM_PADDING = 200
 
 local defaultProps = {
-	snapPoints = { 0.5, 0.9 },
 	defaultSnapPointIndex = 1,
 	testId = "--foundation-sheet",
 }
@@ -39,15 +40,32 @@ local defaultProps = {
 local SHADOW_IMAGE = Constants.SHADOW_IMAGE
 local SHADOW_SIZE = Constants.SHADOW_SIZE
 
-local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
+local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local props = withDefaults(sheetProps, defaultProps)
 	local overlay = useOverlay()
 	local tokens = useTokens()
 
-	local screenHeight = overlay and overlay.AbsoluteSize.Y or 0
-	local snapPoints = props.snapPoints :: { number }
-	local maxSheetHeight = screenHeight * math.max(table.unpack(snapPoints))
-	local safeAreaPadding = getHardwareSafeAreaInsets().bottom
+	local screenHeight = useScreenHeight()
+	local snapPoints = props.snapPoints
+
+	-- Convert a snap value to pixels: values > 1 are treated as absolute pixels,
+	-- values in the range [0,1] are treated as a fraction of the screen height
+	local snapValueToPixels = React.useCallback(function(value: number)
+		if value > 1 then
+			return value
+		end
+		return value * screenHeight
+	end, { screenHeight })
+
+	local maxSheetHeight = 0
+	for _, snap in snapPoints do
+		local pixels = snapValueToPixels(snap)
+		if pixels > maxSheetHeight then
+			maxSheetHeight = pixels
+		end
+	end
+	maxSheetHeight = math.min(maxSheetHeight, screenHeight)
+	local safeAreaPadding = useHardwareInsets(overlay).bottom
 
 	local currentSnapIndex = React.useRef(0)
 	local isClosing = React.useRef(false)
@@ -72,18 +90,16 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
 	local springActive = React.useRef(false)
 	local springVelocity = React.useRef(0)
 
-	local closeSheet
-
-	local function stopSpringSimulation()
+	local stopSpringSimulation = React.useCallback(function()
 		if springConnection.current then
 			springConnection.current:Disconnect()
 			springConnection.current = nil
 		end
 		scrollVelocity.current = 0
 		springActive.current = false
-	end
+	end, {})
 
-	local function startSpringSimulation(targetPosition: number)
+	local startSpringSimulation = React.useCallback(function(targetPosition: number)
 		stopSpringSimulation()
 		springActive.current = true
 
@@ -122,24 +138,20 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
 			if hasSettled then
 				outerScrollingRef.current.CanvasPosition = Vector2.new(0, springTarget)
 				stopSpringSimulation()
-
-				if springTarget <= safeAreaPadding then
-					closeSheet()
-				end
 			end
 		end)
-	end
+	end, { stopSpringSimulation })
 
-	local function screenPercentToPosition(percent: number)
-		return percent * screenHeight + safeAreaPadding
-	end
+	local snapValueToPosition = React.useCallback(function(value: number)
+		return snapValueToPixels(value) + safeAreaPadding
+	end, { safeAreaPadding :: unknown, snapValueToPixels })
 
-	local function springToSnapIndex(index: number)
+	local springToSnapIndex = React.useCallback(function(index: number)
 		currentSnapIndex.current = index
-		startSpringSimulation(screenPercentToPosition(snapPoints[index]))
-	end
+		startSpringSimulation(snapValueToPosition(snapPoints[index]))
+	end, { snapValueToPosition :: unknown, snapPoints })
 
-	closeSheet = function()
+	local closeSheet = React.useCallback(function()
 		if isClosing.current then
 			return
 		end
@@ -149,9 +161,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
 			duration = tokens.Time.Time_100,
 		}))
 		isClosing.current = true
-	end
+	end, { startSpringSimulation })
 
-	local function updateInnerScrolling()
+	local updateInnerScrolling = React.useCallback(function()
 		local isAtTopOfInnerScroll = innerScrollY:getValue() <= 0
 		local isAtMaxOfOuterScroll = outerScrollY.current >= math.round(maxSheetHeight + safeAreaPadding)
 
@@ -160,9 +172,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
 		elseif scrollVelocity.current < 0 and isAtMaxOfOuterScroll then
 			setInnerScrollingEnabled(true)
 		end
-	end
+	end, { maxSheetHeight, safeAreaPadding })
 
-	local function snapToClosestSwipeSnapPoint()
+	local snapToClosestSwipeSnapPoint = React.useCallback(function()
 		local vel = scrollVelocity.current
 		local currentPos = outerScrollY.current
 		local inertiaFriction = ENGINE_INERTIA_FRICTION
@@ -177,7 +189,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
 		for index, snap in snapPoints do
 			table.insert(snaps, {
 				index = index,
-				position = screenPercentToPosition(snap),
+				position = snapValueToPosition(snap),
 			})
 		end
 		table.sort(snaps, function(a, b)
@@ -193,14 +205,14 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
 				springToSnapIndex(target.index)
 			end
 		end
-	end
+	end, { snapPoints :: unknown, springToSnapIndex, snapValueToPosition, closeSheet })
 
 	React.useEffect(function()
 		if overlay then
 			springToSnapIndex(props.defaultSnapPointIndex)
 
 			-- Enable inner scrolling if starting at max snap point
-			local isAtMaxSnapPoint = math.max(table.unpack(snapPoints)) == snapPoints[props.defaultSnapPointIndex]
+			local isAtMaxSnapPoint = snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) == maxSheetHeight
 			if isAtMaxSnapPoint then
 				setInnerScrollingEnabled(true)
 			end
@@ -212,7 +224,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
 		return function()
 			stopSpringSimulation()
 		end
-	end, { overlay })
+	end, { overlay :: unknown, snapPoints, props.defaultSnapPointIndex, springToSnapIndex, snapValueToPixels })
 
 	-- TODO: maybe attach these to the outer scroll view instead of input service (does it make a difference?)
 	-- TODO: create a ScrollingInertia property that can be used instead of touchpan
@@ -252,7 +264,10 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
 			inputBeganConnection:Disconnect()
 			inputEndedConnection:Disconnect()
 		end
-	end, { overlay })
+	end, { overlay :: unknown, snapToClosestSwipeSnapPoint, updateInnerScrolling, stopSpringSimulation })
+
+	local innerSurface, setInnerSurface = React.useState(nil :: Frame?)
+	local composedRef = ReactUtils.useComposedRef(ref, setInnerSurface)
 
 	React.useImperativeHandle(props.sheetRef, function()
 		return {
@@ -260,108 +275,121 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>)
 		}
 	end, {})
 
+	local contextValue = React.useMemo(function()
+		return {
+			actionsHeight = actionsHeight,
+			setActionsHeight = setActionsHeight,
+			sheetHeightAvailable = sheetHeightAvailable,
+			setSheetHeightAvailable = setSheetHeightAvailable,
+			safeAreaPadding = safeAreaPadding,
+			bottomPadding = BOTTOM_PADDING,
+			innerScrollingEnabled = innerScrollingEnabled,
+			innerScrollY = innerScrollY,
+			setInnerScrollY = function(value: number)
+				setInnerScrollY(value)
+				updateInnerScrolling()
+			end,
+			hasHeader = hasHeader,
+			setHasHeader = setHasHeader,
+			closeSheet = closeSheet,
+			sheetType = SheetType.Bottom,
+			innerSurface = innerSurface,
+			testId = props.testId,
+		}
+	end, { props.testId :: unknown, closeSheet, safeAreaPadding, updateInnerScrolling, innerSurface })
+
 	return overlay
 		and ReactRoblox.createPortal(
-			React.createElement("ScrollingFrame", {
-				Size = UDim2.fromScale(1, 1),
-				CanvasSize = UDim2.new(1, 0, 0, screenHeight + maxSheetHeight + safeAreaPadding),
-				ClipsDescendants = false,
-				BackgroundTransparency = 1,
-				ScrollingDirection = Enum.ScrollingDirection.Y,
-				ScrollBarThickness = 0,
-				ZIndex = 0,
-				ref = outerScrollingRef,
-				[React.Change.CanvasPosition] = function(instance: ScrollingFrame)
-					outerScrollY.current = instance.CanvasPosition.Y
-					setSheetHeightAvailable(outerScrollY.current - safeAreaPadding - tokens.Margin.Small)
-					updateInnerScrolling()
-					if outerScrollY.current <= 0 then
-						closeSheet()
-					end
-				end :: unknown,
-			}, {
-				Sheet = React.createElement(View, {
-					Size = UDim2.new(1, 0, 0, maxSheetHeight + BOTTOM_PADDING),
-					Position = UDim2.fromOffset(0, screenHeight + safeAreaPadding),
-					ZIndex = 3,
-					stateLayer = {
-						affordance = StateLayerAffordance.None,
-					},
-					-- Needed to sink the onActivated event to the backdrop
-					onActivated = Dash.noop,
-					ref = ref,
-					testId = props.testId,
-					tag = "bg-surface-100 radius-large col items-center clip padding-top-small",
+			React.createElement(
+				View,
+				{
+					ZIndex = 5,
+					ref = composedRef,
+					selection = SheetTypes.nonSelectable,
+					selectionGroup = SheetTypes.isolatedSelectionGroup,
+					tag = "size-full",
+				},
+				React.createElement("ScrollingFrame", {
+					Size = UDim2.fromScale(1, 1),
+					CanvasSize = UDim2.new(1, 0, 0, screenHeight + maxSheetHeight + safeAreaPadding),
+					ClipsDescendants = false,
+					BackgroundTransparency = 1,
+					ScrollingDirection = Enum.ScrollingDirection.Y,
+					ScrollBarThickness = 0,
+					ref = outerScrollingRef,
+					[React.Change.CanvasPosition] = function(instance: ScrollingFrame)
+						outerScrollY.current = instance.CanvasPosition.Y
+						setSheetHeightAvailable(outerScrollY.current - safeAreaPadding - tokens.Margin.Small)
+						updateInnerScrolling()
+						if outerScrollY.current <= 0 then
+							closeSheet()
+						end
+					end :: unknown,
 				}, {
-					Gripper = React.createElement(View, {
+					Sheet = React.createElement(View, {
+						Size = UDim2.new(1, 0, 0, maxSheetHeight + BOTTOM_PADDING),
+						Position = UDim2.fromOffset(0, screenHeight + safeAreaPadding),
 						ZIndex = 3,
-						backgroundStyle = tokens.Color.Content.Muted,
-						tag = "padding-y-small size-1000-100 radius-small align-y-center",
-						testId = `{props.testId}--gripper`,
-					}, {
-						TouchTarget = React.createElement(View, {
-							tag = "size-1000-600",
-							stateLayer = {
-								affordance = StateLayerAffordance.None,
-							},
-							onActivated = function()
-								-- Cancel input ended if the gripper is pressed
-								inputActive.current = false
-								local nextIndex = currentSnapIndex.current % #snapPoints + 1
-								springToSnapIndex(nextIndex)
-							end,
-						}),
-					}),
-					Content = React.createElement(SheetContext.Provider, {
-						value = {
-							actionsHeight = actionsHeight,
-							setActionsHeight = setActionsHeight,
-							sheetHeightAvailable = sheetHeightAvailable,
-							setSheetHeightAvailable = setSheetHeightAvailable,
-							safeAreaPadding = safeAreaPadding,
-							bottomPadding = BOTTOM_PADDING,
-							innerScrollingEnabled = innerScrollingEnabled,
-							innerScrollY = innerScrollY,
-							setInnerScrollY = function(value: number)
-								setInnerScrollY(value)
-								updateInnerScrolling()
-							end,
-							hasHeader = hasHeader,
-							setHasHeader = setHasHeader,
-							closeSheet = closeSheet,
-							sheetType = SheetType.Bottom,
-							testId = props.testId,
+						stateLayer = {
+							affordance = StateLayerAffordance.None,
 						},
-					}, props.children),
-				}),
-				Shadow = React.createElement(Image, {
-					Image = SHADOW_IMAGE,
-					Size = UDim2.new(1, SHADOW_SIZE * 2, 0, maxSheetHeight + BOTTOM_PADDING + SHADOW_SIZE * 2),
-					Position = UDim2.fromOffset(-SHADOW_SIZE, screenHeight + safeAreaPadding - SHADOW_SIZE),
-					ZIndex = 2,
-					slice = {
-						center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
-						scale = 2,
-					},
-					imageStyle = tokens.Color.Extended.Black.Black_10,
-				}),
-				Backdrop = React.createElement(View, {
-					Size = UDim2.fromScale(1, 2),
-					Position = UDim2.fromScale(0, -0.5),
-					ZIndex = 1,
-					stateLayer = {
-						affordance = StateLayerAffordance.None,
-					},
-					backgroundStyle = backdropTransparency:map(function(value: number)
-						return {
-							Color3 = tokens.Color.Common.Backdrop.Color3,
-							Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
-						}
-					end),
-					onActivated = closeSheet,
-					testId = `{props.testId}--backdrop`,
-				}),
-			}),
+						-- Needed to sink the onActivated event to the backdrop
+						onActivated = Dash.noop,
+						testId = props.testId,
+						tag = "bg-surface-100 radius-large col items-center clip padding-top-small",
+					}, {
+						Gripper = React.createElement(View, {
+							ZIndex = 3,
+							backgroundStyle = tokens.Color.Content.Muted,
+							tag = "padding-y-small size-1000-100 radius-small align-y-center",
+							testId = `{props.testId}--gripper`,
+						}, {
+							TouchTarget = React.createElement(View, {
+								tag = "size-1000-600",
+								stateLayer = {
+									affordance = StateLayerAffordance.None,
+								},
+								onActivated = function()
+									-- Cancel input ended if the gripper is pressed
+									inputActive.current = false
+									local nextIndex = currentSnapIndex.current % #snapPoints + 1
+									springToSnapIndex(nextIndex)
+								end,
+							}),
+						}),
+						Content = React.createElement(SheetContext.Provider, {
+							value = contextValue,
+						}, props.children),
+					}),
+					Shadow = React.createElement(Image, {
+						Image = SHADOW_IMAGE,
+						Size = UDim2.new(1, SHADOW_SIZE * 2, 0, maxSheetHeight + BOTTOM_PADDING + SHADOW_SIZE * 2),
+						Position = UDim2.fromOffset(-SHADOW_SIZE, screenHeight + safeAreaPadding - SHADOW_SIZE),
+						ZIndex = 2,
+						slice = {
+							center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
+							scale = 2,
+						},
+						imageStyle = tokens.Color.Extended.Black.Black_10,
+					}),
+					Backdrop = React.createElement(View, {
+						Size = UDim2.fromScale(1, 2),
+						Position = UDim2.fromScale(0, -0.5),
+						ZIndex = 1,
+						stateLayer = {
+							affordance = StateLayerAffordance.None,
+						},
+						backgroundStyle = backdropTransparency:map(function(value: number)
+							return {
+								Color3 = tokens.Color.Common.Backdrop.Color3,
+								Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
+							}
+						end),
+						onActivated = closeSheet,
+						testId = `{props.testId}--backdrop`,
+					}),
+				})
+			),
 			overlay
 		)
 end

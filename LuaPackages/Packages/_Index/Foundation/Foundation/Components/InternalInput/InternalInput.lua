@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local Flags = require(Foundation.Utility.Flags)
 local Motion = require(Packages.Motion)
 local useMotion = Motion.useMotion
 
@@ -84,9 +85,11 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 
 	local cursor = React.useMemo(function()
 		return {
-			radius = if hasLabel
-				then UDim.new(0, tokens.Radius.Small)
-				else props.customVariantProps.cursorRadius or UDim.new(0, 0),
+			radius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
+				then props.customVariantProps.cursorRadius or UDim.new(0, 0)
+				else if hasLabel
+					then UDim.new(0, tokens.Radius.Small)
+					else props.customVariantProps.cursorRadius or UDim.new(0, 0),
 			offset = tokens.Size.Size_200,
 			borderWidth = tokens.Stroke.Thicker,
 		}
@@ -130,8 +133,12 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		onActivated = onActivated,
 		onStateChanged = onInputStateChanged,
 		stateLayer = { affordance = StateLayerAffordance.None },
-		selection = selectionProps,
-		cursor = cursor,
+		selection = if Flags.FoundationInternalInputSelectedStylesAndSpacing
+			then (if hasLabel then { Selectable = false } else selectionProps)
+			else selectionProps,
+		cursor = if Flags.FoundationInternalInputSelectedStylesAndSpacing
+			then (if hasLabel then nil else cursor)
+			else cursor,
 		isDisabled = props.isDisabled,
 		ref = ref,
 	}
@@ -159,11 +166,12 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 			end),
 			Thickness = strokeThickness,
 		},
-		selection = if not hasLabel
+		selection = if Flags.FoundationInternalInputSelectedStylesAndSpacing
 			then selectionProps
-			else {
-				Selectable = false,
-			},
+			else (if not hasLabel then selectionProps else { Selectable = false }),
+		cursor = if Flags.FoundationInternalInputSelectedStylesAndSpacing
+			then (if hasLabel then cursor else nil)
+			else nil,
 		--[[
 			Labels for radio buttons and most other inputs should be positioned after the field.
 			Source: https://www.w3.org/TR/WCAG20-TECHS/G162.html

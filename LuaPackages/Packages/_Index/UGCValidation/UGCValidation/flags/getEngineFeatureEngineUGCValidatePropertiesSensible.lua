@@ -1,3 +1,3 @@
 return function()
-	return game:GetEngineFeature("EngineUGCValidatePropertiesSensible")
+	return game:GetEngineFeature("EngineUGCValidatePropertiesSensible2")
 end

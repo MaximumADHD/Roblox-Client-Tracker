@@ -86,25 +86,17 @@ PROTO_1:
   FORGLOOP R4 2 [inext] [-41]
   LENGTH R4 R3
   LOADN R5 0
-  JUMPIFNOTLT R5 R4 [+53]
+  JUMPIFNOTLT R5 R4 [+42]
   NEWTABLE R4 0 0
-  GETUPVAL R8 4
-  CALL R8 0 1
-  JUMPIFNOT R8 [+7]
+  MOVE R6 R4
   GETIMPORT R7 K15 [string.format]
   LOADK R8 K16 ["'%s' (or its descendants) contain Attributes. You need to remove Attributes from the following: "]
   GETTABLEKS R9 R0 K17 ["Name"]
-  CALL R7 2 1
-  JUMP [+6]
-  GETIMPORT R7 K15 [string.format]
-  LOADK R8 K18 ["'%s' contains attributes in its properties that are not allowed. You need to remove the following attributes: "]
-  GETTABLEKS R9 R0 K17 ["Name"]
-  CALL R7 2 1
-  FASTCALL2 TABLE_INSERT R4 R7 [+4]
-  MOVE R6 R4
+  CALL R7 2 -1
+  FASTCALL TABLE_INSERT [+2]
   GETIMPORT R5 K5 [table.insert]
-  CALL R5 2 0
-  GETIMPORT R5 K20 [pairs]
+  CALL R5 -1 0
+  GETIMPORT R5 K19 [pairs]
   MOVE R6 R3
   CALL R5 1 3
   FORGPREP_NEXT R5
@@ -114,11 +106,11 @@ PROTO_1:
   GETIMPORT R10 K5 [table.insert]
   CALL R10 2 0
   FORGLOOP R5 2 [-8]
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K21 ["reportFailure"]
-  GETUPVAL R8 5
-  GETTABLEKS R7 R8 K22 ["ErrorType"]
-  GETTABLEKS R6 R7 K23 ["validateAttributes"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K20 ["reportFailure"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K21 ["ErrorType"]
+  GETTABLEKS R6 R7 K22 ["validateAttributes"]
   LOADNIL R7
   MOVE R8 R1
   CALL R5 3 0
@@ -138,30 +130,25 @@ MAIN:
   GETTABLEKS R2 R3 K6 ["getEngineFeatureRemoveProxyWrap"]
   CALL R1 1 1
   GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["flags"]
-  GETTABLEKS R3 R4 K7 ["getFFlagUGCValidateEmoteAnimationExtendedTests"]
+  GETTABLEKS R3 R0 K7 ["Analytics"]
   CALL R2 1 1
   GETIMPORT R3 K4 [require]
-  GETTABLEKS R4 R0 K8 ["Analytics"]
+  GETTABLEKS R4 R0 K8 ["Constants"]
   CALL R3 1 1
   GETIMPORT R4 K4 [require]
-  GETTABLEKS R5 R0 K9 ["Constants"]
+  GETTABLEKS R6 R0 K9 ["util"]
+  GETTABLEKS R5 R6 K10 ["Types"]
   CALL R4 1 1
   GETIMPORT R5 K4 [require]
-  GETTABLEKS R7 R0 K10 ["util"]
-  GETTABLEKS R6 R7 K11 ["Types"]
+  GETTABLEKS R7 R0 K9 ["util"]
+  GETTABLEKS R6 R7 K11 ["checkForProxyWrap"]
   CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R8 R0 K10 ["util"]
-  GETTABLEKS R7 R8 K12 ["checkForProxyWrap"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K13 [PROTO_0]
-  CAPTURE VAL R4
-  DUPCLOSURE R8 K14 [PROTO_1]
-  CAPTURE VAL R7
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R2
+  DUPCLOSURE R6 K12 [PROTO_0]
   CAPTURE VAL R3
-  RETURN R8 1
+  DUPCLOSURE R7 K13 [PROTO_1]
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  RETURN R7 1

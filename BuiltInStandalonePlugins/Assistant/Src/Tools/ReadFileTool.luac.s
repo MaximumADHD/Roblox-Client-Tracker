@@ -1,4 +1,6 @@
 PROTO_0:
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R3 1
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["findInstance"]
   MOVE R5 R0
@@ -214,13 +216,11 @@ PROTO_6:
 When using this tool to gather information, ensure you gather the COMPLETE context to fulfill the user's request.
 
 Usage:
+- This tool reads the entire script by default to provide complete context
 - You can read multiple scripts in parallel for efficiency
-- If you need more information, read additional lines or use the grep search tool to find specific symbols in this script.
-- When in doubt, call this tool again to gather more information. Remember that partial script views may miss critical dependencies, imports, or functionality.
-- In some cases, if reading a range of lines is not enough, you may choose to read the entire script. Note that reading entire scripts can result in worse performance by filling up the context window more quickly, especially for large scripts above a few hundred lines, so use this option sparingly.
-- Avoid re-reading the same range of a script unless the script may have changed since the last read. Avoid setting should_read_entire_file to true if you've already read at least one part of the script.
-- Provide both start_line_one_indexed and end_line_one_indexed_inclusive when should_read_entire_file is false
-- This tool can read at most 100 lines at a time. Generally it is best to read at least 50 lines at a time to gather enough surrounding context.
+- If you need to find specific symbols across multiple scripts, use the grep search tool
+- Avoid re-reading the same script unless the script may have changed since the last read
+- For very large scripts (thousands of lines), consider using grep_search to locate specific functions or patterns first
 
 Path Format:
 - The path needs to be a full path, with no wildcard matching
@@ -242,25 +242,25 @@ Path Format:
   DUPTABLE R7 K12 [{"type", "description"}]
   LOADK R8 K17 ["boolean"]
   SETTABLEKS R8 R7 K10 ["type"]
-  LOADK R8 K18 ["Whether to read the entire script. Defaults to false."]
+  LOADK R8 K18 ["Whether to read the entire script. Defaults to true."]
   SETTABLEKS R8 R7 K11 ["description"]
-  NAMECALL R4 R4 K15 ["addArgument"]
+  NAMECALL R4 R4 K19 ["addOptionalArgument"]
   CALL R4 3 1
-  LOADK R6 K19 ["start_line_one_indexed"]
+  LOADK R6 K20 ["start_line_one_indexed"]
   DUPTABLE R7 K12 [{"type", "description"}]
-  LOADK R8 K20 ["integer"]
+  LOADK R8 K21 ["integer"]
   SETTABLEKS R8 R7 K10 ["type"]
-  LOADK R8 K21 ["The one-indexed line number to start reading from (inclusive). Required if should_read_entire_file is false."]
+  LOADK R8 K22 ["The one-indexed line number to start reading from (inclusive). Required if should_read_entire_file is false."]
   SETTABLEKS R8 R7 K11 ["description"]
-  NAMECALL R4 R4 K22 ["addOptionalArgument"]
+  NAMECALL R4 R4 K19 ["addOptionalArgument"]
   CALL R4 3 1
   LOADK R6 K23 ["end_line_one_indexed_inclusive"]
   DUPTABLE R7 K12 [{"type", "description"}]
-  LOADK R8 K20 ["integer"]
+  LOADK R8 K21 ["integer"]
   SETTABLEKS R8 R7 K10 ["type"]
   LOADK R8 K24 ["The one-indexed line number to end reading at (inclusive). Required if should_read_entire_file is false."]
   SETTABLEKS R8 R7 K11 ["description"]
-  NAMECALL R4 R4 K22 ["addOptionalArgument"]
+  NAMECALL R4 R4 K19 ["addOptionalArgument"]
   CALL R4 3 1
   MOVE R6 R3
   NAMECALL R4 R4 K25 ["setHandler"]

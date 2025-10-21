@@ -1,7 +1,8 @@
 local CollectionService = game:GetService("CollectionService")
 
 local root = script.Parent.Parent
-
+local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
+local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
@@ -23,6 +24,10 @@ local function validateTags(instance: Instance, validationContext: Types.Validat
 			table.insert(reasons, obj:GetFullName())
 		end
 		Analytics.reportFailure(Analytics.ErrorType.validateTags, nil, validationContext)
+
+		if getFFlagUGCValidationEnableFolderStructure() and getFFlagUGCValidationCombineEntrypointResults() then
+			return false, {}
+		end
 		return false, reasons
 	end
 

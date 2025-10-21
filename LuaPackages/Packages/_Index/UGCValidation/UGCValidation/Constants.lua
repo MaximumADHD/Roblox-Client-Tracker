@@ -12,13 +12,14 @@ local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFie
 local getFFlagUGCValidateWrapLayersEnabled = require(root.flags.getFFlagUGCValidateWrapLayersEnabled)
 local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
 local getFFlagUGCValidationFixConstantsTypoLeg = require(root.flags.getFFlagUGCValidationFixConstantsTypoLeg)
-local getFFlagUGCValidateEmoteAnimationExtendedTests =
-	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
 local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
-local getFFlagUGCValidateAnimationRequiredFieldsFix = require(root.flags.getFFlagUGCValidateAnimationRequiredFieldsFix)
 local getFFlagUGCValidationFixBannedNamesTypo = require(root.flags.getFFlagUGCValidationFixBannedNamesTypo)
 local getFFlagUGCValidateRestrictAnimationMovementCurvesFix =
 	require(root.flags.getFFlagUGCValidateRestrictAnimationMovementCurvesFix)
+local FFlagUgcValidationValidateEmissiveMask = game:DefineFastFlag("UgcValidationValidateEmissiveMask", false)
+local getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed =
+	require(root.flags.getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed)
+local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateCheckHSROwner)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -184,6 +185,16 @@ Constants.UGC_BODY_PART_NAMES_TO_ASSET_TYPE = {
 	HairAccessory = Enum.AssetType.HairAccessory,
 }
 
+Constants.UGC_SHOE_NAMES_TO_ASSET_TYPE = {
+	LeftShoeAccessory = Enum.AssetType.LeftShoeAccessory,
+	RightShoeAccessory = Enum.AssetType.RightShoeAccessory,
+}
+
+Constants.BUNDLE_TO_ASSET_MAPPING = {
+	[Enum.BundleType.BodyParts] = Constants.UGC_BODY_PART_NAMES_TO_ASSET_TYPE,
+	[Enum.BundleType.BodyParts] = Constants.UGC_SHOE_NAMES_TO_ASSET_TYPE,
+}
+
 Constants.ASSET_TYPES_THAT_SKIP_FOLDER = {
 	Enum.AssetType.DynamicHead,
 	Enum.AssetType.EyebrowAccessory,
@@ -295,6 +306,7 @@ Constants.COMPARISON_METHODS = {
 	EXACT_EQ = "==",
 	GREATER_EQ = ">=",
 	GREATER = ">",
+	FOUND_IN = "one of the following:",
 }
 
 setmetatable(Constants.COMPARISON_METHODS, {
@@ -391,7 +403,25 @@ Constants.PROPERTIES = {
 		Shape = Enum.PartType.Block,
 	},
 	SurfaceAppearance = {
-		AlphaMode = Enum.AlphaMode.Overlay,
+		AlphaMode = if getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed()
+			then {
+				{
+					[Constants.COMPARISON_METHODS.FOUND_IN] = { Enum.AlphaMode.Overlay, Enum.AlphaMode.Transparency },
+					[Constants.INCLUSION_METHODS.INCLUSION_LIST] = {
+						Enum.AssetType.EyelashAccessory,
+					},
+				},
+				{
+					[Constants.COMPARISON_METHODS.EXACT_EQ] = Enum.AlphaMode.Overlay,
+					[Constants.INCLUSION_METHODS.EXCLUSION_LIST] = {
+						Enum.AssetType.EyelashAccessory,
+					},
+				},
+			}
+			else Enum.AlphaMode.Overlay,
+		EmissiveMaskContent = if FFlagUgcValidationValidateEmissiveMask then Content.none else nil,
+		EmissiveStrength = if FFlagUgcValidationValidateEmissiveMask then 1 else nil,
+		EmissiveTint = if FFlagUgcValidationValidateEmissiveMask then Color3.new(1, 1, 1) else nil,
 	},
 	WrapLayer = {
 		-- ====== Simple checks ======
@@ -459,20 +489,19 @@ Constants.CONTENT_ID_FIELDS = {
 	SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
 	WrapLayer = { "CageMeshId", "ReferenceMeshId" },
 	WrapTarget = { "CageMeshId" },
-	Animation = if getFFlagUGCValidateEmoteAnimationExtendedTests() then { "AnimationId" } else nil,
+	Animation = { "AnimationId" },
 }
+
+if getFFlagUGCValidateCheckHSROwner() then
+	table.insert(Constants.CONTENT_ID_FIELDS.WrapLayer, "HSRAssetId")
+end
 
 Constants.CONTENT_ID_REQUIRED_FIELDS = {
 	SpecialMesh = { MeshId = true, TextureId = true },
 	MeshPart = { MeshId = true },
 	WrapTarget = { CageMeshId = true },
-	-- when FFlagUGCValidateAnimationRequiredFieldsFix is removed true, this can be changed to { AnimationId = true }
-	Animation = if getFFlagUGCValidateEmoteAnimationExtendedTests() then { "AnimationId" } else nil,
+	Animation = { AnimationId = true },
 }
-
-if getFFlagUGCValidateAnimationRequiredFieldsFix() then
-	Constants.CONTENT_ID_REQUIRED_FIELDS.Animation = { AnimationId = true }
-end
 
 Constants.MESH_CONTENT_ID_FIELDS = {
 	SpecialMesh = { "MeshId" },
@@ -578,13 +607,31 @@ if getFFlagUGCValidationConsolidateGetMeshInfos() then
 	}
 end
 
-Constants.AllAssetValidationEnums = {
-	-- For tests that run on all categories
-	ValidationEnums.UploadCategory.BODY_PART,
+Constants.AllAssetUploadCategories = {
+	-- For tests that run on all assets
+	ValidationEnums.UploadCategory.TORSO_AND_LIMBS,
 	ValidationEnums.UploadCategory.DYNAMIC_HEAD,
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
 	ValidationEnums.UploadCategory.RIGID_ACCESSORY,
 	ValidationEnums.UploadCategory.EMOTE_ANIMATION,
 }
 
+Constants.AllBundleUploadCategories = {
+	-- For tests that run on all bundles
+	ValidationEnums.UploadCategory.FULL_BODY,
+	ValidationEnums.UploadCategory.BOTH_SHOES,
+}
+
+Constants.AllUploadCategories = {} -- For tests that run every upload
+for _, category in ValidationEnums.UploadCategory do
+	table.insert(Constants.AllUploadCategories, category)
+end
+
+Constants.AssetUploadsWithFolderStructure = {
+	[Enum.AssetType.Torso] = true,
+	[Enum.AssetType.LeftArm] = true,
+	[Enum.AssetType.RightArm] = true,
+	[Enum.AssetType.LeftLeg] = true,
+	[Enum.AssetType.RightLeg] = true,
+}
 return Constants

@@ -15,81 +15,91 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createNextOrder"]
-  CALL R1 0 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["useCallback"]
-  DUPCLOSURE R3 K2 [PROTO_1]
-  NEWTABLE R4 0 0
-  CALL R2 2 1
+  GETTABLEKS R1 R0 K0 ["outputPayload"]
+  JUMPIFNOT R1 [+4]
+  GETTABLEKS R2 R0 K0 ["outputPayload"]
+  GETTABLEKS R1 R2 K1 ["className"]
+  GETTABLEKS R2 R0 K2 ["Text"]
   GETTABLEKS R5 R0 K3 ["inputPayload"]
   GETTABLEKS R4 R5 K4 ["weight"]
-  JUMPIFEQKN R4 K5 [0] [+2]
+  JUMPIFNOTEQKNIL R4 [+2]
   LOADB R3 0 +1
   LOADB R3 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K6 ["createElement"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K7 ["View"]
-  DUPTABLE R6 K10 [{"tag", "LayoutOrder"}]
-  LOADK R7 K11 ["row auto-y gap-small size-full-0 align-y-center flex-fill"]
-  SETTABLEKS R7 R6 K8 ["tag"]
-  GETTABLEKS R7 R0 K9 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K9 ["LayoutOrder"]
-  DUPTABLE R7 K14 [{"CompositorNodeInputLabel", "NumberInput"}]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K6 ["createElement"]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K15 ["Text"]
-  DUPTABLE R10 K16 [{"tag", "Text", "LayoutOrder"}]
-  NEWTABLE R11 2 0
-  LOADB R12 1
-  SETTABLEKS R12 R11 K17 ["text-body-small text-align-x-left auto-xy"]
-  SETTABLEKS R3 R11 K18 ["content-inverse-muted"]
-  SETTABLEKS R11 R10 K8 ["tag"]
-  GETTABLEKS R11 R0 K15 ["Text"]
-  SETTABLEKS R11 R10 K15 ["Text"]
-  MOVE R11 R1
-  CALL R11 0 1
-  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K12 ["CompositorNodeInputLabel"]
-  GETTABLEKS R10 R0 K3 ["inputPayload"]
-  GETTABLEKS R9 R10 K4 ["weight"]
-  JUMPIFNOT R9 [+43]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K6 ["createElement"]
-  GETUPVAL R9 3
-  DUPTABLE R10 K26 [{"size", "isDisabled", "label", "width", "value", "LayoutOrder", "onChanged", "formatAsString"}]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K27 ["Enums"]
-  GETTABLEKS R12 R13 K28 ["InputSize"]
-  GETTABLEKS R11 R12 K29 ["XSmall"]
-  SETTABLEKS R11 R10 K19 ["size"]
-  SETTABLEKS R3 R10 K20 ["isDisabled"]
-  LOADK R11 K30 [""]
-  SETTABLEKS R11 R10 K21 ["label"]
-  GETIMPORT R11 K33 [UDim.new]
-  LOADN R12 0
-  LOADN R13 50
+  JUMPIFNOTEQKS R1 K5 ["GraphOutput"] [+3]
+  LOADK R2 K6 ["Pose"]
+  LOADB R3 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["createNextOrder"]
+  CALL R4 0 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["useCallback"]
+  DUPCLOSURE R6 K9 [PROTO_1]
+  NEWTABLE R7 0 0
+  CALL R5 2 1
+  GETTABLEKS R8 R0 K3 ["inputPayload"]
+  GETTABLEKS R7 R8 K4 ["weight"]
+  JUMPIFEQKN R7 K10 [0] [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K11 ["createElement"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K12 ["View"]
+  DUPTABLE R9 K15 [{"tag", "LayoutOrder"}]
+  LOADK R10 K16 ["row gap-small size-full-700 align-y-center flex-x-between"]
+  SETTABLEKS R10 R9 K13 ["tag"]
+  GETTABLEKS R10 R0 K14 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K14 ["LayoutOrder"]
+  DUPTABLE R10 K19 [{"CompositorNodeInputLabel", "NumberInput"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K11 ["createElement"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K2 ["Text"]
+  DUPTABLE R13 K20 [{"tag", "Text", "LayoutOrder"}]
+  NEWTABLE R14 2 0
+  LOADB R15 1
+  SETTABLEKS R15 R14 K21 ["text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R6 R14 K22 ["content-inverse-muted"]
+  SETTABLEKS R14 R13 K13 ["tag"]
+  SETTABLEKS R2 R13 K2 ["Text"]
+  MOVE R14 R4
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K14 ["LayoutOrder"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K22 ["width"]
-  GETTABLEKS R12 R0 K3 ["inputPayload"]
-  GETTABLEKS R11 R12 K4 ["weight"]
-  SETTABLEKS R11 R10 K23 ["value"]
-  MOVE R11 R1
-  CALL R11 0 1
-  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
-  SETTABLEKS R2 R10 K24 ["onChanged"]
-  GETUPVAL R11 4
-  SETTABLEKS R11 R10 K25 ["formatAsString"]
-  CALL R8 2 1
+  SETTABLEKS R11 R10 K17 ["CompositorNodeInputLabel"]
+  JUMPIFNOT R3 [+43]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K11 ["createElement"]
+  GETUPVAL R12 3
+  DUPTABLE R13 K30 [{"size", "isDisabled", "label", "width", "value", "LayoutOrder", "onChanged", "formatAsString"}]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K31 ["Enums"]
+  GETTABLEKS R15 R16 K32 ["InputSize"]
+  GETTABLEKS R14 R15 K33 ["XSmall"]
+  SETTABLEKS R14 R13 K23 ["size"]
+  SETTABLEKS R6 R13 K24 ["isDisabled"]
+  LOADK R14 K34 [""]
+  SETTABLEKS R14 R13 K25 ["label"]
+  GETIMPORT R14 K37 [UDim.new]
+  LOADN R15 0
+  LOADN R16 90
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K26 ["width"]
+  GETTABLEKS R15 R0 K3 ["inputPayload"]
+  GETTABLEKS R14 R15 K4 ["weight"]
+  SETTABLEKS R14 R13 K27 ["value"]
+  MOVE R14 R4
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K14 ["LayoutOrder"]
+  SETTABLEKS R5 R13 K28 ["onChanged"]
+  GETUPVAL R14 4
+  SETTABLEKS R14 R13 K29 ["formatAsString"]
+  CALL R11 2 1
   JUMP [+1]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K13 ["NumberInput"]
-  CALL R4 3 -1
-  RETURN R4 -1
+  LOADNIL R11
+  SETTABLEKS R11 R10 K18 ["NumberInput"]
+  CALL R7 3 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0

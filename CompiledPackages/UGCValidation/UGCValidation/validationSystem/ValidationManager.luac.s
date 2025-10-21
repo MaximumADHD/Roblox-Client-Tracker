@@ -20,83 +20,137 @@ PROTO_0:
   GETTABLEKS R11 R10 K4 ["categories"]
   GETTABLEKS R12 R10 K5 ["fflag"]
   CALL R12 0 1
-  JUMPIFNOT R12 [+50]
+  JUMPIFNOT R12 [+83]
   GETIMPORT R12 K8 [table.find]
   MOVE R13 R11
   MOVE R14 R0
   CALL R12 2 1
-  JUMPIFNOT R12 [+44]
-  GETTABLEKS R12 R10 K9 ["required_data"]
-  LOADNIL R13
-  LOADNIL R14
-  FORGPREP R12
-  LOADB R17 1
-  SETTABLE R17 R4 R16
-  FORGLOOP R12 2 [-3]
-  GETTABLEKS R12 R10 K10 ["is_quality"]
-  JUMPIFNOT R12 [+7]
-  FASTCALL2 TABLE_INSERT R2 R9 [+5]
-  MOVE R13 R2
-  MOVE R14 R9
-  GETIMPORT R12 K12 [table.insert]
-  CALL R12 2 0
-  NEWTABLE R12 0 0
-  GETTABLEKS R13 R10 K13 ["prereq_tests"]
+  JUMPIFNOT R12 [+77]
+  LOADB R12 0
+  GETTABLEKS R13 R10 K9 ["required_data"]
   LOADNIL R14
   LOADNIL R15
   FORGPREP R13
   LOADB R18 1
-  SETTABLE R18 R12 R17
-  FORGLOOP R13 2 [-3]
-  DUPTABLE R13 K18 [{"name", "prereqs", "postreqs", "isQuality"}]
-  SETTABLEKS R9 R13 K14 ["name"]
-  SETTABLEKS R12 R13 K15 ["prereqs"]
-  NEWTABLE R14 0 0
-  SETTABLEKS R14 R13 K16 ["postreqs"]
-  GETTABLEKS R14 R10 K10 ["is_quality"]
-  SETTABLEKS R14 R13 K17 ["isQuality"]
-  SETTABLE R13 R3 R9
-  FORGLOOP R5 2 [-70]
+  SETTABLE R18 R4 R17
+  JUMPIF R12 [+43]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K10 ["SharedDataMember"]
+  GETTABLEKS R18 R19 K11 ["qualityResults"]
+  JUMPIFNOTEQ R17 R18 [+37]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K10 ["SharedDataMember"]
+  GETTABLEKS R18 R19 K12 ["renderMeshesData"]
+  LOADB R19 1
+  SETTABLE R19 R4 R18
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K10 ["SharedDataMember"]
+  GETTABLEKS R18 R19 K13 ["innerCagesData"]
+  LOADB R19 1
+  SETTABLE R19 R4 R18
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K10 ["SharedDataMember"]
+  GETTABLEKS R18 R19 K14 ["outerCagesData"]
+  LOADB R19 1
+  SETTABLE R19 R4 R18
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K10 ["SharedDataMember"]
+  GETTABLEKS R18 R19 K15 ["meshTextures"]
+  LOADB R19 1
+  SETTABLE R19 R4 R18
+  FASTCALL2 TABLE_INSERT R2 R9 [+5]
+  MOVE R19 R2
+  MOVE R20 R9
+  GETIMPORT R18 K17 [table.insert]
+  CALL R18 2 0
+  LOADB R12 1
+  FORGLOOP R13 2 [-47]
+  NEWTABLE R13 0 0
+  GETTABLEKS R14 R10 K18 ["prereq_tests"]
+  LOADNIL R15
+  LOADNIL R16
+  FORGPREP R14
+  LOADB R19 1
+  SETTABLE R19 R13 R18
+  FORGLOOP R14 2 [-3]
+  DUPTABLE R14 K23 [{"name", "prereqs", "postreqs", "isQuality"}]
+  SETTABLEKS R9 R14 K19 ["name"]
+  SETTABLEKS R13 R14 K20 ["prereqs"]
+  NEWTABLE R15 0 0
+  SETTABLEKS R15 R14 K21 ["postreqs"]
+  SETTABLEKS R12 R14 K22 ["isQuality"]
+  SETTABLE R14 R3 R9
+  FORGLOOP R5 2 [-103]
   MOVE R5 R3
   LOADNIL R6
   LOADNIL R7
   FORGPREP R5
-  GETTABLEKS R10 R9 K15 ["prereqs"]
+  GETTABLEKS R10 R9 K20 ["prereqs"]
   LOADNIL R11
   LOADNIL R12
   FORGPREP R10
   GETTABLE R15 R3 R13
   JUMPIFNOTEQKNIL R15 [+10]
-  GETIMPORT R15 K20 [error]
-  GETIMPORT R16 K23 [string.format]
-  LOADK R17 K24 ["%s is needed for %s to run, but is not an included test"]
+  GETIMPORT R15 K25 [error]
+  GETIMPORT R16 K28 [string.format]
+  LOADK R17 K29 ["%s is needed for %s to run, but is not an included test"]
   MOVE R18 R13
   MOVE R19 R8
   CALL R16 3 -1
   CALL R15 -1 0
   GETTABLE R17 R3 R13
-  GETTABLEKS R16 R17 K16 ["postreqs"]
+  GETTABLEKS R16 R17 K21 ["postreqs"]
   FASTCALL2 TABLE_INSERT R16 R8 [+4]
   MOVE R17 R8
-  GETIMPORT R15 K12 [table.insert]
+  GETIMPORT R15 K17 [table.insert]
   CALL R15 2 0
   FORGLOOP R10 2 [-22]
   FORGLOOP R5 2 [-29]
   RETURN R2 3
 
 PROTO_1:
-  NEWTABLE R2 0 0
-  SETTABLEKS R2 R0 K0 ["quality_results"]
-  GETIMPORT R2 K2 [wait]
-  LOADN R3 2
-  CALL R2 1 0
-  GETTABLEKS R2 R0 K0 ["quality_results"]
-  LOADN R3 0
-  LOADB R4 1
-  SETTABLE R4 R2 R3
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  GETUPVAL R4 3
+  NAMECALL R1 R1 K0 ["fetchQualityResultsAsync"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K1 ["qualityResults"]
   RETURN R0 0
 
 PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createModelForGltfExport"]
+  MOVE R3 R0
+  CALL R2 1 1
+  LOADNIL R3
+  LOADNIL R4
+  LOADN R7 1
+  LOADN R8 1
+  GETUPVAL R9 1
+  CALL R9 0 1
+  ADD R5 R8 R9
+  LOADN R6 1
+  FORNPREP R5
+  GETIMPORT R8 K2 [pcall]
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CALL R8 1 2
+  MOVE R3 R8
+  MOVE R4 R9
+  JUMPIF R3 [+1]
+  FORNLOOP R5
+  JUMPIF R3 [+3]
+  GETUPVAL R5 3
+  SETTABLEKS R5 R0 K3 ["qualityResults"]
+  NAMECALL R5 R2 K4 ["Destroy"]
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_3:
   NEWTABLE R2 0 0
   MOVE R3 R0
   LOADNIL R4
@@ -117,68 +171,70 @@ PROTO_2:
   FORGLOOP R3 2 [-19]
   RETURN R2 1
 
-PROTO_3:
-  DUPTABLE R3 K12 [{"validationJobId", "bundleJobId", "rootInstanceId", "studioSid", "clientId", "placeId", "validationSource", "assetType", "bundleType", "numFailures", "passed", "durationMs"}]
-  GETTABLEKS R4 R1 K13 ["job_id"]
+PROTO_4:
+  DUPTABLE R3 K13 [{"validationJobId", "bundleJobId", "rootInstanceId", "studioSid", "clientId", "placeId", "validationSource", "assetType", "bundleType", "numFailures", "passed", "durationMs", "uploadCategory"}]
+  GETTABLEKS R4 R1 K14 ["jobId"]
   SETTABLEKS R4 R3 K0 ["validationJobId"]
-  GETTABLEKS R5 R1 K14 ["consumer_config"]
-  GETTABLEKS R4 R5 K15 ["telemetry_bundle_id"]
+  GETTABLEKS R5 R1 K15 ["consumerConfig"]
+  GETTABLEKS R4 R5 K16 ["telemetry_bundle_id"]
   SETTABLEKS R4 R3 K1 ["bundleJobId"]
-  GETTABLEKS R5 R1 K14 ["consumer_config"]
-  GETTABLEKS R4 R5 K16 ["telemetry_root_id"]
+  GETTABLEKS R5 R1 K15 ["consumerConfig"]
+  GETTABLEKS R4 R5 K17 ["telemetry_root_id"]
   SETTABLEKS R4 R3 K2 ["rootInstanceId"]
   GETUPVAL R4 0
-  NAMECALL R4 R4 K17 ["GetSessionId"]
+  NAMECALL R4 R4 K18 ["GetSessionId"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K3 ["studioSid"]
   GETUPVAL R4 0
-  NAMECALL R4 R4 K18 ["GetClientId"]
+  NAMECALL R4 R4 K19 ["GetClientId"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K4 ["clientId"]
-  GETIMPORT R5 K20 [game]
-  GETTABLEKS R4 R5 K21 ["PlaceId"]
+  GETIMPORT R5 K21 [game]
+  GETTABLEKS R4 R5 K22 ["PlaceId"]
   SETTABLEKS R4 R3 K5 ["placeId"]
-  GETTABLEKS R5 R1 K14 ["consumer_config"]
-  GETTABLEKS R4 R5 K22 ["source"]
+  GETTABLEKS R5 R1 K15 ["consumerConfig"]
+  GETTABLEKS R4 R5 K23 ["source"]
   SETTABLEKS R4 R3 K6 ["validationSource"]
-  GETTABLEKS R6 R1 K23 ["upload_enum"]
+  GETTABLEKS R6 R1 K24 ["uploadEnum"]
   GETTABLEKS R5 R6 K7 ["assetType"]
   JUMPIFNOT R5 [+7]
-  GETTABLEKS R6 R1 K23 ["upload_enum"]
+  GETTABLEKS R6 R1 K24 ["uploadEnum"]
   GETTABLEKS R5 R6 K7 ["assetType"]
-  GETTABLEKS R4 R5 K24 ["Value"]
+  GETTABLEKS R4 R5 K25 ["Value"]
   JUMPIF R4 [+1]
   LOADN R4 0
   SETTABLEKS R4 R3 K7 ["assetType"]
-  GETTABLEKS R6 R1 K23 ["upload_enum"]
+  GETTABLEKS R6 R1 K24 ["uploadEnum"]
   GETTABLEKS R5 R6 K8 ["bundleType"]
   JUMPIFNOT R5 [+7]
-  GETTABLEKS R6 R1 K23 ["upload_enum"]
+  GETTABLEKS R6 R1 K24 ["uploadEnum"]
   GETTABLEKS R5 R6 K8 ["bundleType"]
-  GETTABLEKS R4 R5 K24 ["Value"]
+  GETTABLEKS R4 R5 K25 ["Value"]
   JUMPIF R4 [+1]
   LOADN R4 0
   SETTABLEKS R4 R3 K8 ["bundleType"]
   GETTABLEKS R4 R0 K9 ["numFailures"]
   SETTABLEKS R4 R3 K9 ["numFailures"]
-  GETTABLEKS R4 R0 K25 ["pass"]
+  GETTABLEKS R4 R0 K26 ["pass"]
   SETTABLEKS R4 R3 K10 ["passed"]
   SETTABLEKS R2 R3 K11 ["durationMs"]
+  GETTABLEKS R4 R1 K12 ["uploadCategory"]
+  SETTABLEKS R4 R3 K12 ["uploadCategory"]
   GETUPVAL R4 1
   GETUPVAL R6 2
-  DUPTABLE R7 K27 [{"customFields"}]
-  SETTABLEKS R3 R7 K26 ["customFields"]
-  NAMECALL R4 R4 K28 ["LogEvent"]
+  DUPTABLE R7 K28 [{"customFields"}]
+  SETTABLEKS R3 R7 K27 ["customFields"]
+  NAMECALL R4 R4 K29 ["LogEvent"]
   CALL R4 3 0
   GETUPVAL R4 3
   CALL R4 0 1
   JUMPIFNOT R4 [+4]
-  GETIMPORT R4 K30 [print]
+  GETIMPORT R4 K31 [print]
   MOVE R5 R0
   CALL R4 1 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETUPVAL R2 0
   GETTABLE R1 R2 R0
   GETUPVAL R2 1
@@ -238,15 +294,15 @@ PROTO_4:
   SETTABLE R4 R3 R0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETIMPORT R1 K1 [tick]
   CALL R1 0 1
-  GETTABLEKS R2 R0 K2 ["root_instance"]
-  GETTABLEKS R6 R0 K3 ["upload_enum"]
+  GETTABLEKS R2 R0 K2 ["rootInstance"]
+  GETTABLEKS R6 R0 K3 ["uploadEnum"]
   GETTABLEKS R3 R6 K4 ["assetType"]
-  GETTABLEKS R6 R0 K3 ["upload_enum"]
+  GETTABLEKS R6 R0 K3 ["uploadEnum"]
   GETTABLEKS R4 R6 K5 ["bundleType"]
-  GETTABLEKS R5 R0 K6 ["consumer_config"]
+  GETTABLEKS R5 R0 K6 ["consumerConfig"]
   DUPTABLE R6 K12 [{"pass", "numFailures", "states", "errorTranslationContexts", "internalData"}]
   LOADB R7 1
   SETTABLEKS R7 R6 K7 ["pass"]
@@ -267,7 +323,7 @@ PROTO_5:
   MOVE R9 R7
   MOVE R10 R5
   CALL R8 2 3
-  SETTABLEKS R7 R0 K13 ["upload_category"]
+  SETTABLEKS R7 R0 K13 ["uploadCategory"]
   NEWCLOSURE R11 P0
   CAPTURE VAL R9
   CAPTURE UPVAL U2
@@ -277,12 +333,12 @@ PROTO_5:
   MOVE R12 R11
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K14 ["ValidationModule"]
-  GETTABLEKS R13 R14 K15 ["ROOT_INSTANCE_SCHEMA"]
+  GETTABLEKS R13 R14 K15 ["ExpectedRootSchema"]
   CALL R12 1 0
   GETTABLEKS R13 R6 K9 ["states"]
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K14 ["ValidationModule"]
-  GETTABLEKS R14 R15 K15 ["ROOT_INSTANCE_SCHEMA"]
+  GETTABLEKS R14 R15 K15 ["ExpectedRootSchema"]
   GETTABLE R12 R13 R14
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K16 ["Status"]
@@ -295,82 +351,94 @@ PROTO_5:
   CALL R12 3 0
   RETURN R6 1
   GETUPVAL R13 5
-  GETTABLE R12 R13 R7
-  JUMPIFEQKNIL R12 [+6]
-  GETUPVAL R13 5
-  GETTABLE R12 R13 R7
+  GETTABLEKS R12 R13 K18 ["storeDesiredData"]
   MOVE R13 R0
   MOVE R14 R10
   CALL R12 2 0
-  LENGTH R12 R8
-  LOADN R13 0
-  JUMPIFNOTLT R13 R12 [+7]
-  GETIMPORT R12 K20 [task.spawn]
-  GETUPVAL R13 6
-  MOVE R14 R0
-  MOVE R15 R8
-  CALL R12 3 0
-  GETIMPORT R12 K22 [next]
-  MOVE R13 R9
-  CALL R12 1 1
-  JUMPIFEQKNIL R12 [+61]
-  GETTABLEKS R12 R0 K23 ["quality_results"]
-  JUMPIFNOT R12 [+8]
-  GETTABLEKS R14 R0 K23 ["quality_results"]
-  LOADN R15 0
+  LOADNIL R12
+  LENGTH R13 R8
+  LOADN R14 0
+  JUMPIFNOTLT R14 R13 [+13]
+  GETUPVAL R14 6
+  GETTABLEKS R15 R5 K19 ["source"]
   GETTABLE R13 R14 R15
-  JUMPIFEQKB R13 TRUE [+2]
-  LOADB R12 0 +1
-  LOADB R12 1
-  GETUPVAL R13 7
+  JUMPIF R13 [+7]
+  GETIMPORT R13 K22 [task.spawn]
+  GETUPVAL R14 7
+  MOVE R15 R0
+  MOVE R16 R8
+  CALL R13 3 1
+  MOVE R12 R13
+  GETIMPORT R13 K24 [next]
   MOVE R14 R9
-  MOVE R15 R12
-  CALL R13 2 1
-  LENGTH R14 R13
-  JUMPIFNOTEQKN R14 K24 [0] [+25]
-  LENGTH R14 R8
-  LOADN R15 0
-  JUMPIFNOTLT R15 R14 [+17]
-  JUMPIF R12 [+15]
-  GETIMPORT R14 K26 [wait]
-  LOADK R15 K27 [0.1]
-  CALL R14 1 0
-  GETTABLEKS R14 R0 K23 ["quality_results"]
-  JUMPIFNOT R14 [+6]
-  GETTABLEKS R15 R0 K23 ["quality_results"]
-  LOADN R16 0
-  GETTABLE R14 R15 R16
-  JUMPIFEQKB R14 TRUE [+24]
-  JUMPBACK [-14]
-  JUMP [+21]
-  GETIMPORT R14 K29 [error]
-  LOADK R15 K30 ["Impossible to complete all layers"]
-  CALL R14 1 0
-  MOVE R14 R13
-  LOADNIL R15
+  CALL R13 1 1
+  JUMPIFEQKNIL R13 [+72]
+  GETTABLEKS R14 R0 K25 ["qualityResults"]
+  JUMPIFNOTEQKNIL R14 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  GETUPVAL R14 8
+  MOVE R15 R9
+  MOVE R16 R13
+  CALL R14 2 1
+  LENGTH R15 R14
+  JUMPIFNOTEQKN R15 K26 [0] [+9]
+  JUMPIF R13 [+3]
+  LENGTH R15 R8
+  JUMPIFNOTEQKN R15 K26 [0] [+5]
+  GETIMPORT R15 K28 [error]
+  LOADK R16 K29 ["Impossible to complete all layers"]
+  CALL R15 1 0
+  MOVE R15 R14
   LOADNIL R16
-  FORGPREP R14
-  MOVE R19 R11
-  MOVE R20 R18
-  CALL R19 1 0
-  GETUPVAL R20 8
-  GETTABLEKS R21 R5 K31 ["source"]
-  GETTABLE R19 R20 R21
-  JUMPIF R19 [+3]
-  GETIMPORT R19 K32 [task.wait]
-  CALL R19 0 0
-  FORGLOOP R14 2 [-12]
-  JUMPBACK [-66]
-  GETUPVAL R12 4
-  MOVE R13 R6
-  MOVE R14 R0
-  GETIMPORT R16 K1 [tick]
-  CALL R16 0 1
-  SUB R15 R16 R1
-  CALL R12 3 0
+  LOADNIL R17
+  FORGPREP R15
+  MOVE R20 R11
+  MOVE R21 R19
+  CALL R20 1 0
+  GETUPVAL R21 9
+  GETTABLEKS R22 R5 K19 ["source"]
+  GETTABLE R20 R21 R22
+  JUMPIFNOT R20 [+3]
+  GETIMPORT R20 K31 [task.wait]
+  CALL R20 0 0
+  FORGLOOP R15 2 [-12]
+  GETUPVAL R16 6
+  GETTABLEKS R17 R5 K19 ["source"]
+  GETTABLE R15 R16 R17
+  JUMPIF R15 [+3]
+  GETIMPORT R15 K31 [task.wait]
+  CALL R15 0 0
+  LENGTH R15 R14
+  JUMPIFNOTEQKN R15 K26 [0] [+22]
+  LENGTH R15 R8
+  LOADN R16 0
+  JUMPIFNOTLT R16 R15 [+18]
+  GETUPVAL R16 6
+  GETTABLEKS R17 R5 K19 ["source"]
+  GETTABLE R15 R16 R17
+  JUMPIFNOT R15 [+12]
+  GETUPVAL R15 10
+  NAMECALL R15 R15 K32 ["Run"]
+  CALL R15 1 0
+  GETUPVAL R15 7
+  MOVE R16 R0
+  MOVE R17 R8
+  CALL R15 2 0
+  GETUPVAL R15 10
+  NAMECALL R15 R15 K33 ["Pause"]
+  CALL R15 1 0
+  JUMPBACK [-77]
+  GETUPVAL R13 4
+  MOVE R14 R6
+  MOVE R15 R0
+  GETIMPORT R17 K1 [tick]
+  CALL R17 0 1
+  SUB R16 R17 R1
+  CALL R13 3 0
   RETURN R6 1
 
-PROTO_6:
+PROTO_7:
   LENGTH R1 R0
   JUMPIFNOTEQKN R1 K0 [0] [+3]
   LOADNIL R1
@@ -389,7 +457,7 @@ PROTO_6:
   GETTABLEN R1 R0 1
   RETURN R1 1
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R3 0
   CALL R3 0 1
   JUMPIFNOT R3 [+10]
@@ -400,12 +468,12 @@ PROTO_7:
   CALL R5 2 1
   MOVE R4 R5
   CALL R3 1 0
-  DUPTABLE R3 K10 [{"job_id", "entrypoint_input", "root_instance", "upload_enum", "consumer_config"}]
+  DUPTABLE R3 K10 [{"jobId", "entrypointInput", "rootInstance", "uploadEnum", "consumerConfig"}]
   GETUPVAL R4 1
   NAMECALL R4 R4 K11 ["GenerateGUID"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K5 ["job_id"]
-  SETTABLEKS R0 R3 K6 ["entrypoint_input"]
+  SETTABLEKS R4 R3 K5 ["jobId"]
+  SETTABLEKS R0 R3 K6 ["entrypointInput"]
   LENGTH R5 R0
   JUMPIFNOTEQKN R5 K12 [0] [+3]
   LOADNIL R4
@@ -423,17 +491,17 @@ PROTO_7:
   JUMP [+3]
   FORGLOOP R5 2 [-12]
   GETTABLEN R4 R0 1
-  SETTABLEKS R4 R3 K7 ["root_instance"]
+  SETTABLEKS R4 R3 K7 ["rootInstance"]
   DUPTABLE R4 K16 [{"assetType"}]
   SETTABLEKS R1 R4 K15 ["assetType"]
-  SETTABLEKS R4 R3 K8 ["upload_enum"]
-  SETTABLEKS R2 R3 K9 ["consumer_config"]
+  SETTABLEKS R4 R3 K8 ["uploadEnum"]
+  SETTABLEKS R2 R3 K9 ["consumerConfig"]
   GETUPVAL R4 3
   MOVE R5 R3
   CALL R4 1 1
   RETURN R4 1
 
-PROTO_8:
+PROTO_9:
   GETUPVAL R3 0
   CALL R3 0 1
   JUMPIFNOT R3 [+10]
@@ -490,17 +558,17 @@ PROTO_8:
   CALL R10 1 1
   SETTABLEKS R3 R10 K17 ["Parent"]
   FORGLOOP R4 2 [-55]
-  DUPTABLE R4 K23 [{"job_id", "entrypoint_input", "root_instance", "upload_enum", "consumer_config"}]
+  DUPTABLE R4 K23 [{"jobId", "entrypointInput", "rootInstance", "uploadEnum", "consumerConfig"}]
   GETUPVAL R5 2
   NAMECALL R5 R5 K24 ["GenerateGUID"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K18 ["job_id"]
-  SETTABLEKS R0 R4 K19 ["entrypoint_input"]
-  SETTABLEKS R3 R4 K20 ["root_instance"]
+  SETTABLEKS R5 R4 K18 ["jobId"]
+  SETTABLEKS R0 R4 K19 ["entrypointInput"]
+  SETTABLEKS R3 R4 K20 ["rootInstance"]
   DUPTABLE R5 K26 [{"bundleType"}]
   SETTABLEKS R1 R5 K25 ["bundleType"]
-  SETTABLEKS R5 R4 K21 ["upload_enum"]
-  SETTABLEKS R2 R4 K22 ["consumer_config"]
+  SETTABLEKS R5 R4 K21 ["uploadEnum"]
+  SETTABLEKS R2 R4 K22 ["consumerConfig"]
   GETUPVAL R5 3
   MOVE R6 R4
   CALL R5 1 1
@@ -531,89 +599,121 @@ MAIN:
   GETTABLEKS R6 R7 K11 ["ValidationTestWrapper"]
   CALL R5 1 1
   GETIMPORT R6 K4 [require]
-  GETTABLEKS R8 R0 K5 ["util"]
-  GETTABLEKS R7 R8 K12 ["getUploadCategory"]
+  GETTABLEKS R9 R0 K7 ["validationSystem"]
+  GETTABLEKS R8 R9 K12 ["dataFetchModules"]
+  GETTABLEKS R7 R8 K13 ["FetchAllDesiredData"]
   CALL R6 1 1
-  GETIMPORT R7 K14 [game]
-  LOADK R9 K15 ["HttpService"]
-  NAMECALL R7 R7 K16 ["GetService"]
-  CALL R7 2 1
-  GETIMPORT R8 K14 [game]
-  LOADK R10 K17 ["TelemetryService"]
-  NAMECALL R8 R8 K16 ["GetService"]
-  CALL R8 2 1
-  GETIMPORT R9 K14 [game]
-  LOADK R11 K18 ["FullValidationTelemetryThrottleHundrethsPercent"]
-  LOADN R12 16
-  NAMECALL R9 R9 K19 ["DefineFastInt"]
-  CALL R9 3 0
-  GETIMPORT R9 K14 [game]
-  LOADK R11 K20 ["RbxAnalyticsService"]
-  NAMECALL R9 R9 K16 ["GetService"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K5 ["util"]
+  GETTABLEKS R8 R9 K14 ["getUploadCategory"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K5 ["util"]
+  GETTABLEKS R9 R10 K15 ["RecreateSceneFromEditables"]
+  CALL R8 1 1
+  GETIMPORT R9 K17 [game]
+  LOADK R11 K18 ["UGCValidationService"]
+  NAMECALL R9 R9 K19 ["GetService"]
   CALL R9 2 1
-  DUPTABLE R10 K27 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-  LOADK R11 K28 ["UgcFullValidationFinished"]
-  SETTABLEKS R11 R10 K21 ["eventName"]
-  NEWTABLE R11 0 1
-  LOADK R12 K29 ["EventIngest"]
-  SETLIST R11 R12 1 [1]
-  SETTABLEKS R11 R10 K22 ["backends"]
-  GETIMPORT R11 K14 [game]
-  LOADK R13 K18 ["FullValidationTelemetryThrottleHundrethsPercent"]
-  NAMECALL R11 R11 K30 ["GetFastInt"]
+  GETIMPORT R10 K17 [game]
+  LOADK R12 K20 ["HttpService"]
+  NAMECALL R10 R10 K19 ["GetService"]
+  CALL R10 2 1
+  GETIMPORT R11 K17 [game]
+  LOADK R13 K21 ["TelemetryService"]
+  NAMECALL R11 R11 K19 ["GetService"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K23 ["throttlingPercentage"]
-  NEWTABLE R11 0 3
-  LOADN R12 25
-  LOADN R13 9
-  LOADN R14 24
-  SETLIST R11 R12 3 [1]
-  SETTABLEKS R11 R10 K24 ["lastUpdated"]
-  LOADK R11 K31 ["Report result of ugc validation suite"]
-  SETTABLEKS R11 R10 K25 ["description"]
-  LOADK R11 K32 ["https://create.roblox.com/docs/art/validation-errors"]
-  SETTABLEKS R11 R10 K26 ["links"]
-  GETIMPORT R11 K4 [require]
-  GETTABLEKS R13 R0 K33 ["flags"]
-  GETTABLEKS R12 R13 K34 ["getFFlagDebugUGCValidationPrintNewStructureResults"]
-  CALL R11 1 1
-  NEWTABLE R12 2 0
-  NEWTABLE R13 0 0
-  DUPTABLE R14 K36 [{"Backend"}]
-  LOADB R15 1
-  SETTABLEKS R15 R14 K35 ["Backend"]
-  DUPCLOSURE R15 K37 [PROTO_0]
+  GETIMPORT R12 K17 [game]
+  LOADK R14 K22 ["FullValidationTelemetryThrottleHundrethsPercent"]
+  LOADN R15 16
+  NAMECALL R12 R12 K23 ["DefineFastInt"]
+  CALL R12 3 0
+  GETIMPORT R12 K17 [game]
+  LOADK R14 K24 ["RbxAnalyticsService"]
+  NAMECALL R12 R12 K19 ["GetService"]
+  CALL R12 2 1
+  GETIMPORT R13 K17 [game]
+  LOADK R15 K25 ["RunService"]
+  NAMECALL R13 R13 K19 ["GetService"]
+  CALL R13 2 1
+  NEWTABLE R14 0 0
+  DUPTABLE R15 K32 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
+  LOADK R16 K33 ["UgcFullValidationFinished"]
+  SETTABLEKS R16 R15 K26 ["eventName"]
+  NEWTABLE R16 0 1
+  LOADK R17 K34 ["EventIngest"]
+  SETLIST R16 R17 1 [1]
+  SETTABLEKS R16 R15 K27 ["backends"]
+  GETIMPORT R16 K17 [game]
+  LOADK R18 K22 ["FullValidationTelemetryThrottleHundrethsPercent"]
+  NAMECALL R16 R16 K35 ["GetFastInt"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K28 ["throttlingPercentage"]
+  NEWTABLE R16 0 3
+  LOADN R17 25
+  LOADN R18 10
+  LOADN R19 10
+  SETLIST R16 R17 3 [1]
+  SETTABLEKS R16 R15 K29 ["lastUpdated"]
+  LOADK R16 K36 ["Report result of ugc validation suite"]
+  SETTABLEKS R16 R15 K30 ["description"]
+  LOADK R16 K37 ["https://create.roblox.com/docs/art/validation-errors"]
+  SETTABLEKS R16 R15 K31 ["links"]
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R18 R0 K38 ["flags"]
+  GETTABLEKS R17 R18 K39 ["getFFlagDebugUGCValidationPrintNewStructureResults"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R19 R0 K38 ["flags"]
+  GETTABLEKS R18 R19 K40 ["getFIntUGCValidationFetchQualityMaxRetry"]
+  CALL R17 1 1
+  NEWTABLE R18 2 0
+  DUPTABLE R19 K42 [{"Backend"}]
+  LOADB R20 1
+  SETTABLEKS R20 R19 K41 ["Backend"]
+  DUPTABLE R20 K45 [{"InExpClient", "InExpServer"}]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K43 ["InExpClient"]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K44 ["InExpServer"]
+  DUPCLOSURE R21 K46 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R3
-  DUPCLOSURE R16 K38 [PROTO_1]
-  DUPCLOSURE R17 K39 [PROTO_2]
-  DUPCLOSURE R18 K40 [PROTO_3]
-  CAPTURE VAL R9
+  DUPCLOSURE R22 K47 [PROTO_2]
   CAPTURE VAL R8
-  CAPTURE VAL R10
+  CAPTURE VAL R17
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  DUPCLOSURE R23 K48 [PROTO_3]
+  DUPCLOSURE R24 K49 [PROTO_4]
+  CAPTURE VAL R12
   CAPTURE VAL R11
-  DUPCLOSURE R19 K41 [PROTO_5]
-  CAPTURE VAL R6
   CAPTURE VAL R15
+  CAPTURE VAL R16
+  DUPCLOSURE R25 K50 [PROTO_6]
+  CAPTURE VAL R7
+  CAPTURE VAL R21
   CAPTURE VAL R5
   CAPTURE VAL R2
-  CAPTURE VAL R18
+  CAPTURE VAL R24
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE VAL R22
+  CAPTURE VAL R23
+  CAPTURE VAL R20
   CAPTURE VAL R13
+  DUPCLOSURE R26 K51 [PROTO_7]
+  CAPTURE VAL R4
+  DUPCLOSURE R27 K52 [PROTO_8]
   CAPTURE VAL R16
-  CAPTURE VAL R17
-  CAPTURE VAL R14
-  DUPCLOSURE R20 K42 [PROTO_6]
+  CAPTURE VAL R10
   CAPTURE VAL R4
-  DUPCLOSURE R21 K43 [PROTO_7]
-  CAPTURE VAL R11
-  CAPTURE VAL R7
+  CAPTURE VAL R25
+  SETTABLEKS R27 R18 K53 ["ValidateAsset"]
+  DUPCLOSURE R27 K54 [PROTO_9]
+  CAPTURE VAL R16
   CAPTURE VAL R4
-  CAPTURE VAL R19
-  SETTABLEKS R21 R12 K44 ["ValidateAsset"]
-  DUPCLOSURE R21 K45 [PROTO_8]
-  CAPTURE VAL R11
-  CAPTURE VAL R4
-  CAPTURE VAL R7
-  CAPTURE VAL R19
-  SETTABLEKS R21 R12 K46 ["ValidateFinalizedBundle"]
-  RETURN R12 1
+  CAPTURE VAL R10
+  CAPTURE VAL R25
+  SETTABLEKS R27 R18 K55 ["ValidateFinalizedBundle"]
+  RETURN R18 1

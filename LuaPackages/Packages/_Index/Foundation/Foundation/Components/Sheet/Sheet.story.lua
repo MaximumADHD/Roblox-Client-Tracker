@@ -15,6 +15,7 @@ local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
@@ -29,6 +30,7 @@ local function Story(props)
 		}),
 		Sheet = React.createElement(Sheet.Root, {
 			isOpen = open,
+			snapPoints = { 0.5, 0.9 },
 			preferCenterSheet = props.controls.preferCenterSheet,
 			size = props.controls.size,
 			onClose = function()
@@ -246,6 +248,7 @@ end
 
 local function StoryManual(props)
 	local open, setOpen = React.useState(false)
+	local snapPoints = { 0.2, useScaledValue(300) }
 	return React.createElement(React.Fragment, nil, {
 		Button = React.createElement(Button, {
 			onActivated = function()
@@ -255,7 +258,7 @@ local function StoryManual(props)
 		}),
 		Sheet = if open
 			then React.createElement(Sheet.Root, {
-				snapPoints = { 0.2, 0.4 },
+				snapPoints = snapPoints,
 				defaultSnapPointIndex = 2,
 				preferCenterSheet = props.controls.preferCenterSheet,
 				size = props.controls.size,

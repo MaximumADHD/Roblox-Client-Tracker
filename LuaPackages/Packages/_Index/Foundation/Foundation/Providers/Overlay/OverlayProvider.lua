@@ -30,24 +30,42 @@ local mainGui = if isPluginSecurity() then CoreGui else PlayerGui
 
 local function OverlayProvider(props: Props)
 	local overlay: GuiBase2d?, setOverlay = React.useState(props.gui)
+	local shouldMountOverlay, setShouldMountOverlay = React.useState(false)
 	local styleSheet = useStyleSheet()
 
-	local overlayRefCallback = React.useCallback(function(screenGui: ScreenGui)
-		setOverlay(screenGui)
-	end, {})
-
-	React.useEffect(function()
-		if props.gui ~= nil and props.gui ~= overlay then
-			setOverlay(props.gui)
+	local requestOverlay = React.useCallback(function()
+		if props.gui == nil then
+			setShouldMountOverlay(true)
 		end
 	end, { props.gui })
 
+	if not Flags.FoundationOverlayProviderFrameTiming then
+		React.useEffect(function()
+			if props.gui ~= nil and props.gui ~= overlay then
+				setOverlay(props.gui)
+			end
+		end, { props.gui, overlay })
+	end
+
+	local shouldRender
+	if Flags.FoundationLazyOverlayLoading then
+		shouldRender = not props.gui and mainGui ~= nil and shouldMountOverlay
+	else
+		shouldRender = not props.gui and mainGui ~= nil
+	end
+
+	local overlayInstance = overlay
+	if Flags.FoundationOverlayProviderFrameTiming then
+		overlayInstance = if props.gui ~= nil then props.gui else overlay
+	end
+
 	return React.createElement(OverlayContext.Provider, {
 		value = {
-			instance = overlay,
+			requestOverlay = requestOverlay,
+			instance = overlayInstance,
 		},
 	}, {
-		FoundationOverlay = if not props.gui and mainGui
+		FoundationOverlay = if shouldRender
 			then ReactRoblox.createPortal(
 				React.createElement("ScreenGui", {
 					Enabled = true,
@@ -59,7 +77,7 @@ local function OverlayProvider(props: Props)
 						then Enum.SafeAreaCompatibility.None
 						else nil,
 					ClipToDeviceSafeArea = if Flags.FoundationOverlayNoClip then false else nil,
-					ref = overlayRefCallback,
+					ref = setOverlay,
 				}, {
 					FoundationStyleLink = if Flags.FoundationDisableStylingPolyfill
 						then React.createElement("StyleLink", {
@@ -67,7 +85,7 @@ local function OverlayProvider(props: Props)
 						})
 						else nil,
 				}),
-				mainGui
+				mainGui :: Instance
 			)
 			else nil,
 		Children = React.createElement(React.Fragment, nil, props.children),

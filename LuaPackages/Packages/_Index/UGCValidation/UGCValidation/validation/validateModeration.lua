@@ -8,9 +8,6 @@ local getAssetCreationDetails = require(root.util.getAssetCreationDetails)
 local ParseContentIds = require(root.util.ParseContentIds)
 local Types = require(root.util.Types)
 
-local getFFlagUGCValidateEmoteAnimationExtendedTests =
-	require(root.flags.getFFlagUGCValidateEmoteAnimationExtendedTests)
-
 local function validateUser(
 	restrictedUserIds: Types.RestrictedUserIds?,
 	endPointResponse: any,
@@ -50,10 +47,8 @@ local function validateModeration(
 	restrictedUserIds: Types.RestrictedUserIds?,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	if getFFlagUGCValidateEmoteAnimationExtendedTests() then
-		if validationContext.isServer or validationContext.allowUnreviewedAssets then
-			return true
-		end
+	if validationContext.isServer or validationContext.allowUnreviewedAssets then
+		return true
 	end
 
 	local contentIdMap = {}

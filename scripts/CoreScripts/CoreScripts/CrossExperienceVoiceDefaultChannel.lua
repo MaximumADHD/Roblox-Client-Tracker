@@ -27,6 +27,9 @@ local LOCAL_PLAYER_LOADING_TIMEOUT_ENUM = CrossExperience.Constants.LOCAL_PLAYER
 local FIntBackgroundDMLocalPlayerLoadingTimeoutSeconds =
 	game:DefineFastInt("BackgroundDMLocalPlayerLoadingTimeoutSeconds", 12)
 local FFlagDelayBackgroundDMLocalPlayerLoading = game:DefineFastFlag("DelayBackgroundDMLocalPlayerLoading", false)
+local FFlagDelayAudioFocusReplication = game:DefineFastFlag("DelayAudioFocusReplication", false)
+local FIntPlayerAudioFocusReplicationTimeoutSeconds =
+	game:DefineFastInt("PlayerAudioFocusReplicationTimeoutSeconds", 10)
 
 local localUserId
 if
@@ -148,15 +151,18 @@ then
 	})
 end
 
-local PlayerAudioFocusChanged = ReplicatedStorage:WaitForChild("PlayerAudioFocusChanged")
+local PlayerAudioFocusChanged
+if not FFlagDelayAudioFocusReplication then
+	PlayerAudioFocusChanged = ReplicatedStorage:WaitForChild("PlayerAudioFocusChanged")
 
-if FFlagEnableCEVErrorRCCTimeoutLogs then
-	sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedLoaded", {
-		userId = if not CEVLogsToEventIngest then localUserId else nil,
-		clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
-			then os.time()
-			else nil :: never,
-	})
+	if FFlagEnableCEVErrorRCCTimeoutLogs then
+		sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedLoaded", {
+			userId = if not CEVLogsToEventIngest then localUserId else nil,
+			clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
+				then os.time()
+				else nil :: never,
+		})
+	end
 end
 
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
@@ -329,17 +335,85 @@ if not FFlagEnableCEVErrorRCCTimeoutLogs then
 	localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
 end
 
-observeCurrentContextId(function(currentContextId)
-	PlayerAudioFocusChanged:FireServer(currentContextId)
-end)
+if FFlagDelayAudioFocusReplication then
+	-- Capture context changes immediately to avoid missing initial state
+	-- Store the latest context ID and send it once PlayerAudioFocusChanged is ready
+	local latestContextId = nil
+	local isReplicationReady = false
 
-PlayerAudioFocusChanged.OnClientEvent:Connect(function(userId, currentContextId, currentContextIds)
-	cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_AUDIO_FOCUS_CHANGED, {
-		userId = userId,
-		contextId = currentContextId,
-		contextIds = currentContextIds,
-	})
-end)
+	observeCurrentContextId(function(currentContextId)
+		latestContextId = currentContextId
+
+		print("CurrentContextId changed to", currentContextId, "isReplicationReady:", isReplicationReady)
+
+		if isReplicationReady and PlayerAudioFocusChanged then
+			PlayerAudioFocusChanged:FireServer(currentContextId)
+			print("Fired PlayerAudioFocusChanged with contextId:", currentContextId)
+		end
+	end)
+
+	-- Load PlayerAudioFocusChanged with timeout (delayed from early initialization)
+	-- This ensures ALL players have their OnClientEvent listeners before ANY player sends FireServer
+	print("Waiting for PlayerAudioFocusChanged to replicate...")
+	PlayerAudioFocusChanged =
+		ReplicatedStorage:WaitForChild("PlayerAudioFocusChanged", FIntPlayerAudioFocusReplicationTimeoutSeconds)
+
+	if PlayerAudioFocusChanged then
+		print("PlayerAudioFocusChanged replicated successfully.")
+		if FFlagEnableCEVErrorRCCTimeoutLogs then
+			sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedLoaded", {
+				userId = if not CEVLogsToEventIngest then localUserId else nil,
+				clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
+					then os.time()
+					else nil :: never,
+			})
+		end
+
+		-- Establish connection before marking replication as ready
+		PlayerAudioFocusChanged.OnClientEvent:Connect(function(userId, currentContextId, currentContextIds)
+			print("Received PlayerAudioFocusChanged OnClientEvent:", userId, currentContextId)
+			cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_AUDIO_FOCUS_CHANGED, {
+				userId = userId,
+				contextId = currentContextId,
+				contextIds = currentContextIds,
+			})
+		end)
+
+		-- Mark replication as ready and send any pending context
+		isReplicationReady = true
+		if latestContextId then
+			PlayerAudioFocusChanged:FireServer(latestContextId)
+			print("Fired PlayerAudioFocusChanged with latestContextId:", latestContextId)
+		end
+	else
+		print(
+			"PlayerAudioFocusChanged did not replicate within timeout of ",
+			FIntPlayerAudioFocusReplicationTimeoutSeconds,
+			" seconds."
+		)
+		if FFlagEnableCEVErrorRCCTimeoutLogs then
+			sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedReplicationTimeout", {
+				userId = if not CEVLogsToEventIngest then localUserId else nil,
+				timeoutSeconds = FIntPlayerAudioFocusReplicationTimeoutSeconds,
+				clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
+					then os.time()
+					else nil :: never,
+			})
+		end
+	end
+else
+	observeCurrentContextId(function(currentContextId)
+		PlayerAudioFocusChanged:FireServer(currentContextId)
+	end)
+
+	PlayerAudioFocusChanged.OnClientEvent:Connect(function(userId, currentContextId, currentContextIds)
+		cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_AUDIO_FOCUS_CHANGED, {
+			userId = userId,
+			contextId = currentContextId,
+			contextIds = currentContextIds,
+		})
+	end)
+end
 
 local onPlayerAdded = function(player)
 	cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_ADDED, {

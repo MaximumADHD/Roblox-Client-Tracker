@@ -1,32 +1,4 @@
 PROTO_0:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIF R1 [+4]
-  GETIMPORT R1 K1 [error]
-  LOADK R2 K2 ["This function can only be called in a FTF test runner"]
-  CALL R1 1 0
-  JUMPIFNOT R0 [+1]
-  JUMP [+3]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K3 ["BlenderCubeDefault"]
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["Plugin"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestorWhichIsA"]
-  CALL R1 2 1
-  LOADK R4 K8 ["FTFUtil"]
-  NAMECALL R2 R1 K9 ["GetPluginComponent"]
-  CALL R2 2 1
-  LOADK R4 K10 ["%*/%*/%*"]
-  NAMECALL R6 R2 K11 ["ClientFolderPathAsync"]
-  CALL R6 1 1
-  LOADK R7 K12 ["AssetImport/AssetImportTest.Lib/resources"]
-  MOVE R8 R0
-  NAMECALL R4 R4 K13 ["format"]
-  CALL R4 4 1
-  MOVE R3 R4
-  RETURN R3 1
-
-PROTO_1:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["isCli"]
   CALL R3 0 1
@@ -83,7 +55,7 @@ PROTO_1:
   CALL R4 2 1
   RETURN R4 1
 
-PROTO_2:
+PROTO_1:
   GETTABLEKS R2 R0 K0 ["managedGroups"]
   JUMPIFNOT R2 [+1]
   JUMPIF R1 [+1]
@@ -100,7 +72,7 @@ PROTO_2:
   FORGLOOP R2 2 [-11]
   RETURN R0 0
 
-PROTO_3:
+PROTO_2:
   SETUPVAL R0 0
   GETGLOBAL R1 K0 ["setDefaultCreator"]
   GETUPVAL R2 1
@@ -108,7 +80,7 @@ PROTO_3:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_3:
   GETUPVAL R1 0
   SETTABLEKS R0 R1 K0 ["managedGroups"]
   GETGLOBAL R1 K1 ["setDefaultCreator"]
@@ -117,7 +89,7 @@ PROTO_4:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_4:
   GETTABLEKS R2 R0 K0 ["contextItems"]
   GETTABLEKS R1 R2 K1 ["Networking"]
   GETTABLEKS R3 R0 K0 ["contextItems"]
@@ -139,7 +111,7 @@ PROTO_5:
   CLOSEUPVALS R3
   RETURN R0 0
 
-PROTO_6:
+PROTO_5:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["mount"]
   GETUPVAL R3 0
@@ -151,7 +123,7 @@ PROTO_6:
   SETTABLEKS R1 R0 K3 ["handle"]
   RETURN R0 0
 
-PROTO_7:
+PROTO_6:
   JUMPIFNOT R0 [+11]
   GETTABLEKS R2 R0 K0 ["Cancel"]
   FASTCALL1 TYPEOF R2 [+2]
@@ -162,7 +134,7 @@ PROTO_7:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_7:
   GETTABLEKS R1 R0 K0 ["contextItems"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K0 ["contextItems"]
@@ -170,7 +142,7 @@ PROTO_8:
   CALL R1 1 0
   GETTABLEKS R1 R0 K2 ["store"]
   JUMPIFNOT R1 [+83]
-  DUPCLOSURE R1 K3 [PROTO_7]
+  DUPCLOSURE R1 K3 [PROTO_6]
   GETTABLEKS R4 R0 K2 ["store"]
   NAMECALL R4 R4 K4 ["getState"]
   CALL R4 1 1
@@ -254,7 +226,7 @@ PROTO_8:
   FORGLOOP R2 2 [-5]
   RETURN R0 0
 
-PROTO_9:
+PROTO_8:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["root"]
   GETUPVAL R2 1
@@ -262,7 +234,7 @@ PROTO_9:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_9:
   GETIMPORT R2 K1 [game]
   LOADK R4 K2 ["CoreGui"]
   NAMECALL R2 R2 K3 ["GetService"]
@@ -304,7 +276,7 @@ PROTO_10:
   CALL R6 1 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_10:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["root"]
   GETUPVAL R2 1
@@ -312,7 +284,7 @@ PROTO_11:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_11:
   GETIMPORT R1 K1 [game]
   LOADK R3 K2 ["CoreGui"]
   NAMECALL R1 R1 K3 ["GetService"]
@@ -356,11 +328,11 @@ PROTO_12:
   CALL R4 1 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_12:
   SETTABLEKS R1 R0 K0 ["story"]
   RETURN R0 0
 
-PROTO_14:
+PROTO_13:
   SETTABLEKS R1 R0 K0 ["storyProps"]
   RETURN R0 0
 
@@ -377,34 +349,34 @@ MAIN:
   GETTABLEKS R2 R1 K8 ["FoundationProvider"]
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Framework"]
+  GETTABLEKS R4 R5 K9 ["RoactCompat"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["RoactCompat"]
+  GETTABLEKS R5 R6 K10 ["React"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R7 R0 K6 ["Packages"]
-  GETTABLEKS R6 R7 K11 ["React"]
+  GETTABLEKS R6 R7 K11 ["ReactRoblox"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R8 R0 K6 ["Packages"]
-  GETTABLEKS R7 R8 K12 ["ReactRoblox"]
+  GETTABLEKS R7 R8 K12 ["Rodux"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
   GETTABLEKS R9 R0 K6 ["Packages"]
-  GETTABLEKS R8 R9 K13 ["Rodux"]
+  GETTABLEKS R8 R9 K13 ["PluginLoader"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R10 R0 K6 ["Packages"]
   GETTABLEKS R9 R10 K14 ["TestLoader"]
   CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K6 ["Packages"]
-  GETTABLEKS R10 R11 K15 ["PluginLoader"]
-  CALL R9 1 1
-  GETTABLEKS R10 R8 K16 ["isFTF"]
-  GETTABLEKS R11 R3 K17 ["TestHelpers"]
+  GETTABLEKS R9 R8 K15 ["isFTF"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Packages"]
+  GETTABLEKS R11 R12 K16 ["Framework"]
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K17 ["TestHelpers"]
   GETTABLEKS R13 R11 K18 ["Instances"]
   GETTABLEKS R12 R13 K19 ["MockPlugin"]
   GETIMPORT R13 K5 [require]
@@ -428,64 +400,42 @@ MAIN:
   GETIMPORT R19 K1 [script]
   GETTABLEKS R18 R19 K26 ["TestElement"]
   CALL R17 1 1
-  DUPTABLE R18 K35 [{"BlenderCubeDefault", "CubeWithAllPbrs", "CorruptedFile", "BlenderCubeRigged", "RootTwoGroupFiveCube", "UnsupportedFileType", "TextureFile", "BubblyClimb"}]
-  LOADK R19 K36 ["blender-cube-default.fbx"]
-  SETTABLEKS R19 R18 K27 ["BlenderCubeDefault"]
-  LOADK R19 K37 ["cube-with-all-pbrs.fbx"]
-  SETTABLEKS R19 R18 K28 ["CubeWithAllPbrs"]
-  LOADK R19 K38 ["corrupted-file.fbx"]
-  SETTABLEKS R19 R18 K29 ["CorruptedFile"]
-  LOADK R19 K39 ["blender-cube-rigged.fbx"]
-  SETTABLEKS R19 R18 K30 ["BlenderCubeRigged"]
-  LOADK R19 K40 ["root-two-group-five-cube.fbx"]
-  SETTABLEKS R19 R18 K31 ["RootTwoGroupFiveCube"]
-  LOADK R19 K41 ["unsupported-filetype.json"]
-  SETTABLEKS R19 R18 K32 ["UnsupportedFileType"]
-  LOADK R19 K42 ["texturetest0.png"]
-  SETTABLEKS R19 R18 K33 ["TextureFile"]
-  LOADK R19 K43 ["Bubbly_Climb.fbx"]
-  SETTABLEKS R19 R18 K34 ["BubblyClimb"]
-  NEWTABLE R19 0 0
-  SETTABLEKS R19 R19 K44 ["__index"]
-  SETTABLEKS R18 R19 K45 ["Resources"]
-  DUPCLOSURE R20 K46 [PROTO_0]
-  CAPTURE VAL R10
-  CAPTURE VAL R18
-  SETTABLEKS R20 R19 K47 ["getResourcePathForTesting"]
-  DUPCLOSURE R20 K48 [PROTO_1]
+  NEWTABLE R18 0 0
+  SETTABLEKS R18 R18 K27 ["__index"]
+  DUPCLOSURE R19 K28 [PROTO_0]
   CAPTURE VAL R8
-  CAPTURE VAL R10
+  CAPTURE VAL R9
   CAPTURE VAL R12
   CAPTURE VAL R13
-  CAPTURE VAL R7
+  CAPTURE VAL R6
   CAPTURE VAL R14
   CAPTURE VAL R16
-  CAPTURE VAL R19
-  SETTABLEKS R20 R19 K49 ["new"]
-  DUPCLOSURE R20 K50 [PROTO_2]
-  SETGLOBAL R20 K51 ["setDefaultCreator"]
-  DUPCLOSURE R20 K52 [PROTO_5]
-  SETTABLEKS R20 R19 K53 ["loadData"]
-  DUPCLOSURE R20 K54 [PROTO_6]
-  CAPTURE VAL R4
+  CAPTURE VAL R18
+  SETTABLEKS R19 R18 K29 ["new"]
+  DUPCLOSURE R19 K30 [PROTO_1]
+  SETGLOBAL R19 K31 ["setDefaultCreator"]
+  DUPCLOSURE R19 K32 [PROTO_4]
+  SETTABLEKS R19 R18 K33 ["loadData"]
+  DUPCLOSURE R19 K34 [PROTO_5]
+  CAPTURE VAL R3
   CAPTURE VAL R13
-  SETTABLEKS R20 R19 K55 ["createMainPlugin"]
-  DUPCLOSURE R20 K56 [PROTO_8]
-  CAPTURE VAL R4
-  SETTABLEKS R20 R19 K57 ["destroy"]
-  DUPCLOSURE R20 K58 [PROTO_10]
-  CAPTURE VAL R4
+  SETTABLEKS R19 R18 K35 ["createMainPlugin"]
+  DUPCLOSURE R19 K36 [PROTO_7]
+  CAPTURE VAL R3
+  SETTABLEKS R19 R18 K37 ["destroy"]
+  DUPCLOSURE R19 K38 [PROTO_9]
+  CAPTURE VAL R3
   CAPTURE VAL R17
-  CAPTURE VAL R6
-  SETTABLEKS R20 R19 K59 ["_createTestElement"]
-  DUPCLOSURE R20 K60 [PROTO_12]
   CAPTURE VAL R5
+  SETTABLEKS R19 R18 K39 ["_createTestElement"]
+  DUPCLOSURE R19 K40 [PROTO_11]
+  CAPTURE VAL R4
   CAPTURE VAL R17
   CAPTURE VAL R2
-  CAPTURE VAL R6
-  SETTABLEKS R20 R19 K61 ["_createFoundationTestElement"]
-  DUPCLOSURE R20 K62 [PROTO_13]
-  SETTABLEKS R20 R19 K63 ["_setStory"]
-  DUPCLOSURE R20 K64 [PROTO_14]
-  SETTABLEKS R20 R19 K65 ["_setStoryProps"]
-  RETURN R19 1
+  CAPTURE VAL R5
+  SETTABLEKS R19 R18 K41 ["_createFoundationTestElement"]
+  DUPCLOSURE R19 K42 [PROTO_12]
+  SETTABLEKS R19 R18 K43 ["_setStory"]
+  DUPCLOSURE R19 K44 [PROTO_13]
+  SETTABLEKS R19 R18 K45 ["_setStoryProps"]
+  RETURN R18 1

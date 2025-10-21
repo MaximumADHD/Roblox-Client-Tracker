@@ -2,6 +2,8 @@
 local root = script.Parent.Parent
 
 local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
+local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
+local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 
 local checkForProxyWrap = require(root.util.checkForProxyWrap)
 
@@ -85,6 +87,10 @@ local function validateWithSchema(schema, instance, validationContext)
 	local result = validateWithSchemaHelper(schema, instance, authorizedSet)
 
 	if not result.success then
+		if getFFlagUGCValidationEnableFolderStructure() and getFFlagUGCValidationCombineEntrypointResults() then
+			return { success = false, message = "" }
+		end
+
 		return result
 	end
 
@@ -102,6 +108,10 @@ local function validateWithSchema(schema, instance, validationContext)
 	end
 
 	if #unauthorizedDescendantPaths > 0 then
+		if getFFlagUGCValidationEnableFolderStructure() and getFFlagUGCValidationCombineEntrypointResults() then
+			return { success = false, message = "" }
+		end
+
 		return {
 			success = false,
 			message = "Unexpected Descendants:\n" .. table.concat(unauthorizedDescendantPaths, "\n"),

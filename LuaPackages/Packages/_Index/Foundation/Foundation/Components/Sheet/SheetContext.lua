@@ -28,6 +28,7 @@ return React.createContext({
 	end,
 	closeSheet = nil :: (() -> ())?,
 	sheetType = nil :: SheetType?,
+	innerSurface = nil :: GuiObject?,
 	testId = nil :: string?,
 } :: {
 	sheetHeightAvailable: React.Binding<number>?,
@@ -43,5 +44,6 @@ return React.createContext({
 	setHasHeader: ((boolean) -> nil)?,
 	closeSheet: (() -> ())?,
 	sheetType: SheetType?,
+	innerSurface: GuiObject?,
 	testId: string?,
 })

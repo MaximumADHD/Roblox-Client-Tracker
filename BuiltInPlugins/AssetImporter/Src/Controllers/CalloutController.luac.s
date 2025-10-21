@@ -1,21 +1,18 @@
 PROTO_0:
   NEWTABLE R1 1 0
   MOVE R2 R0
-  JUMPIF R2 [+6]
-  GETIMPORT R2 K1 [game]
-  LOADK R4 K2 ["CalloutService"]
-  NAMECALL R2 R2 K3 ["GetService"]
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K4 ["_calloutService"]
-  GETTABLEKS R3 R1 K4 ["_calloutService"]
-  FASTCALL2K ASSERT R3 K5 [+4]
-  LOADK R4 K5 ["CalloutController requires a CalloutService"]
-  GETIMPORT R2 K7 [assert]
+  JUMPIF R2 [+1]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K0 ["_calloutService"]
+  GETTABLEKS R3 R1 K0 ["_calloutService"]
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["CalloutController requires a CalloutService"]
+  GETIMPORT R2 K3 [assert]
   CALL R2 2 0
-  GETUPVAL R4 0
+  GETUPVAL R4 1
   FASTCALL2 SETMETATABLE R1 R4 [+4]
   MOVE R3 R1
-  GETIMPORT R2 K9 [setmetatable]
+  GETIMPORT R2 K5 [setmetatable]
   CALL R2 2 1
   RETURN R2 1
 
@@ -57,23 +54,32 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["Services"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["ContextServices"]
-  GETTABLEKS R3 R2 K9 ["ContextItem"]
-  LOADK R6 K10 ["CalloutController"]
-  NAMECALL R4 R3 K11 ["extend"]
-  CALL R4 2 1
-  DUPCLOSURE R5 K12 [PROTO_0]
-  CAPTURE VAL R4
-  SETTABLEKS R5 R4 K13 ["new"]
-  DUPCLOSURE R5 K14 [PROTO_1]
-  SETTABLEKS R5 R4 K15 ["destroy"]
-  DUPCLOSURE R5 K16 [PROTO_2]
-  SETTABLEKS R5 R4 K17 ["defineCallout"]
-  DUPCLOSURE R5 K18 [PROTO_3]
-  SETTABLEKS R5 R4 K19 ["attachCallout"]
-  DUPCLOSURE R5 K20 [PROTO_4]
-  SETTABLEKS R5 R4 K21 ["detachCalloutsByDefinitionId"]
-  RETURN R4 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["CalloutService"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K13 ["ContextServices"]
+  GETTABLEKS R5 R4 K14 ["ContextItem"]
+  LOADK R8 K15 ["CalloutController"]
+  NAMECALL R6 R5 K16 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K17 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  SETTABLEKS R7 R6 K18 ["new"]
+  DUPCLOSURE R7 K19 [PROTO_1]
+  SETTABLEKS R7 R6 K20 ["destroy"]
+  DUPCLOSURE R7 K21 [PROTO_2]
+  SETTABLEKS R7 R6 K22 ["defineCallout"]
+  DUPCLOSURE R7 K23 [PROTO_3]
+  SETTABLEKS R7 R6 K24 ["attachCallout"]
+  DUPCLOSURE R7 K25 [PROTO_4]
+  SETTABLEKS R7 R6 K26 ["detachCalloutsByDefinitionId"]
+  RETURN R6 1

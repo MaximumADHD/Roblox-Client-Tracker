@@ -3,7 +3,6 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
-local getFFlagUGCValidateEmoteAnimation = require(root.flags.getFFlagUGCValidateEmoteAnimation)
 
 local ConstantsInterface = require(root.ConstantsInterface)
 
@@ -36,10 +35,8 @@ local function validateInternal(validationContext: Types.ValidationContext): (bo
 	local assetTypeEnum = validationContext.assetTypeEnum
 	local validateMeshPartAccessories = validationContext.validateMeshPartAccessories
 
-	if getFFlagUGCValidateEmoteAnimation() then
-		if assetTypeEnum == Enum.AssetType.EmoteAnimation then
-			return ValidateEmoteAnimation.validate(validationContext)
-		end
+	if assetTypeEnum == Enum.AssetType.EmoteAnimation then
+		return ValidateEmoteAnimation.validate(validationContext)
 	end
 
 	if ConstantsInterface.isBodyPart(assetTypeEnum) then

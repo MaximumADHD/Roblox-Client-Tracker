@@ -16,6 +16,11 @@
 				[EXCLUSION_LIST] = {LC Enums}
 				["isMultipleOf0.1"] = true
 			}
+
+		- If multiple values are acceptable for a property, you can list them as an array like this:
+			["AlphaMode"] = {
+				[Constants.COMPARISON_METHODS.FOUND_IN] = {Enum.AlphaMode.Overlay, Enum.AlphaMode.Transparency},
+			}
 			
 			Here, we should only run the suite of tests on Enums that are not LCs. After that, we would have the following tests to check for:
 			- Transparency < 0.5
@@ -34,6 +39,8 @@ local Types = require(root.util.Types)
 local valueToString = require(root.util.valueToString)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
+local getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed =
+	require(root.flags.getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed)
 
 local EPSILON = 1e-5
 
@@ -58,6 +65,16 @@ end
 local function doesPropertyMatchExpectations(currentValue: any, expectedValue: any, comparitorMethod: string): boolean
 	if expectedValue == Cryo.None then
 		return currentValue == nil
+	end
+
+	if getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed() then
+		if typeof(expectedValue) == "table" and comparitorMethod == Constants.COMPARISON_METHODS.FOUND_IN then
+			local result = false
+			for _, v in expectedValue do
+				result = result or doesPropertyMatchExpectations(currentValue, v, Constants.COMPARISON_METHODS.EXACT_EQ)
+			end
+			return result
+		end
 	end
 
 	if typeof(currentValue) ~= typeof(expectedValue) then

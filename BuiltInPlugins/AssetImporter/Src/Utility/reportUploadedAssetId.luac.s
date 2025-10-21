@@ -14,25 +14,28 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["HttpService"]
-  NAMECALL R0 R0 K3 ["GetService"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["MemStorageService"]
-  NAMECALL R1 R1 K3 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K6 [script]
-  LOADK R4 K7 ["AssetImporter"]
-  NAMECALL R2 R2 K8 ["FindFirstAncestor"]
-  CALL R2 2 1
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R6 R2 K11 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Flags"]
-  GETTABLEKS R4 R5 K13 ["getFFlagAssetImportShareUploadResults"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["Services"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["HttpService"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["GetService"]
+  LOADK R4 K11 ["MemStorageService"]
   CALL R3 1 1
-  DUPCLOSURE R4 K14 [PROTO_0]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Flags"]
+  GETTABLEKS R5 R6 K13 ["getFFlagAssetImportShareUploadResults"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R1
-  CAPTURE VAL R0
-  RETURN R4 1
+  CAPTURE VAL R2
+  RETURN R5 1

@@ -6,6 +6,7 @@ local ReactOtter = require(Packages.ReactOtter)
 
 local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
+local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
 local Flags = require(Foundation.Utility.Flags)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
@@ -18,6 +19,7 @@ type Visibility = Visibility.Visibility
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 type Bindable<T> = Types.Bindable<T>
+type Selection = Types.Selection
 
 local HIDE_SCROLLBAR_DELAY = 3
 local ANIMATION_CONFIG = {
@@ -26,6 +28,7 @@ local ANIMATION_CONFIG = {
 
 export type ScrollingFrameProps = {
 	controlState: ControlState,
+	selection: Selection?,
 	scrollBarVisibility: Bindable<Visibility>?,
 	onCanvasPositionChanged: ((instance: ScrollingFrame) -> ())?,
 	onAbsoluteCanvasSizeChanged: ((instance: ScrollingFrame) -> ())?,
@@ -33,7 +36,7 @@ export type ScrollingFrameProps = {
 	children: React.Node?,
 	tag: string?,
 
-	AutomaticSize: Enum.AutomaticSize?,
+	AutomaticSize: Bindable<Enum.AutomaticSize>?,
 	AutomaticCanvasSize: Bindable<Enum.AutomaticSize>?,
 	CanvasSize: Bindable<UDim2>?,
 	ClipsDescendants: Bindable<boolean>?,
@@ -49,6 +52,7 @@ local defaultProps = {
 
 local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(scrollingFrameProps, defaultProps)
+	local selectionProps = withGuiObjectProps({ selection = props.selection }, {})
 	local tokens = useTokens()
 	local tag = useStyleTags(scrollingFrameProps.tag)
 	local scrollBarStyle = tokens.Color.Shift.Shift_400
@@ -115,7 +119,15 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 		BorderSizePixel = 0,
 		AutomaticSize = props.AutomaticSize,
 		Size = UDim2.fromScale(1, 1),
-		SelectionImageObject = cursor,
+
+		-- Selection props
+		Selectable = selectionProps.Selectable,
+		NextSelectionUp = selectionProps.NextSelectionUp,
+		NextSelectionDown = selectionProps.NextSelectionDown,
+		NextSelectionLeft = selectionProps.NextSelectionLeft,
+		NextSelectionRight = selectionProps.NextSelectionRight,
+		SelectionImageObject = selectionProps.SelectionImageObject or cursor,
+		SelectionOrder = selectionProps.SelectionOrder,
 
 		[React.Change.CanvasPosition] = (if props.scrollBarVisibility == "Auto"
 			then function(rbx)
