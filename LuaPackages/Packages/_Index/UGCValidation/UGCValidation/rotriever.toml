@@ -1,14 +1,16 @@
 [package]
 name = "UGCValidation"
-version = "1.17.4"
+version = "1.17.8"
 readme = "README.md"
 content_root = "src"
 files = [
     "*",
     "!*.spec.lua",
+    "!*.sys.lua",
     "!*jest.config.lua",
     "!*.rbxm",
     "!AssetsForUnitTests",
+    "!AssetsForSystemTests",
 ]
 publish = true
 [dependencies.Cryo]

@@ -39,10 +39,32 @@ As of June 2024, you require this version of rotriever https://github.com/Roblox
    - changes should only be to the rotriever.toml and rotriever.lock files
 4. lua-apps repo will automatically get synced into game-engine after the pull request is merged (might take ~20min)
 
+
 ### Updating UGC Validation in StudioPlugins
 1. Update `rotriever.toml` in [Toolbox folder](https://github.com/Roblox/StudioPlugins/tree/main/Builtin/Toolbox) to include the new version
+   - Increase the Toolbox version under the [package] section
 2. Run `rotrieve upgrade --packages UGCValidation` locally from `C:\Git\StudioPlugins\Builtin\Toolbox`
 3. Update `rotriever.toml` in [AvatarCompatibilityPreviewer folder](https://github.com/Roblox/StudioPlugins/tree/main/Builtin/AvatarCompatibilityPreviewer) to include the new version
+   - Increase the AvatarCompatibilityPreviewer version under the [package] section
 4. Run `rotrieve upgrade --packages UGCValidation` locally from `C:\Git\StudioPlugins\Builtin\AvatarCompatibilityPreviewer`
-5. Commit all changes to your branch, and open a pull request
-   - changes should only be to the rotriever.toml and rotriever.lock files
+5. If any new strings are added, edited, or translated, then run `python3 scripts/translations/download_artifacts.py --download-source --namespaces Studio.Toolbox Common.UGCValidation Studio.AvatarCompatibilityPreviewer` locally from `C:\Git\StudioPlugins\`. This will update any translation string changes in Toolbox and ACP, including everything in our [namespace](https://translations-hub.simulprod.com/translatable-content?namespace=Common.UGCValidation)
+6. Commit all changes to your branch, and open a pull request
+   - changes should only be to the rotriever.toml, rotriever.lock, and potentially csv files
+
+### Updating Toolbox and AvatarCompatibilityPreviewer packages in game-engine
+1. Once the PR for StudioPlugins is merged, take note of the commit hash of the merge commit.
+   - It will show up in the PR timeline with the message "[username] merged commit [commit hash] into main"
+   - Ensure an automated comment shows up on the PR confirming that Toolbox and AvatarCompatibilityPreviewer were published at that commit hash
+2. In your game-engine repo open [Client/RobloxStudio/rbox.yaml](https://github.rbx.com/GameEngine/game-engine/blob/master/Client/RobloxStudio/rbox.yaml)
+   - Find the line with 'StudioPlugin-Toolbox' and replace the commit hash (the value after the '@') with the new commit hash
+   - Replace the commit hash for StudioPlugin-AvatarCompatibilityPreviewer as well
+3. Commit all changes to a branch, and open a pull request
+
+
+
+### Updating Error Strings in Lua-apps [LuaPackages](https://github.com/Roblox/lua-apps).
+This is a semi-optional step that can be done when new translations are added, as we just need someone in lua-apps to do it before code-cutoff. If your strings are not available when you flip the flag, only the enum will show. Check the [documentation](https://roblox.atlassian.net/wiki/spaces/IN/pages/2536473082/Using+Platform+Translations#lua-apps-(LuaApp-%2F-RobloxInGameContent)) for more context.
+1. Run the Pull translations and create pull request job in this [GHA workflow](https://github.com/Roblox/lua-apps/actions/workflows/create-translations-pull-request.yaml)
+2. Check [github](https://github.com/Roblox/lua-apps/pulls?q=is%3Apr+is%3Aopen+UC-6278+%5BAUTO-GENERATED%5D) and verify that there are two PRs. They will either be newly created, or newly updated 
+3. Check that the PRs have any changes to Common.UGCValidation. If so, approve and merge the PRs. 
+

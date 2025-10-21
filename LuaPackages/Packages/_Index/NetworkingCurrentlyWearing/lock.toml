@@ -3,6 +3,6 @@ name = "NetworkingCurrentlyWearing"
 version = "1.15.0"
 source = "registry"
 dependencies = [
-    "Dash Dash 0.1.9 registry",
+    "Dash <patched> Dash 3.2.0 registry",
     "Util Util 1.16.6 registry",
 ]

@@ -112,3 +112,40 @@ local function MediaTimeline()
 	})
 end
 ```
+
+For discrete values, you can use the `step` prop to snap the slider to specific increments. This is useful for volume controls, transparency setting, or any setting that should have distinct steps rather than continuous values.
+
+If `step` is `nil` or `0` then it will be a continuous values.
+
+```luau
+local Foundation = require(Packages.Foundation)
+local Slider = Foundation.Slider
+local SliderVariant = Foundation.Enums.SliderVariant
+local Visibility = Foundation.Enums.Visibility
+local InputSize = Foundation.Enums.InputSize
+
+local function VolumeControl()
+	-- Start at volume level 5 (50%)
+	local volume, setVolume = React.useBinding(5)
+
+	local onVolumeChanged = React.useCallback(function(newVolume: number)
+		setVolume(newVolume)
+		print("Volume set to:", newVolume)
+		-- Apply volume to audio system here
+	end, {})
+
+	return React.createElement(Slider, {
+		value = volume,
+		onValueChanged = onVolumeChanged,
+		
+		-- Volume levels from 0 (mute) to 10 (max)
+		range = NumberRange.new(0, 10),
+		-- Snap to whole number volume levels
+		step = 1,
+		
+		size = InputSize.Medium,
+		knobVisibility = Visibility.Auto,
+		variant = SliderVariant.Standard,
+	})
+end
+```

@@ -1062,6 +1062,7 @@ Class AvatarCollisionRules : Instance
 	Property AvatarCollisionRules.SingleColliderSize: Vector3 {RobloxScriptSecurity}
 Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, model: Model, progressCallback: ((...any) -> ...any)?) -> string [Yields]
+	Function AvatarCreationService:AutoSetupAvatarNewAsync(player: Player, autoSetupParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> string {🔐InternalTest} [Yields]
 	Function AvatarCreationService:DeserializeAvatarModel(serializedModel: string) -> Instance? {RobloxScriptSecurity}
 	Function AvatarCreationService:GenerateAvatar2DPreviewAsync(avatarGeneration2dPreviewParams: { [string]: any }) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarAsync(avatarGenerationParams: { [string]: any }) -> string [Yields]
@@ -1594,12 +1595,15 @@ Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Chat:FilterStringForPlayerAsync(stringToFilter: string, playerToFilterFor: Player) -> string [Yields] [Deprecated]
 	Function Chat:GetShouldUseLuaChat() -> boolean {RobloxScriptSecurity}
 	Function Chat:InvokeChatCallback(callbackType: Enum.ChatCallbackType, callbackArguments: ...any) -> ...any
+	Function Chat:ReconcileCommunicationAccess() -> () {RobloxScriptSecurity}
 	Function Chat:RegisterChatCallback(callbackType: Enum.ChatCallbackType, callbackFunction: (...any) -> ...any) -> ()
 	Function Chat:SetBubbleChatSettings(settings: any) -> ()
 	Event Chat.BubbleChatSettingsChanged(settings: any) {RobloxScriptSecurity}
 	Event Chat.Chatted(part: Instance, message: string, color: Enum.ChatColor)
 	Event Chat.ClientToServerFilterMessageSignalV2(sender: Instance, receiver: Instance, unfilteredMessage: string) {RobloxSecurity} [Hidden]
 	Event Chat.ClientToServerReportUnfilteredSignal(unfilteredText: string, match: string, instancePath: string, instanceType: string) {RobloxSecurity} [Hidden]
+	Event Chat.ReconcileCommunicationAccessCompleted() {RobloxScriptSecurity}
+	Event Chat.ReconcileCommunicationAccessSignal() {RobloxSecurity} [Hidden]
 	Event Chat.ServerToClientUnderOver13FilteredResponseSignal(sender: Instance, unfilteredMessage: string, isError: boolean, errorStr: string, under13: string, over13: string) {RobloxSecurity} [Hidden]
 	Event Chat.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
 Class ChatbotUIService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2509,11 +2513,13 @@ Class Hole : Feature [Deprecated]
 Class MotorFeature : Feature [Deprecated]
 Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
 	Event FeatureRestrictionManager.FeatureTimeoutAttempt(permanent: boolean, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxScriptSecurity}
+	Event FeatureRestrictionManager.FeatureTimeoutRestored(featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxScriptSecurity}
+	Event FeatureRestrictionManager.RefreshFeatureRestrictions(featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
 	Event FeatureRestrictionManager.ShowFeatureInterventionDetails(featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxScriptSecurity}
 	Event FeatureRestrictionManager.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
-	Event FeatureRestrictionManager.UpdateClientFeatureTimeout(startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
+	Event FeatureRestrictionManager.UpdateClientFeatureTimeout(acknowledgeable: boolean, permanent: boolean, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
 	Event FeatureRestrictionManager.UpdateExperienceChatTimeout(startTime: number, duration: number) {RobloxSecurity} [Hidden]
-	Event FeatureRestrictionManager.UpdateFeatureTimeout(userId: number, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
+	Event FeatureRestrictionManager.UpdateFeatureTimeout(userId: number, acknowledgeable: boolean, permanent: boolean, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
 Class File : Instance [NotCreatable] [NotReplicated]
 	Property File.Size: number {PluginSecurity} [Hidden] [ReadOnly]
 	Function File:GetBinaryContents() -> string {PluginSecurity}
@@ -2990,6 +2996,7 @@ Class BillboardGui : LayerCollector
 	Property BillboardGui.StudsOffsetWorldSpace: Vector3 {🔐UI}
 	Function BillboardGui:GetScreenSpaceBounds() -> any {🔐UI} {RobloxScriptSecurity}
 Class PluginGui : LayerCollector [NotCreatable] [NotReplicated]
+	Property PluginGui.Plugin: Plugin? {🔐UI} {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property PluginGui.Title: string {🔐UI}
 	Function PluginGui:BindToClose(function: ((...any) -> ...any)?) -> () {🔐UI}
 	Function PluginGui:GetRelativeMousePosition() -> Vector2 {🔐UI} {PluginSecurity}
@@ -3755,6 +3762,7 @@ Class AssetImportSession : ImportSession [NotCreatable] [NotReplicated]
 	Function AssetImportSession:ApplyPreset(preset: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function AssetImportSession:CreatePresetFromData(importData: Instance) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:GetImportTree() -> Instance? {RobloxScriptSecurity}
+	Function AssetImportSession:GetKeyframeSequences() -> { Instance } {RobloxScriptSecurity}
 	Function AssetImportSession:GetRigVisualization(importDataInstance: Instance) -> Instance? {RobloxScriptSecurity}
 	Function AssetImportSession:GetUploadStatus() -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:HasAnimation() -> boolean {RobloxScriptSecurity}
@@ -4003,10 +4011,12 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property LocalizationService.SystemLocaleId: string [ReadOnly]
 	Function LocalizationService:GetCorescriptLocalizations() -> { Instance }
 	Function LocalizationService:GetCountryRegionForPlayerAsync(player: Instance) -> string [Yields]
+	Function LocalizationService:GetIsLoadingInternalTranslations() -> boolean {RobloxScriptSecurity}
 	Function LocalizationService:GetTableEntries(instance: Instance? = nil) -> { any }
 	Function LocalizationService:GetTranslatorForLocaleAsync(locale: string) -> Instance? [Yields]
 	Function LocalizationService:GetTranslatorForPlayer(player: Instance) -> Instance?
 	Function LocalizationService:GetTranslatorForPlayerAsync(player: Instance) -> Instance? [Yields]
+	Function LocalizationService:IsLoadingInternalTranslationsSettingChanged(newIsLoadingInternalTranslations: boolean) -> () {RobloxScriptSecurity}
 	Function LocalizationService:PromptDownloadGameTableToCSV(table: Instance) -> () {RobloxScriptSecurity} [Yields]
 	Function LocalizationService:PromptExportToCSVs() -> () {RobloxScriptSecurity} [Yields]
 	Function LocalizationService:PromptImportFromCSVs() -> () {RobloxScriptSecurity} [Yields]
@@ -4836,7 +4846,7 @@ Class Model : PVInstance
 	Property Model.ModelMeshData: SharedString [Hidden] [NotScriptable]
 	Property Model.ModelMeshSize: Vector3 [Hidden] [NotScriptable]
 	Property Model.NeedsPivotMigration: boolean [Hidden] [NotReplicated] [NotScriptable]
-	Property Model.SlimHash: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
+	Property Model.SlimHash: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Model.PrimaryPart: BasePart?
 	Property Model.Scale: number [NotReplicated] [NotScriptable]
 	Property Model.ScaleFactor: number [Hidden] [NotScriptable]
@@ -5233,7 +5243,7 @@ Class PlatformFriendsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PlatformFriendsService:ShowProfile(platformUserId: string) -> () {RobloxScriptSecurity}
 Class Player : Instance
 	Property Player.CanLoadCharacterAppearance: boolean {🔐Players}
-	Property Player.GameplayPaused: boolean {🔐Players} {✏️NotAccessibleSecurity}
+	Property Player.GameplayPaused: boolean {🔐Players} {✏️NotAccessibleSecurity} [Hidden]
 	Property Player.CameraMaxZoomDistance: number {🔐Players}
 	Property Player.CameraMinZoomDistance: number {🔐Players}
 	Property Player.CameraMode: Enum.CameraMode {🔐Players}
@@ -5253,6 +5263,7 @@ Class Player : Instance
 	Property Player.CharacterAppearance: string {🔐Players} [NotBrowsable] [Deprecated]
 	Property Player.CharacterAppearanceId: number {🔐Players}
 	Property Player.ChararacterRegionId: Vector3 {🔐Players} {RobloxSecurity} [Hidden] [NotScriptable]
+	Property Player.ChatAvailabilityStatus: string {🔐Players} {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Player.ChatMode: Enum.ChatMode {🔐Players} {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Player.ChatPrivacyMode: Enum.ChatPrivacyMode {🔐Players} {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property Player.CloudEditCameraCoordinateFrame: CFrame {🔐Players} [Hidden] [NotScriptable]
@@ -5495,6 +5506,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Players:GetUserThumbnailAsync(userId: number, thumbnailType: Enum.ThumbnailType, thumbnailSize: Enum.ThumbnailSize) -> ...any {🔐Players} [Yields]
 	Function Players:ReportAbuse(player: Player, reason: string, optionalMessage: string) -> () {🔐Players} {LocalUserSecurity}
 	Function Players:ReportAbuseV3(player: Player, jsonTags: string) -> () {🔐Players} {RobloxScriptSecurity}
+	Function Players:ReportAvatarAbuse(targetUserId: number, tags: { [string]: any }) -> () {🔐Players} {RobloxScriptSecurity}
 	Function Players:ReportChatAbuse(eligibleChatLines: { any }, targetChatLines: { any }, tags: { [string]: any }) -> () {🔐Players} {RobloxScriptSecurity}
 	Function Players:ResetLocalPlayer() -> () {🔐Players} {LocalUserSecurity}
 	Function Players:SetChatStyle(style: Enum.ChatStyle? = "Classic") -> () {🔐Players} {PluginSecurity}
@@ -5515,6 +5527,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Event Players.PlayerMembershipChanged(player: Player) {🔐Players}
 	Event Players.PlayerRejoining(player: Player) {🔐Players} {LocalUserSecurity}
 	Event Players.PlayerRemoving(player: Player, reason: Enum.PlayerExitReason) {🔐Players}
+	Event Players.PromptGameServerAvatarReportEnrichment(reportId: string, targetUserId: number) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Players.PromptGameServerReportEnrichment(reportId: string) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Players.PromptGameServerTargetedChatReportEnrichment(reportId: string, eligibleChatLines: { any }, targetChatLines: { any }) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Players.PromptReportServerEnrichmentAndScan(v1comment: string, submitterId: number, abuserId: number, reportId: string) {🔐Players} {RobloxSecurity} [Hidden]
@@ -7095,7 +7108,6 @@ Class TestService : Instance [Service]
 	Function TestService:ConvertSlimAcrToObj(acrFullFilePath: string, objFileName: string) -> string {RobloxScriptSecurity}
 	Function TestService:CreateAndSavePropertySet(source: Instance) -> string {RobloxScriptSecurity}
 	Function TestService:CreateExtraAssetsFileFromPropertySet(psetFileName: string) -> string {RobloxScriptSecurity}
-	Function TestService:CreatePropertySetDiff(sourceA: Instance, sourceB: Instance) -> string {RobloxScriptSecurity}
 	Function TestService:Done() -> ()
 	Function TestService:Error(description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Fail(description: string, source: Instance? = nil, line: number? = 0) -> ()
@@ -7398,6 +7410,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CreateEditableMeshFromBinaryStringRobloxOnly(value: BinaryStringValue) -> EditableMesh {RobloxScriptSecurity}
 	Function UGCValidationService:DoesMeshHaveSkinningData(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:FetchAssetWithFormat(url: string, assetFormat: string) -> { Instance } {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:FetchQualityResultsAsync(uploadModel: Model, desiredDatas: { any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetBoundingBoxManipulationData(partMeshObjects: { any }, partCFs: { any }, meshScales: { any }) -> { [string]: any } {RobloxScriptSecurity}
 	Function UGCValidationService:GetCagingRelevancyMetrics(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: EditableMesh, controlNames: { any }) -> ...any {RobloxScriptSecurity}
@@ -8145,6 +8158,7 @@ Class TerrainWriteOperation : Object [NotCreatable] [NotReplicated]
 Class WebStreamClient : Object [NotCreatable] [NotReplicated]
 	Property WebStreamClient.ConnectionState: Enum.WebStreamClientState [ReadOnly]
 	Function WebStreamClient:Close() -> ()
+	Function WebStreamClient:Send(data: string) -> ()
 	Event WebStreamClient.Closed()
 	Event WebStreamClient.Error(responseStatusCode: number, errorMessage: string)
 	Event WebStreamClient.MessageReceived(message: string)
@@ -8755,6 +8769,9 @@ Enum CatalogSortType
 	EnumItem CatalogSortType.MostFavorited : 5
 	EnumItem CatalogSortType.RecentlyCreated : 6
 	EnumItem CatalogSortType.Bestselling : 7
+Enum CatalogTimedOptionFilter
+	EnumItem CatalogTimedOptionFilter.All : 1
+	EnumItem CatalogTimedOptionFilter.TimedOptionOnly : 2
 Enum CellBlock
 	EnumItem CellBlock.Solid : 0
 	EnumItem CellBlock.VerticalWedge : 1
@@ -9148,6 +9165,7 @@ Enum DeveloperMemoryTag
 	EnumItem DeveloperMemoryTag.GraphicsSlimModels : 25
 Enum DeviceFeatureType
 	EnumItem DeviceFeatureType.DeviceCapture : 0
+	EnumItem DeviceFeatureType.InExperienceFAE : 1
 Enum DeviceForm
 	EnumItem DeviceForm.Console : 0
 	EnumItem DeviceForm.Phone : 1
@@ -9984,14 +10002,22 @@ Enum KeyCode
 	EnumItem KeyCode.DPadDown : 1015
 	EnumItem KeyCode.Thumbstick1 : 1016
 	EnumItem KeyCode.Thumbstick2 : 1017
-	EnumItem KeyCode.MouseLeftButton : 1018
-	EnumItem KeyCode.MouseRightButton : 1019
-	EnumItem KeyCode.MouseMiddleButton : 1020
-	EnumItem KeyCode.MouseBackButton : 1021 [Deprecated]
-	EnumItem KeyCode.MouseNoButton : 1022 [Deprecated]
-	EnumItem KeyCode.MouseX : 1023 [Deprecated]
-	EnumItem KeyCode.MouseY : 1024 [Deprecated]
-	EnumItem KeyCode.MousePosition : 1025
+	EnumItem KeyCode.Thumbstick1Up : 1018
+	EnumItem KeyCode.Thumbstick1Down : 1019
+	EnumItem KeyCode.Thumbstick1Left : 1020
+	EnumItem KeyCode.Thumbstick1Right : 1021
+	EnumItem KeyCode.Thumbstick2Up : 1022
+	EnumItem KeyCode.Thumbstick2Down : 1023
+	EnumItem KeyCode.Thumbstick2Left : 1024
+	EnumItem KeyCode.Thumbstick2Right : 1025
+	EnumItem KeyCode.MouseLeftButton : 1026
+	EnumItem KeyCode.MouseRightButton : 1027
+	EnumItem KeyCode.MouseMiddleButton : 1028
+	EnumItem KeyCode.MouseBackButton : 1029 [Deprecated]
+	EnumItem KeyCode.MouseNoButton : 1030 [Deprecated]
+	EnumItem KeyCode.MouseX : 1031 [Deprecated]
+	EnumItem KeyCode.MouseY : 1032 [Deprecated]
+	EnumItem KeyCode.MousePosition : 1033
 Enum KeyInterpolationMode
 	EnumItem KeyInterpolationMode.Constant : 0
 	EnumItem KeyInterpolationMode.Linear : 1
@@ -11694,6 +11720,7 @@ Enum WebStreamClientState
 Enum WebStreamClientType
 	EnumItem WebStreamClientType.SSE : 0
 	EnumItem WebStreamClientType.RawStream : 1
+	EnumItem WebStreamClientType.WebSocket : 2
 Enum WeldConstraintPreserve
 	EnumItem WeldConstraintPreserve.All : 0
 	EnumItem WeldConstraintPreserve.None : 1

@@ -8,7 +8,7 @@ category: Inputs
 There are 2 variant types defined in [[DateTimePickerVariant]]
 
 * Single
-* SingleWithTime (WIP)
+* Dual
 
 ## Usage
 ```luau
@@ -17,8 +17,8 @@ local DateTimePicker = Foundation.DateTimePicker
 
 local isInvalidInput, setIsInvalidInput = React.useState(false)
 
-local function onChanged(dateTime: DateTime?)
-    if dateTime then
+local onChanged(dateTime: DateTime?, dateTime2: DateTime?)
+    if dateTime and dateTime2 then
         -- Do something with the valid DateTime object
     else
         setIsInvalidInput(true)
@@ -38,4 +38,4 @@ React.createElement(DateTimePicker, {
 })
 ```
 
-Using the `onChanged` callback will let you grab the user's input as a `DateTime` object if their input could be translated into a valid `DateTime` object. 
+Using the `onChanged` callback will let you grab the user's input as a `DateTime` object if their input could be translated into a valid `DateTime` object. If using `Dual` then the first arg is the "start" and the second arg will be the "end" date.

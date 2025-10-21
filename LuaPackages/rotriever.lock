@@ -5,7 +5,7 @@ registry_index = "https://apis.simulprod.com/rotriever-registry"
 
 [[package]]
 name = "ApolloClient"
-version = "0.3.11"
+version = "0.3.12"
 source = "registry"
 dependencies = [
     "GraphQL GraphQL 15.6.3 registry",
@@ -15,7 +15,7 @@ dependencies = [
     "Promise <patched> Promise 3.5.0 registry",
     "React React 17.3.6 registry",
     "RobloxRequests RobloxRequests 0.1.0 registry",
-    "ZenObservable ZenObservable 0.8.16-roblox.1 registry",
+    "ZenObservable ZenObservable 0.8.16-roblox.2 registry",
 ]
 
 [[package]]
@@ -23,7 +23,7 @@ name = "ApolloClientTesting"
 version = "0.3.10"
 source = "registry"
 dependencies = [
-    "ApolloClient ApolloClient 0.3.11 registry",
+    "ApolloClient ApolloClient 0.3.12 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphQLTag GraphqlTag 2.12.9 registry",
     "Jest Jest 3.13.3 registry",
@@ -33,7 +33,7 @@ dependencies = [
     "Promise <patched> Promise 3.5.0 registry",
     "React React 17.3.6 registry",
     "ReactTestingLibrary ReactTestingLibrary 12.3.4 registry",
-    "ZenObservable ZenObservable 0.8.16-roblox.1 registry",
+    "ZenObservable ZenObservable 0.8.16-roblox.2 registry",
 ]
 
 [[package]]
@@ -87,18 +87,18 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 name = "CorePackages"
 version = "0.1.0"
 dependencies = [
-    "ApolloClient ApolloClient 0.3.11 registry",
+    "ApolloClient ApolloClient 0.3.12 registry",
     "ApolloClientTesting ApolloClientTesting 0.3.10 registry",
     "AvatarExperienceDeps AvatarExperienceDeps 0.0.1 registry",
     "BuilderIcons BuilderIcons 0.1.17 registry",
     "Cryo Cryo 1.1.0 registry",
-    "Dash Dash 0.1.9 registry",
+    "Dash <patched> Dash 3.2.0 registry",
     "DataLoader DataLoader 0.2.0 registry",
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
     "FocusBehaviors FocusBehaviors 1.3.1 registry",
-    "Foundation Foundation 1.54.0 registry",
+    "Foundation Foundation 1.56.0 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.3.0 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
     "FoundationTestingLibrary FoundationTestingLibrary 0.1.1 registry",
@@ -167,8 +167,8 @@ dependencies = [
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.5.0 registry",
-    "UGCValidation UGCValidation 1.17.4 registry",
-    "UIBlox UIBlox 0.2.164 registry",
+    "UGCValidation UGCValidation 1.17.8 registry",
+    "UIBlox UIBlox 0.2.166 registry",
     "UrlBuilder UrlBuilder 1.2.13 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
@@ -181,11 +181,6 @@ dependencies = [
 [[package]]
 name = "Cryo"
 version = "1.1.0"
-source = "registry"
-
-[[package]]
-name = "Dash"
-version = "0.1.9"
 source = "registry"
 
 [[package]]
@@ -206,7 +201,7 @@ dependencies = [
 name = "DeveloperTools"
 version = "0.2.7"
 source = "registry"
-dependencies = ["Dash Dash 0.1.9 registry"]
+dependencies = ["Dash <patched> Dash 3.2.0 registry"]
 
 [[package]]
 name = "DiffSequences"
@@ -312,18 +307,18 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.54.0"
+version = "1.56.0"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.17 registry",
     "Cryo Cryo 1.1.0 registry",
-    "Dash Dash 3.2.0 registry",
+    "Dash <patched> Dash 3.2.0 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.2.1 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Motion Motion 0.1.0 registry",
     "Otter Otter 1.3.7 registry",
-    "RbxDesignFoundations RbxDesignFoundations 2.0.157 registry",
+    "RbxDesignFoundations RbxDesignFoundations 2.0.163 registry",
     "React React 17.3.6 registry",
     "ReactIs ReactIs 17.3.6 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
@@ -359,7 +354,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.17 registry",
     "Cryo Cryo 1.1.0 registry",
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
-    "Foundation Foundation 1.54.0 registry",
+    "Foundation Foundation 1.56.0 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
     "JestGlobals JestGlobals 3.13.3 registry",
     "React React 17.3.6 registry",
@@ -431,7 +426,7 @@ dependencies = [
     "Roact RoactCompat 17.3.6 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.164 registry",
+    "UIBlox UIBlox 0.2.166 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -1146,7 +1141,7 @@ name = "NetworkingCurrentlyWearing"
 version = "1.15.0"
 source = "registry"
 dependencies = [
-    "Dash Dash 0.1.9 registry",
+    "Dash <patched> Dash 3.2.0 registry",
     "Util Util 1.16.6 registry",
 ]
 
@@ -1275,7 +1270,7 @@ dependencies = ["t t 1.2.6 registry"]
 
 [[package]]
 name = "RbxDesignFoundations"
-version = "2.0.157"
+version = "2.0.163"
 source = "registry"
 dependencies = ["t t 1.2.6 registry"]
 
@@ -1644,7 +1639,7 @@ name = "RoduxContacts"
 version = "0.8.4"
 source = "registry"
 dependencies = [
-    "Dash Dash 0.1.9 registry",
+    "Dash <patched> Dash 3.2.0 registry",
     "NetworkingContacts NetworkingContacts 0.4.2 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
@@ -1657,7 +1652,7 @@ name = "RoduxContacts"
 version = "0.9.1"
 source = "registry"
 dependencies = [
-    "Dash Dash 0.1.9 registry",
+    "Dash <patched> Dash 3.2.0 registry",
     "NetworkingContacts NetworkingContacts 0.4.2 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
@@ -1690,7 +1685,7 @@ name = "RoduxGames"
 version = "1.4.3"
 source = "registry"
 dependencies = [
-    "Dash Dash 3.2.0 registry",
+    "Dash <patched> Dash 3.2.0 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
@@ -1740,7 +1735,7 @@ name = "RoduxUserPermissions"
 version = "0.5.0"
 source = "registry"
 dependencies = [
-    "Dash Dash 0.1.9 registry",
+    "Dash <patched> Dash 3.2.0 registry",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 registry",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
@@ -1849,7 +1844,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.164 registry",
+    "UIBlox UIBlox 0.2.166 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1937,7 +1932,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.17.4"
+version = "1.17.8"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1946,13 +1941,13 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.164"
+version = "0.2.166"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.17 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.54.0 registry",
+    "Foundation Foundation 1.56.0 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
@@ -1960,7 +1955,7 @@ dependencies = [
     "Otter Otter 0.1.4 registry",
     "Promise <patched> Promise 3.5.0 registry",
     "RbxDesignFoundations RbxDesignFoundations 1.1.107 registry",
-    "RbxDesignFoundationsV2 RbxDesignFoundations 2.0.157 registry",
+    "RbxDesignFoundationsV2 RbxDesignFoundations 2.0.163 registry",
     "React React 17.3.6 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
     "ReactRoblox ReactRoblox 17.3.6 registry",
@@ -2036,7 +2031,7 @@ dependencies = [
 
 [[package]]
 name = "ZenObservable"
-version = "0.8.16-roblox.1"
+version = "0.8.16-roblox.2"
 source = "registry"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",

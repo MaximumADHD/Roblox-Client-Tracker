@@ -1,6 +1,6 @@
 [package]
 name = "ApolloClient"
-version = "0.3.11"
+version = "0.3.12"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -42,7 +42,7 @@ version = "^0.1.0"
 
 [dependencies.ZenObservable]
 target = "https://github.com/roblox/zen-observable-lua"
-version = "^0.8.16-roblox.1"
+version = "^0.8.16-roblox.2"
 [dev_dependencies.Jest]
 git = "https://github.com/roblox/jest-roblox"
 package = "Jest"
