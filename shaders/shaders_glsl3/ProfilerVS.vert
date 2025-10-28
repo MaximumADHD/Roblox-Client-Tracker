@@ -15,7 +15,7 @@ void main()
     vec4 v1 = v0;
     v1.y = -v0.y;
     gl_Position = v1;
-    VARYING0 = TEXCOORD0 * vec2(0.0006510416860692203044891357421875, 0.0625);
+    VARYING0 = TEXCOORD0 * vec2(6.103515625e-05);
     VARYING1 = COLOR0;
 }
 
