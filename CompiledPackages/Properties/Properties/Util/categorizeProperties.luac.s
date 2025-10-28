@@ -160,7 +160,7 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["APIService"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R0 K8 ["RpcTypes"]
+  GETTABLEKS R3 R0 K8 ["PropertyTypes"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Util"]

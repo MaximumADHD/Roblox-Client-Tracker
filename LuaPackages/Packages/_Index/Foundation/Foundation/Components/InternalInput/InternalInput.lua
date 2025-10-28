@@ -106,7 +106,8 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		else
 			animate(motionStates.Default)
 		end
-	end, { props.isChecked, isHovering })
+		-- tokens are included in the dependency array to ensure that the component re-renders when theme changes
+	end, { props.isChecked, isHovering, tokens } :: { unknown })
 
 	local onInputStateChanged = React.useCallback(function(newState: ControlState)
 		setIsHovering(newState == ControlState.Hover)

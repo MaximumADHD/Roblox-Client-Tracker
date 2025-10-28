@@ -2,6 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 
 local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
@@ -33,6 +34,7 @@ local PlayerList = Presentation.Parent.Parent
 local FFlagPlayerListClosedNoRender = require(PlayerList.Flags.FFlagPlayerListClosedNoRender)
 
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
+local SetIsUsingGamepad = require(PlayerList.Actions.SetIsUsingGamepad)
 
 local PlayerListDisplayContainer = require(PlayerList.Components.Container.PlayerListDisplayContainer)
 local PlayerDropDown = require(Presentation.PlayerDropDown)
@@ -52,6 +54,7 @@ local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerL
 local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListIgnoreDevGamepadBindings = game:DefineFastFlag("PlayerListIgnoreDevGamepadBindings", false)
+local FFlagMobilePlayerListCheckGamepadOnVisible = game:DefineFastFlag("MobilePlayerListCheckGamepadOnVisible", false)
 
 local PLAYER_LIST_MENU = "PlayerListMenu"
 
@@ -388,6 +391,14 @@ function PlayerListApp:didUpdate(previousProps, previousState)
 			})
 		end
 	end
+	
+	if FFlagMobilePlayerListCheckGamepadOnVisible then
+		if isVisible ~= previousProps.displayOptions.isVisible and isVisible  then
+			local isGamepad = UserInputService:GetLastInputType().Name:find("Gamepad")
+			local isUsingGamepad = isGamepad ~= nil
+			self.props.setIsUsingGamepad(isUsingGamepad)
+		end
+	end
 
 	local backgroundTransparency = (isDropDownVisible or isVisible) and 0.7 or 1
 	self.bgTransparencyMotor:setGoal(Otter.spring(backgroundTransparency, MOTOR_OPTIONS))
@@ -440,6 +451,11 @@ local function mapDispatchToProps(dispatch)
 		setPlayerListVisible = function(visible)
 			return dispatch(SetPlayerListVisibility(visible))
 		end,
+		setIsUsingGamepad = if FFlagMobilePlayerListCheckGamepadOnVisible 
+			then function(value)
+				return dispatch(SetIsUsingGamepad(value))
+			end 
+			else nil,
 	}
 end
 

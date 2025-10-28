@@ -55,12 +55,15 @@ local GetFFlagEnableSeamlessVoiceUX = require(RobloxGui.Modules.Flags.GetFFlagEn
 local GetFIntVoiceJoinM3ToastDurationSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceJoinM3ToastDurationSeconds)
 local GetFFlagEnableSeamlessVoiceDataConsentToast =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
-local GetFFlagUpdateVoiceConnectionToasts = require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagUpdateVoiceConnectionToasts)
+local GetFFlagUpdateVoiceConnectionToasts =
+	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagUpdateVoiceConnectionToasts)
+local GetFFlagShowToastWhenAgeGatingVoice =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowToastWhenAgeGatingVoice
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local locales = nil
-if GetFFlagEnableSeamlessVoiceDataConsentToast() or GetFFlagUpdateVoiceConnectionToasts() then
+if GetFFlagEnableSeamlessVoiceDataConsentToast() or GetFFlagUpdateVoiceConnectionToasts() or GetFFlagShowToastWhenAgeGatingVoice() then
 	local LocalizationService = game:GetService("LocalizationService")
 	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 	locales = Localization.new(LocalizationService.RobloxLocaleId)
@@ -125,6 +128,9 @@ local PromptTitle = {
 		else nil,
 	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagUpdateVoiceConnectionToasts()
 		then locales:Format("Feature.SettingsHub.Prompt.JoinedVoiceChatV3")
+		else nil,
+	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
+		then locales:Format("Feature.SettingsHub.Prompt.Title.AgeCheckForVoiceToast")
 		else nil,
 }
 local PromptSubTitle = {
@@ -191,6 +197,9 @@ local PromptSubTitle = {
 		else nil,
 	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagUpdateVoiceConnectionToasts()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroup")
+		else nil,
+	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
+		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo")
 		else nil,
 }
 

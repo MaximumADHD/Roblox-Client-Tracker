@@ -141,10 +141,7 @@ PROTO_0:
   GETIMPORT R15 K13 [table.insert]
   CALL R15 -1 0
   LOADB R3 0
-  GETUPVAL R13 10
-  CALL R13 0 1
-  JUMPIFNOT R13 [+24]
-  GETUPVAL R14 11
+  GETUPVAL R14 10
   GETTABLEKS R13 R14 K20 ["validate"]
   MOVE R14 R11
   GETTABLEKS R15 R6 K14 ["ReferenceOrigin"]
@@ -165,23 +162,23 @@ PROTO_0:
   CALL R15 -1 0
   LOADB R3 0
   JUMPIF R3 [+33]
-  GETUPVAL R13 12
+  GETUPVAL R13 11
   CALL R13 0 1
   JUMPIFEQKS R13 K21 [""] [+27]
   LOADNIL R13
-  GETUPVAL R14 13
+  GETUPVAL R14 12
   CALL R14 0 1
   JUMPIFNOT R14 [+8]
   GETIMPORT R14 K24 [string.format]
   LOADK R15 K25 ["[Caging best practices](%s)"]
-  GETUPVAL R16 12
+  GETUPVAL R16 11
   CALL R16 0 -1
   CALL R14 -1 1
   MOVE R13 R14
   JUMP [+7]
   GETIMPORT R14 K24 [string.format]
   LOADK R15 K26 ["To better understand caging requirements, please visit %s"]
-  GETUPVAL R16 12
+  GETUPVAL R16 11
   CALL R16 0 -1
   CALL R14 -1 1
   MOVE R13 R14
@@ -230,50 +227,45 @@ MAIN:
   GETTABLEKS R8 R9 K13 ["getEngineFeatureEngineUGCValidationCageUVDuplicates"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
-  GETTABLEKS R10 R0 K7 ["flags"]
-  GETTABLEKS R9 R10 K14 ["getEngineFeatureUGCValidateExtraShoesTests"]
+  GETTABLEKS R10 R0 K5 ["validation"]
+  GETTABLEKS R9 R10 K14 ["validateVerticesSimilarity"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
   GETTABLEKS R11 R0 K5 ["validation"]
-  GETTABLEKS R10 R11 K15 ["validateVerticesSimilarity"]
+  GETTABLEKS R10 R11 K15 ["validateLCCagingRelevancy"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
   GETTABLEKS R12 R0 K5 ["validation"]
-  GETTABLEKS R11 R12 K16 ["validateLCCagingRelevancy"]
+  GETTABLEKS R11 R12 K16 ["validateRenderMeshInsideOuterCageMesh"]
   CALL R10 1 1
   GETIMPORT R11 K4 [require]
   GETTABLEKS R13 R0 K5 ["validation"]
-  GETTABLEKS R12 R13 K17 ["validateRenderMeshInsideOuterCageMesh"]
+  GETTABLEKS R12 R13 K17 ["validateCageMeshDistance"]
   CALL R11 1 1
   GETIMPORT R12 K4 [require]
   GETTABLEKS R14 R0 K5 ["validation"]
-  GETTABLEKS R13 R14 K18 ["validateCageMeshDistance"]
+  GETTABLEKS R13 R14 K18 ["validateCageUVDuplicates"]
   CALL R12 1 1
   GETIMPORT R13 K4 [require]
   GETTABLEKS R15 R0 K5 ["validation"]
-  GETTABLEKS R14 R15 K19 ["validateCageUVDuplicates"]
+  GETTABLEKS R14 R15 K19 ["ValidateModifiedCageArea"]
   CALL R13 1 1
   GETIMPORT R14 K4 [require]
-  GETTABLEKS R16 R0 K5 ["validation"]
-  GETTABLEKS R15 R16 K20 ["ValidateModifiedCageArea"]
+  GETTABLEKS R16 R0 K20 ["util"]
+  GETTABLEKS R15 R16 K21 ["Types"]
   CALL R14 1 1
-  GETIMPORT R15 K4 [require]
-  GETTABLEKS R17 R0 K21 ["util"]
-  GETTABLEKS R16 R17 K22 ["Types"]
-  CALL R15 1 1
-  DUPCLOSURE R16 K23 [PROTO_0]
+  DUPCLOSURE R15 K22 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R2
-  CAPTURE VAL R9
-  CAPTURE VAL R3
-  CAPTURE VAL R10
-  CAPTURE VAL R11
-  CAPTURE VAL R5
-  CAPTURE VAL R12
-  CAPTURE VAL R7
-  CAPTURE VAL R13
   CAPTURE VAL R8
-  CAPTURE VAL R14
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R4
   CAPTURE VAL R6
-  RETURN R16 1
+  RETURN R15 1

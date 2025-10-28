@@ -19,13 +19,11 @@ local pulseTweenInfo = TweenInfo.new(PULSE_DURATION, Enum.EasingStyle.Sine, Enum
 
 local FFlagLocalizeGameplayPaused = game:DefineFastFlag("LocalizeGameplayPaused", false)
 local FFlagNetworkPauseNotifTweenCancel = game:DefineFastFlag("NetworkPauseNotifTweenCancel", false)
-local FFlagNetworkPauseNoAnimation = game:DefineFastFlag("NetworkPauseNoAnimation", false)
 
 -- gui builder
 local function build()
 
-	local initTransparency = if FFlagNetworkPauseNoAnimation then 0 else 1
-
+	local initTransparency = 0 
 	return Create "ImageLabel" {
 
 		Name = "NetworkPause",
@@ -126,16 +124,6 @@ function Notification.new()
 	local self = setmetatable({}, Notification)
 	local gui = build()
 
-	if not FFlagNetworkPauseNoAnimation then
-		gui:GetPropertyChangedSignal("ImageTransparency"):Connect(function ()
-			local transparency = gui.ImageTransparency
-			gui.Lower.TextTransparency = transparency
-			gui.Accent.BackgroundTransparency = transparency
-			gui.Upper.Label.TextTransparency = transparency
-			gui.Upper.IconContainer.Icon.ImageTransparency = transparency
-		end)
-	end
-
 	local anim_showNotification = TweenService:Create(gui, fadeTweenInfo, { ImageTransparency = 0 })
 	local anim_hideNotification = TweenService:Create(gui, fadeTweenInfo, { ImageTransparency = 1 })
 	
@@ -143,15 +131,6 @@ function Notification.new()
 		Size = PULSE_SIZE,
 		ImageTransparency = PULSE_TRANSPARENCY
 	})
-
-	if not FFlagNetworkPauseNoAnimation then
-		anim_showNotification.Completed:Connect(function (state)
-			if state == Enum.PlaybackState.Completed then
-				gui.Upper.IconContainer.Icon.ImageTransparency = PULSE_ORIGINAL_TRANSPARENCY
-				anim_pulse:Play()
-			end
-		end)
-	end
 
 	self.__gui = gui
 	self.__guiParent = nil
@@ -167,41 +146,21 @@ end
 
 function Notification:Show()
 	self.__gui.Upper.IconContainer.Icon.Size = PULSE_ORIGINAL_SIZE
-
-	if FFlagNetworkPauseNoAnimation then
-		self.__gui.Upper.IconContainer.Icon.ImageTransparency = PULSE_ORIGINAL_TRANSPARENCY
-		self.__show = true
-		self.__gui.Parent = self.__guiParent
-		self.__animations.pulse:Play()
-	else
-		if FFlagNetworkPauseNotifTweenCancel then
-			self.__animations.hide:Cancel()
-		end
-		self.__animations.show:Play()
-	end
+	self.__gui.Upper.IconContainer.Icon.ImageTransparency = PULSE_ORIGINAL_TRANSPARENCY
+	self.__show = true
+	self.__gui.Parent = self.__guiParent
+	self.__animations.pulse:Play()
 end
 
 function Notification:Hide()
-	if FFlagNetworkPauseNoAnimation then
-		self.__show = false
-		self.__gui.Parent = nil
-		self.__animations.pulse:Cancel()
-	else
-		self.__animations.pulse:Cancel()
-		if FFlagNetworkPauseNotifTweenCancel then
-			self.__animations.show:Cancel()
-		end
-		self.__animations.hide:Play()
-	end
+	self.__show = false
+	self.__gui.Parent = nil
+	self.__animations.pulse:Cancel()
 end
 
 function Notification:SetParent(parent)
-	if FFlagNetworkPauseNoAnimation then
-		self.__guiParent = parent
-		if self.__show then
-			self.__gui.Parent = parent
-		end
-	else
+	self.__guiParent = parent
+	if self.__show then
 		self.__gui.Parent = parent
 	end
 end

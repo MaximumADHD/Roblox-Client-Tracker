@@ -19,6 +19,7 @@ local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFla
 local FFlagEnableNewBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableNewBlockingModal)
 local FFlagEnableToastForBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableToastForBlockingModal)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
+local FFlagFixPlayerListBlockingModalFocusNav = PlayerListPackage.Flags.FFlagFixPlayerListBlockingModalFocusNav
 
 local PAGE_CONTEXT_NAME = "BlockingModalScreen"
 
@@ -57,8 +58,14 @@ if FFlagEnableToastForBlockingModal then
 			local closeModal = function()
 				unmount()
 				resolve()
-				if FFlagAddNewPlayerListMobileFocusNav then
-					GuiService.SelectedCoreObject = nil
+				if FFlagFixPlayerListBlockingModalFocusNav then
+					if config and config.onBlockingModalClose then
+						config.onBlockingModalClose()
+					end
+				else
+					if FFlagAddNewPlayerListMobileFocusNav then
+						GuiService.SelectedCoreObject = nil
+					end
 				end
 			end
 

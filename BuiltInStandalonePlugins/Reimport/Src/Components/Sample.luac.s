@@ -1,0 +1,75 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["View"]
+  DUPTABLE R3 K2 [{"tag"}]
+  LOADK R4 K3 ["size-full"]
+  SETTABLEKS R4 R3 K1 ["tag"]
+  DUPTABLE R4 K6 [{"FoundationText", "InstanceText"}]
+  GETUPVAL R5 0
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["Text"]
+  DUPTABLE R7 K9 [{"Text", "Size", "tag"}]
+  GETTABLEKS R8 R0 K10 ["text"]
+  SETTABLEKS R8 R7 K7 ["Text"]
+  GETIMPORT R8 K13 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADK R11 K14 [0.5]
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K8 ["Size"]
+  LOADK R8 K15 ["text-align-x-center text-align-y-center"]
+  SETTABLEKS R8 R7 K1 ["tag"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K4 ["FoundationText"]
+  GETUPVAL R5 0
+  LOADK R6 K16 ["TextLabel"]
+  NEWTABLE R7 8 0
+  GETTABLEKS R8 R0 K10 ["text"]
+  SETTABLEKS R8 R7 K7 ["Text"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K17 ["BackgroundTransparency"]
+  GETIMPORT R8 K13 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADK R11 K14 [0.5]
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K8 ["Size"]
+  GETIMPORT R8 K13 [UDim2.new]
+  LOADN R9 0
+  LOADN R10 0
+  LOADK R11 K14 [0.5]
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K18 ["Position"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K19 ["Tag"]
+  LOADK R9 K20 ["green-text"]
+  SETTABLE R9 R7 R8
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K5 ["InstanceText"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ReimportPlugin"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["createElement"]
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R4 1

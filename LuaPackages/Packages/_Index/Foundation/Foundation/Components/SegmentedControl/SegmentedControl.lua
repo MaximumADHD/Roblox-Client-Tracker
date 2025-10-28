@@ -23,6 +23,7 @@ type Segment = Segment.Segment
 
 export type SegmentedControlProps = {
 	segments: { Segment },
+	-- The current selected segment.
 	value: Types.ItemId,
 	onActivated: (id: Types.ItemId) -> (),
 	size: InputSize?,

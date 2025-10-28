@@ -29,7 +29,6 @@ local SessionUtility = require(script.Utility.SessionUtility)
 local ScreenshotHookManager = require(script.Utility.ScreenshotHookManager)
 
 local FetchPlaceInfo = require(script.Thunks.FetchPlaceInfo)
-local GetFFlagEnableNewVoiceReportFlows = require(script.Flags.GetFFlagEnableNewVoiceReportFlows)
 local GetFFlagReportAnythingScreenshot = require(script.Flags.GetFFlagReportAnythingScreenshot)
 
 local TrustAndSafety = {}
@@ -101,7 +100,7 @@ function TrustAndSafety:createLocalization()
 end
 
 function TrustAndSafety:openReportDialog(reportType, targetPlayer)
-	self.store:dispatch(SetVoiceReportingFlow(GetFFlagEnableNewVoiceReportFlows()))
+	self.store:dispatch(SetVoiceReportingFlow(true))
 	if GetFFlagReportAnythingScreenshot() then
 		self.store:dispatch(IdentifyAvatars())
 	end
@@ -109,7 +108,7 @@ function TrustAndSafety:openReportDialog(reportType, targetPlayer)
 end
 
 function TrustAndSafety:openReportMenu()
-	self.store:dispatch(SetVoiceReportingFlow(GetFFlagEnableNewVoiceReportFlows()))
+	self.store:dispatch(SetVoiceReportingFlow(true))
 	if GetFFlagReportAnythingScreenshot() then
 		self.store:dispatch(IdentifyAvatars())
 	end

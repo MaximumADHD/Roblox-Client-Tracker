@@ -104,71 +104,90 @@ PROTO_2:
   LOADB R7 1
   JUMP [+2]
   FORGLOOP R8 2 [-6]
-  GETTABLEKS R8 R0 K20 ["isLatestAssistantAndMostRecent"]
+  GETUPVAL R8 6
+  CALL R8 0 1
+  JUMPIFNOT R8 [+24]
+  GETTABLEKS R8 R2 K20 ["reasonDisabled"]
   JUMPIFNOT R8 [+4]
-  GETTABLEKS R8 R2 K21 ["inputEnabled"]
+  GETTABLEKS R9 R2 K20 ["reasonDisabled"]
+  GETTABLEKS R8 R9 K20 ["reasonDisabled"]
+  GETTABLEKS R9 R0 K21 ["isLatestAssistantAndMostRecent"]
+  JUMPIFNOT R9 [+14]
+  GETUPVAL R10 7
+  GETTABLEKS R9 R10 K22 ["Generation"]
+  JUMPIFNOTEQ R8 R9 [+10]
+  GETUPVAL R9 4
+  GETUPVAL R10 8
+  DUPTABLE R11 K23 [{"LayoutOrder"}]
+  ADDK R12 R6 K24 [1]
+  SETTABLEKS R12 R11 K15 ["LayoutOrder"]
+  CALL R9 2 1
+  SETTABLEKS R9 R4 K25 ["GenerationIndicator"]
+  GETTABLEKS R8 R0 K21 ["isLatestAssistantAndMostRecent"]
+  JUMPIFNOT R8 [+4]
+  GETTABLEKS R8 R2 K26 ["inputEnabled"]
   JUMPIFNOT R8 [+1]
   NOT R8 R7
   JUMPIFNOT R8 [+17]
   GETUPVAL R9 4
-  GETUPVAL R10 6
-  DUPTABLE R11 K23 [{"LayoutOrder", "retryMessage", "messageId"}]
-  ADDK R12 R6 K24 [1]
+  GETUPVAL R10 9
+  DUPTABLE R11 K28 [{"LayoutOrder", "retryMessage", "messageId"}]
+  ADDK R12 R6 K29 [2]
   SETTABLEKS R12 R11 K15 ["LayoutOrder"]
-  GETTABLEKS R12 R0 K22 ["retryMessage"]
-  SETTABLEKS R12 R11 K22 ["retryMessage"]
+  GETTABLEKS R12 R0 K27 ["retryMessage"]
+  SETTABLEKS R12 R11 K27 ["retryMessage"]
   GETTABLEKS R12 R0 K5 ["messageId"]
   SETTABLEKS R12 R11 K5 ["messageId"]
   CALL R9 2 1
-  SETTABLEKS R9 R4 K25 ["MessageActions"]
+  SETTABLEKS R9 R4 K30 ["MessageActions"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K26 ["useMemo"]
+  GETTABLEKS R9 R10 K31 ["useMemo"]
   NEWCLOSURE R10 P1
   CAPTURE VAL R3
-  CAPTURE UPVAL U7
+  CAPTURE UPVAL U10
   NEWTABLE R11 0 1
   MOVE R12 R3
   SETLIST R11 R12 1 [1]
   CALL R9 2 1
-  GETIMPORT R10 K28 [next]
+  GETIMPORT R10 K33 [next]
   GETTABLEKS R11 R0 K6 ["contents"]
   CALL R10 1 1
   JUMPIFNOTEQKNIL R10 [+5]
   GETUPVAL R11 1
-  GETTABLEKS R10 R11 K29 ["None"]
+  GETTABLEKS R10 R11 K34 ["None"]
   RETURN R10 1
   LOADNIL R10
-  GETUPVAL R11 7
+  GETUPVAL R11 10
   CALL R11 0 1
   JUMPIF R11 [+15]
   GETUPVAL R12 1
-  GETTABLEKS R11 R12 K30 ["createElement"]
-  LOADK R12 K31 ["UIListLayout"]
-  DUPTABLE R13 K33 [{"HorizontalAlignment"}]
+  GETTABLEKS R11 R12 K35 ["createElement"]
+  LOADK R12 K36 ["UIListLayout"]
+  DUPTABLE R13 K38 [{"HorizontalAlignment"}]
   JUMPIFNOT R3 [+3]
-  GETIMPORT R14 K36 [Enum.HorizontalAlignment.Right]
+  GETIMPORT R14 K41 [Enum.HorizontalAlignment.Right]
   JUMP [+2]
-  GETIMPORT R14 K38 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R14 R13 K32 ["HorizontalAlignment"]
+  GETIMPORT R14 K43 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R14 R13 K37 ["HorizontalAlignment"]
   CALL R11 2 1
   MOVE R10 R11
   GETUPVAL R11 4
-  GETUPVAL R12 8
-  DUPTABLE R13 K40 [{"tag", "LayoutOrder"}]
-  SETTABLEKS R9 R13 K39 ["tag"]
+  GETUPVAL R12 11
+  DUPTABLE R13 K45 [{"tag", "LayoutOrder"}]
+  SETTABLEKS R9 R13 K44 ["tag"]
   GETTABLEKS R14 R0 K15 ["LayoutOrder"]
   SETTABLEKS R14 R13 K15 ["LayoutOrder"]
   JUMPIFNOT R3 [+14]
-  DUPTABLE R14 K43 [{"MessageBubble", "Layout"}]
+  DUPTABLE R14 K48 [{"MessageBubble", "Layout"}]
   GETUPVAL R15 4
-  GETUPVAL R16 8
-  DUPTABLE R17 K44 [{"tag"}]
-  LOADK R18 K45 ["auto-xy bg-shift-300 radius-large padding-medium col"]
-  SETTABLEKS R18 R17 K39 ["tag"]
+  GETUPVAL R16 11
+  DUPTABLE R17 K49 [{"tag"}]
+  LOADK R18 K50 ["auto-xy bg-shift-300 radius-large padding-medium col"]
+  SETTABLEKS R18 R17 K44 ["tag"]
   MOVE R18 R4
   CALL R15 3 1
-  SETTABLEKS R15 R14 K41 ["MessageBubble"]
-  SETTABLEKS R10 R14 K42 ["Layout"]
+  SETTABLEKS R15 R14 K46 ["MessageBubble"]
+  SETTABLEKS R10 R14 K47 ["Layout"]
   JUMPIF R14 [+1]
   MOVE R14 R4
   CALL R11 3 -1
@@ -193,40 +212,53 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["FFlagFoundationDisableStylingPolyfill"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Parent"]
-  GETTABLEKS R5 R6 K12 ["Foundation"]
+  GETTABLEKS R6 R0 K10 ["Flags"]
+  GETTABLEKS R5 R6 K12 ["FFlagMCPAssistantAddGenerationIndicator"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Components"]
-  GETTABLEKS R7 R8 K13 ["Contexts"]
-  GETTABLEKS R6 R7 K14 ["InputStateContext"]
+  GETTABLEKS R7 R0 K8 ["Parent"]
+  GETTABLEKS R6 R7 K13 ["Foundation"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R8 R0 K6 ["Components"]
-  GETTABLEKS R7 R8 K15 ["MessageActions"]
+  GETTABLEKS R7 R8 K14 ["GenerationIndicator"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Parent"]
-  GETTABLEKS R8 R9 K16 ["React"]
+  GETTABLEKS R10 R0 K6 ["Components"]
+  GETTABLEKS R9 R10 K15 ["Contexts"]
+  GETTABLEKS R8 R9 K16 ["InputStateContext"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R9 R0 K17 ["Types"]
+  GETTABLEKS R10 R0 K6 ["Components"]
+  GETTABLEKS R9 R10 K17 ["MessageActions"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K18 ["Hooks"]
-  GETTABLEKS R10 R11 K19 ["useEditContent"]
+  GETTABLEKS R11 R0 K8 ["Parent"]
+  GETTABLEKS R10 R11 K18 ["React"]
   CALL R9 1 1
-  GETTABLEKS R10 R3 K20 ["Get"]
-  GETTABLEKS R11 R4 K21 ["View"]
-  GETTABLEKS R12 R7 K22 ["createElement"]
-  DUPCLOSURE R13 K23 [PROTO_2]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R0 K19 ["Types"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K20 ["Hooks"]
+  GETTABLEKS R12 R13 K21 ["useEditContent"]
+  CALL R11 1 1
+  GETTABLEKS R12 R3 K22 ["Get"]
+  GETTABLEKS R13 R4 K22 ["Get"]
+  GETTABLEKS R14 R5 K23 ["View"]
+  GETTABLEKS R15 R9 K24 ["createElement"]
+  GETTABLEKS R16 R7 K25 ["InputDisabledReasons"]
+  DUPCLOSURE R17 K26 [PROTO_2]
+  CAPTURE VAL R11
   CAPTURE VAL R9
   CAPTURE VAL R7
-  CAPTURE VAL R5
   CAPTURE VAL R1
-  CAPTURE VAL R12
+  CAPTURE VAL R15
   CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R16
   CAPTURE VAL R6
-  CAPTURE VAL R10
-  CAPTURE VAL R11
-  RETURN R13 1
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  RETURN R17 1

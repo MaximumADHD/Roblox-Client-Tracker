@@ -27,12 +27,12 @@ local BaseMenuContext = require(script.Parent.BaseMenuContext)
 local DeclarativeBaseMenuContent = require(script.Parent.DeclarativeBaseMenuContent)
 
 export type BaseMenuItem = DeclarativeBaseMenuContent.BaseMenuItem
-export type BaseMenuItems = DeclarativeBaseMenuContent.BaseMenuItems
-export type BaseMenuItemGroup = DeclarativeBaseMenuContent.BaseMenuItemGroup
+export type BaseMenuItems<Item = BaseMenuItem> = DeclarativeBaseMenuContent.BaseMenuItems<Item>
+export type BaseMenuItemGroup<Item = BaseMenuItem> = DeclarativeBaseMenuContent.BaseMenuItemGroup<Item>
 
-export type BaseMenuProps = {
+export type BaseMenuProps<Item = BaseMenuItem> = {
 	-- List of items to display in the menu
-	items: BaseMenuItems?,
+	items: BaseMenuItems<Item>?,
 	-- Size of the menu and its items
 	size: InputSize?,
 	-- Width of the component. If not specified, the menu is sized based on the content.

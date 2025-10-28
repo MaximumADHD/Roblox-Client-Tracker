@@ -9,6 +9,10 @@ local Unibar = require(Modules.Chrome.ChromeShared.Unibar)
 local MenuIcon = require(Modules.TopBar.Components.Presentation.MenuIcon)
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+local FFlagDeroduxVRMenuIcon = game:DefineFastFlag("DeroduxVRMenuIcon", false)
+
 type Props = {
 	showBadgeOver12: boolean?,
 	voiceChatServiceManager: any?,
@@ -17,6 +21,11 @@ type Props = {
 }
 
 local function MenuIconWrapper(props: any)
+	local keepOutAreasStore 
+	if FFlagTopBarSignalizeKeepOutAreas and FFlagDeroduxVRMenuIcon and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+		keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
+	end
+
 	local menuOpen = useSelector(function(state)
 		return if state and state.displayOptions then state.displayOptions.menuOpen else false
 	end)
@@ -25,6 +34,7 @@ local function MenuIconWrapper(props: any)
 		layout = props.layout,
 		iconScale = iconScale,
 		showBadgeOver12 = props.showBadgeOver12,
+		onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas and FFlagDeroduxVRMenuIcon then keepOutAreasStore.setKeepOutArea else nil,
 	})
 end
 

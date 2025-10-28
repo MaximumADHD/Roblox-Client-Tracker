@@ -154,48 +154,54 @@ PROTO_4:
 
 PROTO_5:
   GETUPVAL R1 0
-  LOADK R4 K0 ["Received new response message for request: %*"]
-  MOVE R6 R0
-  NAMECALL R4 R4 K1 ["format"]
-  CALL R4 2 1
-  MOVE R3 R4
-  NAMECALL R1 R1 K2 ["log"]
-  CALL R1 2 0
+  NAMECALL R1 R1 K0 ["isEnabled"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+14]
+  GETUPVAL R1 0
+  LOADK R3 K1 ["Received new response message for request: Size:"]
+  NAMECALL R4 R0 K2 ["len"]
+  CALL R4 1 1
+  LOADK R5 K3 ["RawContent:"]
+  NEWTABLE R6 0 1
+  MOVE R7 R0
+  SETLIST R6 R7 1 [1]
+  NAMECALL R1 R1 K4 ["log"]
+  CALL R1 5 0
   GETUPVAL R2 1
-  FASTCALL2K ASSERT R2 K3 [+4]
-  LOADK R3 K3 ["Expected request state to be set!"]
-  GETIMPORT R1 K5 [assert]
+  FASTCALL2K ASSERT R2 K5 [+4]
+  LOADK R3 K5 ["Expected request state to be set!"]
+  GETIMPORT R1 K7 [assert]
   CALL R1 2 0
   LOADB R1 1
   SETUPVAL R1 2
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K6 ["responseType"]
+  GETTABLEKS R1 R2 K8 ["responseType"]
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K7 ["ResponseType"]
-  GETTABLEKS R2 R3 K8 ["Json"]
+  GETTABLEKS R3 R4 K9 ["ResponseType"]
+  GETTABLEKS R2 R3 K10 ["Json"]
   JUMPIFNOTEQ R1 R2 [+9]
   GETUPVAL R1 1
-  GETTABLEKS R3 R1 K9 ["accumulatedResponse"]
+  GETTABLEKS R3 R1 K11 ["accumulatedResponse"]
   MOVE R4 R0
   CONCAT R2 R3 R4
-  SETTABLEKS R2 R1 K9 ["accumulatedResponse"]
+  SETTABLEKS R2 R1 K11 ["accumulatedResponse"]
   RETURN R0 0
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K6 ["responseType"]
+  GETTABLEKS R1 R2 K8 ["responseType"]
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K7 ["ResponseType"]
-  GETTABLEKS R2 R3 K10 ["EventStream"]
+  GETTABLEKS R3 R4 K9 ["ResponseType"]
+  GETTABLEKS R2 R3 K12 ["EventStream"]
   JUMPIFNOTEQ R1 R2 [+9]
   GETUPVAL R1 1
-  GETTABLEKS R3 R1 K11 ["eventStreamParser"]
-  GETTABLEKS R2 R3 K12 ["parseNextChunk"]
+  GETTABLEKS R3 R1 K13 ["eventStreamParser"]
+  GETTABLEKS R2 R3 K14 ["parseNextChunk"]
   MOVE R3 R0
   CALL R2 1 0
   RETURN R0 0
   GETUPVAL R2 4
-  GETTABLEKS R1 R2 K13 ["assertNever"]
+  GETTABLEKS R1 R2 K15 ["assertNever"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K6 ["responseType"]
+  GETTABLEKS R2 R3 K8 ["responseType"]
   CALL R1 1 0
   RETURN R0 0
 

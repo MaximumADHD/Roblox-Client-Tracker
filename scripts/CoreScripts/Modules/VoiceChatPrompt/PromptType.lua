@@ -26,4 +26,5 @@ return {
 	DevicePermissionsModal = "DevicePermissionsModal",
 	VoiceDataConsentOptOutToast = "VoiceDataConsentOptOutToast",
 	UnifiedJoinVoiceToast = "UnifiedJoinVoiceToast",
+	AgeCheckForVoiceToast = "AgeCheckForVoiceToast",
 }

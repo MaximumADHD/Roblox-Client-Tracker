@@ -1,4 +1,32 @@
 PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["log"]
+  LOADK R3 K1 ["Inserting node of type {}"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K3 [tostring]
+  CALL R4 1 1
+  NAMECALL R1 R1 K4 ["info"]
+  CALL R1 3 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["menuState"]
+  GETTABLEKS R1 R2 K6 ["disable"]
+  CALL R1 0 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K7 ["createNode"]
+  MOVE R2 R0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["canvasPosition"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["currentConnectionInfo"]
+  CALL R1 3 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K10 ["setCurrentConnectionInfo"]
+  LOADNIL R2
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
   NEWTABLE R0 0 0
   GETUPVAL R4 0
   GETTABLEKS R1 R4 K0 ["nodeGroups"]
@@ -31,7 +59,7 @@ PROTO_0:
   FORGLOOP R1 2 [-38]
   RETURN R0 1
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["ContextServices"]
   GETTABLEKS R1 R2 K1 ["Localization"]
@@ -43,34 +71,54 @@ PROTO_1:
   GETTABLEKS R3 R4 K4 ["Context"]
   CALL R2 1 1
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K5 ["useMemo"]
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R2
-  NEWTABLE R5 0 3
-  GETTABLEKS R6 R2 K6 ["nodeDefinitions"]
-  GETTABLEKS R7 R2 K7 ["nodeGroups"]
-  MOVE R8 R1
-  SETLIST R5 R6 3 [1]
-  CALL R3 2 1
+  GETTABLEKS R3 R4 K3 ["useContext"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K4 ["Context"]
+  CALL R3 1 1
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K8 ["createElement"]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K9 ["Menu"]
-  DUPTABLE R6 K15 [{"isOpen", "items", "onActivated", "onPressedOutside", "size"}]
-  GETTABLEKS R7 R0 K10 ["isOpen"]
-  SETTABLEKS R7 R6 K10 ["isOpen"]
-  SETTABLEKS R3 R6 K11 ["items"]
-  GETTABLEKS R7 R0 K12 ["onActivated"]
-  SETTABLEKS R7 R6 K12 ["onActivated"]
-  GETTABLEKS R7 R0 K16 ["close"]
-  SETTABLEKS R7 R6 K13 ["onPressedOutside"]
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K17 ["Enums"]
-  GETTABLEKS R8 R9 K18 ["InputSize"]
-  GETTABLEKS R7 R8 K19 ["XSmall"]
-  SETTABLEKS R7 R6 K14 ["size"]
-  CALL R4 2 -1
-  RETURN R4 -1
+  GETTABLEKS R4 R5 K3 ["useContext"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K4 ["Context"]
+  CALL R4 1 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  NEWTABLE R7 0 2
+  GETTABLEKS R8 R4 K6 ["menuState"]
+  GETTABLEKS R9 R4 K7 ["currentConnectionInfo"]
+  SETLIST R7 R8 2 [1]
+  CALL R5 2 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K8 ["useMemo"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R2
+  NEWTABLE R8 0 3
+  GETTABLEKS R9 R2 K9 ["nodeDefinitions"]
+  GETTABLEKS R10 R2 K10 ["nodeGroups"]
+  MOVE R11 R1
+  SETLIST R8 R9 3 [1]
+  CALL R6 2 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K11 ["createElement"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K12 ["Menu"]
+  DUPTABLE R9 K18 [{"isOpen", "items", "onActivated", "onPressedOutside", "size"}]
+  GETTABLEKS R10 R0 K13 ["isOpen"]
+  SETTABLEKS R10 R9 K13 ["isOpen"]
+  SETTABLEKS R6 R9 K14 ["items"]
+  SETTABLEKS R5 R9 K15 ["onActivated"]
+  GETTABLEKS R10 R0 K19 ["close"]
+  SETTABLEKS R10 R9 K16 ["onPressedOutside"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K20 ["Enums"]
+  GETTABLEKS R11 R12 K21 ["InputSize"]
+  GETTABLEKS R10 R11 K22 ["XSmall"]
+  SETTABLEKS R10 R9 K17 ["size"]
+  CALL R7 2 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0
@@ -89,15 +137,27 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K9 ["Src"]
   GETTABLEKS R5 R6 K10 ["Contexts"]
-  GETTABLEKS R4 R5 K11 ["NodeDefinitionsContext"]
+  GETTABLEKS R4 R5 K11 ["InsertNodeContext"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["React"]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Contexts"]
+  GETTABLEKS R5 R6 K12 ["NativeGraphContext"]
   CALL R4 1 1
-  DUPCLOSURE R5 K13 [PROTO_1]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Contexts"]
+  GETTABLEKS R6 R7 K13 ["NodeDefinitionsContext"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K14 ["React"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K15 [PROTO_2]
   CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R3
   CAPTURE VAL R1
-  RETURN R5 1
+  RETURN R7 1

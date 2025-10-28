@@ -1,0 +1,450 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["Name"]
+  JUMPIFEQKS R2 K1 ["FoundationOverlay"] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["filter"]
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K1 ["GetChildren"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K2 [PROTO_0]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADB R2 0
+  NAMECALL R0 R0 K0 ["GenerateGUID"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFEQKNIL R0 [+5]
+  NAMECALL R1 R0 K0 ["GetFullName"]
+  CALL R1 1 1
+  JUMP [+1]
+  LOADK R1 K1 ["N/A"]
+  JUMPIFEQKNIL R0 [+10]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["getOrSet"]
+  GETUPVAL R3 2
+  MOVE R4 R0
+  DUPCLOSURE R5 K3 [PROTO_2]
+  CAPTURE UPVAL U3
+  CALL R2 3 1
+  JUMP [+1]
+  LOADK R2 K1 ["N/A"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K4 ["createElement"]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K5 ["Fragment"]
+  LOADNIL R5
+  DUPTABLE R6 K8 [{"Text", "Overlay"}]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K11 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R10 K12 ["auto-xy text-wrap text-align-x-left"]
+  SETTABLEKS R10 R9 K9 ["tag"]
+  LOADK R11 K13 ["Overlay: %*
+UUID: %*"]
+  MOVE R13 R1
+  MOVE R14 R2
+  NAMECALL R11 R11 K14 ["format"]
+  CALL R11 3 1
+  MOVE R10 R11
+  SETTABLEKS R10 R9 K6 ["Text"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K10 ["LayoutOrder"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K6 ["Text"]
+  JUMPIFNOT R0 [+37]
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K15 ["createPortal"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K4 ["createElement"]
+  GETUPVAL R9 7
+  DUPTABLE R10 K17 [{"tag", "Position"}]
+  LOADK R11 K18 ["auto-xy padding-medium bg-system-contrast"]
+  SETTABLEKS R11 R10 K9 ["tag"]
+  GETIMPORT R11 K21 [UDim2.fromScale]
+  LOADK R12 K22 [0.5]
+  LOADK R13 K22 [0.5]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K16 ["Position"]
+  DUPTABLE R11 K24 [{"OverlayContent"}]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K4 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K25 [{"tag", "Text"}]
+  LOADK R15 K26 ["auto-xy content-inverse-emphasis"]
+  SETTABLEKS R15 R14 K9 ["tag"]
+  LOADK R15 K27 ["Overlay content"]
+  SETTABLEKS R15 R14 K6 ["Text"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K23 ["OverlayContent"]
+  CALL R8 3 1
+  MOVE R9 R0
+  CALL R7 2 1
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K7 ["Overlay"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useState"]
+  LOADB R1 0
+  CALL R0 1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K3 [{"tag"}]
+  LOADK R5 K4 ["row gap-medium size-full-1500 auto-x align-y-center items-center"]
+  SETTABLEKS R5 R4 K2 ["tag"]
+  DUPTABLE R5 K7 [{"Text", "Button"}]
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 2
+  CALL R6 1 1
+  JUMP [+15]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K9 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R9 K10 ["auto-xy text-wrap text-align-x-left"]
+  SETTABLEKS R9 R8 K2 ["tag"]
+  LOADK R9 K11 ["Overlay not mounted"]
+  SETTABLEKS R9 R8 K5 ["Text"]
+  LOADN R9 2
+  SETTABLEKS R9 R8 K8 ["LayoutOrder"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K5 ["Text"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 4
+  DUPTABLE R8 K14 [{"tag", "text", "LayoutOrder", "onActivated"}]
+  LOADK R9 K15 ["auto-y size-full-0 text-wrap text-align-x-left"]
+  SETTABLEKS R9 R8 K2 ["tag"]
+  JUMPIFNOT R0 [+2]
+  LOADK R9 K16 ["Unmount Overlay"]
+  JUMP [+1]
+  LOADK R9 K17 ["Mount Overlay"]
+  SETTABLEKS R9 R8 K12 ["text"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K8 ["LayoutOrder"]
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R9 R8 K13 ["onActivated"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["Button"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_6:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFEQKNIL R0 [+5]
+  NAMECALL R1 R0 K0 ["GetFullName"]
+  CALL R1 1 1
+  JUMP [+1]
+  LOADK R1 K1 ["N/A"]
+  LOADK R3 K2 ["Overlay Name: %*"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["createElement"]
+  GETUPVAL R4 2
+  DUPTABLE R5 K7 [{"tag", "Text"}]
+  LOADK R6 K8 ["auto-y align-x-center size-full-0 text-wrap"]
+  SETTABLEKS R6 R5 K5 ["tag"]
+  SETTABLEKS R2 R5 K6 ["Text"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_7:
+  GETUPVAL R0 0
+  LOADNIL R1
+  LOADNIL R2
+  FORGPREP R0
+  GETUPVAL R5 1
+  LOADB R7 0
+  NAMECALL R5 R5 K0 ["GenerateGUID"]
+  CALL R5 2 1
+  GETUPVAL R6 2
+  SETTABLE R5 R6 R4
+  FORGLOOP R0 2 [-8]
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  LOADNIL R1
+  LOADNIL R2
+  FORGPREP R0
+  NAMECALL R5 R4 K0 ["Disconnect"]
+  CALL R5 1 0
+  FORGLOOP R0 2 [-4]
+  RETURN R0 0
+
+PROTO_10:
+  NEWTABLE R0 0 2
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["ChildAdded"]
+  GETUPVAL R3 1
+  NAMECALL R1 R1 K1 ["Connect"]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["ChildRemoved"]
+  GETUPVAL R4 1
+  NAMECALL R2 R2 K1 ["Connect"]
+  CALL R2 2 -1
+  SETLIST R0 R1 -1 [1]
+  GETUPVAL R1 1
+  CALL R1 0 0
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  RETURN R1 1
+
+PROTO_11:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useRef"]
+  GETUPVAL R2 1
+  CALL R2 0 -1
+  CALL R1 -1 1
+  GETTABLEKS R0 R1 K1 ["current"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["useState"]
+  NEWTABLE R2 0 0
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["useEffect"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  NEWTABLE R5 0 0
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["useCallback"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R2
+  CAPTURE UPVAL U1
+  NEWTABLE R5 0 1
+  GETUPVAL R6 4
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["useEffect"]
+  NEWCLOSURE R5 P2
+  CAPTURE UPVAL U4
+  CAPTURE VAL R3
+  NEWTABLE R6 0 1
+  GETUPVAL R7 4
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 0
+  NEWTABLE R4 0 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R6 5
+  DUPTABLE R7 K9 [{"key", "tag", "Text"}]
+  LOADK R8 K10 ["OverlayCount"]
+  SETTABLEKS R8 R7 K6 ["key"]
+  LOADK R8 K11 ["auto-y size-full-0 text-wrap text-align-x-left margin-bottom-medium"]
+  SETTABLEKS R8 R7 K7 ["tag"]
+  LOADK R9 K12 ["Initial FoundationOverlay Count: %*
+Current FoundationOverlay Count: %*"]
+  LENGTH R11 R0
+  LENGTH R12 R1
+  NAMECALL R9 R9 K13 ["format"]
+  CALL R9 3 1
+  MOVE R8 R9
+  SETTABLEKS R8 R7 K8 ["Text"]
+  CALL R5 2 -1
+  SETLIST R4 R5 -1 [1]
+  LOADN R7 1
+  LOADN R5 10
+  LOADN R6 1
+  FORNPREP R5
+  MOVE R9 R4
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 6
+  NEWTABLE R12 0 0
+  NEWTABLE R13 1 0
+  LOADK R15 K14 ["OverlayConsumer%*"]
+  MOVE R17 R7
+  NAMECALL R15 R15 K13 ["format"]
+  CALL R15 2 1
+  MOVE R14 R15
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  GETUPVAL R16 7
+  CALL R15 1 1
+  SETTABLE R15 R13 R14
+  CALL R10 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K17 [table.insert]
+  CALL R8 -1 0
+  FORNLOOP R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R6 8
+  DUPTABLE R7 K18 [{"tag"}]
+  LOADK R8 K19 ["col gap-small auto-xy"]
+  SETTABLEKS R8 R7 K7 ["tag"]
+  MOVE R8 R4
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["Foundation"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K8 ["Parent"]
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R4 R2 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R5 R2 K12 ["ReactRoblox"]
+  CALL R4 1 1
+  GETIMPORT R5 K10 [require]
+  GETTABLEKS R6 R2 K13 ["Dash"]
+  CALL R5 1 1
+  GETIMPORT R6 K10 [require]
+  GETTABLEKS R8 R1 K14 ["Components"]
+  GETTABLEKS R7 R8 K15 ["Text"]
+  CALL R6 1 1
+  GETIMPORT R7 K10 [require]
+  GETTABLEKS R9 R1 K14 ["Components"]
+  GETTABLEKS R8 R9 K16 ["Button"]
+  CALL R7 1 1
+  GETIMPORT R8 K10 [require]
+  GETTABLEKS R10 R1 K14 ["Components"]
+  GETTABLEKS R9 R10 K17 ["View"]
+  CALL R8 1 1
+  GETIMPORT R9 K10 [require]
+  GETIMPORT R12 K5 [script]
+  GETTABLEKS R11 R12 K8 ["Parent"]
+  GETTABLEKS R10 R11 K18 ["OverlayProvider"]
+  CALL R9 1 1
+  GETIMPORT R10 K10 [require]
+  GETIMPORT R13 K5 [script]
+  GETTABLEKS R12 R13 K8 ["Parent"]
+  GETTABLEKS R11 R12 K19 ["useOverlay"]
+  CALL R10 1 1
+  GETIMPORT R11 K10 [require]
+  GETTABLEKS R13 R1 K20 ["Utility"]
+  GETTABLEKS R12 R13 K21 ["Wrappers"]
+  CALL R11 1 1
+  GETTABLEKS R13 R11 K22 ["Services"]
+  GETTABLEKS R12 R13 K23 ["CoreGui"]
+  GETTABLEKS R14 R11 K22 ["Services"]
+  GETTABLEKS R13 R14 K24 ["RunService"]
+  GETTABLEKS R15 R11 K22 ["Services"]
+  GETTABLEKS R14 R15 K25 ["Players"]
+  GETTABLEKS R16 R14 K26 ["LocalPlayer"]
+  JUMPIFNOT R16 [+12]
+  NAMECALL R16 R13 K27 ["IsRunning"]
+  CALL R16 1 1
+  JUMPIFNOT R16 [+8]
+  GETTABLEKS R15 R14 K26 ["LocalPlayer"]
+  LOADK R17 K28 ["PlayerGui"]
+  LOADN R18 3
+  NAMECALL R15 R15 K29 ["WaitForChild"]
+  CALL R15 3 1
+  JUMP [+1]
+  LOADNIL R15
+  GETIMPORT R16 K10 [require]
+  GETTABLEKS R18 R1 K20 ["Utility"]
+  GETTABLEKS R17 R18 K30 ["isPluginSecurity"]
+  CALL R16 1 1
+  MOVE R18 R16
+  CALL R18 0 1
+  JUMPIFNOT R18 [+2]
+  MOVE R17 R12
+  JUMP [+1]
+  MOVE R17 R15
+  DUPCLOSURE R18 K31 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R17
+  NEWTABLE R19 0 0
+  DUPCLOSURE R20 K32 [PROTO_3]
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  CAPTURE VAL R19
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  DUPCLOSURE R21 K33 [PROTO_5]
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R20
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  DUPTABLE R22 K36 [{"summary", "stories"}]
+  LOADK R23 K19 ["useOverlay"]
+  SETTABLEKS R23 R22 K34 ["summary"]
+  DUPTABLE R23 K38 [{"useOverlay", "lazyOverlay"}]
+  DUPTABLE R24 K41 [{"name", "summary", "story"}]
+  LOADK R25 K19 ["useOverlay"]
+  SETTABLEKS R25 R24 K39 ["name"]
+  LOADK R25 K42 ["Provides access to the overlay"]
+  SETTABLEKS R25 R24 K34 ["summary"]
+  DUPCLOSURE R25 K43 [PROTO_6]
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  SETTABLEKS R25 R24 K40 ["story"]
+  SETTABLEKS R24 R23 K19 ["useOverlay"]
+  DUPTABLE R24 K41 [{"name", "summary", "story"}]
+  LOADK R25 K44 ["Lazy Overlay Mounting"]
+  SETTABLEKS R25 R24 K39 ["name"]
+  LOADK R25 K45 ["Does not eagerly pollute workspace with FoundationOverlay instances (Flags.FoundationLazyOverlayLoading must be enabled)"]
+  SETTABLEKS R25 R24 K34 ["summary"]
+  DUPCLOSURE R25 K46 [PROTO_11]
+  CAPTURE VAL R3
+  CAPTURE VAL R18
+  CAPTURE VAL R0
+  CAPTURE VAL R19
+  CAPTURE VAL R17
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R21
+  CAPTURE VAL R8
+  SETTABLEKS R25 R24 K40 ["story"]
+  SETTABLEKS R24 R23 K37 ["lazyOverlay"]
+  SETTABLEKS R23 R22 K35 ["stories"]
+  RETURN R22 1

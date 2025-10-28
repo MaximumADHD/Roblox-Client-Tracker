@@ -1,0 +1,60 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K3 [{"theme", "preferences"}]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["Dark"]
+  SETTABLEKS R5 R4 K1 ["theme"]
+  SETTABLEKS R1 R4 K2 ["preferences"]
+  DUPTABLE R5 K6 [{"Content"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K8 [{"Size"}]
+  GETIMPORT R9 K11 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 0
+  LOADN R12 1
+  LOADN R13 0
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K7 ["Size"]
+  MOVE R9 R0
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K5 ["Content"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Enums"]
+  GETTABLEKS R3 R4 K9 ["Theme"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Components"]
+  GETTABLEKS R4 R5 K11 ["View"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Providers"]
+  GETTABLEKS R5 R6 K2 ["Foundation"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K12 ["Providers"]
+  GETTABLEKS R7 R8 K13 ["Preferences"]
+  GETTABLEKS R6 R7 K14 ["PreferencesProvider"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R6 1

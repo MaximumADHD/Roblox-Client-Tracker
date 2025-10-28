@@ -37,7 +37,7 @@ local function useConnectSignals(
 	React.useEffect(function()
 		if instance ~= nil then
 			for _, signalName in signalNames do
-				-- This condition is here because of type system quircks. Feel free to simplify with the solver V2 or make a cast, it's horrific.
+				-- This condition is here because of type system quirks. Feel free to simplify with the solver V2 or make a cast, it's horrific.
 				local signal = if typeof(instance) == "Instance"
 					then instance:GetPropertyChangedSignal(signalName)
 					else instance:GetPropertyChangedSignal(signalName)
@@ -73,6 +73,7 @@ local function useFloating(
 	local contentSize, setContentSize = React.useBinding(UDim2.new())
 	local screenSize, setScreenSize = React.useBinding(Vector2.new())
 	local arrowPosition, setArrowPosition = React.useBinding(Vector2.new())
+	local anchorPoint, setAnchorPoint = React.useBinding(Vector2.new(0, 0))
 	local recalculatePositionRef = React.useRef(function() end)
 
 	local recalculatePosition = React.useCallback(function()
@@ -107,14 +108,35 @@ local function useFloating(
 
 		local side: PopoverSide = if type(sideConfig) == "table" then sideConfig.position else sideConfig
 		local sideOffset = if type(sideConfig) == "table" then sideConfig.offset else 0
-		local align: PopoverAlign = if type(alignConfig) == "table" then alignConfig.position else alignConfig
-		local alignOffset = if type(alignConfig) == "table" then alignConfig.offset else 0
+		local align: PopoverAlign = alignConfig :: PopoverAlign
+		-- We may want to configure this in the future if there is a demand.
+		local flipAlign: boolean = false
+		local alignOffset: number = 0
+		if type(alignConfig) == "table" then
+			align = alignConfig.position
+			alignOffset = alignConfig.offset
+		end
+
 		local arrowOffset = arrowSize or 0
 
-		-- If the content is too large to fit on selected side, switch sides if space allows on the other side
-		side = positioning.calculateSide(side, sideOffset, anchorRect, screenRect, arrowOffset, contentSize)
+		-- Though this calculation includes side, it doesn't care about switching sides, so we can reuse it
+		local popoverSize = positioning.calculatePopoverBounds(
+			side,
+			sideOffset,
+			if Flags.FoundationPopoverOverflow then alignOffset else 0,
+			arrowOffset,
+			contentSize
+		)
 
-		local calculatedPosition, calculatedArrowPosition = positioning.calculatePositions(
+		-- If the content is too large to fit on the selected side, switch sides if space allows on the other side
+		side = positioning.calculateSide(side, anchorRect, screenRect, popoverSize)
+		if Flags.FoundationPopoverOverflow then
+			if flipAlign then
+				align = positioning.calculateAlign(side, align, anchorRect, screenRect, popoverSize)
+			end
+		end
+
+		local calculatedPosition, calculatedArrowPosition, calculatedAnchorPoint = positioning.calculatePositions(
 			side,
 			sideOffset,
 			align,
@@ -129,6 +151,7 @@ local function useFloating(
 		setScreenSize(screenSize)
 		setArrowPosition(calculatedArrowPosition + calculatedPosition)
 		setPosition(calculatedPosition)
+		setAnchorPoint(calculatedAnchorPoint)
 		setIsVisible(true)
 
 		-- Force update re-layout for quantum GUI to prevent jello effect
@@ -152,7 +175,7 @@ local function useFloating(
 		)
 	end
 
-	return position, isVisible, contentSize, arrowPosition, screenSize
+	return position, isVisible, contentSize, arrowPosition, screenSize, anchorPoint
 end
 
 return useFloating

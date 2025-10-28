@@ -64,7 +64,9 @@ return {
 							total = 5,
 						}
 						else nil,
-					actions = generateActions(props.controls.hasSecondaryButton),
+					actions = if props.controls.hasActions
+						then generateActions(props.controls.hasSecondaryButton)
+						else nil,
 				},
 				React.createElement(IconButton, {
 					icon = "icons/controls/voice/microphone_off_light",
@@ -83,6 +85,7 @@ return {
 		align = Dash.values(PopoverAlign),
 		hasSecondaryButton = false,
 		hasCloseAffordance = false,
+		hasActions = true,
 		isOpen = true,
 		showSteps = true,
 	},

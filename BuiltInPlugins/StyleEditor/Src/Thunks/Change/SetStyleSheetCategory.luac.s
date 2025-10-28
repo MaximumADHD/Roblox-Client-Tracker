@@ -1,17 +1,19 @@
 PROTO_0:
   GETUPVAL R0 0
-  JUMPIFNOTEQKS R0 K0 ["Themes"] [+7]
+  JUMPIFNOTEQKS R0 K0 ["Themes"] [+8]
   GETUPVAL R1 1
   GETTABLEKS R0 R1 K1 ["setAsThemeForAll"]
   GETUPVAL R1 2
-  CALL R0 1 0
-  JUMP [+14]
+  GETUPVAL R2 3
+  CALL R0 2 0
+  JUMP [+15]
   GETUPVAL R0 0
-  JUMPIFNOTEQKS R0 K2 ["Tokens"] [+7]
+  JUMPIFNOTEQKS R0 K2 ["Tokens"] [+8]
   GETUPVAL R1 1
   GETTABLEKS R0 R1 K3 ["setAsTokenForAll"]
   GETUPVAL R1 2
-  CALL R0 1 0
+  GETUPVAL R2 3
+  CALL R0 2 0
   JUMP [+5]
   GETIMPORT R0 K5 [warn]
   LOADK R1 K6 ["Unknown StyleSheetCategory:"]
@@ -26,24 +28,34 @@ PROTO_0:
   RETURN R0 1
 
 PROTO_1:
-  GETTABLEKS R2 R1 K0 ["recordChange"]
-  DUPTABLE R3 K4 [{"Name", "DisplayName", "DoChange"}]
-  LOADK R4 K5 ["StyleEditor/SetStyleSheetCategory"]
-  SETTABLEKS R4 R3 K1 ["Name"]
-  LOADK R4 K6 ["StyleEditor - Set StyleSheet Category"]
-  SETTABLEKS R4 R3 K2 ["DisplayName"]
-  NEWCLOSURE R4 P0
-  CAPTURE UPVAL U0
+  LOADNIL R2
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+7]
+  NAMECALL R3 R0 K0 ["getState"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K1 ["Window"]
+  GETTABLEKS R2 R4 K2 ["Source"]
+  GETTABLEKS R3 R1 K3 ["recordChange"]
+  DUPTABLE R4 K7 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R5 K8 ["StyleEditor/SetStyleSheetCategory"]
+  SETTABLEKS R5 R4 K4 ["Name"]
+  LOADK R5 K9 ["StyleEditor - Set StyleSheet Category"]
+  SETTABLEKS R5 R4 K5 ["DisplayName"]
+  NEWCLOSURE R5 P0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
-  SETTABLEKS R4 R3 K3 ["DoChange"]
-  CALL R2 1 0
+  CAPTURE UPVAL U3
+  CAPTURE REF R2
+  SETTABLEKS R5 R4 K6 ["DoChange"]
+  CALL R3 1 0
+  CLOSEUPVALS R2
   RETURN R0 0
 
 PROTO_2:
   NEWCLOSURE R2 P0
-  CAPTURE VAL R1
   CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
   CAPTURE VAL R0
   RETURN R2 1
 
@@ -56,19 +68,26 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Util"]
-  GETTABLEKS R2 R3 K7 ["DesignHelpers"]
+  GETTABLEKS R3 R4 K6 ["Flags"]
+  GETTABLEKS R2 R3 K7 ["getFFlagStyleEditorPluginStyleSheets"]
   CALL R1 1 1
+  CALL R1 0 1
   GETIMPORT R2 K4 [require]
   GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Reducers"]
-  GETTABLEKS R3 R4 K9 ["RootReducer"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["DesignHelpers"]
   CALL R2 1 1
   GETIMPORT R3 K4 [require]
   GETTABLEKS R6 R0 K5 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Thunks"]
-  GETTABLEKS R4 R5 K11 ["Types"]
+  GETTABLEKS R5 R6 K10 ["Reducers"]
+  GETTABLEKS R4 R5 K11 ["RootReducer"]
   CALL R3 1 1
-  DUPCLOSURE R4 K12 [PROTO_2]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K5 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Thunks"]
+  GETTABLEKS R5 R6 K13 ["Types"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K14 [PROTO_2]
   CAPTURE VAL R1
-  RETURN R4 1
+  CAPTURE VAL R2
+  RETURN R5 1

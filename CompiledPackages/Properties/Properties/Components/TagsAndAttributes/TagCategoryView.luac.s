@@ -8,7 +8,8 @@ PROTO_1:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useCallback"]
   DUPCLOSURE R2 K1 [PROTO_0]
-  CALL R1 1 1
+  NEWTABLE R3 0 0
+  CALL R1 2 1
   GETUPVAL R2 1
   GETUPVAL R3 2
   DUPTABLE R4 K5 [{"categoryName", "layoutOrder", "trailingIcon"}]
@@ -51,10 +52,10 @@ MAIN:
   GETTABLEKS R4 R1 K10 ["Foundation"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R1 K11 ["React"]
+  GETTABLEKS R5 R0 K11 ["PropertyTypes"]
   CALL R4 1 1
   GETIMPORT R5 K6 [require]
-  GETTABLEKS R6 R0 K12 ["RpcTypes"]
+  GETTABLEKS R6 R1 K12 ["React"]
   CALL R5 1 1
   GETIMPORT R6 K6 [require]
   GETTABLEKS R9 R0 K7 ["Components"]
@@ -66,11 +67,11 @@ MAIN:
   GETTABLEKS R9 R10 K16 ["Localization"]
   GETTABLEKS R8 R9 K17 ["Translator"]
   CALL R7 1 1
-  GETTABLEKS R8 R4 K18 ["createElement"]
+  GETTABLEKS R8 R5 K18 ["createElement"]
   GETTABLEKS R10 R3 K19 ["Enums"]
   GETTABLEKS R9 R10 K20 ["IconName"]
   DUPCLOSURE R10 K21 [PROTO_1]
-  CAPTURE VAL R4
+  CAPTURE VAL R5
   CAPTURE VAL R8
   CAPTURE VAL R2
   CAPTURE VAL R7

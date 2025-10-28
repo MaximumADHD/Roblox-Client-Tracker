@@ -1,3 +1,6 @@
+local Foundation = script:FindFirstAncestor("Foundation")
+local Types = require(Foundation.Components.Types)
+
 local MAX_LAYOUT_ORDER = 2147483648
 local MIN_LAYOUT_ORDER = -2147483648
 local DEFAULT_DELAY_TIME = 0.15
@@ -13,4 +16,17 @@ return {
 	DEFAULT_DELAY_TIME = DEFAULT_DELAY_TIME,
 	SHADOW_IMAGE = SHADOW_IMAGE,
 	SHADOW_SIZE = SHADOW_SIZE,
+	MODAL = {
+		-- Prevents the modal container itself from being selectable
+		DISABLE_SELECTION = {
+			Selectable = false,
+		} :: Types.Selection,
+		-- Creates a selection boundary that prevents focus from escaping the modal content
+		TRAP_FOCUS = {
+			SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorDown = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
+		},
+	},
 }

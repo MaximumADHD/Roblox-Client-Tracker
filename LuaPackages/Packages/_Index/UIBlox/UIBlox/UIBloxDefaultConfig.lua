@@ -119,4 +119,7 @@ return {
 
 	-- Use StatusIndicator instead of Badge, where applicable
 	useFoundationStatusIndicator = false,
+
+	-- Enable rich text support for TooltipV2 header and body text
+	enableTooltipRichText = false,
 }

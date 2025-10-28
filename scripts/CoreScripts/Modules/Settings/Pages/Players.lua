@@ -66,6 +66,7 @@ local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
+local FFlagFixFriendStatusImageLabelAccess = game:DefineFastFlag("FixFriendStatusImageLabelAccess", false)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 local SettingsFlags = require(script.Parent.Parent.Flags)
@@ -134,7 +135,6 @@ local success, result = pcall(function()
 	return settings():GetFFlag("UseNotificationsLocalization")
 end)
 local FFlagUseNotificationsLocalization = success and result
-local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagDefaultFriendingLabelTextNonEmpty =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
@@ -155,6 +155,7 @@ local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerLis
 local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionMuteButton", false)
 local FIntSettingsHubPlayersButtonsResponsiveThreshold =
 	game:DefineFastInt("SettingsHubPlayersButtonsResponsiveThreshold", 200)
+local GetFFlagCleanupMuteSelfButton = require(RobloxGui.Modules.Settings.Flags.GetFFlagCleanupMuteSelfButton)
 local BUTTON_ROW_HORIZONTAL_PADDING = 20
 local BUTTON_ROW_VERTICAL_PADDING = 16
 
@@ -223,7 +224,7 @@ local function Initialize()
 	end
 
 	local function useOptimizedPortraitLayout()
-		return FFlagExtendedExpMenuPortraitLayout and utility:IsSmallTouchScreen() and utility:IsPortrait()
+		return utility:IsSmallTouchScreen() and utility:IsPortrait()
 	end
 
 	local function getIsBlocked(player)
@@ -319,7 +320,11 @@ local function Initialize()
 			addFriendButton.Name = "FriendStatus"
 			addFriendButton.Selectable = false
 
-			addFriendButton.FriendStatusImageLabel.ImageTransparency = imgTrans
+			if FFlagBuilderIcons and FFlagFixFriendStatusImageLabelAccess then
+				addFriendButton.FriendStatusTextLabel.TextTransparency = imgTrans
+			else
+				addFriendButton.FriendStatusImageLabel.ImageTransparency = imgTrans
+			end
 
 			return addFriendButton
 		elseif
@@ -331,7 +336,11 @@ local function Initialize()
 			local addFriendFunc = function()
 				if addFriendButton and addFriendImage and addFriendButton.ImageTransparency ~= 1 then
 					addFriendButton.ImageTransparency = 1
-					addFriendImage.ImageTransparency = 1
+					if FFlagBuilderIcons and FFlagFixFriendStatusImageLabelAccess then
+						addFriendImage.TextTransparency = 1
+					else
+						addFriendImage.ImageTransparency = 1
+					end
 					if localPlayer and player then
 						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
 						AnalyticsService:SetRBXEventStream(
@@ -1248,7 +1257,12 @@ local function Initialize()
 				end
 			end)
 
-		muteSelfButton = imageButton
+		if GetFFlagCleanupMuteSelfButton() then
+			return imageButton
+		else
+			muteSelfButton = imageButton
+			return
+		end
 	end
 
 	local function addMuteButtonExperience()
@@ -1256,7 +1270,11 @@ local function Initialize()
 			return
 		end
 
-		createMuteSelfButton()
+		if GetFFlagCleanupMuteSelfButton() then
+			muteSelfButton = createMuteSelfButton()
+		else
+			createMuteSelfButton()
+		end
 	end
 
 	local function createInspectButtonImage(activateInspectAndBuyMenu)
@@ -1944,65 +1962,62 @@ local function Initialize()
 				local wasIsPortrait = nil
 				utility:OnResized(frame, function(newSize, isPortrait)
 					local parent = frame:FindFirstChild("RightSideButtons")
+					local firstRow = frame:FindFirstChild("DisplayNameLabel")
+					local secondRow = frame:FindFirstChild("NameLabel")
+					local rightSideListLayout = parent and parent:FindFirstChild("RightSideListLayout")
 
-					if FFlagExtendedExpMenuPortraitLayout then
-						local firstRow = frame:FindFirstChild("DisplayNameLabel")
-						local secondRow = frame:FindFirstChild("NameLabel")
-						local rightSideListLayout = parent and parent:FindFirstChild("RightSideListLayout")
+					if useOptimizedPortraitLayout() then
+						--[[
+							If portrait layout on mobile, move the buttons onto ..
+							a second line to remove overlap with username
 
-						if useOptimizedPortraitLayout() then
-							--[[
-								If portrait layout on mobile, move the buttons onto ..
-								a second line to remove overlap with username
+							Changes:
+								- Taller frame. Moves usernames higher in parent frame
+								- Changes alignment of buttons to left/bottom
+								- Aligns button left edge to username left edge
+						--]]
+						frame.Size = UDim2.new(1, 0, 0, PLAYER_ROW_HEIGHT_PORTRAIT)
 
-								Changes:
-									- Taller frame. Moves usernames higher in parent frame
-									- Changes alignment of buttons to left/bottom
-									- Aligns button left edge to username left edge
-							--]]
-							frame.Size = UDim2.new(1, 0, 0, PLAYER_ROW_HEIGHT_PORTRAIT)
-
-							if firstRow then
-								if secondRow then
-									firstRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION_PORTRAIT, -10)
-									secondRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION_PORTRAIT, 12)
-								else
-									firstRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION_PORTRAIT, 0)
-								end
-							end
-
-							if parent then
-								parent.Position = UDim2.new(0, LABEL_POSX - 3, 0, -2)
-								parent.Size = UDim2.new(1, RIGHT_SIDE_BUTTON_PAD, 0.99, -8)
-							end
-
-							if rightSideListLayout then
-								rightSideListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
-								rightSideListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
-							end
-						else -- reset defaults
-							frame.Size = UDim2.new(1, 0, 0, PLAYER_ROW_HEIGHT)
-
-							if firstRow then
-								if secondRow then
-									firstRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION, -10)
-									secondRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION, 12)
-								else
-									firstRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION, 0)
-								end
-							end
-
-							if parent then
-								parent.Position = UDim2.new(0, 0, 0, 0)
-								parent.Size = UDim2.new(1, RIGHT_SIDE_BUTTON_PAD, 1, 0)
-							end
-
-							if rightSideListLayout then
-								rightSideListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-								rightSideListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+						if firstRow then
+							if secondRow then
+								firstRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION_PORTRAIT, -10)
+								secondRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION_PORTRAIT, 12)
+							else
+								firstRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION_PORTRAIT, 0)
 							end
 						end
-					end -- FFlagExtendedExpMenuPortraitLayout
+
+						if parent then
+							parent.Position = UDim2.new(0, LABEL_POSX - 3, 0, -2)
+							parent.Size = UDim2.new(1, RIGHT_SIDE_BUTTON_PAD, 0.99, -8)
+						end
+
+						if rightSideListLayout then
+							rightSideListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+							rightSideListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
+						end
+					else -- reset defaults
+						frame.Size = UDim2.new(1, 0, 0, PLAYER_ROW_HEIGHT)
+
+						if firstRow then
+							if secondRow then
+								firstRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION, -10)
+								secondRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION, 12)
+							else
+								firstRow.Position = UDim2.new(0, LABEL_POSX, USERNAME_POSITION, 0)
+							end
+						end
+
+						if parent then
+							parent.Position = UDim2.new(0, 0, 0, 0)
+							parent.Size = UDim2.new(1, RIGHT_SIDE_BUTTON_PAD, 1, 0)
+						end
+
+						if rightSideListLayout then
+							rightSideListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+							rightSideListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+						end
+					end
 
 					if parent then
 						resizeFriendButton(parent, player, isPortrait, wasIsPortrait)
@@ -2230,13 +2245,19 @@ local function Initialize()
 					end
 				end)
 
-				if FFlagCorrectlyPositionMuteButton then
+				if FFlagCorrectlyPositionMuteButton and not GetFFlagCleanupMuteSelfButton() then
 					rebuildPlayerList()
 				end
-				
+
 				VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
-					if not buttonsContainer:FindFirstChild(MUTE_SELF_BUTTON_NAME, true) then
-						addMuteButtonExperience()
+					if GetFFlagCleanupMuteSelfButton()then
+						if not muteSelfButton then
+							addMuteButtonExperience()
+						end
+					else
+						if not buttonsContainer:FindFirstChild(MUTE_SELF_BUTTON_NAME, true) then
+							addMuteButtonExperience()
+						end
 					end
 					rebuildPlayerList()
 				end)

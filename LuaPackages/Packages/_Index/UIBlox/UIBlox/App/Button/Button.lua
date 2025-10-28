@@ -233,17 +233,35 @@ local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 		local tokens = Foundation.Hooks.useTokens()
 		local props = Cryo.Dictionary.join(Button.defaultProps, buttonProps)
 		local isRoactGamepadEnabled = props.isRoactGamepadEnabled
+
+		local maxWidth = FoundationButtonUtils.getMaxWidth(props.standardSize, props.maxWidth)
+
+		local innerRef = React.useRef(nil)
+		local finalRef = (if UIBloxConfig.useProvidedRefForButton then buttonProps.buttonRef or ref else ref)
+			or innerRef
+
+		React.useLayoutEffect(function()
+			local sizeConstraint
+			if maxWidth and finalRef and typeof(finalRef) == "table" and finalRef.current then
+				sizeConstraint = Instance.new("UISizeConstraint")
+				sizeConstraint.MaxSize = Vector2.new(maxWidth, math.huge)
+				sizeConstraint.Parent = finalRef.current
+			end
+
+			return function()
+				if sizeConstraint then
+					sizeConstraint.Parent = nil
+					sizeConstraint:Destroy()
+				end
+			end
+		end, { maxWidth, finalRef })
+
 		return React.createElement(
 			if isRoactGamepadEnabled then RoactGamepad.Focusable[Foundation.Button] else Foundation.Button,
 			{
 				variant = FoundationButtonUtils.buttonMapping[props.buttonType],
 				size = FoundationButtonUtils.getSizeMapping(props.standardSize, props.size, tokens),
-				width = FoundationButtonUtils.getWidth(
-					props.standardSize,
-					props.size,
-					props.maxWidth,
-					props.fitContent
-				),
+				width = FoundationButtonUtils.getWidth(props.standardSize, props.size, props.fitContent),
 				icon = FoundationButtonUtils.findIcon(props.icon),
 				text = props.text,
 				isLoading = props.isLoading,
@@ -255,7 +273,7 @@ local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 					else nil,
 				onActivated = props.onActivated,
 				testId = FoundationButtonUtils.getTestId(props[React.Tag]),
-				ref = if UIBloxConfig.useProvidedRefForButton then props.buttonRef or ref else ref or props.buttonRef,
+				ref = finalRef,
 
 				AnchorPoint = props.anchorPoint,
 				Position = props.position,

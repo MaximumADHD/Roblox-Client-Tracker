@@ -1,7 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
-local Types = require(Foundation.Components.Types)
+local Constants = require(Foundation.Constants)
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
@@ -29,13 +29,6 @@ export type SheetProps = {
 }
 
 return {
-	nonSelectable = {
-		Selectable = false,
-	} :: Types.Selection,
-	isolatedSelectionGroup = {
-		SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
-		SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
-		SelectionBehaviorDown = Enum.SelectionBehavior.Stop,
-		SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
-	},
+	nonSelectable = Constants.MODAL.DISABLE_SELECTION,
+	isolatedSelectionGroup = Constants.MODAL.TRAP_FOCUS,
 }

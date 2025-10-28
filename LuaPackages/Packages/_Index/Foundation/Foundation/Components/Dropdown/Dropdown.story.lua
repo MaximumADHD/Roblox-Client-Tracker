@@ -6,9 +6,12 @@ local Dash = require(Packages.Dash)
 
 local Types = require(Foundation.Components.Types)
 local Dropdown = require(Foundation.Components.Dropdown)
+local Text = require(Foundation.Components.Text)
 local InputSize = require(Foundation.Enums.InputSize)
+local Flags = require(Foundation.Utility.Flags)
 
 type DropdownItem = Dropdown.DropdownItem
+type DropdownItems = Dropdown.DropdownItems
 type ItemId = Types.ItemId
 
 local function getItems(hasIcon: boolean): { DropdownItem }
@@ -25,7 +28,7 @@ local function getItems(hasIcon: boolean): { DropdownItem }
 end
 
 return {
-	summary = "Dropdown Group component",
+	summary = "Dropdown component",
 	stories = {
 		{
 			name = "Base",
@@ -83,6 +86,53 @@ return {
 					label = controls.label,
 					width = UDim.new(0, 150),
 					maxHeight = 500,
+				})
+			end,
+		},
+		{
+			name = "With item groups",
+			story = function(props): React.ReactNode
+				local controls = props.controls
+				local id, setId = React.useState(nil :: ItemId?)
+
+				if not Flags.FoundationDropdownGroups then
+					return React.createElement(
+						Text,
+						{ tag = "auto-xy", Text = "Enable FoundationDropdownGroups to see the story" }
+					)
+				end
+
+				return React.createElement(Dropdown.Root, {
+					value = id,
+					placeholder = if controls.hasPlaceholder then "Choose a value" else nil,
+					onItemChanged = function(itemId: ItemId)
+						print("Checking item with value = " .. itemId)
+						setId(itemId)
+					end,
+					hasError = controls.hasError,
+					isDisabled = controls.isDisabled,
+					items = {
+						{
+							title = "First title" :: string?,
+							items = {
+								{ id = "a1", icon = "icons/common/robux", text = "Alpha 1" } :: DropdownItem,
+								{ id = "a2", text = "Alpha 2" },
+							},
+						},
+						{
+							items = {
+								{ id = "b1", text = "Beta 1" },
+								{ id = "b2", isDisabled = true, text = "Beta 2 (disabled)" },
+							},
+						},
+						{
+							items = {
+								{ id = "c1", text = "Untitled group item" },
+							},
+						},
+					} :: DropdownItems,
+					size = controls.size,
+					label = controls.label,
 				})
 			end,
 		},

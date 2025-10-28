@@ -1,0 +1,623 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Color"]
+  GETTABLEKS R2 R3 K1 ["Content"]
+  GETTABLEKS R1 R2 K2 ["Emphasis"]
+  GETTABLEKS R0 R1 K3 ["Transparency"]
+  GETUPVAL R2 1
+  JUMPIFNOT R2 [+2]
+  LOADN R1 1
+  JUMP [+9]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Color"]
+  GETTABLEKS R3 R4 K4 ["Shift"]
+  GETTABLEKS R2 R3 K5 ["Shift_200"]
+  GETTABLEKS R1 R2 K3 ["Transparency"]
+  GETIMPORT R2 K8 [NumberSequence.new]
+  NEWTABLE R3 0 4
+  GETIMPORT R4 K10 [NumberSequenceKeypoint.new]
+  LOADN R5 0
+  MOVE R6 R0
+  CALL R4 2 1
+  GETIMPORT R5 K10 [NumberSequenceKeypoint.new]
+  LOADK R6 K11 [0.4999]
+  MOVE R7 R0
+  CALL R5 2 1
+  GETIMPORT R6 K10 [NumberSequenceKeypoint.new]
+  LOADK R7 K12 [0.5]
+  MOVE R8 R1
+  CALL R6 2 1
+  GETIMPORT R7 K10 [NumberSequenceKeypoint.new]
+  LOADN R8 1
+  MOVE R9 R1
+  CALL R7 2 -1
+  SETLIST R3 R4 -1 [1]
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETIMPORT R0 K2 [ColorSequence.new]
+  NEWTABLE R1 0 4
+  GETIMPORT R2 K4 [ColorSequenceKeypoint.new]
+  LOADN R3 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["Color"]
+  GETTABLEKS R6 R7 K6 ["Content"]
+  GETTABLEKS R5 R6 K7 ["Emphasis"]
+  GETTABLEKS R4 R5 K8 ["Color3"]
+  CALL R2 2 1
+  GETIMPORT R3 K4 [ColorSequenceKeypoint.new]
+  LOADK R4 K9 [0.4999]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["Color"]
+  GETTABLEKS R7 R8 K6 ["Content"]
+  GETTABLEKS R6 R7 K7 ["Emphasis"]
+  GETTABLEKS R5 R6 K8 ["Color3"]
+  CALL R3 2 1
+  GETIMPORT R4 K4 [ColorSequenceKeypoint.new]
+  LOADK R5 K10 [0.5]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["Color"]
+  GETTABLEKS R8 R9 K11 ["Shift"]
+  GETTABLEKS R7 R8 K12 ["Shift_200"]
+  GETTABLEKS R6 R7 K8 ["Color3"]
+  CALL R4 2 1
+  GETIMPORT R5 K4 [ColorSequenceKeypoint.new]
+  LOADN R6 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["Color"]
+  GETTABLEKS R9 R10 K11 ["Shift"]
+  GETTABLEKS R8 R9 K12 ["Shift_200"]
+  GETTABLEKS R7 R8 K8 ["Color3"]
+  CALL R5 2 -1
+  SETLIST R1 R2 -1 [1]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETIMPORT R1 K2 [NumberSequence.new]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["Color"]
+  GETTABLEKS R5 R6 K4 ["Content"]
+  GETTABLEKS R4 R5 K5 ["Emphasis"]
+  GETTABLEKS R3 R4 K6 ["Transparency"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["Color"]
+  GETTABLEKS R6 R7 K7 ["Shift"]
+  GETTABLEKS R5 R6 K8 ["Shift_200"]
+  GETTABLEKS R4 R5 K6 ["Transparency"]
+  FASTCALL3 89 R3 R4 R0
+  MOVE R5 R0
+  GETIMPORT R2 K11 [math.lerp]
+  CALL R2 3 1
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETIMPORT R1 K2 [ColorSequence.new]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["Color"]
+  GETTABLEKS R4 R5 K4 ["Content"]
+  GETTABLEKS R3 R4 K5 ["Emphasis"]
+  GETTABLEKS R2 R3 K6 ["Color3"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["Color"]
+  GETTABLEKS R6 R7 K7 ["Shift"]
+  GETTABLEKS R5 R6 K8 ["Shift_200"]
+  GETTABLEKS R4 R5 K6 ["Color3"]
+  MOVE R5 R0
+  NAMECALL R2 R2 K9 ["Lerp"]
+  CALL R2 3 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_4:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADN R1 0
+  RETURN R1 1
+  MULK R2 R0 K0 [360]
+  GETUPVAL R3 0
+  GETUPVAL R4 1
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R1 K3 [math.clamp]
+  CALL R1 3 1
+  RETURN R1 1
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["side"]
+  GETTABLEKS R2 R0 K1 ["isIndeterminate"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  GETUPVAL R4 1
+  CALL R4 0 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["useMemo"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  NEWTABLE R7 0 2
+  MOVE R8 R3
+  MOVE R9 R2
+  SETLIST R7 R8 2 [1]
+  CALL R5 2 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K2 ["useMemo"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R3
+  NEWTABLE R8 0 1
+  MOVE R9 R3
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  GETIMPORT R8 K6 [Enum.HorizontalAlignment.Left]
+  JUMPIFNOTEQ R1 R8 [+3]
+  LOADN R7 180
+  JUMP [+1]
+  LOADN R7 0
+  GETIMPORT R9 K6 [Enum.HorizontalAlignment.Left]
+  JUMPIFNOTEQ R1 R9 [+3]
+  LOADN R8 104
+  JUMP [+1]
+  LOADN R8 180
+  JUMPIFNOT R2 [+42]
+  GETTABLEKS R9 R4 K7 ["reducedMotion"]
+  JUMPIFNOT R9 [+39]
+  LOADNIL R9
+  JUMPIF R2 [+3]
+  GETTABLEKS R9 R0 K8 ["rotation"]
+  JUMP [+7]
+  GETIMPORT R10 K6 [Enum.HorizontalAlignment.Left]
+  JUMPIFNOTEQ R1 R10 [+3]
+  LOADN R9 0
+  JUMP [+1]
+  LOADN R9 180
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  LOADK R11 K10 ["UIGradient"]
+  DUPTABLE R12 K14 [{"Transparency", "Color", "Rotation"}]
+  GETTABLEKS R13 R0 K15 ["pulse"]
+  NEWCLOSURE R15 P2
+  CAPTURE VAL R3
+  NAMECALL R13 R13 K16 ["map"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K11 ["Transparency"]
+  GETTABLEKS R13 R0 K15 ["pulse"]
+  NEWCLOSURE R15 P3
+  CAPTURE VAL R3
+  NAMECALL R13 R13 K16 ["map"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K12 ["Color"]
+  SETTABLEKS R9 R12 K13 ["Rotation"]
+  CALL R10 2 -1
+  RETURN R10 -1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K9 ["createElement"]
+  LOADK R10 K10 ["UIGradient"]
+  DUPTABLE R11 K14 [{"Transparency", "Color", "Rotation"}]
+  SETTABLEKS R5 R11 K11 ["Transparency"]
+  SETTABLEKS R6 R11 K12 ["Color"]
+  GETTABLEKS R12 R0 K17 ["progress"]
+  NEWCLOSURE R14 P4
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  NAMECALL R12 R12 K16 ["map"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K13 ["Rotation"]
+  CALL R9 2 1
+  RETURN R9 1
+
+PROTO_6:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADK R1 K0 ["0%"]
+  RETURN R1 1
+  LOADK R2 K1 ["%*%%"]
+  MULK R5 R0 K2 [100]
+  FASTCALL1 MATH_FLOOR R5 [+2]
+  GETIMPORT R4 K5 [math.floor]
+  CALL R4 1 1
+  NAMECALL R2 R2 K6 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  RETURN R1 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 1
+  GETUPVAL R2 2
+  CALL R2 0 1
+  GETUPVAL R3 3
+  CALL R3 0 1
+  GETUPVAL R4 4
+  MOVE R5 R2
+  GETTABLEKS R6 R1 K0 ["size"]
+  CALL R4 2 1
+  GETUPVAL R5 5
+  MOVE R6 R1
+  CALL R5 1 2
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K1 ["useBinding"]
+  LOADK R8 K2 [0.8]
+  CALL R7 1 1
+  GETUPVAL R8 7
+  LOADN R9 1
+  CALL R8 1 1
+  GETUPVAL R9 8
+  GETUPVAL R12 9
+  GETTABLEKS R11 R12 K4 ["INDETERMINATE_SHIMMER_SPEED"]
+  DIVRK R10 R3 K11 ["tag"]
+  CALL R9 1 1
+  GETIMPORT R10 K7 [UDim2.fromOffset]
+  GETTABLEKS R12 R4 K8 ["circle"]
+  GETTABLEKS R11 R12 K0 ["size"]
+  GETTABLEKS R13 R4 K8 ["circle"]
+  GETTABLEKS R12 R13 K0 ["size"]
+  CALL R10 2 1
+  JUMPIFNOT R6 [+190]
+  GETTABLEKS R11 R3 K9 ["reducedMotion"]
+  JUMPIF R11 [+187]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K10 ["createElement"]
+  GETUPVAL R12 10
+  GETUPVAL R13 11
+  MOVE R14 R1
+  DUPTABLE R15 K13 [{"tag", "ref"}]
+  LOADK R16 K14 ["auto-xy"]
+  SETTABLEKS R16 R15 K11 ["tag"]
+  GETTABLEKS R16 R1 K12 ["ref"]
+  SETTABLEKS R16 R15 K12 ["ref"]
+  CALL R13 2 1
+  DUPTABLE R14 K16 [{"IndeterminateContainer"}]
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 10
+  DUPTABLE R17 K20 [{"Size", "Rotation", "testId"}]
+  SETTABLEKS R10 R17 K17 ["Size"]
+  SETTABLEKS R8 R17 K18 ["Rotation"]
+  LOADK R19 K21 ["%*--indeterminate-container"]
+  GETTABLEKS R21 R1 K19 ["testId"]
+  NAMECALL R19 R19 K22 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  SETTABLEKS R18 R17 K19 ["testId"]
+  DUPTABLE R18 K25 [{"LeftGradient", "RightGradient"}]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K10 ["createElement"]
+  GETUPVAL R20 10
+  DUPTABLE R21 K26 [{"Size", "tag", "testId"}]
+  GETIMPORT R22 K28 [UDim2.fromScale]
+  LOADK R23 K29 [0.5]
+  LOADN R24 1
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K17 ["Size"]
+  LOADK R22 K30 ["position-top-left clip"]
+  SETTABLEKS R22 R21 K11 ["tag"]
+  LOADK R23 K31 ["%*--left-gradient"]
+  GETTABLEKS R25 R1 K19 ["testId"]
+  NAMECALL R23 R23 K22 ["format"]
+  CALL R23 2 1
+  MOVE R22 R23
+  SETTABLEKS R22 R21 K19 ["testId"]
+  DUPTABLE R22 K33 [{"Image"}]
+  GETUPVAL R24 6
+  GETTABLEKS R23 R24 K10 ["createElement"]
+  GETUPVAL R24 12
+  DUPTABLE R25 K34 [{"Image", "Size", "tag"}]
+  LOADK R26 K35 ["rbxasset://textures/ui/Controls/RadialFill.png"]
+  SETTABLEKS R26 R25 K32 ["Image"]
+  GETIMPORT R26 K28 [UDim2.fromScale]
+  LOADN R27 2
+  LOADN R28 1
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K17 ["Size"]
+  LOADK R26 K36 ["content-emphasis position-top-left"]
+  SETTABLEKS R26 R25 K11 ["tag"]
+  DUPTABLE R26 K38 [{"Gradient"}]
+  GETUPVAL R28 6
+  GETTABLEKS R27 R28 K10 ["createElement"]
+  GETUPVAL R28 13
+  DUPTABLE R29 K44 [{"side", "isIndeterminate", "rotation", "progress", "pulse"}]
+  GETIMPORT R30 K48 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R30 R29 K39 ["side"]
+  SETTABLEKS R6 R29 K40 ["isIndeterminate"]
+  SETTABLEKS R8 R29 K41 ["rotation"]
+  SETTABLEKS R7 R29 K42 ["progress"]
+  SETTABLEKS R9 R29 K43 ["pulse"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K37 ["Gradient"]
+  CALL R23 3 1
+  SETTABLEKS R23 R22 K32 ["Image"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K23 ["LeftGradient"]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K10 ["createElement"]
+  GETUPVAL R20 10
+  DUPTABLE R21 K26 [{"Size", "tag", "testId"}]
+  GETIMPORT R22 K28 [UDim2.fromScale]
+  LOADK R23 K29 [0.5]
+  LOADN R24 1
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K17 ["Size"]
+  LOADK R22 K49 ["clip position-top-center"]
+  SETTABLEKS R22 R21 K11 ["tag"]
+  LOADK R23 K50 ["%*--right-gradient"]
+  GETTABLEKS R25 R1 K19 ["testId"]
+  NAMECALL R23 R23 K22 ["format"]
+  CALL R23 2 1
+  MOVE R22 R23
+  SETTABLEKS R22 R21 K19 ["testId"]
+  DUPTABLE R22 K33 [{"Image"}]
+  GETUPVAL R24 6
+  GETTABLEKS R23 R24 K10 ["createElement"]
+  GETUPVAL R24 12
+  DUPTABLE R25 K52 [{"Image", "Size", "Position", "tag"}]
+  LOADK R26 K35 ["rbxasset://textures/ui/Controls/RadialFill.png"]
+  SETTABLEKS R26 R25 K32 ["Image"]
+  GETIMPORT R26 K28 [UDim2.fromScale]
+  LOADN R27 2
+  LOADN R28 1
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K17 ["Size"]
+  GETIMPORT R26 K28 [UDim2.fromScale]
+  LOADN R27 255
+  LOADN R28 0
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K51 ["Position"]
+  LOADK R26 K53 ["content-emphasis"]
+  SETTABLEKS R26 R25 K11 ["tag"]
+  DUPTABLE R26 K38 [{"Gradient"}]
+  GETUPVAL R28 6
+  GETTABLEKS R27 R28 K10 ["createElement"]
+  GETUPVAL R28 13
+  DUPTABLE R29 K44 [{"side", "isIndeterminate", "rotation", "progress", "pulse"}]
+  GETIMPORT R30 K55 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R30 R29 K39 ["side"]
+  SETTABLEKS R6 R29 K40 ["isIndeterminate"]
+  SETTABLEKS R8 R29 K41 ["rotation"]
+  SETTABLEKS R7 R29 K42 ["progress"]
+  SETTABLEKS R9 R29 K43 ["pulse"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K37 ["Gradient"]
+  CALL R23 3 1
+  SETTABLEKS R23 R22 K32 ["Image"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K24 ["RightGradient"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K15 ["IndeterminateContainer"]
+  CALL R11 3 -1
+  RETURN R11 -1
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K10 ["createElement"]
+  GETUPVAL R12 10
+  GETUPVAL R13 11
+  MOVE R14 R1
+  DUPTABLE R15 K56 [{"Size", "ref"}]
+  SETTABLEKS R10 R15 K17 ["Size"]
+  GETTABLEKS R16 R1 K12 ["ref"]
+  SETTABLEKS R16 R15 K12 ["ref"]
+  CALL R13 2 1
+  DUPTABLE R14 K58 [{"LeftGradient", "RightGradient", "ProgressLabel"}]
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 10
+  DUPTABLE R17 K26 [{"Size", "tag", "testId"}]
+  GETIMPORT R18 K28 [UDim2.fromScale]
+  LOADK R19 K29 [0.5]
+  LOADN R20 1
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K17 ["Size"]
+  LOADK R18 K30 ["position-top-left clip"]
+  SETTABLEKS R18 R17 K11 ["tag"]
+  LOADK R19 K31 ["%*--left-gradient"]
+  GETTABLEKS R21 R1 K19 ["testId"]
+  NAMECALL R19 R19 K22 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  SETTABLEKS R18 R17 K19 ["testId"]
+  DUPTABLE R18 K33 [{"Image"}]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K10 ["createElement"]
+  GETUPVAL R20 12
+  DUPTABLE R21 K34 [{"Image", "Size", "tag"}]
+  LOADK R22 K35 ["rbxasset://textures/ui/Controls/RadialFill.png"]
+  SETTABLEKS R22 R21 K32 ["Image"]
+  GETIMPORT R22 K28 [UDim2.fromScale]
+  LOADN R23 2
+  LOADN R24 1
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K17 ["Size"]
+  LOADK R22 K36 ["content-emphasis position-top-left"]
+  SETTABLEKS R22 R21 K11 ["tag"]
+  DUPTABLE R22 K38 [{"Gradient"}]
+  GETUPVAL R24 6
+  GETTABLEKS R23 R24 K10 ["createElement"]
+  GETUPVAL R24 13
+  DUPTABLE R25 K44 [{"side", "isIndeterminate", "rotation", "progress", "pulse"}]
+  GETIMPORT R26 K48 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R26 R25 K39 ["side"]
+  SETTABLEKS R6 R25 K40 ["isIndeterminate"]
+  SETTABLEKS R8 R25 K41 ["rotation"]
+  SETTABLEKS R5 R25 K42 ["progress"]
+  SETTABLEKS R9 R25 K43 ["pulse"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K37 ["Gradient"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K32 ["Image"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K23 ["LeftGradient"]
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 10
+  DUPTABLE R17 K26 [{"Size", "tag", "testId"}]
+  GETIMPORT R18 K28 [UDim2.fromScale]
+  LOADK R19 K29 [0.5]
+  LOADN R20 1
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K17 ["Size"]
+  LOADK R18 K49 ["clip position-top-center"]
+  SETTABLEKS R18 R17 K11 ["tag"]
+  LOADK R19 K50 ["%*--right-gradient"]
+  GETTABLEKS R21 R1 K19 ["testId"]
+  NAMECALL R19 R19 K22 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  SETTABLEKS R18 R17 K19 ["testId"]
+  DUPTABLE R18 K33 [{"Image"}]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K10 ["createElement"]
+  GETUPVAL R20 12
+  DUPTABLE R21 K52 [{"Image", "Size", "Position", "tag"}]
+  LOADK R22 K35 ["rbxasset://textures/ui/Controls/RadialFill.png"]
+  SETTABLEKS R22 R21 K32 ["Image"]
+  GETIMPORT R22 K28 [UDim2.fromScale]
+  LOADN R23 2
+  LOADN R24 1
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K17 ["Size"]
+  GETIMPORT R22 K28 [UDim2.fromScale]
+  LOADN R23 255
+  LOADN R24 0
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K51 ["Position"]
+  LOADK R22 K53 ["content-emphasis"]
+  SETTABLEKS R22 R21 K11 ["tag"]
+  DUPTABLE R22 K38 [{"Gradient"}]
+  GETUPVAL R24 6
+  GETTABLEKS R23 R24 K10 ["createElement"]
+  GETUPVAL R24 13
+  DUPTABLE R25 K44 [{"side", "isIndeterminate", "rotation", "progress", "pulse"}]
+  GETIMPORT R26 K55 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R26 R25 K39 ["side"]
+  SETTABLEKS R6 R25 K40 ["isIndeterminate"]
+  SETTABLEKS R8 R25 K41 ["rotation"]
+  SETTABLEKS R5 R25 K42 ["progress"]
+  SETTABLEKS R9 R25 K43 ["pulse"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K37 ["Gradient"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K32 ["Image"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K24 ["RightGradient"]
+  GETTABLEKS R17 R4 K8 ["circle"]
+  GETTABLEKS R16 R17 K59 ["labelFont"]
+  JUMPIFNOT R16 [+23]
+  JUMPIF R6 [+22]
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K10 ["createElement"]
+  GETUPVAL R16 14
+  DUPTABLE R17 K62 [{"Text", "fontStyle", "tag"}]
+  DUPCLOSURE R20 K63 [PROTO_6]
+  NAMECALL R18 R5 K64 ["map"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K60 ["Text"]
+  GETTABLEKS R19 R4 K8 ["circle"]
+  GETTABLEKS R18 R19 K59 ["labelFont"]
+  SETTABLEKS R18 R17 K61 ["fontStyle"]
+  LOADK R18 K65 ["anchor-center-center position-center-center"]
+  SETTABLEKS R18 R17 K11 ["tag"]
+  CALL R15 2 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K57 ["ProgressLabel"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["View"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Image"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K11 ["Text"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K8 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Types"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R10 R0 K13 ["Providers"]
+  GETTABLEKS R9 R10 K14 ["Style"]
+  GETTABLEKS R8 R9 K15 ["useTokens"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R11 R0 K13 ["Providers"]
+  GETTABLEKS R10 R11 K16 ["Preferences"]
+  GETTABLEKS R9 R10 K17 ["usePreferences"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K4 ["Parent"]
+  GETTABLEKS R10 R11 K18 ["useProgressBinding"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K19 ["Utility"]
+  GETTABLEKS R11 R12 K20 ["usePulseBinding"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K19 ["Utility"]
+  GETTABLEKS R12 R13 K21 ["useRotation"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K19 ["Utility"]
+  GETTABLEKS R13 R14 K22 ["withCommonProps"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K4 ["Parent"]
+  GETTABLEKS R14 R15 K23 ["useProgressVariants"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R16 R0 K19 ["Utility"]
+  GETTABLEKS R15 R16 K24 ["withDefaults"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETIMPORT R18 K1 [script]
+  GETTABLEKS R17 R18 K4 ["Parent"]
+  GETTABLEKS R16 R17 K25 ["constants"]
+  CALL R15 1 1
+  GETIMPORT R16 K6 [require]
+  GETTABLEKS R18 R0 K26 ["Enums"]
+  GETTABLEKS R17 R18 K27 ["ProgressShape"]
+  CALL R16 1 1
+  GETIMPORT R17 K6 [require]
+  GETTABLEKS R19 R0 K26 ["Enums"]
+  GETTABLEKS R18 R19 K28 ["ProgressSize"]
+  CALL R17 1 1
+  DUPTABLE R18 K30 [{"size"}]
+  GETTABLEKS R19 R17 K31 ["Medium"]
+  SETTABLEKS R19 R18 K29 ["size"]
+  DUPCLOSURE R19 K32 [PROTO_5]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  DUPCLOSURE R20 K33 [PROTO_7]
+  CAPTURE VAL R14
+  CAPTURE VAL R18
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE VAL R15
+  CAPTURE VAL R3
+  CAPTURE VAL R12
+  CAPTURE VAL R4
+  CAPTURE VAL R19
+  CAPTURE VAL R5
+  RETURN R20 1

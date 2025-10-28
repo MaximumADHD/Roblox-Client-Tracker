@@ -19,18 +19,29 @@ local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
 local DropdownControl = require(script.Parent.DropdownControl)
+local markSelectedItem = require(script.Parent.markSelectedItem)
 
-type BaseMenuItem = BaseMenu.BaseMenuItem
 type ItemId = Types.ItemId
 type OnItemActivated = Types.OnItemActivated
-export type DropdownItem = BaseMenuItem
+type BaseMenuItem = BaseMenu.BaseMenuItem
+type BaseMenuItems<Item> = BaseMenu.BaseMenuItems<Item>
+type BaseMenuItemGroup<Item> = BaseMenu.BaseMenuItemGroup<Item>
+export type DropdownItem = {
+	id: ItemId,
+	icon: string?,
+	isDisabled: boolean?,
+	isChecked: boolean?,
+	text: string,
+}
+export type DropdownItemGroup = BaseMenuItemGroup<DropdownItem>
+export type DropdownItems = BaseMenuItems<DropdownItem>
 
 export type DropdownProps = {
 	-- The value of the currently selected dropdown item.
 	-- If `nil`, the dropdown will be considered uncontrolled.
 	value: Types.ItemId?,
 	placeholder: string?,
-	items: { DropdownItem },
+	items: DropdownItems,
 	onItemChanged: OnItemActivated,
 	-- Whether the dropdown is in an error state
 	hasError: boolean?,
@@ -61,11 +72,26 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 	-- This may cause blinking for UDim.new(1, 0) size if the menu is open from the start. Shouldn't be the case?
 	local absoluteWidth, setAbsoluteWidth = React.useBinding(props.width)
 
-	local selectedItem = React.useMemo(function()
-		return Dash.find(props.items, function(item)
-			return item.id == props.value
+	local items, selectedItem
+
+	if Flags.FoundationDropdownGroups then
+		items, selectedItem = markSelectedItem(props.items, props.value)
+	else
+		items = Dash.map(props.items, function(item)
+			return {
+				id = item.id,
+				icon = item.icon,
+				text = item.text,
+				isDisabled = item.isDisabled,
+				isChecked = item.id == props.value,
+			}
 		end)
-	end, { props.value :: any, props.items })
+		selectedItem = React.useMemo(function()
+			return Dash.find(props.items, function(item)
+				return item.id == props.value
+			end)
+		end, { props.value :: any, props.items })
+	end
 
 	local toggleIsMenuOpen = React.useCallback(function()
 		setIsMenuOpen(function(oldValue)
@@ -129,15 +155,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				size = props.size,
 				couldGrow = if Flags.FoundationMenuWidthGrowth then true else nil,
 				width = if Flags.FoundationMenuWidthGrowth then absoluteWidth else props.width,
-				items = Dash.map(props.items, function(item)
-					return {
-						id = item.id,
-						icon = item.icon,
-						text = item.text,
-						isDisabled = item.isDisabled,
-						isChecked = item.id == props.value,
-					}
-				end),
+				items = items,
 				maxHeight = props.maxHeight,
 				onActivated = onActivated,
 				testId = `{props.testId}--menu`,

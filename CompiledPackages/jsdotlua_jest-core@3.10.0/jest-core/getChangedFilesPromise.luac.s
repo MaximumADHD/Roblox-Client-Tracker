@@ -1,0 +1,26 @@
+PROTO_0:
+  LOADNIL R2
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  LOADK R3 K5 ["luau-polyfill"]
+  NAMECALL R1 R1 K6 ["WaitForChild"]
+  CALL R1 2 -1
+  CALL R0 -1 1
+  NEWTABLE R1 1 0
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  LOADK R5 K7 ["jest-types"]
+  NAMECALL R3 R3 K6 ["WaitForChild"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  DUPCLOSURE R3 K8 [PROTO_0]
+  SETTABLEKS R3 R1 K9 ["default"]
+  RETURN R1 1

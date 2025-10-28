@@ -324,7 +324,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 				layoutOrder = 1,
 				size = vectorToPosition(headerSize),
 				fluidSizing = false,
-				richText = false,
+				richText = if UIBloxConfig.enableTooltipRichText then props.enableHeaderRichText else false,
 				lineHeight = 1,
 			}),
 			Body = props.bodyText and React.createElement(StyledTextLabel, {
@@ -337,7 +337,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 				layoutOrder = 2,
 				size = vectorToPosition(bodySize),
 				fluidSizing = false,
-				richText = false,
+				richText = if UIBloxConfig.enableTooltipRichText then props.enableBodyRichText else false,
 				lineHeight = 1,
 			}),
 			Additional = additionalContent,

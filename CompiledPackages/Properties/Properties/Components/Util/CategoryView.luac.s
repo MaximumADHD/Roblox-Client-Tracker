@@ -106,13 +106,15 @@ PROTO_2:
   CALL R4 2 1
   GETUPVAL R5 4
   GETUPVAL R6 3
-  DUPTABLE R7 K5 [{"tag"}]
-  LOADK R8 K6 ["col auto-y size-full-0 gap-none"]
+  DUPTABLE R7 K6 [{"tag", "LayoutOrder"}]
+  LOADK R8 K7 ["col auto-y size-full-0 gap-none"]
   SETTABLEKS R8 R7 K4 ["tag"]
-  DUPTABLE R8 K8 [{"SectionHeader"}]
-  SETTABLEKS R4 R8 K7 ["SectionHeader"]
+  GETTABLEKS R8 R0 K2 ["layoutOrder"]
+  SETTABLEKS R8 R7 K5 ["LayoutOrder"]
+  DUPTABLE R8 K9 [{"SectionHeader"}]
+  SETTABLEKS R4 R8 K8 ["SectionHeader"]
   JUMPIFNOT R1 [+3]
-  GETTABLEKS R9 R0 K9 ["children"]
+  GETTABLEKS R9 R0 K10 ["children"]
   JUMP [+1]
   LOADNIL R9
   CALL R5 4 -1

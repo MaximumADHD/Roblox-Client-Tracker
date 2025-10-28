@@ -6,7 +6,7 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  DUPTABLE R6 K19 [{"_isMock", "_pluginController", "_layoutController", "_itemsController", "_searchController", "_explorerController", "_pressedKeys", "_lastPressed", "_lastClickMousePosition", "_lastZone", "_isDragging", "_doubleClickDetector", "_resolvingDoubleClick", "isDoubleClick", "clickDelay", "_keyHoldDetector", "OnDrag", "OnDrop", "OnEnterViewport"}]
+  DUPTABLE R6 K20 [{"_isMock", "_pluginController", "_layoutController", "_itemsController", "_searchController", "_explorerController", "_pressedKeys", "_lastPressed", "_lastClickMousePosition", "_lastZone", "_isDragging", "_doubleClickDetector", "_doubleClickQueued", "_resolvingDoubleClick", "isDoubleClick", "clickDelay", "_keyHoldDetector", "OnDrag", "OnDrop", "OnEnterViewport"}]
   SETTABLEKS R5 R6 K0 ["_isMock"]
   SETTABLEKS R0 R6 K1 ["_pluginController"]
   SETTABLEKS R1 R6 K2 ["_layoutController"]
@@ -15,9 +15,9 @@ PROTO_1:
   SETTABLEKS R4 R6 K5 ["_explorerController"]
   NEWTABLE R7 0 0
   SETTABLEKS R7 R6 K6 ["_pressedKeys"]
-  GETIMPORT R7 K23 [Enum.KeyCode.Unknown]
+  GETIMPORT R7 K24 [Enum.KeyCode.Unknown]
   SETTABLEKS R7 R6 K7 ["_lastPressed"]
-  GETIMPORT R7 K26 [Vector2.new]
+  GETIMPORT R7 K27 [Vector2.new]
   CALL R7 0 1
   SETTABLEKS R7 R6 K8 ["_lastClickMousePosition"]
   LOADNIL R7
@@ -25,40 +25,42 @@ PROTO_1:
   LOADB R7 0
   SETTABLEKS R7 R6 K10 ["_isDragging"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K25 ["new"]
+  GETTABLEKS R7 R8 K26 ["new"]
   CALL R7 0 1
   SETTABLEKS R7 R6 K11 ["_doubleClickDetector"]
   LOADB R7 0
-  SETTABLEKS R7 R6 K12 ["_resolvingDoubleClick"]
+  SETTABLEKS R7 R6 K12 ["_doubleClickQueued"]
   LOADB R7 0
-  SETTABLEKS R7 R6 K13 ["isDoubleClick"]
-  LOADK R7 K27 [0.2]
-  SETTABLEKS R7 R6 K14 ["clickDelay"]
+  SETTABLEKS R7 R6 K13 ["_resolvingDoubleClick"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K14 ["isDoubleClick"]
+  LOADK R7 K28 [0.2]
+  SETTABLEKS R7 R6 K15 ["clickDelay"]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K25 ["new"]
+  GETTABLEKS R7 R8 K26 ["new"]
   CALL R7 0 1
-  SETTABLEKS R7 R6 K15 ["_keyHoldDetector"]
+  SETTABLEKS R7 R6 K16 ["_keyHoldDetector"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K25 ["new"]
+  GETTABLEKS R7 R8 K26 ["new"]
   CALL R7 0 1
-  SETTABLEKS R7 R6 K16 ["OnDrag"]
+  SETTABLEKS R7 R6 K17 ["OnDrag"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K25 ["new"]
+  GETTABLEKS R7 R8 K26 ["new"]
   CALL R7 0 1
-  SETTABLEKS R7 R6 K17 ["OnDrop"]
+  SETTABLEKS R7 R6 K18 ["OnDrop"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K25 ["new"]
+  GETTABLEKS R7 R8 K26 ["new"]
   CALL R7 0 1
-  SETTABLEKS R7 R6 K18 ["OnEnterViewport"]
+  SETTABLEKS R7 R6 K19 ["OnEnterViewport"]
   GETUPVAL R9 3
   FASTCALL2 SETMETATABLE R6 R9 [+4]
   MOVE R8 R6
-  GETIMPORT R7 K29 [setmetatable]
+  GETIMPORT R7 K30 [setmetatable]
   CALL R7 2 0
-  GETTABLEKS R7 R6 K15 ["_keyHoldDetector"]
+  GETTABLEKS R7 R6 K16 ["_keyHoldDetector"]
   NEWCLOSURE R9 P0
   CAPTURE VAL R6
-  NAMECALL R7 R7 K30 ["setCallback"]
+  NAMECALL R7 R7 K31 ["setCallback"]
   CALL R7 2 0
   RETURN R6 1
 
@@ -277,19 +279,37 @@ PROTO_12:
   RETURN R0 0
 
 PROTO_13:
+  GETTABLEKS R1 R0 K0 ["_layoutController"]
+  NAMECALL R1 R1 K1 ["getIsCompact"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["_layoutController"]
+  NAMECALL R1 R1 K2 ["toggleSidebar"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_14:
   PREPVARARGS 2
   SETTABLEKS R1 R0 K0 ["_lastZone"]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K1 ["UiZone"]
   GETTABLEKS R2 R3 K2 ["Filter"]
-  JUMPIFNOTEQ R1 R2 [+7]
+  JUMPIFNOTEQ R1 R2 [+8]
   GETTABLEKS R2 R0 K3 ["_itemsController"]
   GETVARARGS R4 -1
   NAMECALL R2 R2 K4 ["toggleFilter"]
   CALL R2 -1 0
   RETURN R0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["UiZone"]
+  GETTABLEKS R2 R3 K5 ["Explorer"]
+  JUMPIFNOTEQ R1 R2 [+5]
+  GETVARARGS R4 -1
+  NAMECALL R2 R0 K6 ["_handleExplorerClick"]
+  CALL R2 -1 0
+  RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   PREPVARARGS 2
   GETTABLEKS R2 R0 K0 ["_resolvingDoubleClick"]
   JUMPIFNOT R2 [+1]
@@ -322,7 +342,7 @@ PROTO_14:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   PREPVARARGS 2
   GETTABLEKS R2 R0 K0 ["_resolvingDoubleClick"]
   JUMPIFNOT R2 [+1]
@@ -361,7 +381,7 @@ PROTO_15:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_17:
   PREPVARARGS 2
   SETTABLEKS R1 R0 K0 ["_lastZone"]
   GETUPVAL R4 0
@@ -374,7 +394,7 @@ PROTO_16:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_18:
   PREPVARARGS 2
   GETTABLEKS R2 R0 K0 ["_pressedKeys"]
   GETIMPORT R3 K4 [Enum.KeyCode.MouseRightButton]
@@ -382,7 +402,7 @@ PROTO_17:
   SETTABLE R4 R2 R3
   RETURN R0 0
 
-PROTO_18:
+PROTO_19:
   PREPVARARGS 2
   SETTABLEKS R1 R0 K0 ["_lastZone"]
   GETTABLEKS R2 R0 K1 ["_pressedKeys"]
@@ -451,19 +471,21 @@ MAIN:
   DUPCLOSURE R9 K40 [PROTO_12]
   SETTABLEKS R9 R8 K41 ["_waitForSelectionDoubleClick"]
   DUPCLOSURE R9 K42 [PROTO_13]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K43 ["handleMouse1Click"]
+  SETTABLEKS R9 R8 K43 ["_handleExplorerClick"]
   DUPCLOSURE R9 K44 [PROTO_14]
   CAPTURE VAL R6
-  SETTABLEKS R9 R8 K45 ["handleMouse1Down"]
+  SETTABLEKS R9 R8 K45 ["handleMouse1Click"]
   DUPCLOSURE R9 K46 [PROTO_15]
   CAPTURE VAL R6
-  SETTABLEKS R9 R8 K47 ["handleMouse1Up"]
+  SETTABLEKS R9 R8 K47 ["handleMouse1Down"]
   DUPCLOSURE R9 K48 [PROTO_16]
   CAPTURE VAL R6
-  SETTABLEKS R9 R8 K49 ["handleMouse2Click"]
+  SETTABLEKS R9 R8 K49 ["handleMouse1Up"]
   DUPCLOSURE R9 K50 [PROTO_17]
-  SETTABLEKS R9 R8 K51 ["handleMouse2Down"]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R8 K51 ["handleMouse2Click"]
   DUPCLOSURE R9 K52 [PROTO_18]
-  SETTABLEKS R9 R8 K53 ["handleMouse2Up"]
+  SETTABLEKS R9 R8 K53 ["handleMouse2Down"]
+  DUPCLOSURE R9 K54 [PROTO_19]
+  SETTABLEKS R9 R8 K55 ["handleMouse2Up"]
   RETURN R8 1

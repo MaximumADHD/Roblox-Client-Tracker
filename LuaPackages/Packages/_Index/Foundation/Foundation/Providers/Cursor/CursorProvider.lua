@@ -19,8 +19,6 @@ type CursorType = CursorType.CursorType
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local Types = require(Foundation.Components.Types)
 
-local Flags = require(Foundation.Utility.Flags)
-
 type Props = {
 	children: React.ReactNode,
 }
@@ -89,9 +87,7 @@ local function CursorProvider(props: Props)
 			return
 		end
 
-		local isDescendantOfCoreGui = if Flags.FoundationCheckCoreGuiAccessCursorProvider
-			then isPluginSecurity() and frameRef.current:IsDescendantOf(CoreGui)
-			else frameRef.current:IsDescendantOf(CoreGui)
+		local isDescendantOfCoreGui = isPluginSecurity() and frameRef.current:IsDescendantOf(CoreGui)
 
 		local function setUpSelectionImageObjectConnection()
 			-- Listen to different signals depending on whether it's under CoreGui or PlayerGui.

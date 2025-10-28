@@ -21,14 +21,27 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 	local innerScrollingEnabled = sheet.innerScrollingEnabled
 	local setInnerScrollY = sheet.setInnerScrollY
 	local actionsHeight = sheet.actionsHeight
+	local setHasActionsDivider = sheet.setHasActionsDivider
 	local bottomPadding = sheet.bottomPadding
 	local hasHeader = sheet.hasHeader
 	local sheetType = sheet.sheetType
 	local testId = sheet.testId
 	assert(
-		innerScrollingEnabled and setInnerScrollY and actionsHeight and bottomPadding and hasHeader and testId,
+		innerScrollingEnabled
+			and setInnerScrollY
+			and actionsHeight
+			and setHasActionsDivider
+			and bottomPadding
+			and hasHeader
+			and testId,
 		"SheetContent must be used within a Sheet"
 	)
+
+	local updateHasActionsDivider = React.useCallback(function(rbx: ScrollingFrame)
+		local canvasSizeY = rbx.AbsoluteCanvasSize.Y
+		local windowSizeY = rbx.AbsoluteWindowSize.Y
+		setHasActionsDivider(canvasSizeY > windowSizeY + 1)
+	end, { setHasActionsDivider })
 
 	local isBottomSheet = sheetType == SheetType.Bottom
 
@@ -56,10 +69,12 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 				left = UDim.new(0, tokens.Padding.Small),
 				right = UDim.new(0, tokens.Padding.Small),
 			},
-			ClipsDescendants = hasHeader,
+			ClipsDescendants = if isBottomSheet then hasHeader else true,
 			onCanvasPositionChanged = function(rbx: ScrollingFrame)
 				setInnerScrollY(rbx.CanvasPosition.Y)
 			end,
+			onAbsoluteCanvasSizeChanged = updateHasActionsDivider,
+			onAbsoluteWindowSizeChanged = updateHasActionsDivider,
 			testId = `{testId}--content`,
 			tag = "size-full-0 auto-y fill",
 			ref = ref,

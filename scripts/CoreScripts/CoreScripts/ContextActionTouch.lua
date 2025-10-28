@@ -10,7 +10,6 @@ local contextActionService = game:GetService("ContextActionService")
 local userInputService = game:GetService("UserInputService")
 local playersService = game:GetService("Players")
 local guiService = game:GetService("GuiService")
-local FFlagCASTouchButtonsUsePreferredInput = game:DefineFastFlag("CASTouchButtonsUsePreferredInput", false)
 local FFlagFixCASGetButtonYielded = game:GetEngineFeature("FixCASGetButtonYielded")
 local FFlagFixCASMaxTouchButtons = game:DefineFastFlag("FixCASMaxTouchButtons", false)
 
@@ -60,7 +59,7 @@ end
 local playerGui = CoreUtility.waitForChildOfClass(localPlayer, "PlayerGui")
 
 function createContextActionGui()
-	if not buttonScreenGui and (isTouchDevice or FFlagCASTouchButtonsUsePreferredInput) then
+	if not buttonScreenGui then
 		buttonScreenGui = Instance.new("ScreenGui")
 		buttonScreenGui.Name = "ContextActionGui"
 		buttonScreenGui.ResetOnSpawn = false
@@ -71,8 +70,6 @@ function createContextActionGui()
 		buttonFrame.Position = UDim2.new(0.7,0,0.5,0)
 		buttonFrame.Name = "ContextButtonFrame"
 		buttonFrame.Parent = buttonScreenGui
-
-		if FFlagCASTouchButtonsUsePreferredInput then
 			local updateButtonsVisible = function()
 				buttonFrame.Visible = (userInputService.PreferredInput == Enum.PreferredInput.Touch) and guiService.TouchControlsEnabled
 			end
@@ -80,12 +77,6 @@ function createContextActionGui()
 			guiService:GetPropertyChangedSignal("TouchControlsEnabled"):Connect(updateButtonsVisible)
 			userInputService:GetPropertyChangedSignal("PreferredInput"):Connect(updateButtonsVisible)
 			updateButtonsVisible()
-		else
-			buttonFrame.Visible = guiService.TouchControlsEnabled
-			guiService:GetPropertyChangedSignal("TouchControlsEnabled"):Connect(function()
-				buttonFrame.Visible = guiService.TouchControlsEnabled
-			end)
-		end
 	end
 end
 
@@ -318,7 +309,7 @@ function addAction(actionName,createTouchButton,functionInfoTable)
 		removeAction(actionName)
 	end
 	functionTable[actionName] = {functionInfoTable}
-	if createTouchButton and (isTouchDevice or FFlagCASTouchButtonsUsePreferredInput) then
+	if createTouchButton then
 		createContextActionGui()
 		createButton(actionName, functionInfoTable)
 	end

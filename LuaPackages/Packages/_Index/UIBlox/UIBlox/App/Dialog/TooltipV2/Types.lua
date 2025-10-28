@@ -46,6 +46,10 @@ export type TooltipPublicProps = {
 	onClose: (() -> ())?,
 	-- ensure the tooltip content has a minimum width provided
 	minContentWidth: number?,
+	-- enable rich text for header text
+	enableHeaderRichText: boolean?,
+	-- enable rich text for body text
+	enableBodyRichText: boolean?,
 }
 
 -- values controlled by animation

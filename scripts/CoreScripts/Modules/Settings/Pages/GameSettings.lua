@@ -83,6 +83,7 @@ local FFlagGameSettingsRefactorMovementModeLogic = SettingsFlags.FFlagGameSettin
 local FFlagGameSettingsRespectDevModes = SettingsFlags.FFlagGameSettingsRespectDevModes
 local GetFFlagEnableVoiceUxUpdates = SharedFlags.GetFFlagEnableVoiceUxUpdates
 local GetFFlagEnableVrVoiceConnectDisconnect = SharedFlags.GetFFlagEnableVrVoiceConnectDisconnect
+local FFlagEnableNewBadgeVisibilityCopy = game:DefineFastFlag("EnableNewBadgeVisibilityCopy", false)
 local FFlagEnableVoiceSelectorTranslations = game:DefineFastFlag("EnableVoiceSelectorTranslations_AEGIS2", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
@@ -1070,7 +1071,7 @@ local function Initialize()
 
 	local function createMicroProfilerOptions()
 		------------------
-		------------------ Micro Profiler Web Server -----------------
+		------------------ MicroProfiler Web Server -----------------
 		this.MicroProfilerFrame, this.MicroProfilerLabel, this.MicroProfilerMode, this.MicroProfilerOverrideText = nil
 
 		local function tryContentLabel()
@@ -1207,7 +1208,7 @@ local function Initialize()
 		end
 
 		this.MicroProfilerMode.IndexChanged:connect(onIndexChanged)
-	end -- of create Micro Profiler Web Server
+	end -- of create MicroProfiler Web Server
 
 	local function createCameraModeOptions(movementModeEnabled)
 		------------------------------------------------------
@@ -3282,10 +3283,10 @@ local function Initialize()
 			if PlayerPermissionsModule.IsPlayerInExperienceNameEnabledAsync(LocalPlayer) then
 				isInExperienceNameEnabled = 1
 			end
-			local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
-			local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
+			local onLabel = if FFlagEnableNewBadgeVisibilityCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Show") else RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+			local offLabel = if FFlagEnableNewBadgeVisibilityCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Hide") else RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
 			local badgeDisplayLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.DisplayBadges")
-			local badgeDisplayDescription = RobloxTranslator:FormatByKey("Feature.SettingsHub.Description.DisplayBadges")
+			local badgeDisplayDescription = if FFlagEnableNewBadgeVisibilityCopy then RobloxTranslator:FormatByKey("Feature.SettingsHub.Description.PeoplesNames") else RobloxTranslator:FormatByKey("Feature.SettingsHub.Description.DisplayBadges")
 			this.badgeVisibleRow, this.badgeVisibleFrame, this.badgeVisibleSelector =
 				utility:AddNewRow(this, badgeDisplayLabel, "Selector", { offLabel, onLabel }, isInExperienceNameEnabled, nil, badgeDisplayDescription)
 			this.badgeVisibleRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["BadgeVisibilityFrame"]

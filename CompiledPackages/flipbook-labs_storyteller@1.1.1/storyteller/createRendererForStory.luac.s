@@ -1,0 +1,69 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["packages"]
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R1 R0 K0 ["packages"]
+  JUMP [+4]
+  GETTABLEKS R2 R0 K1 ["storybook"]
+  GETTABLEKS R1 R2 K0 ["packages"]
+  JUMPIFNOT R1 [+24]
+  GETTABLEKS R2 R1 K2 ["Roact"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 0
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+  GETTABLEKS R2 R1 K3 ["React"]
+  JUMPIFNOT R2 [+7]
+  GETTABLEKS R2 R1 K4 ["ReactRoblox"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 1
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+  GETTABLEKS R2 R1 K5 ["Fusion"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 2
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+  GETUPVAL R2 3
+  CALL R2 0 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["renderers"]
+  GETTABLEKS R1 R2 K6 ["createFusionRenderer"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K5 ["renderers"]
+  GETTABLEKS R2 R3 K7 ["createManualRenderer"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K5 ["renderers"]
+  GETTABLEKS R3 R4 K8 ["createReactRenderer"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K5 ["renderers"]
+  GETTABLEKS R4 R5 K9 ["createRoactRenderer"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K10 ["types"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K11 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  RETURN R5 1

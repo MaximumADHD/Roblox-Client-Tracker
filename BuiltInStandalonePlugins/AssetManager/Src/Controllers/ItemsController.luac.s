@@ -423,159 +423,157 @@ PROTO_17:
   SETTABLEKS R6 R5 K12 ["_selectStartIndex"]
   LOADN R6 1
   SETTABLEKS R6 R5 K13 ["_selectEndIndex"]
-  DUPTABLE R6 K30 [{"modsPressed", "targetAssetId", "doubleClickQueued"}]
-  DUPTABLE R7 K33 [{"Shift", "Ctrl"}]
+  DUPTABLE R6 K29 [{"modsPressed", "targetAssetId"}]
+  DUPTABLE R7 K32 [{"Shift", "Ctrl"}]
   LOADB R8 0
-  SETTABLEKS R8 R7 K31 ["Shift"]
+  SETTABLEKS R8 R7 K30 ["Shift"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K32 ["Ctrl"]
+  SETTABLEKS R8 R7 K31 ["Ctrl"]
   SETTABLEKS R7 R6 K27 ["modsPressed"]
   LOADN R7 255
   SETTABLEKS R7 R6 K28 ["targetAssetId"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K29 ["doubleClickQueued"]
   SETTABLEKS R6 R5 K14 ["_clickState"]
   LOADB R6 0
   SETTABLEKS R6 R5 K15 ["_isDragging"]
-  DUPTABLE R6 K37 [{"Action", "Source", "Position"}]
-  LOADK R7 K38 ["double_click"]
-  SETTABLEKS R7 R6 K34 ["Action"]
-  LOADK R7 K39 ["browse"]
-  SETTABLEKS R7 R6 K35 ["Source"]
+  DUPTABLE R6 K36 [{"Action", "Source", "Position"}]
+  LOADK R7 K37 ["double_click"]
+  SETTABLEKS R7 R6 K33 ["Action"]
+  LOADK R7 K38 ["browse"]
+  SETTABLEKS R7 R6 K34 ["Source"]
   LOADN R7 0
-  SETTABLEKS R7 R6 K36 ["Position"]
+  SETTABLEKS R7 R6 K35 ["Position"]
   SETTABLEKS R6 R5 K16 ["_analyticsState"]
   NEWTABLE R6 0 0
   SETTABLEKS R6 R5 K17 ["_connections"]
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K40 ["new"]
+  GETTABLEKS R6 R7 K39 ["new"]
   CALL R6 0 1
   SETTABLEKS R6 R5 K18 ["OnVisiblePropertiesChanged"]
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K40 ["new"]
+  GETTABLEKS R6 R7 K39 ["new"]
   CALL R6 0 1
   SETTABLEKS R6 R5 K19 ["OnItemsChanged"]
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K40 ["new"]
+  GETTABLEKS R6 R7 K39 ["new"]
   CALL R6 0 1
   SETTABLEKS R6 R5 K20 ["OnItemSelectionChanged"]
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K40 ["new"]
+  GETTABLEKS R6 R7 K39 ["new"]
   CALL R6 0 1
   SETTABLEKS R6 R5 K21 ["OnSortFilterChanged"]
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K40 ["new"]
+  GETTABLEKS R6 R7 K39 ["new"]
   CALL R6 0 1
   SETTABLEKS R6 R5 K22 ["OnCreatorsChanged"]
   GETUPVAL R8 3
   FASTCALL2 SETMETATABLE R5 R8 [+4]
   MOVE R7 R5
-  GETIMPORT R6 K42 [setmetatable]
+  GETIMPORT R6 K41 [setmetatable]
   CALL R6 2 0
   NEWCLOSURE R6 P0
   CAPTURE VAL R5
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  SETTABLEKS R6 R5 K43 ["_fetchAssetsCallback"]
-  DUPCLOSURE R6 K44 [PROTO_8]
+  SETTABLEKS R6 R5 K42 ["_fetchAssetsCallback"]
+  DUPCLOSURE R6 K43 [PROTO_8]
   CAPTURE UPVAL U6
   CAPTURE UPVAL U7
-  SETTABLEKS R6 R5 K45 ["_fetchAssetsErrorCallback"]
+  SETTABLEKS R6 R5 K44 ["_fetchAssetsErrorCallback"]
   GETTABLEKS R6 R5 K4 ["_networking"]
   GETTABLEKS R8 R5 K1 ["_pluginController"]
-  NAMECALL R8 R8 K46 ["getUser"]
+  NAMECALL R8 R8 K45 ["getUser"]
   CALL R8 1 1
-  GETTABLEKS R9 R5 K43 ["_fetchAssetsCallback"]
-  GETTABLEKS R10 R5 K45 ["_fetchAssetsErrorCallback"]
-  NAMECALL R6 R6 K47 ["fetchAssetsAsync"]
+  GETTABLEKS R9 R5 K42 ["_fetchAssetsCallback"]
+  GETTABLEKS R10 R5 K44 ["_fetchAssetsErrorCallback"]
+  NAMECALL R6 R6 K46 ["fetchAssetsAsync"]
   CALL R6 4 0
   GETTABLEKS R7 R5 K17 ["_connections"]
   GETTABLEKS R9 R5 K1 ["_pluginController"]
-  GETTABLEKS R8 R9 K48 ["OnCurrentScopeChanged"]
+  GETTABLEKS R8 R9 K47 ["OnCurrentScopeChanged"]
   NEWCLOSURE R10 P2
   CAPTURE VAL R5
   CAPTURE UPVAL U0
-  NAMECALL R8 R8 K49 ["Connect"]
+  NAMECALL R8 R8 K48 ["Connect"]
   CALL R8 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K52 [table.insert]
+  GETIMPORT R6 K51 [table.insert]
   CALL R6 -1 0
   GETTABLEKS R7 R5 K17 ["_connections"]
   GETTABLEKS R9 R5 K2 ["_searchController"]
-  GETTABLEKS R8 R9 K53 ["OnSearchRequested"]
+  GETTABLEKS R8 R9 K52 ["OnSearchRequested"]
   NEWCLOSURE R10 P3
   CAPTURE VAL R5
-  NAMECALL R8 R8 K49 ["Connect"]
+  NAMECALL R8 R8 K48 ["Connect"]
   CALL R8 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K52 [table.insert]
+  GETIMPORT R6 K51 [table.insert]
   CALL R6 -1 0
   GETTABLEKS R7 R5 K17 ["_connections"]
   GETTABLEKS R9 R5 K2 ["_searchController"]
-  GETTABLEKS R8 R9 K54 ["OnShowSearchOptionsChanged"]
+  GETTABLEKS R8 R9 K53 ["OnShowSearchOptionsChanged"]
   NEWCLOSURE R10 P4
   CAPTURE VAL R5
-  NAMECALL R8 R8 K49 ["Connect"]
+  NAMECALL R8 R8 K48 ["Connect"]
   CALL R8 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K52 [table.insert]
+  GETIMPORT R6 K51 [table.insert]
   CALL R6 -1 0
   GETTABLEKS R7 R5 K17 ["_connections"]
   GETTABLEKS R9 R5 K2 ["_searchController"]
-  GETTABLEKS R8 R9 K55 ["OnSearchClosed"]
+  GETTABLEKS R8 R9 K54 ["OnSearchClosed"]
   NEWCLOSURE R10 P5
   CAPTURE VAL R5
-  NAMECALL R8 R8 K49 ["Connect"]
+  NAMECALL R8 R8 K48 ["Connect"]
   CALL R8 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K52 [table.insert]
+  GETIMPORT R6 K51 [table.insert]
   CALL R6 -1 0
   GETTABLEKS R7 R5 K17 ["_connections"]
   GETTABLEKS R8 R5 K1 ["_pluginController"]
-  NAMECALL R8 R8 K56 ["getPlugin"]
+  NAMECALL R8 R8 K55 ["getPlugin"]
   CALL R8 1 1
-  LOADK R10 K57 ["OnAddPlaceSucceeded"]
+  LOADK R10 K56 ["OnAddPlaceSucceeded"]
   NEWCLOSURE R11 P6
   CAPTURE VAL R5
-  NAMECALL R8 R8 K58 ["OnInvoke"]
+  NAMECALL R8 R8 K57 ["OnInvoke"]
   CALL R8 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K52 [table.insert]
+  GETIMPORT R6 K51 [table.insert]
   CALL R6 -1 0
   GETTABLEKS R7 R5 K17 ["_connections"]
   GETTABLEKS R8 R5 K1 ["_pluginController"]
-  NAMECALL R8 R8 K56 ["getPlugin"]
+  NAMECALL R8 R8 K55 ["getPlugin"]
   CALL R8 1 1
-  LOADK R10 K59 ["OnRemovePlaceFromGameSucceeded"]
+  LOADK R10 K58 ["OnRemovePlaceFromGameSucceeded"]
   NEWCLOSURE R11 P7
   CAPTURE VAL R5
-  NAMECALL R8 R8 K58 ["OnInvoke"]
+  NAMECALL R8 R8 K57 ["OnInvoke"]
   CALL R8 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K52 [table.insert]
+  GETIMPORT R6 K51 [table.insert]
   CALL R6 -1 0
   GETTABLEKS R7 R5 K17 ["_connections"]
   GETTABLEKS R8 R5 K1 ["_pluginController"]
-  NAMECALL R8 R8 K56 ["getPlugin"]
+  NAMECALL R8 R8 K55 ["getPlugin"]
   CALL R8 1 1
-  LOADK R10 K60 ["OnRenamePlaceSucceeded"]
+  LOADK R10 K59 ["OnRenamePlaceSucceeded"]
   NEWCLOSURE R11 P8
   CAPTURE VAL R5
-  NAMECALL R8 R8 K58 ["OnInvoke"]
+  NAMECALL R8 R8 K57 ["OnInvoke"]
   CALL R8 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K52 [table.insert]
+  GETIMPORT R6 K51 [table.insert]
   CALL R6 -1 0
   GETTABLEKS R7 R5 K17 ["_connections"]
   GETTABLEKS R9 R5 K1 ["_pluginController"]
-  GETTABLEKS R8 R9 K61 ["OnNewAssetFetched"]
+  GETTABLEKS R8 R9 K60 ["OnNewAssetFetched"]
   NEWCLOSURE R10 P9
   CAPTURE VAL R5
   CAPTURE UPVAL U8
-  NAMECALL R8 R8 K49 ["Connect"]
+  NAMECALL R8 R8 K48 ["Connect"]
   CALL R8 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K52 [table.insert]
+  GETIMPORT R6 K51 [table.insert]
   CALL R6 -1 0
   RETURN R5 1
 

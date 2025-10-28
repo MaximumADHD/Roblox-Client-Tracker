@@ -36,6 +36,8 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local useSliderVariants = require(Foundation.Components.Slider.useSliderVariants)
 local useSliderMotionStates = require(Foundation.Components.Slider.useSliderMotionStates)
 local Knob = require(Foundation.Components.Knob)
+local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local Flags = require(Foundation.Utility.Flags)
 
 -- When observing the drag deltas this was a reasonably large value that would
 -- only realistically be reached from the directional input jumping back to the
@@ -76,6 +78,8 @@ local defaultProps = {
 	knobVisibility = Visibility.Auto,
 	testId = "--foundation-slider",
 }
+
+local IS_INVERSE = { isInverse = true }
 
 local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>?)
 	local props = withDefaults(sliderProps, defaultProps)
@@ -288,15 +292,27 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 							Visible = isKnobVisible,
 							testId = `{props.testId}--custom-knob`,
 						}, props.knob)
-						else React.createElement(Knob, {
-							AnchorPoint = knobAnchorPoint,
-							Position = knobPosition,
-							size = props.size,
-							style = currentMotionState.knobStyle,
-							stroke = variant.knob.stroke,
-							hasShadow = variant.knob.hasShadow,
-							testId = `{props.testId}--knob`,
-						}),
+						else if Flags.FoundationUpdateKnobComponent
+							then React.createElement(PresentationContext.Provider, { value = IS_INVERSE }, {
+								Knob = React.createElement(Knob, {
+									AnchorPoint = knobAnchorPoint,
+									Position = knobPosition,
+									size = props.size,
+									style = currentMotionState.knobStyle,
+									stroke = variant.knob.stroke,
+									hasShadow = variant.knob.hasShadow,
+									testId = `{props.testId}--knob`,
+								}),
+							})
+							else React.createElement(Knob, {
+								AnchorPoint = knobAnchorPoint,
+								Position = knobPosition,
+								size = props.size,
+								style = currentMotionState.knobStyle,
+								stroke = variant.knob.stroke,
+								hasShadow = variant.knob.hasShadow,
+								testId = `{props.testId}--knob`,
+							}),
 				}),
 			}),
 		}

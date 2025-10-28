@@ -18,62 +18,71 @@ MAIN:
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K8 ["Flags"]
-  GETTABLEKS R5 R6 K11 ["getFFlagLuaExplorerExpChatMigration"]
+  GETTABLEKS R5 R6 K11 ["getFFlagEnableReimport"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R7 R0 K8 ["Flags"]
-  GETTABLEKS R6 R7 K12 ["getFFlagLuaExplorerFileSync"]
+  GETTABLEKS R6 R7 K12 ["getFFlagLuaExplorerExpChatMigration"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R8 R0 K8 ["Flags"]
-  GETTABLEKS R7 R8 K13 ["getFFlagLuaExplorerHierarchySync"]
+  GETTABLEKS R7 R8 K13 ["getFFlagLuaExplorerFileSync"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
   GETTABLEKS R9 R0 K8 ["Flags"]
-  GETTABLEKS R8 R9 K14 ["getFFlagLuaExplorerPackages"]
+  GETTABLEKS R8 R9 K14 ["getFFlagLuaExplorerHierarchySync"]
   CALL R7 1 1
-  NEWTABLE R8 4 0
-  GETIMPORT R9 K1 [script]
-  NAMECALL R9 R9 K15 ["GetChildren"]
-  CALL R9 1 3
-  FORGPREP R9
-  LOADK R17 K16 ["ModuleScript"]
-  NAMECALL R15 R13 K17 ["IsA"]
-  CALL R15 2 1
-  FASTCALL2K ASSERT R15 K18 [+4]
-  LOADK R16 K18 ["All children of AllFields must be a ModuleScript"]
-  GETIMPORT R14 K20 [assert]
-  CALL R14 2 0
-  GETIMPORT R14 K5 [require]
-  MOVE R15 R13
-  CALL R14 1 1
-  GETTABLEKS R15 R14 K21 ["key"]
-  SETTABLE R14 R8 R15
-  FORGLOOP R9 2 [-18]
-  MOVE R9 R7
-  CALL R9 0 1
-  JUMPIF R9 [+3]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K22 ["packageStatus"]
-  MOVE R9 R5
-  CALL R9 0 1
-  JUMPIF R9 [+6]
-  MOVE R9 R6
-  CALL R9 0 1
-  JUMPIF R9 [+3]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K23 ["liveSyncStatus"]
-  MOVE R9 R4
-  CALL R9 0 1
-  JUMPIF R9 [+6]
-  MOVE R9 R3
-  CALL R9 0 1
-  JUMPIF R9 [+3]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K24 ["ChatMigration"]
-  MOVE R9 R2
-  CALL R9 0 1
-  JUMPIF R9 [+3]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K25 ["isAuroraDisabled"]
-  RETURN R8 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Flags"]
+  GETTABLEKS R9 R10 K15 ["getFFlagLuaExplorerPackages"]
+  CALL R8 1 1
+  NEWTABLE R9 8 0
+  GETIMPORT R10 K1 [script]
+  NAMECALL R10 R10 K16 ["GetChildren"]
+  CALL R10 1 3
+  FORGPREP R10
+  LOADK R18 K17 ["ModuleScript"]
+  NAMECALL R16 R14 K18 ["IsA"]
+  CALL R16 2 1
+  FASTCALL2K ASSERT R16 K19 [+4]
+  LOADK R17 K19 ["All children of AllFields must be a ModuleScript"]
+  GETIMPORT R15 K21 [assert]
+  CALL R15 2 0
+  GETIMPORT R15 K5 [require]
+  MOVE R16 R14
+  CALL R15 1 1
+  GETTABLEKS R16 R15 K22 ["key"]
+  SETTABLE R15 R9 R16
+  FORGLOOP R10 2 [-18]
+  MOVE R10 R8
+  CALL R10 0 1
+  JUMPIF R10 [+3]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K23 ["packageStatus"]
+  MOVE R10 R6
+  CALL R10 0 1
+  JUMPIF R10 [+6]
+  MOVE R10 R7
+  CALL R10 0 1
+  JUMPIF R10 [+3]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K24 ["liveSyncStatus"]
+  MOVE R10 R5
+  CALL R10 0 1
+  JUMPIF R10 [+6]
+  MOVE R10 R3
+  CALL R10 0 1
+  JUMPIF R10 [+3]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K25 ["ChatMigration"]
+  MOVE R10 R2
+  CALL R10 0 1
+  JUMPIF R10 [+3]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K26 ["isAuroraDisabled"]
+  MOVE R10 R4
+  CALL R10 0 1
+  JUMPIF R10 [+3]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K27 ["reimportStatus"]
+  RETURN R9 1

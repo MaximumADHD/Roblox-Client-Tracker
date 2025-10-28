@@ -1,10 +1,14 @@
 PROTO_0:
-  DUPTABLE R1 K1 [{"value"}]
-  DUPTABLE R2 K3 [{"value", "multiple"}]
-  SETTABLEKS R0 R2 K0 ["value"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["nilPlaceholder"]
+  JUMPIFNOTEQ R0 R1 [+2]
+  LOADNIL R0
+  DUPTABLE R1 K2 [{"value"}]
+  DUPTABLE R2 K4 [{"value", "multiple"}]
+  SETTABLEKS R0 R2 K1 ["value"]
   LOADB R3 0
-  SETTABLEKS R3 R2 K2 ["multiple"]
-  SETTABLEKS R2 R1 K0 ["value"]
+  SETTABLEKS R3 R2 K3 ["multiple"]
+  SETTABLEKS R2 R1 K1 ["value"]
   RETURN R1 1
 
 PROTO_1:
@@ -20,6 +24,10 @@ PROTO_1:
   LOADN R5 1
   FORNPREP R4
   GETTABLE R7 R1 R6
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["nilPlaceholder"]
+  JUMPIFNOTEQ R7 R8 [+2]
+  LOADNIL R7
   JUMPIFEQ R7 R3 [+7]
   GETTABLEKS R8 R0 K0 ["value"]
   LOADB R9 1
@@ -37,6 +45,9 @@ PROTO_2:
   LOADK R6 K1 ["Basic aggregator does not support sub-parts"]
   GETIMPORT R4 K3 [assert]
   CALL R4 2 0
+  JUMPIFNOTEQKNIL R3 [+4]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["nilPlaceholder"]
   MOVE R6 R1
   LENGTH R4 R0
   LOADN R5 1
@@ -53,13 +64,20 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R2 R0 K6 ["RpcTypes"]
+  GETTABLEKS R3 R0 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["Constants"]
   CALL R1 1 1
-  DUPCLOSURE R2 K7 [PROTO_0]
-  DUPCLOSURE R3 K8 [PROTO_1]
-  DUPCLOSURE R4 K9 [PROTO_2]
-  DUPTABLE R5 K13 [{"initParts", "aggregateParts", "setPart"}]
-  SETTABLEKS R2 R5 K10 ["initParts"]
-  SETTABLEKS R3 R5 K11 ["aggregateParts"]
-  SETTABLEKS R4 R5 K12 ["setPart"]
-  RETURN R5 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K8 ["PropertyTypes"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R1
+  DUPCLOSURE R4 K10 [PROTO_1]
+  CAPTURE VAL R1
+  DUPCLOSURE R5 K11 [PROTO_2]
+  CAPTURE VAL R1
+  DUPTABLE R6 K15 [{"initParts", "aggregateParts", "setPart"}]
+  SETTABLEKS R3 R6 K12 ["initParts"]
+  SETTABLEKS R4 R6 K13 ["aggregateParts"]
+  SETTABLEKS R5 R6 K14 ["setPart"]
+  RETURN R6 1

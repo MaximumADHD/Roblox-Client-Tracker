@@ -41,6 +41,14 @@ PROTO_4:
   MOVE R1 R2
   RETURN R1 1
 
+PROTO_5:
+  LOADK R2 K0 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Large/CircleOutline.png"]
+  MOVE R4 R0
+  NAMECALL R2 R2 K1 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  RETURN R1 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -63,4 +71,6 @@ MAIN:
   SETTABLEKS R3 R2 K16 ["liveSyncStatus"]
   DUPCLOSURE R3 K17 [PROTO_4]
   SETTABLEKS R3 R2 K18 ["alertIcons"]
+  DUPCLOSURE R3 K19 [PROTO_5]
+  SETTABLEKS R3 R2 K20 ["circleOutline"]
   RETURN R2 1

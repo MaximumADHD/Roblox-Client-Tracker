@@ -27,6 +27,14 @@ local GetFFlagModalSelectorCloseButton = require(root.Flags.GetFFlagModalSelecto
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local FFlagFixConsoleReportModalCutoff = game:DefineFastFlag("FixConsoleReportModalCutoff", false)
+
+local Foundation
+local useTokens
+if FFlagFixConsoleReportModalCutoff then
+	Foundation = require(CorePackages.Packages.Foundation)
+	useTokens = Foundation.Hooks.useTokens
+end
 
 local Responsive
 local UIManager
@@ -59,6 +67,10 @@ local TABLE_CELL_HEIGHT = 40
 local MODAL_PADDING = 12
 
 local function ModalBaseSelectorDialog(props: Props)
+	local tokens
+	if FFlagFixConsoleReportModalCutoff then
+		tokens = useTokens()
+	end
 	local style = useStyle()
 	local theme = style.Theme
 
@@ -71,9 +83,19 @@ local function ModalBaseSelectorDialog(props: Props)
 			local panelObject = UIManager.getInstance():getPanelObject(PanelType.MoreMenu) :: SurfaceGui
 			viewHeight = panelObject.AbsoluteSize.Y
 		end
-		listTableHeight = math.min(#props.cellData * TABLE_CELL_HEIGHT, viewHeight - 80 - MODAL_PADDING * 2)
+		if FFlagFixConsoleReportModalCutoff then
+			listTableHeight = math.min(#props.cellData * tokens.Size.Size_1000, viewHeight - 80 - MODAL_PADDING * 2)
+		else
+			listTableHeight = math.min(#props.cellData * TABLE_CELL_HEIGHT, viewHeight - 80 - MODAL_PADDING * 2)
+		end
 	else
-		listTableHeight = math.min(#props.cellData * TABLE_CELL_HEIGHT, props.viewportHeight - 80 - MODAL_PADDING * 2)
+		if FFlagFixConsoleReportModalCutoff then
+			listTableHeight =
+				math.min(#props.cellData * tokens.Size.Size_1000, props.viewportHeight - 80 - MODAL_PADDING * 2)
+		else
+			listTableHeight =
+				math.min(#props.cellData * TABLE_CELL_HEIGHT, props.viewportHeight - 80 - MODAL_PADDING * 2)
+		end
 	end
 
 	local modalContentHeight = listTableHeight + MODAL_PADDING * 2
@@ -159,7 +181,9 @@ local function ModalBaseSelectorDialog(props: Props)
 							BackgroundTransparency = 1,
 							Size = UDim2.fromScale(1, 1),
 						}),
-						size = UDim2.new(1, 0, 0, TABLE_CELL_HEIGHT),
+						size = if FFlagFixConsoleReportModalCutoff
+							then UDim2.new(1, 0, 0, tokens.Size.Size_1000)
+							else UDim2.new(1, 0, 0, TABLE_CELL_HEIGHT),
 						userInteractionEnabled = true,
 						onActivated = function()
 							props.onSelect(data.label, data.subLabel, data.identifier)

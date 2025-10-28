@@ -981,6 +981,84 @@ PROTO_55:
   CALL R2 1 -1
   RETURN R2 -1
 
+PROTO_56:
+  DUPTABLE R2 K1 [{"data"}]
+  NEWTABLE R3 0 1
+  DUPTABLE R4 K8 [{"assetId", "name", "description", "assetType", "created", "updated"}]
+  SETTABLEKS R1 R4 K2 ["assetId"]
+  LOADK R5 K9 ["Test Asset"]
+  SETTABLEKS R5 R4 K3 ["name"]
+  LOADK R5 K10 ["Test Description"]
+  SETTABLEKS R5 R4 K4 ["description"]
+  LOADK R5 K11 ["Models"]
+  SETTABLEKS R5 R4 K5 ["assetType"]
+  LOADK R5 K12 ["2019-08-09T21:41:51.97Z"]
+  SETTABLEKS R5 R4 K6 ["created"]
+  LOADK R5 K13 ["2021-05-06T19:56:54.437Z"]
+  SETTABLEKS R5 R4 K7 ["updated"]
+  SETLIST R3 R4 1 [1]
+  SETTABLEKS R3 R2 K0 ["data"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K14 ["resolve"]
+  DUPTABLE R4 K16 [{"responseBody"}]
+  GETUPVAL R5 1
+  MOVE R7 R2
+  NAMECALL R5 R5 K17 ["JSONEncode"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K15 ["responseBody"]
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_57:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["resolve"]
+  DUPTABLE R4 K2 [{"responseBody"}]
+  NEWTABLE R5 0 1
+  DUPTABLE R6 K9 [{"assetId", "name", "description", "assetType", "created", "updated"}]
+  FASTCALL1 TONUMBER R2 [+3]
+  MOVE R8 R2
+  GETIMPORT R7 K11 [tonumber]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K3 ["assetId"]
+  LOADK R7 K12 ["Test Asset"]
+  SETTABLEKS R7 R6 K4 ["name"]
+  LOADK R7 K13 ["Test Description"]
+  SETTABLEKS R7 R6 K5 ["description"]
+  LOADK R7 K14 ["Models"]
+  SETTABLEKS R7 R6 K6 ["assetType"]
+  LOADK R7 K15 ["2019-08-09T21:41:51.97Z"]
+  SETTABLEKS R7 R6 K7 ["created"]
+  LOADK R7 K16 ["2021-05-06T19:56:54.437Z"]
+  SETTABLEKS R7 R6 K8 ["updated"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K1 ["responseBody"]
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_58:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["resolve"]
+  DUPTABLE R3 K2 [{"responseBody"}]
+  DUPTABLE R4 K4 [{"results"}]
+  NEWTABLE R5 0 2
+  DUPTABLE R6 K8 [{"action", "assetId", "status"}]
+  LOADK R7 K9 ["Use"]
+  SETTABLEKS R7 R6 K5 ["action"]
+  SETTABLEKS R1 R6 K6 ["assetId"]
+  LOADK R7 K10 ["HasPermission"]
+  SETTABLEKS R7 R6 K7 ["status"]
+  DUPTABLE R7 K8 [{"action", "assetId", "status"}]
+  LOADK R8 K11 ["Edit"]
+  SETTABLEKS R8 R7 K5 ["action"]
+  SETTABLEKS R1 R7 K6 ["assetId"]
+  LOADK R8 K10 ["HasPermission"]
+  SETTABLEKS R8 R7 K7 ["status"]
+  SETLIST R5 R6 2 [1]
+  SETTABLEKS R5 R4 K3 ["results"]
+  SETTABLEKS R4 R3 K1 ["responseBody"]
+  CALL R2 1 -1
+  RETURN R2 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -1216,4 +1294,14 @@ MAIN:
   DUPCLOSURE R19 K131 [PROTO_55]
   CAPTURE VAL R3
   SETTABLEKS R19 R12 K132 ["getItemUploadFee"]
+  DUPCLOSURE R19 K133 [PROTO_56]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  SETTABLEKS R19 R12 K134 ["getDevelopAssetMetadata"]
+  DUPCLOSURE R19 K135 [PROTO_57]
+  CAPTURE VAL R3
+  SETTABLEKS R19 R12 K136 ["getItem"]
+  DUPCLOSURE R19 K137 [PROTO_58]
+  CAPTURE VAL R3
+  SETTABLEKS R19 R12 K138 ["getAssetPermissions"]
   RETURN R12 1

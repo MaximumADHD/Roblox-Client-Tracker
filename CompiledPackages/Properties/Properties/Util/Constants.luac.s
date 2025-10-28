@@ -1,6 +1,6 @@
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 4 0
+  NEWTABLE R0 8 0
   LOADN R1 12
   SETTABLEKS R1 R0 K0 ["scrollBarWidth"]
   GETIMPORT R1 K2 [game]
@@ -17,4 +17,6 @@ MAIN:
   SETTABLEKS R1 R0 K7 ["minValueWidth"]
   LOADK R1 K8 [0.62]
   SETTABLEKS R1 R0 K9 ["disabledTransparency"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K10 ["nilPlaceholder"]
   RETURN R0 1

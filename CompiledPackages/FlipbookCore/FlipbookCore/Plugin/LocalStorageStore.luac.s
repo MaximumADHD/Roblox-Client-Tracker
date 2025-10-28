@@ -1,0 +1,46 @@
+PROTO_0:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["FlipbookLocalStorage"]
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["RobloxPackages"]
+  GETTABLEKS R1 R2 K6 ["Signals"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["t"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["createPluginSettingsStore"]
+  CALL R2 1 1
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R1 K10 ["interface"]
+  DUPTABLE R5 K12 [{"lastOpenedStoryPath"}]
+  GETTABLEKS R6 R1 K13 ["optional"]
+  GETTABLEKS R7 R1 K14 ["string"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K11 ["lastOpenedStoryPath"]
+  CALL R4 1 1
+  DUPTABLE R5 K16 [{"get"}]
+  GETTABLEKS R6 R0 K17 ["createComputed"]
+  DUPCLOSURE R7 K18 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K15 ["get"]
+  RETURN R5 1

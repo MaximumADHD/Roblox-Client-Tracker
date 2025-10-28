@@ -21,6 +21,8 @@ local FFlagAXEnableInspectAndBuyBulkPurchase =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXEnableInspectAndBuyBulkPurchase
 local FIntBulkPurchaseRequestLimit = require(CorePackages.Workspace.Packages.SharedFlags).FIntBulkPurchaseRequestLimit
 local FIntBulkPurchaseThrottleLimit = require(CorePackages.Workspace.Packages.SharedFlags).FIntBulkPurchaseThrottleLimit
+local FFlagFilterOutShopOnlyItemsOnBulkPurchase =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagFilterOutShopOnlyItemsOnBulkPurchase
 
 --[[
     Item type each item in the bulk purchase event
@@ -41,6 +43,12 @@ if FFlagAXEnableInspectAndBuyBulkPurchase then
 		ExperiencesById = "ExperiencesById" :: "ExperiencesById",
 		ExperiencesDevApiOnly = "ExperiencesDevApiOnly" :: "ExperiencesDevApiOnly",
 	}
+
+	local ShopOnlySalesLocationTypes = if FFlagFilterOutShopOnlyItemsOnBulkPurchase
+		then {
+			ShopOnly = "ShopOnly" :: "ShopOnly",
+		}
+		else nil
 
 	local ItemRestrictions = {
 		Limited = "Limited" :: "Limited",
@@ -225,6 +233,15 @@ if FFlagAXEnableInspectAndBuyBulkPurchase then
                     ]]
 						continue
 					end
+				end
+
+				-- if the item is a shop-only item, skip it
+				if
+					FFlagFilterOutShopOnlyItemsOnBulkPurchase
+					and ShopOnlySalesLocationTypes
+					and item.saleLocationType == ShopOnlySalesLocationTypes.ShopOnly
+				then
+					continue
 				end
 
 				table.insert(bulkPurchaseRequestPayload, {

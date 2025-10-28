@@ -20,15 +20,15 @@ export type BaseMenuItem = {
 	onActivated: OnItemActivated?,
 }
 
-export type BaseMenuItemGroup = {
+export type BaseMenuItemGroup<Item = BaseMenuItem> = {
 	title: string?,
-	items: { BaseMenuItem },
+	items: { Item },
 }
 
-export type BaseMenuItems = { BaseMenuItem } | { BaseMenuItemGroup }
+export type BaseMenuItems<Item = BaseMenuItem> = { Item } | { BaseMenuItemGroup<Item> }
 
-type DeclarativeBaseMenuContentProps = {
-	items: BaseMenuItems,
+type DeclarativeBaseMenuContentProps<Item = BaseMenuItem> = {
+	items: BaseMenuItems<Item>,
 }
 
 local function DeclarativeBaseMenuContent(props: DeclarativeBaseMenuContentProps)

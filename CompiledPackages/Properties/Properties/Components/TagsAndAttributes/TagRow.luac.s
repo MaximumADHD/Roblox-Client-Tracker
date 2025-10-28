@@ -1,52 +1,117 @@
 PROTO_0:
+  GETIMPORT R0 K1 [print]
+  LOADK R2 K2 ["remove %*"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["tag"]
+  GETTABLEKS R4 R5 K4 ["name"]
+  NAMECALL R2 R2 K5 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [print]
+  LOADK R2 K2 ["context menu for %*"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["tag"]
+  GETTABLEKS R4 R5 K4 ["name"]
+  NAMECALL R2 R2 K5 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createNextOrder"]
   CALL R1 0 1
-  GETUPVAL R2 1
-  GETUPVAL R3 2
-  DUPTABLE R4 K3 [{"tag", "LayoutOrder"}]
-  LOADK R5 K4 ["row align-y-center padding-left-medium gap-small size-full-700"]
-  SETTABLEKS R5 R4 K1 ["tag"]
-  GETTABLEKS R5 R0 K2 ["LayoutOrder"]
-  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
-  DUPTABLE R5 K8 [{"ArrowSpacer", "Icon", "TagName"}]
-  GETUPVAL R6 1
-  GETUPVAL R7 3
-  DUPTABLE R8 K9 [{"LayoutOrder"}]
-  MOVE R9 R1
-  CALL R9 0 1
-  SETTABLEKS R9 R8 K2 ["LayoutOrder"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["ArrowSpacer"]
-  GETUPVAL R6 1
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K10 ["Image"]
-  DUPTABLE R8 K12 [{"tag", "LayoutOrder", "image"}]
-  LOADK R9 K13 ["size-300-300 bg-alert"]
-  SETTABLEKS R9 R8 K1 ["tag"]
-  MOVE R9 R1
-  CALL R9 0 1
-  SETTABLEKS R9 R8 K2 ["LayoutOrder"]
-  GETTABLEKS R10 R0 K1 ["tag"]
-  GETTABLEKS R9 R10 K14 ["icon"]
-  SETTABLEKS R9 R8 K11 ["image"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K6 ["Icon"]
-  GETUPVAL R6 1
-  GETUPVAL R7 5
-  DUPTABLE R8 K16 [{"tag", "LayoutOrder", "Text"}]
-  LOADK R9 K17 ["clip text-no-wrap text-align-x-left text-align-y-center text-body-small size-full-full"]
-  SETTABLEKS R9 R8 K1 ["tag"]
-  MOVE R9 R1
-  CALL R9 0 1
-  SETTABLEKS R9 R8 K2 ["LayoutOrder"]
-  GETTABLEKS R10 R0 K1 ["tag"]
-  GETTABLEKS R9 R10 K18 ["name"]
-  SETTABLEKS R9 R8 K15 ["Text"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K7 ["TagName"]
-  CALL R2 3 -1
-  RETURN R2 -1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useCallback"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NEWTABLE R4 0 1
+  GETTABLEKS R6 R0 K2 ["tag"]
+  GETTABLEKS R5 R6 K3 ["name"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["useCallback"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  NEWTABLE R5 0 1
+  GETTABLEKS R7 R0 K2 ["tag"]
+  GETTABLEKS R6 R7 K3 ["name"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R4 2
+  GETUPVAL R5 3
+  DUPTABLE R6 K7 [{"tag", "LayoutOrder", "onSecondaryActivated", "stateLayer"}]
+  LOADK R7 K8 ["row align-y-center padding-left-medium gap-small size-full-700"]
+  SETTABLEKS R7 R6 K2 ["tag"]
+  GETTABLEKS R7 R0 K4 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  SETTABLEKS R3 R6 K5 ["onSecondaryActivated"]
+  DUPTABLE R7 K10 [{"affordance"}]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K11 ["None"]
+  SETTABLEKS R8 R7 K9 ["affordance"]
+  SETTABLEKS R7 R6 K6 ["stateLayer"]
+  DUPTABLE R7 K16 [{"ArrowSpacer", "Icon", "TagName", "Remove"}]
+  GETUPVAL R8 2
+  GETUPVAL R9 5
+  DUPTABLE R10 K17 [{"LayoutOrder"}]
+  MOVE R11 R1
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K4 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["ArrowSpacer"]
+  GETUPVAL R8 2
+  GETUPVAL R10 6
+  GETTABLEKS R9 R10 K18 ["Image"]
+  DUPTABLE R10 K20 [{"tag", "LayoutOrder", "image"}]
+  LOADK R11 K21 ["size-300-300 bg-alert"]
+  SETTABLEKS R11 R10 K2 ["tag"]
+  MOVE R11 R1
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K4 ["LayoutOrder"]
+  GETTABLEKS R12 R0 K2 ["tag"]
+  GETTABLEKS R11 R12 K22 ["icon"]
+  SETTABLEKS R11 R10 K19 ["image"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["Icon"]
+  GETUPVAL R8 2
+  GETUPVAL R9 7
+  DUPTABLE R10 K24 [{"tag", "LayoutOrder", "Text"}]
+  LOADK R11 K25 ["clip text-no-wrap text-align-x-left text-align-y-center text-body-small size-full-full shrink"]
+  SETTABLEKS R11 R10 K2 ["tag"]
+  MOVE R11 R1
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K4 ["LayoutOrder"]
+  GETTABLEKS R12 R0 K2 ["tag"]
+  GETTABLEKS R11 R12 K3 ["name"]
+  SETTABLEKS R11 R10 K23 ["Text"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["TagName"]
+  GETUPVAL R8 2
+  GETUPVAL R9 8
+  DUPTABLE R10 K28 [{"LayoutOrder", "icon", "size", "onActivated"}]
+  MOVE R11 R1
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K4 ["LayoutOrder"]
+  DUPTABLE R11 K29 [{"name"}]
+  GETUPVAL R13 9
+  GETTABLEKS R12 R13 K30 ["Minus"]
+  SETTABLEKS R12 R11 K3 ["name"]
+  SETTABLEKS R11 R10 K22 ["icon"]
+  GETUPVAL R12 10
+  GETTABLEKS R11 R12 K31 ["XSmall"]
+  SETTABLEKS R11 R10 K26 ["size"]
+  SETTABLEKS R2 R10 K27 ["onActivated"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["Remove"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -59,29 +124,39 @@ MAIN:
   GETTABLEKS R3 R1 K7 ["Foundation"]
   CALL R2 1 1
   GETIMPORT R3 K6 [require]
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K4 ["Parent"]
-  GETTABLEKS R6 R7 K4 ["Parent"]
-  GETTABLEKS R5 R6 K8 ["Util"]
-  GETTABLEKS R4 R5 K9 ["LeftArrowSpacer"]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K10 ["LeftArrowSpacer"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R1 K10 ["React"]
+  GETTABLEKS R5 R0 K11 ["PropertyTypes"]
   CALL R4 1 1
   GETIMPORT R5 K6 [require]
-  GETTABLEKS R6 R1 K11 ["ReactUtils"]
+  GETTABLEKS R6 R1 K12 ["React"]
   CALL R5 1 1
   GETIMPORT R6 K6 [require]
-  GETTABLEKS R7 R0 K12 ["RpcTypes"]
+  GETTABLEKS R7 R1 K13 ["ReactUtils"]
   CALL R6 1 1
-  GETTABLEKS R7 R4 K13 ["createElement"]
-  GETTABLEKS R8 R2 K14 ["Text"]
-  GETTABLEKS R9 R2 K15 ["View"]
-  DUPCLOSURE R10 K16 [PROTO_0]
+  GETTABLEKS R7 R5 K14 ["createElement"]
+  GETTABLEKS R8 R2 K15 ["IconButton"]
+  GETTABLEKS R9 R2 K16 ["Text"]
+  GETTABLEKS R10 R2 K17 ["View"]
+  GETTABLEKS R12 R2 K18 ["Enums"]
+  GETTABLEKS R11 R12 K19 ["StateLayerAffordance"]
+  GETTABLEKS R13 R2 K18 ["Enums"]
+  GETTABLEKS R12 R13 K20 ["IconName"]
+  GETTABLEKS R14 R2 K18 ["Enums"]
+  GETTABLEKS R13 R14 K21 ["InputSize"]
+  DUPCLOSURE R14 K22 [PROTO_2]
+  CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R7
-  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
   CAPTURE VAL R3
   CAPTURE VAL R2
+  CAPTURE VAL R9
   CAPTURE VAL R8
-  RETURN R10 1
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  RETURN R14 1

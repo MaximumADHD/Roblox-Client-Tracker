@@ -21,31 +21,33 @@ PROTO_0:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K1 ["createElement"]
   GETUPVAL R7 2
-  DUPTABLE R8 K14 [{"LayoutOrder", "Text", "tag"}]
+  DUPTABLE R8 K15 [{"LayoutOrder", "Text", "TextTruncate", "tag"}]
   LOADN R9 1
   SETTABLEKS R9 R8 K2 ["LayoutOrder"]
-  GETTABLEKS R9 R0 K15 ["label"]
+  GETTABLEKS R9 R0 K16 ["label"]
   SETTABLEKS R9 R8 K13 ["Text"]
-  LOADK R9 K16 ["content-emphasis auto-xy text-align-x-left text-title-small text-truncate-end"]
+  GETIMPORT R9 K19 [Enum.TextTruncate.None]
+  SETTABLEKS R9 R8 K14 ["TextTruncate"]
+  LOADK R9 K20 ["content-emphasis auto-xy text-align-x-left text-title-small"]
   SETTABLEKS R9 R8 K4 ["tag"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K10 ["Label"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K1 ["createElement"]
   GETUPVAL R7 3
-  DUPTABLE R8 K19 [{"LayoutOrder", "name", "size"}]
+  DUPTABLE R8 K23 [{"LayoutOrder", "name", "size"}]
   LOADN R9 2
   SETTABLEKS R9 R8 K2 ["LayoutOrder"]
   JUMPIFNOT R1 [+6]
   GETUPVAL R11 4
-  GETTABLEKS R10 R11 K20 ["IconName"]
-  GETTABLEKS R9 R10 K21 ["CheckLarge"]
+  GETTABLEKS R10 R11 K24 ["IconName"]
+  GETTABLEKS R9 R10 K25 ["CheckLarge"]
   JUMP [+1]
   LOADK R9 K8 [""]
-  SETTABLEKS R9 R8 K17 ["name"]
+  SETTABLEKS R9 R8 K21 ["name"]
   GETUPVAL R10 5
-  GETTABLEKS R9 R10 K22 ["Small"]
-  SETTABLEKS R9 R8 K18 ["size"]
+  GETTABLEKS R9 R10 K26 ["Small"]
+  SETTABLEKS R9 R8 K22 ["size"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K11 ["CheckIcon"]
   CALL R2 3 -1

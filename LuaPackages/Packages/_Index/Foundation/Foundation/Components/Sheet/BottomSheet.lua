@@ -77,6 +77,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	end)
 	local sheetHeightAvailable, setSheetHeightAvailable = React.useBinding(-safeAreaPadding)
 	local actionsHeight, setActionsHeight = React.useBinding(0)
+	local hasActionsDivider, setHasActionsDivider = React.useBinding(false)
 	local hasHeader, setHasHeader = React.useBinding(false)
 
 	local outerScrollY = React.useRef(0)
@@ -279,6 +280,8 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		return {
 			actionsHeight = actionsHeight,
 			setActionsHeight = setActionsHeight,
+			hasActionsDivider = hasActionsDivider,
+			setHasActionsDivider = setHasActionsDivider,
 			sheetHeightAvailable = sheetHeightAvailable,
 			setSheetHeightAvailable = setSheetHeightAvailable,
 			safeAreaPadding = safeAreaPadding,

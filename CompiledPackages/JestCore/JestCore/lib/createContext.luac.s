@@ -1,0 +1,21 @@
+PROTO_0:
+  DUPTABLE R2 K1 [{"config"}]
+  SETTABLEKS R0 R2 K0 ["config"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  NEWTABLE R1 1 0
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K5 ["JestTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R0 K6 ["JestRuntime"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K7 [PROTO_0]
+  SETTABLEKS R4 R1 K8 ["default"]
+  RETURN R1 1

@@ -17,7 +17,7 @@ MAIN:
   GETTABLEKS R2 R3 K6 ["BasicAggregator"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R0 K7 ["RpcTypes"]
+  GETTABLEKS R3 R0 K7 ["PropertyTypes"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]

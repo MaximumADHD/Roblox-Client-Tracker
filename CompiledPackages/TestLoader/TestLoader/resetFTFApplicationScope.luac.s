@@ -1,0 +1,50 @@
+PROTO_0:
+  GETIMPORT R3 K2 [coroutine.status]
+  GETUPVAL R4 0
+  CALL R3 1 1
+  JUMPIFEQKS R3 K3 ["suspended"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K4 [+4]
+  LOADK R3 K4 ["not suspended!"]
+  GETIMPORT R1 K6 [assert]
+  CALL R1 2 0
+  GETIMPORT R1 K8 [coroutine.resume]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K0 ["ResetApplicationScopeAsync"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R0 K2 [coroutine.running]
+  CALL R0 0 1
+  GETUPVAL R1 0
+  LOADK R3 K3 ["FTFUtil"]
+  NAMECALL R1 R1 K4 ["GetPluginComponent"]
+  CALL R1 2 1
+  GETIMPORT R2 K7 [task.defer]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CALL R2 1 0
+  GETIMPORT R2 K9 [coroutine.yield]
+  CALL R2 0 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Plugin"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestorWhichIsA"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_2]
+  CAPTURE VAL R0
+  RETURN R1 1

@@ -1,39 +1,51 @@
 local CorePackages = game:GetService("CorePackages")
 local TeleportService = game:GetService("TeleportService")
 
-local React = require(CorePackages.Packages.React)
-local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
-local PlaceInfoRodux = require(CorePackages.Workspace.Packages.PlaceInfoRodux)
-
 local Foundation = require(CorePackages.Packages.Foundation)
+local React = require(CorePackages.Packages.React)
+
+local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+local Localization = require(CorePackages.Workspace.Packages.Localization)
+
 local View = Foundation.View
 local useTokens = Foundation.Hooks.useTokens
 
 local Traversal = CoreScriptsRoactCommon.Traversal
+local TraversalConstants = Traversal.Constants
 local TeleportBackButton = Traversal.TeleportBackButton
-local PlaceInfoController = PlaceInfoRodux.PlaceInfoController
+local TraversalTelemetry = Traversal.TraversalTelemetry
+local useHistoryItems = Traversal.useHistoryItems
+local useLocalization = Localization.Hooks.useLocalization
 
-local FFlagUsePlaceInfoController = PlaceInfoRodux.Flags.FFlagUsePlaceInfoController
+local FFlagUseTeleportTraversalHistory = Traversal.Flags.FFlagUseTeleportTraversalHistory
+local FFlagUseLocalTraversalHistory = Traversal.Flags.FFlagUseLocalTraversalHistory
 
 local function TraversalBackButton(props: {}, ref: React.Ref<GuiObject>?): React.React_Node
 	local prevUniverseId, prevPlaceId = TeleportService:GetThirdPartyTeleportInfo(false)
 	-- don't render on no prevs, for example on first time joins
-	if prevUniverseId <= 0 or prevPlaceId <= 0 then
+	if prevUniverseId <= TraversalConstants.NO_UNIVERSE_ID or prevPlaceId <= TraversalConstants.NO_PLACE_ID then
 		return nil
 	end
 
-	local tokens = useTokens()
+	TraversalTelemetry.sendBackButtonActionEvent({
+		integration_id = "back_button",
+		destination_universe_id = prevUniverseId,
+		event_type = "impression",
+	})
 
-	local placeName, setPlaceName = React.useBinding("Previous experience") -- TODO i18n
-	if FFlagUsePlaceInfoController then
-		PlaceInfoController.default:name(prevPlaceId):andThen(function(result)
-			if not result then
-				return
-			end
-			setPlaceName(result)
-		end):catch(function(err)
-			warn(err)
-		end)
+	local localized = useLocalization({
+		defaultBackButtonText = "CoreScripts.TopBar.Traversal.BackButtonDefault",
+	})
+
+	local tokens = useTokens()
+	local historyItems = useHistoryItems(2)
+	local placeName
+	if FFlagUseLocalTraversalHistory and typeof(historyItems[2]) == "table" and historyItems[2].name then
+		placeName = historyItems[2].name
+	elseif FFlagUseTeleportTraversalHistory and typeof(historyItems[1]) == "table" and historyItems[1].name then
+		placeName = historyItems[1].name
+	else
+		placeName = localized.defaultBackButtonText
 	end
 
 	-- shrink because button width may get to large even with text limits

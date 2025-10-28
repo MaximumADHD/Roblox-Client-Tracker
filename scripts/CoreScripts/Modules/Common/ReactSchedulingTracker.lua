@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local RunService = game:GetService("RunService")
 
 local FIntReactSchedulingTrackerEnableHunderedthsPercent: number = game:DefineFastInt("ReactSchedulingTracker", 0)
 local FIntReactSchedulingTrackerPeriodMs: number = game:DefineFastInt("ReactSchedulingTrackerPeriodMs", 30000)
@@ -15,6 +16,8 @@ local FFlagReactSchedulingTrackerLayoutEffects = game:DefineFastFlag("ReactSched
 local FFlagReactSchedulingTrackerDataModelUpdate = game:DefineFastFlag("ReactSchedulingTrackerDataModelUpdate", false)
 local EngineFeatureTelemetryServicePlaySessionInfoEnabled = game:GetEngineFeature("TelemetryServicePlaySessionInfoEnabled")
 local FFlagReactSchedulingAddPlaySessionId = game:DefineFastFlag("ReactSchedulingAddPlaySessionId", false)
+local FFlagEnableCorescriptExecutionTime = game:DefineFastFlag("EnableCorescriptExecutionTime", false)
+local EngineFeatureScriptPlusExecutionTimeEnabled = game:GetEngineFeature("ScriptPlusExecutionTimeEnabled")
 
 local MAX_SAMPLE_RATE = 10000
 local SAMPLE_ID_BIAS = 1409
@@ -79,7 +82,6 @@ if not enabled then
 	end
 end
 
-local RunService = game:GetService("RunService")
 local TelemetryService = game:GetService("TelemetryService")
 local mutedError = require(CorePackages.Workspace.Packages.Loggers).mutedError
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
@@ -415,6 +417,7 @@ type FrameMetrics = {
 	totalFrameCount: number,
 	reactFrameCount: number,
 	totalReactTimeMs: number,
+	totalCorescriptTimeMs: number,
 	maxReactFrameTimeMs: number,
 	allFrameHistogram: { number }, -- The bucket histogram for all frames (even if react didn't run)
 	reactFrameHistogram: { number }, -- The bucket histogram for frames where react ran
@@ -501,6 +504,7 @@ function ReactSchedulingTracker.new(context: string?): ReactSchedulingTracker
 			totalFrameCount = 0,
 			reactFrameCount = 0,
 			totalReactTimeMs = 0,
+			totalCorescriptTimeMs = 0,
 			maxReactFrameTimeMs = 0,
 			allFrameHistogram = { 0, 0, 0, 0 },
 			reactFrameHistogram = { 0, 0, 0, 0 },
@@ -578,6 +582,7 @@ function ReactSchedulingTracker:resetState()
 		totalFrameCount = 0,
 		reactFrameCount = 0,
 		totalReactTimeMs = 0,
+		totalCorescriptTimeMs = 0,
 		maxReactFrameTimeMs = 0,
 		allFrameHistogram = { 0, 0, 0, 0 },
 		reactFrameHistogram = { 0, 0, 0, 0 },
@@ -818,6 +823,12 @@ end
 function ReactSchedulingTracker:processFrame(frameTimeMs: number)
 	local frameMetrics: FrameMetrics = self.frameMetrics
 	local reactFrameTimeMs = self.reactFrameTimeMs
+	if EngineFeatureScriptPlusExecutionTimeEnabled and FFlagEnableCorescriptExecutionTime then
+		local corescriptExecutionTime = (RunService :: any):GetTotalScriptPlusExecutionTime()
+		if corescriptExecutionTime > 0 then
+			frameMetrics.totalCorescriptTimeMs += corescriptExecutionTime
+		end
+	end
 
 	frameMetrics.totalFrameCount += 1
 	local bucket = self:getFrameBucket(frameTimeMs)
@@ -861,6 +872,8 @@ function ReactSchedulingTracker:reportPeriod()
 		react_total_time_pct = frameMetrics.totalReactTimeMs / periodLengthMs,
 		react_frame_count = frameMetrics.reactFrameCount,
         total_frame_count = frameMetrics.totalFrameCount,
+		corescript_total_time_ms = frameMetrics.totalCorescriptTimeMs,
+		corescript_total_time_pct = frameMetrics.totalCorescriptTimeMs / periodLengthMs,
 		average_react_all_frame_ms = frameMetrics.totalReactTimeMs / frameMetrics.totalFrameCount,
 		average_react_only_frame_ms = if frameMetrics.reactFrameCount > 0
 			then frameMetrics.totalReactTimeMs / frameMetrics.reactFrameCount
@@ -888,6 +901,13 @@ function ReactSchedulingTracker:reportPeriod()
 	TelemetryService:LogStat(PeriodStatConfig, {
 		customFields = { stat = "ReactTotalTimePct", context = self.context, deviceTier = deviceTier },
 	}, periodSummary.react_total_time_pct)
+	
+	if EngineFeatureScriptPlusExecutionTimeEnabled and FFlagEnableCorescriptExecutionTime then
+		TelemetryService:LogStat(PeriodStatConfig, {
+			customFields = { stat = "TotalCorescriptTimePct", context = self.context, deviceTier = deviceTier },
+		}, periodSummary.corescript_total_time_pct)
+	end
+
 	TelemetryService:LogStat(PeriodStatConfig, {
 		customFields = { stat = "AverageReactAllFrameMs", context = self.context, deviceTier = deviceTier },
 	}, periodSummary.average_react_all_frame_ms)

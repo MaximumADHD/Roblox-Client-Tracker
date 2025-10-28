@@ -14,7 +14,6 @@ local OpenTypeSupport = UIBlox.Utility.OpenTypeSupport
 local InGameMenu = script.Parent.Parent
 
 local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
-local FFlagAlwaysShowDisplayNameInExpMenu = require(InGameMenu.Flags.FFlagAlwaysShowDisplayNameInExpMenu)
 local GetFFlagLuaAppEnableOpenTypeSupport =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableOpenTypeSupport
 local GetFFlagLuaAppEnableOpenTypeIGMFix =
@@ -43,7 +42,6 @@ local iconPos = {
 }
 
 local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
-local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
 local PlayerLabel = Roact.PureComponent:extend("PlayerLabelV2")
 
@@ -98,7 +96,6 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 	-- if not, we just show username at DisplayNameLabel and hide UsernameLabel
 
 	local props = self.props
-	local shouldShowDisplayName = CachedPolicyService:IsSubjectToChinaPolicies() or FFlagAlwaysShowDisplayNameInExpMenu
 	local displayName = props.displayName ~= "" and props.displayName or props.username
 
 	return withStyle(function(style)
@@ -147,31 +144,30 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 					0,
 					USERNAME_X_OFFSET,
 					0,
-					shouldShowDisplayName and USERNAME_TOP_PADDING or CONTAINER_FRAME_HEIGHT / 2
+					USERNAME_TOP_PADDING
 				),
-				AnchorPoint = shouldShowDisplayName and Vector2.new(0, 0) or Vector2.new(0, 0.5),
+				AnchorPoint = Vector2.new(0, 0),
 				Size = UDim2.new(0, USERNAME_WIDTH, 0, USERNAME_HEIGHT),
-				Text = shouldShowDisplayName and displayName or props.username,
+				Text = displayName,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 			}),
 
-			UsernameLabel = shouldShowDisplayName
-				and Roact.createElement(ThemedTextLabel, {
-					fontKey = "Header2",
-					themeKey = "TextDefault",
+			UsernameLabel = Roact.createElement(ThemedTextLabel, {
+				fontKey = "Header2",
+				themeKey = "TextDefault",
 
-					Position = UDim2.new(0, USERNAME_X_OFFSET, 0, USERNAME_TOP_PADDING + USERNAME_HEIGHT),
-					Size = UDim2.new(0, USERNAME_WIDTH, 0, USERNAME_HEIGHT),
-					Text = "@" .. props.username,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					OpenTypeFeatures = if (
-							GetFFlagLuaAppEnableOpenTypeSupport() and GetFFlagLuaAppEnableOpenTypeIGMFix()
-						)
-						then OpenTypeSupport:getUserNameStylisticAlternative()
-						else nil,
-				}),
+				Position = UDim2.new(0, USERNAME_X_OFFSET, 0, USERNAME_TOP_PADDING + USERNAME_HEIGHT),
+				Size = UDim2.new(0, USERNAME_WIDTH, 0, USERNAME_HEIGHT),
+				Text = "@" .. props.username,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				OpenTypeFeatures = if (
+						GetFFlagLuaAppEnableOpenTypeSupport() and GetFFlagLuaAppEnableOpenTypeIGMFix()
+					)
+					then OpenTypeSupport:getUserNameStylisticAlternative()
+					else nil,
+			}),
 
 			ButtonContainer = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(1, 0),

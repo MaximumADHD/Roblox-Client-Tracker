@@ -1,0 +1,184 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  CALL R2 2 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R4 3
+  MOVE R5 R3
+  GETTABLEKS R6 R2 K0 ["size"]
+  CALL R4 2 1
+  GETUPVAL R5 4
+  GETTABLEKS R6 R2 K1 ["isChecked"]
+  GETTABLEKS R7 R2 K2 ["onActivated"]
+  CALL R5 2 2
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K3 ["createElement"]
+  GETUPVAL R8 6
+  GETUPVAL R9 7
+  MOVE R10 R2
+  DUPTABLE R11 K13 [{"isChecked", "isDisabled", "onActivated", "label", "customVariantProps", "size", "Selectable", "NextSelectionUp", "NextSelectionDown", "NextSelectionLeft", "NextSelectionRight", "ref"}]
+  SETTABLEKS R5 R11 K1 ["isChecked"]
+  GETTABLEKS R12 R2 K4 ["isDisabled"]
+  SETTABLEKS R12 R11 K4 ["isDisabled"]
+  SETTABLEKS R6 R11 K2 ["onActivated"]
+  DUPTABLE R12 K15 [{"text"}]
+  GETTABLEKS R13 R2 K5 ["label"]
+  SETTABLEKS R13 R12 K14 ["text"]
+  SETTABLEKS R12 R11 K5 ["label"]
+  GETTABLEKS R12 R4 K16 ["input"]
+  SETTABLEKS R12 R11 K6 ["customVariantProps"]
+  GETTABLEKS R12 R2 K0 ["size"]
+  SETTABLEKS R12 R11 K0 ["size"]
+  GETTABLEKS R12 R2 K7 ["Selectable"]
+  SETTABLEKS R12 R11 K7 ["Selectable"]
+  GETTABLEKS R12 R2 K8 ["NextSelectionUp"]
+  SETTABLEKS R12 R11 K8 ["NextSelectionUp"]
+  GETTABLEKS R12 R2 K9 ["NextSelectionDown"]
+  SETTABLEKS R12 R11 K9 ["NextSelectionDown"]
+  GETTABLEKS R12 R2 K10 ["NextSelectionLeft"]
+  SETTABLEKS R12 R11 K10 ["NextSelectionLeft"]
+  GETTABLEKS R12 R2 K11 ["NextSelectionRight"]
+  SETTABLEKS R12 R11 K11 ["NextSelectionRight"]
+  SETTABLEKS R1 R11 K12 ["ref"]
+  CALL R9 2 1
+  DUPTABLE R10 K18 [{"Checkmark"}]
+  JUMPIFNOT R5 [+75]
+  GETUPVAL R13 8
+  GETTABLEKS R12 R13 K19 ["FoundationMigrateIconNames"]
+  JUMPIFNOT R12 [+46]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K3 ["createElement"]
+  GETUPVAL R12 9
+  DUPTABLE R13 K25 [{"Text", "fontStyle", "TextScaled", "tag", "testId"}]
+  GETUPVAL R16 10
+  GETTABLEKS R15 R16 K26 ["Icon"]
+  GETTABLEKS R14 R15 K27 ["Check"]
+  SETTABLEKS R14 R13 K20 ["Text"]
+  DUPTABLE R14 K29 [{"Font"}]
+  GETUPVAL R17 10
+  GETTABLEKS R16 R17 K28 ["Font"]
+  GETUPVAL R19 10
+  GETTABLEKS R18 R19 K30 ["IconVariant"]
+  GETTABLEKS R17 R18 K31 ["Filled"]
+  GETTABLE R15 R16 R17
+  SETTABLEKS R15 R14 K28 ["Font"]
+  SETTABLEKS R14 R13 K21 ["fontStyle"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K22 ["TextScaled"]
+  GETTABLEKS R15 R4 K32 ["checkmark"]
+  GETTABLEKS R14 R15 K23 ["tag"]
+  SETTABLEKS R14 R13 K23 ["tag"]
+  LOADK R15 K33 ["%*--checkmark"]
+  GETTABLEKS R17 R2 K24 ["testId"]
+  NAMECALL R15 R15 K34 ["format"]
+  CALL R15 2 1
+  MOVE R14 R15
+  SETTABLEKS R14 R13 K24 ["testId"]
+  CALL R11 2 1
+  JUMP [+26]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K3 ["createElement"]
+  GETUPVAL R12 11
+  DUPTABLE R13 K36 [{"Image", "tag", "testId"}]
+  LOADK R14 K37 ["icons/status/success_small"]
+  SETTABLEKS R14 R13 K35 ["Image"]
+  GETTABLEKS R15 R4 K32 ["checkmark"]
+  GETTABLEKS R14 R15 K23 ["tag"]
+  SETTABLEKS R14 R13 K23 ["tag"]
+  LOADK R15 K33 ["%*--checkmark"]
+  GETTABLEKS R17 R2 K24 ["testId"]
+  NAMECALL R15 R15 K34 ["format"]
+  CALL R15 2 1
+  MOVE R14 R15
+  SETTABLEKS R14 R13 K24 ["testId"]
+  CALL R11 2 1
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K17 ["Checkmark"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["BuilderIcons"]
+  CALL R3 1 1
+  GETTABLEKS R4 R0 K9 ["Components"]
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R4 K10 ["Image"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R4 K11 ["Text"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R8 R4 K12 ["InternalInput"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R4 K12 ["InternalInput"]
+  GETTABLEKS R9 R10 K13 ["useUncontrolledState"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R10 R4 K14 ["Types"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K15 ["Utility"]
+  GETTABLEKS R11 R12 K16 ["Flags"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R14 R0 K17 ["Providers"]
+  GETTABLEKS R13 R14 K18 ["Style"]
+  GETTABLEKS R12 R13 K19 ["useTokens"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K15 ["Utility"]
+  GETTABLEKS R13 R14 K20 ["withCommonProps"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R0 K15 ["Utility"]
+  GETTABLEKS R14 R15 K21 ["withDefaults"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K4 ["Parent"]
+  GETTABLEKS R15 R16 K22 ["useCheckboxVariants"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R17 R0 K23 ["Enums"]
+  GETTABLEKS R16 R17 K24 ["InputSize"]
+  CALL R15 1 1
+  DUPTABLE R16 K28 [{"size", "Selectable", "testId"}]
+  GETTABLEKS R17 R15 K29 ["Medium"]
+  SETTABLEKS R17 R16 K25 ["size"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K26 ["Selectable"]
+  LOADK R17 K30 ["--foundation-checkbox"]
+  SETTABLEKS R17 R16 K27 ["testId"]
+  DUPCLOSURE R17 K31 [PROTO_0]
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  CAPTURE VAL R11
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  GETTABLEKS R18 R2 K32 ["memo"]
+  GETTABLEKS R19 R2 K33 ["forwardRef"]
+  MOVE R20 R17
+  CALL R19 1 -1
+  CALL R18 -1 -1
+  RETURN R18 -1

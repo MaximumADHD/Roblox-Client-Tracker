@@ -49,6 +49,7 @@ local FIntViewportCameraFieldOfView = game:DefineFastInt("AXViewportCameraFieldO
 
 export type InspectAndBuyBaseContainerProps = {
 	localPlayerModel: LocalPlayerModel?,
+	analytics: any, -- Analytics service instance
 }
 
 local function InspectAndBuyBaseContainer(props)
@@ -71,10 +72,15 @@ local function InspectAndBuyBaseContainer(props)
 
 		-- refresh the item card price line content (mainly for resale items)
 		for _, item in result.Items do
-			if item.type == Enum.MarketplaceProductType.AvatarAsset then
-				dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Asset))
-			elseif item.type == Enum.MarketplaceProductType.AvatarBundle then
-				dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Bundle))
+			-- only report purchase success if the item was purchased successfully
+			if item.status == Enum.MarketplaceItemPurchaseStatus.Success then
+				if item.type == Enum.MarketplaceProductType.AvatarAsset then
+					props.analytics.reportPurchaseSuccess(ItemTypeEnum.Asset, item.id)
+					dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Asset))
+				elseif item.type == Enum.MarketplaceProductType.AvatarBundle then
+					props.analytics.reportPurchaseSuccess(ItemTypeEnum.Bundle, item.id)
+					dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Bundle))
+				end
 			end
 		end
 	end, { dispatch })
@@ -212,6 +218,7 @@ local function InspectAndBuyBaseContainer(props)
 		onPromptPurchase = onPromptPurchase,
 		renderTryOnViewport = renderTryOnViewport,
 		localPlayerModel = props.localPlayerModel :: LocalPlayerModel,
+		analytics = props.analytics,
 	})
 
 	useUnifiedEventListenerInExperience()

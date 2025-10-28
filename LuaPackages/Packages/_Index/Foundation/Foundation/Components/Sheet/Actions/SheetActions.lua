@@ -22,12 +22,19 @@ local function SheetActions(props: SheetActionsProps, ref: React.Ref<GuiObject>?
 	local sheetHeightAvailable = sheetContext.sheetHeightAvailable
 	local actionsHeight = sheetContext.actionsHeight
 	local setActionsHeight = sheetContext.setActionsHeight
+	local hasActionsDivider = sheetContext.hasActionsDivider
 	local safeAreaPadding = sheetContext.safeAreaPadding
 	local bottomPadding = sheetContext.bottomPadding
 	local sheetType = sheetContext.sheetType
 	local testId = sheetContext.testId
 	assert(
-		sheetHeightAvailable and actionsHeight and setActionsHeight and safeAreaPadding and bottomPadding and testId,
+		sheetHeightAvailable
+			and actionsHeight
+			and setActionsHeight
+			and hasActionsDivider
+			and safeAreaPadding
+			and bottomPadding
+			and testId,
 		"SheetActions must be used within a Sheet"
 	)
 
@@ -37,17 +44,25 @@ local function SheetActions(props: SheetActionsProps, ref: React.Ref<GuiObject>?
 
 	local sheetActions = React.createElement(View, {
 		tag = {
-			["row gap-small size-full-0 auto-y stroke-default stroke-standard margin-medium"] = true,
+			["row gap-small size-full-0 auto-y"] = true,
 			["bg-surface-100"] = isBottomSheet,
 		},
 		padding = {
 			top = UDim.new(0, tokens.Margin.Small),
 			left = UDim.new(0, tokens.Margin.Small),
 			right = UDim.new(0, tokens.Margin.Small),
-			bottom = UDim.new(
-				0,
-				bottomPadding + math.max(0, tokens.Margin.Small - if isBottomSheet then safeAreaPadding else 0)
-			),
+			bottom = UDim.new(0, bottomPadding + tokens.Margin.Small),
+		},
+		stroke = {
+			Color = tokens.Color.Stroke.Default.Color3,
+			Transparency = tokens.Color.Stroke.Default.Transparency,
+			Thickness = hasActionsDivider:map(function(hasDivider: boolean)
+				if hasDivider then
+					return tokens.Stroke.Standard
+				else
+					return 0
+				end
+			end),
 		},
 		onAbsoluteSizeChanged = if isBottomSheet
 			then function(instance: GuiObject)

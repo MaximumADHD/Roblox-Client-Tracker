@@ -51,7 +51,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 --------------- FLAGS ----------------
 
 local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
-local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
 
@@ -1866,10 +1865,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 
 	local valueChangedEvent = Instance.new("BindableEvent")
 	valueChangedEvent.Name = "ValueChanged"
-	local valueChangedSignal
-	if FFlagUseNonDeferredSliderSignal then
-		valueChangedSignal = Signal.new()
-	end
+	local valueChangedSignal = Signal.new()
 	----------------- GUI SETUP ------------------------
 	this.SliderFrame = Create("ImageButton")({
 		Name = "Slider",

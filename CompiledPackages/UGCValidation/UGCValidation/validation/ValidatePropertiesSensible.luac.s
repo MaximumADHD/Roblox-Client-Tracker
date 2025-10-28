@@ -160,7 +160,7 @@ MAIN:
   CALL R7 1 1
   GETIMPORT R8 K8 [require]
   GETTABLEKS R10 R1 K13 ["flags"]
-  GETTABLEKS R9 R10 K16 ["getEngineFeatureUGCValidateCheckHSRFileData"]
+  GETTABLEKS R9 R10 K16 ["getFFlagUGCValidateCheckHSRFileDataFix"]
   CALL R8 1 1
   GETIMPORT R9 K8 [require]
   GETTABLEKS R11 R1 K13 ["flags"]

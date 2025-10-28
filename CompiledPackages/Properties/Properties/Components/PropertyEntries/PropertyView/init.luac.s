@@ -25,8 +25,11 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R0 0
-  GETUPVAL R1 1
-  CALL R0 1 -1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["aggregatePropertyInfo"]
+  GETTABLEKS R1 R2 K1 ["typeof"]
+  GETUPVAL R2 2
+  CALL R0 2 -1
   RETURN R0 -1
 
 PROTO_4:
@@ -79,9 +82,10 @@ PROTO_5:
   NEWCLOSURE R9 P3
   CAPTURE UPVAL U2
   CAPTURE VAL R1
+  CAPTURE VAL R3
   NEWTABLE R10 0 2
   MOVE R11 R3
-  GETTABLEKS R13 R1 K5 ["value"]
+  GETTABLEKS R13 R1 K5 ["aggregatePropertyInfo"]
   GETTABLEKS R12 R13 K6 ["typeof"]
   SETLIST R10 R11 2 [1]
   CALL R8 2 1
@@ -104,26 +108,28 @@ PROTO_5:
   GETUPVAL R14 1
   GETTABLEKS R13 R14 K7 ["createElement"]
   MOVE R14 R8
-  DUPTABLE R15 K27 [{"info", "beginEditingAsync", "setPart", "finishEditing", "instancePicker"}]
-  GETTABLEKS R16 R1 K5 ["value"]
+  DUPTABLE R15 K28 [{"info", "beginEditingAsync", "setPart", "finishEditing", "instancePicker", "instanceRefFieldPartsObservable"}]
+  GETTABLEKS R16 R1 K5 ["aggregatePropertyInfo"]
   SETTABLEKS R16 R15 K22 ["info"]
   SETTABLEKS R5 R15 K23 ["beginEditingAsync"]
   SETTABLEKS R6 R15 K24 ["setPart"]
   SETTABLEKS R7 R15 K25 ["finishEditing"]
   GETTABLEKS R16 R4 K26 ["instancePicker"]
   SETTABLEKS R16 R15 K26 ["instancePicker"]
+  GETTABLEKS R16 R4 K27 ["instanceRefFieldPartsObservable"]
+  SETTABLEKS R16 R15 K27 ["instanceRefFieldPartsObservable"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K19 ["SpecificView"]
   GETUPVAL R14 1
   GETTABLEKS R13 R14 K7 ["createElement"]
-  LOADK R14 K28 ["UISizeConstraint"]
-  DUPTABLE R15 K30 [{"MinSize"}]
-  GETIMPORT R16 K33 [Vector2.new]
+  LOADK R14 K29 ["UISizeConstraint"]
+  DUPTABLE R15 K31 [{"MinSize"}]
+  GETIMPORT R16 K34 [Vector2.new]
   LOADN R17 0
   GETTABLEKS R19 R2 K11 ["Size"]
-  GETTABLEKS R18 R19 K34 ["Size_600"]
+  GETTABLEKS R18 R19 K35 ["Size_600"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K29 ["MinSize"]
+  SETTABLEKS R16 R15 K30 ["MinSize"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K20 ["SizeConstraint"]
   CALL R9 3 -1
@@ -140,21 +146,24 @@ MAIN:
   GETTABLEKS R3 R1 K7 ["Foundation"]
   CALL R2 1 1
   GETIMPORT R3 K6 [require]
-  GETTABLEKS R4 R1 K8 ["React"]
+  GETTABLEKS R4 R0 K8 ["PropertyTypes"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R0 K9 ["RpcTypes"]
+  GETTABLEKS R5 R1 K9 ["React"]
   CALL R4 1 1
   GETIMPORT R5 K6 [require]
-  GETIMPORT R7 K1 [script]
-  GETTABLEKS R6 R7 K10 ["getPropertyView"]
+  GETTABLEKS R6 R0 K10 ["RpcTypes"]
   CALL R5 1 1
-  GETTABLEKS R6 R2 K11 ["View"]
-  GETTABLEKS R8 R2 K12 ["Hooks"]
-  GETTABLEKS R7 R8 K13 ["useTokens"]
-  DUPCLOSURE R8 K14 [PROTO_5]
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CAPTURE VAL R5
+  GETIMPORT R6 K6 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K11 ["getPropertyView"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K12 ["View"]
+  GETTABLEKS R9 R2 K13 ["Hooks"]
+  GETTABLEKS R8 R9 K14 ["useTokens"]
+  DUPCLOSURE R9 K15 [PROTO_5]
+  CAPTURE VAL R8
+  CAPTURE VAL R4
   CAPTURE VAL R6
-  RETURN R8 1
+  CAPTURE VAL R7
+  RETURN R9 1

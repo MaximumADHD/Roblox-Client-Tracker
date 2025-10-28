@@ -34,7 +34,10 @@ local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScrip
 local Traversal = CoreScriptsRoactCommon.Traversal
 
 --[[ UTILITIES ]]
+local PortalWithFoundationStylelink = require(script.Parent.Components.PortalWithFoundationStylelink)
 local InExperienceMenuReact = require(script.Parent.InExperienceMenuReact)
+local InExperienceMenuReactPage = require(script.Parent.Pages.InExperienceMenuReactPage)
+local ReactPageSignal = require(script.Parent.ReactPageSignal)
 local SettingsUtils = require(script.Parent.Integrations.Utils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
@@ -165,6 +168,8 @@ local Flags = {
 	
 	FFlagCreateInExperienceMenuReact = SettingsFlags.FFlagCreateInExperienceMenuReact,
 	FFlagIEMButtonsResponsiveLayout = SettingsFlags.FFlagIEMButtonsResponsiveLayout,
+
+	FFlagRenameReactPageRoot = game:DefineFastFlag("RenameReactPageRoot", false),
 }
 
 --[[ SERVICES ]]
@@ -1396,7 +1401,7 @@ local function CreateSettingsHub()
 			-- Root container for React pages
 			this.ReactPage = Create'Frame'
 			{
-				Name = 'ReactPage',
+				Name = if Flags.FFlagRenameReactPageRoot then 'InExperienceMenuPage' else 'ReactPage',
 				BackgroundTransparency = 1,
 				Size = UDim2.fromScale(0, 0),
 				Parent = this.MenuContainer
@@ -3845,6 +3850,9 @@ local function CreateSettingsHub()
 		end
 
 		function this:MountReactPage()
+			if Flags.FFlagCreateInExperienceMenuReact then
+				ReactPageSignal(false).setCurrentReactPage(nil) -- clear any portalled pages
+			end
 			if this.reactPageRoot then
 				this:UnmountReactPage()
 			end
@@ -3863,14 +3871,18 @@ local function CreateSettingsHub()
 			this:UnmountReactPage()
 		end
 
-		function this:SwitchToReactPage(page: ReactPage, props: any)
-			this.reactPage = page
+		function this:SwitchToReactPage(page: ReactPage?, props: any, willPortal: boolean?)
+			if Flags.FFlagCreateInExperienceMenuReact and willPortal then
+				this:UnmountReactPage()
+			elseif page then
+				this.reactPage = page
 
-			if not this.reactPageRoot then
-				this:MountReactPage()
+				if not this.reactPageRoot then
+					this:MountReactPage()
+				end
+
+				this.reactPageRoot:render(page:createPage(props))
 			end
-
-			this.reactPageRoot:render(page:createPage(props))
 			this:ShowReactPage()
 		end
 	end
@@ -4241,27 +4253,32 @@ local function CreateSettingsHub()
 		end
 
 		local leaveGameButton
-		local TraversalHistoryMenuContainer
-		if Flags.FFlagAddTraversalHistory then 
+		if Flags.FFlagAddTraversalHistory then
 			leaveGameButton = this["LeaveGameButton"]
-
-			TraversalHistoryMenuContainer = function()
-				local onHistorySelected = React.useCallback(function()
-					-- APPEXP-3300: TODO
-				end)
-
-				return React.createElement(TraversalHistoryMenu, {
-					onHistorySelected = onHistorySelected,
-				})
-			end
 		end
 
 		local InExperienceMenuReactRoot = ReactRoblox.createRoot(this.InExperienceMenuReact)
 		InExperienceMenuReactRoot:render(React.createElement(InExperienceMenuReact, nil, {
+			InExperienceMenuReactPage = React.createElement(InExperienceMenuReactPage, {
+				onMount = function() this:SwitchToReactPage(nil, nil, true) end,
+				onUnmount = function() 
+					this:CloseReactPage() 
+					ReactPageSignal(false).setCurrentReactPage(nil) 
+				end,
+				mountTo = this.ReactPage,
+			}),
 			TraversalHistoryMenuBottomBar = Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveGameButton 
-				and ReactRoblox.createPortal(React.createElement(TraversalHistoryMenuContainer), leaveGameButton),
+				and React.createElement(PortalWithFoundationStylelink, {
+					parent = leaveGameButton,
+				}, {
+					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu),
+				}),
 			TraversalHistoryMenuMobileButton = Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveButtonMobile 
-				and ReactRoblox.createPortal(React.createElement(TraversalHistoryMenuContainer), leaveButtonMobile),
+				and React.createElement(PortalWithFoundationStylelink, {
+					parent = leaveButtonMobile,
+				}, {
+					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu),
+				}),
 		}))
 	end
 
@@ -4338,8 +4355,8 @@ if Flags.FFlagEnableSettingsHubCreateReactPage then
 		SettingsHubInstance:CloseReactPage()
 	end
 
-	function moduleApiTable:SwitchToReactPage(page, props)
-		SettingsHubInstance:SwitchToReactPage(page, props)
+	function moduleApiTable:SwitchToReactPage(page, props, willPortal)
+		SettingsHubInstance:SwitchToReactPage(page, props, willPortal)
 	end
 end
 

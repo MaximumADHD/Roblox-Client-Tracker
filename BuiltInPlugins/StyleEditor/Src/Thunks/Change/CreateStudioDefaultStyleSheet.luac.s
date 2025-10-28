@@ -2,7 +2,12 @@ PROTO_0:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["createAndInsertStudioDefaultStyleSheet"]
   GETUPVAL R1 1
-  CALL R0 1 0
+  GETUPVAL R3 2
+  JUMPIFNOT R3 [+2]
+  GETUPVAL R2 3
+  JUMP [+1]
+  LOADNIL R2
+  CALL R0 2 0
   GETIMPORT R0 K4 [Enum.FinishRecordingOperation.Commit]
   RETURN R0 1
 
@@ -18,30 +23,39 @@ PROTO_1:
   NAMECALL R4 R3 K3 ["GetCustomizedStylablePropertiesAsync"]
   CALL R4 1 1
   MOVE R2 R4
-  GETTABLEKS R3 R1 K4 ["recordChange"]
-  DUPTABLE R4 K8 [{"Name", "DisplayName", "DoChange"}]
-  LOADK R5 K9 ["StyleEditor/CreateStudioDefaultStyleSheet"]
-  SETTABLEKS R5 R4 K5 ["Name"]
-  LOADK R5 K10 ["StyleEditor - Create Studio Default StyleSheet"]
-  SETTABLEKS R5 R4 K6 ["DisplayName"]
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U1
+  LOADNIL R3
+  GETUPVAL R4 1
+  JUMPIFNOT R4 [+7]
+  NAMECALL R4 R0 K4 ["getState"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K5 ["Window"]
+  GETTABLEKS R3 R5 K6 ["Source"]
+  GETTABLEKS R4 R1 K7 ["recordChange"]
+  DUPTABLE R5 K11 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R6 K12 ["StyleEditor/CreateStudioDefaultStyleSheet"]
+  SETTABLEKS R6 R5 K8 ["Name"]
+  LOADK R6 K13 ["StyleEditor - Create Studio Default StyleSheet"]
+  SETTABLEKS R6 R5 K9 ["DisplayName"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U2
   CAPTURE REF R2
-  SETTABLEKS R5 R4 K7 ["DoChange"]
-  CALL R3 1 0
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K11 ["StudioDefaultStyleSheet"]
-  JUMPIFNOT R3 [+13]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K12 ["createItemId"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K11 ["StudioDefaultStyleSheet"]
-  CALL R3 1 1
-  GETUPVAL R6 4
-  MOVE R7 R3
-  CALL R6 1 -1
-  NAMECALL R4 R0 K13 ["dispatch"]
-  CALL R4 -1 0
+  CAPTURE UPVAL U1
+  CAPTURE REF R3
+  SETTABLEKS R6 R5 K10 ["DoChange"]
+  CALL R4 1 0
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K14 ["StudioDefaultStyleSheet"]
+  JUMPIFNOT R4 [+13]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K15 ["createItemId"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K14 ["StudioDefaultStyleSheet"]
+  CALL R4 1 1
+  GETUPVAL R7 5
+  MOVE R8 R4
+  CALL R7 1 -1
+  NAMECALL R5 R0 K16 ["dispatch"]
+  CALL R5 -1 0
   CLOSEUPVALS R2
   RETURN R0 0
 
@@ -52,6 +66,7 @@ PROTO_2:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   RETURN R0 1
 
 MAIN:
@@ -83,18 +98,30 @@ MAIN:
   CALL R5 1 1
   GETIMPORT R6 K8 [require]
   GETTABLEKS R9 R1 K9 ["Src"]
-  GETTABLEKS R8 R9 K16 ["Thunks"]
-  GETTABLEKS R7 R8 K17 ["Types"]
+  GETTABLEKS R8 R9 K16 ["Reducers"]
+  GETTABLEKS R7 R8 K17 ["RootReducer"]
   CALL R6 1 1
   GETIMPORT R7 K8 [require]
   GETTABLEKS R10 R1 K9 ["Src"]
-  GETTABLEKS R9 R10 K18 ["Flags"]
-  GETTABLEKS R8 R9 K19 ["getEngineFeatureCustomizedDefaultInstances"]
+  GETTABLEKS R9 R10 K18 ["Thunks"]
+  GETTABLEKS R8 R9 K19 ["Types"]
   CALL R7 1 1
-  DUPCLOSURE R8 K20 [PROTO_2]
-  CAPTURE VAL R7
+  GETIMPORT R8 K8 [require]
+  GETTABLEKS R11 R1 K9 ["Src"]
+  GETTABLEKS R10 R11 K20 ["Flags"]
+  GETTABLEKS R9 R10 K21 ["getEngineFeatureCustomizedDefaultInstances"]
+  CALL R8 1 1
+  GETIMPORT R9 K8 [require]
+  GETTABLEKS R12 R1 K9 ["Src"]
+  GETTABLEKS R11 R12 K20 ["Flags"]
+  GETTABLEKS R10 R11 K22 ["getFFlagStyleEditorPluginStyleSheets"]
+  CALL R9 1 1
+  CALL R9 0 1
+  DUPCLOSURE R10 K23 [PROTO_2]
+  CAPTURE VAL R8
+  CAPTURE VAL R9
   CAPTURE VAL R2
   CAPTURE VAL R0
   CAPTURE VAL R3
   CAPTURE VAL R5
-  RETURN R8 1
+  RETURN R10 1

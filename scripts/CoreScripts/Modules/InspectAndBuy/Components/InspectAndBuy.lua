@@ -15,6 +15,9 @@ local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 local renderWithCoreScriptsStyleProvider = require(CoreGui.RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
+local IXPUtils = require(CorePackages.Workspace.Packages.IxpUtils)
+local FStringAXInspectAndBuyLayerName = game:DefineFastString("AXInspectAndBuyLayerName", "Experience.Menu")
+local FFlagEnableInspectAndBuyExposureLogging = game:DefineFastFlag("AXEnableInspectAndBuyExposureLogging", false)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -135,13 +138,17 @@ function InspectAndBuy:init()
 		the root flag will determine whether the UI is V1 or V2
 		the analytics flag should be de-coupled from the root flag so it is available on the old and new UI
 	]]
-	self.analytics = if FFlagAXEnableInspectAndBuyVersionAnalytics
-		then Analytics.new(
-			playerId,
-			ctx,
-			if FFlagEnableInspectAndBuyV2RootFlag then InspectAndBuyVersion.Version2 else InspectAndBuyVersion.Version1
-		)
-		else Analytics.new(playerId, ctx)
+	self.analytics = (
+		if FFlagAXEnableInspectAndBuyVersionAnalytics
+			then Analytics.new(
+				playerId,
+				ctx,
+				if FFlagEnableInspectAndBuyV2RootFlag
+					then InspectAndBuyVersion.Version2
+					else InspectAndBuyVersion.Version1
+			)
+			else Analytics.new(playerId, ctx)
+	) :: any
 	self.humanoidDescription = self.props.humanoidDescription
 
 	self.analytics.reportOpenInspectMenu()
@@ -200,6 +207,11 @@ function InspectAndBuy:didMount()
 	self:bindButtonB()
 	self:configureInputType()
 	self:pushMouseIconOverride()
+
+	if FFlagEnableInspectAndBuyExposureLogging then
+		-- log exposure for both V1 and V2 UIs
+		IXPUtils.logLayerExposure(FStringAXInspectAndBuyLayerName)
+	end
 
 	if
 		FFlagChromeHideShortcutBarOnInspectAndBuy
@@ -332,6 +344,7 @@ function InspectAndBuy:render()
 					}, {
 						Container = Roact.createElement(InspectAndBuyBaseContainer, {
 							localPlayerModel = localPlayerModel,
+							analytics = self.analytics,
 						}),
 					}),
 				}),

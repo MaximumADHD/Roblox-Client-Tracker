@@ -14,6 +14,7 @@ local NotificationService = game:GetService("NotificationService")
 local LocalizationService = game:GetService("LocalizationService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local AppStorageService = game:GetService("AppStorageService")
+local SocialUpsell = require(CorePackages.Workspace.Packages.SocialUpsell)
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol).default
 local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).CoreLogger:new(script.Name)
 
@@ -60,6 +61,8 @@ local GetFFlagEnableCrossExperienceVoiceCaptureMute =
 local GetFFlagExpChatUseVoiceParticipantsStore =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagExpChatUseVoiceParticipantsStore
 local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
+local GetFFlagShowToastWhenAgeGatingVoice =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowToastWhenAgeGatingVoice
 
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
@@ -72,6 +75,7 @@ local FFlagSendUserConnectionStatus = game:DefineFastFlag("SendUserConnectionSta
 local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
 local FFlagSeamlessVoiceV2JoinVoiceToast = game:DefineFastFlag("SeamlessVoiceV2JoinVoiceToast", false)
 local FFlagDisablePermissionPromptDeeplink = game:DefineFastFlag("DisablePermissionPromptDeeplink", false)
+local FFlagVoiceEndedCheckDisregardIdleState = game:DefineFastFlag("VoiceEndedCheckDisregardIdleState", false)
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging =
 	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
@@ -155,6 +159,11 @@ local PostPhoneUpsellDisplayed = if GetFFlagEnableInExpPhoneVoiceUpsellEntrypoin
 
 local CoreVoiceManager = VoiceChatCore.CoreVoiceManager
 local CoreVoiceConstants = VoiceChatCore.Constants
+
+local getOverlayStore = SocialUpsell.Overlay.getOverlayStore
+local OverlayTypes = SocialUpsell.Overlay.OverlayTypes
+local SocialUpsellType = SocialUpsell.Enum.SocialUpsellType
+local SocialUpsellEnums = SocialUpsell.Analytics.Enum
 
 local FFlagUseLocalMutePropertyForMutingOthers = game:GetEngineFeature("EnableMutedByLocalUser")
 local FFlagEnablePartyVoiceChangersInLua =
@@ -1703,6 +1712,8 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 			local promptToShow = self:GetInExpUpsellPromptFromEnum(voiceInExpUpsellVariant)
 			self:showPrompt(promptToShow)
 		end
+	elseif GetFFlagShowToastWhenAgeGatingVoice() and self:EligibleForAgeCheckToast() then
+		self:showPrompt(VoiceChatPromptType.AgeCheckForVoiceToast)
 	elseif
 		GetFFlagIntegratePhoneUpsellJoinVoice()
 		and GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints()
@@ -1718,6 +1729,20 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 			VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE,
 			VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER
 		)
+	elseif self:EligibleForFaeUpsell() then
+		local overlayStore = getOverlayStore(false)
+		overlayStore.setCurrentOverlay(OverlayTypes.SocialUpsell, {
+			upsellType = SocialUpsellType.FacialAgeEstimation,
+			data = {
+				isInExperience = true,
+				countDownBadgeText = nil,
+				isPhase2 = true,
+				-- Analytics props
+				upsellEntrySurface = SocialUpsellEnums.UpsellEntrySurfaceType.InExperienceVoiceChatIcon,
+				upsellEntryComponent = SocialUpsellEnums.UpsellComponent.Modal,
+				upsellPurpose = SocialUpsellEnums.UpsellStage.Fae,
+			},
+		})
 	end
 
 	if FFlagSendUserConnectionStatus and self:IsSeamlessVoice() then
@@ -1728,8 +1753,13 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 end
 
 function VoiceChatServiceManager:EligibleForFaeUpsell()
-	-- TODO: Setup FAE logic (EXPR-2792)
-	return false
+	return GetFFlagEnableVoiceUxUpdates()
+		and self.coreVoiceManager:EligibleForFaeUpsell()
+		and self.AvatarChatService:deviceMeetsRequirementsForFeature(Enum.DeviceFeatureType.InExperienceFAE)
+end
+
+function VoiceChatServiceManager:EligibleForAgeCheckToast()
+	return self.coreVoiceManager:EligibleForAgeCheckToast()
 end
 
 -- Show join voice button in voice enabled experiences, for voice eligible users who haven't enabled voice and voice enabled users with denied mic permissions
@@ -1759,6 +1789,12 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 				return not self.voiceUIVisible
 			end
 		end
+	end
+
+	-- Show join voice button to users who are eligible to see the toast notifying them to age check to unlock voice
+	-- This logic will no longer apply when Phase 2 of Aegis is rolled out
+	if GetFFlagShowToastWhenAgeGatingVoice() and self:EligibleForAgeCheckToast() then
+		return true
 	end
 
 	-- M1/Control
@@ -2063,6 +2099,9 @@ end
 function VoiceChatServiceManager:VoiceChatEnded()
 	if self.service then
 		local state = self.service.VoiceChatState
+		if FFlagVoiceEndedCheckDisregardIdleState then
+			return state == (Enum :: any).VoiceChatState.Ended
+		end
 		return state == (Enum :: any).VoiceChatState.Ended or state == (Enum :: any).VoiceChatState.Idle
 	end
 	-- If VoiceChatService isn't initiated, we still count the call as ended even though it technically never began.

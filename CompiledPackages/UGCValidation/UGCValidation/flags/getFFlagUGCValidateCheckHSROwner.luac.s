@@ -1,6 +1,6 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["UGCValidateCheckHSROwner"]
+  LOADK R2 K2 ["UGCValidateCheckHSROwner2"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIFNOT R0 [+2]
@@ -15,10 +15,10 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R3 R0 K5 ["flags"]
-  GETTABLEKS R2 R3 K6 ["getEngineFeatureUGCValidateCheckHSRFileData"]
+  GETTABLEKS R2 R3 K6 ["getFFlagUGCValidateCheckHSRFileDataFix"]
   CALL R1 1 1
   GETIMPORT R2 K8 [game]
-  LOADK R4 K9 ["UGCValidateCheckHSROwner"]
+  LOADK R4 K9 ["UGCValidateCheckHSROwner2"]
   LOADB R5 0
   NAMECALL R2 R2 K10 ["DefineFastFlag"]
   CALL R2 3 0

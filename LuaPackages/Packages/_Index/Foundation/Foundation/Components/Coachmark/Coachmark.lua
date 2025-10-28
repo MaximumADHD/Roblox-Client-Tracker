@@ -35,7 +35,7 @@ export type CoachmarkProps = {
 	-- Media displayed at the top of the coachmark
 	media: ReactNode?,
 	-- Actions array (up to 2 buttons supported)
-	actions: { Types.ActionProps },
+	actions: { Types.ActionProps }?,
 	isOpen: boolean?,
 	-- Close callback (optional) - if provided, displays a close affordance in the header
 	onClose: (() -> ())?,
@@ -75,6 +75,11 @@ local function Coachmark(coachmarkProps: CoachmarkProps)
 
 	local coachmarkButtons = React.useMemo(function()
 		local buttons: { [string]: React.Node } = {}
+
+		if not props.actions then
+			return buttons
+		end
+
 		for i, action in props.actions do
 			if i > MAX_BUTTON_COUNT then
 				Logger:warning(`Coachmark only supports up to {MAX_BUTTON_COUNT} actions`)
@@ -113,7 +118,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps)
 				PresentationContext.Provider,
 				{ value = { isInverse = true } },
 				React.createElement(View, {
-					tag = "col auto-xy gap-medium",
+					tag = "col auto-xy gap-medium padding-bottom-medium",
 					sizeConstraint = {
 						MaxSize = Vector2.new(maxXSize, math.huge),
 					},
@@ -168,7 +173,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps)
 					Actions = if props.actions and #props.actions > 0
 						then React.createElement(View, {
 							LayoutOrder = 3,
-							tag = "row gap-small auto-y padding-x-medium padding-bottom-medium size-full-0",
+							tag = "row gap-small auto-y padding-x-medium size-full-0",
 						}, coachmarkButtons)
 						else nil,
 				})

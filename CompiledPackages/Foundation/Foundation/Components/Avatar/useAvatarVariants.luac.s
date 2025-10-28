@@ -1,0 +1,240 @@
+PROTO_0:
+  DUPTABLE R1 K3 [{"container", "avatar", "indicatorBackplate"}]
+  DUPTABLE R2 K5 [{"tag"}]
+  LOADK R3 K6 ["radius-circle"]
+  SETTABLEKS R3 R2 K4 ["tag"]
+  SETTABLEKS R2 R1 K0 ["container"]
+  DUPTABLE R2 K5 [{"tag"}]
+  LOADK R3 K7 ["radius-circle size-full"]
+  SETTABLEKS R3 R2 K4 ["tag"]
+  SETTABLEKS R2 R1 K1 ["avatar"]
+  DUPTABLE R2 K10 [{"ZIndex", "tag", "padding"}]
+  LOADN R3 2
+  SETTABLEKS R3 R2 K8 ["ZIndex"]
+  LOADK R3 K11 ["bg-surface-0 anchor-bottom-right radius-circle auto-xy position-bottom-right"]
+  SETTABLEKS R3 R2 K4 ["tag"]
+  GETIMPORT R3 K14 [UDim2.fromOffset]
+  LOADN R4 3
+  LOADN R5 3
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K9 ["padding"]
+  SETTABLEKS R2 R1 K2 ["indicatorBackplate"]
+  NEWTABLE R2 4 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K15 ["XSmall"]
+  DUPTABLE R4 K17 [{"indicator"}]
+  DUPTABLE R5 K19 [{"size"}]
+  GETTABLEKS R7 R0 K20 ["Size"]
+  GETTABLEKS R6 R7 K21 ["Size_150"]
+  SETTABLEKS R6 R5 K18 ["size"]
+  SETTABLEKS R5 R4 K16 ["indicator"]
+  SETTABLE R4 R2 R3
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K22 ["Small"]
+  DUPTABLE R4 K17 [{"indicator"}]
+  DUPTABLE R5 K19 [{"size"}]
+  GETTABLEKS R7 R0 K20 ["Size"]
+  GETTABLEKS R6 R7 K21 ["Size_150"]
+  SETTABLEKS R6 R5 K18 ["size"]
+  SETTABLEKS R5 R4 K16 ["indicator"]
+  SETTABLE R4 R2 R3
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K23 ["Medium"]
+  DUPTABLE R4 K17 [{"indicator"}]
+  DUPTABLE R5 K19 [{"size"}]
+  GETTABLEKS R7 R0 K20 ["Size"]
+  GETTABLEKS R6 R7 K24 ["Size_200"]
+  SETTABLEKS R6 R5 K18 ["size"]
+  SETTABLEKS R5 R4 K16 ["indicator"]
+  SETTABLE R4 R2 R3
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K25 ["Large"]
+  DUPTABLE R4 K17 [{"indicator"}]
+  DUPTABLE R5 K19 [{"size"}]
+  GETTABLEKS R7 R0 K20 ["Size"]
+  GETTABLEKS R6 R7 K24 ["Size_200"]
+  SETTABLEKS R6 R5 K18 ["size"]
+  SETTABLEKS R5 R4 K16 ["indicator"]
+  SETTABLE R4 R2 R3
+  NEWTABLE R3 4 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K26 ["InExperience"]
+  NEWTABLE R5 0 0
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K27 ["Away"]
+  DUPTABLE R5 K17 [{"indicator"}]
+  DUPTABLE R6 K30 [{"shape", "variant"}]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K31 ["Ring"]
+  SETTABLEKS R7 R6 K28 ["shape"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K32 ["Neutral"]
+  SETTABLEKS R7 R6 K29 ["variant"]
+  SETTABLEKS R6 R5 K16 ["indicator"]
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K33 ["Active"]
+  DUPTABLE R5 K17 [{"indicator"}]
+  DUPTABLE R6 K30 [{"shape", "variant"}]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K34 ["Circle"]
+  SETTABLEKS R7 R6 K28 ["shape"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K35 ["Success"]
+  SETTABLEKS R7 R6 K29 ["variant"]
+  SETTABLEKS R6 R5 K16 ["indicator"]
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K36 ["None"]
+  NEWTABLE R5 0 0
+  SETTABLE R5 R3 R4
+  NEWTABLE R4 4 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K15 ["XSmall"]
+  GETTABLEKS R7 R0 K37 ["Stroke"]
+  GETTABLEKS R6 R7 K38 ["Standard"]
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K22 ["Small"]
+  GETTABLEKS R7 R0 K37 ["Stroke"]
+  GETTABLEKS R6 R7 K39 ["Thick"]
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K23 ["Medium"]
+  GETTABLEKS R7 R0 K37 ["Stroke"]
+  GETTABLEKS R6 R7 K39 ["Thick"]
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K25 ["Large"]
+  GETTABLEKS R7 R0 K37 ["Stroke"]
+  GETTABLEKS R6 R7 K40 ["Thicker"]
+  SETTABLE R6 R4 R5
+  DUPTABLE R5 K45 [{"common", "sizes", "presence", "iconSizeStrokes"}]
+  SETTABLEKS R1 R5 K41 ["common"]
+  SETTABLEKS R2 R5 K42 ["sizes"]
+  SETTABLEKS R3 R5 K43 ["presence"]
+  SETTABLEKS R4 R5 K44 ["iconSizeStrokes"]
+  RETURN R5 1
+
+PROTO_1:
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["useVariants"]
+  LOADK R6 K1 ["Avatar"]
+  GETUPVAL R7 1
+  MOVE R8 R0
+  CALL R5 3 1
+  NOT R6 R4
+  JUMPIFNOT R6 [+13]
+  LOADB R6 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K2 ["Active"]
+  JUMPIFEQ R2 R7 [+8]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K3 ["Away"]
+  JUMPIFEQ R2 R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  JUMPIF R4 [+12]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K4 ["InExperience"]
+  JUMPIFNOTEQ R2 R8 [+8]
+  GETTABLEKS R9 R0 K5 ["Color"]
+  GETTABLEKS R8 R9 K6 ["System"]
+  GETTABLEKS R7 R8 K7 ["Emphasis"]
+  JUMP [+1]
+  MOVE R7 R3
+  JUMPIF R4 [+5]
+  GETTABLEKS R9 R0 K8 ["Stroke"]
+  GETTABLEKS R8 R9 K9 ["Thicker"]
+  JUMP [+3]
+  GETTABLEKS R9 R5 K10 ["iconSizeStrokes"]
+  GETTABLE R8 R9 R1
+  GETUPVAL R9 3
+  GETTABLEKS R10 R5 K11 ["common"]
+  GETTABLEKS R12 R5 K12 ["sizes"]
+  GETTABLE R11 R12 R1
+  GETTABLEKS R13 R5 K13 ["presence"]
+  GETTABLE R12 R13 R2
+  DUPTABLE R13 K16 [{"container", "indicator"}]
+  DUPTABLE R14 K19 [{"stroke", "backgroundStyle"}]
+  JUMPIFNOT R7 [+16]
+  DUPTABLE R15 K22 [{"Color", "Transparency", "Thickness"}]
+  GETUPVAL R16 4
+  MOVE R17 R7
+  LOADK R18 K23 ["Color3"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K5 ["Color"]
+  GETUPVAL R16 4
+  MOVE R17 R7
+  LOADK R18 K20 ["Transparency"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K20 ["Transparency"]
+  SETTABLEKS R8 R15 K21 ["Thickness"]
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K17 ["stroke"]
+  SETTABLEKS R3 R14 K18 ["backgroundStyle"]
+  SETTABLEKS R14 R13 K14 ["container"]
+  DUPTABLE R14 K25 [{"isVisible"}]
+  SETTABLEKS R6 R14 K24 ["isVisible"]
+  SETTABLEKS R14 R13 K15 ["indicator"]
+  CALL R9 4 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Utility"]
+  GETTABLEKS R2 R3 K7 ["composeStyleVariant"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Providers"]
+  GETTABLEKS R4 R5 K9 ["Style"]
+  GETTABLEKS R3 R4 K10 ["Tokens"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Providers"]
+  GETTABLEKS R5 R6 K9 ["Style"]
+  GETTABLEKS R4 R5 K11 ["VariantsContext"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Enums"]
+  GETTABLEKS R5 R6 K13 ["InputSize"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K12 ["Enums"]
+  GETTABLEKS R6 R7 K14 ["UserPresence"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K12 ["Enums"]
+  GETTABLEKS R7 R8 K15 ["IndicatorVariant"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K12 ["Enums"]
+  GETTABLEKS R8 R9 K16 ["IndicatorShape"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K17 ["Components"]
+  GETTABLEKS R9 R10 K18 ["Types"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Utility"]
+  GETTABLEKS R10 R11 K19 ["indexBindable"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K20 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  DUPCLOSURE R11 K21 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  RETURN R11 1

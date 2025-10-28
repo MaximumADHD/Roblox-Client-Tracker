@@ -61,6 +61,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 	local closedPosition = -(safeAreaPadding + if isSmallDisplay then 0 else sheetPadding)
 	local rightPosition, setRightPositionGoal = useAnimatedBinding(closedPosition)
 
+	local hasActionsDivider, setHasActionsDivider = React.useBinding(false)
 	local hasHeader, setHasHeader = React.useBinding(false)
 
 	local innerScrollY, setInnerScrollY = React.useBinding(0)
@@ -115,6 +116,8 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 		return {
 			actionsHeight = 0,
 			setActionsHeight = Dash.noop,
+			hasActionsDivider = hasActionsDivider,
+			setHasActionsDivider = setHasActionsDivider,
 			sheetHeightAvailable = 0,
 			setSheetHeightAvailable = Dash.noop,
 			safeAreaPadding = 0,

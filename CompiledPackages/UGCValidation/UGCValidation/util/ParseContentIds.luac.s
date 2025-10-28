@@ -412,7 +412,7 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K4 [require]
   GETTABLEKS R4 R0 K5 ["flags"]
-  GETTABLEKS R3 R4 K7 ["getFFlagUGCValidateCheckHSROwner"]
+  GETTABLEKS R3 R4 K7 ["getFFlagUGCValidateCheckHSRFileDataFix"]
   CALL R2 1 1
   GETIMPORT R3 K4 [require]
   GETTABLEKS R4 R0 K8 ["Constants"]

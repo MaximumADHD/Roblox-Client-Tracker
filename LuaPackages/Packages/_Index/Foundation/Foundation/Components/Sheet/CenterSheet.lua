@@ -61,6 +61,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 		setAnimating(false)
 	end)
 
+	local hasActionsDivider, setHasActionsDivider = React.useBinding(false)
 	local hasHeader, setHasHeader = React.useBinding(false)
 
 	local innerScrollY, setInnerScrollY = React.useBinding(0)
@@ -101,6 +102,8 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 		return {
 			actionsHeight = 0,
 			setActionsHeight = Dash.noop,
+			hasActionsDivider = hasActionsDivider,
+			setHasActionsDivider = setHasActionsDivider,
 			sheetHeightAvailable = 0,
 			setSheetHeightAvailable = Dash.noop,
 			safeAreaPadding = 0,

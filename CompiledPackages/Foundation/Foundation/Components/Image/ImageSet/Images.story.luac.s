@@ -1,0 +1,238 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["imageName"]
+  GETTABLEKS R2 R0 K1 ["isVisible"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K5 [{"tag", "Visible"}]
+  LOADK R6 K6 ["size-3000-0 auto-y col align-x-center align-y-center gap-small bg-surface-100 radius-medium padding-medium"]
+  SETTABLEKS R6 R5 K3 ["tag"]
+  SETTABLEKS R2 R5 K4 ["Visible"]
+  DUPTABLE R6 K10 [{"ImageContainer", "Label", "FullPath"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K13 [{"tag", "Image", "LayoutOrder"}]
+  LOADK R10 K14 ["size-2000-2000"]
+  SETTABLEKS R10 R9 K3 ["tag"]
+  SETTABLEKS R1 R9 K11 ["Image"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K12 ["LayoutOrder"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K7 ["ImageContainer"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 3
+  DUPTABLE R9 K16 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R10 K17 ["auto-xy size-full-0 content-default text-caption-large text-wrap"]
+  SETTABLEKS R10 R9 K3 ["tag"]
+  LOADK R13 K18 ["([^/]+)$"]
+  NAMECALL R11 R1 K19 ["match"]
+  CALL R11 2 1
+  OR R10 R11 R1
+  SETTABLEKS R10 R9 K15 ["Text"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K12 ["LayoutOrder"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K8 ["Label"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 3
+  DUPTABLE R9 K16 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R10 K20 ["auto-xy size-full-0 content-default text-caption-small text-wrap"]
+  SETTABLEKS R10 R9 K3 ["tag"]
+  SETTABLEKS R1 R9 K15 ["Text"]
+  LOADN R10 3
+  SETTABLEKS R10 R9 K12 ["LayoutOrder"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K9 ["FullPath"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_1:
+  LOADK R3 K0 ["^%l"]
+  GETIMPORT R4 K3 [string.upper]
+  NAMECALL R1 R0 K4 ["gsub"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["name"]
+  GETTABLEKS R4 R1 K0 ["name"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_3:
+  NEWTABLE R0 0 0
+  GETIMPORT R1 K1 [pairs]
+  GETUPVAL R2 0
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  LOADK R9 K3 ["^([^/]+)"]
+  NAMECALL R7 R4 K4 ["match"]
+  CALL R7 2 1
+  ORK R6 R7 K2 ["other"]
+  GETTABLE R7 R0 R6
+  JUMPIF R7 [+3]
+  NEWTABLE R7 0 0
+  SETTABLE R7 R0 R6
+  GETTABLE R8 R0 R6
+  DUPTABLE R9 K7 [{"name", "details"}]
+  SETTABLEKS R4 R9 K5 ["name"]
+  SETTABLEKS R5 R9 K6 ["details"]
+  FASTCALL2 TABLE_INSERT R8 R9 [+3]
+  GETIMPORT R7 K10 [table.insert]
+  CALL R7 2 0
+  FORGLOOP R1 2 [-22]
+  GETIMPORT R1 K1 [pairs]
+  MOVE R2 R0
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  GETIMPORT R6 K12 [table.sort]
+  MOVE R7 R5
+  DUPCLOSURE R8 K13 [PROTO_2]
+  CALL R6 2 0
+  FORGLOOP R1 2 [-6]
+  RETURN R0 1
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["controls"]
+  GETTABLEKS R2 R1 K1 ["keyword"]
+  NEWTABLE R3 0 0
+  GETIMPORT R4 K3 [ipairs]
+  GETUPVAL R5 0
+  CALL R4 1 3
+  FORGPREP_INEXT R4
+  GETTABLEKS R9 R8 K4 ["name"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K8 [{"imageName", "isVisible"}]
+  GETTABLEKS R13 R8 K4 ["name"]
+  SETTABLEKS R13 R12 K6 ["imageName"]
+  LENGTH R14 R2
+  LOADN R15 0
+  JUMPIFNOTLT R15 R14 [+12]
+  GETIMPORT R14 K11 [string.find]
+  GETTABLEKS R15 R8 K4 ["name"]
+  MOVE R16 R2
+  CALL R14 2 1
+  JUMPIFNOTEQKNIL R14 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  JUMP [+1]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K7 ["isVisible"]
+  CALL R10 2 1
+  SETTABLE R10 R3 R9
+  FORGLOOP R4 2 [inext] [-32]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["createElement"]
+  GETUPVAL R5 3
+  DUPTABLE R6 K13 [{"tag"}]
+  LOADK R7 K14 ["auto-y size-full-0 row wrap gap-xlarge"]
+  SETTABLEKS R7 R6 K12 ["tag"]
+  MOVE R7 R3
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_5:
+  DUPTABLE R2 K2 [{"name", "story"}]
+  LOADK R5 K3 ["^%l"]
+  GETIMPORT R6 K6 [string.upper]
+  NAMECALL R3 R0 K7 ["gsub"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K0 ["name"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  SETTABLEKS R3 R2 K1 ["story"]
+  RETURN R2 1
+
+PROTO_6:
+  GETTABLEKS R3 R0 K0 ["name"]
+  GETTABLEKS R4 R1 K0 ["name"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["FoundationImages"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Image"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K9 ["Components"]
+  GETTABLEKS R6 R7 K11 ["View"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K9 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Text"]
+  CALL R6 1 1
+  GETTABLEKS R7 R3 K13 ["Images"]
+  DUPCLOSURE R8 K14 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  DUPCLOSURE R9 K15 [PROTO_1]
+  DUPCLOSURE R10 K16 [PROTO_3]
+  CAPTURE VAL R7
+  DUPCLOSURE R11 K17 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  MOVE R12 R10
+  CALL R12 0 1
+  NEWTABLE R13 0 0
+  GETIMPORT R14 K19 [pairs]
+  MOVE R15 R12
+  CALL R14 1 3
+  FORGPREP_NEXT R14
+  DUPTABLE R21 K22 [{"name", "story"}]
+  LOADK R24 K23 ["^%l"]
+  GETIMPORT R25 K26 [string.upper]
+  NAMECALL R22 R17 K27 ["gsub"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K20 ["name"]
+  NEWCLOSURE R22 P4
+  CAPTURE VAL R18
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  SETTABLEKS R22 R21 K21 ["story"]
+  FASTCALL2 TABLE_INSERT R13 R21 [+4]
+  MOVE R20 R13
+  GETIMPORT R19 K30 [table.insert]
+  CALL R19 2 0
+  FORGLOOP R14 2 [-23]
+  GETIMPORT R14 K32 [table.sort]
+  MOVE R15 R13
+  DUPCLOSURE R16 K33 [PROTO_6]
+  CALL R14 2 0
+  DUPTABLE R14 K37 [{"summary", "stories", "controls"}]
+  LOADK R15 K38 ["Foundation Images organized by section"]
+  SETTABLEKS R15 R14 K34 ["summary"]
+  SETTABLEKS R13 R14 K35 ["stories"]
+  DUPTABLE R15 K40 [{"keyword"}]
+  LOADK R16 K41 [""]
+  SETTABLEKS R16 R15 K39 ["keyword"]
+  SETTABLEKS R15 R14 K36 ["controls"]
+  RETURN R14 1

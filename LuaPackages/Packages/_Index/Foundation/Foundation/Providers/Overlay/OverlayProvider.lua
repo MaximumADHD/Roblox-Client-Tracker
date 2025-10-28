@@ -72,7 +72,9 @@ local function OverlayProvider(props: Props)
 					-- Biggest DisplayOrder allowed. Don't try math.huge, it causes an overflow
 					DisplayOrder = Constants.MAX_LAYOUT_ORDER - 1,
 					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-					ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets,
+					ScreenInsets = if Flags.FoundationOverlayLuaAppInsetsFix
+						then Enum.ScreenInsets.CoreUISafeInsets
+						else Enum.ScreenInsets.DeviceSafeInsets,
 					SafeAreaCompatibility = if Flags.FoundationOverlayNoClip
 						then Enum.SafeAreaCompatibility.None
 						else nil,

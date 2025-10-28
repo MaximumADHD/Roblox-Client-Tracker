@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
 local Wrappers = require(Foundation.Utility.Wrappers)
+local Flags = require(Foundation.Utility.Flags)
 
 local CoreGui = Wrappers.Services.CoreGui
 local RunService = Wrappers.Services.RunService
@@ -25,7 +26,9 @@ local function getHardwareSafeAreaInsets()
 	local deviceGui = Instance.new("ScreenGui")
 	deviceGui.Name = "_DeviceTestGui"
 	deviceGui.Parent = mainGui
-	deviceGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
+	deviceGui.ScreenInsets = if Flags.FoundationOverlayLuaAppInsetsFix
+		then Enum.ScreenInsets.CoreUISafeInsets
+		else Enum.ScreenInsets.DeviceSafeInsets
 
 	local tlInset = deviceGui.AbsolutePosition - fullscreenGui.AbsolutePosition
 	local brInset = fullscreenGui.AbsolutePosition

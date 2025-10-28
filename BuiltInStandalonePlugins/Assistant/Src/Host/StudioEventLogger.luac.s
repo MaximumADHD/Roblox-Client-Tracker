@@ -469,6 +469,19 @@ PROTO_16:
   RETURN R0 0
 
 PROTO_17:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["logStat"]
+  GETUPVAL R2 1
+  GETTABLEKS R3 R0 K1 ["requestJourneyDuration"]
+  DUPTABLE R4 K3 [{"customFields"}]
+  DUPTABLE R5 K5 [{"requestId"}]
+  GETTABLEKS R6 R0 K6 ["requestEndReason"]
+  SETTABLEKS R6 R5 K4 ["requestId"]
+  SETTABLEKS R5 R4 K2 ["customFields"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_18:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
@@ -521,24 +534,28 @@ PROTO_17:
   CAPTURE UPVAL U0
   CAPTURE UPVAL U15
   CAPTURE UPVAL U3
-  DUPTABLE R13 K22 [{"logUserMessageSent", "logAssistantMessageSent", "logErrorEvent", "logThumbsUp", "logThumbsDown", "logInitialResponseLatency", "logMarkdownError", "logRetry", "logStopGeneration", "logToolStarted", "logToolConfirmationShown", "logToolConfirmationResult", "getMessageGuid", "createMessageGuid"}]
-  SETTABLEKS R1 R13 K8 ["logUserMessageSent"]
-  SETTABLEKS R2 R13 K9 ["logAssistantMessageSent"]
-  SETTABLEKS R3 R13 K10 ["logErrorEvent"]
-  SETTABLEKS R4 R13 K11 ["logThumbsUp"]
-  SETTABLEKS R5 R13 K12 ["logThumbsDown"]
-  SETTABLEKS R6 R13 K13 ["logInitialResponseLatency"]
-  SETTABLEKS R7 R13 K14 ["logMarkdownError"]
-  SETTABLEKS R8 R13 K15 ["logRetry"]
-  SETTABLEKS R9 R13 K16 ["logStopGeneration"]
-  SETTABLEKS R10 R13 K17 ["logToolStarted"]
-  SETTABLEKS R11 R13 K18 ["logToolConfirmationShown"]
-  SETTABLEKS R12 R13 K19 ["logToolConfirmationResult"]
-  GETUPVAL R14 16
-  SETTABLEKS R14 R13 K20 ["getMessageGuid"]
-  GETUPVAL R14 17
-  SETTABLEKS R14 R13 K21 ["createMessageGuid"]
-  RETURN R13 1
+  DUPCLOSURE R13 K8 [PROTO_17]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U16
+  DUPTABLE R14 K24 [{"logUserMessageSent", "logAssistantMessageSent", "logErrorEvent", "logThumbsUp", "logThumbsDown", "logInitialResponseLatency", "logMarkdownError", "logRetry", "logStopGeneration", "logToolStarted", "logToolConfirmationShown", "logToolConfirmationResult", "logRequestJourney", "getMessageGuid", "createMessageGuid"}]
+  SETTABLEKS R1 R14 K9 ["logUserMessageSent"]
+  SETTABLEKS R2 R14 K10 ["logAssistantMessageSent"]
+  SETTABLEKS R3 R14 K11 ["logErrorEvent"]
+  SETTABLEKS R4 R14 K12 ["logThumbsUp"]
+  SETTABLEKS R5 R14 K13 ["logThumbsDown"]
+  SETTABLEKS R6 R14 K14 ["logInitialResponseLatency"]
+  SETTABLEKS R7 R14 K15 ["logMarkdownError"]
+  SETTABLEKS R8 R14 K16 ["logRetry"]
+  SETTABLEKS R9 R14 K17 ["logStopGeneration"]
+  SETTABLEKS R10 R14 K18 ["logToolStarted"]
+  SETTABLEKS R11 R14 K19 ["logToolConfirmationShown"]
+  SETTABLEKS R12 R14 K20 ["logToolConfirmationResult"]
+  SETTABLEKS R13 R14 K21 ["logRequestJourney"]
+  GETUPVAL R15 17
+  SETTABLEKS R15 R14 K22 ["getMessageGuid"]
+  GETUPVAL R15 18
+  SETTABLEKS R15 R14 K23 ["createMessageGuid"]
+  RETURN R14 1
 
 MAIN:
   PREPVARARGS 0
@@ -748,44 +765,41 @@ MAIN:
   DUPTABLE R24 K36 [{"eventName", "backends", "description", "lastUpdated"}]
   LOADK R26 K37 ["%*%*"]
   LOADK R28 K38 ["StudioAssistant"]
-  LOADK R29 K58 ["ErrorEvent"]
+  LOADK R29 K58 ["RequestJourney"]
   NAMECALL R26 R26 K40 ["format"]
   CALL R26 3 1
   MOVE R25 R26
   SETTABLEKS R25 R24 K32 ["eventName"]
   NEWTABLE R25 0 1
   GETTABLEKS R27 R6 K27 ["Backends"]
-  GETTABLEKS R26 R27 K41 ["RobloxTelemetryCounter"]
+  GETTABLEKS R26 R27 K56 ["RobloxTelemetryStat"]
   SETLIST R25 R26 1 [1]
   SETTABLEKS R25 R24 K33 ["backends"]
-  LOADK R25 K59 ["Incrementing count of error events with error type attached."]
+  LOADK R25 K59 ["User request journey duration in seconds. Time between sending first message to request ended."]
   SETTABLEKS R25 R24 K34 ["description"]
   NEWTABLE R25 0 3
   LOADN R26 25
-  LOADN R27 7
-  LOADN R28 21
+  LOADN R27 10
+  LOADN R28 22
   SETLIST R25 R26 3 [1]
   SETTABLEKS R25 R24 K35 ["lastUpdated"]
   CALL R23 1 1
   GETIMPORT R24 K26 [table.freeze]
-  DUPTABLE R25 K44 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
+  DUPTABLE R25 K36 [{"eventName", "backends", "description", "lastUpdated"}]
   LOADK R27 K37 ["%*%*"]
   LOADK R29 K38 ["StudioAssistant"]
-  LOADK R30 K60 ["MarkdownError"]
+  LOADK R30 K60 ["ErrorEvent"]
   NAMECALL R27 R27 K40 ["format"]
   CALL R27 3 1
   MOVE R26 R27
   SETTABLEKS R26 R25 K32 ["eventName"]
   NEWTABLE R26 0 1
   GETTABLEKS R28 R6 K27 ["Backends"]
-  GETTABLEKS R27 R28 K31 ["Points"]
+  GETTABLEKS R27 R28 K41 ["RobloxTelemetryCounter"]
   SETLIST R26 R27 1 [1]
   SETTABLEKS R26 R25 K33 ["backends"]
-  LOADK R26 K61 ["Collection of markdown error events, with markdown attached."]
+  LOADK R26 K61 ["Incrementing count of error events with error type attached."]
   SETTABLEKS R26 R25 K34 ["description"]
-  MOVE R26 R8
-  CALL R26 0 1
-  SETTABLEKS R26 R25 K43 ["throttlingPercentage"]
   NEWTABLE R26 0 3
   LOADN R27 25
   LOADN R28 7
@@ -794,25 +808,37 @@ MAIN:
   SETTABLEKS R26 R25 K35 ["lastUpdated"]
   CALL R24 1 1
   GETIMPORT R25 K26 [table.freeze]
-  DUPTABLE R26 K36 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R27 K62 ["CAPMessageResubmitted"]
+  DUPTABLE R26 K44 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
+  LOADK R28 K37 ["%*%*"]
+  LOADK R30 K38 ["StudioAssistant"]
+  LOADK R31 K62 ["MarkdownError"]
+  NAMECALL R28 R28 K40 ["format"]
+  CALL R28 3 1
+  MOVE R27 R28
   SETTABLEKS R27 R26 K32 ["eventName"]
-  SETTABLEKS R15 R26 K33 ["backends"]
-  LOADK R27 K63 ["User message retry/resubmit event with request ID."]
+  NEWTABLE R27 0 1
+  GETTABLEKS R29 R6 K27 ["Backends"]
+  GETTABLEKS R28 R29 K31 ["Points"]
+  SETLIST R27 R28 1 [1]
+  SETTABLEKS R27 R26 K33 ["backends"]
+  LOADK R27 K63 ["Collection of markdown error events, with markdown attached."]
   SETTABLEKS R27 R26 K34 ["description"]
+  MOVE R27 R8
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K43 ["throttlingPercentage"]
   NEWTABLE R27 0 3
   LOADN R28 25
-  LOADN R29 8
-  LOADN R30 7
+  LOADN R29 7
+  LOADN R30 21
   SETLIST R27 R28 3 [1]
   SETTABLEKS R27 R26 K35 ["lastUpdated"]
   CALL R25 1 1
   GETIMPORT R26 K26 [table.freeze]
   DUPTABLE R27 K36 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R28 K64 ["CAPStopGeneration"]
+  LOADK R28 K64 ["CAPMessageResubmitted"]
   SETTABLEKS R28 R27 K32 ["eventName"]
   SETTABLEKS R15 R27 K33 ["backends"]
-  LOADK R28 K65 ["User stop generation event with request ID."]
+  LOADK R28 K65 ["User message retry/resubmit event with request ID."]
   SETTABLEKS R28 R27 K34 ["description"]
   NEWTABLE R28 0 3
   LOADN R29 25
@@ -823,10 +849,10 @@ MAIN:
   CALL R26 1 1
   GETIMPORT R27 K26 [table.freeze]
   DUPTABLE R28 K36 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R29 K66 ["CAPToolStarted"]
+  LOADK R29 K66 ["CAPStopGeneration"]
   SETTABLEKS R29 R28 K32 ["eventName"]
   SETTABLEKS R15 R28 K33 ["backends"]
-  LOADK R29 K67 ["Tool invocation started event with request ID and tool name."]
+  LOADK R29 K67 ["User stop generation event with request ID."]
   SETTABLEKS R29 R28 K34 ["description"]
   NEWTABLE R29 0 3
   LOADN R30 25
@@ -837,24 +863,24 @@ MAIN:
   CALL R27 1 1
   GETIMPORT R28 K26 [table.freeze]
   DUPTABLE R29 K36 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R30 K68 ["CAPToolConfirmationShown"]
+  LOADK R30 K68 ["CAPToolStarted"]
   SETTABLEKS R30 R29 K32 ["eventName"]
   SETTABLEKS R15 R29 K33 ["backends"]
-  LOADK R30 K69 ["Tool confirmation dialog shown event with request ID, tool name, and warning message."]
+  LOADK R30 K69 ["Tool invocation started event with request ID and tool name."]
   SETTABLEKS R30 R29 K34 ["description"]
   NEWTABLE R30 0 3
   LOADN R31 25
-  LOADN R32 9
-  LOADN R33 19
+  LOADN R32 8
+  LOADN R33 7
   SETLIST R30 R31 3 [1]
   SETTABLEKS R30 R29 K35 ["lastUpdated"]
   CALL R28 1 1
   GETIMPORT R29 K26 [table.freeze]
   DUPTABLE R30 K36 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R31 K70 ["CAPToolConfirmationResult"]
+  LOADK R31 K70 ["CAPToolConfirmationShown"]
   SETTABLEKS R31 R30 K32 ["eventName"]
   SETTABLEKS R15 R30 K33 ["backends"]
-  LOADK R31 K71 ["Tool confirmation dialog result event with request ID and user choice."]
+  LOADK R31 K71 ["Tool confirmation dialog shown event with request ID, tool name, and warning message."]
   SETTABLEKS R31 R30 K34 ["description"]
   NEWTABLE R31 0 3
   LOADN R32 25
@@ -863,28 +889,43 @@ MAIN:
   SETLIST R31 R32 3 [1]
   SETTABLEKS R31 R30 K35 ["lastUpdated"]
   CALL R29 1 1
-  DUPCLOSURE R30 K72 [PROTO_3]
+  GETIMPORT R30 K26 [table.freeze]
+  DUPTABLE R31 K36 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R32 K72 ["CAPToolConfirmationResult"]
+  SETTABLEKS R32 R31 K32 ["eventName"]
+  SETTABLEKS R15 R31 K33 ["backends"]
+  LOADK R32 K73 ["Tool confirmation dialog result event with request ID and user choice."]
+  SETTABLEKS R32 R31 K34 ["description"]
+  NEWTABLE R32 0 3
+  LOADN R33 25
+  LOADN R34 9
+  LOADN R35 19
+  SETLIST R32 R33 3 [1]
+  SETTABLEKS R32 R31 K35 ["lastUpdated"]
+  CALL R30 1 1
+  DUPCLOSURE R31 K74 [PROTO_3]
   CAPTURE VAL R11
-  DUPCLOSURE R31 K73 [PROTO_4]
+  DUPCLOSURE R32 K75 [PROTO_4]
   CAPTURE VAL R11
   CAPTURE VAL R1
-  DUPCLOSURE R32 K74 [PROTO_17]
+  DUPCLOSURE R33 K76 [PROTO_18]
   CAPTURE VAL R6
   CAPTURE VAL R16
   CAPTURE VAL R17
   CAPTURE VAL R7
-  CAPTURE VAL R23
+  CAPTURE VAL R24
   CAPTURE VAL R20
   CAPTURE VAL R18
   CAPTURE VAL R21
   CAPTURE VAL R19
   CAPTURE VAL R22
-  CAPTURE VAL R24
   CAPTURE VAL R25
   CAPTURE VAL R26
   CAPTURE VAL R27
   CAPTURE VAL R28
   CAPTURE VAL R29
   CAPTURE VAL R30
+  CAPTURE VAL R23
   CAPTURE VAL R31
-  RETURN R32 1
+  CAPTURE VAL R32
+  RETURN R33 1

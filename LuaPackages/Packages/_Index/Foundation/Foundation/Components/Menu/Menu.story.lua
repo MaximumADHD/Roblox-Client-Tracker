@@ -254,6 +254,45 @@ return {
 			name = "Grouped",
 			story = function(props)
 				local isOpen, setIsOpen = React.useState(false)
+				local selectedItemId, setSelectedItemId = React.useState("a1")
+				local items: MenuItems = {
+					{
+						title = "First title" :: string?,
+						items = {
+							{
+								id = "a1",
+								icon = "icons/common/robux",
+								text = "Alpha 1",
+								isChecked = selectedItemId == "a1",
+							} :: MenuItem,
+							{
+								id = "a2",
+								text = "Alpha 2",
+								isChecked = selectedItemId == "a2",
+							},
+						},
+					},
+					{
+						items = {
+							{
+								id = "b1",
+								text = "Beta 1",
+								isChecked = selectedItemId == "b1",
+							},
+							{
+								id = "b2",
+								isDisabled = true,
+								text = "Beta 2 (disabled)",
+								isChecked = selectedItemId == "b2",
+							},
+						},
+					},
+					{
+						items = {
+							{ id = "c1", text = "Untitled group item", isChecked = selectedItemId == "c1" },
+						},
+					},
+				}
 
 				return React.createElement(View, {
 					Size = UDim2.new(1, 0, 0, 100),
@@ -261,35 +300,16 @@ return {
 				}, {
 					Menu = React.createElement(Menu, {
 						isOpen = isOpen,
-						items = {
-							{
-								title = "First title" :: string?,
-								items = {
-									{ id = "a1", icon = "icons/common/robux", text = "Alpha 1" } :: MenuItem,
-									{ id = "a2", text = "Alpha 2" },
-								},
-							},
-							{
-								items = {
-									{ id = "b1", text = "Beta 1" },
-									{ id = "b2", isDisabled = true, text = "Beta 2 (disabled)" },
-								},
-							},
-							{
-								items = {
-									{ id = "c1", text = "Untitled group item" },
-								},
-							},
-						} :: MenuItems,
+						items = items,
 						size = props.controls.size,
 						side = props.controls.side,
 						align = props.controls.align,
 						onPressedOutside = function()
 							setIsOpen(false)
 						end,
-						onActivated = function(id)
-							print("Menu item activated:", id)
+						onActivated = function(id: number | string)
 							setIsOpen(false)
+							setSelectedItemId(id :: string)
 						end,
 					}, {
 						Button = React.createElement(Button, {

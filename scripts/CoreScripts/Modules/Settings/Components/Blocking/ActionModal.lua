@@ -11,6 +11,7 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 
 local FFlagEnableNewBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableNewBlockingModal)
+local FFlagFixPlayerListBlockingModalFocusNav = require(CorePackages.Workspace.Packages.PlayerList).Flags.FFlagFixPlayerListBlockingModalFocusNav
 
 local ActionModal = Roact.PureComponent:extend("ActionModal")
 
@@ -53,6 +54,7 @@ function ActionModal:render()
 				title = self.props.title,
 				bodyText = self.props.body,
 				richText = if FFlagEnableNewBlockingModal then true else nil,
+				isRoactGamepadEnabled = if FFlagFixPlayerListBlockingModalFocusNav then false else nil,
 				buttonStackInfo = {
 					buttons = if FFlagEnableNewBlockingModal then
 						{

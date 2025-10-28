@@ -1,0 +1,1013 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["color"]
+  GETTABLEKS R2 R3 K2 ["R"]
+  MULK R1 R2 K0 [255]
+  FASTCALL1 MATH_FLOOR R1 [+2]
+  GETIMPORT R0 K5 [math.floor]
+  CALL R0 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["color"]
+  GETTABLEKS R3 R4 K6 ["G"]
+  MULK R2 R3 K0 [255]
+  FASTCALL1 MATH_FLOOR R2 [+2]
+  GETIMPORT R1 K5 [math.floor]
+  CALL R1 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["color"]
+  GETTABLEKS R4 R5 K7 ["B"]
+  MULK R3 R4 K0 [255]
+  FASTCALL1 MATH_FLOOR R3 [+2]
+  GETIMPORT R2 K5 [math.floor]
+  CALL R2 1 1
+  GETIMPORT R3 K10 [string.format]
+  LOADK R4 K11 ["#%02X%02X%02X"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["alpha"]
+  JUMPIF R0 [+2]
+  LOADNIL R0
+  RETURN R0 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["color"]
+  GETTABLEKS R2 R3 K3 ["R"]
+  MULK R1 R2 K1 [255]
+  FASTCALL1 MATH_FLOOR R1 [+2]
+  GETIMPORT R0 K6 [math.floor]
+  CALL R0 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["color"]
+  GETTABLEKS R3 R4 K7 ["G"]
+  MULK R2 R3 K1 [255]
+  FASTCALL1 MATH_FLOOR R2 [+2]
+  GETIMPORT R1 K6 [math.floor]
+  CALL R1 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["color"]
+  GETTABLEKS R4 R5 K8 ["B"]
+  MULK R3 R4 K1 [255]
+  FASTCALL1 MATH_FLOOR R3 [+2]
+  GETIMPORT R2 K6 [math.floor]
+  CALL R2 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["alpha"]
+  MULK R4 R5 K1 [255]
+  FASTCALL1 MATH_FLOOR R4 [+2]
+  GETIMPORT R3 K6 [math.floor]
+  CALL R3 1 1
+  GETIMPORT R4 K11 [string.format]
+  LOADK R5 K12 ["#%02X%02X%02X%02X"]
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  CALL R4 5 -1
+  RETURN R4 -1
+
+PROTO_2:
+  GETIMPORT R0 K2 [string.format]
+  LOADK R1 K3 ["RGB(%d, %d, %d)"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["color"]
+  GETTABLEKS R4 R5 K6 ["R"]
+  MULK R3 R4 K4 [255]
+  FASTCALL1 MATH_FLOOR R3 [+2]
+  GETIMPORT R2 K9 [math.floor]
+  CALL R2 1 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["color"]
+  GETTABLEKS R5 R6 K10 ["G"]
+  MULK R4 R5 K4 [255]
+  FASTCALL1 MATH_FLOOR R4 [+2]
+  GETIMPORT R3 K9 [math.floor]
+  CALL R3 1 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["color"]
+  GETTABLEKS R6 R7 K11 ["B"]
+  MULK R5 R6 K4 [255]
+  FASTCALL1 MATH_FLOOR R5 [+2]
+  GETIMPORT R4 K9 [math.floor]
+  CALL R4 1 1
+  CALL R0 4 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["alpha"]
+  JUMPIF R0 [+2]
+  LOADNIL R0
+  RETURN R0 1
+  GETIMPORT R0 K3 [string.format]
+  LOADK R1 K4 ["RGBA(%d, %d, %d, %.2f)"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K6 ["color"]
+  GETTABLEKS R4 R5 K7 ["R"]
+  MULK R3 R4 K5 [255]
+  FASTCALL1 MATH_FLOOR R3 [+2]
+  GETIMPORT R2 K10 [math.floor]
+  CALL R2 1 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["color"]
+  GETTABLEKS R5 R6 K11 ["G"]
+  MULK R4 R5 K5 [255]
+  FASTCALL1 MATH_FLOOR R4 [+2]
+  GETIMPORT R3 K10 [math.floor]
+  CALL R3 1 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["color"]
+  GETTABLEKS R6 R7 K12 ["B"]
+  MULK R5 R6 K5 [255]
+  FASTCALL1 MATH_FLOOR R5 [+2]
+  GETIMPORT R4 K10 [math.floor]
+  CALL R4 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["alpha"]
+  CALL R0 5 -1
+  RETURN R0 -1
+
+PROTO_4:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["useMemo"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R0 K1 ["color"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["useMemo"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  NEWTABLE R5 0 4
+  GETTABLEKS R7 R0 K1 ["color"]
+  GETTABLEKS R6 R7 K2 ["R"]
+  GETTABLEKS R8 R0 K1 ["color"]
+  GETTABLEKS R7 R8 K3 ["G"]
+  GETTABLEKS R9 R0 K1 ["color"]
+  GETTABLEKS R8 R9 K4 ["B"]
+  GETTABLEKS R9 R0 K5 ["alpha"]
+  SETLIST R5 R6 4 [1]
+  CALL R3 2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["useMemo"]
+  NEWCLOSURE R5 P2
+  CAPTURE VAL R0
+  NEWTABLE R6 0 1
+  GETTABLEKS R7 R0 K1 ["color"]
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["useMemo"]
+  NEWCLOSURE R6 P3
+  CAPTURE VAL R0
+  NEWTABLE R7 0 4
+  GETTABLEKS R9 R0 K1 ["color"]
+  GETTABLEKS R8 R9 K2 ["R"]
+  GETTABLEKS R10 R0 K1 ["color"]
+  GETTABLEKS R9 R10 K3 ["G"]
+  GETTABLEKS R11 R0 K1 ["color"]
+  GETTABLEKS R10 R11 K4 ["B"]
+  GETTABLEKS R11 R0 K5 ["alpha"]
+  SETLIST R7 R8 4 [1]
+  CALL R5 2 1
+  GETTABLEKS R7 R0 K5 ["alpha"]
+  JUMPIFNOT R7 [+4]
+  GETTABLEKS R7 R0 K5 ["alpha"]
+  SUBRK R6 R6 K7 ["createElement"]
+  JUMP [+1]
+  LOADN R6 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K7 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K10 [{"tag", "LayoutOrder"}]
+  LOADK R10 K11 ["row gap-medium auto-y size-full-0"]
+  SETTABLEKS R10 R9 K8 ["tag"]
+  GETTABLEKS R10 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K9 ["LayoutOrder"]
+  DUPTABLE R10 K14 [{"ColorSwatch", "ColorInfo"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K7 ["createElement"]
+  GETUPVAL R12 2
+  DUPTABLE R13 K19 [{"Size", "backgroundStyle", "cornerRadius", "stroke"}]
+  GETIMPORT R14 K22 [UDim2.fromOffset]
+  LOADN R15 64
+  LOADN R16 64
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K15 ["Size"]
+  DUPTABLE R14 K25 [{"Color3", "Transparency"}]
+  GETTABLEKS R15 R0 K1 ["color"]
+  SETTABLEKS R15 R14 K23 ["Color3"]
+  SETTABLEKS R6 R14 K24 ["Transparency"]
+  SETTABLEKS R14 R13 K16 ["backgroundStyle"]
+  GETIMPORT R14 K28 [UDim.new]
+  LOADN R15 0
+  LOADN R16 8
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K17 ["cornerRadius"]
+  DUPTABLE R14 K31 [{"Color", "Transparency", "Thickness"}]
+  GETTABLEKS R18 R1 K29 ["Color"]
+  GETTABLEKS R17 R18 K32 ["System"]
+  GETTABLEKS R16 R17 K33 ["Neutral"]
+  GETTABLEKS R15 R16 K23 ["Color3"]
+  SETTABLEKS R15 R14 K29 ["Color"]
+  GETTABLEKS R18 R1 K29 ["Color"]
+  GETTABLEKS R17 R18 K32 ["System"]
+  GETTABLEKS R16 R17 K33 ["Neutral"]
+  GETTABLEKS R15 R16 K24 ["Transparency"]
+  SETTABLEKS R15 R14 K24 ["Transparency"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K30 ["Thickness"]
+  SETTABLEKS R14 R13 K18 ["stroke"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K12 ["ColorSwatch"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K7 ["createElement"]
+  GETUPVAL R12 2
+  DUPTABLE R13 K35 [{"tag", "layout"}]
+  LOADK R14 K36 ["col gap-xsmall auto-y flex-grow"]
+  SETTABLEKS R14 R13 K8 ["tag"]
+  DUPTABLE R14 K39 [{"FillDirection", "HorizontalAlignment"}]
+  GETIMPORT R15 K42 [Enum.FillDirection.Vertical]
+  SETTABLEKS R15 R14 K37 ["FillDirection"]
+  GETIMPORT R15 K44 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R15 R14 K38 ["HorizontalAlignment"]
+  SETTABLEKS R14 R13 K34 ["layout"]
+  DUPTABLE R14 K49 [{"HexLabel", "HexAlphaLabel", "RGBLabel", "RGBALabel"}]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K54 [{"Text", "fontStyle", "textStyle", "TextXAlignment", "tag"}]
+  SETTABLEKS R2 R17 K50 ["Text"]
+  GETTABLEKS R19 R1 K55 ["Typography"]
+  GETTABLEKS R18 R19 K56 ["BodyLarge"]
+  SETTABLEKS R18 R17 K51 ["fontStyle"]
+  GETTABLEKS R20 R1 K29 ["Color"]
+  GETTABLEKS R19 R20 K57 ["Content"]
+  GETTABLEKS R18 R19 K58 ["Emphasis"]
+  SETTABLEKS R18 R17 K52 ["textStyle"]
+  GETIMPORT R18 K59 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K53 ["TextXAlignment"]
+  LOADK R18 K60 ["auto-y size-full-0"]
+  SETTABLEKS R18 R17 K8 ["tag"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K45 ["HexLabel"]
+  JUMPIFNOT R3 [+33]
+  GETTABLEKS R16 R0 K61 ["showAlpha"]
+  JUMPIFNOT R16 [+30]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K54 [{"Text", "fontStyle", "textStyle", "TextXAlignment", "tag"}]
+  SETTABLEKS R3 R17 K50 ["Text"]
+  GETTABLEKS R19 R1 K55 ["Typography"]
+  GETTABLEKS R18 R19 K62 ["CaptionLarge"]
+  SETTABLEKS R18 R17 K51 ["fontStyle"]
+  GETTABLEKS R20 R1 K29 ["Color"]
+  GETTABLEKS R19 R20 K57 ["Content"]
+  GETTABLEKS R18 R19 K63 ["Default"]
+  SETTABLEKS R18 R17 K52 ["textStyle"]
+  GETIMPORT R18 K59 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K53 ["TextXAlignment"]
+  LOADK R18 K60 ["auto-y size-full-0"]
+  SETTABLEKS R18 R17 K8 ["tag"]
+  CALL R15 2 1
+  JUMP [+7]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K64 ["Fragment"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K46 ["HexAlphaLabel"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K54 [{"Text", "fontStyle", "textStyle", "TextXAlignment", "tag"}]
+  SETTABLEKS R4 R17 K50 ["Text"]
+  GETTABLEKS R19 R1 K55 ["Typography"]
+  GETTABLEKS R18 R19 K62 ["CaptionLarge"]
+  SETTABLEKS R18 R17 K51 ["fontStyle"]
+  GETTABLEKS R20 R1 K29 ["Color"]
+  GETTABLEKS R19 R20 K57 ["Content"]
+  GETTABLEKS R18 R19 K63 ["Default"]
+  SETTABLEKS R18 R17 K52 ["textStyle"]
+  GETIMPORT R18 K59 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K53 ["TextXAlignment"]
+  LOADK R18 K60 ["auto-y size-full-0"]
+  SETTABLEKS R18 R17 K8 ["tag"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K47 ["RGBLabel"]
+  JUMPIFNOT R5 [+33]
+  GETTABLEKS R16 R0 K61 ["showAlpha"]
+  JUMPIFNOT R16 [+30]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K54 [{"Text", "fontStyle", "textStyle", "TextXAlignment", "tag"}]
+  SETTABLEKS R5 R17 K50 ["Text"]
+  GETTABLEKS R19 R1 K55 ["Typography"]
+  GETTABLEKS R18 R19 K62 ["CaptionLarge"]
+  SETTABLEKS R18 R17 K51 ["fontStyle"]
+  GETTABLEKS R20 R1 K29 ["Color"]
+  GETTABLEKS R19 R20 K57 ["Content"]
+  GETTABLEKS R18 R19 K63 ["Default"]
+  SETTABLEKS R18 R17 K52 ["textStyle"]
+  GETIMPORT R18 K59 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K53 ["TextXAlignment"]
+  LOADK R18 K60 ["auto-y size-full-0"]
+  SETTABLEKS R18 R17 K8 ["tag"]
+  CALL R15 2 1
+  JUMP [+7]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K64 ["Fragment"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K48 ["RGBALabel"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K13 ["ColorInfo"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+PROTO_5:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["useState"]
+  GETTABLEKS R7 R1 K1 ["Color"]
+  GETTABLEKS R6 R7 K2 ["Extended"]
+  GETTABLEKS R5 R6 K3 ["Blue"]
+  GETTABLEKS R4 R5 K4 ["Blue_1100"]
+  GETTABLEKS R3 R4 K5 ["Color3"]
+  CALL R2 1 2
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["useState"]
+  LOADN R5 1
+  CALL R4 1 2
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K6 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K9 [{"Size", "tag"}]
+  GETIMPORT R9 K12 [UDim2.fromOffset]
+  LOADN R10 44
+  LOADN R11 44
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K7 ["Size"]
+  LOADK R9 K13 ["col gap-medium"]
+  SETTABLEKS R9 R8 K8 ["tag"]
+  DUPTABLE R9 K16 [{"PreviewContainer", "Picker"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K20 [{"color", "alpha", "showAlpha"}]
+  SETTABLEKS R2 R12 K17 ["color"]
+  SETTABLEKS R4 R12 K18 ["alpha"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K19 ["showAlpha"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K14 ["PreviewContainer"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K25 [{"initialColor", "initialAlpha", "onColorChanged", "onAlphaChanged"}]
+  SETTABLEKS R2 R12 K21 ["initialColor"]
+  SETTABLEKS R4 R12 K22 ["initialAlpha"]
+  SETTABLEKS R3 R12 K23 ["onColorChanged"]
+  SETTABLEKS R5 R12 K24 ["onAlphaChanged"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K15 ["Picker"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_6:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["useState"]
+  GETTABLEKS R7 R1 K1 ["Color"]
+  GETTABLEKS R6 R7 K2 ["Extended"]
+  GETTABLEKS R5 R6 K3 ["Blue"]
+  GETTABLEKS R4 R5 K4 ["Blue_1100"]
+  GETTABLEKS R3 R4 K5 ["Color3"]
+  CALL R2 1 2
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K9 [{"Size", "tag"}]
+  GETIMPORT R7 K12 [UDim2.fromOffset]
+  LOADN R8 44
+  LOADN R9 44
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K7 ["Size"]
+  LOADK R7 K13 ["col gap-medium"]
+  SETTABLEKS R7 R6 K8 ["tag"]
+  DUPTABLE R7 K16 [{"PreviewContainer", "Picker"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K19 [{"color", "showAlpha"}]
+  SETTABLEKS R2 R10 K17 ["color"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K18 ["showAlpha"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["PreviewContainer"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K22 [{"initialColor", "onColorChanged"}]
+  SETTABLEKS R2 R10 K20 ["initialColor"]
+  SETTABLEKS R3 R10 K21 ["onColorChanged"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["Picker"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_7:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["R"]
+  MULK R1 R2 K0 [255]
+  FASTCALL1 MATH_FLOOR R1 [+2]
+  GETIMPORT R0 K4 [math.floor]
+  CALL R0 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["G"]
+  MULK R2 R3 K0 [255]
+  FASTCALL1 MATH_FLOOR R2 [+2]
+  GETIMPORT R1 K4 [math.floor]
+  CALL R1 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["B"]
+  MULK R3 R4 K0 [255]
+  FASTCALL1 MATH_FLOOR R3 [+2]
+  GETIMPORT R2 K4 [math.floor]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [string.format]
+  LOADK R4 K10 ["#%02X%02X%02X"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_8:
+  GETUPVAL R0 0
+  JUMPIF R0 [+6]
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  CALL R0 1 0
+  GETUPVAL R0 3
+  GETUPVAL R1 4
+  CALL R0 1 0
+  GETUPVAL R0 5
+  GETUPVAL R2 0
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  GETUPVAL R0 2
+  GETUPVAL R1 3
+  CALL R0 1 0
+  GETUPVAL R0 4
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["useState"]
+  GETTABLEKS R7 R1 K1 ["Color"]
+  GETTABLEKS R6 R7 K2 ["Extended"]
+  GETTABLEKS R5 R6 K3 ["Blue"]
+  GETTABLEKS R4 R5 K4 ["Blue_1100"]
+  GETTABLEKS R3 R4 K5 ["Color3"]
+  CALL R2 1 2
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["useState"]
+  LOADN R5 1
+  CALL R4 1 2
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K0 ["useState"]
+  LOADB R7 0
+  CALL R6 1 2
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K0 ["useState"]
+  GETTABLEKS R13 R1 K1 ["Color"]
+  GETTABLEKS R12 R13 K2 ["Extended"]
+  GETTABLEKS R11 R12 K3 ["Blue"]
+  GETTABLEKS R10 R11 K4 ["Blue_1100"]
+  GETTABLEKS R9 R10 K5 ["Color3"]
+  CALL R8 1 2
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K0 ["useState"]
+  LOADN R11 1
+  CALL R10 1 2
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K6 ["useMemo"]
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R2
+  NEWTABLE R14 0 1
+  MOVE R15 R2
+  SETLIST R14 R15 1 [1]
+  CALL R12 2 1
+  GETIMPORT R13 K8 [require]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K9 ["Components"]
+  GETTABLEKS R14 R15 K10 ["Popover"]
+  CALL R13 1 1
+  GETIMPORT R14 K8 [require]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K9 ["Components"]
+  GETTABLEKS R15 R16 K11 ["Interactable"]
+  CALL R14 1 1
+  GETIMPORT R15 K8 [require]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K12 ["Enums"]
+  GETTABLEKS R16 R17 K13 ["PopoverSide"]
+  CALL R15 1 1
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K14 ["createElement"]
+  GETUPVAL R17 3
+  DUPTABLE R18 K17 [{"Size", "tag"}]
+  GETIMPORT R19 K20 [UDim2.fromOffset]
+  LOADN R20 88
+  LOADN R21 144
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K15 ["Size"]
+  LOADK R19 K21 ["row align-x-center align-y-center"]
+  SETTABLEKS R19 R18 K16 ["tag"]
+  DUPTABLE R19 K23 [{"PopoverContainer"}]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K14 ["createElement"]
+  GETTABLEKS R21 R13 K24 ["Root"]
+  DUPTABLE R22 K26 [{"isOpen"}]
+  SETTABLEKS R6 R22 K25 ["isOpen"]
+  DUPTABLE R23 K29 [{"Anchor", "Content"}]
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K14 ["createElement"]
+  GETTABLEKS R25 R13 K27 ["Anchor"]
+  LOADNIL R26
+  GETUPVAL R28 1
+  GETTABLEKS R27 R28 K14 ["createElement"]
+  GETUPVAL R28 3
+  DUPTABLE R29 K30 [{"tag"}]
+  LOADK R30 K31 ["row gap-medium align-y-center auto-xy"]
+  SETTABLEKS R30 R29 K16 ["tag"]
+  DUPTABLE R30 K33 [{"ColorSwatchButton"}]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K14 ["createElement"]
+  MOVE R32 R14
+  DUPTABLE R33 K36 [{"onActivated", "Size", "AutomaticSize"}]
+  NEWCLOSURE R34 P1
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  SETTABLEKS R34 R33 K34 ["onActivated"]
+  GETIMPORT R34 K38 [UDim2.new]
+  LOADN R35 0
+  LOADN R36 0
+  LOADN R37 0
+  LOADN R38 0
+  CALL R34 4 1
+  SETTABLEKS R34 R33 K15 ["Size"]
+  GETIMPORT R34 K41 [Enum.AutomaticSize.XY]
+  SETTABLEKS R34 R33 K35 ["AutomaticSize"]
+  DUPTABLE R34 K43 [{"ButtonContainer"}]
+  GETUPVAL R36 1
+  GETTABLEKS R35 R36 K14 ["createElement"]
+  GETUPVAL R36 3
+  DUPTABLE R37 K45 [{"tag", "backgroundStyle"}]
+  LOADK R38 K46 ["row gap-small align-y-center padding-small radius-small stroke-neutral auto-xy"]
+  SETTABLEKS R38 R37 K16 ["tag"]
+  GETTABLEKS R40 R1 K1 ["Color"]
+  GETTABLEKS R39 R40 K47 ["Surface"]
+  GETTABLEKS R38 R39 K48 ["Surface_100"]
+  SETTABLEKS R38 R37 K44 ["backgroundStyle"]
+  DUPTABLE R38 K51 [{"ColorSwatch", "ColorLabel"}]
+  GETUPVAL R40 1
+  GETTABLEKS R39 R40 K14 ["createElement"]
+  GETUPVAL R40 3
+  DUPTABLE R41 K54 [{"Size", "backgroundStyle", "cornerRadius", "stroke"}]
+  GETIMPORT R42 K20 [UDim2.fromOffset]
+  LOADN R43 24
+  LOADN R44 24
+  CALL R42 2 1
+  SETTABLEKS R42 R41 K15 ["Size"]
+  DUPTABLE R42 K56 [{"Color3", "Transparency"}]
+  SETTABLEKS R2 R42 K5 ["Color3"]
+  SUBRK R43 R57 K4 ["Blue_1100"]
+  SETTABLEKS R43 R42 K55 ["Transparency"]
+  SETTABLEKS R42 R41 K44 ["backgroundStyle"]
+  GETIMPORT R42 K59 [UDim.new]
+  LOADN R43 0
+  LOADN R44 4
+  CALL R42 2 1
+  SETTABLEKS R42 R41 K52 ["cornerRadius"]
+  DUPTABLE R42 K61 [{"Color", "Transparency", "Thickness"}]
+  GETTABLEKS R46 R1 K1 ["Color"]
+  GETTABLEKS R45 R46 K62 ["System"]
+  GETTABLEKS R44 R45 K63 ["Neutral"]
+  GETTABLEKS R43 R44 K5 ["Color3"]
+  SETTABLEKS R43 R42 K1 ["Color"]
+  GETTABLEKS R46 R1 K1 ["Color"]
+  GETTABLEKS R45 R46 K62 ["System"]
+  GETTABLEKS R44 R45 K63 ["Neutral"]
+  GETTABLEKS R43 R44 K55 ["Transparency"]
+  SETTABLEKS R43 R42 K55 ["Transparency"]
+  LOADN R43 1
+  SETTABLEKS R43 R42 K60 ["Thickness"]
+  SETTABLEKS R42 R41 K53 ["stroke"]
+  CALL R39 2 1
+  SETTABLEKS R39 R38 K49 ["ColorSwatch"]
+  GETUPVAL R40 1
+  GETTABLEKS R39 R40 K14 ["createElement"]
+  GETUPVAL R40 4
+  DUPTABLE R41 K67 [{"Text", "fontStyle", "textStyle", "tag"}]
+  SETTABLEKS R12 R41 K64 ["Text"]
+  GETTABLEKS R43 R1 K68 ["Typography"]
+  GETTABLEKS R42 R43 K69 ["BodyMedium"]
+  SETTABLEKS R42 R41 K65 ["fontStyle"]
+  GETTABLEKS R44 R1 K1 ["Color"]
+  GETTABLEKS R43 R44 K28 ["Content"]
+  GETTABLEKS R42 R43 K70 ["Default"]
+  SETTABLEKS R42 R41 K66 ["textStyle"]
+  LOADK R42 K71 ["auto-xy"]
+  SETTABLEKS R42 R41 K16 ["tag"]
+  CALL R39 2 1
+  SETTABLEKS R39 R38 K50 ["ColorLabel"]
+  CALL R35 3 1
+  SETTABLEKS R35 R34 K42 ["ButtonContainer"]
+  CALL R31 3 1
+  SETTABLEKS R31 R30 K32 ["ColorSwatchButton"]
+  CALL R27 3 -1
+  CALL R24 -1 1
+  SETTABLEKS R24 R23 K27 ["Anchor"]
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K14 ["createElement"]
+  GETTABLEKS R25 R13 K28 ["Content"]
+  DUPTABLE R26 K75 [{"side", "hasArrow", "onPressedOutside"}]
+  GETTABLEKS R27 R15 K76 ["Right"]
+  SETTABLEKS R27 R26 K72 ["side"]
+  LOADB R27 1
+  SETTABLEKS R27 R26 K73 ["hasArrow"]
+  NEWCLOSURE R27 P2
+  CAPTURE VAL R7
+  SETTABLEKS R27 R26 K74 ["onPressedOutside"]
+  GETUPVAL R28 1
+  GETTABLEKS R27 R28 K14 ["createElement"]
+  GETUPVAL R28 3
+  DUPTABLE R29 K77 [{"tag", "Size"}]
+  LOADK R30 K78 ["col padding-medium gap-medium"]
+  SETTABLEKS R30 R29 K16 ["tag"]
+  GETIMPORT R30 K20 [UDim2.fromOffset]
+  LOADN R31 44
+  LOADN R32 44
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K15 ["Size"]
+  DUPTABLE R30 K81 [{"Picker", "Actions"}]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K14 ["createElement"]
+  GETUPVAL R32 5
+  DUPTABLE R33 K87 [{"initialColor", "initialAlpha", "onColorChanged", "onAlphaChanged", "LayoutOrder"}]
+  SETTABLEKS R2 R33 K82 ["initialColor"]
+  SETTABLEKS R4 R33 K83 ["initialAlpha"]
+  NEWCLOSURE R34 P3
+  CAPTURE VAL R3
+  SETTABLEKS R34 R33 K84 ["onColorChanged"]
+  NEWCLOSURE R34 P4
+  CAPTURE VAL R5
+  SETTABLEKS R34 R33 K85 ["onAlphaChanged"]
+  LOADN R34 1
+  SETTABLEKS R34 R33 K86 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K79 ["Picker"]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K14 ["createElement"]
+  GETUPVAL R32 3
+  DUPTABLE R33 K88 [{"tag", "LayoutOrder"}]
+  LOADK R34 K89 ["row gap-small auto-y size-full-0 margin-top-medium align-x-right"]
+  SETTABLEKS R34 R33 K16 ["tag"]
+  LOADN R34 2
+  SETTABLEKS R34 R33 K86 ["LayoutOrder"]
+  DUPTABLE R34 K92 [{"CancelButton", "DoneButton"}]
+  GETUPVAL R36 1
+  GETTABLEKS R35 R36 K14 ["createElement"]
+  MOVE R36 R14
+  DUPTABLE R37 K36 [{"onActivated", "Size", "AutomaticSize"}]
+  NEWCLOSURE R38 P5
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  SETTABLEKS R38 R37 K34 ["onActivated"]
+  GETIMPORT R38 K38 [UDim2.new]
+  LOADN R39 0
+  LOADN R40 0
+  LOADN R41 0
+  LOADN R42 0
+  CALL R38 4 1
+  SETTABLEKS R38 R37 K15 ["Size"]
+  GETIMPORT R38 K41 [Enum.AutomaticSize.XY]
+  SETTABLEKS R38 R37 K35 ["AutomaticSize"]
+  DUPTABLE R38 K43 [{"ButtonContainer"}]
+  GETUPVAL R40 1
+  GETTABLEKS R39 R40 K14 ["createElement"]
+  GETUPVAL R40 3
+  DUPTABLE R41 K93 [{"tag", "backgroundStyle", "stroke"}]
+  LOADK R42 K94 ["padding-small radius-small auto-xy"]
+  SETTABLEKS R42 R41 K16 ["tag"]
+  GETTABLEKS R44 R1 K1 ["Color"]
+  GETTABLEKS R43 R44 K47 ["Surface"]
+  GETTABLEKS R42 R43 K48 ["Surface_100"]
+  SETTABLEKS R42 R41 K44 ["backgroundStyle"]
+  DUPTABLE R42 K61 [{"Color", "Transparency", "Thickness"}]
+  GETTABLEKS R46 R1 K1 ["Color"]
+  GETTABLEKS R45 R46 K62 ["System"]
+  GETTABLEKS R44 R45 K63 ["Neutral"]
+  GETTABLEKS R43 R44 K5 ["Color3"]
+  SETTABLEKS R43 R42 K1 ["Color"]
+  GETTABLEKS R46 R1 K1 ["Color"]
+  GETTABLEKS R45 R46 K62 ["System"]
+  GETTABLEKS R44 R45 K63 ["Neutral"]
+  GETTABLEKS R43 R44 K55 ["Transparency"]
+  SETTABLEKS R43 R42 K55 ["Transparency"]
+  LOADN R43 1
+  SETTABLEKS R43 R42 K60 ["Thickness"]
+  SETTABLEKS R42 R41 K53 ["stroke"]
+  DUPTABLE R42 K96 [{"ButtonText"}]
+  GETUPVAL R44 1
+  GETTABLEKS R43 R44 K14 ["createElement"]
+  GETUPVAL R44 4
+  DUPTABLE R45 K67 [{"Text", "fontStyle", "textStyle", "tag"}]
+  LOADK R46 K97 ["Cancel"]
+  SETTABLEKS R46 R45 K64 ["Text"]
+  GETTABLEKS R47 R1 K68 ["Typography"]
+  GETTABLEKS R46 R47 K69 ["BodyMedium"]
+  SETTABLEKS R46 R45 K65 ["fontStyle"]
+  GETTABLEKS R48 R1 K1 ["Color"]
+  GETTABLEKS R47 R48 K28 ["Content"]
+  GETTABLEKS R46 R47 K70 ["Default"]
+  SETTABLEKS R46 R45 K66 ["textStyle"]
+  LOADK R46 K71 ["auto-xy"]
+  SETTABLEKS R46 R45 K16 ["tag"]
+  CALL R43 2 1
+  SETTABLEKS R43 R42 K95 ["ButtonText"]
+  CALL R39 3 1
+  SETTABLEKS R39 R38 K42 ["ButtonContainer"]
+  CALL R35 3 1
+  SETTABLEKS R35 R34 K90 ["CancelButton"]
+  GETUPVAL R36 1
+  GETTABLEKS R35 R36 K14 ["createElement"]
+  MOVE R36 R14
+  DUPTABLE R37 K36 [{"onActivated", "Size", "AutomaticSize"}]
+  NEWCLOSURE R38 P6
+  CAPTURE VAL R7
+  SETTABLEKS R38 R37 K34 ["onActivated"]
+  GETIMPORT R38 K38 [UDim2.new]
+  LOADN R39 0
+  LOADN R40 0
+  LOADN R41 0
+  LOADN R42 0
+  CALL R38 4 1
+  SETTABLEKS R38 R37 K15 ["Size"]
+  GETIMPORT R38 K41 [Enum.AutomaticSize.XY]
+  SETTABLEKS R38 R37 K35 ["AutomaticSize"]
+  DUPTABLE R38 K43 [{"ButtonContainer"}]
+  GETUPVAL R40 1
+  GETTABLEKS R39 R40 K14 ["createElement"]
+  GETUPVAL R40 3
+  DUPTABLE R41 K93 [{"tag", "backgroundStyle", "stroke"}]
+  LOADK R42 K94 ["padding-small radius-small auto-xy"]
+  SETTABLEKS R42 R41 K16 ["tag"]
+  GETTABLEKS R44 R1 K1 ["Color"]
+  GETTABLEKS R43 R44 K47 ["Surface"]
+  GETTABLEKS R42 R43 K48 ["Surface_100"]
+  SETTABLEKS R42 R41 K44 ["backgroundStyle"]
+  DUPTABLE R42 K61 [{"Color", "Transparency", "Thickness"}]
+  GETTABLEKS R46 R1 K1 ["Color"]
+  GETTABLEKS R45 R46 K62 ["System"]
+  GETTABLEKS R44 R45 K63 ["Neutral"]
+  GETTABLEKS R43 R44 K5 ["Color3"]
+  SETTABLEKS R43 R42 K1 ["Color"]
+  GETTABLEKS R46 R1 K1 ["Color"]
+  GETTABLEKS R45 R46 K62 ["System"]
+  GETTABLEKS R44 R45 K63 ["Neutral"]
+  GETTABLEKS R43 R44 K55 ["Transparency"]
+  SETTABLEKS R43 R42 K55 ["Transparency"]
+  LOADN R43 1
+  SETTABLEKS R43 R42 K60 ["Thickness"]
+  SETTABLEKS R42 R41 K53 ["stroke"]
+  DUPTABLE R42 K96 [{"ButtonText"}]
+  GETUPVAL R44 1
+  GETTABLEKS R43 R44 K14 ["createElement"]
+  GETUPVAL R44 4
+  DUPTABLE R45 K67 [{"Text", "fontStyle", "textStyle", "tag"}]
+  LOADK R46 K98 ["Done"]
+  SETTABLEKS R46 R45 K64 ["Text"]
+  GETTABLEKS R47 R1 K68 ["Typography"]
+  GETTABLEKS R46 R47 K69 ["BodyMedium"]
+  SETTABLEKS R46 R45 K65 ["fontStyle"]
+  GETTABLEKS R48 R1 K1 ["Color"]
+  GETTABLEKS R47 R48 K28 ["Content"]
+  GETTABLEKS R46 R47 K70 ["Default"]
+  SETTABLEKS R46 R45 K66 ["textStyle"]
+  LOADK R46 K71 ["auto-xy"]
+  SETTABLEKS R46 R45 K16 ["tag"]
+  CALL R43 2 1
+  SETTABLEKS R43 R42 K95 ["ButtonText"]
+  CALL R39 3 1
+  SETTABLEKS R39 R38 K42 ["ButtonContainer"]
+  CALL R35 3 1
+  SETTABLEKS R35 R34 K91 ["DoneButton"]
+  CALL R31 3 1
+  SETTABLEKS R31 R30 K80 ["Actions"]
+  CALL R27 3 -1
+  CALL R24 -1 1
+  SETTABLEKS R24 R23 K28 ["Content"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K22 ["PopoverContainer"]
+  CALL R16 3 -1
+  RETURN R16 -1
+
+PROTO_15:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  GETIMPORT R3 K3 [BrickColor.new]
+  LOADK R4 K4 ["Bright red"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K5 ["Color"]
+  CALL R1 1 2
+  NEWTABLE R3 0 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["Brick"]
+  SETLIST R3 R4 1 [1]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K10 [{"Size", "tag"}]
+  GETIMPORT R7 K13 [UDim2.fromOffset]
+  LOADN R8 44
+  LOADN R9 44
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K8 ["Size"]
+  LOADK R7 K14 ["col gap-medium"]
+  SETTABLEKS R7 R6 K9 ["tag"]
+  DUPTABLE R7 K17 [{"PreviewContainer", "Picker"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K20 [{"color", "showAlpha"}]
+  SETTABLEKS R1 R10 K18 ["color"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K19 ["showAlpha"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["PreviewContainer"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K25 [{"initialColor", "availableModes", "initialMode", "onColorChanged"}]
+  SETTABLEKS R1 R10 K21 ["initialColor"]
+  SETTABLEKS R3 R10 K22 ["availableModes"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K6 ["Brick"]
+  SETTABLEKS R11 R10 K23 ["initialMode"]
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R2
+  SETTABLEKS R11 R10 K24 ["onColorChanged"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K16 ["Picker"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["View"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Text"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K11 ["ColorPicker"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K12 ["Enums"]
+  GETTABLEKS R7 R8 K13 ["ColorInputMode"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R10 R0 K14 ["Providers"]
+  GETTABLEKS R9 R10 K15 ["Style"]
+  GETTABLEKS R8 R9 K16 ["useTokens"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K17 [PROTO_4]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  DUPTABLE R9 K21 [{"summary", "stories", "controls"}]
+  LOADK R10 K11 ["ColorPicker"]
+  SETTABLEKS R10 R9 K18 ["summary"]
+  NEWTABLE R10 0 4
+  DUPTABLE R11 K24 [{"name", "story"}]
+  LOADK R12 K25 ["Base"]
+  SETTABLEKS R12 R11 K22 ["name"]
+  DUPCLOSURE R12 K26 [PROTO_5]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  SETTABLEKS R12 R11 K23 ["story"]
+  DUPTABLE R12 K24 [{"name", "story"}]
+  LOADK R13 K27 ["Without Alpha"]
+  SETTABLEKS R13 R12 K22 ["name"]
+  DUPCLOSURE R13 K28 [PROTO_6]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  SETTABLEKS R13 R12 K23 ["story"]
+  DUPTABLE R13 K24 [{"name", "story"}]
+  LOADK R14 K29 ["With Popover"]
+  SETTABLEKS R14 R13 K22 ["name"]
+  DUPCLOSURE R14 K30 [PROTO_14]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLEKS R14 R13 K23 ["story"]
+  DUPTABLE R14 K24 [{"name", "story"}]
+  LOADK R15 K31 ["BrickColor Only"]
+  SETTABLEKS R15 R14 K22 ["name"]
+  DUPCLOSURE R15 K32 [PROTO_16]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  SETTABLEKS R15 R14 K23 ["story"]
+  SETLIST R10 R11 4 [1]
+  SETTABLEKS R10 R9 K19 ["stories"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K20 ["controls"]
+  RETURN R9 1

@@ -89,7 +89,7 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 				return (props.Image :: React.Binding<string>):map(function(value: string)
 					if isFoundationImage(value) then
 						local asset
-						if Flags.FoundationSupportCloudAssetsImage and isCloudAsset(value) then
+						if isCloudAsset(value) then
 							asset = Assets[value]
 							aspectRatio = getAspectRatio(asset.size)
 							if prop == "Image" then
@@ -115,7 +115,7 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 			imageRectOffset = getImageBindingValue("ImageRectOffset")
 			imageRectSize = getImageBindingValue("ImageRectSize")
 		elseif typeof(props.Image) == "string" and isFoundationImage(props.Image) then
-			if Flags.FoundationSupportCloudAssetsImage and isCloudAsset(props.Image) then
+			if isCloudAsset(props.Image) then
 				local asset = Assets[props.Image]
 				image = asset.assetId
 				aspectRatio = getAspectRatio(asset.size)
@@ -160,9 +160,7 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 		scaleType = Enum.ScaleType.Slice
 	end
 
-	if Flags.FoundationSupportCloudAssetsImage then
-		props.aspectRatio = aspectRatio
-	end
+	props.aspectRatio = aspectRatio
 
 	local defaultTags = if props.backgroundStyle ~= nil then DEFAULT_TAGS_WITH_BG else DEFAULT_TAGS
 

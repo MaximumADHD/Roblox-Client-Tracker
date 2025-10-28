@@ -42,6 +42,11 @@ return function(innerComponent, resolutionScale)
 			if usesImageSet then
 				local imageName = ImagesInverse[imageSetProps]
 				if imageName and migrationLookup[imageName] then
+					if not tokens.Stroke then
+						error(
+							`No StyleProvider in tree for migrated icon ImageSetComponent.\n UIBlox Icon: {imageName}, BuilderIcon: {migrationLookup[imageName]}`
+						)
+					end
 					local scaleValue = tokens.Stroke.Standard -- 1pt scaled
 					return getBuilderIconElement(
 						fullProps,

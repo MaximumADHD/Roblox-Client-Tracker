@@ -6,34 +6,31 @@ local ReactRoblox = require(Packages.ReactRoblox)
 local Dash = require(Packages.Dash)
 
 local Constants = require(Foundation.Constants)
-local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local Image = require(Foundation.Components.Image)
+
+local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
+
 local DialogSize = require(Foundation.Enums.DialogSize)
 local OnCloseCallbackReason = require(Foundation.Enums.OnCloseCallbackReason)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+
+local Flags = require(Foundation.Utility.Flags)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+
+local DialogTypes = require(script.Parent.Types)
 local useDialogVariants = require(script.Parent.useDialogVariants).useDialogVariants
 local useDialogSize = require(script.Parent.useDialogSize)
 local useDialogResponsiveSize = require(script.Parent.useDialogResponsiveSize)
 local DialogProvider = require(script.Parent.DialogProvider)
-local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
-local Flags = require(Foundation.Utility.Flags)
 
 type DialogSize = DialogSize.DialogSize
 type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 
-export type DialogProps = {
-	onClose: ((reason: OnCloseCallbackReason?) -> ())?,
-	size: DialogSize?,
-	disablePortal: boolean?,
-	hasBackdrop: boolean?,
-	children: React.ReactNode,
-	testId: string?,
-} & Types.NativeCallbackProps
+export type DialogProps = DialogTypes.DialogProps
 
 type DialogInternalProps = DialogProps & {
 	forwardRef: React.Ref<GuiObject>?,
@@ -87,6 +84,12 @@ local function Dialog(dialogProps: DialogInternalProps)
 					stateLayer = {
 						affordance = StateLayerAffordance.None,
 					},
+					selection = if Flags.FoundationDialogUpdateSelection then DialogTypes.nonSelectable else nil,
+					selectionGroup = if Flags.FoundationDialogUpdateSelection
+						then DialogTypes.isolatedSelectionGroup
+						else nil,
+					-- Needed to sink the onActivated event to the backdrop
+					onActivated = Dash.noop,
 				}),
 				{
 					CloseAffordance = if props.onClose
@@ -188,7 +191,12 @@ local function Dialog(dialogProps: DialogInternalProps)
 						stateLayer = {
 							affordance = StateLayerAffordance.None,
 						},
-						onActivated = function() end,
+						selection = if Flags.FoundationDialogUpdateSelection then DialogTypes.nonSelectable else nil,
+						selectionGroup = if Flags.FoundationDialogUpdateSelection
+							then DialogTypes.isolatedSelectionGroup
+							else nil,
+						-- Needed to sink the onActivated event to the backdrop
+						onActivated = Dash.noop,
 					}),
 					{
 						CloseAffordance = if props.onClose

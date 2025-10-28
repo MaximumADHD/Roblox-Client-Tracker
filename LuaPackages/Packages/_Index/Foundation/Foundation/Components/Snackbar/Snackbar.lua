@@ -50,6 +50,8 @@ local defaultProps = {
 	testId = "--foundation-snackbar",
 }
 
+local IS_INVERSE = { isInverse = true }
+
 local function Snackbar(snackbarProps: SnackbarProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(snackbarProps, defaultProps)
 	local tokens = useTokens()
@@ -91,7 +93,7 @@ local function Snackbar(snackbarProps: SnackbarProps, ref: React.Ref<GuiObject>?
 			},
 			ref = ref,
 		}),
-		React.createElement(PresentationContext.Provider, { value = { isInverse = true } }, {
+		React.createElement(PresentationContext.Provider, { value = IS_INVERSE }, {
 			Content = React.createElement(View, {
 				LayoutOrder = 1,
 				tag = "auto-xy align-y-center padding-y-small row fill gap-small",

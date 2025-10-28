@@ -2,10 +2,15 @@ local CorePackages = game:GetService("CorePackages")
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
 
+local TraversalLeaveConfirmation = require(script.Parent.TraversalLeaveConfirmation)
+
 local Settings = script.Parent.Parent.Parent
+local EnumReactPage = require(Settings.EnumReactPage)
+local ReactPageSignal = require(Settings.ReactPageSignal)
 local Utility = require(Settings.Utility)
 
 local View = Foundation.View
@@ -13,27 +18,36 @@ local ThumbnailType = Foundation.Enums.ThumbnailType
 local ThumbnailSize = Foundation.Enums.ThumbnailSize
 local getRbxThumb = Foundation.Utility.getRbxThumb
 local Traversal = CoreScriptsRoactCommon.Traversal
+local TraveralConstants = Traversal.Constants
 local HistoryMenu = Traversal.HistoryMenu
 local useHistoryItems = Traversal.useHistoryItems
 
 local useTokens = Foundation.Hooks.useTokens
 
-export type TraversalHistoryMenuProps = {
-	onHistorySelected: () -> (),
-}
+export type TraversalHistoryMenuProps = {}
 
 local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React.Ref<GuiObject>?): React.React_Node
 	local historyItems = useHistoryItems()
 	local items = {}
-	for placeId, placeInfo in historyItems do
+	for _, historyItem in historyItems do
 		table.insert(items, {
-			placeId = placeId,
-			text = placeInfo.name,
-			icon = getRbxThumb(ThumbnailType.GameIcon, placeInfo.universeId, ThumbnailSize.Small)
+			universeId = historyItem.universeId,
+			text = historyItem.name,
+			icon = getRbxThumb(ThumbnailType.GameIcon, historyItem.universeId, ThumbnailSize.Small)
 		})
 	end
 
 	local tokens = useTokens()
+	local selectedUniverseId, setSelectedUniverseId = React.useState(TraveralConstants.NO_UNIVERSE_ID)
+	local reactPageSignal = SignalsReact.useSignalState(ReactPageSignal)
+
+	local openDialog = React.useCallback(function(universeId: number)
+		setSelectedUniverseId(universeId)
+	end, { setSelectedUniverseId })
+
+	local closeDialog = React.useCallback(function()
+		setSelectedUniverseId(TraveralConstants.NO_UNIVERSE_ID)
+	end, { setSelectedUniverseId })
 
 	local dividerLeftStyle = React.useMemo(function()
 		-- matches button border style
@@ -59,7 +73,18 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 				["padding-medium"] = not isSmallTouchScreen, 
 			},
 			historyItems = items,
-			onHistorySelected = props.onHistorySelected,
+			onHistorySelected = function()
+				reactPageSignal.setCurrentReactPage(EnumReactPage.TraversalHistory)
+			end,
+			onMenuItemSelected = openDialog,
+		})
+	}, {
+		Dialog = React.createElement(TraversalLeaveConfirmation, {
+			isDialogOpen = selectedUniverseId > TraveralConstants.NO_UNIVERSE_ID,
+			onCancel = closeDialog,
+			onClose = closeDialog,
+			universeId = selectedUniverseId,
+			source = "history_dropdown",
 		})
 	})
 

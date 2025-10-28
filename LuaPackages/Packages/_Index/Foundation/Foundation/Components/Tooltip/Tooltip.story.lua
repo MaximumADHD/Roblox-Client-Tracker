@@ -10,7 +10,7 @@ local IconSize = require(Foundation.Enums.IconSize)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 
--- Used as a constant on purpose, otherwise a new table will be created each render, causing extra renders.
+-- Used as a constant on purpose; otherwise a new table will be created each render, causing extra renders.
 local shortcut = { Enum.KeyCode.F2, Enum.KeyCode.One, Enum.KeyCode.ButtonR3 }
 
 return {
@@ -23,7 +23,7 @@ return {
 					View,
 					{
 						Size = UDim2.new(1, 0, 0, 300),
-						tag = "row align-x-center align-y-center",
+						tag = "row align-x-right align-y-center",
 					},
 					React.createElement(
 						Tooltip,

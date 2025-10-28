@@ -113,10 +113,10 @@ local Badge = require(script.Components.Badge)
 export type BadgeProps = Badge.BadgeProps
 
 local BaseMenu = require(script.Components.BaseMenu)
-export type BaseMenuProps = BaseMenu.BaseMenuProps
+export type BaseMenuProps<Item = BaseMenuItem> = BaseMenu.BaseMenuProps<Item>
 export type BaseMenuItem = BaseMenu.BaseMenuItem
-export type BaseMenuItems = BaseMenu.BaseMenuItems
-export type BaseMenuItemGroup = BaseMenu.BaseMenuItemGroup
+export type BaseMenuItems<Item = BaseMenuItem> = BaseMenu.BaseMenuItems<Item>
+export type BaseMenuItemGroup<Item = BaseMenuItem> = BaseMenu.BaseMenuItemGroup<Item>
 
 local Button = require(script.Components.Button)
 export type ButtonProps = Button.ButtonProps
@@ -150,6 +150,7 @@ export type DividerProps = Divider.DividerProps
 local Dropdown = require(script.Components.Dropdown)
 export type DropdownProps = Dropdown.DropdownProps
 export type DropdownItem = Dropdown.DropdownItem
+export type DropdownItems = Dropdown.DropdownItems
 
 local Grid = require(script.Components.Grid)
 export type GridProps = Grid.GridProps

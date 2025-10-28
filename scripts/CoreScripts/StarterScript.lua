@@ -67,7 +67,6 @@ local getFFlagMicrophoneDevicePermissionsPromptLogging =
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
-local FFlagCASButtonsOnWindowsTouch = game:DefineFastFlag("CASButtonsOnWindowsTouch", false)
 
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
 local FFlagEnablePremiumSponsoredExperienceReporting =
@@ -102,6 +101,8 @@ local ReactSchedulerConfig = GetReactSchedulerIXPConfig()
 if ReactSchedulerConfig then
 	ReactScheduler.unstable_setSchedulerFlags(ReactSchedulerConfig)
 end
+
+local FFlagEnableAEGIS2CommsFAEUpsell = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAEGIS2CommsFAEUpsell
 
 local localPlayer = Players.LocalPlayer
 while not localPlayer do
@@ -330,7 +331,7 @@ coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.VirtualCursor)
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)
 
-local hasTouchSupport = if FFlagCASButtonsOnWindowsTouch and game:GetEngineFeature("TouchScreenEnabled")
+local hasTouchSupport = if game:GetEngineFeature("TouchScreenEnabled")
 	then UserInputService.TouchScreenEnabled
 	else UserInputService.TouchEnabled
 
@@ -563,4 +564,14 @@ end
 
 if game:GetEngineFeature("RecordingServicePlaybackApiLua") then
 	coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.ExperienceStateReplay)
+end
+
+if FFlagEnableAEGIS2CommsFAEUpsell then
+	coroutine.wrap(function()
+		local SocialUpsell = safeRequire(CorePackages.Workspace.Packages.SocialUpsell)
+
+		if SocialUpsell then
+			SocialUpsell.Overlay.initializeInExpOverlay()
+		end
+	end)()
 end

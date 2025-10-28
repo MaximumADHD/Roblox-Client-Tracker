@@ -228,54 +228,74 @@ PROTO_9:
   RETURN R0 0
 
 PROTO_10:
-  DUPTABLE R4 K4 [{"connections", "updateHierarchy", "connectedProperties", "instanceTypes"}]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K0 ["connections"]
-  SETTABLEKS R1 R4 K1 ["updateHierarchy"]
-  SETTABLEKS R2 R4 K2 ["connectedProperties"]
+  DUPTABLE R5 K4 [{"connections", "updateHierarchy", "connectedProperties", "instanceTypes"}]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K0 ["connections"]
+  SETTABLEKS R1 R5 K1 ["updateHierarchy"]
+  SETTABLEKS R2 R5 K2 ["connectedProperties"]
   JUMPIF R3 [+6]
-  NEWTABLE R5 0 1
-  LOADK R6 K5 ["StyleBase"]
-  SETLIST R5 R6 1 [1]
+  NEWTABLE R6 0 1
+  LOADK R7 K5 ["StyleBase"]
+  SETLIST R6 R7 1 [1]
   JUMP [+1]
-  MOVE R5 R3
-  SETTABLEKS R5 R4 K3 ["instanceTypes"]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R4
-  SETTABLEKS R5 R4 K6 ["isFilteredType"]
-  NEWCLOSURE R5 P1
-  CAPTURE VAL R4
-  SETTABLEKS R5 R4 K7 ["removeInstanceConnections"]
-  NEWCLOSURE R5 P2
-  CAPTURE VAL R4
+  MOVE R6 R3
+  SETTABLEKS R6 R5 K3 ["instanceTypes"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K6 ["isFilteredType"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K7 ["removeInstanceConnections"]
+  NEWCLOSURE R6 P2
+  CAPTURE VAL R5
   CAPTURE UPVAL U0
-  SETTABLEKS R5 R4 K8 ["addInstanceConnections"]
-  NEWCLOSURE R5 P3
-  CAPTURE VAL R4
-  SETTABLEKS R5 R4 K9 ["addRootInstanceConnections"]
-  NEWCLOSURE R5 P4
-  CAPTURE VAL R4
-  SETTABLEKS R5 R4 K10 ["removeAllConnections"]
-  NEWCLOSURE R5 P5
-  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K8 ["addInstanceConnections"]
+  NEWCLOSURE R6 P3
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K9 ["addRootInstanceConnections"]
+  NEWCLOSURE R6 P4
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K10 ["removeAllConnections"]
+  NEWCLOSURE R6 P5
+  CAPTURE VAL R5
   CAPTURE UPVAL U1
-  SETTABLEKS R5 R4 K11 ["destroyListener"]
-  MOVE R5 R0
-  LOADNIL R6
+  SETTABLEKS R6 R5 K11 ["destroyListener"]
+  GETUPVAL R6 2
+  JUMPIFNOT R6 [+15]
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  FASTCALL2K ASSERT R7 K12 [+4]
+  LOADK R8 K12 ["expecting valid source"]
+  GETIMPORT R6 K14 [assert]
+  CALL R6 2 0
+  GETTABLEKS R6 R5 K9 ["addRootInstanceConnections"]
+  MOVE R7 R4
+  CALL R6 1 0
+  JUMP [+20]
+  JUMPIFNOTEQKNIL R0 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  FASTCALL2K ASSERT R7 K15 [+4]
+  LOADK R8 K15 ["expecting valid roots"]
+  GETIMPORT R6 K14 [assert]
+  CALL R6 2 0
+  MOVE R6 R0
   LOADNIL R7
-  FORGPREP R5
-  GETTABLEKS R10 R4 K9 ["addRootInstanceConnections"]
-  MOVE R11 R9
-  CALL R10 1 0
-  FORGLOOP R5 2 [-5]
-  DUPTABLE R7 K13 [{"__index"}]
-  GETUPVAL R8 2
-  SETTABLEKS R8 R7 K12 ["__index"]
-  FASTCALL2 SETMETATABLE R4 R7 [+4]
-  MOVE R6 R4
-  GETIMPORT R5 K15 [setmetatable]
-  CALL R5 2 1
-  RETURN R5 1
+  LOADNIL R8
+  FORGPREP R6
+  GETTABLEKS R11 R5 K9 ["addRootInstanceConnections"]
+  MOVE R12 R10
+  CALL R11 1 0
+  FORGLOOP R6 2 [-5]
+  DUPTABLE R8 K17 [{"__index"}]
+  GETUPVAL R9 3
+  SETTABLEKS R9 R8 K16 ["__index"]
+  FASTCALL2 SETMETATABLE R5 R8 [+4]
+  MOVE R7 R5
+  GETIMPORT R6 K19 [setmetatable]
+  CALL R6 2 1
+  RETURN R6 1
 
 MAIN:
   PREPVARARGS 0
@@ -288,10 +308,17 @@ MAIN:
   GETTABLEKS R2 R3 K6 ["Dash"]
   CALL R1 1 1
   GETTABLEKS R2 R1 K7 ["join"]
-  NEWTABLE R3 1 0
-  DUPCLOSURE R4 K8 [PROTO_10]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagStyleEditorPluginStyleSheets"]
+  CALL R3 1 1
+  CALL R3 0 1
+  NEWTABLE R4 1 0
+  DUPCLOSURE R5 K11 [PROTO_10]
   CAPTURE VAL R2
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLEKS R4 R3 K9 ["new"]
-  RETURN R3 1
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K12 ["new"]
+  RETURN R4 1

@@ -14,7 +14,6 @@ local DeviceTypeEnum = RobloxAppEnums.DeviceType
 local useLogInputTypeChanged = require(CorePackages.Workspace.Packages.UiShellEvents).useLogInputTypeChanged
 local useLogOrientationChanged = require(CorePackages.Workspace.Packages.UiShellEvents).useLogOrientationChanged
 
-local GetFFlagLogOrientationChanged = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLogOrientationChanged
 local EventIngestService = game:GetService("EventIngestService")
 local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
 local eventIngest = EventIngest.new(EventIngestService)
@@ -60,10 +59,8 @@ local function CoreScriptsGlobalEffects(props)
 		end
     end
 
-	if GetFFlagLogOrientationChanged() then
-		local currentScreenOrientation = usePlayerCurrentScreenOrientation()
-		useLogOrientationChanged(eventIngest, currentScreenOrientation)
-	end
+	local currentScreenOrientation = usePlayerCurrentScreenOrientation()
+	useLogOrientationChanged(eventIngest, currentScreenOrientation)
 
 	local styleOverride = {
 		deviceType = DeviceTypeEnum.Console,

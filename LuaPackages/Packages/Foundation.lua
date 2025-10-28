@@ -59,10 +59,10 @@ export type AccordionItemProps = Package.AccordionItemProps
 export type AvatarProps = Package.AvatarProps
 export type AvatarGroupProps = Package.AvatarGroupProps
 export type BadgeProps = Package.BadgeProps
-export type BaseMenuProps = Package.BaseMenuProps
+export type BaseMenuProps<Item = BaseMenuItem> = Package.BaseMenuProps<Item > 
 export type BaseMenuItem = Package.BaseMenuItem
-export type BaseMenuItems = Package.BaseMenuItems
-export type BaseMenuItemGroup = Package.BaseMenuItemGroup
+export type BaseMenuItems<Item = BaseMenuItem> = Package.BaseMenuItems<Item > 
+export type BaseMenuItemGroup<Item = BaseMenuItem> = Package.BaseMenuItemGroup<Item > 
 export type ButtonProps = Package.ButtonProps
 export type CheckboxProps = Package.CheckboxProps
 export type CoachmarkProps = Package.CoachmarkProps
@@ -78,6 +78,7 @@ export type DateTimePickerProps = Package.DateTimePickerProps
 export type DividerProps = Package.DividerProps
 export type DropdownProps = Package.DropdownProps
 export type DropdownItem = Package.DropdownItem
+export type DropdownItems = Package.DropdownItems
 export type GridProps = Package.GridProps
 export type GridCellProps = Package.GridCellProps
 export type GridDebugProps = Package.GridDebugProps

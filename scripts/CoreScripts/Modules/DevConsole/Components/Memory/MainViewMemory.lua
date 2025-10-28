@@ -164,7 +164,7 @@ function MainViewMemory:render()
 		elements["MemoryHeader"] = Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 0, ALERT_HEIGHT),
 			Position = UDim2.new(0, 0, 0, 0),
-			Text = "Memory category counters are disabled. Restart the client with Micro Profiler on to guarantee counters are enabled.",
+			Text = "Memory category counters are disabled. Restart the client with the MicroProfiler on to guarantee counters are enabled.",
 			TextColor3 = Constants.Color.Text,
 			BackgroundColor3 = Color3.new(1, 0, 0),
 			LayoutOrder = 2,

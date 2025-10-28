@@ -58,89 +58,91 @@ PROTO_1:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K10 ["createElement"]
   GETUPVAL R6 1
-  DUPTABLE R7 K20 [{"controlsVariant", "value", "precision", "isScrubbable", "isDisabled", "width", "onChanged", "label", "size", "step"}]
+  DUPTABLE R7 K21 [{"LayoutOrder", "controlsVariant", "value", "precision", "isScrubbable", "isDisabled", "width", "onChanged", "label", "size", "step"}]
+  GETTABLEKS R8 R0 K22 ["layoutOrder"]
+  SETTABLEKS R8 R7 K11 ["LayoutOrder"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K21 ["None"]
-  SETTABLEKS R8 R7 K11 ["controlsVariant"]
+  GETTABLEKS R8 R9 K23 ["None"]
+  SETTABLEKS R8 R7 K12 ["controlsVariant"]
   SETTABLEKS R1 R7 K1 ["value"]
   LOADN R8 2
-  SETTABLEKS R8 R7 K12 ["precision"]
-  SETTABLEKS R4 R7 K13 ["isScrubbable"]
+  SETTABLEKS R8 R7 K13 ["precision"]
+  SETTABLEKS R4 R7 K14 ["isScrubbable"]
   NOT R8 R4
-  SETTABLEKS R8 R7 K14 ["isDisabled"]
-  GETTABLEKS R9 R0 K18 ["size"]
+  SETTABLEKS R8 R7 K15 ["isDisabled"]
+  GETTABLEKS R9 R0 K19 ["size"]
   JUMPIFNOT R9 [+3]
-  GETTABLEKS R8 R0 K18 ["size"]
+  GETTABLEKS R8 R0 K19 ["size"]
   JUMP [+5]
-  GETIMPORT R8 K24 [UDim.new]
+  GETIMPORT R8 K26 [UDim.new]
   LOADN R9 1
   LOADN R10 0
   CALL R8 2 1
-  SETTABLEKS R8 R7 K15 ["width"]
-  SETTABLEKS R3 R7 K16 ["onChanged"]
-  LOADK R8 K25 [""]
-  SETTABLEKS R8 R7 K17 ["label"]
+  SETTABLEKS R8 R7 K16 ["width"]
+  SETTABLEKS R3 R7 K17 ["onChanged"]
+  LOADK R8 K27 [""]
+  SETTABLEKS R8 R7 K18 ["label"]
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K26 ["XSmall"]
-  SETTABLEKS R8 R7 K18 ["size"]
-  GETTABLEKS R9 R0 K19 ["step"]
-  ORK R8 R9 K27 [1]
-  SETTABLEKS R8 R7 K19 ["step"]
-  DUPTABLE R8 K29 [{"Chip"}]
+  GETTABLEKS R8 R9 K28 ["XSmall"]
+  SETTABLEKS R8 R7 K19 ["size"]
+  GETTABLEKS R9 R0 K20 ["step"]
+  ORK R8 R9 K29 [1]
+  SETTABLEKS R8 R7 K20 ["step"]
+  DUPTABLE R8 K31 [{"Chip"}]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K10 ["createElement"]
   GETUPVAL R10 4
-  DUPTABLE R11 K33 [{"backgroundStyle", "tag", "ZIndex"}]
-  DUPTABLE R12 K36 [{"Color3", "Transparency"}]
-  GETTABLEKS R13 R0 K37 ["color"]
-  SETTABLEKS R13 R12 K34 ["Color3"]
+  DUPTABLE R11 K35 [{"backgroundStyle", "tag", "ZIndex"}]
+  DUPTABLE R12 K38 [{"Color3", "Transparency"}]
+  GETTABLEKS R13 R0 K39 ["color"]
+  SETTABLEKS R13 R12 K36 ["Color3"]
   LOADN R13 0
-  SETTABLEKS R13 R12 K35 ["Transparency"]
-  SETTABLEKS R12 R11 K30 ["backgroundStyle"]
-  LOADK R12 K38 ["size-full radius-small"]
-  SETTABLEKS R12 R11 K31 ["tag"]
+  SETTABLEKS R13 R12 K37 ["Transparency"]
+  SETTABLEKS R12 R11 K32 ["backgroundStyle"]
+  LOADK R12 K40 ["size-full radius-small"]
+  SETTABLEKS R12 R11 K33 ["tag"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K32 ["ZIndex"]
-  DUPTABLE R12 K40 [{"Gradient"}]
-  GETTABLEKS R14 R0 K37 ["color"]
+  SETTABLEKS R12 R11 K34 ["ZIndex"]
+  DUPTABLE R12 K42 [{"Gradient"}]
+  GETTABLEKS R14 R0 K39 ["color"]
   JUMPIFNOT R14 [+46]
   GETUPVAL R14 0
   GETTABLEKS R13 R14 K10 ["createElement"]
-  LOADK R14 K41 ["UIGradient"]
-  DUPTABLE R15 K44 [{"Color", "Transparency", "Rotation"}]
-  GETIMPORT R16 K46 [ColorSequence.new]
-  GETTABLEKS R17 R0 K37 ["color"]
+  LOADK R14 K43 ["UIGradient"]
+  DUPTABLE R15 K46 [{"Color", "Transparency", "Rotation"}]
+  GETIMPORT R16 K48 [ColorSequence.new]
+  GETTABLEKS R17 R0 K39 ["color"]
   CALL R16 1 1
-  SETTABLEKS R16 R15 K42 ["Color"]
-  GETIMPORT R16 K48 [NumberSequence.new]
+  SETTABLEKS R16 R15 K44 ["Color"]
+  GETIMPORT R16 K50 [NumberSequence.new]
   NEWTABLE R17 0 4
-  GETIMPORT R18 K50 [NumberSequenceKeypoint.new]
+  GETIMPORT R18 K52 [NumberSequenceKeypoint.new]
   LOADN R19 0
   LOADN R20 0
   CALL R18 2 1
-  GETIMPORT R19 K50 [NumberSequenceKeypoint.new]
-  LOADK R20 K51 [0.05]
+  GETIMPORT R19 K52 [NumberSequenceKeypoint.new]
+  LOADK R20 K53 [0.05]
   LOADN R21 0
   CALL R19 2 1
-  GETIMPORT R20 K50 [NumberSequenceKeypoint.new]
-  LOADK R21 K52 [0.06]
+  GETIMPORT R20 K52 [NumberSequenceKeypoint.new]
+  LOADK R21 K54 [0.06]
   LOADN R22 1
   CALL R20 2 1
-  GETIMPORT R21 K50 [NumberSequenceKeypoint.new]
+  GETIMPORT R21 K52 [NumberSequenceKeypoint.new]
   LOADN R22 1
   LOADN R23 1
   CALL R21 2 -1
   SETLIST R17 R18 -1 [1]
   CALL R16 1 1
-  SETTABLEKS R16 R15 K35 ["Transparency"]
+  SETTABLEKS R16 R15 K37 ["Transparency"]
   LOADN R16 0
-  SETTABLEKS R16 R15 K43 ["Rotation"]
+  SETTABLEKS R16 R15 K45 ["Rotation"]
   CALL R13 2 1
   JUMP [+1]
   LOADNIL R13
-  SETTABLEKS R13 R12 K39 ["Gradient"]
+  SETTABLEKS R13 R12 K41 ["Gradient"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K28 ["Chip"]
+  SETTABLEKS R9 R8 K30 ["Chip"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -155,22 +157,22 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Parent"]
-  GETTABLEKS R3 R4 K8 ["React"]
+  GETTABLEKS R3 R0 K8 ["PropertyTypes"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K9 ["NumberInput"]
-  GETTABLEKS R4 R1 K10 ["View"]
-  GETTABLEKS R6 R1 K11 ["Enums"]
-  GETTABLEKS R5 R6 K12 ["NumberInputControlsVariant"]
-  GETTABLEKS R7 R1 K11 ["Enums"]
-  GETTABLEKS R6 R7 K13 ["InputSize"]
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R8 R0 K14 ["RpcTypes"]
-  CALL R7 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K10 ["NumberInput"]
+  GETTABLEKS R5 R1 K11 ["View"]
+  GETTABLEKS R7 R1 K12 ["Enums"]
+  GETTABLEKS R6 R7 K13 ["NumberInputControlsVariant"]
+  GETTABLEKS R8 R1 K12 ["Enums"]
+  GETTABLEKS R7 R8 K14 ["InputSize"]
   DUPCLOSURE R8 K15 [PROTO_1]
-  CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R6
   CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R5
   RETURN R8 1

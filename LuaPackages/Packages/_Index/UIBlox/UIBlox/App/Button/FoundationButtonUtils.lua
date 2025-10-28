@@ -62,9 +62,7 @@ local function getSizeMapping(standardSize, size: UDim2?, tokens: typeof(Foundat
 	return nil
 end
 
-local function getWidth(standardSize: string?, size: UDim2?, maxWidth: number?, fitContent: boolean?): UDim?
-	maxWidth = maxWidth or 640
-
+local function getWidth(standardSize: string?, size: UDim2?, fitContent: boolean?): UDim?
 	if standardSize then
 		local fitContentDefault = fitContentDefaultMapping[standardSize]
 		if fitContent == nil then
@@ -75,15 +73,7 @@ local function getWidth(standardSize: string?, size: UDim2?, maxWidth: number?, 
 			return nil
 		end
 
-		size = UDim2.fromScale(1, 0)
-
-		if maxWidth then
-			-- Size should be the minimum of the props size and the max width
-			if size and size.X.Offset > 0 then
-				return UDim.new(0, math.min(size.X.Offset, maxWidth))
-			end
-		end
-		return UDim.new(0, maxWidth)
+		return UDim.new(1, 0)
 	elseif size then
 		return size.X
 	elseif fitContent then
@@ -91,6 +81,14 @@ local function getWidth(standardSize: string?, size: UDim2?, maxWidth: number?, 
 	else
 		return UDim.new(1, 0)
 	end
+end
+
+local function getMaxWidth(standardSize: string?, maxWidth: number?): number?
+	if standardSize == nil then
+		return nil
+	end
+
+	return if maxWidth == nil then 640 else maxWidth
 end
 
 local function getTestId(tag: string?): string?
@@ -107,5 +105,6 @@ return {
 	findIcon = findIcon,
 	getSizeMapping = getSizeMapping,
 	getWidth = getWidth,
+	getMaxWidth = getMaxWidth,
 	getTestId = getTestId,
 }

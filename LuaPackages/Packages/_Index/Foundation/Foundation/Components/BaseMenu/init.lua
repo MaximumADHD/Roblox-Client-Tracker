@@ -4,10 +4,10 @@ local BaseMenuItem = require(script.BaseMenuItem)
 local BaseMenuContext = require(script.BaseMenuContext)
 local BaseMenuGroup = require(script.BaseMenuGroup)
 
-export type BaseMenuProps = BaseMenu.BaseMenuProps
+export type BaseMenuProps<Item = BaseMenuItem> = BaseMenu.BaseMenuProps<Item>
 export type BaseMenuItem = BaseMenu.BaseMenuItem
-export type BaseMenuItems = BaseMenu.BaseMenuItems
-export type BaseMenuItemGroup = BaseMenu.BaseMenuItemGroup
+export type BaseMenuItems<Item = BaseMenuItem> = BaseMenu.BaseMenuItems<Item>
+export type BaseMenuItemGroup<Item = BaseMenuItem> = BaseMenu.BaseMenuItemGroup<Item>
 
 return {
 	Root = BaseMenu,

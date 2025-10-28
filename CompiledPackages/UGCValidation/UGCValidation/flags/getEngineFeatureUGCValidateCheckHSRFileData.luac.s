@@ -1,6 +1,6 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EngineUGCValidateCheckHSRFileData"]
+  LOADK R2 K2 ["EngineUGCValidateCheckHSRFileData2"]
   NAMECALL R0 R0 K3 ["GetEngineFeature"]
   CALL R0 2 -1
   RETURN R0 -1

@@ -54,14 +54,14 @@ PROTO_0:
   MOVE R8 R1
   CALL R7 1 1
   MOVE R6 R7
-  DUPTABLE R7 K27 [{"Plugin", "PluginLoaderContextItem", "Analytics", "Design", "Focus", "Localization", "Mouse", "Store", "Theme", "CalloutController", "FileController", "PresetController", "Networking"}]
+  DUPTABLE R7 K28 [{"Plugin", "PluginLoaderContextItem", "Analytics", "Design", "Focus", "Localization", "Mouse", "Store", "Theme", "CalloutController", "FileController", "UploadController", "PresetController", "Networking"}]
   GETUPVAL R10 6
   GETTABLEKS R9 R10 K14 ["Plugin"]
   GETTABLEKS R8 R9 K5 ["new"]
   MOVE R9 R3
   CALL R8 1 1
   SETTABLEKS R8 R7 K14 ["Plugin"]
-  GETTABLEKS R8 R0 K28 ["loader"]
+  GETTABLEKS R8 R0 K29 ["loader"]
   SETTABLEKS R8 R7 K15 ["PluginLoaderContextItem"]
   JUMPIFNOT R2 [+6]
   GETUPVAL R9 7
@@ -87,14 +87,14 @@ PROTO_0:
   GETUPVAL R9 10
   GETTABLEKS R8 R9 K5 ["new"]
   GETIMPORT R9 K6 [Instance.new]
-  LOADK R10 K29 ["ScreenGui"]
+  LOADK R10 K30 ["ScreenGui"]
   CALL R9 1 -1
   CALL R8 -1 1
   SETTABLEKS R8 R7 K18 ["Focus"]
   SETTABLEKS R5 R7 K19 ["Localization"]
   GETUPVAL R9 11
   GETTABLEKS R8 R9 K5 ["new"]
-  NAMECALL R9 R3 K30 ["GetMouse"]
+  NAMECALL R9 R3 K31 ["GetMouse"]
   CALL R9 1 -1
   CALL R8 -1 1
   SETTABLEKS R8 R7 K20 ["Mouse"]
@@ -121,33 +121,43 @@ PROTO_0:
   MOVE R11 R2
   CALL R8 3 1
   SETTABLEKS R8 R7 K24 ["FileController"]
-  SETTABLEKS R6 R7 K25 ["PresetController"]
   GETUPVAL R9 16
+  CALL R9 0 1
+  JUMPIFNOT R9 [+6]
+  GETUPVAL R9 17
+  GETTABLEKS R8 R9 K5 ["new"]
+  MOVE R9 R1
+  CALL R8 1 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K25 ["UploadController"]
+  SETTABLEKS R6 R7 K26 ["PresetController"]
+  GETUPVAL R9 18
   GETTABLEKS R8 R9 K5 ["new"]
   MOVE R9 R1
   NOT R10 R2
   CALL R8 2 1
-  SETTABLEKS R8 R7 K26 ["Networking"]
+  SETTABLEKS R8 R7 K27 ["Networking"]
   JUMPIFNOT R2 [+6]
-  GETUPVAL R9 17
+  GETUPVAL R9 19
   GETTABLEKS R8 R9 K5 ["new"]
   MOVE R9 R1
   CALL R8 1 1
   JUMP [+5]
-  GETUPVAL R9 17
+  GETUPVAL R9 19
   GETTABLEKS R8 R9 K13 ["mock"]
   MOVE R9 R1
   CALL R8 1 1
-  SETTABLEKS R8 R7 K31 ["QueueController"]
-  GETUPVAL R10 18
+  SETTABLEKS R8 R7 K32 ["QueueController"]
+  GETUPVAL R10 20
   FASTCALL2 SETMETATABLE R7 R10 [+4]
   MOVE R9 R7
-  GETIMPORT R8 K33 [setmetatable]
+  GETIMPORT R8 K34 [setmetatable]
   CALL R8 2 1
   RETURN R8 1
 
 PROTO_1:
-  NEWTABLE R1 0 14
+  NEWTABLE R1 0 15
   GETTABLEKS R2 R0 K0 ["Plugin"]
   GETTABLEKS R3 R0 K1 ["PluginLoaderContextItem"]
   GETTABLEKS R4 R0 K2 ["Analytics"]
@@ -161,8 +171,9 @@ PROTO_1:
   GETTABLEKS R12 R0 K10 ["FileController"]
   GETTABLEKS R13 R0 K11 ["PresetController"]
   GETTABLEKS R14 R0 K12 ["QueueController"]
-  GETTABLEKS R15 R0 K13 ["Networking"]
-  SETLIST R1 R2 14 [1]
+  GETTABLEKS R15 R0 K13 ["UploadController"]
+  GETTABLEKS R16 R0 K14 ["Networking"]
+  SETLIST R1 R2 15 [1]
   RETURN R1 1
 
 PROTO_2:
@@ -206,6 +217,11 @@ PROTO_2:
   GETTABLEKS R1 R0 K8 ["QueueController"]
   NAMECALL R1 R1 K1 ["destroy"]
   CALL R1 1 0
+  GETTABLEKS R1 R0 K9 ["UploadController"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K9 ["UploadController"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
   RETURN R0 0
 
 MAIN:
@@ -246,56 +262,66 @@ MAIN:
   GETTABLEKS R16 R11 K23 ["QueueController"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
-  GETTABLEKS R17 R11 K24 ["Networking"]
+  GETTABLEKS R17 R11 K24 ["UploadController"]
   CALL R16 1 1
   GETIMPORT R17 K5 [require]
-  GETTABLEKS R20 R0 K18 ["Src"]
-  GETTABLEKS R19 R20 K25 ["Resources"]
-  GETTABLEKS R18 R19 K26 ["createAnalyticsHandlers"]
+  GETTABLEKS R18 R11 K25 ["Networking"]
   CALL R17 1 1
   GETIMPORT R18 K5 [require]
   GETTABLEKS R21 R0 K18 ["Src"]
-  GETTABLEKS R20 R21 K25 ["Resources"]
-  GETTABLEKS R19 R20 K27 ["MakeTheme"]
+  GETTABLEKS R20 R21 K26 ["Resources"]
+  GETTABLEKS R19 R20 K27 ["createAnalyticsHandlers"]
   CALL R18 1 1
+  GETIMPORT R19 K5 [require]
   GETTABLEKS R22 R0 K18 ["Src"]
-  GETTABLEKS R21 R22 K25 ["Resources"]
-  GETTABLEKS R20 R21 K12 ["Localization"]
-  GETTABLEKS R19 R20 K28 ["SourceStrings"]
+  GETTABLEKS R21 R22 K26 ["Resources"]
+  GETTABLEKS R20 R21 K28 ["MakeTheme"]
+  CALL R19 1 1
   GETTABLEKS R23 R0 K18 ["Src"]
-  GETTABLEKS R22 R23 K25 ["Resources"]
+  GETTABLEKS R22 R23 K26 ["Resources"]
   GETTABLEKS R21 R22 K12 ["Localization"]
-  GETTABLEKS R20 R21 K29 ["LocalizedStrings"]
-  GETIMPORT R21 K5 [require]
+  GETTABLEKS R20 R21 K29 ["SourceStrings"]
   GETTABLEKS R24 R0 K18 ["Src"]
-  GETTABLEKS R23 R24 K30 ["Flags"]
-  GETTABLEKS R22 R23 K31 ["getFFlagCinJestMockAis"]
-  CALL R21 1 1
-  NEWTABLE R22 0 0
-  SETTABLEKS R22 R22 K32 ["__index"]
-  DUPCLOSURE R23 K33 [PROTO_0]
+  GETTABLEKS R23 R24 K26 ["Resources"]
+  GETTABLEKS R22 R23 K12 ["Localization"]
+  GETTABLEKS R21 R22 K30 ["LocalizedStrings"]
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R25 R0 K18 ["Src"]
+  GETTABLEKS R24 R25 K31 ["Flags"]
+  GETTABLEKS R23 R24 K32 ["getFFlagCinUploadController"]
+  CALL R22 1 1
+  GETIMPORT R23 K5 [require]
+  GETTABLEKS R26 R0 K18 ["Src"]
+  GETTABLEKS R25 R26 K31 ["Flags"]
+  GETTABLEKS R24 R25 K33 ["getFFlagCinJestMockAis"]
+  CALL R23 1 1
+  NEWTABLE R24 0 0
+  SETTABLEKS R24 R24 K34 ["__index"]
+  DUPCLOSURE R25 K35 [PROTO_0]
   CAPTURE VAL R10
   CAPTURE VAL R6
-  CAPTURE VAL R19
   CAPTURE VAL R20
   CAPTURE VAL R21
+  CAPTURE VAL R23
   CAPTURE VAL R13
   CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R17
+  CAPTURE VAL R18
   CAPTURE VAL R5
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R7
-  CAPTURE VAL R18
+  CAPTURE VAL R19
   CAPTURE VAL R12
   CAPTURE VAL R14
-  CAPTURE VAL R16
-  CAPTURE VAL R15
   CAPTURE VAL R22
-  SETTABLEKS R23 R22 K34 ["new"]
-  DUPCLOSURE R23 K35 [PROTO_1]
-  SETTABLEKS R23 R22 K36 ["getItemsAsList"]
-  DUPCLOSURE R23 K37 [PROTO_2]
-  SETTABLEKS R23 R22 K38 ["destroy"]
-  RETURN R22 1
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R15
+  CAPTURE VAL R24
+  SETTABLEKS R25 R24 K36 ["new"]
+  DUPCLOSURE R25 K37 [PROTO_1]
+  SETTABLEKS R25 R24 K38 ["getItemsAsList"]
+  DUPCLOSURE R25 K39 [PROTO_2]
+  SETTABLEKS R25 R24 K40 ["destroy"]
+  RETURN R24 1

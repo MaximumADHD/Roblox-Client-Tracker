@@ -70,7 +70,6 @@ local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
 
 local FFlagFixChromeIntegrationLayoutBug = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
 local FFlagSubmenuFixInvisibleButtons = game:DefineFastFlag("SubmenuFixInvisibleButtons", false)
-local FFlagSubmenuFixVectorConversion = game:DefineFastFlag("SubmenuFixVectorConversion", false)
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local isInExperienceUIVREnabled =
@@ -504,11 +503,8 @@ function SubMenu(props: SubMenuProps)
 					local key = input.KeyCode
 					if key == Enum.KeyCode.Thumbstick1 then
 						-- Never is meant to work around a typing issue.
-						local thumbstickVector = GamepadUtils.normalizeStickByDeadzone(
-							if FFlagSubmenuFixVectorConversion
-								then Vector2.new(input.Position.X, input.Position.Y)
-								else input.Position :: never
-						)
+						local thumbstickVector =
+							GamepadUtils.normalizeStickByDeadzone(Vector2.new(input.Position.X, input.Position.Y))
 						local SENSITIVITY = 0.5
 						local LEFT_SENSITIVITY = -SENSITIVITY
 						local RIGHT_SENSITIVITY = SENSITIVITY
