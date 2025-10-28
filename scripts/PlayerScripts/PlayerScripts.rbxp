@@ -1,0 +1,19 @@
+{
+    "instanceHierarchy": {
+        "tree": {
+            "$className": "DataModel",
+            "StarterPlayer": {
+                "$path": "StarterPlayer",
+                "StarterPlayerScripts": {
+                    "RbxCharacterSounds": {
+                        "$className": "LocalScript",
+                        "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds.lua",
+                        "AtomicBinding": {
+                            "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds/AtomicBinding.lua",
+                        }
+                    },
+                },
+            }
+        }
+    },
+}

@@ -18,8 +18,8 @@ LazyRequire = "0.1.4"
 llama = "1.0.0"
 LuaSocialLibrariesDeps = "1.8.1"
 AvatarExperienceDeps = "0.0.1"
-UIBlox = "0.2.166"
-Foundation = "1.56.0"
+UIBlox = "0.2.171"
+Foundation = "1.58.0"
 FoundationCloudAssets = "0.3.0"
 FoundationImages = "1.32.0"
 Thumbnailing = "0.5.0"
@@ -30,7 +30,7 @@ enumerate = "1.0.0"
 PolicyProvider = { version = "0.1.3", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
 StringUtilities = { version = "1.0.0", package = "string-utilities" }
-UrlBuilder = "1.2.13"
+UrlBuilder = "1.2.15"
 FitFrame = { version = "2.0.0", package = "RoactFitComponents" }
 NetworkingFriends = "2.12.1"
 EmojiList = "1.0.0"

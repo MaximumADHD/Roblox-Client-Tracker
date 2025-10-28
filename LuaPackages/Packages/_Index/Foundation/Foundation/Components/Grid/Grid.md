@@ -29,7 +29,7 @@ Column counts, margins, and gutters are automatically adjusted for each breakpoi
 
 Grid.Cell accepts a `size` prop that should typically be a responsive map using breakpoint short names:
 
-```lua
+```luau
 -- xs=3 cols, sm=6 cols, md+=12 cols
 size = { xs = 3, sm = 6, md = 6, lg = 4, xl = 4 }
 
@@ -58,7 +58,7 @@ When `Wraps = false`, Grid uses regular `UIListLayout.Padding` equal to the gutt
 
 ### Responsive Grid Layout (Recommended)
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Grid = Foundation.Grid
 
@@ -74,7 +74,7 @@ return React.createElement(Grid.Root, {}, {
 
 ### Card Grid with Progressive Enhancement
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Grid = Foundation.Grid
 
@@ -91,7 +91,7 @@ return React.createElement(Grid.Root, {}, {
 
 ### Sidebar Layout
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Grid = Foundation.Grid
 
@@ -109,7 +109,7 @@ return React.createElement(Grid.Root, {}, {
 
 You can apply responsive column tags directly without using Grid.Cell for more control:
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Grid = Foundation.Grid
 local View = Foundation.View
@@ -131,7 +131,7 @@ return React.createElement(Grid.Root, {}, {
 
 ### Responsive Visibility Control
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Grid = Foundation.Grid
 
@@ -139,7 +139,7 @@ local Grid = Foundation.Grid
 local promoSize = { xs = 0, sm = 0, md = 12, lg = 12, xl = 12 }
 local mainSize = { xs = 3, sm = 6, md = 12, lg = 12, xl = 12 }
 
-return React.createElement(Grid.Root, {}, {
+Root = React.createElement(Grid.Root, {}, {
     MainContent = React.createElement(Grid.Cell, { size = mainSize }),
     PromoSection = React.createElement(Grid.Cell, { size = promoSize }), -- Hidden on xs/sm
 })
@@ -164,7 +164,7 @@ PromoSection = React.createElement(View, {
 
 Grid.Debug renders colored overlays using the same grid metrics that Grid.Root renders with and creates a visual grid that sits behind your actual content, helping you to see how your cells align with the underlying column structure.
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local Grid = Foundation.Grid
 
@@ -189,10 +189,10 @@ For custom grid implementations, Foundation exposes `getGridMetrics` as part of 
 
 ### API
 
-```lua
+```luau
 local getGridMetrics = Foundation.Utility.getGridMetrics
 
-local metrics = getGridMetrics(responsiveConfig, breakpoint, containerWidth, size?)
+local metrics = getGridMetrics(responsiveConfig, breakpoint, containerWidth, size)
 ```
 
 **Parameters:**
@@ -213,7 +213,7 @@ local metrics = getGridMetrics(responsiveConfig, breakpoint, containerWidth, siz
 
 ### Custom Layout Example
 
-```lua
+```luau
 local Foundation = require(Packages.Foundation)
 local React = require(Packages.React)
 local getGridMetrics = Foundation.Utility.getGridMetrics
@@ -248,7 +248,7 @@ end
 
 ### Responsive Custom Layout
 
-```lua
+```luau
 local function ResponsiveCustom(props)
     local responsive = useResponsive()
     local measureRef, setMeasureRef = React.useState(nil)

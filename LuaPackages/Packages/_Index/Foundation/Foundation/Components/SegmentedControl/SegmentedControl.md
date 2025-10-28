@@ -27,13 +27,16 @@ local segments = {
 }
 
 local function Component()
+	local value, setValue = React.useState(segments[1].id)
+
 	return React.createElement(View, {
 		SegmentedControl = React.createElement(SegmentedControl, {
 			size = InputSize.Medium,
 			segments = segments,
-			value = segments[1].id,
-			onActivated = function()
-				print("Segment Clicked!")
+			value = value,
+			onActivated = function(id)
+				print(`Segment Clicked: {id}`)
+				setValue(id)
 			end,
 		}),
 	})

@@ -12,8 +12,7 @@ A `UIAspectRatioConstraint` is applied to all Images created from CloudAssets to
 
 You can also preload the asset using the `preloadCloudAssets` API if your usecase can't afford any loading latency.
 
-```lua title="Image"
-...
+```luau title="Image"
 local preloadCloudAssets = Foundation.Utility.preloadCloudAssets
 local Image = Foundation.Image
 

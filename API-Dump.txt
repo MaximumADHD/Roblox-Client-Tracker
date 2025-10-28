@@ -5,6 +5,7 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 	Function Object:IsA(className: string) -> boolean [CustomLuaState] {🧬Safe}
 	Function Object:isA(className: string) -> boolean [Deprecated] [CustomLuaState]
 	Event Object.Changed(property: string)
+Class AnimationNode : Object [NotCreatable] [NotReplicated]
 Class Capture : Object [NotCreatable] [NotReplicated]
 	Property Capture.CaptureTime: DateTime [ReadOnly]
 	Property Capture.CaptureType: Enum.CaptureType [ReadOnly]
@@ -179,6 +180,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:IsDescendantOf(ancestor: Instance) -> boolean {🧬Safe}
 	Function Instance:IsPredicted() -> boolean {🔐InternalTest}
 	Function Instance:IsPropertyModified(property: string) -> boolean
+	Function Instance:QueryDescendants(selectorGroup: string) -> { Instance } [CustomLuaState]
 	Function Instance:Remove() -> () [Deprecated]
 	Function Instance:RemoveTag(tag: string) -> ()
 	Function Instance:ResetPropertyToDefault(property: string) -> ()
@@ -299,6 +301,7 @@ Class AnimationClip : Instance [NotCreatable]
 	Property AnimationClip.GuidBinaryString: BinaryString {🔐Animation} {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property AnimationClip.Loop: boolean {🔐Animation}
 	Property AnimationClip.Priority: Enum.AnimationPriority {🔐Animation}
+Class AnimationGraphDefinition : AnimationClip
 Class CurveAnimation : AnimationClip
 Class KeyframeSequence : AnimationClip
 	Property KeyframeSequence.AuthoredHipHeight: number {🔐Animation} {PluginSecurity} [Hidden]
@@ -309,6 +312,8 @@ Class AnimationClipProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AnimationClipProvider:GetAnimationClip(assetId: string) -> AnimationClip {🔐Animation} {PluginSecurity} [Deprecated]
 	Function AnimationClipProvider:GetAnimationClipAsync(assetId: string) -> AnimationClip {🔐Animation} [Yields]
 	Function AnimationClipProvider:GetAnimationClipById(assetId: number, useCache: boolean) -> AnimationClip {🔐Animation} {PluginSecurity} [Deprecated]
+	Function AnimationClipProvider:GetAnimationNodeDefinition(type: Enum.AnimationNodeType) -> { [string]: any } {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationClipProvider:GetAnimationNodeTypes() -> { any } {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationClipProvider:GetAnimations(userId: number) -> Instance? {🔐Animation} [Yields]
 	Function AnimationClipProvider:GetClipEvaluatorAsync(assetId: string) -> ClipEvaluator {🔐Animation} [Yields]
 	Function AnimationClipProvider:GetMemStats() -> { [string]: any } {🔐Animation} {RobloxScriptSecurity}
@@ -327,6 +332,14 @@ Class AnimationFromVideoCreatorStudioService : Instance [NotCreatable] [Service]
 	Function AnimationFromVideoCreatorStudioService:CreateAnimationByUploadingVideo(progressCallback: (...any) -> ...any) -> string {RobloxScriptSecurity} [Yields]
 	Function AnimationFromVideoCreatorStudioService:ImportVideoWithPrompt() -> string {RobloxScriptSecurity} [Yields]
 	Function AnimationFromVideoCreatorStudioService:IsAgeRestricted() -> boolean {RobloxScriptSecurity}
+Class AnimationNodeDefinition : Instance
+	Property AnimationNodeDefinition.NodeType: Enum.AnimationNodeType {🔐Animation}
+	Property AnimationNodeDefinition.InputPinData: BinaryString {🔐Animation} [Hidden] [NotScriptable]
+	Function AnimationNodeDefinition:AddInputPin(pin: string) -> () {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationNodeDefinition:GetConnectedWires(pin: string) -> { Instance } {🔐Animation}
+	Function AnimationNodeDefinition:GetInputPins() -> { any } {🔐Animation}
+	Function AnimationNodeDefinition:GetOutputPins() -> { any } {🔐Animation}
+	Function AnimationNodeDefinition:RemoveInputPin(pin: string) -> () {🔐Animation} {RobloxScriptSecurity}
 Class AnimationRigData : Instance
 	Property AnimationRigData.label: BinaryString {🔐Animation} [Hidden] [NotScriptable]
 	Property AnimationRigData.name: BinaryString {🔐Animation} [Hidden] [NotScriptable]
@@ -370,10 +383,13 @@ Class AnimationTrack : Instance [NotCreatable]
 	Function AnimationTrack:AdjustSpeed(speed: number? = 1) -> () {🔐Animation} [CustomLuaState]
 	Function AnimationTrack:AdjustWeight(weight: number? = 1, fadeTime: number? = 0.100000001) -> () {🔐Animation} [CustomLuaState]
 	Function AnimationTrack:GetMarkerReachedSignal(name: string) -> RBXScriptSignal {🔐Animation}
+	Function AnimationTrack:GetParameter(key: string) -> any {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationTrack:GetParameterDefaults() -> { [string]: any } {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationTrack:GetTargetInstance(name: string) -> Instance? {🔐Animation}
 	Function AnimationTrack:GetTargetNames() -> { any } {🔐Animation}
 	Function AnimationTrack:GetTimeOfKeyframe(keyframeName: string) -> number {🔐Animation}
 	Function AnimationTrack:Play(fadeTime: number? = 0.100000001, weight: number? = 1, speed: number? = 1) -> () {🔐Animation} [CustomLuaState]
+	Function AnimationTrack:SetParameter(key: string, value: any) -> () {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationTrack:SetTargetInstance(name: string, target: Instance) -> () {🔐Animation}
 	Function AnimationTrack:Stop(fadeTime: number? = 0.100000001) -> () {🔐Animation} [CustomLuaState]
 	Event AnimationTrack.DidLoop() {🔐Animation}
@@ -482,6 +498,7 @@ Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
 	Property AssetDeliveryProxy.StartServer: boolean
 Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetImportService:GetAllPresets() -> { [string]: any } {RobloxScriptSecurity}
+	Function AssetImportService:GetFilesInDirAsync(path: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function AssetImportService:GetPreset(name: string) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportService:PickImageFileWithPrompt() -> string {RobloxScriptSecurity} [Yields]
 	Function AssetImportService:PickMeshFileWithPrompt() -> string {RobloxScriptSecurity} [Yields]
@@ -490,6 +507,8 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetImportService:SavePreset(name: string, preset: { [string]: any }) -> boolean {RobloxScriptSecurity}
 	Function AssetImportService:StartSessionWithPath(filePath: string) -> AssetImportSession {RobloxScriptSecurity}
 	Function AssetImportService:StartSessionWithPathAsync(filePath: string) -> AssetImportSession {RobloxScriptSecurity} [Yields]
+	Function AssetImportService:UploadAssetFromContentAsync(content: string, createAssetRequest: { [string]: any }) -> ...any {RobloxScriptSecurity} [Yields]
+	Function AssetImportService:UploadAssetFromPathAsync(filepath: string, createAssetRequest: { [string]: any }) -> ...any {RobloxScriptSecurity} [Yields]
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetManagerService:AddNewPlace() -> number {RobloxScriptSecurity} [Yields]
 	Function AssetManagerService:CreateAlias(assetType: number, assetId: number, aliasName: string) -> () {RobloxScriptSecurity} [Yields]
@@ -1602,7 +1621,8 @@ Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Chat.Chatted(part: Instance, message: string, color: Enum.ChatColor)
 	Event Chat.ClientToServerFilterMessageSignalV2(sender: Instance, receiver: Instance, unfilteredMessage: string) {RobloxSecurity} [Hidden]
 	Event Chat.ClientToServerReportUnfilteredSignal(unfilteredText: string, match: string, instancePath: string, instanceType: string) {RobloxSecurity} [Hidden]
-	Event Chat.ReconcileCommunicationAccessCompleted() {RobloxScriptSecurity}
+	Event Chat.PlayerChatAvailabilityStatusChanged(player: Player) {RobloxSecurity}
+	Event Chat.ReconcileCommunicationAccessCompleted(chatAvailabilityStatus: string) {RobloxScriptSecurity}
 	Event Chat.ReconcileCommunicationAccessSignal() {RobloxSecurity} [Hidden]
 	Event Chat.ServerToClientUnderOver13FilteredResponseSignal(sender: Instance, unfilteredMessage: string, isError: boolean, errorStr: string, under13: string, over13: string) {RobloxSecurity} [Hidden]
 	Event Chat.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
@@ -2143,7 +2163,7 @@ Class Debris : Instance [NotCreatable] [Service]
 	Function Debris:AddItem(item: Instance, lifetime: number? = 10) -> () {🔐Basic}
 	Function Debris:SetLegacyMaxItems(enabled: boolean) -> () {🔐Basic} {LocalUserSecurity}
 	Function Debris:addItem(item: Instance, lifetime: number? = 10) -> () {🔐Basic} [Deprecated]
-Class DebugSettings : Instance [NotCreatable] [Settings] [NotReplicated] [NotBrowsable]
+Class DebugSettings : Instance [NotCreatable] [Service] [NotReplicated] [NotBrowsable]
 	Property DebugSettings.TickCountPreciseOverride: Enum.TickCountSampleMethod
 	Property DebugSettings.IsScriptStackTracingEnabled: boolean
 	Property DebugSettings.ReportSoundWarnings: boolean
@@ -2309,6 +2329,14 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property DraggerService.ShowPivotIndicator: boolean [NotReplicated]
 Class EditableService : Instance [NotCreatable] [Service]
 	Property EditableService.EditableStatus: Enum.EditableStatus {RobloxSecurity} [Hidden] [NotScriptable]
+Class EncodingService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function EncodingService:Base64Decode(input: buffer) -> buffer {🧬Safe}
+	Function EncodingService:Base64Encode(input: buffer) -> buffer {🧬Safe}
+	Function EncodingService:CompressBuffer(input: buffer, algorithm: Enum.CompressionAlgorithm, compressionLevel: number? = 1) -> buffer {🧬Safe}
+	Function EncodingService:ComputeBufferHash(input: buffer, algorithm: Enum.HashAlgorithm) -> buffer {🧬Safe}
+	Function EncodingService:ComputeStringHash(input: string, algorithm: Enum.HashAlgorithm) -> string {🧬Safe}
+	Function EncodingService:DecompressBuffer(input: buffer, algorithm: Enum.CompressionAlgorithm) -> buffer {🧬Safe}
+	Function EncodingService:GetDecompressedBufferSize(input: buffer, algorithm: Enum.CompressionAlgorithm) -> number? {🧬Safe}
 Class EulerRotationCurve : Instance
 	Property EulerRotationCurve.RotationOrder: Enum.RotationOrder {🔐Basic}
 	Function EulerRotationCurve:GetAnglesAtTime(time: number) -> { any } {🔐Basic}
@@ -2573,7 +2601,7 @@ Class FunctionalTest : Instance [Deprecated]
 	Function FunctionalTest:Warn(message: string? = "") -> () [Deprecated]
 Class GamePassService : Instance [NotCreatable] [Service] [Deprecated]
 	Function GamePassService:PlayerHasPass(player: Player, gamePassId: number) -> boolean [Yields] [Deprecated]
-Class GameSettings : Instance [NotCreatable] [Settings] [NotReplicated] [NotBrowsable]
+Class GameSettings : Instance [NotCreatable] [Service] [NotReplicated] [NotBrowsable]
 	Property GameSettings.VideoCaptureEnabled: boolean
 	Property GameSettings.VideoRecording: boolean {RobloxScriptSecurity} {✏️RobloxSecurity} [📁 LoadOnly] [NotReplicated]
 	Event GameSettings.VideoRecordingChangeRequest(recording: boolean) {RobloxScriptSecurity}
@@ -4086,7 +4114,7 @@ Class LoginService : Instance [NotCreatable] [Service]
 	Function LoginService:PromptLogin() -> () {RobloxSecurity}
 	Event LoginService.LoginFailed(loginError: string) {RobloxSecurity}
 	Event LoginService.LoginSucceeded(username: string) {RobloxSecurity}
-Class LuaSettings : Instance [NotCreatable] [Settings] [NotReplicated]
+Class LuaSettings : Instance [NotCreatable] [Service] [NotReplicated]
 Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property LuaSourceContainer.CachedRemoteSource: string [Hidden] [NotScriptable]
 	Property LuaSourceContainer.CachedRemoteSourceLoadState: number [Hidden] [NotScriptable]
@@ -4386,6 +4414,7 @@ Class MetaBreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event MetaBreakpointManager.MetaBreakpointSetChanged(breakpoint: MetaBreakpoint, detail: { [string]: any }) {RobloxScriptSecurity}
 Class MicroProfilerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property MicroProfilerService.ContextLabel: string {RobloxScriptSecurity}
+	Function MicroProfilerService:DumpToFileAsync(secondsToDelay: number, framesToDump: number) -> string {RobloxScriptSecurity} [Yields]
 Class ModerationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ModerationService:BindReviewableContentEventProcessor(priority: number, callback: (...any) -> ...any) -> RBXScriptConnection
 	Function ModerationService:CreateReviewableContentAsync(config: { [string]: any }) -> string [Yields]
@@ -5177,7 +5206,7 @@ Class PhysicsService : Instance [NotCreatable] [Service]
 	Function PhysicsService:RenameCollisionGroup(from: string, to: string) -> ()
 	Function PhysicsService:SetPartCollisionGroup(part: BasePart, name: string) -> () [Deprecated]
 	Function PhysicsService:UnregisterCollisionGroup(name: string) -> ()
-Class PhysicsSettings : Instance [NotCreatable] [Settings] [NotReplicated]
+Class PhysicsSettings : Instance [NotCreatable] [Service] [NotReplicated]
 	Property PhysicsSettings.AreAnchorsShown: boolean
 	Property PhysicsSettings.AreAssembliesShown: boolean
 	Property PhysicsSettings.AreAssemblyCentersOfMassShown: boolean {RobloxScriptSecurity}
@@ -5933,6 +5962,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:GetRobloxClientChannel() -> string {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetRobloxGuiFocused() -> boolean {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetRobloxVersion() -> string {🔐Basic} {RobloxScriptSecurity}
+	Function RunService:GetTotalScriptPlusExecutionTime() -> number {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:IsClient() -> boolean {🔐Basic} {🧬Safe}
 	Function RunService:IsEdit() -> boolean {🔐Basic} {PluginSecurity} {🧬Safe}
 	Function RunService:IsRunMode() -> boolean {🔐Basic} {🧬Safe}
@@ -5960,7 +5990,8 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event RunService.Stepped(time: number, deltaTime: number) {🔐Basic}
 Class RuntimeContentService : Instance [NotCreatable] [Service]
 	Event RuntimeContentService.RuntimeContentFail(id: string)
-	Event RuntimeContentService.RuntimeContentQuery(id: string, content: string)
+	Event RuntimeContentService.RuntimeContentLRCleanup(id: string, priorityList: string)
+	Event RuntimeContentService.RuntimeContentQuery(id: string, expectedType: string, priorityList: string)
 	Event RuntimeContentService.RuntimeContentShare(id: string, content: string)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
@@ -6283,8 +6314,10 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:CanSendCallInviteAsync(player: Instance) -> boolean [Yields]
 	Function SocialService:CanSendGameInviteAsync(player: Instance, recipientId: number? = 0) -> boolean [Yields]
 	Function SocialService:GetEventRsvpStatusAsync(eventId: string) -> Enum.RsvpStatus [Yields]
+	Function SocialService:GetExperienceEventAsync(eventId: string) -> { [string]: any }? [Yields]
 	Function SocialService:GetPartyAsync(partyId: string) -> { any } [Yields]
 	Function SocialService:GetPlayersByPartyId(partyId: string) -> { Instance }
+	Function SocialService:GetUpcomingExperienceEventsAsync() -> { any } [Yields]
 	Function SocialService:HideSelfView() -> ()
 	Function SocialService:InvokeGameInvitePromptClosed(player: Instance, recipientIds: { any }) -> () {RobloxScriptSecurity}
 	Function SocialService:InvokeIrisInvite(player: Instance, tag: string, irisParticipants: { any }) -> () {RobloxScriptSecurity}
@@ -6664,6 +6697,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.ActionOnStopSync: Enum.ActionOnStopSync
 	Property Studio.AutoResumeSyncOnPlaceOpen: boolean {RobloxSecurity}
 	Property Studio.DefaultInstancesDir: QDir {RobloxSecurity}
+	Property Studio.DefaultScriptSyncFileType: Enum.DefaultScriptSyncFileType {RobloxScriptSecurity}
 	Property Studio.IconOverrideDir: QDir {RobloxScriptSecurity}
 	Property Studio.LocalAssetsFolder: QDir {✏️RobloxScriptSecurity}
 	Property Studio.PluginsDir: QDir
@@ -7052,6 +7086,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function TeleportService:TeleportTrustedBackForth(goForth: boolean) -> () {RobloxScriptSecurity}
 	Function TeleportService:TeleportTrustedBackHistory(placeId: number) -> () {RobloxScriptSecurity}
 	Function TeleportService:TeleportedPlacesBackHistory() -> { any } {RobloxScriptSecurity}
+	Function TeleportService:TeleportedUniversesBackHistory() -> { any } {RobloxScriptSecurity}
 	Function TeleportService:UnblockAsync() -> ...any {RobloxScriptSecurity} [Yields]
 	Event TeleportService.LocalPlayerArrivedFromTeleport(loadingGui: Instance, dataTable: any)
 	Event TeleportService.MenuTeleportAttempt() {RobloxScriptSecurity}
@@ -7617,7 +7652,7 @@ Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
 	Function UnvalidatedAssetService:AppendTempAssetId(userId: number, id: number, lookAt: Vector3, camPos: Vector3, usage: string) -> () {RobloxScriptSecurity}
 	Function UnvalidatedAssetService:AppendVantagePoint(userId: number, id: number, lookAt: Vector3, camPos: Vector3) -> boolean {RobloxScriptSecurity}
 	Function UnvalidatedAssetService:UpgradeTempAssetId(userId: number, tempId: number, assetId: number) -> boolean {RobloxScriptSecurity}
-Class UserGameSettings : Instance [NotCreatable] [UserSettings] [NotReplicated]
+Class UserGameSettings : Instance [NotCreatable] [Service] [NotReplicated]
 	Property UserGameSettings.GraphicsOptimizationMode: Enum.GraphicsOptimizationMode {RobloxScriptSecurity}
 	Property UserGameSettings.GraphicsQualityLevel: number {RobloxScriptSecurity}
 	Property UserGameSettings.MaxQualityEnabled: boolean {RobloxScriptSecurity}
@@ -8080,7 +8115,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string, clientIp: string, clientPort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RuppInitialToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RuppPeriodicToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number, sourceIpAddress: string, sourcePort: number) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.SsrcFeedIdMappingUpdate(ssrcs: { any }, feedIds: { any }, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SsrcFeedIdMappingUpdate(ssrcs: { any }, feedIds: { any }, sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscribeStateChange(muteState: Enum.MuteState, userIds: string, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionDropped(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionFeedStarted(eventTag: number, sessionId: string) {RobloxSecurity} [Hidden]
@@ -8319,6 +8354,21 @@ Enum AnimationClipFromVideoStatus
 	EnumItem AnimationClipFromVideoStatus.Cancelled : 11
 	EnumItem AnimationClipFromVideoStatus.ErrorMultiplePeople : 12
 	EnumItem AnimationClipFromVideoStatus.ErrorUploadingVideo : 2001
+Enum AnimationNodeType
+	EnumItem AnimationNodeType.InvalidNode : 0
+	EnumItem AnimationNodeType.AddNode : 1
+	EnumItem AnimationNodeType.BlendNode : 2
+	EnumItem AnimationNodeType.Blend1DNode : 3
+	EnumItem AnimationNodeType.Blend2DNode : 4
+	EnumItem AnimationNodeType.ClipNode : 5
+	EnumItem AnimationNodeType.GraphOutput : 6
+	EnumItem AnimationNodeType.MaskNode : 7
+	EnumItem AnimationNodeType.PrioritySelectNode : 8
+	EnumItem AnimationNodeType.RandomSequenceNode : 9
+	EnumItem AnimationNodeType.SelectNode : 10
+	EnumItem AnimationNodeType.SequenceNode : 11
+	EnumItem AnimationNodeType.SpeedNode : 12
+	EnumItem AnimationNodeType.SubtractNode : 13
 Enum AnimationPriority
 	EnumItem AnimationPriority.Idle : 0
 	EnumItem AnimationPriority.Movement : 1
@@ -8916,6 +8966,8 @@ Enum CompletionTriggerKind
 	EnumItem CompletionTriggerKind.Invoked : 1
 	EnumItem CompletionTriggerKind.TriggerCharacter : 2
 	EnumItem CompletionTriggerKind.TriggerForIncompleteCompletions : 3
+Enum CompressionAlgorithm
+	EnumItem CompressionAlgorithm.Zstd : 0
 Enum ComputerCameraMovementMode
 	EnumItem ComputerCameraMovementMode.Default : 0
 	EnumItem ComputerCameraMovementMode.Classic : 1
@@ -9111,6 +9163,9 @@ Enum DebuggerStatus
 	EnumItem DebuggerStatus.RpcError : 6
 	EnumItem DebuggerStatus.InvalidArgument : 7
 	EnumItem DebuggerStatus.ConnectionClosed : 8
+Enum DefaultScriptSyncFileType
+	EnumItem DefaultScriptSyncFileType.Lua : 0
+	EnumItem DefaultScriptSyncFileType.Luau : 1
 Enum DevCameraOcclusionMode
 	EnumItem DevCameraOcclusionMode.Zoom : 0
 	EnumItem DevCameraOcclusionMode.Invisicam : 1
@@ -9267,6 +9322,12 @@ Enum EnviromentalPhysicsThrottle
 Enum ExperienceAuthScope
 	EnumItem ExperienceAuthScope.DefaultScope : 0
 	EnumItem ExperienceAuthScope.CreatorAssetsCreate : 1
+Enum ExperienceEventStatus
+	EnumItem ExperienceEventStatus.Active : 0
+	EnumItem ExperienceEventStatus.Cancelled : 1
+	EnumItem ExperienceEventStatus.Moderated : 2
+	EnumItem ExperienceEventStatus.Unpublished : 3
+	EnumItem ExperienceEventStatus.Unknown : 4
 Enum ExperienceStateRecordingLoadMode
 	EnumItem ExperienceStateRecordingLoadMode.NewReplay : 0
 	EnumItem ExperienceStateRecordingLoadMode.ContiguousSlice : 1
@@ -9582,6 +9643,12 @@ Enum HapticEffectType
 	EnumItem HapticEffectType.UINotification : 3
 	EnumItem HapticEffectType.GameplayExplosion : 4
 	EnumItem HapticEffectType.GameplayCollision : 5
+Enum HashAlgorithm
+	EnumItem HashAlgorithm.Blake2b : 0
+	EnumItem HashAlgorithm.Blake3 : 1
+	EnumItem HashAlgorithm.Md5 : 2
+	EnumItem HashAlgorithm.Sha1 : 3
+	EnumItem HashAlgorithm.Sha256 : 4
 Enum HighlightDepthMode
 	EnumItem HighlightDepthMode.AlwaysOnTop : 0
 	EnumItem HighlightDepthMode.Occluded : 1
@@ -10226,8 +10293,8 @@ Enum MessageType
 Enum ModelLevelOfDetail
 	EnumItem ModelLevelOfDetail.Automatic : 0
 	EnumItem ModelLevelOfDetail.StreamingMesh : 1
-	EnumItem ModelLevelOfDetail.SLIM : 2
-	EnumItem ModelLevelOfDetail.Disabled : 3
+	EnumItem ModelLevelOfDetail.Disabled : 2
+	EnumItem ModelLevelOfDetail.SLIM : 4
 Enum ModelStreamingBehavior
 	EnumItem ModelStreamingBehavior.Default : 0
 	EnumItem ModelStreamingBehavior.Legacy : 1
@@ -10872,6 +10939,16 @@ Enum SecurityCapability
 	EnumItem SecurityCapability.LegacySound : 20
 	EnumItem SecurityCapability.Players : 21
 	EnumItem SecurityCapability.CapabilityControl : 22
+	EnumItem SecurityCapability.Plugin : 23
+	EnumItem SecurityCapability.LocalUser : 24
+	EnumItem SecurityCapability.WritePlayer : 25
+	EnumItem SecurityCapability.RobloxScript : 26
+	EnumItem SecurityCapability.RobloxEngine : 27
+	EnumItem SecurityCapability.Unassigned : 28
+	EnumItem SecurityCapability.InternalTest : 29
+	EnumItem SecurityCapability.PluginOrOpenCloud : 30
+	EnumItem SecurityCapability.Assistant : 31
+	EnumItem SecurityCapability.RemoteCommand : 32
 Enum SelectionBehavior
 	EnumItem SelectionBehavior.Escape : 0
 	EnumItem SelectionBehavior.Stop : 1
@@ -11524,6 +11601,7 @@ Enum UploadCaptureResult
 	EnumItem UploadCaptureResult.CaptureModerated : 2
 	EnumItem UploadCaptureResult.CaptureNotInGallery : 3
 	EnumItem UploadCaptureResult.IneligibleCapture : 4
+	EnumItem UploadCaptureResult.UploadQuotaReached : 5
 Enum UsageContext
 	EnumItem UsageContext.Default : 0
 	EnumItem UsageContext.Preview : 1
