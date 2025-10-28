@@ -141,6 +141,7 @@ Studio.App.Property.EnableTypeHover,,Enable Type Hover,Enable Type Hover
 Studio.App.Property.ErrorColor,,Error Color,Error Color
 Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
 Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge By Material
+Studio.App.Property.FileExtension,Choosing default file extension for Script Sync,File extension,File extension
 Studio.App.Property.FindSelectionBackgroundColor,,Find Selection Background Color,Find Selection Background Color
 Studio.App.Property.FluidForceDrawScale,,Fluid Force Draw Scale,Fluid Force Draw Scale
 Studio.App.Property.Font,,Font,Font

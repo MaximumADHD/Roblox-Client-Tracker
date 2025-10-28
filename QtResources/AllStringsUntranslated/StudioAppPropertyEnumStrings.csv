@@ -63,6 +63,8 @@ Studio.App.PropertyEnum.Level20,,Level 20,Level 20
 Studio.App.PropertyEnum.Level21,,Level 21,Level 21
 Studio.App.PropertyEnum.Light,Application theme with brighter tones and colors,Light,Light
 Studio.App.PropertyEnum.LowResolution,,Low Resolution,Low Resolution
+Studio.App.PropertyEnum.Lua,The lua file extension,.lua,.lua
+Studio.App.PropertyEnum.Luau,The luau file extension,.luau,.luau
 Studio.App.PropertyEnum.Medium,,Medium,Medium
 Studio.App.PropertyEnum.MediumResolution,,Medium Resolution,Medium Resolution
 Studio.App.PropertyEnum.Metal,,Metal,Metal
