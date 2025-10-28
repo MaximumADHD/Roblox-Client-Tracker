@@ -2802,7 +2802,7 @@
     "documentation": ""
   },
   "@roblox/global/Vector3.new": {
-    "documentation": "根據給定的 x、y 和 z 組件返回一個新的 <code>Vector3</code>。",
+    "documentation": "根據給定的 <code>x</code>、<code>y</code> 和 <code>z</code> 組件返回一個新的 <code>Vector3</code>。",
     "params": [
       {
         "name": "x",
@@ -2852,27 +2852,27 @@
     "code_sample": ""
   },
   "@roblox/global/Vector3.zero": {
-    "documentation": "具有零大小的 <code>Vector3</code>。",
+    "documentation": "一個大小為 <code>0</code> 的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/global/Vector3.one": {
-    "documentation": "在每個軸上都具有 1 值的 <code>Vector3</code>。",
+    "documentation": "一個在每個軸上值為 <code>1</code> 的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/global/Vector3.xAxis": {
-    "documentation": "在 X 軸上具有 1 值的 <code>Vector3</code>。",
+    "documentation": "一個在 <strong>X</strong> 軸上值為 <code>1</code> 的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.yAxis": {
-    "documentation": "在 Y 軸上具有 1 值的 <code>Vector3</code>。",
+    "documentation": "一個在 <strong>Y</strong> 軸上值為 <code>1</code> 的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.zAxis": {
-    "documentation": "在 Z 軸上具有 1 值的 <code>Vector3</code>。",
+    "documentation": "一個在 <strong>Z</strong> 軸上值為 <code>1</code> 的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
@@ -2905,52 +2905,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zero": {
-    "documentation": "具有零大小的 <code>Vector3</code>。",
+    "documentation": "一個大小為 <code>0</code> 的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.one": {
-    "documentation": "在每個軸上都具有 1 值的 <code>Vector3</code>。",
+    "documentation": "一個在每個軸上值為 <code>1</code> 的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.xAxis": {
-    "documentation": "在 X 軸上具有 1 值的 <code>Vector3</code>。",
+    "documentation": "一個在 <strong>X</strong> 軸上值為 <code>1</code> 的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.yAxis": {
-    "documentation": "在 Y 軸上具有 1 值的 <code>Vector3</code>。",
+    "documentation": "一個在 <strong>Y</strong> 軸上值為 <code>1</code>的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zAxis": {
-    "documentation": "在 Z 軸上具有 1 值的 <code>Vector3</code>。",
+    "documentation": "一個在 <strong>Z</strong> 軸上值為 <code>1</code> 的 <code>Vector3</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.X": {
-    "documentation": "Vector3 的 x 坐標。",
+    "documentation": "<code>Vector3</code> 的 <strong>X</strong> 坐標。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#X",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Y": {
-    "documentation": "Vector3 的 y 坐標。",
+    "documentation": "<code>Vector3</code> 的 <strong>Y</strong> 坐標。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Z": {
-    "documentation": "Vector3 的 z 坐標。",
+    "documentation": "<code>Vector3</code> 的 <strong>Z</strong> 坐標。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Z",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Magnitude": {
-    "documentation": "Vector3 的長度。",
+    "documentation": "<code>Vector3</code> 的長度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Magnitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Unit": {
-    "documentation": "一個標準化的 <code>Vector3</code> 副本——它具有與原始相同的方向，大小為 1。",
+    "documentation": "一個標準化的 <code>Vector3</code> 副本 - 其方向與原始相同但大小為 <code>1</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Unit",
     "code_sample": ""
   },
@@ -51178,7 +51178,7 @@
     "documentation": "要查詢的屬性名稱。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "布林值，指示屬性是否從其代碼實例化的默認值進行了修改。"
+    "documentation": "布林值，指示該屬性是否已從其代碼實例化的默認值進行修改。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
     "documentation": "如果指定屬性中存儲的值不等於代碼實例化的默認值，則返回 <code>true</code>。",
@@ -57156,6 +57156,7 @@
   "@roblox/globaltype/AssetService": {
     "documentation": "一個非複製的服務，處理對 Roblox 網路 API 的資產相關查詢。",
     "keys": {
+      "AllowInsertFreeAssets": "@roblox/globaltype/AssetService.AllowInsertFreeAssets",
       "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
@@ -57172,12 +57173,18 @@
       "GetBundleDetailsAsync": "@roblox/globaltype/AssetService.GetBundleDetailsAsync",
       "GetCreatorAssetID": "@roblox/globaltype/AssetService.GetCreatorAssetID",
       "GetGamePlacesAsync": "@roblox/globaltype/AssetService.GetGamePlacesAsync",
+      "LoadAssetAsync": "@roblox/globaltype/AssetService.LoadAssetAsync",
       "PromptCreateAssetAsync": "@roblox/globaltype/AssetService.PromptCreateAssetAsync",
       "PromptImportAnimationClipFromVideoAsync": "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync",
       "SavePlaceAsync": "@roblox/globaltype/AssetService.SavePlaceAsync",
       "SearchAudio": "@roblox/globaltype/AssetService.SearchAudio"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AssetService.AllowInsertFreeAssets": {
+    "documentation": "控制 <code>AssetService:LoadAssetAsync()</code> 是否可以加載不屬於經驗創建者的資產。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#AllowInsertFreeAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0": {
@@ -57696,6 +57703,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#GetGamePlacesAsync",
     "code_sample": "local AssetService = game:GetService(\"AssetService\")\n\nlocal placePages = AssetService:GetGamePlacesAsync()\n\nwhile true do\n\tfor _, place in placePages:GetCurrentPage() do\n\t\tprint(\"名稱:\", place.Name)\n\t\tprint(\"地方 ID:\", place.PlaceId)\n\tend\n\tif placePages.IsFinished then\n\t\tbreak\n\tend\n\tplacePages:AdvanceToNextPageAsync()\nend"
   },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/0": {
+    "documentation": "一個非複製的服務，處理對 Roblox 網路 API 的資產相關查詢。"
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
+    "documentation": "正在加載的資產的資產 ID 編號。"
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
+    "documentation": "包含加載資產的 <code>Model</code> 實例。"
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync": {
+    "documentation": "根據資產 ID 加載 <code>Model</code> 實例。這是 <code>InsertService:LoadAsset()</code> 的現代替代方案，並支持加載第三方資產。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/0"
+      },
+      {
+        "name": "assetId",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.LoadAssetAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#LoadAssetAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/0": {
     "documentation": "一個非複製的服務，處理對 Roblox 網路 API 的資產相關查詢。"
   },
@@ -57709,10 +57743,10 @@
     "documentation": "資產類型。目前只能是 <code>AssetType.Model</code>。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "如果成功，則返回 <code>PromptCreateAssetResult</code> 和資產 ID 鍵值對。"
+    "documentation": "如果成功，則為 <code>PromptCreateAssetResult</code> 和資產 ID 的配對。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "通過提示發佈對話框，允許在體驗中進行資產創建。",
+    "documentation": "通過提示發布對話框允許用戶在經驗內創建資產。",
     "params": [
       {
         "name": "self",
@@ -57775,10 +57809,10 @@
     "documentation": "一個非複製的服務，處理對 Roblox 網路 API 的資產相關查詢。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "可選字典，包括 <code>SaveWithoutPublish</code>，一個布林值，指示是否保存時不發佈或不發佈，以及 <code>PlaceId</code>，要保存的目標地方 ID。示例用法：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，則默認行為將保存當前原始地方，該地方正調用 SavePlaceAsync。如果未提供 SaveWithoutPublish，則默認行為為 SaveWithoutPublish=false。"
+    "documentation": "可選字典，其中包括 <code>SaveWithoutPublish</code>，一個布爾值表示是否以發布或不發布的方式進行保存，和 <code>PlaceId</code>，要覆蓋的目標地點 ID。使用範例如下：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). 如果未提供 PlaceId，則默認行為將保存覆蓋目前正在調用 SavePlaceAsync 的原始地點。如果未提供 SaveWithoutPublish，則默認行為為 SaveWithoutPublish=false。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
-    "documentation": "保存當前地方的狀態。",
+    "documentation": "保存當前地點的狀態。",
     "params": [
       {
         "name": "self",
@@ -57803,7 +57837,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "查找匹配多種搜索條件的音頻資產。",
+    "documentation": "查找符合各種搜索條件的音頻資產。",
     "params": [
       {
         "name": "self",
@@ -75432,6 +75466,263 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase",
     "code_sample": ""
   },
+  "@roblox/globaltype/ValueCurve": {
+    "documentation": "定義曲線的時間-值對的已排序列表。用於動畫任何類型的值。",
+    "keys": {
+      "ValueType": "@roblox/globaltype/ValueCurve.ValueType",
+      "Length": "@roblox/globaltype/ValueCurve.Length",
+      "GetKeyAtIndex": "@roblox/globaltype/ValueCurve.GetKeyAtIndex",
+      "GetKeyIndicesAtTime": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime",
+      "GetKeys": "@roblox/globaltype/ValueCurve.GetKeys",
+      "GetValueAtTime": "@roblox/globaltype/ValueCurve.GetValueAtTime",
+      "InsertKey": "@roblox/globaltype/ValueCurve.InsertKey",
+      "InsertKeyValue": "@roblox/globaltype/ValueCurve.InsertKeyValue",
+      "RemoveKeyAtIndex": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex",
+      "SetKeys": "@roblox/globaltype/ValueCurve.SetKeys"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.ValueType": {
+    "documentation": "只讀值，指示此曲線中所持類型。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#ValueType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.Length": {
+    "documentation": "值曲線中的鍵數。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#Length",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0": {
+    "documentation": "定義曲線的時間-值對的已排序列表。用於動畫任何類型的值。"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1": {
+    "documentation": "此<code>ValueCurve</code>所持的現有鍵集中的索引。"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex": {
+    "documentation": "返回指定索引處鍵的副本。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0"
+      },
+      {
+        "name": "index",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0": {
+    "documentation": "定義曲線的時間-值對的已排序列表。用於動畫任何類型的值。"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1": {
+    "documentation": "動畫中的時間。輸入將被限制在<code>0</code>與此<code>ValueCurve</code>持有的最後鍵的時間之間。"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime": {
+    "documentation": "返回一段時間的最後和第一個鍵的索引。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyIndicesAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/param/0": {
+    "documentation": "定義曲線的時間-值對的已排序列表。用於動畫任何類型的值。"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/return/0": {
+    "documentation": "<code>ValueCurveKeys</code>的數組。"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys": {
+    "documentation": "返回值曲線中所有鍵的副本，作為<code>ValueCurveKeys</code>的Luau數組。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeys/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeys",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0": {
+    "documentation": "定義曲線的時間-值對的已排序列表。用於動畫任何類型的值。"
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1": {
+    "documentation": "對曲線進行取樣的時間。"
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0": {
+    "documentation": "在所請求的<code>time</code>處的曲線值。"
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime": {
+    "documentation": "在給定時間處對值曲線進行取樣。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetValueAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/0": {
+    "documentation": "定義曲線的時間-值對的已排序列表。用於動畫任何類型的值。"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/1": {
+    "documentation": "<code>ValueCurveKey</code>要插入。"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/return/0": {
+    "documentation": "(參見描述)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey": {
+    "documentation": "將作為參數傳遞的鍵添加到此曲線中。如果發現相同時間的鍵，將被替換。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/0"
+      },
+      {
+        "name": "key",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKey/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKey",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0": {
+    "documentation": "定義曲線的時間-值對的已排序列表。用於動畫任何類型的值。"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1": {
+    "documentation": "插入新<code>ValueCurveKey</code>的時間。- 類型：number"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2": {
+    "documentation": "插入的<code>ValueCurveKey</code>的值。- 類型：any"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3": {
+    "documentation": "插入的<code>ValueCurveKey</code>的插值模式。- 類型：KeyInterpolationMode"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0": {
+    "documentation": "(參見描述)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue": {
+    "documentation": "為給定值創建一個鍵並在給定時間插入。如果發現相同時間的鍵，將被替換。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2"
+      },
+      {
+        "name": "Interpolation",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKeyValue",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0": {
+    "documentation": "定義曲線的時間-值對的已排序列表。用於動畫任何類型的值。"
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1": {
+    "documentation": "刪除鍵的起始索引。"
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2": {
+    "documentation": "要刪除的鍵數。"
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0": {
+    "documentation": "刪除的鍵數。"
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex": {
+    "documentation": "從給定索引開始刪除給定數量的鍵。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0"
+      },
+      {
+        "name": "startingIndex",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1"
+      },
+      {
+        "name": "count",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#RemoveKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/0": {
+    "documentation": "定義曲線的時間-值對的已排序列表。用於動畫任何類型的值。"
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/1": {
+    "documentation": "<code>ValueCurveKeys</code>的數組。"
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/return/0": {
+    "documentation": "插入的鍵數。"
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys": {
+    "documentation": "使用作為參數傳遞的<code>ValueCurveKey</code>數組重置此曲線的鍵。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/0"
+      },
+      {
+        "name": "keys",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.SetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#SetKeys",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Pages": {
     "documentation": "頁面物件的抽象類別。",
     "keys": {
@@ -90809,12 +91100,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTime": {
-    "documentation": "服務器更新其任務調度器作業所需的總時間測量（以秒為單位）。",
+    "documentation": "測量伺服器更新其任務調度程序作業所需的總時間（以秒為單位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTimeMs": {
-    "documentation": "<strong>Deprecated:</strong> <br>Roblox 更新所有任務調度器作業所需的總時間的測量（以毫秒為單位）。",
+    "documentation": "<strong>Deprecated:</strong> <br>測量 Roblox 更新所有任務調度程序作業所需的總時間（以毫秒為單位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTimeMs",
     "code_sample": ""
   },
@@ -90955,7 +91246,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbAllCategories": {
-    "documentation": "返回所有可用類別所消耗的兆字節數，或者如果 <code>MemoryTrackingEnabled</code> 為 false 則返回空數組。",
+    "documentation": "返回所有可用類別所消耗的兆字節數量，或如果 <code>MemoryTrackingEnabled</code> 為 <code>false</code> 則返回空數組。",
     "params": [
       {
         "name": "self",
@@ -90978,7 +91269,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbForTag": {
-    "documentation": "返回指定 <code>DeveloperMemoryTag</code> 類別中消耗的兆字節數，或者如果 <code>MemoryTrackingEnabled</code> 為 false 則返回 0。",
+    "documentation": "返回在指定的 <code>DeveloperMemoryTag</code> 類別中消耗的兆字節數量，或者如果 <code>MemoryTrackingEnabled</code> 為 <code>false</code> 則返回 <code>0</code>。",
     "params": [
       {
         "name": "self",
@@ -91002,7 +91293,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetTotalMemoryUsageMb": {
-    "documentation": "返回當前遊戲會話所消耗的總內存量（以兆字節為單位），或者如果 <code>MemoryTrackingEnabled</code> 為 false 則返回 0。",
+    "documentation": "返回當前遊戲會話消耗的總記憶體（以兆字節為單位）。",
     "params": [
       {
         "name": "self",
@@ -104537,6 +104828,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/Style",
     "code_sample": ""
   },
+  "@roblox/enum/HashAlgorithm.Blake2b": {
+    "documentation": "用於使用 <a href=\"https://en.wikipedia.org/wiki/BLAKE2\">BLAKE2b</a> 演算法計算 256 位元 (32 位元組) 的雜湊摘要。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake2b",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Blake3": {
+    "documentation": "用於使用 <a href=\"https://en.wikipedia.org/wiki/BLAKE3\">BLAKE3</a> 演算法計算 256 位元 (32 位元組) 的雜湊摘要。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake3",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Md5": {
+    "documentation": "用於使用 <a href=\"https://en.wikipedia.org/wiki/MD5\">MD5</a> 演算法計算 128 位元 (16 位元組) 的雜湊摘要。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Md5",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha1": {
+    "documentation": "用於使用 <a href=\"https://en.wikipedia.org/wiki/SHA-1\">SHA-1</a> 演算法計算 160 位元 (20 位元組) 的雜湊摘要。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha1",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha256": {
+    "documentation": "用於使用 <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256</a> 演算法計算 256 位元 (32 位元組) 的雜湊摘要。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha256",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.HashAlgorithm": {
+    "documentation": "用於 <code>EncodingService</code> 方法的數位簽章雜湊函數。",
+    "keys": {
+      "Blake2b": "@roblox/enum/HashAlgorithm.Blake2b",
+      "Blake3": "@roblox/enum/HashAlgorithm.Blake3",
+      "Md5": "@roblox/enum/HashAlgorithm.Md5",
+      "Sha1": "@roblox/enum/HashAlgorithm.Sha1",
+      "Sha256": "@roblox/enum/HashAlgorithm.Sha256"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto": {
     "documentation": "",
     "keys": {
@@ -112579,7 +112932,7 @@
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.RawStream": {
-    "documentation": "客戶端可以連接到任何提供流媒體數據傳輸的伺服器 （例如 <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">chunked encoding</a>）。 它對流的格式不提供任何保證。",
+    "documentation": "通用的 HTTP 流媒體客戶端。它可以連接到任何提供流數據傳輸的伺服器（例如 <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">分塊編碼</a>）。 它對流的格式不提供任何保證。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112588,11 +112941,22 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#RawStream",
     "code_sample": ""
   },
+  "@roblox/enum/WebStreamClientType.WebSocket": {
+    "documentation": "<a href=\"https://en.wikipedia.org/wiki/WebSocket\">WebSocket</a> 客戶端，提供一個在 TCP 連接上進行雙向通信的通道。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#WebSocket",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.WebStreamClientType": {
     "documentation": "指定在創建 <code>WebStreamClient</code> 時使用的流媒體類型。",
     "keys": {
       "SSE": "@roblox/enum/WebStreamClientType.SSE",
-      "RawStream": "@roblox/enum/WebStreamClientType.RawStream"
+      "RawStream": "@roblox/enum/WebStreamClientType.RawStream",
+      "WebSocket": "@roblox/enum/WebStreamClientType.WebSocket"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType",
     "code_sample": ""
@@ -121711,6 +122075,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelStreamingBehavior",
     "code_sample": ""
   },
+  "@roblox/enum/CompressionAlgorithm.Zstd": {
+    "documentation": "用於執行壓縮，使用 <a href=\"https://en.wikipedia.org/wiki/Zstd\">Zstandard</a> 壓縮，也稱為 zstd。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm#Zstd",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CompressionAlgorithm": {
+    "documentation": "在 <code>EncodingService</code> 方法中使用的壓縮算法。",
+    "keys": {
+      "Zstd": "@roblox/enum/CompressionAlgorithm.Zstd"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/RotationOrder.XYZ": {
     "documentation": "X, Y, Z 順序。",
     "keys": {
@@ -126861,8 +127243,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#StreamingMesh",
     "code_sample": ""
   },
+  "@roblox/enum/ModelLevelOfDetail.SLIM": {
+    "documentation": "可擴展輕量互動模型，或稱 SLIM 模型（模型的所有子部件的組合）會在基於串流半徑的距離上以逐漸降低的解析度渲染。大幅提升相較於 <code>StreamingMesh</code> 的視覺質量。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#SLIM",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
-    "documentation": "不顯示較低解析度的網格。",
+    "documentation": "將不會顯示較低解析度的網格。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126876,6 +127268,7 @@
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
+      "SLIM": "@roblox/enum/ModelLevelOfDetail.SLIM",
       "Disabled": "@roblox/enum/ModelLevelOfDetail.Disabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail",
@@ -127422,6 +127815,68 @@
       "Completed": "@roblox/enum/TweenStatus.Completed"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TweenStatus",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Active": {
+    "documentation": "The event is currently published and available.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Cancelled": {
+    "documentation": "The event has been cancelled and will not occur.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Cancelled",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Moderated": {
+    "documentation": "The event has been removed by moderation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Moderated",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unpublished": {
+    "documentation": "The event has been unpublished by the creator.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unpublished",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unknown": {
+    "documentation": "The event status could not be determined.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceEventStatus": {
+    "documentation": "",
+    "keys": {
+      "Active": "@roblox/enum/ExperienceEventStatus.Active",
+      "Cancelled": "@roblox/enum/ExperienceEventStatus.Cancelled",
+      "Moderated": "@roblox/enum/ExperienceEventStatus.Moderated",
+      "Unpublished": "@roblox/enum/ExperienceEventStatus.Unpublished",
+      "Unknown": "@roblox/enum/ExperienceEventStatus.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarAssetType.TShirt": {
@@ -130909,7 +131364,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Glass": {
-    "documentation": "僅適用於 <code>BasePart</code>。請注意，由於計算能力的限制，這種材質的光線折射在移動設備上不受支持。",
+    "documentation": "僅適用於 <code>BasePart</code>。請注意，由於計算能力的限制，這種材質的光折射在移動設備上不受支持。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130919,7 +131374,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.ForceField": {
-    "documentation": "必須在 UV 平面佈局覆蓋大部分 0:1 UV 空間或更多的 <code>MeshPart</code> 上使用 (越大越好)。 <code>MeshPart</code> 還必須對其 <code>TextureID</code> 應用紋理，並且該紋理圖像必須具有寬廣的值範圍，因為材質顯示從暗/黑到淺/白的範圍。獲取 <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">這個模型</a> 以獲取功能性示例。",
+    "documentation": "必須用於擁有佈局為覆蓋大部分 0:1 UV 空間或更多（越大越好）的 <code>MeshPart</code>。<code>MeshPart</code> 還必須對其 <code>TextureID</code> 應用一個紋理，該紋理圖像必須具有寬範圍的值，因為該材質顯示從深色/黑色到淺色/白色的值範圍。獲取 <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">這個模型</a> 以獲得功能示例。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136579,6 +137034,7 @@
       "abs": "@roblox/global/vector.abs",
       "sign": "@roblox/global/vector.sign",
       "clamp": "@roblox/global/vector.clamp",
+      "lerp": "@roblox/global/vector.lerp",
       "max": "@roblox/global/vector.max",
       "min": "@roblox/global/vector.min",
       "zero": "@roblox/global/vector.zero",
@@ -136861,6 +137317,40 @@
       "@roblox/global/vector.clamp/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#clamp",
+    "code_sample": ""
+  },
+  "@roblox/global/vector.lerp/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/1": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/return/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp": {
+    "documentation": "返回通過分數 alpha 在兩個向量之間線性插值的向量。",
+    "params": [
+      {
+        "name": "vec1",
+        "documentation": "@roblox/global/vector.lerp/param/0"
+      },
+      {
+        "name": "vec2",
+        "documentation": "@roblox/global/vector.lerp/param/1"
+      },
+      {
+        "name": "alpha",
+        "documentation": "@roblox/global/vector.lerp/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/global/vector.lerp/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#lerp",
     "code_sample": ""
   },
   "@roblox/global/vector.max/param/0": {

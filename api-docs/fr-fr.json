@@ -2802,7 +2802,7 @@
     "documentation": ""
   },
   "@roblox/global/Vector3.new": {
-    "documentation": "Renvoie un nouveau <code>Vector3</code> à partir des composants x, y et z donnés.",
+    "documentation": "Renvoie un nouveau <code>Vector3</code> à partir des composants <code>x</code>, <code>y</code> et <code>z</code> donnés.",
     "params": [
       {
         "name": "x",
@@ -2852,27 +2852,27 @@
     "code_sample": ""
   },
   "@roblox/global/Vector3.zero": {
-    "documentation": "Un <code>Vector3</code> avec une magnitude de zéro.",
+    "documentation": "Un <code>Vector3</code> avec une magnitude de <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/global/Vector3.one": {
-    "documentation": "Un <code>Vector3</code> avec une valeur de 1 sur chaque axe.",
+    "documentation": "Un <code>Vector3</code> avec une valeur de <code>1</code> sur chaque axe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/global/Vector3.xAxis": {
-    "documentation": "Un <code>Vector3</code> avec une valeur de 1 sur l'axe X.",
+    "documentation": "Un <code>Vector3</code> avec une valeur de <code>1</code> sur l'axe <strong>X</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.yAxis": {
-    "documentation": "Un <code>Vector3</code> avec une valeur de 1 sur l'axe Y.",
+    "documentation": "Un <code>Vector3</code> avec une valeur de <code>1</code> sur l'axe <strong>Y</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.zAxis": {
-    "documentation": "Un <code>Vector3</code> avec une valeur de 1 sur l'axe Z.",
+    "documentation": "Un <code>Vector3</code> avec une valeur de <code>1</code> sur l'axe <strong>Z</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
@@ -2905,52 +2905,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zero": {
-    "documentation": "Un <code>Vector3</code> avec une magnitude de zéro.",
+    "documentation": "Un <code>Vector3</code> avec une magnitude de <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.one": {
-    "documentation": "Un <code>Vector3</code> avec une valeur de 1 sur chaque axe.",
+    "documentation": "Un <code>Vector3</code> avec une valeur de <code>1</code> sur chaque axe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.xAxis": {
-    "documentation": "Un <code>Vector3</code> avec une valeur de 1 sur l'axe X.",
+    "documentation": "Un <code>Vector3</code> avec une valeur de <code>1</code> sur l'axe <strong>X</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.yAxis": {
-    "documentation": "Un <code>Vector3</code> avec une valeur de 1 sur l'axe Y.",
+    "documentation": "Un <code>Vector3</code> avec une valeur de <code>1</code>sur l'axe <strong>Y</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zAxis": {
-    "documentation": "Un <code>Vector3</code> avec une valeur de 1 sur l'axe Z.",
+    "documentation": "Un <code>Vector3</code> avec une valeur de <code>1</code> sur l'axe <strong>Z</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.X": {
-    "documentation": "La coordonnée x du Vector3.",
+    "documentation": "La coordonnée <strong>X</strong> du <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#X",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Y": {
-    "documentation": "La coordonnée y du Vector3.",
+    "documentation": "La coordonnée <strong>Y</strong> du <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Z": {
-    "documentation": "La coordonnée z du Vector3.",
+    "documentation": "La coordonnée <strong>Z</strong> du <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Z",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Magnitude": {
-    "documentation": "La longueur du Vector3.",
+    "documentation": "La longueur du <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Magnitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Unit": {
-    "documentation": "Une copie normalisée du <code>Vector3</code> - celle qui a la même direction que l'original mais une magnitude de 1.",
+    "documentation": "Une copie normalisée du <code>Vector3</code> - celle qui a la même direction que l'original mais une magnitude de <code>1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Unit",
     "code_sample": ""
   },
@@ -51178,10 +51178,10 @@
     "documentation": "Nom de la propriété à interroger."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Booléen indiquant si la propriété a été modifiée par rapport à sa valeur par défaut instanciée par le code."
+    "documentation": "Booléen indiquant si la propriété est modifiée par rapport à sa valeur par défaut instanciée par le code."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Renvoie <code>true</code> si la valeur stockée dans la propriété spécifiée n'est pas égale à la valeur par défaut instanciée par le code.",
+    "documentation": "Renvoie <code>true</code> si la valeur stockée dans la propriété spécifiée n'est pas égale a la valeur par défaut instanciée par le code.",
     "params": [
       {
         "name": "self",
@@ -57156,6 +57156,7 @@
   "@roblox/globaltype/AssetService": {
     "documentation": "Un service non répliqué qui gère les requêtes liées aux actifs à l'API web de Roblox .",
     "keys": {
+      "AllowInsertFreeAssets": "@roblox/globaltype/AssetService.AllowInsertFreeAssets",
       "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
@@ -57172,12 +57173,18 @@
       "GetBundleDetailsAsync": "@roblox/globaltype/AssetService.GetBundleDetailsAsync",
       "GetCreatorAssetID": "@roblox/globaltype/AssetService.GetCreatorAssetID",
       "GetGamePlacesAsync": "@roblox/globaltype/AssetService.GetGamePlacesAsync",
+      "LoadAssetAsync": "@roblox/globaltype/AssetService.LoadAssetAsync",
       "PromptCreateAssetAsync": "@roblox/globaltype/AssetService.PromptCreateAssetAsync",
       "PromptImportAnimationClipFromVideoAsync": "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync",
       "SavePlaceAsync": "@roblox/globaltype/AssetService.SavePlaceAsync",
       "SearchAudio": "@roblox/globaltype/AssetService.SearchAudio"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AssetService.AllowInsertFreeAssets": {
+    "documentation": "Contrôle si <code>AssetService:LoadAssetAsync()</code> peut charger des actifs qui ne sont pas possédés par le créateur de l'expérience.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#AllowInsertFreeAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0": {
@@ -57696,23 +57703,50 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#GetGamePlacesAsync",
     "code_sample": "local AssetService = game:GetService(\"AssetService\")\n\nlocal placePages = AssetService:GetGamePlacesAsync()\n\nwhile true do\n\tfor _, place in placePages:GetCurrentPage() do\n\t\tprint(\"Nom:\", place.Name)\n\t\tprint(\"PlaceId:\", place.PlaceId)\n\tend\n\tif placePages.IsFinished then\n\t\tbreak\n\tend\n\tplacePages:AdvanceToNextPageAsync()\nend"
   },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/0": {
+    "documentation": "Un service non répliqué qui gère les requêtes liées aux actifs à l'API web de Roblox ."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
+    "documentation": "Le numéro d'ID d'actif de l'actif en cours de chargement."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
+    "documentation": "Une instance <code>Model</code> contenant l'actif chargé."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync": {
+    "documentation": "Charge une instance <code>Model</code> donnée son ID d'actif. C'est le remplacement moderne pour <code>InsertService:LoadAsset()</code> et prend en charge le chargement des actifs tiers.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/0"
+      },
+      {
+        "name": "assetId",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.LoadAssetAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#LoadAssetAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/0": {
     "documentation": "Un service non répliqué qui gère les requêtes liées aux actifs à l'API web de Roblox ."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/1": {
-    "documentation": "L'utilisateur qui soumet une création d'asset."
+    "documentation": "L'utilisateur qui soumet une création d'actif."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/2": {
-    "documentation": "L'asset à créer. Actuellement, ne peut pas contenir de scripts ou imbriquer des assets non publics."
+    "documentation": "L'actif à créer. Actuellement, il ne peut pas contenir de scripts ou imbriquer des actifs non publics."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/3": {
-    "documentation": "Le type d'asset. Actuellement, ne peut être que <code>AssetType.Model</code>."
+    "documentation": "Le type d'actif. Actuellement, il ne peut être que <code>AssetType.Model</code>."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "La paire <code>PromptCreateAssetResult</code> et ID d'asset si réussie."
+    "documentation": "Le pair <code>PromptCreateAssetResult</code> et ID de l'actif si réussi."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "Permet la création d'assets en expérience pour les utilisateurs en affichant un dialogue de publication.",
+    "documentation": "Permet la création d'actifs en expérience pour les utilisateurs en affichant une boîte de dialogue de publication.",
     "params": [
       {
         "name": "self",
@@ -57775,10 +57809,10 @@
     "documentation": "Un service non répliqué qui gère les requêtes liées aux actifs à l'API web de Roblox ."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Dictionnaire optionnel qui inclut <code>SaveWithoutPublish</code>, un booléen indiquant s'il faut sauvegarder avec ou sans publication, et <code>PlaceId</code>, l'ID de lieu de destination à sauvegarder. Un exemple d'utilisation serait : AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Si PlaceId n'est pas fourni, le comportement par défaut sera de sauvegarder sous le lieu d'origine actuel qui appelle SavePlaceAsync. Si SaveWithoutPublish n'est pas fourni, le comportement par défaut est SaveWithoutPublish=false."
+    "documentation": "Dictionnaire optionnel qui inclut <code>SaveWithoutPublish</code>, un booléen d'indiquant s'il faut sauvegarder avec ou sans publication, et <code>PlaceId</code>, ID de l'endroit de destination à sauvegarder. Un exemple d'utilisation serait: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Si PlaceId n'est pas fourni, le comportement par défaut sauvegardera tu lieu original actuel appelant SavePlaceAsync. Si SaveWithoutPublish n'est pas fourni, le comportement par défaut est SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
-    "documentation": "Sauvegarde l'état du lieu actuel.",
+    "documentation": "Sauvegarde l'état de l'endroit actuel.",
     "params": [
       {
         "name": "self",
@@ -57803,7 +57837,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "Recherche des assets audio correspondant à une variété de critères de recherche.",
+    "documentation": "Trouve des actifs audio correspondant à divers critères de recherche.",
     "params": [
       {
         "name": "self",
@@ -75432,6 +75466,263 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase",
     "code_sample": ""
   },
+  "@roblox/globaltype/ValueCurve": {
+    "documentation": "Une liste triée de paires valeur-temps qui définissent une courbe. Utilisé pour animer tout type de valeur.",
+    "keys": {
+      "ValueType": "@roblox/globaltype/ValueCurve.ValueType",
+      "Length": "@roblox/globaltype/ValueCurve.Length",
+      "GetKeyAtIndex": "@roblox/globaltype/ValueCurve.GetKeyAtIndex",
+      "GetKeyIndicesAtTime": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime",
+      "GetKeys": "@roblox/globaltype/ValueCurve.GetKeys",
+      "GetValueAtTime": "@roblox/globaltype/ValueCurve.GetValueAtTime",
+      "InsertKey": "@roblox/globaltype/ValueCurve.InsertKey",
+      "InsertKeyValue": "@roblox/globaltype/ValueCurve.InsertKeyValue",
+      "RemoveKeyAtIndex": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex",
+      "SetKeys": "@roblox/globaltype/ValueCurve.SetKeys"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.ValueType": {
+    "documentation": "Valeur en lecture seule indiquant le type contenu dans cette courbe.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#ValueType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.Length": {
+    "documentation": "Nombre de clés dans la courbe de valeur.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#Length",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0": {
+    "documentation": "Une liste triée de paires valeur-temps qui définissent une courbe. Utilisé pour animer tout type de valeur."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1": {
+    "documentation": "L'index dans l'ensemble existant de clés détenues par ce <code>ValueCurve</code>."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex": {
+    "documentation": "Renvoie une copie d'une clé à un index donné.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0"
+      },
+      {
+        "name": "index",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0": {
+    "documentation": "Une liste triée de paires valeur-temps qui définissent une courbe. Utilisé pour animer tout type de valeur."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1": {
+    "documentation": "Un temps durant l'animation. Les entrées seront limitées entre <code>0</code> et temps de la dernière clé détenue par ce <code>ValueCurve</code>."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime": {
+    "documentation": "Renvoie l'index de la dernière et de la première clé d'une période de temps.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyIndicesAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/param/0": {
+    "documentation": "Une liste triée de paires valeur-temps qui définissent une courbe. Utilisé pour animer tout type de valeur."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/return/0": {
+    "documentation": "Tableau de <code>ValueCurveKeys</code>."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys": {
+    "documentation": "Renvoie une copie de toutes les clés dans le ValueCurve sous forme de tableau Luau de <code>ValueCurveKeys</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeys/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeys",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0": {
+    "documentation": "Une liste triée de paires valeur-temps qui définissent une courbe. Utilisé pour animer tout type de valeur."
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1": {
+    "documentation": "Temps auquel échantillonner la courbe."
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0": {
+    "documentation": "Valeur de la courbe au <code>temps</code> demandé."
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime": {
+    "documentation": "Échantillonne la courbe de valeur à un moment donné passé en argument.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetValueAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/0": {
+    "documentation": "Une liste triée de paires valeur-temps qui définissent une courbe. Utilisé pour animer tout type de valeur."
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/1": {
+    "documentation": "<code>ValueCurveKey</code> à insérer."
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/return/0": {
+    "documentation": "(voir description)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey": {
+    "documentation": "Ajoute la clé passée en argument à cette courbe. Si une clé au même temps est trouvée, elle sera remplacée.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/0"
+      },
+      {
+        "name": "key",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKey/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKey",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0": {
+    "documentation": "Une liste triée de paires valeur-temps qui définissent une courbe. Utilisé pour animer tout type de valeur."
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1": {
+    "documentation": "Temps auquel insérer le nouveau <code>ValueCurveKey</code>. - type : nombre"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2": {
+    "documentation": "Valeur du <code>ValueCurveKey</code> inséré. - type : n'importe quel"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3": {
+    "documentation": "Mode d'interpolation du <code>ValueCurveKey</code> inséré. - type : KeyInterpolationMode"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0": {
+    "documentation": "(voir description)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue": {
+    "documentation": "Crée une clé pour la valeur donnée et l'insère au moment donné. Si une clé au même temps est trouvée, elle sera remplacée.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2"
+      },
+      {
+        "name": "Interpolation",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKeyValue",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0": {
+    "documentation": "Une liste triée de paires valeur-temps qui définissent une courbe. Utilisé pour animer tout type de valeur."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1": {
+    "documentation": "Index de départ à partir duquel supprimer des clés."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2": {
+    "documentation": "Nombre de clés à supprimer."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0": {
+    "documentation": "Nombre de clés supprimées."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex": {
+    "documentation": "Supprime un nombre donné de clés à partir d'un index donné.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0"
+      },
+      {
+        "name": "startingIndex",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1"
+      },
+      {
+        "name": "count",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#RemoveKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/0": {
+    "documentation": "Une liste triée de paires valeur-temps qui définissent une courbe. Utilisé pour animer tout type de valeur."
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/1": {
+    "documentation": "Tableau de <code>ValueCurveKeys</code>."
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/return/0": {
+    "documentation": "Nombre de clés insérées."
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys": {
+    "documentation": "Réinitialise les clés de cette courbe en utilisant le tableau <code>ValueCurveKey</code> passé comme argument.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/0"
+      },
+      {
+        "name": "keys",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.SetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#SetKeys",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Pages": {
     "documentation": "Une classe abstraite pour les objets de pages.",
     "keys": {
@@ -90809,12 +91100,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTime": {
-    "documentation": "Une mesure du temps total nécessaire au serveur pour mettre à jour ses tâches dans le planificateur, en secondes.",
+    "documentation": "Une mesure du temps total nécessaire au serveur pour mettre à jour les tâches de son planificateur en secondes.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTimeMs": {
-    "documentation": "<strong>Deprecated:</strong> <br>Une mesure du temps total nécessaire à Roblox pour mettre à jour toutes ses tâches dans le planificateur, en millisecondes.",
+    "documentation": "<strong>Deprecated:</strong> <br>Une mesure du temps total nécessaire pour que Roblox mette à jour toutes ses tâches de planificateur, en millisecondes.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTimeMs",
     "code_sample": ""
   },
@@ -90955,7 +91246,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbAllCategories": {
-    "documentation": "Renvoie le nombre de mégaoctets consommés par toutes les catégories disponibles, ou un tableau vide si <code>MemoryTrackingEnabled</code> est faux.",
+    "documentation": "Retourne le nombre de mégaoctets consommés par toutes les catégories disponibles, ou un tableau vide si <code>MemoryTrackingEnabled</code> est <code>false</code>.",
     "params": [
       {
         "name": "self",
@@ -90978,7 +91269,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbForTag": {
-    "documentation": "Renvoie le nombre de mégaoctets consommés dans la catégorie <code>DeveloperMemoryTag</code> specifiée, ou 0 si <code>MemoryTrackingEnabled</code> est faux.",
+    "documentation": "Retourne le nombre de mégaoctets consommés dans la catégorie spécifiée <code>DeveloperMemoryTag</code>, ou <code>0</code> si <code>MemoryTrackingEnabled</code> est <code>false</code>.",
     "params": [
       {
         "name": "self",
@@ -91002,7 +91293,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetTotalMemoryUsageMb": {
-    "documentation": "Renvoie la quantité totale de mémoire consommée par la session de jeu actuelle, en mégaoctets, ou 0 si <code>MemoryTrackingEnabled</code> est faux.",
+    "documentation": "Retourne la quantité totale de mémoire consommée par la session de jeu actuelle, en mégaoctets.",
     "params": [
       {
         "name": "self",
@@ -104537,6 +104828,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/Style",
     "code_sample": ""
   },
+  "@roblox/enum/HashAlgorithm.Blake2b": {
+    "documentation": "Utilisé pour calculer un digest de hachage de 256 bits (32 octets) en utilisant l'algorithme <a href=\"https://en.wikipedia.org/wiki/BLAKE2\">BLAKE2b</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake2b",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Blake3": {
+    "documentation": "Utilisé pour calculer un digest de hachage de 256 bits (32 octets) en utilisant l'algorithme <a href=\"https://en.wikipedia.org/wiki/BLAKE3\">BLAKE3</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake3",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Md5": {
+    "documentation": "Utilisé pour calculer un digest de hachage de 128 bits (16 octets) en utilisant l'algorithme <a href=\"https://en.wikipedia.org/wiki/MD5\">MD5</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Md5",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha1": {
+    "documentation": "Utilisé pour calculer un digest de hachage de 160 bits (20 octets) en utilisant l'algorithme <a href=\"https://en.wikipedia.org/wiki/SHA-1\">SHA-1</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha1",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha256": {
+    "documentation": "Utilisé pour calculer un digest de hachage de 256 bits (32 octets) en utilisant l'algorithme <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha256",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.HashAlgorithm": {
+    "documentation": "Une fonction de hachage cryptographique à utiliser dans les méthodes <code>EncodingService</code>.",
+    "keys": {
+      "Blake2b": "@roblox/enum/HashAlgorithm.Blake2b",
+      "Blake3": "@roblox/enum/HashAlgorithm.Blake3",
+      "Md5": "@roblox/enum/HashAlgorithm.Md5",
+      "Sha1": "@roblox/enum/HashAlgorithm.Sha1",
+      "Sha256": "@roblox/enum/HashAlgorithm.Sha256"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto": {
     "documentation": "",
     "keys": {
@@ -112579,7 +112932,7 @@
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.RawStream": {
-    "documentation": "Le client peut se connecter à n'importe quel serveur qui fournit un transfert de données par streaming (par exemple, <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">encodage en morceaux</a>). Il ne fournit aucune garantie concernant le format du flux.",
+    "documentation": "Client de streaming HTTP à usage général. Il peut se connecter à n'importe quel serveur qui fournit un transfert de données en streaming (par exemple, <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">encodage par morceaux</a>). Il ne fournit aucune garantie quant au format du flux.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112588,11 +112941,22 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#RawStream",
     "code_sample": ""
   },
+  "@roblox/enum/WebStreamClientType.WebSocket": {
+    "documentation": "Client <a href=\"https://en.wikipedia.org/wiki/WebSocket\">WebSocket</a> qui fournit un canal de communication bidirectionnel sur une connexion TCP.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#WebSocket",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.WebStreamClientType": {
     "documentation": "Spécifie quel type de streaming utiliser lors de la création d'un <code>WebStreamClient</code>.",
     "keys": {
       "SSE": "@roblox/enum/WebStreamClientType.SSE",
-      "RawStream": "@roblox/enum/WebStreamClientType.RawStream"
+      "RawStream": "@roblox/enum/WebStreamClientType.RawStream",
+      "WebSocket": "@roblox/enum/WebStreamClientType.WebSocket"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType",
     "code_sample": ""
@@ -121711,6 +122075,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelStreamingBehavior",
     "code_sample": ""
   },
+  "@roblox/enum/CompressionAlgorithm.Zstd": {
+    "documentation": "Utilisé pour effectuer une compression à l'aide de <a href=\"https://en.wikipedia.org/wiki/Zstd\">Zstandard</a>, également connu sous le nom de zstd.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm#Zstd",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CompressionAlgorithm": {
+    "documentation": "Un algorithme de compression à utiliser dans les méthodes <code>EncodingService</code>.",
+    "keys": {
+      "Zstd": "@roblox/enum/CompressionAlgorithm.Zstd"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/RotationOrder.XYZ": {
     "documentation": "Ordre X, Y, Z.",
     "keys": {
@@ -126861,8 +127243,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#StreamingMesh",
     "code_sample": ""
   },
+  "@roblox/enum/ModelLevelOfDetail.SLIM": {
+    "documentation": "Un modèle Scalable Lightweight Interactive Model, ou SLIM, (un composite de toutes les parties enfants du modèle) se rend à des résolutions progressivement plus basses à des distances basées sur le rayon de diffusion. Améliore considérablement la qualité visuelle par rapport à <code>StreamingMesh</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#SLIM",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
-    "documentation": "Un maillage de résolution inférieure ne sera pas affiché.",
+    "documentation": "Une maille de résolution inférieure ne sera pas affichée.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126876,6 +127268,7 @@
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
+      "SLIM": "@roblox/enum/ModelLevelOfDetail.SLIM",
       "Disabled": "@roblox/enum/ModelLevelOfDetail.Disabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail",
@@ -127422,6 +127815,68 @@
       "Completed": "@roblox/enum/TweenStatus.Completed"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TweenStatus",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Active": {
+    "documentation": "The event is currently published and available.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Cancelled": {
+    "documentation": "The event has been cancelled and will not occur.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Cancelled",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Moderated": {
+    "documentation": "The event has been removed by moderation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Moderated",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unpublished": {
+    "documentation": "The event has been unpublished by the creator.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unpublished",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unknown": {
+    "documentation": "The event status could not be determined.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceEventStatus": {
+    "documentation": "",
+    "keys": {
+      "Active": "@roblox/enum/ExperienceEventStatus.Active",
+      "Cancelled": "@roblox/enum/ExperienceEventStatus.Cancelled",
+      "Moderated": "@roblox/enum/ExperienceEventStatus.Moderated",
+      "Unpublished": "@roblox/enum/ExperienceEventStatus.Unpublished",
+      "Unknown": "@roblox/enum/ExperienceEventStatus.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarAssetType.TShirt": {
@@ -130909,7 +131364,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Glass": {
-    "documentation": "S'applique uniquement à <code>BasePart</code>. Notez que la réfraction de la lumière à travers ce matériau n'est pas prise en charge sur les appareils mobiles en raison des limitations calculatoires.",
+    "documentation": "S'applique uniquement à <code>BasePart</code>. Notez que la réfraction de la lumière à travers ce matériau n'est pas supportée sur les appareils mobiles en raison des limitations computationnelles.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130919,7 +131374,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.ForceField": {
-    "documentation": "Doit être utilisé sur un <code>MeshPart</code> avec des UV étalés pour couvrir une grande partie de l'espace UV 0:1 ou plus (plus c'est grand, mieux c'est). Le <code>MeshPart</code> doit également avoir une texture appliquée à son <code>TextureID</code>, et cette image de texture doit avoir une large plage de valeurs puisque le matériau dispose de la plage de valeurs du noir au blanc. Obtenez <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">ce modèle</a> pour un exemple fonctionnel.",
+    "documentation": "Doit être utilisé sur un <code>MeshPart</code> avec des UVs disposés pour couvrir une grande partie de l'espace UV 0:1 ou plus (plus c'est grand, mieux c'est). Le <code>MeshPart</code> doit également avoir une texture appliquée à son <code>TextureID</code>, et cette image de texture doit avoir une large plage de valeurs car le matériau affiche la plage allant des valeurs sombres/noires aux valeurs claires/blanches. Obtenez <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">ce modèle</a> pour un exemple fonctionnel.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136579,6 +137034,7 @@
       "abs": "@roblox/global/vector.abs",
       "sign": "@roblox/global/vector.sign",
       "clamp": "@roblox/global/vector.clamp",
+      "lerp": "@roblox/global/vector.lerp",
       "max": "@roblox/global/vector.max",
       "min": "@roblox/global/vector.min",
       "zero": "@roblox/global/vector.zero",
@@ -136861,6 +137317,40 @@
       "@roblox/global/vector.clamp/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#clamp",
+    "code_sample": ""
+  },
+  "@roblox/global/vector.lerp/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/1": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/return/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp": {
+    "documentation": "Renvoie un vecteur interpolé linéairement entre deux vecteurs par un alpha fractionnel.",
+    "params": [
+      {
+        "name": "vec1",
+        "documentation": "@roblox/global/vector.lerp/param/0"
+      },
+      {
+        "name": "vec2",
+        "documentation": "@roblox/global/vector.lerp/param/1"
+      },
+      {
+        "name": "alpha",
+        "documentation": "@roblox/global/vector.lerp/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/global/vector.lerp/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#lerp",
     "code_sample": ""
   },
   "@roblox/global/vector.max/param/0": {

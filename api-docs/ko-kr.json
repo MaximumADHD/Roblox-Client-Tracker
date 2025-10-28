@@ -2802,7 +2802,7 @@
     "documentation": ""
   },
   "@roblox/global/Vector3.new": {
-    "documentation": "주어진 x, y, z 컴포넌트로 새로운 <code>Vector3</code>를 반환합니다.",
+    "documentation": "주어진 <code>x</code>, <code>y</code>, 및 <code>z</code> 구성 요소에서 새로운 <code>Vector3</code>를 반환합니다.",
     "params": [
       {
         "name": "x",
@@ -2852,27 +2852,27 @@
     "code_sample": ""
   },
   "@roblox/global/Vector3.zero": {
-    "documentation": "<code>Vector3</code>의 크기가 0인 값입니다.",
+    "documentation": "<code>0</code>의 크기를 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/global/Vector3.one": {
-    "documentation": "모든 축에서 값이 1인 <code>Vector3</code>입니다.",
+    "documentation": "모든 축에서 <code>1</code>의 값을 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/global/Vector3.xAxis": {
-    "documentation": "X축에서 값이 1인 <code>Vector3</code>입니다.",
+    "documentation": "<strong>X</strong> 축에서 <code>1</code>의 값을 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.yAxis": {
-    "documentation": "Y축에서 값이 1인 <code>Vector3</code>입니다.",
+    "documentation": "<strong>Y</strong> 축에서 <code>1</code>의 값을 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.zAxis": {
-    "documentation": "Z축에서 값이 1인 <code>Vector3</code>입니다.",
+    "documentation": "<strong>Z</strong> 축에서 <code>1</code>의 값을 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
@@ -2905,52 +2905,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zero": {
-    "documentation": "크기가 0인 <code>Vector3</code>입니다.",
+    "documentation": "<code>0</code>의 크기를 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.one": {
-    "documentation": "모든 축에서 값이 1인 <code>Vector3</code>입니다.",
+    "documentation": "모든 축에서 <code>1</code>의 값을 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.xAxis": {
-    "documentation": "X축에서 값이 1인 <code>Vector3</code>입니다.",
+    "documentation": "<strong>X</strong> 축에서 <code>1</code>의 값을 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.yAxis": {
-    "documentation": "Y축에서 값이 1인 <code>Vector3</code>입니다.",
+    "documentation": "<strong>Y</strong> 축에서 <code>1</code>의 값을 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zAxis": {
-    "documentation": "Z축에서 값이 1인 <code>Vector3</code>입니다.",
+    "documentation": "<strong>Z</strong> 축에서 <code>1</code>의 값을 가진 <code>Vector3</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.X": {
-    "documentation": "Vector3의 x 좌표입니다.",
+    "documentation": "<code>Vector3</code>의 <strong>X</strong> 좌표입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#X",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Y": {
-    "documentation": "Vector3의 y 좌표입니다.",
+    "documentation": "<code>Vector3</code>의 <strong>Y</strong> 좌표입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Z": {
-    "documentation": "Vector3의 z 좌표입니다.",
+    "documentation": "<code>Vector3</code>의 <strong>Z</strong> 좌표입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Z",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Magnitude": {
-    "documentation": "Vector3의 길이입니다.",
+    "documentation": "<code>Vector3</code>의 길이입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Magnitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Unit": {
-    "documentation": "정규화된 <code>Vector3</code>의 복사본 - 원본과 같은 방향이지만 크기가 1입니다.",
+    "documentation": "<code>Vector3</code>의 정규화된 복사본 - 원본과 동일한 방향이지만 크기가 <code>1</code>인 복사본입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Unit",
     "code_sample": ""
   },
@@ -51178,10 +51178,10 @@
     "documentation": "쿼리할 속성의 이름입니다."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "속성이 코드로 생성된 기본값과 수정되었는지 여부를 나타내는 불리언입니다."
+    "documentation": "속성이 코드에 의해 생성된 기본값에서 수정되었는지를 나타내는 불리언."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "지정된 속성에 저장된 값이 코드로 생성된 기본값과 같지 않으면 <code>true</code>를 반환합니다.",
+    "documentation": "지정된 속성에 저장된 값이 코드에 의해 생성된 기본값과 같지 않으면 <code>true</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -57156,6 +57156,7 @@
   "@roblox/globaltype/AssetService": {
     "documentation": "Roblox 웹 API에 자산 관련 쿼리를 처리하는 비복제 서비스입니다.",
     "keys": {
+      "AllowInsertFreeAssets": "@roblox/globaltype/AssetService.AllowInsertFreeAssets",
       "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
@@ -57172,12 +57173,18 @@
       "GetBundleDetailsAsync": "@roblox/globaltype/AssetService.GetBundleDetailsAsync",
       "GetCreatorAssetID": "@roblox/globaltype/AssetService.GetCreatorAssetID",
       "GetGamePlacesAsync": "@roblox/globaltype/AssetService.GetGamePlacesAsync",
+      "LoadAssetAsync": "@roblox/globaltype/AssetService.LoadAssetAsync",
       "PromptCreateAssetAsync": "@roblox/globaltype/AssetService.PromptCreateAssetAsync",
       "PromptImportAnimationClipFromVideoAsync": "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync",
       "SavePlaceAsync": "@roblox/globaltype/AssetService.SavePlaceAsync",
       "SearchAudio": "@roblox/globaltype/AssetService.SearchAudio"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AssetService.AllowInsertFreeAssets": {
+    "documentation": "<code>AssetService:LoadAssetAsync()</code>가 경험 제작자가 소유하지 않은 자산을 로드할 수 있는지 여부를 제어합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#AllowInsertFreeAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0": {
@@ -57696,11 +57703,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#GetGamePlacesAsync",
     "code_sample": "local AssetService = game:GetService(\"AssetService\")\n\nlocal placePages = AssetService:GetGamePlacesAsync()\n\nwhile true do\n\tfor _, place in placePages:GetCurrentPage() do\n\t\tprint(\"이름:\", place.Name)\n\t\tprint(\"장소 ID:\", place.PlaceId)\n\tend\n\tif placePages.IsFinished then\n\t\tbreak\n\tend\n\tplacePages:AdvanceToNextPageAsync()\nend"
   },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/0": {
+    "documentation": "Roblox 웹 API에 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
+    "documentation": "로드 중인 자산의 자산 ID 번호입니다."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
+    "documentation": "로드된 자산을 포함하는 <code>Model</code> 인스턴스입니다."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync": {
+    "documentation": "주어진 자산 ID에 따라 <code>Model</code> 인스턴스를 로드합니다. 이는 <code>InsertService:LoadAsset()</code>의 현대적인 대체 방법이며, 타사 자산 로딩을 지원합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/0"
+      },
+      {
+        "name": "assetId",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.LoadAssetAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#LoadAssetAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/0": {
     "documentation": "Roblox 웹 API에 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/1": {
-    "documentation": "자산 생성을 제출하는 사용자입니다."
+    "documentation": "자산 생성을 제출한 사용자입니다."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/2": {
     "documentation": "생성할 자산입니다. 현재 스크립트나 비공식 자산을 포함할 수 없습니다."
@@ -57709,10 +57743,10 @@
     "documentation": "자산 유형입니다. 현재는 <code>AssetType.Model</code>만 가능합니다."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "성공할 경우 <code>PromptCreateAssetResult</code>와 자산 ID 쌍입니다."
+    "documentation": "성공적일 경우 <code>PromptCreateAssetResult</code>와 자산 ID 페어입니다."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "사용자에게 게시 대화 상자를 표시하여 경험 내 자산 생성이 가능하도록 합니다.",
+    "documentation": "사용자를 위한 경험 내 자산 생성을 허용하며, 게시 대화 상자를 표시합니다.",
     "params": [
       {
         "name": "self",
@@ -57775,7 +57809,7 @@
     "documentation": "Roblox 웹 API에 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "게시 여부를 저장할지 여부를 나타내는 불리언 <code>SaveWithoutPublish</code>를 포함하는 옵션 딕셔너리 및 저장할 대상 장소 ID인 <code>PlaceId</code>를 포함합니다. 예제 사용법은 AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})입니다. PlaceId가 제공되지 않은 경우 기본 동작은 현재 SavePlaceAsync를 호출하는 원본 장소에 저장합니다. SaveWithoutPublish가 제공되지 않으면, 기본 동작은 SaveWithoutPublish=false입니다."
+    "documentation": "선택적인 사전으로 <code>SaveWithoutPublish</code>(게시 없이 저장할지 여부를 나타내는 불리언)와 <code>PlaceId</code>(저장할 대상 장소 ID)를 포함합니다. 예를 들어, AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})와 같은 사용법이 있습니다. PlaceId가 제공되지 않으면 기본 동작은 SavePlaceAsync를 호출하는 현재 원본 장소를 저장합니다. SaveWithoutPublish가 제공되지 않으면 기본 동작은 SaveWithoutPublish=false입니다."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "현재 장소의 상태를 저장합니다.",
@@ -75432,6 +75466,263 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase",
     "code_sample": ""
   },
+  "@roblox/globaltype/ValueCurve": {
+    "documentation": "곡선을 정의하는 정렬된 시간-값 쌍 목록입니다. 모든 유형의 값을 애니메이션화하는 데 사용됩니다.",
+    "keys": {
+      "ValueType": "@roblox/globaltype/ValueCurve.ValueType",
+      "Length": "@roblox/globaltype/ValueCurve.Length",
+      "GetKeyAtIndex": "@roblox/globaltype/ValueCurve.GetKeyAtIndex",
+      "GetKeyIndicesAtTime": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime",
+      "GetKeys": "@roblox/globaltype/ValueCurve.GetKeys",
+      "GetValueAtTime": "@roblox/globaltype/ValueCurve.GetValueAtTime",
+      "InsertKey": "@roblox/globaltype/ValueCurve.InsertKey",
+      "InsertKeyValue": "@roblox/globaltype/ValueCurve.InsertKeyValue",
+      "RemoveKeyAtIndex": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex",
+      "SetKeys": "@roblox/globaltype/ValueCurve.SetKeys"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.ValueType": {
+    "documentation": "이 곡선에서 보유하고 있는 유형을 나타내는 읽기 전용 값입니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#ValueType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.Length": {
+    "documentation": "값 곡선의 키 수입니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#Length",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0": {
+    "documentation": "곡선을 정의하는 정렬된 시간-값 쌍 목록입니다. 모든 유형의 값을 애니메이션화하는 데 사용됩니다."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1": {
+    "documentation": "이 <code>ValueCurve</code>에 보유된 기존 키 집합의 인덱스입니다."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex": {
+    "documentation": "주어진 인덱스에서 키의 복사본을 반환합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0"
+      },
+      {
+        "name": "index",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0": {
+    "documentation": "곡선을 정의하는 정렬된 시간-값 쌍 목록입니다. 모든 유형의 값을 애니메이션화하는 데 사용됩니다."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1": {
+    "documentation": "애니메이션 중 샘플링할 시간입니다. 입력은 <code>0</code>과 이 <code>ValueCurve</code>가 보유한 마지막 키의 시간 사이로 고정됩니다."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime": {
+    "documentation": "시간 주기에서 마지막 및 첫 번째 키의 인덱스를 반환합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyIndicesAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/param/0": {
+    "documentation": "곡선을 정의하는 정렬된 시간-값 쌍 목록입니다. 모든 유형의 값을 애니메이션화하는 데 사용됩니다."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/return/0": {
+    "documentation": "<code>ValueCurveKeys</code>의 배열입니다."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys": {
+    "documentation": "ValueCurve의 모든 키를 <code>ValueCurveKeys</code>의 Luau 배열로 복사하여 반환합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeys/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeys",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0": {
+    "documentation": "곡선을 정의하는 정렬된 시간-값 쌍 목록입니다. 모든 유형의 값을 애니메이션화하는 데 사용됩니다."
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1": {
+    "documentation": "곡선을 샘플링할 시간입니다."
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0": {
+    "documentation": "요청된 <code>time</code>에서의 곡선 값입니다."
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime": {
+    "documentation": "인자로 전달된 주어진 시간에서 값 곡선을 샘플링합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetValueAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/0": {
+    "documentation": "곡선을 정의하는 정렬된 시간-값 쌍 목록입니다. 모든 유형의 값을 애니메이션화하는 데 사용됩니다."
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/1": {
+    "documentation": "삽입할 <code>ValueCurveKey</code>입니다."
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/return/0": {
+    "documentation": "(설명 참조)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey": {
+    "documentation": "인자로 전달된 키를 이 곡선에 추가합니다. 같은 시간에 키가 발견되면 대체됩니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/0"
+      },
+      {
+        "name": "key",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKey/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKey",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0": {
+    "documentation": "곡선을 정의하는 정렬된 시간-값 쌍 목록입니다. 모든 유형의 값을 애니메이션화하는 데 사용됩니다."
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1": {
+    "documentation": "새 <code>ValueCurveKey</code>를 삽입할 시간입니다. - 유형: number"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2": {
+    "documentation": "삽입된 <code>ValueCurveKey</code>의 값입니다. - 유형: any"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3": {
+    "documentation": "삽입된 <code>ValueCurveKey</code>의 보간 모드입니다. - 유형: KeyInterpolationMode"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0": {
+    "documentation": "(설명 참조)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue": {
+    "documentation": "주어진 값에 대한 키를 생성하여 주어진 시간에 삽입합니다. 같은 시간에 키가 발견되면 대체됩니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2"
+      },
+      {
+        "name": "Interpolation",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKeyValue",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0": {
+    "documentation": "곡선을 정의하는 정렬된 시간-값 쌍 목록입니다. 모든 유형의 값을 애니메이션화하는 데 사용됩니다."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1": {
+    "documentation": "키를 제거할 시작 인덱스입니다."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2": {
+    "documentation": "제거할 키의 수입니다."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0": {
+    "documentation": "제거된 키의 수입니다."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex": {
+    "documentation": "주어진 인덱스부터 시작하여 주어진 수의 키를 제거합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0"
+      },
+      {
+        "name": "startingIndex",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1"
+      },
+      {
+        "name": "count",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#RemoveKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/0": {
+    "documentation": "곡선을 정의하는 정렬된 시간-값 쌍 목록입니다. 모든 유형의 값을 애니메이션화하는 데 사용됩니다."
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/1": {
+    "documentation": "<code>ValueCurveKeys</code>의 배열입니다."
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/return/0": {
+    "documentation": "삽입된 키의 수입니다."
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys": {
+    "documentation": "인자로 전달된 <code>ValueCurveKey</code> 배열을 사용하여 이 곡선의 키를 재설정합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/0"
+      },
+      {
+        "name": "keys",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.SetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#SetKeys",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Pages": {
     "documentation": "페이지 객체의 추상 클래스입니다.",
     "keys": {
@@ -90809,12 +91100,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTime": {
-    "documentation": "서버가 자신의 태스크 스케줄러 작업을 업데이트하는 데 걸리는 총 시간을 초 단위로 측정한 값입니다.",
+    "documentation": "서버가 작업 스케줄러 작업을 업데이트하는 데 걸리는 총 시간을 초 단위로 측정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTimeMs": {
-    "documentation": "<strong>Deprecated:</strong> <br>Roblox가 모든 태스크 스케줄러 작업을 업데이트하는 데 걸리는 총 시간을 밀리초 단위로 측정한 값입니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>Roblox가 모든 작업 스케줄러 작업을 업데이트하는 데 걸리는 총 시간을 밀리초 단위로 측정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTimeMs",
     "code_sample": ""
   },
@@ -90955,7 +91246,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbAllCategories": {
-    "documentation": "모든 카테고리에서 소모되는 메가바이트 수를 반환하며, <code>MemoryTrackingEnabled</code>가 false인 경우 빈 배열을 반환합니다.",
+    "documentation": "모든 사용 가능한 카테고리에 의해 소비되는 메가바이트 수를 반환하거나, <code>MemoryTrackingEnabled</code>가 <code>false</code>이면 빈 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -90978,7 +91269,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbForTag": {
-    "documentation": "지정된 <code>DeveloperMemoryTag</code> 카테고리에서 소모되는 메가바이트 수를 반환하며, <code>MemoryTrackingEnabled</code>가 false인 경우 0을 반환합니다.",
+    "documentation": "지정된 <code>DeveloperMemoryTag</code> 카테고리에서 소비되는 메가바이트 수를 반환하거나, <code>MemoryTrackingEnabled</code>가 <code>false</code>이면 <code>0</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -91002,7 +91293,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetTotalMemoryUsageMb": {
-    "documentation": "현재 게임 세션에서 소모되는 총 메모리 양을 메가바이트 단위로 반환하며, <code>MemoryTrackingEnabled</code>가 false인 경우 0을 반환합니다.",
+    "documentation": "현재 게임 세션에서 소비되는 총 메모리 양을 메가바이트 단위로 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -104537,6 +104828,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/Style",
     "code_sample": ""
   },
+  "@roblox/enum/HashAlgorithm.Blake2b": {
+    "documentation": "<a href=\"https://en.wikipedia.org/wiki/BLAKE2\">BLAKE2b</a> 알고리즘을 사용하여 256비트(32바이트) 해시 다이제스트를 계산하는 데 사용됩니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake2b",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Blake3": {
+    "documentation": "<a href=\"https://en.wikipedia.org/wiki/BLAKE3\">BLAKE3</a> 알고리즘을 사용하여 256비트(32바이트) 해시 다이제스트를 계산하는 데 사용됩니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake3",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Md5": {
+    "documentation": "<a href=\"https://en.wikipedia.org/wiki/MD5\">MD5</a> 알고리즘을 사용하여 128비트(16바이트) 해시 다이제스트를 계산하는 데 사용됩니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Md5",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha1": {
+    "documentation": "<a href=\"https://en.wikipedia.org/wiki/SHA-1\">SHA-1</a> 알고리즘을 사용하여 160비트(20바이트) 해시 다이제스트를 계산하는 데 사용됩니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha1",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha256": {
+    "documentation": "<a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256</a> 알고리즘을 사용하여 256비트(32바이트) 해시 다이제스트를 계산하는 데 사용됩니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha256",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.HashAlgorithm": {
+    "documentation": "<code>EncodingService</code> 메서드에서 사용할 수 있는 암호화 해시 함수입니다.",
+    "keys": {
+      "Blake2b": "@roblox/enum/HashAlgorithm.Blake2b",
+      "Blake3": "@roblox/enum/HashAlgorithm.Blake3",
+      "Md5": "@roblox/enum/HashAlgorithm.Md5",
+      "Sha1": "@roblox/enum/HashAlgorithm.Sha1",
+      "Sha256": "@roblox/enum/HashAlgorithm.Sha256"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto": {
     "documentation": "",
     "keys": {
@@ -112579,7 +112932,7 @@
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.RawStream": {
-    "documentation": "클라이언트는 스트리밍 데이터 전송을 제공하는 서버(예: <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">chunked encoding</a>)에 연결할 수 있습니다. 스트림 형식에 대한 보장을 제공하지 않습니다.",
+    "documentation": "일반 목적의 HTTP 스트리밍 클라이언트. 스트리밍 데이터 전송을 제공하는 서버에 연결할 수 있습니다 (예: <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">청크 인코딩</a>). 스트림 형식에 대한 보장을 제공하지 않습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112588,11 +112941,22 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#RawStream",
     "code_sample": ""
   },
+  "@roblox/enum/WebStreamClientType.WebSocket": {
+    "documentation": "<a href=\"https://en.wikipedia.org/wiki/WebSocket\">WebSocket</a> 클라이언트로, TCP 연결을 통한 양방향 통신 채널을 제공합니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#WebSocket",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.WebStreamClientType": {
     "documentation": "클래스 <code>WebStreamClient</code>를 생성할 때 사용할 스트리밍 유형을 지정합니다.",
     "keys": {
       "SSE": "@roblox/enum/WebStreamClientType.SSE",
-      "RawStream": "@roblox/enum/WebStreamClientType.RawStream"
+      "RawStream": "@roblox/enum/WebStreamClientType.RawStream",
+      "WebSocket": "@roblox/enum/WebStreamClientType.WebSocket"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType",
     "code_sample": ""
@@ -121711,6 +122075,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelStreamingBehavior",
     "code_sample": ""
   },
+  "@roblox/enum/CompressionAlgorithm.Zstd": {
+    "documentation": "압축을 수행하는 데 사용됩니다 <a href=\"https://en.wikipedia.org/wiki/Zstd\">Zstandard</a> 압축, 일반적으로 zstd로 알려져 있습니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm#Zstd",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CompressionAlgorithm": {
+    "documentation": "<code>EncodingService</code> 메서드에서 사용할 압축 알고리즘입니다.",
+    "keys": {
+      "Zstd": "@roblox/enum/CompressionAlgorithm.Zstd"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/RotationOrder.XYZ": {
     "documentation": "X, Y, Z 순서.",
     "keys": {
@@ -126861,6 +127243,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#StreamingMesh",
     "code_sample": ""
   },
+  "@roblox/enum/ModelLevelOfDetail.SLIM": {
+    "documentation": "스케일 가능한 경량 상호작용 모델, 또는 SLIM 모델 (모델의 모든 자식 부분의 조합)은 스트리밍 반경에 따라 거리가 멀어질수록 점진적으로 낮은 해상도로 렌더링됩니다. <code>StreamingMesh</code>에 비해 시각적 품질이 크게 향상됩니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#SLIM",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
     "documentation": "낮은 해상도의 메시는 표시되지 않습니다.",
     "keys": {
@@ -126876,6 +127268,7 @@
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
+      "SLIM": "@roblox/enum/ModelLevelOfDetail.SLIM",
       "Disabled": "@roblox/enum/ModelLevelOfDetail.Disabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail",
@@ -127422,6 +127815,68 @@
       "Completed": "@roblox/enum/TweenStatus.Completed"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TweenStatus",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Active": {
+    "documentation": "The event is currently published and available.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Cancelled": {
+    "documentation": "The event has been cancelled and will not occur.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Cancelled",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Moderated": {
+    "documentation": "The event has been removed by moderation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Moderated",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unpublished": {
+    "documentation": "The event has been unpublished by the creator.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unpublished",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unknown": {
+    "documentation": "The event status could not be determined.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceEventStatus": {
+    "documentation": "",
+    "keys": {
+      "Active": "@roblox/enum/ExperienceEventStatus.Active",
+      "Cancelled": "@roblox/enum/ExperienceEventStatus.Cancelled",
+      "Moderated": "@roblox/enum/ExperienceEventStatus.Moderated",
+      "Unpublished": "@roblox/enum/ExperienceEventStatus.Unpublished",
+      "Unknown": "@roblox/enum/ExperienceEventStatus.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarAssetType.TShirt": {
@@ -130909,7 +131364,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Glass": {
-    "documentation": "<code>BasePart</code>에만 적용됩니다. 이 재료를 통과하는 빛의 굴절은 계산 제한으로 인해 모바일 장치에서 지원되지 않습니다.",
+    "documentation": "<code>BasePart</code>에만 적용됩니다. 이 재료를 통한 빛의 굴절은 계산 제한으로 인해 모바일 장치에서 지원되지 않습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130919,7 +131374,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.ForceField": {
-    "documentation": "<code>MeshPart</code>에서 사용해야 하며, UV가 0:1 UV 공간의 많은 부분 또는 그 이상(더 클수록 좋음)을 커버하도록 배치되어야 합니다. <code>MeshPart</code>는 <code>TextureID</code>에 텍스처가 적용되어야 하며, 해당 텍스처 이미지는 재료가 어두운/검은색 값에서 밝은/흰색 값까지의 범위를 표시하므로 넓은 값 범위를 가져야 합니다. 기능적인 예제는 <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">이 모델</a>을 얻으십시오.",
+    "documentation": "<code>MeshPart</code>에 사용해야 하며 UV가 0:1 UV 공간의 대부분을 커버하도록 배치되어 있어야 하며, 더 큰 것이 좋습니다. <code>MeshPart</code>는 또한 <code>TextureID</code>에 텍스처가 적용되어야 하며, 그 텍스처 이미지의 값 범위가 넓어야 합니다. 재료는 어두운/검은색에서 밝은/흰색 값까지의 범위를 표시합니다. 기능적인 예제를 얻으려면 <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">이 모델</a>을 참조하세요.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136579,6 +137034,7 @@
       "abs": "@roblox/global/vector.abs",
       "sign": "@roblox/global/vector.sign",
       "clamp": "@roblox/global/vector.clamp",
+      "lerp": "@roblox/global/vector.lerp",
       "max": "@roblox/global/vector.max",
       "min": "@roblox/global/vector.min",
       "zero": "@roblox/global/vector.zero",
@@ -136863,6 +137319,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#clamp",
     "code_sample": ""
   },
+  "@roblox/global/vector.lerp/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/1": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/return/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp": {
+    "documentation": "두 벡터 사이에서 분수 alpha에 의해 선형 보간된 벡터를 반환합니다.",
+    "params": [
+      {
+        "name": "vec1",
+        "documentation": "@roblox/global/vector.lerp/param/0"
+      },
+      {
+        "name": "vec2",
+        "documentation": "@roblox/global/vector.lerp/param/1"
+      },
+      {
+        "name": "alpha",
+        "documentation": "@roblox/global/vector.lerp/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/global/vector.lerp/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#lerp",
+    "code_sample": ""
+  },
   "@roblox/global/vector.max/param/0": {
     "documentation": ""
   },
@@ -136870,7 +137360,7 @@
     "documentation": ""
   },
   "@roblox/global/vector.max": {
-    "documentation": "입력 벡터의 해당 구성 요소에 <code>math.max()</code>를 적용합니다.",
+    "documentation": "<code>math.max()</code>를 입력 벡터의 해당 구성 요소에 적용합니다.",
     "params": [
       {
         "name": "...",
@@ -136890,7 +137380,7 @@
     "documentation": ""
   },
   "@roblox/global/vector.min": {
-    "documentation": "입력 벡터의 해당 구성 요소에 <code>math.min()</code>을 적용합니다.",
+    "documentation": "<code>math.min()</code>을 입력 벡터의 해당 구성 요소에 적용합니다.",
     "params": [
       {
         "name": "...",

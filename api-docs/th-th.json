@@ -2802,7 +2802,7 @@
     "documentation": ""
   },
   "@roblox/global/Vector3.new": {
-    "documentation": "คืนค่า <code>Vector3</code> ใหม่จากส่วนประกอบ x, y, และ z ที่กำหนด.",
+    "documentation": "คืนค่า <code>Vector3</code> ใหม่จากส่วนประกอบ <code>x</code>, <code>y</code>, และ <code>z</code> ที่กำหนด.",
     "params": [
       {
         "name": "x",
@@ -2852,27 +2852,27 @@
     "code_sample": ""
   },
   "@roblox/global/Vector3.zero": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีขนาดศูนย์.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีขนาด <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/global/Vector3.one": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีค่า 1 ในทุกแกน.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีค่า <code>1</code> บนทุกแกน.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/global/Vector3.xAxis": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีค่า 1 ในแกน X.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีค่า <code>1</code> บนแกน <strong>X</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.yAxis": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีค่า 1 ในแกน Y.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีค่า <code>1</code> บนแกน <strong>Y</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.zAxis": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีค่า 1 ในแกน Z.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีค่า <code>1</code> บนแกน <strong>Z</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
@@ -2905,52 +2905,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zero": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีขนาดศูนย์.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีขนาด <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.one": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีค่า 1 ในทุกแกน.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีค่า <code>1</code> บนทุกแกน.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.xAxis": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีค่า 1 ในแกน X.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีค่า <code>1</code> บนแกน <strong>X</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.yAxis": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีค่า 1 ในแกน Y.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีค่า <code>1</code> บนแกน <strong>Y</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zAxis": {
-    "documentation": "เป็น <code>Vector3</code> ที่มีค่า 1 ในแกน Z.",
+    "documentation": "เป็น <code>Vector3</code> ที่มีค่า <code>1</code> บนแกน <strong>Z</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.X": {
-    "documentation": "พิกัด x ของ Vector3.",
+    "documentation": "พิกัด <strong>X</strong> ของ <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#X",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Y": {
-    "documentation": "พิกัด y ของ Vector3.",
+    "documentation": "พิกัด <strong>Y</strong> ของ <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Z": {
-    "documentation": "พิกัด z ของ Vector3.",
+    "documentation": "พิกัด <strong>Z</strong> ของ <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Z",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Magnitude": {
-    "documentation": "ความยาวของ Vector3.",
+    "documentation": "ความยาวของ <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Magnitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Unit": {
-    "documentation": "สำเนาที่เป็นปกติของ <code>Vector3</code> - หนึ่งที่มีทิศทางเดียวกับต้นฉบับ แต่มีขนาด 1.",
+    "documentation": "สำเนาที่ปรับปกติของ <code>Vector3</code> - ซึ่งมีทิศทางเดียวกันกับต้นฉบับ แต่มีขนาด <code>1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Unit",
     "code_sample": ""
   },
@@ -51178,10 +51178,10 @@
     "documentation": "ชื่อของคุณสมบัติที่ต้องการสอบถาม."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "บูลีนที่ระบุว่าคุณสมบัติได้รับการปรับแต่งจากค่าเริ่มต้นที่ถูกสร้างขึ้นโดยโค้ด"
+    "documentation": "Boolean ที่บ่งบอกว่าคุณสมบัติได้รับการปรับเปลี่ยนจาก ค่าเริ่มต้นที่สร้างจากโค้ดหรือไม่。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "ส่งคืน <code>true</code> หากค่าที่เก็บอยู่ในคุณสมบัติที่กำหนดไม่เท่ากับค่าดีฟอลต์ที่ถูกสร้างขึ้นโดยโค้ด",
+    "documentation": "คืนค่า <code>true</code> หากค่าที่เก็บในคุณสมบัติที่ระบุไม่เท่ากับ ค่าเริ่มต้นที่สร้างจากโค้ด。",
     "params": [
       {
         "name": "self",
@@ -57156,6 +57156,7 @@
   "@roblox/globaltype/AssetService": {
     "documentation": "บริการที่ไม่ซ้ำกันซึ่งจัดการคำถามเกี่ยวกับทรัพย์สินต่อ Roblox เว็บ API。",
     "keys": {
+      "AllowInsertFreeAssets": "@roblox/globaltype/AssetService.AllowInsertFreeAssets",
       "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
@@ -57172,12 +57173,18 @@
       "GetBundleDetailsAsync": "@roblox/globaltype/AssetService.GetBundleDetailsAsync",
       "GetCreatorAssetID": "@roblox/globaltype/AssetService.GetCreatorAssetID",
       "GetGamePlacesAsync": "@roblox/globaltype/AssetService.GetGamePlacesAsync",
+      "LoadAssetAsync": "@roblox/globaltype/AssetService.LoadAssetAsync",
       "PromptCreateAssetAsync": "@roblox/globaltype/AssetService.PromptCreateAssetAsync",
       "PromptImportAnimationClipFromVideoAsync": "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync",
       "SavePlaceAsync": "@roblox/globaltype/AssetService.SavePlaceAsync",
       "SearchAudio": "@roblox/globaltype/AssetService.SearchAudio"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AssetService.AllowInsertFreeAssets": {
+    "documentation": "ควบคุมว่าฟังก์ชัน <code>AssetService:LoadAssetAsync()</code> สามารถโหลดแอสเซ็ต ที่ไม่เป็นของผู้สร้างประสบการณ์ได้หรือไม่",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#AllowInsertFreeAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0": {
@@ -57696,23 +57703,50 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#GetGamePlacesAsync",
     "code_sample": "local AssetService = game:GetService(\"AssetService\")\n\nlocal placePages = AssetService:GetGamePlacesAsync()\n\nwhile true do\n\tfor _, place in placePages:GetCurrentPage() do\n\t\tprint(\"ชื่อ:\", place.Name)\n\t\tprint(\"PlaceId:\", place.PlaceId)\n\tend\n\tif placePages.IsFinished then\n\t\tbreak\n\tend\n\tplacePages:AdvanceToNextPageAsync()\nend"
   },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/0": {
+    "documentation": "บริการที่ไม่ซ้ำกันซึ่งจัดการคำถามเกี่ยวกับทรัพย์สินต่อ Roblox เว็บ API。"
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
+    "documentation": "หมายเลข ID แอสเซ็ตของแอสเซ็ตที่กำลังถูกโหลด."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
+    "documentation": "อินสแตนซ์ <code>Model</code> ที่มีแอสเซ็ตที่โหลดอยู่."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync": {
+    "documentation": "โหลดอินสแตนซ์ <code>Model</code> ตามหมายเลข ID แอสเซ็ต นี่คือการแทนที่ สมัยใหม่สำหรับ <code>InsertService:LoadAsset()</code> และรองรับการโหลด แอสเซ็ตของบุคคลที่สาม.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/0"
+      },
+      {
+        "name": "assetId",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.LoadAssetAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#LoadAssetAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/0": {
     "documentation": "บริการที่ไม่ซ้ำกันซึ่งจัดการคำถามเกี่ยวกับทรัพย์สินต่อ Roblox เว็บ API。"
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/1": {
-    "documentation": "ผู้ใช้ที่ส่งการสร้างสินทรัพย์。"
+    "documentation": "ผู้ใช้ที่ส่งการสร้างแอสเซ็ต."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/2": {
-    "documentation": "สินทรัพย์ที่จะสร้าง ขณะนี้ไม่สามารถประกอบด้วยสคริปต์หรือต้องอยู่ซ้อนกัน กับสินทรัพย์ที่ไม่เป็นสาธารณะ。"
+    "documentation": "แอสเซ็ตที่จะสร้าง ขณะนี้ไม่สามารถมีสคริปต์หรือซ้อน แอสเซ็ตที่ไม่เป็นสาธารณะได้."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/3": {
-    "documentation": "ประเภทสินทรัพย์ ขณะนี้สามารถเป็นเพียง <code>AssetType.Model</code>。"
+    "documentation": "ประเภทของแอสเซ็ต ขณะนี้สามารถเป็นได้เฉพาะ <code>AssetType.Model</code>."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/return/0": {
-    "documentation": "คู่ของ <code>PromptCreateAssetResult</code> และหมายเลขสินทรัพย์หากสำเร็จ。"
+    "documentation": "คู่ของ <code>PromptCreateAssetResult</code> และหมายเลข ID แอสเซ็ตหากสำเร็จ."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "อนุญาตให้สร้างสินทรัพย์ภายในประสบการณ์สำหรับผู้ใช้โดยเรียกใช้กล่องโต้ตอบเผยแพร่。",
+    "documentation": "อนุญาตให้ผู้ใช้สร้างแอสเซ็ตภายในประสบการณ์โดยการเรียกใช้ กล่องโต้ตอบเผยแพร่.",
     "params": [
       {
         "name": "self",
@@ -57775,10 +57809,10 @@
     "documentation": "บริการที่ไม่ซ้ำกันซึ่งจัดการคำถามเกี่ยวกับทรัพย์สินต่อ Roblox เว็บ API。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "พจนานุกรมออปชันที่รวม <code>SaveWithoutPublish</code>, ค่าบูลีน ที่ระบุว่าจะบันทึกโดยไม่เผยแพร่หรือไม่ และ <code>PlaceId</code>, ID สถานที่ที่ต้องบันทึกให้ทับทิ้ง ตัวอย่างการใช้งาน จะเป็น: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). หากไม่ระบุ PlaceId พฤติกรรมเริ่มต้นจะบันทึก ทับจุดเดิมที่กำลังเรียก SavePlaceAsync หากไม่ระบุ SaveWithoutPublish พฤติกรรมเริ่มต้นคือ SaveWithoutPublish=false。"
+    "documentation": "พจนานุกรมที่เลือกได้ซึ่งรวมถึง <code>SaveWithoutPublish</code> เป็นบูลีน ที่บ่งบอกว่าจะบันทึกพร้อมเผยแพร่หรือไม่ และ <code>PlaceId</code> หมายเลขสถานที่ที่จะบันทึกทับ ตัวอย่างการใช้งาน อาจเป็น: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). หากไม่ระบุ PlaceId พฤติกรรมเริ่มต้นจะบันทึก ทับสถานที่ต้นฉบับที่เรียก SavePlaceAsync หากไม่ระบุ SaveWithoutPublish พฤติกรรมเริ่มต้นคือ SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
-    "documentation": "บันทึกสถานะของสถานที่ปัจจุบัน。",
+    "documentation": "บันทึกสถานะของสถานที่ปัจจุบัน.",
     "params": [
       {
         "name": "self",
@@ -57803,7 +57837,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "ค้นหาสินทรัพย์เสียงที่ตรงตามเกณฑ์การค้นหาหลายประการ。",
+    "documentation": "ค้นหาแอสเซ็ตเสียงที่ตรงตามเกณฑ์การค้นหาหลายประเภท.",
     "params": [
       {
         "name": "self",
@@ -75432,6 +75466,263 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase",
     "code_sample": ""
   },
+  "@roblox/globaltype/ValueCurve": {
+    "documentation": "รายการที่เรียงลำดับของคู่ค่าเวลาที่กำหนดเส้นโค้ง ใช้สำหรับการทำให้เกิดการเคลื่อนไหวของค่าใด ๆ",
+    "keys": {
+      "ValueType": "@roblox/globaltype/ValueCurve.ValueType",
+      "Length": "@roblox/globaltype/ValueCurve.Length",
+      "GetKeyAtIndex": "@roblox/globaltype/ValueCurve.GetKeyAtIndex",
+      "GetKeyIndicesAtTime": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime",
+      "GetKeys": "@roblox/globaltype/ValueCurve.GetKeys",
+      "GetValueAtTime": "@roblox/globaltype/ValueCurve.GetValueAtTime",
+      "InsertKey": "@roblox/globaltype/ValueCurve.InsertKey",
+      "InsertKeyValue": "@roblox/globaltype/ValueCurve.InsertKeyValue",
+      "RemoveKeyAtIndex": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex",
+      "SetKeys": "@roblox/globaltype/ValueCurve.SetKeys"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.ValueType": {
+    "documentation": "ค่าแบบอ่านเท่านั้นที่ระบุประเภทที่ถืออยู่ในโค้งนี้",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#ValueType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.Length": {
+    "documentation": "จำนวนคีย์ในโค้งค่า",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#Length",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0": {
+    "documentation": "รายการที่เรียงลำดับของคู่ค่าเวลาที่กำหนดเส้นโค้ง ใช้สำหรับการทำให้เกิดการเคลื่อนไหวของค่าใด ๆ"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1": {
+    "documentation": "ดัชนีในชุดคีย์ที่มีอยู่ซึ่งถือโดย <code>ValueCurve</code>"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex": {
+    "documentation": "ส่งคืนสำเนาของคีย์ที่ตำแหน่งดัชนีที่กำหนด",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0"
+      },
+      {
+        "name": "index",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0": {
+    "documentation": "รายการที่เรียงลำดับของคู่ค่าเวลาที่กำหนดเส้นโค้ง ใช้สำหรับการทำให้เกิดการเคลื่อนไหวของค่าใด ๆ"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1": {
+    "documentation": "เวลาในระหว่างการเคลื่อนไหว อินพุตจะถูกกำหนดระหว่าง <code>0</code> และ เวลาโค้งสุดท้ายที่ถือโดย <code>ValueCurve</code>"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime": {
+    "documentation": "ส่งคืนดัชนีของคีย์สุดท้ายและคีย์แรกในช่วงเวลา",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyIndicesAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/param/0": {
+    "documentation": "รายการที่เรียงลำดับของคู่ค่าเวลาที่กำหนดเส้นโค้ง ใช้สำหรับการทำให้เกิดการเคลื่อนไหวของค่าใด ๆ"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/return/0": {
+    "documentation": "อาร์เรย์ของ <code>ValueCurveKeys</code>"
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys": {
+    "documentation": "ส่งคืนสำเนาของคีย์ทั้งหมดใน ValueCurve เป็นอาร์เรย์ Luau ของ <code>ValueCurveKeys</code>",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeys/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeys",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0": {
+    "documentation": "รายการที่เรียงลำดับของคู่ค่าเวลาที่กำหนดเส้นโค้ง ใช้สำหรับการทำให้เกิดการเคลื่อนไหวของค่าใด ๆ"
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1": {
+    "documentation": "เวลาเมื่อให้ตัวอย่างโค้ง"
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0": {
+    "documentation": "ค่าของโค้งที่เวลา <code>time</code> ที่ร้องขอ"
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime": {
+    "documentation": "ตัวอย่างโค้งค่าที่เวลาใดเวลาหนึ่งที่ส่งมาเป็นอาร์กิวเมนต์",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetValueAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/0": {
+    "documentation": "รายการที่เรียงลำดับของคู่ค่าเวลาที่กำหนดเส้นโค้ง ใช้สำหรับการทำให้เกิดการเคลื่อนไหวของค่าใด ๆ"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/1": {
+    "documentation": "<code>ValueCurveKey</code> ที่จะเพิ่ม"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/return/0": {
+    "documentation": "(ดูคำอธิบาย)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey": {
+    "documentation": "เพิ่มคีย์ที่ส่งมาเป็นอาร์กิวเมนต์ไปยังโค้งนี้ หากพบคีย์ที่เวลาเดียวกัน จะถูกแทนที่",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/0"
+      },
+      {
+        "name": "key",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKey/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKey",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0": {
+    "documentation": "รายการที่เรียงลำดับของคู่ค่าเวลาที่กำหนดเส้นโค้ง ใช้สำหรับการทำให้เกิดการเคลื่อนไหวของค่าใด ๆ"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1": {
+    "documentation": "เวลาเมื่อแทรก <code>ValueCurveKey</code> ใหม่ - ประเภท: หมายเลข"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2": {
+    "documentation": "ค่าของ <code>ValueCurveKey</code> ที่แทรก - ประเภท: ใด ๆ"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3": {
+    "documentation": "โหมดการเชื่อมต่อของ <code>ValueCurveKey</code> ที่แทรก - ประเภท: KeyInterpolationMode"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0": {
+    "documentation": "(ดูคำอธิบาย)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue": {
+    "documentation": "สร้างคีย์สำหรับค่าที่กำหนดและแทรกที่เวลาที่กำหนด หากพบคีย์ที่เวลาเดียวกัน จะถูกแทนที่",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2"
+      },
+      {
+        "name": "Interpolation",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKeyValue",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0": {
+    "documentation": "รายการที่เรียงลำดับของคู่ค่าเวลาที่กำหนดเส้นโค้ง ใช้สำหรับการทำให้เกิดการเคลื่อนไหวของค่าใด ๆ"
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1": {
+    "documentation": "ดัชนีเริ่มต้นจากที่ลบคีย์"
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2": {
+    "documentation": "จำนวนคีย์ที่จะลบ"
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0": {
+    "documentation": "จำนวนคีย์ที่ถูกลบ"
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex": {
+    "documentation": "ลบคีย์ที่กำหนดจำนวนหนึ่งเริ่มต้นจากดัชนีที่กำหนด",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0"
+      },
+      {
+        "name": "startingIndex",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1"
+      },
+      {
+        "name": "count",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#RemoveKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/0": {
+    "documentation": "รายการที่เรียงลำดับของคู่ค่าเวลาที่กำหนดเส้นโค้ง ใช้สำหรับการทำให้เกิดการเคลื่อนไหวของค่าใด ๆ"
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/1": {
+    "documentation": "อาร์เรย์ของ <code>ValueCurveKeys</code>"
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/return/0": {
+    "documentation": "จำนวนคีย์ที่แทรก"
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys": {
+    "documentation": "รีเซ็ตคีย์ของโค้งนี้โดยใช้อาร์เรย์ <code>ValueCurveKey</code> ที่ส่ง เป็นอาร์กิวเมนต์",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/0"
+      },
+      {
+        "name": "keys",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.SetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#SetKeys",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Pages": {
     "documentation": "คลาสนามสำหรับวัตถุหน้า.",
     "keys": {
@@ -90809,12 +91100,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTime": {
-    "documentation": "การวัดระยะเวลาทั้งหมดที่ใช้สำหรับเซิร์ฟเวอร์ในการ อัปเดตงานใน Task Scheduler ด้วยวินาที。",
+    "documentation": "การวัดปริมาณเวลาทั้งหมดที่ใช้ในการอัปเดตงานของตัวจัดการงานบนเซิร์ฟเวอร์ เป็นวินาที",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTimeMs": {
-    "documentation": "<strong>Deprecated:</strong> <br>การวัดระยะเวลาทั้งหมดที่ใช้ในการอัปเดตงาน Task Scheduler ทั้งหมดสำหรับ Roblox โดยหน่วยเป็นมิลลิวินาที。",
+    "documentation": "<strong>Deprecated:</strong> <br>การวัดปริมาณเวลาทั้งหมดที่ใช้ในการอัปเดตงานของตัวจัดการงานทั้งหมดใน Roblox เป็นมิลลิวินาที",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTimeMs",
     "code_sample": ""
   },
@@ -90955,7 +91246,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbAllCategories": {
-    "documentation": "ส่งกลับจำนวนเมกะไบต์ที่ถูกใช้โดยหมวดหมู่ทั้งหมดที่มีอยู่ หรือส่งกลับเป็นอาร์เรย์ว่างถ้า <code>MemoryTrackingEnabled</code> เป็น false。",
+    "documentation": "คืนจำนวนเมกะไบต์ที่ถูกใช้โดยหมวดหมู่ทั้งหมดที่มีอยู่ หรือคืนอาร์เรย์ว่างหาก <code>MemoryTrackingEnabled</code> เป็น <code>false</code>.",
     "params": [
       {
         "name": "self",
@@ -90978,7 +91269,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbForTag": {
-    "documentation": "ส่งกลับจำนวนเมกะไบต์ที่ถูกใช้ในหมวดหมู่ที่กำหนด <code>DeveloperMemoryTag</code> หรือ 0 หาก <code>MemoryTrackingEnabled</code> เป็น false。",
+    "documentation": "คืนจำนวนเมกะไบต์ที่ถูกใช้ในหมวดหมู่ที่ระบุ <code>DeveloperMemoryTag</code> หรือ <code>0</code> หาก <code>MemoryTrackingEnabled</code> เป็น <code>false</code>.",
     "params": [
       {
         "name": "self",
@@ -91002,7 +91293,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetTotalMemoryUsageMb": {
-    "documentation": "ส่งกลับหน่วยความจำทั้งหมดที่ถูกใช้โดยเซสชันเกมปัจจุบัน เป็นเมกะไบต์ หรือ 0 หาก <code>MemoryTrackingEnabled</code> เป็น false。",
+    "documentation": "คืนปริมาณหน่วยความจำทั้งหมดที่ถูกใช้โดยเซสชันเกมปัจจุบัน เป็นเมกะไบต์",
     "params": [
       {
         "name": "self",
@@ -104537,6 +104828,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/Style",
     "code_sample": ""
   },
+  "@roblox/enum/HashAlgorithm.Blake2b": {
+    "documentation": "ใช้ในการคำนวณแฮชดิจิตที่มีขนาด 256 บิต (32 ไบต์) โดยใช้ อัลกอริธึม<a href=\"https://en.wikipedia.org/wiki/BLAKE2\">BLAKE2b</a>。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake2b",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Blake3": {
+    "documentation": "ใช้ในการคำนวณแฮชดิจิตที่มีขนาด 256 บิต (32 ไบต์) โดยใช้ อัลกอริธึม<a href=\"https://en.wikipedia.org/wiki/BLAKE3\">BLAKE3</a>。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake3",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Md5": {
+    "documentation": "ใช้ในการคำนวณแฮชดิจิตที่มีขนาด 128 บิต (16 ไบต์) โดยใช้ อัลกอริธึม<a href=\"https://en.wikipedia.org/wiki/MD5\">MD5</a>。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Md5",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha1": {
+    "documentation": "ใช้ในการคำนวณแฮชดิจิตที่มีขนาด 160 บิต (20 ไบต์) โดยใช้ อัลกอริธึม<a href=\"https://en.wikipedia.org/wiki/SHA-1\">SHA-1</a>。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha1",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha256": {
+    "documentation": "ใช้ในการคำนวณแฮชดิจิตที่มีขนาด 256 บิต (32 ไบต์) โดยใช้ อัลกอริธึม<a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256</a>。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha256",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.HashAlgorithm": {
+    "documentation": "ฟังก์ชันแฮชแบบเข้ารหัสสำหรับใช้ในวิธีการของ <code>EncodingService</code>。",
+    "keys": {
+      "Blake2b": "@roblox/enum/HashAlgorithm.Blake2b",
+      "Blake3": "@roblox/enum/HashAlgorithm.Blake3",
+      "Md5": "@roblox/enum/HashAlgorithm.Md5",
+      "Sha1": "@roblox/enum/HashAlgorithm.Sha1",
+      "Sha256": "@roblox/enum/HashAlgorithm.Sha256"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto": {
     "documentation": "",
     "keys": {
@@ -112579,7 +112932,7 @@
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.RawStream": {
-    "documentation": "ไคลเอนต์สามารถเชื่อมต่อกับเซิร์ฟเวอร์ใดก็ได้ที่ให้บริการการถ่ายโอนข้อมูลแบบสตรีม (ตัวอย่างเช่น <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">chunked encoding</a>). ไม่มีการรับประกันเกี่ยวกับรูปแบบของสตรีม.",
+    "documentation": "ไคลเอนต์ HTTP สตรีมมิ่งเพื่อการใช้งานทั่วไป มันสามารถเชื่อมต่อกับเซิร์ฟเวอร์ใด ๆ ที่ ให้บริการการถ่ายโอนข้อมูลแบบสตรีมมิ่ง (เช่น <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">การเข้ารหัสแบบชิ้นส่วน</a>). มันไม่ได้ให้การรับประกันเกี่ยวกับรูปแบบของสตรีม.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112588,11 +112941,22 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#RawStream",
     "code_sample": ""
   },
+  "@roblox/enum/WebStreamClientType.WebSocket": {
+    "documentation": "ไคลเอนต์ <a href=\"https://en.wikipedia.org/wiki/WebSocket\">WebSocket</a> ที่ให้บริการ ช่องสื่อสารแบบสองทิศทางผ่านการเชื่อมต่อ TCP.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#WebSocket",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.WebStreamClientType": {
     "documentation": "ระบุประเภทของการสตรีมที่ใช้เมื่อสร้าง <code>WebStreamClient</code>.",
     "keys": {
       "SSE": "@roblox/enum/WebStreamClientType.SSE",
-      "RawStream": "@roblox/enum/WebStreamClientType.RawStream"
+      "RawStream": "@roblox/enum/WebStreamClientType.RawStream",
+      "WebSocket": "@roblox/enum/WebStreamClientType.WebSocket"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType",
     "code_sample": ""
@@ -121711,6 +122075,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelStreamingBehavior",
     "code_sample": ""
   },
+  "@roblox/enum/CompressionAlgorithm.Zstd": {
+    "documentation": "ใช้เพื่อดำเนินการบีบอัดโดยใช้ <a href=\"https://en.wikipedia.org/wiki/Zstd\">Zstandard</a> การบีบอัด ซึ่งรู้จักกันในชื่อ zstd.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm#Zstd",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CompressionAlgorithm": {
+    "documentation": "อัลกอริธึมการบีบอัดที่จะใช้ในวิธี <code>EncodingService</code>.",
+    "keys": {
+      "Zstd": "@roblox/enum/CompressionAlgorithm.Zstd"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/RotationOrder.XYZ": {
     "documentation": "ลำดับ X, Y, Z。",
     "keys": {
@@ -126861,8 +127243,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#StreamingMesh",
     "code_sample": ""
   },
+  "@roblox/enum/ModelLevelOfDetail.SLIM": {
+    "documentation": "โมเดลแบบโต้ตอบที่มีน้ำหนักเบาและสามารถปรับขนาดได้ หรือ SLIM (ซึ่งเป็นการรวมกันของ ส่วนประกอบทั้งหมดของโมเดล) จะแสดงผลที่ความละเอียดที่ต่ำลงเรื่อย ๆ ที่ระยะห่างตามรัศมีการสตรีมที่กำหนด ซึ่งจะปรับปรุงคุณภาพภาพได้อย่างมาก เมื่อเปรียบเทียบกับ <code>StreamingMesh</code>。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#SLIM",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
-    "documentation": "แบบ mesh ที่มีความละเอียดต่ำกว่าจะไม่ถูกแสดงผล",
+    "documentation": "โครงสร้างที่มีความละเอียดต่ำกว่าจะไม่แสดงผล。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126876,6 +127268,7 @@
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
+      "SLIM": "@roblox/enum/ModelLevelOfDetail.SLIM",
       "Disabled": "@roblox/enum/ModelLevelOfDetail.Disabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail",
@@ -127422,6 +127815,68 @@
       "Completed": "@roblox/enum/TweenStatus.Completed"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TweenStatus",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Active": {
+    "documentation": "The event is currently published and available.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Cancelled": {
+    "documentation": "The event has been cancelled and will not occur.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Cancelled",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Moderated": {
+    "documentation": "The event has been removed by moderation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Moderated",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unpublished": {
+    "documentation": "The event has been unpublished by the creator.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unpublished",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unknown": {
+    "documentation": "The event status could not be determined.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceEventStatus": {
+    "documentation": "",
+    "keys": {
+      "Active": "@roblox/enum/ExperienceEventStatus.Active",
+      "Cancelled": "@roblox/enum/ExperienceEventStatus.Cancelled",
+      "Moderated": "@roblox/enum/ExperienceEventStatus.Moderated",
+      "Unpublished": "@roblox/enum/ExperienceEventStatus.Unpublished",
+      "Unknown": "@roblox/enum/ExperienceEventStatus.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarAssetType.TShirt": {
@@ -130579,7 +131034,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Plastic": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130589,7 +131044,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.SmoothPlastic": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130599,7 +131054,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Neon": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130609,7 +131064,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Wood": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130619,7 +131074,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.WoodPlanks": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130629,7 +131084,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Marble": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130639,7 +131094,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Basalt": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130649,7 +131104,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Slate": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130659,7 +131114,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CrackedLava": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130669,7 +131124,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Concrete": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130679,7 +131134,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Limestone": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130689,7 +131144,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Granite": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130699,7 +131154,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Pavement": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130709,7 +131164,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Brick": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130719,7 +131174,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Pebble": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130729,7 +131184,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Cobblestone": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130739,7 +131194,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Rock": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130749,7 +131204,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Sandstone": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130759,7 +131214,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CorrodedMetal": {
-    "documentation": "ใช้ได้เฉพาะกับ <code>BasePart</code> เท่านั้น.",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130769,7 +131224,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.DiamondPlate": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130779,7 +131234,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Foil": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130789,7 +131244,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Metal": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130799,7 +131254,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Grass": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130809,7 +131264,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.LeafyGrass": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130819,7 +131274,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Sand": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130829,7 +131284,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Fabric": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130839,7 +131294,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Snow": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130849,7 +131304,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Mud": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130859,7 +131314,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Ground": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130869,7 +131324,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Asphalt": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130879,7 +131334,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Salt": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130889,7 +131344,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Ice": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130899,7 +131354,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Glacier": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> และ <code>Terrain</code>。",
+    "documentation": "ใช้กับ <code>BasePart</code> และ <code>Terrain</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130909,7 +131364,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Glass": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น หมายเหตุว่าการหักเหของแสงผ่าน วัสดุนี้ไม่ได้รับการสนับสนุนบนอุปกรณ์มือถือเนื่องจากข้อจำกัดทางคอมพิวเตอร์。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น หมายเหตุว่าการหักเหของแสงผ่าน วัสดุนี้ไม่รองรับบนอุปกรณ์เคลื่อนที่เนื่องจากข้อจำกัดด้านการคำนวณ。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130919,7 +131374,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.ForceField": {
-    "documentation": "ต้องใช้บน <code>MeshPart</code> ที่มี UVs ที่จัดเรียงเพื่อปกคลุมพื้นที่ 0:1 UV มากที่สุดเท่าที่จะเป็นไปได้ (ยิ่งใหญ่ยิ่งดี) <code>MeshPart</code> ต้องมีผิวสัมผัสที่ถูกนำไปใช้ที่ <code>TextureID</code> และรูปภาพของผิวสัมผัสนั้นต้องมีค่าช่วงที่กว้าง เนื่องจากวัสดุแสดงช่วงค่าจากค่ามืด/ดำจนถึงค่าสว่าง/ขาว รับ <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">โมเดลนี้</a> เพื่อเป็นตัวอย่างที่ใช้งานได้。",
+    "documentation": "ต้องใช้กับ <code>MeshPart</code> โดยมี UVs วางเป็นส่วนใหญ่ของ พื้นที่ UV 0:1 หรือมากกว่า (ยิ่งใหญ่ยิ่งดี) <code>MeshPart</code> ต้องมี พื้นผิวที่ใช้กับ <code>TextureID</code> และ พื้นผิวภาพนั้นต้องมีช่วงค่าที่กว้างเนื่องจากวัสดุแสดงช่วงค่าจากค่ามืด/ดำไปยังค่าสว่าง/ขาว รับ <a href=\"https://create.roblox.com/store/asset/15507769146/ForceFieldMesh\">โมเดลนี้</a> เพื่อดูตัวอย่างฟังก์ชันการทำงาน。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130929,7 +131384,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Air": {
-    "documentation": "ใช้สำหรับ <code>Terrain</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>Terrain</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130939,7 +131394,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Water": {
-    "documentation": "ใช้สำหรับ <code>Terrain</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>Terrain</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130949,7 +131404,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Cardboard": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130959,7 +131414,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Carpet": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130969,7 +131424,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.CeramicTiles": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130979,7 +131434,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.ClayRoofTiles": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130989,7 +131444,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.RoofShingles": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130999,7 +131454,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Leather": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131009,7 +131464,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Plaster": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131019,7 +131474,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Material.Rubber": {
-    "documentation": "ใช้สำหรับ <code>BasePart</code> เท่านั้น。",
+    "documentation": "ใช้กับ <code>BasePart</code> เท่านั้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -131029,7 +131484,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.Material": {
-    "documentation": "วัสดุที่ใช้สำหรับชิ้นส่วนและ/หรือดินแดน。",
+    "documentation": "วัสดุที่ใช้สำหรับชิ้นส่วนและ/หรือภูมิประเทศ。",
     "keys": {
       "Plastic": "@roblox/enum/Material.Plastic",
       "SmoothPlastic": "@roblox/enum/Material.SmoothPlastic",
@@ -136579,6 +137034,7 @@
       "abs": "@roblox/global/vector.abs",
       "sign": "@roblox/global/vector.sign",
       "clamp": "@roblox/global/vector.clamp",
+      "lerp": "@roblox/global/vector.lerp",
       "max": "@roblox/global/vector.max",
       "min": "@roblox/global/vector.min",
       "zero": "@roblox/global/vector.zero",
@@ -136863,6 +137319,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#clamp",
     "code_sample": ""
   },
+  "@roblox/global/vector.lerp/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/1": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/return/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp": {
+    "documentation": "ส่งคืนเวกเตอร์ที่ทำการพอดีเชิงเส้นระหว่างเวกเตอร์สองตัวโดยมี อัลฟาแบบเศษส่วน",
+    "params": [
+      {
+        "name": "vec1",
+        "documentation": "@roblox/global/vector.lerp/param/0"
+      },
+      {
+        "name": "vec2",
+        "documentation": "@roblox/global/vector.lerp/param/1"
+      },
+      {
+        "name": "alpha",
+        "documentation": "@roblox/global/vector.lerp/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/global/vector.lerp/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#lerp",
+    "code_sample": ""
+  },
   "@roblox/global/vector.max/param/0": {
     "documentation": ""
   },
@@ -136870,7 +137360,7 @@
     "documentation": ""
   },
   "@roblox/global/vector.max": {
-    "documentation": "ใช้ <code>math.max()</code> กับส่วนประกอบที่ตรงกันของเวกเตอร์นำเข้า。",
+    "documentation": "ใช้ <code>math.max()</code> กับส่วนประกอบที่เกี่ยวข้องของเวกเตอร์นำเข้า",
     "params": [
       {
         "name": "...",
@@ -136890,7 +137380,7 @@
     "documentation": ""
   },
   "@roblox/global/vector.min": {
-    "documentation": "ใช้ <code>math.min()</code> กับส่วนประกอบที่ตรงกันของเวกเตอร์นำเข้า。",
+    "documentation": "ใช้ <code>math.min()</code> กับส่วนประกอบที่เกี่ยวข้องของเวกเตอร์นำเข้า",
     "params": [
       {
         "name": "...",

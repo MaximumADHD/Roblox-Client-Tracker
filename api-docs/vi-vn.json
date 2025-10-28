@@ -2802,7 +2802,7 @@
     "documentation": ""
   },
   "@roblox/global/Vector3.new": {
-    "documentation": "Trả về một <code>Vector3</code> mới từ các thành phần x, y và z đã cho.",
+    "documentation": "Trả về một <code>Vector3</code> mới từ các thành phần <code>x</code>, <code>y</code> và <code>z</code> được cung cấp.",
     "params": [
       {
         "name": "x",
@@ -2852,27 +2852,27 @@
     "code_sample": ""
   },
   "@roblox/global/Vector3.zero": {
-    "documentation": "Một <code>Vector3</code> với độ lớn bằng không.",
+    "documentation": "Một <code>Vector3</code> với độ lớn bằng <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/global/Vector3.one": {
-    "documentation": "Một <code>Vector3</code> với giá trị bằng 1 ở mọi trục.",
+    "documentation": "Một <code>Vector3</code> với giá trị bằng <code>1</code> trên mọi trục.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/global/Vector3.xAxis": {
-    "documentation": "Một <code>Vector3</code> với giá trị bằng 1 trên trục X.",
+    "documentation": "Một <code>Vector3</code> với giá trị bằng <code>1</code> trên trục <strong>X</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.yAxis": {
-    "documentation": "Một <code>Vector3</code> với giá trị bằng 1 trên trục Y.",
+    "documentation": "Một <code>Vector3</code> với giá trị bằng <code>1</code> trên trục <strong>Y</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/global/Vector3.zAxis": {
-    "documentation": "Một <code>Vector3</code> với giá trị bằng 1 trên trục Z.",
+    "documentation": "Một <code>Vector3</code> với giá trị bằng <code>1</code> trên trục <strong>Z</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
@@ -2905,52 +2905,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zero": {
-    "documentation": "Một <code>Vector3</code> với độ lớn bằng không.",
+    "documentation": "Một <code>Vector3</code> với độ lớn bằng <code>0</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zero",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.one": {
-    "documentation": "Một <code>Vector3</code> với giá trị bằng 1 ở mọi trục.",
+    "documentation": "Một <code>Vector3</code> với giá trị bằng <code>1</code> trên mọi trục.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#one",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.xAxis": {
-    "documentation": "Một <code>Vector3</code> với giá trị bằng 1 trên trục X.",
+    "documentation": "Một <code>Vector3</code> với giá trị bằng <code>1</code> trên trục <strong>X</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#xAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.yAxis": {
-    "documentation": "Một <code>Vector3</code> với giá trị bằng 1 trên trục Y.",
+    "documentation": "Một <code>Vector3</code> với giá trị bằng <code>1</code> trên trục <strong>Y</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#yAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.zAxis": {
-    "documentation": "Một <code>Vector3</code> với giá trị bằng 1 trên trục Z.",
+    "documentation": "Một <code>Vector3</code> với giá trị bằng <code>1</code> trên trục <strong>Z</strong>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#zAxis",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.X": {
-    "documentation": "Tọa độ x của Vector3.",
+    "documentation": "Tọa độ <strong>X</strong> của <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#X",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Y": {
-    "documentation": "Tọa độ y của Vector3.",
+    "documentation": "Tọa độ <strong>Y</strong> của <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Z": {
-    "documentation": "Tọa độ z của Vector3.",
+    "documentation": "Tọa độ <strong>Z</strong> của <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Z",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Magnitude": {
-    "documentation": "Độ dài của Vector3.",
+    "documentation": "Độ dài của <code>Vector3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Magnitude",
     "code_sample": ""
   },
   "@roblox/globaltype/Vector3.Unit": {
-    "documentation": "Một bản sao chuẩn hóa của <code>Vector3</code> - một cái có cùng direction như ban đầu nhưng có độ lớn bằng 1.",
+    "documentation": "Một bản sao chuẩn hóa của <code>Vector3</code> - một bản sao có cùng direction với phiên bản gốc nhưng có độ lớn bằng <code>1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Vector3#Unit",
     "code_sample": ""
   },
@@ -44040,7 +44040,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm.",
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm.",
     "keys": {
       "AccountAge": "@roblox/globaltype/Player.AccountAge",
       "AutoJumpEnabled": "@roblox/globaltype/Player.AutoJumpEnabled",
@@ -44129,7 +44129,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AutoJumpEnabled": {
-    "documentation": "Xác định xem nhân vật của người chơi sử dụng thiết bị di động có tự động nhảy khi chạm vào chướng ngại vật hay không.",
+    "documentation": "Xác định liệu hình nhân của người chơi sử dụng thiết bị di động có tự động nhảy khi va chạm với chướng ngại vật hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Cập nhật văn bản nút\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Tự Nhảy đã BẬT\"\n\telse\n\t\tbutton.Text = \"Tự Nhảy đã TẮT\"\n\tend\n\t-- Phản ánh thuộc tính trong nhân vật của người chơi, nếu họ có\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- Chuyển đổi tự nhảy\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- Cập nhật mọi thứ khác\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
@@ -44144,42 +44144,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMode": {
-    "documentation": "Thay đổi chế độ camera thành chế độ người thứ nhất hoặc thứ ba.",
+    "documentation": "Thay đổi chế độ camera sang chế độ người thứ nhất hoặc người thứ ba.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMode",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/Player.CanLoadCharacterAppearance": {
-    "documentation": "Xác định xem hình dạng của nhân vật có được tải khi người chơi xuất hiện hay không. Nếu <code>false</code>, người chơi sẽ xuất hiện với hình dạng mặc định.",
+    "documentation": "Xác định liệu hình dáng của nhân vật sẽ được tải khi người chơi sinh ra hay không. Nếu <code>false</code>, người chơi sẽ sinh ra với một hình dáng mặc định.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CanLoadCharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Character": {
-    "documentation": "Một <code>Model</code> được điều khiển bởi người chơi chứa một <code>Humanoid</code>, thành phần cơ thể, script, và các đối tượng khác.",
+    "documentation": "Một <code>Model</code> được điều khiển bởi người chơi chứa <code>Humanoid</code>, các bộ phận cơ thể, các script, và các đối tượng khác.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Character",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời. Không sử dụng nó cho công việc mới.<br>URL của tài sản chứa hình dạng, quần áo, và dụng cụ của nhân vật.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời. Đừng sử dụng nó cho công việc mới.<br>URL của tài sản chứa hình dáng, quần áo và đồ dùng của nhân vật.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearanceId": {
-    "documentation": "Xác định ID người dùng của tài khoản mà hình dạng nhân vật của người chơi sử dụng.",
+    "documentation": "Xác định ID người dùng của tài khoản mà hình dáng của nhân vật được sử dụng cho <code>Character</code> của người chơi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearanceId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataComplexity": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu hiện đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Tổng số dữ liệu hiện đang được lưu trong bộ nhớ cache của người chơi tại nơi hiện tại.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu giờ đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng cách sử dụng <code>DataStoreService</code> cho công việc mới.<br>Tổng số dữ liệu hiện đang được lưu trữ trong bộ nhớ cache của người chơi trên nơi hiện tại.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataComplexity",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataReady": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu hiện đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Chỉ ra khi dữ liệu của người chơi đã sẵn sàng để tải.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu giờ đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng cách sử dụng <code>DataStoreService</code> cho công việc mới.<br>Cho biết khi nào dữ liệu của người chơi có sẵn để tải.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataReady",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevCameraOcclusionMode": {
-    "documentation": "Thiết lập cách camera mặc định xử lý các đối tượng giữa camera và người chơi.",
+    "documentation": "Thiết lập cách camera mặc định xử lý các đối tượng nằm giữa camera và người chơi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevCameraOcclusionMode",
     "code_sample": ""
   },
@@ -44194,22 +44194,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevEnableMouseLock": {
-    "documentation": "Xác định xem người chơi có thể chuyển đổi khóa chuột hay không.",
+    "documentation": "Xác định liệu người chơi có thể bật/tắt khóa chuột hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevEnableMouseLock",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchCameraMode": {
-    "documentation": "Xác định chế độ di chuyển camera của người chơi khi sử dụng thiết bị hỗ trợ chạm.",
+    "documentation": "Xác định chế độ di chuyển camera của người chơi khi sử dụng thiết bị cảm ứng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchMovementMode": {
-    "documentation": "Xác định chế độ di chuyển nhân vật của người chơi khi sử dụng thiết bị hỗ trợ chạm.",
+    "documentation": "Xác định chế độ di chuyển nhân vật của người chơi khi sử dụng thiết bị cảm ứng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DisplayName": {
-    "documentation": "Tên hiển thị của người dùng đã được xác thực liên kết với <code>Player</code>.",
+    "documentation": "Tên hiển thị của người dùng đã xác thực liên kết với <code>Player</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DisplayName",
     "code_sample": ""
   },
@@ -44219,52 +44219,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GameplayPaused": {
-    "documentation": "Liệu gameplay của người chơi ở phía client có đang được tạm dừng hay không.",
+    "documentation": "Liệu trò chơi của người chơi phía khách hàng có đang tạm ngừng hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GameplayPaused",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasVerifiedBadge": {
-    "documentation": "Chỉ ra liệu một người chơi có <strong>Đã xác minh</strong> hay không.",
+    "documentation": "Chỉ ra liệu một người chơi có biểu tượng <strong>Đã xác minh</strong> hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasVerifiedBadge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HealthDisplayDistance": {
-    "documentation": "Thiết lập khoảng cách mà người chơi này sẽ nhìn thấy thanh sức khỏe của những người chơi khác.",
+    "documentation": "Thiết lập khoảng cách mà người chơi sẽ nhìn thấy bar sức khỏe của những người chơi khác.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HealthDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LocaleId": {
-    "documentation": "Thuộc tính này hiển thị ID ngôn ngữ mà người chơi địa phương đã đặt cho tài khoản Roblox của họ.",
+    "documentation": "Thuộc tính này cho biết ID địa phương mà người chơi địa phương đã thiết lập cho tài khoản Roblox của họ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.MembershipType": {
-    "documentation": "Mô tả loại thành viên của tài khoản.",
+    "documentation": "Mô tả loại tư cách thành viên của tài khoản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#MembershipType",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.MembershipType == Enum.MembershipType.Premium then\n\t-- Thực hiện một số hành động cụ thể cho các thành viên Premium\nend"
   },
   "@roblox/globaltype/Player.NameDisplayDistance": {
-    "documentation": "Thiết lập khoảng cách mà người chơi này sẽ nhìn thấy tên của các người chơi khác.",
+    "documentation": "Thiết lập khoảng cách mà người chơi sẽ nhìn thấy tên của những người chơi khác.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#NameDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Neutral": {
-    "documentation": "Xác định xem người chơi có đang ở trên một đội cụ thể hay không.",
+    "documentation": "Xác định liệu người chơi có ở trong một đội cụ thể hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Neutral",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.PartyId": {
-    "documentation": "Một định danh duy nhất của bữa tiệc mà <code>Player</code> thuộc về.",
+    "documentation": "Một định danh duy nhất của bữa tiệc mà một <code>Player</code> thuộc về.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Người chơi đang ở trong một đội với ID: \" .. partyId)\n\telse\n\t\tprint(\"Người chơi không ở trong một đội\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"Người chơi đã tham gia đội với ID: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"Người chơi đã rời đội\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
-    "documentation": "Thiết lập phần để tập trung sao chép xung quanh.",
+    "documentation": "Thiết lập phần để tập trung sao chép quanh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ReplicationFocus",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RespawnLocation": {
-    "documentation": "Nếu được thiết lập, người chơi sẽ tái sinh tại <code>SpawnLocation</code> đã cho.",
+    "documentation": "Nếu được thiết lập, người chơi sẽ hồi sinh tại <code>SpawnLocation</code> đã cho.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
     "code_sample": ""
   },
@@ -44279,7 +44279,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.TeamColor": {
-    "documentation": "Xác định <code>Team</code> mà người chơi có liên quan theo <code>Team.TeamColor</code> của đội đó.",
+    "documentation": "Xác định <code>Team</code> mà người chơi thuộc về theo <code>Team.TeamColor</code> của đội đó.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#TeamColor",
     "code_sample": ""
   },
@@ -44289,23 +44289,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.UserId": {
-    "documentation": "Một số nguyên định danh duy nhất được gán cho tất cả tài khoản người dùng.",
+    "documentation": "Một số nguyên nhận diện duy nhất được gán cho tất cả các tài khoản người dùng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#UserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player.UserId)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.userId": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính này là một biến thể đã lỗi thời của <code>Player.UserId</code> mà nên được sử dụng thay vì.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính này là một phiên bản lỗi thời của <code>Player.UserId</code> mà nên được sử dụng thay vào đó.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#userId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
-    "documentation": "Phần <code>BasePart</code> được sử dụng làm tiêu điểm sao chép mới."
+    "documentation": "Phần <code>BasePart</code> để sử dụng làm tâm sao chép mới."
   },
   "@roblox/globaltype/Player.AddReplicationFocus": {
-    "documentation": "Thêm một tiêu điểm sao chép bổ sung cho người chơi.",
+    "documentation": "Thêm một tâm sao chép bổ sung cho người chơi.",
     "params": [
       {
         "name": "self",
@@ -44321,10 +44321,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance": {
-    "documentation": "Xóa tất cả các phụ kiện và các đối tượng hình dạng khác khỏi nhân vật của người chơi <code>Character</code>.",
+    "documentation": "Xóa tất cả các phụ kiện và các đối tượng diện mạo khác khỏi <code>Character</code> của người chơi.",
     "params": [
       {
         "name": "self",
@@ -44336,16 +44336,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function onChildRemoved(child)\n\tprint(child.ClassName, \"đã bị xóa khỏi nhân vật\")\nend\n\ncharacter.ChildRemoved:Connect(onChildRemoved)\n\nplayer:ClearCharacterAppearance()\n--> BodyColors đã bị xóa khỏi nhân vật\n--> ShirtGraphic đã bị xóa khỏi nhân vật\n--> Shirt đã bị xóa khỏi nhân vật\n--> Pants đã bị xóa khỏi nhân vật\n--> CharacterMesh đã bị xóa khỏi nhân vật\n--> Hat đã bị xóa khỏi nhân vật\n--> Shirt đã bị xóa khỏi nhân vật"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/1": {
     "documentation": "Vị trí mà khoảng cách của người chơi đang được đo."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/return/0": {
-    "documentation": "Khoảng cách tính bằng studs giữa người chơi và vị trí đó."
+    "documentation": "Khoảng cách tính bằng studs giữa người chơi và vị trí."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter": {
-    "documentation": "Trả về khoảng cách giữa đầu nhân vật và <code>Vector3</code> đã cho, hoặc <code>0</code>  nếu người chơi không có nhân vật.",
+    "documentation": "Trả về khoảng cách giữa đầu của nhân vật và <code>Vector3</code> đã cho, hoặc <code>0</code> nếu người chơi không có nhân vật.",
     "params": [
       {
         "name": "self",
@@ -44363,16 +44363,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tprint(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/1": {
-    "documentation": "Số lượng tối đa các kết nối online để trả về."
+    "documentation": "Số lượng tối đa các kết nối trực tuyến để trả về."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/return/0": {
-    "documentation": "Một từ điển của các kết nối online (xem bảng ở trên)."
+    "documentation": "Một từ điển về các kết nối trực tuyến (xem bảng ở trên)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "Trả về một từ điển của các kết nối online.",
+    "documentation": "Trả về một từ điển các kết nối trực tuyến.",
     "params": [
       {
         "name": "self",
@@ -44390,13 +44390,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Không thể lấy danh sách người chơi trực tuyến: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
     "documentation": "Một từ điển chứa giá trị PlaceId và UserId (xem bảng trong mô tả)."
   },
   "@roblox/globaltype/Player.GetJoinData": {
-    "documentation": "Trả về một từ điển chứa thông tin mô tả cách người chơi tham gia trải nghiệm.",
+    "documentation": "Trả về một từ điển chứa thông tin mô tả cách mà người chơi tham gia trải nghiệm.",
     "params": [
       {
         "name": "self",
@@ -44410,13 +44410,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetMouse/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.GetMouse/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetMouse": {
-    "documentation": "Trả về chuột đang được sử dụng bởi client.",
+    "documentation": "Trả về chuột đang được sử dụng bởi khách hàng.",
     "params": [
       {
         "name": "self",
@@ -44430,13 +44430,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.GetNetworkPing/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing": {
-    "documentation": "Trả về độ trễ mạng cách ly tính bằng giây.",
+    "documentation": "Trả về độ trễ mạng độc lập tính bằng giây.",
     "params": [
       {
         "name": "self",
@@ -44450,10 +44450,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/1": {
-    "documentation": "ID của nhóm được chỉ định."
+    "documentation": "ID nhóm của nhóm được chỉ định."
   },
   "@roblox/globaltype/Player.GetRankInGroup/return/0": {
     "documentation": "Hạng của người chơi trong nhóm."
@@ -44477,13 +44477,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"Người chơi là chủ sở hữu của nhóm, 'LOL'!\")\n\telse\n\t\tprint(\"Người chơi KHÔNG là chủ sở hữu của nhóm, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/1": {
-    "documentation": "ID của nhóm được chỉ định."
+    "documentation": "ID nhóm của nhóm được chỉ định."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "Vai trò của người chơi trong nhóm được chỉ định, hoặc <code>Guest</code> nếu người chơi là không phải là thành viên."
+    "documentation": "Vai trò của người chơi trong nhóm được chỉ định, hoặc <code>Guest</code> nếu người chơi không phải là thành viên."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
     "documentation": "Trả về vai trò của người chơi trong nhóm dưới dạng chuỗi, hoặc <code>Guest</code> nếu người chơi không phải là thành viên của nhóm.",
@@ -44504,13 +44504,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
-    "documentation": "Một boolean cho biết liệu hình ảnh của nhân vật người chơi đã được tải hay chưa."
+    "documentation": "Một boolean chỉ ra liệu hình dáng của nhân vật người chơi đã được tải hay chưa."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded": {
-    "documentation": "Trả về liệu hình dạng của nhân vật người chơi đã được tải hay chưa.",
+    "documentation": "Trả về liệu hình dáng của nhân vật người chơi đã được tải hay chưa.",
     "params": [
       {
         "name": "self",
@@ -44524,7 +44524,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tlocal loaded = player:HasAppearanceLoaded()\n\tprint(loaded)\n\n\twhile not loaded do\n\t\tloaded = player:HasAppearanceLoaded()\n\t\tprint(loaded)\n\t\ttask.wait()\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/1": {
     "documentation": ""
@@ -44533,7 +44533,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này đã lỗi thời vì tính năng Bạn tốt đã bị gỡ bỏ. Sử dụng <code>Player:IsFriendsWith()</code> thay vào đó.<br>Trả về việc một người chơi có kết nối với người dùng đã chỉ định hay không.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này đã lỗi thời vì tính năng Bạn Bè Tốt Nhất đã bị loại bỏ. Sử dụng <code>Player:IsFriendsWith()</code> thay vào đó.<br>Trả về liệu người chơi có kết nối với người dùng đã chỉ định hay không.",
     "params": [
       {
         "name": "self",
@@ -44551,13 +44551,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/1": {
-    "documentation": "<code>Player.UserId</code> của người chơi đã chỉ định."
+    "documentation": "ID <code>Player.UserId</code> của người chơi được chỉ định."
   },
   "@roblox/globaltype/Player.IsFriendsWith/return/0": {
-    "documentation": "Một boolean cho biết liệu một người chơi có phải là kết nối của người dùng đã chỉ định hay không."
+    "documentation": "Một boolean chỉ ra liệu một người chơi có phải là kết nối của người dùng đã chỉ định hay không."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
     "documentation": "Kiểm tra xem một người chơi có phải là kết nối của người dùng với <code>Player.UserId</code> đã cho hay không.",
@@ -44578,16 +44578,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" là một kết nối với gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsInGroup/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.IsInGroup/param/1": {
-    "documentation": "ID nhóm của nhóm đã chỉ định."
+    "documentation": "ID của nhóm được chỉ định."
   },
   "@roblox/globaltype/Player.IsInGroup/return/0": {
-    "documentation": "Một boolean cho biết liệu người chơi có ở trong nhóm đã chỉ định hay không."
+    "documentation": "Một boolean chỉ ra liệu người chơi có nằm trong nhóm đã chỉ định hay không."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "Kiểm tra xem một người chơi có phải là thành viên của nhóm với ID đã cho hay không.",
+    "documentation": "Kiểm tra một người chơi có phải là thành viên của một nhóm với ID đã cho hay không.",
     "params": [
       {
         "name": "self",
@@ -44605,13 +44605,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsVerified/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.IsVerified/return/0": {
-    "documentation": "Một boolean cho biết liệu người chơi có được xác minh hay không."
+    "documentation": "Một boolean chỉ ra liệu người chơi có được xác thực hay không."
   },
   "@roblox/globaltype/Player.IsVerified": {
-    "documentation": "Trả về việc người chơi có được xác minh bằng các tín hiệu cụ thể, ngoài đời hay không.",
+    "documentation": "Trả về liệu người chơi có được xác thực với các tín hiệu cụ thể trong thế giới thực hay không.",
     "params": [
       {
         "name": "self",
@@ -44625,13 +44625,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player:IsVerified())\nend\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tonPlayerAdded(player)\nend\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.Kick/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.Kick/param/1": {
-    "documentation": "Thông điệp để hiển thị cho người dùng khi bị đá."
+    "documentation": "Thông điệp sẽ hiện lên với người dùng khi bị ngắt kết nối."
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "Buộc phải ngắt kết nối một người chơi khỏi trải nghiệm, tùy chọn cung cấp một thông điệp.",
+    "documentation": "Chuyển tải một cách cưỡng bức người chơi ra khỏi trải nghiệm, tùy chọn cung cấp thông báo.",
     "params": [
       {
         "name": "self",
@@ -44647,7 +44647,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadBoolean/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.LoadBoolean/param/1": {
     "documentation": ""
@@ -44656,7 +44656,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương thức lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Trả về một giá trị boolean đã được lưu trước đó cho người chơi với <code>Player:SaveBoolean()</code> với cùng một khóa.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu giờ đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng cách sử dụng <code>DataStoreService</code> cho công việc mới.<br>Trả về một giá trị boolean đã được lưu trước đó cho người chơi với <code>Player:SaveBoolean()</code> với cùng một khóa.",
     "params": [
       {
         "name": "self",
@@ -44674,7 +44674,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
     "documentation": "Tạo một nhân vật mới cho người chơi, xóa bỏ nhân vật cũ. Cũng xóa <code>Backpack</code> và <code>PlayerGui</code> của người chơi.",
@@ -44689,13 +44689,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/1": {
-    "documentation": "Một thực thể của tài sản đang được tải, có thể được lấy bằng cách sử dụng hàm <code>InsertService:LoadAsset()</code>."
+    "documentation": "Một thể hiện của tài sản đang được tải, có thể được lấy bằng cách sử dụng hàm <code>InsertService:LoadAsset()</code>."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> <br>Đặt đối tượng đã cho vào nhân vật người chơi, đầu, hoặc StarterGear dựa trên lớp của đối tượng.",
+    "documentation": "<strong>Deprecated:</strong> <br>Đặt thể hiện được cung cấp vào nhân vật của người chơi, đầu, hoặc StarterGear dựa trên lớp của thể hiện đó.",
     "params": [
       {
         "name": "self",
@@ -44711,13 +44711,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal InsertService = game:GetService(\"InsertService\")\n\nlocal function onPlayerAdded(player)\n\tlocal function onChatted(message)\n\t\tlocal assetId = message:match(\"id=(%d+)\")\n\t\tif assetId then\n\t\t\tlocal model = InsertService:LoadAsset(assetId)\n\t\t\tfor _, child in pairs(model:GetChildren()) do\n\t\t\t\tplayer:LoadCharacterAppearance(child)\n\t\t\tend\n\t\tend\n\tend\n\n\tplayer.Chatted:Connect(onChatted)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
-    "documentation": "Một <code>HumanoidDescription</code> chứa các đặc điểm như bộ phận cơ thể/màu sắc, tỷ lệ cơ thể, phụ kiện, quần áo, và các hoạt hình sẽ được trang bị cho nhân vật đã tải."
+    "documentation": "Một <code>HumanoidDescription</code> chứa các đặc điểm như phần cơ thể màu sắc, tỷ lệ cơ thể, phụ kiện, quần áo và hoạt ảnh sẽ được trang bị cho nhân vật đã được tải."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "Tạo một nhân vật người chơi với mọi thứ được trang bị trong <code>HumanoidDescription</code> đã cung cấp.",
+    "documentation": "Sinh một nhân vật người chơi với mọi thứ được trang bị trong <code>HumanoidDescription</code> đã truyền vào.",
     "params": [
       {
         "name": "self",
@@ -44733,7 +44733,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.LoadInstance/param/1": {
     "documentation": ""
@@ -44742,7 +44742,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadInstance": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương thức lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Trả về một thực thể đã được lưu trước đó cho người chơi với <code>Player:SaveInstance()</code> với cùng một khóa.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị hủy bỏ, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi sử dụng <code>DataStoreService</code> cho các công việc mới.<br>Trả về một thể hiện đã được lưu trước đó cho người chơi với <code>Player:SaveInstance()</code> với cùng một khóa.",
     "params": [
       {
         "name": "self",
@@ -44760,7 +44760,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tlocal model = player:LoadInstance(\"Model\")\n\t\tmodel.Parent = workspace\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadNumber/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.LoadNumber/param/1": {
     "documentation": ""
@@ -44769,7 +44769,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadNumber": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương thức lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Trả về một giá trị số mà trước đó đã được lưu cho người chơi.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị hủy bỏ, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi sử dụng <code>DataStoreService</code> cho các công việc mới.<br>Trả về một giá trị số đã được lưu trước đó cho người chơi.",
     "params": [
       {
         "name": "self",
@@ -44787,7 +44787,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tprint(player:LoadNumber(\"TotalPlays\"))\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadString/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.LoadString/param/1": {
     "documentation": ""
@@ -44796,7 +44796,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadString": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương thức lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Trả về một giá trị chuỗi đã được lưu trước đó cho người chơi.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị hủy bỏ, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi sử dụng <code>DataStoreService</code> cho các công việc mới.<br>Trả về một giá trị chuỗi đã được lưu trước đó cho người chơi.",
     "params": [
       {
         "name": "self",
@@ -44814,16 +44814,16 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tprint(Player:LoadString(\"TheirName\"))\n\tend\nend)"
   },
   "@roblox/globaltype/Player.Move/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.Move/param/1": {
     "documentation": "Hướng Vector3 mà người chơi nên di chuyển."
   },
   "@roblox/globaltype/Player.Move/param/2": {
-    "documentation": "Một boolean cho biết liệu người chơi có nên di chuyển tương đối với camera của người chơi hay không."
+    "documentation": "Một boolean cho biết liệu người chơi có nên di chuyển tương đối với máy ảnh của người chơi hay không."
   },
   "@roblox/globaltype/Player.Move": {
-    "documentation": "Gây ra nhân vật người chơi đi bộ theo hướng đã cho cho đến khi dừng lại, hoặc bị gián đoạn bởi người chơi (bằng cách sử dụng các điều khiển của họ).",
+    "documentation": "Khiến nhân vật của người chơi đi bộ theo hướng đã cho cho đến khi dừng lại hoặc bị ngắt quãng bởi người chơi (bằng cách sử dụng điều khiển của họ).",
     "params": [
       {
         "name": "self",
@@ -44843,13 +44843,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
-    "documentation": "<code>BasePart</code> để loại bỏ khỏi điểm chú ý sao chép."
+    "documentation": "Phần <code>BasePart</code> để loại bỏ làm một tâm súc."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus": {
-    "documentation": "Loại bỏ một điểm chú ý sao chép đã được thêm trước đó.",
+    "documentation": "Loại bỏ một tâm súc đã thêm trước đó.",
     "params": [
       {
         "name": "self",
@@ -44865,16 +44865,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/1": {
-    "documentation": "Vị trí thế giới nơi yêu cầu phát trực tuyến."
+    "documentation": "Vị trí thế giới nơi yêu cầu streaming."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/2": {
-    "documentation": "Thời gian chờ tùy chọn cho yêu cầu, thời gian tối đa mà động cơ cố gắng phát trực tuyến các vùng quanh tham số <code>position</code> trước khi bỏ qua yêu cầu. Nếu bạn không chỉ định một giá trị, thời gian chờ thực tế là vô hạn. Tuy nhiên, nếu khách hàng có ít bộ nhớ, động cơ sẽ bỏ qua tất cả các yêu cầu phát trực tuyến, ngay cả những yêu cầu vẫn còn trong thời gian chờ."
+    "documentation": "Thời gian tối đa cho yêu cầu, thời gian tối đa mà engine cố gắng stream các vùng xung quanh tham số <code>position</code> trước khi từ bỏ yêu cầu. Nếu không chỉ định giá trị, thời gian tối đa là không giới hạn. Tuy nhiên, nếu khách hàng có ít bộ nhớ, engine sẽ từ bỏ tất cả các yêu cầu streaming, ngay cả những yêu cầu vẫn trong thời gian tối đa."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync": {
-    "documentation": "Yêu cầu máy chủ phát trực tuyến đến người chơi xung quanh vị trí đã xác định.",
+    "documentation": "Yêu cầu máy chủ stream cho người chơi xung quanh vị trí đã chỉ định.",
     "params": [
       {
         "name": "self",
@@ -44894,7 +44894,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveBoolean/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.SaveBoolean/param/1": {
     "documentation": ""
@@ -44903,7 +44903,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương thức lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Được sử dụng để lưu một giá trị boolean có thể được tải lại trong thời gian tới sử dụng <code>Player:LoadBoolean()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị hủy bỏ, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi sử dụng <code>DataStoreService</code> cho các công việc mới.<br>Được sử dụng để lưu một giá trị boolean mà có thể được tải lại vào một thời điểm sau đó bằng <code>Player:LoadBoolean()</code>.",
     "params": [
       {
         "name": "self",
@@ -44923,7 +44923,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\t-- Kiểm tra xem dữ liệu của người chơi đã sẵn sàng chưa\n\tif Player:WaitForDataReady() then\n\t\t-- Lưu boolean cho người chơi\n\t\tPlayer:SaveBoolean(\"HasPlayed\", true)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.SaveInstance/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.SaveInstance/param/1": {
     "documentation": ""
@@ -44932,7 +44932,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveInstance": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương thức lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Lưu một thực thể có thể được tải lại trong thời gian tới.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị hủy bỏ, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi sử dụng <code>DataStoreService</code> cho các công việc mới.<br>Lưu một thể hiện có thể được tải lại vào một thời điểm sau đó.",
     "params": [
       {
         "name": "self",
@@ -44952,7 +44952,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tPlayer:WaitForDataReady()\n\tPlayer:SaveInstance(\"Model\", game.Workspace.Model)\nend)"
   },
   "@roblox/globaltype/Player.SaveNumber/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.SaveNumber/param/1": {
     "documentation": ""
@@ -44961,7 +44961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveNumber": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương thức lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Lưu một giá trị số có thể được tải lại trong thời gian tới.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị hủy bỏ, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi sử dụng <code>DataStoreService</code> cho các công việc mới.<br>Lưu một giá trị số có thể được tải lại vào một thời điểm sau đó.",
     "params": [
       {
         "name": "self",
@@ -44981,7 +44981,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tlocal OldValue = Player:SaveNumber(\"TotalPlays\")\n\t\tPlayer:SaveNumber(\"TotalPlays\", OldValue + 1)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.SaveString/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.SaveString/param/1": {
     "documentation": ""
@@ -44990,7 +44990,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveString": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương thức lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Lưu một giá trị chuỗi có thể được tải lại trong thời gian tới.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị hủy bỏ, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi sử dụng <code>DataStoreService</code> cho các công việc mới.<br>Lưu một giá trị chuỗi có thể được tải lại vào một thời điểm sau đó.",
     "params": [
       {
         "name": "self",
@@ -45010,13 +45010,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tplayer:SaveString(\"TênCủaHọ\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.SetAccountAge/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.SetAccountAge/param/1": {
-    "documentation": "Tuổi tài khoản theo ngày."
+    "documentation": "Tuổi của tài khoản tính bằng ngày."
   },
   "@roblox/globaltype/Player.SetAccountAge": {
-    "documentation": "Đặt <code>AccountAge</code> của người chơi.",
+    "documentation": "Thiết lập <code>AccountAge</code> của người chơi.",
     "params": [
       {
         "name": "self",
@@ -45032,13 +45032,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
-    "documentation": "Một boolean cho biết liệu người chơi có thấy trò chuyện đã được lọc hay không."
+    "documentation": "Một boolean cho biết người chơi có thấy trò chuyện đã lọc hay không."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat": {
-    "documentation": "Đặt liệu người chơi có thấy các cuộc trò chuyện đã được lọc hay không, thay vì các cuộc trò chuyện bình thường.",
+    "documentation": "Thiết lập xem người chơi có thấy trò chuyện đã lọc hay không, thay vì trò chuyện bình thường.",
     "params": [
       {
         "name": "self",
@@ -45054,13 +45054,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.WaitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời, vì nó có thể đã được sử dụng cho một phương thức lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi bằng <code>DataStoreService</code> cho công việc mới.<br>Được sử dụng để tạm dừng tập lệnh cho đến khi dữ liệu của người chơi có sẵn để thao tác, hoặc cho đến khi một khoảng thời gian nhất định trôi qua mà không lấy dữ liệu của người chơi.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị hủy bỏ, vì nó có thể đã được sử dụng cho một phương pháp lưu trữ dữ liệu đã lỗi thời. Vui lòng lưu và tải dữ liệu người chơi sử dụng <code>DataStoreService</code> cho các công việc mới.<br>Được sử dụng để tạm dừng script cho đến khi dữ liệu của người chơi có sẵn để thao tác, hoặc cho đến khi một khoảng thời gian nhất định đã trôi qua mà không lấy dữ liệu của người chơi.",
     "params": [
       {
         "name": "self",
@@ -45074,7 +45074,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.isFriendsWith/param/1": {
     "documentation": ""
@@ -45083,7 +45083,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Hàm đã lỗi thời này là một biến thể của <code>Player:IsFriendsWith()</code> được khuyến nghị sử dụng thay vào đó.",
+    "documentation": "<strong>Deprecated:</strong> Hàm đã bị hủy bỏ này là một biến thể của <code>Player:IsFriendsWith()</code> được sử dụng thay thế.",
     "params": [
       {
         "name": "self",
@@ -45101,7 +45101,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadBoolean/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.loadBoolean/param/1": {
     "documentation": ""
@@ -45110,7 +45110,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Hàm đã lỗi thời này là một biến thể của <code>Player:LoadBoolean()</code> được khuyến nghị không dùng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm đã bị hủy bỏ này là một biến thể của <code>Player:LoadBoolean()</code> đã bị hủy bỏ. Cả hai hàm này không nên được sử dụng trong các công việc mới.",
     "params": [
       {
         "name": "self",
@@ -45128,7 +45128,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadInstance/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.loadInstance/param/1": {
     "documentation": ""
@@ -45137,7 +45137,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadInstance": {
-    "documentation": "<strong>Deprecated:</strong> Hàm đã lỗi thời này là một biến thể của <code>Player:LoadInstance()</code> được khuyến nghị không dùng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm đã bị hủy bỏ này là một biến thể của <code>Player:LoadInstance()</code> đã bị hủy bỏ. Cả hai hàm này không nên được sử dụng trong các công việc mới.",
     "params": [
       {
         "name": "self",
@@ -45155,7 +45155,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadNumber/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.loadNumber/param/1": {
     "documentation": ""
@@ -45164,7 +45164,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadNumber": {
-    "documentation": "<strong>Deprecated:</strong> Hàm đã lỗi thời này là một biến thể của <code>Player:LoadNumber()</code> được khuyến nghị không dùng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm đã bị hủy bỏ này là một biến thể của <code>Player:LoadNumber()</code> đã bị hủy bỏ. Cả hai hàm này không nên được sử dụng trong các công việc mới.",
     "params": [
       {
         "name": "self",
@@ -45182,7 +45182,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadString/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.loadString/param/1": {
     "documentation": ""
@@ -45191,7 +45191,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadString": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã lỗi thời của <code>Player:LoadString()</code> được khuyến nghị không dùng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã bị hủy bỏ của <code>Player:LoadString()</code> đã bị hủy bỏ. Cả hai hàm này không nên được sử dụng trong các công việc mới.",
     "params": [
       {
         "name": "self",
@@ -45209,7 +45209,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveBoolean/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.saveBoolean/param/1": {
     "documentation": ""
@@ -45218,7 +45218,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã lỗi thời của <code>Player:SaveBoolean()</code> được khuyến nghị không dùng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã bị hủy bỏ của <code>Player:SaveBoolean()</code> đã bị hủy bỏ. Cả hai hàm này không nên được sử dụng trong các công việc mới.",
     "params": [
       {
         "name": "self",
@@ -45238,7 +45238,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveInstance/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.saveInstance/param/1": {
     "documentation": ""
@@ -45247,7 +45247,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveInstance": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã lỗi thời của <code>Player:SaveInstance()</code> được khuyến nghị không dùng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã bị hủy bỏ của <code>Player:SaveInstance()</code> đã bị hủy bỏ. Cả hai hàm này không nên được sử dụng trong các công việc mới.",
     "params": [
       {
         "name": "self",
@@ -45267,7 +45267,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveNumber/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.saveNumber/param/1": {
     "documentation": ""
@@ -45276,7 +45276,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveNumber": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã lỗi thời của <code>Player:SaveNumber()</code> được khuyến nghị không dùng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã bị hủy bỏ của <code>Player:SaveNumber()</code> đã bị hủy bỏ. Cả hai hàm này không nên được sử dụng trong các công việc mới.",
     "params": [
       {
         "name": "self",
@@ -45296,7 +45296,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveString/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.saveString/param/1": {
     "documentation": ""
@@ -45305,7 +45305,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveString": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã lỗi thời của <code>Player:SaveString()</code> được khuyến nghị không dùng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã bị hủy bỏ của <code>Player:SaveString()</code> đã bị hủy bỏ. Cả hai hàm này không nên được sử dụng trong các công việc mới.",
     "params": [
       {
         "name": "self",
@@ -45325,13 +45325,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.waitForDataReady/param/0": {
-    "documentation": "Một đối tượng đại diện cho một client hiện đang kết nối đến trải nghiệm."
+    "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối với trải nghiệm."
   },
   "@roblox/globaltype/Player.waitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.waitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã lỗi thời của <code>Player:WaitForDataReady()</code> được khuyến nghị không dùng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã bị hủy bỏ của <code>Player:WaitForDataReady()</code> đã bị hủy bỏ. Cả hai hàm này không nên được sử dụng trong các công việc mới.",
     "params": [
       {
         "name": "self",
@@ -45422,7 +45422,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAdded": {
-    "documentation": "Kích hoạt khi một nhân vật của người chơi được sinh ra hoặc hồi sinh.",
+    "documentation": "Kích hoạt khi một nhân vật của người chơi được tạo hoặc tái sinh.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAdded.ConnectParallel",
@@ -45510,7 +45510,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAppearanceLoaded": {
-    "documentation": "Kích hoạt khi hình ảnh đầy đủ của một <code>Character</code> được chèn vào.",
+    "documentation": "Kích hoạt khi toàn bộ hình dáng của một <code>Character</code> đã được chèn vào.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAppearanceLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAppearanceLoaded.ConnectParallel",
@@ -45598,7 +45598,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterRemoving": {
-    "documentation": "Kích hoạt ngay trước khi nhân vật của một người chơi bị xóa.",
+    "documentation": "Kích hoạt ngay trước khi nhân vật của người chơi bị loại bỏ.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterRemoving.ConnectParallel",
@@ -45686,7 +45686,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Chatted": {
-    "documentation": "Kích hoạt khi một người chơi trò chuyện trong trải nghiệm bằng thanh trò chuyện do Roblox cung cấp.",
+    "documentation": "Kích hoạt khi một người chơi trò chuyện trong trải nghiệm bằng cách sử dụng thanh trò chuyện được cung cấp của Roblox.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Chatted.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Chatted.ConnectParallel",
@@ -45774,7 +45774,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Idled": {
-    "documentation": "Sự kiện này kích hoạt khoảng hai phút sau khi động cơ phân loại người chơi là không hoạt động. Thời gian là số giây đã trôi qua kể từ thời điểm đó.",
+    "documentation": "Sự kiện này kích hoạt khoảng hai phút sau khi engine phân loại người chơi là không hoạt động. Thời gian là số giây đã trôi qua kể từ thời điểm đó.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Idled.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Idled.ConnectParallel",
@@ -51178,10 +51178,10 @@
     "documentation": "Tên thuộc tính để truy vấn."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean cho biết liệu thuộc tính đã được sửa đổi từ giá trị mặc định do mã khởi tạo hay không."
+    "documentation": "Boolean cho biết liệu thuộc tính đã được sửa đổi so với giá trị mặc định do mã lập trình tạo ra hay không."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Trả về <code>true</code> nếu giá trị lưu trữ trong thuộc tính được chỉ định không bằng với giá trị mặc định do mã khởi tạo.",
+    "documentation": "Trả về <code>true</code> nếu giá trị lưu trữ trong thuộc tính được chỉ định không bằng giá trị mặc định do mã lập trình tạo ra.",
     "params": [
       {
         "name": "self",
@@ -57156,6 +57156,7 @@
   "@roblox/globaltype/AssetService": {
     "documentation": "Một dịch vụ không được sao chép xử lý các truy vấn liên quan đến tài sản đến API web của Roblox.",
     "keys": {
+      "AllowInsertFreeAssets": "@roblox/globaltype/AssetService.AllowInsertFreeAssets",
       "ComposeDecalAsync": "@roblox/globaltype/AssetService.ComposeDecalAsync",
       "CreateAssetAsync": "@roblox/globaltype/AssetService.CreateAssetAsync",
       "CreateAssetVersionAsync": "@roblox/globaltype/AssetService.CreateAssetVersionAsync",
@@ -57172,12 +57173,18 @@
       "GetBundleDetailsAsync": "@roblox/globaltype/AssetService.GetBundleDetailsAsync",
       "GetCreatorAssetID": "@roblox/globaltype/AssetService.GetCreatorAssetID",
       "GetGamePlacesAsync": "@roblox/globaltype/AssetService.GetGamePlacesAsync",
+      "LoadAssetAsync": "@roblox/globaltype/AssetService.LoadAssetAsync",
       "PromptCreateAssetAsync": "@roblox/globaltype/AssetService.PromptCreateAssetAsync",
       "PromptImportAnimationClipFromVideoAsync": "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync",
       "SavePlaceAsync": "@roblox/globaltype/AssetService.SavePlaceAsync",
       "SearchAudio": "@roblox/globaltype/AssetService.SearchAudio"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AssetService.AllowInsertFreeAssets": {
+    "documentation": "Kiểm soát xem <code>AssetService:LoadAssetAsync()</code> có thể tải tài sản không thuộc sở hữu của người tạo trải nghiệm hay không.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#AllowInsertFreeAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync/param/0": {
@@ -57696,14 +57703,41 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#GetGamePlacesAsync",
     "code_sample": "local AssetService = game:GetService(\"AssetService\")\n\nlocal placePages = AssetService:GetGamePlacesAsync()\n\nwhile true do\n\tfor _, place in placePages:GetCurrentPage() do\n\t\tprint(\"Tên:\", place.Name)\n\t\tprint(\"PlaceId:\", place.PlaceId)\n\tend\n\tif placePages.IsFinished then\n\t\tbreak\n\tend\n\tplacePages:AdvanceToNextPageAsync()\nend"
   },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/0": {
+    "documentation": "Một dịch vụ không được sao chép xử lý các truy vấn liên quan đến tài sản đến API web của Roblox."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/param/1": {
+    "documentation": "Số ID tài sản của tài sản đang được tải."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync/return/0": {
+    "documentation": "Một thể hiện <code>Model</code> chứa tài sản đã được tải."
+  },
+  "@roblox/globaltype/AssetService.LoadAssetAsync": {
+    "documentation": "Tải một thể hiện <code>Model</code> dựa trên ID tài sản của nó. Đây là một sự thay thế hiện đại cho <code>InsertService:LoadAsset()</code> và hỗ trợ tải các tài sản của bên thứ ba.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/0"
+      },
+      {
+        "name": "assetId",
+        "documentation": "@roblox/globaltype/AssetService.LoadAssetAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.LoadAssetAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#LoadAssetAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/0": {
     "documentation": "Một dịch vụ không được sao chép xử lý các truy vấn liên quan đến tài sản đến API web của Roblox."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/1": {
-    "documentation": "Người dùng thực hiện việc gửi một tài sản để tạo."
+    "documentation": "Người dùng đã gửi yêu cầu tạo tài sản."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/2": {
-    "documentation": "Tài sản sẽ được tạo. Hiện tại không thể chứa các script hoặc chứa các tài sản không công khai."
+    "documentation": "Tài sản sẽ được tạo. Hiện tại không thể chứa scripts hoặc lồng các tài sản không công khai."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync/param/3": {
     "documentation": "Loại tài sản. Hiện tại chỉ có thể là <code>AssetType.Model</code>."
@@ -57712,7 +57746,7 @@
     "documentation": "Cặp <code>PromptCreateAssetResult</code> và ID tài sản nếu thành công."
   },
   "@roblox/globaltype/AssetService.PromptCreateAssetAsync": {
-    "documentation": "Cho phép tạo tài sản trong trải nghiệm cho người dùng bằng cách hiển thị một hộp thoại xuất bản.",
+    "documentation": "Cho phép người dùng tạo tài sản trong trải nghiệm bằng cách hiển thị một hộp thoại xuất bản.",
     "params": [
       {
         "name": "self",
@@ -57775,7 +57809,7 @@
     "documentation": "Một dịch vụ không được sao chép xử lý các truy vấn liên quan đến tài sản đến API web của Roblox."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Từ điển tùy chọn bao gồm <code>SaveWithoutPublish</code>, một boolean chỉ định xem có lưu với xuất bản hay không, và <code>PlaceId</code>, ID nơi đích để lưu lên. Một ví dụ sử dụng sẽ là: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Nếu PlaceId không được cung cấp, hành vi mặc định sẽ lưu lên nơi gốc hiện tại đang gọi SavePlaceAsync. Nếu SaveWithoutPublish không được cung cấp, hành vi mặc định là SaveWithoutPublish=false."
+    "documentation": "Từ điển tùy chọn bao gồm <code>SaveWithoutPublish</code>, một boolean cho biết liệu có lưu với xuất bản hay không, và <code>PlaceId</code>, ID nơi đích để lưu đè lên. Một ví dụ sử dụng sẽ là: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Nếu PlaceId không được cung cấp, hành vi mặc định sẽ lưu đè lên nơi gốc hiện tại đang gọi SavePlaceAsync. Nếu SaveWithoutPublish không được cung cấp, hành vi mặc định là SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Lưu trạng thái của nơi hiện tại.",
@@ -75432,6 +75466,263 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiBase",
     "code_sample": ""
   },
+  "@roblox/globaltype/ValueCurve": {
+    "documentation": "Một danh sách có thứ tự các cặp giá trị-thời gian xác định một đường cong. Được sử dụng để hoạt hình bất kỳ loại giá trị nào.",
+    "keys": {
+      "ValueType": "@roblox/globaltype/ValueCurve.ValueType",
+      "Length": "@roblox/globaltype/ValueCurve.Length",
+      "GetKeyAtIndex": "@roblox/globaltype/ValueCurve.GetKeyAtIndex",
+      "GetKeyIndicesAtTime": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime",
+      "GetKeys": "@roblox/globaltype/ValueCurve.GetKeys",
+      "GetValueAtTime": "@roblox/globaltype/ValueCurve.GetValueAtTime",
+      "InsertKey": "@roblox/globaltype/ValueCurve.InsertKey",
+      "InsertKeyValue": "@roblox/globaltype/ValueCurve.InsertKeyValue",
+      "RemoveKeyAtIndex": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex",
+      "SetKeys": "@roblox/globaltype/ValueCurve.SetKeys"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.ValueType": {
+    "documentation": "Giá trị chỉ đọc cho biết loại giữ trong đường cong này.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#ValueType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.Length": {
+    "documentation": "Số lượng khóa trong đường cong giá trị.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#Length",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0": {
+    "documentation": "Một danh sách có thứ tự các cặp giá trị-thời gian xác định một đường cong. Được sử dụng để hoạt hình bất kỳ loại giá trị nào."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1": {
+    "documentation": "Chỉ số trong tập hợp khóa hiện có được giữ bởi <code>ValueCurve</code> này."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyAtIndex": {
+    "documentation": "Trả về một bản sao của một khóa tại chỉ số đã cho.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/0"
+      },
+      {
+        "name": "index",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyAtIndex/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0": {
+    "documentation": "Một danh sách có thứ tự các cặp giá trị-thời gian xác định một đường cong. Được sử dụng để hoạt hình bất kỳ loại giá trị nào."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1": {
+    "documentation": "Một thời gian trong suốt quá trình hoạt hình. Các đầu vào sẽ bị giới hạn giữa <code>0</code> và thời gian của khóa cuối cùng được giữ bởi <code>ValueCurve</code> này."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime": {
+    "documentation": "Trả về chỉ số của khóa cuối cùng và đầu tiên trong một khoảng thời gian.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeyIndicesAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeyIndicesAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/param/0": {
+    "documentation": "Một danh sách có thứ tự các cặp giá trị-thời gian xác định một đường cong. Được sử dụng để hoạt hình bất kỳ loại giá trị nào."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys/return/0": {
+    "documentation": "Mảng của <code>ValueCurveKeys</code>."
+  },
+  "@roblox/globaltype/ValueCurve.GetKeys": {
+    "documentation": "Trả về một bản sao của tất cả các khóa trong ValueCurve dưới dạng một mảng Luau của <code>ValueCurveKeys</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetKeys/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetKeys",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0": {
+    "documentation": "Một danh sách có thứ tự các cặp giá trị-thời gian xác định một đường cong. Được sử dụng để hoạt hình bất kỳ loại giá trị nào."
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1": {
+    "documentation": "Thời gian mà tại đó sẽ lấy mẫu đường cong."
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0": {
+    "documentation": "Giá trị của đường cong tại <code>time</code> được yêu cầu."
+  },
+  "@roblox/globaltype/ValueCurve.GetValueAtTime": {
+    "documentation": "Mẫu đường cong giá trị tại một thời gian nhất định được đưa ra làm tham số.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.GetValueAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.GetValueAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#GetValueAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/0": {
+    "documentation": "Một danh sách có thứ tự các cặp giá trị-thời gian xác định một đường cong. Được sử dụng để hoạt hình bất kỳ loại giá trị nào."
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/param/1": {
+    "documentation": "<code>ValueCurveKey</code> để chèn."
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey/return/0": {
+    "documentation": "(xem mô tả)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKey": {
+    "documentation": "Thêm khóa được đưa ra làm tham số vào đường cong này. Nếu tìm thấy một khóa tại thời gian như vậy, nó sẽ được thay thế.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/0"
+      },
+      {
+        "name": "key",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKey/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKey/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKey",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0": {
+    "documentation": "Một danh sách có thứ tự các cặp giá trị-thời gian xác định một đường cong. Được sử dụng để hoạt hình bất kỳ loại giá trị nào."
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1": {
+    "documentation": "Thời gian mà tại đó chèn <code>ValueCurveKey</code> mới. - loại: number"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2": {
+    "documentation": "Giá trị của <code>ValueCurveKey</code> được chèn. - loại: any"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3": {
+    "documentation": "Chế độ nội suy của <code>ValueCurveKey</code> được chèn. - loại: KeyInterpolationMode"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0": {
+    "documentation": "(xem mô tả)"
+  },
+  "@roblox/globaltype/ValueCurve.InsertKeyValue": {
+    "documentation": "Tạo một khóa cho giá trị đã cho và chèn nó tại thời gian đã cho. Nếu tìm thấy một khóa tại thời gian như vậy, nó sẽ được thay thế.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/1"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/2"
+      },
+      {
+        "name": "Interpolation",
+        "documentation": "@roblox/globaltype/ValueCurve.InsertKeyValue/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.InsertKeyValue/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#InsertKeyValue",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0": {
+    "documentation": "Một danh sách có thứ tự các cặp giá trị-thời gian xác định một đường cong. Được sử dụng để hoạt hình bất kỳ loại giá trị nào."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1": {
+    "documentation": "Chỉ số bắt đầu từ đó để xóa khóa."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2": {
+    "documentation": "Số lượng khóa để xóa."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0": {
+    "documentation": "Số lượng khóa đã bị xóa."
+  },
+  "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex": {
+    "documentation": "Xóa một số lượng khóa đã cho bắt đầu từ một chỉ số đã cho.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/0"
+      },
+      {
+        "name": "startingIndex",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/1"
+      },
+      {
+        "name": "count",
+        "documentation": "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.RemoveKeyAtIndex/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#RemoveKeyAtIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/0": {
+    "documentation": "Một danh sách có thứ tự các cặp giá trị-thời gian xác định một đường cong. Được sử dụng để hoạt hình bất kỳ loại giá trị nào."
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/param/1": {
+    "documentation": "Mảng của <code>ValueCurveKeys</code>."
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys/return/0": {
+    "documentation": "Số lượng khóa đã được chèn."
+  },
+  "@roblox/globaltype/ValueCurve.SetKeys": {
+    "documentation": "Đặt lại các khóa của đường cong này bằng cách sử dụng mảng <code>ValueCurveKey</code> được đưa ra như một tham số.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/0"
+      },
+      {
+        "name": "keys",
+        "documentation": "@roblox/globaltype/ValueCurve.SetKeys/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ValueCurve.SetKeys/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueCurve#SetKeys",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Pages": {
     "documentation": "Một lớp trừu tượng cho các đối tượng trang.",
     "keys": {
@@ -90809,12 +91100,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTime": {
-    "documentation": "Một phép đo tổng thời gian mà máy chủ cần để cập nhật các công việc của Task Scheduler trong giây.",
+    "documentation": "Một thước đo tổng thời gian mà máy chủ cần để cập nhật công việc của bộ lập lịch nhiệm vụ trong giây.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTime",
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTimeMs": {
-    "documentation": "<strong>Deprecated:</strong> <br>Một phép đo tổng thời gian mà Roblox cần để cập nhật tất cả các công việc của Task Scheduler, trong mili giây.",
+    "documentation": "<strong>Deprecated:</strong> <br>Một thước đo tổng thời gian mà Roblox cần để cập nhật tất cả các công việc của bộ lập lịch nhiệm vụ, tính bằng mili giây.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTimeMs",
     "code_sample": ""
   },
@@ -90955,7 +91246,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbAllCategories": {
-    "documentation": "Trả về số megabytes đang được tiêu thụ bởi tất cả các danh mục hiện có, hoặc một mảng rỗng nếu <code>MemoryTrackingEnabled</code> là false.",
+    "documentation": "Trả về số lượng megabyte đang được tiêu thụ bởi tất cả các danh mục có sẵn, hoặc một mảng rỗng nếu <code>MemoryTrackingEnabled</code> là <code>false</code>.",
     "params": [
       {
         "name": "self",
@@ -90978,7 +91269,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetMemoryUsageMbForTag": {
-    "documentation": "Trả về số megabytes đang được tiêu thụ trong danh mục <code>DeveloperMemoryTag</code> đã chỉ định, hoặc 0 nếu <code>MemoryTrackingEnabled</code> là false.",
+    "documentation": "Trả về số lượng megabyte đang được tiêu thụ trong danh mục <code>DeveloperMemoryTag</code> chỉ định, hoặc <code>0</code> nếu <code>MemoryTrackingEnabled</code> là <code>false</code>.",
     "params": [
       {
         "name": "self",
@@ -91002,7 +91293,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Stats.GetTotalMemoryUsageMb": {
-    "documentation": "Trả về tổng lượng bộ nhớ đang được tiêu thụ bởi phiên trò chơi hiện tại, trong megabytes, hoặc 0 nếu <code>MemoryTrackingEnabled</code> là false.",
+    "documentation": "Trả về tổng lượng bộ nhớ đang được tiêu thụ bởi phiên chơi hiện tại, tính bằng megabyte.",
     "params": [
       {
         "name": "self",
@@ -104537,6 +104828,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/Style",
     "code_sample": ""
   },
+  "@roblox/enum/HashAlgorithm.Blake2b": {
+    "documentation": "Được sử dụng để tính toán một giá trị băm 256-bit (32-byte) bằng cách sử dụng thuật toán <a href=\"https://en.wikipedia.org/wiki/BLAKE2\">BLAKE2b</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake2b",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Blake3": {
+    "documentation": "Được sử dụng để tính toán một giá trị băm 256-bit (32-byte) bằng cách sử dụng thuật toán <a href=\"https://en.wikipedia.org/wiki/BLAKE3\">BLAKE3</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Blake3",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Md5": {
+    "documentation": "Được sử dụng để tính toán một giá trị băm 128-bit (16-byte) bằng cách sử dụng thuật toán <a href=\"https://en.wikipedia.org/wiki/MD5\">MD5</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Md5",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha1": {
+    "documentation": "Được sử dụng để tính toán một giá trị băm 160-bit (20-byte) bằng cách sử dụng thuật toán <a href=\"https://en.wikipedia.org/wiki/SHA-1\">SHA-1</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha1",
+    "code_sample": ""
+  },
+  "@roblox/enum/HashAlgorithm.Sha256": {
+    "documentation": "Được sử dụng để tính toán một giá trị băm 256-bit (32-byte) bằng cách sử dụng thuật toán <a href=\"https://en.wikipedia.org/wiki/SHA-2\">SHA256</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm#Sha256",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.HashAlgorithm": {
+    "documentation": "Hàm băm mật mã để sử dụng trong các phương thức của <code>EncodingService</code>.",
+    "keys": {
+      "Blake2b": "@roblox/enum/HashAlgorithm.Blake2b",
+      "Blake3": "@roblox/enum/HashAlgorithm.Blake3",
+      "Md5": "@roblox/enum/HashAlgorithm.Md5",
+      "Sha1": "@roblox/enum/HashAlgorithm.Sha1",
+      "Sha256": "@roblox/enum/HashAlgorithm.Sha256"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/HashAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto": {
     "documentation": "",
     "keys": {
@@ -112579,7 +112932,7 @@
     "code_sample": ""
   },
   "@roblox/enum/WebStreamClientType.RawStream": {
-    "documentation": "Khách hàng có thể kết nối đến bất kỳ máy chủ nào cung cấp truyền dữ liệu streaming (chẳng hạn như <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">được mã hóa theo từng khối</a>). Nó không đảm bảo về định dạng luồng.",
+    "documentation": "Khách hàng HTTP phát trực tiếp đa mục đích. Nó có thể kết nối với bất kỳ máy chủ nào cung cấp chuyển dữ liệu phát trực tiếp (ví dụ:  <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Transfer-Encoding\">mã hóa theo phần</a>). Nó không đảm bảo bất kỳ định dạng luồng nào.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112588,11 +112941,22 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#RawStream",
     "code_sample": ""
   },
+  "@roblox/enum/WebStreamClientType.WebSocket": {
+    "documentation": "Khách hàng <a href=\"https://en.wikipedia.org/wiki/WebSocket\">WebSocket</a> cung cấp một kênh giao tiếp hai chiều qua kết nối TCP.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType#WebSocket",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.WebStreamClientType": {
     "documentation": "Chỉ định loại streaming nào sẽ được sử dụng khi tạo một <code>WebStreamClient</code>.",
     "keys": {
       "SSE": "@roblox/enum/WebStreamClientType.SSE",
-      "RawStream": "@roblox/enum/WebStreamClientType.RawStream"
+      "RawStream": "@roblox/enum/WebStreamClientType.RawStream",
+      "WebSocket": "@roblox/enum/WebStreamClientType.WebSocket"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WebStreamClientType",
     "code_sample": ""
@@ -121711,6 +122075,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelStreamingBehavior",
     "code_sample": ""
   },
+  "@roblox/enum/CompressionAlgorithm.Zstd": {
+    "documentation": "Được sử dụng để thực hiện nén bằng cách sử dụng <a href=\"https://en.wikipedia.org/wiki/Zstd\">Zstandard</a> compression, còn được biết đến với tên gọi là zstd.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm#Zstd",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CompressionAlgorithm": {
+    "documentation": "Một thuật toán nén để sử dụng trong các phương thức <code>EncodingService</code>.",
+    "keys": {
+      "Zstd": "@roblox/enum/CompressionAlgorithm.Zstd"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CompressionAlgorithm",
+    "code_sample": ""
+  },
   "@roblox/enum/RotationOrder.XYZ": {
     "documentation": "Thứ tự X, Y, Z.",
     "keys": {
@@ -126861,8 +127243,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#StreamingMesh",
     "code_sample": ""
   },
+  "@roblox/enum/ModelLevelOfDetail.SLIM": {
+    "documentation": "Mô hình Tương tác Nhẹ và Có thể Mở rộng, hay SLIM, mô hình (một tổ hợp của tất cả các phần con của mô hình) hiển thị với độ phân giải ngày càng thấp ở khoảng cách dựa trên bán kính phát trực tuyến. Cải thiện chất lượng hình ảnh rất nhiều so với <code>StreamingMesh</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#SLIM",
+    "code_sample": ""
+  },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
-    "documentation": "Một mesh có độ phân giải thấp hơn sẽ không được hiển thị.",
+    "documentation": "Một lưới độ phân giải thấp hơn sẽ không được hiển thị.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126876,6 +127268,7 @@
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
+      "SLIM": "@roblox/enum/ModelLevelOfDetail.SLIM",
       "Disabled": "@roblox/enum/ModelLevelOfDetail.Disabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail",
@@ -127422,6 +127815,68 @@
       "Completed": "@roblox/enum/TweenStatus.Completed"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/TweenStatus",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Active": {
+    "documentation": "The event is currently published and available.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Active",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Cancelled": {
+    "documentation": "The event has been cancelled and will not occur.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Cancelled",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Moderated": {
+    "documentation": "The event has been removed by moderation.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Moderated",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unpublished": {
+    "documentation": "The event has been unpublished by the creator.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unpublished",
+    "code_sample": ""
+  },
+  "@roblox/enum/ExperienceEventStatus.Unknown": {
+    "documentation": "The event status could not be determined.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ExperienceEventStatus": {
+    "documentation": "",
+    "keys": {
+      "Active": "@roblox/enum/ExperienceEventStatus.Active",
+      "Cancelled": "@roblox/enum/ExperienceEventStatus.Cancelled",
+      "Moderated": "@roblox/enum/ExperienceEventStatus.Moderated",
+      "Unpublished": "@roblox/enum/ExperienceEventStatus.Unpublished",
+      "Unknown": "@roblox/enum/ExperienceEventStatus.Unknown"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ExperienceEventStatus",
     "code_sample": ""
   },
   "@roblox/enum/AvatarAssetType.TShirt": {
@@ -136579,6 +137034,7 @@
       "abs": "@roblox/global/vector.abs",
       "sign": "@roblox/global/vector.sign",
       "clamp": "@roblox/global/vector.clamp",
+      "lerp": "@roblox/global/vector.lerp",
       "max": "@roblox/global/vector.max",
       "min": "@roblox/global/vector.min",
       "zero": "@roblox/global/vector.zero",
@@ -136861,6 +137317,40 @@
       "@roblox/global/vector.clamp/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#clamp",
+    "code_sample": ""
+  },
+  "@roblox/global/vector.lerp/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/1": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp/return/0": {
+    "documentation": ""
+  },
+  "@roblox/global/vector.lerp": {
+    "documentation": "Trả về một vector được nội suy tuyến tính giữa hai vector bằng một alpha phân số.",
+    "params": [
+      {
+        "name": "vec1",
+        "documentation": "@roblox/global/vector.lerp/param/0"
+      },
+      {
+        "name": "vec2",
+        "documentation": "@roblox/global/vector.lerp/param/1"
+      },
+      {
+        "name": "alpha",
+        "documentation": "@roblox/global/vector.lerp/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/global/vector.lerp/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/vector#lerp",
     "code_sample": ""
   },
   "@roblox/global/vector.max/param/0": {
