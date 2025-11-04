@@ -3,6 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local Constants = require(Foundation.Constants)
+
 local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -255,7 +257,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 		View,
 		withCommonProps(props, {
 			Size = UDim2.new(props.width, UDim.new(0, variant.hitbox.height)),
-			GroupTransparency = if props.isDisabled then 0.5 else nil,
+			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
 			stateLayer = {
 				-- This element is just the hitbox so we don't actually want it to visually change
 				affordance = StateLayerAffordance.None,

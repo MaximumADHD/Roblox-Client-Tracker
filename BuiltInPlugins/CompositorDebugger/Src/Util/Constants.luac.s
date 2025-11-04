@@ -81,23 +81,25 @@ MAIN:
   FORGLOOP R5 2 [-2]
   MOVE R2 R4
   SETTABLEKS R2 R1 K5 ["INSTANCE_CHECK"]
-  DUPTABLE R2 K59 [{"LayerFilters", "ActiveLayersFilter", "FrameBufferDuration", "SkipUIFrames", "WasEnabled", "CompositorViewMode", "ViewportRect"}]
-  LOADK R3 K60 ["CD_LayerFilters"]
+  DUPTABLE R2 K60 [{"LayerFilters", "ActiveLayersFilter", "FrameBufferDuration", "SkipUIFrames", "WasEnabled", "CompositorViewMode", "ViewportPosition", "ViewportZoom"}]
+  LOADK R3 K61 ["CD_LayerFilters"]
   SETTABLEKS R3 R2 K52 ["LayerFilters"]
-  LOADK R3 K61 ["CD_ActiveLayersFilter"]
+  LOADK R3 K62 ["CD_ActiveLayersFilter"]
   SETTABLEKS R3 R2 K53 ["ActiveLayersFilter"]
-  LOADK R3 K62 ["CD_FrameBufferDuration"]
+  LOADK R3 K63 ["CD_FrameBufferDuration"]
   SETTABLEKS R3 R2 K54 ["FrameBufferDuration"]
-  LOADK R3 K63 ["CD_SkipUIFrames"]
+  LOADK R3 K64 ["CD_SkipUIFrames"]
   SETTABLEKS R3 R2 K55 ["SkipUIFrames"]
-  LOADK R3 K64 ["CD_WasEnabled"]
+  LOADK R3 K65 ["CD_WasEnabled"]
   SETTABLEKS R3 R2 K56 ["WasEnabled"]
-  LOADK R3 K65 ["CD_CompositorViewMode"]
+  LOADK R3 K66 ["CD_CompositorViewMode"]
   SETTABLEKS R3 R2 K57 ["CompositorViewMode"]
-  LOADK R3 K66 ["CD_ViewportRect"]
-  SETTABLEKS R3 R2 K58 ["ViewportRect"]
+  LOADK R3 K67 ["CD_ViewportPosition"]
+  SETTABLEKS R3 R2 K58 ["ViewportPosition"]
+  LOADK R3 K68 ["CD_ViewportZoom"]
+  SETTABLEKS R3 R2 K59 ["ViewportZoom"]
   SETTABLEKS R2 R1 K6 ["SETTINGS"]
-  LOADK R2 K67 ["HasCompositor"]
+  LOADK R2 K69 ["HasCompositor"]
   SETTABLEKS R2 R1 K7 ["COMPOSITOR_ATTRIBUTE"]
   LOADN R2 10
   SETTABLEKS R2 R1 K8 ["DEFAULT_TIMECONTROLS_INTERVAL"]
@@ -112,34 +114,34 @@ MAIN:
   SETLIST R2 R3 5 [1]
   SETTABLEKS R2 R1 K10 ["SKIP_UI_FRAMES"]
   NEWTABLE R2 4 0
-  DUPTABLE R3 K70 [{"Minor", "Major"}]
+  DUPTABLE R3 K72 [{"Minor", "Major"}]
   LOADN R4 1
-  SETTABLEKS R4 R3 K68 ["Minor"]
+  SETTABLEKS R4 R3 K70 ["Minor"]
   LOADN R4 5
-  SETTABLEKS R4 R3 K69 ["Major"]
+  SETTABLEKS R4 R3 K71 ["Major"]
   SETTABLEN R3 R2 10
-  DUPTABLE R3 K72 [{"Minor", "Medium", "Major"}]
+  DUPTABLE R3 K74 [{"Minor", "Medium", "Major"}]
   LOADN R4 1
-  SETTABLEKS R4 R3 K68 ["Minor"]
+  SETTABLEKS R4 R3 K70 ["Minor"]
   LOADN R4 5
-  SETTABLEKS R4 R3 K71 ["Medium"]
+  SETTABLEKS R4 R3 K73 ["Medium"]
   LOADN R4 10
-  SETTABLEKS R4 R3 K69 ["Major"]
+  SETTABLEKS R4 R3 K71 ["Major"]
   SETTABLEN R3 R2 30
-  DUPTABLE R3 K70 [{"Minor", "Major"}]
+  DUPTABLE R3 K72 [{"Minor", "Major"}]
   LOADN R4 5
-  SETTABLEKS R4 R3 K68 ["Minor"]
+  SETTABLEKS R4 R3 K70 ["Minor"]
   LOADN R4 10
-  SETTABLEKS R4 R3 K69 ["Major"]
+  SETTABLEKS R4 R3 K71 ["Major"]
   SETTABLEN R3 R2 60
   SETTABLEKS R2 R1 K11 ["TIMECONTROLS_INVERVALS"]
   LOADN R2 30
   SETTABLEKS R2 R1 K12 ["BLEND_TRAIL_LENGTH"]
-  DUPTABLE R2 K74 [{"SphereRadius"}]
-  LOADK R3 K75 [0.05]
-  SETTABLEKS R3 R2 K73 ["SphereRadius"]
+  DUPTABLE R2 K76 [{"SphereRadius"}]
+  LOADK R3 K77 [0.05]
+  SETTABLEKS R3 R2 K75 ["SphereRadius"]
   SETTABLEKS R2 R1 K13 ["GIZMOS"]
-  GETIMPORT R2 K78 [Vector2.new]
+  GETIMPORT R2 K80 [Vector2.new]
   LOADN R3 60
   LOADN R4 15
   CALL R2 2 1
@@ -170,29 +172,29 @@ MAIN:
   SETTABLEKS R2 R1 K26 ["ORIGINAL_TILE_SIZE"]
   LOADN R2 30
   SETTABLEKS R2 R1 K27 ["SNAP_DISTANCE"]
-  GETIMPORT R2 K78 [Vector2.new]
+  GETIMPORT R2 K80 [Vector2.new]
   LOADN R3 10
   LOADN R4 10
   CALL R2 2 1
   SETTABLEKS R2 R1 K28 ["GRAPH_PADDING"]
-  DUPTABLE R2 K84 [{"Curves", "Nodes", "Preview", "Anchors", "CurveEnds"}]
+  DUPTABLE R2 K86 [{"Curves", "Nodes", "Preview", "Anchors", "CurveEnds"}]
   LOADN R3 1
-  SETTABLEKS R3 R2 K79 ["Curves"]
+  SETTABLEKS R3 R2 K81 ["Curves"]
   LOADN R3 2
-  SETTABLEKS R3 R2 K80 ["Nodes"]
+  SETTABLEKS R3 R2 K82 ["Nodes"]
   LOADN R3 3
-  SETTABLEKS R3 R2 K81 ["Preview"]
+  SETTABLEKS R3 R2 K83 ["Preview"]
   LOADN R3 4
-  SETTABLEKS R3 R2 K82 ["Anchors"]
+  SETTABLEKS R3 R2 K84 ["Anchors"]
   LOADN R3 5
-  SETTABLEKS R3 R2 K83 ["CurveEnds"]
+  SETTABLEKS R3 R2 K85 ["CurveEnds"]
   SETTABLEKS R2 R1 K29 ["NODEVIEW_ZINDEX"]
-  DUPTABLE R2 K88 [{"Position", "Size", "Collapsed"}]
-  LOADK R3 K89 ["AnimGraph_Position"]
-  SETTABLEKS R3 R2 K85 ["Position"]
-  LOADK R3 K90 ["AnimGraph_Size"]
-  SETTABLEKS R3 R2 K86 ["Size"]
-  LOADK R3 K91 ["AnimGraph_Collapsed"]
-  SETTABLEKS R3 R2 K87 ["Collapsed"]
+  DUPTABLE R2 K90 [{"Position", "Size", "Collapsed"}]
+  LOADK R3 K91 ["AnimGraph_Position"]
+  SETTABLEKS R3 R2 K87 ["Position"]
+  LOADK R3 K92 ["AnimGraph_Size"]
+  SETTABLEKS R3 R2 K88 ["Size"]
+  LOADK R3 K93 ["AnimGraph_Collapsed"]
+  SETTABLEKS R3 R2 K89 ["Collapsed"]
   SETTABLEKS R2 R1 K30 ["NODE_ATTRIBUTES"]
   RETURN R1 1

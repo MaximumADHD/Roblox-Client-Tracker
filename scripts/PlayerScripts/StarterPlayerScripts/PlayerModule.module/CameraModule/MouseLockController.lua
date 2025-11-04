@@ -24,8 +24,6 @@ local GameSettings = Settings.GameSettings
 --[[ Imports ]]
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
 
-local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts2")
-
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -79,11 +77,9 @@ function MouseLockController.new()
 		self:UpdateMouseLockAvailability()
 	end)
 
-	if FFlagUserPreferredInputPlayerScripts then
-		UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
-			self:UpdateMouseLockAvailability()
-		end)
-	end
+	UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
+		self:UpdateMouseLockAvailability()
+	end)
 
 	self:UpdateMouseLockAvailability()
 
@@ -108,7 +104,7 @@ function MouseLockController:UpdateMouseLockAvailability()
 	local userHasMouseLockModeEnabled = GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch
 	local userHasClickToMoveEnabled =  GameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove
 	local userUsingKeyboardAndMouse = UserInputService.PreferredInput == Enum.PreferredInput.KeyboardAndMouse
-	local MouseLockAvailable = (not FFlagUserPreferredInputPlayerScripts or userUsingKeyboardAndMouse) and devAllowsMouseLock and userHasMouseLockModeEnabled and not userHasClickToMoveEnabled and not devMovementModeIsScriptable
+	local MouseLockAvailable = userUsingKeyboardAndMouse and devAllowsMouseLock and userHasMouseLockModeEnabled and not userHasClickToMoveEnabled and not devMovementModeIsScriptable
 
 	if MouseLockAvailable~=self.enabled then
 		self:EnableMouseLock(MouseLockAvailable)

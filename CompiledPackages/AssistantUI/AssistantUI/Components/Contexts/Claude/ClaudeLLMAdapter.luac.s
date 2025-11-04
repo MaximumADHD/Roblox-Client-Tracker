@@ -71,8 +71,17 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+8]
   GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["JSONDecode"]
+  GETTABLEKS R1 R2 K0 ["Json"]
+  GETTABLEKS R0 R1 K1 ["decode"]
+  GETUPVAL R1 2
+  CALL R0 1 -1
+  RETURN R0 -1
+  GETUPVAL R0 3
+  GETUPVAL R2 2
+  NAMECALL R0 R0 K2 ["JSONDecode"]
   CALL R0 2 -1
   RETURN R0 -1
 
@@ -80,7 +89,9 @@ PROTO_4:
   GETIMPORT R1 K1 [pcall]
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE VAL R0
+  CAPTURE UPVAL U2
   CALL R1 1 2
   JUMPIF R1 [+13]
   DUPTABLE R3 K4 [{"type", "error"}]
@@ -214,7 +225,7 @@ PROTO_4:
   JUMPIFNOTEQKS R8 K52 ["refusal"] [+3]
   LOADK R7 K53 ["safety_filter"]
   JUMP [+6]
-  GETUPVAL R10 1
+  GETUPVAL R10 3
   GETTABLEKS R9 R10 K54 ["assertNever"]
   MOVE R10 R8
   CALL R9 1 1
@@ -227,7 +238,7 @@ PROTO_4:
   GETIMPORT R6 K19 [table.insert]
   CALL R6 2 0
   RETURN R3 1
-  GETUPVAL R6 1
+  GETUPVAL R6 3
   GETTABLEKS R5 R6 K54 ["assertNever"]
   MOVE R6 R4
   CALL R5 1 0
@@ -237,6 +248,8 @@ PROTO_5:
   DUPCLOSURE R0 K0 [PROTO_4]
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
   RETURN R0 1
 
 PROTO_6:
@@ -293,47 +306,57 @@ MAIN:
   LOADK R2 K2 ["AssistantUI"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["HttpService"]
-  NAMECALL R1 R1 K7 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R3 R0 K10 ["Types"]
-  CALL R2 1 1
-  GETIMPORT R3 K12 [_G]
-  DUPTABLE R4 K14 [{"totalUsage"}]
-  DUPTABLE R5 K22 [{"input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens", "reasoning_tokens", "timestamp", "model"}]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K15 ["input_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K16 ["output_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K17 ["cache_read_input_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K18 ["cache_creation_input_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K19 ["reasoning_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K20 ["timestamp"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K21 ["model"]
-  SETTABLEKS R5 R4 K13 ["totalUsage"]
-  SETTABLEKS R4 R3 K23 ["TokenUsageTracker"]
-  DUPCLOSURE R3 K24 [PROTO_0]
-  GETIMPORT R5 K12 [_G]
-  GETTABLEKS R4 R5 K23 ["TokenUsageTracker"]
-  SETTABLEKS R3 R4 K25 ["logModel"]
-  DUPCLOSURE R3 K26 [PROTO_1]
-  GETIMPORT R5 K12 [_G]
-  GETTABLEKS R4 R5 K23 ["TokenUsageTracker"]
-  SETTABLEKS R3 R4 K27 ["addUsage"]
-  DUPCLOSURE R3 K28 [PROTO_2]
-  CAPTURE VAL R2
-  DUPCLOSURE R4 K29 [PROTO_5]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["ModelContextProtocol"]
+  CALL R1 1 1
+  GETIMPORT R2 K9 [game]
+  LOADK R4 K10 ["HttpService"]
+  NAMECALL R2 R2 K11 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K12 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K13 ["Flags"]
+  GETTABLEKS R5 R6 K14 ["getFFlagAssistantJsonEncoder"]
+  CALL R4 1 1
+  GETIMPORT R5 K16 [_G]
+  DUPTABLE R6 K18 [{"totalUsage"}]
+  DUPTABLE R7 K26 [{"input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens", "reasoning_tokens", "timestamp", "model"}]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K19 ["input_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K20 ["output_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K21 ["cache_read_input_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K22 ["cache_creation_input_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K23 ["reasoning_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K24 ["timestamp"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K25 ["model"]
+  SETTABLEKS R7 R6 K17 ["totalUsage"]
+  SETTABLEKS R6 R5 K27 ["TokenUsageTracker"]
+  DUPCLOSURE R5 K28 [PROTO_0]
+  GETIMPORT R7 K16 [_G]
+  GETTABLEKS R6 R7 K27 ["TokenUsageTracker"]
+  SETTABLEKS R5 R6 K29 ["logModel"]
+  DUPCLOSURE R5 K30 [PROTO_1]
+  GETIMPORT R7 K16 [_G]
+  GETTABLEKS R6 R7 K27 ["TokenUsageTracker"]
+  SETTABLEKS R5 R6 K31 ["addUsage"]
+  DUPCLOSURE R5 K32 [PROTO_2]
+  CAPTURE VAL R3
+  DUPCLOSURE R6 K33 [PROTO_5]
+  CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R2
-  DUPCLOSURE R5 K30 [PROTO_6]
-  DUPTABLE R6 K33 [{"createAdapter", "convertLLMtoClaudeMessage"}]
-  SETTABLEKS R4 R6 K31 ["createAdapter"]
-  SETTABLEKS R5 R6 K32 ["convertLLMtoClaudeMessage"]
-  RETURN R6 1
+  CAPTURE VAL R3
+  DUPCLOSURE R7 K34 [PROTO_6]
+  DUPTABLE R8 K37 [{"createAdapter", "convertLLMtoClaudeMessage"}]
+  SETTABLEKS R6 R8 K35 ["createAdapter"]
+  SETTABLEKS R7 R8 K36 ["convertLLMtoClaudeMessage"]
+  RETURN R8 1

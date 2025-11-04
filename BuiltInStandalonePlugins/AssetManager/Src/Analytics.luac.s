@@ -135,55 +135,62 @@ MAIN:
   SETTABLEKS R7 R6 K30 ["Search"]
   GETTABLEKS R7 R3 K12 ["Enums"]
   SETTABLEKS R6 R7 K34 ["InsertSource"]
-  DUPTABLE R7 K41 [{"Enabled", "Search", "Upload", "Insert", "InsertRemains30", "InsertRemains120", "InsertRemains600"}]
-  LOADK R8 K42 ["enabled"]
-  SETTABLEKS R8 R7 K35 ["Enabled"]
-  LOADK R8 K33 ["search"]
-  SETTABLEKS R8 R7 K30 ["Search"]
-  LOADK R8 K43 ["upload"]
-  SETTABLEKS R8 R7 K36 ["Upload"]
-  LOADK R8 K44 ["insert"]
-  SETTABLEKS R8 R7 K37 ["Insert"]
-  LOADK R8 K45 ["insert_remains_30"]
-  SETTABLEKS R8 R7 K38 ["InsertRemains30"]
-  LOADK R8 K46 ["insert_remains_120"]
-  SETTABLEKS R8 R7 K39 ["InsertRemains120"]
-  LOADK R8 K47 ["insert_remains_600"]
-  SETTABLEKS R8 R7 K40 ["InsertRemains600"]
+  DUPTABLE R7 K37 [{"Grid", "List"}]
+  LOADK R8 K38 ["grid"]
+  SETTABLEKS R8 R7 K35 ["Grid"]
+  LOADK R8 K39 ["list"]
+  SETTABLEKS R8 R7 K36 ["List"]
   GETTABLEKS R8 R3 K12 ["Enums"]
-  SETTABLEKS R7 R8 K48 ["EventType"]
-  DUPCLOSURE R8 K49 [PROTO_0]
+  SETTABLEKS R7 R8 K40 ["ViewMode"]
+  DUPTABLE R8 K47 [{"Enabled", "Search", "Upload", "Insert", "InsertRemains30", "InsertRemains120", "InsertRemains600"}]
+  LOADK R9 K48 ["enabled"]
+  SETTABLEKS R9 R8 K41 ["Enabled"]
+  LOADK R9 K33 ["search"]
+  SETTABLEKS R9 R8 K30 ["Search"]
+  LOADK R9 K49 ["upload"]
+  SETTABLEKS R9 R8 K42 ["Upload"]
+  LOADK R9 K50 ["insert"]
+  SETTABLEKS R9 R8 K43 ["Insert"]
+  LOADK R9 K51 ["insert_remains_30"]
+  SETTABLEKS R9 R8 K44 ["InsertRemains30"]
+  LOADK R9 K52 ["insert_remains_120"]
+  SETTABLEKS R9 R8 K45 ["InsertRemains120"]
+  LOADK R9 K53 ["insert_remains_600"]
+  SETTABLEKS R9 R8 K46 ["InsertRemains600"]
+  GETTABLEKS R9 R3 K12 ["Enums"]
+  SETTABLEKS R8 R9 K54 ["EventType"]
+  DUPCLOSURE R9 K55 [PROTO_0]
   CAPTURE VAL R3
-  SETTABLEKS R8 R3 K50 ["setPlugin"]
-  DUPCLOSURE R8 K51 [PROTO_1]
+  SETTABLEKS R9 R3 K56 ["setPlugin"]
+  DUPCLOSURE R9 K57 [PROTO_1]
   CAPTURE VAL R3
-  SETTABLEKS R8 R3 K52 ["_sendEventSafe"]
-  DUPCLOSURE R8 K53 [PROTO_2]
+  SETTABLEKS R9 R3 K58 ["_sendEventSafe"]
+  DUPCLOSURE R9 K59 [PROTO_2]
   CAPTURE VAL R3
-  CAPTURE VAL R7
-  SETTABLEKS R8 R3 K54 ["sendInsertEvent"]
-  DUPCLOSURE R8 K55 [PROTO_3]
+  CAPTURE VAL R8
+  SETTABLEKS R9 R3 K60 ["sendInsertEvent"]
+  DUPCLOSURE R9 K61 [PROTO_3]
   CAPTURE VAL R3
-  CAPTURE VAL R7
-  SETTABLEKS R8 R3 K56 ["sendSearchEvent"]
-  DUPCLOSURE R8 K57 [PROTO_4]
+  CAPTURE VAL R8
+  SETTABLEKS R9 R3 K62 ["sendSearchEvent"]
+  DUPCLOSURE R9 K63 [PROTO_4]
   CAPTURE VAL R3
-  SETTABLEKS R8 R3 K58 ["sendInsertRemains30Event"]
-  DUPCLOSURE R8 K59 [PROTO_5]
+  SETTABLEKS R9 R3 K64 ["sendInsertRemains30Event"]
+  DUPCLOSURE R9 K65 [PROTO_5]
   CAPTURE VAL R3
-  SETTABLEKS R8 R3 K60 ["sendInsertRemains120Event"]
-  DUPCLOSURE R8 K61 [PROTO_6]
+  SETTABLEKS R9 R3 K66 ["sendInsertRemains120Event"]
+  DUPCLOSURE R9 K67 [PROTO_6]
   CAPTURE VAL R3
-  SETTABLEKS R8 R3 K62 ["sendInsertRemains600Event"]
-  DUPCLOSURE R8 K63 [PROTO_7]
+  SETTABLEKS R9 R3 K68 ["sendInsertRemains600Event"]
+  DUPCLOSURE R9 K69 [PROTO_7]
   CAPTURE VAL R3
-  CAPTURE VAL R7
-  SETTABLEKS R8 R3 K64 ["sendEnabledEvent"]
-  DUPCLOSURE R8 K65 [PROTO_8]
+  CAPTURE VAL R8
+  SETTABLEKS R9 R3 K70 ["sendEnabledEvent"]
+  DUPCLOSURE R9 K71 [PROTO_8]
   CAPTURE VAL R3
-  CAPTURE VAL R7
-  SETTABLEKS R8 R3 K66 ["sendUploadEvent"]
-  DUPCLOSURE R8 K67 [PROTO_9]
+  CAPTURE VAL R8
+  SETTABLEKS R9 R3 K72 ["sendUploadEvent"]
+  DUPCLOSURE R9 K73 [PROTO_9]
   CAPTURE VAL R2
-  SETTABLEKS R8 R3 K68 ["createSearchSessionId"]
+  SETTABLEKS R9 R3 K74 ["createSearchSessionId"]
   RETURN R3 1

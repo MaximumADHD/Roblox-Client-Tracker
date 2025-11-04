@@ -12,6 +12,7 @@ local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
+local AvatarSwitcherFtuxTooltip = require(Chrome.Integrations.AvatarSwitcher.AvatarSwitcherFtuxTooltip)
 local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -53,6 +54,7 @@ local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandSt
 
 local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 	game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false)
+local FFlagAvatarSwitcherFtuxTooltip = game:DefineFastFlag("AvatarSwitcherFtuxTooltip", false)
 
 local FIntUnibarConnectIconTooltipPriority = game:DefineFastInt("UnibarConnectTooltipPriority", 2000)
 local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
@@ -322,6 +324,11 @@ function HamburgerButton(props)
 			})
 			else nil,
 		connectTooltip,
+		if FFlagAvatarSwitcherFtuxTooltip
+			then React.createElement(AvatarSwitcherFtuxTooltip, {
+				visible = props.visible,
+			})
+			else nil,
 	})
 end
 

@@ -56,13 +56,7 @@ PROTO_4:
   LOADK R5 K17 ["Assistant"]
   SETTABLEKS R5 R4 K19 ["id"]
   GETIMPORT R5 K26 [DockWidgetPluginGuiInfo.new]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K27 ["Get"]
-  CALL R7 0 1
-  JUMPIFNOT R7 [+3]
-  GETIMPORT R6 K31 [Enum.InitialDockState.Right]
-  JUMP [+2]
-  GETIMPORT R6 K33 [Enum.InitialDockState.Bottom]
+  GETIMPORT R6 K30 [Enum.InitialDockState.Right]
   LOADB R7 0
   LOADB R8 0
   LOADN R9 128
@@ -71,17 +65,17 @@ PROTO_4:
   LOADN R12 200
   CALL R5 7 1
   SETTABLEKS R5 R4 K20 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R5 K34 [PROTO_3]
+  DUPCLOSURE R5 K31 [PROTO_3]
   SETTABLEKS R5 R4 K21 ["getDockTitle"]
-  GETIMPORT R5 K37 [Enum.ZIndexBehavior.Sibling]
+  GETIMPORT R5 K34 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R5 R4 K22 ["zIndexBehavior"]
-  SETTABLEKS R4 R3 K38 ["dockWidgetInfo"]
-  GETUPVAL R5 4
-  GETTABLEKS R4 R5 K39 ["build"]
+  SETTABLEKS R4 R3 K35 ["dockWidgetInfo"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K36 ["build"]
   MOVE R5 R3
   CALL R4 1 1
-  GETTABLEKS R5 R4 K40 ["pluginLoader"]
-  NAMECALL R5 R5 K41 ["waitForUserInteraction"]
+  GETTABLEKS R5 R4 K37 ["pluginLoader"]
+  NAMECALL R5 R5 K38 ["waitForUserInteraction"]
   CALL R5 1 1
   JUMPIF R5 [+1]
   RETURN R0 0
@@ -98,27 +92,21 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["FFlagDockAssistantRightSide"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["PluginLoader"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["PluginLoader"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K11 ["PluginLoaderBuilder"]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Resources"]
-  GETTABLEKS R5 R6 K13 ["Localization"]
-  GETTABLEKS R4 R5 K14 ["SourceStrings"]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K12 ["Resources"]
-  GETTABLEKS R6 R7 K13 ["Localization"]
-  GETTABLEKS R5 R6 K15 ["LocalizedStrings"]
-  DUPCLOSURE R6 K16 [PROTO_4]
+  GETTABLEKS R2 R1 K8 ["PluginLoaderBuilder"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Resources"]
+  GETTABLEKS R4 R5 K11 ["Localization"]
+  GETTABLEKS R3 R4 K12 ["SourceStrings"]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Resources"]
+  GETTABLEKS R5 R6 K11 ["Localization"]
+  GETTABLEKS R4 R5 K13 ["LocalizedStrings"]
+  DUPCLOSURE R5 K14 [PROTO_4]
   CAPTURE VAL R0
-  CAPTURE VAL R5
   CAPTURE VAL R4
-  CAPTURE VAL R1
   CAPTURE VAL R3
-  RETURN R6 1
+  CAPTURE VAL R2
+  RETURN R5 1

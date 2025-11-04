@@ -1,0 +1,350 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADK R3 K0 ["https://create.roblox.com/dashboard/creations/experiences/"]
+  GETUPVAL R6 1
+  GETTABLEKS R4 R6 K1 ["Id"]
+  LOADK R5 K2 ["/configure"]
+  CONCAT R2 R3 R5
+  NAMECALL R0 R0 K3 ["openLink"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADK R3 K0 ["https://create.roblox.com/dashboard/creations/experiences/"]
+  GETUPVAL R8 1
+  GETTABLEKS R4 R8 K1 ["Id"]
+  LOADK R5 K2 ["/places/"]
+  GETUPVAL R8 1
+  GETTABLEKS R6 R8 K3 ["RootPlaceId"]
+  LOADK R7 K4 ["/configure"]
+  CONCAT R2 R3 R7
+  NAMECALL R0 R0 K5 ["openLink"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADK R3 K0 ["https://www.roblox.com/games/"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["RootPlaceId"]
+  CONCAT R2 R3 R4
+  NAMECALL R0 R0 K2 ["openLink"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Id"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["PrivacyType"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Id"]
+  LOADB R2 1
+  CALL R0 2 0
+  GETUPVAL R0 2
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["Id"]
+  NAMECALL R0 R0 K1 ["removeAPIGameFromRegistry"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Id"]
+  LOADB R2 0
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Id"]
+  GETUPVAL R2 2
+  NAMECALL R2 R2 K1 ["GetUserId"]
+  CALL R2 1 -1
+  CALL R0 -1 0
+  GETUPVAL R0 3
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["Id"]
+  NAMECALL R0 R0 K2 ["removeAPIGameFromRegistry"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["FilePath"]
+  JUMPIFNOT R0 [+15]
+  GETUPVAL R0 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["FilePath"]
+  NAMECALL R0 R0 K1 ["deleteItem"]
+  CALL R0 2 0
+  GETUPVAL R0 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["FilePath"]
+  NAMECALL R0 R0 K2 ["removeLocalFileFromRegistry"]
+  CALL R0 2 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["Id"]
+  JUMPIFNOT R0 [+18]
+  GETUPVAL R0 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["Id"]
+  FASTCALL1 TOSTRING R3 [+2]
+  GETIMPORT R2 K5 [tostring]
+  CALL R2 1 1
+  NAMECALL R0 R0 K1 ["deleteItem"]
+  CALL R0 2 0
+  GETUPVAL R0 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["Id"]
+  NAMECALL R0 R0 K6 ["removeAPIGameFromRegistry"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K1 ["IsPlaceholder"]
+  JUMPIFNOT R3 [+3]
+  NEWTABLE R3 0 0
+  RETURN R3 1
+  DUPTABLE R3 K10 [{"ConfigureExperience", "ConfigurePlace", "OpenPlace", "PublicPrivateToggle", "Archive", "RestoreArchive", "RemoveShared", "RemoveRecent"}]
+  GETTABLEKS R5 R0 K11 ["Id"]
+  JUMPIFNOT R5 [+17]
+  DUPTABLE R4 K15 [{"id", "text", "onActivated"}]
+  LOADK R5 K16 ["configure-experience"]
+  SETTABLEKS R5 R4 K12 ["id"]
+  LOADK R7 K17 ["Plugin"]
+  LOADK R8 K2 ["ConfigureExperience"]
+  NAMECALL R5 R2 K18 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K13 ["text"]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K14 ["onActivated"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K2 ["ConfigureExperience"]
+  GETTABLEKS R5 R0 K11 ["Id"]
+  JUMPIFNOT R5 [+20]
+  GETTABLEKS R5 R0 K19 ["RootPlaceId"]
+  JUMPIFNOT R5 [+17]
+  DUPTABLE R4 K15 [{"id", "text", "onActivated"}]
+  LOADK R5 K20 ["configure-place"]
+  SETTABLEKS R5 R4 K12 ["id"]
+  LOADK R7 K17 ["Plugin"]
+  LOADK R8 K3 ["ConfigurePlace"]
+  NAMECALL R5 R2 K18 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K13 ["text"]
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K14 ["onActivated"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K3 ["ConfigurePlace"]
+  GETTABLEKS R5 R0 K19 ["RootPlaceId"]
+  JUMPIFNOT R5 [+17]
+  DUPTABLE R4 K15 [{"id", "text", "onActivated"}]
+  LOADK R5 K21 ["open-place"]
+  SETTABLEKS R5 R4 K12 ["id"]
+  LOADK R7 K17 ["Plugin"]
+  LOADK R8 K22 ["OpenPlacePage"]
+  NAMECALL R5 R2 K18 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K13 ["text"]
+  NEWCLOSURE R5 P2
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K14 ["onActivated"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K4 ["OpenPlace"]
+  GETTABLEKS R5 R0 K11 ["Id"]
+  JUMPIFNOT R5 [+42]
+  GETTABLEKS R5 R0 K23 ["PrivacyType"]
+  JUMPIFNOT R5 [+39]
+  GETTABLEKS R5 R0 K23 ["PrivacyType"]
+  JUMPIFEQKS R5 K24 ["Draft"] [+36]
+  DUPTABLE R4 K15 [{"id", "text", "onActivated"}]
+  LOADK R5 K25 ["public-private-toggle"]
+  SETTABLEKS R5 R4 K12 ["id"]
+  LOADK R7 K17 ["Plugin"]
+  LOADK R8 K26 ["SetPrivacy"]
+  DUPTABLE R9 K28 [{"privacy"}]
+  GETTABLEKS R11 R0 K23 ["PrivacyType"]
+  JUMPIFNOTEQKS R11 K29 ["Public"] [+7]
+  LOADK R12 K17 ["Plugin"]
+  LOADK R13 K30 ["PrivacyType.Private"]
+  NAMECALL R10 R2 K18 ["getText"]
+  CALL R10 3 1
+  JUMP [+5]
+  LOADK R12 K17 ["Plugin"]
+  LOADK R13 K31 ["PrivacyType.Public"]
+  NAMECALL R10 R2 K18 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K27 ["privacy"]
+  NAMECALL R5 R2 K18 ["getText"]
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K13 ["text"]
+  NEWCLOSURE R5 P3
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K14 ["onActivated"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K5 ["PublicPrivateToggle"]
+  GETTABLEKS R5 R0 K11 ["Id"]
+  JUMPIFNOT R5 [+18]
+  DUPTABLE R4 K15 [{"id", "text", "onActivated"}]
+  LOADK R5 K32 ["archive"]
+  SETTABLEKS R5 R4 K12 ["id"]
+  LOADK R7 K17 ["Plugin"]
+  LOADK R8 K6 ["Archive"]
+  NAMECALL R5 R2 K18 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K13 ["text"]
+  NEWCLOSURE R5 P4
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R5 R4 K14 ["onActivated"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K6 ["Archive"]
+  GETTABLEKS R5 R0 K11 ["Id"]
+  JUMPIFNOT R5 [+17]
+  DUPTABLE R4 K15 [{"id", "text", "onActivated"}]
+  LOADK R5 K33 ["restore-archive"]
+  SETTABLEKS R5 R4 K12 ["id"]
+  LOADK R7 K17 ["Plugin"]
+  LOADK R8 K34 ["Restore"]
+  NAMECALL R5 R2 K18 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K13 ["text"]
+  NEWCLOSURE R5 P5
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K14 ["onActivated"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K7 ["RestoreArchive"]
+  GETTABLEKS R5 R0 K11 ["Id"]
+  JUMPIFNOT R5 [+19]
+  DUPTABLE R4 K15 [{"id", "text", "onActivated"}]
+  LOADK R5 K35 ["remove-shared"]
+  SETTABLEKS R5 R4 K12 ["id"]
+  LOADK R7 K17 ["Plugin"]
+  LOADK R8 K36 ["Remove"]
+  NAMECALL R5 R2 K18 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K13 ["text"]
+  NEWCLOSURE R5 P6
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U1
+  SETTABLEKS R5 R4 K14 ["onActivated"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K8 ["RemoveShared"]
+  GETTABLEKS R5 R0 K11 ["Id"]
+  JUMPIF R5 [+3]
+  GETTABLEKS R5 R0 K37 ["FilePath"]
+  JUMPIFNOT R5 [+18]
+  DUPTABLE R4 K15 [{"id", "text", "onActivated"}]
+  LOADK R5 K38 ["remove-recent"]
+  SETTABLEKS R5 R4 K12 ["id"]
+  LOADK R7 K17 ["Plugin"]
+  LOADK R8 K39 ["RemoveFromList"]
+  NAMECALL R5 R2 K18 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K13 ["text"]
+  NEWCLOSURE R5 P7
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U1
+  SETTABLEKS R5 R4 K14 ["onActivated"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K9 ["RemoveRecent"]
+  NEWTABLE R4 0 0
+  MOVE R5 R1
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLE R10 R3 R9
+  JUMPIFEQKNIL R10 [+8]
+  GETTABLE R12 R3 R9
+  FASTCALL2 TABLE_INSERT R4 R12 [+4]
+  MOVE R11 R4
+  GETIMPORT R10 K42 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R5 2 [-11]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R2 R3 K9 ["Localization"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Util"]
+  GETTABLEKS R5 R6 K13 ["Services"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K14 ["StartPageManager"]
+  GETTABLEKS R6 R4 K15 ["StudioService"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Network"]
+  GETTABLEKS R8 R9 K17 ["ChangeUniverseActivity"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Network"]
+  GETTABLEKS R9 R10 K18 ["ChangeArchiveConfiguration"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Network"]
+  GETTABLEKS R10 R11 K19 ["DeleteUserFromTeamCreateUniverse"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K10 ["Src"]
+  GETTABLEKS R12 R13 K16 ["Network"]
+  GETTABLEKS R11 R12 K20 ["GameCache"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K21 [PROTO_8]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  RETURN R11 1

@@ -193,8 +193,9 @@ PROTO_5:
   GETUPVAL R16 6
   DUPTABLE R17 K38 [{"name", "size", "variant", "style", "LayoutOrder"}]
   GETUPVAL R19 7
-  JUMPIFNOT R19 [+2]
-  LOADK R18 K39 ["triangle-exclamation"]
+  JUMPIFNOT R19 [+4]
+  GETUPVAL R19 8
+  GETTABLEKS R18 R19 K39 ["TriangleExclamation"]
   JUMP [+1]
   LOADK R18 K40 ["icons/status/alert"]
   SETTABLEKS R18 R17 K34 ["name"]
@@ -203,11 +204,15 @@ PROTO_5:
   GETTABLEKS R19 R1 K41 ["Size"]
   GETTABLEKS R18 R19 K42 ["Size_800"]
   JUMP [+3]
-  GETUPVAL R19 8
+  GETUPVAL R19 9
   GETTABLEKS R18 R19 K43 ["Medium"]
   SETTABLEKS R18 R17 K35 ["size"]
-  GETUPVAL R19 9
+  GETUPVAL R19 7
+  JUMPIFNOT R19 [+4]
+  GETUPVAL R19 10
   GETTABLEKS R18 R19 K44 ["Filled"]
+  JUMP [+1]
+  LOADNIL R18
   SETTABLEKS R18 R17 K36 ["variant"]
   DUPTABLE R18 K45 [{"Color3"}]
   SETTABLEKS R5 R18 K1 ["Color3"]
@@ -227,7 +232,7 @@ PROTO_5:
   DUPTABLE R18 K49 [{"Title", "Body"}]
   GETUPVAL R20 3
   GETTABLEKS R19 R20 K19 ["createElement"]
-  GETUPVAL R20 10
+  GETUPVAL R20 11
   DUPTABLE R21 K52 [{"Text", "tag", "textStyle", "LayoutOrder"}]
   GETTABLEKS R22 R0 K53 ["title"]
   SETTABLEKS R22 R21 K50 ["Text"]
@@ -256,7 +261,7 @@ PROTO_5:
   NEWTABLE R22 0 2
   GETUPVAL R24 3
   GETTABLEKS R23 R24 K19 ["createElement"]
-  GETUPVAL R24 10
+  GETUPVAL R24 11
   DUPTABLE R25 K58 [{"Text", "tag", "textStyle"}]
   GETTABLEKS R26 R0 K59 ["body"]
   SETTABLEKS R26 R25 K50 ["Text"]
@@ -273,7 +278,7 @@ PROTO_5:
   CALL R23 2 1
   GETUPVAL R25 3
   GETTABLEKS R24 R25 K19 ["createElement"]
-  GETUPVAL R25 11
+  GETUPVAL R25 12
   DUPTABLE R26 K66 [{"text", "onActivated", "textColor", "showUnderline", "underlineColor"}]
   GETTABLEKS R28 R0 K67 ["action"]
   GETTABLEKS R27 R28 K61 ["text"]
@@ -305,7 +310,7 @@ PROTO_5:
   JUMPIFNOT R12 [+32]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K19 ["createElement"]
-  GETUPVAL R12 12
+  GETUPVAL R12 13
   DUPTABLE R13 K70 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
   GETTABLEKS R15 R0 K69 ["secondaryAction"]
   GETTABLEKS R14 R15 K61 ["text"]
@@ -313,10 +318,10 @@ PROTO_5:
   GETTABLEKS R15 R0 K69 ["secondaryAction"]
   GETTABLEKS R14 R15 K68 ["onClick"]
   SETTABLEKS R14 R13 K62 ["onActivated"]
-  GETUPVAL R15 13
+  GETUPVAL R15 14
   GETTABLEKS R14 R15 K71 ["Standard"]
   SETTABLEKS R14 R13 K36 ["variant"]
-  GETUPVAL R15 14
+  GETUPVAL R15 15
   GETTABLEKS R14 R15 K72 ["Small"]
   SETTABLEKS R14 R13 K35 ["size"]
   LOADN R14 2
@@ -329,7 +334,7 @@ PROTO_5:
   JUMPIFNOT R12 [+35]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K19 ["createElement"]
-  GETUPVAL R12 15
+  GETUPVAL R12 16
   DUPTABLE R13 K74 [{"onActivated", "icon", "size", "variant", "LayoutOrder"}]
   NEWCLOSURE R14 P0
   CAPTURE VAL R0
@@ -337,14 +342,14 @@ PROTO_5:
   DUPTABLE R14 K75 [{"name", "variant"}]
   LOADK R15 K76 ["icons/navigation/close_small"]
   SETTABLEKS R15 R14 K34 ["name"]
-  GETUPVAL R16 9
+  GETUPVAL R16 10
   GETTABLEKS R15 R16 K44 ["Filled"]
   SETTABLEKS R15 R14 K36 ["variant"]
   SETTABLEKS R14 R13 K73 ["icon"]
-  GETUPVAL R15 8
+  GETUPVAL R15 9
   GETTABLEKS R14 R15 K43 ["Medium"]
   SETTABLEKS R14 R13 K35 ["size"]
-  GETUPVAL R15 13
+  GETUPVAL R15 14
   GETTABLEKS R14 R15 K77 ["Utility"]
   SETTABLEKS R14 R13 K36 ["variant"]
   LOADN R14 3
@@ -353,13 +358,13 @@ PROTO_5:
   JUMP [+29]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K19 ["createElement"]
-  GETUPVAL R12 16
+  GETUPVAL R12 17
   DUPTABLE R13 K81 [{"onActivated", "stateLayer", "onStateChanged", "tag", "Image", "LayoutOrder"}]
   NEWCLOSURE R14 P1
   CAPTURE VAL R0
   SETTABLEKS R14 R13 K62 ["onActivated"]
   DUPTABLE R14 K83 [{"affordance"}]
-  GETUPVAL R16 17
+  GETUPVAL R16 18
   GETTABLEKS R15 R16 K84 ["None"]
   SETTABLEKS R15 R14 K82 ["affordance"]
   SETTABLEKS R14 R13 K78 ["stateLayer"]
@@ -424,11 +429,10 @@ MAIN:
   GETTABLEKS R16 R17 K27 ["Theme"]
   GETTABLEKS R18 R2 K23 ["Enums"]
   GETTABLEKS R17 R18 K28 ["StateLayerAffordance"]
-  GETIMPORT R18 K5 [require]
-  GETTABLEKS R20 R0 K6 ["Packages"]
-  GETTABLEKS R19 R20 K29 ["BuilderIcons"]
-  CALL R18 1 1
-  GETTABLEKS R19 R18 K30 ["IconVariant"]
+  GETTABLEKS R19 R2 K23 ["Enums"]
+  GETTABLEKS R18 R19 K29 ["IconName"]
+  GETTABLEKS R20 R2 K23 ["Enums"]
+  GETTABLEKS R19 R20 K30 ["IconVariant"]
   GETIMPORT R20 K5 [require]
   GETTABLEKS R24 R0 K8 ["Src"]
   GETTABLEKS R23 R24 K10 ["Foundation"]
@@ -451,6 +455,7 @@ MAIN:
   CAPTURE VAL R20
   CAPTURE VAL R10
   CAPTURE VAL R5
+  CAPTURE VAL R18
   CAPTURE VAL R13
   CAPTURE VAL R19
   CAPTURE VAL R9

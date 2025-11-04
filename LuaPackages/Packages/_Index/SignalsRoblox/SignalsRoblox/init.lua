@@ -1,6 +1,4 @@
-local SignalsRoblox = require(script.SignalsRoblox)
-
 return {
-	createRBXEventSignal = SignalsRoblox.createRBXEventSignal,
-	createDetachedEffect = SignalsRoblox.createDetachedEffect,
+	createRBXEventSignal = require(script.createRBXEventSignal),
+	createDetachedEffect = require(script.createDetachedEffect),
 }

@@ -136,6 +136,9 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 
 	if not success then
 		-- TODO: Log fetch failure and reason
+		if getFFlagDebugUGCValidationPrintNewStructureResults() then
+			print("Storing quality placeholder due to", _errors)
+		end
 		sharedData.qualityResults = QUALITY_FETCH_FAILURE_PLACEHOLDER
 	end
 	gltfScene:Destroy()

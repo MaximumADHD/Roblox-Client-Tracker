@@ -46,8 +46,7 @@ ValidationEnums.ValidationModule = {
     Enum naming rules:
         - Unique
         - Short (<= 3 words, with a hard limit at 4 words)
-        - Capitalized, with underscores for spaces
-		
+        - Title case
         - Human readable and describes the expectation for PROPER marketplace uploads
 			- Good examples: HeadIsDynamic, CagingIsRelevant, AccurateBoundingBox, AssetVisible
 			- Bad example: DynamicHead, Tags, ValidateMeshSize

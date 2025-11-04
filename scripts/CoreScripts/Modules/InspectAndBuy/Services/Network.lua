@@ -13,6 +13,7 @@ local Url = require(CorePackages.Workspace.Packages.Http).Url
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 type AvatarPreviewResponse = AvatarExperienceInspectAndBuy.AvatarPreviewResponse
+type BatchItemDetailsRequest = AvatarExperienceInspectAndBuy.BatchItemDetailsRequest
 
 local DEVELOPER_URL = string.format("https://develop.%s", Url.DOMAIN)
 
@@ -103,6 +104,26 @@ local function getBatchItemDetails(itemIds, itemType)
 			reject("Failure in batchGetItemDetails: ", tostring(result))
 		end
 	end)
+end
+
+--[[
+	Get the details for a batch of items. AES requires you to either passs all assets or all bundles
+	at once. If you call the API directly, you can pass one payload with both assets and bundles
+	combined, minimizing the number of API calls.
+]]
+local function getBatchItemDetailsV2(items: { BatchItemDetailsRequest })
+	local url = Url.CATALOG_URL .. "v1/catalog/items/details"
+	local options = {
+		Url = url,
+		Method = "POST",
+		Body = HttpService:JSONEncode({
+			items = items,
+		}),
+		Headers = {
+			["Content-Type"] = "application/json",
+		},
+	}
+	return createYieldingPromise(options, true)
 end
 
 --[[
@@ -417,6 +438,7 @@ function Network.new()
 		getItemDetails = getItemDetails,
 		getPreviewAvatar = getPreviewAvatar,
 		getBatchItemDetails = getBatchItemDetails,
+		getBatchItemDetailsV2 = getBatchItemDetailsV2,
 	}
 
 	setmetatable(networkService, {

@@ -28,6 +28,7 @@ local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
 
+local getFFlagUGCValidateMeshBBoxIsCentered = require(root.flags.getFFlagUGCValidateMeshBBoxIsCentered)
 local getFFlagUGCValidateLCHandleScale = require(root.flags.getFFlagUGCValidateLCHandleScale)
 local getFFlagUGCValidatePartMass = require(root.flags.getFFlagUGCValidatePartMass)
 local getFFlagUGCValidateIndividualPartBBoxes = require(root.flags.getFFlagUGCValidateIndividualPartBBoxes)
@@ -40,18 +41,15 @@ local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagRe
 local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
 local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
 	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
-local getFFlagUGCValidateIncorrectNumericalData = require(root.flags.getFFlagUGCValidateIncorrectNumericalData)
 local getFFlagUGCValidateRestrictAnimationMovement = require(root.flags.getFFlagUGCValidateRestrictAnimationMovement)
 local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
-local getFFlagUGCValidateStopNaNsInfsInAnimationKeys =
-	require(root.flags.getFFlagUGCValidateStopNaNsInfsInAnimationKeys)
-local getFFlagUGCValidateStopNaNsInfsInCalculatedData =
-	require(root.flags.getFFlagUGCValidateStopNaNsInfsInCalculatedData)
 local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
 	require(root.flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
-local getEngineFeatureUGCValidateCheckHSRFileData = require(root.flags.getEngineFeatureUGCValidateCheckHSRFileData)
+local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
+
+local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 
 local function joinTables(...)
 	local result = {}
@@ -87,15 +85,6 @@ Analytics.ErrorType = {
 	validateBodyPartChildAttachmentBounds_InvalidAttachmentPosition = "validateBodyPartChildAttachmentBounds_InvalidAttachmentPosition",
 	validateBodyPartCollisionFidelity = "validateBodyPartCollisionFidelity",
 	validateBodyPartMeshBounds_FailedToLoadMesh = "validateBodyPartMeshBounds_FailedToLoadMesh",
-	validateCageMeshIntersection_AverageOuterCageToMeshVertDistances = "validateCageMeshIntersection_AverageOuterCageToMeshVertDistances",
-	validateCageMeshIntersection_FailedToExecute = "validateCageMeshIntersection_FailedToExecute",
-	validateCageMeshIntersection_Intersection = "validateCageMeshIntersection_Intersection",
-	validateCageMeshIntersection_InvalidRefMeshId = "validateCageMeshIntersection_InvalidRefMeshId",
-	validateCageMeshIntersection_IrrelevantCageModified = "validateCageMeshIntersection_IrrelevantCageModified",
-	validateCageMeshIntersection_OuterCageFarExtendedFromMesh = "validateCageMeshIntersection_OuterCageFarExtendedFromMesh",
-	validateCageNonManifoldAndHoles_CageHoles = "validateCageNonManifoldAndHoles_CageHoles",
-	validateCageNonManifoldAndHoles_FailedToExecute = "validateCageNonManifoldAndHoles_FailedToExecute",
-	validateCageNonManifoldAndHoles_NonManifold = "validateCageNonManifoldAndHoles_NonManifold",
 	validateCageUVs_TestExecutedSuccessfully = "validateCageUVs_TestExecutedSuccessfully",
 	validateCageUVs_TestPassed = "validateCageUVs_TestPassed",
 	validateCageUVTriangleArea_FailedToLoadMesh = "validateCageUVTriangleArea_FailedToLoadMesh",
@@ -117,8 +106,6 @@ Analytics.ErrorType = {
 	validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh = "validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh",
 	validateFullBody_IncorrectAssetTypeSet = "validateFullBody_IncorrectAssetTypeSet",
 	validateFullBody_InstancesMissing = "validateFullBody_InstancesMissing",
-	validateFullBodyCageDeletion_FailedToExecute = "validateFullBodyCageDeletion_FailedToExecute",
-	validateFullBodyCageDeletion_GeometryRemoved = "validateFullBodyCageDeletion_GeometryRemoved",
 	validateFullBody_MeshIdsMissing = "validateFullBody_MeshIdsMissing",
 	validateHSR_HSRDataNotReady = "validateHSR_HSRDataNotReady",
 	validateHSR_NoWrapLayer = "validateHSR_NoWrapLayer",
@@ -154,14 +141,10 @@ Analytics.ErrorType = {
 	validateMeshTriangles_TooManyTriangles = "validateMeshTriangles_TooManyTriangles",
 	validateMeshVertexColors_FailedToLoadMesh = "validateMeshVertexColors_FailedToLoadMesh",
 	validateMeshVertexColors_NonNeutralVertexColors = "validateMeshVertexColors_NonNeutralVertexColors",
-	validateMisMatchUV_FailedToExecute = "validateMisMatchUV_FailedToExecute",
-	validateMisMatchUV_UVMismatch = "validateMisMatchUV_UVMismatch",
 	validateModeration_AssetsHaveNotPassedModeration = "validateModeration_AssetsHaveNotPassedModeration",
 	validateModeration_CouldNotFetchModerationDetails = "validateModeration_CouldNotFetchModerationDetails",
 	validateModeration_FailedToParse = "validateModeration_FailedToParse",
 	validateModeration_ValidateUser = "validateModeration_ValidateUser",
-	validateOverlappingVertices_FailedToExecute = "validateOverlappingVertices_FailedToExecute",
-	validateOverlappingVertices_OverlappingVertices = "validateOverlappingVertices_OverlappingVertices",
 	validatePackage_FailedToParse = "validatePackage_FailedToParse",
 	validateProperties_PropertyDoesNotExist = "validateProperties_PropertyDoesNotExist",
 	validateProperties_PropertyMismatch = "validateProperties_PropertyMismatch",
@@ -200,7 +183,12 @@ Analytics.ErrorType = {
 	validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly = "validateRenderMeshInsideModifiedOuterCageArea_RenderMeshNotPositionedCorrectly",
 	validateBodyPartCage_FailedToExecute = "validateBodyPartCage_FailedToExecute",
 	validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh = "validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh",
+	validateCurveAnimation_IncorrectNumericalData = "validateCurveAnimation_IncorrectNumericalData",
 }
+
+if getFFlagUGCValidateMeshBBoxIsCentered() then
+	Analytics.ErrorType.validateMeshBounds_Shifted = "validateMeshBounds_Shifted"
+end
 
 if getEngineFeatureUGCValidationFullBodyFacs() then
 	Analytics.ErrorType.validateEachBodyPartFacsBounds_FailedToExecute =
@@ -285,14 +273,6 @@ Analytics.ErrorType.validateCurveAnimation_UnacceptableLength = "validateCurveAn
 Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds = "validateCurveAnimation_UnacceptableSizeBounds"
 Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta = "validateCurveAnimation_UnacceptableFrameDelta"
 
-if
-	getFFlagUGCValidateIncorrectNumericalData()
-	or getFFlagUGCValidateStopNaNsInfsInAnimationKeys()
-	or getFFlagUGCValidateStopNaNsInfsInCalculatedData()
-then
-	Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData = "validateCurveAnimation_IncorrectNumericalData"
-end
-
 if getFFlagUGCValidateRestrictAnimationMovement() then
 	Analytics.ErrorType.validateCurveAnimation_PositionalMovement = "validateCurveAnimation_PositionalMovement"
 end
@@ -321,12 +301,16 @@ if getEngineUGCValidateRelativeSkinningTransfer() then
 	Analytics.ErrorType.validateSkinningTransfer_Weights = "validateSkinningTransfer_Weights"
 end
 
+if getFFlagUGCValidationEyebrowEyelashSupport() then
+	Analytics.ErrorType.validateSkinningTransfer_RequiredAssetTypes = "validateSkinningTransfer_RequiredAssetTypes"
+end
+
 if getEngineFeatureEngineUGCValidatePropertiesSensible() then
 	Analytics.ErrorType.validatePropertiesSensible_IncorrectPropertiesFound =
 		"validatePropertiesSensible_IncorrectPropertiesFound"
 end
 
-if getEngineFeatureUGCValidateCheckHSRFileData() then
+if getFFlagUGCValidateCheckHSRFileDataFix() then
 	Analytics.ErrorType.validateHSR_FileDataInvalid = "validateHSR_FileDataInvalid"
 end
 

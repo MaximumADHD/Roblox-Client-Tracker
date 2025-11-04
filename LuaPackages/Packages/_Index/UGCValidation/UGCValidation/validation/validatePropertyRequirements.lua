@@ -39,8 +39,7 @@ local Types = require(root.util.Types)
 local valueToString = require(root.util.valueToString)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
-local getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed =
-	require(root.flags.getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed)
+local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 
 local EPSILON = 1e-5
 
@@ -67,7 +66,7 @@ local function doesPropertyMatchExpectations(currentValue: any, expectedValue: a
 		return currentValue == nil
 	end
 
-	if getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed() then
+	if getFFlagUGCValidationEyebrowEyelashSupport() then
 		if typeof(expectedValue) == "table" and comparitorMethod == Constants.COMPARISON_METHODS.FOUND_IN then
 			local result = false
 			for _, v in expectedValue do

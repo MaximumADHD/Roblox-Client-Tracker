@@ -235,11 +235,12 @@ if FFlagAXEnableInspectAndBuyBulkPurchase then
 					end
 				end
 
-				-- if the item is a shop-only item, skip it
+				-- if the item is shop-only, skip it unless it is a limited with no original stock
 				if
 					FFlagFilterOutShopOnlyItemsOnBulkPurchase
 					and ShopOnlySalesLocationTypes
 					and item.saleLocationType == ShopOnlySalesLocationTypes.ShopOnly
+					and not (item.unitsAvailableForConsumption == 0 and isLimited(item)) 
 				then
 					continue
 				end

@@ -156,8 +156,8 @@ PROTO_6:
   GETTABLEKS R2 R3 K4 ["beginEditingAsync"]
   MOVE R3 R0
   MOVE R4 R1
-  CALL R2 2 0
-  RETURN R0 0
+  CALL R2 2 -1
+  RETURN R2 -1
 
 PROTO_7:
   GETUPVAL R4 0
@@ -339,27 +339,30 @@ MAIN:
   GETTABLEKS R4 R5 K10 ["Observable"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R5 R0 K11 ["PropertyTypes"]
+  GETTABLEKS R5 R0 K11 ["PropertyEditorTypes"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R6 R0 K12 ["RpcTypes"]
+  GETTABLEKS R6 R0 K12 ["PropertyTypes"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K13 ["createSessionInstancePicker"]
+  GETTABLEKS R7 R0 K13 ["RpcTypes"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Util"]
-  GETTABLEKS R8 R9 K14 ["propertyIdToString"]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K14 ["createSessionInstancePicker"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R10 R0 K9 ["Util"]
-  GETTABLEKS R9 R10 K15 ["samePropertyId"]
+  GETTABLEKS R9 R10 K15 ["propertyIdToString"]
   CALL R8 1 1
-  DUPCLOSURE R9 K16 [PROTO_9]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K9 ["Util"]
+  GETTABLEKS R10 R11 K16 ["samePropertyId"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K17 [PROTO_9]
   CAPTURE VAL R3
   CAPTURE VAL R1
+  CAPTURE VAL R9
   CAPTURE VAL R8
   CAPTURE VAL R7
-  CAPTURE VAL R6
-  RETURN R9 1
+  RETURN R10 1

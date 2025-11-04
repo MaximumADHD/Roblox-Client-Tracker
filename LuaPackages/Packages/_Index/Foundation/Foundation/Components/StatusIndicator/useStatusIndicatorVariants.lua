@@ -27,7 +27,10 @@ function variantsFactory(tokens: Tokens)
 			tag = "radius-circle",
 		},
 		content = {
-			tag = "auto-xy text-caption-small",
+			tag = {
+				["auto-xy text-caption-small"] = true,
+				["text-align-x-left"] = Flags.FoundationFixBadgeAndIndicatorTextAlignment,
+			},
 		},
 	}
 

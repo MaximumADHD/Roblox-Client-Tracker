@@ -65,21 +65,34 @@ MAIN:
   GETIMPORT R1 K5 [require]
   GETTABLEKS R4 R0 K6 ["Src"]
   GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["getFFlagIncludeBodyColorsInAutoSetup"]
+  GETTABLEKS R2 R3 K8 ["getFFlagAvatarPreviewerMakeup"]
   CALL R1 1 1
-  NEWTABLE R2 0 9
-  LOADK R3 K9 ["Animation"]
-  LOADK R4 K10 ["Attachment"]
-  LOADK R5 K11 ["BasePart"]
-  LOADK R6 K12 ["BaseWrap"]
-  LOADK R7 K13 ["DataModelMesh"]
-  LOADK R8 K14 ["FaceControls"]
-  LOADK R9 K15 ["Humanoid"]
-  LOADK R10 K16 ["SurfaceAppearance"]
-  LOADK R11 K17 ["ValueBase"]
-  SETLIST R2 R3 9 [1]
-  DUPCLOSURE R3 K18 [PROTO_0]
-  CAPTURE VAL R2
-  CAPTURE VAL R1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["getFFlagIncludeBodyColorsInAutoSetup"]
+  CALL R2 1 1
+  NEWTABLE R3 0 9
+  LOADK R4 K10 ["Animation"]
+  LOADK R5 K11 ["Attachment"]
+  LOADK R6 K12 ["BasePart"]
+  LOADK R7 K13 ["BaseWrap"]
+  LOADK R8 K14 ["DataModelMesh"]
+  LOADK R9 K15 ["FaceControls"]
+  LOADK R10 K16 ["Humanoid"]
+  LOADK R11 K17 ["SurfaceAppearance"]
+  LOADK R12 K18 ["ValueBase"]
+  SETLIST R3 R4 9 [1]
+  MOVE R4 R1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+7]
+  FASTCALL2K TABLE_INSERT R3 K19 [+5]
+  MOVE R5 R3
+  LOADK R6 K19 ["WrapTextureTransfer"]
+  GETIMPORT R4 K22 [table.insert]
+  CALL R4 2 0
+  DUPCLOSURE R4 K23 [PROTO_0]
   CAPTURE VAL R3
-  RETURN R3 1
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R4 1

@@ -101,8 +101,36 @@ PROTO_0:
   LOADB R3 0
   GETUPVAL R13 6
   CALL R13 0 1
-  JUMPIFNOT R13 [+22]
+  JUMPIFNOT R13 [+58]
   GETUPVAL R13 7
+  CALL R13 0 1
+  JUMPIFNOT R13 [+33]
+  GETTABLEKS R13 R2 K20 ["assetTypeEnum"]
+  GETIMPORT R14 K24 [Enum.AssetType.Eyebrow]
+  JUMPIFEQ R13 R14 [+50]
+  GETIMPORT R14 K26 [Enum.AssetType.Eyelash]
+  JUMPIFEQ R13 R14 [+46]
+  GETUPVAL R14 8
+  MOVE R15 R11
+  MOVE R16 R12
+  MOVE R17 R1
+  GETTABLEKS R18 R6 K14 ["ReferenceOrigin"]
+  GETTABLEKS R19 R6 K16 ["CageOrigin"]
+  MOVE R20 R2
+  CALL R14 6 2
+  JUMPIF R14 [+34]
+  MOVE R17 R4
+  GETIMPORT R18 K18 [table.concat]
+  MOVE R19 R15
+  LOADK R20 K19 ["
+"]
+  CALL R18 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R16 K13 [table.insert]
+  CALL R16 -1 0
+  LOADB R3 0
+  JUMP [+22]
+  GETUPVAL R13 8
   MOVE R14 R11
   MOVE R15 R12
   MOVE R16 R1
@@ -121,10 +149,10 @@ PROTO_0:
   GETIMPORT R15 K13 [table.insert]
   CALL R15 -1 0
   LOADB R3 0
-  GETUPVAL R13 8
+  GETUPVAL R13 9
   CALL R13 0 1
   JUMPIFNOT R13 [+18]
-  GETUPVAL R13 9
+  GETUPVAL R13 10
   MOVE R14 R11
   MOVE R15 R12
   MOVE R16 R1
@@ -141,8 +169,8 @@ PROTO_0:
   GETIMPORT R15 K13 [table.insert]
   CALL R15 -1 0
   LOADB R3 0
-  GETUPVAL R14 10
-  GETTABLEKS R13 R14 K20 ["validate"]
+  GETUPVAL R14 11
+  GETTABLEKS R13 R14 K27 ["validate"]
   MOVE R14 R11
   GETTABLEKS R15 R6 K14 ["ReferenceOrigin"]
   MOVE R16 R12
@@ -162,23 +190,23 @@ PROTO_0:
   CALL R15 -1 0
   LOADB R3 0
   JUMPIF R3 [+33]
-  GETUPVAL R13 11
+  GETUPVAL R13 12
   CALL R13 0 1
-  JUMPIFEQKS R13 K21 [""] [+27]
+  JUMPIFEQKS R13 K28 [""] [+27]
   LOADNIL R13
-  GETUPVAL R14 12
+  GETUPVAL R14 13
   CALL R14 0 1
   JUMPIFNOT R14 [+8]
-  GETIMPORT R14 K24 [string.format]
-  LOADK R15 K25 ["[Caging best practices](%s)"]
-  GETUPVAL R16 11
+  GETIMPORT R14 K31 [string.format]
+  LOADK R15 K32 ["[Caging best practices](%s)"]
+  GETUPVAL R16 12
   CALL R16 0 -1
   CALL R14 -1 1
   MOVE R13 R14
   JUMP [+7]
-  GETIMPORT R14 K24 [string.format]
-  LOADK R15 K26 ["To better understand caging requirements, please visit %s"]
-  GETUPVAL R16 11
+  GETIMPORT R14 K31 [string.format]
+  LOADK R15 K33 ["To better understand caging requirements, please visit %s"]
+  GETUPVAL R16 12
   CALL R16 0 -1
   CALL R14 -1 1
   MOVE R13 R14
@@ -224,48 +252,53 @@ MAIN:
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
   GETTABLEKS R9 R0 K7 ["flags"]
-  GETTABLEKS R8 R9 K13 ["getEngineFeatureEngineUGCValidationCageUVDuplicates"]
+  GETTABLEKS R8 R9 K13 ["getFFlagUGCValidationEyebrowEyelashSupport"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
-  GETTABLEKS R10 R0 K5 ["validation"]
-  GETTABLEKS R9 R10 K14 ["validateVerticesSimilarity"]
+  GETTABLEKS R10 R0 K7 ["flags"]
+  GETTABLEKS R9 R10 K14 ["getEngineFeatureEngineUGCValidationCageUVDuplicates"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
   GETTABLEKS R11 R0 K5 ["validation"]
-  GETTABLEKS R10 R11 K15 ["validateLCCagingRelevancy"]
+  GETTABLEKS R10 R11 K15 ["validateVerticesSimilarity"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
   GETTABLEKS R12 R0 K5 ["validation"]
-  GETTABLEKS R11 R12 K16 ["validateRenderMeshInsideOuterCageMesh"]
+  GETTABLEKS R11 R12 K16 ["validateLCCagingRelevancy"]
   CALL R10 1 1
   GETIMPORT R11 K4 [require]
   GETTABLEKS R13 R0 K5 ["validation"]
-  GETTABLEKS R12 R13 K17 ["validateCageMeshDistance"]
+  GETTABLEKS R12 R13 K17 ["validateRenderMeshInsideOuterCageMesh"]
   CALL R11 1 1
   GETIMPORT R12 K4 [require]
   GETTABLEKS R14 R0 K5 ["validation"]
-  GETTABLEKS R13 R14 K18 ["validateCageUVDuplicates"]
+  GETTABLEKS R13 R14 K18 ["validateCageMeshDistance"]
   CALL R12 1 1
   GETIMPORT R13 K4 [require]
   GETTABLEKS R15 R0 K5 ["validation"]
-  GETTABLEKS R14 R15 K19 ["ValidateModifiedCageArea"]
+  GETTABLEKS R14 R15 K19 ["validateCageUVDuplicates"]
   CALL R13 1 1
   GETIMPORT R14 K4 [require]
-  GETTABLEKS R16 R0 K20 ["util"]
-  GETTABLEKS R15 R16 K21 ["Types"]
+  GETTABLEKS R16 R0 K5 ["validation"]
+  GETTABLEKS R15 R16 K20 ["ValidateModifiedCageArea"]
   CALL R14 1 1
-  DUPCLOSURE R15 K22 [PROTO_0]
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R17 R0 K21 ["util"]
+  GETTABLEKS R16 R17 K22 ["Types"]
+  CALL R15 1 1
+  DUPCLOSURE R16 K23 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R2
-  CAPTURE VAL R8
-  CAPTURE VAL R3
   CAPTURE VAL R9
+  CAPTURE VAL R3
   CAPTURE VAL R10
-  CAPTURE VAL R5
   CAPTURE VAL R11
+  CAPTURE VAL R5
   CAPTURE VAL R7
   CAPTURE VAL R12
+  CAPTURE VAL R8
   CAPTURE VAL R13
+  CAPTURE VAL R14
   CAPTURE VAL R4
   CAPTURE VAL R6
-  RETURN R15 1
+  RETURN R16 1

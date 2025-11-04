@@ -44,6 +44,7 @@ local FFlagWindowDragDetection = game:DefineFastFlag("WindowDragDetection", fals
 local FIntWindowMinDragDistance = game:DefineFastInt("WindowMinDragDistance", 25)
 
 local FFlagFixWindowStyleSheets = game:DefineFastFlag("FixWindowStyleSheets", false)
+local FFlagFixWindowDragError = game:DefineFastFlag("FixWindowDragError", false)
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
@@ -283,12 +284,16 @@ local WindowHost = function(props: WindowHostProps)
 					X = math.clamp(
 						(frameStartPosition).X,
 						0,
-						parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
+						if FFlagFixWindowDragError
+							then math.max(0, parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X))
+							else parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
 					),
 					Y = math.clamp(
 						(frameStartPosition).Y,
 						0,
-						parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
+						if FFlagFixWindowDragError
+							then math.max(0, parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y))
+							else parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
 					),
 				}
 				frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
@@ -310,12 +315,22 @@ local WindowHost = function(props: WindowHostProps)
 							X = math.clamp(
 								(delta + frameStartPosition).X,
 								anchorPosition.X,
-								parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
+								if FFlagFixWindowDragError
+									then math.max(
+										anchorPosition.X,
+										parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
+									)
+									else parentScreenSize.X - (frameWidth:getValue() - anchorPosition.X)
 							),
 							Y = math.clamp(
 								(delta + frameStartPosition).Y,
 								anchorPosition.Y,
-								parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
+								if FFlagFixWindowDragError
+									then math.max(
+										anchorPosition.Y,
+										parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
+									)
+									else parentScreenSize.Y - (frameHeight:getValue() - anchorPosition.Y)
 							),
 						}
 

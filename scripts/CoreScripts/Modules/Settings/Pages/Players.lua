@@ -144,6 +144,10 @@ local GetFFlagDisableMuteAllCheckForIsMuted =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagDisableMuteAllCheckForIsMuted)
 local GetFFlagDestroyPlayerCardOnLeave =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagDestroyPlayerCardOnLeave)
+local GetFFlagEnableConsoleJoinVoice =
+	require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableConsoleJoinVoice)
+local FFlagEnableConsoleJoinVoiceTranslation = game:DefineFastFlag("EnableConsoleJoinVoiceTranslation", false)
+local FFlagCheckButtonFrameBeforeDestroy = game:DefineFastFlag("CheckButtonFrameBeforeDestroy", false)
 
 local isEngineTruncationEnabledForIngameSettings =
 	require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
@@ -155,6 +159,7 @@ local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerLis
 local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionMuteButton", false)
 local FIntSettingsHubPlayersButtonsResponsiveThreshold =
 	game:DefineFastInt("SettingsHubPlayersButtonsResponsiveThreshold", 200)
+local FFlagNullCheckPlayersNameLabel = game:DefineFastFlag("NullCheckPlayersNameLabel", false)
 local GetFFlagCleanupMuteSelfButton = require(RobloxGui.Modules.Settings.Flags.GetFFlagCleanupMuteSelfButton)
 local BUTTON_ROW_HORIZONTAL_PADDING = 20
 local BUTTON_ROW_VERTICAL_PADDING = 16
@@ -372,6 +377,7 @@ local function Initialize()
 	local shareGameButton
 	local muteAllButton
 	local muteSelfButton
+	local joinVoiceButton
 	local muteImageButtons = {}
 	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Players")
 	local updateButtonsLayout
@@ -398,6 +404,10 @@ local function Initialize()
 
 		if muteSelfButton then
 			table.insert(primaryButtons, muteSelfButton)
+		end
+
+		if GetFFlagEnableConsoleJoinVoice() and joinVoiceButton then
+			table.insert(primaryButtons, joinVoiceButton)
 		end
 
 		lastUsedColumnLayout = getUsedColumnLayout()
@@ -448,8 +458,15 @@ local function Initialize()
 				buttonFrame[property] = value
 			end
 		else
-			buttonFrame:Destroy()
-			buttonFrame = nil
+			if FFlagCheckButtonFrameBeforeDestroy then
+				if buttonFrame then
+					buttonFrame:Destroy()
+					buttonFrame = nil
+				end
+			else
+				buttonFrame:Destroy()
+				buttonFrame = nil
+			end
 		end
 	end
 
@@ -971,6 +988,7 @@ local function Initialize()
 	local createShareGameButton = nil
 	local createMuteAllButton = nil
 	local createMuteSelfButton = nil
+	local createJoinVoiceButton = nil
 	local createPlayerRow = nil
 
 	local voiceChatServiceConnected = false
@@ -996,6 +1014,26 @@ local function Initialize()
 			muteSelfButtonMuteChangedEvent = nil
 		end
 		updateButtonsLayout()
+	end
+
+	local function joinVoiceButtonRemove()
+		if joinVoiceButton then
+			joinVoiceButton.Visible = false
+			joinVoiceButton:Destroy()
+			joinVoiceButton = nil
+		end
+		updateButtonsLayout()
+	end
+
+	local function shouldShowJoinVoiceButton()
+		return GetFFlagEnableConsoleJoinVoice()
+			and game:GetEngineFeature("VoiceChatSupported")
+			and not voiceChatServiceConnected
+			and not ChromeEnabled
+			and VoiceChatServiceManager:verifyUniverseAndPlaceCanUseVoice()
+			and VoiceChatServiceManager:ShouldShowJoinVoiceOnDisconnect()
+			and VoiceChatServiceManager:GetVoiceConnectCookie() == ""
+			and VoiceChatServiceManager:HasSeamlessVoiceFeature("InitialJoinVoice")
 	end
 
 	local function createRow(frameClassName, hasSecondRow, usesMigratedIcon: boolean?)
@@ -1062,7 +1100,10 @@ local function Initialize()
 		frame.Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT)
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
-		if voiceChatServiceConnected then
+		if voiceChatServiceConnected
+			or (GetFFlagEnableConsoleJoinVoice()
+				and shouldShowJoinVoiceButton())
+		then
 			frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
 			textLabel.Size = UDim2.new(1, -LABEL_POSX, 0, 0)
 			textLabel.TextTruncate = Enum.TextTruncate.AtEnd
@@ -1275,6 +1316,86 @@ local function Initialize()
 		else
 			createMuteSelfButton()
 		end
+	end
+
+	if GetFFlagEnableConsoleJoinVoice() then
+		createJoinVoiceButton = function()
+			local frame = createRow("ImageButton", nil, FFlagBuilderIcons)
+			frame.Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT)
+			frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
+			frame.AnchorPoint = Vector2.new(0, 0)
+
+			local textLabel = frame.TextLabel
+			textLabel.Size = UDim2.new(1, -LABEL_POSX, 0, 0)
+			textLabel.TextTruncate = Enum.TextTruncate.AtEnd
+
+			textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
+			textLabel.AutoLocalize = false
+			if FFlagEnableConsoleJoinVoiceTranslation then
+				textLabel.Text = LocalizationStrings[localeId]:Format("Feature.SettingsHub.Action.ConnectVoiceChat")
+			else
+				textLabel.Text = "Connect Voice Chat"
+			end
+
+			local icon = frame.Icon
+			icon.AnchorPoint = Vector2.new(0, 0.5)
+			icon.Position = UDim2.new(0, 18, 0.5, 0)
+
+			local iconImg = Theme.Images["icons/controls/publicAudioJoin"]
+			if iconImg then
+				icon.Image = iconImg.Image
+				icon.ImageRectOffset = iconImg.ImageRectOffset
+				icon.ImageRectSize = iconImg.ImageRectSize
+			end
+
+			local function setIsHighlighted(isHighlighted)
+				if isHighlighted then
+					frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY
+				else
+					frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
+				end
+			end
+
+			frame.InputBegan:Connect(function()
+				setIsHighlighted(true)
+			end)
+			frame.InputEnded:Connect(function()
+				setIsHighlighted(false)
+			end)
+			frame.Activated:Connect(function()
+				setIsHighlighted(false)
+			end)
+			frame.TouchPan:Connect(function(_, totalTranslation)
+				if math.abs(totalTranslation.Y) > TAP_ACCURACY_THREASHOLD then
+					setIsHighlighted(false)
+				end
+			end)
+
+			frame.SelectionGained:connect(function()
+				setIsHighlighted(true)
+			end)
+			frame.SelectionLost:connect(function()
+				setIsHighlighted(false)
+			end)
+			frame.SelectionImageObject = frame:Clone()
+
+			local renderName = RENDER_NAME_PREFIX .. "-joinVoice"
+			utility:MakeFocusState(frame, renderName)
+
+			frame.Activated:Connect(function()
+				VoiceChatServiceManager:JoinVoice()
+			end)
+
+			return frame
+		end
+	end
+
+	local function addJoinVoiceButton()
+		if not shouldShowJoinVoiceButton() or joinVoiceButton then
+			return
+		end
+
+		joinVoiceButton = createJoinVoiceButton()
 	end
 
 	local function createInspectButtonImage(activateInspectAndBuyMenu)
@@ -1602,6 +1723,9 @@ local function Initialize()
 						reportFlagChangedWithCombinedName(reportFlag, "AbsolutePosition")
 					end
 				else
+					if FFlagNullCheckPlayersNameLabel and not frame:FindFirstChild("NameLabel") then
+						return
+					end
 					frame.NameLabel.Text = "@" .. player.Name
 					if FFlagCheckForNilUserIdOnPlayerList and not player.UserId then
 						frame.DisplayNameLabel.Text = player.DisplayName
@@ -1910,6 +2034,13 @@ local function Initialize()
 				-- Ensure the button is always at the top of the list
 				shareGameButton.Parent = this.Page
 			end
+		end
+
+		if GetFFlagEnableConsoleJoinVoice()
+			and shouldShowJoinVoiceButton()
+		then
+			addJoinVoiceButton()
+			updateButtonsLayout()
 		end
 
 		local inspectMenuEnabled = GuiService:GetInspectMenuEnabled()
@@ -2235,12 +2366,18 @@ local function Initialize()
 					if newState == (Enum :: any).VoiceChatState.Ended then
 						muteAllButtonRemove()
 						muteSelfButtonRemove()
+						if GetFFlagEnableConsoleJoinVoice() then
+							joinVoiceButtonRemove()
+						end
 						voiceChatServiceConnected = false
 					elseif
 						newState == (Enum :: any).VoiceChatState.Joined and voiceChatServiceConnected == false
 					then
 						-- TODO: Re-Add removed buttons as soon as we have a valid usecase for re-joining voice mid-game
 						voiceChatServiceConnected = true
+						if GetFFlagEnableConsoleJoinVoice() then
+							joinVoiceButtonRemove()
+						end
 						rebuildPlayerList()
 					end
 				end)
@@ -2258,6 +2395,9 @@ local function Initialize()
 						if not buttonsContainer:FindFirstChild(MUTE_SELF_BUTTON_NAME, true) then
 							addMuteButtonExperience()
 						end
+					end
+					if GetFFlagEnableConsoleJoinVoice() then
+						joinVoiceButtonRemove()
 					end
 					rebuildPlayerList()
 				end)

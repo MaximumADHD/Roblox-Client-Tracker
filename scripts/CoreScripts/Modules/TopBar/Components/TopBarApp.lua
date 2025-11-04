@@ -12,6 +12,8 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
+local FFlagFixUnibarRefactoringInTopBarApp = require(script.Parent.Parent.Flags.FFlagFixUnibarRefactoringInTopBarApp)
+
 local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
 
@@ -397,6 +399,39 @@ function TopBarApp:render()
 	end)
 end
 
+function TopBarApp:renderUnibarFrame(chromeEnabled: boolean)
+	if isInExperienceUIVREnabled and isSpatial() then 
+		return nil 
+	elseif FFlagTiltIconUnibarFocusNav then
+		return React.createElement(MenuIconContext.Provider, {
+			value = {
+				menuIconRef = self.menuIconRef,
+			},
+		}, {
+			React.createElement(Unibar, {
+				layoutOrder = 1,
+				onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas 
+					then self.keepOutAreasStore.setKeepOutArea 
+					else self.props.setKeepOutArea,
+				onMinWidthChanged = function(width: number)
+					self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+				end,
+				menuRef = if chromeEnabled then self.unibarMenuRef else nil :: never,
+			}),
+		})
+	else
+		 return Roact.createElement(Unibar, {
+			layoutOrder = 1,
+			onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas 
+				then self.keepOutAreasStore.setKeepOutArea 
+				else self.props.setKeepOutArea,
+			onMinWidthChanged = function(width: number)
+				self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+			end,
+		})
+	end
+end
+
 function TopBarApp:renderWithStyle(style)
 	local chromeEnabled = ChromeEnabled()
 	local showBetaBadge = GetFFlagBetaBadge() and not chromeEnabled
@@ -488,31 +523,36 @@ function TopBarApp:renderWithStyle(style)
 		-- Menu icon and Unibar are inside VRBottomUnibar in VR platform
 		showMenuIconAtTopLeft = not isSpatial()
 	end
-
-	local TraversalBackButton = function()
-		return not (isInExperienceUIVREnabled and isSpatial()) and isTiltMenuOpen and React.createElement(TraversalBackButton)
+	local BackButton
+	if not FFlagFixUnibarRefactoringInTopBarApp then 
+		BackButton = function()
+			return not (isInExperienceUIVREnabled and isSpatial()) 
+				and isTiltMenuOpen 
+				and React.createElement(TraversalBackButton)
+		end
 	end
 
-	local UnibarFrame = function() 
-		return if isInExperienceUIVREnabled and isSpatial() 
-			then nil 
-			elseif FFlagTiltIconUnibarFocusNav
-			then React.createElement(MenuIconContext.Provider, {
-				value = {
-					menuIconRef = self.menuIconRef,
-				},
-			}, {
-				React.createElement(Unibar, {
-					layoutOrder = 1,
-					onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas then self.keepOutAreasStore.setKeepOutArea else self.props.setKeepOutArea,
-					onMinWidthChanged = function(width: number)
-						self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
-					end,
-					menuRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav
-						then self.unibarMenuRef
-						else nil :: never,
-				}),
-			})
+	local UnibarFrame
+	if not FFlagFixUnibarRefactoringInTopBarApp then 
+		UnibarFrame = function() 
+			return if isInExperienceUIVREnabled and isSpatial() then nil 
+			elseif FFlagTiltIconUnibarFocusNav then 
+				React.createElement(MenuIconContext.Provider, {
+					value = {
+						menuIconRef = self.menuIconRef,
+					},
+				}, {
+					React.createElement(Unibar, {
+						layoutOrder = 1,
+						onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas then self.keepOutAreasStore.setKeepOutArea else self.props.setKeepOutArea,
+						onMinWidthChanged = function(width: number)
+							self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+						end,
+						menuRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav
+							then self.unibarMenuRef
+							else nil :: never,
+					}),
+				})
 			else Roact.createElement(Unibar, {
 				layoutOrder = 1,
 				onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas 
@@ -522,6 +562,7 @@ function TopBarApp:renderWithStyle(style)
 					self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
 				end,
 			})
+		end
 	end
 
 	return Roact.createElement("ScreenGui", {
@@ -770,10 +811,14 @@ function TopBarApp:renderWithStyle(style)
 					TopBarLeftContainer = FFlagAddTraversalBackButton and React.createElement(View, {
 						tag = "auto-xy row gap-xsmall",
 					}, {
-						TraversalBackButton = React.createElement(TraversalBackButton),
-						UnibarFrame = React.createElement(UnibarFrame),
+						TraversalBackButton = if FFlagFixUnibarRefactoringInTopBarApp then React.createElement(TraversalBackButton, {
+							isVisible = not (isInExperienceUIVREnabled and isSpatial()) and isTiltMenuOpen,
+						}) else React.createElement(BackButton),
+						UnibarFrame = if FFlagFixUnibarRefactoringInTopBarApp then self:renderUnibarFrame(chromeEnabled) else React.createElement(UnibarFrame),
 					}),
-					Unibar = if not FFlagAddTraversalBackButton then React.createElement(UnibarFrame) else nil,
+					Unibar = if not FFlagAddTraversalBackButton then 
+						(if FFlagFixUnibarRefactoringInTopBarApp then self:renderUnibarFrame(chromeEnabled) else React.createElement(UnibarFrame))
+						else nil,
 					
 
 					HealthBar = if UseUpdatedHealthBar then Roact.createElement(HealthBar, {}) else nil,

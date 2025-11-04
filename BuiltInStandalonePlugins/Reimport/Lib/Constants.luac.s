@@ -1,0 +1,6 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 1 0
+  LOADK R1 K0 ["Studio Default"]
+  SETTABLEKS R1 R0 K1 ["StudioDefaultPreset"]
+  RETURN R0 1

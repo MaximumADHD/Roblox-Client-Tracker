@@ -198,21 +198,27 @@ PROTO_8:
   SETTABLE R3 R2 R1
   NAMECALL R2 R0 K1 ["_registerMod"]
   CALL R2 1 0
-  GETTABLEKS R2 R0 K2 ["_lastZone"]
+  GETIMPORT R2 K5 [Enum.KeyCode.Tab]
+  JUMPIFNOTEQ R1 R2 [+7]
+  GETTABLEKS R2 R0 K6 ["_layoutController"]
+  NAMECALL R2 R2 K7 ["toggleSidebar"]
+  CALL R2 1 0
+  RETURN R0 0
+  GETTABLEKS R2 R0 K8 ["_lastZone"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["UiZone"]
-  GETTABLEKS R3 R4 K4 ["Browser"]
+  GETTABLEKS R4 R5 K9 ["UiZone"]
+  GETTABLEKS R3 R4 K10 ["Browser"]
   JUMPIFNOTEQ R2 R3 [+16]
   MOVE R4 R1
-  NAMECALL R2 R0 K5 ["_isArrowKey"]
+  NAMECALL R2 R0 K11 ["_isArrowKey"]
   CALL R2 2 1
   JUMPIFNOT R2 [+10]
   MOVE R4 R1
-  NAMECALL R2 R0 K6 ["_handleBrowserArrowInput"]
+  NAMECALL R2 R0 K12 ["_handleBrowserArrowInput"]
   CALL R2 2 0
-  GETTABLEKS R2 R0 K7 ["_keyHoldDetector"]
+  GETTABLEKS R2 R0 K13 ["_keyHoldDetector"]
   MOVE R4 R1
-  NAMECALL R2 R2 K8 ["keyPressed"]
+  NAMECALL R2 R2 K14 ["keyPressed"]
   CALL R2 2 0
   RETURN R0 0
 

@@ -4,6 +4,10 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local FFlagUserFixOrbitalCameraAzimuth = FlagUtil.getUserFlag("UserFixOrbitalCameraAzimuth")
+
 -- Local private variables and constants
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
@@ -145,7 +149,8 @@ function OrbitalCamera:LoadNumberValueParameters()
 	self:LoadOrCreateNumberValueParameter("InitialDistance", "NumberValue", nil)
 
 	-- Note: ReferenceAzimuth is also used as an initial value, but needs a change listener because it is used in the calculation of the limits
-	self:LoadOrCreateNumberValueParameter("ReferenceAzimuth", "NumberValue", self.SetAndBoundsCheckAzimuthValue)
+	self:LoadOrCreateNumberValueParameter("ReferenceAzimuth", "NumberValue",
+		if FFlagUserFixOrbitalCameraAzimuth then self.SetAndBoundsCheckAzimuthValues else self.SetAndBoundsCheckAzimuthValue)
 	self:LoadOrCreateNumberValueParameter("CWAzimuthTravel", "NumberValue", self.SetAndBoundsCheckAzimuthValues)
 	self:LoadOrCreateNumberValueParameter("CCWAzimuthTravel", "NumberValue", self.SetAndBoundsCheckAzimuthValues)
 	self:LoadOrCreateNumberValueParameter("MinElevation", "NumberValue", self.SetAndBoundsCheckElevationValues)

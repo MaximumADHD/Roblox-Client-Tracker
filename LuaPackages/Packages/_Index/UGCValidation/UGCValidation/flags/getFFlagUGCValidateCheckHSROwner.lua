@@ -1,9 +1,9 @@
 local root = script.Parent.Parent
 
-local getEngineFeatureUGCValidateCheckHSRFileData = require(root.flags.getEngineFeatureUGCValidateCheckHSRFileData)
+local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
 
-game:DefineFastFlag("UGCValidateCheckHSROwner", false)
+game:DefineFastFlag("UGCValidateCheckHSROwner2", false)
 
 return function()
-	return game:GetFastFlag("UGCValidateCheckHSROwner") and getEngineFeatureUGCValidateCheckHSRFileData()
+	return game:GetFastFlag("UGCValidateCheckHSROwner2") and getFFlagUGCValidateCheckHSRFileDataFix()
 end

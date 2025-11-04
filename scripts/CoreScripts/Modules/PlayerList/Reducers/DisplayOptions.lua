@@ -26,6 +26,7 @@ local SetSubjectToChinaPolicies = require(Actions.SetSubjectToChinaPolicies)
 local FFlagPlayerListPersistVisibility = require(PlayerList.Flags.FFlagPlayerListPersistVisibility)
 local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
+local FFlagPlayerListPersistVisibilityDesktopOnly = game:DefineFastFlag("PlayerListPersistVisibilityDesktopOnly", false)
 
 local GameSettings = if FFlagPlayerListPersistVisibility then UserSettings().GameSettings else nil
 
@@ -60,7 +61,9 @@ end
 local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetPlayerListVisibility.name] = function(state, action)
 		if FFlagPlayerListPersistVisibility then
-			GameSettings.PlayerListVisible = action.isVisible
+			if not FFlagPlayerListPersistVisibilityDesktopOnly or (FFlagPlayerListPersistVisibilityDesktopOnly and not state.isSmallTouchDevice and not state.isTenFootInterface) then
+				GameSettings.PlayerListVisible = action.isVisible
+			end
 		end
 		
 		return updateIsVisible(Cryo.Dictionary.join(state, {

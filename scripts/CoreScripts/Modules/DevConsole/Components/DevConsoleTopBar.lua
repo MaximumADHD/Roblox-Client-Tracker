@@ -19,10 +19,16 @@ local DEVCONSOLE_TEXT_FRAMESIZE =
 local LiveUpdateElement = require(script.Parent.Parent.Components.LiveUpdateElement)
 local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsolePosition)
 
+local FFlagDevConsoleTopBarDragFix = game:DefineFastFlag("DevConsoleTopBarDragFix", false)
+
 local DevConsoleTopBar = Roact.Component:extend("DevConsoleTopBar")
 
 function DevConsoleTopBar:init()
 	self.inputChangedConnection = nil
+
+	if FFlagDevConsoleTopBarDragFix then
+		self.inputChangedDisconnectRetries = 0
+	end
 
 	self.inputBegan = function(rbx, input)
 		if self.props.isMinimized then
@@ -48,6 +54,10 @@ function DevConsoleTopBar:init()
 				startOffset = input.Position,
 				moving = true, -- dev console is currently being dragged
 			})
+
+			if FFlagDevConsoleTopBarDragFix then
+				self.inputChangedDisconnectRetries = 1
+			end
 		end
 	end
 	self.inputChanged = function(rbx, input)
@@ -59,8 +69,12 @@ function DevConsoleTopBar:init()
 				self.props.dispatchSetDevConsolePosition(position)
 			end
 		elseif self.inputChangedConnection then -- this connection should not be connected if the console is not being dragged
-			self.inputChangedConnection:Disconnect()
-			self.inputChangedConnection = nil
+			if FFlagDevConsoleTopBarDragFix and self.inputChangedDisconnectRetries > 0 then
+				self.inputChangedDisconnectRetries = self.inputChangedDisconnectRetries - 1
+			else
+				self.inputChangedConnection:Disconnect()
+				self.inputChangedConnection = nil
+			end
 		end
 	end
 	self.inputEnded = function(rbx, input)

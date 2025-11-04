@@ -89,31 +89,20 @@ PROTO_3:
   SETLIST R7 R8 4 [1]
   CALL R5 2 1
   GETUPVAL R6 1
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K12 ["Root"]
-  DUPTABLE R8 K19 [{"label", "onItemChanged", "value", "width", "items", "size", "testId"}]
-  LOADK R9 K20 [""]
-  SETTABLEKS R9 R8 K13 ["label"]
-  SETTABLEKS R5 R8 K14 ["onItemChanged"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K15 [{"items", "value", "onItemChanged", "testId"}]
+  SETTABLEKS R4 R8 K12 ["items"]
   JUMPIFNOT R2 [+3]
-  GETTABLEKS R9 R2 K21 ["Name"]
+  GETTABLEKS R9 R2 K16 ["Name"]
   JUMP [+1]
   LOADNIL R9
   SETTABLEKS R9 R8 K2 ["value"]
-  GETIMPORT R9 K24 [UDim.new]
-  LOADN R10 1
-  LOADN R11 0
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K15 ["width"]
-  SETTABLEKS R4 R8 K16 ["items"]
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K25 ["XSmall"]
-  SETTABLEKS R9 R8 K17 ["size"]
+  SETTABLEKS R5 R8 K13 ["onItemChanged"]
   FASTCALL1 TOSTRING R3 [+3]
   MOVE R10 R3
-  GETIMPORT R9 K27 [tostring]
+  GETIMPORT R9 K18 [tostring]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K18 ["testId"]
+  SETTABLEKS R9 R8 K14 ["testId"]
   CALL R6 2 -1
   RETURN R6 -1
 
@@ -124,23 +113,20 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Parent"]
-  GETTABLEKS R2 R3 K7 ["Foundation"]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["Dropdown"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R0 K8 ["PropertyEditorTypes"]
+  GETTABLEKS R3 R0 K9 ["PropertyEditorTypes"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Parent"]
-  GETTABLEKS R4 R5 K9 ["React"]
+  GETTABLEKS R5 R0 K10 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K10 ["Dropdown"]
-  GETTABLEKS R5 R3 K11 ["createElement"]
-  GETTABLEKS R7 R1 K12 ["Enums"]
-  GETTABLEKS R6 R7 K13 ["InputSize"]
-  DUPCLOSURE R7 K14 [PROTO_3]
+  GETTABLEKS R4 R3 K12 ["createElement"]
+  DUPCLOSURE R5 K13 [PROTO_3]
   CAPTURE VAL R3
-  CAPTURE VAL R5
   CAPTURE VAL R4
-  CAPTURE VAL R6
-  RETURN R7 1
+  CAPTURE VAL R1
+  RETURN R5 1

@@ -29,6 +29,8 @@ local Types = require(Components.Types)
 local NumberInputControls = require(script.Parent.NumberInputControls)
 local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
 
+export type NumberInputRef = Types.TextInputRef
+
 local function round(num: number, numDecimalPlaces: number?)
 	local mult = 10 ^ (numDecimalPlaces or 0)
 	return math.floor(num * mult + 0.5) / mult
@@ -109,6 +111,11 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		leadingIcon: string?,
 		isScrubbable: boolean?,
 		testId: string,
+		-- Partial TextBox ref exposed via imperative handle
+		textBoxRef: React.Ref<NumberInputRef>?,
+		onFocusGained: (() -> ())?,
+		onFocusLost: (() -> ())?,
+		onReturnPressed: (() -> ())?,
 	} & Types.CommonProps
 
 	local tokens = useTokens()
@@ -181,16 +188,29 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local onFocus = React.useCallback(function()
 		setFocused(true)
-	end, { setFocused })
-
-	local onFocusLost = React.useCallback(function()
-		setFocused(false)
-		if Flags.FoundationNumberInputInvalidError then
-			setHasInvalidInput(false)
+		if Flags.FoundationNumberInputRefAndCallbacks then
+			if props.onFocusGained then
+				props.onFocusGained()
+			end
 		end
-		local v = math.clamp(props.value, props.minimum, props.maximum)
-		props.onChanged(round(v, props.precision))
-	end, { setFocused :: unknown, props.onChanged, props.maximum, props.minimum, props.precision, props.value })
+	end, { setFocused, props.onFocusGained } :: { unknown })
+
+	local onFocusLost = React.useCallback(
+		function()
+			setFocused(false)
+			if Flags.FoundationNumberInputInvalidError then
+				setHasInvalidInput(false)
+			end
+			local v = math.clamp(props.value, props.minimum, props.maximum)
+			props.onChanged(round(v, props.precision))
+			if Flags.FoundationNumberInputRefAndCallbacks then
+				if props.onFocusLost then
+					props.onFocusLost()
+				end
+			end
+		end,
+		{ setFocused, props.onChanged, props.onFocusLost, props.maximum, props.minimum, props.precision, props.value } :: { unknown }
+	)
 
 	local onChanged = React.useCallback(function(text)
 		if not focused then
@@ -217,14 +237,14 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			return
 		end
 		props.onChanged(upValue)
-	end, { props.isDisabled, isDisabledUp, props.onChanged } :: { any })
+	end, { props.isDisabled, isDisabledUp, upValue, props.onChanged } :: { unknown })
 
 	local onDecrement = React.useCallback(function()
 		if props.isDisabled or isDisabledDown then
 			return
 		end
 		props.onChanged(downValue)
-	end, { props.isDisabled, isDisabledDown, props.onChanged } :: { any })
+	end, { props.isDisabled, isDisabledDown, downValue, props.onChanged } :: { unknown })
 
 	local controls = React.createElement(NumberInputControls, {
 		variant = controlsVariant :: NumberInputControlsVariant,
@@ -316,6 +336,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			size = getInputTextSize(props.size),
 			isRequired = props.isRequired,
 			hint = props.hint,
+			textBoxRef = if Flags.FoundationNumberInputRefAndCallbacks then props.textBoxRef else nil,
 			input = function(inputRef)
 				local isSplitVariant = controlsVariant == NumberInputControlsVariant.Split
 
@@ -332,6 +353,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					onDragStarted = onDragStarted,
 					onDrag = onDrag,
 					onDragEnded = onDragEnded,
+					onReturnPressed = if Flags.FoundationNumberInputRefAndCallbacks then props.onReturnPressed else nil,
 					ref = inputRef,
 					backgroundElement = if props.isScrubbable and numberSequence
 						then React.createElement(View, {

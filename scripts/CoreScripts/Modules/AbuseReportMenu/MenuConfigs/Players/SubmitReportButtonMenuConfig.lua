@@ -36,7 +36,8 @@ function isEligibleForRAOtherSubmit(menuUIState: Types.ReportPersonState)
 end
 function isEligibleForTextSubmit(menuUIState: Types.ReportPersonState)
 	if FFlagInGameMenuAddChatLineReporting then
-		return menuUIState.selectedMessage ~= nil and menuUIState.abuseReason ~= nil
+		return (menuUIState.selectedMessage ~= nil or menuUIState.allegedAbuser ~= nil)
+			and menuUIState.abuseReason ~= nil
 	else
 		return menuUIState.allegedAbuser ~= nil and menuUIState.abuseReason ~= nil
 	end

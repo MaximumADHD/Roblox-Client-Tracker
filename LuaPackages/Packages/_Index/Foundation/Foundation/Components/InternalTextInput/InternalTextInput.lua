@@ -107,14 +107,52 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		return nil
 	end, {})
 
+	local getSelectionStart = React.useCallback(function(): number?
+		if textBox.current then
+			return textBox.current.SelectionStart
+		end
+		return nil
+	end, {})
+
+	local getCursorPosition = React.useCallback(function(): number?
+		if textBox.current then
+			return textBox.current.CursorPosition
+		end
+		return nil
+	end, {})
+
+	local setSelectionStart = React.useCallback(function(position)
+		if textBox.current then
+			textBox.current.SelectionStart = position
+		end
+	end, {})
+
+	local setCursorPosition = React.useCallback(function(position)
+		if textBox.current then
+			textBox.current.CursorPosition = position
+		end
+	end, {})
+
 	React.useImperativeHandle(ref, function()
 		return {
 			getIsFocused = getIsFocused,
 			focus = focusTextBox,
 			releaseFocus = releaseTextBoxFocus,
 			setHover = setHover,
+			getSelectionStart = if Flags.FoundationNumberInputRefAndCallbacks then getSelectionStart else nil,
+			getCursorPosition = if Flags.FoundationNumberInputRefAndCallbacks then getCursorPosition else nil,
+			setCursorPosition = if Flags.FoundationNumberInputRefAndCallbacks then setCursorPosition else nil,
+			setSelectionStart = if Flags.FoundationNumberInputRefAndCallbacks then setSelectionStart else nil,
 		}
-	end, { getIsFocused :: unknown, focusTextBox, releaseTextBoxFocus })
+	end, {
+		getCursorPosition :: unknown,
+		getIsFocused,
+		getSelectionStart,
+		focusTextBox,
+		releaseTextBoxFocus,
+		setCursorPosition,
+		setSelectionStart,
+	})
 
 	local onTextChange = React.useCallback(function(rbx: TextBox?)
 		if rbx == nil then

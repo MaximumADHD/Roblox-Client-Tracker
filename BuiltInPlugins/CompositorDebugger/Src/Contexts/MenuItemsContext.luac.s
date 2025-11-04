@@ -155,48 +155,59 @@ PROTO_0:
   NEWTABLE R6 0 1
   DUPTABLE R7 K8 [{"items"}]
   NEWTABLE R8 0 3
-  DUPTABLE R9 K9 [{"id", "text"}]
+  DUPTABLE R9 K17 [{"id", "text", "onActivated"}]
   LOADK R10 K56 ["frameSelection"]
   SETTABLEKS R10 R9 K2 ["id"]
   LOADK R10 K57 ["FrameSelection"]
   SETTABLEKS R10 R9 K3 ["text"]
-  DUPTABLE R10 K9 [{"id", "text"}]
+  GETUPVAL R10 2
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K16 ["onActivated"]
+  DUPTABLE R10 K17 [{"id", "text", "onActivated"}]
   LOADK R11 K58 ["zoomIn"]
   SETTABLEKS R11 R10 K2 ["id"]
   LOADK R11 K59 ["ZoomIn"]
   SETTABLEKS R11 R10 K3 ["text"]
-  DUPTABLE R11 K9 [{"id", "text"}]
-  LOADK R12 K60 ["zoomOut"]
+  GETUPVAL R11 3
+  LOADK R12 K60 [0.5]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K16 ["onActivated"]
+  DUPTABLE R11 K17 [{"id", "text", "onActivated"}]
+  LOADK R12 K61 ["zoomOut"]
   SETTABLEKS R12 R11 K2 ["id"]
-  LOADK R12 K61 ["ZoomOut"]
+  LOADK R12 K62 ["ZoomOut"]
   SETTABLEKS R12 R11 K3 ["text"]
+  GETUPVAL R12 3
+  LOADK R13 K63 [-0.5]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K16 ["onActivated"]
   SETLIST R8 R9 3 [1]
   SETTABLEKS R8 R7 K4 ["items"]
   SETLIST R6 R7 1 [1]
   SETTABLEKS R6 R5 K4 ["items"]
   DUPTABLE R6 K5 [{"id", "text", "items"}]
-  LOADK R7 K62 ["preview"]
+  LOADK R7 K64 ["preview"]
   SETTABLEKS R7 R6 K2 ["id"]
-  LOADK R7 K63 ["Preview"]
+  LOADK R7 K65 ["Preview"]
   SETTABLEKS R7 R6 K3 ["text"]
   NEWTABLE R7 0 1
   DUPTABLE R8 K8 [{"items"}]
   NEWTABLE R9 0 2
   DUPTABLE R10 K17 [{"id", "text", "onActivated"}]
-  LOADK R11 K64 ["play"]
+  LOADK R11 K66 ["play"]
   SETTABLEKS R11 R10 K2 ["id"]
-  LOADK R11 K65 ["Play"]
+  LOADK R11 K67 ["Play"]
   SETTABLEKS R11 R10 K3 ["text"]
-  GETUPVAL R11 2
+  GETUPVAL R11 4
   LOADB R12 1
   CALL R11 1 1
   SETTABLEKS R11 R10 K16 ["onActivated"]
   DUPTABLE R11 K17 [{"id", "text", "onActivated"}]
-  LOADK R12 K66 ["stop"]
+  LOADK R12 K68 ["stop"]
   SETTABLEKS R12 R11 K2 ["id"]
-  LOADK R12 K67 ["Stop"]
+  LOADK R12 K69 ["Stop"]
   SETTABLEKS R12 R11 K3 ["text"]
-  GETUPVAL R12 2
+  GETUPVAL R12 4
   LOADB R13 0
   CALL R12 1 1
   SETTABLEKS R12 R11 K16 ["onActivated"]
@@ -206,13 +217,13 @@ PROTO_0:
   SETTABLEKS R7 R6 K4 ["items"]
   SETLIST R2 R3 4 [1]
   SETTABLEKS R2 R1 K0 ["menus"]
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K68 ["createElement"]
-  GETUPVAL R4 4
-  GETTABLEKS R3 R4 K69 ["Provider"]
-  DUPTABLE R4 K71 [{"value"}]
-  SETTABLEKS R1 R4 K70 ["value"]
-  GETTABLEKS R5 R0 K72 ["children"]
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K70 ["createElement"]
+  GETUPVAL R4 6
+  GETTABLEKS R3 R4 K71 ["Provider"]
+  DUPTABLE R4 K73 [{"value"}]
+  SETTABLEKS R1 R4 K72 ["value"]
+  GETTABLEKS R5 R0 K74 ["children"]
   CALL R2 3 -1
   RETURN R2 -1
 
@@ -251,19 +262,35 @@ MAIN:
   GETTABLEKS R7 R8 K12 ["MenuActions"]
   GETTABLEKS R6 R7 K15 ["usePublishAs"]
   CALL R5 1 1
-  DUPTABLE R6 K17 [{"menus"}]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K16 ["menus"]
-  GETTABLEKS R7 R1 K18 ["createContext"]
-  MOVE R8 R6
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Src"]
+  GETTABLEKS R10 R11 K10 ["Components"]
+  GETTABLEKS R9 R10 K11 ["NodeView"]
+  GETTABLEKS R8 R9 K12 ["MenuActions"]
+  GETTABLEKS R7 R8 K16 ["useZoom"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K10 ["Components"]
+  GETTABLEKS R10 R11 K11 ["NodeView"]
+  GETTABLEKS R9 R10 K12 ["MenuActions"]
+  GETTABLEKS R8 R9 K17 ["useFrameSelection"]
   CALL R7 1 1
-  DUPCLOSURE R8 K19 [PROTO_0]
+  DUPTABLE R8 K19 [{"menus"}]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K18 ["menus"]
+  GETTABLEKS R9 R1 K20 ["createContext"]
+  MOVE R10 R8
+  CALL R9 1 1
+  DUPCLOSURE R10 K21 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R1
-  CAPTURE VAL R7
-  DUPTABLE R9 K22 [{"Context", "Provider"}]
-  SETTABLEKS R7 R9 K20 ["Context"]
-  SETTABLEKS R8 R9 K21 ["Provider"]
-  RETURN R9 1
+  CAPTURE VAL R9
+  DUPTABLE R11 K24 [{"Context", "Provider"}]
+  SETTABLEKS R9 R11 K22 ["Context"]
+  SETTABLEKS R10 R11 K23 ["Provider"]
+  RETURN R11 1

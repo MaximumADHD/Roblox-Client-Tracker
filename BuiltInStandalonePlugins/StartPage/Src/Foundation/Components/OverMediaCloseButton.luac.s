@@ -3,44 +3,74 @@ PROTO_0:
   MOVE R2 R0
   CALL R1 1 1
   GETUPVAL R2 0
-  LOADK R3 K3 ["PointingHand"]
-  CALL R2 1 1
-  LOADK R3 K4 ["bg-over-media-0 radius-circle size-800"]
-  SETTABLEKS R3 R1 K5 ["tag"]
-  SETTABLEKS R2 R1 K6 ["onStateChanged"]
-  GETTABLEKS R4 R0 K7 ["Visible"]
-  JUMPIFNOTEQKNIL R4 [+3]
-  LOADB R3 1
+  CALL R2 0 1
+  GETUPVAL R3 1
+  LOADK R4 K3 ["PointingHand"]
+  CALL R3 1 1
+  LOADK R4 K4 ["bg-over-media-0 radius-circle size-800"]
+  SETTABLEKS R4 R1 K5 ["tag"]
+  SETTABLEKS R3 R1 K6 ["onStateChanged"]
+  GETTABLEKS R5 R0 K7 ["Visible"]
+  JUMPIFNOTEQKNIL R5 [+3]
+  LOADB R4 1
   JUMP [+2]
-  GETTABLEKS R3 R0 K7 ["Visible"]
-  SETTABLEKS R3 R1 K7 ["Visible"]
-  LOADK R3 K8 ["--start-page-OverMediaCloseButton"]
-  SETTABLEKS R3 R1 K9 ["testId"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K10 ["createElement"]
-  GETUPVAL R4 2
-  MOVE R5 R1
-  DUPTABLE R6 K12 [{"Icon"}]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K10 ["createElement"]
-  GETUPVAL R8 3
-  DUPTABLE R9 K15 [{"Position", "AnchorPoint", "tag"}]
-  GETIMPORT R10 K18 [UDim2.fromScale]
-  LOADK R11 K19 [0.5]
-  LOADK R12 K19 [0.5]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K13 ["Position"]
-  GETIMPORT R10 K22 [Vector2.new]
-  LOADK R11 K19 [0.5]
-  LOADK R12 K19 [0.5]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K14 ["AnchorPoint"]
-  LOADK R10 K23 ["StartPage-CancelWhiteIcon content-emphasis"]
-  SETTABLEKS R10 R9 K5 ["tag"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K11 ["Icon"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  GETTABLEKS R4 R0 K7 ["Visible"]
+  SETTABLEKS R4 R1 K7 ["Visible"]
+  LOADK R4 K8 ["--start-page-OverMediaCloseButton"]
+  SETTABLEKS R4 R1 K9 ["testId"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K10 ["createElement"]
+  GETUPVAL R5 3
+  MOVE R6 R1
+  DUPTABLE R7 K12 [{"Icon"}]
+  GETUPVAL R9 4
+  JUMPIFNOT R9 [+39]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K10 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K18 [{"Position", "AnchorPoint", "name", "size", "style"}]
+  GETIMPORT R11 K21 [UDim2.fromScale]
+  LOADK R12 K22 [0.5]
+  LOADK R13 K22 [0.5]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["Position"]
+  GETIMPORT R11 K25 [Vector2.new]
+  LOADK R12 K22 [0.5]
+  LOADK R13 K22 [0.5]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K14 ["AnchorPoint"]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K26 ["XSmall"]
+  SETTABLEKS R11 R10 K15 ["name"]
+  GETUPVAL R12 7
+  GETTABLEKS R11 R12 K27 ["Medium"]
+  SETTABLEKS R11 R10 K16 ["size"]
+  GETTABLEKS R13 R2 K28 ["Color"]
+  GETTABLEKS R12 R13 K29 ["Content"]
+  GETTABLEKS R11 R12 K30 ["Emphasis"]
+  SETTABLEKS R11 R10 K17 ["style"]
+  CALL R8 2 1
+  JUMP [+23]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K10 ["createElement"]
+  GETUPVAL R9 8
+  DUPTABLE R10 K31 [{"Position", "AnchorPoint", "tag"}]
+  GETIMPORT R11 K21 [UDim2.fromScale]
+  LOADK R12 K22 [0.5]
+  LOADK R13 K22 [0.5]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["Position"]
+  GETIMPORT R11 K25 [Vector2.new]
+  LOADK R12 K22 [0.5]
+  LOADK R13 K22 [0.5]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K14 ["AnchorPoint"]
+  LOADK R11 K32 ["StartPage-CancelWhiteIcon content-emphasis"]
+  SETTABLEKS R11 R10 K5 ["tag"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K11 ["Icon"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -59,18 +89,36 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R2 K11 ["View"]
   GETTABLEKS R4 R2 K12 ["Image"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Types"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Hooks"]
-  GETTABLEKS R7 R8 K15 ["useOnStateChangedCursor"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K16 [PROTO_0]
-  CAPTURE VAL R6
+  GETTABLEKS R5 R2 K13 ["Icon"]
+  GETTABLEKS R7 R2 K14 ["Enums"]
+  GETTABLEKS R6 R7 K15 ["IconName"]
+  GETTABLEKS R8 R2 K14 ["Enums"]
+  GETTABLEKS R7 R8 K16 ["IconSize"]
+  GETTABLEKS R9 R2 K17 ["Hooks"]
+  GETTABLEKS R8 R9 K18 ["useTokens"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K19 ["SharedFlags"]
+  GETTABLEKS R10 R11 K20 ["getFFlagLuaStartPageBuilderIcons"]
+  CALL R9 1 1
+  CALL R9 0 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K21 ["Types"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K8 ["Src"]
+  GETTABLEKS R13 R14 K17 ["Hooks"]
+  GETTABLEKS R12 R13 K22 ["useOnStateChangedCursor"]
+  CALL R11 1 1
+  DUPCLOSURE R12 K23 [PROTO_0]
+  CAPTURE VAL R8
+  CAPTURE VAL R11
   CAPTURE VAL R1
   CAPTURE VAL R3
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R4
-  RETURN R7 1
+  RETURN R12 1

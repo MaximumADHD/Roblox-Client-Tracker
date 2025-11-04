@@ -6,12 +6,21 @@ local Types = require(root.util.Types)
 
 local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
+local getFFlagUGCValidateMeshBBoxIsCentered = require(root.flags.getFFlagUGCValidateMeshBBoxIsCentered)
+local getFFlagUGCValidateMeshBBoxMinSize = require(root.flags.getFFlagUGCValidateMeshBBoxMinSize)
+local getFIntUGCValidateMeshCenteringHundredsThreshold =
+	require(root.flags.getFIntUGCValidateMeshCenteringHundredsThreshold)
+local getFIntUGCValidateMeshMinSizeHundredsThreshold =
+	require(root.flags.getFIntUGCValidateMeshMinSizeHundredsThreshold)
+local getMeshMinMax = require(root.util.getMeshMinMax)
 local Analytics = require(root.Analytics)
 
 local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
 local FFlagUGCValidationScaleMinimum = game:DefineFastFlag("UGCValidationScaleMinimum", false)
 local FIntUGCValidationScaleMinimumThousandths = game:DefineFastInt("UGCValidationScaleMinimumThousandths", 10) -- 1 = 0.001
+
+local FFlagRenderBoundsCheckAttachmentOrientation = game:DefineFastFlag("RenderBoundsCheckAttachmentOrientation", false)
 
 local function pointInBounds(worldPos, boundsCF, boundsSize)
 	local objectPos = boundsCF:PointToObjectSpace(worldPos)
@@ -23,8 +32,15 @@ local function pointInBounds(worldPos, boundsCF, boundsSize)
 		and objectPos.Z <= boundsSize.Z / 2
 end
 
-local function isSizeWithinBounds(part: BasePart, boundsSize)
+local function isSizeWithinBounds_deprecated(part: BasePart, boundsSize)
 	return part.Size.X <= boundsSize.X and part.Size.Y <= boundsSize.Y and part.Size.Z <= boundsSize.Z
+end
+
+local function isSizeWithinBounds(part: BasePart, boundsSize: Vector3, transform: CFrame)
+	local partSizeInBoundsSpace = (transform * part.Size):Abs()
+	return partSizeInBoundsSpace.X <= boundsSize.X
+		and partSizeInBoundsSpace.Y <= boundsSize.Y
+		and partSizeInBoundsSpace.Z <= boundsSize.Z
 end
 
 local function truncate(number: number): number
@@ -123,9 +139,58 @@ local function validateMeshBounds(
 	end
 
 	if getFFlagUGCValidatePartSizeWithinRenderSizeLimits() then
-		if not isSizeWithinBounds(handle, boundsSize) then
-			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
-			return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
+		if FFlagRenderBoundsCheckAttachmentOrientation then
+			local handleToBoundsOrientation = attachment.CFrame.Rotation
+			if not isSizeWithinBounds(handle, boundsSize, handleToBoundsOrientation) then
+				Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
+				return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
+			end
+		else
+			if not isSizeWithinBounds_deprecated(handle, boundsSize) then
+				Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
+				return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
+			end
+		end
+	end
+
+	if getFFlagUGCValidateMeshBBoxIsCentered() or getFFlagUGCValidateMeshBBoxMinSize() then
+		-- I am not sure how we dont have the scale here, but don't want to make downstream changes so we will clone it
+		-- This is another reason to unify the data gathering in the new structure
+		local scaledMeshInfo = table.clone(meshInfo)
+		scaledMeshInfo.scale = meshScale
+		local successMinMax, failureReasonsMinMax, meshMinOpt, meshMaxOpt =
+			getMeshMinMax(scaledMeshInfo, validationContext)
+
+		if not successMinMax then
+			return false, failureReasonsMinMax
+		end
+
+		if getFFlagUGCValidateMeshBBoxMinSize() then
+			local bboxSize = (meshMaxOpt :: Vector3) - (meshMinOpt :: Vector3)
+			local acceptableSize = getFIntUGCValidateMeshMinSizeHundredsThreshold() / 100
+			if math.min(bboxSize.X, bboxSize.Y, bboxSize.Z) < acceptableSize then
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateAssetBounds_AssetSizeTooSmall,
+					nil,
+					validationContext
+				)
+				return false,
+					{
+						`{meshInfo.fullName}.{meshInfo.fieldName} is smaller than the min size of ({acceptableSize}, {acceptableSize}, {acceptableSize}).`,
+					}
+			end
+		end
+
+		if getFFlagUGCValidateMeshBBoxIsCentered() then
+			local bboxCenter = (meshMinOpt :: Vector3 + meshMaxOpt :: Vector3) / 2
+			local acceptableCenterMagnitude = getFIntUGCValidateMeshCenteringHundredsThreshold() / 100
+			if bboxCenter.Magnitude > acceptableCenterMagnitude then
+				Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_Shifted, nil, validationContext)
+				return false,
+					{
+						`{meshInfo.fullName}.{meshInfo.fieldName} has mesh data that is not centered. Please reimport this mesh with the roblox 3d importer, and ensure there is no loose geometry in the source file.`,
+					}
+			end
 		end
 	end
 

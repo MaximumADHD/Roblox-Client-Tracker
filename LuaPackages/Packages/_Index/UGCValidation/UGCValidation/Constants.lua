@@ -16,9 +16,7 @@ local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBind
 local getFFlagUGCValidationFixBannedNamesTypo = require(root.flags.getFFlagUGCValidationFixBannedNamesTypo)
 local getFFlagUGCValidateRestrictAnimationMovementCurvesFix =
 	require(root.flags.getFFlagUGCValidateRestrictAnimationMovementCurvesFix)
-local FFlagUgcValidationValidateEmissiveMask = game:DefineFastFlag("UgcValidationValidateEmissiveMask", false)
-local getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed =
-	require(root.flags.getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed)
+local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateCheckHSROwner)
 
 -- switch this to Cryo.List.toSet when available
@@ -403,25 +401,27 @@ Constants.PROPERTIES = {
 		Shape = Enum.PartType.Block,
 	},
 	SurfaceAppearance = {
-		AlphaMode = if getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed()
+		AlphaMode = if getFFlagUGCValidationEyebrowEyelashSupport()
 			then {
 				{
 					[Constants.COMPARISON_METHODS.FOUND_IN] = { Enum.AlphaMode.Overlay, Enum.AlphaMode.Transparency },
 					[Constants.INCLUSION_METHODS.INCLUSION_LIST] = {
 						Enum.AssetType.EyelashAccessory,
+						Enum.AssetType.EyebrowAccessory,
 					},
 				},
 				{
 					[Constants.COMPARISON_METHODS.EXACT_EQ] = Enum.AlphaMode.Overlay,
 					[Constants.INCLUSION_METHODS.EXCLUSION_LIST] = {
 						Enum.AssetType.EyelashAccessory,
+						Enum.AssetType.EyebrowAccessory,
 					},
 				},
 			}
 			else Enum.AlphaMode.Overlay,
-		EmissiveMaskContent = if FFlagUgcValidationValidateEmissiveMask then Content.none else nil,
-		EmissiveStrength = if FFlagUgcValidationValidateEmissiveMask then 1 else nil,
-		EmissiveTint = if FFlagUgcValidationValidateEmissiveMask then Color3.new(1, 1, 1) else nil,
+		EmissiveMaskContent = Content.none,
+		EmissiveStrength = 1,
+		EmissiveTint = Color3.new(1, 1, 1),
 	},
 	WrapLayer = {
 		-- ====== Simple checks ======
@@ -634,4 +634,10 @@ Constants.AssetUploadsWithFolderStructure = {
 	[Enum.AssetType.LeftLeg] = true,
 	[Enum.AssetType.RightLeg] = true,
 }
+
+Constants.SkinningTransferRequiredTypes = {
+	[Enum.AssetType.EyebrowAccessory] = true,
+	[Enum.AssetType.EyelashAccessory] = true,
+}
+
 return Constants

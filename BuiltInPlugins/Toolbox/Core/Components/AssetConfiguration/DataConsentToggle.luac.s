@@ -58,45 +58,40 @@ PROTO_2:
   SETTABLEKS R7 R6 K18 ["TextWrapped"]
   MOVE R7 R4
   CALL R5 2 1
-  GETUPVAL R6 3
-  CALL R6 0 1
-  JUMPIF R6 [+4]
-  GETIMPORT R6 K27 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R6 R5 K26 ["HorizontalAlignment"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K26 ["createElement"]
   GETUPVAL R7 4
-  GETTABLEKS R6 R7 K28 ["createElement"]
-  GETUPVAL R7 5
-  DUPTABLE R8 K30 [{"AutomaticSize", "LayoutOrder", "Title"}]
+  DUPTABLE R8 K28 [{"AutomaticSize", "LayoutOrder", "Title"}]
   GETIMPORT R9 K24 [Enum.AutomaticSize.XY]
   SETTABLEKS R9 R8 K15 ["AutomaticSize"]
   GETTABLEKS R9 R0 K16 ["LayoutOrder"]
   SETTABLEKS R9 R8 K16 ["LayoutOrder"]
   LOADK R11 K20 ["AssetConfig"]
-  LOADK R12 K31 ["ShareDataHeader"]
+  LOADK R12 K29 ["ShareDataHeader"]
   NAMECALL R9 R2 K22 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K29 ["Title"]
-  DUPTABLE R9 K33 [{"DescriptionPane"}]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K28 ["createElement"]
-  GETUPVAL R11 6
-  DUPTABLE R12 K36 [{"AutomaticSize", "LayoutOrder", "Layout", "HorizontalAlignment", "Spacing"}]
-  GETIMPORT R13 K38 [Enum.AutomaticSize.Y]
+  SETTABLEKS R9 R8 K27 ["Title"]
+  DUPTABLE R9 K31 [{"DescriptionPane"}]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K26 ["createElement"]
+  GETUPVAL R11 5
+  DUPTABLE R12 K35 [{"AutomaticSize", "LayoutOrder", "Layout", "HorizontalAlignment", "Spacing"}]
+  GETIMPORT R13 K37 [Enum.AutomaticSize.Y]
   SETTABLEKS R13 R12 K15 ["AutomaticSize"]
   NAMECALL R13 R3 K25 ["getNextOrder"]
   CALL R13 1 1
   SETTABLEKS R13 R12 K16 ["LayoutOrder"]
-  GETIMPORT R13 K41 [Enum.FillDirection.Vertical]
-  SETTABLEKS R13 R12 K34 ["Layout"]
-  GETIMPORT R13 K27 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R13 R12 K26 ["HorizontalAlignment"]
+  GETIMPORT R13 K40 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K32 ["Layout"]
+  GETIMPORT R13 K41 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R13 R12 K33 ["HorizontalAlignment"]
   GETTABLEKS R14 R1 K42 ["toggle"]
   GETTABLEKS R13 R14 K43 ["verticalListPadding"]
-  SETTABLEKS R13 R12 K35 ["Spacing"]
+  SETTABLEKS R13 R12 K34 ["Spacing"]
   DUPTABLE R13 K46 [{"ToggleButton", "DescriptionTextPane"}]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K28 ["createElement"]
-  GETUPVAL R15 7
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K26 ["createElement"]
+  GETUPVAL R15 6
   DUPTABLE R16 K50 [{"LayoutOrder", "OnClick", "Selected", "Size"}]
   NAMECALL R17 R3 K25 ["getNextOrder"]
   CALL R17 1 1
@@ -116,37 +111,37 @@ PROTO_2:
   SETTABLEKS R17 R16 K49 ["Size"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K44 ["ToggleButton"]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K28 ["createElement"]
-  GETUPVAL R15 6
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K26 ["createElement"]
+  GETUPVAL R15 5
   DUPTABLE R16 K57 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
-  GETIMPORT R17 K38 [Enum.AutomaticSize.Y]
+  GETIMPORT R17 K37 [Enum.AutomaticSize.Y]
   SETTABLEKS R17 R16 K15 ["AutomaticSize"]
-  GETIMPORT R17 K27 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R17 R16 K26 ["HorizontalAlignment"]
-  GETIMPORT R17 K41 [Enum.FillDirection.Vertical]
-  SETTABLEKS R17 R16 K34 ["Layout"]
+  GETIMPORT R17 K41 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R17 R16 K33 ["HorizontalAlignment"]
+  GETIMPORT R17 K40 [Enum.FillDirection.Vertical]
+  SETTABLEKS R17 R16 K32 ["Layout"]
   NAMECALL R17 R3 K25 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K16 ["LayoutOrder"]
   GETTABLEKS R18 R1 K42 ["toggle"]
   GETTABLEKS R17 R18 K58 ["verticalTextSpacing"]
-  SETTABLEKS R17 R16 K35 ["Spacing"]
+  SETTABLEKS R17 R16 K34 ["Spacing"]
   DUPTABLE R17 K61 [{"DescriptionText", "LinkText"}]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K28 ["createElement"]
-  GETUPVAL R19 8
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K26 ["createElement"]
+  GETUPVAL R19 7
   MOVE R20 R5
   CALL R18 2 1
   SETTABLEKS R18 R17 K59 ["DescriptionText"]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K28 ["createElement"]
-  GETUPVAL R19 9
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K26 ["createElement"]
+  GETUPVAL R19 8
   DUPTABLE R20 K64 [{"AutomaticSize", "HorizontalAlignment", "LayoutOrder", "LinkMap", "Text", "TextProps", "TextWrapped"}]
-  GETIMPORT R21 K38 [Enum.AutomaticSize.Y]
+  GETIMPORT R21 K37 [Enum.AutomaticSize.Y]
   SETTABLEKS R21 R20 K15 ["AutomaticSize"]
-  GETIMPORT R21 K27 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R21 R20 K26 ["HorizontalAlignment"]
+  GETIMPORT R21 K41 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R21 R20 K33 ["HorizontalAlignment"]
   NAMECALL R21 R3 K25 ["getNextOrder"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K16 ["LayoutOrder"]
@@ -158,9 +153,9 @@ PROTO_2:
   CALL R23 3 1
   SETTABLEKS R23 R22 K60 ["LinkText"]
   DUPCLOSURE R23 K68 [PROTO_0]
+  CAPTURE UPVAL U9
   CAPTURE UPVAL U10
   CAPTURE UPVAL U11
-  CAPTURE UPVAL U12
   SETTABLEKS R23 R22 K65 ["LinkCallback"]
   SETTABLEKS R22 R21 K69 ["[link1]"]
   DUPTABLE R22 K66 [{"LinkText", "LinkCallback"}]
@@ -170,9 +165,9 @@ PROTO_2:
   CALL R23 3 1
   SETTABLEKS R23 R22 K60 ["LinkText"]
   DUPCLOSURE R23 K71 [PROTO_1]
+  CAPTURE UPVAL U9
   CAPTURE UPVAL U10
-  CAPTURE UPVAL U11
-  CAPTURE UPVAL U13
+  CAPTURE UPVAL U12
   SETTABLEKS R23 R22 K65 ["LinkCallback"]
   SETTABLEKS R22 R21 K72 ["[link2]"]
   SETTABLEKS R21 R20 K62 ["LinkMap"]
@@ -189,7 +184,7 @@ PROTO_2:
   CALL R14 3 1
   SETTABLEKS R14 R13 K45 ["DescriptionTextPane"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K32 ["DescriptionPane"]
+  SETTABLEKS R10 R9 K30 ["DescriptionPane"]
   CALL R6 3 -1
   RETURN R6 -1
 
@@ -261,7 +256,6 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R16
   CAPTURE VAL R2
-  CAPTURE VAL R22
   CAPTURE VAL R4
   CAPTURE VAL R19
   CAPTURE VAL R12

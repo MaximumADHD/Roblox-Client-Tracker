@@ -8,6 +8,8 @@ local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 local Logger = require(Foundation.Utility.Logger)
 
+local Constants = require(Foundation.Constants)
+
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
 local Icon = require(Foundation.Components.Icon)
@@ -84,7 +86,7 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			GroupTransparency = if props.isDisabled then 0.5 else nil,
+			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
 			isDisabled = props.isDisabled,
 			onActivated = onActivated,
 			selection = {

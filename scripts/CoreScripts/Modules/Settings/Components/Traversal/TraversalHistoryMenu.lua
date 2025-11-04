@@ -1,9 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
+local CoreScriptsCommon = require(CorePackages.Workspace.Packages.CoreScriptsCommon)
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
 
 local TraversalLeaveConfirmation = require(script.Parent.TraversalLeaveConfirmation)
@@ -17,6 +19,7 @@ local View = Foundation.View
 local ThumbnailType = Foundation.Enums.ThumbnailType
 local ThumbnailSize = Foundation.Enums.ThumbnailSize
 local getRbxThumb = Foundation.Utility.getRbxThumb
+local SettingsShowSignal = CoreScriptsCommon.SettingsShowSignal
 local Traversal = CoreScriptsRoactCommon.Traversal
 local TraveralConstants = Traversal.Constants
 local HistoryMenu = Traversal.HistoryMenu
@@ -24,9 +27,14 @@ local useHistoryItems = Traversal.useHistoryItems
 
 local useTokens = Foundation.Hooks.useTokens
 
-export type TraversalHistoryMenuProps = {}
+export type TraversalHistoryMenuProps = {
+	anchorParent: GuiObject,
+	currentPageChangeSignal: any,
+	idleButtonStateIsDown: boolean?,
+}
 
 local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React.Ref<GuiObject>?): React.React_Node
+	local anchorRef = React.useRef(props.anchorParent)
 	local historyItems = useHistoryItems()
 	local items = {}
 	for _, historyItem in historyItems do
@@ -40,6 +48,33 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 	local tokens = useTokens()
 	local selectedUniverseId, setSelectedUniverseId = React.useState(TraveralConstants.NO_UNIVERSE_ID)
 	local reactPageSignal = SignalsReact.useSignalState(ReactPageSignal)
+	local forceMenuClose, setForceMenuClose = React.useState(false)
+	React.useEffect(function()
+		local connections: { [string]: RBXScriptConnection} = {}
+		connections.onSettingsVisible = SettingsShowSignal:connect(function(isOpen)
+			if not isOpen then
+				setForceMenuClose(true)
+			end
+		end)
+		connections.onPageChanged = props.currentPageChangeSignal:connect(function()
+			setForceMenuClose(true)
+		end)
+		connections.onNativeClose = GuiService.NativeClose:Connect(function()
+			setForceMenuClose(true)
+		end)
+		return function()
+			for _, connection in connections do
+				connection:Disconnect()
+			end
+			connections = {}
+		end
+	end, { props.currentPageChangeSignal, SettingsShowSignal, GuiService.NativeClose })
+	React.useEffect(function()
+		-- reset the force close variable
+		if forceMenuClose then
+			setForceMenuClose(false)
+		end
+	end, { forceMenuClose, setForceMenuClose } :: { unknown })
 
 	local openDialog = React.useCallback(function(universeId: number)
 		setSelectedUniverseId(universeId)
@@ -77,6 +112,10 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 				reactPageSignal.setCurrentReactPage(EnumReactPage.TraversalHistory)
 			end,
 			onMenuItemSelected = openDialog,
+			forceMenuClose = forceMenuClose,
+			idleButtonStateIsDown = props.idleButtonStateIsDown,
+
+			ref = anchorRef,
 		})
 	}, {
 		Dialog = React.createElement(TraversalLeaveConfirmation, {

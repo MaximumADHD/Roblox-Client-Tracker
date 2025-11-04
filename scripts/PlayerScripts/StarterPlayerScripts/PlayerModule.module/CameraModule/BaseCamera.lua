@@ -27,8 +27,6 @@ do
 	FFlagUserFixGamepadMaxZoom = success and result
 end
 
-local FFlagUserPSRemoveTouchEnabled = FlagUtil.getUserFlag("UserPSRemoveTouchEnabled")
-
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
 
@@ -105,10 +103,6 @@ function BaseCamera.new()
 
 	self.inFirstPerson = false
 	self.inMouseLockedMode = false
-	if not FFlagUserPSRemoveTouchEnabled then
-		self.portraitMode = false
-		self.isSmallTouchScreen = false
-	end
 
 	-- Used by modules which want to reset the camera angle on respawn.
 	self.resetCameraAngle = true
@@ -116,9 +110,6 @@ function BaseCamera.new()
 	self.enabled = false
 
 	self.cameraChangedConn = nil
-	if not FFlagUserPSRemoveTouchEnabled then
-		self.viewportSizeChangedConn = nil
-	end
 
 	-- VR Support
 	self.shouldUseVRRotation = false
@@ -431,35 +422,8 @@ function BaseCamera:GetSubjectPosition(): Vector3?
 	return result
 end
 
-if not FFlagUserPSRemoveTouchEnabled then
-	function BaseCamera:OnViewportSizeChanged()
-		local camera = game.Workspace.CurrentCamera
-		local size = camera.ViewportSize
-		self.portraitMode = size.X < size.Y
-		self.isSmallTouchScreen = UserInputService.TouchEnabled and (size.Y < 500 or size.X < 700)
-	end
-end
-
 -- Listener for changes to workspace.CurrentCamera
 function BaseCamera:OnCurrentCameraChanged()
-	if not FFlagUserPSRemoveTouchEnabled then
-		if UserInputService.TouchEnabled then
-			if self.viewportSizeChangedConn then
-				self.viewportSizeChangedConn:Disconnect()
-				self.viewportSizeChangedConn = nil
-			end
-
-			local newCamera = game.Workspace.CurrentCamera
-
-			if newCamera then
-				self:OnViewportSizeChanged()
-				self.viewportSizeChangedConn = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
-					self:OnViewportSizeChanged()
-				end)
-			end
-		end
-	end
-
 	-- VR support additions
 	if self.cameraSubjectChangedConn then
 		self.cameraSubjectChangedConn:Disconnect()
@@ -583,12 +547,6 @@ function BaseCamera:Cleanup()
 	if self.subjectStateChangedConn then
 		self.subjectStateChangedConn:Disconnect()
 		self.subjectStateChangedConn = nil
-	end
-	if not FFlagUserPSRemoveTouchEnabled then
-		if self.viewportSizeChangedConn then
-			self.viewportSizeChangedConn:Disconnect()
-			self.viewportSizeChangedConn = nil
-		end
 	end
 	if self.cameraChangedConn then 
 		self.cameraChangedConn:Disconnect()

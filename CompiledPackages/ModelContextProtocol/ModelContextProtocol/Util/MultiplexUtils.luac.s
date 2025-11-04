@@ -136,6 +136,27 @@ PROTO_5:
   SETTABLEKS R3 R2 K2 ["inputSchema"]
   RETURN R2 1
 
+PROTO_6:
+  LOADK R3 K0 ["%*%*%*"]
+  MOVE R5 R0
+  LOADK R6 K1 ["-"]
+  GETTABLEKS R7 R1 K2 ["name"]
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 4 1
+  MOVE R2 R3
+  LOADK R5 K4 ["[^a-zA-Z0-9_-]"]
+  LOADK R6 K5 ["_"]
+  NAMECALL R3 R2 K6 ["gsub"]
+  CALL R3 3 1
+  MOVE R2 R3
+  DUPTABLE R3 K9 [{"name", "description", "inputSchema"}]
+  SETTABLEKS R2 R3 K2 ["name"]
+  GETTABLEKS R4 R1 K7 ["description"]
+  SETTABLEKS R4 R3 K7 ["description"]
+  GETTABLEKS R4 R1 K8 ["inputSchema"]
+  SETTABLEKS R4 R3 K8 ["inputSchema"]
+  RETURN R3 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -149,7 +170,7 @@ MAIN:
   LOADK R4 K9 ["HttpService"]
   NAMECALL R2 R2 K10 ["GetService"]
   CALL R2 2 1
-  NEWTABLE R3 4 0
+  NEWTABLE R3 8 0
   DUPCLOSURE R4 K11 [PROTO_0]
   CAPTURE VAL R2
   DUPCLOSURE R5 K12 [PROTO_1]
@@ -159,7 +180,9 @@ MAIN:
   DUPCLOSURE R6 K15 [PROTO_3]
   SETTABLEKS R6 R3 K16 ["unpackServerIdentifier"]
   DUPCLOSURE R6 K17 [PROTO_4]
-  SETTABLEKS R6 R3 K18 ["unpackToolIdentifier"]
+  SETTABLEKS R6 R3 K18 ["DEPRECATED_unpackToolIdentifier"]
   DUPCLOSURE R6 K19 [PROTO_5]
-  SETTABLEKS R6 R3 K20 ["updateToolDefinitionForServer"]
+  SETTABLEKS R6 R3 K20 ["DEPRECATED_updateToolDefinitionForServer"]
+  DUPCLOSURE R6 K21 [PROTO_6]
+  SETTABLEKS R6 R3 K22 ["updateToolNameAlias"]
   RETURN R3 1

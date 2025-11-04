@@ -122,8 +122,17 @@ PROTO_1:
 
 PROTO_2:
   GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+8]
   GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["JSONDecode"]
+  GETTABLEKS R1 R2 K0 ["Json"]
+  GETTABLEKS R0 R1 K1 ["decode"]
+  GETUPVAL R1 2
+  CALL R0 1 -1
+  RETURN R0 -1
+  GETUPVAL R0 3
+  GETUPVAL R2 2
+  NAMECALL R0 R0 K2 ["JSONDecode"]
   CALL R0 2 -1
   RETURN R0 -1
 
@@ -131,7 +140,9 @@ PROTO_3:
   GETIMPORT R1 K1 [pcall]
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE VAL R0
+  CAPTURE UPVAL U2
   CALL R1 1 2
   DUPTABLE R3 K4 [{"type", "error"}]
   LOADK R4 K3 ["error"]
@@ -180,10 +191,10 @@ PROTO_3:
   RETURN R5 1
   NEWTABLE R5 0 0
   GETTABLEKS R6 R4 K19 ["content"]
-  JUMPIFNOT R6 [+179]
+  JUMPIFNOT R6 [+199]
   GETTABLEKS R7 R4 K19 ["content"]
   GETTABLEKS R6 R7 K20 ["parts"]
-  JUMPIFNOT R6 [+174]
+  JUMPIFNOT R6 [+194]
   GETTABLEKS R9 R4 K19 ["content"]
   GETTABLEKS R6 R9 K20 ["parts"]
   LOADNIL R7
@@ -191,9 +202,9 @@ PROTO_3:
   FORGPREP R6
   GETTABLEKS R11 R10 K21 ["text"]
   JUMPIFNOT R11 [+51]
-  GETUPVAL R11 1
+  GETUPVAL R11 3
   JUMPIFNOT R11 [+3]
-  GETUPVAL R11 2
+  GETUPVAL R11 4
   JUMPIFEQKS R11 K21 ["text"] [+25]
   DUPTABLE R11 K23 [{"type", "contentBlock"}]
   LOADK R12 K24 ["content_start"]
@@ -210,9 +221,9 @@ PROTO_3:
   GETIMPORT R12 K29 [table.insert]
   CALL R12 2 0
   LOADB R12 1
-  SETUPVAL R12 1
+  SETUPVAL R12 3
   LOADK R12 K21 ["text"]
-  SETUPVAL R12 2
+  SETUPVAL R12 4
   DUPTABLE R11 K31 [{"type", "delta"}]
   LOADK R12 K32 ["content_delta"]
   SETTABLEKS R12 R11 K2 ["type"]
@@ -227,12 +238,12 @@ PROTO_3:
   MOVE R14 R11
   GETIMPORT R12 K29 [table.insert]
   CALL R12 2 0
-  JUMP [+111]
+  JUMP [+131]
   GETTABLEKS R11 R10 K34 ["functionCall"]
-  JUMPIFNOT R11 [+108]
-  GETUPVAL R11 1
+  JUMPIFNOT R11 [+128]
+  GETUPVAL R11 3
   JUMPIFNOT R11 [+14]
-  GETUPVAL R11 2
+  GETUPVAL R11 4
   JUMPIFNOTEQKS R11 K21 ["text"] [+12]
   DUPTABLE R11 K35 [{"type"}]
   LOADK R12 K36 ["content_end"]
@@ -250,13 +261,13 @@ PROTO_3:
   CALL R11 2 0
   GETTABLEKS R12 R10 K34 ["functionCall"]
   GETTABLEKS R11 R12 K37 ["name"]
-  GETUPVAL R13 3
+  GETUPVAL R13 5
   ADDK R12 R13 K41 [1]
-  SETUPVAL R12 3
+  SETUPVAL R12 5
   LOADK R13 K42 ["gemini_"]
   MOVE R14 R11
   LOADK R15 K43 ["_"]
-  GETUPVAL R16 3
+  GETUPVAL R16 5
   CONCAT R12 R13 R16
   DUPTABLE R13 K23 [{"type", "contentBlock"}]
   LOADK R14 K24 ["content_start"]
@@ -274,20 +285,35 @@ PROTO_3:
   MOVE R16 R13
   GETIMPORT R14 K29 [table.insert]
   CALL R14 2 0
-  GETUPVAL R14 0
+  LOADNIL R14
+  GETUPVAL R15 0
+  CALL R15 0 1
+  JUMPIFNOT R15 [+15]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K48 ["Json"]
+  GETTABLEKS R15 R16 K49 ["encode"]
   GETTABLEKS R17 R10 K34 ["functionCall"]
-  GETTABLEKS R16 R17 K48 ["args"]
+  GETTABLEKS R16 R17 K50 ["args"]
   JUMPIF R16 [+2]
   NEWTABLE R16 0 0
-  NAMECALL R14 R14 K49 ["JSONEncode"]
-  CALL R14 2 1
+  CALL R15 1 1
+  MOVE R14 R15
+  JUMP [+12]
+  GETUPVAL R15 2
+  GETTABLEKS R18 R10 K34 ["functionCall"]
+  GETTABLEKS R17 R18 K50 ["args"]
+  JUMPIF R17 [+2]
+  NEWTABLE R17 0 0
+  NAMECALL R15 R15 K51 ["JSONEncode"]
+  CALL R15 2 1
+  MOVE R14 R15
   DUPTABLE R15 K31 [{"type", "delta"}]
   LOADK R16 K32 ["content_delta"]
   SETTABLEKS R16 R15 K2 ["type"]
-  DUPTABLE R16 K51 [{"type", "jsonDelta"}]
-  LOADK R17 K52 ["json_delta"]
+  DUPTABLE R16 K53 [{"type", "jsonDelta"}]
+  LOADK R17 K54 ["json_delta"]
   SETTABLEKS R17 R16 K2 ["type"]
-  SETTABLEKS R14 R16 K50 ["jsonDelta"]
+  SETTABLEKS R14 R16 K52 ["jsonDelta"]
   SETTABLEKS R16 R15 K30 ["delta"]
   FASTCALL2 TABLE_INSERT R5 R15 [+5]
   MOVE R17 R5
@@ -303,13 +329,13 @@ PROTO_3:
   GETIMPORT R17 K29 [table.insert]
   CALL R17 2 0
   LOADB R17 0
-  SETUPVAL R17 1
+  SETUPVAL R17 3
   LOADNIL R17
-  SETUPVAL R17 2
-  FORGLOOP R6 2 [-166]
-  GETTABLEKS R6 R4 K53 ["finishReason"]
+  SETUPVAL R17 4
+  FORGLOOP R6 2 [-186]
+  GETTABLEKS R6 R4 K55 ["finishReason"]
   JUMPIFNOT R6 [+58]
-  GETUPVAL R7 1
+  GETUPVAL R7 3
   JUMPIFNOT R7 [+11]
   DUPTABLE R7 K35 [{"type"}]
   LOADK R8 K36 ["content_end"]
@@ -320,20 +346,20 @@ PROTO_3:
   GETIMPORT R8 K29 [table.insert]
   CALL R8 2 0
   DUPTABLE R7 K31 [{"type", "delta"}]
-  LOADK R8 K54 ["message_delta"]
+  LOADK R8 K56 ["message_delta"]
   SETTABLEKS R8 R7 K2 ["type"]
-  DUPTABLE R8 K56 [{"stopReason"}]
-  GETUPVAL R9 4
+  DUPTABLE R8 K58 [{"stopReason"}]
+  GETUPVAL R9 6
   MOVE R10 R6
-  DUPTABLE R11 K58 [{"hasFunctionCall"}]
-  GETUPVAL R13 3
+  DUPTABLE R11 K60 [{"hasFunctionCall"}]
+  GETUPVAL R13 5
   LOADN R14 0
   JUMPIFLT R14 R13 [+2]
   LOADB R12 0 +1
   LOADB R12 1
-  SETTABLEKS R12 R11 K57 ["hasFunctionCall"]
+  SETTABLEKS R12 R11 K59 ["hasFunctionCall"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K55 ["stopReason"]
+  SETTABLEKS R9 R8 K57 ["stopReason"]
   SETTABLEKS R8 R7 K30 ["delta"]
   FASTCALL2 TABLE_INSERT R5 R7 [+5]
   MOVE R9 R5
@@ -341,7 +367,7 @@ PROTO_3:
   GETIMPORT R8 K29 [table.insert]
   CALL R8 2 0
   DUPTABLE R8 K35 [{"type"}]
-  LOADK R9 K59 ["message_stop"]
+  LOADK R9 K61 ["message_stop"]
   SETTABLEKS R9 R8 K2 ["type"]
   FASTCALL2 TABLE_INSERT R5 R8 [+5]
   MOVE R10 R5
@@ -349,11 +375,11 @@ PROTO_3:
   GETIMPORT R9 K29 [table.insert]
   CALL R9 2 0
   LOADB R9 0
-  SETUPVAL R9 1
-  LOADNIL R9
-  SETUPVAL R9 2
-  LOADN R9 0
   SETUPVAL R9 3
+  LOADNIL R9
+  SETUPVAL R9 4
+  LOADN R9 0
+  SETUPVAL R9 5
   RETURN R5 1
 
 PROTO_4:
@@ -362,10 +388,12 @@ PROTO_4:
   LOADN R2 0
   NEWCLOSURE R3 P0
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
   CAPTURE REF R0
   CAPTURE REF R1
   CAPTURE REF R2
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U3
   CLOSEUPVALS R0
   RETURN R3 1
 
@@ -393,9 +421,9 @@ PROTO_5:
   MOVE R14 R7
   GETIMPORT R13 K7 [table.insert]
   CALL R13 2 0
-  JUMP [+121]
+  JUMP [+134]
   GETTABLEKS R13 R12 K1 ["type"]
-  JUMPIFNOTEQKS R13 K8 ["tool_result"] [+92]
+  JUMPIFNOTEQKS R13 K8 ["tool_result"] [+105]
   GETTABLEKS R13 R12 K9 ["id"]
   LOADN R16 1
   LOADN R17 7
@@ -427,33 +455,43 @@ PROTO_5:
   FASTCALL1 TYPEOF R16 [+2]
   GETIMPORT R15 K20 [typeof]
   CALL R15 1 1
-  JUMPIFNOTEQKS R15 K5 ["table"] [+9]
+  JUMPIFNOTEQKS R15 K5 ["table"] [+22]
   GETUPVAL R15 0
+  CALL R15 0 1
+  JUMPIFNOT R15 [+10]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K21 ["Json"]
+  GETTABLEKS R15 R16 K22 ["encode"]
+  GETTABLEKS R16 R12 K0 ["content"]
+  CALL R15 1 1
+  MOVE R14 R15
+  JUMP [+16]
+  GETUPVAL R15 2
   GETTABLEKS R17 R12 K0 ["content"]
-  NAMECALL R15 R15 K21 ["JSONEncode"]
+  NAMECALL R15 R15 K23 ["JSONEncode"]
   CALL R15 2 1
   MOVE R14 R15
   JUMP [+8]
   GETTABLEKS R17 R12 K0 ["content"]
   ORK R16 R17 K3 [""]
   FASTCALL1 TOSTRING R16 [+2]
-  GETIMPORT R15 K23 [tostring]
+  GETIMPORT R15 K25 [tostring]
   CALL R15 1 1
   MOVE R14 R15
-  DUPTABLE R15 K25 [{"functionResponse"}]
-  DUPTABLE R16 K28 [{"name", "response"}]
-  SETTABLEKS R13 R16 K26 ["name"]
-  DUPTABLE R17 K29 [{"content", "name"}]
+  DUPTABLE R15 K27 [{"functionResponse"}]
+  DUPTABLE R16 K30 [{"name", "response"}]
+  SETTABLEKS R13 R16 K28 ["name"]
+  DUPTABLE R17 K31 [{"content", "name"}]
   SETTABLEKS R14 R17 K0 ["content"]
-  SETTABLEKS R13 R17 K26 ["name"]
-  SETTABLEKS R17 R16 K27 ["response"]
-  SETTABLEKS R16 R15 K24 ["functionResponse"]
-  GETTABLEKS R16 R12 K30 ["isError"]
+  SETTABLEKS R13 R17 K28 ["name"]
+  SETTABLEKS R17 R16 K29 ["response"]
+  SETTABLEKS R16 R15 K26 ["functionResponse"]
+  GETTABLEKS R16 R12 K32 ["isError"]
   JUMPIFNOT R16 [+7]
-  GETTABLEKS R17 R15 K24 ["functionResponse"]
-  GETTABLEKS R16 R17 K27 ["response"]
+  GETTABLEKS R17 R15 K26 ["functionResponse"]
+  GETTABLEKS R16 R17 K29 ["response"]
   LOADB R17 1
-  SETTABLEKS R17 R16 K31 ["error"]
+  SETTABLEKS R17 R16 K33 ["error"]
   FASTCALL2 TABLE_INSERT R7 R15 [+5]
   MOVE R17 R7
   MOVE R18 R15
@@ -461,44 +499,44 @@ PROTO_5:
   CALL R16 2 0
   JUMP [+26]
   GETTABLEKS R13 R12 K1 ["type"]
-  JUMPIFNOTEQKS R13 K32 ["tool_use"] [+23]
-  DUPTABLE R13 K34 [{"functionCall"}]
-  DUPTABLE R14 K36 [{"name", "args"}]
-  GETTABLEKS R15 R12 K26 ["name"]
-  SETTABLEKS R15 R14 K26 ["name"]
-  GETTABLEKS R15 R12 K37 ["input"]
+  JUMPIFNOTEQKS R13 K34 ["tool_use"] [+23]
+  DUPTABLE R13 K36 [{"functionCall"}]
+  DUPTABLE R14 K38 [{"name", "args"}]
+  GETTABLEKS R15 R12 K28 ["name"]
+  SETTABLEKS R15 R14 K28 ["name"]
+  GETTABLEKS R15 R12 K39 ["input"]
   JUMPIF R15 [+2]
   NEWTABLE R15 0 0
-  SETTABLEKS R15 R14 K35 ["args"]
-  SETTABLEKS R14 R13 K33 ["functionCall"]
+  SETTABLEKS R15 R14 K37 ["args"]
+  SETTABLEKS R14 R13 K35 ["functionCall"]
   FASTCALL2 TABLE_INSERT R7 R13 [+5]
   MOVE R15 R7
   MOVE R16 R13
   GETIMPORT R14 K7 [table.insert]
   CALL R14 2 0
-  FORGLOOP R8 2 [-145]
+  FORGLOOP R8 2 [-158]
   LENGTH R8 R7
   LOADN R9 0
   JUMPIFNOTLT R9 R8 [+27]
-  GETTABLEKS R8 R6 K38 ["role"]
-  JUMPIFNOTEQKS R8 K39 ["assistant"] [+3]
-  LOADK R8 K40 ["model"]
+  GETTABLEKS R8 R6 K40 ["role"]
+  JUMPIFNOTEQKS R8 K41 ["assistant"] [+3]
+  LOADK R8 K42 ["model"]
   JUMP [+9]
-  JUMPIFNOTEQKS R8 K41 ["user"] [+8]
+  JUMPIFNOTEQKS R8 K43 ["user"] [+8]
   GETTABLEN R9 R7 1
   JUMPIFNOT R9 [+5]
   GETTABLEN R10 R7 1
-  GETTABLEKS R9 R10 K24 ["functionResponse"]
+  GETTABLEKS R9 R10 K26 ["functionResponse"]
   JUMPIFNOT R9 [+1]
-  LOADK R8 K42 ["function"]
-  DUPTABLE R11 K44 [{"role", "parts"}]
-  SETTABLEKS R8 R11 K38 ["role"]
-  SETTABLEKS R7 R11 K43 ["parts"]
+  LOADK R8 K44 ["function"]
+  DUPTABLE R11 K46 [{"role", "parts"}]
+  SETTABLEKS R8 R11 K40 ["role"]
+  SETTABLEKS R7 R11 K45 ["parts"]
   FASTCALL2 TABLE_INSERT R1 R11 [+4]
   MOVE R10 R1
   GETIMPORT R9 K7 [table.insert]
   CALL R9 2 0
-  FORGLOOP R2 2 [-184]
+  FORGLOOP R2 2 [-197]
   RETURN R1 1
 
 MAIN:
@@ -507,46 +545,58 @@ MAIN:
   LOADK R2 K2 ["AssistantUI"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["HttpService"]
-  NAMECALL R1 R1 K7 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R3 R0 K10 ["Types"]
-  CALL R2 1 1
-  GETIMPORT R3 K12 [_G]
-  DUPTABLE R4 K15 [{"totalUsage", "responseData"}]
-  DUPTABLE R5 K23 [{"input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens", "reasoning_tokens", "timestamp", "model"}]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K16 ["input_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K17 ["output_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K18 ["cache_read_input_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K19 ["cache_creation_input_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K20 ["reasoning_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K21 ["timestamp"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K22 ["model"]
-  SETTABLEKS R5 R4 K13 ["totalUsage"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K14 ["responseData"]
-  SETTABLEKS R4 R3 K24 ["GeminiTokenUsageTracker"]
-  DUPCLOSURE R3 K25 [PROTO_0]
-  GETIMPORT R5 K12 [_G]
-  GETTABLEKS R4 R5 K24 ["GeminiTokenUsageTracker"]
-  SETTABLEKS R3 R4 K26 ["addUsage"]
-  DUPCLOSURE R3 K27 [PROTO_1]
-  CAPTURE VAL R2
-  DUPCLOSURE R4 K28 [PROTO_4]
-  CAPTURE VAL R1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["ModelContextProtocol"]
+  CALL R1 1 1
+  GETIMPORT R2 K9 [game]
+  LOADK R4 K10 ["HttpService"]
+  NAMECALL R2 R2 K11 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K12 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K13 ["Flags"]
+  GETTABLEKS R5 R6 K14 ["getFFlagAssistantJsonEncoder"]
+  CALL R4 1 1
+  GETIMPORT R5 K16 [_G]
+  DUPTABLE R6 K19 [{"totalUsage", "responseData"}]
+  DUPTABLE R7 K27 [{"input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens", "reasoning_tokens", "timestamp", "model"}]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K20 ["input_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K21 ["output_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K22 ["cache_read_input_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K23 ["cache_creation_input_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K24 ["reasoning_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K25 ["timestamp"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K26 ["model"]
+  SETTABLEKS R7 R6 K17 ["totalUsage"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K18 ["responseData"]
+  SETTABLEKS R6 R5 K28 ["GeminiTokenUsageTracker"]
+  DUPCLOSURE R5 K29 [PROTO_0]
+  GETIMPORT R7 K16 [_G]
+  GETTABLEKS R6 R7 K28 ["GeminiTokenUsageTracker"]
+  SETTABLEKS R5 R6 K30 ["addUsage"]
+  DUPCLOSURE R5 K31 [PROTO_1]
   CAPTURE VAL R3
-  DUPCLOSURE R5 K29 [PROTO_5]
+  DUPCLOSURE R6 K32 [PROTO_4]
+  CAPTURE VAL R4
   CAPTURE VAL R1
-  DUPTABLE R6 K32 [{"createAdapter", "convertLLMtoGeminiMessage"}]
-  SETTABLEKS R4 R6 K30 ["createAdapter"]
-  SETTABLEKS R5 R6 K31 ["convertLLMtoGeminiMessage"]
-  RETURN R6 1
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  DUPCLOSURE R7 K33 [PROTO_5]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  DUPTABLE R8 K36 [{"createAdapter", "convertLLMtoGeminiMessage"}]
+  SETTABLEKS R6 R8 K34 ["createAdapter"]
+  SETTABLEKS R7 R8 K35 ["convertLLMtoGeminiMessage"]
+  RETURN R8 1

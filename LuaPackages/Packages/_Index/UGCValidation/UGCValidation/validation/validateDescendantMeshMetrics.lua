@@ -12,9 +12,7 @@ local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
 
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
-local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
 local validateCageUVs = require(root.validation.validateCageUVs)
-local validateFullBodyCageDeletion = require(root.validation.validateFullBodyCageDeletion)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateCageUVTriangleArea = require(root.validation.validateCageUVTriangleArea)
 local validateMeshTriangleArea = require(root.validation.validateMeshTriangleArea)
@@ -31,7 +29,6 @@ local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningValidation)
 
 local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
-local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
 local getEngineFeatureEngineEditableMeshAvatarPublish =
@@ -320,9 +317,6 @@ local function validateDescendantMeshMetrics(
 		elseif data.instance.ClassName == "WrapTarget" then
 			assert(data.fieldName == "CageMeshId")
 			meshInfo.fullName = meshInfo.fullName .. "OuterCage"
-			if getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-				reasonsAccumulator:updateReasons(validateFullBodyCageDeletion(meshInfo, validationContext))
-			end
 
 			reasonsAccumulator:updateReasons(validateCageUVs(meshInfo, data.instance :: WrapTarget, validationContext))
 
@@ -333,10 +327,6 @@ local function validateDescendantMeshMetrics(
 			)
 
 			reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
-		end
-
-		if getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-			reasonsAccumulator:updateReasons(validateOverlappingVertices(meshInfo, validationContext))
 		end
 	end
 

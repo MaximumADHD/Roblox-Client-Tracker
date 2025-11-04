@@ -1,11 +1,17 @@
 PROTO_0:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["selectedProvider"]
-  JUMPIFNOTEQKS R0 K1 ["Claude"] [+4]
+  JUMPIFEQKS R0 K1 ["Claude"] [+11]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["selectedProvider"]
+  JUMPIFEQKS R0 K2 ["Gemini"] [+6]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["selectedProvider"]
+  JUMPIFNOTEQKS R0 K3 ["OpenAI"] [+4]
   NEWTABLE R0 0 0
   RETURN R0 1
   GETUPVAL R1 1
-  GETTABLEKS R0 R1 K2 ["studioProvider"]
+  GETTABLEKS R0 R1 K4 ["studioProvider"]
   JUMPIF R0 [+2]
   NEWTABLE R0 0 0
   RETURN R0 1
@@ -52,7 +58,9 @@ PROTO_1:
   GETTABLEKS R9 R10 K12 ["getSystemMessage"]
   CALL R9 0 1
   MOVE R8 R9
-  JUMP [+13]
+  JUMP [+49]
+  GETTABLEKS R9 R1 K3 ["selectedProvider"]
+  JUMPIFNOTEQKS R9 K13 ["Gemini"] [+15]
   GETUPVAL R10 6
   GETTABLEKS R9 R10 K10 ["createRequestHandler"]
   CALL R9 0 1
@@ -63,25 +71,49 @@ PROTO_1:
   GETTABLEKS R9 R10 K12 ["getSystemMessage"]
   CALL R9 0 1
   MOVE R8 R9
-  DUPTABLE R9 K15 [{"requestHandler", "processEvent", "createLLMSession", "cancelSession", "formatTools", "systemMessage"}]
-  GETTABLEKS R11 R2 K13 ["requestHandler"]
+  JUMP [+31]
+  GETTABLEKS R9 R1 K3 ["selectedProvider"]
+  JUMPIFNOTEQKS R9 K14 ["OpenAI"] [+15]
+  GETUPVAL R10 9
+  GETTABLEKS R9 R10 K10 ["createRequestHandler"]
+  CALL R9 0 1
+  MOVE R6 R9
+  GETUPVAL R9 10
+  GETTABLEKS R7 R9 K11 ["formatTools"]
+  GETUPVAL R10 11
+  GETTABLEKS R9 R10 K12 ["getSystemMessage"]
+  CALL R9 0 1
+  MOVE R8 R9
+  JUMP [+13]
+  GETUPVAL R10 12
+  GETTABLEKS R9 R10 K10 ["createRequestHandler"]
+  CALL R9 0 1
+  MOVE R6 R9
+  GETUPVAL R9 13
+  GETTABLEKS R7 R9 K11 ["formatTools"]
+  GETUPVAL R10 14
+  GETTABLEKS R9 R10 K12 ["getSystemMessage"]
+  CALL R9 0 1
+  MOVE R8 R9
+  DUPTABLE R9 K17 [{"requestHandler", "processEvent", "createLLMSession", "cancelSession", "formatTools", "systemMessage"}]
+  GETTABLEKS R11 R2 K15 ["requestHandler"]
   OR R10 R11 R6
-  SETTABLEKS R10 R9 K13 ["requestHandler"]
+  SETTABLEKS R10 R9 K15 ["requestHandler"]
   SETTABLEKS R3 R9 K5 ["processEvent"]
   SETTABLEKS R4 R9 K6 ["createLLMSession"]
   SETTABLEKS R5 R9 K7 ["cancelSession"]
   GETTABLEKS R11 R2 K11 ["formatTools"]
   OR R10 R11 R7
   SETTABLEKS R10 R9 K11 ["formatTools"]
-  GETTABLEKS R11 R2 K14 ["systemMessage"]
+  GETTABLEKS R11 R2 K16 ["systemMessage"]
   OR R10 R11 R8
-  SETTABLEKS R10 R9 K14 ["systemMessage"]
-  GETUPVAL R10 9
-  GETUPVAL R12 10
-  GETTABLEKS R11 R12 K16 ["Provider"]
-  DUPTABLE R12 K18 [{"value"}]
-  SETTABLEKS R9 R12 K17 ["value"]
-  GETTABLEKS R13 R0 K19 ["children"]
+  SETTABLEKS R10 R9 K16 ["systemMessage"]
+  GETUPVAL R10 15
+  GETUPVAL R12 16
+  GETTABLEKS R11 R12 K18 ["Provider"]
+  DUPTABLE R12 K20 [{"value"}]
+  SETTABLEKS R9 R12 K19 ["value"]
+  GETTABLEKS R13 R0 K21 ["children"]
   CALL R10 3 -1
   RETURN R10 -1
 
@@ -139,24 +171,54 @@ MAIN:
   GETIMPORT R11 K5 [require]
   GETTABLEKS R12 R8 K20 ["ClaudeLLMToolFormat"]
   CALL R11 1 1
-  GETTABLEKS R12 R6 K21 ["createElement"]
-  NEWTABLE R13 0 0
-  GETTABLEKS R14 R6 K22 ["createContext"]
-  MOVE R15 R13
+  GETTABLEKS R14 R0 K6 ["Components"]
+  GETTABLEKS R13 R14 K7 ["Contexts"]
+  GETTABLEKS R12 R13 K21 ["Gemini"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R14 R12 K22 ["GeminiLLMRequest"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R12 K23 ["GeminiLLMSystemMessage"]
   CALL R14 1 1
-  DUPCLOSURE R15 K23 [PROTO_1]
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R16 R12 K24 ["GeminiLLMToolFormat"]
+  CALL R15 1 1
+  GETTABLEKS R18 R0 K6 ["Components"]
+  GETTABLEKS R17 R18 K7 ["Contexts"]
+  GETTABLEKS R16 R17 K25 ["OpenAI"]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R18 R16 K26 ["OpenAILLMRequest"]
+  CALL R17 1 1
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R19 R16 K27 ["OpenAILLMSystemMessage"]
+  CALL R18 1 1
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R20 R16 K28 ["OpenAILLMToolFormat"]
+  CALL R19 1 1
+  GETTABLEKS R20 R6 K29 ["createElement"]
+  NEWTABLE R21 0 0
+  GETTABLEKS R22 R6 K30 ["createContext"]
+  MOVE R23 R21
+  CALL R22 1 1
+  DUPCLOSURE R23 K31 [PROTO_1]
   CAPTURE VAL R6
   CAPTURE VAL R2
   CAPTURE VAL R1
   CAPTURE VAL R9
   CAPTURE VAL R11
   CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  CAPTURE VAL R17
+  CAPTURE VAL R19
+  CAPTURE VAL R18
   CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R4
-  CAPTURE VAL R12
-  CAPTURE VAL R14
-  DUPTABLE R16 K26 [{"Context", "Provider"}]
-  SETTABLEKS R14 R16 K24 ["Context"]
-  SETTABLEKS R15 R16 K25 ["Provider"]
-  RETURN R16 1
+  CAPTURE VAL R20
+  CAPTURE VAL R22
+  DUPTABLE R24 K34 [{"Context", "Provider"}]
+  SETTABLEKS R22 R24 K32 ["Context"]
+  SETTABLEKS R23 R24 K33 ["Provider"]
+  RETURN R24 1

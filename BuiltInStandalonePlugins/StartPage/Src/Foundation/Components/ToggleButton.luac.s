@@ -16,29 +16,31 @@ PROTO_0:
   LOADK R5 K8 ["--start-page--toggle-button-item"]
   SETTABLEKS R5 R4 K3 ["testId"]
   GETUPVAL R6 3
-  JUMPIFNOT R6 [+24]
+  JUMPIFNOT R6 [+28]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K0 ["createElement"]
   GETUPVAL R6 4
-  DUPTABLE R7 K12 [{"size", "name", "style"}]
+  DUPTABLE R7 K13 [{"size", "name", "variant", "style"}]
   GETUPVAL R9 5
-  GETTABLEKS R8 R9 K13 ["Small"]
+  GETTABLEKS R8 R9 K14 ["Small"]
   SETTABLEKS R8 R7 K9 ["size"]
-  GETTABLEKS R8 R0 K14 ["icon"]
+  GETTABLEKS R8 R0 K10 ["name"]
   SETTABLEKS R8 R7 K10 ["name"]
+  GETTABLEKS R8 R0 K11 ["variant"]
+  SETTABLEKS R8 R7 K11 ["variant"]
   GETTABLEKS R10 R1 K15 ["Color"]
   GETTABLEKS R9 R10 K16 ["Content"]
   GETTABLEKS R8 R9 K17 ["Emphasis"]
-  SETTABLEKS R8 R7 K11 ["style"]
+  SETTABLEKS R8 R7 K12 ["style"]
   CALL R5 2 1
   JUMP [+21]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K0 ["createElement"]
   GETUPVAL R6 6
   DUPTABLE R7 K20 [{"Image", "tag", "imageStyle"}]
-  GETTABLEKS R8 R0 K14 ["icon"]
+  GETTABLEKS R8 R0 K21 ["icon"]
   SETTABLEKS R8 R7 K18 ["Image"]
-  LOADK R8 K21 ["size-400"]
+  LOADK R8 K22 ["size-400"]
   SETTABLEKS R8 R7 K2 ["tag"]
   GETTABLEKS R10 R1 K15 ["Color"]
   GETTABLEKS R9 R10 K16 ["Content"]
@@ -60,22 +62,26 @@ PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
-  DUPTABLE R3 K5 [{"onActivated", "key", "isChecked", "icon"}]
+  DUPTABLE R3 K7 [{"onActivated", "key", "isChecked", "icon", "name", "variant"}]
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U2
   CAPTURE VAL R0
   SETTABLEKS R4 R3 K1 ["onActivated"]
-  GETTABLEKS R4 R0 K6 ["id"]
+  GETTABLEKS R4 R0 K8 ["id"]
   SETTABLEKS R4 R3 K2 ["key"]
-  GETTABLEKS R5 R0 K6 ["id"]
+  GETTABLEKS R5 R0 K8 ["id"]
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K6 ["id"]
+  GETTABLEKS R6 R7 K8 ["id"]
   JUMPIFEQ R5 R6 [+2]
   LOADB R4 0 +1
   LOADB R4 1
   SETTABLEKS R4 R3 K3 ["isChecked"]
   GETTABLEKS R4 R0 K4 ["icon"]
   SETTABLEKS R4 R3 K4 ["icon"]
+  GETTABLEKS R4 R0 K5 ["name"]
+  SETTABLEKS R4 R3 K5 ["name"]
+  GETTABLEKS R4 R0 K6 ["variant"]
+  SETTABLEKS R4 R3 K6 ["variant"]
   CALL R1 2 -1
   RETURN R1 -1
 

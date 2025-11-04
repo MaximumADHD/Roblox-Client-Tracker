@@ -34,6 +34,9 @@ local fflagReconnectToSameServer = game:DefineFastFlag("ReconnectToSameServer", 
 local fflagShowScreentimeLockoutKickMessage = game:DefineFastFlag("ShowScreentimeLockoutKickMessage", false)
 
 local fflagShowNewConnectErrorsMessage = game:DefineFastFlag("ShowNewConnectErrorsMessage", false)
+local fflagAddConnectionErrorLocalizationKeys = game:DefineFastFlag("AddConnectionErrorLocalizationKeys", false)
+
+local FFlagAddClientDisconnectVerboselyModeratedGame = game:DefineFastFlag("AddClientDisconnectVerboselyModeratedGame", false)
 
 local connectionEventConfig = {
 	eventName = "ConnectionEvent",
@@ -374,6 +377,13 @@ if fflagShowNewConnectErrorsMessage then
 	reconnectDisabledList[Enum.ConnectionError.OurSystemRequiresSecurity] = true
 	reconnectDisabledList[Enum.ConnectionError.IncompatibleProtocolVersion] = true
 	reconnectDisabledList[Enum.ConnectionError.DisconnectRaknetErrors] = false
+end
+
+if fflagAddConnectionErrorLocalizationKeys then
+	reconnectDisabledList[Enum.ConnectionError.DisconnectBySecurityPolicy] = true
+	reconnectDisabledList[Enum.ConnectionError.DisconnectBlockedIP] = true
+	reconnectDisabledList[Enum.ConnectionError.DisconnectCollaboratorPermissionRevoked] = true
+	reconnectDisabledList[Enum.ConnectionError.DisconnectCollaboratorUnderage] = true
 end
 
 local ButtonList = {
@@ -839,6 +849,11 @@ local enumToLocalizationKey = {
 	[Enum.ConnectionError.TeleportIsTeleporting] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.TeleportIsTeleporting",
 }
 
+if FFlagAddClientDisconnectVerboselyModeratedGame then
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectVerboselyModeratedGame] = "InGame.ConnectionError.DisconnectVerboselyModeratedGame"
+end
+
+
 if fflagShowScreentimeLockoutKickMessage then
 	enumToLocalizationKey[Enum.ConnectionError.ScreentimeLockoutKick] = "Feature.Screentime.Content.ScreentimeLimitDialog"
 end
@@ -853,6 +868,29 @@ if fflagShowNewConnectErrorsMessage then
 	enumToLocalizationKey[Enum.ConnectionError.OurSystemRequiresSecurity] = "InGame.ConnectionError.ConnectionFailedRobloxVersion"
 	enumToLocalizationKey[Enum.ConnectionError.IncompatibleProtocolVersion] = "InGame.ConnectionError.ConnectionFailedRobloxVersion"
 	enumToLocalizationKey[Enum.ConnectionError.DisconnectRaknetErrors] = "InGame.ConnectionError.DisconnectRaknetErrors"
+end
+
+if fflagAddConnectionErrorLocalizationKeys then
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectBySecurityPolicy] = "InGame.ConnectionError.DisconnectBlockedConnection"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectBlockedIP] = "InGame.ConnectionError.DisconnectBlockedConnection"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectClientFailure] = "InGame.ConnectionError.DisconnectClientFailure"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectClientRequest] = "InGame.ConnectionError.DisconnectClientRequest"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectModeratedGame] = "InGame.ConnectionError.ServerShutdown"
+	enumToLocalizationKey[Enum.ConnectionError.ServerShutdown] = "InGame.ConnectionError.ServerShutdown"
+	enumToLocalizationKey[Enum.ConnectionError.ReplicatorTimeout] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.PlayerRemoved] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectRomarkEndOfTest] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectCollaboratorPermissionRevoked] = "InGame.ConnectionError.DisconnectCollaboratorPermissionRevoked"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectCollaboratorUnderage] = "InGame.ConnectionError.DisconnectCollaboratorUnderage"
+	enumToLocalizationKey[Enum.ConnectionError.NetworkInternal] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.NetworkSend] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.NetworkTimeout] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.NetworkMisbehavior] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.NetworkSecurity] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.ReplacementReady] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.ServerEmpty] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.PhantomFreeze] = "InGame.ConnectionError.DisconnectTryAgain"
+	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchCreatorBan] = "InGame.ConnectionError.CreatorBanNoTime"
 end
 
 -- Localize the error string, with a fallback to the original string upon failure.

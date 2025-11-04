@@ -1,81 +1,120 @@
 PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["createElement"]
   GETUPVAL R3 1
-  DUPTABLE R4 K6 [{"label", "isChecked", "onActivated", "size", "Size"}]
-  GETTABLEKS R5 R0 K7 ["Text"]
-  SETTABLEKS R5 R4 K1 ["label"]
-  GETTABLEKS R6 R0 K9 ["Enabled"]
-  ORK R5 R6 K8 [False]
+  DUPTABLE R4 K4 [{"Text", "isChecked", "onActivated"}]
+  GETTABLEKS R5 R0 K1 ["Text"]
+  SETTABLEKS R5 R4 K1 ["Text"]
+  GETTABLEKS R6 R0 K6 ["Enabled"]
+  ORK R5 R6 K5 [False]
   SETTABLEKS R5 R4 K2 ["isChecked"]
-  GETTABLEKS R5 R0 K10 ["OnClick"]
+  GETTABLEKS R5 R0 K7 ["OnClick"]
   SETTABLEKS R5 R4 K3 ["onActivated"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K11 ["InputSize"]
-  GETTABLEKS R5 R6 K12 ["Small"]
-  SETTABLEKS R5 R4 K4 ["size"]
-  GETIMPORT R5 K15 [UDim2.new]
-  LOADN R6 1
-  LOADN R7 0
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K5 ["Size"]
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  GETUPVAL R2 1
-  DUPTABLE R3 K3 [{"LayoutOrder", "tag"}]
-  GETTABLEKS R4 R0 K1 ["LayoutOrder"]
-  SETTABLEKS R4 R3 K1 ["LayoutOrder"]
-  LOADK R4 K4 ["col gap-small auto-xy"]
-  SETTABLEKS R4 R3 K2 ["tag"]
-  DUPTABLE R4 K8 [{"TopDivider", "Label", "ItemView"}]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K10 [{"LayoutOrder", "orientation"}]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K1 ["LayoutOrder"]
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K11 ["DividerOrientation"]
-  GETTABLEKS R8 R9 K12 ["Horizontal"]
-  SETTABLEKS R8 R7 K9 ["orientation"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K5 ["TopDivider"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 4
-  DUPTABLE R7 K14 [{"LayoutOrder", "Text", "tag"}]
-  LOADN R8 2
-  SETTABLEKS R8 R7 K1 ["LayoutOrder"]
-  GETTABLEKS R8 R0 K15 ["Name"]
-  SETTABLEKS R8 R7 K13 ["Text"]
-  LOADK R8 K16 ["auto-xy text-title-medium content-emphasis"]
-  SETTABLEKS R8 R7 K2 ["tag"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K6 ["Label"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 1
-  DUPTABLE R7 K3 [{"LayoutOrder", "tag"}]
-  LOADN R8 3
-  SETTABLEKS R8 R7 K1 ["LayoutOrder"]
-  LOADK R8 K17 ["col gap-xsmall size-full-0 auto-y"]
-  SETTABLEKS R8 R7 K2 ["tag"]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K18 ["map"]
-  GETTABLEKS R9 R0 K19 ["Items"]
-  DUPCLOSURE R10 K20 [PROTO_0]
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADB R2 1
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K4 [{"LayoutOrder", "tag"}]
+  GETTABLEKS R6 R0 K2 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K2 ["LayoutOrder"]
+  LOADK R6 K5 ["col gap-xsmall auto-xy"]
+  SETTABLEKS R6 R5 K3 ["tag"]
+  DUPTABLE R6 K9 [{"TopDivider", "LabelButton", "ItemView"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K11 [{"LayoutOrder", "orientation"}]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K2 ["LayoutOrder"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K12 ["DividerOrientation"]
+  GETTABLEKS R10 R11 K13 ["Horizontal"]
+  SETTABLEKS R10 R9 K10 ["orientation"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K6 ["TopDivider"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K15 [{"LayoutOrder", "onActivated", "tag"}]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K2 ["LayoutOrder"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  SETTABLEKS R10 R9 K14 ["onActivated"]
+  LOADK R10 K16 ["row auto-y size-full-500 align-y-center flex-x-between radius-small padding-xxsmall"]
+  SETTABLEKS R10 R9 K3 ["tag"]
+  DUPTABLE R10 K19 [{"Label", "Chevron"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K1 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K21 [{"LayoutOrder", "Text", "tag"}]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K2 ["LayoutOrder"]
+  GETTABLEKS R14 R0 K20 ["Text"]
+  SETTABLEKS R14 R13 K20 ["Text"]
+  LOADK R14 K22 ["auto-xy text-title-small content-system-neutral"]
+  SETTABLEKS R14 R13 K3 ["tag"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K17 ["Label"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K1 ["createElement"]
+  GETUPVAL R12 5
+  DUPTABLE R13 K25 [{"LayoutOrder", "name", "size"}]
+  LOADN R14 2
+  SETTABLEKS R14 R13 K2 ["LayoutOrder"]
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K26 ["ChevronSmallUp"]
+  JUMP [+3]
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K27 ["ChevronSmallDown"]
+  SETTABLEKS R14 R13 K23 ["name"]
+  GETUPVAL R15 7
+  GETTABLEKS R14 R15 K28 ["Small"]
+  SETTABLEKS R14 R13 K24 ["size"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K18 ["Chevron"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K7 ["LabelButton"]
+  JUMPIF R1 [+3]
+  GETTABLEKS R8 R0 K29 ["KeepExpanded"]
+  JUMPIFNOT R8 [+22]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K4 [{"LayoutOrder", "tag"}]
+  LOADN R10 3
+  SETTABLEKS R10 R9 K2 ["LayoutOrder"]
+  LOADK R10 K30 ["col gap-xsmall size-full-0 auto-y"]
+  SETTABLEKS R10 R9 K3 ["tag"]
+  GETUPVAL R11 8
+  GETTABLEKS R10 R11 K31 ["map"]
+  GETTABLEKS R11 R0 K32 ["Items"]
+  DUPCLOSURE R12 K33 [PROTO_1]
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U3
-  CALL R8 2 -1
-  CALL R5 -1 1
-  SETTABLEKS R5 R4 K7 ["ItemView"]
-  CALL R1 3 -1
-  RETURN R1 -1
+  CAPTURE UPVAL U9
+  CALL R10 2 -1
+  CALL R7 -1 1
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K8 ["ItemView"]
+  CALL R3 3 -1
+  RETURN R3 -1
 
 MAIN:
   PREPVARARGS 0
@@ -97,24 +136,32 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R4 R3 K10 ["Enums"]
   GETTABLEKS R5 R3 K11 ["View"]
-  GETTABLEKS R6 R3 K12 ["Text"]
-  GETTABLEKS R7 R3 K13 ["Divider"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R11 K1 [script]
-  GETTABLEKS R10 R11 K14 ["Parent"]
-  GETTABLEKS R9 R10 K15 ["FilterTypeButton"]
-  CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETIMPORT R12 K1 [script]
-  GETTABLEKS R11 R12 K14 ["Parent"]
-  GETTABLEKS R10 R11 K16 ["useFilterTypeTable"]
-  CALL R9 1 1
-  DUPCLOSURE R10 K17 [PROTO_1]
+  GETTABLEKS R6 R3 K12 ["Icon"]
+  GETTABLEKS R8 R3 K10 ["Enums"]
+  GETTABLEKS R7 R8 K13 ["IconName"]
+  GETTABLEKS R9 R3 K10 ["Enums"]
+  GETTABLEKS R8 R9 K14 ["IconSize"]
+  GETTABLEKS R9 R3 K15 ["Text"]
+  GETTABLEKS R10 R3 K16 ["Divider"]
+  GETIMPORT R11 K5 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K17 ["Parent"]
+  GETTABLEKS R12 R13 K18 ["FilterTypeButton"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K17 ["Parent"]
+  GETTABLEKS R13 R14 K19 ["useFilterTypeTable"]
+  CALL R12 1 1
+  DUPCLOSURE R13 K20 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R5
-  CAPTURE VAL R7
+  CAPTURE VAL R10
   CAPTURE VAL R4
+  CAPTURE VAL R9
   CAPTURE VAL R6
-  CAPTURE VAL R1
+  CAPTURE VAL R7
   CAPTURE VAL R8
-  RETURN R10 1
+  CAPTURE VAL R1
+  CAPTURE VAL R11
+  RETURN R13 1

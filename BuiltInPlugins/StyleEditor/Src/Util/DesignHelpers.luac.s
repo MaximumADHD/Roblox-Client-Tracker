@@ -70,9 +70,9 @@ PROTO_3:
   LOADB R3 0
   GETUPVAL R5 0
   JUMPIFNOT R5 [+2]
-  GETUPVAL R4 1
-  JUMP [+1]
   MOVE R4 R2
+  JUMP [+1]
+  GETUPVAL R4 1
   NAMECALL R5 R4 K0 ["GetDescendants"]
   CALL R5 1 3
   FORGPREP R5
@@ -267,13 +267,35 @@ PROTO_7:
   GETUPVAL R1 2
   GETTABLEKS R0 R1 K3 ["getStudioDefaultStyleSheet"]
   CALL R0 0 1
-  JUMPIFNOT R0 [+6]
+  GETUPVAL R1 3
+  JUMPIFNOT R1 [+25]
+  GETUPVAL R3 4
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K4 [+4]
+  LOADK R3 K4 ["Source should never be nil"]
+  GETIMPORT R1 K6 [assert]
+  CALL R1 2 0
+  JUMPIFNOT R0 [+20]
+  GETUPVAL R1 4
+  LOADK R3 K7 ["ReplicatedStorage"]
+  NAMECALL R1 R1 K8 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+14]
   GETUPVAL R2 2
-  GETTABLEKS R1 R2 K4 ["insertDerive"]
+  GETTABLEKS R1 R2 K9 ["insertDerive"]
   GETUPVAL R2 0
   MOVE R3 R0
   CALL R1 2 0
-  GETIMPORT R1 K8 [Enum.FinishRecordingOperation.Commit]
+  JUMP [+7]
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K9 ["insertDerive"]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R1 2 0
+  GETIMPORT R1 K13 [Enum.FinishRecordingOperation.Commit]
   RETURN R1 1
 
 PROTO_8:

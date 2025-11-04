@@ -53,64 +53,71 @@ MAIN:
   GETTABLEKS R8 R0 K7 ["Components"]
   GETTABLEKS R7 R8 K8 ["PropertyEntries"]
   GETTABLEKS R6 R7 K9 ["PropertyView"]
-  GETTABLEKS R5 R6 K12 ["EnumItemPropertyView"]
+  GETTABLEKS R5 R6 K12 ["CollisionGroupPropertyView"]
   CALL R4 1 1
   GETIMPORT R5 K6 [require]
   GETTABLEKS R9 R0 K7 ["Components"]
   GETTABLEKS R8 R9 K8 ["PropertyEntries"]
   GETTABLEKS R7 R8 K9 ["PropertyView"]
-  GETTABLEKS R6 R7 K13 ["InstanceRefPropertyView"]
+  GETTABLEKS R6 R7 K13 ["EnumItemPropertyView"]
   CALL R5 1 1
   GETIMPORT R6 K6 [require]
   GETTABLEKS R10 R0 K7 ["Components"]
   GETTABLEKS R9 R10 K8 ["PropertyEntries"]
   GETTABLEKS R8 R9 K9 ["PropertyView"]
-  GETTABLEKS R7 R8 K14 ["NumberPropertyView"]
+  GETTABLEKS R7 R8 K14 ["InstanceRefPropertyView"]
   CALL R6 1 1
   GETIMPORT R7 K6 [require]
-  GETTABLEKS R8 R0 K15 ["PropertyEditorTypes"]
+  GETTABLEKS R11 R0 K7 ["Components"]
+  GETTABLEKS R10 R11 K8 ["PropertyEntries"]
+  GETTABLEKS R9 R10 K9 ["PropertyView"]
+  GETTABLEKS R8 R9 K15 ["NumberPropertyView"]
   CALL R7 1 1
   GETIMPORT R8 K6 [require]
-  GETTABLEKS R9 R0 K16 ["PropertyTypes"]
+  GETTABLEKS R9 R0 K16 ["PropertyEditorTypes"]
   CALL R8 1 1
   GETIMPORT R9 K6 [require]
-  GETTABLEKS R10 R1 K17 ["React"]
+  GETTABLEKS R10 R0 K17 ["PropertyTypes"]
   CALL R9 1 1
   GETIMPORT R10 K6 [require]
-  GETTABLEKS R14 R0 K7 ["Components"]
-  GETTABLEKS R13 R14 K8 ["PropertyEntries"]
-  GETTABLEKS R12 R13 K9 ["PropertyView"]
-  GETTABLEKS R11 R12 K18 ["StringPropertyView"]
+  GETTABLEKS R11 R1 K18 ["React"]
   CALL R10 1 1
   GETIMPORT R11 K6 [require]
   GETTABLEKS R15 R0 K7 ["Components"]
   GETTABLEKS R14 R15 K8 ["PropertyEntries"]
   GETTABLEKS R13 R14 K9 ["PropertyView"]
-  GETTABLEKS R12 R13 K19 ["Vector3PropertyView"]
+  GETTABLEKS R12 R13 K19 ["StringPropertyView"]
   CALL R11 1 1
   GETIMPORT R12 K6 [require]
-  GETTABLEKS R14 R0 K20 ["Util"]
-  GETTABLEKS R13 R14 K21 ["isEnumName"]
+  GETTABLEKS R16 R0 K7 ["Components"]
+  GETTABLEKS R15 R16 K8 ["PropertyEntries"]
+  GETTABLEKS R14 R15 K9 ["PropertyView"]
+  GETTABLEKS R13 R14 K20 ["Vector3PropertyView"]
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
-  GETTABLEKS R15 R0 K20 ["Util"]
-  GETTABLEKS R14 R15 K22 ["isInstanceClassName"]
+  GETTABLEKS R15 R0 K21 ["Util"]
+  GETTABLEKS R14 R15 K22 ["isEnumName"]
   CALL R13 1 1
-  DUPTABLE R14 K32 [{"int", "int64", "float", "string", "Vector3", "boolean", "bool", "Instance", "EnumItem"}]
-  SETTABLEKS R6 R14 K23 ["int"]
-  SETTABLEKS R6 R14 K24 ["int64"]
-  SETTABLEKS R6 R14 K25 ["float"]
-  SETTABLEKS R10 R14 K26 ["string"]
-  SETTABLEKS R11 R14 K27 ["Vector3"]
-  SETTABLEKS R3 R14 K28 ["boolean"]
-  SETTABLEKS R3 R14 K29 ["bool"]
-  SETTABLEKS R5 R14 K30 ["Instance"]
-  SETTABLEKS R4 R14 K31 ["EnumItem"]
-  NEWTABLE R15 0 0
-  DUPCLOSURE R16 K33 [PROTO_0]
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R16 R0 K21 ["Util"]
+  GETTABLEKS R15 R16 K23 ["isInstanceClassName"]
+  CALL R14 1 1
+  DUPTABLE R15 K33 [{"int", "int64", "float", "string", "Vector3", "boolean", "bool", "Instance", "EnumItem"}]
+  SETTABLEKS R7 R15 K24 ["int"]
+  SETTABLEKS R7 R15 K25 ["int64"]
+  SETTABLEKS R7 R15 K26 ["float"]
+  SETTABLEKS R11 R15 K27 ["string"]
+  SETTABLEKS R12 R15 K28 ["Vector3"]
+  SETTABLEKS R3 R15 K29 ["boolean"]
+  SETTABLEKS R3 R15 K30 ["bool"]
+  SETTABLEKS R6 R15 K31 ["Instance"]
+  SETTABLEKS R5 R15 K32 ["EnumItem"]
+  DUPTABLE R16 K35 [{"CollisionGroup"}]
+  SETTABLEKS R4 R16 K34 ["CollisionGroup"]
+  DUPCLOSURE R17 K36 [PROTO_0]
+  CAPTURE VAL R16
   CAPTURE VAL R15
   CAPTURE VAL R14
   CAPTURE VAL R13
-  CAPTURE VAL R12
   CAPTURE VAL R2
-  RETURN R16 1
+  RETURN R17 1

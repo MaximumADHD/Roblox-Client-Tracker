@@ -42,14 +42,14 @@ local function DefaultRules(tokens: Tokens): { StyleRule }
 	return {
 		{
 			tag = "gui-object-defaults",
-			priority = 0,
+			priority = -1,
 			properties = {
 				BackgroundTransparency = 1,
 			},
 		},
 		{
 			tag = "text-defaults",
-			priority = 0,
+			priority = -1,
 			properties = {
 				Font = tokens.Typography.BodyLarge.Font,
 			},
@@ -61,7 +61,7 @@ local function DefaultSizeRules(tokens: Tokens): { StyleRule }
 	return {
 		{
 			tag = "text-size-defaults",
-			priority = 0,
+			priority = -1,
 			properties = {
 				TextSize = tokens.Typography.BodyLarge.FontSize,
 				LineHeight = tokens.Typography.BodyLarge.LineHeight,
@@ -74,7 +74,7 @@ local function DefaultColorRules(tokens: Tokens): { StyleRule }
 	return {
 		{
 			tag = "text-color-defaults",
-			priority = 0,
+			priority = -1,
 			properties = {
 				TextColor3 = tokens.Color.Content.Default.Color3,
 				TextTransparency = tokens.Color.Content.Default.Transparency,

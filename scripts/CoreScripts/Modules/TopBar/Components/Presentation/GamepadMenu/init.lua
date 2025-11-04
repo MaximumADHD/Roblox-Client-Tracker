@@ -98,8 +98,6 @@ local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationTog
 local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagGamepadMenuActionTelemetry = require(TopBar.Flags.FFlagGamepadMenuActionTelemetry)
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
-
-local FFlagSaveChatVisibilityUserSettings = game:DefineFastFlag("SaveChatVisibilityUserSettings", false)
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 
 local getFFlagCheckForTCSMigration = SharedFlags.getFFlagCheckForTCSMigration
@@ -387,16 +385,12 @@ end
 
 function GamepadMenu.toggleChatVisible()
 	ChatModule:ToggleVisibility()
-	if FFlagSaveChatVisibilityUserSettings then
 		GameSettings.ChatVisible = ChatModule:GetVisibility()
-	end
 end
 
 function GamepadMenu.focusChatBar()
 	ChatModule:SetVisible(true)
-	if FFlagSaveChatVisibilityUserSettings then
 		GameSettings.ChatVisible = true
-	end
 	ChatModule:FocusChatBar()
 end
 

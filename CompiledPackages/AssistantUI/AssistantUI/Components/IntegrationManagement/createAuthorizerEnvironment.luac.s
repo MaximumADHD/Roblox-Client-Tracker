@@ -1,0 +1,99 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["get"]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K1 ["base64EncodeAsync"]
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R1 K2 [task.spawn]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["get"]
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K1 ["startMCPAuthAsync"]
+  MOVE R3 R0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["get"]
+  CALL R0 0 1
+  GETTABLEKS R1 R0 K1 ["generatePKCEAsync"]
+  CALL R1 0 1
+  DUPTABLE R2 K4 [{"code_verifier", "code_challenge"}]
+  GETTABLEKS R3 R1 K5 ["codeVerifier"]
+  SETTABLEKS R3 R2 K2 ["code_verifier"]
+  GETTABLEKS R3 R1 K6 ["codeChallenge"]
+  SETTABLEKS R3 R2 K3 ["code_challenge"]
+  RETURN R2 1
+
+PROTO_5:
+  GETUPVAL R2 0
+  DUPTABLE R4 K4 [{"Url", "Method", "Headers", "Body"}]
+  SETTABLEKS R0 R4 K0 ["Url"]
+  GETTABLEKS R5 R1 K5 ["method"]
+  SETTABLEKS R5 R4 K1 ["Method"]
+  GETTABLEKS R5 R1 K6 ["headers"]
+  SETTABLEKS R5 R4 K2 ["Headers"]
+  GETTABLEKS R5 R1 K7 ["body"]
+  SETTABLEKS R5 R4 K3 ["Body"]
+  NAMECALL R2 R2 K8 ["RequestAsync"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_6:
+  DUPCLOSURE R0 K0 [PROTO_0]
+  CAPTURE UPVAL U0
+  DUPCLOSURE R1 K1 [PROTO_3]
+  CAPTURE UPVAL U0
+  DUPCLOSURE R2 K2 [PROTO_4]
+  CAPTURE UPVAL U0
+  DUPCLOSURE R3 K3 [PROTO_5]
+  CAPTURE UPVAL U1
+  DUPTABLE R4 K8 [{"httpRequest", "base64Encode", "generatePKCEChallenge", "redirectToAuthorization"}]
+  SETTABLEKS R3 R4 K4 ["httpRequest"]
+  SETTABLEKS R0 R4 K5 ["base64Encode"]
+  SETTABLEKS R2 R4 K6 ["generatePKCEChallenge"]
+  SETTABLEKS R1 R4 K7 ["redirectToAuthorization"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["AssistantUI"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Guest"]
+  GETTABLEKS R3 R4 K11 ["Environment"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K12 ["Parent"]
+  GETTABLEKS R4 R5 K13 ["ModelContextProtocol"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K14 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  RETURN R4 1

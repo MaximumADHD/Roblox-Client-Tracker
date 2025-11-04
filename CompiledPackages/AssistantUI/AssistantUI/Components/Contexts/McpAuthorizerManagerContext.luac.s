@@ -1,0 +1,57 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  CALL R0 0 1
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useMemo"]
+  DUPCLOSURE R2 K1 [PROTO_0]
+  CAPTURE UPVAL U1
+  NEWTABLE R3 0 0
+  CALL R1 2 1
+  DUPTABLE R2 K3 [{"authorizerManager"}]
+  GETTABLEKS R4 R0 K4 ["override"]
+  OR R3 R4 R1
+  SETTABLEKS R3 R2 K2 ["authorizerManager"]
+  GETUPVAL R3 2
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K5 ["Provider"]
+  DUPTABLE R5 K7 [{"value"}]
+  SETTABLEKS R2 R5 K6 ["value"]
+  GETTABLEKS R6 R0 K8 ["children"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["IntegrationManagement"]
+  GETTABLEKS R2 R3 K8 ["AuthorizerManager"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Parent"]
+  GETTABLEKS R3 R4 K10 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K11 ["createElement"]
+  DUPTABLE R4 K13 [{"authorizerManager"}]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K12 ["authorizerManager"]
+  GETTABLEKS R5 R2 K14 ["createContext"]
+  MOVE R6 R4
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  DUPTABLE R7 K18 [{"Context", "Provider"}]
+  SETTABLEKS R5 R7 K16 ["Context"]
+  SETTABLEKS R6 R7 K17 ["Provider"]
+  RETURN R7 1

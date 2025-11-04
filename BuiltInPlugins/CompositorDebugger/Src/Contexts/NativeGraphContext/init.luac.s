@@ -1,26 +1,17 @@
 PROTO_0:
-  GETIMPORT R0 K2 [Rect.new]
-  LOADN R1 0
-  LOADN R2 0
-  LOADN R3 10
-  LOADN R4 10
-  CALL R0 4 -1
-  RETURN R0 -1
-
-PROTO_1:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["createSignal"]
   GETUPVAL R1 1
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_2:
+PROTO_1:
   GETUPVAL R0 0
   GETUPVAL R1 1
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["InstanceSelectionRegistry"]
   GETTABLEKS R0 R1 K1 ["new"]
@@ -28,25 +19,25 @@ PROTO_3:
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_4:
+PROTO_3:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["destroy"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_4:
   NEWCLOSURE R0 P0
   CAPTURE UPVAL U0
   RETURN R0 1
 
-PROTO_6:
+PROTO_5:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["InstanceRegistry"]
   GETTABLEKS R0 R1 K1 ["new"]
   CALL R0 0 -1
   RETURN R0 -1
 
-PROTO_7:
+PROTO_6:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["observeGraphState"]
   GETUPVAL R1 1
@@ -55,63 +46,27 @@ PROTO_7:
   CALL R0 3 -1
   RETURN R0 -1
 
-PROTO_8:
+PROTO_7:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["calculateLayout"]
-  GETTABLEKS R3 R1 K1 ["graphPayloadMap"]
-  GETTABLEKS R4 R1 K2 ["nodeInfo"]
-  CALL R2 2 1
-  GETTABLEKS R3 R2 K2 ["nodeInfo"]
-  LOADNIL R4
-  LOADNIL R5
-  FORGPREP R3
-  GETTABLEKS R8 R7 K3 ["position"]
-  JUMPIFNOT R8 [+42]
-  GETTABLEKS R8 R7 K4 ["size"]
-  JUMPIFNOT R8 [+39]
-  GETUPVAL R8 2
-  GETTABLEKS R10 R7 K5 ["nodeId"]
-  NAMECALL R8 R8 K6 ["idToInstance"]
-  CALL R8 2 1
-  JUMPIFNOT R8 [+32]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K7 ["NODE_ATTRIBUTES"]
-  GETTABLEKS R11 R12 K8 ["Position"]
-  NAMECALL R9 R8 K9 ["GetAttribute"]
-  CALL R9 2 1
-  JUMPIF R9 [+7]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K10 ["setNodePosition"]
-  MOVE R10 R8
-  GETTABLEKS R11 R7 K3 ["position"]
-  CALL R9 2 0
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K7 ["NODE_ATTRIBUTES"]
-  GETTABLEKS R11 R12 K11 ["Size"]
-  NAMECALL R9 R8 K9 ["GetAttribute"]
-  CALL R9 2 1
-  JUMPIF R9 [+7]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K12 ["setNodeSize"]
-  MOVE R10 R8
-  GETTABLEKS R11 R7 K4 ["size"]
-  CALL R9 2 0
-  FORGLOOP R3 2 [-46]
-  GETUPVAL R3 4
-  GETTABLEKS R4 R2 K13 ["graphRect"]
-  CALL R3 1 0
-  GETUPVAL R3 5
-  GETTABLEKS R4 R1 K14 ["connectionMap"]
-  CALL R3 1 0
-  GETUPVAL R3 6
-  GETTABLEKS R4 R1 K1 ["graphPayloadMap"]
-  CALL R3 1 0
+  GETTABLEKS R2 R1 K0 ["graphPayloadMap"]
+  JUMPIFEQKNIL R2 [+9]
+  GETUPVAL R2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["fitGraphRect"]
+  GETTABLEKS R4 R1 K0 ["graphPayloadMap"]
+  CALL R3 1 -1
+  CALL R2 -1 0
+  GETUPVAL R2 3
+  GETTABLEKS R3 R1 K2 ["connectionMap"]
+  CALL R2 1 0
+  GETUPVAL R2 4
+  GETTABLEKS R3 R1 K0 ["graphPayloadMap"]
+  CALL R2 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_8:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["createEffect"]
   NEWCLOSURE R1 P0
@@ -120,44 +75,108 @@ PROTO_9:
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
   CALL R0 1 1
   RETURN R0 1
+
+PROTO_9:
+  GETUPVAL R1 0
+  JUMPIFNOTEQKNIL R1 [+4]
+  LOADNIL R1
+  LOADNIL R2
+  RETURN R1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["lookup"]
+  GETTABLE R1 R2 R0
+  JUMPIFNOTEQKNIL R1 [+4]
+  LOADNIL R2
+  LOADNIL R3
+  RETURN R2 2
+  GETTABLEKS R2 R1 K1 ["className"]
+  JUMPIFNOTEQKS R2 K2 ["Parameter"] [+12]
+  GETUPVAL R2 1
+  GETTABLEKS R4 R1 K3 ["parentId"]
+  NAMECALL R2 R2 K4 ["idToInstance"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+4]
+  MOVE R3 R2
+  GETTABLEKS R4 R1 K5 ["name"]
+  RETURN R3 2
+  LOADNIL R2
+  LOADNIL R3
+  RETURN R2 2
 
 PROTO_10:
   GETUPVAL R2 0
   MOVE R4 R0
   NAMECALL R2 R2 K0 ["idToInstance"]
   CALL R2 2 1
-  JUMPIFNOT R2 [+6]
+  JUMPIFNOT R2 [+7]
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K1 ["setNodeIsCollapsed"]
   MOVE R4 R2
   MOVE R5 R1
   CALL R3 2 0
   RETURN R0 0
+  GETUPVAL R3 2
+  MOVE R4 R0
+  CALL R3 1 2
+  JUMPIFNOT R3 [+9]
+  JUMPIFNOT R4 [+8]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["setParameterIsCollapsed"]
+  MOVE R6 R3
+  MOVE R7 R4
+  MOVE R8 R1
+  CALL R5 3 0
+  RETURN R0 0
+  GETIMPORT R5 K4 [warn]
+  LOADK R6 K5 ["Failed to find instance for setNodeIsCollapsed"]
+  CALL R5 1 0
+  RETURN R0 0
 
 PROTO_11:
-  MOVE R1 R0
-  LOADNIL R2
+  GETUPVAL R1 0
+  LOADK R3 K0 ["NativeGraphContext"]
+  LOADK R4 K1 ["setNodePositions"]
+  NAMECALL R1 R1 K2 ["TryBeginRecording"]
+  CALL R1 3 1
+  MOVE R2 R0
   LOADNIL R3
-  FORGPREP R1
-  GETUPVAL R6 0
-  MOVE R8 R4
-  NAMECALL R6 R6 K0 ["idToInstance"]
-  CALL R6 2 1
-  JUMPIFNOT R6 [+7]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K1 ["setNodePosition"]
-  MOVE R8 R6
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R7 1
   MOVE R9 R5
-  CALL R7 2 0
+  NAMECALL R7 R7 K3 ["idToInstance"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+7]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K4 ["setNodePosition"]
+  MOVE R9 R7
+  MOVE R10 R6
+  CALL R8 2 0
+  JUMP [+17]
+  GETUPVAL R8 3
+  MOVE R9 R5
+  CALL R8 1 2
+  JUMPIFNOT R8 [+9]
+  JUMPIFNOT R9 [+8]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K5 ["setParameterPosition"]
+  MOVE R11 R8
+  MOVE R12 R9
+  MOVE R13 R6
+  CALL R10 3 0
   JUMP [+4]
-  GETIMPORT R7 K3 [warn]
-  LOADK R8 K4 ["Failed to find instance for setNodePositions"]
-  CALL R7 1 0
-  FORGLOOP R1 2 [-18]
+  GETIMPORT R10 K7 [warn]
+  LOADK R11 K8 ["Failed to find instance for setNodePositions"]
+  CALL R10 1 0
+  FORGLOOP R2 2 [-31]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R2 0
+  MOVE R4 R1
+  GETIMPORT R5 K12 [Enum.FinishRecordingOperation.Commit]
+  NAMECALL R2 R2 K13 ["FinishRecording"]
+  CALL R2 3 0
   RETURN R0 0
 
 PROTO_12:
@@ -165,19 +184,31 @@ PROTO_12:
   MOVE R4 R0
   NAMECALL R2 R2 K0 ["idToInstance"]
   CALL R2 2 1
-  JUMPIFNOT R2 [+6]
+  JUMPIFNOT R2 [+7]
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K1 ["setNodeSize"]
   MOVE R4 R2
   MOVE R5 R1
   CALL R3 2 0
   RETURN R0 0
+  GETUPVAL R3 2
+  MOVE R4 R0
+  CALL R3 1 2
+  JUMPIFNOT R3 [+9]
+  JUMPIFNOT R4 [+8]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["setParameterSize"]
+  MOVE R6 R3
+  MOVE R7 R4
+  MOVE R8 R1
+  CALL R5 3 0
+  RETURN R0 0
+  GETIMPORT R5 K4 [warn]
+  LOADK R6 K5 ["Failed to find instance for setNodeSize"]
+  CALL R5 1 0
+  RETURN R0 0
 
 PROTO_13:
-  GETUPVAL R0 0
-  RETURN R0 1
-
-PROTO_14:
   JUMPIFNOT R1 [+7]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["selectionService"]
@@ -207,7 +238,7 @@ PROTO_14:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_14:
   GETUPVAL R2 0
   JUMPIFNOTEQKNIL R2 [+2]
   RETURN R0 0
@@ -281,7 +312,7 @@ PROTO_15:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_15:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["selectionService"]
   NAMECALL R0 R0 K1 ["Get"]
@@ -293,7 +324,7 @@ PROTO_16:
   CAPTURE UPVAL U0
   RETURN R1 1
 
-PROTO_17:
+PROTO_16:
   GETUPVAL R2 0
   CALL R2 0 1
   MOVE R3 R0
@@ -301,7 +332,7 @@ PROTO_17:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_17:
   GETUPVAL R0 0
   JUMPIFEQKNIL R0 [+6]
   GETUPVAL R1 0
@@ -316,7 +347,7 @@ PROTO_18:
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_19:
+PROTO_18:
   GETUPVAL R1 0
   JUMPIF R1 [+1]
   RETURN R0 0
@@ -342,7 +373,7 @@ PROTO_19:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_19:
   GETUPVAL R3 0
   JUMPIF R3 [+2]
   LOADNIL R3
@@ -415,7 +446,7 @@ PROTO_20:
   CALL R6 3 0
   RETURN R4 1
 
-PROTO_21:
+PROTO_20:
   GETUPVAL R1 0
   LOADK R3 K0 ["NativeGraphContext"]
   LOADK R4 K1 ["createNewGraph"]
@@ -441,7 +472,7 @@ PROTO_21:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_21:
   GETUPVAL R2 0
   LOADK R4 K0 ["NativeGraphContext"]
   LOADK R5 K1 ["removeNodeConnection"]
@@ -462,7 +493,7 @@ PROTO_22:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_22:
   GETUPVAL R2 0
   LOADK R4 K0 ["NativeGraphContext"]
   LOADK R5 K1 ["addNodeConnection"]
@@ -483,7 +514,7 @@ PROTO_23:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_23:
   JUMPIFNOTEQ R0 R2 [+2]
   RETURN R0 0
   GETUPVAL R4 0
@@ -526,7 +557,7 @@ PROTO_24:
   CALL R5 3 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_24:
   GETUPVAL R3 0
   LOADK R5 K0 ["NativeGraphContext"]
   LOADK R6 K1 ["setNodeProperty"]
@@ -554,8 +585,53 @@ PROTO_25:
   CALL R5 3 0
   RETURN R0 0
 
+PROTO_25:
+  GETUPVAL R0 0
+  RETURN R0 1
+
 PROTO_26:
   GETUPVAL R0 0
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADNIL R0
+  RETURN R0 1
+  LOADNIL R0
+  GETUPVAL R4 0
+  GETTABLEKS R1 R4 K0 ["lookup"]
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETTABLEKS R6 R5 K1 ["isSelected"]
+  JUMPIFNOT R6 [+46]
+  GETTABLEKS R6 R5 K2 ["position"]
+  JUMPIFNOT R6 [+43]
+  GETTABLEKS R6 R5 K3 ["size"]
+  JUMPIFNOT R6 [+40]
+  GETIMPORT R6 K6 [Rect.new]
+  GETTABLEKS R8 R5 K2 ["position"]
+  GETTABLEKS R7 R8 K7 ["X"]
+  GETTABLEKS R9 R5 K2 ["position"]
+  GETTABLEKS R8 R9 K8 ["Y"]
+  GETTABLEKS R11 R5 K2 ["position"]
+  GETTABLEKS R10 R11 K7 ["X"]
+  GETTABLEKS R12 R5 K3 ["size"]
+  GETTABLEKS R11 R12 K7 ["X"]
+  ADD R9 R10 R11
+  GETTABLEKS R12 R5 K2 ["position"]
+  GETTABLEKS R11 R12 K8 ["Y"]
+  GETTABLEKS R13 R5 K3 ["size"]
+  GETTABLEKS R12 R13 K8 ["Y"]
+  ADD R10 R11 R12
+  CALL R6 4 1
+  JUMPIFNOTEQKNIL R0 [+3]
+  MOVE R0 R6
+  JUMP [+7]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K9 ["union"]
+  MOVE R8 R0
+  MOVE R9 R6
+  CALL R7 2 1
+  MOVE R0 R7
+  FORGLOOP R1 2 [-50]
   RETURN R0 1
 
 PROTO_27:
@@ -590,8 +666,8 @@ PROTO_29:
   GETIMPORT R4 K7 [Rect.new]
   LOADN R5 0
   LOADN R6 0
-  LOADN R7 10
-  LOADN R8 10
+  LOADN R7 0
+  LOADN R8 0
   CALL R4 4 -1
   CALL R3 -1 2
   GETUPVAL R6 1
@@ -633,7 +709,7 @@ PROTO_29:
   CALL R10 2 0
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K8 ["useMemo"]
-  DUPCLOSURE R11 K10 [PROTO_6]
+  DUPCLOSURE R11 K10 [PROTO_5]
   CAPTURE UPVAL U0
   NEWTABLE R12 0 0
   CALL R10 2 1
@@ -659,50 +735,60 @@ PROTO_29:
   NEWCLOSURE R15 P6
   CAPTURE UPVAL U2
   CAPTURE VAL R11
-  CAPTURE UPVAL U3
-  CAPTURE VAL R10
-  CAPTURE UPVAL U4
   CAPTURE VAL R4
+  CAPTURE UPVAL U3
   CAPTURE VAL R6
   CAPTURE VAL R13
-  NEWTABLE R16 0 1
+  NEWTABLE R16 0 4
   MOVE R17 R11
-  SETLIST R16 R17 1 [1]
+  MOVE R18 R6
+  MOVE R19 R13
+  MOVE R20 R4
+  SETLIST R16 R17 4 [1]
   CALL R14 2 0
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K11 ["useCallback"]
   NEWCLOSURE R15 P7
+  CAPTURE VAL R12
   CAPTURE VAL R10
-  CAPTURE UPVAL U3
-  NEWTABLE R16 0 1
+  NEWTABLE R16 0 2
   MOVE R17 R10
-  SETLIST R16 R17 1 [1]
+  MOVE R18 R12
+  SETLIST R16 R17 2 [1]
   CALL R14 2 1
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K11 ["useCallback"]
   NEWCLOSURE R16 P8
   CAPTURE VAL R10
   CAPTURE UPVAL U3
-  NEWTABLE R17 0 1
+  CAPTURE VAL R14
+  NEWTABLE R17 0 2
   MOVE R18 R10
-  SETLIST R17 R18 1 [1]
+  MOVE R19 R14
+  SETLIST R17 R18 2 [1]
   CALL R15 2 1
   GETUPVAL R17 1
   GETTABLEKS R16 R17 K11 ["useCallback"]
   NEWCLOSURE R17 P9
+  CAPTURE UPVAL U4
   CAPTURE VAL R10
   CAPTURE UPVAL U3
-  NEWTABLE R18 0 1
+  CAPTURE VAL R14
+  NEWTABLE R18 0 2
   MOVE R19 R10
-  SETLIST R18 R19 1 [1]
+  MOVE R20 R14
+  SETLIST R18 R19 2 [1]
   CALL R16 2 1
   GETUPVAL R18 1
   GETTABLEKS R17 R18 K11 ["useCallback"]
   NEWCLOSURE R18 P10
-  CAPTURE VAL R3
-  NEWTABLE R19 0 1
-  MOVE R20 R3
-  SETLIST R19 R20 1 [1]
+  CAPTURE VAL R10
+  CAPTURE UPVAL U3
+  CAPTURE VAL R14
+  NEWTABLE R19 0 2
+  MOVE R20 R10
+  MOVE R21 R14
+  SETLIST R19 R20 2 [1]
   CALL R17 2 1
   GETUPVAL R19 1
   GETTABLEKS R18 R19 K11 ["useCallback"]
@@ -750,7 +836,7 @@ PROTO_29:
   GETTABLEKS R22 R23 K11 ["useCallback"]
   NEWCLOSURE R23 P15
   CAPTURE VAL R21
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   CAPTURE VAL R2
   NEWTABLE R24 0 2
   GETTABLEKS R25 R2 K12 ["selectionService"]
@@ -761,7 +847,7 @@ PROTO_29:
   GETTABLEKS R23 R24 K11 ["useCallback"]
   NEWCLOSURE R24 P16
   CAPTURE VAL R21
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   CAPTURE UPVAL U3
   CAPTURE VAL R10
   CAPTURE VAL R5
@@ -774,7 +860,7 @@ PROTO_29:
   GETUPVAL R25 1
   GETTABLEKS R24 R25 K11 ["useCallback"]
   NEWCLOSURE R25 P17
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   CAPTURE UPVAL U3
   CAPTURE VAL R2
   NEWTABLE R26 0 1
@@ -784,7 +870,7 @@ PROTO_29:
   GETUPVAL R26 1
   GETTABLEKS R25 R26 K11 ["useCallback"]
   NEWCLOSURE R26 P18
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   CAPTURE UPVAL U3
   CAPTURE VAL R10
   CAPTURE VAL R5
@@ -795,7 +881,7 @@ PROTO_29:
   GETUPVAL R27 1
   GETTABLEKS R26 R27 K11 ["useCallback"]
   NEWCLOSURE R27 P19
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   CAPTURE UPVAL U3
   CAPTURE VAL R10
   CAPTURE VAL R5
@@ -807,7 +893,7 @@ PROTO_29:
   GETUPVAL R28 1
   GETTABLEKS R27 R28 K11 ["useCallback"]
   NEWCLOSURE R28 P20
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   CAPTURE UPVAL U3
   CAPTURE VAL R10
   CAPTURE VAL R5
@@ -819,7 +905,7 @@ PROTO_29:
   GETUPVAL R29 1
   GETTABLEKS R28 R29 K11 ["useCallback"]
   NEWCLOSURE R29 P21
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   CAPTURE VAL R10
   NEWTABLE R30 0 1
   MOVE R31 R10
@@ -833,73 +919,84 @@ PROTO_29:
   MOVE R32 R21
   SETLIST R31 R32 1 [1]
   CALL R29 2 1
-  DUPTABLE R30 K29 [{"graphPayloadMap", "addNode", "createNode", "createNewGraph", "getGraphRect", "selectNodes", "selectNodesFromRect", "createStartSelectNodesFromRect", "setNodePositions", "setNodeSize", "removeNodeConnection", "addNodeConnection", "setNewConnectionOutput", "setCollapsed", "setNodeProperty", "getSelectedGraphInstance"}]
-  SETTABLEKS R12 R30 K13 ["graphPayloadMap"]
-  SETTABLEKS R22 R30 K14 ["addNode"]
-  SETTABLEKS R23 R30 K15 ["createNode"]
-  SETTABLEKS R24 R30 K16 ["createNewGraph"]
-  SETTABLEKS R17 R30 K17 ["getGraphRect"]
-  SETTABLEKS R18 R30 K18 ["selectNodes"]
-  SETTABLEKS R20 R30 K19 ["selectNodesFromRect"]
-  SETTABLEKS R19 R30 K20 ["createStartSelectNodesFromRect"]
-  SETTABLEKS R15 R30 K21 ["setNodePositions"]
-  SETTABLEKS R16 R30 K22 ["setNodeSize"]
-  SETTABLEKS R25 R30 K23 ["removeNodeConnection"]
-  SETTABLEKS R26 R30 K24 ["addNodeConnection"]
-  SETTABLEKS R27 R30 K25 ["setNewConnectionOutput"]
-  SETTABLEKS R14 R30 K26 ["setCollapsed"]
-  SETTABLEKS R28 R30 K27 ["setNodeProperty"]
-  SETTABLEKS R29 R30 K28 ["getSelectedGraphInstance"]
-  GETUPVAL R32 1
-  GETTABLEKS R31 R32 K8 ["useMemo"]
-  DUPCLOSURE R32 K30 [PROTO_27]
-  NEWTABLE R33 0 0
-  CALL R31 2 1
+  GETUPVAL R31 1
+  GETTABLEKS R30 R31 K11 ["useCallback"]
+  NEWCLOSURE R31 P23
+  CAPTURE VAL R12
+  CAPTURE UPVAL U5
+  NEWTABLE R32 0 2
+  MOVE R33 R12
+  GETTABLEKS R34 R2 K12 ["selectionService"]
+  SETLIST R32 R33 2 [1]
+  CALL R30 2 1
+  DUPTABLE R31 K30 [{"graphPayloadMap", "addNode", "createNode", "createNewGraph", "graphRect", "selectNodes", "selectNodesFromRect", "createStartSelectNodesFromRect", "setNodePositions", "setNodeSize", "removeNodeConnection", "addNodeConnection", "setNewConnectionOutput", "setCollapsed", "setNodeProperty", "getSelectedGraphInstance", "getSelectedRect"}]
+  SETTABLEKS R12 R31 K13 ["graphPayloadMap"]
+  SETTABLEKS R22 R31 K14 ["addNode"]
+  SETTABLEKS R23 R31 K15 ["createNode"]
+  SETTABLEKS R24 R31 K16 ["createNewGraph"]
+  SETTABLEKS R3 R31 K17 ["graphRect"]
+  SETTABLEKS R18 R31 K18 ["selectNodes"]
+  SETTABLEKS R20 R31 K19 ["selectNodesFromRect"]
+  SETTABLEKS R19 R31 K20 ["createStartSelectNodesFromRect"]
+  SETTABLEKS R16 R31 K21 ["setNodePositions"]
+  SETTABLEKS R17 R31 K22 ["setNodeSize"]
+  SETTABLEKS R25 R31 K23 ["removeNodeConnection"]
+  SETTABLEKS R26 R31 K24 ["addNodeConnection"]
+  SETTABLEKS R27 R31 K25 ["setNewConnectionOutput"]
+  SETTABLEKS R15 R31 K26 ["setCollapsed"]
+  SETTABLEKS R28 R31 K27 ["setNodeProperty"]
+  SETTABLEKS R29 R31 K28 ["getSelectedGraphInstance"]
+  SETTABLEKS R30 R31 K29 ["getSelectedRect"]
   GETUPVAL R33 1
   GETTABLEKS R32 R33 K8 ["useMemo"]
-  NEWCLOSURE R33 P24
-  CAPTURE VAL R21
-  NEWTABLE R34 0 2
-  MOVE R35 R21
-  MOVE R36 R12
-  SETLIST R34 R35 2 [1]
+  DUPCLOSURE R33 K31 [PROTO_27]
+  NEWTABLE R34 0 0
   CALL R32 2 1
   GETUPVAL R34 1
-  GETTABLEKS R33 R34 K31 ["createElement"]
-  GETUPVAL R35 6
-  GETTABLEKS R34 R35 K32 ["Provider"]
-  DUPTABLE R35 K34 [{"value"}]
-  SETTABLEKS R30 R35 K33 ["value"]
-  DUPTABLE R36 K36 [{"ContextStack"}]
-  GETUPVAL R38 1
-  GETTABLEKS R37 R38 K31 ["createElement"]
-  GETUPVAL R39 7
-  GETTABLEKS R38 R39 K35 ["ContextStack"]
-  DUPTABLE R39 K38 [{"providers"}]
-  NEWTABLE R40 0 2
-  GETUPVAL R42 1
-  GETTABLEKS R41 R42 K31 ["createElement"]
-  GETUPVAL R44 0
-  GETTABLEKS R43 R44 K39 ["TimeRangeContext"]
-  GETTABLEKS R42 R43 K32 ["Provider"]
-  DUPTABLE R43 K41 [{"timeRange"}]
-  SETTABLEKS R31 R43 K40 ["timeRange"]
-  CALL R41 2 1
+  GETTABLEKS R33 R34 K8 ["useMemo"]
+  NEWCLOSURE R34 P25
+  CAPTURE VAL R21
+  NEWTABLE R35 0 2
+  MOVE R36 R21
+  MOVE R37 R12
+  SETLIST R35 R36 2 [1]
+  CALL R33 2 1
+  GETUPVAL R35 1
+  GETTABLEKS R34 R35 K32 ["createElement"]
+  GETUPVAL R36 6
+  GETTABLEKS R35 R36 K33 ["Provider"]
+  DUPTABLE R36 K35 [{"value"}]
+  SETTABLEKS R31 R36 K34 ["value"]
+  DUPTABLE R37 K37 [{"ContextStack"}]
+  GETUPVAL R39 1
+  GETTABLEKS R38 R39 K32 ["createElement"]
+  GETUPVAL R40 7
+  GETTABLEKS R39 R40 K36 ["ContextStack"]
+  DUPTABLE R40 K39 [{"providers"}]
+  NEWTABLE R41 0 2
   GETUPVAL R43 1
-  GETTABLEKS R42 R43 K31 ["createElement"]
+  GETTABLEKS R42 R43 K32 ["createElement"]
   GETUPVAL R45 0
-  GETTABLEKS R44 R45 K42 ["AnimationPreviewClipsContext"]
-  GETTABLEKS R43 R44 K32 ["Provider"]
-  DUPTABLE R44 K44 [{"animationClipsList"}]
-  SETTABLEKS R32 R44 K43 ["animationClipsList"]
-  CALL R42 2 -1
-  SETLIST R40 R41 -1 [1]
-  SETTABLEKS R40 R39 K37 ["providers"]
-  GETTABLEKS R40 R0 K45 ["children"]
-  CALL R37 3 1
-  SETTABLEKS R37 R36 K35 ["ContextStack"]
-  CALL R33 3 -1
-  RETURN R33 -1
+  GETTABLEKS R44 R45 K40 ["TimeRangeContext"]
+  GETTABLEKS R43 R44 K33 ["Provider"]
+  DUPTABLE R44 K42 [{"timeRange"}]
+  SETTABLEKS R32 R44 K41 ["timeRange"]
+  CALL R42 2 1
+  GETUPVAL R44 1
+  GETTABLEKS R43 R44 K32 ["createElement"]
+  GETUPVAL R46 0
+  GETTABLEKS R45 R46 K43 ["AnimationPreviewClipsContext"]
+  GETTABLEKS R44 R45 K33 ["Provider"]
+  DUPTABLE R45 K45 [{"animationClipsList"}]
+  SETTABLEKS R33 R45 K44 ["animationClipsList"]
+  CALL R43 2 -1
+  SETLIST R41 R42 -1 [1]
+  SETTABLEKS R41 R40 K38 ["providers"]
+  GETTABLEKS R41 R0 K46 ["children"]
+  CALL R38 3 1
+  SETTABLEKS R38 R37 K36 ["ContextStack"]
+  CALL R34 3 -1
+  RETURN R34 -1
 
 MAIN:
   PREPVARARGS 0
@@ -930,100 +1027,105 @@ MAIN:
   GETTABLEKS R6 R7 K17 ["ReactUtils"]
   CALL R5 1 1
   GETIMPORT R6 K9 [require]
-  GETTABLEKS R8 R0 K10 ["Packages"]
-  GETTABLEKS R7 R8 K18 ["Signals"]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K18 ["Util"]
+  GETTABLEKS R7 R8 K19 ["RectUtil"]
   CALL R6 1 1
   GETIMPORT R7 K9 [require]
-  GETTABLEKS R9 R0 K12 ["Src"]
-  GETTABLEKS R8 R9 K19 ["Types"]
+  GETTABLEKS R9 R0 K10 ["Packages"]
+  GETTABLEKS R8 R9 K20 ["Signals"]
   CALL R7 1 1
   GETIMPORT R8 K9 [require]
   GETTABLEKS R11 R0 K12 ["Src"]
-  GETTABLEKS R10 R11 K20 ["Util"]
+  GETTABLEKS R10 R11 K18 ["Util"]
   GETTABLEKS R9 R10 K21 ["Logger"]
   CALL R8 1 1
   LOADK R10 K14 ["NativeGraphContext"]
   NAMECALL R8 R8 K22 ["new"]
   CALL R8 2 1
-  GETIMPORT R9 K9 [require]
-  GETTABLEKS R12 R0 K12 ["Src"]
-  GETTABLEKS R11 R12 K20 ["Util"]
-  GETTABLEKS R10 R11 K23 ["Constants"]
-  CALL R9 1 1
-  DUPTABLE R10 K40 [{"graphPayloadMap", "addNode", "createNode", "createNewGraph", "getGraphRect", "createStartSelectNodesFromRect", "selectNodes", "selectNodesFromRect", "setNodePositions", "setNodeSize", "removeNodeConnection", "addNodeConnection", "setNewConnectionOutput", "setCollapsed", "setNodeProperty", "getSelectedGraphInstance"}]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K24 ["graphPayloadMap"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K25 ["addNode"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K25 ["addNode"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K26 ["createNode"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K26 ["createNode"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K27 ["createNewGraph"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K27 ["createNewGraph"]
-  DUPCLOSURE R11 K42 [PROTO_0]
-  SETTABLEKS R11 R10 K28 ["getGraphRect"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K29 ["createStartSelectNodesFromRect"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K29 ["createStartSelectNodesFromRect"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K30 ["selectNodes"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K30 ["selectNodes"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K31 ["selectNodesFromRect"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K31 ["selectNodesFromRect"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K32 ["setNodePositions"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K32 ["setNodePositions"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K33 ["setNodeSize"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K33 ["setNodeSize"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K34 ["removeNodeConnection"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K34 ["removeNodeConnection"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K35 ["addNodeConnection"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K35 ["addNodeConnection"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K36 ["setNewConnectionOutput"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K36 ["setNewConnectionOutput"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K37 ["setCollapsed"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K37 ["setCollapsed"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K38 ["setNodeProperty"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K38 ["setNodeProperty"]
-  GETTABLEKS R11 R5 K41 ["createUnimplemented"]
-  LOADK R12 K39 ["getSelectedGraphInstance"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K39 ["getSelectedGraphInstance"]
-  GETTABLEKS R11 R4 K43 ["createContext"]
-  MOVE R12 R10
-  CALL R11 1 1
-  DUPCLOSURE R12 K44 [PROTO_29]
+  DUPTABLE R9 K40 [{"graphPayloadMap", "addNode", "createNode", "createNewGraph", "graphRect", "createStartSelectNodesFromRect", "selectNodes", "selectNodesFromRect", "setNodePositions", "setNodeSize", "removeNodeConnection", "addNodeConnection", "setNewConnectionOutput", "setCollapsed", "setNodeProperty", "getSelectedGraphInstance", "getSelectedRect"}]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K23 ["graphPayloadMap"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K24 ["addNode"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K24 ["addNode"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K25 ["createNode"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K25 ["createNode"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K26 ["createNewGraph"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K26 ["createNewGraph"]
+  GETIMPORT R10 K43 [Rect.new]
+  LOADN R11 0
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K27 ["graphRect"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K28 ["createStartSelectNodesFromRect"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K28 ["createStartSelectNodesFromRect"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K29 ["selectNodes"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K29 ["selectNodes"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K30 ["selectNodesFromRect"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K30 ["selectNodesFromRect"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K31 ["setNodePositions"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K31 ["setNodePositions"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K32 ["setNodeSize"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K32 ["setNodeSize"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K33 ["removeNodeConnection"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K33 ["removeNodeConnection"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K34 ["addNodeConnection"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K34 ["addNodeConnection"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K35 ["setNewConnectionOutput"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K35 ["setNewConnectionOutput"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K36 ["setCollapsed"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K36 ["setCollapsed"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K37 ["setNodeProperty"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K37 ["setNodeProperty"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K38 ["getSelectedGraphInstance"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K38 ["getSelectedGraphInstance"]
+  GETTABLEKS R10 R5 K41 ["createUnimplemented"]
+  LOADK R11 K39 ["getSelectedRect"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K39 ["getSelectedRect"]
+  GETTABLEKS R10 R4 K44 ["createContext"]
+  MOVE R11 R9
+  CALL R10 1 1
+  DUPCLOSURE R11 K45 [PROTO_29]
   CAPTURE VAL R2
   CAPTURE VAL R4
-  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R3
-  CAPTURE VAL R9
   CAPTURE VAL R1
-  CAPTURE VAL R11
+  CAPTURE VAL R6
+  CAPTURE VAL R10
   CAPTURE VAL R5
-  DUPTABLE R13 K47 [{"Context", "Provider"}]
-  SETTABLEKS R11 R13 K45 ["Context"]
-  SETTABLEKS R12 R13 K46 ["Provider"]
-  RETURN R13 1
+  DUPTABLE R12 K48 [{"Context", "Provider"}]
+  SETTABLEKS R10 R12 K46 ["Context"]
+  SETTABLEKS R11 R12 K47 ["Provider"]
+  RETURN R12 1

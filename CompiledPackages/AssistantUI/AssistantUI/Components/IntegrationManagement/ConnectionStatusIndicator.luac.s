@@ -65,107 +65,113 @@ PROTO_2:
   RETURN R0 1
 
 PROTO_3:
-  GETUPVAL R1 0
-  DUPTABLE R2 K1 [{"underlyingClient"}]
-  GETTABLEKS R3 R0 K0 ["underlyingClient"]
-  SETTABLEKS R3 R2 K0 ["underlyingClient"]
-  CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["useMemo"]
-  DUPCLOSURE R3 K3 [PROTO_2]
-  NEWTABLE R4 0 0
-  CALL R2 2 1
-  GETTABLEKS R5 R1 K4 ["status"]
-  LOADK R6 K5 [""]
-  LOADK R7 K5 [""]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K6 ["Connected"]
-  JUMPIFNOTEQ R5 R8 [+4]
-  LOADK R6 K7 ["content-system-success"]
-  LOADK R7 K8 ["component_assets/circle_16"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useMemo"]
+  DUPCLOSURE R2 K1 [PROTO_2]
+  NEWTABLE R3 0 0
+  CALL R1 2 1
+  GETTABLEKS R5 R0 K2 ["connectionInformation"]
+  GETTABLEKS R4 R5 K3 ["status"]
+  LOADK R5 K4 [""]
+  LOADK R6 K4 [""]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["Connected"]
+  JUMPIFNOTEQ R4 R7 [+4]
+  LOADK R5 K6 ["content-system-success"]
+  LOADK R6 K7 ["component_assets/circle_16"]
   JUMP [+10]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K9 ["Disconnected"]
-  JUMPIFNOTEQ R5 R8 [+4]
-  LOADK R6 K10 ["content-system-neutral"]
-  LOADK R7 K8 ["component_assets/circle_16"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K8 ["Disconnected"]
+  JUMPIFNOTEQ R4 R7 [+4]
+  LOADK R5 K9 ["content-system-neutral"]
+  LOADK R6 K7 ["component_assets/circle_16"]
   JUMP [+2]
-  LOADK R6 K11 ["content-system-alert"]
-  LOADK R7 K8 ["component_assets/circle_16"]
-  LOADB R9 0
-  JUMPIFEQKS R6 K5 [""] [+5]
-  JUMPIFNOTEQKS R7 K5 [""] [+2]
-  LOADB R9 0 +1
-  LOADB R9 1
-  FASTCALL2K ASSERT R9 K12 [+4]
-  LOADK R10 K12 ["Expected colorTag and icon to be set"]
-  GETIMPORT R8 K14 [assert]
-  CALL R8 2 0
+  LOADK R5 K10 ["content-system-alert"]
+  LOADK R6 K7 ["component_assets/circle_16"]
+  LOADB R8 0
+  JUMPIFEQKS R5 K4 [""] [+5]
+  JUMPIFNOTEQKS R6 K4 [""] [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  FASTCALL2K ASSERT R8 K11 [+4]
+  LOADK R9 K11 ["Expected colorTag and icon to be set"]
+  GETIMPORT R7 K13 [assert]
+  CALL R7 2 0
+  MOVE R2 R5
   MOVE R3 R6
-  MOVE R4 R7
-  GETTABLEKS R6 R1 K4 ["status"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K6 ["Connected"]
-  JUMPIFNOTEQ R6 R7 [+4]
-  GETTABLEKS R5 R2 K6 ["Connected"]
+  GETTABLEKS R6 R0 K2 ["connectionInformation"]
+  GETTABLEKS R5 R6 K3 ["status"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["Connected"]
+  JUMPIFNOTEQ R5 R6 [+4]
+  GETTABLEKS R4 R1 K5 ["Connected"]
   JUMP [+27]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K9 ["Disconnected"]
-  JUMPIFNOTEQ R6 R7 [+4]
-  GETTABLEKS R5 R2 K9 ["Disconnected"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K8 ["Disconnected"]
+  JUMPIFNOTEQ R5 R6 [+4]
+  GETTABLEKS R4 R1 K8 ["Disconnected"]
   JUMP [+19]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K15 ["AuthorizationPending"]
-  JUMPIFNOTEQ R6 R7 [+4]
-  GETTABLEKS R5 R2 K15 ["AuthorizationPending"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K14 ["AuthorizationPending"]
+  JUMPIFNOTEQ R5 R6 [+4]
+  GETTABLEKS R4 R1 K14 ["AuthorizationPending"]
   JUMP [+11]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K16 ["UnsupportedProtocolVersion"]
-  JUMPIFNOTEQ R6 R7 [+4]
-  GETTABLEKS R5 R2 K17 ["Unsupported"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K15 ["UnsupportedProtocolVersion"]
+  JUMPIFNOTEQ R5 R6 [+4]
+  GETTABLEKS R4 R1 K16 ["Unsupported"]
   JUMP [+3]
-  GETTABLEKS R5 R2 K18 ["ConnectionError"]
+  GETTABLEKS R4 R1 K17 ["ConnectionError"]
   JUMP [0]
+  GETUPVAL R5 2
+  CALL R5 0 1
   GETUPVAL R6 3
-  CALL R6 0 1
   GETUPVAL R7 4
-  GETUPVAL R8 5
-  DUPTABLE R9 K21 [{"tag", "LayoutOrder"}]
-  LOADK R10 K22 ["row auto-xy align-y-center"]
-  SETTABLEKS R10 R9 K19 ["tag"]
-  GETTABLEKS R10 R0 K20 ["LayoutOrder"]
-  SETTABLEKS R10 R9 K20 ["LayoutOrder"]
-  DUPTABLE R10 K25 [{"Icon", "Text"}]
-  GETUPVAL R11 4
-  GETUPVAL R12 6
-  DUPTABLE R13 K28 [{"icon", "tag", "iconTag", "LayoutOrder"}]
-  SETTABLEKS R4 R13 K26 ["icon"]
-  LOADK R14 K29 ["size-400-400 align-x-center align-y-center"]
-  SETTABLEKS R14 R13 K19 ["tag"]
-  NEWTABLE R14 2 0
-  LOADB R15 1
-  SETTABLEKS R15 R14 K30 ["size-200-200"]
-  LOADB R15 1
-  SETTABLE R15 R14 R3
-  SETTABLEKS R14 R13 K27 ["iconTag"]
-  MOVE R14 R6
-  CALL R14 0 1
-  SETTABLEKS R14 R13 K20 ["LayoutOrder"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K23 ["Icon"]
-  GETUPVAL R11 4
-  GETUPVAL R12 7
-  DUPTABLE R13 K31 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R14 K32 ["auto-xy text-body-small text-no-wrap text-align-x-left"]
-  SETTABLEKS R14 R13 K19 ["tag"]
-  SETTABLEKS R5 R13 K24 ["Text"]
-  MOVE R14 R6
-  CALL R14 0 1
-  SETTABLEKS R14 R13 K20 ["LayoutOrder"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K24 ["Text"]
-  CALL R7 3 -1
-  RETURN R7 -1
+  DUPTABLE R8 K20 [{"tag", "LayoutOrder"}]
+  LOADK R9 K21 ["row auto-xy align-y-center"]
+  SETTABLEKS R9 R8 K18 ["tag"]
+  GETTABLEKS R9 R0 K19 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K19 ["LayoutOrder"]
+  DUPTABLE R9 K24 [{"Icon", "Text"}]
+  GETUPVAL R10 3
+  GETUPVAL R11 5
+  DUPTABLE R12 K27 [{"icon", "tag", "iconTag", "LayoutOrder"}]
+  SETTABLEKS R3 R12 K25 ["icon"]
+  LOADK R13 K28 ["size-400-400 align-x-center align-y-center"]
+  SETTABLEKS R13 R12 K18 ["tag"]
+  NEWTABLE R13 2 0
+  LOADB R14 1
+  SETTABLEKS R14 R13 K29 ["size-200-200"]
+  LOADB R14 1
+  SETTABLE R14 R13 R2
+  SETTABLEKS R13 R12 K26 ["iconTag"]
+  MOVE R13 R5
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K19 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K22 ["Icon"]
+  GETUPVAL R10 3
+  GETUPVAL R11 6
+  DUPTABLE R12 K31 [{"tag", "Text", "LayoutOrder", "onActivated"}]
+  LOADK R13 K32 ["auto-xy text-body-small text-no-wrap text-align-x-left"]
+  SETTABLEKS R13 R12 K18 ["tag"]
+  SETTABLEKS R4 R12 K23 ["Text"]
+  MOVE R13 R5
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K19 ["LayoutOrder"]
+  GETTABLEKS R15 R0 K2 ["connectionInformation"]
+  GETTABLEKS R14 R15 K3 ["status"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K14 ["AuthorizationPending"]
+  JUMPIFNOTEQ R14 R15 [+4]
+  GETTABLEKS R13 R0 K33 ["onLogin"]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K30 ["onActivated"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K23 ["Text"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -208,7 +214,6 @@ MAIN:
   DUPCLOSURE R13 K20 [PROTO_1]
   CAPTURE VAL R7
   DUPCLOSURE R14 K21 [PROTO_3]
-  CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R7
   CAPTURE VAL R10

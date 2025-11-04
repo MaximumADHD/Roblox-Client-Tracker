@@ -78,8 +78,17 @@ PROTO_1:
 
 PROTO_2:
   GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+8]
   GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["JSONDecode"]
+  GETTABLEKS R1 R2 K0 ["Json"]
+  GETTABLEKS R0 R1 K1 ["decode"]
+  GETUPVAL R1 2
+  CALL R0 1 -1
+  RETURN R0 -1
+  GETUPVAL R0 3
+  GETUPVAL R2 2
+  NAMECALL R0 R0 K2 ["JSONDecode"]
   CALL R0 2 -1
   RETURN R0 -1
 
@@ -87,7 +96,9 @@ PROTO_3:
   GETIMPORT R1 K1 [pcall]
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE VAL R0
+  CAPTURE UPVAL U2
   CALL R1 1 2
   JUMPIFNOT R1 [+3]
   GETTABLEKS R3 R2 K2 ["error"]
@@ -131,7 +142,7 @@ PROTO_3:
   NEWTABLE R5 0 0
   GETTABLEKS R6 R4 K19 ["content"]
   JUMPIFNOT R6 [+45]
-  GETUPVAL R6 1
+  GETUPVAL R6 3
   JUMPIF R6 [+22]
   DUPTABLE R6 K21 [{"type", "contentBlock"}]
   LOADK R7 K22 ["content_start"]
@@ -148,7 +159,7 @@ PROTO_3:
   GETIMPORT R7 K28 [table.insert]
   CALL R7 2 0
   LOADB R7 1
-  SETUPVAL R7 1
+  SETUPVAL R7 3
   DUPTABLE R6 K29 [{"type", "delta"}]
   LOADK R7 K30 ["content_delta"]
   SETTABLEKS R7 R6 K6 ["type"]
@@ -167,7 +178,7 @@ PROTO_3:
   JUMPIFNOT R6 [+95]
   GETTABLEKS R7 R4 K32 ["tool_calls"]
   GETTABLEN R6 R7 1
-  GETUPVAL R7 2
+  GETUPVAL R7 4
   JUMPIF R7 [+58]
   JUMPIFNOT R6 [+57]
   GETTABLEKS R7 R6 K33 ["function"]
@@ -205,7 +216,7 @@ PROTO_3:
   GETIMPORT R9 K28 [table.insert]
   CALL R9 2 0
   LOADB R9 1
-  SETUPVAL R9 2
+  SETUPVAL R9 4
   JUMPIFNOT R6 [+31]
   GETTABLEKS R7 R6 K33 ["function"]
   JUMPIFNOT R7 [+28]
@@ -255,7 +266,7 @@ PROTO_3:
   JUMPIFNOTEQKS R12 K58 ["content_filter"] [+3]
   LOADK R11 K59 ["safety_filter"]
   JUMP [+6]
-  GETUPVAL R14 3
+  GETUPVAL R14 5
   GETTABLEKS R13 R14 K60 ["assertNever"]
   MOVE R14 R12
   CALL R13 1 1
@@ -275,9 +286,9 @@ PROTO_3:
   GETIMPORT R8 K28 [table.insert]
   CALL R8 2 0
   LOADB R8 0
-  SETUPVAL R8 1
+  SETUPVAL R8 3
   LOADB R8 0
-  SETUPVAL R8 2
+  SETUPVAL R8 4
   RETURN R5 1
 
 PROTO_4:
@@ -285,9 +296,11 @@ PROTO_4:
   LOADB R1 0
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
   CAPTURE REF R0
   CAPTURE REF R1
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U3
   CLOSEUPVALS R0
   RETURN R2 1
 
@@ -333,7 +346,7 @@ PROTO_6:
   LOADNIL R4
   FORGPREP R2
   GETTABLEKS R7 R6 K0 ["content"]
-  JUMPIFNOT R7 [+109]
+  JUMPIFNOT R7 [+137]
   DUPTABLE R7 K2 [{"role"}]
   GETTABLEKS R8 R6 K1 ["role"]
   SETTABLEKS R8 R7 K1 ["role"]
@@ -350,66 +363,88 @@ PROTO_6:
   LOADNIL R13
   FORGPREP R11
   GETTABLEKS R16 R15 K4 ["type"]
-  JUMPIFNOTEQKS R16 K5 ["tool_result"] [+26]
+  JUMPIFNOTEQKS R16 K5 ["tool_result"] [+41]
   MOVE R16 R10
   CALL R16 0 0
-  GETUPVAL R16 0
+  LOADNIL R16
+  GETUPVAL R17 0
+  CALL R17 0 1
+  JUMPIFNOT R17 [+10]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K6 ["Json"]
+  GETTABLEKS R17 R18 K7 ["encode"]
   GETTABLEKS R18 R15 K0 ["content"]
-  NAMECALL R16 R16 K6 ["JSONEncode"]
-  CALL R16 2 1
-  DUPTABLE R19 K8 [{"role", "tool_call_id", "content"}]
-  LOADK R20 K9 ["tool"]
+  CALL R17 1 1
+  MOVE R16 R17
+  JUMP [+7]
+  GETUPVAL R17 2
+  GETTABLEKS R19 R15 K0 ["content"]
+  NAMECALL R17 R17 K8 ["JSONEncode"]
+  CALL R17 2 1
+  MOVE R16 R17
+  DUPTABLE R19 K10 [{"role", "tool_call_id", "content"}]
+  LOADK R20 K11 ["tool"]
   SETTABLEKS R20 R19 K1 ["role"]
-  GETTABLEKS R20 R15 K10 ["id"]
-  SETTABLEKS R20 R19 K7 ["tool_call_id"]
+  GETTABLEKS R20 R15 K12 ["id"]
+  SETTABLEKS R20 R19 K9 ["tool_call_id"]
   SETTABLEKS R16 R19 K0 ["content"]
   FASTCALL2 TABLE_INSERT R1 R19 [+4]
   MOVE R18 R1
-  GETIMPORT R17 K13 [table.insert]
+  GETIMPORT R17 K15 [table.insert]
   CALL R17 2 0
-  JUMP [+56]
+  JUMP [+69]
   GETTABLEKS R16 R15 K4 ["type"]
-  JUMPIFNOTEQKS R16 K14 ["text"] [+14]
-  GETTABLEKS R16 R15 K14 ["text"]
+  JUMPIFNOTEQKS R16 K16 ["text"] [+14]
+  GETTABLEKS R16 R15 K16 ["text"]
   JUMPIFNOT R16 [+10]
   JUMPIFEQKS R8 K3 [""] [+4]
   MOVE R16 R8
-  LOADK R17 K15 ["
+  LOADK R17 K17 ["
 "]
   CONCAT R8 R16 R17
   MOVE R16 R8
-  GETTABLEKS R17 R15 K14 ["text"]
+  GETTABLEKS R17 R15 K16 ["text"]
   CONCAT R8 R16 R17
-  JUMP [+39]
+  JUMP [+52]
   GETTABLEKS R16 R15 K4 ["type"]
-  JUMPIFNOTEQKS R16 K16 ["tool_use"] [+36]
+  JUMPIFNOTEQKS R16 K18 ["tool_use"] [+49]
   LOADK R16 K3 [""]
-  GETTABLEKS R17 R15 K17 ["input"]
-  JUMPIFNOT R17 [+7]
+  GETTABLEKS R17 R15 K19 ["input"]
+  JUMPIFNOT R17 [+20]
   GETUPVAL R17 0
-  GETTABLEKS R19 R15 K17 ["input"]
-  NAMECALL R17 R17 K6 ["JSONEncode"]
+  CALL R17 0 1
+  JUMPIFNOT R17 [+10]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K6 ["Json"]
+  GETTABLEKS R17 R18 K7 ["encode"]
+  GETTABLEKS R18 R15 K19 ["input"]
+  CALL R17 1 1
+  MOVE R16 R17
+  JUMP [+7]
+  GETUPVAL R17 2
+  GETTABLEKS R19 R15 K19 ["input"]
+  NAMECALL R17 R17 K8 ["JSONEncode"]
   CALL R17 2 1
   MOVE R16 R17
   NEWTABLE R19 4 0
-  GETTABLEKS R20 R15 K10 ["id"]
-  SETTABLEKS R20 R19 K10 ["id"]
-  LOADK R20 K18 ["function"]
+  GETTABLEKS R20 R15 K12 ["id"]
+  SETTABLEKS R20 R19 K12 ["id"]
+  LOADK R20 K20 ["function"]
   SETTABLEKS R20 R19 K4 ["type"]
-  DUPTABLE R20 K21 [{"name", "arguments"}]
-  GETTABLEKS R21 R15 K19 ["name"]
-  SETTABLEKS R21 R20 K19 ["name"]
-  SETTABLEKS R16 R20 K20 ["arguments"]
-  SETTABLEKS R20 R19 K18 ["function"]
+  DUPTABLE R20 K23 [{"name", "arguments"}]
+  GETTABLEKS R21 R15 K21 ["name"]
+  SETTABLEKS R21 R20 K21 ["name"]
+  SETTABLEKS R16 R20 K22 ["arguments"]
+  SETTABLEKS R20 R19 K20 ["function"]
   FASTCALL2 TABLE_INSERT R9 R19 [+4]
   MOVE R18 R9
-  GETIMPORT R17 K13 [table.insert]
+  GETIMPORT R17 K15 [table.insert]
   CALL R17 2 0
-  FORGLOOP R11 2 [-86]
+  FORGLOOP R11 2 [-114]
   MOVE R11 R10
   CALL R11 0 0
   CLOSEUPVALS R7
-  FORGLOOP R2 2 [-113]
+  FORGLOOP R2 2 [-141]
   RETURN R1 1
 
 MAIN:
@@ -418,44 +453,56 @@ MAIN:
   LOADK R2 K2 ["AssistantUI"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["HttpService"]
-  NAMECALL R1 R1 K7 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R3 R0 K10 ["Types"]
-  CALL R2 1 1
-  GETIMPORT R3 K12 [_G]
-  DUPTABLE R4 K14 [{"totalUsage"}]
-  DUPTABLE R5 K22 [{"input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens", "reasoning_tokens", "timestamp", "model"}]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K15 ["input_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K16 ["output_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K17 ["cache_read_input_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K18 ["cache_creation_input_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K19 ["reasoning_tokens"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K20 ["timestamp"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K21 ["model"]
-  SETTABLEKS R5 R4 K13 ["totalUsage"]
-  SETTABLEKS R4 R3 K23 ["OpenAITokenUsageTracker"]
-  DUPCLOSURE R3 K24 [PROTO_0]
-  GETIMPORT R5 K12 [_G]
-  GETTABLEKS R4 R5 K23 ["OpenAITokenUsageTracker"]
-  SETTABLEKS R3 R4 K25 ["addUsage"]
-  DUPCLOSURE R3 K26 [PROTO_1]
-  CAPTURE VAL R2
-  DUPCLOSURE R4 K27 [PROTO_4]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["ModelContextProtocol"]
+  CALL R1 1 1
+  GETIMPORT R2 K9 [game]
+  LOADK R4 K10 ["HttpService"]
+  NAMECALL R2 R2 K11 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K12 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K13 ["Flags"]
+  GETTABLEKS R5 R6 K14 ["getFFlagAssistantJsonEncoder"]
+  CALL R4 1 1
+  GETIMPORT R5 K16 [_G]
+  DUPTABLE R6 K18 [{"totalUsage"}]
+  DUPTABLE R7 K26 [{"input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens", "reasoning_tokens", "timestamp", "model"}]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K19 ["input_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K20 ["output_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K21 ["cache_read_input_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K22 ["cache_creation_input_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K23 ["reasoning_tokens"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K24 ["timestamp"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K25 ["model"]
+  SETTABLEKS R7 R6 K17 ["totalUsage"]
+  SETTABLEKS R6 R5 K27 ["OpenAITokenUsageTracker"]
+  DUPCLOSURE R5 K28 [PROTO_0]
+  GETIMPORT R7 K16 [_G]
+  GETTABLEKS R6 R7 K27 ["OpenAITokenUsageTracker"]
+  SETTABLEKS R5 R6 K29 ["addUsage"]
+  DUPCLOSURE R5 K30 [PROTO_1]
+  CAPTURE VAL R3
+  DUPCLOSURE R6 K31 [PROTO_4]
+  CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R2
-  DUPCLOSURE R5 K28 [PROTO_6]
+  CAPTURE VAL R3
+  DUPCLOSURE R7 K32 [PROTO_6]
+  CAPTURE VAL R4
   CAPTURE VAL R1
-  DUPTABLE R6 K31 [{"createAdapter", "convertLLMtoOpenAIMessage"}]
-  SETTABLEKS R4 R6 K29 ["createAdapter"]
-  SETTABLEKS R5 R6 K30 ["convertLLMtoOpenAIMessage"]
-  RETURN R6 1
+  CAPTURE VAL R2
+  DUPTABLE R8 K35 [{"createAdapter", "convertLLMtoOpenAIMessage"}]
+  SETTABLEKS R6 R8 K33 ["createAdapter"]
+  SETTABLEKS R7 R8 K34 ["convertLLMtoOpenAIMessage"]
+  RETURN R8 1

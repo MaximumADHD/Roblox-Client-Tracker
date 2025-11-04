@@ -94,8 +94,7 @@ export type SharedData = {
 	uploadCategory: string,
 	uploadEnum: UploadEnum,
 	consumerConfig: UGCValidationConsumerConfigs,
-	qualityResults: { [string]: string },
-
+	qualityResults: { [string]: { [string]: number } }, -- also contains version and visualizationUrl if provided
 	renderMeshesData: { [string]: EditableMeshData },
 	innerCagesData: { [string]: EditableCageData },
 	outerCagesData: { [string]: EditableCageData },
@@ -145,7 +144,7 @@ export type UGCValidationConsumerName = "Toolbox" | "AutoSetup" | "Backend" | "I
 export type UGCValidationConsumerConfigs = {
 	source: UGCValidationConsumerName,
 	enforceR15FolderStructure: boolean,
-	telemetry_bundle_id: string,
+	telemetry_bundle_id: string, -- TODO: Rename to match case and update consumers to send new name
 	telemetry_root_id: string,
 	preloadedEditableMeshes: { string: EditableMesh }?,
 	preloadedEditableImages: { string: EditableImage }?,

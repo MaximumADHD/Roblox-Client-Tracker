@@ -337,5 +337,6 @@ Constants.Counters = {
 	TryOnButtonClicked = "TryOnButtonClicked",
 	GetAvatarPreview = "GetAvatarPreview",
 	BatchGetAssets = "BatchGetAssets",
+	BatchGetItemDetails = "BatchGetItemDetails",
 }
 return Constants

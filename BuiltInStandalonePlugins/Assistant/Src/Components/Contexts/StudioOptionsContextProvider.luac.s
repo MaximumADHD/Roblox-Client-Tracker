@@ -36,13 +36,13 @@ PROTO_2:
   GETUPVAL R11 0
   GETTABLEKS R12 R8 K0 ["name"]
   GETTABLE R10 R11 R12
-  JUMPIFNOT R10 [+31]
+  JUMPIFNOT R10 [+28]
   GETUPVAL R11 1
   LOADK R13 K1 ["Tools"]
   MOVE R14 R10
   NAMECALL R11 R11 K2 ["getText"]
   CALL R11 3 1
-  DUPTABLE R12 K8 [{"label", "displayLabel", "isChecked", "onChange", "llmProvider"}]
+  DUPTABLE R12 K7 [{"label", "displayLabel", "isChecked", "onChange"}]
   GETTABLEKS R13 R8 K0 ["name"]
   SETTABLEKS R13 R12 K3 ["label"]
   SETTABLEKS R11 R12 K4 ["displayLabel"]
@@ -52,14 +52,12 @@ PROTO_2:
   CAPTURE VAL R8
   CAPTURE VAL R2
   SETTABLEKS R13 R12 K6 ["onChange"]
-  LOADB R13 0
-  SETTABLEKS R13 R12 K7 ["llmProvider"]
   FASTCALL2 TABLE_INSERT R3 R12 [+5]
   MOVE R14 R3
   MOVE R15 R12
-  GETIMPORT R13 K11 [table.insert]
+  GETIMPORT R13 K10 [table.insert]
   CALL R13 2 0
-  FORGLOOP R4 2 [-44]
+  FORGLOOP R4 2 [-41]
   RETURN R3 1
 
 PROTO_3:

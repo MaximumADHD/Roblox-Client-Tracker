@@ -1,6 +1,6 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["MCPAssistantManagementMenu"]
+  LOADK R2 K2 ["MCPAssistantManagementMenu2"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
@@ -17,7 +17,7 @@ MAIN:
   DUPCLOSURE R2 K8 [PROTO_0]
   CALL R1 1 0
   GETTABLEKS R1 R0 K9 ["createFFlag"]
-  LOADK R2 K10 ["MCPAssistantManagementMenu"]
+  LOADK R2 K10 ["MCPAssistantManagementMenu2"]
   LOADB R3 0
   CALL R1 2 -1
   RETURN R1 -1

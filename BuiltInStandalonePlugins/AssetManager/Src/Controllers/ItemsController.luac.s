@@ -374,13 +374,7 @@ PROTO_16:
   JUMPIFEQ R2 R3 [+2]
   LOADB R1 0 +1
   LOADB R1 1
-  GETUPVAL R2 1
-  CALL R2 0 1
-  JUMPIFNOT R2 [+3]
-  JUMPIF R1 [+4]
-  RETURN R0 0
-  JUMP [+2]
-  JUMPIFNOT R1 [+1]
+  JUMPIF R1 [+1]
   RETURN R0 0
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K6 ["_items"]
@@ -569,7 +563,6 @@ PROTO_17:
   GETTABLEKS R8 R9 K60 ["OnNewAssetFetched"]
   NEWCLOSURE R10 P9
   CAPTURE VAL R5
-  CAPTURE UPVAL U8
   NAMECALL R8 R8 K48 ["Connect"]
   CALL R8 2 -1
   FASTCALL TABLE_INSERT [+2]
@@ -1331,38 +1324,64 @@ PROTO_55:
   LOADK R2 K11 ["SearchRank"]
   JUMP [+1]
   LOADK R2 K12 [""]
-  DUPTABLE R3 K22 [{"assetIds", "assetTypes", "insertType", "insertSource", "searchKeywords", "searchId", "filterTypes", "sortType", "position"}]
+  DUPTABLE R3 K24 [{"assetIds", "assetTypes", "insertType", "insertSource", "searchKeywords", "searchId", "filterTypes", "sortType", "position", "isCompact", "viewMode"}]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K23 ["keys"]
+  GETTABLEKS R4 R5 K25 ["keys"]
   GETTABLEKS R5 R0 K0 ["_selection"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K13 ["assetIds"]
   SETTABLEKS R1 R3 K14 ["assetTypes"]
   GETTABLEKS R5 R0 K8 ["_analyticsState"]
-  GETTABLEKS R4 R5 K24 ["Action"]
+  GETTABLEKS R4 R5 K26 ["Action"]
   SETTABLEKS R4 R3 K15 ["insertType"]
   GETTABLEKS R5 R0 K8 ["_analyticsState"]
   GETTABLEKS R4 R5 K9 ["Source"]
   SETTABLEKS R4 R3 K16 ["insertSource"]
-  GETTABLEKS R4 R0 K25 ["_searchController"]
-  NAMECALL R4 R4 K26 ["getSearchTerm"]
+  GETTABLEKS R4 R0 K27 ["_searchController"]
+  NAMECALL R4 R4 K28 ["getSearchTerm"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K17 ["searchKeywords"]
-  GETTABLEKS R4 R0 K25 ["_searchController"]
-  NAMECALL R4 R4 K27 ["getSearchId"]
+  GETTABLEKS R4 R0 K27 ["_searchController"]
+  NAMECALL R4 R4 K29 ["getSearchId"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K18 ["searchId"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K23 ["keys"]
-  GETTABLEKS R5 R0 K28 ["_filters"]
+  GETTABLEKS R4 R5 K25 ["keys"]
+  GETTABLEKS R5 R0 K30 ["_filters"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K19 ["filterTypes"]
   SETTABLEKS R2 R3 K20 ["sortType"]
   GETTABLEKS R5 R0 K8 ["_analyticsState"]
-  GETTABLEKS R4 R5 K29 ["Position"]
+  GETTABLEKS R4 R5 K31 ["Position"]
   SETTABLEKS R4 R3 K21 ["position"]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K30 ["sendInsertEvent"]
+  CALL R5 0 1
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R4 R0 K32 ["_layoutController"]
+  NAMECALL R4 R4 K33 ["getIsCompact"]
+  CALL R4 1 1
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K22 ["isCompact"]
+  GETUPVAL R5 1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+18]
+  GETTABLEKS R6 R0 K32 ["_layoutController"]
+  NAMECALL R6 R6 K34 ["getBrowserLayout"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K35 ["ViewType"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K35 ["ViewType"]
+  GETTABLEKS R6 R7 K36 ["List"]
+  JUMPIFNOTEQ R5 R6 [+3]
+  LOADK R4 K37 ["list"]
+  JUMP [+3]
+  LOADK R4 K38 ["grid"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K23 ["viewMode"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K39 ["sendInsertEvent"]
   MOVE R5 R3
   CALL R4 1 0
   RETURN R0 0
@@ -1464,12 +1483,12 @@ MAIN:
   GETIMPORT R22 K5 [require]
   GETTABLEKS R25 R0 K16 ["Src"]
   GETTABLEKS R24 R25 K28 ["Flags"]
-  GETTABLEKS R23 R24 K30 ["getFFlagEnableAssetInserter"]
+  GETTABLEKS R23 R24 K30 ["getFFlagAmrUiAnalytics"]
   CALL R22 1 1
   GETIMPORT R23 K5 [require]
   GETTABLEKS R26 R0 K16 ["Src"]
   GETTABLEKS R25 R26 K28 ["Flags"]
-  GETTABLEKS R24 R25 K31 ["getFFlagFixAmrNewAsset"]
+  GETTABLEKS R24 R25 K31 ["getFFlagEnableAssetInserter"]
   CALL R23 1 1
   LOADK R26 K32 ["ItemsController"]
   NAMECALL R24 R3 K33 ["extend"]
@@ -1497,7 +1516,6 @@ MAIN:
   CAPTURE VAL R15
   CAPTURE VAL R19
   CAPTURE VAL R4
-  CAPTURE VAL R23
   SETTABLEKS R31 R24 K41 ["new"]
   DUPCLOSURE R31 K42 [PROTO_18]
   CAPTURE VAL R24
@@ -1531,7 +1549,7 @@ MAIN:
   CAPTURE VAL R4
   CAPTURE VAL R12
   CAPTURE VAL R21
-  CAPTURE VAL R22
+  CAPTURE VAL R23
   CAPTURE VAL R11
   SETTABLEKS R31 R24 K61 ["handleDoubleClick"]
   DUPCLOSURE R31 K62 [PROTO_28]
@@ -1602,6 +1620,8 @@ MAIN:
   SETTABLEKS R31 R24 K115 ["setAnalyticsInsertAction"]
   DUPCLOSURE R31 K116 [PROTO_55]
   CAPTURE VAL R4
+  CAPTURE VAL R22
+  CAPTURE VAL R12
   CAPTURE VAL R20
   SETTABLEKS R31 R24 K117 ["sendInsertToAnalytics"]
   DUPCLOSURE R31 K118 [PROTO_56]

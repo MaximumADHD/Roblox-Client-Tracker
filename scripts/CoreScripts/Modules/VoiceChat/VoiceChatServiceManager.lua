@@ -76,6 +76,8 @@ local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisco
 local FFlagSeamlessVoiceV2JoinVoiceToast = game:DefineFastFlag("SeamlessVoiceV2JoinVoiceToast", false)
 local FFlagDisablePermissionPromptDeeplink = game:DefineFastFlag("DisablePermissionPromptDeeplink", false)
 local FFlagVoiceEndedCheckDisregardIdleState = game:DefineFastFlag("VoiceEndedCheckDisregardIdleState", false)
+local FFlagDisableMicRejectedPromiseReject = game:DefineFastFlag("DisableMicRejectedPromiseReject", false)
+local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInStudio", false)
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging =
 	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
@@ -501,7 +503,11 @@ function VoiceChatServiceManager.new(
 			self.deniedMicPermissions = true
 		end
 		if GetFFlagEnableUniveralVoiceToasts() and not FFlagSkipVoicePermissionCheck then
-			return self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
+			if FFlagDisableMicRejectedPromiseReject then
+				return self:CheckAndShowPermissionPrompt()
+			else
+				return self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
+			end
 		end
 	end)
 	self.coreVoiceManager:subscribe("OnDevicePlayerChanged", function()
@@ -526,6 +532,9 @@ function VoiceChatServiceManager.new(
 		if inEndedState and self.bannedUntil == nil then
 			if not GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
 				self:HideVoiceUI()
+			end
+			if FFlagDisableLeaveToastInStudio and self.runService:IsStudio() then
+				return
 			end
 			self:showPrompt(VoiceChatPromptType.LeaveVoice)
 		end
@@ -1730,6 +1739,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 			VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER
 		)
 	elseif self:EligibleForFaeUpsell() then
+		self.coreVoiceManager:OptUserToJoinVoice() -- User has opted in to voice chat, so when FAE finishes, join the voice call
 		local overlayStore = getOverlayStore(false)
 		overlayStore.setCurrentOverlay(OverlayTypes.SocialUpsell, {
 			upsellType = SocialUpsellType.FacialAgeEstimation,

@@ -15,11 +15,6 @@ local FFlagInGameMenuAddChatLineReporting =
 local PlayerModalSelectorMenuConfig: Types.ModalSelectorMenuItemType = {
 	componentType = "modalSelector",
 	getIsVisible = function(menuUIState)
-		-- If we're reporting text chat, we only want to show the player selector if a player is already selected (like reporting from leaderboard)
-		-- Otherwise, we'd want to be showing chat lines to be selected from instead of a player selector
-		if FFlagInGameMenuAddChatLineReporting and menuUIState.methodOfAbuse == Constants.AbuseMethods.TextChat then
-			return menuUIState.allegedAbuser ~= nil
-		end
 		return true
 	end,
 	getMenuItems = function(menuUIState)

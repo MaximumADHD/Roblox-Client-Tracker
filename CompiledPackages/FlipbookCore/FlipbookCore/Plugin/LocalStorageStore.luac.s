@@ -27,20 +27,30 @@ MAIN:
   GETTABLEKS R4 R5 K4 ["Parent"]
   GETTABLEKS R3 R4 K9 ["createPluginSettingsStore"]
   CALL R2 1 1
-  NEWTABLE R3 0 0
-  GETTABLEKS R4 R1 K10 ["interface"]
-  DUPTABLE R5 K12 [{"lastOpenedStoryPath"}]
-  GETTABLEKS R6 R1 K13 ["optional"]
-  GETTABLEKS R7 R1 K14 ["string"]
+  DUPTABLE R3 K11 [{"wasUserPromptedForTelemetry"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K10 ["wasUserPromptedForTelemetry"]
+  GETTABLEKS R4 R1 K12 ["interface"]
+  DUPTABLE R5 K15 [{"lastOpenedStoryPath", "pinnedInstancePaths", "wasUserPromptedForTelemetry"}]
+  GETTABLEKS R6 R1 K16 ["optional"]
+  GETTABLEKS R7 R1 K17 ["string"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K11 ["lastOpenedStoryPath"]
+  SETTABLEKS R6 R5 K13 ["lastOpenedStoryPath"]
+  GETTABLEKS R6 R1 K16 ["optional"]
+  GETTABLEKS R7 R1 K18 ["array"]
+  GETTABLEKS R8 R1 K17 ["string"]
+  CALL R7 1 -1
+  CALL R6 -1 1
+  SETTABLEKS R6 R5 K14 ["pinnedInstancePaths"]
+  GETTABLEKS R6 R1 K19 ["boolean"]
+  SETTABLEKS R6 R5 K10 ["wasUserPromptedForTelemetry"]
   CALL R4 1 1
-  DUPTABLE R5 K16 [{"get"}]
-  GETTABLEKS R6 R0 K17 ["createComputed"]
-  DUPCLOSURE R7 K18 [PROTO_0]
+  DUPTABLE R5 K21 [{"get"}]
+  GETTABLEKS R6 R0 K22 ["createComputed"]
+  DUPCLOSURE R7 K23 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R4
   CALL R6 1 1
-  SETTABLEKS R6 R5 K15 ["get"]
+  SETTABLEKS R6 R5 K20 ["get"]
   RETURN R5 1

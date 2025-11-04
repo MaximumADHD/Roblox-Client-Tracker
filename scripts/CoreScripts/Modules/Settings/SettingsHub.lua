@@ -370,6 +370,16 @@ local function GetPlaceVersionText()
 	return text
 end
 
+local function createReactPage(parent: GuiObject?): GuiObject
+	return Create'Frame'
+	{
+		Name = if Flags.FFlagRenameReactPageRoot then 'InExperienceMenuPage' else 'ReactPage',
+		BackgroundTransparency = 1,
+		Size = UDim2.fromScale(0, 0),
+		Parent = parent,
+	}
+end
+
 local function CreateSettingsHub()
 	local this = {}
 	this.Visible = false
@@ -447,6 +457,12 @@ local function CreateSettingsHub()
 	local PoppedMenuEvent = Instance.new("BindableEvent")
 	PoppedMenuEvent.Name = "PoppedMenu"
 	this.PoppedMenu = PoppedMenuEvent.Event
+
+	-- create early so ReactPages can mount to it
+	this.ReactPage = nil :: GuiObject?
+	if Flags.FFlagCreateInExperienceMenuReact then 
+		this.ReactPage = createReactPage()
+	end
 
 	local function shouldShowHubBar(whichPage)
 		whichPage = whichPage or this.Pages.CurrentPage
@@ -1399,13 +1415,11 @@ local function CreateSettingsHub()
 
 		if Flags.FFlagEnableSettingsHubCreateReactPage then
 			-- Root container for React pages
-			this.ReactPage = Create'Frame'
-			{
-				Name = if Flags.FFlagRenameReactPageRoot then 'InExperienceMenuPage' else 'ReactPage',
-				BackgroundTransparency = 1,
-				Size = UDim2.fromScale(0, 0),
-				Parent = this.MenuContainer
-			}
+			if Flags.FFlagCreateInExperienceMenuReact then
+				this.ReactPage.Parent = this.MenuContainer
+			else
+				this.ReactPage = createReactPage(this.MenuContainer)
+			end
 
 			-- Container for non-React pages
 			this.Page = Create'Frame'
@@ -3570,7 +3584,9 @@ local function CreateSettingsHub()
 				local movementTime: number = if Constants then Constants.ShieldCloseAnimationTweenTime else 0.4
 
 				local function handleShieldClose()
-					this.SettingsShowSignal:fire(this.Visible)
+					if not Flags.FFlagAddTraversalBackButton then
+						this.SettingsShowSignal:fire(this.Visible)
+					end
 					if not this.Visible then
 						GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
 						if Flags.FFlagEnableExperienceMenuSessionTracking then
@@ -3580,6 +3596,10 @@ local function CreateSettingsHub()
 					if Flags.FFlagEnableInGameMenuDurationLogger then
 						PerfUtils.menuCloseComplete()
 					end
+				end
+
+				if Flags.FFlagAddTraversalBackButton then
+					this.SettingsShowSignal:fire(this.Visible)
 				end
 
 				if GameSettings.ReducedMotion then
@@ -4265,19 +4285,27 @@ local function CreateSettingsHub()
 					this:CloseReactPage() 
 					ReactPageSignal(false).setCurrentReactPage(nil) 
 				end,
-				mountTo = this.ReactPage,
+				mountTo = this.ReactPage :: GuiObject,
 			}),
 			TraversalHistoryMenuBottomBar = Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveGameButton 
 				and React.createElement(PortalWithFoundationStylelink, {
 					parent = leaveGameButton,
 				}, {
-					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu),
+					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu, {
+						anchorParent = leaveGameButton,
+						idleButtonStateIsDown = true,
+						currentPageChangeSignal = this.CurrentPageSignal,
+					}),
 				}),
 			TraversalHistoryMenuMobileButton = Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveButtonMobile 
 				and React.createElement(PortalWithFoundationStylelink, {
 					parent = leaveButtonMobile,
 				}, {
-					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu),
+					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu, {
+						anchorParent = leaveButtonMobile,
+						idleButtonStateIsDown = false,
+						currentPageChangeSignal = this.CurrentPageSignal,
+					}),
 				}),
 		}))
 	end

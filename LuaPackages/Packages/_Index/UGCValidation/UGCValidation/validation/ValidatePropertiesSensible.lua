@@ -15,7 +15,7 @@ local Types = require(util.Types)
 local getFIntUGCValidateMaxSensibleStringLength = require(root.flags.getFIntUGCValidateMaxSensibleStringLength)
 local getFIntUGCValidateMaxSensibleBinaryStringLength =
 	require(root.flags.getFIntUGCValidateMaxSensibleBinaryStringLength)
-local getEngineFeatureUGCValidateCheckHSRFileData = require(root.flags.getEngineFeatureUGCValidateCheckHSRFileData)
+local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
 local getFIntUGCValidateMaxHSRDataLen = require(root.flags.getFIntUGCValidateMaxHSRDataLen)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
@@ -39,7 +39,7 @@ function ValidatePropertiesSensible.resetPropertyLengthRestrictions()
 end
 
 local function validateIndividual(inst: Instance): (boolean, { string }?)
-	if getEngineFeatureUGCValidateCheckHSRFileData() then
+	if getFFlagUGCValidateCheckHSRFileDataFix() then
 		local result, problematicProperties = (UGCValidationService :: any):ValidatePropertiesSensible(
 			inst,
 			PropertyLengthRestrictions[inst.ClassName]
@@ -84,7 +84,7 @@ function ValidatePropertiesSensible.validate(
 
 	local startTime = tick()
 
-	if getEngineFeatureUGCValidateCheckHSRFileData() then
+	if getFFlagUGCValidateCheckHSRFileDataFix() then
 		createPropertyLengthRestrictions()
 	end
 

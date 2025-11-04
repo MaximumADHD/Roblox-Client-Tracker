@@ -1,9 +1,11 @@
-local callUserSpace = require(script.Parent.callUserSpace)
-local Scheduler = require(script.Parent.Scheduler)
-local scheduleWork = Scheduler.scheduleWork
-local runContinuations = Scheduler.runContinuations
+local Packages = script.Parent.Parent
+local SignalsScheduler = require(Packages.SignalsScheduler)
+local flush = SignalsScheduler.flush
+local schedule = SignalsScheduler.schedule
 
-export type getter<T> = (scope | false) -> T
+local callUserSpace = require(script.Parent.callUserSpace)
+
+export type getter<T> = (scope | false | nil) -> T
 export type setter<T> = (update<T>) -> ()
 export type update<T> = ((previous: T) -> T) | T
 export type equals<T> = (current: T, incoming: T) -> boolean
@@ -23,7 +25,7 @@ type source = (observer?, true?) -> number
 type observer = () -> ()
 
 type set<T> = { [T]: true? }
-local WeakSetMetatable = { __mode = "k" }
+local WeakSetMetatable = table.freeze({ __mode = "k" })
 local function createWeakSet<T>(set: set<T>)
 	return (setmetatable(set, WeakSetMetatable) :: unknown) :: set<T>
 end
@@ -96,8 +98,8 @@ local function createSignal<T>(initial: (() -> T) | T, equals: equals<T>?): (get
 		end
 	end
 
-	local function connectToScope(requestor: scope | false)
-		if requestor ~= false then
+	local function connectToScope(requestor: scope | false | nil)
+		if requestor then
 			local childObserver = requestor(source)
 			observers[childObserver] = true
 		end
@@ -110,7 +112,7 @@ local function createSignal<T>(initial: (() -> T) | T, equals: equals<T>?): (get
 		table.clear(observers)
 	end
 
-	local function getter(requestor: scope | false): T
+	local function getter(requestor: scope | false | nil): T
 		ensureInitialized()
 		connectToScope(requestor)
 		return value
@@ -123,7 +125,7 @@ local function createSignal<T>(initial: (() -> T) | T, equals: equals<T>?): (get
 			value = newValue
 			version = os.clock()
 			notifyObservers()
-			runContinuations()
+			flush()
 		end
 	end
 
@@ -215,14 +217,14 @@ local function createComputed<T>(computed: (scope) -> T, equals: equals<T>?): ge
 		end
 	end
 
-	local function connectToScope(requestor: scope | false)
-		if requestor ~= false then
+	local function connectToScope(requestor: scope | false | nil)
+		if requestor then
 			local childObserver = requestor(source)
 			observers[childObserver] = true
 		end
 	end
 
-	local function getter(requestor: scope | false): T
+	local function getter(requestor: scope | false | nil): T
 		ensureInitialized()
 		flushNotifications()
 		connectToScope(requestor)
@@ -280,7 +282,7 @@ local function createEffect(effect: (scope) -> ()): dispose
 		if not isDisposed then
 			if not isScheduled then
 				isScheduled = true
-				scheduleWork(processNotification)
+				schedule(processNotification)
 			end
 		end
 	end

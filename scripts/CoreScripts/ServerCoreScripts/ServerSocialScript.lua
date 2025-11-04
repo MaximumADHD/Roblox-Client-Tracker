@@ -35,6 +35,7 @@ local FIntProfileSettingsMaxRequestsPerWindow = game:DefineFastInt("ProfileSetti
 local FIntProfileSettingsRateLimitWindowSeconds = game:DefineFastInt("ProfileSettingsRateLimitWindowSeconds", 60)
 local FFlagDisableRCCAntiHarrasmentAllowList = game:DefineFastFlag("DisableRCCAntiHarrasmentAllowList", false)
 local FFlagEnablePartyNudgeNotification = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeNotification
+local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false) and game:GetEngineFeature("LuaGetCanManageAsync")
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
@@ -211,42 +212,59 @@ local function sendPlayerAllCanManage(player)
 end
 
 local function getPlayerCanManage(player)
-	local canManage = false
-	if player.UserId > 0 then
-		local success, result = pcall(function()
-			local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
-			local url = string.format(Url.APIS_URL..apiPath)
-
-			local request = HttpService:JSONEncode(
-				{
-					requests = {
-						{
-							subject = {
-								subjectType = "User",
-								subjectId = player.UserId
-							},
-							action = "Edit", -- check to see if this player has edit permissions on this placeId
-							assetId = game.PlaceId
-						}
-					}
-				}
-			)
-			local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
-			return HttpService:JSONDecode(response)
-		end)
-
-		if success then
-			result = result.results[1]
-			if result.value and result.value.status == "HasPermission" then
-				canManage = true
-			end
+	if FFlagUseGetCanManageAsync then 
+		if player.UserId <= 0 or not player.Parent then
+			return
 		end
-	end
 
-	if player.Parent then
+		local canManage = false
+		local success, result = pcall(player.GetCanManageAsync, player)
+
+		if success and result then
+			canManage = true
+		end
+
 		local uidStr = tostring(player.UserId)
 		PlayerToCanManageMap[uidStr] = canManage
 		RemoveEvent_NewPlayerCanManageDetails:FireAllClients(uidStr, canManage)
+	else
+		local canManage = false
+		if player.UserId > 0 then
+			local success, result = pcall(function()
+				local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
+				local url = string.format(Url.APIS_URL..apiPath)
+
+				local request = HttpService:JSONEncode(
+					{
+						requests = {
+							{
+								subject = {
+									subjectType = "User",
+									subjectId = player.UserId
+								},
+								action = "Edit", -- check to see if this player has edit permissions on this placeId
+								assetId = game.PlaceId
+							}
+						}
+					}
+				)
+				local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
+				return HttpService:JSONDecode(response)
+			end)
+
+			if success then
+				result = result.results[1]
+				if result.value and result.value.status == "HasPermission" then
+					canManage = true
+				end
+			end
+		end
+
+		if player.Parent then
+			local uidStr = tostring(player.UserId)
+			PlayerToCanManageMap[uidStr] = canManage
+			RemoveEvent_NewPlayerCanManageDetails:FireAllClients(uidStr, canManage)
+		end
 	end
 end
 

@@ -1,21 +1,11 @@
-local Signals = require(script.Parent.Signals)
-local SignalsExperimental = require(script.SignalsExperimental)
+local SignalsScheduler = require(script.Parent.SignalsScheduler)
 
-export type getter<T> = Signals.getter<T>
-export type setter<T> = Signals.setter<T>
-export type update<T> = Signals.update<T>
-export type equals<T> = Signals.equals<T>
-export type dispose = Signals.dispose
-
-export type scope = Signals.scope
+local createProxy = require(script.createProxy)
+export type proxy<T> = createProxy.proxy<T>
 
 return {
-	-- core:
-	createSignal = Signals.createSignal,
-	createComputed = Signals.createComputed,
-	createEffect = SignalsExperimental.createEffect,
-	-- hooks:
-	onDisposed = SignalsExperimental.onDisposed,
-	-- advanced:
-	createRoot = SignalsExperimental.createRoot,
+	batch = SignalsScheduler.batch,
+	createProxy = createProxy,
+	createReducer = require(script.createReducer),
+	onDisposed = require(script.onDisposed),
 }

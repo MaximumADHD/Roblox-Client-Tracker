@@ -5,42 +5,50 @@ PROTO_0:
   CALL R1 1 1
   GETTABLEKS R2 R1 K1 ["avatarAssets"]
   GETUPVAL R3 2
-  CALL R3 0 1
-  GETTABLEKS R4 R0 K2 ["Dummy"]
+  GETUPVAL R5 3
+  CALL R5 0 1
+  JUMPIFNOT R5 [+5]
+  DUPTABLE R4 K3 [{"layerType"}]
+  LOADK R5 K4 ["layered"]
+  SETTABLEKS R5 R4 K2 ["layerType"]
+  JUMP [+1]
+  LOADNIL R4
+  CALL R3 1 1
+  GETTABLEKS R4 R0 K5 ["Dummy"]
   JUMPIFNOTEQKNIL R4 [+3]
   LOADNIL R4
   RETURN R4 1
-  GETTABLEKS R5 R0 K2 ["Dummy"]
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K3 ["LUAU_ANALYZE_ERROR"]
+  GETTABLEKS R5 R0 K5 ["Dummy"]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K6 ["LUAU_ANALYZE_ERROR"]
   FASTCALL2 ASSERT R5 R6 [+3]
-  GETIMPORT R4 K5 [assert]
+  GETIMPORT R4 K8 [assert]
   CALL R4 2 0
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["createElement"]
+  GETTABLEKS R4 R5 K9 ["createElement"]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K7 ["Fragment"]
+  GETTABLEKS R5 R6 K10 ["Fragment"]
   NEWTABLE R6 0 0
-  DUPTABLE R7 K10 [{"EquippedItemsSidebar", "AnimationController"}]
+  DUPTABLE R7 K13 [{"EquippedItemsSidebar", "AnimationController"}]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K6 ["createElement"]
-  GETUPVAL R9 4
-  DUPTABLE R10 K12 [{"OnClothingLayerOrderChanged"}]
-  SETTABLEKS R3 R10 K11 ["OnClothingLayerOrderChanged"]
+  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K15 [{"OnClothingLayerOrderChanged"}]
+  SETTABLEKS R3 R10 K14 ["OnClothingLayerOrderChanged"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K8 ["EquippedItemsSidebar"]
-  GETTABLEKS R8 R2 K13 ["animation"]
+  SETTABLEKS R8 R7 K11 ["EquippedItemsSidebar"]
+  GETTABLEKS R8 R2 K16 ["animation"]
   JUMPIFNOT R8 [+14]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K6 ["createElement"]
-  GETUPVAL R9 5
-  DUPTABLE R10 K15 [{"Dummy", "AnimationId"}]
-  GETTABLEKS R11 R0 K2 ["Dummy"]
-  SETTABLEKS R11 R10 K2 ["Dummy"]
-  GETTABLEKS R11 R2 K13 ["animation"]
-  SETTABLEKS R11 R10 K14 ["AnimationId"]
+  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETUPVAL R9 6
+  DUPTABLE R10 K18 [{"Dummy", "AnimationId"}]
+  GETTABLEKS R11 R0 K5 ["Dummy"]
+  SETTABLEKS R11 R10 K5 ["Dummy"]
+  GETTABLEKS R11 R2 K16 ["animation"]
+  SETTABLEKS R11 R10 K17 ["AnimationId"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K9 ["AnimationController"]
+  SETTABLEKS R8 R7 K12 ["AnimationController"]
   CALL R4 3 -1
   RETURN R4 -1
 
@@ -94,25 +102,31 @@ MAIN:
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K8 ["Src"]
-  GETTABLEKS R10 R11 K18 ["Hooks"]
-  GETTABLEKS R9 R10 K19 ["useOnClothingLayerOrderChanged"]
+  GETTABLEKS R10 R11 K18 ["Flags"]
+  GETTABLEKS R9 R10 K19 ["getFFlagAvatarPreviewerMakeup"]
   CALL R8 1 1
-  DUPCLOSURE R9 K20 [PROTO_0]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K20 ["Hooks"]
+  GETTABLEKS R10 R11 K21 ["useOnClothingLayerOrderChanged"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K22 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R6
+  CAPTURE VAL R9
   CAPTURE VAL R8
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R2
-  DUPTABLE R10 K24 [{"tabs", "render", "getPreviewCameraModifications"}]
-  NEWTABLE R11 0 4
-  LOADK R12 K25 ["animations"]
-  LOADK R13 K26 ["clothing"]
-  LOADK R14 K27 ["accessories"]
-  LOADK R15 K28 ["body"]
-  SETLIST R11 R12 4 [1]
-  SETTABLEKS R11 R10 K21 ["tabs"]
-  SETTABLEKS R9 R10 K22 ["render"]
-  DUPCLOSURE R11 K29 [PROTO_1]
-  SETTABLEKS R11 R10 K23 ["getPreviewCameraModifications"]
-  RETURN R10 1
+  DUPTABLE R11 K26 [{"tabs", "render", "getPreviewCameraModifications"}]
+  NEWTABLE R12 0 4
+  LOADK R13 K27 ["animations"]
+  LOADK R14 K28 ["clothing"]
+  LOADK R15 K29 ["accessories"]
+  LOADK R16 K30 ["body"]
+  SETLIST R12 R13 4 [1]
+  SETTABLEKS R12 R11 K23 ["tabs"]
+  SETTABLEKS R10 R11 K24 ["render"]
+  DUPCLOSURE R12 K31 [PROTO_1]
+  SETTABLEKS R12 R11 K25 ["getPreviewCameraModifications"]
+  RETURN R11 1

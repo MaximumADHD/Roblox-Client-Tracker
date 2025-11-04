@@ -109,14 +109,7 @@ PROTO_2:
   SETTABLEKS R8 R7 K6 ["IsDropdownMenuVisible"]
   LOADB R8 1
   SETTABLEKS R8 R7 K7 ["IsCreatorNameVisible"]
-  NEWTABLE R8 0 6
-  LOADK R9 K13 ["ConfigureExperience"]
-  LOADK R10 K14 ["ConfigurePlace"]
-  LOADK R11 K15 ["OpenPlace"]
-  LOADK R12 K16 ["PublicPrivateToggle"]
-  LOADK R13 K17 ["Archive"]
-  LOADK R14 K18 ["RemoveRecent"]
-  SETLIST R8 R9 6 [1]
+  GETUPVAL R8 11
   SETTABLEKS R8 R7 K8 ["KebabMenu"]
   CALL R5 2 -1
   CALL R3 -1 -1
@@ -777,8 +770,8 @@ PROTO_25:
   LOADNIL R32
   SETTABLEKS R32 R31 K46 ["TutorialBanner"]
   GETTABLEKS R33 R0 K61 ["hideRecents"]
-  JUMPIF R33 [+150]
-  JUMPIFNOT R16 [+149]
+  JUMPIF R33 [+161]
+  JUMPIFNOT R16 [+160]
   GETUPVAL R33 21
   GETTABLEKS R32 R33 K7 ["createElement"]
   GETUPVAL R33 29
@@ -817,73 +810,81 @@ PROTO_25:
   SETTABLEKS R36 R35 K45 ["Header"]
   GETUPVAL R37 21
   GETTABLEKS R36 R37 K7 ["createElement"]
-  GETUPVAL R37 31
-  DUPTABLE R38 K84 [{"Size", "DisplayComponent", "MaxCount", "PageSize", "ShowRecentAPIGames", "ShowRecentLocalFiles", "OnItemCountUpdated", "CellComponent", "CellSize", "CellPadding", "Query", "FetchItems", "LayoutOrder"}]
-  GETIMPORT R39 K15 [UDim2.new]
-  LOADN R40 1
-  LOADN R41 0
-  LOADN R42 0
-  LOADN R43 99
-  CALL R39 4 1
-  SETTABLEKS R39 R38 K72 ["Size"]
+  GETUPVAL R38 31
+  GETTABLEKS R37 R38 K72 ["Provider"]
+  DUPTABLE R38 K74 [{"value"}]
   GETUPVAL R39 32
-  SETTABLEKS R39 R38 K73 ["DisplayComponent"]
-  LOADN R39 6
-  SETTABLEKS R39 R38 K74 ["MaxCount"]
-  LOADN R39 10
-  SETTABLEKS R39 R38 K75 ["PageSize"]
-  LOADB R39 1
-  SETTABLEKS R39 R38 K76 ["ShowRecentAPIGames"]
-  LOADB R39 1
-  SETTABLEKS R39 R38 K77 ["ShowRecentLocalFiles"]
-  SETTABLEKS R18 R38 K78 ["OnItemCountUpdated"]
-  GETUPVAL R39 33
-  SETTABLEKS R39 R38 K79 ["CellComponent"]
-  GETIMPORT R39 K15 [UDim2.new]
-  LOADN R40 0
-  LOADN R41 224
-  LOADN R42 0
-  LOADN R43 92
-  CALL R39 4 1
-  SETTABLEKS R39 R38 K80 ["CellSize"]
-  GETIMPORT R39 K15 [UDim2.new]
-  LOADN R40 0
-  LOADN R41 16
-  LOADN R42 0
-  LOADN R43 16
-  CALL R39 4 1
-  SETTABLEKS R39 R38 K81 ["CellPadding"]
-  DUPTABLE R39 K94 [{"searchKey", "search", "creatorType", "creatorTargetId", "isArchived", "isTemplates", "pageSize", "getRecentLocalFiles", "getRecentAPIGames"}]
-  LOADK R40 K95 ["Recents"]
-  SETTABLEKS R40 R39 K85 ["searchKey"]
-  LOADK R40 K96 [""]
-  SETTABLEKS R40 R39 K86 ["search"]
-  LOADK R40 K97 ["User"]
-  SETTABLEKS R40 R39 K87 ["creatorType"]
-  GETUPVAL R41 5
-  NAMECALL R41 R41 K98 ["GetUserId"]
-  CALL R41 1 -1
+  SETTABLEKS R39 R38 K73 ["value"]
+  GETUPVAL R40 21
+  GETTABLEKS R39 R40 K7 ["createElement"]
+  GETUPVAL R40 33
+  DUPTABLE R41 K87 [{"Size", "DisplayComponent", "MaxCount", "PageSize", "ShowRecentAPIGames", "ShowRecentLocalFiles", "OnItemCountUpdated", "CellComponent", "CellSize", "CellPadding", "Query", "FetchItems", "LayoutOrder"}]
+  GETIMPORT R42 K15 [UDim2.new]
+  LOADN R43 1
+  LOADN R44 0
+  LOADN R45 0
+  LOADN R46 99
+  CALL R42 4 1
+  SETTABLEKS R42 R41 K75 ["Size"]
+  GETUPVAL R42 34
+  SETTABLEKS R42 R41 K76 ["DisplayComponent"]
+  LOADN R42 6
+  SETTABLEKS R42 R41 K77 ["MaxCount"]
+  LOADN R42 10
+  SETTABLEKS R42 R41 K78 ["PageSize"]
+  LOADB R42 1
+  SETTABLEKS R42 R41 K79 ["ShowRecentAPIGames"]
+  LOADB R42 1
+  SETTABLEKS R42 R41 K80 ["ShowRecentLocalFiles"]
+  SETTABLEKS R18 R41 K81 ["OnItemCountUpdated"]
+  GETUPVAL R42 35
+  SETTABLEKS R42 R41 K82 ["CellComponent"]
+  GETIMPORT R42 K15 [UDim2.new]
+  LOADN R43 0
+  LOADN R44 224
+  LOADN R45 0
+  LOADN R46 92
+  CALL R42 4 1
+  SETTABLEKS R42 R41 K83 ["CellSize"]
+  GETIMPORT R42 K15 [UDim2.new]
+  LOADN R43 0
+  LOADN R44 16
+  LOADN R45 0
+  LOADN R46 16
+  CALL R42 4 1
+  SETTABLEKS R42 R41 K84 ["CellPadding"]
+  DUPTABLE R42 K97 [{"searchKey", "search", "creatorType", "creatorTargetId", "isArchived", "isTemplates", "pageSize", "getRecentLocalFiles", "getRecentAPIGames"}]
+  LOADK R43 K98 ["Recents"]
+  SETTABLEKS R43 R42 K88 ["searchKey"]
+  LOADK R43 K99 [""]
+  SETTABLEKS R43 R42 K89 ["search"]
+  LOADK R43 K100 ["User"]
+  SETTABLEKS R43 R42 K90 ["creatorType"]
+  GETUPVAL R44 5
+  NAMECALL R44 R44 K101 ["GetUserId"]
+  CALL R44 1 -1
   FASTCALL TOSTRING [+2]
-  GETIMPORT R40 K100 [tostring]
-  CALL R40 -1 1
-  SETTABLEKS R40 R39 K88 ["creatorTargetId"]
-  LOADB R40 0
-  SETTABLEKS R40 R39 K89 ["isArchived"]
-  LOADB R40 0
-  SETTABLEKS R40 R39 K90 ["isTemplates"]
-  LOADN R40 10
-  SETTABLEKS R40 R39 K91 ["pageSize"]
-  LOADB R40 1
-  SETTABLEKS R40 R39 K92 ["getRecentLocalFiles"]
-  LOADB R40 1
-  SETTABLEKS R40 R39 K93 ["getRecentAPIGames"]
-  SETTABLEKS R39 R38 K82 ["Query"]
-  GETUPVAL R39 34
-  SETTABLEKS R39 R38 K83 ["FetchItems"]
-  MOVE R39 R19
-  CALL R39 0 1
-  SETTABLEKS R39 R38 K24 ["LayoutOrder"]
-  CALL R36 2 1
+  GETIMPORT R43 K103 [tostring]
+  CALL R43 -1 1
+  SETTABLEKS R43 R42 K91 ["creatorTargetId"]
+  LOADB R43 0
+  SETTABLEKS R43 R42 K92 ["isArchived"]
+  LOADB R43 0
+  SETTABLEKS R43 R42 K93 ["isTemplates"]
+  LOADN R43 10
+  SETTABLEKS R43 R42 K94 ["pageSize"]
+  LOADB R43 1
+  SETTABLEKS R43 R42 K95 ["getRecentLocalFiles"]
+  LOADB R43 1
+  SETTABLEKS R43 R42 K96 ["getRecentAPIGames"]
+  SETTABLEKS R42 R41 K85 ["Query"]
+  GETUPVAL R42 36
+  SETTABLEKS R42 R41 K86 ["FetchItems"]
+  MOVE R42 R19
+  CALL R42 0 1
+  SETTABLEKS R42 R41 K24 ["LayoutOrder"]
+  CALL R39 2 -1
+  CALL R36 -1 1
   SETTABLEKS R36 R35 K20 ["Content"]
   CALL R32 3 1
   JUMP [+1]
@@ -896,23 +897,23 @@ PROTO_25:
   MOVE R35 R19
   CALL R35 0 1
   SETTABLEKS R35 R34 K24 ["LayoutOrder"]
-  LOADK R35 K101 ["size-full-0 auto-y col gap-large"]
+  LOADK R35 K104 ["size-full-0 auto-y col gap-large"]
   SETTABLEKS R35 R34 K23 ["tag"]
   DUPTABLE R35 K66 [{"Header", "Content"}]
   GETUPVAL R37 21
   GETTABLEKS R36 R37 K7 ["createElement"]
   GETUPVAL R37 30
-  DUPTABLE R38 K103 [{"title", "description", "buttonText", "onButtonClick", "LayoutOrder"}]
+  DUPTABLE R38 K106 [{"title", "description", "buttonText", "onButtonClick", "LayoutOrder"}]
   LOADK R41 K53 ["Plugin"]
-  LOADK R42 K104 ["HomePage.Templates.Heading"]
+  LOADK R42 K107 ["HomePage.Templates.Heading"]
   NAMECALL R39 R11 K57 ["getText"]
   CALL R39 3 1
   SETTABLEKS R39 R38 K27 ["title"]
   LOADK R41 K53 ["Plugin"]
-  LOADK R42 K105 ["HomePage.Templates.Description"]
+  LOADK R42 K108 ["HomePage.Templates.Description"]
   NAMECALL R39 R11 K57 ["getText"]
   CALL R39 3 1
-  SETTABLEKS R39 R38 K102 ["description"]
+  SETTABLEKS R39 R38 K105 ["description"]
   LOADK R41 K53 ["Plugin"]
   LOADK R42 K71 ["SeeAll"]
   NAMECALL R39 R11 K57 ["getText"]
@@ -930,39 +931,39 @@ PROTO_25:
   SETTABLEKS R36 R35 K45 ["Header"]
   GETUPVAL R37 21
   GETTABLEKS R36 R37 K7 ["createElement"]
-  GETUPVAL R37 31
-  DUPTABLE R38 K106 [{"Size", "DisplayComponent", "MaxCount", "CellComponent", "CellSize", "CellPadding", "Query", "FetchItems", "LayoutOrder"}]
+  GETUPVAL R37 33
+  DUPTABLE R38 K109 [{"Size", "DisplayComponent", "MaxCount", "CellComponent", "CellSize", "CellPadding", "Query", "FetchItems", "LayoutOrder"}]
   GETIMPORT R39 K15 [UDim2.new]
   LOADN R40 1
   LOADN R41 0
   LOADN R42 0
   LOADN R43 8
   CALL R39 4 1
-  SETTABLEKS R39 R38 K72 ["Size"]
-  GETUPVAL R39 32
-  SETTABLEKS R39 R38 K73 ["DisplayComponent"]
+  SETTABLEKS R39 R38 K75 ["Size"]
+  GETUPVAL R39 34
+  SETTABLEKS R39 R38 K76 ["DisplayComponent"]
   LOADN R39 6
-  SETTABLEKS R39 R38 K74 ["MaxCount"]
-  GETUPVAL R39 35
-  SETTABLEKS R39 R38 K79 ["CellComponent"]
+  SETTABLEKS R39 R38 K77 ["MaxCount"]
+  GETUPVAL R39 37
+  SETTABLEKS R39 R38 K82 ["CellComponent"]
   GETIMPORT R39 K15 [UDim2.new]
   LOADN R40 0
   LOADN R41 225
   LOADN R42 0
   LOADN R43 252
   CALL R39 4 1
-  SETTABLEKS R39 R38 K80 ["CellSize"]
+  SETTABLEKS R39 R38 K83 ["CellSize"]
   GETIMPORT R39 K15 [UDim2.new]
   LOADN R40 0
   LOADN R41 16
   LOADN R42 0
   LOADN R43 16
   CALL R39 4 1
-  SETTABLEKS R39 R38 K81 ["CellPadding"]
-  GETUPVAL R39 36
-  SETTABLEKS R39 R38 K82 ["Query"]
-  GETUPVAL R39 37
-  SETTABLEKS R39 R38 K83 ["FetchItems"]
+  SETTABLEKS R39 R38 K84 ["CellPadding"]
+  GETUPVAL R39 38
+  SETTABLEKS R39 R38 K85 ["Query"]
+  GETUPVAL R39 39
+  SETTABLEKS R39 R38 K86 ["FetchItems"]
   MOVE R39 R19
   CALL R39 0 1
   SETTABLEKS R39 R38 K24 ["LayoutOrder"]
@@ -977,23 +978,23 @@ PROTO_25:
   MOVE R35 R19
   CALL R35 0 1
   SETTABLEKS R35 R34 K24 ["LayoutOrder"]
-  LOADK R35 K101 ["size-full-0 auto-y col gap-large"]
+  LOADK R35 K104 ["size-full-0 auto-y col gap-large"]
   SETTABLEKS R35 R34 K23 ["tag"]
   DUPTABLE R35 K66 [{"Header", "Content"}]
   GETUPVAL R37 21
   GETTABLEKS R36 R37 K7 ["createElement"]
   GETUPVAL R37 30
-  DUPTABLE R38 K107 [{"title", "description", "LayoutOrder"}]
+  DUPTABLE R38 K110 [{"title", "description", "LayoutOrder"}]
   LOADK R41 K53 ["Plugin"]
-  LOADK R42 K108 ["HomePage.DiscoverStudio.Heading"]
+  LOADK R42 K111 ["HomePage.DiscoverStudio.Heading"]
   NAMECALL R39 R11 K57 ["getText"]
   CALL R39 3 1
   SETTABLEKS R39 R38 K27 ["title"]
   LOADK R41 K53 ["Plugin"]
-  LOADK R42 K109 ["HomePage.DiscoverStudio.Description"]
+  LOADK R42 K112 ["HomePage.DiscoverStudio.Description"]
   NAMECALL R39 R11 K57 ["getText"]
   CALL R39 3 1
-  SETTABLEKS R39 R38 K102 ["description"]
+  SETTABLEKS R39 R38 K105 ["description"]
   MOVE R39 R19
   CALL R39 0 1
   SETTABLEKS R39 R38 K24 ["LayoutOrder"]
@@ -1001,36 +1002,36 @@ PROTO_25:
   SETTABLEKS R36 R35 K45 ["Header"]
   GETUPVAL R37 21
   GETTABLEKS R36 R37 K7 ["createElement"]
-  GETUPVAL R37 31
-  DUPTABLE R38 K110 [{"Size", "DisplayComponent", "CellComponent", "CellSize", "CellPadding", "Query", "FetchItems", "LayoutOrder"}]
+  GETUPVAL R37 33
+  DUPTABLE R38 K113 [{"Size", "DisplayComponent", "CellComponent", "CellSize", "CellPadding", "Query", "FetchItems", "LayoutOrder"}]
   GETIMPORT R39 K15 [UDim2.new]
   LOADN R40 1
   LOADN R41 0
   LOADN R42 0
   MOVE R43 R22
   CALL R39 4 1
-  SETTABLEKS R39 R38 K72 ["Size"]
-  GETUPVAL R39 32
-  SETTABLEKS R39 R38 K73 ["DisplayComponent"]
-  GETUPVAL R39 38
-  SETTABLEKS R39 R38 K79 ["CellComponent"]
+  SETTABLEKS R39 R38 K75 ["Size"]
+  GETUPVAL R39 34
+  SETTABLEKS R39 R38 K76 ["DisplayComponent"]
+  GETUPVAL R39 40
+  SETTABLEKS R39 R38 K82 ["CellComponent"]
   GETIMPORT R39 K15 [UDim2.new]
   LOADN R40 0
   LOADN R41 225
   LOADN R42 0
   MOVE R43 R23
   CALL R39 4 1
-  SETTABLEKS R39 R38 K80 ["CellSize"]
+  SETTABLEKS R39 R38 K83 ["CellSize"]
   GETIMPORT R39 K15 [UDim2.new]
   LOADN R40 0
   LOADN R41 16
   LOADN R42 0
   LOADN R43 16
   CALL R39 4 1
-  SETTABLEKS R39 R38 K81 ["CellPadding"]
-  GETUPVAL R39 39
-  SETTABLEKS R39 R38 K82 ["Query"]
-  SETTABLEKS R21 R38 K83 ["FetchItems"]
+  SETTABLEKS R39 R38 K84 ["CellPadding"]
+  GETUPVAL R39 41
+  SETTABLEKS R39 R38 K85 ["Query"]
+  SETTABLEKS R21 R38 K86 ["FetchItems"]
   MOVE R39 R19
   CALL R39 0 1
   SETTABLEKS R39 R38 K24 ["LayoutOrder"]
@@ -1041,7 +1042,7 @@ PROTO_25:
   GETUPVAL R33 21
   GETTABLEKS R32 R33 K7 ["createElement"]
   GETUPVAL R33 29
-  DUPTABLE R34 K111 [{"LayoutOrder", "Size"}]
+  DUPTABLE R34 K114 [{"LayoutOrder", "Size"}]
   MOVE R35 R19
   CALL R35 0 1
   SETTABLEKS R35 R34 K24 ["LayoutOrder"]
@@ -1051,7 +1052,7 @@ PROTO_25:
   LOADN R38 0
   LOADN R39 40
   CALL R35 4 1
-  SETTABLEKS R35 R34 K72 ["Size"]
+  SETTABLEKS R35 R34 K75 ["Size"]
   CALL R32 2 1
   SETTABLEKS R32 R31 K50 ["Spacer"]
   CALL R28 3 1
@@ -1222,72 +1223,86 @@ MAIN:
   GETTABLEKS R41 R42 K52 ["Telemetry"]
   GETTABLEKS R40 R41 K54 ["StartPageTelemetryEvent"]
   CALL R39 1 1
-  GETTABLEKS R40 R35 K55 ["StudioService"]
-  GETIMPORT R41 K5 [require]
-  GETTABLEKS R44 R0 K23 ["Src"]
-  GETTABLEKS R43 R44 K16 ["Util"]
-  GETTABLEKS R42 R43 K56 ["Dialogs"]
-  CALL R41 1 1
+  GETIMPORT R40 K5 [require]
+  GETTABLEKS R43 R0 K23 ["Src"]
+  GETTABLEKS R42 R43 K55 ["Contexts"]
+  GETTABLEKS R41 R42 K56 ["ContextMenuActions"]
+  CALL R40 1 1
+  GETTABLEKS R41 R35 K57 ["StudioService"]
   GETIMPORT R42 K5 [require]
   GETTABLEKS R45 R0 K23 ["Src"]
-  GETTABLEKS R44 R45 K57 ["Hooks"]
-  GETTABLEKS R43 R44 K58 ["useUsername"]
+  GETTABLEKS R44 R45 K16 ["Util"]
+  GETTABLEKS R43 R44 K58 ["Dialogs"]
   CALL R42 1 1
   GETIMPORT R43 K5 [require]
   GETTABLEKS R46 R0 K23 ["Src"]
-  GETTABLEKS R45 R46 K42 ["SharedFlags"]
-  GETTABLEKS R44 R45 K59 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
+  GETTABLEKS R45 R46 K59 ["Hooks"]
+  GETTABLEKS R44 R45 K60 ["useUsername"]
   CALL R43 1 1
-  CALL R43 0 1
   GETIMPORT R44 K5 [require]
-  GETTABLEKS R46 R0 K6 ["Packages"]
-  GETTABLEKS R45 R46 K24 ["Foundation"]
+  GETTABLEKS R47 R0 K23 ["Src"]
+  GETTABLEKS R46 R47 K42 ["SharedFlags"]
+  GETTABLEKS R45 R46 K61 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
   CALL R44 1 1
-  GETTABLEKS R46 R44 K57 ["Hooks"]
-  GETTABLEKS R45 R46 K60 ["useStyleTags"]
-  GETTABLEKS R46 R44 K61 ["View"]
-  MOVE R47 R32
-  CALL R47 0 1
-  MOVE R48 R33
+  CALL R44 0 1
+  GETIMPORT R45 K5 [require]
+  GETTABLEKS R47 R0 K6 ["Packages"]
+  GETTABLEKS R46 R47 K24 ["Foundation"]
+  CALL R45 1 1
+  GETTABLEKS R47 R45 K59 ["Hooks"]
+  GETTABLEKS R46 R47 K62 ["useStyleTags"]
+  GETTABLEKS R47 R45 K63 ["View"]
+  MOVE R48 R32
   CALL R48 0 1
-  DUPCLOSURE R49 K62 [PROTO_0]
-  CAPTURE VAL R40
-  DUPTABLE R50 K67 [{"searchKey", "search", "isTemplates", "pageSize"}]
-  LOADK R51 K68 ["Templates"]
-  SETTABLEKS R51 R50 K63 ["searchKey"]
-  LOADK R51 K69 ["All"]
-  SETTABLEKS R51 R50 K64 ["search"]
-  LOADB R51 1
-  SETTABLEKS R51 R50 K65 ["isTemplates"]
-  LOADN R51 30
-  SETTABLEKS R51 R50 K66 ["pageSize"]
-  DUPTABLE R51 K70 [{"searchKey", "pageSize"}]
-  LOADK R52 K33 ["Network"]
-  SETTABLEKS R52 R51 K63 ["searchKey"]
+  MOVE R49 R33
+  CALL R49 0 1
+  DUPCLOSURE R50 K64 [PROTO_0]
+  CAPTURE VAL R41
+  DUPTABLE R51 K69 [{"searchKey", "search", "isTemplates", "pageSize"}]
+  LOADK R52 K70 ["Templates"]
+  SETTABLEKS R52 R51 K65 ["searchKey"]
+  LOADK R52 K71 ["All"]
+  SETTABLEKS R52 R51 K66 ["search"]
+  LOADB R52 1
+  SETTABLEKS R52 R51 K67 ["isTemplates"]
   LOADN R52 30
-  SETTABLEKS R52 R51 K66 ["pageSize"]
-  DUPCLOSURE R52 K71 [PROTO_2]
+  SETTABLEKS R52 R51 K68 ["pageSize"]
+  DUPTABLE R52 K72 [{"searchKey", "pageSize"}]
+  LOADK R53 K33 ["Network"]
+  SETTABLEKS R53 R52 K65 ["searchKey"]
+  LOADN R53 30
+  SETTABLEKS R53 R52 K68 ["pageSize"]
+  NEWTABLE R53 0 6
+  LOADK R54 K73 ["ConfigureExperience"]
+  LOADK R55 K74 ["ConfigurePlace"]
+  LOADK R56 K75 ["OpenPlace"]
+  LOADK R57 K76 ["PublicPrivateToggle"]
+  LOADK R58 K77 ["Archive"]
+  LOADK R59 K78 ["RemoveRecent"]
+  SETLIST R53 R54 6 [1]
+  DUPCLOSURE R54 K79 [PROTO_2]
   CAPTURE VAL R38
   CAPTURE VAL R5
-  CAPTURE VAL R41
+  CAPTURE VAL R42
   CAPTURE VAL R1
   CAPTURE VAL R17
   CAPTURE VAL R9
   CAPTURE VAL R26
-  CAPTURE VAL R40
+  CAPTURE VAL R41
   CAPTURE VAL R36
-  CAPTURE VAL R43
+  CAPTURE VAL R44
   CAPTURE VAL R39
-  DUPCLOSURE R53 K72 [PROTO_6]
+  CAPTURE VAL R53
+  DUPCLOSURE R55 K80 [PROTO_6]
   CAPTURE VAL R38
   CAPTURE VAL R1
   CAPTURE VAL R17
   CAPTURE VAL R9
   CAPTURE VAL R26
-  CAPTURE VAL R40
-  CAPTURE VAL R43
+  CAPTURE VAL R41
+  CAPTURE VAL R44
   CAPTURE VAL R39
-  DUPCLOSURE R54 K73 [PROTO_10]
+  DUPCLOSURE R56 K81 [PROTO_10]
   CAPTURE VAL R38
   CAPTURE VAL R1
   CAPTURE VAL R17
@@ -1296,15 +1311,15 @@ MAIN:
   CAPTURE VAL R39
   CAPTURE VAL R36
   CAPTURE VAL R26
-  CAPTURE VAL R40
+  CAPTURE VAL R41
   CAPTURE VAL R29
-  DUPCLOSURE R55 K74 [PROTO_25]
+  DUPCLOSURE R57 K82 [PROTO_25]
   CAPTURE VAL R12
   CAPTURE VAL R2
-  CAPTURE VAL R45
+  CAPTURE VAL R46
   CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R40
+  CAPTURE VAL R41
   CAPTURE VAL R27
   CAPTURE VAL R38
   CAPTURE VAL R11
@@ -1314,7 +1329,7 @@ MAIN:
   CAPTURE VAL R7
   CAPTURE VAL R39
   CAPTURE VAL R10
-  CAPTURE VAL R42
+  CAPTURE VAL R43
   CAPTURE VAL R28
   CAPTURE VAL R30
   CAPTURE VAL R24
@@ -1324,19 +1339,21 @@ MAIN:
   CAPTURE VAL R14
   CAPTURE VAL R21
   CAPTURE VAL R37
-  CAPTURE VAL R47
   CAPTURE VAL R48
+  CAPTURE VAL R49
   CAPTURE VAL R16
   CAPTURE VAL R20
-  CAPTURE VAL R46
+  CAPTURE VAL R47
   CAPTURE VAL R15
+  CAPTURE VAL R40
+  CAPTURE VAL R53
   CAPTURE VAL R18
   CAPTURE VAL R19
-  CAPTURE VAL R52
-  CAPTURE VAL R23
-  CAPTURE VAL R53
-  CAPTURE VAL R50
-  CAPTURE VAL R22
   CAPTURE VAL R54
+  CAPTURE VAL R23
+  CAPTURE VAL R55
   CAPTURE VAL R51
-  RETURN R55 1
+  CAPTURE VAL R22
+  CAPTURE VAL R56
+  CAPTURE VAL R52
+  RETURN R57 1

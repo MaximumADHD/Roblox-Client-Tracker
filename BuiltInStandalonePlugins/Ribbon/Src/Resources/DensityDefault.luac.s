@@ -86,7 +86,7 @@ MAIN:
   CALL R5 4 1
   SETTABLEKS R5 R4 K36 ["SplitButtonArrowComponentHeight"]
   LOADK R5 K11 ["$GlobalSpace100"]
-  SETTABLEKS R5 R4 K37 ["RowSpacingMedium"]
+  SETTABLEKS R5 R4 K37 ["PaddingLeftMedium"]
   LOADK R5 K38 ["$GlobalSpace50"]
   SETTABLEKS R5 R4 K39 ["ColumnSpacingDefault"]
   LOADK R5 K11 ["$GlobalSpace100"]
@@ -276,7 +276,7 @@ MAIN:
   MOVE R13 R3
   LOADK R14 K109 [".Large"]
   NEWTABLE R15 0 0
-  NEWTABLE R16 0 2
+  NEWTABLE R16 0 1
   MOVE R17 R3
   LOADK R18 K110 ["> #RibbonTool"]
   NEWTABLE R19 0 0
@@ -294,31 +294,13 @@ MAIN:
   SETTABLEKS R24 R23 K85 ["PaddingBottom"]
   CALL R21 2 -1
   SETLIST R20 R21 -1 [1]
-  CALL R17 3 1
-  MOVE R18 R3
-  LOADK R19 K111 [".Component-SplitButton > #StateLayer > #RibbonTool"]
-  NEWTABLE R20 0 0
-  NEWTABLE R21 0 2
-  MOVE R22 R3
-  LOADK R23 K92 ["::UIListLayout"]
-  DUPTABLE R24 K104 [{"Padding"}]
-  LOADK R25 K38 ["$GlobalSpace50"]
-  SETTABLEKS R25 R24 K94 ["Padding"]
-  CALL R22 2 1
-  MOVE R23 R3
-  LOADK R24 K81 ["::UIPadding"]
-  DUPTABLE R25 K112 [{"PaddingLeft"}]
-  LOADK R26 K11 ["$GlobalSpace100"]
-  SETTABLEKS R26 R25 K82 ["PaddingLeft"]
-  CALL R23 2 -1
-  SETLIST R21 R22 -1 [1]
-  CALL R18 3 -1
+  CALL R17 3 -1
   SETLIST R16 R17 -1 [1]
   CALL R13 3 1
   MOVE R14 R3
-  LOADK R15 K113 [".Small"]
+  LOADK R15 K111 [".Small"]
   NEWTABLE R16 0 0
-  NEWTABLE R17 0 2
+  NEWTABLE R17 0 1
   MOVE R18 R3
   LOADK R19 K110 ["> #RibbonTool"]
   NEWTABLE R20 0 0
@@ -336,26 +318,14 @@ MAIN:
   SETTABLEKS R25 R24 K85 ["PaddingBottom"]
   CALL R22 2 -1
   SETLIST R21 R22 -1 [1]
-  CALL R18 3 1
-  MOVE R19 R3
-  LOADK R20 K111 [".Component-SplitButton > #StateLayer > #RibbonTool"]
-  NEWTABLE R21 0 0
-  NEWTABLE R22 0 1
-  MOVE R23 R3
-  LOADK R24 K81 ["::UIPadding"]
-  DUPTABLE R25 K112 [{"PaddingLeft"}]
-  LOADK R26 K38 ["$GlobalSpace50"]
-  SETTABLEKS R26 R25 K82 ["PaddingLeft"]
-  CALL R23 2 -1
-  SETLIST R22 R23 -1 [1]
-  CALL R19 3 -1
+  CALL R18 3 -1
   SETLIST R17 R18 -1 [1]
   CALL R14 3 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 -1
   SETLIST R5 R6 -1 [1]
   MOVE R6 R2
-  LOADK R7 K114 ["DensityDefault"]
+  LOADK R7 K112 ["DensityDefault"]
   MOVE R8 R5
   MOVE R9 R4
   CALL R6 3 1

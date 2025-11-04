@@ -75,7 +75,7 @@ MAIN:
   DUPTABLE R6 K13 [{"label", "value"}]
   LOADK R7 K18 ["Hash"]
   SETTABLEKS R7 R6 K11 ["label"]
-  LOADK R7 K19 ["207a999"]
+  LOADK R7 K19 ["56f03d9"]
   SETTABLEKS R7 R6 K12 ["value"]
   SETLIST R3 R4 3 [1]
   DUPCLOSURE R4 K20 [PROTO_0]

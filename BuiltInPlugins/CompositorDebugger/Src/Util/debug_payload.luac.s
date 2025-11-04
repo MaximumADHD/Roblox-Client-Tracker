@@ -8,8 +8,8 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Src"]
-  GETTABLEKS R2 R3 K7 ["Types"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AnimationEditor"]
   CALL R1 1 1
   DUPTABLE R2 K10 [{"lookup", "output"}]
   NEWTABLE R3 64 0

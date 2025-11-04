@@ -56,7 +56,7 @@ local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUG
 local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
-local getEngineFeatureUGCValidateCheckHSRFileData = require(root.flags.getEngineFeatureUGCValidateCheckHSRFileData)
+local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
 
 local FFlagDontValidateHSRInExperience = game:DefineFastFlag("DontValidateHSRInExperience", false)
 
@@ -303,7 +303,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 				validationResult = false
 			end
 
-			if getEngineFeatureUGCValidateCheckHSRFileData() then
+			if getFFlagUGCValidateCheckHSRFileDataFix() then
 				if FFlagDontValidateHSRInExperience then
 					local allowEditableInstances = validationContext.allowEditableInstances
 					if not allowEditableInstances then

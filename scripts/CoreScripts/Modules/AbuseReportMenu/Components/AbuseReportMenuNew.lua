@@ -45,22 +45,25 @@ local StyleProviderWithDefaultTheme = Style.StyleProviderWithDefaultTheme
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
-
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled)
 local GetFFlagWHAM1707ExperimentForceEnabled = require(root.Flags.GetFFlagWHAM1707ExperimentForceEnabled)
 local FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled =
 	require(root.Flags.FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled)
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FStringReportMenuIXPLayer = SharedFlags.FStringReportMenuIXPLayer
 local FStringEARReportMenuIXPLayer = SharedFlags.FStringEARReportMenuIXPLayer
 local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInScene")
 local IXPFieldWHAM1707 = game:DefineFastString("WHAM1707IXPField", "EnableWHAM1707")
+local FFlagHighlightModePreciseSelectionEnabled = SharedFlags.FFlagHighlightModePreciseSelectionEnabled
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagFixDuplicateFoundationStylesheets = game:DefineFastFlag("FixDuplicateFoundationStylesheets", false)
 local FFlagUKOSAUpdatedCopy = SharedFlags.FFlagUKOSAUpdatedCopy
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
+
+local InGameAssetReporting = require(CorePackages.Workspace.Packages.InGameAssetReporting)
+local getHighlightModeVariant = InGameAssetReporting.getHighlightModeVariant
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local SegmentedControl = UIBlox.App.Control.SegmentedControl
@@ -329,7 +332,12 @@ local AbuseReportMenuNew = function(props: Props)
 						})
 						else nil,
 					Menu = if reportMode == ReportModes.SelectInScene
-						then React.createElement(SelectInSceneReportMenu, { hideReportTab = props.hideReportTab })
+						then React.createElement(SelectInSceneReportMenu, {
+							hideReportTab = props.hideReportTab,
+							variant = if FFlagHighlightModePreciseSelectionEnabled
+								then getHighlightModeVariant()
+								else nil,
+						})
 						elseif reportMode == ReportModes.Classic then React.createElement("Frame", {
 							BackgroundTransparency = 1,
 							AutomaticSize = Enum.AutomaticSize.Y,

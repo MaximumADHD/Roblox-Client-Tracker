@@ -65,10 +65,10 @@ local function isSmallTouchScreen()
 	end
 	local isSmallDisplaySize = if FFlagPlayerListUseMobileOnSmallDisplay then GuiService.ViewportDisplaySize == Enum.DisplaySize.Small else false
 	local isLargeDisplaySize = if FFlagEnableMobilePlayerListOnConsole then GuiService.ViewportDisplaySize == Enum.DisplaySize.Large else false
-	local isTouchOrGamepad = if FFlagEnableMobilePlayerListOnConsole then UserInputService.PreferredInput == Enum.PreferredInput.Touch or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad else false
+	local isTouchOrGamepad = if FFlagEnableMobilePlayerListOnConsole or FFlagPlayerListUseMobileOnSmallDisplay then UserInputService.PreferredInput == Enum.PreferredInput.Touch or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad else false
 	return SettingsUtil:IsSmallTouchScreen() 
 		or (FFlagEnableMobilePlayerListOnConsole and isLargeDisplaySize and isTouchOrGamepad) 
-		or (FFlagPlayerListUseMobileOnSmallDisplay and isSmallDisplaySize) 
+		or (FFlagPlayerListUseMobileOnSmallDisplay and isSmallDisplaySize and isTouchOrGamepad) 
 		or (FStringPlayerListOverrideType == "mobile")
 end
 

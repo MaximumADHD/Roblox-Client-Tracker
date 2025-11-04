@@ -76,6 +76,7 @@ local Dash = {
 	throttle = require(script.throttle),
 	trim = require(script.trim),
 	Types = require(script.Types),
+	union = require(script.union),
 	values = require(script.values),
 	zip = require(script.zip),
 }

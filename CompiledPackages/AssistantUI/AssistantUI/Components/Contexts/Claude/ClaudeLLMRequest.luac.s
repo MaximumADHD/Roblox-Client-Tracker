@@ -1,8 +1,18 @@
 PROTO_0:
   GETUPVAL R0 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["data"]
-  NAMECALL R0 R0 K1 ["JSONDecode"]
+  CALL R0 0 1
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Json"]
+  GETTABLEKS R0 R1 K1 ["decode"]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["data"]
+  CALL R0 1 -1
+  RETURN R0 -1
+  GETUPVAL R0 3
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["data"]
+  NAMECALL R0 R0 K3 ["JSONDecode"]
   CALL R0 2 -1
   RETURN R0 -1
 
@@ -22,20 +32,22 @@ PROTO_1:
   GETIMPORT R1 K8 [pcall]
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
   CAPTURE VAL R0
+  CAPTURE UPVAL U3
   CALL R1 1 2
   JUMPIFNOT R1 [+17]
   JUMPIFNOT R2 [+16]
   GETTABLEKS R3 R2 K9 ["type"]
   JUMPIFNOT R3 [+13]
-  GETUPVAL R3 2
+  GETUPVAL R3 4
   GETTABLEKS R4 R0 K5 ["data"]
   CALL R3 1 1
   MOVE R4 R3
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
-  GETUPVAL R9 3
+  GETUPVAL R9 5
   MOVE R10 R8
   CALL R9 1 0
   FORGLOOP R4 2 [-4]
@@ -126,137 +138,176 @@ PROTO_6:
   LOADK R4 K0 ["HttpService"]
   NAMECALL R2 R2 K1 ["GetService"]
   CALL R2 2 1
-  GETUPVAL R3 1
-  CALL R3 0 1
-  JUMPIFEQKS R3 K2 [""] [+3]
-  MOVE R4 R3
-  JUMPIF R4 [+1]
-  LOADK R4 K3 ["claude-sonnet-4-5-20250929"]
-  DUPTABLE R5 K11 [{"model", "max_tokens", "messages", "tools", "system", "stream", "tool_choice"}]
-  SETTABLEKS R4 R5 K4 ["model"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K5 ["max_tokens"]
-  GETUPVAL R6 2
-  GETTABLEKS R7 R0 K6 ["messages"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K6 ["messages"]
-  GETTABLEKS R6 R0 K7 ["tools"]
-  SETTABLEKS R6 R5 K7 ["tools"]
-  NEWTABLE R6 0 1
-  DUPTABLE R7 K15 [{"type", "text", "cache_control"}]
-  LOADK R8 K13 ["text"]
-  SETTABLEKS R8 R7 K12 ["type"]
-  GETTABLEKS R8 R0 K8 ["system"]
-  SETTABLEKS R8 R7 K13 ["text"]
-  DUPTABLE R8 K16 [{"type"}]
-  LOADK R9 K17 ["ephemeral"]
-  SETTABLEKS R9 R8 K12 ["type"]
-  SETTABLEKS R8 R7 K14 ["cache_control"]
-  SETLIST R6 R7 1 [1]
-  SETTABLEKS R6 R5 K8 ["system"]
+  LOADK R3 K2 ["claude-sonnet-4-5"]
+  GETUPVAL R4 1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+10]
+  GETTABLEKS R4 R0 K3 ["selectedModel"]
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R4 R0 K3 ["selectedModel"]
+  JUMPIFEQKS R4 K4 [""] [+4]
+  GETTABLEKS R3 R0 K3 ["selectedModel"]
+  JUMP [+5]
+  GETUPVAL R4 2
+  CALL R4 0 1
+  JUMPIFEQKS R4 K4 [""] [+2]
+  MOVE R3 R4
+  DUPTABLE R4 K12 [{"model", "max_tokens", "messages", "tools", "system", "stream", "tool_choice"}]
+  SETTABLEKS R3 R4 K5 ["model"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K6 ["max_tokens"]
+  GETUPVAL R5 3
+  GETTABLEKS R6 R0 K7 ["messages"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K7 ["messages"]
+  GETTABLEKS R5 R0 K8 ["tools"]
+  SETTABLEKS R5 R4 K8 ["tools"]
+  NEWTABLE R5 0 1
+  DUPTABLE R6 K16 [{"type", "text", "cache_control"}]
+  LOADK R7 K14 ["text"]
+  SETTABLEKS R7 R6 K13 ["type"]
+  GETTABLEKS R7 R0 K9 ["system"]
+  SETTABLEKS R7 R6 K14 ["text"]
+  DUPTABLE R7 K17 [{"type"}]
+  LOADK R8 K18 ["ephemeral"]
+  SETTABLEKS R8 R7 K13 ["type"]
+  SETTABLEKS R7 R6 K15 ["cache_control"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K9 ["system"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K10 ["stream"]
+  DUPTABLE R5 K20 [{"type", "disable_parallel_tool_use"}]
+  LOADK R6 K21 ["auto"]
+  SETTABLEKS R6 R5 K13 ["type"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K9 ["stream"]
-  DUPTABLE R6 K19 [{"type", "disable_parallel_tool_use"}]
-  LOADK R7 K20 ["auto"]
-  SETTABLEKS R7 R6 K12 ["type"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K18 ["disable_parallel_tool_use"]
-  SETTABLEKS R6 R5 K10 ["tool_choice"]
-  GETUPVAL R7 3
-  CALL R7 0 1
-  JUMPIFNOT R7 [+17]
-  GETTABLEKS R7 R0 K21 ["apiKeys"]
-  JUMPIFNOT R7 [+14]
-  GETTABLEKS R8 R0 K21 ["apiKeys"]
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K22 ["CLAUDE_API_KEY"]
-  GETTABLE R7 R8 R9
-  JUMPIFNOT R7 [+7]
-  GETTABLEKS R7 R0 K21 ["apiKeys"]
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K22 ["CLAUDE_API_KEY"]
-  GETTABLE R6 R7 R8
-  JUMP [+2]
-  GETUPVAL R6 5
+  SETTABLEKS R6 R5 K19 ["disable_parallel_tool_use"]
+  SETTABLEKS R5 R4 K11 ["tool_choice"]
+  GETUPVAL R6 1
   CALL R6 0 1
-  GETUPVAL R7 6
+  JUMPIFNOT R6 [+17]
+  GETTABLEKS R6 R0 K22 ["apiKeys"]
+  JUMPIFNOT R6 [+14]
+  GETTABLEKS R7 R0 K22 ["apiKeys"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K23 ["CLAUDE_API_KEY"]
+  GETTABLE R6 R7 R8
+  JUMPIFNOT R6 [+7]
+  GETTABLEKS R6 R0 K22 ["apiKeys"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K23 ["CLAUDE_API_KEY"]
+  GETTABLE R5 R6 R7
+  JUMP [+2]
+  GETUPVAL R5 5
+  CALL R5 0 1
+  GETUPVAL R6 6
+  CALL R6 0 1
+  JUMPIFNOT R6 [+31]
+  GETUPVAL R6 7
+  CALL R6 0 1
+  JUMPIFNOT R6 [+16]
+  GETIMPORT R6 K25 [print]
+  LOADK R8 K26 ["--- ClaudeLLMRequest requestBody: %*"]
+  GETUPVAL R12 8
+  GETTABLEKS R11 R12 K27 ["Json"]
+  GETTABLEKS R10 R11 K28 ["encode"]
+  MOVE R11 R4
+  CALL R10 1 1
+  NAMECALL R8 R8 K29 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  CALL R6 1 0
+  JUMP [+12]
+  GETIMPORT R6 K25 [print]
+  LOADK R8 K26 ["--- ClaudeLLMRequest requestBody: %*"]
+  MOVE R12 R4
+  NAMECALL R10 R2 K30 ["JSONEncode"]
+  CALL R10 2 1
+  NAMECALL R8 R8 K29 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  CALL R6 1 0
+  LOADNIL R6
+  GETUPVAL R7 7
   CALL R7 0 1
-  JUMPIFNOT R7 [+12]
-  GETIMPORT R7 K24 [print]
-  LOADK R9 K25 ["--- ClaudeLLMRequest requestBody: %*"]
-  MOVE R13 R5
-  NAMECALL R11 R2 K26 ["JSONEncode"]
-  CALL R11 2 1
-  NAMECALL R9 R9 K27 ["format"]
-  CALL R9 2 1
-  MOVE R8 R9
-  CALL R7 1 0
-  GETIMPORT R9 K31 [Enum.WebStreamClientType.SSE]
-  DUPTABLE R10 K37 [{"Method", "Url", "Headers", "Body", "Compress"}]
-  LOADK R11 K38 ["POST"]
-  SETTABLEKS R11 R10 K32 ["Method"]
-  LOADK R11 K39 ["https://api.anthropic.com/v1/messages"]
-  SETTABLEKS R11 R10 K33 ["Url"]
-  NEWTABLE R11 4 0
-  LOADK R12 K40 ["application/json"]
-  SETTABLEKS R12 R11 K41 ["content-type"]
-  SETTABLEKS R6 R11 K42 ["x-api-key"]
-  LOADK R12 K43 ["2023-06-01"]
-  SETTABLEKS R12 R11 K44 ["anthropic-version"]
-  SETTABLEKS R11 R10 K34 ["Headers"]
-  MOVE R13 R5
-  NAMECALL R11 R2 K26 ["JSONEncode"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K35 ["Body"]
-  GETIMPORT R11 K47 [Enum.HttpCompression.None]
-  SETTABLEKS R11 R10 K36 ["Compress"]
-  NAMECALL R7 R2 K48 ["CreateWebStreamClient"]
-  CALL R7 3 1
-  FASTCALL2K ASSERT R7 K49 [+5]
-  MOVE R9 R7
-  LOADK R10 K49 ["WebStreamClient should not be nil"]
-  GETIMPORT R8 K51 [assert]
-  CALL R8 2 0
-  GETUPVAL R9 7
-  GETTABLEKS R8 R9 K52 ["createParser"]
-  DUPTABLE R9 K56 [{"onEvent", "onError", "onComment"}]
-  NEWCLOSURE R10 P0
+  JUMPIFNOT R7 [+9]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K27 ["Json"]
+  GETTABLEKS R7 R8 K28 ["encode"]
+  MOVE R8 R4
+  CALL R7 1 1
+  MOVE R6 R7
+  JUMP [+5]
+  MOVE R9 R4
+  NAMECALL R7 R2 K30 ["JSONEncode"]
+  CALL R7 2 1
+  MOVE R6 R7
+  GETUPVAL R8 9
+  GETTABLEKS R7 R8 K31 ["get"]
+  CALL R7 0 1
+  GETTABLEKS R8 R7 K32 ["createWebStreamClient"]
+  MOVE R9 R2
+  GETIMPORT R10 K36 [Enum.WebStreamClientType.SSE]
+  DUPTABLE R11 K41 [{"Method", "Url", "Headers", "Body"}]
+  LOADK R12 K42 ["POST"]
+  SETTABLEKS R12 R11 K37 ["Method"]
+  LOADK R12 K43 ["https://api.anthropic.com/v1/messages"]
+  SETTABLEKS R12 R11 K38 ["Url"]
+  NEWTABLE R12 4 0
+  LOADK R13 K44 ["application/json"]
+  SETTABLEKS R13 R12 K45 ["content-type"]
+  SETTABLEKS R5 R12 K46 ["x-api-key"]
+  LOADK R13 K47 ["2023-06-01"]
+  SETTABLEKS R13 R12 K48 ["anthropic-version"]
+  SETTABLEKS R12 R11 K39 ["Headers"]
+  SETTABLEKS R6 R11 K40 ["Body"]
+  CALL R8 3 1
+  FASTCALL2K ASSERT R8 K49 [+5]
+  MOVE R10 R8
+  LOADK R11 K49 ["WebStreamClient should not be nil"]
+  GETIMPORT R9 K51 [assert]
+  CALL R9 2 0
+  GETUPVAL R10 10
+  GETTABLEKS R9 R10 K52 ["createParser"]
+  DUPTABLE R10 K56 [{"onEvent", "onError", "onComment"}]
+  NEWCLOSURE R11 P0
   CAPTURE UPVAL U6
-  CAPTURE VAL R2
+  CAPTURE UPVAL U7
   CAPTURE UPVAL U8
+  CAPTURE VAL R2
+  CAPTURE UPVAL U11
   CAPTURE VAL R1
-  SETTABLEKS R10 R9 K53 ["onEvent"]
-  DUPCLOSURE R10 K57 [PROTO_2]
+  SETTABLEKS R11 R10 K53 ["onEvent"]
+  DUPCLOSURE R11 K57 [PROTO_2]
   CAPTURE UPVAL U6
-  SETTABLEKS R10 R9 K54 ["onError"]
-  DUPCLOSURE R10 K58 [PROTO_3]
+  SETTABLEKS R11 R10 K54 ["onError"]
+  DUPCLOSURE R11 K58 [PROTO_3]
   CAPTURE UPVAL U6
-  SETTABLEKS R10 R9 K55 ["onComment"]
-  CALL R8 1 1
-  GETTABLEKS R9 R7 K59 ["MessageReceived"]
-  GETTABLEKS R11 R8 K60 ["parseNextChunk"]
-  NAMECALL R9 R9 K61 ["Connect"]
-  CALL R9 2 1
-  LOADNIL R10
-  GETUPVAL R11 3
-  CALL R11 0 1
-  JUMPIFNOT R11 [+9]
-  GETTABLEKS R11 R7 K62 ["Error"]
-  NEWCLOSURE R13 P3
+  SETTABLEKS R11 R10 K55 ["onComment"]
+  CALL R9 1 1
+  GETTABLEKS R10 R8 K59 ["MessageReceived"]
+  GETTABLEKS R12 R9 K60 ["parseNextChunk"]
+  NAMECALL R10 R10 K61 ["Connect"]
+  CALL R10 2 1
+  LOADNIL R11
+  GETUPVAL R12 1
+  CALL R12 0 1
+  JUMPIFNOT R12 [+9]
+  GETTABLEKS R12 R8 K62 ["Error"]
+  NEWCLOSURE R14 P3
   CAPTURE VAL R1
-  CAPTURE REF R7
-  NAMECALL R11 R11 K61 ["Connect"]
-  CALL R11 2 1
-  MOVE R10 R11
-  GETTABLEKS R11 R7 K63 ["Closed"]
-  NEWCLOSURE R13 P4
+  CAPTURE REF R8
+  NAMECALL R12 R12 K61 ["Connect"]
+  CALL R12 2 1
+  MOVE R11 R12
+  GETTABLEKS R12 R8 K63 ["Closed"]
+  NEWCLOSURE R14 P4
   CAPTURE UPVAL U6
-  CAPTURE REF R9
   CAPTURE REF R10
-  CAPTURE REF R7
-  NAMECALL R11 R11 K64 ["Once"]
-  CALL R11 2 0
-  CLOSEUPVALS R7
+  CAPTURE REF R11
+  CAPTURE REF R8
+  NAMECALL R12 R12 K64 ["Once"]
+  CALL R12 2 0
+  CLOSEUPVALS R8
   RETURN R0 0
 
 MAIN:
@@ -276,54 +327,65 @@ MAIN:
   GETTABLEKS R3 R4 K11 ["ClaudeLLMAdapter"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K12 ["Flags"]
-  GETTABLEKS R4 R5 K13 ["FFlagDebugLogAssistantUI"]
+  GETTABLEKS R5 R0 K12 ["Guest"]
+  GETTABLEKS R4 R5 K13 ["Environment"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K12 ["Flags"]
-  GETTABLEKS R5 R6 K14 ["FFlagMCPAssistantExternalAPIKey"]
+  GETTABLEKS R6 R0 K14 ["Flags"]
+  GETTABLEKS R5 R6 K15 ["FFlagDebugLogAssistantUI"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K12 ["Flags"]
-  GETTABLEKS R6 R7 K15 ["FStringMCPAssistantClaudeAPIKey"]
+  GETTABLEKS R7 R0 K14 ["Flags"]
+  GETTABLEKS R6 R7 K16 ["FFlagMCPAssistantExternalAPIKey"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K12 ["Flags"]
-  GETTABLEKS R7 R8 K16 ["FStringMCPAssistantCustomModelName"]
+  GETTABLEKS R8 R0 K14 ["Flags"]
+  GETTABLEKS R7 R8 K17 ["FStringMCPAssistantClaudeAPIKey"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R11 R0 K8 ["Components"]
-  GETTABLEKS R10 R11 K9 ["Contexts"]
-  GETTABLEKS R9 R10 K17 ["DefaultLLMProvider"]
-  GETTABLEKS R8 R9 K18 ["LLMRequest"]
+  GETTABLEKS R9 R0 K14 ["Flags"]
+  GETTABLEKS R8 R9 K18 ["FStringMCPAssistantCustomModelName"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K19 ["Parent"]
-  GETTABLEKS R9 R10 K20 ["ModelContextProtocol"]
+  GETTABLEKS R12 R0 K8 ["Components"]
+  GETTABLEKS R11 R12 K9 ["Contexts"]
+  GETTABLEKS R10 R11 K19 ["DefaultLLMProvider"]
+  GETTABLEKS R9 R10 K20 ["LLMRequest"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R0 K21 ["Types"]
+  GETTABLEKS R11 R0 K21 ["Parent"]
+  GETTABLEKS R10 R11 K22 ["ModelContextProtocol"]
   CALL R9 1 1
-  GETTABLEKS R10 R3 K22 ["Get"]
-  GETTABLEKS R11 R4 K22 ["Get"]
-  GETTABLEKS R12 R5 K22 ["Get"]
-  GETTABLEKS R13 R6 K22 ["Get"]
-  GETTABLEKS R14 R2 K23 ["createAdapter"]
-  CALL R14 0 1
-  GETTABLEKS R15 R2 K24 ["convertLLMtoClaudeMessage"]
-  GETTABLEKS R16 R8 K25 ["EventStreamParser"]
-  DUPCLOSURE R17 K26 [PROTO_6]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R0 K23 ["Types"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K14 ["Flags"]
+  GETTABLEKS R12 R13 K24 ["getFFlagAssistantJsonEncoder"]
+  CALL R11 1 1
+  GETTABLEKS R12 R4 K25 ["Get"]
+  GETTABLEKS R13 R5 K25 ["Get"]
+  GETTABLEKS R14 R6 K25 ["Get"]
+  GETTABLEKS R15 R7 K25 ["Get"]
+  GETTABLEKS R16 R2 K26 ["createAdapter"]
+  CALL R16 0 1
+  GETTABLEKS R17 R2 K27 ["convertLLMtoClaudeMessage"]
+  GETTABLEKS R18 R9 K28 ["EventStreamParser"]
+  DUPCLOSURE R19 K29 [PROTO_6]
   CAPTURE VAL R1
   CAPTURE VAL R13
   CAPTURE VAL R15
+  CAPTURE VAL R17
+  CAPTURE VAL R10
+  CAPTURE VAL R14
+  CAPTURE VAL R12
   CAPTURE VAL R11
   CAPTURE VAL R9
-  CAPTURE VAL R12
-  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R18
   CAPTURE VAL R16
-  CAPTURE VAL R14
-  DUPTABLE R18 K29 [{"requestHandler", "createRequestHandler"}]
-  SETTABLEKS R17 R18 K27 ["requestHandler"]
-  LOADNIL R19
-  SETTABLEKS R19 R18 K28 ["createRequestHandler"]
-  RETURN R18 1
+  DUPTABLE R20 K32 [{"requestHandler", "createRequestHandler"}]
+  SETTABLEKS R19 R20 K30 ["requestHandler"]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K31 ["createRequestHandler"]
+  RETURN R20 1

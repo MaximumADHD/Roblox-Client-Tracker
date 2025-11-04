@@ -483,7 +483,7 @@ MAIN:
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
   GETTABLEKS R10 R0 K12 ["flags"]
-  GETTABLEKS R9 R10 K14 ["getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed"]
+  GETTABLEKS R9 R10 K14 ["getFFlagUGCValidationEyebrowEyelashSupport"]
   CALL R8 1 1
   DUPCLOSURE R9 K15 [PROTO_0]
   CAPTURE VAL R3

@@ -38,6 +38,7 @@ return {
 	FoundationStatusIndicatorVariantExperiment = SafeFlags.createGetFFlag("FoundationStatusIndicatorVariantExperiment")(),
 	FoundationBaseMenuScroll = SafeFlags.createGetFFlag("FoundationBaseMenuScroll")(),
 	FoundationFixUseScaledValueWarning = SafeFlags.createGetFFlag("FoundationFixUseScaledValueWarning")(),
+	FoundationNumberInputRefAndCallbacks = SafeFlags.createGetFFlag("FoundationNumberInputRefAndCallbacks")(),
 	FoundationDropdownGroups = SafeFlags.createGetFFlag("FoundationDropdownGroups")(),
 	FoundationDialogBackdropColorUpdate = SafeFlags.createGetFFlag("FoundationDialogBackdropColorUpdate")(),
 	FoundationLazyOverlayLoading = SafeFlags.createGetFFlag("FoundationLazyOverlayLoading")(),
@@ -55,4 +56,7 @@ return {
 	FoundationUpdateKnobComponent = SafeFlags.createGetFFlag("FoundationUpdateKnobComponent")(),
 	FoundationPopoverOverflow = SafeFlags.createGetFFlag("FoundationPopoverOverflow")(),
 	FoundationPopoverNegateAlignOffsetOnFlip = SafeFlags.createGetFFlag("FoundationPopoverNegateAlignOffsetOnFlip")(),
+	FoundationFixBadgeAndIndicatorTextAlignment = SafeFlags.createGetFFlag(
+		"FoundationFixBadgeAndIndicatorTextAlignment"
+	)(),
 }

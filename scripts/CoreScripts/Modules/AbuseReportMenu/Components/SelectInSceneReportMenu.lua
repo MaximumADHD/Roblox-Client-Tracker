@@ -12,6 +12,7 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 
 export type Props = {
 	hideReportTab: () -> (),
+	variant: string?,
 }
 
 local function SelectInSceneReportMenu(props: Props)

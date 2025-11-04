@@ -19,17 +19,21 @@ MAIN:
   GETTABLEKS R2 R3 K4 ["Parent"]
   GETTABLEKS R1 R2 K5 ["createGetSafeFFlag"]
   CALL R0 1 1
-  DUPTABLE R1 K10 [{"getFFlagEnableCreatorConfig", "getFFlagEnableRibbonPlugin", "getFFlagRegisterActionsPluginLoader", "getFFlagEnableCreatorConfigSystemMenu"}]
+  DUPTABLE R1 K11 [{"getFFlagEnableCreatorConfig", "getFFlagEnableRibbonPlugin", "getFFlagRegisterActionsPluginLoader", "getFFlagEnableCreatorConfigSystemMenu", "getFFlagOnCloseSkipActionTrigger"}]
   MOVE R2 R0
-  LOADK R3 K11 ["EnableCreatorConfig"]
+  LOADK R3 K12 ["EnableCreatorConfig"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K6 ["getFFlagEnableCreatorConfig"]
-  DUPCLOSURE R2 K12 [PROTO_0]
+  DUPCLOSURE R2 K13 [PROTO_0]
   SETTABLEKS R2 R1 K7 ["getFFlagEnableRibbonPlugin"]
-  DUPCLOSURE R2 K13 [PROTO_1]
+  DUPCLOSURE R2 K14 [PROTO_1]
   SETTABLEKS R2 R1 K8 ["getFFlagRegisterActionsPluginLoader"]
   MOVE R2 R0
-  LOADK R3 K14 ["EnableCreatorConfigSystemMenu"]
+  LOADK R3 K15 ["EnableCreatorConfigSystemMenu"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K9 ["getFFlagEnableCreatorConfigSystemMenu"]
+  MOVE R2 R0
+  LOADK R3 K16 ["CreatorConfigOnCloseSkipActionTrigger"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K10 ["getFFlagOnCloseSkipActionTrigger"]
   RETURN R1 1

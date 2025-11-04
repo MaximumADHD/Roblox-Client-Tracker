@@ -87,39 +87,62 @@ PROTO_2:
   GETTABLEKS R5 R0 K3 ["Instance"]
   SETLIST R4 R5 1 [1]
   CALL R2 2 1
-  JUMPIFNOTEQKNIL R2 [+3]
+  JUMPIFNOTEQKNIL R2 [+36]
+  GETUPVAL R3 3
+  CALL R3 0 1
+  JUMPIFNOT R3 [+30]
+  GETTABLEKS R3 R0 K3 ["Instance"]
+  LOADK R5 K4 ["Decal"]
+  NAMECALL R3 R3 K5 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+23]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["createElement"]
+  GETUPVAL R4 4
+  DUPTABLE R5 K11 [{"AnimateTargetAsset", "Child", "Style", "Transparency"}]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K12 ["HEAD_PREVIEW_PATH"]
+  SETTABLEKS R6 R5 K7 ["AnimateTargetAsset"]
+  GETTABLEKS R6 R0 K3 ["Instance"]
+  SETTABLEKS R6 R5 K8 ["Child"]
+  LOADK R6 K13 ["FacePreview"]
+  SETTABLEKS R6 R5 K9 ["Style"]
+  GETTABLEKS R6 R0 K10 ["Transparency"]
+  SETTABLEKS R6 R5 K10 ["Transparency"]
+  CALL R3 2 -1
+  RETURN R3 -1
   LOADNIL R3
   RETURN R3 1
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K4 ["createElement"]
-  GETUPVAL R4 3
-  DUPTABLE R5 K12 [{"FocusDirection", "Model", "Static", "Ambient", "LightColor", "LightDirection", "ImageTransparency"}]
-  GETTABLEKS R6 R2 K13 ["PrimaryPart"]
+  GETTABLEKS R3 R4 K6 ["createElement"]
+  GETUPVAL R4 6
+  DUPTABLE R5 K21 [{"FocusDirection", "Model", "Static", "Ambient", "LightColor", "LightDirection", "ImageTransparency"}]
+  GETTABLEKS R6 R2 K22 ["PrimaryPart"]
   JUMPIFNOT R6 [+6]
-  GETTABLEKS R8 R2 K13 ["PrimaryPart"]
-  GETTABLEKS R7 R8 K14 ["CFrame"]
-  GETTABLEKS R6 R7 K15 ["LookVector"]
-  SETTABLEKS R6 R5 K5 ["FocusDirection"]
-  SETTABLEKS R2 R5 K6 ["Model"]
+  GETTABLEKS R8 R2 K22 ["PrimaryPart"]
+  GETTABLEKS R7 R8 K23 ["CFrame"]
+  GETTABLEKS R6 R7 K24 ["LookVector"]
+  SETTABLEKS R6 R5 K14 ["FocusDirection"]
+  SETTABLEKS R2 R5 K15 ["Model"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K7 ["Static"]
-  GETTABLEKS R6 R1 K16 ["InstanceAmbient"]
-  SETTABLEKS R6 R5 K8 ["Ambient"]
-  GETIMPORT R6 K19 [Color3.new]
+  SETTABLEKS R6 R5 K16 ["Static"]
+  GETTABLEKS R6 R1 K25 ["InstanceAmbient"]
+  SETTABLEKS R6 R5 K17 ["Ambient"]
+  GETIMPORT R6 K28 [Color3.new]
   LOADN R7 1
   LOADN R8 1
   LOADN R9 1
   CALL R6 3 1
-  SETTABLEKS R6 R5 K9 ["LightColor"]
-  GETTABLEKS R6 R2 K13 ["PrimaryPart"]
+  SETTABLEKS R6 R5 K18 ["LightColor"]
+  GETTABLEKS R6 R2 K22 ["PrimaryPart"]
   JUMPIFNOT R6 [+7]
-  GETTABLEKS R9 R2 K13 ["PrimaryPart"]
-  GETTABLEKS R8 R9 K14 ["CFrame"]
-  GETTABLEKS R7 R8 K15 ["LookVector"]
+  GETTABLEKS R9 R2 K22 ["PrimaryPart"]
+  GETTABLEKS R8 R9 K23 ["CFrame"]
+  GETTABLEKS R7 R8 K24 ["LookVector"]
   MINUS R6 R7
-  SETTABLEKS R6 R5 K10 ["LightDirection"]
-  GETTABLEKS R6 R0 K20 ["Transparency"]
-  SETTABLEKS R6 R5 K11 ["ImageTransparency"]
+  SETTABLEKS R6 R5 K19 ["LightDirection"]
+  GETTABLEKS R6 R0 K10 ["Transparency"]
+  SETTABLEKS R6 R5 K20 ["ImageTransparency"]
   CALL R3 2 -1
   RETURN R3 -1
 
@@ -139,17 +162,35 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Resources"]
-  GETTABLEKS R4 R5 K11 ["Theme"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Constants"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K12 ["UI"]
-  GETTABLEKS R5 R4 K13 ["AssetRenderModel"]
-  GETTABLEKS R7 R1 K14 ["ContextServices"]
-  GETTABLEKS R6 R7 K15 ["Stylizer"]
-  DUPCLOSURE R7 K16 [PROTO_0]
-  DUPCLOSURE R8 K17 [PROTO_2]
-  CAPTURE VAL R6
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Resources"]
+  GETTABLEKS R5 R6 K13 ["Theme"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Components"]
+  GETTABLEKS R6 R7 K15 ["FacePreview"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K16 ["Flags"]
+  GETTABLEKS R7 R8 K17 ["getFFlagAvatarPreviewerMakeup"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K18 ["UI"]
+  GETTABLEKS R8 R7 K19 ["AssetRenderModel"]
+  GETTABLEKS R10 R1 K20 ["ContextServices"]
+  GETTABLEKS R9 R10 K21 ["Stylizer"]
+  DUPCLOSURE R10 K22 [PROTO_0]
+  DUPCLOSURE R11 K23 [PROTO_2]
+  CAPTURE VAL R9
   CAPTURE VAL R2
-  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R6
   CAPTURE VAL R5
-  RETURN R8 1
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  RETURN R11 1

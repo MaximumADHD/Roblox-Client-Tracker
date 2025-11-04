@@ -76,14 +76,14 @@ PROTO_4:
   MOVE R9 R6
   MOVE R10 R0
   MOVE R11 R8
-  GETUPVAL R12 1
+  GETIMPORT R12 K14 [_G]
   CALL R9 3 0
-  LOADK R11 K13 ["extensionBackendInitialized"]
+  LOADK R11 K15 ["extensionBackendInitialized"]
   NAMECALL R9 R7 K9 ["send"]
   CALL R9 2 0
-  DUPTABLE R9 K15 [{"agent", "hook", "bridge"}]
+  DUPTABLE R9 K17 [{"agent", "hook", "bridge"}]
   SETTABLEKS R8 R9 K4 ["agent"]
-  SETTABLEKS R0 R9 K14 ["hook"]
+  SETTABLEKS R0 R9 K16 ["hook"]
   SETTABLEKS R7 R9 K5 ["bridge"]
   RETURN R9 1
 
@@ -93,14 +93,10 @@ MAIN:
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
-  GETTABLEKS R2 R0 K5 ["ReactGlobals"]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R3 R0 K6 ["LuauPolyfill"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K7 [PROTO_4]
+  DUPCLOSURE R2 K6 [PROTO_4]
   CAPTURE VAL R0
-  CAPTURE VAL R1
-  DUPTABLE R4 K9 [{"setup"}]
-  SETTABLEKS R3 R4 K8 ["setup"]
-  RETURN R4 1
+  DUPTABLE R3 K8 [{"setup"}]
+  SETTABLEKS R2 R3 K7 ["setup"]
+  RETURN R3 1

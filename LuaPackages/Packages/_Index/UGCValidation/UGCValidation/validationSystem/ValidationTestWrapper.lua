@@ -18,6 +18,7 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ValidationModuleLoader = require(root.validationSystem.ValidationModuleLoader)
+local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 local ValidationReporter = require(root.validationSystem.ValidationReporter)
 local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
@@ -63,7 +64,7 @@ local function ValidationTestWrapper(
 	local validationModule: Types.PreloadedValidationModule = ValidationModuleLoader.getValidationModule(testEnum)
 
 	for _, reqData in validationModule.required_data do
-		if sharedData[reqData] == nil then
+		if sharedData[reqData] == nil or sharedData[reqData] == FetchAllDesiredData.DATA_FETCH_FAILURE then
 			reportSingleResult(testEnum, sharedData, ValidationEnums.Status.CANNOT_START, "", 0)
 			return {
 				status = ValidationEnums.Status.CANNOT_START,

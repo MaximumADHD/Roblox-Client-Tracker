@@ -30,6 +30,7 @@ local ItemRestrictions = AvatarExperienceCommon.Enums.ItemRestrictions
 type AvatarPreviewItem = AvatarExperienceInspectAndBuy.AvatarPreviewItem
 type BundleInfo = AvatarExperienceInspectAndBuy.BundleInfo
 type BulkPurchaseResultItem = AvatarExperienceInspectAndBuy.BulkPurchaseResultItem
+type ItemDetails = AvatarExperienceInspectAndBuy.ItemDetails
 
 local FFlagAXParseAdditionalItemDetailsFromCatalog =
 	require(InspectAndBuyFolder.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog)
@@ -200,6 +201,38 @@ function BundleInfo.fromGetAssetBundles(bundleInfo)
 			table.insert(newBundle.assetIds, tostring(asset.id))
 		end
 	end
+
+	return newBundle
+end
+
+function BundleInfo.fromGetItemDetailsV2(itemDetails: ItemDetails): BundleInfo
+	local newBundle = BundleInfo.new()
+
+	newBundle.bundleId = tostring(itemDetails.id)
+	newBundle.isForSale = itemDetails.isPurchasable
+	newBundle.price = itemDetails.price or 0
+	newBundle.hasResellers = itemDetails.hasResellers
+	newBundle.collectibleItemId = itemDetails.collectibleItemId
+
+	newBundle.remaining = itemDetails.unitsAvailableForConsumption
+	newBundle.collectibleTotalQuantity = itemDetails.totalQuantity
+	newBundle.collectibleLowestResalePrice = itemDetails.lowestResalePrice
+	newBundle.isOffSale = itemDetails.isOffSale
+	newBundle.saleLocationType = itemDetails.saleLocationType
+	newBundle.numFavorites = itemDetails.favoriteCount
+	newBundle.catalogPriceStatus = itemDetails.priceStatus
+
+	-- parse the assets in the bundle
+	local assetsInBundle = {}
+	if itemDetails.bundledItems then
+		for _, bundleAsset in itemDetails.bundledItems do
+			table.insert(assetsInBundle, {
+				id = tostring(bundleAsset.id),
+				name = bundleAsset.name,
+			})
+		end
+	end
+	newBundle.assetsInBundle = assetsInBundle
 
 	return newBundle
 end

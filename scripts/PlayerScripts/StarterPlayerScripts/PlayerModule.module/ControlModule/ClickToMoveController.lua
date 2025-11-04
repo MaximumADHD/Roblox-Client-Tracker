@@ -28,7 +28,6 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI")
-local FFlagUserPreferredInputPlayerScripts = FlagUtil.getUserFlag("UserPreferredInputPlayerScripts2")
 
 --[[ Configuration ]]
 local ShowPath = true
@@ -901,9 +900,7 @@ function ClickToMove:DisconnectEvents()
 	DisconnectEvent(self.renderSteppedConn)
 	DisconnectEvent(self.characterChildRemovedConn)
 	DisconnectEvent(self.menuOpenedConnection)
-	if FFlagUserPreferredInputPlayerScripts then
-		DisconnectEvent(self.preferredInputChangedConnection)
-	end
+	DisconnectEvent(self.preferredInputChangedConnection)
 end
 
 function ClickToMove:OnTouchBegan(input, processed)
@@ -995,13 +992,7 @@ function ClickToMove:OnCharacterAdded(character)
 	end)
 
 	local function OnCharacterChildAdded(child)
-		local touchMode
-		if FFlagUserPreferredInputPlayerScripts then
-			touchMode = (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
-		else
-			touchMode = UserInputService.TouchEnabled
-		end
-		if touchMode then
+		if UserInputService.PreferredInput == Enum.PreferredInput.Touch then
 			if child:IsA('Tool') then
 				child.ManualActivationOnly = true
 			end
@@ -1020,13 +1011,7 @@ function ClickToMove:OnCharacterAdded(character)
 		OnCharacterChildAdded(child)
 	end)
 	self.characterChildRemovedConn = character.ChildRemoved:Connect(function(child)
-		local touchMode
-		if FFlagUserPreferredInputPlayerScripts then
-			touchMode = (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
-		else
-			touchMode = UserInputService.TouchEnabled
-		end
-		if touchMode then
+		if UserInputService.PreferredInput == Enum.PreferredInput.Touch then
 			if child:IsA('Tool') then
 				child.ManualActivationOnly = false
 			end
@@ -1036,11 +1021,9 @@ function ClickToMove:OnCharacterAdded(character)
 		OnCharacterChildAdded(child)
 	end
 
-	if FFlagUserPreferredInputPlayerScripts then
-		self.preferredInputChangedConnection = UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
-			self:OnPreferredInputChanged()
-		end)
-	end
+	self.preferredInputChangedConnection = UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
+		self:OnPreferredInputChanged()
+	end)
 end
 
 function ClickToMove:Start()
@@ -1075,13 +1058,7 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 			self:DisconnectEvents()
 			CleanupPath()
 			-- Restore tool activation on shutdown
-			local touchMode
-			if FFlagUserPreferredInputPlayerScripts then
-				touchMode = (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
-			else
-				touchMode = UserInputService.TouchEnabled
-			end
-			if touchMode then
+			if UserInputService.PreferredInput == Enum.PreferredInput.Touch then
 				local character = Player.Character
 				if character then
 					for _, child in pairs(character:GetChildren()) do

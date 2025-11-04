@@ -5,12 +5,4 @@ local PackageIndex = script.Parent._Index
 
 local Package = require(PackageIndex["SignalsReact"]["SignalsReact"])
 
-export type getter<T> = Package.getter<T> 
-export type setter<T> = Package.setter<T> 
-export type update<T> = Package.update<T> 
-export type equals<T> = Package.equals<T> 
-export type dispose = Package.dispose
-export type scope = Package.scope
-
-
 return Package

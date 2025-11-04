@@ -27,10 +27,7 @@ local GetFStringUGCValidationMaxAnimationDeltas = require(flags.GetFStringUGCVal
 local getFFlagUGCValidateAddObjectValueToAcceptableTypes =
 	require(flags.getFFlagUGCValidateAddObjectValueToAcceptableTypes)
 local getFFlagUGCValidateDuplicatesInAnimation = require(flags.getFFlagUGCValidateDuplicatesInAnimation)
-local getFFlagUGCValidateLimitMaxTotalInstances = require(flags.getFFlagUGCValidateLimitMaxTotalInstances)
 local getFFlagUGCValidateMaxTotalInstances = require(flags.getFFlagUGCValidateMaxTotalInstances)
-local getFFlagUGCValidateNoTagsInCurveAnimations = require(flags.getFFlagUGCValidateNoTagsInCurveAnimations)
-local getFFlagUGCValidateIncorrectNumericalData = require(flags.getFFlagUGCValidateIncorrectNumericalData)
 local getFIntUGCValidateMaxAnimationFPS = require(flags.getFIntUGCValidateMaxAnimationFPS)
 local getFFlagUGCValidateRestrictAnimationMovement = require(flags.getFFlagUGCValidateRestrictAnimationMovement)
 local GetFStringUGCValidateMaxAnimationMovement = require(flags.GetFStringUGCValidateMaxAnimationMovement)
@@ -474,15 +471,13 @@ local function validateAnimationHierarchy(
 			}
 	end
 
-	if getFFlagUGCValidateLimitMaxTotalInstances() then
-		local numDescendants = #inst:GetDescendants()
-		if numDescendants > getFFlagUGCValidateMaxTotalInstances() then
-			return reportFailure(
-				`CurveAnimation has {numDescendants} descendants. Maximum allowed is {getFFlagUGCValidateMaxTotalInstances()}. Please reduce the number of descendants.`,
-				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
-				validationContext
-			)
-		end
+	local numDescendants = #inst:GetDescendants()
+	if numDescendants > getFFlagUGCValidateMaxTotalInstances() then
+		return reportFailure(
+			`CurveAnimation has {numDescendants} descendants. Maximum allowed is {getFFlagUGCValidateMaxTotalInstances()}. Please reduce the number of descendants.`,
+			Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+			validationContext
+		)
 	end
 
 	local curveAnim = inst :: CurveAnimation
@@ -1246,7 +1241,7 @@ function ValidateCurveAnimation.validate(
 		end
 	end
 
-	if getFFlagUGCValidateIncorrectNumericalData() then
+	do
 		local successData, reasonsData = ValidateCurveAnimation.validateData(inst, validationContext)
 		if not successData then
 			return successData, reasonsData
@@ -1257,9 +1252,7 @@ function ValidateCurveAnimation.validate(
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 	reasonsAccumulator:updateReasons(validateAttributes(curveAnim, validationContext))
-	if getFFlagUGCValidateNoTagsInCurveAnimations() then
-		reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateAllowedTags(curveAnim, validationContext))
-	end
+	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateAllowedTags(curveAnim, validationContext))
 
 	if not getFFlagUGCValidateRestrictAnimationMovementCurvesFix() then
 		reasonsAccumulator:updateReasons(

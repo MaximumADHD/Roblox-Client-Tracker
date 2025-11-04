@@ -1,0 +1,76 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["Provider"]
+  DUPTABLE R3 K2 [{"theme"}]
+  GETTABLEKS R4 R0 K1 ["theme"]
+  SETTABLEKS R4 R3 K1 ["theme"]
+  CALL R1 2 1
+  GETUPVAL R2 0
+  GETUPVAL R3 2
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K3 ["getClassIcon"]
+  JUMPIFNOT R4 [+11]
+  GETUPVAL R3 0
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K0 ["Provider"]
+  DUPTABLE R5 K4 [{"getClassIcon"}]
+  GETTABLEKS R6 R0 K3 ["getClassIcon"]
+  SETTABLEKS R6 R5 K3 ["getClassIcon"]
+  CALL R3 2 1
+  JUMP [+5]
+  GETUPVAL R3 0
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K5 ["Fragment"]
+  CALL R3 1 1
+  GETUPVAL R4 0
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K6 ["ContextStack"]
+  DUPTABLE R6 K8 [{"providers"}]
+  NEWTABLE R7 0 3
+  MOVE R8 R1
+  MOVE R9 R2
+  MOVE R10 R3
+  SETLIST R7 R8 3 [1]
+  SETTABLEKS R7 R6 K7 ["providers"]
+  GETTABLEKS R7 R0 K9 ["children"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R5 R0 K7 ["Components"]
+  GETTABLEKS R4 R5 K8 ["Contexts"]
+  GETTABLEKS R3 R4 K9 ["ClassIconContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R6 R0 K7 ["Components"]
+  GETTABLEKS R5 R6 K8 ["Contexts"]
+  GETTABLEKS R4 R5 K10 ["FoundationContextProvider"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K11 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R1 K12 ["ReactUtils"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R9 R0 K7 ["Components"]
+  GETTABLEKS R8 R9 K8 ["Contexts"]
+  GETTABLEKS R7 R8 K13 ["ThemeContext"]
+  CALL R6 1 1
+  GETTABLEKS R7 R4 K14 ["createElement"]
+  DUPCLOSURE R8 K15 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  RETURN R8 1

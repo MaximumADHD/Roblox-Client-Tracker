@@ -1,82 +1,23 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["setSelectedProvider"]
-  JUMPIFNOT R0 [+2]
-  LOADK R2 K1 ["Claude"]
-  JUMP [+1]
-  LOADK R2 K2 ["Studio"]
-  CALL R1 1 0
-  RETURN R0 0
-
-PROTO_1:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["options"]
-  JUMPIF R0 [+2]
-  NEWTABLE R0 0 0
-  GETUPVAL R1 1
-  CALL R1 0 1
-  JUMPIFNOT R1 [+40]
-  DUPTABLE R1 K6 [{"label", "displayLabel", "isChecked", "onChange", "llmProvider"}]
-  LOADK R2 K7 ["LLMProvider"]
-  SETTABLEKS R2 R1 K1 ["label"]
-  GETUPVAL R2 2
-  LOADK R4 K8 ["Settings"]
-  LOADK R5 K9 ["UseClaude"]
-  NAMECALL R2 R2 K10 ["getText"]
-  CALL R2 3 1
-  SETTABLEKS R2 R1 K2 ["displayLabel"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K11 ["selectedProvider"]
-  JUMPIFEQKS R3 K12 ["Claude"] [+2]
+  GETTABLEKS R3 R0 K0 ["default"]
+  JUMPIFEQKNIL R3 [+2]
   LOADB R2 0 +1
   LOADB R2 1
-  SETTABLEKS R2 R1 K3 ["isChecked"]
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U3
-  SETTABLEKS R2 R1 K4 ["onChange"]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K5 ["llmProvider"]
-  GETIMPORT R2 K15 [table.clone]
-  MOVE R3 R0
-  CALL R2 1 1
-  FASTCALL2 TABLE_INSERT R2 R1 [+5]
-  MOVE R4 R2
-  MOVE R5 R1
-  GETIMPORT R3 K17 [table.insert]
-  CALL R3 2 0
-  RETURN R2 1
-  RETURN R0 1
-
-PROTO_2:
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["default is not supported in this context"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  DUPTABLE R1 K5 [{"options"}]
+  GETTABLEKS R2 R0 K4 ["options"]
+  SETTABLEKS R2 R1 K4 ["options"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useContext"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["Context"]
-  CALL R1 1 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["useMemo"]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE VAL R1
-  NEWTABLE R4 0 3
-  GETTABLEKS R5 R0 K3 ["options"]
-  GETTABLEKS R6 R1 K4 ["selectedProvider"]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K5 ["locale"]
-  SETLIST R4 R5 3 [1]
-  CALL R2 2 1
-  DUPTABLE R3 K6 [{"options"}]
-  SETTABLEKS R2 R3 K3 ["options"]
-  GETUPVAL R4 4
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K7 ["Provider"]
-  DUPTABLE R6 K9 [{"value"}]
-  SETTABLEKS R3 R6 K8 ["value"]
-  GETTABLEKS R7 R0 K10 ["children"]
-  CALL R4 3 -1
-  RETURN R4 -1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["Provider"]
+  DUPTABLE R4 K8 [{"value"}]
+  SETTABLEKS R1 R4 K7 ["value"]
+  GETTABLEKS R5 R0 K9 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
@@ -85,41 +26,22 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Flags"]
-  GETTABLEKS R2 R3 K7 ["FFlagMCPAssistantExternalAPIKey"]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Components"]
-  GETTABLEKS R4 R5 K9 ["Contexts"]
-  GETTABLEKS R3 R4 K10 ["LLMProviderSelectionContext"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K11 ["Parent"]
-  GETTABLEKS R4 R5 K12 ["React"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K13 ["Resources"]
-  GETTABLEKS R6 R7 K14 ["Localization"]
-  GETTABLEKS R5 R6 K15 ["Translator"]
+  GETTABLEKS R2 R1 K8 ["createElement"]
+  DUPTABLE R3 K11 [{"default", "options"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K9 ["default"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K10 ["options"]
+  GETTABLEKS R4 R1 K12 ["createContext"]
+  MOVE R5 R3
   CALL R4 1 1
-  GETTABLEKS R5 R1 K16 ["Get"]
-  GETTABLEKS R6 R3 K17 ["createElement"]
-  DUPTABLE R7 K20 [{"default", "options"}]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K18 ["default"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K19 ["options"]
-  GETTABLEKS R8 R3 K21 ["createContext"]
-  MOVE R9 R7
-  CALL R8 1 1
-  DUPCLOSURE R9 K22 [PROTO_2]
-  CAPTURE VAL R3
+  DUPCLOSURE R5 K13 [PROTO_0]
   CAPTURE VAL R2
-  CAPTURE VAL R5
   CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R8
-  DUPTABLE R10 K25 [{"Context", "Provider"}]
-  SETTABLEKS R8 R10 K23 ["Context"]
-  SETTABLEKS R9 R10 K24 ["Provider"]
-  RETURN R10 1
+  DUPTABLE R6 K16 [{"Context", "Provider"}]
+  SETTABLEKS R4 R6 K14 ["Context"]
+  SETTABLEKS R5 R6 K15 ["Provider"]
+  RETURN R6 1

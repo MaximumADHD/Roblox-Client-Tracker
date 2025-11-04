@@ -1,0 +1,432 @@
+PROTO_0:
+  DUPTABLE R0 K5 [{"Edit", "Save", "Cancel", "NoApiKey", "EnterProviderKey"}]
+  GETUPVAL R1 0
+  LOADK R3 K6 ["SettingsDialog"]
+  LOADK R4 K0 ["Edit"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K0 ["Edit"]
+  GETUPVAL R1 0
+  LOADK R3 K8 ["Settings"]
+  LOADK R4 K1 ["Save"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K1 ["Save"]
+  GETUPVAL R1 0
+  LOADK R3 K8 ["Settings"]
+  LOADK R4 K2 ["Cancel"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K2 ["Cancel"]
+  GETUPVAL R1 0
+  LOADK R3 K6 ["SettingsDialog"]
+  LOADK R4 K3 ["NoApiKey"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K3 ["NoApiKey"]
+  GETUPVAL R1 0
+  LOADK R3 K6 ["SettingsDialog"]
+  LOADK R4 K4 ["EnterProviderKey"]
+  DUPTABLE R5 K10 [{"provider"}]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K11 ["providerId"]
+  SETTABLEKS R6 R5 K9 ["provider"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K4 ["EnterProviderKey"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["apiKeyValue"]
+  ORK R1 R2 K0 [""]
+  CALL R0 1 0
+  GETUPVAL R0 2
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onApiKeyChange"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  LOADK R1 K0 [""]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onToggle"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["isEnabled"]
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADB R2 0
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useState"]
+  LOADK R4 K1 [""]
+  CALL R3 1 2
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["useMemo"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  NEWTABLE R7 0 2
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["locale"]
+  GETTABLEKS R9 R0 K4 ["providerId"]
+  SETLIST R7 R8 2 [1]
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["useCallback"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NEWTABLE R8 0 1
+  GETTABLEKS R9 R0 K6 ["apiKeyValue"]
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["useCallback"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  NEWTABLE R9 0 2
+  GETTABLEKS R10 R0 K7 ["onApiKeyChange"]
+  MOVE R11 R3
+  SETLIST R9 R10 2 [1]
+  CALL R7 2 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["useCallback"]
+  NEWCLOSURE R9 P3
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  NEWTABLE R10 0 0
+  CALL R8 2 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["useCallback"]
+  NEWCLOSURE R10 P4
+  CAPTURE VAL R0
+  NEWTABLE R11 0 2
+  GETTABLEKS R12 R0 K8 ["onToggle"]
+  GETTABLEKS R13 R0 K9 ["isEnabled"]
+  SETLIST R11 R12 2 [1]
+  CALL R9 2 1
+  GETUPVAL R10 2
+  CALL R10 0 1
+  GETTABLEKS R13 R0 K6 ["apiKeyValue"]
+  FASTCALL1 STRING_LEN R13 [+2]
+  GETIMPORT R12 K12 [string.len]
+  CALL R12 1 1
+  LOADN R13 0
+  JUMPIFNOTLT R13 R12 [+18]
+  GETIMPORT R11 K14 [string.rep]
+  LOADK R12 K15 ["•"]
+  LOADN R14 12
+  GETTABLEKS R16 R0 K6 ["apiKeyValue"]
+  FASTCALL1 STRING_LEN R16 [+2]
+  GETIMPORT R15 K12 [string.len]
+  CALL R15 1 1
+  FASTCALL2 MATH_MIN R14 R15 [+3]
+  GETIMPORT R13 K18 [math.min]
+  CALL R13 2 1
+  CALL R11 2 1
+  JUMP [+1]
+  LOADK R11 K1 [""]
+  GETUPVAL R12 3
+  GETUPVAL R13 4
+  DUPTABLE R14 K21 [{"tag", "LayoutOrder"}]
+  LOADK R15 K22 ["col auto-xy gap-small"]
+  SETTABLEKS R15 R14 K19 ["tag"]
+  GETTABLEKS R15 R0 K20 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K20 ["LayoutOrder"]
+  DUPTABLE R15 K26 [{"HeaderRow", "ApiKeyRow", "Description"}]
+  GETUPVAL R16 3
+  GETUPVAL R17 4
+  DUPTABLE R18 K21 [{"tag", "LayoutOrder"}]
+  LOADK R19 K27 ["row size-full-0 auto-y gap-small flex-y-fill align-y-center"]
+  SETTABLEKS R19 R18 K19 ["tag"]
+  MOVE R19 R10
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K20 ["LayoutOrder"]
+  DUPTABLE R19 K29 [{"ProviderCheckbox"}]
+  GETUPVAL R20 3
+  GETUPVAL R21 5
+  DUPTABLE R22 K35 [{"isChecked", "onActivated", "label", "size", "LayoutOrder", "testId"}]
+  GETTABLEKS R23 R0 K9 ["isEnabled"]
+  SETTABLEKS R23 R22 K30 ["isChecked"]
+  SETTABLEKS R9 R22 K31 ["onActivated"]
+  GETTABLEKS R23 R0 K36 ["providerCheckboxName"]
+  SETTABLEKS R23 R22 K32 ["label"]
+  GETUPVAL R26 6
+  GETTABLEKS R25 R26 K37 ["Enums"]
+  GETTABLEKS R24 R25 K38 ["InputSize"]
+  GETTABLEKS R23 R24 K39 ["XSmall"]
+  SETTABLEKS R23 R22 K33 ["size"]
+  MOVE R23 R10
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K20 ["LayoutOrder"]
+  LOADK R24 K40 ["Assistant-ProviderCheckbox-%*"]
+  GETTABLEKS R26 R0 K4 ["providerId"]
+  NAMECALL R24 R24 K41 ["format"]
+  CALL R24 2 1
+  MOVE R23 R24
+  SETTABLEKS R23 R22 K34 ["testId"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K28 ["ProviderCheckbox"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K23 ["HeaderRow"]
+  GETUPVAL R16 3
+  GETUPVAL R17 4
+  DUPTABLE R18 K21 [{"tag", "LayoutOrder"}]
+  LOADK R19 K22 ["col auto-xy gap-small"]
+  SETTABLEKS R19 R18 K19 ["tag"]
+  MOVE R19 R10
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K20 ["LayoutOrder"]
+  DUPTABLE R19 K43 [{"KeyDisplay"}]
+  JUMPIF R1 [+86]
+  GETUPVAL R20 3
+  GETUPVAL R21 4
+  DUPTABLE R22 K21 [{"tag", "LayoutOrder"}]
+  LOADK R23 K27 ["row size-full-0 auto-y gap-small flex-y-fill align-y-center"]
+  SETTABLEKS R23 R22 K19 ["tag"]
+  MOVE R23 R10
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K20 ["LayoutOrder"]
+  DUPTABLE R23 K46 [{"MaskedKey", "EditButton"}]
+  GETUPVAL R24 3
+  GETUPVAL R25 7
+  DUPTABLE R26 K48 [{"tag", "Text", "LayoutOrder", "testId"}]
+  LOADK R27 K49 ["auto-xy text-body-small text-no-wrap text-align-x-left"]
+  SETTABLEKS R27 R26 K19 ["tag"]
+  JUMPIFEQKS R11 K1 [""] [+3]
+  MOVE R27 R11
+  JUMP [+2]
+  GETTABLEKS R27 R5 K50 ["NoApiKey"]
+  SETTABLEKS R27 R26 K47 ["Text"]
+  MOVE R27 R10
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K20 ["LayoutOrder"]
+  LOADK R28 K51 ["Assistant-APIKey-Display-%*"]
+  GETTABLEKS R30 R0 K4 ["providerId"]
+  NAMECALL R28 R28 K41 ["format"]
+  CALL R28 2 1
+  MOVE R27 R28
+  SETTABLEKS R27 R26 K34 ["testId"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K44 ["MaskedKey"]
+  GETUPVAL R24 3
+  GETUPVAL R25 8
+  DUPTABLE R26 K54 [{"text", "size", "variant", "onActivated", "LayoutOrder", "testId"}]
+  GETTABLEKS R27 R5 K55 ["Edit"]
+  SETTABLEKS R27 R26 K52 ["text"]
+  GETUPVAL R30 6
+  GETTABLEKS R29 R30 K37 ["Enums"]
+  GETTABLEKS R28 R29 K56 ["ButtonSize"]
+  GETTABLEKS R27 R28 K39 ["XSmall"]
+  SETTABLEKS R27 R26 K33 ["size"]
+  GETUPVAL R30 6
+  GETTABLEKS R29 R30 K37 ["Enums"]
+  GETTABLEKS R28 R29 K57 ["ButtonVariant"]
+  GETTABLEKS R27 R28 K47 ["Text"]
+  SETTABLEKS R27 R26 K53 ["variant"]
+  SETTABLEKS R6 R26 K31 ["onActivated"]
+  MOVE R27 R10
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K20 ["LayoutOrder"]
+  LOADK R28 K58 ["Assistant-APIKey-EditButton-%*"]
+  GETTABLEKS R30 R0 K4 ["providerId"]
+  NAMECALL R28 R28 K41 ["format"]
+  CALL R28 2 1
+  MOVE R27 R28
+  SETTABLEKS R27 R26 K34 ["testId"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K45 ["EditButton"]
+  CALL R20 3 1
+  JUMP [+151]
+  GETUPVAL R20 3
+  GETUPVAL R21 4
+  DUPTABLE R22 K21 [{"tag", "LayoutOrder"}]
+  LOADK R23 K22 ["col auto-xy gap-small"]
+  SETTABLEKS R23 R22 K19 ["tag"]
+  MOVE R23 R10
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K20 ["LayoutOrder"]
+  DUPTABLE R23 K61 [{"InputField", "ButtonRow"}]
+  GETUPVAL R24 3
+  GETUPVAL R25 9
+  DUPTABLE R26 K64 [{"placeholder", "text", "label", "onChanged", "size", "LayoutOrder", "testId"}]
+  GETTABLEKS R27 R5 K65 ["EnterProviderKey"]
+  SETTABLEKS R27 R26 K62 ["placeholder"]
+  SETTABLEKS R3 R26 K52 ["text"]
+  LOADK R27 K1 [""]
+  SETTABLEKS R27 R26 K32 ["label"]
+  SETTABLEKS R4 R26 K63 ["onChanged"]
+  GETUPVAL R30 6
+  GETTABLEKS R29 R30 K37 ["Enums"]
+  GETTABLEKS R28 R29 K38 ["InputSize"]
+  GETTABLEKS R27 R28 K39 ["XSmall"]
+  SETTABLEKS R27 R26 K33 ["size"]
+  MOVE R27 R10
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K20 ["LayoutOrder"]
+  LOADK R28 K66 ["Assistant-APIKey-Input-%*"]
+  GETTABLEKS R30 R0 K4 ["providerId"]
+  NAMECALL R28 R28 K41 ["format"]
+  CALL R28 2 1
+  MOVE R27 R28
+  SETTABLEKS R27 R26 K34 ["testId"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K59 ["InputField"]
+  GETUPVAL R24 3
+  GETUPVAL R25 4
+  DUPTABLE R26 K21 [{"tag", "LayoutOrder"}]
+  LOADK R27 K67 ["row gap-small auto-xy"]
+  SETTABLEKS R27 R26 K19 ["tag"]
+  MOVE R27 R10
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K20 ["LayoutOrder"]
+  DUPTABLE R27 K70 [{"SaveButton", "CancelButton"}]
+  GETUPVAL R28 3
+  GETUPVAL R29 8
+  DUPTABLE R30 K54 [{"text", "size", "variant", "onActivated", "LayoutOrder", "testId"}]
+  GETTABLEKS R31 R5 K71 ["Save"]
+  SETTABLEKS R31 R30 K52 ["text"]
+  GETUPVAL R34 6
+  GETTABLEKS R33 R34 K37 ["Enums"]
+  GETTABLEKS R32 R33 K56 ["ButtonSize"]
+  GETTABLEKS R31 R32 K39 ["XSmall"]
+  SETTABLEKS R31 R30 K33 ["size"]
+  GETUPVAL R34 6
+  GETTABLEKS R33 R34 K37 ["Enums"]
+  GETTABLEKS R32 R33 K57 ["ButtonVariant"]
+  GETTABLEKS R31 R32 K72 ["Emphasis"]
+  SETTABLEKS R31 R30 K53 ["variant"]
+  SETTABLEKS R7 R30 K31 ["onActivated"]
+  MOVE R31 R10
+  CALL R31 0 1
+  SETTABLEKS R31 R30 K20 ["LayoutOrder"]
+  LOADK R32 K73 ["Assistant-APIKey-SaveButton-%*"]
+  GETTABLEKS R34 R0 K4 ["providerId"]
+  NAMECALL R32 R32 K41 ["format"]
+  CALL R32 2 1
+  MOVE R31 R32
+  SETTABLEKS R31 R30 K34 ["testId"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K68 ["SaveButton"]
+  GETUPVAL R28 3
+  GETUPVAL R29 8
+  DUPTABLE R30 K54 [{"text", "size", "variant", "onActivated", "LayoutOrder", "testId"}]
+  GETTABLEKS R31 R5 K74 ["Cancel"]
+  SETTABLEKS R31 R30 K52 ["text"]
+  GETUPVAL R34 6
+  GETTABLEKS R33 R34 K37 ["Enums"]
+  GETTABLEKS R32 R33 K56 ["ButtonSize"]
+  GETTABLEKS R31 R32 K39 ["XSmall"]
+  SETTABLEKS R31 R30 K33 ["size"]
+  GETUPVAL R34 6
+  GETTABLEKS R33 R34 K37 ["Enums"]
+  GETTABLEKS R32 R33 K57 ["ButtonVariant"]
+  GETTABLEKS R31 R32 K75 ["Standard"]
+  SETTABLEKS R31 R30 K53 ["variant"]
+  SETTABLEKS R8 R30 K31 ["onActivated"]
+  MOVE R31 R10
+  CALL R31 0 1
+  SETTABLEKS R31 R30 K20 ["LayoutOrder"]
+  LOADK R32 K76 ["Assistant-APIKey-CancelButton-%*"]
+  GETTABLEKS R34 R0 K4 ["providerId"]
+  NAMECALL R32 R32 K41 ["format"]
+  CALL R32 2 1
+  MOVE R31 R32
+  SETTABLEKS R31 R30 K34 ["testId"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K69 ["CancelButton"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K60 ["ButtonRow"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K42 ["KeyDisplay"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K24 ["ApiKeyRow"]
+  GETUPVAL R16 3
+  GETUPVAL R17 7
+  DUPTABLE R18 K77 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R19 K78 ["auto-xy text-caption-small text-wrap text-align-x-left"]
+  SETTABLEKS R19 R18 K19 ["tag"]
+  GETTABLEKS R19 R0 K79 ["providerDescription"]
+  SETTABLEKS R19 R18 K47 ["Text"]
+  MOVE R19 R10
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K20 ["LayoutOrder"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K25 ["Description"]
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Contexts"]
+  GETTABLEKS R3 R4 K10 ["LLMProviderSelectionContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["ReactUtils"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K13 ["Resources"]
+  GETTABLEKS R7 R8 K14 ["Localization"]
+  GETTABLEKS R6 R7 K15 ["Translator"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K16 ["Button"]
+  GETTABLEKS R7 R1 K17 ["Checkbox"]
+  GETTABLEKS R8 R1 K18 ["Text"]
+  GETTABLEKS R9 R1 K19 ["TextInput"]
+  GETTABLEKS R10 R1 K20 ["View"]
+  GETTABLEKS R11 R4 K21 ["createNextOrder"]
+  GETTABLEKS R12 R3 K22 ["createElement"]
+  DUPCLOSURE R13 K23 [PROTO_5]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  RETURN R13 1

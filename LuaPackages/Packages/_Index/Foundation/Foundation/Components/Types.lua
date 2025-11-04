@@ -214,6 +214,10 @@ export type InternalTextInputRef = {
 	focus: () -> (),
 	releaseFocus: () -> (),
 	setHover: (isHovering: boolean) -> (),
+	getSelectionStart: () -> number,
+	getCursorPosition: () -> number,
+	setSelectionStart: (position: number) -> (),
+	setCursorPosition: (position: number) -> (),
 }
 
 export type TextInputRef = {

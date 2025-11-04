@@ -8,71 +8,95 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["TestLoader"]
   CALL R1 1 1
-  NEWTABLE R2 4 0
-  GETIMPORT R3 K10 [table.freeze]
-  DUPTABLE R4 K12 [{"customFields"}]
-  DUPTABLE R5 K14 [{"isFtf"}]
-  GETTABLEKS R6 R1 K15 ["isFTF"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K13 ["isFtf"]
-  SETTABLEKS R5 R4 K11 ["customFields"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K16 ["DEFAULT_METADATA"]
-  GETIMPORT R3 K10 [table.freeze]
-  DUPTABLE R4 K21 [{"eventName", "backends", "lastUpdated", "description"}]
-  LOADK R5 K22 ["UseControlsTimeToFetchMs"]
-  SETTABLEKS R5 R4 K17 ["eventName"]
-  NEWTABLE R5 0 1
-  LOADK R6 K23 ["RobloxTelemetryStat"]
-  SETLIST R5 R6 1 [1]
-  SETTABLEKS R5 R4 K18 ["backends"]
-  NEWTABLE R5 0 3
-  LOADN R6 233
-  LOADN R7 10
-  LOADN R8 15
-  SETLIST R5 R6 3 [1]
-  SETTABLEKS R5 R4 K19 ["lastUpdated"]
-  LOADK R5 K24 ["Stat for time taken to fetch all items in useControls, in milliseconds"]
-  SETTABLEKS R5 R4 K20 ["description"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K25 ["USE_CONTROLS_TIME_TO_FETCH_MS"]
-  GETIMPORT R3 K10 [table.freeze]
-  DUPTABLE R4 K21 [{"eventName", "backends", "lastUpdated", "description"}]
-  LOADK R5 K26 ["UseControlsNumItems"]
-  SETTABLEKS R5 R4 K17 ["eventName"]
-  NEWTABLE R5 0 1
-  LOADK R6 K23 ["RobloxTelemetryStat"]
-  SETLIST R5 R6 1 [1]
-  SETTABLEKS R5 R4 K18 ["backends"]
-  NEWTABLE R5 0 3
-  LOADN R6 233
-  LOADN R7 10
-  LOADN R8 15
-  SETLIST R5 R6 3 [1]
-  SETTABLEKS R5 R4 K19 ["lastUpdated"]
-  LOADK R5 K27 ["Stat for number of items fetched in useControls"]
-  SETTABLEKS R5 R4 K20 ["description"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K28 ["USE_CONTROLS_NUM_ITEMS"]
-  GETIMPORT R3 K10 [table.freeze]
-  DUPTABLE R4 K21 [{"eventName", "backends", "lastUpdated", "description"}]
-  LOADK R5 K29 ["UseControlsTimePerItemFetchedMs"]
-  SETTABLEKS R5 R4 K17 ["eventName"]
-  NEWTABLE R5 0 1
-  LOADK R6 K23 ["RobloxTelemetryStat"]
-  SETLIST R5 R6 1 [1]
-  SETTABLEKS R5 R4 K18 ["backends"]
-  NEWTABLE R5 0 3
-  LOADN R6 233
-  LOADN R7 10
-  LOADN R8 15
-  SETLIST R5 R6 3 [1]
-  SETTABLEKS R5 R4 K19 ["lastUpdated"]
-  LOADK R5 K30 ["Stat for time taken to fetch each item in useControls, in milliseconds"]
-  SETTABLEKS R5 R4 K20 ["description"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K31 ["USE_CONTROLS_TIME_PER_ITEM_FETCHED_MS"]
-  GETIMPORT R3 K10 [table.freeze]
-  MOVE R4 R2
-  CALL R3 1 -1
-  RETURN R3 -1
+  GETIMPORT R2 K9 [game]
+  LOADK R4 K10 ["RibbonDefinitionEventThrottleHundredthsPercent"]
+  LOADN R5 16
+  NAMECALL R2 R2 K11 ["DefineFastInt"]
+  CALL R2 3 1
+  NEWTABLE R3 8 0
+  GETIMPORT R4 K14 [table.freeze]
+  DUPTABLE R5 K16 [{"customFields"}]
+  DUPTABLE R6 K18 [{"isFtf"}]
+  GETTABLEKS R7 R1 K19 ["isFTF"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K17 ["isFtf"]
+  SETTABLEKS R6 R5 K15 ["customFields"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K20 ["DEFAULT_METADATA"]
+  GETIMPORT R4 K14 [table.freeze]
+  DUPTABLE R5 K26 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description"}]
+  LOADK R6 K27 ["RibbonDefinition"]
+  SETTABLEKS R6 R5 K21 ["eventName"]
+  NEWTABLE R6 0 1
+  LOADK R7 K28 ["EventIngest"]
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K22 ["backends"]
+  SETTABLEKS R2 R5 K23 ["throttlingPercentage"]
+  NEWTABLE R6 0 3
+  LOADN R7 233
+  LOADN R8 10
+  LOADN R9 16
+  SETLIST R6 R7 3 [1]
+  SETTABLEKS R6 R5 K24 ["lastUpdated"]
+  LOADK R6 K29 ["Event for full ribbon definitions, reported on plugin unload"]
+  SETTABLEKS R6 R5 K25 ["description"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K30 ["RIBBON_DEFINITION"]
+  GETIMPORT R4 K14 [table.freeze]
+  DUPTABLE R5 K31 [{"eventName", "backends", "lastUpdated", "description"}]
+  LOADK R6 K32 ["UseControlsTimeToFetchMs"]
+  SETTABLEKS R6 R5 K21 ["eventName"]
+  NEWTABLE R6 0 1
+  LOADK R7 K33 ["RobloxTelemetryStat"]
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K22 ["backends"]
+  NEWTABLE R6 0 3
+  LOADN R7 233
+  LOADN R8 10
+  LOADN R9 15
+  SETLIST R6 R7 3 [1]
+  SETTABLEKS R6 R5 K24 ["lastUpdated"]
+  LOADK R6 K34 ["Stat for time taken to fetch all items in useControls, in milliseconds"]
+  SETTABLEKS R6 R5 K25 ["description"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K35 ["USE_CONTROLS_TIME_TO_FETCH_MS"]
+  GETIMPORT R4 K14 [table.freeze]
+  DUPTABLE R5 K31 [{"eventName", "backends", "lastUpdated", "description"}]
+  LOADK R6 K36 ["UseControlsNumItems"]
+  SETTABLEKS R6 R5 K21 ["eventName"]
+  NEWTABLE R6 0 1
+  LOADK R7 K33 ["RobloxTelemetryStat"]
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K22 ["backends"]
+  NEWTABLE R6 0 3
+  LOADN R7 233
+  LOADN R8 10
+  LOADN R9 15
+  SETLIST R6 R7 3 [1]
+  SETTABLEKS R6 R5 K24 ["lastUpdated"]
+  LOADK R6 K37 ["Stat for number of items fetched in useControls"]
+  SETTABLEKS R6 R5 K25 ["description"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K38 ["USE_CONTROLS_NUM_ITEMS"]
+  GETIMPORT R4 K14 [table.freeze]
+  DUPTABLE R5 K31 [{"eventName", "backends", "lastUpdated", "description"}]
+  LOADK R6 K39 ["UseControlsTimePerItemFetchedMs"]
+  SETTABLEKS R6 R5 K21 ["eventName"]
+  NEWTABLE R6 0 1
+  LOADK R7 K33 ["RobloxTelemetryStat"]
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K22 ["backends"]
+  NEWTABLE R6 0 3
+  LOADN R7 233
+  LOADN R8 10
+  LOADN R9 15
+  SETLIST R6 R7 3 [1]
+  SETTABLEKS R6 R5 K24 ["lastUpdated"]
+  LOADK R6 K40 ["Stat for time taken to fetch each item in useControls, in milliseconds"]
+  SETTABLEKS R6 R5 K25 ["description"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K41 ["USE_CONTROLS_TIME_PER_ITEM_FETCHED_MS"]
+  GETIMPORT R4 K14 [table.freeze]
+  MOVE R5 R3
+  CALL R4 1 -1
+  RETURN R4 -1

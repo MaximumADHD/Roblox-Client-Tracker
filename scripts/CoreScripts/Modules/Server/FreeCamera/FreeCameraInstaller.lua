@@ -5,6 +5,7 @@
 --  The code is kept on the server and only replicated to the client to minimize security problems.
 
 local FFlagAllowLuobuFreecamGroup = game:DefineFastFlag("AllowLuobuFreecamGroup", false)
+local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false) and game:GetEngineFeature("LuaGetCanManageAsync")
 
 -- Users in the following groups have global Freecam permissions:
 local FREECAM_GROUP_IDS = {
@@ -65,32 +66,40 @@ local function Install()
 			return false
 		end
 
-		local success, result = pcall(function()
-			local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
-			local url = string.format(Url.APIS_URL..apiPath)
+		if FFlagUseGetCanManageAsync then
+			local success, result = pcall(player.GetCanManageAsync, player)
 
-			local request = HttpService:JSONEncode(
-				{
-					requests = {
-						{
-							subject = {
-								subjectType = "User",
-								subjectId = player.UserId
-							},
-							action = "Edit", -- check to see if this player has edit permissions on this placeId
-							assetId = game.PlaceId
+			if success and result then
+				return true
+			end
+		else
+			local success, result = pcall(function()
+				local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
+				local url = string.format(Url.APIS_URL..apiPath)
+
+				local request = HttpService:JSONEncode(
+					{
+						requests = {
+							{
+								subject = {
+									subjectType = "User",
+									subjectId = player.UserId
+								},
+								action = "Edit", -- check to see if this player has edit permissions on this placeId
+								assetId = game.PlaceId
+							}
 						}
 					}
-				}
-			)
-			local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
-			return HttpService:JSONDecode(response)
-		end)
+				)
+				local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
+				return HttpService:JSONDecode(response)
+			end)
 
-		if success then
-			result = result.results[1]
-			if result.value and result.value.status == "HasPermission" then
-				return true
+			if success then
+				result = result.results[1]
+				if result.value and result.value.status == "HasPermission" then
+					return true
+				end
 			end
 		end
 

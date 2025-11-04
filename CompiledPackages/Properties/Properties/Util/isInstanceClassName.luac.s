@@ -1,8 +1,15 @@
 PROTO_0:
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["NewReflectionService isn't enabled, so we can't tell what's an instance and what isn't"]
+  CALL R1 1 0
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_1:
   GETTABLEKS R2 R1 K0 ["Name"]
   RETURN R2 1
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R3 0
   GETTABLE R2 R3 R0
   JUMPIFNOTEQKNIL R2 [+2]
@@ -18,18 +25,25 @@ MAIN:
   CALL R0 2 1
   GETTABLEKS R1 R0 K4 ["Parent"]
   GETIMPORT R2 K6 [game]
-  LOADK R4 K7 ["ReflectionService"]
-  NAMECALL R2 R2 K8 ["GetService"]
+  LOADK R4 K7 ["NewReflectionService"]
+  NAMECALL R2 R2 K8 ["GetFastFlag"]
   CALL R2 2 1
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R4 R1 K11 ["Dash"]
+  JUMPIF R2 [+2]
+  DUPCLOSURE R2 K9 [PROTO_0]
+  RETURN R2 1
+  GETIMPORT R2 K6 [game]
+  LOADK R4 K10 ["ReflectionService"]
+  NAMECALL R2 R2 K11 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K13 [require]
+  GETTABLEKS R4 R1 K14 ["Dash"]
   CALL R3 1 1
-  NAMECALL R4 R2 K12 ["GetClasses"]
+  NAMECALL R4 R2 K15 ["GetClasses"]
   CALL R4 1 1
-  GETTABLEKS R5 R3 K13 ["collectSet"]
+  GETTABLEKS R5 R3 K16 ["collectSet"]
   MOVE R6 R4
-  DUPCLOSURE R7 K14 [PROTO_0]
+  DUPCLOSURE R7 K17 [PROTO_1]
   CALL R5 2 1
-  DUPCLOSURE R6 K15 [PROTO_1]
+  DUPCLOSURE R6 K18 [PROTO_2]
   CAPTURE VAL R5
   RETURN R6 1

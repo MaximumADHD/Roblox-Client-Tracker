@@ -21,6 +21,8 @@ local FFlagFocusNavOutOfSubmenu = SharedFlags.FFlagFocusNavOutOfSubmenu
 local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
 local FFlagChromeFixStopFocusBeforeMenuRowActive = SharedFlags.FFlagChromeFixStopFocusBeforeMenuRowActive
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagAvatarSwitcherHamburgerExposure = game:DefineFastFlag("AvatarSwitcherHamburgerExposure", false)
+local FStringAvatarSwitcherIXPLayer = game:DefineFastString("AvatarSwitcherIXPLayer", "UIEcosystem.User.Migration")
 
 local ChromeFlags = require(script.Parent.Parent.Parent.Flags)
 local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
@@ -46,6 +48,7 @@ local Badge = UIBlox.App.Indicator.Badge
 local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local ScrollBarType = UIBlox.App.Container.Enum.ScrollBarType
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
+local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 
 local Foundation = if FFlagAdaptUnibarAndTiltSizing then require(CorePackages.Packages.Foundation) else nil :: never
 local useCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.useCursor else nil :: never
@@ -535,6 +538,13 @@ function SubMenu(props: SubMenuProps)
 			conn:Disconnect()
 		end
 	end, {})
+
+	-- Avatar Switcher IXP exposure: fire exposure event when the hamburger submenu is opened
+	if FFlagAvatarSwitcherHamburgerExposure then
+		React.useEffect(function()
+			IXPServiceWrapper:LogFlagLinkedUserLayerExposure(FStringAvatarSwitcherIXPLayer)
+		end, {})
+	end
 
 	local topBuffer = topbarInsetHeight + iconCellWidth
 	local canvasSize = if props and props.items then rowHeight * #props.items else 0

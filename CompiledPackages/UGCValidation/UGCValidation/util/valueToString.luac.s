@@ -105,7 +105,7 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K4 [require]
   GETTABLEKS R4 R0 K6 ["flags"]
-  GETTABLEKS R3 R4 K7 ["getFFlagUGCValidationEyelashSAAlphaTransparencyModeAllowed"]
+  GETTABLEKS R3 R4 K7 ["getFFlagUGCValidationEyebrowEyelashSupport"]
   CALL R2 1 1
   DUPCLOSURE R3 K8 [PROTO_0]
   DUPCLOSURE R4 K9 [PROTO_1]

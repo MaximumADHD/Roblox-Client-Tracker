@@ -1,63 +1,4 @@
 PROTO_0:
-  JUMPIFNOT R0 [+2]
-  LOADK R3 K0 [12.6]
-  JUMP [+1]
-  LOADK R3 K1 [15.12]
-  GETTABLEKS R7 R1 K2 ["Config"]
-  GETTABLEKS R6 R7 K3 ["ColorMode"]
-  GETTABLEKS R5 R6 K4 ["Name"]
-  JUMPIFEQKS R5 K5 ["Dark"] [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  JUMPIFNOT R4 [+11]
-  GETTABLEKS R9 R1 K6 ["Color"]
-  GETTABLEKS R8 R9 K7 ["Extended"]
-  GETTABLEKS R7 R8 K8 ["Gray"]
-  GETTABLEKS R6 R7 K9 ["Gray_500"]
-  GETTABLEKS R5 R6 K10 ["Color3"]
-  JUMP [+10]
-  GETTABLEKS R9 R1 K6 ["Color"]
-  GETTABLEKS R8 R9 K7 ["Extended"]
-  GETTABLEKS R7 R8 K8 ["Gray"]
-  GETTABLEKS R6 R7 K11 ["Gray_600"]
-  GETTABLEKS R5 R6 K10 ["Color3"]
-  JUMPIFNOT R4 [+11]
-  GETTABLEKS R10 R1 K6 ["Color"]
-  GETTABLEKS R9 R10 K7 ["Extended"]
-  GETTABLEKS R8 R9 K8 ["Gray"]
-  GETTABLEKS R7 R8 K11 ["Gray_600"]
-  GETTABLEKS R6 R7 K10 ["Color3"]
-  JUMP [+10]
-  GETTABLEKS R10 R1 K6 ["Color"]
-  GETTABLEKS R9 R10 K7 ["Extended"]
-  GETTABLEKS R8 R9 K8 ["Gray"]
-  GETTABLEKS R7 R8 K9 ["Gray_500"]
-  GETTABLEKS R6 R7 K10 ["Color3"]
-  DUPTABLE R7 K16 [{"tag", "size", "fontStyle", "textStyle"}]
-  LOADK R8 K17 ["text-truncate-end"]
-  SETTABLEKS R8 R7 K12 ["tag"]
-  JUMPIFNOT R0 [+2]
-  GETUPVAL R8 0
-  JUMP [+1]
-  GETUPVAL R8 1
-  SETTABLEKS R8 R7 K13 ["size"]
-  DUPTABLE R8 K21 [{"Font", "FontSize", "LineHeight"}]
-  GETIMPORT R9 K24 [Enum.Font.BuilderSans]
-  SETTABLEKS R9 R8 K18 ["Font"]
-  SETTABLEKS R3 R8 K19 ["FontSize"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K20 ["LineHeight"]
-  SETTABLEKS R8 R7 K14 ["fontStyle"]
-  DUPTABLE R8 K25 [{"Color3"}]
-  JUMPIFNOT R2 [+2]
-  MOVE R9 R6
-  JUMP [+1]
-  MOVE R9 R5
-  SETTABLEKS R9 R8 K10 ["Color3"]
-  SETTABLEKS R8 R7 K15 ["textStyle"]
-  RETURN R7 1
-
-PROTO_1:
   DUPTABLE R1 K1 [{"Transparency"}]
   JUMPIFNOT R0 [+2]
   LOADK R2 K2 [0.5]
@@ -66,237 +7,117 @@ PROTO_1:
   SETTABLEKS R2 R1 K0 ["Transparency"]
   RETURN R1 1
 
-PROTO_2:
-  DUPTABLE R3 K2 [{"size", "imageStyle"}]
-  JUMPIFNOT R0 [+12]
-  GETIMPORT R4 K5 [UDim2.fromOffset]
-  GETTABLEKS R6 R1 K6 ["Size"]
-  GETTABLEKS R5 R6 K7 ["Size_400"]
-  GETTABLEKS R7 R1 K6 ["Size"]
-  GETTABLEKS R6 R7 K7 ["Size_400"]
-  CALL R4 2 1
-  JUMP [+11]
-  GETIMPORT R4 K5 [UDim2.fromOffset]
-  GETTABLEKS R6 R1 K6 ["Size"]
-  GETTABLEKS R5 R6 K8 ["Size_600"]
-  GETTABLEKS R7 R1 K6 ["Size"]
-  GETTABLEKS R6 R7 K8 ["Size_600"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K0 ["size"]
-  DUPTABLE R4 K10 [{"Transparency"}]
-  JUMPIFNOT R2 [+2]
-  LOADK R5 K11 [0.5]
-  JUMP [+1]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K9 ["Transparency"]
-  SETTABLEKS R4 R3 K1 ["imageStyle"]
-  RETURN R3 1
-
-PROTO_3:
-  JUMPIFNOT R1 [+2]
-  LOADK R3 K0 ["padding-y-small"]
-  JUMP [+4]
-  JUMPIFNOT R2 [+2]
-  LOADK R3 K1 ["padding-y-xsmall"]
-  JUMP [+1]
-  LOADK R3 K2 ["padding-y-medium"]
-  DUPTABLE R4 K4 [{"tag"}]
-  NEWTABLE R5 4 0
-  LOADB R6 1
-  SETTABLEKS R6 R5 K5 ["auto-xy radius-small align-y-center align-x-center grow row"]
-  LOADB R6 1
-  SETTABLE R6 R5 R3
-  JUMPIFEQKB R0 TRUE [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  SETTABLEKS R6 R5 K6 ["bg-action-standard"]
-  NOT R6 R1
-  JUMPIFNOT R6 [+1]
-  NOT R6 R2
-  SETTABLEKS R6 R5 K7 ["padding-x-xxsmall"]
-  SETTABLEKS R5 R4 K3 ["tag"]
-  RETURN R4 1
-
-PROTO_4:
-  JUMPIF R1 [+1]
-  JUMPIFNOT R0 [+2]
-  LOADK R2 K0 ["padding-xsmall"]
-  JUMP [+1]
-  LOADK R2 K1 ["padding-small"]
-  DUPTABLE R3 K4 [{"tag", "sizeConstraint"}]
-  NEWTABLE R4 2 0
-  LOADB R5 1
-  SETTABLEKS R5 R4 K5 ["auto-xy radius-small align-y-center align-x-center grow row"]
-  LOADB R5 1
-  SETTABLE R5 R4 R2
-  SETTABLEKS R4 R3 K2 ["tag"]
-  JUMPIFNOT R1 [+8]
-  DUPTABLE R4 K8 [{"MaxSize", "MinSize"}]
-  GETUPVAL R5 0
-  SETTABLEKS R5 R4 K6 ["MaxSize"]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K7 ["MinSize"]
-  JUMP [+10]
-  DUPTABLE R4 K8 [{"MaxSize", "MinSize"}]
-  JUMPIFNOT R0 [+2]
-  GETUPVAL R5 1
-  JUMP [+1]
-  GETUPVAL R5 2
-  SETTABLEKS R5 R4 K6 ["MaxSize"]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K7 ["MinSize"]
-  SETTABLEKS R4 R3 K3 ["sizeConstraint"]
-  RETURN R3 1
-
-PROTO_5:
+PROTO_1:
   JUMPIF R0 [+3]
   JUMPIF R1 [+2]
   LOADK R2 K0 ["size-400-400"]
   JUMP [+1]
   LOADK R2 K1 ["size-300-400"]
   DUPTABLE R3 K3 [{"tag"}]
-  NEWTABLE R4 2 0
-  LOADB R5 1
-  SETTABLEKS R5 R4 K4 ["row align-x-center align-y-center"]
-  LOADB R5 1
-  SETTABLE R5 R4 R2
+  LOADK R5 K4 ["row align-x-center align-y-center %*"]
+  MOVE R7 R2
+  NAMECALL R5 R5 K5 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
   SETTABLEKS R4 R3 K2 ["tag"]
   RETURN R3 1
 
-PROTO_6:
-  DUPTABLE R0 K9 [{"container", "actionContainer", "ribbonTool", "arrowContainer", "arrow", "toolIconStyle", "arrowIconStyle", "text", "icon"}]
-  DUPTABLE R1 K12 [{"tag", "sizeConstraint"}]
-  LOADK R2 K13 ["auto-xy radius-small col align-y-center align-x-center grow"]
-  SETTABLEKS R2 R1 K10 ["tag"]
-  GETUPVAL R3 0
-  JUMPIFNOT R3 [+8]
-  DUPTABLE R2 K16 [{"MaxSize", "MinSize"}]
-  GETUPVAL R3 1
-  SETTABLEKS R3 R2 K14 ["MaxSize"]
-  LOADNIL R3
-  SETTABLEKS R3 R2 K15 ["MinSize"]
-  JUMP [+17]
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["isCompact"]
+  JUMPIFNOT R2 [+2]
+  LOADK R1 K1 ["padding-y-small"]
+  JUMP [+6]
+  GETTABLEKS R2 R0 K2 ["isSmall"]
+  JUMPIFNOT R2 [+2]
+  LOADK R1 K3 ["padding-y-xsmall"]
+  JUMP [+1]
+  LOADK R1 K4 ["padding-y-medium"]
+  DUPTABLE R2 K6 [{"tag"}]
+  NEWTABLE R3 4 0
+  LOADK R5 K7 ["auto-xy radius-small align-y-center align-x-center row %*"]
+  MOVE R7 R1
+  NAMECALL R5 R5 K8 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  LOADB R5 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R5 R0 K9 ["selected"]
+  JUMPIFEQKB R5 TRUE [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  SETTABLEKS R4 R3 K10 ["bg-action-standard"]
+  GETTABLEKS R5 R0 K0 ["isCompact"]
+  NOT R4 R5
+  JUMPIFNOT R4 [+3]
+  GETTABLEKS R5 R0 K2 ["isSmall"]
+  NOT R4 R5
+  SETTABLEKS R4 R3 K11 ["padding-x-xxsmall"]
+  SETTABLEKS R3 R2 K5 ["tag"]
+  RETURN R2 1
+
+PROTO_3:
+  DUPTABLE R0 K3 [{"arrowContainer", "arrow", "arrowIconStyle"}]
+  GETUPVAL R1 0
+  DUPTABLE R2 K7 [{"selected", "isCompact", "isSmall"}]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["selected"]
+  SETTABLEKS R3 R2 K4 ["selected"]
   GETUPVAL R3 2
-  JUMPIFNOT R3 [+8]
-  DUPTABLE R2 K16 [{"MaxSize", "MinSize"}]
+  SETTABLEKS R3 R2 K5 ["isCompact"]
   GETUPVAL R3 3
-  SETTABLEKS R3 R2 K14 ["MaxSize"]
-  LOADNIL R3
-  SETTABLEKS R3 R2 K15 ["MinSize"]
-  JUMP [+7]
-  DUPTABLE R2 K16 [{"MaxSize", "MinSize"}]
-  GETUPVAL R3 4
-  SETTABLEKS R3 R2 K14 ["MaxSize"]
-  LOADNIL R3
-  SETTABLEKS R3 R2 K15 ["MinSize"]
-  SETTABLEKS R2 R1 K11 ["sizeConstraint"]
-  SETTABLEKS R1 R0 K0 ["container"]
-  DUPTABLE R1 K17 [{"tag"}]
-  LOADK R2 K18 ["auto-xy radius-small row align-y-center align-x-center grow"]
-  SETTABLEKS R2 R1 K10 ["tag"]
-  SETTABLEKS R1 R0 K1 ["actionContainer"]
-  GETUPVAL R1 5
+  SETTABLEKS R3 R2 K6 ["isSmall"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K0 ["arrowContainer"]
   GETUPVAL R2 2
-  GETUPVAL R3 0
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K2 ["ribbonTool"]
-  GETUPVAL R1 6
-  GETUPVAL R2 7
-  GETUPVAL R3 2
-  GETUPVAL R4 0
-  CALL R1 3 1
-  SETTABLEKS R1 R0 K3 ["arrowContainer"]
-  GETUPVAL R1 8
-  GETUPVAL R2 2
-  GETUPVAL R3 0
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K4 ["arrow"]
-  GETUPVAL R2 9
-  DUPTABLE R1 K20 [{"Transparency"}]
-  JUMPIFNOT R2 [+2]
-  LOADK R3 K21 [0.5]
+  GETUPVAL R3 3
+  JUMPIF R2 [+3]
+  JUMPIF R3 [+2]
+  LOADK R4 K8 ["size-400-400"]
   JUMP [+1]
-  LOADN R3 0
-  SETTABLEKS R3 R1 K19 ["Transparency"]
-  SETTABLEKS R1 R0 K5 ["toolIconStyle"]
-  GETUPVAL R3 10
+  LOADK R4 K9 ["size-300-400"]
+  DUPTABLE R1 K11 [{"tag"}]
+  LOADK R6 K12 ["row align-x-center align-y-center %*"]
+  MOVE R8 R4
+  NAMECALL R6 R6 K13 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  SETTABLEKS R5 R1 K10 ["tag"]
+  SETTABLEKS R1 R0 K1 ["arrow"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K14 ["isDropdownEnabled"]
   NOT R2 R3
-  DUPTABLE R1 K20 [{"Transparency"}]
+  DUPTABLE R1 K16 [{"Transparency"}]
   JUMPIFNOT R2 [+2]
-  LOADK R3 K21 [0.5]
+  LOADK R3 K17 [0.5]
   JUMP [+1]
   LOADN R3 0
-  SETTABLEKS R3 R1 K19 ["Transparency"]
-  SETTABLEKS R1 R0 K6 ["arrowIconStyle"]
-  GETUPVAL R1 11
-  GETUPVAL R2 2
-  GETUPVAL R3 12
-  GETUPVAL R4 9
-  CALL R1 3 1
-  SETTABLEKS R1 R0 K7 ["text"]
-  GETUPVAL R1 13
-  GETUPVAL R2 0
-  GETUPVAL R3 12
-  GETUPVAL R4 9
-  CALL R1 3 1
-  SETTABLEKS R1 R0 K8 ["icon"]
+  SETTABLEKS R3 R1 K15 ["Transparency"]
+  SETTABLEKS R1 R0 K2 ["arrowIconStyle"]
   RETURN R0 1
 
-PROTO_7:
+PROTO_4:
   GETTABLEKS R3 R0 K0 ["size"]
   JUMPIFEQKS R3 K1 ["Small"] [+2]
   LOADB R2 0 +1
   LOADB R2 1
-  GETUPVAL R3 0
-  CALL R3 0 1
-  GETTABLEKS R7 R3 K2 ["Config"]
-  GETTABLEKS R6 R7 K3 ["ColorMode"]
-  GETTABLEKS R5 R6 K4 ["Name"]
-  JUMPIFEQKS R5 K5 ["Dark"] [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  GETTABLEKS R6 R1 K6 ["mode"]
-  JUMPIFEQKS R6 K7 ["DensityCompact"] [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  GETTABLEKS R7 R0 K8 ["childrenEnabled"]
-  JUMPIFEQKB R7 TRUE [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  GETTABLEKS R8 R0 K9 ["disabled"]
-  JUMPIFEQKB R8 TRUE [+2]
-  LOADB R7 0 +1
-  LOADB R7 1
-  GETTABLEKS R9 R0 K10 ["selected"]
-  JUMPIFEQKB R9 TRUE [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  GETUPVAL R9 1
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R2
-  CAPTURE UPVAL U2
-  CAPTURE VAL R5
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE VAL R8
-  CAPTURE UPVAL U7
-  CAPTURE VAL R7
-  CAPTURE VAL R6
-  CAPTURE UPVAL U8
+  GETTABLEKS R4 R1 K2 ["mode"]
+  JUMPIFEQKS R4 K3 ["DensityCompact"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETUPVAL R4 0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
   CAPTURE VAL R3
-  CAPTURE UPVAL U9
-  NEWTABLE R11 0 6
-  MOVE R12 R5
-  GETTABLEKS R13 R0 K0 ["size"]
-  GETTABLEKS R14 R0 K10 ["selected"]
-  GETTABLEKS R15 R0 K9 ["disabled"]
-  GETTABLEKS R16 R0 K8 ["childrenEnabled"]
-  MOVE R17 R4
-  SETLIST R11 R12 6 [1]
-  CALL R9 2 -1
-  RETURN R9 -1
+  CAPTURE VAL R2
+  NEWTABLE R6 0 4
+  MOVE R7 R3
+  MOVE R8 R2
+  GETTABLEKS R9 R0 K4 ["selected"]
+  GETTABLEKS R10 R0 K5 ["isDropdownEnabled"]
+  SETLIST R6 R7 4 [1]
+  CALL R4 2 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -313,69 +134,15 @@ MAIN:
   GETTABLEKS R5 R0 K6 ["Packages"]
   GETTABLEKS R4 R5 K9 ["Foundation"]
   CALL R3 1 1
-  GETTABLEKS R5 R3 K10 ["Hooks"]
-  GETTABLEKS R4 R5 K11 ["useTokens"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K12 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Contexts"]
-  GETTABLEKS R6 R7 K14 ["Density"]
-  CALL R5 1 1
-  GETIMPORT R6 K17 [Vector2.new]
-  LOADN R7 24
-  LOADN R8 24
-  CALL R6 2 1
-  GETIMPORT R7 K17 [Vector2.new]
-  LOADN R8 32
-  LOADN R9 32
-  CALL R7 2 1
-  GETIMPORT R8 K17 [Vector2.new]
-  LOADN R9 40
-  LOADN R10 40
-  CALL R8 2 1
-  GETIMPORT R9 K19 [UDim2.new]
-  LOADN R10 0
-  LOADN R11 48
-  LOADN R12 0
-  LOADN R13 16
-  CALL R9 4 1
-  GETIMPORT R10 K19 [UDim2.new]
-  LOADN R11 0
-  LOADN R12 60
-  LOADN R13 0
-  LOADN R14 16
-  CALL R10 4 1
-  GETIMPORT R11 K17 [Vector2.new]
-  LOADN R12 36
-  LOADN R13 24
-  CALL R11 2 1
-  GETIMPORT R12 K17 [Vector2.new]
-  LOADN R13 48
-  LOADN R14 48
-  CALL R12 2 1
-  GETIMPORT R13 K17 [Vector2.new]
-  LOADN R14 60
-  LOADN R15 56
-  CALL R13 2 1
-  DUPCLOSURE R14 K20 [PROTO_0]
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  DUPCLOSURE R15 K21 [PROTO_1]
-  DUPCLOSURE R16 K22 [PROTO_2]
-  DUPCLOSURE R17 K23 [PROTO_3]
-  DUPCLOSURE R18 K24 [PROTO_4]
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R8
-  DUPCLOSURE R19 K25 [PROTO_5]
-  DUPCLOSURE R20 K26 [PROTO_7]
-  CAPTURE VAL R4
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Contexts"]
+  GETTABLEKS R5 R6 K12 ["Density"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K13 [PROTO_0]
+  DUPCLOSURE R6 K14 [PROTO_1]
+  DUPCLOSURE R7 K15 [PROTO_2]
+  DUPCLOSURE R8 K16 [PROTO_4]
   CAPTURE VAL R2
-  CAPTURE VAL R11
-  CAPTURE VAL R12
-  CAPTURE VAL R13
-  CAPTURE VAL R18
-  CAPTURE VAL R17
-  CAPTURE VAL R19
-  CAPTURE VAL R14
-  CAPTURE VAL R16
-  RETURN R20 1
+  CAPTURE VAL R7
+  RETURN R8 1

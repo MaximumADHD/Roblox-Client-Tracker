@@ -6,6 +6,7 @@ local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
 local ConstantsInterface = require(root.ConstantsInterface)
+local Constants = require(root.Constants)
 
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
@@ -14,6 +15,10 @@ local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningVal
 
 local getEngineFeatureEngineEditableMeshAvatarPublish =
 	require(root.flags.getEngineFeatureEngineEditableMeshAvatarPublish)
+
+local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
+
+local FFlagEyebrowEyelashRequiresSpecialJoints = game:DefineFastFlag("EyebrowEyelashRequiresSpecialJoints", false)
 
 local function validateSkinningTransfer(
 	meshPart: MeshPart,
@@ -51,7 +56,8 @@ local function validateSkinningTransfer(
 			}
 	end
 
-	if next(jointsInfo) ~= nil then
+	local hasSpecialJoints = next(jointsInfo) ~= nil
+	if hasSpecialJoints then
 		local jointNames = {}
 		for name in jointsInfo do
 			table.insert(jointNames, name)
@@ -90,6 +96,26 @@ local function validateSkinningTransfer(
 						meshPart:GetFullName()
 					),
 				}
+		end
+	end
+
+	if getFFlagUGCValidationEyebrowEyelashSupport() then
+		if FFlagEyebrowEyelashRequiresSpecialJoints then
+			if not hasSpecialJoints and Constants.SkinningTransferRequiredTypes[assetTypeEnum] then
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateSkinningTransfer_RequiredAssetTypes,
+					nil,
+					validationContext
+				)
+				return false,
+					{
+						string.format(
+							"No Skinning Transfer joints found in '%s'. Accessories of type %s are required to use Skinning Transfer with RBX_Leader and RBX_Follower joints.",
+							meshPart:GetFullName(),
+							assetTypeEnum.Name
+						),
+					}
+			end
 		end
 	end
 

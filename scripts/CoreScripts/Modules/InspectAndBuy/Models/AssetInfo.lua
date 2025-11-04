@@ -41,6 +41,7 @@ type AvatarPreviewItem = AvatarExperienceInspectAndBuy.AvatarPreviewItem
 type AssetInfo = AvatarExperienceInspectAndBuy.AssetInfo
 type BundleInfo = AvatarExperienceInspectAndBuy.BundleInfo
 type BulkPurchaseResultItem = AvatarExperienceInspectAndBuy.BulkPurchaseResultItem
+type ItemDetails = AvatarExperienceInspectAndBuy.ItemDetails
 
 local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy =
 	require(CoreGui.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy)
@@ -320,6 +321,35 @@ function AssetInfo.fromGetEconomyProductInfo(asset, isOwned, price, isForSale, p
 	end
 	newAsset.isForSale = isForSale
 	newAsset.premiumPricing = premiumPricing
+
+	return newAsset
+end
+
+function AssetInfo.fromGetItemDetailsV2(itemDetails: ItemDetails): AssetInfo
+	local newAsset = AssetInfo.new()
+
+	newAsset.assetId = tostring(itemDetails.id)
+	newAsset.isForSale = itemDetails.isPurchasable
+	newAsset.price = itemDetails.price or 0
+	newAsset.hasResellers = itemDetails.hasResellers
+	newAsset.collectibleItemId = itemDetails.collectibleItemId
+
+	local itemRestrictions = {}
+	if itemDetails.itemRestrictions then
+		for _, value in itemDetails.itemRestrictions do
+			itemRestrictions[value] = true
+		end
+		newAsset.itemRestrictions = itemRestrictions
+	end
+
+	newAsset.saleLocationType = itemDetails.saleLocationType
+	newAsset.remaining = itemDetails.unitsAvailableForConsumption
+	newAsset.collectibleTotalQuantity = itemDetails.totalQuantity
+	newAsset.collectibleLowestResalePrice = itemDetails.lowestResalePrice
+	newAsset.isOffSale = itemDetails.isOffSale
+	newAsset.saleLocationType = itemDetails.saleLocationType
+	newAsset.numFavorites = itemDetails.favoriteCount
+	newAsset.catalogPriceStatus = itemDetails.priceStatus
 
 	return newAsset
 end

@@ -35,71 +35,54 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["join"]
-  GETUPVAL R3 1
-  DUPTABLE R4 K3 [{"Category", "ItemId"}]
-  LOADK R5 K4 ["Widgets"]
-  SETTABLEKS R5 R4 K1 ["Category"]
-  LOADK R5 K5 ["Mezzanine"]
-  SETTABLEKS R5 R4 K2 ["ItemId"]
-  CALL R2 2 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K6 ["ActiveTabState"]
-  JUMPIFNOT R4 [+6]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K6 ["ActiveTabState"]
-  GETTABLEKS R3 R4 K7 ["Identifier"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["join"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K3 [{"Category", "ItemId"}]
+  LOADK R6 K4 ["Widgets"]
+  SETTABLEKS R6 R5 K1 ["Category"]
+  LOADK R6 K5 ["Mezzanine"]
+  SETTABLEKS R6 R5 K2 ["ItemId"]
+  CALL R3 2 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["ActiveTabState"]
+  JUMPIFNOT R5 [+6]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["ActiveTabState"]
+  GETTABLEKS R4 R5 K7 ["Identifier"]
   JUMP [+1]
-  LOADNIL R3
-  JUMPIFNOTEQKNIL R3 [+6]
-  GETIMPORT R4 K9 [warn]
-  LOADK R5 K10 ["Cannot open context menu with no active tab"]
-  CALL R4 1 0
-  RETURN R0 0
   LOADNIL R4
-  GETTABLEKS R5 R3 K11 ["Type"]
-  JUMPIFNOTEQKS R5 K12 ["BuiltIn"] [+107]
-  NEWTABLE R5 0 5
-  DUPTABLE R6 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-  LOADK R7 K17 ["ManageTabs"]
-  SETTABLEKS R7 R6 K13 ["Id"]
-  LOADK R7 K18 ["Option"]
-  SETTABLEKS R7 R6 K11 ["Type"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K0 ["join"]
-  GETUPVAL R8 1
-  DUPTABLE R9 K3 [{"Category", "ItemId"}]
-  LOADK R10 K19 ["Actions"]
-  SETTABLEKS R10 R9 K1 ["Category"]
-  LOADK R10 K17 ["ManageTabs"]
-  SETTABLEKS R10 R9 K2 ["ItemId"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K14 ["Action"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K15 ["ReserveCheckmarkSpace"]
-  DUPTABLE R7 K20 [{"Type"}]
-  LOADK R8 K21 ["Separator"]
+  JUMPIFNOTEQKNIL R4 [+6]
+  GETIMPORT R5 K9 [warn]
+  LOADK R6 K10 ["Cannot open context menu with no active tab"]
+  CALL R5 1 0
+  RETURN R0 0
+  LOADNIL R5
+  GETTABLEKS R6 R4 K11 ["Type"]
+  JUMPIFNOTEQKS R6 K12 ["BuiltIn"] [+107]
+  NEWTABLE R6 0 5
+  DUPTABLE R7 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
+  LOADK R8 K17 ["ManageTabs"]
+  SETTABLEKS R8 R7 K13 ["Id"]
+  LOADK R8 K18 ["Option"]
   SETTABLEKS R8 R7 K11 ["Type"]
-  DUPTABLE R8 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-  LOADK R9 K22 ["DockUndockRibbon"]
-  SETTABLEKS R9 R8 K13 ["Id"]
-  LOADK R9 K18 ["Option"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["join"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K3 [{"Category", "ItemId"}]
+  LOADK R11 K19 ["Actions"]
+  SETTABLEKS R11 R10 K1 ["Category"]
+  LOADK R11 K17 ["ManageTabs"]
+  SETTABLEKS R11 R10 K2 ["ItemId"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["Action"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K15 ["ReserveCheckmarkSpace"]
+  DUPTABLE R8 K20 [{"Type"}]
+  LOADK R9 K21 ["Separator"]
   SETTABLEKS R9 R8 K11 ["Type"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K0 ["join"]
-  GETUPVAL R10 1
-  DUPTABLE R11 K3 [{"Category", "ItemId"}]
-  LOADK R12 K19 ["Actions"]
-  SETTABLEKS R12 R11 K1 ["Category"]
-  LOADK R12 K22 ["DockUndockRibbon"]
-  SETTABLEKS R12 R11 K2 ["ItemId"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K14 ["Action"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K15 ["ReserveCheckmarkSpace"]
   DUPTABLE R9 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-  LOADK R10 K23 ["CompactDensity"]
+  LOADK R10 K22 ["DockUndockRibbon"]
   SETTABLEKS R10 R9 K13 ["Id"]
   LOADK R10 K18 ["Option"]
   SETTABLEKS R10 R9 K11 ["Type"]
@@ -109,14 +92,14 @@ PROTO_4:
   DUPTABLE R12 K3 [{"Category", "ItemId"}]
   LOADK R13 K19 ["Actions"]
   SETTABLEKS R13 R12 K1 ["Category"]
-  LOADK R13 K23 ["CompactDensity"]
+  LOADK R13 K22 ["DockUndockRibbon"]
   SETTABLEKS R13 R12 K2 ["ItemId"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K14 ["Action"]
   LOADB R10 1
   SETTABLEKS R10 R9 K15 ["ReserveCheckmarkSpace"]
   DUPTABLE R10 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-  LOADK R11 K24 ["ShowHideLabels"]
+  LOADK R11 K23 ["CompactDensity"]
   SETTABLEKS R11 R10 K13 ["Id"]
   LOADK R11 K18 ["Option"]
   SETTABLEKS R11 R10 K11 ["Type"]
@@ -126,151 +109,147 @@ PROTO_4:
   DUPTABLE R13 K3 [{"Category", "ItemId"}]
   LOADK R14 K19 ["Actions"]
   SETTABLEKS R14 R13 K1 ["Category"]
-  LOADK R14 K24 ["ShowHideLabels"]
+  LOADK R14 K23 ["CompactDensity"]
   SETTABLEKS R14 R13 K2 ["ItemId"]
   CALL R11 2 1
   SETTABLEKS R11 R10 K14 ["Action"]
   LOADB R11 1
   SETTABLEKS R11 R10 K15 ["ReserveCheckmarkSpace"]
-  SETLIST R5 R6 5 [1]
-  MOVE R4 R5
+  DUPTABLE R11 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
+  LOADK R12 K24 ["ShowHideLabels"]
+  SETTABLEKS R12 R11 K13 ["Id"]
+  LOADK R12 K18 ["Option"]
+  SETTABLEKS R12 R11 K11 ["Type"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K0 ["join"]
+  GETUPVAL R13 1
+  DUPTABLE R14 K3 [{"Category", "ItemId"}]
+  LOADK R15 K19 ["Actions"]
+  SETTABLEKS R15 R14 K1 ["Category"]
+  LOADK R15 K24 ["ShowHideLabels"]
+  SETTABLEKS R15 R14 K2 ["ItemId"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K14 ["Action"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K15 ["ReserveCheckmarkSpace"]
+  SETLIST R6 R7 5 [1]
+  MOVE R5 R6
   JUMP [+315]
-  GETUPVAL R5 3
-  MOVE R6 R3
-  CALL R5 1 1
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K25 ["Definition"]
-  GETTABLEKS R8 R9 K26 ["TabControls"]
-  GETTABLE R7 R8 R5
-  GETTABLEKS R6 R7 K27 ["Controls"]
+  GETUPVAL R6 3
+  MOVE R7 R4
+  CALL R6 1 1
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K25 ["Definition"]
+  GETTABLEKS R9 R10 K26 ["TabControls"]
+  GETTABLE R8 R9 R6
+  GETTABLEKS R7 R8 K27 ["Controls"]
   JUMPIFEQKNIL R1 [+137]
-  GETTABLEKS R7 R1 K28 ["self"]
-  GETTABLEKS R8 R1 K29 ["left"]
-  GETTABLEKS R9 R1 K30 ["right"]
-  GETIMPORT R10 K33 [table.create]
-  LOADN R11 4
-  CALL R10 1 1
-  MOVE R4 R10
-  JUMPIFNOT R8 [+31]
-  DUPTABLE R12 K37 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
-  LOADK R13 K38 ["MoveLeft"]
-  SETTABLEKS R13 R12 K13 ["Id"]
-  LOADB R13 1
-  SETTABLEKS R13 R12 K34 ["Enabled"]
-  LOADK R13 K18 ["Option"]
-  SETTABLEKS R13 R12 K11 ["Type"]
-  GETUPVAL R13 4
-  LOADK R15 K39 ["Plugin"]
-  LOADK R16 K38 ["MoveLeft"]
-  NAMECALL R13 R13 K40 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K35 ["Text"]
-  NEWCLOSURE R13 P0
+  GETTABLEKS R8 R1 K28 ["self"]
+  GETTABLEKS R9 R1 K29 ["left"]
+  GETTABLEKS R10 R1 K30 ["right"]
+  GETIMPORT R11 K33 [table.create]
+  LOADN R12 4
+  CALL R11 1 1
+  MOVE R5 R11
+  JUMPIFNOT R9 [+31]
+  DUPTABLE R13 K37 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
+  LOADK R14 K38 ["MoveLeft"]
+  SETTABLEKS R14 R13 K13 ["Id"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K34 ["Enabled"]
+  LOADK R14 K18 ["Option"]
+  SETTABLEKS R14 R13 K11 ["Type"]
+  GETUPVAL R14 4
+  LOADK R16 K39 ["Plugin"]
+  LOADK R17 K38 ["MoveLeft"]
+  NAMECALL R14 R14 K40 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K35 ["Text"]
+  NEWCLOSURE R14 P0
   CAPTURE UPVAL U2
-  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  SETTABLEKS R14 R13 K36 ["OnSelect"]
+  FASTCALL2 TABLE_INSERT R5 R13 [+4]
+  MOVE R12 R5
+  GETIMPORT R11 K42 [table.insert]
+  CALL R11 2 0
+  JUMPIFNOT R10 [+31]
+  DUPTABLE R13 K37 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
+  LOADK R14 K43 ["MoveRight"]
+  SETTABLEKS R14 R13 K13 ["Id"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K34 ["Enabled"]
+  LOADK R14 K18 ["Option"]
+  SETTABLEKS R14 R13 K11 ["Type"]
+  GETUPVAL R14 4
+  LOADK R16 K39 ["Plugin"]
+  LOADK R17 K43 ["MoveRight"]
+  NAMECALL R14 R14 K40 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K35 ["Text"]
+  NEWCLOSURE R14 P1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  SETTABLEKS R14 R13 K36 ["OnSelect"]
+  FASTCALL2 TABLE_INSERT R5 R13 [+4]
+  MOVE R12 R5
+  GETIMPORT R11 K42 [table.insert]
+  CALL R11 2 0
+  JUMPIF R9 [+1]
+  JUMPIFNOT R10 [+10]
+  DUPTABLE R13 K20 [{"Type"}]
+  LOADK R14 K21 ["Separator"]
+  SETTABLEKS R14 R13 K11 ["Type"]
+  FASTCALL2 TABLE_INSERT R5 R13 [+4]
+  MOVE R12 R5
+  GETIMPORT R11 K42 [table.insert]
+  CALL R11 2 0
+  GETIMPORT R11 K45 [pcall]
+  NEWCLOSURE R12 P2
   CAPTURE VAL R7
   CAPTURE VAL R8
-  SETTABLEKS R13 R12 K36 ["OnSelect"]
-  FASTCALL2 TABLE_INSERT R4 R12 [+4]
-  MOVE R11 R4
-  GETIMPORT R10 K42 [table.insert]
-  CALL R10 2 0
-  JUMPIFNOT R9 [+31]
-  DUPTABLE R12 K37 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
-  LOADK R13 K43 ["MoveRight"]
-  SETTABLEKS R13 R12 K13 ["Id"]
-  LOADB R13 1
-  SETTABLEKS R13 R12 K34 ["Enabled"]
-  LOADK R13 K18 ["Option"]
-  SETTABLEKS R13 R12 K11 ["Type"]
-  GETUPVAL R13 4
-  LOADK R15 K39 ["Plugin"]
-  LOADK R16 K43 ["MoveRight"]
-  NAMECALL R13 R13 K40 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K35 ["Text"]
-  NEWCLOSURE R13 P1
-  CAPTURE UPVAL U2
-  CAPTURE VAL R3
-  CAPTURE VAL R7
-  CAPTURE VAL R9
-  SETTABLEKS R13 R12 K36 ["OnSelect"]
-  FASTCALL2 TABLE_INSERT R4 R12 [+4]
-  MOVE R11 R4
-  GETIMPORT R10 K42 [table.insert]
-  CALL R10 2 0
-  JUMPIF R8 [+1]
-  JUMPIFNOT R9 [+10]
-  DUPTABLE R12 K20 [{"Type"}]
-  LOADK R13 K21 ["Separator"]
-  SETTABLEKS R13 R12 K11 ["Type"]
-  FASTCALL2 TABLE_INSERT R4 R12 [+4]
-  MOVE R11 R4
-  GETIMPORT R10 K42 [table.insert]
-  CALL R10 2 0
-  GETIMPORT R10 K45 [pcall]
-  NEWCLOSURE R11 P2
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CALL R10 1 2
-  JUMPIFNOT R10 [+2]
-  MOVE R12 R11
-  JUMPIF R12 [+1]
-  LOADB R12 0
-  DUPTABLE R15 K37 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
-  LOADK R16 K46 ["Delete"]
-  SETTABLEKS R16 R15 K13 ["Id"]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K34 ["Enabled"]
-  LOADK R16 K18 ["Option"]
-  SETTABLEKS R16 R15 K11 ["Type"]
-  JUMPIFNOT R12 [+7]
-  GETUPVAL R16 4
-  LOADK R18 K39 ["Plugin"]
-  LOADK R19 K47 ["DeleteSeparator"]
-  NAMECALL R16 R16 K40 ["getText"]
-  CALL R16 3 1
+  CALL R11 1 2
+  JUMPIFNOT R11 [+2]
+  MOVE R13 R12
+  JUMPIF R13 [+1]
+  LOADB R13 0
+  DUPTABLE R16 K37 [{"Id", "Enabled", "Type", "Text", "OnSelect"}]
+  LOADK R17 K46 ["Delete"]
+  SETTABLEKS R17 R16 K13 ["Id"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K34 ["Enabled"]
+  LOADK R17 K18 ["Option"]
+  SETTABLEKS R17 R16 K11 ["Type"]
+  JUMPIFNOT R13 [+7]
+  GETUPVAL R17 4
+  LOADK R19 K39 ["Plugin"]
+  LOADK R20 K47 ["DeleteSeparator"]
+  NAMECALL R17 R17 K40 ["getText"]
+  CALL R17 3 1
   JUMP [+6]
-  GETUPVAL R16 4
-  LOADK R18 K39 ["Plugin"]
-  LOADK R19 K48 ["DeleteTool"]
-  NAMECALL R16 R16 K40 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K35 ["Text"]
-  NEWCLOSURE R16 P3
+  GETUPVAL R17 4
+  LOADK R19 K39 ["Plugin"]
+  LOADK R20 K48 ["DeleteTool"]
+  NAMECALL R17 R17 K40 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K35 ["Text"]
+  NEWCLOSURE R17 P3
   CAPTURE UPVAL U2
-  CAPTURE VAL R3
-  CAPTURE VAL R7
-  SETTABLEKS R16 R15 K36 ["OnSelect"]
-  FASTCALL2 TABLE_INSERT R4 R15 [+4]
-  MOVE R14 R4
-  GETIMPORT R13 K42 [table.insert]
-  CALL R13 2 0
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  SETTABLEKS R17 R16 K36 ["OnSelect"]
+  FASTCALL2 TABLE_INSERT R5 R16 [+4]
+  MOVE R15 R5
+  GETIMPORT R14 K42 [table.insert]
+  CALL R14 2 0
   JUMP [+166]
-  NEWTABLE R7 0 8
-  DUPTABLE R8 K50 [{"Id", "Enabled", "Type", "Action", "TextOnly", "ReserveCheckmarkSpace"}]
-  LOADK R9 K51 ["AddTools"]
-  SETTABLEKS R9 R8 K13 ["Id"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K34 ["Enabled"]
-  LOADK R9 K18 ["Option"]
-  SETTABLEKS R9 R8 K11 ["Type"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K0 ["join"]
-  GETUPVAL R10 1
-  DUPTABLE R11 K3 [{"Category", "ItemId"}]
-  LOADK R12 K19 ["Actions"]
-  SETTABLEKS R12 R11 K1 ["Category"]
-  LOADK R12 K51 ["AddTools"]
-  SETTABLEKS R12 R11 K2 ["ItemId"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K14 ["Action"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K49 ["TextOnly"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K15 ["ReserveCheckmarkSpace"]
-  DUPTABLE R9 K52 [{"Id", "Enabled", "Type", "Action", "ReserveCheckmarkSpace"}]
-  LOADK R10 K53 ["AddSeparator"]
+  NEWTABLE R8 0 8
+  DUPTABLE R9 K50 [{"Id", "Enabled", "Type", "Action", "TextOnly", "ReserveCheckmarkSpace"}]
+  LOADK R10 K51 ["AddTools"]
   SETTABLEKS R10 R9 K13 ["Id"]
   LOADB R10 1
   SETTABLEKS R10 R9 K34 ["Enabled"]
@@ -282,54 +261,58 @@ PROTO_4:
   DUPTABLE R12 K3 [{"Category", "ItemId"}]
   LOADK R13 K19 ["Actions"]
   SETTABLEKS R13 R12 K1 ["Category"]
-  LOADK R13 K53 ["AddSeparator"]
+  LOADK R13 K51 ["AddTools"]
   SETTABLEKS R13 R12 K2 ["ItemId"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K14 ["Action"]
   LOADB R10 1
+  SETTABLEKS R10 R9 K49 ["TextOnly"]
+  LOADB R10 1
   SETTABLEKS R10 R9 K15 ["ReserveCheckmarkSpace"]
-  DUPTABLE R10 K20 [{"Type"}]
-  LOADK R11 K21 ["Separator"]
+  DUPTABLE R10 K52 [{"Id", "Enabled", "Type", "Action", "ReserveCheckmarkSpace"}]
+  LOADK R11 K53 ["AddSeparator"]
+  SETTABLEKS R11 R10 K13 ["Id"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K34 ["Enabled"]
+  LOADK R11 K18 ["Option"]
   SETTABLEKS R11 R10 K11 ["Type"]
-  DUPTABLE R11 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-  LOADK R12 K17 ["ManageTabs"]
-  SETTABLEKS R12 R11 K13 ["Id"]
-  LOADK R12 K18 ["Option"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K0 ["join"]
+  GETUPVAL R12 1
+  DUPTABLE R13 K3 [{"Category", "ItemId"}]
+  LOADK R14 K19 ["Actions"]
+  SETTABLEKS R14 R13 K1 ["Category"]
+  LOADK R14 K53 ["AddSeparator"]
+  SETTABLEKS R14 R13 K2 ["ItemId"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K14 ["Action"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K15 ["ReserveCheckmarkSpace"]
+  DUPTABLE R11 K20 [{"Type"}]
+  LOADK R12 K21 ["Separator"]
   SETTABLEKS R12 R11 K11 ["Type"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K0 ["join"]
-  GETUPVAL R13 1
-  DUPTABLE R14 K3 [{"Category", "ItemId"}]
-  LOADK R15 K19 ["Actions"]
-  SETTABLEKS R15 R14 K1 ["Category"]
-  LOADK R15 K17 ["ManageTabs"]
-  SETTABLEKS R15 R14 K2 ["ItemId"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K14 ["Action"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K15 ["ReserveCheckmarkSpace"]
-  DUPTABLE R12 K20 [{"Type"}]
-  LOADK R13 K21 ["Separator"]
+  DUPTABLE R12 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
+  LOADK R13 K17 ["ManageTabs"]
+  SETTABLEKS R13 R12 K13 ["Id"]
+  LOADK R13 K18 ["Option"]
   SETTABLEKS R13 R12 K11 ["Type"]
-  DUPTABLE R13 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-  LOADK R14 K22 ["DockUndockRibbon"]
-  SETTABLEKS R14 R13 K13 ["Id"]
-  LOADK R14 K18 ["Option"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K0 ["join"]
+  GETUPVAL R14 1
+  DUPTABLE R15 K3 [{"Category", "ItemId"}]
+  LOADK R16 K19 ["Actions"]
+  SETTABLEKS R16 R15 K1 ["Category"]
+  LOADK R16 K17 ["ManageTabs"]
+  SETTABLEKS R16 R15 K2 ["ItemId"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K14 ["Action"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K15 ["ReserveCheckmarkSpace"]
+  DUPTABLE R13 K20 [{"Type"}]
+  LOADK R14 K21 ["Separator"]
   SETTABLEKS R14 R13 K11 ["Type"]
-  GETUPVAL R15 0
-  GETTABLEKS R14 R15 K0 ["join"]
-  GETUPVAL R15 1
-  DUPTABLE R16 K3 [{"Category", "ItemId"}]
-  LOADK R17 K19 ["Actions"]
-  SETTABLEKS R17 R16 K1 ["Category"]
-  LOADK R17 K22 ["DockUndockRibbon"]
-  SETTABLEKS R17 R16 K2 ["ItemId"]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K14 ["Action"]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K15 ["ReserveCheckmarkSpace"]
   DUPTABLE R14 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-  LOADK R15 K23 ["CompactDensity"]
+  LOADK R15 K22 ["DockUndockRibbon"]
   SETTABLEKS R15 R14 K13 ["Id"]
   LOADK R15 K18 ["Option"]
   SETTABLEKS R15 R14 K11 ["Type"]
@@ -339,14 +322,14 @@ PROTO_4:
   DUPTABLE R17 K3 [{"Category", "ItemId"}]
   LOADK R18 K19 ["Actions"]
   SETTABLEKS R18 R17 K1 ["Category"]
-  LOADK R18 K23 ["CompactDensity"]
+  LOADK R18 K22 ["DockUndockRibbon"]
   SETTABLEKS R18 R17 K2 ["ItemId"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K14 ["Action"]
   LOADB R15 1
   SETTABLEKS R15 R14 K15 ["ReserveCheckmarkSpace"]
   DUPTABLE R15 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-  LOADK R16 K24 ["ShowHideLabels"]
+  LOADK R16 K23 ["CompactDensity"]
   SETTABLEKS R16 R15 K13 ["Id"]
   LOADK R16 K18 ["Option"]
   SETTABLEKS R16 R15 K11 ["Type"]
@@ -356,62 +339,60 @@ PROTO_4:
   DUPTABLE R18 K3 [{"Category", "ItemId"}]
   LOADK R19 K19 ["Actions"]
   SETTABLEKS R19 R18 K1 ["Category"]
-  LOADK R19 K24 ["ShowHideLabels"]
+  LOADK R19 K23 ["CompactDensity"]
   SETTABLEKS R19 R18 K2 ["ItemId"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K14 ["Action"]
   LOADB R16 1
   SETTABLEKS R16 R15 K15 ["ReserveCheckmarkSpace"]
-  SETLIST R7 R8 8 [1]
-  MOVE R4 R7
-  DUPTABLE R5 K55 [{"Type", "Children"}]
-  LOADK R6 K56 ["Column"]
-  SETTABLEKS R6 R5 K11 ["Type"]
-  SETTABLEKS R4 R5 K54 ["Children"]
-  LOADNIL R6
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R8 R0
-  GETIMPORT R7 K58 [typeof]
-  CALL R7 1 1
-  JUMPIFNOTEQKS R7 K59 ["Instance"] [+21]
-  LOADK R9 K60 ["GuiBase2d"]
-  NAMECALL R7 R0 K61 ["IsA"]
-  CALL R7 2 1
-  JUMPIFNOT R7 [+15]
-  GETIMPORT R7 K64 [Vector2.new]
-  GETTABLEKS R10 R0 K66 ["AbsolutePosition"]
-  GETTABLEKS R9 R10 K67 ["X"]
-  ADDK R8 R9 K65 [24]
-  GETTABLEKS R11 R0 K66 ["AbsolutePosition"]
-  GETTABLEKS R10 R11 K68 ["Y"]
-  ADDK R9 R10 K65 [24]
-  CALL R7 2 1
-  MOVE R6 R7
-  JUMP [+10]
-  GETTABLEKS R7 R0 K69 ["Position"]
-  GETIMPORT R8 K64 [Vector2.new]
-  GETTABLEKS R9 R7 K67 ["X"]
-  GETTABLEKS R10 R7 K68 ["Y"]
+  DUPTABLE R16 K16 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
+  LOADK R17 K24 ["ShowHideLabels"]
+  SETTABLEKS R17 R16 K13 ["Id"]
+  LOADK R17 K18 ["Option"]
+  SETTABLEKS R17 R16 K11 ["Type"]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K0 ["join"]
+  GETUPVAL R18 1
+  DUPTABLE R19 K3 [{"Category", "ItemId"}]
+  LOADK R20 K19 ["Actions"]
+  SETTABLEKS R20 R19 K1 ["Category"]
+  LOADK R20 K24 ["ShowHideLabels"]
+  SETTABLEKS R20 R19 K2 ["ItemId"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K14 ["Action"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K15 ["ReserveCheckmarkSpace"]
+  SETLIST R8 R9 8 [1]
+  MOVE R5 R8
+  DUPTABLE R6 K55 [{"Type", "Children"}]
+  LOADK R7 K56 ["Column"]
+  SETTABLEKS R7 R6 K11 ["Type"]
+  SETTABLEKS R5 R6 K54 ["Children"]
+  GETTABLEKS R7 R0 K57 ["Position"]
+  MOVE R8 R2
+  JUMPIF R8 [+7]
+  GETIMPORT R8 K60 [Vector2.new]
+  GETTABLEKS R9 R7 K61 ["X"]
+  GETTABLEKS R10 R7 K62 ["Y"]
   CALL R8 2 1
-  MOVE R6 R8
-  GETUPVAL R7 5
-  NEWTABLE R8 0 1
-  MOVE R9 R5
-  SETLIST R8 R9 1 [1]
-  MOVE R9 R2
-  DUPTABLE R10 K73 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  GETIMPORT R11 K64 [Vector2.new]
-  LOADN R12 0
-  LOADN R13 0
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K70 ["SubjectAnchorPoint"]
-  GETIMPORT R11 K64 [Vector2.new]
-  LOADN R12 0
-  LOADN R13 0
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K71 ["TargetAnchorPoint"]
-  SETTABLEKS R6 R10 K72 ["Offset"]
-  CALL R7 3 0
+  GETUPVAL R9 5
+  NEWTABLE R10 0 1
+  MOVE R11 R6
+  SETLIST R10 R11 1 [1]
+  MOVE R11 R3
+  DUPTABLE R12 K66 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  GETIMPORT R13 K60 [Vector2.new]
+  LOADN R14 0
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K63 ["SubjectAnchorPoint"]
+  GETIMPORT R13 K60 [Vector2.new]
+  LOADN R14 0
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K64 ["TargetAnchorPoint"]
+  SETTABLEKS R8 R12 K65 ["Offset"]
+  CALL R9 3 0
   RETURN R0 0
 
 PROTO_5:

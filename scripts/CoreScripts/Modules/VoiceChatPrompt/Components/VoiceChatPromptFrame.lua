@@ -363,6 +363,13 @@ function VoiceChatPromptFrame:init()
 			local toastTitle = PromptTitle[promptType]
 			local toastSubtitle = PromptSubTitle[promptType]
 
+			if PromptTypeIsConnectDisconnectToast(promptType)
+				and self.props.VoiceChatServiceManager
+				and self.props.VoiceChatServiceManager:HasSeamlessVoiceFeature("HideJoinToastSubtitle")
+			then
+				toastSubtitle = nil
+			end
+
 			if typeof(toastTitle) == "function" then
 				toastTitle = toastTitle(self.props.bannedUntil)
 			end

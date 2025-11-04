@@ -21,6 +21,7 @@ local EDITABLE_ENUMS = {
 }
 
 local FetchAllDesiredData = {}
+FetchAllDesiredData.DATA_FETCH_FAILURE = {}
 
 function FetchAllDesiredData.storeDesiredData(sharedData: Types.SharedData, desiredData: { [string]: boolean })
 	local rootInstance = sharedData.rootInstance
@@ -41,8 +42,10 @@ function FetchAllDesiredData.storeDesiredData(sharedData: Types.SharedData, desi
 				) :: any
 			end)
 
-			if success then
+			if success and result then
 				sharedData[editableDataEnum] = result
+			else
+				sharedData[editableDataEnum] = FetchAllDesiredData.DATA_FETCH_FAILURE
 			end
 
 			-- TODO: Log fetch failures
