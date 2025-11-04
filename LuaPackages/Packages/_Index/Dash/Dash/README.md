@@ -12,8 +12,9 @@ A collection of core utilities expanding the capabilities of Luau in Roblox.
 ## Usage
 
 Add this package to `dependencies` section in your `rotriever.toml`, for example:
+
 ```toml
-Dash = "3.0.0"
+Dash = "3.3.0"
 ```
 
 Then, require anything you need from `Dash`:
@@ -23,5 +24,18 @@ local Dash = require(Packages.Dash)
 local map = Dash.map
 ```
 
+## Testing
+
+To run tests:
+
+`lest -e tests`
+
+## Benchmarking
+
+To run benchmarks:
+
+`lest -e benchmarks`
+
 ## License
+
 Dash is available under the MIT license. See [LICENSE](LICENSE.txt) for details.

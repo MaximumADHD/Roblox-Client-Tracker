@@ -1,5 +1,5 @@
 [package]
-name = "SignalsReact"
+name = "ResourcesReact"
 version = "0.6.0"
 readme = "README.md"
 content_root = "src"
@@ -13,8 +13,8 @@ authors = ["Jonathan Kelaty <jkelaty@roblox.com>"]
 [dependencies.React]
 version = "^17.1.19"
 
-[dependencies.Signals]
-package = "Signals"
+[dependencies.Resources]
+package = "Resources"
 version = "^0.6.0"
 [dev_dependencies.Jest]
 version = "^3.12.0"

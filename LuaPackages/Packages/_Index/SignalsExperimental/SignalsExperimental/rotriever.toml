@@ -1,6 +1,6 @@
 [package]
 name = "SignalsExperimental"
-version = "0.5.0"
+version = "0.6.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -12,7 +12,11 @@ publish = true
 authors = ["Jonathan Kelaty <jkelaty@roblox.com>"]
 [dependencies.Signals]
 package = "Signals"
-version = "^0.5.0"
+version = "^0.6.0"
+
+[dependencies.SignalsScheduler]
+package = "SignalsScheduler"
+version = "^0.6.0"
 [dev_dependencies.Jest]
 version = "^3.12.0"
 

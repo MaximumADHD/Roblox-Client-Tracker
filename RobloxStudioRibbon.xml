@@ -543,8 +543,7 @@
           <addaction name="findAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" modernIcon="Find" />
           <addaction name="findNextAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_next.png" modernIcon="FindNext" />
           <addaction name="findPreviousAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_previous.png" modernIcon="FindPrevious" />
-          <addaction fflagList="!NewFindReplaceTasker4,RemoveSetupDockWidgetPanelsFromRobloxMainWindow2" name="toggleFindReplaceWidgetAction" />
-          <addaction fflagList="!NewFindReplaceTasker4,!RemoveSetupDockWidgetPanelsFromRobloxMainWindow2" name="FINDALL_GeneralCmd" />
+          <addaction fflagList="!NewFindReplaceTasker4" name="toggleFindReplaceWidgetAction" />
           <addaction fflag="NewFindReplaceTasker4" name="toggleFindReplaceAllWidgetAction" />
           <addaction name="GOTOLINE_ScriptingCmd" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" modernIcon="GoToLine" />
           <addaction name="quickOpenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" modernIcon="QuickOpen" />

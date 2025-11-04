@@ -3,7 +3,7 @@ name = "RoduxUserPermissions"
 version = "0.5.0"
 source = "registry"
 dependencies = [
-    "Dash <patched> Dash 3.2.0 registry",
+    "Dash <patched> Dash 3.3.1 registry",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 registry",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 registry",
     "Rodux <patched> Rodux 3.3.0 registry",

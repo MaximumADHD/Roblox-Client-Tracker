@@ -3143,14 +3143,23 @@ function DrawDetailedFrameHistory() {
         DrawToolTip(StringArray, CanvasHistory, HistoryViewMouseX, HistoryViewMouseY + 20);
 
         if (AggregateInfo.EmptyFrames[FrameIndex] == 2) {
+            let singleFrameError = (FrameIndex > 0 && FrameIndex < Frames.length - 1 && AggregateInfo.EmptyFrames[FrameIndex - 1] == 0 && AggregateInfo.EmptyFrames[FrameIndex + 1] == 0);
             Warning = [];
             Warning.push("");
             Warning.push("");
-            Warning.push("*** Ring Buffer Wrap Around Detected ***");
-            Warning.push("");
-            Warning.push("");
-            Warning.push("");
-            Warning.push("    WARNING: DATA WILL BE SUSPECT");
+            if (singleFrameError) {
+                Warning.push("*** CPU and GPU data are misaligned ***");
+                Warning.push("");
+                Warning.push("");
+                Warning.push("");
+                Warning.push("    WARNING: GPU DATA WILL BE SUSPECT");
+            } else {
+                Warning.push("*** Ring Buffer Wrap Around Detected ***");
+                Warning.push("");
+                Warning.push("");
+                Warning.push("");
+                Warning.push("    WARNING: DATA WILL BE SUSPECT");
+            }
             Warning.push("");
             Warning.push("");
             Warning.push("");

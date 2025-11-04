@@ -1,6 +1,6 @@
 [package]
 name = "Dash"
-version = "3.2.0"
+version = "3.3.1"
 readme = "README.md"
 content_root = "src"
 files = ["*"]
@@ -11,8 +11,14 @@ description = "A collection of core utilities expanding the capabilities of Lua 
 repository = "https://github.com/Roblox/dash-internal"
 keywords = ["utilities"]
 documentation = "https://roblox.github.io/dash-internal"
+[dev_dependencies.Cryo]
+version = "^1.1.0"
+
 [dev_dependencies.Jest]
 version = "^3.8.0"
+
+[dev_dependencies.JestBenchmark]
+version = "^3.11.1"
 
 [dev_dependencies.JestGlobals]
 version = "^3.8.0"

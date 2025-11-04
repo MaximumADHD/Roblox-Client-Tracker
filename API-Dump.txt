@@ -180,7 +180,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:IsDescendantOf(ancestor: Instance) -> boolean {🧬Safe}
 	Function Instance:IsPredicted() -> boolean {🔐InternalTest}
 	Function Instance:IsPropertyModified(property: string) -> boolean
-	Function Instance:QueryDescendants(selectorGroup: string) -> { Instance } [CustomLuaState]
+	Function Instance:QueryDescendants(selector: string) -> { Instance } [CustomLuaState]
 	Function Instance:Remove() -> () [Deprecated]
 	Function Instance:RemoveTag(tag: string) -> ()
 	Function Instance:ResetPropertyToDefault(property: string) -> ()
@@ -382,14 +382,15 @@ Class AnimationTrack : Instance [NotCreatable]
 	Property AnimationTrack.WeightTarget: number {🔐Animation} [ReadOnly]
 	Function AnimationTrack:AdjustSpeed(speed: number? = 1) -> () {🔐Animation} [CustomLuaState]
 	Function AnimationTrack:AdjustWeight(weight: number? = 1, fadeTime: number? = 0.100000001) -> () {🔐Animation} [CustomLuaState]
+	Function AnimationTrack:GetDebugData() -> { [string]: any } {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationTrack:GetMarkerReachedSignal(name: string) -> RBXScriptSignal {🔐Animation}
-	Function AnimationTrack:GetParameter(key: string) -> any {🔐Animation} {RobloxScriptSecurity}
-	Function AnimationTrack:GetParameterDefaults() -> { [string]: any } {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationTrack:GetParameter(key: string) -> any {🔐Animation}
+	Function AnimationTrack:GetParameterDefaults() -> { [string]: any } {🔐Animation}
 	Function AnimationTrack:GetTargetInstance(name: string) -> Instance? {🔐Animation}
 	Function AnimationTrack:GetTargetNames() -> { any } {🔐Animation}
 	Function AnimationTrack:GetTimeOfKeyframe(keyframeName: string) -> number {🔐Animation}
 	Function AnimationTrack:Play(fadeTime: number? = 0.100000001, weight: number? = 1, speed: number? = 1) -> () {🔐Animation} [CustomLuaState]
-	Function AnimationTrack:SetParameter(key: string, value: any) -> () {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationTrack:SetParameter(key: string, value: any) -> () {🔐Animation}
 	Function AnimationTrack:SetTargetInstance(name: string, target: Instance) -> () {🔐Animation}
 	Function AnimationTrack:Stop(fadeTime: number? = 0.100000001) -> () {🔐Animation} [CustomLuaState]
 	Event AnimationTrack.DidLoop() {🔐Animation}
@@ -864,7 +865,7 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.SearchKeyword: string
 	Property AudioSearchParams.Tag: string
 	Property AudioSearchParams.Title: string
-Class AudioSpeechToText : Instance [NotBrowsable]
+Class AudioSpeechToText : Instance
 	Property AudioSpeechToText.Enabled: boolean {🔐Audio}
 	Property AudioSpeechToText.Text: string {🔐Audio}
 	Property AudioSpeechToText.VoiceDetected: boolean {🔐Audio} [ReadOnly]
@@ -1279,6 +1280,7 @@ Class CoreGui : BasePlayerGui [NotCreatable] [Service] [NotReplicated]
 Class PlayerGui : BasePlayerGui [NotCreatable] [PlayerReplicated]
 	Property PlayerGui.SelectionImageObject: GuiObject? {🔐UI}
 	Property PlayerGui.CurrentScreenOrientation: Enum.ScreenOrientation {🔐UI} [ReadOnly]
+	Property PlayerGui.InputBindingMappingsRaw: BinaryString {🔐UI} {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property PlayerGui.ScreenOrientation: Enum.ScreenOrientation {🔐UI}
 	Function PlayerGui:GetTopbarTransparency() -> number {🔐UI} [Deprecated]
 	Function PlayerGui:SetTopbarTransparency(transparency: number) -> () {🔐UI} [Deprecated]
@@ -1446,6 +1448,7 @@ Class BodyPartDescription : Instance
 	Property BodyPartDescription.AssetId: number {🔐Avatar}
 	Property BodyPartDescription.BodyPart: Enum.BodyPart {🔐Avatar}
 	Property BodyPartDescription.Color: Color3 {🔐Avatar}
+	Property BodyPartDescription.HeadShape: string {🔐Avatar}
 	Property BodyPartDescription.Instance: Instance? {🔐Avatar}
 Class Breakpoint : Instance [NotReplicated]
 	Property Breakpoint.Condition: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -2632,6 +2635,7 @@ Class GenericChallengeService : Instance [NotCreatable] [Service]
 Class Geometry : Instance [NotCreatable] [Service]
 Class GeometryService : Instance [NotCreatable] [Service]
 	Function GeometryService:CalculateConstraintsToPreserve(source: Instance, destination: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG}
+	Function GeometryService:FragmentAsync(part: BasePart, fragmentSites: { any }, options: { [string]: any }? = nil, mainPartSites: { any }? = {}) -> { any } {🔐CSG | InternalTest} [Yields]
 	Function GeometryService:HashMeshAsync(meshId: string) -> string {🔐CSG} {RobloxScriptSecurity} [Yields]
 	Function GeometryService:IntersectAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
 	Function GeometryService:SubtractAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
@@ -4519,15 +4523,15 @@ Class OmniRecommendationsService : Instance [NotCreatable] [Service] [NotReplica
 	Function OmniRecommendationsService:ClearSessionId() -> () {RobloxScriptSecurity}
 	Function OmniRecommendationsService:GetSessionId() -> string {RobloxScriptSecurity}
 	Function OmniRecommendationsService:MakeRequest(nextPageToken: string) -> HttpRequest {RobloxScriptSecurity}
-Class OpenCloudApiV1 : Instance [NotCreatable] [NotReplicated]
-	Function OpenCloudApiV1:CreateModel(name: string) -> OpenCloudModel [CustomLuaState]
-	Function OpenCloudApiV1:CreateUserNotificationAsync(user: string, userNotification: OpenCloudModel) -> OpenCloudModel [Yields]
-Class OpenCloudService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function OpenCloudService:GetApiV1() -> OpenCloudApiV1
-	Function OpenCloudService:HttpRequestAsync(options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
-	Function OpenCloudService:InvokeAsync(version: string, methodName: string, arguments: { [string]: any }, headers: { [string]: any }? = nil) -> { [string]: any } [Yields]
-	Function OpenCloudService:RegisterOpenCloud(version: string, methodName: string, method: (...any) -> ...any) -> () {RobloxScriptSecurity}
-	Function OpenCloudService:RegistrationComplete() -> () {RobloxScriptSecurity}
+Class OpenCloudApiV1 : Instance [NotCreatable] [NotReplicated] [Deprecated]
+	Function OpenCloudApiV1:CreateModel(name: string) -> OpenCloudModel [Deprecated] [CustomLuaState] [Deprecated]
+	Function OpenCloudApiV1:CreateUserNotificationAsync(user: string, userNotification: OpenCloudModel) -> OpenCloudModel [Yields] [Deprecated] [Deprecated]
+Class OpenCloudService : Instance [NotCreatable] [Service] [NotReplicated] [Deprecated]
+	Function OpenCloudService:GetApiV1() -> OpenCloudApiV1 [Deprecated] [Deprecated]
+	Function OpenCloudService:HttpRequestAsync(options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields] [Deprecated]
+	Function OpenCloudService:InvokeAsync(version: string, methodName: string, arguments: { [string]: any }, headers: { [string]: any }? = nil) -> { [string]: any } [Yields] [Deprecated] [Deprecated]
+	Function OpenCloudService:RegisterOpenCloud(version: string, methodName: string, method: (...any) -> ...any) -> () {RobloxScriptSecurity} [Deprecated]
+	Function OpenCloudService:RegistrationComplete() -> () {RobloxScriptSecurity} [Deprecated]
 Class OperationGraph : Instance
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 	Property PVInstance.Pivot Offset: CFrame [NotReplicated] [NotScriptable]
@@ -4803,7 +4807,6 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.MeshData2: SharedString {🔐Basic | CSG} {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.OffCentered: boolean {🔐Basic | CSG} {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.PhysicsData: BinaryString {🔐Basic | CSG} {RobloxSecurity} [Hidden] [NotScriptable]
-	Property PartOperation.SerializedCSGTree: SharedString {🔐Basic | CSG} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.SerializedOperationGraph: SharedString {🔐Basic | CSG} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.SolidMeshHolder: NetAssetRef {🔐Basic | CSG} [Hidden] [NotScriptable]
 	Property PartOperation.TriangleCount: number {🔐Basic | CSG} [ReadOnly]
@@ -5337,6 +5340,7 @@ Class Player : Instance
 	Function Player:AddToBlockList(userIds: { any }) -> () {🔐Players} {RobloxScriptSecurity}
 	Function Player:ClearCharacterAppearance() -> () {🔐Players}
 	Function Player:DistanceFromCharacter(point: Vector3) -> number {🔐Players}
+	Function Player:GetCanManageAsync() -> boolean {🔐Players} {RobloxScriptSecurity} [Yields]
 	Function Player:GetData() -> PlayerData {🔐Players}
 	Function Player:GetFriendStatus(player: Player) -> Enum.FriendStatus {🔐Players} {RobloxScriptSecurity}
 	Function Player:GetFriendsOnline(maxFriends: number? = 200) -> { any } {🔐Players} [Yields]
@@ -5848,11 +5852,11 @@ Class ReflectionMetadataMember : ReflectionMetadataItem
 Class ReflectionMetadataProperties : Instance
 Class ReflectionMetadataYieldFunctions : Instance
 Class ReflectionService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function ReflectionService:GetClass(className: string, filter: { [string]: any }? = nil) -> { [string]: any }?
-	Function ReflectionService:GetClasses(filter: { [string]: any }? = nil) -> { any }
-	Function ReflectionService:GetPropertiesOfClass(className: string, filter: { [string]: any }? = nil) -> { any }
-	Function ReflectionService:GetPropertyNames(name: string) -> { any } {RobloxScriptSecurity}
-	Function ReflectionService:GetStyledPropertyNames(name: string) -> { any } {RobloxScriptSecurity}
+	Function ReflectionService:GetClass(className: string, filter: { [string]: any }? = nil) -> { [string]: any }? [CustomLuaState]
+	Function ReflectionService:GetClasses(filter: { [string]: any }? = nil) -> { any } [CustomLuaState]
+	Function ReflectionService:GetPropertiesOfClass(className: string, filter: { [string]: any }? = nil) -> { any } [CustomLuaState]
+	Function ReflectionService:GetPropertyNames(name: string) -> { any } {RobloxScriptSecurity} [CustomLuaState]
+	Function ReflectionService:GetStyledPropertyNames(name: string) -> { any } {RobloxScriptSecurity} [CustomLuaState]
 Class RemoteCommandService : Instance [NotCreatable] [Service]
 	Function RemoteCommandService:ExecuteCommand(code: string, args: ...any) -> ExecutedRemoteCommand {RobloxScriptSecurity}
 	Function RemoteCommandService:ExecuteCommandAsync(code: string, args: ...any) -> ...any {RobloxScriptSecurity} [Yields]
@@ -6689,6 +6693,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.DraggerSoftSnapMarginFactor: number {RobloxScriptSecurity}
 	Property Studio.DraggerSummonMarginFactor: number {RobloxScriptSecurity}
 	Property Studio.DraggerTiltRotateDuration: number {RobloxScriptSecurity}
+	Property Studio.EnableFindOnType: boolean {RobloxScriptSecurity}
 	Property Studio.LoadAllBuiltinPluginsInRunModes: boolean {RobloxScriptSecurity}
 	Property Studio.LoadInternalPlugins: boolean {RobloxSecurity}
 	Property Studio.LoadUserPluginsInRunModes: boolean {RobloxScriptSecurity}
@@ -6860,6 +6865,7 @@ Class StudioCallout : Instance [NotReplicated]
 	Function StudioCallout:SetOnNextClicked(onClick: (...any) -> ...any) -> () {RobloxScriptSecurity}
 Class StudioCameraService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property StudioCameraService.LockCameraSpeed: boolean
+	Property StudioCameraService.LoggingEnabled: boolean
 	Event StudioCameraService.ShowCameraSpeed(speed: number)
 Class StudioData : Instance [NotCreatable] [Service]
 	Property StudioData.EnableScriptCollabByDefaultOnLoad: boolean {RobloxScriptSecurity} [Hidden]
@@ -7072,6 +7078,8 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function TeleportService:GetPlayerPlaceInstanceAsync(userId: number) -> ...any [Yields]
 	Function TeleportService:GetTeleportSetting(setting: string) -> any
 	Function TeleportService:GetThirdPartyTeleportInfo(goForth: boolean) -> ...any {RobloxScriptSecurity}
+	Function TeleportService:PromptExperienceDetailsAsync(player: Player, universeId: number) -> Enum.PromptExperienceDetailsResult [Yields]
+	Function TeleportService:PromptExperienceDetailsCompleted(resultEnum: Enum.PromptExperienceDetailsResult, errorMessage: string? = "") -> () {RobloxScriptSecurity}
 	Function TeleportService:ReserveServer(placeId: number) -> ...any [Yields]
 	Function TeleportService:SetTeleportGui(gui: Instance) -> ()
 	Function TeleportService:SetTeleportSetting(setting: string, value: any) -> ()
@@ -7090,6 +7098,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function TeleportService:UnblockAsync() -> ...any {RobloxScriptSecurity} [Yields]
 	Event TeleportService.LocalPlayerArrivedFromTeleport(loadingGui: Instance, dataTable: any)
 	Event TeleportService.MenuTeleportAttempt() {RobloxScriptSecurity}
+	Event TeleportService.OpenExperienceDetailsPrompt(universeId: number) {RobloxScriptSecurity}
 	Event TeleportService.ReconnectTeleportInitFailed(player: Instance, teleportResult: Enum.TeleportResult, errorMessage: string, placeId: number, teleportOptions: Instance) {RobloxSecurity}
 	Event TeleportService.SendVIPData(player: Instance, vipServerCode: string, dmPlaceID: number) {RobloxSecurity} [Hidden]
 	Event TeleportService.TeleportInProgress(player: Instance, teleportInfo: { [string]: any }) {RobloxSecurity} [Hidden]
@@ -7289,6 +7298,8 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } {🔐Chat} [Yields]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {🔐Chat} {RobloxScriptSecurity} [Yields]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> () {🔐Chat}
+	Function TextChatService:SendEnableChatButtonClicked() -> () {🔐Chat} {RobloxScriptSecurity}
+	Function TextChatService:SendEnableChatButtonShown() -> () {🔐Chat} {RobloxScriptSecurity}
 	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number) -> () {🔐Chat} {RobloxScriptSecurity}
 	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage, messageRenderedSurface: string? = "unknown") -> () {🔐Chat} {RobloxScriptSecurity}
 	Function TextChatService:SendExpChatWindowScroll() -> () {🔐Chat} {RobloxScriptSecurity}
@@ -7985,7 +7996,9 @@ Class VideoPlayer : Instance
 	Event VideoPlayer.DidLoop()
 	Event VideoPlayer.PlayFailed(error: Enum.AssetFetchStatus)
 	Event VideoPlayer.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance)
+Class VideoScreenCaptureService : Instance [NotCreatable] [Service]
 Class VideoService : Instance [NotCreatable] [Service]
+	Function VideoService:CreateVideoSamplerAsync(content: Content, options: { [string]: any }?) -> VideoSampler [Yields]
 Class VirtualInputManager : Instance [Service]
 	Property VirtualInputManager.AdditionalLuaState: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function VirtualInputManager:Dump() -> () {RobloxScriptSecurity}
@@ -8190,6 +8203,10 @@ Class TerrainReadOperation : Object [NotCreatable] [NotReplicated]
 Class TerrainWriteOperation : Object [NotCreatable] [NotReplicated]
 	Function TerrainWriteOperation:CommitBlock(block: { [string]: any }) -> RBXScriptSignal
 	Function TerrainWriteOperation:GetBlock() -> { [string]: any } [CustomLuaState]
+Class VideoSampler : Object [NotCreatable]
+	Property VideoSampler.TimeLength: number [ReadOnly]
+	Property VideoSampler.VideoContent: Content [ReadOnly]
+	Function VideoSampler:GetSamplesAtTimesAsync(times: { any }) -> { any } [Yields]
 Class WebStreamClient : Object [NotCreatable] [NotReplicated]
 	Property WebStreamClient.ConnectionState: Enum.WebStreamClientState [ReadOnly]
 	Function WebStreamClient:Close() -> ()
@@ -9044,6 +9061,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.AndroidRootedKick : 306
 	EnumItem ConnectionError.ScreentimeLockoutKick : 307
 	EnumItem ConnectionError.DisconnectionNotification : 308
+	EnumItem ConnectionError.DisconnectVerboselyModeratedGame : 309
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -10635,6 +10653,9 @@ Enum PromptCreateAvatarResult
 	EnumItem PromptCreateAvatarResult.PurchaseFailure : 10
 	EnumItem PromptCreateAvatarResult.UnknownFailure : 11
 	EnumItem PromptCreateAvatarResult.TokenInvalid : 12
+Enum PromptExperienceDetailsResult
+	EnumItem PromptExperienceDetailsResult.PromptClosed : 0
+	EnumItem PromptExperienceDetailsResult.TeleportAttempted : 1
 Enum PromptLinkSharingResult
 	EnumItem PromptLinkSharingResult.Success : 1
 	EnumItem PromptLinkSharingResult.PlayerLeft : 2
@@ -11730,6 +11751,11 @@ Enum VideoError
 	EnumItem VideoError.NoService : 16
 	EnumItem VideoError.ReleaseFailed : 17
 	EnumItem VideoError.Unknown : 18
+Enum VideoSampleSize
+	EnumItem VideoSampleSize.Small : 0
+	EnumItem VideoSampleSize.Medium : 1
+	EnumItem VideoSampleSize.Large : 2
+	EnumItem VideoSampleSize.Full : 3
 Enum ViewMode
 	EnumItem ViewMode.None : 0
 	EnumItem ViewMode.GeometryComplexity : 1

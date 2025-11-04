@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.58.0"
+version = "1.59.0"
 readme = "README.md"
 content_root = "src"
 files = [

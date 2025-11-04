@@ -3,7 +3,7 @@ name = "RoduxContacts"
 version = "0.8.4"
 source = "registry"
 dependencies = [
-    "Dash <patched> Dash 3.2.0 registry",
+    "Dash <patched> Dash 3.3.1 registry",
     "NetworkingContacts NetworkingContacts 0.4.2 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
