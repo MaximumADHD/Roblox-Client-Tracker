@@ -76,5 +76,5 @@ Studio.Framework.DialogAction.Save,,,Save,Save,حفظ,Speichern,Guardar,Enregist
 Studio.Framework.DialogAction.Yes,,,Yes,Yes,نعم,Ja,Sí,Oui,हाँ,Ya,Sì,はい,예,Tak,Sim,,ใช่,Evet,Có,是,是,是
 Studio.Framework.useDialogDetailsAction.HideDetails,,,Hide Details,Hide Details,إخفاء التفاصيل,Details ausblenden,Ocultar detalles,Masquer les détails,जानकारी छिपाएँ,Sembunyikan Detail,Nascondi dettagli,詳細を非表示,세부 정보 숨기기,Ukryj szczegóły,Ocultar detalhes,,ซ่อนรายละเอียด,Ayrıntıları gizle,Ẩn Chi Tiết,隐藏详情,隐藏详情,隱藏詳細資料
 Studio.Framework.useDialogDetailsAction.ShowDetails,,,Show Details,Show Details,عرض التفاصيل,Details anzeigen,Mostrar detalles,Afficher détails,जानकारी दिखाएँ,Tampilkan Detail,Mostra dettagli,詳細を表示,세부 정보 표시,Pokaż szczegóły,Mostrar detalhes,,แสดงรายละเอียด,Ayrıntıları göster,Hiển Thị Chi Tiết,显示详情,显示详情,顯示詳細資料
-Studio.Framework.ViewTypeSelector.Grid,,,Grid,Grid,شبكة,Raster,Cuadrícula,Grille,ग्रिड,Kisi,Griglia,グリッド,그리드,Siatka,Grade,,กริด,Kılavuz,Lưới,,,網格
-Studio.Framework.ViewTypeSelector.List,,,List,List,القائمة,Liste,Lista,Liste,सूची (लिस्ट),Daftar,Elenco,リスト,목록,Lista,Lista,,รายการ,Liste,Danh Sách,,,清單
+Studio.Framework.ViewTypeSelector.Grid,,,Grid,Grid,شبكة,Raster,Cuadrícula,Grille,ग्रिड,Kisi,Griglia,グリッド,그리드,Siatka,Grade,,กริด,Kılavuz,Lưới,栅格,栅格,網格
+Studio.Framework.ViewTypeSelector.List,,,List,List,القائمة,Liste,Lista,Liste,सूची (लिस्ट),Daftar,Elenco,リスト,목록,Lista,Lista,,รายการ,Liste,Danh Sách,列表,列表,清單

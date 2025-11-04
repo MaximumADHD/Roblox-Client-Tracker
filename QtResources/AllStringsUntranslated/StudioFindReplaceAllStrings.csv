@@ -3,6 +3,7 @@ Studio.FindReplaceAll.BasicExample.Text,[DNT] An example string displayed in a t
 Studio.FindReplaceAll.CounterExample.Button,[DNT] An example label for a button.,Push me!,Push me!
 Studio.FindReplaceAll.CounterExample.CounterLabel,[DNT] An example label for a counter.,You pressed me {counter} times!,You pressed me {counter} times!
 Studio.FindReplaceAll.FilterSection.PlaceholderText,Placeholder text for the include search bar,Where,Where
+Studio.FindReplaceAll.FindOnTypeSetting,The setting label to search instantly as you type in the Find & Replace All widget,Find as you type,Find as you type
 Studio.FindReplaceAll.MaxResultSetting,The setting label for the maximum number of results to display in the Find Replace All widget.,Max Results,Max Results
 Studio.FindReplaceAll.Plugin.Button,Find Replace All,Find Replace All,Find Replace All
 Studio.FindReplaceAll.Plugin.Description,Find and Replace text in your scripts,Find and Replace text in your scripts,Find and Replace text in your scripts
@@ -18,7 +19,7 @@ Studio.FindReplaceAll.ResultsLabel.ResultStringPlural,Plural string for results,
 Studio.FindReplaceAll.SearchSection.PlaceholderText,Placeholder text for the find search bar,Find in Place,Find in Place
 Studio.FindReplaceAll.SearchSettingsDropdown.Filter,Filter option in search settings dropdown,Where to find,Where to find
 Studio.FindReplaceAll.SearchSettingsDropdown.Replace,Replace option in search settings dropdown,Replace,Replace
-Studio.FindReplaceAll.SettingsCategory,The header for the category in studio settins for Find Replace All,Find Replace All,Find Replace All
+Studio.FindReplaceAll.SettingsCategory,The header for the category in studio settings for Find Replace All,Find Replace All,Find Replace All
 Studio.FindReplaceAll.WidgetBody.ResultsLabel,"Displays the number of results in files accounting for plural and non-plural. For example, 1 result in 1 file vs 2 results in 2 files.",{numResults} {resultString} in {numResultFiles} {fileString},{numResults} {resultString} in {numResultFiles} {fileString}
 Studio.FindReplaceAll.WidgetBody.ResultsText,Display number of results,{numResults} results in {numResultFiles} files,{numResults} results in {numResultFiles} files
 Studio.FindReplaceAll.WidgetBody.Text,Find Replace All Body Example,Body,Body

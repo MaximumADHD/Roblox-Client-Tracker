@@ -16,8 +16,8 @@ Studio.BetaFeatures.AcousticsSimulationApiDescription,Description for the Acoust
 Studio.BetaFeatures.AcousticsSimulationApiTitle,Title for the Acoustic Simulation beta feature,Acoustic Simulation,Acoustic Simulation
 Studio.BetaFeatures.AdaptiveTimesteppingDescription,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.
 Studio.BetaFeatures.AdaptiveTimesteppingTitle,,Adaptive timestepping,Adaptive timestepping
-Studio.BetaFeatures.AdvancedCommandBarDescription,Brief description for the new Advanced Command Bar.,"Revamped command bar with multiline editing, linting, command saving, and more.","Revamped command bar with multiline editing, linting, command saving, and more."
-Studio.BetaFeatures.AdvancedCommandBarTitle,Title for the new Advanced Command Bar,Advanced Command Bar,Advanced Command Bar
+Studio.BetaFeatures.AdvancedCommandBarDescription,Brief description for the new Multi-line Command Bar.,"Revamped command bar with multi-line editing, linting, command saving, and more.","Revamped command bar with multi-line editing, linting, command saving, and more."
+Studio.BetaFeatures.AdvancedCommandBarTitle,Title for the new Multi-line Command Bar,Multi-line Command Bar,Multi-line Command Bar
 Studio.BetaFeatures.AnimationCompositorDescription,,"Enables the new Lua based Animation APIs and the frameworks surrounding them. With this new feature, you can now define richer composition of clip-based and procedural animations using the new Lua Animation Library, and use the new ""Compositor Debugger"" plugin. Opting into the beta will also upgrade the default Animate script with a refactored version that uses this new system and adds new default procedural behaviors.","Enables the new Lua based Animation APIs and the frameworks surrounding them. With this new feature, you can now define richer composition of clip-based and procedural animations using the new Lua Animation Library, and use the new ""Compositor Debugger"" plugin. Opting into the beta will also upgrade the default Animate script with a refactored version that uses this new system and adds new default procedural behaviors."
 Studio.BetaFeatures.AnimationCompositorTitle,,Animation Compositor,Animation Compositor
 Studio.BetaFeatures.AnimationEditorDescription,,Enables the new Beta version of the Animation Editor.,Enables the new Beta version of the Animation Editor.
@@ -206,7 +206,7 @@ Studio.BetaFeatures.PackagePermissionsTitle,,Packages Permissions,Packages Permi
 Studio.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames).","Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames)."
 Studio.BetaFeatures.ParticleFlipbooksTitle,,Particle Flipbooks,Particle Flipbooks
 Studio.BetaFeatures.PartyEmulatorDescription,description text for Party Emulator beta feature,Enables testing Party API dependent game logic during Server & Clients play tests,Enables testing Party API dependent game logic during Server & Clients play tests
-Studio.BetaFeatures.PartyEmulatorTitle,title text for Party Emulator beta feature,Party Emulator,Party Emulator
+Studio.BetaFeatures.PartyEmulatorTitle,title text for Party Simulator beta feature,Party Simulator,Party Simulator
 Studio.BetaFeatures.PathfindingLinksDescription,,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.
 Studio.BetaFeatures.PathfindingLinksTitle,,Pathfinding Links,Pathfinding Links
 Studio.BetaFeatures.PathfindingModifiersDescription,,"Attached to Parts (if non-collidable, such Parts are used as volumes), their property Label can be used in the Cost table argument of CreatePath to make traversal cost non-unity.","Attached to Parts (if non-collidable, such Parts are used as volumes), their property Label can be used in the Cost table argument of CreatePath to make traversal cost non-unity."
@@ -244,7 +244,9 @@ Studio.BetaFeatures.ScriptEditorLintDescription,,Script Analysis Widget and lint
 Studio.BetaFeatures.ScriptEditorLintTitle,,Script Editor Linting,Script Editor Linting
 Studio.BetaFeatures.ScriptEditorTitle,,Script Editor Beta Features,Script Editor Beta Features
 Studio.BetaFeatures.ScriptSyncDescription,,"Very early preview for syncing Scripts with files on disk. Not ready for full workflows, please read the DevForum post linked before enabling.","Very early preview for syncing Scripts with files on disk. Not ready for full workflows, please read the DevForum post linked before enabling."
+Studio.BetaFeatures.ScriptSyncDescription2,Description for the Script Sync beta feature,Bidirectionally sync Folders and Scripts in Studio with directories and files on disk,Bidirectionally sync Folders and Scripts in Studio with directories and files on disk
 Studio.BetaFeatures.ScriptSyncTitle,,Script Sync [Early Preview],Script Sync [Early Preview]
+Studio.BetaFeatures.ScriptSyncTitle2,Title for the Script Sync beta feature,Script Sync,Script Sync
 Studio.BetaFeatures.ScrollEventOverhaulDescription,Description of beta feature.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.
 Studio.BetaFeatures.ScrollEventOverhaulTitle,Title of beta feature which improves trackpad scrolling.,Scroll Event Overhaul,Scroll Event Overhaul
 Studio.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
