@@ -14857,7 +14857,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire": {
-    "documentation": "ตัวปล่อยอนุภาคที่มีความสวยงามของไฟ。",
+    "documentation": "อีเมเตอร์อนุภาคที่ตั้งค่าไว้ล่วงหน้าที่มีความสวยงามเชิงสายตาของไฟ",
     "keys": {
       "Color": "@roblox/globaltype/Fire.Color",
       "Enabled": "@roblox/globaltype/Fire.Enabled",
@@ -14869,40 +14869,40 @@
       "size": "@roblox/globaltype/Fire.size"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- ขาว\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- เลือกมิติที่ใหญ่ที่สุด\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Color": {
     "documentation": "กำหนดสีของอนุภาคเปลวไฟหลัก (ด้านนอก)。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Color",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- ขาว\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- เลือกมิติที่ใหญ่ที่สุด\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Enabled": {
     "documentation": "กำหนดว่าอนุภาคไฟถูกปล่อยหรือไม่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Enabled",
-    "code_sample": "local part = script.Parent\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nlocal light = Instance.new(\"PointLight\")\nlight.Parent = part\n\nlocal function onClick()\n\tfire.Enabled = not fire.Enabled\n\tlight.Enabled = fire.Enabled\nend\n\nclickDetector.MouseClick:Connect(onClick)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Heat": {
     "documentation": "กำหนดความเร็วที่อนุภาคถูกปล่อยออกมา。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Heat",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- ขาว\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- เลือกมิติที่ใหญ่ที่สุด\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.LocalTransparencyModifier": {
-    "documentation": "",
+    "documentation": "ตัวคูณสำหรับความโปร่งใสของวัตถุ <code>Fire</code> ที่มองเห็นได้เฉพาะลูกค้าในท้องถิ่นเท่านั้น",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.SecondaryColor": {
     "documentation": "กำหนดสีของอนุภาคเปลวไฟรอง (ด้านใน)。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#SecondaryColor",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- ขาว\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- เลือกมิติที่ใหญ่ที่สุด\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Size": {
     "documentation": "กำหนดขนาดของอนุภาคไฟ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Size",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- ขาว\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- เลือกมิติที่ใหญ่ที่สุด\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.TimeScale": {
-    "documentation": "ค่าระหว่าง 0-1 ที่ควบคุมความเร็วของเอฟเฟกต์อนุภาค。",
+    "documentation": "ควบคุมความเร็วของเอฟเฟกต์อนุภาค",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#TimeScale",
     "code_sample": ""
   },
@@ -27954,6 +27954,251 @@
   "@roblox/globaltype/Decal.ZIndex": {
     "documentation": "กำหนดลำดับการเรนเดอร์เมื่อ Decals หลายตัวถูกกำหนดให้กับหน้าเดียวกัน。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService": {
+    "documentation": "Service providing common encoding, hashing, and compression methods.",
+    "keys": {
+      "Base64Decode": "@roblox/globaltype/EncodingService.Base64Decode",
+      "Base64Encode": "@roblox/globaltype/EncodingService.Base64Encode",
+      "CompressBuffer": "@roblox/globaltype/EncodingService.CompressBuffer",
+      "ComputeBufferHash": "@roblox/globaltype/EncodingService.ComputeBufferHash",
+      "ComputeStringHash": "@roblox/globaltype/EncodingService.ComputeStringHash",
+      "DecompressBuffer": "@roblox/globaltype/EncodingService.DecompressBuffer",
+      "GetDecompressedBufferSize": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/1": {
+    "documentation": "<code>buffer</code> containing Base64 data to decode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/return/0": {
+    "documentation": "<code>buffer</code> with the decoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Decode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Decode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/1": {
+    "documentation": "<code>buffer</code> containing binary data to encode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/return/0": {
+    "documentation": "<code>buffer</code> with the encoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Encode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Encode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compress"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for compression"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/3": {
+    "documentation": "optional integer compression level to use"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/2"
+      },
+      {
+        "name": "compressionLevel",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.CompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#CompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compute hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0": {
+    "documentation": "<code>buffer</code> with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeBufferHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/1": {
+    "documentation": "string to compute the hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/return/0": {
+    "documentation": "String with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeStringHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeStringHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for decompression"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with the decompressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.DecompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#DecompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> used to compress it"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0": {
+    "documentation": "Integer size of the decompressed data or 'nil'"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#GetDecompressedBufferSize",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter": {
@@ -48305,7 +48550,8 @@
     "documentation": "รักษาการเชื่อมต่อแบบสตรีม。",
     "keys": {
       "ConnectionState": "@roblox/globaltype/WebStreamClient.ConnectionState",
-      "Close": "@roblox/globaltype/WebStreamClient.Close"
+      "Close": "@roblox/globaltype/WebStreamClient.Close",
+      "Send": "@roblox/globaltype/WebStreamClient.Send"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient",
     "code_sample": ""
@@ -48328,6 +48574,28 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Close",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Send/param/0": {
+    "documentation": "รักษาการเชื่อมต่อแบบสตรีม。"
+  },
+  "@roblox/globaltype/WebStreamClient.Send/param/1": {
+    "documentation": "ข้อความที่ส่งไปยังเซิร์ฟเวอร์"
+  },
+  "@roblox/globaltype/WebStreamClient.Send": {
+    "documentation": "จัดคิวข้อมูลที่จะส่งไปยังเซิร์ฟเวอร์ผ่านการเชื่อมต่อแบบสตรีมมิ่ง",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Send/param/0"
+      },
+      {
+        "name": "data",
+        "documentation": "@roblox/globaltype/WebStreamClient.Send/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Send",
     "code_sample": ""
   },
   "@roblox/globaltype/WebStreamClient.Closed.Connect/param/0": {
@@ -73635,22 +73903,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Attack": {
-    "documentation": "ระยะเวลาที่เอฟเฟกต์ต้องใช้เพื่อให้มีผลหลังจากที่ระดับ Threshold ได้ถูก เข้าถึงแล้ว.",
+    "documentation": "เวลาในการทำให้เอฟเฟ็กต์เริ่มทำงานหลังจากที่ <code>Threshold</code> ถูกเข้าถึง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Attack",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.GainMakeup": {
-    "documentation": "การขยายเสียงโดยรวมที่นำไปใช้กับเสียงหรือ SoundGroup ของเอฟเฟกต์ หลังจากการลดเสียงที่ดังเกินระดับ Threshold.",
+    "documentation": "การขยายเสียงทั้งหมดที่ใช้กับ <code>Sound</code> หรือ <code>SoundGroup</code> ของเอฟเฟ็กต์หลังจากการลดเสียงที่อยู่เหนือระดับเสียง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#GainMakeup",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Ratio": {
-    "documentation": "อัตราส่วนระหว่างเสียงเอฟเฟกต์ <code>CompressorSoundEffect.SideChain</code> และเสียงเอฟเฟกต์นี้.",
+    "documentation": "อัตราส่วนระหว่างเอฟเฟ็กต์เสียง <code>SideChain</code> และเอฟเฟ็กต์เสียงนี้",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Ratio",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Release": {
-    "documentation": "ระยะเวลาที่เอฟเฟกต์ต้องใช้เพื่อให้ไม่มีผลเมื่อเสียงของมันต่ำกว่า ระดับ Threshold.",
+    "documentation": "เวลาในการทำให้เอฟเฟ็กต์หยุดทำงานหลังจากที่เสียงอยู่ต่ำกว่า <code>Threshold</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Release",
     "code_sample": ""
   },
@@ -126975,6 +127243,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRTouchpad",
     "code_sample": ""
   },
+  "@roblox/enum/VideoSampleSize.Small": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Small",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Medium": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Large": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Large",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Full": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Full",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.VideoSampleSize": {
+    "documentation": "The size of textures produced by <code>VideoSampler</code>.",
+    "keys": {
+      "Small": "@roblox/enum/VideoSampleSize.Small",
+      "Medium": "@roblox/enum/VideoSampleSize.Medium",
+      "Large": "@roblox/enum/VideoSampleSize.Large",
+      "Full": "@roblox/enum/VideoSampleSize.Full"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize",
+    "code_sample": ""
+  },
   "@roblox/enum/FacialAnimationStreamingState.None": {
     "documentation": "",
     "keys": {
@@ -127818,7 +128137,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Active": {
-    "documentation": "The event is currently published and available.",
+    "documentation": "เหตุการณ์กำลังถูกเผยแพร่และสามารถเข้าถึงได้。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127828,7 +128147,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Cancelled": {
-    "documentation": "The event has been cancelled and will not occur.",
+    "documentation": "เหตุการณ์ถูกยกเลิกและจะไม่เกิดขึ้น。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127838,7 +128157,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Moderated": {
-    "documentation": "The event has been removed by moderation.",
+    "documentation": "เหตุการณ์ถูกลบโดยการควบคุม。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127848,7 +128167,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Unpublished": {
-    "documentation": "The event has been unpublished by the creator.",
+    "documentation": "เหตุการณ์ถูกถอนการเผยแพร่โดยผู้สร้าง。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127858,7 +128177,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Unknown": {
-    "documentation": "The event status could not be determined.",
+    "documentation": "ไม่สามารถกำหนดสถานะของเหตุการณ์ได้。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

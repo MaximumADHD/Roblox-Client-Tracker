@@ -14857,7 +14857,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire": {
-    "documentation": "불의 시각적 미학을 가진 입자 발사기입니다.",
+    "documentation": "불의 시각적 미학을 가진 미리 구성된 입자 방출기입니다.",
     "keys": {
       "Color": "@roblox/globaltype/Fire.Color",
       "Enabled": "@roblox/globaltype/Fire.Enabled",
@@ -14869,40 +14869,40 @@
       "size": "@roblox/globaltype/Fire.size"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 흰색\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 두 치수 중 더 큰 값을 선택합니다\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Color": {
     "documentation": "주(외부) 불꽃 입자의 색상을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Color",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 흰색\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 두 치수 중 더 큰 값을 선택합니다\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Enabled": {
     "documentation": "불꽃 입자가 방출되는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Enabled",
-    "code_sample": "local part = script.Parent\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nlocal light = Instance.new(\"PointLight\")\nlight.Parent = part\n\nlocal function onClick()\n\tfire.Enabled = not fire.Enabled\n\tlight.Enabled = fire.Enabled\nend\n\nclickDetector.MouseClick:Connect(onClick)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Heat": {
     "documentation": "입자가 방출되는 속도를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Heat",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 흰색\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 두 치수 중 더 큰 값을 선택합니다\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.LocalTransparencyModifier": {
-    "documentation": "",
+    "documentation": "로컬 클라이언트에서만 표시되는 <code>Fire</code> 객체의 투명도에 대한 배수입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.SecondaryColor": {
     "documentation": "보조(내부) 불꽃 입자의 색상을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#SecondaryColor",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 흰색\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 두 치수 중 더 큰 값을 선택합니다\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Size": {
     "documentation": "불꽃 입자의 크기를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Size",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 흰색\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 두 치수 중 더 큰 값을 선택합니다\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.TimeScale": {
-    "documentation": "입자 효과의 속도를 제어하는 0-1 사이의 값입니다.",
+    "documentation": "입자 효과의 속도를 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#TimeScale",
     "code_sample": ""
   },
@@ -27954,6 +27954,251 @@
   "@roblox/globaltype/Decal.ZIndex": {
     "documentation": "여러 Decal이 동일한 면에 지정될 때 렌더링 순서를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService": {
+    "documentation": "Service providing common encoding, hashing, and compression methods.",
+    "keys": {
+      "Base64Decode": "@roblox/globaltype/EncodingService.Base64Decode",
+      "Base64Encode": "@roblox/globaltype/EncodingService.Base64Encode",
+      "CompressBuffer": "@roblox/globaltype/EncodingService.CompressBuffer",
+      "ComputeBufferHash": "@roblox/globaltype/EncodingService.ComputeBufferHash",
+      "ComputeStringHash": "@roblox/globaltype/EncodingService.ComputeStringHash",
+      "DecompressBuffer": "@roblox/globaltype/EncodingService.DecompressBuffer",
+      "GetDecompressedBufferSize": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/1": {
+    "documentation": "<code>buffer</code> containing Base64 data to decode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/return/0": {
+    "documentation": "<code>buffer</code> with the decoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Decode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Decode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/1": {
+    "documentation": "<code>buffer</code> containing binary data to encode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/return/0": {
+    "documentation": "<code>buffer</code> with the encoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Encode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Encode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compress"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for compression"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/3": {
+    "documentation": "optional integer compression level to use"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/2"
+      },
+      {
+        "name": "compressionLevel",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.CompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#CompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compute hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0": {
+    "documentation": "<code>buffer</code> with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeBufferHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/1": {
+    "documentation": "string to compute the hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/return/0": {
+    "documentation": "String with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeStringHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeStringHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for decompression"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with the decompressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.DecompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#DecompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> used to compress it"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0": {
+    "documentation": "Integer size of the decompressed data or 'nil'"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#GetDecompressedBufferSize",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter": {
@@ -44124,22 +44369,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AccountAge": {
-    "documentation": "플레이어의 계정 연령을 일 수로 설명합니다.",
+    "documentation": "플레이어의 계정 연령을 일수로 설명합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AccountAge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AutoJumpEnabled": {
-    "documentation": "모바일 장치를 사용하는 플레이어의 캐릭터가 장애물에 부딪힐 때 자동으로 점프할지를 결정합니다.",
+    "documentation": "모바일 장치를 사용하는 플레이어의 캐릭터가 장애물을 치면 자동으로 점프하는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- 버튼 텍스트 업데이트\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"자동 점프가 켜졌습니다\"\n\telse\n\t\tbutton.Text = \"자동 점프가 꺼졌습니다\"\n\tend\n\t-- 플레이어의 캐릭터에 속성을 반영합니다. 캐릭터가 있는 경우\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- 자동 점프 전환\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- 모든 것 업데이트\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/Player.CameraMaxZoomDistance": {
-    "documentation": "플레이어의 카메라가 최대한 줌 아웃할 수 있는 거리입니다.",
+    "documentation": "플레이어의 카메라가 확대할 수 있는 최대 거리입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMaxZoomDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMinZoomDistance": {
-    "documentation": "플레이어의 카메라가 최소한 줌 인할 수 있는 거리입니다.",
+    "documentation": "플레이어의 카메라가 확대할 수 있는 최소 거리입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMinZoomDistance",
     "code_sample": ""
   },
@@ -44149,7 +44394,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/Player.CanLoadCharacterAppearance": {
-    "documentation": "플레이어가 스폰할 때 캐릭터의 외형이 로드될지를 결정합니다. <code>false</code>인 경우, 플레이어는 기본 외형으로 스폰합니다.",
+    "documentation": "플레이어가 생성될 때 캐릭터의 외모가 로드될지를 결정합니다. <code>false</code>로 설정하면 플레이어는 기본 외모로 생성됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CanLoadCharacterAppearance",
     "code_sample": ""
   },
@@ -44159,37 +44404,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새 작업에 사용하지 마십시오.<br>캐릭터의 외형, 의상 및 장비를 포함하는 자산의 URL입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새로운 작업에는 사용하지 마십시오.<br>캐릭터의 외모, 의류 및 장비가 포함된 자산의 URL입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearanceId": {
-    "documentation": "플레이어의 <code>Character</code>에 사용되는 캐릭터 외형의 계정 사용자 ID를 결정합니다.",
+    "documentation": "플레이어의 <code>Character</code>에 사용되는 캐릭터 외모의 계정 ID를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearanceId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataComplexity": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이는 현재 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새 작업에 대해 플레이어 데이터를 저장하고 로드하려면 <code>DataStoreService</code>를 사용하십시오.<br>현재 장소의 플레이어 캐시에 저장된 데이터의 총량입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 사용되지 않는 데이터 지속성 방법으로 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오십시오.<br>현재 플레이어의 캐시에서 저장된 전체 데이터 양입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataComplexity",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataReady": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 이는 현재 사용되지 않는 데이터 지속성 방법에 사용되었을 수 있습니다. 새 작업에 대해 플레이어 데이터를 저장하고 로드하려면 <code>DataStoreService</code>를 사용하십시오.<br>플레이어의 데이터를 로드할 수 있는 시점을 나타냅니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제는 사용되지 않는 데이터 지속성 방법으로 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오십시오.<br>플레이어 데이터가 로드될 수 있는 시점을 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataReady",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevCameraOcclusionMode": {
-    "documentation": "기본 카메라가 카메라와 플레이어 간의 객체를 처리하는 방식을 설정합니다.",
+    "documentation": "기본 카메라가 플레이어와 카메라 사이의 객체를 처리하는 방식을 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevCameraOcclusionMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerCameraMode": {
-    "documentation": "플레이어가 마우스와 키보드가 있는 장치를 사용할 때 카메라 이동 모드를 결정합니다.",
+    "documentation": "마우스와 키보드를 사용할 때 플레이어의 카메라 이동 모드를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerMovementMode": {
-    "documentation": "플레이어가 마우스와 키보드를 사용할 때 캐릭터 이동 모드를 결정합니다.",
+    "documentation": "마우스와 키보드를 사용할 때 플레이어의 캐릭터 이동 모드를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerMovementMode",
     "code_sample": ""
   },
@@ -44209,32 +44454,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DisplayName": {
-    "documentation": "<code>Player</code>와 관련된 인증된 사용자의 표시 이름입니다.",
+    "documentation": "<code>Player</code>와 연관된 인증된 사용자의 표시 이름입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DisplayName",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.FollowUserId": {
-    "documentation": "플레이어가 경험에 따라 따라간 사용자의 사용자 ID를 설명합니다.",
+    "documentation": "플레이어가 경험으로 따라간 사용자의 사용자 ID를 설명합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#FollowUserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.Parent = player:WaitForChild(\"PlayerGui\")\n\nlocal function onPlayerAdded(newPlayer)\n\tif newPlayer.FollowUserId == player.UserId then\n\t\tlocal textLabel = Instance.new(\"TextLabel\")\n\t\ttextLabel.Parent = screenGui\n\t\ttextLabel.Text = \"당신은 이 게임에 \" .. newPlayer.Name .. \"에 의해 팔로우되었습니다!\"\n\t\ttask.delay(3, function()\n\t\t\tif textLabel then\n\t\t\t\ttextLabel:Destroy()\n\t\t\tend\n\t\tend)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GameplayPaused": {
-    "documentation": "플레이어 클라이언트 측 게임 플레이가 현재 일시 중지되었는지를 나타냅니다.",
+    "documentation": "현재 플레이어 클라이언트의 게임 플레이가 일시 중지되었는지 여부입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GameplayPaused",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasVerifiedBadge": {
-    "documentation": "플레이어가 <strong>검증된</strong> 배지를 가지고 있는지를 나타냅니다.",
+    "documentation": "플레이어에게 <strong>확인됨</strong> 배지가 있는지를 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasVerifiedBadge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HealthDisplayDistance": {
-    "documentation": "다른 플레이어의 체력 바를 볼 수 있는 거리를 설정합니다.",
+    "documentation": "이 플레이어가 다른 플레이어의 체력 바를 볼 수 있는 거리입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HealthDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LocaleId": {
-    "documentation": "이 속성은 로컬 플레이어가 Roblox 계정에 설정한 로케일 ID를 표시합니다.",
+    "documentation": "이 속성은 로컬 플레이어가 설정한 로블록스 계정의 로케일 ID를 표시합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
@@ -44244,27 +44489,27 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.MembershipType == Enum.MembershipType.Premium then\n\t-- 프리미엄 회원을 위한 특정 작업을 수행합니다\nend"
   },
   "@roblox/globaltype/Player.NameDisplayDistance": {
-    "documentation": "다른 플레이어의 이름을 볼 수 있는 거리를 설정합니다.",
+    "documentation": "이 플레이어가 다른 플레이어의 이름을 볼 수 있는 거리입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#NameDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Neutral": {
-    "documentation": "플레이어가 특정 팀에 속해 있는지를 결정합니다.",
+    "documentation": "플레이어가 특정 팀에 소속되어 있는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Neutral",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.PartyId": {
-    "documentation": "<code>Player</code>가 속한 파티의 고유 식별자입니다.",
+    "documentation": "플레이어가 속한 파티의 고유 식별자입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"플레이어는 ID가 있는 파티에 있습니다: \" .. partyId)\n\telse\n\t\tprint(\"플레이어는 파티에 없습니다\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"플레이어가 ID가 있는 파티에 가입했습니다: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"플레이어가 파티를 떠났습니다\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
-    "documentation": "복제를 집중할 부품을 설정합니다.",
+    "documentation": "복제를 집중할 객체를 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ReplicationFocus",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RespawnLocation": {
-    "documentation": "설정되면 플레이어는 주어진 <code>SpawnLocation</code>에서 재스폰합니다.",
+    "documentation": "설정되면 플레이어는 주어진 <code>SpawnLocation</code>에서 다시 태어납니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
     "code_sample": ""
   },
@@ -44274,12 +44519,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Team": {
-    "documentation": "플레이어와 연결된 <code>Team</code>을 결정합니다.",
+    "documentation": "플레이어가 연관된 <code>Team</code>을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Team",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.TeamColor": {
-    "documentation": "플레이어가 해당 팀의 <code>Team.TeamColor</code>에 따라 관련된 <code>Team</code>을 결정합니다.",
+    "documentation": "플레이어가 해당 팀의 <code>Team.TeamColor</code>에 따라 소속된 <code>Team</code>을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#TeamColor",
     "code_sample": ""
   },
@@ -44294,7 +44539,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player.UserId)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.userId": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 사용되지 말아야 할 <code>Player.UserId</code>의 Deprecated 변형입니다. 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 사용되지 않는 <code>Player.UserId</code>의 비활성 버전입니다. 대신 이를 사용하세요.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#userId",
     "code_sample": ""
   },
@@ -44302,10 +44547,10 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
-    "documentation": "<code>BasePart</code>로 사용할 새로운 복제 초점입니다."
+    "documentation": "새 복제 집중으로 사용할 <code>BasePart</code>입니다."
   },
   "@roblox/globaltype/Player.AddReplicationFocus": {
-    "documentation": "플레이어를 위한 추가 복제 초점을 추가합니다.",
+    "documentation": "플레이어에 대한 추가 복제 집중을 추가합니다.",
     "params": [
       {
         "name": "self",
@@ -44324,7 +44569,7 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance": {
-    "documentation": "플레이어의 <code>Character</code>에서 모든 액세서리 및 기타 캐릭터 외관 객체를 제거합니다.",
+    "documentation": "플레이어의 <code>Character</code>에서 모든 악세서리 및 기타 외모 객체를 제거합니다.",
     "params": [
       {
         "name": "self",
@@ -44342,10 +44587,10 @@
     "documentation": "플레이어의 거리 측정 기준 위치입니다."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/return/0": {
-    "documentation": "플레이어와 위치 사이의 거리(스탁 기준)입니다."
+    "documentation": "플레이어와 위치 사이의 거리(스탯 단위)입니다."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter": {
-    "documentation": "캐릭터의 머리와 주어진 <code>Vector3</code> 사이의 거리를 반환하거나, 플레이어에게 캐릭터가 없으면 <code>0</code>을 반환합니다.",
+    "documentation": "캐릭터의 머리와 주어진 <code>Vector3</code> 사이의 거리를 반환하며, 플레이어가 캐릭터가 없으면 <code>0</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44369,10 +44614,10 @@
     "documentation": "반환할 최대 온라인 연결 수입니다."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/return/0": {
-    "documentation": "온라인 연결의 딕셔너리입니다 (설명 내 표 참조)."
+    "documentation": "온라인 연결로 이루어진 사전입니다(위의 표 참조)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "온라인 연결의 딕셔너리를 반환합니다.",
+    "documentation": "온라인 연결의 사전(dictionary)을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44393,10 +44638,10 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
-    "documentation": "PlaceId와 UserId 값이 포함된 딕셔너리입니다 (설명 내 표 참조)."
+    "documentation": "PlaceId 및 UserId 값이 포함된 사전입니다(설명 내 표 참조)."
   },
   "@roblox/globaltype/Player.GetJoinData": {
-    "documentation": "플레이어가 경험에 어떻게 참여하는지 설명하는 정보를 담고 있는 딕셔너리를 반환합니다.",
+    "documentation": "플레이어가 경험에 참여하는 방법을 설명하는 정보를 포함하는 사전을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44436,7 +44681,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing": {
-    "documentation": "초과된 네트워크 대기 시간을 초 단위로 반환합니다.",
+    "documentation": "초기화된 네트워크 지연 시간을 초 단위로 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44456,10 +44701,10 @@
     "documentation": "지정된 그룹의 <code>groupId</code>입니다."
   },
   "@roblox/globaltype/Player.GetRankInGroup/return/0": {
-    "documentation": "그룹 내 플레이어의 랭크입니다."
+    "documentation": "그룹에서 플레이어의 랭크입니다."
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "플레이어의 그룹 내 랭크를 정수로 반환합니다.",
+    "documentation": "그룹에서 플레이어의 랭크를 정수로 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44483,10 +44728,10 @@
     "documentation": "지정된 그룹의 그룹 ID입니다."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "지정된 그룹에서 플레이어의 역할 또는 플레이어가 회원이 아닐 경우 <code>Guest</code>입니다."
+    "documentation": "지정된 그룹에서 플레이어의 역할 또는 플레이어가 그룹의 일원이 아닌 경우 <code>Guest</code>입니다."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "플레이어의 그룹 내 역할을 문자열로 반환하거나, 만약 플레이어가 그룹의 일원이 아니면 <code>Guest</code>를 반환합니다.",
+    "documentation": "플레이어의 역할을 문자열로 반환합니다. 그룹의 일원이 아닌 경우 <code>Guest</code>입니다.",
     "params": [
       {
         "name": "self",
@@ -44507,10 +44752,10 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
-    "documentation": "플레이어의 캐릭터 외관이 로드되었는지를 나타내는 불리언입니다."
+    "documentation": "플레이어의 캐릭터 외모가 로드되었는지를 나타내는 부울 값입니다."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded": {
-    "documentation": "플레이어의 캐릭터의 외관이 로드되었는지 여부를 반환합니다.",
+    "documentation": "플레이어의 캐릭터 외모가 로드되었는지를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44533,7 +44778,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 베스트 프렌즈 기능이 제거되어 비좁아졌습니다. <code>Player:IsFriendsWith()</code>를 대신 사용하세요.<br>지정된 사용자와 플레이어가 연결되어 있는지 여부를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 더 이상 사용되지 않으며, 최고의 친구 기능이 제거되었습니다. 대신 <code>Player:IsFriendsWith()</code>를 사용하세요.<br>지정된 사용자와 플레이어의 연결 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44557,10 +44802,10 @@
     "documentation": "지정된 플레이어의 <code>Player.UserId</code>입니다."
   },
   "@roblox/globaltype/Player.IsFriendsWith/return/0": {
-    "documentation": "지정된 사용자와 플레이어가 연결되어 있는지를 나타내는 불리언입니다."
+    "documentation": "지정된 사용자와 플레이어가 연결되어 있는지를 나타내는 부울 값입니다."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "주어진 <code>Player.UserId</code>를 가진 사용자의 연결인지 여부를 확인합니다.",
+    "documentation": "지정된 <code>Player.UserId</code>를 가진 사용자의 연결 여부를 확인합니다.",
     "params": [
       {
         "name": "self",
@@ -44581,13 +44826,13 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.IsInGroup/param/1": {
-    "documentation": "지정된 그룹의 그룹 ID입니다."
+    "documentation": "지정된 그룹의 ID입니다."
   },
   "@roblox/globaltype/Player.IsInGroup/return/0": {
-    "documentation": "플레이어가 지정된 그룹에 있는지를 나타내는 불리언입니다."
+    "documentation": "지정된 그룹의 멤버인지 여부를 나타내는 부울 값입니다."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "지정된 ID를 가진 그룹의 회원인지 여부를 확인합니다.",
+    "documentation": "지정된 ID를 가진 그룹의 멤버인지 여부를 확인합니다.",
     "params": [
       {
         "name": "self",
@@ -44608,10 +44853,10 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.IsVerified/return/0": {
-    "documentation": "플레이어가 검증된 상태인지 여부를 나타내는 불리언입니다."
+    "documentation": "플레이어가 확인되었는지를 나타내는 부울 값입니다."
   },
   "@roblox/globaltype/Player.IsVerified": {
-    "documentation": "플레이어가 구체적인 실제 신호로 검증되었는지 여부를 반환합니다.",
+    "documentation": "플레이어가 실체적, 현실 세계 신호로 확인되었는지를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44628,10 +44873,10 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.Kick/param/1": {
-    "documentation": "사용자를 쫓아낼 때 보여 줄 메시지입니다."
+    "documentation": "사용자에게 강제 연결 해제 시 보여줄 메시지입니다."
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "플레이어를 경험에서 강제로 분리시키며, 메시지를 제공할 수 있습니다.",
+    "documentation": "플레이어를 경험에서 강제로 연결 해제합니다. 선택적으로 메시지를 제공할 수 있습니다.",
     "params": [
       {
         "name": "self",
@@ -44656,7 +44901,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제 구식 데이터 지속 방법으로 사용되었을 수 있습니다. 새로운 작업을 위해 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러옵니다.<br>플레이어에게 이전에 <code>Player:SaveBoolean()</code>로 저장된 불리언 값을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 이제 사용되지 않는 데이터 지속성 방법으로 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오십시오.<br>이전에 <code>Player:SaveBoolean()</code>으로 동일 키로 저장된 부울 값을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44677,7 +44922,7 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "플레이어를 위한 새 캐릭터를 생성하고 기존 캐릭터를 제거합니다. 플레이어의 <code>Backpack</code>와 <code>PlayerGui</code>도 비웁니다.",
+    "documentation": "플레이어에게 새로운 캐릭터를 생성하고 이전 캐릭터를 제거합니다. 또한 플레이어의 <code>Backpack</code> 및 <code>PlayerGui</code>를 비웁니다.",
     "params": [
       {
         "name": "self",
@@ -44714,10 +44959,10 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
-    "documentation": "<code>HumanoidDescription</code>로, 신체 부위/색상, 신체 스케일, 액세서리, 의상 및 애니메이션과 같은 특성을 포함하고 있으며, 로드된 캐릭터에 장착됩니다."
+    "documentation": "바디 부위/색상, 바디 스케일링, 액세서리, 의류 및 애니메이션과 같은 속성을 포함하는 <code>HumanoidDescription</code>입니다."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "주어진 <code>HumanoidDescription</code>에서 모든 장비가 장착된 플레이어 캐릭터를 생성합니다.",
+    "documentation": "전달된 <code>HumanoidDescription</code>에 모든 장비를 장착하여 플레이어 캐릭터를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -44742,7 +44987,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadInstance": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 구식 데이터 지속성 메서드에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드해야 합니다.<br>이전에 <code>Player:SaveInstance()</code>로 플레이어에게 저장된 인스턴스를 같은 키로 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 더 이상 유효하지 않은 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새로운 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오세요.<br><code>Player:SaveInstance()</code>로 이전에 저장된 인스턴스를 같은 키와 함께 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44769,7 +45014,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadNumber": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 구식 데이터 지속성 메서드에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드해야 합니다.<br>이전에 플레이어에게 저장된 숫자 값을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 더 이상 유효하지 않은 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새로운 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오세요.<br>이전 플레이어에게 저장된 숫자 값을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44796,7 +45041,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadString": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 구식 데이터 지속성 메서드에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드해야 합니다.<br>이전에 플레이어에게 저장된 문자열 값을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 더 이상 유효하지 않은 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새로운 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오세요.<br>이전 플레이어에게 저장된 문자열 값을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -44817,13 +45062,13 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.Move/param/1": {
-    "documentation": "플레이어가 이동해야 할 Vector3 방향입니다."
+    "documentation": "플레이어가 이동해야 하는 Vector3 방향입니다."
   },
   "@roblox/globaltype/Player.Move/param/2": {
-    "documentation": "플레이어가 플레이어 카메라에 상대적으로 이동해야 하는지를 나타내는 부울 값입니다."
+    "documentation": "플레이어가 플레이어의 카메라를 기준으로 이동해야 하는지 여부를 나타내는 부울입니다."
   },
   "@roblox/globaltype/Player.Move": {
-    "documentation": "플레이어의 캐릭터가 주어진 방향으로 멈출 때까지 걷게 하거나, 플레이어에 의해 중단되도록 합니다.",
+    "documentation": "플레이어의 캐릭터가 중지되거나 플레이어가 제어를 사용하여 방해받을 때까지 주어진 방향으로 걷게 만듭니다.",
     "params": [
       {
         "name": "self",
@@ -44868,13 +45113,13 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/1": {
-    "documentation": "스트리밍이 요청되는 세계 위치입니다."
+    "documentation": "스트리밍이 요청된 세계 위치입니다."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/2": {
-    "documentation": "요청에 대한 선택적 시간 초과, <code>position</code> 매개변수를 기준으로 주변 지역을 스트리밍하기 위해 엔진이 시도하는 최대 기간입니다. 값을 지정하지 않으면 시간 초과는 사실상 무한입니다. 그러나 클라이언트의 메모리가 부족한 경우 엔진은 시간 초과 기간 내에 있는 스트리밍 요청을 모두 포기합니다."
+    "documentation": "요청에 대한 선택적 타임아웃으로, 요청이 포기될 때까지 엔진이 <code>position</code> 매개변수 주위에서 지역을 스트리밍하려고 시도하는 최대 기간입니다. 값을 지정하지 않으면 타임아웃은 사실상 무한입니다. 그러나 클라이언트의 메모리가 부족한 경우 엔진은 모든 스트리밍 요청을 포기하며, 여전히 타임아웃 기간 내에 있는 요청일지라도 마찬가지입니다."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync": {
-    "documentation": "서버가 지정된 위치 주변에서 스트리밍하도록 요청합니다.",
+    "documentation": "서버가 지정된 위치 주위에서 플레이어에게 스트리밍하도록 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -44903,7 +45148,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 구식 데이터 지속성 메서드에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드해야 합니다.<br>나중에 <code>Player:LoadBoolean()</code>을 사용하여 다시 로드할 수 있는 부울 값을 저장합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 더 이상 유효하지 않은 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새로운 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오세요.<br>불리언 값을 저장하는 데 사용되며, 나중에 <code>Player:LoadBoolean()</code>을 사용하여 다시 로드할 수 있습니다.",
     "params": [
       {
         "name": "self",
@@ -44932,7 +45177,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveInstance": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 구식 데이터 지속성 메서드에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드해야 합니다.<br>나중에 다시 로드할 수 있는 인스턴스를 저장합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 더 이상 유효하지 않은 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새로운 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오세요.<br>나중에 다시 로드할 수 있는 인스턴스를 저장합니다.",
     "params": [
       {
         "name": "self",
@@ -44961,7 +45206,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveNumber": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 구식 데이터 지속성 메서드에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드해야 합니다.<br>나중에 <code>Player:LoadNumber()</code>를 사용하여 다시 로드할 수 있는 숫자 값을 저장합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 더 이상 유효하지 않은 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새로운 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오세요.<br>나중에 다시 로드할 수 있는 숫자 값을 저장합니다.",
     "params": [
       {
         "name": "self",
@@ -44990,7 +45235,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveString": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 구식 데이터 지속성 메서드에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드해야 합니다.<br>나중에 다시 로드할 수 있는 문자열 값을 저장합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 더 이상 유효하지 않은 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새로운 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오세요.<br>나중에 다시 로드할 수 있는 문자열 값을 저장합니다.",
     "params": [
       {
         "name": "self",
@@ -45013,10 +45258,10 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.SetAccountAge/param/1": {
-    "documentation": "계정의 연령(일수)입니다."
+    "documentation": "계정의 일수입니다."
   },
   "@roblox/globaltype/Player.SetAccountAge": {
-    "documentation": "플레이어의 <code>AccountAge</code>를 설정합니다.",
+    "documentation": "<code>AccountAge</code>를 플레이어에게 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -45035,10 +45280,10 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
-    "documentation": "플레이어가 필터링된 채팅을 볼 수 있는지 여부를 나타내는 부울 값입니다."
+    "documentation": "플레이어가 필터링된 채팅을 보는지 여부를 나타내는 부울입니다."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat": {
-    "documentation": "플레이어가 일반 채팅 대신 필터링된 채팅을 볼 수 있는지 여부를 설정합니다.",
+    "documentation": "플레이어가 일반 채팅이 아닌 필터링된 채팅을 보는지 여부를 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -45060,7 +45305,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 구식 데이터 지속성 메서드에 사용되었을 수 있습니다. 새로운 작업에는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 로드해야 합니다.<br>플레이어의 데이터가 조작 가능할 때까지 또는 플레이어의 데이터를 가져오는 데 일정 시간이 경과할 때까지 스크립트를 일시 중지하는 데 사용됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않으며, 지금은 더 이상 유효하지 않은 데이터 지속성 방법을 위해 사용되었을 수 있습니다. 새로운 작업을 위해서는 <code>DataStoreService</code>를 사용하여 플레이어 데이터를 저장하고 불러오세요.<br>플레이어의 데이터를 조작할 수 있을 때까지 스크립트를 일시 중지하는 데 사용되거나, 플레이어의 데이터를 가져오는 데 일정 시간 동안 경과할 때까지 일시 중지합니다.",
     "params": [
       {
         "name": "self",
@@ -45083,7 +45328,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 이Deprecated 기능은 <code>Player:IsFriendsWith()</code>의 변형이며 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 사용 중지된 함수는 <code>Player:IsFriendsWith()</code>의 변형이며, 대신 사용해야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45110,7 +45355,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 이Deprecated 기능은 <code>Player:LoadBoolean()</code>의 변형입니다. 둘 다 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 사용 중지된 함수는 <code>Player:LoadBoolean()</code>의 변형이며, 또한 사용 중지되었습니다. 새로운 작업에서는 어떤 함수도 사용하지 않아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45137,7 +45382,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadInstance": {
-    "documentation": "<strong>Deprecated:</strong> 이Deprecated 기능은 <code>Player:LoadInstance()</code>의 변형입니다. 둘 다 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 사용 중지된 함수는 <code>Player:LoadInstance()</code>의 변형이며, 또한 사용 중지되었습니다. 새로운 작업에서는 어떤 함수도 사용하지 않아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45164,7 +45409,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadNumber": {
-    "documentation": "<strong>Deprecated:</strong> 이Deprecated 기능은 <code>Player:LoadNumber()</code>의 변형입니다. 둘 다 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 사용 중지된 함수는 <code>Player:LoadNumber()</code>의 변형이며, 또한 사용 중지되었습니다. 새로운 작업에서는 어떤 함수도 사용하지 않아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45191,7 +45436,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadString": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:LoadString()</code>의 Deprecated 변형으로서, 둘 다 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:LoadString()</code>의 변형으로, 사용 중지되었습니다. 새로운 작업에서는 어떤 함수도 사용하지 않아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45218,7 +45463,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveBoolean()</code>의 Deprecated 변형으로서, 둘 다 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveBoolean()</code>의 변형으로, 사용 중지되었습니다. 새로운 작업에서는 어떤 함수도 사용하지 않아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45247,7 +45492,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveInstance": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveInstance()</code>의 Deprecated 변형으로서, 둘 다 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveInstance()</code>의 변형으로, 사용 중지되었습니다. 새로운 작업에서는 어떤 함수도 사용하지 않아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45276,7 +45521,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveNumber": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveNumber()</code>의 Deprecated 변형으로서, 둘 다 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveNumber()</code>의 변형으로, 사용 중지되었습니다. 새로운 작업에서는 어떤 함수도 사용하지 않아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45305,7 +45550,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveString": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveString()</code>의 Deprecated 변형으로서, 둘 다 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:SaveString()</code>의 변형으로, 사용 중지되었습니다. 새로운 작업에서는 어떤 함수도 사용하지 않아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45331,7 +45576,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.waitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:WaitForDataReady()</code>의 Deprecated 변형으로서, 둘 다 새로운 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Player:WaitForDataReady()</code>의 변형으로, 사용 중지되었습니다. 새로운 작업에서는 어떤 함수도 사용하지 않아야 합니다.",
     "params": [
       {
         "name": "self",
@@ -45686,7 +45931,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Chatted": {
-    "documentation": "플레이어가 로블록스 제공 채팅 바에서 대화할 때 발생합니다.",
+    "documentation": "플레이어가 Roblox의 제공된 채팅 바에서 채팅할 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Chatted.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Chatted.ConnectParallel",
@@ -45774,7 +46019,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Idled": {
-    "documentation": "플레이어가 유휴 상태로 분류된 후 약 2분 후에 발생합니다. 시간은 그 시점 이후 경과한 초의 수입니다.",
+    "documentation": "엔진이 플레이어를 유휴 상태로 분류한 후 약 2분 후에 발생합니다. 시간은 이 시점에서 경과한 초의 수입니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Idled.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Idled.ConnectParallel",
@@ -48305,7 +48550,8 @@
     "documentation": "스트리밍 연결을 유지합니다.",
     "keys": {
       "ConnectionState": "@roblox/globaltype/WebStreamClient.ConnectionState",
-      "Close": "@roblox/globaltype/WebStreamClient.Close"
+      "Close": "@roblox/globaltype/WebStreamClient.Close",
+      "Send": "@roblox/globaltype/WebStreamClient.Send"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient",
     "code_sample": ""
@@ -48328,6 +48574,28 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Close",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Send/param/0": {
+    "documentation": "스트리밍 연결을 유지합니다."
+  },
+  "@roblox/globaltype/WebStreamClient.Send/param/1": {
+    "documentation": "서버로 전송할 텍스트 문자열입니다."
+  },
+  "@roblox/globaltype/WebStreamClient.Send": {
+    "documentation": "서버로 전송될 데이터를 큐에 추가합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Send/param/0"
+      },
+      {
+        "name": "data",
+        "documentation": "@roblox/globaltype/WebStreamClient.Send/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Send",
     "code_sample": ""
   },
   "@roblox/globaltype/WebStreamClient.Closed.Connect/param/0": {
@@ -73635,22 +73903,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Attack": {
-    "documentation": "임계값에 도달한 후 효과가 활성화되는 데 걸리는 시간입니다.",
+    "documentation": "효과가 활성화되기까지 걸리는 시간은 <code>Threshold</code>에 도달한 후입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Attack",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.GainMakeup": {
-    "documentation": "임계값 이상의 음량 저하 후 효과의 소리 또는 사운드 그룹에 적용되는 전체 증폭입니다.",
+    "documentation": "임계값 이상의 소리가 감쇠된 후 효과의 <code>Sound</code> 또는 <code>SoundGroup</code>에 적용되는 전체 증폭입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#GainMakeup",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Ratio": {
-    "documentation": "<code>CompressorSoundEffect.SideChain</code> 사운드 효과와 이 사운드 효과 간의 비율입니다.",
+    "documentation": "<code>SideChain</code> 사운드 효과와 이 사운드 효과 사이의 비율입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Ratio",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Release": {
-    "documentation": "소리가 임계값 이하로 떨어질 때 효과가 비활성화되는 데 걸리는 시간입니다.",
+    "documentation": "사운드가 <code>Threshold</code> 아래로 떨어진 후 효과가 비활성화되기까지 걸리는 시간입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Release",
     "code_sample": ""
   },
@@ -126975,6 +127243,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRTouchpad",
     "code_sample": ""
   },
+  "@roblox/enum/VideoSampleSize.Small": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Small",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Medium": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Large": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Large",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Full": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Full",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.VideoSampleSize": {
+    "documentation": "The size of textures produced by <code>VideoSampler</code>.",
+    "keys": {
+      "Small": "@roblox/enum/VideoSampleSize.Small",
+      "Medium": "@roblox/enum/VideoSampleSize.Medium",
+      "Large": "@roblox/enum/VideoSampleSize.Large",
+      "Full": "@roblox/enum/VideoSampleSize.Full"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize",
+    "code_sample": ""
+  },
   "@roblox/enum/FacialAnimationStreamingState.None": {
     "documentation": "",
     "keys": {
@@ -127818,7 +128137,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Active": {
-    "documentation": "The event is currently published and available.",
+    "documentation": "이 이벤트는 현재 게시되어 있으며 사용할 수 있습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127828,7 +128147,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Cancelled": {
-    "documentation": "The event has been cancelled and will not occur.",
+    "documentation": "이 이벤트는 취소되었으며 발생하지 않습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127838,7 +128157,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Moderated": {
-    "documentation": "The event has been removed by moderation.",
+    "documentation": "이 이벤트는 중재자에 의해 제거되었습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127848,7 +128167,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Unpublished": {
-    "documentation": "The event has been unpublished by the creator.",
+    "documentation": "이 이벤트는 제작자에 의해 게시 해제되었습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127858,7 +128177,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Unknown": {
-    "documentation": "The event status could not be determined.",
+    "documentation": "이 이벤트의 상태는 확인할 수 없습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

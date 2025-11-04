@@ -14857,7 +14857,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire": {
-    "documentation": "具有火焰视觉美学的粒子发射器。",
+    "documentation": "具有火焰视觉美学的预配置粒子发射器。",
     "keys": {
       "Color": "@roblox/globaltype/Fire.Color",
       "Enabled": "@roblox/globaltype/Fire.Enabled",
@@ -14869,40 +14869,40 @@
       "size": "@roblox/globaltype/Fire.size"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 白色\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 选择两个维度中较大的一个\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nfor _, descendant in Workspace:GetDescendants() do\n\tif descendant.Name == \"Torch\" and descendant:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1)\n\t\tfire.Size = math.max(descendant.Size.X, descendant.Size.Z) -- 选择两个维度中较大的一个\n\t\tfire.Parent = descendant\n\tend\nend"
   },
   "@roblox/globaltype/Fire.Color": {
     "documentation": "决定主要（外层）火焰粒子的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Color",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 白色\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 选择两个维度中较大的一个\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Enabled": {
     "documentation": "决定是否发射火焰粒子。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Enabled",
-    "code_sample": "local part = script.Parent\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nlocal light = Instance.new(\"PointLight\")\nlight.Parent = part\n\nlocal function onClick()\n\tfire.Enabled = not fire.Enabled\n\tlight.Enabled = fire.Enabled\nend\n\nclickDetector.MouseClick:Connect(onClick)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Heat": {
     "documentation": "决定粒子发射的速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Heat",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 白色\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 选择两个维度中较大的一个\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.LocalTransparencyModifier": {
-    "documentation": "",
+    "documentation": "用于控制 <code>Fire</code> 对象的透明度的倍增器，仅对本地客户端可见。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#LocalTransparencyModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.SecondaryColor": {
     "documentation": "决定副（内层）火焰粒子的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#SecondaryColor",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 白色\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 选择两个维度中较大的一个\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Size": {
     "documentation": "决定火焰粒子的大小。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Size",
-    "code_sample": "for _, child in pairs(workspace:GetChildren()) do\n\tif child.Name == \"Torch\" and child:IsA(\"BasePart\") then\n\t\tlocal fire = Instance.new(\"Fire\")\n\t\tfire.Heat = 10\n\t\tfire.Color = child.Color\n\t\tfire.SecondaryColor = Color3.new(1, 1, 1) -- 白色\n\t\tfire.Size = math.max(child.Size.X, child.Size.Z) -- 选择两个维度中较大的一个\n\t\tfire.Parent = child\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.TimeScale": {
-    "documentation": "范围在 0-1 之间的值，用于控制粒子效果的速度。",
+    "documentation": "控制粒子效果的速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#TimeScale",
     "code_sample": ""
   },
@@ -27954,6 +27954,251 @@
   "@roblox/globaltype/Decal.ZIndex": {
     "documentation": "确定多个 Decal 分配到同一面时的渲染顺序。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService": {
+    "documentation": "Service providing common encoding, hashing, and compression methods.",
+    "keys": {
+      "Base64Decode": "@roblox/globaltype/EncodingService.Base64Decode",
+      "Base64Encode": "@roblox/globaltype/EncodingService.Base64Encode",
+      "CompressBuffer": "@roblox/globaltype/EncodingService.CompressBuffer",
+      "ComputeBufferHash": "@roblox/globaltype/EncodingService.ComputeBufferHash",
+      "ComputeStringHash": "@roblox/globaltype/EncodingService.ComputeStringHash",
+      "DecompressBuffer": "@roblox/globaltype/EncodingService.DecompressBuffer",
+      "GetDecompressedBufferSize": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/1": {
+    "documentation": "<code>buffer</code> containing Base64 data to decode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/return/0": {
+    "documentation": "<code>buffer</code> with the decoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Decode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Decode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/1": {
+    "documentation": "<code>buffer</code> containing binary data to encode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/return/0": {
+    "documentation": "<code>buffer</code> with the encoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Encode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Encode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compress"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for compression"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/3": {
+    "documentation": "optional integer compression level to use"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/2"
+      },
+      {
+        "name": "compressionLevel",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.CompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#CompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compute hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0": {
+    "documentation": "<code>buffer</code> with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeBufferHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/1": {
+    "documentation": "string to compute the hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/return/0": {
+    "documentation": "String with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeStringHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeStringHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for decompression"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with the decompressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.DecompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#DecompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> used to compress it"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0": {
+    "documentation": "Integer size of the decompressed data or 'nil'"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#GetDecompressedBufferSize",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter": {
@@ -44040,7 +44285,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。",
+    "documentation": "表示当前连接到体验的客户端的对象。",
     "keys": {
       "AccountAge": "@roblox/globaltype/Player.AccountAge",
       "AutoJumpEnabled": "@roblox/globaltype/Player.AutoJumpEnabled",
@@ -44124,22 +44369,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AccountAge": {
-    "documentation": "描述玩家账户的年龄（以天为单位）。",
+    "documentation": "描述玩家账户的天数。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AccountAge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AutoJumpEnabled": {
-    "documentation": "判断使用移动设备的玩家的角色在撞到障碍物时是否会自动跳跃。",
+    "documentation": "确定使用移动设备的玩家角色是否在碰到障碍物时会自动跳跃。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- 更新按钮文本\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"自动跳跃已开启\"\n\telse\n\t\tbutton.Text = \"自动跳跃已关闭\"\n\tend\n\t-- 如果玩家有角色，反映该属性\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- 切换自动跳跃\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- 更新其他所有内容\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/Player.CameraMaxZoomDistance": {
-    "documentation": "玩家的相机允许缩放的最大距离。",
+    "documentation": "允许玩家的相机最大缩放距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMaxZoomDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMinZoomDistance": {
-    "documentation": "玩家的相机允许缩放的最小距离。",
+    "documentation": "允许玩家的相机最小缩放距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMinZoomDistance",
     "code_sample": ""
   },
@@ -44149,92 +44394,92 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 设置玩家的相机模式为第一人称\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/Player.CanLoadCharacterAppearance": {
-    "documentation": "决定玩家生成时角色的外观是否会被加载。如果为 <code>false</code>，玩家将以默认外观生成。",
+    "documentation": "确定玩家生成时角色的外观是否会被加载。如果为 <code>false</code>，则玩家将以默认外观生成。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CanLoadCharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Character": {
-    "documentation": "由玩家控制的 <code>Model</code>，其中包含 <code>Humanoid</code>、身体部件、脚本和其他对象。",
+    "documentation": "由玩家控制的包含 <code>Humanoid</code>、身体部件、脚本和其他对象的 <code>Model</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Character",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> 此条目已弃用。请勿用于新的工作。<br>包含角色外观、服装和装备的资产的 URL。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请勿在新工作中使用。<br>包含角色外观、服装和装备的资产的 URL。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearanceId": {
-    "documentation": "确定用于玩家的 <code>Character</code> 的角色外观的账户的用户 ID。",
+    "documentation": "确定为玩家的 <code>Character</code> 使用的账户的用户 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearanceId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataComplexity": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能已用于现在过时的数据持久化方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，以进行新的工作。<br>当前在玩家的缓存中存储的总数据量。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于一种现已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>当前在玩家缓存中存储的数据总量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataComplexity",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataReady": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能已用于现在过时的数据持久化方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，以进行新的工作。<br>指示玩家的数据何时可供加载。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于一种现已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>指示玩家的数据何时可用于加载。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataReady",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevCameraOcclusionMode": {
-    "documentation": "设置默认相机如何处理相机与玩家之间的物体。",
+    "documentation": "设置默认相机如何处理相机与玩家之间的对象。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevCameraOcclusionMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerCameraMode": {
-    "documentation": "决定玩家在使用鼠标和键盘的设备时的相机移动模式。",
+    "documentation": "确定玩家在使用鼠标和键盘的设备时的相机移动模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerMovementMode": {
-    "documentation": "决定玩家在使用鼠标和键盘的设备时角色的移动模式。",
+    "documentation": "确定玩家在使用鼠标和键盘的设备时的角色移动模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevEnableMouseLock": {
-    "documentation": "决定玩家是否可以切换鼠标锁定。",
+    "documentation": "确定玩家是否可以切换鼠标锁定。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevEnableMouseLock",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchCameraMode": {
-    "documentation": "决定玩家在使用触摸启用设备时的相机移动模式。",
+    "documentation": "确定玩家在使用触摸启用的设备时的相机移动模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchMovementMode": {
-    "documentation": "决定玩家在使用触摸启用设备时的角色移动模式。",
+    "documentation": "确定玩家在使用触摸启用的设备时的角色移动模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DisplayName": {
-    "documentation": "与 <code>Player</code> 相关联的认证用户的显示名称。",
+    "documentation": "与 <code>Player</code> 关联的经过身份验证用户的显示名称。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DisplayName",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.FollowUserId": {
-    "documentation": "描述被玩家关注到体验中的账户的用户 ID。",
+    "documentation": "描述玩家跟随的用户在体验中的用户 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#FollowUserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.Parent = player:WaitForChild(\"PlayerGui\")\n\nlocal function onPlayerAdded(newPlayer)\n\tif newPlayer.FollowUserId == player.UserId then\n\t\tlocal textLabel = Instance.new(\"TextLabel\")\n\t\ttextLabel.Parent = screenGui\n\t\ttextLabel.Text = \"你被 \" .. newPlayer.Name .. \" 跟随到这个游戏！\"\n\t\ttask.delay(3, function()\n\t\t\tif textLabel then\n\t\t\t\ttextLabel:Destroy()\n\t\t\tend\n\t\tend)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GameplayPaused": {
-    "documentation": "玩家客户端游戏是否目前暂停。",
+    "documentation": "玩家客户端游戏是否当前处于暂停状态。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GameplayPaused",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasVerifiedBadge": {
-    "documentation": "指示玩家是否拥有 <strong>Verified</strong> 徽章。",
+    "documentation": "指示玩家是否拥有 <strong>已验证</strong> 徽章。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasVerifiedBadge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HealthDisplayDistance": {
-    "documentation": "设置此玩家看到其他玩家的生命条的距离。",
+    "documentation": "设置该玩家将看到其他玩家生命值条的距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HealthDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LocaleId": {
-    "documentation": "该属性显示本地玩家为其 Roblox 帐户设置的区域 ID。",
+    "documentation": "此属性显示本地玩家为其 Roblox 账户设置的区域 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
@@ -44244,27 +44489,27 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.MembershipType == Enum.MembershipType.Premium then\n\t-- 对Premium会员采取某些行动\nend"
   },
   "@roblox/globaltype/Player.NameDisplayDistance": {
-    "documentation": "设置此玩家看到其他玩家名称的距离。",
+    "documentation": "设置该玩家将看到其他玩家名称的距离。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#NameDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Neutral": {
-    "documentation": "判断玩家是否在特定团队中。",
+    "documentation": "确定玩家是否在特定团队中。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Neutral",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.PartyId": {
-    "documentation": "该 <code>Player</code> 所属派对的唯一标识符。",
+    "documentation": "玩家属于的派对的唯一标识符。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"玩家在一个派对中，ID: \" .. partyId)\n\telse\n\t\tprint(\"玩家不在派对中\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"玩家加入了派对，ID: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"玩家离开了派对\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
-    "documentation": "设置环绕玩家的复制焦点的部件。",
+    "documentation": "设置聚焦复制的部件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ReplicationFocus",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RespawnLocation": {
-    "documentation": "如果设置，则玩家将重生于给定的 <code>SpawnLocation</code>。",
+    "documentation": "如果设置，玩家将在给定的 <code>SpawnLocation</code> 处重生。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
     "code_sample": ""
   },
@@ -44279,7 +44524,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.TeamColor": {
-    "documentation": "根据该团队的 <code>Team.TeamColor</code> 确定玩家所关联的 <code>Team</code>。",
+    "documentation": "确定玩家与根据该团队的 <code>Team.TeamColor</code> 相关的 <code>Team</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#TeamColor",
     "code_sample": ""
   },
@@ -44289,17 +44534,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.UserId": {
-    "documentation": "分配给所有用户账户的唯一标识整数。",
+    "documentation": "分配给所有用户账户的唯一标识符整数。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#UserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player.UserId)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.userId": {
-    "documentation": "<strong>Deprecated:</strong> 此属性是 <code>Player.UserId</code> 的弃用变体，应使用后者。",
+    "documentation": "<strong>Deprecated:</strong> 此属性是 <code>Player.UserId</code> 的弃用变体，应该替代使用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#userId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
     "documentation": "用作新的复制焦点的 <code>BasePart</code>。"
@@ -44321,7 +44566,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance": {
     "documentation": "从玩家的 <code>Character</code> 中移除所有配件和其他角色外观对象。",
@@ -44336,16 +44581,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function onChildRemoved(child)\n\tprint(child.ClassName, \"从角色中移除\")\nend\n\ncharacter.ChildRemoved:Connect(onChildRemoved)\n\nplayer:ClearCharacterAppearance()\n--> 身体颜色从角色中移除\n--> 背心图形从角色中移除\n--> 背心从角色中移除\n--> 裤子从角色中移除\n--> 角色网格从角色中移除\n--> 帽子从角色中移除\n--> 背心从角色中移除"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/1": {
-    "documentation": "测量玩家距离的起点。"
+    "documentation": "测量玩家与之的距离的位置信息。"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/return/0": {
-    "documentation": "玩家与位置之间的距离，以 studs 为单位。"
+    "documentation": "玩家与该位置之间的距离，单位为 studs。"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter": {
-    "documentation": "返回角色的头部与给定的 <code>Vector3</code> 之间的距离，如果玩家没有角色，则返回 <code>0</code>。",
+    "documentation": "返回角色的头与给定 <code>Vector3</code> 之间的距离，如果玩家没有角色则返回 <code>0</code>。",
     "params": [
       {
         "name": "self",
@@ -44363,10 +44608,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tprint(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/1": {
-    "documentation": "要返回的在线连接的最大数量。"
+    "documentation": "要返回的最大在线连接数量。"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/return/0": {
     "documentation": "在线连接的字典（见上表）。"
@@ -44390,13 +44635,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"获取在线玩家失败: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
-    "documentation": "一个包含 PlaceId 和 UserId 值的字典（见描述中的表）。"
+    "documentation": "包含 PlaceId 和 UserId 值的字典（见描述中的表格）。"
   },
   "@roblox/globaltype/Player.GetJoinData": {
-    "documentation": "返回一个描述玩家如何加入体验的信息的字典。",
+    "documentation": "返回描述玩家如何加入体验的信息的字典。",
     "params": [
       {
         "name": "self",
@@ -44410,7 +44655,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetMouse/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.GetMouse/return/0": {
     "documentation": ""
@@ -44430,13 +44675,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.GetNetworkPing/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing": {
-    "documentation": "返回隔离的网络延迟（以秒为单位）。",
+    "documentation": "返回隔离的网络延迟，单位为秒。",
     "params": [
       {
         "name": "self",
@@ -44450,16 +44695,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/1": {
     "documentation": "指定组的 <code>groupId</code>。"
   },
   "@roblox/globaltype/Player.GetRankInGroup/return/0": {
-    "documentation": "玩家在组中的等级。"
+    "documentation": "玩家在组中的排名。"
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "返回玩家在组中的等级（以整数形式）。",
+    "documentation": "返回玩家在组中的排名，返回值为整数。",
     "params": [
       {
         "name": "self",
@@ -44477,16 +44722,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"玩家是该组的拥有者，'LOL'！\")\n\telse\n\t\tprint(\"玩家不是该组的拥有者，'LOL'！\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/1": {
     "documentation": "指定组的组 ID。"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "指定组中玩家的角色，或如果该玩家不是成员则返回 <code>Guest</code>。"
+    "documentation": "玩家在指定组中的角色，若玩家不是组员则返回 <code>Guest</code>。"
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "返回玩家在组中的角色，以字符串形式返回；如果玩家不是该组的成员，则返回 <code>Guest</code>。",
+    "documentation": "返回玩家在组中的角色，若玩家不是组员则返回 <code>Guest</code>。",
     "params": [
       {
         "name": "self",
@@ -44504,13 +44749,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"玩家在组 'LOL' 中的等级为 '\", player:GetRoleInGroup(2), \"'！\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
-    "documentation": "一个布尔值，指示玩家的角色外观是否已加载。"
+    "documentation": "一个布尔值，指示玩家的角色的外观是否已加载。"
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded": {
-    "documentation": "返回玩家的角色外观是否已加载。",
+    "documentation": "返回玩家角色的外观是否已经加载。",
     "params": [
       {
         "name": "self",
@@ -44524,7 +44769,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tlocal loaded = player:HasAppearanceLoaded()\n\tprint(loaded)\n\n\twhile not loaded do\n\t\tloaded = player:HasAppearanceLoaded()\n\t\tprint(loaded)\n\t\ttask.wait()\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/1": {
     "documentation": ""
@@ -44533,7 +44778,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 此函数已经过时，因为最佳朋友功能已被删除。请改用 <code>Player:IsFriendsWith()</code>。<br>返回玩家与指定用户是否为连接关系。",
+    "documentation": "<strong>Deprecated:</strong> 此函数已过时，因为最佳朋友功能已被移除。请改用 <code>Player:IsFriendsWith()</code>。<br>返回玩家是否与指定用户有连接关系。",
     "params": [
       {
         "name": "self",
@@ -44551,7 +44796,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/1": {
     "documentation": "指定玩家的 <code>Player.UserId</code>。"
@@ -44578,7 +44823,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" 与 gordonrox24 连接！\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsInGroup/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.IsInGroup/param/1": {
     "documentation": "指定组的组 ID。"
@@ -44587,7 +44832,7 @@
     "documentation": "一个布尔值，指示玩家是否在指定组中。"
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "检查玩家是否是具有指定 ID 的组的成员。",
+    "documentation": "检查玩家是否是具有给定 ID 的组的成员。",
     "params": [
       {
         "name": "self",
@@ -44605,13 +44850,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsVerified/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.IsVerified/return/0": {
-    "documentation": "布尔值，指示玩家是否已验证。"
+    "documentation": "一个布尔值，指示玩家是否已验证。"
   },
   "@roblox/globaltype/Player.IsVerified": {
-    "documentation": "返回玩家是否通过真实的、具体的信号进行了验证。",
+    "documentation": "返回玩家是否通过真实的、具体的信号进行验证。",
     "params": [
       {
         "name": "self",
@@ -44625,13 +44870,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player:IsVerified())\nend\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tonPlayerAdded(player)\nend\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.Kick/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.Kick/param/1": {
-    "documentation": "踢出时向用户显示的消息。"
+    "documentation": "被踢时要向用户显示的消息。"
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "强制将玩家从体验中断开连接，可选择提供消息。",
+    "documentation": "强制断开玩家与体验的连接，选择性地提供消息。",
     "params": [
       {
         "name": "self",
@@ -44647,7 +44892,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadBoolean/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadBoolean/param/1": {
     "documentation": ""
@@ -44656,7 +44901,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能已用于现在过时的数据持久化方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，以进行新的工作。<br>返回以前使用相同键通过 <code>Player:SaveBoolean()</code> 保存到玩家的布尔值。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于一种现已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>返回先前使用相同键通过 <code>Player:SaveBoolean()</code> 保存到玩家的布尔值。",
     "params": [
       {
         "name": "self",
@@ -44674,10 +44919,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "为玩家创建一个新角色，移除旧角色。同时清除玩家的 <code>Backpack</code> 和 <code>PlayerGui</code>。",
+    "documentation": "为玩家创建一个新角色，移除旧角色。还清除玩家的 <code>Backpack</code> 和 <code>PlayerGui</code>。",
     "params": [
       {
         "name": "self",
@@ -44689,13 +44934,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/1": {
-    "documentation": "正在加载的资产的实例，可以使用 <code>InsertService:LoadAsset()</code> 函数获取。"
+    "documentation": "要加载的资产实例，可以使用 <code>InsertService:LoadAsset()</code> 函数获取。"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> <br>根据实例的类别将给定实例放置在玩家的角色、头部或 StarterGear 中。",
+    "documentation": "<strong>Deprecated:</strong> <br>根据实例的类，将给定实例放置在玩家的角色、头部或 StarterGear 中。",
     "params": [
       {
         "name": "self",
@@ -44711,13 +44956,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal InsertService = game:GetService(\"InsertService\")\n\nlocal function onPlayerAdded(player)\n\tlocal function onChatted(message)\n\t\tlocal assetId = message:match(\"id=(%d+)\")\n\t\tif assetId then\n\t\t\tlocal model = InsertService:LoadAsset(assetId)\n\t\t\tfor _, child in pairs(model:GetChildren()) do\n\t\t\t\tplayer:LoadCharacterAppearance(child)\n\t\t\tend\n\t\tend\n\tend\n\n\tplayer.Chatted:Connect(onChatted)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
-    "documentation": "包含身体部件/颜色、身体缩放、配件、服装和将装备到加载角色的动画等特征的 <code>HumanoidDescription</code>。"
+    "documentation": "一种包含身体部件/颜色、身体缩放、配件、服装和将装备到加载角色上的动画等特征的 <code>HumanoidDescription</code>。"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "使用传入的 <code>HumanoidDescription</code> 中的所有装备生成玩家角色。",
+    "documentation": "以传递的 <code>HumanoidDescription</code> 中装备的所有物品生成玩家角色。",
     "params": [
       {
         "name": "self",
@@ -44733,7 +44978,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadInstance/param/1": {
     "documentation": ""
@@ -44742,7 +44987,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadInstance": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能已用于现在过时的数据持久化方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，以进行新的工作。<br>返回以前使用 <code>Player:SaveInstance()</code> 保存到玩家的实例，且键相同。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于一种现已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>返回以前使用相同键通过 <code>Player:SaveInstance()</code> 保存到玩家的实例。",
     "params": [
       {
         "name": "self",
@@ -44760,7 +45005,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tlocal model = player:LoadInstance(\"Model\")\n\t\tmodel.Parent = workspace\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadNumber/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadNumber/param/1": {
     "documentation": ""
@@ -44769,7 +45014,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadNumber": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能已用于现在过时的数据持久化方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据，以进行新的工作。<br>返回以前保存到玩家的数字值。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于一种现已过时的数据持久化方法。请在新工作中使用 <code>DataStoreService</code> 保存和加载玩家数据。<br>返回以前保存到玩家的数字值。",
     "params": [
       {
         "name": "self",
@@ -44787,7 +45032,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tprint(player:LoadNumber(\"TotalPlays\"))\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadString/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.LoadString/param/1": {
     "documentation": ""
@@ -44796,7 +45041,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadString": {
-    "documentation": "<strong>Deprecated:</strong> 该项已被弃用，因为它可能曾用于现已过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>返回先前保存到玩家的字符串值。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于现已过时的数据持久性方法。 请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>返回以前保存到玩家的字符串值。",
     "params": [
       {
         "name": "self",
@@ -44814,16 +45059,16 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tprint(Player:LoadString(\"TheirName\"))\n\tend\nend)"
   },
   "@roblox/globaltype/Player.Move/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.Move/param/1": {
-    "documentation": "玩家应移动的 Vector3 方向。"
+    "documentation": "玩家应该移动的 Vector3 方向。"
   },
   "@roblox/globaltype/Player.Move/param/2": {
     "documentation": "一个布尔值，指示玩家是否应该相对于玩家的相机移动。"
   },
   "@roblox/globaltype/Player.Move": {
-    "documentation": "使玩家的角色在给定方向上行走，直到停止或被玩家（通过使用其控制）中断。",
+    "documentation": "使玩家的角色朝给定方向行走，直到停止或被玩家（通过使用他们的控制）打断。",
     "params": [
       {
         "name": "self",
@@ -44843,10 +45088,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal localPlayer = Players.LocalPlayer\n\n-- 等待玩家的角色和人形，在调用 :Move() 之前必须存在\nlocal character = localPlayer.Character or localPlayer.CharacterAdded:Wait()\ncharacter:WaitForChild(\"Humanoid\")\n\n-- 玩家将一直移动，直到他们距离运行时摄像头的位置 50 个单位\nlocalPlayer:Move(Vector3.new(0, 0, -50), true)"
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
-    "documentation": "要移除的作为复制焦点的 <code>BasePart</code>。"
+    "documentation": "要移除作为复制焦点的 <code>BasePart</code>。"
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus": {
     "documentation": "移除先前添加的复制焦点。",
@@ -44865,16 +45110,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/1": {
-    "documentation": "请求流式传输的世界位置。"
+    "documentation": "请求流媒体的世界位置。"
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/2": {
-    "documentation": "请求的可选超时，发动机在放弃请求之前尝试在 <code>position</code> 参数周围流式传输区域的最大持续时间。如果没有指定值，则超时实际上是无限的。但是，如果客户端内存低，发动机会放弃所有流式传输请求，即使这些请求仍在超时持续时间内。"
+    "documentation": "请求的可选超时，最大持续时间，表示引擎在放弃请求之前尝试在 <code>position</code> 参数周围推送区域。 如果不指定值，超时实际上是无限的。 但是，如果客户端内存不足，引擎将放弃所有流媒体请求，甚至那些仍在超时持续时间内的请求。"
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync": {
-    "documentation": "请求服务器在指定位置周围向玩家流式传输。",
+    "documentation": "请求服务器在指定位置附近向玩家推送流媒体。",
     "params": [
       {
         "name": "self",
@@ -44894,7 +45139,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveBoolean/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.SaveBoolean/param/1": {
     "documentation": ""
@@ -44903,7 +45148,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 该项已被弃用，因为它可能曾用于现已过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>用于保存一个布尔值，可以稍后使用 <code>Player:LoadBoolean()</code> 再次加载。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于现已过时的数据持久性方法。 请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>用于保存一个布尔值，该值可以稍后使用 <code>Player:LoadBoolean()</code> 加载。",
     "params": [
       {
         "name": "self",
@@ -44923,7 +45168,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tPlayer:SaveBoolean(\"HasPlayed\", true)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.SaveInstance/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.SaveInstance/param/1": {
     "documentation": ""
@@ -44932,7 +45177,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveInstance": {
-    "documentation": "<strong>Deprecated:</strong> 该项已被弃用，因为它可能曾用于现已过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>保存一个实例，可以在稍后加载。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于现已过时的数据持久性方法。 请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>保存一个实例，该实例可以在稍后的时间加载。",
     "params": [
       {
         "name": "self",
@@ -44952,7 +45197,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tPlayer:WaitForDataReady()\n\tPlayer:SaveInstance(\"Model\", game.Workspace.Model)\nend)"
   },
   "@roblox/globaltype/Player.SaveNumber/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.SaveNumber/param/1": {
     "documentation": ""
@@ -44961,7 +45206,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveNumber": {
-    "documentation": "<strong>Deprecated:</strong> 该项已被弃用，因为它可能曾用于现已过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>保存一个数值，可以在稍后使用再加载。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于现已过时的数据持久性方法。 请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>保存一个数值，该数值可以在稍后的时间使用。",
     "params": [
       {
         "name": "self",
@@ -44981,7 +45226,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tlocal OldValue = Player:SaveNumber(\"TotalPlays\")\n\t\tPlayer:SaveNumber(\"TotalPlays\", OldValue + 1)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.SaveString/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.SaveString/param/1": {
     "documentation": ""
@@ -44990,7 +45235,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveString": {
-    "documentation": "<strong>Deprecated:</strong> 该项已被弃用，因为它可能曾用于现已过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>保存一个字符串值，可以在稍后加载。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于现已过时的数据持久性方法。 请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>保存一个字符串值，该值可以在稍后的时间加载。",
     "params": [
       {
         "name": "self",
@@ -45010,10 +45255,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tplayer:SaveString(\"TheirName\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.SetAccountAge/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.SetAccountAge/param/1": {
-    "documentation": "账户的年龄（以天为单位）。"
+    "documentation": "帐户的年龄，单位为天。"
   },
   "@roblox/globaltype/Player.SetAccountAge": {
     "documentation": "设置玩家的 <code>AccountAge</code>。",
@@ -45032,13 +45277,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
-    "documentation": "一个布尔值，指示玩家是否查看过滤聊天。"
+    "documentation": "一个布尔值，指示玩家是否看到过滤聊天。"
   },
   "@roblox/globaltype/Player.SetSuperSafeChat": {
-    "documentation": "设置玩家是否查看过滤聊天，而不是普通聊天。",
+    "documentation": "设置玩家是否看到过滤聊天，而不是普通聊天。",
     "params": [
       {
         "name": "self",
@@ -45054,13 +45299,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.WaitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> 该项已被弃用，因为它可能曾用于现已过时的数据持久性方法。请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>用于暂停脚本，直到玩家的数据可用于操作，或在未获取玩家数据的情况下经过一定时间。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为它可能用于现已过时的数据持久性方法。 请使用 <code>DataStoreService</code> 保存和加载玩家数据以进行新工作。<br>用于暂停脚本，直到玩家数据可用进行操作，或直到在未获取玩家数据的情况下经过特定时间。",
     "params": [
       {
         "name": "self",
@@ -45074,7 +45319,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.isFriendsWith/param/1": {
     "documentation": ""
@@ -45083,7 +45328,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Player:IsFriendsWith()</code> 的变体，应该使用替代品。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Player:IsFriendsWith()</code> 的变体，应使用该函数。",
     "params": [
       {
         "name": "self",
@@ -45101,7 +45346,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadBoolean/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.loadBoolean/param/1": {
     "documentation": ""
@@ -45110,7 +45355,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Player:LoadBoolean()</code> 的变体，该函数也已被弃用。在新工作中不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Player:LoadBoolean()</code> 的变体，也已被弃用。这两个函数不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -45128,7 +45373,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadInstance/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.loadInstance/param/1": {
     "documentation": ""
@@ -45137,7 +45382,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadInstance": {
-    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Player:LoadInstance()</code> 的变体，该函数也已被弃用。在新工作中不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Player:LoadInstance()</code> 的变体，也已被弃用。这两个函数不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -45155,7 +45400,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadNumber/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.loadNumber/param/1": {
     "documentation": ""
@@ -45164,7 +45409,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadNumber": {
-    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Player:LoadNumber()</code> 的变体，该函数也已被弃用。在新工作中不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Player:LoadNumber()</code> 的变体，也已被弃用。这两个函数不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -45182,7 +45427,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadString/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.loadString/param/1": {
     "documentation": ""
@@ -45191,7 +45436,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadString": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:LoadString()</code> 的一个过时变体，该函数也已被弃用。在新工作中不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:LoadString()</code> 的已弃用变体，也已被弃用。这两个函数不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -45209,7 +45454,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveBoolean/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.saveBoolean/param/1": {
     "documentation": ""
@@ -45218,7 +45463,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveBoolean()</code> 的一个过时变体，该函数也已被弃用。在新工作中不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveBoolean()</code> 的已弃用变体，也已被弃用。这两个函数不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -45238,7 +45483,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveInstance/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.saveInstance/param/1": {
     "documentation": ""
@@ -45247,7 +45492,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveInstance": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveInstance()</code> 的一个过时变体，该函数也已被弃用。在新工作中不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveInstance()</code> 的已弃用变体，也已被弃用。这两个函数不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -45267,7 +45512,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveNumber/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.saveNumber/param/1": {
     "documentation": ""
@@ -45276,7 +45521,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveNumber": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveNumber()</code> 的一个过时变体，该函数也已被弃用。在新工作中不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveNumber()</code> 的已弃用变体，也已被弃用。这两个函数不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -45296,7 +45541,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveString/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.saveString/param/1": {
     "documentation": ""
@@ -45305,7 +45550,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveString": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveString()</code> 的一个过时变体，该函数也已被弃用。在新工作中不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:SaveString()</code> 的已弃用变体，也已被弃用。这两个函数不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -45325,13 +45570,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.waitForDataReady/param/0": {
-    "documentation": "一个表示当前连接到体验的客户端的对象。"
+    "documentation": "表示当前连接到体验的客户端的对象。"
   },
   "@roblox/globaltype/Player.waitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.waitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:WaitForDataReady()</code> 的一个过时变体，该函数也已被弃用。在新工作中不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Player:WaitForDataReady()</code> 的已弃用变体，也已被弃用。这两个函数不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -45510,7 +45755,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAppearanceLoaded": {
-    "documentation": "当 <code>Character</code> 的完整外观被插入时触发。",
+    "documentation": "当完整的 <code>Character</code> 外观被插入时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAppearanceLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAppearanceLoaded.ConnectParallel",
@@ -45686,7 +45931,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Chatted": {
-    "documentation": "当玩家在体验中使用 Roblox 提供的聊天框聊天时触发。",
+    "documentation": "当玩家在体验中使用 Roblox 提供的聊天栏聊天时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Chatted.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Chatted.ConnectParallel",
@@ -45774,7 +46019,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Idled": {
-    "documentation": "当引擎将玩家分类为闲置时大约两分钟后触发此事件。时间为自那时起经过的秒数。",
+    "documentation": "此事件在引擎将玩家分类为闲置后大约两分钟触发。 时间是自那时起经过的秒数。",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Idled.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Idled.ConnectParallel",
@@ -45862,7 +46107,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.OnTeleport": {
-    "documentation": "当玩家的传送状态更改时触发。",
+    "documentation": "当玩家的传送状态改变时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Player.OnTeleport.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.OnTeleport.ConnectParallel",
@@ -48305,7 +48550,8 @@
     "documentation": "维持一个流连接。",
     "keys": {
       "ConnectionState": "@roblox/globaltype/WebStreamClient.ConnectionState",
-      "Close": "@roblox/globaltype/WebStreamClient.Close"
+      "Close": "@roblox/globaltype/WebStreamClient.Close",
+      "Send": "@roblox/globaltype/WebStreamClient.Send"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient",
     "code_sample": ""
@@ -48328,6 +48574,28 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Close",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Send/param/0": {
+    "documentation": "维持一个流连接。"
+  },
+  "@roblox/globaltype/WebStreamClient.Send/param/1": {
+    "documentation": "要发送到服务器的文本字符串。"
+  },
+  "@roblox/globaltype/WebStreamClient.Send": {
+    "documentation": "将数据排入队列，以通过流连接传输到服务器。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Send/param/0"
+      },
+      {
+        "name": "data",
+        "documentation": "@roblox/globaltype/WebStreamClient.Send/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Send",
     "code_sample": ""
   },
   "@roblox/globaltype/WebStreamClient.Closed.Connect/param/0": {
@@ -73635,22 +73903,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Attack": {
-    "documentation": "|-     效果在其阈值达到后变为活动所需的时间。",
+    "documentation": "达到其 <code>Threshold</code> 后效果变为激活所需的时间。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Attack",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.GainMakeup": {
-    "documentation": "|-     在阈值上方的声音衰减之后，应用于效果的声音或声音组的整体放大。",
+    "documentation": "施加于效果的 <code>Sound</code> 或 <code>SoundGroup</code> 的总体增益，在降低超过阈值的声音后。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#GainMakeup",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Ratio": {
-    "documentation": "|-     <code>CompressorSoundEffect.SideChain</code> 音效与此音效之间的比率。",
+    "documentation": "<code>SideChain</code> 声音效果与此声音效果之间的比率。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Ratio",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Release": {
-    "documentation": "|-     在其声音低于阈值后，效果变为非活动所需的时间。",
+    "documentation": "当其声音低于 <code>Threshold</code> 时，效果变为非激活所需的时间。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Release",
     "code_sample": ""
   },
@@ -126975,6 +127243,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRTouchpad",
     "code_sample": ""
   },
+  "@roblox/enum/VideoSampleSize.Small": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Small",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Medium": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Large": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Large",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Full": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Full",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.VideoSampleSize": {
+    "documentation": "The size of textures produced by <code>VideoSampler</code>.",
+    "keys": {
+      "Small": "@roblox/enum/VideoSampleSize.Small",
+      "Medium": "@roblox/enum/VideoSampleSize.Medium",
+      "Large": "@roblox/enum/VideoSampleSize.Large",
+      "Full": "@roblox/enum/VideoSampleSize.Full"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize",
+    "code_sample": ""
+  },
   "@roblox/enum/FacialAnimationStreamingState.None": {
     "documentation": "",
     "keys": {
@@ -127818,7 +128137,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Active": {
-    "documentation": "The event is currently published and available.",
+    "documentation": "该事件目前已发布并可用。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127828,7 +128147,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Cancelled": {
-    "documentation": "The event has been cancelled and will not occur.",
+    "documentation": "该事件已被取消，将不会发生。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127838,7 +128157,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Moderated": {
-    "documentation": "The event has been removed by moderation.",
+    "documentation": "该事件已被管理方移除。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127848,7 +128167,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Unpublished": {
-    "documentation": "The event has been unpublished by the creator.",
+    "documentation": "该事件已被创建者撤销发布。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127858,7 +128177,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Unknown": {
-    "documentation": "The event status could not be determined.",
+    "documentation": "无法确定事件状态。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

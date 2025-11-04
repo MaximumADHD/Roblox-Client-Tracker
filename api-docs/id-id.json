@@ -14857,7 +14857,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire": {
-    "documentation": "Sebuah pemancar partikel dengan estetika visual api.",
+    "documentation": "Emitter partikel yang telah dikonfigurasi sebelumnya dengan estetika visual api.",
     "keys": {
       "Color": "@roblox/globaltype/Fire.Color",
       "Enabled": "@roblox/globaltype/Fire.Enabled",
@@ -14879,7 +14879,7 @@
   "@roblox/globaltype/Fire.Enabled": {
     "documentation": "Menentukan apakah partikel api dipancarkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Enabled",
-    "code_sample": "local part = script.Parent\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nlocal light = Instance.new(\"PointLight\")\nlight.Parent = part\n\nlocal function onClick()\n\tfire.Enabled = not fire.Enabled\n\tlight.Enabled = fire.Enabled\nend\n\nclickDetector.MouseClick:Connect(onClick)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Fire.Heat": {
     "documentation": "Menentukan kecepatan di mana partikel dipancarkan.",
@@ -14887,7 +14887,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.LocalTransparencyModifier": {
-    "documentation": "",
+    "documentation": "Pengganda untuk transparansi objek <code>Fire</code> yang hanya terlihat oleh klien lokal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#LocalTransparencyModifier",
     "code_sample": ""
   },
@@ -14902,7 +14902,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.TimeScale": {
-    "documentation": "Nilai antara 0-1 yang mengontrol kecepatan efek partikel.",
+    "documentation": "Mengontrol kecepatan efek partikel.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#TimeScale",
     "code_sample": ""
   },
@@ -27954,6 +27954,251 @@
   "@roblox/globaltype/Decal.ZIndex": {
     "documentation": "Menentukan urutan rendering ketika beberapa Decals ditugaskan pada permukaan yang sama.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService": {
+    "documentation": "Service providing common encoding, hashing, and compression methods.",
+    "keys": {
+      "Base64Decode": "@roblox/globaltype/EncodingService.Base64Decode",
+      "Base64Encode": "@roblox/globaltype/EncodingService.Base64Encode",
+      "CompressBuffer": "@roblox/globaltype/EncodingService.CompressBuffer",
+      "ComputeBufferHash": "@roblox/globaltype/EncodingService.ComputeBufferHash",
+      "ComputeStringHash": "@roblox/globaltype/EncodingService.ComputeStringHash",
+      "DecompressBuffer": "@roblox/globaltype/EncodingService.DecompressBuffer",
+      "GetDecompressedBufferSize": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/1": {
+    "documentation": "<code>buffer</code> containing Base64 data to decode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/return/0": {
+    "documentation": "<code>buffer</code> with the decoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Decode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Decode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/1": {
+    "documentation": "<code>buffer</code> containing binary data to encode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/return/0": {
+    "documentation": "<code>buffer</code> with the encoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Encode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Encode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compress"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for compression"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/3": {
+    "documentation": "optional integer compression level to use"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/2"
+      },
+      {
+        "name": "compressionLevel",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.CompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#CompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compute hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0": {
+    "documentation": "<code>buffer</code> with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeBufferHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/1": {
+    "documentation": "string to compute the hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/return/0": {
+    "documentation": "String with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeStringHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeStringHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for decompression"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with the decompressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.DecompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#DecompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> used to compress it"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0": {
+    "documentation": "Integer size of the decompressed data or 'nil'"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#GetDecompressedBufferSize",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter": {
@@ -44040,7 +44285,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman.",
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman.",
     "keys": {
       "AccountAge": "@roblox/globaltype/Player.AccountAge",
       "AutoJumpEnabled": "@roblox/globaltype/Player.AutoJumpEnabled",
@@ -44124,32 +44369,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AccountAge": {
-    "documentation": "Menjelaskan usia akun pemain dalam hari.",
+    "documentation": "Mendeskripsikan usia akun pemain dalam hari.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AccountAge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AutoJumpEnabled": {
-    "documentation": "Menentukan apakah karakter pemain yang menggunakan perangkat seluler akan secara otomatis melompat saat mengenai rintangan.",
+    "documentation": "Menentukan apakah karakter pemain yang menggunakan perangkat mobile akan secara otomatis melompat saat mengenai rintangan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Perbarui teks tombol\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Jump AKTIF\"\n\telse\n\t\tbutton.Text = \"Auto-Jump TIDAK AKTIF\"\n\tend\n\t-- Refleksikan properti di karakter pemain, jika mereka memilikinya\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- Toggel auto-jump\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- Perbarui semua hal lainnya\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/Player.CameraMaxZoomDistance": {
-    "documentation": "Jarak maksimum yang diizinkan untuk kamera pemain memperbesar tampilan.",
+    "documentation": "Jarak maksimum yang diizinkan untuk kamera pemain dalam melakukan zoom out.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMaxZoomDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMinZoomDistance": {
-    "documentation": "Jarak minimum yang diizinkan untuk kamera pemain memperkecil tampilan.",
+    "documentation": "Jarak minimum yang diizinkan untuk kamera pemain dalam melakukan zoom in.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMinZoomDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMode": {
-    "documentation": "Mengubah mode kamera menjadi orang pertama atau ketiga.",
+    "documentation": "Mengubah mode kamera menjadi orang pertama atau orang ketiga.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMode",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/Player.CanLoadCharacterAppearance": {
-    "documentation": "Menentukan apakah penampilan karakter akan dimuat saat pemain muncul. Jika <code>false</code>, pemain akan muncul dengan penampilan default.",
+    "documentation": "Menentukan apakah penampilan karakter akan dimuat saat pemain respawn. Jika <code>false</code>, pemain akan respawn dengan penampilan default.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CanLoadCharacterAppearance",
     "code_sample": ""
   },
@@ -44159,22 +44404,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang. Jangan gunakan untuk pekerjaan baru.<br>URL dari aset yang berisi penampilan karakter, pakaian, dan peralatan.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan lagi. Jangan gunakan untuk pekerjaan baru.<br>URL dari aset yang berisi penampilan karakter, pakaian, dan perlengkapan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearanceId": {
-    "documentation": "Menentukan ID pengguna dari akun yang penampilannya digunakan untuk <code>Character</code> seorang pemain.",
+    "documentation": "Menentukan ID pengguna dari akun yang penampilan karakternya digunakan untuk <code>Character</code> pemain.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearanceId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataComplexity": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Jumlah total data yang saat ini disimpan dalam cache pemain di tempat saat ini.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan lagi, karena mungkin telah digunakan untuk metode persistensi data yang sudah usang. Harap simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Jumlah total data yang saat ini disimpan dalam cache pemain di tempat saat ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataComplexity",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataReady": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Menunjukkan ketika data pemain tersedia untuk dimuat.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan lagi, karena mungkin telah digunakan untuk metode persistensi data yang sudah usang. Harap simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Menunjukkan saat data pemain tersedia untuk dimuat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataReady",
     "code_sample": ""
   },
@@ -44184,42 +44429,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerCameraMode": {
-    "documentation": "Menentukan mode gerakan kamera pemain saat menggunakan perangkat dengan mouse dan keyboard.",
+    "documentation": "Menentukan mode pergerakan kamera pemain saat menggunakan perangkat dengan mouse dan keyboard.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerMovementMode": {
-    "documentation": "Menentukan mode gerakan karakter pemain saat menggunakan perangkat dengan mouse dan keyboard.",
+    "documentation": "Menentukan mode pergerakan karakter pemain saat menggunakan perangkat dengan mouse dan keyboard.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevEnableMouseLock": {
-    "documentation": "Menentukan apakah pemain dapat mengalihkan kunci mouse.",
+    "documentation": "Menentukan apakah pemain dapat mengaktifkan kunci mouse.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevEnableMouseLock",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchCameraMode": {
-    "documentation": "Menentukan mode gerakan kamera pemain saat menggunakan perangkat yang mendukung sentuhan.",
+    "documentation": "Menentukan mode pergerakan kamera pemain saat menggunakan perangkat yang mendukung sentuhan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchMovementMode": {
-    "documentation": "Menentukan mode gerakan karakter pemain saat menggunakan perangkat yang mendukung sentuhan.",
+    "documentation": "Menentukan mode pergerakan karakter pemain saat menggunakan perangkat yang mendukung sentuhan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DisplayName": {
-    "documentation": "Nama tampil yang terkait dengan pengguna yang terautentikasi <code>Player</code>.",
+    "documentation": "Nama tampilan pengguna yang terautentikasi terkait dengan <code>Player</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DisplayName",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.FollowUserId": {
-    "documentation": "Menjelaskan ID pengguna dari pemain yang diikuti ke pengalaman oleh pemain.",
+    "documentation": "Mendeskripsikan ID pengguna pemain yang diikuti oleh pemain ke dalam pengalaman.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#FollowUserId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GameplayPaused": {
-    "documentation": "Apakah gameplay sisi klien pemain saat ini dijeda.",
+    "documentation": "Apakah gameplay klien pemain saat ini dijeda.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GameplayPaused",
     "code_sample": ""
   },
@@ -44229,32 +44474,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HealthDisplayDistance": {
-    "documentation": "Mengatur jarak di mana pemain ini akan melihat bar kesehatan pemain lain.",
+    "documentation": "Mengatur jarak di mana pemain ini akan melihat bilah kesehatan pemain lainnya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HealthDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LocaleId": {
-    "documentation": "Properti ini menunjukkan ID lokal yang telah ditetapkan oleh pemain lokal untuk akun Roblox mereka.",
+    "documentation": "Properti ini menunjukkan ID lokal yang telah diatur oleh pemain lokal untuk akun Roblox mereka.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.MembershipType": {
-    "documentation": "Menjelaskan jenis keanggotaan akun.",
+    "documentation": "Mendeskripsikan jenis keanggotaan akun.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#MembershipType",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.MembershipType == Enum.MembershipType.Premium then\n\t-- Ambil beberapa tindakan khusus untuk anggota Premium\nend"
   },
   "@roblox/globaltype/Player.NameDisplayDistance": {
-    "documentation": "Mengatur jarak di mana pemain ini akan melihat nama pemain lain.",
+    "documentation": "Mengatur jarak di mana pemain ini akan melihat nama pemain lainnya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#NameDisplayDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Neutral": {
-    "documentation": "Menentukan apakah pemain ada di suatu tim tertentu.",
+    "documentation": "Menentukan apakah pemain di dalam tim tertentu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Neutral",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.PartyId": {
-    "documentation": "Sebuah pengenal unik dari partai yang dimiliki oleh <code>Player</code>.",
+    "documentation": "Identifikasi unik dari pesta yang menjadi anggota <code>Player</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Pemain berada di pesta dengan ID: \" .. partyId)\n\telse\n\t\tprint(\"Pemain tidak berada di pesta\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"Pemain bergabung dengan pesta dengan ID: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"Pemain keluar dari pesta\")\n\t\tend\n\tend)\nend)"
   },
@@ -44264,7 +44509,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RespawnLocation": {
-    "documentation": "Jika diatur, pemain akan respawn di <code>SpawnLocation</code> yang diberikan.",
+    "documentation": "Jika diatur, pemain akan respawn di lokasi <code>SpawnLocation</code> yang diberikan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
     "code_sample": ""
   },
@@ -44274,12 +44519,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Team": {
-    "documentation": "Menentukan <code>Team</code> dengan mana pemain terkait.",
+    "documentation": "Menentukan <code>Team</code> yang dimiliki pemain.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Team",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.TeamColor": {
-    "documentation": "Menentukan <code>Team</code> dengan mana pemain terkait sesuai dengan <code>Team.TeamColor</code> tim tersebut.",
+    "documentation": "Menentukan <code>Team</code> yang dimiliki pemain sesuai dengan <code>Team.TeamColor</code> tim tersebut.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#TeamColor",
     "code_sample": ""
   },
@@ -44289,20 +44534,20 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.UserId": {
-    "documentation": "Sebuah integer pengenal unik yang diberikan kepada semua akun pengguna.",
+    "documentation": "Sebuah integer pengidentifikasi unik yang diberikan kepada semua akun pengguna.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#UserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player.UserId)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.userId": {
-    "documentation": "<strong>Deprecated:</strong> Properti ini adalah varian yang sudah usang dari <code>Player.UserId</code> yang sebaiknya digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Properti ini adalah varian yang telah dihentikan dari <code>Player.UserId</code> yang sebaiknya digunakan sebagai gantinya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#userId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
-    "documentation": "<code>BasePart</code> yang digunakan sebagai fokus replikasi baru."
+    "documentation": "Objek <code>BasePart</code> yang akan digunakan sebagai fokus replikasi baru."
   },
   "@roblox/globaltype/Player.AddReplicationFocus": {
     "documentation": "Menambahkan fokus replikasi tambahan untuk pemain.",
@@ -44321,10 +44566,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance": {
-    "documentation": "Menghapus semua aksesori dan objek penampilan karakter lainnya dari <code>Character</code> seorang pemain.",
+    "documentation": "Menghapus semua aksesori dan objek penampilan karakter lainnya dari <code>Character</code> pemain.",
     "params": [
       {
         "name": "self",
@@ -44336,16 +44581,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function onChildRemoved(child)\n\tprint(child.ClassName, \"dihapus dari karakter\")\nend\n\ncharacter.ChildRemoved:Connect(onChildRemoved)\n\nplayer:ClearCharacterAppearance()\n--> BodyColors dihapus dari karakter\n--> ShirtGraphic dihapus dari karakter\n--> Shirt dihapus dari karakter\n--> Pants dihapus dari karakter\n--> CharacterMesh dihapus dari karakter\n--> Hat dihapus dari karakter\n--> Shirt dihapus dari karakter"
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/1": {
     "documentation": "Lokasi dari mana jarak pemain diukur."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/return/0": {
-    "documentation": "Jarak dalam stud antara pemain dan lokasi."
+    "documentation": "Jarak dalam studs antara pemain dan lokasi."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter": {
-    "documentation": "Mengembalikan jarak antara kepala karakter dan <code>Vector3</code> tertentu, atau <code>0</code> jika pemain tidak memiliki karakter.",
+    "documentation": "Mengembalikan jarak antara kepala karakter dan <code>Vector3</code> yang diberikan, atau <code>0</code> jika pemain tidak memiliki karakter.",
     "params": [
       {
         "name": "self",
@@ -44363,16 +44608,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nfor _, player in pairs(Players:GetPlayers()) do\n\t-- Mencetak jarak dari karakter pemain\n\tprint(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/1": {
-    "documentation": "Jumlah maksimum koneksi daring yang akan dikembalikan."
+    "documentation": "Jumlah maksimum koneksi online yang akan dikembalikan."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/return/0": {
-    "documentation": "Sebuah kamus koneksi daring (lihat tabel di atas)."
+    "documentation": "Sebuah kamus dari koneksi online (lihat tabel di atas)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "Mengembalikan kamus koneksi daring.",
+    "documentation": "Mengembalikan kamus dari koneksi online.",
     "params": [
       {
         "name": "self",
@@ -44390,10 +44635,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Gagal untuk mendapatkan pemain online: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
-    "documentation": "Sebuah kamus berisi nilai PlaceId dan UserId (lihat tabel dalam deskripsi)."
+    "documentation": "Sebuah kamus yang berisi nilai PlaceId dan UserId (lihat tabel dalam deskripsi)."
   },
   "@roblox/globaltype/Player.GetJoinData": {
     "documentation": "Mengembalikan kamus yang berisi informasi yang menjelaskan bagaimana pemain bergabung dengan pengalaman.",
@@ -44410,7 +44655,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetMouse/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.GetMouse/return/0": {
     "documentation": ""
@@ -44430,7 +44675,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.GetNetworkPing/return/0": {
     "documentation": ""
@@ -44450,16 +44695,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/1": {
     "documentation": "ID grup dari grup yang ditentukan."
   },
   "@roblox/globaltype/Player.GetRankInGroup/return/0": {
-    "documentation": "Peringkat pemain di grup."
+    "documentation": "Peringkat pemain dalam grup tersebut."
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "Mengembalikan peringkat pemain di grup sebagai integer.",
+    "documentation": "Mengembalikan peringkat pemain dalam grup sebagai integer.",
     "params": [
       {
         "name": "self",
@@ -44477,16 +44722,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"Pemain adalah pemilik grup, 'LOL'!\")\n\telse\n\t\tprint(\"Pemain BUKAN pemilik grup, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/1": {
     "documentation": "ID grup dari grup yang ditentukan."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "Peran pemain dalam grup yang ditentukan, atau <code>Guest</code> jika pemain tidak menjadi anggota."
+    "documentation": "Peran pemain dalam grup yang ditentukan, atau <code>Guest</code> jika pemain bukan anggota."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "Mengembalikan peran pemain di grup sebagai string, atau <code>Guest</code> jika pemain tidak menjadi bagian dari grup.",
+    "documentation": "Mengembalikan peran pemain dalam grup sebagai string, atau <code>Guest</code> jika pemain tidak menjadi bagian dari grup.",
     "params": [
       {
         "name": "self",
@@ -44504,10 +44749,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
-    "documentation": "Boolean yang menunjukkan apakah penampilan karakter pemain sudah dimuat."
+    "documentation": "Sebuah boolean yang menunjukkan apakah penampilan karakter pemain telah dimuat atau tidak."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded": {
     "documentation": "Mengembalikan apakah penampilan karakter pemain telah dimuat.",
@@ -44524,7 +44769,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tlocal loaded = player:HasAppearanceLoaded()\n\tprint(loaded)\n\n\twhile not loaded do\n\t\tloaded = player:HasAppearanceLoaded()\n\t\tprint(loaded)\n\t\ttask.wait()\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/1": {
     "documentation": ""
@@ -44533,7 +44778,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini sudah usang karena fitur Teman Terbaik telah dihapus. Gunakan <code>Player:IsFriendsWith()</code> sebagai gantinya.<br>Mengembalikan apakah seorang pemain adalah koneksi dengan pengguna yang ditentukan.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini sudah usang karena fitur Teman Terbaik telah dihapus. Gunakan <code>Player:IsFriendsWith()</code> sebagai gantinya.<br>Mengembalikan apakah pemain adalah koneksi dengan pengguna tertentu.",
     "params": [
       {
         "name": "self",
@@ -44551,16 +44796,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/1": {
     "documentation": "ID pengguna <code>Player.UserId</code> dari pemain yang ditentukan."
   },
   "@roblox/globaltype/Player.IsFriendsWith/return/0": {
-    "documentation": "Boolean yang menunjukkan apakah seorang pemain adalah koneksi dari pengguna yang ditentukan."
+    "documentation": "Sebuah boolean yang menunjukkan apakah pemain adalah koneksi dari pengguna yang ditentukan."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "Memeriksa apakah seorang pemain adalah koneksi pengguna dengan <code>Player.UserId</code> yang diberikan.",
+    "documentation": "Memeriksa apakah pemain adalah koneksi dari pengguna dengan <code>Player.UserId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -44578,16 +44823,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" adalah koneksi dengan gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsInGroup/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.IsInGroup/param/1": {
     "documentation": "ID grup dari grup yang ditentukan."
   },
   "@roblox/globaltype/Player.IsInGroup/return/0": {
-    "documentation": "Boolean yang menunjukkan apakah pemain berada di grup yang ditentukan."
+    "documentation": "Sebuah boolean yang menunjukkan apakah pemain berada dalam grup yang ditentukan."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "Memeriksa apakah seorang pemain adalah anggota grup dengan ID yang diberikan.",
+    "documentation": "Memeriksa apakah pemain adalah anggota grup dengan ID yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -44605,13 +44850,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsVerified/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.IsVerified/return/0": {
-    "documentation": "Boolean yang menunjukkan apakah pemain terverifikasi."
+    "documentation": "Sebuah boolean yang menunjukkan apakah pemain sudah terverifikasi."
   },
   "@roblox/globaltype/Player.IsVerified": {
-    "documentation": "Mengembalikan apakah pemain terverifikasi dengan sinyal nyata, konkret.",
+    "documentation": "Mengembalikan apakah pemain sudah terverifikasi dengan sinyal dunia nyata yang konkret.",
     "params": [
       {
         "name": "self",
@@ -44625,13 +44870,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player:IsVerified())\nend\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tonPlayerAdded(player)\nend\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.Kick/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.Kick/param/1": {
-    "documentation": "Pesan yang ditampilkan kepada pengguna saat diusir."
+    "documentation": "Pesan yang ditampilkan kepada pengguna saat dikeluarkan."
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "Memaksa pemutusan pemain dari pengalaman, pilihan untuk memberikan pesan.",
+    "documentation": "Secara paksa memutuskan sambungan pemain dari pengalaman, dengan opsi untuk memberikan pesan.",
     "params": [
       {
         "name": "self",
@@ -44647,7 +44892,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadBoolean/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.LoadBoolean/param/1": {
     "documentation": ""
@@ -44656,7 +44901,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Mengembalikan nilai boolean yang sebelumnya disimpan ke pemain dengan <code>Player:SaveBoolean()</code> dengan kunci yang sama.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan lagi, karena mungkin telah digunakan untuk metode persistensi data yang sudah usang. Harap simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Mengembalikan nilai boolean yang sebelumnya disimpan ke pemain dengan <code>Player:SaveBoolean()</code> dengan kunci yang sama.",
     "params": [
       {
         "name": "self",
@@ -44674,10 +44919,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "Menciptakan karakter baru untuk pemain, menghapus karakter lama. Juga menghapus <code>Backpack</code> dan <code>PlayerGui</code> pemain.",
+    "documentation": "Membuat karakter baru untuk pemain, menghapus yang lama. Juga membersihkan <code>Backpack</code> dan <code>PlayerGui</code> pemain.",
     "params": [
       {
         "name": "self",
@@ -44689,13 +44934,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/1": {
     "documentation": "Sebuah instance dari aset yang dimuat, yang dapat diperoleh menggunakan fungsi <code>InsertService:LoadAsset()</code>."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> <br>Menempatkan instance yang diberikan baik di karakter pemain, kepala, atau StarterGear berdasarkan kelas instance tersebut.",
+    "documentation": "<strong>Deprecated:</strong> <br>Menempatkan instance yang diberikan baik dalam karakter pemain, kepala, atau StarterGear berdasarkan kelas instance tersebut.",
     "params": [
       {
         "name": "self",
@@ -44711,13 +44956,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal InsertService = game:GetService(\"InsertService\")\n\nlocal function onPlayerAdded(player)\n\tlocal function onChatted(message)\n\t\tlocal assetId = message:match(\"id=(%d+)\")\n\t\tif assetId then\n\t\t\tlocal model = InsertService:LoadAsset(assetId)\n\t\t\tfor _, child in pairs(model:GetChildren()) do\n\t\t\t\tplayer:LoadCharacterAppearance(child)\n\t\t\tend\n\t\tend\n\tend\n\n\tplayer.Chatted:Connect(onChatted)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
-    "documentation": "Sebuah <code>HumanoidDescription</code> yang berisi sifat seperti bagian badan/warna, skala tubuh, aksesori, pakaian, dan animasi yang akan dilengkapi ke karakter yang dimuat."
+    "documentation": "Sebuah <code>HumanoidDescription</code> yang berisi karakteristik seperti bagian tubuh/warna, skala tubuh, aksesori, pakaian, dan animasi yang akan dilengkapi ke karakter yang dimuat."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "Memunculkan karakter pemain dengan semua yang dilengkapi dalam <code>HumanoidDescription</code> yang diberikan.",
+    "documentation": "Membuat karakter pemain dengan semua yang dilengkapi dalam <code>HumanoidDescription</code> yang diteruskan.",
     "params": [
       {
         "name": "self",
@@ -44733,7 +44978,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.LoadInstance/param/1": {
     "documentation": ""
@@ -44742,7 +44987,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadInstance": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Mengembalikan sebuah instance yang sebelumnya disimpan ke pemain dengan <code>Player:SaveInstance()</code> dengan kunci yang sama.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan lagi, karena mungkin telah digunakan untuk metode persistensi data yang sudah usang. Harap simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Mengembalikan instance yang sebelumnya disimpan ke pemain dengan <code>Player:SaveInstance()</code> dengan kunci yang sama.",
     "params": [
       {
         "name": "self",
@@ -44760,7 +45005,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tlocal model = player:LoadInstance(\"Model\")\n\t\tmodel.Parent = workspace\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadNumber/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.LoadNumber/param/1": {
     "documentation": ""
@@ -44769,7 +45014,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadNumber": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data  yang sekarang usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Mengembalikan nilai angka yang sebelumnya disimpan ke pemain.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan lagi, karena mungkin telah digunakan untuk metode persistensi data yang sudah usang. Harap simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Mengembalikan nilai numerik yang sebelumnya disimpan ke pemain.",
     "params": [
       {
         "name": "self",
@@ -44787,7 +45032,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tprint(player:LoadNumber(\"TotalPlays\"))\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadString/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.LoadString/param/1": {
     "documentation": ""
@@ -44796,7 +45041,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadString": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang sudah tidak berlaku. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Mengembalikan nilai string yang sebelumnya disimpan ke pemain.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan, karena mungkin telah digunakan untuk metode persistence data yang kini sudah usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Mengembalikan nilai string yang sebelumnya disimpan ke pemain.",
     "params": [
       {
         "name": "self",
@@ -44814,7 +45059,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tprint(Player:LoadString(\"NamaMereka\"))\n\tend\nend)"
   },
   "@roblox/globaltype/Player.Move/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.Move/param/1": {
     "documentation": "Arah Vector3 yang harus dilalui pemain."
@@ -44823,7 +45068,7 @@
     "documentation": "Sebuah boolean yang menunjukkan apakah pemain harus bergerak relatif terhadap kamera pemain."
   },
   "@roblox/globaltype/Player.Move": {
-    "documentation": "Mengakibatkan karakter pemain berjalan ke arah yang diberikan sampai berhenti, atau terputus oleh pemain (dengan menggunakan kontrol mereka).",
+    "documentation": "Menyebabkan karakter pemain berjalan ke arah yang diberikan sampai berhenti, atau terputus oleh pemain (dengan menggunakan kontrol mereka).",
     "params": [
       {
         "name": "self",
@@ -44843,7 +45088,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
     "documentation": "<code>BasePart</code> yang akan dihapus sebagai fokus replikasi."
@@ -44865,13 +45110,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/1": {
-    "documentation": "Lokasi dunia tempat streaming diminta."
+    "documentation": "Lokasi dunia di mana streaming diminta."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/2": {
-    "documentation": "Timeout opsional untuk permintaan, durasi maksimum yang dicoba mesin untuk melakukan streaming daerah di sekitar parameter <code>position</code> sebelum meninggalkan permintaan. Jika Anda tidak menentukan nilai, timeout secara efektif tidak terbatas. Namun, jika klien kekurangan memori, mesin akan meninggalkan semua permintaan streaming, bahkan yang masih berada dalam durasi timeout."
+    "documentation": "Waktu tunggu opsional untuk permintaan, durasi maksimum yang dicoba oleh mesin untuk melakukan streaming wilayah di sekitar parameter <code>position</code> sebelum meninggalkan permintaan. Jika Anda tidak menentukan nilai, waktu tunggu secara efektif adalah tak terbatas. Namun, jika klien kekurangan memori, mesin akan membatalkan semua permintaan streaming, bahkan yang masih berada dalam durasi waktu tunggu."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync": {
     "documentation": "Meminta agar server melakukan streaming kepada pemain di sekitar lokasi yang ditentukan.",
@@ -44894,7 +45139,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveBoolean/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.SaveBoolean/param/1": {
     "documentation": ""
@@ -44903,7 +45148,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang sudah tidak berlaku. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Digunakan untuk menyimpan nilai boolean yang dapat dimuat kembali di waktu yang akan datang menggunakan <code>Player:LoadBoolean()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan, karena mungkin telah digunakan untuk metode persistence data yang kini sudah usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Digunakan untuk menyimpan nilai boolean yang bisa dimuat lagi pada waktu lain menggunakan <code>Player:LoadBoolean()</code>.",
     "params": [
       {
         "name": "self",
@@ -44923,7 +45168,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tPlayer:SaveBoolean(\"HasPlayed\", true)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.SaveInstance/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.SaveInstance/param/1": {
     "documentation": ""
@@ -44932,7 +45177,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveInstance": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang sudah tidak berlaku. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Menyimpan sebuah instance yang dapat dimuat kembali di waktu yang akan datang.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan, karena mungkin telah digunakan untuk metode persistence data yang kini sudah usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Menyimpan sebuah instance yang dapat dimuat kembali di waktu lain.",
     "params": [
       {
         "name": "self",
@@ -44952,7 +45197,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tPlayer:WaitForDataReady()\n\tPlayer:SaveInstance(\"Model\", game.Workspace.Model)\nend)"
   },
   "@roblox/globaltype/Player.SaveNumber/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.SaveNumber/param/1": {
     "documentation": ""
@@ -44961,7 +45206,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveNumber": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang sudah tidak berlaku. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Menyimpan nilai angka yang dapat dimuat kembali di waktu yang akan datang menggunakan.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan, karena mungkin telah digunakan untuk metode persistence data yang kini sudah usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Menyimpan nilai angka yang dapat dimuat kembali di waktu lain menggunakan.",
     "params": [
       {
         "name": "self",
@@ -44981,7 +45226,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tlocal OldValue = Player:SaveNumber(\"TotalPlays\")\n\t\tPlayer:SaveNumber(\"TotalPlays\", OldValue + 1)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.SaveString/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.SaveString/param/1": {
     "documentation": ""
@@ -44990,7 +45235,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveString": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang sudah tidak berlaku. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Menyimpan nilai string yang dapat dimuat kembali di waktu yang akan datang.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan, karena mungkin telah digunakan untuk metode persistence data yang kini sudah usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Menyimpan nilai string yang dapat dimuat kembali di waktu lain.",
     "params": [
       {
         "name": "self",
@@ -45010,13 +45255,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tplayer:SaveString(\"TheirName\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.SetAccountAge/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.SetAccountAge/param/1": {
     "documentation": "Usia akun dalam hari."
   },
   "@roblox/globaltype/Player.SetAccountAge": {
-    "documentation": "Mengatur <code>AccountAge</code> pemain.",
+    "documentation": "Mengatur <code>AccountAge</code> dari pemain.",
     "params": [
       {
         "name": "self",
@@ -45032,13 +45277,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
-    "documentation": "Sebuah boolean yang menunjukkan apakah pemain melihat obrolan yang disaring."
+    "documentation": "Sebuah boolean yang menunjukkan apakah pemain melihat obrolan yang difilter."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat": {
-    "documentation": "Mengatur apakah pemain melihat obrolan yang disaring, bukan obrolan normal.",
+    "documentation": "Mengatur apakah pemain melihat obrolan yang difilter, daripada obrolan normal.",
     "params": [
       {
         "name": "self",
@@ -45054,13 +45299,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.WaitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> Item ini sudah usang, karena mungkin telah digunakan untuk metode persistensi data yang sekarang sudah tidak berlaku. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Digunakan untuk menghentikan skrip hingga data pemain tersedia untuk manipulasi, atau hingga sejumlah waktu tertentu telah berlalu tanpa mengunduh data pemain.",
+    "documentation": "<strong>Deprecated:</strong> Item ini sudah tidak digunakan, karena mungkin telah digunakan untuk metode persistence data yang kini sudah usang. Silakan simpan dan muat data pemain menggunakan <code>DataStoreService</code> untuk pekerjaan baru.<br>Digunakan untuk menghentikan skrip hingga data pemain tersedia untuk manipulasi, atau hingga sejumlah waktu tertentu berlalu tanpa mengambil data pemain.",
     "params": [
       {
         "name": "self",
@@ -45074,7 +45319,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.isFriendsWith/param/1": {
     "documentation": ""
@@ -45083,7 +45328,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah usang ini adalah varian dari <code>Player:IsFriendsWith()</code> yang harus digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi kadaluarsa ini adalah varian dari <code>Player:IsFriendsWith()</code> yang harus digunakan sebagai gantinya.",
     "params": [
       {
         "name": "self",
@@ -45101,7 +45346,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadBoolean/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.loadBoolean/param/1": {
     "documentation": ""
@@ -45110,7 +45355,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah usang ini adalah varian dari <code>Player:LoadBoolean()</code> yang juga telah usang. Tidak satu pun dari fungsi ini seharusnya digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi kadaluarsa ini adalah varian dari <code>Player:LoadBoolean()</code> yang juga telah kadaluarsa. Tidak ada dari kedua fungsi ini yang harus digunakan dalam pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -45128,7 +45373,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadInstance/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.loadInstance/param/1": {
     "documentation": ""
@@ -45137,7 +45382,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadInstance": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah usang ini adalah varian dari <code>Player:LoadInstance()</code> yang juga telah usang. Tidak satu pun dari fungsi ini seharusnya digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi kadaluarsa ini adalah varian dari <code>Player:LoadInstance()</code> yang juga telah kadaluarsa. Tidak ada dari kedua fungsi ini yang harus digunakan dalam pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -45155,7 +45400,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadNumber/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.loadNumber/param/1": {
     "documentation": ""
@@ -45164,7 +45409,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadNumber": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah usang ini adalah varian dari <code>Player:LoadNumber()</code> yang juga telah usang. Tidak satu pun dari fungsi ini seharusnya digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi kadaluarsa ini adalah varian dari <code>Player:LoadNumber()</code> yang juga telah kadaluarsa. Tidak ada dari kedua fungsi ini yang harus digunakan dalam pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -45182,7 +45427,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadString/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.loadString/param/1": {
     "documentation": ""
@@ -45191,7 +45436,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadString": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian yang sudah usang dari <code>Player:LoadString()</code> yang juga telah usang. Tidak satu pun dari fungsi ini seharusnya digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian kadaluarsa dari <code>Player:LoadString()</code> yang juga telah kadaluarsa. Tidak ada dari kedua fungsi ini yang harus digunakan dalam pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -45209,7 +45454,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveBoolean/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.saveBoolean/param/1": {
     "documentation": ""
@@ -45218,7 +45463,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian yang sudah usang dari <code>Player:SaveBoolean()</code> yang juga telah usang. Tidak satu pun dari fungsi ini seharusnya digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian kadaluarsa dari <code>Player:SaveBoolean()</code> yang juga telah kadaluarsa. Tidak ada dari kedua fungsi ini yang harus digunakan dalam pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -45238,7 +45483,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveInstance/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.saveInstance/param/1": {
     "documentation": ""
@@ -45247,7 +45492,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveInstance": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian yang sudah usang dari <code>Player:SaveInstance()</code> yang juga telah usang. Tidak satu pun dari fungsi ini seharusnya digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian kadaluarsa dari <code>Player:SaveInstance()</code> yang juga telah kadaluarsa. Tidak ada dari kedua fungsi ini yang harus digunakan dalam pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -45267,7 +45512,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveNumber/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.saveNumber/param/1": {
     "documentation": ""
@@ -45276,7 +45521,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveNumber": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian yang sudah usang dari <code>Player:SaveNumber()</code> yang juga telah usang. Tidak satu pun dari fungsi ini seharusnya digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian kadaluarsa dari <code>Player:SaveNumber()</code> yang juga telah kadaluarsa. Tidak ada dari kedua fungsi ini yang harus digunakan dalam pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -45296,7 +45541,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.saveString/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.saveString/param/1": {
     "documentation": ""
@@ -45305,7 +45550,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveString": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian yang sudah usang dari <code>Player:SaveString()</code> yang juga telah usang. Tidak satu pun dari fungsi ini seharusnya digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian kadaluarsa dari <code>Player:SaveString()</code> yang juga telah kadaluarsa. Tidak ada dari kedua fungsi ini yang harus digunakan dalam pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -45325,13 +45570,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.waitForDataReady/param/0": {
-    "documentation": "Objek yang merepresentasikan klien yang terhubung saat ini ke pengalaman."
+    "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
   },
   "@roblox/globaltype/Player.waitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.waitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian yang sudah usang dari <code>Player:WaitForDataReady()</code> yang juga telah usang. Tidak satu pun dari fungsi ini seharusnya digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini adalah varian kadaluarsa dari <code>Player:WaitForDataReady()</code> yang juga telah kadaluarsa. Tidak ada dari kedua fungsi ini yang harus digunakan dalam pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -45422,7 +45667,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAdded": {
-    "documentation": "Dikriminalkan saat karakter pemain muncul atau muncul kembali.",
+    "documentation": "Ditembak saat karakter pemain muncul atau respawn.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAdded.ConnectParallel",
@@ -45510,7 +45755,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAppearanceLoaded": {
-    "documentation": "Dikriminalkan ketika penampilan penuh dari <code>Character</code> telah ditambahkan.",
+    "documentation": "Ditembak saat tampilan penuh dari <code>Character</code> telah tersisip.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAppearanceLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAppearanceLoaded.ConnectParallel",
@@ -45598,7 +45843,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterRemoving": {
-    "documentation": "Dikriminalkan tepat sebelum karakter pemain dihapus.",
+    "documentation": "Ditembak tepat sebelum karakter pemain dihapus.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterRemoving.ConnectParallel",
@@ -45686,7 +45931,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Chatted": {
-    "documentation": "Dikriminalkan ketika seorang pemain berbicara dalam pengalaman menggunakan bar obrolan yang disediakan Roblox.",
+    "documentation": "Ditembak saat pemain chatting dalam pengalaman menggunakan bilah obrolan yang disediakan oleh Roblox.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Chatted.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Chatted.ConnectParallel",
@@ -45774,7 +46019,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Idled": {
-    "documentation": "Peristiwa ini terjadi sekitar dua menit setelah mesin mengklasifikasikan pemain sebagai tidak aktif. Waktu adalah jumlah detik yang telah berlalu sejak saat itu.",
+    "documentation": "Acara ini ditembak kira-kira dua menit setelah mesin mengklasifikasikan pemain sebagai tidak aktif. Waktu adalah jumlah detik yang telah berlalu sejak saat itu.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Idled.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Idled.ConnectParallel",
@@ -45862,7 +46107,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.OnTeleport": {
-    "documentation": "Dikriminalkan ketika status teleportasi pemain berubah.",
+    "documentation": "Ditembak saat status teleportasi pemain berubah.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.OnTeleport.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.OnTeleport.ConnectParallel",
@@ -48305,7 +48550,8 @@
     "documentation": "Memelihara koneksi streaming.",
     "keys": {
       "ConnectionState": "@roblox/globaltype/WebStreamClient.ConnectionState",
-      "Close": "@roblox/globaltype/WebStreamClient.Close"
+      "Close": "@roblox/globaltype/WebStreamClient.Close",
+      "Send": "@roblox/globaltype/WebStreamClient.Send"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient",
     "code_sample": ""
@@ -48328,6 +48574,28 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Close",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/WebStreamClient.Send/param/0": {
+    "documentation": "Memelihara koneksi streaming."
+  },
+  "@roblox/globaltype/WebStreamClient.Send/param/1": {
+    "documentation": "String teks untuk dikirim ke server."
+  },
+  "@roblox/globaltype/WebStreamClient.Send": {
+    "documentation": "Mengantri data untuk dikirim ke server melalui koneksi streaming.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/WebStreamClient.Send/param/0"
+      },
+      {
+        "name": "data",
+        "documentation": "@roblox/globaltype/WebStreamClient.Send/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WebStreamClient#Send",
     "code_sample": ""
   },
   "@roblox/globaltype/WebStreamClient.Closed.Connect/param/0": {
@@ -73635,22 +73903,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Attack": {
-    "documentation": "Waktu yang dibutuhkan efek untuk menjadi aktif setelah Threshold telah  tercapai.",
+    "documentation": "Waktu yang diperlukan efek untuk aktif setelah  <code>Threshold</code> tercapai.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Attack",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.GainMakeup": {
-    "documentation": "Penguatan keseluruhan yang diterapkan pada Sound atau SoundGroup dari efek setelah  penurunan suara di atas ambang batas.",
+    "documentation": "Penguatan keseluruhan yang diterapkan pada <code>Sound</code> efek.  atau <code>SoundGroup</code> setelah penurunan suara di atas ambang batas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#GainMakeup",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Ratio": {
-    "documentation": "Rasio antara efek suara <code>CompressorSoundEffect.SideChain</code>, dan efek suara ini.",
+    "documentation": "Rasio antara efek suara <code>SideChain</code>  dan efek suara ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Ratio",
     "code_sample": ""
   },
   "@roblox/globaltype/CompressorSoundEffect.Release": {
-    "documentation": "Waktu yang dibutuhkan efek untuk menjadi tidak aktif setelah suaranya berada di bawah  Threshold.",
+    "documentation": "Waktu yang diperlukan efek untuk tidak aktif setelah suara berada di bawah  <code>Threshold</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompressorSoundEffect#Release",
     "code_sample": ""
   },
@@ -126975,6 +127243,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRTouchpad",
     "code_sample": ""
   },
+  "@roblox/enum/VideoSampleSize.Small": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Small",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Medium": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Large": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Large",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Full": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Full",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.VideoSampleSize": {
+    "documentation": "The size of textures produced by <code>VideoSampler</code>.",
+    "keys": {
+      "Small": "@roblox/enum/VideoSampleSize.Small",
+      "Medium": "@roblox/enum/VideoSampleSize.Medium",
+      "Large": "@roblox/enum/VideoSampleSize.Large",
+      "Full": "@roblox/enum/VideoSampleSize.Full"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize",
+    "code_sample": ""
+  },
   "@roblox/enum/FacialAnimationStreamingState.None": {
     "documentation": "",
     "keys": {
@@ -127818,7 +128137,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Active": {
-    "documentation": "The event is currently published and available.",
+    "documentation": "Acara saat ini diterbitkan dan tersedia.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127828,7 +128147,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Cancelled": {
-    "documentation": "The event has been cancelled and will not occur.",
+    "documentation": "Acara telah dibatalkan dan tidak akan terjadi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127838,7 +128157,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Moderated": {
-    "documentation": "The event has been removed by moderation.",
+    "documentation": "Acara telah dihapus oleh moderasi.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127848,7 +128167,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Unpublished": {
-    "documentation": "The event has been unpublished by the creator.",
+    "documentation": "Acara telah dihapus publikasinya oleh pencipta.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127858,7 +128177,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ExperienceEventStatus.Unknown": {
-    "documentation": "The event status could not be determined.",
+    "documentation": "Status acara tidak dapat ditentukan.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

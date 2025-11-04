@@ -967,7 +967,8 @@
       "none": "@roblox/globaltype/Content.none",
       "SourceType": "@roblox/globaltype/Content.SourceType",
       "Uri": "@roblox/globaltype/Content.Uri",
-      "Object": "@roblox/globaltype/Content.Object"
+      "Object": "@roblox/globaltype/Content.Object",
+      "Opaque": "@roblox/globaltype/Content.Opaque"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Content",
     "code_sample": ""
@@ -990,6 +991,11 @@
   "@roblox/globaltype/Content.Object": {
     "documentation": "A reference to a non-<code>nil</code> <code>Object</code> if <code>Content.SourceType</code> is <code>Object</code>, otherwise <code>nil</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Content#Object",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Content.Opaque": {
+    "documentation": "A reference to a non-<code>nil</code> <code>Opaque</code> content if <code>Content.SourceType</code> is <code>Opaque</code>, otherwise <code>nil</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Content#Opaque",
     "code_sample": ""
   },
   "@roblox/global/ColorSequence": {
@@ -27956,6 +27962,251 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
+  "@roblox/globaltype/EncodingService": {
+    "documentation": "Service providing common encoding, hashing, and compression methods.",
+    "keys": {
+      "Base64Decode": "@roblox/globaltype/EncodingService.Base64Decode",
+      "Base64Encode": "@roblox/globaltype/EncodingService.Base64Encode",
+      "CompressBuffer": "@roblox/globaltype/EncodingService.CompressBuffer",
+      "ComputeBufferHash": "@roblox/globaltype/EncodingService.ComputeBufferHash",
+      "ComputeStringHash": "@roblox/globaltype/EncodingService.ComputeStringHash",
+      "DecompressBuffer": "@roblox/globaltype/EncodingService.DecompressBuffer",
+      "GetDecompressedBufferSize": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/param/1": {
+    "documentation": "<code>buffer</code> containing Base64 data to decode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode/return/0": {
+    "documentation": "<code>buffer</code> with the decoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Decode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Decode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Decode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Decode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/param/1": {
+    "documentation": "<code>buffer</code> containing binary data to encode"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode/return/0": {
+    "documentation": "<code>buffer</code> with the encoded result"
+  },
+  "@roblox/globaltype/EncodingService.Base64Encode": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.Base64Encode/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.Base64Encode/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#Base64Encode",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compress"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for compression"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/param/3": {
+    "documentation": "optional integer compression level to use"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.CompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/2"
+      },
+      {
+        "name": "compressionLevel",
+        "documentation": "@roblox/globaltype/EncodingService.CompressBuffer/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.CompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#CompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1": {
+    "documentation": "<code>buffer</code> with binary data to compute hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0": {
+    "documentation": "<code>buffer</code> with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeBufferHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeBufferHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/1": {
+    "documentation": "string to compute the hash for"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/param/2": {
+    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash/return/0": {
+    "documentation": "String with the binary data of the hash"
+  },
+  "@roblox/globaltype/EncodingService.ComputeStringHash": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.ComputeStringHash/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.ComputeStringHash/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#ComputeStringHash",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> to use for decompression"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer/return/0": {
+    "documentation": "<code>buffer</code> with the decompressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.DecompressBuffer": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.DecompressBuffer/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.DecompressBuffer/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#DecompressBuffer",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0": {
+    "documentation": "Service providing common encoding, hashing, and compression methods."
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1": {
+    "documentation": "<code>buffer</code> with compressed binary data"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2": {
+    "documentation": "<code>CompressionAlgorithm</code> used to compress it"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0": {
+    "documentation": "Integer size of the decompressed data or 'nil'"
+  },
+  "@roblox/globaltype/EncodingService.GetDecompressedBufferSize": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0"
+      },
+      {
+        "name": "input",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1"
+      },
+      {
+        "name": "algorithm",
+        "documentation": "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EncodingService#GetDecompressedBufferSize",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AudioLimiter": {
     "documentation": "Limits how loud audio streams are allowed to be.",
     "keys": {
@@ -43946,6 +44197,9 @@
     "keys": {
       "ColorMap": "@roblox/globaltype/TerrainDetail.ColorMap",
       "ColorMapContent": "@roblox/globaltype/TerrainDetail.ColorMapContent",
+      "EmissiveMaskContent": "@roblox/globaltype/TerrainDetail.EmissiveMaskContent",
+      "EmissiveStrength": "@roblox/globaltype/TerrainDetail.EmissiveStrength",
+      "EmissiveTint": "@roblox/globaltype/TerrainDetail.EmissiveTint",
       "Face": "@roblox/globaltype/TerrainDetail.Face",
       "MaterialPattern": "@roblox/globaltype/TerrainDetail.MaterialPattern",
       "MetalnessMap": "@roblox/globaltype/TerrainDetail.MetalnessMap",
@@ -43967,6 +44221,21 @@
   "@roblox/globaltype/TerrainDetail.ColorMapContent": {
     "documentation": "Determines the color of the surface. Only supports asset URIs as textures.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#ColorMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainDetail.EmissiveMaskContent": {
+    "documentation": "Determines the emissivity across the surface.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#EmissiveMaskContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainDetail.EmissiveStrength": {
+    "documentation": "Determines the strength of emissive contribution.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#EmissiveStrength",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainDetail.EmissiveTint": {
+    "documentation": "Determines the tinting color for emissive contribution.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#EmissiveTint",
     "code_sample": ""
   },
   "@roblox/globaltype/TerrainDetail.Face": {
@@ -50527,6 +50796,7 @@
       "IsAncestorOf": "@roblox/globaltype/Instance.IsAncestorOf",
       "IsDescendantOf": "@roblox/globaltype/Instance.IsDescendantOf",
       "IsPropertyModified": "@roblox/globaltype/Instance.IsPropertyModified",
+      "QueryDescendants": "@roblox/globaltype/Instance.QueryDescendants",
       "Remove": "@roblox/globaltype/Instance.Remove",
       "RemoveTag": "@roblox/globaltype/Instance.RemoveTag",
       "ResetPropertyToDefault": "@roblox/globaltype/Instance.ResetPropertyToDefault",
@@ -51219,6 +51489,33 @@
       "@roblox/globaltype/Instance.IsPropertyModified/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#IsPropertyModified",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Instance.QueryDescendants/param/0": {
+    "documentation": "<code>Instance</code> is the base class for all classes in the Roblox class hierarchy which can be part of the <code>DataModel</code> tree."
+  },
+  "@roblox/globaltype/Instance.QueryDescendants/param/1": {
+    "documentation": "Selector string used to filter elements."
+  },
+  "@roblox/globaltype/Instance.QueryDescendants/return/0": {
+    "documentation": "An array of instances (empty if nothing matched the selector)."
+  },
+  "@roblox/globaltype/Instance.QueryDescendants": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Instance.QueryDescendants/param/0"
+      },
+      {
+        "name": "selector",
+        "documentation": "@roblox/globaltype/Instance.QueryDescendants/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Instance.QueryDescendants/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#QueryDescendants",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Remove/param/0": {
@@ -52984,6 +53281,9 @@
       "ColorMap": "@roblox/globaltype/MaterialVariant.ColorMap",
       "ColorMapContent": "@roblox/globaltype/MaterialVariant.ColorMapContent",
       "CustomPhysicalProperties": "@roblox/globaltype/MaterialVariant.CustomPhysicalProperties",
+      "EmissiveMaskContent": "@roblox/globaltype/MaterialVariant.EmissiveMaskContent",
+      "EmissiveStrength": "@roblox/globaltype/MaterialVariant.EmissiveStrength",
+      "EmissiveTint": "@roblox/globaltype/MaterialVariant.EmissiveTint",
       "MaterialPattern": "@roblox/globaltype/MaterialVariant.MaterialPattern",
       "MetalnessMap": "@roblox/globaltype/MaterialVariant.MetalnessMap",
       "MetalnessMapContent": "@roblox/globaltype/MaterialVariant.MetalnessMapContent",
@@ -53014,6 +53314,21 @@
   "@roblox/globaltype/MaterialVariant.CustomPhysicalProperties": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#CustomPhysicalProperties",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MaterialVariant.EmissiveMaskContent": {
+    "documentation": "Determines the emissivity across the surface.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveMaskContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MaterialVariant.EmissiveStrength": {
+    "documentation": "Determines the strength of emissive contribution.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveStrength",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MaterialVariant.EmissiveTint": {
+    "documentation": "Determines the tinting color for emissive contribution.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveTint",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MaterialPattern": {
@@ -57575,7 +57890,7 @@
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Dictionary containing the following key-value pairs: <ul> <li><code>ColorMap</code> — A <code>Content</code> object that contains the color   map. Default is <code>nil</code>.</li> <li><code>MetalnessMap</code> — A <code>Content</code> object that contains the   metalness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> <li><code>NormalMap</code> — A <code>Content</code> object that contains the normal   map. Default is <code>nil</code>.</li> <li><code>RoughnessMap</code> — A <code>Content</code> object that contains the   roughness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> </ul>"
+    "documentation": "Dictionary containing the following key-value pairs: <ul> <li><code>ColorMap</code> — A <code>Content</code> object that contains the color   map. Default is <code>nil</code>.</li> <li><code>MetalnessMap</code> — A <code>Content</code> object that contains the   metalness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> <li><code>NormalMap</code> — A <code>Content</code> object that contains the normal   map. Default is <code>nil</code>.</li> <li><code>RoughnessMap</code> — A <code>Content</code> object that contains the   roughness map. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> <li><code>EmissiveMask</code> — A <code>Content</code> object that contains the   emissive mask. If more than one channel is present, only the red   channel is used. Default is <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
     "documentation": "A new <code>SurfaceAppearance</code> instance with the given maps from the <code>content</code> parameter."
@@ -82230,6 +82545,9 @@
       "Color": "@roblox/globaltype/SurfaceAppearance.Color",
       "ColorMap": "@roblox/globaltype/SurfaceAppearance.ColorMap",
       "ColorMapContent": "@roblox/globaltype/SurfaceAppearance.ColorMapContent",
+      "EmissiveMaskContent": "@roblox/globaltype/SurfaceAppearance.EmissiveMaskContent",
+      "EmissiveStrength": "@roblox/globaltype/SurfaceAppearance.EmissiveStrength",
+      "EmissiveTint": "@roblox/globaltype/SurfaceAppearance.EmissiveTint",
       "MetalnessMap": "@roblox/globaltype/SurfaceAppearance.MetalnessMap",
       "MetalnessMapContent": "@roblox/globaltype/SurfaceAppearance.MetalnessMapContent",
       "NormalMap": "@roblox/globaltype/SurfaceAppearance.NormalMap",
@@ -82259,6 +82577,21 @@
   "@roblox/globaltype/SurfaceAppearance.ColorMapContent": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#ColorMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/SurfaceAppearance.EmissiveMaskContent": {
+    "documentation": "Determines the emissivity across the surface.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveMaskContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/SurfaceAppearance.EmissiveStrength": {
+    "documentation": "Determines the strength of emissive contribution.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveStrength",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/SurfaceAppearance.EmissiveTint": {
+    "documentation": "Determines the tinting color for emissive contribution.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveTint",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.MetalnessMap": {
@@ -88442,6 +88775,7 @@
       "LoadAvatar2DPreviewAsync": "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync",
       "LoadGeneratedAvatarAsync": "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync",
       "PrepareAvatarForPreviewAsync": "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync",
+      "PromptCreateAvatarAssetAsync": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync",
       "PromptCreateAvatarAsync": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync",
       "PromptSelectAvatarGenerationImageAsync": "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync",
       "RequestAvatarGenerationSessionAsync": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync",
@@ -88670,6 +89004,54 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#PrepareAvatarForPreviewAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/0": {
+    "documentation": "A service to support developer avatar creators."
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/1": {
+    "documentation": "The ID of a creation token. The token must be valid in that the universe the method is called from is the same universe the token was created for. Furthermore, the token creator must maintain ID verification and <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>. To create a token for utilization in this API, follow the <a href=\"../../../production/monetization/avatar-creation-token.md\">token creation</a> process. The token's creation type must match the <code>AvatarAssetType</code> passed in to the method."
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/2": {
+    "documentation": "The <code>Player</code> intended to be presented with the creation prompt."
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/3": {
+    "documentation": "The <code>Instance</code> of the avatar asset intended for creation."
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/4": {
+    "documentation": "The <code>AvatarAssetType</code> of the expected creation. This must match the creation type of the provided token."
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/return/0": {
+    "documentation": "A tuple containing, in order: <ul> <li> An <code>PromptCreateAssetResult</code> indicating the result of the   creation prompt. </li> <li> A string result. In the case of   <code>PromptCreateAssetResult.Success</code>, this will indicate the asset   ID. In the case of any failure enum, this will indicate the   resultant error message. </li> </ul>"
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync": {
+    "documentation": "Prompts a <code>Player</code> to purchase and create an avatar asset from an <code>Instance</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/0"
+      },
+      {
+        "name": "tokenId",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/1"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/2"
+      },
+      {
+        "name": "assetInstance",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/3"
+      },
+      {
+        "name": "assetType",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/4"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#PromptCreateAvatarAssetAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/0": {
     "documentation": "A service to support developer avatar creators."
   },
@@ -88886,6 +89268,94 @@
       "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#ValidateUGCFullBodyAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
+    "documentation": "Fires when an in-experience-created avatar asset's moderation status has been updated from pending.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarAssetModerationCompleted",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0": {
@@ -96424,8 +96894,10 @@
       "CanSendCallInviteAsync": "@roblox/globaltype/SocialService.CanSendCallInviteAsync",
       "CanSendGameInviteAsync": "@roblox/globaltype/SocialService.CanSendGameInviteAsync",
       "GetEventRsvpStatusAsync": "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync",
+      "GetExperienceEventAsync": "@roblox/globaltype/SocialService.GetExperienceEventAsync",
       "GetPartyAsync": "@roblox/globaltype/SocialService.GetPartyAsync",
       "GetPlayersByPartyId": "@roblox/globaltype/SocialService.GetPlayersByPartyId",
+      "GetUpcomingExperienceEventsAsync": "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync",
       "HideSelfView": "@roblox/globaltype/SocialService.HideSelfView",
       "PromptFeedbackSubmissionAsync": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync",
       "PromptGameInvite": "@roblox/globaltype/SocialService.PromptGameInvite",
@@ -96526,6 +96998,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetEventRsvpStatusAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/0": {
+    "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
+  },
+  "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/1": {
+    "documentation": "The string identifier of the event to retrieve. Must correspond to an event in the current experience."
+  },
+  "@roblox/globaltype/SocialService.GetExperienceEventAsync/return/0": {
+    "documentation": "A dictionary describing the event, or <code>nil</code> if the event does not exist, belongs to another experience, or is otherwise unavailable."
+  },
+  "@roblox/globaltype/SocialService.GetExperienceEventAsync": {
+    "documentation": "Returns details for the specified experience event or <code>nil</code> if it is unavailable.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/0"
+      },
+      {
+        "name": "eventId",
+        "documentation": "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SocialService.GetExperienceEventAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetExperienceEventAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.GetPartyAsync/param/0": {
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
@@ -96579,6 +97078,26 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetPlayersByPartyId",
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tlocal partyPlayers: { Player } = SocialService:GetPlayersByPartyId(partyId)\n\n\t\tfor _, partyMember in partyPlayers do\n\t\t\tprint(\"Party Member: \" .. partyMember.Name)\n\t\tend\n\telse\n\t\twarn(\"Player is not in a party\")\n\tend\nend)"
+  },
+  "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/param/0": {
+    "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
+  },
+  "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/return/0": {
+    "documentation": "An array of dictionaries describing each active or upcoming event in the current experience, ordered by soonest start time first."
+  },
+  "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync": {
+    "documentation": "Returns active and upcoming experience events for the current experience.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetUpcomingExperienceEventsAsync",
+    "code_sample": ""
   },
   "@roblox/globaltype/SocialService.HideSelfView/param/0": {
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
@@ -115154,7 +115673,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PhysicsSteppingMethod.Default": {
-    "documentation": "The current default is Fixed.",
+    "documentation": "The current default is <code>Adaptive</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -126020,6 +126539,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#UnknownFailure",
     "code_sample": ""
   },
+  "@roblox/enum/PromptCreateAssetResult.UGCValidationFailed": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#UGCValidationFailed",
+    "code_sample": ""
+  },
+  "@roblox/enum/PromptCreateAssetResult.ModeratedName": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#ModeratedName",
+    "code_sample": ""
+  },
+  "@roblox/enum/PromptCreateAssetResult.PurchaseFailure": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#PurchaseFailure",
+    "code_sample": ""
+  },
+  "@roblox/enum/PromptCreateAssetResult.TokenInvalid": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#TokenInvalid",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.PromptCreateAssetResult": {
     "documentation": "",
     "keys": {
@@ -126028,7 +126587,11 @@
       "Timeout": "@roblox/enum/PromptCreateAssetResult.Timeout",
       "UploadFailed": "@roblox/enum/PromptCreateAssetResult.UploadFailed",
       "NoUserInput": "@roblox/enum/PromptCreateAssetResult.NoUserInput",
-      "UnknownFailure": "@roblox/enum/PromptCreateAssetResult.UnknownFailure"
+      "UnknownFailure": "@roblox/enum/PromptCreateAssetResult.UnknownFailure",
+      "UGCValidationFailed": "@roblox/enum/PromptCreateAssetResult.UGCValidationFailed",
+      "ModeratedName": "@roblox/enum/PromptCreateAssetResult.ModeratedName",
+      "PurchaseFailure": "@roblox/enum/PromptCreateAssetResult.PurchaseFailure",
+      "TokenInvalid": "@roblox/enum/PromptCreateAssetResult.TokenInvalid"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult",
     "code_sample": ""
@@ -126998,6 +127561,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRTouchpad",
     "code_sample": ""
   },
+  "@roblox/enum/VideoSampleSize.Small": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Small",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Medium": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Medium",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Large": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Large",
+    "code_sample": ""
+  },
+  "@roblox/enum/VideoSampleSize.Full": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize#Full",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.VideoSampleSize": {
+    "documentation": "The size of textures produced by <code>VideoSampler</code>.",
+    "keys": {
+      "Small": "@roblox/enum/VideoSampleSize.Small",
+      "Medium": "@roblox/enum/VideoSampleSize.Medium",
+      "Large": "@roblox/enum/VideoSampleSize.Large",
+      "Full": "@roblox/enum/VideoSampleSize.Full"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VideoSampleSize",
+    "code_sample": ""
+  },
   "@roblox/enum/FacialAnimationStreamingState.None": {
     "documentation": "",
     "keys": {
@@ -127266,16 +127880,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#StreamingMesh",
     "code_sample": ""
   },
-  "@roblox/enum/ModelLevelOfDetail.SLIM": {
-    "documentation": "A Scalable Lightweight Interactive Model, or SLIM, model (a composite of all child parts of the model) renders at progressively lower resolutions at distances based on the streaming radius. Greatly improves visual quality over <code>StreamingMesh</code>.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#SLIM",
-    "code_sample": ""
-  },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
     "documentation": "A lower resolution mesh will not be displayed.",
     "keys": {
@@ -127286,13 +127890,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#Disabled",
     "code_sample": ""
   },
+  "@roblox/enum/ModelLevelOfDetail.SLIM": {
+    "documentation": "A Scalable Lightweight Interactive Model, or SLIM, model (a composite of all child parts of the model) renders at progressively lower resolutions at distances based on the streaming radius. Greatly improves visual quality over <code>StreamingMesh</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#SLIM",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ModelLevelOfDetail": {
     "documentation": "Controls the level of detail for <code>Models</code> in experiences with instance streaming enabled.",
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
-      "SLIM": "@roblox/enum/ModelLevelOfDetail.SLIM",
-      "Disabled": "@roblox/enum/ModelLevelOfDetail.Disabled"
+      "Disabled": "@roblox/enum/ModelLevelOfDetail.Disabled",
+      "SLIM": "@roblox/enum/ModelLevelOfDetail.SLIM"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail",
     "code_sample": ""
@@ -132061,12 +132675,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ContentSourceType#Object",
     "code_sample": ""
   },
+  "@roblox/enum/ContentSourceType.Opaque": {
+    "documentation": "A non-<code>nil</code> <code>Opaque</code> reference contained in <code>Content.Opaque</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ContentSourceType#Opaque",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ContentSourceType": {
     "documentation": "The source type of a <code>Content</code> value.",
     "keys": {
       "None": "@roblox/enum/ContentSourceType.None",
       "Uri": "@roblox/enum/ContentSourceType.Uri",
-      "Object": "@roblox/enum/ContentSourceType.Object"
+      "Object": "@roblox/enum/ContentSourceType.Object",
+      "Opaque": "@roblox/enum/ContentSourceType.Opaque"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ContentSourceType",
     "code_sample": ""
