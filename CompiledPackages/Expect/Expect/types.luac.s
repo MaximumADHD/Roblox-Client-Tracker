@@ -9,8 +9,5 @@ MAIN:
   GETIMPORT R3 K4 [require]
   GETTABLEKS R4 R1 K6 ["LuauPolyfill"]
   CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R5 R1 K7 ["JestMatcherUtils"]
-  CALL R4 1 1
-  NEWTABLE R5 0 0
-  RETURN R5 1
+  NEWTABLE R4 0 0
+  RETURN R4 1

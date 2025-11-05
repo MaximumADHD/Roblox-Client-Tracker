@@ -1,0 +1,221 @@
+PROTO_0:
+  NEWTABLE R1 4 0
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K1 [setmetatable]
+  CALL R0 2 1
+  NAMECALL R1 R0 K2 ["_createGlobalAutomocks"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K3 ["automocks"]
+  GETTABLEKS R3 R0 K3 ["automocks"]
+  NAMECALL R1 R0 K4 ["_createGlobalEnv"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K5 ["envObject"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K6 ["currentlyMocked"]
+  RETURN R0 1
+
+PROTO_1:
+  LOADB R2 0
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R4 R1
+  GETIMPORT R3 K1 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K2 ["table"] [+7]
+  GETTABLEKS R3 R1 K3 ["_isMockGlobalLibrary"]
+  JUMPIFEQKB R3 TRUE [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_2:
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  FASTCALL1 TYPEOF R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K1 [typeof]
+  CALL R7 1 1
+  JUMPIFNOTEQKS R7 K2 ["function"] [+13]
+  DUPTABLE R7 K6 [{"_isGlobalAutomockFn", "_maybeMock", "_maybeUnmocked"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K3 ["_isGlobalAutomockFn"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K4 ["_maybeMock"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K5 ["_maybeUnmocked"]
+  SETTABLE R7 R1 R5
+  JUMP [+19]
+  FASTCALL1 TYPEOF R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K1 [typeof]
+  CALL R7 1 1
+  JUMPIFNOTEQKS R7 K7 ["table"] [+9]
+  NEWTABLE R7 0 0
+  GETUPVAL R8 0
+  MOVE R9 R6
+  MOVE R10 R7
+  CALL R8 2 0
+  SETTABLE R7 R1 R5
+  JUMP [+4]
+  GETIMPORT R7 K9 [error]
+  LOADK R8 K10 ["Unexpected mockable global type - this is an internal bug"]
+  CALL R7 1 0
+  FORGLOOP R2 2 [-39]
+  RETURN R0 0
+
+PROTO_3:
+  DUPCLOSURE R1 K0 [PROTO_2]
+  CAPTURE VAL R1
+  NEWTABLE R2 0 0
+  MOVE R3 R1
+  GETUPVAL R4 0
+  MOVE R5 R2
+  CALL R3 2 0
+  RETURN R2 1
+
+PROTO_4:
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K2 ["string"] [+10]
+  GETIMPORT R2 K4 [error]
+  LOADK R4 K5 ["Cannot index globalEnv with %* (expected string)"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K6 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  LOADN R4 1
+  LOADN R5 2
+  FASTCALL3 STRING_SUB R1 R4 R5
+  MOVE R3 R1
+  GETIMPORT R2 K8 [string.sub]
+  CALL R2 3 1
+  JUMPIFNOTEQKS R2 K9 ["$$"] [+3]
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R1
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R4 R2
+  GETIMPORT R3 K1 [typeof]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K10 ["table"] [+12]
+  GETTABLEKS R3 R2 K11 ["_isGlobalAutomockFn"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R3 R2 K12 ["_maybeUnmocked"]
+  JUMPIF R3 [+4]
+  GETIMPORT R3 K4 [error]
+  LOADK R4 K13 ["globalEnv has not been initialised by Jest here"]
+  CALL R3 1 1
+  RETURN R3 1
+  LOADK R3 K14 [""]
+  GETUPVAL R4 1
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  MOVE R9 R3
+  MOVE R10 R8
+  LOADK R11 K15 ["."]
+  CONCAT R3 R9 R11
+  FORGLOOP R4 2 [-5]
+  MOVE R4 R3
+  MOVE R5 R1
+  CONCAT R3 R4 R5
+  GETIMPORT R4 K4 [error]
+  LOADK R6 K16 ["Jest does not yet support mocking the %* global."]
+  MOVE R8 R3
+  NAMECALL R6 R6 K6 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPTABLE R2 K2 [{"_isMockGlobalLibrary", "_automocksRef"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["_isMockGlobalLibrary"]
+  SETTABLEKS R0 R2 K1 ["_automocksRef"]
+  MOVE R3 R0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  FASTCALL1 TYPEOF R7 [+3]
+  MOVE R9 R7
+  GETIMPORT R8 K4 [typeof]
+  CALL R8 1 1
+  JUMPIFNOTEQKS R8 K5 ["table"] [+20]
+  GETTABLEKS R8 R7 K6 ["_isGlobalAutomockFn"]
+  JUMPIF R8 [+16]
+  GETIMPORT R8 K8 [table.clone]
+  MOVE R9 R1
+  CALL R8 1 1
+  FASTCALL2 TABLE_INSERT R8 R6 [+5]
+  MOVE R10 R8
+  MOVE R11 R6
+  GETIMPORT R9 K10 [table.insert]
+  CALL R9 2 0
+  GETUPVAL R9 0
+  MOVE R10 R7
+  MOVE R11 R8
+  CALL R9 2 1
+  SETTABLE R9 R2 R6
+  FORGLOOP R3 2 [-27]
+  DUPTABLE R5 K12 [{"__index"}]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K11 ["__index"]
+  FASTCALL2 SETMETATABLE R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K14 [setmetatable]
+  CALL R3 2 0
+  GETIMPORT R3 K16 [table.freeze]
+  MOVE R4 R2
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_6:
+  DUPCLOSURE R2 K0 [PROTO_5]
+  CAPTURE VAL R2
+  MOVE R3 R2
+  MOVE R4 R1
+  NEWTABLE R5 0 0
+  CALL R3 2 1
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
+  CALL R2 1 1
+  NEWTABLE R3 2 0
+  NEWTABLE R4 8 0
+  DUPTABLE R5 K9 [{"print", "warn", "math"}]
+  GETIMPORT R6 K10 [print]
+  SETTABLEKS R6 R5 K6 ["print"]
+  GETIMPORT R6 K11 [warn]
+  SETTABLEKS R6 R5 K7 ["warn"]
+  DUPTABLE R6 K13 [{"random"}]
+  GETIMPORT R7 K14 [math.random]
+  SETTABLEKS R7 R6 K12 ["random"]
+  SETTABLEKS R6 R5 K8 ["math"]
+  SETTABLEKS R4 R4 K15 ["__index"]
+  DUPCLOSURE R6 K16 [PROTO_0]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R4 K17 ["new"]
+  DUPCLOSURE R6 K18 [PROTO_1]
+  SETTABLEKS R6 R4 K19 ["isMockGlobalLibrary"]
+  DUPCLOSURE R6 K20 [PROTO_3]
+  CAPTURE VAL R5
+  SETTABLEKS R6 R4 K21 ["_createGlobalAutomocks"]
+  DUPCLOSURE R6 K22 [PROTO_6]
+  SETTABLEKS R6 R4 K23 ["_createGlobalEnv"]
+  SETTABLEKS R4 R3 K24 ["GlobalMocker"]
+  SETTABLEKS R5 R3 K25 ["MOCKABLE_GLOBALS"]
+  RETURN R3 1

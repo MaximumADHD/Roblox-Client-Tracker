@@ -270,11 +270,20 @@ PROTO_5:
   RETURN R2 1
 
 PROTO_6:
-  GETUPVAL R1 0
+  FASTCALL1 TYPEOF R0 [+3]
   MOVE R2 R0
-  GETUPVAL R3 1
-  CALL R1 2 -1
-  RETURN R1 -1
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K2 ["string"] [+8]
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K3 ["table"] [+3]
+  LOADB R1 1
+  RETURN R1 1
+  LOADB R1 0
+  RETURN R1 1
 
 PROTO_7:
   FASTCALL1 TYPEOF R0 [+3]
@@ -327,56 +336,52 @@ MAIN:
   GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
   CALL R2 1 1
   GETTABLEKS R3 R2 K6 ["Array"]
-  GETTABLEKS R4 R2 K7 ["Error"]
-  GETTABLEKS R5 R2 K8 ["instanceof"]
-  GETTABLEKS R6 R2 K9 ["Object"]
+  GETTABLEKS R4 R2 K7 ["Object"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R1 K8 ["RegExp"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R1 K9 ["RobloxShared"]
+  CALL R6 1 1
   GETIMPORT R7 K4 [require]
-  GETTABLEKS R8 R1 K10 ["RegExp"]
+  GETTABLEKS R8 R0 K10 ["jasmineUtils"]
   CALL R7 1 1
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R9 R1 K11 ["RobloxShared"]
-  CALL R8 1 1
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R10 R0 K12 ["jasmineUtils"]
-  CALL R9 1 1
-  GETTABLEKS R10 R9 K13 ["equals"]
-  LOADNIL R11
-  NEWCLOSURE R12 P0
+  GETTABLEKS R8 R7 K11 ["equals"]
+  LOADNIL R9
+  NEWCLOSURE R10 P0
   CAPTURE VAL R3
-  CAPTURE REF R11
-  CAPTURE VAL R12
-  GETTABLEKS R14 R8 K14 ["expect"]
-  GETTABLEKS R13 R14 K15 ["getObjectSubset"]
-  GETTABLEKS R15 R8 K14 ["expect"]
-  GETTABLEKS R14 R15 K16 ["iterableEquality"]
-  GETTABLEKS R16 R8 K14 ["expect"]
-  GETTABLEKS R15 R16 K17 ["subsetEquality"]
-  DUPCLOSURE R16 K18 [PROTO_2]
-  DUPCLOSURE R17 K19 [PROTO_3]
-  CAPTURE VAL R3
-  CAPTURE VAL R6
+  CAPTURE REF R9
   CAPTURE VAL R10
-  CAPTURE VAL R16
-  DUPCLOSURE R18 K20 [PROTO_4]
-  DUPCLOSURE R11 K21 [PROTO_5]
-  CAPTURE VAL R7
-  DUPCLOSURE R19 K22 [PROTO_6]
-  CAPTURE VAL R5
+  GETTABLEKS R12 R6 K12 ["expect"]
+  GETTABLEKS R11 R12 K13 ["getObjectSubset"]
+  GETTABLEKS R13 R6 K12 ["expect"]
+  GETTABLEKS R12 R13 K14 ["iterableEquality"]
+  GETTABLEKS R14 R6 K12 ["expect"]
+  GETTABLEKS R13 R14 K15 ["subsetEquality"]
+  DUPCLOSURE R14 K16 [PROTO_2]
+  DUPCLOSURE R15 K17 [PROTO_3]
+  CAPTURE VAL R3
   CAPTURE VAL R4
-  DUPCLOSURE R20 K23 [PROTO_7]
-  CAPTURE VAL R6
-  DUPCLOSURE R21 K24 [PROTO_8]
-  DUPTABLE R22 K33 [{"getPath", "getObjectSubset", "iterableEquality", "subsetEquality", "typeEquality", "sparseArrayEquality", "partition", "pathAsArray", "isError", "emptyObject", "isOneline"}]
-  SETTABLEKS R12 R22 K25 ["getPath"]
-  SETTABLEKS R13 R22 K15 ["getObjectSubset"]
-  SETTABLEKS R14 R22 K16 ["iterableEquality"]
-  SETTABLEKS R15 R22 K17 ["subsetEquality"]
-  SETTABLEKS R16 R22 K26 ["typeEquality"]
-  SETTABLEKS R17 R22 K27 ["sparseArrayEquality"]
-  SETTABLEKS R18 R22 K28 ["partition"]
-  SETTABLEKS R11 R22 K29 ["pathAsArray"]
-  SETTABLEKS R19 R22 K30 ["isError"]
-  SETTABLEKS R20 R22 K31 ["emptyObject"]
-  SETTABLEKS R21 R22 K32 ["isOneline"]
-  CLOSEUPVALS R11
-  RETURN R22 1
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  DUPCLOSURE R16 K18 [PROTO_4]
+  DUPCLOSURE R9 K19 [PROTO_5]
+  CAPTURE VAL R5
+  DUPCLOSURE R17 K20 [PROTO_6]
+  DUPCLOSURE R18 K21 [PROTO_7]
+  CAPTURE VAL R4
+  DUPCLOSURE R19 K22 [PROTO_8]
+  DUPTABLE R20 K31 [{"getPath", "getObjectSubset", "iterableEquality", "subsetEquality", "typeEquality", "sparseArrayEquality", "partition", "pathAsArray", "isError", "emptyObject", "isOneline"}]
+  SETTABLEKS R10 R20 K23 ["getPath"]
+  SETTABLEKS R11 R20 K13 ["getObjectSubset"]
+  SETTABLEKS R12 R20 K14 ["iterableEquality"]
+  SETTABLEKS R13 R20 K15 ["subsetEquality"]
+  SETTABLEKS R14 R20 K24 ["typeEquality"]
+  SETTABLEKS R15 R20 K25 ["sparseArrayEquality"]
+  SETTABLEKS R16 R20 K26 ["partition"]
+  SETTABLEKS R9 R20 K27 ["pathAsArray"]
+  SETTABLEKS R17 R20 K28 ["isError"]
+  SETTABLEKS R18 R20 K29 ["emptyObject"]
+  SETTABLEKS R19 R20 K30 ["isOneline"]
+  CLOSEUPVALS R9
+  RETURN R20 1

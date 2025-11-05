@@ -1,71 +1,69 @@
 PROTO_0:
-  GETIMPORT R1 K1 [_G]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K2 ["__DEV__"]
-  GETIMPORT R1 K1 [_G]
-  ORK R2 R0 K3 [False]
-  SETTABLEKS R2 R1 K4 ["__DEBUG__"]
-  GETIMPORT R1 K1 [_G]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K5 ["__PROFILE__"]
-  GETIMPORT R1 K1 [_G]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K6 ["__EXPERIMENTAL__"]
-  GETIMPORT R1 K1 [_G]
-  NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K7 ["__REACT_DEVTOOLS_COMPONENT_FILTERS__"]
-  GETIMPORT R1 K9 [require]
+  GETIMPORT R1 K1 [require]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K10 ["ReactDevtoolsShared"]
+  GETTABLEKS R2 R3 K2 ["ReactGlobals"]
   CALL R1 1 1
-  GETIMPORT R3 K9 [require]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K11 ["ReactDevtoolsExtensions"]
-  GETTABLEKS R4 R5 K12 ["backend"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K13 ["setup"]
-  GETTABLEKS R4 R1 K14 ["hook"]
-  GETTABLEKS R3 R4 K15 ["installHook"]
-  GETTABLEKS R5 R1 K16 ["devtools"]
-  GETTABLEKS R4 R5 K17 ["store"]
-  MOVE R5 R3
-  GETIMPORT R6 K1 [_G]
-  CALL R5 1 0
-  GETIMPORT R5 K9 [require]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K3 ["__DEV__"]
+  ORK R2 R0 K4 [False]
+  SETTABLEKS R2 R1 K5 ["__DEBUG__"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K6 ["__PROFILE__"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K7 ["__EXPERIMENTAL__"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K8 ["__REACT_DEVTOOLS_COMPONENT_FILTERS__"]
+  GETIMPORT R2 K1 [require]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["ReactDevtoolsShared"]
+  CALL R2 1 1
+  GETIMPORT R4 K1 [require]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K18 ["React"]
-  CALL R5 1 0
-  GETIMPORT R5 K9 [require]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K19 ["ReactRoblox"]
-  CALL R5 1 0
-  GETIMPORT R6 K1 [_G]
-  GETTABLEKS R5 R6 K20 ["__REACT_DEVTOOLS_GLOBAL_HOOK__"]
-  GETIMPORT R7 K9 [require]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K21 ["Shared"]
-  CALL R7 1 1
-  GETTABLEKS R6 R7 K22 ["ReactFeatureFlags"]
-  GETTABLEKS R7 R6 K23 ["enableSchedulingProfiler"]
-  JUMPIF R7 [+4]
-  GETIMPORT R7 K25 [warn]
-  LOADK R8 K26 ["[DeveloperTools] React was initialized before DeveloperTools. Call inspector.setupReactDevtools before requiring React to enable profiling."]
-  CALL R7 1 0
-  MOVE R7 R2
-  MOVE R8 R5
-  CALL R7 1 1
-  DUPTABLE R8 K29 [{"agent", "bridge", "hook", "store"}]
-  GETTABLEKS R9 R7 K27 ["agent"]
-  SETTABLEKS R9 R8 K27 ["agent"]
-  GETTABLEKS R9 R7 K28 ["bridge"]
-  SETTABLEKS R9 R8 K28 ["bridge"]
-  GETTABLEKS R9 R7 K14 ["hook"]
-  SETTABLEKS R9 R8 K14 ["hook"]
-  GETTABLEKS R9 R4 K30 ["new"]
-  GETTABLEKS R10 R7 K28 ["bridge"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K17 ["store"]
-  RETURN R8 1
+  GETTABLEKS R6 R7 K10 ["ReactDevtoolsExtensions"]
+  GETTABLEKS R5 R6 K11 ["backend"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K12 ["setup"]
+  GETTABLEKS R5 R2 K13 ["hook"]
+  GETTABLEKS R4 R5 K14 ["installHook"]
+  GETTABLEKS R6 R2 K15 ["devtools"]
+  GETTABLEKS R5 R6 K16 ["store"]
+  MOVE R6 R4
+  MOVE R7 R1
+  CALL R6 1 0
+  GETIMPORT R6 K1 [require]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K17 ["React"]
+  CALL R6 1 0
+  GETIMPORT R6 K1 [require]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K18 ["ReactRoblox"]
+  CALL R6 1 0
+  GETTABLEKS R6 R1 K19 ["__REACT_DEVTOOLS_GLOBAL_HOOK__"]
+  GETIMPORT R8 K1 [require]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K20 ["Shared"]
+  CALL R8 1 1
+  GETTABLEKS R7 R8 K21 ["ReactFeatureFlags"]
+  GETTABLEKS R8 R7 K22 ["enableSchedulingProfiler"]
+  JUMPIF R8 [+4]
+  GETIMPORT R8 K24 [warn]
+  LOADK R9 K25 ["[DeveloperTools] React was initialized before DeveloperTools. Call inspector.setupReactDevtools before requiring React to enable profiling."]
+  CALL R8 1 0
+  MOVE R8 R3
+  MOVE R9 R6
+  CALL R8 1 1
+  DUPTABLE R9 K28 [{"agent", "bridge", "hook", "store"}]
+  GETTABLEKS R10 R8 K26 ["agent"]
+  SETTABLEKS R10 R9 K26 ["agent"]
+  GETTABLEKS R10 R8 K27 ["bridge"]
+  SETTABLEKS R10 R9 K27 ["bridge"]
+  GETTABLEKS R10 R8 K13 ["hook"]
+  SETTABLEKS R10 R9 K13 ["hook"]
+  GETTABLEKS R10 R5 K29 ["new"]
+  GETTABLEKS R11 R8 K27 ["bridge"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K16 ["store"]
+  RETURN R9 1
 
 MAIN:
   PREPVARARGS 0
