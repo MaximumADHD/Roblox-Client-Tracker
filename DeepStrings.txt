@@ -18313,7 +18313,6 @@ ClientRetryJoinEvent
 ClientRetryJoinWithConfig
 ClientRetryVoiceCapabilityEvent
 ClientRobloxChannel
-ClientRobloxVers
 ClientRobloxVersion
 ClientRolloutPhaseTelemetry
 ClientRolloutPhaseTelemetryFakeThrottle
@@ -22377,6 +22376,7 @@ CustomWaistAccessoryEnabled
 CustomWaistAccessoryId
 CustomWalkAnimationEnabled
 CustomWalkAnimationId
+CustomWidgets.BrickColor316
 CustomWidthScale
 CutAndSendV2Batch
 CutAndSendV2Batch]
@@ -32195,6 +32195,7 @@ GameJoinStatusConsideredError
 GameJoinSuccess
 GameJoinSuccess_
 GameJoinTime
+GameJoinToAvatarLoadT
 GameJoinToAvatarLoadTime
 GameJoinToAvatarLoadTime_Country
 GameJoinToAvatarLoadTime_Country_
@@ -50276,7 +50277,6 @@ PlaceStatsService
 PlaceTabCloseButton
 PlaceToRobloxAction
 PlaceToRobloxAsAction
-PlaceToRobloxWithNotesAction
 PlaceTurnOnButton
 PlaceTurnOnLabel
 PlaceTurnOnMessageLabel
@@ -62451,6 +62451,7 @@ SocialCounterpartyManager
 SocialCounterpartyManager]
 SocialCounterpartyManagerAmpEvalErrorCounter
 SocialCounterpartyManagerPopulateOnChatSignal
+SocialCounterpartyManagerReplicateProperty
 SocialItems
 SocialLink
 SocialLinks
@@ -83675,6 +83676,7 @@ UnwrappedSequenceNumber
 Unwrapping
 Unwritable
 UNZUTREFFEND
+UoJrsavePlaceToRobloxWithNotesAction
 UOpenPlaceError
 UOperatorX2_cJDxTO
 UOutgoingSSNResetRequestParameterConfig

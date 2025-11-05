@@ -1868,6 +1868,7 @@
 [C++] DFFlagSmoothDampFixInitialVelocity
 [C++] DFFlagSmoothVoxels_SlowSdfUpgrader
 [C++] DFFlagSocialCounterpartyManagerPopulateOnChatSignal
+[C++] DFFlagSocialCounterpartyManagerReplicateProperty
 [C++] DFFlagSOHugeFastCheck
 [C++] DFFlagSolverV2CleanupPendingModelStreamingModeModels
 [C++] DFFlagSolverV2EnableObserverStatsReport
