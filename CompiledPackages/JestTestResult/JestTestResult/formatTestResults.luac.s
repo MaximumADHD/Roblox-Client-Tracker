@@ -43,8 +43,8 @@ PROTO_0:
   JUMP [+2]
   GETTABLEKS R6 R0 K8 ["coverage"]
   SETTABLEKS R6 R5 K8 ["coverage"]
-  GETTABLEKS R7 R0 K22 ["perfStats"]
-  GETTABLEKS R6 R7 K23 ["end_"]
+  GETTABLEKS R7 R0 K23 ["perfStats"]
+  GETTABLEKS R6 R7 K22 ["end"]
   SETTABLEKS R6 R5 K9 ["endTime"]
   GETTABLEKS R7 R0 K16 ["failureMessage"]
   JUMPIFEQKNIL R7 [+4]
@@ -54,7 +54,7 @@ PROTO_0:
   SETTABLEKS R6 R5 K10 ["message"]
   GETTABLEKS R6 R0 K17 ["testFilePath"]
   SETTABLEKS R6 R5 K11 ["name"]
-  GETTABLEKS R7 R0 K22 ["perfStats"]
+  GETTABLEKS R7 R0 K23 ["perfStats"]
   GETTABLEKS R6 R7 K24 ["start"]
   SETTABLEKS R6 R5 K12 ["startTime"]
   GETUPVAL R8 2
@@ -71,23 +71,25 @@ PROTO_0:
   RETURN R5 1
 
 PROTO_1:
-  DUPTABLE R1 K6 [{"ancestorTitles", "failureMessages", "fullName", "location", "status", "title"}]
+  DUPTABLE R1 K7 [{"ancestorTitles", "duration", "failureMessages", "fullName", "location", "status", "title"}]
   GETTABLEKS R2 R0 K0 ["ancestorTitles"]
   SETTABLEKS R2 R1 K0 ["ancestorTitles"]
+  GETTABLEKS R2 R0 K1 ["duration"]
+  SETTABLEKS R2 R1 K1 ["duration"]
   LOADNIL R2
-  SETTABLEKS R2 R1 K1 ["failureMessages"]
-  GETTABLEKS R2 R0 K2 ["fullName"]
-  SETTABLEKS R2 R1 K2 ["fullName"]
-  GETTABLEKS R2 R0 K3 ["location"]
-  SETTABLEKS R2 R1 K3 ["location"]
-  GETTABLEKS R2 R0 K4 ["status"]
-  SETTABLEKS R2 R1 K4 ["status"]
-  GETTABLEKS R2 R0 K5 ["title"]
-  SETTABLEKS R2 R1 K5 ["title"]
-  GETTABLEKS R2 R0 K1 ["failureMessages"]
+  SETTABLEKS R2 R1 K2 ["failureMessages"]
+  GETTABLEKS R2 R0 K3 ["fullName"]
+  SETTABLEKS R2 R1 K3 ["fullName"]
+  GETTABLEKS R2 R0 K4 ["location"]
+  SETTABLEKS R2 R1 K4 ["location"]
+  GETTABLEKS R2 R0 K5 ["status"]
+  SETTABLEKS R2 R1 K5 ["status"]
+  GETTABLEKS R2 R0 K6 ["title"]
+  SETTABLEKS R2 R1 K6 ["title"]
+  GETTABLEKS R2 R0 K2 ["failureMessages"]
   JUMPIFNOT R2 [+4]
-  GETTABLEKS R2 R0 K1 ["failureMessages"]
-  SETTABLEKS R2 R1 K1 ["failureMessages"]
+  GETTABLEKS R2 R0 K2 ["failureMessages"]
+  SETTABLEKS R2 R1 K2 ["failureMessages"]
   RETURN R1 1
 
 PROTO_2:
