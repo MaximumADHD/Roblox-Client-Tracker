@@ -1217,6 +1217,7 @@
 [C++] DFFlagLivePackageUpdating2
 [C++] DFFlagLoadAssetAsyncTelemetry
 [C++] DFFlagLoadAssetSource
+[C++] DFFlagLoadNetAssetChildren
 [C++] DFFlagLoadTestingEnabled
 [C++] DFFlagLoadTestingTelemetryV2Enabled
 [C++] DFFlagLocalizationLocaleRefactorThrowOnInvalidLocaleIds
@@ -1308,6 +1309,7 @@
 [C++] DFFlagNavigationRaycastHigherCostDetection
 [C++] DFFlagNavigationReportUsageByPlaceId
 [C++] DFFlagNavigationUseOffsetPointIfNoIntersection
+[C++] DFFlagNetAssetSkipOnFail
 [C++] DFFlagNetAssetUnusedStats
 [C++] DFFlagNetStackDummyClientEnablePingTelemetry
 [C++] DFFlagNetStackDummyClientUseTestKey

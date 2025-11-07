@@ -22376,7 +22376,6 @@ CustomWaistAccessoryEnabled
 CustomWaistAccessoryId
 CustomWalkAnimationEnabled
 CustomWalkAnimationId
-CustomWidgets.BrickColor316
 CustomWidthScale
 CutAndSendV2Batch
 CutAndSendV2Batch]
@@ -25442,7 +25441,7 @@ Dinormalkan[Fitur
 Dinosaurio
 Dinosaurus
 Dioptimalkan
-DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsosp
+DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos
 Dipengaruhi
 Dipercepat
 DIPERDAGANGKAN
@@ -32195,7 +32194,6 @@ GameJoinStatusConsideredError
 GameJoinSuccess
 GameJoinSuccess_
 GameJoinTime
-GameJoinToAvatarLoadT
 GameJoinToAvatarLoadTime
 GameJoinToAvatarLoadTime_Country
 GameJoinToAvatarLoadTime_Country_
@@ -40986,6 +40984,7 @@ LoadLibraryExW
 LoadLibraryW
 LoadLocalAsset
 LoadLocaleCSV
+LoadNetAssetChildren
 LoadNextPage
 LoadNumber
 LoadOverridesForDyanmicLuaActions
@@ -45138,6 +45137,7 @@ NetAssetRecvMax
 NetAssetRef
 NetAssetRef.
 NetAssetSendMax
+NetAssetSkipOnFail
 NetAssetSubsystem
 NetAssetTestClass
 NetAssetTimeToLoad
@@ -50277,6 +50277,7 @@ PlaceStatsService
 PlaceTabCloseButton
 PlaceToRobloxAction
 PlaceToRobloxAsAction
+PlaceToRobloxWithNotesAction
 PlaceTurnOnButton
 PlaceTurnOnLabel
 PlaceTurnOnMessageLabel
@@ -83676,7 +83677,6 @@ UnwrappedSequenceNumber
 Unwrapping
 Unwritable
 UNZUTREFFEND
-UoJrsavePlaceToRobloxWithNotesAction
 UOpenPlaceError
 UOperatorX2_cJDxTO
 UOutgoingSSNResetRequestParameterConfig
@@ -91161,7 +91161,7 @@ WilError_03
 Willkommen
 WillReturn
 WIN32_LEAN_AND_MEAN
-Win64.698.34107
+Win64.698.34126
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
