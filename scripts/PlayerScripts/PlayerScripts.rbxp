@@ -11,9 +11,202 @@
                         "AtomicBinding": {
                             "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds/AtomicBinding.lua",
                         }
-                    },
+                    }
                 },
+                "PlayerModule": {
+                    "InputContexts": {
+                        "Character": {
+                            "$className": "InputContext",
+                            "$properties": {
+                                "Priority": 1000
+                            },
+                            "ClickToMoveAction": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Enabled": false
+                                },
+                                "Binding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "MouseRightButton"
+                                    }
+                                }
+                            },
+                            "Move": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Type": "Direction2D"
+                                },
+                                "ArrowKeyMoveBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Down": "Down",
+                                        "Up": "Up"
+                                    }
+                                },
+                                "MoveBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "Thumbstick1",
+                                        "Left": "A",
+                                        "Right": "D",
+                                        "Down": "S",
+                                        "Up": "W"
+                                    }
+                                }
+                            },
+                            "Jump": {
+                                "$className": "InputAction",
+                                "$properties": {},
+                                "KeyboardJumpBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "Space"
+                                    }
+                                },
+                                "GamepadJumpBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "ButtonA"
+                                    }
+                                }
+                            },
+                            "CameraGamepadZoom": {
+                                "$className": "InputAction",
+                                "$properties": {},
+                                "Binding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "ButtonR3"
+                                    }
+                                }
+                            },
+                            "VehicleContext": {
+                                "$className": "InputContext",
+                                "$properties": {
+                                    "Priority": 1001
+                                },
+                                "Throttle": {
+                                    "$className": "InputAction",
+                                    "$properties": {
+                                        "Type": "Direction1D"
+                                    },
+                                    "ThrottleBinding": {
+                                        "$className": "InputBinding",
+                                        "$properties": {
+                                            "Down": "ButtonR2",
+                                            "Up": "ButtonL2"
+                                        }
+                                    }
+                                },
+                                "VehicleArrowKeyMove": {
+                                    "$className": "InputAction",
+                                    "$properties": {
+                                        "Type": "Direction1D"
+                                    },
+                                    "VehicleArrowKeyBinding": {
+                                        "$className": "InputBinding",
+                                        "$properties": {
+                                            "Left": "Left",
+                                            "Right": "Right",
+                                            "Down": "Down",
+                                            "Up": "Up"
+                                        }
+                                    }
+                                }
+                            },
+                            "CameraZoom": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Type": "Direction1D"
+                                },
+                                "KeyboardBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Scale": 0.1,
+                                        "Down": "I",
+                                        "Up": "O"
+                                    }
+                                }
+                            },
+                            "CameraRotation": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Type": "Direction2D"
+                                },
+                                "KeyboardBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Scale": 2.0,
+                                        "Right": "Right",
+                                        "Left": "Left"
+                                    }
+                                },
+                                "GamepadBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Vector2Scale": [
+                                            1.0,
+                                            0.77
+                                        ], // 4.189, 3.22537
+                                        "Scale": "4.1887902047863905",
+                                        "KeyCode": "Thumbstick2"
+                                    }
+                                }
+                            },
+                            "MouseLockSwitchAction": {
+                                "$className": "InputAction",
+                                "$properties": {},
+                                "LeftShift": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "LeftShift"
+                                    }
+                                },
+                                "RightShift": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "RightShift"
+                                    }
+                                }
+                            },
+                            "CameraGamepadResetAction": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Enabled": false
+                                },
+                                "Binding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "ButtonL3"
+                                    }
+                                }
+                            },
+                            "CameraToggleAction": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Enabled": false
+                                },
+                                "Binding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "MouseRightButton"
+                                    }
+                                }
+                            },
+                            "Rotation": {
+                                "$className": "InputAction"
+                            },
+                            "Camera": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Type": "Direction3D"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-    },
+    }
 }

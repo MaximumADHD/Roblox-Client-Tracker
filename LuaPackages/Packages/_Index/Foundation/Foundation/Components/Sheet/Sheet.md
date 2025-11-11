@@ -19,7 +19,7 @@ Snap points define the height(s) at which a bottom sheet can rest. These do not 
 
     If you use pixel values for a snap point, make use of the `useScaledValue` hook to ensure proper scaling across different screen sizes.
 
-Currently defining snap points is _required_. In the future, we would like to support automatically sized bottom sheets that adjust based on the content. If you have a use case that requires this, please let the team know.
+If snap points are omitted, the bottom sheet will automatically size to fit its content.
 
 ---
 

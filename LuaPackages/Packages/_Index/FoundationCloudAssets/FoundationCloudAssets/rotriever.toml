@@ -1,6 +1,6 @@
 [package]
 name = "FoundationCloudAssets"
-version = "0.2.1"
+version = "0.4.0"
 readme = "README.md"
 content_root = "src"
 files = ["*"]
@@ -20,3 +20,8 @@ keywords = [
 ]
 homepage = ""
 documentation = ""
+[dev_dependencies.Jest]
+version = "^3.11.1"
+
+[dev_dependencies.JestGlobals]
+version = "^3.11.1"

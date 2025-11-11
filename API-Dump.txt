@@ -807,6 +807,7 @@ Class AudioPlayer : Instance
 	Property AudioPlayer.IsReady: boolean {🔐Audio} [ReadOnly]
 	Property AudioPlayer.TimeLength: number {🔐Audio} [ReadOnly]
 	Property AudioPlayer.IsMutedForCapture: boolean {🔐Audio} {RobloxScriptSecurity}
+	Property AudioPlayer.AutoPlay: boolean {🔐Audio}
 	Property AudioPlayer.IsPlaying: boolean {🔐Audio} {✏️RobloxSecurity}
 	Property AudioPlayer.Looping: boolean {🔐Audio}
 	Property AudioPlayer.PlaybackSpeed: number {🔐Audio}
@@ -2387,6 +2388,7 @@ Class ExperienceStateCaptureService : Instance [NotCreatable] [Service] [NotRepl
 	Property ExperienceStateCaptureService.HiddenSelectionEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property ExperienceStateCaptureService.IsInBackground: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property ExperienceStateCaptureService.IsInCaptureMode: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property ExperienceStateCaptureService.SelectionMode: Enum.ExperienceStateCaptureSelectionMode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function ExperienceStateCaptureService:CanEnterCaptureMode() -> boolean {RobloxScriptSecurity}
 	Function ExperienceStateCaptureService:ResetHighlight() -> () {RobloxScriptSecurity}
 	Function ExperienceStateCaptureService:ToggleCaptureMode() -> () {RobloxScriptSecurity}
@@ -2617,8 +2619,10 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GamepadService.GamepadThumbstick1Changed(event: Vector2) {🔐Input} {RobloxScriptSecurity}
 Class GenerationService : Instance [NotCreatable] [Service]
 	Function GenerationService:GenerateMeshAsync(inputs: { [string]: any }, player: Player, options: { [string]: any }, intermediateResultCallback: ((...any) -> ...any)?) -> ...any [Yields]
+	Function GenerationService:GenerateModelAsync(inputs: { [string]: any }, schema: { [string]: any }, options: { [string]: any }?) -> ...any [Yields]
 	Function GenerationService:InternalGenerateMeshAsync(inputs: { [string]: any }, userId: number, options: { [string]: any }, intermediateResultCallback: ((...any) -> ...any)?) -> ...any {RobloxScriptSecurity} [Yields]
 	Function GenerationService:LoadGeneratedMeshAsync(generationId: string) -> MeshPart [Yields]
+	Function GenerationService:LoadModelFromGlbAsync(glbPath: string) -> Model {RobloxScriptSecurity} [Yields]
 	Event GenerationService.ReplicateGeneration(id: string, success: boolean, serializedModel: string) {RobloxSecurity} [Hidden]
 	Event GenerationService.RequestGenerationReplication(id: string) {RobloxSecurity} [Hidden]
 Class GenericChallengeService : Instance [NotCreatable] [Service]
@@ -2639,6 +2643,7 @@ Class GeometryService : Instance [NotCreatable] [Service]
 	Function GeometryService:HashMeshAsync(meshId: string) -> string {🔐CSG} {RobloxScriptSecurity} [Yields]
 	Function GeometryService:IntersectAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
 	Function GeometryService:SubtractAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
+	Function GeometryService:SweepPartAsync(part: BasePart, cframes: { any }, options: { [string]: any }? = nil) -> MeshPart {🔐CSG | InternalTest} [Yields]
 	Function GeometryService:TranscodeMesh(instance: Instance) -> () {🔐CSG} {RobloxScriptSecurity}
 	Function GeometryService:TranscodeModel(instance: Instance) -> { any } {🔐CSG} {RobloxScriptSecurity}
 	Function GeometryService:UnionAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🔐CSG} [Yields]
@@ -3732,7 +3737,7 @@ Class HumanoidRigDescription : Instance [NotBrowsable]
 	Property HumanoidRigDescription.RightWristTposeAdjustment: CFrame {🔐Animation}
 	Property HumanoidRigDescription.RootTposeAdjustment: CFrame {🔐Animation}
 	Property HumanoidRigDescription.WaistTposeAdjustment: CFrame {🔐Animation}
-	Function HumanoidRigDescription:Automap(character: Instance) -> () {🔐Animation} {🧬Safe}
+	Function HumanoidRigDescription:AutoRig(character: Instance) -> () {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
 	Function HumanoidRigDescription:GetJointFromName(name: string) -> Instance? {🔐Animation} {🧬Safe}
 	Function HumanoidRigDescription:GetJointNames() -> { any } {🔐Animation} {🧬Safe}
 	Function HumanoidRigDescription:GetR15JointNames() -> { any } {🔐Animation} {🧬Safe}
@@ -4202,6 +4207,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:PromptRobloxPurchase(assetId: number, equipIfPurchased: boolean) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:PromptSubscriptionPurchase(user: Player, subscriptionId: string) -> ()
 	Function MarketplaceService:PromptThirdPartyPurchase(player: Instance, productId: string) -> () {LocalUserSecurity}
+	Function MarketplaceService:RecommendTopProductsAsync(infoTypes: { any }) -> { any } [Yields]
 	Function MarketplaceService:ReportAssetSale(assetId: string, robuxAmount: number) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:ReportRobuxUpsellStarted() -> () {RobloxScriptSecurity}
 	Function MarketplaceService:SignalAssetTypePurchased(player: Instance, assetType: Enum.AssetType) -> () {RobloxScriptSecurity}
@@ -4771,7 +4777,7 @@ Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.UnscaledVolume: number {🔐Basic} {RobloxSecurity} [Hidden]
 	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity {🔐Basic} {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.AeroMeshData: SharedString {🔐Basic} {RobloxSecurity} [Hidden] [NotScriptable]
-	Property TriangleMeshPart.ConvexDecompHolder: NetAssetRef {🔐Basic} {RobloxSecurity} [Hidden] [NotScriptable]
+	Property TriangleMeshPart.ConvexDecompHolder: NetAssetRef {🔐Basic} {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property TriangleMeshPart.MeshSize: Vector3 {🔐Basic} [ReadOnly]
 	Property TriangleMeshPart.PhysicalConfigData: SharedString {🔐Basic} {RobloxSecurity} [Hidden] [NotScriptable]
 Class MeshPart : TriangleMeshPart
@@ -5042,6 +5048,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function Workspace:UnjoinFromOutsiders(objects: { Instance }) -> ()
 	Function Workspace:ZoomToExtents() -> () {PluginSecurity}
 	Event Workspace.PersistentLoaded(player: Player)
+	Event Workspace.SendServerTime(serverTimeMs: number) {RobloxSecurity} [Hidden]
 Class WorldModel : WorldRoot
 Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property PackageLink.Creator: string [ReadOnly] [NotScriptable]
@@ -5961,6 +5968,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property RunService.FrameNumber: number {🔐Basic} [ReadOnly]
 	Property RunService.PredictionState: Enum.PredictionState {🔐Basic} [ReadOnly]
 	Function RunService:BindToRenderStep(name: string, priority: number, function: (...any) -> ...any) -> () {🔐Basic}
+	Function RunService:BindToSimulation(function: (...any) -> ...any, frequency: Enum.StepFrequency? = "Hz60") -> RBXScriptConnection {🔐Basic | InternalTest}
 	Function RunService:GetControlAndVariantRolloutFlags() -> ...any {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetCoreScriptVersion() -> string {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetRobloxClientChannel() -> string {🔐Basic} {RobloxScriptSecurity}
@@ -5982,7 +5990,6 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:UnbindFromRenderStep(name: string) -> () {🔐Basic}
 	Function RunService:getThrottleFramerateEnabled() -> boolean {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:setThrottleFramerateEnabled(enable: boolean) -> () {🔐Basic} {RobloxScriptSecurity}
-	Event RunService.FixedHeartbeat(deltaTime: number) {🔐Basic | InternalTest}
 	Event RunService.Heartbeat(deltaTime: number) {🔐Basic}
 	Event RunService.Misprediction(remoteWorldStepId: number, mispredictedInstances: { any }) {🔐Basic | InternalTest}
 	Event RunService.PostSimulation(deltaTimeSim: number) {🔐Basic}
@@ -6457,7 +6464,6 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Property SoundService.AcousticSimulationEnabled: boolean
 	Property SoundService.AmbientReverb: Enum.ReverbType
 	Property SoundService.AudioApiByDefault: Enum.RolloutState {RobloxScriptSecurity} [Hidden]
-	Property SoundService.AudioPlayerVolumeFix: Enum.RolloutState {RobloxScriptSecurity}
 	Property SoundService.CharacterSoundsUseNewApi: Enum.RolloutState {✏️PluginSecurity}
 	Property SoundService.DefaultListenerLocation: Enum.ListenerLocation {PluginSecurity}
 	Property SoundService.DistanceFactor: number
@@ -6576,6 +6582,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.CharacterJumpHeight: number {🔐Players}
 	Property StarterPlayer.CharacterJumpPower: number {🔐Players}
 	Property StarterPlayer.CharacterUseJumpPower: boolean {🔐Players}
+	Property StarterPlayer.CreateDefaultPlayerModule: boolean {🔐Players} [NotScriptable]
 	Property StarterPlayer.DevComputerMovementMode: Enum.DevComputerMovementMode {🔐Players}
 	Property StarterPlayer.DevTouchMovementMode: Enum.DevTouchMovementMode {🔐Players}
 	Property StarterPlayer.EnableMouseLockOption: boolean {🔐Players}
@@ -7004,6 +7011,11 @@ Class StyleQuery : Instance [NotReplicated] [NotBrowsable]
 	Property StyleQuery.IsActive: boolean [ReadOnly]
 	Property StyleQuery.MaxSize: Vector2
 	Property StyleQuery.MinSize: Vector2
+	Property StyleQuery.ConditionsSerialize: BinaryString [Hidden] [NotScriptable]
+	Function StyleQuery:GetCondition(name: string) -> any
+	Function StyleQuery:GetConditions() -> { [string]: any }
+	Function StyleQuery:SetCondition(name: string, value: any) -> ()
+	Function StyleQuery:SetConditions(conditions: { [string]: any }) -> ()
 Class StylingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StylingService:GetAppliedStyles(instance: Instance) -> { any } {RobloxScriptSecurity}
 	Function StylingService:GetStyleInfo(style: StyleRule) -> { [string]: any } {RobloxScriptSecurity}
@@ -7359,6 +7371,7 @@ Class TextureGenerationUnwrappingRequest : Instance [NotCreatable] [NotReplicate
 	Function TextureGenerationUnwrappingRequest:GetPartGroup() -> TextureGenerationPartGroup {RobloxScriptSecurity}
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property ThirdPartyUserService.FriendCommunicationRestrictionStatus: Enum.ChatRestrictionStatus {RobloxScriptSecurity} [ReadOnly]
+	Property ThirdPartyUserService.HasActiveUser: boolean {RobloxScriptSecurity} [ReadOnly]
 	Function ThirdPartyUserService:GetUserPlatformName() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetVoiceChatRestrictionStatus() -> Enum.ChatRestrictionStatus {RobloxScriptSecurity}
 	Function ThirdPartyUserService:HaveActiveUser() -> boolean {RobloxScriptSecurity}
@@ -8371,6 +8384,11 @@ Enum AnimationClipFromVideoStatus
 	EnumItem AnimationClipFromVideoStatus.Cancelled : 11
 	EnumItem AnimationClipFromVideoStatus.ErrorMultiplePeople : 12
 	EnumItem AnimationClipFromVideoStatus.ErrorUploadingVideo : 2001
+Enum AnimationNodePlayMode
+	EnumItem AnimationNodePlayMode.Loop : 0
+	EnumItem AnimationNodePlayMode.PingPong : 1
+	EnumItem AnimationNodePlayMode.OnceAndHold : 2
+	EnumItem AnimationNodePlayMode.OnceAndReset : 3
 Enum AnimationNodeType
 	EnumItem AnimationNodeType.InvalidNode : 0
 	EnumItem AnimationNodeType.AddNode : 1
@@ -8531,6 +8549,9 @@ Enum AssetType
 	EnumItem AssetType.EyelashAccessory : 77
 	EnumItem AssetType.MoodAnimation : 78
 	EnumItem AssetType.DynamicHead : 79
+	EnumItem AssetType.FaceMakeup : 88
+	EnumItem AssetType.LipMakeup : 89
+	EnumItem AssetType.EyeMakeup : 90
 Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
@@ -8624,6 +8645,9 @@ Enum AvatarAssetType
 	EnumItem AvatarAssetType.EyelashAccessory : 77
 	EnumItem AvatarAssetType.MoodAnimation : 78
 	EnumItem AvatarAssetType.DynamicHead : 79
+	EnumItem AvatarAssetType.FaceMakeup : 88
+	EnumItem AvatarAssetType.LipMakeup : 89
+	EnumItem AvatarAssetType.EyeMakeup : 90
 Enum AvatarChatServiceFeature
 	EnumItem AvatarChatServiceFeature.None : 0
 	EnumItem AvatarChatServiceFeature.UniverseAudio : 1
@@ -9346,6 +9370,9 @@ Enum ExperienceEventStatus
 	EnumItem ExperienceEventStatus.Moderated : 2
 	EnumItem ExperienceEventStatus.Unpublished : 3
 	EnumItem ExperienceEventStatus.Unknown : 4
+Enum ExperienceStateCaptureSelectionMode
+	EnumItem ExperienceStateCaptureSelectionMode.Default : 0
+	EnumItem ExperienceStateCaptureSelectionMode.SafetyHighlightMode : 1
 Enum ExperienceStateRecordingLoadMode
 	EnumItem ExperienceStateRecordingLoadMode.NewReplay : 0
 	EnumItem ExperienceStateRecordingLoadMode.ContiguousSlice : 1
@@ -11057,6 +11084,13 @@ Enum StateObjectFieldType [Deprecated]
 Enum Status [Deprecated]
 	EnumItem Status.Poison : 0 [Deprecated] [Deprecated]
 	EnumItem Status.Confusion : 1 [Deprecated] [Deprecated]
+Enum StepFrequency
+	EnumItem StepFrequency.Hz60 : 0
+	EnumItem StepFrequency.Hz30 : 1
+	EnumItem StepFrequency.Hz15 : 2
+	EnumItem StepFrequency.Hz10 : 3
+	EnumItem StepFrequency.Hz5 : 4
+	EnumItem StepFrequency.Hz1 : 5
 Enum StreamOutBehavior
 	EnumItem StreamOutBehavior.Default : 0
 	EnumItem StreamOutBehavior.LowMemory : 1

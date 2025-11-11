@@ -19,7 +19,7 @@ local InputSize = Foundation.Enums.InputSize
 return React.createElement(Avatar, {
 	userId = "24813339",
 	userPresence = UserPresence.InExperience,
-	size = AvatarSize.Large,
+	size = InputSize.Large,
 })
 ...
 ```

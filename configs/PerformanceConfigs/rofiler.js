@@ -8878,6 +8878,7 @@ function PrepareEvents() {
                     scopeInfo = {
                         frame: Frames[i],
                         nFrame: i,
+                        nLog: nLog,
                         txEntry: tx[j],
                         timeStamp: ts[j],
                     };
@@ -9974,10 +9975,9 @@ DefinePlugin(function () {
             scope.accumulatedNetworkEvents = [];
         },
         notifyOnEvent: function(ctx, scope) {
-            if (ctx.isReplica && ctx.timestamp !== undefined) {
-                this.setReplicaTimestampId(ctx, scope.nFrame);
-                if (!this.tsMap.has(ctx.timestamp)) {
-                    this.tsMap.set(ctx.timestamp, {
+            if (ctx.isReplica && ctx.packetId !== undefined) {
+                if (!this.packetIdMap.has(ctx.packetId)) {
+                    this.packetIdMap.set(ctx.packetId, {
                         rcv: {
                             start: 0,
                             end: 0,
@@ -9987,9 +9987,9 @@ DefinePlugin(function () {
                         },
                     });
                 }
-                let entry = this.tsMap.get(ctx.timestamp);
+                let entry = this.packetIdMap.get(ctx.packetId);
                 if (ctx.stage === 1 || ctx.stage === 2) {
-                    this.currDataCollectTs = ctx.timestamp;
+                    this.currPacketIdPerThread[scope.nLog] = ctx.packetId;
                     entry.deserialize.packets.push({
                         values: [],
                         start: 0,
@@ -10010,8 +10010,8 @@ DefinePlugin(function () {
                     this.addPerFrameNetworkEvent(fr, ctx, scope.timeStamp, end);
                 }
                 if (ctx.isReplica) {
-                    if (ctx.timestamp !== undefined) {
-                        let entry = this.tsMap.get(ctx.timestamp);
+                    if (ctx.packetId !== undefined) {
+                        let entry = this.packetIdMap.get(ctx.packetId);
                         if (entry) {
                             if (ctx.stage === 0) {
                                 entry.rcv.start = start;
@@ -10026,8 +10026,8 @@ DefinePlugin(function () {
                             }
                         }
                     } else if (ctx.stage === 2 && !ctx.ignoreEvent) {
-                        let entry = this.tsMap.get(this.currDataCollectTs);
-                        if (this.currDataCollectTs && entry) {
+                        let entry = this.packetIdMap.get(this.currPacketIdPerThread[scope.nLog]);
+                        if (this.currPacketIdPerThread[scope.nLog] && entry) {
                             let packets = entry.deserialize.packets;
                             if (packets.length > 0) {
                                 packets[packets.length - 1].values.push(ctx.evt);
@@ -10094,10 +10094,10 @@ DefinePlugin(function () {
             return rows;
         },
         findDeserialize: function(ctx) {
-            if (!ctx.isReplica || !ctx.timestamp || !ctx.deserializeStart || !ctx.deserializeEnd) {
+            if (!ctx.isReplica || !ctx.packetId || !ctx.deserializeStart || !ctx.deserializeEnd) {
                 return;
             }
-            let entry = this.tsMap.get(ctx.timestamp);
+            let entry = this.packetIdMap.get(ctx.packetId);
             if (!entry) {
                 return;
             }
@@ -10223,12 +10223,6 @@ DefinePlugin(function () {
         HideCanvas: function() {
             window.CanvasNetworkHistory.style.display = 'none';
         },
-        setReplicaTimestampId: function(ctx, nFrame) {
-            if (ctx.timestamp) {
-                ctx.timestamp = ctx.timestamp << 5n | BigInt(ctx.subtype);
-                ctx.timestamp = ctx.timestamp << 10n | BigInt(nFrame);
-            }
-        },
         gatherEventsBefore: function() {
             this.tempMap = new Map();
             this.currBatch = undefined;
@@ -10262,15 +10256,14 @@ DefinePlugin(function () {
                     this.currCdnReq.assetIds = [ctx.assetId];
                 }
             } else if (ctx.isReplica) {
-                this.setReplicaTimestampId(ctx, nFrame);
-                let deferredEvents = this.tsMap.get(ctx.timestamp);
+                let deferredEvents = this.packetIdMap.get(ctx.packetId);
                 if (deferredEvents) {
                     let deferredPackets = deferredEvents.deserialize.packets;
-                    let currPacketArrIndex = this.tempMap.get(ctx.timestamp);
+                    let currPacketArrIndex = this.tempMap.get(ctx.packetId);
                     if (currPacketArrIndex === undefined) {
                         currPacketArrIndex = deferredPackets.length - 1;
                     }
-                    this.tempMap.set(ctx.timestamp, currPacketArrIndex - 1);
+                    this.tempMap.set(ctx.packetId, currPacketArrIndex - 1);
                     if (currPacketArrIndex !== undefined && deferredPackets[currPacketArrIndex] !== undefined) {
                         let packetInfo = deferredPackets[currPacketArrIndex]
                         packetInfo.values.forEach((evt) => {
@@ -10330,7 +10323,7 @@ DefinePlugin(function () {
             ctx.categoryName = ctx.pktType;
             const extraView = new DataView(evt.extra.buffer);
             if (extraView.byteLength >= 8) {
-                ctx.timestamp = extraView.getBigUint64(0, true);
+                ctx.packetId = extraView.getBigUint64(0, true);
             }
             if (full) {
                 ctx.pktSubtype = eventsReplicaSubtype[ctx.subtype];
@@ -10406,8 +10399,11 @@ DefinePlugin(function () {
             }
             this.AssetMap = new Map();
             this.tempMap = new Map();
-            this.tsMap = new Map();
-            this.currDataCollectTs = undefined;
+            this.packetIdMap = new Map();
+            this.currPacketIdPerThread = [];
+            for (let nLog = 0; nLog < Frames[0].ts.length; nLog++) {
+                this.currPacketIdPerThread.push(undefined);
+            }
         },
         displayInfo: {
             w: 550,

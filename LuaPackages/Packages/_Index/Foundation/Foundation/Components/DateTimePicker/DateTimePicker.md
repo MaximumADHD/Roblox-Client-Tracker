@@ -5,9 +5,10 @@ category: Inputs
 ## Overview
 `DateTimePicker` is a stylized interactive, clickable calendar element.
 
-There are 2 variant types defined in [[DateTimePickerVariant]]
+There are 3 variant types defined in [[DateTimePickerVariant]]
 
 * Single
+* SingleWithTime
 * Dual
 
 ## Usage
