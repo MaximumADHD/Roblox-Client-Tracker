@@ -250,11 +250,9 @@ DefaultUnifiedGlassTransparentVS_8830000e,Vertex
 DefaultUnifiedGlassTransparentVS_88300200,Vertex
 DefaultUnifiedGlassTransparentVS_88300206,Vertex
 DefaultUnifiedGlassTransparentVS_88300208,Vertex
-DefaultUnifiedGlassTransparentVS_8830020e,Vertex
 DefaultUnifiedGlassTransparentVS_8c000006,Vertex
 DefaultUnifiedGlassTransparentVS_8c00000e,Vertex
 DefaultUnifiedGlassTransparentVS_8c000206,Vertex
-DefaultUnifiedGlassTransparentVS_8c00020e,Vertex
 DefaultUnifiedGlassTransparentVS_8c001006,Vertex
 DefaultUnifiedGlassTransparentVS_8c00100e,Vertex
 DefaultUnifiedGlassTransparentVS_8c001206,Vertex
@@ -578,7 +576,6 @@ RadialBlur12FS,Fragment
 RadialBlur3FS,Fragment
 RadialBlur6FS,Fragment
 RadialBlur9FS,Fragment
-RadialBlurFS,Fragment
 SelectionOutlineActiveFS,Fragment
 SelectionOutlineFS,Fragment
 SelectionOutlineHoverFS,Fragment
@@ -638,7 +635,6 @@ StarsVS,Vertex
 SunRays12FS,Fragment
 SunRays6FS,Fragment
 SunRays9FS,Fragment
-SunRaysFS,Fragment
 TentFilterFS,Fragment
 TexCompFS,Fragment
 TexCompOversampleVS,Vertex

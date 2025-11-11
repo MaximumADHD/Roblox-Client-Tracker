@@ -1,11 +1,12 @@
 Key,Context,Source,en-us
 Studio.Ribbon.Action.AddTab,"Text appearing in a dropdown option that, when clicked, adds a new tab to the Ribbon. The dropdown is a dropdown of all the tabs in the Ribbon, so there is already an established context of tabs here, hence why the source text is just ""Add"".",Add,Add
+Studio.Ribbon.Action.CancelUpdate,Button text to cancel a pending update.,Cancel update,Cancel update
 Studio.Ribbon.Action.CollapseToolbar,"Action that when checked, will detach the Studio toolbar - Ribbon -  into a floating menu",Collapse toolbar,Collapse toolbar
 Studio.Ribbon.Action.CompactDensity,"Action that when checked will reduce the padding, spacing, text size for the main toolbar in Ribbon, making it more compact",Compact toolbar,Compact toolbar
 Studio.Ribbon.Action.Continue,"Button text for generic Continue actions.
 e.g. ""Restart now to get a new version of Studio"" > ""Continue""
 e.g. ""Download the new version of Studio"" > ""Continue""",Continue,Continue
-Studio.Ribbon.Action.FindAndReplaceAll,Tool to find and replace all instances of something within a script,Find and Replace All,Find and Replace All
+Studio.Ribbon.Action.FindAndReplaceAll,Tool to find and replace all instances of something within a script,Find in Place,Find in Place
 Studio.Ribbon.Action.ImportRobloxModel,Import from file a Roblox model,Import Roblox Model,Import Roblox Model
 Studio.Ribbon.Action.InviteCollaborators,Share your project and start building together,Invite Collaborators,Invite Collaborators
 Studio.Ribbon.Action.Labels,The action that hides/shows labels in the Studio Toolbar - Ribbon,Show labels,Show labels
@@ -21,15 +22,20 @@ Studio.Ribbon.Actions.LaunchTestMode,Launches a testing session for the currentl
 Studio.Ribbon.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject under the control of a UIListLayout.,UIFlexItem,UIFlexItem
 Studio.Ribbon.Add,Add clients to the current server & clients testing session,Add,Add
 Studio.Ribbon.AddTools.Title,The title of the Add Tools dialog,Add Tools,Add Tools
+Studio.Ribbon.Dialog.ClosingStudio,Dialog text shown while closing Studio for an update.,Closing all open places,Closing all open places
 Studio.Ribbon.Plugin.Action.UpdateAvailable,,Update,Update
 Studio.Ribbon.Plugin.Add,Add clients to the current ongoing server & clients testing session,Add,Add
 Studio.Ribbon.Plugin.AddClients,,Add Clients,Add Clients
 Studio.Ribbon.Plugin.AddClientsTooltip,Add clients to the current server & clients testing session,Add clients to the current session,Add clients to the current session
 Studio.Ribbon.Plugin.AddSeparator,The title of the context menu item that adds a new divider to the current custom tab of the Ribbon,Add divider,Add divider
 Studio.Ribbon.Plugin.AddTools,The title of the context menu item that opens the Add Tools dialog in Ribbon,Add tools,Add tools
+Studio.Ribbon.Plugin.AddTools.Edit,A label for a tool in the Add Tools window indicating it is available in the Edit data model,Edit,Edit
+Studio.Ribbon.Plugin.AddTools.PlayClientOnly,Text to indicate that a tool is only available in the Play Client DM,Client,Client
+Studio.Ribbon.Plugin.AddTools.PlayServerOnly,Text to indicate that a tool is only available in the Play Server DM,Server,Server
 Studio.Ribbon.Plugin.AddTools.Title,The title of the Add Tools dialog,Add Tools,Add Tools
 Studio.Ribbon.Plugin.AnchorToolRibbonAction,"Tool operates as a key for both states: clicking on an unanchored object in the viewport anchors it, while clicking on an anchored object unanchors it.",Click object to anchor,Click object to anchor
 Studio.Ribbon.Plugin.Command,Opens the command bar plugin,Command,Command
+Studio.Ribbon.Plugin.DataModels.All,A dropdown option in the Add Tools window to filter tools for all data model contexts,All Contexts,All Contexts
 Studio.Ribbon.Plugin.DegreesFormat,Format for displaying the degree increment for rotating parts,{amount}°,{amount}°
 Studio.Ribbon.Plugin.DeleteSeparator,The name of the action to remove the currently selected divider in a Ribbon custom tab,Remove divider,Remove divider
 Studio.Ribbon.Plugin.DeleteTab,The tooltip of the delete tab button in Ribbon Manage Tabs dialog,Remove tab,Remove tab

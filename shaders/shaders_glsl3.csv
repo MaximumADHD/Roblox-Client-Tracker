@@ -246,12 +246,10 @@ DefaultUnifiedNeonVS_04001806,Vertex
 DefaultUnifiedNeonVS_10000000,Vertex
 DefaultUnifiedNeonVS_10000002,Vertex
 DefaultUnifiedNeonVS_10000006,Vertex
-DefaultUnifiedNeonVS_10000400,Vertex
 DefaultUnifiedNeonVS_10001000,Vertex
 DefaultUnifiedNeonVS_10001002,Vertex
 DefaultUnifiedNeonVS_10001006,Vertex
 DefaultUnifiedNeonVS_10100001,Vertex
-DefaultUnifiedNeonVS_10100401,Vertex
 DefaultUnifiedNeonVS_14000006,Vertex
 DefaultUnifiedNeonVS_14001006,Vertex
 DefaultUnifiedPlasticReflectionFS_00000800,Fragment
@@ -594,7 +592,6 @@ RadialBlur12FS,Fragment
 RadialBlur3FS,Fragment
 RadialBlur6FS,Fragment
 RadialBlur9FS,Fragment
-RadialBlurFS,Fragment
 SelectionOutlineActiveFS,Fragment
 SelectionOutlineFS,Fragment
 SelectionOutlineHoverFS,Fragment
@@ -654,7 +651,6 @@ StarsVS,Vertex
 SunRays12FS,Fragment
 SunRays6FS,Fragment
 SunRays9FS,Fragment
-SunRaysFS,Fragment
 TentFilterFS,Fragment
 TexCompFS,Fragment
 TexCompOversampleVS,Vertex

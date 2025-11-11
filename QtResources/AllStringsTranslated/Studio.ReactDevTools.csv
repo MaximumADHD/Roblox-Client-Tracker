@@ -1,0 +1,4 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,hi-in,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools,,,,,,,,,,,,,,,,,,
+Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.,,,,,,,,,,,,,,,,,,
+Studio.ReactDevTools.Plugin.Button,,,React DevTools,React DevTools,,,,,,,,,,,,,,,,,,

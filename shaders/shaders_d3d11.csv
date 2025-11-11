@@ -562,9 +562,7 @@ DefaultUnifiedTiledEmissiveHideDiffuseRepVS_00000802,Vertex
 DefaultUnifiedTiledEmissiveHideDiffuseRepVS_00000806,Vertex
 DefaultUnifiedTiledEmissiveHideDiffuseRepVS_00100801,Vertex
 DefaultUnifiedTiledEmissiveHideDiffuseRepVS_00300800,Vertex
-DefaultUnifiedTiledEmissiveHideDiffuseRepVS_00300806,Vertex
 DefaultUnifiedTiledEmissiveHideDiffuseRepVS_04000806,Vertex
-DefaultUnifiedTiledEmissiveHideDiffuseRepVS_04300806,Vertex
 DefaultUnifiedWangFallbackFS,Fragment
 DepthResolveMax2FS,Fragment
 DepthResolveMax4FS,Fragment
@@ -687,7 +685,6 @@ RadialBlur12FS,Fragment
 RadialBlur3FS,Fragment
 RadialBlur6FS,Fragment
 RadialBlur9FS,Fragment
-RadialBlurFS,Fragment
 ReprojectFilterFS,Fragment
 SelectionOutlineActiveFS,Fragment
 SelectionOutlineFS,Fragment
@@ -748,7 +745,6 @@ StarsVS,Vertex
 SunRays12FS,Fragment
 SunRays6FS,Fragment
 SunRays9FS,Fragment
-SunRaysFS,Fragment
 TentFilterFS,Fragment
 TexCompFS,Fragment
 TexCompOversampleVS,Vertex
