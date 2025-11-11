@@ -242,29 +242,25 @@ PROTO_6:
   RETURN R5 1
 
 PROTO_7:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
-  NAMECALL R1 R1 K1 ["get"]
-  CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["useCallback"]
+  GETTABLEKS R1 R0 K0 ["plugin"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["useCallback"]
   NEWCLOSURE R3 P0
   CAPTURE VAL R1
+  CAPTURE UPVAL U1
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
   NEWTABLE R4 0 0
   CALL R2 2 1
-  GETUPVAL R3 6
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K3 ["Components"]
-  GETTABLEKS R5 R6 K4 ["Contexts"]
-  GETTABLEKS R4 R5 K5 ["NetworkContextProvider"]
-  DUPTABLE R5 K7 [{"registerOnConnect"}]
-  SETTABLEKS R2 R5 K6 ["registerOnConnect"]
-  GETTABLEKS R6 R0 K8 ["children"]
+  GETUPVAL R3 5
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K2 ["Components"]
+  GETTABLEKS R5 R6 K3 ["Contexts"]
+  GETTABLEKS R4 R5 K4 ["NetworkContextProvider"]
+  DUPTABLE R5 K6 [{"registerOnConnect"}]
+  SETTABLEKS R2 R5 K5 ["registerOnConnect"]
+  GETTABLEKS R6 R0 K7 ["children"]
   CALL R3 3 -1
   RETURN R3 -1
 
@@ -280,34 +276,27 @@ MAIN:
   CALL R1 2 1
   GETIMPORT R2 K9 [require]
   GETTABLEKS R4 R1 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["Framework"]
+  GETTABLEKS R3 R4 K11 ["Properties"]
   CALL R2 1 1
   GETIMPORT R3 K9 [require]
   GETTABLEKS R5 R1 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["Properties"]
+  GETTABLEKS R4 R5 K12 ["React"]
   CALL R3 1 1
   GETIMPORT R4 K9 [require]
-  GETTABLEKS R6 R1 K10 ["Packages"]
-  GETTABLEKS R5 R6 K13 ["React"]
+  GETTABLEKS R7 R1 K13 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Util"]
+  GETTABLEKS R5 R6 K15 ["StudioProtocolConstants"]
   CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R8 R1 K14 ["Src"]
-  GETTABLEKS R7 R8 K15 ["Util"]
-  GETTABLEKS R6 R7 K16 ["StudioProtocolConstants"]
-  CALL R5 1 1
-  GETTABLEKS R6 R4 K17 ["createElement"]
-  GETTABLEKS R8 R2 K18 ["ContextServices"]
-  GETTABLEKS R7 R8 K19 ["Plugin"]
-  GETTABLEKS R9 R3 K15 ["Util"]
-  GETTABLEKS R8 R9 K20 ["createDebugLogger"]
-  LOADK R9 K21 ["StudioNetworkContextProvider"]
-  CALL R8 1 1
-  DUPCLOSURE R9 K22 [PROTO_7]
-  CAPTURE VAL R7
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R8
+  GETTABLEKS R5 R3 K16 ["createElement"]
+  GETTABLEKS R7 R2 K14 ["Util"]
+  GETTABLEKS R6 R7 K17 ["createDebugLogger"]
+  LOADK R7 K18 ["StudioNetworkContextProvider"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K19 [PROTO_7]
   CAPTURE VAL R3
-  CAPTURE VAL R0
+  CAPTURE VAL R4
   CAPTURE VAL R6
-  RETURN R9 1
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  RETURN R7 1

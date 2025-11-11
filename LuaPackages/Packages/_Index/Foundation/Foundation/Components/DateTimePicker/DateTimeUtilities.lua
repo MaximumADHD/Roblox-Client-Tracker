@@ -1,6 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local LocalizationService = require(Foundation.Utility.Wrappers).Services.LocalizationService
 local Translator = require(Foundation.Utility.Localization.Translator)
+
+local DATE_COMPOSITE_TOKEN = "L"
+local TIME_COMPOSITE_TOKEN = "LT"
 
 local monthMap = {
 	[1] = Translator:FormatByKey("CommonUI.Controls.Label.January"),
@@ -70,6 +74,12 @@ local function roundToStartOfDay(dateTime: DateTime): number
 	return DateTime.fromLocalTime(localTime.Year, localTime.Month, localTime.Day).UnixTimestamp
 end
 
+-- Rounds a DateTime object down to the nearest minute
+local function roundDownToNearestMinute(dateTime: DateTime): DateTime
+	local localTime = dateTime:ToLocalTime()
+	return DateTime.fromLocalTime(localTime.Year, localTime.Month, localTime.Day, localTime.Hour, localTime.Minute, 0)
+end
+
 -- Check if a date is within range
 local function isDateWithinRange(
 	date: DateTime,
@@ -87,37 +97,107 @@ local function isDateWithinRange(
 end
 
 --[[
-	Returns a DateTime object if the date string is valid, otherwise returns nil
-	Supported delimiters: /, ., -
-	Supported formats: MM/DD/YYYY, YYYY/MM/DD
-]]
-local function getDateTimeFromText(dateStr: string): DateTime?
-	-- Trim whitespace from the start and end of the text
-	dateStr = dateStr:match("^%s*(.-)%s*$") or ""
+	Calculates the hours and minutes from a time 12 or 24 hour format time string
 
-	-- Determine format by finding the first delimiter position
-	local firstDelimiterPos = dateStr:find("[/%.%-]")
-	if not firstDelimiterPos then
+	Returns hours and minutes as two numbers, or nil if the time string is invalid
+]]
+local function getHoursAndMinutesFromString(timeStr: string): (number?, number?)
+	-- Remove all whitespace from the text
+	local trimmedTimeStr = timeStr:gsub("%s+", "")
+
+	-- Validate the format matches exactly one of the two supported patterns
+	local is24HourFormat = string.match(trimmedTimeStr, "^%d%d:%d%d$")
+	local is12HourFormat = string.match(trimmedTimeStr, "^%d%d?:%d%d[AP]M$")
+
+	if not is24HourFormat and not is12HourFormat then
 		return nil
 	end
 
-	local success, dateTime = pcall(function()
-		if firstDelimiterPos == 3 then
-			-- MM/DD/YYYY
-			local month, day, year = dateStr:match("^(%d%d)[/%.%-](%d%d)[/%.%-](%d%d%d%d)$")
-			return DateTime.fromLocalTime(tonumber(year), tonumber(month), tonumber(day))
-		elseif firstDelimiterPos == 5 then
-			-- YYYY/MM/DD
-			local year, month, day = dateStr:match("^(%d%d%d%d)[/%.%-](%d%d)[/%.%-](%d%d)$")
-			return DateTime.fromLocalTime(tonumber(year), tonumber(month), tonumber(day))
-		else
-			-- Unsupported format
-			error("Invalid date format: " .. dateStr)
-		end
-	end)
+	local hours: number?, minutes: number?
 
-	if success and dateTime then
-		return dateTime
+	if is12HourFormat then
+		-- 12-hour format - extract hours and minutes using pattern matching
+		local hourStr, minuteStr = string.match(trimmedTimeStr, "^(%d%d?):(%d%d)[AP]M$")
+		local rawHours = tonumber(hourStr)
+		minutes = tonumber(minuteStr)
+
+		-- Validate 12-hour format ranges
+		if not rawHours or not minutes or rawHours < 1 or rawHours > 12 or minutes < 0 or minutes > 59 then
+			return nil
+		end
+
+		-- Convert 12-hour to 24-hour format
+		if string.sub(trimmedTimeStr, -2) == "PM" and rawHours ~= 12 then
+			hours = rawHours + 12
+		elseif string.sub(trimmedTimeStr, -2) == "AM" and rawHours == 12 then
+			hours = 0
+		else
+			hours = rawHours
+		end
+	else
+		-- 24-hour format - extract hours and minutes using pattern matching
+		local hourStr, minuteStr = string.match(trimmedTimeStr, "^(%d%d?):(%d%d)$")
+		hours = tonumber(hourStr)
+		minutes = tonumber(minuteStr)
+
+		-- Validate 24-hour format ranges
+		if not hours or not minutes or hours < 0 or hours > 23 or minutes < 0 or minutes > 59 then
+			return nil
+		end
+	end
+
+	return hours, minutes
+end
+
+--[[
+	Returns a DateTime object if the date string is valid, otherwise returns nil
+	Supported date delimiters: /, ., -
+	Supported date formats: MM/DD/YYYY, YYYY/MM/DD
+	Supported time formats: 12-hour (HH:MM AM/PM) or 24-hour (HH:MM)
+	Supported date and time delimeter: , (only comma is supported)
+]]
+local function getDateTimeFromText(dateTimeStr: string): DateTime?
+	local dateStr, timeStr
+
+	-- Check if str is a date and time
+	if string.find(dateTimeStr, ",") then
+		dateStr, timeStr = dateTimeStr:match("^([^,]+),%s*(.+)$")
+	else
+		dateStr = dateTimeStr
+		timeStr = "00:00"
+	end
+
+	if not dateStr or not timeStr then
+		return nil
+	end
+
+	-- Remove all whitespace from the text
+	local trimmedDateStr = dateStr:gsub("%s+", "")
+
+	local hours, minutes = getHoursAndMinutesFromString(timeStr)
+
+	if dateStr then
+		-- Determine format by finding the first delimiter position
+		local firstDelimiterPos = trimmedDateStr:find("[/%.%-]")
+
+		local success, dateTime = pcall(function()
+			if firstDelimiterPos == 3 then
+				-- MM/DD/YYYY
+				local month, day, year = trimmedDateStr:match("^(%d%d)[/%.%-](%d%d)[/%.%-](%d%d%d%d)$")
+				return DateTime.fromLocalTime(tonumber(year), tonumber(month), tonumber(day), hours, minutes, 0)
+			elseif firstDelimiterPos == 5 then
+				-- YYYY/MM/DD
+				local year, month, day = trimmedDateStr:match("^(%d%d%d%d)[/%.%-](%d%d)[/%.%-](%d%d)$")
+				return DateTime.fromLocalTime(tonumber(year), tonumber(month), tonumber(day), hours, minutes, 0)
+			else
+				-- Unsupported format
+				error("Invalid date format: " .. trimmedDateStr)
+			end
+		end)
+
+		if success and dateTime then
+			return dateTime
+		end
 	end
 
 	return nil
@@ -137,8 +217,21 @@ local function getNextMonthInfo(month: number, year: number)
 	return month + 1, year
 end
 
+local function formatLocalTime(dateTime: DateTime, includeTime: boolean?)
+	local localDateTime = dateTime:FormatLocalTime(DATE_COMPOSITE_TOKEN, LocalizationService.RobloxLocaleId)
+	if includeTime then
+		localDateTime = localDateTime
+			.. ", "
+			.. dateTime:FormatLocalTime(TIME_COMPOSITE_TOKEN, LocalizationService.RobloxLocaleId)
+	end
+
+	return localDateTime
+end
+
 return {
-	DATE_COMPOSITE_TOKEN = "L",
+	DATE_COMPOSITE_TOKEN = DATE_COMPOSITE_TOKEN,
+	TIME_COMPOSITE_TOKEN = TIME_COMPOSITE_TOKEN,
+	formatLocalTime = formatLocalTime,
 	getDaysInMonth = getDaysInMonth,
 	getFirstDayOfWeek = getFirstDayOfWeek,
 	getLastDayOfWeek = getLastDayOfWeek,
@@ -147,6 +240,7 @@ return {
 	isDateWithinRange = isDateWithinRange,
 	getDateTimeFromText = getDateTimeFromText,
 	monthMap = monthMap,
+	roundDownToNearestMinute = roundDownToNearestMinute,
 	roundToStartOfDay = roundToStartOfDay,
 	weekdays = weekdays,
 }

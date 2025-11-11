@@ -53,10 +53,15 @@ local function variantsFactory(tokens: Tokens)
 		}
 	end
 
-	return { common = common, sizes = sizes }
+	-- remove when Flags.FoundationToggleEndPlacementJustifyContent is removed
+	local justifyContent: { [boolean]: VariantProps } = {
+		[true] = { container = { tag = "flex-x-between size-full-0" } },
+	}
+
+	return { common = common, sizes = sizes, justifyContent = justifyContent }
 end
 
-return function(tokens: Tokens, size: InputSize): InputVariantProps
+return function(tokens: Tokens, size: InputSize, justifyContent: boolean?): InputVariantProps
 	local props = VariantsContext.useVariants("InternalInput", variantsFactory, tokens)
-	return composeStyleVariant(props.common, (props.sizes)[size])
+	return composeStyleVariant(props.common, props.sizes[size], props.justifyContent[justifyContent or false])
 end

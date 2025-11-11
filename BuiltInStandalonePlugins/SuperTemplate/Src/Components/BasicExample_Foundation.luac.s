@@ -1,28 +1,30 @@
 PROTO_0:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETTABLEKS R2 R3 K1 ["Context"]
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["createElement"]
   GETUPVAL R3 2
-  DUPTABLE R4 K3 [{"tag"}]
-  LOADK R5 K4 ["size-full-full row align-y-center padding-medium bg-surface-200"]
-  SETTABLEKS R5 R4 K2 ["tag"]
-  DUPTABLE R5 K6 [{"OptionalContent"}]
-  GETTABLEKS R7 R0 K7 ["showContent"]
+  DUPTABLE R4 K4 [{"tag"}]
+  LOADK R5 K5 ["size-full-full row align-y-center padding-medium bg-surface-200"]
+  SETTABLEKS R5 R4 K3 ["tag"]
+  DUPTABLE R5 K7 [{"OptionalContent"}]
+  GETTABLEKS R7 R0 K8 ["showContent"]
   JUMPIFNOT R7 [+13]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["createElement"]
   GETUPVAL R7 3
-  DUPTABLE R8 K9 [{"Text", "tag"}]
-  LOADK R9 K10 ["Kangaroos are great!"]
-  SETTABLEKS R9 R8 K8 ["Text"]
-  LOADK R9 K11 ["padding-small grow auto-xy bg-action-standard content-action-standard text-heading-medium radius-small"]
-  SETTABLEKS R9 R8 K2 ["tag"]
+  DUPTABLE R8 K10 [{"Text", "tag"}]
+  LOADK R9 K11 ["Kangaroos are great!"]
+  SETTABLEKS R9 R8 K9 ["Text"]
+  LOADK R9 K12 ["padding-small grow auto-xy bg-action-standard content-action-standard text-heading-medium radius-small"]
+  SETTABLEKS R9 R8 K3 ["tag"]
   CALL R6 2 1
   JUMP [+1]
   LOADNIL R6
-  SETTABLEKS R6 R5 K5 ["OptionalContent"]
+  SETTABLEKS R6 R5 K6 ["OptionalContent"]
   CALL R2 3 -1
   RETURN R2 -1
 
@@ -38,19 +40,19 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Foundation"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K10 ["View"]
-  GETTABLEKS R5 R3 K11 ["Text"]
-  GETTABLEKS R6 R2 K12 ["ContextServices"]
-  GETTABLEKS R7 R6 K13 ["Localization"]
-  DUPCLOSURE R8 K14 [PROTO_0]
-  CAPTURE VAL R7
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K9 ["StudioFoundation"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K10 ["Contexts"]
+  GETTABLEKS R3 R4 K11 ["Localization"]
+  GETTABLEKS R4 R2 K12 ["View"]
+  GETTABLEKS R5 R2 K13 ["Text"]
+  DUPCLOSURE R6 K14 [PROTO_0]
   CAPTURE VAL R1
+  CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R5
-  RETURN R8 1
+  RETURN R6 1

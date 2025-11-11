@@ -58,7 +58,7 @@ end
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		knob = {
-			tag = if Flags.FoundationUpdateKnobComponent
+			tag = if Flags.FoundationToggleVisualUpdate
 				then "auto-xy radius-circle anchor-center-center position-center-center"
 				else "radius-circle anchor-center-center position-center-center",
 		},
@@ -90,7 +90,7 @@ local function variantsFactory(tokens: Tokens)
 		}),
 	}
 
-	local isInverse: { [boolean]: VariantProps } = if Flags.FoundationUpdateKnobComponent
+	local isInverse: { [boolean]: VariantProps } = if Flags.FoundationToggleVisualUpdate
 		then {
 			[false] = {
 				knob = {

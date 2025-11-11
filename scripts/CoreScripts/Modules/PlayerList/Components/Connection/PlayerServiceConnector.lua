@@ -15,6 +15,7 @@ local MakePlayerInfoRequests = require(PlayerList.Thunks.MakePlayerInfoRequests)
 
 local EventConnection = require(script.Parent.EventConnection)
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local FFlagDeferPlayerInfoRequests = game:DefineFastFlag("DeferPlayerInfoRequests", false)
 
 local PlayerServiceConnector = Roact.PureComponent:extend("PlayerServiceConnector")
 
@@ -31,7 +32,13 @@ function PlayerServiceConnector:didMount()
 				local userId = tonumber(userIdStr) :: number
 				local player = Players:GetPlayerByUserId(userId)
 				if player then
-					self.props.makePlayerInfoRequests(player)
+					if FFlagDeferPlayerInfoRequests then
+						task.defer(function()
+							self.props.makePlayerInfoRequests(player)
+						end)
+					else
+						self.props.makePlayerInfoRequests(player)
+					end
 				end
 			end)
 		end)

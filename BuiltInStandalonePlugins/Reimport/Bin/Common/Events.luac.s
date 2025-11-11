@@ -1,42 +1,100 @@
 PROTO_0:
-  DUPTABLE R1 K5 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R2 K6 ["Standalone"]
+  DUPTABLE R1 K4 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R2 K5 ["Standalone"]
   SETTABLEKS R2 R1 K0 ["DataModel"]
-  LOADK R2 K6 ["Standalone"]
-  SETTABLEKS R2 R1 K1 ["PluginType"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K7 ["REIMPORT"]
-  GETTABLEKS R2 R3 K8 ["ACTION_ID"]
-  SETTABLEKS R2 R1 K2 ["PluginId"]
-  LOADK R2 K9 ["Actions"]
-  SETTABLEKS R2 R1 K3 ["Category"]
-  SETTABLEKS R0 R1 K4 ["ItemId"]
+  GETTABLEKS R3 R4 K6 ["REIMPORT"]
+  GETTABLEKS R2 R3 K7 ["ACTION_ID"]
+  SETTABLEKS R2 R1 K1 ["PluginId"]
+  LOADK R2 K8 ["Actions"]
+  SETTABLEKS R2 R1 K2 ["Category"]
+  SETTABLEKS R0 R1 K3 ["ItemId"]
   RETURN R1 1
 
 PROTO_1:
-  MOVE R2 R1
-  JUMPIF R2 [+4]
-  DUPTABLE R2 K1 [{"Enabled"}]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K0 ["Enabled"]
-  SETTABLEKS R0 R2 K2 ["Uri"]
-  GETUPVAL R4 0
-  MOVE R6 R2
-  LOADB R7 1
-  NAMECALL R4 R4 K3 ["CreateAsync"]
-  CALL R4 3 1
-  GETTABLEN R3 R4 1
-  RETURN R3 1
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getSelectionIfOneInstance"]
+  CALL R0 0 2
+  JUMPIFNOT R1 [+9]
+  GETIMPORT R2 K2 [error]
+  LOADK R4 K3 ["Reimport selection error: %*"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K4 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["reimportInstance"]
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
 
 PROTO_2:
-  GETUPVAL R0 0
-  DUPTABLE R1 K1 [{"plugin"}]
-  GETUPVAL R2 1
-  SETTABLEKS R2 R1 K0 ["plugin"]
-  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getSelectionIfOneInstance"]
+  CALL R0 0 2
+  JUMPIFNOT R1 [+9]
+  GETIMPORT R2 K2 [error]
+  LOADK R4 K3 ["Reimport selection error: %*"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K4 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  LOADK R4 K5 ["MeshPart"]
+  NAMECALL R2 R0 K6 ["IsA"]
+  CALL R2 2 1
+  JUMPIF R2 [+10]
+  GETIMPORT R2 K2 [error]
+  LOADK R4 K7 ["Reimport relative to this requires a MeshPart to be selected, got %*"]
+  GETTABLEKS R6 R0 K8 ["ClassName"]
+  NAMECALL R4 R4 K4 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  MOVE R2 R0
+  LOADK R5 K9 ["Model"]
+  NAMECALL R3 R2 K6 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+8]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K10 ["ATTRIBUTE_KEY"]
+  NAMECALL R3 R2 K11 ["GetAttribute"]
+  CALL R3 2 1
+  JUMPIFNOTEQKNIL R3 [+10]
+  GETTABLEKS R2 R2 K12 ["Parent"]
+  JUMPIFNOTEQKNIL R2 [+5]
+  GETIMPORT R3 K2 [error]
+  LOADK R4 K13 ["No valid reimport root found in target instance ancestry"]
+  CALL R3 1 0
+  JUMPBACK [-22]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K14 ["reimportModel"]
+  MOVE R4 R2
+  DUPTABLE R5 K16 [{"anchor"}]
+  SETTABLEKS R0 R5 K15 ["anchor"]
+  CALL R3 2 0
   RETURN R0 0
 
 PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getSelectionIfOneInstance"]
+  CALL R0 0 2
+  JUMPIFNOT R1 [+9]
+  GETIMPORT R2 K2 [error]
+  LOADK R4 K3 ["Reimport configure error: %*"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K4 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["fromInstance"]
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_4:
   GETUPVAL R0 0
   LOADNIL R1
   LOADNIL R2
@@ -49,34 +107,81 @@ PROTO_3:
   FORGLOOP R0 2 [-8]
   RETURN R0 0
 
-PROTO_4:
-  NEWTABLE R0 1 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["actionUri"]
-  LOADK R2 K1 ["lua-sample"]
-  CALL R1 1 1
-  DUPTABLE R3 K3 [{"Enabled"}]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K2 ["Enabled"]
-  SETTABLEKS R1 R3 K4 ["Uri"]
-  GETUPVAL R4 1
-  MOVE R6 R3
-  LOADB R7 1
-  NAMECALL R4 R4 K5 ["CreateAsync"]
-  CALL R4 3 1
-  GETTABLEN R2 R4 1
-  DUPCLOSURE R5 K6 [PROTO_2]
-  CAPTURE UPVAL U2
+PROTO_5:
+  NEWTABLE R0 4 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["REIMPORT"]
+  DUPTABLE R1 K5 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R3 K6 ["Standalone"]
+  SETTABLEKS R3 R1 K1 ["DataModel"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["REIMPORT"]
+  GETTABLEKS R3 R4 K7 ["ACTION_ID"]
+  SETTABLEKS R3 R1 K2 ["PluginId"]
+  LOADK R3 K8 ["Actions"]
+  SETTABLEKS R3 R1 K3 ["Category"]
+  SETTABLEKS R2 R1 K4 ["ItemId"]
+  GETUPVAL R2 2
+  MOVE R4 R1
+  NAMECALL R2 R2 K9 ["BindToActivatedAsync"]
+  CALL R2 2 1
+  DUPCLOSURE R4 K10 [PROTO_1]
   CAPTURE UPVAL U3
-  NAMECALL R3 R2 K7 ["Connect"]
+  CAPTURE UPVAL U4
+  NAMECALL R2 R2 K11 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K12 ["reimport"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K13 ["REIMPORT_RELATIVE_TO_THIS"]
+  DUPTABLE R2 K5 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R4 K6 ["Standalone"]
+  SETTABLEKS R4 R2 K1 ["DataModel"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["REIMPORT"]
+  GETTABLEKS R4 R5 K7 ["ACTION_ID"]
+  SETTABLEKS R4 R2 K2 ["PluginId"]
+  LOADK R4 K8 ["Actions"]
+  SETTABLEKS R4 R2 K3 ["Category"]
+  SETTABLEKS R3 R2 K4 ["ItemId"]
+  GETUPVAL R3 2
+  MOVE R5 R2
+  NAMECALL R3 R3 K9 ["BindToActivatedAsync"]
   CALL R3 2 1
-  SETTABLEKS R3 R0 K8 ["lua_sample"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K9 ["Unloading"]
-  NEWCLOSURE R5 P1
+  DUPCLOSURE R5 K14 [PROTO_2]
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
+  NAMECALL R3 R3 K11 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K15 ["reimport_rel"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K16 ["CONFIGURE"]
+  DUPTABLE R3 K5 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R5 K6 ["Standalone"]
+  SETTABLEKS R5 R3 K1 ["DataModel"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K0 ["REIMPORT"]
+  GETTABLEKS R5 R6 K7 ["ACTION_ID"]
+  SETTABLEKS R5 R3 K2 ["PluginId"]
+  LOADK R5 K8 ["Actions"]
+  SETTABLEKS R5 R3 K3 ["Category"]
+  SETTABLEKS R4 R3 K4 ["ItemId"]
+  GETUPVAL R4 2
+  MOVE R6 R3
+  NAMECALL R4 R4 K9 ["BindToActivatedAsync"]
+  CALL R4 2 1
+  DUPCLOSURE R6 K17 [PROTO_3]
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U6
+  NAMECALL R4 R4 K11 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K18 ["configure"]
+  GETUPVAL R5 7
+  GETTABLEKS R4 R5 K19 ["Unloading"]
+  NEWCLOSURE R6 P3
   CAPTURE VAL R0
-  NAMECALL R3 R3 K7 ["Connect"]
-  CALL R3 2 0
+  NAMECALL R4 R4 K11 ["Connect"]
+  CALL R4 2 0
   RETURN R0 0
 
 MAIN:
@@ -89,28 +194,47 @@ MAIN:
   LOADK R3 K4 ["Plugin"]
   NAMECALL R1 R1 K5 ["FindFirstAncestorWhichIsA"]
   CALL R1 2 1
-  LOADK R4 K6 ["Actions"]
-  NAMECALL R2 R1 K7 ["GetPluginComponent"]
-  CALL R2 2 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R0 K10 ["Bin"]
-  GETTABLEKS R5 R6 K11 ["Common"]
-  GETTABLEKS R4 R5 K12 ["RenderUi"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R4 R0 K8 ["Lib"]
+  GETTABLEKS R3 R4 K9 ["Reimport"]
+  CALL R2 1 1
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R6 R0 K8 ["Lib"]
+  GETTABLEKS R5 R6 K9 ["Reimport"]
+  GETTABLEKS R4 R5 K10 ["ReimportConfigs"]
   CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R6 R0 K13 ["Packages"]
-  GETTABLEKS R5 R6 K14 ["SharedPluginConstants"]
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R7 R0 K8 ["Lib"]
+  GETTABLEKS R6 R7 K9 ["Reimport"]
+  GETTABLEKS R5 R6 K11 ["SelectionHelper"]
   CALL R4 1 1
-  NEWTABLE R5 2 0
-  DUPCLOSURE R6 K15 [PROTO_0]
-  CAPTURE VAL R4
-  SETTABLEKS R6 R5 K16 ["actionUri"]
-  DUPCLOSURE R6 K17 [PROTO_1]
-  CAPTURE VAL R2
-  DUPCLOSURE R7 K18 [PROTO_4]
+  GETIMPORT R5 K7 [require]
+  GETTABLEKS R7 R0 K12 ["Packages"]
+  GETTABLEKS R6 R7 K13 ["SharedPluginConstants"]
+  CALL R5 1 1
+  GETIMPORT R6 K7 [require]
+  GETTABLEKS R10 R0 K14 ["Bin"]
+  GETTABLEKS R9 R10 K15 ["Common"]
+  GETTABLEKS R8 R9 K16 ["Dialogs"]
+  GETTABLEKS R7 R8 K17 ["ShowConfigureDialog"]
+  CALL R6 1 1
+  GETTABLEKS R7 R0 K18 ["Parent"]
+  LOADK R9 K19 ["Actions"]
+  NAMECALL R7 R7 K20 ["GetPluginComponent"]
+  CALL R7 2 1
+  GETTABLEKS R9 R5 K21 ["REIMPORT"]
+  GETTABLEKS R8 R9 K22 ["ACTION_EVENTS"]
+  NEWTABLE R9 1 0
+  DUPCLOSURE R10 K23 [PROTO_0]
   CAPTURE VAL R5
+  DUPCLOSURE R11 K24 [PROTO_5]
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R3
+  CAPTURE VAL R6
   CAPTURE VAL R1
-  SETTABLEKS R7 R5 K19 ["registerActions"]
-  RETURN R5 1
+  SETTABLEKS R11 R9 K25 ["registerActions"]
+  RETURN R9 1

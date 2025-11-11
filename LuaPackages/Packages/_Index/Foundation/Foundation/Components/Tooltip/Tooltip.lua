@@ -113,6 +113,7 @@ local function Tooltip(tooltipProps: TooltipProps)
 				},
 				radius = Radius.Small,
 				backgroundStyle = tokens.Inverse.Surface.Surface_0,
+				selectionGroup = false,
 			},
 			React.createElement(View, {
 				tag = {

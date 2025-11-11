@@ -55,6 +55,7 @@ local FFlagEnableReactSessionMetrics =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableReactSessionMetrics
 local FStringReactSchedulingContext =
 	require(CorePackages.Workspace.Packages.SharedFlags).FStringReactSchedulingContext
+local FFlagAddGuiInsetToDisplayStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAddGuiInsetToDisplayStore
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts =
 	game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
@@ -573,5 +574,14 @@ if FFlagEnableAEGIS2CommsFAEUpsell then
 		if SocialUpsell then
 			SocialUpsell.Overlay.initializeInExpOverlay()
 		end
+	end)()
+end
+
+if FFlagAddGuiInsetToDisplayStore then
+	coroutine.wrap(function()
+		local Display = safeRequire(CorePackages.Workspace.Packages.Display)
+		GuiService:GetPropertyChangedSignal("TopbarInset"):Connect(function()
+			Display.GetDisplayStore().setTopBarHeight(GuiService.TopbarInset.Height)
+		end)
 	end)()
 end

@@ -55,18 +55,14 @@ local function FlagsStory()
 		List = React.createElement(
 			View,
 			{
-				tag = "col gap-small size-full",
+				tag = "col gap-small auto-xy",
 			},
 			Dash.map(entries, function(entry)
-				return React.createElement(View, {
+				return React.createElement(Checkbox, {
 					key = entry.key,
-					tag = "col auto-xy",
-				}, {
-					Checkbox = React.createElement(Checkbox, {
-						isChecked = entry.value,
-						onActivated = handleFlagChange(entry.key),
-						label = entry.key,
-					}),
+					isChecked = entry.value,
+					onActivated = handleFlagChange(entry.key),
+					label = entry.key,
 				})
 			end)
 		),
@@ -75,4 +71,5 @@ end
 
 return {
 	story = FlagsStory,
+	summary = "Toggling a flag here should update its state for other stories",
 }

@@ -5,6 +5,7 @@ local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 
 local Interactable = require(Foundation.Components.Interactable)
 
@@ -143,16 +144,19 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 
 	local component = if isInteractable then Interactable else engineComponent
 
+	local textComponentProps = {
+		component = engineComponent,
+		onActivated = props.onActivated,
+		onSecondaryActivated = props.onSecondaryActivated,
+		onStateChanged = props.onStateChanged,
+		stateLayer = props.stateLayer,
+		isDisabled = props.isDisabled,
+		cursor = props.cursor,
+	}
 	local componentProps = if isInteractable
-		then Cryo.Dictionary.union(engineComponentProps, {
-			component = engineComponent,
-			onActivated = props.onActivated,
-			onSecondaryActivated = props.onSecondaryActivated,
-			onStateChanged = props.onStateChanged,
-			stateLayer = props.stateLayer,
-			isDisabled = props.isDisabled,
-			cursor = props.cursor,
-		})
+		then if Flags.FoundationMigrateCryoToDash
+			then Dash.union(engineComponentProps, textComponentProps)
+			else Cryo.Dictionary.union(engineComponentProps, textComponentProps)
 		else engineComponentProps
 
 	return React.createElement(component, componentProps, GuiObjectChildren(props))

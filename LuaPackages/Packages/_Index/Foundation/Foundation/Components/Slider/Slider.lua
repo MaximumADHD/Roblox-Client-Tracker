@@ -30,6 +30,7 @@ type Visibility = Visibility.Visibility
 local SliderVariant = require(Foundation.Enums.SliderVariant)
 type SliderVariant = SliderVariant.SliderVariant
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
@@ -81,7 +82,7 @@ local defaultProps = {
 	testId = "--foundation-slider",
 }
 
-local IS_INVERSE = { isInverse = true }
+local IS_INVERSE = { colorMode = ColorMode.Inverse }
 
 local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>?)
 	local props = withDefaults(sliderProps, defaultProps)
@@ -294,7 +295,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 							Visible = isKnobVisible,
 							testId = `{props.testId}--custom-knob`,
 						}, props.knob)
-						else if Flags.FoundationUpdateKnobComponent
+						else if Flags.FoundationToggleVisualUpdate
 							then React.createElement(PresentationContext.Provider, { value = IS_INVERSE }, {
 								Knob = React.createElement(Knob, {
 									AnchorPoint = knobAnchorPoint,

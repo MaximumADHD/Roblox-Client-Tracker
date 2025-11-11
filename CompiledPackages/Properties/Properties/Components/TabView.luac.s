@@ -1,147 +1,73 @@
 PROTO_0:
-  GETTABLEKS R2 R0 K0 ["id"]
-  GETTABLEKS R1 R2 K1 ["isAttribute"]
+  GETTABLEKS R3 R0 K0 ["id"]
+  GETTABLEKS R2 R3 K1 ["metaType"]
+  GETUPVAL R3 0
+  JUMPIFEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
   RETURN R1 1
 
 PROTO_1:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["List"]
-  GETTABLEKS R1 R2 K1 ["filter"]
-  MOVE R2 R0
-  DUPCLOSURE R3 K2 [PROTO_0]
-  CALL R1 2 -1
-  RETURN R1 -1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["List"]
+  GETTABLEKS R2 R3 K1 ["filter"]
+  MOVE R3 R0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CALL R2 2 -1
+  RETURN R2 -1
 
 PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["use"]
   GETTABLEKS R3 R0 K1 ["session"]
-  GETTABLEKS R2 R3 K2 ["tagsObservable"]
+  GETTABLEKS R2 R3 K2 ["propertiesObservable"]
   CALL R1 1 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["use"]
-  GETTABLEKS R4 R0 K1 ["session"]
-  GETTABLEKS R3 R4 K3 ["propertiesObservable"]
-  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["List"]
+  GETTABLEKS R2 R3 K4 ["filter"]
+  MOVE R3 R1
+  LOADK R5 K5 ["Tag"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R5
+  CALL R2 2 1
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["List"]
-  GETTABLEKS R3 R4 K5 ["filter"]
-  MOVE R4 R2
-  DUPCLOSURE R5 K6 [PROTO_0]
+  GETTABLEKS R4 R5 K3 ["List"]
+  GETTABLEKS R3 R4 K4 ["filter"]
+  MOVE R4 R1
+  LOADK R6 K6 ["Attribute"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R6
   CALL R3 2 1
-  NEWTABLE R4 0 2
-  DUPTABLE R5 K9 [{"icon", "name"}]
-  LOADK R6 K10 [""]
-  SETTABLEKS R6 R5 K7 ["icon"]
-  LOADK R6 K11 ["Tag A"]
-  SETTABLEKS R6 R5 K8 ["name"]
-  DUPTABLE R6 K9 [{"icon", "name"}]
-  LOADK R7 K10 [""]
-  SETTABLEKS R7 R6 K7 ["icon"]
-  LOADK R7 K12 ["Tag B"]
-  SETTABLEKS R7 R6 K8 ["name"]
-  SETLIST R4 R5 2 [1]
-  MOVE R1 R4
-  NEWTABLE R4 0 2
-  DUPTABLE R5 K15 [{"id", "aggregatePropertyInfo"}]
-  DUPTABLE R6 K19 [{"className", "propertyName", "isAttribute"}]
-  LOADK R7 K20 ["Part"]
-  SETTABLEKS R7 R6 K16 ["className"]
-  LOADK R7 K21 ["Attribute A"]
-  SETTABLEKS R7 R6 K17 ["propertyName"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K18 ["isAttribute"]
-  SETTABLEKS R6 R5 K13 ["id"]
-  DUPTABLE R6 K26 [{"typeof", "parts", "modified", "readonly"}]
-  LOADK R7 K27 ["boolean"]
-  SETTABLEKS R7 R6 K22 ["typeof"]
-  DUPTABLE R7 K29 [{"value"}]
-  DUPTABLE R8 K31 [{"multiple", "value"}]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K30 ["multiple"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K28 ["value"]
-  SETTABLEKS R8 R7 K28 ["value"]
-  SETTABLEKS R7 R6 K23 ["parts"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K24 ["modified"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K25 ["readonly"]
-  SETTABLEKS R6 R5 K14 ["aggregatePropertyInfo"]
-  DUPTABLE R6 K15 [{"id", "aggregatePropertyInfo"}]
-  DUPTABLE R7 K19 [{"className", "propertyName", "isAttribute"}]
-  LOADK R8 K20 ["Part"]
-  SETTABLEKS R8 R7 K16 ["className"]
-  LOADK R8 K32 ["Attribute B"]
-  SETTABLEKS R8 R7 K17 ["propertyName"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K18 ["isAttribute"]
-  SETTABLEKS R7 R6 K13 ["id"]
-  DUPTABLE R7 K26 [{"typeof", "parts", "modified", "readonly"}]
-  LOADK R8 K33 ["Vector3"]
-  SETTABLEKS R8 R7 K22 ["typeof"]
-  DUPTABLE R8 K37 [{"value", "x", "y", "z"}]
-  DUPTABLE R9 K31 [{"multiple", "value"}]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K30 ["multiple"]
-  LOADK R10 K38 [{1, 1, 1}]
-  SETTABLEKS R10 R9 K28 ["value"]
-  SETTABLEKS R9 R8 K28 ["value"]
-  DUPTABLE R9 K31 [{"multiple", "value"}]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K30 ["multiple"]
-  LOADN R10 1
-  SETTABLEKS R10 R9 K28 ["value"]
-  SETTABLEKS R9 R8 K34 ["x"]
-  DUPTABLE R9 K31 [{"multiple", "value"}]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K30 ["multiple"]
-  LOADN R10 1
-  SETTABLEKS R10 R9 K28 ["value"]
-  SETTABLEKS R9 R8 K35 ["y"]
-  DUPTABLE R9 K31 [{"multiple", "value"}]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K30 ["multiple"]
-  LOADN R10 1
-  SETTABLEKS R10 R9 K28 ["value"]
-  SETTABLEKS R9 R8 K36 ["z"]
-  SETTABLEKS R8 R7 K23 ["parts"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K24 ["modified"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K25 ["readonly"]
-  SETTABLEKS R7 R6 K14 ["aggregatePropertyInfo"]
-  SETLIST R4 R5 2 [1]
-  MOVE R3 R4
   GETUPVAL R4 2
   CALL R4 0 1
   GETUPVAL R5 3
   GETUPVAL R7 4
-  GETTABLEKS R6 R7 K39 ["Fragment"]
+  GETTABLEKS R6 R7 K7 ["Fragment"]
   NEWTABLE R7 0 0
-  DUPTABLE R8 K42 [{"Tags", "Attributes"}]
+  DUPTABLE R8 K10 [{"Tags", "Attributes"}]
   GETUPVAL R9 3
   GETUPVAL R10 5
-  DUPTABLE R11 K45 [{"tags", "layoutOrder"}]
-  SETTABLEKS R1 R11 K43 ["tags"]
+  DUPTABLE R11 K13 [{"tags", "layoutOrder"}]
+  SETTABLEKS R2 R11 K11 ["tags"]
   MOVE R12 R4
   CALL R12 0 1
-  SETTABLEKS R12 R11 K44 ["layoutOrder"]
+  SETTABLEKS R12 R11 K12 ["layoutOrder"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K40 ["Tags"]
+  SETTABLEKS R9 R8 K8 ["Tags"]
   GETUPVAL R9 3
   GETUPVAL R10 6
-  DUPTABLE R11 K48 [{"session", "attributes", "layoutOrder", "labelWidthBinding"}]
+  DUPTABLE R11 K16 [{"session", "attributes", "layoutOrder", "labelWidthBinding"}]
   GETTABLEKS R12 R0 K1 ["session"]
   SETTABLEKS R12 R11 K1 ["session"]
-  SETTABLEKS R3 R11 K46 ["attributes"]
+  SETTABLEKS R3 R11 K14 ["attributes"]
   MOVE R12 R4
   CALL R12 0 1
-  SETTABLEKS R12 R11 K44 ["layoutOrder"]
-  GETTABLEKS R12 R0 K47 ["labelWidthBinding"]
-  SETTABLEKS R12 R11 K47 ["labelWidthBinding"]
+  SETTABLEKS R12 R11 K12 ["layoutOrder"]
+  GETTABLEKS R12 R0 K15 ["labelWidthBinding"]
+  SETTABLEKS R12 R11 K15 ["labelWidthBinding"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K41 ["Attributes"]
+  SETTABLEKS R9 R8 K9 ["Attributes"]
   CALL R5 3 -1
   RETURN R5 -1
 

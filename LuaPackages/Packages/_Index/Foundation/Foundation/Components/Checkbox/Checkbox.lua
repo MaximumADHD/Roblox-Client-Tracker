@@ -4,6 +4,8 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local BuilderIcons = require(Packages.BuilderIcons)
 
+local Constants = require(Foundation.Constants)
+
 local Components = Foundation.Components
 local Image = require(Components.Image)
 local Text = require(Components.Text)
@@ -22,6 +24,9 @@ local useCheckboxVariants = require(script.Parent.useCheckboxVariants)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
+local InputPlacement = require(Foundation.Enums.InputPlacement)
+type InputPlacement = InputPlacement.InputPlacement
+
 export type CheckboxProps = {
 	-- Whether the checkbox is currently checked. If it is left `nil`,
 	-- the checkbox will be considered uncontrolled.
@@ -35,10 +40,12 @@ export type CheckboxProps = {
 	-- A label for the checkbox. To omit, set it to an empty string.
 	label: string,
 	size: InputSize?,
+	placement: InputPlacement?,
 } & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Medium,
+	placement = InputPlacement.Start,
 	Selectable = true,
 	testId = "--foundation-checkbox",
 }
@@ -58,6 +65,7 @@ local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?
 			onActivated = onActivated,
 			label = {
 				text = props.label,
+				position = Constants.INPUT_PLACEMENT_TO_LABEL_ALIGNMENT[props.placement],
 			},
 			customVariantProps = variantProps.input,
 			size = props.size,

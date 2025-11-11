@@ -13,18 +13,32 @@ PROTO_0:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K6 ["provideMockContext"]
   GETUPVAL R2 1
-  DUPTABLE R3 K8 [{"FoundationProvider"}]
+  DUPTABLE R3 K8 [{"ContextStack"}]
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K9 ["createElement"]
-  GETUPVAL R5 3
-  DUPTABLE R6 K12 [{"theme", "device"}]
-  LOADK R7 K13 ["Dark"]
-  SETTABLEKS R7 R6 K10 ["theme"]
-  LOADK R7 K14 ["Desktop"]
-  SETTABLEKS R7 R6 K11 ["device"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K7 ["ContextStack"]
+  DUPTABLE R6 K11 [{"providers"}]
+  NEWTABLE R7 0 2
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K14 [{"theme", "device"}]
+  LOADK R11 K15 ["Dark"]
+  SETTABLEKS R11 R10 K12 ["theme"]
+  LOADK R11 K16 ["Desktop"]
+  SETTABLEKS R11 R10 K13 ["device"]
+  CALL R8 2 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K9 ["createElement"]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K17 ["MockProvider"]
+  CALL R9 1 -1
+  SETLIST R7 R8 -1 [1]
+  SETTABLEKS R7 R6 K10 ["providers"]
   MOVE R7 R0
   CALL R4 3 1
-  SETTABLEKS R4 R3 K7 ["FoundationProvider"]
+  SETTABLEKS R4 R3 K7 ["ContextStack"]
   CALL R1 2 -1
   RETURN R1 -1
 
@@ -40,32 +54,41 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
+  GETTABLEKS R3 R4 K8 ["ReactUtils"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["TestHelpers"]
-  GETTABLEKS R4 R2 K10 ["ContextServices"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Packages"]
-  GETTABLEKS R6 R7 K11 ["Foundation"]
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K12 ["FoundationProvider"]
-  NEWTABLE R7 0 3
-  GETTABLEKS R9 R4 K13 ["Analytics"]
-  GETTABLEKS R8 R9 K14 ["mock"]
-  CALL R8 0 1
-  GETTABLEKS R10 R4 K15 ["Localization"]
-  GETTABLEKS R9 R10 K14 ["mock"]
-  CALL R9 0 1
-  GETTABLEKS R11 R4 K16 ["Design"]
-  GETTABLEKS R10 R11 K14 ["mock"]
-  GETIMPORT R11 K19 [Instance.new]
-  LOADK R12 K20 ["StyleSheet"]
-  CALL R11 1 -1
-  CALL R10 -1 -1
-  SETLIST R7 R8 -1 [1]
-  DUPCLOSURE R8 K21 [PROTO_0]
-  CAPTURE VAL R3
-  CAPTURE VAL R7
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["TestHelpers"]
+  GETTABLEKS R5 R3 K11 ["ContextServices"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K12 ["Foundation"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K13 ["FoundationProvider"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Packages"]
+  GETTABLEKS R9 R10 K14 ["StudioFoundation"]
+  CALL R8 1 1
+  GETTABLEKS R10 R8 K15 ["Contexts"]
+  GETTABLEKS R9 R10 K16 ["Localization"]
+  NEWTABLE R10 0 2
+  GETTABLEKS R12 R5 K17 ["Analytics"]
+  GETTABLEKS R11 R12 K18 ["mock"]
+  CALL R11 0 1
+  GETTABLEKS R13 R5 K19 ["Design"]
+  GETTABLEKS R12 R13 K18 ["mock"]
+  GETIMPORT R13 K22 [Instance.new]
+  LOADK R14 K23 ["StyleSheet"]
+  CALL R13 1 -1
+  CALL R12 -1 -1
+  SETLIST R10 R11 -1 [1]
+  DUPCLOSURE R11 K24 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R10
   CAPTURE VAL R1
-  CAPTURE VAL R6
-  RETURN R8 1
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  RETURN R11 1

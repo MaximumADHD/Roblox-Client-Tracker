@@ -63,7 +63,7 @@ PROTO_4:
   GETUPVAL R4 2
   GETUPVAL R5 3
   GETUPVAL R6 4
-  DUPTABLE R7 K15 [{"LayoutOrder", "Uri", "OnSelect", "OnSelectArrow", "ShowContextMenu", "Visible", "EnabledChildren"}]
+  DUPTABLE R7 K16 [{"LayoutOrder", "Uri", "OnSelect", "OnSelectArrow", "ShowContextMenu", "Visible", "EnabledChildren", "MenuData"}]
   GETUPVAL R8 5
   CALL R8 0 1
   SETTABLEKS R8 R7 K8 ["LayoutOrder"]
@@ -85,8 +85,10 @@ PROTO_4:
   SETTABLEKS R8 R7 K13 ["Visible"]
   LOADB R8 1
   SETTABLEKS R8 R7 K14 ["EnabledChildren"]
+  GETUPVAL R8 10
+  SETTABLEKS R8 R7 K15 ["MenuData"]
   MOVE R8 R1
-  GETUPVAL R9 10
+  GETUPVAL R9 11
   CALL R6 3 -1
   CALL R4 -1 -1
   RETURN R3 -1
@@ -104,46 +106,47 @@ PROTO_5:
   CALL R0 -1 1
   GETUPVAL R1 2
   GETUPVAL R2 3
-  CALL R1 1 1
-  GETUPVAL R2 4
-  CALL R2 0 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["child"]
-  MOVE R4 R0
-  LOADK R5 K5 ["SplitButton"]
-  CALL R3 2 1
-  GETUPVAL R4 5
-  JUMPIFEQKNIL R4 [+8]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["child"]
-  MOVE R5 R3
+  CALL R1 1 3
+  GETUPVAL R4 4
+  CALL R4 0 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["child"]
+  MOVE R6 R0
+  LOADK R7 K5 ["SplitButton"]
+  CALL R5 2 1
   GETUPVAL R6 5
-  CALL R4 2 1
-  MOVE R3 R4
-  GETUPVAL R4 6
-  GETUPVAL R5 7
-  NEWCLOSURE R6 P0
+  JUMPIFEQKNIL R6 [+8]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["child"]
+  MOVE R7 R5
+  GETUPVAL R8 5
+  CALL R6 2 1
+  MOVE R5 R6
+  GETUPVAL R6 6
+  GETUPVAL R7 7
+  NEWCLOSURE R8 P0
   CAPTURE UPVAL U0
-  CAPTURE REF R3
+  CAPTURE REF R5
   CAPTURE UPVAL U8
   CAPTURE UPVAL U9
   CAPTURE UPVAL U10
-  CAPTURE VAL R2
+  CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE UPVAL U11
   CAPTURE UPVAL U12
   CAPTURE UPVAL U13
+  CAPTURE VAL R3
   CAPTURE UPVAL U14
-  CALL R4 2 1
-  GETUPVAL R5 8
-  GETUPVAL R6 15
-  DUPTABLE R7 K7 [{"tag"}]
-  LOADK R8 K8 ["gap-large row padding-small auto-xy align-x-center align-y-center"]
-  SETTABLEKS R8 R7 K6 ["tag"]
-  MOVE R8 R4
-  CALL R5 3 -1
-  CLOSEUPVALS R3
-  RETURN R5 -1
+  CALL R6 2 1
+  GETUPVAL R7 8
+  GETUPVAL R8 15
+  DUPTABLE R9 K7 [{"tag"}]
+  LOADK R10 K8 ["gap-large row padding-small auto-xy align-x-center align-y-center"]
+  SETTABLEKS R10 R9 K6 ["tag"]
+  MOVE R10 R6
+  CALL R7 3 -1
+  CLOSEUPVALS R5
+  RETURN R7 -1
 
 PROTO_6:
   NEWCLOSURE R2 P0
@@ -195,7 +198,7 @@ PROTO_10:
   CALL R4 2 1
   GETUPVAL R5 2
   GETUPVAL R6 3
-  DUPTABLE R7 K15 [{"LayoutOrder", "Uri", "OnSelect", "OnSelectArrow", "ShowContextMenu", "Visible", "EnabledChildren", "Disabled", "Selected", "IconOnly", "Size", "Icon", "Text", "Tooltip"}]
+  DUPTABLE R7 K17 [{"LayoutOrder", "Uri", "OnSelect", "OnSelectArrow", "ShowContextMenu", "Visible", "EnabledChildren", "Disabled", "MainButtonSelected", "IconOnly", "Size", "Icon", "Text", "Tooltip", "MenuData", "Single"}]
   GETUPVAL R8 4
   CALL R8 0 1
   SETTABLEKS R8 R7 K1 ["LayoutOrder"]
@@ -214,32 +217,38 @@ PROTO_10:
   CAPTURE VAL R4
   SETTABLEKS R8 R7 K5 ["ShowContextMenu"]
   GETUPVAL R10 9
-  GETTABLEKS R9 R10 K16 ["controls"]
+  GETTABLEKS R9 R10 K18 ["controls"]
   GETTABLEKS R8 R9 K6 ["Visible"]
   SETTABLEKS R8 R7 K6 ["Visible"]
   GETUPVAL R10 9
-  GETTABLEKS R9 R10 K16 ["controls"]
+  GETTABLEKS R9 R10 K18 ["controls"]
   GETTABLEKS R8 R9 K7 ["EnabledChildren"]
   SETTABLEKS R8 R7 K7 ["EnabledChildren"]
   GETUPVAL R10 9
-  GETTABLEKS R9 R10 K16 ["controls"]
+  GETTABLEKS R9 R10 K18 ["controls"]
   GETTABLEKS R8 R9 K8 ["Disabled"]
   SETTABLEKS R8 R7 K8 ["Disabled"]
   GETUPVAL R10 9
-  GETTABLEKS R9 R10 K16 ["controls"]
-  GETTABLEKS R8 R9 K9 ["Selected"]
-  SETTABLEKS R8 R7 K9 ["Selected"]
+  GETTABLEKS R9 R10 K18 ["controls"]
+  GETTABLEKS R8 R9 K19 ["Selected"]
+  SETTABLEKS R8 R7 K9 ["MainButtonSelected"]
   GETUPVAL R10 9
-  GETTABLEKS R9 R10 K16 ["controls"]
+  GETTABLEKS R9 R10 K18 ["controls"]
   GETTABLEKS R8 R9 K10 ["IconOnly"]
   SETTABLEKS R8 R7 K10 ["IconOnly"]
   GETUPVAL R10 9
-  GETTABLEKS R9 R10 K16 ["controls"]
+  GETTABLEKS R9 R10 K18 ["controls"]
   GETTABLEKS R8 R9 K11 ["Size"]
   SETTABLEKS R8 R7 K11 ["Size"]
   SETTABLEKS R1 R7 K12 ["Icon"]
   SETTABLEKS R2 R7 K13 ["Text"]
   SETTABLEKS R3 R7 K14 ["Tooltip"]
+  GETUPVAL R8 10
+  SETTABLEKS R8 R7 K15 ["MenuData"]
+  GETUPVAL R10 9
+  GETTABLEKS R9 R10 K18 ["controls"]
+  GETTABLEKS R8 R9 K16 ["Single"]
+  SETTABLEKS R8 R7 K16 ["Single"]
   CALL R5 2 -1
   RETURN R5 -1
 
@@ -256,62 +265,63 @@ PROTO_11:
   CALL R1 -1 1
   GETUPVAL R2 2
   GETUPVAL R3 3
-  CALL R2 1 1
-  GETUPVAL R3 4
-  CALL R3 0 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["child"]
-  MOVE R5 R1
-  LOADK R6 K5 ["SplitButton/Custom"]
-  CALL R4 2 1
-  NEWCLOSURE R5 P0
+  CALL R2 1 3
+  GETUPVAL R5 4
+  CALL R5 0 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["child"]
+  MOVE R7 R1
+  LOADK R8 K5 ["SplitButton/Custom"]
+  CALL R6 2 1
+  NEWCLOSURE R7 P0
   CAPTURE UPVAL U0
-  CAPTURE VAL R4
+  CAPTURE VAL R6
   CAPTURE UPVAL U5
   CAPTURE UPVAL U6
-  CAPTURE VAL R3
+  CAPTURE VAL R5
   CAPTURE VAL R2
   CAPTURE UPVAL U7
   CAPTURE UPVAL U8
   CAPTURE UPVAL U9
   CAPTURE VAL R0
-  GETTABLEKS R7 R0 K6 ["controls"]
-  GETTABLEKS R6 R7 K7 ["Icon"]
+  CAPTURE VAL R4
   GETTABLEKS R9 R0 K6 ["controls"]
-  GETTABLEKS R8 R9 K9 ["Text"]
-  ORK R7 R8 K8 ["Button"]
-  GETTABLEKS R10 R0 K6 ["controls"]
-  GETTABLEKS R9 R10 K11 ["ToolTip"]
-  ORK R8 R9 K10 ["This is a tooltip"]
-  GETUPVAL R9 5
-  GETUPVAL R10 10
-  DUPTABLE R11 K13 [{"tag"}]
-  LOADK R12 K14 ["gap-small row padding-small auto-xy align-x-center align-y-center size-0-full"]
-  SETTABLEKS R12 R11 K12 ["tag"]
-  DUPTABLE R12 K18 [{"A", "B", "C"}]
-  MOVE R13 R5
-  LOADK R14 K19 ["First SplitButton"]
-  MOVE R15 R6
-  MOVE R16 R7
+  GETTABLEKS R8 R9 K7 ["Icon"]
+  GETTABLEKS R11 R0 K6 ["controls"]
+  GETTABLEKS R10 R11 K9 ["Text"]
+  ORK R9 R10 K8 ["Button"]
+  GETTABLEKS R12 R0 K6 ["controls"]
+  GETTABLEKS R11 R12 K11 ["ToolTip"]
+  ORK R10 R11 K10 ["This is a tooltip"]
+  GETUPVAL R11 5
+  GETUPVAL R12 10
+  DUPTABLE R13 K13 [{"tag"}]
+  LOADK R14 K14 ["gap-small row padding-small auto-xy align-x-center align-y-center size-0-full"]
+  SETTABLEKS R14 R13 K12 ["tag"]
+  DUPTABLE R14 K18 [{"A", "B", "C"}]
+  MOVE R15 R7
+  LOADK R16 K19 ["First SplitButton"]
   MOVE R17 R8
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K15 ["A"]
-  MOVE R13 R5
-  LOADK R14 K20 ["Second SplitButton"]
-  MOVE R15 R6
-  MOVE R16 R7
+  MOVE R18 R9
+  MOVE R19 R10
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K15 ["A"]
+  MOVE R15 R7
+  LOADK R16 K20 ["Second SplitButton"]
   MOVE R17 R8
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K16 ["B"]
-  MOVE R13 R5
-  LOADK R14 K21 ["Third SplitButton"]
-  MOVE R15 R6
-  MOVE R16 R7
+  MOVE R18 R9
+  MOVE R19 R10
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K16 ["B"]
+  MOVE R15 R7
+  LOADK R16 K21 ["Third SplitButton"]
   MOVE R17 R8
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K17 ["C"]
-  CALL R9 3 -1
-  RETURN R9 -1
+  MOVE R18 R9
+  MOVE R19 R10
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K17 ["C"]
+  CALL R11 3 -1
+  RETURN R11 -1
 
 MAIN:
   PREPVARARGS 0
@@ -610,7 +620,7 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R7
   DUPTABLE R23 K75 [{"controls", "summary", "stories"}]
-  DUPTABLE R24 K83 [{"Disabled", "Selected", "IconOnly", "Size", "EnabledChildren", "Visible", "Icon", "Text", "ToolTip"}]
+  DUPTABLE R24 K84 [{"Disabled", "Selected", "IconOnly", "Size", "EnabledChildren", "Visible", "Single", "Icon", "Text", "ToolTip"}]
   NEWTABLE R25 0 2
   LOADB R26 0
   LOADB R27 1
@@ -627,8 +637,8 @@ MAIN:
   SETLIST R25 R26 2 [1]
   SETTABLEKS R25 R24 K78 ["IconOnly"]
   NEWTABLE R25 0 2
-  LOADK R26 K84 ["Large"]
-  LOADK R27 K85 ["Small"]
+  LOADK R26 K85 ["Large"]
+  LOADK R27 K86 ["Small"]
   SETLIST R25 R26 2 [1]
   SETTABLEKS R25 R24 K79 ["Size"]
   NEWTABLE R25 0 2
@@ -641,6 +651,11 @@ MAIN:
   LOADB R27 0
   SETLIST R25 R26 2 [1]
   SETTABLEKS R25 R24 K81 ["Visible"]
+  NEWTABLE R25 0 2
+  LOADB R26 0
+  LOADB R27 1
+  SETLIST R25 R26 2 [1]
+  SETTABLEKS R25 R24 K82 ["Single"]
   NEWTABLE R25 0 9
   LOADK R26 K58 ["AI"]
   LOADK R27 K59 ["Placeholder"]
@@ -653,31 +668,52 @@ MAIN:
   LOADK R34 K69 ["Anchor"]
   SETLIST R25 R26 9 [1]
   SETTABLEKS R25 R24 K55 ["Icon"]
-  LOADK R25 K86 ["Step Forward"]
+  LOADK R25 K87 ["Step Forward"]
   SETTABLEKS R25 R24 K33 ["Text"]
-  LOADK R25 K87 ["This is a tooltip"]
-  SETTABLEKS R25 R24 K82 ["ToolTip"]
+  LOADK R25 K88 ["This is a tooltip"]
+  SETTABLEKS R25 R24 K83 ["ToolTip"]
   SETTABLEKS R24 R23 K72 ["controls"]
-  LOADK R24 K88 ["SplitButton combines a primary action with a secondary dropdown. Clicking the main area invokes OnSelect, while the arrow (or a long-press) invokes OnSelectArrow. It supports tooltips when the mouse is hovering over the button, right-click context menus, selected/disabled states, Large/Small sizes, icon-only mode, and density-aware visuals."]
+  LOADK R24 K89 ["SplitButton combines a primary action with a secondary dropdown. Clicking the main area invokes OnSelect, while the arrow (or a long-press) invokes OnSelectArrow. It supports tooltips when the mouse is hovering over the button, right-click context menus, selected/disabled states, Large/Small sizes, icon-only mode, and density-aware visuals."]
   SETTABLEKS R24 R23 K73 ["summary"]
-  NEWTABLE R24 0 8
-  DUPTABLE R25 K91 [{"name", "story", "summary"}]
-  LOADK R26 K92 ["Custom"]
-  SETTABLEKS R26 R25 K89 ["name"]
-  SETTABLEKS R22 R25 K90 ["story"]
-  LOADK R26 K93 ["Custom SplitButtons with controls to toggle visibility, disabled, selected, icon-only, size, and child enablement."]
+  NEWTABLE R24 0 7
+  DUPTABLE R25 K92 [{"name", "story", "summary"}]
+  LOADK R26 K93 ["Custom"]
+  SETTABLEKS R26 R25 K90 ["name"]
+  SETTABLEKS R22 R25 K91 ["story"]
+  LOADK R26 K94 ["Three custom SplitButtons with controls to toggle visibility, disabled, selected, icon-only, size, and child enablement."]
   SETTABLEKS R26 R25 K73 ["summary"]
-  DUPTABLE R26 K91 [{"name", "story", "summary"}]
-  LOADK R27 K92 ["Custom"]
-  SETTABLEKS R27 R26 K89 ["name"]
-  SETTABLEKS R22 R26 K90 ["story"]
-  LOADK R27 K93 ["Custom SplitButtons with controls to toggle visibility, disabled, selected, icon-only, size, and child enablement."]
+  DUPTABLE R26 K92 [{"name", "story", "summary"}]
+  LOADK R27 K95 ["Normal"]
+  SETTABLEKS R27 R26 K90 ["name"]
+  NEWTABLE R28 0 0
+  LOADK R29 K95 ["Normal"]
+  NEWCLOSURE R27 P3
+  CAPTURE VAL R12
+  CAPTURE VAL R4
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  CAPTURE VAL R5
+  CAPTURE VAL R29
+  CAPTURE VAL R10
+  CAPTURE VAL R20
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R9
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R19
+  CAPTURE VAL R28
+  CAPTURE VAL R7
+  SETTABLEKS R27 R26 K91 ["story"]
+  LOADK R27 K96 ["Default enabled SplitButtons with text and icons"]
   SETTABLEKS R27 R26 K73 ["summary"]
-  DUPTABLE R27 K91 [{"name", "story", "summary"}]
-  LOADK R28 K94 ["Normal"]
-  SETTABLEKS R28 R27 K89 ["name"]
-  NEWTABLE R29 0 0
-  LOADK R30 K94 ["Normal"]
+  DUPTABLE R27 K92 [{"name", "story", "summary"}]
+  LOADK R28 K82 ["Single"]
+  SETTABLEKS R28 R27 K90 ["name"]
+  DUPTABLE R29 K97 [{"Single"}]
+  LOADB R30 1
+  SETTABLEKS R30 R29 K82 ["Single"]
+  LOADK R30 K82 ["Single"]
   NEWCLOSURE R28 P3
   CAPTURE VAL R12
   CAPTURE VAL R4
@@ -695,13 +731,13 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R29
   CAPTURE VAL R7
-  SETTABLEKS R28 R27 K90 ["story"]
-  LOADK R28 K95 ["Default enabled SplitButtons with text and icons"]
+  SETTABLEKS R28 R27 K91 ["story"]
+  LOADK R28 K98 ["Single split buttons where arrow selection is controlled by ArrowSelectedFromAction only, not by menu open state."]
   SETTABLEKS R28 R27 K73 ["summary"]
-  DUPTABLE R28 K91 [{"name", "story", "summary"}]
+  DUPTABLE R28 K92 [{"name", "story", "summary"}]
   LOADK R29 K76 ["Disabled"]
-  SETTABLEKS R29 R28 K89 ["name"]
-  DUPTABLE R30 K96 [{"Disabled"}]
+  SETTABLEKS R29 R28 K90 ["name"]
+  DUPTABLE R30 K99 [{"Disabled"}]
   LOADB R31 1
   SETTABLEKS R31 R30 K76 ["Disabled"]
   LOADK R31 K76 ["Disabled"]
@@ -722,18 +758,18 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R30
   CAPTURE VAL R7
-  SETTABLEKS R29 R28 K90 ["story"]
-  LOADK R29 K97 ["Shows the disabled visual state for the main button. Arrow icon is enabled."]
+  SETTABLEKS R29 R28 K91 ["story"]
+  LOADK R29 K100 ["Shows the disabled visual state for the main button. Arrow icon is enabled."]
   SETTABLEKS R29 R28 K73 ["summary"]
-  DUPTABLE R29 K91 [{"name", "story", "summary"}]
-  LOADK R30 K98 ["Disabled and EnabledChildren false"]
-  SETTABLEKS R30 R29 K89 ["name"]
-  DUPTABLE R31 K99 [{"Disabled", "EnabledChildren"}]
+  DUPTABLE R29 K92 [{"name", "story", "summary"}]
+  LOADK R30 K101 ["Disabled and EnabledChildren false"]
+  SETTABLEKS R30 R29 K90 ["name"]
+  DUPTABLE R31 K102 [{"Disabled", "EnabledChildren"}]
   LOADB R32 1
   SETTABLEKS R32 R31 K76 ["Disabled"]
   LOADB R32 0
   SETTABLEKS R32 R31 K80 ["EnabledChildren"]
-  LOADK R32 K100 ["DisabledAndEnabledChildrenFalse"]
+  LOADK R32 K103 ["DisabledAndEnabledChildrenFalse"]
   NEWCLOSURE R30 P3
   CAPTURE VAL R12
   CAPTURE VAL R4
@@ -751,18 +787,16 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R31
   CAPTURE VAL R7
-  SETTABLEKS R30 R29 K90 ["story"]
-  LOADK R30 K101 ["Shows the disabled visual state and EnabledChildren false with muted arrow. Interactions are suppressed to illustrate the fully non-interactive behavior."]
+  SETTABLEKS R30 R29 K91 ["story"]
+  LOADK R30 K104 ["Shows the disabled visual state and EnabledChildren false with muted arrow. Interactions are suppressed to illustrate the fully non-interactive behavior."]
   SETTABLEKS R30 R29 K73 ["summary"]
-  DUPTABLE R30 K91 [{"name", "story", "summary"}]
-  LOADK R31 K98 ["Disabled and EnabledChildren false"]
-  SETTABLEKS R31 R30 K89 ["name"]
-  DUPTABLE R32 K99 [{"Disabled", "EnabledChildren"}]
+  DUPTABLE R30 K92 [{"name", "story", "summary"}]
+  LOADK R31 K77 ["Selected"]
+  SETTABLEKS R31 R30 K90 ["name"]
+  DUPTABLE R32 K105 [{"Selected"}]
   LOADB R33 1
-  SETTABLEKS R33 R32 K76 ["Disabled"]
-  LOADB R33 0
-  SETTABLEKS R33 R32 K80 ["EnabledChildren"]
-  LOADK R33 K100 ["DisabledAndEnabledChildrenFalse"]
+  SETTABLEKS R33 R32 K77 ["Selected"]
+  LOADK R33 K77 ["Selected"]
   NEWCLOSURE R31 P3
   CAPTURE VAL R12
   CAPTURE VAL R4
@@ -780,16 +814,18 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R32
   CAPTURE VAL R7
-  SETTABLEKS R31 R30 K90 ["story"]
-  LOADK R31 K101 ["Shows the disabled visual state and EnabledChildren false with muted arrow. Interactions are suppressed to illustrate the fully non-interactive behavior."]
+  SETTABLEKS R31 R30 K91 ["story"]
+  LOADK R31 K106 ["Highlights the selected state to indicate an active tool, behavior mirrors the normal variant."]
   SETTABLEKS R31 R30 K73 ["summary"]
-  DUPTABLE R31 K91 [{"name", "story", "summary"}]
-  LOADK R32 K77 ["Selected"]
-  SETTABLEKS R32 R31 K89 ["name"]
-  DUPTABLE R33 K102 [{"Selected"}]
+  DUPTABLE R31 K92 [{"name", "story", "summary"}]
+  LOADK R32 K107 ["Small and IconOnly"]
+  SETTABLEKS R32 R31 K90 ["name"]
+  DUPTABLE R33 K108 [{"IconOnly", "Size"}]
   LOADB R34 1
-  SETTABLEKS R34 R33 K77 ["Selected"]
-  LOADK R34 K77 ["Selected"]
+  SETTABLEKS R34 R33 K78 ["IconOnly"]
+  LOADK R34 K86 ["Small"]
+  SETTABLEKS R34 R33 K79 ["Size"]
+  LOADK R34 K109 ["SmallIconOnly"]
   NEWCLOSURE R32 P3
   CAPTURE VAL R12
   CAPTURE VAL R4
@@ -807,38 +843,9 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R33
   CAPTURE VAL R7
-  SETTABLEKS R32 R31 K90 ["story"]
-  LOADK R32 K103 ["Highlights the selected state to indicate an active tool, behavior mirrors the normal variant."]
+  SETTABLEKS R32 R31 K91 ["story"]
+  LOADK R32 K110 ["Compact icon-only variant at Small size, omitting text to save space. Not all icons are available in small mode."]
   SETTABLEKS R32 R31 K73 ["summary"]
-  DUPTABLE R32 K91 [{"name", "story", "summary"}]
-  LOADK R33 K104 ["Small and IconOnly"]
-  SETTABLEKS R33 R32 K89 ["name"]
-  DUPTABLE R34 K105 [{"IconOnly", "Size"}]
-  LOADB R35 1
-  SETTABLEKS R35 R34 K78 ["IconOnly"]
-  LOADK R35 K85 ["Small"]
-  SETTABLEKS R35 R34 K79 ["Size"]
-  LOADK R35 K106 ["SmallIconOnly"]
-  NEWCLOSURE R33 P3
-  CAPTURE VAL R12
-  CAPTURE VAL R4
-  CAPTURE VAL R15
-  CAPTURE VAL R14
-  CAPTURE VAL R5
-  CAPTURE VAL R35
-  CAPTURE VAL R10
-  CAPTURE VAL R20
-  CAPTURE VAL R2
-  CAPTURE VAL R13
-  CAPTURE VAL R9
-  CAPTURE VAL R16
-  CAPTURE VAL R17
-  CAPTURE VAL R19
-  CAPTURE VAL R34
-  CAPTURE VAL R7
-  SETTABLEKS R33 R32 K90 ["story"]
-  LOADK R33 K107 ["Compact icon-only variant at Small size, omitting text to save space. Not all icons are available in small mode."]
-  SETTABLEKS R33 R32 K73 ["summary"]
-  SETLIST R24 R25 8 [1]
+  SETLIST R24 R25 7 [1]
   SETTABLEKS R24 R23 K74 ["stories"]
   RETURN R23 1

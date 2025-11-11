@@ -19,33 +19,24 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R2 K12 ["isCli"]
   CALL R3 0 1
-  JUMPIFNOT R3 [+5]
-  GETIMPORT R3 K14 [error]
-  LOADK R4 K15 ["roblox-cli should not be loading standalone plugins"]
-  CALL R3 1 0
+  JUMPIFNOT R3 [+1]
   RETURN R0 0
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Bin"]
   GETTABLEKS R5 R6 K7 ["Common"]
-  GETTABLEKS R4 R5 K16 ["pluginType"]
+  GETTABLEKS R4 R5 K13 ["pluginType"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K17 ["get"]
+  GETTABLEKS R4 R3 K14 ["get"]
   CALL R4 0 1
-  GETTABLEKS R5 R3 K18 ["Standalone"]
+  GETTABLEKS R5 R3 K15 ["Standalone"]
   JUMPIFEQ R4 R5 [+2]
   RETURN R0 0
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K6 ["Bin"]
   GETTABLEKS R6 R7 K7 ["Common"]
-  GETTABLEKS R5 R6 K19 ["setup"]
+  GETTABLEKS R5 R6 K16 ["setup"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Bin"]
-  GETTABLEKS R7 R8 K7 ["Common"]
-  GETTABLEKS R6 R7 K20 ["setupMain"]
-  CALL R5 1 1
-  MOVE R6 R4
-  GETIMPORT R7 K22 [plugin]
-  MOVE R8 R5
-  CALL R6 2 0
+  MOVE R5 R4
+  GETIMPORT R6 K18 [plugin]
+  CALL R5 1 0
   RETURN R0 0

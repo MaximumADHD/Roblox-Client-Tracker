@@ -8,93 +8,107 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Parent"]
   GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K8 ["Styling"]
-  GETTABLEKS R2 R3 K9 ["createStyleRule"]
-  MOVE R3 R2
-  LOADK R4 K10 [".Explorer-RenameBox"]
-  NEWTABLE R5 0 0
-  NEWTABLE R6 0 3
-  MOVE R7 R2
-  LOADK R8 K11 [">> .Explorer-RenameBox-Background"]
-  DUPTABLE R9 K14 [{"Position", "Size"}]
-  GETIMPORT R10 K17 [UDim2.new]
-  LOADN R11 0
-  LOADN R12 252
-  LOADN R13 0
-  LOADN R14 0
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K12 ["Position"]
-  GETIMPORT R10 K17 [UDim2.new]
-  LOADN R11 1
-  LOADN R12 4
-  LOADN R13 1
-  LOADN R14 0
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K13 ["Size"]
-  CALL R7 2 1
-  MOVE R8 R2
-  LOADK R9 K18 [">> .Explorer-RenameBox-BackgroundInner"]
-  DUPTABLE R10 K20 [{"AnchorPoint", "Position", "Size"}]
-  GETIMPORT R11 K22 [Vector2.new]
-  LOADK R12 K23 [0.5]
-  LOADK R13 K23 [0.5]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K19 ["AnchorPoint"]
-  GETIMPORT R11 K25 [UDim2.fromScale]
-  LOADK R12 K23 [0.5]
-  LOADK R13 K23 [0.5]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K12 ["Position"]
-  GETIMPORT R11 K17 [UDim2.new]
-  LOADN R12 1
-  LOADN R13 254
-  LOADN R14 1
-  LOADN R15 254
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K13 ["Size"]
-  NEWTABLE R11 0 2
-  MOVE R12 R2
-  LOADK R13 K26 ["::UICorner"]
-  DUPTABLE R14 K28 [{"CornerRadius"}]
-  GETIMPORT R15 K30 [UDim.new]
-  LOADN R16 0
-  LOADN R17 4
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K27 ["CornerRadius"]
-  CALL R12 2 1
-  MOVE R13 R2
-  LOADK R14 K31 ["::UIStroke"]
-  DUPTABLE R15 K34 [{"Color", "Thickness"}]
-  LOADK R16 K35 ["$RDLSemanticColorActionPrimaryBrandFill"]
-  SETTABLEKS R16 R15 K32 ["Color"]
-  LOADN R16 2
-  SETTABLEKS R16 R15 K33 ["Thickness"]
-  CALL R13 2 -1
-  SETLIST R11 R12 -1 [1]
-  CALL R8 3 1
-  MOVE R9 R2
-  LOADK R10 K36 [">> TextBox"]
-  DUPTABLE R11 K44 [{"BackgroundTransparency", "BorderSizePixel", "ClipsDescendants", "Font", "Size", "TextColor3", "TextSize", "TextXAlignment"}]
-  LOADN R12 1
-  SETTABLEKS R12 R11 K37 ["BackgroundTransparency"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["getFFlagExplorerFixBlurryTextHopefully"]
+  CALL R2 1 1
+  GETTABLEKS R4 R1 K10 ["Styling"]
+  GETTABLEKS R3 R4 K11 ["createStyleRule"]
+  MOVE R4 R3
+  LOADK R5 K12 [".Explorer-RenameBox"]
+  NEWTABLE R6 0 0
+  NEWTABLE R7 0 3
+  MOVE R8 R3
+  LOADK R9 K13 [">> .Explorer-RenameBox-Background"]
+  DUPTABLE R10 K16 [{"Position", "Size"}]
+  GETIMPORT R11 K19 [UDim2.new]
   LOADN R12 0
-  SETTABLEKS R12 R11 K38 ["BorderSizePixel"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K39 ["ClipsDescendants"]
-  GETIMPORT R12 K47 [Enum.Font.SourceSans]
-  SETTABLEKS R12 R11 K40 ["Font"]
-  GETIMPORT R12 K25 [UDim2.fromScale]
-  LOADN R13 1
+  LOADN R13 252
+  LOADN R14 0
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K14 ["Position"]
+  GETIMPORT R11 K19 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 4
   LOADN R14 1
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K15 ["Size"]
+  CALL R8 2 1
+  MOVE R9 R3
+  LOADK R10 K20 [">> .Explorer-RenameBox-BackgroundInner"]
+  DUPTABLE R11 K22 [{"AnchorPoint", "Position", "Size"}]
+  GETIMPORT R12 K24 [Vector2.new]
+  LOADK R13 K25 [0.5]
+  LOADK R14 K25 [0.5]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K13 ["Size"]
-  LOADK R12 K48 ["$RDLSemanticColorContentMuted"]
-  SETTABLEKS R12 R11 K41 ["TextColor3"]
-  LOADK R12 K49 [17.598]
-  SETTABLEKS R12 R11 K42 ["TextSize"]
-  GETIMPORT R12 K51 [Enum.TextXAlignment.Left]
-  SETTABLEKS R12 R11 K43 ["TextXAlignment"]
-  CALL R9 2 -1
-  SETLIST R6 R7 -1 [1]
-  CALL R3 3 -1
-  RETURN R3 -1
+  SETTABLEKS R12 R11 K21 ["AnchorPoint"]
+  GETIMPORT R12 K27 [UDim2.fromScale]
+  LOADK R13 K25 [0.5]
+  LOADK R14 K25 [0.5]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K14 ["Position"]
+  GETIMPORT R12 K19 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 254
+  LOADN R15 1
+  LOADN R16 254
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K15 ["Size"]
+  NEWTABLE R12 0 2
+  MOVE R13 R3
+  LOADK R14 K28 ["::UICorner"]
+  DUPTABLE R15 K30 [{"CornerRadius"}]
+  GETIMPORT R16 K32 [UDim.new]
+  LOADN R17 0
+  LOADN R18 4
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K29 ["CornerRadius"]
+  CALL R13 2 1
+  MOVE R14 R3
+  LOADK R15 K33 ["::UIStroke"]
+  DUPTABLE R16 K36 [{"Color", "Thickness"}]
+  LOADK R17 K37 ["$RDLSemanticColorActionPrimaryBrandFill"]
+  SETTABLEKS R17 R16 K34 ["Color"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K35 ["Thickness"]
+  CALL R14 2 -1
+  SETLIST R12 R13 -1 [1]
+  CALL R9 3 1
+  MOVE R10 R3
+  LOADK R11 K38 [">> TextBox"]
+  DUPTABLE R12 K46 [{"BackgroundTransparency", "BorderSizePixel", "ClipsDescendants", "Font", "Size", "TextColor3", "TextSize", "TextXAlignment"}]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K39 ["BackgroundTransparency"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K40 ["BorderSizePixel"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K41 ["ClipsDescendants"]
+  GETIMPORT R13 K49 [Enum.Font.SourceSans]
+  SETTABLEKS R13 R12 K42 ["Font"]
+  GETIMPORT R13 K27 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K15 ["Size"]
+  MOVE R14 R2
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  LOADNIL R13
+  JUMP [+1]
+  LOADK R13 K50 ["$RDLSemanticColorContentMuted"]
+  SETTABLEKS R13 R12 K43 ["TextColor3"]
+  MOVE R14 R2
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  LOADNIL R13
+  JUMP [+1]
+  LOADK R13 K51 [17.598]
+  SETTABLEKS R13 R12 K44 ["TextSize"]
+  GETIMPORT R13 K53 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K45 ["TextXAlignment"]
+  CALL R10 2 -1
+  SETLIST R7 R8 -1 [1]
+  CALL R4 3 -1
+  RETURN R4 -1

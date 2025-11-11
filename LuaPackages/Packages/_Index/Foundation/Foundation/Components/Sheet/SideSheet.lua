@@ -20,11 +20,17 @@ type SheetRef = SheetTypes.SheetRef
 type SheetProps = SheetTypes.SheetProps
 local SheetType = require(script.Parent.SheetType)
 
+local useElevation = require(Foundation.Providers.Elevation.useElevation)
+local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
+local ElevationLayer = require(Foundation.Enums.ElevationLayer)
+type ElevationLayer = ElevationLayer.ElevationLayer
+
 local useHardwareInsets = require(script.Parent.useHardwareInsets)
 
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
+local Flags = require(Foundation.Utility.Flags)
 
 type SideSheetProps = {
 	displaySize: Enum.DisplaySize,
@@ -44,6 +50,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 	local props = withDefaults(sideSheetProps, defaultProps)
 	local overlay = useOverlay()
 	local tokens = useTokens()
+	local elevation = useElevation(ElevationLayer.Sheet, { relativeToOwner = false })
 	local safeAreaPadding = useHardwareInsets(overlay).right
 
 	local isSmallDisplay = props.displaySize == Enum.DisplaySize.Small
@@ -136,8 +143,9 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 	return overlay
 		and ReactRoblox.createPortal(
 			React.createElement(View, {
-				ZIndex = 5,
+				ZIndex = if Flags.FoundationElevationSystem then elevation.zIndex else 5,
 				tag = "size-full",
+				testId = `{props.testId}--surface`,
 			}, {
 				Sheet = React.createElement(View, {
 					Size = sheetSize,
@@ -168,9 +176,15 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 						{
 							tag = "size-full-full col items-center clip",
 						},
-						React.createElement(SheetContext.Provider, {
-							value = contextValue,
-						}, props.children)
+						React.createElement(
+							SheetContext.Provider,
+							{
+								value = contextValue,
+							},
+							if Flags.FoundationElevationSystem
+								then React.createElement(OwnerScope, { owner = elevation }, props.children)
+								else props.children
+						)
 					),
 					CloseAffordance = React.createElement(CloseAffordance, {
 						onActivated = closeSheet,

@@ -44,9 +44,9 @@ PROTO_1:
   SETTABLEKS R11 R10 K10 ["testId"]
   LOADK R11 K14 ["icons/actions/adjust"]
   SETTABLEKS R11 R10 K11 ["icon"]
-  LOADK R11 K15 ["size-700-700 radius-circle bg-action-standard align-x-center align-y-center"]
+  LOADK R11 K15 ["size-600-600 radius-circle bg-action-standard align-x-center align-y-center"]
   SETTABLEKS R11 R10 K3 ["tag"]
-  LOADK R11 K16 ["size-700-700 content-emphasis"]
+  LOADK R11 K16 ["size-600-600 content-emphasis"]
   SETTABLEKS R11 R10 K12 ["iconTag"]
   MOVE R11 R2
   CALL R11 0 1

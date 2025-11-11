@@ -1,1 +1,1 @@
-return game:DefineFastFlag("CreateInExperienceMenuReact4", false)
+return game:DefineFastFlag("CreateInExperienceMenuReact6", false)

@@ -1,11 +1,17 @@
 local Foundation = script:FindFirstAncestor("Foundation")
+local Packages = Foundation.Parent
 
+local Dash = require(Packages.Dash)
+local Constants = require(Foundation.Constants)
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type StateLayer = Types.StateLayer
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
+
+local ColorMode = require(Foundation.Enums.ColorMode)
+type ColorMode = ColorMode.ColorMode
 
 local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 type StateLayerMode = StateLayerMode.StateLayerMode
@@ -39,33 +45,31 @@ local function toStroke(token: ColorStyleValue): ButtonStroke
 end
 
 -- Helper function to create a standard button variant style
-local function createButtonVariantStyle(buttonStyle: ButtonStyle, isInverse: boolean?): VariantProps
-	return {
-		container = {
-			style = buttonStyle.Background,
-			stroke = toStroke(buttonStyle.Border),
-			stateLayer = if isInverse
-				then {
-					mode = StateLayerMode.Inverse,
-				}
-				else nil,
-		},
-		content = {
-			style = buttonStyle.Foreground,
-		},
-	}
-end
-
--- Wrapper function that creates both normal and inverse variants
 local function createButtonVariantStyles(
 	tokens: Tokens,
-	actionName: string,
+	actionName: string | { string },
 	isInverse: boolean?
-): { [boolean]: VariantProps }
-	return {
-		[false] = createButtonVariantStyle(tokens.Color[actionName], isInverse),
-		[true] = createButtonVariantStyle(tokens.Inverse[actionName], not isInverse),
-	}
+): { [ColorMode]: VariantProps }
+	local styles: { [ColorMode]: any } = {}
+	for colorMode in ColorMode do
+		local colors = tokens[colorMode]
+		local buttonStyle = if type(actionName) == "table"
+			then { Foreground = Dash.get(colors, actionName) }
+			else colors[actionName]
+		styles[colorMode :: ColorMode] = {
+			container = {
+				style = buttonStyle.Background,
+				stroke = if buttonStyle.Border then toStroke(buttonStyle.Border) else nil,
+				stateLayer = {
+					mode = Constants.COLOR_MODE_TO_STATE_LAYER_MODE[isInverse or false][colorMode :: ColorMode],
+				},
+			},
+			content = {
+				style = buttonStyle.Foreground,
+			},
+		}
+	end
+	return styles
 end
 
 type SharedButtonVariantProps = {
@@ -81,30 +85,20 @@ type SharedButtonVariantProps = {
 	},
 }
 
--- Returns all button variant types - indexed by variant then by boolean (isInverse)
-local function getButtonTypes(tokens: Tokens): { [ButtonVariant]: { [boolean]: VariantProps } }
+-- Returns all button variant types - indexed by variant then by ColorMode
+local function getButtonTypes(tokens: Tokens): { [ButtonVariant]: { [ColorMode]: VariantProps } }
 	return {
 		[ButtonVariant.Utility] = createButtonVariantStyles(tokens, "ActionUtility"),
 		[ButtonVariant.Standard] = createButtonVariantStyles(tokens, "ActionStandard"),
+		-- TODO: Update to use StateLayerMode.Dark
 		[ButtonVariant.Emphasis] = createButtonVariantStyles(tokens, "ActionEmphasis"),
 		[ButtonVariant.Alert] = createButtonVariantStyles(tokens, "ActionAlert"),
 		[ButtonVariant.SubEmphasis] = createButtonVariantStyles(tokens, "ActionSubEmphasis", true),
+		-- TODO: Update to use StateLayerMode.Inverse
 		[ButtonVariant.SoftEmphasis] = createButtonVariantStyles(tokens, "ActionSoftEmphasis"),
 		[ButtonVariant.Subtle] = createButtonVariantStyles(tokens, "ActionSubtle"),
-		[ButtonVariant.Text] = {
-			[false] = { content = { style = tokens.Color.Content.Emphasis } },
-			[true] = {
-				container = { stateLayer = { mode = StateLayerMode.Inverse } },
-				content = { style = tokens.Inverse.Content.Emphasis },
-			},
-		},
-		[ButtonVariant.Link] = {
-			[false] = { content = { style = tokens.Color.Content.Link } },
-			[true] = {
-				container = { stateLayer = { mode = StateLayerMode.Inverse } },
-				content = { style = tokens.Inverse.Content.Link },
-			},
-		},
+		[ButtonVariant.Text] = createButtonVariantStyles(tokens, { "Content", "Emphasis" }),
+		[ButtonVariant.Link] = createButtonVariantStyles(tokens, { "Content", "Link" }),
 		[ButtonVariant.OverMedia] = createButtonVariantStyles(tokens, "ActionOverMedia", true),
 	}
 end
@@ -128,7 +122,7 @@ end
 
 local function getSharedVariants(tokens: Tokens): {
 	sizes: { [InputSize]: VariantProps },
-	types: { [ButtonVariant]: { [boolean]: VariantProps } },
+	types: { [ButtonVariant]: { [ColorMode]: VariantProps } },
 }
 	local sizes = getSizes(tokens)
 	local types = getButtonTypes(tokens)

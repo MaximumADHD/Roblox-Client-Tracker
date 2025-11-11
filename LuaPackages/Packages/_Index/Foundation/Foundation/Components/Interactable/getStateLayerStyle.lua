@@ -5,6 +5,8 @@ local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 type StateLayer = Types.StateLayer
 
+local ColorMode = require(Foundation.Enums.ColorMode)
+type ColorMode = ColorMode.ColorMode
 local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 type StateLayerMode = StateLayerMode.StateLayerMode
 local ControlState = require(Foundation.Enums.ControlState)
@@ -24,16 +26,16 @@ end
 
 function stateLayerModeToTokenNamespace(mode: StateLayerMode?)
 	if mode == StateLayerMode.Default then
-		return "Color"
+		return ColorMode.Color
 	elseif mode == StateLayerMode.Inverse then
-		return "Inverse"
+		return ColorMode.Inverse
 	elseif mode == StateLayerMode.Light then
-		return "LightMode"
+		return ColorMode.LightMode
 	elseif mode == StateLayerMode.Dark then
-		return "DarkMode"
+		return ColorMode.DarkMode
 	end
 	-- Default to Color
-	return "Color"
+	return ColorMode.Color
 end
 
 local function getStateLayerStyle(

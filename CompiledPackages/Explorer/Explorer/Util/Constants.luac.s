@@ -7,70 +7,79 @@ MAIN:
   GETIMPORT R1 K5 [require]
   GETTABLEKS R2 R0 K6 ["RpcTypes"]
   CALL R1 1 1
-  NEWTABLE R2 32 0
-  LOADK R3 K7 ["<<<NIL>>>"]
-  SETTABLEKS R3 R2 K8 ["nilId"]
-  LOADK R3 K9 ["<<<ROOT>>>"]
-  SETTABLEKS R3 R2 K10 ["rootId"]
-  GETIMPORT R3 K12 [game]
-  LOADK R5 K13 ["ExplorerScrollRate"]
-  LOADN R6 3
-  NAMECALL R3 R3 K14 ["DefineFastInt"]
-  CALL R3 3 1
-  SETTABLEKS R3 R2 K15 ["explorerScrollRate"]
-  LOADN R3 20
-  SETTABLEKS R3 R2 K16 ["explorerRowHeight"]
-  LOADN R3 12
-  SETTABLEKS R3 R2 K17 ["indentWidth"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K18 ["indentLineWidth"]
-  LOADN R3 16
-  SETTABLEKS R3 R2 K19 ["iconSize"]
-  LOADN R3 16
-  SETTABLEKS R3 R2 K20 ["fieldSize"]
-  LOADN R3 4
-  SETTABLEKS R3 R2 K21 ["minNameLabelWidth"]
-  LOADN R3 20
-  SETTABLEKS R3 R2 K22 ["searchBarHeight"]
-  LOADN R3 4
-  SETTABLEKS R3 R2 K23 ["searchBarPadding"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K24 ["searchHeaderBottomBorderWidth"]
-  GETTABLEKS R5 R2 K22 ["searchBarHeight"]
-  GETTABLEKS R7 R2 K23 ["searchBarPadding"]
-  MULK R6 R7 K25 [2]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K7 ["Flags"]
+  GETTABLEKS R3 R4 K8 ["getFFlagExplorerFixBlurryTextHopefully"]
+  CALL R2 1 1
+  NEWTABLE R3 32 0
+  LOADK R4 K9 ["<<<NIL>>>"]
+  SETTABLEKS R4 R3 K10 ["nilId"]
+  LOADK R4 K11 ["<<<ROOT>>>"]
+  SETTABLEKS R4 R3 K12 ["rootId"]
+  GETIMPORT R4 K14 [game]
+  LOADK R6 K15 ["ExplorerScrollRate"]
+  LOADN R7 3
+  NAMECALL R4 R4 K16 ["DefineFastInt"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K17 ["explorerScrollRate"]
+  LOADN R4 20
+  SETTABLEKS R4 R3 K18 ["explorerRowHeight"]
+  LOADN R4 12
+  SETTABLEKS R4 R3 K19 ["indentWidth"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K20 ["indentLineWidth"]
+  LOADN R4 16
+  SETTABLEKS R4 R3 K21 ["iconSize"]
+  LOADN R4 16
+  SETTABLEKS R4 R3 K22 ["fieldSize"]
+  LOADN R4 4
+  SETTABLEKS R4 R3 K23 ["minNameLabelWidth"]
+  LOADN R4 20
+  SETTABLEKS R4 R3 K24 ["searchBarHeight"]
+  LOADN R4 4
+  SETTABLEKS R4 R3 K25 ["searchBarPadding"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K26 ["searchHeaderBottomBorderWidth"]
+  GETTABLEKS R6 R3 K24 ["searchBarHeight"]
+  GETTABLEKS R8 R3 K25 ["searchBarPadding"]
+  MULK R7 R8 K27 [2]
+  ADD R5 R6 R7
+  GETTABLEKS R6 R3 K26 ["searchHeaderBottomBorderWidth"]
   ADD R4 R5 R6
-  GETTABLEKS R5 R2 K24 ["searchHeaderBottomBorderWidth"]
-  ADD R3 R4 R5
-  SETTABLEKS R3 R2 K26 ["minSearchHeaderHeight"]
-  GETIMPORT R3 K30 [Enum.Font.SourceSans]
-  SETTABLEKS R3 R2 K31 ["defaultFont"]
-  LOADK R3 K32 [17.598]
-  SETTABLEKS R3 R2 K33 ["standardTextSize"]
-  LOADN R3 6
-  SETTABLEKS R3 R2 K34 ["sessionViewScrollBarWidth"]
-  LOADN R3 2
-  SETTABLEKS R3 R2 K35 ["sessionViewScrollBarPadding"]
-  GETIMPORT R3 K38 [table.freeze]
-  DUPTABLE R4 K40 [{"datum"}]
-  GETIMPORT R5 K38 [table.freeze]
-  DUPTABLE R6 K48 [{"id", "name", "className", "parentId", "hasChildren", "fieldValues", "isGhost"}]
-  GETTABLEKS R7 R2 K10 ["rootId"]
-  SETTABLEKS R7 R6 K41 ["id"]
-  LOADK R7 K49 ["DataModel"]
-  SETTABLEKS R7 R6 K42 ["name"]
-  LOADK R7 K49 ["DataModel"]
-  SETTABLEKS R7 R6 K43 ["className"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K44 ["parentId"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K45 ["hasChildren"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K46 ["fieldValues"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K47 ["isGhost"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K39 ["datum"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K50 ["emptyDataModelNode"]
-  RETURN R2 1
+  SETTABLEKS R4 R3 K28 ["minSearchHeaderHeight"]
+  GETIMPORT R4 K32 [Enum.Font.SourceSans]
+  SETTABLEKS R4 R3 K33 ["defaultFont"]
+  MOVE R5 R2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  LOADN R4 17
+  JUMP [+1]
+  LOADK R4 K34 [17.598]
+  SETTABLEKS R4 R3 K35 ["standardTextSize"]
+  LOADN R4 6
+  SETTABLEKS R4 R3 K36 ["sessionViewScrollBarWidth"]
+  LOADN R4 2
+  SETTABLEKS R4 R3 K37 ["sessionViewScrollBarPadding"]
+  GETIMPORT R4 K40 [table.freeze]
+  DUPTABLE R5 K42 [{"datum"}]
+  GETIMPORT R6 K40 [table.freeze]
+  DUPTABLE R7 K50 [{"id", "name", "className", "parentId", "hasChildren", "fieldValues", "isGhost"}]
+  GETTABLEKS R8 R3 K12 ["rootId"]
+  SETTABLEKS R8 R7 K43 ["id"]
+  LOADK R8 K51 ["DataModel"]
+  SETTABLEKS R8 R7 K44 ["name"]
+  LOADK R8 K51 ["DataModel"]
+  SETTABLEKS R8 R7 K45 ["className"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K46 ["parentId"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K47 ["hasChildren"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K48 ["fieldValues"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K49 ["isGhost"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K41 ["datum"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K52 ["emptyDataModelNode"]
+  RETURN R3 1

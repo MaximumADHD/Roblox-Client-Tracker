@@ -36,17 +36,6 @@ local function Story(props)
 		end)
 	end
 
-	local placeholder = ""
-	if controls.maxLines > 1 then
-		local nums = {}
-		for i = 1, 1000 do
-			table.insert(nums, i)
-		end
-		placeholder = table.concat(nums, "\n")
-	else
-		placeholder = controls.placeholder
-	end
-
 	return React.createElement(View, {
 		tag = "auto-xy padding-xlarge",
 	}, {
@@ -62,7 +51,7 @@ local function Story(props)
 				maxLines = controls.maxLines,
 				onChanged = handleChange,
 				onReturnPressed = onReturnPressed,
-				placeholder = placeholder,
+				placeholder = controls.placeholder,
 				leadingElement = if controls.leadingComponentIcon == React.None
 					then nil
 					else React.createElement(Icon, { name = controls.leadingComponentIcon, size = IconSize.Small }),
@@ -96,12 +85,46 @@ end
 
 return {
 	summary = "Internal text input",
-	story = Story,
+	stories = {
+		{
+			name = "Single-line",
+			story = function(props: any)
+				return React.createElement(
+					Story,
+					Dash.union(props, {
+						controls = Dash.union(props.controls, {
+							maxLines = 1,
+						}),
+					})
+				)
+			end,
+		},
+		{
+			name = "Multi-line",
+			story = function(props: any)
+				local placeholder = ""
+				local nums = {}
+				for i = 1, 1000 do
+					table.insert(nums, i)
+				end
+				placeholder = table.concat(nums, "\n")
+
+				return React.createElement(
+					Story,
+					Dash.union(props, {
+						controls = Dash.union(props.controls, {
+							placeholder = placeholder,
+						}),
+					})
+				)
+			end,
+		},
+	},
 	controls = {
 		hasError = false,
 		isDisabled = false,
 		size = Dash.values(InputSize),
-		maxLines = 1,
+		maxLines = 3,
 		width = 400,
 		placeholder = "Placeholder text",
 		leadingComponentIcon = {

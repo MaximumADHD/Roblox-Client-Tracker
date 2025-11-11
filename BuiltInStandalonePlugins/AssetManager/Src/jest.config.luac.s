@@ -4,7 +4,7 @@ MAIN:
   LOADK R1 K4 ["AssetManager/Src"]
   SETTABLEKS R1 R0 K0 ["displayName"]
   NEWTABLE R1 0 2
-  LOADK R2 K5 ["**/NetworkingImpl.spec"]
+  LOADK R2 K5 ["**/*.spec"]
   LOADK R3 K6 ["**/*.test"]
   SETLIST R1 R2 2 [1]
   SETTABLEKS R1 R0 K1 ["testMatch"]

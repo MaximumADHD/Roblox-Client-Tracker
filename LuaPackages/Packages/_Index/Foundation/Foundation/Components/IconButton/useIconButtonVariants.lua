@@ -1,10 +1,15 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
+
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
+
+local ColorMode = require(Foundation.Enums.ColorMode)
+type ColorMode = ColorMode.ColorMode
 
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
@@ -36,11 +41,13 @@ type IconButtonVariantProps = {
 }
 
 local variantsMap = function(tokens: Tokens)
-	local common = {
-		container = {
-			tag = "row align-y-center align-x-center clip",
-		},
-	}
+	local common = if Flags.FoundationIconButtonBiggerBuilderIcons
+		then {}
+		else {
+			container = {
+				tag = "row align-y-center align-x-center clip",
+			},
+		}
 
 	local sharedVariants = getSharedVariants(tokens)
 
@@ -90,7 +97,11 @@ local variantsMap = function(tokens: Tokens)
 	return { common = common, sizes = sizes, types = sharedVariants.types }
 end
 
-return function(tokens: Tokens, size: InputSize, variant: ButtonVariant, isInverse: boolean?): IconButtonVariantProps
+return function(tokens: Tokens, size: InputSize, variant: ButtonVariant, colorMode: ColorMode?): IconButtonVariantProps
 	local variants = VariantsContext.useVariants("IconButton", variantsMap, tokens)
-	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant][isInverse or false])
+	return composeStyleVariant(
+		variants.common,
+		variants.sizes[size],
+		variants.types[variant][colorMode or ColorMode.Color]
+	)
 end

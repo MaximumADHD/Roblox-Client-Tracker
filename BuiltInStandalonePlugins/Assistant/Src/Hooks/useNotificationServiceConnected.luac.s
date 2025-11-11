@@ -110,26 +110,25 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["FIntAssistantDisconnectDelaySeconds"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["React"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ReactUtils"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["ReactUtils"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Flags"]
+  GETTABLEKS R4 R5 K11 ["FIntAssistantDisconnectDelaySeconds"]
   CALL R3 1 1
   GETIMPORT R4 K13 [game]
   LOADK R6 K14 ["NotificationServiceIsConnectedAvailable"]
   NAMECALL R4 R4 K15 ["GetEngineFeature"]
   CALL R4 2 1
-  GETTABLEKS R5 R1 K16 ["Get"]
-  DUPCLOSURE R6 K17 [PROTO_4]
+  DUPCLOSURE R5 K16 [PROTO_4]
   CAPTURE VAL R4
+  CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R5
-  RETURN R6 1
+  RETURN R5 1

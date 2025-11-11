@@ -10,6 +10,8 @@ local LocalizationService = game:GetService("LocalizationService")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
+local FFlagAddGuiInsetToDisplayStore = SharedFlags.FFlagAddGuiInsetToDisplayStore
+local FFlagFixChromeConsoleNilRefs = SharedFlags.FFlagFixChromeConsoleNilRefs
 
 local FFlagAddTopBarScrim = require(script.Flags.FFlagAddTopBarScrim)
 
@@ -27,6 +29,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local Signals = require(CorePackages.Packages.Signals)
 
 local StyleConstants = UIBlox.App.Style.Constants
+local Display = require(CorePackages.Workspace.Packages.Display)
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
@@ -35,6 +38,10 @@ local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local ChromeService
+if FFlagFixChromeConsoleNilRefs and ChromeEnabled then
+	ChromeService = require(RobloxGui.Modules.Chrome.Service)
+end
 local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
@@ -59,10 +66,18 @@ if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTil
 			guiInsetBottomRight.X,
 			guiInsetBottomRight.Y
 		)
+		if FFlagAddGuiInsetToDisplayStore then
+			Display.GetDisplayStore().setGuiInset({
+				left = guiInsetTopLeft.X,
+				top = Constants.ApplyDisplayScale(Constants.TopBarHeight),
+				right = guiInsetBottomRight.X,
+				bottom = guiInsetBottomRight.Y
+			})
+		end
 	end
 	SetGlobalGuiInset()
 	
-	if FFlagTopBarStyleUseDisplayUIScale then
+	if not FFlagAddGuiInsetToDisplayStore and FFlagTopBarStyleUseDisplayUIScale then
 		Signals.createEffect(function(scope)
 			SetGlobalGuiInset()
 		end)
@@ -194,7 +209,7 @@ function TopBar.new()
 	end
 	
 
-	local TopBarScrimScreenGui = FFlagAddTopBarScrim and React.createElement("ScreenGui", {
+	local TopBarScrimScreenGui = (not FFlagFixChromeConsoleNilRefs or ChromeService) and FFlagAddTopBarScrim and React.createElement("ScreenGui", {
 		IgnoreGuiInset = true,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		DisplayOrder = -2,

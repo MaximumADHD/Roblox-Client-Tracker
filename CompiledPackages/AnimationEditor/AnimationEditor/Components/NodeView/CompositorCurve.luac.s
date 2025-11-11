@@ -93,65 +93,19 @@ PROTO_3:
   CALL R4 2 1
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K6 ["createElement"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["Fragment"]
-  NEWTABLE R7 0 0
-  DUPTABLE R8 K11 [{"Curve", "StartPoint", "FinishPoint"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K6 ["createElement"]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K8 ["Curve"]
-  DUPTABLE R11 K16 [{"Points", "ZIndex", "Color3", "Thickness"}]
-  SETTABLEKS R1 R11 K12 ["Points"]
-  GETTABLEKS R12 R0 K13 ["ZIndex"]
-  SETTABLEKS R12 R11 K13 ["ZIndex"]
-  GETTABLEKS R12 R0 K14 ["Color3"]
-  SETTABLEKS R12 R11 K14 ["Color3"]
-  GETTABLEKS R14 R0 K19 ["Scale"]
-  ORK R13 R14 K18 [1]
-  MULK R12 R13 K17 [3]
-  SETTABLEKS R12 R11 K15 ["Thickness"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K8 ["Curve"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K6 ["createElement"]
-  GETUPVAL R10 3
-  DUPTABLE R11 K23 [{"Position", "ZIndex", "Color3", "Scale", "OnDragStart", "OnDragMoved", "OnDragEnded"}]
-  GETTABLEKS R12 R0 K1 ["Start"]
-  SETTABLEKS R12 R11 K20 ["Position"]
-  GETTABLEKS R12 R0 K24 ["ZIndexCurveEnds"]
-  SETTABLEKS R12 R11 K13 ["ZIndex"]
-  GETTABLEKS R12 R0 K14 ["Color3"]
-  SETTABLEKS R12 R11 K14 ["Color3"]
-  GETTABLEKS R12 R0 K19 ["Scale"]
-  SETTABLEKS R12 R11 K19 ["Scale"]
-  SETTABLEKS R3 R11 K5 ["OnDragStart"]
-  GETTABLEKS R12 R0 K21 ["OnDragMoved"]
-  SETTABLEKS R12 R11 K21 ["OnDragMoved"]
-  GETTABLEKS R12 R0 K22 ["OnDragEnded"]
-  SETTABLEKS R12 R11 K22 ["OnDragEnded"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K9 ["StartPoint"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K6 ["createElement"]
-  GETUPVAL R10 3
-  DUPTABLE R11 K23 [{"Position", "ZIndex", "Color3", "Scale", "OnDragStart", "OnDragMoved", "OnDragEnded"}]
-  GETTABLEKS R12 R0 K2 ["Finish"]
-  SETTABLEKS R12 R11 K20 ["Position"]
-  GETTABLEKS R12 R0 K24 ["ZIndexCurveEnds"]
-  SETTABLEKS R12 R11 K13 ["ZIndex"]
-  GETTABLEKS R12 R0 K14 ["Color3"]
-  SETTABLEKS R12 R11 K14 ["Color3"]
-  GETTABLEKS R12 R0 K19 ["Scale"]
-  SETTABLEKS R12 R11 K19 ["Scale"]
-  SETTABLEKS R4 R11 K5 ["OnDragStart"]
-  GETTABLEKS R12 R0 K21 ["OnDragMoved"]
-  SETTABLEKS R12 R11 K21 ["OnDragMoved"]
-  GETTABLEKS R12 R0 K22 ["OnDragEnded"]
-  SETTABLEKS R12 R11 K22 ["OnDragEnded"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K10 ["FinishPoint"]
-  CALL R5 3 -1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["Curve"]
+  DUPTABLE R7 K12 [{"Points", "ZIndex", "Color3", "Thickness"}]
+  SETTABLEKS R1 R7 K8 ["Points"]
+  GETTABLEKS R8 R0 K9 ["ZIndex"]
+  SETTABLEKS R8 R7 K9 ["ZIndex"]
+  GETTABLEKS R8 R0 K10 ["Color3"]
+  SETTABLEKS R8 R7 K10 ["Color3"]
+  GETTABLEKS R10 R0 K15 ["Scale"]
+  ORK R9 R10 K14 [1]
+  MULK R8 R9 K13 [3]
+  SETTABLEKS R8 R7 K11 ["Thickness"]
+  CALL R5 2 -1
   RETURN R5 -1
 
 MAIN:
@@ -161,29 +115,23 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Components"]
-  GETTABLEKS R3 R4 K7 ["NodeView"]
-  GETTABLEKS R2 R3 K8 ["CompositorPin"]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Graphing"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["Parent"]
-  GETTABLEKS R3 R4 K10 ["Graphing"]
+  GETTABLEKS R3 R0 K8 ["NodeViewTypes"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R0 K11 ["NodeViewTypes"]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["React"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Parent"]
-  GETTABLEKS R5 R6 K12 ["React"]
-  CALL R4 1 1
-  DUPTABLE R5 K15 [{"Start", "Finish"}]
-  LOADK R6 K16 ["Output"]
-  SETTABLEKS R6 R5 K13 ["Start"]
-  LOADK R6 K17 ["Input"]
-  SETTABLEKS R6 R5 K14 ["Finish"]
-  DUPCLOSURE R6 K18 [PROTO_3]
+  DUPTABLE R4 K12 [{"Start", "Finish"}]
+  LOADK R5 K13 ["Output"]
+  SETTABLEKS R5 R4 K10 ["Start"]
+  LOADK R5 K14 ["Input"]
+  SETTABLEKS R5 R4 K11 ["Finish"]
+  DUPCLOSURE R5 K15 [PROTO_3]
+  CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R2
   CAPTURE VAL R1
-  RETURN R6 1
+  RETURN R5 1

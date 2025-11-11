@@ -10,6 +10,7 @@ local Image = require(Foundation.Components.Image)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputSize = require(Foundation.Enums.InputSize)
+local InputPlacement = require(Foundation.Enums.InputPlacement)
 
 local values = { "A", "B", "C", "D", "E" }
 
@@ -25,6 +26,7 @@ local function BasicStory(props)
 				label = if #optionLabel > 0 then `{optionLabel} {value}` else "",
 				isDisabled = value == "D",
 				size = controls.size,
+				placement = controls.placement,
 			})
 		)
 	end)
@@ -36,7 +38,46 @@ local function BasicStory(props)
 	}, items)
 end
 
-local function CustomSelectionStory()
+local function DifferentLabelLengthsStory(props)
+	local controls = props.controls
+	local itemsData = {
+		{ value = "A", label = "Short" },
+		{ value = "B", label = "Medium length label" },
+		{ value = "C", label = "A much, much longer label to test wrapping and layout in the radio group" },
+		{ value = "D", label = "Tiny" },
+		{
+			value = "E",
+			label = "Extremely long label that spans multiple lines to ensure alignment across items with a label on the left",
+		},
+	}
+
+	local items = {}
+	Dash.forEach(itemsData, function(item)
+		table.insert(
+			items,
+			React.createElement(RadioGroup.Item, {
+				value = item.value,
+				label = item.label,
+				size = controls.size,
+				placement = controls.placement,
+			})
+		)
+	end)
+
+	return React.createElement(View, {
+		tag = "auto-y",
+		Size = UDim2.new(0, 400, 0, 0),
+	}, {
+		RadioGroup = React.createElement(RadioGroup.Root, {
+			onValueChanged = function(value: string)
+				print("Checking value", value)
+			end,
+		}, items),
+	})
+end
+
+local function CustomSelectionStory(props)
+	local controls = props.controls
 	local selectedValue, setSelectedValue = React.useState(nil :: string?)
 	local tokens = useTokens()
 
@@ -69,6 +110,7 @@ local function CustomSelectionStory()
 			RadioButton = React.createElement(RadioGroup.Item, {
 				value = value,
 				label = label,
+				placement = controls and controls.placement or nil,
 			}),
 		})
 	end
@@ -97,6 +139,11 @@ return {
 			story = BasicStory :: any,
 		},
 		{
+			name = "Different Label Lengths",
+			summary = "Items with labels of varying length",
+			story = DifferentLabelLengthsStory :: any,
+		},
+		{
 			name = "Custom Selection",
 			summary = "Select images instead of radio buttons",
 			story = CustomSelectionStory,
@@ -105,5 +152,6 @@ return {
 	controls = {
 		optionLabel = "Option",
 		size = Dash.values(InputSize),
+		placement = Dash.values(InputPlacement),
 	},
 }

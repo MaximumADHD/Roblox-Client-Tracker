@@ -3,28 +3,39 @@ PROTO_0:
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["ContextStack"]
   DUPTABLE R3 K2 [{"providers"}]
-  NEWTABLE R4 0 4
+  NEWTABLE R4 0 5
   GETUPVAL R5 0
   GETUPVAL R6 2
-  CALL R5 1 1
+  DUPTABLE R7 K5 [{"plugin", "dockWidget"}]
+  GETTABLEKS R8 R0 K3 ["plugin"]
+  SETTABLEKS R8 R7 K3 ["plugin"]
+  GETTABLEKS R8 R0 K4 ["dockWidget"]
+  SETTABLEKS R8 R7 K4 ["dockWidget"]
+  CALL R5 2 1
   GETUPVAL R6 0
   GETUPVAL R7 3
   CALL R6 1 1
   GETUPVAL R7 0
   GETUPVAL R8 4
-  CALL R7 1 1
+  DUPTABLE R9 K6 [{"plugin"}]
+  GETTABLEKS R10 R0 K3 ["plugin"]
+  SETTABLEKS R10 R9 K3 ["plugin"]
+  CALL R7 2 1
   GETUPVAL R8 0
   GETUPVAL R9 5
-  CALL R8 1 -1
+  CALL R8 1 1
+  GETUPVAL R9 0
+  GETUPVAL R10 6
+  CALL R9 1 -1
   SETLIST R4 R5 -1 [1]
   SETTABLEKS R4 R3 K1 ["providers"]
-  DUPTABLE R4 K4 [{"MainView"}]
+  DUPTABLE R4 K8 [{"MainView"}]
   GETUPVAL R5 0
-  GETUPVAL R8 6
-  GETTABLEKS R7 R8 K5 ["Components"]
-  GETTABLEKS R6 R7 K3 ["MainView"]
+  GETUPVAL R8 7
+  GETTABLEKS R7 R8 K9 ["Components"]
+  GETTABLEKS R6 R7 K7 ["MainView"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K3 ["MainView"]
+  SETTABLEKS R5 R4 K7 ["MainView"]
   CALL R1 3 -1
   RETURN R1 -1
 
@@ -50,33 +61,40 @@ MAIN:
   GETTABLEKS R8 R0 K10 ["Src"]
   GETTABLEKS R7 R8 K11 ["Components"]
   GETTABLEKS R6 R7 K12 ["Contexts"]
-  GETTABLEKS R5 R6 K13 ["StudioActiveViewContextProvider"]
+  GETTABLEKS R5 R6 K13 ["StudioActionContextProvider"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R9 R0 K10 ["Src"]
   GETTABLEKS R8 R9 K11 ["Components"]
   GETTABLEKS R7 R8 K12 ["Contexts"]
-  GETTABLEKS R6 R7 K14 ["StudioClassIconContextProvider"]
+  GETTABLEKS R6 R7 K14 ["StudioActiveViewContextProvider"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R10 R0 K10 ["Src"]
   GETTABLEKS R9 R10 K11 ["Components"]
   GETTABLEKS R8 R9 K12 ["Contexts"]
-  GETTABLEKS R7 R8 K15 ["StudioNetworkContextProvider"]
+  GETTABLEKS R7 R8 K15 ["StudioClassIconContextProvider"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
   GETTABLEKS R11 R0 K10 ["Src"]
   GETTABLEKS R10 R11 K11 ["Components"]
   GETTABLEKS R9 R10 K12 ["Contexts"]
-  GETTABLEKS R8 R9 K16 ["StudioThemeContextProvider"]
+  GETTABLEKS R8 R9 K16 ["StudioNetworkContextProvider"]
   CALL R7 1 1
-  GETTABLEKS R8 R2 K17 ["createElement"]
-  DUPCLOSURE R9 K18 [PROTO_0]
-  CAPTURE VAL R8
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K11 ["Components"]
+  GETTABLEKS R10 R11 K12 ["Contexts"]
+  GETTABLEKS R9 R10 K17 ["StudioThemeContextProvider"]
+  CALL R8 1 1
+  GETTABLEKS R9 R2 K18 ["createElement"]
+  DUPCLOSURE R10 K19 [PROTO_0]
+  CAPTURE VAL R9
   CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R7
   CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R6
   CAPTURE VAL R1
-  RETURN R9 1
+  RETURN R10 1

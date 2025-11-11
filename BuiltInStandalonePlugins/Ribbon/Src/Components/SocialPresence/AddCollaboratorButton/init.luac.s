@@ -39,11 +39,9 @@ PROTO_1:
   GETTABLEN R5 R6 1
   GETUPVAL R7 4
   CALL R7 0 1
-  JUMPIFNOT R7 [+6]
+  JUMPIFNOT R7 [+4]
   JUMPIFNOT R5 [+3]
   GETTABLEKS R6 R5 K5 ["Icon"]
-  JUMP [+3]
-  LOADNIL R6
   JUMP [+1]
   LOADNIL R6
   JUMPIFNOT R5 [+3]
@@ -99,64 +97,59 @@ PROTO_1:
   GETTABLEKS R20 R0 K22 ["IsTeamCreateOn"]
   JUMPIFNOT R20 [+2]
   LOADK R19 K23 ["Component-RibbonButton TeamCreate"]
-  JUMP [+6]
-  GETUPVAL R20 4
-  CALL R20 0 1
-  JUMPIFNOT R20 [+2]
-  LOADK R19 K24 ["Component-Button Primary"]
   JUMP [+1]
-  LOADK R19 K25 ["Component-Button Primary NonTeamCreate"]
+  LOADK R19 K24 ["Component-Button Primary"]
   CALL R17 2 1
   SETTABLE R17 R15 R16
-  DUPTABLE R16 K27 [{"StateLayer"}]
+  DUPTABLE R16 K26 [{"StateLayer"}]
   GETUPVAL R18 7
   GETTABLEKS R17 R18 K13 ["createElement"]
-  LOADK R18 K28 ["Frame"]
+  LOADK R18 K27 ["Frame"]
   NEWTABLE R19 1 0
   GETUPVAL R21 7
   GETTABLEKS R20 R21 K20 ["Tag"]
   GETUPVAL R21 10
-  LOADK R22 K29 ["Role-Surface X-Fit"]
+  LOADK R22 K28 ["Role-Surface X-Fit"]
   GETTABLEKS R24 R0 K22 ["IsTeamCreateOn"]
   JUMPIF R24 [+2]
-  LOADK R23 K30 ["X-Row X-Middle X-Center Small"]
+  LOADK R23 K29 ["X-Row X-Middle X-Center Small"]
   JUMP [+1]
   LOADNIL R23
   CALL R21 2 1
   SETTABLE R21 R19 R20
-  DUPTABLE R20 K33 [{"ButtonIcon", "ButtonText"}]
+  DUPTABLE R20 K32 [{"ButtonIcon", "ButtonText"}]
   GETUPVAL R22 7
   GETTABLEKS R21 R22 K13 ["createElement"]
-  LOADK R22 K34 ["ImageLabel"]
+  LOADK R22 K33 ["ImageLabel"]
   NEWTABLE R23 2 0
-  SETTABLEKS R6 R23 K35 ["Image"]
+  SETTABLEKS R6 R23 K34 ["Image"]
   GETUPVAL R25 7
   GETTABLEKS R24 R25 K20 ["Tag"]
-  LOADK R25 K36 ["Role-Surface Icon-Small"]
+  LOADK R25 K35 ["Role-Surface Icon-Small"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
-  SETTABLEKS R21 R20 K31 ["ButtonIcon"]
+  SETTABLEKS R21 R20 K30 ["ButtonIcon"]
   GETTABLEKS R22 R0 K22 ["IsTeamCreateOn"]
   JUMPIF R22 [+20]
   GETUPVAL R22 7
   GETTABLEKS R21 R22 K13 ["createElement"]
-  LOADK R22 K37 ["TextLabel"]
+  LOADK R22 K36 ["TextLabel"]
   NEWTABLE R23 2 0
-  LOADK R26 K38 ["Plugin"]
-  LOADK R27 K39 ["SocialPresence_Collaborate"]
-  NAMECALL R24 R3 K40 ["getText"]
+  LOADK R26 K37 ["Plugin"]
+  LOADK R27 K38 ["SocialPresence_Collaborate"]
+  NAMECALL R24 R3 K39 ["getText"]
   CALL R24 3 1
   SETTABLEKS R24 R23 K7 ["Text"]
   GETUPVAL R25 7
   GETTABLEKS R24 R25 K20 ["Tag"]
-  LOADK R25 K41 ["Role-Surface X-Fit Small Primary"]
+  LOADK R25 K40 ["Role-Surface X-Fit Small Primary"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
   JUMP [+1]
   LOADNIL R21
-  SETTABLEKS R21 R20 K32 ["ButtonText"]
+  SETTABLEKS R21 R20 K31 ["ButtonText"]
   CALL R17 3 1
-  SETTABLEKS R17 R16 K26 ["StateLayer"]
+  SETTABLEKS R17 R16 K25 ["StateLayer"]
   CALL R13 3 -1
   RETURN R13 -1
 
@@ -174,35 +167,35 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Packages"]
   GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["SharedFlags"]
-  GETTABLEKS R4 R5 K11 ["getFFlagUpdateManageCollaboratorsIcons"]
-  CALL R3 1 1
-  GETTABLEKS R5 R2 K12 ["Styling"]
-  GETTABLEKS R4 R5 K13 ["joinTags"]
-  GETTABLEKS R5 R2 K14 ["ContextServices"]
-  GETTABLEKS R6 R5 K15 ["Localization"]
-  GETTABLEKS R7 R5 K16 ["Analytics"]
-  GETTABLEKS R8 R5 K17 ["Plugin"]
+  GETTABLEKS R4 R2 K9 ["Styling"]
+  GETTABLEKS R3 R4 K10 ["joinTags"]
+  GETTABLEKS R4 R2 K11 ["ContextServices"]
+  GETTABLEKS R5 R4 K12 ["Localization"]
+  GETTABLEKS R6 R4 K13 ["Analytics"]
+  GETTABLEKS R7 R4 K14 ["Plugin"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K15 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Hooks"]
+  GETTABLEKS R9 R10 K17 ["TooltipSettings"]
+  CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K9 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Hooks"]
-  GETTABLEKS R10 R11 K19 ["TooltipSettings"]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Hooks"]
+  GETTABLEKS R10 R11 K18 ["useTooltip"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K9 ["Src"]
-  GETTABLEKS R12 R13 K18 ["Hooks"]
-  GETTABLEKS R11 R12 K20 ["useTooltip"]
+  GETTABLEKS R12 R0 K6 ["Packages"]
+  GETTABLEKS R11 R12 K19 ["StudioFoundation"]
   CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R13 R0 K6 ["Packages"]
-  GETTABLEKS R12 R13 K21 ["StudioFoundation"]
-  CALL R11 1 1
-  GETTABLEKS R13 R11 K22 ["Util"]
-  GETTABLEKS R12 R13 K23 ["StudioUri"]
-  GETTABLEKS R14 R11 K18 ["Hooks"]
-  GETTABLEKS R13 R14 K24 ["useWidgetRef"]
+  GETTABLEKS R12 R10 K20 ["Util"]
+  GETTABLEKS R11 R12 K21 ["StudioUri"]
+  GETTABLEKS R13 R10 K16 ["Hooks"]
+  GETTABLEKS R12 R13 K22 ["useWidgetRef"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K15 ["Src"]
+  GETTABLEKS R15 R16 K23 ["SharedFlags"]
+  GETTABLEKS R14 R15 K24 ["getFeatureUpdateManageCollaboratorsIcons"]
+  CALL R13 1 1
   DUPTABLE R14 K29 [{"DataModel", "PluginId", "Category", "ItemId"}]
   LOADK R15 K30 ["Standalone"]
   SETTABLEKS R15 R14 K25 ["DataModel"]
@@ -213,15 +206,15 @@ MAIN:
   LOADK R15 K33 ["Open"]
   SETTABLEKS R15 R14 K28 ["ItemId"]
   DUPCLOSURE R15 K34 [PROTO_1]
-  CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R6
+  CAPTURE VAL R5
   CAPTURE VAL R14
-  CAPTURE VAL R3
   CAPTURE VAL R13
-  CAPTURE VAL R10
-  CAPTURE VAL R1
-  CAPTURE VAL R9
   CAPTURE VAL R12
-  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  CAPTURE VAL R3
   RETURN R15 1

@@ -104,28 +104,27 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["FFlagAssistantAttachCommonTelemetryFields"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Framework"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["React"]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["ReactUtils"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["ReactUtils"]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Flags"]
+  GETTABLEKS R5 R6 K12 ["FFlagAssistantAttachCommonTelemetryFields"]
   CALL R4 1 1
-  GETTABLEKS R5 R2 K13 ["ContextServices"]
+  GETTABLEKS R5 R1 K13 ["ContextServices"]
   GETTABLEKS R6 R5 K14 ["Plugin"]
-  GETTABLEKS R7 R1 K15 ["Get"]
-  DUPCLOSURE R8 K16 [PROTO_5]
+  DUPCLOSURE R7 K15 [PROTO_5]
   CAPTURE VAL R6
+  CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R7
-  RETURN R8 1
+  RETURN R7 1

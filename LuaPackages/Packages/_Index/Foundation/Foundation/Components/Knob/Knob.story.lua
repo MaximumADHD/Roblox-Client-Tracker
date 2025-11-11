@@ -54,7 +54,7 @@ local stories = {
 			local isInverse = controls.isInverse or false
 			local tokens = useTokens()
 
-			if Flags.FoundationUpdateKnobComponent then
+			if Flags.FoundationToggleVisualUpdate then
 				return React.createElement(
 					View,
 					{
@@ -97,7 +97,7 @@ local stories = {
 			local isInverse = controls.isInverse or false
 			local tokens = useTokens()
 
-			if Flags.FoundationUpdateKnobComponent then
+			if Flags.FoundationToggleVisualUpdate then
 				return React.createElement(
 					View,
 					{
@@ -144,7 +144,7 @@ local stories = {
 	},
 }
 
-if Flags.FoundationUpdateKnobComponent then
+if Flags.FoundationToggleVisualUpdate then
 	table.insert(stories, {
 		name = "With Icon",
 		summary = "Knob rendering a BuilderIcons check icon instead of the circle.",
@@ -177,7 +177,7 @@ if Flags.FoundationUpdateKnobComponent then
 end
 
 return {
-	controls = if Flags.FoundationUpdateKnobComponent
+	controls = if Flags.FoundationToggleVisualUpdate
 		then {
 			isInverse = false,
 			hasShadow = true,
@@ -186,7 +186,7 @@ return {
 		else {
 			hasShadow = true,
 		},
-	summary = if Flags.FoundationUpdateKnobComponent
+	summary = if Flags.FoundationToggleVisualUpdate
 		then "Interactive circular handle used by higher-level inputs (e.g., Slider and Toggle). Typically composed by parent controls rather than used directly. Uses PresentationContext for inverse styling."
 		else "Interactive circular handle used by higher-level inputs (e.g., Slider and Toggle). Typically composed by parent controls rather than used directly.",
 	stories = stories,

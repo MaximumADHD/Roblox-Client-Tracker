@@ -34,58 +34,73 @@ PROTO_2:
   JUMPIFNOT R1 [+1]
   RETURN R1 1
   NEWTABLE R2 0 0
+  DUPTABLE R5 K5 [{"Name", "Type", "Class", "Readonly", "Metatype"}]
+  LOADK R6 K6 ["Self"]
+  SETTABLEKS R6 R5 K0 ["Name"]
+  LOADK R6 K7 ["Instance"]
+  SETTABLEKS R6 R5 K1 ["Type"]
+  LOADK R6 K7 ["Instance"]
+  SETTABLEKS R6 R5 K2 ["Class"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K3 ["Readonly"]
+  LOADK R6 K8 ["Virtual"]
+  SETTABLEKS R6 R5 K4 ["Metatype"]
+  FASTCALL2 TABLE_INSERT R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K11 [table.insert]
+  CALL R3 2 0
   GETUPVAL R3 1
   MOVE R5 R0
-  NAMECALL R3 R3 K0 ["GetRawClassData"]
+  NAMECALL R3 R3 K12 ["GetRawClassData"]
   CALL R3 2 1
-  JUMPIFNOT R3 [+86]
-  GETTABLEKS R4 R3 K1 ["Superclass"]
-  JUMPIFEQKS R4 K2 ["<<<ROOT>>>"] [+15]
+  JUMPIFNOT R3 [+89]
+  GETTABLEKS R4 R3 K13 ["Superclass"]
+  JUMPIFEQKS R4 K14 ["<<<ROOT>>>"] [+15]
   GETUPVAL R4 2
-  GETTABLEKS R5 R3 K1 ["Superclass"]
+  GETTABLEKS R5 R3 K13 ["Superclass"]
   CALL R4 1 3
   FORGPREP R4
   FASTCALL2 TABLE_INSERT R2 R8 [+5]
   MOVE R10 R2
   MOVE R11 R8
-  GETIMPORT R9 K5 [table.insert]
+  GETIMPORT R9 K11 [table.insert]
   CALL R9 2 0
   FORGLOOP R4 2 [-8]
-  GETTABLEKS R4 R3 K6 ["Members"]
+  GETTABLEKS R4 R3 K15 ["Members"]
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
-  GETTABLEKS R9 R8 K7 ["MemberType"]
-  JUMPIFNOTEQKS R9 K8 ["Property"] [+57]
-  GETTABLEKS R10 R8 K9 ["Tags"]
+  GETTABLEKS R9 R8 K16 ["MemberType"]
+  JUMPIFNOTEQKS R9 K17 ["Property"] [+60]
+  GETTABLEKS R10 R8 K18 ["Tags"]
   JUMPIFNOT R10 [+14]
-  GETIMPORT R11 K11 [table.find]
+  GETIMPORT R11 K20 [table.find]
   MOVE R12 R10
-  LOADK R13 K12 ["NotScriptable"]
+  LOADK R13 K21 ["NotScriptable"]
   CALL R11 2 1
   NOT R9 R11
   JUMPIFNOT R9 [+9]
-  GETIMPORT R11 K11 [table.find]
+  GETIMPORT R11 K20 [table.find]
   MOVE R12 R10
-  LOADK R13 K13 ["Deprecated"]
+  LOADK R13 K22 ["Deprecated"]
   CALL R11 2 1
   NOT R9 R11
   JUMP [+2]
   LOADB R9 1
   JUMP [0]
-  JUMPIFNOT R9 [+36]
-  DUPTABLE R11 K18 [{"Name", "Type", "Class", "Readonly"}]
-  GETTABLEKS R12 R8 K14 ["Name"]
-  SETTABLEKS R12 R11 K14 ["Name"]
-  GETTABLEKS R13 R8 K19 ["ValueType"]
-  GETTABLEKS R12 R13 K14 ["Name"]
-  SETTABLEKS R12 R11 K15 ["Type"]
-  SETTABLEKS R0 R11 K16 ["Class"]
-  GETTABLEKS R13 R8 K9 ["Tags"]
+  JUMPIFNOT R9 [+39]
+  DUPTABLE R11 K5 [{"Name", "Type", "Class", "Readonly", "Metatype"}]
+  GETTABLEKS R12 R8 K0 ["Name"]
+  SETTABLEKS R12 R11 K0 ["Name"]
+  GETTABLEKS R13 R8 K23 ["ValueType"]
+  GETTABLEKS R12 R13 K0 ["Name"]
+  SETTABLEKS R12 R11 K1 ["Type"]
+  SETTABLEKS R0 R11 K2 ["Class"]
+  GETTABLEKS R13 R8 K18 ["Tags"]
   JUMPIFNOT R13 [+10]
-  GETIMPORT R14 K11 [table.find]
+  GETIMPORT R14 K20 [table.find]
   MOVE R15 R13
-  LOADK R16 K20 ["ReadOnly"]
+  LOADK R16 K24 ["ReadOnly"]
   CALL R14 2 1
   JUMPIFNOTEQKNIL R14 [+2]
   LOADB R12 0 +1
@@ -93,15 +108,17 @@ PROTO_2:
   JUMP [+2]
   LOADB R12 0
   JUMP [0]
-  SETTABLEKS R12 R11 K17 ["Readonly"]
+  SETTABLEKS R12 R11 K3 ["Readonly"]
+  LOADK R12 K17 ["Property"]
+  SETTABLEKS R12 R11 K4 ["Metatype"]
   FASTCALL2 TABLE_INSERT R2 R11 [+4]
   MOVE R10 R2
-  GETIMPORT R9 K5 [table.insert]
+  GETIMPORT R9 K11 [table.insert]
   CALL R9 2 0
-  FORGLOOP R4 2 [-61]
+  FORGLOOP R4 2 [-64]
   JUMP [+6]
-  GETIMPORT R4 K22 [warn]
-  LOADK R6 K23 ["Missing APIService info for type "]
+  GETIMPORT R4 K26 [warn]
+  LOADK R6 K27 ["Missing APIService info for type "]
   MOVE R7 R0
   CONCAT R5 R6 R7
   CALL R4 1 0

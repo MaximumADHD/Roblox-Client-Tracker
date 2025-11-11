@@ -156,55 +156,73 @@ PROTO_21:
 
 PROTO_22:
   GETIMPORT R1 K1 [error]
-  LOADK R2 K2 ["getSecureSettingsAsync is not available for this environment"]
+  LOADK R2 K2 ["getUserSettingsAsync is not available for this environment"]
   CALL R1 1 0
   RETURN R0 0
 
 PROTO_23:
   GETIMPORT R2 K1 [error]
-  LOADK R3 K2 ["setSecureSettingsAsync is not available for this environment"]
+  LOADK R3 K2 ["setUserSettingsAsync is not available for this environment"]
   CALL R2 1 0
   RETURN R0 0
 
 PROTO_24:
+  GETIMPORT R1 K1 [error]
+  LOADK R2 K2 ["getSecureSettingsAsync is not available for this environment"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_25:
+  GETIMPORT R2 K1 [error]
+  LOADK R3 K2 ["setSecureSettingsAsync is not available for this environment"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_26:
   GETTABLEKS R1 R0 K0 ["Source"]
   RETURN R1 1
 
-PROTO_25:
+PROTO_27:
   GETIMPORT R1 K1 [error]
   LOADK R2 K2 ["base64EncodeAsync is not available for this environment"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_28:
   GETIMPORT R0 K1 [error]
   LOADK R1 K2 ["generatePKCEAsync is not available for this environment"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_29:
   GETIMPORT R2 K1 [error]
   LOADK R3 K2 ["startMCPAuthAsync is not available for this environment"]
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_30:
+  GETIMPORT R1 K1 [error]
+  LOADK R2 K2 ["httpRequestAsync is not available for this environment"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_31:
   GETIMPORT R1 K1 [error]
   LOADK R2 K2 ["jsonEncodeAsync is not available for this environment"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_32:
   GETIMPORT R1 K1 [error]
   LOADK R2 K2 ["jsonDecodeAsync is not available for this environment"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_33:
   GETUPVAL R0 0
   RETURN R0 1
 
-PROTO_31:
+PROTO_34:
   SETUPVAL R0 0
   RETURN R0 0
 
@@ -223,95 +241,104 @@ MAIN:
   GETTABLEKS R3 R4 K8 ["EventLogger"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Flags"]
-  GETTABLEKS R4 R5 K10 ["FFlagMCPAssistantImprovedChips"]
+  GETTABLEKS R5 R0 K9 ["Guest"]
+  GETTABLEKS R4 R5 K10 ["LoadAssetHandlers"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K11 ["Guest"]
-  GETTABLEKS R5 R6 K12 ["LoadAssetHandlers"]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K11 ["ModelContextProtocol"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K11 ["Guest"]
-  GETTABLEKS R6 R7 K13 ["RecordingHandlers"]
+  GETTABLEKS R7 R0 K9 ["Guest"]
+  GETTABLEKS R6 R7 K12 ["RecordingHandlers"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R7 R0 K14 ["Types"]
+  GETTABLEKS R7 R0 K13 ["Types"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K15 ["Util"]
-  GETTABLEKS R8 R9 K16 ["getNextCodeCounter"]
+  GETTABLEKS R9 R0 K14 ["Util"]
+  GETTABLEKS R8 R9 K15 ["getNextCodeCounter"]
   CALL R7 1 1
-  GETTABLEKS R8 R3 K17 ["Get"]
-  DUPTABLE R9 K48 [{"isDevFrameworkAvailable", "isRobloxScriptSecurity", "getNetworking", "createWebStreamClient", "loadCode", "stopCode", "updateScriptSource", "convertImageDataToTempIdAsync", "captureScreenshot", "releaseTempIdAsync", "getImageDataBase64Async", "loadImageAsync", "getUserId", "publishAssetAsync", "searchAssetAsync", "EventLogger", "copyToClipboard", "getClassIcon", "loadAssetAsync", "startRecording", "endRecording", "getSettingsAsync", "setSettingsAsync", "getSecureSettingsAsync", "setSecureSettingsAsync", "getScriptSource", "base64EncodeAsync", "generatePKCEAsync", "startMCPAuthAsync", "jsonEncodeAsync", "jsonDecodeAsync"}]
-  DUPCLOSURE R10 K49 [PROTO_0]
-  SETTABLEKS R10 R9 K18 ["isDevFrameworkAvailable"]
-  DUPCLOSURE R10 K50 [PROTO_1]
-  SETTABLEKS R10 R9 K19 ["isRobloxScriptSecurity"]
-  DUPCLOSURE R10 K51 [PROTO_2]
-  SETTABLEKS R10 R9 K20 ["getNetworking"]
-  DUPCLOSURE R10 K52 [PROTO_3]
-  SETTABLEKS R10 R9 K21 ["createWebStreamClient"]
-  DUPCLOSURE R10 K53 [PROTO_4]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K16 ["Flags"]
+  GETTABLEKS R9 R10 K17 ["FFlagMCPAssistantImprovedChips"]
+  CALL R8 1 1
+  NEWTABLE R9 64 0
+  DUPCLOSURE R10 K18 [PROTO_0]
+  SETTABLEKS R10 R9 K19 ["isDevFrameworkAvailable"]
+  DUPCLOSURE R10 K20 [PROTO_1]
+  SETTABLEKS R10 R9 K21 ["isRobloxScriptSecurity"]
+  DUPCLOSURE R10 K22 [PROTO_2]
+  SETTABLEKS R10 R9 K23 ["getNetworking"]
+  DUPCLOSURE R10 K24 [PROTO_3]
+  SETTABLEKS R10 R9 K25 ["createWebStreamClient"]
+  DUPCLOSURE R10 K26 [PROTO_4]
   CAPTURE VAL R7
-  SETTABLEKS R10 R9 K22 ["loadCode"]
-  DUPCLOSURE R10 K54 [PROTO_5]
-  SETTABLEKS R10 R9 K23 ["stopCode"]
-  DUPCLOSURE R10 K55 [PROTO_6]
-  SETTABLEKS R10 R9 K24 ["updateScriptSource"]
-  DUPCLOSURE R10 K56 [PROTO_7]
-  SETTABLEKS R10 R9 K25 ["convertImageDataToTempIdAsync"]
-  DUPCLOSURE R10 K57 [PROTO_8]
-  SETTABLEKS R10 R9 K26 ["captureScreenshot"]
-  DUPCLOSURE R10 K58 [PROTO_9]
-  SETTABLEKS R10 R9 K27 ["releaseTempIdAsync"]
-  DUPCLOSURE R10 K59 [PROTO_10]
-  SETTABLEKS R10 R9 K28 ["getImageDataBase64Async"]
-  DUPCLOSURE R10 K60 [PROTO_11]
-  SETTABLEKS R10 R9 K29 ["loadImageAsync"]
-  DUPCLOSURE R10 K61 [PROTO_12]
-  SETTABLEKS R10 R9 K30 ["getUserId"]
-  DUPCLOSURE R10 K62 [PROTO_13]
-  SETTABLEKS R10 R9 K31 ["publishAssetAsync"]
-  DUPCLOSURE R10 K63 [PROTO_14]
-  SETTABLEKS R10 R9 K32 ["searchAssetAsync"]
+  SETTABLEKS R10 R9 K27 ["loadCode"]
+  DUPCLOSURE R10 K28 [PROTO_5]
+  SETTABLEKS R10 R9 K29 ["stopCode"]
+  DUPCLOSURE R10 K30 [PROTO_6]
+  SETTABLEKS R10 R9 K31 ["updateScriptSource"]
+  DUPCLOSURE R10 K32 [PROTO_7]
+  SETTABLEKS R10 R9 K33 ["convertImageDataToTempIdAsync"]
+  DUPCLOSURE R10 K34 [PROTO_8]
+  SETTABLEKS R10 R9 K35 ["captureScreenshot"]
+  DUPCLOSURE R10 K36 [PROTO_9]
+  SETTABLEKS R10 R9 K37 ["releaseTempIdAsync"]
+  DUPCLOSURE R10 K38 [PROTO_10]
+  SETTABLEKS R10 R9 K39 ["getImageDataBase64Async"]
+  DUPCLOSURE R10 K40 [PROTO_11]
+  SETTABLEKS R10 R9 K41 ["loadImageAsync"]
+  DUPCLOSURE R10 K42 [PROTO_12]
+  SETTABLEKS R10 R9 K43 ["getUserId"]
+  DUPCLOSURE R10 K44 [PROTO_13]
+  SETTABLEKS R10 R9 K45 ["publishAssetAsync"]
+  DUPCLOSURE R10 K46 [PROTO_14]
+  SETTABLEKS R10 R9 K47 ["searchAssetAsync"]
   SETTABLEKS R2 R9 K8 ["EventLogger"]
-  DUPCLOSURE R10 K64 [PROTO_15]
-  SETTABLEKS R10 R9 K33 ["copyToClipboard"]
-  DUPCLOSURE R10 K65 [PROTO_16]
+  DUPCLOSURE R10 K48 [PROTO_15]
+  SETTABLEKS R10 R9 K49 ["copyToClipboard"]
+  DUPCLOSURE R10 K50 [PROTO_16]
   CAPTURE VAL R8
-  SETTABLEKS R10 R9 K34 ["getClassIcon"]
-  DUPCLOSURE R10 K66 [PROTO_17]
-  SETTABLEKS R10 R9 K35 ["loadAssetAsync"]
-  DUPCLOSURE R10 K67 [PROTO_18]
-  SETTABLEKS R10 R9 K36 ["startRecording"]
-  DUPCLOSURE R10 K68 [PROTO_19]
-  SETTABLEKS R10 R9 K37 ["endRecording"]
-  DUPCLOSURE R10 K69 [PROTO_20]
-  SETTABLEKS R10 R9 K38 ["getSettingsAsync"]
-  DUPCLOSURE R10 K70 [PROTO_21]
-  SETTABLEKS R10 R9 K39 ["setSettingsAsync"]
-  DUPCLOSURE R10 K71 [PROTO_22]
-  SETTABLEKS R10 R9 K40 ["getSecureSettingsAsync"]
-  DUPCLOSURE R10 K72 [PROTO_23]
-  SETTABLEKS R10 R9 K41 ["setSecureSettingsAsync"]
-  DUPCLOSURE R10 K73 [PROTO_24]
-  SETTABLEKS R10 R9 K42 ["getScriptSource"]
-  DUPCLOSURE R10 K74 [PROTO_25]
-  SETTABLEKS R10 R9 K43 ["base64EncodeAsync"]
-  DUPCLOSURE R10 K75 [PROTO_26]
-  SETTABLEKS R10 R9 K44 ["generatePKCEAsync"]
-  DUPCLOSURE R10 K76 [PROTO_27]
-  SETTABLEKS R10 R9 K45 ["startMCPAuthAsync"]
-  DUPCLOSURE R10 K77 [PROTO_28]
-  SETTABLEKS R10 R9 K46 ["jsonEncodeAsync"]
-  DUPCLOSURE R10 K78 [PROTO_29]
-  SETTABLEKS R10 R9 K47 ["jsonDecodeAsync"]
-  DUPTABLE R10 K81 [{"get", "set"}]
-  NEWCLOSURE R11 P30
+  SETTABLEKS R10 R9 K51 ["getClassIcon"]
+  DUPCLOSURE R10 K52 [PROTO_17]
+  SETTABLEKS R10 R9 K53 ["loadAssetAsync"]
+  DUPCLOSURE R10 K54 [PROTO_18]
+  SETTABLEKS R10 R9 K55 ["startRecording"]
+  DUPCLOSURE R10 K56 [PROTO_19]
+  SETTABLEKS R10 R9 K57 ["endRecording"]
+  DUPCLOSURE R10 K58 [PROTO_20]
+  SETTABLEKS R10 R9 K59 ["getSettingsAsync"]
+  DUPCLOSURE R10 K60 [PROTO_21]
+  SETTABLEKS R10 R9 K61 ["setSettingsAsync"]
+  DUPCLOSURE R10 K62 [PROTO_22]
+  SETTABLEKS R10 R9 K63 ["getUserSettingsAsync"]
+  DUPCLOSURE R10 K64 [PROTO_23]
+  SETTABLEKS R10 R9 K65 ["setUserSettingsAsync"]
+  DUPCLOSURE R10 K66 [PROTO_24]
+  SETTABLEKS R10 R9 K67 ["getSecureSettingsAsync"]
+  DUPCLOSURE R10 K68 [PROTO_25]
+  SETTABLEKS R10 R9 K69 ["setSecureSettingsAsync"]
+  DUPCLOSURE R10 K70 [PROTO_26]
+  SETTABLEKS R10 R9 K71 ["getScriptSource"]
+  DUPCLOSURE R10 K72 [PROTO_27]
+  SETTABLEKS R10 R9 K73 ["base64EncodeAsync"]
+  DUPCLOSURE R10 K74 [PROTO_28]
+  SETTABLEKS R10 R9 K75 ["generatePKCEAsync"]
+  DUPCLOSURE R10 K76 [PROTO_29]
+  SETTABLEKS R10 R9 K77 ["startMCPAuthAsync"]
+  DUPCLOSURE R10 K78 [PROTO_30]
+  SETTABLEKS R10 R9 K79 ["httpRequestAsync"]
+  DUPCLOSURE R10 K80 [PROTO_31]
+  SETTABLEKS R10 R9 K81 ["jsonEncodeAsync"]
+  DUPCLOSURE R10 K82 [PROTO_32]
+  SETTABLEKS R10 R9 K83 ["jsonDecodeAsync"]
+  DUPTABLE R10 K86 [{"get", "set"}]
+  NEWCLOSURE R11 P33
   CAPTURE REF R9
-  SETTABLEKS R11 R10 K79 ["get"]
-  NEWCLOSURE R11 P31
+  SETTABLEKS R11 R10 K84 ["get"]
+  NEWCLOSURE R11 P34
   CAPTURE REF R9
-  SETTABLEKS R11 R10 K80 ["set"]
+  SETTABLEKS R11 R10 K85 ["set"]
   CLOSEUPVALS R9
   RETURN R10 1

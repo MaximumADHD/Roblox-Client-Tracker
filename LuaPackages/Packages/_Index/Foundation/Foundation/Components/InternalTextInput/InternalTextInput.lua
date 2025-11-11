@@ -68,14 +68,61 @@ local defaultProps = {
 	testId = "--foundation-internal-text-input",
 }
 
+type TextBoxProps = {
+	text: string,
+	fontStyle: Types.FontStyle,
+	textStyle: Types.ColorStyleValue,
+	automaticSize: Enum.AutomaticSize?,
+	isDisabled: boolean?,
+	placeholder: string?,
+	textInputType: Enum.TextInputType?,
+	isMultiLine: boolean?,
+	onTextChanged: ((TextBox) -> ())?,
+	onFocusGained: (() -> ())?,
+	onFocusLost: ((TextBox, boolean, InputObject) -> ())?,
+	tag: string,
+	children: React.Node?,
+}
+local TextBox = React.memo(React.forwardRef(function(props: TextBoxProps, ref: React.Ref<TextBox>?)
+	return React.createElement("TextBox", {
+		ClearTextOnFocus = false,
+		Selectable = false,
+		-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
+		BackgroundTransparency = 1,
+		ClipsDescendants = true,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		Font = props.fontStyle.Font,
+		TextSize = props.fontStyle.FontSize,
+		LineHeight = props.fontStyle.LineHeight,
+		TextColor3 = props.textStyle.Color3,
+		TextTransparency = props.textStyle.Transparency,
+		-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
+		MultiLine = props.isMultiLine,
+		TextWrapped = props.isMultiLine,
+		TextYAlignment = if props.isMultiLine then Enum.TextYAlignment.Top else Enum.TextYAlignment.Center,
+		TextEditable = not props.isDisabled,
+		PlaceholderText = props.placeholder,
+		TextInputType = if isPluginSecurity() then props.textInputType else nil,
+		Size = UDim2.fromScale(1, 1),
+		AutomaticSize = props.automaticSize,
+		Text = props.text,
+		ref = ref,
+		[React.Tag] = props.tag :: any,
+		[React.Change.Text] = props.onTextChanged,
+		[React.Event.Focused] = props.onFocusGained,
+		[React.Event.FocusLost] = props.onFocusLost,
+	}, props.children)
+end))
+
 local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<InternalTextInputRef>?)
 	local props = withDefaults(textInputProps, defaultProps)
 	local tokens = useTokens()
 	local lineCount = math.max(1, props.maxLines :: number)
 	local isMultiLine = lineCount > 1
-	local variantProps = useTextInputVariants(tokens, props.size, isMultiLine)
+	local variantProps = useTextInputVariants(tokens, props.size)
+	local textBoxTag = if Flags.FoundationDisableStylingPolyfill then useStyleTags(variantProps.textBox.tag) else nil
 
-	local textBox = React.useRef(nil :: TextBox?)
+	local textBoxRef = React.useRef(nil :: TextBox?)
 	local dragStartPosition = React.useRef(nil :: Vector2?)
 	local hover, setHover = React.useState(false)
 	local focus, setFocus = React.useState(false)
@@ -85,51 +132,53 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	local innerBorderThickness = tokens.Stroke.Thick
 	local innerBorderOffset = math.ceil(innerBorderThickness) * 2
 
-	local fontSize = variantProps.textBox.FontSize
-	local lineHeight = variantProps.textBox.LineHeight
+	local textStyle = tokens.Color.Content.Emphasis
+	local fontStyle = variantProps.textBox.fontStyle
+	local fontSize = fontStyle.FontSize :: number
+	local lineHeight = fontStyle.LineHeight :: number
 
 	local focusTextBox = React.useCallback(function()
-		if textBox.current then
-			textBox.current:CaptureFocus()
+		if textBoxRef.current then
+			textBoxRef.current:CaptureFocus()
 		end
 	end, {})
 
 	local releaseTextBoxFocus = React.useCallback(function()
-		if textBox.current then
-			textBox.current:ReleaseFocus()
+		if textBoxRef.current then
+			textBoxRef.current:ReleaseFocus()
 		end
 	end, {})
 
 	local getIsFocused = React.useCallback(function()
-		if textBox.current then
-			return textBox.current:IsFocused() :: boolean?
+		if textBoxRef.current then
+			return textBoxRef.current:IsFocused() :: boolean?
 		end
 		return nil
 	end, {})
 
 	local getSelectionStart = React.useCallback(function(): number?
-		if textBox.current then
-			return textBox.current.SelectionStart
+		if textBoxRef.current then
+			return textBoxRef.current.SelectionStart
 		end
 		return nil
 	end, {})
 
 	local getCursorPosition = React.useCallback(function(): number?
-		if textBox.current then
-			return textBox.current.CursorPosition
+		if textBoxRef.current then
+			return textBoxRef.current.CursorPosition
 		end
 		return nil
 	end, {})
 
 	local setSelectionStart = React.useCallback(function(position)
-		if textBox.current then
-			textBox.current.SelectionStart = position
+		if textBoxRef.current then
+			textBoxRef.current.SelectionStart = position
 		end
 	end, {})
 
 	local setCursorPosition = React.useCallback(function(position)
-		if textBox.current then
-			textBox.current.CursorPosition = position
+		if textBoxRef.current then
+			textBoxRef.current.CursorPosition = position
 		end
 	end, {})
 
@@ -217,8 +266,6 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		end
 	end, { props.onDragEnded })
 
-	local textBoxTag = if Flags.FoundationDisableStylingPolyfill then useStyleTags(variantProps.textBox.tag) else nil
-
 	local cursor = React.useMemo(function()
 		return {
 			radius = UDim.new(0, variantProps.innerContainer.radius),
@@ -226,6 +273,10 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			borderWidth = tokens.Stroke.Thick,
 		}
 	end, { tokens :: unknown, variantProps.innerContainer.radius })
+
+	local textBoxViewportHeight = React.useMemo(function()
+		return getMultiLineTextHeight(fontSize, lineCount, lineHeight)
+	end, { fontSize, lineCount, lineHeight } :: { unknown })
 
 	local textBoxWrapperPadding, borderFrameHeight = React.useMemo(
 		function()
@@ -238,8 +289,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			) / 2
 			local paddingFloored = UDim.new(0, math.floor(containerPaddingY / 2))
 			local paddingCeiled = UDim.new(0, math.ceil(containerPaddingY / 2))
-			local borderFrameSizeY = getMultiLineTextHeight(fontSize, lineCount, lineHeight)
-				+ math.round(containerPaddingY)
+			local borderFrameSizeY = textBoxViewportHeight + math.round(containerPaddingY)
 
 			return {
 				top = paddingFloored,
@@ -254,8 +304,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			outerBorderOffset,
 			innerBorderOffset,
 			fontSize,
-			lineCount,
-			lineHeight,
+			textBoxViewportHeight,
 		} :: { unknown }
 	)
 
@@ -277,17 +326,11 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		View,
 		withCommonProps(props, {
 			GroupTransparency = if props.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
-			padding = if Flags.FoundationInternalTextInputAutoSize or isMultiLine then outerBorderOffset / 2 else nil,
+			padding = outerBorderOffset / 2,
 			tag = variantProps.canvas.tag,
 		}),
 		{
 			Input = React.createElement(View, {
-				Size = if Flags.FoundationInternalTextInputAutoSize or isMultiLine
-					then nil
-					else UDim2.new(1, -outerBorderOffset, 1, -outerBorderOffset),
-				Position = if Flags.FoundationInternalTextInputAutoSize or isMultiLine
-					then nil
-					else UDim2.fromOffset(outerBorderOffset / 2, outerBorderOffset / 2),
 				selection = {
 					Selectable = not props.isDisabled,
 				},
@@ -301,9 +344,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						else if focus then 0 else tokens.Color.Stroke.Emphasis.Transparency,
 					Thickness = outerBorderThickness,
 				},
-				padding = if Flags.FoundationInternalTextInputAutoSize or isMultiLine
-					then innerBorderOffset / 2
-					else nil,
+				padding = innerBorderOffset / 2,
 				onActivated = focusTextBox,
 				onStateChanged = onInputStateChanged,
 				-- TODO: Update to border affordance
@@ -315,12 +356,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				Background = props.backgroundElement,
 
 				BorderFrame = React.createElement(View, {
-					Size = if Flags.FoundationInternalTextInputAutoSize or isMultiLine
-						then UDim2.new(1, 0, 0, borderFrameHeight)
-						else UDim2.new(1, -innerBorderOffset, 1, -innerBorderOffset),
-					Position = if Flags.FoundationInternalTextInputAutoSize or isMultiLine
-						then nil
-						else UDim2.fromOffset(innerBorderOffset / 2, innerBorderOffset / 2),
+					Size = UDim2.new(1, 0, 0, borderFrameHeight),
 					cornerRadius = UDim.new(0, variantProps.innerContainer.radius - innerBorderOffset / 2),
 					stroke = if not props.isDisabled and (hover or focus)
 						then {
@@ -341,44 +377,29 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						then React.createElement(View, {
 							LayoutOrder = 1,
 							tag = "size-0-full auto-x",
+							testId = `{props.testId}--leading`,
 						}, props.leadingElement)
 						else nil,
 					TextBoxWrapper = React.createElement(View, {
 						LayoutOrder = 2,
-						padding = if Flags.FoundationInternalTextInputAutoSize or isMultiLine
-							then textBoxWrapperPadding
-							else nil,
+						padding = textBoxWrapperPadding,
 						tag = "size-full fill",
 					}, {
-						TextBox = React.createElement("TextBox", {
-							ref = textBox,
-							Text = props.text,
-							TextInputType = if isPluginSecurity() then props.textInputType else nil,
-							ClearTextOnFocus = false,
-							TextEditable = not props.isDisabled,
-							PlaceholderText = props.placeholder,
-							Selectable = false,
-							MultiLine = if Flags.FoundationInternalTextInputAutoSize then isMultiLine else nil,
-							LineHeight = lineHeight,
+						TextBox = React.createElement(TextBox, {
+							text = props.text,
+							placeholder = props.placeholder,
+							textInputType = props.textInputType,
 							-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
-							Size = UDim2.fromScale(1, 1),
-							BackgroundTransparency = 1,
-							ClipsDescendants = true,
-							TextWrapped = isMultiLine,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							TextYAlignment = if isMultiLine
-								then Enum.TextYAlignment.Top
-								else Enum.TextYAlignment.Center,
-							Font = variantProps.textBox.Font,
-							TextSize = fontSize,
-							TextColor3 = tokens.Color.Content.Emphasis.Color3,
-							TextTransparency = tokens.Color.Content.Emphasis.Transparency,
+							fontStyle = fontStyle,
+							textStyle = textStyle,
 							-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
-
-							[React.Tag] = textBoxTag :: any,
-							[React.Event.Focused] = onFocusGained,
-							[React.Event.FocusLost] = onFocusLost,
-							[React.Change.Text] = onTextChange,
+							isMultiLine = isMultiLine,
+							isDisabled = props.isDisabled,
+							ref = textBoxRef,
+							tag = `{textBoxTag or ""} data-testid={props.testId}--textbox`,
+							onFocusGained = onFocusGained,
+							onFocusLost = onFocusLost,
+							onTextChanged = onTextChange,
 						}, {
 							DragDetector = dragDetector,
 						}),
@@ -387,6 +408,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						then React.createElement(View, {
 							LayoutOrder = 3,
 							tag = "size-0-full auto-x",
+							testId = `{props.testId}--trailing`,
 						}, props.trailingElement)
 						else nil,
 				}),

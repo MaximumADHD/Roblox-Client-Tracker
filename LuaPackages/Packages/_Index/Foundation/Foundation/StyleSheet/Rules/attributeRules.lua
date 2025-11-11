@@ -1,9 +1,11 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local staticRules = require(script.Parent.staticRules)
 local Types = require(script.Parent.Types)
+local Flags = require(Foundation.Utility.Flags)
 
 type Tokens = Tokens.Tokens
 type StyleRule = Types.StyleRule
@@ -122,7 +124,7 @@ local function ListLayoutSpacingRules(gaps: Gaps, gutters: Gutters): { StyleRule
 		})
 	end
 
-	return Cryo.List.join(gap, gutter)
+	return if Flags.FoundationMigrateCryoToDash then Dash.joinArrays(gap, gutter) else Cryo.List.join(gap, gutter)
 end
 
 local function CornerRules(radii: Radii): { StyleRule }
@@ -339,16 +341,27 @@ local function rulesGenerator(
 
 	local common, _, theme = staticRules.rulesGenerator(tokens, formattedTokens)
 
-	local size: { StyleRule } = Cryo.List.join(
-		DefaultSizeRules(typography["body-large"], tokens.Config.Text.NominalScale),
-		staticRules.rules.ListLayoutRules(),
-		staticRules.rules.ListLayoutSpacingRules(gaps, gutters),
-		CornerRules(radii),
-		SizeRules(sizes),
-		staticRules.rules.StrokeSizeRules(strokes),
-		TypographyRules(typography, tokens.Config.Text.NominalScale),
-		PaddingRules(paddings, margins)
-	)
+	local size: { StyleRule } = if Flags.FoundationMigrateCryoToDash
+		then Dash.joinArrays(
+			DefaultSizeRules(typography["body-large"], tokens.Config.Text.NominalScale),
+			staticRules.rules.ListLayoutRules(),
+			staticRules.rules.ListLayoutSpacingRules(gaps, gutters),
+			CornerRules(radii),
+			SizeRules(sizes),
+			staticRules.rules.StrokeSizeRules(strokes),
+			TypographyRules(typography, tokens.Config.Text.NominalScale),
+			PaddingRules(paddings, margins)
+		)
+		else Cryo.List.join(
+			DefaultSizeRules(typography["body-large"], tokens.Config.Text.NominalScale),
+			staticRules.rules.ListLayoutRules(),
+			staticRules.rules.ListLayoutSpacingRules(gaps, gutters),
+			CornerRules(radii),
+			SizeRules(sizes),
+			staticRules.rules.StrokeSizeRules(strokes),
+			TypographyRules(typography, tokens.Config.Text.NominalScale),
+			PaddingRules(paddings, margins)
+		)
 
 	return common, size, theme
 end

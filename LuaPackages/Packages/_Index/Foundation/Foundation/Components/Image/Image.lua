@@ -4,6 +4,7 @@ local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 local ReactIs = require(Packages.ReactIs)
 local FoundationImages = require(Packages.FoundationImages)
 local FoundationCloudAssets = require(Packages.FoundationCloudAssets)
@@ -188,16 +189,20 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 
 	local component = if isInteractable then Interactable else engineComponent
 
+	local imageComponentProps = {
+		component = engineComponent,
+		onActivated = props.onActivated,
+		onSecondaryActivated = props.onSecondaryActivated,
+		onStateChanged = props.onStateChanged,
+		stateLayer = props.stateLayer,
+		isDisabled = props.isDisabled,
+		cursor = props.cursor,
+	}
+
 	local componentProps = if isInteractable
-		then Cryo.Dictionary.union(engineComponentProps, {
-			component = engineComponent,
-			onActivated = props.onActivated,
-			onSecondaryActivated = props.onSecondaryActivated,
-			onStateChanged = props.onStateChanged,
-			stateLayer = props.stateLayer,
-			isDisabled = props.isDisabled,
-			cursor = props.cursor,
-		})
+		then if Flags.FoundationMigrateCryoToDash
+			then Dash.union(engineComponentProps, imageComponentProps)
+			else Cryo.Dictionary.union(engineComponentProps, imageComponentProps)
 		else engineComponentProps
 
 	return React.createElement(component, componentProps, GuiObjectChildren(props))

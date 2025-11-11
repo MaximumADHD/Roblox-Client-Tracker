@@ -68,6 +68,7 @@ local function Story(props: StoryProps)
 			Color3 = tokens.Color.Shift.Shift_200.Color3,
 			Transparency = tokens.Color.Shift.Shift_200.Transparency,
 		},
+		tag = "clip",
 		Size = UDim2.new(1, 0, 0, controls.mockScreenYOffset or 0),
 	}, {
 		OverlayProvider = React.createElement(OverlayProvider, { gui = ref }, {
@@ -339,12 +340,12 @@ return {
 	},
 	controls = {
 		title = "Welcome Dialog",
-		content = "This is a dialog with a very, very long description that spans multiple lines. Now, I'm not joking when I say that it has a lot to say. Really, a lot of things have a lot to say if you're willing to listen. Do you hear that? That's the sound of the universe vibrating. It's beautiful, but you really have to listen. This may be the most important decision of your life. You need to decide: are you willing to listen?",
+		content = "This is a dialog with a very, very long description that spans multiple lines. Now, I'm not joking when I say that it has a lot to say. Really, a lot of things have a lot to say if you're willing to listen.",
 		actionsLabel = "By selecting Primary, I consent to Roblox's collection, use, and storage of my data to enable services and for moderation, safety, and improvement of our services and tools.",
 		actionsOrientation = Dash.values(Orientation),
 		hasActions = true,
-		disablePortal = true,
-		hasBackdrop = false,
+		disablePortal = false,
+		hasBackdrop = true,
 		media = { Pictogram, AvatarBG },
 		mediaSizeScaleX = 1,
 		mediaSizeScaleY = 0,

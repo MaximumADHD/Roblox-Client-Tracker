@@ -7,7 +7,7 @@ export type MediaType = ThumbnailType -- | "Video"
 
 local MediaTypeEnum = ThumbnailType
 --[[
-local MediaTypeEnum = Cryo.Dictionary.join(ThumbnailType, {
+local MediaTypeEnum = Dash.join(ThumbnailType, {
 	Video = "Video" :: "Video",
 })
 ]]

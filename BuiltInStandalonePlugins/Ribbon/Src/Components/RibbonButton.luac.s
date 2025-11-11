@@ -155,16 +155,18 @@ PROTO_6:
   GETUPVAL R8 5
   CALL R8 0 1
   GETUPVAL R9 6
-  DUPTABLE R10 K23 [{"size", "iconOnly", "selected", "disabled", "isDropdownEnabled"}]
+  DUPTABLE R10 K24 [{"size", "iconOnly", "selected", "disabled", "isSingle", "isMenuOpen"}]
   SETTABLEKS R3 R10 K18 ["size"]
-  GETTABLEKS R11 R0 K24 ["IconOnly"]
+  GETTABLEKS R11 R0 K25 ["IconOnly"]
   SETTABLEKS R11 R10 K19 ["iconOnly"]
-  GETTABLEKS R11 R0 K25 ["Selected"]
+  GETTABLEKS R11 R0 K26 ["Selected"]
   SETTABLEKS R11 R10 K20 ["selected"]
-  GETTABLEKS R11 R0 K26 ["Disabled"]
+  GETTABLEKS R11 R0 K27 ["Disabled"]
   SETTABLEKS R11 R10 K21 ["disabled"]
-  GETTABLEKS R11 R0 K27 ["IsDropdownEnabled"]
-  SETTABLEKS R11 R10 K22 ["isDropdownEnabled"]
+  GETTABLEKS R11 R0 K28 ["IsSingle"]
+  SETTABLEKS R11 R10 K22 ["isSingle"]
+  GETTABLEKS R11 R0 K29 ["IsMenuOpen"]
+  SETTABLEKS R11 R10 K23 ["isMenuOpen"]
   MOVE R11 R8
   CALL R9 2 1
   GETUPVAL R10 7
@@ -182,125 +184,132 @@ PROTO_6:
   CAPTURE VAL R0
   CAPTURE UPVAL U9
   NEWTABLE R13 0 3
-  GETTABLEKS R14 R0 K26 ["Disabled"]
-  GETTABLEKS R15 R0 K28 ["OnSelect"]
+  GETTABLEKS R14 R0 K27 ["Disabled"]
+  GETTABLEKS R15 R0 K30 ["OnSelect"]
   GETTABLEKS R16 R0 K0 ["Uri"]
   SETLIST R13 R14 3 [1]
   CALL R11 2 1
   GETTABLEKS R12 R0 K13 ["Text"]
   JUMPIFNOT R12 [+6]
-  LOADK R15 K29 ["
+  LOADK R15 K31 ["
 "]
-  LOADK R16 K30 [" "]
-  NAMECALL R13 R12 K31 ["gsub"]
+  LOADK R16 K32 [" "]
+  NAMECALL R13 R12 K33 ["gsub"]
   CALL R13 3 1
   MOVE R12 R13
   GETUPVAL R14 10
-  GETTABLEKS R13 R14 K32 ["createElement"]
+  GETTABLEKS R13 R14 K34 ["createElement"]
   GETUPVAL R14 11
-  DUPTABLE R15 K40 [{"LayoutOrder", "ref", "Visible", "tag", "stateLayer", "sizeConstraint", "onStateChanged"}]
-  GETTABLEKS R16 R0 K33 ["LayoutOrder"]
-  SETTABLEKS R16 R15 K33 ["LayoutOrder"]
-  SETTABLEKS R1 R15 K34 ["ref"]
-  GETTABLEKS R16 R0 K35 ["Visible"]
-  SETTABLEKS R16 R15 K35 ["Visible"]
-  GETTABLEKS R17 R9 K41 ["container"]
-  GETTABLEKS R16 R17 K36 ["tag"]
-  SETTABLEKS R16 R15 K36 ["tag"]
-  DUPTABLE R16 K43 [{"affordance"}]
-  GETUPVAL R18 12
-  GETTABLEKS R17 R18 K44 ["None"]
-  SETTABLEKS R17 R16 K42 ["affordance"]
-  SETTABLEKS R16 R15 K37 ["stateLayer"]
-  GETTABLEKS R17 R9 K41 ["container"]
-  GETTABLEKS R16 R17 K38 ["sizeConstraint"]
-  SETTABLEKS R16 R15 K38 ["sizeConstraint"]
-  SETTABLEKS R10 R15 K39 ["onStateChanged"]
-  DUPTABLE R16 K46 [{"ActionContainer", "Text"}]
+  DUPTABLE R15 K42 [{"LayoutOrder", "ref", "Visible", "tag", "stateLayer", "sizeConstraint", "onStateChanged"}]
+  GETTABLEKS R16 R0 K35 ["LayoutOrder"]
+  SETTABLEKS R16 R15 K35 ["LayoutOrder"]
+  SETTABLEKS R1 R15 K36 ["ref"]
+  GETTABLEKS R16 R0 K37 ["Visible"]
+  SETTABLEKS R16 R15 K37 ["Visible"]
+  GETTABLEKS R17 R9 K43 ["container"]
+  GETTABLEKS R16 R17 K38 ["tag"]
+  SETTABLEKS R16 R15 K38 ["tag"]
+  GETTABLEKS R17 R9 K43 ["container"]
+  GETTABLEKS R16 R17 K39 ["stateLayer"]
+  SETTABLEKS R16 R15 K39 ["stateLayer"]
+  GETTABLEKS R17 R9 K43 ["container"]
+  GETTABLEKS R16 R17 K40 ["sizeConstraint"]
+  SETTABLEKS R16 R15 K40 ["sizeConstraint"]
+  SETTABLEKS R10 R15 K41 ["onStateChanged"]
+  DUPTABLE R16 K45 [{"ActionContainer", "Text"}]
   GETUPVAL R18 10
-  GETTABLEKS R17 R18 K32 ["createElement"]
+  GETTABLEKS R17 R18 K34 ["createElement"]
   GETUPVAL R18 11
-  DUPTABLE R19 K47 [{"tag", "LayoutOrder"}]
+  DUPTABLE R19 K47 [{"tag", "LayoutOrder", "onActivated"}]
   GETTABLEKS R21 R9 K48 ["actionContainer"]
-  GETTABLEKS R20 R21 K36 ["tag"]
-  SETTABLEKS R20 R19 K36 ["tag"]
+  GETTABLEKS R20 R21 K38 ["tag"]
+  SETTABLEKS R20 R19 K38 ["tag"]
   LOADN R20 1
-  SETTABLEKS R20 R19 K33 ["LayoutOrder"]
+  SETTABLEKS R20 R19 K35 ["LayoutOrder"]
+  GETTABLEKS R21 R0 K28 ["IsSingle"]
+  JUMPIFNOT R21 [+2]
+  MOVE R20 R11
+  JUMP [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K46 ["onActivated"]
   DUPTABLE R20 K51 [{"RibbonTool", "ArrowButton"}]
   GETUPVAL R22 10
-  GETTABLEKS R21 R22 K32 ["createElement"]
+  GETTABLEKS R21 R22 K34 ["createElement"]
   GETUPVAL R22 11
-  DUPTABLE R23 K55 [{"ref", "testId", "tag", "isDisabled", "onStateChanged", "onActivated", "sizeConstraint", "LayoutOrder"}]
-  SETTABLEKS R2 R23 K34 ["ref"]
-  LOADK R24 K56 ["--ribbon-button-tool"]
+  DUPTABLE R23 K54 [{"ref", "testId", "tag", "isDisabled", "onStateChanged", "stateLayer", "onActivated", "sizeConstraint", "LayoutOrder"}]
+  SETTABLEKS R2 R23 K36 ["ref"]
+  LOADK R24 K55 ["--ribbon-button-tool"]
   SETTABLEKS R24 R23 K52 ["testId"]
-  GETTABLEKS R25 R9 K57 ["ribbonTool"]
-  GETTABLEKS R24 R25 K36 ["tag"]
-  SETTABLEKS R24 R23 K36 ["tag"]
-  GETTABLEKS R24 R0 K26 ["Disabled"]
+  GETTABLEKS R25 R9 K56 ["ribbonTool"]
+  GETTABLEKS R24 R25 K38 ["tag"]
+  SETTABLEKS R24 R23 K38 ["tag"]
+  GETTABLEKS R24 R0 K27 ["Disabled"]
   SETTABLEKS R24 R23 K53 ["isDisabled"]
-  SETTABLEKS R10 R23 K39 ["onStateChanged"]
-  SETTABLEKS R11 R23 K54 ["onActivated"]
-  GETTABLEKS R25 R9 K57 ["ribbonTool"]
-  GETTABLEKS R24 R25 K38 ["sizeConstraint"]
-  SETTABLEKS R24 R23 K38 ["sizeConstraint"]
+  SETTABLEKS R10 R23 K41 ["onStateChanged"]
+  GETTABLEKS R25 R9 K56 ["ribbonTool"]
+  GETTABLEKS R24 R25 K39 ["stateLayer"]
+  SETTABLEKS R24 R23 K39 ["stateLayer"]
+  SETTABLEKS R11 R23 K46 ["onActivated"]
+  GETTABLEKS R25 R9 K56 ["ribbonTool"]
+  GETTABLEKS R24 R25 K40 ["sizeConstraint"]
+  SETTABLEKS R24 R23 K40 ["sizeConstraint"]
   LOADN R24 1
-  SETTABLEKS R24 R23 K33 ["LayoutOrder"]
-  DUPTABLE R24 K59 [{"RibbonToolButtonIcon"}]
+  SETTABLEKS R24 R23 K35 ["LayoutOrder"]
+  DUPTABLE R24 K58 [{"RibbonToolButtonIcon"}]
   JUMPIFNOT R5 [+38]
   GETUPVAL R26 10
-  GETTABLEKS R25 R26 K32 ["createElement"]
-  GETUPVAL R26 13
-  DUPTABLE R27 K62 [{"Image", "testId", "tag", "imageStyle"}]
+  GETTABLEKS R25 R26 K34 ["createElement"]
+  GETUPVAL R26 12
+  DUPTABLE R27 K61 [{"Image", "testId", "tag", "imageStyle"}]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K9 ["getPathForIcon"]
   MOVE R29 R5
   MOVE R30 R3
   CALL R28 2 1
-  SETTABLEKS R28 R27 K60 ["Image"]
+  SETTABLEKS R28 R27 K59 ["Image"]
   GETTABLEKS R29 R0 K0 ["Uri"]
   JUMPIFNOT R29 [+5]
-  GETUPVAL R28 14
+  GETUPVAL R28 13
   GETTABLEKS R29 R0 K0 ["Uri"]
   CALL R28 1 1
   JUMP [+1]
   LOADNIL R28
   SETTABLEKS R28 R27 K52 ["testId"]
-  GETTABLEKS R29 R9 K63 ["icon"]
-  GETTABLEKS R28 R29 K36 ["tag"]
-  SETTABLEKS R28 R27 K36 ["tag"]
-  GETTABLEKS R29 R9 K63 ["icon"]
-  GETTABLEKS R28 R29 K61 ["imageStyle"]
-  SETTABLEKS R28 R27 K61 ["imageStyle"]
+  GETTABLEKS R29 R9 K62 ["icon"]
+  GETTABLEKS R28 R29 K38 ["tag"]
+  SETTABLEKS R28 R27 K38 ["tag"]
+  GETTABLEKS R29 R9 K62 ["icon"]
+  GETTABLEKS R28 R29 K60 ["imageStyle"]
+  SETTABLEKS R28 R27 K60 ["imageStyle"]
   CALL R25 2 1
   JUMP [+1]
   LOADNIL R25
-  SETTABLEKS R25 R24 K58 ["RibbonToolButtonIcon"]
+  SETTABLEKS R25 R24 K57 ["RibbonToolButtonIcon"]
   CALL R21 3 1
   SETTABLEKS R21 R20 K49 ["RibbonTool"]
   GETTABLEKS R21 R0 K50 ["ArrowButton"]
   SETTABLEKS R21 R20 K50 ["ArrowButton"]
   CALL R17 3 1
-  SETTABLEKS R17 R16 K45 ["ActionContainer"]
-  GETTABLEKS R18 R0 K24 ["IconOnly"]
+  SETTABLEKS R17 R16 K44 ["ActionContainer"]
+  GETTABLEKS R18 R0 K25 ["IconOnly"]
   JUMPIF R18 [+32]
   GETUPVAL R18 10
-  GETTABLEKS R17 R18 K32 ["createElement"]
-  GETUPVAL R19 15
+  GETTABLEKS R17 R18 K34 ["createElement"]
+  GETUPVAL R19 14
   GETTABLEKS R18 R19 K13 ["Text"]
-  DUPTABLE R19 K65 [{"LayoutOrder", "tag", "Size", "Text", "textStyle"}]
+  DUPTABLE R19 K64 [{"LayoutOrder", "tag", "Size", "Text", "textStyle"}]
   LOADN R20 2
-  SETTABLEKS R20 R19 K33 ["LayoutOrder"]
-  GETTABLEKS R21 R9 K66 ["text"]
-  GETTABLEKS R20 R21 K36 ["tag"]
-  SETTABLEKS R20 R19 K36 ["tag"]
-  GETTABLEKS R21 R9 K66 ["text"]
+  SETTABLEKS R20 R19 K35 ["LayoutOrder"]
+  GETTABLEKS R21 R9 K65 ["text"]
+  GETTABLEKS R20 R21 K38 ["tag"]
+  SETTABLEKS R20 R19 K38 ["tag"]
+  GETTABLEKS R21 R9 K65 ["text"]
   GETTABLEKS R20 R21 K18 ["size"]
   SETTABLEKS R20 R19 K2 ["Size"]
   SETTABLEKS R12 R19 K13 ["Text"]
-  GETTABLEKS R21 R9 K66 ["text"]
-  GETTABLEKS R20 R21 K64 ["textStyle"]
-  SETTABLEKS R20 R19 K64 ["textStyle"]
+  GETTABLEKS R21 R9 K65 ["text"]
+  GETTABLEKS R20 R21 K63 ["textStyle"]
+  SETTABLEKS R20 R19 K63 ["textStyle"]
   CALL R17 2 1
   JUMP [+1]
   LOADNIL R17
@@ -336,56 +345,53 @@ MAIN:
   GETTABLEKS R6 R4 K14 ["Image"]
   GETTABLEKS R8 R4 K15 ["Enums"]
   GETTABLEKS R7 R8 K16 ["ControlState"]
-  GETTABLEKS R9 R4 K15 ["Enums"]
-  GETTABLEKS R8 R9 K17 ["StateLayerAffordance"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K17 ["Types"]
+  CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K8 ["Src"]
-  GETTABLEKS R10 R11 K18 ["Types"]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Hooks"]
+  GETTABLEKS R10 R11 K19 ["TooltipSettings"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K19 ["Hooks"]
-  GETTABLEKS R11 R12 K20 ["TooltipSettings"]
+  GETTABLEKS R12 R13 K18 ["Hooks"]
+  GETTABLEKS R11 R12 K20 ["useTooltip"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K8 ["Src"]
-  GETTABLEKS R13 R14 K19 ["Hooks"]
-  GETTABLEKS R12 R13 K21 ["useTooltip"]
+  GETTABLEKS R13 R0 K6 ["Packages"]
+  GETTABLEKS R12 R13 K21 ["StudioFoundation"]
   CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R14 R0 K6 ["Packages"]
-  GETTABLEKS R13 R14 K22 ["StudioFoundation"]
-  CALL R12 1 1
-  GETTABLEKS R14 R12 K19 ["Hooks"]
-  GETTABLEKS R13 R14 K23 ["useWidgetRef"]
+  GETTABLEKS R13 R11 K18 ["Hooks"]
+  GETTABLEKS R12 R13 K22 ["useWidgetRef"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K8 ["Src"]
+  GETTABLEKS R15 R16 K18 ["Hooks"]
+  GETTABLEKS R14 R15 K23 ["useDensity"]
+  CALL R13 1 1
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K8 ["Src"]
-  GETTABLEKS R16 R17 K19 ["Hooks"]
-  GETTABLEKS R15 R16 K24 ["useDensity"]
+  GETTABLEKS R16 R17 K18 ["Hooks"]
+  GETTABLEKS R15 R16 K24 ["useRibbonButtonVariants"]
   CALL R14 1 1
-  GETIMPORT R15 K5 [require]
-  GETTABLEKS R18 R0 K8 ["Src"]
-  GETTABLEKS R17 R18 K19 ["Hooks"]
-  GETTABLEKS R16 R17 K25 ["useRibbonButtonVariants"]
-  CALL R15 1 1
-  GETTABLEKS R16 R1 K26 ["useCallback"]
-  GETTABLEKS R17 R1 K27 ["useEffect"]
-  GETTABLEKS R18 R1 K28 ["useRef"]
-  DUPCLOSURE R19 K29 [PROTO_6]
-  CAPTURE VAL R13
-  CAPTURE VAL R18
-  CAPTURE VAL R2
+  GETTABLEKS R15 R1 K25 ["useCallback"]
+  GETTABLEKS R16 R1 K26 ["useEffect"]
+  GETTABLEKS R17 R1 K27 ["useRef"]
+  DUPCLOSURE R18 K28 [PROTO_6]
+  CAPTURE VAL R12
   CAPTURE VAL R17
-  CAPTURE VAL R11
+  CAPTURE VAL R2
+  CAPTURE VAL R16
+  CAPTURE VAL R10
+  CAPTURE VAL R13
   CAPTURE VAL R14
   CAPTURE VAL R15
-  CAPTURE VAL R16
   CAPTURE VAL R7
-  CAPTURE VAL R10
+  CAPTURE VAL R9
   CAPTURE VAL R1
   CAPTURE VAL R5
-  CAPTURE VAL R8
   CAPTURE VAL R6
   CAPTURE VAL R3
   CAPTURE VAL R4
-  RETURN R19 1
+  RETURN R18 1

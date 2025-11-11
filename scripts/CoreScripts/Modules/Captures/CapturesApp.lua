@@ -25,15 +25,6 @@ CaptureManagerScreenGui.ResetOnSpawn = false
 CaptureManagerScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 CaptureManagerScreenGui.Parent = CoreGui
 
-local ComposerScreenGui = Instance.new("ScreenGui")
-ComposerScreenGui.DisplayOrder = CapturesInExperience.Constants.ComposerDisplayOrder
-ComposerScreenGui.Name = "Composer"
-ComposerScreenGui.ResetOnSpawn = false
-ComposerScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ComposerScreenGui.SafeAreaCompatibility = Enum.SafeAreaCompatibility.FullscreenExtension
-ComposerScreenGui.ScreenInsets = Enum.ScreenInsets.None
-ComposerScreenGui.Parent = CoreGui
-
 local OverlayScreenGui = Instance.new("ScreenGui")
 OverlayScreenGui.DisplayOrder = CapturesInExperience.Constants.OverlayDisplayOrder
 OverlayScreenGui.Name = CapturesInExperience.Constants.OverlayName
@@ -43,7 +34,6 @@ OverlayScreenGui.Parent = CoreGui
 
 CapturesApp.mountCaptureManager(CaptureManagerScreenGui)
 CapturesApp.mountCarousel(CarouselScreenGui)
-CapturesApp.mountComposer(ComposerScreenGui)
 CapturesApp.mountCoreUI(RobloxGui, ChromeEnabled())
 CapturesApp.mountCaptureOverlay(OverlayScreenGui)
 

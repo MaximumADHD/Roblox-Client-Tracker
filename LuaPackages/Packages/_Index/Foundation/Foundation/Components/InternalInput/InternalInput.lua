@@ -7,6 +7,7 @@ local useMotion = Motion.useMotion
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 
 local Components = Foundation.Components
 local InputLabel = require(Components.InputLabel)
@@ -19,6 +20,7 @@ local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 
 local useInputVariants = require(script.Parent.useInputVariants)
 local useInputMotionStates = require(script.Parent.useInputMotionStates)
+export type InputColors = useInputMotionStates.InputColors
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -43,7 +45,11 @@ export type InputVariantProps = {
 	tag: string,
 	size: UDim2,
 	cursorRadius: UDim,
+	colors: InputColors?,
 	checkedStyle: ColorStyleValue?,
+	stroke: {
+		thickness: number?,
+	}?,
 }
 
 type Props = {
@@ -52,6 +58,8 @@ type Props = {
 	-- Whether the input is disabled. When `true`, the `onActivated` callback
 	-- will not be invoked, even if the user interacts with the input.
 	isDisabled: boolean?,
+	-- remove when Flags.FoundationToggleEndPlacementJustifyContent is removed
+	justifyContent: boolean?,
 	-- A function that will be called whenever the input is activated.
 	-- Returns the new value of the input when uncontrolled.
 	onActivated: (boolean) -> (),
@@ -69,6 +77,7 @@ type Props = {
 local defaultProps = {
 	size = InputSize.Medium,
 	Selectable = true,
+	justifyContent = true,
 	testId = "--foundation-internal-input",
 }
 
@@ -81,7 +90,9 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 	local isHovering, setIsHovering = React.useState(false)
 	local tokens = useTokens()
 
-	local variantProps = useInputVariants(tokens, props.size)
+	-- TODO: Use labelPosition instead of justifyContent when Flags.FoundationToggleEndPlacementJustifyContent is removed
+	local variantProps =
+		useInputVariants(tokens, props.size, labelPosition == Enum.HorizontalAlignment.Left and props.justifyContent)
 
 	local cursor = React.useMemo(function()
 		return {
@@ -95,7 +106,13 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		}
 	end, { tokens :: unknown, hasLabel, props.customVariantProps.cursorRadius })
 
-	local motionStates = useInputMotionStates(tokens, props.customVariantProps.checkedStyle)
+	local motionStates = useInputMotionStates(
+		tokens,
+		if Flags.FoundationToggleVisualUpdate
+			then props.customVariantProps.colors
+			else props.customVariantProps.checkedStyle
+	)
+
 	local values, animate = useMotion(motionStates.Default)
 
 	React.useEffect(function()
@@ -144,7 +161,11 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		ref = ref,
 	}
 
-	local strokeThickness = variantProps.input.stroke.thickness
+	local strokeThickness = if Flags.FoundationToggleVisualUpdate
+			and props.customVariantProps.stroke
+			and props.customVariantProps.stroke.thickness ~= nil
+		then props.customVariantProps.stroke.thickness
+		else variantProps.input.stroke.thickness
 
 	local inputContainerProps = {
 		tag = props.customVariantProps.tag,
@@ -184,30 +205,35 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 	if not hasLabel then
 		return React.createElement(
 			View,
-			withCommonProps(props, Cryo.Dictionary.union(interactionProps, inputContainerProps)),
+			withCommonProps(
+				props,
+				if Flags.FoundationMigrateCryoToDash
+					then Dash.union(interactionProps, inputContainerProps)
+					else Cryo.Dictionary.union(interactionProps, inputContainerProps)
+			),
 			props.children
 		)
 	end
+
+	local internalInputProps = {
+		tag = variantProps.container.tag,
+		-- Add padding around input to ensure it's not cut off
+		-- by the bounds of the canvas group
+		padding = {
+			top = variantProps.container.padding,
+			bottom = variantProps.container.padding,
+			left = if labelPosition == Enum.HorizontalAlignment.Right then variantProps.container.padding else nil,
+			right = if labelPosition == Enum.HorizontalAlignment.Left then variantProps.container.padding else nil,
+		},
+	}
 
 	return React.createElement(
 		View,
 		withCommonProps(
 			props,
-			Cryo.Dictionary.union({
-				tag = variantProps.container.tag,
-				-- Add padding around input to ensure it's not cut off
-				-- by the bounds of the canvas group
-				padding = {
-					top = variantProps.container.padding,
-					bottom = variantProps.container.padding,
-					left = if labelPosition == Enum.HorizontalAlignment.Right
-						then variantProps.container.padding
-						else nil,
-					right = if labelPosition == Enum.HorizontalAlignment.Left
-						then variantProps.container.padding
-						else nil,
-				},
-			}, interactionProps)
+			if Flags.FoundationMigrateCryoToDash
+				then Dash.union(internalInputProps, interactionProps)
+				else Cryo.Dictionary.union(internalInputProps, interactionProps)
 		),
 		{
 			Input = React.createElement(View, inputContainerProps, props.children),

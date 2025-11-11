@@ -50,6 +50,18 @@ PROTO_4:
   RETURN R1 -1
 
 PROTO_5:
+  GETUPVAL R1 0
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["Trying to deactivate instance picker, but it's not active."]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R0 1
+  LOADNIL R2
+  NAMECALL R0 R0 K3 ["SubmitPickedInstanceAsync"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["Disconnect"]
   CALL R0 1 0
@@ -58,7 +70,7 @@ PROTO_5:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   LOADK R3 K0 ["InstancePicker"]
   NAMECALL R1 R0 K1 ["GetPluginComponent"]
   CALL R1 2 1
@@ -94,16 +106,20 @@ PROTO_6:
   CAPTURE REF R2
   CAPTURE VAL R1
   NEWCLOSURE R9 P4
+  CAPTURE REF R2
+  CAPTURE VAL R1
+  NEWCLOSURE R10 P5
   CAPTURE VAL R5
   CAPTURE VAL R7
-  DUPTABLE R10 K14 [{"isActive", "activated", "deactivated", "pickInstanceAsync"}]
-  SETTABLEKS R3 R10 K10 ["isActive"]
-  SETTABLEKS R4 R10 K11 ["activated"]
-  SETTABLEKS R6 R10 K12 ["deactivated"]
-  SETTABLEKS R8 R10 K13 ["pickInstanceAsync"]
-  MOVE R11 R9
+  DUPTABLE R11 K15 [{"isActive", "activated", "deactivated", "pickInstanceAsync", "deactivateInstancePickerAsync"}]
+  SETTABLEKS R3 R11 K10 ["isActive"]
+  SETTABLEKS R4 R11 K11 ["activated"]
+  SETTABLEKS R6 R11 K12 ["deactivated"]
+  SETTABLEKS R8 R11 K13 ["pickInstanceAsync"]
+  SETTABLEKS R9 R11 K14 ["deactivateInstancePickerAsync"]
+  MOVE R12 R10
   CLOSEUPVALS R2
-  RETURN R10 2
+  RETURN R11 2
 
 MAIN:
   PREPVARARGS 0
@@ -115,6 +131,6 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["Properties"]
   CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_6]
+  DUPCLOSURE R2 K8 [PROTO_7]
   CAPTURE VAL R1
   RETURN R2 1

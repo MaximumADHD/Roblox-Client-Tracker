@@ -52,9 +52,11 @@ PROTO_4:
   NEWCLOSURE R6 P3
   CAPTURE VAL R3
   CAPTURE VAL R4
-  DUPTABLE R7 K5 [{"pickInstanceAsync", "destroy"}]
+  DUPTABLE R7 K6 [{"pickInstanceAsync", "deactivateInstancePickerAsync", "destroy"}]
   SETTABLEKS R5 R7 K3 ["pickInstanceAsync"]
-  SETTABLEKS R6 R7 K4 ["destroy"]
+  GETTABLEKS R8 R1 K4 ["deactivateInstancePickerAsync"]
+  SETTABLEKS R8 R7 K4 ["deactivateInstancePickerAsync"]
+  SETTABLEKS R6 R7 K5 ["destroy"]
   RETURN R7 1
 
 MAIN:

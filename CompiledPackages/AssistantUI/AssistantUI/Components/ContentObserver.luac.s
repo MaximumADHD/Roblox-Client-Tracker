@@ -224,34 +224,59 @@ PROTO_10:
   GETTABLEKS R2 R3 K3 ["getStreamTransform"]
   GETTABLEKS R3 R1 K4 ["name"]
   CALL R2 1 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  JUMPIFNOT R3 [+37]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K5 ["getMessageGuid"]
+  GETUPVAL R4 0
+  CALL R3 1 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K6 ["logToolEnded"]
+  DUPTABLE R5 K14 [{"messageGuid", "toolId", "toolName", "startTime", "startTimeAfterConfirmation", "endTime", "isError"}]
+  SETTABLEKS R3 R5 K7 ["messageGuid"]
+  GETTABLEKS R6 R1 K15 ["id"]
+  SETTABLEKS R6 R5 K8 ["toolId"]
+  GETTABLEKS R6 R1 K4 ["name"]
+  SETTABLEKS R6 R5 K9 ["toolName"]
+  GETTABLEKS R6 R1 K10 ["startTime"]
+  SETTABLEKS R6 R5 K10 ["startTime"]
+  GETTABLEKS R6 R1 K11 ["startTimeAfterConfirmation"]
+  SETTABLEKS R6 R5 K11 ["startTimeAfterConfirmation"]
+  GETIMPORT R6 K18 [os.clock]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K12 ["endTime"]
+  GETTABLEKS R6 R1 K13 ["isError"]
+  SETTABLEKS R6 R5 K13 ["isError"]
+  CALL R4 1 0
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K5 ["None"]
+  GETTABLEKS R3 R4 K19 ["None"]
   JUMPIFNOTEQ R2 R3 [+2]
   RETURN R0 0
   JUMPIFEQKNIL R2 [+20]
-  GETUPVAL R3 2
-  GETTABLEKS R4 R2 K6 ["getTransformResultFn"]
+  GETUPVAL R3 4
+  GETTABLEKS R4 R2 K20 ["getTransformResultFn"]
   MOVE R5 R1
   CALL R3 2 1
   NEWCLOSURE R4 P0
   CAPTURE VAL R3
   CAPTURE VAL R1
-  GETUPVAL R5 3
-  DUPTABLE R6 K10 [{"messageId", "contentId", "transformFn"}]
+  GETUPVAL R5 5
+  DUPTABLE R6 K24 [{"messageId", "contentId", "transformFn"}]
   GETUPVAL R7 0
-  SETTABLEKS R7 R6 K7 ["messageId"]
-  SETTABLEKS R0 R6 K8 ["contentId"]
-  SETTABLEKS R4 R6 K9 ["transformFn"]
+  SETTABLEKS R7 R6 K21 ["messageId"]
+  SETTABLEKS R0 R6 K22 ["contentId"]
+  SETTABLEKS R4 R6 K23 ["transformFn"]
   CALL R5 1 0
   RETURN R0 0
-  GETUPVAL R3 3
-  DUPTABLE R4 K10 [{"messageId", "contentId", "transformFn"}]
+  GETUPVAL R3 5
+  DUPTABLE R4 K24 [{"messageId", "contentId", "transformFn"}]
   GETUPVAL R5 0
-  SETTABLEKS R5 R4 K7 ["messageId"]
-  SETTABLEKS R0 R4 K8 ["contentId"]
+  SETTABLEKS R5 R4 K21 ["messageId"]
+  SETTABLEKS R0 R4 K22 ["contentId"]
   NEWCLOSURE R5 P1
   CAPTURE VAL R1
-  SETTABLEKS R5 R4 K9 ["transformFn"]
+  SETTABLEKS R5 R4 K23 ["transformFn"]
   CALL R3 1 0
   RETURN R0 0
 
@@ -498,6 +523,8 @@ PROTO_20:
   NEWCLOSURE R9 P4
   CAPTURE REF R4
   CAPTURE UPVAL U2
+  CAPTURE UPVAL U7
+  CAPTURE VAL R3
   CAPTURE UPVAL U5
   CAPTURE VAL R1
   NEWCLOSURE R10 P5
@@ -508,9 +535,9 @@ PROTO_20:
   NEWCLOSURE R11 P6
   CAPTURE REF R4
   CAPTURE UPVAL U2
-  CAPTURE UPVAL U7
-  CAPTURE VAL R3
   CAPTURE UPVAL U8
+  CAPTURE VAL R3
+  CAPTURE UPVAL U9
   CAPTURE VAL R2
   CAPTURE VAL R1
   DUPCLOSURE R12 K3 [PROTO_19]
@@ -543,62 +570,66 @@ MAIN:
   GETTABLEKS R3 R4 K10 ["EventLogger"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K11 ["Flags"]
-  GETTABLEKS R4 R5 K12 ["FFlagAddTelemetrytoToolConfirmation"]
+  GETTABLEKS R6 R0 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["ContentWidgets"]
+  GETTABLEKS R4 R5 K13 ["GenericToolContentWidget"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K13 ["Components"]
-  GETTABLEKS R6 R7 K14 ["ContentWidgets"]
-  GETTABLEKS R5 R6 K15 ["GenericToolContentWidget"]
+  GETTABLEKS R8 R0 K11 ["Components"]
+  GETTABLEKS R7 R8 K14 ["Contexts"]
+  GETTABLEKS R6 R7 K15 ["DefaultLLMProvider"]
+  GETTABLEKS R5 R6 K16 ["LLMProcessEvent"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R9 R0 K13 ["Components"]
-  GETTABLEKS R8 R9 K16 ["Contexts"]
-  GETTABLEKS R7 R8 K17 ["DefaultLLMProvider"]
-  GETTABLEKS R6 R7 K18 ["LLMProcessEvent"]
+  GETTABLEKS R8 R0 K11 ["Components"]
+  GETTABLEKS R7 R8 K12 ["ContentWidgets"]
+  GETTABLEKS R6 R7 K17 ["TextContentWidget"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K13 ["Components"]
-  GETTABLEKS R8 R9 K14 ["ContentWidgets"]
-  GETTABLEKS R7 R8 K19 ["TextContentWidget"]
+  GETTABLEKS R9 R0 K11 ["Components"]
+  GETTABLEKS R8 R9 K12 ["ContentWidgets"]
+  GETTABLEKS R7 R8 K18 ["ThinkingContentWidget"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K13 ["Components"]
-  GETTABLEKS R9 R10 K14 ["ContentWidgets"]
-  GETTABLEKS R8 R9 K20 ["ThinkingContentWidget"]
+  GETTABLEKS R10 R0 K11 ["Components"]
+  GETTABLEKS R9 R10 K12 ["ContentWidgets"]
+  GETTABLEKS R8 R9 K19 ["ToolConfirmationContentWidget"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K13 ["Components"]
-  GETTABLEKS R10 R11 K14 ["ContentWidgets"]
-  GETTABLEKS R9 R10 K21 ["ToolConfirmationContentWidget"]
+  GETTABLEKS R9 R0 K20 ["Types"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R0 K22 ["Types"]
+  GETTABLEKS R11 R0 K11 ["Components"]
+  GETTABLEKS R10 R11 K21 ["UIToolRegistry"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K13 ["Components"]
-  GETTABLEKS R11 R12 K23 ["UIToolRegistry"]
+  GETTABLEKS R12 R0 K22 ["Hooks"]
+  GETTABLEKS R11 R12 K23 ["useAddContent"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R13 R0 K24 ["Hooks"]
-  GETTABLEKS R12 R13 K25 ["useAddContent"]
+  GETTABLEKS R13 R0 K22 ["Hooks"]
+  GETTABLEKS R12 R13 K24 ["useEditContent"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R14 R0 K24 ["Hooks"]
-  GETTABLEKS R13 R14 K26 ["useEditContent"]
+  GETTABLEKS R14 R0 K25 ["Flags"]
+  GETTABLEKS R13 R14 K26 ["FFlagAddTelemetrytoToolConfirmation"]
   CALL R12 1 1
-  GETTABLEKS R13 R3 K27 ["Get"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R15 R0 K25 ["Flags"]
+  GETTABLEKS R14 R15 K27 ["FFlagAssistantLogRequestStop"]
+  CALL R13 1 1
   NEWTABLE R14 1 0
   DUPCLOSURE R15 K28 [PROTO_0]
   DUPCLOSURE R16 K29 [PROTO_20]
+  CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R10
-  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R3
   CAPTURE VAL R1
   CAPTURE VAL R15
-  CAPTURE VAL R9
-  CAPTURE VAL R13
   CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R7
   SETTABLEKS R16 R14 K30 ["new"]
   RETURN R14 1

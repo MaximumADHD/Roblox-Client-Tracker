@@ -103,47 +103,46 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Flags"]
-  GETTABLEKS R2 R3 K7 ["FIntMCPAssistantGenerationIndicatorWarningTime"]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["Parent"]
-  GETTABLEKS R3 R4 K9 ["Foundation"]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Contexts"]
+  GETTABLEKS R3 R4 K10 ["PacketReceivedContext"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Components"]
-  GETTABLEKS R5 R6 K11 ["Contexts"]
-  GETTABLEKS R4 R5 K12 ["PacketReceivedContext"]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Parent"]
-  GETTABLEKS R5 R6 K13 ["React"]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["ReactUtils"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Parent"]
-  GETTABLEKS R6 R7 K14 ["ReactUtils"]
+  GETTABLEKS R8 R0 K13 ["Resources"]
+  GETTABLEKS R7 R8 K14 ["Localization"]
+  GETTABLEKS R6 R7 K15 ["Translator"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K15 ["Resources"]
-  GETTABLEKS R8 R9 K16 ["Localization"]
-  GETTABLEKS R7 R8 K17 ["Translator"]
+  GETTABLEKS R8 R0 K16 ["Flags"]
+  GETTABLEKS R7 R8 K17 ["FIntMCPAssistantGenerationIndicatorWarningTime"]
   CALL R6 1 1
-  GETTABLEKS R7 R2 K18 ["Text"]
-  GETTABLEKS R8 R2 K19 ["View"]
-  GETTABLEKS R9 R5 K20 ["createNextOrder"]
-  GETTABLEKS R10 R4 K21 ["createElement"]
-  GETTABLEKS R11 R1 K22 ["Get"]
-  DUPCLOSURE R12 K23 [PROTO_3]
-  CAPTURE VAL R5
+  GETTABLEKS R7 R1 K18 ["Text"]
+  GETTABLEKS R8 R1 K19 ["View"]
+  GETTABLEKS R9 R4 K20 ["createNextOrder"]
+  GETTABLEKS R10 R3 K21 ["createElement"]
+  DUPCLOSURE R11 K22 [PROTO_3]
   CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R11
+  CAPTURE VAL R2
   CAPTURE VAL R6
+  CAPTURE VAL R5
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R8
   CAPTURE VAL R7
-  GETTABLEKS R13 R4 K24 ["memo"]
-  MOVE R14 R12
-  CALL R13 1 -1
-  RETURN R13 -1
+  GETTABLEKS R12 R3 K23 ["memo"]
+  MOVE R13 R11
+  CALL R12 1 -1
+  RETURN R12 -1

@@ -331,61 +331,57 @@ MAIN:
   GETTABLEKS R4 R5 K13 ["Environment"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K14 ["Flags"]
-  GETTABLEKS R5 R6 K15 ["FFlagDebugLogAssistantUI"]
+  GETTABLEKS R8 R0 K8 ["Components"]
+  GETTABLEKS R7 R8 K9 ["Contexts"]
+  GETTABLEKS R6 R7 K14 ["DefaultLLMProvider"]
+  GETTABLEKS R5 R6 K15 ["LLMRequest"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K14 ["Flags"]
-  GETTABLEKS R6 R7 K16 ["FFlagMCPAssistantExternalAPIKey"]
+  GETTABLEKS R7 R0 K16 ["Parent"]
+  GETTABLEKS R6 R7 K17 ["ModelContextProtocol"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K14 ["Flags"]
-  GETTABLEKS R7 R8 K17 ["FStringMCPAssistantClaudeAPIKey"]
+  GETTABLEKS R7 R0 K18 ["Types"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K14 ["Flags"]
-  GETTABLEKS R8 R9 K18 ["FStringMCPAssistantCustomModelName"]
+  GETTABLEKS R9 R0 K19 ["Flags"]
+  GETTABLEKS R8 R9 K20 ["FFlagAssistantJsonEncoder"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R12 R0 K8 ["Components"]
-  GETTABLEKS R11 R12 K9 ["Contexts"]
-  GETTABLEKS R10 R11 K19 ["DefaultLLMProvider"]
-  GETTABLEKS R9 R10 K20 ["LLMRequest"]
+  GETTABLEKS R10 R0 K19 ["Flags"]
+  GETTABLEKS R9 R10 K21 ["FFlagDebugLogAssistantUI"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K21 ["Parent"]
-  GETTABLEKS R10 R11 K22 ["ModelContextProtocol"]
+  GETTABLEKS R11 R0 K19 ["Flags"]
+  GETTABLEKS R10 R11 K22 ["FFlagMCPAssistantExternalAPIKey"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R11 R0 K23 ["Types"]
+  GETTABLEKS R12 R0 K19 ["Flags"]
+  GETTABLEKS R11 R12 K23 ["FStringMCPAssistantClaudeAPIKey"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R13 R0 K14 ["Flags"]
-  GETTABLEKS R12 R13 K24 ["getFFlagAssistantJsonEncoder"]
+  GETTABLEKS R13 R0 K19 ["Flags"]
+  GETTABLEKS R12 R13 K24 ["FStringMCPAssistantCustomModelName"]
   CALL R11 1 1
-  GETTABLEKS R12 R4 K25 ["Get"]
-  GETTABLEKS R13 R5 K25 ["Get"]
-  GETTABLEKS R14 R6 K25 ["Get"]
-  GETTABLEKS R15 R7 K25 ["Get"]
-  GETTABLEKS R16 R2 K26 ["createAdapter"]
-  CALL R16 0 1
-  GETTABLEKS R17 R2 K27 ["convertLLMtoClaudeMessage"]
-  GETTABLEKS R18 R9 K28 ["EventStreamParser"]
-  DUPCLOSURE R19 K29 [PROTO_6]
+  GETTABLEKS R12 R2 K25 ["createAdapter"]
+  CALL R12 0 1
+  GETTABLEKS R13 R2 K26 ["convertLLMtoClaudeMessage"]
+  GETTABLEKS R14 R5 K27 ["EventStreamParser"]
+  DUPCLOSURE R15 K28 [PROTO_6]
   CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R11
   CAPTURE VAL R13
-  CAPTURE VAL R15
-  CAPTURE VAL R17
+  CAPTURE VAL R6
   CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R3
   CAPTURE VAL R14
   CAPTURE VAL R12
-  CAPTURE VAL R11
-  CAPTURE VAL R9
-  CAPTURE VAL R3
-  CAPTURE VAL R18
-  CAPTURE VAL R16
-  DUPTABLE R20 K32 [{"requestHandler", "createRequestHandler"}]
-  SETTABLEKS R19 R20 K30 ["requestHandler"]
-  LOADNIL R21
-  SETTABLEKS R21 R20 K31 ["createRequestHandler"]
-  RETURN R20 1
+  DUPTABLE R16 K31 [{"requestHandler", "createRequestHandler"}]
+  SETTABLEKS R15 R16 K29 ["requestHandler"]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K30 ["createRequestHandler"]
+  RETURN R16 1

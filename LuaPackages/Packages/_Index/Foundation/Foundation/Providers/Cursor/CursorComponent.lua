@@ -3,8 +3,6 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local View = require(Foundation.Components.View)
-local Flags = require(Foundation.Utility.Flags)
 
 --selene: allow(roblox_internal_custom_color)
 
@@ -18,9 +16,9 @@ type Props = {
 local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local tokens = useTokens()
 
-	return React.createElement(if Flags.FoundationRemoveCursorProviderTestOutput then "Frame" else View, {
-		BackgroundTransparency = if Flags.FoundationRemoveCursorProviderTestOutput then 1 else nil,
-		BorderSizePixel = if Flags.FoundationRemoveCursorProviderTestOutput then 0 else nil,
+	return React.createElement("Frame", {
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
 		Position = UDim2.fromOffset(-props.offset, -props.offset),
 		Size = UDim2.new(1, props.offset * 2, 1, props.offset * 2),
 		ref = ref,

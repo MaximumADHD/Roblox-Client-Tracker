@@ -1,0 +1,131 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"id", "text"}]
+  GETTABLEKS R2 R0 K3 ["Name"]
+  SETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R2 R0 K3 ["Name"]
+  SETTABLEKS R2 R1 K1 ["text"]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Type"]
+  FASTCALL2K STRING_SUB R1 K1 [+4]
+  LOADK R2 K1 [6]
+  GETIMPORT R0 K4 [string.sub]
+  CALL R0 2 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K5 ["map"]
+  GETIMPORT R3 K7 [Enum]
+  GETTABLE R2 R3 R0
+  NAMECALL R2 R2 K8 ["GetEnumItems"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CALL R1 2 1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnChanged"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Value"]
+  GETTABLEKS R3 R4 K2 ["EnumType"]
+  GETTABLE R2 R3 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useMemo"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  NEWTABLE R3 0 2
+  GETTABLEKS R4 R0 K1 ["OnChanged"]
+  GETTABLEKS R5 R0 K2 ["Type"]
+  SETLIST R3 R4 2 [1]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["useCallback"]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  NEWTABLE R4 0 2
+  GETTABLEKS R5 R0 K4 ["Value"]
+  GETTABLEKS R6 R0 K1 ["OnChanged"]
+  SETLIST R4 R5 2 [1]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["createElement"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K6 ["View"]
+  DUPTABLE R5 K9 [{"tag", "LayoutOrder"}]
+  LOADK R6 K10 ["row auto-y gap-small size-full-700 align-y-center flex-x-between"]
+  SETTABLEKS R6 R5 K7 ["tag"]
+  GETTABLEKS R6 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K8 ["LayoutOrder"]
+  DUPTABLE R6 K13 [{"CompositorNodeInputLabel", "Input"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K14 ["Text"]
+  DUPTABLE R9 K15 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R10 K16 ["text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R10 R9 K7 ["tag"]
+  GETTABLEKS R10 R0 K17 ["Label"]
+  SETTABLEKS R10 R9 K14 ["Text"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K8 ["LayoutOrder"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K11 ["CompositorNodeInputLabel"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K18 ["Dropdown"]
+  GETTABLEKS R8 R9 K19 ["Root"]
+  DUPTABLE R9 K26 [{"size", "width", "label", "items", "value", "onItemChanged", "LayoutOrder"}]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K27 ["Enums"]
+  GETTABLEKS R11 R12 K28 ["InputSize"]
+  GETTABLEKS R10 R11 K29 ["XSmall"]
+  SETTABLEKS R10 R9 K20 ["size"]
+  GETIMPORT R10 K32 [UDim.new]
+  LOADN R11 0
+  LOADN R12 90
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K21 ["width"]
+  LOADK R10 K33 [""]
+  SETTABLEKS R10 R9 K22 ["label"]
+  SETTABLEKS R1 R9 K23 ["items"]
+  GETTABLEKS R10 R0 K4 ["Value"]
+  SETTABLEKS R10 R9 K24 ["value"]
+  GETTABLEKS R10 R0 K1 ["OnChanged"]
+  SETTABLEKS R10 R9 K25 ["onItemChanged"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K8 ["LayoutOrder"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K12 ["Input"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K10 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R4 1

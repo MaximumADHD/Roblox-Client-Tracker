@@ -21,7 +21,7 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 
 local FFlagFixErrorPromptFocus = game:DefineFastFlag("FixErrorPromptFocus", false)
 local FFlagFixErrorPromptRemoveMenuFocus = game:DefineFastFlag("FixErrorPromptRemoveMenuFocus", false)
-
+local FFlagFixErrorPromptOnVR = game:DefineFastFlag("FixErrorPromptOnVR", false)
 
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 
@@ -229,12 +229,22 @@ function ErrorPrompt.new(style, extraConfiguration)
 		errorLabel.TextScaled = extraConfiguration.MessageTextScaled or false
 	end
 
-	if UserInputService.GamepadEnabled then
-		GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
-			if self._isOpen and GuiService.SelectedCoreObject == nil then
-				GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
-			end
-		end)
+	if FFlagFixErrorPromptOnVR then
+		if not VRService.VREnabled and UserInputService.GamepadEnabled then
+			GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
+				if self._isOpen and GuiService.SelectedCoreObject == nil then
+					GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
+				end
+			end)
+		end
+	else
+		if UserInputService.GamepadEnabled then
+			GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
+				if self._isOpen and GuiService.SelectedCoreObject == nil then
+					GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
+				end
+			end)
+		end
 	end
 
 	return self

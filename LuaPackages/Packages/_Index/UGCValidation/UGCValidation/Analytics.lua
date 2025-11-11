@@ -41,7 +41,6 @@ local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagRe
 local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
 local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
 	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
-local getFFlagUGCValidateRestrictAnimationMovement = require(root.flags.getFFlagUGCValidateRestrictAnimationMovement)
 local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
 	require(root.flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
@@ -184,6 +183,7 @@ Analytics.ErrorType = {
 	validateBodyPartCage_FailedToExecute = "validateBodyPartCage_FailedToExecute",
 	validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh = "validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh",
 	validateCurveAnimation_IncorrectNumericalData = "validateCurveAnimation_IncorrectNumericalData",
+	validateCurveAnimation_PositionalMovement = "validateCurveAnimation_PositionalMovement",
 }
 
 if getFFlagUGCValidateMeshBBoxIsCentered() then
@@ -272,10 +272,6 @@ Analytics.ErrorType.validateCurveAnimation_AnimationContainsNoJointManipulation 
 Analytics.ErrorType.validateCurveAnimation_UnacceptableLength = "validateCurveAnimation_UnacceptableLength"
 Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds = "validateCurveAnimation_UnacceptableSizeBounds"
 Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta = "validateCurveAnimation_UnacceptableFrameDelta"
-
-if getFFlagUGCValidateRestrictAnimationMovement() then
-	Analytics.ErrorType.validateCurveAnimation_PositionalMovement = "validateCurveAnimation_PositionalMovement"
-end
 
 if getEngineFeatureEngineUGCIsValidR15AnimationRigCheck() then
 	Analytics.ErrorType.validateCurveAnimation_IncorrectAnimationRigData =

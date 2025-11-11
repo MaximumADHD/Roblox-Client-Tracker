@@ -3,6 +3,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
@@ -134,7 +135,7 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 		return guiObjectRef.current
 	end, {})
 
-	local mergedProps: any = Cryo.Dictionary.union(props, {
+	local interactableComponentProps = {
 		BackgroundColor3 = backgroundStyleBinding:map(function(backgroundStyle)
 			return backgroundStyle.Color3
 		end),
@@ -148,7 +149,10 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 		[React.Event.MouseButton2Click] = if not props.isDisabled then props.onSecondaryActivated else nil,
 		ref = wrappedRef,
 		SelectionImageObject = props.SelectionImageObject or cursor,
-	})
+	}
+	local mergedProps: any = if Flags.FoundationMigrateCryoToDash
+		then Dash.union(props, interactableComponentProps)
+		else Cryo.Dictionary.union(props, interactableComponentProps)
 
 	-- To avoid passing these props to the component, we set them to nil
 	mergedProps.component = nil

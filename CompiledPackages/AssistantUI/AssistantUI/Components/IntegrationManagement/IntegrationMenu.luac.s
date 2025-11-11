@@ -777,132 +777,130 @@ MAIN:
   GETTABLEKS R3 R4 K10 ["ApiKeySettingsContent"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K11 ["Flags"]
-  GETTABLEKS R4 R5 K12 ["FFlagMCPAssistantExternalAPIKey"]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K6 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["IntegrationItem"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K11 ["Flags"]
-  GETTABLEKS R5 R6 K13 ["FFlagMCPAssistantManagementMenu"]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K6 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["IntegrationMenuEmptyState"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETIMPORT R8 K1 [script]
   GETTABLEKS R7 R8 K6 ["Parent"]
-  GETTABLEKS R6 R7 K14 ["IntegrationItem"]
+  GETTABLEKS R6 R7 K13 ["IntegrationTypes"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K6 ["Parent"]
-  GETTABLEKS R7 R8 K15 ["IntegrationMenuEmptyState"]
+  GETTABLEKS R9 R0 K8 ["Components"]
+  GETTABLEKS R8 R9 K14 ["Contexts"]
+  GETTABLEKS R7 R8 K15 ["McpAuthorizerManagerContext"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K6 ["Parent"]
-  GETTABLEKS R8 R9 K16 ["IntegrationTypes"]
+  GETTABLEKS R9 R0 K6 ["Parent"]
+  GETTABLEKS R8 R9 K16 ["Dash"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K8 ["Components"]
-  GETTABLEKS R10 R11 K17 ["Contexts"]
-  GETTABLEKS R9 R10 K18 ["McpAuthorizerManagerContext"]
+  GETTABLEKS R10 R0 K6 ["Parent"]
+  GETTABLEKS R9 R10 K17 ["Foundation"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R11 R0 K6 ["Parent"]
-  GETTABLEKS R10 R11 K19 ["Dash"]
+  GETTABLEKS R10 R11 K18 ["ModelContextProtocol"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K6 ["Parent"]
-  GETTABLEKS R11 R12 K20 ["Foundation"]
+  GETTABLEKS R13 R0 K8 ["Components"]
+  GETTABLEKS R12 R13 K14 ["Contexts"]
+  GETTABLEKS R11 R12 K19 ["PersistedIntegrationContext"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R13 R0 K6 ["Parent"]
-  GETTABLEKS R12 R13 K21 ["ModelContextProtocol"]
+  GETTABLEKS R12 R13 K20 ["React"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETTABLEKS R14 R0 K6 ["Parent"]
-  GETTABLEKS R13 R14 K22 ["React"]
+  GETTABLEKS R13 R14 K21 ["ReactUtils"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R15 R0 K6 ["Parent"]
-  GETTABLEKS R14 R15 K23 ["ReactUtils"]
+  GETTABLEKS R16 R0 K22 ["Resources"]
+  GETTABLEKS R15 R16 K23 ["Localization"]
+  GETTABLEKS R14 R15 K24 ["Translator"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
-  GETTABLEKS R17 R0 K24 ["Resources"]
-  GETTABLEKS R16 R17 K25 ["Localization"]
-  GETTABLEKS R15 R16 K26 ["Translator"]
+  GETTABLEKS R16 R0 K25 ["Hooks"]
+  GETTABLEKS R15 R16 K26 ["useWithClient"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
-  GETTABLEKS R17 R0 K27 ["Hooks"]
-  GETTABLEKS R16 R17 K28 ["useWithClient"]
+  GETTABLEKS R17 R0 K27 ["Flags"]
+  GETTABLEKS R16 R17 K28 ["FFlagMCPAssistantExternalAPIKey"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
-  GETTABLEKS R19 R0 K8 ["Components"]
-  GETTABLEKS R18 R19 K17 ["Contexts"]
-  GETTABLEKS R17 R18 K29 ["PersistedIntegrationContext"]
+  GETTABLEKS R18 R0 K27 ["Flags"]
+  GETTABLEKS R17 R18 K29 ["FFlagMCPAssistantManagementMenu"]
   CALL R16 1 1
-  GETTABLEKS R18 R11 K30 ["StreamableHttpClient"]
+  GETTABLEKS R18 R9 K30 ["StreamableHttpClient"]
   GETTABLEKS R17 R18 K31 ["StreamableHttpClientTransport"]
-  GETTABLEKS R18 R10 K32 ["Button"]
-  GETTABLEKS R19 R10 K33 ["Divider"]
-  GETTABLEKS R20 R10 K34 ["View"]
-  GETTABLEKS R21 R10 K35 ["ScrollView"]
-  GETTABLEKS R23 R10 K36 ["Enums"]
+  GETTABLEKS R18 R8 K32 ["Button"]
+  GETTABLEKS R19 R8 K33 ["Divider"]
+  GETTABLEKS R20 R8 K34 ["View"]
+  GETTABLEKS R21 R8 K35 ["ScrollView"]
+  GETTABLEKS R23 R8 K36 ["Enums"]
   GETTABLEKS R22 R23 K37 ["ButtonSize"]
-  GETTABLEKS R24 R10 K36 ["Enums"]
+  GETTABLEKS R24 R8 K36 ["Enums"]
   GETTABLEKS R23 R24 K38 ["ButtonVariant"]
-  GETTABLEKS R25 R10 K36 ["Enums"]
+  GETTABLEKS R25 R8 K36 ["Enums"]
   GETTABLEKS R24 R25 K39 ["DividerVariant"]
-  GETTABLEKS R26 R10 K36 ["Enums"]
+  GETTABLEKS R26 R8 K36 ["Enums"]
   GETTABLEKS R25 R26 K40 ["DividerOrientation"]
-  GETTABLEKS R26 R3 K41 ["Get"]
-  GETTABLEKS R27 R4 K41 ["Get"]
-  GETTABLEKS R28 R13 K42 ["createNextOrder"]
-  GETTABLEKS R29 R12 K43 ["createElement"]
-  GETTABLEKS R31 R11 K44 ["Types"]
-  GETTABLEKS R30 R31 K45 ["emptyObject"]
-  DUPTABLE R31 K47 [{"HorizontalScrollBarInset"}]
-  GETIMPORT R32 K51 [Enum.ScrollBarInset.Always]
-  SETTABLEKS R32 R31 K46 ["HorizontalScrollBarInset"]
-  DUPTABLE R32 K54 [{"SortOrder", "FillDirection"}]
-  GETIMPORT R33 K56 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R33 R32 K52 ["SortOrder"]
-  GETIMPORT R33 K58 [Enum.FillDirection.Vertical]
-  SETTABLEKS R33 R32 K53 ["FillDirection"]
-  DUPTABLE R33 K60 [{"capabilities"}]
-  DUPTABLE R34 K64 [{"prompts", "resources", "tools"}]
-  MOVE R35 R30
-  CALL R35 0 1
-  SETTABLEKS R35 R34 K61 ["prompts"]
-  MOVE R35 R30
-  CALL R35 0 1
-  SETTABLEKS R35 R34 K62 ["resources"]
-  MOVE R35 R30
-  CALL R35 0 1
-  SETTABLEKS R35 R34 K63 ["tools"]
-  SETTABLEKS R34 R33 K59 ["capabilities"]
-  DUPCLOSURE R34 K65 [PROTO_21]
-  CAPTURE VAL R28
-  CAPTURE VAL R12
-  CAPTURE VAL R16
-  CAPTURE VAL R8
-  CAPTURE VAL R14
-  CAPTURE VAL R15
-  CAPTURE VAL R17
-  CAPTURE VAL R33
-  CAPTURE VAL R9
-  CAPTURE VAL R27
-  CAPTURE VAL R29
-  CAPTURE VAL R20
+  GETTABLEKS R26 R12 K41 ["createNextOrder"]
+  GETTABLEKS R27 R11 K42 ["createElement"]
+  GETTABLEKS R29 R9 K43 ["Types"]
+  GETTABLEKS R28 R29 K44 ["emptyObject"]
+  DUPTABLE R29 K46 [{"HorizontalScrollBarInset"}]
+  GETIMPORT R30 K50 [Enum.ScrollBarInset.Always]
+  SETTABLEKS R30 R29 K45 ["HorizontalScrollBarInset"]
+  DUPTABLE R30 K53 [{"SortOrder", "FillDirection"}]
+  GETIMPORT R31 K55 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R31 R30 K51 ["SortOrder"]
+  GETIMPORT R31 K57 [Enum.FillDirection.Vertical]
+  SETTABLEKS R31 R30 K52 ["FillDirection"]
+  DUPTABLE R31 K59 [{"capabilities"}]
+  DUPTABLE R32 K63 [{"prompts", "resources", "tools"}]
+  MOVE R33 R28
+  CALL R33 0 1
+  SETTABLEKS R33 R32 K60 ["prompts"]
+  MOVE R33 R28
+  CALL R33 0 1
+  SETTABLEKS R33 R32 K61 ["resources"]
+  MOVE R33 R28
+  CALL R33 0 1
+  SETTABLEKS R33 R32 K62 ["tools"]
+  SETTABLEKS R32 R31 K58 ["capabilities"]
+  DUPCLOSURE R32 K64 [PROTO_21]
+  CAPTURE VAL R26
+  CAPTURE VAL R11
+  CAPTURE VAL R10
   CAPTURE VAL R6
-  CAPTURE VAL R21
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R17
   CAPTURE VAL R31
-  CAPTURE VAL R32
-  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R16
+  CAPTURE VAL R27
+  CAPTURE VAL R20
+  CAPTURE VAL R4
+  CAPTURE VAL R21
+  CAPTURE VAL R29
+  CAPTURE VAL R30
+  CAPTURE VAL R3
   CAPTURE VAL R18
   CAPTURE VAL R22
-  CAPTURE VAL R26
+  CAPTURE VAL R15
   CAPTURE VAL R2
   CAPTURE VAL R23
   CAPTURE VAL R1
   CAPTURE VAL R19
   CAPTURE VAL R24
   CAPTURE VAL R25
-  RETURN R34 1
+  RETURN R32 1

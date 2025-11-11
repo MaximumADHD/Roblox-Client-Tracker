@@ -15,6 +15,7 @@ local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
+local PlayerListConstants = PlayerListPackage.Common.Constants
 
 local CoreGui = game:GetService("CoreGui")
 local Modules = CoreGui.RobloxGui.Modules
@@ -53,10 +54,8 @@ local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
-local FFlagPlayerListIgnoreDevGamepadBindings = game:DefineFastFlag("PlayerListIgnoreDevGamepadBindings", false)
+local FFlagPlayerListIgnoreDevGamepadBindings = PlayerListPackage.Flags.FFlagPlayerListIgnoreDevGamepadBindings
 local FFlagMobilePlayerListCheckGamepadOnVisible = game:DefineFastFlag("MobilePlayerListCheckGamepadOnVisible", false)
-
-local PLAYER_LIST_MENU = "PlayerListMenu"
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -375,7 +374,9 @@ function PlayerListApp:didUpdate(previousProps, previousState)
 	local isDropDownVisible = self.props.isDropDownVisible
 
 	if FFlagPlayerListIgnoreDevGamepadBindings then
-		GuiService:SetMenuIsOpen(isVisible, PLAYER_LIST_MENU)
+		if isVisible ~= previousProps.displayOptions.isVisible then
+			GuiService:SetMenuIsOpen(isVisible, PlayerListConstants.PLAYER_LIST_MENU)
+		end
 	end
 
 	if not FFlagPlayerListClosedNoRender and isVisible ~= previousProps.displayOptions.isVisible and not isVisible then

@@ -109,7 +109,7 @@ function ClassicCamera:Update(dt)
 
 	local rotateInput = CameraInput.getRotation(timeDelta)
 
-	self:StepZoom()
+	self:StepZoom(timeDelta)
 
 	local cameraHeight = self:GetCameraHeight()
 

@@ -65,9 +65,7 @@ local function variantsFactory(tokens: Tokens)
 				else ""}`,
 		},
 		heroMediaWrapper = {
-			tag = `auto-y size-full-full position-top-center {if Flags.FoundationDialogHeroImageOnlyFix
-				then "shrink"
-				else ""}`,
+			tag = "auto-y size-full-full position-top-center shrink",
 		},
 		title = {
 			tag = "size-full-0 auto-y",
@@ -84,9 +82,7 @@ local function variantsFactory(tokens: Tokens)
 				else ""}`,
 		},
 		actionsLabel = {
-			tag = `text-align-x-left text-wrap text-align-y-top auto-y size-full-0 {if Flags.FoundationDialogActionsUpdate
-				then "text-body-small"
-				else ""}`,
+			tag = "text-align-x-left text-wrap text-align-y-top auto-y size-full-0 text-body-small",
 		},
 	}
 
@@ -119,7 +115,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "text-body-medium",
 			},
 			actionsLabel = {
-				tag = if Flags.FoundationDialogActionsUpdate then "padding-top-large" else "text-label-small",
+				tag = "padding-top-large",
 			},
 		},
 		[DialogSize.Medium] = {
@@ -150,7 +146,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "text-body-medium",
 			},
 			actionsLabel = {
-				tag = if Flags.FoundationDialogActionsUpdate then "padding-top-xlarge" else "text-label-small",
+				tag = "padding-top-xlarge",
 			},
 		},
 		[DialogSize.Large] = {
@@ -181,7 +177,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "text-body-large",
 			},
 			actionsLabel = {
-				tag = if Flags.FoundationDialogActionsUpdate then "padding-top-xlarge" else "text-label-small",
+				tag = "padding-top-xlarge",
 			},
 		},
 	}

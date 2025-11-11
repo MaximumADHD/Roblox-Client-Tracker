@@ -2,15 +2,16 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local React = require(Foundation.Parent.React)
 
 local Theme = require(Foundation.Enums.Theme)
+type Theme = Theme.Theme
 
 local View = require(Foundation.Components.View)
 local FoundationProvider = require(Foundation.Providers.Foundation)
 local PreferencesProvider = require(Foundation.Providers.Preferences.PreferencesProvider)
 type Preferences = PreferencesProvider.PreferencesProps
 
-return function(elements, preferences: Preferences?)
+return function(elements, preferences: Preferences?, theme: Theme?)
 	return React.createElement(FoundationProvider, {
-		theme = Theme.Dark,
+		theme = theme or Theme.Dark,
 		preferences = preferences,
 	}, {
 		Content = React.createElement(View, {

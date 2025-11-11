@@ -3,6 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local Constants = require(Foundation.Constants)
+
 local Components = Foundation.Components
 local View = require(Components.View)
 local Types = require(Components.Types)
@@ -17,6 +19,9 @@ local useRadioGroupItemVariants = require(script.Parent.useRadioGroupItemVariant
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
+local InputPlacement = require(Foundation.Enums.InputPlacement)
+type InputPlacement = InputPlacement.InputPlacement
+
 local useRadioGroup = require(script.Parent.Parent.useRadioGroup)
 
 export type RadioGroupItemProps = {
@@ -30,11 +35,13 @@ export type RadioGroupItemProps = {
 	label: string | React.ReactNode?,
 	-- Size of the radio item
 	size: InputSize?,
+	placement: InputPlacement?,
 } & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Medium,
 	isDisabled = false,
+	placement = InputPlacement.Start,
 }
 
 local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: React.Ref<GuiObject>?)
@@ -64,6 +71,7 @@ local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: Rea
 			onActivated = onActivated,
 			label = {
 				text = label,
+				position = Constants.INPUT_PLACEMENT_TO_LABEL_ALIGNMENT[props.placement],
 			},
 			customVariantProps = variantProps.input,
 			size = props.size,

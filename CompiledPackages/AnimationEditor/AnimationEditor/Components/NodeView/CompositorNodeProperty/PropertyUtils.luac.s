@@ -1,0 +1,13 @@
+PROTO_0:
+  GETIMPORT R1 K2 [string.format]
+  LOADK R2 K3 ["%.2f sec"]
+  MOVE R3 R0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 1 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["formatTimestamp"]
+  RETURN R0 1

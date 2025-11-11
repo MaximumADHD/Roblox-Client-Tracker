@@ -23,26 +23,6 @@ PROTO_2:
   CALL R1 1 2
   JUMPIF R1 [+2]
   LOADB R0 0
-  JUMP [+1]
-  MOVE R0 R2
-  JUMPIFNOT R0 [+21]
-  GETIMPORT R1 K1 [pcall]
-  LOADK R3 K3 ["PlaceSessionContextBridgeComponent"]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R3
-  CALL R1 1 2
-  JUMPIF R1 [+2]
-  LOADB R0 0
-  JUMP [+1]
-  MOVE R0 R2
-  JUMPIFNOT R0 [+10]
-  GETIMPORT R1 K1 [pcall]
-  LOADK R3 K4 ["StudioPlaceOpenerPlaceVersion"]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R3
-  CALL R1 1 2
-  JUMPIF R1 [+2]
-  LOADB R0 0
   RETURN R0 1
   MOVE R0 R2
   RETURN R0 1

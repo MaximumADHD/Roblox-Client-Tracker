@@ -15,6 +15,7 @@ return {
 					onSelectedDateChanged = function() end,
 					showStartDateTimeCalendarInput = storyProps.controls.showStartDateTimeCalendarInput,
 					showEndDateTimeCalendarInput = storyProps.controls.showEndDateTimeCalendarInput,
+					showTimeDropdown = storyProps.controls.showTimeDropdown,
 				})
 			end,
 		},
@@ -22,5 +23,6 @@ return {
 	controls = {
 		showStartDateTimeCalendarInput = false,
 		showEndDateTimeCalendarInput = false,
+		showTimeDropdown = false,
 	},
 }

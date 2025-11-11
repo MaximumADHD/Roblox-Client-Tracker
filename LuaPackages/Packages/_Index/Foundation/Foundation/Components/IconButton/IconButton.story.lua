@@ -7,6 +7,7 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local View = require(Foundation.Components.View)
 local IconButton = require(Foundation.Components.IconButton)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local ColorMode = require(Foundation.Enums.ColorMode)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputSize = require(Foundation.Enums.InputSize)
@@ -31,15 +32,15 @@ return {
 			name = variant,
 			story = function(props)
 				local controls = props.controls
-				local isInverse = controls.isInverse
-				local contextValue = { isInverse = isInverse }
+				local colorMode = controls.colorMode
+				local contextValue = { colorMode = colorMode }
 				local tokens = useTokens()
 
 				return React.createElement(View, {
 					tag = "row gap-medium auto-xy size-0 align-y-center padding-medium radius-medium",
 					backgroundStyle = if variant == ButtonVariant.OverMedia
 						then tokens.Color.Extended.White.White_100
-						elseif isInverse then tokens.Inverse.Surface.Surface_0
+						elseif colorMode then tokens[colorMode].Surface.Surface_100
 						else nil,
 				}, {
 					Gradient = if variant == ButtonVariant.OverMedia
@@ -63,8 +64,7 @@ return {
 									},
 									variant = variant,
 									onActivated = function()
-										local contextName = if isInverse then "Inverse" else "Normal"
-										print(`{contextName} {variant} IconButton ({size}) activated`)
+										print(`{colorMode} {variant} IconButton ({size}) activated`)
 									end,
 									isDisabled = controls.isDisabled,
 									size = size,
@@ -82,6 +82,6 @@ return {
 		variant = Dash.values(BuilderIcons.IconVariant),
 		isDisabled = false,
 		isCircular = false,
-		isInverse = false,
+		colorMode = Dash.values(ColorMode),
 	},
 }

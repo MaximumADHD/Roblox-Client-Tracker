@@ -8,7 +8,7 @@ type Tokens = Tokens.Tokens
 local Flags = require(Foundation.Utility.Flags)
 
 local function getKnobSize(tokens: Tokens, size: InputSize): UDim2
-	local knobSizes: { [InputSize]: number } = if Flags.FoundationUpdateKnobComponent
+	local knobSizes: { [InputSize]: number } = if Flags.FoundationToggleVisualUpdate
 		then {
 			[InputSize.XSmall] = tokens.Size.Size_300,
 			[InputSize.Small] = tokens.Size.Size_400,

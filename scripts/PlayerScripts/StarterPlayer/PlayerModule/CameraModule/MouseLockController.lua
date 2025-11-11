@@ -1,4 +1,4 @@
---!nonstrict
+--!strict
 --[[
 	MouseLockController - Replacement for ShiftLockController, manages use of mouse-locked mode
 	2018 Camera Update - AllYourBlox
@@ -6,24 +6,21 @@
 
 --[[ Constants ]]--
 
-local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
-
-local CONTEXT_ACTION_NAME = "MouseLockSwitchAction"
-local MOUSELOCK_ACTION_PRIORITY = Enum.ContextActionPriority.Medium.Value
 local CAMERA_OFFSET_DEFAULT = Vector3.new(1.75,0,0)  
+
+local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
+local character = inputContexts:WaitForChild("Character")
+local mouseLockSwitchAction = character:WaitForChild("MouseLockSwitchAction") :: InputAction
 
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
-local ContextActionService = game:GetService("ContextActionService")
 local UserInputService = game:GetService("UserInputService")
 local Settings = UserSettings()	-- ignore warning
 local GameSettings = Settings.GameSettings
 
 --[[ Imports ]]
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
-
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -34,31 +31,9 @@ function MouseLockController.new()
 
 	self.isMouseLocked = false
 	self.savedMouseCursor = nil
-	self.boundKeys = {Enum.KeyCode.LeftShift, Enum.KeyCode.RightShift} -- defaults
+	self.enabled = false
 
 	self.mouseLockToggledEvent = Instance.new("BindableEvent")
-
-	local boundKeysObj = script:FindFirstChild("BoundKeys")
-	if (not boundKeysObj) or (not boundKeysObj:IsA("StringValue")) then
-		-- If object with correct name was found, but it's not a StringValue, destroy and replace
-		if boundKeysObj then
-			boundKeysObj:Destroy()
-		end
-
-		boundKeysObj = Instance.new("StringValue")
-		-- Luau FIXME: should be able to infer from assignment above that boundKeysObj is not nil
-		assert(boundKeysObj, "")
-		boundKeysObj.Name = "BoundKeys"
-		boundKeysObj.Value = "LeftShift,RightShift"
-		boundKeysObj.Parent = script
-	end
-
-	if boundKeysObj then
-		boundKeysObj.Changed:Connect(function(value)
-			self:OnBoundKeysObjectChanged(value)
-		end)
-		self:OnBoundKeysObjectChanged(boundKeysObj.Value) -- Initial setup call
-	end
 
 	-- Watch for changes to user's ControlMode and ComputerMovementMode settings and update the feature availability accordingly
 	GameSettings.Changed:Connect(function(property)
@@ -82,6 +57,10 @@ function MouseLockController.new()
 	end)
 
 	self:UpdateMouseLockAvailability()
+
+	mouseLockSwitchAction.Pressed:Connect(function()
+		self:OnMouseLockToggled()
+	end)
 
 	return self
 end
@@ -111,20 +90,6 @@ function MouseLockController:UpdateMouseLockAvailability()
 	end
 end
 
-function MouseLockController:OnBoundKeysObjectChanged(newValue: string)
-	self.boundKeys = {} -- Overriding defaults, note: possibly with nothing at all if boundKeysObj.Value is "" or contains invalid values
-	for token in string.gmatch(newValue,"[^%s,]+") do
-		for _, keyEnum in pairs(Enum.KeyCode:GetEnumItems()) do
-			if token == keyEnum.Name then
-				self.boundKeys[#self.boundKeys+1] = keyEnum :: Enum.KeyCode
-				break
-			end
-		end
-	end
-	self:UnbindContextActions()
-	self:BindContextActions()
-end
-
 --[[ Local Functions ]]--
 function MouseLockController:OnMouseLockToggled()
 	self.isMouseLocked = not self.isMouseLocked
@@ -151,51 +116,32 @@ function MouseLockController:OnMouseLockToggled()
 	self.mouseLockToggledEvent:Fire()
 end
 
-function MouseLockController:DoMouseLockSwitch(name, state, input)
-	if state == Enum.UserInputState.Begin then
-		self:OnMouseLockToggled()
-		return Enum.ContextActionResult.Sink
-	end
-	return Enum.ContextActionResult.Pass
-end
-
-function MouseLockController:BindContextActions()
-	ContextActionService:BindActionAtPriority(CONTEXT_ACTION_NAME, function(name, state, input)
-		return self:DoMouseLockSwitch(name, state, input)
-	end, false, MOUSELOCK_ACTION_PRIORITY, unpack(self.boundKeys))
-end
-
-function MouseLockController:UnbindContextActions()
-	ContextActionService:UnbindAction(CONTEXT_ACTION_NAME)
-end
-
 function MouseLockController:IsMouseLocked(): boolean
 	return self.enabled and self.isMouseLocked
 end
 
 function MouseLockController:EnableMouseLock(enable: boolean)
-	if enable ~= self.enabled then
+	if enable == self.enabled then
+		return
+	end
 
-		self.enabled = enable
+	self.enabled = enable
+	if self.enabled then
+		-- Enabling the mode
+		mouseLockSwitchAction.Enabled = true
+	else
+		-- Disabling
+		-- Restore mouse cursor
+		CameraUtils.restoreMouseIcon()
 
-		if self.enabled then
-			-- Enabling the mode
-			self:BindContextActions()
-		else
-			-- Disabling
-			-- Restore mouse cursor
-			CameraUtils.restoreMouseIcon()
+		mouseLockSwitchAction.Enabled = false
 
-			self:UnbindContextActions()
-
-			-- If the mode is disabled while being used, fire the event to toggle it off
-			if self.isMouseLocked then
-				self.mouseLockToggledEvent:Fire()
-			end
-
-			self.isMouseLocked = false
+		-- If the mode is disabled while being used, fire the event to toggle it off
+		if self.isMouseLocked then
+			self.mouseLockToggledEvent:Fire()
 		end
 
+		self.isMouseLocked = false
 	end
 end
 

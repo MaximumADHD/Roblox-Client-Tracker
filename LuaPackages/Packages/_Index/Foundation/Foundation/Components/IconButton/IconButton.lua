@@ -1,6 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local Flags = require(Foundation.Utility.Flags)
+
 local React = require(Packages.React)
 local BuilderIcons = require(Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration["uiblox"]
@@ -84,8 +86,12 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 	end
 
 	-- Use variant system for styling
-	local variantProps =
-		useIconButtonVariants(tokens, props.size, props.variant, presentationContext and presentationContext.isInverse)
+	local variantProps = useIconButtonVariants(
+		tokens,
+		props.size,
+		props.variant,
+		if presentationContext then presentationContext.colorMode else nil
+	)
 
 	-- Override radius if circular
 	local componentRadius = if props.isCircular
@@ -121,7 +127,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 			backgroundStyle = variantProps.container.style,
 			stroke = variantProps.container.stroke,
 			cursor = cursor,
-			tag = variantProps.container.tag,
+			tag = if Flags.FoundationIconButtonNoListLayout then nil else variantProps.container.tag,
 			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
 			ref = ref,
 		}),

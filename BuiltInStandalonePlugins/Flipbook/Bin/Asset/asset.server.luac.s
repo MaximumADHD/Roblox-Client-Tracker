@@ -28,20 +28,28 @@ MAIN:
   CALL R3 0 1
   JUMPIF R3 [+1]
   RETURN R0 0
+  GETIMPORT R3 K18 [game]
+  LOADK R5 K19 ["StudioService"]
+  NAMECALL R3 R3 K20 ["GetService"]
+  CALL R3 2 1
+  NAMECALL R3 R3 K21 ["HasInternalPermission"]
+  CALL R3 1 1
+  JUMPIF R3 [+1]
+  RETURN R0 0
   GETIMPORT R3 K7 [require]
   GETTABLEKS R6 R0 K13 ["Bin"]
   GETTABLEKS R5 R6 K14 ["Common"]
-  GETTABLEKS R4 R5 K17 ["pluginType"]
+  GETTABLEKS R4 R5 K22 ["pluginType"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K18 ["get"]
+  GETTABLEKS R4 R3 K23 ["get"]
   CALL R4 0 1
-  GETTABLEKS R5 R3 K19 ["Asset"]
+  GETTABLEKS R5 R3 K24 ["Asset"]
   JUMPIFEQ R4 R5 [+2]
   RETURN R0 0
   GETIMPORT R4 K7 [require]
   GETTABLEKS R7 R0 K13 ["Bin"]
   GETTABLEKS R6 R7 K14 ["Common"]
-  GETTABLEKS R5 R6 K20 ["setup"]
+  GETTABLEKS R5 R6 K25 ["setup"]
   CALL R4 1 1
   MOVE R5 R4
   GETIMPORT R6 K1 [plugin]

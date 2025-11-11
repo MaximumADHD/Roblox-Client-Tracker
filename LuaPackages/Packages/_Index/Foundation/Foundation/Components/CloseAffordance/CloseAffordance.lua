@@ -51,7 +51,7 @@ local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: 
 	local props = withDefaults(closeAffordanceProps, defaultProps)
 	local tokens = useTokens()
 	local presentationContext = usePresentationContext()
-	local variantProps = useCloseAffordanceVariants(tokens, props.size, props.variant, presentationContext.isInverse)
+	local variantProps = useCloseAffordanceVariants(tokens, props.size, props.variant, presentationContext.colorMode)
 	local componentRadius = UDim.new(0, variantProps.container.radius)
 
 	local cursor = React.useMemo(function()

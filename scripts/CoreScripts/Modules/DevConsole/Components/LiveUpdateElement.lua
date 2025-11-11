@@ -21,8 +21,10 @@ local MEM_STAT_STR_SMALL = "Client Mem:"
 local memStatStrSmallWidth = TextService:GetTextSize(MEM_STAT_STR_SMALL, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
 local MEM_STAT_STR = "Client Memory Usage:"
 local memStatStrWidth = TextService:GetTextSize(MEM_STAT_STR, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
-local AVG_PING_STR = "Avg. Ping:"
-local avgPingStrWidth = TextService:GetTextSize(AVG_PING_STR, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
+local AVG_PING_STR_DEPRECATED = "Avg. Ping:" -- remove with ClarifyPingNamingEnabled
+local avgPingStrDeprecatedWidth = TextService:GetTextSize(AVG_PING_STR_DEPRECATED, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
+local AVG_DATA_PING_STR = "Avg. Data Ping:"
+local avgDataPingStrWidth = TextService:GetTextSize(AVG_DATA_PING_STR, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
 
 -- supposed to be the calculated width of the frame, but
 -- doing this for now due to time constraints.
@@ -158,6 +160,14 @@ function LiveUpdateElement:render()
 
 	local showNetworkPing = averagePing > 0
 
+	local avgPingNameStr = AVG_PING_STR_DEPRECATED
+	local avgPingNameStrWidth = avgPingStrDeprecatedWidth
+
+	if game:GetEngineFeature("ClarifyPingNamingEnabled") then
+		avgPingNameStr = AVG_DATA_PING_STR
+		avgPingNameStrWidth = avgDataPingStrWidth
+	end
+
 	return Roact.createElement("Frame", {
 		Position = position,
 		Size = size,
@@ -254,12 +264,12 @@ function LiveUpdateElement:render()
 		}),
 
 		AvgPing = not useSmallForm and showNetworkPing and Roact.createElement("TextButton", {
-			Text = AVG_PING_STR,
+			Text = avgPingNameStr,
 			TextSize = TOP_BAR_FONT_SIZE,
 			TextColor3 = Constants.Color.WarningYellow,
 			TextXAlignment = Enum.TextXAlignment.Right,
 			Font = FONT,
-			Size = UDim2.new(0, avgPingStrWidth.X, 1, 0),
+			Size = UDim2.new(0, avgPingNameStrWidth.X, 1, 0),
 			BackgroundTransparency = 1,
 			LayoutOrder = 10,
 			[Roact.Event.Activated] = self.props.dispatchChangeTabNetworkPing,

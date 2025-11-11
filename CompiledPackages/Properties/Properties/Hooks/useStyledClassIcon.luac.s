@@ -1,150 +1,126 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["key"]
-  GETTABLE R2 R0 R3
-  GETTABLEKS R1 R2 K1 ["value"]
-  GETTABLEKS R2 R1 K2 ["multiple"]
+  GETTABLEKS R1 R0 K0 ["isHiddenGui"]
+  GETTABLEKS R2 R1 K1 ["multiple"]
   JUMPIF R2 [+3]
-  GETTABLEKS R2 R1 K1 ["value"]
+  GETTABLEKS R2 R1 K2 ["value"]
   JUMPIFNOT R2 [+1]
   RETURN R1 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["key"]
-  GETTABLE R3 R0 R4
-  GETTABLEKS R2 R3 K1 ["value"]
-  GETTABLEKS R3 R2 K2 ["multiple"]
+  GETTABLEKS R2 R0 K3 ["isDisabledScript"]
+  GETTABLEKS R3 R2 K1 ["multiple"]
   JUMPIF R3 [+3]
-  GETTABLEKS R3 R2 K1 ["value"]
+  GETTABLEKS R3 R2 K2 ["value"]
   JUMPIFNOT R3 [+1]
   RETURN R2 1
-  DUPTABLE R3 K3 [{"multiple", "value"}]
+  DUPTABLE R3 K4 [{"multiple", "value"}]
   LOADB R4 0
-  SETTABLEKS R4 R3 K2 ["multiple"]
+  SETTABLEKS R4 R3 K1 ["multiple"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K1 ["value"]
+  SETTABLEKS R4 R3 K2 ["value"]
   RETURN R3 1
 
 PROTO_1:
-  LOADK R1 K0 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%*/Standard/FaceControls.png"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["theme"]
-  NAMECALL R1 R1 K2 ["format"]
-  CALL R1 2 1
-  MOVE R0 R1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getMultipleIcon"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["theme"]
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K2 ["Image"]
   RETURN R0 1
 
 PROTO_2:
-  JUMPIFEQKNIL R0 [+10]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["key"]
-  GETTABLE R3 R0 R4
-  GETTABLEKS R2 R3 K1 ["value"]
-  GETTABLEKS R1 R2 K2 ["multiple"]
+  JUMPIFEQKNIL R0 [+6]
+  GETTABLEKS R2 R0 K0 ["className"]
+  GETTABLEKS R1 R2 K1 ["multiple"]
   JUMPIFNOT R1 [+8]
-  DUPTABLE R1 K5 [{"image", "transparency"}]
-  GETUPVAL R2 1
-  SETTABLEKS R2 R1 K3 ["image"]
+  DUPTABLE R1 K4 [{"image", "transparency"}]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K2 ["image"]
   LOADN R2 0
-  SETTABLEKS R2 R1 K4 ["transparency"]
+  SETTABLEKS R2 R1 K3 ["transparency"]
   RETURN R1 1
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K0 ["key"]
-  GETTABLE R2 R0 R3
-  GETTABLEKS R1 R2 K1 ["value"]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K0 ["key"]
-  GETTABLE R4 R0 R5
-  GETTABLEKS R3 R4 K1 ["value"]
-  GETTABLEKS R4 R3 K2 ["multiple"]
+  GETTABLEKS R1 R0 K5 ["isClientScript"]
+  GETTABLEKS R3 R0 K6 ["isHiddenGui"]
+  GETTABLEKS R4 R3 K1 ["multiple"]
   JUMPIF R4 [+3]
-  GETTABLEKS R4 R3 K1 ["value"]
+  GETTABLEKS R4 R3 K7 ["value"]
   JUMPIFNOT R4 [+2]
   MOVE R2 R3
-  JUMP [+21]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K0 ["key"]
-  GETTABLE R5 R0 R6
-  GETTABLEKS R4 R5 K1 ["value"]
-  GETTABLEKS R5 R4 K2 ["multiple"]
+  JUMP [+17]
+  GETTABLEKS R4 R0 K8 ["isDisabledScript"]
+  GETTABLEKS R5 R4 K1 ["multiple"]
   JUMPIF R5 [+3]
-  GETTABLEKS R5 R4 K1 ["value"]
+  GETTABLEKS R5 R4 K7 ["value"]
   JUMPIFNOT R5 [+2]
   MOVE R2 R4
   JUMP [+7]
-  DUPTABLE R2 K6 [{"multiple", "value"}]
+  DUPTABLE R2 K9 [{"multiple", "value"}]
   LOADB R5 0
-  SETTABLEKS R5 R2 K2 ["multiple"]
+  SETTABLEKS R5 R2 K1 ["multiple"]
   LOADB R5 0
-  SETTABLEKS R5 R2 K1 ["value"]
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K0 ["key"]
-  GETTABLE R4 R0 R5
-  GETTABLEKS R3 R4 K1 ["value"]
-  GETTABLEKS R4 R1 K2 ["multiple"]
+  SETTABLEKS R5 R2 K7 ["value"]
+  GETTABLEKS R3 R0 K10 ["isAutoUpdatedPackageLink"]
+  GETTABLEKS R4 R1 K1 ["multiple"]
   JUMPIF R4 [+6]
-  GETTABLEKS R4 R2 K2 ["multiple"]
+  GETTABLEKS R4 R2 K1 ["multiple"]
   JUMPIF R4 [+3]
-  GETTABLEKS R4 R3 K2 ["multiple"]
+  GETTABLEKS R4 R3 K1 ["multiple"]
   JUMPIFNOT R4 [+8]
-  DUPTABLE R4 K5 [{"image", "transparency"}]
-  GETUPVAL R5 1
-  SETTABLEKS R5 R4 K3 ["image"]
+  DUPTABLE R4 K4 [{"image", "transparency"}]
+  GETUPVAL R5 0
+  SETTABLEKS R5 R4 K2 ["image"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K4 ["transparency"]
+  SETTABLEKS R5 R4 K3 ["transparency"]
   RETURN R4 1
-  DUPTABLE R4 K8 [{"image", "transparency", "color3"}]
-  GETTABLEKS R6 R1 K1 ["value"]
+  DUPTABLE R4 K12 [{"image", "transparency", "color3"}]
+  GETTABLEKS R6 R1 K7 ["value"]
   JUMPIFNOT R6 [+8]
-  GETUPVAL R7 6
-  GETTABLEKS R6 R7 K9 ["getClassIcon"]
-  LOADK R7 K10 ["LocalScript"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K13 ["getClassIcon"]
+  LOADK R7 K14 ["LocalScript"]
   CALL R6 1 1
-  GETTABLEKS R5 R6 K11 ["Image"]
-  JUMP [+26]
-  GETTABLEKS R6 R3 K1 ["value"]
+  GETTABLEKS R5 R6 K15 ["Image"]
+  JUMP [+22]
+  GETTABLEKS R6 R3 K7 ["value"]
   JUMPIFNOT R6 [+9]
-  GETUPVAL R7 6
-  GETTABLEKS R6 R7 K9 ["getClassIcon"]
-  LOADK R7 K12 ["PackageLink"]
-  LOADK R8 K13 ["Dark"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K13 ["getClassIcon"]
+  LOADK R7 K16 ["PackageLink"]
+  LOADK R8 K17 ["Dark"]
   CALL R6 2 1
-  GETTABLEKS R5 R6 K11 ["Image"]
-  JUMP [+14]
-  GETUPVAL R7 6
-  GETTABLEKS R6 R7 K9 ["getClassIcon"]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K0 ["key"]
-  GETTABLE R9 R0 R10
-  GETTABLEKS R8 R9 K1 ["value"]
-  GETTABLEKS R7 R8 K1 ["value"]
+  GETTABLEKS R5 R6 K15 ["Image"]
+  JUMP [+10]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K13 ["getClassIcon"]
+  GETTABLEKS R8 R0 K0 ["className"]
+  GETTABLEKS R7 R8 K7 ["value"]
   CALL R6 1 1
-  GETTABLEKS R5 R6 K11 ["Image"]
-  SETTABLEKS R5 R4 K3 ["image"]
-  GETTABLEKS R6 R2 K1 ["value"]
+  GETTABLEKS R5 R6 K15 ["Image"]
+  SETTABLEKS R5 R4 K2 ["image"]
+  GETTABLEKS R6 R2 K7 ["value"]
   JUMPIFNOT R6 [+4]
-  GETUPVAL R6 7
-  GETTABLEKS R5 R6 K14 ["disabledTransparency"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K18 ["disabledTransparency"]
   JUMP [+14]
-  GETTABLEKS R6 R3 K1 ["value"]
+  GETTABLEKS R6 R3 K7 ["value"]
   JUMPIFNOT R6 [+10]
-  GETUPVAL R9 8
-  GETTABLEKS R8 R9 K15 ["Color"]
-  GETTABLEKS R7 R8 K16 ["ActionEmphasis"]
-  GETTABLEKS R6 R7 K17 ["Background"]
-  GETTABLEKS R5 R6 K18 ["Transparency"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K19 ["Color"]
+  GETTABLEKS R7 R8 K20 ["ActionEmphasis"]
+  GETTABLEKS R6 R7 K21 ["Background"]
+  GETTABLEKS R5 R6 K22 ["Transparency"]
   JUMP [+1]
   LOADN R5 0
-  SETTABLEKS R5 R4 K4 ["transparency"]
-  GETTABLEKS R6 R3 K1 ["value"]
+  SETTABLEKS R5 R4 K3 ["transparency"]
+  GETTABLEKS R6 R3 K7 ["value"]
   JUMPIFNOT R6 [+10]
-  GETUPVAL R9 8
-  GETTABLEKS R8 R9 K15 ["Color"]
-  GETTABLEKS R7 R8 K16 ["ActionEmphasis"]
-  GETTABLEKS R6 R7 K17 ["Background"]
-  GETTABLEKS R5 R6 K19 ["Color3"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K19 ["Color"]
+  GETTABLEKS R7 R8 K20 ["ActionEmphasis"]
+  GETTABLEKS R6 R7 K21 ["Background"]
+  GETTABLEKS R5 R6 K23 ["Color3"]
   JUMP [+1]
   LOADNIL R5
-  SETTABLEKS R5 R4 K7 ["color3"]
+  SETTABLEKS R5 R4 K11 ["color3"]
   RETURN R4 1
 
 PROTO_3:
@@ -161,27 +137,24 @@ PROTO_3:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K2 ["useMemo"]
   NEWCLOSURE R3 P0
+  CAPTURE VAL R0
   CAPTURE VAL R1
-  NEWTABLE R4 0 1
+  NEWTABLE R4 0 2
   GETTABLEKS R5 R1 K3 ["theme"]
-  SETLIST R4 R5 1 [1]
+  MOVE R6 R0
+  SETLIST R4 R5 2 [1]
   CALL R2 2 1
   GETUPVAL R3 3
   CALL R3 0 1
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K4 ["useCallback"]
   NEWCLOSURE R5 P1
-  CAPTURE UPVAL U4
   CAPTURE VAL R2
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
-  CAPTURE UPVAL U8
   CAPTURE VAL R0
-  CAPTURE UPVAL U9
+  CAPTURE UPVAL U4
   CAPTURE VAL R3
   NEWTABLE R6 0 2
-  GETUPVAL R7 10
+  GETUPVAL R7 5
   GETTABLEKS R8 R0 K5 ["getClassIcon"]
   SETLIST R6 R7 2 [1]
   CALL R4 2 1
@@ -195,71 +168,42 @@ MAIN:
   LOADK R2 K2 ["Properties"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Components"]
-  GETTABLEKS R3 R4 K7 ["Contexts"]
-  GETTABLEKS R2 R3 K8 ["ClassIconContext"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Fields"]
-  GETTABLEKS R4 R5 K10 ["AllFields"]
-  GETTABLEKS R3 R4 K11 ["InstanceClassName"]
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R5 R0 K7 ["Components"]
+  GETTABLEKS R4 R5 K8 ["Contexts"]
+  GETTABLEKS R3 R4 K9 ["ClassIconContext"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K12 ["Util"]
-  GETTABLEKS R4 R5 K13 ["Constants"]
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Constants"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K14 ["Parent"]
-  GETTABLEKS R5 R6 K15 ["Foundation"]
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K12 ["Foundation"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Fields"]
-  GETTABLEKS R7 R8 K10 ["AllFields"]
-  GETTABLEKS R6 R7 K16 ["IsAutoUpdatedPackageLink"]
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R0 K13 ["PropertyEditorTypes"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Fields"]
-  GETTABLEKS R8 R9 K10 ["AllFields"]
-  GETTABLEKS R7 R8 K17 ["IsClientScript"]
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R0 K14 ["PropertyTypes"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Fields"]
-  GETTABLEKS R9 R10 K10 ["AllFields"]
-  GETTABLEKS R8 R9 K18 ["IsDisabledScript"]
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K4 ["Parent"]
+  GETTABLEKS R8 R9 K15 ["React"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K9 ["Fields"]
-  GETTABLEKS R10 R11 K10 ["AllFields"]
-  GETTABLEKS R9 R10 K19 ["IsHiddenGui"]
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R11 R0 K7 ["Components"]
+  GETTABLEKS R10 R11 K8 ["Contexts"]
+  GETTABLEKS R9 R10 K16 ["ThemeContext"]
   CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R0 K20 ["PropertyTypes"]
-  CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K14 ["Parent"]
-  GETTABLEKS R11 R12 K21 ["React"]
-  CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K6 ["Components"]
-  GETTABLEKS R13 R14 K7 ["Contexts"]
-  GETTABLEKS R12 R13 K22 ["ThemeContext"]
-  CALL R11 1 1
-  GETTABLEKS R13 R4 K23 ["Hooks"]
-  GETTABLEKS R12 R13 K24 ["useTokens"]
-  DUPCLOSURE R13 K25 [PROTO_0]
-  CAPTURE VAL R8
+  GETTABLEKS R10 R4 K17 ["Hooks"]
+  GETTABLEKS R9 R10 K18 ["useTokens"]
+  DUPCLOSURE R10 K19 [PROTO_0]
+  DUPCLOSURE R11 K20 [PROTO_3]
   CAPTURE VAL R7
-  DUPCLOSURE R14 K26 [PROTO_3]
-  CAPTURE VAL R10
-  CAPTURE VAL R1
-  CAPTURE VAL R11
-  CAPTURE VAL R12
   CAPTURE VAL R2
-  CAPTURE VAL R6
   CAPTURE VAL R8
-  CAPTURE VAL R7
-  CAPTURE VAL R5
+  CAPTURE VAL R9
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  RETURN R14 1
+  CAPTURE VAL R10
+  RETURN R11 1

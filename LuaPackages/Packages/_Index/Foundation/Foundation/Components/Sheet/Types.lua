@@ -20,8 +20,8 @@ export type SheetProps = {
 	size: DialogSize?,
 	-- Callback fired when the sheet is closed
 	onClose: () -> (),
-	-- List of snap points for bottom sheets, values should be between 0 and 1 representing the percentage of the screen height or absolute pixel values (e.g. 300) make sure to scale pixel values with `useScaledValue`
-	snapPoints: { number },
+	-- List of snap points for bottom sheets, values should be between 0 and 1 representing the percentage of the screen height or absolute pixel values (e.g. 300) make sure to scale pixel values with `useScaledValue`. If omitted, the bottom sheet will size to fit its contents.
+	snapPoints: { number }?,
 	-- The default snap point index to open the sheet to, defaults to the first snap point
 	defaultSnapPointIndex: number?,
 	testId: string?,

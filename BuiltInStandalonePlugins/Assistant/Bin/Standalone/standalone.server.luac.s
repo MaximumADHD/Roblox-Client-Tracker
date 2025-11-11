@@ -4,93 +4,90 @@ MAIN:
   LOADK R2 K2 ["Assistant"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Flags"]
-  GETTABLEKS R3 R4 K8 ["FFlagEnableNewAssistant"]
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K9 ["Get"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  GETTABLEKS R2 R3 K8 ["FFlagEnableNewAssistant"]
+  CALL R1 1 1
   MOVE R2 R1
   CALL R2 0 1
   JUMPIF R2 [+1]
   RETURN R0 0
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K7 ["Flags"]
-  GETTABLEKS R4 R5 K10 ["FFlagIsLuobuBuild"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K9 ["Get"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["FFlagIsLuobuBuild"]
+  CALL R2 1 1
   MOVE R3 R2
   CALL R3 0 1
   JUMPIFNOT R3 [+1]
   RETURN R0 0
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K11 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["TestLoader"]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["TestLoader"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K13 ["isCli"]
+  GETTABLEKS R4 R3 K12 ["isCli"]
   CALL R4 0 1
   JUMPIFNOT R4 [+5]
-  GETIMPORT R4 K15 [error]
-  LOADK R5 K16 ["roblox-cli should not be loading standalone plugins"]
+  GETIMPORT R4 K14 [error]
+  LOADK R5 K15 ["roblox-cli should not be loading standalone plugins"]
   CALL R4 1 0
   RETURN R0 0
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K17 ["Bin"]
-  GETTABLEKS R6 R7 K18 ["Common"]
-  GETTABLEKS R5 R6 K19 ["pluginType"]
+  GETTABLEKS R7 R0 K16 ["Bin"]
+  GETTABLEKS R6 R7 K17 ["Common"]
+  GETTABLEKS R5 R6 K18 ["pluginType"]
   CALL R4 1 1
-  GETTABLEKS R6 R4 K20 ["get"]
+  GETTABLEKS R6 R4 K19 ["get"]
   CALL R6 0 1
-  GETTABLEKS R7 R4 K21 ["Standalone"]
+  GETTABLEKS R7 R4 K20 ["Standalone"]
   JUMPIFEQ R6 R7 [+2]
   LOADB R5 0 +1
   LOADB R5 1
-  JUMPIFNOT R5 [+73]
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K7 ["Flags"]
-  GETTABLEKS R8 R9 K22 ["FFlagAssistantSupportReactDevTools"]
-  CALL R7 1 1
-  GETTABLEKS R6 R7 K9 ["Get"]
+  JUMPIFNOT R5 [+71]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K7 ["Flags"]
+  GETTABLEKS R7 R8 K21 ["FFlagAssistantSupportReactDevTools"]
+  CALL R6 1 1
   MOVE R7 R6
   CALL R7 0 1
   JUMPIFNOT R7 [+17]
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Packages"]
-  GETTABLEKS R8 R9 K23 ["ReactDeveloperTools"]
+  GETTABLEKS R9 R0 K10 ["Packages"]
+  GETTABLEKS R8 R9 K22 ["ReactDeveloperTools"]
   CALL R7 1 1
-  GETTABLEKS R8 R7 K24 ["tryEnableDevtools"]
-  DUPTABLE R9 K27 [{"pluginName", "profileOnStart"}]
+  GETTABLEKS R8 R7 K23 ["tryEnableDevtools"]
+  DUPTABLE R9 K26 [{"pluginName", "profileOnStart"}]
   LOADK R10 K2 ["Assistant"]
-  SETTABLEKS R10 R9 K25 ["pluginName"]
+  SETTABLEKS R10 R9 K24 ["pluginName"]
   LOADB R10 0
-  SETTABLEKS R10 R9 K26 ["profileOnStart"]
+  SETTABLEKS R10 R9 K25 ["profileOnStart"]
   CALL R8 1 0
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K17 ["Bin"]
-  GETTABLEKS R9 R10 K18 ["Common"]
-  GETTABLEKS R8 R9 K28 ["toolInit"]
+  GETTABLEKS R10 R0 K16 ["Bin"]
+  GETTABLEKS R9 R10 K17 ["Common"]
+  GETTABLEKS R8 R9 K27 ["toolInit"]
   CALL R7 1 1
   MOVE R8 R7
-  GETIMPORT R9 K30 [plugin]
-  DUPTABLE R10 K33 [{"isGuest", "isHost"}]
-  SETTABLEKS R5 R10 K31 ["isGuest"]
+  GETIMPORT R9 K29 [plugin]
+  DUPTABLE R10 K32 [{"isGuest", "isHost"}]
+  SETTABLEKS R5 R10 K30 ["isGuest"]
   LOADB R11 0
-  SETTABLEKS R11 R10 K32 ["isHost"]
+  SETTABLEKS R11 R10 K31 ["isHost"]
   CALL R8 2 0
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K17 ["Bin"]
-  GETTABLEKS R10 R11 K18 ["Common"]
-  GETTABLEKS R9 R10 K34 ["setup"]
+  GETTABLEKS R11 R0 K16 ["Bin"]
+  GETTABLEKS R10 R11 K17 ["Common"]
+  GETTABLEKS R9 R10 K33 ["setup"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K17 ["Bin"]
-  GETTABLEKS R11 R12 K18 ["Common"]
-  GETTABLEKS R10 R11 K35 ["setupMain"]
+  GETTABLEKS R12 R0 K16 ["Bin"]
+  GETTABLEKS R11 R12 K17 ["Common"]
+  GETTABLEKS R10 R11 K34 ["setupMain"]
   CALL R9 1 1
   MOVE R10 R8
-  GETIMPORT R11 K30 [plugin]
+  GETIMPORT R11 K29 [plugin]
   MOVE R12 R9
   CALL R10 2 0
   RETURN R0 0

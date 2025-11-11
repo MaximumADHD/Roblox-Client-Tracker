@@ -37,9 +37,7 @@ type TextInputVariantProps = {
 	textBox: {
 		tag: string,
 		-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
-		Font: Enum.Font,
-		FontSize: number,
-		LineHeight: number,
+		fontStyle: FontStyle,
 		-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 	},
 	icon: {
@@ -77,9 +75,7 @@ local function computeProps(props: {
 		textBox = {
 			tag = props.textBoxTag,
 			-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
-			Font = props.typography.Font,
-			FontSize = props.typography.FontSize,
-			LineHeight = props.typography.LineHeight,
+			fontStyle = props.typography,
 			-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
 		},
 		icon = {
@@ -129,7 +125,7 @@ local function variantsFactory(tokens: Tokens)
 		[InputSize.Small] = computeProps({
 			canvasTag = "size-full-800",
 			outerContainerTag = "radius-medium",
-			radius = tokens.Radius.Small,
+			radius = if Flags.FoundationInputInnerRadiusFix then tokens.Radius.Medium else tokens.Radius.Small,
 			innerContainerTag = "gap-medium",
 			horizontalPadding = tokens.Padding.Small,
 			gap = tokens.Gap.Medium,
@@ -143,7 +139,7 @@ local function variantsFactory(tokens: Tokens)
 		[InputSize.Medium] = computeProps({
 			canvasTag = "size-full-1000",
 			outerContainerTag = "radius-medium",
-			radius = tokens.Radius.Small,
+			radius = if Flags.FoundationInputInnerRadiusFix then tokens.Radius.Medium else tokens.Radius.Small,
 			innerContainerTag = "gap-large",
 			horizontalPadding = tokens.Padding.Small,
 			gap = tokens.Gap.Large,
@@ -173,10 +169,7 @@ local function variantsFactory(tokens: Tokens)
 	return { common = common, sizes = sizes, multiline = multiline }
 end
 
-return function(tokens: Tokens, size: InputSize, isMultiline: boolean?): TextInputVariantProps
+return function(tokens: Tokens, size: InputSize): TextInputVariantProps
 	local props = VariantsContext.useVariants("TextInput", variantsFactory, tokens)
-	if Flags.FoundationInternalTextInputAutoSize or isMultiline then
-		return composeStyleVariant(props.common, props.sizes[size], props.multiline)
-	end
-	return composeStyleVariant(props.common, props.sizes[size])
+	return composeStyleVariant(props.common, props.sizes[size], props.multiline)
 end

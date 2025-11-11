@@ -11,6 +11,7 @@ local Avatar = require(Foundation.Components.Avatar)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local ColorMode = require(Foundation.Enums.ColorMode)
 local InputSize = require(Foundation.Enums.InputSize)
 local IconSize = require(Foundation.Enums.IconSize)
 type InputSize = InputSize.InputSize
@@ -54,7 +55,7 @@ local function AvatarOverflow(props: {
 	local textTag = if presentationContext.isIconSize or InputSize.XSmall
 		then "text-caption-small"
 		else "text-caption-medium"
-	local contentStyle = (if presentationContext.isInverse then tokens.Inverse else tokens.Color).Content.Emphasis
+	local contentStyle = tokens[presentationContext.colorMode or ColorMode.Color].Content.Emphasis
 	return React.createElement(
 		View,
 		withCommonProps(props, {
@@ -92,7 +93,7 @@ local function AvatarGroup(avatarGroupProps: AvatarGroupProps, ref: React.Ref<Gu
 			gap = if (props.size :: InputSize) == InputSize.XSmall then -tokens.Size.Size_50 else -tokens.Size.Size_100
 		end
 	end
-	local backgroundStyle = (if presentationContext.isInverse then tokens.Inverse else tokens.Color).Shift.Shift_300
+	local backgroundStyle = tokens[presentationContext.colorMode or ColorMode.Color].Shift.Shift_300
 	local size = getAvatarSize(tokens, props.size, presentationContext.isIconSize)
 	local backplateStyle = props.backplateStyle or tokens.Color.Surface.Surface_0
 

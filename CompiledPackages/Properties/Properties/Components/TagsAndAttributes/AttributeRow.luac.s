@@ -4,7 +4,7 @@ PROTO_0:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K3 ["attributeRecord"]
   GETTABLEKS R5 R6 K4 ["id"]
-  GETTABLEKS R4 R5 K5 ["propertyName"]
+  GETTABLEKS R4 R5 K5 ["name"]
   NAMECALL R2 R2 K6 ["format"]
   CALL R2 2 1
   MOVE R1 R2

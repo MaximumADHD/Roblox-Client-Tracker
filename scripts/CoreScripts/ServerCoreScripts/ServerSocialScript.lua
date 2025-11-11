@@ -37,6 +37,8 @@ local FFlagDisableRCCAntiHarrasmentAllowList = game:DefineFastFlag("DisableRCCAn
 local FFlagEnablePartyNudgeNotification = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeNotification
 local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false) and game:GetEngineFeature("LuaGetCanManageAsync")
 
+local FFlagGatePrivateServerNudge = game:DefineFastFlag("GatePrivateServerNudge", false)
+
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
 -- Maximum amount of follow notifications that a player is allowed to send to another player.
@@ -374,6 +376,8 @@ local createPartyNudge = function(inviterUserId, inviteeUserId, nudgeType)
 				gameInstanceId = game.JobId,
 				universeId = game.GameId,
 				version = if FFlagEnableCreatePartyNudgeWithVersion then 1 else nil,
+				privateServerId = if FFlagGatePrivateServerNudge then game.PrivateServerId else nil,
+				privateServerOwnerId = if FFlagGatePrivateServerNudge then game.PrivateServerOwnerId else nil,
 			}
 		)
 

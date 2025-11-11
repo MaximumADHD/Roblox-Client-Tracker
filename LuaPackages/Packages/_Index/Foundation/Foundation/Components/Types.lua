@@ -80,8 +80,7 @@ export type Stroke = {
 }
 
 export type ColorStyleValue = {
-	-- Adding Color3 as an option because of token stupidity
-	-- We can clean this up when we update to the new token system	Color3: Bindable<Color3>?,
+	-- Both values are optional because of token types, but should be required.
 	Color3: Color3?,
 	Transparency: number?,
 }
@@ -144,7 +143,7 @@ export type GuiObjectProps = {
 	backgroundStyle: ColorStyle?,
 	selection: Selection?,
 	cursor: Cursor?,
-	selectionGroup: Bindable<boolean>? | SelectionGroup?,
+	selectionGroup: (Bindable<boolean> | SelectionGroup)?,
 
 	AutoLocalize: Bindable<boolean>?,
 	AutomaticSize: Bindable<Enum.AutomaticSize>?,

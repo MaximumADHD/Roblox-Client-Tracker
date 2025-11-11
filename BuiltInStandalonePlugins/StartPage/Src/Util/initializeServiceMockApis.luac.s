@@ -84,7 +84,7 @@ PROTO_6:
   DUPTABLE R5 K6 [{"ageRecommendationSummary"}]
   DUPTABLE R6 K8 [{"ageRecommendation"}]
   DUPTABLE R7 K10 [{"minimumAge"}]
-  LOADN R8 17
+  LOADN R8 18
   SETTABLEKS R8 R7 K9 ["minimumAge"]
   SETTABLEKS R7 R6 K7 ["ageRecommendation"]
   SETTABLEKS R6 R5 K5 ["ageRecommendationSummary"]

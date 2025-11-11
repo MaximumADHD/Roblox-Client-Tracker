@@ -16,6 +16,12 @@ local DIALOG_SIZES = require(Foundation.Components.Dialog.useDialogVariants).DIA
 local DialogSize = require(Foundation.Enums.DialogSize)
 local Constants = require(Foundation.Constants)
 type DialogSize = DialogSize.DialogSize
+local ElevationLayer = require(Foundation.Enums.ElevationLayer)
+type ElevationLayer = ElevationLayer.ElevationLayer
+local useElevation = require(Foundation.Providers.Elevation.useElevation)
+local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
+
+local Flags = require(Foundation.Utility.Flags)
 
 local SheetContext = require(script.Parent.SheetContext)
 local SheetTypes = require(script.Parent.Types)
@@ -43,6 +49,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 	local props = withDefaults(centerSheetProps, defaultProps)
 	local overlay = useOverlay()
 	local tokens = useTokens()
+	local elevation = useElevation(ElevationLayer.Sheet, { relativeToOwner = false })
 
 	local width = useScaledValue(DIALOG_SIZES[props.size])
 	local maxHeight = useScaledValue(HEIGHT)
@@ -122,8 +129,9 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 	return overlay
 		and ReactRoblox.createPortal(
 			React.createElement(View, {
-				ZIndex = 5,
+				ZIndex = if Flags.FoundationElevationSystem then elevation.zIndex else 5,
 				tag = "size-full",
+				testId = `{props.testId}--surface`,
 			}, {
 				SheetContainer = React.createElement(View, {
 					ZIndex = 2,
@@ -154,17 +162,27 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 						ref = ref,
 						selection = SheetTypes.nonSelectable,
 						selectionGroup = SheetTypes.isolatedSelectionGroup,
-						tag = "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 shrink auto-y",
+						tag = if Flags.FoundationSheetCenterSheetNoShrink
+							then "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 auto-y"
+							else "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 shrink auto-y",
 						testId = props.testId,
 					}, {
 						Content = React.createElement(
 							View,
 							{
-								tag = "size-full-0 auto-y shrink col items-center clip",
+								tag = if Flags.FoundationSheetCenterSheetNoShrink
+									then "size-full-0 auto-y col items-center clip"
+									else "size-full-0 auto-y shrink col items-center clip",
 							},
-							React.createElement(SheetContext.Provider, {
-								value = contextValue,
-							}, props.children)
+							React.createElement(
+								SheetContext.Provider,
+								{
+									value = contextValue,
+								},
+								if Flags.FoundationElevationSystem
+									then React.createElement(OwnerScope, { owner = elevation }, props.children)
+									else props.children
+							)
 						),
 						CloseAffordance = React.createElement(CloseAffordance, {
 							onActivated = closeSheet,

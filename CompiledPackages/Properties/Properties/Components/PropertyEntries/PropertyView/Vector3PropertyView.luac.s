@@ -140,49 +140,49 @@ PROTO_4:
   GETTABLEKS R5 R2 K3 ["x"]
   GETTABLEKS R4 R5 K4 ["multiple"]
   JUMPIFNOT R4 [+2]
-  LOADK R3 K5 ["-"]
+  LOADN R3 0
   JUMP [+4]
   GETTABLEKS R4 R2 K3 ["x"]
-  GETTABLEKS R3 R4 K6 ["value"]
-  GETTABLEKS R6 R2 K7 ["y"]
+  GETTABLEKS R3 R4 K5 ["value"]
+  GETTABLEKS R6 R2 K6 ["y"]
   GETTABLEKS R5 R6 K4 ["multiple"]
   JUMPIFNOT R5 [+2]
-  LOADK R4 K5 ["-"]
+  LOADN R4 0
   JUMP [+4]
-  GETTABLEKS R5 R2 K7 ["y"]
-  GETTABLEKS R4 R5 K6 ["value"]
-  GETTABLEKS R7 R2 K8 ["z"]
+  GETTABLEKS R5 R2 K6 ["y"]
+  GETTABLEKS R4 R5 K5 ["value"]
+  GETTABLEKS R7 R2 K7 ["z"]
   GETTABLEKS R6 R7 K4 ["multiple"]
   JUMPIFNOT R6 [+2]
-  LOADK R5 K5 ["-"]
+  LOADN R5 0
   JUMP [+4]
-  GETTABLEKS R6 R2 K8 ["z"]
-  GETTABLEKS R5 R6 K6 ["value"]
+  GETTABLEKS R6 R2 K7 ["z"]
+  GETTABLEKS R5 R6 K5 ["value"]
   GETTABLEKS R8 R0 K1 ["info"]
-  GETTABLEKS R7 R8 K9 ["readonly"]
+  GETTABLEKS R7 R8 K8 ["readonly"]
   NOT R6 R7
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K10 ["useState"]
+  GETTABLEKS R7 R8 K9 ["useState"]
   LOADB R8 0
   CALL R7 1 2
   MOVE R10 R3
-  LOADK R11 K11 [", "]
+  LOADK R11 K10 [", "]
   MOVE R12 R4
-  LOADK R13 K11 [", "]
+  LOADK R13 K10 [", "]
   MOVE R14 R5
   CONCAT R9 R10 R14
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K12 ["useCallback"]
+  GETTABLEKS R10 R11 K11 ["useCallback"]
   NEWCLOSURE R11 P0
   CAPTURE VAL R0
   CAPTURE VAL R1
   CAPTURE REF R9
   NEWTABLE R12 0 1
-  GETTABLEKS R13 R0 K13 ["beginEditingAsync"]
+  GETTABLEKS R13 R0 K12 ["beginEditingAsync"]
   SETLIST R12 R13 1 [1]
   CALL R10 2 1
   GETUPVAL R12 0
-  GETTABLEKS R11 R12 K12 ["useCallback"]
+  GETTABLEKS R11 R12 K11 ["useCallback"]
   NEWCLOSURE R12 P1
   CAPTURE REF R9
   NEWTABLE R13 0 1
@@ -190,141 +190,141 @@ PROTO_4:
   SETLIST R13 R14 1 [1]
   CALL R11 2 1
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K12 ["useCallback"]
+  GETTABLEKS R12 R13 K11 ["useCallback"]
   NEWCLOSURE R13 P2
   CAPTURE REF R9
   CAPTURE VAL R0
   CAPTURE VAL R8
   NEWTABLE R14 0 3
   MOVE R15 R9
-  GETTABLEKS R16 R0 K14 ["setPart"]
-  GETTABLEKS R17 R0 K15 ["finishEditing"]
+  GETTABLEKS R16 R0 K13 ["setPart"]
+  GETTABLEKS R17 R0 K14 ["finishEditing"]
   SETLIST R14 R15 3 [1]
   CALL R12 2 1
   JUMPIFNOT R7 [+36]
   GETUPVAL R14 0
-  GETTABLEKS R13 R14 K16 ["createElement"]
+  GETTABLEKS R13 R14 K15 ["createElement"]
   GETUPVAL R14 1
-  DUPTABLE R15 K26 [{"text", "textBoxRef", "isDisabled", "width", "onFocusGained", "onChanged", "onFocusLost", "size", "label"}]
-  SETTABLEKS R9 R15 K17 ["text"]
-  SETTABLEKS R1 R15 K18 ["textBoxRef"]
+  DUPTABLE R15 K25 [{"text", "textBoxRef", "isDisabled", "width", "onFocusGained", "onChanged", "onFocusLost", "size", "label"}]
+  SETTABLEKS R9 R15 K16 ["text"]
+  SETTABLEKS R1 R15 K17 ["textBoxRef"]
   NOT R16 R6
-  SETTABLEKS R16 R15 K19 ["isDisabled"]
-  GETIMPORT R16 K29 [UDim.new]
+  SETTABLEKS R16 R15 K18 ["isDisabled"]
+  GETIMPORT R16 K28 [UDim.new]
   LOADN R17 1
   LOADN R18 0
   CALL R16 2 1
-  SETTABLEKS R16 R15 K20 ["width"]
-  SETTABLEKS R10 R15 K21 ["onFocusGained"]
-  SETTABLEKS R11 R15 K22 ["onChanged"]
-  SETTABLEKS R12 R15 K23 ["onFocusLost"]
+  SETTABLEKS R16 R15 K19 ["width"]
+  SETTABLEKS R10 R15 K20 ["onFocusGained"]
+  SETTABLEKS R11 R15 K21 ["onChanged"]
+  SETTABLEKS R12 R15 K22 ["onFocusLost"]
   GETUPVAL R17 2
-  GETTABLEKS R16 R17 K30 ["XSmall"]
-  SETTABLEKS R16 R15 K24 ["size"]
-  LOADK R16 K31 [""]
-  SETTABLEKS R16 R15 K25 ["label"]
+  GETTABLEKS R16 R17 K29 ["XSmall"]
+  SETTABLEKS R16 R15 K23 ["size"]
+  LOADK R16 K30 [""]
+  SETTABLEKS R16 R15 K24 ["label"]
   CALL R13 2 -1
   CLOSEUPVALS R9
   RETURN R13 -1
   GETUPVAL R13 3
   CALL R13 0 1
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K16 ["createElement"]
+  GETTABLEKS R14 R15 K15 ["createElement"]
   GETUPVAL R15 4
-  DUPTABLE R16 K33 [{"tag"}]
-  LOADK R17 K34 ["row gap-xsmall auto-y size-full-0 align-y-center"]
-  SETTABLEKS R17 R16 K32 ["tag"]
-  DUPTABLE R17 K38 [{"X", "Y", "Z"}]
+  DUPTABLE R16 K32 [{"tag"}]
+  LOADK R17 K33 ["row gap-xsmall auto-y size-full-0 align-y-center"]
+  SETTABLEKS R17 R16 K31 ["tag"]
+  DUPTABLE R17 K37 [{"X", "Y", "Z"}]
   GETUPVAL R19 0
-  GETTABLEKS R18 R19 K16 ["createElement"]
+  GETTABLEKS R18 R19 K15 ["createElement"]
   GETUPVAL R19 5
-  DUPTABLE R20 K44 [{"layoutOrder", "part", "size", "color", "editable", "value", "beginEditingAsync", "setPart", "finishEditing", "step"}]
+  DUPTABLE R20 K43 [{"layoutOrder", "part", "size", "color", "editable", "value", "beginEditingAsync", "setPart", "finishEditing", "step"}]
   MOVE R21 R13
   CALL R21 0 1
-  SETTABLEKS R21 R20 K39 ["layoutOrder"]
+  SETTABLEKS R21 R20 K38 ["layoutOrder"]
   LOADK R21 K3 ["x"]
-  SETTABLEKS R21 R20 K40 ["part"]
-  GETIMPORT R21 K29 [UDim.new]
-  LOADK R22 K45 [0.33]
+  SETTABLEKS R21 R20 K39 ["part"]
+  GETIMPORT R21 K28 [UDim.new]
+  LOADK R22 K44 [0.33]
   LOADN R23 0
   CALL R21 2 1
-  SETTABLEKS R21 R20 K24 ["size"]
-  GETIMPORT R21 K48 [Color3.fromHex]
-  LOADK R22 K49 ["#DF281F"]
+  SETTABLEKS R21 R20 K23 ["size"]
+  GETIMPORT R21 K47 [Color3.fromHex]
+  LOADK R22 K48 ["#DF281F"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K41 ["color"]
-  SETTABLEKS R6 R20 K42 ["editable"]
-  SETTABLEKS R3 R20 K6 ["value"]
-  GETTABLEKS R21 R0 K13 ["beginEditingAsync"]
-  SETTABLEKS R21 R20 K13 ["beginEditingAsync"]
-  GETTABLEKS R21 R0 K14 ["setPart"]
-  SETTABLEKS R21 R20 K14 ["setPart"]
-  GETTABLEKS R21 R0 K15 ["finishEditing"]
-  SETTABLEKS R21 R20 K15 ["finishEditing"]
+  SETTABLEKS R21 R20 K40 ["color"]
+  SETTABLEKS R6 R20 K41 ["editable"]
+  SETTABLEKS R3 R20 K5 ["value"]
+  GETTABLEKS R21 R0 K12 ["beginEditingAsync"]
+  SETTABLEKS R21 R20 K12 ["beginEditingAsync"]
+  GETTABLEKS R21 R0 K13 ["setPart"]
+  SETTABLEKS R21 R20 K13 ["setPart"]
+  GETTABLEKS R21 R0 K14 ["finishEditing"]
+  SETTABLEKS R21 R20 K14 ["finishEditing"]
   LOADN R21 1
-  SETTABLEKS R21 R20 K43 ["step"]
+  SETTABLEKS R21 R20 K42 ["step"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K35 ["X"]
+  SETTABLEKS R18 R17 K34 ["X"]
   GETUPVAL R19 0
-  GETTABLEKS R18 R19 K16 ["createElement"]
+  GETTABLEKS R18 R19 K15 ["createElement"]
   GETUPVAL R19 5
-  DUPTABLE R20 K44 [{"layoutOrder", "part", "size", "color", "editable", "value", "beginEditingAsync", "setPart", "finishEditing", "step"}]
+  DUPTABLE R20 K43 [{"layoutOrder", "part", "size", "color", "editable", "value", "beginEditingAsync", "setPart", "finishEditing", "step"}]
   MOVE R21 R13
   CALL R21 0 1
-  SETTABLEKS R21 R20 K39 ["layoutOrder"]
-  LOADK R21 K7 ["y"]
-  SETTABLEKS R21 R20 K40 ["part"]
-  GETIMPORT R21 K29 [UDim.new]
-  LOADK R22 K45 [0.33]
+  SETTABLEKS R21 R20 K38 ["layoutOrder"]
+  LOADK R21 K6 ["y"]
+  SETTABLEKS R21 R20 K39 ["part"]
+  GETIMPORT R21 K28 [UDim.new]
+  LOADK R22 K44 [0.33]
   LOADN R23 0
   CALL R21 2 1
-  SETTABLEKS R21 R20 K24 ["size"]
-  GETIMPORT R21 K48 [Color3.fromHex]
-  LOADK R22 K50 ["#39C582"]
+  SETTABLEKS R21 R20 K23 ["size"]
+  GETIMPORT R21 K47 [Color3.fromHex]
+  LOADK R22 K49 ["#39C582"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K41 ["color"]
-  SETTABLEKS R6 R20 K42 ["editable"]
-  SETTABLEKS R4 R20 K6 ["value"]
-  GETTABLEKS R21 R0 K13 ["beginEditingAsync"]
-  SETTABLEKS R21 R20 K13 ["beginEditingAsync"]
-  GETTABLEKS R21 R0 K14 ["setPart"]
-  SETTABLEKS R21 R20 K14 ["setPart"]
-  GETTABLEKS R21 R0 K15 ["finishEditing"]
-  SETTABLEKS R21 R20 K15 ["finishEditing"]
+  SETTABLEKS R21 R20 K40 ["color"]
+  SETTABLEKS R6 R20 K41 ["editable"]
+  SETTABLEKS R4 R20 K5 ["value"]
+  GETTABLEKS R21 R0 K12 ["beginEditingAsync"]
+  SETTABLEKS R21 R20 K12 ["beginEditingAsync"]
+  GETTABLEKS R21 R0 K13 ["setPart"]
+  SETTABLEKS R21 R20 K13 ["setPart"]
+  GETTABLEKS R21 R0 K14 ["finishEditing"]
+  SETTABLEKS R21 R20 K14 ["finishEditing"]
   LOADN R21 1
-  SETTABLEKS R21 R20 K43 ["step"]
+  SETTABLEKS R21 R20 K42 ["step"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K36 ["Y"]
+  SETTABLEKS R18 R17 K35 ["Y"]
   GETUPVAL R19 0
-  GETTABLEKS R18 R19 K16 ["createElement"]
+  GETTABLEKS R18 R19 K15 ["createElement"]
   GETUPVAL R19 5
-  DUPTABLE R20 K44 [{"layoutOrder", "part", "size", "color", "editable", "value", "beginEditingAsync", "setPart", "finishEditing", "step"}]
+  DUPTABLE R20 K43 [{"layoutOrder", "part", "size", "color", "editable", "value", "beginEditingAsync", "setPart", "finishEditing", "step"}]
   MOVE R21 R13
   CALL R21 0 1
-  SETTABLEKS R21 R20 K39 ["layoutOrder"]
-  LOADK R21 K8 ["z"]
-  SETTABLEKS R21 R20 K40 ["part"]
-  GETIMPORT R21 K29 [UDim.new]
-  LOADK R22 K45 [0.33]
+  SETTABLEKS R21 R20 K38 ["layoutOrder"]
+  LOADK R21 K7 ["z"]
+  SETTABLEKS R21 R20 K39 ["part"]
+  GETIMPORT R21 K28 [UDim.new]
+  LOADK R22 K44 [0.33]
   LOADN R23 0
   CALL R21 2 1
-  SETTABLEKS R21 R20 K24 ["size"]
-  GETIMPORT R21 K48 [Color3.fromHex]
-  LOADK R22 K51 ["#2F7AC6"]
+  SETTABLEKS R21 R20 K23 ["size"]
+  GETIMPORT R21 K47 [Color3.fromHex]
+  LOADK R22 K50 ["#2F7AC6"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K41 ["color"]
-  SETTABLEKS R6 R20 K42 ["editable"]
-  SETTABLEKS R5 R20 K6 ["value"]
-  GETTABLEKS R21 R0 K13 ["beginEditingAsync"]
-  SETTABLEKS R21 R20 K13 ["beginEditingAsync"]
-  GETTABLEKS R21 R0 K14 ["setPart"]
-  SETTABLEKS R21 R20 K14 ["setPart"]
-  GETTABLEKS R21 R0 K15 ["finishEditing"]
-  SETTABLEKS R21 R20 K15 ["finishEditing"]
+  SETTABLEKS R21 R20 K40 ["color"]
+  SETTABLEKS R6 R20 K41 ["editable"]
+  SETTABLEKS R5 R20 K5 ["value"]
+  GETTABLEKS R21 R0 K12 ["beginEditingAsync"]
+  SETTABLEKS R21 R20 K12 ["beginEditingAsync"]
+  GETTABLEKS R21 R0 K13 ["setPart"]
+  SETTABLEKS R21 R20 K13 ["setPart"]
+  GETTABLEKS R21 R0 K14 ["finishEditing"]
+  SETTABLEKS R21 R20 K14 ["finishEditing"]
   LOADN R21 1
-  SETTABLEKS R21 R20 K43 ["step"]
+  SETTABLEKS R21 R20 K42 ["step"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K37 ["Z"]
+  SETTABLEKS R18 R17 K36 ["Z"]
   CALL R14 3 -1
   CLOSEUPVALS R9
   RETURN R14 -1

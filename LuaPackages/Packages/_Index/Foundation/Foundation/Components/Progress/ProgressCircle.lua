@@ -241,6 +241,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 						end),
 						fontStyle = variants.circle.labelFont,
 						tag = "anchor-center-center position-center-center",
+						testId = `{props.testId}--label`,
 					})
 					else nil,
 			}

@@ -187,7 +187,7 @@ function VehicleCamera:Update()
 	local pitchVel = pitchVelocity(subjectRotVel, subjectCFrame)
 	
 	-- step camera components forward
-	local zoom = self:StepZoom()
+	local zoom = self:StepZoom(dt)
 	local objectRotation = self:_StepRotation(dt, vDotZ)
 	
 	-- mix third and first person offsets in local space
@@ -206,10 +206,6 @@ function VehicleCamera:Update()
 	local cf = focus*CFrame.new(0, 0, zoom)
 
 	return cf, focus
-end
-
-function VehicleCamera:ApplyVRTransform()
-	-- no-op override; VR transform is not applied in vehicles
 end
 
 return VehicleCamera

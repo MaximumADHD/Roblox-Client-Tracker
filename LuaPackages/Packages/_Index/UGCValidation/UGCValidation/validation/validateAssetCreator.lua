@@ -30,6 +30,22 @@ local Constants = require(root.Constants)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
+local getFStringUGCValidationReferenceMeshIdWhitelistForIEC =
+	require(root.flags.getFStringUGCValidationReferenceMeshIdWhitelistForIEC)
+
+local function getWhitelistIds()
+	local whitelistIds = {}
+	local whitelistString = getFStringUGCValidationReferenceMeshIdWhitelistForIEC()
+	if #whitelistString == 0 then
+		return whitelistIds
+	end
+
+	for id in string.gmatch(whitelistString, "([^,%s]+)") do
+		whitelistIds[id] = true
+	end
+
+	return whitelistIds
+end
 
 local function createCanPublishPromise(url, assetIds, restrictedIds, token, universeId)
 	if #assetIds == 0 then
@@ -138,10 +154,18 @@ local function validateAssetCreator(
 			{ "Failed to load detailed information for model assets. Make sure all model assets exist and try again." }
 	end
 
+	local hasWhitelistedIds = getFStringUGCValidationReferenceMeshIdWhitelistForIEC() ~= ""
+	local whitelistIds = if hasWhitelistedIds then getWhitelistIds() else {}
+
 	for _, response in responses do
 		local results = response.result
 		for instanceId, allowed in pairs(results) do
-			if not allowed then
+			local allowedOrWhitelisted = allowed
+			if hasWhitelistedIds then
+				allowedOrWhitelisted = allowed or whitelistIds[instanceId]
+			end
+
+			if not allowedOrWhitelisted then
 				Analytics.reportFailure(
 					Analytics.ErrorType.validateAssetCreator_DependencyNotOwnedByCreator,
 					nil,
@@ -155,7 +179,7 @@ local function validateAssetCreator(
 				data.fieldName,
 				instanceId
 			)
-			reasonsAccumulator:updateReasons(allowed, { failureMessage })
+			reasonsAccumulator:updateReasons(allowedOrWhitelisted, { failureMessage })
 		end
 	end
 

@@ -3,6 +3,7 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 
 local Logger = require(Foundation.Utility.Logger)
 
@@ -16,6 +17,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
+local Flags = require(Foundation.Utility.Flags)
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -60,11 +62,14 @@ local function Toast(toastProps: ToastProps, ref: React.Ref<GuiObject>?)
 					break
 				end
 
-				local buttonProps = Cryo.Dictionary.union(action, {
+				local actionProps = {
 					LayoutOrder = #actions - i,
 					size = InputSize.Medium,
 					fillBehavior = FillBehavior.Fill,
-				})
+				}
+				local buttonProps = if Flags.FoundationMigrateCryoToDash
+					then Dash.union(action, actionProps)
+					else Cryo.Dictionary.union(action, actionProps)
 				buttons["ToastButton" .. i] = React.createElement(Button, buttonProps :: any)
 			end
 		end

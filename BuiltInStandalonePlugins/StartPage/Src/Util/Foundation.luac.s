@@ -12,4 +12,12 @@ MAIN:
   GETTABLEKS R2 R3 K9 ["Flags"]
   LOADB R3 1
   SETTABLEKS R3 R2 K10 ["FoundationDisableStylingPolyfill"]
+  GETTABLEKS R3 R1 K8 ["Utility"]
+  GETTABLEKS R2 R3 K9 ["Flags"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K11 ["FoundationUpdateBadgeDesign"]
+  GETTABLEKS R3 R1 K8 ["Utility"]
+  GETTABLEKS R2 R3 K9 ["Flags"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K12 ["FoundationBaseMenuScroll"]
   RETURN R1 1

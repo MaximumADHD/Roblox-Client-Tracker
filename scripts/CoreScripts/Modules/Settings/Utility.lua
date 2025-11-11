@@ -78,6 +78,8 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
 local FFlagUIBloxMigrateBuilderIcon = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
+local FFlagIncreaseLegacyPeopleRowButtonSize = game:DefineFastFlag("IncreaseLegacyPeopleRowButtonSize", false)
+
 ------------------ Modules --------------------
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -535,7 +537,7 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 			Name = name .. "TextLabel",
 			BackgroundTransparency = 1,
 			Size = imageSize,
-			TextSize = imageSize.Y.Offset * (2/3), 
+			TextSize = if FFlagIncreaseLegacyPeopleRowButtonSize then imageSize.Y.Offset * (6/7) else imageSize.Y.Offset * (2/3), 
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			TextColor3 = Color3.new(1, 1, 1),

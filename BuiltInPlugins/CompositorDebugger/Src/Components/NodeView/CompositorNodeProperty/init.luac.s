@@ -21,9 +21,11 @@ PROTO_1:
 PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["OnChanged"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["Property"]
-  GETTABLEKS R2 R3 K2 ["Name"]
+  JUMPIFNOT R1 [+8]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnChanged"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["Name"]
   MOVE R3 R0
   CALL R1 2 0
   RETURN R0 0
@@ -34,93 +36,92 @@ PROTO_3:
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   NEWTABLE R3 0 2
-  GETTABLEKS R5 R0 K1 ["Property"]
-  GETTABLEKS R4 R5 K2 ["Name"]
-  GETTABLEKS R5 R0 K3 ["OnChanged"]
+  GETTABLEKS R4 R0 K1 ["Name"]
+  GETTABLEKS R5 R0 K2 ["OnChanged"]
   SETLIST R3 R4 2 [1]
   CALL R1 2 1
-  GETTABLEKS R4 R0 K1 ["Property"]
-  GETTABLEKS R3 R4 K4 ["Type"]
-  LOADN R6 1
-  LOADN R7 5
-  FASTCALL3 STRING_SUB R3 R6 R7
-  MOVE R5 R3
-  GETIMPORT R4 K7 [string.sub]
-  CALL R4 3 1
-  JUMPIFEQKS R4 K8 ["Enum."] [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  JUMPIFNOT R2 [+31]
-  GETTABLEKS R4 R0 K1 ["Property"]
-  GETTABLEKS R3 R4 K4 ["Type"]
-  FASTCALL2K STRING_SUB R3 K9 [+4]
-  LOADK R4 K9 [6]
-  GETIMPORT R2 K7 [string.sub]
-  CALL R2 2 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K10 ["createElement"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K11 ["Enum"]
-  DUPTABLE R5 K14 [{"Property", "EnumName", "LayoutOrder", "OnChanged"}]
-  GETTABLEKS R6 R0 K1 ["Property"]
-  SETTABLEKS R6 R5 K1 ["Property"]
-  SETTABLEKS R2 R5 K12 ["EnumName"]
-  GETTABLEKS R6 R0 K13 ["LayoutOrder"]
-  SETTABLEKS R6 R5 K13 ["LayoutOrder"]
-  SETTABLEKS R1 R5 K3 ["OnChanged"]
-  CALL R3 2 -1
-  RETURN R3 -1
-  GETTABLEKS R4 R0 K1 ["Property"]
-  GETTABLEKS R3 R4 K4 ["Type"]
-  GETUPVAL R5 2
-  GETTABLE R4 R5 R3
-  JUMPIFNOTEQKNIL R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  JUMPIFNOT R2 [+25]
+  GETTABLEKS R3 R0 K3 ["Value"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K5 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K6 ["string"] [+30]
+  GETTABLEKS R3 R0 K3 ["Value"]
+  LOADN R4 1
+  LOADN R5 7
+  FASTCALL STRING_SUB [+2]
+  GETIMPORT R2 K8 [string.sub]
+  CALL R2 3 1
+  JUMPIFNOTEQKS R2 K9 ["param::"] [+20]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K10 ["createElement"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K15 ["Asset"]
-  DUPTABLE R4 K17 [{"Property", "AssetType", "LayoutOrder", "OnChanged"}]
-  GETTABLEKS R5 R0 K1 ["Property"]
-  SETTABLEKS R5 R4 K1 ["Property"]
-  GETTABLEKS R6 R0 K1 ["Property"]
-  GETTABLEKS R5 R6 K4 ["Type"]
-  SETTABLEKS R5 R4 K16 ["AssetType"]
+  GETTABLEKS R3 R4 K11 ["Text"]
+  DUPTABLE R4 K14 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R5 K15 ["text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R5 R4 K12 ["tag"]
+  LOADK R5 K16 ["<parameter>"]
+  SETTABLEKS R5 R4 K11 ["Text"]
   GETTABLEKS R5 R0 K13 ["LayoutOrder"]
   SETTABLEKS R5 R4 K13 ["LayoutOrder"]
-  SETTABLEKS R1 R4 K3 ["OnChanged"]
-  CALL R2 2 -1
-  RETURN R2 -1
-  GETUPVAL R3 1
-  GETTABLEKS R5 R0 K1 ["Property"]
-  GETTABLEKS R4 R5 K4 ["Type"]
-  GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+22]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K10 ["createElement"]
-  GETUPVAL R4 1
-  GETTABLEKS R6 R0 K1 ["Property"]
-  GETTABLEKS R5 R6 K4 ["Type"]
-  GETTABLE R3 R4 R5
-  DUPTABLE R4 K18 [{"Property", "LayoutOrder", "OnChanged"}]
-  GETTABLEKS R5 R0 K1 ["Property"]
-  SETTABLEKS R5 R4 K1 ["Property"]
-  GETTABLEKS R5 R0 K13 ["LayoutOrder"]
-  SETTABLEKS R5 R4 K13 ["LayoutOrder"]
-  SETTABLEKS R1 R4 K3 ["OnChanged"]
   CALL R2 2 -1
   RETURN R2 -1
   LOADNIL R2
-  RETURN R2 1
+  GETTABLEKS R4 R0 K17 ["Type"]
+  LOADN R7 1
+  LOADN R8 5
+  FASTCALL3 STRING_SUB R4 R7 R8
+  MOVE R6 R4
+  GETIMPORT R5 K8 [string.sub]
+  CALL R5 3 1
+  JUMPIFEQKS R5 K18 ["Enum."] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K19 ["Enum"]
+  JUMP [+22]
+  GETTABLEKS R4 R0 K17 ["Type"]
+  GETUPVAL R6 3
+  GETTABLE R5 R6 R4
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K20 ["Asset"]
+  JUMP [+9]
+  GETUPVAL R4 2
+  GETTABLEKS R5 R0 K17 ["Type"]
+  GETTABLE R3 R4 R5
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R3 2
+  GETTABLEKS R4 R0 K17 ["Type"]
+  GETTABLE R2 R3 R4
+  JUMPIFNOT R2 [+14]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K10 ["createElement"]
+  MOVE R4 R2
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K21 ["join"]
+  MOVE R6 R0
+  DUPTABLE R7 K22 [{"OnChanged"}]
+  SETTABLEKS R1 R7 K2 ["OnChanged"]
+  CALL R5 2 1
+  CALL R3 2 -1
+  RETURN R3 -1
+  GETIMPORT R3 K24 [warn]
+  LOADK R5 K25 ["Unsupported property type: "]
+  GETTABLEKS R6 R0 K17 ["Type"]
+  CONCAT R4 R5 R6
+  CALL R3 1 0
+  LOADNIL R3
+  RETURN R3 1
 
 PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["formatPropertyName"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["Property"]
-  GETTABLEKS R1 R2 K2 ["Name"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["Name"]
   CALL R0 1 -1
   RETURN R0 -1
 
@@ -131,45 +132,25 @@ PROTO_5:
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   NEWTABLE R3 0 1
-  GETTABLEKS R5 R0 K1 ["Property"]
-  GETTABLEKS R4 R5 K2 ["Name"]
+  GETTABLEKS R4 R0 K1 ["Name"]
   SETLIST R3 R4 1 [1]
   CALL R1 2 1
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["createElement"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K4 ["View"]
-  DUPTABLE R4 K7 [{"tag", "LayoutOrder"}]
-  LOADK R5 K8 ["row auto-y gap-small size-full-700 align-y-center flex-x-between"]
-  SETTABLEKS R5 R4 K5 ["tag"]
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K8 [{"Label", "Name", "Type", "Value", "LayoutOrder", "OnChanged"}]
+  SETTABLEKS R1 R4 K3 ["Label"]
+  GETTABLEKS R5 R0 K1 ["Name"]
+  SETTABLEKS R5 R4 K1 ["Name"]
+  GETTABLEKS R5 R0 K4 ["Type"]
+  SETTABLEKS R5 R4 K4 ["Type"]
+  GETTABLEKS R5 R0 K5 ["Value"]
+  SETTABLEKS R5 R4 K5 ["Value"]
   GETTABLEKS R5 R0 K6 ["LayoutOrder"]
   SETTABLEKS R5 R4 K6 ["LayoutOrder"]
-  DUPTABLE R5 K11 [{"CompositorNodeInputLabel", "Input"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K3 ["createElement"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K12 ["Text"]
-  DUPTABLE R8 K13 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R9 K14 ["text-body-small text-align-x-left auto-xy"]
-  SETTABLEKS R9 R8 K5 ["tag"]
-  SETTABLEKS R1 R8 K12 ["Text"]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K6 ["LayoutOrder"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K9 ["CompositorNodeInputLabel"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K3 ["createElement"]
-  GETUPVAL R7 3
-  DUPTABLE R8 K16 [{"Property", "LayoutOrder", "OnChanged"}]
-  GETTABLEKS R9 R0 K1 ["Property"]
-  SETTABLEKS R9 R8 K1 ["Property"]
-  LOADN R9 2
-  SETTABLEKS R9 R8 K6 ["LayoutOrder"]
-  GETTABLEKS R9 R0 K15 ["OnChanged"]
-  SETTABLEKS R9 R8 K15 ["OnChanged"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K10 ["Input"]
-  CALL R2 3 -1
+  GETTABLEKS R5 R0 K7 ["OnChanged"]
+  SETTABLEKS R5 R4 K7 ["OnChanged"]
+  CALL R2 2 -1
   RETURN R2 -1
 
 MAIN:
@@ -183,54 +164,53 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Util"]
-  GETTABLEKS R4 R5 K10 ["Nodes"]
-  GETTABLEKS R3 R4 K11 ["NodeNameFormattingUtils"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Dash"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["React"]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["Nodes"]
+  GETTABLEKS R4 R5 K12 ["NodeNameFormattingUtils"]
   CALL R3 1 1
-  DUPTABLE R4 K14 [{"Animation"}]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K13 ["Animation"]
-  DUPTABLE R5 K20 [{"Asset", "Bool", "Enum", "Number", "Timestamp"}]
-  GETIMPORT R6 K5 [require]
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K21 ["AssetProperty"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K15 ["Asset"]
-  GETIMPORT R6 K5 [require]
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K22 ["BoolProperty"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K16 ["Bool"]
-  GETIMPORT R6 K5 [require]
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K23 ["EnumProperty"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K17 ["Enum"]
-  GETIMPORT R6 K5 [require]
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K24 ["NumberProperty"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K18 ["Number"]
-  GETIMPORT R6 K5 [require]
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K25 ["TimestampProperty"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K19 ["Timestamp"]
-  DUPCLOSURE R6 K26 [PROTO_0]
-  DUPCLOSURE R7 K27 [PROTO_1]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["AnimationEditor"]
+  CALL R5 1 1
+  DUPTABLE R6 K16 [{"Animation"}]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K15 ["Animation"]
+  DUPTABLE R7 K23 [{"Asset", "Boolean", "Enum", "Number", "Timestamp", "TimeProgress"}]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K24 ["AssetProperty"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K17 ["Asset"]
+  GETTABLEKS R8 R5 K25 ["BoolProperty"]
+  SETTABLEKS R8 R7 K18 ["Boolean"]
+  GETTABLEKS R8 R5 K26 ["EnumProperty"]
+  SETTABLEKS R8 R7 K19 ["Enum"]
+  GETTABLEKS R8 R5 K27 ["NumberProperty"]
+  SETTABLEKS R8 R7 K20 ["Number"]
+  GETTABLEKS R8 R5 K28 ["TimestampProperty"]
+  SETTABLEKS R8 R7 K21 ["Timestamp"]
+  GETTABLEKS R8 R5 K29 ["TimeProgressProperty"]
+  SETTABLEKS R8 R7 K22 ["TimeProgress"]
+  DUPCLOSURE R8 K30 [PROTO_0]
+  DUPCLOSURE R9 K31 [PROTO_1]
+  CAPTURE VAL R6
+  DUPCLOSURE R10 K32 [PROTO_3]
   CAPTURE VAL R4
-  DUPCLOSURE R8 K28 [PROTO_3]
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  DUPCLOSURE R9 K29 [PROTO_5]
-  CAPTURE VAL R3
-  CAPTURE VAL R2
   CAPTURE VAL R1
-  CAPTURE VAL R8
-  RETURN R9 1
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  DUPCLOSURE R11 K33 [PROTO_5]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  RETURN R11 1

@@ -30,21 +30,22 @@ PROTO_1:
   GETTABLEKS R7 R6 K7 ["contents"]
   JUMPIF R7 [+1]
   RETURN R0 0
-  GETUPVAL R7 4
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K8 ["readMessage"]
   MOVE R8 R6
   CALL R7 1 1
-  GETIMPORT R8 K9 [pcall]
+  GETIMPORT R8 K10 [pcall]
   NEWCLOSURE R9 P0
   CAPTURE UPVAL U5
   CAPTURE VAL R7
   CALL R8 1 2
   JUMPIFNOT R8 [+12]
-  JUMPIFEQKS R9 K10 [""] [+11]
-  GETTABLEKS R10 R1 K11 ["logAssistantMessageSent"]
-  DUPTABLE R11 K14 [{"messageGuid", "conversationId", "message"}]
-  SETTABLEKS R2 R11 K12 ["messageGuid"]
+  JUMPIFEQKS R9 K11 [""] [+11]
+  GETTABLEKS R10 R1 K12 ["logAssistantMessageSent"]
+  DUPTABLE R11 K15 [{"messageGuid", "conversationId", "message"}]
+  SETTABLEKS R2 R11 K13 ["messageGuid"]
   SETTABLEKS R4 R11 K4 ["conversationId"]
-  SETTABLEKS R9 R11 K13 ["message"]
+  SETTABLEKS R9 R11 K14 ["message"]
   CALL R10 1 0
   RETURN R0 0
 

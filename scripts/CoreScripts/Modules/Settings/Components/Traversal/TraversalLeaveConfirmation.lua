@@ -17,7 +17,7 @@ local Traversal = CoreScriptsRoactCommon.Traversal
 local TraversalConstants = Traversal.Constants
 local TeleportLeaveConfirmation = Traversal.TeleportLeaveConfirmation
 local useLocalization = Localization.Hooks.useLocalization
-local usePreferredInput = Responsive.usePreferredInput
+local useLastInput = Responsive.useLastInput
 
 export type Props = {
 	universeId: number,
@@ -32,7 +32,8 @@ local EXIT_DIALOG = "EXIT_DIALOG"
 
 local function TraversalLeaveConfirmation(props: Props): React.React_Node
 	local ref = React.useRef(nil)
-	local preferredInput = usePreferredInput()
+	local lastInput = useLastInput()
+
 	local localized = useLocalization({
 		previous = "CoreScripts.TopBar.Traversal.BackButtonDefault"
 	})
@@ -47,25 +48,28 @@ local function TraversalLeaveConfirmation(props: Props): React.React_Node
 		placeName = localized.previous
 	end
 
-	local onGamepadBack = React.useCallback(function()
-		props.onCancel()
-		return Enum.ContextActionResult.Sink
-	end)
+	local onGamepadBack = React.useCallback(function(_, inputState: Enum.UserInputState)
+		if inputState == Enum.UserInputState.End then
+			props.onCancel()
+			return Enum.ContextActionResult.Sink
+		end
+		return Enum.ContextActionResult.Pass
+	end, { props.onCancel })
 
 	React.useEffect(function()
 		if placeId ~= nil and placeId > TraversalConstants.NO_PLACE_ID then
-			if preferredInput == Responsive.Input.Directional then
+			if lastInput == Responsive.Input.Directional then
 				ContextActionService:BindCoreAction(FREEZE_CONTROLLER, function() end, false, Enum.UserInputType.Gamepad1)
 				ContextActionService:BindCoreAction(EXIT_DIALOG, onGamepadBack, false, Enum.KeyCode.ButtonB)
 				GuiService.SelectedCoreObject = if ref.current then ref.current else nil
 			end
 		else
-			if preferredInput == Responsive.Input.Directional then
+			if lastInput == Responsive.Input.Directional then
 				ContextActionService:UnbindCoreAction(FREEZE_CONTROLLER)
 				ContextActionService:UnbindCoreAction(EXIT_DIALOG)
 			end
 		end
-	end, { placeId })
+	end, { placeId, lastInput } :: { unknown })
 
 	return props.isDialogOpen and placeId and React.createElement("ScreenGui", {
 		DisplayOrder = 10,

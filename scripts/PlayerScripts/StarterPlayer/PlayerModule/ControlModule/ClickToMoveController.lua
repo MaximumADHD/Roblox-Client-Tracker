@@ -29,6 +29,11 @@ local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI")
 
+local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
+local character = inputContexts:WaitForChild("Character")
+local clickToMoveAction = character:WaitForChild("ClickToMoveAction")
+local moveAction = character:WaitForChild("Move")
+
 --[[ Configuration ]]
 local ShowPath = true
 local PlayFailureAnimation = true
@@ -36,16 +41,6 @@ local UseDirectPath = false
 local UseDirectPathForVehicle = true
 local AgentSizeIncreaseFactor = 1.0
 local UnreachableWaypointTimeout = 8
-
---[[ Constants ]]--
-local movementKeys = {
-	[Enum.KeyCode.W] = true;
-	[Enum.KeyCode.A] = true;
-	[Enum.KeyCode.S] = true;
-	[Enum.KeyCode.D] = true;
-	[Enum.KeyCode.Up] = true;
-	[Enum.KeyCode.Down] = true;
-}
 
 local Player = Players.LocalPlayer
 
@@ -854,12 +849,12 @@ local function DisconnectEvent(event)
 end
 
 --[[ The ClickToMove Controller Class ]]--
-local KeyboardController = require(script.Parent:WaitForChild("Keyboard"))
-local ClickToMove = setmetatable({}, KeyboardController)
+local ActionController = require(script.Parent:WaitForChild("ActionController"))
+local ClickToMove = setmetatable({}, ActionController)
 ClickToMove.__index = ClickToMove
 
-function ClickToMove.new(CONTROL_ACTION_PRIORITY)
-	local self = setmetatable(KeyboardController.new(CONTROL_ACTION_PRIORITY), ClickToMove)
+function ClickToMove.new()
+	local self = setmetatable(ActionController.new(), ClickToMove)
 
 	self.fingerTouches = {}
 	self.numUnsunkTouches = 0
@@ -867,8 +862,6 @@ function ClickToMove.new(CONTROL_ACTION_PRIORITY)
 	self.mouse2DownTime = tick()
 	self.mouse2DownPos = Vector2.new()
 	self.mouse2UpTime = tick()
-
-	self.keyboardMoveVector = ZERO_VECTOR3
 
 	self.tapConn = nil
 	self.inputBeganConn = nil
@@ -941,17 +934,23 @@ end
 function ClickToMove:OnCharacterAdded(character)
 	self:DisconnectEvents()
 
+	-- TODO: Need the mouse position here
+	-- clickToMoveAction.Pressed:Connect(function()
+	-- 	self.mouse2DownTime = tick()
+	-- 	self.mouse2DownPos = input.Position
+	-- end)
+
+	moveAction.StateChanged:Connect(function(state)
+		-- check wasd enabled here
+		CleanupPath()
+		ClickToMoveDisplay.CancelFailureAnimation()
+	end)
+
 	self.inputBeganConn = UserInputService.InputBegan:Connect(function(input, processed)
 		if input.UserInputType == Enum.UserInputType.Touch then
 			self:OnTouchBegan(input, processed)
 		end
 
-		-- Cancel path when you use the keyboard controls if wasd is enabled.
-		if self.wasdEnabled and processed == false and input.UserInputType == Enum.UserInputType.Keyboard
-			and movementKeys[input.KeyCode] then
-			CleanupPath()
-			ClickToMoveDisplay.CancelFailureAnimation()
-		end
 		if input.UserInputType == Enum.UserInputType.MouseButton2 then
 			self.mouse2DownTime = tick()
 			self.mouse2DownPos = input.Position
@@ -973,7 +972,7 @@ function ClickToMove:OnCharacterAdded(character)
 			self.mouse2UpTime = tick()
 			local currPos: Vector3 = input.Position
 			-- We allow click to move during path following or if there is no keyboard movement
-			local allowed = ExistingPather or self.keyboardMoveVector.Magnitude <= 0
+			local allowed = ExistingPather or moveAction:GetState().Magnitude <= 0
 			if self.mouse2UpTime - self.mouse2DownTime < 0.25 and (currPos - self.mouse2DownPos).magnitude < 5 and allowed then
 				local positions = {currPos}
 				OnTap(positions)
@@ -1077,23 +1076,20 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 	end
 
 	-- Extension for initializing Keyboard input as this class now derives from Keyboard
-	KeyboardController.Enable(self, enable)
+	ActionController.Enable(self, enable)
 
 	self.wasdEnabled = enable and enableWASD or false
 	self.enabled = enable
 end
 
 function ClickToMove:OnRenderStepped(dt)
-	-- Reset jump
-	self.isJumping = false
-
 	-- Handle Pather
 	if ExistingPather then
 		-- Let the Pather update
 		ExistingPather:OnRenderStepped(dt)
 
 		-- If we still have a Pather, set the resulting actions
-		if ExistingPather then
+		if ExistingPather and moveAction:GetState() == Vector2.zero then
 			-- Setup move (NOT relative to camera)
 			self.moveVector = ExistingPather.NextActionMoveDirection
 			self.moveVectorIsCameraRelative = false
@@ -1101,34 +1097,17 @@ function ClickToMove:OnRenderStepped(dt)
 			-- Setup jump (but do NOT prevent the base Keayboard class from requesting jumps as well)
 			if ExistingPather.NextActionJump then
 				self.isJumping = true
+			else
+				self.isJumping = false
 			end
-		else
-			self.moveVector = self.keyboardMoveVector
+		elseif moveAction:GetState() == Vector2.zero then
+			self.moveVector = ZERO_VECTOR3
 			self.moveVectorIsCameraRelative = true
 		end
-	else
-		self.moveVector = self.keyboardMoveVector
+	elseif moveAction:GetState() == Vector2.zero then
+		self.moveVector = ZERO_VECTOR3
 		self.moveVectorIsCameraRelative = true
 	end
-
-	-- Handle Keyboard's jump
-	if self.jumpRequested then
-		self.isJumping = true
-	end
-end
-
--- Overrides Keyboard:UpdateMovement(inputState) to conditionally consider self.wasdEnabled and let OnRenderStepped handle the movement
-function ClickToMove:UpdateMovement(inputState)
-	if inputState == Enum.UserInputState.Cancel then
-		self.keyboardMoveVector = ZERO_VECTOR3
-	elseif self.wasdEnabled then
-		self.keyboardMoveVector = Vector3.new(self.leftValue + self.rightValue, 0, self.forwardValue + self.backwardValue)
-	end
-end
-
--- Overrides Keyboard:UpdateJump() because jump is handled in OnRenderStepped
-function ClickToMove:UpdateJump()
-	-- Nothing to do (handled in OnRenderStepped)
 end
 
 --Public developer facing functions

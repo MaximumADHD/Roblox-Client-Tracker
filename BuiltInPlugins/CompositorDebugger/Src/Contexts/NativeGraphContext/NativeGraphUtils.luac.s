@@ -1,227 +1,253 @@
 PROTO_0:
-  LOADK R3 K0 ["param_%*_%*"]
-  MOVE R5 R0
-  MOVE R6 R1
-  NAMECALL R3 R3 K1 ["format"]
-  CALL R3 3 1
-  MOVE R2 R3
+  LOADK R4 K0 ["Configuration"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 1
+  MOVE R4 R1
+  NAMECALL R2 R0 K2 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+2]
   RETURN R2 1
+  GETIMPORT R3 K5 [Instance.new]
+  LOADK R4 K0 ["Configuration"]
+  CALL R3 1 1
+  SETTABLEKS R1 R3 K6 ["Name"]
+  SETTABLEKS R0 R3 K7 ["Parent"]
+  RETURN R3 1
 
 PROTO_1:
-  GETIMPORT R1 K2 [string.match]
-  MOVE R2 R0
-  LOADK R3 K3 ["^param_(.+)_(.+)$"]
-  CALL R1 2 2
-  RETURN R1 2
-
-PROTO_2:
-  LOADK R3 K0 ["Configuration"]
-  NAMECALL R1 R0 K1 ["FindFirstChildWhichIsA"]
-  CALL R1 2 1
-  JUMPIFEQKNIL R1 [+2]
-  RETURN R1 1
-  GETIMPORT R2 K4 [Instance.new]
-  LOADK R3 K0 ["Configuration"]
-  CALL R2 1 1
-  LOADK R3 K0 ["Configuration"]
-  SETTABLEKS R3 R2 K5 ["Name"]
-  SETTABLEKS R0 R2 K6 ["Parent"]
-  RETURN R2 1
-
-PROTO_3:
   LOADK R3 K0 ["Configuration"]
   NAMECALL R1 R0 K1 ["IsA"]
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_4:
-  LOADK R3 K0 ["Configuration"]
-  NAMECALL R1 R0 K1 ["FindFirstChildWhichIsA"]
-  CALL R1 2 1
-  JUMPIFEQKNIL R1 [+2]
-  JUMP [+9]
-  GETIMPORT R2 K4 [Instance.new]
-  LOADK R3 K0 ["Configuration"]
-  CALL R2 1 1
-  LOADK R3 K0 ["Configuration"]
-  SETTABLEKS R3 R2 K5 ["Name"]
-  SETTABLEKS R0 R2 K6 ["Parent"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K7 ["SignalsInstanceUtils"]
-  GETTABLEKS R1 R2 K8 ["observeFirstNamedChild"]
-  MOVE R2 R0
-  DUPCLOSURE R3 K9 [PROTO_3]
+PROTO_2:
   LOADK R4 K0 ["Configuration"]
-  CALL R1 3 1
-  RETURN R1 1
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+8]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["SignalsInstanceUtils"]
+  GETTABLEKS R2 R3 K3 ["of"]
+  MOVE R3 R0
+  CALL R2 1 -1
+  RETURN R2 -1
+  LOADK R4 K0 ["Configuration"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+1]
+  JUMP [+15]
+  MOVE R4 R1
+  NAMECALL R2 R0 K4 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+2]
+  JUMP [+8]
+  GETIMPORT R3 K7 [Instance.new]
+  LOADK R4 K0 ["Configuration"]
+  CALL R3 1 1
+  SETTABLEKS R1 R3 K8 ["Name"]
+  SETTABLEKS R0 R3 K9 ["Parent"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["SignalsInstanceUtils"]
+  GETTABLEKS R2 R3 K10 ["observeFirstNamedChild"]
+  MOVE R3 R0
+  DUPCLOSURE R4 K11 [PROTO_1]
+  MOVE R5 R1
+  CALL R2 3 1
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["getNodeParameterConfigurationName"]
+  MOVE R3 R1
+  CALL R2 1 1
+  LOADK R6 K1 ["Configuration"]
+  NAMECALL R4 R0 K2 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R3 R0
+  RETURN R3 1
+  MOVE R6 R2
+  NAMECALL R4 R0 K3 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFEQKNIL R4 [+3]
+  MOVE R3 R4
+  RETURN R3 1
+  GETIMPORT R5 K6 [Instance.new]
+  LOADK R6 K1 ["Configuration"]
+  CALL R5 1 1
+  SETTABLEKS R2 R5 K7 ["Name"]
+  SETTABLEKS R0 R5 K8 ["Parent"]
+  MOVE R3 R5
+  RETURN R3 1
+
+PROTO_4:
+  LOADNIL R2
+  GETUPVAL R3 0
+  MOVE R5 R0
+  NAMECALL R3 R3 K0 ["GetAnimationNodeDefinition"]
+  CALL R3 2 1
+  GETTABLEKS R4 R3 K1 ["Properties"]
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETTABLEKS R9 R8 K2 ["Name"]
+  JUMPIFNOTEQ R9 R1 [+4]
+  GETTABLEKS R2 R8 K3 ["Type"]
+  JUMP [+2]
+  FORGLOOP R4 2 [-8]
+  GETIMPORT R4 K6 [string.find]
+  MOVE R5 R2
+  LOADK R6 K7 ["Enum"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+1]
+  LOADK R2 K7 ["Enum"]
+  RETURN R2 1
 
 PROTO_5:
-  LOADK R5 K0 ["Configuration"]
-  NAMECALL R3 R0 K1 ["FindFirstChildWhichIsA"]
-  CALL R3 2 1
-  JUMPIFEQKNIL R3 [+3]
-  MOVE R2 R3
-  JUMP [+10]
-  GETIMPORT R4 K4 [Instance.new]
-  LOADK R5 K0 ["Configuration"]
-  CALL R4 1 1
-  LOADK R5 K0 ["Configuration"]
-  SETTABLEKS R5 R4 K5 ["Name"]
-  SETTABLEKS R0 R4 K6 ["Parent"]
-  MOVE R2 R4
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["NODE_ATTRIBUTES"]
-  GETTABLEKS R5 R6 K8 ["Position"]
-  MOVE R6 R1
-  NAMECALL R3 R2 K9 ["SetAttribute"]
+  MOVE R5 R1
+  LOADK R7 K0 ["param::%*"]
+  MOVE R9 R2
+  NAMECALL R7 R7 K1 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  NAMECALL R3 R0 K2 ["SetAttribute"]
   CALL R3 3 0
   RETURN R0 0
 
 PROTO_6:
-  LOADK R5 K0 ["Configuration"]
-  NAMECALL R3 R0 K1 ["FindFirstChildWhichIsA"]
-  CALL R3 2 1
-  JUMPIFEQKNIL R3 [+3]
-  MOVE R2 R3
-  JUMP [+10]
-  GETIMPORT R4 K4 [Instance.new]
-  LOADK R5 K0 ["Configuration"]
-  CALL R4 1 1
-  LOADK R5 K0 ["Configuration"]
-  SETTABLEKS R5 R4 K5 ["Name"]
-  SETTABLEKS R0 R4 K6 ["Parent"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["NODE_CONFIGURATION_NAME"]
+  LOADK R6 K1 ["Configuration"]
+  NAMECALL R4 R0 K2 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R2 R0
+  JUMP [+17]
+  MOVE R6 R3
+  NAMECALL R4 R0 K3 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFEQKNIL R4 [+3]
   MOVE R2 R4
+  JUMP [+9]
+  GETIMPORT R5 K6 [Instance.new]
+  LOADK R6 K1 ["Configuration"]
+  CALL R5 1 1
+  SETTABLEKS R3 R5 K7 ["Name"]
+  SETTABLEKS R0 R5 K8 ["Parent"]
+  MOVE R2 R5
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["NODE_ATTRIBUTES"]
-  GETTABLEKS R5 R6 K8 ["Size"]
+  GETTABLEKS R6 R7 K9 ["NODE_ATTRIBUTES"]
+  GETTABLEKS R5 R6 K10 ["Position"]
   MOVE R6 R1
-  NAMECALL R3 R2 K9 ["SetAttribute"]
+  NAMECALL R3 R2 K11 ["SetAttribute"]
   CALL R3 3 0
   RETURN R0 0
 
 PROTO_7:
-  LOADK R5 K0 ["Configuration"]
-  NAMECALL R3 R0 K1 ["FindFirstChildWhichIsA"]
-  CALL R3 2 1
-  JUMPIFEQKNIL R3 [+3]
-  MOVE R2 R3
-  JUMP [+10]
-  GETIMPORT R4 K4 [Instance.new]
-  LOADK R5 K0 ["Configuration"]
-  CALL R4 1 1
-  LOADK R5 K0 ["Configuration"]
-  SETTABLEKS R5 R4 K5 ["Name"]
-  SETTABLEKS R0 R4 K6 ["Parent"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["NODE_CONFIGURATION_NAME"]
+  LOADK R6 K1 ["Configuration"]
+  NAMECALL R4 R0 K2 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R2 R0
+  JUMP [+17]
+  MOVE R6 R3
+  NAMECALL R4 R0 K3 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFEQKNIL R4 [+3]
   MOVE R2 R4
+  JUMP [+9]
+  GETIMPORT R5 K6 [Instance.new]
+  LOADK R6 K1 ["Configuration"]
+  CALL R5 1 1
+  SETTABLEKS R3 R5 K7 ["Name"]
+  SETTABLEKS R0 R5 K8 ["Parent"]
+  MOVE R2 R5
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["NODE_ATTRIBUTES"]
-  GETTABLEKS R5 R6 K8 ["Collapsed"]
+  GETTABLEKS R6 R7 K9 ["NODE_ATTRIBUTES"]
+  GETTABLEKS R5 R6 K10 ["Size"]
   MOVE R6 R1
-  NAMECALL R3 R2 K9 ["SetAttribute"]
+  NAMECALL R3 R2 K11 ["SetAttribute"]
   CALL R3 3 0
   RETURN R0 0
 
 PROTO_8:
-  LOADK R6 K0 ["Configuration"]
-  NAMECALL R4 R0 K1 ["FindFirstChildWhichIsA"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["NODE_CONFIGURATION_NAME"]
+  LOADK R6 K1 ["Configuration"]
+  NAMECALL R4 R0 K2 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R2 R0
+  JUMP [+17]
+  MOVE R6 R3
+  NAMECALL R4 R0 K3 ["FindFirstChild"]
   CALL R4 2 1
   JUMPIFEQKNIL R4 [+3]
-  MOVE R3 R4
-  JUMP [+10]
-  GETIMPORT R5 K4 [Instance.new]
-  LOADK R6 K0 ["Configuration"]
+  MOVE R2 R4
+  JUMP [+9]
+  GETIMPORT R5 K6 [Instance.new]
+  LOADK R6 K1 ["Configuration"]
   CALL R5 1 1
-  LOADK R6 K0 ["Configuration"]
-  SETTABLEKS R6 R5 K5 ["Name"]
-  SETTABLEKS R0 R5 K6 ["Parent"]
-  MOVE R3 R5
+  SETTABLEKS R3 R5 K7 ["Name"]
+  SETTABLEKS R0 R5 K8 ["Parent"]
+  MOVE R2 R5
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["toParameterAttribute"]
-  MOVE R7 R1
-  LOADK R8 K8 ["Position"]
-  CALL R6 2 1
-  MOVE R7 R2
-  NAMECALL R4 R3 K9 ["SetAttribute"]
-  CALL R4 3 0
+  GETTABLEKS R6 R7 K9 ["NODE_ATTRIBUTES"]
+  GETTABLEKS R5 R6 K10 ["Collapsed"]
+  MOVE R6 R1
+  NAMECALL R3 R2 K11 ["SetAttribute"]
+  CALL R3 3 0
   RETURN R0 0
 
 PROTO_9:
-  LOADK R6 K0 ["Configuration"]
-  NAMECALL R4 R0 K1 ["FindFirstChildWhichIsA"]
-  CALL R4 2 1
-  JUMPIFEQKNIL R4 [+3]
-  MOVE R3 R4
-  JUMP [+10]
-  GETIMPORT R5 K4 [Instance.new]
-  LOADK R6 K0 ["Configuration"]
-  CALL R5 1 1
-  LOADK R6 K0 ["Configuration"]
-  SETTABLEKS R6 R5 K5 ["Name"]
-  SETTABLEKS R0 R5 K6 ["Parent"]
-  MOVE R3 R5
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["toParameterAttribute"]
-  MOVE R7 R1
-  LOADK R8 K8 ["Size"]
-  CALL R6 2 1
-  MOVE R7 R2
-  NAMECALL R4 R3 K9 ["SetAttribute"]
-  CALL R4 3 0
-  RETURN R0 0
+  LOADK R2 K0 ["Parameter_%*_Configuration"]
+  MOVE R4 R0
+  NAMECALL R2 R2 K1 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  RETURN R1 1
 
 PROTO_10:
-  LOADK R6 K0 ["Configuration"]
-  NAMECALL R4 R0 K1 ["FindFirstChildWhichIsA"]
-  CALL R4 2 1
-  JUMPIFEQKNIL R4 [+3]
-  MOVE R3 R4
-  JUMP [+10]
-  GETIMPORT R5 K4 [Instance.new]
-  LOADK R6 K0 ["Configuration"]
-  CALL R5 1 1
-  LOADK R6 K0 ["Configuration"]
-  SETTABLEKS R6 R5 K5 ["Name"]
-  SETTABLEKS R0 R5 K6 ["Parent"]
-  MOVE R3 R5
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["toParameterAttribute"]
-  MOVE R7 R1
-  LOADK R8 K8 ["IsCollapsed"]
-  CALL R6 2 1
-  MOVE R7 R2
-  NAMECALL R4 R3 K9 ["SetAttribute"]
-  CALL R4 3 0
-  RETURN R0 0
-
-PROTO_11:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
   GETUPVAL R2 1
   MOVE R3 R0
   CALL R2 1 1
-  JUMPIFNOT R1 [+6]
+  JUMPIFNOT R2 [+6]
   GETUPVAL R3 2
-  MOVE R5 R1
+  MOVE R5 R2
   NAMECALL R3 R3 K0 ["instanceToId"]
   CALL R3 2 1
   JUMP [+1]
   LOADNIL R3
-  JUMPIFNOT R2 [+6]
+  JUMPIFNOT R1 [+6]
   GETUPVAL R4 2
-  MOVE R6 R2
+  MOVE R6 R1
   NAMECALL R4 R4 K0 ["instanceToId"]
   CALL R4 2 1
   JUMP [+1]
   LOADNIL R4
-  DUPTABLE R5 K4 [{"wireId", "sourceNodeId", "targetNodeId"}]
+  DUPTABLE R5 K6 [{"wireId", "inputNodeId", "inputNodePinId", "outputNodeId", "outputNodePinId"}]
   GETUPVAL R6 3
   SETTABLEKS R6 R5 K1 ["wireId"]
-  SETTABLEKS R3 R5 K2 ["sourceNodeId"]
-  SETTABLEKS R4 R5 K3 ["targetNodeId"]
+  SETTABLEKS R4 R5 K2 ["inputNodeId"]
+  GETUPVAL R6 4
+  MOVE R7 R0
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K3 ["inputNodePinId"]
+  SETTABLEKS R3 R5 K4 ["outputNodeId"]
+  GETUPVAL R6 5
+  MOVE R7 R0
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K5 ["outputNodePinId"]
   RETURN R5 1
 
-PROTO_12:
+PROTO_11:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["instanceToId"]
   CALL R2 2 1
@@ -237,17 +263,31 @@ PROTO_12:
   MOVE R5 R1
   LOADK R6 K4 ["TargetInstance"]
   CALL R4 2 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K5 ["createComputed"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R3
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["SignalsInstanceUtils"]
+  GETTABLEKS R5 R6 K2 ["observeProperty"]
+  MOVE R6 R1
+  LOADK R7 K5 ["TargetName"]
+  CALL R5 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["SignalsInstanceUtils"]
+  GETTABLEKS R6 R7 K2 ["observeProperty"]
+  MOVE R7 R1
+  LOADK R8 K6 ["SourceName"]
+  CALL R6 2 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K7 ["createComputed"]
+  NEWCLOSURE R8 P0
   CAPTURE VAL R4
+  CAPTURE VAL R3
   CAPTURE VAL R0
   CAPTURE VAL R2
-  CALL R5 1 -1
-  RETURN R5 -1
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CALL R7 1 -1
+  RETURN R7 -1
 
-PROTO_13:
+PROTO_12:
   LOADK R4 K0 ["Wire"]
   NAMECALL R2 R0 K1 ["IsA"]
   CALL R2 2 1
@@ -262,23 +302,24 @@ PROTO_13:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_14:
+PROTO_13:
   GETUPVAL R2 0
   GETTABLE R1 R2 R0
   JUMPIFNOT R1 [+3]
   GETUPVAL R2 0
   GETTABLE R1 R2 R0
   RETURN R1 1
-  DUPTABLE R1 K2 [{"parentNodeId", "children"}]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K0 ["parentNodeId"]
+  DUPTABLE R1 K3 [{"nodeId", "inputNodesByPinName", "outputNodesByPinName"}]
+  SETTABLEKS R0 R1 K0 ["nodeId"]
   NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K1 ["children"]
+  SETTABLEKS R2 R1 K1 ["inputNodesByPinName"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K2 ["outputNodesByPinName"]
   GETUPVAL R2 0
   SETTABLE R1 R2 R0
   RETURN R1 1
 
-PROTO_15:
+PROTO_14:
   NEWTABLE R1 0 0
   GETUPVAL R2 0
   MOVE R3 R0
@@ -289,55 +330,59 @@ PROTO_15:
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
-  GETTABLEKS R9 R8 K0 ["sourceNodeId"]
-  JUMPIFEQKNIL R9 [+48]
-  GETTABLEKS R9 R8 K1 ["targetNodeId"]
-  JUMPIFEQKNIL R9 [+44]
-  GETTABLEKS R10 R8 K0 ["sourceNodeId"]
-  GETTABLE R11 R1 R10
-  JUMPIFNOT R11 [+2]
-  GETTABLE R9 R1 R10
-  JUMP [+10]
-  DUPTABLE R11 K4 [{"parentNodeId", "children"}]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K2 ["parentNodeId"]
-  NEWTABLE R12 0 0
-  SETTABLEKS R12 R11 K3 ["children"]
-  SETTABLE R11 R1 R10
-  MOVE R9 R11
-  GETTABLEKS R11 R8 K1 ["targetNodeId"]
-  GETTABLE R12 R1 R11
-  JUMPIFNOT R12 [+2]
-  GETTABLE R10 R1 R11
-  JUMP [+10]
-  DUPTABLE R12 K4 [{"parentNodeId", "children"}]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K2 ["parentNodeId"]
-  NEWTABLE R13 0 0
-  SETTABLEKS R13 R12 K3 ["children"]
-  SETTABLE R12 R1 R11
-  MOVE R10 R12
-  GETTABLEKS R11 R10 K3 ["children"]
-  GETTABLEKS R12 R8 K0 ["sourceNodeId"]
-  GETTABLEKS R13 R8 K5 ["wireId"]
+  GETTABLEKS R9 R8 K0 ["inputNodeId"]
+  JUMPIFEQKNIL R9 [+65]
+  GETTABLEKS R9 R8 K1 ["outputNodeId"]
+  JUMPIFEQKNIL R9 [+61]
+  MOVE R9 R3
+  GETTABLEKS R10 R8 K0 ["inputNodeId"]
+  CALL R9 1 1
+  MOVE R10 R3
+  GETTABLEKS R11 R8 K1 ["outputNodeId"]
+  CALL R10 1 1
+  GETTABLEKS R11 R9 K2 ["inputNodesByPinName"]
+  GETTABLEKS R12 R8 K3 ["inputNodePinId"]
+  DUPTABLE R13 K6 [{"wireId", "inputNodeId", "inputNodePinId", "outputNodeId", "outputNodePinId"}]
+  GETTABLEKS R14 R8 K4 ["wireId"]
+  SETTABLEKS R14 R13 K4 ["wireId"]
+  GETTABLEKS R14 R8 K0 ["inputNodeId"]
+  SETTABLEKS R14 R13 K0 ["inputNodeId"]
+  GETTABLEKS R14 R8 K3 ["inputNodePinId"]
+  SETTABLEKS R14 R13 K3 ["inputNodePinId"]
+  GETTABLEKS R14 R8 K1 ["outputNodeId"]
+  SETTABLEKS R14 R13 K1 ["outputNodeId"]
+  GETTABLEKS R14 R8 K5 ["outputNodePinId"]
+  SETTABLEKS R14 R13 K5 ["outputNodePinId"]
   SETTABLE R13 R11 R12
-  GETTABLEKS R11 R8 K1 ["targetNodeId"]
-  SETTABLEKS R11 R9 K2 ["parentNodeId"]
-  FORGLOOP R4 2 [-52]
+  GETTABLEKS R11 R10 K7 ["outputNodesByPinName"]
+  GETTABLEKS R12 R8 K5 ["outputNodePinId"]
+  DUPTABLE R13 K6 [{"wireId", "inputNodeId", "inputNodePinId", "outputNodeId", "outputNodePinId"}]
+  GETTABLEKS R14 R8 K4 ["wireId"]
+  SETTABLEKS R14 R13 K4 ["wireId"]
+  GETTABLEKS R14 R8 K0 ["inputNodeId"]
+  SETTABLEKS R14 R13 K0 ["inputNodeId"]
+  GETTABLEKS R14 R8 K3 ["inputNodePinId"]
+  SETTABLEKS R14 R13 K3 ["inputNodePinId"]
+  GETTABLEKS R14 R8 K1 ["outputNodeId"]
+  SETTABLEKS R14 R13 K1 ["outputNodeId"]
+  GETTABLEKS R14 R8 K5 ["outputNodePinId"]
+  SETTABLEKS R14 R13 K5 ["outputNodePinId"]
+  SETTABLE R13 R11 R12
+  FORGLOOP R4 2 [-69]
   MOVE R4 R1
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
-  GETIMPORT R9 K8 [table.freeze]
+  GETIMPORT R9 K10 [table.freeze]
   MOVE R10 R8
   CALL R9 1 0
   FORGLOOP R4 2 [-5]
-  GETIMPORT R4 K8 [table.freeze]
+  GETIMPORT R4 K10 [table.freeze]
   MOVE R5 R1
   CALL R4 1 -1
   RETURN R4 -1
 
-PROTO_16:
+PROTO_15:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["SignalsInstanceUtils"]
   GETTABLEKS R2 R3 K1 ["observeChildrenWhichIsA"]
@@ -359,7 +404,34 @@ PROTO_16:
   CALL R4 1 -1
   RETURN R4 -1
 
+PROTO_16:
+  GETIMPORT R1 K2 [string.match]
+  MOVE R2 R0
+  LOADK R3 K3 ["^param::(.+)$"]
+  CALL R1 2 1
+  RETURN R1 1
+
 PROTO_17:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [type]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K2 ["string"] [+3]
+  LOADK R2 K3 [""]
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["matchParameterBinding"]
+  MOVE R3 R1
+  CALL R2 1 1
+  JUMPIFNOT R2 [+1]
+  RETURN R2 1
+  LOADK R3 K3 [""]
+  RETURN R3 1
+
+PROTO_18:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["SignalsInstanceUtils"]
   GETTABLEKS R1 R2 K1 ["observeTypedAttribute"]
@@ -371,7 +443,206 @@ PROTO_17:
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_18:
+PROTO_19:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFNOTEQKNIL R1 [+3]
+  LOADNIL R2
+  RETURN R2 1
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K2 ["Vector2"] [+8]
+  GETIMPORT R3 K4 [Vector2.new]
+  LOADN R4 250
+  LOADN R5 0
+  CALL R3 2 1
+  SUB R2 R1 R3
+  RETURN R2 1
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_20:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 1
+  DUPTABLE R3 K7 [{"id", "parameterName", "parameterBindingName", "position", "size", "isCollapsed", "isSelected"}]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K0 ["id"]
+  GETUPVAL R4 3
+  SETTABLEKS R4 R3 K1 ["parameterName"]
+  GETUPVAL R4 4
+  MOVE R5 R0
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K2 ["parameterBindingName"]
+  JUMPIFEQKNIL R2 [+3]
+  MOVE R4 R2
+  JUMP [+3]
+  GETUPVAL R4 5
+  MOVE R5 R0
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K3 ["position"]
+  GETUPVAL R4 6
+  MOVE R5 R0
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K4 ["size"]
+  JUMPIFEQKNIL R1 [+3]
+  MOVE R4 R1
+  JUMP [+1]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K5 ["isCollapsed"]
+  GETUPVAL R4 7
+  MOVE R5 R0
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K6 ["isSelected"]
+  GETIMPORT R4 K10 [table.freeze]
+  MOVE R5 R3
+  CALL R4 1 -1
+  RETURN R4 -1
+
+PROTO_21:
+  JUMPIF R0 [+16]
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  LOADNIL R4
+  NAMECALL R1 R1 K0 ["SetAttribute"]
+  CALL R1 3 0
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K1 ["SignalsInstanceUtils"]
+  GETTABLEKS R1 R2 K2 ["of"]
+  LOADNIL R2
+  CALL R1 1 -1
+  RETURN R1 -1
+  LOADB R1 1
+  SETUPVAL R1 0
+  GETUPVAL R1 4
+  MOVE R3 R0
+  NAMECALL R1 R1 K3 ["instanceToId"]
+  CALL R1 2 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K1 ["SignalsInstanceUtils"]
+  GETTABLEKS R2 R3 K4 ["observeTypedAttribute"]
+  MOVE R3 R0
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K5 ["NODE_ATTRIBUTES"]
+  GETTABLEKS R4 R5 K6 ["Position"]
+  LOADK R5 K7 ["Vector2"]
+  CALL R2 3 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K1 ["SignalsInstanceUtils"]
+  GETTABLEKS R3 R4 K4 ["observeTypedAttribute"]
+  MOVE R4 R0
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K5 ["NODE_ATTRIBUTES"]
+  GETTABLEKS R5 R6 K8 ["Size"]
+  LOADK R6 K7 ["Vector2"]
+  CALL R3 3 1
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K1 ["SignalsInstanceUtils"]
+  GETTABLEKS R4 R5 K4 ["observeTypedAttribute"]
+  MOVE R5 R0
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K5 ["NODE_ATTRIBUTES"]
+  GETTABLEKS R6 R7 K9 ["Collapsed"]
+  LOADK R7 K10 ["boolean"]
+  CALL R4 3 1
+  GETUPVAL R5 6
+  MOVE R7 R0
+  NAMECALL R5 R5 K11 ["observeIsSelected"]
+  CALL R5 2 1
+  GETUPVAL R7 7
+  GETTABLEKS R6 R7 K12 ["createComputed"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CALL R6 1 -1
+  RETURN R6 -1
+
+PROTO_22:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["getNodeParameterConfigurationName"]
+  MOVE R5 R3
+  CALL R4 1 1
+  GETUPVAL R5 1
+  MOVE R6 R2
+  MOVE R7 R4
+  CALL R5 2 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K1 ["SignalsInstanceUtils"]
+  GETTABLEKS R6 R7 K2 ["observeAttribute"]
+  MOVE R7 R2
+  MOVE R8 R3
+  CALL R6 2 1
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K3 ["createComputed"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R6
+  CAPTURE UPVAL U0
+  CALL R7 1 1
+  GETUPVAL R8 1
+  MOVE R9 R2
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K4 ["NODE_CONFIGURATION_NAME"]
+  CALL R8 2 1
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K1 ["SignalsInstanceUtils"]
+  GETTABLEKS R9 R10 K5 ["switchMap"]
+  MOVE R10 R8
+  DUPCLOSURE R11 K6 [PROTO_18]
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U4
+  CALL R9 2 1
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K3 ["createComputed"]
+  NEWCLOSURE R11 P2
+  CAPTURE VAL R9
+  CALL R10 1 1
+  LOADB R11 0
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K1 ["SignalsInstanceUtils"]
+  GETTABLEKS R12 R13 K5 ["switchMap"]
+  MOVE R13 R5
+  NEWCLOSURE R14 P3
+  CAPTURE REF R11
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CALL R12 2 -1
+  CLOSEUPVALS R11
+  RETURN R12 -1
+
+PROTO_23:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["SignalsInstanceUtils"]
+  GETTABLEKS R1 R2 K1 ["observeTypedAttribute"]
+  MOVE R2 R0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["NODE_ATTRIBUTES"]
+  GETTABLEKS R3 R4 K3 ["Position"]
+  LOADK R4 K4 ["Vector2"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_24:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["SignalsInstanceUtils"]
   GETTABLEKS R1 R2 K1 ["observeTypedAttribute"]
@@ -383,7 +654,7 @@ PROTO_18:
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_19:
+PROTO_25:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["SignalsInstanceUtils"]
   GETTABLEKS R1 R2 K1 ["observeTypedAttribute"]
@@ -395,184 +666,172 @@ PROTO_19:
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_20:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["SignalsInstanceUtils"]
-  GETTABLEKS R1 R2 K1 ["observeAttributes"]
-  MOVE R2 R0
-  CALL R1 1 -1
-  RETURN R1 -1
-
-PROTO_21:
+PROTO_26:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
   NEWTABLE R2 0 0
-  GETUPVAL R3 1
-  MOVE R4 R0
-  CALL R3 1 3
-  FORGPREP R3
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K0 ["fromParameterAttribute"]
-  MOVE R9 R6
-  CALL R8 1 2
-  JUMPIFNOT R8 [+8]
-  JUMPIFNOT R9 [+7]
-  GETTABLE R10 R2 R8
-  JUMPIF R10 [+2]
-  NEWTABLE R10 0 0
-  SETTABLE R10 R2 R8
-  GETTABLE R10 R2 R8
-  SETTABLE R7 R10 R9
-  FORGLOOP R3 2 [-15]
-  NEWTABLE R3 0 0
-  MOVE R4 R1
+  MOVE R3 R1
+  LOADNIL R4
   LOADNIL R5
-  LOADNIL R6
-  FORGPREP R4
-  GETTABLE R9 R2 R7
-  JUMPIF R9 [+2]
-  NEWTABLE R9 0 0
-  DUPTABLE R10 K7 [{"id", "name", "position", "size", "isCollapsed", "value"}]
-  LOADK R12 K8 ["param_"]
-  GETUPVAL R13 3
-  MOVE R14 R7
-  CONCAT R11 R12 R14
-  SETTABLEKS R11 R10 K1 ["id"]
-  SETTABLEKS R7 R10 K2 ["name"]
-  GETTABLEKS R11 R9 K9 ["Position"]
-  SETTABLEKS R11 R10 K3 ["position"]
-  GETTABLEKS R11 R9 K10 ["Size"]
-  SETTABLEKS R11 R10 K4 ["size"]
-  GETTABLEKS R11 R9 K11 ["IsCollapsed"]
-  SETTABLEKS R11 R10 K5 ["isCollapsed"]
-  SETTABLEKS R8 R10 K6 ["value"]
-  SETTABLE R10 R3 R7
-  FORGLOOP R4 2 [-29]
-  DUPTABLE R4 K17 [{"nodeId", "nodeProps", "parameterData", "name", "nodeType", "position", "size", "isCollapsed", "isSelected"}]
-  GETUPVAL R5 3
-  SETTABLEKS R5 R4 K12 ["nodeId"]
-  SETTABLEKS R1 R4 K13 ["nodeProps"]
-  SETTABLEKS R3 R4 K14 ["parameterData"]
-  GETUPVAL R5 4
-  MOVE R6 R0
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K2 ["name"]
-  GETUPVAL R5 5
-  MOVE R6 R0
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K15 ["nodeType"]
-  GETUPVAL R5 6
-  MOVE R6 R0
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K3 ["position"]
-  GETUPVAL R5 7
-  MOVE R6 R0
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K4 ["size"]
-  GETUPVAL R5 8
-  MOVE R6 R0
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K5 ["isCollapsed"]
-  GETUPVAL R5 9
-  MOVE R6 R0
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K16 ["isSelected"]
-  GETIMPORT R5 K20 [table.freeze]
-  MOVE R6 R4
-  CALL R5 1 -1
-  RETURN R5 -1
+  FORGPREP R3
+  FASTCALL1 TYPE R7 [+3]
+  MOVE R9 R7
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  JUMPIFNOTEQKS R8 K2 ["string"] [+14]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["matchParameterBinding"]
+  MOVE R9 R7
+  CALL R8 1 1
+  JUMPIFNOT R8 [+7]
+  FASTCALL2 TABLE_INSERT R2 R6 [+5]
+  MOVE R10 R2
+  MOVE R11 R6
+  GETIMPORT R9 K6 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R3 2 [-21]
+  GETIMPORT R3 K8 [table.freeze]
+  MOVE R4 R2
+  CALL R3 1 -1
+  RETURN R3 -1
 
-PROTO_22:
+PROTO_27:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["observeParameterData"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  GETUPVAL R4 3
+  MOVE R5 R0
+  CALL R1 4 -1
+  RETURN R1 -1
+
+PROTO_28:
+  DUPTABLE R1 K9 [{"nodeId", "nodeProps", "parameterData", "name", "nodeType", "position", "size", "isCollapsed", "isSelected"}]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K0 ["nodeId"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K1 ["nodeProps"]
+  GETUPVAL R2 2
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K2 ["parameterData"]
+  GETUPVAL R2 3
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K3 ["name"]
+  GETUPVAL R2 4
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K4 ["nodeType"]
+  GETUPVAL R2 5
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K5 ["position"]
+  GETUPVAL R2 6
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K6 ["size"]
+  GETUPVAL R2 7
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K7 ["isCollapsed"]
+  GETUPVAL R2 8
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K8 ["isSelected"]
+  GETIMPORT R2 K12 [table.freeze]
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_29:
   MOVE R5 R2
   NAMECALL R3 R0 K0 ["instanceToId"]
   CALL R3 2 1
-  LOADK R7 K1 ["Configuration"]
-  NAMECALL R5 R2 K2 ["FindFirstChildWhichIsA"]
-  CALL R5 2 1
-  JUMPIFEQKNIL R5 [+2]
-  JUMP [+9]
-  GETIMPORT R6 K5 [Instance.new]
-  LOADK R7 K1 ["Configuration"]
-  CALL R6 1 1
-  LOADK R7 K1 ["Configuration"]
-  SETTABLEKS R7 R6 K6 ["Name"]
-  SETTABLEKS R2 R6 K7 ["Parent"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K8 ["SignalsInstanceUtils"]
-  GETTABLEKS R4 R5 K9 ["observeFirstNamedChild"]
+  GETUPVAL R4 0
   MOVE R5 R2
-  DUPCLOSURE R6 K10 [PROTO_3]
-  LOADK R7 K1 ["Configuration"]
-  CALL R4 3 1
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K8 ["SignalsInstanceUtils"]
-  GETTABLEKS R5 R6 K11 ["switchMap"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["NODE_CONFIGURATION_NAME"]
+  CALL R4 2 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K2 ["SignalsInstanceUtils"]
+  GETTABLEKS R5 R6 K3 ["switchMap"]
   MOVE R6 R4
-  DUPCLOSURE R7 K12 [PROTO_17]
-  CAPTURE UPVAL U0
+  DUPCLOSURE R7 K4 [PROTO_23]
+  CAPTURE UPVAL U2
   CAPTURE UPVAL U1
   CALL R5 2 1
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K8 ["SignalsInstanceUtils"]
-  GETTABLEKS R6 R7 K11 ["switchMap"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K2 ["SignalsInstanceUtils"]
+  GETTABLEKS R6 R7 K3 ["switchMap"]
   MOVE R7 R4
-  DUPCLOSURE R8 K13 [PROTO_18]
-  CAPTURE UPVAL U0
+  DUPCLOSURE R8 K5 [PROTO_24]
+  CAPTURE UPVAL U2
   CAPTURE UPVAL U1
   CALL R6 2 1
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K8 ["SignalsInstanceUtils"]
-  GETTABLEKS R7 R8 K11 ["switchMap"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K2 ["SignalsInstanceUtils"]
+  GETTABLEKS R7 R8 K3 ["switchMap"]
   MOVE R8 R4
-  DUPCLOSURE R9 K14 [PROTO_19]
-  CAPTURE UPVAL U0
+  DUPCLOSURE R9 K6 [PROTO_25]
+  CAPTURE UPVAL U2
   CAPTURE UPVAL U1
   CALL R7 2 1
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K8 ["SignalsInstanceUtils"]
-  GETTABLEKS R8 R9 K15 ["observeProperty"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K2 ["SignalsInstanceUtils"]
+  GETTABLEKS R8 R9 K7 ["observeProperty"]
   MOVE R9 R2
-  LOADK R10 K6 ["Name"]
+  LOADK R10 K8 ["Name"]
   CALL R8 2 1
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K8 ["SignalsInstanceUtils"]
-  GETTABLEKS R9 R10 K15 ["observeProperty"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K2 ["SignalsInstanceUtils"]
+  GETTABLEKS R9 R10 K7 ["observeProperty"]
   MOVE R10 R2
-  LOADK R11 K16 ["NodeType"]
+  LOADK R11 K9 ["NodeType"]
   CALL R9 2 1
   MOVE R12 R2
-  NAMECALL R10 R1 K17 ["observeIsSelected"]
+  NAMECALL R10 R1 K10 ["observeIsSelected"]
   CALL R10 2 1
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K8 ["SignalsInstanceUtils"]
-  GETTABLEKS R11 R12 K18 ["observeAttributes"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K2 ["SignalsInstanceUtils"]
+  GETTABLEKS R11 R12 K11 ["observeAttributes"]
   MOVE R12 R2
   CALL R11 1 1
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K8 ["SignalsInstanceUtils"]
-  GETTABLEKS R12 R13 K11 ["switchMap"]
-  MOVE R13 R4
-  DUPCLOSURE R14 K19 [PROTO_20]
-  CAPTURE UPVAL U0
-  CALL R12 2 1
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K20 ["createComputed"]
-  NEWCLOSURE R14 P5
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K12 ["createComputed"]
+  NEWCLOSURE R13 P3
   CAPTURE VAL R11
-  CAPTURE VAL R12
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CALL R12 1 1
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K2 ["SignalsInstanceUtils"]
+  GETTABLEKS R13 R14 K13 ["forEach"]
+  MOVE R14 R12
+  NEWCLOSURE R15 P4
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CALL R13 2 1
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K12 ["createComputed"]
+  NEWCLOSURE R15 P5
   CAPTURE VAL R3
+  CAPTURE VAL R11
+  CAPTURE VAL R13
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R10
-  CALL R13 1 -1
-  RETURN R13 -1
+  CALL R14 1 -1
+  RETURN R14 -1
 
-PROTO_23:
+PROTO_30:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["observeNodeInfo"]
   GETUPVAL R2 1
@@ -581,7 +840,7 @@ PROTO_23:
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_24:
+PROTO_31:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["SignalsInstanceUtils"]
   GETTABLEKS R3 R4 K1 ["observeChildrenWhichIsA"]
@@ -599,14 +858,116 @@ PROTO_24:
   CALL R4 2 1
   RETURN R4 1
 
-PROTO_25:
+PROTO_32:
+  NAMECALL R2 R0 K0 ["GetDebugData"]
+  CALL R2 1 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_33:
+  GETTABLEKS R1 R0 K0 ["Animation"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["safeGetProductInfo"]
+  GETTABLEKS R3 R0 K0 ["Animation"]
+  GETTABLEKS R2 R3 K2 ["AnimationId"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  JUMPIF R2 [+5]
+  GETTABLEKS R3 R0 K0 ["Animation"]
+  GETTABLEKS R2 R3 K2 ["AnimationId"]
+  SETUPVAL R2 1
+  JUMPIFNOT R1 [+23]
+  GETUPVAL R2 2
+  GETTABLEKS R4 R0 K0 ["Animation"]
+  GETTABLEKS R3 R4 K2 ["AnimationId"]
+  DUPTABLE R4 K7 [{"animationId", "name", "published", "track"}]
+  GETTABLEKS R6 R0 K0 ["Animation"]
+  GETTABLEKS R5 R6 K2 ["AnimationId"]
+  SETTABLEKS R5 R4 K3 ["animationId"]
+  GETTABLEKS R5 R1 K8 ["Name"]
+  SETTABLEKS R5 R4 K4 ["name"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K5 ["published"]
+  SETTABLEKS R0 R4 K6 ["track"]
+  SETTABLE R4 R2 R3
+  RETURN R0 0
+  GETUPVAL R2 2
+  GETTABLEKS R4 R0 K0 ["Animation"]
+  GETTABLEKS R3 R4 K2 ["AnimationId"]
+  DUPTABLE R4 K7 [{"animationId", "name", "published", "track"}]
+  GETTABLEKS R6 R0 K0 ["Animation"]
+  GETTABLEKS R5 R6 K2 ["AnimationId"]
+  SETTABLEKS R5 R4 K3 ["animationId"]
+  LOADK R5 K9 ["Unnamed track"]
+  SETTABLEKS R5 R4 K4 ["name"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K5 ["published"]
+  SETTABLEKS R0 R4 K6 ["track"]
+  SETTABLE R4 R2 R3
+  RETURN R0 0
+
+PROTO_34:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETTABLEN R2 R1 1
+  JUMPIF R2 [+3]
+  NEWTABLE R3 0 0
+  RETURN R3 1
+  LOADK R5 K0 ["Animator"]
+  LOADB R6 1
+  NAMECALL R3 R2 K1 ["FindFirstChildWhichIsA"]
+  CALL R3 3 1
+  JUMPIF R3 [+3]
+  NEWTABLE R4 0 0
+  RETURN R4 1
+  NAMECALL R4 R3 K2 ["GetPlayingAnimationTracks"]
+  CALL R4 1 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["filter"]
+  MOVE R6 R4
+  DUPCLOSURE R7 K4 [PROTO_32]
+  CALL R5 2 1
+  NEWTABLE R6 0 0
+  LOADNIL R7
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K5 ["forEach"]
+  MOVE R9 R5
+  NEWCLOSURE R10 P1
+  CAPTURE UPVAL U2
+  CAPTURE REF R7
+  CAPTURE VAL R6
+  CALL R8 2 0
+  GETIMPORT R8 K8 [table.freeze]
+  DUPTABLE R9 K11 [{"availableTracks", "debugTrackAnimationId"}]
+  SETTABLEKS R6 R9 K9 ["availableTracks"]
+  SETTABLEKS R7 R9 K10 ["debugTrackAnimationId"]
+  CALL R8 1 -1
+  CLOSEUPVALS R7
+  RETURN R8 -1
+
+PROTO_35:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createComputed"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_36:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
   GETTABLEN R2 R1 1
   RETURN R2 1
 
-PROTO_26:
+PROTO_37:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
@@ -627,7 +988,7 @@ PROTO_26:
   LOADNIL R2
   RETURN R2 1
 
-PROTO_27:
+PROTO_38:
   JUMPIFNOT R0 [+9]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["SignalsInstanceUtils"]
@@ -643,19 +1004,27 @@ PROTO_27:
   CALL R1 1 -1
   RETURN R1 -1
 
-PROTO_28:
+PROTO_39:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
+  JUMPIFNOT R1 [+4]
+  GETTABLEN R2 R1 1
+  JUMPIFNOT R2 [+2]
+  GETTABLEN R2 R1 1
+  RETURN R2 1
   GETUPVAL R2 1
   MOVE R3 R0
   CALL R2 1 1
-  JUMPIFNOT R1 [+1]
-  RETURN R2 1
-  LOADNIL R3
+  GETUPVAL R3 2
+  MOVE R4 R0
+  CALL R3 1 1
+  JUMPIFNOT R2 [+1]
   RETURN R3 1
+  LOADNIL R4
+  RETURN R4 1
 
-PROTO_29:
+PROTO_40:
   JUMPIFNOT R0 [+7]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["observeNodeConnectionMap"]
@@ -670,7 +1039,7 @@ PROTO_29:
   CALL R1 1 -1
   RETURN R1 -1
 
-PROTO_30:
+PROTO_41:
   JUMPIFNOT R0 [+8]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["observeNodeInfoLookupList"]
@@ -686,7 +1055,7 @@ PROTO_30:
   CALL R1 1 -1
   RETURN R1 -1
 
-PROTO_31:
+PROTO_42:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
@@ -700,49 +1069,69 @@ PROTO_31:
   FORGLOOP R3 2 [-4]
   RETURN R2 1
 
-PROTO_32:
-  GETUPVAL R2 0
-  GETTABLEKS R3 R1 K0 ["id"]
-  GETIMPORT R4 K3 [table.freeze]
-  DUPTABLE R5 K15 [{"nodeProps", "children", "className", "id", "name", "parentId", "timestamp", "weight", "isCollapsed", "isSelected", "size", "position"}]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K4 ["nodeProps"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K5 ["children"]
-  LOADK R6 K16 ["Parameter"]
-  SETTABLEKS R6 R5 K6 ["className"]
-  GETTABLEKS R6 R1 K0 ["id"]
-  SETTABLEKS R6 R5 K0 ["id"]
-  GETTABLEKS R6 R1 K7 ["name"]
-  SETTABLEKS R6 R5 K7 ["name"]
-  GETTABLEKS R6 R0 K17 ["nodeId"]
-  SETTABLEKS R6 R5 K8 ["parentId"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K9 ["timestamp"]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K10 ["weight"]
-  GETTABLEKS R7 R1 K11 ["isCollapsed"]
-  JUMPIFEQKNIL R7 [+4]
-  GETTABLEKS R6 R1 K11 ["isCollapsed"]
+PROTO_43:
+  DUPTABLE R2 K5 [{"wireId", "inputNodeId", "inputNodePinId", "outputNodeId", "outputNodePinId"}]
+  GETTABLEKS R3 R1 K6 ["id"]
+  SETTABLEKS R3 R2 K0 ["wireId"]
+  GETTABLEKS R3 R0 K7 ["nodeId"]
+  SETTABLEKS R3 R2 K1 ["inputNodeId"]
+  GETTABLEKS R3 R1 K8 ["parameterName"]
+  SETTABLEKS R3 R2 K2 ["inputNodePinId"]
+  GETTABLEKS R3 R1 K6 ["id"]
+  SETTABLEKS R3 R2 K3 ["outputNodeId"]
+  LOADK R3 K9 ["Output"]
+  SETTABLEKS R3 R2 K4 ["outputNodePinId"]
+  GETUPVAL R3 0
+  GETTABLEKS R4 R1 K6 ["id"]
+  GETIMPORT R5 K12 [table.freeze]
+  DUPTABLE R6 K26 [{"nodeProps", "nodeState", "inputPinToConnectionMap", "outputPinToConnectionMap", "className", "id", "name", "parentId", "timestamp", "weight", "isCollapsed", "isSelected", "size", "position"}]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K13 ["nodeProps"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K14 ["nodeState"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K15 ["inputPinToConnectionMap"]
+  NEWTABLE R7 1 0
+  SETTABLEKS R2 R7 K9 ["Output"]
+  SETTABLEKS R7 R6 K16 ["outputPinToConnectionMap"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K27 ["PARAMETER_NODE_CLASSNAME"]
+  SETTABLEKS R7 R6 K17 ["className"]
+  GETTABLEKS R7 R1 K6 ["id"]
+  SETTABLEKS R7 R6 K6 ["id"]
+  GETTABLEKS R7 R1 K28 ["parameterBindingName"]
+  SETTABLEKS R7 R6 K18 ["name"]
+  GETTABLEKS R7 R0 K7 ["nodeId"]
+  SETTABLEKS R7 R6 K19 ["parentId"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K20 ["timestamp"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K21 ["weight"]
+  GETTABLEKS R8 R1 K22 ["isCollapsed"]
+  JUMPIFEQKNIL R8 [+4]
+  GETTABLEKS R7 R1 K22 ["isCollapsed"]
   JUMP [+1]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K11 ["isCollapsed"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K12 ["isSelected"]
-  GETTABLEKS R6 R1 K13 ["size"]
-  JUMPIF R6 [+2]
-  GETIMPORT R6 K20 [Vector2.zero]
-  SETTABLEKS R6 R5 K13 ["size"]
-  GETTABLEKS R6 R1 K14 ["position"]
-  JUMPIF R6 [+2]
-  GETIMPORT R6 K20 [Vector2.zero]
-  SETTABLEKS R6 R5 K14 ["position"]
-  CALL R4 1 1
-  SETTABLE R4 R2 R3
-  GETTABLEKS R2 R1 K0 ["id"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K22 ["isCollapsed"]
+  GETTABLEKS R8 R1 K23 ["isSelected"]
+  JUMPIFEQKNIL R8 [+4]
+  GETTABLEKS R7 R1 K23 ["isSelected"]
+  JUMP [+1]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K23 ["isSelected"]
+  GETTABLEKS R7 R1 K24 ["size"]
+  JUMPIF R7 [+2]
+  GETIMPORT R7 K31 [Vector2.zero]
+  SETTABLEKS R7 R6 K24 ["size"]
+  GETTABLEKS R7 R1 K25 ["position"]
+  JUMPIF R7 [+2]
+  GETIMPORT R7 K31 [Vector2.zero]
+  SETTABLEKS R7 R6 K25 ["position"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
   RETURN R2 1
 
-PROTO_33:
+PROTO_44:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
@@ -752,130 +1141,144 @@ PROTO_33:
   GETUPVAL R3 2
   MOVE R4 R0
   CALL R3 1 1
-  LOADNIL R4
-  NEWTABLE R5 0 0
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R5
-  MOVE R7 R2
-  LOADNIL R8
+  GETUPVAL R4 3
+  MOVE R5 R0
+  CALL R4 1 1
+  LOADNIL R5
+  NEWTABLE R6 0 0
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R6
+  CAPTURE UPVAL U4
+  MOVE R8 R2
   LOADNIL R9
-  FORGPREP R7
-  GETTABLEKS R13 R11 K0 ["nodeId"]
-  GETTABLE R12 R3 R13
-  NEWTABLE R13 0 0
-  JUMPIFNOT R12 [+14]
-  GETTABLEKS R14 R12 K1 ["children"]
-  LOADNIL R15
-  LOADNIL R16
-  FORGPREP R14
-  FASTCALL2 TABLE_INSERT R13 R17 [+5]
-  MOVE R20 R13
-  MOVE R21 R17
-  GETIMPORT R19 K4 [table.insert]
-  CALL R19 2 0
-  FORGLOOP R14 2 [-8]
-  GETTABLEKS R14 R11 K5 ["nodeType"]
-  GETIMPORT R17 K7 [Enum]
-  GETTABLEKS R16 R17 K8 ["AnimationNodeType"]
-  GETTABLEKS R15 R16 K9 ["GraphOutput"]
-  JUMPIFEQ R14 R15 [+5]
-  GETTABLEKS R14 R11 K10 ["name"]
-  JUMPIFNOTEQKS R14 K9 ["GraphOutput"] [+3]
-  GETTABLEKS R4 R11 K0 ["nodeId"]
-  GETTABLEKS R14 R11 K11 ["parameterData"]
-  LOADNIL R15
-  LOADNIL R16
-  FORGPREP R14
-  MOVE R21 R6
-  MOVE R22 R11
-  MOVE R23 R18
-  CALL R21 2 1
-  FASTCALL2 TABLE_INSERT R13 R21 [+4]
-  MOVE R20 R13
-  GETIMPORT R19 K4 [table.insert]
-  CALL R19 2 0
-  FORGLOOP R14 2 [-11]
-  GETTABLEKS R14 R11 K0 ["nodeId"]
-  GETIMPORT R15 K13 [table.freeze]
-  DUPTABLE R16 K33 [{"nodeProps", "animationMask", "animationPose", "children", "className", "hrpCFrame", "id", "index", "linkData", "lod", "name", "nodeType", "parentId", "props", "state", "timestamp", "watches", "weight", "isCollapsed", "isSelected", "size", "position"}]
-  GETTABLEKS R17 R11 K14 ["nodeProps"]
-  SETTABLEKS R17 R16 K14 ["nodeProps"]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K15 ["animationMask"]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K16 ["animationPose"]
-  SETTABLEKS R13 R16 K1 ["children"]
-  GETTABLEKS R18 R11 K5 ["nodeType"]
-  GETTABLEKS R17 R18 K34 ["Name"]
-  SETTABLEKS R17 R16 K17 ["className"]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K18 ["hrpCFrame"]
-  GETTABLEKS R17 R11 K0 ["nodeId"]
-  SETTABLEKS R17 R16 K19 ["id"]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K20 ["index"]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K21 ["linkData"]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K22 ["lod"]
-  GETTABLEKS R17 R11 K10 ["name"]
-  SETTABLEKS R17 R16 K10 ["name"]
-  GETTABLEKS R17 R11 K5 ["nodeType"]
-  SETTABLEKS R17 R16 K5 ["nodeType"]
-  JUMPIFNOT R12 [+3]
-  GETTABLEKS R17 R12 K35 ["parentNodeId"]
-  JUMP [+1]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K23 ["parentId"]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K24 ["props"]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K25 ["state"]
-  LOADN R17 0
-  SETTABLEKS R17 R16 K26 ["timestamp"]
-  LOADNIL R17
-  SETTABLEKS R17 R16 K27 ["watches"]
-  LOADN R17 1
-  SETTABLEKS R17 R16 K28 ["weight"]
-  GETTABLEKS R18 R11 K29 ["isCollapsed"]
-  ORK R17 R18 K36 [False]
-  SETTABLEKS R17 R16 K29 ["isCollapsed"]
-  GETTABLEKS R18 R11 K30 ["isSelected"]
-  ORK R17 R18 K36 [False]
-  SETTABLEKS R17 R16 K30 ["isSelected"]
-  GETTABLEKS R17 R11 K31 ["size"]
-  JUMPIF R17 [+5]
-  GETIMPORT R17 K39 [Vector2.new]
-  LOADN R18 100
-  LOADN R19 100
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K31 ["size"]
-  GETTABLEKS R17 R11 K32 ["position"]
-  JUMPIF R17 [+2]
-  GETIMPORT R17 K41 [Vector2.zero]
-  SETTABLEKS R17 R16 K32 ["position"]
-  CALL R15 1 1
-  SETTABLE R15 R5 R14
-  FORGLOOP R7 2 [-152]
-  GETIMPORT R7 K13 [table.freeze]
-  DUPTABLE R8 K45 [{"graphInstanceId", "lookup", "output"}]
+  LOADNIL R10
+  FORGPREP R8
+  GETTABLEKS R14 R12 K0 ["nodeId"]
+  GETTABLE R13 R3 R14
+  JUMPIFNOT R4 [+4]
+  GETTABLEKS R15 R12 K0 ["nodeId"]
+  GETTABLE R14 R4 R15
+  JUMPIF R14 [+2]
+  NEWTABLE R14 0 0
+  NEWTABLE R15 0 0
+  NEWTABLE R16 0 0
+  JUMPIFNOT R13 [+20]
+  GETTABLEKS R17 R13 K1 ["inputNodesByPinName"]
+  LOADNIL R18
+  LOADNIL R19
+  FORGPREP R17
+  GETTABLEKS R22 R21 K2 ["inputNodePinId"]
+  SETTABLE R21 R15 R22
+  FORGLOOP R17 2 [-4]
+  GETTABLEKS R17 R13 K3 ["outputNodesByPinName"]
+  LOADNIL R18
+  LOADNIL R19
+  FORGPREP R17
+  GETTABLEKS R22 R21 K4 ["outputNodePinId"]
+  SETTABLE R21 R16 R22
+  FORGLOOP R17 2 [-4]
+  GETTABLEKS R17 R12 K5 ["nodeType"]
+  GETIMPORT R20 K7 [Enum]
+  GETTABLEKS R19 R20 K8 ["AnimationNodeType"]
+  GETTABLEKS R18 R19 K9 ["GraphOutput"]
+  JUMPIFEQ R17 R18 [+5]
+  GETTABLEKS R17 R12 K10 ["name"]
+  JUMPIFNOTEQKS R17 K9 ["GraphOutput"] [+3]
+  GETTABLEKS R5 R12 K0 ["nodeId"]
+  GETTABLEKS R17 R12 K11 ["parameterData"]
+  LOADNIL R18
+  LOADNIL R19
+  FORGPREP R17
+  GETTABLEKS R22 R21 K12 ["parameterName"]
+  MOVE R23 R7
+  MOVE R24 R12
+  MOVE R25 R21
+  CALL R23 2 1
+  SETTABLE R23 R15 R22
+  FORGLOOP R17 2 [-8]
+  GETTABLEKS R17 R12 K0 ["nodeId"]
+  GETIMPORT R18 K15 [table.freeze]
+  DUPTABLE R19 K37 [{"nodeProps", "nodeState", "animationMask", "animationPose", "outputPinToConnectionMap", "inputPinToConnectionMap", "className", "hrpCFrame", "id", "index", "linkData", "lod", "name", "nodeType", "props", "state", "timestamp", "watches", "weight", "isCollapsed", "isSelected", "size", "position"}]
+  GETTABLEKS R20 R14 K28 ["props"]
+  JUMPIF R20 [+2]
+  GETTABLEKS R20 R12 K16 ["nodeProps"]
+  SETTABLEKS R20 R19 K16 ["nodeProps"]
+  GETTABLEKS R20 R14 K29 ["state"]
+  JUMPIF R20 [+2]
+  NEWTABLE R20 0 0
+  SETTABLEKS R20 R19 K17 ["nodeState"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K18 ["animationMask"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K19 ["animationPose"]
+  SETTABLEKS R16 R19 K20 ["outputPinToConnectionMap"]
+  SETTABLEKS R15 R19 K21 ["inputPinToConnectionMap"]
+  GETTABLEKS R21 R12 K5 ["nodeType"]
+  GETTABLEKS R20 R21 K38 ["Name"]
+  SETTABLEKS R20 R19 K22 ["className"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K23 ["hrpCFrame"]
+  GETTABLEKS R20 R12 K0 ["nodeId"]
+  SETTABLEKS R20 R19 K24 ["id"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K25 ["index"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K26 ["linkData"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K27 ["lod"]
+  GETTABLEKS R20 R12 K10 ["name"]
+  SETTABLEKS R20 R19 K10 ["name"]
+  GETTABLEKS R20 R12 K5 ["nodeType"]
+  SETTABLEKS R20 R19 K5 ["nodeType"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K28 ["props"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K29 ["state"]
+  LOADN R20 0
+  SETTABLEKS R20 R19 K30 ["timestamp"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K31 ["watches"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K32 ["weight"]
+  GETTABLEKS R21 R12 K33 ["isCollapsed"]
+  ORK R20 R21 K39 [False]
+  SETTABLEKS R20 R19 K33 ["isCollapsed"]
+  GETTABLEKS R21 R12 K34 ["isSelected"]
+  ORK R20 R21 K39 [False]
+  SETTABLEKS R20 R19 K34 ["isSelected"]
+  GETTABLEKS R20 R12 K35 ["size"]
+  JUMPIF R20 [+5]
+  GETIMPORT R20 K42 [Vector2.new]
+  LOADN R21 100
+  LOADN R22 100
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K35 ["size"]
+  GETTABLEKS R20 R12 K36 ["position"]
+  JUMPIF R20 [+2]
+  GETIMPORT R20 K44 [Vector2.zero]
+  SETTABLEKS R20 R19 K36 ["position"]
+  CALL R18 1 1
+  SETTABLE R18 R6 R17
+  FORGLOOP R8 2 [-169]
+  GETIMPORT R8 K15 [table.freeze]
+  DUPTABLE R9 K48 [{"graphInstanceId", "lookup", "output"}]
   JUMPIFNOT R1 [+6]
-  GETUPVAL R9 3
-  MOVE R11 R1
-  NAMECALL R9 R9 K46 ["instanceToId"]
-  CALL R9 2 1
+  GETUPVAL R10 5
+  MOVE R12 R1
+  NAMECALL R10 R10 K49 ["instanceToId"]
+  CALL R10 2 1
   JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K42 ["graphInstanceId"]
-  GETIMPORT R9 K13 [table.freeze]
-  MOVE R10 R5
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K43 ["lookup"]
-  SETTABLEKS R4 R8 K44 ["output"]
-  CALL R7 1 -1
-  RETURN R7 -1
+  LOADNIL R10
+  SETTABLEKS R10 R9 K45 ["graphInstanceId"]
+  GETIMPORT R10 K15 [table.freeze]
+  MOVE R11 R6
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K46 ["lookup"]
+  SETTABLEKS R5 R9 K47 ["output"]
+  CALL R8 1 -1
+  RETURN R8 -1
 
-PROTO_34:
+PROTO_45:
   GETUPVAL R1 0
   MOVE R2 R0
   CALL R1 1 1
@@ -893,427 +1296,89 @@ PROTO_34:
   CALL R4 1 -1
   RETURN R4 -1
 
-PROTO_35:
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["SignalsAnimationUtils"]
-  GETTABLEKS R3 R4 K1 ["observeRootAnimationsMap"]
-  MOVE R4 R2
-  LOADK R5 K2 ["AnimationGraphDefinition"]
-  CALL R3 2 1
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["SignalsAnimationUtils"]
-  GETTABLEKS R4 R5 K3 ["observeKeysAsList"]
-  MOVE R5 R3
-  CALL R4 1 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K4 ["createComputed"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R4
-  CALL R5 1 1
-  LOADNIL R6
+PROTO_46:
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["SignalsAnimationUtils"]
+  GETTABLEKS R5 R6 K1 ["observeRootAnimationsMap"]
+  MOVE R6 R2
+  LOADK R7 K2 ["AnimationGraphDefinition"]
+  CALL R5 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["SignalsAnimationUtils"]
+  GETTABLEKS R6 R7 K3 ["observeKeysAsList"]
+  MOVE R7 R5
+  CALL R6 1 1
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K4 ["createComputed"]
-  NEWCLOSURE R8 P1
-  CAPTURE VAL R5
-  CAPTURE REF R6
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R6
   CALL R7 1 1
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K5 ["SignalsInstanceUtils"]
-  GETTABLEKS R8 R9 K6 ["switchMap"]
-  MOVE R9 R7
-  DUPCLOSURE R10 K7 [PROTO_27]
-  CAPTURE UPVAL U0
-  CALL R8 2 1
+  LOADNIL R8
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K4 ["createComputed"]
-  NEWCLOSURE R10 P3
-  CAPTURE VAL R8
+  NEWCLOSURE R10 P1
   CAPTURE VAL R7
+  CAPTURE REF R8
   CALL R9 1 1
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K5 ["SignalsInstanceUtils"]
   GETTABLEKS R10 R11 K6 ["switchMap"]
   MOVE R11 R9
-  NEWCLOSURE R12 P4
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
+  DUPCLOSURE R12 K7 [PROTO_38]
   CAPTURE UPVAL U0
   CALL R10 2 1
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K5 ["SignalsInstanceUtils"]
-  GETTABLEKS R11 R12 K6 ["switchMap"]
-  MOVE R12 R9
-  NEWCLOSURE R13 P5
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K4 ["createComputed"]
+  NEWCLOSURE R12 P3
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CALL R11 1 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K5 ["SignalsInstanceUtils"]
+  GETTABLEKS R12 R13 K6 ["switchMap"]
+  MOVE R13 R11
+  NEWCLOSURE R14 P4
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CALL R12 2 1
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K5 ["SignalsInstanceUtils"]
+  GETTABLEKS R13 R14 K6 ["switchMap"]
+  MOVE R14 R11
+  NEWCLOSURE R15 P5
   CAPTURE UPVAL U2
   CAPTURE VAL R0
   CAPTURE VAL R1
   CAPTURE UPVAL U0
-  CALL R11 2 1
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K4 ["createComputed"]
-  NEWCLOSURE R13 P6
-  CAPTURE VAL R11
-  CALL R12 1 1
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K4 ["createComputed"]
-  NEWCLOSURE R14 P7
-  CAPTURE VAL R9
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  CAPTURE VAL R0
-  CALL R13 1 1
+  CALL R13 2 1
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K4 ["createComputed"]
-  NEWCLOSURE R15 P8
-  CAPTURE VAL R10
-  CAPTURE VAL R12
+  NEWCLOSURE R15 P6
   CAPTURE VAL R13
-  CALL R14 1 -1
-  CLOSEUPVALS R6
-  RETURN R14 -1
-
-PROTO_36:
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K0 ["WELL_KNOWN_HEADER_HEIGHT"]
-  GETTABLEKS R10 R0 K1 ["children"]
-  LENGTH R9 R10
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K2 ["WELL_KNOWN_HEIGHT_OF_INPUT"]
-  MUL R8 R9 R10
-  ADD R6 R7 R8
-  LOADN R9 0
-  GETTABLEKS R12 R0 K1 ["children"]
-  LENGTH R11 R12
-  SUBK R10 R11 K3 [1]
-  FASTCALL2 MATH_MAX R9 R10 [+3]
-  GETIMPORT R8 K6 [math.max]
-  CALL R8 2 1
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K7 ["WELL_KNOWN_INPUT_PADDING"]
-  MUL R7 R8 R9
-  ADD R5 R6 R7
-  LOADN R7 2
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K8 ["WELL_KNOWN_OUTER_PADDING"]
-  MUL R6 R7 R8
-  ADD R4 R5 R6
-  LOADN R6 2
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K9 ["WELL_KNOWN_CONTENT_PADDING"]
-  MUL R5 R6 R7
-  ADD R3 R4 R5
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K10 ["WELL_KNOWN_INNER_PADDING"]
-  ADD R2 R3 R4
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K11 ["WELL_KNOWN_OUTPUT_SIZE"]
-  ADD R1 R2 R3
-  GETTABLEKS R2 R0 K12 ["nodeType"]
-  JUMPIFNOT R2 [+6]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K13 ["GetDefinition"]
-  GETTABLEKS R3 R0 K12 ["nodeType"]
-  CALL R2 1 1
-  JUMPIFNOT R2 [+8]
-  GETTABLEKS R5 R2 K14 ["Properties"]
-  LENGTH R4 R5
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K15 ["WELL_KNOWN_HEIGHT_OF_PROPERTY"]
-  MUL R3 R4 R5
-  ADD R1 R1 R3
-  GETTABLEKS R3 R0 K12 ["nodeType"]
-  GETIMPORT R4 K19 [Enum.AnimationNodeType.ClipNode]
-  JUMPIFNOTEQ R3 R4 [+13]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K20 ["PLAYING_PREVIEW_ENABLED"]
-  JUMPIFNOT R3 [+8]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K21 ["WELL_KNOWN_PREVIEW_SIZE"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K7 ["WELL_KNOWN_INPUT_PADDING"]
-  ADD R3 R4 R5
-  ADD R1 R1 R3
-  RETURN R1 1
-
-PROTO_37:
-  DUPTABLE R1 K4 [{"depth", "height", "nodes", "nodesHeight"}]
-  SETTABLEKS R0 R1 K0 ["depth"]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K1 ["height"]
-  NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K2 ["nodes"]
-  NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K3 ["nodesHeight"]
-  RETURN R1 1
-
-PROTO_38:
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETUPVAL R3 0
-  GETTABLEKS R4 R0 K0 ["id"]
-  GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+1]
-  RETURN R0 0
-  GETUPVAL R3 1
-  GETTABLE R2 R3 R1
-  JUMPIF R2 [+6]
-  GETUPVAL R3 2
-  MOVE R4 R1
-  CALL R3 1 1
-  MOVE R2 R3
-  GETUPVAL R3 1
-  SETTABLE R2 R3 R1
-  GETUPVAL R3 3
-  MOVE R4 R0
-  CALL R3 1 1
-  GETTABLEKS R4 R2 K1 ["nodesHeight"]
-  GETTABLEKS R5 R0 K0 ["id"]
-  GETTABLEKS R6 R2 K2 ["height"]
-  SETTABLE R6 R4 R5
-  GETTABLEKS R4 R2 K2 ["height"]
-  ADD R4 R4 R3
-  SETTABLEKS R4 R2 K2 ["height"]
-  GETUPVAL R4 4
-  GETTABLEKS R5 R0 K0 ["id"]
-  SETTABLE R1 R4 R5
-  GETUPVAL R4 0
-  GETTABLEKS R5 R0 K0 ["id"]
-  LOADB R6 1
-  SETTABLE R6 R4 R5
-  GETTABLEKS R4 R0 K3 ["children"]
-  LOADNIL R5
-  LOADNIL R6
-  FORGPREP R4
-  GETUPVAL R9 5
-  GETUPVAL R12 6
-  GETTABLEKS R11 R12 K4 ["lookup"]
-  GETTABLE R10 R11 R8
-  ADDK R11 R1 K5 [1]
-  CALL R9 2 0
-  GETTABLEKS R10 R0 K3 ["children"]
-  LENGTH R9 R10
-  JUMPIFEQ R7 R9 [+11]
-  GETTABLEKS R9 R2 K2 ["height"]
-  GETUPVAL R12 7
-  GETTABLEKS R11 R12 K6 ["CHILD_SPACING"]
-  GETTABLEKS R10 R11 K7 ["Y"]
-  ADD R9 R9 R10
-  SETTABLEKS R9 R2 K2 ["height"]
-  FORGLOOP R4 2 [-23]
-  RETURN R0 0
-
-PROTO_39:
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  MOVE R1 R0
-  GETTABLEKS R2 R1 K0 ["parentId"]
-  JUMPIFEQKNIL R2 [+10]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["lookup"]
-  GETTABLEKS R4 R1 K0 ["parentId"]
-  GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+2]
-  MOVE R1 R2
-  JUMPBACK [-13]
-  RETURN R1 1
-
-PROTO_40:
-  DUPCLOSURE R3 K0 [PROTO_37]
-  NEWTABLE R4 0 0
-  NEWCLOSURE R5 P1
+  CALL R14 1 1
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K4 ["createComputed"]
+  NEWCLOSURE R16 P7
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R12
   CAPTURE VAL R4
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE UPVAL U0
-  CAPTURE VAL R2
-  CAPTURE VAL R5
+  CAPTURE UPVAL U3
   CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  NEWCLOSURE R6 P2
-  CAPTURE VAL R0
-  GETTABLEKS R7 R0 K1 ["lookup"]
-  LOADNIL R8
-  LOADNIL R9
-  FORGPREP R7
-  GETTABLEKS R13 R11 K2 ["id"]
-  GETTABLE R12 R4 R13
-  JUMPIF R12 [+16]
-  MOVE R12 R6
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOT R12 [+12]
-  MOVE R13 R5
-  MOVE R14 R12
-  GETTABLEKS R16 R12 K2 ["id"]
-  GETTABLEKS R17 R0 K3 ["output"]
-  JUMPIFNOTEQ R16 R17 [+3]
-  LOADN R15 1
-  JUMP [+1]
-  LOADN R15 2
-  CALL R13 2 0
-  FORGLOOP R7 2 [-21]
-  RETURN R0 0
+  CALL R15 1 1
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K4 ["createComputed"]
+  NEWCLOSURE R17 P8
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CALL R16 1 -1
+  CLOSEUPVALS R8
+  RETURN R16 -1
 
-PROTO_41:
-  GETIMPORT R5 K2 [table.clone]
-  MOVE R6 R4
-  CALL R5 1 1
-  MOVE R6 R2
-  LOADNIL R7
-  LOADNIL R8
-  FORGPREP R6
-  GETTABLE R11 R1 R10
-  GETTABLEKS R15 R3 K3 ["Max"]
-  GETTABLEKS R14 R15 K4 ["Y"]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K5 ["GRAPH_PADDING"]
-  GETTABLEKS R15 R16 K4 ["Y"]
-  SUB R13 R14 R15
-  GETTABLEKS R15 R11 K6 ["nodesHeight"]
-  GETTABLE R14 R15 R9
-  SUB R12 R13 R14
-  GETTABLEKS R16 R3 K3 ["Max"]
-  GETTABLEKS R15 R16 K7 ["X"]
-  GETUPVAL R18 0
-  GETTABLEKS R17 R18 K5 ["GRAPH_PADDING"]
-  GETTABLEKS R16 R17 K7 ["X"]
-  SUB R14 R15 R16
-  GETUPVAL R18 0
-  GETTABLEKS R17 R18 K8 ["CHILD_WIDTH"]
-  MUL R16 R10 R17
-  SUBK R18 R10 K9 [1]
-  GETUPVAL R21 0
-  GETTABLEKS R20 R21 K10 ["CHILD_SPACING"]
-  GETTABLEKS R19 R20 K7 ["X"]
-  MUL R17 R18 R19
-  ADD R15 R16 R17
-  SUB R13 R14 R15
-  GETUPVAL R15 1
-  GETTABLEKS R14 R15 K11 ["join"]
-  DUPTABLE R15 K14 [{"position", "size"}]
-  GETIMPORT R16 K17 [Vector2.new]
-  MOVE R17 R13
-  MOVE R18 R12
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K12 ["position"]
-  GETIMPORT R16 K17 [Vector2.new]
-  GETUPVAL R18 0
-  GETTABLEKS R17 R18 K8 ["CHILD_WIDTH"]
-  GETUPVAL R18 2
-  GETTABLEKS R20 R0 K18 ["lookup"]
-  GETTABLE R19 R20 R9
-  CALL R18 1 1
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K13 ["size"]
-  GETTABLE R16 R4 R9
-  JUMPIF R16 [+2]
-  NEWTABLE R16 0 0
-  CALL R14 2 1
-  SETTABLE R14 R5 R9
-  FORGLOOP R6 2 [-69]
-  GETIMPORT R6 K20 [table.freeze]
-  MOVE R7 R5
-  CALL R6 1 -1
-  RETURN R6 -1
-
-PROTO_42:
-  JUMPIF R0 [+16]
-  GETIMPORT R2 K2 [table.freeze]
-  DUPTABLE R3 K5 [{"nodeInfo", "graphRect"}]
-  SETTABLEKS R1 R3 K3 ["nodeInfo"]
-  GETIMPORT R4 K8 [Rect.new]
-  LOADN R5 0
-  LOADN R6 0
-  LOADN R7 0
-  LOADN R8 0
-  CALL R4 4 1
-  SETTABLEKS R4 R3 K4 ["graphRect"]
-  CALL R2 1 -1
-  RETURN R2 -1
-  GETTABLEKS R3 R0 K9 ["lookup"]
-  GETTABLEKS R4 R0 K10 ["output"]
-  GETTABLE R2 R3 R4
-  JUMPIF R2 [+14]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K11 ["fitGraphRect"]
-  MOVE R4 R0
-  CALL R3 1 1
-  GETIMPORT R4 K2 [table.freeze]
-  DUPTABLE R5 K5 [{"nodeInfo", "graphRect"}]
-  SETTABLEKS R1 R5 K3 ["nodeInfo"]
-  SETTABLEKS R3 R5 K4 ["graphRect"]
-  CALL R4 1 -1
-  RETURN R4 -1
-  NEWTABLE R3 0 0
-  NEWTABLE R4 0 0
-  GETUPVAL R5 1
-  MOVE R6 R0
-  MOVE R7 R3
-  MOVE R8 R4
-  CALL R5 3 0
-  LOADK R5 K12 [-∞]
-  MOVE R6 R3
-  LOADNIL R7
-  LOADNIL R8
-  FORGPREP R6
-  GETTABLEKS R13 R10 K13 ["height"]
-  FASTCALL2 MATH_MAX R5 R13 [+4]
-  MOVE R12 R5
-  GETIMPORT R11 K16 [math.max]
-  CALL R11 2 1
-  MOVE R5 R11
-  FORGLOOP R6 2 [-10]
-  GETIMPORT R6 K8 [Rect.new]
-  LOADN R7 0
-  LOADN R8 0
-  LENGTH R12 R3
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K17 ["CHILD_WIDTH"]
-  MUL R11 R12 R13
-  LENGTH R14 R3
-  SUBK R13 R14 K18 [1]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K19 ["CHILD_SPACING"]
-  GETTABLEKS R14 R15 K20 ["X"]
-  MUL R12 R13 R14
-  ADD R10 R11 R12
-  LOADN R12 2
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K21 ["GRAPH_PADDING"]
-  GETTABLEKS R13 R14 K20 ["X"]
-  MUL R11 R12 R13
-  ADD R9 R10 R11
-  LOADN R12 2
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K21 ["GRAPH_PADDING"]
-  GETTABLEKS R13 R14 K22 ["Y"]
-  MUL R11 R12 R13
-  ADD R10 R5 R11
-  CALL R6 4 1
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K11 ["fitGraphRect"]
-  MOVE R8 R0
-  CALL R7 1 1
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K23 ["union"]
-  MOVE R9 R6
-  MOVE R10 R7
-  CALL R8 2 1
-  MOVE R6 R8
-  GETUPVAL R8 4
-  MOVE R9 R0
-  MOVE R10 R3
-  MOVE R11 R4
-  MOVE R12 R6
-  MOVE R13 R1
-  CALL R8 5 1
-  MOVE R1 R8
-  DUPTABLE R8 K5 [{"nodeInfo", "graphRect"}]
-  SETTABLEKS R1 R8 K3 ["nodeInfo"]
-  SETTABLEKS R6 R8 K4 ["graphRect"]
-  RETURN R8 1
-
-PROTO_43:
+PROTO_47:
   LOADK R1 K0 [∞]
   LOADK R2 K0 [∞]
   LOADK R3 K1 [-∞]
@@ -1368,147 +1433,192 @@ PROTO_43:
   CALL R5 4 1
   RETURN R5 1
 
-PROTO_44:
-  JUMPIFNOTEQKS R1 K0 ["Output"] [+16]
-  GETIMPORT R5 K3 [Vector2.new]
+PROTO_48:
+  GETIMPORT R2 K2 [Vector2.new]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["CHILD_WIDTH"]
+  ADDK R3 R4 K3 [1]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K5 ["CHILD_WIDTH"]
-  ADDK R6 R7 K4 [1]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K7 ["WELL_KNOWN_HEADER_HEIGHT"]
-  MINUS R9 R10
-  DIVK R8 R9 K6 [2]
-  SUBK R7 R8 K4 [1]
-  CALL R5 2 1
-  ADD R4 R0 R5
-  RETURN R4 1
-  FASTCALL2K ASSERT R3 K8 [+5]
-  MOVE R5 R3
-  LOADK R6 K8 ["Index must be provided for Input anchors"]
-  GETIMPORT R4 K10 [assert]
-  CALL R4 2 0
-  JUMPIFNOT R2 [+11]
-  GETIMPORT R5 K3 [Vector2.new]
-  LOADN R6 255
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K7 ["WELL_KNOWN_HEADER_HEIGHT"]
-  MINUS R9 R10
-  DIVK R8 R9 K6 [2]
-  SUBK R7 R8 K4 [1]
-  CALL R5 2 1
+  GETTABLEKS R7 R8 K6 ["WELL_KNOWN_HEADER_HEIGHT"]
+  MINUS R6 R7
+  DIVK R5 R6 K5 [2]
+  SUBK R4 R5 K3 [1]
+  CALL R2 2 1
+  ADD R1 R0 R2
+  RETURN R1 1
+
+PROTO_49:
+  JUMPIFNOT R1 [+11]
+  GETIMPORT R4 K2 [Vector2.new]
+  LOADN R5 255
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["WELL_KNOWN_HEADER_HEIGHT"]
+  MINUS R8 R9
+  DIVK R7 R8 K4 [2]
+  SUBK R6 R7 K3 [1]
+  CALL R4 2 1
   JUMP [+33]
-  GETIMPORT R5 K3 [Vector2.new]
-  LOADN R6 0
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K7 ["WELL_KNOWN_HEADER_HEIGHT"]
-  MINUS R11 R12
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K11 ["WELL_KNOWN_OUTER_PADDING"]
-  SUB R10 R11 R12
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K12 ["WELL_KNOWN_HEIGHT_OF_INPUT"]
-  MUL R11 R12 R3
+  GETIMPORT R4 K2 [Vector2.new]
+  LOADN R5 0
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K5 ["WELL_KNOWN_HEADER_HEIGHT"]
+  MINUS R10 R11
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K6 ["WELL_KNOWN_OUTER_PADDING"]
   SUB R9 R10 R11
   GETUPVAL R12 0
-  GETTABLEKS R11 R12 K13 ["WELL_KNOWN_INPUT_PADDING"]
-  SUBK R13 R3 K4 [1]
-  FASTCALL2K MATH_MAX R13 K14 [+4]
-  LOADK R14 K14 [0]
-  GETIMPORT R12 K17 [math.max]
-  CALL R12 2 1
-  MUL R10 R11 R12
+  GETTABLEKS R11 R12 K7 ["WELL_KNOWN_HEIGHT_OF_INPUT"]
+  MUL R10 R11 R2
   SUB R8 R9 R10
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K18 ["WELL_KNOWN_CONTENT_PADDING"]
-  ADD R7 R8 R9
-  CALL R5 2 1
-  ADD R4 R0 R5
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K8 ["WELL_KNOWN_INPUT_PADDING"]
+  SUBK R12 R2 K3 [1]
+  FASTCALL2K MATH_MAX R12 K9 [+4]
+  LOADK R13 K9 [0]
+  GETIMPORT R11 K12 [math.max]
+  CALL R11 2 1
+  MUL R9 R10 R11
+  SUB R7 R8 R9
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K13 ["WELL_KNOWN_CONTENT_PADDING"]
+  ADD R6 R7 R8
+  CALL R4 2 1
+  ADD R3 R0 R4
+  RETURN R3 1
+
+PROTO_50:
+  GETTABLEKS R4 R0 K0 ["lookup"]
+  GETTABLE R3 R4 R1
+  JUMPIF R3 [+2]
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R5 R3 K1 ["inputPinToConnectionMap"]
+  GETTABLE R4 R5 R2
   RETURN R4 1
 
-PROTO_45:
-  GETTABLE R3 R0 R1
-  GETTABLE R4 R0 R2
-  JUMPIFNOT R3 [+1]
-  JUMPIF R4 [+2]
-  LOADNIL R5
-  RETURN R5 1
-  GETTABLEKS R5 R3 K0 ["parentNodeId"]
-  JUMPIFEQ R5 R2 [+3]
-  LOADNIL R5
-  RETURN R5 1
-  GETTABLEKS R6 R4 K1 ["children"]
-  GETTABLE R5 R6 R1
-  JUMPIF R5 [+2]
-  LOADNIL R5
-  RETURN R5 1
-  GETTABLEKS R6 R4 K1 ["children"]
-  GETTABLE R5 R6 R1
-  RETURN R5 1
+PROTO_51:
+  GETTABLEKS R4 R0 K0 ["lookup"]
+  GETTABLE R3 R4 R1
+  JUMPIF R3 [+2]
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R5 R3 K1 ["outputPinToConnectionMap"]
+  GETTABLE R4 R5 R2
+  RETURN R4 1
 
-PROTO_46:
+PROTO_52:
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["_findExistingWireIdForConnection"]
+  GETTABLEKS R4 R5 K0 ["_findNodeInputBinding"]
   MOVE R5 R1
   MOVE R6 R2
   MOVE R7 R3
   CALL R4 3 1
-  JUMPIFNOT R4 [+5]
-  MOVE R7 R4
-  NAMECALL R5 R0 K1 ["idToInstance"]
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R7 R4 K1 ["wireId"]
+  NAMECALL R5 R0 K2 ["idToInstance"]
   CALL R5 2 1
   JUMP [+1]
   LOADNIL R5
-  JUMPIFNOT R5 [+3]
-  NAMECALL R6 R5 K2 ["Remove"]
+  JUMPIFNOT R5 [+8]
+  GETTABLEKS R6 R5 K3 ["Parent"]
+  JUMPIFNOT R6 [+5]
+  NAMECALL R6 R5 K4 ["Remove"]
   CALL R6 1 0
-  RETURN R0 0
+  LOADB R6 1
+  RETURN R6 1
+  LOADB R6 0
+  RETURN R6 1
 
-PROTO_47:
+PROTO_53:
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["_findExistingWireIdForConnection"]
+  GETTABLEKS R4 R5 K0 ["_findNodeOutputBinding"]
   MOVE R5 R1
   MOVE R6 R2
   MOVE R7 R3
   CALL R4 3 1
-  JUMPIFNOT R4 [+1]
-  RETURN R0 0
-  MOVE R7 R2
-  NAMECALL R5 R0 K1 ["idToInstance"]
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R7 R4 K1 ["wireId"]
+  NAMECALL R5 R0 K2 ["idToInstance"]
   CALL R5 2 1
-  MOVE R8 R3
-  NAMECALL R6 R0 K1 ["idToInstance"]
-  CALL R6 2 1
-  JUMPIFEQKNIL R5 [+3]
-  JUMPIFNOTEQKNIL R6 [+2]
-  RETURN R0 0
-  GETTABLE R7 R1 R2
-  JUMPIFNOT R7 [+12]
-  GETTABLEKS R8 R7 K2 ["parentNodeId"]
-  JUMPIFNOT R8 [+9]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K3 ["removeNodeConnection"]
-  MOVE R9 R0
-  MOVE R10 R1
-  MOVE R11 R2
-  GETTABLEKS R12 R7 K2 ["parentNodeId"]
-  CALL R8 4 0
-  GETIMPORT R8 K6 [Instance.new]
-  LOADK R9 K7 ["Wire"]
-  CALL R8 1 1
-  LOADK R10 K8 ["Connection_"]
-  MOVE R11 R3
-  LOADK R12 K9 ["_"]
-  MOVE R13 R2
-  CONCAT R9 R10 R13
-  SETTABLEKS R9 R8 K10 ["Name"]
-  SETTABLEKS R5 R8 K11 ["SourceInstance"]
-  SETTABLEKS R6 R8 K12 ["TargetInstance"]
-  GETTABLEKS R9 R5 K13 ["Parent"]
-  SETTABLEKS R9 R8 K13 ["Parent"]
-  LOADB R9 1
-  RETURN R9 1
+  JUMP [+1]
+  LOADNIL R5
+  JUMPIFNOT R5 [+8]
+  GETTABLEKS R6 R5 K3 ["Parent"]
+  JUMPIFNOT R6 [+5]
+  NAMECALL R6 R5 K4 ["Remove"]
+  CALL R6 1 0
+  LOADB R6 1
+  RETURN R6 1
+  LOADB R6 0
+  RETURN R6 1
 
-PROTO_48:
+PROTO_54:
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["_findNodeInputBinding"]
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  CALL R6 3 1
+  MOVE R9 R2
+  NAMECALL R7 R0 K1 ["idToInstance"]
+  CALL R7 2 1
+  MOVE R10 R4
+  NAMECALL R8 R0 K1 ["idToInstance"]
+  CALL R8 2 1
+  JUMPIFEQKNIL R7 [+3]
+  JUMPIFNOTEQKNIL R8 [+2]
+  RETURN R0 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K2 ["_findNodeOutputBinding"]
+  MOVE R10 R1
+  MOVE R11 R4
+  MOVE R12 R5
+  CALL R9 3 1
+  JUMPIFNOT R9 [+6]
+  GETTABLEKS R12 R9 K3 ["wireId"]
+  NAMECALL R10 R0 K1 ["idToInstance"]
+  CALL R10 2 1
+  JUMP [+1]
+  LOADNIL R10
+  JUMPIFNOT R10 [+3]
+  NAMECALL R11 R10 K4 ["Remove"]
+  CALL R11 1 0
+  LOADNIL R11
+  JUMPIFNOT R6 [+11]
+  GETTABLEKS R14 R6 K3 ["wireId"]
+  NAMECALL R12 R0 K1 ["idToInstance"]
+  CALL R12 2 1
+  MOVE R11 R12
+  GETTABLEKS R12 R11 K5 ["Parent"]
+  JUMPIFNOTEQKNIL R12 [+2]
+  LOADNIL R11
+  JUMPIF R11 [+5]
+  GETIMPORT R12 K8 [Instance.new]
+  LOADK R13 K9 ["Wire"]
+  CALL R12 1 1
+  MOVE R11 R12
+  JUMPIFNOT R10 [+5]
+  JUMPIFEQ R10 R11 [+4]
+  NAMECALL R12 R10 K4 ["Remove"]
+  CALL R12 1 0
+  LOADNIL R12
+  SETTABLEKS R12 R11 K5 ["Parent"]
+  LOADK R13 K10 ["Connection_"]
+  MOVE R14 R4
+  LOADK R15 K11 ["_"]
+  MOVE R16 R2
+  CONCAT R12 R13 R16
+  SETTABLEKS R12 R11 K12 ["Name"]
+  SETTABLEKS R8 R11 K13 ["SourceInstance"]
+  SETTABLEKS R5 R11 K14 ["SourceName"]
+  SETTABLEKS R7 R11 K15 ["TargetInstance"]
+  SETTABLEKS R3 R11 K16 ["TargetName"]
+  GETTABLEKS R12 R7 K5 ["Parent"]
+  SETTABLEKS R12 R11 K5 ["Parent"]
+  LOADB R12 1
+  RETURN R12 1
+
+PROTO_55:
   LOADNIL R1
   LOADK R4 K0 ["Model"]
   NAMECALL R2 R0 K1 ["IsA"]
@@ -1552,45 +1662,40 @@ PROTO_48:
   SETTABLEKS R2 R3 K15 ["Parent"]
   RETURN R3 1
 
-PROTO_49:
+PROTO_56:
   GETUPVAL R3 0
   CALL R3 0 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["GetDefinition"]
-  MOVE R5 R0
-  CALL R4 1 1
+  GETUPVAL R4 1
+  MOVE R6 R0
+  NAMECALL R4 R4 K0 ["GetAnimationNodeDefinition"]
+  CALL R4 2 1
   JUMPIF R4 [+6]
   GETIMPORT R5 K2 [warn]
   LOADK R6 K3 ["No definition found for node id:"]
   MOVE R7 R0
   CALL R5 2 0
   RETURN R3 1
-  GETTABLEKS R5 R4 K4 ["Name"]
-  JUMPIF R5 [+6]
-  GETIMPORT R5 K2 [warn]
-  LOADK R6 K5 ["Definition for node id missing Name:"]
-  MOVE R7 R0
-  CALL R5 2 0
-  RETURN R3 1
   LOADN R5 1
-  GETIMPORT R6 K8 [string.format]
-  LOADK R7 K9 ["%s%d"]
-  GETTABLEKS R8 R4 K4 ["Name"]
+  GETIMPORT R6 K6 [string.format]
+  LOADK R7 K7 ["%s%d"]
+  GETTABLEKS R9 R4 K8 ["Type"]
+  GETTABLEKS R8 R9 K9 ["Name"]
   MOVE R9 R5
   CALL R6 3 1
   MOVE R9 R6
   NAMECALL R7 R2 K10 ["FindFirstChild"]
   CALL R7 2 1
-  JUMPIFNOT R7 [+10]
+  JUMPIFNOT R7 [+12]
   ADDK R5 R5 K11 [1]
-  GETIMPORT R7 K8 [string.format]
-  LOADK R8 K9 ["%s%d"]
-  GETTABLEKS R9 R4 K4 ["Name"]
+  GETIMPORT R7 K6 [string.format]
+  LOADK R8 K7 ["%s%d"]
+  GETTABLEKS R10 R4 K8 ["Type"]
+  GETTABLEKS R9 R10 K9 ["Name"]
   MOVE R10 R5
   CALL R7 3 1
   MOVE R6 R7
-  JUMPBACK [-15]
-  SETTABLEKS R6 R3 K4 ["Name"]
+  JUMPBACK [-17]
+  SETTABLEKS R6 R3 K9 ["Name"]
   SETTABLEKS R0 R3 K12 ["NodeType"]
   SETTABLEKS R2 R3 K13 ["Parent"]
   GETTABLEKS R7 R4 K14 ["Properties"]
@@ -1599,7 +1704,7 @@ PROTO_49:
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
-  GETTABLEKS R14 R11 K4 ["Name"]
+  GETTABLEKS R14 R11 K9 ["Name"]
   GETTABLEKS R15 R11 K15 ["Default"]
   NAMECALL R12 R3 K16 ["SetAttribute"]
   CALL R12 3 0
@@ -1627,128 +1732,125 @@ MAIN:
   GETTABLEKS R3 R4 K10 ["AnimationNodeWrapper"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Util"]
-  GETTABLEKS R4 R5 K11 ["Constants"]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Util"]
+  GETTABLEKS R5 R6 K11 ["Nodes"]
+  GETTABLEKS R4 R5 K12 ["AssetUtils"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["Dash"]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Contexts"]
+  GETTABLEKS R6 R7 K14 ["NativeGraphContext"]
+  GETTABLEKS R5 R6 K15 ["NewAnimationGraph"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R9 R0 K8 ["Src"]
   GETTABLEKS R8 R9 K13 ["Contexts"]
   GETTABLEKS R7 R8 K14 ["NativeGraphContext"]
-  GETTABLEKS R6 R7 K15 ["NewAnimationGraph"]
+  GETTABLEKS R6 R7 K16 ["NewAnimationNode"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R10 R0 K8 ["Src"]
-  GETTABLEKS R9 R10 K13 ["Contexts"]
-  GETTABLEKS R8 R9 K14 ["NativeGraphContext"]
-  GETTABLEKS R7 R8 K16 ["NewAnimationNode"]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K17 ["Signals"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K8 ["Src"]
-  GETTABLEKS R9 R10 K9 ["Util"]
-  GETTABLEKS R8 R9 K17 ["RectUtil"]
+  GETTABLEKS R9 R0 K6 ["Packages"]
+  GETTABLEKS R8 R9 K18 ["Dash"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Packages"]
-  GETTABLEKS R9 R10 K18 ["Signals"]
-  CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K8 ["Src"]
-  GETTABLEKS R10 R11 K19 ["Types"]
-  CALL R9 1 1
-  NEWTABLE R10 32 0
-  DUPCLOSURE R11 K20 [PROTO_0]
-  SETTABLEKS R11 R10 K21 ["toParameterAttribute"]
-  DUPCLOSURE R11 K22 [PROTO_1]
-  SETTABLEKS R11 R10 K23 ["fromParameterAttribute"]
-  DUPCLOSURE R11 K24 [PROTO_2]
-  DUPCLOSURE R12 K25 [PROTO_4]
+  GETTABLEKS R8 R1 K19 ["Constants"]
+  NEWTABLE R9 32 0
+  DUPCLOSURE R10 K20 [PROTO_0]
+  DUPCLOSURE R11 K21 [PROTO_2]
   CAPTURE VAL R1
-  DUPCLOSURE R13 K26 [PROTO_5]
-  CAPTURE VAL R3
-  SETTABLEKS R13 R10 K27 ["setNodePosition"]
-  DUPCLOSURE R13 K28 [PROTO_6]
-  CAPTURE VAL R3
-  SETTABLEKS R13 R10 K29 ["setNodeSize"]
-  DUPCLOSURE R13 K30 [PROTO_7]
-  CAPTURE VAL R3
-  SETTABLEKS R13 R10 K31 ["setNodeIsCollapsed"]
-  DUPCLOSURE R13 K32 [PROTO_8]
-  CAPTURE VAL R10
-  SETTABLEKS R13 R10 K33 ["setParameterPosition"]
-  DUPCLOSURE R13 K34 [PROTO_9]
-  CAPTURE VAL R10
-  SETTABLEKS R13 R10 K35 ["setParameterSize"]
-  DUPCLOSURE R13 K36 [PROTO_10]
-  CAPTURE VAL R10
-  SETTABLEKS R13 R10 K37 ["setParameterIsCollapsed"]
-  DUPCLOSURE R13 K38 [PROTO_12]
-  CAPTURE VAL R1
-  CAPTURE VAL R8
-  SETTABLEKS R13 R10 K39 ["observeWireInfo"]
-  DUPCLOSURE R13 K40 [PROTO_16]
-  CAPTURE VAL R1
-  CAPTURE VAL R10
-  CAPTURE VAL R8
-  SETTABLEKS R13 R10 K41 ["observeNodeConnectionMap"]
-  DUPCLOSURE R13 K42 [PROTO_22]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R8
-  CAPTURE VAL R10
-  SETTABLEKS R13 R10 K43 ["observeNodeInfo"]
-  DUPCLOSURE R13 K44 [PROTO_24]
-  CAPTURE VAL R1
-  CAPTURE VAL R10
-  SETTABLEKS R13 R10 K45 ["observeNodeInfoLookupList"]
-  DUPCLOSURE R13 K46 [PROTO_35]
-  CAPTURE VAL R1
-  CAPTURE VAL R8
-  CAPTURE VAL R10
-  SETTABLEKS R13 R10 K47 ["observeGraphState"]
-  DUPCLOSURE R13 K48 [PROTO_36]
-  CAPTURE VAL R3
+  DUPCLOSURE R12 K22 [PROTO_3]
+  CAPTURE VAL R9
+  SETTABLEKS R12 R9 K23 ["getOrCreateParameterInstance"]
+  DUPCLOSURE R12 K24 [PROTO_4]
   CAPTURE VAL R2
-  DUPCLOSURE R14 K49 [PROTO_40]
-  CAPTURE VAL R13
-  CAPTURE VAL R3
-  DUPCLOSURE R15 K50 [PROTO_41]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R13
-  DUPCLOSURE R16 K51 [PROTO_42]
-  CAPTURE VAL R10
-  CAPTURE VAL R14
-  CAPTURE VAL R3
+  SETTABLEKS R12 R9 K25 ["getParameterType"]
+  DUPCLOSURE R12 K26 [PROTO_5]
+  SETTABLEKS R12 R9 K27 ["setParameterBindingName"]
+  DUPCLOSURE R12 K28 [PROTO_6]
+  CAPTURE VAL R8
+  SETTABLEKS R12 R9 K29 ["setNodePosition"]
+  DUPCLOSURE R12 K30 [PROTO_7]
+  CAPTURE VAL R8
+  SETTABLEKS R12 R9 K31 ["setNodeSize"]
+  DUPCLOSURE R12 K32 [PROTO_8]
+  CAPTURE VAL R8
+  SETTABLEKS R12 R9 K33 ["setNodeIsCollapsed"]
+  DUPCLOSURE R12 K34 [PROTO_9]
+  SETTABLEKS R12 R9 K35 ["getNodeParameterConfigurationName"]
+  DUPCLOSURE R12 K36 [PROTO_11]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  SETTABLEKS R12 R9 K37 ["observeWireInfo"]
+  DUPCLOSURE R12 K38 [PROTO_15]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  SETTABLEKS R12 R9 K39 ["observeNodeConnectionMap"]
+  DUPCLOSURE R12 K40 [PROTO_16]
+  SETTABLEKS R12 R9 K41 ["matchParameterBinding"]
+  DUPCLOSURE R12 K42 [PROTO_22]
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  SETTABLEKS R12 R9 K43 ["observeParameterData"]
+  DUPCLOSURE R12 K44 [PROTO_29]
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  SETTABLEKS R12 R9 K45 ["observeNodeInfo"]
+  DUPCLOSURE R12 K46 [PROTO_31]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  SETTABLEKS R12 R9 K47 ["observeNodeInfoLookupList"]
+  DUPCLOSURE R12 K48 [PROTO_35]
+  CAPTURE VAL R6
   CAPTURE VAL R7
-  CAPTURE VAL R15
-  SETTABLEKS R16 R10 K52 ["calculateLayout"]
-  DUPCLOSURE R16 K53 [PROTO_43]
-  SETTABLEKS R16 R10 K54 ["fitGraphRect"]
-  DUPCLOSURE R16 K55 [PROTO_44]
   CAPTURE VAL R3
-  SETTABLEKS R16 R10 K56 ["getAnchorPosition"]
-  DUPCLOSURE R16 K57 [PROTO_45]
-  SETTABLEKS R16 R10 K58 ["_findExistingWireIdForConnection"]
-  DUPCLOSURE R16 K59 [PROTO_46]
-  CAPTURE VAL R10
-  SETTABLEKS R16 R10 K60 ["removeNodeConnection"]
-  DUPCLOSURE R16 K61 [PROTO_47]
-  CAPTURE VAL R10
-  SETTABLEKS R16 R10 K62 ["addNodeConnection"]
-  DUPCLOSURE R16 K63 [PROTO_48]
+  SETTABLEKS R12 R9 K49 ["observeRuntimeDebugInfo"]
+  DUPCLOSURE R12 K50 [PROTO_46]
   CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  SETTABLEKS R12 R9 K51 ["observeGraphState"]
+  DUPCLOSURE R12 K52 [PROTO_47]
+  SETTABLEKS R12 R9 K53 ["fitGraphRect"]
+  DUPCLOSURE R12 K54 [PROTO_48]
+  CAPTURE VAL R8
+  SETTABLEKS R12 R9 K55 ["getOutputPinPosition"]
+  DUPCLOSURE R12 K56 [PROTO_49]
+  CAPTURE VAL R8
+  SETTABLEKS R12 R9 K57 ["getInputPinPosition"]
+  DUPCLOSURE R12 K58 [PROTO_50]
+  SETTABLEKS R12 R9 K59 ["_findNodeInputBinding"]
+  DUPCLOSURE R12 K60 [PROTO_51]
+  SETTABLEKS R12 R9 K61 ["_findNodeOutputBinding"]
+  DUPCLOSURE R12 K62 [PROTO_52]
+  CAPTURE VAL R9
+  SETTABLEKS R12 R9 K63 ["removeNodeInputConnection"]
+  DUPCLOSURE R12 K64 [PROTO_53]
+  CAPTURE VAL R9
+  SETTABLEKS R12 R9 K65 ["removeNodeOutputConnection"]
+  DUPCLOSURE R12 K66 [PROTO_54]
+  CAPTURE VAL R9
+  SETTABLEKS R12 R9 K67 ["setNodeConnection"]
+  DUPCLOSURE R12 K68 [PROTO_55]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
   CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R10
-  SETTABLEKS R16 R10 K64 ["createNewAnimationGraph"]
-  DUPCLOSURE R16 K65 [PROTO_49]
-  CAPTURE VAL R6
+  CAPTURE VAL R9
+  SETTABLEKS R12 R9 K69 ["createNewAnimationGraph"]
+  DUPCLOSURE R12 K70 [PROTO_56]
+  CAPTURE VAL R5
   CAPTURE VAL R2
-  CAPTURE VAL R10
-  SETTABLEKS R16 R10 K66 ["createNodeOfType"]
-  RETURN R10 1
+  CAPTURE VAL R9
+  SETTABLEKS R12 R9 K71 ["createNodeOfType"]
+  RETURN R9 1

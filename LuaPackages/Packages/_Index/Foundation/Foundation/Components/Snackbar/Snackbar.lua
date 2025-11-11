@@ -14,6 +14,7 @@ local PresentationContext = require(Foundation.Providers.Style.PresentationConte
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
+local ColorMode = require(Foundation.Enums.ColorMode)
 local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -50,7 +51,7 @@ local defaultProps = {
 	testId = "--foundation-snackbar",
 }
 
-local IS_INVERSE = { isInverse = true }
+local IS_INVERSE = { colorMode = ColorMode.Inverse }
 
 local function Snackbar(snackbarProps: SnackbarProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(snackbarProps, defaultProps)

@@ -53,67 +53,71 @@ PROTO_1:
   SETTABLEKS R8 R7 K17 ["AddToParentLayout"]
   NAMECALL R4 R0 K23 ["CreateQWidgetPluginGui"]
   CALL R4 3 1
+  GETIMPORT R5 K25 [print]
+  LOADK R6 K26 ["Loading Lua Ribbon, was enabled?"]
+  GETTABLEKS R7 R4 K27 ["Enabled"]
+  CALL R5 2 0
   LOADB R5 1
-  SETTABLEKS R5 R4 K24 ["Enabled"]
+  SETTABLEKS R5 R4 K27 ["Enabled"]
   LOADK R5 K7 ["Ribbon"]
   SETTABLEKS R5 R4 K15 ["Title"]
-  GETIMPORT R5 K28 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R5 R4 K26 ["ZIndexBehavior"]
-  LOADK R7 K29 ["Floating"]
-  DUPTABLE R8 K31 [{"Id", "Popup", "Resizable", "Title"}]
-  LOADK R9 K29 ["Floating"]
+  GETIMPORT R5 K31 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R5 R4 K29 ["ZIndexBehavior"]
+  LOADK R7 K32 ["Floating"]
+  DUPTABLE R8 K34 [{"Id", "Popup", "Resizable", "Title"}]
+  LOADK R9 K32 ["Floating"]
   SETTABLEKS R9 R8 K8 ["Id"]
-  DUPTABLE R9 K33 [{"PassesThroughMouseEvents"}]
+  DUPTABLE R9 K36 [{"PassesThroughMouseEvents"}]
   LOADB R10 1
-  SETTABLEKS R10 R9 K32 ["PassesThroughMouseEvents"]
-  SETTABLEKS R9 R8 K30 ["Popup"]
+  SETTABLEKS R10 R9 K35 ["PassesThroughMouseEvents"]
+  SETTABLEKS R9 R8 K33 ["Popup"]
   LOADB R9 1
   SETTABLEKS R9 R8 K13 ["Resizable"]
-  LOADK R9 K29 ["Floating"]
+  LOADK R9 K32 ["Floating"]
   SETTABLEKS R9 R8 K15 ["Title"]
   NAMECALL R5 R0 K23 ["CreateQWidgetPluginGui"]
   CALL R5 3 1
-  LOADK R6 K34 ["FloatingRibbon"]
+  LOADK R6 K37 ["FloatingRibbon"]
   SETTABLEKS R6 R5 K15 ["Title"]
-  GETIMPORT R6 K28 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R6 R5 K26 ["ZIndexBehavior"]
-  GETTABLEKS R6 R1 K35 ["createElement"]
+  GETIMPORT R6 K31 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R6 R5 K29 ["ZIndexBehavior"]
+  GETTABLEKS R6 R1 K38 ["createElement"]
   MOVE R7 R3
-  DUPTABLE R8 K39 [{"Plugin", "Widget", "Floating", "Mdi"}]
-  SETTABLEKS R0 R8 K36 ["Plugin"]
-  SETTABLEKS R4 R8 K37 ["Widget"]
-  SETTABLEKS R5 R8 K29 ["Floating"]
-  GETTABLEKS R9 R0 K40 ["MultipleDocumentInterfaceInstance"]
-  SETTABLEKS R9 R8 K38 ["Mdi"]
+  DUPTABLE R8 K42 [{"Plugin", "Widget", "Floating", "Mdi"}]
+  SETTABLEKS R0 R8 K39 ["Plugin"]
+  SETTABLEKS R4 R8 K40 ["Widget"]
+  SETTABLEKS R5 R8 K32 ["Floating"]
+  GETTABLEKS R9 R0 K43 ["MultipleDocumentInterfaceInstance"]
+  SETTABLEKS R9 R8 K41 ["Mdi"]
   CALL R6 2 1
-  GETTABLEKS R7 R2 K41 ["createRoot"]
+  GETTABLEKS R7 R2 K44 ["createRoot"]
   MOVE R8 R4
   CALL R7 1 1
   MOVE R10 R6
-  NAMECALL R8 R7 K42 ["render"]
+  NAMECALL R8 R7 K45 ["render"]
   CALL R8 2 0
-  GETTABLEKS R8 R0 K43 ["Unloading"]
+  GETTABLEKS R8 R0 K46 ["Unloading"]
   NEWCLOSURE R10 P0
   CAPTURE VAL R7
   CAPTURE VAL R4
-  NAMECALL R8 R8 K44 ["Once"]
+  NAMECALL R8 R8 K47 ["Once"]
   CALL R8 2 0
   GETUPVAL R8 1
   CALL R8 0 1
   JUMPIFNOT R8 [+23]
-  GETIMPORT R8 K46 [game]
-  LOADK R10 K47 ["RobloxPluginGuiService"]
-  NAMECALL R8 R8 K48 ["GetService"]
+  GETIMPORT R8 K49 [game]
+  LOADK R10 K50 ["RobloxPluginGuiService"]
+  NAMECALL R8 R8 K51 ["GetService"]
   CALL R8 2 1
   GETIMPORT R9 K1 [require]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K5 ["Src"]
-  GETTABLEKS R10 R11 K49 ["FoundationInspector"]
+  GETTABLEKS R10 R11 K52 ["FoundationInspector"]
   CALL R9 1 1
-  GETTABLEKS R10 R9 K50 ["open"]
+  GETTABLEKS R10 R9 K53 ["open"]
   MOVE R11 R0
   CALL R10 1 0
-  GETTABLEKS R10 R9 K51 ["watchDockWidgets"]
+  GETTABLEKS R10 R9 K54 ["watchDockWidgets"]
   MOVE R11 R0
   MOVE R12 R8
   CALL R10 2 0

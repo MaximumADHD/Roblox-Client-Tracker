@@ -445,101 +445,99 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["CustomIconButton"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["Flags"]
-  GETTABLEKS R3 R4 K9 ["FFlagFoundationDisableStylingPolyfill"]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Foundation"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Flags"]
-  GETTABLEKS R4 R5 K10 ["FFlagMCPAssistantExpandBeforeSettings"]
+  GETTABLEKS R6 R0 K6 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Contexts"]
+  GETTABLEKS R4 R5 K11 ["InputStateContext"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K11 ["Parent"]
-  GETTABLEKS R5 R6 K12 ["Foundation"]
+  GETTABLEKS R7 R0 K6 ["Components"]
+  GETTABLEKS R6 R7 K10 ["Contexts"]
+  GETTABLEKS R5 R6 K12 ["OptionsContext"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Components"]
-  GETTABLEKS R7 R8 K13 ["Contexts"]
-  GETTABLEKS R6 R7 K14 ["InputStateContext"]
+  GETTABLEKS R7 R0 K8 ["Parent"]
+  GETTABLEKS R6 R7 K13 ["React"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Components"]
-  GETTABLEKS R8 R9 K13 ["Contexts"]
-  GETTABLEKS R7 R8 K15 ["OptionsContext"]
+  GETTABLEKS R8 R0 K8 ["Parent"]
+  GETTABLEKS R7 R8 K14 ["ReactUtils"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Parent"]
-  GETTABLEKS R8 R9 K16 ["React"]
+  GETTABLEKS R10 R0 K15 ["Resources"]
+  GETTABLEKS R9 R10 K16 ["Localization"]
+  GETTABLEKS R8 R9 K17 ["Translator"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K11 ["Parent"]
-  GETTABLEKS R9 R10 K17 ["ReactUtils"]
+  GETTABLEKS R10 R0 K18 ["Hooks"]
+  GETTABLEKS R9 R10 K19 ["useClearConversation"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K18 ["Resources"]
-  GETTABLEKS R11 R12 K19 ["Localization"]
-  GETTABLEKS R10 R11 K20 ["Translator"]
+  GETTABLEKS R11 R0 K18 ["Hooks"]
+  GETTABLEKS R10 R11 K20 ["useEditContent"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K8 ["Flags"]
-  GETTABLEKS R11 R12 K21 ["getFFlagMCPAssistantManagementMenu"]
+  GETTABLEKS R12 R0 K18 ["Hooks"]
+  GETTABLEKS R11 R12 K21 ["useGetThread"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R13 R0 K22 ["Hooks"]
-  GETTABLEKS R12 R13 K23 ["useClearConversation"]
+  GETTABLEKS R13 R0 K22 ["Flags"]
+  GETTABLEKS R12 R13 K23 ["FFlagFoundationDisableStylingPolyfill"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R14 R0 K22 ["Hooks"]
-  GETTABLEKS R13 R14 K24 ["useEditContent"]
+  GETTABLEKS R14 R0 K22 ["Flags"]
+  GETTABLEKS R13 R14 K24 ["FFlagMCPAssistantExpandBeforeSettings"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R15 R0 K22 ["Hooks"]
-  GETTABLEKS R14 R15 K25 ["useGetThread"]
+  GETTABLEKS R15 R0 K22 ["Flags"]
+  GETTABLEKS R14 R15 K25 ["getFFlagMCPAssistantManagementMenu"]
   CALL R13 1 1
-  GETTABLEKS R14 R4 K26 ["Button"]
-  GETTABLEKS R15 R4 K27 ["Checkbox"]
-  GETTABLEKS R16 R4 K28 ["Popover"]
-  GETTABLEKS R17 R4 K29 ["View"]
-  GETTABLEKS R18 R8 K30 ["createNextOrder"]
-  GETTABLEKS R19 R7 K31 ["createElement"]
-  GETTABLEKS R20 R5 K32 ["InputDisabledReasons"]
-  GETTABLEKS R21 R2 K33 ["Get"]
-  GETTABLEKS R22 R3 K33 ["Get"]
-  DUPTABLE R23 K36 [{"Dark", "Light"}]
-  LOADK R24 K37 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Large/ExpandAll.png"]
-  SETTABLEKS R24 R23 K34 ["Dark"]
-  LOADK R24 K38 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Large/ExpandAll.png"]
-  SETTABLEKS R24 R23 K35 ["Light"]
-  DUPCLOSURE R24 K39 [PROTO_3]
-  CAPTURE VAL R12
-  CAPTURE VAL R13
-  CAPTURE VAL R4
-  CAPTURE VAL R7
+  GETTABLEKS R14 R2 K26 ["Button"]
+  GETTABLEKS R15 R2 K27 ["Checkbox"]
+  GETTABLEKS R16 R2 K28 ["Popover"]
+  GETTABLEKS R17 R2 K29 ["View"]
+  GETTABLEKS R18 R6 K30 ["createNextOrder"]
+  GETTABLEKS R19 R5 K31 ["createElement"]
+  GETTABLEKS R20 R3 K32 ["InputDisabledReasons"]
+  DUPTABLE R21 K35 [{"Dark", "Light"}]
+  LOADK R22 K36 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Large/ExpandAll.png"]
+  SETTABLEKS R22 R21 K33 ["Dark"]
+  LOADK R22 K37 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Large/ExpandAll.png"]
+  SETTABLEKS R22 R21 K34 ["Light"]
+  DUPCLOSURE R22 K38 [PROTO_3]
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  CAPTURE VAL R5
   CAPTURE VAL R19
   CAPTURE VAL R1
-  CAPTURE VAL R23
-  DUPCLOSURE R25 K40 [PROTO_8]
-  CAPTURE VAL R4
-  CAPTURE VAL R11
-  CAPTURE VAL R7
-  CAPTURE VAL R5
-  CAPTURE VAL R20
-  CAPTURE VAL R6
+  CAPTURE VAL R21
+  DUPCLOSURE R23 K39 [PROTO_8]
+  CAPTURE VAL R2
   CAPTURE VAL R8
-  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R20
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R19
   CAPTURE VAL R14
-  CAPTURE VAL R10
+  CAPTURE VAL R13
   CAPTURE VAL R15
-  CAPTURE VAL R22
-  CAPTURE VAL R21
+  CAPTURE VAL R12
+  CAPTURE VAL R11
   CAPTURE VAL R16
   CAPTURE VAL R1
   CAPTURE VAL R17
-  DUPCLOSURE R26 K41 [PROTO_9]
+  DUPCLOSURE R24 K40 [PROTO_9]
   CAPTURE VAL R18
   CAPTURE VAL R19
   CAPTURE VAL R17
+  CAPTURE VAL R12
   CAPTURE VAL R22
-  CAPTURE VAL R24
-  CAPTURE VAL R25
-  RETURN R26 1
+  CAPTURE VAL R23
+  RETURN R24 1

@@ -375,67 +375,66 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Flags"]
-  GETTABLEKS R2 R3 K7 ["FFlagMCPAssistantSlashCommandMenu"]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["Parent"]
-  GETTABLEKS R3 R4 K9 ["Foundation"]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Parent"]
-  GETTABLEKS R4 R5 K10 ["React"]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["ReactUtils"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Parent"]
-  GETTABLEKS R5 R6 K11 ["ReactUtils"]
+  GETTABLEKS R6 R0 K10 ["Components"]
+  GETTABLEKS R5 R6 K11 ["UIToolRegistry"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K12 ["Components"]
-  GETTABLEKS R6 R7 K13 ["UIToolRegistry"]
+  GETTABLEKS R8 R0 K10 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Contexts"]
+  GETTABLEKS R6 R7 K13 ["WindowInputContext"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K12 ["Components"]
-  GETTABLEKS R8 R9 K14 ["Contexts"]
-  GETTABLEKS R7 R8 K15 ["WindowInputContext"]
+  GETTABLEKS R8 R0 K14 ["Hooks"]
+  GETTABLEKS R7 R8 K15 ["useEventConnection"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K16 ["Hooks"]
-  GETTABLEKS R8 R9 K17 ["useEventConnection"]
+  GETTABLEKS R9 R0 K16 ["Flags"]
+  GETTABLEKS R8 R9 K17 ["FFlagMCPAssistantSlashCommandMenu"]
   CALL R7 1 1
-  GETTABLEKS R8 R1 K18 ["Get"]
-  GETTABLEKS R9 R2 K19 ["Popover"]
-  GETTABLEKS R10 R2 K20 ["ScrollView"]
-  GETTABLEKS R11 R2 K21 ["Text"]
-  GETTABLEKS R12 R2 K22 ["View"]
-  GETTABLEKS R13 R4 K23 ["createNextOrder"]
-  GETTABLEKS R14 R3 K24 ["createElement"]
-  DUPTABLE R15 K29 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection", "VerticalScrollBarInset"}]
-  GETIMPORT R16 K33 [Enum.AutomaticSize.Y]
-  SETTABLEKS R16 R15 K25 ["AutomaticCanvasSize"]
-  GETIMPORT R16 K36 [UDim2.new]
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K26 ["CanvasSize"]
-  GETIMPORT R16 K37 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R16 R15 K27 ["ScrollingDirection"]
-  GETIMPORT R16 K40 [Enum.ScrollBarInset.ScrollBar]
-  SETTABLEKS R16 R15 K28 ["VerticalScrollBarInset"]
-  DUPCLOSURE R16 K41 [PROTO_0]
-  CAPTURE VAL R8
-  CAPTURE VAL R14
-  CAPTURE VAL R12
-  CAPTURE VAL R11
-  DUPCLOSURE R17 K42 [PROTO_7]
-  CAPTURE VAL R8
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R6
+  GETTABLEKS R8 R1 K18 ["Popover"]
+  GETTABLEKS R9 R1 K19 ["ScrollView"]
+  GETTABLEKS R10 R1 K20 ["Text"]
+  GETTABLEKS R11 R1 K21 ["View"]
+  GETTABLEKS R12 R3 K22 ["createNextOrder"]
+  GETTABLEKS R13 R2 K23 ["createElement"]
+  DUPTABLE R14 K28 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection", "VerticalScrollBarInset"}]
+  GETIMPORT R15 K32 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K24 ["AutomaticCanvasSize"]
+  GETIMPORT R15 K35 [UDim2.new]
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K25 ["CanvasSize"]
+  GETIMPORT R15 K36 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R15 R14 K26 ["ScrollingDirection"]
+  GETIMPORT R15 K39 [Enum.ScrollBarInset.ScrollBar]
+  SETTABLEKS R15 R14 K27 ["VerticalScrollBarInset"]
+  DUPCLOSURE R15 K40 [PROTO_0]
   CAPTURE VAL R7
-  CAPTURE VAL R5
   CAPTURE VAL R13
-  CAPTURE VAL R14
-  CAPTURE VAL R16
-  CAPTURE VAL R9
+  CAPTURE VAL R11
   CAPTURE VAL R10
+  DUPCLOSURE R16 K41 [PROTO_7]
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R15
-  RETURN R17 1
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  RETURN R16 1

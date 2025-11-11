@@ -10,6 +10,7 @@ local getGridMetrics = require(Foundation.Utility.getGridMetrics)
 local getGridSizeTag = require(Foundation.Utility.getGridSizeTag)
 local Types = require(Foundation.Components.Types)
 local GridDebug = require(Foundation.Components.Grid.Debug)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 type ResponsiveValue<T> = Types.ResponsiveValue<T>
 
@@ -28,14 +29,16 @@ type ChildProps = {
 local WHITE = Color3.fromRGB(255, 255, 255)
 
 local function Child(props: ChildProps)
+	local tokens = useTokens()
 	return React.createElement(View, {
 		tag = `{props.tag} auto-y clip`,
 		Size = props.Size,
 		backgroundStyle = {
-			Transparency = 0.15,
+			Transparency = 0.7,
+			Color3 = tokens.Color.ActionEmphasis.Background.Color3,
 		},
 		BorderSizePixel = if not props.debug then 1 else nil,
-		BorderColor3 = if not props.debug then WHITE else nil,
+		BorderColor3 = if not props.debug then tokens.Color.ActionEmphasis.Background.Color3 else nil,
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -449,6 +452,6 @@ return {
 			Enum.ItemLineAlignment.End,
 		},
 		wraps = true,
-		debug = true,
+		debug = false,
 	},
 }

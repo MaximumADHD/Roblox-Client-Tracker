@@ -1,21 +1,25 @@
 PROTO_0:
-  DUPTABLE R0 K4 [{"GetUpdateStateAsync", "GetCanAutoUpdateAsync", "UpdateStateChanged", "CanAutoUpdateNotification"}]
+  DUPTABLE R0 K5 [{"GetUpdateStateAsync", "GetCanAutoUpdateAsync", "UpdateStateChanged", "CanAutoUpdateNotification", "RequestToUpdatePopupVisibilityDueToStateChange"}]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K5 ["fn"]
+  GETTABLEKS R1 R2 K6 ["fn"]
   CALL R1 0 1
   SETTABLEKS R1 R0 K0 ["GetUpdateStateAsync"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K5 ["fn"]
+  GETTABLEKS R1 R2 K6 ["fn"]
   CALL R1 0 1
   SETTABLEKS R1 R0 K1 ["GetCanAutoUpdateAsync"]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K6 ["new"]
+  GETTABLEKS R1 R2 K7 ["new"]
   CALL R1 0 1
   SETTABLEKS R1 R0 K2 ["UpdateStateChanged"]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K6 ["new"]
+  GETTABLEKS R1 R2 K7 ["new"]
   CALL R1 0 1
   SETTABLEKS R1 R0 K3 ["CanAutoUpdateNotification"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K7 ["new"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K4 ["RequestToUpdatePopupVisibilityDueToStateChange"]
   RETURN R0 1
 
 MAIN:

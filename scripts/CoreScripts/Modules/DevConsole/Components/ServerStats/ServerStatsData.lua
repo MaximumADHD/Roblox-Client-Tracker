@@ -3,7 +3,8 @@ local CircularBuffer = require(script.Parent.Parent.Parent.CircularBuffer)
 local Signal = require(script.Parent.Parent.Parent.Signal)
 
 local MAX_DATASET_COUNT = tonumber(settings():GetFVariable("NewDevConsoleMaxGraphCount"))
-local AVG_PING_MS = "Avg Ping ms"
+local AVG_PING_MS_DEPRECATED = "Avg Ping ms" -- remove with ClarifyPingNamingEnabled
+local AVG_DATA_PING_MS = "Avg Data Ping ms"
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
@@ -103,8 +104,14 @@ function ServerStatsData:start()
 
 				self._serverStatsDataCount = count
 				self._serverStatsUpdated:Fire(self._serverStatsData)
-				if self._serverStatsData[AVG_PING_MS] then
-					self._serverStatsPing:Fire(self._serverStatsData[AVG_PING_MS].dataSet:back().value)
+				if game:GetEngineFeature("ClarifyPingNamingEnabled") then
+					if self._serverStatsData[AVG_DATA_PING_MS] then
+						self._serverStatsPing:Fire(self._serverStatsData[AVG_DATA_PING_MS].dataSet:back().value)
+					end
+				else
+					if self._serverStatsData[AVG_PING_MS_DEPRECATED] then
+						self._serverStatsPing:Fire(self._serverStatsData[AVG_PING_MS_DEPRECATED].dataSet:back().value)
+					end
 				end
 			end
 		end)

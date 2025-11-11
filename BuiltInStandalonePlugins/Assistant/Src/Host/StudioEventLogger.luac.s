@@ -94,82 +94,161 @@ PROTO_6:
   RETURN R1 -1
 
 PROTO_7:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["logCounter"]
-  GETUPVAL R2 1
-  LOADN R3 1
-  CALL R1 2 0
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["get"]
+  CALL R0 1 1
+  JUMPIFNOTEQKNIL R0 [+3]
   LOADNIL R1
-  GETUPVAL R2 2
-  CALL R2 0 1
-  JUMPIFNOT R2 [+31]
-  DUPTABLE R2 K5 [{"requestId", "conversationId", "message", "role"}]
-  GETTABLEKS R3 R0 K6 ["messageGuid"]
-  SETTABLEKS R3 R2 K1 ["requestId"]
-  GETTABLEKS R3 R0 K2 ["conversationId"]
-  SETTABLEKS R3 R2 K2 ["conversationId"]
-  GETTABLEKS R3 R0 K3 ["message"]
-  SETTABLEKS R3 R2 K3 ["message"]
-  LOADK R3 K7 ["MCPUser"]
-  SETTABLEKS R3 R2 K4 ["role"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K8 ["assign"]
-  MOVE R4 R2
-  DUPTABLE R5 K10 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K13 [DateTime.now]
-  CALL R7 0 1
-  GETTABLEKS R6 R7 K14 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K9 ["timestampMilliseconds"]
-  CALL R3 2 1
-  MOVE R1 R3
-  JUMP [+17]
-  DUPTABLE R2 K5 [{"requestId", "conversationId", "message", "role"}]
-  GETTABLEKS R3 R0 K6 ["messageGuid"]
-  SETTABLEKS R3 R2 K1 ["requestId"]
-  GETTABLEKS R3 R0 K2 ["conversationId"]
-  SETTABLEKS R3 R2 K2 ["conversationId"]
-  GETTABLEKS R3 R0 K3 ["message"]
-  SETTABLEKS R3 R2 K3 ["message"]
-  LOADK R3 K7 ["MCPUser"]
-  SETTABLEKS R3 R2 K4 ["role"]
-  MOVE R1 R2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K15 ["logEvent"]
-  GETUPVAL R3 4
-  DUPTABLE R4 K18 [{"customFields", "standardizedFields"}]
-  SETTABLEKS R1 R4 K16 ["customFields"]
-  NEWTABLE R6 0 0
-  GETUPVAL R10 5
-  GETTABLEKS R7 R10 K19 ["StandardizedFields"]
-  LOADNIL R8
-  LOADNIL R9
-  FORGPREP R7
-  FASTCALL2 TABLE_INSERT R6 R11 [+5]
-  MOVE R13 R6
-  MOVE R14 R11
-  GETIMPORT R12 K22 [table.insert]
-  CALL R12 2 0
-  FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K23 [+5]
-  MOVE R8 R6
-  LOADK R9 K23 ["addSessionInfo"]
-  GETIMPORT R7 K22 [table.insert]
-  CALL R7 2 0
-  MOVE R5 R6
-  SETTABLEKS R5 R4 K17 ["standardizedFields"]
-  CALL R2 2 0
-  GETUPVAL R2 6
-  JUMPIFNOT R2 [+10]
-  GETUPVAL R2 6
-  LOADK R4 K24 ["user_message_sent"]
-  DUPTABLE R5 K25 [{"requestId"}]
-  GETTABLEKS R6 R0 K6 ["messageGuid"]
-  SETTABLEKS R6 R5 K1 ["requestId"]
-  NAMECALL R2 R2 K26 ["LogEventAsync"]
-  CALL R2 3 0
-  RETURN R0 0
+  RETURN R1 1
+  GETUPVAL R2 1
+  GETTABLE R1 R0 R2
+  JUMPIFNOTEQKNIL R1 [+3]
+  GETTABLEKS R1 R0 K1 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R1 [+3]
+  LOADNIL R2
+  RETURN R2 1
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K3 [tostring]
+  CALL R2 1 1
+  RETURN R2 1
 
 PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["join"]
+  MOVE R2 R0
+  DUPTABLE R3 K2 [{"experimentationGroup"}]
+  GETUPVAL R5 1
+  NAMECALL R5 R5 K3 ["get"]
+  CALL R5 1 1
+  JUMPIFNOTEQKNIL R5 [+3]
+  LOADNIL R4
+  JUMP [+16]
+  GETUPVAL R7 2
+  GETTABLE R6 R5 R7
+  JUMPIFNOTEQKNIL R6 [+3]
+  GETTABLEKS R6 R5 K4 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R6 [+3]
+  LOADNIL R4
+  JUMP [+6]
+  FASTCALL1 TOSTRING R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K6 [tostring]
+  CALL R7 1 1
+  MOVE R4 R7
+  SETTABLEKS R4 R3 K1 ["experimentationGroup"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_9:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+45]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logCounter"]
+  GETUPVAL R2 2
+  LOADN R3 1
+  DUPTABLE R4 K2 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K3 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K5 [{"experimentationGroup"}]
+  GETUPVAL R11 4
+  NAMECALL R11 R11 K6 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 5
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K7 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K9 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K4 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K1 ["customFields"]
+  CALL R1 3 0
+  JUMP [+6]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logCounter"]
+  GETUPVAL R2 2
+  LOADN R3 1
+  CALL R1 2 0
+  DUPTABLE R1 K14 [{"requestId", "conversationId", "message", "role"}]
+  GETTABLEKS R2 R0 K15 ["messageGuid"]
+  SETTABLEKS R2 R1 K10 ["requestId"]
+  GETTABLEKS R2 R0 K11 ["conversationId"]
+  SETTABLEKS R2 R1 K11 ["conversationId"]
+  GETTABLEKS R2 R0 K12 ["message"]
+  SETTABLEKS R2 R1 K12 ["message"]
+  LOADK R2 K16 ["MCPUser"]
+  SETTABLEKS R2 R1 K13 ["role"]
+  GETUPVAL R2 6
+  CALL R2 0 1
+  JUMPIFNOT R2 [+4]
+  GETTABLEKS R2 R0 K17 ["model"]
+  SETTABLEKS R2 R1 K17 ["model"]
+  LOADNIL R2
+  GETUPVAL R3 7
+  CALL R3 0 1
+  JUMPIFNOT R3 [+14]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K18 ["assign"]
+  MOVE R3 R1
+  DUPTABLE R4 K20 [{"timestampMilliseconds"}]
+  GETIMPORT R6 K23 [DateTime.now]
+  CALL R6 0 1
+  GETTABLEKS R5 R6 K24 ["UnixTimestampMillis"]
+  SETTABLEKS R5 R4 K19 ["timestampMilliseconds"]
+  CALL R2 2 1
+  JUMP [+1]
+  MOVE R2 R1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K25 ["logEvent"]
+  GETUPVAL R4 8
+  DUPTABLE R5 K27 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R2 R5 K1 ["customFields"]
+  NEWTABLE R7 0 0
+  GETUPVAL R11 9
+  GETTABLEKS R8 R11 K28 ["StandardizedFields"]
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  FASTCALL2 TABLE_INSERT R7 R12 [+5]
+  MOVE R14 R7
+  MOVE R15 R12
+  GETIMPORT R13 K31 [table.insert]
+  CALL R13 2 0
+  FORGLOOP R8 2 [-8]
+  FASTCALL2K TABLE_INSERT R7 K32 [+5]
+  MOVE R9 R7
+  LOADK R10 K32 ["addSessionInfo"]
+  GETIMPORT R8 K31 [table.insert]
+  CALL R8 2 0
+  MOVE R6 R7
+  SETTABLEKS R6 R5 K26 ["standardizedFields"]
+  CALL R3 2 0
+  GETUPVAL R3 10
+  JUMPIFNOT R3 [+10]
+  GETUPVAL R3 10
+  LOADK R5 K33 ["user_message_sent"]
+  DUPTABLE R6 K34 [{"requestId"}]
+  GETTABLEKS R7 R0 K15 ["messageGuid"]
+  SETTABLEKS R7 R6 K10 ["requestId"]
+  NAMECALL R3 R3 K35 ["LogEventAsync"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_10:
   LOADNIL R1
   GETUPVAL R2 0
   CALL R2 0 1
@@ -231,10 +310,96 @@ PROTO_8:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_11:
+  LOADNIL R1
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["logCounter"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+18]
+  DUPTABLE R2 K1 [{"provider"}]
+  SETTABLEKS R0 R2 K0 ["provider"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["assign"]
+  MOVE R4 R2
+  DUPTABLE R5 K4 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K7 [DateTime.now]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K8 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K3 ["timestampMilliseconds"]
+  CALL R3 2 1
+  MOVE R1 R3
+  JUMP [+4]
+  DUPTABLE R2 K1 [{"provider"}]
+  SETTABLEKS R0 R2 K0 ["provider"]
+  MOVE R1 R2
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K9 ["logEvent"]
+  GETUPVAL R3 3
+  DUPTABLE R4 K12 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K10 ["customFields"]
+  NEWTABLE R6 0 0
+  GETUPVAL R10 4
+  GETTABLEKS R7 R10 K13 ["StandardizedFields"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  FASTCALL2 TABLE_INSERT R6 R11 [+5]
+  MOVE R13 R6
+  MOVE R14 R11
+  GETIMPORT R12 K16 [table.insert]
+  CALL R12 2 0
+  FORGLOOP R7 2 [-8]
+  FASTCALL2K TABLE_INSERT R6 K17 [+5]
+  MOVE R8 R6
+  LOADK R9 K17 ["addSessionInfo"]
+  GETIMPORT R7 K16 [table.insert]
+  CALL R7 2 0
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K11 ["standardizedFields"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+46]
   GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logCounter"]
+  GETUPVAL R2 2
+  LOADN R3 1
+  DUPTABLE R4 K2 [{"customFields"}]
+  DUPTABLE R6 K4 [{"errorType"}]
+  SETTABLEKS R0 R6 K3 ["errorType"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K5 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K7 [{"experimentationGroup"}]
+  GETUPVAL R11 4
+  NAMECALL R11 R11 K8 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 5
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K9 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K11 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K6 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K1 ["customFields"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logCounter"]
+  GETUPVAL R2 2
   LOADN R3 1
   DUPTABLE R4 K2 [{"customFields"}]
   DUPTABLE R5 K4 [{"errorType"}]
@@ -243,151 +408,262 @@ PROTO_9:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_10:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["logCounter"]
+PROTO_13:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+45]
   GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logCounter"]
+  GETUPVAL R2 2
+  LOADN R3 1
+  DUPTABLE R4 K2 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K3 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K5 [{"experimentationGroup"}]
+  GETUPVAL R11 4
+  NAMECALL R11 R11 K6 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 5
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K7 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K9 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K4 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K1 ["customFields"]
+  CALL R1 3 0
+  JUMP [+6]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logCounter"]
+  GETUPVAL R2 2
   LOADN R3 1
   CALL R1 2 0
   LOADNIL R1
-  GETUPVAL R2 2
+  GETUPVAL R2 6
   CALL R2 0 1
   JUMPIFNOT R2 [+24]
-  DUPTABLE R2 K3 [{"requestId", "conversationId"}]
-  GETTABLEKS R3 R0 K4 ["messageGuid"]
-  SETTABLEKS R3 R2 K1 ["requestId"]
-  GETTABLEKS R3 R0 K2 ["conversationId"]
-  SETTABLEKS R3 R2 K2 ["conversationId"]
+  DUPTABLE R2 K12 [{"requestId", "conversationId"}]
+  GETTABLEKS R3 R0 K13 ["messageGuid"]
+  SETTABLEKS R3 R2 K10 ["requestId"]
+  GETTABLEKS R3 R0 K11 ["conversationId"]
+  SETTABLEKS R3 R2 K11 ["conversationId"]
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K5 ["assign"]
+  GETTABLEKS R3 R4 K14 ["assign"]
   MOVE R4 R2
-  DUPTABLE R5 K7 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K10 [DateTime.now]
+  DUPTABLE R5 K16 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K19 [DateTime.now]
   CALL R7 0 1
-  GETTABLEKS R6 R7 K11 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K6 ["timestampMilliseconds"]
+  GETTABLEKS R6 R7 K20 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K15 ["timestampMilliseconds"]
   CALL R3 2 1
   MOVE R1 R3
   JUMP [+10]
-  DUPTABLE R2 K3 [{"requestId", "conversationId"}]
-  GETTABLEKS R3 R0 K4 ["messageGuid"]
-  SETTABLEKS R3 R2 K1 ["requestId"]
-  GETTABLEKS R3 R0 K2 ["conversationId"]
-  SETTABLEKS R3 R2 K2 ["conversationId"]
+  DUPTABLE R2 K12 [{"requestId", "conversationId"}]
+  GETTABLEKS R3 R0 K13 ["messageGuid"]
+  SETTABLEKS R3 R2 K10 ["requestId"]
+  GETTABLEKS R3 R0 K11 ["conversationId"]
+  SETTABLEKS R3 R2 K11 ["conversationId"]
   MOVE R1 R2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K12 ["logEvent"]
-  GETUPVAL R3 4
-  DUPTABLE R4 K15 [{"customFields", "standardizedFields"}]
-  SETTABLEKS R1 R4 K13 ["customFields"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K21 ["logEvent"]
+  GETUPVAL R3 7
+  DUPTABLE R4 K23 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K1 ["customFields"]
   NEWTABLE R6 0 0
-  GETUPVAL R10 5
-  GETTABLEKS R7 R10 K16 ["StandardizedFields"]
+  GETUPVAL R10 8
+  GETTABLEKS R7 R10 K24 ["StandardizedFields"]
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K19 [table.insert]
+  GETIMPORT R12 K27 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K20 [+5]
+  FASTCALL2K TABLE_INSERT R6 K28 [+5]
   MOVE R8 R6
-  LOADK R9 K20 ["addSessionInfo"]
-  GETIMPORT R7 K19 [table.insert]
+  LOADK R9 K28 ["addSessionInfo"]
+  GETIMPORT R7 K27 [table.insert]
   CALL R7 2 0
   MOVE R5 R6
-  SETTABLEKS R5 R4 K14 ["standardizedFields"]
+  SETTABLEKS R5 R4 K22 ["standardizedFields"]
   CALL R2 2 0
-  GETUPVAL R2 6
+  GETUPVAL R2 9
   JUMPIFNOT R2 [+10]
-  GETUPVAL R2 6
-  LOADK R4 K21 ["thumbs_up"]
-  DUPTABLE R5 K22 [{"requestId"}]
-  GETTABLEKS R6 R0 K4 ["messageGuid"]
-  SETTABLEKS R6 R5 K1 ["requestId"]
-  NAMECALL R2 R2 K23 ["LogEventAsync"]
+  GETUPVAL R2 9
+  LOADK R4 K29 ["thumbs_up"]
+  DUPTABLE R5 K30 [{"requestId"}]
+  GETTABLEKS R6 R0 K13 ["messageGuid"]
+  SETTABLEKS R6 R5 K10 ["requestId"]
+  NAMECALL R2 R2 K31 ["LogEventAsync"]
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_11:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["logCounter"]
+PROTO_14:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+45]
   GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logCounter"]
+  GETUPVAL R2 2
+  LOADN R3 1
+  DUPTABLE R4 K2 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K3 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K5 [{"experimentationGroup"}]
+  GETUPVAL R11 4
+  NAMECALL R11 R11 K6 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 5
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K7 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K9 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K4 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K1 ["customFields"]
+  CALL R1 3 0
+  JUMP [+6]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logCounter"]
+  GETUPVAL R2 2
   LOADN R3 1
   CALL R1 2 0
   LOADNIL R1
-  GETUPVAL R2 2
+  GETUPVAL R2 6
   CALL R2 0 1
   JUMPIFNOT R2 [+24]
-  DUPTABLE R2 K3 [{"requestId", "conversationId"}]
-  GETTABLEKS R3 R0 K4 ["messageGuid"]
-  SETTABLEKS R3 R2 K1 ["requestId"]
-  GETTABLEKS R3 R0 K2 ["conversationId"]
-  SETTABLEKS R3 R2 K2 ["conversationId"]
+  DUPTABLE R2 K12 [{"requestId", "conversationId"}]
+  GETTABLEKS R3 R0 K13 ["messageGuid"]
+  SETTABLEKS R3 R2 K10 ["requestId"]
+  GETTABLEKS R3 R0 K11 ["conversationId"]
+  SETTABLEKS R3 R2 K11 ["conversationId"]
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K5 ["assign"]
+  GETTABLEKS R3 R4 K14 ["assign"]
   MOVE R4 R2
-  DUPTABLE R5 K7 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K10 [DateTime.now]
+  DUPTABLE R5 K16 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K19 [DateTime.now]
   CALL R7 0 1
-  GETTABLEKS R6 R7 K11 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K6 ["timestampMilliseconds"]
+  GETTABLEKS R6 R7 K20 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K15 ["timestampMilliseconds"]
   CALL R3 2 1
   MOVE R1 R3
   JUMP [+10]
-  DUPTABLE R2 K3 [{"requestId", "conversationId"}]
-  GETTABLEKS R3 R0 K4 ["messageGuid"]
-  SETTABLEKS R3 R2 K1 ["requestId"]
-  GETTABLEKS R3 R0 K2 ["conversationId"]
-  SETTABLEKS R3 R2 K2 ["conversationId"]
+  DUPTABLE R2 K12 [{"requestId", "conversationId"}]
+  GETTABLEKS R3 R0 K13 ["messageGuid"]
+  SETTABLEKS R3 R2 K10 ["requestId"]
+  GETTABLEKS R3 R0 K11 ["conversationId"]
+  SETTABLEKS R3 R2 K11 ["conversationId"]
   MOVE R1 R2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K12 ["logEvent"]
-  GETUPVAL R3 4
-  DUPTABLE R4 K15 [{"customFields", "standardizedFields"}]
-  SETTABLEKS R1 R4 K13 ["customFields"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K21 ["logEvent"]
+  GETUPVAL R3 7
+  DUPTABLE R4 K23 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K1 ["customFields"]
   NEWTABLE R6 0 0
-  GETUPVAL R10 5
-  GETTABLEKS R7 R10 K16 ["StandardizedFields"]
+  GETUPVAL R10 8
+  GETTABLEKS R7 R10 K24 ["StandardizedFields"]
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K19 [table.insert]
+  GETIMPORT R12 K27 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K20 [+5]
+  FASTCALL2K TABLE_INSERT R6 K28 [+5]
   MOVE R8 R6
-  LOADK R9 K20 ["addSessionInfo"]
-  GETIMPORT R7 K19 [table.insert]
+  LOADK R9 K28 ["addSessionInfo"]
+  GETIMPORT R7 K27 [table.insert]
   CALL R7 2 0
   MOVE R5 R6
-  SETTABLEKS R5 R4 K14 ["standardizedFields"]
+  SETTABLEKS R5 R4 K22 ["standardizedFields"]
   CALL R2 2 0
-  GETUPVAL R2 6
+  GETUPVAL R2 9
   JUMPIFNOT R2 [+10]
-  GETUPVAL R2 6
-  LOADK R4 K21 ["thumbs_down"]
-  DUPTABLE R5 K22 [{"requestId"}]
-  GETTABLEKS R6 R0 K4 ["messageGuid"]
-  SETTABLEKS R6 R5 K1 ["requestId"]
-  NAMECALL R2 R2 K23 ["LogEventAsync"]
+  GETUPVAL R2 9
+  LOADK R4 K29 ["thumbs_down"]
+  DUPTABLE R5 K30 [{"requestId"}]
+  GETTABLEKS R6 R0 K13 ["messageGuid"]
+  SETTABLEKS R6 R5 K10 ["requestId"]
+  NAMECALL R2 R2 K31 ["LogEventAsync"]
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_12:
-  GETUPVAL R2 0
+PROTO_15:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+45]
+  GETUPVAL R2 1
   GETTABLEKS R1 R2 K0 ["logStat"]
+  GETUPVAL R2 2
+  MOVE R3 R0
+  DUPTABLE R4 K2 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K3 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K5 [{"experimentationGroup"}]
+  GETUPVAL R11 4
+  NAMECALL R11 R11 K6 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 5
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K7 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K9 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K4 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K1 ["customFields"]
+  CALL R1 3 0
+  RETURN R0 0
   GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logStat"]
+  GETUPVAL R2 2
   MOVE R3 R0
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_16:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["logEvent"]
   GETUPVAL R2 1
@@ -398,7 +674,7 @@ PROTO_13:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_17:
   LOADNIL R1
   GETUPVAL R2 0
   CALL R2 0 1
@@ -461,7 +737,7 @@ PROTO_14:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_18:
   LOADNIL R1
   GETUPVAL R2 0
   CALL R2 0 1
@@ -515,7 +791,7 @@ PROTO_15:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_19:
   LOADNIL R1
   GETUPVAL R2 0
   CALL R2 0 1
@@ -577,7 +853,62 @@ PROTO_16:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_20:
+  DUPTABLE R2 K8 [{"requestId", "toolId", "toolName", "toolType", "isError", "startTime", "startTimeAfterConfirmation", "endTime"}]
+  GETTABLEKS R3 R0 K9 ["messageGuid"]
+  SETTABLEKS R3 R2 K0 ["requestId"]
+  GETTABLEKS R3 R0 K1 ["toolId"]
+  SETTABLEKS R3 R2 K1 ["toolId"]
+  GETTABLEKS R3 R0 K2 ["toolName"]
+  SETTABLEKS R3 R2 K2 ["toolName"]
+  GETTABLEKS R3 R0 K2 ["toolName"]
+  SETTABLEKS R3 R2 K3 ["toolType"]
+  GETTABLEKS R3 R0 K4 ["isError"]
+  SETTABLEKS R3 R2 K4 ["isError"]
+  GETTABLEKS R3 R0 K5 ["startTime"]
+  SETTABLEKS R3 R2 K5 ["startTime"]
+  GETTABLEKS R3 R0 K6 ["startTimeAfterConfirmation"]
+  SETTABLEKS R3 R2 K6 ["startTimeAfterConfirmation"]
+  GETTABLEKS R3 R0 K7 ["endTime"]
+  SETTABLEKS R3 R2 K7 ["endTime"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K10 ["assign"]
+  MOVE R4 R2
+  DUPTABLE R5 K12 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K15 [DateTime.now]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K16 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K11 ["timestampMilliseconds"]
+  CALL R3 2 1
+  MOVE R1 R3
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K17 ["logEvent"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K20 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K18 ["customFields"]
+  NEWTABLE R6 0 0
+  GETUPVAL R10 3
+  GETTABLEKS R7 R10 K21 ["StandardizedFields"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  FASTCALL2 TABLE_INSERT R6 R11 [+5]
+  MOVE R13 R6
+  MOVE R14 R11
+  GETIMPORT R12 K24 [table.insert]
+  CALL R12 2 0
+  FORGLOOP R7 2 [-8]
+  FASTCALL2K TABLE_INSERT R6 K25 [+5]
+  MOVE R8 R6
+  LOADK R9 K25 ["addSessionInfo"]
+  GETIMPORT R7 K24 [table.insert]
+  CALL R7 2 0
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K19 ["standardizedFields"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_21:
   LOADNIL R1
   GETUPVAL R2 0
   CALL R2 0 1
@@ -635,7 +966,7 @@ PROTO_17:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_22:
   LOADNIL R1
   GETUPVAL R2 0
   CALL R2 0 1
@@ -689,10 +1020,49 @@ PROTO_18:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_19:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["logStat"]
+PROTO_23:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+49]
   GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logStat"]
+  GETUPVAL R2 2
+  GETTABLEKS R3 R0 K1 ["requestJourneyDuration"]
+  DUPTABLE R4 K3 [{"customFields"}]
+  DUPTABLE R6 K5 [{"requestId"}]
+  GETTABLEKS R7 R0 K6 ["requestEndReason"]
+  SETTABLEKS R7 R6 K4 ["requestId"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K7 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K9 [{"experimentationGroup"}]
+  GETUPVAL R11 4
+  NAMECALL R11 R11 K10 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 5
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K11 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K13 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K8 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K2 ["customFields"]
+  CALL R1 3 0
+  JUMP [+15]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["logStat"]
+  GETUPVAL R2 2
   GETTABLEKS R3 R0 K1 ["requestJourneyDuration"]
   DUPTABLE R4 K3 [{"customFields"}]
   DUPTABLE R5 K5 [{"requestId"}]
@@ -700,9 +1070,55 @@ PROTO_19:
   SETTABLEKS R6 R5 K4 ["requestId"]
   SETTABLEKS R5 R4 K2 ["customFields"]
   CALL R1 3 0
+  DUPTABLE R2 K16 [{"requestId", "conversationId", "requestEndReason", "requestJourneyDuration", "message"}]
+  GETTABLEKS R3 R0 K17 ["messageGuid"]
+  SETTABLEKS R3 R2 K4 ["requestId"]
+  GETTABLEKS R3 R0 K14 ["conversationId"]
+  SETTABLEKS R3 R2 K14 ["conversationId"]
+  GETTABLEKS R3 R0 K6 ["requestEndReason"]
+  SETTABLEKS R3 R2 K6 ["requestEndReason"]
+  GETTABLEKS R3 R0 K1 ["requestJourneyDuration"]
+  SETTABLEKS R3 R2 K1 ["requestJourneyDuration"]
+  GETTABLEKS R3 R0 K15 ["message"]
+  SETTABLEKS R3 R2 K15 ["message"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K18 ["assign"]
+  MOVE R4 R2
+  DUPTABLE R5 K20 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K23 [DateTime.now]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K24 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K19 ["timestampMilliseconds"]
+  CALL R3 2 1
+  MOVE R1 R3
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K25 ["logEvent"]
+  GETUPVAL R3 6
+  DUPTABLE R4 K27 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K2 ["customFields"]
+  NEWTABLE R6 0 0
+  GETUPVAL R10 7
+  GETTABLEKS R7 R10 K28 ["StandardizedFields"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  FASTCALL2 TABLE_INSERT R6 R11 [+5]
+  MOVE R13 R6
+  MOVE R14 R11
+  GETIMPORT R12 K31 [table.insert]
+  CALL R12 2 0
+  FORGLOOP R7 2 [-8]
+  FASTCALL2K TABLE_INSERT R6 K32 [+5]
+  MOVE R8 R6
+  LOADK R9 K32 ["addSessionInfo"]
+  GETIMPORT R7 K31 [table.insert]
+  CALL R7 2 0
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K26 ["standardizedFields"]
+  CALL R2 2 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_24:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
@@ -710,91 +1126,128 @@ PROTO_20:
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
   CAPTURE VAL R0
-  DUPCLOSURE R2 K0 [PROTO_8]
-  CAPTURE UPVAL U2
+  DUPCLOSURE R2 K0 [PROTO_10]
+  CAPTURE UPVAL U7
   CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  DUPCLOSURE R3 K1 [PROTO_11]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U9
+  DUPCLOSURE R4 K2 [PROTO_12]
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  DUPCLOSURE R3 K1 [PROTO_9]
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U6
-  NEWCLOSURE R4 P3
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U7
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U8
-  CAPTURE UPVAL U5
-  CAPTURE VAL R0
   NEWCLOSURE R5 P4
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U9
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U10
-  CAPTURE UPVAL U5
-  CAPTURE VAL R0
-  DUPCLOSURE R6 K2 [PROTO_12]
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U11
-  DUPCLOSURE R7 K3 [PROTO_13]
-  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE UPVAL U12
-  NEWCLOSURE R8 P7
-  CAPTURE UPVAL U2
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U0
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U7
   CAPTURE UPVAL U13
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U9
   CAPTURE VAL R0
-  DUPCLOSURE R9 K4 [PROTO_15]
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
+  NEWCLOSURE R6 P5
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE UPVAL U14
-  CAPTURE UPVAL U5
-  DUPCLOSURE R10 K5 [PROTO_16]
-  CAPTURE UPVAL U2
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U0
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U7
   CAPTURE UPVAL U15
-  CAPTURE UPVAL U5
-  DUPCLOSURE R11 K6 [PROTO_17]
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U9
+  CAPTURE VAL R0
+  DUPCLOSURE R7 K3 [PROTO_15]
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE UPVAL U16
-  CAPTURE UPVAL U5
-  DUPCLOSURE R12 K7 [PROTO_18]
-  CAPTURE UPVAL U2
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U17
+  CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  DUPCLOSURE R13 K8 [PROTO_19]
-  CAPTURE UPVAL U0
+  DUPCLOSURE R8 K4 [PROTO_16]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U17
+  NEWCLOSURE R9 P8
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
   CAPTURE UPVAL U18
-  DUPTABLE R14 K24 [{"logUserMessageSent", "logAssistantMessageSent", "logErrorEvent", "logThumbsUp", "logThumbsDown", "logInitialResponseLatency", "logMarkdownError", "logRetry", "logStopGeneration", "logToolStarted", "logToolConfirmationShown", "logToolConfirmationResult", "logRequestJourney", "getMessageGuid", "createMessageGuid"}]
-  SETTABLEKS R1 R14 K9 ["logUserMessageSent"]
-  SETTABLEKS R2 R14 K10 ["logAssistantMessageSent"]
-  SETTABLEKS R3 R14 K11 ["logErrorEvent"]
-  SETTABLEKS R4 R14 K12 ["logThumbsUp"]
-  SETTABLEKS R5 R14 K13 ["logThumbsDown"]
-  SETTABLEKS R6 R14 K14 ["logInitialResponseLatency"]
-  SETTABLEKS R7 R14 K15 ["logMarkdownError"]
-  SETTABLEKS R8 R14 K16 ["logRetry"]
-  SETTABLEKS R9 R14 K17 ["logStopGeneration"]
-  SETTABLEKS R10 R14 K18 ["logToolStarted"]
-  SETTABLEKS R11 R14 K19 ["logToolConfirmationShown"]
-  SETTABLEKS R12 R14 K20 ["logToolConfirmationResult"]
-  SETTABLEKS R13 R14 K21 ["logRequestJourney"]
-  GETUPVAL R15 19
-  SETTABLEKS R15 R14 K22 ["getMessageGuid"]
-  GETUPVAL R15 20
-  SETTABLEKS R15 R14 K23 ["createMessageGuid"]
-  RETURN R14 1
+  CAPTURE UPVAL U9
+  CAPTURE VAL R0
+  DUPCLOSURE R10 K5 [PROTO_18]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U19
+  CAPTURE UPVAL U9
+  DUPCLOSURE R11 K6 [PROTO_19]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U20
+  CAPTURE UPVAL U9
+  DUPCLOSURE R12 K7 [PROTO_20]
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U21
+  CAPTURE UPVAL U9
+  DUPCLOSURE R13 K8 [PROTO_21]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U22
+  CAPTURE UPVAL U9
+  DUPCLOSURE R14 K9 [PROTO_22]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U23
+  CAPTURE UPVAL U9
+  DUPCLOSURE R15 K10 [PROTO_23]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U24
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U25
+  CAPTURE UPVAL U9
+  DUPTABLE R16 K28 [{"logUserMessageSent", "logAssistantMessageSent", "logApiKeyAdded", "logErrorEvent", "logThumbsUp", "logThumbsDown", "logInitialResponseLatency", "logMarkdownError", "logRetry", "logStopGeneration", "logToolStarted", "logToolEnded", "logToolConfirmationShown", "logToolConfirmationResult", "logRequestJourney", "getMessageGuid", "createMessageGuid"}]
+  SETTABLEKS R1 R16 K11 ["logUserMessageSent"]
+  SETTABLEKS R2 R16 K12 ["logAssistantMessageSent"]
+  SETTABLEKS R3 R16 K13 ["logApiKeyAdded"]
+  SETTABLEKS R4 R16 K14 ["logErrorEvent"]
+  SETTABLEKS R5 R16 K15 ["logThumbsUp"]
+  SETTABLEKS R6 R16 K16 ["logThumbsDown"]
+  SETTABLEKS R7 R16 K17 ["logInitialResponseLatency"]
+  SETTABLEKS R8 R16 K18 ["logMarkdownError"]
+  SETTABLEKS R9 R16 K19 ["logRetry"]
+  SETTABLEKS R10 R16 K20 ["logStopGeneration"]
+  SETTABLEKS R11 R16 K21 ["logToolStarted"]
+  SETTABLEKS R12 R16 K22 ["logToolEnded"]
+  SETTABLEKS R13 R16 K23 ["logToolConfirmationShown"]
+  SETTABLEKS R14 R16 K24 ["logToolConfirmationResult"]
+  SETTABLEKS R15 R16 K25 ["logRequestJourney"]
+  GETUPVAL R17 26
+  SETTABLEKS R17 R16 K26 ["getMessageGuid"]
+  GETUPVAL R17 27
+  SETTABLEKS R17 R16 K27 ["createMessageGuid"]
+  RETURN R16 1
 
 MAIN:
   PREPVARARGS 0
@@ -806,380 +1259,478 @@ MAIN:
   LOADK R3 K6 ["HttpService"]
   NAMECALL R1 R1 K7 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R0 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["AssistantUI"]
-  CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R0 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["Dash"]
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K8 ["IXPService"]
+  NAMECALL R2 R2 K7 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R5 R0 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["AssistantUI"]
   CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K13 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Flags"]
-  GETTABLEKS R5 R6 K15 ["FFlagAssistantAttachCommonTelemetryFields"]
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Dash"]
   CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R8 R0 K13 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Flags"]
-  GETTABLEKS R6 R7 K16 ["FFlagLogEventTimestampAssistant"]
+  GETIMPORT R5 K10 [require]
+  GETTABLEKS R8 R0 K14 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Util"]
+  GETTABLEKS R6 R7 K16 ["Telemetry"]
   CALL R5 1 1
-  GETIMPORT R6 K9 [require]
-  GETTABLEKS R9 R0 K13 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Flags"]
-  GETTABLEKS R7 R8 K17 ["FIntMarkdownErrorEventThrottlingHundredthPercent"]
+  GETIMPORT R6 K10 [require]
+  GETTABLEKS R8 R0 K11 ["Packages"]
+  GETTABLEKS R7 R8 K17 ["TelemetryProtocol"]
   CALL R6 1 1
-  GETIMPORT R7 K9 [require]
-  GETTABLEKS R10 R0 K13 ["Src"]
-  GETTABLEKS R9 R10 K14 ["Flags"]
-  GETTABLEKS R8 R9 K18 ["FIntUserMessageSentEventThrottlingHundredthPercent"]
+  GETIMPORT R7 K10 [require]
+  GETTABLEKS R10 R0 K14 ["Src"]
+  GETTABLEKS R9 R10 K18 ["Flags"]
+  GETTABLEKS R8 R9 K19 ["FFlagAssistantAttachCommonTelemetryFields"]
   CALL R7 1 1
-  GETIMPORT R8 K9 [require]
-  GETTABLEKS R11 R0 K13 ["Src"]
-  GETTABLEKS R10 R11 K19 ["Util"]
-  GETTABLEKS R9 R10 K20 ["Telemetry"]
+  GETIMPORT R8 K10 [require]
+  GETTABLEKS R11 R0 K14 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Flags"]
+  GETTABLEKS R9 R10 K20 ["FFlagAssistantSendExperimentationInfoGrafana"]
   CALL R8 1 1
-  GETIMPORT R9 K9 [require]
-  GETTABLEKS R11 R0 K10 ["Packages"]
-  GETTABLEKS R10 R11 K21 ["TelemetryProtocol"]
+  GETIMPORT R9 K10 [require]
+  GETTABLEKS R12 R0 K14 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Flags"]
+  GETTABLEKS R10 R11 K21 ["FFlagLogEventTimestampAssistant"]
   CALL R9 1 1
-  GETTABLEKS R10 R6 K22 ["Get"]
-  GETTABLEKS R11 R7 K22 ["Get"]
-  GETTABLEKS R12 R4 K22 ["Get"]
-  GETTABLEKS R13 R5 K22 ["Get"]
-  NEWTABLE R14 0 0
-  DUPCLOSURE R15 K23 [PROTO_0]
-  CAPTURE VAL R9
-  DUPCLOSURE R16 K24 [PROTO_1]
-  DUPCLOSURE R17 K25 [PROTO_2]
-  CAPTURE VAL R8
-  CAPTURE VAL R12
-  GETIMPORT R18 K28 [table.freeze]
-  NEWTABLE R20 0 0
-  GETTABLEKS R24 R8 K29 ["Backends"]
-  GETTABLEKS R23 R24 K30 ["EventIngest"]
-  FASTCALL2 TABLE_INSERT R20 R23 [+4]
-  MOVE R22 R20
-  GETIMPORT R21 K32 [table.insert]
-  CALL R21 2 0
-  MOVE R21 R12
-  CALL R21 0 1
-  JUMPIFNOT R21 [+10]
-  GETTABLEKS R24 R8 K29 ["Backends"]
-  GETTABLEKS R23 R24 K33 ["Points"]
-  FASTCALL2 TABLE_INSERT R20 R23 [+4]
-  MOVE R22 R20
-  GETIMPORT R21 K32 [table.insert]
-  CALL R21 2 0
-  MOVE R19 R20
-  CALL R18 1 1
-  GETIMPORT R19 K28 [table.freeze]
-  DUPTABLE R20 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R22 K39 ["%*%*"]
-  LOADK R24 K40 ["StudioAssistant"]
-  LOADK R25 K41 ["UserMessageSent"]
-  NAMECALL R22 R22 K42 ["format"]
-  CALL R22 3 1
+  GETIMPORT R10 K10 [require]
+  GETTABLEKS R13 R0 K14 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Flags"]
+  GETTABLEKS R11 R12 K22 ["FFlagMCPAssistantExternalAPIKey"]
+  CALL R10 1 1
+  GETIMPORT R11 K10 [require]
+  GETTABLEKS R14 R0 K14 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Flags"]
+  GETTABLEKS R12 R13 K23 ["FIntMarkdownErrorEventThrottlingHundredthPercent"]
+  CALL R11 1 1
+  GETIMPORT R12 K10 [require]
+  GETTABLEKS R15 R0 K14 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Flags"]
+  GETTABLEKS R13 R14 K24 ["FIntUserMessageSentEventThrottlingHundredthPercent"]
+  CALL R12 1 1
+  GETIMPORT R13 K10 [require]
+  GETTABLEKS R16 R0 K14 ["Src"]
+  GETTABLEKS R15 R16 K18 ["Flags"]
+  GETTABLEKS R14 R15 K25 ["FStringAssistantGroupNameKey"]
+  CALL R13 1 1
+  GETIMPORT R14 K10 [require]
+  GETTABLEKS R17 R0 K14 ["Src"]
+  GETTABLEKS R16 R17 K18 ["Flags"]
+  GETTABLEKS R15 R16 K26 ["FStringNewAssistantExperimentLayer"]
+  CALL R14 1 1
+  GETIMPORT R15 K10 [require]
+  GETTABLEKS R18 R0 K14 ["Src"]
+  GETTABLEKS R17 R18 K15 ["Util"]
+  GETTABLEKS R16 R17 K27 ["ExperimentCache"]
+  CALL R15 1 1
+  NEWTABLE R16 0 0
+  DUPCLOSURE R17 K28 [PROTO_0]
+  CAPTURE VAL R6
+  DUPCLOSURE R18 K29 [PROTO_1]
+  DUPCLOSURE R19 K30 [PROTO_2]
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  GETIMPORT R20 K33 [table.freeze]
+  NEWTABLE R22 0 0
+  GETTABLEKS R26 R5 K34 ["Backends"]
+  GETTABLEKS R25 R26 K35 ["EventIngest"]
+  FASTCALL2 TABLE_INSERT R22 R25 [+4]
+  MOVE R24 R22
+  GETIMPORT R23 K37 [table.insert]
+  CALL R23 2 0
+  MOVE R23 R7
+  CALL R23 0 1
+  JUMPIFNOT R23 [+10]
+  GETTABLEKS R26 R5 K34 ["Backends"]
+  GETTABLEKS R25 R26 K38 ["Points"]
+  FASTCALL2 TABLE_INSERT R22 R25 [+4]
+  MOVE R24 R22
+  GETIMPORT R23 K37 [table.insert]
+  CALL R23 2 0
   MOVE R21 R22
-  SETTABLEKS R21 R20 K34 ["eventName"]
-  NEWTABLE R21 0 1
-  GETTABLEKS R23 R8 K29 ["Backends"]
-  GETTABLEKS R22 R23 K43 ["RobloxTelemetryCounter"]
-  SETLIST R21 R22 1 [1]
-  SETTABLEKS R21 R20 K35 ["backends"]
-  LOADK R21 K44 ["Incrementing count of user messages sent."]
-  SETTABLEKS R21 R20 K36 ["description"]
-  NEWTABLE R21 0 3
-  LOADN R22 25
-  LOADN R23 7
-  LOADN R24 21
-  SETLIST R21 R22 3 [1]
-  SETTABLEKS R21 R20 K37 ["lastUpdated"]
-  CALL R19 1 1
-  GETIMPORT R20 K28 [table.freeze]
-  DUPTABLE R21 K46 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
-  LOADK R22 K47 ["CAPMessageSent"]
-  SETTABLEKS R22 R21 K34 ["eventName"]
-  SETTABLEKS R18 R21 K35 ["backends"]
-  LOADK R22 K48 ["User message sent event with request ID."]
-  SETTABLEKS R22 R21 K36 ["description"]
-  MOVE R22 R11
-  CALL R22 0 1
-  SETTABLEKS R22 R21 K45 ["throttlingPercentage"]
-  NEWTABLE R22 0 3
-  LOADN R23 25
-  LOADN R24 7
-  LOADN R25 25
-  SETLIST R22 R23 3 [1]
-  SETTABLEKS R22 R21 K37 ["lastUpdated"]
   CALL R20 1 1
-  GETIMPORT R21 K28 [table.freeze]
-  DUPTABLE R22 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R23 K49 ["CAPUserFeedbackThumbsUp"]
-  SETTABLEKS R23 R22 K34 ["eventName"]
-  SETTABLEKS R18 R22 K35 ["backends"]
-  LOADK R23 K50 ["User feedback thumbs up event with message context."]
-  SETTABLEKS R23 R22 K36 ["description"]
+  GETIMPORT R21 K33 [table.freeze]
+  DUPTABLE R22 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R24 K44 ["%*%*"]
+  LOADK R26 K45 ["StudioAssistant"]
+  LOADK R27 K46 ["UserMessageSent"]
+  NAMECALL R24 R24 K47 ["format"]
+  CALL R24 3 1
+  MOVE R23 R24
+  SETTABLEKS R23 R22 K39 ["eventName"]
+  NEWTABLE R23 0 1
+  GETTABLEKS R25 R5 K34 ["Backends"]
+  GETTABLEKS R24 R25 K48 ["RobloxTelemetryCounter"]
+  SETLIST R23 R24 1 [1]
+  SETTABLEKS R23 R22 K40 ["backends"]
+  LOADK R23 K49 ["Incrementing count of user messages sent."]
+  SETTABLEKS R23 R22 K41 ["description"]
   NEWTABLE R23 0 3
   LOADN R24 25
   LOADN R25 7
-  LOADN R26 25
+  LOADN R26 21
   SETLIST R23 R24 3 [1]
-  SETTABLEKS R23 R22 K37 ["lastUpdated"]
+  SETTABLEKS R23 R22 K42 ["lastUpdated"]
   CALL R21 1 1
-  GETIMPORT R22 K28 [table.freeze]
-  DUPTABLE R23 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R24 K51 ["CAPUserFeedbackThumbsDown"]
-  SETTABLEKS R24 R23 K34 ["eventName"]
-  SETTABLEKS R18 R23 K35 ["backends"]
-  LOADK R24 K52 ["User feedback thumbs down event with message context."]
-  SETTABLEKS R24 R23 K36 ["description"]
+  GETIMPORT R22 K33 [table.freeze]
+  DUPTABLE R23 K51 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
+  LOADK R24 K52 ["CAPMessageSent"]
+  SETTABLEKS R24 R23 K39 ["eventName"]
+  SETTABLEKS R20 R23 K40 ["backends"]
+  LOADK R24 K53 ["User message sent event with request ID."]
+  SETTABLEKS R24 R23 K41 ["description"]
+  MOVE R24 R12
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K50 ["throttlingPercentage"]
   NEWTABLE R24 0 3
   LOADN R25 25
   LOADN R26 7
   LOADN R27 25
   SETLIST R24 R25 3 [1]
-  SETTABLEKS R24 R23 K37 ["lastUpdated"]
+  SETTABLEKS R24 R23 K42 ["lastUpdated"]
   CALL R22 1 1
-  GETIMPORT R23 K28 [table.freeze]
-  DUPTABLE R24 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R26 K39 ["%*%*"]
-  LOADK R28 K40 ["StudioAssistant"]
-  LOADK R29 K53 ["ThumbsUp"]
-  NAMECALL R26 R26 K42 ["format"]
-  CALL R26 3 1
-  MOVE R25 R26
-  SETTABLEKS R25 R24 K34 ["eventName"]
-  NEWTABLE R25 0 1
-  GETTABLEKS R27 R8 K29 ["Backends"]
-  GETTABLEKS R26 R27 K43 ["RobloxTelemetryCounter"]
-  SETLIST R25 R26 1 [1]
-  SETTABLEKS R25 R24 K35 ["backends"]
-  LOADK R25 K54 ["Incrementing count of thumbs up events."]
-  SETTABLEKS R25 R24 K36 ["description"]
+  GETIMPORT R23 K33 [table.freeze]
+  DUPTABLE R24 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R25 K54 ["CAPAPIKeyAdded"]
+  SETTABLEKS R25 R24 K39 ["eventName"]
+  SETTABLEKS R20 R24 K40 ["backends"]
+  LOADK R25 K55 ["User added an API key for an LLM provider."]
+  SETTABLEKS R25 R24 K41 ["description"]
   NEWTABLE R25 0 3
   LOADN R26 25
-  LOADN R27 7
-  LOADN R28 21
+  LOADN R27 11
+  LOADN R28 4
   SETLIST R25 R26 3 [1]
-  SETTABLEKS R25 R24 K37 ["lastUpdated"]
+  SETTABLEKS R25 R24 K42 ["lastUpdated"]
   CALL R23 1 1
-  GETIMPORT R24 K28 [table.freeze]
-  DUPTABLE R25 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R27 K39 ["%*%*"]
-  LOADK R29 K40 ["StudioAssistant"]
-  LOADK R30 K55 ["ThumbsDown"]
-  NAMECALL R27 R27 K42 ["format"]
-  CALL R27 3 1
-  MOVE R26 R27
-  SETTABLEKS R26 R25 K34 ["eventName"]
-  NEWTABLE R26 0 1
-  GETTABLEKS R28 R8 K29 ["Backends"]
-  GETTABLEKS R27 R28 K43 ["RobloxTelemetryCounter"]
-  SETLIST R26 R27 1 [1]
-  SETTABLEKS R26 R25 K35 ["backends"]
-  LOADK R26 K56 ["Incrementing count of thumbs down events."]
-  SETTABLEKS R26 R25 K36 ["description"]
+  GETIMPORT R24 K33 [table.freeze]
+  DUPTABLE R25 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R26 K56 ["CAPUserFeedbackThumbsUp"]
+  SETTABLEKS R26 R25 K39 ["eventName"]
+  SETTABLEKS R20 R25 K40 ["backends"]
+  LOADK R26 K57 ["User feedback thumbs up event with message context."]
+  SETTABLEKS R26 R25 K41 ["description"]
   NEWTABLE R26 0 3
   LOADN R27 25
   LOADN R28 7
-  LOADN R29 21
+  LOADN R29 25
   SETLIST R26 R27 3 [1]
-  SETTABLEKS R26 R25 K37 ["lastUpdated"]
+  SETTABLEKS R26 R25 K42 ["lastUpdated"]
   CALL R24 1 1
-  GETIMPORT R25 K28 [table.freeze]
-  DUPTABLE R26 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R28 K39 ["%*%*"]
-  LOADK R30 K40 ["StudioAssistant"]
-  LOADK R31 K57 ["InitialResponseLatency"]
-  NAMECALL R28 R28 K42 ["format"]
-  CALL R28 3 1
-  MOVE R27 R28
-  SETTABLEKS R27 R26 K34 ["eventName"]
-  NEWTABLE R27 0 1
-  GETTABLEKS R29 R8 K29 ["Backends"]
-  GETTABLEKS R28 R29 K58 ["RobloxTelemetryStat"]
-  SETLIST R27 R28 1 [1]
-  SETTABLEKS R27 R26 K35 ["backends"]
-  LOADK R27 K59 ["Initial response latency, in seconds. Time between making initial HTTP request and receiving first SignalR message."]
-  SETTABLEKS R27 R26 K36 ["description"]
+  GETIMPORT R25 K33 [table.freeze]
+  DUPTABLE R26 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R27 K58 ["CAPUserFeedbackThumbsDown"]
+  SETTABLEKS R27 R26 K39 ["eventName"]
+  SETTABLEKS R20 R26 K40 ["backends"]
+  LOADK R27 K59 ["User feedback thumbs down event with message context."]
+  SETTABLEKS R27 R26 K41 ["description"]
   NEWTABLE R27 0 3
   LOADN R28 25
   LOADN R29 7
-  LOADN R30 21
+  LOADN R30 25
   SETLIST R27 R28 3 [1]
-  SETTABLEKS R27 R26 K37 ["lastUpdated"]
+  SETTABLEKS R27 R26 K42 ["lastUpdated"]
   CALL R25 1 1
-  GETIMPORT R26 K28 [table.freeze]
-  DUPTABLE R27 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R29 K39 ["%*%*"]
-  LOADK R31 K40 ["StudioAssistant"]
-  LOADK R32 K60 ["RequestJourney"]
-  NAMECALL R29 R29 K42 ["format"]
+  GETIMPORT R26 K33 [table.freeze]
+  DUPTABLE R27 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R29 K44 ["%*%*"]
+  LOADK R31 K45 ["StudioAssistant"]
+  LOADK R32 K60 ["ThumbsUp"]
+  NAMECALL R29 R29 K47 ["format"]
   CALL R29 3 1
   MOVE R28 R29
-  SETTABLEKS R28 R27 K34 ["eventName"]
+  SETTABLEKS R28 R27 K39 ["eventName"]
   NEWTABLE R28 0 1
-  GETTABLEKS R30 R8 K29 ["Backends"]
-  GETTABLEKS R29 R30 K58 ["RobloxTelemetryStat"]
+  GETTABLEKS R30 R5 K34 ["Backends"]
+  GETTABLEKS R29 R30 K48 ["RobloxTelemetryCounter"]
   SETLIST R28 R29 1 [1]
-  SETTABLEKS R28 R27 K35 ["backends"]
-  LOADK R28 K61 ["User request journey duration in seconds. Time between sending first message to request ended."]
-  SETTABLEKS R28 R27 K36 ["description"]
+  SETTABLEKS R28 R27 K40 ["backends"]
+  LOADK R28 K61 ["Incrementing count of thumbs up events."]
+  SETTABLEKS R28 R27 K41 ["description"]
   NEWTABLE R28 0 3
   LOADN R29 25
-  LOADN R30 10
-  LOADN R31 22
+  LOADN R30 7
+  LOADN R31 21
   SETLIST R28 R29 3 [1]
-  SETTABLEKS R28 R27 K37 ["lastUpdated"]
+  SETTABLEKS R28 R27 K42 ["lastUpdated"]
   CALL R26 1 1
-  GETIMPORT R27 K28 [table.freeze]
-  DUPTABLE R28 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R30 K39 ["%*%*"]
-  LOADK R32 K40 ["StudioAssistant"]
-  LOADK R33 K62 ["ErrorEvent"]
-  NAMECALL R30 R30 K42 ["format"]
+  GETIMPORT R27 K33 [table.freeze]
+  DUPTABLE R28 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R30 K44 ["%*%*"]
+  LOADK R32 K45 ["StudioAssistant"]
+  LOADK R33 K62 ["ThumbsDown"]
+  NAMECALL R30 R30 K47 ["format"]
   CALL R30 3 1
   MOVE R29 R30
-  SETTABLEKS R29 R28 K34 ["eventName"]
+  SETTABLEKS R29 R28 K39 ["eventName"]
   NEWTABLE R29 0 1
-  GETTABLEKS R31 R8 K29 ["Backends"]
-  GETTABLEKS R30 R31 K43 ["RobloxTelemetryCounter"]
+  GETTABLEKS R31 R5 K34 ["Backends"]
+  GETTABLEKS R30 R31 K48 ["RobloxTelemetryCounter"]
   SETLIST R29 R30 1 [1]
-  SETTABLEKS R29 R28 K35 ["backends"]
-  LOADK R29 K63 ["Incrementing count of error events with error type attached."]
-  SETTABLEKS R29 R28 K36 ["description"]
+  SETTABLEKS R29 R28 K40 ["backends"]
+  LOADK R29 K63 ["Incrementing count of thumbs down events."]
+  SETTABLEKS R29 R28 K41 ["description"]
   NEWTABLE R29 0 3
   LOADN R30 25
   LOADN R31 7
   LOADN R32 21
   SETLIST R29 R30 3 [1]
-  SETTABLEKS R29 R28 K37 ["lastUpdated"]
+  SETTABLEKS R29 R28 K42 ["lastUpdated"]
   CALL R27 1 1
-  GETIMPORT R28 K28 [table.freeze]
-  DUPTABLE R29 K46 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
-  LOADK R31 K39 ["%*%*"]
-  LOADK R33 K40 ["StudioAssistant"]
-  LOADK R34 K64 ["MarkdownError"]
-  NAMECALL R31 R31 K42 ["format"]
+  GETIMPORT R28 K33 [table.freeze]
+  DUPTABLE R29 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R31 K44 ["%*%*"]
+  LOADK R33 K45 ["StudioAssistant"]
+  LOADK R34 K64 ["InitialResponseLatency"]
+  NAMECALL R31 R31 K47 ["format"]
   CALL R31 3 1
   MOVE R30 R31
-  SETTABLEKS R30 R29 K34 ["eventName"]
+  SETTABLEKS R30 R29 K39 ["eventName"]
   NEWTABLE R30 0 1
-  GETTABLEKS R32 R8 K29 ["Backends"]
-  GETTABLEKS R31 R32 K33 ["Points"]
+  GETTABLEKS R32 R5 K34 ["Backends"]
+  GETTABLEKS R31 R32 K65 ["RobloxTelemetryStat"]
   SETLIST R30 R31 1 [1]
-  SETTABLEKS R30 R29 K35 ["backends"]
-  LOADK R30 K65 ["Collection of markdown error events, with markdown attached."]
-  SETTABLEKS R30 R29 K36 ["description"]
-  MOVE R30 R10
-  CALL R30 0 1
-  SETTABLEKS R30 R29 K45 ["throttlingPercentage"]
+  SETTABLEKS R30 R29 K40 ["backends"]
+  LOADK R30 K66 ["Initial response latency, in seconds. Time between making initial HTTP request and receiving first SignalR message."]
+  SETTABLEKS R30 R29 K41 ["description"]
   NEWTABLE R30 0 3
   LOADN R31 25
   LOADN R32 7
   LOADN R33 21
   SETLIST R30 R31 3 [1]
-  SETTABLEKS R30 R29 K37 ["lastUpdated"]
+  SETTABLEKS R30 R29 K42 ["lastUpdated"]
   CALL R28 1 1
-  GETIMPORT R29 K28 [table.freeze]
-  DUPTABLE R30 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R31 K66 ["CAPMessageResubmitted"]
-  SETTABLEKS R31 R30 K34 ["eventName"]
-  SETTABLEKS R18 R30 K35 ["backends"]
-  LOADK R31 K67 ["User message retry/resubmit event with request ID."]
-  SETTABLEKS R31 R30 K36 ["description"]
+  GETIMPORT R29 K33 [table.freeze]
+  DUPTABLE R30 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R32 K44 ["%*%*"]
+  LOADK R34 K45 ["StudioAssistant"]
+  LOADK R35 K67 ["RequestJourney"]
+  NAMECALL R32 R32 K47 ["format"]
+  CALL R32 3 1
+  MOVE R31 R32
+  SETTABLEKS R31 R30 K39 ["eventName"]
+  NEWTABLE R31 0 1
+  GETTABLEKS R33 R5 K34 ["Backends"]
+  GETTABLEKS R32 R33 K65 ["RobloxTelemetryStat"]
+  SETLIST R31 R32 1 [1]
+  SETTABLEKS R31 R30 K40 ["backends"]
+  LOADK R31 K68 ["User request journey duration in seconds. Time between sending first message to request ended."]
+  SETTABLEKS R31 R30 K41 ["description"]
   NEWTABLE R31 0 3
   LOADN R32 25
-  LOADN R33 8
-  LOADN R34 7
+  LOADN R33 10
+  LOADN R34 22
   SETLIST R31 R32 3 [1]
-  SETTABLEKS R31 R30 K37 ["lastUpdated"]
+  SETTABLEKS R31 R30 K42 ["lastUpdated"]
   CALL R29 1 1
-  GETIMPORT R30 K28 [table.freeze]
-  DUPTABLE R31 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R32 K68 ["CAPStopGeneration"]
-  SETTABLEKS R32 R31 K34 ["eventName"]
-  SETTABLEKS R18 R31 K35 ["backends"]
-  LOADK R32 K69 ["User stop generation event with request ID."]
-  SETTABLEKS R32 R31 K36 ["description"]
+  GETIMPORT R30 K33 [table.freeze]
+  DUPTABLE R31 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R33 K44 ["%*%*"]
+  LOADK R35 K45 ["StudioAssistant"]
+  LOADK R36 K67 ["RequestJourney"]
+  NAMECALL R33 R33 K47 ["format"]
+  CALL R33 3 1
+  MOVE R32 R33
+  SETTABLEKS R32 R31 K39 ["eventName"]
+  SETTABLEKS R20 R31 K40 ["backends"]
+  LOADK R32 K69 ["User request journey detail."]
+  SETTABLEKS R32 R31 K41 ["description"]
   NEWTABLE R32 0 3
   LOADN R33 25
-  LOADN R34 8
-  LOADN R35 7
+  LOADN R34 11
+  LOADN R35 1
   SETLIST R32 R33 3 [1]
-  SETTABLEKS R32 R31 K37 ["lastUpdated"]
+  SETTABLEKS R32 R31 K42 ["lastUpdated"]
   CALL R30 1 1
-  GETIMPORT R31 K28 [table.freeze]
-  DUPTABLE R32 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R33 K70 ["CAPToolStarted"]
-  SETTABLEKS R33 R32 K34 ["eventName"]
-  SETTABLEKS R18 R32 K35 ["backends"]
-  LOADK R33 K71 ["Tool invocation started event with request ID and tool name."]
-  SETTABLEKS R33 R32 K36 ["description"]
+  GETIMPORT R31 K33 [table.freeze]
+  DUPTABLE R32 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R34 K44 ["%*%*"]
+  LOADK R36 K45 ["StudioAssistant"]
+  LOADK R37 K70 ["ErrorEvent"]
+  NAMECALL R34 R34 K47 ["format"]
+  CALL R34 3 1
+  MOVE R33 R34
+  SETTABLEKS R33 R32 K39 ["eventName"]
+  NEWTABLE R33 0 1
+  GETTABLEKS R35 R5 K34 ["Backends"]
+  GETTABLEKS R34 R35 K48 ["RobloxTelemetryCounter"]
+  SETLIST R33 R34 1 [1]
+  SETTABLEKS R33 R32 K40 ["backends"]
+  LOADK R33 K71 ["Incrementing count of error events with error type attached."]
+  SETTABLEKS R33 R32 K41 ["description"]
   NEWTABLE R33 0 3
   LOADN R34 25
-  LOADN R35 8
-  LOADN R36 7
+  LOADN R35 7
+  LOADN R36 21
   SETLIST R33 R34 3 [1]
-  SETTABLEKS R33 R32 K37 ["lastUpdated"]
+  SETTABLEKS R33 R32 K42 ["lastUpdated"]
   CALL R31 1 1
-  GETIMPORT R32 K28 [table.freeze]
-  DUPTABLE R33 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R34 K72 ["CAPToolConfirmationShown"]
-  SETTABLEKS R34 R33 K34 ["eventName"]
-  SETTABLEKS R18 R33 K35 ["backends"]
-  LOADK R34 K73 ["Tool confirmation dialog shown event with request ID, tool name, and warning message."]
-  SETTABLEKS R34 R33 K36 ["description"]
+  GETIMPORT R32 K33 [table.freeze]
+  DUPTABLE R33 K51 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
+  LOADK R35 K44 ["%*%*"]
+  LOADK R37 K45 ["StudioAssistant"]
+  LOADK R38 K72 ["MarkdownError"]
+  NAMECALL R35 R35 K47 ["format"]
+  CALL R35 3 1
+  MOVE R34 R35
+  SETTABLEKS R34 R33 K39 ["eventName"]
+  NEWTABLE R34 0 1
+  GETTABLEKS R36 R5 K34 ["Backends"]
+  GETTABLEKS R35 R36 K38 ["Points"]
+  SETLIST R34 R35 1 [1]
+  SETTABLEKS R34 R33 K40 ["backends"]
+  LOADK R34 K73 ["Collection of markdown error events, with markdown attached."]
+  SETTABLEKS R34 R33 K41 ["description"]
+  MOVE R34 R11
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K50 ["throttlingPercentage"]
   NEWTABLE R34 0 3
   LOADN R35 25
-  LOADN R36 9
-  LOADN R37 19
+  LOADN R36 7
+  LOADN R37 21
   SETLIST R34 R35 3 [1]
-  SETTABLEKS R34 R33 K37 ["lastUpdated"]
+  SETTABLEKS R34 R33 K42 ["lastUpdated"]
   CALL R32 1 1
-  GETIMPORT R33 K28 [table.freeze]
-  DUPTABLE R34 K38 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R35 K74 ["CAPToolConfirmationResult"]
-  SETTABLEKS R35 R34 K34 ["eventName"]
-  SETTABLEKS R18 R34 K35 ["backends"]
-  LOADK R35 K75 ["Tool confirmation dialog result event with request ID and user choice."]
-  SETTABLEKS R35 R34 K36 ["description"]
+  GETIMPORT R33 K33 [table.freeze]
+  DUPTABLE R34 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R35 K74 ["CAPMessageResubmitted"]
+  SETTABLEKS R35 R34 K39 ["eventName"]
+  SETTABLEKS R20 R34 K40 ["backends"]
+  LOADK R35 K75 ["User message retry/resubmit event with request ID."]
+  SETTABLEKS R35 R34 K41 ["description"]
   NEWTABLE R35 0 3
   LOADN R36 25
-  LOADN R37 9
-  LOADN R38 19
+  LOADN R37 8
+  LOADN R38 7
   SETLIST R35 R36 3 [1]
-  SETTABLEKS R35 R34 K37 ["lastUpdated"]
+  SETTABLEKS R35 R34 K42 ["lastUpdated"]
   CALL R33 1 1
-  DUPCLOSURE R34 K76 [PROTO_3]
-  CAPTURE VAL R14
-  DUPCLOSURE R35 K77 [PROTO_4]
-  CAPTURE VAL R14
+  GETIMPORT R34 K33 [table.freeze]
+  DUPTABLE R35 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R36 K76 ["CAPStopGeneration"]
+  SETTABLEKS R36 R35 K39 ["eventName"]
+  SETTABLEKS R20 R35 K40 ["backends"]
+  LOADK R36 K77 ["User stop generation event with request ID."]
+  SETTABLEKS R36 R35 K41 ["description"]
+  NEWTABLE R36 0 3
+  LOADN R37 25
+  LOADN R38 8
+  LOADN R39 7
+  SETLIST R36 R37 3 [1]
+  SETTABLEKS R36 R35 K42 ["lastUpdated"]
+  CALL R34 1 1
+  GETIMPORT R35 K33 [table.freeze]
+  DUPTABLE R36 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R38 K44 ["%*%*"]
+  LOADK R40 K45 ["StudioAssistant"]
+  LOADK R41 K78 ["ToolEnded"]
+  NAMECALL R38 R38 K47 ["format"]
+  CALL R38 3 1
+  MOVE R37 R38
+  SETTABLEKS R37 R36 K39 ["eventName"]
+  SETTABLEKS R20 R36 K40 ["backends"]
+  LOADK R37 K79 ["Tool invocation ended event with request ID and tool name"]
+  SETTABLEKS R37 R36 K41 ["description"]
+  NEWTABLE R37 0 3
+  LOADN R38 25
+  LOADN R39 7
+  LOADN R40 21
+  SETLIST R37 R38 3 [1]
+  SETTABLEKS R37 R36 K42 ["lastUpdated"]
+  CALL R35 1 1
+  GETIMPORT R36 K33 [table.freeze]
+  DUPTABLE R37 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R38 K80 ["CAPToolStarted"]
+  SETTABLEKS R38 R37 K39 ["eventName"]
+  SETTABLEKS R20 R37 K40 ["backends"]
+  LOADK R38 K81 ["Tool invocation started event with request ID and tool name."]
+  SETTABLEKS R38 R37 K41 ["description"]
+  NEWTABLE R38 0 3
+  LOADN R39 25
+  LOADN R40 8
+  LOADN R41 7
+  SETLIST R38 R39 3 [1]
+  SETTABLEKS R38 R37 K42 ["lastUpdated"]
+  CALL R36 1 1
+  GETIMPORT R37 K33 [table.freeze]
+  DUPTABLE R38 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R39 K82 ["CAPToolConfirmationShown"]
+  SETTABLEKS R39 R38 K39 ["eventName"]
+  SETTABLEKS R20 R38 K40 ["backends"]
+  LOADK R39 K83 ["Tool confirmation dialog shown event with request ID, tool name, and warning message."]
+  SETTABLEKS R39 R38 K41 ["description"]
+  NEWTABLE R39 0 3
+  LOADN R40 25
+  LOADN R41 9
+  LOADN R42 19
+  SETLIST R39 R40 3 [1]
+  SETTABLEKS R39 R38 K42 ["lastUpdated"]
+  CALL R37 1 1
+  GETIMPORT R38 K33 [table.freeze]
+  DUPTABLE R39 K43 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R40 K84 ["CAPToolConfirmationResult"]
+  SETTABLEKS R40 R39 K39 ["eventName"]
+  SETTABLEKS R20 R39 K40 ["backends"]
+  LOADK R40 K85 ["Tool confirmation dialog result event with request ID and user choice."]
+  SETTABLEKS R40 R39 K41 ["description"]
+  NEWTABLE R40 0 3
+  LOADN R41 25
+  LOADN R42 9
+  LOADN R43 19
+  SETLIST R40 R41 3 [1]
+  SETTABLEKS R40 R39 K42 ["lastUpdated"]
+  CALL R38 1 1
+  DUPCLOSURE R39 K86 [PROTO_3]
+  CAPTURE VAL R16
+  DUPCLOSURE R40 K87 [PROTO_4]
+  CAPTURE VAL R16
   CAPTURE VAL R1
-  DUPCLOSURE R36 K78 [PROTO_5]
-  DUPCLOSURE R37 K79 [PROTO_6]
-  CAPTURE VAL R3
-  DUPCLOSURE R38 K80 [PROTO_20]
+  DUPCLOSURE R41 K88 [PROTO_5]
+  DUPCLOSURE R42 K89 [PROTO_6]
+  CAPTURE VAL R4
+  MOVE R43 R13
+  CALL R43 0 1
+  GETTABLEKS R44 R15 K90 ["new"]
+  MOVE R45 R2
+  MOVE R46 R14
+  CALL R46 0 -1
+  CALL R44 -1 1
+  DUPCLOSURE R45 K91 [PROTO_7]
+  CAPTURE VAL R44
+  CAPTURE VAL R43
+  DUPCLOSURE R46 K92 [PROTO_8]
+  CAPTURE VAL R4
+  CAPTURE VAL R44
+  CAPTURE VAL R43
+  DUPCLOSURE R47 K93 [PROTO_24]
   CAPTURE VAL R8
-  CAPTURE VAL R19
-  CAPTURE VAL R13
-  CAPTURE VAL R3
-  CAPTURE VAL R20
-  CAPTURE VAL R9
-  CAPTURE VAL R27
-  CAPTURE VAL R23
+  CAPTURE VAL R5
   CAPTURE VAL R21
-  CAPTURE VAL R24
+  CAPTURE VAL R4
+  CAPTURE VAL R44
+  CAPTURE VAL R43
+  CAPTURE VAL R10
+  CAPTURE VAL R9
   CAPTURE VAL R22
+  CAPTURE VAL R6
+  CAPTURE VAL R23
+  CAPTURE VAL R31
+  CAPTURE VAL R26
+  CAPTURE VAL R24
+  CAPTURE VAL R27
   CAPTURE VAL R25
   CAPTURE VAL R28
-  CAPTURE VAL R29
-  CAPTURE VAL R30
-  CAPTURE VAL R31
   CAPTURE VAL R32
   CAPTURE VAL R33
-  CAPTURE VAL R26
   CAPTURE VAL R34
+  CAPTURE VAL R36
   CAPTURE VAL R35
-  RETURN R38 1
+  CAPTURE VAL R37
+  CAPTURE VAL R38
+  CAPTURE VAL R29
+  CAPTURE VAL R30
+  CAPTURE VAL R39
+  CAPTURE VAL R40
+  RETURN R47 1

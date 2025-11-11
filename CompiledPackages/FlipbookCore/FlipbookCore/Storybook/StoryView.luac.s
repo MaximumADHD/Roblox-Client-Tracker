@@ -224,14 +224,14 @@ MAIN:
   GETIMPORT R6 K3 [script]
   GETTABLEKS R5 R6 K4 ["Parent"]
   GETTABLEKS R4 R5 K4 ["Parent"]
-  GETTABLEKS R3 R4 K5 ["RobloxPackages"]
-  GETTABLEKS R2 R3 K7 ["LuauPolyfill"]
+  GETTABLEKS R3 R4 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["LuauPolyfill"]
   CALL R1 1 1
   GETIMPORT R2 K1 [require]
   GETIMPORT R7 K3 [script]
   GETTABLEKS R6 R7 K4 ["Parent"]
   GETTABLEKS R5 R6 K4 ["Parent"]
-  GETTABLEKS R4 R5 K8 ["Packages"]
+  GETTABLEKS R4 R5 K7 ["Packages"]
   GETTABLEKS R3 R4 K9 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K1 [require]
@@ -258,7 +258,7 @@ MAIN:
   GETIMPORT R12 K3 [script]
   GETTABLEKS R11 R12 K4 ["Parent"]
   GETTABLEKS R10 R11 K4 ["Parent"]
-  GETTABLEKS R9 R10 K8 ["Packages"]
+  GETTABLEKS R9 R10 K7 ["Packages"]
   GETTABLEKS R8 R9 K14 ["Storyteller"]
   CALL R7 1 1
   GETTABLEKS R8 R0 K15 ["Divider"]

@@ -30,6 +30,13 @@ PROTO_0:
   RETURN R4 1
 
 PROTO_1:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["FaceControls"]
+  MOVE R3 R0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useContext"]
   GETUPVAL R3 1
@@ -49,14 +56,17 @@ PROTO_1:
   GETTABLEKS R6 R1 K4 ["theme"]
   SETLIST R5 R6 1 [1]
   CALL R3 2 1
-  DUPTABLE R4 K6 [{"getClassIcon"}]
+  DUPTABLE R4 K7 [{"getClassIcon", "getMultipleIcon"}]
   SETTABLEKS R3 R4 K5 ["getClassIcon"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K6 ["getMultipleIcon"]
   GETUPVAL R5 2
   GETUPVAL R7 3
-  GETTABLEKS R6 R7 K7 ["Provider"]
-  DUPTABLE R7 K9 [{"value"}]
-  SETTABLEKS R4 R7 K8 ["value"]
-  GETTABLEKS R8 R0 K10 ["children"]
+  GETTABLEKS R6 R7 K8 ["Provider"]
+  DUPTABLE R7 K10 [{"value"}]
+  SETTABLEKS R4 R7 K9 ["value"]
+  GETTABLEKS R8 R0 K11 ["children"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -80,20 +90,24 @@ MAIN:
   GETTABLEKS R4 R5 K12 ["createUnimplemented"]
   CALL R3 1 1
   GETTABLEKS R4 R1 K13 ["createElement"]
-  DUPTABLE R5 K15 [{"getClassIcon"}]
+  DUPTABLE R5 K16 [{"getClassIcon", "getMultipleIcon"}]
   MOVE R6 R3
   LOADK R7 K14 ["getClassIcon"]
   CALL R6 1 1
   SETTABLEKS R6 R5 K14 ["getClassIcon"]
-  GETTABLEKS R6 R1 K16 ["createContext"]
+  MOVE R6 R3
+  LOADK R7 K15 ["getMultipleIcon"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K15 ["getMultipleIcon"]
+  GETTABLEKS R6 R1 K17 ["createContext"]
   MOVE R7 R5
   CALL R6 1 1
-  DUPCLOSURE R7 K17 [PROTO_1]
+  DUPCLOSURE R7 K18 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R6
-  DUPTABLE R8 K20 [{"Context", "Provider"}]
-  SETTABLEKS R6 R8 K18 ["Context"]
-  SETTABLEKS R7 R8 K19 ["Provider"]
+  DUPTABLE R8 K21 [{"Context", "Provider"}]
+  SETTABLEKS R6 R8 K19 ["Context"]
+  SETTABLEKS R7 R8 K20 ["Provider"]
   RETURN R8 1

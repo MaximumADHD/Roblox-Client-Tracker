@@ -82,9 +82,9 @@ PROTO_1:
   SETTABLEKS R3 R2 K7 ["numTodoTests"]
   NEWTABLE R3 0 0
   SETTABLEKS R3 R2 K8 ["openHandles"]
-  NEWTABLE R3 4 0
+  DUPTABLE R3 K20 [{"end_", "runtime", "slow", "start"}]
   LOADN R4 0
-  SETTABLEKS R4 R3 K16 ["end"]
+  SETTABLEKS R4 R3 K16 ["end_"]
   LOADN R4 0
   SETTABLEKS R4 R3 K17 ["runtime"]
   LOADB R4 0
@@ -94,21 +94,21 @@ PROTO_1:
   SETTABLEKS R3 R2 K9 ["perfStats"]
   LOADB R3 0
   SETTABLEKS R3 R2 K10 ["skipped"]
-  DUPTABLE R3 K27 [{"added", "fileDeleted", "matched", "unchecked", "uncheckedKeys", "unmatched", "updated"}]
+  DUPTABLE R3 K28 [{"added", "fileDeleted", "matched", "unchecked", "uncheckedKeys", "unmatched", "updated"}]
   LOADN R4 0
-  SETTABLEKS R4 R3 K20 ["added"]
+  SETTABLEKS R4 R3 K21 ["added"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K21 ["fileDeleted"]
+  SETTABLEKS R4 R3 K22 ["fileDeleted"]
   LOADN R4 0
-  SETTABLEKS R4 R3 K22 ["matched"]
+  SETTABLEKS R4 R3 K23 ["matched"]
   LOADN R4 0
-  SETTABLEKS R4 R3 K23 ["unchecked"]
+  SETTABLEKS R4 R3 K24 ["unchecked"]
   NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K24 ["uncheckedKeys"]
+  SETTABLEKS R4 R3 K25 ["uncheckedKeys"]
   LOADN R4 0
-  SETTABLEKS R4 R3 K25 ["unmatched"]
+  SETTABLEKS R4 R3 K26 ["unmatched"]
   LOADN R4 0
-  SETTABLEKS R4 R3 K26 ["updated"]
+  SETTABLEKS R4 R3 K27 ["updated"]
   SETTABLEKS R3 R2 K11 ["snapshot"]
   SETTABLEKS R1 R2 K12 ["testExecError"]
   SETTABLEKS R0 R2 K13 ["testFilePath"]
@@ -320,9 +320,9 @@ PROTO_3:
   SETTABLEKS R1 R0 K4 ["numTodoTests"]
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K5 ["openHandles"]
-  NEWTABLE R1 4 0
+  DUPTABLE R1 K16 [{"end_", "runtime", "slow", "start"}]
   LOADN R2 0
-  SETTABLEKS R2 R1 K12 ["end"]
+  SETTABLEKS R2 R1 K12 ["end_"]
   LOADN R2 0
   SETTABLEKS R2 R1 K13 ["runtime"]
   LOADB R2 0
@@ -332,23 +332,23 @@ PROTO_3:
   SETTABLEKS R1 R0 K6 ["perfStats"]
   LOADB R1 0
   SETTABLEKS R1 R0 K7 ["skipped"]
-  DUPTABLE R1 K23 [{"added", "fileDeleted", "matched", "unchecked", "uncheckedKeys", "unmatched", "updated"}]
+  DUPTABLE R1 K24 [{"added", "fileDeleted", "matched", "unchecked", "uncheckedKeys", "unmatched", "updated"}]
   LOADN R2 0
-  SETTABLEKS R2 R1 K16 ["added"]
+  SETTABLEKS R2 R1 K17 ["added"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K17 ["fileDeleted"]
+  SETTABLEKS R2 R1 K18 ["fileDeleted"]
   LOADN R2 0
-  SETTABLEKS R2 R1 K18 ["matched"]
+  SETTABLEKS R2 R1 K19 ["matched"]
   LOADN R2 0
-  SETTABLEKS R2 R1 K19 ["unchecked"]
+  SETTABLEKS R2 R1 K20 ["unchecked"]
   NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K20 ["uncheckedKeys"]
+  SETTABLEKS R2 R1 K21 ["uncheckedKeys"]
   LOADN R2 0
-  SETTABLEKS R2 R1 K21 ["unmatched"]
+  SETTABLEKS R2 R1 K22 ["unmatched"]
   LOADN R2 0
-  SETTABLEKS R2 R1 K22 ["updated"]
+  SETTABLEKS R2 R1 K23 ["updated"]
   SETTABLEKS R1 R0 K8 ["snapshot"]
-  LOADK R1 K24 [""]
+  LOADK R1 K25 [""]
   SETTABLEKS R1 R0 K9 ["testFilePath"]
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K10 ["testResults"]

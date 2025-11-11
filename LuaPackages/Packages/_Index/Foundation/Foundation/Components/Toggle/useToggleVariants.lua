@@ -31,13 +31,18 @@ local function computeProps(props: {
 	tag: string,
 	size: { height: number, width: number },
 	knobSize: UDim2,
+	strokeThickness: number?,
 })
 	local knobWidth = props.knobSize.X.Offset
 	local padding = (props.size.height - knobWidth) / 2
+
 	return {
 		input = {
 			tag = props.tag,
 			size = UDim2.fromOffset(props.size.width, props.size.height),
+			stroke = {
+				thickness = props.strokeThickness,
+			},
 		},
 		knob = {
 			offPosition = UDim2.new(0, padding, 0.5, 0),
@@ -47,36 +52,53 @@ local function computeProps(props: {
 end
 
 local function variantsFactory(tokens: Tokens)
-	local common = {
-		input = {
-			checkedStyle = tokens.Color.ActionEmphasis.Background,
-			cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-				then UDim.new(0, tokens.Radius.Circle)
-				else UDim.new(0, tokens.Radius.Medium),
-		},
-	}
+	local common = if Flags.FoundationToggleVisualUpdate
+		then {
+			input = {
+				colors = {
+					backgroundStyle = tokens.Color.ActionStandard.Background,
+					hoverStyle = tokens.Color.State.Hover,
+					checkedStyle = tokens.Color.System.Contrast,
+					labelStyle = tokens.Color.Content.Emphasis,
+					labelHoverStyle = tokens.Color.Content.Emphasis,
+				},
+				cursorRadius = UDim.new(0, tokens.Radius.Circle),
+			},
+		}
+		else {
+			input = {
+				checkedStyle = tokens.Color.ActionEmphasis.Background,
+				cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
+					then UDim.new(0, tokens.Radius.Circle)
+					else UDim.new(0, tokens.Radius.Medium),
+			},
+		}
 
-	local sizes: { [InputSize]: VariantProps } = if Flags.FoundationUpdateKnobComponent
+	local sizes: { [InputSize]: VariantProps } = if Flags.FoundationToggleVisualUpdate
 		then {
 			[InputSize.XSmall] = computeProps({
 				tag = "radius-circle",
 				size = { width = tokens.Size.Size_700, height = tokens.Size.Size_400 },
 				knobSize = getKnobSize(tokens, InputSize.XSmall),
+				strokeThickness = tokens.Stroke.None,
 			}),
 			[InputSize.Small] = computeProps({
 				tag = "radius-circle",
 				size = { width = tokens.Size.Size_800, height = tokens.Size.Size_500 },
 				knobSize = getKnobSize(tokens, InputSize.Small),
+				strokeThickness = tokens.Stroke.None,
 			}),
 			[InputSize.Medium] = computeProps({
 				tag = "radius-circle",
 				size = { width = tokens.Size.Size_1000, height = tokens.Size.Size_600 },
 				knobSize = getKnobSize(tokens, InputSize.Medium),
+				strokeThickness = tokens.Stroke.None,
 			}),
 			[InputSize.Large] = computeProps({
 				tag = "radius-circle",
 				size = { width = tokens.Size.Size_1100, height = tokens.Size.Size_600 },
 				knobSize = getKnobSize(tokens, InputSize.Medium),
+				strokeThickness = tokens.Stroke.None,
 			}),
 		}
 		else {

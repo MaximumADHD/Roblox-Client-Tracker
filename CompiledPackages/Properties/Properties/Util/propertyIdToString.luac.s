@@ -1,13 +1,20 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["isAttribute"]
-  JUMPIFNOT R1 [+7]
-  GETTABLEKS R2 R0 K1 ["className"]
-  LOADK R3 K2 ["Attribute"]
-  GETTABLEKS R4 R0 K3 ["propertyName"]
-  CONCAT R1 R2 R4
-  RETURN R1 1
-  GETTABLEKS R2 R0 K1 ["className"]
-  GETTABLEKS R3 R0 K3 ["propertyName"]
+  LOADK R2 K0 ["%*: %*"]
+  GETTABLEKS R4 R0 K1 ["metaType"]
+  GETTABLEKS R5 R0 K2 ["name"]
+  NAMECALL R2 R2 K3 ["format"]
+  CALL R2 3 1
+  MOVE R1 R2
+  GETTABLEKS R2 R0 K1 ["metaType"]
+  JUMPIFEQKS R2 K4 ["Property"] [+5]
+  GETTABLEKS R2 R0 K1 ["metaType"]
+  JUMPIFNOTEQKS R2 K5 ["Virtual"] [+10]
+  MOVE R2 R1
+  LOADK R4 K6 [" on %*"]
+  GETTABLEKS R6 R0 K7 ["className"]
+  NAMECALL R4 R4 K3 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
   CONCAT R1 R2 R3
   RETURN R1 1
 

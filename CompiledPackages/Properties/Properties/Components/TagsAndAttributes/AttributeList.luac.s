@@ -14,7 +14,7 @@ PROTO_0:
   SETTABLEKS R4 R3 K3 ["labelWidthBinding"]
   CALL R1 2 1
   GETTABLEKS R3 R0 K5 ["id"]
-  GETTABLEKS R2 R3 K6 ["propertyName"]
+  GETTABLEKS R2 R3 K6 ["name"]
   RETURN R1 2
 
 PROTO_1:

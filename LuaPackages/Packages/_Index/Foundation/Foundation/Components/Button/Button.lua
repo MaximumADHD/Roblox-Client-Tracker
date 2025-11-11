@@ -155,8 +155,12 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 
 	local tokens = useTokens()
 	local presentationContext = usePresentationContext()
-	local variantProps =
-		useButtonVariants(tokens, props.size, props.variant, presentationContext and presentationContext.isInverse)
+	local variantProps = useButtonVariants(
+		tokens,
+		props.size,
+		props.variant,
+		if presentationContext then presentationContext.colorMode else nil
+	)
 
 	local motionStates = useButtonMotionStates(variantProps.content.style.Transparency, Constants.DISABLED_TRANSPARENCY)
 	local disabledValues, animateDisabledValues = useMotion(motionStates.Default)
@@ -292,6 +296,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 										}
 									end),
 									scale = values.iconScale,
+									testId = `{props.testId}--icon`,
 								}, {
 									UITextSizeConstraint = if textSizeOffset > 0
 										then React.createElement("UITextSizeConstraint", {
@@ -316,6 +321,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 									scale = values.iconScale:map(function(iconScale: number)
 										return iconScale * scale
 									end),
+									testId = `{props.testId}--icon`,
 								})
 							else nil,
 					}),

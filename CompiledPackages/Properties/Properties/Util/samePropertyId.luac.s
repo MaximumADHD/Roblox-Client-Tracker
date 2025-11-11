@@ -1,14 +1,14 @@
 PROTO_0:
   LOADB R2 0
-  GETTABLEKS R3 R0 K0 ["className"]
-  GETTABLEKS R4 R1 K0 ["className"]
+  GETTABLEKS R3 R0 K0 ["name"]
+  GETTABLEKS R4 R1 K0 ["name"]
   JUMPIFNOTEQ R3 R4 [+16]
   LOADB R2 0
-  GETTABLEKS R3 R0 K1 ["propertyName"]
-  GETTABLEKS R4 R1 K1 ["propertyName"]
+  GETTABLEKS R3 R0 K1 ["metaType"]
+  GETTABLEKS R4 R1 K1 ["metaType"]
   JUMPIFNOTEQ R3 R4 [+9]
-  GETTABLEKS R3 R0 K2 ["isAttribute"]
-  GETTABLEKS R4 R1 K2 ["isAttribute"]
+  GETTABLEKS R3 R0 K2 ["className"]
+  GETTABLEKS R4 R1 K2 ["className"]
   JUMPIFEQ R3 R4 [+2]
   LOADB R2 0 +1
   LOADB R2 1

@@ -11,7 +11,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local MockId = require(script.Parent.Parent.MockId)
-local PlayabilityStatusEnum = require(CorePackages.Workspace.Packages.PlayabilityRodux).Enums.PlayabilityStatusEnum
+local PlayabilityStatusEnum = require(CorePackages.Workspace.Packages.DiscoveryTypes).PlayabilityStatusEnum
 
 export type ExperienceInfo = {
 	universeId: string?,

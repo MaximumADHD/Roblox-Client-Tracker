@@ -39,7 +39,7 @@ PROTO_1:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["registerAssetIdAsync"]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["AssetType"]
+  GETTABLEKS R1 R2 K1 ["Type"]
   GETUPVAL R2 2
   CALL R0 2 0
   RETURN R0 0
@@ -54,7 +54,7 @@ PROTO_2:
   GETUPVAL R1 0
   GETUPVAL R2 1
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K5 ["AssetType"]
+  GETTABLEKS R3 R4 K5 ["Type"]
   CALL R1 2 1
   JUMPIFNOT R1 [+30]
   GETIMPORT R2 K8 [task.spawn]
@@ -88,7 +88,7 @@ PROTO_3:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["registerAssetIdAsync"]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["AssetType"]
+  GETTABLEKS R1 R2 K1 ["Type"]
   GETUPVAL R2 2
   CALL R0 2 0
   RETURN R0 0
@@ -97,24 +97,23 @@ PROTO_4:
   NEWTABLE R0 0 0
   LOADNIL R1
   GETUPVAL R2 0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["Property"]
-  GETTABLEKS R3 R4 K1 ["Value"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["Value"]
   CALL R2 1 1
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K2 ["registeredAssetIds"]
+  GETTABLEKS R6 R7 K1 ["registeredAssetIds"]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K3 ["AssetType"]
+  GETTABLEKS R7 R8 K2 ["Type"]
   GETTABLE R3 R6 R7
   JUMPIF R3 [+2]
   NEWTABLE R3 0 0
   LOADNIL R4
   LOADNIL R5
   FORGPREP R3
-  DUPTABLE R8 K6 [{"id", "text"}]
-  SETTABLEKS R6 R8 K4 ["id"]
-  GETTABLEKS R9 R7 K7 ["name"]
-  SETTABLEKS R9 R8 K5 ["text"]
+  DUPTABLE R8 K5 [{"id", "text"}]
+  SETTABLEKS R6 R8 K3 ["id"]
+  GETTABLEKS R9 R7 K6 ["name"]
+  SETTABLEKS R9 R8 K4 ["text"]
   GETUPVAL R9 0
   MOVE R10 R6
   CALL R9 1 1
@@ -123,68 +122,68 @@ PROTO_4:
   FASTCALL2 TABLE_INSERT R0 R8 [+5]
   MOVE R10 R0
   MOVE R11 R8
-  GETIMPORT R9 K10 [table.insert]
+  GETIMPORT R9 K9 [table.insert]
   CALL R9 2 0
   FORGLOOP R3 2 [-21]
   JUMPIFNOT R2 [+50]
   LOADB R3 0
-  GETIMPORT R4 K12 [pairs]
+  GETIMPORT R4 K11 [pairs]
   MOVE R5 R0
   CALL R4 1 3
   FORGPREP_NEXT R4
-  GETTABLEKS R9 R8 K4 ["id"]
+  GETTABLEKS R9 R8 K3 ["id"]
   JUMPIFNOTEQ R9 R2 [+3]
   LOADB R3 1
   JUMP [+2]
   FORGLOOP R4 2 [-7]
   JUMPIF R3 [+35]
-  GETIMPORT R4 K15 [task.spawn]
+  GETIMPORT R4 K14 [task.spawn]
   NEWCLOSURE R5 P0
   CAPTURE UPVAL U2
   CAPTURE UPVAL U1
   CAPTURE VAL R2
   CALL R4 1 0
-  LOADK R5 K16 ["pendingRegistration_"]
+  LOADK R5 K15 ["pendingRegistration_"]
   FASTCALL1 TOSTRING R2 [+3]
   MOVE R7 R2
-  GETIMPORT R6 K18 [tostring]
+  GETIMPORT R6 K17 [tostring]
   CALL R6 1 1
   CONCAT R4 R5 R6
-  DUPTABLE R7 K6 [{"id", "text"}]
-  SETTABLEKS R4 R7 K4 ["id"]
-  LOADK R9 K19 ["Unknown ("]
+  DUPTABLE R7 K5 [{"id", "text"}]
+  SETTABLEKS R4 R7 K3 ["id"]
+  LOADK R9 K18 ["Unknown ("]
   FASTCALL1 TOSTRING R2 [+3]
   MOVE R13 R2
-  GETIMPORT R12 K18 [tostring]
+  GETIMPORT R12 K17 [tostring]
   CALL R12 1 1
   MOVE R10 R12
-  LOADK R11 K20 [")"]
+  LOADK R11 K19 [")"]
   CONCAT R8 R9 R11
-  SETTABLEKS R8 R7 K5 ["text"]
+  SETTABLEKS R8 R7 K4 ["text"]
   FASTCALL2 TABLE_INSERT R0 R7 [+4]
   MOVE R6 R0
-  GETIMPORT R5 K10 [table.insert]
+  GETIMPORT R5 K9 [table.insert]
   CALL R5 2 0
   MOVE R1 R4
-  DUPTABLE R5 K22 [{"id", "text", "isDisabled"}]
-  LOADK R6 K23 ["createNewClip"]
-  SETTABLEKS R6 R5 K4 ["id"]
-  LOADK R6 K24 ["Create new"]
-  SETTABLEKS R6 R5 K5 ["text"]
+  DUPTABLE R5 K21 [{"id", "text", "isDisabled"}]
+  LOADK R6 K22 ["createNewClip"]
+  SETTABLEKS R6 R5 K3 ["id"]
+  LOADK R6 K23 ["Create new"]
+  SETTABLEKS R6 R5 K4 ["text"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K21 ["isDisabled"]
+  SETTABLEKS R6 R5 K20 ["isDisabled"]
   FASTCALL2 TABLE_INSERT R0 R5 [+4]
   MOVE R4 R0
-  GETIMPORT R3 K10 [table.insert]
+  GETIMPORT R3 K9 [table.insert]
   CALL R3 2 0
-  DUPTABLE R5 K6 [{"id", "text"}]
-  LOADK R6 K25 ["browseClips"]
-  SETTABLEKS R6 R5 K4 ["id"]
-  LOADK R6 K26 ["Browse clips"]
-  SETTABLEKS R6 R5 K5 ["text"]
+  DUPTABLE R5 K5 [{"id", "text"}]
+  LOADK R6 K24 ["browseClips"]
+  SETTABLEKS R6 R5 K3 ["id"]
+  LOADK R6 K25 ["Browse clips"]
+  SETTABLEKS R6 R5 K4 ["text"]
   FASTCALL2 TABLE_INSERT R0 R5 [+4]
   MOVE R4 R0
-  GETIMPORT R3 K10 [table.insert]
+  GETIMPORT R3 K9 [table.insert]
   CALL R3 2 0
   RETURN R0 2
 
@@ -222,39 +221,63 @@ PROTO_5:
   CAPTURE VAL R1
   NEWTABLE R6 0 5
   GETTABLEKS R7 R0 K8 ["OnChanged"]
-  GETTABLEKS R9 R0 K10 ["Property"]
-  GETTABLEKS R8 R9 K11 ["Value"]
-  GETTABLEKS R9 R0 K12 ["AssetType"]
-  GETTABLEKS R11 R1 K13 ["registeredAssetIds"]
-  GETTABLEKS R12 R0 K12 ["AssetType"]
+  GETTABLEKS R8 R0 K10 ["Value"]
+  GETTABLEKS R9 R0 K11 ["Type"]
+  GETTABLEKS R11 R1 K12 ["registeredAssetIds"]
+  GETTABLEKS R12 R0 K11 ["Type"]
   GETTABLE R10 R11 R12
   GETTABLEKS R11 R1 K7 ["registerAssetIdAsync"]
   SETLIST R6 R7 5 [1]
   CALL R4 2 2
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K14 ["createElement"]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K15 ["Dropdown"]
-  GETTABLEKS R7 R8 K16 ["Root"]
-  DUPTABLE R8 K24 [{"size", "width", "label", "items", "value", "onItemChanged", "LayoutOrder"}]
+  GETTABLEKS R6 R7 K13 ["createElement"]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K14 ["View"]
+  DUPTABLE R8 K17 [{"tag", "LayoutOrder"}]
+  LOADK R9 K18 ["row auto-y gap-small size-full-700 align-y-center flex-x-between"]
+  SETTABLEKS R9 R8 K15 ["tag"]
+  GETTABLEKS R9 R0 K16 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K16 ["LayoutOrder"]
+  DUPTABLE R9 K21 [{"CompositorNodeInputLabel", "Input"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K13 ["createElement"]
   GETUPVAL R12 5
-  GETTABLEKS R11 R12 K25 ["Enums"]
-  GETTABLEKS R10 R11 K26 ["InputSize"]
-  GETTABLEKS R9 R10 K27 ["XSmall"]
-  SETTABLEKS R9 R8 K17 ["size"]
-  GETIMPORT R9 K30 [UDim.new]
-  LOADN R10 0
-  LOADN R11 90
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K18 ["width"]
-  LOADK R9 K31 [""]
-  SETTABLEKS R9 R8 K19 ["label"]
-  SETTABLEKS R4 R8 K20 ["items"]
-  SETTABLEKS R5 R8 K21 ["value"]
-  SETTABLEKS R3 R8 K22 ["onItemChanged"]
-  GETTABLEKS R9 R0 K23 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K23 ["LayoutOrder"]
-  CALL R6 2 -1
+  GETTABLEKS R11 R12 K22 ["Text"]
+  DUPTABLE R12 K23 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R13 K24 ["text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R13 R12 K15 ["tag"]
+  GETTABLEKS R13 R0 K25 ["Label"]
+  SETTABLEKS R13 R12 K22 ["Text"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K16 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K19 ["CompositorNodeInputLabel"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K13 ["createElement"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K26 ["Dropdown"]
+  GETTABLEKS R11 R12 K27 ["Root"]
+  DUPTABLE R12 K34 [{"size", "width", "label", "items", "value", "onItemChanged", "LayoutOrder"}]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K35 ["Enums"]
+  GETTABLEKS R14 R15 K36 ["InputSize"]
+  GETTABLEKS R13 R14 K37 ["XSmall"]
+  SETTABLEKS R13 R12 K28 ["size"]
+  GETIMPORT R13 K40 [UDim.new]
+  LOADN R14 0
+  LOADN R15 90
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K29 ["width"]
+  LOADK R13 K41 [""]
+  SETTABLEKS R13 R12 K30 ["label"]
+  SETTABLEKS R4 R12 K31 ["items"]
+  SETTABLEKS R5 R12 K32 ["value"]
+  SETTABLEKS R3 R12 K33 ["onItemChanged"]
+  LOADN R13 2
+  SETTABLEKS R13 R12 K16 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K20 ["Input"]
+  CALL R6 3 -1
   RETURN R6 -1
 
 MAIN:
@@ -265,39 +288,39 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["AnimationEditor"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Foundation"]
+  GETTABLEKS R3 R4 K8 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["React"]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Contexts"]
+  GETTABLEKS R5 R6 K11 ["NodeContexts"]
+  GETTABLEKS R4 R5 K12 ["AssetNodeContext"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Contexts"]
-  GETTABLEKS R6 R7 K12 ["NodeContexts"]
-  GETTABLEKS R5 R6 K13 ["AssetNodeContext"]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Components"]
+  GETTABLEKS R7 R8 K14 ["NodeView"]
+  GETTABLEKS R6 R7 K15 ["NodeActions"]
+  GETTABLEKS R5 R6 K16 ["BrowseAssets"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R10 R0 K10 ["Src"]
-  GETTABLEKS R9 R10 K14 ["Components"]
-  GETTABLEKS R8 R9 K15 ["NodeView"]
-  GETTABLEKS R7 R8 K16 ["NodeActions"]
-  GETTABLEKS R6 R7 K17 ["BrowseAssets"]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K17 ["Framework"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R8 R0 K6 ["Packages"]
-  GETTABLEKS R7 R8 K18 ["Framework"]
+  GETTABLEKS R7 R8 K18 ["AnimationEditor"]
   CALL R6 1 1
   DUPCLOSURE R7 K19 [PROTO_0]
   DUPCLOSURE R8 K20 [PROTO_5]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R5
-  CAPTURE VAL R7
   CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R1
   RETURN R8 1

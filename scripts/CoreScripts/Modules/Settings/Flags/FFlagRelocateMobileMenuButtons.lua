@@ -1,1 +1,1 @@
-return game:DefineFastFlag("RelocateMobileMenuButtons2", false)
+return game:DefineFastFlag("RelocateMobileMenuButtons3", false)

@@ -16,34 +16,15 @@ local FORCE_TEN_FOOT_INTERFACE = false
 -------------- SERVICES --------------
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
-
-local FFlagRefactorCorescriptsTenFootInterface = game:DefineFastFlag("RefactorCorescriptsTenFootInterface", false)
 
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 ------------------ VARIABLES --------------------
 
-
-local tenFootInterfaceEnabled = false
-if FFlagRefactorCorescriptsTenFootInterface then
-	tenFootInterfaceEnabled = GuiService:IsTenFootInterface()
-else
-	do
-		local platform = UserInputService:GetPlatform()
-
-		tenFootInterfaceEnabled = (platform == Enum.Platform.XBoxOne or platform == Enum.Platform.WiiU or platform == Enum.Platform.PS4 or
-			platform == Enum.Platform.AndroidTV or platform == Enum.Platform.XBox360 or platform == Enum.Platform.PS3 or
-			platform == Enum.Platform.Ouya or platform == Enum.Platform.SteamOS)
-	end
-
-	if FORCE_TEN_FOOT_INTERFACE then
-		tenFootInterfaceEnabled = true
-	end
-end
+local tenFootInterfaceEnabled = GuiService:IsTenFootInterface()
 
 local function CreateModule()
 	local this = {}

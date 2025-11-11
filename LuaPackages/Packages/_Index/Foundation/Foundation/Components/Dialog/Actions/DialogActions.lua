@@ -14,13 +14,12 @@ local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
 local useDialog = require(script.Parent.Parent.useDialog)
 
 type Bindable<T> = Types.Bindable<T>
 type ButtonVariant = ButtonVariant.ButtonVariant
+type Orientation = Orientation.Orientation
 
 export type DialogAction = {
 	variant: ButtonVariant?,
@@ -34,7 +33,7 @@ export type DialogAction = {
 export type DialogActionsProps = {
 	actions: { DialogAction }?,
 	label: Bindable<string>?,
-	orientation: Orientation.Orientation?,
+	orientation: Orientation?,
 	LayoutOrder: Bindable<number>?,
 }
 
@@ -73,13 +72,13 @@ local function DialogActions(dialogActionsProps: DialogActionsProps)
 	local verticalOrientation = props.orientation == Orientation.Vertical and isSmall
 
 	return React.createElement(View, {
-		tag = `col auto-y size-full-0 {if Flags.FoundationDialogActionsUpdate then "" else "gap-large"}`,
+		tag = "col auto-y size-full-0",
 		LayoutOrder = props.LayoutOrder,
 		testId = `{dialogContext.testId}--actions`,
 	}, {
 		ActionsContainer = React.createElement(View, {
 			tag = {
-				[`auto-y size-full-0 {if Flags.FoundationDialogActionsUpdate then "gap-small" else "gap-large"}`] = true,
+				["auto-y size-full-0 gap-small"] = true,
 				["row wrap"] = horizontalOrientation,
 				["col flex-x-fill"] = verticalOrientation,
 			},

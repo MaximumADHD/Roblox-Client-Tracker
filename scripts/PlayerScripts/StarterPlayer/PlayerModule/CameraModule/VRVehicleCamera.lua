@@ -431,7 +431,7 @@ function VRVehicleCamera:UpdateComfortCamera(dt)
 	local pitchVel = pitchVelocity(subjectRotVel, subjectCFrame)
 
 	-- step camera components forward
-	local zoom = self:StepZoom()
+	local zoom = self:StepZoom(dt)
 
 	-- mix third and first person offsets in local space
 	local firstPerson = mapClamp(zoom, ZOOM_MINIMUM, self.assemblyRadius, 1, 0)

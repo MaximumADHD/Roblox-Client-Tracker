@@ -65,6 +65,7 @@ local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpen
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
+local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
 local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagFixFriendStatusImageLabelAccess = game:DefineFastFlag("FixFriendStatusImageLabelAccess", false)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
@@ -752,7 +753,7 @@ local function Initialize()
 		this.ButtonsContainer = buttonsContainer
 	end
 
-	if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3 or (FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+	if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3) then
 		buttonsContainer.Parent = nil
 	end
 
@@ -2526,9 +2527,13 @@ local function Initialize()
 
 	function this:CreateMenuButtonsContainer()
 		if FIntRelocateMobileMenuButtonsVariant == 2 then
-			local buttonsContainerRoot = ReactRoblox.createRoot(buttonsContainer)
+			if this.buttonsContainerRoot then
+				return
+			end
+
+			this.buttonsContainerRoot = ReactRoblox.createRoot(buttonsContainer)
 			local experienceControlStore = this.HubRef:GetExperienceControlStore()
-			buttonsContainerRoot:render(React.createElement(MenuButtonsContainer, {
+			this.buttonsContainerRoot:render(React.createElement(MenuButtonsContainer, {
 				onLeaveGame = experienceControlStore.onLeaveGame,
 				onRespawn = experienceControlStore.onRespawn,
 				onResume = experienceControlStore.onResume,
@@ -2539,6 +2544,15 @@ local function Initialize()
 				end,
 				getCanRespawn = experienceControlStore.getCanRespawn,
 			}))
+		end
+	end
+
+	function this:UnmountMenuButtonsContainer()
+		if FFlagMenuButtonsMountWithIEM and FIntRelocateMobileMenuButtonsVariant == 2 then
+			if this.buttonsContainerRoot then
+				this.buttonsContainerRoot:unmount()
+				this.buttonsContainerRoot = nil
+			end
 		end
 	end
 

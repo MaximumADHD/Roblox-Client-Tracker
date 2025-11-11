@@ -144,11 +144,11 @@ MAIN:
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R12 R0 K24 ["Flags"]
-  GETTABLEKS R11 R12 K25 ["getFFlagAssistantJsonEncoder"]
+  GETTABLEKS R11 R12 K25 ["FFlagAssistantJsonEncoder"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R13 R0 K24 ["Flags"]
-  GETTABLEKS R12 R13 K26 ["getFFlagAssistantJsonEncoderUseHiddenMetatable"]
+  GETTABLEKS R12 R13 K26 ["FFlagAssistantJsonEncoderUseHiddenMetatable"]
   CALL R11 1 1
   DUPCLOSURE R12 K27 [PROTO_1]
   CAPTURE VAL R8

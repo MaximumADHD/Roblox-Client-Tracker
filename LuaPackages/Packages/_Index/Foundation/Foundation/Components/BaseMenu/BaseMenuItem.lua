@@ -127,11 +127,13 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 						name = BuilderIcons.Icon.Check,
 						style = variantProps.check.style,
 						size = variantProps.check.size,
+						testId = `{props.testId}--checkmark`,
 					})
 					else React.createElement(Image, {
 						LayoutOrder = 3,
 						Image = "icons/status/success",
 						tag = variantProps.check.tag,
+						testId = `{props.testId}--checkmark`,
 					})
 				else nil,
 		}

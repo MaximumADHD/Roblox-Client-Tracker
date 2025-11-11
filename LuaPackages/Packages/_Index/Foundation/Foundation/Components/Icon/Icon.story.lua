@@ -6,15 +6,27 @@ local Dash = require(Packages.Dash)
 
 local Icon = require(Foundation.Components.Icon)
 local IconSize = require(Foundation.Enums.IconSize)
+local View = require(Foundation.Components.View)
 
 local function Story(props)
 	local controls = props.controls
 
-	return React.createElement(Icon, {
-		name = controls.name,
-		size = controls.size,
-		variant = controls.variant,
-	})
+	local sizes: { IconSize.IconSize } = { IconSize.Large, IconSize.Medium, IconSize.Small, IconSize.XSmall }
+
+	return React.createElement(
+		View,
+		{
+			tag = "row gap-xxlarge auto-xy align-y-center",
+		},
+		Dash.map(sizes, function(size, index)
+			return React.createElement(Icon, {
+				name = controls.name,
+				size = size,
+				variant = controls.variant,
+				LayoutOrder = index,
+			})
+		end)
+	)
 end
 
 return {
@@ -23,11 +35,5 @@ return {
 	controls = {
 		name = Dash.values(BuilderIcons.Icon),
 		variant = Dash.values(BuilderIcons.IconVariant),
-		size = {
-			IconSize.Large,
-			IconSize.XSmall,
-			IconSize.Small,
-			IconSize.Medium,
-		} :: { IconSize.IconSize },
 	},
 }

@@ -1,0 +1,145 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["doSaveConfig"]
+  CALL R0 0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["onClose"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["doSaveConfig"]
+  CALL R0 0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["onClose"]
+  CALL R0 0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["doReimport"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWTABLE R1 0 1
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["View"]
+  DUPTABLE R4 K2 [{"tag"}]
+  LOADK R5 K3 ["col size-full flex-y-fill"]
+  SETTABLEKS R5 R4 K1 ["tag"]
+  NEWTABLE R5 0 2
+  GETUPVAL R6 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K0 ["View"]
+  DUPTABLE R8 K2 [{"tag"}]
+  LOADK R9 K4 ["col size-full-0 auto-y padding-medium"]
+  SETTABLEKS R9 R8 K1 ["tag"]
+  GETTABLEKS R9 R0 K5 ["children"]
+  CALL R6 3 1
+  GETUPVAL R7 0
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K0 ["View"]
+  DUPTABLE R9 K2 [{"tag"}]
+  LOADK R10 K6 ["col size-full-0 auto-y align-y-bottom"]
+  SETTABLEKS R10 R9 K1 ["tag"]
+  NEWTABLE R10 0 2
+  GETUPVAL R11 0
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K7 ["Divider"]
+  NEWTABLE R13 0 0
+  CALL R11 2 1
+  GETUPVAL R12 0
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K0 ["View"]
+  DUPTABLE R14 K2 [{"tag"}]
+  LOADK R15 K8 ["row size-full-0 auto-y padding-small gap-small align-x-right align-y-bottom"]
+  SETTABLEKS R15 R14 K1 ["tag"]
+  NEWTABLE R15 0 3
+  GETUPVAL R16 0
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K9 ["Button"]
+  DUPTABLE R18 K13 [{"text", "size", "onActivated"}]
+  LOADK R19 K14 ["Cancel"]
+  SETTABLEKS R19 R18 K10 ["text"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K15 ["Enums"]
+  GETTABLEKS R20 R21 K16 ["InputSize"]
+  GETTABLEKS R19 R20 K17 ["Small"]
+  SETTABLEKS R19 R18 K11 ["size"]
+  GETTABLEKS R19 R0 K18 ["onClose"]
+  SETTABLEKS R19 R18 K12 ["onActivated"]
+  CALL R16 2 1
+  GETUPVAL R17 0
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K9 ["Button"]
+  DUPTABLE R19 K20 [{"text", "size", "isDisabled", "onActivated"}]
+  LOADK R20 K21 ["Save"]
+  SETTABLEKS R20 R19 K10 ["text"]
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K15 ["Enums"]
+  GETTABLEKS R21 R22 K16 ["InputSize"]
+  GETTABLEKS R20 R21 K17 ["Small"]
+  SETTABLEKS R20 R19 K11 ["size"]
+  GETTABLEKS R21 R0 K22 ["canSave"]
+  NOT R20 R21
+  SETTABLEKS R20 R19 K19 ["isDisabled"]
+  NEWCLOSURE R20 P0
+  CAPTURE VAL R0
+  SETTABLEKS R20 R19 K12 ["onActivated"]
+  CALL R17 2 1
+  GETUPVAL R18 0
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K9 ["Button"]
+  DUPTABLE R20 K24 [{"text", "variant", "size", "isDisabled", "onActivated"}]
+  LOADK R21 K25 ["Save and Reimport"]
+  SETTABLEKS R21 R20 K10 ["text"]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K15 ["Enums"]
+  GETTABLEKS R22 R23 K26 ["ButtonVariant"]
+  GETTABLEKS R21 R22 K27 ["Emphasis"]
+  SETTABLEKS R21 R20 K23 ["variant"]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K15 ["Enums"]
+  GETTABLEKS R22 R23 K16 ["InputSize"]
+  GETTABLEKS R21 R22 K17 ["Small"]
+  SETTABLEKS R21 R20 K11 ["size"]
+  GETTABLEKS R22 R0 K22 ["canSave"]
+  NOT R21 R22
+  SETTABLEKS R21 R20 K19 ["isDisabled"]
+  NEWCLOSURE R21 P1
+  CAPTURE VAL R0
+  SETTABLEKS R21 R20 K12 ["onActivated"]
+  CALL R18 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 -1
+  SETLIST R10 R11 -1 [1]
+  CALL R7 3 -1
+  SETLIST R5 R6 -1 [1]
+  CALL R2 3 -1
+  SETLIST R1 R2 -1 [1]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ReimportPlugin"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["createElement"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Dialogs"]
+  GETTABLEKS R5 R6 K12 ["Types"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K13 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R5 1

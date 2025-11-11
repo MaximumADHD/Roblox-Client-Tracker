@@ -22,6 +22,8 @@ local FFlagEnableNewBlockingModal = require(Modules.Common.Flags.FFlagEnableNewB
 local FFlagEnableToastForBlockingModal = require(Modules.Common.Flags.FFlagEnableToastForBlockingModal)
 local FFlagRenderPeoplePageOnTabSwitch = game:DefineFastFlag("RenderPeoplePageOnTabSwitch", false)
 local FFlagRemovePeoplePageFoundationProvider = game:DefineFastFlag("RemovePeoplePageFoundationProvider", false)
+local FFlagRelocateMobileMenuButtons = require(Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
+local FIntRelocateMobileMenuButtonsVariant = require(Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 
 -- Chrome check
 local Chrome = RobloxGui.Modules.Chrome
@@ -63,6 +65,7 @@ end
 -- Flags
 local PeopleFlags = PeopleService.getService("Flags")
 local GetFFlagAddPeoplePageCardLayout = PeopleFlags.GetFFlagAddPeoplePageCardLayout
+local GetFFlagPeoplePageLazyRenderCards = PeopleFlags.GetFFlagPeoplePageLazyRenderCards
 
 local tree: ReactRoblox.RootType? = nil
 local getDisplayed, setDisplayed = Signals.createSignal(false)
@@ -109,11 +112,19 @@ local function createPeoplePage()
 		SettingsHubService.setShowMenuButtonsContainer(true)
 	end
 
+	if FFlagRelocateMobileMenuButtons and FIntRelocateMobileMenuButtonsVariant == 2 then
+		function PeoplePage:UnmountMenuButtonsContainer()
+			SettingsHubService.setShowMenuButtonsContainer(false)
+		end
+	end
+
 	------ PAGE CUSTOMIZATION -------	
 	local function createReactTree()
 		if tree then
 			return
 		end
+		
+		local scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() then PeoplePage.Page:FindFirstAncestorWhichIsA("ScrollingFrame") else nil
 
 		local PeopleConditionalView = function()
 			local displayed = SignalsReact.useSignalState(getDisplayed)
@@ -142,6 +153,7 @@ local function createPeoplePage()
 										FFlagEnableNewBlockingModal = FFlagEnableNewBlockingModal,
 										FFlagEnableToastForBlockingModal = FFlagEnableToastForBlockingModal,
 									},
+									scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() then scrollingFrame else nil,
 									chromeEnabled = ChromeEnabled,
 									getUniversesExposedTo = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.getUniversesExposedTo else nil,
 									addUniverseToExposureList = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.addUniverseToExposureList else nil,

@@ -18,6 +18,7 @@ local GetItemDetails = require(InspectAndBuyFolder.Thunks.GetItemDetails)
 local FFlagAXEnableBatchItemDetailsFetchV2 = AvatarExperienceFlags.FFlagAXEnableBatchItemDetailsFetchV2
 local InspectAndBuyConstants = AvatarExperienceInspectAndBuy.Constants
 local BatchItemDetailsPerformFetchKey = InspectAndBuyConstants.BatchItemDetailsPerformFetchKey
+local FFlagAXWrapInspectAndBuyThunksInTasks = require(InspectAndBuyFolder.Flags.FFlagAXWrapInspectAndBuyThunksInTasks)
 
 type BatchItemDetailsResponse = AvatarExperienceInspectAndBuy.BatchItemDetailsResponse
 type AvatarPreviewResponse = AvatarExperienceInspectAndBuy.AvatarPreviewResponse
@@ -53,10 +54,21 @@ local function GetAvatarPreview(assets)
 				]]
 				if not FFlagAXEnableBatchItemDetailsFetchV2 and results.look and results.look.items then
 					for _, item in results.look.items do
-						if item.itemType == ItemType.Asset then
-							store:dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Asset))
-						elseif item.itemType == ItemType.Bundle then
-							store:dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Bundle))
+						if FFlagAXWrapInspectAndBuyThunksInTasks then
+							task.spawn(function()
+								-- dispatch get item calls concurrently
+								if item.itemType == ItemType.Asset then
+									store:dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Asset))
+								elseif item.itemType == ItemType.Bundle then
+									store:dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Bundle))
+								end
+							end)
+						else
+							if item.itemType == ItemType.Asset then
+								store:dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Asset))
+							elseif item.itemType == ItemType.Bundle then
+								store:dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Bundle))
+							end
 						end
 					end
 				end
@@ -80,18 +92,37 @@ local function GetAvatarPreview(assets)
 						return network
 							.getBatchItemDetailsV2(batchItemDetailsRequest)
 							:andThen(function(results: BatchItemDetailsResponse)
-								local assets = {}
-								local bundles = {}
-								for _, result in results.data do
-									if result.itemType == ItemType.Asset then
-										table.insert(assets, AssetInfo.fromGetItemDetailsV2(result))
-									elseif result.itemType == ItemType.Bundle then
-										table.insert(bundles, BundleInfo.fromGetItemDetailsV2(result))
+								if FFlagAXWrapInspectAndBuyThunksInTasks and results and results.data then
+									task.spawn(function()
+										local assets = {}
+										local bundles = {}
+										for _, result in results.data do
+											if result.itemType == ItemType.Asset then
+												table.insert(assets, AssetInfo.fromGetItemDetailsV2(result))
+											elseif result.itemType == ItemType.Bundle then
+												table.insert(bundles, BundleInfo.fromGetItemDetailsV2(result))
+											end
+										end
+
+										store:dispatch(SetAssets(assets))
+										store:dispatch(SetBundles(bundles))
+									end)
+								else
+									if results and results.data then
+										local assets = {}
+										local bundles = {}
+										for _, result in results.data do
+											if result.itemType == ItemType.Asset then
+												table.insert(assets, AssetInfo.fromGetItemDetailsV2(result))
+											elseif result.itemType == ItemType.Bundle then
+												table.insert(bundles, BundleInfo.fromGetItemDetailsV2(result))
+											end
+										end
+
+										store:dispatch(SetAssets(assets))
+										store:dispatch(SetBundles(bundles))
 									end
 								end
-
-								store:dispatch(SetAssets(assets))
-								store:dispatch(SetBundles(bundles))
 							end, function(err)
 								store:dispatch(
 									SendCounter(

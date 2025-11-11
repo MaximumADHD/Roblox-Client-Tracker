@@ -8,7 +8,7 @@ PROTO_0:
   FORGPREP R3
   LENGTH R8 R1
   LOADN R9 50
-  JUMPIFLE R9 R8 [+102]
+  JUMPIFLE R9 R8 [+94]
   LOADK R10 K4 ["Script"]
   NAMECALL R8 R7 K5 ["IsA"]
   CALL R8 2 1
@@ -20,45 +20,38 @@ PROTO_0:
   LOADK R10 K7 ["ModuleScript"]
   NAMECALL R8 R7 K5 ["IsA"]
   CALL R8 2 1
-  JUMPIFNOT R8 [+84]
+  JUMPIFNOT R8 [+76]
   NAMECALL R8 R7 K8 ["GetFullName"]
   CALL R8 1 1
   LOADK R11 K9 ["^CoreGui"]
   NAMECALL R9 R8 K10 ["find"]
   CALL R9 2 1
-  JUMPIF R9 [+76]
+  JUMPIF R9 [+68]
   LOADK R11 K11 ["^PlayerGui"]
   NAMECALL R9 R8 K10 ["find"]
   CALL R9 2 1
-  JUMPIF R9 [+71]
+  JUMPIF R9 [+63]
   LOADK R11 K12 ["^LoadedCode"]
   NAMECALL R9 R8 K10 ["find"]
   CALL R9 2 1
-  JUMPIF R9 [+66]
-  LOADNIL R9
-  GETUPVAL R10 0
+  JUMPIF R9 [+58]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K13 ["get"]
   CALL R10 0 1
-  JUMPIFNOT R10 [+10]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K13 ["get"]
-  CALL R11 0 1
-  GETTABLEKS R10 R11 K14 ["getScriptSource"]
-  MOVE R11 R7
-  CALL R10 1 1
-  MOVE R9 R10
-  JUMP [+2]
-  GETTABLEKS R9 R7 K15 ["Source"]
+  GETTABLEKS R9 R10 K14 ["getScriptSource"]
+  MOVE R10 R7
+  CALL R9 1 1
   NEWTABLE R10 0 0
-  GETIMPORT R11 K18 [string.gmatch]
+  GETIMPORT R11 K17 [string.gmatch]
   MOVE R12 R9
-  LOADK R13 K19 ["[^
+  LOADK R13 K18 ["[^
 ]+"]
   CALL R11 2 3
   FORGPREP R11
   FASTCALL2 TABLE_INSERT R10 R14 [+5]
   MOVE R17 R10
   MOVE R18 R14
-  GETIMPORT R16 K22 [table.insert]
+  GETIMPORT R16 K21 [table.insert]
   CALL R16 2 0
   FORGLOOP R11 1 [-8]
   MOVE R11 R10
@@ -67,45 +60,45 @@ PROTO_0:
   FORGPREP R11
   NAMECALL R16 R15 K0 ["lower"]
   CALL R16 1 1
-  GETIMPORT R17 K23 [string.find]
+  GETIMPORT R17 K22 [string.find]
   MOVE R18 R16
   MOVE R19 R2
   CALL R17 2 1
   JUMPIFNOT R17 [+18]
-  LOADK R20 K24 ["Path: %* | Line: %* | %*"]
+  LOADK R20 K23 ["Path: %* | Line: %* | %*"]
   MOVE R22 R8
   MOVE R23 R14
   MOVE R24 R15
-  NAMECALL R20 R20 K25 ["format"]
+  NAMECALL R20 R20 K24 ["format"]
   CALL R20 4 1
   MOVE R19 R20
   FASTCALL2 TABLE_INSERT R1 R19 [+4]
   MOVE R18 R1
-  GETIMPORT R17 K22 [table.insert]
+  GETIMPORT R17 K21 [table.insert]
   CALL R17 2 0
   LENGTH R17 R1
   LOADN R18 50
   JUMPIFLE R18 R17 [+3]
   FORGLOOP R11 2 [-28]
-  FORGLOOP R3 2 [-104]
+  FORGLOOP R3 2 [-96]
   LENGTH R3 R1
-  JUMPIFNOTEQKN R3 K26 [0] [+3]
-  LOADK R3 K27 ["No matches found for the given query."]
+  JUMPIFNOTEQKN R3 K25 [0] [+3]
+  LOADK R3 K26 ["No matches found for the given query."]
   RETURN R3 1
   LENGTH R3 R1
   LOADN R4 50
   JUMPIFNOTLE R4 R3 [+11]
   MOVE R4 R1
-  GETIMPORT R5 K28 [string.format]
-  LOADK R6 K29 ["... Search stopped after reaching the limit of %d matches."]
+  GETIMPORT R5 K27 [string.format]
+  LOADK R6 K28 ["... Search stopped after reaching the limit of %d matches."]
   LOADN R7 50
   CALL R5 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R3 K22 [table.insert]
+  GETIMPORT R3 K21 [table.insert]
   CALL R3 -1 0
-  GETIMPORT R3 K31 [table.concat]
+  GETIMPORT R3 K30 [table.concat]
   MOVE R4 R1
-  LOADK R5 K32 ["
+  LOADK R5 K31 ["
 "]
   CALL R3 2 -1
   RETURN R3 -1
@@ -239,41 +232,34 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["AssistantUI"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Flags"]
-  GETTABLEKS R3 R4 K10 ["FFlagAssistantUseGetEditorSource"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ModelContextProtocol"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["ModelContextProtocol"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Tools"]
+  GETTABLEKS R4 R5 K11 ["ToolTypes"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Tools"]
-  GETTABLEKS R5 R6 K13 ["ToolTypes"]
-  CALL R4 1 1
-  GETTABLEKS R5 R2 K14 ["Get"]
-  GETTABLEKS R7 R1 K15 ["Guest"]
-  GETTABLEKS R6 R7 K16 ["Environment"]
-  GETTABLEKS R9 R1 K17 ["Components"]
-  GETTABLEKS R8 R9 K18 ["BuiltinContentWidgets"]
-  GETTABLEKS R7 R8 K19 ["SummarizedContentWidget"]
-  GETTABLEKS R10 R1 K20 ["Resources"]
-  GETTABLEKS R9 R10 K21 ["Localization"]
-  GETTABLEKS R8 R9 K22 ["Translator"]
-  GETTABLEKS R10 R3 K23 ["Util"]
-  GETTABLEKS R9 R10 K24 ["ToolBuilder"]
-  GETTABLEKS R11 R3 K23 ["Util"]
-  GETTABLEKS R10 R11 K25 ["ToolResult"]
-  GETTABLEKS R11 R4 K26 ["ToolNames"]
-  DUPCLOSURE R12 K27 [PROTO_0]
+  GETTABLEKS R5 R1 K12 ["Guest"]
+  GETTABLEKS R4 R5 K13 ["Environment"]
+  GETTABLEKS R7 R1 K14 ["Components"]
+  GETTABLEKS R6 R7 K15 ["BuiltinContentWidgets"]
+  GETTABLEKS R5 R6 K16 ["SummarizedContentWidget"]
+  GETTABLEKS R8 R1 K17 ["Resources"]
+  GETTABLEKS R7 R8 K18 ["Localization"]
+  GETTABLEKS R6 R7 K19 ["Translator"]
+  GETTABLEKS R8 R2 K20 ["Util"]
+  GETTABLEKS R7 R8 K21 ["ToolBuilder"]
+  GETTABLEKS R9 R2 K20 ["Util"]
+  GETTABLEKS R8 R9 K22 ["ToolResult"]
+  GETTABLEKS R9 R3 K23 ["ToolNames"]
+  DUPCLOSURE R10 K24 [PROTO_0]
+  CAPTURE VAL R4
+  DUPCLOSURE R11 K25 [PROTO_7]
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R9
   CAPTURE VAL R5
   CAPTURE VAL R6
-  DUPCLOSURE R13 K28 [PROTO_7]
-  CAPTURE VAL R12
-  CAPTURE VAL R10
-  CAPTURE VAL R9
-  CAPTURE VAL R11
-  CAPTURE VAL R7
-  CAPTURE VAL R8
-  RETURN R13 1
+  RETURN R11 1

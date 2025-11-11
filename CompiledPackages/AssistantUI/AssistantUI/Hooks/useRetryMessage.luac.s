@@ -62,10 +62,12 @@ PROTO_0:
   SETTABLEKS R7 R6 K9 ["messageId"]
   CALL R5 1 0
   GETUPVAL R5 5
-  DUPTABLE R6 K12 [{"text", "retry"}]
+  DUPTABLE R6 K13 [{"text", "retry", "previousMessageId"}]
   SETTABLEKS R3 R6 K7 ["text"]
   LOADB R7 1
   SETTABLEKS R7 R6 K11 ["retry"]
+  GETTABLEKS R7 R4 K9 ["messageId"]
+  SETTABLEKS R7 R6 K12 ["previousMessageId"]
   CALL R5 1 0
   RETURN R0 0
 

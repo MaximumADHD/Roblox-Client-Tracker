@@ -53,7 +53,7 @@ local function ProfileHeader(props: ProfileHeaderProps)
 		else false
 
 	return React.createElement(View, {
-		tag = "size-full-0 auto-y col",
+		tag = "size-full-0 auto-y col gap-large",
 		LayoutOrder = props.layoutOrder,
 	}, {
 		AvatarHeadshotComponent = React.createElement(AvatarHeadshotComponent, {

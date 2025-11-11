@@ -5,13 +5,10 @@ local React = require(Packages.React)
 local FoundationImages = require(Packages.FoundationImages)
 
 local Images = FoundationImages.Images
-local Image = require(Foundation.Components.Image)
 local CursorComponent = require(script.Parent.Parent.CursorComponent)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
 local useTokens = require(Foundation.Providers.Style.useTokens)
-
-local Flags = require(Foundation.Utility.Flags)
 
 --selene: allow(roblox_internal_custom_color)
 local NAV_HIGHLIGHT_HEIGHT = 3
@@ -159,25 +156,17 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 		if cursorDetails.Tag == "FixedSizeImage" then
 			local size = UDim2.fromOffset(cursorDetails.Size, cursorDetails.Size)
 			local position = UDim2.new(0.5, -size.X.Offset / 2, 0.5, -size.Y.Offset / 2)
-			return if Flags.FoundationRemoveCursorProviderTestOutput
-				then React.createElement("ImageLabel", {
-					Image = Images[cursorDetails.Image].Image,
-					BackgroundTransparency = 1,
-					ImageRectOffset = Images[cursorDetails.Image].ImageRectOffset,
-					ImageRectSize = Images[cursorDetails.Image].ImageRectSize,
-					Size = size,
-					Position = position,
-					ImageColor3 = tokens.Color.Selection.Start.Color3,
-					ImageTransparency = tokens.Color.Selection.Start.Transparency,
-					ref = ref,
-				})
-				else React.createElement(Image, {
-					Image = cursorDetails.Image,
-					imageStyle = tokens.Color.Selection.Start,
-					Size = size,
-					Position = position,
-					ref = ref,
-				})
+			return React.createElement("ImageLabel", {
+				Image = Images[cursorDetails.Image].Image,
+				BackgroundTransparency = 1,
+				ImageRectOffset = Images[cursorDetails.Image].ImageRectOffset,
+				ImageRectSize = Images[cursorDetails.Image].ImageRectSize,
+				Size = size,
+				Position = position,
+				ImageColor3 = tokens.Color.Selection.Start.Color3,
+				ImageTransparency = tokens.Color.Selection.Start.Transparency,
+				ref = ref,
+			})
 		elseif cursorDetails.Tag == "SlicedImage" then
 			local inset = cursorDetails.InsetAdjustment
 			local size = UDim2.new(1, inset.X * 2, 1, inset.Y * 2)
@@ -189,34 +178,21 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 					PaddingRight = UDim.new(0, cursorDetails.Padding),
 				})
 				else nil
-			return if Flags.FoundationRemoveCursorProviderTestOutput
-				then React.createElement("ImageLabel", {
-					Image = Images[cursorDetails.Image].Image,
-					BackgroundTransparency = 1,
-					ImageRectOffset = Images[cursorDetails.Image].ImageRectOffset,
-					ImageRectSize = Images[cursorDetails.Image].ImageRectSize,
-					SliceCenter = cursorDetails.SliceCenter,
-					ScaleType = Enum.ScaleType.Slice,
-					Size = size,
-					Position = UDim2.fromOffset(-inset.X, -inset.Y),
-					ImageColor3 = tokens.Color.Selection.Start.Color3,
-					ImageTransparency = tokens.Color.Selection.Start.Transparency,
-					ref = ref,
-				}, {
-					Padding = padding,
-				})
-				else React.createElement(Image, {
-					Image = cursorDetails.Image,
-					imageStyle = tokens.Color.Selection.Start,
-					slice = {
-						center = cursorDetails.SliceCenter,
-					},
-					Size = size,
-					Position = UDim2.fromOffset(-inset.X, -inset.Y),
-					ref = ref,
-				}, {
-					Padding = padding,
-				})
+			return React.createElement("ImageLabel", {
+				Image = Images[cursorDetails.Image].Image,
+				BackgroundTransparency = 1,
+				ImageRectOffset = Images[cursorDetails.Image].ImageRectOffset,
+				ImageRectSize = Images[cursorDetails.Image].ImageRectSize,
+				SliceCenter = cursorDetails.SliceCenter,
+				ScaleType = Enum.ScaleType.Slice,
+				Size = size,
+				Position = UDim2.fromOffset(-inset.X, -inset.Y),
+				ImageColor3 = tokens.Color.Selection.Start.Color3,
+				ImageTransparency = tokens.Color.Selection.Start.Transparency,
+				ref = ref,
+			}, {
+				Padding = padding,
+			})
 		elseif cursorDetails.Tag == "RoundedImage" then
 			local roundedCursorDetails = cursorDetails
 			return React.createElement(CursorComponent, {

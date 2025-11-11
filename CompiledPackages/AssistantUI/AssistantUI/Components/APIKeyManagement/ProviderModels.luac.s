@@ -50,55 +50,55 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Flags"]
-  GETTABLEKS R2 R3 K7 ["FStringMCPAssistantAnthropicModels"]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["Contexts"]
+  GETTABLEKS R2 R3 K8 ["LLMProviderSelectionContext"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Flags"]
-  GETTABLEKS R3 R4 K8 ["FStringMCPAssistantGeminiModels"]
+  GETTABLEKS R3 R0 K9 ["Types"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Flags"]
-  GETTABLEKS R4 R5 K9 ["FStringMCPAssistantOpenAIModels"]
+  GETTABLEKS R5 R0 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["parseModelsFromFString"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Components"]
-  GETTABLEKS R6 R7 K11 ["Contexts"]
-  GETTABLEKS R5 R6 K12 ["LLMProviderSelectionContext"]
+  GETTABLEKS R6 R0 K12 ["Flags"]
+  GETTABLEKS R5 R6 K13 ["FStringMCPAssistantAnthropicModels"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R6 R0 K13 ["Types"]
+  GETTABLEKS R7 R0 K12 ["Flags"]
+  GETTABLEKS R6 R7 K14 ["FStringMCPAssistantGeminiModels"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K14 ["Util"]
-  GETTABLEKS R7 R8 K15 ["parseModelsFromFString"]
+  GETTABLEKS R8 R0 K12 ["Flags"]
+  GETTABLEKS R7 R8 K15 ["FStringMCPAssistantOpenAIModels"]
   CALL R6 1 1
-  GETTABLEKS R7 R5 K16 ["DEFAULT_STUDIO_MODEL"]
-  MOVE R8 R6
-  GETTABLEKS R9 R1 K17 ["Get"]
+  GETTABLEKS R7 R2 K16 ["DEFAULT_STUDIO_MODEL"]
+  MOVE R8 R3
+  MOVE R9 R4
   CALL R9 0 -1
   CALL R8 -1 1
-  MOVE R9 R6
-  GETTABLEKS R10 R2 K17 ["Get"]
+  MOVE R9 R3
+  MOVE R10 R5
   CALL R10 0 -1
   CALL R9 -1 1
-  MOVE R10 R6
-  GETTABLEKS R11 R3 K17 ["Get"]
+  MOVE R10 R3
+  MOVE R11 R6
   CALL R11 0 -1
   CALL R10 -1 1
-  DUPCLOSURE R11 K18 [PROTO_0]
+  DUPCLOSURE R11 K17 [PROTO_0]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  DUPCLOSURE R12 K19 [PROTO_1]
+  DUPCLOSURE R12 K18 [PROTO_1]
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  DUPTABLE R13 K25 [{"claudeModels", "geminiModels", "openaiModels", "getFirstModelForProvider", "getProviderForModel"}]
-  SETTABLEKS R8 R13 K20 ["claudeModels"]
-  SETTABLEKS R9 R13 K21 ["geminiModels"]
-  SETTABLEKS R10 R13 K22 ["openaiModels"]
-  SETTABLEKS R11 R13 K23 ["getFirstModelForProvider"]
-  SETTABLEKS R12 R13 K24 ["getProviderForModel"]
+  DUPTABLE R13 K24 [{"claudeModels", "geminiModels", "openaiModels", "getFirstModelForProvider", "getProviderForModel"}]
+  SETTABLEKS R8 R13 K19 ["claudeModels"]
+  SETTABLEKS R9 R13 K20 ["geminiModels"]
+  SETTABLEKS R10 R13 K21 ["openaiModels"]
+  SETTABLEKS R11 R13 K22 ["getFirstModelForProvider"]
+  SETTABLEKS R12 R13 K23 ["getProviderForModel"]
   RETURN R13 1

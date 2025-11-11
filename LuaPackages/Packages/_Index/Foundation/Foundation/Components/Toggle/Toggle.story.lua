@@ -9,19 +9,25 @@ local Text = require(Foundation.Components.Text)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputSize = require(Foundation.Enums.InputSize)
+local InputPlacement = require(Foundation.Enums.InputPlacement)
 
 local function BasicStory(props)
 	local controls = props.controls
 	local isChecked, setIsChecked = React.useState(false)
 
-	return React.createElement(Toggle, {
-		isChecked = isChecked,
-		isDisabled = controls.isDisabled,
-		onActivated = function()
-			setIsChecked(not isChecked)
-		end,
-		size = controls.size,
-		label = controls.label or "",
+	return React.createElement(View, {
+		tag = "col auto-xy size-3000-0",
+	}, {
+		React.createElement(Toggle, {
+			isChecked = isChecked,
+			isDisabled = controls.isDisabled,
+			onActivated = function()
+				setIsChecked(not isChecked)
+			end,
+			size = controls.size,
+			label = controls.label or "",
+			placement = controls.placement,
+		}),
 	})
 end
 
@@ -91,13 +97,18 @@ end
 local function UncontrolledStory(props)
 	local controls = props.controls
 
-	return React.createElement(Toggle, {
-		isDisabled = controls.isDisabled,
-		onActivated = function(value)
-			print("isChecked: ", value)
-		end,
-		size = controls.size,
-		label = controls.label or "",
+	return React.createElement(View, {
+		tag = "col auto-xy size-3000-0",
+	}, {
+		React.createElement(Toggle, {
+			isDisabled = controls.isDisabled,
+			onActivated = function(value)
+				print("isChecked: ", value)
+			end,
+			size = controls.size,
+			label = controls.label or "",
+			placement = controls.placement,
+		}),
 	})
 end
 
@@ -123,5 +134,6 @@ return {
 		isDisabled = false,
 		label = "Label",
 		size = Dash.values(InputSize),
+		placement = Dash.values(InputPlacement),
 	},
 }

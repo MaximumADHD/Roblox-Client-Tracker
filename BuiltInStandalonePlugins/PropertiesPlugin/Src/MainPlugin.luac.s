@@ -174,7 +174,12 @@ PROTO_9:
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K13 ["createElement"]
   GETUPVAL R13 6
-  CALL R12 1 1
+  DUPTABLE R14 K43 [{"plugin", "dockWidget"}]
+  SETTABLEKS R3 R14 K41 ["plugin"]
+  GETTABLEKS R16 R1 K32 ["PluginLoaderContext"]
+  GETTABLEKS R15 R16 K33 ["mainDockWidget"]
+  SETTABLEKS R15 R14 K42 ["dockWidget"]
+  CALL R12 2 1
   SETTABLEKS R12 R11 K39 ["App"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K11 ["MainWidget"]

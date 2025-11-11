@@ -32,167 +32,202 @@ PROTO_2:
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K6 ["new"]
   CALL R4 0 1
-  DUPTABLE R5 K11 [{"ImportColorMap", "ImportMetalnessMap", "ImportNormalMap", "ImportRoughnessMap"}]
+  DUPTABLE R5 K12 [{"ImportColorMap", "ImportMetalnessMap", "ImportNormalMap", "ImportRoughnessMap", "ImportEmissiveMask"}]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["createElement"]
   GETUPVAL R7 3
-  DUPTABLE R8 K19 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
-  NAMECALL R9 R4 K20 ["getNextOrder"]
+  DUPTABLE R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
+  NAMECALL R9 R4 K21 ["getNextOrder"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K12 ["LayoutOrder"]
-  GETTABLEKS R9 R2 K13 ["LabelColumnWidth"]
-  SETTABLEKS R9 R8 K13 ["LabelColumnWidth"]
-  GETTABLEKS R9 R2 K14 ["LabelWidth"]
-  SETTABLEKS R9 R8 K14 ["LabelWidth"]
+  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
+  GETTABLEKS R9 R2 K14 ["LabelColumnWidth"]
+  SETTABLEKS R9 R8 K14 ["LabelColumnWidth"]
+  GETTABLEKS R9 R2 K15 ["LabelWidth"]
+  SETTABLEKS R9 R8 K15 ["LabelWidth"]
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K21 ["ColorMap"]
-  SETTABLEKS R9 R8 K15 ["MapType"]
-  LOADK R11 K22 ["Import"]
-  LOADK R12 K23 ["ColorMapPreview"]
-  NAMECALL R9 R3 K24 ["getText"]
+  GETTABLEKS R9 R10 K22 ["ColorMap"]
+  SETTABLEKS R9 R8 K16 ["MapType"]
+  LOADK R11 K23 ["Import"]
+  LOADK R12 K24 ["ColorMapPreview"]
+  NAMECALL R9 R3 K25 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K16 ["PreviewTitle"]
-  LOADK R11 K25 ["CreateDialog"]
+  SETTABLEKS R9 R8 K17 ["PreviewTitle"]
+  LOADK R11 K26 ["CreateDialog"]
   LOADK R12 K7 ["ImportColorMap"]
-  NAMECALL R9 R3 K24 ["getText"]
+  NAMECALL R9 R3 K25 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K17 ["Text"]
+  SETTABLEKS R9 R8 K18 ["Text"]
   GETTABLEKS R9 R1 K4 ["PBRMaterial"]
   SETTABLEKS R9 R8 K4 ["PBRMaterial"]
-  GETTABLEKS R9 R2 K18 ["ColumnWidth"]
-  SETTABLEKS R9 R8 K18 ["ColumnWidth"]
+  GETTABLEKS R9 R2 K19 ["ColumnWidth"]
+  SETTABLEKS R9 R8 K19 ["ColumnWidth"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K7 ["ImportColorMap"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["createElement"]
   GETUPVAL R7 3
-  DUPTABLE R8 K19 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
-  NAMECALL R9 R4 K20 ["getNextOrder"]
+  DUPTABLE R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
+  NAMECALL R9 R4 K21 ["getNextOrder"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K12 ["LayoutOrder"]
-  GETTABLEKS R9 R2 K13 ["LabelColumnWidth"]
-  SETTABLEKS R9 R8 K13 ["LabelColumnWidth"]
-  GETTABLEKS R9 R2 K14 ["LabelWidth"]
-  SETTABLEKS R9 R8 K14 ["LabelWidth"]
+  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
+  GETTABLEKS R9 R2 K14 ["LabelColumnWidth"]
+  SETTABLEKS R9 R8 K14 ["LabelColumnWidth"]
+  GETTABLEKS R9 R2 K15 ["LabelWidth"]
+  SETTABLEKS R9 R8 K15 ["LabelWidth"]
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K26 ["MetalnessMap"]
-  SETTABLEKS R9 R8 K15 ["MapType"]
-  LOADK R11 K22 ["Import"]
-  LOADK R12 K27 ["MetalnessMapPreview"]
-  NAMECALL R9 R3 K24 ["getText"]
+  GETTABLEKS R9 R10 K27 ["MetalnessMap"]
+  SETTABLEKS R9 R8 K16 ["MapType"]
+  LOADK R11 K23 ["Import"]
+  LOADK R12 K28 ["MetalnessMapPreview"]
+  NAMECALL R9 R3 K25 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K16 ["PreviewTitle"]
-  LOADK R11 K25 ["CreateDialog"]
+  SETTABLEKS R9 R8 K17 ["PreviewTitle"]
+  LOADK R11 K26 ["CreateDialog"]
   LOADK R12 K8 ["ImportMetalnessMap"]
-  NAMECALL R9 R3 K24 ["getText"]
+  NAMECALL R9 R3 K25 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K17 ["Text"]
+  SETTABLEKS R9 R8 K18 ["Text"]
   GETTABLEKS R9 R1 K4 ["PBRMaterial"]
   SETTABLEKS R9 R8 K4 ["PBRMaterial"]
-  GETTABLEKS R9 R2 K18 ["ColumnWidth"]
-  SETTABLEKS R9 R8 K18 ["ColumnWidth"]
+  GETTABLEKS R9 R2 K19 ["ColumnWidth"]
+  SETTABLEKS R9 R8 K19 ["ColumnWidth"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K8 ["ImportMetalnessMap"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["createElement"]
   GETUPVAL R7 3
-  DUPTABLE R8 K19 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
-  NAMECALL R9 R4 K20 ["getNextOrder"]
+  DUPTABLE R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
+  NAMECALL R9 R4 K21 ["getNextOrder"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K12 ["LayoutOrder"]
-  GETTABLEKS R9 R2 K13 ["LabelColumnWidth"]
-  SETTABLEKS R9 R8 K13 ["LabelColumnWidth"]
-  GETTABLEKS R9 R2 K14 ["LabelWidth"]
-  SETTABLEKS R9 R8 K14 ["LabelWidth"]
+  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
+  GETTABLEKS R9 R2 K14 ["LabelColumnWidth"]
+  SETTABLEKS R9 R8 K14 ["LabelColumnWidth"]
+  GETTABLEKS R9 R2 K15 ["LabelWidth"]
+  SETTABLEKS R9 R8 K15 ["LabelWidth"]
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K28 ["NormalMap"]
-  SETTABLEKS R9 R8 K15 ["MapType"]
-  LOADK R11 K22 ["Import"]
-  LOADK R12 K29 ["NormalMapPreview"]
-  NAMECALL R9 R3 K24 ["getText"]
+  GETTABLEKS R9 R10 K29 ["NormalMap"]
+  SETTABLEKS R9 R8 K16 ["MapType"]
+  LOADK R11 K23 ["Import"]
+  LOADK R12 K30 ["NormalMapPreview"]
+  NAMECALL R9 R3 K25 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K16 ["PreviewTitle"]
-  LOADK R11 K25 ["CreateDialog"]
+  SETTABLEKS R9 R8 K17 ["PreviewTitle"]
+  LOADK R11 K26 ["CreateDialog"]
   LOADK R12 K9 ["ImportNormalMap"]
-  NAMECALL R9 R3 K24 ["getText"]
+  NAMECALL R9 R3 K25 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K17 ["Text"]
+  SETTABLEKS R9 R8 K18 ["Text"]
   GETTABLEKS R9 R1 K4 ["PBRMaterial"]
   SETTABLEKS R9 R8 K4 ["PBRMaterial"]
-  GETTABLEKS R9 R2 K18 ["ColumnWidth"]
-  SETTABLEKS R9 R8 K18 ["ColumnWidth"]
+  GETTABLEKS R9 R2 K19 ["ColumnWidth"]
+  SETTABLEKS R9 R8 K19 ["ColumnWidth"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K9 ["ImportNormalMap"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["createElement"]
   GETUPVAL R7 3
-  DUPTABLE R8 K19 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
-  NAMECALL R9 R4 K20 ["getNextOrder"]
+  DUPTABLE R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
+  NAMECALL R9 R4 K21 ["getNextOrder"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K12 ["LayoutOrder"]
-  GETTABLEKS R9 R2 K13 ["LabelColumnWidth"]
-  SETTABLEKS R9 R8 K13 ["LabelColumnWidth"]
-  GETTABLEKS R9 R2 K14 ["LabelWidth"]
-  SETTABLEKS R9 R8 K14 ["LabelWidth"]
+  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
+  GETTABLEKS R9 R2 K14 ["LabelColumnWidth"]
+  SETTABLEKS R9 R8 K14 ["LabelColumnWidth"]
+  GETTABLEKS R9 R2 K15 ["LabelWidth"]
+  SETTABLEKS R9 R8 K15 ["LabelWidth"]
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K30 ["RoughnessMap"]
-  SETTABLEKS R9 R8 K15 ["MapType"]
-  LOADK R11 K22 ["Import"]
-  LOADK R12 K31 ["RoughnessMapPreview"]
-  NAMECALL R9 R3 K24 ["getText"]
+  GETTABLEKS R9 R10 K31 ["RoughnessMap"]
+  SETTABLEKS R9 R8 K16 ["MapType"]
+  LOADK R11 K23 ["Import"]
+  LOADK R12 K32 ["RoughnessMapPreview"]
+  NAMECALL R9 R3 K25 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K16 ["PreviewTitle"]
-  LOADK R11 K25 ["CreateDialog"]
+  SETTABLEKS R9 R8 K17 ["PreviewTitle"]
+  LOADK R11 K26 ["CreateDialog"]
   LOADK R12 K10 ["ImportRoughnessMap"]
-  NAMECALL R9 R3 K24 ["getText"]
+  NAMECALL R9 R3 K25 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K17 ["Text"]
+  SETTABLEKS R9 R8 K18 ["Text"]
   GETTABLEKS R9 R1 K4 ["PBRMaterial"]
   SETTABLEKS R9 R8 K4 ["PBRMaterial"]
-  GETTABLEKS R9 R2 K18 ["ColumnWidth"]
-  SETTABLEKS R9 R8 K18 ["ColumnWidth"]
+  GETTABLEKS R9 R2 K19 ["ColumnWidth"]
+  SETTABLEKS R9 R8 K19 ["ColumnWidth"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K10 ["ImportRoughnessMap"]
-  GETTABLEKS R6 R1 K32 ["Expandable"]
+  GETUPVAL R7 5
+  CALL R7 0 1
+  JUMPIFNOT R7 [+47]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K20 [{"LayoutOrder", "LabelColumnWidth", "LabelWidth", "MapType", "PreviewTitle", "Text", "PBRMaterial", "ColumnWidth"}]
+  NAMECALL R9 R4 K21 ["getNextOrder"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
+  GETTABLEKS R9 R2 K14 ["LabelColumnWidth"]
+  SETTABLEKS R9 R8 K14 ["LabelColumnWidth"]
+  GETTABLEKS R9 R2 K15 ["LabelWidth"]
+  SETTABLEKS R9 R8 K15 ["LabelWidth"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K33 ["EmissiveMaskContent"]
+  SETTABLEKS R9 R8 K16 ["MapType"]
+  LOADK R11 K23 ["Import"]
+  LOADK R12 K34 ["EmissiveMaskPreview"]
+  NAMECALL R9 R3 K25 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K17 ["PreviewTitle"]
+  LOADK R11 K26 ["CreateDialog"]
+  LOADK R12 K11 ["ImportEmissiveMask"]
+  NAMECALL R9 R3 K25 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K18 ["Text"]
+  GETTABLEKS R9 R1 K4 ["PBRMaterial"]
+  SETTABLEKS R9 R8 K4 ["PBRMaterial"]
+  GETTABLEKS R9 R2 K19 ["ColumnWidth"]
+  SETTABLEKS R9 R8 K19 ["ColumnWidth"]
+  CALL R6 2 1
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K11 ["ImportEmissiveMask"]
+  GETTABLEKS R6 R1 K35 ["Expandable"]
   JUMPIFNOT R6 [+39]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["createElement"]
-  GETUPVAL R7 5
-  DUPTABLE R8 K38 [{"LayoutOrder", "ContentPadding", "ContentSpacing", "Text", "Style", "Expanded", "OnExpandedChanged"}]
-  GETTABLEKS R9 R1 K12 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K12 ["LayoutOrder"]
-  GETTABLEKS R9 R2 K33 ["ContentPadding"]
-  SETTABLEKS R9 R8 K33 ["ContentPadding"]
-  GETTABLEKS R9 R2 K39 ["ItemSpacing"]
-  SETTABLEKS R9 R8 K34 ["ContentSpacing"]
-  LOADK R11 K40 ["MaterialTextures"]
-  LOADK R12 K41 ["TextureMaps"]
-  NAMECALL R9 R3 K24 ["getText"]
+  GETUPVAL R7 6
+  DUPTABLE R8 K41 [{"LayoutOrder", "ContentPadding", "ContentSpacing", "Text", "Style", "Expanded", "OnExpandedChanged"}]
+  GETTABLEKS R9 R1 K13 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
+  GETTABLEKS R9 R2 K36 ["ContentPadding"]
+  SETTABLEKS R9 R8 K36 ["ContentPadding"]
+  GETTABLEKS R9 R2 K42 ["ItemSpacing"]
+  SETTABLEKS R9 R8 K37 ["ContentSpacing"]
+  LOADK R11 K43 ["MaterialTextures"]
+  LOADK R12 K44 ["TextureMaps"]
+  NAMECALL R9 R3 K25 ["getText"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K17 ["Text"]
-  GETTABLEKS R9 R2 K42 ["CustomExpandablePane"]
-  SETTABLEKS R9 R8 K35 ["Style"]
-  GETTABLEKS R9 R1 K43 ["ExpandedPane"]
-  SETTABLEKS R9 R8 K36 ["Expanded"]
-  GETTABLEKS R9 R0 K44 ["onExpandedChanged"]
-  SETTABLEKS R9 R8 K37 ["OnExpandedChanged"]
+  SETTABLEKS R9 R8 K18 ["Text"]
+  GETTABLEKS R9 R2 K45 ["CustomExpandablePane"]
+  SETTABLEKS R9 R8 K38 ["Style"]
+  GETTABLEKS R9 R1 K46 ["ExpandedPane"]
+  SETTABLEKS R9 R8 K39 ["Expanded"]
+  GETTABLEKS R9 R0 K47 ["onExpandedChanged"]
+  SETTABLEKS R9 R8 K40 ["OnExpandedChanged"]
   MOVE R9 R5
   CALL R6 3 -1
   RETURN R6 -1
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["createElement"]
   GETUPVAL R7 1
-  DUPTABLE R8 K49 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing", "HorizontalAlignment"}]
-  GETIMPORT R9 K52 [Enum.AutomaticSize.Y]
-  SETTABLEKS R9 R8 K45 ["AutomaticSize"]
-  GETTABLEKS R9 R1 K12 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K12 ["LayoutOrder"]
-  GETIMPORT R9 K55 [Enum.FillDirection.Vertical]
-  SETTABLEKS R9 R8 K46 ["Layout"]
-  GETTABLEKS R9 R2 K39 ["ItemSpacing"]
-  SETTABLEKS R9 R8 K47 ["Spacing"]
-  GETIMPORT R9 K57 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R9 R8 K48 ["HorizontalAlignment"]
+  DUPTABLE R8 K52 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing", "HorizontalAlignment"}]
+  GETIMPORT R9 K55 [Enum.AutomaticSize.Y]
+  SETTABLEKS R9 R8 K48 ["AutomaticSize"]
+  GETTABLEKS R9 R1 K13 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
+  GETIMPORT R9 K58 [Enum.FillDirection.Vertical]
+  SETTABLEKS R9 R8 K49 ["Layout"]
+  GETTABLEKS R9 R2 K42 ["ItemSpacing"]
+  SETTABLEKS R9 R8 K50 ["Spacing"]
+  GETIMPORT R9 K60 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K51 ["HorizontalAlignment"]
   MOVE R9 R5
   CALL R6 3 -1
   RETURN R6 -1
@@ -244,77 +279,83 @@ MAIN:
   GETTABLEKS R5 R0 K5 ["Packages"]
   GETTABLEKS R4 R5 K8 ["Framework"]
   CALL R3 1 1
-  GETTABLEKS R5 R3 K9 ["Util"]
-  GETTABLEKS R4 R5 K10 ["LayoutOrderIterator"]
-  GETTABLEKS R6 R3 K11 ["Style"]
-  GETTABLEKS R5 R6 K12 ["Stylizer"]
-  GETTABLEKS R6 R3 K13 ["ContextServices"]
-  GETTABLEKS R7 R6 K14 ["withContext"]
-  GETTABLEKS R8 R6 K15 ["Analytics"]
-  GETTABLEKS R9 R6 K16 ["Localization"]
-  GETTABLEKS R10 R3 K17 ["UI"]
-  GETTABLEKS R11 R10 K18 ["Pane"]
-  GETTABLEKS R12 R10 K19 ["ExpandablePane"]
-  GETTABLEKS R14 R0 K20 ["Src"]
-  GETTABLEKS R13 R14 K21 ["Actions"]
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R15 R13 K22 ["SetExpandedPane"]
-  CALL R14 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Flags"]
+  GETTABLEKS R5 R6 K11 ["getEFEnableEmissiveMask"]
+  CALL R4 1 1
+  GETTABLEKS R6 R3 K12 ["Util"]
+  GETTABLEKS R5 R6 K13 ["LayoutOrderIterator"]
+  GETTABLEKS R7 R3 K14 ["Style"]
+  GETTABLEKS R6 R7 K15 ["Stylizer"]
+  GETTABLEKS R7 R3 K16 ["ContextServices"]
+  GETTABLEKS R8 R7 K17 ["withContext"]
+  GETTABLEKS R9 R7 K18 ["Analytics"]
+  GETTABLEKS R10 R7 K19 ["Localization"]
+  GETTABLEKS R11 R3 K20 ["UI"]
+  GETTABLEKS R12 R11 K21 ["Pane"]
+  GETTABLEKS R13 R11 K22 ["ExpandablePane"]
+  GETTABLEKS R15 R0 K9 ["Src"]
+  GETTABLEKS R14 R15 K23 ["Actions"]
   GETIMPORT R15 K4 [require]
-  GETTABLEKS R18 R0 K20 ["Src"]
-  GETTABLEKS R17 R18 K23 ["Reducers"]
-  GETTABLEKS R16 R17 K24 ["MainReducer"]
+  GETTABLEKS R16 R14 K24 ["SetExpandedPane"]
   CALL R15 1 1
   GETIMPORT R16 K4 [require]
-  GETTABLEKS R21 R0 K20 ["Src"]
-  GETTABLEKS R20 R21 K25 ["Components"]
-  GETTABLEKS R19 R20 K26 ["MaterialBrowser"]
-  GETTABLEKS R18 R19 K27 ["MaterialEditor"]
-  GETTABLEKS R17 R18 K28 ["TextureMapSelector"]
+  GETTABLEKS R19 R0 K9 ["Src"]
+  GETTABLEKS R18 R19 K25 ["Reducers"]
+  GETTABLEKS R17 R18 K26 ["MainReducer"]
   CALL R16 1 1
-  GETTABLEKS R19 R0 K20 ["Src"]
-  GETTABLEKS R18 R19 K29 ["Resources"]
-  GETTABLEKS R17 R18 K30 ["Constants"]
-  GETIMPORT R18 K4 [require]
-  GETTABLEKS R19 R17 K31 ["getSettingsNames"]
-  CALL R18 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R22 R0 K9 ["Src"]
+  GETTABLEKS R21 R22 K27 ["Components"]
+  GETTABLEKS R20 R21 K28 ["MaterialBrowser"]
+  GETTABLEKS R19 R20 K29 ["MaterialEditor"]
+  GETTABLEKS R18 R19 K30 ["TextureMapSelector"]
+  CALL R17 1 1
+  GETTABLEKS R20 R0 K9 ["Src"]
+  GETTABLEKS R19 R20 K31 ["Resources"]
+  GETTABLEKS R18 R19 K32 ["Constants"]
   GETIMPORT R19 K4 [require]
-  GETTABLEKS R20 R17 K32 ["getTextureMapNames"]
+  GETTABLEKS R20 R18 K33 ["getSettingsNames"]
   CALL R19 1 1
-  MOVE R20 R19
-  CALL R20 0 1
-  MOVE R21 R18
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R21 R18 K34 ["getTextureMapNames"]
+  CALL R20 1 1
+  MOVE R21 R20
   CALL R21 0 1
-  GETTABLEKS R22 R1 K33 ["PureComponent"]
-  LOADK R24 K34 ["TextureSettings"]
-  NAMECALL R22 R22 K35 ["extend"]
-  CALL R22 2 1
-  DUPCLOSURE R23 K36 [PROTO_1]
-  CAPTURE VAL R21
-  SETTABLEKS R23 R22 K37 ["init"]
-  DUPCLOSURE R23 K38 [PROTO_2]
-  CAPTURE VAL R1
-  CAPTURE VAL R11
-  CAPTURE VAL R4
-  CAPTURE VAL R16
-  CAPTURE VAL R20
-  CAPTURE VAL R12
-  SETTABLEKS R23 R22 K39 ["render"]
-  MOVE R23 R7
-  DUPTABLE R24 K40 [{"Analytics", "Localization", "Stylizer"}]
-  SETTABLEKS R8 R24 K15 ["Analytics"]
-  SETTABLEKS R9 R24 K16 ["Localization"]
-  SETTABLEKS R5 R24 K12 ["Stylizer"]
-  CALL R23 1 1
-  MOVE R24 R22
-  CALL R23 1 1
-  MOVE R22 R23
-  GETTABLEKS R23 R2 K41 ["connect"]
-  DUPCLOSURE R24 K42 [PROTO_3]
-  CAPTURE VAL R21
-  DUPCLOSURE R25 K43 [PROTO_5]
-  CAPTURE VAL R14
+  MOVE R22 R19
+  CALL R22 0 1
+  GETTABLEKS R23 R1 K35 ["PureComponent"]
+  LOADK R25 K36 ["TextureSettings"]
+  NAMECALL R23 R23 K37 ["extend"]
   CALL R23 2 1
-  MOVE R24 R22
-  CALL R23 1 -1
-  RETURN R23 -1
+  DUPCLOSURE R24 K38 [PROTO_1]
+  CAPTURE VAL R22
+  SETTABLEKS R24 R23 K39 ["init"]
+  DUPCLOSURE R24 K40 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R5
+  CAPTURE VAL R17
+  CAPTURE VAL R21
+  CAPTURE VAL R4
+  CAPTURE VAL R13
+  SETTABLEKS R24 R23 K41 ["render"]
+  MOVE R24 R8
+  DUPTABLE R25 K42 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R9 R25 K18 ["Analytics"]
+  SETTABLEKS R10 R25 K19 ["Localization"]
+  SETTABLEKS R6 R25 K15 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  GETTABLEKS R24 R2 K43 ["connect"]
+  DUPCLOSURE R25 K44 [PROTO_3]
+  CAPTURE VAL R22
+  DUPCLOSURE R26 K45 [PROTO_5]
+  CAPTURE VAL R15
+  CALL R24 2 1
+  MOVE R25 R23
+  CALL R24 1 -1
+  RETURN R24 -1

@@ -704,93 +704,92 @@ MAIN:
   GETTABLEKS R5 R6 K11 ["Environment"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K12 ["Flags"]
-  GETTABLEKS R6 R7 K13 ["FFlagMCPAssistantRunCodeMaxHeight"]
+  GETTABLEKS R7 R0 K12 ["Parent"]
+  GETTABLEKS R6 R7 K13 ["Foundation"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K14 ["Parent"]
-  GETTABLEKS R7 R8 K15 ["Foundation"]
+  GETTABLEKS R8 R0 K6 ["Components"]
+  GETTABLEKS R7 R8 K14 ["MarkdownText"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Components"]
-  GETTABLEKS R8 R9 K16 ["MarkdownText"]
+  GETTABLEKS R9 R0 K12 ["Parent"]
+  GETTABLEKS R8 R9 K15 ["React"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K14 ["Parent"]
-  GETTABLEKS R9 R10 K17 ["React"]
+  GETTABLEKS R10 R0 K12 ["Parent"]
+  GETTABLEKS R9 R10 K16 ["ReactUtils"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K14 ["Parent"]
-  GETTABLEKS R10 R11 K18 ["ReactUtils"]
+  GETTABLEKS R11 R0 K6 ["Components"]
+  GETTABLEKS R10 R11 K17 ["ShimmerGradient"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K6 ["Components"]
-  GETTABLEKS R11 R12 K19 ["ShimmerGradient"]
+  GETTABLEKS R13 R0 K18 ["Resources"]
+  GETTABLEKS R12 R13 K19 ["Localization"]
+  GETTABLEKS R11 R12 K20 ["Translator"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K20 ["Resources"]
-  GETTABLEKS R13 R14 K21 ["Localization"]
-  GETTABLEKS R12 R13 K22 ["Translator"]
+  GETTABLEKS R12 R0 K21 ["Types"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R13 R0 K23 ["Types"]
+  GETTABLEKS R14 R0 K22 ["Flags"]
+  GETTABLEKS R13 R14 K23 ["FFlagMCPAssistantRunCodeMaxHeight"]
   CALL R12 1 1
-  GETTABLEKS R13 R5 K24 ["Get"]
-  GETTABLEKS R14 R6 K25 ["Divider"]
-  GETTABLEKS R15 R6 K26 ["ScrollView"]
-  GETTABLEKS R16 R6 K27 ["Text"]
-  GETTABLEKS R17 R6 K28 ["View"]
-  GETTABLEKS R18 R9 K29 ["createNextOrder"]
-  GETTABLEKS R19 R8 K30 ["createElement"]
-  DUPTABLE R20 K33 [{"Dark", "Light"}]
-  LOADK R21 K34 ["rbxasset://studio_svg_textures/Shared/Clipboard/Dark/Standard/Copy.png"]
-  SETTABLEKS R21 R20 K31 ["Dark"]
-  LOADK R21 K35 ["rbxasset://studio_svg_textures/Shared/Clipboard/Light/Standard/Copy.png"]
-  SETTABLEKS R21 R20 K32 ["Light"]
-  DUPTABLE R21 K39 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
-  GETIMPORT R22 K43 [Enum.AutomaticSize.XY]
-  SETTABLEKS R22 R21 K36 ["AutomaticCanvasSize"]
-  GETIMPORT R22 K46 [UDim2.fromScale]
+  GETTABLEKS R13 R5 K24 ["Divider"]
+  GETTABLEKS R14 R5 K25 ["ScrollView"]
+  GETTABLEKS R15 R5 K26 ["Text"]
+  GETTABLEKS R16 R5 K27 ["View"]
+  GETTABLEKS R17 R8 K28 ["createNextOrder"]
+  GETTABLEKS R18 R7 K29 ["createElement"]
+  DUPTABLE R19 K32 [{"Dark", "Light"}]
+  LOADK R20 K33 ["rbxasset://studio_svg_textures/Shared/Clipboard/Dark/Standard/Copy.png"]
+  SETTABLEKS R20 R19 K30 ["Dark"]
+  LOADK R20 K34 ["rbxasset://studio_svg_textures/Shared/Clipboard/Light/Standard/Copy.png"]
+  SETTABLEKS R20 R19 K31 ["Light"]
+  DUPTABLE R20 K38 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+  GETIMPORT R21 K42 [Enum.AutomaticSize.XY]
+  SETTABLEKS R21 R20 K35 ["AutomaticCanvasSize"]
+  GETIMPORT R21 K45 [UDim2.fromScale]
+  LOADN R22 0
   LOADN R23 0
-  LOADN R24 0
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K37 ["CanvasSize"]
-  GETIMPORT R22 K47 [Enum.ScrollingDirection.XY]
-  SETTABLEKS R22 R21 K38 ["ScrollingDirection"]
-  DUPTABLE R22 K49 [{"FillDirection"}]
-  GETIMPORT R23 K51 [Enum.FillDirection.Vertical]
-  SETTABLEKS R23 R22 K48 ["FillDirection"]
-  DUPCLOSURE R23 K52 [PROTO_0]
-  CAPTURE VAL R13
-  DUPCLOSURE R24 K53 [PROTO_16]
-  CAPTURE VAL R6
-  CAPTURE VAL R8
-  CAPTURE VAL R4
-  CAPTURE VAL R11
-  CAPTURE VAL R13
-  CAPTURE VAL R23
-  CAPTURE VAL R18
-  CAPTURE VAL R19
-  CAPTURE VAL R17
-  CAPTURE VAL R3
-  CAPTURE VAL R20
-  CAPTURE VAL R14
-  CAPTURE VAL R15
-  CAPTURE VAL R22
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K36 ["CanvasSize"]
+  GETIMPORT R21 K46 [Enum.ScrollingDirection.XY]
+  SETTABLEKS R21 R20 K37 ["ScrollingDirection"]
+  DUPTABLE R21 K48 [{"FillDirection"}]
+  GETIMPORT R22 K50 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K47 ["FillDirection"]
+  DUPCLOSURE R22 K51 [PROTO_0]
+  CAPTURE VAL R12
+  DUPCLOSURE R23 K52 [PROTO_16]
+  CAPTURE VAL R5
   CAPTURE VAL R7
-  CAPTURE VAL R21
-  CAPTURE VAL R1
-  CAPTURE VAL R16
+  CAPTURE VAL R4
   CAPTURE VAL R10
-  DUPTABLE R25 K56 [{"Type", "ContentWidget"}]
-  LOADK R26 K57 ["RunCode"]
-  SETTABLEKS R26 R25 K54 ["Type"]
-  GETTABLEKS R26 R8 K58 ["memo"]
-  MOVE R27 R24
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K55 ["ContentWidget"]
-  GETTABLEKS R26 R2 K59 ["registerWidget"]
-  GETTABLEKS R27 R25 K54 ["Type"]
-  GETTABLEKS R28 R25 K55 ["ContentWidget"]
-  CALL R26 2 0
-  RETURN R25 1
+  CAPTURE VAL R12
+  CAPTURE VAL R22
+  CAPTURE VAL R17
+  CAPTURE VAL R18
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CAPTURE VAL R19
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R21
+  CAPTURE VAL R6
+  CAPTURE VAL R20
+  CAPTURE VAL R1
+  CAPTURE VAL R15
+  CAPTURE VAL R9
+  DUPTABLE R24 K55 [{"Type", "ContentWidget"}]
+  LOADK R25 K56 ["RunCode"]
+  SETTABLEKS R25 R24 K53 ["Type"]
+  GETTABLEKS R25 R7 K57 ["memo"]
+  MOVE R26 R23
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K54 ["ContentWidget"]
+  GETTABLEKS R25 R2 K58 ["registerWidget"]
+  GETTABLEKS R26 R24 K53 ["Type"]
+  GETTABLEKS R27 R24 K54 ["ContentWidget"]
+  CALL R25 2 0
+  RETURN R24 1

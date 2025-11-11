@@ -36,6 +36,7 @@ export type IconPosition = Package.IconPosition
 export type IconName = Package.IconName
 export type IconSize = Package.IconSize
 export type InputSize = Package.InputSize
+export type InputPlacement = Package.InputPlacement
 export type IconVariant = Package.IconVariant
 export type InputLabelSize = Package.InputLabelSize
 export type NumberInputControlsVariant = Package.NumberInputControlsVariant

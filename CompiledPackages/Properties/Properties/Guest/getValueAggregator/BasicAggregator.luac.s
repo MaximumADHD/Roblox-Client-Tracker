@@ -1,61 +1,45 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["nilPlaceholder"]
-  JUMPIFNOTEQ R0 R1 [+2]
-  LOADNIL R0
-  DUPTABLE R1 K2 [{"value"}]
-  DUPTABLE R2 K4 [{"value", "multiple"}]
-  SETTABLEKS R0 R2 K1 ["value"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K3 ["multiple"]
-  SETTABLEKS R2 R1 K1 ["value"]
-  RETURN R1 1
+  DUPTABLE R2 K1 [{"value"}]
+  DUPTABLE R3 K3 [{"value", "multiple"}]
+  SETTABLEKS R1 R3 K0 ["value"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K2 ["multiple"]
+  SETTABLEKS R3 R2 K0 ["value"]
+  RETURN R2 1
 
 PROTO_1:
-  GETTABLEKS R4 R0 K0 ["value"]
+  GETTABLEKS R4 R1 K0 ["value"]
   GETTABLEKS R3 R4 K1 ["multiple"]
   JUMPIFNOT R3 [+2]
-  LOADNIL R3
+  LOADB R3 1
   RETURN R3 1
-  GETTABLEKS R4 R0 K0 ["value"]
+  GETTABLEKS R4 R1 K0 ["value"]
   GETTABLEKS R3 R4 K0 ["value"]
-  MOVE R6 R2
-  LENGTH R4 R1
-  LOADN R5 1
-  FORNPREP R4
-  GETTABLE R7 R1 R6
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K2 ["nilPlaceholder"]
-  JUMPIFNOTEQ R7 R8 [+2]
-  LOADNIL R7
-  JUMPIFEQ R7 R3 [+7]
-  GETTABLEKS R8 R0 K0 ["value"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K1 ["multiple"]
-  JUMP [+1]
-  FORNLOOP R4
-  LOADNIL R4
-  RETURN R4 1
+  JUMPIFEQ R3 R2 [+8]
+  GETTABLEKS R3 R1 K0 ["value"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  LOADB R3 1
+  RETURN R3 1
+  LOADB R3 0
+  RETURN R3 1
 
 PROTO_2:
-  JUMPIFEQKS R2 K0 ["value"] [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  FASTCALL2K ASSERT R5 K1 [+4]
-  LOADK R6 K1 ["Basic aggregator does not support sub-parts"]
-  GETIMPORT R4 K3 [assert]
-  CALL R4 2 0
-  JUMPIFNOTEQKNIL R3 [+4]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["nilPlaceholder"]
-  MOVE R6 R1
-  LENGTH R4 R0
-  LOADN R5 1
-  FORNPREP R4
-  SETTABLE R3 R0 R6
-  FORNLOOP R4
-  LOADNIL R4
-  RETURN R4 1
+  JUMPIFEQKS R4 K0 ["value"] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  FASTCALL2K ASSERT R7 K1 [+4]
+  LOADK R8 K1 ["Basic aggregator does not support sub-parts"]
+  GETIMPORT R6 K3 [assert]
+  CALL R6 2 0
+  MOVE R8 R2
+  LENGTH R6 R1
+  LOADN R7 1
+  FORNPREP R6
+  SETTABLE R5 R1 R8
+  FORNLOOP R6
+  LOADNIL R6
+  RETURN R6 1
 
 MAIN:
   PREPVARARGS 0
@@ -64,20 +48,16 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Util"]
-  GETTABLEKS R2 R3 K7 ["Constants"]
+  GETTABLEKS R2 R0 K6 ["PropertyTypes"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R0 K8 ["PropertyTypes"]
+  GETTABLEKS R3 R0 K7 ["RpcTypes"]
   CALL R2 1 1
-  DUPCLOSURE R3 K9 [PROTO_0]
-  CAPTURE VAL R1
-  DUPCLOSURE R4 K10 [PROTO_1]
-  CAPTURE VAL R1
-  DUPCLOSURE R5 K11 [PROTO_2]
-  CAPTURE VAL R1
-  DUPTABLE R6 K15 [{"initParts", "aggregateParts", "setPart"}]
-  SETTABLEKS R3 R6 K12 ["initParts"]
-  SETTABLEKS R4 R6 K13 ["aggregateParts"]
-  SETTABLEKS R5 R6 K14 ["setPart"]
+  DUPCLOSURE R3 K8 [PROTO_0]
+  DUPCLOSURE R4 K9 [PROTO_1]
+  DUPCLOSURE R5 K10 [PROTO_2]
+  DUPTABLE R6 K14 [{"initParts", "addToAggregation", "setPart"}]
+  SETTABLEKS R3 R6 K11 ["initParts"]
+  SETTABLEKS R4 R6 K12 ["addToAggregation"]
+  SETTABLEKS R5 R6 K13 ["setPart"]
   RETURN R6 1

@@ -265,87 +265,87 @@ MAIN:
   NAMECALL R1 R1 K7 ["GetService"]
   CALL R1 2 1
   GETIMPORT R2 K9 [require]
-  GETTABLEKS R5 R0 K10 ["Src"]
-  GETTABLEKS R4 R5 K11 ["Util"]
-  GETTABLEKS R3 R4 K12 ["Constants"]
+  GETTABLEKS R4 R0 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["AnimationEditor"]
   CALL R2 1 1
   GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R6 R0 K12 ["Src"]
   GETTABLEKS R5 R6 K13 ["Contexts"]
   GETTABLEKS R4 R5 K14 ["NativeGraphContext"]
   CALL R3 1 1
   GETIMPORT R4 K9 [require]
-  GETTABLEKS R6 R0 K15 ["Packages"]
-  GETTABLEKS R5 R6 K16 ["React"]
+  GETTABLEKS R6 R0 K10 ["Packages"]
+  GETTABLEKS R5 R6 K15 ["React"]
   CALL R4 1 1
   GETIMPORT R5 K9 [require]
-  GETTABLEKS R7 R0 K15 ["Packages"]
-  GETTABLEKS R6 R7 K17 ["ReactUtils"]
+  GETTABLEKS R7 R0 K10 ["Packages"]
+  GETTABLEKS R6 R7 K16 ["ReactUtils"]
   CALL R5 1 1
   GETIMPORT R6 K9 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K11 ["Util"]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K17 ["Util"]
   GETTABLEKS R7 R8 K18 ["RectUtil"]
   CALL R6 1 1
   GETIMPORT R7 K9 [require]
-  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R10 R0 K12 ["Src"]
   GETTABLEKS R9 R10 K19 ["Hooks"]
   GETTABLEKS R8 R9 K20 ["usePluginSetting"]
   CALL R7 1 1
-  DUPTABLE R8 K29 [{"zoomRatio", "renderedGraphRect", "viewportRect", "setZoomRatio", "setAbsoluteSize", "panViewport", "setViewportPosition", "frameSelection"}]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K21 ["zoomRatio"]
-  GETIMPORT R9 K32 [Rect.new]
-  LOADN R10 0
+  GETTABLEKS R8 R2 K21 ["Constants"]
+  DUPTABLE R9 K30 [{"zoomRatio", "renderedGraphRect", "viewportRect", "setZoomRatio", "setAbsoluteSize", "panViewport", "setViewportPosition", "frameSelection"}]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K22 ["zoomRatio"]
+  GETIMPORT R10 K33 [Rect.new]
   LOADN R11 0
   LOADN R12 0
   LOADN R13 0
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K22 ["renderedGraphRect"]
-  GETIMPORT R9 K32 [Rect.new]
-  LOADN R10 0
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K23 ["renderedGraphRect"]
+  GETIMPORT R10 K33 [Rect.new]
   LOADN R11 0
   LOADN R12 0
   LOADN R13 0
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K23 ["viewportRect"]
-  GETTABLEKS R9 R5 K33 ["createUnimplemented"]
-  LOADK R10 K24 ["setZoomRatio"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K24 ["setZoomRatio"]
-  GETTABLEKS R9 R5 K33 ["createUnimplemented"]
-  LOADK R10 K25 ["setAbsoluteSize"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K25 ["setAbsoluteSize"]
-  GETTABLEKS R9 R5 K33 ["createUnimplemented"]
-  LOADK R10 K26 ["panViewport"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K26 ["panViewport"]
-  GETTABLEKS R9 R5 K33 ["createUnimplemented"]
-  LOADK R10 K34 ["setInternalViewportRect"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K27 ["setViewportPosition"]
-  GETTABLEKS R9 R5 K33 ["createUnimplemented"]
-  LOADK R10 K28 ["frameSelection"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K28 ["frameSelection"]
-  GETTABLEKS R9 R4 K35 ["createContext"]
-  MOVE R10 R8
-  CALL R9 1 1
-  DUPCLOSURE R10 K36 [PROTO_0]
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K24 ["viewportRect"]
+  GETTABLEKS R10 R5 K34 ["createUnimplemented"]
+  LOADK R11 K25 ["setZoomRatio"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K25 ["setZoomRatio"]
+  GETTABLEKS R10 R5 K34 ["createUnimplemented"]
+  LOADK R11 K26 ["setAbsoluteSize"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K26 ["setAbsoluteSize"]
+  GETTABLEKS R10 R5 K34 ["createUnimplemented"]
+  LOADK R11 K27 ["panViewport"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K27 ["panViewport"]
+  GETTABLEKS R10 R5 K34 ["createUnimplemented"]
+  LOADK R11 K35 ["setInternalViewportRect"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K28 ["setViewportPosition"]
+  GETTABLEKS R10 R5 K34 ["createUnimplemented"]
+  LOADK R11 K29 ["frameSelection"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K29 ["frameSelection"]
+  GETTABLEKS R10 R4 K36 ["createContext"]
+  MOVE R11 R9
+  CALL R10 1 1
+  DUPCLOSURE R11 K37 [PROTO_0]
   CAPTURE VAL R1
-  DUPCLOSURE R11 K37 [PROTO_1]
+  DUPCLOSURE R12 K38 [PROTO_1]
   CAPTURE VAL R1
-  DUPCLOSURE R12 K38 [PROTO_8]
+  DUPCLOSURE R13 K39 [PROTO_8]
   CAPTURE VAL R4
   CAPTURE VAL R3
   CAPTURE VAL R7
-  CAPTURE VAL R2
-  CAPTURE VAL R10
+  CAPTURE VAL R8
   CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R6
-  CAPTURE VAL R9
-  DUPTABLE R13 K41 [{"Context", "Provider"}]
-  SETTABLEKS R9 R13 K39 ["Context"]
-  SETTABLEKS R12 R13 K40 ["Provider"]
-  RETURN R13 1
+  CAPTURE VAL R10
+  DUPTABLE R14 K42 [{"Context", "Provider"}]
+  SETTABLEKS R10 R14 K40 ["Context"]
+  SETTABLEKS R13 R14 K41 ["Provider"]
+  RETURN R14 1

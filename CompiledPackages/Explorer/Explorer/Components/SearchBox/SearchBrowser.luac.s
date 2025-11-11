@@ -135,86 +135,93 @@ PROTO_3:
   SETTABLEKS R16 R15 K33 ["Text"]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K13 ["Tag"]
-  LOADK R17 K34 ["Explorer-FillX data-testid=SearchBrowser-ResultCountLabel"]
+  LOADK R18 K34 ["Explorer-FillX data-testid=SearchBrowser-ResultCountLabel"]
+  GETUPVAL R20 8
+  CALL R20 0 1
+  JUMPIFNOT R20 [+2]
+  LOADK R19 K35 [" Explorer-Text-Size-14 Explorer-Content-Muted"]
+  JUMP [+1]
+  LOADK R19 K24 [""]
+  CONCAT R17 R18 R19
   SETTABLE R17 R15 R16
   CALL R13 2 1
   SETTABLEKS R13 R12 K16 ["ResultCount"]
   GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K38 [{"image", "layoutOrder", "tooltipText", "onActivated"}]
-  GETUPVAL R17 9
-  GETTABLEKS R16 R17 K39 ["standard"]
-  LOADK R17 K40 ["findPrevious"]
+  GETUPVAL R14 9
+  DUPTABLE R15 K39 [{"image", "layoutOrder", "tooltipText", "onActivated"}]
+  GETUPVAL R17 10
+  GETTABLEKS R16 R17 K40 ["standard"]
+  LOADK R17 K41 ["findPrevious"]
   CALL R16 1 1
-  SETTABLEKS R16 R15 K35 ["image"]
+  SETTABLEKS R16 R15 K36 ["image"]
   MOVE R16 R7
   CALL R16 0 1
   SETTABLEKS R16 R15 K11 ["layoutOrder"]
   LOADK R18 K26 ["SearchBrowser"]
-  LOADK R19 K41 ["SelectPreviousMatch"]
+  LOADK R19 K42 ["SelectPreviousMatch"]
   NAMECALL R16 R1 K28 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K36 ["tooltipText"]
-  SETTABLEKS R4 R15 K37 ["onActivated"]
+  SETTABLEKS R16 R15 K37 ["tooltipText"]
+  SETTABLEKS R4 R15 K38 ["onActivated"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K17 ["FindPrevious"]
   GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K38 [{"image", "layoutOrder", "tooltipText", "onActivated"}]
-  GETUPVAL R17 9
-  GETTABLEKS R16 R17 K39 ["standard"]
-  LOADK R17 K42 ["findNext"]
+  GETUPVAL R14 9
+  DUPTABLE R15 K39 [{"image", "layoutOrder", "tooltipText", "onActivated"}]
+  GETUPVAL R17 10
+  GETTABLEKS R16 R17 K40 ["standard"]
+  LOADK R17 K43 ["findNext"]
   CALL R16 1 1
-  SETTABLEKS R16 R15 K35 ["image"]
+  SETTABLEKS R16 R15 K36 ["image"]
   MOVE R16 R7
   CALL R16 0 1
   SETTABLEKS R16 R15 K11 ["layoutOrder"]
   LOADK R18 K26 ["SearchBrowser"]
-  LOADK R19 K43 ["SelectNextMatch"]
+  LOADK R19 K44 ["SelectNextMatch"]
   NAMECALL R16 R1 K28 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K36 ["tooltipText"]
-  SETTABLEKS R5 R15 K37 ["onActivated"]
+  SETTABLEKS R16 R15 K37 ["tooltipText"]
+  SETTABLEKS R5 R15 K38 ["onActivated"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K18 ["FindNext"]
   GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K38 [{"image", "layoutOrder", "tooltipText", "onActivated"}]
-  GETUPVAL R17 9
-  GETTABLEKS R16 R17 K39 ["standard"]
-  LOADK R17 K44 ["selectAll"]
+  GETUPVAL R14 9
+  DUPTABLE R15 K39 [{"image", "layoutOrder", "tooltipText", "onActivated"}]
+  GETUPVAL R17 10
+  GETTABLEKS R16 R17 K40 ["standard"]
+  LOADK R17 K45 ["selectAll"]
   CALL R16 1 1
-  SETTABLEKS R16 R15 K35 ["image"]
+  SETTABLEKS R16 R15 K36 ["image"]
   MOVE R16 R7
   CALL R16 0 1
   SETTABLEKS R16 R15 K11 ["layoutOrder"]
   LOADK R18 K26 ["SearchBrowser"]
-  LOADK R19 K45 ["SelectAllMatches"]
+  LOADK R19 K46 ["SelectAllMatches"]
   NAMECALL R16 R1 K28 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K36 ["tooltipText"]
+  SETTABLEKS R16 R15 K37 ["tooltipText"]
   GETTABLEKS R17 R0 K3 ["session"]
-  GETTABLEKS R16 R17 K46 ["selectAllSearchedIds"]
-  SETTABLEKS R16 R15 K37 ["onActivated"]
+  GETTABLEKS R16 R17 K47 ["selectAllSearchedIds"]
+  SETTABLEKS R16 R15 K38 ["onActivated"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K19 ["SelectAll"]
   GETUPVAL R13 5
-  GETUPVAL R14 8
-  DUPTABLE R15 K38 [{"image", "layoutOrder", "tooltipText", "onActivated"}]
-  GETUPVAL R17 9
-  GETTABLEKS R16 R17 K39 ["standard"]
-  LOADK R17 K47 ["refresh"]
+  GETUPVAL R14 9
+  DUPTABLE R15 K39 [{"image", "layoutOrder", "tooltipText", "onActivated"}]
+  GETUPVAL R17 10
+  GETTABLEKS R16 R17 K40 ["standard"]
+  LOADK R17 K48 ["refresh"]
   CALL R16 1 1
-  SETTABLEKS R16 R15 K35 ["image"]
+  SETTABLEKS R16 R15 K36 ["image"]
   MOVE R16 R7
   CALL R16 0 1
   SETTABLEKS R16 R15 K11 ["layoutOrder"]
   LOADK R18 K26 ["SearchBrowser"]
-  LOADK R19 K48 ["RefreshResults"]
+  LOADK R19 K49 ["RefreshResults"]
   NAMECALL R16 R1 K28 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K36 ["tooltipText"]
-  SETTABLEKS R6 R15 K37 ["onActivated"]
+  SETTABLEKS R16 R15 K37 ["tooltipText"]
+  SETTABLEKS R6 R15 K38 ["onActivated"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K20 ["Refresh"]
   CALL R9 3 -1
@@ -260,23 +267,28 @@ MAIN:
   GETTABLEKS R9 R10 K17 ["createNextOrder"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K8 ["Util"]
-  GETTABLEKS R10 R11 K18 ["localizeInt"]
+  GETTABLEKS R11 R0 K18 ["Flags"]
+  GETTABLEKS R10 R11 K19 ["getFFlagExplorerFixBlurryTextHopefully"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K19 ["Hooks"]
-  GETTABLEKS R11 R12 K20 ["useSelectionStepper"]
+  GETTABLEKS R12 R0 K8 ["Util"]
+  GETTABLEKS R11 R12 K20 ["localizeInt"]
   CALL R10 1 1
-  GETTABLEKS R11 R5 K21 ["createElement"]
-  DUPCLOSURE R12 K22 [PROTO_3]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K21 ["Hooks"]
+  GETTABLEKS R12 R13 K22 ["useSelectionStepper"]
+  CALL R11 1 1
+  GETTABLEKS R12 R5 K23 ["createElement"]
+  DUPCLOSURE R13 K24 [PROTO_3]
   CAPTURE VAL R1
   CAPTURE VAL R4
-  CAPTURE VAL R10
+  CAPTURE VAL R11
   CAPTURE VAL R5
   CAPTURE VAL R8
-  CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R3
+  CAPTURE VAL R10
   CAPTURE VAL R9
   CAPTURE VAL R7
   CAPTURE VAL R2
-  RETURN R12 1
+  RETURN R13 1

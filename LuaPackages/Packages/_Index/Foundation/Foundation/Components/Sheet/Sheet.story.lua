@@ -9,6 +9,7 @@ local Text = require(Foundation.Components.Text)
 local Image = require(Foundation.Components.Image)
 local IconButton = require(Foundation.Components.IconButton)
 local Icon = require(Foundation.Components.Icon)
+local Avatar = require(Foundation.Components.Avatar)
 
 local IconName = require(Packages.BuilderIcons).Icon
 local IconSize = require(Foundation.Enums.IconSize)
@@ -292,6 +293,91 @@ local function StoryManual(props)
 	})
 end
 
+local function AccountItem(props)
+	return React.createElement(View, {
+		tag = "row gap-medium size-full-0 auto-y items-center",
+	}, {
+		Avatar = React.createElement(Avatar, {
+			size = InputSize.Large,
+			userId = 24813339,
+		}),
+		Info = React.createElement(View, {
+			LayoutOrder = 2,
+			tag = "col gap-xsmall fill auto-xy",
+		}, {
+			Username = React.createElement(Text, {
+				LayoutOrder = 1,
+				Text = `User #{props.index}`,
+				tag = "text-body-medium content-emphasis auto-xy text-truncate-split",
+			}),
+			UserId = React.createElement(Text, {
+				LayoutOrder = 2,
+				Text = `@user{props.index}`,
+				tag = "text-body-small content-default auto-xy text-truncate-split",
+			}),
+		}),
+	})
+end
+
+local function StoryAutoSize(props)
+	local open, setOpen = React.useState(false)
+	local accounts, setAccounts = React.useState(1)
+
+	local accountItems = {}
+	for i = 1, accounts do
+		table.insert(accountItems, React.createElement(AccountItem, { index = i, key = i }))
+	end
+
+	return React.createElement(React.Fragment, nil, {
+		Button = React.createElement(Button, {
+			onActivated = function()
+				setOpen(true)
+			end,
+			text = "Open Sheet (Auto Size)",
+		}),
+		Sheet = if open
+			then React.createElement(Sheet.Root, {
+				preferCenterSheet = props.controls.preferCenterSheet,
+				size = props.controls.size,
+				onClose = function()
+					setOpen(false)
+				end,
+			}, {
+				Header = React.createElement(Sheet.Header, nil, {
+					Title = React.createElement(Text, {
+						LayoutOrder = 1,
+						Text = "Account Switcher",
+						tag = "text-heading-large content-emphasis auto-xy text-truncate-split",
+					}),
+				}),
+				Content = React.createElement(Sheet.Content, nil, accountItems),
+				Actions = React.createElement(Sheet.Actions, nil, {
+					AddAccount = React.createElement(Button, {
+						LayoutOrder = 1,
+						text = "Add Account",
+						size = InputSize.Large,
+						variant = ButtonVariant.Emphasis,
+						fillBehavior = FillBehavior.Fill,
+						onActivated = function()
+							setAccounts(accounts + 1)
+						end,
+					}),
+					RemoveAccount = React.createElement(Button, {
+						LayoutOrder = 2,
+						text = "Remove Account",
+						size = InputSize.Large,
+						variant = ButtonVariant.Alert,
+						fillBehavior = FillBehavior.Fill,
+						onActivated = function()
+							setAccounts(math.max(1, accounts - 1))
+						end,
+					}),
+				}),
+			})
+			else nil,
+	})
+end
+
 return {
 	summary = "Sheet",
 	stories = {
@@ -302,6 +388,10 @@ return {
 		{
 			name = "Sheet (manual)",
 			story = StoryManual,
+		},
+		{
+			name = "Sheet (auto size)",
+			story = StoryAutoSize,
 		},
 	},
 	controls = {

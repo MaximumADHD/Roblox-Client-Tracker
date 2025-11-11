@@ -2,15 +2,18 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local ColorMode = require(Foundation.Enums.ColorMode)
+
+type ColorMode = ColorMode.ColorMode
 
 type PresentationContextValue = {
 	isIconSize: boolean,
-	isInverse: boolean,
+	colorMode: ColorMode,
 }
 
 local PresentationContext = React.createContext({
 	isIconSize = false,
-	isInverse = false,
+	colorMode = ColorMode.Color,
 })
 
 local function usePresentationContext(): PresentationContextValue

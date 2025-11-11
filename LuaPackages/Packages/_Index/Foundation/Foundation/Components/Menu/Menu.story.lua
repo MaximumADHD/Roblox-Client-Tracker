@@ -326,7 +326,7 @@ return {
 	},
 	controls = {
 		size = Dash.values(InputSize),
-		side = Dash.values(PopoverSide),
+		side = { PopoverSide.Bottom, PopoverSide.Top, PopoverSide.Left, PopoverSide.Right } :: { PopoverSide },
 		align = Dash.values(PopoverAlign),
 	},
 }

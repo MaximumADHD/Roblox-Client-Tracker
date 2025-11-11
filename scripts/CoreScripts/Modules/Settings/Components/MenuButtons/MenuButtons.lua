@@ -23,6 +23,7 @@ local useLastInput = Responsive.useLastInput
 local View = Foundation.View
 
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
+local FFlagMenuButtonsReplaceUseEffect = game:DefineFastFlag("MenuButtonsReplaceUseEffect", false)
 
 type ButtonsData = { MenuButton.ButtonData }
 
@@ -60,7 +61,11 @@ export type MenuButtonsProps = {
 }
 
 local function MenuButtons(props: MenuButtonsProps)
-	local buttonsData: ButtonsData, setButtonsData = React.useState({} :: ButtonsData)
+	local buttonsData: ButtonsData, setButtonsData
+	if not FFlagMenuButtonsReplaceUseEffect then
+		buttonsData, setButtonsData = React.useState({} :: ButtonsData)
+	end
+
 	local isSmallScreen, _setIsSmallScreen = React.useState(Utility:IsSmallTouchScreen())
 
 	-- Used to force re-render when the respawn button changes isDisabled state
@@ -143,7 +148,9 @@ local function MenuButtons(props: MenuButtonsProps)
 				hotkeys = { Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart },
 			},
 		}
-	end, { localizedText.LeaveGame, localizedText.Respawn, localizedText.Resume })
+	end, if FFlagMenuButtonsReplaceUseEffect 
+		then { localizedText, props.onLeaveGame, props.onRespawn, props.onResume, props.getCanRespawn } 
+		else { localizedText.LeaveGame, localizedText.Respawn, localizedText.Resume })
 
 	local addKeyBindings = React.useCallback(function(buttonsData: ButtonsData)
 		if not props.getVisibility() then
@@ -204,10 +211,17 @@ local function MenuButtons(props: MenuButtonsProps)
 		return buttonsData
 	end, {})
 
-	React.useEffect(function()
-		local buttonsData = initializeHotkeyFunc(initialButtonsData)
-		setButtonsData(buttonsData)
-	end, { initialButtonsData })
+
+	if FFlagMenuButtonsReplaceUseEffect then
+		buttonsData = React.useMemo(function()
+			return initializeHotkeyFunc(initialButtonsData)
+		end, { initialButtonsData })
+	else
+		React.useEffect(function()
+			local buttonsData = initializeHotkeyFunc(initialButtonsData)
+			setButtonsData(buttonsData)
+		end, { initialButtonsData })
+	end
 
 	React.useEffect(function()
 		UserInputService.GamepadConnected:Connect(function()

@@ -14,8 +14,6 @@ local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlag
 local getFFlagUGCValidationFixConstantsTypoLeg = require(root.flags.getFFlagUGCValidationFixConstantsTypoLeg)
 local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
 local getFFlagUGCValidationFixBannedNamesTypo = require(root.flags.getFFlagUGCValidationFixBannedNamesTypo)
-local getFFlagUGCValidateRestrictAnimationMovementCurvesFix =
-	require(root.flags.getFFlagUGCValidateRestrictAnimationMovementCurvesFix)
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateCheckHSROwner)
 
@@ -101,20 +99,18 @@ else
 	}
 end
 
-if getFFlagUGCValidateRestrictAnimationMovementCurvesFix() then
-	Constants.NAMED_R15_BODY_PARTS = {}
-	for _, bodyPartName in Constants.R15_BODY_PARTS do
-		Constants.NAMED_R15_BODY_PARTS[bodyPartName] = bodyPartName
-	end
-	Constants.NAMED_R15_BODY_PARTS.Head = "Head"
-
-	setmetatable(Constants.NAMED_R15_BODY_PARTS, {
-		__index = function()
-			error("NAMED_R15_BODY_PARTS key does not exist")
-			return nil
-		end,
-	})
+Constants.NAMED_R15_BODY_PARTS = {}
+for _, bodyPartName in Constants.R15_BODY_PARTS do
+	Constants.NAMED_R15_BODY_PARTS[bodyPartName] = bodyPartName
 end
+Constants.NAMED_R15_BODY_PARTS.Head = "Head"
+
+setmetatable(Constants.NAMED_R15_BODY_PARTS, {
+	__index = function()
+		error("NAMED_R15_BODY_PARTS key does not exist")
+		return nil
+	end,
+})
 
 Constants.R15_STANDARD_JOINT_NAMES = {
 	["Root"] = true,

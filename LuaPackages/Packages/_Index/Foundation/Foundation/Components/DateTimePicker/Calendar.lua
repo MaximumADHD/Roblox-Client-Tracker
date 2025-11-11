@@ -10,11 +10,13 @@ local DateTimeUtilities = require(script.Parent.DateTimeUtilities)
 local IconName = BuilderIcons.Icon
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local Flags = require(Foundation.Utility.Flags)
 local IconButton = require(Foundation.Components.IconButton)
 local InputSize = require(Foundation.Enums.InputSize)
 local LocalizationService = require(Foundation.Utility.Wrappers).Services.LocalizationService
 local Text = require(Foundation.Components.Text)
 local TextInput = require(Foundation.Components.TextInput)
+local TimeDropdown = require(script.Parent.TimeDropdown)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local View = require(Foundation.Components.View)
@@ -22,25 +24,21 @@ local View = require(Foundation.Components.View)
 type Props = {
 	-- Default dates
 	defaultDates: { DateTime },
-
 	-- Layout order
 	LayoutOrder: number?,
-
 	-- Callback when the date is changed
 	onSelectedDateChanged: (dateTimes: { DateTime }) -> (),
-
 	-- Selectable date range
 	selectableDateRange: {
 		startDate: DateTime,
 		endDate: DateTime,
 	}?,
-
 	-- Whether to show the input bar
 	showStartDateTimeCalendarInput: boolean?,
-
 	-- Whether to show the end date input bar
 	showEndDateTimeCalendarInput: boolean?,
-
+	-- Whether to show the time dropdown
+	showTimeDropdown: boolean?,
 	-- Test id
 	testId: string?,
 }
@@ -73,17 +71,21 @@ local function Calendar(props: Props)
 	end, { inputFocusState })
 
 	local startDateTimeInputText, setStartDateTimeInputText = React.useState(
-		props.defaultDates[1]:FormatLocalTime(
-			DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-			LocalizationService.RobloxLocaleId
-		)
-	)
-	local endDateTimeInputText, setEndDateTimeInputText = React.useState(
-		if props.defaultDates[2]
-			then props.defaultDates[2]:FormatLocalTime(
+		if Flags.FoundationDateTimePickerTimeVariantEnabled
+			then DateTimeUtilities.formatLocalTime(props.defaultDates[1] :: DateTime)
+			else props.defaultDates[1]:FormatLocalTime(
 				DateTimeUtilities.DATE_COMPOSITE_TOKEN,
 				LocalizationService.RobloxLocaleId
 			)
+	)
+	local endDateTimeInputText, setEndDateTimeInputText = React.useState(
+		if props.defaultDates[2]
+			then if Flags.FoundationDateTimePickerTimeVariantEnabled
+				then DateTimeUtilities.formatLocalTime(props.defaultDates[2] :: DateTime)
+				else props.defaultDates[2]:FormatLocalTime(
+					DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+					LocalizationService.RobloxLocaleId
+				)
 			else ""
 	)
 
@@ -117,10 +119,12 @@ local function Calendar(props: Props)
 				)
 		then
 			setStartDateTimeInputText(
-				selectedDateTimes[1]:FormatLocalTime(
-					DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-					LocalizationService.RobloxLocaleId
-				)
+				if Flags.FoundationDateTimePickerTimeVariantEnabled
+					then DateTimeUtilities.formatLocalTime(props.defaultDates[1] :: DateTime)
+					else props.defaultDates[1]:FormatLocalTime(
+						DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+						LocalizationService.RobloxLocaleId
+					)
 			)
 		end
 	end
@@ -141,10 +145,12 @@ local function Calendar(props: Props)
 				)
 		then
 			setEndDateTimeInputText(
-				selectedDateTimes[2]:FormatLocalTime(
-					DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-					LocalizationService.RobloxLocaleId
-				)
+				if Flags.FoundationDateTimePickerTimeVariantEnabled
+					then DateTimeUtilities.formatLocalTime(props.defaultDates[2] :: DateTime)
+					else selectedDateTimes[2]:FormatLocalTime(
+						DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+						LocalizationService.RobloxLocaleId
+					)
 			)
 		end
 	end
@@ -161,44 +167,60 @@ local function Calendar(props: Props)
 
 	local handleDateActivated = React.useCallback(
 		function(day: number, month: number, year: number)
-			local dateTime = DateTime.fromLocalTime(year, month, day)
+			local dateTime = DateTime.fromLocalTime(
+				year,
+				month,
+				day,
+				if Flags.FoundationDateTimePickerTimeVariantEnabled then selectedDateTimes[1]:ToLocalTime().Hour else 0,
+				if Flags.FoundationDateTimePickerTimeVariantEnabled
+					then selectedDateTimes[1]:ToLocalTime().Minute
+					else 0
+			)
 
 			-- If calendar input is shown then we let the input's onChanged callback handle updating the state
 			if props.showStartDateTimeCalendarInput then
 				if props.showEndDateTimeCalendarInput then
 					if inputFocusState.startDateTimeInput then
 						setStartDateTimeInputText(
-							dateTime:FormatLocalTime(
-								DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-								LocalizationService.RobloxLocaleId
-							)
+							if Flags.FoundationDateTimePickerTimeVariantEnabled
+								then DateTimeUtilities.formatLocalTime(dateTime)
+								else dateTime:FormatLocalTime(
+									DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+									LocalizationService.RobloxLocaleId
+								)
 						)
 
 						setInputFocusState({ startDateTimeInput = false, endDateTimeInput = true })
 					elseif inputFocusState.endDateTimeInput then
 						setEndDateTimeInputText(
-							dateTime:FormatLocalTime(
-								DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-								LocalizationService.RobloxLocaleId
-							)
+							if Flags.FoundationDateTimePickerTimeVariantEnabled
+								then DateTimeUtilities.formatLocalTime(dateTime)
+								else dateTime:FormatLocalTime(
+									DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+									LocalizationService.RobloxLocaleId
+								)
 						)
 						setInputFocusState({ startDateTimeInput = false, endDateTimeInput = false })
 					else
 						setStartDateTimeInputText(
-							dateTime:FormatLocalTime(
-								DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-								LocalizationService.RobloxLocaleId
-							)
+							if Flags.FoundationDateTimePickerTimeVariantEnabled
+								then DateTimeUtilities.formatLocalTime(dateTime)
+								else dateTime:FormatLocalTime(
+									DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+									LocalizationService.RobloxLocaleId
+								)
 						)
 						setEndDateTimeInputText("")
 						setInputFocusState({ startDateTimeInput = false, endDateTimeInput = true })
 					end
 				else
 					setStartDateTimeInputText(
-						dateTime:FormatLocalTime(
-							DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-							LocalizationService.RobloxLocaleId
-						)
+						if Flags.FoundationDateTimePickerTimeVariantEnabled
+							then DateTimeUtilities.formatLocalTime(dateTime)
+							else dateTime:FormatLocalTime(
+								DateTimeUtilities.DATE_COMPOSITE_TOKEN,
+								LocalizationService.RobloxLocaleId
+							)
 					)
 				end
 
@@ -492,8 +514,32 @@ local function Calendar(props: Props)
 			handleDateActivated,
 			props.selectableDateRange,
 			props.showEndDateTimeCalendarInput,
-		} :: { any }
+		} :: { unknown }
 	)
+
+	local onTimeDropdownItemChanged = React.useCallback(function(item: any)
+		local dateTime = DateTime.fromUnixTimestamp(item)
+
+		-- There's an engine bug with dates that are in daylight savings time and in local zones that observe it. This is a workaround to fix the offset by 1 hour for now.
+		-- https://devforum.roblox.com/t/datetime-localtime-inconsistency/3548279/2
+		-- https://roblox.slack.com/archives/C04NQD0Q0M6/p1761089479708459
+		-- https://roblox.atlassian.net/browse/CLI-147909
+		local isDst = os.date("*t", item).isdst
+		if isDst then
+			local localDateTime = dateTime:ToLocalTime()
+			dateTime = DateTime.fromLocalTime(
+				localDateTime.Year,
+				localDateTime.Month,
+				localDateTime.Day,
+				if localDateTime.Hour == 0 then 23 else localDateTime.Hour - 1,
+				localDateTime.Minute,
+				localDateTime.Second
+			)
+		end
+
+		setSelectedDateTimes({ dateTime })
+		props.onSelectedDateChanged({ dateTime })
+	end, { selectedDateTimes, props.onSelectedDateChanged } :: { unknown })
 
 	return React.createElement(View, {
 		LayoutOrder = props.LayoutOrder,
@@ -536,9 +582,18 @@ local function Calendar(props: Props)
 				testId = `{props.testId}--next-month-button`,
 			}),
 		}),
+		TimeDropdown = Flags.FoundationDateTimePickerTimeVariantEnabled and if props.showTimeDropdown
+			then React.createElement(TimeDropdown, {
+				dateTime = selectedDateTimes[1],
+				layoutOrder = 2,
+				onItemChanged = onTimeDropdownItemChanged,
+				width = UDim.new(1, 0),
+				testId = `{props.testId}--time-dropdown`,
+			})
+			else nil,
 		CalendarInputContainer = if props.showStartDateTimeCalendarInput
 			then React.createElement(View, {
-				LayoutOrder = 2,
+				LayoutOrder = if Flags.FoundationDateTimePickerTimeVariantEnabled then 3 else 2,
 				tag = "flex-x-fill size-full-0 auto-y row gap-small align-y-center",
 				testId = `{props.testId}--input`,
 			}, {
@@ -586,7 +641,7 @@ local function Calendar(props: Props)
 			})
 			else nil,
 		WeekAndDates = React.createElement(View, {
-			LayoutOrder = 3,
+			LayoutOrder = if Flags.FoundationDateTimePickerTimeVariantEnabled then 4 else 3,
 			tag = "size-full-0 auto-y",
 		}, datesGrid),
 	})

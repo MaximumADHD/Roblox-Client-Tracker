@@ -10,6 +10,7 @@ local View = require(Foundation.Components.View)
 type Props = {
 	controls: {
 		defaultSelectedDate: boolean?,
+		fullWidth: boolean?,
 		hasError: boolean?,
 		isDisabled: boolean?,
 		label: string,
@@ -21,6 +22,24 @@ type Props = {
 return {
 	summary = "DateTimePicker",
 	stories = {
+		{
+			name = "DateTimePicker - Single With Time",
+			story = function(props: Props)
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 100),
+					tag = "row",
+				}, {
+					DateTimePicker = React.createElement(DateTimePicker, {
+						hasError = props.controls.hasError,
+						isDisabled = props.controls.isDisabled,
+						label = props.controls.label,
+						onChanged = function() end,
+						variant = DateTimePickerVariantEnum.SingleWithTime,
+						width = if props.controls.fullWidth then UDim.new(1, 0) else UDim.new(0, props.controls.width),
+					}),
+				})
+			end,
+		},
 		{
 			name = "DateTimePicker - Dual",
 			story = function(props: Props)
@@ -41,7 +60,7 @@ return {
 							}
 							else nil,
 						variant = DateTimePickerVariantEnum.Dual,
-						width = UDim.new(0, props.controls.width),
+						width = if props.controls.fullWidth then UDim.new(1, 0) else UDim.new(0, props.controls.width),
 					}),
 				})
 			end,
@@ -66,7 +85,7 @@ return {
 							}
 							else nil,
 						variant = DateTimePickerVariantEnum.Single,
-						width = UDim.new(0, props.controls.width),
+						width = if props.controls.fullWidth then UDim.new(1, 0) else UDim.new(0, props.controls.width),
 					}),
 				})
 			end,
@@ -92,7 +111,7 @@ return {
 							}
 							else nil,
 						variant = DateTimePickerVariantEnum.Single,
-						width = UDim.new(0, props.controls.width),
+						width = if props.controls.fullWidth then UDim.new(1, 0) else UDim.new(0, props.controls.width),
 					}),
 				})
 			end,
@@ -118,13 +137,14 @@ return {
 							}
 							else nil,
 						variant = DateTimePickerVariantEnum.Dual,
-						width = UDim.new(0, props.controls.width),
+						width = if props.controls.fullWidth then UDim.new(1, 0) else UDim.new(0, props.controls.width),
 					}),
 				})
 			end,
 		},
 	},
 	controls = {
+		fullWidth = false,
 		hasError = false,
 		isDisabled = false,
 		label = "Date",

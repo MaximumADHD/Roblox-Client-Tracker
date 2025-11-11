@@ -74,7 +74,7 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 		cameraPitch = math.clamp(cameraPitch - rotateInput.Y, -PITCH_LIMIT, PITCH_LIMIT)
 
 		newCameraFocus = CFrame.new(subjectCFrame.p)*CFrame.fromEulerAnglesYXZ(cameraPitch, subjectYaw, 0)
-		newCameraCFrame = newCameraFocus*CFrame.new(0, 0, self:StepZoom())
+		newCameraCFrame = newCameraFocus*CFrame.new(0, 0, self:StepZoom(dt))
 
 	elseif self.cameraType == Enum.CameraType.Watch then
 		if subjectPosition and player and camera then

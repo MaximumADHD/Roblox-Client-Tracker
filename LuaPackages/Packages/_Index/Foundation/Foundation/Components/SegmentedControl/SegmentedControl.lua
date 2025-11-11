@@ -88,7 +88,7 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 					end,
 					onActivated = props.onActivated,
 					LayoutOrder = segmentOrder,
-					testId = `--foundation-segmented-control-segment --foundation-segmented-control-segment-${segment.id}`,
+					testId = `{props.testId}--segment-{segment.id}`,
 				}),
 				Divider = if isLast
 					then nil

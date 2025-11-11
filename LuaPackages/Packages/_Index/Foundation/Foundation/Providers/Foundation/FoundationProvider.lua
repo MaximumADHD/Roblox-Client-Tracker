@@ -11,6 +11,7 @@ local CursorProvider = require(Providers.Cursor)
 local OverlayProvider = require(Providers.Overlay)
 local ResponsiveContext = require(Providers.Responsive.ResponsiveContext)
 local ResponsiveProvider = require(Providers.Responsive.ResponsiveProvider)
+local ElevationProvider = require(Providers.Elevation.ElevationProvider).ElevationProvider
 
 type StyleProps = StyleProvider.StyleProviderProps
 type Preferences = PreferencesProvider.PreferencesProps
@@ -30,6 +31,7 @@ local function FoundationProvider(props: FoundationProviderProps)
 
 	return React.createElement(ContextStack, {
 		providers = {
+			React.createElement(ElevationProvider, nil),
 			React.createElement(PreferencesProvider, preferences),
 			React.createElement(StyleProvider, {
 				theme = props.theme,

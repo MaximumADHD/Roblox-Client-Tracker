@@ -66,54 +66,54 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
+  GETTABLEKS R2 R3 K7 ["AnimationEditor"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["Src"]
-  GETTABLEKS R3 R4 K9 ["Types"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K10 ["ReactUtils"]
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Types"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Hooks"]
-  GETTABLEKS R5 R6 K12 ["usePluginSetting"]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K11 ["ReactUtils"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Util"]
-  GETTABLEKS R6 R7 K14 ["Constants"]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Hooks"]
+  GETTABLEKS R6 R7 K13 ["usePluginSetting"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Flags"]
-  GETTABLEKS R7 R8 K16 ["getFFlagCompositorNodeViewButton"]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Flags"]
+  GETTABLEKS R7 R8 K15 ["getFFlagCompositorNodeViewButton"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K8 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Flags"]
-  GETTABLEKS R8 R9 K17 ["getFFlagCompositorNodeView"]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Flags"]
+  GETTABLEKS R8 R9 K16 ["getFFlagCompositorNodeView"]
   CALL R7 1 1
-  DUPTABLE R8 K20 [{"viewMode", "toggleDebuggerViewMode"}]
-  LOADK R9 K21 ["TreeView"]
-  SETTABLEKS R9 R8 K18 ["viewMode"]
-  GETTABLEKS R9 R3 K22 ["createUnimplemented"]
-  LOADK R10 K19 ["toggleDebuggerViewMode"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K19 ["toggleDebuggerViewMode"]
-  GETTABLEKS R9 R1 K23 ["createContext"]
-  MOVE R10 R8
-  CALL R9 1 1
-  DUPCLOSURE R10 K24 [PROTO_2]
-  CAPTURE VAL R4
+  GETTABLEKS R8 R1 K17 ["Constants"]
+  DUPTABLE R9 K20 [{"viewMode", "toggleDebuggerViewMode"}]
+  LOADK R10 K21 ["TreeView"]
+  SETTABLEKS R10 R9 K18 ["viewMode"]
+  GETTABLEKS R10 R4 K22 ["createUnimplemented"]
+  LOADK R11 K19 ["toggleDebuggerViewMode"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K19 ["toggleDebuggerViewMode"]
+  GETTABLEKS R10 R2 K23 ["createContext"]
+  MOVE R11 R9
+  CALL R10 1 1
+  DUPCLOSURE R11 K24 [PROTO_2]
   CAPTURE VAL R5
+  CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R6
-  CAPTURE VAL R1
-  CAPTURE VAL R9
-  DUPTABLE R11 K27 [{"Context", "Provider"}]
-  SETTABLEKS R9 R11 K25 ["Context"]
-  SETTABLEKS R10 R11 K26 ["Provider"]
-  RETURN R11 1
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  DUPTABLE R12 K27 [{"Context", "Provider"}]
+  SETTABLEKS R10 R12 K25 ["Context"]
+  SETTABLEKS R11 R12 K26 ["Provider"]
+  RETURN R12 1

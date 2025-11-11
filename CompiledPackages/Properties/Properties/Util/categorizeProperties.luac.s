@@ -27,35 +27,63 @@ PROTO_0:
 
 PROTO_1:
   GETTABLEKS R2 R0 K0 ["id"]
-  GETTABLEKS R1 R2 K1 ["isAttribute"]
-  JUMPIFNOT R1 [+2]
-  LOADK R1 K2 ["Attributes"]
+  GETTABLEKS R1 R2 K1 ["metaType"]
+  JUMPIFNOTEQKS R1 K2 ["Attribute"] [+3]
+  LOADK R1 K3 ["Attributes"]
   RETURN R1 1
+  GETTABLEKS R2 R0 K0 ["id"]
+  GETTABLEKS R1 R2 K1 ["metaType"]
+  JUMPIFNOTEQKS R1 K4 ["Tag"] [+3]
+  LOADK R1 K5 ["Tags"]
+  RETURN R1 1
+  GETTABLEKS R2 R0 K0 ["id"]
+  GETTABLEKS R1 R2 K1 ["metaType"]
+  JUMPIFNOTEQKS R1 K6 ["Virtual"] [+9]
+  GETTABLEKS R2 R0 K0 ["id"]
+  GETTABLEKS R1 R2 K7 ["name"]
+  JUMPIFNOTEQKS R1 K8 ["Self"] [+3]
+  LOADK R1 K9 ["Summary"]
+  RETURN R1 1
+  GETTABLEKS R2 R0 K0 ["id"]
+  GETTABLEKS R1 R2 K1 ["metaType"]
+  JUMPIFEQKS R1 K10 ["Property"] [+7]
+  GETTABLEKS R2 R0 K0 ["id"]
+  GETTABLEKS R1 R2 K1 ["metaType"]
+  JUMPIFNOTEQKS R1 K6 ["Virtual"] [+39]
   GETUPVAL R2 0
   GETTABLEKS R4 R0 K0 ["id"]
-  GETTABLEKS R3 R4 K3 ["className"]
+  GETTABLEKS R3 R4 K11 ["className"]
   GETTABLE R1 R2 R3
   JUMPIF R1 [+8]
   NEWTABLE R1 0 0
   GETUPVAL R2 0
   GETTABLEKS R4 R0 K0 ["id"]
-  GETTABLEKS R3 R4 K3 ["className"]
+  GETTABLEKS R3 R4 K11 ["className"]
   SETTABLE R1 R2 R3
   GETTABLEKS R4 R0 K0 ["id"]
-  GETTABLEKS R3 R4 K4 ["propertyName"]
+  GETTABLEKS R3 R4 K7 ["name"]
   GETTABLE R2 R1 R3
   JUMPIF R2 [+16]
   GETUPVAL R3 1
   GETTABLEKS R5 R0 K0 ["id"]
-  GETTABLEKS R4 R5 K3 ["className"]
+  GETTABLEKS R4 R5 K11 ["className"]
   GETTABLEKS R6 R0 K0 ["id"]
-  GETTABLEKS R5 R6 K4 ["propertyName"]
+  GETTABLEKS R5 R6 K7 ["name"]
   CALL R3 2 1
   MOVE R2 R3
   GETTABLEKS R4 R0 K0 ["id"]
-  GETTABLEKS R3 R4 K4 ["propertyName"]
+  GETTABLEKS R3 R4 K7 ["name"]
   SETTABLE R2 R1 R3
   RETURN R2 1
+  GETIMPORT R1 K13 [error]
+  LOADK R3 K14 ["metatype %* not found"]
+  GETTABLEKS R6 R0 K0 ["id"]
+  GETTABLEKS R5 R6 K1 ["metaType"]
+  NAMECALL R3 R3 K15 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  RETURN R0 0
 
 PROTO_2:
   LOADN R1 0

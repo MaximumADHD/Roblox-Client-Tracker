@@ -3,7 +3,6 @@
 -- BaseCamera - Abstract base class for camera control modules
 
 local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
@@ -320,9 +319,9 @@ function BaseCamera:GetSubjectRotVelocity(): Vector3
 	return ZERO_VECTOR3
 end
 
-function BaseCamera:StepZoom()
+function BaseCamera:StepZoom(dt: number?)
 	local zoom: number = self.currentSubjectDistance
-	local zoomDelta: number = CameraInput.getZoomDelta()
+	local zoomDelta: number = CameraInput.getZoomDelta(dt)
 
 	if math.abs(zoomDelta) > 0 then
 		local newZoom

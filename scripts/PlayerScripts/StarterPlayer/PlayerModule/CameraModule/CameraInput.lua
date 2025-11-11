@@ -33,7 +33,7 @@ if FFlagUserCameraInputDt then
 end
 
 local ZOOM_SPEED_MOUSE = 1 -- (scaled studs/wheel click)
-local ZOOM_SPEED_KEYS = 0.1 -- (studs/s)
+local ZOOM_SPEED_KEYS = 0.1 * 60 -- (studs/s)
 local ZOOM_SPEED_TOUCH = 0.04 -- (scaled studs/DIP %)
 
 local MIN_TOUCH_SENSITIVITY_FRACTION = 0.25 -- 25% sensitivity at 90°
@@ -217,8 +217,11 @@ do
 		return result*inversionVector
 	end
 	
-	function CameraInput.getZoomDelta(): number
+	function CameraInput.getZoomDelta(dt: number?): number
 		local kKeyboard = keyboardState.O - keyboardState.I
+		if dt then 
+			kKeyboard *= dt
+		end
 		local kMouse = -mouseState.Wheel + mouseState.Pinch
 		local kTouch = -touchState.Pinch
 		return kKeyboard*ZOOM_SPEED_KEYS + kMouse*ZOOM_SPEED_MOUSE + kTouch*ZOOM_SPEED_TOUCH

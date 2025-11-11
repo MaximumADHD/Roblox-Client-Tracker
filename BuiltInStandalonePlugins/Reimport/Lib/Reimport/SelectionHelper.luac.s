@@ -1,0 +1,36 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Get"]
+  CALL R0 1 1
+  LENGTH R1 R0
+  JUMPIFNOTEQKN R1 K1 [0] [+4]
+  LOADNIL R1
+  LOADK R2 K2 ["no instance selected"]
+  RETURN R1 2
+  LENGTH R1 R0
+  LOADN R2 1
+  JUMPIFNOTLT R2 R1 [+4]
+  LOADNIL R1
+  LOADK R2 K3 ["multiple selection not supported"]
+  RETURN R1 2
+  GETTABLEN R1 R0 1
+  MOVE R2 R1
+  LOADNIL R3
+  RETURN R2 2
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ReimportPlugin"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Lib"]
+  GETTABLEKS R3 R4 K7 ["External"]
+  GETTABLEKS R2 R3 K8 ["SelectionService"]
+  CALL R1 1 1
+  NEWTABLE R2 1 0
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K10 ["getSelectionIfOneInstance"]
+  RETURN R2 1

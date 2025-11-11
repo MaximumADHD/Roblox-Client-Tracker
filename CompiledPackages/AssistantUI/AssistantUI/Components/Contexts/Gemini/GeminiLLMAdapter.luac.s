@@ -545,20 +545,20 @@ MAIN:
   LOADK R2 K2 ["AssistantUI"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Parent"]
-  GETTABLEKS R2 R3 K7 ["ModelContextProtocol"]
-  CALL R1 1 1
-  GETIMPORT R2 K9 [game]
-  LOADK R4 K10 ["HttpService"]
-  NAMECALL R2 R2 K11 ["GetService"]
-  CALL R2 2 1
-  GETIMPORT R3 K5 [require]
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["HttpService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K10 ["Parent"]
+  GETTABLEKS R3 R4 K11 ["ModelContextProtocol"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
   GETTABLEKS R4 R0 K12 ["Types"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
+  GETIMPORT R4 K9 [require]
   GETTABLEKS R6 R0 K13 ["Flags"]
-  GETTABLEKS R5 R6 K14 ["getFFlagAssistantJsonEncoder"]
+  GETTABLEKS R5 R6 K14 ["FFlagAssistantJsonEncoder"]
   CALL R4 1 1
   GETIMPORT R5 K16 [_G]
   DUPTABLE R6 K19 [{"totalUsage", "responseData"}]
@@ -589,13 +589,13 @@ MAIN:
   CAPTURE VAL R3
   DUPCLOSURE R6 K32 [PROTO_4]
   CAPTURE VAL R4
-  CAPTURE VAL R1
   CAPTURE VAL R2
+  CAPTURE VAL R1
   CAPTURE VAL R5
   DUPCLOSURE R7 K33 [PROTO_5]
   CAPTURE VAL R4
-  CAPTURE VAL R1
   CAPTURE VAL R2
+  CAPTURE VAL R1
   DUPTABLE R8 K36 [{"createAdapter", "convertLLMtoGeminiMessage"}]
   SETTABLEKS R6 R8 K34 ["createAdapter"]
   SETTABLEKS R7 R8 K35 ["convertLLMtoGeminiMessage"]

@@ -78,6 +78,8 @@ local FFlagDisablePermissionPromptDeeplink = game:DefineFastFlag("DisablePermiss
 local FFlagVoiceEndedCheckDisregardIdleState = game:DefineFastFlag("VoiceEndedCheckDisregardIdleState", false)
 local FFlagDisableMicRejectedPromiseReject = game:DefineFastFlag("DisableMicRejectedPromiseReject", false)
 local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInStudio", false)
+local FFlagEnableVerifiedCheckViaOverlay = game:DefineFastFlag("EnableVerifiedCheckViaOverlay", false)
+local FFlagInExperienceVoiceUpsellAnalytics = game:DefineFastFlag("InExperienceVoiceUpsellAnalyticsV2", false)
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging =
 	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
@@ -1007,6 +1009,10 @@ function VoiceChatServiceManager:UserOnlyEligibleForVoice(): boolean
 	return self.coreVoiceManager:UserOnlyEligibleForVoice()
 end
 
+function VoiceChatServiceManager:UserOnlyEligibleForVoiceViaOverlay(): boolean
+	return self.coreVoiceManager:UserOnlyEligibleForVoiceViaOverlay()
+end
+
 function VoiceChatServiceManager:UserVoiceEnabled(): boolean
 	return self.coreVoiceManager:UserVoiceEnabled()
 end
@@ -1530,6 +1536,17 @@ function VoiceChatServiceManager:reportBanMessage(eventType: string)
 	)
 end
 
+function VoiceChatServiceManager:reportJoinVoiceUpsellEvent(eventType: "Shown" | "Click")
+	if FFlagInExperienceVoiceUpsellAnalytics then
+		local sessionId = AnalyticsService:GetPlaySessionId()
+		self.Analytics:reportJoinVoiceUpsellEvent(
+			eventType,
+			sessionId,
+			self:UserVoiceEnabled()
+		)
+	end
+end
+
 function VoiceChatServiceManager:SetAndSyncActive(device: AudioDeviceInput, newActive: boolean)
 	self.coreVoiceManager:SetAndSyncActive(device, newActive)
 end
@@ -1711,7 +1728,10 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 			self:SetVoiceConnectCookieValue(true)
 			self:SetNewUserFTUXCookieValue(true)
 		end
-	elseif self:UserOnlyEligibleForVoice() then
+	elseif
+		(FFlagEnableVerifiedCheckViaOverlay and self:UserOnlyEligibleForVoiceViaOverlay())
+		or self:UserOnlyEligibleForVoice()
+	then
 		-- Opted out or control users
 		if GetFFlagDisableConsentModalForExistingUsers() and self:IsSeamlessVoice() then
 			self:EnableVoice()
@@ -1741,6 +1761,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 	elseif self:EligibleForFaeUpsell() then
 		self.coreVoiceManager:OptUserToJoinVoice() -- User has opted in to voice chat, so when FAE finishes, join the voice call
 		local overlayStore = getOverlayStore(false)
+		self:reportJoinVoiceUpsellEvent("Click")
 		overlayStore.setCurrentOverlay(OverlayTypes.SocialUpsell, {
 			upsellType = SocialUpsellType.FacialAgeEstimation,
 			data = {

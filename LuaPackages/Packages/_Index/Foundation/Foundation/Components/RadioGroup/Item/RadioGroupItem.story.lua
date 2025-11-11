@@ -6,6 +6,7 @@ local Dash = require(Packages.Dash)
 local RadioGroupContext = require(script.Parent.Parent.RadioGroupContext)
 local RadioGroup = require(Foundation.Components.RadioGroup)
 local InputSize = require(Foundation.Enums.InputSize)
+local InputPlacement = require(Foundation.Enums.InputPlacement)
 type InputSize = InputSize.InputSize
 
 local function Story(props)
@@ -20,6 +21,7 @@ local function Story(props)
 			label = if #controls.label > 0 then `{controls.label} {controls.value}` else "",
 			isDisabled = controls.isDisabled,
 			size = controls.size,
+			placement = controls.placement,
 		}),
 	})
 end
@@ -32,5 +34,6 @@ return {
 		label = "Label",
 		value = "A",
 		size = Dash.values(InputSize),
+		placement = Dash.values(InputPlacement),
 	},
 }

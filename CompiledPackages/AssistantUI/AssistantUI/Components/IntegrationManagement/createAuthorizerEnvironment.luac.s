@@ -46,18 +46,20 @@ PROTO_4:
   RETURN R2 1
 
 PROTO_5:
-  GETUPVAL R2 0
-  DUPTABLE R4 K4 [{"Url", "Method", "Headers", "Body"}]
-  SETTABLEKS R0 R4 K0 ["Url"]
-  GETTABLEKS R5 R1 K5 ["method"]
-  SETTABLEKS R5 R4 K1 ["Method"]
-  GETTABLEKS R5 R1 K6 ["headers"]
-  SETTABLEKS R5 R4 K2 ["Headers"]
-  GETTABLEKS R5 R1 K7 ["body"]
-  SETTABLEKS R5 R4 K3 ["Body"]
-  NAMECALL R2 R2 K8 ["RequestAsync"]
-  CALL R2 2 -1
-  RETURN R2 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["get"]
+  CALL R2 0 1
+  GETTABLEKS R3 R2 K1 ["httpRequestAsync"]
+  DUPTABLE R4 K6 [{"Url", "Method", "Headers", "Body"}]
+  SETTABLEKS R0 R4 K2 ["Url"]
+  GETTABLEKS R5 R1 K7 ["method"]
+  SETTABLEKS R5 R4 K3 ["Method"]
+  GETTABLEKS R5 R1 K8 ["headers"]
+  SETTABLEKS R5 R4 K4 ["Headers"]
+  GETTABLEKS R5 R1 K9 ["body"]
+  SETTABLEKS R5 R4 K5 ["Body"]
+  CALL R3 1 -1
+  RETURN R3 -1
 
 PROTO_6:
   DUPCLOSURE R0 K0 [PROTO_0]
@@ -67,7 +69,7 @@ PROTO_6:
   DUPCLOSURE R2 K2 [PROTO_4]
   CAPTURE UPVAL U0
   DUPCLOSURE R3 K3 [PROTO_5]
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
   DUPTABLE R4 K8 [{"httpRequest", "base64Encode", "generatePKCEChallenge", "redirectToAuthorization"}]
   SETTABLEKS R3 R4 K4 ["httpRequest"]
   SETTABLEKS R0 R4 K5 ["base64Encode"]
@@ -77,23 +79,18 @@ PROTO_6:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["HttpService"]
-  NAMECALL R0 R0 K3 ["GetService"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["AssistantUI"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R1 K10 ["Guest"]
-  GETTABLEKS R3 R4 K11 ["Environment"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Guest"]
+  GETTABLEKS R2 R3 K7 ["Environment"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["ModelContextProtocol"]
   CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R1 K12 ["Parent"]
-  GETTABLEKS R4 R5 K13 ["ModelContextProtocol"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K14 [PROTO_6]
-  CAPTURE VAL R2
-  CAPTURE VAL R0
-  RETURN R4 1
+  DUPCLOSURE R3 K10 [PROTO_6]
+  CAPTURE VAL R1
+  RETURN R3 1

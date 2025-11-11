@@ -7,7 +7,8 @@ PROTO_0:
   SETTABLEKS R4 R3 K0 ["LayoutOrder"]
   SETTABLEKS R0 R3 K1 ["tag"]
   CALL R1 2 1
-  GETTABLEKS R2 R0 K3 ["name"]
+  GETTABLEKS R3 R0 K3 ["id"]
+  GETTABLEKS R2 R3 K4 ["name"]
   RETURN R1 2
 
 PROTO_1:

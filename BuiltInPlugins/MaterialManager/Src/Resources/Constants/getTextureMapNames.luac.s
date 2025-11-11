@@ -4,7 +4,7 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  DUPTABLE R0 K4 [{"ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap"}]
+  DUPTABLE R0 K5 [{"ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap", "EmissiveMaskContent"}]
   LOADK R1 K0 ["ColorMap"]
   SETTABLEKS R1 R0 K0 ["ColorMap"]
   LOADK R1 K1 ["MetalnessMap"]
@@ -13,6 +13,8 @@ MAIN:
   SETTABLEKS R1 R0 K2 ["NormalMap"]
   LOADK R1 K3 ["RoughnessMap"]
   SETTABLEKS R1 R0 K3 ["RoughnessMap"]
-  DUPCLOSURE R1 K5 [PROTO_0]
+  LOADK R1 K4 ["EmissiveMaskContent"]
+  SETTABLEKS R1 R0 K4 ["EmissiveMaskContent"]
+  DUPCLOSURE R1 K6 [PROTO_0]
   CAPTURE VAL R0
   RETURN R1 1

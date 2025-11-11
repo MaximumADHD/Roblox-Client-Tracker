@@ -13,7 +13,9 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local useBindable = require(Foundation.Utility.useBindable)
 
 local ControlState = require(Foundation.Enums.ControlState)
+local Radius = require(Foundation.Enums.Radius)
 type ControlState = ControlState.ControlState
+type Radius = Radius.Radius
 
 local Types = require(Foundation.Components.Types)
 type Bindable<T> = Types.Bindable<T>
@@ -45,10 +47,17 @@ export type BaseMenuProps<Item = BaseMenuItem> = {
 	children: React.ReactNode,
 	-- Maximum height after which the menu starts scrolling
 	maxHeight: Bindable<number?>,
+	-- Radius of the menu
+	radius: Radius?,
 } & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Medium,
+}
+
+local radiusToTag: { [Radius]: string } = {
+	[Radius.Small] = "radius-small",
+	[Radius.Medium] = "radius-medium",
 }
 
 local MIN_WIDTH = 260
@@ -129,6 +138,10 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 		})
 	end
 
+	local radiusTag = if Flags.FoundationBaseMenuBorderFix and props.radius ~= nil
+		then radiusToTag[props.radius]
+		else ""
+
 	if Flags.FoundationBaseMenuScroll and props.maxHeight then
 		local automaticSize = React.joinBindings({ autoSize = autoSize, isOverMaxHeight = isOverMaxHeight })
 			:map(computeAutomaticSize)
@@ -151,6 +164,9 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 					maxHeight = maxHeight,
 				}):map(computeSize),
 				sizeConstraint = sizeConstraint,
+				tag = {
+					[`stroke-standard stroke-default {radiusTag}`] = Flags.FoundationBaseMenuBorderFix,
+				},
 			}),
 			React.createElement(
 				View,
@@ -172,7 +188,10 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 		return React.createElement(
 			View,
 			withCommonProps(props, {
-				tag = `col`,
+				tag = {
+					[`col`] = true,
+					[`stroke-standard stroke-default {radiusTag}`] = Flags.FoundationBaseMenuBorderFix,
+				},
 				AutomaticSize = if Flags.FoundationMenuWidthGrowth
 					then autoSize:map(function(autoSizeValue): Enum.AutomaticSize
 						return if autoSizeValue then Enum.AutomaticSize.XY else Enum.AutomaticSize.Y

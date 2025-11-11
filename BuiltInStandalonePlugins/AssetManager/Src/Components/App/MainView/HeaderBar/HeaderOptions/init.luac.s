@@ -113,7 +113,7 @@ PROTO_7:
   SETTABLEKS R16 R15 K6 ["LayoutOrder"]
   LOADK R16 K9 ["padding-y-xsmall padding-right-xlarge size-0-full auto-x row align-x-right align-y-center gap-small"]
   SETTABLEKS R16 R15 K7 ["tag"]
-  DUPTABLE R16 K16 [{"RefreshButton", "GridSortButtonContainer", "FilterTypesDropdown", "ViewTypeContainer", "Divider", "BulkImportButton"}]
+  DUPTABLE R16 K16 [{"RefreshButton", "GridSortButtonContainer", "FilterDropdown", "ViewTypeContainer", "Divider", "BulkImportButton"}]
   JUMPIF R10 [+74]
   GETUPVAL R18 9
   GETTABLEKS R17 R18 K4 ["createElement"]
@@ -204,7 +204,7 @@ PROTO_7:
   CALL R17 2 1
   JUMP [+1]
   LOADNIL R17
-  SETTABLEKS R17 R16 K12 ["FilterTypesDropdown"]
+  SETTABLEKS R17 R16 K12 ["FilterDropdown"]
   GETUPVAL R18 9
   GETTABLEKS R17 R18 K4 ["createElement"]
   GETUPVAL R18 19
@@ -250,7 +250,7 @@ PROTO_7:
   GETTABLEKS R16 R17 K48 ["Tag"]
   LOADK R17 K49 ["HeaderOptions X-Fit X-Right X-Middle X-RowM"]
   SETTABLE R17 R15 R16
-  DUPTABLE R16 K52 [{"RefreshButton", "GridSortButtonContainer", "FilterDropdown", "ViewTypeContainer", "Separator", "BulkImportButton"}]
+  DUPTABLE R16 K51 [{"RefreshButton", "GridSortButtonContainer", "FilterDropdown", "ViewTypeContainer", "Separator", "BulkImportButton"}]
   GETTABLEKS R18 R9 K2 ["ShowSearchOptions"]
   JUMPIF R18 [+30]
   GETUPVAL R18 9
@@ -263,7 +263,7 @@ PROTO_7:
   NEWCLOSURE R20 P2
   CAPTURE VAL R5
   CAPTURE VAL R4
-  SETTABLEKS R20 R19 K53 ["OnClick"]
+  SETTABLEKS R20 R19 K52 ["OnClick"]
   LOADK R22 K17 ["Tooltip"]
   LOADK R23 K22 ["Refresh"]
   NAMECALL R20 R3 K23 ["getText"]
@@ -271,7 +271,7 @@ PROTO_7:
   SETTABLEKS R20 R19 K17 ["Tooltip"]
   GETUPVAL R21 9
   GETTABLEKS R20 R21 K48 ["Tag"]
-  LOADK R21 K54 ["icon-refresh"]
+  LOADK R21 K53 ["icon-refresh"]
   SETTABLE R21 R19 R20
   CALL R17 2 1
   JUMP [+1]
@@ -291,9 +291,9 @@ PROTO_7:
   SETTABLEKS R20 R19 K6 ["LayoutOrder"]
   GETUPVAL R21 9
   GETTABLEKS R20 R21 K48 ["Tag"]
-  LOADK R21 K55 ["am-size-headerbutton am-hover X-Corner X-Middle X-Center"]
+  LOADK R21 K54 ["am-size-headerbutton am-hover X-Corner X-Middle X-Center data-testid=df-sort-button"]
   SETTABLE R21 R19 R20
-  DUPTABLE R20 K57 [{"GridSortButton"}]
+  DUPTABLE R20 K56 [{"GridSortButton"}]
   GETTABLEKS R22 R12 K39 ["ViewType"]
   GETUPVAL R25 14
   GETTABLEKS R24 R25 K39 ["ViewType"]
@@ -307,44 +307,44 @@ PROTO_7:
   CALL R24 1 1
   SETTABLEKS R24 R23 K6 ["LayoutOrder"]
   GETUPVAL R25 24
-  GETTABLEKS R24 R25 K58 ["get"]
+  GETTABLEKS R24 R25 K57 ["get"]
   GETUPVAL R27 24
-  GETTABLEKS R26 R27 K59 ["AvailableImages"]
-  GETTABLEKS R25 R26 K60 ["Sort"]
+  GETTABLEKS R26 R27 K58 ["AvailableImages"]
+  GETTABLEKS R25 R26 K59 ["Sort"]
   CALL R24 1 1
-  SETTABLEKS R24 R23 K61 ["ExpandIcon"]
+  SETTABLEKS R24 R23 K60 ["ExpandIcon"]
   LOADB R24 0
-  SETTABLEKS R24 R23 K62 ["ShowSelection"]
+  SETTABLEKS R24 R23 K61 ["ShowSelection"]
   GETUPVAL R24 25
   SETTABLEKS R24 R23 K42 ["Items"]
   NEWCLOSURE R24 P3
   CAPTURE VAL R5
-  SETTABLEKS R24 R23 K63 ["OnItemActivated"]
-  DUPCLOSURE R24 K64 [PROTO_4]
+  SETTABLEKS R24 R23 K62 ["OnItemActivated"]
+  DUPCLOSURE R24 K63 [PROTO_4]
   CAPTURE VAL R11
-  SETTABLEKS R24 R23 K65 ["OnRenderItem"]
+  SETTABLEKS R24 R23 K64 ["OnRenderItem"]
   LOADB R24 1
-  SETTABLEKS R24 R23 K66 ["UseAutoWidth"]
-  GETIMPORT R24 K70 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R24 R23 K68 ["TextTruncate"]
-  LOADK R26 K71 ["HeaderBar"]
-  LOADK R27 K72 ["SortTooltip"]
+  SETTABLEKS R24 R23 K65 ["UseAutoWidth"]
+  GETIMPORT R24 K69 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R24 R23 K67 ["TextTruncate"]
+  LOADK R26 K70 ["HeaderBar"]
+  LOADK R27 K71 ["SortTooltip"]
   NAMECALL R24 R3 K23 ["getText"]
   CALL R24 3 1
   SETTABLEKS R24 R23 K17 ["Tooltip"]
   GETUPVAL R24 26
-  LOADK R26 K73 ["AmrIconSize"]
-  NAMECALL R24 R24 K74 ["GetAttribute"]
+  LOADK R26 K72 ["AmrIconSize"]
+  NAMECALL R24 R24 K73 ["GetAttribute"]
   CALL R24 2 1
-  SETTABLEKS R24 R23 K75 ["Size"]
+  SETTABLEKS R24 R23 K74 ["Size"]
   GETUPVAL R25 9
   GETTABLEKS R24 R25 K48 ["Tag"]
-  LOADK R25 K76 ["MinimalButton"]
+  LOADK R25 K75 ["MinimalButton"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
   JUMP [+1]
   LOADNIL R21
-  SETTABLEKS R21 R20 K56 ["GridSortButton"]
+  SETTABLEKS R21 R20 K55 ["GridSortButton"]
   CALL R17 3 1
   JUMP [+1]
   LOADNIL R17
@@ -362,7 +362,7 @@ PROTO_7:
   CALL R17 2 1
   JUMP [+1]
   LOADNIL R17
-  SETTABLEKS R17 R16 K50 ["FilterDropdown"]
+  SETTABLEKS R17 R16 K12 ["FilterDropdown"]
   GETUPVAL R18 9
   GETTABLEKS R17 R18 K4 ["createElement"]
   GETUPVAL R18 21
@@ -372,7 +372,7 @@ PROTO_7:
   SETTABLEKS R20 R19 K6 ["LayoutOrder"]
   GETUPVAL R21 9
   GETTABLEKS R20 R21 K48 ["Tag"]
-  LOADK R21 K55 ["am-size-headerbutton am-hover X-Corner X-Middle X-Center"]
+  LOADK R21 K76 ["am-size-headerbutton am-hover X-Corner X-Middle X-Center"]
   SETTABLE R21 R19 R20
   DUPTABLE R20 K78 [{"ViewTypeSelector"}]
   GETUPVAL R22 9
@@ -409,7 +409,7 @@ PROTO_7:
   SETTABLEKS R24 R23 K87 ["Default"]
   GETTABLEKS R24 R12 K88 ["GridSize"]
   SETTABLEKS R24 R23 K89 ["DefaultGridTileSize"]
-  LOADK R26 K71 ["HeaderBar"]
+  LOADK R26 K70 ["HeaderBar"]
   LOADK R27 K90 ["ViewTypeSelectTooltip"]
   NAMECALL R24 R3 K23 ["getText"]
   CALL R24 3 1
@@ -432,7 +432,7 @@ PROTO_7:
   GETIMPORT R20 K95 [Enum.DominantAxis.Height]
   SETTABLEKS R20 R19 K92 ["DominantAxis"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K51 ["Separator"]
+  SETTABLEKS R17 R16 K50 ["Separator"]
   GETUPVAL R18 9
   GETTABLEKS R17 R18 K4 ["createElement"]
   GETUPVAL R18 20

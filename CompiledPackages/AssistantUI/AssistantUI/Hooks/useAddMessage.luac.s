@@ -1,4 +1,10 @@
 PROTO_0:
+  GETIMPORT R1 K2 [DateTime.now]
+  CALL R1 0 1
+  GETTABLEKS R0 R1 K3 ["UnixTimestampMillis"]
+  RETURN R0 1
+
+PROTO_1:
   NEWTABLE R1 0 3
   GETUPVAL R2 0
   GETUPVAL R3 1
@@ -39,7 +45,7 @@ PROTO_0:
   GETUPVAL R7 3
   GETTABLEKS R6 R7 K10 ["getNextLayoutOrder"]
   CALL R6 0 1
-  DUPTABLE R7 K15 [{"messageId", "role", "contents", "LayoutOrder", "ephemeral"}]
+  DUPTABLE R7 K16 [{"messageId", "role", "contents", "LayoutOrder", "ephemeral", "startTimestamp"}]
   GETUPVAL R8 4
   SETTABLEKS R8 R7 K11 ["messageId"]
   GETUPVAL R9 5
@@ -51,11 +57,15 @@ PROTO_0:
   GETUPVAL R9 5
   GETTABLEKS R8 R9 K9 ["ephemeral"]
   SETTABLEKS R8 R7 K9 ["ephemeral"]
+  GETIMPORT R9 K19 [DateTime.now]
+  CALL R9 0 1
+  GETTABLEKS R8 R9 K20 ["UnixTimestampMillis"]
+  SETTABLEKS R8 R7 K15 ["startTimestamp"]
   GETUPVAL R8 4
   SETTABLE R7 R4 R8
   RETURN R3 1
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R1 0
   LOADK R2 K0 ["Message-"]
   CALL R1 1 1
@@ -78,7 +88,7 @@ PROTO_1:
   CALL R3 1 0
   RETURN R1 1
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["useContext"]
   GETUPVAL R2 1
@@ -158,7 +168,8 @@ MAIN:
   GETTABLEKS R11 R0 K12 ["Util"]
   GETTABLEKS R10 R11 K19 ["generateGuid"]
   CALL R9 1 1
-  DUPCLOSURE R10 K20 [PROTO_2]
+  DUPCLOSURE R10 K20 [PROTO_0]
+  DUPCLOSURE R11 K21 [PROTO_3]
   CAPTURE VAL R5
   CAPTURE VAL R1
   CAPTURE VAL R2
@@ -167,4 +178,4 @@ MAIN:
   CAPTURE VAL R3
   CAPTURE VAL R8
   CAPTURE VAL R4
-  RETURN R10 1
+  RETURN R11 1

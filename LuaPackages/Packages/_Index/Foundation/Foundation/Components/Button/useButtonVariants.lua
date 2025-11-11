@@ -6,6 +6,9 @@ type InputSize = InputSize.InputSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
+local ColorMode = require(Foundation.Enums.ColorMode)
+type ColorMode = ColorMode.ColorMode
+
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type StateLayer = Types.StateLayer
@@ -111,7 +114,11 @@ local variantsMap = function(tokens: Tokens)
 	return { common = common, sizes = sizes, types = sharedVariants.types }
 end
 
-return function(tokens: Tokens, size: InputSize, variant: ButtonVariant, isInverse: boolean?): ButtonVariantProps
+return function(tokens: Tokens, size: InputSize, variant: ButtonVariant, colorMode: ColorMode?): ButtonVariantProps
 	local variants = VariantsContext.useVariants("Button", variantsMap, tokens)
-	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant][isInverse or false])
+	return composeStyleVariant(
+		variants.common,
+		variants.sizes[size],
+		variants.types[variant][colorMode or ColorMode.Color]
+	)
 end

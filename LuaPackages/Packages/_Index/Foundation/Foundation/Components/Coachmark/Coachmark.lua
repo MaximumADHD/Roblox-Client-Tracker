@@ -3,6 +3,7 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 type ReactNode = React.ReactNode
 
 local Types = require(Foundation.Components.Types)
@@ -14,6 +15,7 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local ColorMode = require(Foundation.Enums.ColorMode)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local Radius = require(Foundation.Enums.Radius)
@@ -23,7 +25,13 @@ local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local Logger = require(Foundation.Utility.Logger)
 local Translator = require(Foundation.Utility.Localization.Translator)
+local Flags = require(Foundation.Utility.Flags)
 
+type ActionProps = Types.ActionProps
+type Bindable<T> = Types.Bindable<T>
+type Selection = Types.Selection
+type SelectionGroup = Types.SelectionGroup
+type PopoverAnchor = Types.PopoverAnchor
 type PopoverAlign = PopoverAlign.PopoverAlign
 type PopoverSide = PopoverSide.PopoverSide
 local Popover = require(Foundation.Components.Popover)
@@ -35,7 +43,7 @@ export type CoachmarkProps = {
 	-- Media displayed at the top of the coachmark
 	media: ReactNode?,
 	-- Actions array (up to 2 buttons supported)
-	actions: { Types.ActionProps }?,
+	actions: { ActionProps }?,
 	isOpen: boolean?,
 	-- Close callback (optional) - if provided, displays a close affordance in the header
 	onClose: (() -> ())?,
@@ -46,7 +54,12 @@ export type CoachmarkProps = {
 	}?,
 	align: PopoverAlign?,
 	side: PopoverSide?,
+	-- Reference to the element that will serve as an anchor
+	anchorRef: React.Ref<PopoverAnchor>?,
 	children: ReactNode?,
+	-- Selection behavior
+	selection: Selection?,
+	selectionGroup: (Bindable<boolean> | SelectionGroup)?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -86,12 +99,15 @@ local function Coachmark(coachmarkProps: CoachmarkProps)
 				break
 			end
 
-			local buttonProps = Cryo.Dictionary.union(action, {
+			local actionProps = {
 				LayoutOrder = i,
 				size = InputSize.Medium,
 				fillBehavior = FillBehavior.Fill,
 				testId = `{props.testId}--action-{i}`,
-			})
+			}
+			local buttonProps = if Flags.FoundationMigrateCryoToDash
+				then Dash.union(action, actionProps)
+				else Cryo.Dictionary.union(action, actionProps)
 			buttons["CoachmarkButton" .. i] = React.createElement(Button, buttonProps :: any)
 		end
 		return buttons
@@ -101,7 +117,13 @@ local function Coachmark(coachmarkProps: CoachmarkProps)
 		isOpen = props.isOpen,
 		testId = props.testId,
 	}, {
-		Anchor = React.createElement(Popover.Anchor, withCommonProps(props, {}), props.children),
+		Anchor = React.createElement(
+			Popover.Anchor,
+			withCommonProps(props, {
+				anchorRef = props.anchorRef,
+			}),
+			props.children
+		),
 		Content = React.createElement(
 			Popover.Content,
 			{
@@ -113,10 +135,12 @@ local function Coachmark(coachmarkProps: CoachmarkProps)
 				},
 				radius = Radius.Medium,
 				backgroundStyle = tokens.Inverse.Surface.Surface_0,
+				selection = props.selection,
+				selectionGroup = props.selectionGroup,
 			},
 			React.createElement(
 				PresentationContext.Provider,
-				{ value = { isInverse = true } },
+				{ value = { colorMode = ColorMode.Inverse } },
 				React.createElement(View, {
 					tag = "col auto-xy gap-medium padding-bottom-medium",
 					sizeConstraint = {

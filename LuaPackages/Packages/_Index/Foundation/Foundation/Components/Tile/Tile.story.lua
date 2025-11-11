@@ -13,10 +13,12 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local Players = require(Foundation.Utility.Wrappers).Services.Players
+local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 
 local Tile = require(Foundation.Components.Tile)
 local MediaType = require(Foundation.Enums.MediaType)
@@ -522,6 +524,16 @@ return {
 				local tileOffset = (titleLines + footerLines + subtitleLines) * textSizeOffset
 				local oldTileOffset = (titleLines + subtitleLines) * textSizeOffset
 
+				local function renderButton(button)
+					return React.createElement(Button, {
+						onActivated = button.onActivated,
+						isDisabled = button.isDisabled,
+						variant = button.variant,
+						size = InputSize.Medium :: InputSize.InputSize,
+						icon = button.icon,
+					})
+				end
+
 				return React.createElement(View, {
 					tag = "auto-xy gap-large row",
 				}, {
@@ -551,15 +563,9 @@ return {
 									ZIndex = 2,
 									tag = "auto-y size-full-0 row gap-small align-x-right align-y-bottom anchor-bottom-right position-bottom-right",
 								},
-								Cryo.List.map(buttons, function(button)
-									return React.createElement(Button, {
-										onActivated = button.onActivated,
-										isDisabled = button.isDisabled,
-										variant = button.variant,
-										size = InputSize.Medium :: InputSize.InputSize,
-										icon = button.icon,
-									})
-								end)
+								if Flags.FoundationMigrateCryoToDash
+									then Dash.map(buttons, renderButton)
+									else Cryo.List.map(buttons, renderButton)
 							),
 						}),
 						TileContent = React.createElement(Tile.Content, {

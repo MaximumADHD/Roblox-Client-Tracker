@@ -4,6 +4,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Flags = require(Foundation.Utility.Flags)
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 
 local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
@@ -54,7 +55,7 @@ function StyleSheetContextWrapper(props: {
 	end
 
 	return React.createElement(StyleSheetContext.Provider, {
-		value = styleSheet or Cryo.None,
+		value = styleSheet or if Flags.FoundationMigrateCryoToDash then Dash.None else Cryo.None,
 	}, props.children)
 end
 

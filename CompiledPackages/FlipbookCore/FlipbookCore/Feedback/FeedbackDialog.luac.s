@@ -1,0 +1,383 @@
+PROTO_0:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 1
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K0 ["onClose"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPTABLE R1 K1 [{"eventName"}]
+  LOADK R2 K2 ["FeedbackDiscarded"]
+  SETTABLEKS R2 R1 K0 ["eventName"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onClose"]
+  CALL R0 0 0
+  GETIMPORT R0 K3 [task.spawn]
+  DUPCLOSURE R1 K4 [PROTO_1]
+  CAPTURE UPVAL U1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R0 2 0
+  GETUPVAL R0 3
+  DUPTABLE R1 K1 [{"eventName"}]
+  LOADK R2 K2 ["FeedbackSubmitted"]
+  SETTABLEKS R2 R1 K0 ["eventName"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  JUMPIFEQKS R0 K0 [""] [+17]
+  GETUPVAL R0 1
+  JUMPIFEQKS R0 K0 [""] [+14]
+  GETUPVAL R0 2
+  JUMPIFNOT R0 [+11]
+  GETUPVAL R0 3
+  LOADB R1 1
+  CALL R0 1 0
+  GETIMPORT R0 K3 [task.spawn]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U5
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  DUPTABLE R1 K1 [{"eventName"}]
+  LOADK R2 K2 ["FeedbackDialogOpened"]
+  SETTABLEKS R2 R1 K0 ["eventName"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETIMPORT R0 K2 [task.spawn]
+  DUPCLOSURE R1 K3 [PROTO_6]
+  CAPTURE UPVAL U0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  LOADK R2 K0 [""]
+  CALL R1 1 2
+  GETUPVAL R3 0
+  LOADK R4 K0 [""]
+  CALL R3 1 2
+  GETUPVAL R5 0
+  LOADB R6 0
+  CALL R5 1 2
+  GETUPVAL R7 0
+  LOADB R8 0
+  CALL R7 1 2
+  GETUPVAL R9 0
+  LOADB R10 0
+  CALL R9 1 2
+  LOADB R11 1
+  JUMPIFNOTEQKS R1 K0 [""] [+8]
+  LOADB R11 1
+  JUMPIFNOTEQKS R3 K0 [""] [+5]
+  JUMPIFNOTEQKB R5 FALSE [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  GETUPVAL R12 1
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  CAPTURE VAL R0
+  NEWTABLE R14 0 2
+  MOVE R15 R11
+  GETTABLEKS R16 R0 K1 ["onClose"]
+  SETLIST R14 R15 2 [1]
+  CALL R12 2 1
+  GETUPVAL R13 1
+  NEWCLOSURE R14 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  NEWTABLE R15 0 0
+  CALL R13 2 1
+  GETUPVAL R14 1
+  NEWCLOSURE R15 P2
+  CAPTURE VAL R8
+  NEWTABLE R16 0 0
+  CALL R14 2 1
+  GETUPVAL R15 1
+  NEWCLOSURE R16 P3
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R10
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
+  NEWTABLE R17 0 3
+  MOVE R18 R1
+  MOVE R19 R3
+  MOVE R20 R5
+  SETLIST R17 R18 3 [1]
+  CALL R15 2 1
+  GETUPVAL R16 4
+  DUPCLOSURE R17 K2 [PROTO_7]
+  CAPTURE UPVAL U2
+  NEWTABLE R18 0 0
+  CALL R16 2 0
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  GETUPVAL R18 5
+  GETTABLEKS R17 R18 K4 ["Fragment"]
+  LOADNIL R18
+  DUPTABLE R19 K8 [{"FeedbackDialog", "DiscardChangesDialog", "SuccessDialog"}]
+  JUMPIF R7 [+219]
+  JUMPIF R9 [+218]
+  GETUPVAL R21 5
+  GETTABLEKS R20 R21 K3 ["createElement"]
+  GETUPVAL R23 6
+  GETTABLEKS R22 R23 K9 ["Dialog"]
+  GETTABLEKS R21 R22 K10 ["Root"]
+  DUPTABLE R22 K13 [{"disablePortal", "hasBackdrop", "onClose"}]
+  LOADB R23 0
+  SETTABLEKS R23 R22 K11 ["disablePortal"]
+  LOADB R23 1
+  SETTABLEKS R23 R22 K12 ["hasBackdrop"]
+  GETTABLEKS R23 R0 K1 ["onClose"]
+  SETTABLEKS R23 R22 K1 ["onClose"]
+  DUPTABLE R23 K17 [{"Title", "Content", "Actions"}]
+  GETUPVAL R25 5
+  GETTABLEKS R24 R25 K3 ["createElement"]
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K9 ["Dialog"]
+  GETTABLEKS R25 R26 K14 ["Title"]
+  DUPTABLE R26 K19 [{"text"}]
+  LOADK R27 K20 ["Send us feedback"]
+  SETTABLEKS R27 R26 K18 ["text"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K14 ["Title"]
+  GETUPVAL R25 5
+  GETTABLEKS R24 R25 K3 ["createElement"]
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K9 ["Dialog"]
+  GETTABLEKS R25 R26 K15 ["Content"]
+  LOADNIL R26
+  DUPTABLE R27 K22 [{"Layout"}]
+  GETUPVAL R29 5
+  GETTABLEKS R28 R29 K3 ["createElement"]
+  GETUPVAL R30 6
+  GETTABLEKS R29 R30 K23 ["View"]
+  DUPTABLE R30 K25 [{"tag"}]
+  LOADK R31 K26 ["size-full-0 auto-y col gap-large padding-top-medium"]
+  SETTABLEKS R31 R30 K24 ["tag"]
+  DUPTABLE R31 K29 [{"Title", "Body", "Confirmation"}]
+  GETUPVAL R33 5
+  GETTABLEKS R32 R33 K3 ["createElement"]
+  GETUPVAL R34 6
+  GETTABLEKS R33 R34 K30 ["TextInput"]
+  DUPTABLE R34 K38 [{"label", "text", "hasError", "isRequired", "hint", "placeholder", "onChanged", "LayoutOrder"}]
+  LOADK R35 K14 ["Title"]
+  SETTABLEKS R35 R34 K31 ["label"]
+  SETTABLEKS R1 R34 K18 ["text"]
+  JUMPIFEQKS R1 K0 [""] [+2]
+  LOADB R35 0 +1
+  LOADB R35 1
+  SETTABLEKS R35 R34 K32 ["hasError"]
+  LOADB R35 1
+  SETTABLEKS R35 R34 K33 ["isRequired"]
+  LOADK R35 K39 ["Enter a breif summary of the feedback you're giving"]
+  SETTABLEKS R35 R34 K34 ["hint"]
+  LOADK R35 K40 ["Enter title..."]
+  SETTABLEKS R35 R34 K35 ["placeholder"]
+  SETTABLEKS R2 R34 K36 ["onChanged"]
+  GETUPVAL R35 7
+  CALL R35 0 1
+  SETTABLEKS R35 R34 K37 ["LayoutOrder"]
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K14 ["Title"]
+  GETUPVAL R33 5
+  GETTABLEKS R32 R33 K3 ["createElement"]
+  GETUPVAL R34 6
+  GETTABLEKS R33 R34 K30 ["TextInput"]
+  DUPTABLE R34 K38 [{"label", "text", "hasError", "isRequired", "hint", "placeholder", "onChanged", "LayoutOrder"}]
+  LOADK R35 K27 ["Body"]
+  SETTABLEKS R35 R34 K31 ["label"]
+  SETTABLEKS R3 R34 K18 ["text"]
+  JUMPIFEQKS R3 K0 [""] [+2]
+  LOADB R35 0 +1
+  LOADB R35 1
+  SETTABLEKS R35 R34 K32 ["hasError"]
+  LOADB R35 1
+  SETTABLEKS R35 R34 K33 ["isRequired"]
+  LOADK R35 K41 ["Let us know what's on your mind. This can be a feature request, bug report, or any other feedback you'd like to give"]
+  SETTABLEKS R35 R34 K34 ["hint"]
+  LOADK R35 K42 ["Enter feedback..."]
+  SETTABLEKS R35 R34 K35 ["placeholder"]
+  SETTABLEKS R4 R34 K36 ["onChanged"]
+  GETUPVAL R35 7
+  CALL R35 0 1
+  SETTABLEKS R35 R34 K37 ["LayoutOrder"]
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K27 ["Body"]
+  GETUPVAL R33 5
+  GETTABLEKS R32 R33 K3 ["createElement"]
+  GETUPVAL R34 6
+  GETTABLEKS R33 R34 K43 ["Checkbox"]
+  DUPTABLE R34 K47 [{"isChecked", "onActivated", "label", "size", "LayoutOrder"}]
+  SETTABLEKS R5 R34 K44 ["isChecked"]
+  SETTABLEKS R6 R34 K45 ["onActivated"]
+  LOADK R35 K48 ["I acknowledge that my Roblox UserId will be included in the resulting GitHub Issue to attribute the feedback to me."]
+  SETTABLEKS R35 R34 K31 ["label"]
+  GETUPVAL R38 6
+  GETTABLEKS R37 R38 K49 ["Enums"]
+  GETTABLEKS R36 R37 K50 ["InputSize"]
+  GETTABLEKS R35 R36 K51 ["Small"]
+  SETTABLEKS R35 R34 K46 ["size"]
+  GETUPVAL R35 7
+  CALL R35 0 1
+  SETTABLEKS R35 R34 K37 ["LayoutOrder"]
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K28 ["Confirmation"]
+  CALL R28 3 1
+  SETTABLEKS R28 R27 K21 ["Layout"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K15 ["Content"]
+  GETUPVAL R25 5
+  GETTABLEKS R24 R25 K3 ["createElement"]
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K9 ["Dialog"]
+  GETTABLEKS R25 R26 K16 ["Actions"]
+  DUPTABLE R26 K53 [{"actions", "LayoutOrder"}]
+  NEWTABLE R27 0 2
+  DUPTABLE R28 K55 [{"variant", "text", "onActivated"}]
+  GETUPVAL R32 6
+  GETTABLEKS R31 R32 K49 ["Enums"]
+  GETTABLEKS R30 R31 K56 ["ButtonVariant"]
+  GETTABLEKS R29 R30 K57 ["Standard"]
+  SETTABLEKS R29 R28 K54 ["variant"]
+  LOADK R29 K58 ["Cancel"]
+  SETTABLEKS R29 R28 K18 ["text"]
+  SETTABLEKS R12 R28 K45 ["onActivated"]
+  DUPTABLE R29 K55 [{"variant", "text", "onActivated"}]
+  GETUPVAL R33 6
+  GETTABLEKS R32 R33 K49 ["Enums"]
+  GETTABLEKS R31 R32 K56 ["ButtonVariant"]
+  GETTABLEKS R30 R31 K59 ["Emphasis"]
+  SETTABLEKS R30 R29 K54 ["variant"]
+  LOADK R30 K60 ["Submit"]
+  SETTABLEKS R30 R29 K18 ["text"]
+  SETTABLEKS R15 R29 K45 ["onActivated"]
+  SETLIST R27 R28 2 [1]
+  SETTABLEKS R27 R26 K52 ["actions"]
+  GETUPVAL R27 7
+  CALL R27 0 1
+  SETTABLEKS R27 R26 K37 ["LayoutOrder"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K16 ["Actions"]
+  CALL R20 3 1
+  JUMP [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K5 ["FeedbackDialog"]
+  JUMPIFNOT R7 [+11]
+  GETUPVAL R21 5
+  GETTABLEKS R20 R21 K3 ["createElement"]
+  GETUPVAL R21 8
+  DUPTABLE R22 K63 [{"onDiscard", "onKeepEditing"}]
+  SETTABLEKS R13 R22 K61 ["onDiscard"]
+  SETTABLEKS R14 R22 K62 ["onKeepEditing"]
+  CALL R20 2 1
+  JUMP [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K6 ["DiscardChangesDialog"]
+  JUMPIFNOT R9 [+11]
+  GETUPVAL R21 5
+  GETTABLEKS R20 R21 K3 ["createElement"]
+  GETUPVAL R21 9
+  DUPTABLE R22 K64 [{"onClose"}]
+  GETTABLEKS R23 R0 K1 ["onClose"]
+  SETTABLEKS R23 R22 K1 ["onClose"]
+  CALL R20 2 1
+  JUMP [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K7 ["SuccessDialog"]
+  CALL R16 3 -1
+  RETURN R16 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["RobloxPackages"]
+  GETTABLEKS R1 R2 K6 ["Foundation"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["DiscardChangesDialog"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["SuccessDialog"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R9 K3 [script]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K11 ["Telemetry"]
+  GETTABLEKS R5 R6 K12 ["fireEventAsync"]
+  CALL R4 1 1
+  GETIMPORT R5 K1 [require]
+  GETIMPORT R10 K3 [script]
+  GETTABLEKS R9 R10 K4 ["Parent"]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K13 ["Common"]
+  GETTABLEKS R6 R7 K14 ["nextLayoutOrder"]
+  CALL R5 1 1
+  GETIMPORT R6 K1 [require]
+  GETIMPORT R9 K3 [script]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K15 ["postFeedbackAsync"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K16 ["useCallback"]
+  GETTABLEKS R8 R1 K17 ["useEffect"]
+  GETTABLEKS R9 R1 K18 ["useState"]
+  DUPCLOSURE R10 K19 [PROTO_8]
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R10 1

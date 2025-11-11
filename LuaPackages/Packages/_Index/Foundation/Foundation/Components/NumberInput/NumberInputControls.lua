@@ -11,7 +11,6 @@ local View = require(Components.View)
 local Image = require(Components.Image)
 local Icon = require(Components.Icon)
 local FoundationConstants = require(Foundation.Constants)
-local Flags = require(Foundation.Utility.Flags)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local Types = require(Foundation.Components.Types)
 
@@ -173,7 +172,7 @@ local function StackedControls(props: NumberInputControlsProps)
 		}, {
 			Icon = React.createElement(Image, {
 				Image = "component_assets/triangleUp_16",
-				imageStyle = if Flags.FoundationNumberInputDisabledStackedVisual then incrementImageStyle else nil,
+				imageStyle = incrementImageStyle,
 				tag = variantProps.icon.tag,
 				testId = `{props.testId}--increment-icon`,
 			}),
@@ -187,7 +186,7 @@ local function StackedControls(props: NumberInputControlsProps)
 		}, {
 			Icon = React.createElement(Image, {
 				Image = "component_assets/triangleDown_16",
-				imageStyle = if Flags.FoundationNumberInputDisabledStackedVisual then decrementImageStyle else nil,
+				imageStyle = decrementImageStyle,
 				tag = variantProps.icon.tag,
 				testId = `{props.testId}--decrement-icon`,
 			}),

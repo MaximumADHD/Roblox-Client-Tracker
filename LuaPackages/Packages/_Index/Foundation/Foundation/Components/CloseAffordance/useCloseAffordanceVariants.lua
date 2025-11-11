@@ -2,6 +2,9 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
+type ColorMode = ColorMode.ColorMode
+
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
@@ -22,11 +25,10 @@ type VariantProps = composeStyleVariant.VariantProps
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 type CloseAffordanceVariant = CloseAffordanceVariant.CloseAffordanceVariant
 
-local StateLayerMode = require(Foundation.Enums.StateLayerMode)
-
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
+local Constants = require(Foundation.Constants)
 local getSharedVariants = require(Foundation.Components.Button.getSharedVariants)
 
 type CloseAffordanceVariantProps = {
@@ -48,7 +50,6 @@ local variantsMap = function(tokens: Tokens)
 		container = {
 			tag = "auto-xy row align-y-center align-x-center clip",
 		},
-		content = { style = tokens.Color.Content.Emphasis },
 	}
 
 	local sharedVariants = getSharedVariants(tokens)
@@ -92,22 +93,25 @@ local variantsMap = function(tokens: Tokens)
 		},
 	}
 
-	local types: { [CloseAffordanceVariant]: { [boolean]: VariantProps } } = {
-		[CloseAffordanceVariant.OverMedia] = Dash.map({ [true] = true, [false] = false }, function()
+	local types: { [CloseAffordanceVariant]: { [ColorMode]: VariantProps } } = {
+		[CloseAffordanceVariant.OverMedia] = Dash.map(ColorMode, function(_)
 			return {
 				container = {
 					radius = tokens.Radius.Circle,
 					tag = "bg-over-media-100",
 				},
+				content = { style = tokens.Color.Content.Emphasis },
 			}
 		end),
-		[CloseAffordanceVariant.Utility] = Dash.map({ [true] = true, [false] = false }, function(isInverse)
+		[CloseAffordanceVariant.Utility] = Dash.map(ColorMode, function(colorMode: ColorMode)
 			return {
 				container = {
 					radius = tokens.Radius.Medium,
-					stateLayer = if isInverse then { mode = StateLayerMode.Inverse } else nil,
+					stateLayer = {
+						mode = Constants.COLOR_MODE_TO_STATE_LAYER_MODE[false][colorMode],
+					},
 				},
-				content = if isInverse then { style = tokens.Inverse.Content.Emphasis } else nil,
+				content = { style = tokens[colorMode].Content.Emphasis },
 			}
 		end),
 	}
@@ -119,8 +123,12 @@ return function(
 	tokens: Tokens,
 	size: InputSize,
 	variant: CloseAffordanceVariant,
-	isInverse: boolean?
+	colorMode: ColorMode?
 ): CloseAffordanceVariantProps
 	local variants = VariantsContext.useVariants("CloseAffordance", variantsMap, tokens)
-	return composeStyleVariant(variants.common, variants.sizes[size], variants.types[variant][isInverse or false])
+	return composeStyleVariant(
+		variants.common,
+		variants.sizes[size],
+		variants.types[variant][colorMode or ColorMode.Color]
+	)
 end

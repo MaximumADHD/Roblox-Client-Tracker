@@ -11,6 +11,10 @@ local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local withDefaults = require(Foundation.Utility.withDefaults)
+local useElevation = require(Foundation.Providers.Elevation.useElevation)
+local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
+local ElevationLayer = require(Foundation.Enums.ElevationLayer)
+type ElevationLayer = ElevationLayer.ElevationLayer
 local Constants = require(Foundation.Constants)
 
 local SheetContext = require(script.Parent.SheetContext)
@@ -24,6 +28,7 @@ local useScreenHeight = require(script.Parent.useScreenHeight)
 
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
+local Flags = require(Foundation.Utility.Flags)
 
 local SPRING_FREQUENCY = 18
 local SPRING_DAMPING = 0.9
@@ -44,9 +49,22 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local props = withDefaults(sheetProps, defaultProps)
 	local overlay = useOverlay()
 	local tokens = useTokens()
+	local elevation = useElevation(ElevationLayer.Sheet, { relativeToOwner = false })
 
 	local screenHeight = useScreenHeight()
-	local snapPoints = props.snapPoints
+	local sheetHeight, setSheetHeight
+	if Flags.FoundationSheetBottomSheetAutoSize then
+		sheetHeight, setSheetHeight = React.useState(0)
+	end
+	local backupSnapPoints = if Flags.FoundationSheetBottomSheetAutoSize
+		then React.useMemo(function()
+			return { sheetHeight }
+		end, { sheetHeight })
+		else nil :: never
+	if not Flags.FoundationSheetBottomSheetAutoSize and props.snapPoints == nil then
+		warn("snapPoints is required until FFlagFoundationSheetBottomSheetAutoSize is enabled")
+	end
+	local snapPoints: { number } = props.snapPoints or backupSnapPoints
 
 	-- Convert a snap value to pixels: values > 1 are treated as absolute pixels,
 	-- values in the range [0,1] are treated as a fraction of the screen height
@@ -131,7 +149,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			-- Apply the velocity to move the canvas position
 			local newCanvasY = currentPos + springVelocity.current * dt
 			outerScrollingRef.current.CanvasPosition = Vector2.new(0, newCanvasY)
-			lastPosition = newCanvasY
+			lastPosition = if Flags.FoundationSheetBottomSheetAutoSize
+				then outerScrollingRef.current.CanvasPosition.Y
+				else newCanvasY
 
 			local hasSettled = math.abs(displacement) < POSITION_THRESHOLD
 				and math.abs(springVelocity.current) < VELOCITY_THRESHOLD
@@ -306,11 +326,12 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			React.createElement(
 				View,
 				{
-					ZIndex = 5,
+					ZIndex = if Flags.FoundationElevationSystem then elevation.zIndex else 5,
 					ref = composedRef,
 					selection = SheetTypes.nonSelectable,
 					selectionGroup = SheetTypes.isolatedSelectionGroup,
 					tag = "size-full",
+					testId = `{props.testId}--surface`,
 				},
 				React.createElement("ScrollingFrame", {
 					Size = UDim2.fromScale(1, 1),
@@ -329,41 +350,77 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 						end
 					end :: unknown,
 				}, {
-					Sheet = React.createElement(View, {
-						Size = UDim2.new(1, 0, 0, maxSheetHeight + BOTTOM_PADDING),
-						Position = UDim2.fromOffset(0, screenHeight + safeAreaPadding),
-						ZIndex = 3,
-						stateLayer = {
-							affordance = StateLayerAffordance.None,
-						},
-						-- Needed to sink the onActivated event to the backdrop
-						onActivated = Dash.noop,
-						testId = props.testId,
-						tag = "bg-surface-100 radius-large col items-center clip padding-top-small",
-					}, {
-						Gripper = React.createElement(View, {
-							ZIndex = 3,
-							backgroundStyle = tokens.Color.Content.Muted,
-							tag = "padding-y-small size-1000-100 radius-small align-y-center",
-							testId = `{props.testId}--gripper`,
-						}, {
-							TouchTarget = React.createElement(View, {
-								tag = "size-1000-600",
+					SheetContainer = React.createElement(
+						if Flags.FoundationSheetBottomSheetAutoSize then View else React.Fragment,
+						if Flags.FoundationSheetBottomSheetAutoSize
+							then {
+								Size = UDim2.new(1, 0, 0, screenHeight + BOTTOM_PADDING),
+								Position = UDim2.fromOffset(0, screenHeight + safeAreaPadding),
+								ZIndex = 3,
+							}
+							else nil,
+						{
+							Sheet = React.createElement(View, {
+								Size = if Flags.FoundationSheetBottomSheetAutoSize and props.snapPoints == nil
+									then UDim2.fromScale(1, 0)
+									else UDim2.new(1, 0, 0, maxSheetHeight + BOTTOM_PADDING),
+								AutomaticSize = if Flags.FoundationSheetBottomSheetAutoSize
+										and props.snapPoints == nil
+									then Enum.AutomaticSize.Y
+									else nil,
+								onAbsoluteSizeChanged = if Flags.FoundationSheetBottomSheetAutoSize
+										and props.snapPoints == nil
+									then function(rbx: GuiObject)
+										setSheetHeight(rbx.AbsoluteSize.Y - BOTTOM_PADDING)
+									end
+									else nil,
+								Position = if Flags.FoundationSheetBottomSheetAutoSize
+									then nil
+									else UDim2.fromOffset(0, screenHeight + safeAreaPadding),
+								ZIndex = if Flags.FoundationSheetBottomSheetAutoSize then nil else 3,
 								stateLayer = {
 									affordance = StateLayerAffordance.None,
 								},
-								onActivated = function()
-									-- Cancel input ended if the gripper is pressed
-									inputActive.current = false
-									local nextIndex = currentSnapIndex.current % #snapPoints + 1
-									springToSnapIndex(nextIndex)
-								end,
+								-- Needed to sink the onActivated event to the backdrop
+								onActivated = Dash.noop,
+								testId = props.testId,
+								tag = "bg-surface-100 radius-large col items-center clip padding-top-small",
+							}, {
+								Gripper = React.createElement(View, {
+									ZIndex = 3,
+									backgroundStyle = tokens.Color.Content.Muted,
+									tag = "padding-y-small size-1000-100 radius-small align-y-center",
+									testId = `{props.testId}--gripper`,
+								}, {
+									TouchTarget = React.createElement(View, {
+										tag = "size-1000-600",
+										stateLayer = {
+											affordance = StateLayerAffordance.None,
+										},
+										onActivated = function()
+											-- Cancel input ended if the gripper is pressed
+											inputActive.current = false
+											if not Flags.FoundationSheetBottomSheetAutoSize or #snapPoints > 1 then
+												local nextIndex = currentSnapIndex.current % #snapPoints + 1
+												springToSnapIndex(nextIndex)
+											else
+												closeSheet()
+											end
+										end,
+									}),
+								}),
+								Content = React.createElement(
+									SheetContext.Provider,
+									{
+										value = contextValue,
+									},
+									if Flags.FoundationElevationSystem
+										then React.createElement(OwnerScope, { owner = elevation }, props.children)
+										else props.children
+								),
 							}),
-						}),
-						Content = React.createElement(SheetContext.Provider, {
-							value = contextValue,
-						}, props.children),
-					}),
+						}
+					),
 					Shadow = React.createElement(Image, {
 						Image = SHADOW_IMAGE,
 						Size = UDim2.new(1, SHADOW_SIZE * 2, 0, maxSheetHeight + BOTTOM_PADDING + SHADOW_SIZE * 2),

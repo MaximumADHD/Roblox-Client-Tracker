@@ -2,7 +2,9 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 local ReactIs = require(Packages.ReactIs)
+local Flags = require(Foundation.Utility.Flags)
 
 local function isTableNotBinding(value)
 	return type(value) == "table" and not ReactIs.isBinding(value)
@@ -20,7 +22,7 @@ local function deepJoin(a: any, b: any)
 	return result
 end
 
-local function withDefaults<P, D>(props: P, defaults: D)
+local function withDefaults<P, D>(props: P, defaults: D): P & D
 	local propsDefaultsOnly = {}
 
 	if type(props) == "table" and type(defaults) == "table" then
@@ -31,7 +33,13 @@ local function withDefaults<P, D>(props: P, defaults: D)
 
 	local deepJoinDefaults: D = deepJoin(defaults, propsDefaultsOnly)
 
-	return Cryo.Dictionary.union(props, deepJoinDefaults)
+	return (
+		(
+			if Flags.FoundationMigrateCryoToDash
+				then Dash.union(props :: any, deepJoinDefaults :: any)
+				else Cryo.Dictionary.union(props, deepJoinDefaults)
+		) :: unknown
+	) :: P & D
 end
 
 return withDefaults

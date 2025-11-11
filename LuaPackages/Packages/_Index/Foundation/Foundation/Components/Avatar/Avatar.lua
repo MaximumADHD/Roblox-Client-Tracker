@@ -3,6 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local Dash = require(Packages.Dash)
+
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
@@ -67,7 +69,9 @@ local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)
 			Indicator = if variantProps.indicator.isVisible
 				then React.createElement(
 					View,
-					variantProps.indicatorBackplate :: any,
+					Dash.join(variantProps.indicatorBackplate, {
+						testId = `{props.testId}--indicator`,
+					}),
 					React.createElement(Indicator, variantProps.indicator :: any)
 				)
 				else nil,

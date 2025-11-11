@@ -16,7 +16,9 @@ local Flags = require(Foundation.Utility.Flags)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local InputSize = require(Foundation.Enums.InputSize)
+local Radius = require(Foundation.Enums.Radius)
 type InputSize = InputSize.InputSize
+type Radius = Radius.Radius
 
 local DropdownControl = require(script.Parent.DropdownControl)
 local markSelectedItem = require(script.Parent.markSelectedItem)
@@ -55,6 +57,9 @@ export type DropdownProps = {
 	size: InputSize?,
 	-- Maximum height after which the menu starts scrolling
 	maxHeight: number?,
+	-- Selection behavior
+	selection: Types.Selection?,
+	selectionGroup: Types.Bindable<boolean>? | Types.SelectionGroup?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -150,6 +155,9 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				align = PopoverAlign.End,
 				side = sideConfig,
 				onPressedOutside = closeMenu,
+				radius = if Flags.FoundationBaseMenuBorderFix then Radius.Medium else nil,
+				selection = props.selection,
+				selectionGroup = props.selectionGroup,
 			},
 			React.createElement(BaseMenu.Root, {
 				size = props.size,
@@ -158,6 +166,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				items = items,
 				maxHeight = props.maxHeight,
 				onActivated = onActivated,
+				radius = if Flags.FoundationBaseMenuBorderFix then Radius.Medium else nil,
 				testId = `{props.testId}--menu`,
 			})
 		),

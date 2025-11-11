@@ -15,7 +15,6 @@ local scaleValue = require(script.Parent.scaleValue)
 local styleMappings = require(script.Parent.styleMappings)
 local useRules = require(Foundation.Providers.Style.useRules)
 local getFormattedTags = require(Foundation.Utility.getFormattedTags)
-local Flags = require(Foundation.Utility.Flags)
 
 local function updateRuleAttributes(
 	attributes: { StyleAttribute<unknown> }?,
@@ -80,13 +79,8 @@ local function applyRules(
 	scale: number?
 )
 	if not rules then
-		if Flags.FoundationShowErrorAboutFoundationProvider then
-			error("applyRules: rules is nil - make sure FoundationProvider is used to wrap your component")
-			return
-		else
-			warn("applyRules: rules is nil - make sure FoundationProvider is used to wrap your component")
-			return
-		end
+		error("applyRules: rules is nil - make sure FoundationProvider is used to wrap your component")
+		return
 	end
 
 	if tags then

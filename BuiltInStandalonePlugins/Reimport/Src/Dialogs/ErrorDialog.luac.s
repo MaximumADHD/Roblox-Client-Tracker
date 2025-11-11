@@ -1,0 +1,211 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  LOADN R1 1
+  CALL R0 1 1
+  NEWTABLE R1 0 0
+  GETUPVAL R5 1
+  GETTABLEKS R2 R5 K1 ["errors"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  LOADN R7 1
+  JUMPIFNOTLT R7 R5 [+16]
+  MOVE R8 R1
+  GETUPVAL R9 2
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K2 ["Divider"]
+  DUPTABLE R11 K4 [{"layoutOrder"}]
+  MOVE R12 R0
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K3 ["layoutOrder"]
+  CALL R9 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R7 K7 [table.insert]
+  CALL R7 -1 0
+  MOVE R8 R1
+  GETUPVAL R9 2
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K8 ["View"]
+  DUPTABLE R11 K10 [{"layoutOrder", "tag"}]
+  MOVE R12 R0
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K3 ["layoutOrder"]
+  LOADK R12 K11 ["col size-full-0 auto-y padding-y-small"]
+  SETTABLEKS R12 R11 K9 ["tag"]
+  NEWTABLE R12 0 2
+  GETTABLEKS R14 R6 K12 ["label"]
+  JUMPIFNOTEQKNIL R14 [+3]
+  LOADNIL R13
+  JUMP [+23]
+  GETUPVAL R13 2
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K13 ["Text"]
+  DUPTABLE R15 K16 [{"tag", "Text", "TextWrapped", "fontStyle"}]
+  LOADK R16 K17 ["size-full-0 auto-y text-align-x-left"]
+  SETTABLEKS R16 R15 K9 ["tag"]
+  GETTABLEKS R16 R6 K12 ["label"]
+  SETTABLEKS R16 R15 K13 ["Text"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K14 ["TextWrapped"]
+  DUPTABLE R16 K19 [{"Font"}]
+  GETIMPORT R17 K22 [Enum.Font.BuilderSansBold]
+  SETTABLEKS R17 R16 K18 ["Font"]
+  SETTABLEKS R16 R15 K15 ["fontStyle"]
+  CALL R13 2 1
+  GETUPVAL R14 2
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K13 ["Text"]
+  DUPTABLE R16 K23 [{"tag", "Text", "TextWrapped"}]
+  LOADK R17 K17 ["size-full-0 auto-y text-align-x-left"]
+  SETTABLEKS R17 R16 K9 ["tag"]
+  GETTABLEKS R17 R6 K24 ["message"]
+  SETTABLEKS R17 R16 K13 ["Text"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K14 ["TextWrapped"]
+  CALL R14 2 -1
+  SETLIST R12 R13 -1 [1]
+  CALL R9 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R7 K7 [table.insert]
+  CALL R7 -1 0
+  FORGLOOP R2 2 [-86]
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["errors"]
+  JUMPIF R1 [+6]
+  DUPTABLE R1 K2 [{"message"}]
+  LOADK R2 K3 ["unexpected internal error"]
+  SETTABLEKS R2 R1 K1 ["message"]
+  SETTABLEKS R1 R0 K0 ["errors"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["Hooks"]
+  GETTABLEKS R1 R2 K5 ["useTokens"]
+  CALL R1 0 1
+  NEWTABLE R2 0 1
+  GETUPVAL R3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["View"]
+  DUPTABLE R5 K8 [{"tag"}]
+  LOADK R6 K9 ["col size-full flex-y-fill padding-medium gap-medium"]
+  SETTABLEKS R6 R5 K7 ["tag"]
+  NEWTABLE R6 0 2
+  GETUPVAL R7 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["View"]
+  DUPTABLE R9 K8 [{"tag"}]
+  LOADK R10 K10 ["row size-full-0 auto-y gap-small"]
+  SETTABLEKS R10 R9 K7 ["tag"]
+  NEWTABLE R10 0 2
+  GETUPVAL R11 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K11 ["Icon"]
+  DUPTABLE R13 K16 [{"name", "size", "variant", "style"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K17 ["Enums"]
+  GETTABLEKS R15 R16 K18 ["IconName"]
+  GETTABLEKS R14 R15 K19 ["CircleX"]
+  SETTABLEKS R14 R13 K12 ["name"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K17 ["Enums"]
+  GETTABLEKS R15 R16 K20 ["IconSize"]
+  GETTABLEKS R14 R15 K21 ["Medium"]
+  SETTABLEKS R14 R13 K13 ["size"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K17 ["Enums"]
+  GETTABLEKS R15 R16 K22 ["IconVariant"]
+  GETTABLEKS R14 R15 K23 ["Filled"]
+  SETTABLEKS R14 R13 K14 ["variant"]
+  GETTABLEKS R17 R1 K24 ["Color"]
+  GETTABLEKS R16 R17 K25 ["Extended"]
+  GETTABLEKS R15 R16 K26 ["Red"]
+  GETTABLEKS R14 R15 K27 ["Red_700"]
+  SETTABLEKS R14 R13 K15 ["style"]
+  CALL R11 2 1
+  GETUPVAL R12 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K28 ["Text"]
+  DUPTABLE R14 K29 [{"Text", "tag"}]
+  LOADK R15 K30 ["Errors occured during reimport"]
+  SETTABLEKS R15 R14 K28 ["Text"]
+  LOADK R15 K31 [" flex-y-fill auto-y text-align-x-left text-align-y-center"]
+  SETTABLEKS R15 R14 K7 ["tag"]
+  CALL R12 2 -1
+  SETLIST R10 R11 -1 [1]
+  CALL R7 3 1
+  GETUPVAL R8 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K6 ["View"]
+  DUPTABLE R10 K8 [{"tag"}]
+  LOADK R11 K32 ["col size-full-0 auto-y padding-left-medium"]
+  SETTABLEKS R11 R10 K7 ["tag"]
+  NEWTABLE R11 0 1
+  GETUPVAL R12 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K33 ["ScrollView"]
+  DUPTABLE R14 K36 [{"layout", "scroll", "tag"}]
+  DUPTABLE R15 K38 [{"FillDirection"}]
+  GETIMPORT R16 K41 [Enum.FillDirection.Vertical]
+  SETTABLEKS R16 R15 K37 ["FillDirection"]
+  SETTABLEKS R15 R14 K34 ["layout"]
+  DUPTABLE R15 K45 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+  GETIMPORT R16 K48 [Enum.AutomaticSize.Y]
+  SETTABLEKS R16 R15 K42 ["AutomaticCanvasSize"]
+  GETIMPORT R16 K51 [UDim2.fromOffset]
+  LOADN R17 0
+  LOADN R18 0
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K43 ["CanvasSize"]
+  GETIMPORT R16 K52 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R16 R15 K44 ["ScrollingDirection"]
+  SETTABLEKS R15 R14 K35 ["scroll"]
+  LOADK R15 K53 ["col size-full"]
+  SETTABLEKS R15 R14 K7 ["tag"]
+  NEWTABLE R15 0 1
+  GETUPVAL R16 1
+  NEWCLOSURE R17 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
+  CALL R16 1 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 -1
+  SETLIST R11 R12 -1 [1]
+  CALL R8 3 -1
+  SETLIST R6 R7 -1 [1]
+  CALL R3 3 -1
+  SETLIST R2 R3 -1 [1]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ReimportPlugin"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["createElement"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Lib"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["Counter"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K13 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Dialogs"]
+  GETTABLEKS R6 R7 K15 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K16 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R6 1

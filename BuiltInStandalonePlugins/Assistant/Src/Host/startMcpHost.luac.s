@@ -337,108 +337,106 @@ MAIN:
   GETTABLEKS R3 R4 K11 ["AssistantUI"]
   CALL R2 1 1
   GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R0 K12 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Flags"]
-  GETTABLEKS R4 R5 K14 ["FFlagAssistantEnableWebStreamClientInternal"]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["LuauPolyfill"]
   CALL R3 1 1
   GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K12 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Flags"]
-  GETTABLEKS R5 R6 K15 ["FFlagDebugLogAssistantUI"]
+  GETTABLEKS R6 R0 K10 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["ModelContextProtocol"]
   CALL R4 1 1
   GETIMPORT R5 K9 [require]
-  GETTABLEKS R7 R0 K10 ["Packages"]
-  GETTABLEKS R6 R7 K16 ["LuauPolyfill"]
+  GETTABLEKS R7 R0 K14 ["Src"]
+  GETTABLEKS R6 R7 K15 ["Types"]
   CALL R5 1 1
   GETIMPORT R6 K9 [require]
-  GETTABLEKS R8 R0 K10 ["Packages"]
-  GETTABLEKS R7 R8 K17 ["ModelContextProtocol"]
+  GETTABLEKS R9 R0 K14 ["Src"]
+  GETTABLEKS R8 R9 K16 ["Flags"]
+  GETTABLEKS R7 R8 K17 ["FFlagAssistantEnableWebStreamClientInternal"]
   CALL R6 1 1
   GETIMPORT R7 K9 [require]
-  GETTABLEKS R9 R0 K12 ["Src"]
-  GETTABLEKS R8 R9 K18 ["Types"]
+  GETTABLEKS R10 R0 K14 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Flags"]
+  GETTABLEKS R8 R9 K18 ["FFlagDebugLogAssistantUI"]
   CALL R7 1 1
-  GETTABLEKS R8 R4 K19 ["Get"]
-  GETTABLEKS R10 R2 K13 ["Flags"]
-  GETTABLEKS R9 R10 K20 ["getFFlagMCPAssistantManagementMenu"]
-  GETTABLEKS R10 R3 K19 ["Get"]
-  GETTABLEKS R12 R2 K21 ["Utils"]
-  GETTABLEKS R11 R12 K22 ["Tools"]
-  GETTABLEKS R13 R6 K23 ["Util"]
-  GETTABLEKS R12 R13 K24 ["Logging"]
-  GETTABLEKS R13 R6 K18 ["Types"]
-  GETTABLEKS R14 R6 K25 ["MultiplexedClient"]
-  GETTABLEKS R15 R6 K26 ["PeerTransport"]
-  GETTABLEKS R16 R6 K27 ["Promise"]
-  GETTABLEKS R17 R6 K28 ["Server"]
-  GETTABLEKS R18 R6 K29 ["ServerRegistry"]
-  GETTABLEKS R20 R6 K30 ["StreamableHttpClient"]
-  GETTABLEKS R19 R20 K31 ["StreamableHttpClientTransport"]
-  GETTABLEKS R20 R6 K32 ["ToolRegistry"]
-  GETTABLEKS R22 R2 K33 ["IntegrationManagement"]
-  GETTABLEKS R21 R22 K34 ["IntegrationManager"]
-  GETTABLEKS R23 R2 K35 ["Guest"]
-  GETTABLEKS R22 R23 K36 ["Environment"]
-  GETTABLEKS R24 R6 K30 ["StreamableHttpClient"]
-  GETTABLEKS R23 R24 K37 ["StreamingClientFactory"]
-  DUPTABLE R24 K39 [{"capabilities"}]
-  DUPTABLE R25 K43 [{"experimental", "roots", "sampling"}]
-  GETTABLEKS R26 R13 K44 ["emptyObject"]
-  CALL R26 0 1
-  SETTABLEKS R26 R25 K40 ["experimental"]
-  GETTABLEKS R26 R13 K44 ["emptyObject"]
-  CALL R26 0 1
-  SETTABLEKS R26 R25 K41 ["roots"]
-  GETTABLEKS R26 R13 K44 ["emptyObject"]
-  CALL R26 0 1
-  SETTABLEKS R26 R25 K42 ["sampling"]
-  SETTABLEKS R25 R24 K38 ["capabilities"]
-  DUPTABLE R25 K39 [{"capabilities"}]
-  DUPTABLE R26 K48 [{"prompts", "resources", "tools"}]
-  GETTABLEKS R27 R13 K44 ["emptyObject"]
-  CALL R27 0 1
-  SETTABLEKS R27 R26 K45 ["prompts"]
-  GETTABLEKS R27 R13 K44 ["emptyObject"]
-  CALL R27 0 1
-  SETTABLEKS R27 R26 K46 ["resources"]
-  DUPTABLE R27 K50 [{"listChanged"}]
-  LOADB R28 1
-  SETTABLEKS R28 R27 K49 ["listChanged"]
-  SETTABLEKS R27 R26 K47 ["tools"]
-  SETTABLEKS R26 R25 K38 ["capabilities"]
-  DUPCLOSURE R26 K51 [PROTO_3]
-  CAPTURE VAL R17
-  CAPTURE VAL R25
-  CAPTURE VAL R20
-  CAPTURE VAL R8
-  CAPTURE VAL R11
-  SETGLOBAL R26 K52 ["getBuiltinServer"]
-  DUPCLOSURE R26 K53 [PROTO_4]
-  CAPTURE VAL R18
-  SETGLOBAL R26 K54 ["startLocalServer"]
-  DUPCLOSURE R26 K55 [PROTO_5]
+  GETTABLEKS R9 R2 K16 ["Flags"]
+  GETTABLEKS R8 R9 K19 ["getFFlagMCPAssistantManagementMenu"]
+  GETTABLEKS R10 R2 K20 ["Utils"]
+  GETTABLEKS R9 R10 K21 ["Tools"]
+  GETTABLEKS R11 R4 K22 ["Util"]
+  GETTABLEKS R10 R11 K23 ["Logging"]
+  GETTABLEKS R11 R4 K15 ["Types"]
+  GETTABLEKS R12 R4 K24 ["MultiplexedClient"]
+  GETTABLEKS R13 R4 K25 ["PeerTransport"]
+  GETTABLEKS R14 R4 K26 ["Promise"]
+  GETTABLEKS R15 R4 K27 ["Server"]
+  GETTABLEKS R16 R4 K28 ["ServerRegistry"]
+  GETTABLEKS R18 R4 K29 ["StreamableHttpClient"]
+  GETTABLEKS R17 R18 K30 ["StreamableHttpClientTransport"]
+  GETTABLEKS R18 R4 K31 ["ToolRegistry"]
+  GETTABLEKS R20 R2 K32 ["IntegrationManagement"]
+  GETTABLEKS R19 R20 K33 ["IntegrationManager"]
+  GETTABLEKS R21 R2 K34 ["Guest"]
+  GETTABLEKS R20 R21 K35 ["Environment"]
+  GETTABLEKS R22 R4 K29 ["StreamableHttpClient"]
+  GETTABLEKS R21 R22 K36 ["StreamingClientFactory"]
+  DUPTABLE R22 K38 [{"capabilities"}]
+  DUPTABLE R23 K42 [{"experimental", "roots", "sampling"}]
+  GETTABLEKS R24 R11 K43 ["emptyObject"]
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K39 ["experimental"]
+  GETTABLEKS R24 R11 K43 ["emptyObject"]
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K40 ["roots"]
+  GETTABLEKS R24 R11 K43 ["emptyObject"]
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K41 ["sampling"]
+  SETTABLEKS R23 R22 K37 ["capabilities"]
+  DUPTABLE R23 K38 [{"capabilities"}]
+  DUPTABLE R24 K47 [{"prompts", "resources", "tools"}]
+  GETTABLEKS R25 R11 K43 ["emptyObject"]
+  CALL R25 0 1
+  SETTABLEKS R25 R24 K44 ["prompts"]
+  GETTABLEKS R25 R11 K43 ["emptyObject"]
+  CALL R25 0 1
+  SETTABLEKS R25 R24 K45 ["resources"]
+  DUPTABLE R25 K49 [{"listChanged"}]
+  LOADB R26 1
+  SETTABLEKS R26 R25 K48 ["listChanged"]
+  SETTABLEKS R25 R24 K46 ["tools"]
+  SETTABLEKS R24 R23 K37 ["capabilities"]
+  DUPCLOSURE R24 K50 [PROTO_3]
   CAPTURE VAL R15
-  DUPCLOSURE R27 K56 [PROTO_7]
-  CAPTURE VAL R10
-  CAPTURE VAL R12
-  CAPTURE VAL R8
   CAPTURE VAL R23
-  CAPTURE VAL R1
-  DUPCLOSURE R28 K57 [PROTO_10]
-  CAPTURE VAL R10
-  CAPTURE VAL R12
-  CAPTURE VAL R8
-  CAPTURE VAL R15
-  CAPTURE VAL R16
+  CAPTURE VAL R18
   CAPTURE VAL R7
-  CAPTURE VAL R24
-  CAPTURE VAL R14
-  CAPTURE VAL R13
   CAPTURE VAL R9
-  CAPTURE VAL R22
+  SETGLOBAL R24 K51 ["getBuiltinServer"]
+  DUPCLOSURE R24 K52 [PROTO_4]
+  CAPTURE VAL R16
+  SETGLOBAL R24 K53 ["startLocalServer"]
+  DUPCLOSURE R24 K54 [PROTO_5]
+  CAPTURE VAL R13
+  DUPCLOSURE R25 K55 [PROTO_7]
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R7
   CAPTURE VAL R21
+  CAPTURE VAL R1
+  DUPCLOSURE R26 K56 [PROTO_10]
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R5
+  CAPTURE VAL R22
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  CAPTURE VAL R20
   CAPTURE VAL R19
-  DUPTABLE R29 K60 [{"promiseMcpHost", "configureModelContextProtocol"}]
-  SETTABLEKS R28 R29 K58 ["promiseMcpHost"]
-  SETTABLEKS R27 R29 K59 ["configureModelContextProtocol"]
-  RETURN R29 1
+  CAPTURE VAL R17
+  DUPTABLE R27 K59 [{"promiseMcpHost", "configureModelContextProtocol"}]
+  SETTABLEKS R26 R27 K57 ["promiseMcpHost"]
+  SETTABLEKS R25 R27 K58 ["configureModelContextProtocol"]
+  RETURN R27 1

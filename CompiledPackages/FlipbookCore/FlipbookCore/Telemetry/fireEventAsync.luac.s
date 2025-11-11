@@ -46,7 +46,7 @@ PROTO_1:
   SETTABLEKS R4 R3 K6 ["buildVersion"]
   LOADK R4 K11 ["production"]
   SETTABLEKS R4 R3 K7 ["buildChannel"]
-  LOADK R4 K12 ["56f03d9"]
+  LOADK R4 K12 [""]
   SETTABLEKS R4 R3 K8 ["buildHash"]
   LOADNIL R4
   GETIMPORT R5 K14 [pcall]

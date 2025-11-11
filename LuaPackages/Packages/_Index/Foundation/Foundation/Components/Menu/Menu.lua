@@ -7,12 +7,14 @@ local Types = require(Foundation.Components.Types)
 local Popover = require(Foundation.Components.Popover)
 local BaseMenu = require(Foundation.Components.BaseMenu)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local Flags = require(Foundation.Utility.Flags)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local InputSize = require(Foundation.Enums.InputSize)
+local Radius = require(Foundation.Enums.Radius)
 
 type InputSize = InputSize.InputSize
 type PopoverSide = PopoverSide.PopoverSide
@@ -48,6 +50,9 @@ export type MenuProps = {
 	anchorRef: React.Ref<PopoverAnchor>?,
 	-- Children to render as the anchor
 	children: React.ReactNode?,
+	-- Selection behavior
+	selection: Types.Selection?,
+	selectionGroup: Types.Bindable<boolean>? | Types.SelectionGroup?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -82,7 +87,10 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 				hasArrow = false,
 				onPressedOutside = props.onPressedOutside,
 				backgroundStyle = tokens.Color.Surface.Surface_100,
+				radius = if Flags.FoundationBaseMenuBorderFix then Radius.Medium else nil,
 				ref = ref,
+				selection = props.selection,
+				selectionGroup = props.selectionGroup,
 			},
 			React.createElement(React.Fragment, nil, {
 				Menu = React.createElement(BaseMenu.Root, {
@@ -90,12 +98,15 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 					size = props.size,
 					width = props.width,
 					onActivated = props.onActivated,
+					radius = if Flags.FoundationBaseMenuBorderFix then Radius.Medium else nil,
 				}),
-				Border = React.createElement("UIStroke", {
-					Color = tokens.Color.Stroke.Default.Color3,
-					Transparency = tokens.Color.Stroke.Default.Transparency,
-					Thickness = strokeThickness,
-				}),
+				Border = if Flags.FoundationBaseMenuBorderFix
+					then nil
+					else React.createElement("UIStroke", {
+						Color = tokens.Color.Stroke.Default.Color3,
+						Transparency = tokens.Color.Stroke.Default.Transparency,
+						Thickness = strokeThickness,
+					}),
 			})
 		),
 	})

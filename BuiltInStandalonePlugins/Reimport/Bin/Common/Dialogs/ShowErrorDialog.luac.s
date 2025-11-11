@@ -1,0 +1,50 @@
+PROTO_0:
+  GETUPVAL R1 0
+  DUPTABLE R2 K2 [{"plugin", "dialogConfig"}]
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K0 ["plugin"]
+  DUPTABLE R3 K5 [{"kind", "props"}]
+  LOADK R4 K6 ["error"]
+  SETTABLEKS R4 R3 K3 ["kind"]
+  SETTABLEKS R0 R3 K4 ["props"]
+  SETTABLEKS R3 R2 K1 ["dialogConfig"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["fromProps"]
+  DUPTABLE R2 K2 [{"errors"}]
+  SETTABLEKS R0 R2 K1 ["errors"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ReimportPlugin"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [script]
+  LOADK R3 K4 ["Plugin"]
+  NAMECALL R1 R1 K5 ["FindFirstAncestorWhichIsA"]
+  CALL R1 2 1
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Dialogs"]
+  GETTABLEKS R3 R4 K10 ["ErrorDialog"]
+  CALL R2 1 1
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R6 R0 K11 ["Bin"]
+  GETTABLEKS R5 R6 K12 ["Common"]
+  GETTABLEKS R4 R5 K13 ["RenderUi"]
+  CALL R3 1 1
+  NEWTABLE R4 2 0
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K15 ["fromProps"]
+  DUPCLOSURE R5 K16 [PROTO_1]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K17 ["fromErrors"]
+  RETURN R4 1

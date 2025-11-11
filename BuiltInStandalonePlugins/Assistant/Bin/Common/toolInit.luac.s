@@ -13,85 +13,84 @@ PROTO_1:
   GETIMPORT R3 K1 [require]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K4 ["Src"]
-  GETTABLEKS R5 R6 K5 ["Flags"]
-  GETTABLEKS R4 R5 K6 ["FFlagAssistantEnableWebStreamClientInternal"]
+  GETTABLEKS R5 R6 K5 ["Util"]
+  GETTABLEKS R4 R5 K6 ["StudioNetworking"]
   CALL R3 1 1
   GETIMPORT R4 K1 [require]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K4 ["Src"]
-  GETTABLEKS R6 R7 K7 ["Util"]
-  GETTABLEKS R5 R6 K8 ["StudioNetworking"]
+  GETTABLEKS R6 R7 K5 ["Util"]
+  GETTABLEKS R5 R6 K7 ["StudioScriptHelper"]
   CALL R4 1 1
   GETIMPORT R5 K1 [require]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K4 ["Src"]
-  GETTABLEKS R7 R8 K7 ["Util"]
-  GETTABLEKS R6 R7 K9 ["StudioScriptHelper"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["Src"]
+  GETTABLEKS R6 R7 K8 ["Types"]
   CALL R5 1 1
   GETIMPORT R6 K1 [require]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K4 ["Src"]
-  GETTABLEKS R7 R8 K10 ["Types"]
+  GETTABLEKS R7 R8 K9 ["Tools"]
   CALL R6 1 1
   GETIMPORT R7 K1 [require]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K4 ["Src"]
-  GETTABLEKS R8 R9 K11 ["Tools"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K4 ["Src"]
+  GETTABLEKS R9 R10 K5 ["Util"]
+  GETTABLEKS R8 R9 K10 ["StudioEnvironment"]
   CALL R7 1 1
   GETIMPORT R8 K1 [require]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K4 ["Src"]
-  GETTABLEKS R10 R11 K7 ["Util"]
-  GETTABLEKS R9 R10 K12 ["StudioEnvironment"]
+  GETTABLEKS R10 R11 K11 ["Host"]
+  GETTABLEKS R9 R10 K12 ["startMcpHost"]
   CALL R8 1 1
   GETIMPORT R9 K1 [require]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K4 ["Src"]
-  GETTABLEKS R11 R12 K13 ["Host"]
-  GETTABLEKS R10 R11 K14 ["startMcpHost"]
+  GETTABLEKS R11 R12 K13 ["Flags"]
+  GETTABLEKS R10 R11 K14 ["FFlagAssistantEnableWebStreamClientInternal"]
   CALL R9 1 1
-  GETTABLEKS R10 R3 K15 ["Get"]
-  GETTABLEKS R11 R4 K16 ["create"]
-  DUPTABLE R12 K20 [{"plugin", "isGuest", "isHost"}]
-  SETTABLEKS R0 R12 K17 ["plugin"]
-  GETTABLEKS R13 R1 K18 ["isGuest"]
-  SETTABLEKS R13 R12 K18 ["isGuest"]
-  GETTABLEKS R13 R1 K19 ["isHost"]
-  SETTABLEKS R13 R12 K19 ["isHost"]
-  CALL R11 1 1
-  GETTABLEKS R12 R5 K21 ["initialize"]
-  MOVE R13 R11
-  CALL R12 1 0
-  GETTABLEKS R13 R2 K22 ["Guest"]
-  GETTABLEKS R12 R13 K23 ["startGuest"]
-  DUPTABLE R13 K27 [{"clientIdentifier", "LLMRequestNetworking", "EnvironmentOverride"}]
-  GETTABLEKS R14 R6 K28 ["MCP_CLIENT_IDENTIFIER"]
-  SETTABLEKS R14 R13 K24 ["clientIdentifier"]
-  SETTABLEKS R11 R13 K25 ["LLMRequestNetworking"]
-  MOVE R14 R8
-  MOVE R15 R0
-  MOVE R16 R11
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K26 ["EnvironmentOverride"]
-  CALL R12 1 0
+  GETTABLEKS R10 R3 K15 ["create"]
+  DUPTABLE R11 K19 [{"plugin", "isGuest", "isHost"}]
+  SETTABLEKS R0 R11 K16 ["plugin"]
+  GETTABLEKS R12 R1 K17 ["isGuest"]
+  SETTABLEKS R12 R11 K17 ["isGuest"]
+  GETTABLEKS R12 R1 K18 ["isHost"]
+  SETTABLEKS R12 R11 K18 ["isHost"]
+  CALL R10 1 1
+  GETTABLEKS R11 R4 K20 ["initialize"]
   MOVE R12 R10
-  CALL R12 0 1
-  JUMPIFNOT R12 [+3]
-  GETTABLEKS R12 R9 K29 ["configureModelContextProtocol"]
-  CALL R12 0 0
-  GETTABLEKS R12 R7 K30 ["createBuiltinTools"]
-  MOVE R13 R11
+  CALL R11 1 0
+  GETTABLEKS R12 R2 K21 ["Guest"]
+  GETTABLEKS R11 R12 K22 ["startGuest"]
+  DUPTABLE R12 K26 [{"clientIdentifier", "LLMRequestNetworking", "EnvironmentOverride"}]
+  GETTABLEKS R13 R5 K27 ["MCP_CLIENT_IDENTIFIER"]
+  SETTABLEKS R13 R12 K23 ["clientIdentifier"]
+  SETTABLEKS R10 R12 K24 ["LLMRequestNetworking"]
+  MOVE R13 R7
   MOVE R14 R0
-  CALL R12 2 0
-  GETTABLEKS R12 R1 K18 ["isGuest"]
-  JUMPIFNOT R12 [+3]
-  GETTABLEKS R12 R7 K31 ["registerBuiltinTools"]
-  CALL R12 0 0
-  GETTABLEKS R12 R0 K32 ["Unloading"]
-  NEWCLOSURE R14 P0
-  CAPTURE VAL R4
-  NAMECALL R12 R12 K33 ["Connect"]
-  CALL R12 2 0
+  MOVE R15 R10
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K25 ["EnvironmentOverride"]
+  CALL R11 1 0
+  MOVE R11 R9
+  CALL R11 0 1
+  JUMPIFNOT R11 [+3]
+  GETTABLEKS R11 R8 K28 ["configureModelContextProtocol"]
+  CALL R11 0 0
+  GETTABLEKS R11 R6 K29 ["createBuiltinTools"]
+  MOVE R12 R10
+  MOVE R13 R0
+  CALL R11 2 0
+  GETTABLEKS R11 R1 K17 ["isGuest"]
+  JUMPIFNOT R11 [+3]
+  GETTABLEKS R11 R6 K30 ["registerBuiltinTools"]
+  CALL R11 0 0
+  GETTABLEKS R11 R0 K31 ["Unloading"]
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R3
+  NAMECALL R11 R11 K32 ["Connect"]
+  CALL R11 2 0
   RETURN R0 0
 
 MAIN:

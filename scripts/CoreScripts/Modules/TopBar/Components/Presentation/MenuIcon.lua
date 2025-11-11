@@ -18,6 +18,7 @@ local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FFlagChromeEnabledRequireGamepadConnectorFix = SharedFlags.FFlagChromeEnabledRequireGamepadConnectorFix
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
+local FFlagFixChromeConsoleNilRefs = SharedFlags.FFlagFixChromeConsoleNilRefs
 
 local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
@@ -514,7 +515,7 @@ function MenuIcon:render()
 			end
 
 			local IconHitArea
-			if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then
+			if ChromeEnabled() and FFlagTiltIconUnibarFocusNav and (not FFlagFixChromeConsoleNilRefs or self.props.unibarMenuRef and self.props.unibarMenuRef.current) then
 				local leftmostUnibarIcon = ChromeService:menuList():get()[1]
 				local leftmostUnibarIconId = if leftmostUnibarIcon then (UnibarConstants.ICON_NAME_PREFIX::string) .. leftmostUnibarIcon.id else nil
 				local nextSelectionRight = if self.props.unibarMenuRef.current and leftmostUnibarIconId then 
@@ -553,7 +554,7 @@ function MenuIcon:render()
 				[Roact.Change.AbsolutePosition] = onChange,
 			}, {
 				BadgeOver12 = badgeOver12,
-				Background = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then nil else background,
+				Background = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav and (not FFlagFixChromeConsoleNilRefs or self.props.unibarMenuRef and self.props.unibarMenuRef.current) then nil else background,
 				IconHitArea = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then IconHitArea else 
 					if FFlagFixMenuIconBackground then nil else background :: never,
 					ShowTopBarListener = showTopBarListener,

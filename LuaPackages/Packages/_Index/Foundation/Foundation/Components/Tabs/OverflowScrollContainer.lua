@@ -145,6 +145,7 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 			gradient = START_GRADIENT,
 			tag = "padding-right-small",
 			icon = "chevron-large-left",
+			testId = `{props.testId}--overflow-start`,
 		}),
 		OverflowEnd = React.createElement(OverflowButton, {
 			LayoutOrder = 4,
@@ -156,6 +157,7 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 			gradient = END_GRADIENT,
 			tag = "padding-left-small anchor-top-right",
 			icon = "chevron-large-right",
+			testId = `{props.testId}--overflow-end`,
 		}),
 	})
 end

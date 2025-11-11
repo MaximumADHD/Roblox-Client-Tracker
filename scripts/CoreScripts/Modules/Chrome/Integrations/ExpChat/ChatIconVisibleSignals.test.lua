@@ -12,10 +12,19 @@ local ChatIconVisibleSignals = require(script.Parent.ChatIconVisibleSignals)
 
 local Chrome = script.Parent.Parent.Parent
 local FFlagRemoveLegacyChatConsoleCheck = require(Chrome.Flags.FFlagRemoveLegacyChatConsoleCheck)
-local FFlagExpChatWindowSyncUnibar = require(CorePackages.Workspace.Packages.SharedFlags).FFlagExpChatWindowSyncUnibar
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
+local FFlagEnableAEGIS2CommsFAEUpsell = SharedFlags.FFlagEnableAEGIS2CommsFAEUpsell
+local FFlagExpChatOnShowIconChatAvailabilityStatus = game:GetFastFlag("ExpChatOnShowIconChatAvailabilityStatus")
 
-local function makeSignalsAndGetValue()
-	local signals = ChatIconVisibleSignals.new()
+local AegisIsEnabled = FFlagEnableAEGIS2CommsFAEUpsell and FFlagExpChatOnShowIconChatAvailabilityStatus
+
+local function makeSignalsAndGetValue(chatStatus: string | nil)
+	local mockGetChatStatus, mockSetChatStatus = Signals.createSignal(chatStatus or "NoOne")
+	local signals = ChatIconVisibleSignals.new({
+		getChatStatus = mockGetChatStatus,
+		setChatStatus = mockSetChatStatus,
+	})
 	local function getValue()
 		local value
 		Signals.createEffect(function(scope)
@@ -24,15 +33,22 @@ local function makeSignalsAndGetValue()
 		end)
 		return value
 	end
-	return signals, getValue
+	return signals, getValue, mockSetChatStatus
 end
 
-it("should default unavailable and not visible", function()
+it("should default unavailable and not visible when chat status is NoOne", function()
 	print("should default unavailable and not visible")
 	local signals, getValue = makeSignalsAndGetValue()
 	print("getValue", getValue())
 	expect(getValue()).toBe(false)
 end)
+
+if AegisIsEnabled then
+	it("should default visible when chat status is Unknown", function()
+		local signals, getValue = makeSignalsAndGetValue("Unknown")
+		expect(getValue()).toBe(true)
+	end)
+end
 
 if not FFlagRemoveLegacyChatConsoleCheck then
 	describe("WHEN isForceDisabledForConsoleUsecase is true", function()
@@ -119,7 +135,7 @@ end
 
 describe("WHEN privacy settings are on", function()
 	it("should return available (visible)", function()
-		local signals, getValue = makeSignalsAndGetValue()
+		local signals, getValue = makeSignalsAndGetValue("Enabled")
 		signals.setLocalUserChat(true)
 		signals.setCoreGuiEnabled(true)
 		expect(getValue()).toBe(true)
@@ -165,7 +181,7 @@ describe("WHEN privacy settings are on", function()
 
 	describe("WHEN the developer enables chat", function()
 		it("should return available (visible)", function()
-			local signals, getValue = makeSignalsAndGetValue()
+			local signals, getValue = makeSignalsAndGetValue("Enabled")
 			signals.setLocalUserChat(true)
 			signals.setCoreGuiEnabled(true)
 			expect(getValue()).toBe(true)
@@ -173,7 +189,7 @@ describe("WHEN privacy settings are on", function()
 
 		describe("WHEN the developer attempts to hide chat", function()
 			it("should return available (visible)", function()
-				local signals, getValue = makeSignalsAndGetValue()
+				local signals, getValue = makeSignalsAndGetValue("Enabled")
 				signals.setLocalUserChat(true)
 				signals.setCoreGuiEnabled(true)
 				if FFlagExpChatWindowSyncUnibar then
@@ -187,7 +203,7 @@ describe("WHEN privacy settings are on", function()
 
 		describe("WHEN the developer disables chat", function()
 			it("should return unavailable (not visible)", function()
-				local signals, getValue = makeSignalsAndGetValue()
+				local signals, getValue = makeSignalsAndGetValue("Enabled")
 				signals.setLocalUserChat(true)
 				signals.setCoreGuiEnabled(true)
 				if FFlagExpChatWindowSyncUnibar then
@@ -282,8 +298,12 @@ end)
 
 if FFlagExpChatWindowSyncUnibar then
 	describe("getIsChatWindowVisible", function()
-		local function makeSignalsAndGetWindowValue()
-			local signals = ChatIconVisibleSignals.new()
+		local function makeSignalsAndGetWindowValue(chatStatus: string | nil)
+			local mockGetChatStatus, mockSetChatStatus = Signals.createSignal(chatStatus or "NoOne")
+			local signals = ChatIconVisibleSignals.new({
+				getChatStatus = mockGetChatStatus,
+				setChatStatus = mockSetChatStatus,
+			})
 			local function getWindowValue()
 				local value
 				Signals.createEffect(function(scope)
@@ -296,7 +316,7 @@ if FFlagExpChatWindowSyncUnibar then
 		end
 
 		it("should never be true if ChatIconVisible is false", function()
-			local signals, getWindowValue = makeSignalsAndGetWindowValue()
+			local signals, getWindowValue = makeSignalsAndGetWindowValue("NoOne")
 			-- Both false by default
 			expect(getWindowValue()).toBe(false)
 

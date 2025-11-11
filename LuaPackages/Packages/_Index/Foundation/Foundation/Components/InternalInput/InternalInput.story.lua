@@ -3,6 +3,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 
+local Flags = require(Foundation.Utility.Flags)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -33,12 +34,19 @@ local function Story(props)
 				text = controls.labelText,
 				position = controls.labelPosition,
 			},
-			customVariantProps = {
-				tag = "row gap-small align-x-center align-y-center",
-				size = UDim2.new(0, 200, 0, 50),
-				cursorRadius = UDim.new(0, 8),
-				checkedStyle = tokens.Color.System[controls.checkedStyle],
-			},
+			customVariantProps = if Flags.FoundationToggleVisualUpdate
+				then {
+					tag = "row gap-small align-x-center align-y-center",
+					size = UDim2.new(0, 200, 0, 50),
+					cursorRadius = UDim.new(0, 8),
+					colors = { checkedStyle = tokens.Color.System[controls.checkedStyle] },
+				}
+				else {
+					tag = "row gap-small align-x-center align-y-center",
+					size = UDim2.new(0, 200, 0, 50),
+					cursorRadius = UDim.new(0, 8),
+					checkedStyle = tokens.Color.System[controls.checkedStyle],
+				},
 			LayoutOrder = 1,
 		}, {
 			Content = if isChecked

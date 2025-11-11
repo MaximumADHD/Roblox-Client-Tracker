@@ -30,6 +30,22 @@ local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 
+local Once = function(fn)
+	local called = false
+	return function(...)
+		if not called then
+			called = true
+			return fn(...)
+		end
+		return nil
+	end
+end
+
+-- This will ensure we only send the "show" event once per session, for some reason it get's called twice on initialization
+local sendVoiceJoinUpsellShownEvent = Once(function()
+	VoiceChatServiceManager:reportJoinVoiceUpsellEvent("Shown")
+end)
+
 local function JoinVoiceBinder()
 	local isVoiceFocused = useIsVoiceFocused()
 	local isVoiceConnecting = useIsVoiceConnecting()
@@ -51,6 +67,7 @@ local function JoinVoiceBinder()
 
 		if not isVoiceFocused then
 			if availability == ChromeService.AvailabilitySignal.Available then
+				sendVoiceJoinUpsellShownEvent()
 				integration.availability:available()
 			elseif availability == ChromeService.AvailabilitySignal.Unavailable then
 				integration.availability:unavailable()

@@ -3,11 +3,13 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
+local Dash = require(Packages.Dash)
 
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local CursorContext = require(script.Parent.CursorContext)
 local KeyUtilities = require(script.Parent.KeyUtilities)
+local Flags = require(Foundation.Utility.Flags)
 
 local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 	local tokens = useTokens()
@@ -28,9 +30,13 @@ local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 	React.useEffect(function()
 		setMountedCursors(function(mountedExisting)
 			if mountedExisting[key] == nil then
-				return Cryo.Dictionary.union(mountedExisting, {
-					[key] = true,
-				})
+				return if Flags.FoundationMigrateCryoToDash
+					then Dash.join(mountedExisting, {
+						[key] = true,
+					})
+					else Cryo.Dictionary.union(mountedExisting, {
+						[key] = true,
+					})
 			end
 			return mountedExisting
 		end)

@@ -20,6 +20,7 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local useKnobVariants = require(script.Parent.useKnobVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local usePresentationContext = require(Foundation.Providers.Style.PresentationContext).usePresentationContext
+local ColorMode = require(Foundation.Enums.ColorMode)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 local Flags = require(Foundation.Utility.Flags)
@@ -46,7 +47,8 @@ local function Knob(knobProps: KnobProps)
 	local props = withDefaults(knobProps, defaultProps)
 	local tokens = useTokens()
 	local presentationContext = usePresentationContext()
-	local variantProps = useKnobVariants(tokens, props.size, presentationContext and presentationContext.isInverse)
+	local variantProps =
+		useKnobVariants(tokens, props.size, presentationContext and presentationContext.colorMode == ColorMode.Inverse)
 	local knobStyle = props.style or variantProps.knob.style
 
 	local getShadowStyle = React.useCallback(function(style: ColorStyleValue)
@@ -76,13 +78,13 @@ local function Knob(knobProps: KnobProps)
 		View,
 		withCommonProps(props, {
 			Size = variantProps.knob.size,
-			isDisabled = if Flags.FoundationUpdateKnobComponent then props.isDisabled else nil,
-			GroupTransparency = if Flags.FoundationUpdateKnobComponent and props.isDisabled
+			isDisabled = if Flags.FoundationToggleVisualUpdate then props.isDisabled else nil,
+			GroupTransparency = if Flags.FoundationToggleVisualUpdate and props.isDisabled
 				then Constants.DISABLED_TRANSPARENCY
 				else nil,
 		}),
 		{
-			Icon = if Flags.FoundationUpdateKnobComponent and props.icon
+			Icon = if Flags.FoundationToggleVisualUpdate and props.icon
 				then React.createElement(
 					View,
 					{
@@ -107,7 +109,7 @@ local function Knob(knobProps: KnobProps)
 					ZIndex = 4,
 					testId = `{props.testId}--circle`,
 				}),
-			Shadow = if props.hasShadow and not (Flags.FoundationUpdateKnobComponent and props.isDisabled)
+			Shadow = if props.hasShadow and not (Flags.FoundationToggleVisualUpdate and props.isDisabled)
 				then React.createElement(Image, {
 					tag = variantProps.knobShadow.tag,
 					imageStyle = if ReactIs.isBinding(knobStyle)

@@ -105,7 +105,6 @@ local Flags = {
 	FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false),
 	FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false),
 	FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false),
-	FFlagFixUninitializedMenuKeyBindings = game:DefineFastFlag("FixUninitializedMenuKeyBindings", false),
 
 	GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification),
 	FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)(),
@@ -126,6 +125,7 @@ local Flags = {
 	GetFFlagRemovePermissionsButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagRemovePermissionsButtons),
 	FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons),
 	FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant),
+	FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM),
 	FFlagSpatialUIFixMenuPanelChatExclusive = require(RobloxGui.Modules.Settings.Flags.FFlagSpatialUIFixMenuPanelChatExclusive),
 
 	FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer),
@@ -521,20 +521,25 @@ local function CreateSettingsHub()
 	end
 
 	local function setBottomBarBindings()
+		if not this.Visible then
+			return
+		end
+
 		if not Flags.FFlagRelocateMobileMenuButtons or Flags.FIntRelocateMobileMenuButtonsVariant == 0 then
-			if not this.Visible then
-				return
-			end
 			for i = 1, #this.BottomBarButtons do
 				local buttonTable = this.BottomBarButtons[i]
 				local buttonName = buttonTable[1]
 				local hotKeyTable = buttonTable[2]
 				ContextActionService:BindCoreAction(buttonName, hotKeyTable[1], false, unpack(hotKeyTable[2]))
 			end
-
-			if this.BottomButtonFrame then
-				this.BottomButtonFrame.Visible = true
+		else
+			if this.addMenuKeyBindings then
+				this.addMenuKeyBindings()
 			end
+		end
+
+		if this.BottomButtonFrame then
+			this.BottomButtonFrame.Visible = true
 		end
 	end
 
@@ -543,19 +548,23 @@ local function CreateSettingsHub()
 			for _, hotKeyTable in pairs(this.BottomBarButtons) do
 				ContextActionService:UnbindCoreAction(hotKeyTable[1])
 			end
-
-			local myOpenStateChangedCount = this.OpenStateChangedCount
-			local removeBottomButtonFrame = function()
-				if this.OpenStateChangedCount == myOpenStateChangedCount and this.BottomButtonFrame then
-					this.BottomButtonFrame.Visible = false
-				end
+		else
+			if this.removeMenuKeyBindings then
+				this.removeMenuKeyBindings()
 			end
+		end
 
-			if delayBeforeRemoving then
-				delay(delayBeforeRemoving, removeBottomButtonFrame)
-			else
-				removeBottomButtonFrame()
+		local myOpenStateChangedCount = this.OpenStateChangedCount
+		local removeBottomButtonFrame = function()
+			if this.OpenStateChangedCount == myOpenStateChangedCount and this.BottomButtonFrame then
+				this.BottomButtonFrame.Visible = false
 			end
+		end
+
+		if delayBeforeRemoving then
+			delay(delayBeforeRemoving, removeBottomButtonFrame)
+		else
+			removeBottomButtonFrame()
 		end
 	end
 
@@ -985,6 +994,40 @@ local function CreateSettingsHub()
 			end,
 		}
 	end
+
+	local mountMenuButtons = if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 
+		then function()
+			local experienceControlStore = this:GetExperienceControlStore()
+
+			this.BottomButtonFrameRoot = ReactRoblox.createRoot(this.BottomButtonFrame)
+			this.BottomButtonFrameRoot:render(React.createElement(MenuButtonsContainer, {
+				onLeaveGame = experienceControlStore.onLeaveGame,
+				onRespawn = experienceControlStore.onRespawn,
+				onResume = experienceControlStore.onResume,
+				setAddMenuKeyBindings = function(addMenuKeyBindings: () -> ())
+					-- Passes the addKeyBindings function from MenuButtonsContainer to SettingsHub so it can be used here
+					this.addMenuKeyBindings = addMenuKeyBindings
+				end,
+				setRemoveMenuKeyBindings = function(removeMenuKeyBindings: () -> ())
+					-- Passes the removeKeyBindings function from MenuButtonsContainer to SettingsHub so it can be used here
+					this.removeMenuKeyBindings = removeMenuKeyBindings
+				end,
+				getVisibility = function() 
+					return this.GetVisibility() 
+				end,
+				getCanRespawn = experienceControlStore.getCanRespawn,
+			}))
+		end 
+		else nil :: never
+
+	local unmountMenuButtons = if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0
+		then function()
+			if this.BottomButtonFrameRoot then
+				this.BottomButtonFrameRoot:unmount()
+				this.BottomButtonFrameRoot = nil
+			end
+		end
+		else nil :: never
 
 	local function createGui()
 		local PageViewSizeReducer = 0
@@ -1918,10 +1961,6 @@ local function CreateSettingsHub()
 			SelectionBehaviorDown = if Flags.FFlagIEMFocusNavToButtons then Enum.SelectionBehavior.Stop else nil,
 		};
 
-		if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-			this.BottomButtonFrame.Size = UDim2.new(1, 0, 0, this.HubBar.Size.Y.Offset)
-		end
-
 		local resumeFunc = function(source)
 			if Flags.FFlagAddUILessMode then
 				setVisibilityInternal(false, nil, nil, nil, source)
@@ -1948,37 +1987,17 @@ local function CreateSettingsHub()
 			end
 		end
 
-		if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-			-- Passes the addKeyBindings function from MenuButtonsContainer to SettingsHub so it can be used here
-			local setAddMenuKeyBindings = function(addMenuKeyBindings: () -> ())
-				this.addMenuKeyBindings = addMenuKeyBindings
-			end
 
-			-- Passes the removeKeyBindings function from MenuButtonsContainer to SettingsHub so it can be used here
-			local setRemoveMenuKeyBindings = function(removeMenuKeyBindings: () -> ())
-				this.removeMenuKeyBindings = removeMenuKeyBindings
+		if not Flags.FFlagMenuButtonsMountWithIEM then
+			if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+				mountMenuButtons()
 			end
-
-			local getVisibility = function()
-				return this.GetVisibility()
-			end
-
-			local experienceControlStore = this:GetExperienceControlStore()
-			this.BottomButtonFrameRoot = ReactRoblox.createRoot(this.BottomButtonFrame)
-			this.BottomButtonFrameRoot:render(React.createElement(MenuButtonsContainer, {
-				onLeaveGame = experienceControlStore.onLeaveGame,
-				onRespawn = experienceControlStore.onRespawn,
-				onResume = experienceControlStore.onResume,
-				setAddMenuKeyBindings = setAddMenuKeyBindings,
-				setRemoveMenuKeyBindings = setRemoveMenuKeyBindings,
-				getVisibility = getVisibility,
-				getCanRespawn = experienceControlStore.getCanRespawn,
-			}))
 		end
 
 		if not Flags.FFlagRelocateMobileMenuButtons or Flags.FIntRelocateMobileMenuButtonsVariant == 0 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen()) then
 			this.BottomButtonFrame.Size = UDim2.new(1, 0, 0, 80)
 		end
+
 		this.MenuListLayout = Create'UIListLayout'
 		{
 			Padding = UDim.new(0, 12),
@@ -2258,6 +2277,26 @@ local function CreateSettingsHub()
 			return this.FrontBarRef:getValue().Visible
 		end
 
+		if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2 then
+			if not (utility:IsPortrait() or utility:IsSmallTouchScreen()) or Theme.AlwaysShowBottomBar() then
+				-- Mount when menu buttons move from top to bottom of IEM (portrait to landscape mode)
+				if not this.BottomButtonFrameRoot then
+					mountMenuButtons()
+				end
+				if this.PlayersPage then
+					this.PlayersPage:UnmountMenuButtonsContainer()
+				end
+			else
+				-- Mount when menu buttons move from bottom to top of IEM (landscape to portrait mode)
+				if this.BottomButtonFrameRoot then
+					unmountMenuButtons()
+				end
+				if this.PlayersPage then
+					this.PlayersPage:CreateMenuButtonsContainer()
+				end
+			end
+		end
+
 		local menuPos = Theme.MenuContainerPosition(this.SettingsUIDelegate)
 		local largestPageSize = 600
 		local fullScreenSize
@@ -2369,32 +2408,12 @@ local function CreateSettingsHub()
 		end
 
 		if shouldShowBottomBar() then
-			if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-				if Flags.FFlagFixUninitializedMenuKeyBindings then
-					if this.addMenuKeyBindings then
-						this.addMenuKeyBindings()
-					end
-				else
-					this.addMenuKeyBindings()
-				end
-			else
-				setBottomBarBindings()
-				if Flags.FFlagIEMFocusNavToButtons then
-					setBottomBarSelection(this.Pages.CurrentPage)
-				end
+			setBottomBarBindings()
+			if Flags.FFlagIEMFocusNavToButtons then
+				setBottomBarSelection(this.Pages.CurrentPage)
 			end
 		else
-			if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-				if Flags.FFlagFixUninitializedMenuKeyBindings then
-					if this.removeMenuKeyBindings then
-						this.removeMenuKeyBindings()
-					end
-				else
-					this.removeMenuKeyBindings()
-				end
-			else
-				removeBottomBarBindings()
-			end
+			removeBottomBarBindings()
 		end
 		
 		if Flags.isInExperienceUIVREnabled then
@@ -2501,6 +2520,12 @@ local function CreateSettingsHub()
 				0,
 				usePageSize
 			)
+		end
+
+		if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 then
+			if this.BottomButtonFrame then
+				this.BottomButtonFrame.Size = UDim2.new(0, this.HubBar.Size.X.Offset, 0, this.HubBar.Size.Y.Offset)
+			end
 		end
 
 		if Flags.FFlagAddNextUpContainer then
@@ -2854,11 +2879,7 @@ local function CreateSettingsHub()
 		this.HubBar.Visible = false
 		this.PageViewClipper.Visible = false
 		if this.BottomButtonFrame then
-			if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-				this.removeMenuKeyBindings()
-			else
-				removeBottomBarBindings()
-			end
+			removeBottomBarBindings()
 		end
 	end
 
@@ -2866,13 +2887,9 @@ local function CreateSettingsHub()
 		this.HubBar.Visible = true
 		this.PageViewClipper.Visible = true
 		if this.BottomButtonFrame and shouldShowBottomBar() then
-			if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-				this.addMenuKeyBindings()
-			else
-				setBottomBarBindings()
-				if Flags.FFlagIEMFocusNavToButtons then
-					setBottomBarSelection(this.Pages.CurrentPage)
-				end
+			setBottomBarBindings()
+			if Flags.FFlagIEMFocusNavToButtons then
+				setBottomBarSelection(this.Pages.CurrentPage)
 			end
 		end
 	end
@@ -3055,14 +3072,9 @@ local function CreateSettingsHub()
 		-- set top & bottom bar visibility
 		if this.BottomButtonFrame then
 			if shouldShowBottomBar(pageToSwitchTo) then
-				if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 and not (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen()) then
-					this.addMenuKeyBindings()
-					this.BottomButtonFrame.Visible = true
-				else
-					setBottomBarBindings()
-					if Flags.FFlagIEMFocusNavToButtons then
-						setBottomBarSelection(pageToSwitchTo)
-					end
+				setBottomBarBindings()
+				if Flags.FFlagIEMFocusNavToButtons then
+					setBottomBarSelection(pageToSwitchTo)
 				end
 			else
 				this.BottomButtonFrame.Visible = false
@@ -3325,6 +3337,19 @@ local function CreateSettingsHub()
 					onScreenSizeChanged()
 				end
 			end)
+
+			if Flags.FFlagMenuButtonsMountWithIEM then
+				if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
+					mountMenuButtons()
+				end
+
+				if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen() then
+					if this.PlayersPage then
+						this.PlayersPage:CreateMenuButtonsContainer()
+					end
+				end
+			end
+
 			if not Flags.FFlagAddTraversalBackButton then
 				if this.BackBarRef:getValue() then
 					this.BackBarVisibleConnection = this.BackBarRef:getValue():GetPropertyChangedSignal("Visible"):connect(function()
@@ -3457,13 +3482,9 @@ local function CreateSettingsHub()
 			ContextActionService:BindCoreAction("RbxSettingsHubSwitchTab", switchTabFromBumpers, false, Enum.KeyCode.ButtonR1, Enum.KeyCode.ButtonL1)
 			ContextActionService:BindCoreAction("RbxSettingsScrollHotkey", scrollHotkeyFunc, false, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown)
 			if shouldShowBottomBar() then
-				if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-					this.addMenuKeyBindings()
-				else
-					setBottomBarBindings()
-					if Flags.FFlagIEMFocusNavToButtons then
-						setBottomBarSelection(this.Pages.CurrentPage)
-					end
+				setBottomBarBindings()
+				if Flags.FFlagIEMFocusNavToButtons then
+					setBottomBarSelection(this.Pages.CurrentPage)
 				end
 			end
 
@@ -3487,11 +3508,7 @@ local function CreateSettingsHub()
 			end
 
 			if customStartPage then
-				if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-					this.removeMenuKeyBindings()
-				else
-					removeBottomBarBindings()
-				end
+				removeBottomBarBindings()
 				this:SwitchToPage(customStartPage, nil, 1, true)
 			else
 				this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1, true)
@@ -3541,6 +3558,18 @@ local function CreateSettingsHub()
 		else
 			this.CurrentPageSignal:fire("")
 
+			if Flags.FFlagMenuButtonsMountWithIEM and Flags.FFlagRelocateMobileMenuButtons then
+				if Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 then
+					unmountMenuButtons()
+				end
+
+				if Flags.FIntRelocateMobileMenuButtonsVariant == 2 then
+					if this.PlayersPage then
+						this.PlayersPage:UnmountMenuButtonsContainer()
+					end
+				end
+			end
+			
 			if Flags.ChromeEnabled and FFlagEnableChromeShortcutBar then
 				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
 				local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
@@ -3707,11 +3736,8 @@ local function CreateSettingsHub()
 			ContextActionService:UnbindCoreAction("RbxSettingsHubSwitchTab")
 			ContextActionService:UnbindCoreAction("RbxSettingsHubStopCharacter")
 			ContextActionService:UnbindCoreAction("RbxSettingsScrollHotkey")
-			if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-				this.removeMenuKeyBindings()
-			else
-				removeBottomBarBindings(0.4)
-			end
+
+			removeBottomBarBindings(0.4)
 
 			if Flags.FFlagIEMEndFocusNavTiltMenuHidden or not (FFlagEnableChromeShortcutBar and Flags.ChromeEnabled) then 
 				GuiService.SelectedCoreObject = nil
@@ -3867,6 +3893,9 @@ local function CreateSettingsHub()
 
 			this.ReactPage.Visible = false
 			this.Page.Visible = true
+			if Flags.FFlagCreateInExperienceMenuReact and Flags.FFlagIEMFocusNavToButtons and this.Pages.CurrentPage then
+				this.Pages.CurrentPage:SelectARow(true)
+			end
 		end
 
 		function this:MountReactPage()
@@ -4032,8 +4061,10 @@ local function CreateSettingsHub()
 	if InExperienceCapabilities.canListPeopleInSameServer then
 		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.PeopleWrapper)
 		this.PlayersPage:SetHub(this)
-		if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen() then
-			this.PlayersPage:CreateMenuButtonsContainer()
+		if not Flags.FFlagMenuButtonsMountWithIEM then
+			if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant == 2 and utility:IsSmallTouchScreen() then
+				this.PlayersPage:CreateMenuButtonsContainer()
+			end
 		end
 	end
 	
@@ -4205,11 +4236,7 @@ local function CreateSettingsHub()
 	if this.ExitModalPage then
 		local function showExitModal()
 			this.HubBar.Visible = false
-			if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-				this.removeMenuKeyBindings()
-			else
-				removeBottomBarBindings()
-			end
+			removeBottomBarBindings()
 			if this:GetVisibility() then
 				this:AddToMenuStack(this.Pages.CurrentPage)
 				this:SwitchToPage(this.ExitModalPage, nil, 1, true)
@@ -4222,8 +4249,11 @@ local function CreateSettingsHub()
 				if Flags.FFlagEnableInGameMenuDurationLogger then
 					PerfUtils.leavingGame()
 				end
-				if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
-					this.BottomButtonFrameRoot:unmount()
+				if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 then
+					unmountMenuButtons()
+					if Flags.FFlagMenuButtonsMountWithIEM and Flags.FIntRelocateMobileMenuButtonsVariant == 2 and this.PlayersPage then
+						this.PlayersPage:UnmountMenuButtonsContainer()
+					end
 				end
 				this.ExitModalPage.LeaveAppFunc(true)
 			else

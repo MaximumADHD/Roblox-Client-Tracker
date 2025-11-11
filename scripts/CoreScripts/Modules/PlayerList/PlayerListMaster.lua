@@ -30,6 +30,7 @@ local GlobalConfig = require(PlayerList.GlobalConfig)
 local PlayerListSwitcher = require(PlayerList.PlayerListSwitcher)
 
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+local PlayerListConstants = PlayerListPackage.Common.Constants
 
 -- Actions
 local SetPlayerListEnabled = require(PlayerList.Actions.SetPlayerListEnabled)
@@ -53,6 +54,7 @@ local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPla
 local FFlagSetIsGamepadOnMount = game:DefineFastFlag("PlayerListSetIsGamepadOnMount", false)
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
+local FFlagPlayerListIgnoreDevGamepadBindings = PlayerListPackage.Flags.FFlagPlayerListIgnoreDevGamepadBindings
 
 local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
 local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
@@ -273,6 +275,11 @@ function PlayerListMaster:_trackEnabled()
 			self.coreGuiEnabled = enabled
 			self:_updateMounted()
 			self.store:dispatch(SetPlayerListEnabled(enabled))
+			if FFlagPlayerListIgnoreDevGamepadBindings then
+				if not enabled then
+					GuiService:SetMenuIsOpen(false, PlayerListConstants.PLAYER_LIST_MENU)
+				end
+			end
 		end
 	end)
 end

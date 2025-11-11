@@ -41,13 +41,14 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R4 R3 K22 ["registerActions"]
   CALL R4 0 0
-  GETIMPORT R4 K1 [plugin]
-  LOADK R6 K23 ["Actions"]
-  NAMECALL R4 R4 K24 ["GetPluginComponent"]
-  CALL R4 2 1
-  GETTABLEKS R7 R3 K25 ["actionUri"]
-  LOADK R8 K26 ["lua-sample"]
-  CALL R7 1 -1
-  NAMECALL R5 R4 K27 ["ActivateAsync"]
-  CALL R5 -1 0
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R7 R0 K19 ["Bin"]
+  GETTABLEKS R6 R7 K20 ["Common"]
+  GETTABLEKS R5 R6 K23 ["Debug"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K24 ["debugEnabled"]
+  CALL R5 0 1
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R5 R4 K25 ["showDebugUi"]
+  CALL R5 0 0
   RETURN R0 0

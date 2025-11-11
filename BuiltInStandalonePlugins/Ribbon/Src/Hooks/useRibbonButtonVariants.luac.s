@@ -52,35 +52,49 @@ PROTO_2:
   LOADK R1 K2 ["padding-xsmall"]
   JUMP [+1]
   LOADK R1 K3 ["padding-small"]
-  DUPTABLE R2 K6 [{"tag", "sizeConstraint"}]
+  DUPTABLE R2 K7 [{"tag", "sizeConstraint", "stateLayer"}]
   NEWTABLE R3 2 0
-  LOADK R5 K7 ["auto-xy radius-small align-y-center align-x-center row %*"]
+  LOADK R5 K8 ["auto-xy radius-small align-y-center align-x-center row %*"]
   MOVE R7 R1
-  NAMECALL R5 R5 K8 ["format"]
+  NAMECALL R5 R5 K9 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   LOADB R5 1
   SETTABLE R5 R3 R4
-  GETTABLEKS R5 R0 K9 ["selected"]
+  GETTABLEKS R5 R0 K10 ["selected"]
   JUMPIFEQKB R5 TRUE [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  SETTABLEKS R4 R3 K10 ["bg-action-standard"]
+  SETTABLEKS R4 R3 K11 ["bg-action-standard"]
   SETTABLEKS R3 R2 K4 ["tag"]
   GETUPVAL R3 0
-  DUPTABLE R4 K14 [{"isSmall", "isCompact", "smallSize", "compactSize", "defaultSize"}]
+  DUPTABLE R4 K15 [{"isSmall", "isCompact", "smallSize", "compactSize", "defaultSize"}]
   GETTABLEKS R5 R0 K0 ["isSmall"]
   SETTABLEKS R5 R4 K0 ["isSmall"]
   GETTABLEKS R5 R0 K1 ["isCompact"]
   SETTABLEKS R5 R4 K1 ["isCompact"]
   GETUPVAL R5 1
-  SETTABLEKS R5 R4 K11 ["smallSize"]
+  SETTABLEKS R5 R4 K12 ["smallSize"]
   GETUPVAL R5 2
-  SETTABLEKS R5 R4 K12 ["compactSize"]
+  SETTABLEKS R5 R4 K13 ["compactSize"]
   GETUPVAL R5 3
-  SETTABLEKS R5 R4 K13 ["defaultSize"]
+  SETTABLEKS R5 R4 K14 ["defaultSize"]
   CALL R3 1 1
   SETTABLEKS R3 R2 K5 ["sizeConstraint"]
+  DUPTABLE R3 K19 [{"affordance", "inset", "mode"}]
+  GETTABLEKS R5 R0 K20 ["isSingle"]
+  JUMPIFNOT R5 [+4]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K21 ["None"]
+  JUMP [+3]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K22 ["Background"]
+  SETTABLEKS R4 R3 K16 ["affordance"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K17 ["inset"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K18 ["mode"]
+  SETTABLEKS R3 R2 K6 ["stateLayer"]
   RETURN R2 1
 
 PROTO_3:
@@ -108,49 +122,72 @@ PROTO_3:
 
 PROTO_4:
   DUPTABLE R0 K5 [{"container", "actionContainer", "ribbonTool", "text", "icon"}]
-  DUPTABLE R1 K8 [{"tag", "sizeConstraint"}]
-  LOADK R2 K9 ["auto-xy radius-small col align-y-center align-x-center"]
+  DUPTABLE R1 K9 [{"tag", "sizeConstraint", "stateLayer"}]
+  LOADK R2 K10 ["auto-xy radius-small col align-y-center align-x-center"]
   SETTABLEKS R2 R1 K6 ["tag"]
   GETUPVAL R2 0
-  DUPTABLE R3 K15 [{"isSmall", "isCompact", "smallSize", "compactSize", "defaultSize"}]
+  DUPTABLE R3 K16 [{"isSmall", "isCompact", "smallSize", "compactSize", "defaultSize"}]
   GETUPVAL R4 1
-  SETTABLEKS R4 R3 K10 ["isSmall"]
+  SETTABLEKS R4 R3 K11 ["isSmall"]
   GETUPVAL R4 2
-  SETTABLEKS R4 R3 K11 ["isCompact"]
+  SETTABLEKS R4 R3 K12 ["isCompact"]
   GETUPVAL R4 3
-  SETTABLEKS R4 R3 K12 ["smallSize"]
+  SETTABLEKS R4 R3 K13 ["smallSize"]
   GETUPVAL R4 4
-  SETTABLEKS R4 R3 K13 ["compactSize"]
+  SETTABLEKS R4 R3 K14 ["compactSize"]
   GETUPVAL R4 5
-  SETTABLEKS R4 R3 K14 ["defaultSize"]
+  SETTABLEKS R4 R3 K15 ["defaultSize"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K7 ["sizeConstraint"]
+  DUPTABLE R2 K20 [{"affordance", "inset", "mode"}]
+  GETUPVAL R4 6
+  GETTABLEKS R3 R4 K21 ["None"]
+  SETTABLEKS R3 R2 K17 ["affordance"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K18 ["inset"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K19 ["mode"]
+  SETTABLEKS R2 R1 K8 ["stateLayer"]
   SETTABLEKS R1 R0 K0 ["container"]
-  DUPTABLE R1 K16 [{"tag"}]
-  LOADK R2 K17 ["auto-xy radius-small row align-y-center align-x-center"]
+  DUPTABLE R1 K22 [{"tag"}]
+  NEWTABLE R2 2 0
+  LOADB R3 1
+  SETTABLEKS R3 R2 K23 ["auto-xy radius-small row align-y-center align-x-center"]
+  GETUPVAL R3 7
+  SETTABLEKS R3 R2 K24 ["bg-action-standard"]
   SETTABLEKS R2 R1 K6 ["tag"]
   SETTABLEKS R1 R0 K1 ["actionContainer"]
-  GETUPVAL R1 6
-  DUPTABLE R2 K19 [{"selected", "isCompact", "isSmall"}]
-  GETUPVAL R3 7
-  SETTABLEKS R3 R2 K18 ["selected"]
+  GETUPVAL R1 8
+  DUPTABLE R2 K27 [{"selected", "isCompact", "isSmall", "isSingle"}]
+  GETUPVAL R4 9
+  GETTABLEKS R3 R4 K25 ["selected"]
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R5 9
+  GETTABLEKS R4 R5 K26 ["isSingle"]
+  NOT R3 R4
+  SETTABLEKS R3 R2 K25 ["selected"]
   GETUPVAL R3 2
-  SETTABLEKS R3 R2 K11 ["isCompact"]
+  SETTABLEKS R3 R2 K12 ["isCompact"]
   GETUPVAL R3 1
-  SETTABLEKS R3 R2 K10 ["isSmall"]
+  SETTABLEKS R3 R2 K11 ["isSmall"]
+  GETUPVAL R4 9
+  GETTABLEKS R3 R4 K26 ["isSingle"]
+  SETTABLEKS R3 R2 K26 ["isSingle"]
   CALL R1 1 1
   SETTABLEKS R1 R0 K2 ["ribbonTool"]
-  GETUPVAL R1 8
+  GETUPVAL R1 10
   GETUPVAL R2 2
-  GETUPVAL R3 9
+  GETUPVAL R4 9
+  GETTABLEKS R3 R4 K28 ["disabled"]
   CALL R1 2 1
   SETTABLEKS R1 R0 K3 ["text"]
-  GETUPVAL R1 10
-  DUPTABLE R2 K21 [{"isSmall", "disabled"}]
+  GETUPVAL R1 11
+  DUPTABLE R2 K29 [{"isSmall", "disabled"}]
   GETUPVAL R3 1
-  SETTABLEKS R3 R2 K10 ["isSmall"]
-  GETUPVAL R3 11
-  SETTABLEKS R3 R2 K20 ["disabled"]
+  SETTABLEKS R3 R2 K11 ["isSmall"]
+  GETUPVAL R4 9
+  GETTABLEKS R3 R4 K28 ["disabled"]
+  SETTABLEKS R3 R2 K28 ["disabled"]
   CALL R1 1 1
   SETTABLEKS R1 R0 K4 ["icon"]
   RETURN R0 1
@@ -164,21 +201,19 @@ PROTO_5:
   JUMPIFEQKS R4 K3 ["DensityCompact"] [+2]
   LOADB R3 0 +1
   LOADB R3 1
+  GETTABLEKS R5 R0 K4 ["isSingle"]
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R5 R0 K5 ["selected"]
+  JUMPIF R5 [+6]
+  GETTABLEKS R5 R0 K6 ["isMenuOpen"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R5 R0 K4 ["isSingle"]
+  JUMPIFNOT R5 [+2]
+  LOADB R4 1
+  JUMP [+1]
   LOADB R4 0
-  GETTABLEKS R5 R0 K4 ["disabled"]
-  JUMPIFNOTEQKB R5 TRUE [+4]
-  GETTABLEKS R5 R0 K5 ["isDropdownEnabled"]
-  NOT R4 R5
-  GETTABLEKS R6 R0 K4 ["disabled"]
-  JUMPIFEQKB R6 TRUE [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  GETTABLEKS R7 R0 K6 ["selected"]
-  JUMPIFEQKB R7 TRUE [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  GETUPVAL R7 0
-  NEWCLOSURE R8 P0
+  GETUPVAL R5 0
+  NEWCLOSURE R6 P0
   CAPTURE UPVAL U1
   CAPTURE VAL R2
   CAPTURE VAL R3
@@ -186,20 +221,21 @@ PROTO_5:
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  CAPTURE VAL R6
-  CAPTURE UPVAL U6
   CAPTURE VAL R4
+  CAPTURE UPVAL U6
+  CAPTURE VAL R0
   CAPTURE UPVAL U7
-  CAPTURE VAL R5
-  NEWTABLE R9 0 5
+  CAPTURE UPVAL U8
+  NEWTABLE R7 0 6
+  GETTABLEKS R8 R0 K6 ["isMenuOpen"]
+  GETTABLEKS R9 R0 K4 ["isSingle"]
   MOVE R10 R3
   MOVE R11 R2
-  MOVE R12 R6
-  MOVE R13 R4
-  MOVE R14 R5
-  SETLIST R9 R10 5 [1]
-  CALL R7 2 -1
-  RETURN R7 -1
+  GETTABLEKS R12 R0 K5 ["selected"]
+  GETTABLEKS R13 R0 K7 ["disabled"]
+  SETLIST R7 R8 6 [1]
+  CALL R5 2 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0
@@ -216,60 +252,64 @@ MAIN:
   GETTABLEKS R5 R0 K6 ["Packages"]
   GETTABLEKS R4 R5 K9 ["Foundation"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Contexts"]
-  GETTABLEKS R5 R6 K12 ["Density"]
-  CALL R4 1 1
-  GETIMPORT R5 K15 [Vector2.new]
-  LOADN R6 24
+  GETTABLEKS R5 R3 K10 ["Enums"]
+  GETTABLEKS R4 R5 K11 ["StateLayerAffordance"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Contexts"]
+  GETTABLEKS R6 R7 K14 ["Density"]
+  CALL R5 1 1
+  GETIMPORT R6 K17 [Vector2.new]
   LOADN R7 24
-  CALL R5 2 1
-  GETIMPORT R6 K15 [Vector2.new]
-  LOADN R7 32
-  LOADN R8 32
+  LOADN R8 24
   CALL R6 2 1
-  GETIMPORT R7 K15 [Vector2.new]
-  LOADN R8 40
-  LOADN R9 40
+  GETIMPORT R7 K17 [Vector2.new]
+  LOADN R8 32
+  LOADN R9 32
   CALL R7 2 1
-  GETIMPORT R8 K18 [UDim2.fromOffset]
-  LOADN R9 48
-  LOADN R10 16
+  GETIMPORT R8 K17 [Vector2.new]
+  LOADN R9 40
+  LOADN R10 40
   CALL R8 2 1
-  GETIMPORT R9 K18 [UDim2.fromOffset]
-  LOADN R10 60
+  GETIMPORT R9 K20 [UDim2.fromOffset]
+  LOADN R10 48
   LOADN R11 16
   CALL R9 2 1
-  GETIMPORT R10 K15 [Vector2.new]
-  LOADN R11 36
-  LOADN R12 24
+  GETIMPORT R10 K20 [UDim2.fromOffset]
+  LOADN R11 60
+  LOADN R12 16
   CALL R10 2 1
-  GETIMPORT R11 K15 [Vector2.new]
-  LOADN R12 48
-  LOADN R13 48
+  GETIMPORT R11 K17 [Vector2.new]
+  LOADN R12 36
+  LOADN R13 24
   CALL R11 2 1
-  GETIMPORT R12 K15 [Vector2.new]
-  LOADN R13 60
-  LOADN R14 56
+  GETIMPORT R12 K17 [Vector2.new]
+  LOADN R13 48
+  LOADN R14 48
   CALL R12 2 1
-  DUPCLOSURE R13 K19 [PROTO_0]
-  CAPTURE VAL R8
+  GETIMPORT R13 K17 [Vector2.new]
+  LOADN R14 60
+  LOADN R15 56
+  CALL R13 2 1
+  DUPCLOSURE R14 K21 [PROTO_0]
   CAPTURE VAL R9
-  DUPCLOSURE R14 K20 [PROTO_1]
-  DUPCLOSURE R15 K21 [PROTO_2]
-  CAPTURE VAL R14
-  CAPTURE VAL R5
+  CAPTURE VAL R10
+  DUPCLOSURE R15 K22 [PROTO_1]
+  DUPCLOSURE R16 K23 [PROTO_2]
+  CAPTURE VAL R15
   CAPTURE VAL R6
   CAPTURE VAL R7
-  DUPCLOSURE R16 K22 [PROTO_3]
-  DUPCLOSURE R17 K23 [PROTO_5]
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  DUPCLOSURE R17 K24 [PROTO_3]
+  DUPCLOSURE R18 K25 [PROTO_5]
   CAPTURE VAL R2
-  CAPTURE VAL R14
-  CAPTURE VAL R10
+  CAPTURE VAL R15
   CAPTURE VAL R11
   CAPTURE VAL R12
-  CAPTURE VAL R15
   CAPTURE VAL R13
+  CAPTURE VAL R4
   CAPTURE VAL R16
-  RETURN R17 1
+  CAPTURE VAL R14
+  CAPTURE VAL R17
+  RETURN R18 1

@@ -4,11 +4,11 @@ MAIN:
   LOADK R2 K2 ["CompositorDebugger"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETTABLEKS R2 R0 K4 ["Src"]
-  GETTABLEKS R1 R2 K5 ["Util"]
-  GETIMPORT R2 K7 [require]
-  GETTABLEKS R3 R1 K8 ["Constants"]
-  CALL R2 1 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AnimationEditor"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["Constants"]
   DUPTABLE R3 K11 [{"LAYER_TABS", "TAB_SWITCH_REASONS"}]
   NEWTABLE R4 4 0
   GETTABLEKS R6 R2 K9 ["LAYER_TABS"]

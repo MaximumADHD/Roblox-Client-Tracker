@@ -28,16 +28,29 @@ type CheckboxVariantProps = {
 }
 
 local function variantsFactory(tokens: Tokens)
-	local common = {
-		input = {
-			tag = "radius-small",
-			checkedStyle = tokens.Color.ActionSubEmphasis.Background,
-			cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-				then UDim.new(0, tokens.Radius.Small)
-				else UDim.new(0, 0),
-		},
-		checkmark = { tag = "position-center-center anchor-center-center content-action-sub-emphasis" },
-	}
+	local common = if Flags.FoundationToggleVisualUpdate
+		then {
+			input = {
+				tag = "radius-small",
+				colors = {
+					checkedStyle = tokens.Color.ActionSubEmphasis.Background,
+				},
+				cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
+					then UDim.new(0, tokens.Radius.Small)
+					else UDim.new(0, 0),
+			},
+			checkmark = { tag = "position-center-center anchor-center-center content-action-sub-emphasis" },
+		}
+		else {
+			input = {
+				tag = "radius-small",
+				checkedStyle = tokens.Color.ActionSubEmphasis.Background,
+				cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
+					then UDim.new(0, tokens.Radius.Small)
+					else UDim.new(0, 0),
+			},
+			checkmark = { tag = "position-center-center anchor-center-center content-action-sub-emphasis" },
+		}
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {

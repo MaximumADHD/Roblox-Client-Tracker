@@ -31,18 +31,21 @@ PROTO_0:
   GETIMPORT R3 K4 [assert]
   CALL R3 2 0
   SETTABLEKS R0 R2 K13 ["Parent"]
-  DUPTABLE R4 K19 [{"_model", "_ikControls", "_attachments", "_selectedPart", "_hrd"}]
-  SETTABLEKS R0 R4 K14 ["_model"]
+  MOVE R5 R0
+  NAMECALL R3 R2 K14 ["AutoRig"]
+  CALL R3 2 0
+  DUPTABLE R4 K20 [{"_model", "_ikControls", "_attachments", "_selectedPart", "_hrd"}]
+  SETTABLEKS R0 R4 K15 ["_model"]
   NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K15 ["_ikControls"]
+  SETTABLEKS R5 R4 K16 ["_ikControls"]
   NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K16 ["_attachments"]
+  SETTABLEKS R5 R4 K17 ["_attachments"]
   LOADNIL R5
-  SETTABLEKS R5 R4 K17 ["_selectedPart"]
-  SETTABLEKS R2 R4 K18 ["_hrd"]
+  SETTABLEKS R5 R4 K18 ["_selectedPart"]
+  SETTABLEKS R2 R4 K19 ["_hrd"]
   GETUPVAL R5 2
   FASTCALL2 SETMETATABLE R4 R5 [+3]
-  GETIMPORT R3 K21 [setmetatable]
+  GETIMPORT R3 K22 [setmetatable]
   CALL R3 2 1
   RETURN R3 1
 

@@ -69,7 +69,7 @@ return {
 						else nil,
 				},
 				React.createElement(IconButton, {
-					icon = "icons/controls/voice/microphone_off_light",
+					icon = "reactions/heart",
 					size = InputSize.Medium,
 					onActivated = function()
 						print("Icon button clicked")
