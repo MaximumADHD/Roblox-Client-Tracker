@@ -967,7 +967,8 @@
       "none": "@roblox/globaltype/Content.none",
       "SourceType": "@roblox/globaltype/Content.SourceType",
       "Uri": "@roblox/globaltype/Content.Uri",
-      "Object": "@roblox/globaltype/Content.Object"
+      "Object": "@roblox/globaltype/Content.Object",
+      "Opaque": "@roblox/globaltype/Content.Opaque"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Content",
     "code_sample": ""
@@ -990,6 +991,11 @@
   "@roblox/globaltype/Content.Object": {
     "documentation": "<code>Content.SourceType</code> が <code>Object</code> の場合は非 <code>nil</code> の <code>Object</code> への参照、それ以外は <code>nil</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Content#Object",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Content.Opaque": {
+    "documentation": "非 <code>nil</code> の <code>Opaque</code> コンテンツへの参照は、 <code>Content.SourceType</code> が <code>Opaque</code> の場合、 それ以外は <code>nil</code> です。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Content#Opaque",
     "code_sample": ""
   },
   "@roblox/global/ColorSequence": {
@@ -3623,28 +3629,28 @@
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Red": {
-    "documentation": "\"ブライトレッド\" <code>BrickColor</code>を返します。",
+    "documentation": "\"明るい赤\" <code>BrickColor</code> を返します。",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Red",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Yellow": {
-    "documentation": "\"ブライトイエロー\" <code>BrickColor</code>を返します。",
+    "documentation": "\"明るい黄色\" <code>BrickColor</code> を返します。",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Yellow",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Green": {
-    "documentation": "\"ダークグリーン\" <code>BrickColor</code>を返します。",
+    "documentation": "\"暗い緑\" <code>BrickColor</code> を返します。",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Green",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Blue": {
-    "documentation": "\"ブライトブルー\" <code>BrickColor</code>を返します。",
+    "documentation": "\"明るい青\" <code>BrickColor</code> を返します。",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Blue",
@@ -15783,7 +15789,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "モデルをそのピボットの周りでスケールするために使用されるエディター専用プロパティ。これを設定すると、<code>Model/ScaleTo</code> が呼び出されたかのようにスケールが移動します。",
+    "documentation": "モデルのピボットを中心にモデルのスケールを調整するためのエディター専用プロパティです。このプロパティを設定すると、<code>Model:ScaleTo()</code> が呼び出されたかのようにスケールが移動します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
@@ -15956,7 +15962,7 @@
     "documentation": "モデルの現在の正準スケールファクター。"
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "モデルの正準スケールを返します。初期値は新しく作成されたモデルに対しては1であり、<code>Model/ScaleTo</code> によってスケールされると変更されます。",
+    "documentation": "モデルの標準スケールを返します。新しく作成されたモデルのデフォルトは 1 で、<code>Model:ScaleTo()</code> を介してスケールされると変更されます。",
     "params": [
       {
         "name": "self",
@@ -18789,7 +18795,7 @@
     "documentation": "設定したい <code>HumanoidDescription</code> インスタンスで、キャラクターの見た目を合わせます。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
-    "documentation": "⚠️ このパラメータのデフォルト値は、2025年10月20日以降に <code>ClientOnly</code> から <code>Always</code> に変更されます。詳細については <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">こちら</a>を参照してください。"
+    "documentation": "アセットタイプ確認モード。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
     "documentation": "キャラクターの外観を渡された <code>HumanoidDescription</code> に一致させます。",
@@ -18818,7 +18824,7 @@
     "documentation": "キャラクターが一致させることを希望する <code>HumanoidDescription</code> インスタンスです。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
-    "documentation": "⚠️ このパラメータのデフォルト値は、2025年10月20日以降に <code>ClientOnly</code> から <code>Always</code> に変更されます。詳細については <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">こちら</a>を参照してください。"
+    "documentation": "アセットタイプ確認モード。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
     "documentation": "キャラクターの外観を渡された <code>HumanoidDescription</code> に一致させます。外部の変更があっても。",
@@ -27957,7 +27963,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService": {
-    "documentation": "Service providing common encoding, hashing, and compression methods.",
+    "documentation": "一般的なエンコーディング、ハッシング、圧縮メソッドを提供するサービス。",
     "keys": {
       "Base64Decode": "@roblox/globaltype/EncodingService.Base64Decode",
       "Base64Encode": "@roblox/globaltype/EncodingService.Base64Encode",
@@ -27971,13 +27977,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService.Base64Decode/param/0": {
-    "documentation": "Service providing common encoding, hashing, and compression methods."
+    "documentation": "一般的なエンコーディング、ハッシング、圧縮メソッドを提供するサービス。"
   },
   "@roblox/globaltype/EncodingService.Base64Decode/param/1": {
-    "documentation": "<code>buffer</code> containing Base64 data to decode"
+    "documentation": "デコードするBase64データを含む<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.Base64Decode/return/0": {
-    "documentation": "<code>buffer</code> with the decoded result"
+    "documentation": "デコードされた結果を持つ<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.Base64Decode": {
     "documentation": "",
@@ -27998,13 +28004,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService.Base64Encode/param/0": {
-    "documentation": "Service providing common encoding, hashing, and compression methods."
+    "documentation": "一般的なエンコーディング、ハッシング、圧縮メソッドを提供するサービス。"
   },
   "@roblox/globaltype/EncodingService.Base64Encode/param/1": {
-    "documentation": "<code>buffer</code> containing binary data to encode"
+    "documentation": "エンコードするバイナリデータを含む<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.Base64Encode/return/0": {
-    "documentation": "<code>buffer</code> with the encoded result"
+    "documentation": "エンコードされた結果を持つ<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.Base64Encode": {
     "documentation": "",
@@ -28025,19 +28031,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService.CompressBuffer/param/0": {
-    "documentation": "Service providing common encoding, hashing, and compression methods."
+    "documentation": "一般的なエンコーディング、ハッシング、圧縮メソッドを提供するサービス。"
   },
   "@roblox/globaltype/EncodingService.CompressBuffer/param/1": {
-    "documentation": "<code>buffer</code> with binary data to compress"
+    "documentation": "圧縮するバイナリデータを持つ<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.CompressBuffer/param/2": {
-    "documentation": "<code>CompressionAlgorithm</code> to use for compression"
+    "documentation": "圧縮に使用する<code>CompressionAlgorithm</code>"
   },
   "@roblox/globaltype/EncodingService.CompressBuffer/param/3": {
-    "documentation": "optional integer compression level to use"
+    "documentation": "使用するオプションの整数圧縮レベル"
   },
   "@roblox/globaltype/EncodingService.CompressBuffer/return/0": {
-    "documentation": "<code>buffer</code> with compressed binary data"
+    "documentation": "圧縮されたバイナリデータを持つ<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.CompressBuffer": {
     "documentation": "",
@@ -28066,16 +28072,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService.ComputeBufferHash/param/0": {
-    "documentation": "Service providing common encoding, hashing, and compression methods."
+    "documentation": "一般的なエンコーディング、ハッシング、圧縮メソッドを提供するサービス。"
   },
   "@roblox/globaltype/EncodingService.ComputeBufferHash/param/1": {
-    "documentation": "<code>buffer</code> with binary data to compute hash for"
+    "documentation": "ハッシュを計算するためのバイナリデータを持つ<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.ComputeBufferHash/param/2": {
-    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+    "documentation": "<code>HashAlgorithm</code> 暗号学的ハッシュ関数"
   },
   "@roblox/globaltype/EncodingService.ComputeBufferHash/return/0": {
-    "documentation": "<code>buffer</code> with the binary data of the hash"
+    "documentation": "ハッシュのバイナリデータを持つ<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.ComputeBufferHash": {
     "documentation": "",
@@ -28100,16 +28106,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService.ComputeStringHash/param/0": {
-    "documentation": "Service providing common encoding, hashing, and compression methods."
+    "documentation": "一般的なエンコーディング、ハッシング、圧縮メソッドを提供するサービス。"
   },
   "@roblox/globaltype/EncodingService.ComputeStringHash/param/1": {
-    "documentation": "string to compute the hash for"
+    "documentation": "ハッシュを計算するための文字列"
   },
   "@roblox/globaltype/EncodingService.ComputeStringHash/param/2": {
-    "documentation": "<code>HashAlgorithm</code> cryptographic hash function"
+    "documentation": "<code>HashAlgorithm</code> 暗号学的ハッシュ関数"
   },
   "@roblox/globaltype/EncodingService.ComputeStringHash/return/0": {
-    "documentation": "String with the binary data of the hash"
+    "documentation": "ハッシュのバイナリデータを持つ文字列"
   },
   "@roblox/globaltype/EncodingService.ComputeStringHash": {
     "documentation": "",
@@ -28134,16 +28140,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService.DecompressBuffer/param/0": {
-    "documentation": "Service providing common encoding, hashing, and compression methods."
+    "documentation": "一般的なエンコーディング、ハッシング、圧縮メソッドを提供するサービス。"
   },
   "@roblox/globaltype/EncodingService.DecompressBuffer/param/1": {
-    "documentation": "<code>buffer</code> with compressed binary data"
+    "documentation": "圧縮されたバイナリデータを持つ<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.DecompressBuffer/param/2": {
-    "documentation": "<code>CompressionAlgorithm</code> to use for decompression"
+    "documentation": "解凍に使用する<code>CompressionAlgorithm</code>"
   },
   "@roblox/globaltype/EncodingService.DecompressBuffer/return/0": {
-    "documentation": "<code>buffer</code> with the decompressed binary data"
+    "documentation": "解凍されたバイナリデータを持つ<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.DecompressBuffer": {
     "documentation": "",
@@ -28168,16 +28174,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/0": {
-    "documentation": "Service providing common encoding, hashing, and compression methods."
+    "documentation": "一般的なエンコーディング、ハッシング、圧縮メソッドを提供するサービス。"
   },
   "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/1": {
-    "documentation": "<code>buffer</code> with compressed binary data"
+    "documentation": "圧縮されたバイナリデータを持つ<code>buffer</code>"
   },
   "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/param/2": {
-    "documentation": "<code>CompressionAlgorithm</code> used to compress it"
+    "documentation": "圧縮に使用された<code>CompressionAlgorithm</code>"
   },
   "@roblox/globaltype/EncodingService.GetDecompressedBufferSize/return/0": {
-    "documentation": "Integer size of the decompressed data or 'nil'"
+    "documentation": "解凍されたデータの整数サイズまたは'nil'"
   },
   "@roblox/globaltype/EncodingService.GetDecompressedBufferSize": {
     "documentation": "",
@@ -44191,6 +44197,9 @@
     "keys": {
       "ColorMap": "@roblox/globaltype/TerrainDetail.ColorMap",
       "ColorMapContent": "@roblox/globaltype/TerrainDetail.ColorMapContent",
+      "EmissiveMaskContent": "@roblox/globaltype/TerrainDetail.EmissiveMaskContent",
+      "EmissiveStrength": "@roblox/globaltype/TerrainDetail.EmissiveStrength",
+      "EmissiveTint": "@roblox/globaltype/TerrainDetail.EmissiveTint",
       "Face": "@roblox/globaltype/TerrainDetail.Face",
       "MaterialPattern": "@roblox/globaltype/TerrainDetail.MaterialPattern",
       "MetalnessMap": "@roblox/globaltype/TerrainDetail.MetalnessMap",
@@ -44214,43 +44223,58 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#ColorMapContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/TerrainDetail.EmissiveMaskContent": {
+    "documentation": "表面全体のエミッシビティを決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#EmissiveMaskContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainDetail.EmissiveStrength": {
+    "documentation": "エミッシブ寄与の強さを決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#EmissiveStrength",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainDetail.EmissiveTint": {
+    "documentation": "エミッシブ寄与の色合いを決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#EmissiveTint",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TerrainDetail.Face": {
     "documentation": "このTerrainDetailが上書きする面。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#Face",
     "code_sample": ""
   },
   "@roblox/globaltype/TerrainDetail.MaterialPattern": {
-    "documentation": "テクスチャのタイル処理方法を決定します。",
+    "documentation": "テクスチャのタイル方法を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#MaterialPattern",
     "code_sample": ""
   },
   "@roblox/globaltype/TerrainDetail.MetalnessMap": {
-    "documentation": "表面のどの部分が金属であり、どの部分が非金属であるかを決定します。",
+    "documentation": "表面のどの部分が金属で、どの部分が非金属であるかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/TerrainDetail.MetalnessMapContent": {
-    "documentation": "表面のどの部分が金属であり、どの部分が非金属であるかを決定します。テクスチャとしてアセットURIのみをサポートします。",
+    "documentation": "表面のどの部分が金属で、どの部分が非金属であるかを決定します。テクスチャには資産URIのみをサポートします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/TerrainDetail.NormalMap": {
-    "documentation": "ポリゴンを追加せずにバンプ、へこみ、ひび、曲線を追加することで表面のライティングを修正します。",
+    "documentation": "ポリゴンを追加せずに、バンプ、へこみ、ひび、曲線を追加して表面の照明を修正します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/TerrainDetail.NormalMapContent": {
-    "documentation": "ポリゴンを追加せずにバンプ、へこみ、ひび、曲線を追加することで表面のライティングを修正します。テクスチャとしてアセットURIのみをサポートします。",
+    "documentation": "ポリゴンを追加せずに、バンプ、へこみ、ひび、曲線を追加して表面の照明を修正します。テクスチャには資産URIのみをサポートします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#NormalMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/TerrainDetail.RoughnessMap": {
-    "documentation": "表面の明示的な粗さを決定します。",
+    "documentation": "表面全体の見かけの粗さを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/TerrainDetail.RoughnessMapContent": {
-    "documentation": "表面の明示的な粗さを決定します。テクスチャとしてアセットURIのみをサポートします。",
+    "documentation": "表面全体の見かけの粗さを決定します。テクスチャには資産URIのみをサポートします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainDetail#RoughnessMapContent",
     "code_sample": ""
   },
@@ -50736,7 +50760,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。",
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。",
     "keys": {
       "Archivable": "@roblox/globaltype/Instance.Archivable",
       "Capabilities": "@roblox/globaltype/Instance.Capabilities",
@@ -50772,6 +50796,7 @@
       "IsAncestorOf": "@roblox/globaltype/Instance.IsAncestorOf",
       "IsDescendantOf": "@roblox/globaltype/Instance.IsDescendantOf",
       "IsPropertyModified": "@roblox/globaltype/Instance.IsPropertyModified",
+      "QueryDescendants": "@roblox/globaltype/Instance.QueryDescendants",
       "Remove": "@roblox/globaltype/Instance.Remove",
       "RemoveTag": "@roblox/globaltype/Instance.RemoveTag",
       "ResetPropertyToDefault": "@roblox/globaltype/Instance.ResetPropertyToDefault",
@@ -50789,47 +50814,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Archivable": {
-    "documentation": "<code>Instance</code> とその子孫が <code>Instance:Clone()</code> を使ってクローンできるかどうか、また保存/公開できるかどうかを決定します。",
+    "documentation": "<code>Instance</code> とその子孫が <code>Instance:Clone()</code> を使用してクローンされることができ、保存/公開することができるかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Capabilities": {
-    "documentation": "このコンテナ内でスクリプトに使用できる機能のセット。",
+    "documentation": "このコンテナ内のスクリプト用に使用できる機能のセットです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Capabilities",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Name": {
-    "documentation": "<code>Instance</code> の非一意な識別子。",
+    "documentation": "<code>Instance</code> の非ユニークな識別子です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Name",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Parent": {
-    "documentation": "<code>Instance</code> の階層的な親を決定します。",
+    "documentation": "<code>Instance</code> の階層上の親を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Parent",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RobloxLocked": {
-    "documentation": "<code>CoreGui</code> オブジェクトを保護していた非推奨のプロパティです。",
+    "documentation": "<code>CoreGui</code> オブジェクトを保護するために使用されていた非推奨のプロパティです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#RobloxLocked",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Sandboxed": {
-    "documentation": "インスタンスをサンドボックス化されたコンテナにします。",
+    "documentation": "インスタンスをサンドボックスコンテナに設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Sandboxed",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.UniqueId": {
-    "documentation": "インスタンスの一意な識別子。",
+    "documentation": "インスタンスのユニークな識別子です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#UniqueId",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.archivable": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨のプロパティは、代わりに使用すべき <code>Instance.Archivable</code> の変種です。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨のプロパティは <code>Instance.Archivable</code> のバリアントであり、代わりに使用されるべきです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.AddTag/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.AddTag/param/1": {
     "documentation": ""
@@ -50851,10 +50876,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ClearAllChildren/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "このメソッドは、インスタンスのすべての子要素を破棄します。",
+    "documentation": "インスタンスのすべての子を破棄します。",
     "params": [
       {
         "name": "self",
@@ -50866,13 +50891,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Clone/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.Clone/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.Clone": {
-    "documentation": "クローン可能であるインスタンスとその全ての子孫のコピーを作成します。",
+    "documentation": "インスタンスとその子孫全体のコピーを作成し、<code>Archivable</code> でないインスタンスを無視します。",
     "params": [
       {
         "name": "self",
@@ -50886,10 +50911,10 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\n-- 既存のオブジェクトへの参照を取得\nlocal model = script.Parent.Model\n\n-- モデルのクローンを作成\nlocal clone = model:Clone()\n\n-- クローンを移動して、元のモデルと重ならないようにする\nclone:PivotTo(model.PrimaryPart.CFrame - (Vector3.xAxis * 10))\n\n-- クローンをWorkspaceに追加\nclone.Parent = Workspace"
   },
   "@roblox/globaltype/Instance.Destroy/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.Destroy": {
-    "documentation": "<code>Instance.Parent</code> プロパティを <code>nil</code> に設定し、<code>Instance.Parent</code> プロパティをロックし、すべての接続を切断し、すべての子供に対して <code>Destroy()</code> を呼び出します。",
+    "documentation": "<code>Instance.Parent</code> プロパティを <code>nil</code> に設定し、<code>Instance.Parent</code> プロパティをロックし、すべての接続を切断し、すべての子に対して <code>Destroy()</code> を呼び出します。",
     "params": [
       {
         "name": "self",
@@ -50901,16 +50926,16 @@
     "code_sample": "local part = script.Parent.Part\n\npart:Destroy()"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/1": {
-    "documentation": "探している <code>Instance.Name</code> です。"
+    "documentation": "検索対象の <code>Instance.Name</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/return/0": {
-    "documentation": "見つかった <code>Instance</code> です。"
+    "documentation": "発見された <code>Instance</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor": {
-    "documentation": "<code>Instance</code> の最初の先祖を返します。",
+    "documentation": "<code>Instance.Name</code> が指定された名前と等しい最初の先祖を返します。",
     "params": [
       {
         "name": "self",
@@ -50928,16 +50953,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/1": {
-    "documentation": "探している <code>Object.ClassName</code> です。"
+    "documentation": "検索対象の <code>Object.ClassName</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/return/0": {
-    "documentation": "見つかった <code>Instance</code> です。"
+    "documentation": "発見された <code>Instance</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "<code>Instance</code> の最初の先祖を返します。",
+    "documentation": "<code>Instance.ClassName</code> が指定された className に等しい最初の先祖を返します。",
     "params": [
       {
         "name": "self",
@@ -50955,16 +50980,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/1": {
-    "documentation": "探している <code>Object.ClassName</code> です。"
+    "documentation": "検索対象の <code>Object.ClassName</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/return/0": {
-    "documentation": "見つかった <code>Instance</code> です。"
+    "documentation": "発見された <code>Instance</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "<code>Instance</code> の最初の先祖を返します。",
+    "documentation": "<code>Instance</code> の中で与えられた className に対して <code>Object:IsA()</code> が true を返す最初の先祖を返します。",
     "params": [
       {
         "name": "self",
@@ -50982,19 +51007,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/1": {
-    "documentation": "検索する <code>Instance.Name</code> です。"
+    "documentation": "検索対象の <code>Instance.Name</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/2": {
-    "documentation": "検索を再帰的に行うかどうか。"
+    "documentation": "再帰的に検索するかどうか。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/return/0": {
-    "documentation": "<code>Instance</code> です。"
+    "documentation": "発見された <code>Instance</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstChild": {
-    "documentation": "指定された名前で見つかった <code>Instance</code> の最初の子供を返します。",
+    "documentation": "指定された名前の最初の子を <code>Instance</code> から返します。",
     "params": [
       {
         "name": "self",
@@ -51016,16 +51041,16 @@
     "code_sample": "local found = workspace:FindFirstChild(\"Brick\")\n\nif found then\n\tfound.Name = \"Foo\"\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/1": {
-    "documentation": "探す <code>Object.ClassName</code> です。"
+    "documentation": "検索対象の <code>Object.ClassName</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/return/0": {
-    "documentation": "<code>Instance</code> です。"
+    "documentation": "発見された <code>Instance</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass": {
-    "documentation": "指定されたクラス名に等しい <code>ClassName</code> を持つ <code>Instance</code> の最初の子を返します。",
+    "documentation": "指定されたクラス名と等しい <code>Instance</code> の最初の子を返します。",
     "params": [
       {
         "name": "self",
@@ -51043,19 +51068,19 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal humanoid\n\nwhile not humanoid do\n\thumanoid = character:FindFirstChildOfClass(\"Humanoid\")\n\tif not humanoid then\n\t\tcharacter.ChildAdded:Wait()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/1": {
-    "documentation": "検索する <code>Object.ClassName</code> です。"
+    "documentation": "検索対象の <code>Object.ClassName</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/2": {
-    "documentation": "検索を再帰的に行うかどうか。"
+    "documentation": "再帰的に検索するかどうか。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/return/0": {
-    "documentation": "<code>Instance</code> です。"
+    "documentation": "発見された <code>Instance</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA": {
-    "documentation": "指定された className に対して <code>Object:IsA()</code> が true を返す <code>Instance</code> の最初の子を返します。",
+    "documentation": "指定されたクラス名で <code>Object:IsA()</code> が true を返す最初の子を返します。",
     "params": [
       {
         "name": "self",
@@ -51077,16 +51102,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/1": {
-    "documentation": "検索する <code>Instance.Name</code> です。"
+    "documentation": "検索対象の <code>Instance.Name</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/return/0": {
-    "documentation": "<code>Instance</code> です。"
+    "documentation": "発見された <code>Instance</code> です。"
   },
   "@roblox/globaltype/Instance.FindFirstDescendant": {
-    "documentation": "指定された <code>Instance.Name</code> を持つ最初の子孫を返します。",
+    "documentation": "指定された <code>Instance.Name</code> に一致する最初の子孫を返します。",
     "params": [
       {
         "name": "self",
@@ -51104,13 +51129,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetActor/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetActor/return/0": {
-    "documentation": "<code>Actor</code> です。"
+    "documentation": "発見された <code>Actor</code> です。"
   },
   "@roblox/globaltype/Instance.GetActor": {
-    "documentation": "インスタンスに関連付けられた <code>Actor</code> を返します。存在する場合。",
+    "documentation": "インスタンスに関連付けられた <code>Actor</code> を返します。存在しない場合は <code>nil</code> を返します。",
     "params": [
       {
         "name": "self",
@@ -51124,13 +51149,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttribute/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetAttribute/param/1": {
     "documentation": "取得する属性の名前です。"
   },
   "@roblox/globaltype/Instance.GetAttribute/return/0": {
-    "documentation": "指定された属性名に割り当てられた値です。属性が割り当てられていない場合は、<code>nil</code> が返されます。"
+    "documentation": "指定された属性名に割り当てられた値です。属性が割り当てられていない場合は <code>nil</code> が返されます。"
   },
   "@roblox/globaltype/Instance.GetAttribute": {
     "documentation": "指定された属性名に割り当てられた値を返します。",
@@ -51151,10 +51176,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/1": {
-    "documentation": "変更信号を返す指定された属性の名前です。"
+    "documentation": "変更信号が返される特定の属性の名前です。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/return/0": {
     "documentation": "指定された属性が変更されたときに発火するイベントです。"
@@ -51178,10 +51203,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributes/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
-    "documentation": "属性の名前がキーで、非 <code>nil</code> 値が値である文字列 → バリアントペアの辞書です。"
+    "documentation": "各属性の文字列 → 変種ペアの辞書で、文字列は属性名で、変種は非 <code>nil</code> の値です。"
   },
   "@roblox/globaltype/Instance.GetAttributes": {
     "documentation": "インスタンスの属性の辞書を返します。",
@@ -51198,13 +51223,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetChildren/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetChildren/return/0": {
-    "documentation": "インスタンスの子を含む配列です。"
+    "documentation": "インスタンスの子供を含む配列です。"
   },
   "@roblox/globaltype/Instance.GetChildren": {
-    "documentation": "インスタンスのすべての子を含む配列を返します。",
+    "documentation": "インスタンスのすべての子供を含む配列を返します。",
     "params": [
       {
         "name": "self",
@@ -51218,7 +51243,7 @@
     "code_sample": "local children = workspace:GetChildren()\n\nfor i = 1, #children do\n\tprint(i, children[i].Name)\nend"
   },
   "@roblox/globaltype/Instance.GetDebugId/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetDebugId/param/1": {
     "documentation": "スコープの長さです。"
@@ -51227,7 +51252,7 @@
     "documentation": "デバッグ ID 文字列です。"
   },
   "@roblox/globaltype/Instance.GetDebugId": {
-    "documentation": "内部で Roblox によって使用されるデバッグ ID のコード化された文字列を返します。",
+    "documentation": "Roblox によって内部的に使用されるデバッグ ID のコーディングされた文字列を返します。",
     "params": [
       {
         "name": "self",
@@ -51245,7 +51270,7 @@
     "code_sample": "print(workspace:GetDebugId()) --> 39FA_12\nprint(workspace:GetDebugId(10)) --> 39FA2FEF4D_12\nprint(workspace:GetDebugId(math.huge)) --> 12"
   },
   "@roblox/globaltype/Instance.GetDescendants/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetDescendants/return/0": {
     "documentation": "インスタンスの子孫を含む配列です。"
@@ -51265,13 +51290,13 @@
     "code_sample": "local descendants = workspace:GetDescendants()\n\n-- ワークスペースのすべての子孫をループします。もし\n-- BasePart が見つかった場合、コードはその部品の色を緑に変更します\nfor _, descendant in pairs(descendants) do\n\tif descendant:IsA(\"BasePart\") then\n\t\tdescendant.BrickColor = BrickColor.Green()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.GetFullName/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetFullName/return/0": {
-    "documentation": "<code>Instance</code> の完全な名前です。"
+    "documentation": "<code>Instance</code> のフルネームです。"
   },
   "@roblox/globaltype/Instance.GetFullName": {
-    "documentation": "インスタンスの系図を示す文字列を返します。",
+    "documentation": "インスタンスの系譜を説明する文字列を返します。",
     "params": [
       {
         "name": "self",
@@ -51285,16 +51310,16 @@
     "code_sample": "-- 単純な階層を作成\nlocal model = Instance.new(\"Model\")\nlocal part = Instance.new(\"Part\")\npart.Parent = model\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nprint(fire:GetFullName()) --> Model.Part.Fire\n\nmodel.Parent = workspace\n\nprint(fire:GetFullName()) --> Workspace.Model.Part.Fire\n\npart.Name = \"Hello, world\"\n\nprint(fire:GetFullName()) --> Workspace.Model.Hello, world.Fire"
   },
   "@roblox/globaltype/Instance.GetStyled/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetStyled/param/1": {
-    "documentation": "クエリするプロパティの名前です。"
+    "documentation": "クエリ対象のプロパティ名です。"
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
-    "documentation": "指定されたプロパティのスタイルされたまたは明示的に修正された値、または修正されていない場合はデフォルトのプロパティ値が返されます。"
+    "documentation": "指定されたプロパティのスタイルや明示的に変更された値、さもなくばデフォルトのプロパティ値を返します。"
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "指定されたプロパティのスタイルされたまたは明示的に修正された値を返します。修正されていない場合は、デフォルトのプロパティ値が返されます。",
+    "documentation": "指定されたプロパティのスタイルや明示的に変更された値、さもなくばデフォルトのプロパティ値を返します。",
     "params": [
       {
         "name": "self",
@@ -51312,10 +51337,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/1": {
-    "documentation": "変更をリッスンするスタイルプロパティの名前です。"
+    "documentation": "変更を確認するスタイルプロパティの名前です。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/return/0": {
     "documentation": "指定されたスタイルプロパティが変更されたときに発火するイベントです。"
@@ -51339,7 +51364,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetTags/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.GetTags/return/0": {
     "documentation": ""
@@ -51359,7 +51384,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.HasTag/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.HasTag/param/1": {
     "documentation": ""
@@ -51386,16 +51411,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/1": {
-    "documentation": "子孫の<code>Instance</code>。"
+    "documentation": "子孫の <code>Instance</code> です。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf/return/0": {
-    "documentation": "指定された子孫の先祖である場合は<code>true</code>。"
+    "documentation": "指定された子孫の先祖が <code>Instance</code> である場合、<code>true</code> を返します。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf": {
-    "documentation": "指定された子孫の先祖であるかどうかを返します。",
+    "documentation": "指定された子孫の先祖が <code>Instance</code> である場合、<code>true</code> を返します。",
     "params": [
       {
         "name": "self",
@@ -51413,16 +51438,16 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal spawnLocation = Workspace.SpawnLocation\nlocal decal = spawnLocation.Decal\n\n-- これらの文は真です\nprint(Workspace:IsAncestorOf(spawnLocation))\nprint(Workspace:IsAncestorOf(decal))\nprint(spawnLocation:IsAncestorOf(decal))\n\n-- これらの文は偽です\nprint(spawnLocation:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(spawnLocation))"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/1": {
-    "documentation": "先祖の<code>Instance</code>。"
+    "documentation": "先祖の <code>Instance</code> です。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/return/0": {
-    "documentation": "指定された先祖の子孫である場合は<code>true</code>。"
+    "documentation": "指定された先祖の子孫である場合、<code>true</code> を返します。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf": {
-    "documentation": "指定された先祖の子孫である場合は<code>true</code>を返します。",
+    "documentation": "指定された先祖の子孫である場合、<code>true</code> を返します。",
     "params": [
       {
         "name": "self",
@@ -51440,16 +51465,16 @@
     "code_sample": "local part = Instance.new(\"Part\")\nprint(part:IsDescendantOf(game))\n--> 偽\n\npart.Parent = workspace\nprint(part:IsDescendantOf(game))\n--> 真\n\npart.Parent = game\nprint(part:IsDescendantOf(game))\n--> 真"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/1": {
-    "documentation": "クエリするプロパティの名前。"
+    "documentation": "クエリ対象のプロパティ名です。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "プロパティがそのコードによってインスタンス化されたデフォルトから変更されているかどうかを示すブール値。"
+    "documentation": "そのプロパティがコードでインスタンス化されたデフォルトから変更されているかどうかを示すブール値です。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "指定されたプロパティに格納された値が、コードによってインスタンス化されたデフォルトと等しくない場合は <code>true</code> を返します。",
+    "documentation": "指定されたプロパティに保存された値がコードでインスタンス化されたデフォルトと等しくない場合、<code>true</code> を返します。",
     "params": [
       {
         "name": "self",
@@ -51466,11 +51491,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#IsPropertyModified",
     "code_sample": ""
   },
+  "@roblox/globaltype/Instance.QueryDescendants/param/0": {
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
+  },
+  "@roblox/globaltype/Instance.QueryDescendants/param/1": {
+    "documentation": "要素をフィルタリングするために使用されるセレクター文字列です。"
+  },
+  "@roblox/globaltype/Instance.QueryDescendants/return/0": {
+    "documentation": "セレクターに一致するインスタンスの配列（セレクターに一致しない場合は空）。"
+  },
+  "@roblox/globaltype/Instance.QueryDescendants": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Instance.QueryDescendants/param/0"
+      },
+      {
+        "name": "selector",
+        "documentation": "@roblox/globaltype/Instance.QueryDescendants/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Instance.QueryDescendants/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#QueryDescendants",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Instance.Remove/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> <code>Instance:Destroy()</code>と<code>Instance:ClearAllChildren()</code>の方が推奨されています。このメソッドを使用せずにオブジェクトをゲームから削除する必要がある場合は、オブジェクトの<code>Parent</code>プロパティを<code>nil</code>に設定してください。<br>オブジェクトの<code>Parent</code>を<code>nil</code>に設定し、すべての子孫にも同様の処理を行います。",
+    "documentation": "<strong>Deprecated:</strong> このアイテムは、<code>Instance:Destroy()</code> および <code>Instance:ClearAllChildren()</code> の代わりに非推奨です。オブジェクトをゲームから削除する必要があり、後で使用する場合は、このメソッドを使用するのではなく、<code>Parent</code> プロパティを <code>nil</code> に設定してください。<br>オブジェクトの <code>Parent</code> を <code>nil</code> に設定し、すべての子孫にも同様に行います。",
     "params": [
       {
         "name": "self",
@@ -51482,7 +51534,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Parent = workspace\nprint(part.Parent) --> Workspace\n\npart:Remove()\n\nprint(part.Parent) --> nil\n\npart.Parent = workspace\n\nprint(part.Parent) --> Workspace"
   },
   "@roblox/globaltype/Instance.RemoveTag/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.RemoveTag/param/1": {
     "documentation": ""
@@ -51504,10 +51556,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/1": {
-    "documentation": "リセットするプロパティの名前。"
+    "documentation": "リセットするプロパティの名前です。"
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault": {
     "documentation": "プロパティをデフォルト値にリセットします。",
@@ -51526,16 +51578,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.SetAttribute/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.SetAttribute/param/1": {
-    "documentation": "設定する属性の名前。"
+    "documentation": "設定される属性の名前。"
   },
   "@roblox/globaltype/Instance.SetAttribute/param/2": {
     "documentation": "指定された属性に設定する値。"
   },
   "@roblox/globaltype/Instance.SetAttribute": {
-    "documentation": "指定された名前の属性を指定された値に設定します。",
+    "documentation": "指定された名前のプロパティを指定された値に設定します。",
     "params": [
       {
         "name": "self",
@@ -51555,19 +51607,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.WaitForChild/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.WaitForChild/param/1": {
-    "documentation": "探すべき<code>Instance.Name</code>。"
+    "documentation": "<code>Instance.Name</code> を検索します。"
   },
   "@roblox/globaltype/Instance.WaitForChild/param/2": {
-    "documentation": "オプションのタイムアウトパラメータ。"
+    "documentation": "任意のタイムアウトパラメータ。"
   },
   "@roblox/globaltype/Instance.WaitForChild/return/0": {
-    "documentation": "見つかった<code>Instance</code>。"
+    "documentation": "見つかった <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.WaitForChild": {
-    "documentation": "指定された名前の<code>Instance</code>の子を返します。子が存在しない場合、子が存在するまで現在のスレッドを一時停止します。",
+    "documentation": "指定された名前の <code>Instance</code> の子を返します。もし 子が存在しない場合、存在するまで現在のスレッドを待機させます。",
     "params": [
       {
         "name": "self",
@@ -51589,13 +51641,13 @@
     "code_sample": "local part = workspace:WaitForChild(\"Part\")\nprint(part.Name .. \" はWorkspaceに追加されました\")"
   },
   "@roblox/globaltype/Instance.children/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.children/return/0": {
     "documentation": "子オブジェクト/インスタンスの配列。"
   },
   "@roblox/globaltype/Instance.children": {
-    "documentation": "<strong>Deprecated:</strong> <code>Instance:GetChildren()</code>によって置き換えられました。今後のすべての作業ではこのメソッドを使用してください。<br>オブジェクトの子の配列を返します。",
+    "documentation": "<strong>Deprecated:</strong> このアイテムは <code>Instance:GetChildren()</code> によって置き換えられており、 すべての新しい作業で使用すべきです。<br>オブジェクトの子の配列を返します。",
     "params": [
       {
         "name": "self",
@@ -51609,13 +51661,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.clone/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.clone/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.clone": {
-    "documentation": "<strong>Deprecated:</strong> <code>Instance:Clone()</code>の変種で、代わりに使用するべきです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき <code>Instance:Clone()</code> の変種です。",
     "params": [
       {
         "name": "self",
@@ -51629,10 +51681,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.destroy/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.destroy": {
-    "documentation": "<strong>Deprecated:</strong> <code>Instance:Destroy()</code>の変種で、代わりに使用するべきです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき <code>Instance:Destroy()</code> の変種です。",
     "params": [
       {
         "name": "self",
@@ -51644,7 +51696,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.findFirstChild/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.findFirstChild/param/1": {
     "documentation": ""
@@ -51656,7 +51708,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.findFirstChild": {
-    "documentation": "<strong>Deprecated:</strong> <code>Instance:FindFirstChild()</code>の変種で、代わりに使用するべきです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき <code>Instance:FindFirstChild()</code> の変種です。",
     "params": [
       {
         "name": "self",
@@ -51678,13 +51730,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.getChildren/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.getChildren/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.getChildren": {
-    "documentation": "<strong>Deprecated:</strong> <code>Instance:GetChildren()</code>の変種で、代わりに使用するべきです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき <code>Instance:GetChildren()</code> の変種です。",
     "params": [
       {
         "name": "self",
@@ -51698,7 +51750,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/1": {
     "documentation": ""
@@ -51707,7 +51759,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.isDescendantOf": {
-    "documentation": "<strong>Deprecated:</strong> <code>Instance:IsDescendantOf()</code>の変種で、代わりに使用するべきです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、代わりに使用すべき <code>Instance:IsDescendantOf()</code> の変種です。",
     "params": [
       {
         "name": "self",
@@ -51725,10 +51777,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.remove/param/0": {
-    "documentation": "<code>Instance</code> は、<code>DataModel</code> ツリーの一部となることができるロブロックスクラス階層内のすべてのクラスの基底クラスです。"
+    "documentation": "<code>Instance</code> は Roblox クラス階層内のすべてのクラスの基底クラスであり、<code>DataModel</code> ツリーの一部であることができます。"
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> <code>Instance:Remove()</code>の変種で、こちらも廃止されています。新しい作業でこの関数は使用しないでください。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨の関数は、かつて非推奨された <code>Instance:Remove()</code> の変種です。どちらの関数も新しい作業では使用すべきではありません。",
     "params": [
       {
         "name": "self",
@@ -51817,7 +51869,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AncestryChanged": {
-    "documentation": "オブジェクトまたはその先祖の<code>Instance.Parent</code>プロパティが変更されたときに発火します。",
+    "documentation": "<code>Instance.Parent</code> プロパティがオブジェクトまたはその先祖のいずれかで変更されると発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AncestryChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AncestryChanged.ConnectParallel",
@@ -51905,7 +51957,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AttributeChanged": {
-    "documentation": "インスタンスで属性が変更されるたびに発火します。",
+    "documentation": "<code>Instance</code> の属性が変更されるたびに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AttributeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AttributeChanged.ConnectParallel",
@@ -51993,7 +52045,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildAdded": {
-    "documentation": "この<code>Instance</code>にオブジェクトが親子関係を持つようになった後に発火します。",
+    "documentation": "オブジェクトがこの <code>Instance</code> に親付けされた後に発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildAdded.ConnectParallel",
@@ -52081,7 +52133,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildRemoved": {
-    "documentation": "この<code>Instance</code>から子が削除された後に発火します。",
+    "documentation": "子がこの <code>Instance</code> から削除された後に発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildRemoved.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildRemoved.ConnectParallel",
@@ -52169,7 +52221,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantAdded": {
-    "documentation": "子孫が<code>Instance</code>に追加された後に発火します。",
+    "documentation": "子孫が <code>Instance</code> に追加された後に発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantAdded.ConnectParallel",
@@ -52257,7 +52309,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantRemoving": {
-    "documentation": "この<code>Instance</code>の子孫が削除される直前に発火します。",
+    "documentation": "子孫が <code>Instance</code> から削除される直前に発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantRemoving.ConnectParallel",
@@ -52345,7 +52397,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.Destroying": {
-    "documentation": "<code>Instance:Destroy()</code> でインスタンスが破棄される<strong>直前</strong>（またはその後に遅延される）に発火します。",
+    "documentation": "<code>Instance:Destroy()</code> を介してインスタンスが破壊される直前に発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.Destroying.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.Destroying.ConnectParallel",
@@ -52433,7 +52485,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.StyledPropertiesChanged": {
-    "documentation": "インスタンス上の任意のスタイルプロパティが変更されるたびに発火します。プロパティが <code>nil</code> に設定される場合も含まれます。",
+    "documentation": "インスタンスのスタイルプロパティが変更されるたびに発火し、プロパティが <code>nil</code> に設定されるときも含まれます。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.StyledPropertiesChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.StyledPropertiesChanged.ConnectParallel",
@@ -52521,7 +52573,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.childAdded": {
-    "documentation": "<strong>Deprecated:</strong> この廃止されたイベントは <code>Instance.ChildAdded</code> のバリアントであり、代わりに使用するべきです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨のイベントは、代わりに使用すべき <code>Instance.ChildAdded</code> の変種です。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.childAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.childAdded.ConnectParallel",
@@ -53229,6 +53281,9 @@
       "ColorMap": "@roblox/globaltype/MaterialVariant.ColorMap",
       "ColorMapContent": "@roblox/globaltype/MaterialVariant.ColorMapContent",
       "CustomPhysicalProperties": "@roblox/globaltype/MaterialVariant.CustomPhysicalProperties",
+      "EmissiveMaskContent": "@roblox/globaltype/MaterialVariant.EmissiveMaskContent",
+      "EmissiveStrength": "@roblox/globaltype/MaterialVariant.EmissiveStrength",
+      "EmissiveTint": "@roblox/globaltype/MaterialVariant.EmissiveTint",
       "MaterialPattern": "@roblox/globaltype/MaterialVariant.MaterialPattern",
       "MetalnessMap": "@roblox/globaltype/MaterialVariant.MetalnessMap",
       "MetalnessMapContent": "@roblox/globaltype/MaterialVariant.MetalnessMapContent",
@@ -53261,8 +53316,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#CustomPhysicalProperties",
     "code_sample": ""
   },
+  "@roblox/globaltype/MaterialVariant.EmissiveMaskContent": {
+    "documentation": "表面全体の放射率を決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveMaskContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MaterialVariant.EmissiveStrength": {
+    "documentation": "放射寄与の強さを決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveStrength",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/MaterialVariant.EmissiveTint": {
+    "documentation": "放射寄与の色合いを決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveTint",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MaterialVariant.MaterialPattern": {
-    "documentation": "テクスチャのタイル方法を決定します。",
+    "documentation": "テクスチャのタイルメソッドを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MaterialPattern",
     "code_sample": ""
   },
@@ -53272,17 +53342,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MetalnessMapContent": {
-    "documentation": "表面のどの部分が金属で、どの部分が非金属かを決定します。テクスチャとしてアセット URI のみをサポートします。",
+    "documentation": "表面のどの部分が金属で、どの部分が非金属かを決定します。テクスチャとしてアセットURIのみをサポートします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMap": {
-    "documentation": "ポリゴンを追加せずに、表面のライティングをバンプ、へこみ、亀裂、カーブを追加して変更します。",
+    "documentation": "ポリゴンを追加せずに、表面に bumps、dent、ひび、曲線を加えて照明を変更します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMapContent": {
-    "documentation": "ポリゴンを追加せずに、表面のライティングをバンプ、へこみ、亀裂、カーブを追加して変更します。テクスチャとしてアセット URI のみをサポートします。",
+    "documentation": "ポリゴンを追加せずに、表面に bumps、dent、ひび、曲線を加えて照明を変更します。テクスチャとしてアセットURIのみをサポートします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMapContent",
     "code_sample": ""
   },
@@ -53292,7 +53362,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.RoughnessMapContent": {
-    "documentation": "表面全体の見かけの粗さを決定します。テクスチャとしてアセット URI のみをサポートします。",
+    "documentation": "表面全体の見かけの粗さを決定します。テクスチャとしてアセットURIのみをサポートします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#RoughnessMapContent",
     "code_sample": ""
   },
@@ -57820,7 +57890,7 @@
     "documentation": "Roblox ウェブ API へのアセット関連のクエリを処理する非レプリケートサービスです。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "次のキーと値のペアを含む辞書： <ul> <li><code>ColorMap</code> — カラーマップを含む<code>Content</code>オブジェクト。デフォルトは<code>nil</code>です。</li> <li><code>MetalnessMap</code> — 金属マップを含む<code>Content</code>オブジェクト。チャンネルが複数存在する場合、赤いチャンネルのみが使用されます。デフォルトは<code>nil</code>です。</li> <li><code>NormalMap</code> — 法線マップを含む<code>Content</code>オブジェクト。デフォルトは<code>nil</code>です。</li> <li><code>RoughnessMap</code> — 粗さマップを含む<code>Content</code>オブジェクト。チャンネルが複数存在する場合、赤のチャンネルのみが使用されます。デフォルトは<code>nil</code>です。</li> </ul>"
+    "documentation": "次のキーとバリューのペアを含む辞書です： <ul> <li><code>ColorMap</code> — カラーマップを含む <code>Content</code> オブジェクト。デフォルトは <code>nil</code> です。</li> <li><code>MetalnessMap</code> — メタリnessマップを含む <code>Content</code> オブジェクト。複数のチャンネルが存在する場合は、赤チャンネルのみが使用されます。デフォルトは <code>nil</code> です。</li> <li><code>NormalMap</code> — ノーマルマップを含む <code>Content</code> オブジェクト。デフォルトは <code>nil</code> です。</li> <li><code>RoughnessMap</code> — 粗さマップを含む <code>Content</code> オブジェクト。複数のチャンネルが存在する場合は、赤チャンネルのみが使用されます。デフォルトは <code>nil</code> です。</li> <li><code>EmissiveMask</code> — エミッシブマスクを含む <code>Content</code> オブジェクト。複数のチャンネルが存在する場合は、赤チャンネルのみが使用されます。デフォルトは <code>nil</code> です。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
     "documentation": "<code>content</code>パラメータからの指定されたマップを含む新しい<code>SurfaceAppearance</code>インスタンス。"
@@ -72330,6 +72400,7 @@
       "Left": "@roblox/globaltype/InputBinding.Left",
       "PressedThreshold": "@roblox/globaltype/InputBinding.PressedThreshold",
       "ReleasedThreshold": "@roblox/globaltype/InputBinding.ReleasedThreshold",
+      "ResponseCurve": "@roblox/globaltype/InputBinding.ResponseCurve",
       "Right": "@roblox/globaltype/InputBinding.Right",
       "Scale": "@roblox/globaltype/InputBinding.Scale",
       "UIButton": "@roblox/globaltype/InputBinding.UIButton",
@@ -72374,28 +72445,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#ReleasedThreshold",
     "code_sample": ""
   },
+  "@roblox/globaltype/InputBinding.ResponseCurve": {
+    "documentation": "スティックの照準をより正確にするためのスケーリングを設定する数値値。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#ResponseCurve",
+    "code_sample": ""
+  },
   "@roblox/globaltype/InputBinding.Right": {
-    "documentation": "親の <code>InputAction</code> に対して方向的に \"右\" の入力を送信するための代替 <code>KeyCode</code> を指定します。",
+    "documentation": "親 <code>InputAction</code> に方向的に「右」入力をディスパッチするための代替 <code>KeyCode</code> を指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Right",
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.Scale": {
-    "documentation": "方向性的な <code>InputAction</code> の値を線形にスケーリングする量です。",
+    "documentation": "方向的 <code>InputAction</code> の値を線形スケールする量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.UIButton": {
-    "documentation": "<code>GuiButton</code> をブールアクションに接続します。",
+    "documentation": "ブールアクションに <code>GuiButton</code> を接続します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#UIButton",
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.Up": {
-    "documentation": "親の <code>InputAction</code> に対して方向的に \"上\" の入力を送信するための代替 <code>KeyCode</code> を指定します。",
+    "documentation": "親 <code>InputAction</code> に方向的に「上」入力をディスパッチするための代替 <code>KeyCode</code> を指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Up",
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.Vector2Scale": {
-    "documentation": "二方向の <code>InputAction</code> の値を線形にスケーリングする量です。",
+    "documentation": "二方向的 <code>InputAction</code> の値を線形スケールする量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Vector2Scale",
     "code_sample": ""
   },
@@ -82475,6 +82551,9 @@
       "Color": "@roblox/globaltype/SurfaceAppearance.Color",
       "ColorMap": "@roblox/globaltype/SurfaceAppearance.ColorMap",
       "ColorMapContent": "@roblox/globaltype/SurfaceAppearance.ColorMapContent",
+      "EmissiveMaskContent": "@roblox/globaltype/SurfaceAppearance.EmissiveMaskContent",
+      "EmissiveStrength": "@roblox/globaltype/SurfaceAppearance.EmissiveStrength",
+      "EmissiveTint": "@roblox/globaltype/SurfaceAppearance.EmissiveTint",
       "MetalnessMap": "@roblox/globaltype/SurfaceAppearance.MetalnessMap",
       "MetalnessMapContent": "@roblox/globaltype/SurfaceAppearance.MetalnessMapContent",
       "NormalMap": "@roblox/globaltype/SurfaceAppearance.NormalMap",
@@ -82506,6 +82585,21 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#ColorMapContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/SurfaceAppearance.EmissiveMaskContent": {
+    "documentation": "表面全体の放射率を決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveMaskContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/SurfaceAppearance.EmissiveStrength": {
+    "documentation": "放射貢献の強さを決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveStrength",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/SurfaceAppearance.EmissiveTint": {
+    "documentation": "放射貢献の色合いを決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveTint",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SurfaceAppearance.MetalnessMap": {
     "documentation": "表面のどの部分が金属または非金属であるかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#MetalnessMap",
@@ -82517,7 +82611,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.NormalMap": {
-    "documentation": "バンプ、へこみ、ひび、曲線を追加することで表面のライティングを修正します。",
+    "documentation": "表面の照明を、バンプ、へこみ、亀裂、曲線を追加して修正します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#NormalMap",
     "code_sample": ""
   },
@@ -88687,6 +88781,7 @@
       "LoadAvatar2DPreviewAsync": "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync",
       "LoadGeneratedAvatarAsync": "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync",
       "PrepareAvatarForPreviewAsync": "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync",
+      "PromptCreateAvatarAssetAsync": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync",
       "PromptCreateAvatarAsync": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync",
       "PromptSelectAvatarGenerationImageAsync": "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync",
       "RequestAvatarGenerationSessionAsync": "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync",
@@ -88915,23 +89010,71 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#PrepareAvatarForPreviewAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/0": {
+    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/1": {
+    "documentation": "作成トークンの ID。このトークンは有効でなければなりません。つまり、メソッドが呼び出されるユニバースは、トークンが作成されたユニバースと同じである必要があります。さらに、トークンの作成者は ID 検証を維持しなければならず、 <a href=\"https://www.roblox.com/premium/membership\">Roblox プレミアム</a>。この API で利用するためのトークンを作成するには、 <a href=\"../../../production/monetization/avatar-creation-token.md\">トークン作成</a>のプロセスに従ってください。トークンの作成タイプは、メソッドに渡された <code>AvatarAssetType</code> と一致する必要があります。"
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/2": {
+    "documentation": "作成プロンプトを表示することを意図した <code>Player</code>。"
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/3": {
+    "documentation": "作成を予定しているアバターアセットの <code>Instance</code>。"
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/4": {
+    "documentation": "期待される作成の <code>AvatarAssetType</code>。これは提供されたトークンの作成タイプと一致する必要があります。"
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/return/0": {
+    "documentation": "次の要素を含むタプル： <ul> <li>作成プロンプトの結果を示す <code>PromptCreateAssetResult</code>。</li> <li>文字列結果。<code>PromptCreateAssetResult.Success</code> の場合、これがアセット ID を示します。いかなる失敗 enum の場合、これが結果のエラーメッセージを示します。</li> </ul>"
+  },
+  "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync": {
+    "documentation": "<code>Player</code> に対して、<code>Instance</code> からアバターアセットを購入して作成するよう促します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/0"
+      },
+      {
+        "name": "tokenId",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/1"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/2"
+      },
+      {
+        "name": "assetInstance",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/3"
+      },
+      {
+        "name": "assetType",
+        "documentation": "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/4"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#PromptCreateAvatarAssetAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/0": {
     "documentation": "開発者アバタークリエイターをサポートするサービス。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/1": {
-    "documentation": "アバター作成トークンの ID。トークンは有効でなければならず、このメソッドが呼ばれたユニバースがそのトークンが生成されたユニバースと同じである必要があります。また、 トークン作成者は ID 検証を維持し、 <a href=\"https://www.roblox.com/premium/membership\">Roblox プレミアム</a> を保有する必要があります。この API で使用するためのトークンを作成するには、 <a href=\"../../../production/monetization/avatar-creation-token.md\">token 作成</a> プロセスに従ってください。"
+    "documentation": "アバター作成トークンの ID。このトークンは有効でなければなりません。つまり、メソッドが呼び出されるユニバースは、トークンが作成されたユニバースと同じである必要があります。さらに、トークンの作成者は ID 検証を維持しなければならず、 <a href=\"https://www.roblox.com/premium/membership\">Roblox プレミアム</a>。この API で利用するためのトークンを作成するには、 <a href=\"../../../production/monetization/avatar-creation-token.md\">トークン作成</a>のプロセスに従ってください。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/2": {
-    "documentation": "作成プロンプトを表示することを意図した <code>Player</code>。"
+    "documentation": "作成プロンプトを提示される予定の <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/3": {
-    "documentation": "作成を意図したアバターの <code>HumanoidDescription</code>。"
+    "documentation": "作成を予定しているアバターの <code>HumanoidDescription</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/return/0": {
-    "documentation": "順番に要素を含むタプル： <ul> <li> 作成プロンプトの結果を示す <code>PromptCreateAvatarResult</code>。 </li> <li> 文字列の結果。<code>PromptCreateAvatarResult.Success</code> の場合、これはバンドル ID を示します。 いかなる失敗の列挙の場合、これには結果としてのエラーメッセージが示されます。 </li> <li> セカンダリのオプショナルな文字列の結果。<code>PromptCreateAvatarResult.Success</code> の場合、これはアウトフィット ID を示します。いかなる失敗の列挙の場合、これは <code>nil</code> になります。 </li> </ul>"
+    "documentation": "次の要素を含むタプル： <ul> <li>作成プロンプトの結果を示す <code>PromptCreateAvatarResult</code>。</li> <li>文字列結果。<code>PromptCreateAvatarResult.Success</code> の場合、これがバンドル ID を示します。いかなる失敗 enum の場合、これが結果のエラーメッセージを示します。</li> <li>2番目のオプショナルな文字列結果。<code>PromptCreateAvatarResult.Success</code> の場合、これがアウトフィット ID を示します。いかなる失敗 enum の場合、これが <code>nil</code> になります。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync": {
-    "documentation": "<code>HumanoidDescription</code> からアバターを購入して作成するために <code>Player</code> にプロンプトします。",
+    "documentation": "<code>HumanoidDescription</code> からアバターを購入して作成するよう、<code>Player</code> に促します。",
     "params": [
       {
         "name": "self",
@@ -88960,13 +89103,13 @@
     "documentation": "開発者アバタークリエイターをサポートするサービス。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/1": {
-    "documentation": "自撮りを取ることを促す <code>Player</code>。"
+    "documentation": "自撮りを促すための <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/return/0": {
     "documentation": "自撮りの文字列 FileId。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync": {
-    "documentation": "自撮りを取るために <code>Player</code> にプロンプトし、FileId を返します。",
+    "documentation": "<code>Player</code> に対して自撮りを促し、FileId を返します。",
     "params": [
       {
         "name": "self",
@@ -88990,10 +89133,10 @@
     "documentation": "AvatarGeneration セッションをリクエストする <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/2": {
-    "documentation": "セッションに関する情報を持つ SessionInfo テーブルで呼び出されるコールバック関数。タイプ： <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
+    "documentation": "セッションに関する情報を持つ SessionInfo テーブルを使って呼び出されるコールバック関数。タイプ： <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/return/0": {
-    "documentation": "セッションリクエストをキャンセルするために使用される <code>RBXScriptConnection</code> と推定待ち時間を含むタプル。"
+    "documentation": "セッションリクエストをキャンセルするために使用できる <code>RBXScriptConnection</code> と推定待機時間（秒単位）を含むタプル。"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync": {
     "documentation": "<code>Player</code> のために AvatarGeneration セッションをリクエストします。",
@@ -89024,16 +89167,16 @@
     "documentation": "バリデーションが完了した <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/2": {
-    "documentation": "バリデーションを実行するためのインスタンス。"
+    "documentation": "バリデーションが実行されるインスタンス。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/3": {
-    "documentation": "インスタンスが期待される <code>AccessoryType</code>。以下が必要です： <code>Eyebrow</code>、 <code>Eyelash</code>、または <code>Hair</code>。"
+    "documentation": "<code>AccessoryType</code> がインスタンスで期待されるものです。<code>Eyebrow</code>、 <code>Eyelash</code>、または <code>Hair</code> を期待します。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/return/0": {
-    "documentation": "順に以下を含むタプル： <ul> <li>アクセサリーに対するバリデーションが成功したかどうかを示すブール値。</li> <li>オプショナルな文字列のテーブル。このテーブルには、バリデーションが失敗した場合の理由が含まれます；それ以外の場合は、バリデーションが成功した場合は <code>nil</code> になります。</li> </ul>"
+    "documentation": "次の要素を含むタプル： <ul> <li>アクセサリーの検証が成功したかどうかを示すブール値。</li> <li>オプショナルな文字列のテーブル。これは検証が失敗した場合の失敗理由を含み、検証が成功した場合は <code>nil</code> います。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync": {
-    "documentation": "スタジオ専用。<code>AccessoryType</code> の UGC バリデーションを実行します。",
+    "documentation": "スタジオ専用。<code>AccessoryType</code> の UGC 検証を実行します。",
     "params": [
       {
         "name": "self",
@@ -89065,16 +89208,16 @@
     "documentation": "バリデーションが完了した <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/2": {
-    "documentation": "バリデーションが実行されるインスタンス。"
+    "documentation": "検証を実行するインスタンス。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/3": {
-    "documentation": "インスタンスが期待される <code>BodyPart</code>。"
+    "documentation": "<code>BodyPart</code> がインスタンスで期待されるものです。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/return/0": {
-    "documentation": "順に以下を含むタプル： <ul> <li>身体部位に対するバリデーションが成功したかどうかを示すブール値。</li> <li>オプショナルな文字列のテーブル。このテーブルには、バリデーションが失敗した場合の理由が含まれます；それ以外の場合は、バリデーションが成功した場合は <code>nil</code> になります。</li> </ul>"
+    "documentation": "次の要素を含むタプル： <ul> <li>身体部分の検証が成功したかどうかを示すブール値。</li> <li>オプショナルな文字列のテーブル。これは検証が失敗した場合の失敗理由を含み、検証が成功した場合は <code>nil</code> になります。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync": {
-    "documentation": "スタジオ専用。<code>BodyPart</code> の UGC バリデーションを実行します。",
+    "documentation": "スタジオ専用。<code>BodyPart</code> の UGC 検証を実行します。",
     "params": [
       {
         "name": "self",
@@ -89103,16 +89246,16 @@
     "documentation": "開発者アバタークリエイターをサポートするサービス。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/1": {
-    "documentation": "バリデーションが完了した <code>Player</code>。"
+    "documentation": "検証が完了する <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/2": {
-    "documentation": "バリデーションが実行される <code>HumanoidDescription</code>。"
+    "documentation": "検証が行われる身体を表す <code>HumanoidDescription</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/return/0": {
-    "documentation": "順に以下を含むタプル： <ul> <li>身体に対するバリデーションが成功したかどうかを示すブール値。</li> <li>オプショナルな文字列のテーブル。このテーブルには、バリデーションが失敗した場合の理由が含まれます；それ以外の場合は、バリデーションが成功した場合は <code>nil</code> になります。</li> </ul>"
+    "documentation": "次の要素を含むタプル： <ul> <li>身体の検証が成功したかどうかを示すブール値。</li> <li>オプショナルな文字列のテーブル。これは検証が失敗した場合の失敗理由を含み、検証が成功した場合は <code>nil</code> になります。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync": {
-    "documentation": "スタジオ専用。全身体の UGC バリデーションを実行します。",
+    "documentation": "スタジオ専用。全身の UGC 検証を実行します。",
     "params": [
       {
         "name": "self",
@@ -89131,6 +89274,94 @@
       "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#ValidateUGCFullBodyAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once": {
+    "documentation": "指定された関数をイベントに接続し（単一の呼び出しのため）、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait": {
+    "documentation": "信号が発火するまで現在のスレッドを一時停止し、信号によって提供された引数を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
+    "documentation": "保留中から更新された体験内で作成されたアバターアセットのモデレーション状況がトリガーされます。",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarAssetModerationCompleted",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0": {
@@ -89211,7 +89442,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
-    "documentation": "体験内で作成されたアバターのモデレーションステータスが保留から更新されたときに発火します。",
+    "documentation": "保留中から更新された体験内で作成されたアバターのモデレーション状況がトリガーされます。",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
@@ -89688,6 +89919,53 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Motor#SetDesiredAngle",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoSampler": {
+    "documentation": "An object for sampling frames from video content.",
+    "keys": {
+      "TimeLength": "@roblox/globaltype/VideoSampler.TimeLength",
+      "VideoContent": "@roblox/globaltype/VideoSampler.VideoContent",
+      "GetSamplesAtTimesAsync": "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoSampler.TimeLength": {
+    "documentation": "The length of the <code>VideoContent</code> in seconds.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#TimeLength",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoSampler.VideoContent": {
+    "documentation": "The asset loaded into the <code>VideoSampler</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#VideoContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/0": {
+    "documentation": "An object for sampling frames from video content."
+  },
+  "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/1": {
+    "documentation": "An array of requested timestamps in seconds for which to retrieve image frames. Each timestamp should be a number between <code>0</code> and <code>TimeLength</code>."
+  },
+  "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/return/0": {
+    "documentation": "An array of dictionary or nil values for each requested timestamp. If a requested timestamp is out of range or the <code>VideoSampler</code> was unable to produce a sample, the corresponding entry in the returned array will be nil. Each dictionary contains the following keys: <ul> <li><code>Time</code> (number): The timestamp of the returned image frame in   seconds. This value may differ slightly from the requested   timestamp.</li> <li><code>Image</code> (<code>Content</code>): A <code>Content</code> with a   <code>SourceType</code> of   <code>ContentSourceType.Opaque</code> containing the image frame at the   corresponding timestamp.</li> </ul>"
+  },
+  "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync": {
+    "documentation": "Gets image frames at the specified timestamps.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/0"
+      },
+      {
+        "name": "times",
+        "documentation": "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#GetSamplesAtTimesAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/CreatorStoreService": {
@@ -92501,7 +92779,6 @@
       "WaistRangeMin": "@roblox/globaltype/HumanoidRigDescription.WaistRangeMin",
       "WaistSize": "@roblox/globaltype/HumanoidRigDescription.WaistSize",
       "WaistTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.WaistTposeAdjustment",
-      "Automap": "@roblox/globaltype/HumanoidRigDescription.Automap",
       "GetJointFromName": "@roblox/globaltype/HumanoidRigDescription.GetJointFromName",
       "GetJointNames": "@roblox/globaltype/HumanoidRigDescription.GetJointNames",
       "GetR15JointNames": "@roblox/globaltype/HumanoidRigDescription.GetR15JointNames",
@@ -93060,28 +93337,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#WaistTposeAdjustment",
     "code_sample": ""
   },
-  "@roblox/globaltype/HumanoidRigDescription.Automap/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.Automap/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.Automap": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/HumanoidRigDescription.Automap/param/0"
-      },
-      {
-        "name": "character",
-        "documentation": "@roblox/globaltype/HumanoidRigDescription.Automap/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#Automap",
-    "code_sample": ""
-  },
   "@roblox/globaltype/HumanoidRigDescription.GetJointFromName/param/0": {
     "documentation": ""
   },
@@ -93324,7 +93579,7 @@
     "documentation": "返されるキャラクターが R6 または R15 になるかを指定します。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
-    "documentation": "アセットタイプの検証は、この関数がモデルをロードするかどうかを判断します。 ⚠️&nbsp;このパラメータのデフォルト値は、<code>ClientOnly</code> から <code>Always</code> に、2025年10月20日以降に変更されます。詳細については <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">こちら</a>をご覧ください。"
+    "documentation": "アセットタイプの検証モード。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
     "documentation": "キャラクター <code>Model</code> の <code>Humanoid</code>。"
@@ -96669,8 +96924,10 @@
       "CanSendCallInviteAsync": "@roblox/globaltype/SocialService.CanSendCallInviteAsync",
       "CanSendGameInviteAsync": "@roblox/globaltype/SocialService.CanSendGameInviteAsync",
       "GetEventRsvpStatusAsync": "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync",
+      "GetExperienceEventAsync": "@roblox/globaltype/SocialService.GetExperienceEventAsync",
       "GetPartyAsync": "@roblox/globaltype/SocialService.GetPartyAsync",
       "GetPlayersByPartyId": "@roblox/globaltype/SocialService.GetPlayersByPartyId",
+      "GetUpcomingExperienceEventsAsync": "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync",
       "HideSelfView": "@roblox/globaltype/SocialService.HideSelfView",
       "PromptFeedbackSubmissionAsync": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync",
       "PromptGameInvite": "@roblox/globaltype/SocialService.PromptGameInvite",
@@ -96771,6 +97028,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetEventRsvpStatusAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/0": {
+    "documentation": "Robloxプラットフォーム上での関係に影響を与える社会的機能を促進します。"
+  },
+  "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/1": {
+    "documentation": "取得するイベントの文字列識別子。現在の体験のイベントに対応する必要があります。"
+  },
+  "@roblox/globaltype/SocialService.GetExperienceEventAsync/return/0": {
+    "documentation": "イベントを説明する辞書、またはイベントが存在しない、別の体験に属する、またはその他の理由で利用できない場合は<code>nil</code>を返します。"
+  },
+  "@roblox/globaltype/SocialService.GetExperienceEventAsync": {
+    "documentation": "指定された体験イベントの詳細を返すか、利用できない場合は<code>nil</code>を返します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/0"
+      },
+      {
+        "name": "eventId",
+        "documentation": "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SocialService.GetExperienceEventAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetExperienceEventAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.GetPartyAsync/param/0": {
     "documentation": "Robloxプラットフォーム上での関係に影響を与える社会的機能を促進します。"
   },
@@ -96778,10 +97062,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/SocialService.GetPartyAsync/return/0": {
-    "documentation": "現在体験中の指定されたパーティのメンバーを表すディクショナリの配列。"
+    "documentation": "現在の体験中の指定されたパーティのメンバーを表す辞書の配列。"
   },
   "@roblox/globaltype/SocialService.GetPartyAsync": {
-    "documentation": "指定されたパーティのメンバーが現在体験中であるデータを含むディクショナリの配列を返します。",
+    "documentation": "現在体験中の指定されたパーティの全メンバーのデータを含む辞書の配列を返します。",
     "params": [
       {
         "name": "self",
@@ -96805,10 +97089,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId/return/0": {
-    "documentation": "指定された <code>partyId</code> に一致する <code>Player</code> オブジェクトのテーブル。"
+    "documentation": "渡された<code>partyId</code>プロパティが一致する<code>Player</code>オブジェクトのテーブル。"
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId": {
-    "documentation": "指定された <code>partyId</code> に一致するすべての接続された <code>Player</code> オブジェクトのテーブルを返します。",
+    "documentation": "渡された<code>partyId</code>プロパティが一致するすべての現在接続されている<code>Player</code>オブジェクトのテーブルを返します。",
     "params": [
       {
         "name": "self",
@@ -96825,11 +97109,31 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetPlayersByPartyId",
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tlocal partyPlayers: { Player } = SocialService:GetPlayersByPartyId(partyId)\n\n\t\tfor _, partyMember in partyPlayers do\n\t\t\tprint(\"パーティーメンバー: \" .. partyMember.Name)\n\t\tend\n\telse\n\t\twarn(\"プレイヤーはパーティーに参加していません\")\n\tend\nend)"
   },
+  "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/param/0": {
+    "documentation": "Robloxプラットフォーム上での関係に影響を与える社会的機能を促進します。"
+  },
+  "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/return/0": {
+    "documentation": "現在の体験のそれぞれにアクティブまたは今後のイベントを説明する辞書の配列で、最も早い開始時刻のものが最初に並んでいます。"
+  },
+  "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync": {
+    "documentation": "現在の体験のためのアクティブなイベントと今後のイベントを返します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#GetUpcomingExperienceEventsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.HideSelfView/param/0": {
     "documentation": "Robloxプラットフォーム上での関係に影響を与える社会的機能を促進します。"
   },
   "@roblox/globaltype/SocialService.HideSelfView": {
-    "documentation": "呼び出し元プレイヤーの自己ビューを隠します。",
+    "documentation": "呼び出しプレイヤーの自己ビューを隠します。",
     "params": [
       {
         "name": "self",
@@ -96844,7 +97148,7 @@
     "documentation": "Robloxプラットフォーム上での関係に影響を与える社会的機能を促進します。"
   },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
-    "documentation": "現在の体験についてフィードバックを提出するようプレイヤーに促します。",
+    "documentation": "プレイヤーに現在の体験についてフィードバックを提出するよう促します。",
     "params": [
       {
         "name": "self",
@@ -96859,13 +97163,13 @@
     "documentation": "Robloxプラットフォーム上での関係に影響を与える社会的機能を促進します。"
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/1": {
-    "documentation": "招待ポップアップを表示する <code>Player</code> 。"
+    "documentation": "招待ポップアップを表示する<code>Player</code>。"
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/2": {
-    "documentation": "プロンプトをカスタマイズするためのオプションの <code>ExperienceInviteOptions</code> オブジェクト。"
+    "documentation": "プロンプトをカスタマイズするためのオプションの<code>ExperienceInviteOptions</code>オブジェクト。"
   },
   "@roblox/globaltype/SocialService.PromptGameInvite": {
-    "documentation": "指定された <code>Player</code> に招待画面を表示します。",
+    "documentation": "指定された<code>Player</code>に招待画面を表示します。",
     "params": [
       {
         "name": "self",
@@ -96888,13 +97192,13 @@
     "documentation": "Robloxプラットフォーム上での関係に影響を与える社会的機能を促進します。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/1": {
-    "documentation": "指定された <code>Player</code> に生成された共有リンクを持つRobloxプラットフォームレベルの共有シートを表示します。"
+    "documentation": "指定された<code>Player</code>に生成された共有リンクを含むRobloxプラットフォームレベルの共有シートを表示します。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Dictionary</code> は生成されたリンクの設定を指定します。 以下のオプションのキー-バリュー対を含みます: <ul> <li><code>FallbackLinkId</code> (string). 期限切れになった後、この共有リンクが   プレイヤーをどこに導くかを決定します。デフォルトは体験参加リンクです。</li> <li><code>ExpirationSeconds</code> (number). 共有リンクが作成された後の   期限までの時間を決定します。最も近い整数に切り捨てます。デフォルトは   86,400です。</li> <li><code>PreviewTitle</code> (string) 共有リンクのプレビュータイトル。</li> <li><code>PreviewDescription</code> (string) 共有リンクのプレビュー説明。</li> <li><code>PreviewAssetId</code> (number) 共有リンクプレビューに使用されるイメージ資産ID。</li> <li><code>LaunchData</code> (string). 生成された共有リンクを使用して参加したときに   <code>Player:GetJoinData()</code> でパラメータを設定するために使用されます。</li> </ul>"
+    "documentation": "生成されたリンクの構成を指定する<code>Dictionary</code>。以下のオプションのキー-バリューのペアが含まれます： <ul> <li><code>FallbackLinkId</code> (string)。この共有リンクの有効期限が切れた後、プレイヤーがどのように遷移するかを決定します。デフォルトは体験参加リンクです。</li> <li><code>ExpirationSeconds</code> (number)。共有リンクが作成されてからの有効期限を決定します。最も近い整数に切り捨てられます。デフォルトは86,400です。</li> <li><code>PreviewTitle</code> (string) 共有リンクのプレビュータイトル。</li> <li><code>PreviewDescription</code> (string) 共有リンクのプレビュー説明。</li> <li><code>PreviewAssetId</code> (number) 共有リンクプレビューに使用される画像アセットID。</li> <li><code>LaunchData</code> (string)。生成された共有リンクを使用して参加したプレイヤーに関するパラメータを<code>Player:GetJoinData()</code>で設定するのに使用されます。</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": "<code>PromptLinkSharingResult</code> を含むタプルで、リンク共有プロンプトの結果を示します。"
+    "documentation": "リンク共有プロンプトの結果を示す<code>PromptLinkSharingResult</code>を含むタプル。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -96925,10 +97229,10 @@
     "documentation": "電話帳を表示するプレイヤー。"
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/2": {
-    "documentation": "さまざまな電話帳「エントリーポイント」を区別するための文字列。または類似のもの。たとえば、電話をかけるプレイヤーのキャラクターが現在何の体験地域にいるかを定義する文字列を渡すことができます。"
+    "documentation": "様々な電話帳の「エントリーポイント」や類似のものを区別するのに役立つ文字列。例えば、呼び出しプレイヤーのキャラクターが現在いる体験の地域を定義する文字列を渡すことができます。"
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook": {
-    "documentation": "指定された <code>Player</code> に電話帳を表示します。",
+    "documentation": "指定された<code>Player</code>に電話帳を表示します。",
     "params": [
       {
         "name": "self",
@@ -96951,13 +97255,13 @@
     "documentation": "Robloxプラットフォーム上での関係に影響を与える社会的機能を促進します。"
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1": {
-    "documentation": "プレイヤーにRSVPステータスを変更するように促すイベントのイベントID。このIDは、現在の体験内に存在する有効なイベントIDでなければならず、文字列として表されます（数値でなく）。"
+    "documentation": "プレイヤーにRSVPステータスを変更するよう促すイベントのイベントID。これは、現在の体験に存在する有効なイベントIDでなければならず、文字列として表されます（数字ではありません）。"
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0": {
-    "documentation": "プロンプトが閉じられた後のプレイヤーの新しいRSVPステータスを示す <code>RsvpStatus</code> を返します。プレイヤーがRSVPステータスを変更せずにプロンプトを閉じた場合、これは <code>RsvpStatus.None</code> または、すでにステータスを選択している場合はその古い <code>RsvpStatus</code> を返します。"
+    "documentation": "プロンプトが閉じられた後、プレイヤーの新しいRSVPステータスを示す<code>RsvpStatus</code>を返します。プレイヤーがプロンプトを閉じてもRSVPステータスを変更しなかった場合、これは<code>RsvpStatus.None</code>または、すでに選択した場合は古い<code>RsvpStatus</code>を返します。"
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync": {
-    "documentation": "ローカル <code>Player</code> に対して、指定されたイベントに対するRSVPステータスを変更するように促します。",
+    "documentation": "ローカル<code>Player</code>に与えられたイベントへのRSVPステータスを変更するよう促します。",
     "params": [
       {
         "name": "self",
@@ -96981,7 +97285,7 @@
     "documentation": "自己ビューを配置する位置。"
   },
   "@roblox/globaltype/SocialService.ShowSelfView": {
-    "documentation": "呼び出しているプレイヤーの自己ビューを表示します。",
+    "documentation": "呼び出しプレイヤーの自己ビューを表示します。",
     "params": [
       {
         "name": "self",
@@ -115399,7 +115703,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PhysicsSteppingMethod.Default": {
-    "documentation": "現在のデフォルトは固定です。",
+    "documentation": "現在のデフォルトは <code>Adaptive</code> です。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118694,6 +118998,86 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2",
     "code_sample": ""
   },
+  "@roblox/enum/KeyCode.Thumbstick1Up": {
+    "documentation": "ゲームパッドの主要サムスティックの上方向ベクター。主に <a href=\"../../../input/input-action-system.md\">Input Action System</a>で使用されます。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick1Up",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick1Down": {
+    "documentation": "ゲームパッドの主要サムスティックの下方向ベクター。主に <a href=\"../../../input/input-action-system.md\">Input Action System</a>で使用されます。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick1Down",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick1Left": {
+    "documentation": "ゲームパッドの主要サムスティックの左方向ベクター。主に <a href=\"../../../input/input-action-system.md\">Input Action System</a>で使用されます。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick1Left",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick1Right": {
+    "documentation": "ゲームパッドの主要サムスティックの右方向ベクター。主に <a href=\"../../../input/input-action-system.md\">Input Action System</a>で使用されます。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick1Right",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick2Up": {
+    "documentation": "ゲームパッドのセカンダリサムスティックの上方向ベクター。主に <a href=\"../../../input/input-action-system.md\">Input Action System</a>で使用されます。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2Up",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick2Down": {
+    "documentation": "ゲームパッドのセカンダリサムスティックの下方向ベクター。主に <a href=\"../../../input/input-action-system.md\">Input Action System</a>で使用されます。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2Down",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick2Left": {
+    "documentation": "ゲームパッドのセカンダリサムスティックの左方向ベクター。主に <a href=\"../../../input/input-action-system.md\">Input Action System</a>で使用されます。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2Left",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick2Right": {
+    "documentation": "ゲームパッドのセカンダリサムスティックの右方向ベクター。主に <a href=\"../../../input/input-action-system.md\">Input Action System</a>で使用されます。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2Right",
+    "code_sample": ""
+  },
   "@roblox/enum/KeyCode.MouseLeftButton": {
     "documentation": "",
     "keys": {
@@ -118725,7 +119109,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.MouseBackButton": {
-    "documentation": "<strong>Deprecated:</strong> この列挙型は廃止予定であり、削除の対象です。",
+    "documentation": "<strong>Deprecated:</strong> この列挙型は非推奨であり、削除の対象とされています。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118735,7 +119119,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.MouseNoButton": {
-    "documentation": "<strong>Deprecated:</strong> この列挙型は廃止予定であり、削除の対象です。",
+    "documentation": "<strong>Deprecated:</strong> この列挙型は非推奨であり、削除の対象とされています。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118745,7 +119129,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.MouseX": {
-    "documentation": "<strong>Deprecated:</strong> この列挙型は廃止予定であり、削除の対象です。",
+    "documentation": "<strong>Deprecated:</strong> この列挙型は非推奨であり、削除の対象とされています。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118755,13 +119139,23 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.MouseY": {
-    "documentation": "<strong>Deprecated:</strong> この列挙型は廃止予定であり、削除の対象です。",
+    "documentation": "<strong>Deprecated:</strong> この列挙型は非推奨であり、削除の対象とされています。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#MouseY",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.MousePosition": {
+    "documentation": "ビューポート内のマウスの位置。主に <a href=\"../../../input/input-action-system.md\">Input Action System</a>で使用されます。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#MousePosition",
     "code_sample": ""
   },
   "@roblox/global/Enum.KeyCode": {
@@ -119021,13 +119415,22 @@
       "DPadDown": "@roblox/enum/KeyCode.DPadDown",
       "Thumbstick1": "@roblox/enum/KeyCode.Thumbstick1",
       "Thumbstick2": "@roblox/enum/KeyCode.Thumbstick2",
+      "Thumbstick1Up": "@roblox/enum/KeyCode.Thumbstick1Up",
+      "Thumbstick1Down": "@roblox/enum/KeyCode.Thumbstick1Down",
+      "Thumbstick1Left": "@roblox/enum/KeyCode.Thumbstick1Left",
+      "Thumbstick1Right": "@roblox/enum/KeyCode.Thumbstick1Right",
+      "Thumbstick2Up": "@roblox/enum/KeyCode.Thumbstick2Up",
+      "Thumbstick2Down": "@roblox/enum/KeyCode.Thumbstick2Down",
+      "Thumbstick2Left": "@roblox/enum/KeyCode.Thumbstick2Left",
+      "Thumbstick2Right": "@roblox/enum/KeyCode.Thumbstick2Right",
       "MouseLeftButton": "@roblox/enum/KeyCode.MouseLeftButton",
       "MouseRightButton": "@roblox/enum/KeyCode.MouseRightButton",
       "MouseMiddleButton": "@roblox/enum/KeyCode.MouseMiddleButton",
       "MouseBackButton": "@roblox/enum/KeyCode.MouseBackButton",
       "MouseNoButton": "@roblox/enum/KeyCode.MouseNoButton",
       "MouseX": "@roblox/enum/KeyCode.MouseX",
-      "MouseY": "@roblox/enum/KeyCode.MouseY"
+      "MouseY": "@roblox/enum/KeyCode.MouseY",
+      "MousePosition": "@roblox/enum/KeyCode.MousePosition"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode",
     "code_sample": ""
@@ -126265,6 +126668,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#UnknownFailure",
     "code_sample": ""
   },
+  "@roblox/enum/PromptCreateAssetResult.UGCValidationFailed": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#UGCValidationFailed",
+    "code_sample": ""
+  },
+  "@roblox/enum/PromptCreateAssetResult.ModeratedName": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#ModeratedName",
+    "code_sample": ""
+  },
+  "@roblox/enum/PromptCreateAssetResult.PurchaseFailure": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#PurchaseFailure",
+    "code_sample": ""
+  },
+  "@roblox/enum/PromptCreateAssetResult.TokenInvalid": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult#TokenInvalid",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.PromptCreateAssetResult": {
     "documentation": "",
     "keys": {
@@ -126273,7 +126716,11 @@
       "Timeout": "@roblox/enum/PromptCreateAssetResult.Timeout",
       "UploadFailed": "@roblox/enum/PromptCreateAssetResult.UploadFailed",
       "NoUserInput": "@roblox/enum/PromptCreateAssetResult.NoUserInput",
-      "UnknownFailure": "@roblox/enum/PromptCreateAssetResult.UnknownFailure"
+      "UnknownFailure": "@roblox/enum/PromptCreateAssetResult.UnknownFailure",
+      "UGCValidationFailed": "@roblox/enum/PromptCreateAssetResult.UGCValidationFailed",
+      "ModeratedName": "@roblox/enum/PromptCreateAssetResult.ModeratedName",
+      "PurchaseFailure": "@roblox/enum/PromptCreateAssetResult.PurchaseFailure",
+      "TokenInvalid": "@roblox/enum/PromptCreateAssetResult.TokenInvalid"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PromptCreateAssetResult",
     "code_sample": ""
@@ -127284,7 +127731,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.VideoSampleSize": {
-    "documentation": "The size of textures produced by <code>VideoSampler</code>.",
+    "documentation": "<code>VideoSampler</code>によって生成されるテクスチャのサイズ。",
     "keys": {
       "Small": "@roblox/enum/VideoSampleSize.Small",
       "Medium": "@roblox/enum/VideoSampleSize.Medium",
@@ -127562,16 +128009,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#StreamingMesh",
     "code_sample": ""
   },
-  "@roblox/enum/ModelLevelOfDetail.SLIM": {
-    "documentation": "スケーラブルで軽量なインタラクティブモデル、またはSLIMモデル（モデルのすべての子部品の合成）は、ストリーミング半径に基づいて距離に応じて徐々に低い解像度でレンダリングされます。<code>StreamingMesh</code>に比べて視覚品質が大幅に向上します。",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#SLIM",
-    "code_sample": ""
-  },
   "@roblox/enum/ModelLevelOfDetail.Disabled": {
     "documentation": "低解像度のメッシュは表示されません。",
     "keys": {
@@ -127582,13 +128019,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#Disabled",
     "code_sample": ""
   },
+  "@roblox/enum/ModelLevelOfDetail.SLIM": {
+    "documentation": "スケーラブルな軽量インタラクティブモデル、または SLIM モデル（モデルのすべての子部品の合成）は、ストリーミング半径に基づいて、距離に応じて徐々に低解像度でレンダリングされます。 <code>StreamingMesh</code> よりも視覚品質が大幅に向上します。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail#SLIM",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ModelLevelOfDetail": {
     "documentation": "<code>Models</code> の詳細レベルを、インスタンスストリーミングが有効な体験で制御します。",
     "keys": {
       "Automatic": "@roblox/enum/ModelLevelOfDetail.Automatic",
       "StreamingMesh": "@roblox/enum/ModelLevelOfDetail.StreamingMesh",
-      "SLIM": "@roblox/enum/ModelLevelOfDetail.SLIM",
-      "Disabled": "@roblox/enum/ModelLevelOfDetail.Disabled"
+      "Disabled": "@roblox/enum/ModelLevelOfDetail.Disabled",
+      "SLIM": "@roblox/enum/ModelLevelOfDetail.SLIM"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ModelLevelOfDetail",
     "code_sample": ""
@@ -127932,13 +128379,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InputActionType#Direction3D",
     "code_sample": ""
   },
+  "@roblox/enum/InputActionType.ViewportPosition": {
+    "documentation": "<code>InputAction</code> は、ビューポート内のポインター入力の絶対ピクセル (<strong>X</strong>, <strong>Y</strong>) 座標を表す <code>Vector2</code> 値を受け取ります。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InputActionType#ViewportPosition",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.InputActionType": {
     "documentation": "この列挙型は <code>InputAction.Type</code> によって使用され、どの入力データタイプが <code>InputAction</code> に届くかを決定します。",
     "keys": {
       "Bool": "@roblox/enum/InputActionType.Bool",
       "Direction1D": "@roblox/enum/InputActionType.Direction1D",
       "Direction2D": "@roblox/enum/InputActionType.Direction2D",
-      "Direction3D": "@roblox/enum/InputActionType.Direction3D"
+      "Direction3D": "@roblox/enum/InputActionType.Direction3D",
+      "ViewportPosition": "@roblox/enum/InputActionType.ViewportPosition"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InputActionType",
     "code_sample": ""
@@ -132357,12 +132815,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ContentSourceType#Object",
     "code_sample": ""
   },
+  "@roblox/enum/ContentSourceType.Opaque": {
+    "documentation": "非 <code>nil</code> の <code>Opaque</code> リファレンスは <code>Content.Opaque</code> に含まれています。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ContentSourceType#Opaque",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.ContentSourceType": {
     "documentation": "<code>Content</code> 値のソースタイプ。",
     "keys": {
       "None": "@roblox/enum/ContentSourceType.None",
       "Uri": "@roblox/enum/ContentSourceType.Uri",
-      "Object": "@roblox/enum/ContentSourceType.Object"
+      "Object": "@roblox/enum/ContentSourceType.Object",
+      "Opaque": "@roblox/enum/ContentSourceType.Opaque"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ContentSourceType",
     "code_sample": ""

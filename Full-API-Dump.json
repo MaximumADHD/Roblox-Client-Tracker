@@ -17557,6 +17557,30 @@
                             "Audio"
                         ]
                     },
+                    "Category": "Playback",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "AutoPlay",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio"
+                        ]
+                    },
                     "Category": "Data",
                     "Default": "false",
                     "MemberType": "Property",
@@ -51060,6 +51084,29 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "Default": "Default",
+                    "MemberType": "Property",
+                    "Name": "SelectionMode",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ExperienceStateCaptureSelectionMode"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "CanEnterCaptureMode",
                     "Parameters": [
@@ -55842,6 +55889,42 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GenerateModelAsync",
+                    "Parameters": [
+                        {
+                            "Name": "inputs",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Name": "schema",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary?"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "InternalGenerateMeshAsync",
                     "Parameters": [
                         {
@@ -55900,6 +55983,28 @@
                         "Name": "MeshPart"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "LoadModelFromGlbAsync",
+                    "Parameters": [
+                        {
+                            "Name": "glbPath",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Model"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ],
@@ -56456,6 +56561,47 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "CSG",
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SweepPartAsync",
+                    "Parameters": [
+                        {
+                            "Name": "part",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "BasePart"
+                            }
+                        },
+                        {
+                            "Name": "cframes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "MeshPart"
                     },
                     "Security": "None",
                     "Tags": [
@@ -81597,7 +81743,7 @@
                         "Animation"
                     ],
                     "MemberType": "Function",
-                    "Name": "Automap",
+                    "Name": "AutoRig",
                     "Parameters": [
                         {
                             "Name": "character",
@@ -81611,7 +81757,7 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
-                    "Security": "None",
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Safe"
                 },
                 {
@@ -91580,6 +91726,28 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RecommendTopProductsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "infoTypes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
                     },
                     "Security": "None",
                     "Tags": [
@@ -103861,6 +104029,7 @@
                     },
                     "Tags": [
                         "Hidden",
+                        "NotReplicated",
                         "NotScriptable"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -110196,6 +110365,24 @@
                         }
                     ],
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "SendServerTime",
+                    "Parameters": [
+                        {
+                            "Name": "serverTimeMs",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxSecurity",
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -129690,6 +129877,37 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic",
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "BindToSimulation",
+                    "Parameters": [
+                        {
+                            "Name": "function",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        },
+                        {
+                            "Default": "Hz60",
+                            "Name": "frequency",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StepFrequency"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "RBXScriptConnection"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
                         "Basic"
                     ],
                     "MemberType": "Function",
@@ -130032,25 +130250,6 @@
                         "Name": "null"
                     },
                     "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "Basic",
-                        "InternalTest"
-                    ],
-                    "MemberType": "Event",
-                    "Name": "FixedHeartbeat",
-                    "Parameters": [
-                        {
-                            "Name": "deltaTime",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "double"
-                            }
-                        }
-                    ],
-                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -139721,25 +139920,6 @@
                     "Category": "Data",
                     "Default": "Default",
                     "MemberType": "Property",
-                    "Name": "AudioPlayerVolumeFix",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Enum",
-                        "Name": "RolloutState"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "Default": "Default",
-                    "MemberType": "Property",
                     "Name": "CharacterSoundsUseNewApi",
                     "Security": {
                         "Read": "None",
@@ -141471,6 +141651,33 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Players"
+                        ]
+                    },
+                    "Category": "Controls",
+                    "Default": "true",
+                    "MemberType": "Property",
+                    "Name": "CreateDefaultPlayerModule",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -150563,6 +150770,29 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "ConditionsSerialize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "BinaryString"
+                    }
+                },
+                {
                     "Category": "Behavior",
                     "Default": "true",
                     "MemberType": "Property",
@@ -150622,6 +150852,82 @@
                         "Category": "DataType",
                         "Name": "Vector2"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetCondition",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetConditions",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetCondition",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetConditions",
+                    "Parameters": [
+                        {
+                            "Name": "conditions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -158624,6 +158930,29 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "ChatRestrictionStatus"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "HasActiveUser",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -177598,6 +177927,27 @@
         {
             "Items": [
                 {
+                    "Name": "Loop",
+                    "Value": 0
+                },
+                {
+                    "Name": "PingPong",
+                    "Value": 1
+                },
+                {
+                    "Name": "OnceAndHold",
+                    "Value": 2
+                },
+                {
+                    "Name": "OnceAndReset",
+                    "Value": 3
+                }
+            ],
+            "Name": "AnimationNodePlayMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "InvalidNode",
                     "Value": 0
                 },
@@ -178248,6 +178598,18 @@
                     "Value": 79
                 },
                 {
+                    "Name": "FaceMakeup",
+                    "Value": 88
+                },
+                {
+                    "Name": "LipMakeup",
+                    "Value": 89
+                },
+                {
+                    "Name": "EyeMakeup",
+                    "Value": 90
+                },
+                {
                     "Name": "EarAccessory",
                     "Value": 57
                 },
@@ -178641,6 +179003,18 @@
                 {
                     "Name": "DynamicHead",
                     "Value": 79
+                },
+                {
+                    "Name": "FaceMakeup",
+                    "Value": 88
+                },
+                {
+                    "Name": "LipMakeup",
+                    "Value": 89
+                },
+                {
+                    "Name": "EyeMakeup",
+                    "Value": 90
                 }
             ],
             "Name": "AvatarAssetType"
@@ -181682,6 +182056,19 @@
                 }
             ],
             "Name": "ExperienceEventStatus"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "SafetyHighlightMode",
+                    "Value": 1
+                }
+            ],
+            "Name": "ExperienceStateCaptureSelectionMode"
         },
         {
             "Items": [
@@ -189295,6 +189682,35 @@
             "Tags": [
                 "Deprecated"
             ]
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Hz60",
+                    "Value": 0
+                },
+                {
+                    "Name": "Hz30",
+                    "Value": 1
+                },
+                {
+                    "Name": "Hz15",
+                    "Value": 2
+                },
+                {
+                    "Name": "Hz10",
+                    "Value": 3
+                },
+                {
+                    "Name": "Hz5",
+                    "Value": 4
+                },
+                {
+                    "Name": "Hz1",
+                    "Value": 5
+                }
+            ],
+            "Name": "StepFrequency"
         },
         {
             "Items": [

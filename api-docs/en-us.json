@@ -3629,28 +3629,28 @@
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Red": {
-    "documentation": "Returns the \"Bright Red\" <code>BrickColor</code>.",
+    "documentation": "Returns the \"Bright red\" <code>BrickColor</code>.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Red",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Yellow": {
-    "documentation": "Returns the \"Bright Yellow\" <code>BrickColor</code>.",
+    "documentation": "Returns the \"Bright yellow\" <code>BrickColor</code>.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Yellow",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Green": {
-    "documentation": "Returns the \"Dark Green\" <code>BrickColor</code>.",
+    "documentation": "Returns the \"Dark green\" <code>BrickColor</code>.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Green",
     "code_sample": ""
   },
   "@roblox/global/BrickColor.Blue": {
-    "documentation": "Returns the \"Bright Blue\" <code>BrickColor</code>.",
+    "documentation": "Returns the \"Bright blue\" <code>BrickColor</code>.",
     "params": [],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/BrickColor#Blue",
@@ -15789,7 +15789,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Model.Scale": {
-    "documentation": "Editor-only property used to scale the model around its pivot. Setting this property will move the scale as though <code>Model/ScaleTo</code> was called on it.",
+    "documentation": "Editor-only property used to scale the model around its pivot. Setting this property will move the scale as though <code>Model:ScaleTo()</code> was called on it.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#Scale",
     "code_sample": ""
   },
@@ -15962,7 +15962,7 @@
     "documentation": "The current canonical scale factor of the model."
   },
   "@roblox/globaltype/Model.GetScale": {
-    "documentation": "Returns the canonical scale of the model, which defaults to 1 for newly created models and will change as it is scaled via <code>Model/ScaleTo</code>.",
+    "documentation": "Returns the canonical scale of the model, which defaults to 1 for newly created models and will change as it is scaled via <code>Model:ScaleTo()</code>.",
     "params": [
       {
         "name": "self",
@@ -18795,7 +18795,7 @@
     "documentation": "The <code>HumanoidDescription</code> instance which you want to set the character to match."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
-    "documentation": "⚠️ The default value for this parameter will change from <code>ClientOnly</code> to <code>Always</code> after 10/20/2025. See <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">here</a> for details."
+    "documentation": "The asset type verification mode."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
     "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>.",
@@ -18824,7 +18824,7 @@
     "documentation": "The <code>HumanoidDescription</code> instance which you want to set the character to match."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
-    "documentation": "⚠️ The default value for this parameter will change from <code>ClientOnly</code> to <code>Always</code> after 10/20/2025. See <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">here</a> for details."
+    "documentation": "The asset type verification mode."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
     "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>, even after external changes.",
@@ -72400,6 +72400,7 @@
       "Left": "@roblox/globaltype/InputBinding.Left",
       "PressedThreshold": "@roblox/globaltype/InputBinding.PressedThreshold",
       "ReleasedThreshold": "@roblox/globaltype/InputBinding.ReleasedThreshold",
+      "ResponseCurve": "@roblox/globaltype/InputBinding.ResponseCurve",
       "Right": "@roblox/globaltype/InputBinding.Right",
       "Scale": "@roblox/globaltype/InputBinding.Scale",
       "UIButton": "@roblox/globaltype/InputBinding.UIButton",
@@ -72442,6 +72443,11 @@
   "@roblox/globaltype/InputBinding.ReleasedThreshold": {
     "documentation": "Numerical value below which to fire an <code>InputAction</code> with a <code>Type</code> of <code>Bool</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#ReleasedThreshold",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputBinding.ResponseCurve": {
+    "documentation": "Numerical value to configure scaling for more precise thumbstick aiming.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#ResponseCurve",
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.Right": {
@@ -73095,7 +73101,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> This class is deprecated and should not be used for new work. Use <code>HttpService</code> instead and see the <a href=\"../../../cloud-services/http-service.md\">In-experience HTTP requests guide</a>.",
     "keys": {
       "GetApiV1": "@roblox/globaltype/OpenCloudService.GetApiV1",
       "InvokeAsync": "@roblox/globaltype/OpenCloudService.InvokeAsync"
@@ -73104,13 +73110,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> This class is deprecated and should not be used for new work. Use <code>HttpService</code> instead and see the <a href=\"../../../cloud-services/http-service.md\">In-experience HTTP requests guide</a>."
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -73124,7 +73130,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> This class is deprecated and should not be used for new work. Use <code>HttpService</code> instead and see the <a href=\"../../../cloud-services/http-service.md\">In-experience HTTP requests guide</a>."
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/1": {
     "documentation": ""
@@ -73142,7 +73148,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -80104,8 +80110,44 @@
   },
   "@roblox/globaltype/VideoService": {
     "documentation": "An internal service that offers no functionality to developers.",
-    "keys": {},
+    "keys": {
+      "CreateVideoSamplerAsync": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0": {
+    "documentation": "An internal service that offers no functionality to developers."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1": {
+    "documentation": "The video content to sample from."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2": {
+    "documentation": "Options table for creating the <code>VideoSampler</code>: <ul> <li><code>Size</code> – A <code>VideoSampleSize</code> value that determines the   resolution of textures produced by the <code>VideoSampler</code>.   Defaults to <code>VideoSampleSize.Small</code>. Use the smallest   resolution that meets your needs to minimize memory usage and   improve sampling performance.</li> </ul>"
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0": {
+    "documentation": "The created <code>VideoSampler</code>."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync": {
+    "documentation": "Creates a <code>VideoSampler</code> that samples frames from the provided video content.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService#CreateVideoSamplerAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/Debris": {
@@ -86414,7 +86456,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> This class is deprecated and should not be used for new work. Use <code>HttpService</code> instead and see the <a href=\"../../../cloud-services/http-service.md\">In-experience HTTP requests guide</a>.",
     "keys": {
       "CreateModel": "@roblox/globaltype/OpenCloudApiV1.CreateModel",
       "CreateUserNotificationAsync": "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync"
@@ -86423,7 +86465,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> This class is deprecated and should not be used for new work. Use <code>HttpService</code> instead and see the <a href=\"../../../cloud-services/http-service.md\">In-experience HTTP requests guide</a>."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/1": {
     "documentation": ""
@@ -86432,7 +86474,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -86450,7 +86492,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> This class is deprecated and should not be used for new work. Use <code>HttpService</code> instead and see the <a href=\"../../../cloud-services/http-service.md\">In-experience HTTP requests guide</a>."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/1": {
     "documentation": ""
@@ -86462,7 +86504,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -89915,6 +89957,53 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Motor#SetDesiredAngle",
     "code_sample": ""
   },
+  "@roblox/globaltype/VideoSampler": {
+    "documentation": "An object for sampling frames from video content.",
+    "keys": {
+      "TimeLength": "@roblox/globaltype/VideoSampler.TimeLength",
+      "VideoContent": "@roblox/globaltype/VideoSampler.VideoContent",
+      "GetSamplesAtTimesAsync": "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoSampler.TimeLength": {
+    "documentation": "The length of the <code>VideoContent</code> in seconds.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#TimeLength",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoSampler.VideoContent": {
+    "documentation": "The asset loaded into the <code>VideoSampler</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#VideoContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/0": {
+    "documentation": "An object for sampling frames from video content."
+  },
+  "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/1": {
+    "documentation": "An array of requested timestamps in seconds for which to retrieve image frames. Each timestamp should be a number between <code>0</code> and <code>TimeLength</code>."
+  },
+  "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/return/0": {
+    "documentation": "An array of dictionary or nil values for each requested timestamp. If a requested timestamp is out of range or the <code>VideoSampler</code> was unable to produce a sample, the corresponding entry in the returned array will be nil. Each dictionary contains the following keys: <ul> <li><code>Time</code> (number): The timestamp of the returned image frame in   seconds. This value may differ slightly from the requested   timestamp.</li> <li><code>Image</code> (<code>Content</code>): A <code>Content</code> with a   <code>SourceType</code> of   <code>ContentSourceType.Opaque</code> containing the image frame at the   corresponding timestamp.</li> </ul>"
+  },
+  "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync": {
+    "documentation": "Gets image frames at the specified timestamps.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/0"
+      },
+      {
+        "name": "times",
+        "documentation": "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#GetSamplesAtTimesAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/CreatorStoreService": {
     "documentation": "",
     "keys": {},
@@ -92726,7 +92815,6 @@
       "WaistRangeMin": "@roblox/globaltype/HumanoidRigDescription.WaistRangeMin",
       "WaistSize": "@roblox/globaltype/HumanoidRigDescription.WaistSize",
       "WaistTposeAdjustment": "@roblox/globaltype/HumanoidRigDescription.WaistTposeAdjustment",
-      "Automap": "@roblox/globaltype/HumanoidRigDescription.Automap",
       "GetJointFromName": "@roblox/globaltype/HumanoidRigDescription.GetJointFromName",
       "GetJointNames": "@roblox/globaltype/HumanoidRigDescription.GetJointNames",
       "GetR15JointNames": "@roblox/globaltype/HumanoidRigDescription.GetR15JointNames",
@@ -93285,28 +93373,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#WaistTposeAdjustment",
     "code_sample": ""
   },
-  "@roblox/globaltype/HumanoidRigDescription.Automap/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.Automap/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/HumanoidRigDescription.Automap": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/HumanoidRigDescription.Automap/param/0"
-      },
-      {
-        "name": "character",
-        "documentation": "@roblox/globaltype/HumanoidRigDescription.Automap/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidRigDescription#Automap",
-    "code_sample": ""
-  },
   "@roblox/globaltype/HumanoidRigDescription.GetJointFromName/param/0": {
     "documentation": ""
   },
@@ -93549,7 +93615,7 @@
     "documentation": "Specifies whether the returned character will be R6 or R15."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
-    "documentation": "Asset type verification determines if this function will load models or not. ⚠️&nbsp;The default value for this parameter will change from <code>ClientOnly</code> to <code>Always</code> after 10/20/2025. See <a href=\"https://devforum.roblox.com/t/potential-action-required-update-for-humanoiddescription-apis/3982903\">here</a> for details."
+    "documentation": "The asset type verification mode."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
     "documentation": "A <code>Humanoid</code> character <code>Model</code>."
@@ -118968,6 +119034,86 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2",
     "code_sample": ""
   },
+  "@roblox/enum/KeyCode.Thumbstick1Up": {
+    "documentation": "Up vector on the gamepad primary thumbstick. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick1Up",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick1Down": {
+    "documentation": "Down vector on the gamepad primary thumbstick. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick1Down",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick1Left": {
+    "documentation": "Left vector on the gamepad primary thumbstick. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick1Left",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick1Right": {
+    "documentation": "Right vector on the gamepad primary thumbstick. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick1Right",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick2Up": {
+    "documentation": "Up vector on the gamepad secondary thumbstick. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2Up",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick2Down": {
+    "documentation": "Down vector on the gamepad secondary thumbstick. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2Down",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick2Left": {
+    "documentation": "Left vector on the gamepad secondary thumbstick. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2Left",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Thumbstick2Right": {
+    "documentation": "Right vector on the gamepad secondary thumbstick. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Thumbstick2Right",
+    "code_sample": ""
+  },
   "@roblox/enum/KeyCode.MouseLeftButton": {
     "documentation": "",
     "keys": {
@@ -119036,6 +119182,16 @@
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#MouseY",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.MousePosition": {
+    "documentation": "The position of a mouse in the viewport. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#MousePosition",
     "code_sample": ""
   },
   "@roblox/global/Enum.KeyCode": {
@@ -119295,13 +119451,22 @@
       "DPadDown": "@roblox/enum/KeyCode.DPadDown",
       "Thumbstick1": "@roblox/enum/KeyCode.Thumbstick1",
       "Thumbstick2": "@roblox/enum/KeyCode.Thumbstick2",
+      "Thumbstick1Up": "@roblox/enum/KeyCode.Thumbstick1Up",
+      "Thumbstick1Down": "@roblox/enum/KeyCode.Thumbstick1Down",
+      "Thumbstick1Left": "@roblox/enum/KeyCode.Thumbstick1Left",
+      "Thumbstick1Right": "@roblox/enum/KeyCode.Thumbstick1Right",
+      "Thumbstick2Up": "@roblox/enum/KeyCode.Thumbstick2Up",
+      "Thumbstick2Down": "@roblox/enum/KeyCode.Thumbstick2Down",
+      "Thumbstick2Left": "@roblox/enum/KeyCode.Thumbstick2Left",
+      "Thumbstick2Right": "@roblox/enum/KeyCode.Thumbstick2Right",
       "MouseLeftButton": "@roblox/enum/KeyCode.MouseLeftButton",
       "MouseRightButton": "@roblox/enum/KeyCode.MouseRightButton",
       "MouseMiddleButton": "@roblox/enum/KeyCode.MouseMiddleButton",
       "MouseBackButton": "@roblox/enum/KeyCode.MouseBackButton",
       "MouseNoButton": "@roblox/enum/KeyCode.MouseNoButton",
       "MouseX": "@roblox/enum/KeyCode.MouseX",
-      "MouseY": "@roblox/enum/KeyCode.MouseY"
+      "MouseY": "@roblox/enum/KeyCode.MouseY",
+      "MousePosition": "@roblox/enum/KeyCode.MousePosition"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode",
     "code_sample": ""
@@ -128250,13 +128415,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InputActionType#Direction3D",
     "code_sample": ""
   },
+  "@roblox/enum/InputActionType.ViewportPosition": {
+    "documentation": "The <code>InputAction</code> will receive <code>Vector2</code> values representing the absolute pixel (<strong>X</strong>, <strong>Y</strong>) coordinates of a pointer input in the viewport.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InputActionType#ViewportPosition",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.InputActionType": {
     "documentation": "This enum is used by <code>InputAction.Type</code> to determine which input data type the <code>InputAction</code> will receive.",
     "keys": {
       "Bool": "@roblox/enum/InputActionType.Bool",
       "Direction1D": "@roblox/enum/InputActionType.Direction1D",
       "Direction2D": "@roblox/enum/InputActionType.Direction2D",
-      "Direction3D": "@roblox/enum/InputActionType.Direction3D"
+      "Direction3D": "@roblox/enum/InputActionType.Direction3D",
+      "ViewportPosition": "@roblox/enum/InputActionType.ViewportPosition"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InputActionType",
     "code_sample": ""
