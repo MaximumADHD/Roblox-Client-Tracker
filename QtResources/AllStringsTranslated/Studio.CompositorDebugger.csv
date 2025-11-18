@@ -65,4 +65,4 @@ Studio.CompositorDebugger.CompositorMenu.Play,,,Play,Play,,Abspielen,Jugar,Lire,
 Studio.CompositorDebugger.CompositorMenu.Stop,,,Stop,Stop,,Anhalten,Detener,Arrêter,रोकें,Berhenti,Interrompi,停止,중지,Zatrzymaj,Parar,,หยุด,Durdur,Dừng,停止,停止,停止
 Studio.CompositorDebugger.CompositorMenu.Open,,,Open,Open,,Öffnen,Abrir,Ouvrir,खोलें,Buka,Apri,開く,열기,Otwórz,Abrir,,เปิด,Aç,Mở,打开,打开,開啟
 Studio.CompositorDebugger.CompositorMenu.AutoLayout,,,Auto-Layout,Auto-Layout,,Auto-Layout,Diseño automático,Disposition automatique,ऑटो-लेआउट,Tata Letak Otomatis,Layout automatico,自動レイアウト,자동 레이아웃,Układ automatyczny,Layout automático,,เลย์เอาต์อัตโนมัติ,Otomatik Düzen,Bố cục tự động,自动布局,自动布局,自動排版
-Studio.CompositorDebugger.CompositorMenu.GraphDefaultName,,,Graph,Graph,,,,,,,,,,,,,,,,,,
+Studio.CompositorDebugger.CompositorMenu.GraphDefaultName,,,Graph,Graph,,Graph,Gráfico,Graphique,ग्राफ़,Grafik,Grafico,グラフ,그래프,Graf,Gráfico,,กราฟ,Grafik,Biểu đồ,图表,图表,圖表

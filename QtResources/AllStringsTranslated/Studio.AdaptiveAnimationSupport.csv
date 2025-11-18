@@ -1,0 +1,10 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,hi-in,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.AdaptiveAnimationSupport.Animation.Run,,,Run,Run,,,,,रन करें,,Esegui,,,Bieg,Correr,,วิ่ง,Çalıştır,Chạy,奔跑,奔跑,
+Studio.AdaptiveAnimationSupport.Animation.Walk,,,Walk,Walk,,,,,Walk,,Camminata,,,Chód,Andar,,เดิน,Yürüme,Đi bộ,行走,行走,
+Studio.AdaptiveAnimationSupport.Animation.Wave,,,Wave,Wave,,,,,वेव करें,,Ondata,,,Machanie,Acenar,,โบกมือ,El Sallama,Vẫy tay,挥手,挥手,
+Studio.AdaptiveAnimationSupport.Animation.Idle1,,,Idle 1,Idle 1,,,,,Idle 1,,Inattività 1,,,Bezczynność 1,Ocioso 1,,นิ่งเฉย 1,Boşta 1,Nhàn rỗi 1,闲置 1,闲置 1,
+Studio.AdaptiveAnimationSupport.Animation.Idle2,,,Idle 2,Idle 2,,,,,Idle 2,,Inattività 2,,,Bezczynność 2,Ocioso 2,,นิ่งเฉย 2,Boşta 2,Nhàn rỗi 2,闲置 2,闲置 2,
+Studio.AdaptiveAnimationSupport.Animation.Cheer,,,Cheer,Cheer,,,,,चीयर,,Esultanza,,,Wiwat,Torcer,,เชียร์,Tezahürat,Cổ vũ,欢呼,欢呼,
+Studio.AdaptiveAnimationSupport.Animation.Dance,,,Dance,Dance,,,,,डांस,,Danza,,,Taniec,Dançar,,เต้น,Dans,Khiêu vũ,跳舞,跳舞,
+Studio.AdaptiveAnimationSupport.Animation.Climb,,,Climb,Climb,,,,,क्लाइंब,,Scalata,,,Wspinaczka,Escalar,,ปีน,Tırmanma,Leo,攀爬,攀爬,
+Studio.AdaptiveAnimationSupport.Animation.Swim,,,Swim,Swim,,,,,स्विम,,Nuotata,,,Pływanie,Nadar,,ว่ายน้ำ,Yüzme,Bơi,游泳,游泳,
