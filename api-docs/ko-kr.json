@@ -15356,9 +15356,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService": {
-    "documentation": "",
+    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다.",
     "keys": {
       "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
+      "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
       "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
       "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
       "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
@@ -15369,10 +15370,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
-    "documentation": ""
+    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": ""
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>ConfigName</code> &mdash; 특정 구성을 위한 고유 ID입니다. 이것이 후보 항목의 순위를 결정합니다.</li> <li><code>LocationId</code> &mdash; 추천이 사용되는 위치를 지정하는 개발자가 정의한 문자열로, 예를 들어 <code>\"For_you\"</code> 또는 <code>\"Lobby\"</code>와 같습니다. 이 매개변수는 반환되는 항목에 영향을 미치지 않으며, 경험 내에서 여러 추천 기능의 성능을 추적하는 데 도움이 될 수 있습니다. 각 개별 위치에 대한 추천 메트릭은 Creator Hub에 표시됩니다. <code>LocationId</code> <strong>must</strong>가 문자열이어야 하며 <code>\"Other\"</code> 또는 <code>\"other\"</code>일 수 없습니다. 이러한 값은 Creator Hub에서 예약되어 있습니다.</li> <li><code>PageSize</code> &mdash; 각 페이지에 대해 반환되는 항목의 수입니다.</li> <li><code>BoostCustomTags</code> &mdash; 태그 목록입니다. 이 태그가 있는 항목은 순위에서 높이 평가됩니다. 참고: 현재는 하나의 태그만 부스트 지원합니다.</li> <li><code>CustomContexts</code> &mdash; 순위를 위해 추가 컨텍스트 데이터를 전달하는 데 사용되는 키-값 쌍의 테이블입니다. 예를 들어, 서버 스크립트의 경우 <code>UserId</code>가 있습니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
     "documentation": ""
@@ -15393,22 +15394,49 @@
       "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GenerateItemListAsync",
-    "code_sample": ""
+    "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\n-- 추천 목록 생성을 위한 요청 정의\nlocal request: GenerateRecommendationItemListRequest = {\n\tConfigName = \"MaximizeEngagement\",\n\tLocationId = \"Lobby\",\n\tPageSize = 10\n    -- 주의: 서버 스크립트용으로 CustomContexts.UserId를 주석 해제하고 설정하세요. \n    -- 로컬 스크립트에서는 설정할 필요가 없습니다.\n    -- CustomContexts = {\n    --     [\"UserId\"] = tostring(player.UserId),\n    -- }\n}\n\n-- GenerateItemListAsync를 호출하여 추천 페이지를 가져옵니다\nlocal success, recommendationPages = pcall(function()\n    return RecommendationService:GenerateItemListAsync(request)\nend)"
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0": {
+    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1": {
+    "documentation": "검색할 항목의 ID입니다."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0": {
+    "documentation": "다음 필드를 포함하는 추천 항목을 나타내는 사전입니다: - <code>ItemId</code> &mdash; 항목의 고유 ID입니다. - <code>ReferenceId</code> &mdash; 항목에 대한 개발자가 제공한 ID입니다. - <code>TracingId</code> &mdash; 추천 세션을 추적하기 위한 ID입니다. 이는 단일 항목을 직접 가져올 때는 비어 있습니다. - <code>Creator</code> &mdash; <code>CreatorId</code>와 <code>CreatorType</code>을 포함하는 테이블입니다. - <code>Attributes</code> &mdash; 항목과 관련된 콘텐츠 속성 목록입니다. - <code>CustomTags</code> &mdash; 사용자 정의 문자열 태그 목록입니다. - <code>Visibility</code> &mdash; <code>RecommendationItemVisibility</code> 유형의 열거형입니다."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GetRecommendationItemAsync",
+    "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\nlocal function getItem(itemId)\n    local success, item = pcall(function()\n        return RecommendationService:GetRecommendationItemAsync(itemId)\n    end)\n    if success and item then\n        print(\"항목을 성공적으로 검색했습니다: \" .. item.ItemId)\n        print(\"  ReferenceId: \" .. item.ReferenceId)\n        -- 단일 항목을 직접 가져올 때 TracingId는 비어 있습니다\n        if item.Creator then\n            print(\"  CreatorId: \" .. tostring(item.Creator.CreatorId))\n        end\n        if item.CustomTags then\n            print(\"  CustomTags: \")\n            for _, customTag in ipairs(item.CustomTags) do\n                print(\"    \" .. customTag)\n            end\n        end\n    else\n        warn(\"항목을 검색하지 못했습니다: \" .. itemId .. \". 오류: \" .. tostring(item))\n    end\nend\n\n-- 예제 사용법 (유효한 itemId 필요)\n-- getItem(\"some-item-id\")"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
-    "documentation": ""
+    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
-    "documentation": ""
+    "documentation": "행동 유형에 대한 열거형입니다."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/2": {
-    "documentation": ""
+    "documentation": "등록된 후 반환된 항목 ID 및 <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
-    "documentation": ""
+    "documentation": "<code>GenerateItemListAsync</code> 응답에서 반환된 추적 ID입니다. 각 항목에는 <code>TracingId</code>가 있습니다."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
-    "documentation": ""
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>Weight</code> &mdash; 행동의 가중치를 나타내는 숫자입니다. 기본값은 1입니다.</li> <li><code>DestinationPlaceId</code> &mdash; 행동 후 사용자가 전송된 장소의 ID입니다. <code>Play</code>에 사용됩니다.</li> <li><code>CommentText</code> &mdash; 행동과 관련된 텍스트로, 예를 들어 코멘트입니다. <code>Comment</code>에 사용됩니다.</li> <li><code>ReactionType</code> &mdash; \"좋아요\" 또는 \"싫어요\"와 같은 반응 유형을 설명하는 문자열입니다. <code>AddReaction</code> 또는 <code>RemoveReaction</code>에 사용됩니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent": {
     "documentation": "",
@@ -15439,19 +15467,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
-    "documentation": ""
+    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
-    "documentation": ""
+    "documentation": "인상의 유형에 대한 열거형입니다."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "등록된 후 반환된 항목 ID 및 <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "<code>GenerateItemListAsync</code> 응답에서 반환된 추적 ID입니다. 각 항목에는 <code>TracingId</code>가 있습니다."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>Duration</code> &mdash; 인상의 지속 시간(초)입니다.</li> <li><code>Weight</code> &mdash; 인상의 가중치를 나타내는 숫자입니다. 기본값은 1입니다.</li> <li><code>ItemPosition</code> &mdash; 추천 목록에서 항목의 위치입니다.</li> <li><code>DepartureIntent</code> &mdash; 사용자가 뷰를 떠날 때의 의도를 나타내는 <code>RecommendationDepartureIntent</code>입니다. 예를 들어, 뷰가 좋다고 간주되면 <code>Positive</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
     "documentation": "",
@@ -15482,16 +15510,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "항목을 생성한 플레이어입니다."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": ""
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>ContentType</code> &mdash; 콘텐츠 유형을 지정하는 <code>RecommendationItemContentType</code>입니다. 유형은 일반적인 방법으로 정의됩니다. 예를 들어, 이미지는 <code>Static</code>, 비디오는 <code>Dynamic</code>, 상호작용을 지원하는 3D 모델은 <code>Interactive</code>를 사용할 수 있습니다.</li> <li><code>ReferenceId</code> &mdash; 항목을 고유하게 식별하는 개발자 정의 문자열입니다.</li> <li><code>Duration</code> &mdash; 콘텐츠의 지속 시간(초)입니다.</li> <li><code>Attributes</code> &mdash; <code>AssetId</code> 또는 <code>Description</code>과 같은 항목의 속성 테이블입니다.</li> <li><code>CustomTags</code> &mdash; 필터링 및 부스트를 위한 문자열 태그 목록입니다.</li> <li><code>Visibility</code> &mdash; 항목의 가시성을 제어하는 <code>RecommendationItemVisibility</code> 열거형으로, 예를 들어 <code>Public</code> 또는 <code>Private</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
-    "documentation": ""
+    "documentation": "두 개의 필드(<code>ItemId</code> 및 <code>ReferenceId</code>)만 포함하는 테이블입니다."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync": {
     "documentation": "",
@@ -15516,10 +15544,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "제거할 itemId입니다."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync": {
     "documentation": "",
@@ -15535,13 +15563,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#RemoveItemAsync",
-    "code_sample": ""
+    "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\nlocal function removeItem(itemId)\n    local success, err = pcall(function()\n        return RecommendationService:RemoveItemAsync(itemId)\n    end)\n    if success then\n        print(\"아이템이 성공적으로 제거되었습니다: \" .. itemId)\n    else\n        warn(\"아이템 제거에 실패했습니다: \" .. itemId .. \". 오류: \" .. tostring(err))\n    end\nend"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>ItemId</code> &mdash; 업데이트할 항목의 ID입니다.</li> <li><code>ReferenceId</code> &mdash; 항목을 식별하기 위한 새로운 개발자 정의 문자열입니다.</li> <li><code>Creator</code> &mdash; 항목의 새로운 작성자입니다. 작성자는 두 개의 필드(<code>CreatorId: number</code> 및 <code>CreatorType: Enum.CreatorType</code>)를 포함하는 테이블입니다.</li> <li><code>Duration</code> &mdash; 콘텐츠의 새로운 지속 시간(초)입니다.</li> <li><code>Visibility</code> &mdash; 항목의 새로운 가시성 설정입니다.</li> <li><code>Attributes</code> &mdash; 항목의 새로운 속성 테이블입니다.</li> <li><code>CustomTags</code> &mdash; 새로운 문자열 태그 목록입니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -15557,7 +15585,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#UpdateItemAsync",
-    "code_sample": ""
+    "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\nlocal function updateItem(itemId)\n    -- 업데이트하려는 필드만 포함하세요\n    local request: UpdateRecommendationItemRequest = {\n        ItemId = itemId,\n        Visibility = Enum.RecommendationItemVisibility.Private,\n        -- 주의: CustomTags 목록 전체가 이 새로운 목록으로 대체됩니다\n        CustomTags = {\"updated-tag\"}\n    }\n\n    local success, err = pcall(function()\n        return RecommendationService:UpdateItemAsync(request)\n    end)\n    if success then\n        print(\"항목을 성공적으로 업데이트했습니다: \" .. itemId)\n    else\n        warn(\"항목 업데이트 실패: \" .. itemId .. \". 오류: \" .. tostring(err))\n    end\nend\n\n-- 사용 예\n-- updateItem(\"업데이트할-항목-id\")"
   },
   "@roblox/globaltype/Feature": {
     "documentation": "구형 시스템의 기본 클래스입니다.",
@@ -23483,7 +23511,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ScreenshotCapture": {
-    "documentation": "",
+    "documentation": "<code>Capture</code>의 자식 클래스이며, 스크린샷을 위한 클래스입니다.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScreenshotCapture",
     "code_sample": ""
@@ -27908,15 +27936,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal": {
-    "documentation": "Decal 객체는 <code>BasePart</code>의 면에 이미지를 적용하는 객체입니다.",
+    "documentation": "부모 <code>BasePart</code>의 면에 이미지 텍스처를 적용합니다.",
     "keys": {
       "Color3": "@roblox/globaltype/Decal.Color3",
+      "ColorMap": "@roblox/globaltype/Decal.ColorMap",
+      "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
       "LocalTransparencyModifier": "@roblox/globaltype/Decal.LocalTransparencyModifier",
+      "MetalnessMap": "@roblox/globaltype/Decal.MetalnessMap",
+      "MetalnessMapContent": "@roblox/globaltype/Decal.MetalnessMapContent",
+      "NormalMap": "@roblox/globaltype/Decal.NormalMap",
+      "NormalMapContent": "@roblox/globaltype/Decal.NormalMapContent",
+      "RoughnessMap": "@roblox/globaltype/Decal.RoughnessMap",
+      "RoughnessMapContent": "@roblox/globaltype/Decal.RoughnessMapContent",
       "Shiny": "@roblox/globaltype/Decal.Shiny",
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePack": "@roblox/globaltype/Decal.TexturePack",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
+      "UVOffset": "@roblox/globaltype/Decal.UVOffset",
+      "UVScale": "@roblox/globaltype/Decal.UVScale",
       "ZIndex": "@roblox/globaltype/Decal.ZIndex"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
@@ -27927,38 +27966,93 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Color3",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.ColorMap": {
+    "documentation": "표면의 색상과 불투명을 결정하는 콘텐츠 ID입니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.ColorMapContent": {
+    "documentation": "<code>Content</code> 객체로 표면의 색상과 불투명을 결정합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "Decal의 <code>Decal.Transparency</code> 속성에 대한 배율 역할을 합니다. 효과는 로컬 플레이어에게만 보입니다.",
+    "documentation": "데칼의 <code>Transparency</code> 속성에 대한 배수 역할을 합니다. 효과는 로컬 플레이어에게만 보입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.MetalnessMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.MetalnessMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.NormalMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.NormalMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.RoughnessMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.RoughnessMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> 이 비기능 속성은 더 이상 사용되지 않으며 새 작업에서 사용해서는 안 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 비기능 속성은 더 이상 사용되지 않으며 새로운 작업에서 사용되지 않아야 합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 제대로 작동하지 않으며 더 이상 사용되지 않아야 합니다. 새 작업에서 사용해서는 안 됩니다. 빛이 부품에 적용된 이미지와 상호작용하는 방식을 변경하고자 하는 개발자는 <code>SurfaceGuis</code>를 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 올바르게 작동하지 않으며 더 이상 사용되지 않아야 합니다. 새로운 작업에서 사용하지 마십시오.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Texture": {
-    "documentation": "<code>Decal</code>에 적용될 이미지의 ContentId입니다.",
+    "documentation": "<code>Decal</code>에 적용될 이미지의 콘텐츠 ID입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Texture",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "데칼에 의해 표시되는 텍스처 콘텐츠입니다. 지원하는 <a href=\"../../../projects/assets/index.md#asset-uris\">자산 URI</a> 및 <code>EditableImage</code> 객체가 있습니다.",
+    "documentation": "<code>Decal</code>에 의해 표시되는 텍스처 콘텐츠입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePack": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePack",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
-    "documentation": "<code>Decal</code>의 투명도를 결정하며, 0은 완전히 불투명하고 1은 완전히 투명합니다.",
+    "documentation": "<code>Decal</code>의 투명도를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
-    "code_sample": "local TweenService = game:GetService(\"TweenService\")\n\nlocal part = Instance.new(\"Part\")\npart.Size = Vector3.new(10, 10, 1)\npart.Position = Vector3.new(0, 5, 0)\npart.Anchored = true\npart.Transparency = 1\n\nlocal decal = Instance.new(\"Decal\")\ndecal.Face = Enum.NormalId.Front\ndecal.Texture = \"http://www.roblox.com/asset/?id=699259085\" -- 로블록스 로고\ndecal.Parent = part\n\npart.Parent = workspace\n\nlocal tween = TweenService:Create(\n\tdecal,\n\tTweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, -1, true),\n\t{ Transparency = 1 }\n)\n\ntween:Play()"
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.UVOffset": {
+    "documentation": "텍스처 매핑 전에 오프셋을 추가하여 UV 좌표를 이동시킵니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVOffset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.UVScale": {
+    "documentation": "스케일 팩터를 곱하여 UV 좌표를 늘리거나 압축합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
+    "code_sample": ""
   },
   "@roblox/globaltype/Decal.ZIndex": {
-    "documentation": "여러 Decal이 동일한 면에 지정될 때 렌더링 순서를 결정합니다.",
+    "documentation": "같은 면에 여러 개의 데칼이 할당될 때 렌더링 순서를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
@@ -31536,9 +31630,46 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
-    "documentation": "",
-    "keys": {},
+    "documentation": "경험 내에서 촬영된 스크린샷 또는 비디오와 같은 콘텐츠 조각을 정의하는 클래스입니다.",
+    "keys": {
+      "CaptureTime": "@roblox/globaltype/Capture.CaptureTime",
+      "SourceUniverseId": "@roblox/globaltype/Capture.SourceUniverseId",
+      "SourcePlaceId": "@roblox/globaltype/Capture.SourcePlaceId",
+      "CaptureType": "@roblox/globaltype/Capture.CaptureType",
+      "LocalId": "@roblox/globaltype/Capture.LocalId",
+      "FilePathString": "@roblox/globaltype/Capture.FilePathString"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.CaptureTime": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#CaptureTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.SourceUniverseId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#SourceUniverseId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.SourcePlaceId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#SourcePlaceId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.CaptureType": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#CaptureType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.LocalId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#LocalId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.FilePathString": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#FilePathString",
     "code_sample": ""
   },
   "@roblox/globaltype/AdvancedDragger": {
@@ -51471,10 +51602,10 @@
     "documentation": "질의할 속성의 이름입니다."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "속성이 수정되어 기본값보다 변경된 경우의 Boolean입니다."
+    "documentation": "속성이 코드에서 생성된 기본값에서 수정되었는지를 나타내는 불린 값입니다."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "지정된 속성에 저장된 값이 코드 인스턴스화된 기본값과 같지 않은 경우 <code>true</code>를 반환합니다.",
+    "documentation": "지정된 속성에 저장된 값이 코드에서 생성된 기본값과 같지 않은 경우 <code>true</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -57022,7 +57153,6 @@
       "LoadCharacterLayeredClothing ": "@roblox/globaltype/StarterPlayer.LoadCharacterLayeredClothing ",
       "LuaCharacterController": "@roblox/globaltype/StarterPlayer.LuaCharacterController",
       "NameDisplayDistance": "@roblox/globaltype/StarterPlayer.NameDisplayDistance",
-      "RagdollDeath": "@roblox/globaltype/StarterPlayer.RagdollDeath",
       "UserEmotesEnabled": "@roblox/globaltype/StarterPlayer.UserEmotesEnabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer",
@@ -57148,13 +57278,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#NameDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
   },
-  "@roblox/globaltype/StarterPlayer.RagdollDeath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#RagdollDeath",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StarterPlayer.UserEmotesEnabled": {
-    "documentation": "사용자 소유의 이모트가 아바타를 로드할 때 로드되는지 여부를 결정합니다.",
+    "documentation": "사용자 소유 이모티콘이 아바타를 로딩할 때 로드되는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#UserEmotesEnabled",
     "code_sample": ""
   },
@@ -57550,7 +57675,7 @@
       "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#ComposeDecalAsync",
-    "code_sample": "-- 자산 서비스를 가져옵니다\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- 두 개의 데칼 인스턴스를 생성합니다\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- 복합 정보 테이블을 구성합니다\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.TextureContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- AssetService를 사용하여 새로운 데칼을 구성합니다\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
+    "code_sample": "-- 자산 서비스를 가져옵니다\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- 두 개의 데칼 인스턴스를 생성합니다\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- 복합 정보 테이블을 구축합니다\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.ColorMapContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- AssetService를 사용하여 새로운 데칼을 구성합니다\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/0": {
     "documentation": "Roblox 웹 API에 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
@@ -65871,7 +65996,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Object": {
-    "documentation": "Object는 Roblox 클래스 계층의 모든 클래스에 대한 기본 클래스입니다.",
+    "documentation": "Object는 Roblox 클래스 계층에서 모든 클래스의 기본 클래스입니다.",
     "keys": {
       "ClassName": "@roblox/globaltype/Object.ClassName",
       "className": "@roblox/globaltype/Object.className",
@@ -65893,7 +66018,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal/param/0": {
-    "documentation": "Object는 Roblox 클래스 계층의 모든 클래스에 대한 기본 클래스입니다."
+    "documentation": "Object는 Roblox 클래스 계층에서 모든 클래스의 기본 클래스입니다."
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal/param/1": {
     "documentation": "연결할 속성입니다."
@@ -65920,16 +66045,16 @@
     "code_sample": "local part = Instance.new(\"Part\")\n\nlocal currentColor = part.BrickColor\n\nlocal function onBrickColorChanged()\n\tlocal newColor = part.BrickColor\n\tprint(\"색상이 변경되었습니다:\", currentColor.Name, \"에서\", newColor.Name, \"으로\")\n\tcurrentColor = newColor\nend\npart:GetPropertyChangedSignal(\"BrickColor\"):Connect(onBrickColorChanged)\n\npart.BrickColor = BrickColor.new(\"진한 빨강\")\npart.BrickColor = BrickColor.new(\"진한 파랑\")"
   },
   "@roblox/globaltype/Object.IsA/param/0": {
-    "documentation": "Object는 Roblox 클래스 계층의 모든 클래스에 대한 기본 클래스입니다."
+    "documentation": "Object는 Roblox 클래스 계층에서 모든 클래스의 기본 클래스입니다."
   },
   "@roblox/globaltype/Object.IsA/param/1": {
-    "documentation": "객체의 클래스가 확인될 클래스입니다. 대소문자를 구분합니다."
+    "documentation": "객체의 클래스를 확인할 클래스입니다. 대소문자를 구분합니다."
   },
   "@roblox/globaltype/Object.IsA/return/0": {
-    "documentation": "객체의 클래스가 주어진 클래스와 일치하거나 하위 클래스인지 설명합니다."
+    "documentation": "객체의 클래스가 주어진 클래스와 일치하거나 서브클래스인지를 설명합니다."
   },
   "@roblox/globaltype/Object.IsA": {
-    "documentation": "객체의 클래스가 주어진 클래스와 일치하거나 상속하는 경우 true를 반환합니다.",
+    "documentation": "객체의 클래스가 주어진 클래스와 일치하거나 해당 클래스를 상속하는 경우 true를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -65947,7 +66072,7 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nprint(Workspace:IsA(\"Workspace\")) -- 참\nprint(Workspace:IsA(\"BasePart\")) -- 거짓\nprint(Workspace:IsA(\"Instance\")) -- 참"
   },
   "@roblox/globaltype/Object.isA/param/0": {
-    "documentation": "Object는 Roblox 클래스 계층의 모든 클래스에 대한 기본 클래스입니다."
+    "documentation": "Object는 Roblox 클래스 계층에서 모든 클래스의 기본 클래스입니다."
   },
   "@roblox/globaltype/Object.isA/param/1": {
     "documentation": ""
@@ -65956,7 +66081,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Object.isA": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 대신 사용해야 할 <code>Object:IsA()</code>의 변형입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 대신 사용해야 하는 <code>Object:IsA()</code>의 변형입니다.",
     "params": [
       {
         "name": "self",
@@ -66051,7 +66176,7 @@
     "returns": []
   },
   "@roblox/globaltype/Object.Changed": {
-    "documentation": "객체의 속성이 변경된 직후, 일부 제한 사항과 함께 발생합니다.",
+    "documentation": "객체의 속성이 변경된 직후 발생하며 일부 제한 사항이 있습니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Object.Changed.Connect",
       "ConnectParallel": "@roblox/globaltype/Object.Changed.ConnectParallel",
@@ -66134,7 +66259,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FaceInstance": {
-    "documentation": "FaceInstance 클래스는 <code>Decal</code> 클래스가 상속받는 추상 클래스입니다.",
+    "documentation": "<code>Decal</code> 및 <code>Texture</code> 클래스가 상속받는 추상 클래스입니다.",
     "keys": {
       "Face": "@roblox/globaltype/FaceInstance.Face"
     },
@@ -66142,7 +66267,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FaceInstance.Face": {
-    "documentation": "객체가 벽돌의 어떤 면에 나타나는지를 설정합니다.",
+    "documentation": "객체가 상위 <code>BasePart</code>의 어느 면에 나타나는지를 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FaceInstance#Face",
     "code_sample": ""
   },
@@ -70697,7 +70822,10 @@
       "PromptShareCapture": "@roblox/globaltype/CaptureService.PromptShareCapture",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
-      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture"
+      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture",
+      "PromptCaptureGalleryPermissionAsync": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync",
+      "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
+      "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
     "code_sample": ""
@@ -70872,6 +71000,87 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeCapture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0": {
+    "documentation": "스크린샷 및 비디오 캡처 기능을 제어하는 서비스입니다."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1": {
+    "documentation": "<code>CaptureGalleryPermission</code>으로, 사용자가 요청받을 접근 종류를 나타냅니다."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0": {
+    "documentation": "사용자가 자신의 캡처 접근을 허용했는지 여부를 나타내는 부울 값입니다."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0"
+      },
+      {
+        "name": "captureGalleryPermission",
+        "documentation": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#PromptCaptureGalleryPermissionAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0": {
+    "documentation": "스크린샷 및 비디오 캡처 기능을 제어하는 서비스입니다."
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
+    "documentation": "<code>CaptureType</code>의 배열입니다."
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
+    "documentation": "(result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>의 튜플입니다.)"
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0"
+      },
+      {
+        "name": "captureTypeFilters",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#ReadCapturesFromGalleryAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
+    "documentation": "스크린샷 및 비디오 캡처 기능을 제어하는 서비스입니다."
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
+    "documentation": "<code>Capture</code> 유형의 캡처 객체입니다."
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
+    "documentation": "(result: <code>UploadCaptureResult</code>, assetId: <code>number</code>의 튜플입니다.)"
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0"
+      },
+      {
+        "name": "capture",
+        "documentation": "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#UploadCaptureAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureBegan.Connect/param/0": {
@@ -72487,17 +72696,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.Enabled": {
-    "documentation": "<code>AudioSpeechToText</code> 객체가 입력 오디오를 텍스트로 처리하도록 활성화되어 있는지 여부.",
+    "documentation": "<code>AudioSpeechToText</code> 객체가 입력 오디오를 텍스트로 처리하도록 활성화되어 있는지 여부입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.Text": {
-    "documentation": "음성 오디오 변환의 결과로 생성된 텍스트.",
+    "documentation": "음성 오디오 변환의 결과로 나온 텍스트입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.VoiceDetected": {
-    "documentation": "<code>AudioSpeechToText</code> 객체가 수신 오디오 신호에서 음성을 감지하고 있는지 여부.",
+    "documentation": "<code>AudioSpeechToText</code> 객체가 수신 오디오 신호에서 음성을 감지하고 있는지 여부입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#VoiceDetected",
     "code_sample": ""
   },
@@ -72606,7 +72815,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
-    "documentation": "다른 인스턴스가 <code>Wire</code>를 통해 <code>AudioSpeechToText</code>에 연결되거나 연결이 끊어질 때 발생합니다.",
+    "documentation": "다른 인스턴스가 <code>Wire</code>를 통해 <code>AudioSpeechToText</code>에 연결되거나 연결 해제될 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
@@ -73101,7 +73310,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> 이 클래스는 더 이상 사용되지 않으며, 새 작업에 사용해서는 안 됩니다. 대신 <code>HttpService</code>를 사용하고 <a href=\"../../../cloud-services/http-service.md\">인경험 HTTP 요청 가이드</a>를 참조하세요.",
     "keys": {
       "GetApiV1": "@roblox/globaltype/OpenCloudService.GetApiV1",
       "InvokeAsync": "@roblox/globaltype/OpenCloudService.InvokeAsync"
@@ -73110,13 +73319,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> 이 클래스는 더 이상 사용되지 않으며, 새 작업에 사용해서는 안 됩니다. 대신 <code>HttpService</code>를 사용하고 <a href=\"../../../cloud-services/http-service.md\">인경험 HTTP 요청 가이드</a>를 참조하세요."
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -73130,7 +73339,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> 이 클래스는 더 이상 사용되지 않으며, 새 작업에 사용해서는 안 됩니다. 대신 <code>HttpService</code>를 사용하고 <a href=\"../../../cloud-services/http-service.md\">인경험 HTTP 요청 가이드</a>를 참조하세요."
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/1": {
     "documentation": ""
@@ -73148,7 +73357,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -76078,7 +76287,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Pages.IsFinished": {
-    "documentation": "현재 페이지가 사용 가능한 마지막 페이지인지 여부.",
+    "documentation": "현재 페이지가 사용 가능한 마지막 페이지인지 여부입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Pages#IsFinished",
     "code_sample": ""
   },
@@ -76086,7 +76295,7 @@
     "documentation": "페이지 객체에 대한 추상 클래스입니다."
   },
   "@roblox/globaltype/Pages.AdvanceToNextPageAsync": {
-    "documentation": "가능하다면 페이지 객체의 다음 페이지로 이동합니다.",
+    "documentation": "가능하다면 페이지 객체에서 다음 페이지로 반복합니다.",
     "params": [
       {
         "name": "self",
@@ -76104,7 +76313,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Pages.GetCurrentPage": {
-    "documentation": "현재 페이지의 항목을 반환합니다. 항목의 키는 이 객체의 출처에 의해 결정됩니다.",
+    "documentation": "현재 페이지의 항목을 반환합니다. 항목의 키는 이 객체의 소스에 의해 결정됩니다.",
     "params": [
       {
         "name": "self",
@@ -76136,6 +76345,12 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FormFactorPart#formFactor",
     "code_sample": ""
   },
+  "@roblox/globaltype/CapturesPages": {
+    "documentation": "<code>Pages</code> 클래스의 특별한 버전으로, <code>CaptureService.ReadCapturesFromGalleryAsync</code>에 의해 반환됩니다.",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CapturesPages",
+    "code_sample": ""
+  },
   "@roblox/globaltype/ConeHandleAdornment": {
     "documentation": "<code>BasePart</code>에 장식할 수 있는 원추.",
     "keys": {
@@ -76156,7 +76371,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Texture": {
-    "documentation": "텍스처 개체는 <code>BasePart</code>의 면에 반복 텍스처를 적용합니다.",
+    "documentation": "<code>BasePart</code>의 면에 반복되는 이미지 질감을 적용합니다.",
     "keys": {
       "OffsetStudsU": "@roblox/globaltype/Texture.OffsetStudsU",
       "OffsetStudsV": "@roblox/globaltype/Texture.OffsetStudsV",
@@ -80110,8 +80325,44 @@
   },
   "@roblox/globaltype/VideoService": {
     "documentation": "개발자에게 기능을 제공하지 않는 내부 서비스입니다.",
-    "keys": {},
+    "keys": {
+      "CreateVideoSamplerAsync": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0": {
+    "documentation": "개발자에게 기능을 제공하지 않는 내부 서비스입니다."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1": {
+    "documentation": "샘플링할 비디오 콘텐츠입니다."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2": {
+    "documentation": "<code>VideoSampler</code>를 생성하기 위한 옵션 테이블: <ul> <li><code>Size</code> – <code>VideoSampler</code>가 생성하는 텍스처의 해상도를   결정하는 <code>VideoSampleSize</code> 값입니다.   기본값은 <code>VideoSampleSize.Small</code>입니다. 기억장치 사용량을   최소화하고 샘플링 성능을 향상시키기 위해 필요한 최소한의 해상도를 사용하세요.</li> </ul>"
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0": {
+    "documentation": "생성된 <code>VideoSampler</code>입니다."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync": {
+    "documentation": "<code>VideoSampler</code>를 생성하여 제공된 비디오 콘텐츠에서 프레임을 샘플링합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService#CreateVideoSamplerAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/Debris": {
@@ -80575,7 +80826,7 @@
       "UnregisterEncryptedAsset": "@roblox/globaltype/ContentProvider.UnregisterEncryptedAsset"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.Texture = LOGO_ID\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"모든 자산이 로드되었습니다.\")"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = LOGO_ID\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"모든 자산이 로드되었습니다.\")"
   },
   "@roblox/globaltype/ContentProvider.BaseUrl": {
     "documentation": "<code>ContentProvider</code>에 의해 Roblox 웹사이트에서 자산을 다운로드하는 데 사용됩니다.",
@@ -80710,7 +80961,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider#PreloadAsync",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.Texture = \"rbxassetid://5447528495\"\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- 각 자산이 해결될 때마다 이 함수가 호출됩니다\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync()가 자산 ID를 확인했습니다:\", assetId)\n\tprint(\"PreloadAsync()의 최종 AssetFetchStatus:\", assetFetchStatus)\nend\n\n-- 콘텐츠를 미리 로드하고 시간을 측정합니다\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"미리 로드 완료, %.2f 초 소요됨\"):format(deltaTime))"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = \"rbxassetid://5447528495\"\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- 각 자산이 처리될 때 호출됩니다\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() 처리된 자산 ID:\", assetId)\n\tprint(\"PreloadAsync() 최종 AssetFetchStatus:\", assetFetchStatus)\nend\n\n-- 콘텐츠를 미리 로드하고 시간을 측정합니다\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"미리 로드 완료, 소요된 시간: %.2f 초\"):format(deltaTime))"
   },
   "@roblox/globaltype/ContentProvider.RegisterDefaultEncryptionKey/param/0": {
     "documentation": "게임에 콘텐츠 또는 자산을 로드하는 데 사용되는 서비스입니다."
@@ -86420,7 +86671,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> 이 클래스는 더 이상 사용되지 않으며 새로운 작업에 사용해서는 안 됩니다. 대신 <code>HttpService</code>를 사용하고 <a href=\"../../../cloud-services/http-service.md\">시스템 내 HTTP 요청 가이드</a>를 참조하세요.",
     "keys": {
       "CreateModel": "@roblox/globaltype/OpenCloudApiV1.CreateModel",
       "CreateUserNotificationAsync": "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync"
@@ -86429,7 +86680,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> 이 클래스는 더 이상 사용되지 않으며 새로운 작업에 사용해서는 안 됩니다. 대신 <code>HttpService</code>를 사용하고 <a href=\"../../../cloud-services/http-service.md\">시스템 내 HTTP 요청 가이드</a>를 참조하세요."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/1": {
     "documentation": ""
@@ -86438,7 +86689,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -86456,7 +86707,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> 이 클래스는 더 이상 사용되지 않으며 새로운 작업에 사용해서는 안 됩니다. 대신 <code>HttpService</code>를 사용하고 <a href=\"../../../cloud-services/http-service.md\">시스템 내 HTTP 요청 가이드</a>를 참조하세요."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/1": {
     "documentation": ""
@@ -86468,7 +86719,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -89922,7 +90173,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler": {
-    "documentation": "An object for sampling frames from video content.",
+    "documentation": "비디오 콘텐츠에서 프레임을 샘플링하기 위한 객체입니다.",
     "keys": {
       "TimeLength": "@roblox/globaltype/VideoSampler.TimeLength",
       "VideoContent": "@roblox/globaltype/VideoSampler.VideoContent",
@@ -89932,26 +90183,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.TimeLength": {
-    "documentation": "The length of the <code>VideoContent</code> in seconds.",
+    "documentation": "<code>VideoContent</code>의 길이를 초 단위로 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.VideoContent": {
-    "documentation": "The asset loaded into the <code>VideoSampler</code>.",
+    "documentation": "<code>VideoSampler</code>에 로드된 자산입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#VideoContent",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/0": {
-    "documentation": "An object for sampling frames from video content."
+    "documentation": "비디오 콘텐츠에서 프레임을 샘플링하기 위한 객체입니다."
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/1": {
-    "documentation": "An array of requested timestamps in seconds for which to retrieve image frames. Each timestamp should be a number between <code>0</code> and <code>TimeLength</code>."
+    "documentation": "이미지 프레임을 검색하기 위해 요청한 초 단위의 타임스탬프 배열입니다. 각 타임스탬프는 <code>0</code>과 <code>TimeLength</code> 사이의 숫자여야 합니다."
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/return/0": {
-    "documentation": "An array of dictionary or nil values for each requested timestamp. If a requested timestamp is out of range or the <code>VideoSampler</code> was unable to produce a sample, the corresponding entry in the returned array will be nil. Each dictionary contains the following keys: <ul> <li><code>Time</code> (number): The timestamp of the returned image frame in   seconds. This value may differ slightly from the requested   timestamp.</li> <li><code>Image</code> (<code>Content</code>): A <code>Content</code> with a   <code>SourceType</code> of   <code>ContentSourceType.Opaque</code> containing the image frame at the   corresponding timestamp.</li> </ul>"
+    "documentation": "요청한 각 타임스탬프에 대한 사전 또는 nil 값의 배열입니다. 요청한 타임스탬프가 범위를 벗어나거나 <code>VideoSampler</code>가 샘플을 생성할 수 없는 경우, 반환된 배열의 해당 항목은 nil입니다. 각 사전은 다음 키를 포함합니다: <ul> <li><code>Time</code> (숫자): 반환된 이미지 프레임의 타임스탬프(초 단위). 이 값은 요청한 타임스탬프와 약간 다를 수 있습니다.</li> <li><code>Image</code> (<code>Content</code>): 해당 타임스탬프에서 이미지 프레임을 포함하는 <code>ContentSourceType.Opaque</code>의 <code>SourceType</code>을 가진 <code>Content</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync": {
-    "documentation": "Gets image frames at the specified timestamps.",
+    "documentation": "지정된 타임스탬프에서 이미지 프레임을 가져옵니다.",
     "params": [
       {
         "name": "self",
@@ -91086,7 +91337,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoCapture": {
-    "documentation": "",
+    "documentation": "<code>Capture</code>의 비디오용 자식 클래스입니다.",
     "keys": {
       "FilePath": "@roblox/globaltype/VideoCapture.FilePath",
       "TimeLength": "@roblox/globaltype/VideoCapture.TimeLength"
@@ -96774,7 +97025,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationPages": {
-    "documentation": "",
+    "documentation": "<code>Pages</code> 클래스의 특별한 버전으로, <code>GenerateItemListAsync</code>에 의해 반환됩니다.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationPages",
     "code_sample": ""
@@ -99234,6 +99485,57 @@
       "Camera": "@roblox/enum/ListenerLocation.Camera"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ListenerLocation",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.None": {
+    "documentation": "플레이어가 가입하지 않기로 선택했거나, 프롬프트를 취소했거나, 그룹에 가입할 자격이 없습니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.Joined": {
+    "documentation": "플레이어가 프롬프트 중에 그룹에 성공적으로 가입했습니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#Joined",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.JoinRequestPending": {
+    "documentation": "플레이어가 그룹에 가입 요청을 제출했습니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#JoinRequestPending",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.AlreadyMember": {
+    "documentation": "플레이어가 이미 그룹의 회원입니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#AlreadyMember",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.GroupMembershipStatus": {
+    "documentation": "<code>GroupService:PromptJoinAsync()</code> 메소드의 가능한 결과를 정의합니다.",
+    "keys": {
+      "None": "@roblox/enum/GroupMembershipStatus.None",
+      "Joined": "@roblox/enum/GroupMembershipStatus.Joined",
+      "JoinRequestPending": "@roblox/enum/GroupMembershipStatus.JoinRequestPending",
+      "AlreadyMember": "@roblox/enum/GroupMembershipStatus.AlreadyMember"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus",
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
@@ -104832,6 +105134,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleEmitterShape",
     "code_sample": ""
   },
+  "@roblox/enum/CaptureGalleryPermission.ReadAndUpload": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CaptureGalleryPermission#ReadAndUpload",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CaptureGalleryPermission": {
+    "documentation": "",
+    "keys": {
+      "ReadAndUpload": "@roblox/enum/CaptureGalleryPermission.ReadAndUpload"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CaptureGalleryPermission",
+    "code_sample": ""
+  },
   "@roblox/enum/RaycastFilterType.Exclude": {
     "documentation": "레이캐스트 작업에서 모든 <code>BasePart</code>는 <strong>제외</strong>됩니다. 필터 목록의 객체의 자식인 경우.",
     "keys": {
@@ -105114,6 +105434,86 @@
       "Disabled": "@roblox/enum/ServerLiveEditingMode.Disabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ServerLiveEditingMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Neutral": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Neutral",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Positive": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Positive",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Negative": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Negative",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationDepartureIntent": {
+    "documentation": "",
+    "keys": {
+      "Neutral": "@roblox/enum/RecommendationDepartureIntent.Neutral",
+      "Positive": "@roblox/enum/RecommendationDepartureIntent.Positive",
+      "Negative": "@roblox/enum/RecommendationDepartureIntent.Negative"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Static": {
+    "documentation": "이 항목은 정적입니다. 예를 들어 이미지와 같습니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Static",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Dynamic": {
+    "documentation": "이 항목은 동적입니다. 예를 들어 비디오입니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Dynamic",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Interactive": {
+    "documentation": "이 항목은 상호작용이 가능합니다. 예를 들어 3D 모델이나 미니게임과 같습니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Interactive",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationItemContentType": {
+    "documentation": "",
+    "keys": {
+      "Static": "@roblox/enum/RecommendationItemContentType.Static",
+      "Dynamic": "@roblox/enum/RecommendationItemContentType.Dynamic",
+      "Interactive": "@roblox/enum/RecommendationItemContentType.Interactive"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType",
     "code_sample": ""
   },
   "@roblox/enum/CompileTarget.Client": {
@@ -112441,7 +112841,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationImpressionType.View": {
-    "documentation": "",
+    "documentation": "항목의 전체 보기.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112450,10 +112850,21 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#View",
     "code_sample": ""
   },
+  "@roblox/enum/RecommendationImpressionType.NotViewable": {
+    "documentation": "항목을 렌더링하는 데 실패했습니다.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#NotViewable",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.RecommendationImpressionType": {
     "documentation": "",
     "keys": {
-      "View": "@roblox/enum/RecommendationImpressionType.View"
+      "View": "@roblox/enum/RecommendationImpressionType.View",
+      "NotViewable": "@roblox/enum/RecommendationImpressionType.NotViewable"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType",
     "code_sample": ""
@@ -114081,6 +114492,79 @@
       "Win": "@roblox/enum/ActionType.Win"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionType",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.Success": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.NeedPermission": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#NeedPermission",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.CaptureModerated": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#CaptureModerated",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.CaptureNotInGallery": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#CaptureNotInGallery",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.IneligibleCapture": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#IneligibleCapture",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.UploadQuotaReached": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#UploadQuotaReached",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UploadCaptureResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/UploadCaptureResult.Success",
+      "NeedPermission": "@roblox/enum/UploadCaptureResult.NeedPermission",
+      "CaptureModerated": "@roblox/enum/UploadCaptureResult.CaptureModerated",
+      "CaptureNotInGallery": "@roblox/enum/UploadCaptureResult.CaptureNotInGallery",
+      "IneligibleCapture": "@roblox/enum/UploadCaptureResult.IneligibleCapture",
+      "UploadQuotaReached": "@roblox/enum/UploadCaptureResult.UploadQuotaReached"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult",
     "code_sample": ""
   },
   "@roblox/enum/PathfindingUseImprovedSearch.Default": {
@@ -119666,7 +120150,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.AddReaction": {
-    "documentation": "",
+    "documentation": "사용자가 항목에 반응을 추가했습니다, 예를 들어 \"좋아요\"와 같은 것입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119676,7 +120160,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.RemoveReaction": {
-    "documentation": "",
+    "documentation": "사용자가 항목에서 반응을 제거했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119686,7 +120170,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Share": {
-    "documentation": "",
+    "documentation": "사용자가 항목을 공유했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119696,7 +120180,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Report": {
-    "documentation": "",
+    "documentation": "사용자가 항목에 대한 불법 사용 신고를 작성했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119706,7 +120190,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Comment": {
-    "documentation": "",
+    "documentation": "사용자가 항목에 댓글을 달았습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119716,7 +120200,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Play": {
-    "documentation": "",
+    "documentation": "사용자가 항목을 통해 경험에 참여했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119726,7 +120210,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Purchase": {
-    "documentation": "",
+    "documentation": "사용자가 항목에서 구매를 했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133764,6 +134248,35 @@
       "Error": "@roblox/enum/FacialAgeEstimationResultType.Error"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FacialAgeEstimationResultType",
+    "code_sample": ""
+  },
+  "@roblox/enum/ReadCapturesFromGalleryResult.Success": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/ReadCapturesFromGalleryResult.NeedPermission": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult#NeedPermission",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ReadCapturesFromGalleryResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/ReadCapturesFromGalleryResult.Success",
+      "NeedPermission": "@roblox/enum/ReadCapturesFromGalleryResult.NeedPermission"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult",
     "code_sample": ""
   },
   "@roblox/enum/ContextActionResult.Sink": {

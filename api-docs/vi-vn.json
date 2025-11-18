@@ -15356,9 +15356,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService": {
-    "documentation": "",
+    "documentation": "Một dịch vụ cung cấp giao diện cho bạn để quản lý và hiển thị các gợi ý nội dung cá nhân hóa.",
     "keys": {
       "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
+      "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
       "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
       "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
       "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
@@ -15369,10 +15370,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
-    "documentation": ""
+    "documentation": "Một dịch vụ cung cấp giao diện cho bạn để quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": ""
+    "documentation": "Một từ điển chứa các  trường sau: <ul> <li><code>ConfigName</code> &mdash; Một ID duy nhất cho cấu hình cụ thể. Điều này xác định cách mà các mục được xếp hạng.</li> <li><code>LocationId</code> &mdash; Một chuỗi do nhà phát triển định nghĩa chỉ định vị trí mà gợi ý được sử dụng, chẳng hạn như <code>\"For_you\"</code> hoặc <code>\"Lobby\"</code>. Tham số này sẽ không ảnh hưởng đến các mục được trả về, và nó có thể giúp bạn theo dõi hiệu suất của nhiều tính năng gợi ý trong trải nghiệm của bạn. Các chỉ số gợi ý cho từng vị trí riêng lẻ sẽ được hiển thị trong Trung tâm Tạo ra. <code>LocationId</code> <strong>phải</strong> là một chuỗi và không thể là <code>\"Other\"</code> hoặc <code>\"other\"</code> vì những giá trị này được dự trữ bởi Trung tâm Tạo ra.</li> <li><code>PageSize</code> &mdash; Số lượng mục được trả về cho mỗi trang.</li> <li><code>BoostCustomTags</code> &mdash; Một danh sách các thẻ chuỗi. Bất kỳ mục nào có thẻ này sẽ được tăng hạng trong danh sách. Lưu ý: chỉ hỗ trợ tăng một thẻ bây giờ.</li> <li><code>CustomContexts</code> &mdash; Một bảng các cặp khóa-giá trị được sử dụng để truyền thêm dữ liệu ngữ cảnh để xếp hạng. Ví dụ, <code>UserId</code> cho một script trên Server.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
     "documentation": ""
@@ -15393,22 +15394,49 @@
       "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GenerateItemListAsync",
-    "code_sample": ""
+    "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\n-- Định nghĩa yêu cầu để tạo danh sách đề xuất\nlocal request: GenerateRecommendationItemListRequest = {\n\tConfigName = \"MaximizeEngagement\",\n\tLocationId = \"Lobby\",\n\tPageSize = 10\n    -- LƯU Ý: Bỏ comment và đặt CustomContexts.UserId cho script Server. \n    -- Không cần đặt cho script Local.\n    -- CustomContexts = {\n    --     [\"UserId\"] = tostring(player.UserId),\n    -- }\n}\n\n-- Gọi GenerateItemListAsync để lấy các trang đề xuất\nlocal success, recommendationPages = pcall(function()\n    return RecommendationService:GenerateItemListAsync(request)\nend)"
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0": {
+    "documentation": "Một dịch vụ cung cấp giao diện cho bạn để quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1": {
+    "documentation": "ID của mục cần truy xuất."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0": {
+    "documentation": "Một từ điển đại diện cho mục gợi ý với các trường sau: - <code>ItemId</code> &mdash; ID duy nhất cho mục. - <code>ReferenceId</code> &mdash; ID do nhà phát triển cung cấp cho mục. - <code>TracingId</code> &mdash; Một ID để theo dõi các phiên gợi ý. Nó sẽ trống khi lấy một mục đơn lẻ trực tiếp. - <code>Creator</code> &mdash; Một bảng chứa <code>CreatorId</code> và <code>CreatorType</code>. - <code>Attributes</code> &mdash; Một danh sách các thuộc tính nội dung liên quan đến mục. - <code>CustomTags</code> &mdash; Một danh sách các thẻ chuỗi tùy chỉnh. - <code>Visibility</code> &mdash; Một enum kiểu <code>RecommendationItemVisibility</code>."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GetRecommendationItemAsync",
+    "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\nlocal function getItem(itemId)\n    local success, item = pcall(function()\n        return RecommendationService:GetRecommendationItemAsync(itemId)\n    end)\n    if success and item then\n        print(\"Lấy mục thành công: \" .. item.ItemId)\n        print(\"  ReferenceId: \" .. item.ReferenceId)\n        -- TracingId sẽ trống khi lấy một mục đơn trực tiếp\n        if item.Creator then\n            print(\"  CreatorId: \" .. tostring(item.Creator.CreatorId))\n        end\n        if item.CustomTags then\n            print(\"  CustomTags: \")\n            for _, customTag in ipairs(item.CustomTags) do\n                print(\"    \" .. customTag)\n            end\n        end\n    else\n        warn(\"Lấy mục thất bại: \" .. itemId .. \". Lỗi: \" .. tostring(item))\n    end\nend\n\n-- Ví dụ sử dụng (cần một itemId hợp lệ)\n-- getItem(\"some-item-id\")"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
-    "documentation": ""
+    "documentation": "Một dịch vụ cung cấp giao diện cho bạn để quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
-    "documentation": ""
+    "documentation": "Enum cho loại hành động."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/2": {
-    "documentation": ""
+    "documentation": "ID của mục được trả về từ đăng ký và <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
-    "documentation": ""
+    "documentation": "ID truy dấu được trả về từ phản hồi của <code>GenerateItemListAsync</code>. Mỗi mục có một <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Một từ điển chứa các trường sau: <ul> <li><code>Weight</code> &mdash; Một con số đại diện cho trọng số của hành động. Mặc định là 1.</li> <li><code>DestinationPlaceId</code> &mdash; ID của nơi mà người dùng được gửi đến sau hành động. Sử dụng cho <code>Play</code>.</li> <li><code>CommentText</code> &mdash; Bất kỳ văn bản nào liên quan đến hành động, chẳng hạn như một bình luận. Sử dụng cho <code>Comment</code>.</li> <li><code>ReactionType</code> &mdash; Một chuỗi mô tả loại phản ứng, chẳng hạn như \"thích\" hoặc \"không thích\". Sử dụng cho <code>AddReaction</code> hoặc <code>RemoveReaction</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent": {
     "documentation": "",
@@ -15439,19 +15467,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
-    "documentation": ""
+    "documentation": "Một dịch vụ cung cấp giao diện cho bạn để quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
-    "documentation": ""
+    "documentation": "Enum cho loại ấn tượng."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "ID của mục được trả về từ đăng ký và <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "ID truy dấu được trả về từ phản hồi của <code>GenerateItemListAsync</code>. Mỗi mục có một <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Một từ điển chứa các trường sau: <ul> <li><code>Duration</code> &mdash; Thời gian của sự ấn tượng tính bằng giây.</li> <li><code>Weight</code> &mdash; Một con số đại diện cho trọng số của sự ấn tượng. Mặc định là 1.</li> <li><code>ItemPosition</code> &mdash; Vị trí của mục trong danh sách gợi ý.</li> <li><code>DepartureIntent</code> &mdash; <code>RecommendationDepartureIntent</code> cho biết ý định của người dùng khi rời khỏi một cái nhìn. Ví dụ, <code>Positive</code> nếu cái nhìn được coi là tốt.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
     "documentation": "",
@@ -15482,16 +15510,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "Một dịch vụ cung cấp giao diện cho bạn để quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "Người chơi đã tạo ra mục."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": ""
+    "documentation": "Một từ điển chứa các trường sau: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code> xác định loại nội dung. Loại được xác định theo cách tổng quát. Ví dụ, bạn có thể sử dụng <code>Static</code> cho hình ảnh, <code>Dynamic</code> cho video, và <code>Interactive</code> cho mô hình 3D hỗ trợ взаимодействия.</li> <li><code>ReferenceId</code> &mdash; Chuỗi do nhà phát triển định nghĩa mà nhận dạng duy nhất cho mục.</li> <li><code>Duration</code> &mdash; Thời gian của nội dung tính bằng giây.</li> <li><code>Attributes</code> &mdash; Bảng thuộc tính cho mục, chẳng hạn như <code>AssetId</code> hoặc <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; Danh sách các thẻ chuỗi cho việc lọc và tăng hạng.</li> <li><code>Visibility</code> &mdash; Enum <code>RecommendationItemVisibility</code> kiểm soát tính khả thi của mục, chẳng hạn như <code>Công khai</code> hoặc <code>Riêng tư</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
-    "documentation": ""
+    "documentation": "Một bảng chỉ có hai trường: <code>ItemId</code> và <code>ReferenceId</code>."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync": {
     "documentation": "",
@@ -15516,10 +15544,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "Một dịch vụ cung cấp giao diện cho bạn để quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "ID của mục cần xóa."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync": {
     "documentation": "",
@@ -15535,13 +15563,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#RemoveItemAsync",
-    "code_sample": ""
+    "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\nlocal function removeItem(itemId)\n    local success, err = pcall(function()\n        return RecommendationService:RemoveItemAsync(itemId)\n    end)\n    if success then\n        print(\"Đã xóa mục thành công: \" .. itemId)\n    else\n        warn(\"Không thể xóa mục: \" .. itemId .. \". Lỗi: \" .. tostring(err))\n    end\nend"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "Một dịch vụ cung cấp giao diện cho bạn để quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "Một từ điển chứa các trường sau: <ul> <li><code>ItemId</code> &mdash; ID của mục cần cập nhật.</li> <li><code>ReferenceId</code> &mdash; Chuỗi mới do nhà phát triển xác định để nhận dạng mục.</li> <li><code>Creator</code> &mdash; Người tạo mới cho mục. Người tạo là một bảng chứa hai trường: <code>CreatorId: number</code> và <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; Thời gian mới cho nội dung tính bằng giây.</li> <li><code>Visibility</code> &mdash; Cài đặt tính khả thi mới cho mục.</li> <li><code>Attributes</code> &mdash; Bảng thuộc tính mới cho mục.</li> <li><code>CustomTags</code> &mdash; Danh sách mới các thẻ chuỗi.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -23483,7 +23511,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ScreenshotCapture": {
-    "documentation": "",
+    "documentation": "Một lớp con của <code>Capture</code> để chụp ảnh màn hình.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScreenshotCapture",
     "code_sample": ""
@@ -27908,15 +27936,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal": {
-    "documentation": "Đối tượng Decal là một đối tượng áp dụng một hình ảnh lên bề mặt của một <code>BasePart</code>.",
+    "documentation": "Áp dụng một kết cấu hình ảnh cho một mặt của <code>BasePart</code> cha.",
     "keys": {
       "Color3": "@roblox/globaltype/Decal.Color3",
+      "ColorMap": "@roblox/globaltype/Decal.ColorMap",
+      "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
       "LocalTransparencyModifier": "@roblox/globaltype/Decal.LocalTransparencyModifier",
+      "MetalnessMap": "@roblox/globaltype/Decal.MetalnessMap",
+      "MetalnessMapContent": "@roblox/globaltype/Decal.MetalnessMapContent",
+      "NormalMap": "@roblox/globaltype/Decal.NormalMap",
+      "NormalMapContent": "@roblox/globaltype/Decal.NormalMapContent",
+      "RoughnessMap": "@roblox/globaltype/Decal.RoughnessMap",
+      "RoughnessMapContent": "@roblox/globaltype/Decal.RoughnessMapContent",
       "Shiny": "@roblox/globaltype/Decal.Shiny",
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePack": "@roblox/globaltype/Decal.TexturePack",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
+      "UVOffset": "@roblox/globaltype/Decal.UVOffset",
+      "UVScale": "@roblox/globaltype/Decal.UVScale",
       "ZIndex": "@roblox/globaltype/Decal.ZIndex"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
@@ -27927,38 +27966,93 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Color3",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.ColorMap": {
+    "documentation": "ID nội dung xác định màu sắc và độ trong suốt của bề mặt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.ColorMapContent": {
+    "documentation": "Đối tượng <code>Content</code> xác định màu sắc và độ trong suốt của bề mặt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "Hành động như một hệ số nhân cho thuộc tính <code>Decal.Transparency</code> của Decal. Các hiệu ứng chỉ được nhìn thấy bởi người chơi địa phương.",
+    "documentation": "Hoạt động như một hệ số nhân cho thuộc tính <code>Transparency</code> của decal. Các hiệu ứng chỉ nhìn thấy được bởi người chơi địa phương.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.MetalnessMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.MetalnessMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.NormalMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.NormalMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.RoughnessMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.RoughnessMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính không chức năng này đã lỗi thời và không nên được sử dụng trong công việc mới.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính không chức năng này đã bị loại bỏ và không nên được sử dụng trong các công việc mới.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính này không còn hoạt động chính xác và đã lỗi thời. Nó không nên được sử dụng trong công việc mới. Các nhà phát triển muốn thay đổi cách ánh sáng tương tác với hình ảnh áp dụng cho các phần nên sử dụng <code>SurfaceGuis</code>.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính này không còn hoạt động chính xác và đã bị loại bỏ. Nó không nên được sử dụng trong các công việc mới.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Texture": {
-    "documentation": "ContentId của hình ảnh sẽ được áp dụng bởi <code>Decal</code>.",
+    "documentation": "ID nội dung của hình ảnh sẽ được áp dụng bởi <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Texture",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "Nội dung kết cấu được hiển thị bởi Decal. Hỗ trợ <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> và <code>EditableImage</code> objects.",
+    "documentation": "Nội dung kết cấu được hiển thị bởi <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePack": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePack",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
-    "documentation": "Xác định độ trong suốt của <code>Decal</code> với 0 là hoàn toàn không trong suốt và 1 hoàn toàn trong suốt.",
+    "documentation": "Xác định độ trong suốt của <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
-    "code_sample": "local TweenService = game:GetService(\"TweenService\")\n\nlocal part = Instance.new(\"Part\")\npart.Size = Vector3.new(10, 10, 1)\npart.Position = Vector3.new(0, 5, 0)\npart.Anchored = true\npart.Transparency = 1\n\nlocal decal = Instance.new(\"Decal\")\ndecal.Face = Enum.NormalId.Front\ndecal.Texture = \"http://www.roblox.com/asset/?id=699259085\" -- logo roblox\ndecal.Parent = part\n\npart.Parent = workspace\n\nlocal tween = TweenService:Create(\n\tdecal,\n\tTweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, -1, true),\n\t{ Transparency = 1 }\n)\n\ntween:Play()"
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.UVOffset": {
+    "documentation": "Di chuyển các tọa độ UV bằng cách thêm một độ dịch trước khi ánh xạ kết cấu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVOffset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.UVScale": {
+    "documentation": "Kéo dài hoặc nén các tọa độ UV bằng cách nhân với một yếu tố tỷ lệ.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
+    "code_sample": ""
   },
   "@roblox/globaltype/Decal.ZIndex": {
-    "documentation": "Xác định thứ tự hiển thị khi nhiều Decals được gán cho cùng một bề mặt.",
+    "documentation": "Xác định thứ tự hiển thị khi nhiều decal được gán cho cùng một mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
@@ -31536,9 +31630,46 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
-    "documentation": "",
-    "keys": {},
+    "documentation": "Một lớp định nghĩa một phần nội dung, chẳng hạn như ảnh chụp màn hình hoặc video, được thực hiện trong trải nghiệm.",
+    "keys": {
+      "CaptureTime": "@roblox/globaltype/Capture.CaptureTime",
+      "SourceUniverseId": "@roblox/globaltype/Capture.SourceUniverseId",
+      "SourcePlaceId": "@roblox/globaltype/Capture.SourcePlaceId",
+      "CaptureType": "@roblox/globaltype/Capture.CaptureType",
+      "LocalId": "@roblox/globaltype/Capture.LocalId",
+      "FilePathString": "@roblox/globaltype/Capture.FilePathString"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.CaptureTime": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#CaptureTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.SourceUniverseId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#SourceUniverseId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.SourcePlaceId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#SourcePlaceId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.CaptureType": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#CaptureType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.LocalId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#LocalId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.FilePathString": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#FilePathString",
     "code_sample": ""
   },
   "@roblox/globaltype/AdvancedDragger": {
@@ -51471,10 +51602,10 @@
     "documentation": "Tên thuộc tính cần truy vấn."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean cho biết liệu thuộc tính đã được sửa đổi từ giá trị khởi tạo bằng mã hay không."
+    "documentation": "Boolean chỉ ra liệu thuộc tính đã được sửa đổi so với mặc định do mã khởi tạo hay không."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Trả về <code>true</code> nếu giá trị lưu trữ trong thuộc tính cụ thể không bằng gia trị mặc định được khởi tạo bằng mã.",
+    "documentation": "Trả về <code>true</code> nếu giá trị lưu trữ trong thuộc tính được chỉ định không bằng mặc định do mã khởi tạo.",
     "params": [
       {
         "name": "self",
@@ -57022,7 +57153,6 @@
       "LoadCharacterLayeredClothing ": "@roblox/globaltype/StarterPlayer.LoadCharacterLayeredClothing ",
       "LuaCharacterController": "@roblox/globaltype/StarterPlayer.LuaCharacterController",
       "NameDisplayDistance": "@roblox/globaltype/StarterPlayer.NameDisplayDistance",
-      "RagdollDeath": "@roblox/globaltype/StarterPlayer.RagdollDeath",
       "UserEmotesEnabled": "@roblox/globaltype/StarterPlayer.UserEmotesEnabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer",
@@ -57148,13 +57278,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#NameDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
   },
-  "@roblox/globaltype/StarterPlayer.RagdollDeath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#RagdollDeath",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StarterPlayer.UserEmotesEnabled": {
-    "documentation": "Xác định xem các biểu cảm của người dùng có được tải khi tải avatar hay không.",
+    "documentation": "Xác định xem các biểu cảm do người dùng sở hữu có được tải khi tải hình đại diện hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#UserEmotesEnabled",
     "code_sample": ""
   },
@@ -57550,7 +57675,7 @@
       "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#ComposeDecalAsync",
-    "code_sample": "-- Lấy AssetService\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- Tạo hai instance decal\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- Xây dựng bảng thông tin composite\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.TextureContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- Tạo một decal mới sử dụng AssetService\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
+    "code_sample": "-- Lấy AssetService\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- Tạo hai instance decal\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- Xây dựng bảng thông tin composite\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.ColorMapContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- Tạo một decal mới bằng cách sử dụng AssetService\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/0": {
     "documentation": "Một dịch vụ không được sao chép xử lý các truy vấn liên quan đến tài sản đến API web của Roblox."
@@ -65888,7 +66013,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Object.className": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính đã ngừng sử dụng này là một biến thể của <code>Object.ClassName</code> mà nên được sử dụng thay thế.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính đã bị loại bỏ này là một biến thể của <code>Object.ClassName</code> mà nên được sử dụng thay vào đó.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Object#className",
     "code_sample": ""
   },
@@ -65899,10 +66024,10 @@
     "documentation": "Thuộc tính để kết nối."
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal/return/0": {
-    "documentation": "Một tín hiệu được kích hoạt bất cứ khi nào thuộc tính thay đổi."
+    "documentation": "Một tín hiệu kích hoạt mỗi khi thuộc tính thay đổi."
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal": {
-    "documentation": "Lấy một sự kiện được kích hoạt khi thuộc tính cho trước của đối tượng thay đổi.",
+    "documentation": "Lấy một sự kiện được kích hoạt khi một thuộc tính nhất định của đối tượng thay đổi.",
     "params": [
       {
         "name": "self",
@@ -65923,10 +66048,10 @@
     "documentation": "Object là lớp cơ sở cho tất cả các lớp trong hệ thống lớp của Roblox."
   },
   "@roblox/globaltype/Object.IsA/param/1": {
-    "documentation": "Lớp mà lớp của Object sẽ được kiểm tra. Phân biệt chữ hoa chữ thường."
+    "documentation": "Lớp mà lớp của Object sẽ được kiểm tra. Có phân biệt chữ hoa chữ thường."
   },
   "@roblox/globaltype/Object.IsA/return/0": {
-    "documentation": "Miêu tả liệu lớp của Object có khớp hoặc là một lớp con của lớp cho trước hay không."
+    "documentation": "Mô tả liệu lớp của Object có khớp hoặc là một lớp con của lớp đã cho."
   },
   "@roblox/globaltype/Object.IsA": {
     "documentation": "Trả về true nếu lớp của một đối tượng khớp hoặc kế thừa từ một lớp cho trước.",
@@ -65956,7 +66081,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Object.isA": {
-    "documentation": "<strong>Deprecated:</strong> Hàm đã ngừng sử dụng này là một biến thể của <code>Object:IsA()</code> mà nên được sử dụng thay thế.",
+    "documentation": "<strong>Deprecated:</strong> Hàm đã bị loại bỏ này là một biến thể của <code>Object:IsA()</code> mà nên được sử dụng thay vào đó.",
     "params": [
       {
         "name": "self",
@@ -66051,7 +66176,7 @@
     "returns": []
   },
   "@roblox/globaltype/Object.Changed": {
-    "documentation": "Kích hoạt ngay sau khi một thuộc tính của đối tượng thay đổi, với một số hạn chế.",
+    "documentation": "Kích hoạt ngay sau khi một thuộc tính của đối tượng thay đổi, với một số giới hạn.",
     "keys": {
       "Connect": "@roblox/globaltype/Object.Changed.Connect",
       "ConnectParallel": "@roblox/globaltype/Object.Changed.ConnectParallel",
@@ -66134,7 +66259,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FaceInstance": {
-    "documentation": "Lớp FaceInstance là một lớp trừu tượng mà từ đó lớp <code>Decal</code> kế thừa.",
+    "documentation": "Một lớp trừu tượng từ đó các lớp <code>Decal</code> và <code>Texture</code> kế thừa.",
     "keys": {
       "Face": "@roblox/globaltype/FaceInstance.Face"
     },
@@ -66142,7 +66267,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FaceInstance.Face": {
-    "documentation": "Đặt mặt nào của khối mà đối tượng xuất hiện trên đó.",
+    "documentation": "Đặt mặt nào của <code>BasePart</code> cha mà đối tượng xuất hiện trên.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FaceInstance#Face",
     "code_sample": ""
   },
@@ -70697,7 +70822,10 @@
       "PromptShareCapture": "@roblox/globaltype/CaptureService.PromptShareCapture",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
-      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture"
+      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture",
+      "PromptCaptureGalleryPermissionAsync": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync",
+      "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
+      "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
     "code_sample": ""
@@ -70872,6 +71000,87 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeCapture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0": {
+    "documentation": "Một dịch vụ cung cấp điều khiển các chức năng chụp ảnh màn hình và ghi video."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1": {
+    "documentation": "Một <code>CaptureGalleryPermission</code> đại diện cho loại quyền truy cập mà người dùng sẽ được nhắc nhở."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0": {
+    "documentation": "Một boolean đại diện cho việc người dùng đã cho phép truy cập vào các bức ảnh của họ hay không."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0"
+      },
+      {
+        "name": "captureGalleryPermission",
+        "documentation": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#PromptCaptureGalleryPermissionAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0": {
+    "documentation": "Một dịch vụ cung cấp điều khiển các chức năng chụp ảnh màn hình và ghi video."
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
+    "documentation": "Một mảng của <code>CaptureType</code>."
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
+    "documentation": "Tuple của (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0"
+      },
+      {
+        "name": "captureTypeFilters",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#ReadCapturesFromGalleryAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
+    "documentation": "Một dịch vụ cung cấp điều khiển các chức năng chụp ảnh màn hình và ghi video."
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
+    "documentation": "một đối tượng bức ảnh kiểu <code>Capture</code>"
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
+    "documentation": "Tuple của (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0"
+      },
+      {
+        "name": "capture",
+        "documentation": "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#UploadCaptureAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureBegan.Connect/param/0": {
@@ -72487,17 +72696,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.Enabled": {
-    "documentation": "Xem liệu đối tượng <code>AudioSpeechToText</code> có được bật để xử lý âm thanh đầu vào thành văn bản hay không.",
+    "documentation": "Liệu đối tượng <code>AudioSpeechToText</code> có được kích hoạt để xử lý âm thanh đầu vào thành văn bản hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.Text": {
-    "documentation": "Văn bản thu được từ việc chuyển đổi âm thanh nói.",
+    "documentation": "Văn bản được tạo ra từ việc chuyển đổi âm thanh nói.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.VoiceDetected": {
-    "documentation": "Xem liệu đối tượng <code>AudioSpeechToText</code> có phát hiện nói trong tín hiệu âm thanh đầu vào hay không.",
+    "documentation": "Liệu đối tượng <code>AudioSpeechToText</code> có đang phát hiện âm thanh nói trong tín hiệu âm thanh đến hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#VoiceDetected",
     "code_sample": ""
   },
@@ -72511,7 +72720,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
-    "documentation": "Trả về một mảng <code>Wires</code> đã kết nối với chân được chỉ định.",
+    "documentation": "Trả về một mảng các <code>Wires</code> được kết nối với chân được chỉ định.",
     "params": [
       {
         "name": "self",
@@ -72606,7 +72815,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
-    "documentation": "Kích hoạt khi một thể hiện khác được kết nối hoặc ngắt kết nối với <code>AudioSpeechToText</code> thông qua một <code>Wire</code>.",
+    "documentation": "Kích hoạt khi một thực thể khác được kết nối hoặc ngắt kết nối khỏi <code>AudioSpeechToText</code> thông qua một <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
@@ -73101,7 +73310,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> Lớp này đã lỗi thời và không nên được sử dụng cho công việc mới. Thay vào đó, hãy sử dụng <code>HttpService</code> và xem <a href=\"../../../cloud-services/http-service.md\">hướng dẫn yêu cầu HTTP trong trải nghiệm</a>.",
     "keys": {
       "GetApiV1": "@roblox/globaltype/OpenCloudService.GetApiV1",
       "InvokeAsync": "@roblox/globaltype/OpenCloudService.InvokeAsync"
@@ -73110,13 +73319,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Lớp này đã lỗi thời và không nên được sử dụng cho công việc mới. Thay vào đó, hãy sử dụng <code>HttpService</code> và xem <a href=\"../../../cloud-services/http-service.md\">hướng dẫn yêu cầu HTTP trong trải nghiệm</a>."
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -73130,7 +73339,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Lớp này đã lỗi thời và không nên được sử dụng cho công việc mới. Thay vào đó, hãy sử dụng <code>HttpService</code> và xem <a href=\"../../../cloud-services/http-service.md\">hướng dẫn yêu cầu HTTP trong trải nghiệm</a>."
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/1": {
     "documentation": ""
@@ -73148,7 +73357,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -76086,7 +76295,7 @@
     "documentation": "Một lớp trừu tượng cho các đối tượng trang."
   },
   "@roblox/globaltype/Pages.AdvanceToNextPageAsync": {
-    "documentation": "Lặp đến trang tiếp theo trong đối tượng trang, nếu có thể.",
+    "documentation": "Lặp qua trang tiếp theo trong đối tượng trang, nếu có thể.",
     "params": [
       {
         "name": "self",
@@ -76104,7 +76313,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Pages.GetCurrentPage": {
-    "documentation": "Trả về các mục trên trang hiện tại. Các khóa trong mục được xác định bởi nguồn gốc của đối tượng này.",
+    "documentation": "Trả về các mục trên trang hiện tại. Các khóa trong mục được xác định bởi nguồn của đối tượng này.",
     "params": [
       {
         "name": "self",
@@ -76136,6 +76345,12 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FormFactorPart#formFactor",
     "code_sample": ""
   },
+  "@roblox/globaltype/CapturesPages": {
+    "documentation": "Một phiên bản đặc biệt của lớp <code>Pages</code> được trả về bởi <code>CaptureService.ReadCapturesFromGalleryAsync</code>.",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CapturesPages",
+    "code_sample": ""
+  },
   "@roblox/globaltype/ConeHandleAdornment": {
     "documentation": "Một hình nón có thể được trang trí cho một <code>BasePart</code>.",
     "keys": {
@@ -76156,7 +76371,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Texture": {
-    "documentation": "Một đối tượng Texture áp dụng một kết cấu lặp lại lên bề mặt của một <code>BasePart</code>.",
+    "documentation": "Áp dụng một kết cấu hình ảnh lặp lại lên bề mặt của một <code>BasePart</code> cha.",
     "keys": {
       "OffsetStudsU": "@roblox/globaltype/Texture.OffsetStudsU",
       "OffsetStudsV": "@roblox/globaltype/Texture.OffsetStudsV",
@@ -80110,8 +80325,44 @@
   },
   "@roblox/globaltype/VideoService": {
     "documentation": "Một dịch vụ nội bộ không cung cấp chức năng nào cho các nhà phát triển.",
-    "keys": {},
+    "keys": {
+      "CreateVideoSamplerAsync": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0": {
+    "documentation": "Một dịch vụ nội bộ không cung cấp chức năng nào cho các nhà phát triển."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1": {
+    "documentation": "Nội dung video để lấy mẫu."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2": {
+    "documentation": "Bảng tùy chọn để tạo <code>VideoSampler</code>: <ul> <li><code>Size</code> – Một giá trị <code>VideoSampleSize</code> xác định độ phân giải của các texture được tạo ra bởi <code>VideoSampler</code>.   Mặc định là <code>VideoSampleSize.Small</code>. Sử dụng độ phân giải nhỏ nhất   đáp ứng nhu cầu của bạn để giảm thiểu việc sử dụng bộ nhớ và   cải thiện hiệu suất lấy mẫu.</li> </ul>"
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0": {
+    "documentation": "<code>VideoSampler</code> đã được tạo."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync": {
+    "documentation": "Tạo một <code>VideoSampler</code> dùng để lấy mẫu các khung hình từ video đã cung cấp.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService#CreateVideoSamplerAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/Debris": {
@@ -80575,7 +80826,7 @@
       "UnregisterEncryptedAsset": "@roblox/globaltype/ContentProvider.UnregisterEncryptedAsset"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.Texture = LOGO_ID\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"Tất cả tài sản đã được tải.\")"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = LOGO_ID\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"Tất cả tài sản đã được tải.\")"
   },
   "@roblox/globaltype/ContentProvider.BaseUrl": {
     "documentation": "Được sử dụng bởi <code>ContentProvider</code> để tải tài sản từ website Roblox.",
@@ -80710,7 +80961,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider#PreloadAsync",
-    "code_sample": ""
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = \"rbxassetid://5447528495\"\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- Điều này sẽ được kích hoạt khi mỗi tài sản được giải quyết\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() đã giải quyết tài sản ID:\", assetId)\n\tprint(\"PreloadAsync() trạng thái tài sản cuối cùng:\", assetFetchStatus)\nend\n\n-- Tiền tải nội dung và tính thời gian\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"Tiền tải hoàn tất, mất %.2f giây\"):format(deltaTime))"
   },
   "@roblox/globaltype/ContentProvider.RegisterDefaultEncryptionKey/param/0": {
     "documentation": "Dịch vụ được sử dụng để tải nội dung, hoặc tài sản, vào một trò chơi."
@@ -86420,7 +86671,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> Lớp này đã lỗi thời và không nên được sử dụng cho công việc mới. Sử dụng <code>HttpService</code> thay vào đó và xem <a href=\"../../../cloud-services/http-service.md\">Hướng dẫn yêu cầu HTTP trong trải nghiệm</a>.",
     "keys": {
       "CreateModel": "@roblox/globaltype/OpenCloudApiV1.CreateModel",
       "CreateUserNotificationAsync": "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync"
@@ -86429,7 +86680,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Lớp này đã lỗi thời và không nên được sử dụng cho công việc mới. Sử dụng <code>HttpService</code> thay vào đó và xem <a href=\"../../../cloud-services/http-service.md\">Hướng dẫn yêu cầu HTTP trong trải nghiệm</a>."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/1": {
     "documentation": ""
@@ -86438,7 +86689,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -86456,7 +86707,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Lớp này đã lỗi thời và không nên được sử dụng cho công việc mới. Sử dụng <code>HttpService</code> thay vào đó và xem <a href=\"../../../cloud-services/http-service.md\">Hướng dẫn yêu cầu HTTP trong trải nghiệm</a>."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/1": {
     "documentation": ""
@@ -86468,7 +86719,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -89922,7 +90173,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler": {
-    "documentation": "An object for sampling frames from video content.",
+    "documentation": "Một đối tượng để lấy mẫu các khung hình từ nội dung video.",
     "keys": {
       "TimeLength": "@roblox/globaltype/VideoSampler.TimeLength",
       "VideoContent": "@roblox/globaltype/VideoSampler.VideoContent",
@@ -89932,26 +90183,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.TimeLength": {
-    "documentation": "The length of the <code>VideoContent</code> in seconds.",
+    "documentation": "Độ dài của <code>VideoContent</code> tính bằng giây.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.VideoContent": {
-    "documentation": "The asset loaded into the <code>VideoSampler</code>.",
+    "documentation": "Tài sản đã được tải vào <code>VideoSampler</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#VideoContent",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/0": {
-    "documentation": "An object for sampling frames from video content."
+    "documentation": "Một đối tượng để lấy mẫu các khung hình từ nội dung video."
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/1": {
-    "documentation": "An array of requested timestamps in seconds for which to retrieve image frames. Each timestamp should be a number between <code>0</code> and <code>TimeLength</code>."
+    "documentation": "Một mảng các dấu thời gian yêu cầu tính bằng giây mà bạn muốn lấy các khung hình hình ảnh. Mỗi dấu thời gian nên là một số giữa <code>0</code> và <code>TimeLength</code>."
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/return/0": {
-    "documentation": "An array of dictionary or nil values for each requested timestamp. If a requested timestamp is out of range or the <code>VideoSampler</code> was unable to produce a sample, the corresponding entry in the returned array will be nil. Each dictionary contains the following keys: <ul> <li><code>Time</code> (number): The timestamp of the returned image frame in   seconds. This value may differ slightly from the requested   timestamp.</li> <li><code>Image</code> (<code>Content</code>): A <code>Content</code> with a   <code>SourceType</code> of   <code>ContentSourceType.Opaque</code> containing the image frame at the   corresponding timestamp.</li> </ul>"
+    "documentation": "Một mảng các giá trị từ điển hoặc nil cho mỗi dấu thời gian yêu cầu. Nếu một dấu thời gian yêu cầu nằm ngoài phạm vi hoặc <code>VideoSampler</code> không thể tạo ra một mẫu, mục tương ứng trong mảng trả về sẽ là nil. Mỗi từ điển chứa các khóa sau: <ul> <li><code>Time</code> (số): Dấu thời gian của khung hình hình ảnh trả về tính bằng   giây. Giá trị này có thể khác một chút so với dấu thời gian yêu cầu.</li> <li><code>Image</code> (<code>Content</code>): Một <code>Content</code> với một   <code>SourceType</code> của   <code>ContentSourceType.Opaque</code> chứa khung hình hình ảnh tại   dấu thời gian tương ứng.</li> </ul>"
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync": {
-    "documentation": "Gets image frames at the specified timestamps.",
+    "documentation": "Lấy các khung hình hình ảnh tại các dấu thời gian đã chỉ định.",
     "params": [
       {
         "name": "self",
@@ -91086,7 +91337,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoCapture": {
-    "documentation": "",
+    "documentation": "Một lớp con của <code>Capture</code> cho video.",
     "keys": {
       "FilePath": "@roblox/globaltype/VideoCapture.FilePath",
       "TimeLength": "@roblox/globaltype/VideoCapture.TimeLength"
@@ -96774,7 +97025,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationPages": {
-    "documentation": "",
+    "documentation": "Một phiên bản đặc biệt của lớp <code>Pages</code> được trả về bởi <code>GenerateItemListAsync</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationPages",
     "code_sample": ""
@@ -99234,6 +99485,57 @@
       "Camera": "@roblox/enum/ListenerLocation.Camera"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ListenerLocation",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.None": {
+    "documentation": "Người chơi đã chọn không tham gia, đã hủy thông báo, hoặc không đủ điều kiện tham gia nhóm.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.Joined": {
+    "documentation": "Người chơi đã tham gia thành công nhóm trong quá trình thông báo.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#Joined",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.JoinRequestPending": {
+    "documentation": "Người chơi đã gửi yêu cầu tham gia nhóm.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#JoinRequestPending",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.AlreadyMember": {
+    "documentation": "Người chơi đã là một thành viên của nhóm.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#AlreadyMember",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.GroupMembershipStatus": {
+    "documentation": "Định nghĩa các kết quả có thể của phương thức <code>GroupService:PromptJoinAsync()</code> .",
+    "keys": {
+      "None": "@roblox/enum/GroupMembershipStatus.None",
+      "Joined": "@roblox/enum/GroupMembershipStatus.Joined",
+      "JoinRequestPending": "@roblox/enum/GroupMembershipStatus.JoinRequestPending",
+      "AlreadyMember": "@roblox/enum/GroupMembershipStatus.AlreadyMember"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus",
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
@@ -104832,6 +105134,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleEmitterShape",
     "code_sample": ""
   },
+  "@roblox/enum/CaptureGalleryPermission.ReadAndUpload": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CaptureGalleryPermission#ReadAndUpload",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CaptureGalleryPermission": {
+    "documentation": "",
+    "keys": {
+      "ReadAndUpload": "@roblox/enum/CaptureGalleryPermission.ReadAndUpload"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CaptureGalleryPermission",
+    "code_sample": ""
+  },
   "@roblox/enum/RaycastFilterType.Exclude": {
     "documentation": "Mỗi <code>BasePart</code> trong thao tác raycast sẽ được xem xét <strong>trừ</strong> những đối tượng là con của các đối tượng trong danh sách bộ lọc.",
     "keys": {
@@ -105114,6 +105434,86 @@
       "Disabled": "@roblox/enum/ServerLiveEditingMode.Disabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ServerLiveEditingMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Neutral": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Neutral",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Positive": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Positive",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Negative": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Negative",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationDepartureIntent": {
+    "documentation": "",
+    "keys": {
+      "Neutral": "@roblox/enum/RecommendationDepartureIntent.Neutral",
+      "Positive": "@roblox/enum/RecommendationDepartureIntent.Positive",
+      "Negative": "@roblox/enum/RecommendationDepartureIntent.Negative"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Static": {
+    "documentation": "Mục này là tĩnh, chẳng hạn như một hình ảnh.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Static",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Dynamic": {
+    "documentation": "Mục này là động; chẳng hạn, nó là một video.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Dynamic",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Interactive": {
+    "documentation": "Mục này là tương tác, chẳng hạn như một mô hình 3D hoặc một trò chơi mini.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Interactive",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationItemContentType": {
+    "documentation": "",
+    "keys": {
+      "Static": "@roblox/enum/RecommendationItemContentType.Static",
+      "Dynamic": "@roblox/enum/RecommendationItemContentType.Dynamic",
+      "Interactive": "@roblox/enum/RecommendationItemContentType.Interactive"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType",
     "code_sample": ""
   },
   "@roblox/enum/CompileTarget.Client": {
@@ -112441,7 +112841,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationImpressionType.View": {
-    "documentation": "",
+    "documentation": "Một cái nhìn hoàn chỉnh về mục này.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112450,10 +112850,21 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#View",
     "code_sample": ""
   },
+  "@roblox/enum/RecommendationImpressionType.NotViewable": {
+    "documentation": "Mục này đã không thể hiển thị.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#NotViewable",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.RecommendationImpressionType": {
     "documentation": "",
     "keys": {
-      "View": "@roblox/enum/RecommendationImpressionType.View"
+      "View": "@roblox/enum/RecommendationImpressionType.View",
+      "NotViewable": "@roblox/enum/RecommendationImpressionType.NotViewable"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType",
     "code_sample": ""
@@ -114081,6 +114492,79 @@
       "Win": "@roblox/enum/ActionType.Win"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionType",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.Success": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.NeedPermission": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#NeedPermission",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.CaptureModerated": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#CaptureModerated",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.CaptureNotInGallery": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#CaptureNotInGallery",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.IneligibleCapture": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#IneligibleCapture",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.UploadQuotaReached": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#UploadQuotaReached",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UploadCaptureResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/UploadCaptureResult.Success",
+      "NeedPermission": "@roblox/enum/UploadCaptureResult.NeedPermission",
+      "CaptureModerated": "@roblox/enum/UploadCaptureResult.CaptureModerated",
+      "CaptureNotInGallery": "@roblox/enum/UploadCaptureResult.CaptureNotInGallery",
+      "IneligibleCapture": "@roblox/enum/UploadCaptureResult.IneligibleCapture",
+      "UploadQuotaReached": "@roblox/enum/UploadCaptureResult.UploadQuotaReached"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult",
     "code_sample": ""
   },
   "@roblox/enum/PathfindingUseImprovedSearch.Default": {
@@ -119666,7 +120150,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.AddReaction": {
-    "documentation": "",
+    "documentation": "Người dùng đã thêm một phản ứng vào mục, chẳng hạn như \"thích\".",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119676,7 +120160,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.RemoveReaction": {
-    "documentation": "",
+    "documentation": "Người dùng đã xóa một phản ứng khỏi mục.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119686,7 +120170,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Share": {
-    "documentation": "",
+    "documentation": "Người dùng đã chia sẻ mục.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119696,7 +120180,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Report": {
-    "documentation": "",
+    "documentation": "Người dùng đã tạo một báo cáo lạm dụng về mục.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119706,7 +120190,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Comment": {
-    "documentation": "",
+    "documentation": "Người dùng đã bình luận về mục.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119716,7 +120200,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Play": {
-    "documentation": "",
+    "documentation": "Người dùng đã tham gia vào một trải nghiệm thông qua mục.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119726,7 +120210,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Purchase": {
-    "documentation": "",
+    "documentation": "Người dùng đã thực hiện một giao dịch mua từ mục.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133764,6 +134248,35 @@
       "Error": "@roblox/enum/FacialAgeEstimationResultType.Error"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FacialAgeEstimationResultType",
+    "code_sample": ""
+  },
+  "@roblox/enum/ReadCapturesFromGalleryResult.Success": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/ReadCapturesFromGalleryResult.NeedPermission": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult#NeedPermission",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ReadCapturesFromGalleryResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/ReadCapturesFromGalleryResult.Success",
+      "NeedPermission": "@roblox/enum/ReadCapturesFromGalleryResult.NeedPermission"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult",
     "code_sample": ""
   },
   "@roblox/enum/ContextActionResult.Sink": {

@@ -15356,9 +15356,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService": {
-    "documentation": "",
+    "documentation": "Un servicio que proporciona una interfaz para administrar y mostrar recomendaciones de contenido personalizadas.",
     "keys": {
       "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
+      "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
       "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
       "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
       "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
@@ -15369,10 +15370,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
-    "documentation": ""
+    "documentation": "Un servicio que proporciona una interfaz para administrar y mostrar recomendaciones de contenido personalizadas."
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": ""
+    "documentation": "Un diccionario que contiene los siguientes  campos: <ul> <li><code>ConfigName</code> &mdash; Un ID único para la configuración específica. Esto determina cómo se clasifican los candidatos.</li> <li><code>LocationId</code> &mdash; Una cadena definida por el desarrollador que especifica la ubicación donde se usa la recomendación, como <code>\"For_you\"</code> o <code>\"Lobby\"</code>. Este parámetro no afectará los elementos devueltos y puede ayudarte a rastrear el rendimiento de múltiples funciones de recomendación dentro de tu experiencia. Las métricas de recomendación para cada ubicación individual se mostrarán en el Panel del Creador. <code>LocationId</code> <strong>debe</strong> ser una cadena y no puede ser <code>\"Other\"</code> o <code>\"other\"</code>, ya que estos valores están reservados por el Panel del Creador.</li> <li><code>PageSize</code> &mdash; El número de elementos devueltos por cada página.</li> <li><code>BoostCustomTags</code> &mdash; Una lista de etiquetas de cadena. Cualquier elemento con esta etiqueta será incrementado en el ranking. Nota: solo admite aumentar una etiqueta ahora.</li> <li><code>CustomContexts</code> &mdash; Una tabla de pares clave-valor utilizados para pasar datos de contexto adicionales para la clasificación. Por ejemplo, <code>UserId</code> para un script de servidor.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
     "documentation": ""
@@ -15395,20 +15396,47 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GenerateItemListAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0": {
+    "documentation": "Un servicio que proporciona una interfaz para administrar y mostrar recomendaciones de contenido personalizadas."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1": {
+    "documentation": "El ID del elemento a recuperar."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0": {
+    "documentation": "Un diccionario que representa el elemento de recomendación con los siguientes campos: - <code>ItemId</code> &mdash; El ID único para el elemento. - <code>ReferenceId</code> &mdash; El ID proporcionado por el desarrollador para el elemento. - <code>TracingId</code> &mdash; Un ID para rastrear sesiones de recomendación. Esto estará vacío al recuperar un solo elemento directamente. - <code>Creator</code> &mdash; Una tabla que contiene el <code>CreatorId</code> y el <code>CreatorType</code>. - <code>Attributes</code> &mdash; Una lista de atributos de contenido asociados con el elemento. - <code>CustomTags</code> &mdash; Una lista de etiquetas de cadena personalizadas. - <code>Visibility</code> &mdash; Un enum de tipo <code>RecommendationItemVisibility</code>."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GetRecommendationItemAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
-    "documentation": ""
+    "documentation": "Un servicio que proporciona una interfaz para administrar y mostrar recomendaciones de contenido personalizadas."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
-    "documentation": ""
+    "documentation": "La enumeración para el tipo de acción."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/2": {
-    "documentation": ""
+    "documentation": "El ID del elemento devuelto desde el registro y <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
-    "documentation": ""
+    "documentation": "El ID de seguimiento devuelto desde la respuesta de <code>GenerateItemListAsync</code>. Cada elemento tiene un <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Un diccionario que contiene los siguientes campos: <ul> <li><code>Weight</code> &mdash; Un número que representa el peso de la acción. El valor predeterminado es 1.</li> <li><code>DestinationPlaceId</code> &mdash; El ID del lugar al que fue enviado el usuario después de la acción. Utilizado para <code>Play</code>.</li> <li><code>CommentText</code> &mdash; Cualquier texto asociado con la acción, como un comentario. Utilizado para <code>Comment</code>.</li> <li><code>ReactionType</code> &mdash; Una cadena que describe el tipo de reacción, por ejemplo, \"me gusta\" o \"no me gusta\". Utilizado para <code>AddReaction</code> o <code>RemoveReaction</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent": {
     "documentation": "",
@@ -15439,19 +15467,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
-    "documentation": ""
+    "documentation": "Un servicio que proporciona una interfaz para administrar y mostrar recomendaciones de contenido personalizadas."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
-    "documentation": ""
+    "documentation": "La enumeración para el tipo de la impresión."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "El ID del elemento devuelto desde el registro y <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "El ID de seguimiento devuelto desde la respuesta de <code>GenerateItemListAsync</code>. Cada elemento tiene un <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Un diccionario que contiene los siguientes campos: <ul> <li><code>Duration</code> &mdash; La duración de la impresión en segundos.</li> <li><code>Weight</code> &mdash; Un número que representa el peso de la impresión. El valor predeterminado es 1.</li> <li><code>ItemPosition</code> &mdash; La posición del elemento en la lista de recomendaciones.</li> <li><code>DepartureIntent</code> &mdash; El <code>RecommendationDepartureIntent</code> que indica la intención del usuario al abandonar una vista. Por ejemplo, <code>Positive</code> si la vista se considera buena.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
     "documentation": "",
@@ -15482,16 +15510,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "Un servicio que proporciona una interfaz para administrar y mostrar recomendaciones de contenido personalizadas."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "El jugador que creó el elemento."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": ""
+    "documentation": "Un diccionario que contiene los siguientes campos: <ul> <li><code>ContentType</code> &mdash; El <code>RecommendationItemContentType</code> que especifica el tipo de contenido. El tipo se define de manera genérica. Por ejemplo, puedes usar <code>Static</code> para imágenes, <code>Dynamic</code> para videos y <code>Interactive</code> para modelos 3D que soporten interacción.</li> <li><code>ReferenceId</code> &mdash; La cadena definida por el desarrollador que identifica de manera única el elemento.</li> <li><code>Duration</code> &mdash; La duración del contenido en segundos.</li> <li><code>Attributes</code> &mdash; La tabla de atributos para el elemento, como <code>AssetId</code> o <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; La lista de etiquetas de cadena para filtrado y aumento.</li> <li><code>Visibility</code> &mdash; El enum <code>RecommendationItemVisibility</code> que controla la visibilidad del elemento, como <code>Public</code> o <code>Private</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
-    "documentation": ""
+    "documentation": "Una tabla con solo dos campos: <code>ItemId</code> y <code>ReferenceId</code>."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync": {
     "documentation": "",
@@ -15516,10 +15544,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "Un servicio que proporciona una interfaz para administrar y mostrar recomendaciones de contenido personalizadas."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "El itemId a eliminar."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync": {
     "documentation": "",
@@ -15538,10 +15566,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "Un servicio que proporciona una interfaz para administrar y mostrar recomendaciones de contenido personalizadas."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "Un diccionario que contiene los siguientes campos: <ul> <li><code>ItemId</code> &mdash; El ID del elemento a actualizar.</li> <li><code>ReferenceId</code> &mdash; La nueva cadena definida por el desarrollador para identificar el elemento.</li> <li><code>Creator</code> &mdash; El nuevo creador para el elemento. Creator es una tabla que contiene dos campos: <code>CreatorId: number</code> y <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; La nueva duración para el contenido en segundos.</li> <li><code>Visibility</code> &mdash; La nueva configuración de visibilidad para el elemento.</li> <li><code>Attributes</code> &mdash; La nueva tabla de atributos para el elemento.</li> <li><code>CustomTags</code> &mdash; La nueva lista de etiquetas de cadena.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -23483,7 +23511,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ScreenshotCapture": {
-    "documentation": "",
+    "documentation": "Una clase hija de <code>Capture</code> para capturas de pantalla.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScreenshotCapture",
     "code_sample": ""
@@ -27908,15 +27936,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal": {
-    "documentation": "El objeto Decal es un objeto que aplica una imagen a una cara de un <code>BasePart</code>.",
+    "documentation": "Aplica una textura de imagen a una cara de un <code>BasePart</code> padre.",
     "keys": {
       "Color3": "@roblox/globaltype/Decal.Color3",
+      "ColorMap": "@roblox/globaltype/Decal.ColorMap",
+      "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
       "LocalTransparencyModifier": "@roblox/globaltype/Decal.LocalTransparencyModifier",
+      "MetalnessMap": "@roblox/globaltype/Decal.MetalnessMap",
+      "MetalnessMapContent": "@roblox/globaltype/Decal.MetalnessMapContent",
+      "NormalMap": "@roblox/globaltype/Decal.NormalMap",
+      "NormalMapContent": "@roblox/globaltype/Decal.NormalMapContent",
+      "RoughnessMap": "@roblox/globaltype/Decal.RoughnessMap",
+      "RoughnessMapContent": "@roblox/globaltype/Decal.RoughnessMapContent",
       "Shiny": "@roblox/globaltype/Decal.Shiny",
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePack": "@roblox/globaltype/Decal.TexturePack",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
+      "UVOffset": "@roblox/globaltype/Decal.UVOffset",
+      "UVScale": "@roblox/globaltype/Decal.UVScale",
       "ZIndex": "@roblox/globaltype/Decal.ZIndex"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
@@ -27927,38 +27966,93 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Color3",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.ColorMap": {
+    "documentation": "ID de contenido que determina el color y la opacidad de la superficie.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.ColorMapContent": {
+    "documentation": "Objeto <code>Content</code> que determina el color y la opacidad de la superficie.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "Actúa como un multiplicador para la propiedad <code>Decal.Transparency</code> del decal. Los efectos solo son visibles para el jugador local.",
+    "documentation": "Actúa como un multiplicador para la propiedad <code>Transparency</code> del decal. Los efectos son solo visibles para el jugador local.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.MetalnessMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.MetalnessMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.NormalMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.NormalMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.RoughnessMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.RoughnessMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad no funcional está obsoleta y no debe ser utilizada en nuevo trabajo.",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad no funcional está obsoleta y no debe usarse en nuevos trabajos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad ya no funciona correctamente y está obsoleta. No debe ser utilizada en nuevo trabajo. Los desarrolladores que deseen alterar cómo la luz interactúa con las imágenes aplicadas a las partes deben usar <code>SurfaceGuis</code>.",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad ya no funciona correctamente y está obsoleta. No debe usarse en nuevos trabajos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Texture": {
-    "documentation": "El ContentId de la imagen que será aplicada por el <code>Decal</code>.",
+    "documentation": "El ID de contenido de la imagen que se aplicará mediante el <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Texture",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "El contenido de la textura mostrado por el Decal. Soporta <a href=\"../../../projects/assets/index.md#asset-uris\">URI de activos</a> y <code>EditableImage</code> objetos.",
+    "documentation": "El contenido de textura mostrado por el <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePack": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePack",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
-    "documentation": "Determina la transparencia del <code>Decal</code>, siendo 0 completamente opaco y 1 completamente transparente.",
+    "documentation": "Determina la transparencia del <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.UVOffset": {
+    "documentation": "Desplaza las coordenadas UV al agregar un desplazamiento antes de la asignación de textura.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVOffset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.UVScale": {
+    "documentation": "Estira o comprime las coordenadas UV multiplicando un factor de escala.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.ZIndex": {
-    "documentation": "Determina el orden de renderizado cuando múltiples Decals están asignados a la misma cara.",
+    "documentation": "Determina el orden de renderización cuando múltiples decals se asignan a la misma cara.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
@@ -31536,9 +31630,46 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
-    "documentation": "",
-    "keys": {},
+    "documentation": "Una clase que define una pieza de contenido, como una captura de pantalla o un video, tomada en la experiencia.",
+    "keys": {
+      "CaptureTime": "@roblox/globaltype/Capture.CaptureTime",
+      "SourceUniverseId": "@roblox/globaltype/Capture.SourceUniverseId",
+      "SourcePlaceId": "@roblox/globaltype/Capture.SourcePlaceId",
+      "CaptureType": "@roblox/globaltype/Capture.CaptureType",
+      "LocalId": "@roblox/globaltype/Capture.LocalId",
+      "FilePathString": "@roblox/globaltype/Capture.FilePathString"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.CaptureTime": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#CaptureTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.SourceUniverseId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#SourceUniverseId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.SourcePlaceId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#SourcePlaceId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.CaptureType": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#CaptureType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.LocalId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#LocalId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.FilePathString": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#FilePathString",
     "code_sample": ""
   },
   "@roblox/globaltype/AdvancedDragger": {
@@ -51471,10 +51602,10 @@
     "documentation": "Nombre de la propiedad a consultar."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Booleano que indica si la propiedad está modificada desde su predeterminada instanciada por el código."
+    "documentation": "Booleano que indica si la propiedad ha sido modificada desde su valor predeterminado instanciado en el código."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Devuelve <code>true</code> si el valor almacenado en la propiedad especificada no es igual a la predeterminada instanciada por el código.",
+    "documentation": "Devuelve <code>true</code> si el valor almacenado en la propiedad especificada no es igual al valor predeterminado instanciado en el código.",
     "params": [
       {
         "name": "self",
@@ -57022,7 +57153,6 @@
       "LoadCharacterLayeredClothing ": "@roblox/globaltype/StarterPlayer.LoadCharacterLayeredClothing ",
       "LuaCharacterController": "@roblox/globaltype/StarterPlayer.LuaCharacterController",
       "NameDisplayDistance": "@roblox/globaltype/StarterPlayer.NameDisplayDistance",
-      "RagdollDeath": "@roblox/globaltype/StarterPlayer.RagdollDeath",
       "UserEmotesEnabled": "@roblox/globaltype/StarterPlayer.UserEmotesEnabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer",
@@ -57148,13 +57278,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#NameDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
   },
-  "@roblox/globaltype/StarterPlayer.RagdollDeath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#RagdollDeath",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StarterPlayer.UserEmotesEnabled": {
-    "documentation": "Determina si se cargan las emotes de propiedad del usuario al cargar avatares.",
+    "documentation": "Determina si se cargan los emotes propiedad del usuario al cargar avatares.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#UserEmotesEnabled",
     "code_sample": ""
   },
@@ -57550,7 +57675,7 @@
       "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#ComposeDecalAsync",
-    "code_sample": "-- Obtener AssetService\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- Crear dos instancias de decal\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- Construir tabla de información compuesta\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.TextureContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- Componer un nuevo decal usando AssetService\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
+    "code_sample": "-- Obtener AssetService\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- Crear dos instancias de decal\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- Construir tabla de información compuesta\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.ColorMapContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- Componer un nuevo decal usando AssetService\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/0": {
     "documentation": "Un servicio no replicado que maneja consultas relacionadas con activos a la API web de Roblox."
@@ -65896,7 +66021,7 @@
     "documentation": "Object es la clase base para todas las clases en la jerarquía de clases de Roblox."
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal/param/1": {
-    "documentation": "La propiedad a la que conectar."
+    "documentation": "La propiedad a la que conectarse."
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal/return/0": {
     "documentation": "Una señal que se activa cada vez que cambia la propiedad."
@@ -65923,7 +66048,7 @@
     "documentation": "Object es la clase base para todas las clases en la jerarquía de clases de Roblox."
   },
   "@roblox/globaltype/Object.IsA/param/1": {
-    "documentation": "La clase contra la que se verificará la clase del Object. Distingue entre mayúsculas y minúsculas."
+    "documentation": "La clase contra la cual se verificará la clase del Object. Distingue entre mayúsculas y minúsculas."
   },
   "@roblox/globaltype/Object.IsA/return/0": {
     "documentation": "Describe si la clase del Object coincidió o es una subclase de la clase dada."
@@ -65956,7 +66081,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Object.isA": {
-    "documentation": "<strong>Deprecated:</strong> Esta función en desuso es una variante de <code>Object:IsA()</code> que debe usarse en su lugar.",
+    "documentation": "<strong>Deprecated:</strong> Esta función en desuso es una variante de <code>Object:IsA()</code> que se debe usar en su lugar.",
     "params": [
       {
         "name": "self",
@@ -66134,7 +66259,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FaceInstance": {
-    "documentation": "La clase FaceInstance es una clase abstracta de la cual la clase <code>Decal</code> hereda.",
+    "documentation": "Una clase abstracta de la que heredan las clases <code>Decal</code> y <code>Texture</code>.",
     "keys": {
       "Face": "@roblox/globaltype/FaceInstance.Face"
     },
@@ -66142,7 +66267,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FaceInstance.Face": {
-    "documentation": "Establece en qué cara del ladrillo aparece el objeto.",
+    "documentation": "Establece en qué cara del <code>BasePart</code> padre aparece el objeto.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FaceInstance#Face",
     "code_sample": ""
   },
@@ -70697,7 +70822,10 @@
       "PromptShareCapture": "@roblox/globaltype/CaptureService.PromptShareCapture",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
-      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture"
+      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture",
+      "PromptCaptureGalleryPermissionAsync": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync",
+      "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
+      "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
     "code_sample": ""
@@ -70872,6 +71000,87 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeCapture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0": {
+    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1": {
+    "documentation": "Un <code>CaptureGalleryPermission</code> que representa el tipo de acceso para el cual se solicitará al usuario."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0": {
+    "documentation": "Un booleano que representa si el usuario ha permitido o no el acceso a sus capturas."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0"
+      },
+      {
+        "name": "captureGalleryPermission",
+        "documentation": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#PromptCaptureGalleryPermissionAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0": {
+    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
+    "documentation": "Un array de <code>CaptureType</code>."
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
+    "documentation": "Tupla de (resultado: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0"
+      },
+      {
+        "name": "captureTypeFilters",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#ReadCapturesFromGalleryAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
+    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
+    "documentation": "un objeto de captura de tipo <code>Capture</code>"
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
+    "documentation": "Tupla de (resultado: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0"
+      },
+      {
+        "name": "capture",
+        "documentation": "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#UploadCaptureAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureBegan.Connect/param/0": {
@@ -72492,12 +72701,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.Text": {
-    "documentation": "El texto resultante de la conversión de audio de voz.",
+    "documentation": "El texto resultante de la conversión de audio de habla.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.VoiceDetected": {
-    "documentation": "Si el objeto <code>AudioSpeechToText</code> está detectando habla en la señal de audio entrante.",
+    "documentation": "Si el objeto <code>AudioSpeechToText</code> está detectando habla en el señal de audio entrante.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#VoiceDetected",
     "code_sample": ""
   },
@@ -72606,7 +72815,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
-    "documentation": "Se activa cuando otra instancia está conectada o desconectada del <code>AudioSpeechToText</code> a través de un <code>Wire</code>.",
+    "documentation": "Se activa cuando otra instancia está conectada o desconectada de la <code>AudioSpeechToText</code> a través de un <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
@@ -73101,7 +73310,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> Esta clase está obsoleta y no debe ser utilizada para nuevo trabajo. Usa <code>HttpService</code> en su lugar y consulta la <a href=\"../../../cloud-services/http-service.md\">guía de solicitudes HTTP en la experiencia</a>.",
     "keys": {
       "GetApiV1": "@roblox/globaltype/OpenCloudService.GetApiV1",
       "InvokeAsync": "@roblox/globaltype/OpenCloudService.InvokeAsync"
@@ -73110,13 +73319,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Esta clase está obsoleta y no debe ser utilizada para nuevo trabajo. Usa <code>HttpService</code> en su lugar y consulta la <a href=\"../../../cloud-services/http-service.md\">guía de solicitudes HTTP en la experiencia</a>."
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -73130,7 +73339,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Esta clase está obsoleta y no debe ser utilizada para nuevo trabajo. Usa <code>HttpService</code> en su lugar y consulta la <a href=\"../../../cloud-services/http-service.md\">guía de solicitudes HTTP en la experiencia</a>."
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/1": {
     "documentation": ""
@@ -73148,7 +73357,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -76078,7 +76287,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Pages.IsFinished": {
-    "documentation": "Si la página actual es la última página disponible o no.",
+    "documentation": "Si la página actual es o no la última página disponible.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Pages#IsFinished",
     "code_sample": ""
   },
@@ -76104,7 +76313,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Pages.GetCurrentPage": {
-    "documentation": "Devuelve los elementos de la página actual. Las claves en el elemento son determinadas por la fuente de este objeto.",
+    "documentation": "Devuelve los elementos en la página actual. Las claves en el elemento son determinadas por la fuente de este objeto.",
     "params": [
       {
         "name": "self",
@@ -76136,6 +76345,12 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FormFactorPart#formFactor",
     "code_sample": ""
   },
+  "@roblox/globaltype/CapturesPages": {
+    "documentation": "Una versión especial de la clase <code>Pages</code> devuelta por <code>CaptureService.ReadCapturesFromGalleryAsync</code>.",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CapturesPages",
+    "code_sample": ""
+  },
   "@roblox/globaltype/ConeHandleAdornment": {
     "documentation": "Un cono que se puede adornar a un <code>BasePart</code>.",
     "keys": {
@@ -76156,7 +76371,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Texture": {
-    "documentation": "Un objeto Texture aplica una textura repetitiva a la cara de un <code>BasePart</code>.",
+    "documentation": "Aplica una textura de imagen repetida a la cara de un <code>BasePart</code> padre.",
     "keys": {
       "OffsetStudsU": "@roblox/globaltype/Texture.OffsetStudsU",
       "OffsetStudsV": "@roblox/globaltype/Texture.OffsetStudsV",
@@ -80110,8 +80325,44 @@
   },
   "@roblox/globaltype/VideoService": {
     "documentation": "Un servicio interno que no ofrece funcionalidad a los desarrolladores.",
-    "keys": {},
+    "keys": {
+      "CreateVideoSamplerAsync": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0": {
+    "documentation": "Un servicio interno que no ofrece funcionalidad a los desarrolladores."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1": {
+    "documentation": "El contenido de video desde el cual muestrear."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2": {
+    "documentation": "Tabla de opciones para crear el <code>VideoSampler</code>: <ul> <li><code>Size</code> – Un valor de <code>VideoSampleSize</code> que determina la   resolución de las texturas producidas por el <code>VideoSampler</code>.   Por defecto es <code>VideoSampleSize.Small</code>. Usa la más pequeña   resolución que satisfaga tus necesidades para minimizar el uso de memoria y   mejorar el rendimiento del muestreo.</li> </ul>"
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0": {
+    "documentation": "El <code>VideoSampler</code> creado."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync": {
+    "documentation": "Crea un <code>VideoSampler</code> que muestrea fotogramas del contenido de video proporcionado.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService#CreateVideoSamplerAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/Debris": {
@@ -80575,7 +80826,7 @@
       "UnregisterEncryptedAsset": "@roblox/globaltype/ContentProvider.UnregisterEncryptedAsset"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.Texture = LOGO_ID\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"Todos los activos cargados.\")"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = LOGO_ID\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"Todos los recursos se han cargado.\")"
   },
   "@roblox/globaltype/ContentProvider.BaseUrl": {
     "documentation": "Usado por el <code>ContentProvider</code> para descargar activos desde la página web de Roblox.",
@@ -80710,7 +80961,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider#PreloadAsync",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.Texture = \"rbxassetid://5447528495\"\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- Esto se ejecutará a medida que se resuelva cada activo\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() resolvió el ID de activo:\", assetId)\n\tprint(\"PreloadAsync() estado final de AssetFetchStatus:\", assetFetchStatus)\nend\n\n-- Precarga el contenido y mide el tiempo\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"Carga previa completa, tomó %.2f segundos\"):format(deltaTime))"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = \"rbxassetid://5447528495\"\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- Esto se ejecutará a medida que se resuelva cada activo\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() resolvió el ID del activo:\", assetId)\n\tprint(\"PreloadAsync() estado final de AssetFetchStatus:\", assetFetchStatus)\nend\n\n-- Precargue el contenido y mida el tiempo\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"Precarga completa, tomó %.2f segundos\"):format(deltaTime))"
   },
   "@roblox/globaltype/ContentProvider.RegisterDefaultEncryptionKey/param/0": {
     "documentation": "Servicio que se utiliza para cargar contenido, o activos, en un juego."
@@ -86420,7 +86671,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> Esta clase está obsoleta y no debe ser utilizada para nuevo trabajo. Usa <code>HttpService</code> en su lugar y consulta la <a href=\"../../../cloud-services/http-service.md\">guía de solicitudes HTTP en la experiencia</a>.",
     "keys": {
       "CreateModel": "@roblox/globaltype/OpenCloudApiV1.CreateModel",
       "CreateUserNotificationAsync": "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync"
@@ -86429,7 +86680,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Esta clase está obsoleta y no debe ser utilizada para nuevo trabajo. Usa <code>HttpService</code> en su lugar y consulta la <a href=\"../../../cloud-services/http-service.md\">guía de solicitudes HTTP en la experiencia</a>."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/1": {
     "documentation": ""
@@ -86438,7 +86689,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -86456,7 +86707,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Esta clase está obsoleta y no debe ser utilizada para nuevo trabajo. Usa <code>HttpService</code> en su lugar y consulta la <a href=\"../../../cloud-services/http-service.md\">guía de solicitudes HTTP en la experiencia</a>."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/1": {
     "documentation": ""
@@ -86468,7 +86719,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -89922,7 +90173,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler": {
-    "documentation": "An object for sampling frames from video content.",
+    "documentation": "Un objeto para muestrear fotogramas de contenido de video.",
     "keys": {
       "TimeLength": "@roblox/globaltype/VideoSampler.TimeLength",
       "VideoContent": "@roblox/globaltype/VideoSampler.VideoContent",
@@ -89932,26 +90183,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.TimeLength": {
-    "documentation": "The length of the <code>VideoContent</code> in seconds.",
+    "documentation": "La duración del <code>VideoContent</code> en segundos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.VideoContent": {
-    "documentation": "The asset loaded into the <code>VideoSampler</code>.",
+    "documentation": "El activo cargado en el <code>VideoSampler</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#VideoContent",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/0": {
-    "documentation": "An object for sampling frames from video content."
+    "documentation": "Un objeto para muestrear fotogramas de contenido de video."
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/1": {
-    "documentation": "An array of requested timestamps in seconds for which to retrieve image frames. Each timestamp should be a number between <code>0</code> and <code>TimeLength</code>."
+    "documentation": "Una matriz de marcas de tiempo solicitadas en segundos para las cuales se deben recuperar fotogramas de imagen. Cada marca de tiempo debe ser un número entre <code>0</code> y <code>TimeLength</code>."
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/return/0": {
-    "documentation": "An array of dictionary or nil values for each requested timestamp. If a requested timestamp is out of range or the <code>VideoSampler</code> was unable to produce a sample, the corresponding entry in the returned array will be nil. Each dictionary contains the following keys: <ul> <li><code>Time</code> (number): The timestamp of the returned image frame in   seconds. This value may differ slightly from the requested   timestamp.</li> <li><code>Image</code> (<code>Content</code>): A <code>Content</code> with a   <code>SourceType</code> of   <code>ContentSourceType.Opaque</code> containing the image frame at the   corresponding timestamp.</li> </ul>"
+    "documentation": "Una matriz de diccionarios o valores nil para cada marca de tiempo solicitada. Si una marca de tiempo solicitada está fuera de rango o el <code>VideoSampler</code> no pudo producir una muestra, la entrada correspondiente en la matriz devuelta será nil. Cada diccionario contiene las siguientes claves: <ul> <li><code>Time</code> (número): La marca de tiempo del fotograma de imagen devuelto en   segundos. Este valor puede diferir ligeramente de la marca de tiempo   solicitada.</li> <li><code>Image</code> (<code>Content</code>): Un <code>Content</code> con un   <code>SourceType</code> de   <code>ContentSourceType.Opaque</code> que contiene el fotograma de imagen en la   marca de tiempo correspondiente.</li> </ul>"
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync": {
-    "documentation": "Gets image frames at the specified timestamps.",
+    "documentation": "Obtiene fotogramas de imagen en las marcas de tiempo especificadas.",
     "params": [
       {
         "name": "self",
@@ -91086,7 +91337,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoCapture": {
-    "documentation": "",
+    "documentation": "Una clase hija de <code>Capture</code> para videos.",
     "keys": {
       "FilePath": "@roblox/globaltype/VideoCapture.FilePath",
       "TimeLength": "@roblox/globaltype/VideoCapture.TimeLength"
@@ -96774,7 +97025,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationPages": {
-    "documentation": "",
+    "documentation": "Una versión especial de la clase <code>Pages</code> devuelta por <code>GenerateItemListAsync</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationPages",
     "code_sample": ""
@@ -99234,6 +99485,57 @@
       "Camera": "@roblox/enum/ListenerLocation.Camera"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ListenerLocation",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.None": {
+    "documentation": "El jugador eligió no unirse, canceló el aviso o no era elegible para unirse al grupo.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.Joined": {
+    "documentation": "El jugador se unió con éxito al grupo durante el aviso.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#Joined",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.JoinRequestPending": {
+    "documentation": "El jugador envió una solicitud para unirse al grupo.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#JoinRequestPending",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.AlreadyMember": {
+    "documentation": "El jugador ya era miembro del grupo.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#AlreadyMember",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.GroupMembershipStatus": {
+    "documentation": "Define los posibles resultados del método <code>GroupService:PromptJoinAsync()</code> .",
+    "keys": {
+      "None": "@roblox/enum/GroupMembershipStatus.None",
+      "Joined": "@roblox/enum/GroupMembershipStatus.Joined",
+      "JoinRequestPending": "@roblox/enum/GroupMembershipStatus.JoinRequestPending",
+      "AlreadyMember": "@roblox/enum/GroupMembershipStatus.AlreadyMember"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus",
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
@@ -104832,6 +105134,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleEmitterShape",
     "code_sample": ""
   },
+  "@roblox/enum/CaptureGalleryPermission.ReadAndUpload": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CaptureGalleryPermission#ReadAndUpload",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CaptureGalleryPermission": {
+    "documentation": "",
+    "keys": {
+      "ReadAndUpload": "@roblox/enum/CaptureGalleryPermission.ReadAndUpload"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CaptureGalleryPermission",
+    "code_sample": ""
+  },
   "@roblox/enum/RaycastFilterType.Exclude": {
     "documentation": "Cada <code>BasePart</code> en la operación de raycast será considerado <strong>excepto</strong> aquellos que son descendientes de objetos en la lista de filtros.",
     "keys": {
@@ -105114,6 +105434,86 @@
       "Disabled": "@roblox/enum/ServerLiveEditingMode.Disabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ServerLiveEditingMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Neutral": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Neutral",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Positive": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Positive",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Negative": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Negative",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationDepartureIntent": {
+    "documentation": "",
+    "keys": {
+      "Neutral": "@roblox/enum/RecommendationDepartureIntent.Neutral",
+      "Positive": "@roblox/enum/RecommendationDepartureIntent.Positive",
+      "Negative": "@roblox/enum/RecommendationDepartureIntent.Negative"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Static": {
+    "documentation": "El elemento es estático, como una imagen.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Static",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Dynamic": {
+    "documentation": "El elemento es dinámico; por ejemplo, es un video.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Dynamic",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Interactive": {
+    "documentation": "El elemento es interactivo, como un modelo 3D o un mini-juego.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Interactive",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationItemContentType": {
+    "documentation": "",
+    "keys": {
+      "Static": "@roblox/enum/RecommendationItemContentType.Static",
+      "Dynamic": "@roblox/enum/RecommendationItemContentType.Dynamic",
+      "Interactive": "@roblox/enum/RecommendationItemContentType.Interactive"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType",
     "code_sample": ""
   },
   "@roblox/enum/CompileTarget.Client": {
@@ -112441,7 +112841,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationImpressionType.View": {
-    "documentation": "",
+    "documentation": "Una vista completa del ítem.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112450,10 +112850,21 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#View",
     "code_sample": ""
   },
+  "@roblox/enum/RecommendationImpressionType.NotViewable": {
+    "documentation": "El ítem no se ha podido renderizar.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#NotViewable",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.RecommendationImpressionType": {
     "documentation": "",
     "keys": {
-      "View": "@roblox/enum/RecommendationImpressionType.View"
+      "View": "@roblox/enum/RecommendationImpressionType.View",
+      "NotViewable": "@roblox/enum/RecommendationImpressionType.NotViewable"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType",
     "code_sample": ""
@@ -114081,6 +114492,79 @@
       "Win": "@roblox/enum/ActionType.Win"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionType",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.Success": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.NeedPermission": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#NeedPermission",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.CaptureModerated": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#CaptureModerated",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.CaptureNotInGallery": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#CaptureNotInGallery",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.IneligibleCapture": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#IneligibleCapture",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.UploadQuotaReached": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#UploadQuotaReached",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UploadCaptureResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/UploadCaptureResult.Success",
+      "NeedPermission": "@roblox/enum/UploadCaptureResult.NeedPermission",
+      "CaptureModerated": "@roblox/enum/UploadCaptureResult.CaptureModerated",
+      "CaptureNotInGallery": "@roblox/enum/UploadCaptureResult.CaptureNotInGallery",
+      "IneligibleCapture": "@roblox/enum/UploadCaptureResult.IneligibleCapture",
+      "UploadQuotaReached": "@roblox/enum/UploadCaptureResult.UploadQuotaReached"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult",
     "code_sample": ""
   },
   "@roblox/enum/PathfindingUseImprovedSearch.Default": {
@@ -119666,7 +120150,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.AddReaction": {
-    "documentation": "",
+    "documentation": "El usuario agregó una reacción al elemento, como un \"me gusta\".",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119676,7 +120160,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.RemoveReaction": {
-    "documentation": "",
+    "documentation": "El usuario eliminó una reacción del elemento.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119686,7 +120170,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Share": {
-    "documentation": "",
+    "documentation": "El usuario compartió el elemento.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119696,7 +120180,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Report": {
-    "documentation": "",
+    "documentation": "El usuario creó un informe de abuso del elemento.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119706,7 +120190,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Comment": {
-    "documentation": "",
+    "documentation": "El usuario comentó sobre el elemento.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119716,7 +120200,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Play": {
-    "documentation": "",
+    "documentation": "El usuario se unió a una experiencia a través del elemento.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119726,7 +120210,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Purchase": {
-    "documentation": "",
+    "documentation": "El usuario realizó una compra del elemento.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133764,6 +134248,35 @@
       "Error": "@roblox/enum/FacialAgeEstimationResultType.Error"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FacialAgeEstimationResultType",
+    "code_sample": ""
+  },
+  "@roblox/enum/ReadCapturesFromGalleryResult.Success": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/ReadCapturesFromGalleryResult.NeedPermission": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult#NeedPermission",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ReadCapturesFromGalleryResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/ReadCapturesFromGalleryResult.Success",
+      "NeedPermission": "@roblox/enum/ReadCapturesFromGalleryResult.NeedPermission"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult",
     "code_sample": ""
   },
   "@roblox/enum/ContextActionResult.Sink": {

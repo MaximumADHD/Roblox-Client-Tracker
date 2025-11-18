@@ -15356,9 +15356,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService": {
-    "documentation": "",
+    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi.",
     "keys": {
       "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
+      "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
       "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
       "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
       "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
@@ -15369,10 +15370,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
-    "documentation": ""
+    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah kamus yang berisi  fild berikut: <ul> <li><code>ConfigName</code> &mdash; ID unik untuk konfigurasi tertentu. Ini menentukan bagaimana kandidat diurutkan.</li> <li><code>LocationId</code> &mdash; Sebuah string yang ditentukan oleh pengembang yang menunjukkan lokasi di mana rekomendasi digunakan, seperti <code>\"For_you\"</code> atau <code>\"Lobby\"</code>. Parameter ini tidak akan mempengaruhi item yang dikembalikan, dan dapat membantu Anda melacak kinerja dari beberapa fitur rekomendasi dalam pengalaman Anda. Metrik rekomendasi untuk setiap lokasi individu akan ditampilkan di Creator Hub. <code>LocationId</code> <strong>harus</strong> berupa string dan tidak boleh <code>\"Other\"</code> atau <code>\"other\"</code> karena nilai ini dicadangkan oleh Creator Hub.</li> <li><code>PageSize</code> &mdash; Jumlah item yang dikembalikan untuk setiap halaman.</li> <li><code>BoostCustomTags</code> &mdash; Sebuah daftar tag string. Setiap item dengan tag ini akan ditingkatkan peringkatnya. Catatan: saat ini hanya mendukung peningkatan satu tag.</li> <li><code>CustomContexts</code> &mdash; Sebuah tabel pasangan kunci-nilai yang digunakan untuk mengirimkan data konteks tambahan untuk peringkat. Misalnya, <code>UserId</code> untuk skrip Server.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
     "documentation": ""
@@ -15395,20 +15396,47 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GenerateItemListAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0": {
+    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1": {
+    "documentation": "ID item yang akan diambil."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0": {
+    "documentation": "Sebuah kamus yang mewakili item rekomendasi dengan bidang berikut: - <code>ItemId</code> &mdash; ID unik untuk item tersebut. - <code>ReferenceId</code> &mdash; ID yang diberikan oleh pengembang untuk item tersebut. - <code>TracingId</code> &mdash; ID untuk melacak sesi rekomendasi. Ini akan kosong saat mengambil satu item langsung. - <code>Creator</code> &mdash; Sebuah tabel yang berisi <code>CreatorId</code> dan <code>CreatorType</code>. - <code>Attributes</code> &mdash; Sebuah daftar atribut konten terkait dengan item tersebut. - <code>CustomTags</code> &mdash; Sebuah daftar tag string kustom. - <code>Visibility</code> &mdash; Sebuah enum bertipe <code>RecommendationItemVisibility</code>."
+  },
+  "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#GetRecommendationItemAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
-    "documentation": ""
+    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
-    "documentation": ""
+    "documentation": "Enum untuk tipe tindakan."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/2": {
-    "documentation": ""
+    "documentation": "ID item yang dikembalikan dari pendaftaran dan <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
-    "documentation": ""
+    "documentation": "ID pelacakan yang dikembalikan dari respons <code>GenerateItemListAsync</code>. Setiap item memiliki <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Sebuah kamus yang berisi bidang berikut: <ul> <li><code>Weight</code> &mdash; Sebuah angka yang mewakili bobot tindakan. Defaultnya adalah 1.</li> <li><code>DestinationPlaceId</code> &mdash; ID tempat tujuan yang dikirimkan ke pengguna setelah tindakan. Digunakan untuk <code>Play</code>.</li> <li><code>CommentText</code> &mdash; Teks apa pun yang terkait dengan tindakan, seperti komentar. Digunakan untuk <code>Comment</code>.</li> <li><code>ReactionType</code> &mdash; Sebuah string yang menggambarkan tipe reaksi, misalnya, \"suka\" atau \"tidak suka\". Digunakan untuk <code>AddReaction</code> atau <code>RemoveReaction</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent": {
     "documentation": "",
@@ -15439,19 +15467,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
-    "documentation": ""
+    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
-    "documentation": ""
+    "documentation": "Enum untuk tipe impresi."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2": {
-    "documentation": ""
+    "documentation": "ID item yang dikembalikan dari pendaftaran dan <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
-    "documentation": ""
+    "documentation": "ID pelacakan yang dikembalikan dari respons <code>GenerateItemListAsync</code>. Setiap item memiliki <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
-    "documentation": ""
+    "documentation": "Sebuah kamus yang berisi bidang berikut: <ul> <li><code>Duration</code> &mdash; Durasi impresi dalam detik.</li> <li><code>Weight</code> &mdash; Sebuah angka yang mewakili bobot impresi. Default adalah 1.</li> <li><code>ItemPosition</code> &mdash; Posisi item dalam daftar rekomendasi.</li> <li><code>DepartureIntent</code> &mdash; <code>RecommendationDepartureIntent</code> yang menunjukkan maksud pengguna saat meninggalkan tampilan. Misalnya, <code>Positive</code> jika tampilan dianggap baik.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
     "documentation": "",
@@ -15482,16 +15510,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "Pemain yang membuat item tersebut."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": ""
+    "documentation": "Sebuah kamus yang berisi bidang berikut: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code> yang menentukan tipe konten. Tipe didefinisikan secara umum. Misalnya, Anda dapat menggunakan <code>Static</code> untuk gambar, <code>Dynamic</code> untuk video, dan <code>Interactive</code> untuk model 3D yang mendukung interaksi.</li> <li><code>ReferenceId</code> &mdash; String yang ditentukan oleh pengembang yang secara unik mengidentifikasi item tersebut.</li> <li><code>Duration</code> &mdash; Durasi konten dalam detik.</li> <li><code>Attributes</code> &mdash; Tabel atribut untuk item, seperti <code>AssetId</code> atau <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; Daftar tag string untuk filter dan peningkatan.</li> <li><code>Visibility</code> &mdash; Enum <code>RecommendationItemVisibility</code> yang mengontrol visibilitas item, seperti <code>Public</code> atau <code>Private</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah tabel dengan hanya dua bidang: <code>ItemId</code> dan <code>ReferenceId</code>."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync": {
     "documentation": "",
@@ -15516,10 +15544,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "ItemId yang akan dihapus."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync": {
     "documentation": "",
@@ -15538,10 +15566,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
-    "documentation": ""
+    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah kamus yang berisi bidang berikut: <ul> <li><code>ItemId</code> &mdash; ID item yang akan diperbarui.</li> <li><code>ReferenceId</code> &mdash; String yang ditentukan oleh pengembang yang baru untuk mengidentifikasi item tersebut.</li> <li><code>Creator</code> &mdash; Pencipta baru untuk item tersebut. Pencipta adalah tabel yang berisi dua bidang: <code>CreatorId: number</code> dan <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; Durasi baru untuk konten dalam detik.</li> <li><code>Visibility</code> &mdash; Pengaturan visibilitas baru untuk item tersebut.</li> <li><code>Attributes</code> &mdash; Tabel atribut baru untuk item tersebut.</li> <li><code>CustomTags</code> &mdash; Daftar baru tag string.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -23483,7 +23511,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ScreenshotCapture": {
-    "documentation": "",
+    "documentation": "Kelas anak dari <code>Capture</code> untuk menangkap layar.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScreenshotCapture",
     "code_sample": ""
@@ -27908,15 +27936,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal": {
-    "documentation": "Objek Decal adalah objek yang menerapkan gambar ke sebuah permukaan dari <code>BasePart</code>.",
+    "documentation": "Menerapkan tekstur gambar ke suatu wajah dari <code>BasePart</code> induk.",
     "keys": {
       "Color3": "@roblox/globaltype/Decal.Color3",
+      "ColorMap": "@roblox/globaltype/Decal.ColorMap",
+      "ColorMapContent": "@roblox/globaltype/Decal.ColorMapContent",
       "LocalTransparencyModifier": "@roblox/globaltype/Decal.LocalTransparencyModifier",
+      "MetalnessMap": "@roblox/globaltype/Decal.MetalnessMap",
+      "MetalnessMapContent": "@roblox/globaltype/Decal.MetalnessMapContent",
+      "NormalMap": "@roblox/globaltype/Decal.NormalMap",
+      "NormalMapContent": "@roblox/globaltype/Decal.NormalMapContent",
+      "RoughnessMap": "@roblox/globaltype/Decal.RoughnessMap",
+      "RoughnessMapContent": "@roblox/globaltype/Decal.RoughnessMapContent",
       "Shiny": "@roblox/globaltype/Decal.Shiny",
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
+      "TexturePack": "@roblox/globaltype/Decal.TexturePack",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
+      "UVOffset": "@roblox/globaltype/Decal.UVOffset",
+      "UVScale": "@roblox/globaltype/Decal.UVScale",
       "ZIndex": "@roblox/globaltype/Decal.ZIndex"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal",
@@ -27927,38 +27966,93 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Color3",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.ColorMap": {
+    "documentation": "ID konten yang menentukan warna dan opasitas permukaan.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.ColorMapContent": {
+    "documentation": "Objek <code>Content</code> yang menentukan warna dan opasitas dari permukaan.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "Bertindak sebagai pengali untuk properti <code>Decal.Transparency</code> dari decal. Efeknya hanya terlihat oleh pemain lokal.",
+    "documentation": "Bertindak sebagai pengali untuk properti <code>Transparency</code> dari decal. Efeknya hanya terlihat oleh pemain lokal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.MetalnessMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.MetalnessMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#MetalnessMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.NormalMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.NormalMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#NormalMapContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.RoughnessMap": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMap",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.RoughnessMapContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#RoughnessMapContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Shiny": {
-    "documentation": "<strong>Deprecated:</strong> Properti non-fungsional ini telah ditinggalkan dan sebaiknya tidak digunakan dalam pekerjaan baru.",
+    "documentation": "<strong>Deprecated:</strong> Properti yang tidak berfungsi ini telah dinyatakan usang dan tidak boleh digunakan dalam pekerjaan baru.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Shiny",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> Properti ini tidak lagi berfungsi dengan benar dan telah ditinggalkan. Ini tidak sebaiknya digunakan dalam pekerjaan baru. Pengembang yang ingin mengubah bagaimana cahaya berinteraksi dengan gambar yang diterapkan pada bagian sebaiknya menggunakan <code>SurfaceGuis</code>.",
+    "documentation": "<strong>Deprecated:</strong> Properti ini tidak lagi berfungsi dengan benar dan telah dinyatakan usang. Ini tidak harus  digunakan dalam pekerjaan baru.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Texture": {
-    "documentation": "ContentId dari gambar yang akan diterapkan oleh <code>Decal</code>.",
+    "documentation": "ID konten gambar yang akan diterapkan oleh <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Texture",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.TextureContent": {
-    "documentation": "Konten tekstur yang ditampilkan oleh Decal. Mendukung <a href=\"../../../projects/assets/index.md#asset-uris\">asset URIs</a> dan <code>EditableImage</code> objek.",
+    "documentation": "Konten tekstur yang ditampilkan oleh <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
     "code_sample": ""
   },
+  "@roblox/globaltype/Decal.TexturePack": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePack",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Decal.Transparency": {
-    "documentation": "Menentukan transparansi dari <code>Decal</code> dengan 0 menjadi sepenuhnya opaque dan 1 sepenuhnya transparan.",
+    "documentation": "Menentukan transparansi dari <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Transparency",
-    "code_sample": "local TweenService = game:GetService(\"TweenService\")\n\nlocal part = Instance.new(\"Part\")\npart.Size = Vector3.new(10, 10, 1)\npart.Position = Vector3.new(0, 5, 0)\npart.Anchored = true\npart.Transparency = 1\n\nlocal decal = Instance.new(\"Decal\")\ndecal.Face = Enum.NormalId.Front\ndecal.Texture = \"http://www.roblox.com/asset/?id=699259085\" -- logo roblox\ndecal.Parent = part\n\npart.Parent = workspace\n\nlocal tween = TweenService:Create(\n\tdecal,\n\tTweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, -1, true),\n\t{ Transparency = 1 }\n)\n\ntween:Play()"
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.UVOffset": {
+    "documentation": "Menggeser koordinat UV dengan menambahkan offset sebelum pemetaan tekstur.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVOffset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Decal.UVScale": {
+    "documentation": "Meregangkan atau mengompresi koordinat UV dengan mengalikan faktor skala.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#UVScale",
+    "code_sample": ""
   },
   "@roblox/globaltype/Decal.ZIndex": {
-    "documentation": "Menentukan urutan rendering ketika beberapa Decals ditugaskan pada permukaan yang sama.",
+    "documentation": "Menentukan urutan rendering ketika beberapa decal ditugaskan pada wajah yang sama.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ZIndex",
     "code_sample": ""
   },
@@ -31536,9 +31630,46 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
-    "documentation": "",
-    "keys": {},
+    "documentation": "Sebuah kelas yang mendefinisikan sepotong konten, seperti tangkapan layar atau video, yang diambil dalam pengalaman.",
+    "keys": {
+      "CaptureTime": "@roblox/globaltype/Capture.CaptureTime",
+      "SourceUniverseId": "@roblox/globaltype/Capture.SourceUniverseId",
+      "SourcePlaceId": "@roblox/globaltype/Capture.SourcePlaceId",
+      "CaptureType": "@roblox/globaltype/Capture.CaptureType",
+      "LocalId": "@roblox/globaltype/Capture.LocalId",
+      "FilePathString": "@roblox/globaltype/Capture.FilePathString"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.CaptureTime": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#CaptureTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.SourceUniverseId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#SourceUniverseId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.SourcePlaceId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#SourcePlaceId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.CaptureType": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#CaptureType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.LocalId": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#LocalId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Capture.FilePathString": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Capture#FilePathString",
     "code_sample": ""
   },
   "@roblox/globaltype/AdvancedDragger": {
@@ -51471,10 +51602,10 @@
     "documentation": "Nama properti yang akan ditanyakan."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean yang menunjukkan apakah properti telah dimodifikasi dari default  yang dibuat kode."
+    "documentation": "Boolean yang menunjukkan apakah properti telah dimodifikasi dari default yang diinstansiasi oleh kode."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Mengembalikan <code>true</code> jika nilai yang disimpan dalam properti yang ditentukan tidak sama  dengan default yang dibuat kode.",
+    "documentation": "Mengembalikan <code>true</code> jika nilai yang disimpan dalam properti yang ditentukan tidak sama dengan default yang diinstansiasi oleh kode.",
     "params": [
       {
         "name": "self",
@@ -57022,7 +57153,6 @@
       "LoadCharacterLayeredClothing ": "@roblox/globaltype/StarterPlayer.LoadCharacterLayeredClothing ",
       "LuaCharacterController": "@roblox/globaltype/StarterPlayer.LuaCharacterController",
       "NameDisplayDistance": "@roblox/globaltype/StarterPlayer.NameDisplayDistance",
-      "RagdollDeath": "@roblox/globaltype/StarterPlayer.RagdollDeath",
       "UserEmotesEnabled": "@roblox/globaltype/StarterPlayer.UserEmotesEnabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer",
@@ -57147,11 +57277,6 @@
     "documentation": "Mengatur jarak di mana pemain ini akan melihat nama <code>Humanoid</code> lainnya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#NameDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
-  },
-  "@roblox/globaltype/StarterPlayer.RagdollDeath": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#RagdollDeath",
-    "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.UserEmotesEnabled": {
     "documentation": "Menentukan apakah emote yang dimiliki pengguna dimuat saat memuat avatar.",
@@ -57550,7 +57675,7 @@
       "@roblox/globaltype/AssetService.ComposeDecalAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#ComposeDecalAsync",
-    "code_sample": "-- Dapatkan AssetService\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- Buat dua instansi decal\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- Membangun tabel info komposit\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.TextureContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- Komposisikan decal baru menggunakan AssetService\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
+    "code_sample": "-- Dapatkan AssetService\nlocal AssetService = game:GetService(\"AssetService\")\n\n-- Buat dua instance decal\nlocal DecalA = Instance.new(\"Decal\")\nlocal DecalB = Instance.new(\"Decal\")\n\n-- Bangun tabel info komposit\nlocal compositeInfo = {\n\t{\n\t\tColorMap = DecalA.ColorMapContent,\n\t\tRoughnessMap = DecalA.RoughnessMapContent,\n\t\tMetalnessMap = DecalA.MetalnessMapContent,\n\t\tNormalMap = DecalA.NormalMapContent,\n\t},\n\t{\n\t\tColorMap = Content.fromAssetId(123456),\n\t\tRoughnessMap = DecalB.RoughnessMapContent,\n\t\tMetalnessMap = DecalB.MetalnessMapContent,\n\t\tNormalMap = DecalB.NormalMapContent,\n\t}\n}\n\n-- Susun decal baru menggunakan AssetService\nlocal compositeDecal = AssetService:ComposeDecalAsync(compositeInfo)"
   },
   "@roblox/globaltype/AssetService.CreateAssetAsync/param/0": {
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke Roblox web API."
@@ -65883,12 +66008,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Object.ClassName": {
-    "documentation": "Sebuah string yang hanya dapat dibaca yang mewakili kelas tempat <code>Object</code> berada.",
+    "documentation": "Sebuah string hanya-baca yang mewakili kelas yang dimiliki oleh <code>Object</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Object#ClassName",
     "code_sample": ""
   },
   "@roblox/globaltype/Object.className": {
-    "documentation": "<strong>Deprecated:</strong> Properti yang sudah tidak digunakan ini adalah varian dari <code>Object.ClassName</code> yang sebaiknya digunakan sebagai ganti.",
+    "documentation": "<strong>Deprecated:</strong> Properti yang sudah tidak digunakan lagi ini adalah varian dari <code>Object.ClassName</code> yang seharusnya digunakan sebagai gantinya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Object#className",
     "code_sample": ""
   },
@@ -65899,10 +66024,10 @@
     "documentation": "Properti yang akan dihubungkan."
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal/return/0": {
-    "documentation": "Sebuah sinyal yang terjadi kapan pun properti berubah."
+    "documentation": "Sebuah sinyal yang terjadi setiap kali properti berubah."
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal": {
-    "documentation": "Dapatkan sebuah event yang terjadi ketika properti tertentu dari objek berubah.",
+    "documentation": "Dapatkan sebuah acara yang terjadi ketika properti tertentu dari objek berubah.",
     "params": [
       {
         "name": "self",
@@ -65923,7 +66048,7 @@
     "documentation": "Object adalah kelas dasar untuk semua kelas dalam hierarki kelas Roblox."
   },
   "@roblox/globaltype/Object.IsA/param/1": {
-    "documentation": "Kelas yang akan diperiksa dibandingkan dengan kelas Object. Sensitif terhadap huruf."
+    "documentation": "Kelas yang akan diperiksa terhadap kelas Object. Peka terhadap huruf besar."
   },
   "@roblox/globaltype/Object.IsA/return/0": {
     "documentation": "Menjelaskan apakah kelas Object cocok atau merupakan subkelas dari kelas tertentu."
@@ -65956,7 +66081,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Object.isA": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah tidak digunakan ini adalah varian dari <code>Object:IsA()</code> yang sebaiknya digunakan sebagai ganti.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah tidak digunakan lagi ini adalah varian dari <code>Object:IsA()</code> yang seharusnya  digunakan sebagai gantinya.",
     "params": [
       {
         "name": "self",
@@ -66051,7 +66176,7 @@
     "returns": []
   },
   "@roblox/globaltype/Object.Changed": {
-    "documentation": "Terjadi segera setelah properti objek berubah, dengan beberapa pembatasan.",
+    "documentation": "Ditembakkan segera setelah properti objek berubah, dengan beberapa  keterbatasan.",
     "keys": {
       "Connect": "@roblox/globaltype/Object.Changed.Connect",
       "ConnectParallel": "@roblox/globaltype/Object.Changed.ConnectParallel",
@@ -66134,7 +66259,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FaceInstance": {
-    "documentation": "Kelas FaceInstance adalah kelas abstrak yang diwarisi oleh kelas <code>Decal</code> .",
+    "documentation": "Kelas abstrak yang diwarisi oleh kelas <code>Decal</code> dan <code>Texture</code>.",
     "keys": {
       "Face": "@roblox/globaltype/FaceInstance.Face"
     },
@@ -66142,7 +66267,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/FaceInstance.Face": {
-    "documentation": "Mengatur wajah mana dari batu bata yang ditampilkan objek.",
+    "documentation": "Mengatur sisi mana dari <code>BasePart</code> induk yang ditampilkan oleh objek.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FaceInstance#Face",
     "code_sample": ""
   },
@@ -70697,7 +70822,10 @@
       "PromptShareCapture": "@roblox/globaltype/CaptureService.PromptShareCapture",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
-      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture"
+      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture",
+      "PromptCaptureGalleryPermissionAsync": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync",
+      "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
+      "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
     "code_sample": ""
@@ -70872,6 +71000,87 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeCapture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0": {
+    "documentation": "Sebuah layanan yang memberikan kontrol atas fitur tangkapan layar dan video."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1": {
+    "documentation": "Sebuah <code>CaptureGalleryPermission</code> yang mewakili jenis akses yang akan diminta kepada pengguna."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0": {
+    "documentation": "Boolean yang mewakili apakah pengguna telah mengizinkan akses ke kapur mereka."
+  },
+  "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0"
+      },
+      {
+        "name": "captureGalleryPermission",
+        "documentation": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#PromptCaptureGalleryPermissionAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0": {
+    "documentation": "Sebuah layanan yang memberikan kontrol atas fitur tangkapan layar dan video."
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
+    "documentation": "Sebuah array dari <code>CaptureType</code>."
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
+    "documentation": "Tuple dari (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
+  },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0"
+      },
+      {
+        "name": "captureTypeFilters",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#ReadCapturesFromGalleryAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
+    "documentation": "Sebuah layanan yang memberikan kontrol atas fitur tangkapan layar dan video."
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
+    "documentation": "objek tangkapan dari tipe <code>Capture</code>"
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
+    "documentation": "Tuple dari (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
+  },
+  "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0"
+      },
+      {
+        "name": "capture",
+        "documentation": "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#UploadCaptureAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureBegan.Connect/param/0": {
@@ -72476,7 +72685,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText": {
-    "documentation": "Mengonversi audio yang diucapkan menjadi teks.",
+    "documentation": "Mengubah audio yang diucapkan menjadi teks.",
     "keys": {
       "Enabled": "@roblox/globaltype/AudioSpeechToText.Enabled",
       "Text": "@roblox/globaltype/AudioSpeechToText.Text",
@@ -72492,7 +72701,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.Text": {
-    "documentation": "Teks yang dihasilkan dari konversi audio bicara.",
+    "documentation": "Teks yang dihasilkan dari konversi audio ucapan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#Text",
     "code_sample": ""
   },
@@ -72502,7 +72711,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/0": {
-    "documentation": "Mengonversi audio yang diucapkan menjadi teks."
+    "documentation": "Mengubah audio yang diucapkan menjadi teks."
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
     "documentation": ""
@@ -72511,7 +72720,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
-    "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
+    "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -72606,7 +72815,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioSpeechToText.WiringChanged": {
-    "documentation": "Diberitahukan saat instance lain terhubung atau terputus dari <code>AudioSpeechToText</code> melalui <code>Wire</code>.",
+    "documentation": "Dipicu ketika instansi lain terhubung atau terputus dari <code>AudioSpeechToText</code> melalui <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioSpeechToText.WiringChanged.ConnectParallel",
@@ -73101,7 +73310,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> Kelas ini sudah tidak digunakan dan tidak seharusnya dipakai untuk pekerjaan baru. Gunakan <code>HttpService</code> sebagai ganti dan lihat <a href=\"../../../cloud-services/http-service.md\">petunjuk permintaan HTTP di dalam pengalaman</a>.",
     "keys": {
       "GetApiV1": "@roblox/globaltype/OpenCloudService.GetApiV1",
       "InvokeAsync": "@roblox/globaltype/OpenCloudService.InvokeAsync"
@@ -73110,13 +73319,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Kelas ini sudah tidak digunakan dan tidak seharusnya dipakai untuk pekerjaan baru. Gunakan <code>HttpService</code> sebagai ganti dan lihat <a href=\"../../../cloud-services/http-service.md\">petunjuk permintaan HTTP di dalam pengalaman</a>."
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -73130,7 +73339,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Kelas ini sudah tidak digunakan dan tidak seharusnya dipakai untuk pekerjaan baru. Gunakan <code>HttpService</code> sebagai ganti dan lihat <a href=\"../../../cloud-services/http-service.md\">petunjuk permintaan HTTP di dalam pengalaman</a>."
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync/param/1": {
     "documentation": ""
@@ -73148,7 +73357,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -76068,7 +76277,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Pages": {
-    "documentation": "Kelas abstrak untuk objek halaman.",
+    "documentation": "Sebuah kelas abstrak untuk objek halaman.",
     "keys": {
       "IsFinished": "@roblox/globaltype/Pages.IsFinished",
       "AdvanceToNextPageAsync": "@roblox/globaltype/Pages.AdvanceToNextPageAsync",
@@ -76078,15 +76287,15 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Pages.IsFinished": {
-    "documentation": "Apakah halaman saat ini adalah halaman terakhir yang tersedia.",
+    "documentation": "Apakah halaman saat ini adalah halaman terakhir yang tersedia atau tidak.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Pages#IsFinished",
     "code_sample": ""
   },
   "@roblox/globaltype/Pages.AdvanceToNextPageAsync/param/0": {
-    "documentation": "Kelas abstrak untuk objek halaman."
+    "documentation": "Sebuah kelas abstrak untuk objek halaman."
   },
   "@roblox/globaltype/Pages.AdvanceToNextPageAsync": {
-    "documentation": "Melakukan iterasi ke halaman berikutnya dalam objek halaman, jika memungkinkan.",
+    "documentation": "Iterasi ke halaman berikutnya dalam objek halaman, jika memungkinkan.",
     "params": [
       {
         "name": "self",
@@ -76098,13 +76307,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Pages.GetCurrentPage/param/0": {
-    "documentation": "Kelas abstrak untuk objek halaman."
+    "documentation": "Sebuah kelas abstrak untuk objek halaman."
   },
   "@roblox/globaltype/Pages.GetCurrentPage/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Pages.GetCurrentPage": {
-    "documentation": "Mengembalikan item yang ada di halaman saat ini. Kunci dalam item ditentukan  oleh sumber objek ini.",
+    "documentation": "Mengembalikan item pada halaman saat ini. Kunci dalam item ditentukan  oleh sumber objek ini.",
     "params": [
       {
         "name": "self",
@@ -76136,6 +76345,12 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/FormFactorPart#formFactor",
     "code_sample": ""
   },
+  "@roblox/globaltype/CapturesPages": {
+    "documentation": "Versi khusus dari kelas <code>Pages</code> yang dikembalikan oleh <code>CaptureService.ReadCapturesFromGalleryAsync</code>.",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CapturesPages",
+    "code_sample": ""
+  },
   "@roblox/globaltype/ConeHandleAdornment": {
     "documentation": "Sebuah kerucut yang dapat dihias pada <code>BasePart</code>.",
     "keys": {
@@ -76156,7 +76371,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Texture": {
-    "documentation": "Objek Texture menerapkan tekstur yang berulang pada permukaan <code>BasePart</code>.",
+    "documentation": "Menerapkan tekstur gambar yang berulang pada wajah dari <code>BasePart</code> induk.",
     "keys": {
       "OffsetStudsU": "@roblox/globaltype/Texture.OffsetStudsU",
       "OffsetStudsV": "@roblox/globaltype/Texture.OffsetStudsV",
@@ -80110,8 +80325,44 @@
   },
   "@roblox/globaltype/VideoService": {
     "documentation": "Sebuah layanan internal yang tidak menawarkan fungsionalitas kepada pengembang.",
-    "keys": {},
+    "keys": {
+      "CreateVideoSamplerAsync": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0": {
+    "documentation": "Sebuah layanan internal yang tidak menawarkan fungsionalitas kepada pengembang."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1": {
+    "documentation": "Konten video untuk diambil sampelnya."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2": {
+    "documentation": "Tabel opsi untuk membuat <code>VideoSampler</code>: <ul> <li><code>Size</code> – Sebuah nilai <code>VideoSampleSize</code> yang menentukan   resolusi tekstur yang dihasilkan oleh <code>VideoSampler</code>.   Secara default adalah <code>VideoSampleSize.Small</code>. Gunakan resolusi   terkecil yang memenuhi kebutuhan Anda untuk meminimalkan penggunaan memori dan   meningkatkan kinerja pengambilan sampel.</li> </ul>"
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0": {
+    "documentation": "<code>VideoSampler</code> yang telah dibuat."
+  },
+  "@roblox/globaltype/VideoService.CreateVideoSamplerAsync": {
+    "documentation": "Membuat <code>VideoSampler</code> yang mengambil sampel frame dari konten video yang diberikan.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/0"
+      },
+      {
+        "name": "content",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VideoService.CreateVideoSamplerAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoService#CreateVideoSamplerAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/Debris": {
@@ -80575,7 +80826,7 @@
       "UnregisterEncryptedAsset": "@roblox/globaltype/ContentProvider.UnregisterEncryptedAsset"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\n\n    local LOGO_ID = \"rbxassetid://658743164\"\n\n    local PAGE_TURN_ID = \"rbxassetid://12222076\"\n\n\n    local decal = Instance.new(\"Decal\")\n\n    decal.Texture = LOGO_ID\n\n\n    local sound = Instance.new(\"Sound\")\n\n    sound.SoundId = PAGE_TURN_ID\n\n\n    local assets = { decal, sound }\n\n\n    ContentProvider:PreloadAsync(assets)\n\n\n    print(\"Semua aset sudah dimuat.\")"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal LOGO_ID = \"rbxassetid://658743164\"\nlocal PAGE_TURN_ID = \"rbxassetid://12222076\"\n\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = LOGO_ID\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = PAGE_TURN_ID\n\nlocal assets = { decal, sound }\n\nContentProvider:PreloadAsync(assets)\n\nprint(\"Semua aset telah dimuat.\")"
   },
   "@roblox/globaltype/ContentProvider.BaseUrl": {
     "documentation": "Digunakan oleh <code>ContentProvider</code> untuk mengunduh aset dari website Roblox.",
@@ -80710,7 +80961,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ContentProvider#PreloadAsync",
-    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.Texture = \"rbxassetid://5447528495\"\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- Ini akan dipanggil saat setiap aset diselesaikan\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() menyelesaikan ID aset:\", assetId)\n\tprint(\"PreloadAsync() Status Pengambilan Aset Akhir:\", assetFetchStatus)\nend\n\n-- Memuat konten dan menghitung waktunya\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"Memuat selesai, memakan waktu %.2f detik\"):format(deltaTime))"
+    "code_sample": "local ContentProvider = game:GetService(\"ContentProvider\")\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nlocal decal = Instance.new(\"Decal\")\ndecal.ColorMapContent = \"rbxassetid://5447528495\"\n\nlocal assets = {\n\tdecal,\n\tsound,\n}\n\n-- Ini akan dipanggil saat setiap aset berhasil diambil\nlocal callback = function(assetId, assetFetchStatus)\n\tprint(\"PreloadAsync() berhasil mengambil ID aset:\", assetId)\n\tprint(\"PreloadAsync() status akhir AssetFetchStatus:\", assetFetchStatus)\nend\n\n-- Memuat konten sebelumnya dan mengukur waktunya\nlocal startTime = os.clock()\nContentProvider:PreloadAsync(assets, callback)\nlocal deltaTime = os.clock() - startTime\nprint((\"Memuat selesai, memakan waktu %.2f detik\"):format(deltaTime))"
   },
   "@roblox/globaltype/ContentProvider.RegisterDefaultEncryptionKey/param/0": {
     "documentation": "Layanan yang digunakan untuk memuat konten, atau aset, ke dalam permainan."
@@ -86420,7 +86671,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> Kelas ini sudah tidak digunakan lagi dan tidak boleh digunakan untuk pekerjaan baru. Gunakan <code>HttpService</code> sebagai gantinya dan lihat <a href=\"../../../cloud-services/http-service.md\">panduan permintaan HTTP dalam pengalaman</a>.",
     "keys": {
       "CreateModel": "@roblox/globaltype/OpenCloudApiV1.CreateModel",
       "CreateUserNotificationAsync": "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync"
@@ -86429,7 +86680,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Kelas ini sudah tidak digunakan lagi dan tidak boleh digunakan untuk pekerjaan baru. Gunakan <code>HttpService</code> sebagai gantinya dan lihat <a href=\"../../../cloud-services/http-service.md\">panduan permintaan HTTP dalam pengalaman</a>."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel/param/1": {
     "documentation": ""
@@ -86438,7 +86689,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -86456,7 +86707,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/0": {
-    "documentation": ""
+    "documentation": "<strong>Deprecated:</strong> Kelas ini sudah tidak digunakan lagi dan tidak boleh digunakan untuk pekerjaan baru. Gunakan <code>HttpService</code> sebagai gantinya dan lihat <a href=\"../../../cloud-services/http-service.md\">panduan permintaan HTTP dalam pengalaman</a>."
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync/param/1": {
     "documentation": ""
@@ -86468,7 +86719,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -89922,7 +90173,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler": {
-    "documentation": "An object for sampling frames from video content.",
+    "documentation": "Sebuah objek untuk sampling frame dari konten video.",
     "keys": {
       "TimeLength": "@roblox/globaltype/VideoSampler.TimeLength",
       "VideoContent": "@roblox/globaltype/VideoSampler.VideoContent",
@@ -89932,26 +90183,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.TimeLength": {
-    "documentation": "The length of the <code>VideoContent</code> in seconds.",
+    "documentation": "Panjang dari <code>VideoContent</code> dalam detik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.VideoContent": {
-    "documentation": "The asset loaded into the <code>VideoSampler</code>.",
+    "documentation": "Aset yang dimuat ke dalam <code>VideoSampler</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoSampler#VideoContent",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/0": {
-    "documentation": "An object for sampling frames from video content."
+    "documentation": "Sebuah objek untuk sampling frame dari konten video."
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/param/1": {
-    "documentation": "An array of requested timestamps in seconds for which to retrieve image frames. Each timestamp should be a number between <code>0</code> and <code>TimeLength</code>."
+    "documentation": "Sebuah array dari timestamp yang diminta dalam detik untuk mendapatkan frame gambar. Setiap timestamp harus merupakan angka antara <code>0</code> dan <code>TimeLength</code>."
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync/return/0": {
-    "documentation": "An array of dictionary or nil values for each requested timestamp. If a requested timestamp is out of range or the <code>VideoSampler</code> was unable to produce a sample, the corresponding entry in the returned array will be nil. Each dictionary contains the following keys: <ul> <li><code>Time</code> (number): The timestamp of the returned image frame in   seconds. This value may differ slightly from the requested   timestamp.</li> <li><code>Image</code> (<code>Content</code>): A <code>Content</code> with a   <code>SourceType</code> of   <code>ContentSourceType.Opaque</code> containing the image frame at the   corresponding timestamp.</li> </ul>"
+    "documentation": "Sebuah array dari kamus atau nilai nil untuk setiap timestamp yang diminta. Jika timestamp yang diminta berada di luar jangkauan atau <code>VideoSampler</code> tidak mampu menghasilkan sampel, entri yang sesuai dalam array yang dikembalikan akan bernilai nil. Setiap kamus berisi kunci berikut: <ul> <li><code>Time</code> (angka): Timestamp dari frame gambar yang dikembalikan dalam   detik. Nilai ini dapat sedikit berbeda dari timestamp yang diminta.</li> <li><code>Image</code> (<code>Content</code>): Sebuah <code>Content</code> dengan   <code>SourceType</code> dari   <code>ContentSourceType.Opaque</code> yang berisi frame gambar pada   timestamp yang sesuai.</li> </ul>"
   },
   "@roblox/globaltype/VideoSampler.GetSamplesAtTimesAsync": {
-    "documentation": "Gets image frames at the specified timestamps.",
+    "documentation": "Mendapatkan frame gambar pada timestamp yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -91086,7 +91337,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoCapture": {
-    "documentation": "",
+    "documentation": "Kelas anak dari <code>Capture</code> untuk video.",
     "keys": {
       "FilePath": "@roblox/globaltype/VideoCapture.FilePath",
       "TimeLength": "@roblox/globaltype/VideoCapture.TimeLength"
@@ -96774,7 +97025,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationPages": {
-    "documentation": "",
+    "documentation": "Versi khusus dari kelas <code>Pages</code> yang dikembalikan oleh <code>GenerateItemListAsync</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationPages",
     "code_sample": ""
@@ -99234,6 +99485,57 @@
       "Camera": "@roblox/enum/ListenerLocation.Camera"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ListenerLocation",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.None": {
+    "documentation": "Pemain memilih untuk tidak bergabung, membatalkan prompt, atau tidak memenuhi syarat untuk bergabung dengan grup.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.Joined": {
+    "documentation": "Pemain berhasil bergabung dengan grup selama prompt.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#Joined",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.JoinRequestPending": {
+    "documentation": "Pemain mengajukan permintaan untuk bergabung dengan grup.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#JoinRequestPending",
+    "code_sample": ""
+  },
+  "@roblox/enum/GroupMembershipStatus.AlreadyMember": {
+    "documentation": "Pemain sudah menjadi anggota grup.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus#AlreadyMember",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.GroupMembershipStatus": {
+    "documentation": "Mendefinisikan kemungkinan hasil dari metode <code>GroupService:PromptJoinAsync()</code> .",
+    "keys": {
+      "None": "@roblox/enum/GroupMembershipStatus.None",
+      "Joined": "@roblox/enum/GroupMembershipStatus.Joined",
+      "JoinRequestPending": "@roblox/enum/GroupMembershipStatus.JoinRequestPending",
+      "AlreadyMember": "@roblox/enum/GroupMembershipStatus.AlreadyMember"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/GroupMembershipStatus",
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
@@ -104832,6 +105134,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ParticleEmitterShape",
     "code_sample": ""
   },
+  "@roblox/enum/CaptureGalleryPermission.ReadAndUpload": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CaptureGalleryPermission#ReadAndUpload",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.CaptureGalleryPermission": {
+    "documentation": "",
+    "keys": {
+      "ReadAndUpload": "@roblox/enum/CaptureGalleryPermission.ReadAndUpload"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CaptureGalleryPermission",
+    "code_sample": ""
+  },
   "@roblox/enum/RaycastFilterType.Exclude": {
     "documentation": "Setiap <code>BasePart</code> dalam operasi raycast akan dianggap <strong>kecuali</strong> mereka yang merupakan keturunan dari objek dalam daftar filter.",
     "keys": {
@@ -105114,6 +105434,86 @@
       "Disabled": "@roblox/enum/ServerLiveEditingMode.Disabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ServerLiveEditingMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Neutral": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Neutral",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Positive": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Positive",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationDepartureIntent.Negative": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent#Negative",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationDepartureIntent": {
+    "documentation": "",
+    "keys": {
+      "Neutral": "@roblox/enum/RecommendationDepartureIntent.Neutral",
+      "Positive": "@roblox/enum/RecommendationDepartureIntent.Positive",
+      "Negative": "@roblox/enum/RecommendationDepartureIntent.Negative"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationDepartureIntent",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Static": {
+    "documentation": "Item ini statis, seperti gambar.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Static",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Dynamic": {
+    "documentation": "Item ini dinamis; contohnya, ini adalah video.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Dynamic",
+    "code_sample": ""
+  },
+  "@roblox/enum/RecommendationItemContentType.Interactive": {
+    "documentation": "Item ini interaktif, seperti model 3D atau mini-game.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType#Interactive",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.RecommendationItemContentType": {
+    "documentation": "",
+    "keys": {
+      "Static": "@roblox/enum/RecommendationItemContentType.Static",
+      "Dynamic": "@roblox/enum/RecommendationItemContentType.Dynamic",
+      "Interactive": "@roblox/enum/RecommendationItemContentType.Interactive"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationItemContentType",
     "code_sample": ""
   },
   "@roblox/enum/CompileTarget.Client": {
@@ -112441,7 +112841,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationImpressionType.View": {
-    "documentation": "",
+    "documentation": "Pandangan lengkap tentang item tersebut.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112450,10 +112850,21 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#View",
     "code_sample": ""
   },
+  "@roblox/enum/RecommendationImpressionType.NotViewable": {
+    "documentation": "Item tersebut gagal untuk dirender.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType#NotViewable",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.RecommendationImpressionType": {
     "documentation": "",
     "keys": {
-      "View": "@roblox/enum/RecommendationImpressionType.View"
+      "View": "@roblox/enum/RecommendationImpressionType.View",
+      "NotViewable": "@roblox/enum/RecommendationImpressionType.NotViewable"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/RecommendationImpressionType",
     "code_sample": ""
@@ -114081,6 +114492,79 @@
       "Win": "@roblox/enum/ActionType.Win"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ActionType",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.Success": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.NeedPermission": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#NeedPermission",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.CaptureModerated": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#CaptureModerated",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.CaptureNotInGallery": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#CaptureNotInGallery",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.IneligibleCapture": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#IneligibleCapture",
+    "code_sample": ""
+  },
+  "@roblox/enum/UploadCaptureResult.UploadQuotaReached": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult#UploadQuotaReached",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.UploadCaptureResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/UploadCaptureResult.Success",
+      "NeedPermission": "@roblox/enum/UploadCaptureResult.NeedPermission",
+      "CaptureModerated": "@roblox/enum/UploadCaptureResult.CaptureModerated",
+      "CaptureNotInGallery": "@roblox/enum/UploadCaptureResult.CaptureNotInGallery",
+      "IneligibleCapture": "@roblox/enum/UploadCaptureResult.IneligibleCapture",
+      "UploadQuotaReached": "@roblox/enum/UploadCaptureResult.UploadQuotaReached"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UploadCaptureResult",
     "code_sample": ""
   },
   "@roblox/enum/PathfindingUseImprovedSearch.Default": {
@@ -119666,7 +120150,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.AddReaction": {
-    "documentation": "",
+    "documentation": "Pengguna menambahkan reaksi terhadap item, seperti \"suka\".",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119676,7 +120160,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.RemoveReaction": {
-    "documentation": "",
+    "documentation": "Pengguna menghapus reaksi dari item.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119686,7 +120170,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Share": {
-    "documentation": "",
+    "documentation": "Pengguna membagikan item tersebut.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119696,7 +120180,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Report": {
-    "documentation": "",
+    "documentation": "Pengguna membuat laporan penyalahgunaan terkait item.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119706,7 +120190,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Comment": {
-    "documentation": "",
+    "documentation": "Pengguna memberi komentar tentang item.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119716,7 +120200,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Play": {
-    "documentation": "",
+    "documentation": "Pengguna bergabung dengan pengalaman melalui item.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119726,7 +120210,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Purchase": {
-    "documentation": "",
+    "documentation": "Pengguna melakukan pembelian dari item.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133764,6 +134248,35 @@
       "Error": "@roblox/enum/FacialAgeEstimationResultType.Error"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FacialAgeEstimationResultType",
+    "code_sample": ""
+  },
+  "@roblox/enum/ReadCapturesFromGalleryResult.Success": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/ReadCapturesFromGalleryResult.NeedPermission": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult#NeedPermission",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ReadCapturesFromGalleryResult": {
+    "documentation": "",
+    "keys": {
+      "Success": "@roblox/enum/ReadCapturesFromGalleryResult.Success",
+      "NeedPermission": "@roblox/enum/ReadCapturesFromGalleryResult.NeedPermission"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ReadCapturesFromGalleryResult",
     "code_sample": ""
   },
   "@roblox/enum/ContextActionResult.Sink": {
