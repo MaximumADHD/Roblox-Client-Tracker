@@ -1,6 +1,6 @@
 [package]
 name = "UIBlox"
-version = "0.2.171"
+version = "0.2.181"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -103,6 +103,10 @@ version = "^1.0.0"
 [dependencies.t]
 target = "https://github.com/roblox/t"
 version = "^1.2.6"
+[dev_dependencies.ChalkLua]
+target = "https://github.com/roblox/chalk-lua"
+version = "^0.2.2"
+
 [dev_dependencies.CollisionMatchers2D]
 target = "https://github.com/roblox/collision-matchers-2d"
 version = "^1.1.0"

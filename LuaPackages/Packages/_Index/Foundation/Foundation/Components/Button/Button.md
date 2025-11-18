@@ -23,6 +23,9 @@ Text and icon content type can be added any of the buttons
 * If text and icon are nil it will be a blank button
 * Otherwise, it will be a icon and text button
 
+By default, icons are placed at the start of the button and text at the end. For the following exempt icons, however, we force placement at the end of a button:
+- [`BuilderIcons.ArrowUpRightFromSquare`](https://icons.foundation.roblox.com/?s=arrow-up-right-from-square)
+
 ---
 
 ## Usage

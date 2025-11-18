@@ -1,0 +1,27 @@
+[package]
+name = "ServiceContractsProto"
+version = "0.0.51-alpha"
+readme = "README.md"
+content_root = "protos/gen/luau"
+files = [
+    "README.md",
+    "init.lua",
+    "proto/*",
+    "google/**/*",
+    "roblox/apppageplatform/badges/v1beta1/**/*",
+    "roblox/apppageplatform/badges/v1beta1/*",
+    "roblox/apppageplatform/shared/v1beta1/**/*",
+    "roblox/apppageplatform/shared/v1beta1/*",
+    "roblox/apppageplatform/*",
+]
+publish = true
+authors = [
+    "Roblox",
+    "Peter Turner <pturner@roblox.com>",
+]
+description = "Generated luau code from service contracts"
+repository = "https://github.rbx.com/Roblox/service-contracts"
+keywords = [
+    "service-contracts",
+    "proto",
+]

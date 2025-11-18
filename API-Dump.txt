@@ -171,21 +171,18 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:GetDebugId(scopeLength: number? = 4) -> string {PluginSecurity} [NotBrowsable]
 	Function Instance:GetDescendants() -> { any } [CustomLuaState] {🧬Safe}
 	Function Instance:GetFullName() -> string {🧬Safe}
-	Function Instance:GetPredictionMode() -> Enum.PredictionMode {🔐InternalTest}
 	Function Instance:GetStyled(name: string) -> any
 	Function Instance:GetStyledPropertyChangedSignal(property: string) -> RBXScriptSignal
 	Function Instance:GetTags() -> { any } {🧬Safe}
 	Function Instance:HasTag(tag: string) -> boolean {🧬Safe}
 	Function Instance:IsAncestorOf(descendant: Instance) -> boolean {🧬Safe}
 	Function Instance:IsDescendantOf(ancestor: Instance) -> boolean {🧬Safe}
-	Function Instance:IsPredicted() -> boolean {🔐InternalTest}
 	Function Instance:IsPropertyModified(property: string) -> boolean
 	Function Instance:QueryDescendants(selector: string) -> { Instance } [CustomLuaState]
 	Function Instance:Remove() -> () [Deprecated]
 	Function Instance:RemoveTag(tag: string) -> ()
 	Function Instance:ResetPropertyToDefault(property: string) -> ()
 	Function Instance:SetAttribute(attribute: string, value: any) -> ()
-	Function Instance:SetPredictionMode(mode: Enum.PredictionMode) -> () {🔐InternalTest}
 	Function Instance:WaitForChild(childName: string, timeOut: number) -> Instance? [CustomLuaState] [CanYield]
 	Function Instance:children() -> { Instance } [Deprecated]
 	Function Instance:clone() -> Instance? {🔐CreateInstances} [Deprecated]
@@ -337,9 +334,11 @@ Class AnimationNodeDefinition : Instance
 	Property AnimationNodeDefinition.InputPinData: BinaryString {🔐Animation} [Hidden] [NotScriptable]
 	Function AnimationNodeDefinition:AddInputPin(pin: string) -> () {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationNodeDefinition:GetConnectedWires(pin: string) -> { Instance } {🔐Animation}
+	Function AnimationNodeDefinition:GetInputPinNames() -> { any } {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationNodeDefinition:GetInputPins() -> { any } {🔐Animation}
 	Function AnimationNodeDefinition:GetOutputPins() -> { any } {🔐Animation}
 	Function AnimationNodeDefinition:RemoveInputPin(pin: string) -> () {🔐Animation} {RobloxScriptSecurity}
+	Function AnimationNodeDefinition:SetInputPinNames(pins: { any }) -> () {🔐Animation} {RobloxScriptSecurity}
 Class AnimationRigData : Instance
 	Property AnimationRigData.label: BinaryString {🔐Animation} [Hidden] [NotScriptable]
 	Property AnimationRigData.name: BinaryString {🔐Animation} [Hidden] [NotScriptable]
@@ -2607,8 +2606,7 @@ Class FunctionalTest : Instance [Deprecated]
 Class GamePassService : Instance [NotCreatable] [Service] [Deprecated]
 	Function GamePassService:PlayerHasPass(player: Player, gamePassId: number) -> boolean [Yields] [Deprecated]
 Class GameSettings : Instance [NotCreatable] [Service] [NotReplicated] [NotBrowsable]
-	Property GameSettings.VideoCaptureEnabled: boolean
-	Property GameSettings.VideoRecording: boolean {RobloxScriptSecurity} {✏️RobloxSecurity} [📁 LoadOnly] [NotReplicated]
+	Property GameSettings.VideoCaptureEnabled: boolean [Deprecated]
 	Event GameSettings.VideoRecordingChangeRequest(recording: boolean) {RobloxScriptSecurity}
 Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GamepadService.GamepadCursorEnabled: boolean {🔐Input} {✏️RobloxScriptSecurity}
@@ -2673,6 +2671,9 @@ Class GroupService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GroupService:GetEnemiesAsync(groupId: number) -> StandardPages [Yields]
 	Function GroupService:GetGroupInfoAsync(groupId: number) -> any [Yields]
 	Function GroupService:GetGroupsAsync(userId: number) -> { any } [Yields]
+	Function GroupService:PromptJoinAsync(groupId: number) -> Enum.GroupMembershipStatus [Yields]
+	Function GroupService:PromptJoinCompleted(groupId: number, success: boolean, groupMembershipStatus: Enum.GroupMembershipStatus, errorMessage: string) -> () {RobloxScriptSecurity}
+	Event GroupService.ShowJoinPrompt(groupId: number) {RobloxScriptSecurity}
 Class GuiBase : Instance [NotCreatable]
 Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
 	Property GuiBase2d.AbsolutePosition: Vector2 {🔐UI} [ReadOnly] {🧬Unsafe}
@@ -3144,6 +3145,11 @@ Class ImageHandleAdornment : HandleAdornment
 Class LineHandleAdornment : HandleAdornment
 	Property LineHandleAdornment.Length: number {🔐Basic | UI}
 	Property LineHandleAdornment.Thickness: number {🔐Basic | UI}
+Class PyramidHandleAdornment : HandleAdornment
+	Property PyramidHandleAdornment.Height: number {🔐Basic | UI}
+	Property PyramidHandleAdornment.Shading: Enum.AdornShading {🔐Basic | UI}
+	Property PyramidHandleAdornment.Sides: number {🔐Basic | UI}
+	Property PyramidHandleAdornment.Size: number {🔐Basic | UI}
 Class SphereHandleAdornment : HandleAdornment
 	Property SphereHandleAdornment.Radius: number {🔐Basic | UI}
 	Property SphereHandleAdornment.Shading: Enum.AdornShading {🔐Basic | UI}
@@ -3742,6 +3748,7 @@ Class HumanoidRigDescription : Instance [NotBrowsable]
 	Function HumanoidRigDescription:GetJointNames() -> { any } {🔐Animation} {🧬Safe}
 	Function HumanoidRigDescription:GetR15JointNames() -> { any } {🔐Animation} {🧬Safe}
 	Function HumanoidRigDescription:GetR6JointNames() -> { any } {🔐Animation} {🧬Safe}
+	Function HumanoidRigDescription:ShowVolumes(show: boolean) -> () {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
 Class IKControl : Instance
 	Property IKControl.ChainRoot: Instance? {🔐Animation}
 	Property IKControl.Enabled: boolean {🔐Animation}
@@ -4207,6 +4214,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:PromptRobloxPurchase(assetId: number, equipIfPurchased: boolean) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:PromptSubscriptionPurchase(user: Player, subscriptionId: string) -> ()
 	Function MarketplaceService:PromptThirdPartyPurchase(player: Instance, productId: string) -> () {LocalUserSecurity}
+	Function MarketplaceService:RankProductsAsync(productIdentifiers: { any }) -> { any } [Yields]
 	Function MarketplaceService:RecommendTopProductsAsync(infoTypes: { any }) -> { any } [Yields]
 	Function MarketplaceService:ReportAssetSale(assetId: string, robuxAmount: number) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:ReportRobuxUpsellStarted() -> () {RobloxScriptSecurity}
@@ -4472,6 +4480,7 @@ Class MultipleDocumentInterfaceInstance : Instance [NotCreatable] [NotReplicated
 Class NetworkMarker : Instance [NotCreatable] [NotBrowsable]
 	Event NetworkMarker.Received()
 Class NetworkPeer : Instance [NotCreatable] [NotBrowsable]
+	Function NetworkPeer:InitializeRemoteAllowList(names: { any }) -> () {RobloxScriptSecurity}
 	Function NetworkPeer:SetOutgoingKBPSLimit(limit: number) -> () {PluginSecurity}
 Class NetworkClient : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 	Event NetworkClient.ConnectionAccepted(peer: string, replicator: Instance)
@@ -5966,11 +5975,11 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property RunService.ClientGitHash: string {🔐Basic} {RobloxScriptSecurity} [ReadOnly]
 	Property RunService.RunState: Enum.RunState {🔐Basic} {PluginSecurity} [NotReplicated]
 	Property RunService.FrameNumber: number {🔐Basic} [ReadOnly]
-	Property RunService.PredictionState: Enum.PredictionState {🔐Basic} [ReadOnly]
 	Function RunService:BindToRenderStep(name: string, priority: number, function: (...any) -> ...any) -> () {🔐Basic}
 	Function RunService:BindToSimulation(function: (...any) -> ...any, frequency: Enum.StepFrequency? = "Hz60") -> RBXScriptConnection {🔐Basic | InternalTest}
 	Function RunService:GetControlAndVariantRolloutFlags() -> ...any {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetCoreScriptVersion() -> string {🔐Basic} {RobloxScriptSecurity}
+	Function RunService:GetPredictionStatus(context: Instance) -> Enum.PredictionStatus {🔐Basic | InternalTest}
 	Function RunService:GetRobloxClientChannel() -> string {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetRobloxGuiFocused() -> boolean {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetRobloxVersion() -> string {🔐Basic} {RobloxScriptSecurity}
@@ -5985,6 +5994,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:Reset() -> () {🔐Basic} {PluginSecurity} [Deprecated]
 	Function RunService:Run() -> () {🔐Basic} {PluginSecurity}
 	Function RunService:Set3dRenderingEnabled(enable: boolean) -> () {🔐Basic} {RobloxScriptSecurity}
+	Function RunService:SetPredictionMode(context: Instance, mode: Enum.PredictionMode) -> () {🔐Basic | InternalTest}
 	Function RunService:SetRobloxGuiFocused(focus: boolean) -> () {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:Stop() -> () {🔐Basic} {PluginSecurity}
 	Function RunService:UnbindFromRenderStep(name: string) -> () {🔐Basic}
@@ -6553,6 +6563,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.AllowCustomAnimations: boolean {🔐Players} {✏️RobloxScriptSecurity} [Hidden]
 	Property StarterPlayer.AvatarJointUpgrade: Enum.RolloutState {🔐Players} [NotReplicated] [NotScriptable]
 	Property StarterPlayer.AvatarJointUpgrade_SerializedRollout: Enum.RolloutState {🔐Players} [Hidden] [NotScriptable]
+	Property StarterPlayer.CharacterBreakJointsOnDeath: boolean {🔐Players}
 	Property StarterPlayer.CharacterMaxSlopeAngle: number {🔐Players}
 	Property StarterPlayer.CharacterWalkSpeed: number {🔐Players}
 	Property StarterPlayer.ClassicDeath: boolean {🔐Players}
@@ -6577,7 +6588,6 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.LoadCharacterAppearance: boolean {🔐Players}
 	Property StarterPlayer.LoadCharacterLayeredClothing: Enum.LoadCharacterLayeredClothing {🔐Players} [Hidden] [NotScriptable]
 	Property StarterPlayer.LoadCharacterLayeredClothing : Enum.LoadCharacterLayeredClothing {🔐Players} [NotReplicated] [NotScriptable]
-	Property StarterPlayer.RagdollDeath: boolean {🔐Players}
 	Property StarterPlayer.UserEmotesEnabled: boolean {🔐Players}
 	Property StarterPlayer.CharacterJumpHeight: number {🔐Players}
 	Property StarterPlayer.CharacterJumpPower: number {🔐Players}
@@ -6586,7 +6596,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.DevComputerMovementMode: Enum.DevComputerMovementMode {🔐Players}
 	Property StarterPlayer.DevTouchMovementMode: Enum.DevTouchMovementMode {🔐Players}
 	Property StarterPlayer.EnableMouseLockOption: boolean {🔐Players}
-	Property StarterPlayer.LuaCharacterController: Enum.CharacterControlMode {🔐Players} [NotBrowsable]
+	Property StarterPlayer.LuaCharacterController: Enum.CharacterControlMode {🔐Players}
 	Property StarterPlayer.HealthDisplayDistance: number {🔐Players}
 	Property StarterPlayer.NameDisplayDistance: number {🔐Players}
 	Property StarterPlayer.AutoJumpEnabled: boolean {🔐Players}
@@ -6967,6 +6977,11 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioService.OnSaveToRoblox(instances: { Instance }) {RobloxScriptSecurity}
 	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
 	Event StudioService.SaveLocallyAsComplete(success: boolean) {RobloxScriptSecurity}
+Class StudioTestService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function StudioTestService:EndTest(value: any) -> ()
+	Function StudioTestService:ExecutePlayModeAsync(args: any) -> any {PluginSecurity} [Yields]
+	Function StudioTestService:ExecuteRunModeAsync(args: any) -> any {PluginSecurity} [Yields]
+	Function StudioTestService:GetTestArgs() -> any
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function StudioTheme:GetColor(styleguideitem: Enum.StudioStyleGuideColor, modifier: Enum.StudioStyleGuideModifier? = "Default") -> Color3 {PluginSecurity}
 Class StudioUserService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -7372,10 +7387,12 @@ Class TextureGenerationUnwrappingRequest : Instance [NotCreatable] [NotReplicate
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property ThirdPartyUserService.FriendCommunicationRestrictionStatus: Enum.ChatRestrictionStatus {RobloxScriptSecurity} [ReadOnly]
 	Property ThirdPartyUserService.HasActiveUser: boolean {RobloxScriptSecurity} [ReadOnly]
+	Property ThirdPartyUserService.VoiceChatRestrictionStatus: Enum.ChatRestrictionStatus {RobloxScriptSecurity} [ReadOnly]
 	Function ThirdPartyUserService:GetUserPlatformName() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetVoiceChatRestrictionStatus() -> Enum.ChatRestrictionStatus {RobloxScriptSecurity}
 	Function ThirdPartyUserService:HaveActiveUser() -> boolean {RobloxScriptSecurity}
 	Function ThirdPartyUserService:IsChatRestrictionSupported() -> boolean {RobloxScriptSecurity}
+	Function ThirdPartyUserService:IsSingleSignOnSupported() -> boolean {RobloxScriptSecurity}
 	Function ThirdPartyUserService:RegisterActiveUser(gamepadId: Enum.UserInputType) -> number {RobloxScriptSecurity} [Yields]
 	Function ThirdPartyUserService:ShowAccountPicker() -> () {RobloxScriptSecurity}
 	Event ThirdPartyUserService.ActiveUserSignedOut(signOutStatus: number) {RobloxScriptSecurity}
@@ -8127,6 +8144,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.ACSCleanup() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ClientRetryJoin() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ClientRetryJoinWithConfig(sessionConfigFlags: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.ClientStreamSwitchAck(eventTag: number, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.FetchUserTurnAuthOperationFailed(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.JoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishStateChange(muteState: Enum.MuteState, sessionId: string) {RobloxSecurity} [Hidden]
@@ -8139,8 +8157,6 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.PublishingHandshakeInitiatedWithCompressedSdp(compressedHandshakeOffer: string, muteState: Enum.MuteState, sessionId: string, compressMode: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ReJoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string, clientIp: string, clientPort: number) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.RuppInitialToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.RuppPeriodicToken(sessionId: string, token: string, destinationIpAddress: string, destinationPort: number, sourceIpAddress: string, sourcePort: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SsrcFeedIdMappingUpdate(ssrcs: { any }, feedIds: { any }, sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscribeStateChange(muteState: Enum.MuteState, userIds: string, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionDropped(sessionId: string) {RobloxSecurity} [Hidden]
@@ -8165,7 +8181,6 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.VoiceChatSubscriptionInitialBatchEmpty(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatplayerMuteStatusChangedEvent(userId: number, muted: boolean, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceSetupFailed(voiceControlPath: Enum.VoiceControlPath, serializedFailure: string, sessionId: string) {RobloxSecurity} [Hidden]
-	Event VoiceChatService.VoiceUdmuxVip(sessionId: string, udmuxVipAddress: string) {RobloxSecurity} [Hidden]
 Class WebSocketClient : Instance [NotCreatable] [NotReplicated]
 	Property WebSocketClient.ConnectionState: Enum.WebSocketState [ReadOnly]
 	Function WebSocketClient:Close() -> ()
@@ -8389,6 +8404,10 @@ Enum AnimationNodePlayMode
 	EnumItem AnimationNodePlayMode.PingPong : 1
 	EnumItem AnimationNodePlayMode.OnceAndHold : 2
 	EnumItem AnimationNodePlayMode.OnceAndReset : 3
+Enum AnimationNodeTransitionType
+	EnumItem AnimationNodeTransitionType.CrossFade : 0
+	EnumItem AnimationNodeTransitionType.InertialBlend : 1
+	EnumItem AnimationNodeTransitionType.DeadBlend : 2
 Enum AnimationNodeType
 	EnumItem AnimationNodeType.InvalidNode : 0
 	EnumItem AnimationNodeType.AddNode : 1
@@ -9172,6 +9191,14 @@ Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.ListAsync : 6
 	EnumItem DataStoreRequestType.GetVersionAsync : 7
 	EnumItem DataStoreRequestType.RemoveVersionAsync : 8
+	EnumItem DataStoreRequestType.StandardRead : 9
+	EnumItem DataStoreRequestType.StandardWrite : 10
+	EnumItem DataStoreRequestType.StandardList : 11
+	EnumItem DataStoreRequestType.StandardRemove : 12
+	EnumItem DataStoreRequestType.OrderedRead : 13
+	EnumItem DataStoreRequestType.OrderedWrite : 14
+	EnumItem DataStoreRequestType.OrderedList : 15
+	EnumItem DataStoreRequestType.OrderedRemove : 16
 Enum DebuggerEndReason
 	EnumItem DebuggerEndReason.ClientRequest : 0
 	EnumItem DebuggerEndReason.Timeout : 1
@@ -9663,6 +9690,11 @@ Enum GraphicsOptimizationMode
 	EnumItem GraphicsOptimizationMode.Performance : 0
 	EnumItem GraphicsOptimizationMode.Balanced : 1
 	EnumItem GraphicsOptimizationMode.Quality : 2
+Enum GroupMembershipStatus
+	EnumItem GroupMembershipStatus.None : 0
+	EnumItem GroupMembershipStatus.Joined : 1
+	EnumItem GroupMembershipStatus.JoinRequestPending : 2
+	EnumItem GroupMembershipStatus.AlreadyMember : 3
 Enum GuiState
 	EnumItem GuiState.Idle : 0
 	EnumItem GuiState.Hover : 1
@@ -10213,9 +10245,10 @@ Enum LocationType
 	EnumItem LocationType.Camera : 1
 	EnumItem LocationType.ObjectPosition : 2
 Enum LuauTypeCheckMode
-	EnumItem LuauTypeCheckMode.NoCheck : 0
-	EnumItem LuauTypeCheckMode.Nonstrict : 1
-	EnumItem LuauTypeCheckMode.Strict : 2
+	EnumItem LuauTypeCheckMode.Default : 0
+	EnumItem LuauTypeCheckMode.NoCheck : 1
+	EnumItem LuauTypeCheckMode.Nonstrict : 2
+	EnumItem LuauTypeCheckMode.Strict : 3
 Enum MarketplaceBulkPurchasePromptStatus
 	EnumItem MarketplaceBulkPurchasePromptStatus.Completed : 1
 	EnumItem MarketplaceBulkPurchasePromptStatus.Aborted : 2
@@ -10613,11 +10646,10 @@ Enum PredictionMode
 	EnumItem PredictionMode.Automatic : 0
 	EnumItem PredictionMode.On : 1
 	EnumItem PredictionMode.Off : 2
-Enum PredictionState
-	EnumItem PredictionState.Idle : 0
-	EnumItem PredictionState.Simulating : 1
-	EnumItem PredictionState.RollingBack : 2
-	EnumItem PredictionState.Resimulating : 3
+Enum PredictionStatus
+	EnumItem PredictionStatus.Authoritative : 0
+	EnumItem PredictionStatus.Predicted : 1
+	EnumItem PredictionStatus.None : 2
 Enum PreferredInput
 	EnumItem PreferredInput.KeyboardAndMouse : 0
 	EnumItem PreferredInput.Gamepad : 1
@@ -10854,8 +10886,9 @@ Enum RigScale
 	EnumItem RigScale.RthroNarrow : 2
 Enum RigType
 	EnumItem RigType.R15 : 0
-	EnumItem RigType.Custom : 1
-	EnumItem RigType.None : 2
+	EnumItem RigType.CustomHumanoid : 1
+	EnumItem RigType.Custom : 2
+	EnumItem RigType.None : 3
 Enum RollOffMode
 	EnumItem RollOffMode.Inverse : 0
 	EnumItem RollOffMode.Linear : 1
@@ -10903,6 +10936,7 @@ Enum SalesTypeFilter
 	EnumItem SalesTypeFilter.All : 1
 	EnumItem SalesTypeFilter.Collectibles : 2
 	EnumItem SalesTypeFilter.Premium : 3
+	EnumItem SalesTypeFilter.TimedOptions : 4
 Enum SandboxedInstanceMode
 	EnumItem SandboxedInstanceMode.Default : 0
 	EnumItem SandboxedInstanceMode.Experimental : 1

@@ -79,6 +79,9 @@
             "GamepadDisconnect": {
                 "$path": "GamepadDisconnect"
             },
+            "Groups": {
+                "$path": "Groups"
+            },
             "InGameChat": {
                 "$path": "InGameChat"
             },

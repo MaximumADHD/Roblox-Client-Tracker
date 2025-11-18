@@ -69,49 +69,21 @@
                                     "$properties": {
                                         "KeyCode": "ButtonA"
                                     }
+                                },
+                                "TouchJumpBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {}
                                 }
                             },
                             "CameraGamepadZoom": {
                                 "$className": "InputAction",
-                                "$properties": {},
+                                "$properties": {
+                                    "Enabled": false
+                                },
                                 "Binding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "ButtonR3"
-                                    }
-                                }
-                            },
-                            "VehicleContext": {
-                                "$className": "InputContext",
-                                "$properties": {
-                                    "Priority": 1001
-                                },
-                                "Throttle": {
-                                    "$className": "InputAction",
-                                    "$properties": {
-                                        "Type": "Direction1D"
-                                    },
-                                    "ThrottleBinding": {
-                                        "$className": "InputBinding",
-                                        "$properties": {
-                                            "Down": "ButtonR2",
-                                            "Up": "ButtonL2"
-                                        }
-                                    }
-                                },
-                                "VehicleArrowKeyMove": {
-                                    "$className": "InputAction",
-                                    "$properties": {
-                                        "Type": "Direction1D"
-                                    },
-                                    "VehicleArrowKeyBinding": {
-                                        "$className": "InputBinding",
-                                        "$properties": {
-                                            "Left": "Left",
-                                            "Right": "Right",
-                                            "Down": "Down",
-                                            "Up": "Up"
-                                        }
                                     }
                                 }
                             },
@@ -156,7 +128,9 @@
                             },
                             "MouseLockSwitchAction": {
                                 "$className": "InputAction",
-                                "$properties": {},
+                                "$properties": {
+                                    "Enabled": false
+                                },
                                 "LeftShift": {
                                     "$className": "InputBinding",
                                     "$properties": {
@@ -201,6 +175,40 @@
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Type": "Direction3D"
+                                }
+                            }
+                        },
+                        "VehicleContext": {
+                            "$className": "InputContext",
+                            "$properties": {
+                                "Priority": 1001,
+                                "Sink": true,
+                                "Enabled": false
+                            },
+                            "Throttle": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Type": "Direction1D"
+                                },
+                                "ThrottleBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Down": "ButtonR2",
+                                        "Up": "ButtonL2"
+                                    }
+                                }
+                            },
+                            "Steer": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Type": "Direction1D"
+                                },
+                                "VehicleArrowKeyBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Down": "Left",
+                                        "Up": "Right"
+                                    }
                                 }
                             }
                         }

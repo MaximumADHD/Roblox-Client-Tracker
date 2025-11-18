@@ -11,6 +11,6 @@ dependencies = [
     "Roact RoactCompat 17.3.6 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.171 registry",
+    "UIBlox UIBlox 0.2.181 registry",
     "t t 1.2.6 registry",
 ]
