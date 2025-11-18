@@ -13,7 +13,6 @@ local View = require(Foundation.Components.View)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useDefaultTags = require(Foundation.Utility.useDefaultTags)
 local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
-local separateLayoutTags = require(script.Parent.separateLayoutTags)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 
@@ -66,21 +65,14 @@ local defaultTags = "gui-object-defaults"
 
 local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiObject>?)
 	-- Separate layout tags from other tags
-	local layoutTags, nonLayoutTags
-	if Flags.FoundationFixScrollViewTags then
-		layoutTags, nonLayoutTags = separateLayoutTags(scrollViewProps.tag)
-	end
 
 	local defaultPropsWithStyles = if not Flags.FoundationDisableStylingPolyfill
-			and not Flags.FoundationFixScrollViewTags
 		then useStyledDefaults("View", scrollViewProps.tag, defaultTags, defaultProps)
 		else nil
 	local props = withDefaults(
 		scrollViewProps,
 		(
-				if not Flags.FoundationDisableStylingPolyfill and not Flags.FoundationFixScrollViewTags
-					then defaultPropsWithStyles
-					else defaultProps
+				if not Flags.FoundationDisableStylingPolyfill then defaultPropsWithStyles else defaultProps
 			) :: typeof(defaultProps)
 	)
 
@@ -108,8 +100,7 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 		},
 
 		ref = ref,
-		[React.Tag] = if Flags.FoundationFixScrollViewTags then nil else tag,
-		tag = if Flags.FoundationFixScrollViewTags then nonLayoutTags else nil,
+		[React.Tag] = tag,
 	}
 	local viewProps = (
 		if Flags.FoundationMigrateCryoToDash
@@ -160,7 +151,6 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 				VerticalScrollBarInset = props.scroll.VerticalScrollBarInset,
 				HorizontalScrollBarInset = props.scroll.HorizontalScrollBarInset,
 				ref = props.scrollingFrameRef,
-				tag = if Flags.FoundationFixScrollViewTags then layoutTags else nil,
 			},
 			if props.children
 					and typeof(props.children) == "table"

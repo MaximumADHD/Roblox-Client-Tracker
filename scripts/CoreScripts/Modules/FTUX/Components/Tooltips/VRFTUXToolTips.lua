@@ -10,21 +10,22 @@ local ToolTip = require(script.Parent.ToolTip)
 
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 
---[[
-	{
-		tooltipButtons : table of {Text: string, Controller: Enum.UserCFrame, ButtonKeycode: Enum.KeyCode},
-    }
-]]
-
-type Props = {
-	tooltipButtons: {
-		Text: string,
-		Controller: Enum.UserCFrame,
-		ButtonKeycode: Enum.KeyCode,
-	},
+type TooltipButton = {
+	Text: string,
+	Controller: Enum.UserCFrame,
+	ButtonKeycode: Enum.KeyCode,
 }
 
-local TooltipParts = {}
+type TooltipPart = {
+	Button: TooltipButton,
+	Part: BasePart,
+}
+
+type Props = {
+	tooltipButtons: { TooltipButton },
+}
+
+local TooltipParts: { TooltipPart } = {}
 
 local function onRenderStepped(deltaTime)
 	if IsVRAppBuild() then
@@ -67,7 +68,7 @@ function spawnTooltipPart()
 	return part
 end
 
-function showTooltipText(TooltipPart)
+function showTooltipText(TooltipPart: TooltipPart)
 	for i, v in ipairs(TooltipPart.Part:GetDescendants()) do
 		if v:IsA("TextLabel") and v.Name == "Body" then
 			v.ZIndex = 10

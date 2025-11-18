@@ -5,12 +5,9 @@
 
 local root = script.Parent.Parent
 
-local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
-
 local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
-local checkForProxyWrap = require(root.util.checkForProxyWrap)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
 local function validateSurfaceAppearances(
@@ -25,14 +22,8 @@ local function validateSurfaceAppearances(
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	for _, descendant in pairs(allDescendants) do
-		if getEngineFeatureRemoveProxyWrap() then
-			if not descendant:IsA("MeshPart") then
-				continue
-			end
-		else
-			if not descendant:IsA("MeshPart") or (allowEditableInstances and checkForProxyWrap(descendant)) then
-				continue
-			end
+		if not descendant:IsA("MeshPart") then
+			continue
 		end
 
 		local meshPartHasTexture = (descendant :: MeshPart).TextureID ~= ""

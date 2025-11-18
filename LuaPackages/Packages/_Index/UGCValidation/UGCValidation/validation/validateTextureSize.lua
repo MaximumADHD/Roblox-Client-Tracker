@@ -5,6 +5,9 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
 
+local flags = root.flags
+local getFFlagUGCValidateTextureSizeExtraErrorInfo = require(flags.getFFlagUGCValidateTextureSizeExtraErrorInfo)
+
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
@@ -62,7 +65,7 @@ local function validateTextureSize(
 	elseif imageSize.X > maxTextureSize or imageSize.Y > maxTextureSize then
 		Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_TextureTooBig, nil, validationContext)
 		local isUsingNonDefaultMaxTextureSize = maxTextureSize ~= Constants.MAX_TEXTURE_SIZE
-		if isUsingNonDefaultMaxTextureSize then
+		if getFFlagUGCValidateTextureSizeExtraErrorInfo() or isUsingNonDefaultMaxTextureSize then
 			return false,
 				{
 					string.format(

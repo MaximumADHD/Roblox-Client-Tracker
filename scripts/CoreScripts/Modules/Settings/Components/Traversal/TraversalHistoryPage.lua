@@ -7,6 +7,7 @@ local React = require(CorePackages.Packages.React)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 
 local Settings = script.Parent.Parent.Parent
@@ -19,11 +20,13 @@ local ThumbnailType = Foundation.Enums.ThumbnailType
 local View = Foundation.View
 
 local Traversal = CoreScriptsRoactCommon.Traversal
+local useLastInputMode = FocusNavigationUtils.useLastInputMode
 local useLastInput = Responsive.useLastInput
 local TraversalConstants = Traversal.Constants
 local HistoryPage = Traversal.HistoryPage
 local useHistoryItems = Traversal.useHistoryItems
 
+local FFlagTraversalUseFocusNavLastInput = require(script.Parent.FFlagTraversalUseFocusNavLastInput)
 local FIntMaximumTraversalHistoryItemsFetch = Traversal.Flags.FIntMaximumTraversalHistoryItemsFetch
 
 export type TraversalHistoryPageProps = {}
@@ -37,7 +40,12 @@ local function TraversalHistoryPage(props: TraversalHistoryPageProps, ref: React
 	local historyItems = useHistoryItems(numItems)
 	local selectedUniverseId, setSelectedUniverseId = React.useState(TraversalConstants.NO_UNIVERSE_ID)
 	local reactPageSignal = SignalsReact.useSignalState(ReactPageSignal)
-	local lastInput = useLastInput()
+	local lastInput
+	if FFlagTraversalUseFocusNavLastInput then 
+		lastInput = useLastInputMode()
+	else
+		lastInput = useLastInput()
+	end
 
 	local openDialog = React.useCallback(function(universeId: number)
 		setSelectedUniverseId(universeId)
@@ -45,7 +53,8 @@ local function TraversalHistoryPage(props: TraversalHistoryPageProps, ref: React
 
 	local closeDialog = React.useCallback(function()
 		setSelectedUniverseId(TraversalConstants.NO_UNIVERSE_ID)
-		if lastInput == Responsive.Input.Directional and pageRef.current then
+		local isUsingFocus = if FFlagTraversalUseFocusNavLastInput then lastInput == "Focus" else lastInput == Responsive.Input.Directional
+		if isUsingFocus and pageRef.current then
 			GuiService.SelectedCoreObject = pageRef.current
 		end
 	end, { setSelectedUniverseId, lastInput } :: { unknown })

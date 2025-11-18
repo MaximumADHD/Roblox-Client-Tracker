@@ -1,0 +1,48 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Object"]
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R2 K7 ["assign"]
+  MOVE R5 R3
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K8 ["matches"]
+  CALL R6 1 -1
+  CALL R4 -1 0
+  GETTABLEKS R4 R2 K7 ["assign"]
+  MOVE R5 R3
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K9 ["get-node-text"]
+  CALL R6 1 -1
+  CALL R4 -1 0
+  GETTABLEKS R4 R2 K7 ["assign"]
+  MOVE R5 R3
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K10 ["query-helpers"]
+  CALL R6 1 -1
+  CALL R4 -1 0
+  GETTABLEKS R4 R2 K7 ["assign"]
+  MOVE R5 R3
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K11 ["config"]
+  CALL R6 1 -1
+  CALL R4 -1 0
+  RETURN R3 1

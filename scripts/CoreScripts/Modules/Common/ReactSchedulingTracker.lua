@@ -4,7 +4,6 @@ local RunService = game:GetService("RunService")
 local FIntReactSchedulingTrackerEnableHunderedthsPercent: number = game:DefineFastInt("ReactSchedulingTracker", 0)
 local FIntReactSchedulingTrackerPeriodMs: number = game:DefineFastInt("ReactSchedulingTrackerPeriodMs", 30000)
 local EngineFeatureTelemetryServiceMemoryCPUInfoEnabled = game:GetEngineFeature("TelemetryServiceMemoryCPUInfoEnabled")
-local FFlagEnableReactDeviceTierCardinality = game:DefineFastFlag("EnableReactDeviceTierCardinality", false)
 local FFlagDisableReactSchedulingTimePctStats = game:DefineFastFlag("DisableReactSchedulingTimePctStats", false)
 local FFlagDisableReactSchedulingAvgMaxMsStats = game:DefineFastFlag("DisableReactSchedulingAvgMaxMsStats", false)
 local FFlagEnableReactSessionMetrics = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableReactSessionMetrics
@@ -111,10 +110,7 @@ local function getCurrentTimeMs(): number
 	return os.clock() * 1000
 end
 
-local deviceTier
-if FFlagEnableReactDeviceTierCardinality then 
-	deviceTier = CommonUtil.GetDeviceMemoryTier()
-end
+local deviceTier = CommonUtil.GetDeviceMemoryTier()
 
 local SchedulerStateMachine = {}
 SchedulerStateMachine.__index = SchedulerStateMachine

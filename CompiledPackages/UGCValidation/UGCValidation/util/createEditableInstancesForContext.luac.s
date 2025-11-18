@@ -138,190 +138,61 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIF R2 [+13]
-  LOADK R4 K0 ["WrapProxy"]
-  NAMECALL R2 R0 K1 ["FindFirstChild"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+8]
-  JUMPIFNOT R1 [+7]
-  GETUPVAL R3 1
-  MOVE R4 R2
-  CALL R3 1 1
-  JUMPIFNOT R3 [+3]
-  GETTABLEKS R3 R2 K2 ["MeshContent"]
-  RETURN R3 1
-  GETTABLEKS R2 R0 K3 ["CageMeshContent"]
-  RETURN R2 1
+  GETTABLEKS R1 R0 K0 ["CageMeshContent"]
+  RETURN R1 1
 
 PROTO_7:
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+109]
-  LOADK R5 K0 ["MeshPart"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+11]
-  GETTABLEKS R3 R0 K2 ["MeshContent"]
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K7 ["MeshId"]
+  LOADK R4 K0 ["MeshPart"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+11]
+  GETTABLEKS R2 R0 K2 ["MeshContent"]
+  DUPTABLE R3 K5 [{"content", "contentType"}]
+  SETTABLEKS R2 R3 K3 ["content"]
+  LOADK R4 K6 ["EditableMesh"]
+  SETTABLEKS R4 R3 K4 ["contentType"]
+  SETTABLEKS R3 R1 K7 ["MeshId"]
   RETURN R0 0
-  LOADK R5 K8 ["WrapTarget"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+27]
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIF R4 [+13]
-  LOADK R6 K9 ["WrapProxy"]
-  NAMECALL R4 R0 K10 ["FindFirstChild"]
-  CALL R4 2 1
-  JUMPIFNOT R4 [+8]
-  JUMPIFNOT R2 [+7]
-  GETUPVAL R5 1
-  MOVE R6 R4
-  CALL R5 1 1
-  JUMPIFNOT R5 [+3]
-  GETTABLEKS R3 R4 K2 ["MeshContent"]
-  JUMP [+2]
-  GETTABLEKS R3 R0 K11 ["CageMeshContent"]
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K12 ["CageMeshId"]
+  LOADK R4 K8 ["WrapTarget"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+11]
+  GETTABLEKS R2 R0 K9 ["CageMeshContent"]
+  DUPTABLE R3 K5 [{"content", "contentType"}]
+  SETTABLEKS R2 R3 K3 ["content"]
+  LOADK R4 K6 ["EditableMesh"]
+  SETTABLEKS R4 R3 K4 ["contentType"]
+  SETTABLEKS R3 R1 K10 ["CageMeshId"]
   RETURN R0 0
-  LOADK R5 K13 ["WrapLayer"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+37]
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIF R4 [+13]
-  LOADK R6 K9 ["WrapProxy"]
-  NAMECALL R4 R0 K10 ["FindFirstChild"]
-  CALL R4 2 1
-  JUMPIFNOT R4 [+8]
-  JUMPIFNOT R2 [+7]
-  GETUPVAL R5 1
-  MOVE R6 R4
-  CALL R5 1 1
-  JUMPIFNOT R5 [+3]
-  GETTABLEKS R3 R4 K2 ["MeshContent"]
-  JUMP [+2]
-  GETTABLEKS R3 R0 K11 ["CageMeshContent"]
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K12 ["CageMeshId"]
-  GETTABLEKS R3 R0 K14 ["ReferenceMeshContent"]
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K15 ["ReferenceMeshId"]
+  LOADK R4 K11 ["WrapLayer"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+21]
+  GETTABLEKS R2 R0 K9 ["CageMeshContent"]
+  DUPTABLE R3 K5 [{"content", "contentType"}]
+  SETTABLEKS R2 R3 K3 ["content"]
+  LOADK R4 K6 ["EditableMesh"]
+  SETTABLEKS R4 R3 K4 ["contentType"]
+  SETTABLEKS R3 R1 K10 ["CageMeshId"]
+  GETTABLEKS R2 R0 K12 ["ReferenceMeshContent"]
+  DUPTABLE R3 K5 [{"content", "contentType"}]
+  SETTABLEKS R2 R3 K3 ["content"]
+  LOADK R4 K6 ["EditableMesh"]
+  SETTABLEKS R4 R3 K4 ["contentType"]
+  SETTABLEKS R3 R1 K13 ["ReferenceMeshId"]
   RETURN R0 0
-  LOADK R5 K16 ["SpecialMesh"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+126]
-  GETIMPORT R3 K19 [Content.fromUri]
-  GETTABLEKS R4 R0 K7 ["MeshId"]
-  CALL R3 1 1
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K7 ["MeshId"]
-  RETURN R0 0
-  LOADK R5 K0 ["MeshPart"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+15]
-  GETUPVAL R3 1
-  MOVE R4 R0
-  CALL R3 1 1
-  JUMPIF R3 [+11]
-  GETTABLEKS R3 R0 K2 ["MeshContent"]
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K7 ["MeshId"]
-  RETURN R0 0
-  LOADK R5 K8 ["WrapTarget"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+27]
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIF R4 [+13]
-  LOADK R6 K9 ["WrapProxy"]
-  NAMECALL R4 R0 K10 ["FindFirstChild"]
-  CALL R4 2 1
-  JUMPIFNOT R4 [+8]
-  JUMPIFNOT R2 [+7]
-  GETUPVAL R5 1
-  MOVE R6 R4
-  CALL R5 1 1
-  JUMPIFNOT R5 [+3]
-  GETTABLEKS R3 R4 K2 ["MeshContent"]
-  JUMP [+2]
-  GETTABLEKS R3 R0 K11 ["CageMeshContent"]
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K12 ["CageMeshId"]
-  RETURN R0 0
-  LOADK R5 K13 ["WrapLayer"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+37]
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIF R4 [+13]
-  LOADK R6 K9 ["WrapProxy"]
-  NAMECALL R4 R0 K10 ["FindFirstChild"]
-  CALL R4 2 1
-  JUMPIFNOT R4 [+8]
-  JUMPIFNOT R2 [+7]
-  GETUPVAL R5 1
-  MOVE R6 R4
-  CALL R5 1 1
-  JUMPIFNOT R5 [+3]
-  GETTABLEKS R3 R4 K2 ["MeshContent"]
-  JUMP [+2]
-  GETTABLEKS R3 R0 K11 ["CageMeshContent"]
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K12 ["CageMeshId"]
-  GETTABLEKS R3 R0 K14 ["ReferenceMeshContent"]
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K15 ["ReferenceMeshId"]
-  RETURN R0 0
-  LOADK R5 K16 ["SpecialMesh"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+13]
-  GETIMPORT R3 K19 [Content.fromUri]
-  GETTABLEKS R4 R0 K7 ["MeshId"]
-  CALL R3 1 1
-  DUPTABLE R4 K5 [{"content", "contentType"}]
-  SETTABLEKS R3 R4 K3 ["content"]
-  LOADK R5 K6 ["EditableMesh"]
-  SETTABLEKS R5 R4 K4 ["contentType"]
-  SETTABLEKS R4 R1 K7 ["MeshId"]
+  LOADK R4 K14 ["SpecialMesh"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+13]
+  GETIMPORT R2 K17 [Content.fromUri]
+  GETTABLEKS R3 R0 K7 ["MeshId"]
+  CALL R2 1 1
+  DUPTABLE R3 K5 [{"content", "contentType"}]
+  SETTABLEKS R2 R3 K3 ["content"]
+  LOADK R4 K6 ["EditableMesh"]
+  SETTABLEKS R4 R3 K4 ["contentType"]
+  SETTABLEKS R3 R1 K7 ["MeshId"]
   RETURN R0 0
 
 PROTO_8:
@@ -329,8 +200,7 @@ PROTO_8:
   GETUPVAL R5 0
   MOVE R6 R0
   MOVE R7 R4
-  MOVE R8 R3
-  CALL R5 3 0
+  CALL R5 2 0
   GETUPVAL R5 1
   MOVE R6 R0
   MOVE R7 R4
@@ -415,50 +285,38 @@ MAIN:
   NEWTABLE R1 4 0
   GETIMPORT R2 K4 [require]
   GETTABLEKS R4 R0 K5 ["flags"]
-  GETTABLEKS R3 R4 K6 ["getEngineFeatureRemoveProxyWrap"]
+  GETTABLEKS R3 R4 K6 ["getEngineFeatureEngineEditableMeshAvatarPublish"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["flags"]
-  GETTABLEKS R4 R5 K7 ["getEngineFeatureEngineEditableMeshAvatarPublish"]
-  CALL R3 1 1
-  GETIMPORT R4 K9 [game]
-  LOADK R6 K10 ["AssetService"]
-  NAMECALL R4 R4 K11 ["GetService"]
-  CALL R4 2 1
+  GETIMPORT R3 K8 [game]
+  LOADK R5 K9 ["AssetService"]
+  NAMECALL R3 R3 K10 ["GetService"]
+  CALL R3 2 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K11 ["util"]
+  GETTABLEKS R5 R6 K12 ["Types"]
+  CALL R4 1 1
   GETIMPORT R5 K4 [require]
-  GETTABLEKS R7 R0 K12 ["util"]
-  GETTABLEKS R6 R7 K13 ["Types"]
+  GETTABLEKS R7 R0 K11 ["util"]
+  GETTABLEKS R6 R7 K13 ["destroyEditableInstances"]
   CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R8 R0 K12 ["util"]
-  GETTABLEKS R7 R8 K14 ["destroyEditableInstances"]
-  CALL R6 1 1
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R9 R0 K12 ["util"]
-  GETTABLEKS R8 R9 K15 ["checkForProxyWrap"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K16 [PROTO_0]
-  DUPCLOSURE R9 K17 [PROTO_2]
+  DUPCLOSURE R6 K14 [PROTO_0]
+  DUPCLOSURE R7 K15 [PROTO_2]
+  CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R4
-  DUPCLOSURE R10 K18 [PROTO_3]
-  CAPTURE VAL R9
-  SETTABLEKS R10 R1 K19 ["getEditableInstanceInfo"]
-  DUPCLOSURE R10 K20 [PROTO_4]
-  DUPCLOSURE R11 K21 [PROTO_5]
-  DUPCLOSURE R12 K22 [PROTO_6]
-  CAPTURE VAL R2
+  DUPCLOSURE R8 K16 [PROTO_3]
   CAPTURE VAL R7
-  DUPCLOSURE R13 K23 [PROTO_7]
-  CAPTURE VAL R2
-  CAPTURE VAL R7
-  DUPCLOSURE R14 K24 [PROTO_8]
-  CAPTURE VAL R13
+  SETTABLEKS R8 R1 K17 ["getEditableInstanceInfo"]
+  DUPCLOSURE R8 K18 [PROTO_4]
+  DUPCLOSURE R9 K19 [PROTO_5]
+  DUPCLOSURE R10 K20 [PROTO_6]
+  DUPCLOSURE R11 K21 [PROTO_7]
+  DUPCLOSURE R12 K22 [PROTO_8]
   CAPTURE VAL R11
+  CAPTURE VAL R9
   CAPTURE VAL R1
-  SETTABLEKS R14 R1 K25 ["getOrCreateEditableInstances"]
-  DUPCLOSURE R14 K26 [PROTO_9]
+  SETTABLEKS R12 R1 K23 ["getOrCreateEditableInstances"]
+  DUPCLOSURE R12 K24 [PROTO_9]
   CAPTURE VAL R1
-  CAPTURE VAL R6
-  SETTABLEKS R14 R1 K27 ["processAll"]
+  CAPTURE VAL R5
+  SETTABLEKS R12 R1 K25 ["processAll"]
   RETURN R1 1

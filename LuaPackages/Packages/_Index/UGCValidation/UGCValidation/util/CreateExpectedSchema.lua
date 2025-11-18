@@ -4,10 +4,13 @@ local Constants = require(root.Constants)
 local createIndividualBodyPartSchema = require(root.util.createIndividualBodyPartSchema)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
 local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
+local createMakeupSchema = require(root.util.createMakeupSchema)
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
 local createAccessorySchema = require(root.util.createAccessorySchema)
 local createEmoteSchema = require(root.util.createEmoteSchema)
 local getUploadCategory = require(root.util.getUploadCategory)
+
+local getFFlagUGCValidateMakeupAssetTypeNewPipeline = require(root.flags.getFFlagUGCValidateMakeupAssetTypeNewPipeline)
 
 local CreateExpectedSchema = {}
 -- NOTE: We are not going to enforce the R15ArtistIntent name here. These schemas are for the root folder/instance, and not for the copy
@@ -86,6 +89,11 @@ local categoryToSchemaGenerator = {
 			return createAccessorySchema(assetInfo.attachmentNames)
 		end
 	end,
+	MAKEUP = if getFFlagUGCValidateMakeupAssetTypeNewPipeline()
+		then function(_assetEnum: Enum.AssetType, _rootInstance: Instance)
+			return createMakeupSchema()
+		end
+		else nil,
 }
 function CreateExpectedSchema.generateAssetSchema(
 	uploadCategory: string,

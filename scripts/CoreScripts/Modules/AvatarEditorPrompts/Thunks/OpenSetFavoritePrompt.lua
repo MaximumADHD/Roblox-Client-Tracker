@@ -20,7 +20,13 @@ return function(itemId, itemType, shouldFavorite)
 			end
 
 			local success, result = pcall(function()
-				return MarketplaceService:GetProductInfo(itemId, infoType)
+				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+				-- Will be removed when that PR is merged.
+				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+					return (MarketplaceService :: any):GetProductInfoAsync(itemId, infoType)
+				else
+					return (MarketplaceService :: any):GetProductInfo(itemId, infoType)
+				end
 			end)
 
 			if success then

@@ -34,7 +34,6 @@ local FIntProfileSettingsRateLimitSeconds = game:DefineFastInt("ProfileSettingsR
 local FIntProfileSettingsMaxRequestsPerWindow = game:DefineFastInt("ProfileSettingsMaxRequestsPerWindow", 3)
 local FIntProfileSettingsRateLimitWindowSeconds = game:DefineFastInt("ProfileSettingsRateLimitWindowSeconds", 60)
 local FFlagDisableRCCAntiHarrasmentAllowList = game:DefineFastFlag("DisableRCCAntiHarrasmentAllowList", false)
-local FFlagEnablePartyNudgeNotification = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeNotification
 local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false) and game:GetEngineFeature("LuaGetCanManageAsync")
 
 local FFlagGatePrivateServerNudge = game:DefineFastFlag("GatePrivateServerNudge", false)
@@ -126,12 +125,10 @@ if FFlagEnablePartyNudgeAfterJoin then
 	RemoteEvent_ShowFriendJoinedPlayerToast.Parent = RobloxReplicatedStorage
 end
 
-local RemoteEvent_CreateOrJoinParty
-if FFlagEnablePartyNudgeNotification then
-	RemoteEvent_CreateOrJoinParty = Instance.new("RemoteEvent")
-	RemoteEvent_CreateOrJoinParty.Name = "CreateOrJoinParty"
-	RemoteEvent_CreateOrJoinParty.Parent = RobloxReplicatedStorage
-end
+
+local RemoteEvent_CreateOrJoinParty = Instance.new("RemoteEvent")
+RemoteEvent_CreateOrJoinParty.Name = "CreateOrJoinParty"
+RemoteEvent_CreateOrJoinParty.Parent = RobloxReplicatedStorage
 
 -- Map: { UserId -> { UserId -> NumberOfNotificationsSent } }
 local FollowNotificationsBetweenMap = {}
@@ -427,8 +424,7 @@ local sendFriendExperienceJoinToast = function(newPlayer)
 		local response
 		createPartyNudgeSuccess, response = createPartyNudge(newPlayer.UserId, followedPlayer.UserId, "OneToOneNudgeInExperience")
 		if
-			FFlagEnablePartyNudgeNotification
-			and createPartyNudgeSuccess
+			createPartyNudgeSuccess
 			and response
 			and response.shouldAutoCreateOrJoinGroupUp
 		then

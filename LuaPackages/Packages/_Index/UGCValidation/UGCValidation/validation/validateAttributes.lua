@@ -1,12 +1,9 @@
 local root = script.Parent.Parent
 
-local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
-
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local Types = require(root.util.Types)
-local checkForProxyWrap = require(root.util.checkForProxyWrap)
 
 -- Root instances have a special allowed attribute to make them unique.
 -- This is because the validation result is stored on a per asset hash basis.
@@ -47,17 +44,8 @@ local function validateAttributes(
 	end
 
 	for _, descendant in ipairs(instance:GetDescendants()) do
-		if getEngineFeatureRemoveProxyWrap() then
-			if allowEditableInstances and descendant:GetAttribute(Constants.AlternateMeshIdAttributeName) then
-				continue
-			end
-		else
-			if
-				allowEditableInstances
-				and (checkForProxyWrap(descendant) or descendant:GetAttribute(Constants.AlternateMeshIdAttributeName))
-			then
-				continue
-			end
+		if allowEditableInstances and descendant:GetAttribute(Constants.AlternateMeshIdAttributeName) then
+			continue
 		end
 		if next(descendant:GetAttributes()) :: any ~= nil then
 			table.insert(attributesFailures, descendant:GetFullName())

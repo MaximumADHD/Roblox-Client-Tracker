@@ -63,6 +63,7 @@ local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSetting
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local GetFFlagEnableCrossExpVoiceVolumeIXPCheck = SharedFlags.GetFFlagEnableCrossExpVoiceVolumeIXPCheck
 local GetFFlagDebounceConnectDisconnectButton = require(RobloxGui.Modules.Flags.GetFFlagDebounceConnectDisconnectButton)
+local GetFFlagDebounceConnectDisconnectSelector = require(RobloxGui.Modules.Settings.Flags.GetFFlagDebounceConnectDisconnectSelector)
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
 local FFlagInExperienceMenuReorderFirstVariant =
 	require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
@@ -85,6 +86,7 @@ local GetFFlagEnableVoiceUxUpdates = SharedFlags.GetFFlagEnableVoiceUxUpdates
 local GetFFlagEnableVrVoiceConnectDisconnect = SharedFlags.GetFFlagEnableVrVoiceConnectDisconnect
 local FFlagEnableNewBadgeVisibilityCopy = game:DefineFastFlag("EnableNewBadgeVisibilityCopy", false)
 local FFlagEnableVoiceSelectorTranslations = game:DefineFastFlag("EnableVoiceSelectorTranslations_AEGIS2", false)
+local FFlagHideVoiceChatSelectorForFae = game:DefineFastFlag("HideVoiceChatSelectorForFae_AEGIS2", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -3627,7 +3629,10 @@ local function Initialize()
 		local disconnectedIndex = 1
 		local connectedIndex = 2
 
-		this.VoiceConnectDisconnectSelector.IndexChanged:connect(function(newIndex)
+		local debounceDelay = GetFIntDebounceDisconnectButtonDelay()
+		local useDebounce = GetFFlagDebounceConnectDisconnectSelector() and debounceDelay > 0
+
+		local onSelectorIndexChanged = function(newIndex)
 			if newIndex == previousIndex then
 				return
 			end
@@ -3655,7 +3660,11 @@ local function Initialize()
 					end
 				end)
 			end
-		end)
+		end
+
+		this.VoiceConnectDisconnectSelector.IndexChanged:connect(
+			if useDebounce then throttle(debounceDelay, onSelectorIndexChanged) else onSelectorIndexChanged
+		)
 
 		VoiceChatServiceManager:subscribe("OnStateChanged", function(oldState, newState)
 			if newState == (Enum :: any).VoiceChatState.Failed then
@@ -3960,7 +3969,8 @@ local function Initialize()
 	if game:GetEngineFeature("VoiceChatSupported") and (GetFFlagEnableVrVoiceConnectDisconnect() or (if isInExperienceUIVREnabled then not isSpatial() else true)) then
 		spawn(function()
 			if GetFFlagEnableVoiceUxUpdates()
-				and (VoiceChatServiceManager:EligibleForFaeUpsell() or VoiceChatServiceManager:IsSeamlessVoice())
+				and ((not FFlagHideVoiceChatSelectorForFae and VoiceChatServiceManager:EligibleForFaeUpsell())
+					or VoiceChatServiceManager:IsSeamlessVoice())
 				and VoiceChatServiceManager:verifyUniverseAndPlaceCanUseVoice() then
 				createVoiceChatSelector()
 

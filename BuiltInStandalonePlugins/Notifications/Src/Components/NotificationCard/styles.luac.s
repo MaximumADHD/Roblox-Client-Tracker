@@ -9,186 +9,441 @@ MAIN:
   GETTABLEKS R3 R0 K5 ["Packages"]
   GETTABLEKS R2 R3 K6 ["Framework"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Styling"]
-  GETTABLEKS R2 R3 K8 ["createStyleRule"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Resources"]
+  GETTABLEKS R3 R4 K9 ["PluginStyles"]
+  CALL R2 1 1
   GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R6 R0 K7 ["Src"]
   GETTABLEKS R5 R6 K10 ["Util"]
   GETTABLEKS R4 R5 K11 ["TraySize"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K12 ["TRAY_WIDTH"]
-  SUBK R5 R4 K13 [11]
-  SUBK R7 R4 K15 [20]
-  SUBK R6 R7 K14 [65]
-  GETIMPORT R7 K18 [UDim2.new]
-  LOADN R8 0
-  LOADN R9 20
-  LOADN R10 0
-  LOADN R11 20
-  CALL R7 4 1
-  GETIMPORT R8 K18 [UDim2.new]
-  LOADN R9 0
-  LOADN R10 16
-  LOADN R11 0
-  LOADN R12 16
-  CALL R8 4 1
-  MOVE R9 R2
-  LOADK R10 K19 [".Component-InnerNotificationCard"]
-  DUPTABLE R11 K24 [{"BackgroundColor3", "BorderSizePixel", "Size", "AutomaticSize"}]
-  LOADK R12 K25 ["$BackgroundPaper"]
-  SETTABLEKS R12 R11 K20 ["BackgroundColor3"]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K21 ["BorderSizePixel"]
-  GETIMPORT R12 K18 [UDim2.new]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Util"]
+  GETTABLEKS R5 R6 K12 ["TextUtils"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K7 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Util"]
+  GETTABLEKS R6 R7 K13 ["LocalizationInstance"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K7 ["Src"]
+  GETTABLEKS R8 R9 K10 ["Util"]
+  GETTABLEKS R7 R8 K14 ["TimeConstants"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R11 R0 K7 ["Src"]
+  GETTABLEKS R10 R11 K10 ["Util"]
+  GETTABLEKS R9 R10 K15 ["SharedFlags"]
+  GETTABLEKS R8 R9 K16 ["getFFlagNotificationRedesignM1Q42025"]
+  CALL R7 1 1
+  GETTABLEKS R9 R1 K17 ["Styling"]
+  GETTABLEKS R8 R9 K18 ["createStyleRule"]
+  MOVE R9 R7
+  CALL R9 0 1
+  JUMPIFNOT R9 [+303]
+  GETTABLEKS R9 R6 K19 ["LOCALE_SCOPE_LONG"]
+  GETTABLEKS R10 R6 K20 ["LOCALE_SCOPE"]
+  LOADK R13 K21 ["FontPrimary"]
+  NAMECALL R11 R2 K22 ["GetAttribute"]
+  CALL R11 2 1
+  GETTABLEKS R13 R3 K24 ["TRAY_WIDTH"]
+  ADDK R12 R13 K23 [2]
+  LOADK R16 K25 ["Margin"]
+  NAMECALL R14 R2 K22 ["GetAttribute"]
+  CALL R14 2 1
+  GETTABLEKS R13 R14 K26 ["Offset"]
+  LOADK R17 K27 ["MarginSmall"]
+  NAMECALL R15 R2 K22 ["GetAttribute"]
+  CALL R15 2 1
+  GETTABLEKS R14 R15 K26 ["Offset"]
+  LOADK R17 K28 ["ScrollBarGutter"]
+  NAMECALL R15 R2 K22 ["GetAttribute"]
+  CALL R15 2 1
+  LOADK R20 K29 ["CardIconSize"]
+  NAMECALL R18 R2 K22 ["GetAttribute"]
+  CALL R18 2 1
+  GETTABLEKS R17 R18 K30 ["Width"]
+  GETTABLEKS R16 R17 K26 ["Offset"]
+  LOADK R20 K31 ["CardIconTextMargin"]
+  NAMECALL R18 R2 K22 ["GetAttribute"]
+  CALL R18 2 1
+  GETTABLEKS R17 R18 K26 ["Offset"]
+  LOADK R20 K32 ["CardStatusMinWidth"]
+  NAMECALL R18 R2 K22 ["GetAttribute"]
+  CALL R18 2 1
+  LOADK R23 K33 ["CardStatusIndicatorSize"]
+  NAMECALL R21 R2 K22 ["GetAttribute"]
+  CALL R21 2 1
+  GETTABLEKS R20 R21 K30 ["Width"]
+  GETTABLEKS R19 R20 K26 ["Offset"]
+  LOADK R22 K34 ["CardElapsedTimeTextSize"]
+  NAMECALL R20 R2 K22 ["GetAttribute"]
+  CALL R20 2 1
+  LOADK R23 K35 ["CardSubjectTextSize"]
+  NAMECALL R21 R2 K22 ["GetAttribute"]
+  CALL R21 2 1
+  SUB R23 R21 R20
+  DIVK R22 R23 K23 [2]
+  LOADN R23 0
+  JUMPIFNOTLT R22 R23 [+2]
+  LOADN R22 0
+  LOADN R23 0
+  GETIMPORT R24 K37 [pcall]
+  MOVE R25 R5
+  CALL R24 1 2
+  JUMPIFNOT R24 [+51]
+  GETTABLEKS R26 R4 K38 ["maxTextWidth"]
+  NEWTABLE R27 0 5
+  MOVE R30 R9
+  LOADK R31 K39 ["Now"]
+  NAMECALL R28 R25 K40 ["getText"]
+  CALL R28 3 1
+  MOVE R31 R10
+  LOADK R32 K41 ["Minutes"]
+  DUPTABLE R33 K43 [{"minutes"}]
+  LOADK R34 K44 ["88"]
+  SETTABLEKS R34 R33 K42 ["minutes"]
+  NAMECALL R29 R25 K40 ["getText"]
+  CALL R29 4 1
+  MOVE R32 R10
+  LOADK R33 K45 ["Hours"]
+  DUPTABLE R34 K47 [{"hours"}]
+  LOADK R35 K44 ["88"]
+  SETTABLEKS R35 R34 K46 ["hours"]
+  NAMECALL R30 R25 K40 ["getText"]
+  CALL R30 4 1
+  MOVE R33 R10
+  LOADK R34 K48 ["Days"]
+  DUPTABLE R35 K50 [{"days"}]
+  LOADK R36 K44 ["88"]
+  SETTABLEKS R36 R35 K49 ["days"]
+  NAMECALL R31 R25 K40 ["getText"]
+  CALL R31 4 1
+  MOVE R34 R10
+  LOADK R35 K51 ["Weeks"]
+  DUPTABLE R36 K53 [{"weeks"}]
+  LOADK R37 K44 ["88"]
+  SETTABLEKS R37 R36 K52 ["weeks"]
+  NAMECALL R32 R25 K40 ["getText"]
+  CALL R32 4 -1
+  SETLIST R27 R28 -1 [1]
+  MOVE R28 R20
+  MOVE R29 R11
+  CALL R26 3 1
+  MOVE R23 R26
+  ADD R29 R14 R19
+  ADD R28 R29 R23
+  FASTCALL2 MATH_MAX R18 R28 [+4]
+  MOVE R27 R18
+  GETIMPORT R26 K56 [math.max]
+  CALL R26 2 1
+  SUB R28 R12 R13
+  SUB R27 R28 R15
+  LOADN R32 4
+  MUL R31 R32 R13
+  SUB R30 R27 R31
+  SUB R29 R30 R16
+  SUB R28 R29 R26
+  MOVE R29 R8
+  LOADK R30 K57 [".Component-InnerNotificationCard"]
+  DUPTABLE R31 K62 [{"BackgroundColor3", "BorderSizePixel", "Size", "AutomaticSize"}]
+  LOADK R32 K63 ["$BackgroundPaper"]
+  SETTABLEKS R32 R31 K58 ["BackgroundColor3"]
+  LOADN R32 0
+  SETTABLEKS R32 R31 K59 ["BorderSizePixel"]
+  GETIMPORT R32 K66 [UDim2.new]
+  LOADN R33 0
+  MOVE R34 R27
+  LOADN R35 0
+  LOADN R36 0
+  CALL R32 4 1
+  SETTABLEKS R32 R31 K60 ["Size"]
+  GETIMPORT R32 K69 [Enum.AutomaticSize.Y]
+  SETTABLEKS R32 R31 K61 ["AutomaticSize"]
+  NEWTABLE R32 0 1
+  MOVE R33 R8
+  LOADK R34 K70 ["> #InnerCard"]
+  DUPTABLE R35 K72 [{"Size", "TextTransparency"}]
+  GETIMPORT R36 K74 [UDim2.fromScale]
+  LOADN R37 1
+  LOADN R38 1
+  CALL R36 2 1
+  SETTABLEKS R36 R35 K60 ["Size"]
+  LOADN R36 1
+  SETTABLEKS R36 R35 K71 ["TextTransparency"]
+  NEWTABLE R36 0 7
+  MOVE R37 R8
+  LOADK R38 K75 ["::UIPadding"]
+  DUPTABLE R39 K80 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  LOADK R40 K81 ["$Margin"]
+  SETTABLEKS R40 R39 K76 ["PaddingLeft"]
+  LOADK R40 K81 ["$Margin"]
+  SETTABLEKS R40 R39 K77 ["PaddingRight"]
+  LOADK R40 K81 ["$Margin"]
+  SETTABLEKS R40 R39 K78 ["PaddingTop"]
+  LOADK R40 K81 ["$Margin"]
+  SETTABLEKS R40 R39 K79 ["PaddingBottom"]
+  CALL R37 2 1
+  MOVE R38 R8
+  LOADK R39 K82 ["::UIListLayout"]
+  DUPTABLE R40 K86 [{"FillDirection", "SortOrder", "Padding"}]
+  GETIMPORT R41 K88 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R41 R40 K83 ["FillDirection"]
+  GETIMPORT R41 K90 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R41 R40 K84 ["SortOrder"]
+  LOADK R41 K81 ["$Margin"]
+  SETTABLEKS R41 R40 K85 ["Padding"]
+  CALL R38 2 1
+  MOVE R39 R8
+  LOADK R40 K91 ["::UICorner"]
+  DUPTABLE R41 K93 [{"CornerRadius"}]
+  LOADK R42 K94 ["$CardBorderRadius"]
+  SETTABLEKS R42 R41 K92 ["CornerRadius"]
+  CALL R39 2 1
+  MOVE R40 R8
+  LOADK R41 K95 ["> .Component-NotificationCard-User"]
+  NEWTABLE R42 0 0
+  NEWTABLE R43 0 1
+  MOVE R44 R8
+  LOADK R45 K91 ["::UICorner"]
+  DUPTABLE R46 K93 [{"CornerRadius"}]
+  GETIMPORT R47 K97 [UDim.new]
+  LOADN R48 1
+  LOADN R49 0
+  CALL R47 2 1
+  SETTABLEKS R47 R46 K92 ["CornerRadius"]
+  CALL R44 2 -1
+  SETLIST R43 R44 -1 [1]
+  CALL R40 3 1
+  MOVE R41 R8
+  LOADK R42 K98 ["> #Icon"]
+  DUPTABLE R43 K100 [{"BackgroundTransparency", "BorderSizePixel", "Size"}]
+  LOADN R44 1
+  SETTABLEKS R44 R43 K99 ["BackgroundTransparency"]
+  LOADN R44 0
+  SETTABLEKS R44 R43 K59 ["BorderSizePixel"]
+  LOADK R44 K101 ["$CardIconSize"]
+  SETTABLEKS R44 R43 K60 ["Size"]
+  CALL R41 2 1
+  MOVE R42 R8
+  LOADK R43 K102 ["> #Content"]
+  DUPTABLE R44 K103 [{"BackgroundTransparency", "Size"}]
+  LOADN R45 1
+  SETTABLEKS R45 R44 K99 ["BackgroundTransparency"]
+  GETIMPORT R45 K66 [UDim2.new]
+  LOADN R46 0
+  MOVE R47 R28
+  LOADN R48 0
+  LOADN R49 0
+  CALL R45 4 1
+  SETTABLEKS R45 R44 K60 ["Size"]
+  NEWTABLE R45 0 1
+  MOVE R46 R8
+  LOADK R47 K75 ["::UIPadding"]
+  DUPTABLE R48 K104 [{"PaddingLeft"}]
+  GETIMPORT R49 K97 [UDim.new]
+  LOADN R50 0
+  SUB R51 R17 R13
+  CALL R49 2 1
+  SETTABLEKS R49 R48 K76 ["PaddingLeft"]
+  CALL R46 2 -1
+  SETLIST R45 R46 -1 [1]
+  CALL R42 3 1
+  MOVE R43 R8
+  LOADK R44 K105 ["> #Status"]
+  DUPTABLE R45 K106 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R46 K66 [UDim2.new]
+  LOADN R47 0
+  MOVE R48 R26
+  LOADN R49 1
+  LOADN R50 0
+  CALL R46 4 1
+  SETTABLEKS R46 R45 K60 ["Size"]
+  LOADN R46 1
+  SETTABLEKS R46 R45 K99 ["BackgroundTransparency"]
+  CALL R43 2 -1
+  SETLIST R36 R37 -1 [1]
+  CALL R33 3 -1
+  SETLIST R32 R33 -1 [1]
+  CALL R29 3 -1
+  RETURN R29 -1
+  GETTABLEKS R9 R3 K24 ["TRAY_WIDTH"]
+  SUBK R10 R9 K107 [11]
+  SUBK R12 R9 K109 [20]
+  SUBK R11 R12 K108 [65]
+  GETIMPORT R12 K66 [UDim2.new]
   LOADN R13 0
-  MOVE R14 R5
+  LOADN R14 20
   LOADN R15 0
-  LOADN R16 0
+  LOADN R16 20
   CALL R12 4 1
-  SETTABLEKS R12 R11 K22 ["Size"]
-  GETIMPORT R12 K28 [Enum.AutomaticSize.Y]
-  SETTABLEKS R12 R11 K23 ["AutomaticSize"]
-  NEWTABLE R12 0 2
-  MOVE R13 R2
-  LOADK R14 K29 ["::UIPadding"]
-  DUPTABLE R15 K34 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  GETIMPORT R16 K36 [UDim.new]
+  GETIMPORT R13 K66 [UDim2.new]
+  LOADN R14 0
+  LOADN R15 16
+  LOADN R16 0
+  LOADN R17 16
+  CALL R13 4 1
+  MOVE R14 R8
+  LOADK R15 K57 [".Component-InnerNotificationCard"]
+  DUPTABLE R16 K62 [{"BackgroundColor3", "BorderSizePixel", "Size", "AutomaticSize"}]
+  LOADK R17 K63 ["$BackgroundPaper"]
+  SETTABLEKS R17 R16 K58 ["BackgroundColor3"]
   LOADN R17 0
-  LOADN R18 6
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K30 ["PaddingLeft"]
-  GETIMPORT R16 K36 [UDim.new]
-  LOADN R17 0
-  LOADN R18 3
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K31 ["PaddingRight"]
-  GETIMPORT R16 K36 [UDim.new]
-  LOADN R17 0
+  SETTABLEKS R17 R16 K59 ["BorderSizePixel"]
+  GETIMPORT R17 K66 [UDim2.new]
   LOADN R18 0
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K32 ["PaddingTop"]
-  GETIMPORT R16 K36 [UDim.new]
-  LOADN R17 0
-  LOADN R18 0
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K33 ["PaddingBottom"]
-  CALL R13 2 1
-  MOVE R14 R2
-  LOADK R15 K37 ["> #InnerCard"]
-  DUPTABLE R16 K39 [{"Size", "TextTransparency"}]
-  GETIMPORT R17 K18 [UDim2.new]
-  LOADN R18 1
-  LOADN R19 0
-  LOADN R20 1
+  MOVE R19 R10
+  LOADN R20 0
   LOADN R21 0
   CALL R17 4 1
-  SETTABLEKS R17 R16 K22 ["Size"]
-  LOADN R17 1
-  SETTABLEKS R17 R16 K38 ["TextTransparency"]
-  NEWTABLE R17 0 7
-  MOVE R18 R2
-  LOADK R19 K29 ["::UIPadding"]
-  DUPTABLE R20 K34 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  LOADK R21 K40 ["$NotificationContentPadding"]
-  SETTABLEKS R21 R20 K30 ["PaddingLeft"]
-  LOADK R21 K41 ["$NotificationContentPaddingXL"]
-  SETTABLEKS R21 R20 K31 ["PaddingRight"]
-  LOADK R21 K40 ["$NotificationContentPadding"]
-  SETTABLEKS R21 R20 K32 ["PaddingTop"]
-  LOADK R21 K40 ["$NotificationContentPadding"]
-  SETTABLEKS R21 R20 K33 ["PaddingBottom"]
+  SETTABLEKS R17 R16 K60 ["Size"]
+  GETIMPORT R17 K69 [Enum.AutomaticSize.Y]
+  SETTABLEKS R17 R16 K61 ["AutomaticSize"]
+  NEWTABLE R17 0 2
+  MOVE R18 R8
+  LOADK R19 K75 ["::UIPadding"]
+  DUPTABLE R20 K80 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R21 K97 [UDim.new]
+  LOADN R22 0
+  LOADN R23 6
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K76 ["PaddingLeft"]
+  GETIMPORT R21 K97 [UDim.new]
+  LOADN R22 0
+  LOADN R23 3
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K77 ["PaddingRight"]
+  GETIMPORT R21 K97 [UDim.new]
+  LOADN R22 0
+  LOADN R23 0
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K78 ["PaddingTop"]
+  GETIMPORT R21 K97 [UDim.new]
+  LOADN R22 0
+  LOADN R23 0
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K79 ["PaddingBottom"]
   CALL R18 2 1
-  MOVE R19 R2
-  LOADK R20 K42 ["::UIListLayout"]
-  DUPTABLE R21 K46 [{"FillDirection", "SortOrder", "Padding"}]
-  GETIMPORT R22 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R22 R21 K43 ["FillDirection"]
-  GETIMPORT R22 K50 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R22 R21 K44 ["SortOrder"]
-  LOADK R22 K40 ["$NotificationContentPadding"]
-  SETTABLEKS R22 R21 K45 ["Padding"]
-  CALL R19 2 1
-  MOVE R20 R2
-  LOADK R21 K51 ["::UICorner"]
-  DUPTABLE R22 K53 [{"CornerRadius"}]
-  GETIMPORT R23 K36 [UDim.new]
+  MOVE R19 R8
+  LOADK R20 K70 ["> #InnerCard"]
+  DUPTABLE R21 K72 [{"Size", "TextTransparency"}]
+  GETIMPORT R22 K66 [UDim2.new]
+  LOADN R23 1
   LOADN R24 0
-  LOADN R25 4
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K52 ["CornerRadius"]
-  CALL R20 2 1
-  MOVE R21 R2
-  LOADK R22 K54 ["> .Component-NotificationCard-User"]
-  NEWTABLE R23 0 0
-  NEWTABLE R24 0 1
-  MOVE R25 R2
-  LOADK R26 K51 ["::UICorner"]
-  DUPTABLE R27 K53 [{"CornerRadius"}]
-  GETIMPORT R28 K36 [UDim.new]
-  LOADN R29 1
-  LOADN R30 0
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K52 ["CornerRadius"]
-  CALL R25 2 -1
-  SETLIST R24 R25 -1 [1]
-  CALL R21 3 1
-  MOVE R22 R2
-  LOADK R23 K55 ["> #Icon"]
-  DUPTABLE R24 K57 [{"BackgroundTransparency", "BorderSizePixel", "Size"}]
   LOADN R25 1
-  SETTABLEKS R25 R24 K56 ["BackgroundTransparency"]
-  LOADN R25 0
-  SETTABLEKS R25 R24 K21 ["BorderSizePixel"]
-  SETTABLEKS R7 R24 K22 ["Size"]
-  CALL R22 2 1
-  MOVE R23 R2
-  LOADK R24 K58 ["> #Content"]
-  DUPTABLE R25 K59 [{"Size"}]
-  GETIMPORT R26 K18 [UDim2.new]
-  LOADN R27 0
-  MOVE R28 R6
-  LOADN R29 0
-  LOADN R30 0
-  CALL R26 4 1
-  SETTABLEKS R26 R25 K22 ["Size"]
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K60 ["Size"]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K71 ["TextTransparency"]
+  NEWTABLE R22 0 7
+  MOVE R23 R8
+  LOADK R24 K75 ["::UIPadding"]
+  DUPTABLE R25 K80 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  LOADK R26 K110 ["$NotificationContentPadding"]
+  SETTABLEKS R26 R25 K76 ["PaddingLeft"]
+  LOADK R26 K111 ["$NotificationContentPaddingXL"]
+  SETTABLEKS R26 R25 K77 ["PaddingRight"]
+  LOADK R26 K110 ["$NotificationContentPadding"]
+  SETTABLEKS R26 R25 K78 ["PaddingTop"]
+  LOADK R26 K110 ["$NotificationContentPadding"]
+  SETTABLEKS R26 R25 K79 ["PaddingBottom"]
   CALL R23 2 1
-  MOVE R24 R2
-  LOADK R25 K60 ["> #StatusIndicator"]
-  DUPTABLE R26 K61 [{"Size", "BackgroundTransparency"}]
-  GETIMPORT R27 K18 [UDim2.new]
-  LOADN R28 1
+  MOVE R24 R8
+  LOADK R25 K82 ["::UIListLayout"]
+  DUPTABLE R26 K86 [{"FillDirection", "SortOrder", "Padding"}]
+  GETIMPORT R27 K88 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R27 R26 K83 ["FillDirection"]
+  GETIMPORT R27 K90 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R27 R26 K84 ["SortOrder"]
+  LOADK R27 K110 ["$NotificationContentPadding"]
+  SETTABLEKS R27 R26 K85 ["Padding"]
+  CALL R24 2 1
+  MOVE R25 R8
+  LOADK R26 K91 ["::UICorner"]
+  DUPTABLE R27 K93 [{"CornerRadius"}]
+  GETIMPORT R28 K97 [UDim.new]
   LOADN R29 0
+  LOADN R30 4
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K92 ["CornerRadius"]
+  CALL R25 2 1
+  MOVE R26 R8
+  LOADK R27 K95 ["> .Component-NotificationCard-User"]
+  NEWTABLE R28 0 0
+  NEWTABLE R29 0 1
+  MOVE R30 R8
+  LOADK R31 K91 ["::UICorner"]
+  DUPTABLE R32 K93 [{"CornerRadius"}]
+  GETIMPORT R33 K97 [UDim.new]
+  LOADN R34 1
+  LOADN R35 0
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K92 ["CornerRadius"]
+  CALL R30 2 -1
+  SETLIST R29 R30 -1 [1]
+  CALL R26 3 1
+  MOVE R27 R8
+  LOADK R28 K98 ["> #Icon"]
+  DUPTABLE R29 K100 [{"BackgroundTransparency", "BorderSizePixel", "Size"}]
   LOADN R30 1
-  LOADN R31 0
-  CALL R27 4 1
-  SETTABLEKS R27 R26 K22 ["Size"]
-  LOADN R27 1
-  SETTABLEKS R27 R26 K56 ["BackgroundTransparency"]
-  NEWTABLE R27 0 1
-  MOVE R28 R2
-  LOADK R29 K62 ["> #Indicator"]
-  DUPTABLE R30 K57 [{"BackgroundTransparency", "BorderSizePixel", "Size"}]
-  LOADN R31 1
-  SETTABLEKS R31 R30 K56 ["BackgroundTransparency"]
-  LOADN R31 0
-  SETTABLEKS R31 R30 K21 ["BorderSizePixel"]
-  SETTABLEKS R8 R30 K22 ["Size"]
-  CALL R28 2 -1
-  SETLIST R27 R28 -1 [1]
-  CALL R24 3 -1
+  SETTABLEKS R30 R29 K99 ["BackgroundTransparency"]
+  LOADN R30 0
+  SETTABLEKS R30 R29 K59 ["BorderSizePixel"]
+  SETTABLEKS R12 R29 K60 ["Size"]
+  CALL R27 2 1
+  MOVE R28 R8
+  LOADK R29 K102 ["> #Content"]
+  DUPTABLE R30 K112 [{"Size"}]
+  GETIMPORT R31 K66 [UDim2.new]
+  LOADN R32 0
+  MOVE R33 R11
+  LOADN R34 0
+  LOADN R35 0
+  CALL R31 4 1
+  SETTABLEKS R31 R30 K60 ["Size"]
+  CALL R28 2 1
+  MOVE R29 R8
+  LOADK R30 K113 ["> #StatusIndicator"]
+  DUPTABLE R31 K106 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R32 K66 [UDim2.new]
+  LOADN R33 1
+  LOADN R34 0
+  LOADN R35 1
+  LOADN R36 0
+  CALL R32 4 1
+  SETTABLEKS R32 R31 K60 ["Size"]
+  LOADN R32 1
+  SETTABLEKS R32 R31 K99 ["BackgroundTransparency"]
+  NEWTABLE R32 0 1
+  MOVE R33 R8
+  LOADK R34 K114 ["> #Indicator"]
+  DUPTABLE R35 K100 [{"BackgroundTransparency", "BorderSizePixel", "Size"}]
+  LOADN R36 1
+  SETTABLEKS R36 R35 K99 ["BackgroundTransparency"]
+  LOADN R36 0
+  SETTABLEKS R36 R35 K59 ["BorderSizePixel"]
+  SETTABLEKS R13 R35 K60 ["Size"]
+  CALL R33 2 -1
+  SETLIST R32 R33 -1 [1]
+  CALL R29 3 -1
+  SETLIST R22 R23 -1 [1]
+  CALL R19 3 -1
   SETLIST R17 R18 -1 [1]
-  CALL R14 3 -1
-  SETLIST R12 R13 -1 [1]
-  DUPTABLE R13 K65 [{"NotificationContentPadding", "NotificationContentPaddingXL"}]
-  GETIMPORT R14 K36 [UDim.new]
-  LOADN R15 0
-  LOADN R16 6
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K63 ["NotificationContentPadding"]
-  GETIMPORT R14 K36 [UDim.new]
-  LOADN R15 0
-  LOADN R16 12
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K64 ["NotificationContentPaddingXL"]
-  CALL R9 4 -1
-  RETURN R9 -1
+  DUPTABLE R18 K117 [{"NotificationContentPadding", "NotificationContentPaddingXL"}]
+  GETIMPORT R19 K97 [UDim.new]
+  LOADN R20 0
+  LOADN R21 6
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K115 ["NotificationContentPadding"]
+  GETIMPORT R19 K97 [UDim.new]
+  LOADN R20 0
+  LOADN R21 12
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K116 ["NotificationContentPaddingXL"]
+  CALL R14 4 -1
+  RETURN R14 -1

@@ -5,77 +5,81 @@ PROTO_0:
   FASTCALL1 ASSERT R4 [+2]
   GETIMPORT R3 K1 [assert]
   CALL R3 1 0
-  DUPTABLE R4 K29 [{"_workspace", "_guiTarget", "_useLocalSpace", "_areCollisionsEnabled", "_areConstraintsEnabled", "_areConstraintDetailsShown", "_drawConstraintsOnTop", "_shouldJoinSurfaces", "_shouldAlignDraggedObjects", "_mouseLocation", "_mouseUnitRay", "_cameraCFrame", "_cameraSize", "_mouseIcon", "_isSimulating", "_gridSize", "_gridSnapEnabled", "_partSnapEnabled", "_rotateIncrement", "_rotateSnapEnabled", "_selection", "_undoWaypoints", "_isTabDown", "_isAltDown", "_isCtrlDown", "_isShiftDown", "_settingValues"}]
+  DUPTABLE R4 K30 [{"_realCamera", "_workspace", "_guiTarget", "_useLocalSpace", "_areCollisionsEnabled", "_areConstraintsEnabled", "_areConstraintDetailsShown", "_drawConstraintsOnTop", "_shouldJoinSurfaces", "_shouldAlignDraggedObjects", "_mouseLocation", "_mouseUnitRay", "_cameraCFrame", "_cameraSize", "_mouseIcon", "_isSimulating", "_gridSize", "_gridSnapEnabled", "_partSnapEnabled", "_rotateIncrement", "_rotateSnapEnabled", "_selection", "_undoWaypoints", "_isTabDown", "_isAltDown", "_isCtrlDown", "_isShiftDown", "_settingValues"}]
+  JUMPIFEQKB R2 TRUE [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["_realCamera"]
   JUMPIFNOTEQKB R2 TRUE [+8]
-  GETIMPORT R5 K31 [game]
-  LOADK R7 K32 ["Workspace"]
-  NAMECALL R5 R5 K33 ["GetService"]
+  GETIMPORT R5 K32 [game]
+  LOADK R7 K33 ["Workspace"]
+  NAMECALL R5 R5 K34 ["GetService"]
   CALL R5 2 1
   JUMP [+1]
   LOADNIL R5
-  SETTABLEKS R5 R4 K2 ["_workspace"]
-  SETTABLEKS R0 R4 K3 ["_guiTarget"]
+  SETTABLEKS R5 R4 K3 ["_workspace"]
+  SETTABLEKS R0 R4 K4 ["_guiTarget"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K4 ["_useLocalSpace"]
+  SETTABLEKS R5 R4 K5 ["_useLocalSpace"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K5 ["_areCollisionsEnabled"]
+  SETTABLEKS R5 R4 K6 ["_areCollisionsEnabled"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K6 ["_areConstraintsEnabled"]
+  SETTABLEKS R5 R4 K7 ["_areConstraintsEnabled"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K7 ["_areConstraintDetailsShown"]
+  SETTABLEKS R5 R4 K8 ["_areConstraintDetailsShown"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K8 ["_drawConstraintsOnTop"]
+  SETTABLEKS R5 R4 K9 ["_drawConstraintsOnTop"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K9 ["_shouldJoinSurfaces"]
+  SETTABLEKS R5 R4 K10 ["_shouldJoinSurfaces"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K10 ["_shouldAlignDraggedObjects"]
-  GETIMPORT R5 K36 [Vector2.new]
+  SETTABLEKS R5 R4 K11 ["_shouldAlignDraggedObjects"]
+  GETIMPORT R5 K37 [Vector2.new]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K11 ["_mouseLocation"]
-  GETIMPORT R5 K38 [Ray.new]
+  SETTABLEKS R5 R4 K12 ["_mouseLocation"]
+  GETIMPORT R5 K39 [Ray.new]
   FASTCALL VECTOR [+2]
-  GETIMPORT R6 K40 [Vector3.new]
+  GETIMPORT R6 K41 [Vector3.new]
   CALL R6 0 1
   FASTCALL VECTOR [+2]
-  GETIMPORT R7 K40 [Vector3.new]
+  GETIMPORT R7 K41 [Vector3.new]
   CALL R7 0 1
   CALL R5 2 1
-  SETTABLEKS R5 R4 K12 ["_mouseUnitRay"]
-  GETIMPORT R5 K42 [CFrame.new]
+  SETTABLEKS R5 R4 K13 ["_mouseUnitRay"]
+  GETIMPORT R5 K43 [CFrame.new]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K13 ["_cameraCFrame"]
+  SETTABLEKS R5 R4 K14 ["_cameraCFrame"]
   LOADN R5 10
-  SETTABLEKS R5 R4 K14 ["_cameraSize"]
-  LOADK R5 K43 [""]
-  SETTABLEKS R5 R4 K15 ["_mouseIcon"]
+  SETTABLEKS R5 R4 K15 ["_cameraSize"]
+  LOADK R5 K44 [""]
+  SETTABLEKS R5 R4 K16 ["_mouseIcon"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K16 ["_isSimulating"]
+  SETTABLEKS R5 R4 K17 ["_isSimulating"]
   LOADN R5 1
-  SETTABLEKS R5 R4 K17 ["_gridSize"]
+  SETTABLEKS R5 R4 K18 ["_gridSize"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K18 ["_gridSnapEnabled"]
+  SETTABLEKS R5 R4 K19 ["_gridSnapEnabled"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K19 ["_partSnapEnabled"]
-  LOADK R5 K44 [0.523598775598299]
-  SETTABLEKS R5 R4 K20 ["_rotateIncrement"]
+  SETTABLEKS R5 R4 K20 ["_partSnapEnabled"]
+  LOADK R5 K45 [0.523598775598299]
+  SETTABLEKS R5 R4 K21 ["_rotateIncrement"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K21 ["_rotateSnapEnabled"]
-  SETTABLEKS R1 R4 K22 ["_selection"]
+  SETTABLEKS R5 R4 K22 ["_rotateSnapEnabled"]
+  SETTABLEKS R1 R4 K23 ["_selection"]
   NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K23 ["_undoWaypoints"]
+  SETTABLEKS R5 R4 K24 ["_undoWaypoints"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K24 ["_isTabDown"]
+  SETTABLEKS R5 R4 K25 ["_isTabDown"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K25 ["_isAltDown"]
+  SETTABLEKS R5 R4 K26 ["_isAltDown"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K26 ["_isCtrlDown"]
+  SETTABLEKS R5 R4 K27 ["_isCtrlDown"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K27 ["_isShiftDown"]
+  SETTABLEKS R5 R4 K28 ["_isShiftDown"]
   NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K28 ["_settingValues"]
+  SETTABLEKS R5 R4 K29 ["_settingValues"]
   GETUPVAL R5 0
   FASTCALL2 SETMETATABLE R4 R5 [+3]
-  GETIMPORT R3 K46 [setmetatable]
+  GETIMPORT R3 K47 [setmetatable]
   CALL R3 2 1
   RETURN R3 1
 
@@ -286,7 +290,13 @@ PROTO_40:
   RETURN R1 1
 
 PROTO_41:
-  GETTABLEKS R1 R0 K0 ["_cameraCFrame"]
+  GETTABLEKS R1 R0 K0 ["_realCamera"]
+  JUMPIFNOT R1 [+7]
+  GETTABLEKS R3 R0 K1 ["_workspace"]
+  GETTABLEKS R2 R3 K2 ["CurrentCamera"]
+  GETTABLEKS R1 R2 K3 ["CFrame"]
+  RETURN R1 1
+  GETTABLEKS R1 R0 K4 ["_cameraCFrame"]
   RETURN R1 1
 
 PROTO_42:
@@ -310,6 +320,27 @@ PROTO_43:
   RETURN R0 0
 
 PROTO_44:
+  GETTABLEKS R2 R0 K0 ["_realCamera"]
+  JUMPIFNOT R2 [+28]
+  NAMECALL R2 R0 K1 ["getCameraCFrame"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K2 ["Position"]
+  SUB R3 R1 R4
+  GETTABLEKS R5 R2 K3 ["LookVector"]
+  NAMECALL R3 R3 K4 ["Dot"]
+  CALL R3 2 1
+  GETTABLEKS R8 R0 K5 ["_workspace"]
+  GETTABLEKS R7 R8 K6 ["CurrentCamera"]
+  GETTABLEKS R6 R7 K7 ["FieldOfView"]
+  FASTCALL1 MATH_RAD R6 [+2]
+  GETIMPORT R5 K10 [math.rad]
+  CALL R5 1 1
+  FASTCALL1 MATH_SIN R5 [+2]
+  GETIMPORT R4 K12 [math.sin]
+  CALL R4 1 1
+  MUL R6 R4 R3
+  MULK R5 R6 K13 [0.05]
+  RETURN R5 1
   LOADN R2 1
   RETURN R2 1
 

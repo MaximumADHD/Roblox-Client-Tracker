@@ -25,6 +25,8 @@ export type FontStyle = Types.FontStyle
 export type Tokens = Tokens.Tokens
 
 -- Enums and their types
+local AlertSeverity = require(script.Enums.AlertSeverity)
+local AlertVariant = require(script.Enums.AlertVariant)
 local AvatarGroupType = require(script.Enums.AvatarGroupType)
 local BadgeSize = require(script.Enums.BadgeSize)
 local BadgeVariant = require(script.Enums.BadgeVariant)
@@ -62,6 +64,8 @@ local ThumbnailSize = require(script.Enums.ThumbnailSize)
 local UserPresence = require(script.Enums.UserPresence)
 local Visibility = require(script.Enums.Visibility)
 
+export type AlertSeverity = AlertSeverity.AlertSeverity
+export type AlertVariant = AlertVariant.AlertVariant
 export type AvatarGroupType = AvatarGroupType.AvatarGroupType
 export type BadgeSize = BadgeSize.BadgeSize
 export type BadgeVariant = BadgeVariant.BadgeVariant
@@ -191,6 +195,10 @@ export type MenuItems = Menu.MenuItems
 local NumberInput = require(script.Components.NumberInput)
 export type NumberInputProps = NumberInput.NumberInputProps
 
+local OptionSelectorGroup = require(script.Components.OptionSelectorGroup)
+export type OptionSelectorGroupProps = OptionSelectorGroup.OptionSelectorGroupProps
+export type OptionSelectorGroupItemProps = OptionSelectorGroup.OptionSelectorGroupItemProps
+
 local Popover = require(script.Components.Popover)
 export type PopoverProps = Popover.PopoverProps
 export type PopoverAnchorProps = Popover.PopoverAnchorProps
@@ -228,6 +236,9 @@ export type SnackbarAction = Snackbar.SnackbarAction
 
 local StatusIndicator = require(script.Components.StatusIndicator)
 export type StatusIndicatorProps = StatusIndicator.StatusIndicatorProps
+
+local SystemBanner = require(script.Components.SystemBanner)
+export type SystemBannerProps = SystemBanner.SystemBannerProps
 
 local Tabs = require(script.Components.Tabs)
 export type TabsProps = Tabs.TabsProps
@@ -278,6 +289,7 @@ local Foundation = strict({
 	Loading = Loading,
 	Menu = Menu,
 	NumberInput = NumberInput,
+	OptionSelectorGroup = OptionSelectorGroup,
 	Pill = Chip,
 	Popover = Popover,
 	Progress = Progress,
@@ -289,6 +301,7 @@ local Foundation = strict({
 	Slider = Slider,
 	Snackbar = Snackbar,
 	StatusIndicator = StatusIndicator,
+	SystemBanner = SystemBanner,
 	Tabs = Tabs,
 	Text = Text,
 	TextInput = TextInput,
@@ -327,6 +340,8 @@ local Foundation = strict({
 
 	-- Enums
 	Enums = {
+		AlertSeverity = AlertSeverity,
+		AlertVariant = AlertVariant,
 		AvatarGroupType = AvatarGroupType,
 		BadgeSize = BadgeSize,
 		BadgeVariant = BadgeVariant,

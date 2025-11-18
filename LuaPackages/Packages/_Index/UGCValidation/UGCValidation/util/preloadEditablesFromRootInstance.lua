@@ -18,7 +18,7 @@ local function preloadEditablesFromRootInstance(rootInstance: Instance)
 	local instances = rootInstance:GetDescendants()
 	table.insert(instances, rootInstance)
 
-	for _, desc in instances do
+	for _, desc: any in instances do
 		if desc:IsA("BinaryStringValue") and preloadedMeshValueNames[desc.Name] then
 			editableMeshes[desc.Parent[desc.Name]] =
 				UGCValidationService:CreateEditableMeshFromBinaryStringRobloxOnly(desc)

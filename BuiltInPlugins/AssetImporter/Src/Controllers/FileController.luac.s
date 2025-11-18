@@ -47,37 +47,37 @@ PROTO_3:
   NAMECALL R1 R1 K1 ["getState"]
   CALL R1 1 1
   NEWTABLE R2 0 0
-  GETTABLEKS R4 R1 K2 ["Dialogs"]
-  GETTABLEKS R3 R4 K3 ["showPreview"]
-  JUMPIF R3 [+13]
-  GETTABLEKS R4 R1 K4 ["Sessions"]
-  GETTABLEKS R3 R4 K5 ["uploading"]
-  JUMPIF R3 [+8]
-  GETTABLEKS R4 R1 K4 ["Sessions"]
-  GETTABLEKS R3 R4 K6 ["parsing"]
-  JUMPIF R3 [+3]
-  GETTABLEKS R3 R0 K7 ["_promptRequested"]
-  JUMPIFNOT R3 [+1]
-  RETURN R0 0
   GETTABLEKS R3 R0 K0 ["_store"]
   GETUPVAL R5 0
   LOADB R6 1
   CALL R5 1 -1
-  NAMECALL R3 R3 K8 ["dispatch"]
+  NAMECALL R3 R3 K2 ["dispatch"]
   CALL R3 -1 0
+  GETTABLEKS R4 R1 K3 ["Dialogs"]
+  GETTABLEKS R3 R4 K4 ["showPreview"]
+  JUMPIF R3 [+13]
+  GETTABLEKS R4 R1 K5 ["Sessions"]
+  GETTABLEKS R3 R4 K6 ["uploading"]
+  JUMPIF R3 [+8]
+  GETTABLEKS R4 R1 K5 ["Sessions"]
+  GETTABLEKS R3 R4 K7 ["parsing"]
+  JUMPIF R3 [+3]
+  GETTABLEKS R3 R0 K8 ["_promptRequested"]
+  JUMPIFNOT R3 [+1]
+  RETURN R0 0
   LOADB R3 1
-  SETTABLEKS R3 R0 K7 ["_promptRequested"]
+  SETTABLEKS R3 R0 K8 ["_promptRequested"]
   GETUPVAL R3 1
   NAMECALL R3 R3 K9 ["PickMultipleFilesWithPrompt"]
   CALL R3 1 1
   MOVE R2 R3
   LOADB R3 0
-  SETTABLEKS R3 R0 K7 ["_promptRequested"]
+  SETTABLEKS R3 R0 K8 ["_promptRequested"]
   GETTABLEKS R3 R0 K0 ["_store"]
   GETUPVAL R5 2
   LOADB R6 1
   CALL R5 1 -1
-  NAMECALL R3 R3 K8 ["dispatch"]
+  NAMECALL R3 R3 K2 ["dispatch"]
   CALL R3 -1 0
   MOVE R5 R2
   NAMECALL R3 R0 K10 ["_onFilePicked"]
@@ -86,12 +86,12 @@ PROTO_3:
   GETUPVAL R5 2
   LOADB R6 0
   CALL R5 1 -1
-  NAMECALL R3 R3 K8 ["dispatch"]
+  NAMECALL R3 R3 K2 ["dispatch"]
   CALL R3 -1 0
   GETTABLEKS R5 R0 K0 ["_store"]
   NAMECALL R5 R5 K1 ["getState"]
   CALL R5 1 1
-  GETTABLEKS R4 R5 K4 ["Sessions"]
+  GETTABLEKS R4 R5 K5 ["Sessions"]
   GETTABLEKS R3 R4 K11 ["sessionQueue"]
   LENGTH R5 R2
   JUMPIFEQKN R5 K12 [1] [+2]
@@ -118,7 +118,7 @@ PROTO_3:
   GETTABLEKS R9 R0 K0 ["_store"]
   NAMECALL R9 R9 K1 ["getState"]
   CALL R9 1 1
-  GETTABLEKS R8 R9 K2 ["Dialogs"]
+  GETTABLEKS R8 R9 K3 ["Dialogs"]
   GETTABLEKS R7 R8 K16 ["showQueue"]
   JUMPIFNOT R7 [+5]
   GETTABLEKS R9 R5 K17 ["filepath"]

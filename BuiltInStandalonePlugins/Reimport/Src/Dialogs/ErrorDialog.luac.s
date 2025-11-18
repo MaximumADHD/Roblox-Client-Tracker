@@ -37,29 +37,25 @@ PROTO_0:
   GETTABLEKS R14 R6 K12 ["label"]
   JUMPIFNOTEQKNIL R14 [+3]
   LOADNIL R13
-  JUMP [+23]
+  JUMP [+16]
   GETUPVAL R13 2
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K13 ["Text"]
-  DUPTABLE R15 K16 [{"tag", "Text", "TextWrapped", "fontStyle"}]
-  LOADK R16 K17 ["size-full-0 auto-y text-align-x-left"]
+  DUPTABLE R15 K15 [{"tag", "Text", "TextWrapped"}]
+  LOADK R16 K16 ["size-full-0 auto-y text-align-x-left text-title-small"]
   SETTABLEKS R16 R15 K9 ["tag"]
   GETTABLEKS R16 R6 K12 ["label"]
   SETTABLEKS R16 R15 K13 ["Text"]
   LOADB R16 1
   SETTABLEKS R16 R15 K14 ["TextWrapped"]
-  DUPTABLE R16 K19 [{"Font"}]
-  GETIMPORT R17 K22 [Enum.Font.BuilderSansBold]
-  SETTABLEKS R17 R16 K18 ["Font"]
-  SETTABLEKS R16 R15 K15 ["fontStyle"]
   CALL R13 2 1
   GETUPVAL R14 2
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K13 ["Text"]
-  DUPTABLE R16 K23 [{"tag", "Text", "TextWrapped"}]
-  LOADK R17 K17 ["size-full-0 auto-y text-align-x-left"]
+  DUPTABLE R16 K15 [{"tag", "Text", "TextWrapped"}]
+  LOADK R17 K17 ["size-full-0 auto-y text-align-x-left text-body-small"]
   SETTABLEKS R17 R16 K9 ["tag"]
-  GETTABLEKS R17 R6 K24 ["message"]
+  GETTABLEKS R17 R6 K18 ["message"]
   SETTABLEKS R17 R16 K13 ["Text"]
   LOADB R17 1
   SETTABLEKS R17 R16 K14 ["TextWrapped"]
@@ -69,7 +65,7 @@ PROTO_0:
   FASTCALL TABLE_INSERT [+2]
   GETIMPORT R7 K7 [table.insert]
   CALL R7 -1 0
-  FORGLOOP R2 2 [-86]
+  FORGLOOP R2 2 [-79]
   RETURN R1 1
 
 PROTO_1:
@@ -129,7 +125,7 @@ PROTO_1:
   DUPTABLE R14 K29 [{"Text", "tag"}]
   LOADK R15 K30 ["Errors occured during reimport"]
   SETTABLEKS R15 R14 K28 ["Text"]
-  LOADK R15 K31 [" flex-y-fill auto-y text-align-x-left text-align-y-center"]
+  LOADK R15 K31 [" flex-y-fill auto-y text-align-x-left text-align-y-center text-title-large"]
   SETTABLEKS R15 R14 K7 ["tag"]
   CALL R12 2 -1
   SETLIST R10 R11 -1 [1]

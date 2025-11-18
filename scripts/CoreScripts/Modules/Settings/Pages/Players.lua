@@ -20,10 +20,8 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 ----------- UTILITIES --------------
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 CoreGuiModules:WaitForChild("TenFootInterface")
-local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local formatUsername = UserProfiles.Formatters.formatUsername
-local getInExperienceCombinedNameFromId = UserProfiles.Selectors.getInExperienceCombinedNameFromId
 local Cryo = require(CorePackages.Packages.Cryo)
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
@@ -74,7 +72,6 @@ local SettingsFlags = require(script.Parent.Parent.Flags)
 local FFlagIEMButtonsResponsiveLayout = SettingsFlags.FFlagIEMButtonsResponsiveLayout
 
 local UserProfileStore = UserProfiles.Stores.UserProfileStore
-local GetFFlagUseUserProfileStore = SharedFlags.GetFFlagUseUserProfileStore
 
 local _, PlatformFriendsService = pcall(function()
 	return game:GetService("PlatformFriendsService")
@@ -1658,41 +1655,22 @@ local function Initialize()
 			if FFlagCheckForNilUserIdOnPlayerList and not player.UserId then
 				reportFlagChanged(reportFlag, "AbsolutePosition")
 			else
-				if GetFFlagUseUserProfileStore() then
-					UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
-						local displayNameLabel = getDisplayNameLabel(frame)
-						if displayNameLabel == nil then
-							return
-						end
-						local combinedName = getInExperienceCombinedName(result.data)
-						if string.len(combinedName) > 0 and combinedName ~= displayNameLabel.Text then
-							reportFlagChanged(
-								reportFlag,
-								"AbsolutePosition",
-								combinedName
-							)
-						elseif player.DisplayName ~= displayNameLabel.Text then
-							reportFlagChanged(reportFlag, "AbsolutePosition")
-						end
-					end)
-				else
-					ApolloClient:query({
-						query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
-						variables = {
-							userIds = { tostring(player.UserId) },
-						},
-					})
-						:andThen(function(result)
-							reportFlagChanged(
-								reportFlag,
-								"AbsolutePosition",
-								getInExperienceCombinedNameFromId(result.data, player.UserId)
-							)
-						end)
-						:catch(function()
-							reportFlagChanged(reportFlag, "AbsolutePosition")
-						end)
-				end
+				UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
+					local displayNameLabel = getDisplayNameLabel(frame)
+					if displayNameLabel == nil then
+						return
+					end
+					local combinedName = getInExperienceCombinedName(result.data)
+					if string.len(combinedName) > 0 and combinedName ~= displayNameLabel.Text then
+						reportFlagChanged(
+							reportFlag,
+							"AbsolutePosition",
+							combinedName
+						)
+					elseif player.DisplayName ~= displayNameLabel.Text then
+						reportFlagChanged(reportFlag, "AbsolutePosition")
+					end
+				end)
 			end
 		end
 
@@ -1731,36 +1709,21 @@ local function Initialize()
 					if FFlagCheckForNilUserIdOnPlayerList and not player.UserId then
 						frame.DisplayNameLabel.Text = player.DisplayName
 					else
-						if GetFFlagUseUserProfileStore() then
-							UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
-								local displayNameLabel = getDisplayNameLabel(frame)
-								if displayNameLabel == nil then
-									return
+						UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
+							local displayNameLabel = getDisplayNameLabel(frame)
+							if displayNameLabel == nil then
+								return
+							end
+							local combinedName = getInExperienceCombinedName(result.data)
+							if string.len(combinedName) > 0 and combinedName ~= displayNameLabel.Text then
+								displayNameLabel.Text = combinedName
+							else
+								local displayName = player.DisplayName
+								if displayName ~= displayNameLabel.Text then
+									displayNameLabel.Text = displayName
 								end
-								local combinedName = getInExperienceCombinedName(result.data)
-								if string.len(combinedName) > 0 and combinedName ~= displayNameLabel.Text then
-									displayNameLabel.Text = combinedName
-								else
-									local displayName = player.DisplayName
-									if displayName ~= displayNameLabel.Text then
-										displayNameLabel.Text = displayName
-									end
-								end
-							end)
-						else
-							ApolloClient:query({
-								query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
-								variables = {
-									userIds = { tostring(player.UserId) },
-								},
-							})
-								:andThen(function(result)
-									frame.DisplayNameLabel.Text = getInExperienceCombinedNameFromId(result.data, player.UserId)
-								end)
-								:catch(function()
-									frame.DisplayNameLabel.Text = player.DisplayName
-								end)
-						end
+							end
+						end)
 					end
 				end
 			end)
@@ -1811,36 +1774,21 @@ local function Initialize()
 			if FFlagCheckForNilUserIdOnPlayerList and not player.UserId then
 				frame.DisplayNameLabel.Text = player.DisplayName
 			else
-				if GetFFlagUseUserProfileStore() then
-					UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
-						local displayNameLabel = getDisplayNameLabel(frame)
-						if displayNameLabel == nil then
-							return
+				UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
+					local displayNameLabel = getDisplayNameLabel(frame)
+					if displayNameLabel == nil then
+						return
+					end
+					local combinedName = getInExperienceCombinedName(result.data)
+					if string.len(combinedName) > 0 and combinedName ~= displayNameLabel.Text then
+						displayNameLabel.Text = combinedName
+					else
+						local displayName = player.DisplayName
+						if displayName ~= displayNameLabel.Text then
+							displayNameLabel.Text = displayName
 						end
-						local combinedName = getInExperienceCombinedName(result.data)
-						if string.len(combinedName) > 0 and combinedName ~= displayNameLabel.Text then
-							displayNameLabel.Text = combinedName
-						else
-							local displayName = player.DisplayName
-							if displayName ~= displayNameLabel.Text then
-								displayNameLabel.Text = displayName
-							end
-						end
-					end)
-				else
-					ApolloClient:query({
-						query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
-						variables = {
-							userIds = { tostring(player.UserId) },
-						},
-					})
-						:andThen(function(result)
-							frame.DisplayNameLabel.Text = getInExperienceCombinedNameFromId(result.data, player.UserId)
-						end)
-						:catch(function()
-							frame.DisplayNameLabel.Text = player.DisplayName
-						end)
-				end
+					end
+				end)
 			end
 		end
 
@@ -2222,82 +2170,41 @@ local function Initialize()
 				return tostring(player.UserId)
 			end)
 		end
-		if GetFFlagUseUserProfileStore() then
-			for _, player in ipairs(sortedPlayers) do
-				local labelFrame = existingPlayerLabels[player.Name]
-				labelFrame.DisplayNameLabel.Text = player.DisplayName
-			end
-			UserProfileStore.get().fetchNamesByUserIds(playerIds, function(result)
-				local profiles = result.data
-				for _, profile in profiles do
-					local username = profile.names.getUsername(false)
-					local labelFrame = existingPlayerLabels[username]
-					if labelFrame then
-						local combinedName = profile.names.getInExperienceCombinedName(false)
-						if string.len(combinedName) > 0 and combinedName ~= labelFrame.DisplayNameLabel.Text then
-							labelFrame.DisplayNameLabel.Text = combinedName
+
+		for _, player in ipairs(sortedPlayers) do
+			local labelFrame = existingPlayerLabels[player.Name]
+			labelFrame.DisplayNameLabel.Text = player.DisplayName
+		end
+		UserProfileStore.get().fetchNamesByUserIds(playerIds, function(result)
+			local profiles = result.data
+			for _, profile in profiles do
+				local username = profile.names.getUsername(false)
+				local labelFrame = existingPlayerLabels[username]
+				if labelFrame then
+					local combinedName = profile.names.getInExperienceCombinedName(false)
+					if string.len(combinedName) > 0 and combinedName ~= labelFrame.DisplayNameLabel.Text then
+						labelFrame.DisplayNameLabel.Text = combinedName
+					end
+					if FFlagEnablePlatformName then
+						local rightSideButtons = labelFrame:FindFirstChild("RightSideButtons")
+						local platformName = nil
+
+						if profile.names.getPlatformName(false) ~= "" then
+							platformName = profile.names.getPlatformName(false)
 						end
-						if FFlagEnablePlatformName then
-							local rightSideButtons = labelFrame:FindFirstChild("RightSideButtons")
-							local platformName = nil
 
-							if profile.names.getPlatformName(false) ~= "" then
-								platformName = profile.names.getPlatformName(false)
-							end
-
-							if
-								game:GetEngineFeature("PlatformFriendsService")
-								and game:GetEngineFeature("PlatformFriendsProfile")
-							then
-								resizePlatformName(rightSideButtons, platformName, profile.getPlatformProfileId(false))
-							else
-								resizePlatformName(rightSideButtons, platformName)
-							end
+						if
+							game:GetEngineFeature("PlatformFriendsService")
+							and game:GetEngineFeature("PlatformFriendsProfile")
+						then
+							resizePlatformName(rightSideButtons, platformName, profile.getPlatformProfileId(false))
+						else
+							resizePlatformName(rightSideButtons, platformName)
 						end
 					end
 				end
-			end)
-		else
-			ApolloClient:query({
-				query = UserProfiles.Queries.userProfilesInExperienceNamesByUserIds,
-				variables = {
-					userIds = playerIds,
-				},
-			})
-				:andThen(function(response)
-					Cryo.List.map(response.data.userProfiles, function(userProfile)
-						local labelFrame = existingPlayerLabels[userProfile.names.username]
-
-						if labelFrame then
-							labelFrame.DisplayNameLabel.Text = userProfile.names.inExperienceCombinedName
-
-							if FFlagEnablePlatformName then
-								local rightSideButtons = labelFrame:FindFirstChild("RightSideButtons")
-								local platformName = nil
-
-								if userProfile.names.platformName ~= "" then
-									platformName = userProfile.names.platformName
-								end
-
-								if
-									game:GetEngineFeature("PlatformFriendsService")
-									and game:GetEngineFeature("PlatformFriendsProfile")
-								then
-									resizePlatformName(rightSideButtons, platformName, userProfile.platformProfileId)
-								else
-									resizePlatformName(rightSideButtons, platformName)
-								end
-							end
-						end
-					end)
-				end)
-				:catch(function()
-					Cryo.List.map(sortedPlayers, function(player)
-						local labelFrame = existingPlayerLabels[player.Name]
-						labelFrame.DisplayNameLabel.Text = player.DisplayName
-					end)
-				end)
-		end
+			end
+		end)
 
 		local frame = 0
 		if voiceChatServiceConnected and not renderSteppedConnected then

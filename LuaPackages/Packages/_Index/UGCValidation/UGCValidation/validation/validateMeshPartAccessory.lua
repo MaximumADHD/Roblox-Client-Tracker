@@ -3,6 +3,7 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
+local ConstantsInterface = require(root.ConstantsInterface)
 
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
@@ -45,6 +46,7 @@ local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
+local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
 
 local FFlagMeshpartAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("MeshpartAccessoryCheckAvatarPartScaleType", false)
@@ -198,7 +200,13 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
 
-	reasonsAccumulator:updateReasons(validateTextureSize(textureInfo, --[[ allowNoTexture = ]] true, validationContext))
+	local textureSizeLimit = nil
+	if getFFlagUGCValidateAccessoryAssetTextureLimit() then
+		textureSizeLimit = ConstantsInterface.getTextureLimit(assetTypeEnum, handle, textureInfo.fieldName)
+	end
+	reasonsAccumulator:updateReasons(
+		validateTextureSize(textureInfo, --[[ allowNoTexture = ]] true, validationContext, textureSizeLimit)
+	)
 
 	reasonsAccumulator:updateReasons(
 		validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)

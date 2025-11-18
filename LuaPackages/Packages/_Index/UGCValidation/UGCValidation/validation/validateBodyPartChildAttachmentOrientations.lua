@@ -162,7 +162,7 @@ function ValidateBodyPartChildAttachmentOrientations.runValidation(
 	assert(getFFlagRefactorBodyAttachmentOrientationsCheck())
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	for _, desc: Attachment in inst:GetDescendants() do
+	for _, desc: Attachment in inst:GetDescendants() :: { any } do
 		if desc.ClassName == "Attachment" then
 			local isRigAttachment = string.sub(desc.Name, -string.len(RIG_ATT_SUFFIX)) == RIG_ATT_SUFFIX
 			local isGripAttachment = string.sub(desc.Name, -string.len(GRIP_ATT_SUFFIX)) == GRIP_ATT_SUFFIX

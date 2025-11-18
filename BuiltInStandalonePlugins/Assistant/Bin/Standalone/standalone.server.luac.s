@@ -44,50 +44,42 @@ MAIN:
   JUMPIFEQ R6 R7 [+2]
   LOADB R5 0 +1
   LOADB R5 1
-  JUMPIFNOT R5 [+71]
+  JUMPIFNOT R5 [+59]
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Src"]
-  GETTABLEKS R8 R9 K7 ["Flags"]
-  GETTABLEKS R7 R8 K21 ["FFlagAssistantSupportReactDevTools"]
+  GETTABLEKS R8 R0 K10 ["Packages"]
+  GETTABLEKS R7 R8 K21 ["ReactDeveloperTools"]
   CALL R6 1 1
-  MOVE R7 R6
-  CALL R7 0 1
-  JUMPIFNOT R7 [+17]
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K10 ["Packages"]
-  GETTABLEKS R8 R9 K22 ["ReactDeveloperTools"]
-  CALL R7 1 1
-  GETTABLEKS R8 R7 K23 ["tryEnableDevtools"]
-  DUPTABLE R9 K26 [{"pluginName", "profileOnStart"}]
-  LOADK R10 K2 ["Assistant"]
-  SETTABLEKS R10 R9 K24 ["pluginName"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K25 ["profileOnStart"]
-  CALL R8 1 0
+  GETTABLEKS R7 R6 K22 ["tryEnableDevtools"]
+  DUPTABLE R8 K25 [{"pluginName", "profileOnStart"}]
+  LOADK R9 K2 ["Assistant"]
+  SETTABLEKS R9 R8 K23 ["pluginName"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K24 ["profileOnStart"]
+  CALL R7 1 0
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K16 ["Bin"]
   GETTABLEKS R9 R10 K17 ["Common"]
-  GETTABLEKS R8 R9 K27 ["toolInit"]
+  GETTABLEKS R8 R9 K26 ["toolInit"]
   CALL R7 1 1
   MOVE R8 R7
-  GETIMPORT R9 K29 [plugin]
-  DUPTABLE R10 K32 [{"isGuest", "isHost"}]
-  SETTABLEKS R5 R10 K30 ["isGuest"]
+  GETIMPORT R9 K28 [plugin]
+  DUPTABLE R10 K31 [{"isGuest", "isHost"}]
+  SETTABLEKS R5 R10 K29 ["isGuest"]
   LOADB R11 0
-  SETTABLEKS R11 R10 K31 ["isHost"]
+  SETTABLEKS R11 R10 K30 ["isHost"]
   CALL R8 2 0
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K16 ["Bin"]
   GETTABLEKS R10 R11 K17 ["Common"]
-  GETTABLEKS R9 R10 K33 ["setup"]
+  GETTABLEKS R9 R10 K32 ["setup"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K16 ["Bin"]
   GETTABLEKS R11 R12 K17 ["Common"]
-  GETTABLEKS R10 R11 K34 ["setupMain"]
+  GETTABLEKS R10 R11 K33 ["setupMain"]
   CALL R9 1 1
   MOVE R10 R8
-  GETIMPORT R11 K29 [plugin]
+  GETIMPORT R11 K28 [plugin]
   MOVE R12 R9
   CALL R10 2 0
   RETURN R0 0

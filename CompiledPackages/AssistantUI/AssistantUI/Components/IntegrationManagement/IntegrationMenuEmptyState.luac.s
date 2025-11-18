@@ -1,10 +1,22 @@
 PROTO_0:
   DUPTABLE R0 K3 [{"ManageIntegrations", "AddAnIntegration", "Add"}]
-  LOADK R1 K4 ["Manage Integrations"]
+  GETUPVAL R1 0
+  LOADK R3 K4 ["IntegrationManagement"]
+  LOADK R4 K0 ["ManageIntegrations"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K0 ["ManageIntegrations"]
-  LOADK R1 K5 ["Add an integration"]
+  GETUPVAL R1 0
+  LOADK R3 K4 ["IntegrationManagement"]
+  LOADK R4 K6 ["AddIntegration"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K1 ["AddAnIntegration"]
-  LOADK R1 K2 ["Add"]
+  GETUPVAL R1 0
+  LOADK R3 K7 ["Settings"]
+  LOADK R4 K2 ["Add"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K2 ["Add"]
   RETURN R0 1
 
@@ -48,119 +60,123 @@ PROTO_4:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useMemo"]
   DUPCLOSURE R2 K1 [PROTO_0]
-  NEWTABLE R3 0 0
+  CAPTURE UPVAL U1
+  NEWTABLE R3 0 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["locale"]
+  SETLIST R3 R4 1 [1]
   CALL R1 2 1
-  GETUPVAL R2 1
+  GETUPVAL R2 2
   CALL R2 0 1
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["useRef"]
+  GETTABLEKS R3 R4 K3 ["useRef"]
   LOADNIL R4
   CALL R3 1 1
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["useState"]
+  GETTABLEKS R4 R5 K4 ["useState"]
   LOADN R5 0
   CALL R4 1 2
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K4 ["useEffect"]
+  GETTABLEKS R6 R7 K5 ["useEffect"]
   NEWCLOSURE R7 P1
   CAPTURE VAL R3
   CAPTURE VAL R5
   NEWTABLE R8 0 0
   CALL R6 2 0
-  GETUPVAL R6 2
-  GETUPVAL R7 3
-  DUPTABLE R8 K8 [{"LayoutOrder", "tag", "testId"}]
-  GETTABLEKS R9 R0 K5 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K5 ["LayoutOrder"]
-  LOADK R9 K9 ["col size-full-0 auto-y padding-xlarge"]
-  SETTABLEKS R9 R8 K6 ["tag"]
-  LOADK R9 K10 ["Assistant-IntegrationMenuEmptyState"]
-  SETTABLEKS R9 R8 K7 ["testId"]
-  DUPTABLE R9 K13 [{"TitleText", "CenteredContent"}]
-  GETUPVAL R10 2
-  GETUPVAL R11 4
-  DUPTABLE R12 K15 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R13 K16 ["auto-xy text-title-medium text-align-x-left"]
-  SETTABLEKS R13 R12 K6 ["tag"]
-  GETTABLEKS R13 R1 K17 ["ManageIntegrations"]
-  SETTABLEKS R13 R12 K14 ["Text"]
+  GETUPVAL R6 3
+  GETUPVAL R7 4
+  DUPTABLE R8 K9 [{"LayoutOrder", "tag", "testId"}]
+  GETTABLEKS R9 R0 K6 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K6 ["LayoutOrder"]
+  LOADK R9 K10 ["col size-full-0 auto-y padding-xlarge"]
+  SETTABLEKS R9 R8 K7 ["tag"]
+  LOADK R9 K11 ["Assistant-IntegrationMenuEmptyState"]
+  SETTABLEKS R9 R8 K8 ["testId"]
+  DUPTABLE R9 K14 [{"TitleText", "CenteredContent"}]
+  GETUPVAL R10 3
+  GETUPVAL R11 5
+  DUPTABLE R12 K16 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R13 K17 ["auto-xy text-title-medium text-align-x-left"]
+  SETTABLEKS R13 R12 K7 ["tag"]
+  GETTABLEKS R13 R1 K18 ["ManageIntegrations"]
+  SETTABLEKS R13 R12 K15 ["Text"]
   MOVE R13 R2
   CALL R13 0 1
-  SETTABLEKS R13 R12 K5 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K6 ["LayoutOrder"]
   CALL R10 2 1
-  SETTABLEKS R10 R9 K11 ["TitleText"]
-  GETUPVAL R10 2
-  GETUPVAL R11 3
-  DUPTABLE R12 K18 [{"LayoutOrder", "tag"}]
+  SETTABLEKS R10 R9 K12 ["TitleText"]
+  GETUPVAL R10 3
+  GETUPVAL R11 4
+  DUPTABLE R12 K19 [{"LayoutOrder", "tag"}]
   MOVE R13 R2
   CALL R13 0 1
-  SETTABLEKS R13 R12 K5 ["LayoutOrder"]
-  LOADK R13 K19 ["col size-full-full align-y-center align-x-center gap-medium"]
-  SETTABLEKS R13 R12 K6 ["tag"]
-  GETTABLEKS R14 R0 K20 ["isLoading"]
+  SETTABLEKS R13 R12 K6 ["LayoutOrder"]
+  LOADK R13 K20 ["col size-full-full align-y-center align-x-center gap-medium"]
+  SETTABLEKS R13 R12 K7 ["tag"]
+  GETTABLEKS R14 R0 K21 ["isLoading"]
   JUMPIFNOT R14 [+32]
-  DUPTABLE R13 K22 [{"Container"}]
-  GETUPVAL R14 2
-  GETUPVAL R15 3
-  DUPTABLE R16 K23 [{"LayoutOrder"}]
+  DUPTABLE R13 K23 [{"Container"}]
+  GETUPVAL R14 3
+  GETUPVAL R15 4
+  DUPTABLE R16 K24 [{"LayoutOrder"}]
   MOVE R17 R2
   CALL R17 0 1
-  SETTABLEKS R17 R16 K5 ["LayoutOrder"]
-  DUPTABLE R17 K25 [{"Loading"}]
-  GETUPVAL R18 2
-  GETUPVAL R19 5
-  DUPTABLE R20 K27 [{"size", "LayoutOrder"}]
-  GETUPVAL R24 6
-  GETTABLEKS R23 R24 K28 ["Enums"]
-  GETTABLEKS R22 R23 K29 ["IconSize"]
-  GETTABLEKS R21 R22 K30 ["Medium"]
-  SETTABLEKS R21 R20 K26 ["size"]
+  SETTABLEKS R17 R16 K6 ["LayoutOrder"]
+  DUPTABLE R17 K26 [{"Loading"}]
+  GETUPVAL R18 3
+  GETUPVAL R19 6
+  DUPTABLE R20 K28 [{"size", "LayoutOrder"}]
+  GETUPVAL R24 7
+  GETTABLEKS R23 R24 K29 ["Enums"]
+  GETTABLEKS R22 R23 K30 ["IconSize"]
+  GETTABLEKS R21 R22 K31 ["Medium"]
+  SETTABLEKS R21 R20 K27 ["size"]
   MOVE R21 R2
   CALL R21 0 1
-  SETTABLEKS R21 R20 K5 ["LayoutOrder"]
+  SETTABLEKS R21 R20 K6 ["LayoutOrder"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K24 ["Loading"]
+  SETTABLEKS R18 R17 K25 ["Loading"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K21 ["Container"]
+  SETTABLEKS R14 R13 K22 ["Container"]
   JUMPIF R13 [+53]
-  DUPTABLE R13 K32 [{"Text", "Button"}]
-  GETUPVAL R14 2
-  GETUPVAL R15 4
-  DUPTABLE R16 K34 [{"tag", "Text", "LayoutOrder", "ref"}]
-  LOADK R17 K35 ["auto-xy text-body-small"]
-  SETTABLEKS R17 R16 K6 ["tag"]
-  GETTABLEKS R17 R1 K36 ["AddAnIntegration"]
-  SETTABLEKS R17 R16 K14 ["Text"]
+  DUPTABLE R13 K33 [{"Text", "Button"}]
+  GETUPVAL R14 3
+  GETUPVAL R15 5
+  DUPTABLE R16 K35 [{"tag", "Text", "LayoutOrder", "ref"}]
+  LOADK R17 K36 ["auto-xy text-body-small"]
+  SETTABLEKS R17 R16 K7 ["tag"]
+  GETTABLEKS R17 R1 K37 ["AddAnIntegration"]
+  SETTABLEKS R17 R16 K15 ["Text"]
   MOVE R17 R2
   CALL R17 0 1
-  SETTABLEKS R17 R16 K5 ["LayoutOrder"]
-  SETTABLEKS R3 R16 K33 ["ref"]
+  SETTABLEKS R17 R16 K6 ["LayoutOrder"]
+  SETTABLEKS R3 R16 K34 ["ref"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K14 ["Text"]
-  GETUPVAL R14 2
-  GETUPVAL R15 7
-  DUPTABLE R16 K40 [{"tag", "LayoutOrder", "text", "size", "onActivated", "width"}]
-  LOADK R17 K41 ["auto-xy"]
-  SETTABLEKS R17 R16 K6 ["tag"]
+  SETTABLEKS R14 R13 K15 ["Text"]
+  GETUPVAL R14 3
+  GETUPVAL R15 8
+  DUPTABLE R16 K41 [{"tag", "LayoutOrder", "text", "size", "onActivated", "width"}]
+  LOADK R17 K42 ["auto-xy"]
+  SETTABLEKS R17 R16 K7 ["tag"]
   MOVE R17 R2
   CALL R17 0 1
-  SETTABLEKS R17 R16 K5 ["LayoutOrder"]
-  GETTABLEKS R17 R1 K42 ["Add"]
-  SETTABLEKS R17 R16 K37 ["text"]
-  GETUPVAL R18 8
-  GETTABLEKS R17 R18 K43 ["XSmall"]
-  SETTABLEKS R17 R16 K26 ["size"]
-  GETTABLEKS R17 R0 K44 ["onAddIntegration"]
-  SETTABLEKS R17 R16 K38 ["onActivated"]
-  GETIMPORT R17 K47 [UDim.new]
+  SETTABLEKS R17 R16 K6 ["LayoutOrder"]
+  GETTABLEKS R17 R1 K43 ["Add"]
+  SETTABLEKS R17 R16 K38 ["text"]
+  GETUPVAL R18 9
+  GETTABLEKS R17 R18 K44 ["XSmall"]
+  SETTABLEKS R17 R16 K27 ["size"]
+  GETTABLEKS R17 R0 K45 ["onAddIntegration"]
+  SETTABLEKS R17 R16 K39 ["onActivated"]
+  GETIMPORT R17 K48 [UDim.new]
   LOADNIL R18
   MOVE R19 R4
   CALL R17 2 1
-  SETTABLEKS R17 R16 K39 ["width"]
+  SETTABLEKS R17 R16 K40 ["width"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K31 ["Button"]
+  SETTABLEKS R14 R13 K32 ["Button"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K12 ["CenteredContent"]
+  SETTABLEKS R10 R9 K13 ["CenteredContent"]
   CALL R6 3 -1
   RETURN R6 -1
 
@@ -182,25 +198,31 @@ MAIN:
   GETTABLEKS R5 R0 K6 ["Parent"]
   GETTABLEKS R4 R5 K9 ["ReactUtils"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K10 ["Button"]
-  GETTABLEKS R5 R1 K11 ["Text"]
-  GETTABLEKS R6 R1 K12 ["View"]
-  GETTABLEKS R8 R1 K13 ["Enums"]
-  GETTABLEKS R7 R8 K14 ["ButtonSize"]
-  GETTABLEKS R8 R1 K15 ["Loading"]
-  GETTABLEKS R9 R3 K16 ["createNextOrder"]
-  GETTABLEKS R10 R2 K17 ["createElement"]
-  DUPCLOSURE R11 K18 [PROTO_4]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Resources"]
+  GETTABLEKS R6 R7 K11 ["Localization"]
+  GETTABLEKS R5 R6 K12 ["Translator"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K13 ["Button"]
+  GETTABLEKS R6 R1 K14 ["Text"]
+  GETTABLEKS R7 R1 K15 ["View"]
+  GETTABLEKS R9 R1 K16 ["Enums"]
+  GETTABLEKS R8 R9 K17 ["ButtonSize"]
+  GETTABLEKS R9 R1 K18 ["Loading"]
+  GETTABLEKS R10 R3 K19 ["createNextOrder"]
+  GETTABLEKS R11 R2 K20 ["createElement"]
+  DUPCLOSURE R12 K21 [PROTO_4]
   CAPTURE VAL R2
-  CAPTURE VAL R9
+  CAPTURE VAL R4
   CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R7
   CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R8
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R7
-  GETTABLEKS R12 R2 K19 ["memo"]
-  MOVE R13 R11
-  CALL R12 1 -1
-  RETURN R12 -1
+  GETTABLEKS R13 R2 K22 ["memo"]
+  MOVE R14 R12
+  CALL R13 1 -1
+  RETURN R13 -1

@@ -80,8 +80,95 @@ MAIN:
   GETIMPORT R11 K35 [table.insert]
   CALL R11 -1 0
   FORGLOOP R6 2 [inext] [-23]
-  MOVE R6 R3
-  LOADK R7 K36 ["NotificationsPlugin"]
-  MOVE R8 R5
-  CALL R6 2 -1
-  RETURN R6 -1
+  DUPTABLE R6 K57 [{"FontPrimary", "FontBold", "FontSemibold", "Margin", "MarginSmall", "HeaderSize", "HeaderTitleTextSize", "HeaderSubtitleTextSize", "HeaderIconSize", "HeaderLeftMargin", "ScrollBarWidth", "ScrollBarGutter", "ButtonBorderRadius", "CardBorderRadius", "CardIconSize", "CardIconTextMargin", "CardStatusIndicatorSize", "CardStatusMinWidth", "CardUnsubscribeButtonSize", "CardElapsedTimeTextSize", "CardSubjectTextSize"}]
+  GETIMPORT R7 K61 [Enum.Font.SourceSans]
+  SETTABLEKS R7 R6 K36 ["FontPrimary"]
+  GETIMPORT R7 K63 [Enum.Font.SourceSansBold]
+  SETTABLEKS R7 R6 K37 ["FontBold"]
+  GETIMPORT R7 K65 [Enum.Font.SourceSansSemibold]
+  SETTABLEKS R7 R6 K38 ["FontSemibold"]
+  GETIMPORT R7 K68 [UDim.new]
+  LOADN R8 0
+  LOADN R9 8
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K39 ["Margin"]
+  GETIMPORT R7 K68 [UDim.new]
+  LOADN R8 0
+  LOADN R9 2
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K40 ["MarginSmall"]
+  GETIMPORT R7 K70 [UDim2.new]
+  LOADN R8 1
+  LOADN R9 0
+  LOADN R10 0
+  LOADN R11 40
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K41 ["HeaderSize"]
+  LOADN R7 20
+  SETTABLEKS R7 R6 K42 ["HeaderTitleTextSize"]
+  LOADN R7 14
+  SETTABLEKS R7 R6 K43 ["HeaderSubtitleTextSize"]
+  GETIMPORT R7 K70 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 20
+  LOADN R10 0
+  LOADN R11 20
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K44 ["HeaderIconSize"]
+  GETIMPORT R7 K68 [UDim.new]
+  LOADN R8 0
+  LOADN R9 14
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K45 ["HeaderLeftMargin"]
+  LOADN R7 8
+  SETTABLEKS R7 R6 K46 ["ScrollBarWidth"]
+  LOADN R7 12
+  SETTABLEKS R7 R6 K47 ["ScrollBarGutter"]
+  GETIMPORT R7 K68 [UDim.new]
+  LOADN R8 0
+  LOADN R9 4
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K48 ["ButtonBorderRadius"]
+  GETIMPORT R7 K68 [UDim.new]
+  LOADN R8 0
+  LOADN R9 6
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K49 ["CardBorderRadius"]
+  GETIMPORT R7 K70 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 16
+  LOADN R10 0
+  LOADN R11 16
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K50 ["CardIconSize"]
+  GETIMPORT R7 K68 [UDim.new]
+  LOADN R8 0
+  LOADN R9 4
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K51 ["CardIconTextMargin"]
+  GETIMPORT R7 K70 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 16
+  LOADN R10 0
+  LOADN R11 16
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K52 ["CardStatusIndicatorSize"]
+  LOADN R7 40
+  SETTABLEKS R7 R6 K53 ["CardStatusMinWidth"]
+  GETIMPORT R7 K70 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 16
+  LOADN R10 0
+  LOADN R11 16
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K54 ["CardUnsubscribeButtonSize"]
+  LOADN R7 16
+  SETTABLEKS R7 R6 K55 ["CardElapsedTimeTextSize"]
+  LOADN R7 18
+  SETTABLEKS R7 R6 K56 ["CardSubjectTextSize"]
+  MOVE R7 R3
+  LOADK R8 K71 ["NotificationsPlugin"]
+  MOVE R9 R5
+  MOVE R10 R6
+  CALL R7 3 -1
+  RETURN R7 -1

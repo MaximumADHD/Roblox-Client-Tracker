@@ -1,0 +1,106 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["fromInstanceRefType"]
+  LOADB R2 0
+  LOADK R3 K1 ["Instance"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["fromEnumType"]
+  LOADB R2 0
+  LOADK R3 K1 ["Static"]
+  GETTABLEKS R5 R0 K2 ["EnumType"]
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K4 [tostring]
+  CALL R4 1 1
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["metaType"]
+  JUMPIFNOTEQKS R2 K1 ["Attribute"] [+30]
+  JUMPIF R1 [+4]
+  GETIMPORT R2 K3 [error]
+  LOADK R3 K4 ["must provide instance to get attribute info"]
+  CALL R2 1 0
+  GETTABLEKS R5 R0 K5 ["name"]
+  NAMECALL R3 R1 K6 ["GetAttribute"]
+  CALL R3 2 -1
+  FASTCALL TYPEOF [+2]
+  GETIMPORT R2 K8 [typeof]
+  CALL R2 -1 1
+  GETUPVAL R4 0
+  GETTABLE R3 R4 R2
+  JUMPIFEQKNIL R3 [+5]
+  GETUPVAL R5 0
+  GETTABLE R4 R5 R2
+  CALL R4 0 -1
+  RETURN R4 -1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["fromType"]
+  MOVE R5 R2
+  LOADB R6 0
+  CALL R4 2 -1
+  RETURN R4 -1
+  GETTABLEKS R2 R0 K0 ["metaType"]
+  JUMPIFNOTEQKS R2 K10 ["Tag"] [+8]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K9 ["fromType"]
+  LOADK R3 K10 ["Tag"]
+  LOADB R4 0
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETTABLEKS R2 R0 K11 ["className"]
+  GETUPVAL R3 2
+  MOVE R4 R2
+  CALL R3 1 3
+  FORGPREP R3
+  GETUPVAL R8 3
+  MOVE R9 R0
+  MOVE R10 R6
+  CALL R8 2 1
+  JUMPIFNOT R8 [+1]
+  RETURN R7 1
+  FORGLOOP R3 2 [-7]
+  GETIMPORT R3 K3 [error]
+  LOADK R4 K12 ["Instance did not have property!"]
+  CALL R3 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Util"]
+  GETTABLEKS R3 R4 K7 ["PropertyInteraction"]
+  GETTABLEKS R2 R3 K8 ["PropertyInfo"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K9 ["PropertyTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Util"]
+  GETTABLEKS R4 R5 K10 ["getReadablePropertiesForClass"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Util"]
+  GETTABLEKS R5 R6 K11 ["samePropertyId"]
+  CALL R4 1 1
+  DUPTABLE R5 K14 [{"Instance", "EnumItem"}]
+  DUPCLOSURE R6 K15 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K12 ["Instance"]
+  DUPCLOSURE R6 K16 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K13 ["EnumItem"]
+  DUPCLOSURE R6 K17 [PROTO_2]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R6 1

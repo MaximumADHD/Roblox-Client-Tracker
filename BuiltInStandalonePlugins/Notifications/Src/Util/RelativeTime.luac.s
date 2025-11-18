@@ -32,7 +32,7 @@ PROTO_0:
   GETIMPORT R3 K15 [tostring]
   CALL R3 1 1
   DUPTABLE R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-  GETUPVAL R5 1
+  GETUPVAL R5 2
   SETTABLEKS R5 R4 K0 ["scope"]
   LOADK R5 K19 ["Minutes"]
   SETTABLEKS R5 R4 K1 ["key"]
@@ -53,7 +53,7 @@ PROTO_0:
   GETIMPORT R3 K15 [tostring]
   CALL R3 1 1
   DUPTABLE R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-  GETUPVAL R5 1
+  GETUPVAL R5 2
   SETTABLEKS R5 R4 K0 ["scope"]
   LOADK R5 K22 ["Hours"]
   SETTABLEKS R5 R4 K1 ["key"]
@@ -74,7 +74,7 @@ PROTO_0:
   GETIMPORT R3 K15 [tostring]
   CALL R3 1 1
   DUPTABLE R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-  GETUPVAL R5 1
+  GETUPVAL R5 2
   SETTABLEKS R5 R4 K0 ["scope"]
   LOADK R5 K25 ["Days"]
   SETTABLEKS R5 R4 K1 ["key"]
@@ -95,7 +95,7 @@ PROTO_0:
   GETIMPORT R3 K15 [tostring]
   CALL R3 1 1
   DUPTABLE R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-  GETUPVAL R5 1
+  GETUPVAL R5 2
   SETTABLEKS R5 R4 K0 ["scope"]
   LOADK R5 K28 ["Weeks"]
   SETTABLEKS R5 R4 K1 ["key"]
@@ -116,7 +116,7 @@ PROTO_0:
   GETIMPORT R3 K15 [tostring]
   CALL R3 1 1
   DUPTABLE R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-  GETUPVAL R5 1
+  GETUPVAL R5 2
   SETTABLEKS R5 R4 K0 ["scope"]
   LOADK R5 K31 ["Months"]
   SETTABLEKS R5 R4 K1 ["key"]
@@ -134,7 +134,7 @@ PROTO_0:
   GETIMPORT R3 K15 [tostring]
   CALL R3 1 1
   DUPTABLE R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-  GETUPVAL R5 1
+  GETUPVAL R5 2
   SETTABLEKS R5 R4 K0 ["scope"]
   LOADK R5 K33 ["Years"]
   SETTABLEKS R5 R4 K1 ["key"]
@@ -171,21 +171,23 @@ MAIN:
   GETTABLEKS R2 R3 K4 ["Parent"]
   GETTABLEKS R1 R2 K5 ["TimeConstants"]
   CALL R0 1 1
-  GETTABLEKS R1 R0 K6 ["ELAPSED_TIME_TRANSLATION_SCOPE"]
-  DUPCLOSURE R2 K7 [PROTO_0]
+  GETTABLEKS R1 R0 K6 ["LOCALE_SCOPE_LONG"]
+  GETTABLEKS R2 R0 K7 ["LOCALE_SCOPE"]
+  DUPCLOSURE R3 K8 [PROTO_0]
   CAPTURE VAL R0
   CAPTURE VAL R1
-  GETTABLEKS R4 R0 K8 ["MINUTE_IN_SECONDS"]
-  GETTABLEKS R5 R0 K9 ["SECONDS_IN_MS"]
-  MUL R3 R4 R5
-  GETTABLEKS R5 R0 K10 ["HOUR_IN_SECONDS"]
-  GETTABLEKS R6 R0 K9 ["SECONDS_IN_MS"]
+  CAPTURE VAL R2
+  GETTABLEKS R5 R0 K9 ["MINUTE_IN_SECONDS"]
+  GETTABLEKS R6 R0 K10 ["SECONDS_IN_MS"]
   MUL R4 R5 R6
-  DUPCLOSURE R5 K11 [PROTO_1]
+  GETTABLEKS R6 R0 K11 ["HOUR_IN_SECONDS"]
+  GETTABLEKS R7 R0 K10 ["SECONDS_IN_MS"]
+  MUL R5 R6 R7
+  DUPCLOSURE R6 K12 [PROTO_1]
   CAPTURE VAL R0
-  CAPTURE VAL R3
   CAPTURE VAL R4
-  DUPTABLE R6 K14 [{"calculateRelativeTime", "getRefreshIntervalInMS"}]
-  SETTABLEKS R2 R6 K12 ["calculateRelativeTime"]
-  SETTABLEKS R5 R6 K13 ["getRefreshIntervalInMS"]
-  RETURN R6 1
+  CAPTURE VAL R5
+  DUPTABLE R7 K15 [{"calculateRelativeTime", "getRefreshIntervalInMS"}]
+  SETTABLEKS R3 R7 K13 ["calculateRelativeTime"]
+  SETTABLEKS R6 R7 K14 ["getRefreshIntervalInMS"]
+  RETURN R7 1

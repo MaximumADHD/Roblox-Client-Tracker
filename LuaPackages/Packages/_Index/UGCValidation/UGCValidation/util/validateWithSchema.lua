@@ -1,11 +1,8 @@
 --!nonstrict
 local root = script.Parent.Parent
 
-local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
 local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
-
-local checkForProxyWrap = require(root.util.checkForProxyWrap)
 
 local function checkName(nameList, instanceName)
 	if type(nameList) == "table" then
@@ -69,7 +66,7 @@ local function validateWithSchemaHelper(schema, instance, authorizedSet)
 	return { success = true }
 end
 
-local function validateWithSchema(schema, instance, validationContext)
+local function validateWithSchema(schema, instance, _validationContext)
 	if
 		instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and (not checkName(schema.Name, instance.Name)))
 	then
@@ -80,8 +77,6 @@ local function validateWithSchema(schema, instance, validationContext)
 			),
 		}
 	end
-
-	local allowEditableInstances = validationContext.allowEditableInstances
 
 	local authorizedSet = {}
 	local result = validateWithSchemaHelper(schema, instance, authorizedSet)
@@ -98,11 +93,6 @@ local function validateWithSchema(schema, instance, validationContext)
 	local unauthorizedDescendantPaths = {}
 	for _, descendant in pairs(instance:GetDescendants()) do
 		if authorizedSet[descendant] == nil then
-			if not getEngineFeatureRemoveProxyWrap() then
-				if allowEditableInstances and checkForProxyWrap(descendant) then
-					continue
-				end
-			end
 			unauthorizedDescendantPaths[#unauthorizedDescendantPaths + 1] = descendant:GetFullName()
 		end
 	end

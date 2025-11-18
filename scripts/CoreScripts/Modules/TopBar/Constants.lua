@@ -15,6 +15,7 @@ local ChromeEnabled = require(Modules.Chrome.Enabled)
 local ChromeShared = Modules.Chrome.ChromeShared
 local isNewTiltIconEnabled = require(Modules.isNewTiltIconEnabled)
 local FFlagUnibarMenuIconLayoutFix = require(script.Parent.Flags.FFlagUnibarMenuIconLayoutFix)
+local FFlagTopBarRefactor = require(script.Parent.Flags.FFlagTopBarRefactor)
 
 local StyleTokens = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing
 	then require(ChromeShared.Utility.GetStyleTokens)()
@@ -77,7 +78,7 @@ return {
 	TopBarHeightTenFoot = if FFlagUnibarMenuIconLayoutFix and ChromeEnabled() then nil else 72,
 	TopBarButtonHeight = topbarButtonHeight,
 	TopBarButtonPadding = topbarButtonPadding,
-	TopBarTopMargin = topbarHeight - topbarButtonHeight - 2 * topbarButtonPadding,
+	TopBarTopMargin = if FFlagTopBarRefactor then StyleTokens.Gap.Medium else topbarHeight - topbarButtonHeight - 2 * topbarButtonPadding,
 
 	LegacyCloseMenuIconSize = if isNewTiltIconEnabled() then (topbarHeight - if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_100 else 4) else 30,
 	MENU_ICON_SIZE = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_600 else 24,
@@ -96,6 +97,8 @@ return {
 	ChatIconKeepOutAreaId = "chat-icon",
 	BackIconKeepOutAreaId = "back-icon",
 	VoiceBetaBadgeKeepOutAreaId = "badge-voice-beta",
+
+	TopBarKeepOutAreaId = "roblox-topbar",
 
 	ScreenSideOffset = screenSideOffset,
 	ScreenSideOffsetTenFoot = if FFlagUnibarMenuIconLayoutFix and ChromeEnabled() then nil else 48,

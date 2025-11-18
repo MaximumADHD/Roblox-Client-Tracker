@@ -1,0 +1,6 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K1 [{"current"}]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["current"]
+  RETURN R0 1

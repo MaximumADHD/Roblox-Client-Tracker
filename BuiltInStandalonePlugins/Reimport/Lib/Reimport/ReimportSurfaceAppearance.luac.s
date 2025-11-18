@@ -175,18 +175,28 @@ PROTO_8:
   DUPCLOSURE R4 K1 [PROTO_4]
   CAPTURE UPVAL U1
   CALL R2 2 2
+  GETTABLEKS R4 R3 K2 ["filepath"]
+  JUMPIFEQKNIL R4 [+5]
+  GETTABLEKS R4 R3 K2 ["filepath"]
+  JUMPIFNOTEQKS R4 K3 [""] [+9]
+  GETTABLEKS R4 R1 K4 ["warning"]
+  LOADK R5 K5 ["No file selected for reimport"]
+  CALL R4 1 0
+  GETTABLEKS R4 R1 K6 ["success"]
+  CALL R4 0 0
+  RETURN R0 0
   GETUPVAL R4 1
   GETTABLEKS R6 R3 K2 ["filepath"]
-  NAMECALL R4 R4 K3 ["GetFilesInDirAsync"]
+  NAMECALL R4 R4 K7 ["GetFilesInDirAsync"]
   CALL R4 2 1
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K4 ["findMaps"]
+  GETTABLEKS R5 R6 K8 ["findMaps"]
   GETTABLEKS R6 R3 K2 ["filepath"]
   MOVE R7 R4
   CALL R5 2 1
   JUMPIFNOTEQKNIL R5 [+9]
-  GETTABLEKS R6 R1 K5 ["error"]
-  LOADK R8 K6 ["Provided path did not match any known material map suffix: "]
+  GETTABLEKS R6 R1 K9 ["error"]
+  LOADK R8 K10 ["Provided path did not match any known material map suffix: "]
   GETTABLEKS R9 R3 K2 ["filepath"]
   CONCAT R7 R8 R9
   CALL R6 1 0
@@ -197,10 +207,10 @@ PROTO_8:
   CAPTURE REF R6
   CAPTURE REF R7
   CAPTURE VAL R1
-  LOADK R6 K7 [0.1]
-  MULK R10 R7 K8 [0.8]
+  LOADK R6 K11 [0.1]
+  MULK R10 R7 K12 [0.8]
   ADD R9 R6 R10
-  GETTABLEKS R10 R1 K9 ["progress"]
+  GETTABLEKS R10 R1 K13 ["progress"]
   MOVE R11 R9
   CALL R10 1 0
   GETUPVAL R9 3
@@ -211,9 +221,9 @@ PROTO_8:
   CAPTURE VAL R1
   CALL R9 2 1
   LOADN R6 1
-  MULK R11 R7 K8 [0.8]
+  MULK R11 R7 K12 [0.8]
   ADD R10 R6 R11
-  GETTABLEKS R11 R1 K9 ["progress"]
+  GETTABLEKS R11 R1 K13 ["progress"]
   MOVE R12 R10
   CALL R11 1 0
   NEWTABLE R10 0 0
@@ -223,24 +233,24 @@ PROTO_8:
   LOADNIL R14
   LOADNIL R15
   FORGPREP R13
-  GETTABLEKS R18 R17 K10 ["err"]
+  GETTABLEKS R18 R17 K14 ["err"]
   JUMPIFEQKNIL R18 [+14]
-  DUPTABLE R20 K13 [{"label", "message"}]
-  SETTABLEKS R16 R20 K11 ["label"]
-  GETTABLEKS R21 R17 K10 ["err"]
-  SETTABLEKS R21 R20 K12 ["message"]
+  DUPTABLE R20 K17 [{"label", "message"}]
+  SETTABLEKS R16 R20 K15 ["label"]
+  GETTABLEKS R21 R17 K14 ["err"]
+  SETTABLEKS R21 R20 K16 ["message"]
   FASTCALL2 TABLE_INSERT R11 R20 [+4]
   MOVE R19 R11
-  GETIMPORT R18 K16 [table.insert]
+  GETIMPORT R18 K20 [table.insert]
   CALL R18 2 0
-  GETTABLEKS R18 R17 K17 ["assetId"]
+  GETTABLEKS R18 R17 K21 ["assetId"]
   JUMPIFEQKNIL R18 [+5]
   LOADB R12 0
-  GETTABLEKS R18 R17 K17 ["assetId"]
+  GETTABLEKS R18 R17 K21 ["assetId"]
   SETTABLE R18 R10 R16
   FORGLOOP R13 2 [-26]
   JUMPIFNOT R12 [+6]
-  GETTABLEKS R13 R1 K5 ["error"]
+  GETTABLEKS R13 R1 K9 ["error"]
   MOVE R14 R11
   CALL R13 1 0
   CLOSEUPVALS R6
@@ -249,62 +259,62 @@ PROTO_8:
   LOADNIL R14
   LOADNIL R15
   FORGPREP R13
-  GETTABLEKS R18 R1 K18 ["warning"]
-  LOADK R20 K19 ["Failed to upload map '%*': %*"]
-  GETTABLEKS R22 R17 K11 ["label"]
-  GETTABLEKS R23 R17 K12 ["message"]
-  NAMECALL R20 R20 K20 ["format"]
+  GETTABLEKS R18 R1 K4 ["warning"]
+  LOADK R20 K22 ["Failed to upload map '%*': %*"]
+  GETTABLEKS R22 R17 K15 ["label"]
+  GETTABLEKS R23 R17 K16 ["message"]
+  NAMECALL R20 R20 K23 ["format"]
   CALL R20 3 1
   MOVE R19 R20
   CALL R18 1 0
   FORGLOOP R13 2 [-13]
   GETUPVAL R13 4
-  LOADK R15 K21 ["Reimport apply instance"]
-  NAMECALL R13 R13 K22 ["TryBeginRecording"]
+  LOADK R15 K24 ["Reimport apply instance"]
+  NAMECALL R13 R13 K25 ["TryBeginRecording"]
   CALL R13 2 1
   GETUPVAL R15 2
-  GETTABLEKS R14 R15 K23 ["setMaps"]
+  GETTABLEKS R14 R15 K26 ["setMaps"]
   MOVE R15 R0
   MOVE R16 R10
   CALL R14 2 0
   JUMPIFNOTEQKNIL R2 [+7]
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K24 ["newConfig"]
+  GETTABLEKS R14 R15 K27 ["newConfig"]
   MOVE R15 R3
   CALL R14 1 1
   MOVE R2 R14
   GETUPVAL R17 0
-  GETTABLEKS R16 R17 K25 ["ATTRIBUTE_KEY"]
+  GETTABLEKS R16 R17 K28 ["ATTRIBUTE_KEY"]
   MOVE R17 R2
-  NAMECALL R14 R0 K26 ["SetAttribute"]
+  NAMECALL R14 R0 K29 ["SetAttribute"]
   CALL R14 3 0
   JUMPIFNOT R13 [+7]
   GETUPVAL R14 4
   MOVE R16 R13
-  GETIMPORT R17 K30 [Enum.FinishRecordingOperation.Commit]
-  NAMECALL R14 R14 K31 ["FinishRecording"]
+  GETIMPORT R17 K33 [Enum.FinishRecordingOperation.Commit]
+  NAMECALL R14 R14 K34 ["FinishRecording"]
   CALL R14 3 0
   GETUPVAL R15 5
-  GETTABLEKS R14 R15 K32 ["logReimportEvent"]
-  DUPTABLE R15 K37 [{"configId", "usedStudioDefaultPreset", "wasReimportRelativeToThis", "targetType"}]
-  SETTABLEKS R2 R15 K33 ["configId"]
+  GETTABLEKS R14 R15 K35 ["logReimportEvent"]
+  DUPTABLE R15 K40 [{"configId", "usedStudioDefaultPreset", "wasReimportRelativeToThis", "targetType"}]
+  SETTABLEKS R2 R15 K36 ["configId"]
   LOADB R16 1
-  GETTABLEKS R17 R3 K38 ["preset"]
+  GETTABLEKS R17 R3 K41 ["preset"]
   JUMPIFEQKNIL R17 [+10]
-  GETTABLEKS R17 R3 K38 ["preset"]
+  GETTABLEKS R17 R3 K41 ["preset"]
   GETUPVAL R19 6
-  GETTABLEKS R18 R19 K39 ["StudioDefaultPreset"]
+  GETTABLEKS R18 R19 K42 ["StudioDefaultPreset"]
   JUMPIFEQ R17 R18 [+2]
   LOADB R16 0 +1
   LOADB R16 1
-  SETTABLEKS R16 R15 K34 ["usedStudioDefaultPreset"]
+  SETTABLEKS R16 R15 K37 ["usedStudioDefaultPreset"]
   LOADB R16 0
-  SETTABLEKS R16 R15 K35 ["wasReimportRelativeToThis"]
-  GETTABLEKS R16 R0 K40 ["ClassName"]
-  SETTABLEKS R16 R15 K36 ["targetType"]
+  SETTABLEKS R16 R15 K38 ["wasReimportRelativeToThis"]
+  GETTABLEKS R16 R0 K43 ["ClassName"]
+  SETTABLEKS R16 R15 K39 ["targetType"]
   CALL R14 1 0
-  GETIMPORT R14 K43 [task.delay]
-  LOADK R15 K44 [0.3]
+  GETIMPORT R14 K46 [task.delay]
+  LOADK R15 K47 [0.3]
   NEWCLOSURE R16 P3
   CAPTURE VAL R1
   CALL R14 2 0

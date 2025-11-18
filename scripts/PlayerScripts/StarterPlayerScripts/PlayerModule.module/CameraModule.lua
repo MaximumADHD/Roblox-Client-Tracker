@@ -100,7 +100,6 @@ do
 	PlayerScripts:RegisterComputerCameraMovementMode(Enum.ComputerCameraMovementMode.CameraToggle)
 end
 
-local FFlagUserRespectLegacyCameraOptions = FlagUtil.getUserFlag("UserRespectLegacyCameraOptions")
 local FFlagUserPlayerConnectionMemoryLeak = FlagUtil.getUserFlag("UserPlayerConnectionMemoryLeak")
 local FFlagUserPSFixCameraControllerReset = FlagUtil.getUserFlag("UserPSFixCameraControllerReset")
 local FFlagUserCheckTouchControlMode = FlagUtil.getUserFlag("UserCheckTouchControlMode")
@@ -113,9 +112,8 @@ type CameraModuleClass = {
 	__index: CameraModuleClass,
 	new: () -> CameraModule,
 
-	ActivateCameraController: (self: CameraModule, cameraMovementMode: Enum.ComputerCameraMovementMode? | Enum.DevComputerCameraMovementMode?, legacyCameraType: Enum.CameraType?) -> (),
+	ActivateCameraController: (self: CameraModule) -> (),
 	ActivateOcclusionModule: (self: CameraModule, occlusionMode: Enum.DevCameraOcclusionMode) -> (),
-	GetCameraControlChoice: (self: CameraModule) -> Enum.ComputerCameraMovementMode | Enum.DevComputerCameraMovementMode,
 	GetCameraMovementModeFromSettings: (self: CameraModule) -> Enum.ComputerCameraMovementMode | Enum.DevComputerCameraMovementMode,
 	OnPreferredInputChanged: (self: CameraModule) -> (),
 	OnCameraSubjectChanged: (self: CameraModule) -> (),
@@ -189,11 +187,7 @@ function CameraModule.new()
 		end)
 	end
 
-	if FFlagUserRespectLegacyCameraOptions then
-		self:ActivateCameraController()
-	else
-		self:ActivateCameraController(self:GetCameraControlChoice())
-	end
+	self:ActivateCameraController()
 	self:ActivateOcclusionModule(Players.LocalPlayer.DevCameraOcclusionMode)
 	self:OnCurrentCameraChanged() -- Does initializations and makes first camera controller
 	RunService:BindToRenderStep("cameraRenderUpdate", Enum.RenderPriority.Camera.Value, function(dt) self:Update(dt) end)
@@ -340,44 +334,40 @@ function CameraModule:ShouldUseVehicleCamera(): boolean
 	return isEligibleSubject and isEligibleType and isEligibleOcclusionMode
 end
 
-function CameraModule:ActivateCameraController(cameraMovementMode: Enum.ComputerCameraMovementMode? | Enum.DevComputerCameraMovementMode?, legacyCameraType: Enum.CameraType?) -- remove args with FFlagUserRespectLegacyCameraOptions 
-	if FFlagUserRespectLegacyCameraOptions then
-		-- legacyCameraType should always be respected
-		legacyCameraType = (workspace.CurrentCamera :: Camera).CameraType
-		cameraMovementMode = self:GetCameraMovementModeFromSettings()
-	end
+function CameraModule:ActivateCameraController()
+	-- legacyCameraType should always be respected
+	local legacyCameraType = (workspace.CurrentCamera :: Camera).CameraType
+	local cameraMovementMode = self:GetCameraMovementModeFromSettings()
 	local newCameraCreator = nil
 
 	-- Some legacy CameraTypes map to the use of
 	-- the LegacyCamera module, the value "Custom" will be translated to a movementMode enum
 	-- value based on Dev and User settings, and "Scriptable" will disable the camera controller.
-	if (if FFlagUserRespectLegacyCameraOptions then true else legacyCameraType ~= nil) then
-		if legacyCameraType == Enum.CameraType.Scriptable then
-			if self.activeCameraController then
-				self.activeCameraController:Enable(false)
-				self.activeCameraController = nil
-			end
-			return
-		elseif legacyCameraType == Enum.CameraType.Custom then
-			cameraMovementMode = self:GetCameraMovementModeFromSettings()
-		elseif legacyCameraType == Enum.CameraType.Track then
-			-- Note: The TrackCamera module was basically an older, less fully-featured
-			-- version of ClassicCamera, no longer actively maintained, but it is re-implemented in
-			-- case a game was dependent on its lack of ClassicCamera's extra functionality.
-			cameraMovementMode = Enum.ComputerCameraMovementMode.Classic
-		elseif legacyCameraType == Enum.CameraType.Follow then
-			cameraMovementMode = Enum.ComputerCameraMovementMode.Follow
-		elseif legacyCameraType == Enum.CameraType.Orbital then
-			cameraMovementMode = Enum.ComputerCameraMovementMode.Orbital
-		elseif
-			legacyCameraType == Enum.CameraType.Attach
-			or legacyCameraType == Enum.CameraType.Watch
-			or legacyCameraType == Enum.CameraType.Fixed
-		then
-			newCameraCreator = LegacyCamera
-		else
-			warn("CameraScript encountered an unhandled Camera.CameraType value: ", legacyCameraType)
+	if legacyCameraType == Enum.CameraType.Scriptable then
+		if self.activeCameraController then
+			self.activeCameraController:Enable(false)
+			self.activeCameraController = nil
 		end
+		return
+	elseif legacyCameraType == Enum.CameraType.Custom then
+		cameraMovementMode = self:GetCameraMovementModeFromSettings()
+	elseif legacyCameraType == Enum.CameraType.Track then
+		-- Note: The TrackCamera module was basically an older, less fully-featured
+		-- version of ClassicCamera, no longer actively maintained, but it is re-implemented in
+		-- case a game was dependent on its lack of ClassicCamera's extra functionality.
+		cameraMovementMode = Enum.ComputerCameraMovementMode.Classic
+	elseif legacyCameraType == Enum.CameraType.Follow then
+		cameraMovementMode = Enum.ComputerCameraMovementMode.Follow
+	elseif legacyCameraType == Enum.CameraType.Orbital then
+		cameraMovementMode = Enum.ComputerCameraMovementMode.Orbital
+	elseif
+		legacyCameraType == Enum.CameraType.Attach
+		or legacyCameraType == Enum.CameraType.Watch
+		or legacyCameraType == Enum.CameraType.Fixed
+	then
+		newCameraCreator = LegacyCamera
+	else
+		warn("CameraScript encountered an unhandled Camera.CameraType value: ", legacyCameraType)
 	end
 
 	if not newCameraCreator then
@@ -441,21 +431,11 @@ function CameraModule:ActivateCameraController(cameraMovementMode: Enum.Computer
 	end
 
 	if self.activeCameraController then
-		if FFlagUserRespectLegacyCameraOptions then
-			-- These functions can be removed in the future and the logic of managing cameraType/cameraMovementMode should be moved
-			-- into a higher level class so that activeCameraControllers can be single function.
-			self.activeCameraController:SetCameraMovementMode(cameraMovementMode)
-			-- was convertible to a ComputerCameraMovementMode value, i.e. really only applies to LegacyCamera
-			self.activeCameraController:SetCameraType(legacyCameraType)
-		else
-			if cameraMovementMode~=nil then
-				self.activeCameraController:SetCameraMovementMode(cameraMovementMode)
-			elseif legacyCameraType~=nil then
-				-- Note that this is only called when legacyCameraType is not a type that
-				-- was convertible to a ComputerCameraMovementMode value, i.e. really only applies to LegacyCamera
-				self.activeCameraController:SetCameraType(legacyCameraType)
-			end
-		end
+		-- These functions can be removed in the future and the logic of managing cameraType/cameraMovementMode should be moved
+		-- into a higher level class so that activeCameraControllers can be single function.
+		self.activeCameraController:SetCameraMovementMode(cameraMovementMode)
+		-- was convertible to a ComputerCameraMovementMode value, i.e. really only applies to LegacyCamera
+		self.activeCameraController:SetCameraType(legacyCameraType)
 	end
 end
 
@@ -472,7 +452,7 @@ function CameraModule:OnCameraSubjectChanged()
 		self.activeOcclusionModule:OnCameraSubjectChanged(cameraSubject)
 	end
 
-	self:ActivateCameraController(nil, if camera then camera.CameraType else nil)
+	self:ActivateCameraController()
 end
 
 function CameraModule:OnCameraTypeChanged(newCameraType: Enum.CameraType)
@@ -483,7 +463,7 @@ function CameraModule:OnCameraTypeChanged(newCameraType: Enum.CameraType)
 	end
 
 	-- Forward the change to ActivateCameraController to handle
-	self:ActivateCameraController(nil, newCameraType)
+	self:ActivateCameraController()
 end
 
 -- Note: Called whenever workspace.CurrentCamera changes, but also on initialization of this script
@@ -518,7 +498,7 @@ function CameraModule:OnLocalPlayerCameraPropertyChanged(propertyName: string)
 		if Players.LocalPlayer.CameraMode == Enum.CameraMode.LockFirstPerson then
 			-- Locked in first person, use ClassicCamera which supports this
 			if not self.activeCameraController or self.activeCameraController:GetModuleName() ~= "ClassicCamera" then
-				self:ActivateCameraController(CameraUtils.ConvertCameraModeEnumToStandard(Enum.DevComputerCameraMovementMode.Classic))
+				self:ActivateCameraController()
 			end
 
 			if self.activeCameraController then
@@ -526,16 +506,14 @@ function CameraModule:OnLocalPlayerCameraPropertyChanged(propertyName: string)
 			end
 		elseif Players.LocalPlayer.CameraMode == Enum.CameraMode.Classic then
 			-- Not locked in first person view
-			local cameraMovementMode = self:GetCameraMovementModeFromSettings()
-			self:ActivateCameraController(CameraUtils.ConvertCameraModeEnumToStandard(cameraMovementMode))
+			self:ActivateCameraController()
 		else
 			warn("Unhandled value for property player.CameraMode: ",Players.LocalPlayer.CameraMode)
 		end
 
 	elseif propertyName == "DevComputerCameraMode" or
 		   propertyName == "DevTouchCameraMode" then
-		local cameraMovementMode = self:GetCameraMovementModeFromSettings()
-		self:ActivateCameraController(CameraUtils.ConvertCameraModeEnumToStandard(cameraMovementMode))
+		self:ActivateCameraController()
 
 	elseif propertyName == "DevCameraOcclusionMode" then
 		self:ActivateOcclusionModule(Players.LocalPlayer.DevCameraOcclusionMode)
@@ -557,14 +535,12 @@ end
 
 function CameraModule:OnUserGameSettingsPropertyChanged(propertyName: string)
 	if propertyName == "ComputerCameraMovementMode" or (FFlagUserCheckTouchControlMode and propertyName == "TouchCameraMovementMode") then
-		local cameraMovementMode = self:GetCameraMovementModeFromSettings()
-		self:ActivateCameraController(CameraUtils.ConvertCameraModeEnumToStandard(cameraMovementMode))
+		self:ActivateCameraController()
 	end
 end
 
 function CameraModule:OnPreferredInputChanged()
-	local cameraMovementMode = self:GetCameraMovementModeFromSettings()
-	self:ActivateCameraController(CameraUtils.ConvertCameraModeEnumToStandard(cameraMovementMode))
+	self:ActivateCameraController()
 end
 
 --[[
@@ -595,28 +571,6 @@ function CameraModule:Update(dt)
 
 		if CameraInput.getInputEnabled() then
 			CameraInput.resetInputForFrameEnd()
-		end
-	end
-end
-
--- Formerly getCurrentCameraMode, this function resolves developer and user camera control settings to
--- decide which camera control module should be instantiated. The old method of converting redundant enum types
-function CameraModule:GetCameraControlChoice()
-	assert(not FFlagUserRespectLegacyCameraOptions, "CameraModule:GetCameraControlChoice should not be called when FFlagUserRespectLegacyCameraOptions is enabled")
-	if UserInputService:GetLastInputType() == Enum.UserInputType.Touch or UserInputService.TouchEnabled then
-		-- Touch
-		if Players.LocalPlayer.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice then
-			return CameraUtils.ConvertCameraModeEnumToStandard(UserGameSettings.TouchCameraMovementMode )
-		else
-			return CameraUtils.ConvertCameraModeEnumToStandard(Players.LocalPlayer.DevTouchCameraMode )
-		end
-	else
-		-- Computer
-		if Players.LocalPlayer.DevComputerCameraMode == Enum.DevComputerCameraMovementMode.UserChoice then
-			local computerMovementMode = CameraUtils.ConvertCameraModeEnumToStandard(UserGameSettings.ComputerCameraMovementMode)
-			return CameraUtils.ConvertCameraModeEnumToStandard(computerMovementMode)
-		else
-			return CameraUtils.ConvertCameraModeEnumToStandard(Players.LocalPlayer.DevComputerCameraMode)
 		end
 	end
 end

@@ -74,9 +74,11 @@ PROTO_4:
   SETTABLEKS R1 R0 K2 ["finishedConnection"]
   GETTABLEKS R2 R0 K3 ["props"]
   GETTABLEKS R1 R2 K4 ["DispatchLoadGroups"]
-  CALL R1 0 0
+  GETTABLEKS R3 R0 K3 ["props"]
+  GETTABLEKS R2 R3 K5 ["IsPublish"]
+  CALL R1 1 0
   GETTABLEKS R2 R0 K3 ["props"]
-  GETTABLEKS R1 R2 K5 ["DispatchDataSharingDefault"]
+  GETTABLEKS R1 R2 K6 ["DispatchDataSharingDefault"]
   CALL R1 0 0
   RETURN R0 0
 
@@ -526,10 +528,11 @@ PROTO_12:
   RETURN R0 0
 
 PROTO_13:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  CALL R1 0 -1
-  CALL R0 -1 0
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
   RETURN R0 0
 
 PROTO_14:

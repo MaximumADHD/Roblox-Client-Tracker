@@ -197,7 +197,7 @@ PROTO_6:
   GETTABLEKS R6 R7 K5 ["FileSearch"]
   NAMECALL R4 R4 K6 ["setName"]
   CALL R4 2 1
-  LOADK R6 K7 ["Fast file search based on fuzzy matching against script names.
+  LOADK R6 K7 ["Fast script search based on fuzzy matching against script names.
 Use if you know part of the script name but don't know where it's located exactly.
 Response will be capped to 10 results.
 Make your query more specific if need to filter results further.

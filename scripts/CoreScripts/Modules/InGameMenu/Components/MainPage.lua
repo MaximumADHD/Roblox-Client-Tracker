@@ -1,21 +1,19 @@
 --!nonstrict
 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local CorePackages = game:GetService("CorePackages")
-local RunService = game:GetService("RunService")
-local GameSettings = settings():FindFirstChild("Game Options") or error("Game Options does not exist", 0)
 local ContextActionService = game:GetService("ContextActionService")
+local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagUseFoundationButton = SharedFlags.UIBlox.GetFFlagUIBloxUseFoundationButton
 
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
-local VideoProtocol = require(CorePackages.Workspace.Packages.VideoProtocol)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
@@ -50,7 +48,6 @@ local CLOSE_MORE_MENU_ACTION = "CloseMoreMenuAction"
 local LEFT_STICK_TOGGLES_MORE_MENU_ACTION = "LeftStickTogglesMoreMenuAction"
 
 local Flags = InGameMenu.Flags
-local FFlagRecordRecording = require(Flags.FFlagRecordRecording)
 local FFlagTakeAScreenshotOfThis = game:DefineFastFlag("TakeAScreenshotOfThis", false)
 local FFlagShowContextMenuWhenButtonsArePresent = game:DefineFastFlag("ShowContextMenuWhenButtonsArePresent", false)
 local FFlagUseVRSpecificLeaveButton = game:DefineFastFlag("UseVRSpecificLeaveButton", false)
@@ -63,16 +60,11 @@ local IGMMainPageControllerBar = require(script.Parent.IGMMainPageControllerBar)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 local MAIN_PAGE_WIDTH = 400
-local RECORD_UPDATE_STEP = 0.2
 local BOTTOM_MENU_ICON_SIZE = 44
 
 local RESPAWN_KEY_CODE_LABEL = {
 	[Constants.InputType.MouseAndKeyboard] = Enum.KeyCode.R,
 	[Constants.InputType.Gamepad] = Enum.KeyCode.ButtonY,
-}
-
-local SCREEN_RECORD_KEY_CODE_LABEL = {
-	[Constants.InputType.MouseAndKeyboard] = Enum.KeyCode.F12,
 }
 
 local LEAVE_GAME_KEY_CODE_LABEL = {
@@ -120,33 +112,6 @@ function MainPage:renderButtonModels(style, localized)
 				end,
 			})
 		end
-
-		-- Record Button
-		if GameSettings.VideoCaptureEnabled and FFlagRecordRecording then
-			local recordingText = localized.recordVideo
-			local colorOverride = nil
-
-			if self.props.recording then
-				local d = os.date("*t", self.state.recordingDuration)
-				local formattedTime = ("%d:%02d"):format(d.min, d.sec)
-				recordingText = localized.recording:gsub("{DURATION}", formattedTime)
-				colorOverride = style.Theme.Alert.Color
-			end
-
-			table.insert(buttons, {
-				icon = Images["icons/controls/screenrecord"],
-				text = recordingText,
-				onActivated = function()
-					CoreGui:ToggleRecording()
-					self:setState({
-						modalOpen = false,
-					})
-				end,
-				keyCodeLabel = SCREEN_RECORD_KEY_CODE_LABEL[inputType],
-				iconColorOverride = colorOverride,
-				textColorOverride = colorOverride,
-			})
-		end
 	end
 
 	-- Respawn Button
@@ -176,7 +141,6 @@ MainPage.validateProps = t.strictInterface({
 	startRespawning = t.callback,
 	setMainPageMoreMenuOpen = t.optional(t.callback),
 	closeMenu = t.callback,
-	recording = t.boolean,
 	screenSize = t.Vector2,
 	canCaptureFocus = t.optional(t.boolean),
 	inputType = t.optional(t.string),
@@ -200,17 +164,10 @@ function MainPage:init()
 		self.moreMenuFirstItemFrameRef = ref
 	end
 
-	-- We return 0 here if our response is nil or if our response doesn't have the key we need
-	self.getRecordingDuration = function()
-		local response = VideoProtocol.default:getRecordingDuration()
-		return response and response.recordingDuration or 0
-	end
-
 	local modalOpen = false
 
 	self.state = {
 		modalOpen = modalOpen,
-		recordingDuration = 0,
 	}
 end
 
@@ -351,8 +308,6 @@ function MainPage:render()
 		return withLocalization({
 			leaveGame = "CoreScripts.InGameMenu.LeaveGame",
 			respawnCharacter = "CoreScripts.InGameMenu.RespawnCharacter",
-			recordVideo = "CoreScripts.InGameMenu.Record.StartRecording",
-			recording = "CoreScripts.InGameMenu.Record.Duration",
 			screenCapture = "CoreScripts.InGameMenu.Controls.Screenshot",
 		})(function(localized)
 			local moreButton = Roact.createElement(Button, {
@@ -495,7 +450,6 @@ function MainPage:render()
 end
 
 function MainPage:willUnmount()
-	self.recording = false
 	GuiService:RemoveSelectionGroup(MORE_MENU_NAME)
 
 	if GetFFlagSideNavControllerBar() then
@@ -551,30 +505,6 @@ function MainPage:didUpdate(prevProps, prevState)
 		end
 	end
 
-	if FFlagRecordRecording then
-		if self.props.recording then
-			if not prevProps.recording then
-				self.recording = true
-				-- TODO: Switch to os.clock() when it becomes available
-				local startTime = tick() - self.getRecordingDuration()
-				local function loop()
-					if self.recording then
-						delay(RECORD_UPDATE_STEP, loop)
-					end
-					self:setState({
-						recordingDuration = tick() - startTime,
-					})
-				end
-				self:setState({
-					recordingDuration = 0,
-				})
-				delay(RECORD_UPDATE_STEP, loop)
-			end
-		else
-			self.recording = false
-		end
-	end
-
 	if VRService.VREnabled then
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 	end
@@ -601,7 +531,6 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
 		open = state.isMenuOpen,
 		respawnButtonVisible = state.respawn.enabled,
-		recording = state.recording,
 		screenSize = state.screenSize,
 		voiceEnabled = state.voiceState.voiceEnabled,
 		canCaptureFocus = canCaptureFocus,

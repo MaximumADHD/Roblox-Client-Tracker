@@ -5,10 +5,11 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
 
 local GetFFlagPlayerViewRemoteEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewRemoteEnabled)
-local GetFFlagPlayerViewValidateRequesteeEnabled =
-	require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewValidateRequesteeEnabled)
-
 local FFlagEnablePlayerViewRemoteEventValidation = game:DefineFastFlag("EnablePlayerViewRemoteEventValidation", false)
+local FFlagEnablePlayerViewRemoteEventUserIdValidation =
+	game:DefineFastFlag("EnablePlayerViewRemoteEventUserIdValidation", false)
+local FFlagEnablePlayerViewRemoteEventCFrameValidation =
+	game:DefineFastFlag("EnablePlayerViewRemoteEventCFrameValidation", false)
 
 local RequestDeviceCameraOrientationCapability = Instance.new("RemoteEvent")
 RequestDeviceCameraOrientationCapability.Name = "RequestDeviceCameraOrientationCapability"
@@ -55,44 +56,42 @@ if GetFFlagPlayerViewRemoteEnabled() then
 
 	local requests = {}
 
-	if GetFFlagPlayerViewValidateRequesteeEnabled() then
-		Players.PlayerRemoving:Connect(function(player)
-			local userId = tostring(player.UserId)
-			requests[userId] = nil
-		end)
-	end
+	Players.PlayerRemoving:Connect(function(player)
+		local userId = tostring(player.UserId)
+		requests[userId] = nil
+	end)
 
 	RequestDeviceCameraCFrameRemoteEvent.OnServerEvent:Connect(function(player, requesteeUserId)
-		if GetFFlagPlayerViewValidateRequesteeEnabled() then
-			local requestee = Players:GetPlayerByUserId(requesteeUserId)
-			if not requestee then
+		if FFlagEnablePlayerViewRemoteEventUserIdValidation then
+			if typeof(requesteeUserId) ~= "number" or requesteeUserId <= 0 or player.UserId == requesteeUserId then
 				return
 			end
-
-			local requesteeUserIdStr = tostring(requesteeUserId)
-
-			if not requests[requesteeUserIdStr] then
-				requests[requesteeUserIdStr] = {}
-			end
-
-			requests[requesteeUserIdStr][tostring(player.UserId)] = os.clock()
-			RequestDeviceCameraCFrameRemoteEvent:FireClient(requestee)
-		else
-			local requesteeUserIdStr = tostring(requesteeUserId)
-
-			if not requests[requesteeUserIdStr] then
-				requests[requesteeUserIdStr] = {}
-			end
-
-			requests[requesteeUserIdStr][tostring(player.UserId)] = os.clock()
-			local requestee = Players:GetPlayerByUserId(requesteeUserId)
-			if requestee then
-				RequestDeviceCameraCFrameRemoteEvent:FireClient(requestee)
-			end
 		end
+
+		local requestee = Players:GetPlayerByUserId(requesteeUserId)
+		if not requestee then
+			return
+		end
+
+		local requesteeUserIdStr = if FFlagEnablePlayerViewRemoteEventUserIdValidation
+			then tostring(requestee.UserId)
+			else tostring(requesteeUserId)
+
+		if not requests[requesteeUserIdStr] then
+			requests[requesteeUserIdStr] = {}
+		end
+
+		requests[requesteeUserIdStr][tostring(player.UserId)] = os.clock()
+		RequestDeviceCameraCFrameRemoteEvent:FireClient(requestee)
 	end)
 
 	ReplicateDeviceCameraCFrameRemoteEvent.OnServerEvent:Connect(function(player, cframe, cframeTs)
+		if FFlagEnablePlayerViewRemoteEventCFrameValidation then
+			if typeof(cframe) ~= "CFrame" or typeof(cframeTs) ~= "number" or cframeTs <= 0 then
+				return
+			end
+		end
+
 		local requesteeUserIdStr = tostring(player.UserId)
 
 		if requests[requesteeUserIdStr] then

@@ -7,13 +7,11 @@ local View = require(Foundation.Components.View)
 local ScrollView = require(Foundation.Components.ScrollView)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local ControlState = require(Foundation.Enums.ControlState)
-local Flags = require(Foundation.Utility.Flags)
 type ControlState = ControlState.ControlState
 
 local function StoryScrolling(props)
 	local controls = props.controls
 	local tokens = useTokens()
-	Flags.FoundationFixScrollViewTags = controls.fixScrollViewTags
 
 	return React.createElement(View, {
 		tag = "row gap-large auto-xy",
@@ -71,8 +69,6 @@ end
 
 local function StoryScrollViewWithTags(props)
 	local controls = props.controls
-
-	Flags.FoundationFixScrollViewTags = controls.fixScrollViewTags
 	local tag = "row gap-medium bg-surface-100 padding-medium radius-medium size-full-3000"
 
 	local items: { [string]: React.ReactNode } = {}
@@ -126,6 +122,5 @@ return {
 			"None",
 		},
 		selectable = true,
-		fixScrollViewTags = Flags.FoundationFixScrollViewTags,
 	},
 }

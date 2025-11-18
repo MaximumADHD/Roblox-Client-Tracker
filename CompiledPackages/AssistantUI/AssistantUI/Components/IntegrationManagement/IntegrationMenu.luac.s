@@ -1,23 +1,39 @@
 PROTO_0:
   DUPTABLE R0 K6 [{"ManageIntegrations", "IntegrationNameExists", "IntegrationUrlExists", "Add", "Integrations", "ApiKeys"}]
-  LOADK R1 K7 ["Manage Integrations"]
+  GETUPVAL R1 0
+  LOADK R3 K7 ["IntegrationManagement"]
+  LOADK R4 K0 ["ManageIntegrations"]
+  NAMECALL R1 R1 K8 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K0 ["ManageIntegrations"]
-  LOADK R1 K8 ["Integration with name already exists"]
+  GETUPVAL R1 0
+  LOADK R3 K7 ["IntegrationManagement"]
+  LOADK R4 K9 ["IntegrationNameAlreadyExists"]
+  NAMECALL R1 R1 K8 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K1 ["IntegrationNameExists"]
-  LOADK R1 K9 ["Integration with URL already exists"]
+  GETUPVAL R1 0
+  LOADK R3 K7 ["IntegrationManagement"]
+  LOADK R4 K10 ["IntegrationUrlAlreadyExists"]
+  NAMECALL R1 R1 K8 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K2 ["IntegrationUrlExists"]
-  LOADK R1 K3 ["Add"]
+  GETUPVAL R1 0
+  LOADK R3 K11 ["Settings"]
+  LOADK R4 K3 ["Add"]
+  NAMECALL R1 R1 K8 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K3 ["Add"]
   GETUPVAL R1 0
-  LOADK R3 K10 ["SettingsDialog"]
-  LOADK R4 K11 ["ManageIntegrationsTab"]
-  NAMECALL R1 R1 K12 ["getText"]
+  LOADK R3 K12 ["SettingsDialog"]
+  LOADK R4 K13 ["ManageIntegrationsTab"]
+  NAMECALL R1 R1 K8 ["getText"]
   CALL R1 3 1
   SETTABLEKS R1 R0 K4 ["Integrations"]
   GETUPVAL R1 0
-  LOADK R3 K10 ["SettingsDialog"]
-  LOADK R4 K13 ["APIKeysTab"]
-  NAMECALL R1 R1 K12 ["getText"]
+  LOADK R3 K12 ["SettingsDialog"]
+  LOADK R4 K14 ["APIKeysTab"]
+  NAMECALL R1 R1 K8 ["getText"]
   CALL R1 3 1
   SETTABLEKS R1 R0 K5 ["ApiKeys"]
   RETURN R0 1

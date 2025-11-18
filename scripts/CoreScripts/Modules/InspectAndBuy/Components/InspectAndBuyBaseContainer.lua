@@ -8,6 +8,8 @@ local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local InspectAndBuyFolder = script.Parent.Parent
 local React = require(CorePackages.Packages.React)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
 local AvatarViewport = require(InspectAndBuyFolder.Components.AvatarViewport)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
 local useViewBreakpoints = AvatarExperienceInspectAndBuy.Hooks.useViewBreakpoints
@@ -27,6 +29,9 @@ local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local GetItemDetails = require(InspectAndBuyFolder.Thunks.GetItemDetails)
 local useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch
 local ItemTypeEnum = require(CorePackages.Workspace.Packages.AvatarExperienceCommon).Enums.ItemTypeEnum
+local OpenOverlay = require(InspectAndBuyFolder.Actions.OpenOverlay)
+local OverlayEnum = require(InspectAndBuyFolder.Enums.Overlay)
+local Overlay = require(InspectAndBuyFolder.Components.Overlay)
 
 local useUnifiedEventListenerInExperience =
 	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).useUnifiedEventListener.useUnifiedEventListenerInExperience
@@ -46,6 +51,8 @@ type LocalPlayerModel = AvatarExperienceInspectAndBuy.LocalPlayerModel
 local FFlagEnableAvatarViewportAutoRotation = game:DefineFastFlag("EnableAvatarViewportAutoRotation", false)
 -- this fint controls the zoom of the viewport camera
 local FIntViewportCameraFieldOfView = game:DefineFastInt("AXViewportCameraFieldOfView", 68)
+local FFlagIBV2Attribution = SharedFlags.FFlagIBV2Attribution
+local FFlagAXEnableBatchItemDetailsFetchV2 = AvatarExperienceFlags.FFlagAXEnableBatchItemDetailsFetchV2
 
 export type InspectAndBuyBaseContainerProps = {
 	localPlayerModel: LocalPlayerModel?,
@@ -96,17 +103,14 @@ local function InspectAndBuyBaseContainer(props)
 	local onItemDetailsOpened = React.useCallback(function(item: AvatarItem)
 		-- TODO [ACS-5423]: use the performFetchStatus to check if the data is already fetched as a perf improvement
 
-		--[[
-			TODO [ACS-5515]: IEC attribution version info currently only works for assets.
-			We need to update the GetVersionInfo thunk to support bundles as well (purchase-details
-	        endpoint currently groups IEC body assets into a bundle, breaking the current logic). As a
-			workaround, this can be done by invoking the GetVersionInfo thunk on the first asset within
-			a bundle—essentially a hack on top of the existing hack due to backend constraints.
-		]]
-
 		if item.itemType == ItemTypeEnum.Asset then
 			dispatch(GetFavoriteForAsset(item.id))
 			dispatch(GetProductInfo(item.id))
+
+			if FFlagIBV2Attribution and FFlagAXEnableBatchItemDetailsFetchV2 then
+				-- IEC attribution currently only supported for assets.
+				dispatch(GetItemDetails(item.id, Enum.AvatarItemType.Asset))
+			end
 		elseif item.itemType == ItemTypeEnum.Bundle then
 			dispatch(getFavoriteForBundle(item.id))
 		end
@@ -130,6 +134,10 @@ local function InspectAndBuyBaseContainer(props)
 			end
 		end
 	end, { dispatch })
+
+	local openAttributionOverlay = if FFlagIBV2Attribution then React.useCallback(function(experienceInfo)
+		dispatch(OpenOverlay(OverlayEnum.AttributionTraversal, experienceInfo))
+	end, { dispatch }) else nil
 
 	--[[
 	Prompts a purchase for a single item.
@@ -215,6 +223,7 @@ local function InspectAndBuyBaseContainer(props)
 		onBulkPurchaseFinished = onBulkPurchaseFinished,
 		onItemDetailsOpened = onItemDetailsOpened,
 		onToggleFavorite = onToggleFavorite,
+		openAttributionOverlay = if FFlagIBV2Attribution then openAttributionOverlay else nil,
 		onPromptPurchase = onPromptPurchase,
 		renderTryOnViewport = renderTryOnViewport,
 		localPlayerModel = props.localPlayerModel :: LocalPlayerModel,
@@ -254,6 +263,7 @@ local function InspectAndBuyBaseContainer(props)
 			}),
 			ResponsivePanelLayout = React.createElement(ResponsivePanelLayout, responsivePanelLayoutProps),
 		}),
+		Overlay = if FFlagIBV2Attribution then React.createElement(Overlay) else nil,
 	})
 end
 

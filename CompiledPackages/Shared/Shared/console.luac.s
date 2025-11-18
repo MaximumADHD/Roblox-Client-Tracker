@@ -1,0 +1,27 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K6 ["console"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R0 K7 ["consoleWithStackDev"]
+  CALL R4 1 1
+  GETIMPORT R6 K9 [_G]
+  GETTABLEKS R5 R6 K10 ["__DEV__"]
+  JUMPIFNOT R5 [+18]
+  DUPTABLE R6 K13 [{"warn", "error"}]
+  GETTABLEKS R7 R4 K11 ["warn"]
+  SETTABLEKS R7 R6 K11 ["warn"]
+  GETTABLEKS R7 R4 K12 ["error"]
+  SETTABLEKS R7 R6 K12 ["error"]
+  DUPTABLE R7 K15 [{"__index"}]
+  SETTABLEKS R3 R7 K14 ["__index"]
+  FASTCALL2 SETMETATABLE R6 R7 [+3]
+  GETIMPORT R5 K17 [setmetatable]
+  CALL R5 2 1
+  RETURN R5 1
+  RETURN R3 1

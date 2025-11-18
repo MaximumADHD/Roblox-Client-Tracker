@@ -7,12 +7,15 @@ local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 
 type Event = EventType.Event
+
+type TooltipButton = {
+	Text: string,
+	Controller: Enum.UserCFrame,
+	ButtonKeycode: Enum.KeyCode,
+}
+
 type TooltipProps = {
-	tooltipButtons: {
-		Text: string,
-		Controller: Enum.UserCFrame,
-		ButtonKeycode: Enum.KeyCode,
-	},
+	tooltipButtons: { TooltipButton },
 }
 
 local MovementTooltipEvent = {

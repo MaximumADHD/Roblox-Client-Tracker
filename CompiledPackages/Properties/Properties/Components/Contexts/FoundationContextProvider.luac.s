@@ -7,12 +7,14 @@ PROTO_0:
   GETUPVAL R2 2
   GETUPVAL R4 3
   GETTABLEKS R3 R4 K2 ["FoundationProvider"]
-  DUPTABLE R4 K5 [{"device", "theme"}]
-  LOADK R5 K6 ["Desktop"]
+  DUPTABLE R4 K6 [{"device", "theme", "overlayGui"}]
+  LOADK R5 K7 ["Desktop"]
   SETTABLEKS R5 R4 K3 ["device"]
   GETTABLEKS R5 R1 K4 ["theme"]
   SETTABLEKS R5 R4 K4 ["theme"]
-  GETTABLEKS R5 R0 K7 ["children"]
+  GETTABLEKS R5 R0 K5 ["overlayGui"]
+  SETTABLEKS R5 R4 K5 ["overlayGui"]
+  GETTABLEKS R5 R0 K8 ["children"]
   CALL R2 3 -1
   RETURN R2 -1
 

@@ -31,6 +31,7 @@ local FFlagGamepadConnectorUseChromeFocusAPI = SharedFlags.FFlagGamepadConnector
 local FFlagGamepadConnectorSetCoreGuiNavEnabled = SharedFlags.FFlagGamepadConnectorSetCoreGuiNavEnabled
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
+local FFlagFixChromeConsoleNilRefs = SharedFlags.FFlagFixChromeConsoleNilRefs
 
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
@@ -160,7 +161,7 @@ function GamepadConnector.new(): GamepadConnector
 	local self = {}
 	self._loggedExperienceMenuGamepadExposure = false
 	self._devSetCoreGuiNavEnabled = GuiService.CoreGuiNavigationEnabled
-	self._chromeFocused = ChromeService:inFocusNav()
+	self._chromeFocused = if not FFlagFixChromeConsoleNilRefs or ChromeService then ChromeService:inFocusNav() else false
 	self._lastMenuButtonPress = 0
 	self._dismissFocusConnections = {}
 	-- remove never cast when cleaning up GetFFlagTiltIconUnibarFocusNav

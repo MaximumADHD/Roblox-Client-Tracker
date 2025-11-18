@@ -1,11 +1,21 @@
 local root = script.Parent
 
 local Constants = require(root.Constants)
+local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
+
+local flags = root.flags
+local getEngineUGCValidateAssetTextureLimits = require(flags.getEngineUGCValidateAssetTextureLimits)
 
 local ConstantsInterface = {}
 
 function ConstantsInterface.isBodyPart(assetTypeEnum: Enum.AssetType): boolean
 	return Constants.ASSET_TYPE_INFO[assetTypeEnum] and Constants.ASSET_TYPE_INFO[assetTypeEnum].isBodyPart
+end
+
+function ConstantsInterface.isMakeupAsset(assetTypeEnum: Enum.AssetType)
+	return assetTypeEnum == Enum.AssetType.LipMakeup
+		or assetTypeEnum == Enum.AssetType.EyeMakeup
+		or assetTypeEnum == Enum.AssetType.FaceMakeup
 end
 
 function ConstantsInterface.getBodyPartAssets(): { Enum.AssetType }
@@ -56,6 +66,51 @@ function ConstantsInterface.getAttachments(assetTypeEnum: Enum.AssetType?, partN
 		end
 	end
 	return results
+end
+
+function ConstantsInterface.getTextureLimit(
+	assetTypeEnum: Enum.AssetType?,
+	inst: Instance,
+	propertyName: string
+): number
+	if not getEngineUGCValidateAssetTextureLimits() then
+		return Constants.MAX_TEXTURE_SIZE
+	end
+
+	if not assetTypeEnum then
+		return Constants.MAX_TEXTURE_SIZE
+	end
+
+	local assetTextureLimits = ValidationRulesUtil:getRules().TextureRules.AssetTextureLimits[assetTypeEnum]
+	if not assetTextureLimits then
+		return Constants.MAX_TEXTURE_SIZE
+	end
+
+	if inst:IsA("SpecialMesh") then
+		if propertyName == "TextureId" then
+			return assetTextureLimits.ColorMapSize
+		end
+	end
+
+	if inst:IsA("MeshPart") then
+		if propertyName == "TextureID" then
+			return assetTextureLimits.ColorMapSize
+		end
+	end
+
+	if inst:IsA("SurfaceAppearance") then
+		if propertyName == "ColorMap" then
+			return assetTextureLimits.ColorMapSize
+		elseif propertyName == "MetalnessMap" then
+			return assetTextureLimits.MetalnessMapSize
+		elseif propertyName == "NormalMap" then
+			return assetTextureLimits.NormalMapSize
+		elseif propertyName == "RoughnessMap" then
+			return assetTextureLimits.RoughnessMapSize
+		end
+	end
+
+	return Constants.MAX_TEXTURE_SIZE
 end
 
 return ConstantsInterface

@@ -18,11 +18,11 @@ PROTO_0:
   LOADK R12 K7 ["MeshPart"]
   NAMECALL R10 R9 K8 ["IsA"]
   CALL R10 2 1
-  JUMPIFNOT R10 [+73]
+  JUMPIFNOT R10 [+93]
   LOADK R12 K9 ["SurfaceAppearance"]
   NAMECALL R10 R9 K10 ["FindFirstChildWhichIsA"]
   CALL R10 2 1
-  JUMPIFNOT R10 [+68]
+  JUMPIFNOT R10 [+88]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K11 ["parse"]
   MOVE R12 R10
@@ -61,26 +61,41 @@ PROTO_0:
   SETLIST R21 R22 1 [1]
   RETURN R20 2
   SETTABLEKS R19 R17 K21 ["editableImage"]
-  GETUPVAL R22 4
-  MOVE R23 R17
-  LOADNIL R24
-  MOVE R25 R1
-  GETUPVAL R27 5
-  GETTABLEKS R28 R16 K14 ["fieldName"]
-  GETTABLE R26 R27 R28
-  CALL R22 4 -1
-  NAMECALL R20 R4 K22 ["updateReasons"]
-  CALL R20 -1 0
-  FORGLOOP R12 2 [-54]
-  FORGLOOP R5 2 [-79]
-  GETUPVAL R6 6
-  GETTABLEKS R5 R6 K23 ["recordScriptTime"]
-  GETIMPORT R7 K25 [script]
-  GETTABLEKS R6 R7 K26 ["Name"]
+  LOADNIL R20
+  GETUPVAL R21 4
+  CALL R21 0 1
+  JUMPIFNOT R21 [+15]
+  GETTABLEKS R21 R1 K22 ["assetTypeEnum"]
+  JUMPIFNOT R21 [+12]
+  GETUPVAL R22 5
+  GETTABLEKS R21 R22 K23 ["getTextureLimit"]
+  GETTABLEKS R22 R1 K22 ["assetTypeEnum"]
+  GETTABLEKS R23 R16 K17 ["instance"]
+  GETTABLEKS R24 R16 K14 ["fieldName"]
+  CALL R21 3 1
+  MOVE R20 R21
+  JUMP [+4]
+  GETUPVAL R21 6
+  GETTABLEKS R22 R16 K14 ["fieldName"]
+  GETTABLE R20 R21 R22
+  GETUPVAL R23 7
+  MOVE R24 R17
+  LOADNIL R25
+  MOVE R26 R1
+  MOVE R27 R20
+  CALL R23 4 -1
+  NAMECALL R21 R4 K24 ["updateReasons"]
+  CALL R21 -1 0
+  FORGLOOP R12 2 [-74]
+  FORGLOOP R5 2 [-99]
+  GETUPVAL R6 8
+  GETTABLEKS R5 R6 K25 ["recordScriptTime"]
+  GETIMPORT R7 K27 [script]
+  GETTABLEKS R6 R7 K28 ["Name"]
   MOVE R7 R2
   MOVE R8 R1
   CALL R5 3 0
-  NAMECALL R5 R4 K27 ["getFinalResults"]
+  NAMECALL R5 R4 K29 ["getFinalResults"]
   CALL R5 1 -1
   RETURN R5 -1
 
@@ -96,56 +111,65 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Constants"]
   CALL R2 1 1
   GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K7 ["util"]
-  GETTABLEKS R4 R5 K8 ["Types"]
+  GETTABLEKS R4 R0 K7 ["ConstantsInterface"]
   CALL R3 1 1
   GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K9 ["validation"]
-  GETTABLEKS R5 R6 K10 ["validateTextureSize"]
+  GETTABLEKS R6 R0 K8 ["util"]
+  GETTABLEKS R5 R6 K9 ["Types"]
   CALL R4 1 1
   GETIMPORT R5 K4 [require]
-  GETTABLEKS R7 R0 K7 ["util"]
-  GETTABLEKS R6 R7 K11 ["FailureReasonsAccumulator"]
+  GETTABLEKS R7 R0 K10 ["validation"]
+  GETTABLEKS R6 R7 K11 ["validateTextureSize"]
   CALL R5 1 1
   GETIMPORT R6 K4 [require]
-  GETTABLEKS R8 R0 K7 ["util"]
-  GETTABLEKS R7 R8 K12 ["getEditableImageFromContext"]
+  GETTABLEKS R8 R0 K8 ["util"]
+  GETTABLEKS R7 R8 K12 ["FailureReasonsAccumulator"]
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
-  GETTABLEKS R9 R0 K7 ["util"]
-  GETTABLEKS R8 R9 K13 ["ParseContentIds"]
+  GETTABLEKS R9 R0 K8 ["util"]
+  GETTABLEKS R8 R9 K13 ["getEditableImageFromContext"]
   CALL R7 1 1
-  GETIMPORT R8 K15 [game]
-  LOADK R10 K16 ["AccessoryColorMapMaxSize"]
-  LOADN R11 0
-  NAMECALL R8 R8 K17 ["DefineFastInt"]
-  CALL R8 3 1
-  GETIMPORT R9 K15 [game]
-  LOADK R11 K18 ["AccessoryMetalnessMapMaxSize"]
-  LOADN R12 0
-  NAMECALL R9 R9 K17 ["DefineFastInt"]
-  CALL R9 3 1
-  GETIMPORT R10 K15 [game]
-  LOADK R12 K19 ["AccessoryNormalMapMaxSize"]
-  LOADN R13 0
-  NAMECALL R10 R10 K17 ["DefineFastInt"]
-  CALL R10 3 1
-  GETIMPORT R11 K15 [game]
-  LOADK R13 K20 ["AccessoryRoughnessMapMaxSize"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K8 ["util"]
+  GETTABLEKS R9 R10 K14 ["ParseContentIds"]
+  CALL R8 1 1
+  GETTABLEKS R9 R0 K15 ["flags"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R9 K16 ["getFFlagUGCValidateAccessoryAssetSurfaceAppearanceTextureLimits"]
+  CALL R10 1 1
+  GETIMPORT R11 K18 [game]
+  LOADK R13 K19 ["AccessoryColorMapMaxSize"]
   LOADN R14 0
-  NAMECALL R11 R11 K17 ["DefineFastInt"]
+  NAMECALL R11 R11 K20 ["DefineFastInt"]
   CALL R11 3 1
-  DUPTABLE R12 K25 [{"ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap"}]
-  SETTABLEKS R8 R12 K21 ["ColorMap"]
-  SETTABLEKS R9 R12 K22 ["MetalnessMap"]
-  SETTABLEKS R10 R12 K23 ["NormalMap"]
-  SETTABLEKS R11 R12 K24 ["RoughnessMap"]
-  DUPCLOSURE R13 K26 [PROTO_0]
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  CAPTURE VAL R2
+  GETIMPORT R12 K18 [game]
+  LOADK R14 K21 ["AccessoryMetalnessMapMaxSize"]
+  LOADN R15 0
+  NAMECALL R12 R12 K20 ["DefineFastInt"]
+  CALL R12 3 1
+  GETIMPORT R13 K18 [game]
+  LOADK R15 K22 ["AccessoryNormalMapMaxSize"]
+  LOADN R16 0
+  NAMECALL R13 R13 K20 ["DefineFastInt"]
+  CALL R13 3 1
+  GETIMPORT R14 K18 [game]
+  LOADK R16 K23 ["AccessoryRoughnessMapMaxSize"]
+  LOADN R17 0
+  NAMECALL R14 R14 K20 ["DefineFastInt"]
+  CALL R14 3 1
+  DUPTABLE R15 K28 [{"ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap"}]
+  SETTABLEKS R11 R15 K24 ["ColorMap"]
+  SETTABLEKS R12 R15 K25 ["MetalnessMap"]
+  SETTABLEKS R13 R15 K26 ["NormalMap"]
+  SETTABLEKS R14 R15 K27 ["RoughnessMap"]
+  DUPCLOSURE R16 K29 [PROTO_0]
   CAPTURE VAL R6
-  CAPTURE VAL R4
-  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R15
+  CAPTURE VAL R5
   CAPTURE VAL R1
-  RETURN R13 1
+  RETURN R16 1

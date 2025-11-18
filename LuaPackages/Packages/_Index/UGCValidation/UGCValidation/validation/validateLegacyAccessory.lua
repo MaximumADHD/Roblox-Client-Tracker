@@ -4,6 +4,7 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
+local ConstantsInterface = require(root.ConstantsInterface)
 
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
@@ -38,6 +39,7 @@ local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUGCValidateAccessoriesRCCOwnership)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
+local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
 
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
@@ -182,7 +184,11 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		validationResult = false
 	end
 
-	success, failedReason = validateTextureSize(textureInfo, nil, validationContext)
+	local textureSizeLimit = nil
+	if getFFlagUGCValidateAccessoryAssetTextureLimit() then
+		textureSizeLimit = ConstantsInterface.getTextureLimit(assetTypeEnum, mesh, textureInfo.fieldName)
+	end
+	success, failedReason = validateTextureSize(textureInfo, nil, validationContext, textureSizeLimit)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false

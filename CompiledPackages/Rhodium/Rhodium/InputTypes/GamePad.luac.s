@@ -45,23 +45,17 @@ PROTO_4:
   MOVE R4 R1
   NAMECALL R2 R0 K0 ["pressButton"]
   CALL R2 2 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["waitForInputEventsProcessed"]
-  CALL R2 0 0
   MOVE R4 R1
-  NAMECALL R2 R0 K2 ["releaseButton"]
+  NAMECALL R2 R0 K1 ["releaseButton"]
   CALL R2 2 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["waitForInputEventsProcessed"]
-  CALL R2 0 0
   RETURN R0 0
 
 PROTO_5:
   GETUPVAL R3 0
   GETTABLEKS R5 R0 K0 ["deviceId"]
   MOVE R6 R1
-  GETTABLEKS R7 R2 K1 ["X"]
-  GETTABLEKS R8 R2 K2 ["Y"]
+  GETTABLEKS R7 R2 K1 ["x"]
+  GETTABLEKS R8 R2 K2 ["y"]
   LOADN R9 0
   NAMECALL R3 R3 K3 ["HandleGamepadAxisInput"]
   CALL R3 6 0
@@ -123,29 +117,25 @@ PROTO_7:
 
 PROTO_8:
   ORK R3 R3 K0 [0]
-  FASTCALL1 ASSERT R3 [+3]
-  MOVE R5 R3
-  GETIMPORT R4 K2 [assert]
-  CALL R4 1 0
-  GETIMPORT R4 K5 [Vector2.new]
+  GETIMPORT R4 K3 [Vector2.new]
   LOADN R5 0
   LOADN R6 0
   CALL R4 2 1
   MOVE R7 R1
   MOVE R8 R4
-  NAMECALL R5 R0 K6 ["moveStickTo"]
+  NAMECALL R5 R0 K4 ["moveStickTo"]
   CALL R5 3 0
   MOVE R7 R1
   MOVE R8 R4
   MOVE R9 R2
-  DIVK R10 R3 K7 [2]
-  NAMECALL R5 R0 K8 ["smoothMoveStickTo"]
+  DIVK R10 R3 K5 [2]
+  NAMECALL R5 R0 K6 ["smoothMoveStickTo"]
   CALL R5 5 0
   MOVE R7 R1
   MOVE R8 R2
   MOVE R9 R4
-  DIVK R10 R3 K7 [2]
-  NAMECALL R5 R0 K8 ["smoothMoveStickTo"]
+  DIVK R10 R3 K5 [2]
+  NAMECALL R5 R0 K6 ["smoothMoveStickTo"]
   CALL R5 5 0
   RETURN R0 0
 
@@ -261,7 +251,6 @@ MAIN:
   CAPTURE VAL R1
   SETTABLEKS R4 R2 K56 ["releaseButton"]
   DUPCLOSURE R4 K57 [PROTO_4]
-  CAPTURE VAL R0
   SETTABLEKS R4 R2 K58 ["hitButton"]
   DUPCLOSURE R4 K59 [PROTO_5]
   CAPTURE VAL R1

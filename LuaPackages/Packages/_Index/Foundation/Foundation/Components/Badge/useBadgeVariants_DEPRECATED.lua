@@ -6,7 +6,6 @@ local BadgeSize = require(Foundation.Enums.BadgeSize)
 type BadgeSize = BadgeSize.BadgeSize
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local Flags = require(Foundation.Utility.Flags)
 
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
@@ -77,18 +76,7 @@ return function(
 	local fontStyle = textStyle[size]
 
 	-- Necessary to ensure that the ... fits inside badge
-	local maxSize = if hasIcon
-		then Vector2.new(
-			if Flags.FoundationDisableBadgeTruncation
-				then math.huge
-				else (
-					tokens.Size.Size_1600
-					- tokens.Semantic.Icon.Size.Small -- TODO(tokens): replace with non-semantic value
-					- tokens.Padding.XXSmall
-				),
-			math.huge
-		)
-		else nil
+	local maxSize = if hasIcon then Vector2.new(math.huge, math.huge) else nil
 
 	local textSizeConstraint = {
 		MaxSize = maxSize,
@@ -98,16 +86,11 @@ return function(
 
 	local containerSizeConstraint = {
 		MinSize = Vector2.new(containerMinSize, containerMinSize),
-		MaxSize = Vector2.new(
-			if Flags.FoundationDisableBadgeTruncation then math.huge else tokens.Size.Size_1600,
-			math.huge
-		),
+		MaxSize = Vector2.new(math.huge, math.huge),
 	}
 
 	local containerTags = `auto-xy radius-circle row align-y-center align-x-center stroke-thick {containerPadding}`
-	local textTags = if Flags.FoundationDisableBadgeTruncation
-		then `auto-xy {textPadding} {fontStyle}`
-		else `auto-xy text-truncate-end {textPadding} {fontStyle}`
+	local textTags = `auto-xy {textPadding} {fontStyle}`
 
 	return badgeVariants[variant], containerSizeConstraint, textSizeConstraint, containerTags, textTags
 end

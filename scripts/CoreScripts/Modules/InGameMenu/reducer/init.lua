@@ -13,7 +13,6 @@ local SetScreenSize = require(InGameMenu.Actions.SetScreenSize)
 local StartLeavingGame = require(InGameMenu.Actions.StartLeavingGame)
 local CancelLeavingGame = require(InGameMenu.Actions.CancelLeavingGame)
 local SetControlLayout = require(InGameMenu.Actions.SetControlLayout)
-local SetVideoRecording = require(InGameMenu.Actions.SetVideoRecording)
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local SetCurrentZone = require(InGameMenu.Actions.SetCurrentZone)
 local SetControllerBarHeight = require(InGameMenu.Actions.SetControllerBarHeight)
@@ -29,8 +28,6 @@ local friends = require(script.friends)
 local displayOptions = require(script.displayOptions)
 local nativeClosePrompt = require(script.nativeClosePrompt)
 local voiceStateReducer = require(InGameMenu.Parent.VoiceChat.Reducers.voiceState)
-
-local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local Controls = require(InGameMenu.Resources.Controls)
@@ -84,11 +81,6 @@ local topLevelReducers = {
 			screenSize = action.newScreenSize,
 		})
 	end,
-	[SetVideoRecording.name] = FFlagRecordRecording and function(state, action)
-		return Cryo.Dictionary.join(state, {
-			recording = action.recording,
-		})
-	end or nil,
 	[SetRespawning.name] = function(state, action)
 		local isMainPageMoreMenuOpen
 		if action.respawning then

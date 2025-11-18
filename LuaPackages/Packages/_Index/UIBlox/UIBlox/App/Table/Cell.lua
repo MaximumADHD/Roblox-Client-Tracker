@@ -9,6 +9,7 @@ local t = require(Packages.t)
 local Roact = require(Packages.Roact)
 local enumerate = require(Packages.enumerate)
 local bindingValidator = require(Core.Utility.bindingValidator)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local withStyle = require(Core.Style.withStyle)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
@@ -139,8 +140,19 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 	local isDisabled = self.props.isDisabled
 	local onActivated = if self.props.onActivated
 		then function(...)
-			if interactionEnabled then
-				self.props.onActivated(...)
+			if UIBloxConfig.tableCellStaleClosureFix then
+				-- Fix: Check both interactionEnabled and onActivated at invocation time
+				-- to prevent stale closure issues
+				local currentInteractionEnabled = self.props.tail and self.props.userInteractionEnabled
+				if currentInteractionEnabled and self.props.onActivated then
+					self.props.onActivated(...)
+				end
+			else
+				-- Old behavior: may cause "attempt to call a nil value" error
+				-- if props.onActivated becomes nil between render and invocation
+				if interactionEnabled then
+					self.props.onActivated(...)
+				end
 			end
 		end
 		else self.props.onActivated

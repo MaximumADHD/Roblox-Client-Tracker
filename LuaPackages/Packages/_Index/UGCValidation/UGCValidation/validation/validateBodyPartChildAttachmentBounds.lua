@@ -131,7 +131,7 @@ local function validateAttachmentRotation(
 	assert(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	for _, desc in inst:GetDescendants() do
+	for _, desc: Attachment in inst:GetDescendants() :: { any } do
 		local isRigAttachment = desc.ClassName == "Attachment" and string.find(desc.Name, "RigAttachment")
 		if not isRigAttachment then
 			continue

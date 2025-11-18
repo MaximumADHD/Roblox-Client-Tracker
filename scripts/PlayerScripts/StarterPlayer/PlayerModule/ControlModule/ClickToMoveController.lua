@@ -33,6 +33,7 @@ local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local character = inputContexts:WaitForChild("Character")
 local clickToMoveAction = character:WaitForChild("ClickToMoveAction")
 local moveAction = character:WaitForChild("Move")
+local jumpAction = character:WaitForChild("Jump")
 
 --[[ Configuration ]]
 local ShowPath = true
@@ -874,6 +875,7 @@ function ClickToMove.new()
 	self.renderSteppedConn = nil
 	self.menuOpenedConnection = nil
 	self.preferredInputChangedConnection = nil
+	self.moveVectorIsCameraRelative = true
 
 	self.running = false
 
@@ -1108,6 +1110,10 @@ function ClickToMove:OnRenderStepped(dt)
 		self.moveVector = ZERO_VECTOR3
 		self.moveVectorIsCameraRelative = true
 	end
+
+	if jumpAction:GetState() then
+		self.isJumping = true
+	end
 end
 
 --Public developer facing functions
@@ -1200,6 +1206,10 @@ end
 
 function ClickToMove:GetUserJumpEnabled()
 	return self.jumpEnabled
+end
+
+function ClickToMove:IsMoveVectorCameraRelative()
+	return self.moveVectorIsCameraRelative
 end
 
 function ClickToMove:MoveTo(position, showPath, useDirectPath)

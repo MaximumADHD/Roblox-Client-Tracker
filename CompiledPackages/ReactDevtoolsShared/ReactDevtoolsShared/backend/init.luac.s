@@ -215,6 +215,13 @@ PROTO_13:
   CAPTURE VAL R3
   RETURN R6 1
 
+PROTO_14:
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R2 K3 [script]
+  GETTABLEKS R1 R2 K4 ["renderer"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R2 K1 [script]
@@ -234,19 +241,21 @@ MAIN:
   CALL R4 1 1
   DUPCLOSURE R5 K9 [PROTO_13]
   CAPTURE VAL R2
-  DUPTABLE R6 K12 [{"initBackend", "agent", "NativeStyleEditor"}]
+  DUPTABLE R6 K13 [{"initBackend", "agent", "getRendererLazy", "NativeStyleEditor"}]
   SETTABLEKS R5 R6 K10 ["initBackend"]
   GETIMPORT R7 K4 [require]
   GETIMPORT R9 K1 [script]
   GETTABLEKS R8 R9 K7 ["agent"]
   CALL R7 1 1
   SETTABLEKS R7 R6 K7 ["agent"]
-  DUPTABLE R7 K13 [{"types"}]
+  DUPCLOSURE R7 K14 [PROTO_14]
+  SETTABLEKS R7 R6 K11 ["getRendererLazy"]
+  DUPTABLE R7 K15 [{"types"}]
   GETIMPORT R8 K4 [require]
   GETIMPORT R11 K1 [script]
-  GETTABLEKS R10 R11 K11 ["NativeStyleEditor"]
+  GETTABLEKS R10 R11 K12 ["NativeStyleEditor"]
   GETTABLEKS R9 R10 K8 ["types"]
   CALL R8 1 1
   SETTABLEKS R8 R7 K8 ["types"]
-  SETTABLEKS R7 R6 K11 ["NativeStyleEditor"]
+  SETTABLEKS R7 R6 K12 ["NativeStyleEditor"]
   RETURN R6 1

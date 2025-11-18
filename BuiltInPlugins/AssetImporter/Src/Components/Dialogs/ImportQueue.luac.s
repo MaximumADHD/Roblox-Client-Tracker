@@ -1,21 +1,7 @@
 PROTO_0:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
-  GETTABLEKS R1 R0 K1 ["Uploading"]
-  JUMPIFNOT R1 [+10]
-  GETIMPORT R1 K3 [warn]
-  LOADK R2 K4 ["Closing the importer and emptying import queue"]
-  CALL R1 1 0
-  GETTABLEKS R1 R0 K5 ["QueueController"]
-  NAMECALL R1 R1 K6 ["destroy"]
-  CALL R1 1 0
-  JUMP [+7]
-  GETTABLEKS R1 R0 K7 ["Parsing"]
-  JUMPIFNOT R1 [+4]
-  GETIMPORT R1 K3 [warn]
-  LOADK R2 K8 ["Currently parsing files - closing the importer may lead to unexpected behaviour"]
-  CALL R1 1 0
-  GETTABLEKS R1 R0 K9 ["SetShowQueue"]
+  GETTABLEKS R1 R0 K1 ["SetShowQueue"]
   LOADB R2 0
   CALL R1 1 0
   RETURN R0 0

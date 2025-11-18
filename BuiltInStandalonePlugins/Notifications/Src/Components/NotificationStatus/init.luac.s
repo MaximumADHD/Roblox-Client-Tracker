@@ -1,0 +1,63 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Frame"]
+  NEWTABLE R3 2 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["Tag"]
+  LOADK R5 K3 ["Component-NotificationStatus"]
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R0 K4 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K4 ["LayoutOrder"]
+  DUPTABLE R4 K6 [{"Container"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K1 ["Frame"]
+  NEWTABLE R7 2 0
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["Tag"]
+  LOADK R9 K7 ["Component-InnerNotificationStatus"]
+  SETTABLE R9 R7 R8
+  LOADN R8 1
+  SETTABLEKS R8 R7 K4 ["LayoutOrder"]
+  DUPTABLE R8 K10 [{"Indicator", "ElapsedTime"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["createElement"]
+  LOADK R10 K11 ["ImageLabel"]
+  NEWTABLE R11 2 0
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K2 ["Tag"]
+  GETTABLEKS R13 R0 K12 ["ReadStatusIconTag"]
+  SETTABLE R13 R11 R12
+  LOADN R12 1
+  SETTABLEKS R12 R11 K4 ["LayoutOrder"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K8 ["Indicator"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["createElement"]
+  LOADK R10 K13 ["TextLabel"]
+  DUPTABLE R11 K15 [{"Text", "LayoutOrder"}]
+  GETTABLEKS R12 R0 K9 ["ElapsedTime"]
+  SETTABLEKS R12 R11 K14 ["Text"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K4 ["LayoutOrder"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K9 ["ElapsedTime"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K5 ["Container"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

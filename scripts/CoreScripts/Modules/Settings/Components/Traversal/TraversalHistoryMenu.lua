@@ -7,6 +7,7 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 local CoreScriptsCommon = require(CorePackages.Workspace.Packages.CoreScriptsCommon)
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 
 local TraversalLeaveConfirmation = require(script.Parent.TraversalLeaveConfirmation)
@@ -22,11 +23,14 @@ local ThumbnailSize = Foundation.Enums.ThumbnailSize
 local getRbxThumb = Foundation.Utility.getRbxThumb
 local SettingsShowSignal = CoreScriptsCommon.SettingsShowSignal
 local Traversal = CoreScriptsRoactCommon.Traversal
+local useLastInputMode = FocusNavigationUtils.useLastInputMode
 local useLastInput = Responsive.useLastInput
 local TraveralConstants = Traversal.Constants
 local HistoryMenu = Traversal.HistoryMenu
 local useHistoryItems = Traversal.useHistoryItems
 local useTokens = Foundation.Hooks.useTokens
+
+local FFlagTraversalUseFocusNavLastInput = require(script.Parent.FFlagTraversalUseFocusNavLastInput)
 
 export type TraversalHistoryMenuProps = {
 	anchorParent: GuiObject,
@@ -47,7 +51,12 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 	end
 	
 	local idleButtonStateIsDown = if props.idleButtonStateIsDown ~= nil then props.idleButtonStateIsDown else TraveralConstants.DEFAULT_CHEVRON_BUTTON_STATE
-	local lastInput = useLastInput()
+	local lastInput
+	if FFlagTraversalUseFocusNavLastInput then 
+		lastInput = useLastInputMode()
+	else
+		lastInput = useLastInput()
+	end
 	local selectionBehaviorToMenu, setSelectionBehaviorToMenu = React.useBinding(Enum.SelectionBehavior.Stop)
 	local tokens = useTokens()
 	local selectedUniverseId, setSelectedUniverseId = React.useState(TraveralConstants.NO_UNIVERSE_ID)
@@ -86,7 +95,8 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 
 	local closeDialog = React.useCallback(function()
 		setSelectedUniverseId(TraveralConstants.NO_UNIVERSE_ID)
-		if lastInput == Responsive.Input.Directional and anchorRef.current then
+		local isUsingFocus = if FFlagTraversalUseFocusNavLastInput then lastInput == "Focus" else lastInput == Responsive.Input.Directional
+		if isUsingFocus and anchorRef.current then
 			GuiService.SelectedCoreObject = anchorRef.current
 		end
 	end, { setSelectedUniverseId, lastInput } :: { unknown })

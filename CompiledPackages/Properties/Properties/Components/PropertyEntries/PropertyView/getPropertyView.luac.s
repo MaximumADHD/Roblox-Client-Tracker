@@ -11,23 +11,7 @@ PROTO_0:
   GETTABLE R2 R3 R0
   JUMPIFNOT R2 [+1]
   RETURN R2 1
-  JUMPIFNOT R0 [+8]
   GETUPVAL R3 2
-  MOVE R4 R0
-  CALL R3 1 1
-  JUMPIFNOT R3 [+4]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["Instance"]
-  RETURN R3 1
-  JUMPIFNOT R0 [+8]
-  GETUPVAL R3 3
-  MOVE R4 R0
-  CALL R3 1 1
-  JUMPIFNOT R3 [+4]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K2 ["EnumItem"]
-  RETURN R3 1
-  GETUPVAL R3 4
   RETURN R3 1
 
 MAIN:
@@ -59,7 +43,7 @@ MAIN:
   GETTABLEKS R9 R0 K7 ["Components"]
   GETTABLEKS R8 R9 K8 ["PropertyEntries"]
   GETTABLEKS R7 R8 K9 ["PropertyView"]
-  GETTABLEKS R6 R7 K13 ["EnumItemPropertyView"]
+  GETTABLEKS R6 R7 K13 ["EnumPropertyView"]
   CALL R5 1 1
   GETIMPORT R6 K6 [require]
   GETTABLEKS R10 R0 K7 ["Components"]
@@ -94,30 +78,20 @@ MAIN:
   GETTABLEKS R14 R15 K9 ["PropertyView"]
   GETTABLEKS R13 R14 K20 ["Vector3PropertyView"]
   CALL R12 1 1
-  GETIMPORT R13 K6 [require]
-  GETTABLEKS R15 R0 K21 ["Util"]
-  GETTABLEKS R14 R15 K22 ["isEnumName"]
-  CALL R13 1 1
-  GETIMPORT R14 K6 [require]
-  GETTABLEKS R16 R0 K21 ["Util"]
-  GETTABLEKS R15 R16 K23 ["isInstanceClassName"]
-  CALL R14 1 1
-  DUPTABLE R15 K33 [{"int", "int64", "float", "string", "Vector3", "boolean", "bool", "Instance", "EnumItem"}]
-  SETTABLEKS R7 R15 K24 ["int"]
-  SETTABLEKS R7 R15 K25 ["int64"]
-  SETTABLEKS R7 R15 K26 ["float"]
-  SETTABLEKS R11 R15 K27 ["string"]
-  SETTABLEKS R12 R15 K28 ["Vector3"]
-  SETTABLEKS R3 R15 K29 ["boolean"]
-  SETTABLEKS R3 R15 K30 ["bool"]
-  SETTABLEKS R6 R15 K31 ["Instance"]
-  SETTABLEKS R5 R15 K32 ["EnumItem"]
-  DUPTABLE R16 K35 [{"CollisionGroup"}]
-  SETTABLEKS R4 R16 K34 ["CollisionGroup"]
-  DUPCLOSURE R17 K36 [PROTO_0]
-  CAPTURE VAL R16
-  CAPTURE VAL R15
+  DUPTABLE R13 K30 [{"int", "int64", "float", "string", "Vector3", "boolean", "bool", "InstanceRef", "Enum"}]
+  SETTABLEKS R7 R13 K21 ["int"]
+  SETTABLEKS R7 R13 K22 ["int64"]
+  SETTABLEKS R7 R13 K23 ["float"]
+  SETTABLEKS R11 R13 K24 ["string"]
+  SETTABLEKS R12 R13 K25 ["Vector3"]
+  SETTABLEKS R3 R13 K26 ["boolean"]
+  SETTABLEKS R3 R13 K27 ["bool"]
+  SETTABLEKS R6 R13 K28 ["InstanceRef"]
+  SETTABLEKS R5 R13 K29 ["Enum"]
+  DUPTABLE R14 K32 [{"CollisionGroup"}]
+  SETTABLEKS R4 R14 K31 ["CollisionGroup"]
+  DUPCLOSURE R15 K33 [PROTO_0]
   CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R2
-  RETURN R17 1
+  RETURN R15 1

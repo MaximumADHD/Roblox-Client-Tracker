@@ -26,7 +26,7 @@ end
 function ServerAuthority:PredictLocalHumanoid()
 	local predictHumanoidRootPart = function(character:Model)
 		local rootPart = character:WaitForChild("HumanoidRootPart")
-		rootPart:SetPredictionMode(Enum.PredictionMode.On)
+		RunService:SetPredictionMode(rootPart, Enum.PredictionMode.On)
 	end
 	if Players.LocalPlayer.Character then
 		predictHumanoidRootPart(Players.LocalPlayer.Character)

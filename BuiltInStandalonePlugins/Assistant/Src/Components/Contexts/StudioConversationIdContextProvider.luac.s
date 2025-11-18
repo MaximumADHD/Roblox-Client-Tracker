@@ -1,34 +1,13 @@
 PROTO_0:
   GETUPVAL R1 0
   CALL R1 0 1
-  JUMPIFNOT R1 [+17]
-  GETUPVAL R1 1
-  CALL R1 0 1
-  GETUPVAL R2 2
-  GETUPVAL R6 3
+  GETUPVAL R2 1
+  GETUPVAL R6 2
   GETTABLEKS R5 R6 K0 ["Components"]
   GETTABLEKS R4 R5 K1 ["Contexts"]
   GETTABLEKS R3 R4 K2 ["ConversationIdContextProvider"]
   DUPTABLE R4 K4 [{"conversationId"}]
   SETTABLEKS R1 R4 K3 ["conversationId"]
-  GETTABLEKS R5 R0 K5 ["children"]
-  CALL R2 3 -1
-  RETURN R2 -1
-  GETUPVAL R1 4
-  CALL R1 0 1
-  GETUPVAL R2 2
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K0 ["Components"]
-  GETTABLEKS R4 R5 K1 ["Contexts"]
-  GETTABLEKS R3 R4 K2 ["ConversationIdContextProvider"]
-  DUPTABLE R4 K4 [{"conversationId"}]
-  MOVE R5 R1
-  JUMPIFNOT R5 [+6]
-  GETTABLEKS R6 R1 K6 ["SessionId"]
-  FASTCALL1 TOSTRING R6 [+2]
-  GETIMPORT R5 K8 [tostring]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K3 ["conversationId"]
   GETTABLEKS R5 R0 K5 ["children"]
   CALL R2 3 -1
   RETURN R2 -1
@@ -52,21 +31,9 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["Hooks"]
   GETTABLEKS R4 R5 K11 ["useConversationId"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K10 ["Hooks"]
-  GETTABLEKS R5 R6 K12 ["useFocusedDataModelSession"]
-  CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Flags"]
-  GETTABLEKS R6 R7 K14 ["FFlagAssistantAttachCommonTelemetryFields"]
-  CALL R5 1 1
-  GETTABLEKS R6 R2 K15 ["createElement"]
-  DUPCLOSURE R7 K16 [PROTO_0]
-  CAPTURE VAL R5
+  GETTABLEKS R4 R2 K12 ["createElement"]
+  DUPCLOSURE R5 K13 [PROTO_0]
   CAPTURE VAL R3
-  CAPTURE VAL R6
-  CAPTURE VAL R1
   CAPTURE VAL R4
-  RETURN R7 1
+  CAPTURE VAL R1
+  RETURN R5 1

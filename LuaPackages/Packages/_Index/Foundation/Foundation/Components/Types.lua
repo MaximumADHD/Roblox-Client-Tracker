@@ -130,7 +130,21 @@ export type SelectionGroup = {
 
 export type Tags = string | { [string]: boolean }
 
-export type GuiObjectProps = {
+export type BaseInteractableProps = {
+	-- The state layer configuration for the element.
+	stateLayer: StateLayer?,
+	-- A callback that is called when the element is activated with the primary input object.
+	onActivated: ((self: GuiObject, inputObject: InputObject, clickCount: number) -> ())?,
+	-- A callback that is called when the element is activated with the secondary input object.
+	-- Currently, this is only used for right-click. When SecondaryActivated is enabled, this will be used for left-click.
+	onSecondaryActivated: ((self: GuiObject, inputObject: InputObject) -> ())?,
+	-- A callback that is called when the state of the element changes.
+	onStateChanged: StateChangedCallback?,
+	-- Whether or not the element is disabled. This can't be a bindable due to handling state updates.
+	isDisabled: boolean?,
+}
+
+export type BaseGuiObjectProps = {
 	aspectRatio: AspectRatio?,
 	cornerRadius: Bindable<UDim>?,
 	flexItem: FlexItem?,
@@ -155,15 +169,11 @@ export type GuiObjectProps = {
 	Size: Bindable<UDim2?>,
 	SizeConstraint: Bindable<Enum.SizeConstraint>?,
 
-	stateLayer: StateLayer?, -- Can this be bindable?
-	onActivated: ((self: GuiObject, inputObject: InputObject, clickCount: number) -> ())?,
-	onSecondaryActivated: ((self: GuiObject, inputObject: InputObject) -> ())?,
-	onStateChanged: StateChangedCallback?,
-	isDisabled: boolean?, -- This can't be a bindable due to handling state updates
-
 	tag: Tags?,
 	children: React.ReactNode?,
 }
+
+export type GuiObjectProps = BaseGuiObjectProps & BaseInteractableProps
 
 export type AspectRatioTable = {
 	AspectRatio: Bindable<number>,

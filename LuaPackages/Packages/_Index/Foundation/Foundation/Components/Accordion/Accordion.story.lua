@@ -8,6 +8,8 @@ local Types = require(Foundation.Components.Types)
 local Accordion = require(Foundation.Components.Accordion).Root
 local AccordionItem = require(script.Parent.Item)
 local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
+local Button = require(Foundation.Components.Button)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -21,14 +23,34 @@ local exampleIcons = {
 	"",
 }
 
-local function content()
-	return React.createElement(Text, {
-		Text = "Our flagship product combines cutting-edge technology with sleek design.",
-		tag = "padding-top-small text-body-medium text-wrap auto-xy text-align-x-left",
+local function content(omitDynamicContent: boolean?)
+	local padding, setPadding = React.useState(false)
+
+	return React.createElement(View, {
+		tag = "col size-full-0 auto-y",
+	}, {
+		Text = React.createElement(Text, {
+			Text = "Our flagship product combines cutting-edge technology with sleek design.",
+			tag = "padding-y-small text-body-medium text-wrap auto-xy text-align-x-left text-align-y-center",
+		}),
+		Button = if not omitDynamicContent
+			then React.createElement(Button, {
+				LayoutOrder = 2,
+				text = "Click to expand!",
+				onActivated = function()
+					setPadding(not padding)
+				end,
+			})
+			else nil,
+		UIPadding = if not omitDynamicContent
+			then React.createElement("UIPadding", {
+				PaddingBottom = UDim.new(0, if padding then 50 else 0),
+			})
+			else nil,
 	})
 end
 
-local function getItems(controls): { React.ReactNode }
+local function getItems(controls, omitDynamicContent: boolean?): { React.ReactNode }
 	local items: any = {}
 	for i = 1, controls.numItems do
 		table.insert(
@@ -44,7 +66,7 @@ local function getItems(controls): { React.ReactNode }
 				-- isContained = controls.isContained,
 				id = i,
 				isExpanded = i == 1,
-			}, content())
+			}, content(omitDynamicContent))
 		)
 	end
 	return items
@@ -60,7 +82,7 @@ return {
 					width = UDim.new(0, 400),
 					size = props.controls.size,
 				}, {
-					getItems(props.controls),
+					getItems(props.controls, true),
 				})
 			end,
 		},

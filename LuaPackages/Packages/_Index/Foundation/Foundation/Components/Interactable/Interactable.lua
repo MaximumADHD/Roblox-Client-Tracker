@@ -28,16 +28,12 @@ type ColorStyleValue = Types.ColorStyleValue
 
 -- TODO: https://roblox.atlassian.net/browse/UIBLOX-2446 make this union type
 export type InteractableProps = {
+	-- The component to render. After deprecation, many `BaseInteractableProps` could support bindings.
 	component: (React.ReactElement | string)?,
-	isDisabled: boolean?,
-	onActivated: () -> ()?,
-	onSecondaryActivated: () -> ()?,
-	onStateChanged: StateChangedCallback?,
-	stateLayer: Types.StateLayer?,
 
 	-- Interactable passes on any other props to the component
 	[any]: any,
-}
+} & Types.BaseInteractableProps
 
 local defaultProps = {
 	component = "ImageButton",

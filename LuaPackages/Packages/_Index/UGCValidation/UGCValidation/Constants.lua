@@ -2,7 +2,6 @@
 local root = script.Parent
 
 local Cryo = require(root.Parent.Cryo)
-local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
 
 local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
@@ -584,9 +583,6 @@ end
 Constants.GUIDAttributeName = "RBXGUID"
 Constants.GUIDAttributeMaxLength = 100
 
-if not getEngineFeatureRemoveProxyWrap() then
-	Constants.ProxyWrapAttributeName = "RBX_WRAP_DEFORMER_PROXY"
-end
 Constants.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID"
 
 if getFFlagUGCValidationConsolidateGetMeshInfos() then

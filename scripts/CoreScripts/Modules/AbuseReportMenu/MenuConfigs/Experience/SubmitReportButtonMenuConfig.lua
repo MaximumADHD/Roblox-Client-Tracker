@@ -49,9 +49,23 @@ local SubmitReportButtonMenuConfig: Types.ButtonMenuItemType = {
 				spawn(function()
 					local placeId, placeName, placeDescription = tostring(game.PlaceId), "N/A", "N/A"
 					pcall(function()
-						local productInfo = MarketplaceService:GetProductInfo(game.PlaceId, Enum.InfoType.Asset)
-						placeName = productInfo.Name
-						placeDescription = productInfo.Description
+						-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+						-- Will be removed when that PR is merged.
+						if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+							local productInfo = (MarketplaceService :: any):GetProductInfoAsync(
+								game.PlaceId,
+								Enum.InfoType.Asset
+							)
+							placeName = productInfo.Name
+							placeDescription = productInfo.Description
+						else
+							local productInfo = (MarketplaceService :: any):GetProductInfo(
+								game.PlaceId,
+								Enum.InfoType.Asset
+							)
+							placeName = productInfo.Name
+							placeDescription = productInfo.Description
+						end
 					end)
 					local formattedText = string.format(
 						"User Report: \n    %s \n"

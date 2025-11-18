@@ -219,7 +219,7 @@ do
 	
 	function CameraInput.getZoomDelta(dt: number?): number
 		local kKeyboard = keyboardState.O - keyboardState.I
-		if dt then 
+		if dt then
 			kKeyboard *= dt
 		end
 		local kMouse = -mouseState.Wheel + mouseState.Pinch

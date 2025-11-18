@@ -82,6 +82,9 @@ local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
 local FFlagEnableLinkSharingEvent = game:DefineFastFlag("EnableLinkSharingEvent", false)
 local FFlagPlayerFeedbackPromptEnabled = game:GetEngineFeature("PlayerFeedbackEnabled")
+local FFlagLuaAppInExperienceDetailsPrompt =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppInExperienceDetailsPrompt
+local FFlagEnableSystemScrim = game:DefineFastFlag("EnableSystemScrim", false)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -303,6 +306,10 @@ if FFlagPlayerFeedbackPromptEnabled then
 	coroutine.wrap(safeRequire)(CoreGuiModules.PlayerFeedback)
 end
 
+if game:GetEngineFeature("GroupServiceJoinPromptEngineAPIEnabled") then
+	coroutine.wrap(safeRequire)(CoreGuiModules.Groups.GroupsApp)
+end
+
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarGeneration.SelfieConsent)
 
 -- Prompt Block Player Script
@@ -514,11 +521,19 @@ end
 if FFlagEnableRobloxCommerce then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CommercePurchaseApp", RobloxGui)
 end
+
+if FFlagEnableSystemScrim then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/SystemScrim", RobloxGui)
+end
 	
 ScriptContext:AddCoreScriptLocal("CoreScripts/CoreGuiEnableAnalytics", RobloxGui)
 
 if FFlagEnableLinkSharingEvent then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/OpenShareSheetWithLink", RobloxGui)
+end
+
+if FFlagLuaAppInExperienceDetailsPrompt then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/InExperienceDetailsPrompt", RobloxGui)
 end
 
 if not FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript then

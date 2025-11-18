@@ -39,8 +39,10 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local ChromeService
+local TopBarScrim
 if FFlagFixChromeConsoleNilRefs and ChromeEnabled then
 	ChromeService = require(RobloxGui.Modules.Chrome.Service)
+	TopBarScrim = require(script.Components.TopBarScrim)
 end
 local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
@@ -55,6 +57,7 @@ local FFlagTopBarDeprecateGamepadNavigationDialogRodux = require(script.Flags.FF
 
 local FFlagTopBarDeprecateChatRodux = require(script.Flags.FFlagTopBarDeprecateChatRodux)
 local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
+local FFlagTopBarRefactor = require(script.Flags.FFlagTopBarRefactor)
 
 if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing or FFlagTopBarStyleUseDisplayUIScale) then
 	local function SetGlobalGuiInset()
@@ -84,11 +87,13 @@ if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTil
 	end
 end
 
-local TopBarApp = require(script.Components.TopBarApp)
+local TopBarApp = if FFlagTopBarRefactor then require(script.ComponentsV2.TopBarApp) else require(script.Components.TopBarApp)
 local Reducer = require(script.Reducer)
 local TopBarAppPolicy = require(script.TopBarAppPolicy)
 
-local TopBarScrim = require(script.Components.TopBarScrim)
+if not FFlagFixChromeConsoleNilRefs then
+	TopBarScrim = require(script.Components.TopBarScrim)
+end
 
 local SetSmallTouchDevice = require(script.Actions.SetSmallTouchDevice)
 local SetInspectMenuOpen = require(script.Actions.SetInspectMenuOpen)

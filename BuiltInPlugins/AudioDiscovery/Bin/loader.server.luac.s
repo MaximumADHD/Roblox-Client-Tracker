@@ -95,7 +95,7 @@ MAIN:
   LOADNIL R9
   GETTABLEKS R10 R0 K21 ["shouldMigrateToActions"]
   CALL R10 0 1
-  JUMPIFNOT R10 [+69]
+  JUMPIFNOT R10 [+54]
   GETIMPORT R10 K1 [require]
   GETTABLEKS R12 R1 K14 ["Packages"]
   GETTABLEKS R11 R12 K22 ["StudioFoundation"]
@@ -114,55 +114,43 @@ MAIN:
   SETTABLEKS R16 R15 K29 ["ItemId"]
   CALL R13 2 1
   MOVE R8 R13
-  DUPTABLE R13 K42 [{"getText", "getTooltip", "uri", "icon", "enabled", "visible", "isCheckable", "checkable", "checked"}]
-  DUPCLOSURE R14 K43 [PROTO_0]
+  DUPTABLE R13 K41 [{"getText", "getTooltip", "uri", "icon", "enabled", "visible", "checkable", "checked"}]
+  DUPCLOSURE R14 K42 [PROTO_0]
   SETTABLEKS R14 R13 K33 ["getText"]
-  DUPCLOSURE R14 K44 [PROTO_1]
+  DUPCLOSURE R14 K43 [PROTO_1]
   SETTABLEKS R14 R13 K34 ["getTooltip"]
   SETTABLEKS R8 R13 K35 ["uri"]
-  LOADK R14 K45 ["ViewSounds"]
+  LOADK R14 K44 ["ViewSounds"]
   SETTABLEKS R14 R13 K36 ["icon"]
   LOADB R14 0
   SETTABLEKS R14 R13 K37 ["enabled"]
   LOADB R14 1
   SETTABLEKS R14 R13 K38 ["visible"]
-  GETTABLEKS R15 R0 K46 ["getFFlagReplaceIsCheckableWithCheckable"]
-  CALL R15 0 1
-  JUMPIFNOT R15 [+2]
-  LOADNIL R14
-  JUMP [+1]
   LOADB R14 1
-  SETTABLEKS R14 R13 K39 ["isCheckable"]
-  GETTABLEKS R15 R0 K46 ["getFFlagReplaceIsCheckableWithCheckable"]
-  CALL R15 0 1
-  JUMPIFNOT R15 [+2]
-  LOADB R14 1
-  JUMP [+1]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K40 ["checkable"]
+  SETTABLEKS R14 R13 K39 ["checkable"]
   LOADB R14 0
-  SETTABLEKS R14 R13 K41 ["checked"]
+  SETTABLEKS R14 R13 K40 ["checked"]
   MOVE R7 R13
   JUMP [+14]
-  DUPTABLE R10 K49 [{"getName", "getDescription", "icon", "enabled"}]
-  DUPCLOSURE R11 K50 [PROTO_2]
-  SETTABLEKS R11 R10 K47 ["getName"]
-  DUPCLOSURE R11 K51 [PROTO_3]
-  SETTABLEKS R11 R10 K48 ["getDescription"]
-  LOADK R11 K52 ["rbxlocaltheme://ViewSounds"]
+  DUPTABLE R10 K47 [{"getName", "getDescription", "icon", "enabled"}]
+  DUPCLOSURE R11 K48 [PROTO_2]
+  SETTABLEKS R11 R10 K45 ["getName"]
+  DUPCLOSURE R11 K49 [PROTO_3]
+  SETTABLEKS R11 R10 K46 ["getDescription"]
+  LOADK R11 K50 ["rbxlocaltheme://ViewSounds"]
   SETTABLEKS R11 R10 K36 ["icon"]
   LOADB R11 0
   SETTABLEKS R11 R10 K37 ["enabled"]
   MOVE R9 R10
-  DUPTABLE R10 K60 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "actionInfos", "buttonInfo", "noToolbar"}]
+  DUPTABLE R10 K58 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "actionInfos", "buttonInfo", "noToolbar"}]
   GETIMPORT R11 K25 [plugin]
   SETTABLEKS R11 R10 K24 ["plugin"]
-  LOADK R11 K61 ["AudioDiscovery"]
-  SETTABLEKS R11 R10 K53 ["pluginName"]
-  SETTABLEKS R6 R10 K54 ["translationResourceTable"]
-  SETTABLEKS R5 R10 K55 ["fallbackResourceTable"]
-  DUPCLOSURE R11 K62 [PROTO_4]
-  SETTABLEKS R11 R10 K56 ["getToolbarName"]
+  LOADK R11 K59 ["AudioDiscovery"]
+  SETTABLEKS R11 R10 K51 ["pluginName"]
+  SETTABLEKS R6 R10 K52 ["translationResourceTable"]
+  SETTABLEKS R5 R10 K53 ["fallbackResourceTable"]
+  DUPCLOSURE R11 K60 [PROTO_4]
+  SETTABLEKS R11 R10 K54 ["getToolbarName"]
   GETTABLEKS R12 R0 K21 ["shouldMigrateToActions"]
   CALL R12 0 1
   JUMPIFNOT R12 [+6]
@@ -171,22 +159,22 @@ MAIN:
   SETLIST R11 R12 1 [1]
   JUMP [+1]
   LOADNIL R11
-  SETTABLEKS R11 R10 K57 ["actionInfos"]
+  SETTABLEKS R11 R10 K55 ["actionInfos"]
   GETTABLEKS R12 R0 K21 ["shouldMigrateToActions"]
   CALL R12 0 1
   JUMPIF R12 [+2]
   MOVE R11 R9
   JUMP [+1]
   LOADNIL R11
-  SETTABLEKS R11 R10 K58 ["buttonInfo"]
+  SETTABLEKS R11 R10 K56 ["buttonInfo"]
   GETTABLEKS R11 R0 K21 ["shouldMigrateToActions"]
   CALL R11 0 1
-  SETTABLEKS R11 R10 K59 ["noToolbar"]
+  SETTABLEKS R11 R10 K57 ["noToolbar"]
   GETIMPORT R11 K7 [game]
-  LOADK R13 K63 ["RunService"]
-  NAMECALL R11 R11 K64 ["GetService"]
+  LOADK R13 K61 ["RunService"]
+  NAMECALL R11 R11 K62 ["GetService"]
   CALL R11 2 1
-  NAMECALL R12 R11 K65 ["IsEdit"]
+  NAMECALL R12 R11 K63 ["IsEdit"]
   CALL R12 1 1
   JUMPIFNOT R12 [+70]
   GETTABLEKS R12 R0 K21 ["shouldMigrateToActions"]
@@ -197,11 +185,11 @@ MAIN:
   JUMP [+3]
   LOADB R12 1
   SETTABLEKS R12 R9 K37 ["enabled"]
-  DUPTABLE R12 K70 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R13 K61 ["AudioDiscovery"]
-  SETTABLEKS R13 R12 K66 ["id"]
-  GETIMPORT R13 K73 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R14 K77 [Enum.InitialDockState.Bottom]
+  DUPTABLE R12 K68 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+  LOADK R13 K59 ["AudioDiscovery"]
+  SETTABLEKS R13 R12 K64 ["id"]
+  GETIMPORT R13 K71 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R14 K75 [Enum.InitialDockState.Bottom]
   LOADB R15 0
   LOADB R16 0
   LOADN R17 128
@@ -209,24 +197,24 @@ MAIN:
   LOADN R19 250
   LOADN R20 200
   CALL R13 7 1
-  SETTABLEKS R13 R12 K67 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R13 K78 [PROTO_5]
-  SETTABLEKS R13 R12 K68 ["getDockTitle"]
-  GETIMPORT R13 K81 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R13 R12 K69 ["zIndexBehavior"]
-  SETTABLEKS R12 R10 K82 ["dockWidgetInfo"]
-  GETTABLEKS R12 R4 K83 ["build"]
+  SETTABLEKS R13 R12 K65 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R13 K76 [PROTO_5]
+  SETTABLEKS R13 R12 K66 ["getDockTitle"]
+  GETIMPORT R13 K79 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R13 R12 K67 ["zIndexBehavior"]
+  SETTABLEKS R12 R10 K80 ["dockWidgetInfo"]
+  GETTABLEKS R12 R4 K81 ["build"]
   MOVE R13 R10
   CALL R12 1 1
-  GETTABLEKS R13 R12 K84 ["pluginLoader"]
-  NAMECALL R13 R13 K85 ["waitForUserInteraction"]
+  GETTABLEKS R13 R12 K82 ["pluginLoader"]
+  NAMECALL R13 R13 K83 ["waitForUserInteraction"]
   CALL R13 1 1
   JUMPIF R13 [+1]
   RETURN R0 0
   GETIMPORT R14 K1 [require]
   GETIMPORT R17 K3 [script]
   GETTABLEKS R16 R17 K4 ["Parent"]
-  GETTABLEKS R15 R16 K86 ["main"]
+  GETTABLEKS R15 R16 K84 ["main"]
   CALL R14 1 1
   MOVE R15 R14
   GETIMPORT R16 K25 [plugin]
@@ -239,7 +227,7 @@ MAIN:
   LOADNIL R18
   CALL R15 3 0
   RETURN R0 0
-  GETTABLEKS R12 R4 K83 ["build"]
+  GETTABLEKS R12 R4 K81 ["build"]
   MOVE R13 R10
   CALL R12 1 0
   RETURN R0 0

@@ -34,7 +34,10 @@ PROTO_0:
   GETUPVAL R8 7
   GETTABLEKS R7 R8 K9 ["Components"]
   GETTABLEKS R6 R7 K7 ["MainView"]
-  CALL R5 1 1
+  DUPTABLE R7 K11 [{"overlayGui"}]
+  GETTABLEKS R8 R0 K4 ["dockWidget"]
+  SETTABLEKS R8 R7 K10 ["overlayGui"]
+  CALL R5 2 1
   SETTABLEKS R5 R4 K7 ["MainView"]
   CALL R1 3 -1
   RETURN R1 -1

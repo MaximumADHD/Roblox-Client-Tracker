@@ -36,17 +36,29 @@ PROTO_0:
 
 PROTO_1:
   DUPTABLE R0 K4 [{"ManageMcpIntegration", "EditApiKeys", "FirstPartyTool", "Integrations"}]
-  LOADK R1 K5 ["Manage Integrations"]
+  GETUPVAL R1 0
+  LOADK R3 K5 ["IntegrationManagement"]
+  LOADK R4 K6 ["ManageIntegrations"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K0 ["ManageMcpIntegration"]
   GETUPVAL R1 0
-  LOADK R3 K6 ["SettingsDialog"]
+  LOADK R3 K8 ["SettingsDialog"]
   LOADK R4 K1 ["EditApiKeys"]
   NAMECALL R1 R1 K7 ["getText"]
   CALL R1 3 1
   SETTABLEKS R1 R0 K1 ["EditApiKeys"]
-  LOADK R1 K8 ["First party tools"]
+  GETUPVAL R1 0
+  LOADK R3 K8 ["SettingsDialog"]
+  LOADK R4 K9 ["FirstPartyTools"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K2 ["FirstPartyTool"]
-  LOADK R1 K3 ["Integrations"]
+  GETUPVAL R1 0
+  LOADK R3 K8 ["SettingsDialog"]
+  LOADK R4 K10 ["ManageIntegrationsTab"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 3 1
   SETTABLEKS R1 R0 K3 ["Integrations"]
   RETURN R0 1
 

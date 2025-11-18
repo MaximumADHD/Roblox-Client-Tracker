@@ -29,8 +29,10 @@ local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 
 local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local useFocusGuiObject = ReactFocusNavigation.useFocusGuiObject
-local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
-local useLastInputMode = FocusNavigationUtils.useLastInputMode
+
+local Responsive = require(CorePackages.Workspace.Packages.Responsive)
+local Input = Responsive.Input
+local useLastInput = Responsive.useLastInput
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
@@ -78,7 +80,7 @@ type Props = {
 local function ResetCharacterButtonsContainer(props: Props)
 	local resetCharacterButtonRef = React.useRef(nil)
 
-	local lastInputMode = useLastInputMode()
+	local lastInput = useLastInput()
 	local focusGuiObject = useFocusGuiObject()
 
 	local localizedText = useLocalization({
@@ -88,12 +90,12 @@ local function ResetCharacterButtonsContainer(props: Props)
 	}) 
 
 	React.useEffect(function() 
-		if lastInputMode == "Focus" then
+		if lastInput ~= Input.Touch then
 			focusGuiObject(resetCharacterButtonRef.current)
 		else
 			focusGuiObject(nil)
 		end
-	end, { lastInputMode, focusGuiObject })
+	end, { lastInput, focusGuiObject })
 
 	local onDontResetCharacter = React.useCallback(function()
 		props.dontResetCharFromButton(utility:IsUsingGamepad())

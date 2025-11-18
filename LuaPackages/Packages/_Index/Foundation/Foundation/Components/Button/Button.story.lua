@@ -72,6 +72,7 @@ return {
 	end),
 	controls = {
 		icon = {
+			"arrow-up-right-from-square",
 			"chain-link",
 			"tilt",
 			"icons/placeholder/placeholderOn",

@@ -57,7 +57,7 @@ local function OcclusionMetricsManager()
 		size = Vector2.new(),
 	} :: KeepOutArea?)
 
-	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then
+	if FFlagTopBarSignalizeKeepOutAreas then
 		local keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
 
 		disposeEffect = Signals.createEffect(function(scope)

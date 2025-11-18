@@ -13,7 +13,6 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 
 local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
 local CharacterUtil = require(CommonUtils:WaitForChild("CharacterUtil"))
-local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
 local CONNECTIONS = {
@@ -24,8 +23,6 @@ local CONNECTIONS = {
 	JUMP_INPUT_ENDED = "JUMP_INPUT_ENDED",
 	MENU_OPENED = "MENU_OPENED",
 }
-
-local FFlagUserTouchJumpHeightDisable = FlagUtil.getUserFlag("UserTouchJumpHeightDisable")
 
 type TouchJumpClass = {
 	new: () -> TouchJump,
@@ -73,14 +70,11 @@ function TouchJump:_reset()
 	end
 end
 
--- If called multiple times with the same enabled state, FFlagUserTouchJumpHeightDisable makes
--- it a no-op so that valid changes to jumping don't trigger a reset. Changes to state such as
+-- If called multiple times with the same enabled state, this function becomes a no-op
+-- so that valid changes to jumping don't trigger a reset. Changes to state such as
 -- humanoid death should explicitly call _reset() to reset the jump state. 
 function TouchJump:EnableButton(enable)
 	if enable == self._active then
-		if not FFlagUserTouchJumpHeightDisable then 
-			self:_reset()
-		end
 		return
 	end
 
@@ -123,18 +117,10 @@ end
 
 function TouchJump:UpdateEnabled()
 	local humanoid = CharacterUtil.getChild("Humanoid", "Humanoid") 
-	if FFlagUserTouchJumpHeightDisable then
-		if humanoid and self.externallyEnabled and ((humanoid.UseJumpPower and humanoid.JumpPower > 0) or (not humanoid.UseJumpPower and humanoid.JumpHeight > 0)) and humanoid:GetStateEnabled(Enum.HumanoidStateType.Jumping) then
-			self:EnableButton(true)
-		else
-			self:EnableButton(false)
-		end
+	if humanoid and self.externallyEnabled and ((humanoid.UseJumpPower and humanoid.JumpPower > 0) or (not humanoid.UseJumpPower and humanoid.JumpHeight > 0)) and humanoid:GetStateEnabled(Enum.HumanoidStateType.Jumping) then
+		self:EnableButton(true)
 	else
-		if humanoid and self.externallyEnabled and humanoid.JumpPower > 0 and humanoid:GetStateEnabled(Enum.HumanoidStateType.Jumping) then
-			self:EnableButton(true)
-		else
-			self:EnableButton(false)
-		end
+		self:EnableButton(false)
 	end
 end
 
@@ -146,19 +132,15 @@ function TouchJump:_setupConfigurations()
 	-- listen to jump APIs on the humanoid
 	local humanoidConnection = CharacterUtil.onChild("Humanoid", "Humanoid", function(humanoid)
 		update()
-		if FFlagUserTouchJumpHeightDisable then 
-			self:_reset()
-		end
+		self:_reset()
 		self._connectionUtil:trackConnection(
 			CONNECTIONS.HUMANOID_JUMP_POWER,
 			humanoid:GetPropertyChangedSignal("JumpPower"):Connect(update)
 		)
-		if FFlagUserTouchJumpHeightDisable then
-			self._connectionUtil:trackConnection(
-				CONNECTIONS.HUMANOID_JUMP_HEIGHT, 
-				humanoid:GetPropertyChangedSignal("JumpHeight"):Connect(update)
-			)
-		end
+		self._connectionUtil:trackConnection(
+			CONNECTIONS.HUMANOID_JUMP_HEIGHT, 
+			humanoid:GetPropertyChangedSignal("JumpHeight"):Connect(update)
+		)
 		self._connectionUtil:trackConnection(
 			CONNECTIONS.HUMANOID_STATE_ENABLED_CHANGED,
 			humanoid.StateEnabledChanged:Connect(function(state, isEnabled)

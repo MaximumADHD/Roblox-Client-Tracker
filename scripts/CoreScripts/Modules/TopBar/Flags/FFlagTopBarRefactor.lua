@@ -1,0 +1,36 @@
+local FFlagTopBarRefactor = game:DefineFastFlag("TopBarRefactor", false)
+
+local CorePackages = game:GetService("CorePackages")
+
+local Chrome = script.Parent.Parent.Parent.Chrome
+local ChromeEnabled = require(Chrome.Enabled)
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
+local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
+local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagMenuIconRemoveBinding = SharedFlags.FFlagMenuIconRemoveBinding
+local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
+local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
+local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+local FFlagUnibarMenuIconLayoutFix = require(script.Parent.FFlagUnibarMenuIconLayoutFix)
+
+local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+local FFlagAddTraversalBackButton = CoreScriptsRoactCommon.Traversal.Flags.FFlagAddTraversalBackButton
+
+local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
+local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
+
+return FFlagTopBarRefactor
+    and ChromeEnabled 
+    -- Rodux Deprecation
+    and FFlagTopBarSignalizeKeepOutAreas and FFlagTopBarSignalizeMenuOpen and FFlagTopBarSignalizeScreenSize
+    -- Console Controls
+    and FFlagEnableConsoleExpControls and FFlagTiltIconUnibarFocusNav and FFlagHideTopBarConsole and FFlagMenuIconRemoveBinding
+    -- TopBar Fixes
+    and FFlagTopBarStyleUseDisplayUIScale and FFlagAdaptUnibarAndTiltSizing and FFlagUnibarMenuIconLayoutFix
+    -- TopBar Features
+    and FFlagAddTraversalBackButton and not FFlagAddUILessMode

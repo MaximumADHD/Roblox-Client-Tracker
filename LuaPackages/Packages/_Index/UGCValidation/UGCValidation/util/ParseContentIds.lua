@@ -7,12 +7,9 @@
 
 local root = script.Parent.Parent
 
-local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
 local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
 
 local Constants = require(root.Constants)
-local checkForProxyWrap = require(root.util.checkForProxyWrap)
-local isProxyWrapParent = require(root.util.isProxyWrapParent)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
@@ -125,30 +122,16 @@ end
 local function parseContentId(contentIds, contentIdMap, allResults, object, fieldName, isRequired, validationContext)
 	local contentId = object[fieldName]
 
-	if getEngineFeatureRemoveProxyWrap() then
-		if contentId == "" then
-			if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
-				if allResults then
-					table.insert(allResults, { fieldName = fieldName, instance = object })
-				end
-			elseif isRequired then
-				return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
+	if contentId == "" then
+		if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
+			if allResults then
+				table.insert(allResults, { fieldName = fieldName, instance = object })
 			end
-
-			return true
+		elseif isRequired then
+			return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
 		end
-	else
-		if contentId == "" or (validationContext.allowEditableInstances and isProxyWrapParent(object)) then
-			if hasInExpCreatedEditableInstance(object, fieldName, validationContext) then
-				if allResults then
-					table.insert(allResults, { fieldName = fieldName, instance = object })
-				end
-			elseif isRequired then
-				return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
-			end
 
-			return true
-		end
+		return true
 	end
 
 	local id = tryGetAssetIdFromContentIdInternal(contentId)
@@ -190,7 +173,6 @@ local function parseWithErrorCheckInternal(
 	requiredFields,
 	validationContext
 )
-	local allowEditableInstances = validationContext.allowEditableInstances
 	allFields = allFields or Constants.CONTENT_ID_FIELDS
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
@@ -198,11 +180,6 @@ local function parseWithErrorCheckInternal(
 	table.insert(descendantsAndObject, object)
 
 	for _, descendant in pairs(descendantsAndObject) do
-		if not getEngineFeatureRemoveProxyWrap() then
-			if allowEditableInstances and checkForProxyWrap(descendant) then
-				continue
-			end
-		end
 		local contentIdFields = allFields[descendant.ClassName]
 		if contentIdFields then
 			local requiredFieldsForClassType = requiredFields and requiredFields[descendant.ClassName]

@@ -8,7 +8,6 @@ local FriendStatusConnector = require(script.FriendStatusConnector)
 local LastInputTypeConnector = require(script.LastInputTypeConnector)
 local MouseOverrideManager = require(script.MouseOverrideManager)
 local FocusHighlightManager = require(script.FocusHighlightManager)
-local VideoRecordConnector = require(script.VideoRecordConnector)
 local NativeCloseEventConnector = require(script.NativeCloseEventConnector)
 
 local InGameMenu = script.Parent.Parent
@@ -25,7 +24,6 @@ local function Connection(props)
 		LastInputTypeConnector = Roact.createElement(LastInputTypeConnector),
 		MouseOverrideManager = Roact.createElement(MouseOverrideManager),
 		FocusHighlightManager = Roact.createElement(FocusHighlightManager),
-		VideoRecordConnector = Roact.createElement(VideoRecordConnector),
 		NativeCloseEventConnector = props.isEducationalPopupEnabled and Roact.createElement(NativeCloseEventConnector)
 			or nil,
 	})

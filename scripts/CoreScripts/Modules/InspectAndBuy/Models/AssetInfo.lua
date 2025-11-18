@@ -26,6 +26,7 @@
 	}
 ]]
 local CorePackages = game:GetService("CorePackages")
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local CoreGui = game:GetService("CoreGui")
 local Dash = require(CorePackages.Packages.Dash)
 
@@ -51,6 +52,9 @@ local GetFFlagIBEnableCollectiblesSystemSupport =
 
 local FFlagAXParseAdditionalItemDetailsFromCatalog =
 	require(InspectAndBuyFolder.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog)
+
+local FFlagIBV2Attribution = SharedFlags.FFlagIBV2Attribution
+
 
 local AssetInfo = {}
 
@@ -381,6 +385,10 @@ function AssetInfo.fromGetItemDetails(itemDetails)
 		newAsset.saleLocationType = itemDetails.SaleLocationType
 		newAsset.numFavorites = itemDetails.FavoriteCount
 		newAsset.catalogPriceStatus = itemDetails.PriceStatus
+	end
+
+	if FFlagIBV2Attribution then
+		newAsset.creatingUniverseId = itemDetails.CreatingUniverseId
 	end
 
 	return newAsset

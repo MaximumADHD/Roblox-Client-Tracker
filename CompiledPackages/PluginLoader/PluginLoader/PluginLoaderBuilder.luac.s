@@ -31,66 +31,55 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R0 0
-  DUPTABLE R2 K11 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts", "IsCheckable", "Checkable", "Checked", "VisibleOnRibbon"}]
+  DUPTABLE R2 K10 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts", "Checkable", "Checked", "VisibleOnRibbon"}]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K12 ["uri"]
+  GETTABLEKS R3 R4 K11 ["uri"]
   SETTABLEKS R3 R2 K0 ["Uri"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K13 ["enabled"]
+  GETTABLEKS R3 R4 K12 ["enabled"]
   SETTABLEKS R3 R2 K1 ["Enabled"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K14 ["visible"]
+  GETTABLEKS R3 R4 K13 ["visible"]
   SETTABLEKS R3 R2 K2 ["Visible"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K15 ["getText"]
+  GETTABLEKS R3 R4 K14 ["getText"]
   GETUPVAL R4 2
   GETUPVAL R5 3
-  NAMECALL R5 R5 K16 ["getKeyNamespace"]
+  NAMECALL R5 R5 K15 ["getKeyNamespace"]
   CALL R5 1 1
   GETUPVAL R6 3
-  NAMECALL R6 R6 K17 ["getPluginName"]
+  NAMECALL R6 R6 K16 ["getPluginName"]
   CALL R6 1 -1
   CALL R3 -1 1
   SETTABLEKS R3 R2 K3 ["Text"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K18 ["getTooltip"]
+  GETTABLEKS R3 R4 K17 ["getTooltip"]
   GETUPVAL R4 2
   GETUPVAL R5 3
-  NAMECALL R5 R5 K16 ["getKeyNamespace"]
+  NAMECALL R5 R5 K15 ["getKeyNamespace"]
   CALL R5 1 1
   GETUPVAL R6 3
-  NAMECALL R6 R6 K17 ["getPluginName"]
+  NAMECALL R6 R6 K16 ["getPluginName"]
   CALL R6 1 -1
   CALL R3 -1 1
   SETTABLEKS R3 R2 K4 ["Tooltip"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K19 ["icon"]
+  GETTABLEKS R3 R4 K18 ["icon"]
   SETTABLEKS R3 R2 K5 ["Icon"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K20 ["shortcuts"]
+  GETTABLEKS R3 R4 K19 ["shortcuts"]
   SETTABLEKS R3 R2 K6 ["Shortcuts"]
-  GETUPVAL R4 4
-  JUMPIFNOT R4 [+2]
-  LOADNIL R3
-  JUMP [+3]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K21 ["isCheckable"]
-  SETTABLEKS R3 R2 K7 ["IsCheckable"]
-  GETUPVAL R4 4
-  JUMPIFNOT R4 [+4]
+  GETTABLEKS R3 R4 K20 ["checkable"]
+  SETTABLEKS R3 R2 K7 ["Checkable"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K22 ["checkable"]
-  JUMP [+1]
-  LOADNIL R3
-  SETTABLEKS R3 R2 K8 ["Checkable"]
+  GETTABLEKS R3 R4 K21 ["checked"]
+  SETTABLEKS R3 R2 K8 ["Checked"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K23 ["checked"]
-  SETTABLEKS R3 R2 K9 ["Checked"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K24 ["visibleOnRibbon"]
-  SETTABLEKS R3 R2 K10 ["VisibleOnRibbon"]
+  GETTABLEKS R3 R4 K22 ["visibleOnRibbon"]
+  SETTABLEKS R3 R2 K9 ["VisibleOnRibbon"]
   LOADB R3 1
-  NAMECALL R0 R0 K25 ["CreateAsync"]
+  NAMECALL R0 R0 K23 ["CreateAsync"]
   CALL R0 3 -1
   RETURN R0 -1
 
@@ -232,9 +221,9 @@ PROTO_5:
   CALL R11 2 1
   MOVE R7 R11
   GETUPVAL R9 0
-  JUMPIFNOT R9 [+52]
+  JUMPIFNOT R9 [+51]
   GETTABLEKS R9 R0 K31 ["actionInfos"]
-  JUMPIFEQKNIL R9 [+49]
+  JUMPIFEQKNIL R9 [+48]
   GETTABLEKS R9 R0 K31 ["actionInfos"]
   LOADNIL R10
   LOADNIL R11
@@ -252,14 +241,13 @@ PROTO_5:
   MOVE R18 R16
   CALL R17 1 0
   MOVE R14 R16
-  JUMP [+15]
+  JUMP [+14]
   GETIMPORT R15 K34 [pcall]
   NEWCLOSURE R16 P2
   CAPTURE VAL R2
   CAPTURE VAL R13
   CAPTURE VAL R4
   CAPTURE REF R3
-  CAPTURE UPVAL U2
   CALL R15 1 2
   JUMPIF R15 [+4]
   GETIMPORT R17 K36 [error]
@@ -273,7 +261,7 @@ PROTO_5:
   FASTCALL TABLE_INSERT [+2]
   GETIMPORT R15 K40 [table.insert]
   CALL R15 -1 0
-  FORGLOOP R9 2 [-42]
+  FORGLOOP R9 2 [-41]
   LOADNIL R9
   GETTABLEKS R10 R0 K41 ["dockWidgetInfo"]
   JUMPIFNOT R10 [+83]
@@ -382,15 +370,10 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R2 R3 K7 ["getFFlagRegisterActionsPluginLoader"]
   CALL R2 0 1
-  GETIMPORT R3 K9 [game]
-  LOADK R5 K10 ["ReplaceIsCheckableWithCheckable"]
-  NAMECALL R3 R3 K11 ["GetEngineFeature"]
-  CALL R3 2 1
-  NEWTABLE R4 1 0
-  DUPCLOSURE R5 K12 [PROTO_0]
-  DUPCLOSURE R6 K13 [PROTO_5]
+  NEWTABLE R3 1 0
+  DUPCLOSURE R4 K8 [PROTO_0]
+  DUPCLOSURE R5 K9 [PROTO_5]
   CAPTURE VAL R2
   CAPTURE VAL R1
-  CAPTURE VAL R3
-  SETTABLEKS R6 R4 K14 ["build"]
-  RETURN R4 1
+  SETTABLEKS R5 R3 K10 ["build"]
+  RETURN R3 1

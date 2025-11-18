@@ -17,6 +17,7 @@ local FFlagAXEnableNewInspectAndBuyContainer =
 local TopBar = require(RobloxGui.Modules.TopBar)
 
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
+local FFlagInspectAndBuyFixStyleLink = game:DefineFastFlag("InspectAndBuyFixStyleLink", false)
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -56,6 +57,10 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 			playerId = userId,
 			ctx = ctx,
 		})
+	end
+
+	if FFlagInspectAndBuyFixStyleLink then
+		inspectAndBuy = Roact.createElement("Folder", nil, inspectAndBuy)
 	end
 
 	if isInExperienceUIVREnabled and isSpatial() then

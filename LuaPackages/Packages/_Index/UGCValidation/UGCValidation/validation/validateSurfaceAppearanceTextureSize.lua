@@ -6,6 +6,7 @@ local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
+local ConstantsInterface = require(root.ConstantsInterface)
 local Types = require(root.util.Types)
 
 local validateTextureSize = require(root.validation.validateTextureSize)
@@ -13,6 +14,10 @@ local validateTextureSize = require(root.validation.validateTextureSize)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 local ParseContentIds = require(root.util.ParseContentIds)
+
+local flags = root.flags
+local getFFlagUGCValidateAccessoryAssetSurfaceAppearanceTextureLimits =
+	require(flags.getFFlagUGCValidateAccessoryAssetSurfaceAppearanceTextureLimits)
 
 local FIntAccessoryColorMapMaxSize = game:DefineFastInt("AccessoryColorMapMaxSize", 1024)
 local FIntAccessoryMetalnessMapMaxSize = game:DefineFastInt("AccessoryMetalnessMapMaxSize", 256)
@@ -62,9 +67,20 @@ local function validateSurfaceAppearanceTextureSize(
 			end
 			textureInfo.editableImage = editableImage :: EditableImage
 
-			reasonsAccumulator:updateReasons(
-				validateTextureSize(textureInfo, nil, validationContext, MAX_TEXTURE_SIZES[data.fieldName])
-			)
+			local textureSizeLimit = nil
+			if
+				getFFlagUGCValidateAccessoryAssetSurfaceAppearanceTextureLimits() and validationContext.assetTypeEnum
+			then
+				textureSizeLimit = ConstantsInterface.getTextureLimit(
+					validationContext.assetTypeEnum :: Enum.AssetType,
+					data.instance,
+					data.fieldName
+				)
+			else
+				textureSizeLimit = MAX_TEXTURE_SIZES[data.fieldName]
+			end
+
+			reasonsAccumulator:updateReasons(validateTextureSize(textureInfo, nil, validationContext, textureSizeLimit))
 		end
 	end
 

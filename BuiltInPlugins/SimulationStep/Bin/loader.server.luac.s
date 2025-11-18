@@ -168,7 +168,7 @@ MAIN:
   NAMECALL R1 R1 K14 ["GetService"]
   CALL R1 2 1
   GETIMPORT R2 K12 [game]
-  LOADK R4 K15 ["TestingControlsOptOutEnabled"]
+  LOADK R4 K15 ["EnableRibbonPluginFeature"]
   NAMECALL R2 R2 K16 ["GetEngineFeature"]
   CALL R2 2 1
   LOADNIL R3

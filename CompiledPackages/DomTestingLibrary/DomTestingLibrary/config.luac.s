@@ -1,0 +1,184 @@
+PROTO_0:
+  MOVE R1 R0
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_1:
+  MOVE R1 R0
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_2:
+  MOVE R1 R0
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  MOVE R3 R1
+  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["new"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["join"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["filter"]
+  NEWTABLE R6 0 2
+  MOVE R7 R0
+  MOVE R8 R2
+  SETLIST R6 R7 2 [1]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K3 ["toJSBoolean"]
+  CALL R5 2 1
+  LOADK R6 K4 ["
+
+"]
+  CALL R4 2 -1
+  CALL R3 -1 1
+  LOADK R4 K5 ["TestingLibraryElementError"]
+  SETTABLEKS R4 R3 K6 ["name"]
+  RETURN R3 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_disableExpensiveErrorDiagnostics"]
+  GETUPVAL R0 1
+  CALL R0 0 -1
+  RETURN R0 -1
+
+PROTO_5:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R1 1 2
+  GETUPVAL R3 0
+  LOADB R4 0
+  SETTABLEKS R4 R3 K2 ["_disableExpensiveErrorDiagnostics"]
+  JUMPIF R1 [+4]
+  GETIMPORT R3 K4 [error]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R2 1
+
+PROTO_6:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["function"] [+5]
+  MOVE R1 R0
+  GETUPVAL R2 0
+  CALL R1 1 1
+  MOVE R0 R1
+  GETTABLEKS R1 R0 K3 ["defaultIgnore"]
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["setIgnore"]
+  GETTABLEKS R2 R0 K3 ["defaultIgnore"]
+  CALL R1 1 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K5 ["assign"]
+  NEWTABLE R2 0 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K5 ["assign"]
+  GETUPVAL R4 0
+  DUPTABLE R5 K6 [{"defaultIgnore"}]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["None"]
+  SETTABLEKS R6 R5 K3 ["defaultIgnore"]
+  CALL R3 2 1
+  MOVE R4 R0
+  CALL R1 3 1
+  SETUPVAL R1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getIgnore"]
+  CALL R0 0 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["assign"]
+  NEWTABLE R2 0 0
+  GETUPVAL R3 2
+  DUPTABLE R4 K3 [{"defaultIgnore"}]
+  SETTABLEKS R0 R4 K2 ["defaultIgnore"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Array"]
+  GETTABLEKS R3 R1 K7 ["Boolean"]
+  GETTABLEKS R4 R1 K8 ["Error"]
+  GETTABLEKS R5 R1 K9 ["Object"]
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K10 ["config-default-ignore"]
+  CALL R6 1 1
+  NEWTABLE R7 4 0
+  GETIMPORT R8 K4 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K2 ["Parent"]
+  GETTABLEKS R10 R11 K11 ["types"]
+  GETTABLEKS R9 R10 K12 ["config"]
+  CALL R8 1 1
+  GETIMPORT R10 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K2 ["Parent"]
+  GETTABLEKS R11 R12 K13 ["pretty-dom"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K14 ["prettyDOM"]
+  DUPTABLE R10 K27 [{"testIdAttribute", "asyncUtilTimeout", "asyncWrapper", "unstable_advanceTimersWrapper", "eventWrapper", "defaultHidden", "defaultIgnore", "showOriginalStackTrace", "throwSuggestions", "getElementError", "_disableExpensiveErrorDiagnostics", "computedStyleSupportsPseudoElements"}]
+  LOADK R11 K28 ["data-testid"]
+  SETTABLEKS R11 R10 K15 ["testIdAttribute"]
+  LOADN R11 232
+  SETTABLEKS R11 R10 K16 ["asyncUtilTimeout"]
+  DUPCLOSURE R11 K29 [PROTO_0]
+  SETTABLEKS R11 R10 K17 ["asyncWrapper"]
+  DUPCLOSURE R11 K30 [PROTO_1]
+  SETTABLEKS R11 R10 K18 ["unstable_advanceTimersWrapper"]
+  DUPCLOSURE R11 K31 [PROTO_2]
+  SETTABLEKS R11 R10 K19 ["eventWrapper"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K20 ["defaultHidden"]
+  GETTABLEKS R11 R6 K32 ["getIgnore"]
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K21 ["defaultIgnore"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K22 ["showOriginalStackTrace"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K23 ["throwSuggestions"]
+  DUPCLOSURE R11 K33 [PROTO_3]
+  CAPTURE VAL R9
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R11 R10 K24 ["getElementError"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K25 ["_disableExpensiveErrorDiagnostics"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K26 ["computedStyleSupportsPseudoElements"]
+  NEWCLOSURE R11 P4
+  CAPTURE REF R10
+  SETTABLEKS R11 R7 K34 ["runWithExpensiveErrorDiagnosticsDisabled"]
+  NEWCLOSURE R12 P5
+  CAPTURE REF R10
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  SETTABLEKS R12 R7 K35 ["configure"]
+  NEWCLOSURE R13 P6
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE REF R10
+  SETTABLEKS R13 R7 K36 ["getConfig"]
+  CLOSEUPVALS R10
+  RETURN R7 1

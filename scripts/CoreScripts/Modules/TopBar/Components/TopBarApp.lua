@@ -13,6 +13,7 @@ local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizi
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local FFlagFixUnibarRefactoringInTopBarApp = require(script.Parent.Parent.Flags.FFlagFixUnibarRefactoringInTopBarApp)
+local FFlagTraversalBackUseSettingsSignal = require(script.Parent.Parent.Flags.FFlagTraversalBackUseSettingsSignal)
 
 local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
@@ -293,7 +294,7 @@ function TopBarApp:init()
 		end)
   end
           
-	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+	if FFlagTopBarSignalizeKeepOutAreas then 
 		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
 	end
 
@@ -527,7 +528,7 @@ function TopBarApp:renderWithStyle(style)
 	if not FFlagFixUnibarRefactoringInTopBarApp then 
 		BackButton = function()
 			return not (isInExperienceUIVREnabled and isSpatial()) 
-				and isTiltMenuOpen 
+				and (FFlagTraversalBackUseSettingsSignal or isTiltMenuOpen)
 				and React.createElement(TraversalBackButton)
 		end
 	end
@@ -811,9 +812,13 @@ function TopBarApp:renderWithStyle(style)
 					TopBarLeftContainer = FFlagAddTraversalBackButton and React.createElement(View, {
 						tag = "auto-xy row gap-xsmall",
 					}, {
-						TraversalBackButton = if FFlagFixUnibarRefactoringInTopBarApp then React.createElement(TraversalBackButton, {
-							isVisible = not (isInExperienceUIVREnabled and isSpatial()) and isTiltMenuOpen,
-						}) else React.createElement(BackButton),
+						TraversalBackButton = if FFlagTraversalBackUseSettingsSignal then 
+							if not (isInExperienceUIVREnabled and isSpatial()) then React.createElement(TraversalBackButton)
+							else nil
+						else 
+							if FFlagFixUnibarRefactoringInTopBarApp then React.createElement(TraversalBackButton, {
+								isVisible = not (isInExperienceUIVREnabled and isSpatial()) and isTiltMenuOpen,
+							}) else React.createElement(BackButton) ,
 						UnibarFrame = if FFlagFixUnibarRefactoringInTopBarApp then self:renderUnibarFrame(chromeEnabled) else React.createElement(UnibarFrame),
 					}),
 					Unibar = if not FFlagAddTraversalBackButton then 

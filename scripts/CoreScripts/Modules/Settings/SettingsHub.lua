@@ -170,6 +170,7 @@ local Flags = {
 	FFlagIEMButtonsResponsiveLayout = SettingsFlags.FFlagIEMButtonsResponsiveLayout,
 
 	FFlagRenameReactPageRoot = game:DefineFastFlag("RenameReactPageRoot", false),
+	FFlagEnableSystemScrimInSettingsHub = game:DefineFastFlag("EnableSystemScrimInSettingsHub", false),
 }
 
 --[[ SERVICES ]]
@@ -2008,6 +2009,23 @@ local function CreateSettingsHub()
 			Parent = this.BottomButtonFrame
 		}
 
+		if Flags.FFlagEnableSystemScrimInSettingsHub then
+			local systemScrimStore = require(CorePackages.Workspace.Packages.SystemScrim).SystemScrimSignalStore(false)
+			systemScrimStore.backgroundScrimActivated.Event:Connect(function()
+				if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 then
+					this:GetExperienceControlStore().onResume(Constants.AnalyticsResumeShieldSource)
+				else
+					resumeFunc(Constants.AnalyticsResumeShieldSource)
+				end
+			end)
+			-- TODO: APPEXP-3570 Removes Shield and migrate settings hub to new generation.
+			this.Shield:GetPropertyChangedSignal("Visible"):Connect(function()
+				systemScrimStore.setTransparency(1)
+				systemScrimStore.setAutoDismiss(true)
+				systemScrimStore.setVisibility(this.Shield.Visible)
+			end)
+		end
+		
 		this.Shield.Activated:Connect(function()
 			if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 then
 				this:GetExperienceControlStore().onResume(Constants.AnalyticsResumeShieldSource)

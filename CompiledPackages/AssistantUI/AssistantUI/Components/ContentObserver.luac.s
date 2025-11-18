@@ -1,4 +1,10 @@
 PROTO_0:
+  GETIMPORT R1 K2 [DateTime.now]
+  CALL R1 0 1
+  GETTABLEKS R0 R1 K3 ["UnixTimestampMillis"]
+  RETURN R0 1
+
+PROTO_1:
   PREPVARARGS 1
   JUMPIF R0 [+2]
   LOADNIL R1
@@ -8,11 +14,11 @@ PROTO_0:
   CALL R1 -1 -1
   RETURN R1 -1
 
-PROTO_1:
+PROTO_2:
   SETUPVAL R0 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R2 0
   FASTCALL2K ASSERT R2 K0 [+4]
   LOADK R3 K0 ["Expected messageId to be set"]
@@ -93,13 +99,13 @@ PROTO_2:
   CALL R3 1 1
   RETURN R3 1
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["text"]
   SETTABLEKS R1 R0 K0 ["text"]
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["thinking"]
   SETTABLEKS R1 R0 K0 ["thinking"]
@@ -108,7 +114,7 @@ PROTO_4:
   SETTABLEKS R1 R0 K1 ["signature"]
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R4 0
   FASTCALL2K ASSERT R4 K0 [+4]
   LOADK R5 K0 ["Expected messageId to be set"]
@@ -177,13 +183,13 @@ PROTO_5:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   JUMPIFNOT R0 [+3]
   LOADB R1 0
   SETTABLEKS R1 R0 K0 ["generating"]
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R2 0
   FASTCALL2K ASSERT R2 K0 [+4]
   LOADK R3 K0 ["Expected messageId to be set"]
@@ -194,12 +200,12 @@ PROTO_7:
   GETUPVAL R3 0
   SETTABLEKS R3 R2 K3 ["messageId"]
   SETTABLEKS R0 R2 K4 ["contentId"]
-  DUPCLOSURE R3 K7 [PROTO_6]
+  DUPCLOSURE R3 K7 [PROTO_7]
   SETTABLEKS R3 R2 K5 ["transformFn"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   GETUPVAL R1 0
   JUMPIFNOT R1 [+3]
   GETUPVAL R1 0
@@ -209,12 +215,12 @@ PROTO_8:
   SETTABLEKS R1 R0 K0 ["toolResult"]
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R1 0
   SETTABLEKS R1 R0 K0 ["toolResult"]
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   GETUPVAL R3 0
   FASTCALL2K ASSERT R3 K0 [+4]
   LOADK R4 K0 ["Expected messageId to be set"]
@@ -226,7 +232,7 @@ PROTO_10:
   CALL R2 1 1
   GETUPVAL R3 2
   CALL R3 0 1
-  JUMPIFNOT R3 [+37]
+  JUMPIFNOT R3 [+39]
   GETUPVAL R4 3
   GETTABLEKS R3 R4 K5 ["getMessageGuid"]
   GETUPVAL R4 0
@@ -243,44 +249,45 @@ PROTO_10:
   SETTABLEKS R6 R5 K10 ["startTime"]
   GETTABLEKS R6 R1 K11 ["startTimeAfterConfirmation"]
   SETTABLEKS R6 R5 K11 ["startTimeAfterConfirmation"]
-  GETIMPORT R6 K18 [os.clock]
-  CALL R6 0 1
+  GETIMPORT R7 K18 [DateTime.now]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K19 ["UnixTimestampMillis"]
   SETTABLEKS R6 R5 K12 ["endTime"]
   GETTABLEKS R6 R1 K13 ["isError"]
   SETTABLEKS R6 R5 K13 ["isError"]
   CALL R4 1 0
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K19 ["None"]
+  GETTABLEKS R3 R4 K20 ["None"]
   JUMPIFNOTEQ R2 R3 [+2]
   RETURN R0 0
   JUMPIFEQKNIL R2 [+20]
   GETUPVAL R3 4
-  GETTABLEKS R4 R2 K20 ["getTransformResultFn"]
+  GETTABLEKS R4 R2 K21 ["getTransformResultFn"]
   MOVE R5 R1
   CALL R3 2 1
   NEWCLOSURE R4 P0
   CAPTURE VAL R3
   CAPTURE VAL R1
   GETUPVAL R5 5
-  DUPTABLE R6 K24 [{"messageId", "contentId", "transformFn"}]
+  DUPTABLE R6 K25 [{"messageId", "contentId", "transformFn"}]
   GETUPVAL R7 0
-  SETTABLEKS R7 R6 K21 ["messageId"]
-  SETTABLEKS R0 R6 K22 ["contentId"]
-  SETTABLEKS R4 R6 K23 ["transformFn"]
+  SETTABLEKS R7 R6 K22 ["messageId"]
+  SETTABLEKS R0 R6 K23 ["contentId"]
+  SETTABLEKS R4 R6 K24 ["transformFn"]
   CALL R5 1 0
   RETURN R0 0
   GETUPVAL R3 5
-  DUPTABLE R4 K24 [{"messageId", "contentId", "transformFn"}]
+  DUPTABLE R4 K25 [{"messageId", "contentId", "transformFn"}]
   GETUPVAL R5 0
-  SETTABLEKS R5 R4 K21 ["messageId"]
-  SETTABLEKS R0 R4 K22 ["contentId"]
+  SETTABLEKS R5 R4 K22 ["messageId"]
+  SETTABLEKS R0 R4 K23 ["contentId"]
   NEWCLOSURE R5 P1
   CAPTURE VAL R1
-  SETTABLEKS R5 R4 K23 ["transformFn"]
+  SETTABLEKS R5 R4 K24 ["transformFn"]
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
   GETUPVAL R1 0
   JUMPIFNOT R1 [+3]
   GETUPVAL R1 0
@@ -290,12 +297,12 @@ PROTO_11:
   SETTABLEKS R1 R0 K0 ["toolUse"]
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R1 0
   SETTABLEKS R1 R0 K0 ["toolUse"]
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETUPVAL R3 0
   FASTCALL2K ASSERT R3 K0 [+4]
   LOADK R4 K0 ["Expected messageId to be set"]
@@ -336,70 +343,61 @@ PROTO_13:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_14:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  JUMPIFNOT R0 [+11]
-  GETUPVAL R1 1
+PROTO_15:
+  GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["logToolConfirmationResult"]
   DUPTABLE R1 K3 [{"messageGuid", "result"}]
-  GETUPVAL R2 2
+  GETUPVAL R2 1
   SETTABLEKS R2 R1 K1 ["messageGuid"]
   LOADK R2 K4 ["accept"]
   SETTABLEKS R2 R1 K2 ["result"]
   CALL R0 1 0
   GETIMPORT R0 K7 [task.spawn]
-  GETUPVAL R1 3
+  GETUPVAL R1 2
   LOADB R2 1
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_15:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  JUMPIFNOT R0 [+11]
-  GETUPVAL R1 1
+PROTO_16:
+  GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["logToolConfirmationResult"]
   DUPTABLE R1 K3 [{"messageGuid", "result"}]
-  GETUPVAL R2 2
+  GETUPVAL R2 1
   SETTABLEKS R2 R1 K1 ["messageGuid"]
   LOADK R2 K4 ["reject"]
   SETTABLEKS R2 R1 K2 ["result"]
   CALL R0 1 0
   GETIMPORT R0 K7 [task.spawn]
-  GETUPVAL R1 3
+  GETUPVAL R1 2
   LOADB R2 0
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_16:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  JUMPIFNOT R0 [+11]
-  GETUPVAL R1 1
+PROTO_17:
+  GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["logToolConfirmationResult"]
   DUPTABLE R1 K3 [{"messageGuid", "result"}]
-  GETUPVAL R2 2
+  GETUPVAL R2 1
   SETTABLEKS R2 R1 K1 ["messageGuid"]
   LOADK R2 K4 ["always_accept"]
   SETTABLEKS R2 R1 K2 ["result"]
   CALL R0 1 0
-  GETUPVAL R1 3
+  GETUPVAL R1 2
   GETTABLEKS R0 R1 K5 ["setToolAlwaysAccepted"]
-  GETUPVAL R1 4
+  GETUPVAL R1 3
   CALL R0 1 0
   GETIMPORT R0 K8 [task.spawn]
-  GETUPVAL R1 5
+  GETUPVAL R1 4
   LOADB R2 1
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_18:
   LOADB R1 1
   SETTABLEKS R1 R0 K0 ["hidden"]
   RETURN R0 0
 
-PROTO_18:
+PROTO_19:
   GETUPVAL R3 0
   FASTCALL2K ASSERT R3 K0 [+4]
   LOADK R4 K0 ["Expected messageId to be set"]
@@ -424,79 +422,68 @@ PROTO_18:
   MOVE R7 R0
   CALL R6 1 1
   GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+6]
-  GETUPVAL R8 3
   GETTABLEKS R7 R8 K10 ["getMessageGuid"]
   GETUPVAL R8 0
   CALL R7 1 1
-  JUMP [+1]
-  LOADK R7 K11 [""]
-  GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+11]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K12 ["logToolConfirmationShown"]
-  DUPTABLE R9 K15 [{"messageGuid", "toolName", "warningMessage"}]
-  SETTABLEKS R7 R9 K13 ["messageGuid"]
-  SETTABLEKS R0 R9 K14 ["toolName"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K11 ["logToolConfirmationShown"]
+  DUPTABLE R9 K14 [{"messageGuid", "toolName", "warningMessage"}]
+  SETTABLEKS R7 R9 K12 ["messageGuid"]
+  SETTABLEKS R0 R9 K13 ["toolName"]
   SETTABLEKS R5 R9 K8 ["warningMessage"]
   CALL R8 1 0
-  DUPTABLE R8 K22 [{"type", "toolName", "toolInput", "toolDisplayName", "warningMessage", "onConfirm", "onReject", "onAlwaysAccept"}]
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K23 ["Type"]
-  SETTABLEKS R9 R8 K16 ["type"]
-  SETTABLEKS R0 R8 K14 ["toolName"]
-  SETTABLEKS R1 R8 K17 ["toolInput"]
-  SETTABLEKS R6 R8 K18 ["toolDisplayName"]
+  DUPTABLE R8 K21 [{"type", "toolName", "toolInput", "toolDisplayName", "warningMessage", "onConfirm", "onReject", "onAlwaysAccept"}]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K22 ["Type"]
+  SETTABLEKS R9 R8 K15 ["type"]
+  SETTABLEKS R0 R8 K13 ["toolName"]
+  SETTABLEKS R1 R8 K16 ["toolInput"]
+  SETTABLEKS R6 R8 K17 ["toolDisplayName"]
   SETTABLEKS R5 R8 K8 ["warningMessage"]
   NEWCLOSURE R9 P0
   CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
   CAPTURE VAL R7
   CAPTURE VAL R4
-  SETTABLEKS R9 R8 K19 ["onConfirm"]
+  SETTABLEKS R9 R8 K18 ["onConfirm"]
   NEWCLOSURE R9 P1
   CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
   CAPTURE VAL R7
   CAPTURE VAL R4
-  SETTABLEKS R9 R8 K20 ["onReject"]
+  SETTABLEKS R9 R8 K19 ["onReject"]
   NEWCLOSURE R9 P2
   CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
   CAPTURE VAL R7
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   CAPTURE VAL R4
-  SETTABLEKS R9 R8 K21 ["onAlwaysAccept"]
-  GETUPVAL R9 5
-  DUPTABLE R10 K26 [{"messageId", "content"}]
+  SETTABLEKS R9 R8 K20 ["onAlwaysAccept"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K25 [{"messageId", "content"}]
   GETUPVAL R11 0
-  SETTABLEKS R11 R10 K24 ["messageId"]
-  SETTABLEKS R8 R10 K25 ["content"]
+  SETTABLEKS R11 R10 K23 ["messageId"]
+  SETTABLEKS R8 R10 K24 ["content"]
   CALL R9 1 1
   MOVE R3 R9
-  GETIMPORT R9 K28 [coroutine.yield]
+  GETIMPORT R9 K27 [coroutine.yield]
   CALL R9 0 1
-  GETUPVAL R10 6
-  DUPTABLE R11 K31 [{"messageId", "contentId", "transformFn"}]
+  GETUPVAL R10 5
+  DUPTABLE R11 K30 [{"messageId", "contentId", "transformFn"}]
   GETUPVAL R12 0
-  SETTABLEKS R12 R11 K24 ["messageId"]
-  SETTABLEKS R3 R11 K29 ["contentId"]
-  DUPCLOSURE R12 K32 [PROTO_17]
-  SETTABLEKS R12 R11 K30 ["transformFn"]
+  SETTABLEKS R12 R11 K23 ["messageId"]
+  SETTABLEKS R3 R11 K28 ["contentId"]
+  DUPCLOSURE R12 K31 [PROTO_18]
+  SETTABLEKS R12 R11 K29 ["transformFn"]
   CALL R10 1 0
   RETURN R9 1
 
-PROTO_19:
+PROTO_20:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["getToolCallOptions"]
   MOVE R2 R0
   CALL R1 1 -1
   RETURN R1 -1
 
-PROTO_20:
+PROTO_21:
   GETTABLEKS R1 R0 K0 ["editContent"]
   GETTABLEKS R2 R0 K1 ["addContent"]
   GETTABLEKS R3 R0 K2 ["eventLogger"]
@@ -535,12 +522,11 @@ PROTO_20:
   NEWCLOSURE R11 P6
   CAPTURE REF R4
   CAPTURE UPVAL U2
-  CAPTURE UPVAL U8
   CAPTURE VAL R3
-  CAPTURE UPVAL U9
+  CAPTURE UPVAL U8
   CAPTURE VAL R2
   CAPTURE VAL R1
-  DUPCLOSURE R12 K3 [PROTO_19]
+  DUPCLOSURE R12 K3 [PROTO_20]
   CAPTURE UPVAL U2
   DUPTABLE R13 K12 [{"onNewMessage", "onContentStart", "onContentDelta", "onContentFinished", "onToolResult", "onPreExecuteToolUse", "checkToolConfirmationRequestAsync", "getToolCallOptions"}]
   SETTABLEKS R5 R13 K4 ["onNewMessage"]
@@ -612,15 +598,12 @@ MAIN:
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETTABLEKS R14 R0 K25 ["Flags"]
-  GETTABLEKS R13 R14 K26 ["FFlagAddTelemetrytoToolConfirmation"]
+  GETTABLEKS R13 R14 K26 ["FFlagAssistantLogRequestStop"]
   CALL R12 1 1
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R15 R0 K25 ["Flags"]
-  GETTABLEKS R14 R15 K27 ["FFlagAssistantLogRequestStop"]
-  CALL R13 1 1
-  NEWTABLE R14 1 0
-  DUPCLOSURE R15 K28 [PROTO_0]
-  DUPCLOSURE R16 K29 [PROTO_20]
+  NEWTABLE R13 1 0
+  DUPCLOSURE R14 K27 [PROTO_0]
+  DUPCLOSURE R15 K28 [PROTO_1]
+  DUPCLOSURE R16 K29 [PROTO_21]
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R9
@@ -628,8 +611,7 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R15
   CAPTURE VAL R8
-  CAPTURE VAL R13
   CAPTURE VAL R12
   CAPTURE VAL R7
-  SETTABLEKS R16 R14 K30 ["new"]
-  RETURN R14 1
+  SETTABLEKS R16 R13 K30 ["new"]
+  RETURN R13 1

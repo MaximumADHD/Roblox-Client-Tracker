@@ -4,6 +4,7 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
+local ConstantsInterface = require(root.ConstantsInterface)
 
 local validateLCCageQuality = require(root.validation.validateLCCageQuality)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
@@ -30,6 +31,7 @@ local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceAre
 local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
 local validateMaxCubeDensity = require(root.validation.validateMaxCubeDensity)
 local ValidateHSRData = require(root.validation.ValidateHSRData)
+local validateSurfaceAppearanceTextureSize = require(root.validation.validateSurfaceAppearanceTextureSize)
 
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
@@ -57,6 +59,9 @@ local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngin
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
+local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
+local getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits =
+	require(root.flags.getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits)
 
 local FFlagDontValidateHSRInExperience = game:DefineFastFlag("DontValidateHSRInExperience", false)
 
@@ -258,10 +263,22 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		validationResult = false
 	end
 
-	success, failedReason = validateTextureSize(textureInfo, true, validationContext)
+	local textureSizeLimit = nil
+	if getFFlagUGCValidateAccessoryAssetTextureLimit() then
+		textureSizeLimit = ConstantsInterface.getTextureLimit(assetTypeEnum, handle, textureInfo.fieldName)
+	end
+	success, failedReason = validateTextureSize(textureInfo, true, validationContext, textureSizeLimit)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
+	end
+
+	if getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits() then
+		success, failedReason = validateSurfaceAppearanceTextureSize(instance, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
 	end
 
 	local partScaleType = handle:FindFirstChild("AvatarPartScaleType")

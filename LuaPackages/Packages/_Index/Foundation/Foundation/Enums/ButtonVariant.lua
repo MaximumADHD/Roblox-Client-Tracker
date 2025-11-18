@@ -17,14 +17,13 @@ local ButtonVariantEnum = {
 	Utility = "Utility" :: "Utility",
 	OverMedia = "OverMedia" :: "OverMedia",
 	Alert = "Alert" :: "Alert",
+	Link = "Link" :: "Link",
 	-- **DEPRECATED** - Use `SoftEmphasis` instead
 	SubEmphasis = "SubEmphasis" :: "SubEmphasis",
 	-- **DEPRECATED** - Use `Standard` instead
 	Subtle = "Subtle" :: "Subtle",
 	-- **DEPRECATED** - Use `Utility` or `Standard` instead
 	Text = "Text" :: "Text",
-	-- **DEPRECATED** - Use `Utility` or `Standard` instead
-	Link = "Link" :: "Link",
 }
 
 return ButtonVariantEnum

@@ -22,7 +22,7 @@ type Props = {
 
 local function MenuIconWrapper(props: any)
 	local keepOutAreasStore 
-	if FFlagTopBarSignalizeKeepOutAreas and FFlagDeroduxVRMenuIcon and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+	if FFlagTopBarSignalizeKeepOutAreas and FFlagDeroduxVRMenuIcon then 
 		keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
 	end
 

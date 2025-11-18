@@ -20,8 +20,6 @@ local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local mutedError = require(CorePackages.Workspace.Packages.Loggers).mutedError
 
-local FFlagDisableReconnectsForRootedKicks = game:DefineFastFlag("DisableReconnectsForRootedKicks", false)
-
 local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
 local fflagUpdateConnectionErrorLoc = game:DefineFastFlag("UpdateConnectionErrorLoc", false)
@@ -357,7 +355,7 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.PlacelaunchCreatorBan] = true,
 	[Enum.ConnectionError.AndroidAnticheatKick] = true,
 	[Enum.ConnectionError.AndroidEmulatorKick] = true,
-	[Enum.ConnectionError.AndroidRootedKick] = FFlagDisableReconnectsForRootedKicks,
+	[Enum.ConnectionError.AndroidRootedKick] = true,
 }
 -- When removing engine feature CoreGuiOverflowDetection, move this into the above list.
 if coreGuiOverflowDetection then

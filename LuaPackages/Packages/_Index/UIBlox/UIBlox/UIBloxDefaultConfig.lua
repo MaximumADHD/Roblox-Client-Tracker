@@ -99,9 +99,6 @@ return {
 	-- Always use provided ref for button
 	useProvidedRefForButton = false,
 
-	-- Enable font scaling for legacy fonts
-	enableFontScaling = false,
-
 	-- Add button override to ActionBar
 	enableActionBarButtonOverride = false,
 
@@ -122,4 +119,7 @@ return {
 
 	-- Enable rich text support for TooltipV2 header and body text
 	enableTooltipRichText = false,
+
+	-- Fix stale closure issue in Table Cell onActivated callback
+	tableCellStaleClosureFix = false,
 }

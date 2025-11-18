@@ -452,14 +452,14 @@ PROTO_21:
   DUPTABLE R3 K6 [{"context", "path", "script"}]
   GETUPVAL R4 0
   SETTABLEKS R4 R3 K3 ["context"]
-  GETTABLEKS R4 R1 K7 ["Name"]
-  SETTABLEKS R4 R3 K4 ["path"]
-  SETTABLEKS R1 R3 K5 ["script"]
+  SETTABLEKS R1 R3 K4 ["path"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K5 ["script"]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K8 ["_dispatcher"]
+  GETTABLEKS R4 R5 K7 ["_dispatcher"]
   MOVE R6 R3
   MOVE R7 R2
-  NAMECALL R4 R4 K9 ["onTestCaseResult"]
+  NAMECALL R4 R4 K8 ["onTestCaseResult"]
   CALL R4 3 0
   RETURN R0 0
 

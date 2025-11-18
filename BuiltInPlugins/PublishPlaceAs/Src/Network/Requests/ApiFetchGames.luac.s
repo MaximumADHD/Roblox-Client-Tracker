@@ -63,38 +63,49 @@ PROTO_1:
   ORK R7 R8 K11 ["Desc"]
   GETTABLEKS R9 R0 K14 ["sort"]
   ORK R8 R9 K13 ["LastUpdated"]
-  DUPTABLE R9 K18 [{"Url", "Method", "Params"}]
+  GETTABLEKS R10 R0 K15 ["isPublish"]
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K16 ["StudioPublishPlace"]
+  JUMP [+1]
+  LOADK R9 K17 ["StudioSavePlace"]
+  DUPTABLE R10 K21 [{"Url", "Method", "Params"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K22 ["BuildRobloxUrl"]
+  LOADK R12 K23 ["apis"]
+  LOADK R13 K24 ["universes/v1/search"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K18 ["Url"]
+  LOADK R11 K25 ["GET"]
+  SETTABLEKS R11 R10 K19 ["Method"]
+  DUPTABLE R11 K33 [{"creatorType", "creatorTargetId", "isArchived", "pageIndex", "pageSize", "search", "sortOrder", "sortParam", "surface"}]
+  SETTABLEKS R2 R11 K26 ["creatorType"]
+  SETTABLEKS R3 R11 K27 ["creatorTargetId"]
+  LOADK R12 K34 ["false"]
+  SETTABLEKS R12 R11 K28 ["isArchived"]
+  SETTABLEKS R4 R11 K29 ["pageIndex"]
+  SETTABLEKS R5 R11 K30 ["pageSize"]
+  SETTABLEKS R6 R11 K10 ["search"]
+  SETTABLEKS R7 R11 K12 ["sortOrder"]
+  SETTABLEKS R8 R11 K31 ["sortParam"]
+  GETUPVAL R13 2
+  JUMPIFNOT R13 [+2]
+  MOVE R12 R9
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K32 ["surface"]
+  SETTABLEKS R11 R10 K20 ["Params"]
+  MOVE R1 R10
   GETUPVAL R11 1
-  GETTABLEKS R10 R11 K19 ["BuildRobloxUrl"]
-  LOADK R11 K20 ["apis"]
-  LOADK R12 K21 ["universes/v1/search"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K15 ["Url"]
-  LOADK R10 K22 ["GET"]
-  SETTABLEKS R10 R9 K16 ["Method"]
-  DUPTABLE R10 K29 [{"creatorType", "creatorTargetId", "isArchived", "pageIndex", "pageSize", "search", "sortOrder", "sortParam"}]
-  SETTABLEKS R2 R10 K23 ["creatorType"]
-  SETTABLEKS R3 R10 K24 ["creatorTargetId"]
-  LOADK R11 K30 ["false"]
-  SETTABLEKS R11 R10 K25 ["isArchived"]
-  SETTABLEKS R4 R10 K26 ["pageIndex"]
-  SETTABLEKS R5 R10 K27 ["pageSize"]
-  SETTABLEKS R6 R10 K10 ["search"]
-  SETTABLEKS R7 R10 K12 ["sortOrder"]
-  SETTABLEKS R8 R10 K28 ["sortParam"]
-  SETTABLEKS R10 R9 K17 ["Params"]
-  MOVE R1 R9
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K31 ["Request"]
-  MOVE R10 R1
-  CALL R9 1 1
-  NEWCLOSURE R11 P0
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
+  GETTABLEKS R10 R11 K35 ["Request"]
+  MOVE R11 R1
+  CALL R10 1 1
+  NEWCLOSURE R12 P0
   CAPTURE UPVAL U3
-  NAMECALL R9 R9 K32 ["andThen"]
-  CALL R9 2 -1
-  RETURN R9 -1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  NAMECALL R10 R10 K36 ["andThen"]
+  CALL R10 2 -1
+  RETURN R10 -1
 
 MAIN:
   PREPVARARGS 0
@@ -123,9 +134,17 @@ MAIN:
   GETTABLEKS R6 R7 K14 ["Resources"]
   GETTABLEKS R5 R6 K15 ["Constants"]
   CALL R4 1 1
-  DUPCLOSURE R5 K16 [PROTO_1]
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R8 R1 K9 ["Src"]
+  GETTABLEKS R7 R8 K16 ["Flags"]
+  GETTABLEKS R6 R7 K17 ["getFFlagEnableReverseDelegation"]
+  CALL R5 1 1
+  MOVE R6 R5
+  CALL R6 0 1
+  DUPCLOSURE R7 K18 [PROTO_1]
   CAPTURE VAL R4
   CAPTURE VAL R3
+  CAPTURE VAL R6
   CAPTURE VAL R0
   CAPTURE VAL R2
-  RETURN R5 1
+  RETURN R7 1

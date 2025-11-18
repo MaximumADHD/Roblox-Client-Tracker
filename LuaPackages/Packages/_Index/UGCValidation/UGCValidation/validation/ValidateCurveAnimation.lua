@@ -36,13 +36,13 @@ local getFFlagUGCValidateStopNaNsInfsInCalculatedData = require(flags.getFFlagUG
 local getFFlagUGCValidateSingleAnimationRigData = require(flags.getFFlagUGCValidateSingleAnimationRigData)
 local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
 	require(flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
-local getFFlagUGCValidatePreciseStepThrough = require(flags.getFFlagUGCValidatePreciseStepThrough)
-local getFFlagUGCValidatePreciseCurveLimit = require(flags.getFFlagUGCValidatePreciseCurveLimit)
 local GetFStringUGCValidateFrameDeltaKeyTimeTol = require(flags.GetFStringUGCValidateFrameDeltaKeyTimeTol)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateRestrictEmoteHeight = require(flags.getFFlagUGCValidateRestrictEmoteHeight)
 local GetFStringUGCValidateAnimationHeightTol = require(flags.GetFStringUGCValidateAnimationHeightTol)
+local getFFlagUGCValidateFixCurveAnimFrameTimeErrorMessage =
+	require(flags.getFFlagUGCValidateFixCurveAnimFrameTimeErrorMessage)
 
 local ValidateCurveAnimation = {}
 
@@ -548,9 +548,7 @@ local function createDefaultCharacter(removeMotors: boolean): Model
 	return defaultCharacter
 end
 
-local frameDelta = if getFFlagUGCValidatePreciseStepThrough()
-	then 1.0 / getFIntUGCValidateMaxAnimationFPS()
-	else 1.0 / 30.0
+local frameDelta = 1.0 / getFIntUGCValidateMaxAnimationFPS()
 
 local function getBodyPartFolderRoot(curveAnim: CurveAnimation): Folder?
 	for _, child in curveAnim:GetChildren() do
@@ -600,7 +598,7 @@ local function calculateAnimFramesAtOriginManual(
 	local function getCurveTracks(): any
 		local tracks = {}
 
-		local instancesToCheck = nil
+		local instancesToCheck: { any } = nil
 		if getFFlagUGCValidateDuplicatesInAnimation() then
 			local bodyPartFolderRootOpt = getBodyPartFolderRoot(curveAnim)
 			assert(
@@ -774,17 +772,19 @@ function ValidateCurveAnimation.validateFrameDeltas(
 	animFrames: { { string: CFrame } },
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	local maxAllowedMovement = nil
 	-- GetFStringUGCValidationMaxAnimationDeltas.asNumber() is presuming a 1/30 seconds between frames, however frameDelta may be
 	-- different to this, and we need to scale GetFStringUGCValidationMaxAnimationDeltas.asNumber() accordingly
-	if getFFlagUGCValidatePreciseStepThrough() then
-		local defaultFrameTime = 1.0 / 30.0
-		local maxMovementMultiplier = frameDelta / defaultFrameTime
-		maxAllowedMovement = GetFStringUGCValidationMaxAnimationDeltas.asNumber() * maxMovementMultiplier
+	local defaultFrameTime = 1.0 / 30.0
+	local maxMovementMultiplier = frameDelta / defaultFrameTime
+	local maxAllowedMovement = GetFStringUGCValidationMaxAnimationDeltas.asNumber() * maxMovementMultiplier
+
+	local maxStudsPerSecondSpeed = nil
+	if getFFlagUGCValidateFixCurveAnimFrameTimeErrorMessage() then
+		maxStudsPerSecondSpeed = GetFStringUGCValidationMaxAnimationDeltas.asNumber() * (1.0 / defaultFrameTime)
 	end
 
 	local prevFrame = {}
-	for _, frame in animFrames do
+	for frameNumberIdx, frame in animFrames do
 		for bodyPartName, cframe in frame do
 			local prevCFrame = prevFrame[bodyPartName]
 			if not prevCFrame then
@@ -792,16 +792,31 @@ function ValidateCurveAnimation.validateFrameDeltas(
 			end
 
 			local delta = ((cframe :: CFrame).Position - prevCFrame.Position).Magnitude
-			local maxDelta = if getFFlagUGCValidatePreciseStepThrough()
-				then maxAllowedMovement
-				else GetFStringUGCValidationMaxAnimationDeltas.asNumber()
+			if delta > maxAllowedMovement then
+				if getFFlagUGCValidateFixCurveAnimFrameTimeErrorMessage() then
+					local frameTime = (frameNumberIdx - 1) * frameDelta
+					local studsPerSecondSpeed = (delta / maxMovementMultiplier) * (1.0 / defaultFrameTime)
 
-			if delta > maxDelta then
-				return reportFailure(
-					`Body part {bodyPartName} in CurveAnimation moves more than {GetFStringUGCValidationMaxAnimationDeltas.asString()} studs between frames. Please fix the animation.`,
-					Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta,
-					validationContext
-				)
+					local errorMessage = string.format(
+						"In CurveAnimation at time %.2f seconds, body part %s is moving at a speed of %.2f studs/second. %.2f is the maximum studs/second speed. Please fix the animation.",
+						frameTime,
+						bodyPartName :: string,
+						studsPerSecondSpeed,
+						maxStudsPerSecondSpeed
+					)
+
+					return reportFailure(
+						errorMessage,
+						Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta,
+						validationContext
+					)
+				else
+					return reportFailure(
+						`Body part {bodyPartName} in CurveAnimation moves more than {GetFStringUGCValidationMaxAnimationDeltas.asString()} studs between frames. Please fix the animation.`,
+						Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta,
+						validationContext
+					)
+				end
 			end
 		end
 
@@ -935,17 +950,11 @@ function ValidateCurveAnimation.validateData(
 		return value ~= value
 	end
 
-	local maxTotalKeys =
-		math.floor(getFIntUGCValidateMaxAnimationFPS() * GetFStringUGCValidationMaxAnimationLength.asNumber())
+	local frameDeltaTol = frameDelta * GetFStringUGCValidateFrameDeltaKeyTimeTol.asNumber()
+	local fpsWithTol = 1.0 / frameDeltaTol
+	local maxTotalKeys = math.ceil(fpsWithTol * GetFStringUGCValidationMaxAnimationLength.asNumber())
 
-	local frameDeltaTol = nil
-	if getFFlagUGCValidatePreciseCurveLimit() then
-		frameDeltaTol = frameDelta * GetFStringUGCValidateFrameDeltaKeyTimeTol.asNumber()
-		local fpsWithTol = 1.0 / frameDeltaTol
-		maxTotalKeys = math.ceil(fpsWithTol * GetFStringUGCValidationMaxAnimationLength.asNumber())
-	end
-
-	for _, desc in inst:GetDescendants() do
+	for _, desc: any in inst:GetDescendants() do
 		if desc:IsA("MarkerCurve") then
 			local allMarkers = desc:GetMarkers()
 			if #allMarkers > maxTotalKeys then
@@ -975,14 +984,8 @@ function ValidateCurveAnimation.validateData(
 			continue
 		end
 
-		if getFFlagUGCValidatePreciseCurveLimit() then
-			if not desc:IsA("FloatCurve") then
-				continue
-			end
-		else
-			if not desc:IsA("FloatCurve") and not desc:IsA("RotationCurve") then
-				continue
-			end
+		if not desc:IsA("FloatCurve") then
+			continue
 		end
 
 		local allKeys = desc:GetKeys()
@@ -1015,27 +1018,25 @@ function ValidateCurveAnimation.validateData(
 				)
 			end
 
-			if getFFlagUGCValidatePreciseCurveLimit() then
-				if prevTime then
-					local minTimeAllowed = (prevTime :: number) + frameDeltaTol
-					if key.Time < minTimeAllowed then
-						local grandparentName = if desc.Parent.Parent then desc.Parent.Parent.Name else "-"
-						return reportFailure(
-							`CurveAnimation contains Curve {grandparentName}.{desc.Parent.Name}.{desc.Name} with keys that are too close together in time for a maximum {getFIntUGCValidateMaxAnimationFPS()} fps animation. Please fix the animation.`,
-							Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
-							validationContext
-						)
-					end
-				elseif key.Time < 0 then
+			if prevTime then
+				local minTimeAllowed = (prevTime :: number) + frameDeltaTol
+				if key.Time < minTimeAllowed then
 					local grandparentName = if desc.Parent.Parent then desc.Parent.Parent.Name else "-"
 					return reportFailure(
-						`CurveAnimation contains Curve {grandparentName}.{desc.Parent.Name}.{desc.Name} with a key that has a negative time. Please fix the animation.`,
+						`CurveAnimation contains Curve {grandparentName}.{desc.Parent.Name}.{desc.Name} with keys that are too close together in time for a maximum {getFIntUGCValidateMaxAnimationFPS()} fps animation. Please fix the animation.`,
 						Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
 						validationContext
 					)
 				end
-				prevTime = key.Time
+			elseif key.Time < 0 then
+				local grandparentName = if desc.Parent.Parent then desc.Parent.Parent.Name else "-"
+				return reportFailure(
+					`CurveAnimation contains Curve {grandparentName}.{desc.Parent.Name}.{desc.Name} with a key that has a negative time. Please fix the animation.`,
+					Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
+					validationContext
+				)
 			end
+			prevTime = key.Time
 		end
 	end
 	return true

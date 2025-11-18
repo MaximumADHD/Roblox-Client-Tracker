@@ -4,7 +4,6 @@
 	directly instantiated.
 --]]
 
-
 --[[ Utils ]]--
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
@@ -13,14 +12,12 @@ local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
 export type BaseCharacterControllerType = {
 	new: () -> BaseCharacterControllerType,
 	GetMoveVector: (BaseCharacterControllerType) -> Vector3,
-	IsMoveVectorCameraRelative: (BaseCharacterControllerType) -> boolean,
 	GetIsJumping: (BaseCharacterControllerType) -> boolean,
 	Enable: (BaseCharacterControllerType, enable: boolean) -> boolean,
 	
 	-------------------- Private ----------------------------
 	enabled: boolean,
 	moveVector: Vector3,
-	moveVectorIsCameraRelative: boolean,
 	isJumping: boolean,
 	_connectionUtil: any -- ConnectionUtil.ConnectionUtilType
 }
@@ -35,7 +32,6 @@ function BaseCharacterController.new()
 
 	self.enabled = false
 	self.moveVector = ZERO_VECTOR3
-	self.moveVectorIsCameraRelative = true
 	self.isJumping = false
 	self._connectionUtil = ConnectionUtil.new()
 
@@ -44,10 +40,6 @@ end
 
 function BaseCharacterController:GetMoveVector(): Vector3
 	return self.moveVector
-end
-
-function BaseCharacterController:IsMoveVectorCameraRelative(): boolean
-	return self.moveVectorIsCameraRelative
 end
 
 function BaseCharacterController:GetIsJumping(): boolean

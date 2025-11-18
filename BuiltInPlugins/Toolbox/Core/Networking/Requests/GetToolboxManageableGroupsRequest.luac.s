@@ -30,8 +30,9 @@ PROTO_1:
 
 PROTO_2:
   GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["getManageableGroups"]
-  CALL R1 1 1
+  LOADK R3 K0 ["StudioToolboxCreations"]
+  NAMECALL R1 R1 K1 ["getManageableGroups"]
+  CALL R1 2 1
   NEWCLOSURE R3 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U1
@@ -42,7 +43,7 @@ PROTO_2:
   NEWCLOSURE R4 P1
   CAPTURE VAL R0
   CAPTURE UPVAL U5
-  NAMECALL R1 R1 K1 ["andThen"]
+  NAMECALL R1 R1 K2 ["andThen"]
   CALL R1 3 -1
   RETURN R1 -1
 

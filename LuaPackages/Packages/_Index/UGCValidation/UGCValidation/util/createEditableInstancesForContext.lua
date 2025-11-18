@@ -4,7 +4,6 @@
 local root = script.Parent.Parent
 local createEditableInstancesForContext = {}
 
-local getEngineFeatureRemoveProxyWrap = require(root.flags.getEngineFeatureRemoveProxyWrap)
 local getEngineFeatureEngineEditableMeshAvatarPublish =
 	require(root.flags.getEngineFeatureEngineEditableMeshAvatarPublish)
 
@@ -12,7 +11,6 @@ local AssetService = game:GetService("AssetService")
 
 local Types = require(root.util.Types)
 local destroyEditableInstances = require(root.util.destroyEditableInstances)
-local checkForProxyWrap = require(root.util.checkForProxyWrap)
 
 local function addEditableInstance(editableInstances, instance, key, instanceInfo, contentType)
 	local instanceMap = editableInstances.editableMeshes
@@ -118,72 +116,21 @@ local function getTextureContentMap(instance, contentIdToContentMap)
 	end
 end
 
-local function getCageMeshContent(instance, allowEditableInstances)
-	if not getEngineFeatureRemoveProxyWrap() then
-		local proxyMeshPart = instance:FindFirstChild("WrapProxy")
-		if proxyMeshPart and allowEditableInstances and checkForProxyWrap(proxyMeshPart) then
-			return (proxyMeshPart :: MeshPart).MeshContent
-		end
-	end
-
+local function getCageMeshContent(instance)
 	return (instance :: any).CageMeshContent
 end
 
-local function getMeshContentMap(instance, contentIdToContentMap, allowEditableInstances)
-	if getEngineFeatureRemoveProxyWrap() then
-		if instance:IsA("MeshPart") then
-			addContent(contentIdToContentMap, "MeshId", (instance :: MeshPart).MeshContent, "EditableMesh")
-		elseif instance:IsA("WrapTarget") then
-			addContent(
-				contentIdToContentMap,
-				"CageMeshId",
-				getCageMeshContent(instance, allowEditableInstances),
-				"EditableMesh"
-			)
-		elseif instance:IsA("WrapLayer") then
-			addContent(
-				contentIdToContentMap,
-				"CageMeshId",
-				getCageMeshContent(instance, allowEditableInstances),
-				"EditableMesh"
-			)
-			addContent(contentIdToContentMap, "ReferenceMeshId", (instance :: any).ReferenceMeshContent, "EditableMesh")
-		elseif instance:IsA("SpecialMesh") then
-			-- selene: allow(undefined_variable) | Content global will be added later
-			addContent(
-				contentIdToContentMap,
-				"MeshId",
-				Content.fromUri((instance :: SpecialMesh).MeshId),
-				"EditableMesh"
-			)
-		end
-	else
-		if instance:IsA("MeshPart") and not checkForProxyWrap(instance) then
-			addContent(contentIdToContentMap, "MeshId", (instance :: MeshPart).MeshContent, "EditableMesh")
-		elseif instance:IsA("WrapTarget") then
-			addContent(
-				contentIdToContentMap,
-				"CageMeshId",
-				getCageMeshContent(instance, allowEditableInstances),
-				"EditableMesh"
-			)
-		elseif instance:IsA("WrapLayer") then
-			addContent(
-				contentIdToContentMap,
-				"CageMeshId",
-				getCageMeshContent(instance, allowEditableInstances),
-				"EditableMesh"
-			)
-			addContent(contentIdToContentMap, "ReferenceMeshId", (instance :: any).ReferenceMeshContent, "EditableMesh")
-		elseif instance:IsA("SpecialMesh") then
-			-- selene: allow(undefined_variable) | Content global will be added later
-			addContent(
-				contentIdToContentMap,
-				"MeshId",
-				Content.fromUri((instance :: SpecialMesh).MeshId),
-				"EditableMesh"
-			)
-		end
+local function getMeshContentMap(instance, contentIdToContentMap)
+	if instance:IsA("MeshPart") then
+		addContent(contentIdToContentMap, "MeshId", (instance :: MeshPart).MeshContent, "EditableMesh")
+	elseif instance:IsA("WrapTarget") then
+		addContent(contentIdToContentMap, "CageMeshId", getCageMeshContent(instance), "EditableMesh")
+	elseif instance:IsA("WrapLayer") then
+		addContent(contentIdToContentMap, "CageMeshId", getCageMeshContent(instance), "EditableMesh")
+		addContent(contentIdToContentMap, "ReferenceMeshId", (instance :: any).ReferenceMeshContent, "EditableMesh")
+	elseif instance:IsA("SpecialMesh") then
+		-- selene: allow(undefined_variable) | Content global will be added later
+		addContent(contentIdToContentMap, "MeshId", Content.fromUri((instance :: SpecialMesh).MeshId), "EditableMesh")
 	end
 end
 
@@ -194,7 +141,7 @@ function createEditableInstancesForContext.getOrCreateEditableInstances(
 	allowEditableInstances
 ): (boolean, any?)
 	local contentIdToContentMap = {}
-	getMeshContentMap(instance, contentIdToContentMap, allowEditableInstances)
+	getMeshContentMap(instance, contentIdToContentMap)
 	getTextureContentMap(instance, contentIdToContentMap)
 
 	for key, contentInfo in contentIdToContentMap do

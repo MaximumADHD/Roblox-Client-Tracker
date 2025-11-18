@@ -36,9 +36,6 @@ PROTO_2:
   MOVE R2 R0
   GETIMPORT R1 K4 [table.insert]
   CALL R1 2 0
-  GETUPVAL R1 1
-  CALL R1 0 1
-  JUMPIFNOT R1 [+11]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["Backends"]
   GETTABLEKS R3 R4 K5 ["Points"]
@@ -1070,7 +1067,7 @@ PROTO_23:
   SETTABLEKS R6 R5 K4 ["requestId"]
   SETTABLEKS R5 R4 K2 ["customFields"]
   CALL R1 3 0
-  DUPTABLE R2 K16 [{"requestId", "conversationId", "requestEndReason", "requestJourneyDuration", "message"}]
+  DUPTABLE R2 K16 [{"requestId", "conversationId", "requestEndReason", "requestJourneyDuration", "message", "experimentationGroup"}]
   GETTABLEKS R3 R0 K17 ["messageGuid"]
   SETTABLEKS R3 R2 K4 ["requestId"]
   GETTABLEKS R3 R0 K14 ["conversationId"]
@@ -1081,6 +1078,25 @@ PROTO_23:
   SETTABLEKS R3 R2 K1 ["requestJourneyDuration"]
   GETTABLEKS R3 R0 K15 ["message"]
   SETTABLEKS R3 R2 K15 ["message"]
+  GETUPVAL R4 4
+  NAMECALL R4 R4 K10 ["get"]
+  CALL R4 1 1
+  JUMPIFNOTEQKNIL R4 [+3]
+  LOADNIL R3
+  JUMP [+16]
+  GETUPVAL R6 5
+  GETTABLE R5 R4 R6
+  JUMPIFNOTEQKNIL R5 [+3]
+  GETTABLEKS R5 R4 K11 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R5 [+3]
+  LOADNIL R3
+  JUMP [+6]
+  FASTCALL1 TOSTRING R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K13 [tostring]
+  CALL R6 1 1
+  MOVE R3 R6
+  SETTABLEKS R3 R2 K8 ["experimentationGroup"]
   GETUPVAL R4 3
   GETTABLEKS R3 R4 K18 ["assign"]
   MOVE R4 R2
@@ -1283,454 +1299,435 @@ MAIN:
   GETIMPORT R7 K10 [require]
   GETTABLEKS R10 R0 K14 ["Src"]
   GETTABLEKS R9 R10 K18 ["Flags"]
-  GETTABLEKS R8 R9 K19 ["FFlagAssistantAttachCommonTelemetryFields"]
+  GETTABLEKS R8 R9 K19 ["FFlagAssistantSendExperimentationInfoGrafana"]
   CALL R7 1 1
   GETIMPORT R8 K10 [require]
   GETTABLEKS R11 R0 K14 ["Src"]
   GETTABLEKS R10 R11 K18 ["Flags"]
-  GETTABLEKS R9 R10 K20 ["FFlagAssistantSendExperimentationInfoGrafana"]
+  GETTABLEKS R9 R10 K20 ["FFlagLogEventTimestampAssistant"]
   CALL R8 1 1
   GETIMPORT R9 K10 [require]
   GETTABLEKS R12 R0 K14 ["Src"]
   GETTABLEKS R11 R12 K18 ["Flags"]
-  GETTABLEKS R10 R11 K21 ["FFlagLogEventTimestampAssistant"]
+  GETTABLEKS R10 R11 K21 ["FFlagMCPAssistantExternalAPIKey"]
   CALL R9 1 1
   GETIMPORT R10 K10 [require]
   GETTABLEKS R13 R0 K14 ["Src"]
   GETTABLEKS R12 R13 K18 ["Flags"]
-  GETTABLEKS R11 R12 K22 ["FFlagMCPAssistantExternalAPIKey"]
+  GETTABLEKS R11 R12 K22 ["FIntMarkdownErrorEventThrottlingHundredthPercent"]
   CALL R10 1 1
   GETIMPORT R11 K10 [require]
   GETTABLEKS R14 R0 K14 ["Src"]
   GETTABLEKS R13 R14 K18 ["Flags"]
-  GETTABLEKS R12 R13 K23 ["FIntMarkdownErrorEventThrottlingHundredthPercent"]
+  GETTABLEKS R12 R13 K23 ["FIntUserMessageSentEventThrottlingHundredthPercent"]
   CALL R11 1 1
   GETIMPORT R12 K10 [require]
   GETTABLEKS R15 R0 K14 ["Src"]
   GETTABLEKS R14 R15 K18 ["Flags"]
-  GETTABLEKS R13 R14 K24 ["FIntUserMessageSentEventThrottlingHundredthPercent"]
+  GETTABLEKS R13 R14 K24 ["FStringAssistantGroupNameKey"]
   CALL R12 1 1
   GETIMPORT R13 K10 [require]
   GETTABLEKS R16 R0 K14 ["Src"]
   GETTABLEKS R15 R16 K18 ["Flags"]
-  GETTABLEKS R14 R15 K25 ["FStringAssistantGroupNameKey"]
+  GETTABLEKS R14 R15 K25 ["FStringNewAssistantExperimentLayer"]
   CALL R13 1 1
   GETIMPORT R14 K10 [require]
   GETTABLEKS R17 R0 K14 ["Src"]
-  GETTABLEKS R16 R17 K18 ["Flags"]
-  GETTABLEKS R15 R16 K26 ["FStringNewAssistantExperimentLayer"]
+  GETTABLEKS R16 R17 K15 ["Util"]
+  GETTABLEKS R15 R16 K26 ["ExperimentCache"]
   CALL R14 1 1
-  GETIMPORT R15 K10 [require]
-  GETTABLEKS R18 R0 K14 ["Src"]
-  GETTABLEKS R17 R18 K15 ["Util"]
-  GETTABLEKS R16 R17 K27 ["ExperimentCache"]
-  CALL R15 1 1
-  NEWTABLE R16 0 0
-  DUPCLOSURE R17 K28 [PROTO_0]
+  NEWTABLE R15 0 0
+  DUPCLOSURE R16 K27 [PROTO_0]
   CAPTURE VAL R6
-  DUPCLOSURE R18 K29 [PROTO_1]
-  DUPCLOSURE R19 K30 [PROTO_2]
+  DUPCLOSURE R17 K28 [PROTO_1]
+  DUPCLOSURE R18 K29 [PROTO_2]
   CAPTURE VAL R5
-  CAPTURE VAL R7
-  GETIMPORT R20 K33 [table.freeze]
-  NEWTABLE R22 0 0
-  GETTABLEKS R26 R5 K34 ["Backends"]
-  GETTABLEKS R25 R26 K35 ["EventIngest"]
-  FASTCALL2 TABLE_INSERT R22 R25 [+4]
-  MOVE R24 R22
-  GETIMPORT R23 K37 [table.insert]
-  CALL R23 2 0
-  MOVE R23 R7
-  CALL R23 0 1
-  JUMPIFNOT R23 [+10]
-  GETTABLEKS R26 R5 K34 ["Backends"]
-  GETTABLEKS R25 R26 K38 ["Points"]
-  FASTCALL2 TABLE_INSERT R22 R25 [+4]
-  MOVE R24 R22
-  GETIMPORT R23 K37 [table.insert]
-  CALL R23 2 0
-  MOVE R21 R22
+  GETIMPORT R19 K32 [table.freeze]
+  NEWTABLE R21 0 0
+  GETTABLEKS R25 R5 K33 ["Backends"]
+  GETTABLEKS R24 R25 K34 ["EventIngest"]
+  FASTCALL2 TABLE_INSERT R21 R24 [+4]
+  MOVE R23 R21
+  GETIMPORT R22 K36 [table.insert]
+  CALL R22 2 0
+  GETTABLEKS R25 R5 K33 ["Backends"]
+  GETTABLEKS R24 R25 K37 ["Points"]
+  FASTCALL2 TABLE_INSERT R21 R24 [+4]
+  MOVE R23 R21
+  GETIMPORT R22 K36 [table.insert]
+  CALL R22 2 0
+  MOVE R20 R21
+  CALL R19 1 1
+  GETIMPORT R20 K32 [table.freeze]
+  DUPTABLE R21 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R23 K43 ["%*%*"]
+  LOADK R25 K44 ["StudioAssistant"]
+  LOADK R26 K45 ["UserMessageSent"]
+  NAMECALL R23 R23 K46 ["format"]
+  CALL R23 3 1
+  MOVE R22 R23
+  SETTABLEKS R22 R21 K38 ["eventName"]
+  NEWTABLE R22 0 1
+  GETTABLEKS R24 R5 K33 ["Backends"]
+  GETTABLEKS R23 R24 K47 ["RobloxTelemetryCounter"]
+  SETLIST R22 R23 1 [1]
+  SETTABLEKS R22 R21 K39 ["backends"]
+  LOADK R22 K48 ["Incrementing count of user messages sent."]
+  SETTABLEKS R22 R21 K40 ["description"]
+  NEWTABLE R22 0 3
+  LOADN R23 25
+  LOADN R24 7
+  LOADN R25 21
+  SETLIST R22 R23 3 [1]
+  SETTABLEKS R22 R21 K41 ["lastUpdated"]
   CALL R20 1 1
-  GETIMPORT R21 K33 [table.freeze]
-  DUPTABLE R22 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R24 K44 ["%*%*"]
-  LOADK R26 K45 ["StudioAssistant"]
-  LOADK R27 K46 ["UserMessageSent"]
-  NAMECALL R24 R24 K47 ["format"]
-  CALL R24 3 1
-  MOVE R23 R24
-  SETTABLEKS R23 R22 K39 ["eventName"]
-  NEWTABLE R23 0 1
-  GETTABLEKS R25 R5 K34 ["Backends"]
-  GETTABLEKS R24 R25 K48 ["RobloxTelemetryCounter"]
-  SETLIST R23 R24 1 [1]
-  SETTABLEKS R23 R22 K40 ["backends"]
-  LOADK R23 K49 ["Incrementing count of user messages sent."]
-  SETTABLEKS R23 R22 K41 ["description"]
+  GETIMPORT R21 K32 [table.freeze]
+  DUPTABLE R22 K50 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
+  LOADK R23 K51 ["CAPMessageSent"]
+  SETTABLEKS R23 R22 K38 ["eventName"]
+  SETTABLEKS R19 R22 K39 ["backends"]
+  LOADK R23 K52 ["User message sent event with request ID."]
+  SETTABLEKS R23 R22 K40 ["description"]
+  MOVE R23 R11
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K49 ["throttlingPercentage"]
   NEWTABLE R23 0 3
   LOADN R24 25
   LOADN R25 7
-  LOADN R26 21
+  LOADN R26 25
   SETLIST R23 R24 3 [1]
-  SETTABLEKS R23 R22 K42 ["lastUpdated"]
+  SETTABLEKS R23 R22 K41 ["lastUpdated"]
   CALL R21 1 1
-  GETIMPORT R22 K33 [table.freeze]
-  DUPTABLE R23 K51 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
-  LOADK R24 K52 ["CAPMessageSent"]
-  SETTABLEKS R24 R23 K39 ["eventName"]
-  SETTABLEKS R20 R23 K40 ["backends"]
-  LOADK R24 K53 ["User message sent event with request ID."]
-  SETTABLEKS R24 R23 K41 ["description"]
-  MOVE R24 R12
-  CALL R24 0 1
-  SETTABLEKS R24 R23 K50 ["throttlingPercentage"]
+  GETIMPORT R22 K32 [table.freeze]
+  DUPTABLE R23 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R24 K53 ["CAPAPIKeyAdded"]
+  SETTABLEKS R24 R23 K38 ["eventName"]
+  SETTABLEKS R19 R23 K39 ["backends"]
+  LOADK R24 K54 ["User added an API key for an LLM provider."]
+  SETTABLEKS R24 R23 K40 ["description"]
   NEWTABLE R24 0 3
   LOADN R25 25
-  LOADN R26 7
-  LOADN R27 25
+  LOADN R26 11
+  LOADN R27 4
   SETLIST R24 R25 3 [1]
-  SETTABLEKS R24 R23 K42 ["lastUpdated"]
+  SETTABLEKS R24 R23 K41 ["lastUpdated"]
   CALL R22 1 1
-  GETIMPORT R23 K33 [table.freeze]
-  DUPTABLE R24 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R25 K54 ["CAPAPIKeyAdded"]
-  SETTABLEKS R25 R24 K39 ["eventName"]
-  SETTABLEKS R20 R24 K40 ["backends"]
-  LOADK R25 K55 ["User added an API key for an LLM provider."]
-  SETTABLEKS R25 R24 K41 ["description"]
+  GETIMPORT R23 K32 [table.freeze]
+  DUPTABLE R24 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R25 K55 ["CAPUserFeedbackThumbsUp"]
+  SETTABLEKS R25 R24 K38 ["eventName"]
+  SETTABLEKS R19 R24 K39 ["backends"]
+  LOADK R25 K56 ["User feedback thumbs up event with message context."]
+  SETTABLEKS R25 R24 K40 ["description"]
   NEWTABLE R25 0 3
   LOADN R26 25
-  LOADN R27 11
-  LOADN R28 4
+  LOADN R27 7
+  LOADN R28 25
   SETLIST R25 R26 3 [1]
-  SETTABLEKS R25 R24 K42 ["lastUpdated"]
+  SETTABLEKS R25 R24 K41 ["lastUpdated"]
   CALL R23 1 1
-  GETIMPORT R24 K33 [table.freeze]
-  DUPTABLE R25 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R26 K56 ["CAPUserFeedbackThumbsUp"]
-  SETTABLEKS R26 R25 K39 ["eventName"]
-  SETTABLEKS R20 R25 K40 ["backends"]
-  LOADK R26 K57 ["User feedback thumbs up event with message context."]
-  SETTABLEKS R26 R25 K41 ["description"]
+  GETIMPORT R24 K32 [table.freeze]
+  DUPTABLE R25 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R26 K57 ["CAPUserFeedbackThumbsDown"]
+  SETTABLEKS R26 R25 K38 ["eventName"]
+  SETTABLEKS R19 R25 K39 ["backends"]
+  LOADK R26 K58 ["User feedback thumbs down event with message context."]
+  SETTABLEKS R26 R25 K40 ["description"]
   NEWTABLE R26 0 3
   LOADN R27 25
   LOADN R28 7
   LOADN R29 25
   SETLIST R26 R27 3 [1]
-  SETTABLEKS R26 R25 K42 ["lastUpdated"]
+  SETTABLEKS R26 R25 K41 ["lastUpdated"]
   CALL R24 1 1
-  GETIMPORT R25 K33 [table.freeze]
-  DUPTABLE R26 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R27 K58 ["CAPUserFeedbackThumbsDown"]
-  SETTABLEKS R27 R26 K39 ["eventName"]
-  SETTABLEKS R20 R26 K40 ["backends"]
-  LOADK R27 K59 ["User feedback thumbs down event with message context."]
-  SETTABLEKS R27 R26 K41 ["description"]
+  GETIMPORT R25 K32 [table.freeze]
+  DUPTABLE R26 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R28 K43 ["%*%*"]
+  LOADK R30 K44 ["StudioAssistant"]
+  LOADK R31 K59 ["ThumbsUp"]
+  NAMECALL R28 R28 K46 ["format"]
+  CALL R28 3 1
+  MOVE R27 R28
+  SETTABLEKS R27 R26 K38 ["eventName"]
+  NEWTABLE R27 0 1
+  GETTABLEKS R29 R5 K33 ["Backends"]
+  GETTABLEKS R28 R29 K47 ["RobloxTelemetryCounter"]
+  SETLIST R27 R28 1 [1]
+  SETTABLEKS R27 R26 K39 ["backends"]
+  LOADK R27 K60 ["Incrementing count of thumbs up events."]
+  SETTABLEKS R27 R26 K40 ["description"]
   NEWTABLE R27 0 3
   LOADN R28 25
   LOADN R29 7
-  LOADN R30 25
+  LOADN R30 21
   SETLIST R27 R28 3 [1]
-  SETTABLEKS R27 R26 K42 ["lastUpdated"]
+  SETTABLEKS R27 R26 K41 ["lastUpdated"]
   CALL R25 1 1
-  GETIMPORT R26 K33 [table.freeze]
-  DUPTABLE R27 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R29 K44 ["%*%*"]
-  LOADK R31 K45 ["StudioAssistant"]
-  LOADK R32 K60 ["ThumbsUp"]
-  NAMECALL R29 R29 K47 ["format"]
+  GETIMPORT R26 K32 [table.freeze]
+  DUPTABLE R27 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R29 K43 ["%*%*"]
+  LOADK R31 K44 ["StudioAssistant"]
+  LOADK R32 K61 ["ThumbsDown"]
+  NAMECALL R29 R29 K46 ["format"]
   CALL R29 3 1
   MOVE R28 R29
-  SETTABLEKS R28 R27 K39 ["eventName"]
+  SETTABLEKS R28 R27 K38 ["eventName"]
   NEWTABLE R28 0 1
-  GETTABLEKS R30 R5 K34 ["Backends"]
-  GETTABLEKS R29 R30 K48 ["RobloxTelemetryCounter"]
+  GETTABLEKS R30 R5 K33 ["Backends"]
+  GETTABLEKS R29 R30 K47 ["RobloxTelemetryCounter"]
   SETLIST R28 R29 1 [1]
-  SETTABLEKS R28 R27 K40 ["backends"]
-  LOADK R28 K61 ["Incrementing count of thumbs up events."]
-  SETTABLEKS R28 R27 K41 ["description"]
+  SETTABLEKS R28 R27 K39 ["backends"]
+  LOADK R28 K62 ["Incrementing count of thumbs down events."]
+  SETTABLEKS R28 R27 K40 ["description"]
   NEWTABLE R28 0 3
   LOADN R29 25
   LOADN R30 7
   LOADN R31 21
   SETLIST R28 R29 3 [1]
-  SETTABLEKS R28 R27 K42 ["lastUpdated"]
+  SETTABLEKS R28 R27 K41 ["lastUpdated"]
   CALL R26 1 1
-  GETIMPORT R27 K33 [table.freeze]
-  DUPTABLE R28 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R30 K44 ["%*%*"]
-  LOADK R32 K45 ["StudioAssistant"]
-  LOADK R33 K62 ["ThumbsDown"]
-  NAMECALL R30 R30 K47 ["format"]
+  GETIMPORT R27 K32 [table.freeze]
+  DUPTABLE R28 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R30 K43 ["%*%*"]
+  LOADK R32 K44 ["StudioAssistant"]
+  LOADK R33 K63 ["InitialResponseLatency"]
+  NAMECALL R30 R30 K46 ["format"]
   CALL R30 3 1
   MOVE R29 R30
-  SETTABLEKS R29 R28 K39 ["eventName"]
+  SETTABLEKS R29 R28 K38 ["eventName"]
   NEWTABLE R29 0 1
-  GETTABLEKS R31 R5 K34 ["Backends"]
-  GETTABLEKS R30 R31 K48 ["RobloxTelemetryCounter"]
+  GETTABLEKS R31 R5 K33 ["Backends"]
+  GETTABLEKS R30 R31 K64 ["RobloxTelemetryStat"]
   SETLIST R29 R30 1 [1]
-  SETTABLEKS R29 R28 K40 ["backends"]
-  LOADK R29 K63 ["Incrementing count of thumbs down events."]
-  SETTABLEKS R29 R28 K41 ["description"]
+  SETTABLEKS R29 R28 K39 ["backends"]
+  LOADK R29 K65 ["Initial response latency, in seconds. Time between making initial HTTP request and receiving first SignalR message."]
+  SETTABLEKS R29 R28 K40 ["description"]
   NEWTABLE R29 0 3
   LOADN R30 25
   LOADN R31 7
   LOADN R32 21
   SETLIST R29 R30 3 [1]
-  SETTABLEKS R29 R28 K42 ["lastUpdated"]
+  SETTABLEKS R29 R28 K41 ["lastUpdated"]
   CALL R27 1 1
-  GETIMPORT R28 K33 [table.freeze]
-  DUPTABLE R29 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R31 K44 ["%*%*"]
-  LOADK R33 K45 ["StudioAssistant"]
-  LOADK R34 K64 ["InitialResponseLatency"]
-  NAMECALL R31 R31 K47 ["format"]
+  GETIMPORT R28 K32 [table.freeze]
+  DUPTABLE R29 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R31 K43 ["%*%*"]
+  LOADK R33 K44 ["StudioAssistant"]
+  LOADK R34 K66 ["RequestJourney"]
+  NAMECALL R31 R31 K46 ["format"]
   CALL R31 3 1
   MOVE R30 R31
-  SETTABLEKS R30 R29 K39 ["eventName"]
+  SETTABLEKS R30 R29 K38 ["eventName"]
   NEWTABLE R30 0 1
-  GETTABLEKS R32 R5 K34 ["Backends"]
-  GETTABLEKS R31 R32 K65 ["RobloxTelemetryStat"]
+  GETTABLEKS R32 R5 K33 ["Backends"]
+  GETTABLEKS R31 R32 K64 ["RobloxTelemetryStat"]
   SETLIST R30 R31 1 [1]
-  SETTABLEKS R30 R29 K40 ["backends"]
-  LOADK R30 K66 ["Initial response latency, in seconds. Time between making initial HTTP request and receiving first SignalR message."]
-  SETTABLEKS R30 R29 K41 ["description"]
+  SETTABLEKS R30 R29 K39 ["backends"]
+  LOADK R30 K67 ["User request journey duration in seconds. Time between sending first message to request ended."]
+  SETTABLEKS R30 R29 K40 ["description"]
   NEWTABLE R30 0 3
   LOADN R31 25
-  LOADN R32 7
-  LOADN R33 21
+  LOADN R32 10
+  LOADN R33 22
   SETLIST R30 R31 3 [1]
-  SETTABLEKS R30 R29 K42 ["lastUpdated"]
+  SETTABLEKS R30 R29 K41 ["lastUpdated"]
   CALL R28 1 1
-  GETIMPORT R29 K33 [table.freeze]
-  DUPTABLE R30 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R32 K44 ["%*%*"]
-  LOADK R34 K45 ["StudioAssistant"]
-  LOADK R35 K67 ["RequestJourney"]
-  NAMECALL R32 R32 K47 ["format"]
-  CALL R32 3 1
-  MOVE R31 R32
-  SETTABLEKS R31 R30 K39 ["eventName"]
-  NEWTABLE R31 0 1
-  GETTABLEKS R33 R5 K34 ["Backends"]
-  GETTABLEKS R32 R33 K65 ["RobloxTelemetryStat"]
-  SETLIST R31 R32 1 [1]
-  SETTABLEKS R31 R30 K40 ["backends"]
-  LOADK R31 K68 ["User request journey duration in seconds. Time between sending first message to request ended."]
-  SETTABLEKS R31 R30 K41 ["description"]
+  GETIMPORT R29 K32 [table.freeze]
+  DUPTABLE R30 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R31 K68 ["CAPRequestJourney"]
+  SETTABLEKS R31 R30 K38 ["eventName"]
+  SETTABLEKS R19 R30 K39 ["backends"]
+  LOADK R31 K69 ["User request journey detail."]
+  SETTABLEKS R31 R30 K40 ["description"]
   NEWTABLE R31 0 3
   LOADN R32 25
-  LOADN R33 10
-  LOADN R34 22
+  LOADN R33 11
+  LOADN R34 1
   SETLIST R31 R32 3 [1]
-  SETTABLEKS R31 R30 K42 ["lastUpdated"]
+  SETTABLEKS R31 R30 K41 ["lastUpdated"]
   CALL R29 1 1
-  GETIMPORT R30 K33 [table.freeze]
-  DUPTABLE R31 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R33 K44 ["%*%*"]
-  LOADK R35 K45 ["StudioAssistant"]
-  LOADK R36 K67 ["RequestJourney"]
-  NAMECALL R33 R33 K47 ["format"]
+  GETIMPORT R30 K32 [table.freeze]
+  DUPTABLE R31 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R33 K43 ["%*%*"]
+  LOADK R35 K44 ["StudioAssistant"]
+  LOADK R36 K70 ["ErrorEvent"]
+  NAMECALL R33 R33 K46 ["format"]
   CALL R33 3 1
   MOVE R32 R33
-  SETTABLEKS R32 R31 K39 ["eventName"]
-  SETTABLEKS R20 R31 K40 ["backends"]
-  LOADK R32 K69 ["User request journey detail."]
-  SETTABLEKS R32 R31 K41 ["description"]
+  SETTABLEKS R32 R31 K38 ["eventName"]
+  NEWTABLE R32 0 1
+  GETTABLEKS R34 R5 K33 ["Backends"]
+  GETTABLEKS R33 R34 K47 ["RobloxTelemetryCounter"]
+  SETLIST R32 R33 1 [1]
+  SETTABLEKS R32 R31 K39 ["backends"]
+  LOADK R32 K71 ["Incrementing count of error events with error type attached."]
+  SETTABLEKS R32 R31 K40 ["description"]
   NEWTABLE R32 0 3
   LOADN R33 25
-  LOADN R34 11
-  LOADN R35 1
+  LOADN R34 7
+  LOADN R35 21
   SETLIST R32 R33 3 [1]
-  SETTABLEKS R32 R31 K42 ["lastUpdated"]
+  SETTABLEKS R32 R31 K41 ["lastUpdated"]
   CALL R30 1 1
-  GETIMPORT R31 K33 [table.freeze]
-  DUPTABLE R32 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R34 K44 ["%*%*"]
-  LOADK R36 K45 ["StudioAssistant"]
-  LOADK R37 K70 ["ErrorEvent"]
-  NAMECALL R34 R34 K47 ["format"]
+  GETIMPORT R31 K32 [table.freeze]
+  DUPTABLE R32 K50 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
+  LOADK R34 K43 ["%*%*"]
+  LOADK R36 K44 ["StudioAssistant"]
+  LOADK R37 K72 ["MarkdownError"]
+  NAMECALL R34 R34 K46 ["format"]
   CALL R34 3 1
   MOVE R33 R34
-  SETTABLEKS R33 R32 K39 ["eventName"]
+  SETTABLEKS R33 R32 K38 ["eventName"]
   NEWTABLE R33 0 1
-  GETTABLEKS R35 R5 K34 ["Backends"]
-  GETTABLEKS R34 R35 K48 ["RobloxTelemetryCounter"]
+  GETTABLEKS R35 R5 K33 ["Backends"]
+  GETTABLEKS R34 R35 K37 ["Points"]
   SETLIST R33 R34 1 [1]
-  SETTABLEKS R33 R32 K40 ["backends"]
-  LOADK R33 K71 ["Incrementing count of error events with error type attached."]
-  SETTABLEKS R33 R32 K41 ["description"]
+  SETTABLEKS R33 R32 K39 ["backends"]
+  LOADK R33 K73 ["Collection of markdown error events, with markdown attached."]
+  SETTABLEKS R33 R32 K40 ["description"]
+  MOVE R33 R10
+  CALL R33 0 1
+  SETTABLEKS R33 R32 K49 ["throttlingPercentage"]
   NEWTABLE R33 0 3
   LOADN R34 25
   LOADN R35 7
   LOADN R36 21
   SETLIST R33 R34 3 [1]
-  SETTABLEKS R33 R32 K42 ["lastUpdated"]
+  SETTABLEKS R33 R32 K41 ["lastUpdated"]
   CALL R31 1 1
-  GETIMPORT R32 K33 [table.freeze]
-  DUPTABLE R33 K51 [{"eventName", "backends", "description", "throttlingPercentage", "lastUpdated"}]
-  LOADK R35 K44 ["%*%*"]
-  LOADK R37 K45 ["StudioAssistant"]
-  LOADK R38 K72 ["MarkdownError"]
-  NAMECALL R35 R35 K47 ["format"]
-  CALL R35 3 1
-  MOVE R34 R35
-  SETTABLEKS R34 R33 K39 ["eventName"]
-  NEWTABLE R34 0 1
-  GETTABLEKS R36 R5 K34 ["Backends"]
-  GETTABLEKS R35 R36 K38 ["Points"]
-  SETLIST R34 R35 1 [1]
-  SETTABLEKS R34 R33 K40 ["backends"]
-  LOADK R34 K73 ["Collection of markdown error events, with markdown attached."]
-  SETTABLEKS R34 R33 K41 ["description"]
-  MOVE R34 R11
-  CALL R34 0 1
-  SETTABLEKS R34 R33 K50 ["throttlingPercentage"]
+  GETIMPORT R32 K32 [table.freeze]
+  DUPTABLE R33 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R34 K74 ["CAPMessageResubmitted"]
+  SETTABLEKS R34 R33 K38 ["eventName"]
+  SETTABLEKS R19 R33 K39 ["backends"]
+  LOADK R34 K75 ["User message retry/resubmit event with request ID."]
+  SETTABLEKS R34 R33 K40 ["description"]
   NEWTABLE R34 0 3
   LOADN R35 25
-  LOADN R36 7
-  LOADN R37 21
+  LOADN R36 8
+  LOADN R37 7
   SETLIST R34 R35 3 [1]
-  SETTABLEKS R34 R33 K42 ["lastUpdated"]
+  SETTABLEKS R34 R33 K41 ["lastUpdated"]
   CALL R32 1 1
-  GETIMPORT R33 K33 [table.freeze]
-  DUPTABLE R34 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R35 K74 ["CAPMessageResubmitted"]
-  SETTABLEKS R35 R34 K39 ["eventName"]
-  SETTABLEKS R20 R34 K40 ["backends"]
-  LOADK R35 K75 ["User message retry/resubmit event with request ID."]
-  SETTABLEKS R35 R34 K41 ["description"]
+  GETIMPORT R33 K32 [table.freeze]
+  DUPTABLE R34 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R35 K76 ["CAPStopGeneration"]
+  SETTABLEKS R35 R34 K38 ["eventName"]
+  SETTABLEKS R19 R34 K39 ["backends"]
+  LOADK R35 K77 ["User stop generation event with request ID."]
+  SETTABLEKS R35 R34 K40 ["description"]
   NEWTABLE R35 0 3
   LOADN R36 25
   LOADN R37 8
   LOADN R38 7
   SETLIST R35 R36 3 [1]
-  SETTABLEKS R35 R34 K42 ["lastUpdated"]
+  SETTABLEKS R35 R34 K41 ["lastUpdated"]
   CALL R33 1 1
-  GETIMPORT R34 K33 [table.freeze]
-  DUPTABLE R35 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R36 K76 ["CAPStopGeneration"]
-  SETTABLEKS R36 R35 K39 ["eventName"]
-  SETTABLEKS R20 R35 K40 ["backends"]
-  LOADK R36 K77 ["User stop generation event with request ID."]
-  SETTABLEKS R36 R35 K41 ["description"]
+  GETIMPORT R34 K32 [table.freeze]
+  DUPTABLE R35 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R36 K78 ["CAPToolEnded"]
+  SETTABLEKS R36 R35 K38 ["eventName"]
+  SETTABLEKS R19 R35 K39 ["backends"]
+  LOADK R36 K79 ["Tool invocation ended event with request ID and tool name"]
+  SETTABLEKS R36 R35 K40 ["description"]
   NEWTABLE R36 0 3
   LOADN R37 25
-  LOADN R38 8
-  LOADN R39 7
+  LOADN R38 7
+  LOADN R39 21
   SETLIST R36 R37 3 [1]
-  SETTABLEKS R36 R35 K42 ["lastUpdated"]
+  SETTABLEKS R36 R35 K41 ["lastUpdated"]
   CALL R34 1 1
-  GETIMPORT R35 K33 [table.freeze]
-  DUPTABLE R36 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R38 K44 ["%*%*"]
-  LOADK R40 K45 ["StudioAssistant"]
-  LOADK R41 K78 ["ToolEnded"]
-  NAMECALL R38 R38 K47 ["format"]
-  CALL R38 3 1
-  MOVE R37 R38
-  SETTABLEKS R37 R36 K39 ["eventName"]
-  SETTABLEKS R20 R36 K40 ["backends"]
-  LOADK R37 K79 ["Tool invocation ended event with request ID and tool name"]
-  SETTABLEKS R37 R36 K41 ["description"]
+  GETIMPORT R35 K32 [table.freeze]
+  DUPTABLE R36 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R37 K80 ["CAPToolStarted"]
+  SETTABLEKS R37 R36 K38 ["eventName"]
+  SETTABLEKS R19 R36 K39 ["backends"]
+  LOADK R37 K81 ["Tool invocation started event with request ID and tool name."]
+  SETTABLEKS R37 R36 K40 ["description"]
   NEWTABLE R37 0 3
   LOADN R38 25
-  LOADN R39 7
-  LOADN R40 21
+  LOADN R39 8
+  LOADN R40 7
   SETLIST R37 R38 3 [1]
-  SETTABLEKS R37 R36 K42 ["lastUpdated"]
+  SETTABLEKS R37 R36 K41 ["lastUpdated"]
   CALL R35 1 1
-  GETIMPORT R36 K33 [table.freeze]
-  DUPTABLE R37 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R38 K80 ["CAPToolStarted"]
-  SETTABLEKS R38 R37 K39 ["eventName"]
-  SETTABLEKS R20 R37 K40 ["backends"]
-  LOADK R38 K81 ["Tool invocation started event with request ID and tool name."]
-  SETTABLEKS R38 R37 K41 ["description"]
+  GETIMPORT R36 K32 [table.freeze]
+  DUPTABLE R37 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R38 K82 ["CAPToolConfirmationShown"]
+  SETTABLEKS R38 R37 K38 ["eventName"]
+  SETTABLEKS R19 R37 K39 ["backends"]
+  LOADK R38 K83 ["Tool confirmation dialog shown event with request ID, tool name, and warning message."]
+  SETTABLEKS R38 R37 K40 ["description"]
   NEWTABLE R38 0 3
   LOADN R39 25
-  LOADN R40 8
-  LOADN R41 7
+  LOADN R40 9
+  LOADN R41 19
   SETLIST R38 R39 3 [1]
-  SETTABLEKS R38 R37 K42 ["lastUpdated"]
+  SETTABLEKS R38 R37 K41 ["lastUpdated"]
   CALL R36 1 1
-  GETIMPORT R37 K33 [table.freeze]
-  DUPTABLE R38 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R39 K82 ["CAPToolConfirmationShown"]
-  SETTABLEKS R39 R38 K39 ["eventName"]
-  SETTABLEKS R20 R38 K40 ["backends"]
-  LOADK R39 K83 ["Tool confirmation dialog shown event with request ID, tool name, and warning message."]
-  SETTABLEKS R39 R38 K41 ["description"]
+  GETIMPORT R37 K32 [table.freeze]
+  DUPTABLE R38 K42 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R39 K84 ["CAPToolConfirmationResult"]
+  SETTABLEKS R39 R38 K38 ["eventName"]
+  SETTABLEKS R19 R38 K39 ["backends"]
+  LOADK R39 K85 ["Tool confirmation dialog result event with request ID and user choice."]
+  SETTABLEKS R39 R38 K40 ["description"]
   NEWTABLE R39 0 3
   LOADN R40 25
   LOADN R41 9
   LOADN R42 19
   SETLIST R39 R40 3 [1]
-  SETTABLEKS R39 R38 K42 ["lastUpdated"]
+  SETTABLEKS R39 R38 K41 ["lastUpdated"]
   CALL R37 1 1
-  GETIMPORT R38 K33 [table.freeze]
-  DUPTABLE R39 K43 [{"eventName", "backends", "description", "lastUpdated"}]
-  LOADK R40 K84 ["CAPToolConfirmationResult"]
-  SETTABLEKS R40 R39 K39 ["eventName"]
-  SETTABLEKS R20 R39 K40 ["backends"]
-  LOADK R40 K85 ["Tool confirmation dialog result event with request ID and user choice."]
-  SETTABLEKS R40 R39 K41 ["description"]
-  NEWTABLE R40 0 3
-  LOADN R41 25
-  LOADN R42 9
-  LOADN R43 19
-  SETLIST R40 R41 3 [1]
-  SETTABLEKS R40 R39 K42 ["lastUpdated"]
-  CALL R38 1 1
-  DUPCLOSURE R39 K86 [PROTO_3]
-  CAPTURE VAL R16
-  DUPCLOSURE R40 K87 [PROTO_4]
-  CAPTURE VAL R16
+  DUPCLOSURE R38 K86 [PROTO_3]
+  CAPTURE VAL R15
+  DUPCLOSURE R39 K87 [PROTO_4]
+  CAPTURE VAL R15
   CAPTURE VAL R1
-  DUPCLOSURE R41 K88 [PROTO_5]
-  DUPCLOSURE R42 K89 [PROTO_6]
+  DUPCLOSURE R40 K88 [PROTO_5]
+  DUPCLOSURE R41 K89 [PROTO_6]
   CAPTURE VAL R4
-  MOVE R43 R13
-  CALL R43 0 1
-  GETTABLEKS R44 R15 K90 ["new"]
-  MOVE R45 R2
-  MOVE R46 R14
-  CALL R46 0 -1
-  CALL R44 -1 1
-  DUPCLOSURE R45 K91 [PROTO_7]
-  CAPTURE VAL R44
+  MOVE R42 R12
+  CALL R42 0 1
+  GETTABLEKS R43 R14 K90 ["new"]
+  MOVE R44 R2
+  MOVE R45 R13
+  CALL R45 0 -1
+  CALL R43 -1 1
+  DUPCLOSURE R44 K91 [PROTO_7]
   CAPTURE VAL R43
-  DUPCLOSURE R46 K92 [PROTO_8]
+  CAPTURE VAL R42
+  DUPCLOSURE R45 K92 [PROTO_8]
   CAPTURE VAL R4
-  CAPTURE VAL R44
   CAPTURE VAL R43
-  DUPCLOSURE R47 K93 [PROTO_24]
-  CAPTURE VAL R8
+  CAPTURE VAL R42
+  DUPCLOSURE R46 K93 [PROTO_24]
+  CAPTURE VAL R7
   CAPTURE VAL R5
-  CAPTURE VAL R21
+  CAPTURE VAL R20
   CAPTURE VAL R4
-  CAPTURE VAL R44
   CAPTURE VAL R43
-  CAPTURE VAL R10
+  CAPTURE VAL R42
   CAPTURE VAL R9
-  CAPTURE VAL R22
+  CAPTURE VAL R8
+  CAPTURE VAL R21
   CAPTURE VAL R6
+  CAPTURE VAL R22
+  CAPTURE VAL R30
+  CAPTURE VAL R25
   CAPTURE VAL R23
-  CAPTURE VAL R31
   CAPTURE VAL R26
   CAPTURE VAL R24
   CAPTURE VAL R27
-  CAPTURE VAL R25
-  CAPTURE VAL R28
+  CAPTURE VAL R31
   CAPTURE VAL R32
   CAPTURE VAL R33
+  CAPTURE VAL R35
   CAPTURE VAL R34
   CAPTURE VAL R36
-  CAPTURE VAL R35
   CAPTURE VAL R37
-  CAPTURE VAL R38
+  CAPTURE VAL R28
   CAPTURE VAL R29
-  CAPTURE VAL R30
+  CAPTURE VAL R38
   CAPTURE VAL R39
-  CAPTURE VAL R40
-  RETURN R47 1
+  RETURN R46 1

@@ -1,7 +1,9 @@
 local root = script.Parent.Parent
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local Constants = require(root.Constants)
+local ConstantsInterface = require(root.ConstantsInterface)
 local getFStringUGCLCAllowedAssetTypeIds = require(root.flags.getFStringUGCLCAllowedAssetTypeIds)
+local getFFlagUGCValidateMakeupAssetTypeNewPipeline = require(root.flags.getFFlagUGCValidateMakeupAssetTypeNewPipeline)
 local LC_ENUMS = string.split(getFStringUGCLCAllowedAssetTypeIds(), ",")
 
 local function getUploadCategory(
@@ -30,6 +32,8 @@ local function getUploadCategory(
 		category = ValidationEnums.UploadCategory.LAYERED_CLOTHING
 	elseif Constants.ASSET_TYPE_INFO[assetTypeEnum] and Constants.ASSET_TYPE_INFO[assetTypeEnum].rigidAllowed then
 		category = ValidationEnums.UploadCategory.RIGID_ACCESSORY
+	elseif getFFlagUGCValidateMakeupAssetTypeNewPipeline() and ConstantsInterface.isMakeupAsset(assetTypeEnum) then
+		category = ValidationEnums.UploadCategory.MAKEUP
 	end
 
 	if category == nil then

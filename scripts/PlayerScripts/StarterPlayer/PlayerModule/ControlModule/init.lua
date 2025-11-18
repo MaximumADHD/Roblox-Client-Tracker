@@ -111,7 +111,7 @@ function ControlModule.new()
 
 	self.inputMoveVector = Vector3.new(0,0,0)
 
-	self.vehicleController = VehicleController.new(CONTROL_ACTION_PRIORITY)
+	self.vehicleController = VehicleController.new()
 
 	Players.LocalPlayer.CharacterAdded:Connect(function(char) self:OnCharacterAdded(char) end)
 	Players.LocalPlayer.CharacterRemoving:Connect(function(char) self:OnCharacterRemoving(char) end)
@@ -173,13 +173,19 @@ local function _fireCustomInputs(player:Player)
 	if input == nil then
 		return
 	end
-	
-	local cameraInput = input.Character.Camera
+
+	local characterInputContext = input:FindFirstChild("Character")
+	if characterInputContext == nil then
+		return
+	end	
+
+	local cameraInput = characterInputContext:FindFirstChild("Camera")
 	if cameraInput then
 		local camera = Workspace.CurrentCamera
 		cameraInput:Fire(camera.CFrame.LookVector)
 	end
-	local rotationInput = input.Character.Rotation
+
+	local rotationInput = characterInputContext.Rotation
 	if rotationInput then
 		rotationInput:Fire(UserGameSettings.RotationType == Enum.RotationType.CameraRelative)
 	end
@@ -501,14 +507,14 @@ end
 
 function ControlModule:OnRenderStepped(dt)
 	if self.activeController and self.activeController.enabled and self.humanoid then
-
 		-- Now retrieve info from the controller
-		local moveVector = self.activeController:GetMoveVector()
-		local cameraRelative = self.activeController:IsMoveVectorCameraRelative()
+		local moveVector = self:GetMoveVector()
+		local cameraRelative = true
 
 		local clickToMoveController = self:GetClickToMoveController()
 		if self.activeController == clickToMoveController then
 			clickToMoveController:OnRenderStepped(dt)
+			cameraRelative = clickToMoveController:IsMoveVectorCameraRelative()
 		else
 			if moveVector.magnitude > 0 then
 				-- Clean up any developer started MoveTo path
@@ -524,7 +530,7 @@ function ControlModule:OnRenderStepped(dt)
 		-- Are we driving a vehicle ?
 		local vehicleConsumedInput = false
 		if self.vehicleController then
-			moveVector, vehicleConsumedInput = self.vehicleController:Update(moveVector, cameraRelative, self.activeControlModule==Gamepad)
+			moveVector, vehicleConsumedInput = self.vehicleController:Update(moveVector, cameraRelative)
 		end
 
 		-- If not, move the player
@@ -577,7 +583,7 @@ function ControlModule:OnHumanoidSeated(active: boolean, currentSeatPart: BasePa
 	if active then
 		if currentSeatPart and currentSeatPart:IsA("VehicleSeat") then
 			if not self.vehicleController then
-				self.vehicleController = self.vehicleController.new(CONTROL_ACTION_PRIORITY)
+				self.vehicleController = self.vehicleController.new()
 			end
 			self.vehicleController:Enable(true, currentSeatPart)
 		end
@@ -714,7 +720,7 @@ end
 
 function ControlModule:GetClickToMoveController()
 	if not self.controllers[ClickToMove] then
-		self.controllers[ClickToMove] = ClickToMove.new(CONTROL_ACTION_PRIORITY)
+		self.controllers[ClickToMove] = ClickToMove.new()
 	end
 	return self.controllers[ClickToMove]
 end
@@ -732,12 +738,17 @@ function ControlModule:ProcessInputs(player:Player, dt:number)
 	if input == nil then
 		return
 	end
+	local characterInputContext = input:FindFirstChild("Character")
+	if characterInputContext == nil then
+		return
+	end	
 
-	local moveInput = input.Character.Move
-	local cameraInput = input.Character.Camera
-	local rotationInput = input.Character.Rotation
+	local moveInput = characterInputContext.Move
+	local cameraInput = characterInputContext.Camera
+	local rotationInput = characterInputContext.Rotation
+	local jumpInput = characterInputContext.Jump
 
-	local function isValidInput2D(vector2:Vector2):bool
+	local function isValidInput2D(vector2:Vector2):boolean
 		return not (
 			vector2.X ~= vector2.X or
 			vector2.Y ~= vector2.Y or
@@ -745,7 +756,7 @@ function ControlModule:ProcessInputs(player:Player, dt:number)
 			vector2.Y == math.huge)
 	end
 
-	local function isValidInput3D(vector3:Vector3):bool
+	local function isValidInput3D(vector3:Vector3):boolean
 		return not (
 			vector3.X ~= vector3.X or
 			vector3.Y ~= vector3.Y or
@@ -755,8 +766,8 @@ function ControlModule:ProcessInputs(player:Player, dt:number)
 			vector3.Z == math.huge)
 	end
 
-	local moveVector2D = moveInput:GetState()
-	local cameraVector3D = cameraInput:GetState()
+	local moveVector2D = if moveInput ~= nil then moveInput:GetState() else Vector2.new(0.0, 0.0)
+	local cameraVector3D = if cameraInput ~= nil then cameraInput:GetState() else Vector3.new(0.0, 0.0)
 
 	if isValidInput2D(moveVector2D) and isValidInput3D(cameraVector3D) and cameraVector3D.Magnitude > 0.0 then
 		if humanoid:GetState() ~= Enum.HumanoidStateType.Swimming then
@@ -782,7 +793,8 @@ function ControlModule:ProcessInputs(player:Player, dt:number)
 		end
 	end
 
-	humanoid.Jump = input.Character.Jump:GetState()
+	local jumpBool = if jumpInput ~= nil then jumpInput:GetState() else false
+	humanoid.Jump = jumpBool
 end
 
 return ControlModule.new()

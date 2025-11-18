@@ -57,6 +57,15 @@ PROTO_2:
   GETUPVAL R0 0
   RETURN R0 1
 
+PROTO_3:
+  GETIMPORT R1 K2 [string.format]
+  LOADK R2 K3 ["https://apis.%screator-home-api/v1/groups?surface=%s"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["DOMAIN"]
+  MOVE R4 R0
+  CALL R1 3 -1
+  RETURN R1 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -97,6 +106,9 @@ MAIN:
   DUPCLOSURE R8 K22 [PROTO_2]
   CAPTURE VAL R7
   SETTABLEKS R8 R3 K23 ["constructGetMyGroupUrl"]
+  DUPCLOSURE R8 K24 [PROTO_3]
+  CAPTURE VAL R1
+  SETTABLEKS R8 R3 K25 ["constructGetGroupsForSurfaceUrl"]
   MOVE R8 R2
   MOVE R9 R3
   CALL R8 1 -1

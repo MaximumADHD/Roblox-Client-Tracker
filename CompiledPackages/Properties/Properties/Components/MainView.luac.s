@@ -20,22 +20,25 @@ PROTO_0:
   NEWTABLE R8 0 1
   GETUPVAL R9 4
   GETUPVAL R10 6
-  CALL R9 1 -1
+  DUPTABLE R11 K7 [{"overlayGui"}]
+  GETTABLEKS R12 R0 K6 ["overlayGui"]
+  SETTABLEKS R12 R11 K6 ["overlayGui"]
+  CALL R9 2 -1
   SETLIST R8 R9 -1 [1]
   SETTABLEKS R8 R7 K4 ["providers"]
-  DUPTABLE R8 K7 [{"MainView"}]
+  DUPTABLE R8 K9 [{"MainView"}]
   JUMPIFNOT R4 [+7]
   GETUPVAL R9 4
   GETUPVAL R10 7
-  DUPTABLE R11 K9 [{"session"}]
-  SETTABLEKS R4 R11 K8 ["session"]
+  DUPTABLE R11 K11 [{"session"}]
+  SETTABLEKS R4 R11 K10 ["session"]
   CALL R9 2 1
   JUMP [+5]
   GETUPVAL R9 4
   GETUPVAL R11 2
-  GETTABLEKS R10 R11 K10 ["Fragment"]
+  GETTABLEKS R10 R11 K12 ["Fragment"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K6 ["MainView"]
+  SETTABLEKS R9 R8 K8 ["MainView"]
   CALL R5 3 -1
   RETURN R5 -1
 

@@ -86,7 +86,7 @@ local function validateFolderAssetIdsMatch(
 
 		local folderInfo = {}
 
-		for __, descendant in folder:GetDescendants() do
+		for __, descendant: any in folder:GetDescendants() do
 			local contentIdFields = Constants.CONTENT_ID_FIELDS[descendant.ClassName]
 			if contentIdFields then
 				for ___, fieldName in contentIdFields do

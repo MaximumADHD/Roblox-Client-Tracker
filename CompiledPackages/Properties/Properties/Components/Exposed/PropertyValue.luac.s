@@ -45,77 +45,77 @@ PROTO_5:
   SETTABLEKS R2 R1 K0 ["value"]
   LOADB R2 0
   SETTABLEKS R2 R1 K1 ["multiple"]
-  DUPTABLE R2 K8 [{"typeof", "parts", "modified", "readonly"}]
+  DUPTABLE R2 K8 [{"type", "parts", "modified", "readonly"}]
   GETTABLEKS R4 R0 K3 ["info"]
-  GETTABLEKS R3 R4 K9 ["type"]
-  SETTABLEKS R3 R2 K4 ["typeof"]
-  DUPTABLE R3 K10 [{"value"}]
+  GETTABLEKS R3 R4 K4 ["type"]
+  SETTABLEKS R3 R2 K4 ["type"]
+  DUPTABLE R3 K9 [{"value"}]
   SETTABLEKS R1 R3 K0 ["value"]
   SETTABLEKS R3 R2 K5 ["parts"]
   LOADB R3 0
   SETTABLEKS R3 R2 K6 ["modified"]
   GETTABLEKS R5 R0 K3 ["info"]
   GETTABLEKS R4 R5 K7 ["readonly"]
-  ORK R3 R4 K11 [False]
+  ORK R3 R4 K10 [False]
   SETTABLEKS R3 R2 K7 ["readonly"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K12 ["useMemo"]
+  GETTABLEKS R3 R4 K11 ["useMemo"]
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   NEWTABLE R5 0 1
   GETTABLEKS R7 R0 K3 ["info"]
-  GETTABLEKS R6 R7 K9 ["type"]
+  GETTABLEKS R6 R7 K4 ["type"]
   SETLIST R5 R6 1 [1]
   CALL R3 2 1
-  GETTABLEKS R4 R0 K13 ["editingSteps"]
+  GETTABLEKS R4 R0 K12 ["editingSteps"]
   JUMPIF R4 [+1]
   GETUPVAL R4 2
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K14 ["useCallback"]
+  GETTABLEKS R5 R6 K13 ["useCallback"]
   NEWCLOSURE R6 P1
   CAPTURE VAL R4
   NEWTABLE R7 0 1
-  GETTABLEKS R8 R4 K15 ["beginEditingAsync"]
+  GETTABLEKS R8 R4 K14 ["beginEditingAsync"]
   SETLIST R7 R8 1 [1]
   CALL R5 2 1
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K14 ["useCallback"]
+  GETTABLEKS R6 R7 K13 ["useCallback"]
   NEWCLOSURE R7 P2
   CAPTURE VAL R0
   NEWTABLE R8 0 1
-  GETTABLEKS R9 R0 K16 ["updateValue"]
+  GETTABLEKS R9 R0 K15 ["updateValue"]
   SETLIST R8 R9 1 [1]
   CALL R6 2 1
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K14 ["useCallback"]
-  GETTABLEKS R8 R4 K17 ["finishEditing"]
+  GETTABLEKS R7 R8 K13 ["useCallback"]
+  GETTABLEKS R8 R4 K16 ["finishEditing"]
   NEWTABLE R9 0 1
-  GETTABLEKS R10 R4 K17 ["finishEditing"]
+  GETTABLEKS R10 R4 K16 ["finishEditing"]
   SETLIST R9 R10 1 [1]
   CALL R7 2 1
   GETUPVAL R8 3
   GETUPVAL R9 4
-  DUPTABLE R10 K24 [{"tag", "AnchorPoint", "LayoutOrder", "Position", "Size", "ZIndex"}]
-  LOADK R11 K25 ["auto-xy row flex-x-between align-y-center align-x-left"]
-  SETTABLEKS R11 R10 K18 ["tag"]
-  GETTABLEKS R11 R0 K19 ["AnchorPoint"]
-  SETTABLEKS R11 R10 K19 ["AnchorPoint"]
-  GETTABLEKS R11 R0 K20 ["LayoutOrder"]
-  SETTABLEKS R11 R10 K20 ["LayoutOrder"]
-  GETTABLEKS R11 R0 K21 ["Position"]
-  SETTABLEKS R11 R10 K21 ["Position"]
-  GETTABLEKS R11 R0 K22 ["Size"]
-  SETTABLEKS R11 R10 K22 ["Size"]
-  GETTABLEKS R11 R0 K23 ["ZIndex"]
-  SETTABLEKS R11 R10 K23 ["ZIndex"]
+  DUPTABLE R10 K23 [{"tag", "AnchorPoint", "LayoutOrder", "Position", "Size", "ZIndex"}]
+  LOADK R11 K24 ["auto-xy row flex-x-between align-y-center align-x-left"]
+  SETTABLEKS R11 R10 K17 ["tag"]
+  GETTABLEKS R11 R0 K18 ["AnchorPoint"]
+  SETTABLEKS R11 R10 K18 ["AnchorPoint"]
+  GETTABLEKS R11 R0 K19 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K19 ["LayoutOrder"]
+  GETTABLEKS R11 R0 K20 ["Position"]
+  SETTABLEKS R11 R10 K20 ["Position"]
+  GETTABLEKS R11 R0 K21 ["Size"]
+  SETTABLEKS R11 R10 K21 ["Size"]
+  GETTABLEKS R11 R0 K22 ["ZIndex"]
+  SETTABLEKS R11 R10 K22 ["ZIndex"]
   GETUPVAL R11 3
   MOVE R12 R3
-  DUPTABLE R13 K27 [{"info", "beginEditingAsync", "setPart", "finishEditing"}]
+  DUPTABLE R13 K26 [{"info", "beginEditingAsync", "setPart", "finishEditing"}]
   SETTABLEKS R2 R13 K3 ["info"]
-  SETTABLEKS R5 R13 K15 ["beginEditingAsync"]
-  SETTABLEKS R6 R13 K26 ["setPart"]
-  SETTABLEKS R7 R13 K17 ["finishEditing"]
+  SETTABLEKS R5 R13 K14 ["beginEditingAsync"]
+  SETTABLEKS R6 R13 K25 ["setPart"]
+  SETTABLEKS R7 R13 K16 ["finishEditing"]
   CALL R11 2 -1
   CALL R8 -1 -1
   RETURN R8 -1

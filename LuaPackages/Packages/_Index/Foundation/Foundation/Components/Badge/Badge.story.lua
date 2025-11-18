@@ -32,7 +32,6 @@ return {
 		{
 			name = "Base",
 			story = function(props): React.Node
-				Flags.FoundationDisableBadgeTruncation = props.controls.disableBadgeTruncation
 				Flags.FoundationUpdateBadgeDesign = props.controls.updateBadgeDesign
 				local tokens = useTokens()
 				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
@@ -179,7 +178,6 @@ return {
 		},
 		variant = nonDeprecatedVariants,
 		onTile = false,
-		disableBadgeTruncation = Flags.FoundationDisableBadgeTruncation,
 		updateBadgeDesign = Flags.FoundationUpdateBadgeDesign,
 	},
 }

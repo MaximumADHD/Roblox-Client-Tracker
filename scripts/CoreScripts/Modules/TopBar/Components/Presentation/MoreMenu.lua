@@ -157,7 +157,7 @@ function MoreMenu:init()
 		end
 	end
 
-	if FFlagTopBarSignalizeKeepOutAreas and CoreGuiCommon.Stores.GetKeepOutAreasStore then 
+	if FFlagTopBarSignalizeKeepOutAreas then 
 		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
 	end
 

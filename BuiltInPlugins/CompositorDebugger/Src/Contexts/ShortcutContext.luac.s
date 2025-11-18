@@ -48,30 +48,25 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Components"]
-  GETTABLEKS R3 R4 K8 ["NodeView"]
-  GETTABLEKS R2 R3 K9 ["PluginAction"]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AnimationEditor"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["React"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Contexts"]
-  GETTABLEKS R4 R5 K13 ["ViewportRectContext"]
-  CALL R3 1 1
-  NEWTABLE R4 0 0
-  GETTABLEKS R5 R2 K14 ["createContext"]
-  MOVE R6 R4
-  CALL R5 1 1
-  DUPCLOSURE R6 K15 [PROTO_0]
+  GETTABLEKS R3 R1 K9 ["PluginAction"]
+  GETTABLEKS R4 R1 K10 ["ViewportRectContext"]
+  NEWTABLE R5 0 0
+  GETTABLEKS R6 R2 K11 ["createContext"]
+  MOVE R7 R5
+  CALL R6 1 1
+  DUPCLOSURE R7 K12 [PROTO_0]
   CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R6
   CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R1
-  DUPTABLE R7 K18 [{"Context", "Provider"}]
-  SETTABLEKS R5 R7 K16 ["Context"]
-  SETTABLEKS R6 R7 K17 ["Provider"]
-  RETURN R7 1
+  DUPTABLE R8 K15 [{"Context", "Provider"}]
+  SETTABLEKS R6 R8 K13 ["Context"]
+  SETTABLEKS R7 R8 K14 ["Provider"]
+  RETURN R8 1

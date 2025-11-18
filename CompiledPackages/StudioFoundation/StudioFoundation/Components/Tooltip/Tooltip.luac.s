@@ -1,0 +1,196 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["side"]
+  JUMPIF R1 [+3]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K1 ["Bottom"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["align"]
+  JUMPIF R2 [+3]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K3 ["Start"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useTooltipSettings"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useValue"]
+  CALL R2 0 1
+  GETUPVAL R3 2
+  GETTABLEKS R4 R0 K2 ["isOpen"]
+  DUPTABLE R5 K4 [{"delay"}]
+  GETTABLEKS R6 R1 K3 ["delay"]
+  SETTABLEKS R6 R5 K3 ["delay"]
+  CALL R3 2 2
+  GETUPVAL R5 3
+  DUPTABLE R6 K7 [{"floatingId", "isOpen", "flush"}]
+  GETTABLEKS R7 R0 K8 ["anchorUri"]
+  SETTABLEKS R7 R6 K5 ["floatingId"]
+  GETTABLEKS R7 R0 K2 ["isOpen"]
+  SETTABLEKS R7 R6 K2 ["isOpen"]
+  GETTABLEKS R7 R4 K6 ["flush"]
+  SETTABLEKS R7 R6 K6 ["flush"]
+  CALL R5 1 0
+  GETUPVAL R5 4
+  DUPTABLE R6 K11 [{"anchorRef", "anchorUri", "isOpen", "onClose"}]
+  GETTABLEKS R7 R0 K9 ["anchorRef"]
+  SETTABLEKS R7 R6 K9 ["anchorRef"]
+  GETTABLEKS R7 R0 K8 ["anchorUri"]
+  SETTABLEKS R7 R6 K8 ["anchorUri"]
+  SETTABLEKS R3 R6 K2 ["isOpen"]
+  GETTABLEKS R7 R0 K10 ["onClose"]
+  SETTABLEKS R7 R6 K10 ["onClose"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K12 ["text"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R0 K12 ["text"]
+  JUMPIFNOTEQKS R6 K13 [""] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETTABLEKS R6 R0 K14 ["title"]
+  JUMPIFNOT R6 [+6]
+  GETTABLEKS R7 R0 K14 ["title"]
+  JUMPIFNOTEQKS R7 K13 [""] [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  JUMPIFNOT R3 [+7]
+  GETTABLEKS R8 R1 K15 ["tooltipsDisabled"]
+  JUMPIF R8 [+4]
+  MOVE R7 R5
+  JUMPIF R7 [+3]
+  MOVE R7 R6
+  JUMPIF R7 [+1]
+  LOADB R7 0
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K16 ["useMemo"]
+  NEWCLOSURE R9 P0
+  CAPTURE UPVAL U6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  NEWTABLE R10 0 2
+  GETTABLEKS R11 R0 K17 ["side"]
+  GETTABLEKS R12 R0 K18 ["align"]
+  SETLIST R10 R11 2 [1]
+  CALL R8 2 1
+  GETUPVAL R9 9
+  DUPTABLE R10 K21 [{"isOpen", "onClose", "anchorUri", "position", "registerPanelAsync"}]
+  SETTABLEKS R7 R10 K2 ["isOpen"]
+  GETTABLEKS R11 R0 K10 ["onClose"]
+  SETTABLEKS R11 R10 K10 ["onClose"]
+  GETTABLEKS R11 R0 K8 ["anchorUri"]
+  SETTABLEKS R11 R10 K8 ["anchorUri"]
+  SETTABLEKS R8 R10 K19 ["position"]
+  GETTABLEKS R11 R2 K22 ["registerTooltipAsync"]
+  SETTABLEKS R11 R10 K20 ["registerPanelAsync"]
+  CALL R9 1 1
+  GETUPVAL R10 10
+  MOVE R11 R9
+  CALL R10 1 1
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K23 ["createElement"]
+  GETUPVAL R12 11
+  DUPTABLE R13 K25 [{"isOpen", "panel"}]
+  SETTABLEKS R7 R13 K2 ["isOpen"]
+  SETTABLEKS R9 R13 K24 ["panel"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K23 ["createElement"]
+  GETUPVAL R15 12
+  DUPTABLE R16 K28 [{"title", "text", "shortcuts", "onAbsoluteSizeChanged"}]
+  GETTABLEKS R17 R0 K14 ["title"]
+  SETTABLEKS R17 R16 K14 ["title"]
+  GETTABLEKS R17 R0 K12 ["text"]
+  SETTABLEKS R17 R16 K12 ["text"]
+  GETTABLEKS R17 R0 K26 ["shortcuts"]
+  SETTABLEKS R17 R16 K26 ["shortcuts"]
+  SETTABLEKS R10 R16 K27 ["onAbsoluteSizeChanged"]
+  CALL R14 2 -1
+  CALL R11 -1 -1
+  RETURN R11 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StudioFoundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Foundation"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K9 ["Enums"]
+  GETTABLEKS R4 R5 K10 ["PopoverAlign"]
+  GETTABLEKS R6 R3 K9 ["Enums"]
+  GETTABLEKS R5 R6 K11 ["PopoverSide"]
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R0 K12 ["Types"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K13 ["Contexts"]
+  GETTABLEKS R8 R9 K14 ["TooltipSettingsContext"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R11 R0 K15 ["Components"]
+  GETTABLEKS R10 R11 K16 ["Popover"]
+  GETTABLEKS R9 R10 K17 ["PopoverContent"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K18 ["Hooks"]
+  GETTABLEKS R10 R11 K19 ["useMouseOver"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R13 R0 K15 ["Components"]
+  GETTABLEKS R12 R13 K16 ["Popover"]
+  GETTABLEKS R11 R12 K20 ["getPosition"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R14 R0 K15 ["Components"]
+  GETTABLEKS R13 R14 K16 ["Popover"]
+  GETTABLEKS R12 R13 K21 ["PopoverDelayGroup"]
+  CALL R11 1 1
+  GETTABLEKS R12 R11 K22 ["useDelayGroup"]
+  GETIMPORT R13 K6 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K4 ["Parent"]
+  GETTABLEKS R14 R15 K23 ["useShowDelayed"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K4 ["Parent"]
+  GETTABLEKS R15 R16 K24 ["TooltipContent"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R17 R0 K25 ["Panels"]
+  GETTABLEKS R16 R17 K26 ["PanelsContext"]
+  CALL R15 1 1
+  GETIMPORT R16 K6 [require]
+  GETTABLEKS R18 R0 K25 ["Panels"]
+  GETTABLEKS R17 R18 K27 ["usePanel"]
+  CALL R16 1 1
+  GETIMPORT R17 K6 [require]
+  GETTABLEKS R20 R0 K15 ["Components"]
+  GETTABLEKS R19 R20 K16 ["Popover"]
+  GETTABLEKS R18 R19 K28 ["useAsyncOnAbsoluteSizeChanged"]
+  CALL R17 1 1
+  DUPCLOSURE R18 K29 [PROTO_1]
+  CAPTURE VAL R7
+  CAPTURE VAL R15
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  RETURN R18 1
