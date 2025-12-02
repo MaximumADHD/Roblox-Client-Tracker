@@ -9303,7 +9303,6 @@
 [C++] FFlagPlayerSetCharacterAllowActors
 [Lua] FFlagPlayerViewRemoteEnabled
 [Lua] FFlagPlayerViewRemoteEventTimeoutEnabled
-[Lua] FFlagPlayerViewValidateRequesteeEnabled2
 [C++] FFlagPlaySoloPluginAPI
 [C++] FFlagPluginDragCheckMouseUp
 [C++] FFlagPluginErrorReporterRegisterExtraDetails
@@ -9412,7 +9411,6 @@
 [C++] FFlagRecentsWidgetClickedTelemetry
 [C++] FFlagReconnectDisabled
 [C++] FFlagRecordPatchAssetsMismatch
-[Lua] FFlagRecordRecording
 [C++] FFlagRecordVoiceClientCullingOperationStats
 [C++] FFlagRecordVoiceClientOperationLatencyMetrics
 [C++] FFlagRedirectCacheTaskFactoryUseRuntime
@@ -10378,7 +10376,6 @@
 [Lua] FFlagUGCValidateCoplanarTriTestBody
 [Lua] FFlagUGCValidateDontUseRestrictedUserTable2
 [Lua] FFlagUGCValidateDuplicatesInAnimation
-[Lua] FFlagUGCValidateDynamicHeadMoodClientVpfSnapshot
 [C++] FFlagUGCValidateFacsNotSkinnedToR15
 [Lua] FFlagUGCValidateFixCurveAnimFrameTimeErrorMessage
 [C++] FFlagUGCValidateFullBodyFacsBBox
@@ -10399,8 +10396,6 @@
 [C++] FFlagUGCValidateOrthographicTransparency
 [Lua] FFlagUGCValidatePartMass
 [Lua] FFlagUGCValidatePartSizeWithinRenderSizeLimits
-[Lua] FFlagUGCValidatePreciseCurveLimit
-[Lua] FFlagUGCValidatePreciseStepThrough
 [Lua] FFlagUGCValidatePrimativeBBoxes
 [C++] FFlagUGCValidatePropertiesSensible
 [C++] FFlagUGCValidateRelativeSkinningTransfer
