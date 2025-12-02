@@ -337,9 +337,29 @@ PROTO_7:
   LOADK R12 K28 ["}"]
   CONCAT R9 R10 R12
   RETURN R9 1
+  GETUPVAL R9 1
+  MOVE R10 R0
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K31 ["map"] [+18]
+  JUMPIFNOT R6 [+2]
+  LOADK R9 K32 ["[Map]"]
+  RETURN R9 1
+  LOADK R10 K33 ["Map {"]
+  GETUPVAL R13 3
+  GETTABLEKS R14 R0 K34 ["_map"]
+  MOVE R15 R1
+  MOVE R16 R2
+  MOVE R17 R3
+  MOVE R18 R4
+  GETUPVAL R19 0
+  CALL R13 6 1
+  MOVE R11 R13
+  LOADK R12 K28 ["}"]
+  CONCAT R9 R10 R12
+  RETURN R9 1
   MOVE R10 R8
   LOADK R11 K27 ["{"]
-  GETUPVAL R14 3
+  GETUPVAL R14 4
   MOVE R15 R0
   MOVE R16 R1
   MOVE R17 R2
@@ -445,24 +465,34 @@ PROTO_12:
   CAPTURE VAL R5
   CAPTURE UPVAL U0
   CALL R7 1 2
-  JUMPIF R7 [+6]
-  GETIMPORT R9 K3 [error]
+  JUMPIF R7 [+21]
+  FASTCALL1 TYPEOF R8 [+3]
+  MOVE R10 R8
+  GETIMPORT R9 K3 [typeof]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K4 ["table"] [+9]
+  GETTABLEKS R9 R8 K5 ["name"]
+  JUMPIFNOTEQKS R9 K6 ["PrettyFormatPluginError"] [+5]
+  GETIMPORT R9 K8 [error]
+  MOVE R10 R8
+  CALL R9 1 0
+  GETIMPORT R9 K8 [error]
   GETUPVAL R10 1
   MOVE R11 R8
   CALL R10 1 -1
   CALL R9 -1 0
   FASTCALL1 TYPEOF R6 [+3]
   MOVE R10 R6
-  GETIMPORT R9 K5 [typeof]
+  GETIMPORT R9 K3 [typeof]
   CALL R9 1 1
-  JUMPIFEQKS R9 K6 ["string"] [+15]
-  GETIMPORT R9 K3 [error]
+  JUMPIFEQKS R9 K9 ["string"] [+15]
+  GETIMPORT R9 K8 [error]
   GETUPVAL R10 2
-  GETIMPORT R11 K8 [string.format]
-  LOADK R12 K9 ["pretty-format: Plugin must return type \"string\" but instead returned \"%s\"."]
+  GETIMPORT R11 K11 [string.format]
+  LOADK R12 K12 ["pretty-format: Plugin must return type \"string\" but instead returned \"%s\"."]
   FASTCALL1 TYPEOF R6 [+3]
   MOVE R14 R6
-  GETIMPORT R13 K5 [typeof]
+  GETIMPORT R13 K3 [typeof]
   CALL R13 1 1
   CALL R11 2 -1
   CALL R10 -1 -1
@@ -606,7 +636,7 @@ PROTO_19:
   RETURN R1 1
 
 PROTO_20:
-  DUPTABLE R1 K13 [{"callToJSON", "colors", "compareKeys", "escapeRegex", "escapeString", "indent", "maxDepth", "min", "plugins", "printBasicPrototype", "printFunctionName", "spacingInner", "spacingOuter"}]
+  DUPTABLE R1 K16 [{"callToJSON", "colors", "compareKeys", "escapeRegex", "escapeString", "indent", "maxDepth", "maxWidth", "min", "plugins", "printBasicPrototype", "printInstanceDefaults", "redactStackTracesInStrings", "printFunctionName", "spacingInner", "spacingOuter"}]
   JUMPIFNOT R0 [+7]
   GETTABLEKS R3 R0 K0 ["callToJSON"]
   JUMPIFEQKNIL R3 [+4]
@@ -620,9 +650,9 @@ PROTO_20:
   JUMPIFEQKNIL R0 [+12]
   GETTABLEKS R4 R0 K2 ["compareKeys"]
   FASTCALL1 TYPEOF R4 [+2]
-  GETIMPORT R3 K15 [typeof]
+  GETIMPORT R3 K18 [typeof]
   CALL R3 1 1
-  JUMPIFNOTEQKS R3 K16 ["function"] [+4]
+  JUMPIFNOTEQKS R3 K19 ["function"] [+4]
   GETTABLEKS R2 R0 K2 ["compareKeys"]
   JUMP [+3]
   GETUPVAL R3 0
@@ -645,9 +675,9 @@ PROTO_20:
   GETTABLEKS R2 R3 K4 ["escapeString"]
   SETTABLEKS R2 R1 K4 ["escapeString"]
   JUMPIFNOT R0 [+5]
-  GETTABLEKS R3 R0 K7 ["min"]
+  GETTABLEKS R3 R0 K8 ["min"]
   JUMPIFNOT R3 [+2]
-  LOADK R2 K17 [""]
+  LOADK R2 K20 [""]
   JUMP [+14]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K5 ["indent"]
@@ -669,52 +699,76 @@ PROTO_20:
   GETTABLEKS R2 R3 K6 ["maxDepth"]
   SETTABLEKS R2 R1 K6 ["maxDepth"]
   JUMPIFNOT R0 [+7]
-  GETTABLEKS R3 R0 K7 ["min"]
+  GETTABLEKS R3 R0 K7 ["maxWidth"]
   JUMPIFEQKNIL R3 [+4]
-  GETTABLEKS R2 R0 K7 ["min"]
+  GETTABLEKS R2 R0 K7 ["maxWidth"]
   JUMP [+3]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K7 ["min"]
-  SETTABLEKS R2 R1 K7 ["min"]
+  GETTABLEKS R2 R3 K7 ["maxWidth"]
+  SETTABLEKS R2 R1 K7 ["maxWidth"]
   JUMPIFNOT R0 [+7]
-  GETTABLEKS R3 R0 K8 ["plugins"]
+  GETTABLEKS R3 R0 K8 ["min"]
   JUMPIFEQKNIL R3 [+4]
-  GETTABLEKS R2 R0 K8 ["plugins"]
+  GETTABLEKS R2 R0 K8 ["min"]
   JUMP [+3]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K8 ["plugins"]
-  SETTABLEKS R2 R1 K8 ["plugins"]
-  JUMPIFEQKNIL R0 [+8]
-  GETTABLEKS R3 R0 K9 ["printBasicPrototype"]
+  GETTABLEKS R2 R3 K8 ["min"]
+  SETTABLEKS R2 R1 K8 ["min"]
+  JUMPIFNOT R0 [+7]
+  GETTABLEKS R3 R0 K9 ["plugins"]
   JUMPIFEQKNIL R3 [+4]
-  GETTABLEKS R2 R0 K9 ["printBasicPrototype"]
+  GETTABLEKS R2 R0 K9 ["plugins"]
+  JUMP [+3]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["plugins"]
+  SETTABLEKS R2 R1 K9 ["plugins"]
+  JUMPIFEQKNIL R0 [+8]
+  GETTABLEKS R3 R0 K10 ["printBasicPrototype"]
+  JUMPIFEQKNIL R3 [+4]
+  GETTABLEKS R2 R0 K10 ["printBasicPrototype"]
   JUMP [+1]
   LOADB R2 1
-  SETTABLEKS R2 R1 K9 ["printBasicPrototype"]
+  SETTABLEKS R2 R1 K10 ["printBasicPrototype"]
   JUMPIFNOT R0 [+7]
-  GETTABLEKS R3 R0 K10 ["printFunctionName"]
+  GETTABLEKS R3 R0 K11 ["printInstanceDefaults"]
   JUMPIFEQKNIL R3 [+4]
-  GETTABLEKS R2 R0 K10 ["printFunctionName"]
+  GETTABLEKS R2 R0 K11 ["printInstanceDefaults"]
   JUMP [+3]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K10 ["printFunctionName"]
-  SETTABLEKS R2 R1 K10 ["printFunctionName"]
+  GETTABLEKS R2 R3 K11 ["printInstanceDefaults"]
+  SETTABLEKS R2 R1 K11 ["printInstanceDefaults"]
+  JUMPIFNOT R0 [+7]
+  GETTABLEKS R3 R0 K12 ["redactStackTracesInStrings"]
+  JUMPIFEQKNIL R3 [+4]
+  GETTABLEKS R2 R0 K12 ["redactStackTracesInStrings"]
+  JUMP [+3]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K12 ["redactStackTracesInStrings"]
+  SETTABLEKS R2 R1 K12 ["redactStackTracesInStrings"]
+  JUMPIFNOT R0 [+7]
+  GETTABLEKS R3 R0 K13 ["printFunctionName"]
+  JUMPIFEQKNIL R3 [+4]
+  GETTABLEKS R2 R0 K13 ["printFunctionName"]
+  JUMP [+3]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K13 ["printFunctionName"]
+  SETTABLEKS R2 R1 K13 ["printFunctionName"]
   JUMPIFNOT R0 [+5]
-  GETTABLEKS R3 R0 K7 ["min"]
+  GETTABLEKS R3 R0 K8 ["min"]
   JUMPIFNOT R3 [+2]
-  LOADK R2 K18 [" "]
+  LOADK R2 K21 [" "]
   JUMP [+1]
-  LOADK R2 K19 ["
+  LOADK R2 K22 ["
 "]
-  SETTABLEKS R2 R1 K11 ["spacingInner"]
+  SETTABLEKS R2 R1 K14 ["spacingInner"]
   JUMPIFNOT R0 [+5]
-  GETTABLEKS R3 R0 K7 ["min"]
+  GETTABLEKS R3 R0 K8 ["min"]
   JUMPIFNOT R3 [+2]
-  LOADK R2 K17 [""]
+  LOADK R2 K20 [""]
   JUMP [+1]
-  LOADK R2 K19 ["
+  LOADK R2 K22 ["
 "]
-  SETTABLEKS R2 R1 K12 ["spacingOuter"]
+  SETTABLEKS R2 R1 K15 ["spacingOuter"]
   RETURN R1 1
 
 PROTO_21:
@@ -785,6 +839,17 @@ PROTO_22:
   CALL R3 6 -1
   RETURN R3 -1
 
+PROTO_23:
+  GETIMPORT R2 K1 [error]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["new"]
+  LOADK R5 K3 ["Can't find pretty-format plugin: "]
+  MOVE R6 R1
+  CONCAT R4 R5 R6
+  CALL R3 1 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -801,125 +866,146 @@ MAIN:
   GETTABLEKS R8 R0 K11 ["Collections"]
   CALL R7 1 1
   GETTABLEKS R8 R7 K12 ["printTableEntries"]
-  GETTABLEKS R9 R7 K13 ["printListItems"]
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R12 R0 K14 ["plugins"]
-  GETTABLEKS R11 R12 K15 ["AsymmetricMatcher"]
-  CALL R10 1 1
+  GETTABLEKS R9 R7 K13 ["printMapEntries"]
+  GETTABLEKS R10 R7 K14 ["printListItems"]
   GETIMPORT R11 K4 [require]
-  GETTABLEKS R13 R0 K14 ["plugins"]
-  GETTABLEKS R12 R13 K16 ["ConvertAnsi"]
+  GETTABLEKS R13 R0 K15 ["plugins"]
+  GETTABLEKS R12 R13 K16 ["AsymmetricMatcher"]
   CALL R11 1 1
   GETIMPORT R12 K4 [require]
-  GETTABLEKS R14 R0 K14 ["plugins"]
-  GETTABLEKS R13 R14 K17 ["RobloxInstance"]
+  GETTABLEKS R14 R0 K15 ["plugins"]
+  GETTABLEKS R13 R14 K17 ["ConvertAnsi"]
   CALL R12 1 1
   GETIMPORT R13 K4 [require]
-  GETTABLEKS R15 R0 K14 ["plugins"]
-  GETTABLEKS R14 R15 K18 ["ReactElement"]
+  GETTABLEKS R15 R0 K15 ["plugins"]
+  GETTABLEKS R14 R15 K18 ["RobloxInstance"]
   CALL R13 1 1
   GETIMPORT R14 K4 [require]
-  GETTABLEKS R16 R0 K14 ["plugins"]
-  GETTABLEKS R15 R16 K19 ["ReactTestComponent"]
+  GETTABLEKS R16 R0 K15 ["plugins"]
+  GETTABLEKS R15 R16 K19 ["ReactElement"]
   CALL R14 1 1
   GETIMPORT R15 K4 [require]
-  GETTABLEKS R16 R1 K20 ["JestGetType"]
+  GETTABLEKS R17 R0 K15 ["plugins"]
+  GETTABLEKS R16 R17 K20 ["ReactTestComponent"]
   CALL R15 1 1
-  GETTABLEKS R16 R15 K21 ["getType"]
-  GETTABLEKS R17 R15 K22 ["isRobloxBuiltin"]
-  GETIMPORT R18 K4 [require]
-  GETTABLEKS R19 R0 K23 ["Types"]
-  CALL R18 1 1
-  MOVE R19 R5
-  MOVE R20 R3
-  LOADK R21 K24 ["PrettyFormatPluginError"]
-  DUPCLOSURE R22 K25 [PROTO_0]
-  CALL R19 3 1
-  LOADNIL R20
-  LOADNIL R21
-  DUPCLOSURE R22 K26 [PROTO_1]
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R18 R0 K15 ["plugins"]
+  GETTABLEKS R17 R18 K21 ["RedactStackTraces"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R18 R1 K22 ["JestGetType"]
+  CALL R17 1 1
+  GETTABLEKS R18 R17 K23 ["getType"]
+  GETTABLEKS R19 R17 K24 ["isRobloxBuiltin"]
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R21 R0 K25 ["Types"]
+  CALL R20 1 1
+  MOVE R21 R5
+  MOVE R22 R3
+  LOADK R23 K26 ["PrettyFormatPluginError"]
+  DUPCLOSURE R24 K27 [PROTO_0]
+  CALL R21 3 1
+  LOADNIL R22
+  LOADNIL R23
+  DUPCLOSURE R24 K28 [PROTO_1]
   CAPTURE VAL R6
-  DUPCLOSURE R23 K27 [PROTO_2]
-  DUPCLOSURE R24 K28 [PROTO_3]
-  DUPCLOSURE R25 K29 [PROTO_4]
-  DUPCLOSURE R26 K30 [PROTO_5]
-  CAPTURE VAL R16
+  DUPCLOSURE R25 K29 [PROTO_2]
+  DUPCLOSURE R26 K30 [PROTO_3]
+  DUPCLOSURE R27 K31 [PROTO_4]
+  DUPCLOSURE R28 K32 [PROTO_5]
+  CAPTURE VAL R18
   CAPTURE VAL R6
-  CAPTURE VAL R17
-  DUPCLOSURE R27 K31 [PROTO_6]
-  NEWCLOSURE R28 P7
-  CAPTURE REF R20
-  CAPTURE VAL R16
+  CAPTURE VAL R19
+  DUPCLOSURE R29 K33 [PROTO_6]
+  NEWCLOSURE R30 P7
+  CAPTURE REF R22
+  CAPTURE VAL R18
+  CAPTURE VAL R10
   CAPTURE VAL R9
   CAPTURE VAL R8
-  DUPCLOSURE R29 K32 [PROTO_8]
-  NEWCLOSURE R30 P9
-  CAPTURE REF R20
-  CAPTURE VAL R19
+  DUPCLOSURE R31 K34 [PROTO_8]
+  NEWCLOSURE R32 P9
+  CAPTURE REF R22
+  CAPTURE VAL R21
   CAPTURE VAL R3
-  SETGLOBAL R30 K33 ["printPlugin"]
-  DUPCLOSURE R30 K34 [PROTO_13]
-  CAPTURE VAL R19
-  DUPCLOSURE R20 K35 [PROTO_14]
-  CAPTURE VAL R30
-  CAPTURE VAL R26
-  CAPTURE VAL R28
-  DUPTABLE R31 K47 [{"callToJSON", "compareKeys", "escapeRegex", "escapeString", "highlight", "indent", "maxDepth", "min", "plugins", "printBasicPrototype", "printFunctionName", "theme"}]
-  LOADB R32 1
-  SETTABLEKS R32 R31 K36 ["callToJSON"]
-  GETTABLEKS R32 R4 K48 ["None"]
-  SETTABLEKS R32 R31 K37 ["compareKeys"]
-  LOADB R32 0
-  SETTABLEKS R32 R31 K38 ["escapeRegex"]
-  LOADB R32 1
-  SETTABLEKS R32 R31 K39 ["escapeString"]
-  LOADB R32 0
-  SETTABLEKS R32 R31 K40 ["highlight"]
-  LOADN R32 2
-  SETTABLEKS R32 R31 K41 ["indent"]
-  LOADK R32 K49 [∞]
-  SETTABLEKS R32 R31 K42 ["maxDepth"]
-  LOADB R32 0
-  SETTABLEKS R32 R31 K43 ["min"]
-  NEWTABLE R32 0 0
-  SETTABLEKS R32 R31 K14 ["plugins"]
-  LOADB R32 1
-  SETTABLEKS R32 R31 K44 ["printBasicPrototype"]
-  LOADB R32 1
-  SETTABLEKS R32 R31 K45 ["printFunctionName"]
-  LOADNIL R32
-  SETTABLEKS R32 R31 K46 ["theme"]
-  DUPCLOSURE R32 K50 [PROTO_15]
-  CAPTURE VAL R31
-  CAPTURE VAL R3
-  DUPCLOSURE R33 K51 [PROTO_16]
-  CAPTURE VAL R31
-  NEWCLOSURE R34 P14
-  CAPTURE VAL R31
-  CAPTURE REF R21
-  DUPCLOSURE R35 K52 [PROTO_18]
-  DUPCLOSURE R36 K53 [PROTO_19]
-  NEWCLOSURE R37 P17
-  CAPTURE VAL R31
-  CAPTURE REF R21
-  DUPCLOSURE R21 K54 [PROTO_21]
-  DUPCLOSURE R38 K55 [PROTO_22]
+  SETGLOBAL R32 K35 ["printPlugin"]
+  DUPCLOSURE R32 K36 [PROTO_13]
+  CAPTURE VAL R21
+  DUPCLOSURE R22 K37 [PROTO_14]
   CAPTURE VAL R32
-  CAPTURE VAL R30
-  CAPTURE VAL R37
-  CAPTURE VAL R26
-  CAPTURE VAL R31
   CAPTURE VAL R28
-  DUPTABLE R39 K56 [{"AsymmetricMatcher", "ConvertAnsi", "ReactElement", "ReactTestComponent", "RobloxInstance"}]
-  SETTABLEKS R10 R39 K15 ["AsymmetricMatcher"]
-  SETTABLEKS R11 R39 K16 ["ConvertAnsi"]
-  SETTABLEKS R13 R39 K18 ["ReactElement"]
-  SETTABLEKS R14 R39 K19 ["ReactTestComponent"]
-  SETTABLEKS R12 R39 K17 ["RobloxInstance"]
-  DUPTABLE R40 K60 [{"format", "default", "plugins", "DEFAULT_OPTIONS"}]
-  SETTABLEKS R38 R40 K57 ["format"]
-  SETTABLEKS R38 R40 K58 ["default"]
-  SETTABLEKS R39 R40 K14 ["plugins"]
-  SETTABLEKS R31 R40 K59 ["DEFAULT_OPTIONS"]
-  CLOSEUPVALS R20
-  RETURN R40 1
+  CAPTURE VAL R30
+  DUPTABLE R33 K52 [{"callToJSON", "compareKeys", "escapeRegex", "escapeString", "highlight", "indent", "maxDepth", "maxWidth", "min", "plugins", "printBasicPrototype", "printInstanceDefaults", "printFunctionName", "redactStackTracesInStrings", "theme"}]
+  LOADB R34 1
+  SETTABLEKS R34 R33 K38 ["callToJSON"]
+  GETTABLEKS R34 R4 K53 ["None"]
+  SETTABLEKS R34 R33 K39 ["compareKeys"]
+  LOADB R34 0
+  SETTABLEKS R34 R33 K40 ["escapeRegex"]
+  LOADB R34 1
+  SETTABLEKS R34 R33 K41 ["escapeString"]
+  LOADB R34 0
+  SETTABLEKS R34 R33 K42 ["highlight"]
+  LOADN R34 2
+  SETTABLEKS R34 R33 K43 ["indent"]
+  LOADK R34 K54 [∞]
+  SETTABLEKS R34 R33 K44 ["maxDepth"]
+  LOADK R34 K54 [∞]
+  SETTABLEKS R34 R33 K45 ["maxWidth"]
+  LOADB R34 0
+  SETTABLEKS R34 R33 K46 ["min"]
+  NEWTABLE R34 0 0
+  SETTABLEKS R34 R33 K15 ["plugins"]
+  LOADB R34 1
+  SETTABLEKS R34 R33 K47 ["printBasicPrototype"]
+  LOADB R34 1
+  SETTABLEKS R34 R33 K48 ["printInstanceDefaults"]
+  LOADB R34 1
+  SETTABLEKS R34 R33 K49 ["printFunctionName"]
+  LOADB R34 0
+  SETTABLEKS R34 R33 K50 ["redactStackTracesInStrings"]
+  LOADNIL R34
+  SETTABLEKS R34 R33 K51 ["theme"]
+  DUPCLOSURE R34 K55 [PROTO_15]
+  CAPTURE VAL R33
+  CAPTURE VAL R3
+  DUPCLOSURE R35 K56 [PROTO_16]
+  CAPTURE VAL R33
+  NEWCLOSURE R36 P14
+  CAPTURE VAL R33
+  CAPTURE REF R23
+  DUPCLOSURE R37 K57 [PROTO_18]
+  DUPCLOSURE R38 K58 [PROTO_19]
+  NEWCLOSURE R39 P17
+  CAPTURE VAL R33
+  CAPTURE REF R23
+  DUPCLOSURE R23 K59 [PROTO_21]
+  DUPCLOSURE R40 K60 [PROTO_22]
+  CAPTURE VAL R34
+  CAPTURE VAL R32
+  CAPTURE VAL R39
+  CAPTURE VAL R28
+  CAPTURE VAL R33
+  CAPTURE VAL R30
+  DUPTABLE R41 K61 [{"AsymmetricMatcher", "ConvertAnsi", "ReactElement", "ReactTestComponent", "RobloxInstance", "RedactStackTraces"}]
+  SETTABLEKS R11 R41 K16 ["AsymmetricMatcher"]
+  SETTABLEKS R12 R41 K17 ["ConvertAnsi"]
+  SETTABLEKS R14 R41 K19 ["ReactElement"]
+  SETTABLEKS R15 R41 K20 ["ReactTestComponent"]
+  SETTABLEKS R13 R41 K18 ["RobloxInstance"]
+  SETTABLEKS R16 R41 K21 ["RedactStackTraces"]
+  DUPTABLE R44 K63 [{"__index"}]
+  DUPCLOSURE R45 K64 [PROTO_23]
+  CAPTURE VAL R3
+  SETTABLEKS R45 R44 K62 ["__index"]
+  FASTCALL2 SETMETATABLE R41 R44 [+4]
+  MOVE R43 R41
+  GETIMPORT R42 K66 [setmetatable]
+  CALL R42 2 0
+  DUPTABLE R42 K70 [{"format", "default", "plugins", "DEFAULT_OPTIONS"}]
+  SETTABLEKS R40 R42 K67 ["format"]
+  SETTABLEKS R40 R42 K68 ["default"]
+  SETTABLEKS R41 R42 K15 ["plugins"]
+  SETTABLEKS R33 R42 K69 ["DEFAULT_OPTIONS"]
+  CLOSEUPVALS R22
+  RETURN R42 1

@@ -6,58 +6,60 @@ PROTO_0:
   CALL R1 2 1
   SETTABLEKS R0 R1 K2 ["container"]
   GETIMPORT R2 K5 [Instance.new]
-  LOADK R3 K6 ["Frame"]
+  LOADK R3 K6 ["CanvasGroup"]
   CALL R2 1 1
   LOADK R3 K7 ["OverlayRect"]
   SETTABLEKS R3 R2 K8 ["Name"]
   LOADN R3 1
   SETTABLEKS R3 R2 K9 ["BackgroundTransparency"]
-  SETTABLEKS R0 R2 K10 ["Parent"]
-  SETTABLEKS R2 R1 K11 ["node"]
+  LOADK R3 K10 [0.3]
+  SETTABLEKS R3 R2 K11 ["GroupTransparency"]
+  SETTABLEKS R0 R2 K12 ["Parent"]
+  SETTABLEKS R2 R1 K13 ["node"]
   GETIMPORT R3 K5 [Instance.new]
-  LOADK R4 K6 ["Frame"]
+  LOADK R4 K14 ["Frame"]
   CALL R3 1 1
-  LOADK R4 K12 ["OverlayRectPadding"]
+  LOADK R4 K15 ["OverlayRectPadding"]
   SETTABLEKS R4 R3 K8 ["Name"]
-  GETIMPORT R4 K15 [Color3.fromRGB]
+  GETIMPORT R4 K18 [Color3.fromRGB]
   LOADN R5 77
   LOADN R6 200
   LOADN R7 0
   CALL R4 3 1
-  SETTABLEKS R4 R3 K16 ["BackgroundColor3"]
-  GETIMPORT R4 K19 [UDim2.fromScale]
+  SETTABLEKS R4 R3 K19 ["BackgroundColor3"]
+  GETIMPORT R4 K22 [UDim2.fromScale]
   LOADN R5 1
   LOADN R6 1
   CALL R4 2 1
-  SETTABLEKS R4 R3 K20 ["Size"]
-  LOADK R4 K21 [0.4]
+  SETTABLEKS R4 R3 K23 ["Size"]
+  LOADK R4 K24 [0.4]
   SETTABLEKS R4 R3 K9 ["BackgroundTransparency"]
   LOADN R4 0
-  SETTABLEKS R4 R3 K22 ["BorderSizePixel"]
-  SETTABLEKS R2 R3 K10 ["Parent"]
-  SETTABLEKS R3 R1 K23 ["padding"]
+  SETTABLEKS R4 R3 K25 ["BorderSizePixel"]
+  SETTABLEKS R2 R3 K12 ["Parent"]
+  SETTABLEKS R3 R1 K26 ["padding"]
   GETIMPORT R4 K5 [Instance.new]
-  LOADK R5 K6 ["Frame"]
+  LOADK R5 K14 ["Frame"]
   CALL R4 1 1
-  LOADK R5 K24 ["OverlayRectContent"]
+  LOADK R5 K27 ["OverlayRectContent"]
   SETTABLEKS R5 R4 K8 ["Name"]
-  GETIMPORT R5 K15 [Color3.fromRGB]
+  GETIMPORT R5 K18 [Color3.fromRGB]
   LOADN R6 120
   LOADN R7 170
   LOADN R8 210
   CALL R5 3 1
-  SETTABLEKS R5 R4 K16 ["BackgroundColor3"]
-  GETIMPORT R5 K19 [UDim2.fromScale]
+  SETTABLEKS R5 R4 K19 ["BackgroundColor3"]
+  GETIMPORT R5 K22 [UDim2.fromScale]
   LOADN R6 1
   LOADN R7 1
   CALL R5 2 1
-  SETTABLEKS R5 R4 K20 ["Size"]
+  SETTABLEKS R5 R4 K23 ["Size"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K22 ["BorderSizePixel"]
+  SETTABLEKS R5 R4 K25 ["BorderSizePixel"]
   LOADN R5 2
-  SETTABLEKS R5 R4 K25 ["ZIndex"]
-  SETTABLEKS R2 R4 K10 ["Parent"]
-  SETTABLEKS R4 R1 K26 ["content"]
+  SETTABLEKS R5 R4 K28 ["ZIndex"]
+  SETTABLEKS R2 R4 K12 ["Parent"]
+  SETTABLEKS R4 R1 K29 ["content"]
   RETURN R1 1
 
 PROTO_1:
