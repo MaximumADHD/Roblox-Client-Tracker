@@ -24,6 +24,7 @@ Studio.App.RobloxRibbonMainWindow.Advanced,,Advanced,Advanced
 Studio.App.RobloxRibbonMainWindow.AdvancedObjects,,Advanced Objects,Advanced Objects
 Studio.App.RobloxRibbonMainWindow.AlignOrientation,,Align Orientation,Align Orientation
 Studio.App.RobloxRibbonMainWindow.AlignPosition,,Align Position,Align Position
+Studio.App.RobloxRibbonMainWindow.AnimationConstraint,,Animation Constraint,Animation Constraint
 Studio.App.RobloxRibbonMainWindow.AlignTool,,Align Tool,Align Tool
 Studio.App.RobloxRibbonMainWindow.AlignToolGroup,,Alignment,Alignment
 Studio.App.RobloxRibbonMainWindow.AlignToolTooltip,,Align the selected parts and models,Align the selected parts and models
@@ -97,6 +98,7 @@ Studio.App.RobloxRibbonMainWindow.CreateAccessory,,Create Accessory,Create Acces
 Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip,,Select one or multiple Models to convert into accessories,Select one or multiple Models to convert into accessories
 Studio.App.RobloxRibbonMainWindow.CreateAlignOrientation,,Create align orientation,Create align orientation
 Studio.App.RobloxRibbonMainWindow.CreateAlignPosition,,Create align position,Create align position
+Studio.App.RobloxRibbonMainWindow.CreateAnimationConstraint,,Create animation constraint,Create animation constraint
 Studio.App.RobloxRibbonMainWindow.CreateBallInSocket,,Create ball in socket,Create ball in socket
 Studio.App.RobloxRibbonMainWindow.CreateBallOnAxis,,Create ball on axis,Create ball on axis
 Studio.App.RobloxRibbonMainWindow.CreateBeamToolTip,,Create beam,Create beam

@@ -2,3 +2,5 @@ Key,Context,Source,en-us
 Studio.ShutdownManagement.Cancel,Button text to cancel the pending shutdown request,Cancel,Cancel
 Studio.ShutdownManagement.ClosingStudio,Dialog text shown while closing Studio for an update.,Closing all Studio windows,Closing all Studio windows
 Studio.ShutdownManagement.RobloxStudio,RobloxStudio,Roblox Studio,Roblox Studio
+Studio.ShutdownManagement.ShutdownDialogDescription,Description for that dialog,Please switch to your other Studio windows and close any projects with unsaved changes. This window will remain open until all other windows are closed.,Please switch to your other Studio windows and close any projects with unsaved changes. This window will remain open until all other windows are closed.
+Studio.ShutdownManagement.ShutdownDialogTitle,Title for the shutdown dialog,Unsaved work detected,Unsaved work detected

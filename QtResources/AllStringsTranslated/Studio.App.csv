@@ -7912,4 +7912,4 @@ Studio.App.PackageManagementVerbs.MassUpdatePackagesDisabledDetail,,,"To use Mas
 Studio.App.PropertyEnum.Luau,,,.luau,.luau,,.luau,.luau,.luau,.luau,.luau,.luau,.luau,.luau,.luau,.luau,,.luau,.luau,.luau,.luau,.luau,.luau
 Studio.App.PropertyEnum.Lua,,,.lua,.lua,,.lua,.lua,.lua,.lua,.lua,.lua,.lua,.lua,.lua,.lua,,.lua,.lua,.lua,.lua,.lua,.lua
 Studio.App.Property.FileExtension,,,File extension,File extension,,Dateiendung,Extensión de archivo,Extension de fichier,फ़ाइल एक्सटेंशन,Ekstensi file,Estensione file,ファイル拡張子,파일 확장자,Rozszerzenie pliku,Extensão do arquivo,,นามสกุลไฟล์,Dosya uzantısı,Phần mở rộng tệp,文件扩展名,文件扩展名,檔案副檔名
-Studio.App.PropertyItems.Content,,,Content,Content,,,,,कॉन्टेंट,,Contenuto,,,Treść,Conteúdo,,เนื้อหา,İçerik,Nội dung,内容,内容,
+Studio.App.PropertyItems.Content,,,Content,Content,,Inhalt,Contenido,Contenu,कॉन्टेंट,Konten,Contenuto,コンテンツ,콘텐츠,Treść,Conteúdo,,เนื้อหา,İçerik,Nội dung,内容,内容,內容
