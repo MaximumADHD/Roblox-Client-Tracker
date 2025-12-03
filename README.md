@@ -2,6 +2,8 @@
 <img src="https://github.com/MaximumADHD/Roblox-Client-Tracker/assets/3926900/ff0ba96d-e133-48a8-8541-80fc6ca21f52">
 </p>
 
+<center>A Dataminer's Dumping Ground</center>
+
 <hr/>
 
 # What is this?
@@ -30,11 +32,11 @@ A sorted list of undecorated C++ symbol names that could be extracted from the e
 ## DeepStrings.txt
 A sorted list of dumped strings from Roblox Studio's exe. There is *some* garbage data dumped into this file, but most of it should be legible.
 
-## EmulatedDevices.xml
-A file used by Roblox Studio which defines the specifications, platforms, and images for all default emulation devices.
-
 ## FVariables.txt
 A sorted list of fast variables, which are used by Roblox to toggle changes to the engine remotely on multiple platforms without having to redeploy the client.
+
+## LuauTypes.d.luau
+Manually declared set of Luau types created by engineers at Roblox, which are baked into `RobloxStudioBeta.exe`
 
 ## RobloxShaderData.csv
 This CSV maps all of Roblox's known shaders, and which graphics APIs use them. Each mapped shader has a mapped name and shader-type.
@@ -76,7 +78,7 @@ A CSV version of `rbxPkgManifest.txt`, made to be easier to read from GitHub.
 
 ## version.txt
 Describes the current version of Roblox Studio.<br/>
-Formatted as: **(MajorRevision).(Version).(Patch).(Changelist)**
+Formatted as: **(MajorRevision).(Version).(Patch).(~~Perforce Changelist~~ Version * 1000 + #CommitsInThisVersion)**
 
 ## version-guid.txt
 Describes the current GUID version of Roblox Studio.
