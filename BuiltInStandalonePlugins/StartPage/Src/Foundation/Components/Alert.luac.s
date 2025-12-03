@@ -128,255 +128,316 @@ PROTO_5:
   LOADNIL R4
   LOADNIL R5
   LOADNIL R6
-  GETTABLEKS R7 R0 K5 ["error"]
-  JUMPIFNOT R7 [+9]
-  GETTABLEKS R8 R1 K6 ["Color"]
-  GETTABLEKS R7 R8 K7 ["System"]
-  GETTABLEKS R4 R7 K8 ["Alert"]
+  GETTABLEKS R7 R0 K5 ["type"]
+  JUMPIFNOTEQKS R7 K6 ["Error"] [+10]
+  GETTABLEKS R8 R1 K7 ["Color"]
+  GETTABLEKS R7 R8 K8 ["System"]
+  GETTABLEKS R4 R7 K9 ["Alert"]
+  MOVE R5 R3
+  MOVE R6 R3
+  JUMP [+74]
+  GETTABLEKS R7 R0 K5 ["type"]
+  JUMPIFNOTEQKS R7 K10 ["Info"] [+10]
+  GETTABLEKS R8 R1 K7 ["Color"]
+  GETTABLEKS R7 R8 K8 ["System"]
+  GETTABLEKS R4 R7 K11 ["Emphasis"]
   MOVE R5 R3
   MOVE R6 R3
   JUMP [+61]
-  GETTABLEKS R9 R1 K9 ["Config"]
-  GETTABLEKS R8 R9 K10 ["ColorMode"]
-  GETTABLEKS R7 R8 K11 ["Name"]
+  GETTABLEKS R9 R1 K12 ["Config"]
+  GETTABLEKS R8 R9 K13 ["ColorMode"]
+  GETTABLEKS R7 R8 K14 ["Name"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K12 ["Dark"]
+  GETTABLEKS R8 R9 K15 ["Dark"]
   JUMPIFNOTEQ R7 R8 [+10]
-  GETTABLEKS R9 R1 K6 ["Color"]
-  GETTABLEKS R8 R9 K13 ["Extended"]
-  GETTABLEKS R7 R8 K14 ["Yellow"]
-  GETTABLEKS R4 R7 K15 ["Yellow_1300"]
+  GETTABLEKS R9 R1 K7 ["Color"]
+  GETTABLEKS R8 R9 K16 ["Extended"]
+  GETTABLEKS R7 R8 K17 ["Yellow"]
+  GETTABLEKS R4 R7 K18 ["Yellow_1300"]
   JUMP [+8]
-  GETTABLEKS R9 R1 K6 ["Color"]
-  GETTABLEKS R8 R9 K13 ["Extended"]
-  GETTABLEKS R7 R8 K14 ["Yellow"]
-  GETTABLEKS R4 R7 K16 ["Yellow_200"]
-  GETTABLEKS R9 R1 K9 ["Config"]
-  GETTABLEKS R8 R9 K10 ["ColorMode"]
-  GETTABLEKS R7 R8 K11 ["Name"]
+  GETTABLEKS R9 R1 K7 ["Color"]
+  GETTABLEKS R8 R9 K16 ["Extended"]
+  GETTABLEKS R7 R8 K17 ["Yellow"]
+  GETTABLEKS R4 R7 K19 ["Yellow_200"]
+  GETTABLEKS R9 R1 K12 ["Config"]
+  GETTABLEKS R8 R9 K13 ["ColorMode"]
+  GETTABLEKS R7 R8 K14 ["Name"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K12 ["Dark"]
+  GETTABLEKS R8 R9 K15 ["Dark"]
   JUMPIFNOTEQ R7 R8 [+12]
-  GETTABLEKS R10 R1 K6 ["Color"]
-  GETTABLEKS R9 R10 K13 ["Extended"]
-  GETTABLEKS R8 R9 K14 ["Yellow"]
-  GETTABLEKS R7 R8 K17 ["Yellow_500"]
+  GETTABLEKS R10 R1 K7 ["Color"]
+  GETTABLEKS R9 R10 K16 ["Extended"]
+  GETTABLEKS R8 R9 K17 ["Yellow"]
+  GETTABLEKS R7 R8 K20 ["Yellow_500"]
   GETTABLEKS R5 R7 K1 ["Color3"]
   JUMP [+10]
-  GETTABLEKS R10 R1 K6 ["Color"]
-  GETTABLEKS R9 R10 K13 ["Extended"]
-  GETTABLEKS R8 R9 K14 ["Yellow"]
-  GETTABLEKS R7 R8 K18 ["Yellow_600"]
+  GETTABLEKS R10 R1 K7 ["Color"]
+  GETTABLEKS R9 R10 K16 ["Extended"]
+  GETTABLEKS R8 R9 K17 ["Yellow"]
+  GETTABLEKS R7 R8 K21 ["Yellow_600"]
   GETTABLEKS R5 R7 K1 ["Color3"]
   LOADNIL R6
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K19 ["createElement"]
+  GETTABLEKS R7 R8 K22 ["createElement"]
   GETUPVAL R8 4
-  DUPTABLE R9 K23 [{"LayoutOrder", "backgroundStyle", "tag"}]
-  GETTABLEKS R10 R0 K20 ["LayoutOrder"]
-  SETTABLEKS R10 R9 K20 ["LayoutOrder"]
-  SETTABLEKS R4 R9 K21 ["backgroundStyle"]
-  LOADK R10 K24 ["padding-x-xlarge padding-y-medium row size-full-0 auto-y align-y-center"]
-  SETTABLEKS R10 R9 K22 ["tag"]
-  DUPTABLE R10 K28 [{"Content", "SecondaryActionButton", "CloseButton"}]
+  DUPTABLE R9 K26 [{"LayoutOrder", "backgroundStyle", "tag"}]
+  GETTABLEKS R10 R0 K23 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K23 ["LayoutOrder"]
+  SETTABLEKS R4 R9 K24 ["backgroundStyle"]
+  LOADK R10 K27 ["padding-x-xlarge padding-y-medium row size-full-0 auto-y align-y-center"]
+  SETTABLEKS R10 R9 K25 ["tag"]
+  DUPTABLE R10 K31 [{"Content", "ButtonFrame", "CloseButton"}]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K19 ["createElement"]
+  GETTABLEKS R11 R12 K22 ["createElement"]
   GETUPVAL R12 5
-  DUPTABLE R13 K29 [{"tag", "LayoutOrder"}]
-  LOADK R14 K30 ["grow auto-xy row gap-xlarge align-y-top align-x-left"]
-  SETTABLEKS R14 R13 K22 ["tag"]
+  DUPTABLE R13 K32 [{"tag", "LayoutOrder"}]
+  LOADK R14 K33 ["grow auto-xy row gap-xlarge align-y-top align-x-left"]
+  SETTABLEKS R14 R13 K25 ["tag"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K20 ["LayoutOrder"]
-  DUPTABLE R14 K33 [{"Icon", "Description"}]
+  SETTABLEKS R14 R13 K23 ["LayoutOrder"]
+  DUPTABLE R14 K36 [{"Icon", "Description"}]
   GETUPVAL R16 3
-  GETTABLEKS R15 R16 K19 ["createElement"]
+  GETTABLEKS R15 R16 K22 ["createElement"]
   GETUPVAL R16 6
-  DUPTABLE R17 K38 [{"name", "size", "variant", "style", "LayoutOrder"}]
+  DUPTABLE R17 K41 [{"name", "size", "variant", "style", "LayoutOrder"}]
   GETUPVAL R19 7
-  JUMPIFNOT R19 [+4]
+  JUMPIFNOT R19 [+14]
   GETUPVAL R19 8
-  GETTABLEKS R18 R19 K39 ["TriangleExclamation"]
+  JUMPIFNOT R19 [+8]
+  GETTABLEKS R19 R0 K5 ["type"]
+  JUMPIFNOTEQKS R19 K10 ["Info"] [+5]
+  GETUPVAL R19 9
+  GETTABLEKS R18 R19 K42 ["CircleI"]
+  JUMP [+5]
+  GETUPVAL R19 9
+  GETTABLEKS R18 R19 K43 ["TriangleExclamation"]
   JUMP [+1]
-  LOADK R18 K40 ["icons/status/alert"]
-  SETTABLEKS R18 R17 K34 ["name"]
+  LOADK R18 K44 ["icons/status/alert"]
+  SETTABLEKS R18 R17 K37 ["name"]
   GETUPVAL R19 7
   JUMPIFNOT R19 [+5]
-  GETTABLEKS R19 R1 K41 ["Size"]
-  GETTABLEKS R18 R19 K42 ["Size_800"]
+  GETTABLEKS R19 R1 K45 ["Size"]
+  GETTABLEKS R18 R19 K46 ["Size_800"]
   JUMP [+3]
-  GETUPVAL R19 9
-  GETTABLEKS R18 R19 K43 ["Medium"]
-  SETTABLEKS R18 R17 K35 ["size"]
+  GETUPVAL R19 10
+  GETTABLEKS R18 R19 K47 ["Medium"]
+  SETTABLEKS R18 R17 K38 ["size"]
   GETUPVAL R19 7
   JUMPIFNOT R19 [+4]
-  GETUPVAL R19 10
-  GETTABLEKS R18 R19 K44 ["Filled"]
+  GETUPVAL R19 11
+  GETTABLEKS R18 R19 K48 ["Filled"]
   JUMP [+1]
   LOADNIL R18
-  SETTABLEKS R18 R17 K36 ["variant"]
-  DUPTABLE R18 K45 [{"Color3"}]
+  SETTABLEKS R18 R17 K39 ["variant"]
+  DUPTABLE R18 K49 [{"Color3"}]
   SETTABLEKS R5 R18 K1 ["Color3"]
-  SETTABLEKS R18 R17 K37 ["style"]
+  SETTABLEKS R18 R17 K40 ["style"]
   LOADN R18 1
-  SETTABLEKS R18 R17 K20 ["LayoutOrder"]
+  SETTABLEKS R18 R17 K23 ["LayoutOrder"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K31 ["Icon"]
+  SETTABLEKS R15 R14 K34 ["Icon"]
   GETUPVAL R16 3
-  GETTABLEKS R15 R16 K19 ["createElement"]
+  GETTABLEKS R15 R16 K22 ["createElement"]
   GETUPVAL R16 5
-  DUPTABLE R17 K29 [{"tag", "LayoutOrder"}]
-  LOADK R18 K46 ["col gap-xsmall auto-xy align-x-left"]
-  SETTABLEKS R18 R17 K22 ["tag"]
+  DUPTABLE R17 K32 [{"tag", "LayoutOrder"}]
+  LOADK R18 K50 ["col gap-xsmall auto-xy align-x-left"]
+  SETTABLEKS R18 R17 K25 ["tag"]
   LOADN R18 2
-  SETTABLEKS R18 R17 K20 ["LayoutOrder"]
-  DUPTABLE R18 K49 [{"Title", "Body"}]
+  SETTABLEKS R18 R17 K23 ["LayoutOrder"]
+  DUPTABLE R18 K53 [{"Title", "Body"}]
   GETUPVAL R20 3
-  GETTABLEKS R19 R20 K19 ["createElement"]
-  GETUPVAL R20 11
-  DUPTABLE R21 K52 [{"Text", "tag", "textStyle", "LayoutOrder"}]
-  GETTABLEKS R22 R0 K53 ["title"]
-  SETTABLEKS R22 R21 K50 ["Text"]
-  LOADK R22 K54 ["auto-xy content-emphasis text-label-medium"]
-  SETTABLEKS R22 R21 K22 ["tag"]
+  GETTABLEKS R19 R20 K22 ["createElement"]
+  GETUPVAL R20 12
+  DUPTABLE R21 K56 [{"Text", "tag", "textStyle", "LayoutOrder"}]
+  GETTABLEKS R22 R0 K57 ["title"]
+  SETTABLEKS R22 R21 K54 ["Text"]
+  LOADK R22 K58 ["auto-xy content-emphasis text-label-medium"]
+  SETTABLEKS R22 R21 K25 ["tag"]
   JUMPIFNOT R6 [+7]
-  DUPTABLE R22 K56 [{"Color3", "Transparency"}]
+  DUPTABLE R22 K60 [{"Color3", "Transparency"}]
   SETTABLEKS R6 R22 K1 ["Color3"]
   LOADN R23 0
-  SETTABLEKS R23 R22 K55 ["Transparency"]
+  SETTABLEKS R23 R22 K59 ["Transparency"]
   JUMP [+1]
   LOADNIL R22
-  SETTABLEKS R22 R21 K51 ["textStyle"]
+  SETTABLEKS R22 R21 K55 ["textStyle"]
   LOADN R22 1
-  SETTABLEKS R22 R21 K20 ["LayoutOrder"]
+  SETTABLEKS R22 R21 K23 ["LayoutOrder"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K47 ["Title"]
+  SETTABLEKS R19 R18 K51 ["Title"]
   GETUPVAL R20 3
-  GETTABLEKS R19 R20 K19 ["createElement"]
+  GETTABLEKS R19 R20 K22 ["createElement"]
   GETUPVAL R20 5
-  DUPTABLE R21 K29 [{"tag", "LayoutOrder"}]
-  LOADK R22 K57 ["row gap-small auto-xy"]
-  SETTABLEKS R22 R21 K22 ["tag"]
+  DUPTABLE R21 K32 [{"tag", "LayoutOrder"}]
+  LOADK R22 K61 ["row gap-small auto-xy"]
+  SETTABLEKS R22 R21 K25 ["tag"]
   LOADN R22 2
-  SETTABLEKS R22 R21 K20 ["LayoutOrder"]
+  SETTABLEKS R22 R21 K23 ["LayoutOrder"]
   NEWTABLE R22 0 2
   GETUPVAL R24 3
-  GETTABLEKS R23 R24 K19 ["createElement"]
-  GETUPVAL R24 11
-  DUPTABLE R25 K58 [{"Text", "tag", "textStyle"}]
-  GETTABLEKS R26 R0 K59 ["body"]
-  SETTABLEKS R26 R25 K50 ["Text"]
-  LOADK R26 K60 ["auto-xy content-emphasis text-label-small"]
-  SETTABLEKS R26 R25 K22 ["tag"]
+  GETTABLEKS R23 R24 K22 ["createElement"]
+  GETUPVAL R24 12
+  DUPTABLE R25 K62 [{"Text", "tag", "textStyle"}]
+  GETTABLEKS R26 R0 K63 ["body"]
+  SETTABLEKS R26 R25 K54 ["Text"]
+  LOADK R26 K64 ["auto-xy content-emphasis text-label-small"]
+  SETTABLEKS R26 R25 K25 ["tag"]
   JUMPIFNOT R6 [+7]
-  DUPTABLE R26 K56 [{"Color3", "Transparency"}]
+  DUPTABLE R26 K60 [{"Color3", "Transparency"}]
   SETTABLEKS R6 R26 K1 ["Color3"]
   LOADN R27 0
-  SETTABLEKS R27 R26 K55 ["Transparency"]
+  SETTABLEKS R27 R26 K59 ["Transparency"]
   JUMP [+1]
   LOADNIL R26
-  SETTABLEKS R26 R25 K51 ["textStyle"]
+  SETTABLEKS R26 R25 K55 ["textStyle"]
   CALL R23 2 1
+  GETTABLEKS R25 R0 K65 ["inlineAction"]
+  JUMPIFNOT R25 [+38]
   GETUPVAL R25 3
-  GETTABLEKS R24 R25 K19 ["createElement"]
-  GETUPVAL R25 12
-  DUPTABLE R26 K66 [{"text", "onActivated", "textColor", "showUnderline", "underlineColor"}]
-  GETTABLEKS R28 R0 K67 ["action"]
-  GETTABLEKS R27 R28 K61 ["text"]
-  SETTABLEKS R27 R26 K61 ["text"]
-  GETTABLEKS R28 R0 K67 ["action"]
-  GETTABLEKS R27 R28 K68 ["onClick"]
-  SETTABLEKS R27 R26 K62 ["onActivated"]
-  SETTABLEKS R6 R26 K63 ["textColor"]
+  GETTABLEKS R24 R25 K22 ["createElement"]
+  GETUPVAL R25 13
+  DUPTABLE R26 K71 [{"text", "onActivated", "textColor", "showUnderline", "underlineColor"}]
+  GETTABLEKS R28 R0 K65 ["inlineAction"]
+  GETTABLEKS R27 R28 K66 ["text"]
+  SETTABLEKS R27 R26 K66 ["text"]
+  GETTABLEKS R28 R0 K65 ["inlineAction"]
+  GETTABLEKS R27 R28 K72 ["onClick"]
+  SETTABLEKS R27 R26 K67 ["onActivated"]
+  SETTABLEKS R6 R26 K68 ["textColor"]
   LOADB R27 1
-  SETTABLEKS R27 R26 K64 ["showUnderline"]
-  GETTABLEKS R28 R0 K5 ["error"]
-  JUMPIFNOT R28 [+7]
-  DUPTABLE R27 K56 [{"Color3", "Transparency"}]
+  SETTABLEKS R27 R26 K69 ["showUnderline"]
+  GETTABLEKS R28 R0 K5 ["type"]
+  JUMPIFNOTEQKS R28 K6 ["Error"] [+8]
+  DUPTABLE R27 K60 [{"Color3", "Transparency"}]
   SETTABLEKS R6 R27 K1 ["Color3"]
   LOADN R28 0
-  SETTABLEKS R28 R27 K55 ["Transparency"]
+  SETTABLEKS R28 R27 K59 ["Transparency"]
   JUMP [+1]
   LOADNIL R27
-  SETTABLEKS R27 R26 K65 ["underlineColor"]
-  CALL R24 2 -1
-  SETLIST R22 R23 -1 [1]
-  CALL R19 3 1
-  SETTABLEKS R19 R18 K48 ["Body"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K32 ["Description"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K25 ["Content"]
-  GETTABLEKS R12 R0 K69 ["secondaryAction"]
-  JUMPIFNOT R12 [+32]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K19 ["createElement"]
-  GETUPVAL R12 13
-  DUPTABLE R13 K70 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
-  GETTABLEKS R15 R0 K69 ["secondaryAction"]
-  GETTABLEKS R14 R15 K61 ["text"]
-  SETTABLEKS R14 R13 K61 ["text"]
-  GETTABLEKS R15 R0 K69 ["secondaryAction"]
-  GETTABLEKS R14 R15 K68 ["onClick"]
-  SETTABLEKS R14 R13 K62 ["onActivated"]
-  GETUPVAL R15 14
-  GETTABLEKS R14 R15 K71 ["Standard"]
-  SETTABLEKS R14 R13 K36 ["variant"]
-  GETUPVAL R15 15
-  GETTABLEKS R14 R15 K72 ["Small"]
-  SETTABLEKS R14 R13 K35 ["size"]
-  LOADN R14 2
-  SETTABLEKS R14 R13 K20 ["LayoutOrder"]
-  CALL R11 2 1
+  SETTABLEKS R27 R26 K70 ["underlineColor"]
+  CALL R24 2 1
   JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K26 ["SecondaryActionButton"]
-  GETTABLEKS R12 R0 K5 ["error"]
-  JUMPIFNOT R12 [+35]
+  LOADNIL R24
+  SETLIST R22 R23 2 [1]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K52 ["Body"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K35 ["Description"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K28 ["Content"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K19 ["createElement"]
-  GETUPVAL R12 16
-  DUPTABLE R13 K74 [{"onActivated", "icon", "size", "variant", "LayoutOrder"}]
+  GETTABLEKS R11 R12 K22 ["createElement"]
+  GETUPVAL R12 5
+  DUPTABLE R13 K32 [{"tag", "LayoutOrder"}]
+  LOADK R14 K73 ["row align-x-center align-y-center gap-small auto-xy padding-x-medium"]
+  SETTABLEKS R14 R13 K25 ["tag"]
+  LOADN R14 2
+  SETTABLEKS R14 R13 K23 ["LayoutOrder"]
+  DUPTABLE R14 K76 [{"SecondaryActionButton", "PrimaryActionButton"}]
+  GETUPVAL R16 8
+  JUMPIFNOT R16 [+43]
+  GETTABLEKS R16 R0 K77 ["secondaryAction"]
+  JUMPIFNOT R16 [+40]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K22 ["createElement"]
+  GETUPVAL R16 13
+  DUPTABLE R17 K78 [{"text", "onActivated", "size", "textColor", "showUnderline", "underlineColor", "LayoutOrder"}]
+  GETTABLEKS R19 R0 K77 ["secondaryAction"]
+  GETTABLEKS R18 R19 K66 ["text"]
+  SETTABLEKS R18 R17 K66 ["text"]
+  GETTABLEKS R19 R0 K77 ["secondaryAction"]
+  GETTABLEKS R18 R19 K72 ["onClick"]
+  SETTABLEKS R18 R17 K67 ["onActivated"]
+  GETUPVAL R19 14
+  GETTABLEKS R18 R19 K79 ["Small"]
+  SETTABLEKS R18 R17 K38 ["size"]
+  SETTABLEKS R6 R17 K68 ["textColor"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K69 ["showUnderline"]
+  DUPTABLE R18 K60 [{"Color3", "Transparency"}]
+  SETTABLEKS R6 R18 K1 ["Color3"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K59 ["Transparency"]
+  SETTABLEKS R18 R17 K70 ["underlineColor"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K23 ["LayoutOrder"]
+  CALL R15 2 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K74 ["SecondaryActionButton"]
+  GETTABLEKS R16 R0 K80 ["primaryAction"]
+  JUMPIFNOT R16 [+32]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K22 ["createElement"]
+  GETUPVAL R16 15
+  DUPTABLE R17 K81 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
+  GETTABLEKS R19 R0 K80 ["primaryAction"]
+  GETTABLEKS R18 R19 K66 ["text"]
+  SETTABLEKS R18 R17 K66 ["text"]
+  GETTABLEKS R19 R0 K80 ["primaryAction"]
+  GETTABLEKS R18 R19 K72 ["onClick"]
+  SETTABLEKS R18 R17 K67 ["onActivated"]
+  GETUPVAL R19 16
+  GETTABLEKS R18 R19 K82 ["Standard"]
+  SETTABLEKS R18 R17 K39 ["variant"]
+  GETUPVAL R19 14
+  GETTABLEKS R18 R19 K79 ["Small"]
+  SETTABLEKS R18 R17 K38 ["size"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K23 ["LayoutOrder"]
+  CALL R15 2 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K75 ["PrimaryActionButton"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K29 ["ButtonFrame"]
+  GETTABLEKS R12 R0 K5 ["type"]
+  JUMPIFNOTEQKS R12 K6 ["Error"] [+36]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K22 ["createElement"]
+  GETUPVAL R12 17
+  DUPTABLE R13 K84 [{"onActivated", "icon", "size", "variant", "LayoutOrder"}]
   NEWCLOSURE R14 P0
   CAPTURE VAL R0
-  SETTABLEKS R14 R13 K62 ["onActivated"]
-  DUPTABLE R14 K75 [{"name", "variant"}]
-  LOADK R15 K76 ["icons/navigation/close_small"]
-  SETTABLEKS R15 R14 K34 ["name"]
-  GETUPVAL R16 10
-  GETTABLEKS R15 R16 K44 ["Filled"]
-  SETTABLEKS R15 R14 K36 ["variant"]
-  SETTABLEKS R14 R13 K73 ["icon"]
-  GETUPVAL R15 9
-  GETTABLEKS R14 R15 K43 ["Medium"]
-  SETTABLEKS R14 R13 K35 ["size"]
-  GETUPVAL R15 14
-  GETTABLEKS R14 R15 K77 ["Utility"]
-  SETTABLEKS R14 R13 K36 ["variant"]
+  SETTABLEKS R14 R13 K67 ["onActivated"]
+  DUPTABLE R14 K85 [{"name", "variant"}]
+  LOADK R15 K86 ["icons/navigation/close_small"]
+  SETTABLEKS R15 R14 K37 ["name"]
+  GETUPVAL R16 11
+  GETTABLEKS R15 R16 K48 ["Filled"]
+  SETTABLEKS R15 R14 K39 ["variant"]
+  SETTABLEKS R14 R13 K83 ["icon"]
+  GETUPVAL R15 10
+  GETTABLEKS R14 R15 K47 ["Medium"]
+  SETTABLEKS R14 R13 K38 ["size"]
+  GETUPVAL R15 16
+  GETTABLEKS R14 R15 K87 ["Utility"]
+  SETTABLEKS R14 R13 K39 ["variant"]
   LOADN R14 3
-  SETTABLEKS R14 R13 K20 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K23 ["LayoutOrder"]
   CALL R11 2 1
   JUMP [+29]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K19 ["createElement"]
-  GETUPVAL R12 17
-  DUPTABLE R13 K81 [{"onActivated", "stateLayer", "onStateChanged", "tag", "Image", "LayoutOrder"}]
+  GETTABLEKS R11 R12 K22 ["createElement"]
+  GETUPVAL R12 18
+  DUPTABLE R13 K91 [{"onActivated", "stateLayer", "onStateChanged", "tag", "Image", "LayoutOrder"}]
   NEWCLOSURE R14 P1
   CAPTURE VAL R0
-  SETTABLEKS R14 R13 K62 ["onActivated"]
-  DUPTABLE R14 K83 [{"affordance"}]
-  GETUPVAL R16 18
-  GETTABLEKS R15 R16 K84 ["None"]
-  SETTABLEKS R15 R14 K82 ["affordance"]
-  SETTABLEKS R14 R13 K78 ["stateLayer"]
-  SETTABLEKS R2 R13 K79 ["onStateChanged"]
-  LOADK R14 K85 ["padding-small size-500 content-emphasis"]
-  SETTABLEKS R14 R13 K22 ["tag"]
-  LOADK R14 K86 ["icons/navigation/close"]
-  SETTABLEKS R14 R13 K80 ["Image"]
+  SETTABLEKS R14 R13 K67 ["onActivated"]
+  DUPTABLE R14 K93 [{"affordance"}]
+  GETUPVAL R16 19
+  GETTABLEKS R15 R16 K94 ["None"]
+  SETTABLEKS R15 R14 K92 ["affordance"]
+  SETTABLEKS R14 R13 K88 ["stateLayer"]
+  SETTABLEKS R2 R13 K89 ["onStateChanged"]
+  LOADK R14 K95 ["padding-small size-500 content-emphasis"]
+  SETTABLEKS R14 R13 K25 ["tag"]
+  LOADK R14 K96 ["icons/navigation/close"]
+  SETTABLEKS R14 R13 K90 ["Image"]
   LOADN R14 3
-  SETTABLEKS R14 R13 K20 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K23 ["LayoutOrder"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K27 ["CloseButton"]
+  SETTABLEKS R11 R10 K30 ["CloseButton"]
   CALL R7 3 -1
   RETURN R7 -1
 
@@ -411,59 +472,65 @@ MAIN:
   GETTABLEKS R6 R7 K15 ["getFFlagLuaStartPageBuilderIcons"]
   CALL R5 1 1
   CALL R5 0 1
-  GETTABLEKS R7 R2 K11 ["Hooks"]
-  GETTABLEKS R6 R7 K16 ["useTokens"]
-  GETTABLEKS R7 R2 K17 ["View"]
-  GETTABLEKS R8 R2 K18 ["Image"]
-  GETTABLEKS R9 R2 K19 ["Text"]
-  GETTABLEKS R10 R2 K20 ["Icon"]
-  GETTABLEKS R11 R2 K21 ["IconButton"]
-  GETTABLEKS R12 R2 K22 ["Button"]
-  GETTABLEKS R14 R2 K23 ["Enums"]
-  GETTABLEKS R13 R14 K24 ["IconSize"]
-  GETTABLEKS R15 R2 K23 ["Enums"]
-  GETTABLEKS R14 R15 K25 ["ButtonVariant"]
-  GETTABLEKS R16 R2 K23 ["Enums"]
-  GETTABLEKS R15 R16 K26 ["InputSize"]
-  GETTABLEKS R17 R2 K23 ["Enums"]
-  GETTABLEKS R16 R17 K27 ["Theme"]
-  GETTABLEKS R18 R2 K23 ["Enums"]
-  GETTABLEKS R17 R18 K28 ["StateLayerAffordance"]
-  GETTABLEKS R19 R2 K23 ["Enums"]
-  GETTABLEKS R18 R19 K29 ["IconName"]
-  GETTABLEKS R20 R2 K23 ["Enums"]
-  GETTABLEKS R19 R20 K30 ["IconVariant"]
-  GETIMPORT R20 K5 [require]
-  GETTABLEKS R24 R0 K8 ["Src"]
-  GETTABLEKS R23 R24 K10 ["Foundation"]
-  GETTABLEKS R22 R23 K31 ["Components"]
-  GETTABLEKS R21 R22 K32 ["Frame"]
-  CALL R20 1 1
-  DUPCLOSURE R21 K33 [PROTO_2]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K14 ["SharedFlags"]
+  GETTABLEKS R7 R8 K16 ["getFFlagLuaStartPageVerifyAgeBanner"]
+  CALL R6 1 1
+  GETTABLEKS R8 R2 K11 ["Hooks"]
+  GETTABLEKS R7 R8 K17 ["useTokens"]
+  GETTABLEKS R8 R2 K18 ["View"]
+  GETTABLEKS R9 R2 K19 ["Image"]
+  GETTABLEKS R10 R2 K20 ["Text"]
+  GETTABLEKS R11 R2 K21 ["Icon"]
+  GETTABLEKS R12 R2 K22 ["IconButton"]
+  GETTABLEKS R13 R2 K23 ["Button"]
+  GETTABLEKS R15 R2 K24 ["Enums"]
+  GETTABLEKS R14 R15 K25 ["IconSize"]
+  GETTABLEKS R16 R2 K24 ["Enums"]
+  GETTABLEKS R15 R16 K26 ["ButtonVariant"]
+  GETTABLEKS R17 R2 K24 ["Enums"]
+  GETTABLEKS R16 R17 K27 ["InputSize"]
+  GETTABLEKS R18 R2 K24 ["Enums"]
+  GETTABLEKS R17 R18 K28 ["Theme"]
+  GETTABLEKS R19 R2 K24 ["Enums"]
+  GETTABLEKS R18 R19 K29 ["StateLayerAffordance"]
+  GETTABLEKS R20 R2 K24 ["Enums"]
+  GETTABLEKS R19 R20 K30 ["IconName"]
+  GETTABLEKS R21 R2 K24 ["Enums"]
+  GETTABLEKS R20 R21 K31 ["IconVariant"]
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R25 R0 K8 ["Src"]
+  GETTABLEKS R24 R25 K10 ["Foundation"]
+  GETTABLEKS R23 R24 K32 ["Components"]
+  GETTABLEKS R22 R23 K33 ["Frame"]
+  CALL R21 1 1
+  DUPCLOSURE R22 K34 [PROTO_2]
   CAPTURE VAL R4
   CAPTURE VAL R1
-  CAPTURE VAL R6
-  CAPTURE VAL R20
-  CAPTURE VAL R9
   CAPTURE VAL R7
-  DUPCLOSURE R22 K34 [PROTO_5]
-  CAPTURE VAL R6
+  CAPTURE VAL R21
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  DUPCLOSURE R23 K35 [PROTO_5]
+  CAPTURE VAL R7
   CAPTURE VAL R3
-  CAPTURE VAL R16
+  CAPTURE VAL R17
   CAPTURE VAL R1
-  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R21
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE VAL R14
   CAPTURE VAL R20
   CAPTURE VAL R10
-  CAPTURE VAL R5
-  CAPTURE VAL R18
+  CAPTURE VAL R22
+  CAPTURE VAL R16
   CAPTURE VAL R13
-  CAPTURE VAL R19
-  CAPTURE VAL R9
-  CAPTURE VAL R21
-  CAPTURE VAL R12
-  CAPTURE VAL R14
   CAPTURE VAL R15
-  CAPTURE VAL R11
-  CAPTURE VAL R8
-  CAPTURE VAL R17
-  RETURN R22 1
+  CAPTURE VAL R12
+  CAPTURE VAL R9
+  CAPTURE VAL R18
+  RETURN R23 1

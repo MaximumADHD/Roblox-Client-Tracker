@@ -158,10 +158,28 @@ local function getPlayerGroupDetails(player)
 	local newGroupDetails = {}
 	for groupKey, groupInfo in pairs(SPECIAL_GROUPS) do
 		if groupInfo.GroupRank ~= nil then
-			local isInGroupSuccess, isInGroupValue = pcall(function() return player:GetRankInGroup(groupInfo.GroupId) >= groupInfo.GroupRank end)
+			local isInGroupSuccess, isInGroupValue = pcall(function()
+				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+				-- Will be removed when that PR is merged.
+				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+					return (player :: any):GetRankInGroupAsync(groupInfo.GroupId) >= groupInfo.GroupRank
+				else
+					return (player :: any):GetRankInGroup(groupInfo.GroupId) >= groupInfo.GroupRank
+				end
+			end)
+
 			newGroupDetails[groupKey] = isInGroupSuccess and isInGroupValue
 		else
-			local isInGroupSuccess, isInGroupValue = pcall(function() return player:IsInGroup(groupInfo.GroupId) end)
+			local isInGroupSuccess, isInGroupValue = pcall(function()
+				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+				-- Will be removed when that PR is merged.
+				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+					return (player :: any):IsInGroupAsync(groupInfo.GroupId)
+				else
+					return (player :: any):IsInGroup(groupInfo.GroupId)
+				end
+			end)
+			
 			newGroupDetails[groupKey] = isInGroupSuccess and isInGroupValue
 		end
 	end

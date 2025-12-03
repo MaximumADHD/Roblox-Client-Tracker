@@ -63,8 +63,6 @@ local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFla
 local getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits =
 	require(root.flags.getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits)
 
-local FFlagDontValidateHSRInExperience = game:DefineFastFlag("DontValidateHSRInExperience", false)
-
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
 	local assetTypeEnum = validationContext.assetTypeEnum
@@ -321,18 +319,10 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 			end
 
 			if getFFlagUGCValidateCheckHSRFileDataFix() then
-				if FFlagDontValidateHSRInExperience then
-					local allowEditableInstances = validationContext.allowEditableInstances
-					if not allowEditableInstances then
-						-- If editable instances are allowed, we skip HSR file data validation
-						-- because HSR may be created after publish in this case.
-						success, failedReason = ValidateHSRData.validate(wrapLayer, validationContext)
-						if not success then
-							table.insert(reasons, table.concat(failedReason, "\n"))
-							validationResult = false
-						end
-					end
-				else
+				local allowEditableInstances = validationContext.allowEditableInstances
+				if not allowEditableInstances then
+					-- If editable instances are allowed, we skip HSR file data validation
+					-- because HSR may be created after publish in this case.
 					success, failedReason = ValidateHSRData.validate(wrapLayer, validationContext)
 					if not success then
 						table.insert(reasons, table.concat(failedReason, "\n"))

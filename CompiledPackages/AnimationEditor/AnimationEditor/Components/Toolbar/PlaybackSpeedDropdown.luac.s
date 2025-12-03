@@ -1,0 +1,105 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [typeof]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["number"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["ID is not a number"]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K6 ["setPlaybackSpeedAsync"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Context"]
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["Dropdown"]
+  GETTABLEKS R3 R4 K4 ["Root"]
+  DUPTABLE R4 K12 [{"LayoutOrder", "size", "width", "label", "value", "onItemChanged", "items"}]
+  GETTABLEKS R5 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K5 ["LayoutOrder"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K13 ["Enums"]
+  GETTABLEKS R6 R7 K14 ["InputSize"]
+  GETTABLEKS R5 R6 K15 ["XSmall"]
+  SETTABLEKS R5 R4 K6 ["size"]
+  GETIMPORT R5 K18 [UDim.new]
+  LOADN R6 0
+  LOADN R7 120
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K7 ["width"]
+  LOADK R5 K19 [""]
+  SETTABLEKS R5 R4 K8 ["label"]
+  GETTABLEKS R5 R1 K20 ["playbackSpeed"]
+  SETTABLEKS R5 R4 K9 ["value"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K10 ["onItemChanged"]
+  GETUPVAL R5 3
+  SETTABLEKS R5 R4 K11 ["items"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Contexts"]
+  GETTABLEKS R3 R4 K9 ["PlayStateContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["React"]
+  CALL R3 1 1
+  NEWTABLE R4 0 5
+  DUPTABLE R5 K13 [{"id", "text"}]
+  LOADK R6 K14 [0.25]
+  SETTABLEKS R6 R5 K11 ["id"]
+  LOADK R6 K15 ["0.25x"]
+  SETTABLEKS R6 R5 K12 ["text"]
+  DUPTABLE R6 K13 [{"id", "text"}]
+  LOADK R7 K16 [0.5]
+  SETTABLEKS R7 R6 K11 ["id"]
+  LOADK R7 K17 ["0.5x"]
+  SETTABLEKS R7 R6 K12 ["text"]
+  DUPTABLE R7 K13 [{"id", "text"}]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K11 ["id"]
+  LOADK R8 K18 ["1x"]
+  SETTABLEKS R8 R7 K12 ["text"]
+  DUPTABLE R8 K13 [{"id", "text"}]
+  LOADN R9 2
+  SETTABLEKS R9 R8 K11 ["id"]
+  LOADK R9 K19 ["2x"]
+  SETTABLEKS R9 R8 K12 ["text"]
+  DUPTABLE R9 K13 [{"id", "text"}]
+  LOADN R10 4
+  SETTABLEKS R10 R9 K11 ["id"]
+  LOADK R10 K20 ["4x"]
+  SETTABLEKS R10 R9 K12 ["text"]
+  SETLIST R4 R5 5 [1]
+  DUPCLOSURE R5 K21 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  RETURN R5 1

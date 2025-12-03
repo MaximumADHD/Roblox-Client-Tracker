@@ -9,6 +9,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local Components = script.Parent.Parent.Parent.Components
 local UtilAndTab = require(Components.UtilAndTab)
 local ServerProfilerInterface = require(script.Parent.ServerProfilerInterface)
+local MicroProfilerView = require(script.Parent.MicroProfilerView)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local PADDING = Constants.GeneralFormatting.MainRowPadding
@@ -27,6 +28,7 @@ local ROW_VALUE_WIDTH = 0.8
 local MICROPROFILER_PRESSED_COUNTERNAME = "MicroprofilerDevConsolePressed"
 
 local FFlagDevConsoleMicroProfilerImproveWording = require(script.Parent.Flags.FFlagDevConsoleMicroProfilerImproveWording)
+local FFlagDevConsoleMicroProfilerNewLayout = game:DefineFastFlag("DevConsoleMicroProfilerNewLayout", false)
 
 local MainViewProfiler = Roact.Component:extend("MainViewProfiler")
 
@@ -86,7 +88,43 @@ function MainViewProfiler:didUpdate()
 	end
 end
 
+function MainViewProfiler:renderNewLayout()
+	local size = self.props.size
+	local formFactor = self.props.formFactor
+	local tabList = self.props.tabList
+	local utilTabHeight = self.state.utilTabHeight
+
+	return Roact.createElement("Frame", {
+		Size = size,
+		BackgroundColor3 = Constants.Color.BaseGray,
+		BackgroundTransparency = 1,
+		LayoutOrder = 3,
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, PADDING),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+		UtilAndTab = Roact.createElement(UtilAndTab, {
+			windowWidth = size.X.Offset,
+			formFactor = formFactor,
+			tabList = tabList,
+			layoutOrder = 1,
+			refForParent = self.utilRef,
+			onHeightChanged = self.onUtilTabHeightChanged,
+		}),
+		MicroProfilerView = Roact.createElement(MicroProfilerView, {
+			Size = UDim2.new(1, 0, 1, -utilTabHeight),
+			BackgroundTransparency = 1,
+			LayoutOrder = 2,
+		}),
+	})
+end
+
 function MainViewProfiler:render()
+	if FFlagDevConsoleMicroProfilerNewLayout then
+		return self:renderNewLayout()
+	end
+
 	local size = self.props.size
 	local formFactor = self.props.formFactor
 	local tabList = self.props.tabList

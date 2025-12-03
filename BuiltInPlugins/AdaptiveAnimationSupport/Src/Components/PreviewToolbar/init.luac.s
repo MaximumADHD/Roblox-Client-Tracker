@@ -1,0 +1,230 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["onPlaybackStateChanged"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["stopPlayback"]
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["stopPlayback"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onPlaybackStateChanged"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["autoAll"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["resetAll"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onEdit"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  GETTABLEKS R3 R0 K0 ["localization"]
+  GETTABLEKS R4 R0 K1 ["model"]
+  CALL R1 3 4
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["useEffect"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  NEWTABLE R7 0 1
+  MOVE R8 R4
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["useEffect"]
+  NEWCLOSURE R6 P2
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  NEWTABLE R7 0 1
+  MOVE R8 R3
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 0
+  GETTABLEKS R5 R0 K3 ["visible"]
+  JUMPIF R5 [+2]
+  LOADNIL R5
+  RETURN R5 1
+  GETIMPORT R5 K6 [table.clone]
+  MOVE R6 R1
+  CALL R5 1 1
+  DUPTABLE R8 K8 [{"Type"}]
+  LOADK R9 K9 ["Separator"]
+  SETTABLEKS R9 R8 K7 ["Type"]
+  FASTCALL2 TABLE_INSERT R5 R8 [+4]
+  MOVE R7 R5
+  GETIMPORT R6 K11 [table.insert]
+  CALL R6 2 0
+  GETTABLEKS R6 R0 K0 ["localization"]
+  DUPTABLE R9 K17 [{"Type", "Tooltip", "TooltipDescription", "Icon", "OnClick", "Enabled"}]
+  LOADK R10 K18 ["Button"]
+  SETTABLEKS R10 R9 K7 ["Type"]
+  LOADK R12 K19 ["Toolbar"]
+  LOADK R13 K20 ["AutoAll"]
+  NAMECALL R10 R6 K21 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K12 ["Tooltip"]
+  LOADK R12 K19 ["Toolbar"]
+  LOADK R13 K22 ["AutoAllTooltip"]
+  NAMECALL R10 R6 K21 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K13 ["TooltipDescription"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K23 ["MAGIC"]
+  SETTABLEKS R10 R9 K14 ["Icon"]
+  NEWCLOSURE R10 P3
+  CAPTURE VAL R0
+  SETTABLEKS R10 R9 K15 ["OnClick"]
+  NOT R10 R3
+  SETTABLEKS R10 R9 K16 ["Enabled"]
+  FASTCALL2 TABLE_INSERT R5 R9 [+4]
+  MOVE R8 R5
+  GETIMPORT R7 K11 [table.insert]
+  CALL R7 2 0
+  DUPTABLE R9 K8 [{"Type"}]
+  LOADK R10 K9 ["Separator"]
+  SETTABLEKS R10 R9 K7 ["Type"]
+  FASTCALL2 TABLE_INSERT R5 R9 [+4]
+  MOVE R8 R5
+  GETIMPORT R7 K11 [table.insert]
+  CALL R7 2 0
+  DUPTABLE R9 K17 [{"Type", "Tooltip", "TooltipDescription", "Icon", "OnClick", "Enabled"}]
+  LOADK R10 K18 ["Button"]
+  SETTABLEKS R10 R9 K7 ["Type"]
+  LOADK R12 K19 ["Toolbar"]
+  LOADK R13 K24 ["ResetAll"]
+  NAMECALL R10 R6 K21 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K12 ["Tooltip"]
+  LOADK R12 K19 ["Toolbar"]
+  LOADK R13 K25 ["ResetAllTooltip"]
+  NAMECALL R10 R6 K21 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K13 ["TooltipDescription"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K26 ["RESET"]
+  SETTABLEKS R10 R9 K14 ["Icon"]
+  NEWCLOSURE R10 P4
+  CAPTURE VAL R0
+  SETTABLEKS R10 R9 K15 ["OnClick"]
+  NOT R10 R3
+  SETTABLEKS R10 R9 K16 ["Enabled"]
+  FASTCALL2 TABLE_INSERT R5 R9 [+4]
+  MOVE R8 R5
+  GETIMPORT R7 K11 [table.insert]
+  CALL R7 2 0
+  DUPTABLE R9 K29 [{"Type", "Text", "Tooltip", "Style", "OnClick"}]
+  LOADK R10 K30 ["TextButton"]
+  SETTABLEKS R10 R9 K7 ["Type"]
+  LOADK R12 K31 ["Mode"]
+  LOADK R13 K32 ["Edit"]
+  NAMECALL R10 R6 K21 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K27 ["Text"]
+  LOADK R12 K31 ["Mode"]
+  LOADK R13 K32 ["Edit"]
+  NAMECALL R10 R6 K21 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K12 ["Tooltip"]
+  LOADK R10 K33 ["Round"]
+  SETTABLEKS R10 R9 K28 ["Style"]
+  NEWCLOSURE R10 P5
+  CAPTURE VAL R0
+  SETTABLEKS R10 R9 K15 ["OnClick"]
+  FASTCALL2 TABLE_INSERT R5 R9 [+4]
+  MOVE R8 R5
+  GETIMPORT R7 K11 [table.insert]
+  CALL R7 2 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K34 ["createElement"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K35 ["Fragment"]
+  NEWTABLE R9 0 0
+  DUPTABLE R10 K37 [{"Toolbar", "PreviewPlayback"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K34 ["createElement"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K19 ["Toolbar"]
+  DUPTABLE R13 K40 [{"InitialPosition", "HorizontalItems"}]
+  LOADK R14 K41 ["Center"]
+  SETTABLEKS R14 R13 K38 ["InitialPosition"]
+  SETTABLEKS R5 R13 K39 ["HorizontalItems"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K19 ["Toolbar"]
+  GETTABLEKS R11 R0 K1 ["model"]
+  JUMPIFNOT R11 [+14]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K34 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K44 [{"model", "animationId", "isPlaying"}]
+  GETTABLEKS R14 R0 K1 ["model"]
+  SETTABLEKS R14 R13 K1 ["model"]
+  SETTABLEKS R2 R13 K42 ["animationId"]
+  SETTABLEKS R3 R13 K43 ["isPlaying"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K36 ["PreviewPlayback"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AdaptiveAnimationSupport"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Components"]
+  GETTABLEKS R3 R4 K8 ["PreviewToolbar"]
+  GETTABLEKS R2 R3 K9 ["PreviewPlayback"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Components"]
+  GETTABLEKS R4 R5 K8 ["PreviewToolbar"]
+  GETTABLEKS R3 R4 K10 ["usePreviewPlaybackItems"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Resources"]
+  GETTABLEKS R4 R5 K12 ["Constants"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K13 ["Packages"]
+  GETTABLEKS R5 R6 K14 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K13 ["Packages"]
+  GETTABLEKS R6 R7 K15 ["ViewportToolingFramework"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K16 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  RETURN R6 1

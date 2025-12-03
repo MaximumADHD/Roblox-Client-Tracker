@@ -12,7 +12,9 @@ local VRService = game:GetService("VRService")
 local CorePackages = game:GetService("CorePackages")
 local TelemetryService = game:GetService("TelemetryService")
 
-CorePackages:WaitForChild("Workspace"):WaitForChild("Packages") -- WaitForChild used here because Workspace is not available on startup
+local FFlagConnectionRemoveLoadingTimeout = game:DefineFastFlag("ConnectionRemoveLoadingTimeout", false)
+
+CorePackages:WaitForChild("Workspace"):WaitForChild("Packages", if FFlagConnectionRemoveLoadingTimeout then math.huge else nil) -- WaitForChild used here because Workspace is not available on startup
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization

@@ -69,6 +69,7 @@ local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagInExperienceUseAppStyleProvider = SharedFlags.FFlagInExperienceUseAppStyleProvider
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+local HelpPage = require(CorePackages.Workspace.Packages.HelpPage)
 
 local Theme = require(script.Parent.Theme)
 
@@ -114,11 +115,9 @@ local Flags = {
 	GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint),
 	GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions),
 	GetFFlagEnableConnectDisconnectButtonAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectButtonAnalytics),
-	FFlagEnableExperienceMenuSessionTracking = require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking),
 
 	GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics),
 	GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint),
-	GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility),
 	FFlagInExperienceMenuReorderFirstVariant = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant),
 	GetFStringInExperienceMenuIXPLayer = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer),
 	GetFStringInExperienceMenuIXPVar = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar),
@@ -127,6 +126,7 @@ local Flags = {
 	FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant),
 	FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM),
 	FFlagSpatialUIFixMenuPanelChatExclusive = require(RobloxGui.Modules.Settings.Flags.FFlagSpatialUIFixMenuPanelChatExclusive),
+    FFlagRemoveLoadingTimeout = require(RobloxGui.Modules.Flags.FFlagRemoveLoadingTimeout),
 
 	FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer),
 
@@ -171,6 +171,9 @@ local Flags = {
 
 	FFlagRenameReactPageRoot = game:DefineFastFlag("RenameReactPageRoot", false),
 	FFlagEnableSystemScrimInSettingsHub = game:DefineFastFlag("EnableSystemScrimInSettingsHub", false),
+
+	FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure,
+	FStringHelpPageIXPLayer = HelpPage.Flags.FStringHelpPageIXPLayer,
 }
 
 --[[ SERVICES ]]
@@ -207,11 +210,8 @@ if Flags.GetFFlagDisplayServerChannel() then
 		GetServerChannelRemote = RobloxReplicatedStorage:WaitForChild("GetServerChannel", math.huge)
 	end)
 end
-
 --[[ VARIABLES ]]
-local FFlagSettingsHubRemoveTouchEnabled = game:DefineFastFlag("SettingsHubRemoveTouchEnabled", false)
-local isTouchDevice = if FFlagSettingsHubRemoveTouchEnabled then 
-	UserInputService.PreferredInput == Enum.PreferredInput.Touch else UserInputService.TouchEnabled
+local isTouchDevice = UserInputService.PreferredInput == Enum.PreferredInput.Touch
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local platform = UserInputService:GetPlatform()
 
@@ -507,13 +507,8 @@ local function CreateSettingsHub()
 
 		if not Flags.FFlagRelocateMobileMenuButtons or Flags.FIntRelocateMobileMenuButtonsVariant == 0 or Flags.FIntRelocateMobileMenuButtonsVariant == 2 then
 			if utility:IsPortrait() or utility:IsSmallTouchScreen() then
-				-- If ShouldShowBottomBar is false, it should should take precedence, even if AlwaysShowBottomBar() is true
-				if Flags.GetFFlagFixIGMBottomBarVisibility() then
-					if not Theme.AlwaysShowBottomBar() then
-						return false
-					end
-				else
-					return Theme.AlwaysShowBottomBar()
+				if not Theme.AlwaysShowBottomBar() then
+					return false
 				end
 			end
 		end
@@ -1299,7 +1294,7 @@ local function CreateSettingsHub()
 		-- insert but if a developer has overriden them Archivable will be true. This might be incorrect
 		-- if a developer has code in their game to make things UnArchivable though.
 		local function getOverridesPlayerScripts()
-			local starterPlayerScripts = StarterPlayer:WaitForChild("StarterPlayerScripts")
+			local starterPlayerScripts = StarterPlayer:WaitForChild("StarterPlayerScripts", if Flags.FFlagRemoveLoadingTimeout then math.huge else nil)
 			local playerScriptLoader = starterPlayerScripts:FindFirstChild("PlayerScriptsLoader")
 			local playerModule = starterPlayerScripts:FindFirstChild("PlayerModule")
 			if playerModule and playerScriptLoader then
@@ -3163,6 +3158,11 @@ local function CreateSettingsHub()
 		end
 
 		if pageToSwitchTo then
+			if Flags.FFlagHelpPageIXPExposure and this.HelpPage == pageToSwitchTo and not this.HelpPageIXPFetched then 
+				IXPServiceWrapper:LogUserLayerExposure(Flags.FStringHelpPageIXPLayer)
+				this.HelpPageIXPFetched = true
+			end
+
 			if this.GameSettingsPage == pageToSwitchTo then
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_GameSettings_tab", Constants.AnalyticsMenuActionName, eventTable)
 				if Flags.FFlagInExperienceMenuReorderFirstVariant and not this.GameSettingsPageReorderIXPFetched then
@@ -3177,15 +3177,10 @@ local function CreateSettingsHub()
 			else
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_" .. pageToSwitchTo.Page.Name .. "_tab", Constants.AnalyticsMenuActionName, eventTable)
 			end
-
-			if Flags.FFlagEnableExperienceMenuSessionTracking then
-				ExperienceMenuSessionManagerInstance:MenuSwitchToPage(pageToSwitchTo.Page)
-			end
+			ExperienceMenuSessionManagerInstance:MenuSwitchToPage(pageToSwitchTo.Page)
 		else
 			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_unknown_tab", Constants.AnalyticsMenuActionName, eventTable)
-			if Flags.FFlagEnableExperienceMenuSessionTracking then
-				ExperienceMenuSessionManagerInstance:CloseOpenedMenuTab()
-			end
+			ExperienceMenuSessionManagerInstance:CloseOpenedMenuTab()
 		end
 
 
@@ -3390,9 +3385,7 @@ local function CreateSettingsHub()
 			this.SettingsShowSignal:fire(this.Visible)
 
 			GuiService:SetMenuIsOpen(true, SETTINGS_HUB_MENU_KEY)
-			if Flags.FFlagEnableExperienceMenuSessionTracking then
-				ExperienceMenuSessionManagerInstance:OpenExperienceMenu()
-			end
+			ExperienceMenuSessionManagerInstance:OpenExperienceMenu()
 			this.Shield.Visible = this.Visible
 			GuiService:CloseInspectMenu()
 
@@ -3611,9 +3604,7 @@ local function CreateSettingsHub()
 				this.Shield.Visible = this.Visible
 				this.SettingsShowSignal:fire(this.Visible)
 				GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
-				if Flags.FFlagEnableExperienceMenuSessionTracking then
-					ExperienceMenuSessionManagerInstance:CloseExperienceMenu()
-				end
+				ExperienceMenuSessionManagerInstance:CloseExperienceMenu()
 				if Flags.FFlagEnableInGameMenuDurationLogger then
 					PerfUtils.menuCloseComplete()
 				end
@@ -3636,9 +3627,7 @@ local function CreateSettingsHub()
 					end
 					if not this.Visible then
 						GuiService:SetMenuIsOpen(false, SETTINGS_HUB_MENU_KEY)
-						if Flags.FFlagEnableExperienceMenuSessionTracking then
-							ExperienceMenuSessionManagerInstance:CloseExperienceMenu()
-						end
+						ExperienceMenuSessionManagerInstance:CloseExperienceMenu()
 					end
 					if Flags.FFlagEnableInGameMenuDurationLogger then
 						PerfUtils.menuCloseComplete()
@@ -4066,6 +4055,9 @@ local function CreateSettingsHub()
 
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.HelpWrapper)
 	this.HelpPage:SetHub(this)
+	if Flags.FFlagHelpPageIXPExposure then
+		this.HelpPageIXPFetched = false
+	end
 
 	if not Flags.FFlagRemoveRecordPage then
 		local shouldShowRecord = not CachedPolicyService:IsSubjectToChinaPolicies()

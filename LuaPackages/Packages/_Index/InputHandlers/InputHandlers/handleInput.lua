@@ -4,6 +4,8 @@ local FocusNavigation = require(Packages.FocusNavigation)
 
 local Heartbeat = require(script.Parent.Heartbeat)
 
+type SyntheticEventData = FocusNavigation.SyntheticEventData
+
 export type Callback = () -> ()
 export type StepCallback = (number) -> ()
 
@@ -57,7 +59,11 @@ local function handleInput(config: Config): FocusNavigation.EventHandler
 	end
 
 	return function(event)
-		local inputState = if event.eventData then event.eventData.UserInputState else nil
+		local eventData = (event.eventData :: unknown) :: SyntheticEventData
+		local immediateDispatch = eventData and eventData.immediateDispatch or false
+		receivedPress = immediateDispatch or receivedPress
+
+		local inputState = if eventData then eventData.UserInputState else nil
 
 		if inputState == Enum.UserInputState.Begin then
 			-- press
@@ -69,23 +75,31 @@ local function handleInput(config: Config): FocusNavigation.EventHandler
 			clearHeldState()
 
 			if hold then
-				holdCompleteTask = cancellableDelay(hold.durationSeconds, function()
-					-- if the hold was completed, we can flip `receivedPress` to
-					-- false to effectively cancel the onRelease
-					if not hold.allowReleaseAfterHold then
-						receivedPress = false
-					end
+				if immediateDispatch then
 					hold.onComplete()
-					if holdStepConnection then
-						holdStepConnection:Disconnect()
-						holdStepConnection = nil
-					end
-				end)
-				holdStepConnection = if hold.onStep then Heartbeat:Connect(hold.onStep) else nil
+				else
+					holdCompleteTask = cancellableDelay(hold.durationSeconds, function()
+						-- if the hold was completed, we can flip `receivedPress` to
+						-- false to effectively cancel the onRelease
+						if not hold.allowReleaseAfterHold then
+							receivedPress = false
+						end
+						hold.onComplete()
+						if holdStepConnection then
+							holdStepConnection:Disconnect()
+							holdStepConnection = nil
+						end
+					end)
+					holdStepConnection = if hold.onStep then Heartbeat:Connect(hold.onStep) else nil
+				end
 			end
 
 			-- release
-			receivedPress = true
+			if immediateDispatch then
+				clearHeldState()
+			else
+				receivedPress = true
+			end
 		end
 
 		if inputState == Enum.UserInputState.End then

@@ -163,6 +163,26 @@ PROTO_11:
   RETURN R0 1
 
 PROTO_12:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+2]
+  GETUPVAL R0 0
+  CALL R0 0 0
+  DUPTABLE R0 K6 [{"featureName", "access", "recourse", "recourses", "v2Recourses", "shouldPrompt"}]
+  LOADK R1 K7 ["ShouldShowStudioBanner"]
+  SETTABLEKS R1 R0 K0 ["featureName"]
+  LOADK R1 K8 ["Granted"]
+  SETTABLEKS R1 R0 K1 ["access"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["recourse"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["recourses"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["v2Recourses"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["shouldPrompt"]
+  RETURN R0 1
+
+PROTO_13:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["new"]
   CALL R3 0 1
@@ -412,52 +432,55 @@ PROTO_12:
   NEWCLOSURE R23 P11
   CAPTURE VAL R2
   SETTABLEKS R23 R22 K83 ["https://apis.roblox.com/creator-home-api/v1/users/54321/homepage/banner/experience-unrated"]
+  NEWCLOSURE R23 P12
+  CAPTURE VAL R2
+  SETTABLEKS R23 R22 K84 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioBanner&nameSpace=studio/CollaborationSettings"]
   GETUPVAL R24 2
-  GETTABLEKS R23 R24 K84 ["mock"]
+  GETTABLEKS R23 R24 K85 ["mock"]
   MOVE R24 R22
   CALL R23 1 0
   GETUPVAL R25 2
-  GETTABLEKS R24 R25 K85 ["StudioService"]
-  GETTABLEKS R23 R24 K86 ["GetUserId"]
-  GETTABLEKS R24 R23 K87 ["mockReturnValue"]
-  LOADK R25 K88 [54321]
+  GETTABLEKS R24 R25 K86 ["StudioService"]
+  GETTABLEKS R23 R24 K87 ["GetUserId"]
+  GETTABLEKS R24 R23 K88 ["mockReturnValue"]
+  LOADK R25 K89 [54321]
   CALL R24 1 0
   GETUPVAL R26 2
-  GETTABLEKS R25 R26 K89 ["StartPageManager"]
-  GETTABLEKS R24 R25 K90 ["getRecentAPIGamesFromRegistry"]
+  GETTABLEKS R25 R26 K90 ["StartPageManager"]
+  GETTABLEKS R24 R25 K91 ["getRecentAPIGamesFromRegistry"]
   GETUPVAL R27 2
-  GETTABLEKS R26 R27 K89 ["StartPageManager"]
-  GETTABLEKS R25 R26 K91 ["getLocalGamesFromRegistry"]
-  GETTABLEKS R26 R24 K87 ["mockReturnValue"]
+  GETTABLEKS R26 R27 K90 ["StartPageManager"]
+  GETTABLEKS R25 R26 K92 ["getLocalGamesFromRegistry"]
+  GETTABLEKS R26 R24 K88 ["mockReturnValue"]
   NEWTABLE R27 0 0
   CALL R26 1 0
-  GETTABLEKS R26 R25 K87 ["mockReturnValue"]
+  GETTABLEKS R26 R25 K88 ["mockReturnValue"]
   NEWTABLE R27 0 1
-  DUPTABLE R28 K98 [{"FilePath", "Name", "Updated", "PrivacyType", "NoLoadableImage", "LastViewed"}]
-  LOADK R29 K99 ["Documents/TestPlace3.rbxl"]
-  SETTABLEKS R29 R28 K92 ["FilePath"]
-  LOADK R29 K100 ["TestPlace3.rbxl"]
-  SETTABLEKS R29 R28 K93 ["Name"]
-  LOADK R29 K101 ["UpdatedTime3"]
-  SETTABLEKS R29 R28 K94 ["Updated"]
-  LOADK R29 K102 ["Private"]
-  SETTABLEKS R29 R28 K95 ["PrivacyType"]
+  DUPTABLE R28 K99 [{"FilePath", "Name", "Updated", "PrivacyType", "NoLoadableImage", "LastViewed"}]
+  LOADK R29 K100 ["Documents/TestPlace3.rbxl"]
+  SETTABLEKS R29 R28 K93 ["FilePath"]
+  LOADK R29 K101 ["TestPlace3.rbxl"]
+  SETTABLEKS R29 R28 K94 ["Name"]
+  LOADK R29 K102 ["UpdatedTime3"]
+  SETTABLEKS R29 R28 K95 ["Updated"]
+  LOADK R29 K103 ["Private"]
+  SETTABLEKS R29 R28 K96 ["PrivacyType"]
   LOADB R29 1
-  SETTABLEKS R29 R28 K96 ["NoLoadableImage"]
-  LOADK R29 K103 ["ViewedTime3"]
-  SETTABLEKS R29 R28 K97 ["LastViewed"]
+  SETTABLEKS R29 R28 K97 ["NoLoadableImage"]
+  LOADK R29 K104 ["ViewedTime3"]
+  SETTABLEKS R29 R28 K98 ["LastViewed"]
   SETLIST R27 R28 1 [1]
   CALL R26 1 0
   GETUPVAL R28 2
-  GETTABLEKS R27 R28 K89 ["StartPageManager"]
-  GETTABLEKS R26 R27 K104 ["getDaysSinceFirstUserLogin"]
+  GETTABLEKS R27 R28 K90 ["StartPageManager"]
+  GETTABLEKS R26 R27 K105 ["getDaysSinceFirstUserLogin"]
   GETUPVAL R29 2
-  GETTABLEKS R28 R29 K89 ["StartPageManager"]
-  GETTABLEKS R27 R28 K105 ["isTutorialBannerClosed"]
-  GETTABLEKS R28 R26 K87 ["mockReturnValue"]
+  GETTABLEKS R28 R29 K90 ["StartPageManager"]
+  GETTABLEKS R27 R28 K106 ["isTutorialBannerClosed"]
+  GETTABLEKS R28 R26 K88 ["mockReturnValue"]
   LOADN R29 0
   CALL R28 1 0
-  GETTABLEKS R28 R27 K87 ["mockReturnValue"]
+  GETTABLEKS R28 R27 K88 ["mockReturnValue"]
   LOADB R29 0
   CALL R28 1 0
   CLOSEUPVALS R6
@@ -485,7 +508,7 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R5 R1 K13 ["RobloxAPI"]
   GETTABLEKS R4 R5 K14 ["Url"]
-  DUPCLOSURE R5 K15 [PROTO_12]
+  DUPCLOSURE R5 K15 [PROTO_13]
   CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R3

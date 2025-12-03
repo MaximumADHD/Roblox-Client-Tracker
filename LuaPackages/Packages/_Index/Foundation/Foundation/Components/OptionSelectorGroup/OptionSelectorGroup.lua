@@ -3,6 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Orientation = require(Foundation.Enums.Orientation)
 type Orientation = Orientation.Orientation
 
@@ -47,11 +49,17 @@ local function OptionSelectorGroup(optionSelectorGroupProps: OptionSelectorGroup
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = {
-				["auto-xy col"] = props.orientation :: Orientation == Orientation.Vertical,
-				["auto-x row"] = props.orientation :: Orientation == Orientation.Horizontal,
-				["gap-small"] = true,
-			},
+			tag = if Flags.FoundationFixOptionSelectorGroupItemSize
+				then {
+					["size-full-0 auto-y col"] = props.orientation :: Orientation == Orientation.Vertical,
+					["auto-x row"] = props.orientation :: Orientation == Orientation.Horizontal,
+					["gap-small"] = true,
+				}
+				else {
+					["auto-xy col"] = props.orientation :: Orientation == Orientation.Vertical,
+					["auto-x row"] = props.orientation :: Orientation == Orientation.Horizontal,
+					["gap-small"] = true,
+				},
 			ref = ref,
 		}),
 		{

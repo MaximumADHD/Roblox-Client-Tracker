@@ -27,7 +27,7 @@ local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
 
 local Constants = require(PublishAssetPrompt.Constants)
 
-local FFlagFixAssetIECPromptNaming = game:DefineFastFlag("FixAssetIECPromptNaming", false)
+local FFlagFixAssetIECPromptNaming = game:DefineFastFlag("FixAssetIECPromptNaming2", false)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30

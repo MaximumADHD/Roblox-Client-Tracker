@@ -49,15 +49,13 @@ local CorePackages = game:GetService("CorePackages")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 --------------- FLAGS ----------------
-
-local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
-
 local SettingsFlags = require(Settings.Flags)
 local FFlagGameSettingsRemoveTextTransparency = SettingsFlags.FFlagGameSettingsRemoveTextTransparency
 local FFlagGameSettingsRemoveMouseButton1Event = SettingsFlags.FFlagGameSettingsRemoveMouseButton1Event
 local FFlagIEMSelectorUnchangedByMouseWheel = SettingsFlags.FFlagIEMSelectorUnchangedByMouseWheel
+local FFlagRepositionDropDownScrim = game:DefineFastFlag("RepositionDropDownScrim", false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
@@ -376,12 +374,10 @@ local function MakeDefaultButton(name, size, clickFunc, pageRef, hubRef, style)
 			clickFunc(gamepadSet[UserInputService:GetLastInputType()] or false)
 		end)
 	else
-		if GetFFlagSettingsHubButtonCanBeDisabled() then
-			if buttonUIStroke then
-				buttonUIStroke.Enabled = false
-			end
-			button.Selectable = false
+		if buttonUIStroke then
+			buttonUIStroke.Enabled = false
 		end
+		button.Selectable = false
 	end
 
 	local function isPointerInput(inputObject)
@@ -680,11 +676,13 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	local lastStringTable = dropDownStringTable
 
 	----------------- GUI SETUP ------------------------
+	local topCornerInset, _ = GuiService:GetGuiInset()
 	local DropDownFullscreenFrame = Create("ImageButton")({
 		Name = "DropDownFullscreenFrame",
 		BackgroundTransparency = DROPDOWN_BG_TRANSPARENCY,
 		BorderSizePixel = 0,
-		Size = UDim2.new(1, 0, 1, 0),
+		Size = UDim2.new(1, 0, 1, if FFlagRepositionDropDownScrim then topCornerInset.Y else 0),
+		Position = if FFlagRepositionDropDownScrim then UDim2.new(0, 0, 0, -topCornerInset.Y) else nil,
 		BackgroundColor3 = Color3.fromRGB(0, 0, 0),
 		ZIndex = 10,
 		Active = true,

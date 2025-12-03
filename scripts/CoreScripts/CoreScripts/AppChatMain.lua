@@ -16,10 +16,13 @@ local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurface
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 
 local GetFFlagFixSettingshubImportOrder = require(RobloxGui.Modules.Flags.GetFFlagFixSettingshubImportOrder)
-if GetFFlagFixSettingshubImportOrder() then
+
+local FFlagRemoveLoadingTimeout = require(RobloxGui.Modules.Flags.FFlagRemoveLoadingTimeout)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+if GetFFlagFixSettingshubImportOrder() and not (FFlagRemoveLoadingTimeout and ChromeEnabled) then
 	-- We need to ensure we don't require SettingsHub before TopBar has finished
 	-- This is due to ordering of SetGlobalGuiInset defined in TopBar
-	CoreGui:WaitForChild("TopBarApp")
+	CoreGui:WaitForChild("TopBarApp", if FFlagRemoveLoadingTimeout then math.huge else nil)
 end
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 

@@ -603,7 +603,7 @@ MAIN:
   NAMECALL R16 R16 K32 ["DefineFastFlag"]
   CALL R16 3 1
   GETIMPORT R17 K30 [game]
-  LOADK R19 K33 ["ImportFromFileInAnimationEditor"]
+  LOADK R19 K33 ["ImportFromFileWithRestPoseInAnimationEditor"]
   LOADB R20 0
   NAMECALL R17 R17 K32 ["DefineFastFlag"]
   CALL R17 3 1

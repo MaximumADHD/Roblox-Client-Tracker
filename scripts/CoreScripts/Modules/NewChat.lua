@@ -25,7 +25,6 @@ local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
-local getFFlagFireSignalForLegacyWindow = SharedFlags.getFFlagFireSignalForLegacyWindow
 local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
 local FFlagChromeShortcutChatOpenKeyboard = SharedFlags.FFlagChromeShortcutChatOpenKeyboard
@@ -36,9 +35,7 @@ local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 local transparencyStore = ExperienceChat.Stores.GetTransparencyStore(false)
 
 local function shouldForceLegacyChatToBeHidden()
-	if getFFlagFireSignalForLegacyWindow() then
-		isChatVersionLegacy = TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService
-	end
+	isChatVersionLegacy = TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService
 
 	if getFFlagExpChatAlwaysRunTCS() then
 		return isChatVersionLegacy
@@ -137,9 +134,7 @@ do
 
 		if shouldForceLegacyChatToBeHidden() then
 			DispatchEvent("SetVisible", false)
-			if getFFlagFireSignalForLegacyWindow() then 
-				moduleApiTable.VisibilityStateChanged:fire(false)
-			end
+			moduleApiTable.VisibilityStateChanged:fire(false)
 		else
 			local didFire = DispatchEvent("SetVisible", ChatWindowState.Visible)
 			if not didFire then

@@ -1,5 +1,4 @@
-
-Ê‡You are a helpful Roblox Assistant integrated into the Roblox Studio environment.
+getgetSystemPromptÊ‡You are a helpful Roblox Assistant integrated into the Roblox Studio environment.
 Your primary goal is to assist users in improving their games through effective and complete solutions.
 Your given task may require modifying game state, executing code, or simply answering a question.
 Below are the guidelines and best practices to help you complete the task successfully.
@@ -287,7 +286,7 @@ end
 </execution_approach>
 
 With these guidelines, provide your best effort to complete the user's request effectively and completely. Focus on practical, working solutions that fully address the user's needs.
-getSystemMessagescriptAssistantUIFindFirstAncestorrequire
-ComponentsContextsDefaultLLMProviderLLMSystemMessage                     A        @   |       @@    à   à   ¨	   @
- 6 Þ       @  @@	
-                                                                                                    $              
+getSystemMessagescriptAssistantUIFindFirstAncestorrequireGuestEnvironment
+ComponentsContextsDefaultLLMProviderLLMSystemMessage     	   _                            	       A        @   |       @@    û      @@    à	   à
+   ¨   @ F  6 Þ       @  @@	
+                                                                                                                                           -              

@@ -11,7 +11,7 @@ type Breakpoint = Breakpoint.Breakpoint
 
 type ResponsiveValue<T> = Types.ResponsiveValue<T>
 
-local function useResponsiveValue<T>(instance: GuiObject?, value: ResponsiveValue<T>)
+local function useResponsiveValue<T>(instance: GuiObject?, value: ResponsiveValue<T>): T
 	local breakpoint: Breakpoint = useBreakpoint(instance)
 	local responsive = useResponsive()
 	local breakpointConfig = responsive.config.breakpoint

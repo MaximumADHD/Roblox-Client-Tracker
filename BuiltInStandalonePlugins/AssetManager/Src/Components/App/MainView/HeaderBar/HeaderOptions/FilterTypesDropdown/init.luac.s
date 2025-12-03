@@ -133,7 +133,7 @@ PROTO_6:
   CALL R23 2 1
   CALL R21 2 1
   SETTABLEKS R21 R20 K6 ["Size"]
-  LOADK R21 K18 ["col flex-fill gap-small padding-small bg-surface-200 radius-medium"]
+  LOADK R21 K18 ["col flex-fill gap-small padding-small bg-surface-100 stroke-standard stroke-default radius-medium"]
   SETTABLEKS R21 R20 K7 ["tag"]
   DUPTABLE R21 K21 [{"Content", "Footer"}]
   GETUPVAL R23 7

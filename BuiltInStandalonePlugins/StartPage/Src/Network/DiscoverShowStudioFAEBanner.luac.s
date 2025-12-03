@@ -1,0 +1,253 @@
+PROTO_0:
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+18]
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  DUPTABLE R6 K4 [{"url", "errorDetails", "user", "ampresponse"}]
+  SETTABLEKS R0 R6 K0 ["url"]
+  SETTABLEKS R1 R6 K1 ["errorDetails"]
+  GETUPVAL R7 2
+  NAMECALL R7 R7 K5 ["GetUserId"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K2 ["user"]
+  SETTABLEKS R2 R6 K3 ["ampresponse"]
+  NAMECALL R3 R3 K6 ["log"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+24]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  JUMPIFNOT R3 [+19]
+  GETUPVAL R3 2
+  GETUPVAL R5 3
+  DUPTABLE R6 K4 [{"url", "errorDetails", "user", "ampresponse"}]
+  SETTABLEKS R2 R6 K0 ["url"]
+  SETTABLEKS R1 R6 K1 ["errorDetails"]
+  GETUPVAL R7 4
+  NAMECALL R7 R7 K5 ["GetUserId"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K2 ["user"]
+  LOADK R7 K6 [""]
+  SETTABLEKS R7 R6 K3 ["ampresponse"]
+  NAMECALL R3 R3 K7 ["log"]
+  CALL R3 3 0
+  LOADB R2 0
+  RETURN R2 1
+  GETTABLEKS R2 R1 K8 ["access"]
+  JUMPIFEQKS R2 K9 ["Granted"] [+30]
+  GETTABLEKS R2 R1 K8 ["access"]
+  JUMPIFEQKS R2 K10 ["Denied"] [+26]
+  GETUPVAL R2 1
+  GETTABLEKS R3 R1 K8 ["access"]
+  GETUPVAL R4 2
+  JUMPIFNOT R4 [+18]
+  GETUPVAL R4 2
+  GETUPVAL R6 3
+  DUPTABLE R7 K4 [{"url", "errorDetails", "user", "ampresponse"}]
+  SETTABLEKS R2 R7 K0 ["url"]
+  SETTABLEKS R1 R7 K1 ["errorDetails"]
+  GETUPVAL R8 4
+  NAMECALL R8 R8 K5 ["GetUserId"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K2 ["user"]
+  SETTABLEKS R3 R7 K3 ["ampresponse"]
+  NAMECALL R4 R4 K7 ["log"]
+  CALL R4 3 0
+  LOADB R2 0
+  RETURN R2 1
+  GETTABLEKS R3 R1 K8 ["access"]
+  JUMPIFEQKS R3 K9 ["Granted"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_2:
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K2 ["DiscoverShowStudioFAEBanner experienced an error: %*"]
+  MOVE R5 R0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K5 [tostring]
+  CALL R1 1 1
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K7 [type]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K8 ["table"] [+11]
+  GETTABLEKS R3 R0 K9 ["responseBody"]
+  FASTCALL1 TYPE R3 [+2]
+  GETIMPORT R2 K7 [type]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K10 ["string"] [+3]
+  GETTABLEKS R1 R0 K9 ["responseBody"]
+  GETUPVAL R2 0
+  MOVE R3 R1
+  GETUPVAL R4 1
+  JUMPIFNOT R4 [+19]
+  GETUPVAL R4 1
+  GETUPVAL R6 2
+  DUPTABLE R7 K15 [{"url", "errorDetails", "user", "ampresponse"}]
+  SETTABLEKS R2 R7 K11 ["url"]
+  SETTABLEKS R3 R7 K12 ["errorDetails"]
+  GETUPVAL R8 3
+  NAMECALL R8 R8 K16 ["GetUserId"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K13 ["user"]
+  LOADK R8 K17 [""]
+  SETTABLEKS R8 R7 K14 ["ampresponse"]
+  NAMECALL R4 R4 K18 ["log"]
+  CALL R4 3 0
+  LOADB R2 0
+  RETURN R2 1
+
+PROTO_3:
+  JUMPIFNOT R0 [+7]
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K2 ["number"] [+7]
+  GETIMPORT R2 K4 [warn]
+  LOADK R3 K5 ["DiscoverShowStudioFAEBanner: userId must be a number"]
+  CALL R2 1 0
+  LOADB R2 0
+  RETURN R2 1
+  NEWTABLE R2 2 0
+  LOADK R3 K6 ["application/json"]
+  SETTABLEKS R3 R2 K7 ["Content-Type"]
+  GETUPVAL R4 0
+  NAMECALL R4 R4 K8 ["GetUserId"]
+  CALL R4 1 -1
+  FASTCALL TOSTRING [+2]
+  GETIMPORT R3 K10 [tostring]
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K11 ["robloxctx-authenticated-userid"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K12 ["new"]
+  CALL R3 0 1
+  GETTABLEKS R4 R3 K13 ["composeUrl"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K14 ["AMP_FEATURE_ACCESS_URL"]
+  GETTABLEKS R5 R6 K15 ["Prefix"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K14 ["AMP_FEATURE_ACCESS_URL"]
+  GETTABLEKS R6 R7 K16 ["Url"]
+  LOADK R7 K17 ["ShouldShowStudioBanner"]
+  LOADK R8 K18 ["studio/CollaborationSettings"]
+  CALL R6 2 -1
+  CALL R4 -1 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  GETUPVAL R6 4
+  MOVE R8 R4
+  MOVE R9 R2
+  NAMECALL R6 R6 K19 ["get"]
+  CALL R6 3 1
+  GETUPVAL R7 4
+  MOVE R9 R6
+  NAMECALL R7 R7 K20 ["parseJson"]
+  CALL R7 2 1
+  NEWCLOSURE R9 P1
+  CAPTURE UPVAL U5
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  NAMECALL R7 R7 K21 ["andThen"]
+  CALL R7 2 1
+  NEWCLOSURE R9 P2
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  NAMECALL R7 R7 K22 ["catch"]
+  CALL R7 2 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StartPage"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["SharedFlags"]
+  GETTABLEKS R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+  CALL R1 1 1
+  CALL R1 0 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Network"]
+  GETTABLEKS R5 R6 K13 ["Urls"]
+  CALL R4 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Util"]
+  GETTABLEKS R7 R8 K15 ["Services"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K16 ["Networking"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K17 ["Models"]
+  GETTABLEKS R7 R8 K18 ["AMPUpsellFeatureAccessModel"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Util"]
+  GETTABLEKS R8 R9 K19 ["createResponseValidator"]
+  CALL R7 1 1
+  GETTABLEKS R9 R3 K20 ["RobloxAPI"]
+  GETTABLEKS R8 R9 K21 ["Url"]
+  GETTABLEKS R9 R5 K22 ["new"]
+  DUPTABLE R10 K25 [{"isInternal", "loggingLevel"}]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K23 ["isInternal"]
+  SETTABLEKS R1 R10 K24 ["loggingLevel"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R14 R0 K6 ["Src"]
+  GETTABLEKS R13 R14 K14 ["Util"]
+  GETTABLEKS R12 R13 K26 ["Telemetry"]
+  GETTABLEKS R11 R12 K27 ["TelemetryContext"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R15 R0 K6 ["Src"]
+  GETTABLEKS R14 R15 K14 ["Util"]
+  GETTABLEKS R13 R14 K26 ["Telemetry"]
+  GETTABLEKS R12 R13 K28 ["FetchAMPStatusFailureEvent"]
+  CALL R11 1 1
+  GETIMPORT R12 K30 [game]
+  LOADK R14 K31 ["StudioService"]
+  NAMECALL R12 R12 K32 ["GetService"]
+  CALL R12 2 1
+  MOVE R13 R7
+  GETTABLEKS R14 R6 K33 ["validate"]
+  CALL R13 1 1
+  DUPCLOSURE R14 K34 [PROTO_3]
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  RETURN R14 1

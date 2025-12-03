@@ -88,8 +88,16 @@ function AtFriendLimit(player)
 end
 
 function DoPromptRequestFriendPlayer(playerToFriend)
-	if LocalPlayer:IsFriendsWith(playerToFriend.UserId) then
-		return
+	-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+	-- Will be removed when that PR is merged.
+	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+		if (LocalPlayer :: any):IsFriendsWithAsync(playerToFriend.UserId) then
+			return
+		end
+	else
+		if (LocalPlayer :: any):IsFriendsWith(playerToFriend.UserId) then
+			return
+		end
 	end
 
 	local thumbnailUrl = ""
@@ -216,8 +224,16 @@ function UnFriendPlayer(playerToUnfriend)
 end
 
 function DoPromptUnfriendPlayer(playerToUnfriend)
-	if not LocalPlayer:IsFriendsWith(playerToUnfriend.UserId) then
-		return
+	-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+	-- Will be removed when that PR is merged.
+	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+		if not (LocalPlayer :: any):IsFriendsWithAsync(playerToUnfriend.UserId) then
+			return
+		end
+	else
+		if not (LocalPlayer :: any):IsFriendsWith(playerToUnfriend.UserId) then
+			return
+		end
 	end
 
 	local thumbnailUrl = ""

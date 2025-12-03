@@ -41,84 +41,97 @@ PROTO_2:
   LOADB R6 0 +1
   LOADB R6 1
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K2 ["useRef"]
-  LOADB R8 0
-  CALL R7 1 1
-  GETTABLEKS R8 R5 K6 ["enabled"]
-  JUMPIFNOT R8 [+1]
-  NOT R8 R6
-  SETTABLEKS R8 R7 K7 ["current"]
-  GETUPVAL R8 3
-  DUPTABLE R9 K10 [{"isAutomaticallyPlayingRef", "timeRange"}]
-  SETTABLEKS R7 R9 K8 ["isAutomaticallyPlayingRef"]
-  GETTABLEKS R10 R1 K9 ["timeRange"]
-  SETTABLEKS R10 R9 K9 ["timeRange"]
-  CALL R8 1 2
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K11 ["useCallback"]
-  NEWCLOSURE R11 P0
+  GETTABLEKS R7 R8 K3 ["useState"]
+  LOADN R8 1
+  CALL R7 1 2
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K2 ["useRef"]
+  LOADB R10 0
+  CALL R9 1 1
+  GETTABLEKS R10 R5 K6 ["enabled"]
+  JUMPIFNOT R10 [+1]
+  NOT R10 R6
+  SETTABLEKS R10 R9 K7 ["current"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K11 [{"isAutomaticallyPlayingRef", "timeRange", "playbackSpeed"}]
+  SETTABLEKS R9 R11 K8 ["isAutomaticallyPlayingRef"]
+  GETTABLEKS R12 R1 K9 ["timeRange"]
+  SETTABLEKS R12 R11 K9 ["timeRange"]
+  SETTABLEKS R7 R11 K10 ["playbackSpeed"]
+  CALL R10 1 2
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K12 ["useCallback"]
+  NEWCLOSURE R13 P0
   CAPTURE VAL R2
   CAPTURE VAL R4
-  NEWTABLE R12 0 2
-  MOVE R13 R4
-  MOVE R14 R2
-  SETLIST R12 R13 2 [1]
-  CALL R10 2 1
-  GETUPVAL R12 4
-  GETTABLEKS R11 R12 K12 ["useReplicatedState"]
-  GETUPVAL R13 5
-  GETTABLEKS R12 R13 K13 ["IS_PLAYING"]
-  GETTABLEKS R13 R5 K6 ["enabled"]
-  CALL R11 2 0
-  GETUPVAL R12 4
-  GETTABLEKS R11 R12 K12 ["useReplicatedState"]
-  GETUPVAL R13 5
-  GETTABLEKS R12 R13 K14 ["CURRENT_TIME"]
-  MOVE R13 R8
-  MOVE R14 R7
-  CALL R11 3 0
-  GETUPVAL R12 4
-  GETTABLEKS R11 R12 K12 ["useReplicatedState"]
-  GETUPVAL R13 5
-  GETTABLEKS R12 R13 K15 ["IS_SCRUBBING"]
-  MOVE R13 R6
-  CALL R11 2 0
-  GETUPVAL R12 4
-  GETTABLEKS R11 R12 K16 ["useBoundAction"]
-  GETUPVAL R13 6
-  GETTABLEKS R12 R13 K17 ["TOGGLE_IS_PLAYING_ASYNC"]
-  GETTABLEKS R13 R5 K18 ["toggle"]
-  CALL R11 2 0
-  GETUPVAL R12 4
-  GETTABLEKS R11 R12 K16 ["useBoundAction"]
-  GETUPVAL R13 6
-  GETTABLEKS R12 R13 K19 ["INCREMENT_IS_SCRUBBING_ASYNC"]
-  MOVE R13 R10
-  CALL R11 2 0
-  GETUPVAL R12 4
-  GETTABLEKS R11 R12 K16 ["useBoundAction"]
-  GETUPVAL R13 6
-  GETTABLEKS R12 R13 K20 ["SET_CURRENT_TIME_ASYNC"]
-  MOVE R13 R9
-  CALL R11 2 0
-  DUPTABLE R11 K27 [{"toggleIsPlayingAsync", "setCurrentTimeAsync", "incrementIsScrubbingAsync", "isPlaying", "currentTime", "isScrubbing"}]
-  GETTABLEKS R12 R5 K18 ["toggle"]
-  SETTABLEKS R12 R11 K21 ["toggleIsPlayingAsync"]
-  SETTABLEKS R9 R11 K22 ["setCurrentTimeAsync"]
-  SETTABLEKS R10 R11 K23 ["incrementIsScrubbingAsync"]
-  GETTABLEKS R12 R5 K6 ["enabled"]
-  SETTABLEKS R12 R11 K24 ["isPlaying"]
-  SETTABLEKS R8 R11 K25 ["currentTime"]
-  SETTABLEKS R6 R11 K26 ["isScrubbing"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K28 ["createElement"]
-  GETUPVAL R14 7
-  GETTABLEKS R13 R14 K29 ["Provider"]
-  DUPTABLE R14 K31 [{"value"}]
-  SETTABLEKS R11 R14 K30 ["value"]
-  GETTABLEKS R15 R0 K32 ["children"]
-  CALL R12 3 -1
-  RETURN R12 -1
+  NEWTABLE R14 0 2
+  MOVE R15 R4
+  MOVE R16 R2
+  SETLIST R14 R15 2 [1]
+  CALL R12 2 1
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K13 ["useReplicatedState"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K14 ["IS_PLAYING"]
+  GETTABLEKS R15 R5 K6 ["enabled"]
+  CALL R13 2 0
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K13 ["useReplicatedState"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K15 ["CURRENT_TIME"]
+  MOVE R15 R10
+  MOVE R16 R9
+  CALL R13 3 0
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K13 ["useReplicatedState"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K16 ["IS_SCRUBBING"]
+  MOVE R15 R6
+  CALL R13 2 0
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K17 ["useBoundAction"]
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K18 ["TOGGLE_IS_PLAYING_ASYNC"]
+  GETTABLEKS R15 R5 K19 ["toggle"]
+  CALL R13 2 0
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K17 ["useBoundAction"]
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K20 ["INCREMENT_IS_SCRUBBING_ASYNC"]
+  MOVE R15 R12
+  CALL R13 2 0
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K17 ["useBoundAction"]
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K21 ["SET_CURRENT_TIME_ASYNC"]
+  MOVE R15 R11
+  CALL R13 2 0
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K17 ["useBoundAction"]
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K22 ["SET_PLAYBACK_SPEED"]
+  MOVE R15 R8
+  CALL R13 2 0
+  DUPTABLE R13 K30 [{"toggleIsPlayingAsync", "setCurrentTimeAsync", "incrementIsScrubbingAsync", "setPlaybackSpeedAsync", "isPlaying", "currentTime", "isScrubbing", "playbackSpeed"}]
+  GETTABLEKS R14 R5 K19 ["toggle"]
+  SETTABLEKS R14 R13 K23 ["toggleIsPlayingAsync"]
+  SETTABLEKS R11 R13 K24 ["setCurrentTimeAsync"]
+  SETTABLEKS R12 R13 K25 ["incrementIsScrubbingAsync"]
+  SETTABLEKS R8 R13 K26 ["setPlaybackSpeedAsync"]
+  GETTABLEKS R14 R5 K6 ["enabled"]
+  SETTABLEKS R14 R13 K27 ["isPlaying"]
+  SETTABLEKS R10 R13 K28 ["currentTime"]
+  SETTABLEKS R6 R13 K29 ["isScrubbing"]
+  SETTABLEKS R7 R13 K10 ["playbackSpeed"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K31 ["createElement"]
+  GETUPVAL R16 7
+  GETTABLEKS R15 R16 K32 ["Provider"]
+  DUPTABLE R16 K34 [{"value"}]
+  SETTABLEKS R13 R16 K33 ["value"]
+  GETTABLEKS R17 R0 K35 ["children"]
+  CALL R14 3 -1
+  RETURN R14 -1
 
 PROTO_3:
   GETUPVAL R0 0
@@ -148,66 +161,80 @@ PROTO_4:
   JUMP [+2]
   GETTABLEKS R5 R0 K5 ["defaultPlayingState"]
   CALL R3 2 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["useRef"]
-  LOADB R5 0
-  CALL R4 1 1
-  MOVE R5 R3
-  JUMPIFNOT R5 [+1]
-  NOT R5 R2
-  SETTABLEKS R5 R4 K7 ["current"]
-  GETUPVAL R5 4
-  DUPTABLE R6 K10 [{"timeRange", "isAutomaticallyPlayingRef"}]
-  GETTABLEKS R7 R1 K8 ["timeRange"]
-  SETTABLEKS R7 R6 K8 ["timeRange"]
-  SETTABLEKS R4 R6 K9 ["isAutomaticallyPlayingRef"]
-  CALL R5 1 2
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K2 ["useReplicatedStateListener"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K11 ["CURRENT_TIME"]
-  MOVE R9 R5
-  CALL R7 2 1
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K12 ["useEffect"]
-  NEWCLOSURE R9 P0
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  NEWTABLE R10 0 1
-  MOVE R11 R7
-  SETLIST R10 R11 1 [1]
-  CALL R8 2 0
-  DUPTABLE R8 K19 [{"toggleIsPlayingAsync", "setCurrentTimeAsync", "incrementIsScrubbingAsync", "isPlaying", "currentTime", "isScrubbing"}]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K20 ["useBoundAction"]
-  GETUPVAL R11 5
-  GETTABLEKS R10 R11 K21 ["TOGGLE_IS_PLAYING_ASYNC"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K13 ["toggleIsPlayingAsync"]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K20 ["useBoundAction"]
-  GETUPVAL R11 5
-  GETTABLEKS R10 R11 K22 ["SET_CURRENT_TIME_ASYNC"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K14 ["setCurrentTimeAsync"]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K20 ["useBoundAction"]
-  GETUPVAL R11 5
-  GETTABLEKS R10 R11 K23 ["INCREMENT_IS_SCRUBBING_ASYNC"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K15 ["incrementIsScrubbingAsync"]
-  SETTABLEKS R3 R8 K16 ["isPlaying"]
-  SETTABLEKS R5 R8 K17 ["currentTime"]
-  SETTABLEKS R2 R8 K18 ["isScrubbing"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["useReplicatedStateListener"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K6 ["PLAYBACK_SPEED"]
+  LOADN R6 1
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K7 ["useRef"]
+  LOADB R6 0
+  CALL R5 1 1
+  MOVE R6 R3
+  JUMPIFNOT R6 [+1]
+  NOT R6 R2
+  SETTABLEKS R6 R5 K8 ["current"]
+  GETUPVAL R6 4
+  DUPTABLE R7 K12 [{"timeRange", "isAutomaticallyPlayingRef", "playbackSpeed"}]
+  GETTABLEKS R8 R1 K9 ["timeRange"]
+  SETTABLEKS R8 R7 K9 ["timeRange"]
+  SETTABLEKS R5 R7 K10 ["isAutomaticallyPlayingRef"]
+  SETTABLEKS R4 R7 K11 ["playbackSpeed"]
+  CALL R6 1 2
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K2 ["useReplicatedStateListener"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K13 ["CURRENT_TIME"]
+  MOVE R10 R6
+  CALL R8 2 1
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K24 ["createElement"]
-  GETUPVAL R11 6
-  GETTABLEKS R10 R11 K25 ["Provider"]
-  DUPTABLE R11 K27 [{"value"}]
-  SETTABLEKS R8 R11 K26 ["value"]
-  GETTABLEKS R12 R0 K28 ["children"]
-  CALL R9 3 -1
-  RETURN R9 -1
+  GETTABLEKS R9 R10 K14 ["useEffect"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  NEWTABLE R11 0 1
+  MOVE R12 R8
+  SETLIST R11 R12 1 [1]
+  CALL R9 2 0
+  DUPTABLE R9 K22 [{"toggleIsPlayingAsync", "setCurrentTimeAsync", "incrementIsScrubbingAsync", "isPlaying", "currentTime", "isScrubbing", "playbackSpeed", "setPlaybackSpeedAsync"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K23 ["useBoundAction"]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K24 ["TOGGLE_IS_PLAYING_ASYNC"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K15 ["toggleIsPlayingAsync"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K23 ["useBoundAction"]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K25 ["SET_CURRENT_TIME_ASYNC"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K16 ["setCurrentTimeAsync"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K23 ["useBoundAction"]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K26 ["INCREMENT_IS_SCRUBBING_ASYNC"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K17 ["incrementIsScrubbingAsync"]
+  SETTABLEKS R3 R9 K18 ["isPlaying"]
+  SETTABLEKS R6 R9 K19 ["currentTime"]
+  SETTABLEKS R2 R9 K20 ["isScrubbing"]
+  SETTABLEKS R4 R9 K11 ["playbackSpeed"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K23 ["useBoundAction"]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K27 ["SET_PLAYBACK_SPEED"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K21 ["setPlaybackSpeedAsync"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K28 ["createElement"]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K29 ["Provider"]
+  DUPTABLE R12 K31 [{"value"}]
+  SETTABLEKS R9 R12 K30 ["value"]
+  GETTABLEKS R13 R0 K32 ["children"]
+  CALL R10 3 -1
+  RETURN R10 -1
 
 MAIN:
   PREPVARARGS 0
@@ -237,43 +264,53 @@ MAIN:
   GETTABLEKS R7 R8 K14 ["PlayStateContext"]
   GETTABLEKS R6 R7 K15 ["usePlayedCurrentTime"]
   CALL R5 1 1
-  DUPTABLE R6 K19 [{"IS_PLAYING", "CURRENT_TIME", "IS_SCRUBBING"}]
-  LOADK R7 K20 ["PlayStateContext_IsPlaying"]
+  DUPTABLE R6 K20 [{"IS_PLAYING", "CURRENT_TIME", "PLAYBACK_SPEED", "IS_SCRUBBING"}]
+  LOADK R7 K21 ["PlayStateContext_IsPlaying"]
   SETTABLEKS R7 R6 K16 ["IS_PLAYING"]
-  LOADK R7 K21 ["PlayStateContext_CurrentTime"]
+  LOADK R7 K22 ["PlayStateContext_CurrentTime"]
   SETTABLEKS R7 R6 K17 ["CURRENT_TIME"]
-  LOADK R7 K22 ["PlayStateContext_IsScrubbing"]
-  SETTABLEKS R7 R6 K18 ["IS_SCRUBBING"]
-  DUPTABLE R7 K26 [{"TOGGLE_IS_PLAYING_ASYNC", "SET_CURRENT_TIME_ASYNC", "INCREMENT_IS_SCRUBBING_ASYNC"}]
-  LOADK R8 K27 ["PlayStateContext_ToggleIsPlayingAsync"]
-  SETTABLEKS R8 R7 K23 ["TOGGLE_IS_PLAYING_ASYNC"]
-  LOADK R8 K28 ["PlayStateContext_SetCurrentTime"]
-  SETTABLEKS R8 R7 K24 ["SET_CURRENT_TIME_ASYNC"]
-  LOADK R8 K29 ["PlayStateContext_IncrementIsScrubbing"]
-  SETTABLEKS R8 R7 K25 ["INCREMENT_IS_SCRUBBING_ASYNC"]
-  DUPTABLE R8 K36 [{"isPlaying", "isScrubbing", "toggleIsPlayingAsync", "setCurrentTimeAsync", "incrementIsScrubbingAsync", "currentTime"}]
+  LOADK R7 K23 ["PlayStateContext_PlaybackSpeed"]
+  SETTABLEKS R7 R6 K18 ["PLAYBACK_SPEED"]
+  LOADK R7 K24 ["PlayStateContext_IsScrubbing"]
+  SETTABLEKS R7 R6 K19 ["IS_SCRUBBING"]
+  DUPTABLE R7 K29 [{"TOGGLE_IS_PLAYING_ASYNC", "SET_CURRENT_TIME_ASYNC", "SET_PLAYBACK_SPEED", "INCREMENT_IS_SCRUBBING_ASYNC"}]
+  LOADK R8 K30 ["PlayStateContext_ToggleIsPlayingAsync"]
+  SETTABLEKS R8 R7 K25 ["TOGGLE_IS_PLAYING_ASYNC"]
+  LOADK R8 K31 ["PlayStateContext_SetCurrentTime"]
+  SETTABLEKS R8 R7 K26 ["SET_CURRENT_TIME_ASYNC"]
+  LOADK R8 K32 ["PlayStateContext_SetPlaybackSpeed"]
+  SETTABLEKS R8 R7 K27 ["SET_PLAYBACK_SPEED"]
+  LOADK R8 K33 ["PlayStateContext_IncrementIsScrubbing"]
+  SETTABLEKS R8 R7 K28 ["INCREMENT_IS_SCRUBBING_ASYNC"]
+  DUPTABLE R8 K42 [{"isPlaying", "isScrubbing", "toggleIsPlayingAsync", "setCurrentTimeAsync", "incrementIsScrubbingAsync", "currentTime", "playbackSpeed", "setPlaybackSpeedAsync"}]
   LOADB R9 0
-  SETTABLEKS R9 R8 K30 ["isPlaying"]
+  SETTABLEKS R9 R8 K34 ["isPlaying"]
   LOADB R9 0
-  SETTABLEKS R9 R8 K31 ["isScrubbing"]
-  GETTABLEKS R9 R3 K37 ["createUnimplemented"]
-  LOADK R10 K32 ["toggleIsPlayingAsync"]
+  SETTABLEKS R9 R8 K35 ["isScrubbing"]
+  GETTABLEKS R9 R3 K43 ["createUnimplemented"]
+  LOADK R10 K36 ["toggleIsPlayingAsync"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K32 ["toggleIsPlayingAsync"]
-  GETTABLEKS R9 R3 K37 ["createUnimplemented"]
-  LOADK R10 K33 ["setCurrentTimeAsync"]
+  SETTABLEKS R9 R8 K36 ["toggleIsPlayingAsync"]
+  GETTABLEKS R9 R3 K43 ["createUnimplemented"]
+  LOADK R10 K37 ["setCurrentTimeAsync"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K33 ["setCurrentTimeAsync"]
-  GETTABLEKS R9 R3 K37 ["createUnimplemented"]
-  LOADK R10 K34 ["incrementIsScrubbingAsync"]
+  SETTABLEKS R9 R8 K37 ["setCurrentTimeAsync"]
+  GETTABLEKS R9 R3 K43 ["createUnimplemented"]
+  LOADK R10 K38 ["incrementIsScrubbingAsync"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K34 ["incrementIsScrubbingAsync"]
+  SETTABLEKS R9 R8 K38 ["incrementIsScrubbingAsync"]
   LOADN R9 0
-  SETTABLEKS R9 R8 K35 ["currentTime"]
-  GETTABLEKS R9 R2 K38 ["createContext"]
+  SETTABLEKS R9 R8 K39 ["currentTime"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K40 ["playbackSpeed"]
+  GETTABLEKS R9 R3 K43 ["createUnimplemented"]
+  LOADK R10 K41 ["setPlaybackSpeedAsync"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K41 ["setPlaybackSpeedAsync"]
+  GETTABLEKS R9 R2 K44 ["createContext"]
   MOVE R10 R8
   CALL R9 1 1
-  DUPCLOSURE R10 K39 [PROTO_2]
+  DUPCLOSURE R10 K45 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R3
@@ -282,7 +319,7 @@ MAIN:
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R9
-  DUPCLOSURE R11 K40 [PROTO_4]
+  DUPCLOSURE R11 K46 [PROTO_4]
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R1
@@ -290,8 +327,8 @@ MAIN:
   CAPTURE VAL R5
   CAPTURE VAL R7
   CAPTURE VAL R9
-  DUPTABLE R12 K44 [{"Context", "EditableDataModelProvider", "UIDataModelProvider"}]
-  SETTABLEKS R9 R12 K41 ["Context"]
-  SETTABLEKS R11 R12 K42 ["EditableDataModelProvider"]
-  SETTABLEKS R10 R12 K43 ["UIDataModelProvider"]
+  DUPTABLE R12 K50 [{"Context", "EditableDataModelProvider", "UIDataModelProvider"}]
+  SETTABLEKS R9 R12 K47 ["Context"]
+  SETTABLEKS R11 R12 K48 ["EditableDataModelProvider"]
+  SETTABLEKS R10 R12 K49 ["UIDataModelProvider"]
   RETURN R12 1

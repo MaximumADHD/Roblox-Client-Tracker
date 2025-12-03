@@ -3,68 +3,74 @@ PROTO_0:
   GETTABLEKS R1 R2 K0 ["useContext"]
   GETUPVAL R2 1
   CALL R1 1 1
-  GETUPVAL R2 2
-  GETTABLEKS R3 R1 K1 ["WindowFocusReleased"]
-  GETTABLEKS R5 R0 K2 ["toggle"]
-  GETTABLEKS R4 R5 K3 ["disable"]
-  NEWTABLE R5 0 1
-  GETTABLEKS R6 R0 K2 ["toggle"]
-  SETLIST R5 R6 1 [1]
-  CALL R2 3 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["createElement"]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K5 ["Popover"]
-  GETTABLEKS R3 R4 K6 ["Root"]
-  DUPTABLE R4 K8 [{"isOpen"}]
-  GETTABLEKS R6 R0 K2 ["toggle"]
-  GETTABLEKS R5 R6 K9 ["enabled"]
-  SETTABLEKS R5 R4 K7 ["isOpen"]
-  DUPTABLE R5 K12 [{"Anchor", "Content"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K4 ["createElement"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K5 ["Popover"]
-  GETTABLEKS R7 R8 K10 ["Anchor"]
-  DUPTABLE R8 K14 [{"LayoutOrder"}]
-  GETTABLEKS R9 R0 K13 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
-  GETTABLEKS R10 R0 K15 ["children"]
-  GETTABLEKS R9 R10 K10 ["Anchor"]
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K10 ["Anchor"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K4 ["createElement"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K5 ["Popover"]
-  GETTABLEKS R7 R8 K11 ["Content"]
-  DUPTABLE R8 K20 [{"onPressedOutside", "side", "align", "hasArrow"}]
-  GETTABLEKS R10 R0 K2 ["toggle"]
-  GETTABLEKS R9 R10 K3 ["disable"]
-  SETTABLEKS R9 R8 K16 ["onPressedOutside"]
-  DUPTABLE R9 K23 [{"position", "offset"}]
-  GETTABLEKS R10 R0 K17 ["side"]
-  SETTABLEKS R10 R9 K21 ["position"]
-  LOADN R10 5
-  SETTABLEKS R10 R9 K22 ["offset"]
-  SETTABLEKS R9 R8 K17 ["side"]
-  DUPTABLE R9 K23 [{"position", "offset"}]
-  GETTABLEKS R10 R0 K18 ["align"]
-  SETTABLEKS R10 R9 K21 ["position"]
-  LOADN R10 0
-  SETTABLEKS R10 R9 K22 ["offset"]
-  SETTABLEKS R9 R8 K18 ["align"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K19 ["hasArrow"]
-  GETTABLEKS R10 R0 K2 ["toggle"]
-  GETTABLEKS R9 R10 K9 ["enabled"]
-  JUMPIFNOT R9 [+4]
-  GETTABLEKS R10 R0 K15 ["children"]
-  GETTABLEKS R9 R10 K11 ["Content"]
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K11 ["Content"]
-  CALL R2 3 -1
-  RETURN R2 -1
+  GETTABLEKS R3 R1 K1 ["widget"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R1 K1 ["widget"]
+  GETTABLEKS R2 R3 K2 ["WindowFocusReleased"]
+  JUMP [+1]
+  LOADNIL R2
+  GETUPVAL R3 2
+  MOVE R4 R2
+  GETTABLEKS R6 R0 K3 ["toggle"]
+  GETTABLEKS R5 R6 K4 ["disable"]
+  NEWTABLE R6 0 1
+  GETTABLEKS R7 R0 K3 ["toggle"]
+  SETLIST R6 R7 1 [1]
+  CALL R3 3 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["createElement"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K6 ["Popover"]
+  GETTABLEKS R4 R5 K7 ["Root"]
+  DUPTABLE R5 K9 [{"isOpen"}]
+  GETTABLEKS R7 R0 K3 ["toggle"]
+  GETTABLEKS R6 R7 K10 ["enabled"]
+  SETTABLEKS R6 R5 K8 ["isOpen"]
+  DUPTABLE R6 K13 [{"Anchor", "Content"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K6 ["Popover"]
+  GETTABLEKS R8 R9 K11 ["Anchor"]
+  DUPTABLE R9 K15 [{"LayoutOrder"}]
+  GETTABLEKS R10 R0 K14 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K14 ["LayoutOrder"]
+  GETTABLEKS R11 R0 K16 ["children"]
+  GETTABLEKS R10 R11 K11 ["Anchor"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K11 ["Anchor"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K6 ["Popover"]
+  GETTABLEKS R8 R9 K12 ["Content"]
+  DUPTABLE R9 K21 [{"onPressedOutside", "side", "align", "hasArrow"}]
+  GETTABLEKS R11 R0 K3 ["toggle"]
+  GETTABLEKS R10 R11 K4 ["disable"]
+  SETTABLEKS R10 R9 K17 ["onPressedOutside"]
+  DUPTABLE R10 K24 [{"position", "offset"}]
+  GETTABLEKS R11 R0 K18 ["side"]
+  SETTABLEKS R11 R10 K22 ["position"]
+  LOADN R11 5
+  SETTABLEKS R11 R10 K23 ["offset"]
+  SETTABLEKS R10 R9 K18 ["side"]
+  DUPTABLE R10 K24 [{"position", "offset"}]
+  GETTABLEKS R11 R0 K19 ["align"]
+  SETTABLEKS R11 R10 K22 ["position"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K23 ["offset"]
+  SETTABLEKS R10 R9 K19 ["align"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K20 ["hasArrow"]
+  GETTABLEKS R11 R0 K3 ["toggle"]
+  GETTABLEKS R10 R11 K10 ["enabled"]
+  JUMPIFNOT R10 [+4]
+  GETTABLEKS R11 R0 K16 ["children"]
+  GETTABLEKS R10 R11 K12 ["Content"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K12 ["Content"]
+  CALL R3 3 -1
+  RETURN R3 -1
 
 MAIN:
   PREPVARARGS 0

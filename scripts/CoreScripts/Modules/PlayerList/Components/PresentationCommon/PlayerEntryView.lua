@@ -45,11 +45,13 @@ local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewP
 local FFlagRemoveNewPlayerListOverlay = PlayerListPackage.Flags.FFlagRemoveNewPlayerListOverlay
 local FFlagMoveNewPlayerListDividers = require(SharedFlags).FFlagMoveNewPlayerListDividers
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+local FFlagPlayerListFixLeaderstatsStacking = require(SharedFlags).FFlagPlayerListFixLeaderstatsStacking
 
 type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
 type PlayerEntry = LeaderboardStore.PlayerEntry
 type GameStatList = LeaderboardStore.GameStatList
+type GameStat = LeaderboardStore.GameStat
 type StatList = LeaderboardStore.StatList
 
 type ColorStyle = {
@@ -70,7 +72,7 @@ export type PlayerEntryViewProps = {
 	playerIconInfo: PlayerIconInfoProps,
 	playerRelationship: PlayerRelationshipProps,
 	gameStats: GameStatList?,
-	gameStatsCount: number,
+	gameStatsCount: number?, -- Remove prop when FFlagPlayerListFixLeaderstatsStacking is cleaned up
 	teamPlayersCount: Signals.getter<number>?,
 
 	-- Dropdown data
@@ -156,8 +158,8 @@ type PlayerEntryChildrenProps = {
 	entrySizeX: number,
 	playerStats: StatList?,
 	gameStats: GameStatList?,
-	playerStatsCount: number,
-	gameStatsCount: number,
+	playerStatsCount: number?, -- Remove prop when FFlagPlayerListFixLeaderstatsStacking is cleaned up
+	gameStatsCount: number?, -- Remove prop when FFlagPlayerListFixLeaderstatsStacking is cleaned up
 	backgroundFrameProps: { [string]: any },
 }
 
@@ -252,21 +254,44 @@ local function PlayerEntryChildren(props: PlayerEntryChildrenProps)
 		end
 	end
 
-	if gameStats and gameStatsCount > 0 and playerStats and playerStatsCount >= 0 then
-		gameStats.iterateData(function(gameStatName, value)
-			if value.order(false) > maxLeaderstats then
-				return
-			end
+	if FFlagPlayerListFixLeaderstatsStacking then
+		local gameStatsData = SignalsReact.useSignalState(Signals.createComputed(function(scope): { [string]: GameStat }
+			return if gameStats then gameStats.getAllData(scope) else {}
+		end))
 
-			local playerStat = playerStats.getData(gameStatName, false)
-			children["GameStat_" .. gameStatName] = React.createElement(
-				StatEntryContainer,
-				Cryo.Dictionary.join(statProps, {
-					statName = gameStatName,
-					stat = playerStat,
-				})
-			)
-		end, false)
+		if playerStats then
+			for gameStatName, gameStatData in gameStatsData do
+				if gameStatData.order(false) > maxLeaderstats then
+					continue
+				end
+
+				local playerStat = playerStats.getData(gameStatName, false)
+				children["GameStat_" .. gameStatName] = React.createElement(
+					StatEntryContainer,
+					Cryo.Dictionary.join(statProps, {
+						statName = gameStatName,
+						stat = playerStat,
+					})
+				)
+			end
+		end
+	else
+		if gameStats and gameStatsCount and gameStatsCount > 0 and playerStats and playerStatsCount and playerStatsCount >= 0 then
+			gameStats.iterateData(function(gameStatName, value)
+				if value.order(false) > maxLeaderstats then
+					return
+				end
+
+				local playerStat = playerStats.getData(gameStatName, false)
+				children["GameStat_" .. gameStatName] = React.createElement(
+					StatEntryContainer,
+					Cryo.Dictionary.join(statProps, {
+						statName = gameStatName,
+						stat = playerStat,
+					})
+				)
+			end, false)
+		end
 	end
 
 	-- Add background extender for desktop non-tenfoot mode
@@ -293,7 +318,7 @@ end
 PlayerEntryChildren = React.memo(PlayerEntryChildren) :: any
 
 local function PlayerEntryView(props: PlayerEntryViewProps)
-	local playerStatsCount = SignalsReact.useSignalState(props.playerData.stats.getCount)
+	local playerStatsCount: number? = if FFlagPlayerListFixLeaderstatsStacking then nil else SignalsReact.useSignalState(props.playerData.stats.getCount)
 
 	-- Set player order to odd numbers (1, 3, 5, ...) to leave space for dividers
 	local playerOrder = SignalsReact.useSignalBinding(

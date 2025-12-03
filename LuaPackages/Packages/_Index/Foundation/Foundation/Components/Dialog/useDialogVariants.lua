@@ -77,9 +77,7 @@ local function variantsFactory(tokens: Tokens)
 			tag = "auto-y size-full fill",
 		},
 		contentText = {
-			tag = `text-wrap text-align-x-left text-align-y-top auto-y size-full-0 {if Flags.FoundationDialogBodyUpdate
-				then "padding-right-xxlarge"
-				else ""}`,
+			tag = "text-wrap text-align-x-left text-align-y-top auto-y size-full-0",
 		},
 		actionsLabel = {
 			tag = "text-align-x-left text-wrap text-align-y-top auto-y size-full-0 text-body-small",

@@ -1,0 +1,18 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["DataModel"]
+  JUMPIFNOTEQKS R1 K1 ["Standalone"] [+15]
+  GETTABLEKS R1 R0 K2 ["PluginId"]
+  JUMPIFNOTEQKS R1 K3 ["MaterialPicker"] [+11]
+  GETTABLEKS R1 R0 K4 ["ItemId"]
+  JUMPIFEQKS R1 K5 ["MaterialPickerButton"] [+5]
+  GETTABLEKS R1 R0 K4 ["ItemId"]
+  JUMPIFNOTEQKS R1 K6 ["MaterialPickerDropdown"] [+3]
+  LOADB R1 1
+  RETURN R1 1
+  LOADB R1 0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

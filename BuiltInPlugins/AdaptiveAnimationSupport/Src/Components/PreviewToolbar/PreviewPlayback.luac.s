@@ -1,0 +1,170 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["animationId"]
+  NAMECALL R0 R0 K1 ["GetAnimationClipAsync"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFNOTEQKNIL R1 [+3]
+  LOADNIL R2
+  RETURN R2 1
+  LOADK R5 K0 ["Animator"]
+  NAMECALL R3 R1 K1 ["IsA"]
+  CALL R3 2 1
+  FASTCALL2K ASSERT R3 K2 [+4]
+  LOADK R4 K2 ["Instance is not an Animator"]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["SignalsInstanceUtils"]
+  GETTABLEKS R0 R1 K1 ["observeFirstDescendantWhichIsA"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["model"]
+  LOADK R2 K3 ["Animator"]
+  CALL R0 2 1
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K4 ["createComputed"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useAsync"]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  NEWTABLE R3 0 1
+  GETTABLEKS R4 R0 K1 ["animationId"]
+  SETLIST R3 R4 1 [1]
+  CALL R1 2 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["useSignalState"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K3 ["useMemo"]
+  NEWCLOSURE R4 P1
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  NEWTABLE R5 0 1
+  GETTABLEKS R6 R0 K4 ["model"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R3 R0 K5 ["isPlaying"]
+  JUMPIF R3 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  GETTABLEKS R3 R1 K6 ["status"]
+  JUMPIFEQKS R3 K7 ["ok"] [+3]
+  LOADNIL R3
+  RETURN R3 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["createElement"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["ContextStack"]
+  DUPTABLE R5 K11 [{"providers"}]
+  NEWTABLE R6 0 5
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K12 ["NetworkingContext"]
+  GETTABLEKS R8 R9 K13 ["EditableDataModelProvider"]
+  CALL R7 1 1
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K8 ["createElement"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K14 ["PlayStateContext"]
+  GETTABLEKS R9 R10 K15 ["UIDataModelProvider"]
+  DUPTABLE R10 K17 [{"defaultPlayingState"}]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K16 ["defaultPlayingState"]
+  CALL R8 2 1
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K18 ["TimeRangeContext"]
+  GETTABLEKS R10 R11 K19 ["Provider"]
+  DUPTABLE R11 K21 [{"timeRange"}]
+  GETIMPORT R12 K24 [NumberRange.new]
+  LOADN R13 0
+  LOADN R14 10
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K20 ["timeRange"]
+  CALL R9 2 1
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K25 ["AnimationPreviewClipsContext"]
+  GETTABLEKS R11 R12 K19 ["Provider"]
+  DUPTABLE R12 K27 [{"animationClipsList"}]
+  GETTABLEKS R14 R1 K6 ["status"]
+  JUMPIFNOTEQKS R14 K7 ["ok"] [+13]
+  NEWTABLE R13 0 1
+  DUPTABLE R14 K30 [{"clip", "animator"}]
+  GETTABLEKS R15 R1 K31 ["value"]
+  SETTABLEKS R15 R14 K28 ["clip"]
+  SETTABLEKS R2 R14 K29 ["animator"]
+  SETLIST R13 R14 1 [1]
+  JUMP [+2]
+  NEWTABLE R13 0 0
+  SETTABLEKS R13 R12 K26 ["animationClipsList"]
+  CALL R10 2 1
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K8 ["createElement"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K32 ["AnimationPreviewContext"]
+  GETTABLEKS R12 R13 K13 ["EditableDataModelProvider"]
+  CALL R11 1 -1
+  SETLIST R6 R7 -1 [1]
+  SETTABLEKS R6 R5 K10 ["providers"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AdaptiveAnimationSupport"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["AnimationClipProvider"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["AnimationEditor"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R0 K10 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["ReactUtils"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R7 R0 K10 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Signals"]
+  CALL R5 1 1
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R8 R0 K10 ["Packages"]
+  GETTABLEKS R7 R8 K15 ["SignalsReact"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K16 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  RETURN R7 1

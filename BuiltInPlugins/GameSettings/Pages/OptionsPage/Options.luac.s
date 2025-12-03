@@ -76,7 +76,7 @@ PROTO_6:
   GETTABLEKS R4 R1 K0 ["Settings"]
   GETTABLEKS R3 R4 K1 ["Current"]
   GETTABLEKS R2 R3 K2 ["ScriptCollaborationEnabledOnServer"]
-  DUPTABLE R3 K7 [{"ScriptCollabEnabled", "CurrentScriptCollabEnabled", "TeamCreateEnabled", "ScriptCollabEnabledOnServer"}]
+  DUPTABLE R3 K8 [{"ScriptCollabEnabled", "CurrentScriptCollabEnabled", "TeamCreateEnabled", "ScriptCollabEnabledOnServer", "GameId"}]
   MOVE R4 R0
   LOADK R5 K3 ["ScriptCollabEnabled"]
   CALL R4 1 1
@@ -88,9 +88,12 @@ PROTO_6:
   GETTABLEKS R7 R1 K0 ["Settings"]
   GETTABLEKS R6 R7 K1 ["Current"]
   GETTABLEKS R5 R6 K5 ["TeamCreateEnabled"]
-  ORK R4 R5 K8 []
+  ORK R4 R5 K9 []
   SETTABLEKS R4 R3 K5 ["TeamCreateEnabled"]
   SETTABLEKS R2 R3 K6 ["ScriptCollabEnabledOnServer"]
+  GETTABLEKS R5 R1 K10 ["Metadata"]
+  GETTABLEKS R4 R5 K11 ["gameId"]
+  SETTABLEKS R4 R3 K7 ["GameId"]
   RETURN R3 1
 
 PROTO_7:
@@ -122,6 +125,29 @@ PROTO_9:
   RETURN R0 0
 
 PROTO_10:
+  LOADK R1 K0 ["https://create.roblox.com/dashboard/creations/experiences/"]
+  GETUPVAL R4 0
+  GETTABLEKS R2 R4 K1 ["GameId"]
+  LOADK R3 K2 ["/server-management"]
+  CONCAT R0 R1 R3
+  JUMPIFNOT R0 [+14]
+  FASTCALL1 STRING_LEN R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K5 [string.len]
+  CALL R1 1 1
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+7]
+  GETUPVAL R1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K6 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETIMPORT R1 K8 [error]
+  LOADK R2 K9 ["Failed to open Creator Server Management page"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_11:
   DUPTABLE R0 K4 [{"Size", "Title", "Header", "Buttons"}]
   GETIMPORT R1 K7 [Vector2.new]
   LOADN R2 87
@@ -165,11 +191,11 @@ PROTO_10:
   CALL R2 0 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
   GETTABLEKS R1 R0 K1 ["Localization"]
-  DUPTABLE R2 K4 [{"EnableScriptCollab", "ShutdownAllServers"}]
+  DUPTABLE R2 K4 [{"EnableScriptCollab", "RestartServers"}]
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K5 ["createElement"]
   GETUPVAL R4 2
@@ -197,106 +223,143 @@ PROTO_11:
   SETTABLEKS R6 R5 K12 ["OnClick"]
   CALL R3 2 1
   SETTABLEKS R3 R2 K2 ["EnableScriptCollab"]
+  GETUPVAL R4 7
+  JUMPIFNOT R4 [+49]
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K5 ["createElement"]
-  GETUPVAL R4 7
+  GETUPVAL R4 8
   DUPTABLE R5 K19 [{"LayoutOrder", "Title"}]
   GETUPVAL R6 4
   NAMECALL R6 R6 K17 ["getNextOrder"]
   CALL R6 1 1
   SETTABLEKS R6 R5 K8 ["LayoutOrder"]
   LOADK R8 K14 ["General"]
-  LOADK R9 K20 ["TitleShutdownAllServers"]
+  LOADK R9 K20 ["TitleRestartServers"]
   NAMECALL R6 R1 K16 ["getText"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K6 ["Title"]
-  DUPTABLE R6 K24 [{"VerticalLayout", "ShutdownButton", "ShutdownButtonDescription"}]
+  DUPTABLE R6 K22 [{"LinkText"}]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K5 ["createElement"]
-  LOADK R8 K25 ["UIListLayout"]
-  DUPTABLE R9 K29 [{"FillDirection", "HorizontalAlignment", "SortOrder"}]
-  GETIMPORT R10 K32 [Enum.FillDirection.Vertical]
-  SETTABLEKS R10 R9 K26 ["FillDirection"]
-  GETIMPORT R10 K34 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R10 R9 K27 ["HorizontalAlignment"]
-  GETIMPORT R10 K35 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R10 R9 K28 ["SortOrder"]
+  GETUPVAL R8 9
+  DUPTABLE R9 K26 [{"OnClick", "Text", "TextXAlignment", "TextYAlignment"}]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U10
+  SETTABLEKS R10 R9 K12 ["OnClick"]
+  LOADK R12 K14 ["General"]
+  LOADK R13 K27 ["ManageServersOnCreatorHubDeepLink"]
+  NAMECALL R10 R1 K16 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K23 ["Text"]
+  GETIMPORT R10 K30 [Enum.TextXAlignment.Left]
+  SETTABLEKS R10 R9 K24 ["TextXAlignment"]
+  GETIMPORT R10 K32 [Enum.TextYAlignment.Top]
+  SETTABLEKS R10 R9 K25 ["TextYAlignment"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K21 ["VerticalLayout"]
+  SETTABLEKS R7 R6 K21 ["LinkText"]
+  CALL R3 3 1
+  JUMPIF R3 [+140]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["createElement"]
+  GETUPVAL R4 8
+  DUPTABLE R5 K19 [{"LayoutOrder", "Title"}]
+  GETUPVAL R6 4
+  NAMECALL R6 R6 K17 ["getNextOrder"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K8 ["LayoutOrder"]
+  LOADK R8 K14 ["General"]
+  LOADK R9 K33 ["TitleShutdownAllServers"]
+  NAMECALL R6 R1 K16 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K6 ["Title"]
+  DUPTABLE R6 K37 [{"VerticalLayout", "ShutdownButton", "ShutdownButtonDescription"}]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K5 ["createElement"]
-  GETUPVAL R8 8
-  DUPTABLE R9 K39 [{"Style", "Text", "Size", "LayoutOrder", "OnClick"}]
-  LOADK R10 K40 ["GameSettingsButton"]
-  SETTABLEKS R10 R9 K36 ["Style"]
-  GETUPVAL R10 9
-  SETTABLEKS R10 R9 K37 ["Text"]
-  GETUPVAL R10 10
-  SETTABLEKS R10 R9 K38 ["Size"]
+  LOADK R8 K38 ["UIListLayout"]
+  DUPTABLE R9 K42 [{"FillDirection", "HorizontalAlignment", "SortOrder"}]
+  GETIMPORT R10 K44 [Enum.FillDirection.Vertical]
+  SETTABLEKS R10 R9 K39 ["FillDirection"]
+  GETIMPORT R10 K45 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R10 R9 K40 ["HorizontalAlignment"]
+  GETIMPORT R10 K46 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R10 R9 K41 ["SortOrder"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K34 ["VerticalLayout"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R8 11
+  DUPTABLE R9 K49 [{"Style", "Text", "Size", "LayoutOrder", "OnClick"}]
+  LOADK R10 K50 ["GameSettingsButton"]
+  SETTABLEKS R10 R9 K47 ["Style"]
+  GETUPVAL R10 12
+  SETTABLEKS R10 R9 K23 ["Text"]
+  GETUPVAL R10 13
+  SETTABLEKS R10 R9 K48 ["Size"]
   LOADN R10 1
   SETTABLEKS R10 R9 K8 ["LayoutOrder"]
-  NEWCLOSURE R10 P1
+  NEWCLOSURE R10 P2
   CAPTURE VAL R1
-  CAPTURE UPVAL U11
-  CAPTURE UPVAL U12
-  CAPTURE UPVAL U13
+  CAPTURE UPVAL U14
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
   SETTABLEKS R10 R9 K12 ["OnClick"]
   NEWTABLE R10 0 1
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K5 ["createElement"]
-  GETUPVAL R12 14
-  DUPTABLE R13 K42 [{"Cursor"}]
-  LOADK R14 K43 ["PointingHand"]
-  SETTABLEKS R14 R13 K41 ["Cursor"]
+  GETUPVAL R12 17
+  DUPTABLE R13 K52 [{"Cursor"}]
+  LOADK R14 K53 ["PointingHand"]
+  SETTABLEKS R14 R13 K51 ["Cursor"]
   CALL R11 2 -1
   SETLIST R10 R11 -1 [1]
   CALL R7 3 1
-  SETTABLEKS R7 R6 K22 ["ShutdownButton"]
+  SETTABLEKS R7 R6 K35 ["ShutdownButton"]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K5 ["createElement"]
-  LOADK R8 K44 ["TextLabel"]
-  GETUPVAL R11 15
-  GETTABLEKS R10 R11 K45 ["Dictionary"]
-  GETTABLEKS R9 R10 K46 ["join"]
-  GETUPVAL R12 16
-  GETTABLEKS R11 R12 K47 ["fontStyle"]
-  GETTABLEKS R10 R11 K48 ["Subtext"]
-  DUPTABLE R11 K53 [{"Size", "LayoutOrder", "BackgroundTransparency", "Text", "TextYAlignment", "TextXAlignment", "TextWrapped"}]
-  GETIMPORT R12 K56 [UDim2.new]
+  LOADK R8 K54 ["TextLabel"]
+  GETUPVAL R11 18
+  GETTABLEKS R10 R11 K55 ["Dictionary"]
+  GETTABLEKS R9 R10 K56 ["join"]
+  GETUPVAL R12 19
+  GETTABLEKS R11 R12 K57 ["fontStyle"]
+  GETTABLEKS R10 R11 K58 ["Subtext"]
+  DUPTABLE R11 K61 [{"Size", "LayoutOrder", "BackgroundTransparency", "Text", "TextYAlignment", "TextXAlignment", "TextWrapped"}]
+  GETIMPORT R12 K64 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
-  GETUPVAL R18 17
-  GETTABLEKS R17 R18 K57 ["Y"]
-  GETUPVAL R20 16
-  GETTABLEKS R19 R20 K58 ["shutdownButton"]
-  GETTABLEKS R18 R19 K59 ["PaddingY"]
+  GETUPVAL R18 20
+  GETTABLEKS R17 R18 K65 ["Y"]
+  GETUPVAL R20 19
+  GETTABLEKS R19 R20 K66 ["shutdownButton"]
+  GETTABLEKS R18 R19 K67 ["PaddingY"]
   ADD R16 R17 R18
   CALL R12 4 1
-  SETTABLEKS R12 R11 K38 ["Size"]
+  SETTABLEKS R12 R11 K48 ["Size"]
   LOADN R12 2
   SETTABLEKS R12 R11 K8 ["LayoutOrder"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K49 ["BackgroundTransparency"]
+  SETTABLEKS R12 R11 K59 ["BackgroundTransparency"]
   LOADK R14 K14 ["General"]
-  LOADK R15 K60 ["StudioShutdownAllServicesDesc"]
+  LOADK R15 K68 ["StudioShutdownAllServicesDesc"]
   NAMECALL R12 R1 K16 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K37 ["Text"]
-  GETIMPORT R12 K62 [Enum.TextYAlignment.Center]
-  SETTABLEKS R12 R11 K50 ["TextYAlignment"]
-  GETIMPORT R12 K63 [Enum.TextXAlignment.Left]
-  SETTABLEKS R12 R11 K51 ["TextXAlignment"]
+  SETTABLEKS R12 R11 K23 ["Text"]
+  GETIMPORT R12 K70 [Enum.TextYAlignment.Center]
+  SETTABLEKS R12 R11 K25 ["TextYAlignment"]
+  GETIMPORT R12 K30 [Enum.TextXAlignment.Left]
+  SETTABLEKS R12 R11 K24 ["TextXAlignment"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K52 ["TextWrapped"]
+  SETTABLEKS R12 R11 K60 ["TextWrapped"]
   CALL R9 2 -1
   CALL R7 -1 1
-  SETTABLEKS R7 R6 K23 ["ShutdownButtonDescription"]
+  SETTABLEKS R7 R6 K36 ["ShutdownButtonDescription"]
   CALL R3 3 1
-  SETTABLEKS R3 R2 K3 ["ShutdownAllServers"]
+  SETTABLEKS R3 R2 K3 ["RestartServers"]
   RETURN R2 1
 
-PROTO_12:
+PROTO_13:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Dialog"]
   GETTABLEKS R3 R1 K2 ["Stylizer"]
@@ -380,38 +443,41 @@ PROTO_12:
   CAPTURE VAL R14
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
   CAPTURE VAL R5
   CAPTURE VAL R10
   CAPTURE VAL R2
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U9
   CAPTURE VAL R11
-  CAPTURE UPVAL U7
-  CAPTURE UPVAL U8
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
   CAPTURE VAL R3
   CAPTURE VAL R7
   GETUPVAL R18 2
   GETTABLEKS R17 R18 K33 ["createElement"]
-  GETUPVAL R18 9
+  GETUPVAL R18 12
   DUPTABLE R19 K39 [{"SettingsLoadJobs", "SettingsSaveJobs", "Title", "PageId", "CreateChildren"}]
-  GETUPVAL R20 10
+  GETUPVAL R20 13
   SETTABLEKS R20 R19 K34 ["SettingsLoadJobs"]
-  GETUPVAL R20 11
+  GETUPVAL R20 14
   SETTABLEKS R20 R19 K35 ["SettingsSaveJobs"]
   LOADK R22 K4 ["General"]
   LOADK R24 K40 ["Category"]
-  GETUPVAL R25 12
+  GETUPVAL R25 15
   CONCAT R23 R24 R25
   NAMECALL R20 R4 K6 ["getText"]
   CALL R20 3 1
   SETTABLEKS R20 R19 K36 ["Title"]
-  GETUPVAL R20 12
+  GETUPVAL R20 15
   SETTABLEKS R20 R19 K37 ["PageId"]
   SETTABLEKS R16 R19 K38 ["CreateChildren"]
   CALL R17 2 -1
   CLOSEUPVALS R15
   RETURN R17 -1
 
-PROTO_13:
+PROTO_14:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["Settings"]
@@ -419,7 +485,7 @@ PROTO_13:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_14:
+PROTO_15:
   JUMPIF R0 [+1]
   RETURN R0 0
   NEWCLOSURE R2 P0
@@ -431,7 +497,7 @@ PROTO_14:
   CALL R3 2 1
   RETURN R3 1
 
-PROTO_15:
+PROTO_16:
   GETUPVAL R1 0
   GETUPVAL R2 1
   GETUPVAL R3 2
@@ -440,14 +506,14 @@ PROTO_15:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_17:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   RETURN R1 1
 
-PROTO_17:
+PROTO_18:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
@@ -507,124 +573,132 @@ MAIN:
   GETTABLEKS R13 R5 K19 ["UI"]
   GETTABLEKS R14 R13 K20 ["Button"]
   GETTABLEKS R15 R13 K21 ["HoverArea"]
-  GETTABLEKS R16 R13 K22 ["TitledFrame"]
-  GETIMPORT R17 K4 [require]
-  GETTABLEKS R21 R1 K12 ["Src"]
-  GETTABLEKS R20 R21 K13 ["Components"]
-  GETTABLEKS R19 R20 K15 ["Dialog"]
-  GETTABLEKS R18 R19 K23 ["SimpleDialog"]
-  CALL R17 1 1
+  GETTABLEKS R16 R13 K22 ["LinkText"]
+  GETTABLEKS R17 R13 K23 ["TitledFrame"]
   GETIMPORT R18 K4 [require]
   GETTABLEKS R22 R1 K12 ["Src"]
   GETTABLEKS R21 R22 K13 ["Components"]
-  GETTABLEKS R20 R21 K24 ["SettingsPages"]
-  GETTABLEKS R19 R20 K25 ["SettingsPage"]
+  GETTABLEKS R20 R21 K15 ["Dialog"]
+  GETTABLEKS R19 R20 K24 ["SimpleDialog"]
   CALL R18 1 1
   GETIMPORT R19 K4 [require]
-  GETTABLEKS R22 R1 K12 ["Src"]
-  GETTABLEKS R21 R22 K26 ["Actions"]
-  GETTABLEKS R20 R21 K27 ["AddChange"]
+  GETTABLEKS R23 R1 K12 ["Src"]
+  GETTABLEKS R22 R23 K13 ["Components"]
+  GETTABLEKS R21 R22 K25 ["SettingsPages"]
+  GETTABLEKS R20 R21 K26 ["SettingsPage"]
   CALL R19 1 1
   GETIMPORT R20 K4 [require]
-  GETTABLEKS R22 R0 K28 ["Thunks"]
-  GETTABLEKS R21 R22 K29 ["ShutdownAllServers"]
+  GETTABLEKS R23 R1 K12 ["Src"]
+  GETTABLEKS R22 R23 K27 ["Actions"]
+  GETTABLEKS R21 R22 K28 ["AddChange"]
   CALL R20 1 1
   GETIMPORT R21 K4 [require]
-  GETTABLEKS R24 R1 K12 ["Src"]
-  GETTABLEKS R23 R24 K16 ["Util"]
-  GETTABLEKS R22 R23 K30 ["KeyProvider"]
+  GETTABLEKS R23 R0 K29 ["Thunks"]
+  GETTABLEKS R22 R23 K30 ["ShutdownAllServers"]
   CALL R21 1 1
-  GETIMPORT R22 K32 [game]
-  LOADK R24 K33 ["SpatialVoiceChatLink"]
-  LOADK R25 K34 ["https://create.roblox.com/docs/chat/spatial-voice"]
-  NAMECALL R22 R22 K35 ["DefineFastString"]
-  CALL R22 3 1
-  GETIMPORT R23 K32 [game]
-  LOADK R25 K36 ["GuiService"]
-  NAMECALL R23 R23 K37 ["GetService"]
-  CALL R23 2 1
-  GETIMPORT R24 K32 [game]
-  LOADK R26 K38 ["SoundService"]
-  NAMECALL R24 R24 K37 ["GetService"]
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R25 R1 K12 ["Src"]
+  GETTABLEKS R24 R25 K16 ["Util"]
+  GETTABLEKS R23 R24 K31 ["KeyProvider"]
+  CALL R22 1 1
+  GETIMPORT R23 K33 [game]
+  LOADK R25 K34 ["SpatialVoiceChatLink"]
+  LOADK R26 K35 ["https://create.roblox.com/docs/chat/spatial-voice"]
+  NAMECALL R23 R23 K36 ["DefineFastString"]
+  CALL R23 3 1
+  GETIMPORT R24 K33 [game]
+  LOADK R26 K37 ["EnableRestartServersRedirectInGameSettings"]
+  NAMECALL R24 R24 K38 ["GetFastFlag"]
   CALL R24 2 1
-  GETTABLEKS R25 R21 K39 ["getVoiceChatEnabledKeyName"]
-  MOVE R26 R25
-  CALL R26 0 1
-  GETTABLEKS R27 R21 K40 ["getScriptCollaborationEnabledOnServerKeyName"]
+  GETIMPORT R25 K33 [game]
+  LOADK R27 K39 ["GuiService"]
+  NAMECALL R25 R25 K40 ["GetService"]
+  CALL R25 2 1
+  GETIMPORT R26 K33 [game]
+  LOADK R28 K41 ["SoundService"]
+  NAMECALL R26 R26 K40 ["GetService"]
+  CALL R26 2 1
+  GETTABLEKS R27 R22 K42 ["getVoiceChatEnabledKeyName"]
   MOVE R28 R27
   CALL R28 0 1
-  GETTABLEKS R29 R21 K41 ["getTeamCreateEnabledKeyName"]
-  CALL R29 0 1
-  GETIMPORT R30 K32 [game]
-  LOADK R32 K42 ["MoveSpatialVoice"]
-  NAMECALL R30 R30 K43 ["GetFastFlag"]
-  CALL R30 2 1
-  GETIMPORT R31 K32 [game]
-  LOADK R33 K44 ["GameSettingsRenameOptions"]
-  NAMECALL R31 R31 K43 ["GetFastFlag"]
-  CALL R31 2 0
-  GETIMPORT R32 K32 [game]
-  LOADK R34 K44 ["GameSettingsRenameOptions"]
-  NAMECALL R32 R32 K43 ["GetFastFlag"]
+  GETTABLEKS R29 R22 K43 ["getScriptCollaborationEnabledOnServerKeyName"]
+  MOVE R30 R29
+  CALL R30 0 1
+  GETTABLEKS R31 R22 K44 ["getTeamCreateEnabledKeyName"]
+  CALL R31 0 1
+  GETIMPORT R32 K33 [game]
+  LOADK R34 K45 ["MoveSpatialVoice"]
+  NAMECALL R32 R32 K38 ["GetFastFlag"]
   CALL R32 2 1
-  JUMPIFNOT R32 [+2]
-  LOADK R31 K45 ["Other"]
+  GETIMPORT R33 K33 [game]
+  LOADK R35 K46 ["GameSettingsRenameOptions"]
+  NAMECALL R33 R33 K38 ["GetFastFlag"]
+  CALL R33 2 0
+  GETIMPORT R34 K33 [game]
+  LOADK R36 K46 ["GameSettingsRenameOptions"]
+  NAMECALL R34 R34 K38 ["GetFastFlag"]
+  CALL R34 2 1
+  JUMPIFNOT R34 [+2]
+  LOADK R33 K47 ["Other"]
   JUMP [+4]
-  GETIMPORT R32 K1 [script]
-  GETTABLEKS R31 R32 K46 ["Name"]
-  DUPCLOSURE R32 K47 [PROTO_3]
-  CAPTURE VAL R28
-  CAPTURE VAL R29
-  DUPCLOSURE R33 K48 [PROTO_5]
-  DUPCLOSURE R34 K49 [PROTO_6]
-  DUPCLOSURE R35 K50 [PROTO_8]
-  CAPTURE VAL R20
-  GETTABLEKS R36 R3 K51 ["PureComponent"]
-  GETIMPORT R39 K1 [script]
-  GETTABLEKS R38 R39 K46 ["Name"]
-  NAMECALL R36 R36 K52 ["extend"]
-  CALL R36 2 1
-  DUPCLOSURE R37 K53 [PROTO_12]
+  GETIMPORT R34 K1 [script]
+  GETTABLEKS R33 R34 K48 ["Name"]
+  DUPCLOSURE R34 K49 [PROTO_3]
+  CAPTURE VAL R30
+  CAPTURE VAL R31
+  DUPCLOSURE R35 K50 [PROTO_5]
+  DUPCLOSURE R36 K51 [PROTO_6]
+  DUPCLOSURE R37 K52 [PROTO_8]
+  CAPTURE VAL R21
+  GETTABLEKS R38 R3 K53 ["PureComponent"]
+  GETIMPORT R41 K1 [script]
+  GETTABLEKS R40 R41 K48 ["Name"]
+  NAMECALL R38 R38 K54 ["extend"]
+  CALL R38 2 1
+  DUPCLOSURE R39 K55 [PROTO_13]
   CAPTURE VAL R11
   CAPTURE VAL R12
   CAPTURE VAL R3
   CAPTURE VAL R8
-  CAPTURE VAL R16
-  CAPTURE VAL R14
+  CAPTURE VAL R24
   CAPTURE VAL R17
+  CAPTURE VAL R16
+  CAPTURE VAL R25
+  CAPTURE VAL R14
+  CAPTURE VAL R18
   CAPTURE VAL R15
   CAPTURE VAL R2
-  CAPTURE VAL R18
-  CAPTURE VAL R32
-  CAPTURE VAL R33
-  CAPTURE VAL R31
-  SETTABLEKS R37 R36 K54 ["render"]
-  MOVE R37 R7
-  DUPTABLE R38 K57 [{"Stylizer", "Localization", "Dialog"}]
-  GETTABLEKS R39 R6 K55 ["Stylizer"]
-  SETTABLEKS R39 R38 K55 ["Stylizer"]
-  GETTABLEKS R39 R6 K56 ["Localization"]
-  SETTABLEKS R39 R38 K56 ["Localization"]
-  SETTABLEKS R9 R38 K15 ["Dialog"]
-  CALL R37 1 1
-  MOVE R38 R36
-  CALL R37 1 1
-  MOVE R36 R37
-  GETIMPORT R37 K4 [require]
-  GETTABLEKS R40 R1 K12 ["Src"]
-  GETTABLEKS R39 R40 K58 ["Networking"]
-  GETTABLEKS R38 R39 K59 ["settingFromState"]
-  CALL R37 1 1
-  GETTABLEKS R38 R4 K60 ["connect"]
-  DUPCLOSURE R39 K61 [PROTO_14]
-  CAPTURE VAL R37
-  CAPTURE VAL R34
-  DUPCLOSURE R40 K62 [PROTO_17]
   CAPTURE VAL R19
+  CAPTURE VAL R34
+  CAPTURE VAL R35
+  CAPTURE VAL R33
+  SETTABLEKS R39 R38 K56 ["render"]
+  MOVE R39 R7
+  DUPTABLE R40 K59 [{"Stylizer", "Localization", "Dialog"}]
+  GETTABLEKS R41 R6 K57 ["Stylizer"]
+  SETTABLEKS R41 R40 K57 ["Stylizer"]
+  GETTABLEKS R41 R6 K58 ["Localization"]
+  SETTABLEKS R41 R40 K58 ["Localization"]
+  SETTABLEKS R9 R40 K15 ["Dialog"]
+  CALL R39 1 1
+  MOVE R40 R38
+  CALL R39 1 1
+  MOVE R38 R39
+  GETIMPORT R39 K4 [require]
+  GETTABLEKS R42 R1 K12 ["Src"]
+  GETTABLEKS R41 R42 K60 ["Networking"]
+  GETTABLEKS R40 R41 K61 ["settingFromState"]
+  CALL R39 1 1
+  GETTABLEKS R40 R4 K62 ["connect"]
+  DUPCLOSURE R41 K63 [PROTO_15]
+  CAPTURE VAL R39
+  CAPTURE VAL R36
+  DUPCLOSURE R42 K64 [PROTO_18]
   CAPTURE VAL R20
-  CALL R38 2 1
-  MOVE R39 R36
-  CALL R38 1 1
-  MOVE R36 R38
-  SETTABLEKS R31 R36 K63 ["LocalizationId"]
-  RETURN R36 1
+  CAPTURE VAL R21
+  CALL R40 2 1
+  MOVE R41 R38
+  CALL R40 1 1
+  MOVE R38 R40
+  SETTABLEKS R33 R38 K65 ["LocalizationId"]
+  RETURN R38 1

@@ -1,0 +1,321 @@
+PROTO_0:
+  MOVE R3 R0
+  MOVE R4 R1
+  MOVE R5 R2
+  LOADK R6 K0 ["Plugin"]
+  LOADK R7 K1 ["Button"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_1:
+  MOVE R3 R0
+  MOVE R4 R1
+  MOVE R5 R2
+  LOADK R6 K0 ["Plugin"]
+  LOADK R7 K1 ["Description"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_2:
+  MOVE R3 R0
+  MOVE R4 R1
+  MOVE R5 R2
+  LOADK R6 K0 ["Plugin"]
+  LOADK R7 K1 ["Button"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_3:
+  MOVE R3 R0
+  MOVE R4 R1
+  MOVE R5 R2
+  LOADK R6 K0 ["Plugin"]
+  LOADK R7 K1 ["Description"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_4:
+  MOVE R3 R0
+  MOVE R4 R1
+  MOVE R5 R2
+  LOADK R6 K0 ["Plugin"]
+  LOADK R7 K1 ["Toolbar"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_5:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Get"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+18]
+  LENGTH R1 R0
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+15]
+  GETIMPORT R1 K2 [pairs]
+  MOVE R2 R0
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  LOADK R8 K3 ["HumanoidRigDescription"]
+  NAMECALL R6 R5 K4 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  LOADB R6 1
+  RETURN R6 1
+  FORGLOOP R1 2 [-8]
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_6:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Get"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+29]
+  LENGTH R1 R0
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+26]
+  GETIMPORT R1 K2 [pairs]
+  MOVE R2 R0
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  LOADK R8 K3 ["HumanoidRigDescription"]
+  NAMECALL R6 R5 K4 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+13]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["pluginLoader"]
+  GETTABLEKS R6 R7 K6 ["_userHasInteracted"]
+  JUMPIF R6 [+9]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["pluginLoader"]
+  NAMECALL R6 R6 K7 ["_onUserInteracted"]
+  CALL R6 1 0
+  RETURN R0 0
+  FORGLOOP R1 2 [-19]
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["pluginLoader"]
+  NAMECALL R0 R0 K2 ["_onUserInteracted"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Name"]
+  SETTABLEKS R2 R0 K0 ["Name"]
+  LOADNIL R2
+  LOADNIL R3
+  GETUPVAL R4 1
+  JUMPIFNOT R4 [+43]
+  NEWTABLE R4 0 1
+  DUPTABLE R5 K10 [{"uri", "isPreexistingAction", "getText", "getTooltip", "icon", "enabled", "visible", "checkable", "checked"}]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K11 ["fromAction"]
+  LOADK R7 K12 ["AdaptiveAnimationSupport"]
+  LOADK R8 K13 ["Toggle"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K1 ["uri"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["isPreexistingAction"]
+  DUPCLOSURE R6 K14 [PROTO_0]
+  SETTABLEKS R6 R5 K3 ["getText"]
+  DUPCLOSURE R6 K15 [PROTO_1]
+  SETTABLEKS R6 R5 K4 ["getTooltip"]
+  LOADK R6 K16 ["rbxlocaltheme://GameSettings"]
+  SETTABLEKS R6 R5 K5 ["icon"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K6 ["enabled"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K7 ["visible"]
+  GETUPVAL R7 3
+  JUMPIFNOT R7 [+2]
+  LOADB R6 1
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K8 ["checkable"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K9 ["checked"]
+  SETLIST R4 R5 1 [1]
+  MOVE R3 R4
+  JUMP [+14]
+  DUPTABLE R4 K19 [{"getName", "getDescription", "icon", "enabled"}]
+  DUPCLOSURE R5 K20 [PROTO_2]
+  SETTABLEKS R5 R4 K17 ["getName"]
+  DUPCLOSURE R5 K21 [PROTO_3]
+  SETTABLEKS R5 R4 K18 ["getDescription"]
+  LOADK R5 K16 ["rbxlocaltheme://GameSettings"]
+  SETTABLEKS R5 R4 K5 ["icon"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K6 ["enabled"]
+  MOVE R2 R4
+  DUPTABLE R4 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "getToolbarName", "buttonInfo", "actionInfos"}]
+  SETTABLEKS R0 R4 K22 ["plugin"]
+  LOADK R5 K12 ["AdaptiveAnimationSupport"]
+  SETTABLEKS R5 R4 K23 ["pluginName"]
+  GETUPVAL R5 4
+  SETTABLEKS R5 R4 K24 ["translationResourceTable"]
+  GETUPVAL R5 5
+  SETTABLEKS R5 R4 K25 ["fallbackResourceTable"]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K26 ["noToolbar"]
+  GETUPVAL R6 1
+  JUMPIFNOT R6 [+2]
+  LOADNIL R5
+  JUMP [+1]
+  DUPCLOSURE R5 K31 [PROTO_4]
+  SETTABLEKS R5 R4 K27 ["getToolbarName"]
+  GETUPVAL R6 1
+  JUMPIFNOT R6 [+2]
+  LOADNIL R5
+  JUMP [+1]
+  MOVE R5 R2
+  SETTABLEKS R5 R4 K28 ["buttonInfo"]
+  GETUPVAL R6 1
+  JUMPIFNOT R6 [+2]
+  MOVE R5 R3
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K29 ["actionInfos"]
+  GETIMPORT R5 K33 [game]
+  LOADK R7 K34 ["RunService"]
+  NAMECALL R5 R5 K35 ["GetService"]
+  CALL R5 2 1
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K36 ["get"]
+  CALL R7 0 1
+  GETUPVAL R9 6
+  GETTABLEKS R8 R9 K37 ["Standalone"]
+  JUMPIFEQ R7 R8 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  NAMECALL R7 R5 K38 ["IsEdit"]
+  CALL R7 1 1
+  JUMPIF R6 [+1]
+  JUMPIFNOT R7 [+70]
+  GETUPVAL R8 1
+  JUMPIF R8 [+3]
+  LOADB R8 1
+  SETTABLEKS R8 R2 K6 ["enabled"]
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K39 ["build"]
+  MOVE R9 R4
+  CALL R8 1 1
+  GETIMPORT R9 K33 [game]
+  LOADK R11 K40 ["Selection"]
+  NAMECALL R9 R9 K35 ["GetService"]
+  CALL R9 2 1
+  GETIMPORT R10 K33 [game]
+  LOADK R12 K41 ["UseSelectionChangedThisFrameForSomePlugins"]
+  LOADB R13 0
+  NAMECALL R10 R10 K42 ["DefineFastFlag"]
+  CALL R10 3 1
+  JUMPIFNOT R10 [+3]
+  GETTABLEKS R11 R9 K43 ["SelectionChangedThisFrame"]
+  JUMPIF R11 [+2]
+  GETTABLEKS R11 R9 K44 ["SelectionChanged"]
+  NEWCLOSURE R12 P5
+  CAPTURE VAL R9
+  NEWCLOSURE R15 P6
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  NAMECALL R13 R11 K45 ["Connect"]
+  CALL R13 2 1
+  GETTABLEKS R14 R0 K46 ["Unloading"]
+  NEWCLOSURE R16 P7
+  CAPTURE VAL R13
+  NAMECALL R14 R14 K45 ["Connect"]
+  CALL R14 2 0
+  MOVE R14 R12
+  CALL R14 0 1
+  JUMPIFNOT R14 [+11]
+  LOADNIL R15
+  GETTABLEKS R16 R5 K47 ["Heartbeat"]
+  NEWCLOSURE R18 P8
+  CAPTURE REF R15
+  CAPTURE VAL R8
+  NAMECALL R16 R16 K45 ["Connect"]
+  CALL R16 2 1
+  MOVE R15 R16
+  CLOSEUPVALS R15
+  GETTABLEKS R15 R8 K48 ["pluginLoader"]
+  NAMECALL R15 R15 K49 ["waitForUserInteraction"]
+  CALL R15 1 1
+  JUMPIF R15 [+1]
+  RETURN R0 0
+  MOVE R16 R1
+  MOVE R17 R0
+  MOVE R18 R8
+  CALL R16 2 0
+  RETURN R0 0
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K39 ["build"]
+  MOVE R9 R4
+  CALL R8 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AdaptiveAnimationSupport"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["PluginLoader"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["PluginLoaderBuilder"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Resources"]
+  GETTABLEKS R4 R5 K11 ["Localization"]
+  GETTABLEKS R3 R4 K12 ["SourceStrings"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["StudioFoundation"]
+  CALL R4 1 1
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Resources"]
+  GETTABLEKS R6 R7 K11 ["Localization"]
+  GETTABLEKS R5 R6 K14 ["LocalizedStrings"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K15 ["Bin"]
+  GETTABLEKS R8 R9 K16 ["Common"]
+  GETTABLEKS R7 R8 K17 ["pluginType"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K15 ["Bin"]
+  GETTABLEKS R9 R10 K16 ["Common"]
+  GETTABLEKS R8 R9 K18 ["defineLuaFlags"]
+  CALL R7 1 1
+  GETTABLEKS R9 R4 K19 ["Util"]
+  GETTABLEKS R8 R9 K20 ["StudioUri"]
+  GETTABLEKS R9 R7 K21 ["getFFlagEnableRibbonPlugin"]
+  CALL R9 0 1
+  GETTABLEKS R10 R7 K22 ["getFFlagRegisterActionsPluginLoader"]
+  CALL R10 0 1
+  GETIMPORT R11 K24 [game]
+  LOADK R13 K25 ["ReplaceIsCheckableWithCheckable"]
+  NAMECALL R11 R11 K26 ["GetEngineFeature"]
+  CALL R11 2 1
+  AND R12 R10 R9
+  DUPCLOSURE R13 K27 [PROTO_9]
+  CAPTURE VAL R0
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  RETURN R13 1

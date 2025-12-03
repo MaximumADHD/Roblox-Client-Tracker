@@ -11,6 +11,9 @@ local useLeaderboardStore = PlayerListPackage.Hooks.useLeaderboardStore
 
 local TitleBarView = require(PlayerList.Components.PresentationCommon.TitleBarView)
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagPlayerListFixLeaderstatsStacking = SharedFlags.FFlagPlayerListFixLeaderstatsStacking
+
 type TitleBarViewProps = TitleBarView.TitleBarViewProps
 
 type LeaderboardStore = LeaderboardStore.LeaderboardStore
@@ -40,11 +43,11 @@ local function TitleBarContainer(props: TitleBarContainerProps)
 
 	local gameStats: GameStatList = leaderboardStore.getGameStatsList()
 	
-	local gameStatsCount = SignalsReact.useSignalState(gameStats.getCount)
+	local gameStatsCount: number? = if FFlagPlayerListFixLeaderstatsStacking then nil else SignalsReact.useSignalState(gameStats.getCount)
 
 	return React.createElement(TitleBarView, {
 		gameStats = gameStats,
-		gameStatsCount = gameStatsCount,
+		gameStatsCount = if FFlagPlayerListFixLeaderstatsStacking then nil else gameStatsCount,
 
 		size = props.size,
 		entrySizeX = props.entrySizeX,

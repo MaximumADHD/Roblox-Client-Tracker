@@ -26,11 +26,13 @@ type _PageEntryImpl = {
 type _PageEntryFields = {
 	roblox_component: _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType,
 	identifier: string,
+	title: string,
 }
 
 type _PageEntryPartialFields = {
 	roblox_component: _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType?,
 	identifier: string?,
+	title: string?,
 }
 
 export type PageEntry = typeof(setmetatable({} :: _PageEntryFields, {} :: _PageEntryImpl))
@@ -49,6 +51,7 @@ do
 				)
 				else data.roblox_component,
 			identifier = if data == nil or data.identifier == nil then "" else data.identifier,
+			title = if data == nil or data.title == nil then "" else data.title,
 		}, _PageEntryImpl :: _PageEntryImpl)
 	end
 
@@ -77,6 +80,11 @@ do
 		if self.identifier ~= nil and self.identifier ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.identifier)
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -111,6 +119,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.identifier = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
 					continue
 				end
 
@@ -158,6 +171,10 @@ do
 			output.identifier = self.identifier
 		end
 
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
 		return output
 	end
 
@@ -186,6 +203,10 @@ do
 
 		if input.identifier ~= nil then
 			self.identifier = input.identifier
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
 		end
 
 		return self

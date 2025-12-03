@@ -15,6 +15,9 @@ local useLeaderboardStore = PlayerListPackage.Hooks.useLeaderboardStore
 
 local TeamEntryView = require(PlayerList.Components.PresentationCommon.TeamEntryView)
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagPlayerListFixLeaderstatsStacking = SharedFlags.FFlagPlayerListFixLeaderstatsStacking
+
 type TeamEntryViewProps = TeamEntryView.TeamEntryViewProps
 
 type LeaderboardStore = LeaderboardStore.LeaderboardStore
@@ -49,14 +52,14 @@ local function TeamEntryContainer(props: TeamEntryContainerProps)
 	end)
 	-- TODO: Replace with binding (APPEXP-2920)
 	local teamColor: Color3 = SignalsReact.useSignalState(props.teamData.color)
-	local gameStatsCount: number = SignalsReact.useSignalState(gameStats.getCount)
-	local teamStatsCount: number = SignalsReact.useSignalState(teamStats.getCount)
+	local gameStatsCount: number? = if FFlagPlayerListFixLeaderstatsStacking then nil else SignalsReact.useSignalState(gameStats.getCount)
+	local teamStatsCount: number? = if FFlagPlayerListFixLeaderstatsStacking then nil else SignalsReact.useSignalState(teamStats.getCount)
 
 	return React.createElement(TeamEntryView, {
 		teamName = teamName,
 		teamColor = teamColor,
-		gameStatsCount = gameStatsCount,
-		teamStatsCount = teamStatsCount,
+		gameStatsCount = if FFlagPlayerListFixLeaderstatsStacking then nil else gameStatsCount,
+		teamStatsCount = if FFlagPlayerListFixLeaderstatsStacking then nil else teamStatsCount,
 		gameStats = gameStats,
 		teamStats = teamStats,
 

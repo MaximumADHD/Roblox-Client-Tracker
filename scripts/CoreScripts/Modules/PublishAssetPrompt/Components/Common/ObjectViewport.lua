@@ -18,7 +18,6 @@ local CharacterUtility = require(CorePackages.Packages.Thumbnailing).CharacterUt
 local CameraUtility = require(CorePackages.Packages.Thumbnailing).CameraUtility
 local CFrameUtility = require(CorePackages.Packages.Thumbnailing).CFrameUtility
 local EmoteUtility = require(CorePackages.Packages.Thumbnailing).EmoteUtility
-local getFFlagEnableAvatarAssetPrompt = require(script.Parent.Parent.Parent.Flags.getFFlagEnableAvatarAssetPrompt)
 
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
@@ -174,7 +173,7 @@ function ObjectViewport:didMount()
 	self.isMounted = true
 	task.spawn(function()
 		if not self.props.isLoading then
-			if not getFFlagEnableAvatarAssetPrompt() or self.props.isHumanoidModel then
+			if self.props.isHumanoidModel then
 				self:setupViewport()
 			else
 				self:setupViewportForAsset()
@@ -187,7 +186,7 @@ function ObjectViewport:didUpdate(prevProps)
 	local shouldSetupViewport = prevProps.isLoading and not self.props.isLoading
 	if shouldSetupViewport then
 		task.spawn(function()
-			if not getFFlagEnableAvatarAssetPrompt() or self.props.isHumanoidModel then
+			if self.props.isHumanoidModel then
 				self:setupViewport()
 			else
 				self:setupViewportForAsset()

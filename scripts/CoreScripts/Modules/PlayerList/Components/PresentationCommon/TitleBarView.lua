@@ -4,6 +4,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local React = require(CorePackages.Packages.React)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
@@ -14,6 +15,8 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagPlayerListFixLeaderstatsStacking = SharedFlags.FFlagPlayerListFixLeaderstatsStacking
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 
 type GameStatList = LeaderboardStore.GameStatList
@@ -27,7 +30,7 @@ export type TitleBarViewProps = {
 
 	-- Store data
 	gameStats: GameStatList,
-	gameStatsCount: number,
+	gameStatsCount: number?, -- Remove prop when FFlagPlayerListFixLeaderstatsStacking is cleaned up
 	
 	-- Device type
 	isSmallTouchDevice: boolean?,
@@ -105,16 +108,19 @@ local function TitleBarView(props: TitleBarViewProps)
 
 	local maxLeaderstats = layoutValues.MaxLeaderstats
 
-	if props.gameStatsCount > 0 then
-		props.gameStats.iterateData(function(gameStatName, value)
-			if value.order(false) > maxLeaderstats then
-				return
+
+	if FFlagPlayerListFixLeaderstatsStacking then
+		local gameStatsData = SignalsReact.useSignalState(props.gameStats.getAllData)
+
+		for gameStatName, gameStatData in gameStatsData do
+			if gameStatData.order(false) > maxLeaderstats then
+				continue
 			end
 
 			local statName = GameTranslator:TranslateGameText(CoreGui, gameStatName)
 
 			children["stat_" .. gameStatName] = React.createElement("TextLabel", {
-				LayoutOrder = value.order(false) + 1,
+				LayoutOrder = gameStatData.order(false) + 1,
 				Size = UDim2.new(0, layoutValues.StatEntrySizeX, 1, 0),
 				Text = statName,
 				BackgroundTransparency = 1,
@@ -126,7 +132,31 @@ local function TitleBarView(props: TitleBarViewProps)
 				TextColor3 = textColor,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 				})
-		end, false)
+		end
+	else
+		if props.gameStatsCount and props.gameStatsCount > 0 then
+			props.gameStats.iterateData(function(gameStatName, value)
+				if value.order(false) > maxLeaderstats then
+					return
+				end
+
+				local statName = GameTranslator:TranslateGameText(CoreGui, gameStatName)
+
+				children["stat_" .. gameStatName] = React.createElement("TextLabel", {
+					LayoutOrder = value.order(false) + 1,
+					Size = UDim2.new(0, layoutValues.StatEntrySizeX, 1, 0),
+					Text = statName,
+					BackgroundTransparency = 1,
+					TextXAlignment = Enum.TextXAlignment.Center,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					Font = style.Font.Footer.Font,
+					TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.TitleBarTextSize else style.Font.BaseSize * style.Font.Footer.RelativeSize,
+					TextTransparency = textTransparency,
+					TextColor3 = textColor,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+					})
+			end, false)
+		end
 	end
 
 	-- Determine background color if showing background

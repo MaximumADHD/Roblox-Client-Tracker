@@ -27,30 +27,58 @@ PROTO_1:
   CALL R1 1 1
   SETTABLEKS R1 R0 K11 ["containerFrame"]
   GETTABLEKS R1 R0 K11 ["containerFrame"]
-  GETIMPORT R2 K14 [UDim2.fromScale]
+  LOADK R2 K12 ["OverlayContainer"]
+  SETTABLEKS R2 R1 K9 ["Name"]
+  GETTABLEKS R1 R0 K11 ["containerFrame"]
+  GETIMPORT R2 K15 [UDim2.fromScale]
   LOADN R3 1
   LOADN R4 1
   CALL R2 2 1
-  SETTABLEKS R2 R1 K15 ["Size"]
+  SETTABLEKS R2 R1 K16 ["Size"]
   GETTABLEKS R1 R0 K11 ["containerFrame"]
   LOADN R2 1
-  SETTABLEKS R2 R1 K16 ["BackgroundTransparency"]
+  SETTABLEKS R2 R1 K17 ["BackgroundTransparency"]
   GETTABLEKS R1 R0 K11 ["containerFrame"]
-  LOADK R2 K17 [""]
-  SETTABLEKS R2 R1 K18 ["Image"]
+  LOADK R2 K18 [""]
+  SETTABLEKS R2 R1 K19 ["Image"]
   GETTABLEKS R1 R0 K11 ["containerFrame"]
-  LOADK R2 K19 [1000000]
-  SETTABLEKS R2 R1 K20 ["ZIndex"]
+  LOADK R2 K20 [1000000]
+  SETTABLEKS R2 R1 K21 ["ZIndex"]
   GETTABLEKS R1 R0 K11 ["containerFrame"]
   GETTABLEKS R2 R0 K7 ["container"]
-  SETTABLEKS R2 R1 K21 ["Parent"]
+  SETTABLEKS R2 R1 K22 ["Parent"]
+  GETIMPORT R1 K5 [Instance.new]
+  LOADK R2 K23 ["CanvasGroup"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K24 ["rectContainer"]
+  GETTABLEKS R1 R0 K24 ["rectContainer"]
+  LOADK R2 K25 ["OverlayRects"]
+  SETTABLEKS R2 R1 K9 ["Name"]
+  GETTABLEKS R1 R0 K24 ["rectContainer"]
+  GETIMPORT R2 K15 [UDim2.fromScale]
+  LOADN R3 1
+  LOADN R4 1
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K16 ["Size"]
+  GETTABLEKS R1 R0 K24 ["rectContainer"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K17 ["BackgroundTransparency"]
+  GETTABLEKS R1 R0 K24 ["rectContainer"]
+  LOADK R2 K26 [0.3]
+  SETTABLEKS R2 R1 K27 ["GroupTransparency"]
+  GETTABLEKS R1 R0 K24 ["rectContainer"]
+  LOADK R2 K28 [1000001]
+  SETTABLEKS R2 R1 K21 ["ZIndex"]
+  GETTABLEKS R1 R0 K24 ["rectContainer"]
+  GETTABLEKS R2 R0 K11 ["containerFrame"]
+  SETTABLEKS R2 R1 K22 ["Parent"]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K4 ["new"]
   GETTABLEKS R2 R0 K11 ["containerFrame"]
   CALL R1 1 1
-  SETTABLEKS R1 R0 K22 ["tip"]
+  SETTABLEKS R1 R0 K29 ["tip"]
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K23 ["rects"]
+  SETTABLEKS R1 R0 K30 ["rects"]
   RETURN R0 1
 
 PROTO_2:
@@ -76,14 +104,16 @@ PROTO_3:
   LOADK R3 K0 ["LayerCollector"]
   NAMECALL R1 R0 K1 ["IsA"]
   CALL R1 2 1
-  JUMPIF R1 [+10]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["layerCollector"]
-  JUMPIFNOT R1 [+6]
+  JUMPIF R1 [+12]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["layerCollector"]
+  JUMPIFNOT R2 [+7]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K2 ["layerCollector"]
   NAMECALL R1 R0 K3 ["IsDescendantOf"]
   CALL R1 2 1
+  RETURN R1 1
+  LOADB R1 0
   RETURN R1 1
 
 PROTO_4:
@@ -135,7 +165,7 @@ PROTO_4:
   GETTABLEKS R5 R0 K8 ["rects"]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K11 ["new"]
-  GETTABLEKS R7 R0 K12 ["containerFrame"]
+  GETTABLEKS R7 R0 K12 ["rectContainer"]
   CALL R6 1 -1
   FASTCALL TABLE_INSERT [+2]
   GETIMPORT R4 K15 [table.insert]
@@ -196,25 +226,25 @@ PROTO_4:
   CALL R12 2 0
   FORGLOOP R5 2 [-70]
   JUMPIFEQKNIL R2 [+3]
-  JUMPIFNOTEQKS R2 K37 [""] [+46]
+  JUMPIFNOTEQKS R2 K37 [""] [+45]
   GETTABLEN R5 R3 1
   GETTABLEKS R2 R5 K38 ["Name"]
-  GETIMPORT R7 K40 [_G]
-  GETTABLEKS R6 R7 K41 ["__REACT_DEVTOOLS_GLOBAL_HOOK__"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K39 ["__REACT_DEVTOOLS_GLOBAL_HOOK__"]
   JUMPIFEQKNIL R6 [+37]
-  GETTABLEKS R7 R6 K42 ["rendererInterfaces"]
+  GETTABLEKS R7 R6 K40 ["rendererInterfaces"]
   JUMPIFEQKNIL R7 [+33]
   LOADNIL R7
-  GETTABLEKS R8 R6 K42 ["rendererInterfaces"]
-  NAMECALL R8 R8 K43 ["values"]
+  GETTABLEKS R8 R6 K40 ["rendererInterfaces"]
+  NAMECALL R8 R8 K41 ["values"]
   CALL R8 1 3
   FORGPREP R8
-  GETTABLEKS R13 R12 K44 ["getFiberIDForNative"]
+  GETTABLEKS R13 R12 K42 ["getFiberIDForNative"]
   MOVE R14 R5
   LOADB R15 1
   CALL R13 2 1
   JUMPIFEQKNIL R13 [+8]
-  GETTABLEKS R14 R12 K45 ["getDisplayNameForFiberID"]
+  GETTABLEKS R14 R12 K43 ["getDisplayNameForFiberID"]
   MOVE R15 R13
   LOADB R16 1
   CALL R14 2 1
@@ -222,13 +252,13 @@ PROTO_4:
   JUMP [+2]
   FORGLOOP R8 2 [-15]
   JUMPIFEQKNIL R7 [+8]
-  LOADK R8 K46 ["%* (in %*)"]
+  LOADK R8 K44 ["%* (in %*)"]
   MOVE R10 R2
   MOVE R11 R7
-  NAMECALL R8 R8 K47 ["format"]
+  NAMECALL R8 R8 K45 ["format"]
   CALL R8 3 1
   MOVE R2 R8
-  GETTABLEKS R5 R0 K48 ["tip"]
+  GETTABLEKS R5 R0 K46 ["tip"]
   MOVE R7 R2
   GETTABLEKS R9 R4 K17 ["right"]
   GETTABLEKS R10 R4 K19 ["left"]
@@ -236,7 +266,7 @@ PROTO_4:
   GETTABLEKS R10 R4 K18 ["bottom"]
   GETTABLEKS R11 R4 K16 ["top"]
   SUB R9 R10 R11
-  NAMECALL R5 R5 K49 ["updateText"]
+  NAMECALL R5 R5 K47 ["updateText"]
   CALL R5 4 0
   GETTABLEKS R6 R0 K2 ["layerCollector"]
   JUMPIFNOT R6 [+3]
@@ -260,17 +290,17 @@ PROTO_4:
   MOVE R6 R9
   JUMP [+13]
   GETIMPORT R6 K26 [Rect.new]
-  GETIMPORT R7 K51 [Vector2.new]
+  GETIMPORT R7 K49 [Vector2.new]
   LOADN R8 0
   LOADN R9 0
   CALL R7 2 1
-  GETIMPORT R8 K51 [Vector2.new]
+  GETIMPORT R8 K49 [Vector2.new]
   LOADK R9 K21 [∞]
   LOADK R10 K21 [∞]
   CALL R8 2 -1
   CALL R6 -1 1
-  GETTABLEKS R7 R0 K48 ["tip"]
-  DUPTABLE R9 K54 [{"top", "left", "height", "width"}]
+  GETTABLEKS R7 R0 K46 ["tip"]
+  DUPTABLE R9 K52 [{"top", "left", "height", "width"}]
   GETTABLEKS R10 R4 K16 ["top"]
   SETTABLEKS R10 R9 K16 ["top"]
   GETTABLEKS R10 R4 K19 ["left"]
@@ -278,23 +308,23 @@ PROTO_4:
   GETTABLEKS R11 R4 K18 ["bottom"]
   GETTABLEKS R12 R4 K16 ["top"]
   SUB R10 R11 R12
-  SETTABLEKS R10 R9 K52 ["height"]
+  SETTABLEKS R10 R9 K50 ["height"]
   GETTABLEKS R11 R4 K17 ["right"]
   GETTABLEKS R12 R4 K19 ["left"]
   SUB R10 R11 R12
-  SETTABLEKS R10 R9 K53 ["width"]
-  DUPTABLE R10 K54 [{"top", "left", "height", "width"}]
+  SETTABLEKS R10 R9 K51 ["width"]
+  DUPTABLE R10 K52 [{"top", "left", "height", "width"}]
   GETTABLEKS R12 R6 K27 ["Min"]
   GETTABLEKS R11 R12 K28 ["Y"]
   SETTABLEKS R11 R10 K16 ["top"]
   GETTABLEKS R12 R6 K27 ["Min"]
   GETTABLEKS R11 R12 K33 ["X"]
   SETTABLEKS R11 R10 K19 ["left"]
-  GETTABLEKS R11 R6 K55 ["Height"]
-  SETTABLEKS R11 R10 K52 ["height"]
-  GETTABLEKS R11 R6 K56 ["Width"]
-  SETTABLEKS R11 R10 K53 ["width"]
-  NAMECALL R7 R7 K57 ["updatePosition"]
+  GETTABLEKS R11 R6 K53 ["Height"]
+  SETTABLEKS R11 R10 K50 ["height"]
+  GETTABLEKS R11 R6 K54 ["Width"]
+  SETTABLEKS R11 R10 K51 ["width"]
+  NAMECALL R7 R7 K55 ["updatePosition"]
   CALL R7 3 0
   RETURN R0 0
 
@@ -308,37 +338,41 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETTABLEKS R1 R0 K2 ["Parent"]
   GETIMPORT R2 K4 [require]
-  GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
+  GETTABLEKS R3 R1 K5 ["ReactGlobals"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K6 ["Array"]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K7 ["backend"]
-  GETTABLEKS R5 R6 K8 ["types"]
-  CALL R4 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R1 K6 ["LuauPolyfill"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K7 ["Array"]
   GETIMPORT R5 K4 [require]
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K2 ["Parent"]
-  GETTABLEKS R6 R7 K9 ["OverlayRect"]
+  GETTABLEKS R7 R0 K8 ["backend"]
+  GETTABLEKS R6 R7 K9 ["types"]
   CALL R5 1 1
   GETIMPORT R6 K4 [require]
   GETIMPORT R9 K1 [script]
   GETTABLEKS R8 R9 K2 ["Parent"]
-  GETTABLEKS R7 R8 K10 ["OverlayTip"]
+  GETTABLEKS R7 R8 K10 ["OverlayRect"]
   CALL R6 1 1
-  DUPCLOSURE R7 K11 [PROTO_0]
-  NEWTABLE R8 4 0
-  SETTABLEKS R8 R8 K12 ["__index"]
-  DUPCLOSURE R9 K13 [PROTO_1]
-  CAPTURE VAL R8
+  GETIMPORT R7 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K11 ["OverlayTip"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K12 [PROTO_0]
+  NEWTABLE R9 4 0
+  SETTABLEKS R9 R9 K13 ["__index"]
+  DUPCLOSURE R10 K14 [PROTO_1]
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  SETTABLEKS R10 R9 K15 ["new"]
+  DUPCLOSURE R10 K16 [PROTO_2]
+  SETTABLEKS R10 R9 K17 ["remove"]
+  DUPCLOSURE R10 K18 [PROTO_4]
+  CAPTURE VAL R4
   CAPTURE VAL R6
-  SETTABLEKS R9 R8 K14 ["new"]
-  DUPCLOSURE R9 K15 [PROTO_2]
-  SETTABLEKS R9 R8 K16 ["remove"]
-  DUPCLOSURE R9 K17 [PROTO_4]
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  SETTABLEKS R9 R8 K18 ["inspect"]
-  DUPTABLE R9 K19 [{"new"}]
-  GETTABLEKS R10 R8 K14 ["new"]
-  SETTABLEKS R10 R9 K14 ["new"]
-  RETURN R9 1
+  CAPTURE VAL R2
+  SETTABLEKS R10 R9 K19 ["inspect"]
+  DUPTABLE R10 K20 [{"new"}]
+  GETTABLEKS R11 R9 K15 ["new"]
+  SETTABLEKS R11 R10 K15 ["new"]
+  RETURN R10 1

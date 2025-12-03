@@ -5,7 +5,7 @@ local TextSizeOffsetContext = require(Style.TextSizeOffsetContext)
 
 local React = require(Packages.React)
 
-local function useTextSizeOffset()
+local function useTextSizeOffset(): number
 	return React.useContext(TextSizeOffsetContext)
 end
 

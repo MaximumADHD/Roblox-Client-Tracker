@@ -7,10 +7,9 @@ MAIN:
   GETIMPORT R1 K5 [require]
   GETTABLEKS R4 R0 K6 ["Bin"]
   GETTABLEKS R3 R4 K7 ["Common"]
-  GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
+  GETTABLEKS R2 R3 K8 ["flags"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["getFFlagEnablePlaceVersionHistory"]
-  CALL R2 0 1
+  GETTABLEKS R2 R1 K9 ["FFlagEnablePlaceVersionHistory"]
   JUMPIF R2 [+1]
   RETURN R0 0
   GETIMPORT R2 K5 [require]

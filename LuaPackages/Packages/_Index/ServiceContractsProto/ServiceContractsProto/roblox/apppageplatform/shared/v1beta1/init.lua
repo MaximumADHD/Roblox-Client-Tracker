@@ -10,6 +10,7 @@ local actions = require(script.actions)
 local analytics_data = require(script.analytics_data)
 local attribution_row = require(script.attribution_row)
 local badge_data = require(script.badge_data)
+local badge_tile = require(script.badge_tile)
 local button = require(script.button)
 local collection_carousel = require(script.collection_carousel)
 local collection_grid = require(script.collection_grid)
@@ -44,6 +45,7 @@ local tile = require(script.tile)
 local tile_footer = require(script.tile_footer)
 local ui_component_schema = require(script.ui_component_schema)
 local ui_component_type = require(script.ui_component_type)
+local vertical_feed = require(script.vertical_feed)
 local view = require(script.view)
 
 -- Exported types
@@ -82,6 +84,8 @@ export type AnalyticsDataField = analytics_data.AnalyticsDataField
 export type AttributionRowSchema = attribution_row.AttributionRowSchema
 export type AttributionRowSchema_Props = attribution_row.AttributionRowSchema_Props
 export type BadgeData = badge_data.BadgeData
+export type BadgeTileSchema = badge_tile.BadgeTileSchema
+export type BadgeTileSchema_Props = badge_tile.BadgeTileSchema_Props
 export type ButtonSchema = button.ButtonSchema
 export type ButtonSchema_Props = button.ButtonSchema_Props
 export type CollectionCarouselSchema = collection_carousel.CollectionCarouselSchema
@@ -183,6 +187,7 @@ export type NestedComponentProp_TemplateData = prop_types.NestedComponentProp_Te
 export type LazyNestedComponentListProp_ConditionalOption = prop_types.LazyNestedComponentListProp_ConditionalOption
 export type LazyNestedComponentListProp_ConditionalOptions = prop_types.LazyNestedComponentListProp_ConditionalOptions
 export type LazyNestedComponentListProp_TemplateData = prop_types.LazyNestedComponentListProp_TemplateData
+export type LazyNestedComponentListProp_TemplateDataList = prop_types.LazyNestedComponentListProp_TemplateDataList
 export type IconProp_ConditionalOption = prop_types.IconProp_ConditionalOption
 export type IconProp_ConditionalOptions = prop_types.IconProp_ConditionalOptions
 export type GradientProp_ConditionalOption = prop_types.GradientProp_ConditionalOption
@@ -213,6 +218,8 @@ export type TileFooterSchema = tile_footer.TileFooterSchema
 export type TileFooterSchema_Props = tile_footer.TileFooterSchema_Props
 export type UiComponentSchema = ui_component_schema.UiComponentSchema
 export type UiComponentType = ui_component_type.UiComponentType
+export type VerticalFeedSchema = vertical_feed.VerticalFeedSchema
+export type VerticalFeedSchema_Props = vertical_feed.VerticalFeedSchema_Props
 export type ViewSchema = view.ViewSchema
 export type ViewSchema_Props = view.ViewSchema_Props
 
@@ -221,6 +228,7 @@ return {
 	analytics_data = analytics_data,
 	attribution_row = attribution_row,
 	badge_data = badge_data,
+	badge_tile = badge_tile,
 	button = button,
 	collection_carousel = collection_carousel,
 	collection_grid = collection_grid,
@@ -255,5 +263,6 @@ return {
 	tile_footer = tile_footer,
 	ui_component_schema = ui_component_schema,
 	ui_component_type = ui_component_type,
+	vertical_feed = vertical_feed,
 	view = view,
 }

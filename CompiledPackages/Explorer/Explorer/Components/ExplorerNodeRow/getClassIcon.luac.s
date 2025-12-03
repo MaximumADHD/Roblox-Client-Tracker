@@ -29,9 +29,34 @@ PROTO_0:
   LOADK R4 K13 ["LocalScript"]
   CALL R3 1 -1
   RETURN R3 -1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  JUMPIFNOT R3 [+28]
+  GETUPVAL R3 3
+  MOVE R4 R1
+  CALL R3 1 1
+  JUMPIFNOT R3 [+24]
+  DUPTABLE R3 K17 [{"Image", "ImageRectOffset", "ImageRectSize"}]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K18 ["packageLink"]
+  LOADK R5 K19 ["AutoupdateOn"]
+  LOADK R6 K20 ["Light"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K14 ["Image"]
+  GETIMPORT R4 K23 [Vector2.new]
+  LOADN R5 0
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K15 ["ImageRectOffset"]
+  GETIMPORT R4 K23 [Vector2.new]
+  LOADN R5 16
+  LOADN R6 16
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K16 ["ImageRectSize"]
+  RETURN R3 1
   GETTABLEKS R3 R0 K12 ["getClassIcon"]
-  GETTABLEKS R5 R1 K14 ["datum"]
-  GETTABLEKS R4 R5 K15 ["className"]
+  GETTABLEKS R5 R1 K24 ["datum"]
+  GETTABLEKS R4 R5 K25 ["className"]
   CALL R3 1 -1
   RETURN R3 -1
 
@@ -47,19 +72,35 @@ MAIN:
   GETTABLEKS R2 R3 K8 ["ClassIconContext"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Fields"]
-  GETTABLEKS R4 R5 K10 ["AllFields"]
-  GETTABLEKS R3 R4 K11 ["ScriptState"]
+  GETTABLEKS R4 R0 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["ImageUrl"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K12 ["Util"]
-  GETTABLEKS R4 R5 K13 ["getField"]
+  GETTABLEKS R6 R0 K11 ["Fields"]
+  GETTABLEKS R5 R6 K12 ["AllFields"]
+  GETTABLEKS R4 R5 K13 ["ScriptState"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K14 ["Hooks"]
-  GETTABLEKS R5 R6 K15 ["useVisibleExplorerNodeRange"]
+  GETTABLEKS R6 R0 K14 ["Flags"]
+  GETTABLEKS R5 R6 K15 ["getFFlagExplorerFixPackageLinkIconColor"]
   CALL R4 1 1
-  DUPCLOSURE R5 K16 [PROTO_0]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Util"]
+  GETTABLEKS R6 R7 K16 ["getField"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Components"]
+  GETTABLEKS R8 R9 K17 ["ExplorerNodeRow"]
+  GETTABLEKS R7 R8 K18 ["getIsPackageLinkAutoUpdateEnabled"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K19 ["Hooks"]
+  GETTABLEKS R8 R9 K20 ["useVisibleExplorerNodeRange"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K21 [PROTO_0]
+  CAPTURE VAL R5
   CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R6
   CAPTURE VAL R2
-  RETURN R5 1
+  RETURN R8 1

@@ -26,9 +26,6 @@ PROTO_0:
   RETURN R2 2
 
 PROTO_1:
-  GETUPVAL R3 0
-  JUMPIF R3 [+1]
-  RETURN R0 0
   GETGLOBAL R3 K0 ["splitUrl"]
   MOVE R4 R0
   CALL R3 1 2
@@ -37,7 +34,7 @@ PROTO_1:
   JUMPIFEQKNIL R4 [+4]
   LENGTH R5 R4
   JUMPIFNOTEQKN R5 K3 [0] [+12]
-  GETUPVAL R6 1
+  GETUPVAL R6 0
   GETTABLEKS R5 R6 K4 ["GetService"]
   LOADK R6 K5 ["GuiService"]
   CALL R5 1 1
@@ -47,7 +44,7 @@ PROTO_1:
   CALL R5 3 0
   RETURN R0 0
   JUMPIFNOTEQKS R3 K7 ["explorer"] [+48]
-  GETUPVAL R6 1
+  GETUPVAL R6 0
   GETTABLEKS R5 R6 K4 ["GetService"]
   LOADK R6 K8 ["UniqueIdLookupService"]
   MOVE R7 R2
@@ -66,7 +63,7 @@ PROTO_1:
   MOVE R9 R5
   GETIMPORT R7 K12 [table.insert]
   CALL R7 2 0
-  GETUPVAL R8 1
+  GETUPVAL R8 0
   GETTABLEKS R7 R8 K4 ["GetService"]
   LOADK R8 K13 ["TutorialService"]
   MOVE R9 R2
@@ -74,7 +71,7 @@ PROTO_1:
   LOADK R9 K14 ["Explorer"]
   NAMECALL R7 R7 K15 ["ShowWidgets"]
   CALL R7 2 0
-  GETUPVAL R8 1
+  GETUPVAL R8 0
   GETTABLEKS R7 R8 K4 ["GetService"]
   LOADK R8 K16 ["Selection"]
   MOVE R9 R2
@@ -120,7 +117,7 @@ PROTO_1:
   MOVE R11 R7
   GETIMPORT R9 K12 [table.insert]
   CALL R9 2 0
-  GETUPVAL R10 1
+  GETUPVAL R10 0
   GETTABLEKS R9 R10 K4 ["GetService"]
   LOADK R10 K13 ["TutorialService"]
   MOVE R11 R2
@@ -128,7 +125,7 @@ PROTO_1:
   LOADK R11 K14 ["Explorer"]
   NAMECALL R9 R9 K15 ["ShowWidgets"]
   CALL R9 2 0
-  GETUPVAL R10 1
+  GETUPVAL R10 0
   GETTABLEKS R9 R10 K4 ["GetService"]
   LOADK R10 K16 ["Selection"]
   MOVE R11 R2
@@ -147,25 +144,20 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["AHAddPackageAndScriptEvents"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETIMPORT R4 K7 [script]
-  GETTABLEKS R3 R4 K8 ["Parent"]
-  GETTABLEKS R2 R3 K9 ["LinkerServiceController"]
-  CALL R1 1 1
-  DUPTABLE R2 K13 [{"PluginId", "Category", "ItemId"}]
-  LOADK R3 K14 ["Explorer"]
-  SETTABLEKS R3 R2 K10 ["PluginId"]
-  LOADK R3 K15 ["Widgets"]
-  SETTABLEKS R3 R2 K11 ["Category"]
-  LOADK R3 K16 ["Main"]
-  SETTABLEKS R3 R2 K12 ["ItemId"]
-  DUPCLOSURE R3 K17 [PROTO_0]
-  SETGLOBAL R3 K18 ["splitUrl"]
-  DUPCLOSURE R3 K19 [PROTO_1]
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["LinkerServiceController"]
+  CALL R0 1 1
+  DUPTABLE R1 K9 [{"PluginId", "Category", "ItemId"}]
+  LOADK R2 K10 ["Explorer"]
+  SETTABLEKS R2 R1 K6 ["PluginId"]
+  LOADK R2 K11 ["Widgets"]
+  SETTABLEKS R2 R1 K7 ["Category"]
+  LOADK R2 K12 ["Main"]
+  SETTABLEKS R2 R1 K8 ["ItemId"]
+  DUPCLOSURE R2 K13 [PROTO_0]
+  SETGLOBAL R2 K14 ["splitUrl"]
+  DUPCLOSURE R2 K15 [PROTO_1]
   CAPTURE VAL R0
-  CAPTURE VAL R1
-  RETURN R3 1
+  RETURN R2 1

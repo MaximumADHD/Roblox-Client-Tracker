@@ -132,7 +132,7 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
   -- Helper function used by callbacks to populate error messages
   local function tryGetErrorMessage(reqSuccess, reqResponse)
     local err = nil
-    if not reqSuccess then
+    if not (reqSuccess and reqResponse and reqResponse.StatusCode) then
       err = "Connection error"
     elseif reqResponse.StatusCode == 401 then
       err = "Unauthorized"
@@ -373,7 +373,7 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
         local success = false
         local err = nil
         local logPrefix = "User Experience Language Setting Get Request: "
-        err = tryGetErrorMessage(reqResponse, reqResponse)
+        err = tryGetErrorMessage(reqSuccess, reqResponse)
         if err ~= nil then
           err = logPrefix .. err
         else
@@ -450,7 +450,7 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
         local success = false
         local err = nil
         local logPrefix = "Experience Source Language Request: "
-        err = tryGetErrorMessage(reqResponse, reqResponse)
+        err = tryGetErrorMessage(reqSuccess, reqResponse)
         if err ~= nil then
           err = logPrefix .. err
         else
@@ -492,7 +492,7 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
         local success = false
         local err = nil
         local logPrefix = "Experience Supported Language Language Request: "
-        err = tryGetErrorMessage(reqResponse, reqResponse)
+        err = tryGetErrorMessage(reqSuccess, reqResponse)
         if err ~= nil then
           err = logPrefix .. err
         else
@@ -539,7 +539,7 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
     local success = false
     local err = nil
     local logPrefix = "Locale Information Request: "
-    err = tryGetErrorMessage(reqResponse, reqResponse)
+    err = tryGetErrorMessage(reqSuccess, reqResponse)
     if err ~= nil then
       err = logPrefix .. err
     else

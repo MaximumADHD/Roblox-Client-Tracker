@@ -13,6 +13,7 @@ local isValidFocusTarget = require(script.Parent.isValidFocusTarget)
 local types = require(script.Parent.types)
 type EventMap = types.EventMap
 type EventData = types.EventData
+type InputEvent = types.InputEvent
 type EngineInterface = types.EngineInterface
 type ContainerFocusBehavior = types.ContainerFocusBehavior
 type FocusBehaviorConnection = { behavior: ContainerFocusBehavior, connection: RBXScriptConnection }
@@ -39,6 +40,15 @@ export type FocusNavigationService = {
 
 	activeEventMap: Utils.Signal<EventMap>,
 	focusedGuiObject: Utils.Signal<GuiObject?>,
+
+	dispatchSyntheticEvent: (
+		self: FocusNavigationService,
+		eventName: string,
+		target: GuiObject,
+		eventData: EventData?
+	) -> boolean,
+
+	canDispatchEvent: (self: FocusNavigationService, eventName: string, target: GuiObject) -> boolean,
 }
 
 type FocusNavigationServicePrivate = {
@@ -56,6 +66,7 @@ type FocusNavigationServicePrivate = {
 
 	_connectToInputEvents: (FocusNavigationServicePrivate) -> (),
 	_fireInputEvent: (FocusNavigationServicePrivate, GuiObject, InputObject, boolean?) -> (),
+	_resolveEventTarget: (FocusNavigationServicePrivate, GuiObject?) -> GuiObject?,
 	_updateActiveEventMap: (FocusNavigationServicePrivate, GuiObject?) -> (),
 	_cancelHandler: (FocusNavigationServicePrivate, GuiObject, string) -> (),
 
@@ -69,6 +80,15 @@ type FocusNavigationServicePrivate = {
 	deregisterFocusBehavior: (self: FocusNavigationServicePrivate, GuiObject, ContainerFocusBehavior) -> (),
 	focusGuiObject: (self: FocusNavigationServicePrivate, GuiObject?, boolean) -> (),
 	teardown: (self: FocusNavigationServicePrivate) -> (),
+
+	dispatchSyntheticEvent: (
+		self: FocusNavigationServicePrivate,
+		eventName: string,
+		target: GuiObject,
+		eventData: EventData?
+	) -> boolean,
+
+	canDispatchEvent: (self: FocusNavigationServicePrivate, eventName: string, target: GuiObject) -> boolean,
 
 	activeEventMap: Utils.Signal<EventMap>,
 	focusedGuiObject: Utils.Signal<GuiObject?>,
@@ -119,7 +139,10 @@ function FocusNavigationService:_fireInputEvent(focusedGuiObject: GuiObject, inp
 			UserInputState = input.UserInputState,
 			UserInputType = input.UserInputType,
 			wasProcessed = wasProcessed,
-		} :: EventData, false)
+		}, {
+			synthetic = false,
+			silent = false,
+		})
 	end
 end
 
@@ -143,13 +166,19 @@ function FocusNavigationService:_connectToInputEvents()
 		-- TODO: what happens if a selection change happens in response to a blur event?
 		if previousFocus then
 			local silent = self._silentBlurTarget == previousFocus
-			self._eventPropagationService:propagateEvent(previousFocus, "blur", nil, silent)
+			self._eventPropagationService:propagateEvent(previousFocus, "blur", nil, {
+				synthetic = false,
+				silent = silent,
+			})
 			self._silentBlurTarget = nil
 		end
 		self._fireFocusedGuiObjectSignal(nextFocus)
 		if nextFocus then
 			local silent = nextFocus == self._silentFocusTarget
-			self._eventPropagationService:propagateEvent(nextFocus, "focus", nil, silent)
+			self._eventPropagationService:propagateEvent(nextFocus, "focus", nil, {
+				synthetic = false,
+				silent = silent,
+			})
 			self._silentFocusTarget = nil
 		end
 		self:_updateActiveEventMap(previousFocus)
@@ -163,7 +192,10 @@ function FocusNavigationService:_cancelHandler(target, eventName)
 			KeyCode = Enum.KeyCode.Unknown,
 			UserInputType = Enum.UserInputType.None,
 			UserInputState = Enum.UserInputState.Cancel,
-		}, false)
+		}, {
+			synthetic = false,
+			silent = false,
+		})
 	end
 end
 
@@ -400,6 +432,58 @@ function FocusNavigationService:teardown()
 	for _, behaviorConnection in self._focusBehaviorByInstance do
 		behaviorConnection.connection:Disconnect()
 	end
+end
+
+function FocusNavigationService:canDispatchEvent(eventName: string, target: GuiObject): boolean
+	if not target then
+		return false
+	end
+
+	local ancestorList = getAncestors(target)
+
+	-- Check if event is mapped and has a handler in the target's ancestor chain
+	for _, ancestor in ancestorList do
+		local ancestorEventMap = self._eventMapByInstance[ancestor]
+		if ancestorEventMap then
+			for _, mappedEventName in ancestorEventMap do
+				if mappedEventName == eventName then
+					local handlers = self._eventPropagationService:getRegisteredEventHandlers(ancestor)
+					if handlers and handlers[eventName] then
+						return true
+					end
+				end
+			end
+		end
+	end
+
+	return false
+end
+
+function FocusNavigationService:dispatchSyntheticEvent(
+	eventName: string,
+	target: GuiObject,
+	eventData: EventData?
+): boolean
+	if not target then
+		if _G.__DEV__ then
+			warn("dispatchSyntheticEvent: No target object")
+		end
+		return false
+	end
+
+	if not self:canDispatchEvent(eventName, target) then
+		if _G.__DEV__ then
+			warn('dispatchSyntheticEvent: Cannot dispatch event "' .. eventName .. '" on target')
+		end
+		return false
+	end
+
+	self._eventPropagationService:propagateEvent(target, eventName, eventData, {
+		synthetic = true,
+		silent = false,
+	})
+
+	return true
 end
 
 return FocusNavigationService

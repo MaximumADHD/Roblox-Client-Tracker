@@ -20,14 +20,14 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  GETIMPORT R1 K1 [_G]
-  GETTABLEKS R0 R1 K2 ["__DEV__"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["__DEV__"]
   JUMPIFNOT R0 [+7]
-  GETUPVAL R0 0
+  GETUPVAL R0 1
   JUMPIFNOT R0 [+5]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K3 ["error"]
-  LOADK R1 K4 ["We should not be hydrating here. This is a bug in React. Please file a bug."]
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K1 ["error"]
+  LOADK R1 K2 ["We should not be hydrating here. This is a bug in React. Please file a bug."]
   CALL R0 1 0
   RETURN R0 0
 
@@ -118,8 +118,8 @@ PROTO_5:
   GETIMPORT R2 K16 [bit32.bor]
   CALL R2 2 1
   SETTABLEKS R2 R1 K9 ["flags"]
-  GETIMPORT R3 K18 [_G]
-  GETTABLEKS R2 R3 K19 ["__DEV__"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K17 ["__DEV__"]
   JUMPIFNOT R2 [0]
   RETURN R0 0
 
@@ -270,30 +270,30 @@ PROTO_9:
   MOVE R5 R2
   MOVE R6 R0
   CALL R3 3 1
-  GETIMPORT R5 K5 [_G]
-  GETTABLEKS R4 R5 K6 ["__DEV__"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K4 ["__DEV__"]
   JUMPIFNOT R4 [+37]
   JUMPIFNOT R3 [+36]
-  GETUPVAL R4 3
+  GETUPVAL R4 4
   JUMPIFEQKNIL R4 [+34]
-  GETTABLEKS R5 R4 K7 ["tag"]
-  GETUPVAL R6 4
+  GETTABLEKS R5 R4 K5 ["tag"]
+  GETUPVAL R6 5
   JUMPIFNOTEQ R5 R6 [+11]
   GETTABLEKS R6 R4 K2 ["stateNode"]
-  GETTABLEKS R5 R6 K8 ["containerInfo"]
-  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K6 ["containerInfo"]
+  GETUPVAL R6 6
   MOVE R7 R5
   MOVE R8 R1
   MOVE R9 R2
   CALL R6 3 0
   RETURN R3 1
-  GETTABLEKS R5 R4 K7 ["tag"]
-  GETUPVAL R6 6
+  GETTABLEKS R5 R4 K5 ["tag"]
+  GETUPVAL R6 7
   JUMPIFNOTEQ R5 R6 [+14]
-  GETTABLEKS R5 R4 K9 ["type"]
+  GETTABLEKS R5 R4 K7 ["type"]
   GETTABLEKS R6 R4 K3 ["memoizedProps"]
   GETTABLEKS R7 R4 K2 ["stateNode"]
-  GETUPVAL R8 7
+  GETUPVAL R8 8
   MOVE R9 R5
   MOVE R10 R6
   MOVE R11 R7
@@ -456,190 +456,196 @@ MAIN:
   GETIMPORT R2 K1 [script]
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Shared"]
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K6 ["console"]
-  DUPCLOSURE R2 K7 [PROTO_0]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["ReactGlobals"]
+  CALL R1 1 1
   GETIMPORT R3 K4 [require]
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K2 ["Parent"]
-  GETTABLEKS R4 R5 K8 ["ReactInternalTypes"]
+  GETTABLEKS R4 R0 K6 ["Shared"]
   CALL R3 1 1
+  GETTABLEKS R2 R3 K7 ["console"]
+  DUPCLOSURE R3 K8 [PROTO_0]
   GETIMPORT R4 K4 [require]
   GETIMPORT R7 K1 [script]
   GETTABLEKS R6 R7 K2 ["Parent"]
-  GETTABLEKS R5 R6 K9 ["ReactFiberHostConfig"]
+  GETTABLEKS R5 R6 K9 ["ReactInternalTypes"]
   CALL R4 1 1
   GETIMPORT R5 K4 [require]
   GETIMPORT R8 K1 [script]
   GETTABLEKS R7 R8 K2 ["Parent"]
-  GETTABLEKS R6 R7 K10 ["ReactFiberSuspenseComponent.new"]
+  GETTABLEKS R6 R7 K10 ["ReactFiberHostConfig"]
   CALL R5 1 1
   GETIMPORT R6 K4 [require]
   GETIMPORT R9 K1 [script]
   GETTABLEKS R8 R9 K2 ["Parent"]
-  GETTABLEKS R7 R8 K11 ["ReactWorkTags"]
+  GETTABLEKS R7 R8 K11 ["ReactFiberSuspenseComponent.new"]
   CALL R6 1 1
-  GETTABLEKS R7 R6 K12 ["HostComponent"]
-  GETTABLEKS R8 R6 K13 ["HostText"]
-  GETTABLEKS R9 R6 K14 ["HostRoot"]
-  GETTABLEKS R10 R6 K15 ["SuspenseComponent"]
-  GETIMPORT R11 K4 [require]
-  GETIMPORT R14 K1 [script]
-  GETTABLEKS R13 R14 K2 ["Parent"]
-  GETTABLEKS R12 R13 K16 ["ReactFiberFlags"]
-  CALL R11 1 1
-  GETTABLEKS R12 R11 K17 ["Placement"]
-  GETTABLEKS R13 R11 K18 ["Hydrating"]
-  GETIMPORT R15 K4 [require]
-  GETTABLEKS R16 R0 K5 ["Shared"]
-  CALL R15 1 1
-  GETTABLEKS R14 R15 K19 ["invariant"]
-  GETIMPORT R15 K4 [require]
-  GETIMPORT R18 K1 [script]
-  GETTABLEKS R17 R18 K2 ["Parent"]
-  GETTABLEKS R16 R17 K20 ["ReactFiber.new"]
-  CALL R15 1 1
-  GETTABLEKS R16 R15 K21 ["createFiberFromDehydratedFragment"]
-  GETTABLEKS R17 R4 K22 ["supportsHydration"]
-  GETTABLEKS R18 R4 K23 ["getNextHydratableSibling"]
-  GETTABLEKS R19 R4 K24 ["getFirstHydratableChild"]
-  GETTABLEKS R20 R4 K25 ["canHydrateInstance"]
-  GETTABLEKS R21 R4 K26 ["canHydrateTextInstance"]
-  GETTABLEKS R22 R4 K27 ["canHydrateSuspenseInstance"]
-  GETTABLEKS R23 R4 K28 ["hydrateInstance"]
-  GETTABLEKS R24 R4 K29 ["hydrateTextInstance"]
-  GETTABLEKS R25 R4 K30 ["hydrateSuspenseInstance"]
-  GETTABLEKS R26 R4 K31 ["getNextHydratableInstanceAfterSuspenseInstance"]
-  GETTABLEKS R27 R4 K32 ["didNotMatchHydratedContainerTextInstance"]
-  GETTABLEKS R28 R4 K33 ["didNotMatchHydratedTextInstance"]
-  GETTABLEKS R29 R4 K34 ["shouldSetTextContent"]
-  GETIMPORT R32 K4 [require]
-  GETTABLEKS R33 R0 K5 ["Shared"]
-  CALL R32 1 1
-  GETTABLEKS R31 R32 K35 ["ReactFeatureFlags"]
-  GETTABLEKS R30 R31 K36 ["enableSuspenseServerRenderer"]
-  GETIMPORT R32 K4 [require]
-  GETIMPORT R35 K1 [script]
-  GETTABLEKS R34 R35 K2 ["Parent"]
-  GETTABLEKS R33 R34 K37 ["ReactFiberLane"]
-  CALL R32 1 1
-  GETTABLEKS R31 R32 K38 ["OffscreenLane"]
-  LOADNIL R32
+  GETIMPORT R7 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K12 ["ReactWorkTags"]
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K13 ["HostComponent"]
+  GETTABLEKS R9 R7 K14 ["HostText"]
+  GETTABLEKS R10 R7 K15 ["HostRoot"]
+  GETTABLEKS R11 R7 K16 ["SuspenseComponent"]
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K17 ["ReactFiberFlags"]
+  CALL R12 1 1
+  GETTABLEKS R13 R12 K18 ["Placement"]
+  GETTABLEKS R14 R12 K19 ["Hydrating"]
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R17 R0 K6 ["Shared"]
+  CALL R16 1 1
+  GETTABLEKS R15 R16 K20 ["invariant"]
+  GETIMPORT R16 K4 [require]
+  GETIMPORT R19 K1 [script]
+  GETTABLEKS R18 R19 K2 ["Parent"]
+  GETTABLEKS R17 R18 K21 ["ReactFiber.new"]
+  CALL R16 1 1
+  GETTABLEKS R17 R16 K22 ["createFiberFromDehydratedFragment"]
+  GETTABLEKS R18 R5 K23 ["supportsHydration"]
+  GETTABLEKS R19 R5 K24 ["getNextHydratableSibling"]
+  GETTABLEKS R20 R5 K25 ["getFirstHydratableChild"]
+  GETTABLEKS R21 R5 K26 ["canHydrateInstance"]
+  GETTABLEKS R22 R5 K27 ["canHydrateTextInstance"]
+  GETTABLEKS R23 R5 K28 ["canHydrateSuspenseInstance"]
+  GETTABLEKS R24 R5 K29 ["hydrateInstance"]
+  GETTABLEKS R25 R5 K30 ["hydrateTextInstance"]
+  GETTABLEKS R26 R5 K31 ["hydrateSuspenseInstance"]
+  GETTABLEKS R27 R5 K32 ["getNextHydratableInstanceAfterSuspenseInstance"]
+  GETTABLEKS R28 R5 K33 ["didNotMatchHydratedContainerTextInstance"]
+  GETTABLEKS R29 R5 K34 ["didNotMatchHydratedTextInstance"]
+  GETTABLEKS R30 R5 K35 ["shouldSetTextContent"]
+  GETIMPORT R33 K4 [require]
+  GETTABLEKS R34 R0 K6 ["Shared"]
+  CALL R33 1 1
+  GETTABLEKS R32 R33 K36 ["ReactFeatureFlags"]
+  GETTABLEKS R31 R32 K37 ["enableSuspenseServerRenderer"]
+  GETIMPORT R33 K4 [require]
+  GETIMPORT R36 K1 [script]
+  GETTABLEKS R35 R36 K2 ["Parent"]
+  GETTABLEKS R34 R35 K38 ["ReactFiberLane"]
+  CALL R33 1 1
+  GETTABLEKS R32 R33 K39 ["OffscreenLane"]
   LOADNIL R33
-  LOADB R34 0
-  NEWCLOSURE R35 P1
-  CAPTURE REF R34
+  LOADNIL R34
+  LOADB R35 0
+  NEWCLOSURE R36 P1
   CAPTURE VAL R1
-  SETGLOBAL R35 K39 ["warnIfHydrating"]
-  NEWCLOSURE R35 P2
-  CAPTURE VAL R17
-  CAPTURE REF R33
-  CAPTURE VAL R19
-  CAPTURE REF R32
-  CAPTURE REF R34
-  SETGLOBAL R35 K40 ["enterHydrationState"]
-  NEWCLOSURE R35 P3
-  CAPTURE VAL R17
-  CAPTURE REF R33
+  CAPTURE REF R35
+  CAPTURE VAL R2
+  SETGLOBAL R36 K40 ["warnIfHydrating"]
+  NEWCLOSURE R36 P2
   CAPTURE VAL R18
   CAPTURE REF R34
-  SETGLOBAL R35 K41 ["reenterHydrationStateFromDehydratedSuspenseInstance"]
-  DUPCLOSURE R35 K42 [PROTO_4]
-  SETGLOBAL R35 K43 ["deleteHydratableInstance"]
-  DUPCLOSURE R35 K44 [PROTO_5]
-  CAPTURE VAL R13
-  CAPTURE VAL R12
-  SETGLOBAL R35 K45 ["insertNonHydratedInstance"]
-  DUPCLOSURE R35 K46 [PROTO_6]
-  CAPTURE VAL R7
   CAPTURE VAL R20
+  CAPTURE REF R33
+  CAPTURE REF R35
+  SETGLOBAL R36 K41 ["enterHydrationState"]
+  NEWCLOSURE R36 P3
+  CAPTURE VAL R18
+  CAPTURE REF R34
+  CAPTURE VAL R19
+  CAPTURE REF R35
+  SETGLOBAL R36 K42 ["reenterHydrationStateFromDehydratedSuspenseInstance"]
+  DUPCLOSURE R36 K43 [PROTO_4]
+  SETGLOBAL R36 K44 ["deleteHydratableInstance"]
+  DUPCLOSURE R36 K45 [PROTO_5]
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  SETGLOBAL R36 K46 ["insertNonHydratedInstance"]
+  DUPCLOSURE R36 K47 [PROTO_6]
   CAPTURE VAL R8
   CAPTURE VAL R21
-  CAPTURE VAL R10
-  CAPTURE VAL R30
+  CAPTURE VAL R9
   CAPTURE VAL R22
+  CAPTURE VAL R11
   CAPTURE VAL R31
-  CAPTURE VAL R16
-  SETGLOBAL R35 K47 ["tryHydrate"]
-  NEWCLOSURE R35 P7
-  CAPTURE REF R34
-  CAPTURE REF R33
-  CAPTURE REF R32
-  CAPTURE VAL R18
-  CAPTURE VAL R19
-  SETGLOBAL R35 K48 ["tryToClaimNextHydratableInstance"]
-  DUPCLOSURE R35 K49 [PROTO_8]
-  CAPTURE VAL R17
-  CAPTURE VAL R14
   CAPTURE VAL R23
-  SETGLOBAL R35 K50 ["prepareToHydrateHostInstance"]
-  NEWCLOSURE R35 P9
+  CAPTURE VAL R32
   CAPTURE VAL R17
-  CAPTURE VAL R14
-  CAPTURE VAL R24
-  CAPTURE REF R32
-  CAPTURE VAL R9
-  CAPTURE VAL R27
-  CAPTURE VAL R7
-  CAPTURE VAL R28
-  SETGLOBAL R35 K51 ["prepareToHydrateHostTextInstance"]
-  DUPCLOSURE R35 K52 [PROTO_10]
-  CAPTURE VAL R17
-  CAPTURE VAL R14
-  CAPTURE VAL R25
-  SETGLOBAL R35 K53 ["prepareToHydrateHostSuspenseInstance"]
-  DUPCLOSURE R35 K54 [PROTO_11]
-  CAPTURE VAL R17
-  CAPTURE VAL R14
-  CAPTURE VAL R26
-  SETGLOBAL R35 K55 ["skipPastDehydratedSuspenseInstance"]
-  NEWCLOSURE R35 P12
-  CAPTURE VAL R7
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE REF R32
-  SETGLOBAL R35 K56 ["popToNextHostParent"]
-  NEWCLOSURE R35 P13
-  CAPTURE VAL R17
-  CAPTURE REF R32
+  SETGLOBAL R36 K48 ["tryHydrate"]
+  NEWCLOSURE R36 P7
+  CAPTURE REF R35
   CAPTURE REF R34
-  CAPTURE VAL R7
-  CAPTURE VAL R29
   CAPTURE REF R33
+  CAPTURE VAL R19
+  CAPTURE VAL R20
+  SETGLOBAL R36 K49 ["tryToClaimNextHydratableInstance"]
+  DUPCLOSURE R36 K50 [PROTO_8]
   CAPTURE VAL R18
+  CAPTURE VAL R15
+  CAPTURE VAL R24
+  SETGLOBAL R36 K51 ["prepareToHydrateHostInstance"]
+  NEWCLOSURE R36 P9
+  CAPTURE VAL R18
+  CAPTURE VAL R15
+  CAPTURE VAL R25
+  CAPTURE VAL R1
+  CAPTURE REF R33
   CAPTURE VAL R10
-  SETGLOBAL R35 K57 ["popHydrationState"]
-  NEWCLOSURE R35 P14
-  CAPTURE VAL R17
-  CAPTURE REF R32
+  CAPTURE VAL R28
+  CAPTURE VAL R8
+  CAPTURE VAL R29
+  SETGLOBAL R36 K52 ["prepareToHydrateHostTextInstance"]
+  DUPCLOSURE R36 K53 [PROTO_10]
+  CAPTURE VAL R18
+  CAPTURE VAL R15
+  CAPTURE VAL R26
+  SETGLOBAL R36 K54 ["prepareToHydrateHostSuspenseInstance"]
+  DUPCLOSURE R36 K55 [PROTO_11]
+  CAPTURE VAL R18
+  CAPTURE VAL R15
+  CAPTURE VAL R27
+  SETGLOBAL R36 K56 ["skipPastDehydratedSuspenseInstance"]
+  NEWCLOSURE R36 P12
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE REF R33
+  SETGLOBAL R36 K57 ["popToNextHostParent"]
+  NEWCLOSURE R36 P13
+  CAPTURE VAL R18
+  CAPTURE REF R33
+  CAPTURE REF R35
+  CAPTURE VAL R8
+  CAPTURE VAL R30
+  CAPTURE REF R34
+  CAPTURE VAL R19
+  CAPTURE VAL R11
+  SETGLOBAL R36 K58 ["popHydrationState"]
+  NEWCLOSURE R36 P14
+  CAPTURE VAL R18
   CAPTURE REF R33
   CAPTURE REF R34
-  SETGLOBAL R35 K58 ["resetHydrationState"]
-  NEWCLOSURE R35 P15
-  CAPTURE REF R34
-  SETGLOBAL R35 K59 ["getIsHydrating"]
-  DUPTABLE R35 K60 [{"warnIfHydrating", "enterHydrationState", "getIsHydrating", "reenterHydrationStateFromDehydratedSuspenseInstance", "resetHydrationState", "tryToClaimNextHydratableInstance", "prepareToHydrateHostInstance", "prepareToHydrateHostTextInstance", "prepareToHydrateHostSuspenseInstance", "popHydrationState"}]
-  GETGLOBAL R36 K39 ["warnIfHydrating"]
-  SETTABLEKS R36 R35 K39 ["warnIfHydrating"]
-  GETGLOBAL R36 K40 ["enterHydrationState"]
-  SETTABLEKS R36 R35 K40 ["enterHydrationState"]
-  GETGLOBAL R36 K59 ["getIsHydrating"]
-  SETTABLEKS R36 R35 K59 ["getIsHydrating"]
-  GETGLOBAL R36 K41 ["reenterHydrationStateFromDehydratedSuspenseInstance"]
-  SETTABLEKS R36 R35 K41 ["reenterHydrationStateFromDehydratedSuspenseInstance"]
-  GETGLOBAL R36 K58 ["resetHydrationState"]
-  SETTABLEKS R36 R35 K58 ["resetHydrationState"]
-  GETGLOBAL R36 K48 ["tryToClaimNextHydratableInstance"]
-  SETTABLEKS R36 R35 K48 ["tryToClaimNextHydratableInstance"]
-  GETGLOBAL R36 K50 ["prepareToHydrateHostInstance"]
-  SETTABLEKS R36 R35 K50 ["prepareToHydrateHostInstance"]
-  GETGLOBAL R36 K51 ["prepareToHydrateHostTextInstance"]
-  SETTABLEKS R36 R35 K51 ["prepareToHydrateHostTextInstance"]
-  GETGLOBAL R36 K53 ["prepareToHydrateHostSuspenseInstance"]
-  SETTABLEKS R36 R35 K53 ["prepareToHydrateHostSuspenseInstance"]
-  GETGLOBAL R36 K57 ["popHydrationState"]
-  SETTABLEKS R36 R35 K57 ["popHydrationState"]
-  CLOSEUPVALS R32
-  RETURN R35 1
+  CAPTURE REF R35
+  SETGLOBAL R36 K59 ["resetHydrationState"]
+  NEWCLOSURE R36 P15
+  CAPTURE REF R35
+  SETGLOBAL R36 K60 ["getIsHydrating"]
+  DUPTABLE R36 K61 [{"warnIfHydrating", "enterHydrationState", "getIsHydrating", "reenterHydrationStateFromDehydratedSuspenseInstance", "resetHydrationState", "tryToClaimNextHydratableInstance", "prepareToHydrateHostInstance", "prepareToHydrateHostTextInstance", "prepareToHydrateHostSuspenseInstance", "popHydrationState"}]
+  GETGLOBAL R37 K40 ["warnIfHydrating"]
+  SETTABLEKS R37 R36 K40 ["warnIfHydrating"]
+  GETGLOBAL R37 K41 ["enterHydrationState"]
+  SETTABLEKS R37 R36 K41 ["enterHydrationState"]
+  GETGLOBAL R37 K60 ["getIsHydrating"]
+  SETTABLEKS R37 R36 K60 ["getIsHydrating"]
+  GETGLOBAL R37 K42 ["reenterHydrationStateFromDehydratedSuspenseInstance"]
+  SETTABLEKS R37 R36 K42 ["reenterHydrationStateFromDehydratedSuspenseInstance"]
+  GETGLOBAL R37 K59 ["resetHydrationState"]
+  SETTABLEKS R37 R36 K59 ["resetHydrationState"]
+  GETGLOBAL R37 K49 ["tryToClaimNextHydratableInstance"]
+  SETTABLEKS R37 R36 K49 ["tryToClaimNextHydratableInstance"]
+  GETGLOBAL R37 K51 ["prepareToHydrateHostInstance"]
+  SETTABLEKS R37 R36 K51 ["prepareToHydrateHostInstance"]
+  GETGLOBAL R37 K52 ["prepareToHydrateHostTextInstance"]
+  SETTABLEKS R37 R36 K52 ["prepareToHydrateHostTextInstance"]
+  GETGLOBAL R37 K54 ["prepareToHydrateHostSuspenseInstance"]
+  SETTABLEKS R37 R36 K54 ["prepareToHydrateHostSuspenseInstance"]
+  GETGLOBAL R37 K58 ["popHydrationState"]
+  SETTABLEKS R37 R36 K58 ["popHydrationState"]
+  CLOSEUPVALS R33
+  RETURN R36 1

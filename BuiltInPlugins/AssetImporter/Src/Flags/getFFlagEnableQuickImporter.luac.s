@@ -3,10 +3,11 @@ PROTO_0:
   LOADK R2 K2 ["EnableQuickImporter"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
-  JUMPIFNOT R0 [+3]
+  JUMPIFNOT R0 [+4]
   GETUPVAL R0 0
   LOADK R1 K4 ["ActionsAllowShortcutsFromLua"]
   CALL R0 1 1
+  CALL R0 0 1
   RETURN R0 1
 
 MAIN:

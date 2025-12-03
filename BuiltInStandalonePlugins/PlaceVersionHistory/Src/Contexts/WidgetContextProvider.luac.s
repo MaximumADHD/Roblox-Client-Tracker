@@ -4,9 +4,11 @@ PROTO_0:
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["Provider"]
   DUPTABLE R3 K3 [{"value"}]
-  GETTABLEKS R4 R0 K4 ["widget"]
+  DUPTABLE R4 K5 [{"widget"}]
+  GETTABLEKS R5 R0 K4 ["widget"]
+  SETTABLEKS R5 R4 K4 ["widget"]
   SETTABLEKS R4 R3 K2 ["value"]
-  GETTABLEKS R4 R0 K5 ["children"]
+  GETTABLEKS R4 R0 K6 ["children"]
   CALL R1 3 -1
   RETURN R1 -1
 

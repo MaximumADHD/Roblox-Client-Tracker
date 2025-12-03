@@ -87,6 +87,8 @@ local GetFFlagEnableVrVoiceConnectDisconnect = SharedFlags.GetFFlagEnableVrVoice
 local FFlagEnableNewBadgeVisibilityCopy = game:DefineFastFlag("EnableNewBadgeVisibilityCopy", false)
 local FFlagEnableVoiceSelectorTranslations = game:DefineFastFlag("EnableVoiceSelectorTranslations_AEGIS2", false)
 local FFlagHideVoiceChatSelectorForFae = game:DefineFastFlag("HideVoiceChatSelectorForFae_AEGIS2", false)
+local FFlagCenterShiftLockOverride = game:DefineFastFlag("CenterShiftLockOverride", true)
+local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelectorReconnectFocus2_AEGIS2", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -992,8 +994,9 @@ local function Initialize()
 			Font = Theme.font(Enum.Font.SourceSans, "GameSettings"),
 			FontSize = Theme.fontSize(Enum.FontSize.Size24, "GameSettings"),
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 200, 1, 0),
-			Position = UDim2.new(1, -350, 0, 0),
+			Size = if FFlagCenterShiftLockOverride then UDim2.new(0.6, 0, 1, 0) else UDim2.new(0, 200, 1, 0),
+			Position = if FFlagCenterShiftLockOverride then UDim2.new(1, 0, 0.5, 0) else UDim2.new(1, -350, 0, 0),
+			AnchorPoint = if FFlagCenterShiftLockOverride then Vector2.new(1, 0.5) else nil,
 			Visible = false,
 			ZIndex = 2,
 			Parent = this.PerformanceStatsFrame,
@@ -1235,8 +1238,9 @@ local function Initialize()
 			Font = Theme.font(Enum.Font.SourceSans, "GameSettings"),
 			FontSize = Theme.fontSize(Enum.FontSize.Size24, "GameSettings"),
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 200, 1, 0),
-			Position = UDim2.new(1, -350, 0, 0),
+			Size = if FFlagCenterShiftLockOverride then UDim2.new(0.6, 0, 1, 0) else UDim2.new(0, 200, 1, 0),
+			Position = if FFlagCenterShiftLockOverride then UDim2.new(1, 0, 0.5, 0) else UDim2.new(1, -350, 0, 0),
+			AnchorPoint = if FFlagCenterShiftLockOverride then Vector2.new(1, 0.5) else nil,
 			Visible = false,
 			ZIndex = 2,
 			Parent = this.ShiftLockFrame,
@@ -3665,6 +3669,14 @@ local function Initialize()
 		this.VoiceConnectDisconnectSelector.IndexChanged:connect(
 			if useDebounce then throttle(debounceDelay, onSelectorIndexChanged) else onSelectorIndexChanged
 		)
+
+    	if FFlagVoiceChatSelectorReconnectFocus then
+			this.VoiceConnectDisconnectFrame.SelectionChanged:Connect(function(_, previousSelection, newSelection)
+				if (newSelection and previousSelection and previousSelection.Parent) and previousSelection.Parent.Name == frameText .. "Frame" and newSelection.Name == "ImageButton" and this.Active then
+					GuiService.SelectedCoreObject = previousSelection
+				end
+			end)
+		end
 
 		VoiceChatServiceManager:subscribe("OnStateChanged", function(oldState, newState)
 			if newState == (Enum :: any).VoiceChatState.Failed then

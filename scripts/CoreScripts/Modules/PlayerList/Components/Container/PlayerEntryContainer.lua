@@ -17,6 +17,7 @@ local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
 local FFlagMoveNewPlayerListDividers = SharedFlags.FFlagMoveNewPlayerListDividers
+local FFlagPlayerListFixLeaderstatsStacking = SharedFlags.FFlagPlayerListFixLeaderstatsStacking
 
 type PlayerEntryViewProps = PlayerEntryView.PlayerEntryViewProps
 
@@ -65,7 +66,7 @@ local function PlayerEntryContainer(props: PlayerEntryContainerProps)
 	local gameStats: GameStatList = leaderboardStore.getGameStatsList()
 	local playerData: PlayerEntry? = leaderboardStore.getPlayerEntry(props.player, false :: any)
 
-	local gameStatsCount = SignalsReact.useSignalState(gameStats.getCount)
+	local gameStatsCount: number? = if FFlagPlayerListFixLeaderstatsStacking then nil else SignalsReact.useSignalState(gameStats.getCount)
 
 	local teamPlayersCount = if not FFlagMoveNewPlayerListDividers 
 		then Signals.createComputed(function(scope)
@@ -77,7 +78,7 @@ local function PlayerEntryContainer(props: PlayerEntryContainerProps)
 		then React.createElement(PlayerEntryView, {
 				playerData = playerData,
 				gameStats = gameStats,
-				gameStatsCount = gameStatsCount,
+				gameStatsCount = if FFlagPlayerListFixLeaderstatsStacking then nil else gameStatsCount,
 				
 				size = props.size,
 				entrySizeX = props.entrySizeX,

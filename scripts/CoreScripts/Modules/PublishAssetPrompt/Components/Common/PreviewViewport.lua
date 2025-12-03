@@ -31,7 +31,6 @@ local GamepadUtils = require(CorePackages.Workspace.Packages.InputUi).Gamepad.Ga
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local InteractionFrame = require(script.Parent.InteractionFrame)
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local getFFlagEnableAvatarAssetPrompt = require(script.Parent.Parent.Parent.Flags.getFFlagEnableAvatarAssetPrompt)
 
 local Images = UIBlox.App.ImageSet.Images
 local PreviewShrinkIcon = Images["icons/actions/previewShrink"]
@@ -239,13 +238,32 @@ function PreviewViewport:processAsset()
 		task.spawn(function()
 			local ok, humanoidDescription = pcall(function()
 				-- this is an outfit of Mannequin-Blocky bundle that is used to create emote thumbnails https://www.roblox.com/bundles/515/Mannequin-Blocky
-				local mannequinRig = Players:GetHumanoidDescriptionFromOutfitId(MANNEQUIN_OUTFIT_ID)
-				return mannequinRig
+				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+				-- Will be removed when that PR is merged.
+				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+					local mannequinRig = (Players :: any):GetHumanoidDescriptionFromOutfitIdAsync(MANNEQUIN_OUTFIT_ID)
+					return mannequinRig
+				else
+					local mannequinRig = (Players :: any):GetHumanoidDescriptionFromOutfitId(MANNEQUIN_OUTFIT_ID)
+					return mannequinRig
+				end
 			end)
 
 			local newModel
 			if ok then
-				newModel = Players:CreateHumanoidModelFromDescription(humanoidDescription, Enum.HumanoidRigType.R15)
+				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+				-- Will be removed when that PR is merged.
+				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+					newModel = (Players :: any):CreateHumanoidModelFromDescriptionAsync(
+						humanoidDescription,
+						Enum.HumanoidRigType.R15
+					)
+				else
+					newModel = (Players :: any):CreateHumanoidModelFromDescription(
+						humanoidDescription,
+						Enum.HumanoidRigType.R15
+					)
+				end
 			end
 
 			-- if asset has changed the new processAsset is driving the loadingState changes
@@ -273,7 +291,7 @@ function PreviewViewport:processAsset()
 
 			self:setLoadingState(LoadingState.SUCCESSFULLY_LOADED)
 		end)
-	elseif asset:IsA("Model") or (getFFlagEnableAvatarAssetPrompt() and asset:IsA("Accessory")) then
+	elseif asset:IsA("Model") or asset:IsA("Accessory") then
 		if asset:IsA("Accessory") then
 			local modelInstance = Instance.new("Model")
 			local accessoryClone = asset:Clone()

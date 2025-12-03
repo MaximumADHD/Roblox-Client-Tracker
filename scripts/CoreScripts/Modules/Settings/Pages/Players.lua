@@ -155,6 +155,7 @@ local LuaFlagVoiceChatDisableSubscribeRetryForMultistream =
 	game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
 local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerListRefactorUsernameFormatting", false)
 local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionMuteButton", false)
+local FFlagOnlyCaptureFocusIfOnPlayerPage = game:DefineFastFlag("OnlyCaptureFocusIfOnPlayerPage", false)
 local FIntSettingsHubPlayersButtonsResponsiveThreshold =
 	game:DefineFastInt("SettingsHubPlayersButtonsResponsiveThreshold", 200)
 local FFlagNullCheckPlayersNameLabel = game:DefineFastFlag("NullCheckPlayersNameLabel", false)
@@ -449,11 +450,23 @@ local function Initialize()
 			end
 
 			for property, value in buttonFrameLayoutProperties do
-				buttonFrameLayout[property] = value
+				if GetFFlagCleanupMuteSelfButton() then
+					if buttonFrameLayout then
+						buttonFrameLayout[property] = value
+					end
+				else
+					buttonFrameLayout[property] = value
+				end
 			end
 
 			for property, value in buttonFrameProperties do
-				buttonFrame[property] = value
+				if GetFFlagCleanupMuteSelfButton() then
+					if buttonFrame then
+						buttonFrame[property] = value
+					end
+				else
+					buttonFrame[property] = value
+				end
 			end
 		else
 			if FFlagCheckButtonFrameBeforeDestroy then
@@ -1339,11 +1352,17 @@ local function Initialize()
 			icon.AnchorPoint = Vector2.new(0, 0.5)
 			icon.Position = UDim2.new(0, 18, 0.5, 0)
 
-			local iconImg = Theme.Images["icons/controls/publicAudioJoin"]
+			local isMigrated = FFlagBuilderIcons and migrationLookup["icons/controls/publicAudioJoin"]
+			local iconImg = if isMigrated then migrationLookup["icons/controls/publicAudioJoin"] else Theme.Images["icons/controls/publicAudioJoin"]
 			if iconImg then
-				icon.Image = iconImg.Image
-				icon.ImageRectOffset = iconImg.ImageRectOffset
-				icon.ImageRectSize = iconImg.ImageRectSize
+				if isMigrated then
+					icon.Text = iconImg.name
+					icon.FontFace = BuilderIcons.Font[iconImg.variant]
+				else
+					icon.Image = iconImg.Image
+					icon.ImageRectOffset = iconImg.ImageRectOffset
+					icon.ImageRectSize = iconImg.ImageRectSize
+				end
 			end
 
 			local function setIsHighlighted(isHighlighted)
@@ -2228,7 +2247,19 @@ local function Initialize()
 		end
 
 		if UserInputService.GamepadEnabled then
-			GuiService.SelectedCoreObject = shareGameButton
+			if GetFFlagCleanupMuteSelfButton() then
+				pcall(function()
+					if FFlagOnlyCaptureFocusIfOnPlayerPage then
+						if this.Active then
+							GuiService.SelectedCoreObject = shareGameButton
+						end
+					else
+						GuiService.SelectedCoreObject = shareGameButton
+					end
+				end)
+			else
+				GuiService.SelectedCoreObject = shareGameButton
+			end
 		end
 
 		utility:OnResized("MenuPlayerListExtraPageSize", function(newSize, isPortrait)

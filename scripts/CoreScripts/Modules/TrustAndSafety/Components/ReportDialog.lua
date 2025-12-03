@@ -61,8 +61,6 @@ local DSAReportingPackage = require(CorePackages.Workspace.Packages.DsaIllegalCo
 local isShowUKOSAIllegalContentReportingLink = DSAReportingPackage.isShowUKOSAIllegalContentReportingLink
 local OSAReportLink = DSAReportingPackage.OSAReportLink
 
-local FFlagUKOSALegacyReportMenu = game:DefineFastFlag("UKOSALegacyReportMenu", false)
-
 local REPORT_REASONS = {
 	"Swearing",
 	"Inappropriate Username",
@@ -176,7 +174,7 @@ function ReportDialog:canReport()
 end
 
 function ReportDialog:renderUKOSALink()
-	if not FFlagUKOSALegacyReportMenu or not isShowUKOSAIllegalContentReportingLink() then
+	if not isShowUKOSAIllegalContentReportingLink() then
 		return nil
 	end
 
@@ -238,7 +236,7 @@ function ReportDialog:renderPlayerInfo()
 end
 
 function ReportDialog:renderDropDownMenu()
-	local DROPDOWN_MENU_POSITION_Y = if isShowUKOSAIllegalContentReportingLink() and FFlagUKOSALegacyReportMenu then 64 else 72
+	local DROPDOWN_MENU_POSITION_Y = if isShowUKOSAIllegalContentReportingLink() then 64 else 72
 	if not self.props.isReportDialogOpen then
 		-- workaround to force the DropdownMenu to reset selectedValue
 		return nil
@@ -293,8 +291,8 @@ function ReportDialog:renderPlayerContents()
 	return withLocalization({
 		placeHolderText = "CoreScripts.InGameMenu.Report.AbuseDetailsPlaceHolder",
 	})(function(localized)
-		local TEXT_FIELD_POSITION_Y = if isShowUKOSAIllegalContentReportingLink() and FFlagUKOSALegacyReportMenu then 118 else 132
-		local TEXT_FIELD_SIZE_Y = if isShowUKOSAIllegalContentReportingLink() and FFlagUKOSALegacyReportMenu then -150 else -132 
+		local TEXT_FIELD_POSITION_Y = if isShowUKOSAIllegalContentReportingLink() then 118 else 132
+		local TEXT_FIELD_SIZE_Y = if isShowUKOSAIllegalContentReportingLink() then -150 else -132 
 		return Roact.createFragment({
 			PlayerInfo = self:renderPlayerInfo(),
 			DropDownMenu = self:renderDropDownMenu(),
@@ -321,9 +319,9 @@ function ReportDialog:renderPlaceContents()
 		},
 		placeHolderText = "CoreScripts.InGameMenu.Report.AbuseDetailsPlaceHolder",
 	})(function(localized)
-		local PLACE_INFO_POSITION_Y = if isShowUKOSAIllegalContentReportingLink() and FFlagUKOSALegacyReportMenu then 12 else 24
-		local TEXT_FIELD_POSITION_Y = if isShowUKOSAIllegalContentReportingLink() and FFlagUKOSALegacyReportMenu then 90 else 112
-		local TEXT_FIELD_SIZE_Y = if isShowUKOSAIllegalContentReportingLink() and FFlagUKOSALegacyReportMenu then -135 else -112
+		local PLACE_INFO_POSITION_Y = if isShowUKOSAIllegalContentReportingLink() then 12 else 24
+		local TEXT_FIELD_POSITION_Y = if isShowUKOSAIllegalContentReportingLink() then 90 else 112
+		local TEXT_FIELD_SIZE_Y = if isShowUKOSAIllegalContentReportingLink() then -135 else -112
 		return Roact.createFragment({
 			PlaceInfo = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,

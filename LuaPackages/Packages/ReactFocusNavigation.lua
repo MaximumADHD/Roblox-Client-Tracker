@@ -7,14 +7,13 @@ local Package = require(PackageIndex["ReactFocusNavigation"]["ReactFocusNavigati
 
 export type EventPhase = Package.EventPhase
 export type Event = Package.Event
+export type EventData = Package.EventData
 export type EventHandler = Package.EventHandler
 export type EventHandlerMap = Package.EventHandlerMap
 export type EngineInterface = Package.EngineInterface
 export type InputEvent = Package.InputEvent
 export type EventMap = Package.EventMap
 export type FocusNavigationService = Package.FocusNavigationService
-export type InputMethod = Package.InputMethod
-export type InputMode = Package.InputMode
 
 
 return Package

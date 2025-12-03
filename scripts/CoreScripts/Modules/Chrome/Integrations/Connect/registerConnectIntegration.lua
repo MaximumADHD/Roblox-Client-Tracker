@@ -20,7 +20,6 @@ local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 
 local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
 
-local FFlagAppChatInExpForceCursor = game:DefineFastFlag("AppChatInExpForceCursor", false)
 local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExpUseUnibarNotification", false)
 
 local FFlagEnableAppChatFocusableFixes =
@@ -115,17 +114,15 @@ return function(id: string, initialAvailability: number)
 		end
 	end
 
-	if FFlagAppChatInExpForceCursor then
-		-- Force the cursor to show when the AppChat modal is visible
-		local MOUSE_OVERRIDE_KEY = Symbol.named("InExperienceRobloxConnect")
-		InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
-			if visible then
-				MouseIconOverrideService.push(MOUSE_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceShow)
-			else
-				MouseIconOverrideService.pop(MOUSE_OVERRIDE_KEY)
-			end
-		end)
-	end
+	-- Force the cursor to show when the AppChat modal is visible
+	local MOUSE_OVERRIDE_KEY = Symbol.named("InExperienceRobloxConnect")
+	InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
+		if visible then
+			MouseIconOverrideService.push(MOUSE_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceShow)
+		else
+			MouseIconOverrideService.pop(MOUSE_OVERRIDE_KEY)
+		end
+	end)
 
 	return integration
 end

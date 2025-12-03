@@ -1,5 +1,5 @@
-game:DefineFastFlag("CleanupMuteSelfButton", false)
+game:DefineFastFlag("CleanupMuteSelfButtonV2", false)
 
 return function()
-	return game:GetFastFlag("CleanupMuteSelfButton")
+	return game:GetFastFlag("CleanupMuteSelfButtonV2")
 end

@@ -143,7 +143,7 @@ MAIN:
   NAMECALL R22 R22 K31 ["GetFastFlag"]
   CALL R22 2 1
   GETIMPORT R23 K29 [game]
-  LOADK R25 K32 ["Collab9031_ManageCollaboratorsEarlyFoundationMigration"]
+  LOADK R25 K32 ["Collab9031_ManageCollaboratorsEarlyFoundationMigration1"]
   NAMECALL R23 R23 K31 ["GetFastFlag"]
   CALL R23 2 1
   JUMPIFNOT R23 [+3]
@@ -324,7 +324,7 @@ MAIN:
   LOADN R28 10
   SETTABLEKS R28 R27 K100 ["padding"]
   JUMPIFNOT R23 [+2]
-  LOADN R28 75
+  LOADN R28 20
   JUMP [+1]
   LOADN R28 67
   SETTABLEKS R28 R27 K101 ["edgePadding"]
@@ -420,11 +420,23 @@ MAIN:
   SETTABLEKS R28 R27 K127 ["hover"]
   SETTABLEKS R27 R26 K130 ["menuEntry"]
   DUPTABLE R27 K134 [{"paddingTop", "paddingHorizontal", "ageWarning"}]
+  JUMPIFNOT R23 [+6]
+  GETIMPORT R28 K136 [UDim.new]
+  LOADN R29 0
+  LOADN R30 5
+  CALL R28 2 1
+  JUMP [+5]
   GETIMPORT R28 K136 [UDim.new]
   LOADN R29 0
   LOADN R30 32
   CALL R28 2 1
   SETTABLEKS R28 R27 K131 ["paddingTop"]
+  JUMPIFNOT R23 [+6]
+  GETIMPORT R28 K136 [UDim.new]
+  LOADN R29 0
+  LOADN R30 15
+  CALL R28 2 1
+  JUMP [+5]
   GETIMPORT R28 K136 [UDim.new]
   LOADN R29 0
   LOADN R30 67
@@ -572,10 +584,16 @@ MAIN:
   SETTABLEKS R28 R27 K205 ["button"]
   LOADN R28 10
   SETTABLEKS R28 R27 K100 ["padding"]
+  JUMPIFNOT R23 [+2]
+  LOADN R28 210
+  JUMP [+1]
   LOADN R28 8
   SETTABLEKS R28 R27 K206 ["width"]
   SETTABLEKS R27 R26 K210 ["selectInput"]
   DUPTABLE R27 K214 [{"yPadding", "xPadding", "yPaddingNonOwner"}]
+  JUMPIFNOT R23 [+2]
+  LOADN R28 20
+  JUMP [+1]
   LOADN R28 47
   SETTABLEKS R28 R27 K211 ["yPadding"]
   LOADN R28 25
@@ -602,8 +620,17 @@ MAIN:
   SETTABLEKS R28 R27 K218 ["InnerTextPosition"]
   SETTABLEKS R27 R26 K220 ["saveMessage"]
   DUPTABLE R27 K223 [{"height", "paddingTop", "paddingLeft", "paddingRight"}]
+  JUMPIFNOT R23 [+2]
+  LOADN R28 50
+  JUMP [+1]
   LOADN R28 98
   SETTABLEKS R28 R27 K208 ["height"]
+  JUMPIFNOT R23 [+6]
+  GETIMPORT R28 K136 [UDim.new]
+  LOADN R29 0
+  LOADN R30 20
+  CALL R28 2 1
+  JUMP [+5]
   GETIMPORT R28 K136 [UDim.new]
   LOADN R29 0
   LOADN R30 26
@@ -614,6 +641,12 @@ MAIN:
   LOADN R30 67
   CALL R28 2 1
   SETTABLEKS R28 R27 K221 ["paddingLeft"]
+  JUMPIFNOT R23 [+6]
+  GETIMPORT R28 K136 [UDim.new]
+  LOADN R29 0
+  LOADN R30 22
+  CALL R28 2 1
+  JUMP [+5]
   GETIMPORT R28 K136 [UDim.new]
   LOADN R29 0
   LOADN R30 75
@@ -637,16 +670,28 @@ MAIN:
   SETTABLEKS R28 R27 K206 ["width"]
   SETTABLEKS R27 R26 K231 ["copyLinkButton"]
   DUPTABLE R27 K234 [{"height", "gradientSize", "gradientTransparency", "border"}]
+  JUMPIFNOT R23 [+2]
+  LOADN R28 60
+  JUMP [+1]
   LOADN R28 65
   SETTABLEKS R28 R27 K208 ["height"]
   LOADN R28 3
   SETTABLEKS R28 R27 K232 ["gradientSize"]
   LOADK R28 K235 [0.9]
   SETTABLEKS R28 R27 K233 ["gradientTransparency"]
+  JUMPIFNOT R23 [+3]
+  GETTABLEKS R28 R18 K70 ["Border"]
+  JUMP [+2]
   GETTABLEKS R28 R18 K236 ["FooterBorder"]
   SETTABLEKS R28 R27 K68 ["border"]
   SETTABLEKS R27 R26 K237 ["footer"]
   DUPTABLE R27 K240 [{"paddingHorizontal", "size", "pills"}]
+  JUMPIFNOT R23 [+6]
+  GETIMPORT R28 K136 [UDim.new]
+  LOADN R29 0
+  LOADN R30 20
+  CALL R28 2 1
+  JUMP [+5]
   GETIMPORT R28 K136 [UDim.new]
   LOADN R29 0
   LOADN R30 67
@@ -680,11 +725,19 @@ MAIN:
   DUPTABLE R28 K259 [{"ExpandTextSize", "size", "collaboratorItemOffset", "expandablePaneSize", "headerComponent"}]
   LOADN R29 14
   SETTABLEKS R29 R28 K255 ["ExpandTextSize"]
+  JUMPIFNOT R23 [+8]
+  GETIMPORT R29 K111 [UDim2.new]
+  LOADN R30 0
+  LOADN R31 238
+  LOADN R32 0
+  LOADN R33 60
+  CALL R29 4 1
+  JUMP [+7]
   GETIMPORT R29 K111 [UDim2.new]
   LOADN R30 0
   LOADN R31 153
   LOADN R32 0
-  LOADN R33 60
+  LOADN R33 74
   CALL R29 4 1
   SETTABLEKS R29 R28 K238 ["size"]
   LOADN R29 16
@@ -847,6 +900,9 @@ MAIN:
   LOADN R28 40
   SETTABLEKS R28 R27 K250 ["iconContainerSize"]
   DUPTABLE R28 K286 [{"width", "height", "position", "anchorPoint"}]
+  JUMPIFNOT R23 [+2]
+  LOADN R29 238
+  JUMP [+1]
   LOADN R29 153
   SETTABLEKS R29 R28 K206 ["width"]
   LOADN R29 74
@@ -857,6 +913,9 @@ MAIN:
   SETTABLEKS R29 R28 K285 ["anchorPoint"]
   SETTABLEKS R28 R27 K251 ["nonRolesetFrame"]
   DUPTABLE R28 K288 [{"width", "height", "position", "anchorPont"}]
+  JUMPIFNOT R23 [+2]
+  LOADN R29 238
+  JUMP [+1]
   LOADN R29 96
   SETTABLEKS R29 R28 K206 ["width"]
   LOADN R29 54

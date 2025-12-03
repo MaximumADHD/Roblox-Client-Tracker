@@ -100,7 +100,6 @@ local FFlagGamepadMenuActionTelemetry = require(TopBar.Flags.FFlagGamepadMenuAct
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 
-local getFFlagCheckForTCSMigration = SharedFlags.getFFlagCheckForTCSMigration
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
 
 local ToastRoot
@@ -459,7 +458,7 @@ function GamepadMenu.shouldShowChatMenuOption(chatVersion, chatEnabled)
 	chatVersion = chatVersion or TextChatService.ChatVersion
 
 	--Check to see if the place is automigrated to TCS (initial chatVersion may still be showing LegacyChat and won't be reliable)
-	if getFFlagCheckForTCSMigration() and getFFlagExpChatAlwaysRunTCS() then
+	if getFFlagExpChatAlwaysRunTCS() then
 		return chatEnabled
 	end
 

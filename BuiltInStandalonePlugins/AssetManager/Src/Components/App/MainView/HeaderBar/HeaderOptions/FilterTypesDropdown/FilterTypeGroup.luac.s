@@ -67,7 +67,7 @@ PROTO_2:
   SETTABLEKS R14 R13 K2 ["LayoutOrder"]
   GETTABLEKS R14 R0 K20 ["Text"]
   SETTABLEKS R14 R13 K20 ["Text"]
-  LOADK R14 K22 ["auto-xy text-title-small content-system-neutral"]
+  LOADK R14 K22 ["auto-xy text-caption-medium content-system-neutral"]
   SETTABLEKS R14 R13 K3 ["tag"]
   CALL R11 2 1
   SETTABLEKS R11 R10 K17 ["Label"]
@@ -100,7 +100,7 @@ PROTO_2:
   DUPTABLE R9 K4 [{"LayoutOrder", "tag"}]
   LOADN R10 3
   SETTABLEKS R10 R9 K2 ["LayoutOrder"]
-  LOADK R10 K30 ["col gap-xsmall size-full-0 auto-y"]
+  LOADK R10 K30 ["col gap-xxsmall size-full-0 auto-y"]
   SETTABLEKS R10 R9 K3 ["tag"]
   GETUPVAL R11 8
   GETTABLEKS R10 R11 K31 ["map"]

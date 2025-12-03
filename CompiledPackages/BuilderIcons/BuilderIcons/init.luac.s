@@ -16,9 +16,14 @@ MAIN:
   GETIMPORT R5 K3 [script]
   GETTABLEKS R4 R5 K7 ["Migration"]
   CALL R3 1 1
-  DUPTABLE R4 K8 [{"Icon", "IconVariant", "Font", "Migration"}]
-  SETTABLEKS R0 R4 K4 ["Icon"]
-  SETTABLEKS R1 R4 K5 ["IconVariant"]
-  SETTABLEKS R2 R4 K6 ["Font"]
-  SETTABLEKS R3 R4 K7 ["Migration"]
-  RETURN R4 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K8 ["getKeycodeBuilderIcon"]
+  CALL R4 1 1
+  DUPTABLE R5 K10 [{"Icon", "IconVariant", "Font", "Migration", "getBuilderIconForKeycode"}]
+  SETTABLEKS R0 R5 K4 ["Icon"]
+  SETTABLEKS R1 R5 K5 ["IconVariant"]
+  SETTABLEKS R2 R5 K6 ["Font"]
+  SETTABLEKS R3 R5 K7 ["Migration"]
+  SETTABLEKS R4 R5 K9 ["getBuilderIconForKeycode"]
+  RETURN R5 1

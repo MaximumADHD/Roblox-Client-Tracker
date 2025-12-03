@@ -1,0 +1,239 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["Localization"]
+  GETTABLEKS R4 R1 K3 ["Size"]
+  JUMPIF R4 [+3]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["PROMPT_SIZE"]
+  GETIMPORT R5 K7 [Vector2.new]
+  LOADN R6 60
+  LOADN R7 15
+  CALL R5 2 1
+  GETTABLEKS R7 R2 K8 ["startScreenTheme"]
+  GETTABLEKS R6 R7 K9 ["textSize"]
+  GETTABLEKS R7 R1 K10 ["Text"]
+  JUMPIF R7 [+5]
+  LOADK R9 K11 ["Toast"]
+  LOADK R10 K12 ["ImportingAnimation"]
+  NAMECALL R7 R3 K13 ["getText"]
+  CALL R7 3 1
+  GETTABLEKS R10 R2 K8 ["startScreenTheme"]
+  GETTABLEKS R9 R10 K9 ["textSize"]
+  ADDK R8 R9 K14 [4]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K15 ["createElement"]
+  GETUPVAL R10 2
+  NEWTABLE R11 0 0
+  DUPTABLE R12 K17 [{"Background"}]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K15 ["createElement"]
+  LOADK R14 K18 ["Frame"]
+  DUPTABLE R15 K22 [{"Size", "BackgroundTransparency", "BorderSizePixel", "BackgroundColor3"}]
+  GETIMPORT R16 K24 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 1
+  LOADN R20 0
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K3 ["Size"]
+  LOADK R16 K25 [0.35]
+  SETTABLEKS R16 R15 K19 ["BackgroundTransparency"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K20 ["BorderSizePixel"]
+  GETIMPORT R16 K27 [Color3.new]
+  CALL R16 0 1
+  SETTABLEKS R16 R15 K21 ["BackgroundColor3"]
+  DUPTABLE R16 K29 [{"CenterFrame"}]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K15 ["createElement"]
+  LOADK R18 K30 ["ImageButton"]
+  DUPTABLE R19 K35 [{"Size", "Position", "AnchorPoint", "BorderSizePixel", "BackgroundColor3", "AutoButtonColor", "ImageTransparency"}]
+  SETTABLEKS R4 R19 K3 ["Size"]
+  GETIMPORT R20 K24 [UDim2.new]
+  LOADK R21 K36 [0.5]
+  LOADN R22 0
+  LOADK R23 K36 [0.5]
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K31 ["Position"]
+  GETIMPORT R20 K7 [Vector2.new]
+  LOADK R21 K36 [0.5]
+  LOADK R22 K36 [0.5]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K32 ["AnchorPoint"]
+  LOADN R20 0
+  SETTABLEKS R20 R19 K20 ["BorderSizePixel"]
+  GETTABLEKS R20 R2 K37 ["backgroundColor"]
+  SETTABLEKS R20 R19 K21 ["BackgroundColor3"]
+  LOADB R20 0
+  SETTABLEKS R20 R19 K33 ["AutoButtonColor"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K34 ["ImageTransparency"]
+  DUPTABLE R20 K40 [{"Padding", "Container"}]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K15 ["createElement"]
+  LOADK R22 K41 ["UIPadding"]
+  DUPTABLE R23 K46 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R24 K48 [UDim.new]
+  LOADN R25 0
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K49 ["PROMPT_VERTICAL_PADDING"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K42 ["PaddingTop"]
+  GETIMPORT R24 K48 [UDim.new]
+  LOADN R25 0
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K49 ["PROMPT_VERTICAL_PADDING"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K43 ["PaddingBottom"]
+  GETIMPORT R24 K48 [UDim.new]
+  LOADN R25 0
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K50 ["PROMPT_HORIZONTAL_PADDING"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K44 ["PaddingLeft"]
+  GETIMPORT R24 K48 [UDim.new]
+  LOADN R25 0
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K50 ["PROMPT_HORIZONTAL_PADDING"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K45 ["PaddingRight"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K38 ["Padding"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K15 ["createElement"]
+  LOADK R22 K18 ["Frame"]
+  DUPTABLE R23 K51 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R24 K24 [UDim2.new]
+  LOADN R25 1
+  LOADN R26 0
+  LOADN R27 1
+  LOADN R28 0
+  CALL R24 4 1
+  SETTABLEKS R24 R23 K3 ["Size"]
+  LOADN R24 1
+  SETTABLEKS R24 R23 K19 ["BackgroundTransparency"]
+  DUPTABLE R24 K54 [{"Layout", "LoadingIndicator", "Text"}]
+  GETUPVAL R26 1
+  GETTABLEKS R25 R26 K15 ["createElement"]
+  LOADK R26 K55 ["UIListLayout"]
+  DUPTABLE R27 K60 [{"SortOrder", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "Padding"}]
+  GETIMPORT R28 K63 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R28 R27 K56 ["SortOrder"]
+  GETIMPORT R28 K65 [Enum.FillDirection.Vertical]
+  SETTABLEKS R28 R27 K57 ["FillDirection"]
+  GETIMPORT R28 K67 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R28 R27 K58 ["HorizontalAlignment"]
+  GETIMPORT R28 K68 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R28 R27 K59 ["VerticalAlignment"]
+  GETIMPORT R28 K48 [UDim.new]
+  LOADN R29 0
+  GETUPVAL R32 0
+  GETTABLEKS R31 R32 K49 ["PROMPT_VERTICAL_PADDING"]
+  DIVK R30 R31 K69 [2]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K38 ["Padding"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K52 ["Layout"]
+  GETUPVAL R26 1
+  GETTABLEKS R25 R26 K15 ["createElement"]
+  GETUPVAL R26 3
+  DUPTABLE R27 K70 [{"Size", "LayoutOrder"}]
+  GETIMPORT R28 K24 [UDim2.new]
+  LOADN R29 0
+  GETTABLEKS R30 R5 K71 ["X"]
+  LOADN R31 0
+  GETTABLEKS R32 R5 K72 ["Y"]
+  CALL R28 4 1
+  SETTABLEKS R28 R27 K3 ["Size"]
+  LOADN R28 1
+  SETTABLEKS R28 R27 K62 ["LayoutOrder"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K53 ["LoadingIndicator"]
+  GETUPVAL R26 1
+  GETTABLEKS R25 R26 K15 ["createElement"]
+  LOADK R26 K73 ["TextLabel"]
+  DUPTABLE R27 K80 [{"Size", "Text", "Font", "TextSize", "TextColor3", "TextTruncate", "BackgroundTransparency", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
+  GETIMPORT R28 K24 [UDim2.new]
+  LOADN R29 1
+  LOADN R30 0
+  LOADN R31 0
+  MOVE R32 R8
+  CALL R28 4 1
+  SETTABLEKS R28 R27 K3 ["Size"]
+  SETTABLEKS R7 R27 K10 ["Text"]
+  GETTABLEKS R28 R2 K81 ["font"]
+  SETTABLEKS R28 R27 K74 ["Font"]
+  SETTABLEKS R6 R27 K75 ["TextSize"]
+  GETTABLEKS R29 R2 K8 ["startScreenTheme"]
+  GETTABLEKS R28 R29 K82 ["darkTextColor"]
+  SETTABLEKS R28 R27 K76 ["TextColor3"]
+  GETIMPORT R28 K84 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R28 R27 K77 ["TextTruncate"]
+  LOADN R28 1
+  SETTABLEKS R28 R27 K19 ["BackgroundTransparency"]
+  GETIMPORT R28 K85 [Enum.TextXAlignment.Center]
+  SETTABLEKS R28 R27 K78 ["TextXAlignment"]
+  GETIMPORT R28 K86 [Enum.TextYAlignment.Center]
+  SETTABLEKS R28 R27 K79 ["TextYAlignment"]
+  LOADN R28 2
+  SETTABLEKS R28 R27 K62 ["LayoutOrder"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K10 ["Text"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K39 ["Container"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K28 ["CenterFrame"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K16 ["Background"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETTABLEKS R6 R2 K11 ["UI"]
+  GETTABLEKS R5 R6 K12 ["CaptureFocus"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Util"]
+  GETTABLEKS R7 R8 K15 ["Constants"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K11 ["UI"]
+  GETTABLEKS R8 R7 K16 ["LoadingIndicator"]
+  GETTABLEKS R9 R1 K17 ["PureComponent"]
+  LOADK R11 K18 ["InProgressCover"]
+  NAMECALL R9 R9 K19 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K20 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  SETTABLEKS R10 R9 K21 ["render"]
+  MOVE R10 R4
+  DUPTABLE R11 K24 [{"Stylizer", "Localization"}]
+  GETTABLEKS R12 R3 K22 ["Stylizer"]
+  SETTABLEKS R12 R11 K22 ["Stylizer"]
+  GETTABLEKS R12 R3 K23 ["Localization"]
+  SETTABLEKS R12 R11 K23 ["Localization"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

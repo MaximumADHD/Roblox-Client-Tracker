@@ -110,33 +110,45 @@ PROTO_0:
 
 PROTO_1:
   GETUPVAL R0 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  GETUPVAL R4 3
-  NAMECALL R1 R1 K0 ["fetchQualityResultsAsync"]
-  CALL R1 3 1
-  SETTABLEKS R1 R0 K1 ["qualityResults"]
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["generateAssetQualityGltfFromInstanceAsync"]
+  CALL R0 2 1
+  GETUPVAL R1 2
+  GETUPVAL R2 0
+  MOVE R4 R0
+  GETUPVAL R5 3
+  NAMECALL R2 R2 K1 ["fetchAssetQualitySummaryFromGltfAsync"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K2 ["qualityResults"]
   RETURN R0 0
 
 PROTO_2:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["createModelForGltfExport"]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+2]
+  GETUPVAL R2 1
+  JUMPIF R2 [+4]
+  GETUPVAL R2 2
+  SETTABLEKS R2 R0 K0 ["qualityResults"]
+  RETURN R0 0
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K1 ["createModelForGltfExport"]
   MOVE R3 R0
   CALL R2 1 1
   LOADNIL R3
   LOADNIL R4
   LOADN R7 1
   LOADN R8 1
-  GETUPVAL R9 1
+  GETUPVAL R9 4
   CALL R9 0 1
   ADD R5 R8 R9
   LOADN R6 1
   FORNPREP R5
-  GETIMPORT R8 K2 [pcall]
+  GETIMPORT R8 K3 [pcall]
   NEWCLOSURE R9 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U2
+  CAPTURE UPVAL U1
   CAPTURE VAL R2
+  CAPTURE VAL R0
   CAPTURE VAL R1
   CALL R8 1 2
   MOVE R3 R8
@@ -144,15 +156,15 @@ PROTO_2:
   JUMPIF R3 [+1]
   FORNLOOP R5
   JUMPIF R3 [+11]
-  GETUPVAL R5 3
+  GETUPVAL R5 5
   CALL R5 0 1
   JUMPIFNOT R5 [+5]
-  GETIMPORT R5 K4 [print]
-  LOADK R6 K5 ["Storing quality placeholder due to"]
+  GETIMPORT R5 K5 [print]
+  LOADK R6 K6 ["Storing quality placeholder due to"]
   MOVE R7 R4
   CALL R5 2 0
-  GETUPVAL R5 4
-  SETTABLEKS R5 R0 K6 ["qualityResults"]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R0 K0 ["qualityResults"]
   NAMECALL R5 R2 K7 ["Destroy"]
   CALL R5 1 0
   RETURN R0 0
@@ -618,110 +630,121 @@ MAIN:
   GETTABLEKS R10 R0 K5 ["util"]
   GETTABLEKS R9 R10 K15 ["RecreateSceneFromEditables"]
   CALL R8 1 1
-  GETIMPORT R9 K17 [game]
-  LOADK R11 K18 ["UGCValidationService"]
-  NAMECALL R9 R9 K19 ["GetService"]
-  CALL R9 2 1
+  LOADNIL R9
   GETIMPORT R10 K17 [game]
-  LOADK R12 K20 ["HttpService"]
+  LOADK R12 K18 ["HttpService"]
   NAMECALL R10 R10 K19 ["GetService"]
   CALL R10 2 1
   GETIMPORT R11 K17 [game]
-  LOADK R13 K21 ["TelemetryService"]
+  LOADK R13 K20 ["TelemetryService"]
   NAMECALL R11 R11 K19 ["GetService"]
   CALL R11 2 1
   GETIMPORT R12 K17 [game]
-  LOADK R14 K22 ["FullValidationTelemetryThrottleHundrethsPercent"]
+  LOADK R14 K21 ["FullValidationTelemetryThrottleHundrethsPercent"]
   LOADN R15 16
-  NAMECALL R12 R12 K23 ["DefineFastInt"]
+  NAMECALL R12 R12 K22 ["DefineFastInt"]
   CALL R12 3 0
   GETIMPORT R12 K17 [game]
-  LOADK R14 K24 ["RbxAnalyticsService"]
+  LOADK R14 K23 ["RbxAnalyticsService"]
   NAMECALL R12 R12 K19 ["GetService"]
   CALL R12 2 1
   GETIMPORT R13 K17 [game]
-  LOADK R15 K25 ["RunService"]
+  LOADK R15 K24 ["RunService"]
   NAMECALL R13 R13 K19 ["GetService"]
   CALL R13 2 1
   NEWTABLE R14 0 0
-  DUPTABLE R15 K32 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-  LOADK R16 K33 ["UgcFullValidationFinished"]
-  SETTABLEKS R16 R15 K26 ["eventName"]
+  DUPTABLE R15 K31 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
+  LOADK R16 K32 ["UgcFullValidationFinished"]
+  SETTABLEKS R16 R15 K25 ["eventName"]
   NEWTABLE R16 0 1
-  LOADK R17 K34 ["EventIngest"]
+  LOADK R17 K33 ["EventIngest"]
   SETLIST R16 R17 1 [1]
-  SETTABLEKS R16 R15 K27 ["backends"]
+  SETTABLEKS R16 R15 K26 ["backends"]
   GETIMPORT R16 K17 [game]
-  LOADK R18 K22 ["FullValidationTelemetryThrottleHundrethsPercent"]
-  NAMECALL R16 R16 K35 ["GetFastInt"]
+  LOADK R18 K21 ["FullValidationTelemetryThrottleHundrethsPercent"]
+  NAMECALL R16 R16 K34 ["GetFastInt"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K28 ["throttlingPercentage"]
+  SETTABLEKS R16 R15 K27 ["throttlingPercentage"]
   NEWTABLE R16 0 3
   LOADN R17 25
   LOADN R18 10
   LOADN R19 10
   SETLIST R16 R17 3 [1]
-  SETTABLEKS R16 R15 K29 ["lastUpdated"]
-  LOADK R16 K36 ["Report result of ugc validation suite"]
-  SETTABLEKS R16 R15 K30 ["description"]
-  LOADK R16 K37 ["https://create.roblox.com/docs/art/validation-errors"]
-  SETTABLEKS R16 R15 K31 ["links"]
+  SETTABLEKS R16 R15 K28 ["lastUpdated"]
+  LOADK R16 K35 ["Report result of ugc validation suite"]
+  SETTABLEKS R16 R15 K29 ["description"]
+  LOADK R16 K36 ["https://create.roblox.com/docs/art/validation-errors"]
+  SETTABLEKS R16 R15 K30 ["links"]
   GETIMPORT R16 K4 [require]
-  GETTABLEKS R18 R0 K38 ["flags"]
-  GETTABLEKS R17 R18 K39 ["getFFlagDebugUGCValidationPrintNewStructureResults"]
+  GETTABLEKS R18 R0 K37 ["flags"]
+  GETTABLEKS R17 R18 K38 ["getFFlagDebugUGCValidationPrintNewStructureResults"]
   CALL R16 1 1
   GETIMPORT R17 K4 [require]
-  GETTABLEKS R19 R0 K38 ["flags"]
-  GETTABLEKS R18 R19 K40 ["getFIntUGCValidationFetchQualityMaxRetry"]
+  GETTABLEKS R19 R0 K37 ["flags"]
+  GETTABLEKS R18 R19 K39 ["getEngineFeatureEngineAssetQualityEngineService"]
   CALL R17 1 1
-  NEWTABLE R18 2 0
-  DUPTABLE R19 K42 [{"Backend"}]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K41 ["Backend"]
-  DUPTABLE R20 K45 [{"InExpClient", "InExpServer"}]
+  MOVE R18 R17
+  CALL R18 0 1
+  JUMPIFNOT R18 [+7]
+  GETIMPORT R18 K17 [game]
+  LOADK R20 K40 ["AssetQualityService"]
+  NAMECALL R18 R18 K19 ["GetService"]
+  CALL R18 2 1
+  MOVE R9 R18
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R20 R0 K37 ["flags"]
+  GETTABLEKS R19 R20 K41 ["getFIntUGCValidationFetchQualityMaxRetry"]
+  CALL R18 1 1
+  NEWTABLE R19 2 0
+  DUPTABLE R20 K43 [{"Backend"}]
   LOADB R21 1
-  SETTABLEKS R21 R20 K43 ["InExpClient"]
-  LOADB R21 1
-  SETTABLEKS R21 R20 K44 ["InExpServer"]
-  DUPCLOSURE R21 K46 [PROTO_0]
+  SETTABLEKS R21 R20 K42 ["Backend"]
+  DUPTABLE R21 K46 [{"InExpClient", "InExpServer"}]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K44 ["InExpClient"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K45 ["InExpServer"]
+  DUPCLOSURE R22 K47 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R3
-  DUPCLOSURE R22 K47 [PROTO_2]
-  CAPTURE VAL R8
+  NEWCLOSURE R23 P1
   CAPTURE VAL R17
-  CAPTURE VAL R9
-  CAPTURE VAL R16
+  CAPTURE REF R9
   CAPTURE VAL R14
-  DUPCLOSURE R23 K48 [PROTO_3]
-  DUPCLOSURE R24 K49 [PROTO_4]
+  CAPTURE VAL R8
+  CAPTURE VAL R18
+  CAPTURE VAL R16
+  DUPCLOSURE R24 K48 [PROTO_3]
+  DUPCLOSURE R25 K49 [PROTO_4]
   CAPTURE VAL R12
   CAPTURE VAL R11
   CAPTURE VAL R15
   CAPTURE VAL R16
-  DUPCLOSURE R25 K50 [PROTO_6]
+  DUPCLOSURE R26 K50 [PROTO_6]
   CAPTURE VAL R7
-  CAPTURE VAL R21
+  CAPTURE VAL R22
   CAPTURE VAL R5
   CAPTURE VAL R2
-  CAPTURE VAL R24
+  CAPTURE VAL R25
   CAPTURE VAL R6
-  CAPTURE VAL R19
-  CAPTURE VAL R22
-  CAPTURE VAL R23
   CAPTURE VAL R20
+  CAPTURE VAL R23
+  CAPTURE VAL R24
+  CAPTURE VAL R21
   CAPTURE VAL R13
-  DUPCLOSURE R26 K51 [PROTO_7]
+  DUPCLOSURE R27 K51 [PROTO_7]
   CAPTURE VAL R4
-  DUPCLOSURE R27 K52 [PROTO_8]
+  DUPCLOSURE R28 K52 [PROTO_8]
   CAPTURE VAL R16
   CAPTURE VAL R10
   CAPTURE VAL R4
-  CAPTURE VAL R25
-  SETTABLEKS R27 R18 K53 ["ValidateAsset"]
-  DUPCLOSURE R27 K54 [PROTO_9]
+  CAPTURE VAL R26
+  SETTABLEKS R28 R19 K53 ["ValidateAsset"]
+  DUPCLOSURE R28 K54 [PROTO_9]
   CAPTURE VAL R16
   CAPTURE VAL R4
   CAPTURE VAL R10
-  CAPTURE VAL R25
-  SETTABLEKS R27 R18 K55 ["ValidateFinalizedBundle"]
-  RETURN R18 1
+  CAPTURE VAL R26
+  SETTABLEKS R28 R19 K55 ["ValidateFinalizedBundle"]
+  CLOSEUPVALS R9
+  RETURN R19 1

@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableConsoleJoinVoice", false)
+game:DefineFastFlag("EnableConsoleJoinVoiceV2", false)
 
 return function()
-	return game:GetFastFlag("EnableConsoleJoinVoice")
+	return game:GetFastFlag("EnableConsoleJoinVoiceV2")
 end

@@ -82,8 +82,8 @@ MAIN:
   CALL R2 1 1
   CALL R2 0 1
   GETIMPORT R3 K12 [game]
-  LOADK R5 K13 ["EnableRibbonPlugin"]
-  NAMECALL R3 R3 K14 ["GetFastFlag"]
+  LOADK R5 K13 ["EnableRibbonPluginFeature"]
+  NAMECALL R3 R3 K14 ["GetEngineFeature"]
   CALL R3 2 1
   GETIMPORT R4 K7 [require]
   GETTABLEKS R5 R1 K15 ["defineLuaFlags"]

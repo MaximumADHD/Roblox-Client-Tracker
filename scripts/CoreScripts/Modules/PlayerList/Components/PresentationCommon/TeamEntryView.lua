@@ -5,6 +5,7 @@ local Components = PresentationCommon.Parent
 local PlayerList = Components.Parent
 
 local React = require(CorePackages.Packages.React)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
@@ -15,12 +16,15 @@ local useStyle = UIBlox.Core.Style.useStyle
 local EntryFrameView = PlayerListPackage.Presentation.EntryFrameView
 local StatEntryContainer = require(PlayerList.Components.Container.StatEntryContainer)
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagPlayerListFixLeaderstatsStacking = SharedFlags.FFlagPlayerListFixLeaderstatsStacking
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 
 local CellExtender = require(Components.Presentation.CellExtender)
 
 type TeamEntry = LeaderboardStore.TeamEntry
 type GameStatList = LeaderboardStore.GameStatList
+type GameStat = LeaderboardStore.GameStat
 type StatList = LeaderboardStore.StatList
 
 type ColorStyle = {
@@ -39,8 +43,8 @@ export type TeamEntryViewProps = {
 	teamColor: Color3,
 	gameStats: GameStatList,
 	teamStats: StatList,
-	gameStatsCount: number,
-	teamStatsCount: number,
+	gameStatsCount: number?, -- Remove prop when FFlagPlayerListFixLeaderstatsStacking is cleaned up
+	teamStatsCount: number?, -- Remove prop when FFlagPlayerListFixLeaderstatsStacking is cleaned up
 
 	-- Device type
 	isSmallTouchDevice: boolean?,
@@ -102,6 +106,10 @@ local function TeamEntryView(props: TeamEntryViewProps)
 	-- Max leaderstats calculation
 	local maxLeaderstats = layoutValues.MaxLeaderstats
 
+	local gameStatsData = if FFlagPlayerListFixLeaderstatsStacking 
+		then SignalsReact.useSignalState(props.gameStats.getAllData)
+		else nil :: never
+
 	-- Mobile rendering path
 	if isSmallTouchDevice then
 		local teamEntryChildren: { [string]: React.ReactNode } = {}
@@ -131,10 +139,10 @@ local function TeamEntryView(props: TeamEntryViewProps)
 		})
 
 		-- Add stats for mobile
-		if props.gameStatsCount > 0 and props.teamStatsCount >= 0 then
-			props.gameStats.iterateData(function(gameStatName, value)
-				if value.order(false) > maxLeaderstats then
-					return
+		if FFlagPlayerListFixLeaderstatsStacking then
+			for gameStatName, gameStatData in gameStatsData do
+				if gameStatData.order(false) > maxLeaderstats then
+					continue
 				end
 
 				local teamStat = props.teamStats.getData(gameStatName, false)
@@ -145,7 +153,24 @@ local function TeamEntryView(props: TeamEntryViewProps)
 					showStatTitle = false,
 					textStyle = textStyle,
 				})
-			end, false)
+			end
+		else
+			if props.gameStatsCount and props.teamStatsCount and props.gameStatsCount > 0 and props.teamStatsCount >= 0 then
+				props.gameStats.iterateData(function(gameStatName, value)
+					if value.order(false) > maxLeaderstats then
+						return
+					end
+
+					local teamStat = props.teamStats.getData(gameStatName, false)
+					teamEntryChildren["GameStat_" .. gameStatName] = React.createElement(StatEntryContainer, {
+						statName = gameStatName,
+						stat = teamStat,
+						isTeamEntry = true,
+						showStatTitle = false,
+						textStyle = textStyle,
+					})
+				end, false)
+			end
 		end
 
 		return React.createElement(
@@ -216,11 +241,10 @@ local function TeamEntryView(props: TeamEntryViewProps)
 				}),
 			}),
 		})
-
-		if props.gameStatsCount > 0 and props.teamStatsCount >= 0 then
-			props.gameStats.iterateData(function(gameStatName, value)
-				if value.order(false) > maxLeaderstats then
-					return
+		if FFlagPlayerListFixLeaderstatsStacking then
+			for gameStatName, gameStatData in gameStatsData do
+				if gameStatData.order(false) > maxLeaderstats then
+					continue
 				end
 
 				local teamStat = props.teamStats.getData(gameStatName, false)
@@ -234,7 +258,27 @@ local function TeamEntryView(props: TeamEntryViewProps)
 					doubleOverlay = false,
 					textStyle = textStyle,
 				})
-			end, false)
+			end
+		else
+			if props.gameStatsCount and props.teamStatsCount and props.gameStatsCount > 0 and props.teamStatsCount >= 0 then
+				props.gameStats.iterateData(function(gameStatName, value)
+					if value.order(false) > maxLeaderstats then
+						return
+					end
+
+					local teamStat = props.teamStats.getData(gameStatName, false)
+					teamEntryChildren["GameStat_" .. gameStatName] = React.createElement(StatEntryContainer, {
+						statName = gameStatName,
+						stat = teamStat,
+						isTeamEntry = true,
+						showStatTitle = false,
+						backgroundStyle = backgroundStyle,
+						overlayStyle = overlayStyle,
+						doubleOverlay = false,
+						textStyle = textStyle,
+					})
+				end, false)
+			end
 		end
 
 		-- Add background extender for other devices (not tenfoot)

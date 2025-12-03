@@ -26,7 +26,7 @@ local ValidationTestWrapper = require(root.validationSystem.ValidationTestWrappe
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 local getUploadCategory = require(root.util.getUploadCategory)
 local RecreateSceneFromEditables = require(root.util.RecreateSceneFromEditables)
-local UGCValidationService = game:GetService("UGCValidationService")
+local AssetQualityService
 local HttpService = game:GetService("HttpService")
 local TelemetryService = game:GetService("TelemetryService")
 game:DefineFastInt("FullValidationTelemetryThrottleHundrethsPercent", 10000)
@@ -47,6 +47,12 @@ local telemetryConfig = {
 
 local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
+local getEngineFeatureEngineAssetQualityEngineService =
+	require(root.flags.getEngineFeatureEngineAssetQualityEngineService)
+
+if getEngineFeatureEngineAssetQualityEngineService() then
+	AssetQualityService = game:GetService("AssetQualityService" :: any)
+end
 
 local getFIntUGCValidationFetchQualityMaxRetry = require(root.flags.getFIntUGCValidationFetchQualityMaxRetry)
 
@@ -121,12 +127,21 @@ local function initRunVariables(
 end
 
 local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: { string })
+	if not getEngineFeatureEngineAssetQualityEngineService() or not AssetQualityService then
+		sharedData.qualityResults = QUALITY_FETCH_FAILURE_PLACEHOLDER
+		return
+	end
+
 	local gltfScene = RecreateSceneFromEditables.createModelForGltfExport(sharedData)
 	local success, _errors
 	for _iter = 1, 1 + getFIntUGCValidationFetchQualityMaxRetry() do
 		-- TODO: Log retry count
 		success, _errors = pcall(function()
-			sharedData.qualityResults = (UGCValidationService :: any):fetchQualityResultsAsync(gltfScene, qualityTests)
+			local gltfString = (AssetQualityService :: any):generateAssetQualityGltfFromInstanceAsync(gltfScene)
+			sharedData.qualityResults = (AssetQualityService :: any):fetchAssetQualitySummaryFromGltfAsync(
+				gltfString,
+				qualityTests
+			)
 		end)
 
 		if success then

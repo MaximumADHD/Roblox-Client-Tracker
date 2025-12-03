@@ -1,0 +1,80 @@
+PROTO_0:
+  LOADK R2 K0 ["AdaptiveAnimationSupport_"]
+  MOVE R3 R0
+  CONCAT R1 R2 R3
+  GETUPVAL R2 0
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["SetWaypoint"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R2 K2 [string.format]
+  LOADK R3 K3 ["Map %s to %s"]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R2 3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["addWaypoint"]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R2 K2 [string.format]
+  LOADK R3 K3 ["%s %s"]
+  MOVE R4 R1
+  MOVE R5 R0
+  CALL R2 3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["addWaypoint"]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R1 K2 [string.format]
+  LOADK R2 K3 ["T-pose %s"]
+  MOVE R3 R0
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["addWaypoint"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETIMPORT R2 K2 [string.format]
+  LOADK R3 K3 ["Size %s %s"]
+  ORK R4 R1 K4 ["common"]
+  ORK R5 R0 K5 ["all"]
+  CALL R2 3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["addWaypoint"]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 8 0
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["ChangeHistoryService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  DUPCLOSURE R2 K4 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R0 K5 ["addWaypoint"]
+  DUPCLOSURE R2 K6 [PROTO_1]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K7 ["addBoneMappingWaypoint"]
+  DUPCLOSURE R2 K8 [PROTO_2]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K9 ["addTransformWaypoint"]
+  DUPCLOSURE R2 K10 [PROTO_3]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K11 ["addTPoseWaypoint"]
+  DUPCLOSURE R2 K12 [PROTO_4]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K13 ["addSizeWaypoint"]
+  RETURN R0 1

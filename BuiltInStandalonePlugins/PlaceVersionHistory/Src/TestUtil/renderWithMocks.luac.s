@@ -1,41 +1,10 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["provideMockContext"]
-  NEWTABLE R2 0 0
-  DUPTABLE R3 K2 [{"ContextStack"}]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K3 ["createElement"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K1 ["ContextStack"]
-  DUPTABLE R6 K5 [{"providers"}]
-  NEWTABLE R7 0 2
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K3 ["createElement"]
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K6 ["FoundationProvider"]
-  CALL R8 1 1
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K3 ["createElement"]
-  GETUPVAL R10 4
-  DUPTABLE R11 K8 [{"widget"}]
-  NEWTABLE R12 0 0
-  SETTABLEKS R12 R11 K7 ["widget"]
-  CALL R9 2 -1
-  SETLIST R7 R8 -1 [1]
-  SETTABLEKS R7 R6 K4 ["providers"]
-  GETTABLEKS R7 R0 K9 ["children"]
-  CALL R4 3 1
-  SETTABLEKS R4 R3 K1 ["ContextStack"]
-  CALL R1 2 -1
-  RETURN R1 -1
-
-PROTO_1:
   GETUPVAL R1 0
   MOVE R2 R0
   DUPTABLE R3 K2 [{"container", "wrapper"}]
   GETUPVAL R4 1
   SETTABLEKS R4 R3 K0 ["container"]
-  GETGLOBAL R4 K3 ["Wrapper"]
+  GETUPVAL R4 2
   SETTABLEKS R4 R3 K1 ["wrapper"]
   CALL R1 2 -1
   RETURN R1 -1
@@ -46,46 +15,27 @@ MAIN:
   LOADK R2 K2 ["PlaceVersionHistory"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["CoreGui"]
-  NAMECALL R1 R1 K7 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R0 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["React"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Dev"]
+  GETTABLEKS R3 R4 K9 ["ReactTestingLibrary"]
   CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R0 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["ReactUtils"]
-  CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K10 ["Packages"]
-  GETTABLEKS R6 R7 K13 ["Dev"]
-  GETTABLEKS R5 R6 K14 ["ReactTestingLibrary"]
+  GETTABLEKS R3 R2 K10 ["render"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K11 ["Src"]
+  GETTABLEKS R6 R7 K12 ["TestUtil"]
+  GETTABLEKS R5 R6 K13 ["MockWrapper"]
   CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R7 R0 K10 ["Packages"]
-  GETTABLEKS R6 R7 K15 ["Foundation"]
-  CALL R5 1 1
-  GETIMPORT R6 K9 [require]
-  GETTABLEKS R8 R0 K10 ["Packages"]
-  GETTABLEKS R7 R8 K16 ["Framework"]
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K17 ["TestHelpers"]
-  GETTABLEKS R8 R4 K18 ["render"]
-  GETTABLEKS R10 R0 K19 ["Src"]
-  GETTABLEKS R9 R10 K20 ["Contexts"]
-  GETIMPORT R10 K9 [require]
-  GETTABLEKS R11 R9 K21 ["WidgetContextProvider"]
-  CALL R10 1 1
-  DUPCLOSURE R11 K22 [PROTO_0]
-  CAPTURE VAL R7
-  CAPTURE VAL R2
+  GETIMPORT R5 K15 [game]
+  LOADK R7 K16 ["CoreGui"]
+  NAMECALL R5 R5 K17 ["GetService"]
+  CALL R5 2 1
+  DUPCLOSURE R6 K18 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R5
-  CAPTURE VAL R10
-  SETGLOBAL R11 K23 ["Wrapper"]
-  DUPCLOSURE R11 K24 [PROTO_1]
-  CAPTURE VAL R8
-  CAPTURE VAL R1
-  RETURN R11 1
+  CAPTURE VAL R4
+  RETURN R6 1

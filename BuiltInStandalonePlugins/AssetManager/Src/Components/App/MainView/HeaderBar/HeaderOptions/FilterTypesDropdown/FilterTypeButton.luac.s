@@ -8,7 +8,7 @@ PROTO_0:
   SETTABLEKS R5 R4 K2 ["LayoutOrder"]
   GETTABLEKS R5 R0 K3 ["onActivated"]
   SETTABLEKS R5 R4 K3 ["onActivated"]
-  LOADK R6 K6 ["row auto-y size-full-800 align-y-center flex-x-between radius-medium padding-x-small gap-small %*"]
+  LOADK R6 K6 ["row auto-y align-y-center size-full-600 radius-small padding-x-small gap-medium %*"]
   JUMPIFNOT R1 [+2]
   LOADK R8 K7 ["bg-surface-300"]
   JUMP [+1]
@@ -17,37 +17,46 @@ PROTO_0:
   CALL R6 2 1
   MOVE R5 R6
   SETTABLEKS R5 R4 K4 ["tag"]
-  DUPTABLE R5 K12 [{"Label", "CheckIcon"}]
+  DUPTABLE R5 K12 [{"CheckIcon", "Label"}]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K1 ["createElement"]
-  GETUPVAL R7 2
-  DUPTABLE R8 K14 [{"LayoutOrder", "Text", "tag"}]
+  GETUPVAL R7 1
+  DUPTABLE R8 K13 [{"LayoutOrder", "tag"}]
   LOADN R9 1
   SETTABLEKS R9 R8 K2 ["LayoutOrder"]
-  GETTABLEKS R9 R0 K13 ["Text"]
-  SETTABLEKS R9 R8 K13 ["Text"]
-  LOADK R9 K15 ["auto-xy text-align-x-left text-caption-large text-truncate-end content-emphasis"]
+  LOADK R9 K14 ["size-300"]
   SETTABLEKS R9 R8 K4 ["tag"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K10 ["Label"]
+  NEWTABLE R9 0 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K1 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K17 [{"name", "size"}]
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K18 ["IconName"]
+  GETTABLEKS R13 R14 K19 ["CheckLarge"]
+  JUMP [+1]
+  LOADK R13 K8 [""]
+  SETTABLEKS R13 R12 K15 ["name"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K20 ["XSmall"]
+  SETTABLEKS R13 R12 K16 ["size"]
+  CALL R10 2 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K10 ["CheckIcon"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K1 ["createElement"]
-  GETUPVAL R7 3
-  DUPTABLE R8 K18 [{"LayoutOrder", "name", "size"}]
+  GETUPVAL R7 5
+  DUPTABLE R8 K22 [{"LayoutOrder", "Text", "tag"}]
   LOADN R9 2
   SETTABLEKS R9 R8 K2 ["LayoutOrder"]
-  JUMPIFNOT R1 [+6]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K19 ["IconName"]
-  GETTABLEKS R9 R10 K20 ["CheckLarge"]
-  JUMP [+1]
-  LOADK R9 K8 [""]
-  SETTABLEKS R9 R8 K16 ["name"]
-  GETUPVAL R10 5
-  GETTABLEKS R9 R10 K21 ["Small"]
-  SETTABLEKS R9 R8 K17 ["size"]
+  GETTABLEKS R9 R0 K21 ["Text"]
+  SETTABLEKS R9 R8 K21 ["Text"]
+  LOADK R9 K23 ["auto-xy text-caption-medium text-align-x-left text-truncate-split content-emphasis"]
+  SETTABLEKS R9 R8 K4 ["tag"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K11 ["CheckIcon"]
+  SETTABLEKS R6 R5 K11 ["Label"]
   CALL R2 3 -1
   RETURN R2 -1
 
@@ -74,8 +83,8 @@ MAIN:
   DUPCLOSURE R8 K14 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R4
-  CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R3
   CAPTURE VAL R7
+  CAPTURE VAL R5
   RETURN R8 1

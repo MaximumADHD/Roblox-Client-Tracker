@@ -33,6 +33,10 @@ local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 
+local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
+local character = inputContexts:WaitForChild("Character")
+local moveAction = character:WaitForChild("Move")
+
 local FFlagUserDynamicThumbstickMoveOverButtons do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickMoveOverButtons2")
@@ -130,7 +134,7 @@ end
 -- Was called OnMoveTouchEnded in previous version
 function DynamicThumbstick:OnInputEnded()
 	self.moveTouchObject = nil
-	self.moveVector = ZERO_VECTOR3
+	moveAction:Fire(Vector2.zero)
 	self:FadeThumbstick(false)
 end
 
@@ -218,23 +222,22 @@ function DynamicThumbstick:DoFadeInBackground()
 	end
 end
 
-function DynamicThumbstick:DoMove(direction: Vector3)
-	local currentMoveVector: Vector3 = direction
+function DynamicThumbstick:DoMove(direction: Vector2)
+	local currentMoveVector: Vector2 = direction
 
 	-- Scaled Radial Dead Zone
 	local inputAxisMagnitude: number = currentMoveVector.Magnitude
 	if inputAxisMagnitude < self.radiusOfDeadZone then
-		currentMoveVector = ZERO_VECTOR3
+		currentMoveVector = Vector2.new()
 	else
 		currentMoveVector = currentMoveVector.Unit*(
 			1 - math.max(0, (self.radiusOfMaxSpeed - currentMoveVector.Magnitude)/self.radiusOfMaxSpeed)
 		)
-		currentMoveVector = Vector3.new(currentMoveVector.X, 0, currentMoveVector.Y)
 	end
 
-	self.moveVector = currentMoveVector
+	currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
+	moveAction:Fire(currentMoveVector)
 end
-
 
 function DynamicThumbstick:LayoutMiddleImages(startPos: Vector3, endPos: Vector3)
 	local startDist = (self.thumbstickSize / 2) + self.middleSize

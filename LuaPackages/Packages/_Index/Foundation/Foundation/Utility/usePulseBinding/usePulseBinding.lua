@@ -12,7 +12,7 @@ local DEFAULT_RANGE = NumberRange.new(0, 1)
 	Custom pulsing range can be supplied through `pulseRange`.
 	Used in Skeleton and Progress (reduced motion) for reference.
 ]]
-return function(cycleTime: number?, pulseRange: NumberRange?)
+local function usePulseBinding(cycleTime: number?, pulseRange: NumberRange?)
 	local clock = useClock()
 
 	local period = if cycleTime then cycleTime else 1
@@ -24,3 +24,5 @@ return function(cycleTime: number?, pulseRange: NumberRange?)
 		end)
 	end, { cycleTime :: unknown, pulseRange })
 end
+
+return usePulseBinding

@@ -91,6 +91,7 @@ local MenuIconContext = if FFlagTiltIconUnibarFocusNav
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local FFlagMigrateBadgeToStatusIndicatorInExperience = SharedFlags.FFlagMigrateBadgeToStatusIndicatorInExperience
+local FFlagUseBindingForUnreadChat = game:DefineFastFlag("UseBindingForUnreadChat", false)
 
 type TooltipState = {
 	displaying: boolean,
@@ -135,20 +136,45 @@ function NotificationBadge(props: IconHostProps): any?
 	if not props.integration then
 		return nil
 	end
-	local notificationCount = useNotificationCount(props.integration.integration)
 
-	-- inhibit notificationCount if this integration is a currently open submenu root
-	local isCurrentlyOpenSubMenu = useMappedObservableValue(ChromeService:currentSubMenu(), function(currentSubMenu)
-		return currentSubMenu == props.integration.id
-	end)
-
-	if isCurrentlyOpenSubMenu then
-		notificationCount = 0
-	end
-
+	local notificationData, setNotificationData, notificationCount
+	local shouldShowBadge, setShouldShowBadge
 	local hideNotificationCountWhileOpen = false
-	if props.integration and props.integration.integration then
-		hideNotificationCountWhileOpen = props.integration.integration.hideNotificationCountWhileOpen or false
+
+	if FFlagUseBindingForUnreadChat and FFlagMigrateBadgeToStatusIndicatorInExperience then
+		local notification = props.integration.integration and props.integration.integration.notification or nil
+		notificationData, setNotificationData = React.useBinding(notification and notification:get().value or 0)
+		shouldShowBadge, setShouldShowBadge = React.useState(false)
+
+		React.useEffect(function()
+			if not notification then
+				return
+			end
+
+			local conn = notification:connect(function()
+				local count = notification:get().value or 0
+				setShouldShowBadge(count > 0)
+				setNotificationData(count)
+			end)
+			return function()
+				conn:disconnect()
+			end
+		end, { props.integration.integration.id })
+	else
+		notificationCount = useNotificationCount(props.integration.integration)
+
+		-- inhibit notificationCount if this integration is a currently open submenu root
+		local isCurrentlyOpenSubMenu = useMappedObservableValue(ChromeService:currentSubMenu(), function(currentSubMenu)
+			return currentSubMenu == props.integration.id
+		end)
+
+		if isCurrentlyOpenSubMenu then
+			notificationCount = 0
+		end
+
+		if props.integration and props.integration.integration then
+			hideNotificationCountWhileOpen = props.integration.integration.hideNotificationCountWhileOpen or false
+		end
 	end
 
 	local notificationBadgeText -- remove with FFlagMigrateBadgeToStatusIndicator
@@ -181,6 +207,10 @@ function NotificationBadge(props: IconHostProps): any?
 		iconBadgeOffsetY = Constants.ICON_BADGE_OFFSET_Y
 	end
 
+	local displayBadge = if FFlagUseBindingForUnreadChat and FFlagMigrateBadgeToStatusIndicatorInExperience
+		then shouldShowBadge
+		else notificationCount > 0
+
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber
@@ -195,7 +225,7 @@ function NotificationBadge(props: IconHostProps): any?
 		end) or true,
 		ZIndex = 2,
 	}, {
-		Badge = if notificationCount > 0
+		Badge = if displayBadge
 			then if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber
 				then React.createElement(Foundation.View, {
 					Position = UDim2.new(1, 0, 0.2, 0),
@@ -214,7 +244,11 @@ function NotificationBadge(props: IconHostProps): any?
 				elseif FFlagMigrateBadgeToStatusIndicatorInExperience then React.createElement(
 					StatusIndicator,
 					{
-						value = math.min(notificationCount, MAX_BADGE_VALUE),
+						value = if FFlagUseBindingForUnreadChat
+							then notificationData:map(function(count)
+								return math.min(count, MAX_BADGE_VALUE)
+							end)
+							else math.min(notificationCount, MAX_BADGE_VALUE),
 						variant = if FoundationFlags.FoundationStatusIndicatorVariantExperiment
 							then StatusIndicatorVariant.Contrast_Experiment
 							else StatusIndicatorVariant.Emphasis,

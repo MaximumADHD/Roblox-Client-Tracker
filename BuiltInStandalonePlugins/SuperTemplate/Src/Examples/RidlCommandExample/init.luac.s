@@ -1,0 +1,136 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  GETTABLEKS R0 R1 K1 ["destroy"]
+  CALL R0 0 0
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["current"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["RidlCommandExample"]
+  NAMECALL R0 R0 K1 ["GetPluginComponent"]
+  CALL R0 2 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["create"]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K3 ["onNoiseReceived"]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U2
+  CALL R2 1 0
+  GETUPVAL R2 3
+  SETTABLEKS R1 R2 K4 ["current"]
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U3
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  GETTABLEKS R0 R1 K1 ["sayHelloToAnimals"]
+  LOADN R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["plugin"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["useState"]
+  LOADK R3 K2 ["No noise yet..."]
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["useRef"]
+  LOADNIL R5
+  CALL R4 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["useEffect"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  NEWTABLE R7 0 0
+  CALL R5 2 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["useCallback"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R4
+  NEWTABLE R7 0 0
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K8 [{"tag"}]
+  LOADK R9 K9 ["size-full-full col align-y-center align-x-center padding-medium bg-surface-200 gap-medium"]
+  SETTABLEKS R9 R8 K7 ["tag"]
+  DUPTABLE R9 K12 [{"NoiseDisplay", "TriggerButton"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K14 [{"Text", "tag"}]
+  SETTABLEKS R2 R12 K13 ["Text"]
+  LOADK R13 K15 ["padding-small auto-xy bg-surface-0 content-emphasis text-body-medium radius-small"]
+  SETTABLEKS R13 R12 K7 ["tag"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K10 ["NoiseDisplay"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K19 [{"text", "onActivated", "variant"}]
+  LOADK R13 K20 ["Say Hello to Animals"]
+  SETTABLEKS R13 R12 K16 ["text"]
+  SETTABLEKS R5 R12 K17 ["onActivated"]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K21 ["Emphasis"]
+  SETTABLEKS R13 R12 K18 ["variant"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K11 ["TriggerButton"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["SuperTemplate"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["View"]
+  GETTABLEKS R4 R2 K10 ["Text"]
+  GETTABLEKS R5 R2 K11 ["Button"]
+  GETTABLEKS R7 R2 K12 ["Enums"]
+  GETTABLEKS R6 R7 K13 ["ButtonVariant"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K14 ["AnimalNoiseListener"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K15 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  RETURN R8 1

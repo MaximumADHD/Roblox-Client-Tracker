@@ -325,88 +325,61 @@ PROTO_9:
   MOVE R12 R6
   SETLIST R10 R11 2 [1]
   MOVE R9 R10
-  LOADNIL R10
-  GETUPVAL R11 1
-  CALL R11 0 1
-  JUMPIFNOT R11 [+9]
-  GETIMPORT R11 K28 [Vector2.new]
-  GETTABLEKS R12 R4 K29 ["ExpandedWidth"]
-  GETTABLEKS R13 R4 K30 ["ExpandedHeight"]
-  CALL R11 2 1
-  MOVE R10 R11
-  JUMP [+31]
-  GETTABLEKS R11 R0 K31 ["isErrorsExpanded"]
-  GETTABLEKS R13 R1 K4 ["UploadWidgetItem"]
-  GETTABLEKS R12 R13 K32 ["uploadErrorsExpanded"]
-  CALL R11 1 1
-  JUMPIF R11 [+6]
-  GETUPVAL R11 0
-  CALL R11 0 1
-  JUMPIFNOT R11 [+12]
-  GETTABLEKS R11 R1 K22 ["Uploading"]
-  JUMPIFNOT R11 [+9]
-  GETIMPORT R11 K28 [Vector2.new]
-  GETTABLEKS R12 R4 K29 ["ExpandedWidth"]
-  GETTABLEKS R13 R4 K30 ["ExpandedHeight"]
-  CALL R11 2 1
-  MOVE R10 R11
-  JUMP [+8]
-  GETIMPORT R11 K28 [Vector2.new]
-  GETTABLEKS R12 R4 K33 ["Width"]
-  GETTABLEKS R13 R4 K34 ["Height"]
-  CALL R11 2 1
-  MOVE R10 R11
+  GETIMPORT R10 K28 [Vector2.new]
+  GETTABLEKS R11 R4 K29 ["ExpandedWidth"]
+  GETTABLEKS R12 R4 K30 ["ExpandedHeight"]
+  CALL R10 2 1
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K31 ["createElement"]
   GETUPVAL R12 2
-  GETTABLEKS R11 R12 K35 ["createElement"]
-  GETUPVAL R12 3
-  DUPTABLE R13 K45 [{"Enabled", "MinContentSize", "Modal", "Resizable", "Title", "Buttons", "ButtonHorizontalAlignment", "OnClose", "OnButtonPressed", "Style"}]
-  GETTABLEKS R14 R1 K46 ["ShowUploadWidget"]
-  SETTABLEKS R14 R13 K36 ["Enabled"]
-  SETTABLEKS R10 R13 K37 ["MinContentSize"]
-  GETUPVAL R15 4
+  DUPTABLE R13 K41 [{"Enabled", "MinContentSize", "Modal", "Resizable", "Title", "Buttons", "ButtonHorizontalAlignment", "OnClose", "OnButtonPressed", "Style"}]
+  GETTABLEKS R14 R1 K42 ["ShowUploadWidget"]
+  SETTABLEKS R14 R13 K32 ["Enabled"]
+  SETTABLEKS R10 R13 K33 ["MinContentSize"]
+  GETUPVAL R15 3
   CALL R15 0 1
   NOT R14 R15
-  SETTABLEKS R14 R13 K38 ["Modal"]
+  SETTABLEKS R14 R13 K34 ["Modal"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K39 ["Resizable"]
-  GETTABLEKS R14 R1 K40 ["Title"]
-  SETTABLEKS R14 R13 K40 ["Title"]
-  SETTABLEKS R9 R13 K41 ["Buttons"]
-  GETIMPORT R14 K50 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R14 R13 K42 ["ButtonHorizontalAlignment"]
-  GETTABLEKS R14 R0 K51 ["onClose"]
-  SETTABLEKS R14 R13 K43 ["OnClose"]
-  GETTABLEKS R14 R0 K52 ["onButtonPressed"]
-  SETTABLEKS R14 R13 K44 ["OnButtonPressed"]
-  LOADK R14 K53 ["ImportDialog"]
+  SETTABLEKS R14 R13 K35 ["Resizable"]
+  GETTABLEKS R14 R1 K36 ["Title"]
+  SETTABLEKS R14 R13 K36 ["Title"]
+  SETTABLEKS R9 R13 K37 ["Buttons"]
+  GETIMPORT R14 K46 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R14 R13 K38 ["ButtonHorizontalAlignment"]
+  GETTABLEKS R14 R0 K47 ["onClose"]
+  SETTABLEKS R14 R13 K39 ["OnClose"]
+  GETTABLEKS R14 R0 K48 ["onButtonPressed"]
+  SETTABLEKS R14 R13 K40 ["OnButtonPressed"]
+  LOADK R14 K49 ["ImportDialog"]
   SETTABLEKS R14 R13 K8 ["Style"]
-  DUPTABLE R14 K57 [{"Layout", "ContentInfo", "Separator"}]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K35 ["createElement"]
-  LOADK R16 K58 ["UIListLayout"]
-  DUPTABLE R17 K60 [{"FillDirection"}]
-  GETIMPORT R18 K62 [Enum.FillDirection.Vertical]
-  SETTABLEKS R18 R17 K59 ["FillDirection"]
+  DUPTABLE R14 K53 [{"Layout", "ContentInfo", "Separator"}]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K31 ["createElement"]
+  LOADK R16 K54 ["UIListLayout"]
+  DUPTABLE R17 K56 [{"FillDirection"}]
+  GETIMPORT R18 K58 [Enum.FillDirection.Vertical]
+  SETTABLEKS R18 R17 K55 ["FillDirection"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K54 ["Layout"]
-  GETTABLEKS R15 R0 K63 ["getWidgetContent"]
+  SETTABLEKS R15 R14 K50 ["Layout"]
+  GETTABLEKS R15 R0 K59 ["getWidgetContent"]
   MOVE R16 R5
   CALL R15 1 1
-  SETTABLEKS R15 R14 K55 ["ContentInfo"]
+  SETTABLEKS R15 R14 K51 ["ContentInfo"]
   GETTABLEKS R16 R1 K22 ["Uploading"]
   JUMPIF R16 [+14]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K35 ["createElement"]
-  GETUPVAL R16 5
-  DUPTABLE R17 K66 [{"DominantAxis", "LayoutOrder"}]
-  GETIMPORT R18 K67 [Enum.DominantAxis.Width]
-  SETTABLEKS R18 R17 K64 ["DominantAxis"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K31 ["createElement"]
+  GETUPVAL R16 4
+  DUPTABLE R17 K62 [{"DominantAxis", "LayoutOrder"}]
+  GETIMPORT R18 K64 [Enum.DominantAxis.Width]
+  SETTABLEKS R18 R17 K60 ["DominantAxis"]
   LOADN R18 2
-  SETTABLEKS R18 R17 K65 ["LayoutOrder"]
+  SETTABLEKS R18 R17 K61 ["LayoutOrder"]
   CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
-  SETTABLEKS R15 R14 K56 ["Separator"]
+  SETTABLEKS R15 R14 K52 ["Separator"]
   CALL R11 3 -1
   RETURN R11 -1
 
@@ -541,49 +514,43 @@ MAIN:
   GETTABLEKS R24 R25 K36 ["Flags"]
   GETTABLEKS R23 R24 K38 ["getFFlagCinAssetUploadStatusWidget"]
   CALL R22 1 1
-  GETIMPORT R23 K5 [require]
-  GETTABLEKS R26 R0 K6 ["Src"]
-  GETTABLEKS R25 R26 K36 ["Flags"]
-  GETTABLEKS R24 R25 K39 ["getFFlagCinUpdateErrorWidgetSize"]
-  CALL R23 1 1
-  GETTABLEKS R24 R3 K40 ["PureComponent"]
-  LOADK R26 K41 ["UploadWidget"]
-  NAMECALL R24 R24 K42 ["extend"]
-  CALL R24 2 1
-  DUPCLOSURE R25 K43 [PROTO_8]
+  GETTABLEKS R23 R3 K39 ["PureComponent"]
+  LOADK R25 K40 ["UploadWidget"]
+  NAMECALL R23 R23 K41 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K42 [PROTO_8]
   CAPTURE VAL R2
   CAPTURE VAL R22
   CAPTURE VAL R3
   CAPTURE VAL R16
   CAPTURE VAL R14
   CAPTURE VAL R15
-  SETTABLEKS R25 R24 K44 ["init"]
-  DUPCLOSURE R25 K45 [PROTO_9]
+  SETTABLEKS R24 R23 K43 ["init"]
+  DUPCLOSURE R24 K44 [PROTO_9]
   CAPTURE VAL R22
-  CAPTURE VAL R23
   CAPTURE VAL R3
   CAPTURE VAL R12
   CAPTURE VAL R21
   CAPTURE VAL R11
-  SETTABLEKS R25 R24 K46 ["render"]
-  MOVE R25 R7
-  DUPTABLE R26 K47 [{"Localization", "Stylizer", "FileController"}]
-  SETTABLEKS R8 R26 K17 ["Localization"]
-  SETTABLEKS R9 R26 K19 ["Stylizer"]
-  SETTABLEKS R17 R26 K30 ["FileController"]
-  CALL R25 1 1
-  MOVE R26 R24
-  CALL R25 1 1
-  MOVE R24 R25
-  DUPCLOSURE R25 K48 [PROTO_13]
+  SETTABLEKS R24 R23 K45 ["render"]
+  MOVE R24 R7
+  DUPTABLE R25 K46 [{"Localization", "Stylizer", "FileController"}]
+  SETTABLEKS R8 R25 K17 ["Localization"]
+  SETTABLEKS R9 R25 K19 ["Stylizer"]
+  SETTABLEKS R17 R25 K30 ["FileController"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  DUPCLOSURE R24 K47 [PROTO_13]
   CAPTURE VAL R19
   CAPTURE VAL R18
   CAPTURE VAL R20
-  DUPCLOSURE R26 K49 [PROTO_14]
-  GETTABLEKS R27 R4 K50 ["connect"]
-  MOVE R28 R26
-  MOVE R29 R25
-  CALL R27 2 1
+  DUPCLOSURE R25 K48 [PROTO_14]
+  GETTABLEKS R26 R4 K49 ["connect"]
+  MOVE R27 R25
   MOVE R28 R24
-  CALL R27 1 -1
-  RETURN R27 -1
+  CALL R26 2 1
+  MOVE R27 R23
+  CALL R26 1 -1
+  RETURN R26 -1

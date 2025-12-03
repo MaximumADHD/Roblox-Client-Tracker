@@ -17,8 +17,13 @@ export type InputEvent = {
 	wasProcessed: boolean?,
 }
 
+export type SyntheticInputEvent = InputEvent & {
+	immediateDispatch: boolean?,
+}
+
 -- TODO: Union with whatever data we end up using for focus/blur events
-export type EventData = InputEvent | nil
+export type SyntheticEventData = SyntheticInputEvent | nil
+export type EventData = InputEvent | SyntheticEventData | nil
 
 export type EventMap = {
 	[Enum.KeyCode]: string,

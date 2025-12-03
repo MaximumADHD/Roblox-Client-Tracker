@@ -1,6 +1,6 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ReactMicroprofilerLevel4"]
+  LOADK R2 K2 ["ReactMicroprofilerLevel5"]
   LOADN R3 0
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 -1
@@ -265,7 +265,7 @@ MAIN:
   LOADK R12 K16 ["RunService"]
   NAMECALL R10 R10 K17 ["GetService"]
   CALL R10 2 1
-  GETTABLEKS R9 R10 K18 ["RenderStepped"]
+  GETTABLEKS R9 R10 K18 ["Heartbeat"]
   NEWCLOSURE R11 P2
   CAPTURE REF R8
   NAMECALL R9 R9 K19 ["Connect"]

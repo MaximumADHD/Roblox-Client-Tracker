@@ -49,6 +49,7 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
 
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
+local getFFlagUGCValidateCurveAnimRotationSpeed = require(root.flags.getFFlagUGCValidateCurveAnimRotationSpeed)
 
 local function joinTables(...)
 	local result = {}
@@ -270,6 +271,11 @@ Analytics.ErrorType.validateCurveAnimation_AnimationContainsNoJointManipulation 
 Analytics.ErrorType.validateCurveAnimation_UnacceptableLength = "validateCurveAnimation_UnacceptableLength"
 Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds = "validateCurveAnimation_UnacceptableSizeBounds"
 Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameDelta = "validateCurveAnimation_UnacceptableFrameDelta"
+
+if getFFlagUGCValidateCurveAnimRotationSpeed() then
+	Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameRotationDelta =
+		"validateCurveAnimation_UnacceptableFrameRotationDelta"
+end
 
 if getEngineFeatureEngineUGCIsValidR15AnimationRigCheck() then
 	Analytics.ErrorType.validateCurveAnimation_IncorrectAnimationRigData =

@@ -20,7 +20,6 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
-local FFlagSettingsPageScaleTextSize = require(RobloxGui.Modules.Settings.Flags.FFlagSettingsPageScaleTextSize)
 
 local AppFontBaseSize = 16 * 1.2
 
@@ -425,16 +424,9 @@ return {
 		return if AppFont[key] then AppFont[key].RelativeSize else nonThemeFontSize or nullFontSize
 	end,
 	textSize = function(nonThemeTextSize: number, key: string?)
-		local scaleFactor = 1
-		if FFlagSettingsPageScaleTextSize then
-			scaleFactor = getUIScale(false)
-		end
+		local scaleFactor = getUIScale(false)
 		if not key then
-			if FFlagSettingsPageScaleTextSize then
 				return nonThemeTextSize * nominalSizeFactor * scaleFactor
-			else
-				return nonThemeTextSize * nominalSizeFactor or nullTextSize
-			end
 		end
 		if IsSmallTouchScreen and key == "UtilityRow" then
 			key = "UtilityRowSmall"
@@ -442,7 +434,7 @@ return {
 			key = "UtilityTextSmall"
 		end
 		key = ComponentThemeKeys[key] or key
-		if FFlagSettingsPageScaleTextSize and nonThemeTextSize ~= nil then
+		if nonThemeTextSize ~= nil then
 			return if AppFont[key] and AppFont[key].TextSize
 				then AppFont[key].TextSize * scaleFactor
 				else nonThemeTextSize * nominalSizeFactor * scaleFactor

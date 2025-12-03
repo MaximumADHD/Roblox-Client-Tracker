@@ -6,7 +6,13 @@ local Promise = require(CorePackages.Packages.Promise)
 return function()
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			return Players:GetHumanoidDescriptionFromUserId((Players.LocalPlayer :: Player).UserId)
+			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+			-- Will be removed when that PR is merged.
+			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+				return (Players :: any):GetHumanoidDescriptionFromUserIdAsync((Players.LocalPlayer :: Player).UserId)
+			else
+				return (Players :: any):GetHumanoidDescriptionFromUserId((Players.LocalPlayer :: Player).UserId)
+			end
 		end)
 
 		if success then

@@ -12,6 +12,7 @@ type _Messages = {
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_tile = require(script.Parent.tile)
+local _roblox_apppageplatform_shared_v1beta1_badge_tile = require(script.Parent.badge_tile)
 local _roblox_apppageplatform_shared_v1beta1_game_tile = require(script.Parent.game_tile)
 local _roblox_apppageplatform_shared_v1beta1_button = require(script.Parent.button)
 local _roblox_apppageplatform_shared_v1beta1_image = require(script.Parent.image)
@@ -37,6 +38,7 @@ local _roblox_apppageplatform_shared_v1beta1_single_item_collection = require(sc
 local _roblox_apppageplatform_shared_v1beta1_see_all_tile = require(script.Parent.see_all_tile)
 local _roblox_apppageplatform_shared_v1beta1_focus_nav_actions = require(script.Parent.focus_nav_actions)
 local _roblox_apppageplatform_shared_v1beta1_fragment = require(script.Parent.fragment)
+local _roblox_apppageplatform_shared_v1beta1_vertical_feed = require(script.Parent.vertical_feed)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -90,6 +92,8 @@ type _UiComponentSchemaFields = {
 			value: _roblox_apppageplatform_shared_v1beta1_focus_nav_actions.FocusNavActionsSchema,
 		}
 		| { type: "fragment", value: _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema }
+		| { type: "badge_tile", value: _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema }
+		| { type: "vertical_feed", value: _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema }
 	)?,
 }
 
@@ -135,6 +139,8 @@ type _UiComponentSchemaPartialFields = {
 			value: _roblox_apppageplatform_shared_v1beta1_focus_nav_actions.FocusNavActionsSchema,
 		}
 		| { type: "fragment", value: _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema }
+		| { type: "badge_tile", value: _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema }
+		| { type: "vertical_feed", value: _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema }
 	)?,
 }
 
@@ -255,6 +261,14 @@ do
 			elseif self.kind.type == "fragment" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "badge_tile" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "vertical_feed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -486,6 +500,22 @@ do
 						value = _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema.decode(value),
 					}
 					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "badge_tile",
+						value = _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema.decode(value),
+					}
+					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "vertical_feed",
+						value = _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -564,6 +594,10 @@ do
 				output.focusNavActions = self.kind.value:jsonEncode()
 			elseif self.kind.type == "fragment" then
 				output.fragment = self.kind.value:jsonEncode()
+			elseif self.kind.type == "badge_tile" then
+				output.badgeTile = self.kind.value:jsonEncode()
+			elseif self.kind.type == "vertical_feed" then
+				output.verticalFeed = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -914,6 +948,38 @@ do
 			self.kind = {
 				type = "fragment",
 				value = _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema.jsonDecode(input.fragment),
+			}
+		end
+
+		if input.badge_tile ~= nil then
+			self.kind = {
+				type = "badge_tile",
+				value = _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema.jsonDecode(input.badge_tile),
+			}
+		end
+
+		if input.badgeTile ~= nil then
+			self.kind = {
+				type = "badge_tile",
+				value = _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema.jsonDecode(input.badgeTile),
+			}
+		end
+
+		if input.vertical_feed ~= nil then
+			self.kind = {
+				type = "vertical_feed",
+				value = _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema.jsonDecode(
+					input.vertical_feed
+				),
+			}
+		end
+
+		if input.verticalFeed ~= nil then
+			self.kind = {
+				type = "vertical_feed",
+				value = _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema.jsonDecode(
+					input.verticalFeed
+				),
 			}
 		end
 

@@ -47,12 +47,7 @@ local function OverlayProvider(props: Props)
 		end, { props.gui, overlay })
 	end
 
-	local shouldRender
-	if Flags.FoundationLazyOverlayLoading then
-		shouldRender = not props.gui and mainGui ~= nil and shouldMountOverlay
-	else
-		shouldRender = not props.gui and mainGui ~= nil
-	end
+	local shouldRender = not props.gui and mainGui ~= nil and shouldMountOverlay
 
 	local overlayInstance = overlay
 	if Flags.FoundationOverlayProviderFrameTiming then
@@ -75,10 +70,8 @@ local function OverlayProvider(props: Props)
 					ScreenInsets = if Flags.FoundationOverlayLuaAppInsetsFix
 						then Enum.ScreenInsets.CoreUISafeInsets
 						else Enum.ScreenInsets.DeviceSafeInsets,
-					SafeAreaCompatibility = if Flags.FoundationOverlayNoClip
-						then Enum.SafeAreaCompatibility.None
-						else nil,
-					ClipToDeviceSafeArea = if Flags.FoundationOverlayNoClip then false else nil,
+					SafeAreaCompatibility = Enum.SafeAreaCompatibility.None,
+					ClipToDeviceSafeArea = false,
 					ref = setOverlay,
 				}, {
 					FoundationStyleLink = if Flags.FoundationDisableStylingPolyfill

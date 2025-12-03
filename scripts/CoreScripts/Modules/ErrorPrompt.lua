@@ -19,10 +19,9 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 local GetFFlagDisplayChannelNameOnErrorPrompt = require(RobloxGui.Modules.Flags.GetFFlagDisplayChannelNameOnErrorPrompt)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
-local FFlagFixErrorPromptFocus = game:DefineFastFlag("FixErrorPromptFocus", false)
-local FFlagFixErrorPromptRemoveMenuFocus = game:DefineFastFlag("FixErrorPromptRemoveMenuFocus", false)
-local FFlagFixErrorPromptOnVR = game:DefineFastFlag("FixErrorPromptOnVR", false)
+-- Flags --
 
+local FFlagFixErrorPromptOnVR = game:DefineFastFlag("FixErrorPromptOnVR", false)
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
@@ -270,20 +269,10 @@ function ErrorPrompt:_open(errorMsg, errorCode, shouldShowChannelName)
 			self._frame.PromptScale.Scale = 1
 		end
 	end
-
-	if FFlagFixErrorPromptFocus then
 		if self._isOpen and (VRService.VREnabled or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad) then
 			GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
 		end
-	else
-		if self._isOpen and (VRService.VREnabled or GuiService:IsTenFootInterface()) then
-			GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
-		end
-	end
-
-	if FFlagFixErrorPromptRemoveMenuFocus then
 		ContextActionService:BindCoreAction(ERROR_PROMPT_ACTION_NAME, sinkInput, false, Enum.KeyCode.ButtonSelect, Enum.KeyCode.ButtonStart)
-	end
 end
 
 function ErrorPrompt:_close()
@@ -298,10 +287,7 @@ function ErrorPrompt:_close()
 			self._frame.PromptScale.Scale = 0
 		end
 		self._frame.Visible = false
-
-		if FFlagFixErrorPromptRemoveMenuFocus then
 			ContextActionService:UnbindCoreAction(ERROR_PROMPT_ACTION_NAME)
-		end
 	end
 end
 

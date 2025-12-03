@@ -7,7 +7,6 @@ local ReactOtter = require(Packages.ReactOtter)
 local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
-local Flags = require(Foundation.Utility.Flags)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -60,7 +59,7 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 		if props.scrollBarVisibility == Visibility.None then
 			return 0
 		else
-			return if Flags.FoundationScrollingFrameBarSmaller then tokens.Size.Size_150 else tokens.Size.Size_300
+			return tokens.Size.Size_150
 		end
 	end, { props.scrollBarVisibility })
 	local cursor = useCursor()

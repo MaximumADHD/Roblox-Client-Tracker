@@ -5,8 +5,20 @@ local FFlagHumanoidParentNil = game:DefineFastFlag("HumanoidParentNil", false)
 local attachmentToPart = {}
 local character, humanoid
 if not FFlagHumanoidParentNil then
-	character =
-		Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
+	-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+	-- Will be removed when that PR is merged.
+	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+		character = (Players :: any):CreateHumanoidModelFromDescriptionAsync(
+			Instance.new("HumanoidDescription"),
+			Enum.HumanoidRigType.R15
+		)
+	else
+		character = (Players :: any):CreateHumanoidModelFromDescription(
+			Instance.new("HumanoidDescription"),
+			Enum.HumanoidRigType.R15
+		)
+	end
+
 	humanoid = character:FindFirstChildOfClass("Humanoid")
 	assert(humanoid, "Humanoid must exist in character model")
 
@@ -31,10 +43,20 @@ end
 return function(handle: BasePart, attachment: Attachment)
 	if FFlagHumanoidParentNil then
 		if character == nil then
-			character = Players:CreateHumanoidModelFromDescription(
-				Instance.new("HumanoidDescription"),
-				Enum.HumanoidRigType.R15
-			)
+			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+			-- Will be removed when that PR is merged.
+			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+				character = (Players :: any):CreateHumanoidModelFromDescriptionAsync(
+					Instance.new("HumanoidDescription"),
+					Enum.HumanoidRigType.R15
+				)
+			else
+				character = (Players :: any):CreateHumanoidModelFromDescription(
+					Instance.new("HumanoidDescription"),
+					Enum.HumanoidRigType.R15
+				)
+			end
+
 			humanoid = character:FindFirstChildOfClass("Humanoid")
 			assert(humanoid, "Humanoid must exist in character model")
 

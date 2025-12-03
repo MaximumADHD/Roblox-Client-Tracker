@@ -1,23 +1,35 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["enable"]
-  CALL R0 0 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K1 ["current"]
-  JUMPIFNOT R0 [+12]
+  GETUPVAL R0 0
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["current"]
-  GETTABLEKS R0 R1 K2 ["Focus"]
+  GETTABLEKS R1 R2 K0 ["label"]
+  CALL R0 1 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K1 ["enable"]
+  CALL R0 0 0
+  GETUPVAL R1 3
+  GETTABLEKS R0 R1 K2 ["current"]
+  JUMPIFNOT R0 [+12]
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K2 ["current"]
+  GETTABLEKS R0 R1 K3 ["Focus"]
   JUMPIFNOT R0 [+6]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K1 ["current"]
-  NAMECALL R0 R0 K2 ["Focus"]
+  GETUPVAL R1 3
+  GETTABLEKS R0 R1 K2 ["current"]
+  NAMECALL R0 R0 K3 ["Focus"]
   CALL R0 1 0
   RETURN R0 0
 
 PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["label"]
+  JUMPIFEQ R0 R1 [+6]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["onLabelRename"]
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["disable"]
+  CALL R0 1 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K2 ["disable"]
   CALL R0 0 0
   RETURN R0 0
 
@@ -30,125 +42,131 @@ PROTO_2:
   GETTABLEKS R2 R3 K1 ["useRef"]
   LOADNIL R3
   CALL R2 1 1
-  GETIMPORT R3 K4 [UDim.new]
-  LOADN R4 0
-  GETUPVAL R5 2
-  LOADN R6 200
-  CALL R5 1 -1
-  CALL R3 -1 1
-  GETIMPORT R4 K4 [UDim.new]
-  LOADN R5 0
-  LOADN R6 82
-  CALL R4 2 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K5 ["createElement"]
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K6 ["View"]
-  DUPTABLE R7 K9 [{"tag", "Size"}]
-  LOADK R8 K10 ["flex-x-around gap-small row align-x-center align-y-center padding-y-xxsmall auto-y"]
-  SETTABLEKS R8 R7 K7 ["tag"]
-  GETIMPORT R8 K12 [UDim2.new]
-  LOADN R9 0
-  GETUPVAL R10 2
-  LOADN R11 200
-  CALL R10 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["useState"]
+  GETTABLEKS R4 R0 K3 ["label"]
+  CALL R3 1 2
+  GETIMPORT R5 K6 [UDim.new]
+  LOADN R6 0
+  GETUPVAL R7 2
+  LOADN R8 200
+  CALL R7 1 -1
+  CALL R5 -1 1
+  GETIMPORT R6 K6 [UDim.new]
+  LOADN R7 0
+  LOADN R8 82
+  CALL R6 2 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K7 ["createElement"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K8 ["View"]
+  DUPTABLE R9 K11 [{"tag", "Size"}]
+  LOADK R10 K12 ["flex-x-around gap-small row align-x-center align-y-center padding-y-xxsmall auto-y"]
+  SETTABLEKS R10 R9 K9 ["tag"]
+  GETIMPORT R10 K14 [UDim2.new]
   LOADN R11 0
-  LOADN R12 0
-  CALL R8 4 1
-  SETTABLEKS R8 R7 K8 ["Size"]
-  DUPTABLE R8 K15 [{"LabelContainer", "NumberInput"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K5 ["createElement"]
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K6 ["View"]
-  DUPTABLE R11 K17 [{"LayoutOrder", "tag"}]
-  LOADN R12 1
-  SETTABLEKS R12 R11 K16 ["LayoutOrder"]
-  LOADK R12 K18 ["row align-x-center align-y-center size-2100-500 auto-none"]
-  SETTABLEKS R12 R11 K7 ["tag"]
-  DUPTABLE R12 K21 [{"LabelText", "LabelTextInput"}]
-  GETTABLEKS R14 R1 K22 ["enabled"]
-  JUMPIF R14 [+31]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K5 ["createElement"]
-  GETUPVAL R15 3
-  GETTABLEKS R14 R15 K23 ["InputLabel"]
-  DUPTABLE R15 K28 [{"LayoutOrder", "tag", "Text", "size", "onActivated", "width"}]
-  LOADN R16 1
-  SETTABLEKS R16 R15 K16 ["LayoutOrder"]
-  LOADK R16 K29 ["size-full-full"]
-  SETTABLEKS R16 R15 K7 ["tag"]
-  GETTABLEKS R16 R0 K30 ["label"]
-  SETTABLEKS R16 R15 K24 ["Text"]
-  GETUPVAL R17 4
-  GETTABLEKS R16 R17 K31 ["Small"]
-  SETTABLEKS R16 R15 K25 ["size"]
-  NEWCLOSURE R16 P0
+  GETUPVAL R12 2
+  LOADN R13 200
+  CALL R12 1 1
+  LOADN R13 0
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K10 ["Size"]
+  DUPTABLE R10 K17 [{"LabelContainer", "NumberInput"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K7 ["createElement"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K8 ["View"]
+  DUPTABLE R13 K19 [{"LayoutOrder", "tag"}]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K18 ["LayoutOrder"]
+  LOADK R14 K20 ["row align-x-center align-y-center size-2100-500 auto-none"]
+  SETTABLEKS R14 R13 K9 ["tag"]
+  DUPTABLE R14 K23 [{"LabelText", "LabelTextInput"}]
+  GETTABLEKS R16 R1 K24 ["enabled"]
+  JUMPIF R16 [+33]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K25 ["InputLabel"]
+  DUPTABLE R17 K30 [{"LayoutOrder", "tag", "Text", "size", "onActivated", "width"}]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K18 ["LayoutOrder"]
+  LOADK R18 K31 ["size-full-full"]
+  SETTABLEKS R18 R17 K9 ["tag"]
+  GETTABLEKS R18 R0 K3 ["label"]
+  SETTABLEKS R18 R17 K26 ["Text"]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K32 ["Small"]
+  SETTABLEKS R18 R17 K27 ["size"]
+  NEWCLOSURE R18 P0
+  CAPTURE VAL R4
+  CAPTURE VAL R0
   CAPTURE VAL R1
   CAPTURE VAL R2
-  SETTABLEKS R16 R15 K26 ["onActivated"]
-  SETTABLEKS R4 R15 K27 ["width"]
-  CALL R13 2 1
+  SETTABLEKS R18 R17 K28 ["onActivated"]
+  SETTABLEKS R6 R17 K29 ["width"]
+  CALL R15 2 1
   JUMP [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K19 ["LabelText"]
-  GETTABLEKS R14 R1 K22 ["enabled"]
-  JUMPIFNOT R14 [+41]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K5 ["createElement"]
-  GETUPVAL R15 3
-  GETTABLEKS R14 R15 K32 ["TextInput"]
-  DUPTABLE R15 K37 [{"LayoutOrder", "tag", "text", "label", "textInputType", "onChanged", "size", "width", "onFocusLost"}]
-  LOADN R16 1
-  SETTABLEKS R16 R15 K16 ["LayoutOrder"]
-  LOADK R16 K29 ["size-full-full"]
-  SETTABLEKS R16 R15 K7 ["tag"]
-  GETTABLEKS R16 R0 K30 ["label"]
-  SETTABLEKS R16 R15 K33 ["text"]
-  LOADK R16 K38 [""]
-  SETTABLEKS R16 R15 K30 ["label"]
-  GETIMPORT R16 K42 [Enum.TextInputType.Default]
-  SETTABLEKS R16 R15 K34 ["textInputType"]
-  GETTABLEKS R16 R0 K43 ["onLabelChanged"]
-  SETTABLEKS R16 R15 K35 ["onChanged"]
-  GETUPVAL R17 4
-  GETTABLEKS R16 R17 K31 ["Small"]
-  SETTABLEKS R16 R15 K25 ["size"]
-  SETTABLEKS R4 R15 K27 ["width"]
-  NEWCLOSURE R16 P1
+  LOADNIL R15
+  SETTABLEKS R15 R14 K21 ["LabelText"]
+  GETTABLEKS R16 R1 K24 ["enabled"]
+  JUMPIFNOT R16 [+39]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K33 ["TextInput"]
+  DUPTABLE R17 K38 [{"LayoutOrder", "tag", "text", "label", "textInputType", "onChanged", "size", "width", "onFocusLost"}]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K18 ["LayoutOrder"]
+  LOADK R18 K31 ["size-full-full"]
+  SETTABLEKS R18 R17 K9 ["tag"]
+  SETTABLEKS R3 R17 K34 ["text"]
+  LOADK R18 K39 [""]
+  SETTABLEKS R18 R17 K3 ["label"]
+  GETIMPORT R18 K43 [Enum.TextInputType.Default]
+  SETTABLEKS R18 R17 K35 ["textInputType"]
+  SETTABLEKS R4 R17 K36 ["onChanged"]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K32 ["Small"]
+  SETTABLEKS R18 R17 K27 ["size"]
+  SETTABLEKS R6 R17 K29 ["width"]
+  NEWCLOSURE R18 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R0
   CAPTURE VAL R1
-  SETTABLEKS R16 R15 K36 ["onFocusLost"]
-  CALL R13 2 1
+  SETTABLEKS R18 R17 K37 ["onFocusLost"]
+  CALL R15 2 1
   JUMP [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K20 ["LabelTextInput"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K13 ["LabelContainer"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K5 ["createElement"]
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K32 ["TextInput"]
-  DUPTABLE R11 K44 [{"LayoutOrder", "tag", "text", "label", "textInputType", "onChanged", "size", "width"}]
-  LOADN R12 2
-  SETTABLEKS R12 R11 K16 ["LayoutOrder"]
-  LOADK R12 K45 ["size-2100-500"]
-  SETTABLEKS R12 R11 K7 ["tag"]
-  GETTABLEKS R12 R0 K33 ["text"]
-  SETTABLEKS R12 R11 K33 ["text"]
-  LOADK R12 K38 [""]
-  SETTABLEKS R12 R11 K30 ["label"]
-  GETIMPORT R12 K47 [Enum.TextInputType.Number]
-  SETTABLEKS R12 R11 K34 ["textInputType"]
-  GETTABLEKS R12 R0 K48 ["onTextInputChanged"]
-  SETTABLEKS R12 R11 K35 ["onChanged"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K31 ["Small"]
-  SETTABLEKS R12 R11 K25 ["size"]
-  SETTABLEKS R4 R11 K27 ["width"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K14 ["NumberInput"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  LOADNIL R15
+  SETTABLEKS R15 R14 K22 ["LabelTextInput"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K15 ["LabelContainer"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K7 ["createElement"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K33 ["TextInput"]
+  DUPTABLE R13 K44 [{"LayoutOrder", "tag", "text", "label", "textInputType", "onChanged", "size", "width"}]
+  LOADN R14 2
+  SETTABLEKS R14 R13 K18 ["LayoutOrder"]
+  LOADK R14 K45 ["size-2100-500"]
+  SETTABLEKS R14 R13 K9 ["tag"]
+  GETTABLEKS R14 R0 K34 ["text"]
+  SETTABLEKS R14 R13 K34 ["text"]
+  LOADK R14 K39 [""]
+  SETTABLEKS R14 R13 K3 ["label"]
+  GETIMPORT R14 K47 [Enum.TextInputType.Number]
+  SETTABLEKS R14 R13 K35 ["textInputType"]
+  GETTABLEKS R14 R0 K48 ["onTextInputChanged"]
+  SETTABLEKS R14 R13 K36 ["onChanged"]
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K32 ["Small"]
+  SETTABLEKS R14 R13 K27 ["size"]
+  SETTABLEKS R6 R13 K29 ["width"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K16 ["NumberInput"]
+  CALL R7 3 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0

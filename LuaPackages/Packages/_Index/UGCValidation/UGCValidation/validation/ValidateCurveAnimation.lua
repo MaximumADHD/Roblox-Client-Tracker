@@ -4,6 +4,7 @@ validate:
 ]]
 
 local CollectionService = game:GetService("CollectionService")
+local Players = game:GetService("Players")
 
 local root = script.Parent.Parent
 
@@ -43,6 +44,12 @@ local getFFlagUGCValidateRestrictEmoteHeight = require(flags.getFFlagUGCValidate
 local GetFStringUGCValidateAnimationHeightTol = require(flags.GetFStringUGCValidateAnimationHeightTol)
 local getFFlagUGCValidateFixCurveAnimFrameTimeErrorMessage =
 	require(flags.getFFlagUGCValidateFixCurveAnimFrameTimeErrorMessage)
+local getFFlagUGCValidateCurveAnimRotationSpeed = require(flags.getFFlagUGCValidateCurveAnimRotationSpeed)
+local getFIntUGCValidationMaxAnimationRotationSpeedPerSecond =
+	require(flags.getFIntUGCValidationMaxAnimationRotationSpeedPerSecond)
+local getFFlagUGCValidateCurveAnimFinalFrameBug = require(flags.getFFlagUGCValidateCurveAnimFinalFrameBug)
+local getFFlagUGCValidateCurveAnimMinTimeFix = require(flags.getFFlagUGCValidateCurveAnimMinTimeFix)
+local GetFStringUGCValidateCurveAnimationMinLength = require(flags.GetFStringUGCValidateCurveAnimationMinLength)
 
 local ValidateCurveAnimation = {}
 
@@ -530,8 +537,21 @@ local function validateAnimationHierarchy(
 end
 
 local function createDefaultCharacter(removeMotors: boolean): Model
-	local defaultCharacter =
-		game.Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
+	local defaultCharacter
+
+	-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+	-- Will be removed when that PR is merged.
+	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+		defaultCharacter = (Players :: any):CreateHumanoidModelFromDescriptionAsync(
+			Instance.new("HumanoidDescription"),
+			Enum.HumanoidRigType.R15
+		)
+	else
+		defaultCharacter = (game.Players :: any):CreateHumanoidModelFromDescription(
+			Instance.new("HumanoidDescription"),
+			Enum.HumanoidRigType.R15
+		)
+	end
 
 	for _, desc in defaultCharacter:GetDescendants() do
 		if desc:IsA("Decal") then
@@ -690,17 +710,35 @@ local function calculateAnimFramesAtOriginManual(
 	local result = {}
 	local positionMagnitudeResults = {}
 
-	local time = 0
-	while time <= animationLength do
-		local animationTransforms = calculateTransformsAtTime(time, tracks)
+	local function addData(trackTime: number)
+		local animationTransforms = calculateTransformsAtTime(trackTime, tracks)
 		local finalFrameTransforms =
 			AssetCalculator.calculateAllTransformsForFullBody(fullBodyAssets, animationTransforms)
 		table.insert(result, finalFrameTransforms)
 
-		table.insert(positionMagnitudeResults, calculatePositionMagnitudeResultsAtTime(time, tracks))
+		table.insert(positionMagnitudeResults, calculatePositionMagnitudeResultsAtTime(trackTime, tracks))
+	end
 
+	local time = 0
+	while time <= animationLength do
+		if getFFlagUGCValidateCurveAnimFinalFrameBug() then
+			addData(time)
+		else
+			local animationTransforms = calculateTransformsAtTime(time, tracks)
+			local finalFrameTransforms =
+				AssetCalculator.calculateAllTransformsForFullBody(fullBodyAssets, animationTransforms)
+			table.insert(result, finalFrameTransforms)
+
+			table.insert(positionMagnitudeResults, calculatePositionMagnitudeResultsAtTime(time, tracks))
+		end
 		time += frameDelta
 	end
+	if getFFlagUGCValidateCurveAnimFinalFrameBug() then
+		if animationLength >= 0 then
+			addData(animationLength)
+		end
+	end
+
 	defaultCharacter:Destroy()
 	return result, animationLength, positionMagnitudeResults, tracks
 end
@@ -709,7 +747,11 @@ function ValidateCurveAnimation.validateAnimationLength(
 	length: number,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
-	if length <= 0 or length > GetFStringUGCValidationMaxAnimationLength.asNumber() then
+	local minLength = if getFFlagUGCValidateCurveAnimMinTimeFix()
+		then GetFStringUGCValidateCurveAnimationMinLength.asNumber()
+		else 0
+
+	if length <= minLength or length > GetFStringUGCValidationMaxAnimationLength.asNumber() then
 		return reportFailure(
 			`CurveAnimation must be between 0 and {GetFStringUGCValidationMaxAnimationLength.asString()} seconds long. Please fix the animation.`,
 			Analytics.ErrorType.validateCurveAnimation_UnacceptableLength,
@@ -821,6 +863,55 @@ function ValidateCurveAnimation.validateFrameDeltas(
 		end
 
 		prevFrame = frame
+	end
+	return true
+end
+
+-- each body part cannot rotate more than a maximum degrees/second
+function ValidateCurveAnimation.validateFrameRotationDeltas(
+	animFrames: { { string: CFrame } },
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	assert(
+		math.abs((1 / frameDelta) - getFIntUGCValidateMaxAnimationFPS()) < 0.00001,
+		"frameDelta should be calculated as 1 / getFIntUGCValidateMaxAnimationFPS()"
+	)
+
+	-- getFIntUGCValidationMaxAnimationRotationSpeedPerSecond() >= (180 * getFIntUGCValidateMaxAnimationFPS()) means any rotation is valid (since CFrame:AngleBetween() returns values between 0 and 180)
+	local maxDegreesPerSecondRotationSpeed = getFIntUGCValidationMaxAnimationRotationSpeedPerSecond()
+	-- if maxDegreesAllowedRotationPerFrame is >= 180, then any rotation is valid
+	local maxDegreesAllowedRotationPerFrame = maxDegreesPerSecondRotationSpeed / getFIntUGCValidateMaxAnimationFPS()
+
+	local allCFramesPrevFrame = {}
+	for frameNumberIdx, frame in animFrames do
+		for bodyPartName, cframe in frame do
+			local prevCFrame = allCFramesPrevFrame[bodyPartName]
+			if not prevCFrame then
+				continue
+			end
+
+			local delta = math.deg(math.abs((cframe :: any):AngleBetween(prevCFrame)))
+			if delta > maxDegreesAllowedRotationPerFrame then
+				local frameTime = (frameNumberIdx - 1) * frameDelta
+				local degreesPerSecondSpeed = delta * getFIntUGCValidateMaxAnimationFPS()
+
+				local errorMessage = string.format(
+					"In CurveAnimation at time %.2f seconds, body part %s is moving at a rotation speed of %.2f degrees/second. %.2f is the maximum degrees/second speed. Please fix the animation.",
+					frameTime,
+					bodyPartName :: string,
+					degreesPerSecondSpeed,
+					maxDegreesPerSecondRotationSpeed
+				)
+
+				return reportFailure(
+					errorMessage,
+					Analytics.ErrorType.validateCurveAnimation_UnacceptableFrameRotationDelta,
+					validationContext
+				)
+			end
+		end
+
+		allCFramesPrevFrame = frame
 	end
 	return true
 end
@@ -1133,6 +1224,11 @@ function ValidateCurveAnimation.validateFrames(
 	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateAnimationLength(animLength, validationContext))
 	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateBounds(animFrames, validationContext))
 	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateFrameDeltas(animFrames, validationContext))
+	if getFFlagUGCValidateCurveAnimRotationSpeed() then
+		reasonsAccumulator:updateReasons(
+			ValidateCurveAnimation.validateFrameRotationDeltas(animFrames, validationContext)
+		)
+	end
 	return reasonsAccumulator:getFinalResults()
 end
 

@@ -1,5 +1,4 @@
-
-¥tYou are a helpful Roblox Assistant integrated into the Roblox Studio environment.
+getgetSystemPrompt¥tYou are a helpful Roblox Assistant integrated into the Roblox Studio environment.
 Your primary goal is to assist users in improving their games.
 Your given task may require modifying game state, executing code, or simply answering a question.
 Below are the general guidelines and best practices to help you complete the task, along with some examples.
@@ -226,7 +225,7 @@ return HttpService:JSONEncode(tbl)
 </examples>
 
 With those in mind, provide your best effort to complete the user's request.
-getSystemMessagescriptAssistantUIFindFirstAncestorrequire
-ComponentsContextsDefaultLLMProviderLLMSystemMessage                     A        @   |       @@    à   à   ¨	   @
- 6 Þ       @  @@	
-                    ç      
+getSystemMessagescriptAssistantUIFindFirstAncestorrequireGuestEnvironment
+ComponentsContextsDefaultLLMProviderLLMSystemMessage     	   _                            	       A        @   |       @@    û      @@    à	   à
+   ¨   @ F  6 Þ       @  @@	
+                           ð      

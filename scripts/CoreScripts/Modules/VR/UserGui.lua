@@ -51,9 +51,7 @@ end
 -- Ensure we have the desired target framerate for experiences.
 -- SVR-685 and SVR-686 would simplify this implementation
 local EXPERIENCE_QUEST_REFRESH_RATE = 90
-if game:GetEngineFeature("ExposeOpenXrAPI1") then
-	VRService.QuestDisplayRefreshRate = EXPERIENCE_QUEST_REFRESH_RATE
-end
+VRService.QuestDisplayRefreshRate = EXPERIENCE_QUEST_REFRESH_RATE
 
 local UserGuiModule = {}
 UserGuiModule.ModuleName = "UserGui"

@@ -5,7 +5,6 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
-local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignalRaceCondition
 local FFlagChromeUsePolicies = SharedFlags.FFlagChromeUsePolicies
 
 local AvailabilitySignalState = {
@@ -270,27 +269,19 @@ function MappedSignal:connect(handler)
 		warn("MappedSignal: Missing signal")
 		return function() end
 	end
-	if GetFFlagFixMappedSignalRaceCondition() then
-		local event = function()
-			if self._eventReceiver then
-				self._eventReceiver()
-			end
-			handler(self._fetchMapFunction())
+
+	local event = function()
+		if self._eventReceiver then
+			self._eventReceiver()
 		end
-		local conn = self._signal:connect(event)
-
-		-- fire event once to handle race condition where state changed between MappedSignal.new and MappedSignal:connect
-		event()
-
-		return conn
-	else
-		return self._signal:connect(function(...)
-			if self._eventReceiver then
-				self._eventReceiver(...)
-			end
-			handler(self._fetchMapFunction())
-		end)
+		handler(self._fetchMapFunction())
 	end
+	local conn = self._signal:connect(event)
+
+	-- fire event once to handle race condition where state changed between MappedSignal.new and MappedSignal:connect
+	event()
+
+	return conn
 end
 
 function MappedSignal:get<T>(): T

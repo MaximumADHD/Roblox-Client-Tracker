@@ -16,13 +16,6 @@ function ServerAuthority.new()
 	return self
 end
 
-function ServerAuthority:IsServerAuthorityEnabled():boolean
-	local success, result = pcall(function()
-		return workspace.AuthorityMode == Enum.AuthorityMode.Server
-	end)
-	return success and result
-end
-
 function ServerAuthority:PredictLocalHumanoid()
 	local predictHumanoidRootPart = function(character:Model)
 		local rootPart = character:WaitForChild("HumanoidRootPart")
@@ -36,10 +29,6 @@ function ServerAuthority:PredictLocalHumanoid()
 end
 
 function ServerAuthority:Initialize()
-	if not self:IsServerAuthorityEnabled() then
-		return
-	end
-	
 	if RunService:IsClient() then
 		self:PredictLocalHumanoid()
 	end

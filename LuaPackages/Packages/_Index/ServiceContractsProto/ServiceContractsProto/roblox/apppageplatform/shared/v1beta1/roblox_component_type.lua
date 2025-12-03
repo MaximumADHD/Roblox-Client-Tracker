@@ -17,6 +17,7 @@ export type RobloxComponentType =
 	| "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_TILE"
 	| "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_GRID"
 	| "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_GRID_HEADER"
+	| "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_VERTICAL_FEED"
 	| number -- Unknown
 
 messages.RobloxComponentType = {
@@ -29,6 +30,8 @@ messages.RobloxComponentType = {
 			return "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_GRID"
 		elseif value == 3 then
 			return "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_GRID_HEADER"
+		elseif value == 4 then
+			return "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_VERTICAL_FEED"
 		else
 			return nil
 		end
@@ -43,6 +46,8 @@ messages.RobloxComponentType = {
 			return 2
 		elseif self == "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_GRID_HEADER" then
 			return 3
+		elseif self == "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_VERTICAL_FEED" then
+			return 4
 		else
 			return self
 		end
@@ -57,6 +62,8 @@ messages.RobloxComponentType = {
 			return "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_GRID"
 		elseif name == "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_GRID_HEADER" then
 			return "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_GRID_HEADER"
+		elseif name == "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_VERTICAL_FEED" then
+			return "ROBLOX_COMPONENT_TYPE_BADGES_SEE_ALL_VERTICAL_FEED"
 		else
 			return nil
 		end

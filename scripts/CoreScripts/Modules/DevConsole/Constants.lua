@@ -221,6 +221,14 @@ local Constants = {
 		ButtonWidth = 200,
 		CellPadding = 16,
 		ButtonTextSize = 20,
+		PanelTitleHeight = 24,
+		OptionRowHeight = 32,
+		OptionCheckboxSize = 16,
+		TabsHeight = 32,
+		TabButtonWidth = 128,
+		TabButtonPad = 5,
+		TextSizePanelTitle = 16,
+		TextSizePanelOptionLabel = 16,
 	},
 
 	ScriptProfilerFormatting = {

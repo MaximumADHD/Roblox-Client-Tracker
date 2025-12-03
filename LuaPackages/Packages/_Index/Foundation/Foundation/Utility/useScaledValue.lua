@@ -1,13 +1,12 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Flags = require(Foundation.Utility.Flags)
 local Logger = require(Foundation.Utility.Logger)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local function useScaledValue(value: number): number
 	local tokens = useTokens()
 
-	local scaledValue = if Flags.FoundationFixUseScaledValueWarning then value * tokens.Config.UI.Scale else value
+	local scaledValue = value * tokens.Config.UI.Scale
 
 	if scaledValue <= tokens.Size.Size_3000 then
 		Logger:warning(
@@ -16,11 +15,7 @@ local function useScaledValue(value: number): number
 		)
 	end
 
-	if Flags.FoundationFixUseScaledValueWarning then
-		return scaledValue
-	else
-		return value * tokens.Config.UI.Scale
-	end
+	return scaledValue
 end
 
 return useScaledValue

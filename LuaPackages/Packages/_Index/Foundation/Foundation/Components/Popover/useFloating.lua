@@ -34,7 +34,10 @@ local function useConnectSignals(
 )
 	local connections = React.useRef({})
 
-	React.useEffect(function()
+	local effectHook = (
+		if Flags.FoundationPopoverFixArrowPositioning then React.useLayoutEffect else React.useEffect
+	) :: any
+	effectHook(function()
 		if instance ~= nil then
 			for _, signalName in signalNames do
 				-- This condition is here because of type system quirks. Feel free to simplify with the solver V2 or make a cast, it's horrific.
@@ -160,19 +163,36 @@ local function useFloating(
 	end, { isOpen :: unknown, anchor, content, overlay, sideConfig, alignConfig, arrowSize })
 	recalculatePositionRef.current = recalculatePosition
 
-	React.useLayoutEffect(function()
-		recalculatePosition()
-	end, { recalculatePosition })
+	if Flags.FoundationPopoverFixArrowPositioning then
+		useConnectSignals(anchor, { "AbsolutePosition", "AbsoluteSize" }, recalculatePositionRef)
+		useConnectSignals(content, { "AbsoluteSize" }, recalculatePositionRef)
+		useConnectSignals(overlay, { "AbsoluteSize" }, recalculatePositionRef)
+		if Flags.FoundationPopoverOnScreenKeyboard then
+			useConnectSignals(
+				UserInputService,
+				{ "OnScreenKeyboardVisible", "OnScreenKeyboardPosition" },
+				recalculatePositionRef
+			)
+		end
 
-	useConnectSignals(anchor, { "AbsolutePosition", "AbsoluteSize" }, recalculatePositionRef)
-	useConnectSignals(content, { "AbsoluteSize" }, recalculatePositionRef)
-	useConnectSignals(overlay, { "AbsoluteSize" }, recalculatePositionRef)
-	if Flags.FoundationPopoverOnScreenKeyboard then
-		useConnectSignals(
-			UserInputService,
-			{ "OnScreenKeyboardVisible", "OnScreenKeyboardPosition" },
-			recalculatePositionRef
-		)
+		React.useLayoutEffect(function()
+			recalculatePosition()
+		end, { recalculatePosition })
+	else
+		React.useLayoutEffect(function()
+			recalculatePosition()
+		end, { recalculatePosition })
+
+		useConnectSignals(anchor, { "AbsolutePosition", "AbsoluteSize" }, recalculatePositionRef)
+		useConnectSignals(content, { "AbsoluteSize" }, recalculatePositionRef)
+		useConnectSignals(overlay, { "AbsoluteSize" }, recalculatePositionRef)
+		if Flags.FoundationPopoverOnScreenKeyboard then
+			useConnectSignals(
+				UserInputService,
+				{ "OnScreenKeyboardVisible", "OnScreenKeyboardPosition" },
+				recalculatePositionRef
+			)
+		end
 	end
 
 	return position, isVisible, contentSize, arrowPosition, screenSize, anchorPoint

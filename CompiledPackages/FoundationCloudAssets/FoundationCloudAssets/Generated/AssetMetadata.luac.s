@@ -31,236 +31,256 @@ MAIN:
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K10 ["avatar_setup"]
+  SETTABLEKS R2 R1 K10 ["avatar"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K11 ["badge"]
+  SETTABLEKS R2 R1 K11 ["avatar_issue"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K12 ["bar_graph"]
+  SETTABLEKS R2 R1 K12 ["avatar_setup"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K13 ["bookmark"]
+  SETTABLEKS R2 R1 K13 ["badge"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K14 ["chat"]
+  SETTABLEKS R2 R1 K14 ["bar_graph"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K15 ["collaborators"]
+  SETTABLEKS R2 R1 K15 ["bookmark"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K16 ["collaborators_strike"]
+  SETTABLEKS R2 R1 K16 ["captures"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K17 ["customize"]
+  SETTABLEKS R2 R1 K17 ["chat"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K18 ["decals"]
+  SETTABLEKS R2 R1 K18 ["chat_security"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K19 ["envelope"]
+  SETTABLEKS R2 R1 K19 ["collaborators"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K20 ["event_calendar"]
+  SETTABLEKS R2 R1 K20 ["collaborators_strike"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K21 ["gift"]
+  SETTABLEKS R2 R1 K21 ["customize"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K22 ["group_exp"]
+  SETTABLEKS R2 R1 K22 ["decals"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K23 ["hanger"]
+  SETTABLEKS R2 R1 K23 ["envelope"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K24 ["heart"]
+  SETTABLEKS R2 R1 K24 ["event_calendar"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K25 ["image"]
+  SETTABLEKS R2 R1 K25 ["gift"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K26 ["line_chart"]
+  SETTABLEKS R2 R1 K26 ["group_exp"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K27 ["localization"]
+  SETTABLEKS R2 R1 K27 ["hanger"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K28 ["lock_closed"]
+  SETTABLEKS R2 R1 K28 ["heart"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K29 ["lock_secrets"]
+  SETTABLEKS R2 R1 K29 ["image"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K30 ["logo"]
+  SETTABLEKS R2 R1 K30 ["line_chart"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K31 ["meshes"]
+  SETTABLEKS R2 R1 K31 ["localization"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K32 ["models"]
+  SETTABLEKS R2 R1 K32 ["lock_closed"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K33 ["models_plugins_parts"]
+  SETTABLEKS R2 R1 K33 ["lock_secrets"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K34 ["nexus"]
+  SETTABLEKS R2 R1 K34 ["logo"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K35 ["notifications"]
+  SETTABLEKS R2 R1 K35 ["meshes"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K36 ["notifications_2"]
+  SETTABLEKS R2 R1 K36 ["models"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K37 ["oauth"]
+  SETTABLEKS R2 R1 K37 ["models_plugins_parts"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K38 ["passkey"]
+  SETTABLEKS R2 R1 K38 ["nexus"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K39 ["payments"]
+  SETTABLEKS R2 R1 K39 ["notifications"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K40 ["protection_shield"]
+  SETTABLEKS R2 R1 K40 ["notifications_2"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K41 ["qr_code"]
+  SETTABLEKS R2 R1 K41 ["oauth"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K42 ["rights_manager"]
+  SETTABLEKS R2 R1 K42 ["passkey"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K43 ["roblox_badge"]
+  SETTABLEKS R2 R1 K43 ["payments"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K44 ["robux"]
+  SETTABLEKS R2 R1 K44 ["protection_shield"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K45 ["run"]
+  SETTABLEKS R2 R1 K45 ["qr_code"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K46 ["share_links"]
+  SETTABLEKS R2 R1 K46 ["rights_manager"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K47 ["signin"]
+  SETTABLEKS R2 R1 K47 ["roblox_badge"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K48 ["token"]
+  SETTABLEKS R2 R1 K48 ["robux"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K49 ["trusted_connections_2"]
+  SETTABLEKS R2 R1 K49 ["run"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K50 ["trusted_connections_dark"]
+  SETTABLEKS R2 R1 K50 ["share_links"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K51 ["trusted_connections_light"]
+  SETTABLEKS R2 R1 K51 ["signin"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K52 ["two_people"]
+  SETTABLEKS R2 R1 K52 ["token"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K53 ["verify_code"]
+  SETTABLEKS R2 R1 K53 ["trusted_connections_2"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K54 ["video"]
+  SETTABLEKS R2 R1 K54 ["trusted_connections_dark"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K55 ["video_game"]
+  SETTABLEKS R2 R1 K55 ["trusted_connections_light"]
   GETIMPORT R2 K4 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
-  SETTABLEKS R2 R1 K56 ["voice_chat"]
+  SETTABLEKS R2 R1 K56 ["two_people"]
+  GETIMPORT R2 K4 [Vector2.new]
+  LOADN R3 192
+  LOADN R4 28
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K57 ["verify_code"]
+  GETIMPORT R2 K4 [Vector2.new]
+  LOADN R3 192
+  LOADN R4 28
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K58 ["video"]
+  GETIMPORT R2 K4 [Vector2.new]
+  LOADN R3 192
+  LOADN R4 28
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K59 ["video_game"]
+  GETIMPORT R2 K4 [Vector2.new]
+  LOADN R3 192
+  LOADN R4 28
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K60 ["voice_chat"]
   SETTABLEKS R1 R0 K0 ["pictograms"]
   RETURN R0 1

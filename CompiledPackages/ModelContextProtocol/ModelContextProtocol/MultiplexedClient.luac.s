@@ -490,7 +490,7 @@ MAIN:
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R10 R0 K15 ["Flags"]
-  GETTABLEKS R9 R10 K16 ["getFFlagAssistantToolNameAlias"]
+  GETTABLEKS R9 R10 K16 ["FFlagAssistantToolNameAlias"]
   CALL R8 1 1
   NEWTABLE R9 32 0
   SETTABLEKS R9 R9 K17 ["__index"]

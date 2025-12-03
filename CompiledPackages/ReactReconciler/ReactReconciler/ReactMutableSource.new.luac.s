@@ -46,38 +46,38 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETIMPORT R2 K1 [_G]
-  GETTABLEKS R1 R2 K2 ["__DEV__"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["__DEV__"]
   JUMPIFNOT R1 [+43]
-  GETUPVAL R1 0
-  JUMPIFNOT R1 [+21]
-  GETTABLEKS R1 R0 K3 ["_currentPrimaryRenderer"]
-  JUMPIFNOTEQKNIL R1 [+5]
   GETUPVAL R1 1
-  SETTABLEKS R1 R0 K3 ["_currentPrimaryRenderer"]
+  JUMPIFNOT R1 [+21]
+  GETTABLEKS R1 R0 K1 ["_currentPrimaryRenderer"]
+  JUMPIFNOTEQKNIL R1 [+5]
+  GETUPVAL R1 2
+  SETTABLEKS R1 R0 K1 ["_currentPrimaryRenderer"]
   RETURN R0 0
-  GETTABLEKS R1 R0 K3 ["_currentPrimaryRenderer"]
-  GETUPVAL R2 1
-  JUMPIFEQ R1 R2 [+29]
+  GETTABLEKS R1 R0 K1 ["_currentPrimaryRenderer"]
   GETUPVAL R2 2
-  GETTABLEKS R1 R2 K4 ["error"]
-  LOADK R3 K5 ["Detected multiple renderers concurrently rendering the "]
-  LOADK R4 K6 ["same mutable source. This is currently unsupported."]
+  JUMPIFEQ R1 R2 [+29]
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K2 ["error"]
+  LOADK R3 K3 ["Detected multiple renderers concurrently rendering the "]
+  LOADK R4 K4 ["same mutable source. This is currently unsupported."]
   CONCAT R2 R3 R4
   CALL R1 1 0
   RETURN R0 0
-  GETTABLEKS R1 R0 K7 ["_currentSecondaryRenderer"]
+  GETTABLEKS R1 R0 K5 ["_currentSecondaryRenderer"]
   JUMPIFNOTEQKNIL R1 [+5]
-  GETUPVAL R1 1
-  SETTABLEKS R1 R0 K7 ["_currentSecondaryRenderer"]
+  GETUPVAL R1 2
+  SETTABLEKS R1 R0 K5 ["_currentSecondaryRenderer"]
   RETURN R0 0
-  GETTABLEKS R1 R0 K7 ["_currentSecondaryRenderer"]
-  GETUPVAL R2 1
-  JUMPIFEQ R1 R2 [+8]
+  GETTABLEKS R1 R0 K5 ["_currentSecondaryRenderer"]
   GETUPVAL R2 2
-  GETTABLEKS R1 R2 K4 ["error"]
-  LOADK R3 K5 ["Detected multiple renderers concurrently rendering the "]
-  LOADK R4 K6 ["same mutable source. This is currently unsupported."]
+  JUMPIFEQ R1 R2 [+8]
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K2 ["error"]
+  LOADK R3 K3 ["Detected multiple renderers concurrently rendering the "]
+  LOADK R4 K4 ["same mutable source. This is currently unsupported."]
   CONCAT R2 R3 R4
   CALL R1 1 0
   RETURN R0 0
@@ -102,51 +102,54 @@ MAIN:
   GETIMPORT R2 K1 [script]
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Shared"]
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K6 ["console"]
-  NEWTABLE R2 8 0
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["ReactGlobals"]
+  CALL R1 1 1
   GETIMPORT R3 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Shared"]
+  GETTABLEKS R4 R0 K6 ["Shared"]
   CALL R3 1 1
+  GETTABLEKS R2 R3 K7 ["console"]
+  NEWTABLE R3 8 0
   GETIMPORT R4 K4 [require]
-  GETIMPORT R7 K1 [script]
-  GETTABLEKS R6 R7 K2 ["Parent"]
-  GETTABLEKS R5 R6 K7 ["ReactInternalTypes"]
+  GETTABLEKS R5 R0 K6 ["Shared"]
   CALL R4 1 1
-  GETIMPORT R6 K4 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K2 ["Parent"]
-  GETTABLEKS R7 R8 K8 ["ReactFiberHostConfig"]
-  CALL R6 1 1
-  GETTABLEKS R5 R6 K9 ["isPrimaryRenderer"]
-  NEWTABLE R6 0 0
-  LOADNIL R7
-  GETIMPORT R9 K11 [_G]
-  GETTABLEKS R8 R9 K12 ["__DEV__"]
-  JUMPIFNOT R8 [+2]
+  GETIMPORT R5 K4 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K2 ["Parent"]
+  GETTABLEKS R6 R7 K8 ["ReactInternalTypes"]
+  CALL R5 1 1
+  GETIMPORT R7 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K9 ["ReactFiberHostConfig"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K10 ["isPrimaryRenderer"]
   NEWTABLE R7 0 0
-  DUPCLOSURE R8 K13 [PROTO_0]
+  LOADNIL R8
+  GETTABLEKS R9 R1 K11 ["__DEV__"]
+  JUMPIFNOT R9 [+2]
+  NEWTABLE R8 0 0
+  DUPCLOSURE R9 K12 [PROTO_0]
+  CAPTURE VAL R7
+  SETTABLEKS R9 R3 K13 ["markSourceAsDirty"]
+  DUPCLOSURE R9 K14 [PROTO_1]
+  CAPTURE VAL R7
   CAPTURE VAL R6
-  SETTABLEKS R8 R2 K14 ["markSourceAsDirty"]
-  DUPCLOSURE R8 K15 [PROTO_1]
+  SETTABLEKS R9 R3 K15 ["resetWorkInProgressVersions"]
+  DUPCLOSURE R9 K16 [PROTO_2]
   CAPTURE VAL R6
-  CAPTURE VAL R5
-  SETTABLEKS R8 R2 K16 ["resetWorkInProgressVersions"]
-  DUPCLOSURE R8 K17 [PROTO_2]
-  CAPTURE VAL R5
-  SETTABLEKS R8 R2 K18 ["getWorkInProgressVersion"]
-  DUPCLOSURE R8 K19 [PROTO_3]
-  CAPTURE VAL R5
+  SETTABLEKS R9 R3 K17 ["getWorkInProgressVersion"]
+  DUPCLOSURE R9 K18 [PROTO_3]
   CAPTURE VAL R6
-  SETTABLEKS R8 R2 K20 ["setWorkInProgressVersion"]
-  NEWCLOSURE R8 P4
-  CAPTURE VAL R5
-  CAPTURE REF R7
+  CAPTURE VAL R7
+  SETTABLEKS R9 R3 K19 ["setWorkInProgressVersion"]
+  NEWCLOSURE R9 P4
   CAPTURE VAL R1
-  SETTABLEKS R8 R2 K21 ["warnAboutMultipleRenderersDEV"]
-  DUPCLOSURE R8 K22 [PROTO_5]
-  SETTABLEKS R8 R2 K23 ["registerMutableSourceForHydration"]
-  CLOSEUPVALS R7
-  RETURN R2 1
+  CAPTURE VAL R6
+  CAPTURE REF R8
+  CAPTURE VAL R2
+  SETTABLEKS R9 R3 K20 ["warnAboutMultipleRenderersDEV"]
+  DUPCLOSURE R9 K21 [PROTO_5]
+  SETTABLEKS R9 R3 K22 ["registerMutableSourceForHydration"]
+  CLOSEUPVALS R8
+  RETURN R3 1

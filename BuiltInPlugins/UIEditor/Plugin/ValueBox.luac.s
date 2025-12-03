@@ -14,36 +14,31 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R1 0
-  JUMPIFNOT R1 [+22]
-  GETUPVAL R1 1
-  LOADK R5 K0 ["Text"]
-  NAMECALL R3 R0 K1 ["GetStyled"]
-  CALL R3 2 1
-  LOADK R6 K2 ["TextSize"]
+  LOADK R3 K0 ["Font"]
+  NAMECALL R1 R0 K1 ["GetStyled"]
+  CALL R1 2 1
+  GETUPVAL R2 0
+  JUMPIFNOT R2 [+8]
+  GETIMPORT R2 K4 [Enum.Font.Unknown]
+  JUMPIFNOTEQ R1 R2 [+5]
+  GETIMPORT R2 K7 [Vector2.new]
+  CALL R2 0 -1
+  RETURN R2 -1
+  GETUPVAL R2 1
+  LOADK R6 K8 ["Text"]
   NAMECALL R4 R0 K1 ["GetStyled"]
   CALL R4 2 1
-  LOADK R7 K3 ["Font"]
+  LOADK R7 K9 ["TextSize"]
   NAMECALL R5 R0 K1 ["GetStyled"]
   CALL R5 2 1
-  GETIMPORT R6 K6 [Vector2.new]
-  LOADN R7 0
+  MOVE R6 R1
+  GETIMPORT R7 K7 [Vector2.new]
   LOADN R8 0
-  CALL R6 2 -1
-  NAMECALL R1 R1 K7 ["GetTextSize"]
-  CALL R1 -1 -1
-  RETURN R1 -1
-  GETUPVAL R1 1
-  GETTABLEKS R3 R0 K0 ["Text"]
-  GETTABLEKS R4 R0 K2 ["TextSize"]
-  GETTABLEKS R5 R0 K3 ["Font"]
-  GETIMPORT R6 K6 [Vector2.new]
-  LOADN R7 0
-  LOADN R8 0
-  CALL R6 2 -1
-  NAMECALL R1 R1 K7 ["GetTextSize"]
-  CALL R1 -1 -1
-  RETURN R1 -1
+  LOADN R9 0
+  CALL R7 2 -1
+  NAMECALL R2 R2 K10 ["GetTextSize"]
+  CALL R2 -1 -1
+  RETURN R2 -1
 
 PROTO_4:
   GETUPVAL R2 0
@@ -232,14 +227,12 @@ MAIN:
   GETTABLEKS R3 R4 K4 ["Parent"]
   GETTABLEKS R2 R3 K5 ["CoreGuiManager"]
   CALL R1 1 1
-  GETIMPORT R2 K1 [require]
-  GETIMPORT R6 K3 [script]
-  GETTABLEKS R5 R6 K4 ["Parent"]
-  GETTABLEKS R4 R5 K6 ["Flags"]
-  GETTABLEKS R3 R4 K7 ["GetFFlagUIEditorMigrateStylingV2"]
-  CALL R2 1 1
-  CALL R2 0 1
-  GETIMPORT R3 K9 [game]
+  GETIMPORT R2 K7 [game]
+  LOADK R4 K8 ["UIEditorUnknownFont"]
+  LOADB R5 0
+  NAMECALL R2 R2 K9 ["DefineFastFlag"]
+  CALL R2 3 1
+  GETIMPORT R3 K7 [game]
   LOADK R5 K10 ["TextService"]
   NAMECALL R3 R3 K11 ["GetService"]
   CALL R3 2 1

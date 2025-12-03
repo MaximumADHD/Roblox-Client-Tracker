@@ -398,31 +398,31 @@ do
 
 		if self.universe_id ~= nil then
 			local encoded = self.universe_id:encode()
-			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeTag(output, cursor, 100, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		if self.place_id ~= nil then
 			local encoded = self.place_id:encode()
-			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeTag(output, cursor, 101, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		if self.disable_hold_to_play ~= nil then
 			local encoded = self.disable_hold_to_play:encode()
-			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeTag(output, cursor, 102, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		if self.rating_text ~= nil then
 			local encoded = self.rating_text:encode()
-			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeTag(output, cursor, 103, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		if self.player_count ~= nil then
 			local encoded = self.player_count:encode()
-			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeTag(output, cursor, 104, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -549,27 +549,27 @@ do
 					self.enable_legacy_hover_state =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
-				elseif field == 20 then
+				elseif field == 100 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
-				elseif field == 21 then
+				elseif field == 101 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
-				elseif field == 22 then
+				elseif field == 102 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.disable_hold_to_play = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
-				elseif field == 23 then
+				elseif field == 103 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.rating_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
-				elseif field == 24 then
+				elseif field == 104 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.player_count = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)

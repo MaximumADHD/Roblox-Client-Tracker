@@ -62,8 +62,8 @@ MAIN:
   JUMPIFNOT R2 [+1]
   RETURN R0 0
   GETIMPORT R2 K11 [game]
-  LOADK R4 K12 ["EnableRibbonPlugin"]
-  NAMECALL R2 R2 K13 ["GetFastFlag"]
+  LOADK R4 K12 ["EnableRibbonPluginFeature"]
+  NAMECALL R2 R2 K13 ["GetEngineFeature"]
   CALL R2 2 1
   MOVE R3 R2
   JUMPIFNOT R3 [+7]

@@ -36,6 +36,11 @@ type EventHandlerRegistry<T> = {
 	[Instance]: EventHandlersByName<T>,
 }
 
+export type EventPropagationOptions = {
+	synthetic: boolean?,
+	silent: boolean?,
+}
+
 export type EventPropagationService<T> = {
 	registerEventHandler: (
 		self: EventPropagationService<T>,
@@ -59,7 +64,7 @@ export type EventPropagationService<T> = {
 		instance: Instance,
 		eventName: string,
 		eventData: T,
-		silent: boolean?
+		options: EventPropagationOptions?
 	) -> (),
 }
 
@@ -95,7 +100,7 @@ type EventPropagationServicePrivate = {
 		instance: Instance,
 		eventName: string,
 		eventData: any,
-		silent: boolean?
+		options: EventPropagationOptions?
 	) -> (),
 }
 
@@ -239,21 +244,35 @@ function EventPropagationService:getRegisteredEventHandlers(instance: Instance):
 	return nil
 end
 
-function EventPropagationService:propagateEvent(instance: Instance, eventName: string, eventData: any, silent: boolean?)
+function EventPropagationService:propagateEvent(
+	instance: Instance,
+	eventName: string,
+	eventData: any,
+	options: EventPropagationOptions?
+)
+	local propagationOptions = (options or {}) :: EventPropagationOptions
+	local synthetic = propagationOptions.synthetic or false
+	local silent = propagationOptions.silent or false
+
 	local function runEventHandler(currentAncestor: Instance, phase: EventPhase)
 		local eventHandler = getEventHandler(self.eventHandlerRegistry, currentAncestor, eventName, phase)
 		if eventHandler then
-			local event = Event.new(instance, currentAncestor, eventName, phase, eventData)
+			local event = Event.new(instance, currentAncestor, eventName, phase, synthetic, eventData)
 			eventHandler(event)
+
 			return event.cancelled
 		end
 		return false
 	end
+
 	local cancelled = false
 	local ancestors: { Instance } = if silent then { instance } else getAncestors(instance)
+
 	if DEBUG then
 		print(">>> capture event", eventName, "for", tostring(instance))
 	end
+
+	-- Capture phase
 	for i = #ancestors, 1, -1 do
 		local ancestor = ancestors[i]
 		cancelled = runEventHandler(ancestor, "Capture")
@@ -261,13 +280,18 @@ function EventPropagationService:propagateEvent(instance: Instance, eventName: s
 			return
 		end
 	end
+
+	-- Target phase
 	cancelled = runEventHandler(instance, "Target")
 	if cancelled then
 		return
 	end
+
 	if DEBUG then
 		print("<<< bubble event", eventName, "from", tostring(instance))
 	end
+
+	-- Bubble phase
 	for i = 1, #ancestors do
 		local ancestor = ancestors[i]
 		cancelled = runEventHandler(ancestor, "Bubble")

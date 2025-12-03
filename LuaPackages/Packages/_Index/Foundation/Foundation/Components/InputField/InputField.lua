@@ -1,6 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 
@@ -66,18 +65,10 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 			focus = textBoxRef.current.focus,
 			releaseFocus = textBoxRef.current.releaseFocus,
 			getIsFocused = textBoxRef.current.getIsFocused,
-			getCursorPosition = if Flags.FoundationNumberInputRefAndCallbacks
-				then textBoxRef.current.getCursorPosition
-				else nil,
-			getSelectionStart = if Flags.FoundationNumberInputRefAndCallbacks
-				then textBoxRef.current.getSelectionStart
-				else nil,
-			setCursorPosition = if Flags.FoundationNumberInputRefAndCallbacks
-				then textBoxRef.current.setCursorPosition
-				else nil,
-			setSelectionStart = if Flags.FoundationNumberInputRefAndCallbacks
-				then textBoxRef.current.setSelectionStart
-				else nil,
+			getCursorPosition = textBoxRef.current.getCursorPosition,
+			getSelectionStart = textBoxRef.current.getSelectionStart,
+			setCursorPosition = textBoxRef.current.setCursorPosition,
+			setSelectionStart = textBoxRef.current.setSelectionStart,
 		}
 	end, {})
 

@@ -1,5 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
+
 local IconSize = require(Foundation.Enums.IconSize)
 
 local Input = require(Foundation.Components.InternalInput)
@@ -43,7 +45,11 @@ local function variantsFactory(tokens: Tokens)
 			radius = tokens.Radius.Medium,
 		},
 		content = tokens.Color.Content.Default,
-		itemInner = { tag = "col auto-xy gap-xsmall" },
+		itemInner = {
+			tag = if Flags.FoundationFixOptionSelectorGroupItemSize
+				then "col size-full-0 auto-y gap-xsmall"
+				else "col auto-xy gap-xsmall",
+		},
 		label = { tag = "auto-xy fill" },
 		metadata = { tag = "auto-xy shrink" },
 		description = { tag = "auto-xy grow" },

@@ -12,7 +12,14 @@ local lastConformedDescription = nil
 -- We want to show the default clothing on the Avatar in the viewport but we can't pass this to the web
 -- when actually saving the avatar.
 local function removeDefaultClothing(humanoidDescription, resolve, reject)
-	local avatarRules = AvatarEditorService:GetAvatarRules()
+	local avatarRules
+	-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+	-- Will be removed when that PR is merged.
+	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+		avatarRules = (AvatarEditorService :: any):GetAvatarRulesAsync()
+	else
+		avatarRules = (AvatarEditorService :: any):GetAvatarRules()
+	end
 
 	if not avatarRules.DefaultClothingAssetLists then
 		reject("No default clothing in avatar rules")
@@ -59,7 +66,13 @@ local function GetConformedHumanoidDescription(humanoidDescription, includeDefau
 	return Promise.new(function(resolve, reject)
 		coroutine.wrap(function()
 			local success, result = pcall(function()
-				return AvatarEditorService:ConformToAvatarRules(humanoidDescription)
+				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+				-- Will be removed when that PR is merged.
+				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+					return (AvatarEditorService :: any):ConformToAvatarRulesAsync(humanoidDescription)
+				else
+					return (AvatarEditorService :: any):ConformToAvatarRules(humanoidDescription)
+				end
 			end)
 
 			if success then

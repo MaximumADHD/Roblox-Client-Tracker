@@ -1,0 +1,426 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  LOADNIL R2
+  GETTABLEKS R3 R1 K1 ["SelectionGroupOptions"]
+  JUMPIFNOT R3 [+26]
+  GETTABLEKS R4 R1 K1 ["SelectionGroupOptions"]
+  LENGTH R3 R4
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+21]
+  GETIMPORT R3 K3 [ipairs]
+  GETTABLEKS R4 R1 K1 ["SelectionGroupOptions"]
+  CALL R3 1 3
+  FORGPREP_INEXT R3
+  GETTABLEKS R8 R7 K4 ["Default"]
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R2 R7 K5 ["Key"]
+  JUMP [+2]
+  FORGLOOP R3 2 [inext] [-7]
+  JUMPIF R2 [+5]
+  GETTABLEKS R4 R1 K1 ["SelectionGroupOptions"]
+  GETTABLEN R3 R4 1
+  GETTABLEKS R2 R3 K5 ["Key"]
+  DUPTABLE R5 K7 [{"selectedValue"}]
+  ORK R6 R2 K8 [""]
+  SETTABLEKS R6 R5 K6 ["selectedValue"]
+  NAMECALL R3 R0 K9 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"selectedValue"}]
+  SETTABLEKS R0 R3 K0 ["selectedValue"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R5 R0 K1 ["state"]
+  GETTABLEKS R6 R4 K2 ["SelectionGroupHeader"]
+  GETTABLEKS R7 R4 K3 ["SelectionGroupOptions"]
+  JUMPIFNOT R6 [+3]
+  JUMPIFNOT R7 [+2]
+  JUMPIFNOTEQKN R3 K4 [0] [+3]
+  LOADNIL R8
+  RETURN R8 1
+  MULK R9 R3 K5 [20]
+  LOADN R11 0
+  JUMPIFNOTLT R11 R3 [+5]
+  LOADN R11 5
+  SUBK R12 R3 K6 [1]
+  MUL R10 R11 R12
+  JUMPIF R10 [+1]
+  LOADN R10 0
+  ADD R8 R9 R10
+  GETTABLEKS R9 R2 K7 ["textColor"]
+  NEWTABLE R10 0 0
+  GETIMPORT R11 K9 [ipairs]
+  MOVE R12 R7
+  CALL R11 1 3
+  FORGPREP_INEXT R11
+  GETTABLEKS R17 R15 K11 ["Text"]
+  ORK R16 R17 K10 ["(Missing Text)"]
+  DUPTABLE R19 K13 [{"Key", "Text"}]
+  GETTABLEKS R20 R15 K12 ["Key"]
+  SETTABLEKS R20 R19 K12 ["Key"]
+  SETTABLEKS R16 R19 K11 ["Text"]
+  FASTCALL2 TABLE_INSERT R10 R19 [+4]
+  MOVE R18 R10
+  GETIMPORT R17 K16 [table.insert]
+  CALL R17 2 0
+  FORGLOOP R11 2 [inext] [-17]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K17 ["createElement"]
+  LOADK R12 K18 ["Frame"]
+  DUPTABLE R13 K22 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
+  GETIMPORT R14 K25 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 0
+  MOVE R18 R8
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K19 ["Size"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K20 ["BackgroundTransparency"]
+  LOADN R14 2
+  SETTABLEKS R14 R13 K21 ["LayoutOrder"]
+  DUPTABLE R14 K27 [{"Content"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K17 ["createElement"]
+  LOADK R16 K18 ["Frame"]
+  DUPTABLE R17 K30 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency"}]
+  GETIMPORT R18 K25 [UDim2.new]
+  LOADN R19 0
+  LOADN R20 54
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K19 ["Size"]
+  GETIMPORT R18 K32 [Vector2.new]
+  LOADK R19 K33 [0.5]
+  LOADK R20 K33 [0.5]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K28 ["AnchorPoint"]
+  GETIMPORT R18 K35 [UDim2.fromScale]
+  LOADK R19 K33 [0.5]
+  LOADK R20 K33 [0.5]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K29 ["Position"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K20 ["BackgroundTransparency"]
+  DUPTABLE R18 K39 [{"Layout", "Header", "RadioButtons"}]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K17 ["createElement"]
+  LOADK R20 K40 ["UIListLayout"]
+  DUPTABLE R21 K46 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R22 K48 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R22 R21 K41 ["SortOrder"]
+  GETIMPORT R22 K50 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R22 R21 K42 ["FillDirection"]
+  GETIMPORT R22 K52 [UDim.new]
+  LOADN R23 0
+  LOADN R24 10
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K43 ["Padding"]
+  GETIMPORT R22 K54 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R22 R21 K44 ["HorizontalAlignment"]
+  GETIMPORT R22 K56 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R22 R21 K45 ["VerticalAlignment"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K36 ["Layout"]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K17 ["createElement"]
+  LOADK R20 K57 ["TextLabel"]
+  DUPTABLE R21 K63 [{"Size", "BackgroundTransparency", "Text", "TextXAlignment", "TextYAlignment", "TextSize", "TextColor3", "Font", "LayoutOrder"}]
+  GETIMPORT R22 K25 [UDim2.new]
+  LOADN R23 0
+  LOADN R24 120
+  LOADN R25 0
+  LOADN R26 20
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K19 ["Size"]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K20 ["BackgroundTransparency"]
+  SETTABLEKS R6 R21 K11 ["Text"]
+  GETIMPORT R22 K65 [Enum.TextXAlignment.Left]
+  SETTABLEKS R22 R21 K58 ["TextXAlignment"]
+  GETIMPORT R22 K66 [Enum.TextYAlignment.Top]
+  SETTABLEKS R22 R21 K59 ["TextYAlignment"]
+  GETTABLEKS R22 R2 K67 ["textSize"]
+  SETTABLEKS R22 R21 K60 ["TextSize"]
+  SETTABLEKS R9 R21 K61 ["TextColor3"]
+  GETTABLEKS R22 R1 K68 ["font"]
+  SETTABLEKS R22 R21 K62 ["Font"]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K21 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K37 ["Header"]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K17 ["createElement"]
+  GETUPVAL R20 1
+  DUPTABLE R21 K72 [{"Buttons", "SelectedKey", "Size", "FillDirection", "LayoutOrder", "OnClick"}]
+  SETTABLEKS R10 R21 K69 ["Buttons"]
+  GETTABLEKS R22 R5 K73 ["selectedValue"]
+  SETTABLEKS R22 R21 K70 ["SelectedKey"]
+  GETIMPORT R22 K25 [UDim2.new]
+  LOADN R23 0
+  LOADN R24 180
+  LOADN R25 0
+  MOVE R26 R8
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K19 ["Size"]
+  GETIMPORT R22 K75 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K42 ["FillDirection"]
+  LOADN R22 2
+  SETTABLEKS R22 R21 K21 ["LayoutOrder"]
+  NEWCLOSURE R22 P0
+  CAPTURE VAL R0
+  SETTABLEKS R22 R21 K71 ["OnClick"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K38 ["RadioButtons"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K26 ["Content"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnButtonClicked"]
+  MOVE R2 R0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["state"]
+  GETTABLEKS R3 R4 K2 ["selectedValue"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R2 K2 ["dialogTheme"]
+  GETTABLEKS R5 R1 K4 ["HeaderText"]
+  ORK R4 R5 K3 [""]
+  GETTABLEKS R5 R1 K5 ["SelectionGroupOptions"]
+  JUMPIF R5 [+2]
+  NEWTABLE R5 0 0
+  LENGTH R6 R5
+  GETUPVAL R7 0
+  MOVE R9 R4
+  GETTABLEKS R10 R3 K6 ["textSize"]
+  GETTABLEKS R11 R2 K7 ["font"]
+  GETUPVAL R12 1
+  NAMECALL R7 R7 K8 ["GetTextSize"]
+  CALL R7 5 1
+  MULK R9 R6 K9 [20]
+  LOADN R11 0
+  JUMPIFNOTLT R11 R6 [+4]
+  SUBK R11 R6 K11 [1]
+  MULK R10 R11 K10 [5]
+  JUMPIF R10 [+1]
+  LOADN R10 0
+  ADD R8 R9 R10
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K13 ["TRACK_HEIGHT"]
+  ADDK R10 R11 K12 [8]
+  ADD R9 R10 R8
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K16 ["PROMPT_VERTICAL_PADDING"]
+  MULK R13 R14 K15 [2]
+  ADDK R12 R13 K14 [16]
+  ADD R11 R12 R9
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K17 ["PROMPT_BUTTON_SIZE"]
+  GETTABLEKS R12 R13 K18 ["Y"]
+  ADD R10 R11 R12
+  MOVE R13 R2
+  MOVE R14 R3
+  MOVE R15 R6
+  NAMECALL R11 R0 K19 ["renderRadioButtons"]
+  CALL R11 4 1
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K20 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K24 [{"Size", "Buttons", "OnButtonClicked"}]
+  GETIMPORT R15 K27 [UDim2.new]
+  LOADN R16 0
+  LOADN R17 124
+  LOADN R18 0
+  MOVE R19 R10
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K21 ["Size"]
+  GETTABLEKS R16 R0 K0 ["props"]
+  GETTABLEKS R15 R16 K22 ["Buttons"]
+  SETTABLEKS R15 R14 K22 ["Buttons"]
+  NEWCLOSURE R15 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R15 R14 K23 ["OnButtonClicked"]
+  DUPTABLE R15 K29 [{"Content"}]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K20 ["createElement"]
+  LOADK R17 K30 ["Frame"]
+  DUPTABLE R18 K32 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R19 K27 [UDim2.new]
+  LOADN R20 1
+  LOADN R21 0
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K21 ["Size"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K31 ["BackgroundTransparency"]
+  DUPTABLE R19 K37 [{"Padding", "Layout", "HeaderText", "RadioGroup", "BottomMargin"}]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K20 ["createElement"]
+  LOADK R21 K38 ["UIPadding"]
+  DUPTABLE R22 K41 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R23 K43 [UDim.new]
+  LOADN R24 0
+  LOADN R25 8
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K39 ["PaddingLeft"]
+  GETIMPORT R23 K43 [UDim.new]
+  LOADN R24 0
+  LOADN R25 8
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K40 ["PaddingRight"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K33 ["Padding"]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K20 ["createElement"]
+  LOADK R21 K44 ["UIListLayout"]
+  DUPTABLE R22 K49 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R23 K52 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R23 R22 K45 ["SortOrder"]
+  GETIMPORT R23 K54 [Enum.FillDirection.Vertical]
+  SETTABLEKS R23 R22 K46 ["FillDirection"]
+  GETIMPORT R23 K43 [UDim.new]
+  LOADN R24 0
+  LOADN R25 8
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K33 ["Padding"]
+  GETIMPORT R23 K56 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R23 R22 K47 ["HorizontalAlignment"]
+  GETIMPORT R23 K58 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R23 R22 K48 ["VerticalAlignment"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K34 ["Layout"]
+  MOVE R20 R4
+  JUMPIFNOT R20 [+47]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K20 ["createElement"]
+  LOADK R21 K59 ["TextLabel"]
+  DUPTABLE R22 K67 [{"Size", "BackgroundTransparency", "Text", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextSize", "TextColor3", "Font", "LayoutOrder"}]
+  GETIMPORT R23 K27 [UDim2.new]
+  LOADN R24 1
+  LOADN R25 0
+  LOADN R26 0
+  GETTABLEKS R27 R7 K18 ["Y"]
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K21 ["Size"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K31 ["BackgroundTransparency"]
+  SETTABLEKS R4 R22 K60 ["Text"]
+  LOADB R23 1
+  SETTABLEKS R23 R22 K61 ["TextWrapped"]
+  GETIMPORT R23 K68 [Enum.TextXAlignment.Left]
+  SETTABLEKS R23 R22 K62 ["TextXAlignment"]
+  GETIMPORT R23 K69 [Enum.TextYAlignment.Top]
+  SETTABLEKS R23 R22 K63 ["TextYAlignment"]
+  GETTABLEKS R23 R3 K70 ["headerTextSize"]
+  SETTABLEKS R23 R22 K64 ["TextSize"]
+  GETTABLEKS R23 R3 K71 ["textColor"]
+  SETTABLEKS R23 R22 K65 ["TextColor3"]
+  GETTABLEKS R23 R3 K72 ["headerFont"]
+  SETTABLEKS R23 R22 K66 ["Font"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K51 ["LayoutOrder"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K4 ["HeaderText"]
+  SETTABLEKS R11 R19 K35 ["RadioGroup"]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K20 ["createElement"]
+  LOADK R21 K30 ["Frame"]
+  DUPTABLE R22 K73 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
+  GETIMPORT R23 K27 [UDim2.new]
+  LOADN R24 1
+  LOADN R25 0
+  LOADN R26 0
+  LOADN R27 8
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K21 ["Size"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K31 ["BackgroundTransparency"]
+  LOADN R23 3
+  SETTABLEKS R23 R22 K51 ["LayoutOrder"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K36 ["BottomMargin"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K28 ["Content"]
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K2 [Vector2.new]
+  LOADN R1 84
+  LOADN R2 16
+  CALL R0 2 1
+  GETIMPORT R1 K4 [game]
+  LOADK R3 K5 ["TextService"]
+  NAMECALL R1 R1 K6 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K8 [script]
+  LOADK R4 K9 ["AnimationClipEditor"]
+  NAMECALL R2 R2 K10 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETIMPORT R3 K12 [require]
+  GETTABLEKS R5 R2 K13 ["Packages"]
+  GETTABLEKS R4 R5 K14 ["Roact"]
+  CALL R3 1 1
+  GETIMPORT R4 K12 [require]
+  GETTABLEKS R7 R2 K15 ["Src"]
+  GETTABLEKS R6 R7 K16 ["Util"]
+  GETTABLEKS R5 R6 K17 ["Constants"]
+  CALL R4 1 1
+  GETIMPORT R5 K12 [require]
+  GETTABLEKS R7 R2 K13 ["Packages"]
+  GETTABLEKS R6 R7 K18 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R7 R5 K19 ["UI"]
+  GETTABLEKS R6 R7 K20 ["RadioButtonList"]
+  GETTABLEKS R7 R5 K21 ["ContextServices"]
+  GETTABLEKS R8 R7 K22 ["withContext"]
+  GETIMPORT R9 K12 [require]
+  GETTABLEKS R13 R2 K15 ["Src"]
+  GETTABLEKS R12 R13 K23 ["Components"]
+  GETTABLEKS R11 R12 K24 ["EditEventsDialog"]
+  GETTABLEKS R10 R11 K25 ["FocusedPrompt"]
+  CALL R9 1 1
+  GETTABLEKS R10 R3 K26 ["PureComponent"]
+  LOADK R12 K27 ["MultipleOptionPrompt"]
+  NAMECALL R10 R10 K28 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K29 [PROTO_0]
+  SETTABLEKS R11 R10 K30 ["init"]
+  DUPCLOSURE R11 K31 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K32 ["renderRadioButtons"]
+  DUPCLOSURE R11 K33 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  SETTABLEKS R11 R10 K34 ["render"]
+  MOVE R11 R8
+  DUPTABLE R12 K36 [{"Stylizer"}]
+  GETTABLEKS R13 R7 K35 ["Stylizer"]
+  SETTABLEKS R13 R12 K35 ["Stylizer"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

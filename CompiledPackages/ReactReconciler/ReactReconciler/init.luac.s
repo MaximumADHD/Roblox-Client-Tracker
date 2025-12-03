@@ -25,5 +25,13 @@ MAIN:
   GETIMPORT R3 K3 [script]
   GETTABLEKS R2 R3 K5 ["ReactRootTags"]
   CALL R1 1 1
-  DUPCLOSURE R2 K6 [PROTO_0]
-  RETURN R2 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K6 ["ReactFiberHostConfig"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K7 ["ReactFiberHotReloading.new"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K8 [PROTO_0]
+  RETURN R4 1

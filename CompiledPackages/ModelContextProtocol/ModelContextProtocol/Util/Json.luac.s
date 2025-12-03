@@ -43,17 +43,17 @@ PROTO_2:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["HttpService"]
-  NAMECALL R0 R0 K3 ["GetService"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModelContextProtocol"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["ModelContextProtocol"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["HttpService"]
+  NAMECALL R1 R1 K7 ["GetService"]
   CALL R1 2 1
   GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R1 K10 ["Flags"]
-  GETTABLEKS R3 R4 K11 ["getFFlagAssistantJsonEncoder"]
+  GETTABLEKS R4 R0 K10 ["Flags"]
+  GETTABLEKS R3 R4 K11 ["FFlagAssistantJsonEncoder"]
   CALL R2 1 1
   NEWTABLE R3 4 0
   LOADNIL R4
@@ -61,12 +61,12 @@ MAIN:
   NEWCLOSURE R6 P0
   CAPTURE VAL R2
   CAPTURE REF R4
-  CAPTURE VAL R0
+  CAPTURE VAL R1
   SETTABLEKS R6 R3 K12 ["encode"]
   NEWCLOSURE R6 P1
   CAPTURE VAL R2
   CAPTURE REF R5
-  CAPTURE VAL R0
+  CAPTURE VAL R1
   SETTABLEKS R6 R3 K13 ["decode"]
   NEWCLOSURE R6 P2
   CAPTURE REF R4

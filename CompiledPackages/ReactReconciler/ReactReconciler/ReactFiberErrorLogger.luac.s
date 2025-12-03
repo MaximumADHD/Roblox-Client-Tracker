@@ -8,79 +8,79 @@ PROTO_0:
   RETURN R1 1
   GETUPVAL R2 2
   GETTABLEKS R1 R2 K0 ["value"]
-  GETIMPORT R3 K2 [_G]
-  GETTABLEKS R2 R3 K3 ["__DEV__"]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K1 ["__DEV__"]
   JUMPIFNOT R2 [+75]
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K4 ["source"]
+  GETTABLEKS R2 R3 K2 ["source"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K5 ["stack"]
-  ORK R4 R3 K6 [""]
+  GETTABLEKS R3 R4 K3 ["stack"]
+  ORK R4 R3 K4 [""]
   JUMPIFEQKNIL R1 [+16]
-  GETTABLEKS R5 R1 K7 ["_suppressLogging"]
+  GETTABLEKS R5 R1 K5 ["_suppressLogging"]
   JUMPIFNOT R5 [+12]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K8 ["tag"]
-  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K6 ["tag"]
+  GETUPVAL R6 4
   JUMPIFNOTEQ R5 R6 [+2]
   RETURN R0 0
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K9 ["error"]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K7 ["error"]
   MOVE R6 R1
   CALL R5 1 0
   LOADNIL R5
   JUMPIFEQKNIL R2 [+7]
-  GETUPVAL R6 5
-  GETTABLEKS R7 R2 K10 ["type"]
+  GETUPVAL R6 6
+  GETTABLEKS R7 R2 K8 ["type"]
   CALL R6 1 1
   MOVE R5 R6
   JUMP [+1]
   LOADNIL R5
   LOADNIL R6
   JUMPIFNOT R5 [+10]
-  LOADK R7 K11 ["The above error occurred in the <"]
+  LOADK R7 K9 ["The above error occurred in the <"]
   FASTCALL1 TOSTRING R5 [+3]
   MOVE R11 R5
-  GETIMPORT R10 K13 [tostring]
+  GETIMPORT R10 K11 [tostring]
   CALL R10 1 1
   MOVE R8 R10
-  LOADK R9 K14 ["> component:"]
+  LOADK R9 K12 ["> component:"]
   CONCAT R6 R7 R9
   JUMP [+1]
-  LOADK R6 K15 ["The above error occurred in one of your React components:"]
+  LOADK R6 K13 ["The above error occurred in one of your React components:"]
   LOADNIL R7
-  GETUPVAL R8 5
+  GETUPVAL R8 6
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K10 ["type"]
+  GETTABLEKS R9 R10 K8 ["type"]
   CALL R8 1 1
   JUMPIFNOT R8 [+6]
-  LOADK R9 K16 ["React will try to recreate this component tree from scratch "]
-  LOADK R10 K17 ["using the error boundary you provided, "]
+  LOADK R9 K14 ["React will try to recreate this component tree from scratch "]
+  LOADK R10 K15 ["using the error boundary you provided, "]
   MOVE R11 R8
-  LOADK R12 K18 ["."]
+  LOADK R12 K16 ["."]
   CONCAT R7 R9 R12
   JUMP [+3]
-  LOADK R9 K19 ["Consider adding an error boundary to your tree to customize error handling behavior.
+  LOADK R9 K17 ["Consider adding an error boundary to your tree to customize error handling behavior.
 "]
-  LOADK R10 K20 ["Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries."]
+  LOADK R10 K18 ["Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries."]
   CONCAT R7 R9 R10
   MOVE R10 R6
-  LOADK R11 K21 ["
+  LOADK R11 K19 ["
 "]
   MOVE R12 R4
-  LOADK R13 K22 ["
+  LOADK R13 K20 ["
 
 "]
   MOVE R14 R7
   CONCAT R9 R10 R14
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K9 ["error"]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K7 ["error"]
   MOVE R11 R9
   CALL R10 1 0
   JUMP [+7]
-  GETUPVAL R3 4
-  GETTABLEKS R2 R3 K9 ["error"]
-  GETUPVAL R3 6
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K7 ["error"]
+  GETUPVAL R3 7
   MOVE R4 R1
   CALL R3 1 -1
   CALL R2 -1 0
@@ -105,18 +105,19 @@ PROTO_2:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   CALL R2 1 2
   JUMPIF R2 [+13]
   GETIMPORT R4 K3 [warn]
   LOADK R6 K4 ["failed to error with error: "]
-  GETUPVAL R7 4
+  GETUPVAL R7 5
   MOVE R8 R3
   CALL R7 1 1
   CONCAT R5 R6 R7
   CALL R4 1 0
-  GETUPVAL R4 5
+  GETUPVAL R4 6
   NEWCLOSURE R5 P1
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
   CAPTURE VAL R3
   CALL R4 1 0
   RETURN R0 0
@@ -127,50 +128,54 @@ MAIN:
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
-  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  GETTABLEKS R2 R0 K5 ["ReactGlobals"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K6 ["util"]
-  GETTABLEKS R2 R3 K7 ["inspect"]
-  GETTABLEKS R3 R1 K8 ["setTimeout"]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R5 R0 K9 ["Shared"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K10 ["console"]
-  GETTABLEKS R6 R4 K11 ["errorToString"]
-  GETIMPORT R7 K4 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K2 ["Parent"]
-  GETTABLEKS R8 R9 K12 ["ReactInternalTypes"]
-  CALL R7 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K6 ["LuauPolyfill"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K7 ["util"]
+  GETTABLEKS R3 R4 K8 ["inspect"]
+  GETTABLEKS R4 R2 K9 ["setTimeout"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R0 K10 ["Shared"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K11 ["console"]
+  GETTABLEKS R7 R5 K12 ["errorToString"]
   GETIMPORT R8 K4 [require]
   GETIMPORT R11 K1 [script]
   GETTABLEKS R10 R11 K2 ["Parent"]
-  GETTABLEKS R9 R10 K13 ["ReactCapturedValue"]
+  GETTABLEKS R9 R10 K13 ["ReactInternalTypes"]
   CALL R8 1 1
-  GETIMPORT R10 K4 [require]
-  GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K2 ["Parent"]
-  GETTABLEKS R11 R12 K14 ["ReactFiberErrorDialog"]
-  CALL R10 1 1
-  GETTABLEKS R9 R10 K15 ["showErrorDialog"]
+  GETIMPORT R9 K4 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K2 ["Parent"]
+  GETTABLEKS R10 R11 K14 ["ReactCapturedValue"]
+  CALL R9 1 1
   GETIMPORT R11 K4 [require]
   GETIMPORT R14 K1 [script]
   GETTABLEKS R13 R14 K2 ["Parent"]
-  GETTABLEKS R12 R13 K16 ["ReactWorkTags"]
+  GETTABLEKS R12 R13 K15 ["ReactFiberErrorDialog"]
   CALL R11 1 1
-  GETTABLEKS R10 R11 K17 ["ClassComponent"]
+  GETTABLEKS R10 R11 K16 ["showErrorDialog"]
   GETIMPORT R12 K4 [require]
-  GETTABLEKS R13 R0 K9 ["Shared"]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K17 ["ReactWorkTags"]
   CALL R12 1 1
-  GETTABLEKS R11 R12 K18 ["getComponentName"]
-  NEWTABLE R12 1 0
-  DUPCLOSURE R13 K19 [PROTO_2]
-  CAPTURE VAL R9
+  GETTABLEKS R11 R12 K18 ["ClassComponent"]
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R14 R0 K10 ["Shared"]
+  CALL R13 1 1
+  GETTABLEKS R12 R13 K19 ["getComponentName"]
+  NEWTABLE R13 1 0
+  DUPCLOSURE R14 K20 [PROTO_2]
   CAPTURE VAL R10
-  CAPTURE VAL R5
+  CAPTURE VAL R1
   CAPTURE VAL R11
-  CAPTURE VAL R2
-  CAPTURE VAL R3
   CAPTURE VAL R6
-  SETTABLEKS R13 R12 K20 ["logCapturedError"]
-  RETURN R12 1
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  SETTABLEKS R14 R13 K21 ["logCapturedError"]
+  RETURN R13 1

@@ -1,7 +1,6 @@
 local root = script:FindFirstAncestor("AbuseReportMenu")
 local GetFFlagGetHumanoidDescriptionUpdates = require(root.Flags.GetFFlagGetHumanoidDescriptionUpdates)
 local FFlagGetHumanoidDescriptionUpdatesV2A = game:DefineFastFlag("GetHumanoidDescriptionUpdatesV2A", false)
-local FFlagGetHumanoidDescriptionUpdatesV2C = game:DefineFastFlag("GetHumanoidDescriptionUpdatesV2C", false)
 
 local CorePackages = game:GetService("CorePackages")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
@@ -228,29 +227,27 @@ local getHumanoidDescription = function(userId: number): (HumanoidDescriptionDat
 				end
 			end
 
-			if FFlagGetHumanoidDescriptionUpdatesV2C then
-				local getEquippedEmotesOk, equippedEmotes = pcall(description.GetEquippedEmotes, description)
-				local getEmotesOk, emotes = pcall(description.GetEmotes, description)
+			local getEquippedEmotesOk, equippedEmotes = pcall(description.GetEquippedEmotes, description)
+			local getEmotesOk, emotes = pcall(description.GetEmotes, description)
 
-				if getEquippedEmotesOk and getEmotesOk then
-					local transformedEmotesOk, transformedEmotes = pcall(transformEmotes, emotes, equippedEmotes)
-					if transformedEmotesOk then
-						humanoidDescriptionData.Emotes = transformedEmotes
+			if getEquippedEmotesOk and getEmotesOk then
+				local transformedEmotesOk, transformedEmotes = pcall(transformEmotes, emotes, equippedEmotes)
+				if transformedEmotesOk then
+					humanoidDescriptionData.Emotes = transformedEmotes
 
-						if GetFFlagGetHumanoidDescriptionUpdatesV2E() then
-							local getCurrentlyPlayingAnimationsOk, currentlyPlayingAnimationIds =
-								pcall(getCurrentlyPlayingAnimations, humanoid)
+					if GetFFlagGetHumanoidDescriptionUpdatesV2E() then
+						local getCurrentlyPlayingAnimationsOk, currentlyPlayingAnimationIds =
+							pcall(getCurrentlyPlayingAnimations, humanoid)
 
-							if getCurrentlyPlayingAnimationsOk then
-								humanoidDescriptionData.CurrentlyPlayingAnimationIds = currentlyPlayingAnimationIds
-							else
-								fieldErrorCount = fieldErrorCount + 1
-							end
+						if getCurrentlyPlayingAnimationsOk then
+							humanoidDescriptionData.CurrentlyPlayingAnimationIds = currentlyPlayingAnimationIds
+						else
+							fieldErrorCount = fieldErrorCount + 1
 						end
 					end
-				else
-					fieldErrorCount = fieldErrorCount + 1
 				end
+			else
+				fieldErrorCount = fieldErrorCount + 1
 			end
 
 			humanoidDescriptionData.FieldErrorCount = fieldErrorCount

@@ -17,12 +17,12 @@ type StyleProps = StyleProvider.StyleProviderProps
 type Preferences = PreferencesProvider.PreferencesProps
 type ResponsiveConfig = ResponsiveContext.ResponsiveConfig
 
-export type FoundationProviderProps = StyleProps & {
+export type FoundationProviderProps = {
 	-- Plugins must provide overlay since they can't use the default PlayerGui
 	overlayGui: GuiBase2d?,
 	preferences: Preferences?,
 	responsiveConfig: ResponsiveConfig?,
-}
+} & StyleProps
 
 local function FoundationProvider(props: FoundationProviderProps)
 	-- TODO: not any, children types acting weird

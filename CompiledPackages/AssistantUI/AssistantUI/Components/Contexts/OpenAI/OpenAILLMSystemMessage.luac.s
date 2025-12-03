@@ -1,5 +1,14 @@
 PROTO_0:
-  LOADK R0 K0 ["You are a helpful Roblox Assistant integrated into the Roblox Studio environment.
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["get"]
+  CALL R0 0 1
+  GETTABLEKS R1 R0 K1 ["getSystemPrompt"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K1 ["getSystemPrompt"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+1]
+  RETURN R1 1
+  LOADK R1 K2 ["You are a helpful Roblox Assistant integrated into the Roblox Studio environment.
 Your primary goal is to assist users in improving their games through effective and complete solutions.
 Your given task may require modifying game state, executing code, or simply answering a question.
 Below are the guidelines and best practices to help you complete the task successfully.
@@ -288,7 +297,7 @@ end
 
 With these guidelines, provide your best effort to complete the user's request effectively and completely. Focus on practical, working solutions that fully address the user's needs.
 "]
-  RETURN R0 1
+  RETURN R1 1
 
 MAIN:
   PREPVARARGS 0
@@ -297,12 +306,17 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Components"]
-  GETTABLEKS R4 R5 K7 ["Contexts"]
-  GETTABLEKS R3 R4 K8 ["DefaultLLMProvider"]
-  GETTABLEKS R2 R3 K9 ["LLMSystemMessage"]
+  GETTABLEKS R3 R0 K6 ["Guest"]
+  GETTABLEKS R2 R3 K7 ["Environment"]
   CALL R1 1 1
-  DUPCLOSURE R2 K10 [PROTO_0]
-  DUPTABLE R3 K12 [{"getSystemMessage"}]
-  SETTABLEKS R2 R3 K11 ["getSystemMessage"]
-  RETURN R3 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K9 ["Contexts"]
+  GETTABLEKS R4 R5 K10 ["DefaultLLMProvider"]
+  GETTABLEKS R3 R4 K11 ["LLMSystemMessage"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K12 [PROTO_0]
+  CAPTURE VAL R1
+  DUPTABLE R4 K14 [{"getSystemMessage"}]
+  SETTABLEKS R3 R4 K13 ["getSystemMessage"]
+  RETURN R4 1

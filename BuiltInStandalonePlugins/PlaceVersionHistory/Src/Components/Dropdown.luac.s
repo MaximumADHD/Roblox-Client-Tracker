@@ -1,0 +1,165 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["useState"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["Enums"]
+  GETTABLEKS R4 R5 K2 ["ControlState"]
+  GETTABLEKS R3 R4 K3 ["Default"]
+  CALL R2 1 2
+  LOADB R4 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K1 ["Enums"]
+  GETTABLEKS R6 R7 K2 ["ControlState"]
+  GETTABLEKS R5 R6 K4 ["Hover"]
+  JUMPIFEQ R2 R5 [+12]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K1 ["Enums"]
+  GETTABLEKS R6 R7 K2 ["ControlState"]
+  GETTABLEKS R5 R6 K5 ["Pressed"]
+  JUMPIFEQ R2 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETTABLEKS R6 R0 K6 ["maxWidth"]
+  JUMPIFNOT R6 [+7]
+  GETIMPORT R5 K9 [Vector2.new]
+  GETTABLEKS R6 R0 K6 ["maxWidth"]
+  LOADK R7 K10 [∞]
+  CALL R5 2 1
+  JUMP [+1]
+  LOADNIL R5
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K16 [{"toggle", "side", "align", "LayoutOrder"}]
+  GETTABLEKS R9 R0 K12 ["toggle"]
+  SETTABLEKS R9 R8 K12 ["toggle"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K1 ["Enums"]
+  GETTABLEKS R10 R11 K17 ["PopoverSide"]
+  GETTABLEKS R9 R10 K18 ["Bottom"]
+  SETTABLEKS R9 R8 K13 ["side"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K1 ["Enums"]
+  GETTABLEKS R10 R11 K19 ["PopoverAlign"]
+  GETTABLEKS R9 R10 K20 ["Start"]
+  SETTABLEKS R9 R8 K14 ["align"]
+  GETTABLEKS R9 R0 K15 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K15 ["LayoutOrder"]
+  DUPTABLE R9 K23 [{"Anchor", "Content"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K11 ["createElement"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K24 ["View"]
+  DUPTABLE R12 K31 [{"tag", "onActivated", "sizeConstraint", "onStateChanged", "stateLayer", "testId", "LayoutOrder"}]
+  NEWTABLE R13 4 0
+  LOADB R14 1
+  SETTABLEKS R14 R13 K32 ["size-0-0 auto-xy row align-y-center gap-xsmall padding-xsmall radius-small"]
+  SETTABLEKS R4 R13 K33 ["stroke-emphasis"]
+  NOT R14 R4
+  SETTABLEKS R14 R13 K34 ["stroke-default"]
+  SETTABLEKS R13 R12 K25 ["tag"]
+  GETTABLEKS R14 R0 K12 ["toggle"]
+  GETTABLEKS R13 R14 K12 ["toggle"]
+  SETTABLEKS R13 R12 K26 ["onActivated"]
+  DUPTABLE R13 K36 [{"MaxSize"}]
+  SETTABLEKS R5 R13 K35 ["MaxSize"]
+  SETTABLEKS R13 R12 K27 ["sizeConstraint"]
+  SETTABLEKS R3 R12 K28 ["onStateChanged"]
+  DUPTABLE R13 K38 [{"affordance"}]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K1 ["Enums"]
+  GETTABLEKS R15 R16 K39 ["StateLayerAffordance"]
+  GETTABLEKS R14 R15 K40 ["None"]
+  SETTABLEKS R14 R13 K37 ["affordance"]
+  SETTABLEKS R13 R12 K29 ["stateLayer"]
+  LOADK R13 K41 ["--dropdown-button"]
+  SETTABLEKS R13 R12 K30 ["testId"]
+  MOVE R13 R1
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K15 ["LayoutOrder"]
+  DUPTABLE R13 K44 [{"Text", "ExpandIcon"}]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K42 ["Text"]
+  DUPTABLE R16 K45 [{"tag", "Text", "LayoutOrder"}]
+  NEWTABLE R17 2 0
+  LOADB R18 1
+  SETTABLEKS R18 R17 K46 ["size-0-0 auto-xy fill text-label-small text-truncate-split"]
+  SETTABLEKS R4 R17 K47 ["content-emphasis"]
+  SETTABLEKS R17 R16 K25 ["tag"]
+  GETTABLEKS R17 R0 K48 ["text"]
+  SETTABLEKS R17 R16 K42 ["Text"]
+  MOVE R17 R1
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K15 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K42 ["Text"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K49 ["Icon"]
+  DUPTABLE R16 K52 [{"name", "size", "LayoutOrder"}]
+  GETTABLEKS R19 R0 K12 ["toggle"]
+  GETTABLEKS R18 R19 K53 ["enabled"]
+  JUMPIFNOT R18 [+8]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K1 ["Enums"]
+  GETTABLEKS R18 R19 K54 ["IconName"]
+  GETTABLEKS R17 R18 K55 ["ChevronLargeUp"]
+  JUMP [+7]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K1 ["Enums"]
+  GETTABLEKS R18 R19 K54 ["IconName"]
+  GETTABLEKS R17 R18 K56 ["ChevronLargeDown"]
+  SETTABLEKS R17 R16 K50 ["name"]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K1 ["Enums"]
+  GETTABLEKS R18 R19 K57 ["IconSize"]
+  GETTABLEKS R17 R18 K58 ["Small"]
+  SETTABLEKS R17 R16 K51 ["size"]
+  MOVE R17 R1
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K15 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K43 ["ExpandIcon"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K21 ["Anchor"]
+  GETTABLEKS R11 R0 K59 ["children"]
+  GETTABLEKS R10 R11 K22 ["Content"]
+  SETTABLEKS R10 R9 K22 ["Content"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceVersionHistory"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ReactUtils"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Foundation"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K10 ["createNextOrder"]
+  GETTABLEKS R6 R0 K11 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Components"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R5 K13 ["Popover"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K14 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  RETURN R7 1

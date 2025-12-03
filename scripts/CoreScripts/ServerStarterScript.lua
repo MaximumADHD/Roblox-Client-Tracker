@@ -37,6 +37,11 @@ end
 --[[ Add Server CoreScript ]]
 --
 
+-- Remote allow list
+if game:DefineFastFlag("ImplementLuaAppsRemoteAllowList", false) then
+	require(RobloxGui.Modules.Server.RemoteAllowList)()
+end
+
 -- OpenCloud
 if game:DefineFastFlag("OpenCloudCoreScriptLuaEnabled", false) then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudV2", script.Parent)

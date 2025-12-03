@@ -1,0 +1,158 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["isArray"]
+  MOVE R5 R0
+  CALL R4 1 1
+  JUMPIFNOT R4 [+10]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["forEach"]
+  MOVE R4 R0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CALL R3 2 1
+  RETURN R3 1
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 1
+  RETURN R3 1
+
+PROTO_2:
+  JUMPIFNOTEQKNIL R0 [+4]
+  GETUPVAL R1 0
+  CALL R1 0 1
+  MOVE R0 R1
+  JUMPIFNOT R0 [+13]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["isArray"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+7]
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K2 [typeof]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K3 ["Instance"] [+7]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K4 ["log"]
+  LOADK R2 K5 ["The element you're providing isn't a valid Instance."]
+  CALL R1 1 0
+  RETURN R0 0
+  NAMECALL R2 R0 K6 ["GetChildren"]
+  CALL R2 1 1
+  LENGTH R1 R2
+  JUMPIFNOTEQKN R1 K7 [0] [+7]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K4 ["log"]
+  LOADK R2 K8 ["The provided element doesn't have any children."]
+  CALL R1 1 0
+  RETURN R0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R0 K1 [error]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["new"]
+  LOADK R2 K3 ["For queries bound to document.body a global document has to be available... Learn more: https://testing-library.com/s/screen-global-error"]
+  CALL R1 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_4:
+  DUPCLOSURE R2 K0 [PROTO_3]
+  CAPTURE UPVAL U0
+  SETTABLE R2 R0 R1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Array"]
+  GETTABLEKS R3 R1 K7 ["Object"]
+  GETTABLEKS R4 R1 K8 ["console"]
+  GETIMPORT R5 K4 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K9 ["jsHelpers"]
+  GETTABLEKS R6 R7 K10 ["document"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K9 ["jsHelpers"]
+  GETTABLEKS R7 R8 K11 ["typeError"]
+  CALL R6 1 1
+  NEWTABLE R7 1 0
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R0 K12 ["PrettyFormat"]
+  CALL R8 1 1
+  GETIMPORT R10 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K2 ["Parent"]
+  GETTABLEKS R11 R12 K13 ["get-queries-for-element"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K14 ["getQueriesForElement"]
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K2 ["Parent"]
+  GETTABLEKS R12 R13 K15 ["helpers"]
+  CALL R11 1 1
+  GETTABLEKS R10 R11 K16 ["getDocument"]
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K17 ["pretty-dom"]
+  CALL R12 1 1
+  GETTABLEKS R11 R12 K18 ["logDOM"]
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K19 ["queries"]
+  CALL R12 1 1
+  DUPCLOSURE R13 K20 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  DUPCLOSURE R14 K21 [PROTO_2]
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  DUPTABLE R15 K24 [{"debug", "logTestingPlaygroundURL"}]
+  SETTABLEKS R13 R15 K22 ["debug"]
+  SETTABLEKS R14 R15 K23 ["logTestingPlaygroundURL"]
+  FASTCALL1 TYPEOF R5 [+3]
+  MOVE R18 R5
+  GETIMPORT R17 K26 [typeof]
+  CALL R17 1 1
+  JUMPIFEQKS R17 K27 ["nil"] [+7]
+  MOVE R16 R9
+  MOVE R17 R5
+  MOVE R18 R12
+  MOVE R19 R15
+  CALL R16 3 1
+  JUMP [+10]
+  GETTABLEKS R16 R2 K28 ["reduce"]
+  GETTABLEKS R17 R3 K29 ["keys"]
+  MOVE R18 R12
+  CALL R17 1 1
+  DUPCLOSURE R18 K30 [PROTO_4]
+  CAPTURE VAL R6
+  MOVE R19 R15
+  CALL R16 3 1
+  SETTABLEKS R16 R7 K31 ["screen"]
+  RETURN R7 1

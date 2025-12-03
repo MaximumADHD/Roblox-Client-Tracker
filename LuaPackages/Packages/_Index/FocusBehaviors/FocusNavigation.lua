@@ -5,8 +5,11 @@ local PackageIndex = script.Parent.Parent.Parent._Index
 
 local Package = require(PackageIndex["FocusNavigation"]["FocusNavigation"])
 
+export type EventData = Package.EventData
+export type SyntheticEventData = Package.SyntheticEventData
 export type EventPhase = Package.EventPhase
 export type Event = Package.Event
+export type SyntheticEvent = Package.SyntheticEvent
 export type EventHandler = Package.EventHandler
 export type EventHandlerMap = Package.EventHandlerMap
 export type EngineInterface = Package.EngineInterface

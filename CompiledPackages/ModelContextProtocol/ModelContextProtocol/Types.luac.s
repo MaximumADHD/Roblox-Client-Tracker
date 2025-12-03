@@ -75,16 +75,16 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Flags"]
-  GETTABLEKS R2 R3 K7 ["getFFlagAssistantJsonEncoder"]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["LuauPolyfill"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Flags"]
-  GETTABLEKS R3 R4 K8 ["getFFlagAssistantJsonEncoderUseHiddenMetatable"]
+  GETTABLEKS R4 R0 K8 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["FFlagAssistantJsonEncoder"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Parent"]
-  GETTABLEKS R4 R5 K10 ["LuauPolyfill"]
+  GETTABLEKS R5 R0 K8 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["FFlagAssistantJsonEncoderUseHiddenMetatable"]
   CALL R3 1 1
   NEWTABLE R4 16 0
   LOADK R5 K11 ["2024-11-05"]
@@ -127,8 +127,8 @@ MAIN:
   CAPTURE VAL R4
   SETTABLEKS R5 R4 K37 ["emptyTableWithMetatable"]
   DUPCLOSURE R5 K38 [PROTO_5]
-  CAPTURE VAL R1
   CAPTURE VAL R2
+  CAPTURE VAL R3
   CAPTURE VAL R4
   SETTABLEKS R5 R4 K39 ["emptyObject"]
   RETURN R4 1

@@ -56,7 +56,7 @@ MAIN:
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K15 ["Collab9031_ManageCollaboratorsEarlyFoundationMigration"]
+  LOADK R2 K15 ["Collab9031_ManageCollaboratorsEarlyFoundationMigration1"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
@@ -92,6 +92,41 @@ MAIN:
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
   LOADK R2 K22 ["Collab8953_EnableLikelyCollaboratorPrefetchExperimentV2"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K23 ["UpsellCollabSafety"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K22 ["Collab8953_EnableLikelyCollaboratorPrefetchExperimentV2"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K24 ["ManageCollaboratorsSafetyUpsellClickedThrottleHundrethsPercent"]
+  LOADN R3 0
+  NAMECALL R0 R0 K3 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K25 ["FetchAMPStatusFailureThrottleHundrethsPercent"]
+  LOADN R3 0
+  NAMECALL R0 R0 K3 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K26 ["SafetyUpsellBannerShownThrottleHundrethsPercent"]
+  LOADN R3 0
+  NAMECALL R0 R0 K3 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K27 ["UpsellTreatAMPErrorAsShowBanner"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K28 ["UpsellTreatAMPActionableAsShowBanner"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

@@ -22,6 +22,7 @@ Constants.AvatarAssetTypeDefaultName = {
 	[Enum.AvatarAssetType.SweaterAccessory] = "Sweater",
 	[Enum.AvatarAssetType.ShortsAccessory] = "Shorts",
 	[Enum.AvatarAssetType.DressSkirtAccessory] = "Dress/Skirt",
+	[Enum.AvatarAssetType.HairAccessory] = "Hair",
 }
 
 Constants.AvatarAssetTypeLocalized = {
@@ -39,6 +40,7 @@ Constants.AvatarAssetTypeLocalized = {
 	[Enum.AvatarAssetType.SweaterAccessory] = "Feature.Avatar.Label.Sweater",
 	[Enum.AvatarAssetType.ShortsAccessory] = "Feature.Avatar.Label.Shorts",
 	[Enum.AvatarAssetType.DressSkirtAccessory] = "Feature.Avatar.Label.DressesAndSkirts",
+	[Enum.AvatarAssetType.HairAccessory] = "Feature.Avatar.Label.Hair",
 }
 
 return Constants

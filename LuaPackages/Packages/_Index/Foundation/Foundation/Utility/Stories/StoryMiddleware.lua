@@ -43,7 +43,8 @@ local function StyleLinkPortal(props: { overlay: GuiBase2d })
 	)
 end
 
-local function useCreateOverlay(props: { focus: LayerCollector }): GuiBase2d
+local function useCreateOverlay(props: { focus: LayerCollector }): GuiBase2d?
+	local isEmbedded = props.focus.Name == "StorybookEmbed"
 	-- Since we need to pass an overlay before the FoundationProvider is created it's easier to create it manually than using React.
 	local overlay = React.useRef(Instance.new("Frame"))
 	-- Very unlikely that parent would change, but it doesn't hurt to handle
@@ -60,7 +61,7 @@ local function useCreateOverlay(props: { focus: LayerCollector }): GuiBase2d
 		end
 	end, {})
 
-	return overlay.current
+	return if isEmbedded then nil else overlay.current
 end
 
 type Preferences = PreferencesProvider.PreferencesProps
@@ -97,7 +98,7 @@ local function StoryMiddleware(story)
 				overlayGui = overlay,
 			}, {
 				Child = React.createElement(story, storyProps),
-				StyleLink = React.createElement(StyleLinkPortal, { overlay = overlay }),
+				StyleLink = React.createElement(StyleLinkPortal, if overlay then { overlay = overlay } else nil),
 			}),
 		})
 	end

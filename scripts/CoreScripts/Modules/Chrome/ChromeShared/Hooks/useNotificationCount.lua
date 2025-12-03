@@ -1,3 +1,5 @@
+-- TODO: Cleanup with FFlagUseBindingForUnreadChat
+
 local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")

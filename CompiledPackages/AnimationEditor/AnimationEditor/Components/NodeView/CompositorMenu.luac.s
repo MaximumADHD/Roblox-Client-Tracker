@@ -431,61 +431,47 @@ PROTO_14:
   MOVE R19 R4
   CALL R19 0 1
   SETTABLEKS R19 R18 K44 ["ZIndex"]
-  DUPTABLE R19 K51 [{"GraphDropdown", "RemainingSpaceTracker", "ChildMenus", "TestRightContent"}]
+  DUPTABLE R19 K50 [{"GraphDropdown", "RemainingSpaceTracker", "ChildMenus"}]
   SETTABLEKS R6 R19 K47 ["GraphDropdown"]
   GETUPVAL R21 0
   GETTABLEKS R20 R21 K8 ["createElement"]
   GETUPVAL R22 6
   GETTABLEKS R21 R22 K35 ["View"]
-  DUPTABLE R22 K53 [{"tag", "LayoutOrder", "onAbsolutePositionChanged"}]
-  LOADK R23 K54 ["fill size-0-full"]
+  DUPTABLE R22 K52 [{"tag", "LayoutOrder", "onAbsolutePositionChanged"}]
+  LOADK R23 K53 ["fill size-0-full"]
   SETTABLEKS R23 R22 K36 ["tag"]
   MOVE R23 R4
   CALL R23 0 1
   SETTABLEKS R23 R22 K9 ["LayoutOrder"]
-  GETTABLEKS R23 R11 K55 ["onAnchorPositionChanged"]
-  SETTABLEKS R23 R22 K52 ["onAbsolutePositionChanged"]
+  GETTABLEKS R23 R11 K54 ["onAnchorPositionChanged"]
+  SETTABLEKS R23 R22 K51 ["onAbsolutePositionChanged"]
   CALL R20 2 1
   SETTABLEKS R20 R19 K48 ["RemainingSpaceTracker"]
   GETUPVAL R21 0
   GETTABLEKS R20 R21 K8 ["createElement"]
   GETUPVAL R22 0
-  GETTABLEKS R21 R22 K56 ["Fragment"]
+  GETTABLEKS R21 R22 K55 ["Fragment"]
   NEWTABLE R22 0 0
   MOVE R23 R8
   CALL R20 3 1
   SETTABLEKS R20 R19 K49 ["ChildMenus"]
-  GETUPVAL R21 0
-  GETTABLEKS R20 R21 K8 ["createElement"]
-  GETUPVAL R22 6
-  GETTABLEKS R21 R22 K33 ["Text"]
-  DUPTABLE R22 K57 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R23 K58 ["auto-x size-0-full"]
-  SETTABLEKS R23 R22 K36 ["tag"]
-  LOADK R23 K59 ["this is right content"]
-  SETTABLEKS R23 R22 K33 ["Text"]
-  MOVE R23 R4
-  CALL R23 0 1
-  SETTABLEKS R23 R22 K9 ["LayoutOrder"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K50 ["TestRightContent"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K41 ["Toolbar"]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K8 ["createElement"]
   GETUPVAL R18 6
   GETTABLEKS R17 R18 K35 ["View"]
-  DUPTABLE R18 K61 [{"tag", "Position", "ZIndex", "onAbsoluteSizeChanged"}]
-  LOADK R19 K62 ["row align-x-center gap-xsmall auto-x size-0-full"]
+  DUPTABLE R18 K57 [{"tag", "Position", "ZIndex", "onAbsoluteSizeChanged"}]
+  LOADK R19 K58 ["row align-x-center gap-xsmall auto-x size-0-full"]
   SETTABLEKS R19 R18 K36 ["tag"]
-  GETTABLEKS R19 R11 K63 ["positionBinding"]
-  SETTABLEKS R19 R18 K60 ["Position"]
+  GETTABLEKS R19 R11 K59 ["positionBinding"]
+  SETTABLEKS R19 R18 K56 ["Position"]
   MOVE R19 R4
   CALL R19 0 1
   SETTABLEKS R19 R18 K44 ["ZIndex"]
-  GETTABLEKS R19 R11 K64 ["onContentSizeChanged"]
+  GETTABLEKS R19 R11 K60 ["onContentSizeChanged"]
   SETTABLEKS R19 R18 K37 ["onAbsoluteSizeChanged"]
-  DUPTABLE R19 K67 [{"PlayButton", "TracksDropdown"}]
+  DUPTABLE R19 K64 [{"PlayButton", "PlaybackSpeedDropdown", "TracksDropdown"}]
   GETUPVAL R21 0
   GETTABLEKS R20 R21 K8 ["createElement"]
   GETUPVAL R21 10
@@ -494,15 +480,24 @@ PROTO_14:
   CALL R23 0 1
   SETTABLEKS R23 R22 K9 ["LayoutOrder"]
   CALL R20 2 1
-  SETTABLEKS R20 R19 K65 ["PlayButton"]
+  SETTABLEKS R20 R19 K61 ["PlayButton"]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K8 ["createElement"]
+  GETUPVAL R21 11
+  DUPTABLE R22 K10 [{"LayoutOrder"}]
+  MOVE R23 R4
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K9 ["LayoutOrder"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K62 ["PlaybackSpeedDropdown"]
   GETUPVAL R21 0
   GETTABLEKS R20 R21 K8 ["createElement"]
   GETUPVAL R23 6
-  GETTABLEKS R22 R23 K68 ["Dropdown"]
-  GETTABLEKS R21 R22 K69 ["Root"]
-  DUPTABLE R22 K75 [{"isDisabled", "size", "width", "label", "items", "value", "placeholderText", "onItemChanged", "LayoutOrder"}]
+  GETTABLEKS R22 R23 K65 ["Dropdown"]
+  GETTABLEKS R21 R22 K66 ["Root"]
+  DUPTABLE R22 K72 [{"isDisabled", "size", "width", "label", "items", "value", "placeholderText", "onItemChanged", "LayoutOrder"}]
   LENGTH R24 R9
-  JUMPIFEQKN R24 K76 [0] [+2]
+  JUMPIFEQKN R24 K73 [0] [+2]
   LOADB R23 0 +1
   LOADB R23 1
   SETTABLEKS R23 R22 K29 ["isDisabled"]
@@ -511,30 +506,30 @@ PROTO_14:
   GETTABLEKS R24 R25 K22 ["InputSize"]
   GETTABLEKS R23 R24 K23 ["XSmall"]
   SETTABLEKS R23 R22 K17 ["size"]
-  GETIMPORT R23 K79 [UDim.new]
+  GETIMPORT R23 K76 [UDim.new]
   LOADN R24 0
   LOADN R25 120
   CALL R23 2 1
-  SETTABLEKS R23 R22 K70 ["width"]
-  LOADK R23 K80 [""]
-  SETTABLEKS R23 R22 K71 ["label"]
+  SETTABLEKS R23 R22 K67 ["width"]
+  LOADK R23 K77 [""]
+  SETTABLEKS R23 R22 K68 ["label"]
   SETTABLEKS R9 R22 K16 ["items"]
   MOVE R23 R10
   JUMPIFNOT R23 [+2]
-  GETTABLEKS R23 R10 K81 ["debugTrackAnimationId"]
-  SETTABLEKS R23 R22 K72 ["value"]
-  LOADK R25 K82 ["CompositorMenu"]
-  LOADK R26 K83 ["TracksDropdownPlaceholder"]
-  NAMECALL R23 R3 K84 ["getText"]
+  GETTABLEKS R23 R10 K78 ["debugTrackAnimationId"]
+  SETTABLEKS R23 R22 K69 ["value"]
+  LOADK R25 K79 ["CompositorMenu"]
+  LOADK R26 K80 ["TracksDropdownPlaceholder"]
+  NAMECALL R23 R3 K81 ["getText"]
   CALL R23 3 1
-  SETTABLEKS R23 R22 K73 ["placeholderText"]
-  GETTABLEKS R23 R2 K85 ["selectDebugTrackById"]
-  SETTABLEKS R23 R22 K74 ["onItemChanged"]
+  SETTABLEKS R23 R22 K70 ["placeholderText"]
+  GETTABLEKS R23 R2 K82 ["selectDebugTrackById"]
+  SETTABLEKS R23 R22 K71 ["onItemChanged"]
   MOVE R23 R4
   CALL R23 0 1
   SETTABLEKS R23 R22 K9 ["LayoutOrder"]
   CALL R20 2 1
-  SETTABLEKS R20 R19 K66 ["TracksDropdown"]
+  SETTABLEKS R20 R19 K63 ["TracksDropdown"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K42 ["PlaybackToolbar"]
   CALL R12 3 -1
@@ -577,32 +572,38 @@ MAIN:
   GETTABLEKS R8 R9 K17 ["PlayButton"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Parent"]
-  GETTABLEKS R9 R10 K18 ["React"]
+  GETTABLEKS R11 R0 K10 ["Components"]
+  GETTABLEKS R10 R11 K16 ["Toolbar"]
+  GETTABLEKS R9 R10 K18 ["PlaybackSpeedDropdown"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R11 R0 K6 ["Parent"]
-  GETTABLEKS R10 R11 K19 ["ReactUtils"]
+  GETTABLEKS R10 R11 K19 ["React"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K20 ["Util"]
-  GETTABLEKS R11 R12 K21 ["Logger"]
+  GETTABLEKS R12 R0 K6 ["Parent"]
+  GETTABLEKS R11 R12 K20 ["ReactUtils"]
   CALL R10 1 1
-  LOADK R12 K22 ["CompositorMenu"]
-  NAMECALL R10 R10 K23 ["new"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K24 [PROTO_4]
-  CAPTURE VAL R8
-  DUPCLOSURE R12 K25 [PROTO_14]
-  CAPTURE VAL R8
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K21 ["Util"]
+  GETTABLEKS R12 R13 K22 ["Logger"]
+  CALL R11 1 1
+  LOADK R13 K23 ["CompositorMenu"]
+  NAMECALL R11 R11 K24 ["new"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K25 [PROTO_4]
+  CAPTURE VAL R9
+  DUPCLOSURE R13 K26 [PROTO_14]
+  CAPTURE VAL R9
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R3
-  CAPTURE VAL R9
+  CAPTURE VAL R10
   CAPTURE VAL R4
   CAPTURE VAL R2
-  CAPTURE VAL R10
-  CAPTURE VAL R1
   CAPTURE VAL R11
+  CAPTURE VAL R1
+  CAPTURE VAL R12
   CAPTURE VAL R7
-  RETURN R12 1
+  CAPTURE VAL R8
+  RETURN R13 1

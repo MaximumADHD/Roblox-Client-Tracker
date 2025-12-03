@@ -21,19 +21,10 @@ MAIN:
   RETURN R0 0
   GETIMPORT R2 K7 [require]
   GETTABLEKS R5 R0 K11 ["Src"]
-  GETTABLEKS R4 R5 K13 ["Flags"]
-  GETTABLEKS R3 R4 K14 ["getFFlagNewExplorer"]
+  GETTABLEKS R4 R5 K13 ["Guest"]
+  GETTABLEKS R3 R4 K14 ["startStudioGuest"]
   CALL R2 1 1
   MOVE R3 R2
-  CALL R3 0 1
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K7 [require]
-  GETTABLEKS R6 R0 K11 ["Src"]
-  GETTABLEKS R5 R6 K15 ["Guest"]
-  GETTABLEKS R4 R5 K16 ["startStudioGuest"]
-  CALL R3 1 1
-  MOVE R4 R3
-  GETIMPORT R5 K1 [plugin]
-  CALL R4 1 0
+  GETIMPORT R4 K1 [plugin]
+  CALL R3 1 0
   RETURN R0 0

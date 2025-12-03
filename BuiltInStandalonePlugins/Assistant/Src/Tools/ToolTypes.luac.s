@@ -18,7 +18,7 @@ MAIN:
   SETTABLEKS R5 R4 K9 ["ExecuteLuau"]
   LOADK R5 K24 ["script_search"]
   SETTABLEKS R5 R4 K10 ["FileSearch"]
-  LOADK R5 K25 ["game_tree"]
+  LOADK R5 K25 ["search_game_tree"]
   SETTABLEKS R5 R4 K11 ["GameTree"]
   LOADK R5 K26 ["script_grep"]
   SETTABLEKS R5 R4 K12 ["GrepSearch"]

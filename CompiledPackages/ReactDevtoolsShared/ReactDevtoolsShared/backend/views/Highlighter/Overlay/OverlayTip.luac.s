@@ -179,31 +179,35 @@ PROTO_1:
   SETTABLEKS R7 R6 K53 ["TextColor3"]
   LOADN R7 16
   SETTABLEKS R7 R6 K54 ["TextSize"]
+  LOADK R7 K55 [1000002]
+  SETTABLEKS R7 R6 K23 ["ZIndex"]
   SETTABLEKS R2 R6 K39 ["Parent"]
-  SETTABLEKS R6 R1 K55 ["nameLabel"]
+  SETTABLEKS R6 R1 K56 ["nameLabel"]
   GETIMPORT R7 K4 [Instance.new]
   LOADK R8 K5 ["Frame"]
   CALL R7 1 1
-  LOADK R8 K56 ["Divider"]
+  LOADK R8 K57 ["Divider"]
   SETTABLEKS R8 R7 K7 ["Name"]
-  GETIMPORT R8 K58 [UDim2.fromOffset]
+  GETIMPORT R8 K59 [UDim2.fromOffset]
   LOADN R9 1
   LOADN R10 0
   CALL R8 2 1
   SETTABLEKS R8 R7 K20 ["Size"]
   GETIMPORT R8 K10 [Color3.fromHex]
-  LOADK R9 K59 ["#aaaaaa"]
+  LOADK R9 K60 ["#aaaaaa"]
   CALL R8 1 1
   SETTABLEKS R8 R7 K12 ["BackgroundColor3"]
   LOADN R8 0
   SETTABLEKS R8 R7 K21 ["BorderSizePixel"]
   LOADN R8 2
   SETTABLEKS R8 R7 K27 ["LayoutOrder"]
+  LOADK R8 K55 [1000002]
+  SETTABLEKS R8 R7 K23 ["ZIndex"]
   SETTABLEKS R2 R7 K39 ["Parent"]
   GETIMPORT R8 K4 [Instance.new]
   LOADK R9 K47 ["TextLabel"]
   CALL R8 1 1
-  LOADK R9 K60 ["Dimensions"]
+  LOADK R9 K61 ["Dimensions"]
   SETTABLEKS R9 R8 K7 ["Name"]
   GETIMPORT R9 K19 [UDim2.fromScale]
   LOADN R10 0
@@ -219,13 +223,15 @@ PROTO_1:
   GETIMPORT R9 K51 [Enum.Font.BuilderSansBold]
   SETTABLEKS R9 R8 K49 ["Font"]
   GETIMPORT R9 K10 [Color3.fromHex]
-  LOADK R10 K61 ["#d7d7d7"]
+  LOADK R10 K62 ["#d7d7d7"]
   CALL R9 1 1
   SETTABLEKS R9 R8 K53 ["TextColor3"]
   LOADN R9 16
   SETTABLEKS R9 R8 K54 ["TextSize"]
+  LOADK R9 K55 [1000002]
+  SETTABLEKS R9 R8 K23 ["ZIndex"]
   SETTABLEKS R2 R8 K39 ["Parent"]
-  SETTABLEKS R8 R1 K62 ["dimensionsLabel"]
+  SETTABLEKS R8 R1 K63 ["dimensionsLabel"]
   SETTABLEKS R0 R2 K39 ["Parent"]
   RETURN R1 1
 

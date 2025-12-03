@@ -54,7 +54,10 @@ local function Sheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>): React.R
 		setDisplaySize(GuiService.ViewportDisplaySize)
 	end, {})
 
-	React.useEffect(function()
+	local useLandscapeEffect: typeof(React.useLayoutEffect) = if Flags.FoundationSheetFixLandscapeFlicker
+		then React.useLayoutEffect
+		else React.useEffect
+	useLandscapeEffect(function()
 		local connection
 		if overlay then
 			setIsLandscape(overlay.AbsoluteSize.X > overlay.AbsoluteSize.Y)

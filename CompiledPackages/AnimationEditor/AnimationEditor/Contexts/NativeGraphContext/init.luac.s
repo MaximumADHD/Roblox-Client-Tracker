@@ -733,13 +733,41 @@ PROTO_33:
   RETURN R0 1
 
 PROTO_34:
+  GETUPVAL R2 0
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETUPVAL R5 0
+  GETTABLEKS R2 R5 K0 ["lookup"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R7 1
+  MOVE R9 R5
+  NAMECALL R7 R7 K1 ["idToInstance"]
+  CALL R7 2 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K2 ["getParameterBindingNameFromParameterName"]
+  MOVE R9 R7
+  MOVE R10 R0
+  CALL R8 2 1
+  JUMPIFEQKNIL R8 [+8]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K3 ["setParameterBindingName"]
+  MOVE R10 R7
+  MOVE R11 R8
+  MOVE R12 R1
+  CALL R9 3 0
+  FORGLOOP R2 2 [-21]
+  RETURN R0 0
+
+PROTO_35:
   GETIMPORT R0 K2 [NumberRange.new]
   LOADN R1 0
   LOADN R2 10
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_35:
+PROTO_36:
   GETUPVAL R0 0
   JUMPIFNOT R0 [+6]
   NEWTABLE R0 0 1
@@ -749,7 +777,7 @@ PROTO_35:
   NEWTABLE R0 0 0
   RETURN R0 1
 
-PROTO_36:
+PROTO_37:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["ContextServices"]
   GETTABLEKS R1 R2 K1 ["Localization"]
@@ -1075,74 +1103,86 @@ PROTO_36:
   GETTABLEKS R40 R3 K15 ["selectionService"]
   SETLIST R38 R39 2 [1]
   CALL R36 2 1
-  DUPTABLE R37 K35 [{"graphPayloadMap", "runtimeDebugInfo", "createNode", "createParameter", "createNewGraph", "graphRect", "selectNodes", "selectNodesFromRect", "createStartSelectNodesFromRect", "setNodePositions", "setNodeSize", "setNodeConnection", "removeNodeOutputConnection", "removeNodeInputConnection", "setCollapsed", "setNodeProperty", "getSelectedGraphInstance", "getSelectedRect", "selectDebugTrackById"}]
-  SETTABLEKS R18 R37 K16 ["graphPayloadMap"]
-  SETTABLEKS R6 R37 K17 ["runtimeDebugInfo"]
-  SETTABLEKS R28 R37 K18 ["createNode"]
-  SETTABLEKS R29 R37 K19 ["createParameter"]
-  SETTABLEKS R30 R37 K20 ["createNewGraph"]
-  SETTABLEKS R4 R37 K21 ["graphRect"]
-  SETTABLEKS R24 R37 K22 ["selectNodes"]
-  SETTABLEKS R26 R37 K23 ["selectNodesFromRect"]
-  SETTABLEKS R25 R37 K24 ["createStartSelectNodesFromRect"]
-  SETTABLEKS R22 R37 K25 ["setNodePositions"]
-  SETTABLEKS R23 R37 K26 ["setNodeSize"]
-  SETTABLEKS R33 R37 K27 ["setNodeConnection"]
-  SETTABLEKS R32 R37 K28 ["removeNodeOutputConnection"]
-  SETTABLEKS R31 R37 K29 ["removeNodeInputConnection"]
-  SETTABLEKS R21 R37 K30 ["setCollapsed"]
-  SETTABLEKS R34 R37 K31 ["setNodeProperty"]
-  SETTABLEKS R35 R37 K32 ["getSelectedGraphInstance"]
-  SETTABLEKS R36 R37 K33 ["getSelectedRect"]
-  SETTABLEKS R20 R37 K34 ["selectDebugTrackById"]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K9 ["useMemo"]
-  DUPCLOSURE R39 K36 [PROTO_34]
-  NEWTABLE R40 0 0
-  CALL R38 2 1
+  GETUPVAL R38 2
+  GETTABLEKS R37 R38 K14 ["useCallback"]
+  NEWCLOSURE R38 P28
+  CAPTURE VAL R18
+  CAPTURE VAL R15
+  CAPTURE UPVAL U8
+  NEWTABLE R39 0 2
+  MOVE R40 R15
+  MOVE R41 R18
+  SETLIST R39 R40 2 [1]
+  CALL R37 2 1
+  DUPTABLE R38 K36 [{"graphPayloadMap", "runtimeDebugInfo", "createNode", "createParameter", "createNewGraph", "graphRect", "selectNodes", "selectNodesFromRect", "createStartSelectNodesFromRect", "setNodePositions", "setNodeSize", "setNodeConnection", "removeNodeOutputConnection", "removeNodeInputConnection", "renameParameter", "setCollapsed", "setNodeProperty", "getSelectedGraphInstance", "getSelectedRect", "selectDebugTrackById"}]
+  SETTABLEKS R18 R38 K16 ["graphPayloadMap"]
+  SETTABLEKS R6 R38 K17 ["runtimeDebugInfo"]
+  SETTABLEKS R28 R38 K18 ["createNode"]
+  SETTABLEKS R29 R38 K19 ["createParameter"]
+  SETTABLEKS R30 R38 K20 ["createNewGraph"]
+  SETTABLEKS R4 R38 K21 ["graphRect"]
+  SETTABLEKS R24 R38 K22 ["selectNodes"]
+  SETTABLEKS R26 R38 K23 ["selectNodesFromRect"]
+  SETTABLEKS R25 R38 K24 ["createStartSelectNodesFromRect"]
+  SETTABLEKS R22 R38 K25 ["setNodePositions"]
+  SETTABLEKS R23 R38 K26 ["setNodeSize"]
+  SETTABLEKS R33 R38 K27 ["setNodeConnection"]
+  SETTABLEKS R32 R38 K28 ["removeNodeOutputConnection"]
+  SETTABLEKS R31 R38 K29 ["removeNodeInputConnection"]
+  SETTABLEKS R37 R38 K30 ["renameParameter"]
+  SETTABLEKS R21 R38 K31 ["setCollapsed"]
+  SETTABLEKS R34 R38 K32 ["setNodeProperty"]
+  SETTABLEKS R35 R38 K33 ["getSelectedGraphInstance"]
+  SETTABLEKS R36 R38 K34 ["getSelectedRect"]
+  SETTABLEKS R20 R38 K35 ["selectDebugTrackById"]
   GETUPVAL R40 2
   GETTABLEKS R39 R40 K9 ["useMemo"]
-  NEWCLOSURE R40 P29
-  CAPTURE VAL R27
-  NEWTABLE R41 0 2
-  MOVE R42 R27
-  MOVE R43 R18
-  SETLIST R41 R42 2 [1]
+  DUPCLOSURE R40 K37 [PROTO_35]
+  NEWTABLE R41 0 0
   CALL R39 2 1
   GETUPVAL R41 2
-  GETTABLEKS R40 R41 K37 ["createElement"]
-  GETUPVAL R42 15
-  GETTABLEKS R41 R42 K38 ["Provider"]
-  DUPTABLE R42 K40 [{"value"}]
-  SETTABLEKS R37 R42 K39 ["value"]
-  DUPTABLE R43 K42 [{"ContextStack"}]
-  GETUPVAL R45 2
-  GETTABLEKS R44 R45 K37 ["createElement"]
-  GETUPVAL R46 16
-  GETTABLEKS R45 R46 K41 ["ContextStack"]
-  DUPTABLE R46 K44 [{"providers"}]
-  NEWTABLE R47 0 2
-  GETUPVAL R49 2
-  GETTABLEKS R48 R49 K37 ["createElement"]
-  GETUPVAL R50 17
-  GETTABLEKS R49 R50 K38 ["Provider"]
-  DUPTABLE R50 K46 [{"timeRange"}]
-  SETTABLEKS R38 R50 K45 ["timeRange"]
-  CALL R48 2 1
+  GETTABLEKS R40 R41 K9 ["useMemo"]
+  NEWCLOSURE R41 P30
+  CAPTURE VAL R27
+  NEWTABLE R42 0 2
+  MOVE R43 R27
+  MOVE R44 R18
+  SETLIST R42 R43 2 [1]
+  CALL R40 2 1
+  GETUPVAL R42 2
+  GETTABLEKS R41 R42 K38 ["createElement"]
+  GETUPVAL R43 15
+  GETTABLEKS R42 R43 K39 ["Provider"]
+  DUPTABLE R43 K41 [{"value"}]
+  SETTABLEKS R38 R43 K40 ["value"]
+  DUPTABLE R44 K43 [{"ContextStack"}]
+  GETUPVAL R46 2
+  GETTABLEKS R45 R46 K38 ["createElement"]
+  GETUPVAL R47 16
+  GETTABLEKS R46 R47 K42 ["ContextStack"]
+  DUPTABLE R47 K45 [{"providers"}]
+  NEWTABLE R48 0 2
   GETUPVAL R50 2
-  GETTABLEKS R49 R50 K37 ["createElement"]
-  GETUPVAL R51 18
-  GETTABLEKS R50 R51 K38 ["Provider"]
-  DUPTABLE R51 K48 [{"animationClipsList"}]
-  SETTABLEKS R39 R51 K47 ["animationClipsList"]
-  CALL R49 2 -1
-  SETLIST R47 R48 -1 [1]
-  SETTABLEKS R47 R46 K43 ["providers"]
-  GETTABLEKS R47 R0 K49 ["children"]
-  CALL R44 3 1
-  SETTABLEKS R44 R43 K41 ["ContextStack"]
-  CALL R40 3 -1
-  RETURN R40 -1
+  GETTABLEKS R49 R50 K38 ["createElement"]
+  GETUPVAL R51 17
+  GETTABLEKS R50 R51 K39 ["Provider"]
+  DUPTABLE R51 K47 [{"timeRange"}]
+  SETTABLEKS R39 R51 K46 ["timeRange"]
+  CALL R49 2 1
+  GETUPVAL R51 2
+  GETTABLEKS R50 R51 K38 ["createElement"]
+  GETUPVAL R52 18
+  GETTABLEKS R51 R52 K39 ["Provider"]
+  DUPTABLE R52 K49 [{"animationClipsList"}]
+  SETTABLEKS R40 R52 K48 ["animationClipsList"]
+  CALL R50 2 -1
+  SETLIST R48 R49 -1 [1]
+  SETTABLEKS R48 R47 K44 ["providers"]
+  GETTABLEKS R48 R0 K50 ["children"]
+  CALL R45 3 1
+  SETTABLEKS R45 R44 K42 ["ContextStack"]
+  CALL R41 3 -1
+  RETURN R41 -1
 
 MAIN:
   PREPVARARGS 0
@@ -1231,86 +1271,90 @@ MAIN:
   LOADK R21 K24 ["NativeGraphContext"]
   NAMECALL R19 R19 K34 ["new"]
   CALL R19 2 1
-  DUPTABLE R20 K54 [{"graphPayloadMap", "runtimeDebugInfo", "createNode", "createParameter", "createNewGraph", "graphRect", "createStartSelectNodesFromRect", "selectNodes", "selectNodesFromRect", "setNodePositions", "setNodeSize", "removeNodeInputConnection", "removeNodeOutputConnection", "setNodeConnection", "setCollapsed", "setNodeProperty", "getSelectedGraphInstance", "getSelectedRect", "selectDebugTrackById"}]
+  DUPTABLE R20 K55 [{"graphPayloadMap", "runtimeDebugInfo", "createNode", "createParameter", "createNewGraph", "graphRect", "createStartSelectNodesFromRect", "selectNodes", "selectNodesFromRect", "setNodePositions", "setNodeSize", "removeNodeInputConnection", "removeNodeOutputConnection", "renameParameter", "setNodeConnection", "setCollapsed", "setNodeProperty", "getSelectedGraphInstance", "getSelectedRect", "selectDebugTrackById"}]
   LOADNIL R21
   SETTABLEKS R21 R20 K35 ["graphPayloadMap"]
   LOADNIL R21
   SETTABLEKS R21 R20 K36 ["runtimeDebugInfo"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K37 ["createNode"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K37 ["createNode"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K38 ["createParameter"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K38 ["createParameter"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K39 ["createNewGraph"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K39 ["createNewGraph"]
-  GETIMPORT R21 K57 [Rect.new]
+  GETIMPORT R21 K58 [Rect.new]
   LOADN R22 0
   LOADN R23 0
   LOADN R24 0
   LOADN R25 0
   CALL R21 4 1
   SETTABLEKS R21 R20 K40 ["graphRect"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K41 ["createStartSelectNodesFromRect"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K41 ["createStartSelectNodesFromRect"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K42 ["selectNodes"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K42 ["selectNodes"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K43 ["selectNodesFromRect"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K43 ["selectNodesFromRect"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K44 ["setNodePositions"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K44 ["setNodePositions"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K45 ["setNodeSize"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K45 ["setNodeSize"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K46 ["removeNodeInputConnection"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K46 ["removeNodeInputConnection"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
   LOADK R22 K47 ["removeNodeOutputConnection"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K47 ["removeNodeOutputConnection"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
-  LOADK R22 K58 ["setNewConnection"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
+  LOADK R22 K48 ["renameParameter"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K48 ["setNodeConnection"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
-  LOADK R22 K49 ["setCollapsed"]
+  SETTABLEKS R21 R20 K48 ["renameParameter"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
+  LOADK R22 K59 ["setNewConnection"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K49 ["setCollapsed"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
-  LOADK R22 K50 ["setNodeProperty"]
+  SETTABLEKS R21 R20 K49 ["setNodeConnection"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
+  LOADK R22 K50 ["setCollapsed"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K50 ["setNodeProperty"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
-  LOADK R22 K51 ["getSelectedGraphInstance"]
+  SETTABLEKS R21 R20 K50 ["setCollapsed"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
+  LOADK R22 K51 ["setNodeProperty"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K51 ["getSelectedGraphInstance"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
-  LOADK R22 K52 ["getSelectedRect"]
+  SETTABLEKS R21 R20 K51 ["setNodeProperty"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
+  LOADK R22 K52 ["getSelectedGraphInstance"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K52 ["getSelectedRect"]
-  GETTABLEKS R21 R15 K55 ["createUnimplemented"]
-  LOADK R22 K53 ["selectDebugTrackById"]
+  SETTABLEKS R21 R20 K52 ["getSelectedGraphInstance"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
+  LOADK R22 K53 ["getSelectedRect"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K53 ["selectDebugTrackById"]
-  GETTABLEKS R21 R14 K59 ["createContext"]
+  SETTABLEKS R21 R20 K53 ["getSelectedRect"]
+  GETTABLEKS R21 R15 K56 ["createUnimplemented"]
+  LOADK R22 K54 ["selectDebugTrackById"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K54 ["selectDebugTrackById"]
+  GETTABLEKS R21 R14 K60 ["createContext"]
   MOVE R22 R20
   CALL R21 1 1
-  DUPCLOSURE R22 K60 [PROTO_36]
+  DUPCLOSURE R22 K61 [PROTO_37]
   CAPTURE VAL R9
   CAPTURE VAL R18
   CAPTURE VAL R14
@@ -1330,7 +1374,7 @@ MAIN:
   CAPTURE VAL R15
   CAPTURE VAL R6
   CAPTURE VAL R4
-  DUPTABLE R23 K63 [{"Context", "Provider"}]
-  SETTABLEKS R21 R23 K61 ["Context"]
-  SETTABLEKS R22 R23 K62 ["Provider"]
+  DUPTABLE R23 K64 [{"Context", "Provider"}]
+  SETTABLEKS R21 R23 K62 ["Context"]
+  SETTABLEKS R22 R23 K63 ["Provider"]
   RETURN R23 1

@@ -38,7 +38,6 @@ local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
-local GetFFlagFixMappedSignalRaceCondition = SharedFlags.GetFFlagFixMappedSignalRaceCondition
 local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
@@ -103,10 +102,8 @@ end
 
 local chatVisibilitySignal = MappedSignal.new(chatSelectorVisibilitySignal, function()
 	return chatVisibility
-end, function(visibility)
-	-- TODO: On flag removal, remove visibility as a param
-	local isVisible = if GetFFlagFixMappedSignalRaceCondition() then ChatSelector.GetVisibility() else visibility
-
+end, function()
+	local isVisible = ChatSelector.GetVisibility()
 	if not FFlagExpChatUnibarAvailabilityRefactor then
 		-- Is there a less imperative way to do this?
 		if FFlagHideChatButtonForChatDisabledUsers and not isVisible and not localUserCanChat() then

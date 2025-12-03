@@ -1,9 +1,3 @@
-PROTO_0:
-  GETUPVAL R0 0
-  LOADK R1 K0 ["CustomHumanoidEnabled"]
-  CALL R0 1 -1
-  RETURN R0 -1
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -15,6 +9,7 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Flags"]
   GETTABLEKS R2 R3 K8 ["safeGetFastFlag"]
   CALL R1 1 1
-  DUPCLOSURE R2 K9 [PROTO_0]
-  CAPTURE VAL R1
-  RETURN R2 1
+  MOVE R2 R1
+  LOADK R3 K9 ["CustomHumanoidEnabled"]
+  CALL R2 1 -1
+  RETURN R2 -1

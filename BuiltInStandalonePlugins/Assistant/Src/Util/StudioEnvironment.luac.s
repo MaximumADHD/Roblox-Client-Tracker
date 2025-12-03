@@ -246,76 +246,70 @@ PROTO_25:
   RETURN R0 0
 
 PROTO_26:
-  GETUPVAL R5 0
-  CALL R5 0 1
-  JUMPIFNOT R5 [+16]
-  GETUPVAL R5 1
-  DUPTABLE R7 K5 [{"requestId", "instanceId", "script", "source", "isNewScript"}]
-  SETTABLEKS R0 R7 K0 ["requestId"]
-  SETTABLEKS R1 R7 K1 ["instanceId"]
-  SETTABLEKS R2 R7 K2 ["script"]
-  SETTABLEKS R3 R7 K3 ["source"]
-  SETTABLEKS R4 R7 K4 ["isNewScript"]
-  NAMECALL R5 R5 K6 ["UpdateScriptSourceAsync"]
-  CALL R5 2 0
-  RETURN R0 0
-  GETUPVAL R5 2
-  LOADK R7 K7 ["UpdateScriptSource"]
-  DUPTABLE R8 K5 [{"requestId", "instanceId", "script", "source", "isNewScript"}]
-  SETTABLEKS R0 R8 K0 ["requestId"]
-  SETTABLEKS R1 R8 K1 ["instanceId"]
-  SETTABLEKS R2 R8 K2 ["script"]
-  SETTABLEKS R3 R8 K3 ["source"]
-  SETTABLEKS R4 R8 K4 ["isNewScript"]
-  NAMECALL R5 R5 K8 ["DisplayContent"]
-  CALL R5 3 0
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["UpdateScriptSourceAsync"]
+  CALL R1 2 0
   RETURN R0 0
 
 PROTO_27:
+  GETUPVAL R5 0
+  LOADK R7 K0 ["UpdateScriptSource"]
+  DUPTABLE R8 K6 [{"requestId", "instanceId", "script", "source", "isNewScript"}]
+  SETTABLEKS R0 R8 K1 ["requestId"]
+  SETTABLEKS R1 R8 K2 ["instanceId"]
+  SETTABLEKS R2 R8 K3 ["script"]
+  SETTABLEKS R3 R8 K4 ["source"]
+  SETTABLEKS R4 R8 K5 ["isNewScript"]
+  NAMECALL R5 R5 K7 ["DisplayContent"]
+  CALL R5 3 0
+  RETURN R0 0
+
+PROTO_28:
   GETIMPORT R0 K1 [error]
   LOADK R1 K2 ["Code execution not available for this environment"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_29:
   GETIMPORT R0 K1 [error]
   LOADK R1 K2 ["updateScriptSource is not available for this environment"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_30:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["CopyToClipboard"]
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_31:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["GetClassIcon"]
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_31:
+PROTO_32:
   GETUPVAL R0 0
   RETURN R0 1
 
-PROTO_32:
+PROTO_33:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["GetEditorSource"]
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_33:
+PROTO_34:
   GETUPVAL R0 1
   NAMECALL R0 R0 K0 ["GetUserId"]
   CALL R0 1 1
   SETUPVAL R0 0
   RETURN R0 0
 
-PROTO_34:
+PROTO_35:
   LOADN R0 0
   GETIMPORT R1 K1 [pcall]
   NEWCLOSURE R2 P0
@@ -325,7 +319,7 @@ PROTO_34:
   CLOSEUPVALS R0
   RETURN R0 1
 
-PROTO_35:
+PROTO_36:
   GETUPVAL R2 0
   MOVE R4 R0
   MOVE R5 R1
@@ -333,7 +327,7 @@ PROTO_35:
   CALL R2 3 -1
   RETURN R2 -1
 
-PROTO_36:
+PROTO_37:
   LOADK R5 K0 ["%*/creator-inventory-api/v1/-/creator-inventory-items:search?query=%*&filter=assetTypes=%*;userids=%*&maxPageSize=%*"]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K1 ["APIS_URL"]
@@ -364,7 +358,7 @@ PROTO_36:
   GETTABLEKS R8 R7 K7 ["responseBody"]
   RETURN R8 1
 
-PROTO_37:
+PROTO_38:
   DUPTABLE R2 K4 [{"Success", "StatusCode", "Headers", "Body"}]
   MOVE R3 R0
   JUMPIFNOT R3 [+13]
@@ -389,7 +383,7 @@ PROTO_37:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_38:
+PROTO_39:
   GETUPVAL R2 0
   NEWCLOSURE R4 P0
   CAPTURE VAL R0
@@ -397,7 +391,7 @@ PROTO_38:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_39:
+PROTO_40:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["RequestInternal"]
@@ -411,7 +405,7 @@ PROTO_39:
   CALL R2 1 2
   RETURN R3 1
 
-PROTO_40:
+PROTO_41:
   NEWTABLE R2 0 0
   DUPCLOSURE R3 K0 [PROTO_18]
   SETTABLEKS R3 R2 K1 ["isDevFrameworkAvailable"]
@@ -431,74 +425,79 @@ PROTO_40:
   NEWCLOSURE R6 P4
   CAPTURE VAL R0
   CALL R5 1 2
-  JUMPIFNOT R3 [+15]
+  JUMPIFNOT R3 [+21]
   NEWCLOSURE R7 P5
   CAPTURE VAL R4
   SETTABLEKS R7 R2 K8 ["loadCode"]
   NEWCLOSURE R7 P6
   CAPTURE VAL R4
   SETTABLEKS R7 R2 K9 ["stopCode"]
+  GETUPVAL R7 1
+  CALL R7 0 1
+  JUMPIFNOT R7 [+5]
   NEWCLOSURE R7 P7
-  CAPTURE UPVAL U1
   CAPTURE VAL R4
-  CAPTURE UPVAL U2
-  SETTABLEKS R7 R2 K10 ["updateScriptSource"]
-  JUMP [+8]
+  SETTABLEKS R7 R2 K10 ["updateScriptSourceAsync"]
+  JUMP [+13]
   DUPCLOSURE R7 K11 [PROTO_27]
+  CAPTURE UPVAL U2
+  SETTABLEKS R7 R2 K12 ["updateScriptSource_DEPRECATED"]
+  JUMP [+8]
+  DUPCLOSURE R7 K13 [PROTO_28]
   SETTABLEKS R7 R2 K8 ["loadCode"]
   SETTABLEKS R7 R2 K9 ["stopCode"]
-  DUPCLOSURE R8 K12 [PROTO_28]
-  SETTABLEKS R8 R2 K10 ["updateScriptSource"]
-  DUPCLOSURE R7 K13 [PROTO_29]
-  CAPTURE UPVAL U3
-  SETTABLEKS R7 R2 K14 ["copyToClipboard"]
+  DUPCLOSURE R8 K14 [PROTO_29]
+  SETTABLEKS R8 R2 K12 ["updateScriptSource_DEPRECATED"]
   DUPCLOSURE R7 K15 [PROTO_30]
   CAPTURE UPVAL U3
-  SETTABLEKS R7 R2 K16 ["getClassIcon"]
+  SETTABLEKS R7 R2 K16 ["copyToClipboard"]
+  DUPCLOSURE R7 K17 [PROTO_31]
+  CAPTURE UPVAL U3
+  SETTABLEKS R7 R2 K18 ["getClassIcon"]
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K17 ["Guest"]
-  GETTABLEKS R8 R9 K18 ["LoadAssetHandlers"]
-  GETTABLEKS R7 R8 K19 ["getRobloxScriptHandler"]
-  GETIMPORT R8 K21 [game]
+  GETTABLEKS R9 R10 K19 ["Guest"]
+  GETTABLEKS R8 R9 K20 ["LoadAssetHandlers"]
+  GETTABLEKS R7 R8 K21 ["getRobloxScriptHandler"]
+  GETIMPORT R8 K23 [game]
   CALL R7 1 1
-  SETTABLEKS R7 R2 K22 ["loadAssetAsync"]
+  SETTABLEKS R7 R2 K24 ["loadAssetAsync"]
   GETUPVAL R10 4
-  GETTABLEKS R9 R10 K17 ["Guest"]
-  GETTABLEKS R8 R9 K23 ["RecordingHandlers"]
-  GETTABLEKS R7 R8 K24 ["getPluginHandlers"]
+  GETTABLEKS R9 R10 K19 ["Guest"]
+  GETTABLEKS R8 R9 K25 ["RecordingHandlers"]
+  GETTABLEKS R7 R8 K26 ["getPluginHandlers"]
   GETUPVAL R8 5
   CALL R7 1 1
-  GETTABLEKS R8 R7 K25 ["startRecording"]
-  SETTABLEKS R8 R2 K25 ["startRecording"]
-  GETTABLEKS R8 R7 K26 ["endRecording"]
-  SETTABLEKS R8 R2 K26 ["endRecording"]
-  NEWCLOSURE R8 P12
+  GETTABLEKS R8 R7 K27 ["startRecording"]
+  SETTABLEKS R8 R2 K27 ["startRecording"]
+  GETTABLEKS R8 R7 K28 ["endRecording"]
+  SETTABLEKS R8 R2 K28 ["endRecording"]
+  NEWCLOSURE R8 P13
   CAPTURE VAL R1
-  SETTABLEKS R8 R2 K27 ["getNetworking"]
+  SETTABLEKS R8 R2 K29 ["getNetworking"]
   GETUPVAL R8 6
   JUMPIFNOT R5 [+2]
   MOVE R9 R6
   JUMPIF R9 [+1]
   LOADNIL R9
   CALL R8 1 1
-  SETTABLEKS R8 R2 K28 ["EventLogger"]
-  DUPCLOSURE R8 K29 [PROTO_32]
+  SETTABLEKS R8 R2 K30 ["EventLogger"]
+  DUPCLOSURE R8 K31 [PROTO_33]
   CAPTURE UPVAL U7
-  SETTABLEKS R8 R2 K30 ["getScriptSource"]
-  DUPCLOSURE R8 K31 [PROTO_34]
-  CAPTURE UPVAL U3
-  SETTABLEKS R8 R2 K32 ["getUserId"]
+  SETTABLEKS R8 R2 K32 ["getScriptSource"]
   DUPCLOSURE R8 K33 [PROTO_35]
-  CAPTURE UPVAL U8
-  SETTABLEKS R8 R2 K34 ["publishAssetAsync"]
+  CAPTURE UPVAL U3
+  SETTABLEKS R8 R2 K34 ["getUserId"]
   DUPCLOSURE R8 K35 [PROTO_36]
+  CAPTURE UPVAL U8
+  SETTABLEKS R8 R2 K36 ["publishAssetAsync"]
+  DUPCLOSURE R8 K37 [PROTO_37]
   CAPTURE UPVAL U9
   CAPTURE UPVAL U10
-  SETTABLEKS R8 R2 K36 ["searchAssetAsync"]
-  DUPCLOSURE R8 K37 [PROTO_39]
+  SETTABLEKS R8 R2 K38 ["searchAssetAsync"]
+  DUPCLOSURE R8 K39 [PROTO_40]
   CAPTURE UPVAL U11
   CAPTURE UPVAL U12
-  SETTABLEKS R8 R2 K38 ["httpRequestAsync"]
+  SETTABLEKS R8 R2 K40 ["httpRequestAsync"]
   RETURN R2 1
 
 MAIN:
@@ -562,12 +561,12 @@ MAIN:
   GETIMPORT R14 K16 [require]
   GETTABLEKS R17 R0 K22 ["Src"]
   GETTABLEKS R16 R17 K27 ["Flags"]
-  GETTABLEKS R15 R16 K28 ["FFlagDebugLogAssistantUI"]
+  GETTABLEKS R15 R16 K28 ["FFlagAssistantBridgeScriptDiff"]
   CALL R14 1 1
   GETIMPORT R15 K16 [require]
   GETTABLEKS R18 R0 K22 ["Src"]
   GETTABLEKS R17 R18 K27 ["Flags"]
-  GETTABLEKS R16 R17 K29 ["FFlagStudioAssistantBridgeScriptDiff"]
+  GETTABLEKS R16 R17 K29 ["FFlagDebugLogAssistantUI"]
   CALL R15 1 1
   GETTABLEKS R17 R8 K27 ["Flags"]
   GETTABLEKS R16 R17 K30 ["FFlagAssistantPerUserSettings"]
@@ -577,7 +576,7 @@ MAIN:
   DUPTABLE R19 K36 [{"isInternal", "loggingLevel"}]
   LOADB R20 1
   SETTABLEKS R20 R19 K34 ["isInternal"]
-  MOVE R21 R14
+  MOVE R21 R15
   CALL R21 0 1
   JUMPIFNOT R21 [+2]
   LOADN R20 4
@@ -591,9 +590,9 @@ MAIN:
   CALL R20 1 1
   DUPCLOSURE R21 K38 [PROTO_17]
   CAPTURE VAL R16
-  DUPCLOSURE R22 K39 [PROTO_40]
+  DUPCLOSURE R22 K39 [PROTO_41]
   CAPTURE VAL R21
-  CAPTURE VAL R15
+  CAPTURE VAL R14
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R8

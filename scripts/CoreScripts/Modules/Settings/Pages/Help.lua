@@ -36,9 +36,7 @@ local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicy
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
-local migrationLookup = BuilderIcons.Migration['uiblox']
-local HelpPage = require(CorePackages.Workspace.Packages.HelpPage)
-local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
+local migrationLookup = BuilderIcons.Migration['uiblox'] 
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -49,13 +47,9 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 ------------ FFLAGS -------------------
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local GetFFlagFixIGMBottomBarVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixIGMBottomBarVisibility)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
-
-local FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure
-local FStringHelpPageIXPLayer = HelpPage.Flags.FStringHelpPageIXPLayer
 
 ------------ Localization -------------------
 local locales = nil
@@ -709,10 +703,6 @@ local function Initialize()
 	end
 
 	function this:PageDisplayed()
-        if FFlagHelpPageIXPExposure then
-    		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(FStringHelpPageIXPLayer)
-        end
-
 		if not this.LastInputTypeChangedConnection then
 			this.LastInputTypeChangedConnection = UserInputService.LastInputTypeChanged:Connect(function(inputType: Enum.UserInputType)
 				if inputType ~= Enum.UserInputType.Focus and inputType ~= Enum.UserInputType.None then
@@ -780,14 +770,6 @@ do
 
   PageInstance.Displayed.Event:connect(function()
       PageInstance:PageDisplayed()
-      if not GetFFlagFixIGMBottomBarVisibility() then
-        local isPortrait = utility:IsPortrait()
-        if PageInstance:GetCurrentInputType() == TOUCH_TAG then
-            if PageInstance.HubRef.BottomButtonFrame and not utility:IsSmallTouchScreen() and not isPortrait then
-                PageInstance.HubRef.BottomButtonFrame.Visible = false
-            end
-        end
-      end
 	  if PageInstance.HubRef.VersionContainer then
 	    PageInstance.HubRef.VersionContainer.Visible = true
 	  end
@@ -799,15 +781,6 @@ do
       PageInstance.HubRef.PageView.ClipsDescendants = true
 
       PageInstance.HubRef:ShowShield()
-      
-      if not GetFFlagFixIGMBottomBarVisibility() then
-        local isPortrait = utility:IsPortrait()
-        if PageInstance:GetCurrentInputType() == TOUCH_TAG then
-            if PageInstance.HubRef.BottomButtonFrame and not utility:IsSmallTouchScreen() and not isPortrait then
-                PageInstance.HubRef.BottomButtonFrame.Visible = true
-            end
-        end
-      end
 	  if PageInstance.HubRef.VersionContainer then
 		PageInstance.HubRef.VersionContainer.Visible = false
 	  end

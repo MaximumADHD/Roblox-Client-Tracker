@@ -74,9 +74,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 	local props = withDefaults(contentProps, defaultProps)
 	local popoverContext = React.useContext(PopoverContext)
 	local hasGuiObjectAnchor = typeof(popoverContext.anchor) == "Instance"
-	local hasArrow = if Flags.FoundationNoArrowOnVirtualRef
-		then if hasGuiObjectAnchor then props.hasArrow else false
-		else props.hasArrow
+	local hasArrow = if hasGuiObjectAnchor then props.hasArrow else false
 	local overlay = useOverlay()
 
 	local tokens = useTokens()
@@ -89,11 +87,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 
 	local ref = React.useRef(nil)
 	local backdropInstance, setBackdropInstance = React.useState(nil :: GuiObject?)
-	local pointerPosition = usePointerPosition(
-		if Flags.FoundationPopoverContentStateFix
-			then backdropInstance
-			else if hasGuiObjectAnchor then popoverContext.anchor :: GuiObject else nil
-	)
+	local pointerPosition = usePointerPosition(backdropInstance)
 
 	React.useImperativeHandle(forwardedRef, function()
 		return ref.current
@@ -115,10 +109,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 		if backdropListener.current then
 			backdropListener.current:Disconnect()
 		end
-
-		if Flags.FoundationPopoverContentStateFix then
-			setBackdropInstance(instance)
-		end
+		setBackdropInstance(instance)
 
 		if instance ~= nil and props.onPressedOutside then
 			backdropListener.current = instance:GetPropertyChangedSignal("GuiState"):Connect(function()
@@ -128,16 +119,12 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 						local pointerPositionValue = pointerPosition:getValue()
 						local isPointerWithinAnchorBounds = isPointInGuiObjectBounds(anchor, pointerPositionValue)
 
-						if Flags.FoundationPopoverContentStateFix and isPointerWithinAnchorBounds then
+						if isPointerWithinAnchorBounds then
 							return
 						end
 
 						if anchor.GuiState ~= Enum.GuiState.Idle then
 							return
-						else
-							if isPointerWithinAnchorBounds then
-								return
-							end
 						end
 					end
 

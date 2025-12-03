@@ -18,19 +18,24 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K7 ["InstanceRefAggregator"]
+  GETTABLEKS R3 R4 K7 ["CombinedColorAggregator"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R0 K8 ["RpcTypes"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K8 ["InstanceRefAggregator"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K9 ["Vector3Aggregator"]
+  GETTABLEKS R5 R0 K9 ["RpcTypes"]
   CALL R4 1 1
-  DUPTABLE R5 K12 [{"Vector3", "InstanceRef"}]
-  SETTABLEKS R4 R5 K10 ["Vector3"]
-  SETTABLEKS R2 R5 K11 ["InstanceRef"]
-  DUPCLOSURE R6 K13 [PROTO_0]
-  CAPTURE VAL R5
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K10 ["Vector3Aggregator"]
+  CALL R5 1 1
+  DUPTABLE R6 K14 [{"Vector3", "InstanceRef", "CombinedColor"}]
+  SETTABLEKS R5 R6 K11 ["Vector3"]
+  SETTABLEKS R3 R6 K12 ["InstanceRef"]
+  SETTABLEKS R2 R6 K13 ["CombinedColor"]
+  DUPCLOSURE R7 K15 [PROTO_0]
+  CAPTURE VAL R6
   CAPTURE VAL R1
-  RETURN R6 1
+  RETURN R7 1

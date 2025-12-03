@@ -5,79 +5,79 @@ PROTO_0:
   SETUPVAL R0 1
   LOADNIL R0
   SETUPVAL R0 2
-  GETIMPORT R1 K1 [_G]
-  GETTABLEKS R0 R1 K2 ["__DEV__"]
+  GETUPVAL R1 3
+  GETTABLEKS R0 R1 K0 ["__DEV__"]
   JUMPIFNOT R0 [+2]
   LOADB R0 0
-  SETUPVAL R0 3
+  SETUPVAL R0 4
   RETURN R0 0
 
 PROTO_1:
-  GETIMPORT R1 K1 [_G]
-  GETTABLEKS R0 R1 K2 ["__DEV__"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["__DEV__"]
   JUMPIFNOT R0 [+2]
   LOADB R0 1
-  SETUPVAL R0 0
+  SETUPVAL R0 1
   RETURN R0 0
 
 PROTO_2:
-  GETIMPORT R1 K1 [_G]
-  GETTABLEKS R0 R1 K2 ["__DEV__"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["__DEV__"]
   JUMPIFNOT R0 [+2]
   LOADB R0 0
-  SETUPVAL R0 0
+  SETUPVAL R0 1
   RETURN R0 0
 
 PROTO_3:
   GETTABLEKS R3 R0 K0 ["type"]
   GETTABLEKS R2 R3 K1 ["_context"]
   GETUPVAL R3 0
-  JUMPIFNOT R3 [+33]
+  JUMPIFNOT R3 [+32]
   GETUPVAL R3 1
   GETUPVAL R4 2
   GETTABLEKS R5 R2 K2 ["_currentValue"]
   MOVE R6 R0
   CALL R3 3 0
   SETTABLEKS R1 R2 K2 ["_currentValue"]
-  GETIMPORT R4 K4 [_G]
-  GETTABLEKS R3 R4 K5 ["__DEV__"]
-  JUMPIFNOT R3 [+52]
-  GETTABLEKS R3 R2 K6 ["_currentRenderer"]
-  JUMPIFEQKNIL R3 [+13]
-  GETTABLEKS R3 R2 K6 ["_currentRenderer"]
   GETUPVAL R4 3
-  JUMPIFEQ R3 R4 [+8]
+  GETTABLEKS R3 R4 K3 ["__DEV__"]
+  JUMPIFNOT R3 [+51]
+  GETTABLEKS R3 R2 K4 ["_currentRenderer"]
+  JUMPIFEQKNIL R3 [+13]
+  GETTABLEKS R3 R2 K4 ["_currentRenderer"]
   GETUPVAL R4 4
-  GETTABLEKS R3 R4 K7 ["error"]
-  LOADK R5 K8 ["Detected multiple renderers concurrently rendering the "]
-  LOADK R6 K9 ["same context provider. This is currently unsupported."]
+  JUMPIFEQ R3 R4 [+8]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K5 ["error"]
+  LOADK R5 K6 ["Detected multiple renderers concurrently rendering the "]
+  LOADK R6 K7 ["same context provider. This is currently unsupported."]
   CONCAT R4 R5 R6
   CALL R3 1 0
-  GETUPVAL R3 3
-  SETTABLEKS R3 R2 K6 ["_currentRenderer"]
+  GETUPVAL R3 4
+  SETTABLEKS R3 R2 K4 ["_currentRenderer"]
   RETURN R0 0
   GETUPVAL R3 1
   GETUPVAL R4 2
-  GETTABLEKS R5 R2 K10 ["_currentValue2"]
+  GETTABLEKS R5 R2 K8 ["_currentValue2"]
   MOVE R6 R0
   CALL R3 3 0
-  SETTABLEKS R1 R2 K10 ["_currentValue2"]
-  GETIMPORT R4 K4 [_G]
-  GETTABLEKS R3 R4 K5 ["__DEV__"]
-  JUMPIFNOT R3 [+19]
-  GETTABLEKS R3 R2 K11 ["_currentRenderer2"]
-  JUMPIFEQKNIL R3 [+13]
-  GETTABLEKS R3 R2 K11 ["_currentRenderer2"]
+  SETTABLEKS R1 R2 K8 ["_currentValue2"]
   GETUPVAL R4 3
-  JUMPIFEQ R3 R4 [+8]
+  GETTABLEKS R3 R4 K3 ["__DEV__"]
+  JUMPIFNOT R3 [+19]
+  GETTABLEKS R3 R2 K9 ["_currentRenderer2"]
+  JUMPIFEQKNIL R3 [+13]
+  GETTABLEKS R3 R2 K9 ["_currentRenderer2"]
   GETUPVAL R4 4
-  GETTABLEKS R3 R4 K7 ["error"]
-  LOADK R5 K8 ["Detected multiple renderers concurrently rendering the "]
-  LOADK R6 K9 ["same context provider. This is currently unsupported."]
+  JUMPIFEQ R3 R4 [+8]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K5 ["error"]
+  LOADK R5 K6 ["Detected multiple renderers concurrently rendering the "]
+  LOADK R6 K7 ["same context provider. This is currently unsupported."]
   CONCAT R4 R5 R6
   CALL R3 1 0
-  GETUPVAL R3 3
-  SETTABLEKS R3 R2 K11 ["_currentRenderer2"]
+  GETUPVAL R3 4
+  SETTABLEKS R3 R2 K9 ["_currentRenderer2"]
   RETURN R0 0
 
 PROTO_4:
@@ -283,76 +283,76 @@ PROTO_8:
   RETURN R0 0
 
 PROTO_9:
-  GETIMPORT R3 K1 [_G]
-  GETTABLEKS R2 R3 K2 ["__DEV__"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["__DEV__"]
   JUMPIFNOT R2 [+11]
-  GETUPVAL R2 0
+  GETUPVAL R2 1
   JUMPIFNOT R2 [+9]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K3 ["error"]
-  LOADK R4 K4 ["Context can only be read while React is rendering. "]
-  LOADK R5 K5 ["In classes, you can read it in the render method or getDerivedStateFromProps. "]
-  LOADK R6 K6 ["In function components, you can read it directly in the function body, but not "]
-  LOADK R7 K7 ["inside Hooks like useReducer() or useMemo()."]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["error"]
+  LOADK R4 K2 ["Context can only be read while React is rendering. "]
+  LOADK R5 K3 ["In classes, you can read it in the render method or getDerivedStateFromProps. "]
+  LOADK R6 K4 ["In function components, you can read it directly in the function body, but not "]
+  LOADK R7 K5 ["inside Hooks like useReducer() or useMemo()."]
   CONCAT R3 R4 R7
   CALL R2 1 0
-  GETUPVAL R2 2
+  GETUPVAL R2 3
   JUMPIFNOTEQ R2 R0 [+2]
   JUMP [+68]
   JUMPIFEQKB R1 FALSE [+67]
-  JUMPIFNOTEQKN R1 K8 [0] [+2]
+  JUMPIFNOTEQKN R1 K6 [0] [+2]
   JUMP [+63]
   LOADNIL R2
   FASTCALL1 TYPEOF R1 [+3]
   MOVE R4 R1
-  GETIMPORT R3 K10 [typeof]
+  GETIMPORT R3 K8 [typeof]
   CALL R3 1 1
-  JUMPIFNOTEQKS R3 K11 ["number"] [+6]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K12 ["MAX_SAFE_INTEGER"]
+  JUMPIFNOTEQKS R3 K9 ["number"] [+6]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K10 ["MAX_SAFE_INTEGER"]
   JUMPIFNOTEQ R1 R3 [+6]
-  SETUPVAL R0 2
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K12 ["MAX_SAFE_INTEGER"]
+  SETUPVAL R0 3
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K10 ["MAX_SAFE_INTEGER"]
   JUMP [+1]
   MOVE R2 R1
-  DUPTABLE R3 K16 [{"context", "observedBits", "next"}]
-  SETTABLEKS R0 R3 K13 ["context"]
-  SETTABLEKS R2 R3 K14 ["observedBits"]
+  DUPTABLE R3 K14 [{"context", "observedBits", "next"}]
+  SETTABLEKS R0 R3 K11 ["context"]
+  SETTABLEKS R2 R3 K12 ["observedBits"]
   LOADNIL R4
-  SETTABLEKS R4 R3 K15 ["next"]
-  GETUPVAL R4 4
-  JUMPIFNOTEQKNIL R4 [+30]
+  SETTABLEKS R4 R3 K13 ["next"]
   GETUPVAL R4 5
+  JUMPIFNOTEQKNIL R4 [+30]
+  GETUPVAL R4 6
   JUMPIFNOTEQKNIL R4 [+13]
-  GETIMPORT R4 K17 [error]
-  GETUPVAL R6 6
-  GETTABLEKS R5 R6 K18 ["new"]
-  LOADK R7 K4 ["Context can only be read while React is rendering. "]
-  LOADK R8 K5 ["In classes, you can read it in the render method or getDerivedStateFromProps. "]
-  LOADK R9 K6 ["In function components, you can read it directly in the function body, but not "]
-  LOADK R10 K7 ["inside Hooks like useReducer() or useMemo()."]
+  GETIMPORT R4 K15 [error]
+  GETUPVAL R6 7
+  GETTABLEKS R5 R6 K16 ["new"]
+  LOADK R7 K2 ["Context can only be read while React is rendering. "]
+  LOADK R8 K3 ["In classes, you can read it in the render method or getDerivedStateFromProps. "]
+  LOADK R9 K4 ["In function components, you can read it directly in the function body, but not "]
+  LOADK R10 K5 ["inside Hooks like useReducer() or useMemo()."]
   CONCAT R6 R7 R10
   CALL R5 1 -1
   CALL R4 -1 0
-  SETUPVAL R3 4
-  GETUPVAL R4 5
-  DUPTABLE R5 K22 [{"lanes", "firstContext", "responders"}]
-  GETUPVAL R6 7
-  SETTABLEKS R6 R5 K19 ["lanes"]
-  SETTABLEKS R3 R5 K20 ["firstContext"]
+  SETUPVAL R3 5
+  GETUPVAL R4 6
+  DUPTABLE R5 K20 [{"lanes", "firstContext", "responders"}]
+  GETUPVAL R6 8
+  SETTABLEKS R6 R5 K17 ["lanes"]
+  SETTABLEKS R3 R5 K18 ["firstContext"]
   LOADNIL R6
-  SETTABLEKS R6 R5 K21 ["responders"]
-  SETTABLEKS R5 R4 K23 ["dependencies"]
+  SETTABLEKS R6 R5 K19 ["responders"]
+  SETTABLEKS R5 R4 K21 ["dependencies"]
   JUMP [+4]
-  GETUPVAL R4 4
-  SETTABLEKS R3 R4 K15 ["next"]
-  SETUPVAL R3 4
-  GETUPVAL R3 8
+  GETUPVAL R4 5
+  SETTABLEKS R3 R4 K13 ["next"]
+  SETUPVAL R3 5
+  GETUPVAL R3 9
   JUMPIFNOT R3 [+3]
-  GETTABLEKS R2 R0 K24 ["_currentValue"]
+  GETTABLEKS R2 R0 K22 ["_currentValue"]
   RETURN R2 1
-  GETTABLEKS R2 R0 K25 ["_currentValue2"]
+  GETTABLEKS R2 R0 K23 ["_currentValue2"]
   RETURN R2 1
 
 MAIN:
@@ -361,141 +361,148 @@ MAIN:
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
-  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  GETTABLEKS R2 R0 K5 ["ReactGlobals"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K6 ["Number"]
-  GETTABLEKS R3 R1 K7 ["Error"]
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R6 R0 K8 ["Shared"]
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K9 ["console"]
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R6 R0 K8 ["Shared"]
-  CALL R5 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K6 ["LuauPolyfill"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K7 ["Number"]
+  GETTABLEKS R4 R2 K8 ["Error"]
   GETIMPORT R6 K4 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K2 ["Parent"]
-  GETTABLEKS R7 R8 K10 ["ReactInternalTypes"]
+  GETTABLEKS R7 R0 K9 ["Shared"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K10 ["console"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R0 K9 ["Shared"]
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
   GETIMPORT R10 K1 [script]
   GETTABLEKS R9 R10 K2 ["Parent"]
-  GETTABLEKS R8 R9 K11 ["ReactFiberStack.new"]
+  GETTABLEKS R8 R9 K11 ["ReactInternalTypes"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
   GETIMPORT R11 K1 [script]
   GETTABLEKS R10 R11 K2 ["Parent"]
-  GETTABLEKS R9 R10 K12 ["ReactFiberLane"]
+  GETTABLEKS R9 R10 K12 ["ReactFiberStack.new"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
   GETIMPORT R12 K1 [script]
   GETTABLEKS R11 R12 K2 ["Parent"]
-  GETTABLEKS R10 R11 K13 ["ReactUpdateQueue.new"]
+  GETTABLEKS R10 R11 K13 ["ReactFiberLane"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
   GETIMPORT R13 K1 [script]
   GETTABLEKS R12 R13 K2 ["Parent"]
-  GETTABLEKS R11 R12 K14 ["ReactFiberHostConfig"]
+  GETTABLEKS R11 R12 K14 ["ReactUpdateQueue.new"]
   CALL R10 1 1
-  GETTABLEKS R11 R10 K15 ["isPrimaryRenderer"]
-  GETTABLEKS R12 R7 K16 ["createCursor"]
-  GETTABLEKS R13 R7 K17 ["push"]
-  GETTABLEKS R14 R7 K18 ["pop"]
-  GETIMPORT R16 K4 [require]
-  GETIMPORT R19 K1 [script]
-  GETTABLEKS R18 R19 K2 ["Parent"]
-  GETTABLEKS R17 R18 K19 ["MaxInts"]
-  CALL R16 1 1
-  GETTABLEKS R15 R16 K20 ["MAX_SIGNED_31_BIT_INT"]
-  GETIMPORT R16 K4 [require]
-  GETIMPORT R19 K1 [script]
-  GETTABLEKS R18 R19 K2 ["Parent"]
-  GETTABLEKS R17 R18 K21 ["ReactWorkTags"]
-  CALL R16 1 1
-  GETTABLEKS R17 R16 K22 ["ContextProvider"]
-  GETTABLEKS R18 R16 K23 ["ClassComponent"]
-  GETTABLEKS R19 R8 K24 ["NoLanes"]
-  GETTABLEKS R20 R8 K25 ["NoTimestamp"]
-  GETTABLEKS R21 R8 K26 ["isSubsetOfLanes"]
-  GETTABLEKS R22 R8 K27 ["includesSomeLane"]
-  GETTABLEKS R23 R8 K28 ["mergeLanes"]
-  GETTABLEKS R24 R8 K29 ["pickArbitraryLane"]
-  GETIMPORT R26 K4 [require]
-  GETTABLEKS R27 R0 K8 ["Shared"]
-  CALL R26 1 1
-  GETTABLEKS R25 R26 K30 ["objectIs"]
-  GETTABLEKS R26 R9 K31 ["createUpdate"]
-  GETTABLEKS R27 R9 K32 ["ForceUpdate"]
-  NEWTABLE R28 16 0
-  MOVE R29 R12
-  LOADNIL R30
-  CALL R29 1 1
-  LOADNIL R30
-  GETIMPORT R32 K34 [_G]
-  GETTABLEKS R31 R32 K35 ["__DEV__"]
-  JUMPIFNOT R31 [+2]
-  NEWTABLE R30 0 0
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K2 ["Parent"]
+  GETTABLEKS R12 R13 K15 ["ReactFiberHostConfig"]
+  CALL R11 1 1
+  GETTABLEKS R12 R11 K16 ["isPrimaryRenderer"]
+  GETTABLEKS R13 R8 K17 ["createCursor"]
+  GETTABLEKS R14 R8 K18 ["push"]
+  GETTABLEKS R15 R8 K19 ["pop"]
+  GETIMPORT R17 K4 [require]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K2 ["Parent"]
+  GETTABLEKS R18 R19 K20 ["MaxInts"]
+  CALL R17 1 1
+  GETTABLEKS R16 R17 K21 ["MAX_SIGNED_31_BIT_INT"]
+  GETIMPORT R17 K4 [require]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K2 ["Parent"]
+  GETTABLEKS R18 R19 K22 ["ReactWorkTags"]
+  CALL R17 1 1
+  GETTABLEKS R18 R17 K23 ["ContextProvider"]
+  GETTABLEKS R19 R17 K24 ["ClassComponent"]
+  GETTABLEKS R20 R9 K25 ["NoLanes"]
+  GETTABLEKS R21 R9 K26 ["NoTimestamp"]
+  GETTABLEKS R22 R9 K27 ["isSubsetOfLanes"]
+  GETTABLEKS R23 R9 K28 ["includesSomeLane"]
+  GETTABLEKS R24 R9 K29 ["mergeLanes"]
+  GETTABLEKS R25 R9 K30 ["pickArbitraryLane"]
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R28 R0 K9 ["Shared"]
+  CALL R27 1 1
+  GETTABLEKS R26 R27 K31 ["objectIs"]
+  GETTABLEKS R27 R10 K32 ["createUpdate"]
+  GETTABLEKS R28 R10 K33 ["ForceUpdate"]
+  NEWTABLE R29 16 0
+  MOVE R30 R13
   LOADNIL R31
+  CALL R30 1 1
+  LOADNIL R31
+  GETTABLEKS R32 R1 K34 ["__DEV__"]
+  JUMPIFNOT R32 [+2]
+  NEWTABLE R31 0 0
   LOADNIL R32
   LOADNIL R33
-  LOADB R34 0
-  NEWCLOSURE R35 P0
-  CAPTURE REF R31
+  LOADNIL R34
+  LOADB R35 0
+  NEWCLOSURE R36 P0
   CAPTURE REF R32
   CAPTURE REF R33
   CAPTURE REF R34
-  SETTABLEKS R35 R28 K36 ["resetContextDependencies"]
-  NEWCLOSURE R35 P1
-  CAPTURE REF R34
-  SETTABLEKS R35 R28 K37 ["enterDisallowedContextReadInDEV"]
-  NEWCLOSURE R35 P2
-  CAPTURE REF R34
-  SETTABLEKS R35 R28 K38 ["exitDisallowedContextReadInDEV"]
-  NEWCLOSURE R35 P3
-  CAPTURE VAL R11
-  CAPTURE VAL R13
-  CAPTURE VAL R29
-  CAPTURE REF R30
-  CAPTURE VAL R4
-  SETTABLEKS R35 R28 K39 ["pushProvider"]
-  DUPCLOSURE R35 K40 [PROTO_4]
-  CAPTURE VAL R29
+  CAPTURE VAL R1
+  CAPTURE REF R35
+  SETTABLEKS R36 R29 K35 ["resetContextDependencies"]
+  NEWCLOSURE R36 P1
+  CAPTURE VAL R1
+  CAPTURE REF R35
+  SETTABLEKS R36 R29 K36 ["enterDisallowedContextReadInDEV"]
+  NEWCLOSURE R36 P2
+  CAPTURE VAL R1
+  CAPTURE REF R35
+  SETTABLEKS R36 R29 K37 ["exitDisallowedContextReadInDEV"]
+  NEWCLOSURE R36 P3
+  CAPTURE VAL R12
   CAPTURE VAL R14
-  CAPTURE VAL R11
-  SETTABLEKS R35 R28 K41 ["popProvider"]
-  DUPCLOSURE R35 K42 [PROTO_5]
-  CAPTURE VAL R25
+  CAPTURE VAL R30
+  CAPTURE VAL R1
+  CAPTURE REF R31
+  CAPTURE VAL R5
+  SETTABLEKS R36 R29 K38 ["pushProvider"]
+  DUPCLOSURE R36 K39 [PROTO_4]
+  CAPTURE VAL R30
   CAPTURE VAL R15
-  SETTABLEKS R35 R28 K43 ["calculateChangedBits"]
-  DUPCLOSURE R35 K44 [PROTO_6]
-  CAPTURE VAL R21
-  CAPTURE VAL R23
-  SETTABLEKS R35 R28 K45 ["scheduleWorkOnParentPath"]
-  DUPCLOSURE R35 K46 [PROTO_7]
-  CAPTURE VAL R18
+  CAPTURE VAL R12
+  SETTABLEKS R36 R29 K40 ["popProvider"]
+  DUPCLOSURE R36 K41 [PROTO_5]
   CAPTURE VAL R26
-  CAPTURE VAL R20
-  CAPTURE VAL R24
-  CAPTURE VAL R27
-  CAPTURE VAL R28
-  CAPTURE VAL R17
-  SETTABLEKS R35 R28 K47 ["propagateContextChange"]
-  NEWCLOSURE R35 P8
-  CAPTURE REF R31
-  CAPTURE REF R32
-  CAPTURE REF R33
+  CAPTURE VAL R16
+  SETTABLEKS R36 R29 K42 ["calculateChangedBits"]
+  DUPCLOSURE R36 K43 [PROTO_6]
   CAPTURE VAL R22
-  SETTABLEKS R35 R28 K48 ["prepareToReadContext"]
-  NEWCLOSURE R35 P9
-  CAPTURE REF R34
-  CAPTURE VAL R4
-  CAPTURE REF R33
-  CAPTURE VAL R2
-  CAPTURE REF R32
-  CAPTURE REF R31
-  CAPTURE VAL R3
+  CAPTURE VAL R24
+  SETTABLEKS R36 R29 K44 ["scheduleWorkOnParentPath"]
+  DUPCLOSURE R36 K45 [PROTO_7]
   CAPTURE VAL R19
-  CAPTURE VAL R11
-  SETTABLEKS R35 R28 K49 ["readContext"]
-  CLOSEUPVALS R30
-  RETURN R28 1
+  CAPTURE VAL R27
+  CAPTURE VAL R21
+  CAPTURE VAL R25
+  CAPTURE VAL R28
+  CAPTURE VAL R29
+  CAPTURE VAL R18
+  SETTABLEKS R36 R29 K46 ["propagateContextChange"]
+  NEWCLOSURE R36 P8
+  CAPTURE REF R32
+  CAPTURE REF R33
+  CAPTURE REF R34
+  CAPTURE VAL R23
+  SETTABLEKS R36 R29 K47 ["prepareToReadContext"]
+  NEWCLOSURE R36 P9
+  CAPTURE VAL R1
+  CAPTURE REF R35
+  CAPTURE VAL R5
+  CAPTURE REF R34
+  CAPTURE VAL R3
+  CAPTURE REF R33
+  CAPTURE REF R32
+  CAPTURE VAL R4
+  CAPTURE VAL R20
+  CAPTURE VAL R12
+  SETTABLEKS R36 R29 K48 ["readContext"]
+  CLOSEUPVALS R31
+  RETURN R29 1

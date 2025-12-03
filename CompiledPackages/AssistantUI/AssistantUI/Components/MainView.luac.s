@@ -128,102 +128,97 @@ PROTO_5:
   GETUPVAL R6 2
   CALL R6 0 1
   GETUPVAL R7 3
-  GETUPVAL R8 4
-  DUPTABLE R9 K5 [{"tag", "LayoutOrder"}]
-  LOADK R10 K6 ["col size-full-0 grow"]
-  SETTABLEKS R10 R9 K3 ["tag"]
-  GETTABLEKS R10 R0 K4 ["LayoutOrder"]
-  SETTABLEKS R10 R9 K4 ["LayoutOrder"]
-  DUPTABLE R10 K11 [{"Header", "Divider", "ChatHistoryArea", "InputArea"}]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K3 ["ContextStack"]
+  DUPTABLE R9 K5 [{"providers"}]
+  NEWTABLE R10 0 1
   GETUPVAL R11 3
-  GETUPVAL R12 5
-  DUPTABLE R13 K5 [{"tag", "LayoutOrder"}]
-  LOADK R14 K12 ["row size-full-0 auto-y padding-small gap-xsmall align-x-right"]
-  SETTABLEKS R14 R13 K3 ["tag"]
-  MOVE R14 R6
-  CALL R14 0 1
-  SETTABLEKS R14 R13 K4 ["LayoutOrder"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K7 ["Header"]
-  GETUPVAL R11 3
-  GETUPVAL R12 6
-  DUPTABLE R13 K14 [{"variant", "LayoutOrder"}]
-  GETUPVAL R17 7
-  GETTABLEKS R16 R17 K15 ["Enums"]
-  GETTABLEKS R15 R16 K16 ["DividerVariant"]
-  GETTABLEKS R14 R15 K17 ["Default"]
-  SETTABLEKS R14 R13 K13 ["variant"]
-  MOVE R14 R6
-  CALL R14 0 1
-  SETTABLEKS R14 R13 K4 ["LayoutOrder"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K8 ["Divider"]
-  GETUPVAL R11 3
-  GETUPVAL R12 4
-  DUPTABLE R13 K5 [{"tag", "LayoutOrder"}]
-  LOADK R14 K18 ["size-full-0 grow"]
-  SETTABLEKS R14 R13 K3 ["tag"]
-  MOVE R14 R6
-  CALL R14 0 1
-  SETTABLEKS R14 R13 K4 ["LayoutOrder"]
-  DUPTABLE R14 K21 [{"ChatHistory", "ModelQualityWarning"}]
-  GETUPVAL R15 3
-  GETUPVAL R16 8
-  DUPTABLE R17 K25 [{"scrollingFrameRef", "onAbsoluteCanvasSizeChanged", "onCanvasPositionChanged"}]
-  SETTABLEKS R1 R17 K22 ["scrollingFrameRef"]
-  SETTABLEKS R4 R17 K23 ["onAbsoluteCanvasSizeChanged"]
-  SETTABLEKS R3 R17 K24 ["onCanvasPositionChanged"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K19 ["ChatHistory"]
-  GETUPVAL R15 3
-  GETUPVAL R16 9
-  DUPTABLE R17 K29 [{"AnchorPoint", "Position", "ZIndex"}]
-  GETIMPORT R18 K32 [Vector2.new]
-  LOADK R19 K33 [0.5]
-  LOADN R20 1
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K6 ["Provider"]
+  CALL R11 1 -1
+  SETLIST R10 R11 -1 [1]
+  SETTABLEKS R10 R9 K4 ["providers"]
+  GETUPVAL R10 3
+  GETUPVAL R11 6
+  DUPTABLE R12 K9 [{"tag", "LayoutOrder"}]
+  LOADK R13 K10 ["col size-full-0 grow"]
+  SETTABLEKS R13 R12 K7 ["tag"]
+  GETTABLEKS R13 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K8 ["LayoutOrder"]
+  DUPTABLE R13 K15 [{"Header", "Divider", "ChatHistoryArea", "InputArea"}]
+  GETUPVAL R14 3
+  GETUPVAL R15 7
+  DUPTABLE R16 K9 [{"tag", "LayoutOrder"}]
+  LOADK R17 K16 ["row size-full-0 auto-y padding-small gap-xsmall align-x-right"]
+  SETTABLEKS R17 R16 K7 ["tag"]
+  MOVE R17 R6
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K8 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K11 ["Header"]
+  GETUPVAL R14 3
+  GETUPVAL R15 8
+  DUPTABLE R16 K18 [{"variant", "LayoutOrder"}]
+  GETUPVAL R20 9
+  GETTABLEKS R19 R20 K19 ["Enums"]
+  GETTABLEKS R18 R19 K20 ["DividerVariant"]
+  GETTABLEKS R17 R18 K21 ["Default"]
+  SETTABLEKS R17 R16 K17 ["variant"]
+  MOVE R17 R6
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K8 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K12 ["Divider"]
+  GETUPVAL R14 3
+  GETUPVAL R15 6
+  DUPTABLE R16 K9 [{"tag", "LayoutOrder"}]
+  LOADK R17 K22 ["size-full-0 grow"]
+  SETTABLEKS R17 R16 K7 ["tag"]
+  MOVE R17 R6
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K8 ["LayoutOrder"]
+  DUPTABLE R17 K25 [{"ChatHistory", "ModelQualityWarning"}]
+  GETUPVAL R18 3
+  GETUPVAL R19 10
+  DUPTABLE R20 K29 [{"scrollingFrameRef", "onAbsoluteCanvasSizeChanged", "onCanvasPositionChanged"}]
+  SETTABLEKS R1 R20 K26 ["scrollingFrameRef"]
+  SETTABLEKS R4 R20 K27 ["onAbsoluteCanvasSizeChanged"]
+  SETTABLEKS R3 R20 K28 ["onCanvasPositionChanged"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K26 ["AnchorPoint"]
-  GETIMPORT R18 K36 [UDim2.fromScale]
-  LOADK R19 K33 [0.5]
-  LOADN R20 1
+  SETTABLEKS R18 R17 K23 ["ChatHistory"]
+  GETUPVAL R18 3
+  GETUPVAL R19 11
+  DUPTABLE R20 K33 [{"AnchorPoint", "Position", "ZIndex"}]
+  GETIMPORT R21 K36 [Vector2.new]
+  LOADK R22 K37 [0.5]
+  LOADN R23 1
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K30 ["AnchorPoint"]
+  GETIMPORT R21 K40 [UDim2.fromScale]
+  LOADK R22 K37 [0.5]
+  LOADN R23 1
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K31 ["Position"]
+  LOADN R21 231
+  SETTABLEKS R21 R20 K32 ["ZIndex"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K27 ["Position"]
-  LOADN R18 231
-  SETTABLEKS R18 R17 K28 ["ZIndex"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K20 ["ModelQualityWarning"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K9 ["ChatHistoryArea"]
-  GETUPVAL R11 3
-  GETUPVAL R12 10
-  DUPTABLE R13 K39 [{"LayoutOrder", "OnMessageSent", "textBoxRef"}]
-  MOVE R14 R6
-  CALL R14 0 1
-  SETTABLEKS R14 R13 K4 ["LayoutOrder"]
-  SETTABLEKS R5 R13 K37 ["OnMessageSent"]
-  GETTABLEKS R14 R0 K38 ["textBoxRef"]
-  SETTABLEKS R14 R13 K38 ["textBoxRef"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K10 ["InputArea"]
-  CALL R7 3 1
-  GETUPVAL R8 11
-  CALL R8 0 1
-  JUMPIFNOT R8 [+19]
-  GETUPVAL R8 3
-  GETUPVAL R10 12
-  GETTABLEKS R9 R10 K40 ["ContextStack"]
-  DUPTABLE R10 K42 [{"providers"}]
-  NEWTABLE R11 0 1
-  GETUPVAL R12 3
-  GETUPVAL R14 13
-  GETTABLEKS R13 R14 K43 ["Provider"]
-  CALL R12 1 -1
-  SETLIST R11 R12 -1 [1]
-  SETTABLEKS R11 R10 K41 ["providers"]
-  MOVE R11 R7
-  CALL R8 3 -1
-  RETURN R8 -1
-  RETURN R7 1
+  SETTABLEKS R18 R17 K24 ["ModelQualityWarning"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K13 ["ChatHistoryArea"]
+  GETUPVAL R14 3
+  GETUPVAL R15 12
+  DUPTABLE R16 K43 [{"LayoutOrder", "OnMessageSent", "textBoxRef"}]
+  MOVE R17 R6
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K8 ["LayoutOrder"]
+  SETTABLEKS R5 R16 K41 ["OnMessageSent"]
+  GETTABLEKS R17 R0 K42 ["textBoxRef"]
+  SETTABLEKS R17 R16 K42 ["textBoxRef"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K14 ["InputArea"]
+  CALL R10 3 -1
+  CALL R7 -1 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0
@@ -268,29 +263,24 @@ MAIN:
   GETTABLEKS R11 R0 K10 ["Parent"]
   GETTABLEKS R10 R11 K18 ["ReactUtils"]
   CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K19 ["Flags"]
-  GETTABLEKS R11 R12 K20 ["FFlagMCPAssistantAddGenerationIndicator"]
-  CALL R10 1 1
-  GETTABLEKS R11 R3 K21 ["Divider"]
-  GETTABLEKS R12 R3 K22 ["View"]
-  GETTABLEKS R13 R9 K23 ["createNextOrder"]
-  GETTABLEKS R14 R8 K24 ["createElement"]
-  DUPCLOSURE R15 K25 [PROTO_0]
-  DUPCLOSURE R16 K26 [PROTO_1]
-  DUPCLOSURE R17 K27 [PROTO_5]
+  GETTABLEKS R10 R3 K19 ["Divider"]
+  GETTABLEKS R11 R3 K20 ["View"]
+  GETTABLEKS R12 R9 K21 ["createNextOrder"]
+  GETTABLEKS R13 R8 K22 ["createElement"]
+  DUPCLOSURE R14 K23 [PROTO_0]
+  DUPCLOSURE R15 K24 [PROTO_1]
+  DUPCLOSURE R16 K25 [PROTO_5]
   CAPTURE VAL R2
   CAPTURE VAL R8
-  CAPTURE VAL R13
-  CAPTURE VAL R14
   CAPTURE VAL R12
-  CAPTURE VAL R4
+  CAPTURE VAL R13
+  CAPTURE VAL R9
+  CAPTURE VAL R7
   CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R10
   CAPTURE VAL R3
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R5
-  CAPTURE VAL R10
-  CAPTURE VAL R9
-  CAPTURE VAL R7
-  RETURN R17 1
+  RETURN R16 1

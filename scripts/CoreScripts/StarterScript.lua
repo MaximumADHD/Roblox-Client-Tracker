@@ -75,8 +75,6 @@ local FFlagEnablePremiumSponsoredExperienceReporting =
 local FFlagEnableCancelSubscriptionApp = game:GetEngineFeature("EnableCancelSubscriptionApp")
 local FFlagEnableCancelSubscriptionAppLua = game:DefineFastFlag("EnableCancelSubscriptionAppLua", false)
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
-local FFlagEnableExperienceMenuSessionTracking =
-	require(RobloxGui.Modules.Flags.FFlagEnableExperienceMenuSessionTracking)
 local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 	game:DefineFastFlag("EnableExperienceGenericChallengeRenderingOnLoadingScript", false)
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
@@ -133,9 +131,7 @@ if GetFFlagEnableCrossExpVoice() then
 end
 
 -- Initialize SessionManager
-if FFlagEnableExperienceMenuSessionTracking then
-	local _inExperienceSessionization = require(CorePackages.Workspace.Packages.InExperienceSessionization)
-end
+local _inExperienceSessionization = require(CorePackages.Workspace.Packages.InExperienceSessionization)
 
 local FFlagAvatarChatCoreScriptSupport =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()

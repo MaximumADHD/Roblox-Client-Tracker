@@ -33,7 +33,6 @@ local FFlagAddDropdownTypeToGetValueChanger = game:DefineFastFlag("AddDropdownTy
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
-local FFlagSettingsPageScaleTextSize = require(script.Parent.Flags.FFlagSettingsPageScaleTextSize)
 
 local TEXT_BUTTON_FONT_SIZE_SMALL_TOUCH_SCREEN = 18
 local TEXT_BUTTON_FONT_SIZE = 24
@@ -114,7 +113,6 @@ local function Initialize()
 		Name = "Title",
 		Text = "",
 		Font = Theme.font(Enum.Font.SourceSansBold, "Button"),
-		FontSize = if FFlagSettingsPageScaleTextSize then nil else Theme.fontSize(Enum.FontSize.Size24, "Button"),
 		TextColor3 = Color3.new(1,1,1),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1.05,0,1,0), --overwritten
@@ -122,8 +120,6 @@ local function Initialize()
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextTransparency = 0.5,
 	};
-
-	if FFlagSettingsPageScaleTextSize then
 		title.TextSize = Theme.textSize(TEXT_BUTTON_FONT_SIZE)
 		local titleTextSizeConstraint = Instance.new("UITextSizeConstraint")
 		titleTextSizeConstraint.MaxTextSize = Theme.textSize(TEXT_BUTTON_FONT_SIZE)
@@ -139,22 +135,6 @@ local function Initialize()
 			title.TextSize =  Theme.textSize(TEXT_BUTTON_FONT_SIZE_TEN_FOOT)
 			titleTextSizeConstraint.MaxTextSize = Theme.textSize(TEXT_BUTTON_FONT_SIZE_TEN_FOOT)
 		end
-	else
-		local titleTextSizeConstraint = Instance.new("UITextSizeConstraint")
-		titleTextSizeConstraint.MaxTextSize = 24
-		title.Parent = icon
-		if utility:IsPortrait() and utility:IsSmallTouchScreen() then 
-			titleTextSizeConstraint.Parent = title
-		end
-
-		if utility:IsSmallTouchScreen() then
-			title.FontSize =  Theme.fontSize(Enum.FontSize.Size18)
-			titleTextSizeConstraint.MaxTextSize = 18
-		elseif isTenFootInterface then
-			title.FontSize =  Theme.fontSize(Enum.FontSize.Size48)
-			titleTextSizeConstraint.MaxTextSize = 48
-		end
-	end
 
 	local _tabSelection = Create'ImageLabel'
 	{

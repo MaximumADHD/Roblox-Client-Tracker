@@ -21,6 +21,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_TILE"
 	| "UI_COMPONENT_TYPE_GAME_TILE"
 	| "UI_COMPONENT_TYPE_SEE_ALL_TILE"
+	| "UI_COMPONENT_TYPE_BADGE_TILE"
 	| "UI_COMPONENT_TYPE_BUTTON"
 	| "UI_COMPONENT_TYPE_IMAGE"
 	| "UI_COMPONENT_TYPE_TEXT"
@@ -40,6 +41,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_COUNTDOWN_TEXT_ICON_ROW"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
+	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
 	| "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 	| number -- Unknown
 
@@ -61,6 +63,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_GAME_TILE"
 		elseif value == 102 then
 			return "UI_COMPONENT_TYPE_SEE_ALL_TILE"
+		elseif value == 103 then
+			return "UI_COMPONENT_TYPE_BADGE_TILE"
 		elseif value == 200 then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif value == 201 then
@@ -99,6 +103,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
 			return "UI_COMPONENT_TYPE_FRAGMENT"
+		elseif value == 500 then
+			return "UI_COMPONENT_TYPE_VERTICAL_FEED"
 		elseif value == 9999 then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else
@@ -123,6 +129,8 @@ messages.UiComponentType = {
 			return 101
 		elseif self == "UI_COMPONENT_TYPE_SEE_ALL_TILE" then
 			return 102
+		elseif self == "UI_COMPONENT_TYPE_BADGE_TILE" then
+			return 103
 		elseif self == "UI_COMPONENT_TYPE_BUTTON" then
 			return 200
 		elseif self == "UI_COMPONENT_TYPE_IMAGE" then
@@ -161,6 +169,8 @@ messages.UiComponentType = {
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
 			return 400
+		elseif self == "UI_COMPONENT_TYPE_VERTICAL_FEED" then
+			return 500
 		elseif self == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return 9999
 		else
@@ -185,6 +195,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_GAME_TILE"
 		elseif name == "UI_COMPONENT_TYPE_SEE_ALL_TILE" then
 			return "UI_COMPONENT_TYPE_SEE_ALL_TILE"
+		elseif name == "UI_COMPONENT_TYPE_BADGE_TILE" then
+			return "UI_COMPONENT_TYPE_BADGE_TILE"
 		elseif name == "UI_COMPONENT_TYPE_BUTTON" then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_IMAGE" then
@@ -223,6 +235,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then
 			return "UI_COMPONENT_TYPE_FRAGMENT"
+		elseif name == "UI_COMPONENT_TYPE_VERTICAL_FEED" then
+			return "UI_COMPONENT_TYPE_VERTICAL_FEED"
 		elseif name == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else

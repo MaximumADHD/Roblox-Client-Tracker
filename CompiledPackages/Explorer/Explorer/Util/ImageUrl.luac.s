@@ -16,7 +16,7 @@ PROTO_1:
   RETURN R2 1
 
 PROTO_2:
-  LOADK R3 K0 ["rbxasset://studio_svg_textures/Shared/Packages/%*/Standard/PackageStatus_%*.png"]
+  LOADK R3 K0 ["rbxasset://studio_svg_textures/Shared/Packages/%*/Standard/PackageLink_%*.png"]
   MOVE R5 R1
   MOVE R6 R0
   NAMECALL R3 R3 K1 ["format"]
@@ -25,7 +25,7 @@ PROTO_2:
   RETURN R2 1
 
 PROTO_3:
-  LOADK R3 K0 ["rbxasset://studio_svg_textures/Shared/FileSync/%*/Standard/FileSyncStatus_%*.png"]
+  LOADK R3 K0 ["rbxasset://studio_svg_textures/Shared/Packages/%*/Standard/PackageStatus_%*.png"]
   MOVE R5 R1
   MOVE R6 R0
   NAMECALL R3 R3 K1 ["format"]
@@ -34,6 +34,15 @@ PROTO_3:
   RETURN R2 1
 
 PROTO_4:
+  LOADK R3 K0 ["rbxasset://studio_svg_textures/Shared/FileSync/%*/Standard/FileSyncStatus_%*.png"]
+  MOVE R5 R1
+  MOVE R6 R0
+  NAMECALL R3 R3 K1 ["format"]
+  CALL R3 3 1
+  MOVE R2 R3
+  RETURN R2 1
+
+PROTO_5:
   LOADK R2 K0 ["rbxasset://studio_svg_textures/Shared/Alerts/%*/Standard/Warning.png"]
   MOVE R4 R0
   NAMECALL R2 R2 K1 ["format"]
@@ -41,7 +50,7 @@ PROTO_4:
   MOVE R1 R2
   RETURN R1 1
 
-PROTO_5:
+PROTO_6:
   LOADK R2 K0 ["rbxasset://studio_svg_textures/Shared/Utility/%*/Large/CircleOutline.png"]
   MOVE R4 R0
   NAMECALL R2 R2 K1 ["format"]
@@ -66,11 +75,13 @@ MAIN:
   DUPCLOSURE R3 K11 [PROTO_1]
   SETTABLEKS R3 R2 K12 ["themed"]
   DUPCLOSURE R3 K13 [PROTO_2]
-  SETTABLEKS R3 R2 K14 ["packageStatus"]
+  SETTABLEKS R3 R2 K14 ["packageLink"]
   DUPCLOSURE R3 K15 [PROTO_3]
-  SETTABLEKS R3 R2 K16 ["liveSyncStatus"]
+  SETTABLEKS R3 R2 K16 ["packageStatus"]
   DUPCLOSURE R3 K17 [PROTO_4]
-  SETTABLEKS R3 R2 K18 ["alertIcons"]
+  SETTABLEKS R3 R2 K18 ["liveSyncStatus"]
   DUPCLOSURE R3 K19 [PROTO_5]
-  SETTABLEKS R3 R2 K20 ["circleOutline"]
+  SETTABLEKS R3 R2 K20 ["alertIcons"]
+  DUPCLOSURE R3 K21 [PROTO_6]
+  SETTABLEKS R3 R2 K22 ["circleOutline"]
   RETURN R2 1

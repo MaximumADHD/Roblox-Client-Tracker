@@ -49,7 +49,7 @@ PROTO_1:
   LOADK R7 K23 ["Enum.AnimationNodePlayMode"]
   GETTABLEKS R9 R0 K20 ["PropertyLookup"]
   GETTABLEKS R8 R9 K22 ["PlayMode"]
-  GETIMPORT R9 K27 [Enum.AnimationNodePlayMode.OnceAndHold]
+  GETIMPORT R9 K27 [Enum.AnimationNodePlayMode.Loop]
   CALL R5 4 1
   SETTABLEKS R5 R4 K7 ["Property_Playmode"]
   GETTABLEKS R5 R2 K17 ["nextProperty"]

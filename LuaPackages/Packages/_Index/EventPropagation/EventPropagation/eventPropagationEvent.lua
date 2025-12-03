@@ -8,7 +8,7 @@ export type Event<T> = {
 	targetInstance: Instance,
 	eventName: string,
 	eventData: T,
-
+	synthetic: boolean,
 	cancel: (self: Event<T>) -> (),
 }
 
@@ -20,6 +20,7 @@ function Event.new<T>(
 	currentInstance: Instance,
 	eventName: string,
 	phase: EventPhase,
+	synthetic: boolean?,
 	eventData: T
 ): Event<T>
 	local self = {
@@ -28,6 +29,7 @@ function Event.new<T>(
 		currentInstance = currentInstance,
 		targetInstance = targetInstance,
 		eventName = eventName,
+		synthetic = synthetic or false,
 		eventData = if type(eventData) == "table" and not table.isfrozen(eventData)
 			then table.freeze(eventData)
 			else eventData,

@@ -13,6 +13,11 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
+
+local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
+local character = inputContexts:WaitForChild("Character")
+local moveAction = character:WaitForChild("Move")
+
 --[[ The Module ]]--
 local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
 local TouchThumbstick = setmetatable({}, BaseCharacterController)
@@ -37,7 +42,6 @@ function TouchThumbstick:Enable(enable: boolean?, uiParentFrame)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
 	if self.enabled == enable then return true end	-- If no state change, return true indicating already in requested state
 
-	self.moveVector = ZERO_VECTOR3
 	self.isJumping = false
 
 	if enable then
@@ -57,7 +61,7 @@ function TouchThumbstick:OnInputEnded()
 	self.thumbstickFrame.Position = self.screenPos
 	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
 
-	self.moveVector = ZERO_VECTOR3
+	moveAction:Fire(Vector2.zero)
 	self.isJumping = false
 	self.thumbstickFrame.Position = self.screenPos
 	self.moveTouchObject = nil
@@ -125,21 +129,20 @@ function TouchThumbstick:Create(parentFrame)
 	local deadZone = 0.05
 
 	local function DoMove(direction: Vector2)
-
 		local currentMoveVector = direction / (self.thumbstickSize/2)
 
 		-- Scaled Radial Dead Zone
 		local inputAxisMagnitude = currentMoveVector.magnitude
 		if inputAxisMagnitude < deadZone then
-			currentMoveVector = Vector3.new()
+			currentMoveVector = Vector2.new()
 		else
-			currentMoveVector = currentMoveVector.unit * math.min(1, (inputAxisMagnitude - deadZone) / (1 - deadZone))
 			-- NOTE: Making currentMoveVector a unit vector will cause the player to instantly go max speed
 			-- must check for zero length vector is using unit
-			currentMoveVector = Vector3.new(currentMoveVector.X, 0, currentMoveVector.Y)
+			currentMoveVector = currentMoveVector.unit * math.min(1, (inputAxisMagnitude - deadZone) / (1 - deadZone))
 		end
 
-		self.moveVector = currentMoveVector
+		currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
+		moveAction:Fire(currentMoveVector)
 	end
 
 	local function MoveStick(pos: Vector3)

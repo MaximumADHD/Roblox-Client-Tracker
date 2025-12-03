@@ -87,7 +87,7 @@ PROTO_1:
   LOADN R15 2
   SETTABLEKS R15 R14 K13 ["LayoutOrder"]
   SETTABLEKS R5 R14 K19 ["Text"]
-  LOADK R15 K31 ["text-title-small content-emphasis auto-y grow text-align-x-left text-truncate-end"]
+  LOADK R15 K31 ["text-caption-medium content-emphasis auto-y grow text-align-x-left text-truncate-end"]
   SETTABLEKS R15 R14 K15 ["tag"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K19 ["Text"]

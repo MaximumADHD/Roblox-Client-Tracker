@@ -23,9 +23,20 @@ CharacterModelPool.__index = CharacterModelPool
 	Store these models in RobloxReplicatedStorage until it is decided that one is needed by calling maybeUpdateCharacter
 ]]
 local function setupCharacterModels(cframePos)
-	local r6 = Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
-	local r15 =
-		Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
+	local r6
+	local r15
+	
+	-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+	-- Will be removed when that PR is merged.
+	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+		r6 = (Players :: any):CreateHumanoidModelFromDescriptionAsync(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
+		r15 =
+			(Players :: any):CreateHumanoidModelFromDescriptionAsync(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
+	else
+		r6 = (Players :: any):CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
+		r15 =
+			(Players :: any):CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
+	end
 
 	r6.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 	r15.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
@@ -146,7 +157,13 @@ function CharacterModelPool:_doUpdateR6(newHumanoidDescription)
 		if self.mockApplyDescription then
 			self.mockApplyDescription(self.r6, newHumanoidDescription)
 		else
-			self.r6.Humanoid:ApplyDescription(newHumanoidDescription)
+			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+			-- Will be removed when that PR is merged.
+			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+				(self.r6.Humanoid :: any):ApplyDescriptionAsync(newHumanoidDescription)
+			else
+				(self.r6.Humanoid :: any):ApplyDescription(newHumanoidDescription)
+			end
 		end
 		-- Don't return self.r6 directly in case the avatar type has changed while applying this
 		resolve(self:getCurrentCharacter())
@@ -159,7 +176,13 @@ function CharacterModelPool:_doSimpleUpdateR15(newHumanoidDescription)
 		if self.mockApplyDescription then
 			self.mockApplyDescription(self.r15current, newHumanoidDescription)
 		else
-			self.r15current.Humanoid:ApplyDescription(newHumanoidDescription)
+			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+			-- Will be removed when that PR is merged.
+			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+				(self.r15current.Humanoid :: any):ApplyDescriptionAsync(newHumanoidDescription)
+			else
+				(self.r15current.Humanoid :: any):ApplyDescription(newHumanoidDescription)
+			end
 		end
 
 		resolve(self.r15current)
@@ -175,7 +198,13 @@ function CharacterModelPool:_updateOffscreenR15(newHumanoidDescription)
 		if self.mockApplyDescription then
 			self.mockApplyDescription(self.r15offScreen, newHumanoidDescription)
 		else
-			self.r15offScreen.Humanoid:ApplyDescription(newHumanoidDescription)
+			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+			-- Will be removed when that PR is merged.
+			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+				(self.r15offScreen.Humanoid :: any):ApplyDescriptionAsync(newHumanoidDescription)
+			else
+				(self.r15offScreen.Humanoid :: any):ApplyDescription(newHumanoidDescription)
+			end
 		end
 
 		resolve(self.r15offScreen)

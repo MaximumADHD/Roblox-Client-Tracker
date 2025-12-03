@@ -64,60 +64,62 @@ PROTO_1:
   GETIMPORT R5 K31 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R5 R4 K29 ["ZIndexBehavior"]
   LOADK R7 K32 ["Floating"]
-  DUPTABLE R8 K34 [{"Id", "Popup", "Resizable", "Title"}]
+  DUPTABLE R8 K35 [{"Id", "Popup", "Resizable", "Title", "ZIndex"}]
   LOADK R9 K32 ["Floating"]
   SETTABLEKS R9 R8 K8 ["Id"]
-  DUPTABLE R9 K36 [{"PassesThroughMouseEvents"}]
+  DUPTABLE R9 K37 [{"PassesThroughMouseEvents"}]
   LOADB R10 1
-  SETTABLEKS R10 R9 K35 ["PassesThroughMouseEvents"]
+  SETTABLEKS R10 R9 K36 ["PassesThroughMouseEvents"]
   SETTABLEKS R9 R8 K33 ["Popup"]
   LOADB R9 1
   SETTABLEKS R9 R8 K13 ["Resizable"]
   LOADK R9 K32 ["Floating"]
   SETTABLEKS R9 R8 K15 ["Title"]
+  LOADN R9 50
+  SETTABLEKS R9 R8 K34 ["ZIndex"]
   NAMECALL R5 R0 K23 ["CreateQWidgetPluginGui"]
   CALL R5 3 1
-  LOADK R6 K37 ["FloatingRibbon"]
+  LOADK R6 K38 ["FloatingRibbon"]
   SETTABLEKS R6 R5 K15 ["Title"]
   GETIMPORT R6 K31 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R6 R5 K29 ["ZIndexBehavior"]
-  GETTABLEKS R6 R1 K38 ["createElement"]
+  GETTABLEKS R6 R1 K39 ["createElement"]
   MOVE R7 R3
-  DUPTABLE R8 K42 [{"Plugin", "Widget", "Floating", "Mdi"}]
-  SETTABLEKS R0 R8 K39 ["Plugin"]
-  SETTABLEKS R4 R8 K40 ["Widget"]
+  DUPTABLE R8 K43 [{"Plugin", "Widget", "Floating", "Mdi"}]
+  SETTABLEKS R0 R8 K40 ["Plugin"]
+  SETTABLEKS R4 R8 K41 ["Widget"]
   SETTABLEKS R5 R8 K32 ["Floating"]
-  GETTABLEKS R9 R0 K43 ["MultipleDocumentInterfaceInstance"]
-  SETTABLEKS R9 R8 K41 ["Mdi"]
+  GETTABLEKS R9 R0 K44 ["MultipleDocumentInterfaceInstance"]
+  SETTABLEKS R9 R8 K42 ["Mdi"]
   CALL R6 2 1
-  GETTABLEKS R7 R2 K44 ["createRoot"]
+  GETTABLEKS R7 R2 K45 ["createRoot"]
   MOVE R8 R4
   CALL R7 1 1
   MOVE R10 R6
-  NAMECALL R8 R7 K45 ["render"]
+  NAMECALL R8 R7 K46 ["render"]
   CALL R8 2 0
-  GETTABLEKS R8 R0 K46 ["Unloading"]
+  GETTABLEKS R8 R0 K47 ["Unloading"]
   NEWCLOSURE R10 P0
   CAPTURE VAL R7
   CAPTURE VAL R4
-  NAMECALL R8 R8 K47 ["Once"]
+  NAMECALL R8 R8 K48 ["Once"]
   CALL R8 2 0
   GETUPVAL R8 1
   CALL R8 0 1
   JUMPIFNOT R8 [+23]
-  GETIMPORT R8 K49 [game]
-  LOADK R10 K50 ["RobloxPluginGuiService"]
-  NAMECALL R8 R8 K51 ["GetService"]
+  GETIMPORT R8 K50 [game]
+  LOADK R10 K51 ["RobloxPluginGuiService"]
+  NAMECALL R8 R8 K52 ["GetService"]
   CALL R8 2 1
   GETIMPORT R9 K1 [require]
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K5 ["Src"]
-  GETTABLEKS R10 R11 K52 ["FoundationInspector"]
+  GETTABLEKS R10 R11 K53 ["FoundationInspector"]
   CALL R9 1 1
-  GETTABLEKS R10 R9 K53 ["open"]
+  GETTABLEKS R10 R9 K54 ["open"]
   MOVE R11 R0
   CALL R10 1 0
-  GETTABLEKS R10 R9 K54 ["watchDockWidgets"]
+  GETTABLEKS R10 R9 K55 ["watchDockWidgets"]
   MOVE R11 R0
   MOVE R12 R8
   CALL R10 2 0

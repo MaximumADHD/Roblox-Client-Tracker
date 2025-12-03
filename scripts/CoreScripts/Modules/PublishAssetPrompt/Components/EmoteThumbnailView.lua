@@ -109,13 +109,32 @@ function EmoteThumbnailView:init()
 		-- default character for emote creation
 		local ok, humanoidDescription = pcall(function()
 			-- this is an outfit of Mannequin-Blocky bundle that is used to create emote thumbnails https://www.roblox.com/bundles/515/Mannequin-Blocky
-			local mannequinRig = Players:GetHumanoidDescriptionFromOutfitId(MANNEQUIN_OUTFIT_ID)
-			return mannequinRig
+			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+			-- Will be removed when that PR is merged.
+			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+				local mannequinRig = (Players :: any):GetHumanoidDescriptionFromOutfitIdAsync(MANNEQUIN_OUTFIT_ID)
+				return mannequinRig
+			else
+				local mannequinRig = (Players :: any):GetHumanoidDescriptionFromOutfitId(MANNEQUIN_OUTFIT_ID)
+				return mannequinRig
+			end
 		end)
 		if not ok then
 			humanoidDescription = Instance.new("HumanoidDescription")
 		end
-		self.character = Players:CreateHumanoidModelFromDescription(humanoidDescription, Enum.HumanoidRigType.R15)
+		-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
+		-- Will be removed when that PR is merged.
+		if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
+			self.character = (Players :: any):CreateHumanoidModelFromDescriptionAsync(
+				humanoidDescription,
+				Enum.HumanoidRigType.R15
+			)
+		else
+			self.character = (Players :: any):CreateHumanoidModelFromDescription(
+				humanoidDescription,
+				Enum.HumanoidRigType.R15
+			)
+		end
 		self:addCharacterToViewportIfNeeded()
 	end)
 end

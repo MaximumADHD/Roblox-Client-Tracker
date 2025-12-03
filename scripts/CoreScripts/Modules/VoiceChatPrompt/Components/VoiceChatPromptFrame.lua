@@ -59,11 +59,16 @@ local GetFFlagUpdateVoiceConnectionToasts =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagUpdateVoiceConnectionToasts)
 local GetFFlagShowToastWhenAgeGatingVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowToastWhenAgeGatingVoice
+local FFlagUpdateJoinVoiceToastSubtitle = game:DefineFastFlag("UpdateJoinVoiceToastSubtitle_AEGIS2", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local locales = nil
-if GetFFlagEnableSeamlessVoiceDataConsentToast() or GetFFlagUpdateVoiceConnectionToasts() or GetFFlagShowToastWhenAgeGatingVoice() then
+if
+	GetFFlagEnableSeamlessVoiceDataConsentToast()
+	or GetFFlagUpdateVoiceConnectionToasts()
+	or GetFFlagShowToastWhenAgeGatingVoice()
+then
 	local LocalizationService = game:GetService("LocalizationService")
 	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 	locales = Localization.new(LocalizationService.RobloxLocaleId)
@@ -196,7 +201,9 @@ local PromptSubTitle = {
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.ThanksForVoiceData")
 		else nil,
 	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagUpdateVoiceConnectionToasts()
-		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroup")
+		then if FFlagUpdateJoinVoiceToastSubtitle
+			then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2")
+			else locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroup")
 		else nil,
 	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo")
@@ -363,7 +370,8 @@ function VoiceChatPromptFrame:init()
 			local toastTitle = PromptTitle[promptType]
 			local toastSubtitle = PromptSubTitle[promptType]
 
-			if PromptTypeIsConnectDisconnectToast(promptType)
+			if
+				PromptTypeIsConnectDisconnectToast(promptType)
 				and self.props.VoiceChatServiceManager
 				and self.props.VoiceChatServiceManager:HasSeamlessVoiceFeature("HideJoinToastSubtitle")
 			then

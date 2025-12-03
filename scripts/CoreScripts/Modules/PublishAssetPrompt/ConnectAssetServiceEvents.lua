@@ -20,7 +20,6 @@ local SetAccessoryInstance = require(PublishAssetPrompt.Actions.SetAccessoryInst
 local SetPriceInRobux = require(PublishAssetPrompt.Actions.SetPriceInRobux)
 local OpenValidationErrorModal = require(PublishAssetPrompt.Actions.OpenValidationErrorModal)
 
-local getFFlagEnableAvatarAssetPrompt = require(PublishAssetPrompt.Flags.getFFlagEnableAvatarAssetPrompt)
 local EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled =
 	game:GetEngineFeature("PromptImportAnimationClipFromVideoAsyncEnabled")
 
@@ -73,7 +72,7 @@ local function ConnectAssetServiceEvents(store)
 					store:dispatch(OpenPublishAssetPrompt(instance, metadata["assetType"], guid, scopes))
 				elseif metadata["outfitToPublish"] then
 					store:dispatch(OpenPublishAvatarPrompt(guid, scopes))
-				elseif getFFlagEnableAvatarAssetPrompt() and metadata["accessoryToPublish"] then
+				elseif metadata["accessoryToPublish"] then
 					local accessoryType = metadata["accessoryType"]
 					store:dispatch(OpenPublishAvatarAssetPrompt(accessoryType, guid, scopes))
 				end
@@ -98,11 +97,7 @@ local function ConnectAssetServiceEvents(store)
 			connections,
 			AvatarCreationService.UgcValidationSuccess:Connect(function(guid, serializedModel, priceFromToken)
 				local state = store:getState()
-				if
-					getFFlagEnableAvatarAssetPrompt()
-					and state
-					and state.promptRequest.promptInfo.promptType == "PublishAvatarAsset"
-				then
+				if state and state.promptRequest.promptInfo.promptType == "PublishAvatarAsset" then
 					local avatarAssetInstance = AvatarCreationService:DeserializeAvatarModel(serializedModel)
 					store:dispatch(SetAccessoryInstance(avatarAssetInstance))
 
