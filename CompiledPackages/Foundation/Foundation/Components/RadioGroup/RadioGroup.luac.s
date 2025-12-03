@@ -52,7 +52,7 @@ PROTO_2:
   GETUPVAL R8 4
   MOVE R9 R2
   DUPTABLE R10 K8 [{"tag", "ref"}]
-  LOADK R11 K9 ["auto-xy col gap-large"]
+  LOADK R11 K9 ["auto-xy col gap-medium"]
   SETTABLEKS R11 R10 K6 ["tag"]
   SETTABLEKS R1 R10 K7 ["ref"]
   CALL R8 2 1

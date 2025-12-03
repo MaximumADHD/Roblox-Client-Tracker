@@ -14,20 +14,31 @@ PROTO_1:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K2 ["createElement"]
   GETUPVAL R5 1
-  DUPTABLE R6 K8 [{"isChecked", "isDisabled", "onActivated", "size", "label"}]
-  SETTABLEKS R2 R6 K3 ["isChecked"]
-  GETTABLEKS R7 R1 K4 ["isDisabled"]
-  SETTABLEKS R7 R6 K4 ["isDisabled"]
-  NEWCLOSURE R7 P0
+  DUPTABLE R6 K4 [{"tag"}]
+  LOADK R7 K5 ["col auto-xy size-3000-0"]
+  SETTABLEKS R7 R6 K3 ["tag"]
+  NEWTABLE R7 0 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K12 [{"isChecked", "isDisabled", "onActivated", "size", "label", "placement"}]
+  SETTABLEKS R2 R10 K6 ["isChecked"]
+  GETTABLEKS R11 R1 K7 ["isDisabled"]
+  SETTABLEKS R11 R10 K7 ["isDisabled"]
+  NEWCLOSURE R11 P0
   CAPTURE VAL R3
   CAPTURE VAL R2
-  SETTABLEKS R7 R6 K5 ["onActivated"]
-  GETTABLEKS R7 R1 K6 ["size"]
-  SETTABLEKS R7 R6 K6 ["size"]
-  GETTABLEKS R8 R1 K7 ["label"]
-  ORK R7 R8 K9 [""]
-  SETTABLEKS R7 R6 K7 ["label"]
-  CALL R4 2 -1
+  SETTABLEKS R11 R10 K8 ["onActivated"]
+  GETTABLEKS R11 R1 K9 ["size"]
+  SETTABLEKS R11 R10 K9 ["size"]
+  GETTABLEKS R12 R1 K10 ["label"]
+  ORK R11 R12 K13 [""]
+  SETTABLEKS R11 R10 K10 ["label"]
+  GETTABLEKS R11 R1 K11 ["placement"]
+  SETTABLEKS R11 R10 K11 ["placement"]
+  CALL R8 2 -1
+  SETLIST R7 R8 -1 [1]
+  CALL R4 3 -1
   RETURN R4 -1
 
 PROTO_2:
@@ -194,17 +205,28 @@ PROTO_8:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["createElement"]
   GETUPVAL R3 1
-  DUPTABLE R4 K6 [{"isDisabled", "onActivated", "size", "label"}]
-  GETTABLEKS R5 R1 K2 ["isDisabled"]
-  SETTABLEKS R5 R4 K2 ["isDisabled"]
-  DUPCLOSURE R5 K7 [PROTO_7]
-  SETTABLEKS R5 R4 K3 ["onActivated"]
-  GETTABLEKS R5 R1 K4 ["size"]
-  SETTABLEKS R5 R4 K4 ["size"]
-  GETTABLEKS R6 R1 K5 ["label"]
-  ORK R5 R6 K8 [""]
-  SETTABLEKS R5 R4 K5 ["label"]
-  CALL R2 2 -1
+  DUPTABLE R4 K3 [{"tag"}]
+  LOADK R5 K4 ["col auto-xy size-3000-0"]
+  SETTABLEKS R5 R4 K2 ["tag"]
+  NEWTABLE R5 0 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K10 [{"isDisabled", "onActivated", "size", "label", "placement"}]
+  GETTABLEKS R9 R1 K5 ["isDisabled"]
+  SETTABLEKS R9 R8 K5 ["isDisabled"]
+  DUPCLOSURE R9 K11 [PROTO_7]
+  SETTABLEKS R9 R8 K6 ["onActivated"]
+  GETTABLEKS R9 R1 K7 ["size"]
+  SETTABLEKS R9 R8 K7 ["size"]
+  GETTABLEKS R10 R1 K8 ["label"]
+  ORK R9 R10 K12 [""]
+  SETTABLEKS R9 R8 K8 ["label"]
+  GETTABLEKS R9 R1 K9 ["placement"]
+  SETTABLEKS R9 R8 K9 ["placement"]
+  CALL R6 2 -1
+  SETLIST R5 R6 -1 [1]
+  CALL R2 3 -1
   RETURN R2 -1
 
 MAIN:
@@ -241,48 +263,58 @@ MAIN:
   GETTABLEKS R10 R0 K16 ["Enums"]
   GETTABLEKS R9 R10 K17 ["InputSize"]
   CALL R8 1 1
-  DUPCLOSURE R9 K18 [PROTO_1]
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K16 ["Enums"]
+  GETTABLEKS R10 R11 K18 ["InputPlacement"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K19 [PROTO_1]
   CAPTURE VAL R2
+  CAPTURE VAL R5
   CAPTURE VAL R4
-  DUPCLOSURE R10 K19 [PROTO_6]
+  DUPCLOSURE R11 K20 [PROTO_6]
   CAPTURE VAL R2
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R4
-  DUPCLOSURE R11 K20 [PROTO_8]
+  DUPCLOSURE R12 K21 [PROTO_8]
   CAPTURE VAL R2
+  CAPTURE VAL R5
   CAPTURE VAL R4
-  DUPTABLE R12 K24 [{"summary", "stories", "controls"}]
-  LOADK R13 K25 ["Toggle component"]
-  SETTABLEKS R13 R12 K21 ["summary"]
-  NEWTABLE R13 0 3
-  DUPTABLE R14 K28 [{"name", "story"}]
-  LOADK R15 K29 ["Basic"]
-  SETTABLEKS R15 R14 K26 ["name"]
-  SETTABLEKS R9 R14 K27 ["story"]
-  DUPTABLE R15 K30 [{"name", "summary", "story"}]
-  LOADK R16 K31 ["Custom Selection"]
-  SETTABLEKS R16 R15 K26 ["name"]
-  LOADK R16 K32 ["Select card containers instead of toggles"]
-  SETTABLEKS R16 R15 K21 ["summary"]
-  SETTABLEKS R10 R15 K27 ["story"]
-  DUPTABLE R16 K30 [{"name", "summary", "story"}]
-  LOADK R17 K33 ["Uncontrolled"]
-  SETTABLEKS R17 R16 K26 ["name"]
-  LOADK R17 K34 ["State is controlled by the toggle itself"]
-  SETTABLEKS R17 R16 K21 ["summary"]
-  SETTABLEKS R11 R16 K27 ["story"]
-  SETLIST R13 R14 3 [1]
-  SETTABLEKS R13 R12 K22 ["stories"]
-  DUPTABLE R13 K38 [{"isDisabled", "label", "size"}]
-  LOADB R14 0
-  SETTABLEKS R14 R13 K35 ["isDisabled"]
-  LOADK R14 K39 ["Label"]
-  SETTABLEKS R14 R13 K36 ["label"]
-  GETTABLEKS R14 R3 K40 ["values"]
-  MOVE R15 R8
-  CALL R14 1 1
-  SETTABLEKS R14 R13 K37 ["size"]
-  SETTABLEKS R13 R12 K23 ["controls"]
-  RETURN R12 1
+  DUPTABLE R13 K25 [{"summary", "stories", "controls"}]
+  LOADK R14 K26 ["Toggle component"]
+  SETTABLEKS R14 R13 K22 ["summary"]
+  NEWTABLE R14 0 3
+  DUPTABLE R15 K29 [{"name", "story"}]
+  LOADK R16 K30 ["Basic"]
+  SETTABLEKS R16 R15 K27 ["name"]
+  SETTABLEKS R10 R15 K28 ["story"]
+  DUPTABLE R16 K31 [{"name", "summary", "story"}]
+  LOADK R17 K32 ["Custom Selection"]
+  SETTABLEKS R17 R16 K27 ["name"]
+  LOADK R17 K33 ["Select card containers instead of toggles"]
+  SETTABLEKS R17 R16 K22 ["summary"]
+  SETTABLEKS R11 R16 K28 ["story"]
+  DUPTABLE R17 K31 [{"name", "summary", "story"}]
+  LOADK R18 K34 ["Uncontrolled"]
+  SETTABLEKS R18 R17 K27 ["name"]
+  LOADK R18 K35 ["State is controlled by the toggle itself"]
+  SETTABLEKS R18 R17 K22 ["summary"]
+  SETTABLEKS R12 R17 K28 ["story"]
+  SETLIST R14 R15 3 [1]
+  SETTABLEKS R14 R13 K23 ["stories"]
+  DUPTABLE R14 K40 [{"isDisabled", "label", "size", "placement"}]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K36 ["isDisabled"]
+  LOADK R15 K41 ["Label"]
+  SETTABLEKS R15 R14 K37 ["label"]
+  GETTABLEKS R15 R3 K42 ["values"]
+  MOVE R16 R8
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K38 ["size"]
+  GETTABLEKS R15 R3 K42 ["values"]
+  MOVE R16 R9
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K39 ["placement"]
+  SETTABLEKS R14 R13 K24 ["controls"]
+  RETURN R13 1

@@ -1,29 +1,31 @@
 PROTO_0:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["createElement"]
-  GETUPVAL R3 1
-  DUPTABLE R4 K3 [{"theme", "preferences"}]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K4 ["Dark"]
-  SETTABLEKS R5 R4 K1 ["theme"]
-  SETTABLEKS R1 R4 K2 ["preferences"]
-  DUPTABLE R5 K6 [{"Content"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["createElement"]
-  GETUPVAL R7 3
-  DUPTABLE R8 K8 [{"Size"}]
-  GETIMPORT R9 K11 [UDim2.new]
-  LOADN R10 1
-  LOADN R11 0
-  LOADN R12 1
-  LOADN R13 0
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K7 ["Size"]
-  MOVE R9 R0
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K5 ["Content"]
-  CALL R2 3 -1
-  RETURN R2 -1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K3 [{"theme", "preferences"}]
+  MOVE R6 R2
+  JUMPIF R6 [+3]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K4 ["Dark"]
+  SETTABLEKS R6 R5 K1 ["theme"]
+  SETTABLEKS R1 R5 K2 ["preferences"]
+  DUPTABLE R6 K6 [{"Content"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["createElement"]
+  GETUPVAL R8 3
+  DUPTABLE R9 K8 [{"Size"}]
+  GETIMPORT R10 K11 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 1
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K7 ["Size"]
+  MOVE R10 R0
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K5 ["Content"]
+  CALL R3 3 -1
+  RETURN R3 -1
 
 MAIN:
   PREPVARARGS 0

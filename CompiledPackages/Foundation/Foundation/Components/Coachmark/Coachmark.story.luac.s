@@ -99,22 +99,27 @@ PROTO_5:
   JUMP [+1]
   LOADNIL R7
   SETTABLEKS R7 R6 K14 ["steps"]
+  GETTABLEKS R9 R0 K17 ["controls"]
+  GETTABLEKS R8 R9 K24 ["hasActions"]
+  JUMPIFNOT R8 [+7]
   GETUPVAL R7 3
   GETTABLEKS R9 R0 K17 ["controls"]
-  GETTABLEKS R8 R9 K24 ["hasSecondaryButton"]
+  GETTABLEKS R8 R9 K25 ["hasSecondaryButton"]
   CALL R7 1 1
+  JUMP [+1]
+  LOADNIL R7
   SETTABLEKS R7 R6 K15 ["actions"]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K0 ["createElement"]
   GETUPVAL R8 4
-  DUPTABLE R9 K28 [{"icon", "size", "onActivated"}]
-  LOADK R10 K29 ["icons/controls/voice/microphone_off_light"]
-  SETTABLEKS R10 R9 K25 ["icon"]
+  DUPTABLE R9 K29 [{"icon", "size", "onActivated"}]
+  LOADK R10 K30 ["reactions/heart"]
+  SETTABLEKS R10 R9 K26 ["icon"]
   GETUPVAL R11 5
-  GETTABLEKS R10 R11 K30 ["Medium"]
-  SETTABLEKS R10 R9 K26 ["size"]
-  DUPCLOSURE R10 K31 [PROTO_4]
-  SETTABLEKS R10 R9 K27 ["onActivated"]
+  GETTABLEKS R10 R11 K31 ["Medium"]
+  SETTABLEKS R10 R9 K27 ["size"]
+  DUPCLOSURE R10 K32 [PROTO_4]
+  SETTABLEKS R10 R9 K28 ["onActivated"]
   CALL R7 2 -1
   CALL R4 -1 -1
   CALL R1 -1 -1
@@ -178,16 +183,16 @@ MAIN:
   CAPTURE VAL R6
   CAPTURE VAL R7
   SETTABLEKS R14 R13 K21 ["story"]
-  DUPTABLE R14 K33 [{"title", "text", "side", "align", "hasSecondaryButton", "hasCloseAffordance", "isOpen", "showSteps"}]
-  LOADK R15 K34 ["Title"]
+  DUPTABLE R14 K34 [{"title", "text", "side", "align", "hasSecondaryButton", "hasCloseAffordance", "hasActions", "isOpen", "showSteps"}]
+  LOADK R15 K35 ["Title"]
   SETTABLEKS R15 R14 K25 ["title"]
-  LOADK R15 K35 ["Generally we should avoid coachmarks with long titles and bodys. Consider using other affordances for sharing contextual information when content expands beyond a few lines."]
+  LOADK R15 K36 ["Generally we should avoid coachmarks with long titles and bodys. Consider using other affordances for sharing contextual information when content expands beyond a few lines."]
   SETTABLEKS R15 R14 K26 ["text"]
-  GETTABLEKS R15 R3 K36 ["values"]
+  GETTABLEKS R15 R3 K37 ["values"]
   MOVE R16 R8
   CALL R15 1 1
   SETTABLEKS R15 R14 K27 ["side"]
-  GETTABLEKS R15 R3 K36 ["values"]
+  GETTABLEKS R15 R3 K37 ["values"]
   MOVE R16 R9
   CALL R15 1 1
   SETTABLEKS R15 R14 K28 ["align"]
@@ -196,8 +201,10 @@ MAIN:
   LOADB R15 0
   SETTABLEKS R15 R14 K30 ["hasCloseAffordance"]
   LOADB R15 1
-  SETTABLEKS R15 R14 K31 ["isOpen"]
+  SETTABLEKS R15 R14 K31 ["hasActions"]
   LOADB R15 1
-  SETTABLEKS R15 R14 K32 ["showSteps"]
+  SETTABLEKS R15 R14 K32 ["isOpen"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K33 ["showSteps"]
   SETTABLEKS R14 R13 K22 ["controls"]
   RETURN R13 1

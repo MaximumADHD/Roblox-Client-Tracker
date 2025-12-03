@@ -131,10 +131,12 @@ PROTO_3:
   GETTABLEKS R15 R16 K18 ["onActivated"]
   SETTABLEKS R15 R14 K18 ["onActivated"]
   SETTABLEKS R2 R14 K19 ["LayoutOrder"]
-  LOADK R16 K22 ["--foundation-segmented-control-segment --foundation-segmented-control-segment-$%*"]
-  GETTABLEKS R18 R0 K3 ["id"]
+  LOADK R16 K22 ["%*--segment-%*"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K20 ["testId"]
+  GETTABLEKS R19 R0 K3 ["id"]
   NAMECALL R16 R16 K23 ["format"]
-  CALL R16 2 1
+  CALL R16 3 1
   MOVE R15 R16
   SETTABLEKS R15 R14 K20 ["testId"]
   CALL R12 2 1

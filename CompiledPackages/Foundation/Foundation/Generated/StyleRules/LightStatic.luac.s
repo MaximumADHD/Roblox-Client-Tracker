@@ -420,7 +420,7 @@ MAIN:
   SETTABLEKS R2 R1 K5 ["properties"]
   SETTABLEKS R1 R0 K78 ["stroke-action-emphasis"]
   NEWTABLE R1 2 0
-  LOADN R2 0
+  LOADN R2 255
   SETTABLEKS R2 R1 K79 ["priority"]
   NEWTABLE R2 2 0
   LOADN R3 0

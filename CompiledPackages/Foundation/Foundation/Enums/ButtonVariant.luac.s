@@ -1,6 +1,6 @@
 MAIN:
   PREPVARARGS 0
-  DUPTABLE R0 K10 [{"Emphasis", "SoftEmphasis", "Standard", "Utility", "OverMedia", "Alert", "SubEmphasis", "Subtle", "Text", "Link"}]
+  DUPTABLE R0 K10 [{"Emphasis", "SoftEmphasis", "Standard", "Utility", "OverMedia", "Alert", "Link", "SubEmphasis", "Subtle", "Text"}]
   LOADK R1 K0 ["Emphasis"]
   SETTABLEKS R1 R0 K0 ["Emphasis"]
   LOADK R1 K1 ["SoftEmphasis"]
@@ -13,12 +13,12 @@ MAIN:
   SETTABLEKS R1 R0 K4 ["OverMedia"]
   LOADK R1 K5 ["Alert"]
   SETTABLEKS R1 R0 K5 ["Alert"]
-  LOADK R1 K6 ["SubEmphasis"]
-  SETTABLEKS R1 R0 K6 ["SubEmphasis"]
-  LOADK R1 K7 ["Subtle"]
-  SETTABLEKS R1 R0 K7 ["Subtle"]
-  LOADK R1 K8 ["Text"]
-  SETTABLEKS R1 R0 K8 ["Text"]
-  LOADK R1 K9 ["Link"]
-  SETTABLEKS R1 R0 K9 ["Link"]
+  LOADK R1 K6 ["Link"]
+  SETTABLEKS R1 R0 K6 ["Link"]
+  LOADK R1 K7 ["SubEmphasis"]
+  SETTABLEKS R1 R0 K7 ["SubEmphasis"]
+  LOADK R1 K8 ["Subtle"]
+  SETTABLEKS R1 R0 K8 ["Subtle"]
+  LOADK R1 K9 ["Text"]
+  SETTABLEKS R1 R0 K9 ["Text"]
   RETURN R0 1

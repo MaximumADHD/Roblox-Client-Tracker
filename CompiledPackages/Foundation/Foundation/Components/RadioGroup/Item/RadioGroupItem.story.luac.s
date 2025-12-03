@@ -20,26 +20,28 @@ PROTO_0:
   GETTABLEKS R8 R9 K2 ["createElement"]
   GETUPVAL R10 2
   GETTABLEKS R9 R10 K9 ["Item"]
-  DUPTABLE R10 K13 [{"value", "label", "isDisabled", "size"}]
+  DUPTABLE R10 K14 [{"value", "label", "isDisabled", "size", "placement"}]
   GETTABLEKS R11 R1 K4 ["value"]
   SETTABLEKS R11 R10 K4 ["value"]
   GETTABLEKS R13 R1 K10 ["label"]
   LENGTH R12 R13
   LOADN R13 0
   JUMPIFNOTLT R13 R12 [+11]
-  LOADK R12 K14 ["%* %*"]
+  LOADK R12 K15 ["%* %*"]
   GETTABLEKS R14 R1 K10 ["label"]
   GETTABLEKS R15 R1 K4 ["value"]
-  NAMECALL R12 R12 K15 ["format"]
+  NAMECALL R12 R12 K16 ["format"]
   CALL R12 3 1
   MOVE R11 R12
   JUMP [+1]
-  LOADK R11 K16 [""]
+  LOADK R11 K17 [""]
   SETTABLEKS R11 R10 K10 ["label"]
   GETTABLEKS R11 R1 K11 ["isDisabled"]
   SETTABLEKS R11 R10 K11 ["isDisabled"]
   GETTABLEKS R11 R1 K12 ["size"]
   SETTABLEKS R11 R10 K12 ["size"]
+  GETTABLEKS R11 R1 K13 ["placement"]
+  SETTABLEKS R11 R10 K13 ["placement"]
   CALL R8 2 -1
   SETLIST R7 R8 -1 [1]
   CALL R4 3 -1
@@ -72,24 +74,32 @@ MAIN:
   GETTABLEKS R8 R0 K12 ["Enums"]
   GETTABLEKS R7 R8 K13 ["InputSize"]
   CALL R6 1 1
-  DUPCLOSURE R7 K14 [PROTO_0]
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K12 ["Enums"]
+  GETTABLEKS R8 R9 K14 ["InputPlacement"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K15 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R5
-  DUPTABLE R8 K18 [{"summary", "story", "controls"}]
-  LOADK R9 K19 ["Checkbox component"]
-  SETTABLEKS R9 R8 K15 ["summary"]
-  SETTABLEKS R7 R8 K16 ["story"]
-  DUPTABLE R9 K24 [{"isDisabled", "label", "value", "size"}]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K20 ["isDisabled"]
-  LOADK R10 K25 ["Label"]
-  SETTABLEKS R10 R9 K21 ["label"]
-  LOADK R10 K26 ["A"]
-  SETTABLEKS R10 R9 K22 ["value"]
-  GETTABLEKS R10 R3 K27 ["values"]
-  MOVE R11 R6
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K23 ["size"]
-  SETTABLEKS R9 R8 K17 ["controls"]
-  RETURN R8 1
+  DUPTABLE R9 K19 [{"summary", "story", "controls"}]
+  LOADK R10 K20 ["Checkbox component"]
+  SETTABLEKS R10 R9 K16 ["summary"]
+  SETTABLEKS R8 R9 K17 ["story"]
+  DUPTABLE R10 K26 [{"isDisabled", "label", "value", "size", "placement"}]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K21 ["isDisabled"]
+  LOADK R11 K27 ["Label"]
+  SETTABLEKS R11 R10 K22 ["label"]
+  LOADK R11 K28 ["A"]
+  SETTABLEKS R11 R10 K23 ["value"]
+  GETTABLEKS R11 R3 K29 ["values"]
+  MOVE R12 R6
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K24 ["size"]
+  GETTABLEKS R11 R3 K29 ["values"]
+  MOVE R12 R7
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K25 ["placement"]
+  SETTABLEKS R10 R9 K18 ["controls"]
+  RETURN R9 1

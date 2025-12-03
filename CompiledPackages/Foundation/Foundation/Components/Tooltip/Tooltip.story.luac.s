@@ -10,7 +10,7 @@ PROTO_0:
   LOADN R8 44
   CALL R4 4 1
   SETTABLEKS R4 R3 K1 ["Size"]
-  LOADK R4 K7 ["row align-x-center align-y-center"]
+  LOADK R4 K7 ["row align-x-right align-y-center"]
   SETTABLEKS R4 R3 K2 ["tag"]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["createElement"]

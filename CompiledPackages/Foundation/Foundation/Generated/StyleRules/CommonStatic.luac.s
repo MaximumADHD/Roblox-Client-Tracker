@@ -231,7 +231,7 @@ MAIN:
   SETTABLEKS R2 R1 K8 ["properties"]
   SETTABLEKS R1 R0 K74 ["anchor-bottom-left"]
   NEWTABLE R1 2 0
-  LOADN R2 0
+  LOADN R2 255
   SETTABLEKS R2 R1 K75 ["priority"]
   NEWTABLE R2 1 0
   GETIMPORT R3 K78 [Enum.Font.BuilderSans]
@@ -544,7 +544,7 @@ MAIN:
   SETTABLEKS R2 R1 K8 ["properties"]
   SETTABLEKS R1 R0 K141 ["anchor-top-right"]
   NEWTABLE R1 2 0
-  LOADN R2 0
+  LOADN R2 255
   SETTABLEKS R2 R1 K75 ["priority"]
   NEWTABLE R2 1 0
   LOADN R3 1

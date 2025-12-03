@@ -146,94 +146,106 @@ PROTO_1:
   GETUPVAL R13 10
   GETTABLEKS R12 R13 K44 ["Provider"]
   DUPTABLE R13 K46 [{"value"}]
-  DUPTABLE R14 K49 [{"isInverse", "isIconSize"}]
-  GETTABLEKS R15 R2 K5 ["isChecked"]
-  SETTABLEKS R15 R14 K47 ["isInverse"]
+  DUPTABLE R14 K49 [{"colorMode", "isIconSize"}]
+  GETTABLEKS R16 R2 K5 ["isChecked"]
+  JUMPIFNOT R16 [+4]
+  GETUPVAL R16 11
+  GETTABLEKS R15 R16 K31 ["Inverse"]
+  JUMP [+3]
+  GETUPVAL R16 11
+  GETTABLEKS R15 R16 K50 ["Color"]
+  SETTABLEKS R15 R14 K47 ["colorMode"]
   LOADB R15 1
   SETTABLEKS R15 R14 K48 ["isIconSize"]
   SETTABLEKS R14 R13 K45 ["value"]
-  DUPTABLE R14 K53 [{"Leading", "Text", "Trailing"}]
+  DUPTABLE R14 K54 [{"Leading", "Text", "Trailing"}]
   JUMPIFNOT R4 [+41]
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K11 ["createElement"]
-  GETUPVAL R16 11
-  DUPTABLE R17 K59 [{"isLeading", "config", "size", "chipBackgroundStyle", "contentStyle", "isDisabled", "testId"}]
+  GETUPVAL R16 12
+  DUPTABLE R17 K60 [{"isLeading", "config", "size", "chipBackgroundStyle", "contentStyle", "isDisabled", "testId"}]
   LOADB R18 1
-  SETTABLEKS R18 R17 K54 ["isLeading"]
-  SETTABLEKS R4 R17 K55 ["config"]
+  SETTABLEKS R18 R17 K55 ["isLeading"]
+  SETTABLEKS R4 R17 K56 ["config"]
   GETTABLEKS R18 R2 K4 ["size"]
   SETTABLEKS R18 R17 K4 ["size"]
   GETTABLEKS R19 R6 K32 ["chip"]
   GETTABLEKS R18 R19 K16 ["backgroundStyle"]
-  SETTABLEKS R18 R17 K56 ["chipBackgroundStyle"]
-  GETTABLEKS R19 R6 K60 ["text"]
-  GETTABLEKS R18 R19 K57 ["contentStyle"]
-  SETTABLEKS R18 R17 K57 ["contentStyle"]
+  SETTABLEKS R18 R17 K57 ["chipBackgroundStyle"]
+  GETTABLEKS R19 R6 K61 ["text"]
+  GETTABLEKS R18 R19 K58 ["contentStyle"]
+  SETTABLEKS R18 R17 K58 ["contentStyle"]
   GETTABLEKS R18 R2 K12 ["isDisabled"]
   SETTABLEKS R18 R17 K12 ["isDisabled"]
-  LOADK R19 K61 ["%*--leading-accessory"]
-  GETTABLEKS R21 R2 K58 ["testId"]
-  NAMECALL R19 R19 K62 ["format"]
+  LOADK R19 K62 ["%*--leading-accessory"]
+  GETTABLEKS R21 R2 K59 ["testId"]
+  NAMECALL R19 R19 K63 ["format"]
   CALL R19 2 1
   MOVE R18 R19
-  SETTABLEKS R18 R17 K58 ["testId"]
+  SETTABLEKS R18 R17 K59 ["testId"]
   CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
-  SETTABLEKS R15 R14 K50 ["Leading"]
-  GETTABLEKS R16 R2 K60 ["text"]
-  JUMPIFNOT R16 [+36]
-  GETTABLEKS R16 R2 K60 ["text"]
-  JUMPIFEQKS R16 K63 [""] [+33]
+  SETTABLEKS R15 R14 K51 ["Leading"]
+  GETTABLEKS R16 R2 K61 ["text"]
+  JUMPIFNOT R16 [+45]
+  GETTABLEKS R16 R2 K61 ["text"]
+  JUMPIFEQKS R16 K64 [""] [+42]
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K11 ["createElement"]
-  GETUPVAL R16 12
-  DUPTABLE R17 K66 [{"Text", "textStyle", "LayoutOrder", "tag", "padding"}]
-  GETTABLEKS R18 R2 K60 ["text"]
-  SETTABLEKS R18 R17 K51 ["Text"]
-  GETTABLEKS R19 R6 K60 ["text"]
-  GETTABLEKS R18 R19 K57 ["contentStyle"]
-  SETTABLEKS R18 R17 K64 ["textStyle"]
+  GETUPVAL R16 13
+  DUPTABLE R17 K67 [{"Text", "textStyle", "LayoutOrder", "tag", "padding", "testId"}]
+  GETTABLEKS R18 R2 K61 ["text"]
+  SETTABLEKS R18 R17 K52 ["Text"]
+  GETTABLEKS R19 R6 K61 ["text"]
+  GETTABLEKS R18 R19 K58 ["contentStyle"]
+  SETTABLEKS R18 R17 K65 ["textStyle"]
   LOADN R18 2
-  SETTABLEKS R18 R17 K65 ["LayoutOrder"]
-  GETTABLEKS R19 R6 K60 ["text"]
+  SETTABLEKS R18 R17 K66 ["LayoutOrder"]
+  GETTABLEKS R19 R6 K61 ["text"]
   GETTABLEKS R18 R19 K19 ["tag"]
   SETTABLEKS R18 R17 K19 ["tag"]
-  GETTABLEKS R19 R6 K60 ["text"]
+  GETTABLEKS R19 R6 K61 ["text"]
   GETTABLEKS R18 R19 K17 ["padding"]
   SETTABLEKS R18 R17 K17 ["padding"]
+  LOADK R19 K68 ["%*--text"]
+  GETTABLEKS R21 R2 K59 ["testId"]
+  NAMECALL R19 R19 K63 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  SETTABLEKS R18 R17 K59 ["testId"]
   CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
-  SETTABLEKS R15 R14 K51 ["Text"]
+  SETTABLEKS R15 R14 K52 ["Text"]
   JUMPIFNOT R5 [+41]
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K11 ["createElement"]
-  GETUPVAL R16 11
-  DUPTABLE R17 K59 [{"isLeading", "config", "size", "chipBackgroundStyle", "contentStyle", "isDisabled", "testId"}]
+  GETUPVAL R16 12
+  DUPTABLE R17 K60 [{"isLeading", "config", "size", "chipBackgroundStyle", "contentStyle", "isDisabled", "testId"}]
   LOADB R18 0
-  SETTABLEKS R18 R17 K54 ["isLeading"]
-  SETTABLEKS R5 R17 K55 ["config"]
+  SETTABLEKS R18 R17 K55 ["isLeading"]
+  SETTABLEKS R5 R17 K56 ["config"]
   GETTABLEKS R18 R2 K4 ["size"]
   SETTABLEKS R18 R17 K4 ["size"]
   GETTABLEKS R19 R6 K32 ["chip"]
   GETTABLEKS R18 R19 K16 ["backgroundStyle"]
-  SETTABLEKS R18 R17 K56 ["chipBackgroundStyle"]
-  GETTABLEKS R19 R6 K60 ["text"]
-  GETTABLEKS R18 R19 K57 ["contentStyle"]
-  SETTABLEKS R18 R17 K57 ["contentStyle"]
+  SETTABLEKS R18 R17 K57 ["chipBackgroundStyle"]
+  GETTABLEKS R19 R6 K61 ["text"]
+  GETTABLEKS R18 R19 K58 ["contentStyle"]
+  SETTABLEKS R18 R17 K58 ["contentStyle"]
   GETTABLEKS R18 R2 K12 ["isDisabled"]
   SETTABLEKS R18 R17 K12 ["isDisabled"]
-  LOADK R19 K67 ["%*--trailing-accessory"]
-  GETTABLEKS R21 R2 K58 ["testId"]
-  NAMECALL R19 R19 K62 ["format"]
+  LOADK R19 K69 ["%*--trailing-accessory"]
+  GETTABLEKS R21 R2 K59 ["testId"]
+  NAMECALL R19 R19 K63 ["format"]
   CALL R19 2 1
   MOVE R18 R19
-  SETTABLEKS R18 R17 K58 ["testId"]
+  SETTABLEKS R18 R17 K59 ["testId"]
   CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
-  SETTABLEKS R15 R14 K52 ["Trailing"]
+  SETTABLEKS R15 R14 K53 ["Trailing"]
   CALL R11 3 -1
   CALL R8 -1 -1
   RETURN R8 -1
@@ -292,49 +304,54 @@ MAIN:
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
   GETTABLEKS R15 R0 K21 ["Enums"]
-  GETTABLEKS R14 R15 K23 ["StateLayerMode"]
+  GETTABLEKS R14 R15 K23 ["ColorMode"]
   CALL R13 1 1
   GETIMPORT R14 K6 [require]
   GETTABLEKS R16 R0 K21 ["Enums"]
-  GETTABLEKS R15 R16 K24 ["CursorType"]
+  GETTABLEKS R15 R16 K24 ["StateLayerMode"]
   CALL R14 1 1
   GETIMPORT R15 K6 [require]
   GETTABLEKS R17 R0 K21 ["Enums"]
-  GETTABLEKS R16 R17 K25 ["ChipSize"]
+  GETTABLEKS R16 R17 K25 ["CursorType"]
   CALL R15 1 1
   GETIMPORT R16 K6 [require]
-  GETIMPORT R19 K1 [script]
-  GETTABLEKS R18 R19 K4 ["Parent"]
-  GETTABLEKS R17 R18 K26 ["useChipVariants"]
+  GETTABLEKS R18 R0 K21 ["Enums"]
+  GETTABLEKS R17 R18 K26 ["ChipSize"]
   CALL R16 1 1
-  DUPTABLE R17 K32 [{"isChecked", "Selectable", "isDisabled", "size", "testId"}]
-  LOADB R18 0
-  SETTABLEKS R18 R17 K27 ["isChecked"]
-  LOADB R18 1
-  SETTABLEKS R18 R17 K28 ["Selectable"]
-  LOADB R18 0
-  SETTABLEKS R18 R17 K29 ["isDisabled"]
-  GETTABLEKS R18 R15 K33 ["Medium"]
-  SETTABLEKS R18 R17 K30 ["size"]
-  LOADK R18 K34 ["--foundation-chip"]
-  SETTABLEKS R18 R17 K31 ["testId"]
-  DUPCLOSURE R18 K35 [PROTO_1]
+  GETIMPORT R17 K6 [require]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K4 ["Parent"]
+  GETTABLEKS R18 R19 K27 ["useChipVariants"]
+  CALL R17 1 1
+  DUPTABLE R18 K33 [{"isChecked", "Selectable", "isDisabled", "size", "testId"}]
+  LOADB R19 0
+  SETTABLEKS R19 R18 K28 ["isChecked"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K29 ["Selectable"]
+  LOADB R19 0
+  SETTABLEKS R19 R18 K30 ["isDisabled"]
+  GETTABLEKS R19 R16 K34 ["Medium"]
+  SETTABLEKS R19 R18 K31 ["size"]
+  LOADK R19 K35 ["--foundation-chip"]
+  SETTABLEKS R19 R18 K32 ["testId"]
+  DUPCLOSURE R19 K36 [PROTO_1]
   CAPTURE VAL R7
-  CAPTURE VAL R17
+  CAPTURE VAL R18
   CAPTURE VAL R3
   CAPTURE VAL R2
   CAPTURE VAL R12
-  CAPTURE VAL R16
+  CAPTURE VAL R17
   CAPTURE VAL R5
   CAPTURE VAL R8
-  CAPTURE VAL R13
+  CAPTURE VAL R14
   CAPTURE VAL R10
   CAPTURE VAL R9
+  CAPTURE VAL R13
   CAPTURE VAL R11
   CAPTURE VAL R6
-  GETTABLEKS R19 R2 K36 ["memo"]
-  GETTABLEKS R20 R2 K37 ["forwardRef"]
-  MOVE R21 R18
-  CALL R20 1 -1
-  CALL R19 -1 -1
-  RETURN R19 -1
+  GETTABLEKS R20 R2 K37 ["memo"]
+  GETTABLEKS R21 R2 K38 ["forwardRef"]
+  MOVE R22 R19
+  CALL R21 1 -1
+  CALL R20 -1 -1
+  RETURN R20 -1

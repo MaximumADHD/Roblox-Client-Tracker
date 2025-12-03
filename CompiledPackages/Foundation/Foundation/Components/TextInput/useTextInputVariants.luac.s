@@ -23,22 +23,15 @@ PROTO_0:
   GETTABLEKS R3 R0 K15 ["radius"]
   SETTABLEKS R3 R2 K15 ["radius"]
   SETTABLEKS R2 R1 K2 ["innerContainer"]
-  DUPTABLE R2 K24 [{"tag", "Font", "FontSize", "LineHeight"}]
-  GETTABLEKS R3 R0 K25 ["textBoxTag"]
+  DUPTABLE R2 K22 [{"tag", "fontStyle"}]
+  GETTABLEKS R3 R0 K23 ["textBoxTag"]
   SETTABLEKS R3 R2 K6 ["tag"]
-  GETTABLEKS R4 R0 K26 ["typography"]
-  GETTABLEKS R3 R4 K21 ["Font"]
-  SETTABLEKS R3 R2 K21 ["Font"]
-  GETTABLEKS R4 R0 K26 ["typography"]
-  GETTABLEKS R3 R4 K22 ["FontSize"]
-  SETTABLEKS R3 R2 K22 ["FontSize"]
-  GETTABLEKS R4 R0 K26 ["typography"]
-  GETTABLEKS R3 R4 K23 ["LineHeight"]
-  SETTABLEKS R3 R2 K23 ["LineHeight"]
+  GETTABLEKS R3 R0 K24 ["typography"]
+  SETTABLEKS R3 R2 K21 ["fontStyle"]
   SETTABLEKS R2 R1 K3 ["textBox"]
-  DUPTABLE R2 K28 [{"size"}]
-  GETTABLEKS R3 R0 K29 ["iconSize"]
-  SETTABLEKS R3 R2 K27 ["size"]
+  DUPTABLE R2 K26 [{"size"}]
+  GETTABLEKS R3 R0 K27 ["iconSize"]
+  SETTABLEKS R3 R2 K25 ["size"]
   SETTABLEKS R2 R1 K4 ["icon"]
   RETURN R1 1
 
@@ -112,10 +105,16 @@ PROTO_1:
   SETTABLEKS R7 R6 K19 ["canvasTag"]
   LOADK R7 K43 ["radius-medium"]
   SETTABLEKS R7 R6 K20 ["outerContainerTag"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K44 ["FoundationInputInnerRadiusFix"]
+  JUMPIFNOT R8 [+5]
+  GETTABLEKS R8 R0 K32 ["Radius"]
+  GETTABLEKS R7 R8 K45 ["Medium"]
+  JUMP [+4]
   GETTABLEKS R8 R0 K32 ["Radius"]
   GETTABLEKS R7 R8 K33 ["Small"]
   SETTABLEKS R7 R6 K21 ["radius"]
-  LOADK R7 K44 ["gap-medium"]
+  LOADK R7 K46 ["gap-medium"]
   SETTABLEKS R7 R6 K22 ["innerContainerTag"]
   GETTABLEKS R8 R0 K35 ["Padding"]
   GETTABLEKS R7 R8 K33 ["Small"]
@@ -123,16 +122,16 @@ PROTO_1:
   GETTABLEKS R8 R0 K36 ["Gap"]
   GETTABLEKS R7 R8 K45 ["Medium"]
   SETTABLEKS R7 R6 K24 ["gap"]
-  LOADK R7 K46 ["text-body-medium"]
+  LOADK R7 K47 ["text-body-medium"]
   SETTABLEKS R7 R6 K25 ["textBoxTag"]
   GETTABLEKS R8 R0 K38 ["Typography"]
-  GETTABLEKS R7 R8 K47 ["BodyMedium"]
+  GETTABLEKS R7 R8 K48 ["BodyMedium"]
   SETTABLEKS R7 R6 K26 ["typography"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K18 ["XSmall"]
   SETTABLEKS R7 R6 K27 ["iconSize"]
   GETTABLEKS R8 R0 K40 ["Size"]
-  GETTABLEKS R7 R8 K48 ["Size_800"]
+  GETTABLEKS R7 R8 K49 ["Size_800"]
   SETTABLEKS R7 R6 K28 ["minContainerHeight"]
   CALL R5 1 1
   SETTABLE R5 R3 R4
@@ -140,96 +139,92 @@ PROTO_1:
   GETTABLEKS R4 R5 K45 ["Medium"]
   GETUPVAL R5 1
   DUPTABLE R6 K29 [{"canvasTag", "outerContainerTag", "radius", "innerContainerTag", "horizontalPadding", "gap", "textBoxTag", "typography", "iconSize", "minContainerHeight"}]
-  LOADK R7 K49 ["size-full-1000"]
+  LOADK R7 K50 ["size-full-1000"]
   SETTABLEKS R7 R6 K19 ["canvasTag"]
   LOADK R7 K43 ["radius-medium"]
   SETTABLEKS R7 R6 K20 ["outerContainerTag"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K44 ["FoundationInputInnerRadiusFix"]
+  JUMPIFNOT R8 [+5]
+  GETTABLEKS R8 R0 K32 ["Radius"]
+  GETTABLEKS R7 R8 K45 ["Medium"]
+  JUMP [+4]
   GETTABLEKS R8 R0 K32 ["Radius"]
   GETTABLEKS R7 R8 K33 ["Small"]
   SETTABLEKS R7 R6 K21 ["radius"]
-  LOADK R7 K50 ["gap-large"]
+  LOADK R7 K51 ["gap-large"]
   SETTABLEKS R7 R6 K22 ["innerContainerTag"]
   GETTABLEKS R8 R0 K35 ["Padding"]
   GETTABLEKS R7 R8 K33 ["Small"]
   SETTABLEKS R7 R6 K23 ["horizontalPadding"]
   GETTABLEKS R8 R0 K36 ["Gap"]
-  GETTABLEKS R7 R8 K51 ["Large"]
+  GETTABLEKS R7 R8 K52 ["Large"]
   SETTABLEKS R7 R6 K24 ["gap"]
-  LOADK R7 K46 ["text-body-medium"]
+  LOADK R7 K47 ["text-body-medium"]
   SETTABLEKS R7 R6 K25 ["textBoxTag"]
   GETTABLEKS R8 R0 K38 ["Typography"]
-  GETTABLEKS R7 R8 K47 ["BodyMedium"]
+  GETTABLEKS R7 R8 K48 ["BodyMedium"]
   SETTABLEKS R7 R6 K26 ["typography"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K33 ["Small"]
   SETTABLEKS R7 R6 K27 ["iconSize"]
   GETTABLEKS R8 R0 K40 ["Size"]
-  GETTABLEKS R7 R8 K52 ["Size_1000"]
+  GETTABLEKS R7 R8 K53 ["Size_1000"]
   SETTABLEKS R7 R6 K28 ["minContainerHeight"]
   CALL R5 1 1
   SETTABLE R5 R3 R4
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K51 ["Large"]
+  GETTABLEKS R4 R5 K52 ["Large"]
   GETUPVAL R5 1
   DUPTABLE R6 K29 [{"canvasTag", "outerContainerTag", "radius", "innerContainerTag", "horizontalPadding", "gap", "textBoxTag", "typography", "iconSize", "minContainerHeight"}]
-  LOADK R7 K53 ["size-full-1200"]
+  LOADK R7 K54 ["size-full-1200"]
   SETTABLEKS R7 R6 K19 ["canvasTag"]
   LOADK R7 K43 ["radius-medium"]
   SETTABLEKS R7 R6 K20 ["outerContainerTag"]
   GETTABLEKS R8 R0 K32 ["Radius"]
   GETTABLEKS R7 R8 K45 ["Medium"]
   SETTABLEKS R7 R6 K21 ["radius"]
-  LOADK R7 K50 ["gap-large"]
+  LOADK R7 K51 ["gap-large"]
   SETTABLEKS R7 R6 K22 ["innerContainerTag"]
   GETTABLEKS R8 R0 K35 ["Padding"]
   GETTABLEKS R7 R8 K45 ["Medium"]
   SETTABLEKS R7 R6 K23 ["horizontalPadding"]
   GETTABLEKS R8 R0 K36 ["Gap"]
-  GETTABLEKS R7 R8 K51 ["Large"]
+  GETTABLEKS R7 R8 K52 ["Large"]
   SETTABLEKS R7 R6 K24 ["gap"]
-  LOADK R7 K54 ["text-body-large"]
+  LOADK R7 K55 ["text-body-large"]
   SETTABLEKS R7 R6 K25 ["textBoxTag"]
   GETTABLEKS R8 R0 K38 ["Typography"]
-  GETTABLEKS R7 R8 K55 ["BodyLarge"]
+  GETTABLEKS R7 R8 K56 ["BodyLarge"]
   SETTABLEKS R7 R6 K26 ["typography"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K33 ["Small"]
   SETTABLEKS R7 R6 K27 ["iconSize"]
   GETTABLEKS R8 R0 K40 ["Size"]
-  GETTABLEKS R7 R8 K56 ["Size_1200"]
+  GETTABLEKS R7 R8 K57 ["Size_1200"]
   SETTABLEKS R7 R6 K28 ["minContainerHeight"]
   CALL R5 1 1
   SETTABLE R5 R3 R4
-  DUPTABLE R4 K60 [{"common", "sizes", "multiline"}]
-  SETTABLEKS R1 R4 K57 ["common"]
-  SETTABLEKS R3 R4 K58 ["sizes"]
-  SETTABLEKS R2 R4 K59 ["multiline"]
+  DUPTABLE R4 K61 [{"common", "sizes", "multiline"}]
+  SETTABLEKS R1 R4 K58 ["common"]
+  SETTABLEKS R3 R4 K59 ["sizes"]
+  SETTABLEKS R2 R4 K60 ["multiline"]
   RETURN R4 1
 
 PROTO_2:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["useVariants"]
-  LOADK R4 K1 ["TextInput"]
-  GETUPVAL R5 1
-  MOVE R6 R0
-  CALL R3 3 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["FoundationInternalTextInputAutoSize"]
-  JUMPIF R4 [+1]
-  JUMPIFNOT R2 [+10]
-  GETUPVAL R4 3
-  GETTABLEKS R5 R3 K3 ["common"]
-  GETTABLEKS R7 R3 K4 ["sizes"]
-  GETTABLE R6 R7 R1
-  GETTABLEKS R7 R3 K5 ["multiline"]
-  CALL R4 3 -1
-  RETURN R4 -1
-  GETUPVAL R4 3
-  GETTABLEKS R5 R3 K3 ["common"]
-  GETTABLEKS R7 R3 K4 ["sizes"]
-  GETTABLE R6 R7 R1
-  CALL R4 2 -1
-  RETURN R4 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useVariants"]
+  LOADK R3 K1 ["TextInput"]
+  GETUPVAL R4 1
+  MOVE R5 R0
+  CALL R2 3 1
+  GETUPVAL R3 2
+  GETTABLEKS R4 R2 K2 ["common"]
+  GETTABLEKS R6 R2 K3 ["sizes"]
+  GETTABLE R5 R6 R1
+  GETTABLEKS R6 R2 K4 ["multiline"]
+  CALL R3 3 -1
+  RETURN R3 -1
 
 MAIN:
   PREPVARARGS 0
@@ -272,9 +267,9 @@ MAIN:
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R3
+  CAPTURE VAL R6
   DUPCLOSURE R10 K20 [PROTO_2]
   CAPTURE VAL R7
   CAPTURE VAL R9
-  CAPTURE VAL R6
   CAPTURE VAL R4
   RETURN R10 1

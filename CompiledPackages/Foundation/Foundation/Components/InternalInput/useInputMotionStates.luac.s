@@ -1,108 +1,176 @@
 PROTO_0:
-  GETTABLEKS R4 R0 K0 ["Color"]
-  GETTABLEKS R3 R4 K1 ["Content"]
-  GETTABLEKS R2 R3 K2 ["Default"]
-  GETTABLEKS R5 R0 K0 ["Color"]
-  GETTABLEKS R4 R5 K1 ["Content"]
-  GETTABLEKS R3 R4 K3 ["Emphasis"]
+  LOADNIL R2
+  LOADNIL R3
+  LOADNIL R4
+  LOADNIL R5
+  LOADNIL R6
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["FoundationToggleVisualUpdate"]
+  JUMPIFNOT R7 [+66]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R7 R1 K1 ["backgroundStyle"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R2 R1 K1 ["backgroundStyle"]
+  JUMP [+6]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K3 ["Content"]
+  GETTABLEKS R2 R7 K4 ["Default"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R7 R1 K5 ["hoverStyle"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R3 R1 K5 ["hoverStyle"]
+  JUMP [+6]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K3 ["Content"]
+  GETTABLEKS R3 R7 K6 ["Emphasis"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R7 R1 K7 ["checkedStyle"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R4 R1 K7 ["checkedStyle"]
+  JUMP [+6]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K8 ["ActionSubEmphasis"]
+  GETTABLEKS R4 R7 K9 ["Background"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R7 R1 K10 ["labelStyle"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R5 R1 K10 ["labelStyle"]
+  JUMP [+6]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K3 ["Content"]
+  GETTABLEKS R5 R7 K4 ["Default"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R7 R1 K11 ["labelHoverStyle"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R6 R1 K11 ["labelHoverStyle"]
+  JUMP [+40]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K3 ["Content"]
+  GETTABLEKS R6 R7 K6 ["Emphasis"]
+  JUMP [+33]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K3 ["Content"]
+  GETTABLEKS R2 R7 K4 ["Default"]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K3 ["Content"]
+  GETTABLEKS R3 R7 K6 ["Emphasis"]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K3 ["Content"]
+  GETTABLEKS R5 R7 K4 ["Default"]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K3 ["Content"]
+  GETTABLEKS R6 R7 K6 ["Emphasis"]
+  JUMPIFNOT R1 [+2]
   MOVE R4 R1
-  JUMPIF R4 [+6]
-  GETTABLEKS R6 R0 K0 ["Color"]
-  GETTABLEKS R5 R6 K4 ["ActionSubEmphasis"]
-  GETTABLEKS R4 R5 K5 ["Background"]
-  DUPTABLE R5 K8 [{"Default", "Hover", "Checked"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K9 ["createState"]
-  DUPTABLE R7 K13 [{"backgroundStyle", "strokeStyle", "labelStyle"}]
-  DUPTABLE R8 K16 [{"Color3", "Transparency"}]
-  GETTABLEKS R9 R2 K14 ["Color3"]
-  SETTABLEKS R9 R8 K14 ["Color3"]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K15 ["Transparency"]
-  SETTABLEKS R8 R7 K10 ["backgroundStyle"]
-  SETTABLEKS R2 R7 K11 ["strokeStyle"]
-  SETTABLEKS R2 R7 K12 ["labelStyle"]
-  DUPTABLE R8 K19 [{"default", "transparency"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K20 ["transition"]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K2 ["Default"]
-  DUPTABLE R11 K22 [{"duration"}]
-  LOADK R12 K23 [0.2]
-  SETTABLEKS R12 R11 K21 ["duration"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K17 ["default"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K20 ["transition"]
-  DUPTABLE R10 K25 [{"easingStyle", "duration"}]
-  GETIMPORT R11 K29 [Enum.EasingStyle.Linear]
-  SETTABLEKS R11 R10 K24 ["easingStyle"]
-  LOADK R11 K23 [0.2]
-  SETTABLEKS R11 R10 K21 ["duration"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K18 ["transparency"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K2 ["Default"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K9 ["createState"]
-  DUPTABLE R7 K13 [{"backgroundStyle", "strokeStyle", "labelStyle"}]
-  DUPTABLE R8 K16 [{"Color3", "Transparency"}]
-  GETTABLEKS R9 R3 K14 ["Color3"]
-  SETTABLEKS R9 R8 K14 ["Color3"]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K15 ["Transparency"]
-  SETTABLEKS R8 R7 K10 ["backgroundStyle"]
-  SETTABLEKS R3 R7 K11 ["strokeStyle"]
-  SETTABLEKS R3 R7 K12 ["labelStyle"]
-  DUPTABLE R8 K19 [{"default", "transparency"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K20 ["transition"]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K2 ["Default"]
-  DUPTABLE R11 K22 [{"duration"}]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K21 ["duration"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K17 ["default"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K20 ["transition"]
-  DUPTABLE R10 K25 [{"easingStyle", "duration"}]
-  GETIMPORT R11 K29 [Enum.EasingStyle.Linear]
-  SETTABLEKS R11 R10 K24 ["easingStyle"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K21 ["duration"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K18 ["transparency"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K6 ["Hover"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K9 ["createState"]
-  DUPTABLE R7 K13 [{"backgroundStyle", "strokeStyle", "labelStyle"}]
-  SETTABLEKS R4 R7 K10 ["backgroundStyle"]
-  SETTABLEKS R4 R7 K11 ["strokeStyle"]
-  SETTABLEKS R3 R7 K12 ["labelStyle"]
-  DUPTABLE R8 K19 [{"default", "transparency"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K20 ["transition"]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K2 ["Default"]
-  DUPTABLE R11 K22 [{"duration"}]
-  LOADK R12 K23 [0.2]
-  SETTABLEKS R12 R11 K21 ["duration"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K17 ["default"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K20 ["transition"]
-  DUPTABLE R10 K25 [{"easingStyle", "duration"}]
-  GETIMPORT R11 K29 [Enum.EasingStyle.Linear]
-  SETTABLEKS R11 R10 K24 ["easingStyle"]
-  LOADK R11 K23 [0.2]
-  SETTABLEKS R11 R10 K21 ["duration"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K18 ["transparency"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K7 ["Checked"]
-  RETURN R5 1
+  JUMP [+6]
+  GETTABLEKS R8 R0 K2 ["Color"]
+  GETTABLEKS R7 R8 K8 ["ActionSubEmphasis"]
+  GETTABLEKS R4 R7 K9 ["Background"]
+  DUPTABLE R7 K14 [{"Default", "Hover", "Checked"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K15 ["createState"]
+  DUPTABLE R9 K17 [{"backgroundStyle", "strokeStyle", "labelStyle"}]
+  DUPTABLE R10 K20 [{"Color3", "Transparency"}]
+  GETTABLEKS R11 R2 K18 ["Color3"]
+  SETTABLEKS R11 R10 K18 ["Color3"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R12 R1 K1 ["backgroundStyle"]
+  JUMPIFNOT R12 [+5]
+  GETTABLEKS R12 R1 K1 ["backgroundStyle"]
+  GETTABLEKS R11 R12 K19 ["Transparency"]
+  JUMP [+1]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K19 ["Transparency"]
+  SETTABLEKS R10 R9 K1 ["backgroundStyle"]
+  SETTABLEKS R2 R9 K16 ["strokeStyle"]
+  SETTABLEKS R5 R9 K10 ["labelStyle"]
+  DUPTABLE R10 K23 [{"default", "transparency"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K24 ["transition"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K4 ["Default"]
+  DUPTABLE R13 K26 [{"duration"}]
+  LOADK R14 K27 [0.2]
+  SETTABLEKS R14 R13 K25 ["duration"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K21 ["default"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K24 ["transition"]
+  DUPTABLE R12 K29 [{"easingStyle", "duration"}]
+  GETIMPORT R13 K33 [Enum.EasingStyle.Linear]
+  SETTABLEKS R13 R12 K28 ["easingStyle"]
+  LOADK R13 K27 [0.2]
+  SETTABLEKS R13 R12 K25 ["duration"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K22 ["transparency"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K4 ["Default"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K15 ["createState"]
+  DUPTABLE R9 K17 [{"backgroundStyle", "strokeStyle", "labelStyle"}]
+  DUPTABLE R10 K20 [{"Color3", "Transparency"}]
+  GETTABLEKS R11 R3 K18 ["Color3"]
+  SETTABLEKS R11 R10 K18 ["Color3"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R12 R1 K5 ["hoverStyle"]
+  JUMPIFNOT R12 [+5]
+  GETTABLEKS R12 R1 K5 ["hoverStyle"]
+  GETTABLEKS R11 R12 K19 ["Transparency"]
+  JUMP [+1]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K19 ["Transparency"]
+  SETTABLEKS R10 R9 K1 ["backgroundStyle"]
+  SETTABLEKS R3 R9 K16 ["strokeStyle"]
+  SETTABLEKS R6 R9 K10 ["labelStyle"]
+  DUPTABLE R10 K23 [{"default", "transparency"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K24 ["transition"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K4 ["Default"]
+  DUPTABLE R13 K26 [{"duration"}]
+  LOADN R14 0
+  SETTABLEKS R14 R13 K25 ["duration"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K21 ["default"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K24 ["transition"]
+  DUPTABLE R12 K29 [{"easingStyle", "duration"}]
+  GETIMPORT R13 K33 [Enum.EasingStyle.Linear]
+  SETTABLEKS R13 R12 K28 ["easingStyle"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K25 ["duration"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K22 ["transparency"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["Hover"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K15 ["createState"]
+  DUPTABLE R9 K17 [{"backgroundStyle", "strokeStyle", "labelStyle"}]
+  SETTABLEKS R4 R9 K1 ["backgroundStyle"]
+  SETTABLEKS R4 R9 K16 ["strokeStyle"]
+  SETTABLEKS R6 R9 K10 ["labelStyle"]
+  DUPTABLE R10 K23 [{"default", "transparency"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K24 ["transition"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K4 ["Default"]
+  DUPTABLE R13 K26 [{"duration"}]
+  LOADK R14 K27 [0.2]
+  SETTABLEKS R14 R13 K25 ["duration"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K21 ["default"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K24 ["transition"]
+  DUPTABLE R12 K29 [{"easingStyle", "duration"}]
+  GETIMPORT R13 K33 [Enum.EasingStyle.Linear]
+  SETTABLEKS R13 R12 K28 ["easingStyle"]
+  LOADK R13 K27 [0.2]
+  SETTABLEKS R13 R12 K25 ["duration"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K22 ["transparency"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["Checked"]
+  RETURN R7 1
 
 MAIN:
   PREPVARARGS 0
@@ -121,13 +189,18 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["Tokens"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R1 K12 ["React"]
+  GETTABLEKS R6 R0 K12 ["Utility"]
+  GETTABLEKS R5 R6 K13 ["Flags"]
   CALL R4 1 1
   GETIMPORT R5 K6 [require]
-  GETTABLEKS R6 R1 K13 ["Motion"]
+  GETTABLEKS R6 R1 K14 ["React"]
   CALL R5 1 1
-  GETTABLEKS R6 R5 K14 ["TransitionPreset"]
-  DUPCLOSURE R7 K15 [PROTO_0]
-  CAPTURE VAL R5
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R1 K15 ["Motion"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K16 ["TransitionPreset"]
+  DUPCLOSURE R8 K17 [PROTO_0]
+  CAPTURE VAL R4
   CAPTURE VAL R6
-  RETURN R7 1
+  CAPTURE VAL R7
+  RETURN R8 1

@@ -15,18 +15,22 @@ MAIN:
   GETIMPORT R2 K6 [require]
   GETTABLEKS R3 R1 K7 ["React"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["createContext"]
-  DUPTABLE R4 K11 [{"isIconSize", "isInverse"}]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K9 ["isIconSize"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K10 ["isInverse"]
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Enums"]
+  GETTABLEKS R4 R5 K9 ["ColorMode"]
   CALL R3 1 1
-  DUPCLOSURE R4 K12 [PROTO_0]
+  GETTABLEKS R4 R2 K10 ["createContext"]
+  DUPTABLE R5 K13 [{"isIconSize", "colorMode"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K11 ["isIconSize"]
+  GETTABLEKS R6 R3 K14 ["Color"]
+  SETTABLEKS R6 R5 K12 ["colorMode"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K15 [PROTO_0]
   CAPTURE VAL R2
-  CAPTURE VAL R3
-  DUPTABLE R5 K15 [{"Provider", "usePresentationContext"}]
-  GETTABLEKS R6 R3 K13 ["Provider"]
-  SETTABLEKS R6 R5 K13 ["Provider"]
-  SETTABLEKS R4 R5 K14 ["usePresentationContext"]
-  RETURN R5 1
+  CAPTURE VAL R4
+  DUPTABLE R6 K18 [{"Provider", "usePresentationContext"}]
+  GETTABLEKS R7 R4 K16 ["Provider"]
+  SETTABLEKS R7 R6 K16 ["Provider"]
+  SETTABLEKS R5 R6 K17 ["usePresentationContext"]
+  RETURN R6 1

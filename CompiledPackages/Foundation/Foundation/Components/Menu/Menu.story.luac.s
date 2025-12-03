@@ -529,12 +529,11 @@ PROTO_24:
   RETURN R0 0
 
 PROTO_25:
-  GETIMPORT R1 K1 [print]
-  LOADK R2 K2 ["Menu item activated:"]
-  MOVE R3 R0
-  CALL R1 2 0
   GETUPVAL R1 0
   LOADB R2 0
+  CALL R1 1 0
+  GETUPVAL R1 1
+  MOVE R2 R0
   CALL R1 1 0
   RETURN R0 0
 
@@ -551,105 +550,130 @@ PROTO_27:
   LOADB R2 0
   CALL R1 1 2
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["createElement"]
-  GETUPVAL R4 1
-  DUPTABLE R5 K4 [{"Size", "tag"}]
-  GETIMPORT R6 K7 [UDim2.new]
-  LOADN R7 1
-  LOADN R8 0
-  LOADN R9 0
-  LOADN R10 100
-  CALL R6 4 1
-  SETTABLEKS R6 R5 K2 ["Size"]
-  LOADK R6 K8 ["row align-x-center align-y-center"]
-  SETTABLEKS R6 R5 K3 ["tag"]
-  DUPTABLE R6 K10 [{"Menu"}]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K1 ["createElement"]
-  GETUPVAL R8 2
-  DUPTABLE R9 K18 [{"isOpen", "items", "size", "side", "align", "onPressedOutside", "onActivated"}]
-  SETTABLEKS R1 R9 K11 ["isOpen"]
-  NEWTABLE R10 0 3
-  DUPTABLE R11 K20 [{"title", "items"}]
-  LOADK R12 K21 ["First title"]
-  SETTABLEKS R12 R11 K19 ["title"]
-  NEWTABLE R12 0 2
-  DUPTABLE R13 K25 [{"id", "icon", "text"}]
-  LOADK R14 K26 ["a1"]
-  SETTABLEKS R14 R13 K22 ["id"]
-  LOADK R14 K27 ["icons/common/robux"]
-  SETTABLEKS R14 R13 K23 ["icon"]
-  LOADK R14 K28 ["Alpha 1"]
-  SETTABLEKS R14 R13 K24 ["text"]
-  DUPTABLE R14 K29 [{"id", "text"}]
-  LOADK R15 K30 ["a2"]
-  SETTABLEKS R15 R14 K22 ["id"]
-  LOADK R15 K31 ["Alpha 2"]
-  SETTABLEKS R15 R14 K24 ["text"]
-  SETLIST R12 R13 2 [1]
-  SETTABLEKS R12 R11 K12 ["items"]
-  DUPTABLE R12 K32 [{"items"}]
-  NEWTABLE R13 0 2
-  DUPTABLE R14 K29 [{"id", "text"}]
-  LOADK R15 K33 ["b1"]
-  SETTABLEKS R15 R14 K22 ["id"]
-  LOADK R15 K34 ["Beta 1"]
-  SETTABLEKS R15 R14 K24 ["text"]
-  DUPTABLE R15 K36 [{"id", "isDisabled", "text"}]
-  LOADK R16 K37 ["b2"]
-  SETTABLEKS R16 R15 K22 ["id"]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K35 ["isDisabled"]
-  LOADK R16 K38 ["Beta 2 (disabled)"]
-  SETTABLEKS R16 R15 K24 ["text"]
-  SETLIST R13 R14 2 [1]
-  SETTABLEKS R13 R12 K12 ["items"]
-  DUPTABLE R13 K32 [{"items"}]
-  NEWTABLE R14 0 1
-  DUPTABLE R15 K29 [{"id", "text"}]
-  LOADK R16 K39 ["c1"]
-  SETTABLEKS R16 R15 K22 ["id"]
-  LOADK R16 K40 ["Untitled group item"]
-  SETTABLEKS R16 R15 K24 ["text"]
-  SETLIST R14 R15 1 [1]
-  SETTABLEKS R14 R13 K12 ["items"]
-  SETLIST R10 R11 3 [1]
-  SETTABLEKS R10 R9 K12 ["items"]
-  GETTABLEKS R11 R0 K41 ["controls"]
-  GETTABLEKS R10 R11 K13 ["size"]
-  SETTABLEKS R10 R9 K13 ["size"]
-  GETTABLEKS R11 R0 K41 ["controls"]
-  GETTABLEKS R10 R11 K14 ["side"]
-  SETTABLEKS R10 R9 K14 ["side"]
-  GETTABLEKS R11 R0 K41 ["controls"]
-  GETTABLEKS R10 R11 K15 ["align"]
-  SETTABLEKS R10 R9 K15 ["align"]
-  NEWCLOSURE R10 P0
+  GETTABLEKS R3 R4 K0 ["useState"]
+  LOADK R4 K1 ["a1"]
+  CALL R3 1 2
+  NEWTABLE R5 0 3
+  DUPTABLE R6 K4 [{"title", "items"}]
+  LOADK R7 K5 ["First title"]
+  SETTABLEKS R7 R6 K2 ["title"]
+  NEWTABLE R7 0 2
+  DUPTABLE R8 K10 [{"id", "icon", "text", "isChecked"}]
+  LOADK R9 K1 ["a1"]
+  SETTABLEKS R9 R8 K6 ["id"]
+  LOADK R9 K11 ["icons/common/robux"]
+  SETTABLEKS R9 R8 K7 ["icon"]
+  LOADK R9 K12 ["Alpha 1"]
+  SETTABLEKS R9 R8 K8 ["text"]
+  JUMPIFEQKS R3 K1 ["a1"] [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  SETTABLEKS R9 R8 K9 ["isChecked"]
+  DUPTABLE R9 K13 [{"id", "text", "isChecked"}]
+  LOADK R10 K14 ["a2"]
+  SETTABLEKS R10 R9 K6 ["id"]
+  LOADK R10 K15 ["Alpha 2"]
+  SETTABLEKS R10 R9 K8 ["text"]
+  JUMPIFEQKS R3 K14 ["a2"] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K9 ["isChecked"]
+  SETLIST R7 R8 2 [1]
+  SETTABLEKS R7 R6 K3 ["items"]
+  DUPTABLE R7 K16 [{"items"}]
+  NEWTABLE R8 0 2
+  DUPTABLE R9 K13 [{"id", "text", "isChecked"}]
+  LOADK R10 K17 ["b1"]
+  SETTABLEKS R10 R9 K6 ["id"]
+  LOADK R10 K18 ["Beta 1"]
+  SETTABLEKS R10 R9 K8 ["text"]
+  JUMPIFEQKS R3 K17 ["b1"] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K9 ["isChecked"]
+  DUPTABLE R10 K20 [{"id", "isDisabled", "text", "isChecked"}]
+  LOADK R11 K21 ["b2"]
+  SETTABLEKS R11 R10 K6 ["id"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K19 ["isDisabled"]
+  LOADK R11 K22 ["Beta 2 (disabled)"]
+  SETTABLEKS R11 R10 K8 ["text"]
+  JUMPIFEQKS R3 K21 ["b2"] [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  SETTABLEKS R11 R10 K9 ["isChecked"]
+  SETLIST R8 R9 2 [1]
+  SETTABLEKS R8 R7 K3 ["items"]
+  DUPTABLE R8 K16 [{"items"}]
+  NEWTABLE R9 0 1
+  DUPTABLE R10 K13 [{"id", "text", "isChecked"}]
+  LOADK R11 K23 ["c1"]
+  SETTABLEKS R11 R10 K6 ["id"]
+  LOADK R11 K24 ["Untitled group item"]
+  SETTABLEKS R11 R10 K8 ["text"]
+  JUMPIFEQKS R3 K23 ["c1"] [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  SETTABLEKS R11 R10 K9 ["isChecked"]
+  SETLIST R9 R10 1 [1]
+  SETTABLEKS R9 R8 K3 ["items"]
+  SETLIST R5 R6 3 [1]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K25 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K28 [{"Size", "tag"}]
+  GETIMPORT R9 K31 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 0
+  LOADN R12 0
+  LOADN R13 100
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K26 ["Size"]
+  LOADK R9 K32 ["row align-x-center align-y-center"]
+  SETTABLEKS R9 R8 K27 ["tag"]
+  DUPTABLE R9 K34 [{"Menu"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K25 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K41 [{"isOpen", "items", "size", "side", "align", "onPressedOutside", "onActivated"}]
+  SETTABLEKS R1 R12 K35 ["isOpen"]
+  SETTABLEKS R5 R12 K3 ["items"]
+  GETTABLEKS R14 R0 K42 ["controls"]
+  GETTABLEKS R13 R14 K36 ["size"]
+  SETTABLEKS R13 R12 K36 ["size"]
+  GETTABLEKS R14 R0 K42 ["controls"]
+  GETTABLEKS R13 R14 K37 ["side"]
+  SETTABLEKS R13 R12 K37 ["side"]
+  GETTABLEKS R14 R0 K42 ["controls"]
+  GETTABLEKS R13 R14 K38 ["align"]
+  SETTABLEKS R13 R12 K38 ["align"]
+  NEWCLOSURE R13 P0
   CAPTURE VAL R2
-  SETTABLEKS R10 R9 K16 ["onPressedOutside"]
-  NEWCLOSURE R10 P1
+  SETTABLEKS R13 R12 K39 ["onPressedOutside"]
+  NEWCLOSURE R13 P1
   CAPTURE VAL R2
-  SETTABLEKS R10 R9 K17 ["onActivated"]
-  DUPTABLE R10 K43 [{"Button"}]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K1 ["createElement"]
-  GETUPVAL R12 3
-  DUPTABLE R13 K44 [{"text", "size", "onActivated"}]
-  LOADK R14 K45 ["Open Menu"]
-  SETTABLEKS R14 R13 K24 ["text"]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K46 ["Medium"]
-  SETTABLEKS R14 R13 K13 ["size"]
-  NEWCLOSURE R14 P2
+  CAPTURE VAL R4
+  SETTABLEKS R13 R12 K40 ["onActivated"]
+  DUPTABLE R13 K44 [{"Button"}]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K25 ["createElement"]
+  GETUPVAL R15 3
+  DUPTABLE R16 K45 [{"text", "size", "onActivated"}]
+  LOADK R17 K46 ["Open Menu"]
+  SETTABLEKS R17 R16 K8 ["text"]
+  GETUPVAL R18 4
+  GETTABLEKS R17 R18 K47 ["Medium"]
+  SETTABLEKS R17 R16 K36 ["size"]
+  NEWCLOSURE R17 P2
   CAPTURE VAL R2
   CAPTURE VAL R1
-  SETTABLEKS R14 R13 K17 ["onActivated"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K42 ["Button"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K9 ["Menu"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  SETTABLEKS R17 R16 K40 ["onActivated"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K43 ["Button"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K33 ["Menu"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -827,9 +851,12 @@ MAIN:
   MOVE R18 R10
   CALL R17 1 1
   SETTABLEKS R17 R16 K65 ["size"]
-  GETTABLEKS R17 R3 K69 ["values"]
-  MOVE R18 R11
-  CALL R17 1 1
+  NEWTABLE R17 0 4
+  GETTABLEKS R18 R11 K70 ["Bottom"]
+  GETTABLEKS R19 R11 K71 ["Top"]
+  GETTABLEKS R20 R11 K72 ["Left"]
+  GETTABLEKS R21 R11 K73 ["Right"]
+  SETLIST R17 R18 4 [1]
   SETTABLEKS R17 R16 K66 ["side"]
   GETTABLEKS R17 R3 K69 ["values"]
   MOVE R18 R12

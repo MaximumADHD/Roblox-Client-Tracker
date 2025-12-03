@@ -226,37 +226,47 @@ PROTO_2:
   GETUPVAL R12 12
   JUMP [+1]
   MOVE R12 R10
-  JUMPIFNOT R4 [+35]
+  DUPTABLE R13 K40 [{"component", "onActivated", "onSecondaryActivated", "onStateChanged", "stateLayer", "isDisabled", "cursor"}]
+  SETTABLEKS R10 R13 K36 ["component"]
+  GETTABLEKS R14 R3 K5 ["onActivated"]
+  SETTABLEKS R14 R13 K5 ["onActivated"]
+  GETTABLEKS R14 R3 K6 ["onSecondaryActivated"]
+  SETTABLEKS R14 R13 K6 ["onSecondaryActivated"]
+  GETTABLEKS R14 R3 K4 ["onStateChanged"]
+  SETTABLEKS R14 R13 K4 ["onStateChanged"]
+  GETTABLEKS R14 R3 K37 ["stateLayer"]
+  SETTABLEKS R14 R13 K37 ["stateLayer"]
+  GETTABLEKS R14 R3 K38 ["isDisabled"]
+  SETTABLEKS R14 R13 K38 ["isDisabled"]
+  GETTABLEKS R14 R3 K39 ["cursor"]
+  SETTABLEKS R14 R13 K39 ["cursor"]
+  JUMPIFNOT R4 [+20]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K41 ["FoundationMigrateCryoToDash"]
+  JUMPIFNOT R15 [+7]
   GETUPVAL R15 13
-  GETTABLEKS R14 R15 K36 ["Dictionary"]
-  GETTABLEKS R13 R14 K37 ["union"]
-  MOVE R14 R11
-  DUPTABLE R15 K42 [{"component", "onActivated", "onSecondaryActivated", "onStateChanged", "stateLayer", "isDisabled", "cursor"}]
-  SETTABLEKS R10 R15 K38 ["component"]
-  GETTABLEKS R16 R3 K5 ["onActivated"]
-  SETTABLEKS R16 R15 K5 ["onActivated"]
-  GETTABLEKS R16 R3 K6 ["onSecondaryActivated"]
-  SETTABLEKS R16 R15 K6 ["onSecondaryActivated"]
-  GETTABLEKS R16 R3 K4 ["onStateChanged"]
-  SETTABLEKS R16 R15 K4 ["onStateChanged"]
-  GETTABLEKS R16 R3 K39 ["stateLayer"]
-  SETTABLEKS R16 R15 K39 ["stateLayer"]
-  GETTABLEKS R16 R3 K40 ["isDisabled"]
-  SETTABLEKS R16 R15 K40 ["isDisabled"]
-  GETTABLEKS R16 R3 K41 ["cursor"]
-  SETTABLEKS R16 R15 K41 ["cursor"]
-  CALL R13 2 1
-  JUMP [+1]
-  MOVE R13 R11
-  GETUPVAL R15 7
-  GETTABLEKS R14 R15 K43 ["createElement"]
-  MOVE R15 R12
+  GETTABLEKS R14 R15 K42 ["union"]
+  MOVE R15 R11
   MOVE R16 R13
-  GETUPVAL R17 14
-  MOVE R18 R3
-  CALL R17 1 -1
-  CALL R14 -1 -1
-  RETURN R14 -1
+  CALL R14 2 1
+  JUMP [+10]
+  GETUPVAL R16 14
+  GETTABLEKS R15 R16 K43 ["Dictionary"]
+  GETTABLEKS R14 R15 K42 ["union"]
+  MOVE R15 R11
+  MOVE R16 R13
+  CALL R14 2 1
+  JUMP [+1]
+  MOVE R14 R11
+  GETUPVAL R16 7
+  GETTABLEKS R15 R16 K44 ["createElement"]
+  MOVE R16 R12
+  MOVE R17 R14
+  GETUPVAL R18 15
+  MOVE R19 R3
+  CALL R18 1 -1
+  CALL R15 -1 -1
+  RETURN R15 -1
 
 MAIN:
   PREPVARARGS 0
@@ -279,80 +289,84 @@ MAIN:
   GETTABLEKS R6 R1 K11 ["Cryo"]
   CALL R5 1 1
   GETIMPORT R6 K6 [require]
-  GETTABLEKS R8 R0 K12 ["Components"]
-  GETTABLEKS R7 R8 K13 ["Interactable"]
+  GETTABLEKS R7 R1 K12 ["Dash"]
   CALL R6 1 1
   GETIMPORT R7 K6 [require]
-  GETTABLEKS R9 R0 K12 ["Components"]
-  GETTABLEKS R8 R9 K14 ["Types"]
+  GETTABLEKS R9 R0 K13 ["Components"]
+  GETTABLEKS R8 R9 K14 ["Interactable"]
   CALL R7 1 1
   GETIMPORT R8 K6 [require]
-  GETTABLEKS R10 R0 K7 ["Utility"]
-  GETTABLEKS R9 R10 K15 ["withDefaults"]
+  GETTABLEKS R10 R0 K13 ["Components"]
+  GETTABLEKS R9 R10 K15 ["Types"]
   CALL R8 1 1
   GETIMPORT R9 K6 [require]
   GETTABLEKS R11 R0 K7 ["Utility"]
-  GETTABLEKS R10 R11 K16 ["useDefaultTags"]
+  GETTABLEKS R10 R11 K16 ["withDefaults"]
   CALL R9 1 1
   GETIMPORT R10 K6 [require]
   GETTABLEKS R12 R0 K7 ["Utility"]
-  GETTABLEKS R11 R12 K17 ["withGuiObjectProps"]
+  GETTABLEKS R11 R12 K17 ["useDefaultTags"]
   CALL R10 1 1
   GETIMPORT R11 K6 [require]
   GETTABLEKS R13 R0 K7 ["Utility"]
-  GETTABLEKS R12 R13 K18 ["useStyledDefaults"]
+  GETTABLEKS R12 R13 K18 ["withGuiObjectProps"]
   CALL R11 1 1
   GETIMPORT R12 K6 [require]
   GETTABLEKS R14 R0 K7 ["Utility"]
-  GETTABLEKS R13 R14 K19 ["indexBindable"]
+  GETTABLEKS R13 R14 K19 ["useStyledDefaults"]
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
   GETTABLEKS R15 R0 K7 ["Utility"]
-  GETTABLEKS R14 R15 K20 ["GuiObjectChildren"]
+  GETTABLEKS R14 R15 K20 ["indexBindable"]
   CALL R13 1 1
   GETIMPORT R14 K6 [require]
-  GETTABLEKS R17 R0 K21 ["Providers"]
-  GETTABLEKS R16 R17 K22 ["Style"]
-  GETTABLEKS R15 R16 K23 ["useStyleTags"]
+  GETTABLEKS R16 R0 K7 ["Utility"]
+  GETTABLEKS R15 R16 K21 ["GuiObjectChildren"]
   CALL R14 1 1
   GETIMPORT R15 K6 [require]
-  GETIMPORT R18 K1 [script]
-  GETTABLEKS R17 R18 K4 ["Parent"]
-  GETTABLEKS R16 R17 K24 ["FontScales"]
+  GETTABLEKS R18 R0 K22 ["Providers"]
+  GETTABLEKS R17 R18 K23 ["Style"]
+  GETTABLEKS R16 R17 K24 ["useStyleTags"]
   CALL R15 1 1
-  DUPTABLE R16 K29 [{"AutoLocalize", "AutoButtonColor", "BorderSizePixel", "isDisabled"}]
-  LOADB R17 0
-  SETTABLEKS R17 R16 K25 ["AutoLocalize"]
-  LOADB R17 0
-  SETTABLEKS R17 R16 K26 ["AutoButtonColor"]
-  LOADN R17 0
-  SETTABLEKS R17 R16 K27 ["BorderSizePixel"]
-  LOADB R17 0
-  SETTABLEKS R17 R16 K28 ["isDisabled"]
-  LOADK R18 K30 ["%* x-default-transparency"]
-  LOADK R20 K31 ["gui-object-defaults text-defaults text-size-defaults text-color-defaults"]
-  NAMECALL R18 R18 K32 ["format"]
-  CALL R18 2 1
-  MOVE R17 R18
-  DUPCLOSURE R18 K33 [PROTO_2]
+  GETIMPORT R16 K6 [require]
+  GETIMPORT R19 K1 [script]
+  GETTABLEKS R18 R19 K4 ["Parent"]
+  GETTABLEKS R17 R18 K25 ["FontScales"]
+  CALL R16 1 1
+  DUPTABLE R17 K30 [{"AutoLocalize", "AutoButtonColor", "BorderSizePixel", "isDisabled"}]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K26 ["AutoLocalize"]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K27 ["AutoButtonColor"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K28 ["BorderSizePixel"]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K29 ["isDisabled"]
+  LOADK R19 K31 ["%* x-default-transparency"]
+  LOADK R21 K32 ["gui-object-defaults text-defaults text-size-defaults text-color-defaults"]
+  NAMECALL R19 R19 K33 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  DUPCLOSURE R19 K34 [PROTO_2]
   CAPTURE VAL R2
-  CAPTURE VAL R11
-  CAPTURE VAL R16
-  CAPTURE VAL R8
+  CAPTURE VAL R12
   CAPTURE VAL R17
   CAPTURE VAL R9
-  CAPTURE VAL R14
+  CAPTURE VAL R18
+  CAPTURE VAL R10
+  CAPTURE VAL R15
   CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R15
-  CAPTURE VAL R10
-  CAPTURE VAL R12
+  CAPTURE VAL R16
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R7
   CAPTURE VAL R6
   CAPTURE VAL R5
-  CAPTURE VAL R13
-  GETTABLEKS R19 R3 K34 ["memo"]
-  GETTABLEKS R20 R3 K35 ["forwardRef"]
-  MOVE R21 R18
-  CALL R20 1 -1
-  CALL R19 -1 -1
-  RETURN R19 -1
+  CAPTURE VAL R14
+  GETTABLEKS R20 R3 K35 ["memo"]
+  GETTABLEKS R21 R3 K36 ["forwardRef"]
+  MOVE R22 R19
+  CALL R21 1 -1
+  CALL R20 -1 -1
+  RETURN R20 -1

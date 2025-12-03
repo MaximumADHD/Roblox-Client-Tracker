@@ -230,10 +230,10 @@ PROTO_7:
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K7 ["createElement"]
   GETUPVAL R16 8
-  DUPTABLE R17 K43 [{"LayoutOrder", "Position", "size", "isStart", "ZIndex", "Visible", "onActivated", "gradient", "tag", "icon"}]
+  DUPTABLE R17 K44 [{"LayoutOrder", "Position", "size", "isStart", "ZIndex", "Visible", "onActivated", "gradient", "tag", "icon", "testId"}]
   LOADN R18 3
   SETTABLEKS R18 R17 K15 ["LayoutOrder"]
-  GETIMPORT R18 K46 [UDim2.fromScale]
+  GETIMPORT R18 K47 [UDim2.fromScale]
   LOADN R19 0
   LOADN R20 0
   CALL R18 2 1
@@ -248,19 +248,25 @@ PROTO_7:
   SETTABLEKS R9 R17 K40 ["onActivated"]
   GETUPVAL R18 9
   SETTABLEKS R18 R17 K41 ["gradient"]
-  LOADK R18 K47 ["padding-right-small"]
+  LOADK R18 K48 ["padding-right-small"]
   SETTABLEKS R18 R17 K8 ["tag"]
-  LOADK R18 K48 ["chevron-large-left"]
+  LOADK R18 K49 ["chevron-large-left"]
   SETTABLEKS R18 R17 K42 ["icon"]
+  LOADK R19 K50 ["%*--overflow-start"]
+  GETTABLEKS R21 R0 K43 ["testId"]
+  NAMECALL R19 R19 K51 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  SETTABLEKS R18 R17 K43 ["testId"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K12 ["OverflowStart"]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K7 ["createElement"]
   GETUPVAL R16 8
-  DUPTABLE R17 K49 [{"LayoutOrder", "Position", "size", "ZIndex", "Visible", "onActivated", "gradient", "tag", "icon"}]
+  DUPTABLE R17 K52 [{"LayoutOrder", "Position", "size", "ZIndex", "Visible", "onActivated", "gradient", "tag", "icon", "testId"}]
   LOADN R18 4
   SETTABLEKS R18 R17 K15 ["LayoutOrder"]
-  GETIMPORT R18 K46 [UDim2.fromScale]
+  GETIMPORT R18 K47 [UDim2.fromScale]
   LOADN R19 1
   LOADN R20 0
   CALL R18 2 1
@@ -273,10 +279,16 @@ PROTO_7:
   SETTABLEKS R10 R17 K40 ["onActivated"]
   GETUPVAL R18 10
   SETTABLEKS R18 R17 K41 ["gradient"]
-  LOADK R18 K50 ["padding-left-small anchor-top-right"]
+  LOADK R18 K53 ["padding-left-small anchor-top-right"]
   SETTABLEKS R18 R17 K8 ["tag"]
-  LOADK R18 K51 ["chevron-large-right"]
+  LOADK R18 K54 ["chevron-large-right"]
   SETTABLEKS R18 R17 K42 ["icon"]
+  LOADK R19 K55 ["%*--overflow-end"]
+  GETTABLEKS R21 R0 K43 ["testId"]
+  NAMECALL R19 R19 K51 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  SETTABLEKS R18 R17 K43 ["testId"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K13 ["OverflowEnd"]
   CALL R11 3 -1

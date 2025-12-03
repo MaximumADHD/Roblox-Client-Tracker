@@ -28,55 +28,55 @@ PROTO_0:
   LOADK R5 K6 ["text-caption-small"]
   JUMP [+1]
   LOADK R5 K7 ["text-caption-medium"]
-  GETTABLEKS R9 R2 K8 ["isInverse"]
-  JUMPIFNOT R9 [+3]
-  GETTABLEKS R8 R1 K9 ["Inverse"]
-  JUMP [+2]
-  GETTABLEKS R8 R1 K10 ["Color"]
-  GETTABLEKS R7 R8 K11 ["Content"]
-  GETTABLEKS R6 R7 K12 ["Emphasis"]
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K13 ["createElement"]
+  GETTABLEKS R9 R2 K8 ["colorMode"]
+  JUMPIF R9 [+3]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K9 ["Color"]
+  GETTABLE R8 R1 R9
+  GETTABLEKS R7 R8 K10 ["Content"]
+  GETTABLEKS R6 R7 K11 ["Emphasis"]
   GETUPVAL R8 5
-  GETUPVAL R9 6
+  GETTABLEKS R7 R8 K12 ["createElement"]
+  GETUPVAL R8 6
+  GETUPVAL R9 7
   MOVE R10 R0
-  DUPTABLE R11 K16 [{"Size", "backgroundStyle", "tag"}]
-  GETTABLEKS R12 R0 K14 ["Size"]
-  SETTABLEKS R12 R11 K14 ["Size"]
+  DUPTABLE R11 K15 [{"Size", "backgroundStyle", "tag"}]
+  GETTABLEKS R12 R0 K13 ["Size"]
+  SETTABLEKS R12 R11 K13 ["Size"]
   SETTABLEKS R3 R11 K1 ["backgroundStyle"]
-  LOADK R12 K17 ["radius-circle row align-x-center align-y-center"]
-  SETTABLEKS R12 R11 K15 ["tag"]
+  LOADK R12 K16 ["radius-circle row align-x-center align-y-center"]
+  SETTABLEKS R12 R11 K14 ["tag"]
   CALL R9 2 1
   JUMPIFNOT R4 [+17]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K13 ["createElement"]
-  GETUPVAL R11 7
-  DUPTABLE R12 K20 [{"name", "size", "style"}]
-  LOADK R13 K21 ["three-dots-horizontal"]
-  SETTABLEKS R13 R12 K18 ["name"]
-  GETUPVAL R14 8
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K12 ["createElement"]
+  GETUPVAL R11 8
+  DUPTABLE R12 K19 [{"name", "size", "style"}]
+  LOADK R13 K20 ["three-dots-horizontal"]
+  SETTABLEKS R13 R12 K17 ["name"]
+  GETUPVAL R14 9
   GETTABLEKS R13 R14 K4 ["XSmall"]
   SETTABLEKS R13 R12 K3 ["size"]
-  SETTABLEKS R6 R12 K19 ["style"]
+  SETTABLEKS R6 R12 K18 ["style"]
   CALL R10 2 1
   JUMP [+25]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K13 ["createElement"]
-  GETUPVAL R11 9
-  DUPTABLE R12 K24 [{"Text", "tag", "textStyle"}]
-  LOADK R14 K25 ["+%*"]
-  GETTABLEKS R16 R0 K26 ["count"]
-  NAMECALL R14 R14 K27 ["format"]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K12 ["createElement"]
+  GETUPVAL R11 10
+  DUPTABLE R12 K23 [{"Text", "tag", "textStyle"}]
+  LOADK R14 K24 ["+%*"]
+  GETTABLEKS R16 R0 K25 ["count"]
+  NAMECALL R14 R14 K26 ["format"]
   CALL R14 2 1
   MOVE R13 R14
-  SETTABLEKS R13 R12 K22 ["Text"]
-  LOADK R14 K28 ["text-align-x-center auto-xy %*"]
+  SETTABLEKS R13 R12 K21 ["Text"]
+  LOADK R14 K27 ["text-align-x-center auto-xy %*"]
   MOVE R16 R5
-  NAMECALL R14 R14 K27 ["format"]
+  NAMECALL R14 R14 K26 ["format"]
   CALL R14 2 1
   MOVE R13 R14
-  SETTABLEKS R13 R12 K15 ["tag"]
-  SETTABLEKS R6 R12 K23 ["textStyle"]
+  SETTABLEKS R13 R12 K14 ["tag"]
+  SETTABLEKS R6 R12 K22 ["textStyle"]
   CALL R10 2 1
   CALL R7 3 -1
   RETURN R7 -1
@@ -127,31 +127,31 @@ PROTO_1:
   GETTABLEKS R7 R4 K2 ["Size"]
   GETTABLEKS R6 R7 K11 ["Size_100"]
   MINUS R5 R6
-  GETTABLEKS R9 R3 K12 ["isInverse"]
-  JUMPIFNOT R9 [+3]
-  GETTABLEKS R8 R4 K13 ["Inverse"]
-  JUMP [+2]
-  GETTABLEKS R8 R4 K14 ["Color"]
-  GETTABLEKS R7 R8 K15 ["Shift"]
-  GETTABLEKS R6 R7 K16 ["Shift_300"]
-  GETUPVAL R7 6
+  GETTABLEKS R9 R3 K12 ["colorMode"]
+  JUMPIF R9 [+3]
+  GETUPVAL R10 6
+  GETTABLEKS R9 R10 K13 ["Color"]
+  GETTABLE R8 R4 R9
+  GETTABLEKS R7 R8 K14 ["Shift"]
+  GETTABLEKS R6 R7 K15 ["Shift_300"]
+  GETUPVAL R7 7
   MOVE R8 R4
   GETTABLEKS R9 R2 K5 ["size"]
   GETTABLEKS R10 R3 K4 ["isIconSize"]
   CALL R7 3 1
-  GETTABLEKS R8 R2 K17 ["backplateStyle"]
+  GETTABLEKS R8 R2 K16 ["backplateStyle"]
   JUMPIF R8 [+6]
-  GETTABLEKS R10 R4 K14 ["Color"]
-  GETTABLEKS R9 R10 K18 ["Surface"]
-  GETTABLEKS R8 R9 K19 ["Surface_0"]
+  GETTABLEKS R10 R4 K13 ["Color"]
+  GETTABLEKS R9 R10 K17 ["Surface"]
+  GETTABLEKS R8 R9 K18 ["Surface_0"]
   NEWTABLE R9 0 0
   ADD R10 R7 R5
-  GETTABLEKS R11 R2 K20 ["avatars"]
+  GETTABLEKS R11 R2 K19 ["avatars"]
   LOADNIL R12
   LOADNIL R13
   FORGPREP R11
-  GETIMPORT R16 K23 [UDim2.fromOffset]
-  SUBK R18 R14 K24 [1]
+  GETIMPORT R16 K22 [UDim2.fromOffset]
+  SUBK R18 R14 K23 [1]
   MUL R17 R10 R18
   LOADN R18 0
   CALL R16 2 1
@@ -159,80 +159,80 @@ PROTO_1:
   MOVE R18 R15
   FASTCALL1 TYPEOF R15 [+3]
   MOVE R20 R15
-  GETIMPORT R19 K26 [typeof]
+  GETIMPORT R19 K25 [typeof]
   CALL R19 1 1
-  JUMPIFNOTEQKS R19 K27 ["table"] [+5]
-  GETTABLEKS R17 R15 K28 ["userPresence"]
-  GETTABLEKS R18 R15 K29 ["userId"]
-  GETTABLEKS R21 R2 K20 ["avatars"]
+  JUMPIFNOTEQKS R19 K26 ["table"] [+5]
+  GETTABLEKS R17 R15 K27 ["userPresence"]
+  GETTABLEKS R18 R15 K28 ["userId"]
+  GETTABLEKS R21 R2 K19 ["avatars"]
   LENGTH R20 R21
-  SUBK R21 R14 K24 [1]
+  SUBK R21 R14 K23 [1]
   SUB R19 R20 R21
-  GETTABLEKS R20 R2 K30 ["max"]
+  GETTABLEKS R20 R2 K29 ["max"]
   JUMPIFNOTLT R20 R14 [+41]
-  GETUPVAL R21 7
-  GETTABLEKS R20 R21 K31 ["createElement"]
   GETUPVAL R21 8
-  DUPTABLE R22 K38 [{"key", "count", "size", "Size", "LayoutOrder", "Position", "ZIndex", "backgroundStyle", "backplateStyle"}]
-  LOADK R23 K39 ["overflow"]
-  SETTABLEKS R23 R22 K32 ["key"]
-  GETTABLEKS R25 R2 K20 ["avatars"]
+  GETTABLEKS R20 R21 K30 ["createElement"]
+  GETUPVAL R21 9
+  DUPTABLE R22 K37 [{"key", "count", "size", "Size", "LayoutOrder", "Position", "ZIndex", "backgroundStyle", "backplateStyle"}]
+  LOADK R23 K38 ["overflow"]
+  SETTABLEKS R23 R22 K31 ["key"]
+  GETTABLEKS R25 R2 K19 ["avatars"]
   LENGTH R24 R25
-  GETTABLEKS R25 R2 K30 ["max"]
+  GETTABLEKS R25 R2 K29 ["max"]
   SUB R23 R24 R25
-  SETTABLEKS R23 R22 K33 ["count"]
+  SETTABLEKS R23 R22 K32 ["count"]
   GETTABLEKS R23 R2 K5 ["size"]
   SETTABLEKS R23 R22 K5 ["size"]
-  GETIMPORT R23 K23 [UDim2.fromOffset]
+  GETIMPORT R23 K22 [UDim2.fromOffset]
   MOVE R24 R7
   MOVE R25 R7
   CALL R23 2 1
   SETTABLEKS R23 R22 K2 ["Size"]
-  SETTABLEKS R14 R22 K34 ["LayoutOrder"]
-  SETTABLEKS R16 R22 K35 ["Position"]
-  SETTABLEKS R19 R22 K36 ["ZIndex"]
-  SETTABLEKS R6 R22 K37 ["backgroundStyle"]
-  SETTABLEKS R8 R22 K17 ["backplateStyle"]
+  SETTABLEKS R14 R22 K33 ["LayoutOrder"]
+  SETTABLEKS R16 R22 K34 ["Position"]
+  SETTABLEKS R19 R22 K35 ["ZIndex"]
+  SETTABLEKS R6 R22 K36 ["backgroundStyle"]
+  SETTABLEKS R8 R22 K16 ["backplateStyle"]
   CALL R20 2 1
   SETTABLE R20 R9 R14
   JUMP [+44]
-  GETUPVAL R21 7
-  GETTABLEKS R20 R21 K31 ["createElement"]
-  GETUPVAL R21 9
-  DUPTABLE R22 K41 [{"key", "userId", "backgroundStyle", "backplateStyle", "size", "userPresence", "LayoutOrder", "Position", "ZIndex", "testId"}]
+  GETUPVAL R21 8
+  GETTABLEKS R20 R21 K30 ["createElement"]
+  GETUPVAL R21 10
+  DUPTABLE R22 K40 [{"key", "userId", "backgroundStyle", "backplateStyle", "size", "userPresence", "LayoutOrder", "Position", "ZIndex", "testId"}]
   FASTCALL1 TOSTRING R18 [+3]
   MOVE R24 R18
-  GETIMPORT R23 K43 [tostring]
+  GETIMPORT R23 K42 [tostring]
   CALL R23 1 1
-  SETTABLEKS R23 R22 K32 ["key"]
-  SETTABLEKS R18 R22 K29 ["userId"]
-  SETTABLEKS R6 R22 K37 ["backgroundStyle"]
-  SETTABLEKS R8 R22 K17 ["backplateStyle"]
+  SETTABLEKS R23 R22 K31 ["key"]
+  SETTABLEKS R18 R22 K28 ["userId"]
+  SETTABLEKS R6 R22 K36 ["backgroundStyle"]
+  SETTABLEKS R8 R22 K16 ["backplateStyle"]
   GETTABLEKS R23 R2 K5 ["size"]
   SETTABLEKS R23 R22 K5 ["size"]
-  SETTABLEKS R17 R22 K28 ["userPresence"]
-  SETTABLEKS R14 R22 K34 ["LayoutOrder"]
-  SETTABLEKS R16 R22 K35 ["Position"]
-  SETTABLEKS R19 R22 K36 ["ZIndex"]
-  LOADK R24 K44 ["%*--avatar-%*"]
-  GETTABLEKS R26 R2 K40 ["testId"]
+  SETTABLEKS R17 R22 K27 ["userPresence"]
+  SETTABLEKS R14 R22 K33 ["LayoutOrder"]
+  SETTABLEKS R16 R22 K34 ["Position"]
+  SETTABLEKS R19 R22 K35 ["ZIndex"]
+  LOADK R24 K43 ["%*--avatar-%*"]
+  GETTABLEKS R26 R2 K39 ["testId"]
   MOVE R27 R18
-  NAMECALL R24 R24 K45 ["format"]
+  NAMECALL R24 R24 K44 ["format"]
   CALL R24 3 1
   MOVE R23 R24
-  SETTABLEKS R23 R22 K40 ["testId"]
+  SETTABLEKS R23 R22 K39 ["testId"]
   CALL R20 2 1
   SETTABLE R20 R9 R14
   FORGLOOP R11 2 [-111]
-  GETUPVAL R12 7
-  GETTABLEKS R11 R12 K31 ["createElement"]
-  GETUPVAL R12 10
-  GETUPVAL R13 11
+  GETUPVAL R12 8
+  GETTABLEKS R11 R12 K30 ["createElement"]
+  GETUPVAL R12 11
+  GETUPVAL R13 12
   MOVE R14 R2
-  DUPTABLE R15 K48 [{"ref", "tag"}]
-  SETTABLEKS R1 R15 K46 ["ref"]
-  LOADK R16 K49 ["auto-xy"]
-  SETTABLEKS R16 R15 K47 ["tag"]
+  DUPTABLE R15 K47 [{"ref", "tag"}]
+  SETTABLEKS R1 R15 K45 ["ref"]
+  LOADK R16 K48 ["auto-xy"]
+  SETTABLEKS R16 R15 K46 ["tag"]
   CALL R13 2 1
   MOVE R14 R9
   CALL R11 3 -1
@@ -283,71 +283,77 @@ MAIN:
   CALL R10 1 1
   GETIMPORT R11 K6 [require]
   GETTABLEKS R13 R0 K20 ["Enums"]
-  GETTABLEKS R12 R13 K21 ["InputSize"]
+  GETTABLEKS R12 R13 K21 ["ColorMode"]
   CALL R11 1 1
   GETIMPORT R12 K6 [require]
   GETTABLEKS R14 R0 K20 ["Enums"]
-  GETTABLEKS R13 R14 K22 ["IconSize"]
+  GETTABLEKS R13 R14 K22 ["InputSize"]
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
   GETTABLEKS R15 R0 K20 ["Enums"]
-  GETTABLEKS R14 R15 K23 ["UserPresence"]
+  GETTABLEKS R14 R15 K23 ["IconSize"]
   CALL R13 1 1
   GETIMPORT R14 K6 [require]
   GETTABLEKS R16 R0 K20 ["Enums"]
-  GETTABLEKS R15 R16 K24 ["AvatarGroupType"]
+  GETTABLEKS R15 R16 K24 ["UserPresence"]
   CALL R14 1 1
-  GETIMPORT R16 K6 [require]
-  GETTABLEKS R19 R0 K17 ["Providers"]
-  GETTABLEKS R18 R19 K18 ["Style"]
-  GETTABLEKS R17 R18 K25 ["PresentationContext"]
-  CALL R16 1 1
-  GETTABLEKS R15 R16 K26 ["usePresentationContext"]
-  GETIMPORT R16 K6 [require]
-  GETTABLEKS R18 R0 K14 ["Utility"]
-  GETTABLEKS R17 R18 K27 ["useCumulativeBackground"]
-  CALL R16 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R17 R0 K20 ["Enums"]
+  GETTABLEKS R16 R17 K25 ["AvatarGroupType"]
+  CALL R15 1 1
   GETIMPORT R17 K6 [require]
-  GETTABLEKS R20 R0 K8 ["Components"]
-  GETTABLEKS R19 R20 K13 ["Avatar"]
-  GETTABLEKS R18 R19 K28 ["getAvatarSize"]
+  GETTABLEKS R20 R0 K17 ["Providers"]
+  GETTABLEKS R19 R20 K18 ["Style"]
+  GETTABLEKS R18 R19 K26 ["PresentationContext"]
   CALL R17 1 1
-  DUPTABLE R18 K33 [{"type", "max", "size", "testId"}]
-  GETTABLEKS R19 R14 K34 ["Spread"]
-  SETTABLEKS R19 R18 K29 ["type"]
-  LOADK R19 K35 [∞]
-  SETTABLEKS R19 R18 K30 ["max"]
-  GETTABLEKS R19 R11 K36 ["Medium"]
-  SETTABLEKS R19 R18 K31 ["size"]
-  LOADK R19 K37 ["--foundation-avatar-group"]
-  SETTABLEKS R19 R18 K32 ["testId"]
-  DUPCLOSURE R19 K38 [PROTO_0]
+  GETTABLEKS R16 R17 K27 ["usePresentationContext"]
+  GETIMPORT R17 K6 [require]
+  GETTABLEKS R19 R0 K14 ["Utility"]
+  GETTABLEKS R18 R19 K28 ["useCumulativeBackground"]
+  CALL R17 1 1
+  GETIMPORT R18 K6 [require]
+  GETTABLEKS R21 R0 K8 ["Components"]
+  GETTABLEKS R20 R21 K13 ["Avatar"]
+  GETTABLEKS R19 R20 K29 ["getAvatarSize"]
+  CALL R18 1 1
+  DUPTABLE R19 K34 [{"type", "max", "size", "testId"}]
+  GETTABLEKS R20 R15 K35 ["Spread"]
+  SETTABLEKS R20 R19 K30 ["type"]
+  LOADK R20 K36 [∞]
+  SETTABLEKS R20 R19 K31 ["max"]
+  GETTABLEKS R20 R12 K37 ["Medium"]
+  SETTABLEKS R20 R19 K32 ["size"]
+  LOADK R20 K38 ["--foundation-avatar-group"]
+  SETTABLEKS R20 R19 K33 ["testId"]
+  DUPCLOSURE R20 K39 [PROTO_0]
   CAPTURE VAL R10
-  CAPTURE VAL R15
   CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R12
   CAPTURE VAL R11
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R9
   CAPTURE VAL R6
-  CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R5
-  DUPCLOSURE R20 K39 [PROTO_1]
+  DUPCLOSURE R21 K40 [PROTO_1]
   CAPTURE VAL R8
-  CAPTURE VAL R18
-  CAPTURE VAL R15
-  CAPTURE VAL R10
-  CAPTURE VAL R14
-  CAPTURE VAL R11
-  CAPTURE VAL R17
-  CAPTURE VAL R2
   CAPTURE VAL R19
+  CAPTURE VAL R16
+  CAPTURE VAL R10
+  CAPTURE VAL R15
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  CAPTURE VAL R18
+  CAPTURE VAL R2
+  CAPTURE VAL R20
   CAPTURE VAL R7
   CAPTURE VAL R4
   CAPTURE VAL R9
-  GETTABLEKS R21 R2 K40 ["memo"]
-  GETTABLEKS R22 R2 K41 ["forwardRef"]
-  MOVE R23 R20
-  CALL R22 1 -1
-  CALL R21 -1 -1
-  RETURN R21 -1
+  GETTABLEKS R22 R2 K41 ["memo"]
+  GETTABLEKS R23 R2 K42 ["forwardRef"]
+  MOVE R24 R21
+  CALL R23 1 -1
+  CALL R22 -1 -1
+  RETURN R22 -1

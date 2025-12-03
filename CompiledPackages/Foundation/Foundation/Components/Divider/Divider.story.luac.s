@@ -1,25 +1,60 @@
 PROTO_0:
+  NEWTABLE R0 0 0
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETTABLEKS R1 R2 K0 ["values"]
   GETUPVAL R2 1
-  DUPTABLE R3 K2 [{"tag"}]
-  LOADK R4 K3 ["size-full-2000 col align-y-center bg-surface-0"]
-  SETTABLEKS R4 R3 K1 ["tag"]
-  DUPTABLE R4 K5 [{"Divider"}]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K8 [{"variant", "orientation"}]
-  GETTABLEKS R9 R0 K9 ["controls"]
-  GETTABLEKS R8 R9 K6 ["variant"]
-  SETTABLEKS R8 R7 K6 ["variant"]
-  GETTABLEKS R9 R0 K9 ["controls"]
-  GETTABLEKS R8 R9 K7 ["orientation"]
-  SETTABLEKS R8 R7 K7 ["orientation"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K4 ["Divider"]
-  CALL R1 3 -1
-  RETURN R1 -1
+  CALL R1 1 1
+  MOVE R2 R1
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  LOADK R8 K1 ["Divider-"]
+  FASTCALL1 TOSTRING R6 [+3]
+  MOVE R10 R6
+  GETIMPORT R9 K3 [tostring]
+  CALL R9 1 1
+  CONCAT R7 R8 R9
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K4 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K8 [{"variant", "orientation", "LayoutOrder"}]
+  SETTABLEKS R6 R10 K5 ["variant"]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K9 ["Horizontal"]
+  SETTABLEKS R11 R10 K6 ["orientation"]
+  SETTABLEKS R5 R10 K7 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLE R8 R0 R7
+  FORGLOOP R2 2 [-24]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K4 ["createElement"]
+  GETUPVAL R3 5
+  DUPTABLE R4 K11 [{"tag"}]
+  LOADK R5 K12 ["size-full-2000 col gap-xxlarge align-y-center bg-surface-0 padding-large"]
+  SETTABLEKS R5 R4 K10 ["tag"]
+  MOVE R5 R0
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  DUPTABLE R2 K2 [{"tag"}]
+  LOADK R3 K3 ["size-full-2000 row align-x-center align-y-center bg-surface-0 padding-large gap-large"]
+  SETTABLEKS R3 R2 K1 ["tag"]
+  DUPTABLE R3 K5 [{"Divider"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K7 [{"orientation"}]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K8 ["Vertical"]
+  SETTABLEKS R7 R6 K6 ["orientation"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K4 ["Divider"]
+  CALL R0 3 -1
+  RETURN R0 -1
 
 MAIN:
   PREPVARARGS 0
@@ -51,21 +86,33 @@ MAIN:
   GETTABLEKS R8 R9 K14 ["Orientation"]
   CALL R7 1 1
   DUPCLOSURE R8 K15 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  DUPCLOSURE R9 K16 [PROTO_1]
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R5
-  DUPTABLE R9 K19 [{"summary", "story", "controls"}]
-  LOADK R10 K11 ["Divider"]
-  SETTABLEKS R10 R9 K16 ["summary"]
-  SETTABLEKS R8 R9 K17 ["story"]
-  DUPTABLE R10 K22 [{"variant", "orientation"}]
-  GETTABLEKS R11 R2 K23 ["values"]
-  MOVE R12 R6
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K20 ["variant"]
-  GETTABLEKS R11 R2 K23 ["values"]
-  MOVE R12 R7
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K21 ["orientation"]
-  SETTABLEKS R10 R9 K18 ["controls"]
-  RETURN R9 1
+  CAPTURE VAL R7
+  DUPTABLE R10 K19 [{"summary", "stories"}]
+  LOADK R11 K11 ["Divider"]
+  SETTABLEKS R11 R10 K17 ["summary"]
+  NEWTABLE R11 0 2
+  DUPTABLE R12 K22 [{"name", "summary", "story"}]
+  LOADK R13 K23 ["Horizontal"]
+  SETTABLEKS R13 R12 K20 ["name"]
+  LOADK R13 K24 ["All variants (Default, Heavy, Inset, InsetLeft, InsetRight)"]
+  SETTABLEKS R13 R12 K17 ["summary"]
+  SETTABLEKS R8 R12 K21 ["story"]
+  DUPTABLE R13 K22 [{"name", "summary", "story"}]
+  LOADK R14 K25 ["Vertical"]
+  SETTABLEKS R14 R13 K20 ["name"]
+  LOADK R14 K26 ["Vertical divider (variant not applicable)"]
+  SETTABLEKS R14 R13 K17 ["summary"]
+  SETTABLEKS R9 R13 K21 ["story"]
+  SETLIST R11 R12 2 [1]
+  SETTABLEKS R11 R10 K18 ["stories"]
+  RETURN R10 1

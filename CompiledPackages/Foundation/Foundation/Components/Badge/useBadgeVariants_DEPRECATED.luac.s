@@ -128,71 +128,41 @@ PROTO_0:
   LOADK R7 K34 [""]
   GETUPVAL R9 3
   GETTABLE R8 R9 R1
-  JUMPIFNOT R2 [+29]
+  JUMPIFNOT R2 [+6]
   GETIMPORT R9 K37 [Vector2.new]
-  GETUPVAL R12 4
-  GETTABLEKS R11 R12 K38 ["FoundationDisableBadgeTruncation"]
-  JUMPIFNOT R11 [+2]
-  LOADK R10 K39 [∞]
-  JUMP [+18]
-  GETTABLEKS R13 R4 K24 ["Size"]
-  GETTABLEKS R12 R13 K40 ["Size_1600"]
-  GETTABLEKS R16 R4 K41 ["Semantic"]
-  GETTABLEKS R15 R16 K42 ["Icon"]
-  GETTABLEKS R14 R15 K24 ["Size"]
-  GETTABLEKS R13 R14 K23 ["Small"]
-  SUB R11 R12 R13
-  GETTABLEKS R13 R4 K27 ["Padding"]
-  GETTABLEKS R12 R13 K28 ["XXSmall"]
-  SUB R10 R11 R12
-  LOADK R11 K39 [∞]
+  LOADK R10 K38 [∞]
+  LOADK R11 K38 [∞]
   CALL R9 2 1
   JUMP [+1]
   LOADNIL R9
-  DUPTABLE R10 K44 [{"MaxSize"}]
-  SETTABLEKS R9 R10 K43 ["MaxSize"]
+  DUPTABLE R10 K40 [{"MaxSize"}]
+  SETTABLEKS R9 R10 K39 ["MaxSize"]
   JUMPIF R3 [+1]
   JUMPIFNOT R2 [+2]
   GETTABLE R11 R6 R1
   JUMP [+4]
   GETTABLEKS R12 R4 K24 ["Size"]
-  GETTABLEKS R11 R12 K45 ["Size_200"]
-  DUPTABLE R12 K47 [{"MinSize", "MaxSize"}]
+  GETTABLEKS R11 R12 K41 ["Size_200"]
+  DUPTABLE R12 K43 [{"MinSize", "MaxSize"}]
   GETIMPORT R13 K37 [Vector2.new]
   MOVE R14 R11
   MOVE R15 R11
   CALL R13 2 1
-  SETTABLEKS R13 R12 K46 ["MinSize"]
+  SETTABLEKS R13 R12 K42 ["MinSize"]
   GETIMPORT R13 K37 [Vector2.new]
-  GETUPVAL R16 4
-  GETTABLEKS R15 R16 K38 ["FoundationDisableBadgeTruncation"]
-  JUMPIFNOT R15 [+2]
-  LOADK R14 K39 [∞]
-  JUMP [+4]
-  GETTABLEKS R15 R4 K24 ["Size"]
-  GETTABLEKS R14 R15 K40 ["Size_1600"]
-  LOADK R15 K39 [∞]
+  LOADK R14 K38 [∞]
+  LOADK R15 K38 [∞]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K43 ["MaxSize"]
-  LOADK R14 K48 ["auto-xy radius-circle row align-y-center align-x-center stroke-thick %*"]
+  SETTABLEKS R13 R12 K39 ["MaxSize"]
+  LOADK R14 K44 ["auto-xy radius-circle row align-y-center align-x-center stroke-thick %*"]
   MOVE R16 R7
-  NAMECALL R14 R14 K49 ["format"]
+  NAMECALL R14 R14 K45 ["format"]
   CALL R14 2 1
   MOVE R13 R14
-  GETUPVAL R16 4
-  GETTABLEKS R15 R16 K38 ["FoundationDisableBadgeTruncation"]
-  JUMPIFNOT R15 [+8]
-  LOADK R15 K50 ["auto-xy %* %*"]
-  LOADK R17 K51 ["padding-x-xsmall"]
+  LOADK R15 K46 ["auto-xy %* %*"]
+  LOADK R17 K47 ["padding-x-xsmall"]
   MOVE R18 R8
-  NAMECALL R15 R15 K49 ["format"]
-  CALL R15 3 1
-  MOVE R14 R15
-  JUMP [+7]
-  LOADK R15 K52 ["auto-xy text-truncate-end %* %*"]
-  LOADK R17 K51 ["padding-x-xsmall"]
-  MOVE R18 R8
-  NAMECALL R15 R15 K49 ["format"]
+  NAMECALL R15 R15 K45 ["format"]
   CALL R15 3 1
   MOVE R14 R15
   GETTABLE R15 R5 R0
@@ -222,24 +192,19 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["useTokens"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K12 ["Utility"]
-  GETTABLEKS R5 R6 K13 ["Flags"]
+  GETTABLEKS R6 R0 K12 ["Components"]
+  GETTABLEKS R5 R6 K13 ["Types"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K14 ["Components"]
-  GETTABLEKS R6 R7 K15 ["Types"]
-  CALL R5 1 1
-  NEWTABLE R6 2 0
-  GETTABLEKS R7 R2 K16 ["Small"]
-  LOADK R8 K17 ["text-caption-small"]
-  SETTABLE R8 R6 R7
-  GETTABLEKS R7 R2 K18 ["Medium"]
-  LOADK R8 K19 ["text-label-small"]
-  SETTABLE R8 R6 R7
-  DUPCLOSURE R7 K20 [PROTO_0]
+  NEWTABLE R5 2 0
+  GETTABLEKS R6 R2 K14 ["Small"]
+  LOADK R7 K15 ["text-caption-small"]
+  SETTABLE R7 R5 R6
+  GETTABLEKS R6 R2 K16 ["Medium"]
+  LOADK R7 K17 ["text-label-small"]
+  SETTABLE R7 R5 R6
+  DUPCLOSURE R6 K18 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R1
   CAPTURE VAL R2
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  RETURN R7 1
+  CAPTURE VAL R5
+  RETURN R6 1

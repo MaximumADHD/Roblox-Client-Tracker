@@ -1,13 +1,19 @@
 PROTO_0:
   GETIMPORT R0 K1 [print]
-  LOADK R1 K2 ["Drag started"]
-  CALL R0 1 0
+  LOADK R1 K2 ["Drag started. Previous value:"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K3 ["getValue"]
+  CALL R2 1 -1
+  CALL R0 -1 0
   RETURN R0 0
 
 PROTO_1:
   GETIMPORT R0 K1 [print]
-  LOADK R1 K2 ["Drag ended"]
-  CALL R0 1 0
+  LOADK R1 K2 ["Drag ended. Final value:"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K3 ["getValue"]
+  CALL R2 1 -1
+  CALL R0 -1 0
   RETURN R0 0
 
 PROTO_2:
@@ -18,51 +24,56 @@ PROTO_2:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K2 ["createElement"]
   GETUPVAL R4 1
-  DUPTABLE R5 K14 [{"value", "range", "size", "knobVisibility", "variant", "isDisabled", "isContained", "onValueChanged", "knob", "onDragStarted", "onDragEnded"}]
+  DUPTABLE R5 K15 [{"value", "range", "size", "knobVisibility", "variant", "isDisabled", "isContained", "step", "onValueChanged", "knob", "onDragStarted", "onDragEnded"}]
   SETTABLEKS R1 R5 K3 ["value"]
-  GETIMPORT R6 K17 [NumberRange.new]
-  GETTABLEKS R8 R0 K18 ["controls"]
-  GETTABLEKS R7 R8 K19 ["rangeMin"]
-  GETTABLEKS R9 R0 K18 ["controls"]
-  GETTABLEKS R8 R9 K20 ["rangeMax"]
+  GETIMPORT R6 K18 [NumberRange.new]
+  GETTABLEKS R8 R0 K19 ["controls"]
+  GETTABLEKS R7 R8 K20 ["rangeMin"]
+  GETTABLEKS R9 R0 K19 ["controls"]
+  GETTABLEKS R8 R9 K21 ["rangeMax"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K4 ["range"]
-  GETTABLEKS R7 R0 K18 ["controls"]
+  GETTABLEKS R7 R0 K19 ["controls"]
   GETTABLEKS R6 R7 K5 ["size"]
   SETTABLEKS R6 R5 K5 ["size"]
-  GETTABLEKS R7 R0 K18 ["controls"]
+  GETTABLEKS R7 R0 K19 ["controls"]
   GETTABLEKS R6 R7 K6 ["knobVisibility"]
   SETTABLEKS R6 R5 K6 ["knobVisibility"]
-  GETTABLEKS R7 R0 K18 ["controls"]
+  GETTABLEKS R7 R0 K19 ["controls"]
   GETTABLEKS R6 R7 K7 ["variant"]
   SETTABLEKS R6 R5 K7 ["variant"]
-  GETTABLEKS R7 R0 K18 ["controls"]
+  GETTABLEKS R7 R0 K19 ["controls"]
   GETTABLEKS R6 R7 K8 ["isDisabled"]
   SETTABLEKS R6 R5 K8 ["isDisabled"]
-  GETTABLEKS R7 R0 K18 ["controls"]
+  GETTABLEKS R7 R0 K19 ["controls"]
   GETTABLEKS R6 R7 K9 ["isContained"]
   SETTABLEKS R6 R5 K9 ["isContained"]
-  SETTABLEKS R2 R5 K10 ["onValueChanged"]
-  GETTABLEKS R8 R0 K18 ["controls"]
-  GETTABLEKS R7 R8 K21 ["hasCustomKnob"]
+  GETTABLEKS R7 R0 K19 ["controls"]
+  GETTABLEKS R6 R7 K10 ["step"]
+  SETTABLEKS R6 R5 K10 ["step"]
+  SETTABLEKS R2 R5 K11 ["onValueChanged"]
+  GETTABLEKS R8 R0 K19 ["controls"]
+  GETTABLEKS R7 R8 K22 ["hasCustomKnob"]
   JUMPIFNOT R7 [+15]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K2 ["createElement"]
   GETUPVAL R7 2
-  DUPTABLE R8 K23 [{"name", "size"}]
-  LOADK R9 K24 ["icons/graphic/logomark-gradient_xlarge"]
-  SETTABLEKS R9 R8 K22 ["name"]
+  DUPTABLE R8 K24 [{"name", "size"}]
+  LOADK R9 K25 ["icons/graphic/logomark-gradient_xlarge"]
+  SETTABLEKS R9 R8 K23 ["name"]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K25 ["Medium"]
+  GETTABLEKS R9 R10 K26 ["Medium"]
   SETTABLEKS R9 R8 K5 ["size"]
   CALL R6 2 1
   JUMP [+1]
   LOADNIL R6
-  SETTABLEKS R6 R5 K11 ["knob"]
-  DUPCLOSURE R6 K26 [PROTO_0]
-  SETTABLEKS R6 R5 K12 ["onDragStarted"]
-  DUPCLOSURE R6 K27 [PROTO_1]
-  SETTABLEKS R6 R5 K13 ["onDragEnded"]
+  SETTABLEKS R6 R5 K12 ["knob"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K13 ["onDragStarted"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K14 ["onDragEnded"]
   CALL R3 2 -1
   RETURN R3 -1
 
@@ -530,12 +541,12 @@ MAIN:
   SETTABLEKS R20 R19 K29 ["story"]
   SETLIST R15 R16 4 [1]
   SETTABLEKS R15 R14 K24 ["stories"]
-  DUPTABLE R15 K51 [{"size", "knobVisibility", "isDisabled", "isContained", "variant", "hasCustomKnob", "rangeMin", "rangeMax"}]
-  GETTABLEKS R16 R2 K52 ["values"]
+  DUPTABLE R15 K52 [{"size", "knobVisibility", "isDisabled", "isContained", "variant", "hasCustomKnob", "rangeMin", "rangeMax", "step"}]
+  GETTABLEKS R16 R2 K53 ["values"]
   MOVE R17 R9
   CALL R16 1 1
   SETTABLEKS R16 R15 K43 ["size"]
-  GETTABLEKS R16 R2 K52 ["values"]
+  GETTABLEKS R16 R2 K53 ["values"]
   MOVE R17 R11
   CALL R16 1 1
   SETTABLEKS R16 R15 K44 ["knobVisibility"]
@@ -543,7 +554,7 @@ MAIN:
   SETTABLEKS R16 R15 K45 ["isDisabled"]
   LOADB R16 0
   SETTABLEKS R16 R15 K46 ["isContained"]
-  GETTABLEKS R16 R2 K52 ["values"]
+  GETTABLEKS R16 R2 K53 ["values"]
   MOVE R17 R12
   CALL R16 1 1
   SETTABLEKS R16 R15 K47 ["variant"]
@@ -553,5 +564,7 @@ MAIN:
   SETTABLEKS R16 R15 K49 ["rangeMin"]
   LOADN R16 100
   SETTABLEKS R16 R15 K50 ["rangeMax"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K51 ["step"]
   SETTABLEKS R15 R14 K25 ["controls"]
   RETURN R14 1

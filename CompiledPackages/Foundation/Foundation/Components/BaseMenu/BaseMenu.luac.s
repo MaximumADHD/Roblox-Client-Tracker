@@ -309,137 +309,167 @@ PROTO_17:
   SETTABLEKS R21 R20 K13 ["size"]
   CALL R18 2 1
   MOVE R17 R18
-  GETUPVAL R19 6
-  GETTABLEKS R18 R19 K15 ["FoundationBaseMenuScroll"]
-  JUMPIFNOT R18 [+97]
-  GETTABLEKS R18 R2 K1 ["maxHeight"]
-  JUMPIFNOT R18 [+94]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K16 ["joinBindings"]
-  DUPTABLE R19 K19 [{"autoSize", "isOverMaxHeight"}]
-  SETTABLEKS R13 R19 K17 ["autoSize"]
-  SETTABLEKS R15 R19 K18 ["isOverMaxHeight"]
-  CALL R18 1 1
-  GETUPVAL R20 7
-  NAMECALL R18 R18 K20 ["map"]
-  CALL R18 2 1
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K15 ["FoundationBaseMenuBorderFix"]
+  JUMPIFNOT R19 [+9]
+  GETTABLEKS R19 R2 K16 ["radius"]
+  JUMPIFEQKNIL R19 [+6]
+  GETUPVAL R19 7
+  GETTABLEKS R20 R2 K16 ["radius"]
+  GETTABLE R18 R19 R20
+  JUMP [+1]
+  LOADK R18 K17 [""]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K18 ["FoundationBaseMenuScroll"]
+  JUMPIFNOT R19 [+111]
+  GETTABLEKS R19 R2 K1 ["maxHeight"]
+  JUMPIFNOT R19 [+108]
+  GETUPVAL R20 4
+  GETTABLEKS R19 R20 K19 ["joinBindings"]
+  DUPTABLE R20 K22 [{"autoSize", "isOverMaxHeight"}]
+  SETTABLEKS R13 R20 K20 ["autoSize"]
+  SETTABLEKS R15 R20 K21 ["isOverMaxHeight"]
+  CALL R19 1 1
+  GETUPVAL R21 8
+  NAMECALL R19 R19 K23 ["map"]
+  CALL R19 2 1
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K12 ["createElement"]
+  GETUPVAL R21 9
+  GETUPVAL R22 10
+  MOVE R23 R2
+  DUPTABLE R24 K30 [{"ref", "scroll", "AutomaticSize", "Size", "sizeConstraint", "tag"}]
+  SETTABLEKS R1 R24 K24 ["ref"]
+  DUPTABLE R25 K33 [{"AutomaticSize", "ScrollingDirection", "CanvasSize"}]
+  SETTABLEKS R19 R25 K26 ["AutomaticSize"]
+  GETIMPORT R26 K36 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R26 R25 K31 ["ScrollingDirection"]
+  SETTABLEKS R9 R25 K32 ["CanvasSize"]
+  SETTABLEKS R25 R24 K25 ["scroll"]
+  SETTABLEKS R19 R24 K26 ["AutomaticSize"]
+  GETUPVAL R26 4
+  GETTABLEKS R25 R26 K19 ["joinBindings"]
+  DUPTABLE R26 K37 [{"autoSize", "width", "isOverMaxHeight", "maxHeight"}]
+  SETTABLEKS R13 R26 K20 ["autoSize"]
+  SETTABLEKS R3 R26 K0 ["width"]
+  SETTABLEKS R15 R26 K21 ["isOverMaxHeight"]
+  SETTABLEKS R4 R26 K1 ["maxHeight"]
+  CALL R25 1 1
+  GETUPVAL R27 11
+  NAMECALL R25 R25 K23 ["map"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K27 ["Size"]
+  SETTABLEKS R14 R24 K28 ["sizeConstraint"]
+  NEWTABLE R25 1 0
+  LOADK R27 K38 ["stroke-standard stroke-default %*"]
+  MOVE R29 R18
+  NAMECALL R27 R27 K39 ["format"]
+  CALL R27 2 1
+  MOVE R26 R27
+  GETUPVAL R28 6
+  GETTABLEKS R27 R28 K15 ["FoundationBaseMenuBorderFix"]
+  SETTABLE R27 R25 R26
+  SETTABLEKS R25 R24 K29 ["tag"]
+  CALL R22 2 1
+  GETUPVAL R24 4
+  GETTABLEKS R23 R24 K12 ["createElement"]
+  GETUPVAL R24 12
+  DUPTABLE R25 K41 [{"tag", "onAbsoluteSizeChanged"}]
+  LOADK R26 K42 ["col size-full"]
+  SETTABLEKS R26 R25 K29 ["tag"]
+  SETTABLEKS R16 R25 K40 ["onAbsoluteSizeChanged"]
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K12 ["createElement"]
+  GETUPVAL R28 13
+  GETTABLEKS R27 R28 K43 ["Provider"]
+  DUPTABLE R28 K45 [{"value"}]
+  DUPTABLE R29 K49 [{"onActivated", "size", "hasLeading", "setHasLeading"}]
+  GETTABLEKS R30 R2 K46 ["onActivated"]
+  SETTABLEKS R30 R29 K46 ["onActivated"]
+  GETTABLEKS R30 R2 K13 ["size"]
+  SETTABLEKS R30 R29 K13 ["size"]
+  SETTABLEKS R7 R29 K47 ["hasLeading"]
+  SETTABLEKS R11 R29 K48 ["setHasLeading"]
+  SETTABLEKS R29 R28 K44 ["value"]
+  MOVE R29 R17
+  CALL R26 3 -1
+  CALL R23 -1 -1
+  CALL R20 -1 -1
+  RETURN R20 -1
   GETUPVAL R20 4
   GETTABLEKS R19 R20 K12 ["createElement"]
-  GETUPVAL R20 8
-  GETUPVAL R21 9
+  GETUPVAL R20 12
+  GETUPVAL R21 10
   MOVE R22 R2
-  DUPTABLE R23 K26 [{"ref", "scroll", "AutomaticSize", "Size", "sizeConstraint"}]
-  SETTABLEKS R1 R23 K21 ["ref"]
-  DUPTABLE R24 K29 [{"AutomaticSize", "ScrollingDirection", "CanvasSize"}]
-  SETTABLEKS R18 R24 K23 ["AutomaticSize"]
-  GETIMPORT R25 K32 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R25 R24 K27 ["ScrollingDirection"]
-  SETTABLEKS R9 R24 K28 ["CanvasSize"]
-  SETTABLEKS R24 R23 K22 ["scroll"]
-  SETTABLEKS R18 R23 K23 ["AutomaticSize"]
-  GETUPVAL R25 4
-  GETTABLEKS R24 R25 K16 ["joinBindings"]
-  DUPTABLE R25 K33 [{"autoSize", "width", "isOverMaxHeight", "maxHeight"}]
-  SETTABLEKS R13 R25 K17 ["autoSize"]
-  SETTABLEKS R3 R25 K0 ["width"]
-  SETTABLEKS R15 R25 K18 ["isOverMaxHeight"]
-  SETTABLEKS R4 R25 K1 ["maxHeight"]
-  CALL R24 1 1
-  GETUPVAL R26 10
-  NAMECALL R24 R24 K20 ["map"]
+  DUPTABLE R23 K50 [{"tag", "AutomaticSize", "Size", "ref", "sizeConstraint"}]
+  NEWTABLE R24 2 0
+  LOADB R25 1
+  SETTABLEKS R25 R24 K51 ["col"]
+  LOADK R26 K38 ["stroke-standard stroke-default %*"]
+  MOVE R28 R18
+  NAMECALL R26 R26 K39 ["format"]
+  CALL R26 2 1
+  MOVE R25 R26
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K15 ["FoundationBaseMenuBorderFix"]
+  SETTABLE R26 R24 R25
+  SETTABLEKS R24 R23 K29 ["tag"]
+  GETUPVAL R26 6
+  GETTABLEKS R25 R26 K52 ["FoundationMenuWidthGrowth"]
+  JUMPIFNOT R25 [+5]
+  DUPCLOSURE R26 K53 [PROTO_13]
+  NAMECALL R24 R13 K23 ["map"]
   CALL R24 2 1
-  SETTABLEKS R24 R23 K24 ["Size"]
-  SETTABLEKS R14 R23 K25 ["sizeConstraint"]
+  JUMP [+4]
+  DUPCLOSURE R26 K54 [PROTO_14]
+  NAMECALL R24 R3 K23 ["map"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K26 ["AutomaticSize"]
+  GETUPVAL R26 6
+  GETTABLEKS R25 R26 K52 ["FoundationMenuWidthGrowth"]
+  JUMPIFNOT R25 [+15]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K19 ["joinBindings"]
+  NEWTABLE R25 0 2
+  MOVE R26 R13
+  MOVE R27 R3
+  SETLIST R25 R26 2 [1]
+  CALL R24 1 1
+  DUPCLOSURE R26 K55 [PROTO_15]
+  NAMECALL R24 R24 K23 ["map"]
+  CALL R24 2 1
+  JUMP [+5]
+  NEWCLOSURE R26 P9
+  CAPTURE VAL R5
+  NAMECALL R24 R3 K23 ["map"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K27 ["Size"]
+  SETTABLEKS R1 R23 K24 ["ref"]
+  GETUPVAL R26 6
+  GETTABLEKS R25 R26 K52 ["FoundationMenuWidthGrowth"]
+  JUMPIFNOT R25 [+2]
+  MOVE R24 R14
+  JUMP [+1]
+  LOADNIL R24
+  SETTABLEKS R24 R23 K28 ["sizeConstraint"]
   CALL R21 2 1
   GETUPVAL R23 4
   GETTABLEKS R22 R23 K12 ["createElement"]
-  GETUPVAL R23 11
-  DUPTABLE R24 K36 [{"tag", "onAbsoluteSizeChanged"}]
-  LOADK R25 K37 ["col size-full"]
-  SETTABLEKS R25 R24 K34 ["tag"]
-  SETTABLEKS R16 R24 K35 ["onAbsoluteSizeChanged"]
-  GETUPVAL R26 4
-  GETTABLEKS R25 R26 K12 ["createElement"]
-  GETUPVAL R27 12
-  GETTABLEKS R26 R27 K38 ["Provider"]
-  DUPTABLE R27 K40 [{"value"}]
-  DUPTABLE R28 K44 [{"onActivated", "size", "hasLeading", "setHasLeading"}]
-  GETTABLEKS R29 R2 K41 ["onActivated"]
-  SETTABLEKS R29 R28 K41 ["onActivated"]
-  GETTABLEKS R29 R2 K13 ["size"]
-  SETTABLEKS R29 R28 K13 ["size"]
-  SETTABLEKS R7 R28 K42 ["hasLeading"]
-  SETTABLEKS R11 R28 K43 ["setHasLeading"]
-  SETTABLEKS R28 R27 K39 ["value"]
-  MOVE R28 R17
-  CALL R25 3 -1
-  CALL R22 -1 -1
+  GETUPVAL R24 13
+  GETTABLEKS R23 R24 K43 ["Provider"]
+  DUPTABLE R24 K45 [{"value"}]
+  DUPTABLE R25 K49 [{"onActivated", "size", "hasLeading", "setHasLeading"}]
+  GETTABLEKS R26 R2 K46 ["onActivated"]
+  SETTABLEKS R26 R25 K46 ["onActivated"]
+  GETTABLEKS R26 R2 K13 ["size"]
+  SETTABLEKS R26 R25 K13 ["size"]
+  SETTABLEKS R7 R25 K47 ["hasLeading"]
+  SETTABLEKS R11 R25 K48 ["setHasLeading"]
+  SETTABLEKS R25 R24 K44 ["value"]
+  MOVE R25 R17
+  CALL R22 3 -1
   CALL R19 -1 -1
   RETURN R19 -1
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K12 ["createElement"]
-  GETUPVAL R19 11
-  GETUPVAL R20 9
-  MOVE R21 R2
-  DUPTABLE R22 K45 [{"tag", "AutomaticSize", "Size", "ref", "sizeConstraint"}]
-  LOADK R23 K46 ["col"]
-  SETTABLEKS R23 R22 K34 ["tag"]
-  GETUPVAL R25 6
-  GETTABLEKS R24 R25 K47 ["FoundationMenuWidthGrowth"]
-  JUMPIFNOT R24 [+5]
-  DUPCLOSURE R25 K48 [PROTO_13]
-  NAMECALL R23 R13 K20 ["map"]
-  CALL R23 2 1
-  JUMP [+4]
-  DUPCLOSURE R25 K49 [PROTO_14]
-  NAMECALL R23 R3 K20 ["map"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K23 ["AutomaticSize"]
-  GETUPVAL R25 6
-  GETTABLEKS R24 R25 K47 ["FoundationMenuWidthGrowth"]
-  JUMPIFNOT R24 [+15]
-  GETUPVAL R24 4
-  GETTABLEKS R23 R24 K16 ["joinBindings"]
-  NEWTABLE R24 0 2
-  MOVE R25 R13
-  MOVE R26 R3
-  SETLIST R24 R25 2 [1]
-  CALL R23 1 1
-  DUPCLOSURE R25 K50 [PROTO_15]
-  NAMECALL R23 R23 K20 ["map"]
-  CALL R23 2 1
-  JUMP [+5]
-  NEWCLOSURE R25 P9
-  CAPTURE VAL R5
-  NAMECALL R23 R3 K20 ["map"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K24 ["Size"]
-  SETTABLEKS R1 R22 K21 ["ref"]
-  GETUPVAL R25 6
-  GETTABLEKS R24 R25 K47 ["FoundationMenuWidthGrowth"]
-  JUMPIFNOT R24 [+2]
-  MOVE R23 R14
-  JUMP [+1]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K25 ["sizeConstraint"]
-  CALL R20 2 1
-  GETUPVAL R22 4
-  GETTABLEKS R21 R22 K12 ["createElement"]
-  GETUPVAL R23 12
-  GETTABLEKS R22 R23 K38 ["Provider"]
-  DUPTABLE R23 K40 [{"value"}]
-  DUPTABLE R24 K44 [{"onActivated", "size", "hasLeading", "setHasLeading"}]
-  GETTABLEKS R25 R2 K41 ["onActivated"]
-  SETTABLEKS R25 R24 K41 ["onActivated"]
-  GETTABLEKS R25 R2 K13 ["size"]
-  SETTABLEKS R25 R24 K13 ["size"]
-  SETTABLEKS R7 R24 K42 ["hasLeading"]
-  SETTABLEKS R11 R24 K43 ["setHasLeading"]
-  SETTABLEKS R24 R23 K39 ["value"]
-  MOVE R24 R17
-  CALL R21 3 -1
-  CALL R18 -1 -1
-  RETURN R18 -1
 
 MAIN:
   PREPVARARGS 0
@@ -484,45 +514,57 @@ MAIN:
   GETTABLEKS R11 R12 K18 ["ControlState"]
   CALL R10 1 1
   GETIMPORT R11 K6 [require]
-  GETTABLEKS R13 R0 K8 ["Components"]
-  GETTABLEKS R12 R13 K19 ["Types"]
+  GETTABLEKS R13 R0 K17 ["Enums"]
+  GETTABLEKS R12 R13 K19 ["Radius"]
   CALL R11 1 1
   GETIMPORT R12 K6 [require]
-  GETTABLEKS R14 R0 K17 ["Enums"]
-  GETTABLEKS R13 R14 K20 ["InputSize"]
+  GETTABLEKS R14 R0 K8 ["Components"]
+  GETTABLEKS R13 R14 K20 ["Types"]
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
-  GETIMPORT R16 K1 [script]
-  GETTABLEKS R15 R16 K4 ["Parent"]
-  GETTABLEKS R14 R15 K21 ["BaseMenuContext"]
+  GETTABLEKS R15 R0 K17 ["Enums"]
+  GETTABLEKS R14 R15 K21 ["InputSize"]
   CALL R13 1 1
   GETIMPORT R14 K6 [require]
   GETIMPORT R17 K1 [script]
   GETTABLEKS R16 R17 K4 ["Parent"]
-  GETTABLEKS R15 R16 K22 ["DeclarativeBaseMenuContent"]
+  GETTABLEKS R15 R16 K22 ["BaseMenuContext"]
   CALL R14 1 1
-  DUPTABLE R15 K24 [{"size"}]
-  GETTABLEKS R16 R12 K25 ["Medium"]
-  SETTABLEKS R16 R15 K23 ["size"]
-  DUPCLOSURE R16 K26 [PROTO_0]
-  DUPCLOSURE R17 K27 [PROTO_1]
-  DUPCLOSURE R18 K28 [PROTO_17]
+  GETIMPORT R15 K6 [require]
+  GETIMPORT R18 K1 [script]
+  GETTABLEKS R17 R18 K4 ["Parent"]
+  GETTABLEKS R16 R17 K23 ["DeclarativeBaseMenuContent"]
+  CALL R15 1 1
+  DUPTABLE R16 K25 [{"size"}]
+  GETTABLEKS R17 R13 K26 ["Medium"]
+  SETTABLEKS R17 R16 K24 ["size"]
+  NEWTABLE R17 2 0
+  GETTABLEKS R18 R11 K27 ["Small"]
+  LOADK R19 K28 ["radius-small"]
+  SETTABLE R19 R17 R18
+  GETTABLEKS R18 R11 K26 ["Medium"]
+  LOADK R19 K29 ["radius-medium"]
+  SETTABLE R19 R17 R18
+  DUPCLOSURE R18 K30 [PROTO_0]
+  DUPCLOSURE R19 K31 [PROTO_1]
+  DUPCLOSURE R20 K32 [PROTO_17]
   CAPTURE VAL R7
-  CAPTURE VAL R15
+  CAPTURE VAL R16
   CAPTURE VAL R9
   CAPTURE VAL R5
   CAPTURE VAL R2
-  CAPTURE VAL R14
+  CAPTURE VAL R15
   CAPTURE VAL R6
-  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R18
   CAPTURE VAL R4
   CAPTURE VAL R8
-  CAPTURE VAL R17
+  CAPTURE VAL R19
   CAPTURE VAL R3
-  CAPTURE VAL R13
-  GETTABLEKS R19 R2 K29 ["memo"]
-  GETTABLEKS R20 R2 K30 ["forwardRef"]
-  MOVE R21 R18
-  CALL R20 1 -1
-  CALL R19 -1 -1
-  RETURN R19 -1
+  CAPTURE VAL R14
+  GETTABLEKS R21 R2 K33 ["memo"]
+  GETTABLEKS R22 R2 K34 ["forwardRef"]
+  MOVE R23 R20
+  CALL R22 1 -1
+  CALL R21 -1 -1
+  RETURN R21 -1

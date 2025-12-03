@@ -500,12 +500,12 @@ PROTO_7:
   SETTABLEKS R15 R14 K24 ["RightGradient"]
   GETTABLEKS R17 R4 K8 ["circle"]
   GETTABLEKS R16 R17 K59 ["labelFont"]
-  JUMPIFNOT R16 [+23]
-  JUMPIF R6 [+22]
+  JUMPIFNOT R16 [+32]
+  JUMPIF R6 [+31]
   GETUPVAL R16 6
   GETTABLEKS R15 R16 K10 ["createElement"]
   GETUPVAL R16 14
-  DUPTABLE R17 K62 [{"Text", "fontStyle", "tag"}]
+  DUPTABLE R17 K62 [{"Text", "fontStyle", "tag", "testId"}]
   DUPCLOSURE R20 K63 [PROTO_6]
   NAMECALL R18 R5 K64 ["map"]
   CALL R18 2 1
@@ -515,6 +515,12 @@ PROTO_7:
   SETTABLEKS R18 R17 K61 ["fontStyle"]
   LOADK R18 K65 ["anchor-center-center position-center-center"]
   SETTABLEKS R18 R17 K11 ["tag"]
+  LOADK R19 K66 ["%*--label"]
+  GETTABLEKS R21 R1 K19 ["testId"]
+  NAMECALL R19 R19 K22 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  SETTABLEKS R18 R17 K19 ["testId"]
   CALL R15 2 1
   JUMP [+1]
   LOADNIL R15

@@ -182,6 +182,108 @@ PROTO_7:
   GETTABLEKS R2 R3 K1 ["useState"]
   LOADNIL R3
   CALL R2 1 2
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["FoundationDropdownGroups"]
+  JUMPIF R4 [+13]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K6 [{"tag", "Text"}]
+  LOADK R7 K7 ["auto-xy"]
+  SETTABLEKS R7 R6 K4 ["tag"]
+  LOADK R7 K8 ["Enable FoundationDropdownGroups to see the story"]
+  SETTABLEKS R7 R6 K5 ["Text"]
+  CALL R4 2 -1
+  RETURN R4 -1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K9 ["Root"]
+  DUPTABLE R6 K18 [{"value", "placeholder", "onItemChanged", "hasError", "isDisabled", "items", "size", "label"}]
+  SETTABLEKS R2 R6 K10 ["value"]
+  GETTABLEKS R8 R1 K19 ["hasPlaceholder"]
+  JUMPIFNOT R8 [+2]
+  LOADK R7 K20 ["Choose a value"]
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K11 ["placeholder"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K12 ["onItemChanged"]
+  GETTABLEKS R7 R1 K13 ["hasError"]
+  SETTABLEKS R7 R6 K13 ["hasError"]
+  GETTABLEKS R7 R1 K14 ["isDisabled"]
+  SETTABLEKS R7 R6 K14 ["isDisabled"]
+  NEWTABLE R7 0 3
+  DUPTABLE R8 K22 [{"title", "items"}]
+  LOADK R9 K23 ["First title"]
+  SETTABLEKS R9 R8 K21 ["title"]
+  NEWTABLE R9 0 2
+  DUPTABLE R10 K27 [{"id", "icon", "text"}]
+  LOADK R11 K28 ["a1"]
+  SETTABLEKS R11 R10 K24 ["id"]
+  LOADK R11 K29 ["icons/common/robux"]
+  SETTABLEKS R11 R10 K25 ["icon"]
+  LOADK R11 K30 ["Alpha 1"]
+  SETTABLEKS R11 R10 K26 ["text"]
+  DUPTABLE R11 K31 [{"id", "text"}]
+  LOADK R12 K32 ["a2"]
+  SETTABLEKS R12 R11 K24 ["id"]
+  LOADK R12 K33 ["Alpha 2"]
+  SETTABLEKS R12 R11 K26 ["text"]
+  SETLIST R9 R10 2 [1]
+  SETTABLEKS R9 R8 K15 ["items"]
+  DUPTABLE R9 K34 [{"items"}]
+  NEWTABLE R10 0 2
+  DUPTABLE R11 K31 [{"id", "text"}]
+  LOADK R12 K35 ["b1"]
+  SETTABLEKS R12 R11 K24 ["id"]
+  LOADK R12 K36 ["Beta 1"]
+  SETTABLEKS R12 R11 K26 ["text"]
+  DUPTABLE R12 K37 [{"id", "isDisabled", "text"}]
+  LOADK R13 K38 ["b2"]
+  SETTABLEKS R13 R12 K24 ["id"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K14 ["isDisabled"]
+  LOADK R13 K39 ["Beta 2 (disabled)"]
+  SETTABLEKS R13 R12 K26 ["text"]
+  SETLIST R10 R11 2 [1]
+  SETTABLEKS R10 R9 K15 ["items"]
+  DUPTABLE R10 K34 [{"items"}]
+  NEWTABLE R11 0 1
+  DUPTABLE R12 K31 [{"id", "text"}]
+  LOADK R13 K40 ["c1"]
+  SETTABLEKS R13 R12 K24 ["id"]
+  LOADK R13 K41 ["Untitled group item"]
+  SETTABLEKS R13 R12 K26 ["text"]
+  SETLIST R11 R12 1 [1]
+  SETTABLEKS R11 R10 K15 ["items"]
+  SETLIST R7 R8 3 [1]
+  SETTABLEKS R7 R6 K15 ["items"]
+  GETTABLEKS R7 R1 K16 ["size"]
+  SETTABLEKS R7 R6 K16 ["size"]
+  GETTABLEKS R7 R1 K17 ["label"]
+  SETTABLEKS R7 R6 K17 ["label"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_8:
+  GETIMPORT R1 K1 [print]
+  LOADK R3 K2 ["Checking item with value = "]
+  MOVE R4 R0
+  CONCAT R2 R3 R4
+  CALL R1 1 0
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["controls"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["useState"]
+  LOADNIL R3
+  CALL R2 1 2
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K2 ["createElement"]
   GETUPVAL R6 1
@@ -228,7 +330,7 @@ PROTO_7:
   CALL R4 2 -1
   RETURN R4 -1
 
-PROTO_8:
+PROTO_10:
   GETIMPORT R1 K1 [print]
   LOADK R3 K2 ["Checking item with value = "]
   MOVE R4 R0
@@ -239,7 +341,7 @@ PROTO_8:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_11:
   GETTABLEKS R1 R0 K0 ["controls"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["useState"]
@@ -280,7 +382,7 @@ PROTO_9:
   CALL R5 2 -1
   RETURN R5 -1
 
-PROTO_10:
+PROTO_12:
   GETIMPORT R1 K1 [print]
   LOADK R3 K2 ["Checking item with value = "]
   MOVE R4 R0
@@ -291,7 +393,7 @@ PROTO_10:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_13:
   GETTABLEKS R1 R0 K0 ["controls"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["useState"]
@@ -365,67 +467,84 @@ MAIN:
   GETTABLEKS R6 R7 K11 ["Dropdown"]
   CALL R5 1 1
   GETIMPORT R6 K6 [require]
-  GETTABLEKS R8 R0 K12 ["Enums"]
-  GETTABLEKS R7 R8 K13 ["InputSize"]
+  GETTABLEKS R8 R0 K9 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Text"]
   CALL R6 1 1
-  DUPCLOSURE R7 K14 [PROTO_0]
-  DUPTABLE R8 K18 [{"summary", "stories", "controls"}]
-  LOADK R9 K19 ["Dropdown Group component"]
-  SETTABLEKS R9 R8 K15 ["summary"]
-  NEWTABLE R9 0 5
-  DUPTABLE R10 K22 [{"name", "story"}]
-  LOADK R11 K23 ["Base"]
-  SETTABLEKS R11 R10 K20 ["name"]
-  DUPCLOSURE R11 K24 [PROTO_2]
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K13 ["Enums"]
+  GETTABLEKS R8 R9 K14 ["InputSize"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K15 ["Utility"]
+  GETTABLEKS R9 R10 K16 ["Flags"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K17 [PROTO_0]
+  DUPTABLE R10 K21 [{"summary", "stories", "controls"}]
+  LOADK R11 K22 ["Dropdown component"]
+  SETTABLEKS R11 R10 K18 ["summary"]
+  NEWTABLE R11 0 6
+  DUPTABLE R12 K25 [{"name", "story"}]
+  LOADK R13 K26 ["Base"]
+  SETTABLEKS R13 R12 K23 ["name"]
+  DUPCLOSURE R13 K27 [PROTO_2]
   CAPTURE VAL R2
-  CAPTURE VAL R7
+  CAPTURE VAL R9
   CAPTURE VAL R5
-  SETTABLEKS R11 R10 K21 ["story"]
-  DUPTABLE R11 K22 [{"name", "story"}]
-  LOADK R12 K25 ["Overflow"]
-  SETTABLEKS R12 R11 K20 ["name"]
-  DUPCLOSURE R12 K26 [PROTO_5]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  SETTABLEKS R12 R11 K21 ["story"]
-  DUPTABLE R12 K22 [{"name", "story"}]
-  LOADK R13 K27 ["Narrow dropdown narrow items"]
-  SETTABLEKS R13 R12 K20 ["name"]
-  DUPCLOSURE R13 K28 [PROTO_7]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  SETTABLEKS R13 R12 K21 ["story"]
-  DUPTABLE R13 K22 [{"name", "story"}]
-  LOADK R14 K29 ["Narrow dropdown wider items"]
-  SETTABLEKS R14 R13 K20 ["name"]
-  DUPCLOSURE R14 K30 [PROTO_9]
-  CAPTURE VAL R2
-  CAPTURE VAL R7
-  CAPTURE VAL R5
-  SETTABLEKS R14 R13 K21 ["story"]
-  DUPTABLE R14 K22 [{"name", "story"}]
-  LOADK R15 K31 ["Wide dropdown narrow items"]
-  SETTABLEKS R15 R14 K20 ["name"]
-  DUPCLOSURE R15 K32 [PROTO_11]
+  SETTABLEKS R13 R12 K24 ["story"]
+  DUPTABLE R13 K25 [{"name", "story"}]
+  LOADK R14 K28 ["Overflow"]
+  SETTABLEKS R14 R13 K23 ["name"]
+  DUPCLOSURE R14 K29 [PROTO_5]
   CAPTURE VAL R2
   CAPTURE VAL R5
-  SETTABLEKS R15 R14 K21 ["story"]
-  SETLIST R9 R10 5 [1]
-  SETTABLEKS R9 R8 K16 ["stories"]
-  DUPTABLE R9 K39 [{"size", "isDisabled", "label", "hasError", "hasIcon", "hasPlaceholder"}]
-  GETTABLEKS R10 R3 K40 ["values"]
-  MOVE R11 R6
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K33 ["size"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K34 ["isDisabled"]
-  LOADK R10 K41 ["Dropdown Label"]
-  SETTABLEKS R10 R9 K35 ["label"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K36 ["hasError"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K37 ["hasIcon"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K38 ["hasPlaceholder"]
-  SETTABLEKS R9 R8 K17 ["controls"]
-  RETURN R8 1
+  SETTABLEKS R14 R13 K24 ["story"]
+  DUPTABLE R14 K25 [{"name", "story"}]
+  LOADK R15 K30 ["With item groups"]
+  SETTABLEKS R15 R14 K23 ["name"]
+  DUPCLOSURE R15 K31 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  SETTABLEKS R15 R14 K24 ["story"]
+  DUPTABLE R15 K25 [{"name", "story"}]
+  LOADK R16 K32 ["Narrow dropdown narrow items"]
+  SETTABLEKS R16 R15 K23 ["name"]
+  DUPCLOSURE R16 K33 [PROTO_9]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  SETTABLEKS R16 R15 K24 ["story"]
+  DUPTABLE R16 K25 [{"name", "story"}]
+  LOADK R17 K34 ["Narrow dropdown wider items"]
+  SETTABLEKS R17 R16 K23 ["name"]
+  DUPCLOSURE R17 K35 [PROTO_11]
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  SETTABLEKS R17 R16 K24 ["story"]
+  DUPTABLE R17 K25 [{"name", "story"}]
+  LOADK R18 K36 ["Wide dropdown narrow items"]
+  SETTABLEKS R18 R17 K23 ["name"]
+  DUPCLOSURE R18 K37 [PROTO_13]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  SETTABLEKS R18 R17 K24 ["story"]
+  SETLIST R11 R12 6 [1]
+  SETTABLEKS R11 R10 K19 ["stories"]
+  DUPTABLE R11 K44 [{"size", "isDisabled", "label", "hasError", "hasIcon", "hasPlaceholder"}]
+  GETTABLEKS R12 R3 K45 ["values"]
+  MOVE R13 R7
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K38 ["size"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K39 ["isDisabled"]
+  LOADK R12 K46 ["Dropdown Label"]
+  SETTABLEKS R12 R11 K40 ["label"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K41 ["hasError"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K42 ["hasIcon"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K43 ["hasPlaceholder"]
+  SETTABLEKS R11 R10 K20 ["controls"]
+  RETURN R10 1

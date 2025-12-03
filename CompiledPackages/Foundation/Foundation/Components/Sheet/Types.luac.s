@@ -9,8 +9,17 @@ MAIN:
   GETTABLEKS R3 R1 K7 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K6 [require]
-  GETTABLEKS R5 R0 K8 ["Enums"]
-  GETTABLEKS R4 R5 K9 ["DialogSize"]
+  GETTABLEKS R4 R0 K8 ["Constants"]
   CALL R3 1 1
-  LOADNIL R4
-  RETURN R4 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K9 ["Enums"]
+  GETTABLEKS R5 R6 K10 ["DialogSize"]
+  CALL R4 1 1
+  DUPTABLE R5 K13 [{"nonSelectable", "isolatedSelectionGroup"}]
+  GETTABLEKS R7 R3 K14 ["MODAL"]
+  GETTABLEKS R6 R7 K15 ["DISABLE_SELECTION"]
+  SETTABLEKS R6 R5 K11 ["nonSelectable"]
+  GETTABLEKS R7 R3 K14 ["MODAL"]
+  GETTABLEKS R6 R7 K16 ["TRAP_FOCUS"]
+  SETTABLEKS R6 R5 K12 ["isolatedSelectionGroup"]
+  RETURN R5 1

@@ -1,4 +1,17 @@
 PROTO_0:
+  GETTABLEKS R2 R0 K0 ["AbsoluteCanvasSize"]
+  GETTABLEKS R1 R2 K1 ["Y"]
+  GETTABLEKS R3 R0 K2 ["AbsoluteWindowSize"]
+  GETTABLEKS R2 R3 K1 ["Y"]
+  GETUPVAL R3 0
+  ADDK R5 R2 K3 [1]
+  JUMPIFLT R5 R1 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_1:
   JUMPIFNOT R0 [+6]
   GETIMPORT R1 K2 [UDim.new]
   LOADN R2 0
@@ -19,7 +32,7 @@ PROTO_0:
   CALL R1 2 1
   RETURN R1 1
 
-PROTO_1:
+PROTO_2:
   GETIMPORT R1 K2 [UDim.new]
   LOADN R2 0
   GETUPVAL R5 0
@@ -31,14 +44,14 @@ PROTO_1:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R1 0
   GETTABLEKS R3 R0 K0 ["CanvasPosition"]
   GETTABLEKS R2 R3 K1 ["Y"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R2 0
   CALL R2 0 1
   GETUPVAL R4 1
@@ -48,104 +61,121 @@ PROTO_3:
   GETTABLEKS R4 R3 K1 ["innerScrollingEnabled"]
   GETTABLEKS R5 R3 K2 ["setInnerScrollY"]
   GETTABLEKS R6 R3 K3 ["actionsHeight"]
-  GETTABLEKS R7 R3 K4 ["bottomPadding"]
-  GETTABLEKS R8 R3 K5 ["hasHeader"]
-  GETTABLEKS R9 R3 K6 ["sheetType"]
-  GETTABLEKS R10 R3 K7 ["testId"]
-  MOVE R12 R4
-  JUMPIFNOT R12 [+9]
-  MOVE R12 R5
-  JUMPIFNOT R12 [+7]
-  MOVE R12 R6
-  JUMPIFNOT R12 [+5]
-  MOVE R12 R7
-  JUMPIFNOT R12 [+3]
-  MOVE R12 R8
-  JUMPIFNOT R12 [+1]
-  MOVE R12 R10
-  FASTCALL2K ASSERT R12 K8 [+4]
-  LOADK R13 K8 ["SheetContent must be used within a Sheet"]
-  GETIMPORT R11 K10 [assert]
-  CALL R11 2 0
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K11 ["Bottom"]
-  JUMPIFEQ R9 R12 [+2]
-  LOADB R11 0 +1
-  LOADB R11 1
+  GETTABLEKS R7 R3 K4 ["setHasActionsDivider"]
+  GETTABLEKS R8 R3 K5 ["bottomPadding"]
+  GETTABLEKS R9 R3 K6 ["hasHeader"]
+  GETTABLEKS R10 R3 K7 ["sheetType"]
+  GETTABLEKS R11 R3 K8 ["testId"]
+  MOVE R13 R4
+  JUMPIFNOT R13 [+11]
+  MOVE R13 R5
+  JUMPIFNOT R13 [+9]
+  MOVE R13 R6
+  JUMPIFNOT R13 [+7]
+  MOVE R13 R7
+  JUMPIFNOT R13 [+5]
+  MOVE R13 R8
+  JUMPIFNOT R13 [+3]
+  MOVE R13 R9
+  JUMPIFNOT R13 [+1]
+  MOVE R13 R11
+  FASTCALL2K ASSERT R13 K9 [+4]
+  LOADK R14 K9 ["SheetContent must be used within a Sheet"]
+  GETIMPORT R12 K11 [assert]
+  CALL R12 2 0
   GETUPVAL R13 1
-  GETTABLEKS R12 R13 K12 ["createElement"]
-  GETUPVAL R13 4
-  DUPTABLE R14 K20 [{"ZIndex", "scroll", "padding", "ClipsDescendants", "onCanvasPositionChanged", "testId", "tag", "ref"}]
-  LOADN R15 1
-  SETTABLEKS R15 R14 K13 ["ZIndex"]
-  DUPTABLE R15 K25 [{"ScrollingEnabled", "AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
-  SETTABLEKS R4 R15 K21 ["ScrollingEnabled"]
-  GETIMPORT R16 K29 [Enum.AutomaticSize.Y]
-  SETTABLEKS R16 R15 K22 ["AutomaticCanvasSize"]
-  GETIMPORT R16 K32 [UDim2.fromScale]
-  LOADN R17 1
-  LOADN R18 0
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K23 ["CanvasSize"]
-  GETIMPORT R16 K33 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R16 R15 K24 ["ScrollingDirection"]
-  SETTABLEKS R15 R14 K14 ["scroll"]
-  DUPTABLE R15 K38 [{"top", "bottom", "left", "right"}]
-  NEWCLOSURE R18 P0
-  CAPTURE VAL R11
-  CAPTURE VAL R2
-  NAMECALL R16 R8 K39 ["map"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K34 ["top"]
-  JUMPIFNOT R11 [+7]
-  NEWCLOSURE R18 P1
+  GETTABLEKS R12 R13 K12 ["useCallback"]
+  NEWCLOSURE R13 P0
   CAPTURE VAL R7
+  NEWTABLE R14 0 1
+  MOVE R15 R7
+  SETLIST R14 R15 1 [1]
+  CALL R12 2 1
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K13 ["Bottom"]
+  JUMPIFEQ R10 R14 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K14 ["createElement"]
+  GETUPVAL R15 4
+  DUPTABLE R16 K24 [{"ZIndex", "scroll", "padding", "ClipsDescendants", "onCanvasPositionChanged", "onAbsoluteCanvasSizeChanged", "onAbsoluteWindowSizeChanged", "testId", "tag", "ref"}]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K15 ["ZIndex"]
+  DUPTABLE R17 K29 [{"ScrollingEnabled", "AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+  SETTABLEKS R4 R17 K25 ["ScrollingEnabled"]
+  GETIMPORT R18 K33 [Enum.AutomaticSize.Y]
+  SETTABLEKS R18 R17 K26 ["AutomaticCanvasSize"]
+  GETIMPORT R18 K36 [UDim2.fromScale]
+  LOADN R19 1
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K27 ["CanvasSize"]
+  GETIMPORT R18 K37 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R18 R17 K28 ["ScrollingDirection"]
+  SETTABLEKS R17 R16 K16 ["scroll"]
+  DUPTABLE R17 K42 [{"top", "bottom", "left", "right"}]
+  NEWCLOSURE R20 P1
+  CAPTURE VAL R13
   CAPTURE VAL R2
-  NAMECALL R16 R6 K39 ["map"]
-  CALL R16 2 1
+  NAMECALL R18 R9 K43 ["map"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K38 ["top"]
+  JUMPIFNOT R13 [+7]
+  NEWCLOSURE R20 P2
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  NAMECALL R18 R6 K43 ["map"]
+  CALL R18 2 1
   JUMP [+8]
-  GETIMPORT R16 K42 [UDim.new]
-  LOADN R17 0
-  GETTABLEKS R19 R2 K43 ["Padding"]
-  GETTABLEKS R18 R19 K44 ["Small"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K35 ["bottom"]
-  GETIMPORT R16 K42 [UDim.new]
-  LOADN R17 0
-  GETTABLEKS R19 R2 K43 ["Padding"]
-  GETTABLEKS R18 R19 K44 ["Small"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K36 ["left"]
-  GETIMPORT R16 K42 [UDim.new]
-  LOADN R17 0
-  GETTABLEKS R19 R2 K43 ["Padding"]
-  GETTABLEKS R18 R19 K44 ["Small"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K37 ["right"]
-  SETTABLEKS R15 R14 K15 ["padding"]
-  SETTABLEKS R8 R14 K16 ["ClipsDescendants"]
-  NEWCLOSURE R15 P2
+  GETIMPORT R18 K46 [UDim.new]
+  LOADN R19 0
+  GETTABLEKS R21 R2 K47 ["Padding"]
+  GETTABLEKS R20 R21 K48 ["Small"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K39 ["bottom"]
+  GETIMPORT R18 K46 [UDim.new]
+  LOADN R19 0
+  GETTABLEKS R21 R2 K47 ["Padding"]
+  GETTABLEKS R20 R21 K48 ["Small"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K40 ["left"]
+  GETIMPORT R18 K46 [UDim.new]
+  LOADN R19 0
+  GETTABLEKS R21 R2 K47 ["Padding"]
+  GETTABLEKS R20 R21 K48 ["Small"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K41 ["right"]
+  SETTABLEKS R17 R16 K17 ["padding"]
+  JUMPIFNOT R13 [+2]
+  MOVE R17 R9
+  JUMP [+1]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K18 ["ClipsDescendants"]
+  NEWCLOSURE R17 P3
   CAPTURE VAL R5
-  SETTABLEKS R15 R14 K17 ["onCanvasPositionChanged"]
-  LOADK R16 K45 ["%*--content"]
-  MOVE R18 R10
-  NAMECALL R16 R16 K46 ["format"]
-  CALL R16 2 1
-  MOVE R15 R16
-  SETTABLEKS R15 R14 K7 ["testId"]
-  LOADK R15 K47 ["size-full-0 auto-y fill"]
-  SETTABLEKS R15 R14 K18 ["tag"]
-  SETTABLEKS R1 R14 K19 ["ref"]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K12 ["createElement"]
-  GETUPVAL R16 5
-  DUPTABLE R17 K48 [{"tag"}]
-  LOADK R18 K49 ["col size-full-0 auto-y padding-x-medium gap-medium align-x-center"]
-  SETTABLEKS R18 R17 K18 ["tag"]
-  GETTABLEKS R18 R0 K50 ["children"]
-  CALL R15 3 -1
-  CALL R12 -1 -1
-  RETURN R12 -1
+  SETTABLEKS R17 R16 K19 ["onCanvasPositionChanged"]
+  SETTABLEKS R12 R16 K20 ["onAbsoluteCanvasSizeChanged"]
+  SETTABLEKS R12 R16 K21 ["onAbsoluteWindowSizeChanged"]
+  LOADK R18 K49 ["%*--content"]
+  MOVE R20 R11
+  NAMECALL R18 R18 K50 ["format"]
+  CALL R18 2 1
+  MOVE R17 R18
+  SETTABLEKS R17 R16 K8 ["testId"]
+  LOADK R17 K51 ["size-full-0 auto-y fill"]
+  SETTABLEKS R17 R16 K22 ["tag"]
+  SETTABLEKS R1 R16 K23 ["ref"]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K14 ["createElement"]
+  GETUPVAL R18 5
+  DUPTABLE R19 K52 [{"tag"}]
+  LOADK R20 K53 ["col size-full-0 auto-y padding-x-medium gap-medium align-x-center"]
+  SETTABLEKS R20 R19 K22 ["tag"]
+  GETTABLEKS R20 R0 K54 ["children"]
+  CALL R17 3 -1
+  CALL R14 -1 -1
+  RETURN R14 -1
 
 MAIN:
   PREPVARARGS 0
@@ -180,7 +210,7 @@ MAIN:
   GETTABLEKS R10 R0 K14 ["Components"]
   GETTABLEKS R9 R10 K16 ["ScrollView"]
   CALL R8 1 1
-  DUPCLOSURE R9 K17 [PROTO_3]
+  DUPCLOSURE R9 K17 [PROTO_4]
   CAPTURE VAL R3
   CAPTURE VAL R2
   CAPTURE VAL R5

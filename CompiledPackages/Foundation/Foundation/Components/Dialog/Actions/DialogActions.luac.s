@@ -90,81 +90,62 @@ PROTO_2:
   GETTABLEKS R8 R9 K7 ["createElement"]
   GETUPVAL R9 10
   DUPTABLE R10 K11 [{"tag", "LayoutOrder", "testId"}]
-  LOADK R12 K12 ["col auto-y size-full-0 %*"]
-  GETUPVAL R16 11
-  GETTABLEKS R15 R16 K13 ["FoundationDialogActionsUpdate"]
-  JUMPIFNOT R15 [+2]
-  LOADK R14 K14 [""]
-  JUMP [+1]
-  LOADK R14 K15 ["gap-large"]
-  NAMECALL R12 R12 K16 ["format"]
-  CALL R12 2 1
-  MOVE R11 R12
+  LOADK R11 K12 ["col auto-y size-full-0"]
   SETTABLEKS R11 R10 K8 ["tag"]
   GETTABLEKS R11 R1 K9 ["LayoutOrder"]
   SETTABLEKS R11 R10 K9 ["LayoutOrder"]
-  LOADK R12 K17 ["%*--actions"]
+  LOADK R12 K13 ["%*--actions"]
   GETTABLEKS R14 R3 K10 ["testId"]
-  NAMECALL R12 R12 K16 ["format"]
+  NAMECALL R12 R12 K14 ["format"]
   CALL R12 2 1
   MOVE R11 R12
   SETTABLEKS R11 R10 K10 ["testId"]
-  DUPTABLE R11 K20 [{"ActionsContainer", "ActionsLabel"}]
+  DUPTABLE R11 K17 [{"ActionsContainer", "ActionsLabel"}]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K7 ["createElement"]
   GETUPVAL R13 10
   DUPTABLE R14 K11 [{"tag", "LayoutOrder", "testId"}]
   NEWTABLE R15 4 0
-  LOADK R17 K21 ["auto-y size-full-0 %*"]
-  GETUPVAL R21 11
-  GETTABLEKS R20 R21 K13 ["FoundationDialogActionsUpdate"]
-  JUMPIFNOT R20 [+2]
-  LOADK R19 K22 ["gap-small"]
-  JUMP [+1]
-  LOADK R19 K15 ["gap-large"]
-  NAMECALL R17 R17 K16 ["format"]
-  CALL R17 2 1
-  MOVE R16 R17
-  LOADB R17 1
-  SETTABLE R17 R15 R16
-  SETTABLEKS R6 R15 K23 ["row wrap"]
-  SETTABLEKS R7 R15 K24 ["col flex-x-fill"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K18 ["auto-y size-full-0 gap-small"]
+  SETTABLEKS R6 R15 K19 ["row wrap"]
+  SETTABLEKS R7 R15 K20 ["col flex-x-fill"]
   SETTABLEKS R15 R14 K8 ["tag"]
   LOADN R15 1
   SETTABLEKS R15 R14 K9 ["LayoutOrder"]
-  LOADK R16 K25 ["%*--actions-container"]
+  LOADK R16 K21 ["%*--actions-container"]
   GETTABLEKS R18 R3 K10 ["testId"]
-  NAMECALL R16 R16 K16 ["format"]
+  NAMECALL R16 R16 K14 ["format"]
   CALL R16 2 1
   MOVE R15 R16
   SETTABLEKS R15 R14 K10 ["testId"]
-  DUPTABLE R15 K27 [{"Actions"}]
-  SETTABLEKS R4 R15 K26 ["Actions"]
+  DUPTABLE R15 K23 [{"Actions"}]
+  SETTABLEKS R4 R15 K22 ["Actions"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K18 ["ActionsContainer"]
-  GETTABLEKS R13 R1 K28 ["label"]
+  SETTABLEKS R12 R11 K15 ["ActionsContainer"]
+  GETTABLEKS R13 R1 K24 ["label"]
   JUMPIFNOT R13 [+29]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K7 ["createElement"]
-  GETUPVAL R13 12
-  DUPTABLE R14 K30 [{"Text", "tag", "LayoutOrder", "testId"}]
-  GETTABLEKS R15 R1 K28 ["label"]
-  SETTABLEKS R15 R14 K29 ["Text"]
-  GETTABLEKS R16 R2 K31 ["actionsLabel"]
+  GETUPVAL R13 11
+  DUPTABLE R14 K26 [{"Text", "tag", "LayoutOrder", "testId"}]
+  GETTABLEKS R15 R1 K24 ["label"]
+  SETTABLEKS R15 R14 K25 ["Text"]
+  GETTABLEKS R16 R2 K27 ["actionsLabel"]
   GETTABLEKS R15 R16 K8 ["tag"]
   SETTABLEKS R15 R14 K8 ["tag"]
   LOADN R15 2
   SETTABLEKS R15 R14 K9 ["LayoutOrder"]
-  LOADK R16 K32 ["%*--actions-label"]
+  LOADK R16 K28 ["%*--actions-label"]
   GETTABLEKS R18 R3 K10 ["testId"]
-  NAMECALL R16 R16 K16 ["format"]
+  NAMECALL R16 R16 K14 ["format"]
   CALL R16 2 1
   MOVE R15 R16
   SETTABLEKS R15 R14 K10 ["testId"]
   CALL R12 2 1
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K19 ["ActionsLabel"]
+  SETTABLEKS R12 R11 K16 ["ActionsLabel"]
   CALL R8 3 -1
   RETURN R8 -1
 
@@ -217,31 +198,27 @@ MAIN:
   GETTABLEKS R14 R0 K19 ["Utility"]
   GETTABLEKS R13 R14 K20 ["withDefaults"]
   CALL R12 1 1
-  GETIMPORT R13 K6 [require]
-  GETTABLEKS R15 R0 K19 ["Utility"]
-  GETTABLEKS R14 R15 K21 ["Flags"]
-  CALL R13 1 1
-  GETIMPORT R15 K6 [require]
-  GETIMPORT R19 K1 [script]
-  GETTABLEKS R18 R19 K4 ["Parent"]
+  GETIMPORT R14 K6 [require]
+  GETIMPORT R18 K1 [script]
   GETTABLEKS R17 R18 K4 ["Parent"]
-  GETTABLEKS R16 R17 K22 ["useDialogVariants"]
-  CALL R15 1 1
-  GETTABLEKS R14 R15 K22 ["useDialogVariants"]
-  GETIMPORT R15 K6 [require]
-  GETIMPORT R19 K1 [script]
-  GETTABLEKS R18 R19 K4 ["Parent"]
+  GETTABLEKS R16 R17 K4 ["Parent"]
+  GETTABLEKS R15 R16 K21 ["useDialogVariants"]
+  CALL R14 1 1
+  GETTABLEKS R13 R14 K21 ["useDialogVariants"]
+  GETIMPORT R14 K6 [require]
+  GETIMPORT R18 K1 [script]
   GETTABLEKS R17 R18 K4 ["Parent"]
-  GETTABLEKS R16 R17 K23 ["useDialog"]
-  CALL R15 1 1
-  DUPTABLE R16 K25 [{"orientation"}]
-  GETTABLEKS R17 R7 K26 ["Horizontal"]
-  SETTABLEKS R17 R16 K24 ["orientation"]
-  DUPCLOSURE R17 K27 [PROTO_2]
+  GETTABLEKS R16 R17 K4 ["Parent"]
+  GETTABLEKS R15 R16 K22 ["useDialog"]
+  CALL R14 1 1
+  DUPTABLE R15 K24 [{"orientation"}]
+  GETTABLEKS R16 R7 K25 ["Horizontal"]
+  SETTABLEKS R16 R15 K23 ["orientation"]
+  DUPCLOSURE R16 K26 [PROTO_2]
   CAPTURE VAL R12
-  CAPTURE VAL R16
-  CAPTURE VAL R14
   CAPTURE VAL R15
+  CAPTURE VAL R13
+  CAPTURE VAL R14
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R4
@@ -249,6 +226,5 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R10
-  CAPTURE VAL R13
   CAPTURE VAL R9
-  RETURN R17 1
+  RETURN R16 1

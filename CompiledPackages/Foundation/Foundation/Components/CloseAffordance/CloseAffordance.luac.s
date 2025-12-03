@@ -25,7 +25,7 @@ PROTO_1:
   MOVE R6 R3
   GETTABLEKS R7 R2 K0 ["size"]
   GETTABLEKS R8 R2 K1 ["variant"]
-  GETTABLEKS R9 R4 K2 ["isInverse"]
+  GETTABLEKS R9 R4 K2 ["colorMode"]
   CALL R5 4 1
   GETIMPORT R6 K5 [UDim.new]
   LOADN R7 0

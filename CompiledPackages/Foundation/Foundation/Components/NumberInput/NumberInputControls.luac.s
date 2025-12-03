@@ -377,17 +377,11 @@ PROTO_5:
   DUPTABLE R15 K31 [{"Image", "imageStyle", "tag", "testId"}]
   LOADK R16 K32 ["component_assets/triangleUp_16"]
   SETTABLEKS R16 R15 K29 ["Image"]
-  GETUPVAL R18 7
-  GETTABLEKS R17 R18 K33 ["FoundationNumberInputDisabledStackedVisual"]
-  JUMPIFNOT R17 [+2]
-  MOVE R16 R3
-  JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K30 ["imageStyle"]
-  GETTABLEKS R17 R2 K34 ["icon"]
+  SETTABLEKS R3 R15 K30 ["imageStyle"]
+  GETTABLEKS R17 R2 K33 ["icon"]
   GETTABLEKS R16 R17 K6 ["tag"]
   SETTABLEKS R16 R15 K6 ["tag"]
-  LOADK R17 K35 ["%*--increment-icon"]
+  LOADK R17 K34 ["%*--increment-icon"]
   GETTABLEKS R19 R0 K21 ["testId"]
   NAMECALL R17 R17 K26 ["format"]
   CALL R17 2 1
@@ -400,8 +394,8 @@ PROTO_5:
   GETUPVAL R10 2
   GETTABLEKS R9 R10 K5 ["createElement"]
   GETUPVAL R10 5
-  DUPTABLE R11 K36 [{"tag", "onActivated", "isDisabled", "padding", "testId"}]
-  GETTABLEKS R13 R2 K37 ["downButton"]
+  DUPTABLE R11 K35 [{"tag", "onActivated", "isDisabled", "padding", "testId"}]
+  GETTABLEKS R13 R2 K36 ["downButton"]
   GETTABLEKS R12 R13 K6 ["tag"]
   SETTABLEKS R12 R11 K6 ["tag"]
   GETTABLEKS R13 R0 K4 ["decrement"]
@@ -413,7 +407,7 @@ PROTO_5:
   GETTABLEKS R13 R2 K14 ["button"]
   GETTABLEKS R12 R13 K20 ["padding"]
   SETTABLEKS R12 R11 K20 ["padding"]
-  LOADK R13 K38 ["%*--decrement"]
+  LOADK R13 K37 ["%*--decrement"]
   GETTABLEKS R15 R0 K21 ["testId"]
   NAMECALL R13 R13 K26 ["format"]
   CALL R13 2 1
@@ -424,19 +418,13 @@ PROTO_5:
   GETTABLEKS R13 R14 K5 ["createElement"]
   GETUPVAL R14 6
   DUPTABLE R15 K31 [{"Image", "imageStyle", "tag", "testId"}]
-  LOADK R16 K39 ["component_assets/triangleDown_16"]
+  LOADK R16 K38 ["component_assets/triangleDown_16"]
   SETTABLEKS R16 R15 K29 ["Image"]
-  GETUPVAL R18 7
-  GETTABLEKS R17 R18 K33 ["FoundationNumberInputDisabledStackedVisual"]
-  JUMPIFNOT R17 [+2]
-  MOVE R16 R4
-  JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K30 ["imageStyle"]
-  GETTABLEKS R17 R2 K34 ["icon"]
+  SETTABLEKS R4 R15 K30 ["imageStyle"]
+  GETTABLEKS R17 R2 K33 ["icon"]
   GETTABLEKS R16 R17 K6 ["tag"]
   SETTABLEKS R16 R15 K6 ["tag"]
-  LOADK R17 K40 ["%*--decrement-icon"]
+  LOADK R17 K39 ["%*--decrement-icon"]
   GETTABLEKS R19 R0 K21 ["testId"]
   NAMECALL R17 R17 K26 ["format"]
   CALL R17 2 1
@@ -500,54 +488,49 @@ MAIN:
   CALL R9 1 1
   GETIMPORT R10 K6 [require]
   GETTABLEKS R12 R0 K17 ["Utility"]
-  GETTABLEKS R11 R12 K18 ["Flags"]
+  GETTABLEKS R11 R12 K18 ["withCommonProps"]
   CALL R10 1 1
   GETIMPORT R11 K6 [require]
-  GETTABLEKS R13 R0 K17 ["Utility"]
-  GETTABLEKS R12 R13 K19 ["withCommonProps"]
+  GETTABLEKS R13 R0 K12 ["Components"]
+  GETTABLEKS R12 R13 K19 ["Types"]
   CALL R11 1 1
   GETIMPORT R12 K6 [require]
-  GETTABLEKS R14 R0 K12 ["Components"]
-  GETTABLEKS R13 R14 K20 ["Types"]
+  GETTABLEKS R14 R0 K20 ["Enums"]
+  GETTABLEKS R13 R14 K21 ["NumberInputControlsVariant"]
   CALL R12 1 1
   GETIMPORT R13 K6 [require]
-  GETTABLEKS R15 R0 K21 ["Enums"]
-  GETTABLEKS R14 R15 K22 ["NumberInputControlsVariant"]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K4 ["Parent"]
+  GETTABLEKS R14 R15 K22 ["useNumberInputVariants"]
   CALL R13 1 1
   GETIMPORT R14 K6 [require]
-  GETIMPORT R17 K1 [script]
-  GETTABLEKS R16 R17 K4 ["Parent"]
-  GETTABLEKS R15 R16 K23 ["useNumberInputVariants"]
+  GETTABLEKS R16 R0 K20 ["Enums"]
+  GETTABLEKS R15 R16 K23 ["InputSize"]
   CALL R14 1 1
-  GETIMPORT R15 K6 [require]
-  GETTABLEKS R17 R0 K21 ["Enums"]
-  GETTABLEKS R16 R17 K24 ["InputSize"]
-  CALL R15 1 1
-  DUPCLOSURE R16 K25 [PROTO_1]
+  DUPCLOSURE R15 K24 [PROTO_1]
   CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R6
-  CAPTURE VAL R11
-  DUPCLOSURE R17 K26 [PROTO_2]
+  CAPTURE VAL R10
+  DUPCLOSURE R16 K25 [PROTO_2]
   CAPTURE VAL R4
-  CAPTURE VAL R14
+  CAPTURE VAL R13
   CAPTURE VAL R2
   CAPTURE VAL R6
   CAPTURE VAL R9
   CAPTURE VAL R8
   CAPTURE VAL R3
-  DUPCLOSURE R18 K27 [PROTO_5]
+  DUPCLOSURE R17 K26 [PROTO_5]
   CAPTURE VAL R4
-  CAPTURE VAL R14
+  CAPTURE VAL R13
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R6
-  CAPTURE VAL R16
+  CAPTURE VAL R15
   CAPTURE VAL R7
-  CAPTURE VAL R10
-  DUPCLOSURE R19 K28 [PROTO_6]
-  CAPTURE VAL R13
+  DUPCLOSURE R18 K27 [PROTO_6]
+  CAPTURE VAL R12
   CAPTURE VAL R2
-  CAPTURE VAL R18
   CAPTURE VAL R17
-  RETURN R19 1
+  CAPTURE VAL R16
+  RETURN R18 1

@@ -95,7 +95,7 @@ PROTO_2:
   SETTABLEKS R8 R12 K11 ["instance"]
   SETTABLEKS R12 R11 K8 ["value"]
   DUPTABLE R12 K15 [{"FoundationOverlay", "Children"}]
-  JUMPIFNOT R7 [+67]
+  JUMPIFNOT R7 [+74]
   GETUPVAL R14 5
   GETTABLEKS R13 R14 K16 ["createPortal"]
   GETUPVAL R15 0
@@ -110,36 +110,41 @@ PROTO_2:
   SETTABLEKS R17 R16 K19 ["DisplayOrder"]
   GETIMPORT R17 K30 [Enum.ZIndexBehavior.Sibling]
   SETTABLEKS R17 R16 K20 ["ZIndexBehavior"]
-  GETIMPORT R17 K32 [Enum.ScreenInsets.DeviceSafeInsets]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K31 ["FoundationOverlayLuaAppInsetsFix"]
+  JUMPIFNOT R18 [+3]
+  GETIMPORT R17 K33 [Enum.ScreenInsets.CoreUISafeInsets]
+  JUMP [+2]
+  GETIMPORT R17 K35 [Enum.ScreenInsets.DeviceSafeInsets]
   SETTABLEKS R17 R16 K21 ["ScreenInsets"]
   GETUPVAL R19 2
-  GETTABLEKS R18 R19 K33 ["FoundationOverlayNoClip"]
+  GETTABLEKS R18 R19 K36 ["FoundationOverlayNoClip"]
   JUMPIFNOT R18 [+3]
-  GETIMPORT R17 K35 [Enum.SafeAreaCompatibility.None]
+  GETIMPORT R17 K38 [Enum.SafeAreaCompatibility.None]
   JUMP [+1]
   LOADNIL R17
   SETTABLEKS R17 R16 K22 ["SafeAreaCompatibility"]
   GETUPVAL R19 2
-  GETTABLEKS R18 R19 K33 ["FoundationOverlayNoClip"]
+  GETTABLEKS R18 R19 K36 ["FoundationOverlayNoClip"]
   JUMPIFNOT R18 [+2]
   LOADB R17 0
   JUMP [+1]
   LOADNIL R17
   SETTABLEKS R17 R16 K23 ["ClipToDeviceSafeArea"]
   SETTABLEKS R2 R16 K24 ["ref"]
-  DUPTABLE R17 K37 [{"FoundationStyleLink"}]
+  DUPTABLE R17 K40 [{"FoundationStyleLink"}]
   GETUPVAL R20 2
-  GETTABLEKS R19 R20 K38 ["FoundationDisableStylingPolyfill"]
+  GETTABLEKS R19 R20 K41 ["FoundationDisableStylingPolyfill"]
   JUMPIFNOT R19 [+9]
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K6 ["createElement"]
-  LOADK R19 K39 ["StyleLink"]
-  DUPTABLE R20 K41 [{"StyleSheet"}]
-  SETTABLEKS R5 R20 K40 ["StyleSheet"]
+  LOADK R19 K42 ["StyleLink"]
+  DUPTABLE R20 K44 [{"StyleSheet"}]
+  SETTABLEKS R5 R20 K43 ["StyleSheet"]
   CALL R18 2 1
   JUMP [+1]
   LOADNIL R18
-  SETTABLEKS R18 R17 K36 ["FoundationStyleLink"]
+  SETTABLEKS R18 R17 K39 ["FoundationStyleLink"]
   CALL R14 3 1
   GETUPVAL R15 3
   CALL R13 2 1
@@ -149,9 +154,9 @@ PROTO_2:
   GETUPVAL R14 0
   GETTABLEKS R13 R14 K6 ["createElement"]
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K42 ["Fragment"]
+  GETTABLEKS R14 R15 K45 ["Fragment"]
   LOADNIL R15
-  GETTABLEKS R16 R0 K43 ["children"]
+  GETTABLEKS R16 R0 K46 ["children"]
   CALL R13 3 1
   SETTABLEKS R13 R12 K14 ["Children"]
   CALL R9 3 -1
