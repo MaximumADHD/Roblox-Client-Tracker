@@ -170,19 +170,23 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R2 R0 K6 ["PropertyEditorTypes"]
+  GETTABLEKS R2 R0 K6 ["PropertyTypes"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R0 K7 ["PropertyTypes"]
+  GETTABLEKS R3 R0 K7 ["RpcTypes"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R0 K8 ["RpcTypes"]
+  GETTABLEKS R8 R0 K8 ["Util"]
+  GETTABLEKS R7 R8 K9 ["PropertyInteraction"]
+  GETTABLEKS R6 R7 K10 ["Interactors"]
+  GETTABLEKS R5 R6 K11 ["VirtualInteractor"]
+  GETTABLEKS R4 R5 K12 ["VirtualPropertyDataTypes"]
   CALL R3 1 1
-  DUPCLOSURE R4 K9 [PROTO_0]
-  DUPCLOSURE R5 K10 [PROTO_1]
-  DUPCLOSURE R6 K11 [PROTO_2]
-  DUPTABLE R7 K15 [{"initParts", "addToAggregation", "setPart"}]
-  SETTABLEKS R4 R7 K12 ["initParts"]
-  SETTABLEKS R5 R7 K13 ["addToAggregation"]
-  SETTABLEKS R6 R7 K14 ["setPart"]
+  DUPCLOSURE R4 K13 [PROTO_0]
+  DUPCLOSURE R5 K14 [PROTO_1]
+  DUPCLOSURE R6 K15 [PROTO_2]
+  DUPTABLE R7 K19 [{"initParts", "addToAggregation", "setPart"}]
+  SETTABLEKS R4 R7 K16 ["initParts"]
+  SETTABLEKS R5 R7 K17 ["addToAggregation"]
+  SETTABLEKS R6 R7 K18 ["setPart"]
   RETURN R7 1

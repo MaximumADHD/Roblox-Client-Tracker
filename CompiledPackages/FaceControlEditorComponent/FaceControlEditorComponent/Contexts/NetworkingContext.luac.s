@@ -27,33 +27,41 @@ PROTO_1:
 
 PROTO_2:
   GETTABLEKS R1 R0 K0 ["plugin"]
+  JUMPIF R1 [+11]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["useMemo"]
+  GETTABLEKS R2 R3 K1 ["ContextServices"]
+  GETTABLEKS R1 R2 K2 ["Plugin"]
+  NAMECALL R1 R1 K3 ["use"]
+  CALL R1 1 1
+  NAMECALL R1 R1 K4 ["get"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["useMemo"]
   NEWCLOSURE R3 P0
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
   CAPTURE VAL R0
   CAPTURE VAL R1
   NEWTABLE R4 0 1
   MOVE R5 R1
   SETLIST R4 R5 1 [1]
   CALL R2 2 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["useCallback"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["useCallback"]
   NEWCLOSURE R4 P1
   CAPTURE VAL R2
   NEWTABLE R5 0 1
   MOVE R6 R2
   SETLIST R5 R6 1 [1]
   CALL R3 2 1
-  DUPTABLE R4 K4 [{"getNetworking"}]
-  SETTABLEKS R3 R4 K3 ["getNetworking"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["createElement"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K6 ["Provider"]
-  DUPTABLE R7 K8 [{"value"}]
-  SETTABLEKS R4 R7 K7 ["value"]
-  GETTABLEKS R8 R0 K9 ["children"]
+  DUPTABLE R4 K8 [{"getNetworking"}]
+  SETTABLEKS R3 R4 K7 ["getNetworking"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K9 ["createElement"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K10 ["Provider"]
+  DUPTABLE R7 K12 [{"value"}]
+  SETTABLEKS R4 R7 K11 ["value"]
+  GETTABLEKS R8 R0 K13 ["children"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -153,33 +161,37 @@ MAIN:
   GETTABLEKS R4 R1 K8 ["DMNetworking"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R1 K9 ["ReactUtils"]
+  GETTABLEKS R5 R1 K9 ["Framework"]
   CALL R4 1 1
-  DUPTABLE R5 K11 [{"getNetworking"}]
-  GETTABLEKS R6 R4 K12 ["createUnimplemented"]
-  LOADK R7 K10 ["getNetworking"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K10 ["getNetworking"]
-  GETTABLEKS R6 R2 K13 ["createContext"]
-  MOVE R7 R5
-  CALL R6 1 1
-  DUPCLOSURE R7 K14 [PROTO_2]
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R1 K10 ["ReactUtils"]
+  CALL R5 1 1
+  DUPTABLE R6 K12 [{"getNetworking"}]
+  GETTABLEKS R7 R5 K13 ["createUnimplemented"]
+  LOADK R8 K11 ["getNetworking"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K11 ["getNetworking"]
+  GETTABLEKS R7 R2 K14 ["createContext"]
+  MOVE R8 R6
+  CALL R7 1 1
+  DUPCLOSURE R8 K15 [PROTO_2]
+  CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R6
-  DUPCLOSURE R8 K15 [PROTO_5]
+  CAPTURE VAL R7
+  DUPCLOSURE R9 K16 [PROTO_5]
   CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R6
-  DUPCLOSURE R9 K16 [PROTO_6]
-  CAPTURE VAL R2
   CAPTURE VAL R7
-  DUPCLOSURE R10 K17 [PROTO_7]
+  DUPCLOSURE R10 K17 [PROTO_6]
   CAPTURE VAL R2
-  CAPTURE VAL R7
-  DUPTABLE R11 K22 [{"Context", "TestCallbackProvider", "EditableDataModelProvider", "UIDataModelProvider"}]
-  SETTABLEKS R6 R11 K18 ["Context"]
-  SETTABLEKS R8 R11 K19 ["TestCallbackProvider"]
-  SETTABLEKS R9 R11 K20 ["EditableDataModelProvider"]
-  SETTABLEKS R10 R11 K21 ["UIDataModelProvider"]
-  RETURN R11 1
+  CAPTURE VAL R8
+  DUPCLOSURE R11 K18 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  DUPTABLE R12 K23 [{"Context", "TestCallbackProvider", "EditableDataModelProvider", "UIDataModelProvider"}]
+  SETTABLEKS R7 R12 K19 ["Context"]
+  SETTABLEKS R9 R12 K20 ["TestCallbackProvider"]
+  SETTABLEKS R10 R12 K21 ["EditableDataModelProvider"]
+  SETTABLEKS R11 R12 K22 ["UIDataModelProvider"]
+  RETURN R12 1

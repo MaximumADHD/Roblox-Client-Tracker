@@ -192,129 +192,113 @@ PROTO_4:
 PROTO_5:
   GETUPVAL R1 0
   CALL R1 0 1
-  GETTABLEKS R3 R0 K0 ["info"]
-  GETTABLEKS R2 R3 K1 ["parts"]
-  GETUPVAL R3 1
-  GETUPVAL R4 2
-  DUPTABLE R5 K3 [{"tag"}]
-  LOADK R6 K4 ["size-full-0 auto-y col"]
-  SETTABLEKS R6 R5 K2 ["tag"]
-  DUPTABLE R6 K9 [{"ColorEditor", "Color3Placeholder", "TransparencyPlaceholder", "BrickColorPlaceholder"}]
-  GETUPVAL R7 1
-  GETUPVAL R8 3
-  DUPTABLE R9 K14 [{"layoutOrder", "color3Part", "brickColorPart", "transparencyPart"}]
-  MOVE R10 R1
-  CALL R10 0 1
-  SETTABLEKS R10 R9 K10 ["layoutOrder"]
-  GETTABLEKS R10 R2 K15 ["color3"]
-  SETTABLEKS R10 R9 K11 ["color3Part"]
-  GETTABLEKS R10 R2 K16 ["brickColor"]
-  SETTABLEKS R10 R9 K12 ["brickColorPart"]
-  GETTABLEKS R10 R2 K17 ["transparency"]
-  SETTABLEKS R10 R9 K13 ["transparencyPart"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K5 ["ColorEditor"]
-  GETTABLEKS R10 R0 K0 ["info"]
-  GETTABLEKS R9 R10 K1 ["parts"]
-  GETTABLEKS R8 R9 K15 ["color3"]
-  GETTABLEKS R7 R8 K18 ["value"]
-  JUMPIFNOT R7 [+40]
-  GETUPVAL R7 1
-  GETUPVAL R8 4
-  DUPTABLE R9 K21 [{"layoutOrder", "name", "value", "onFocusLost"}]
-  MOVE R10 R1
-  CALL R10 0 1
-  SETTABLEKS R10 R9 K10 ["layoutOrder"]
-  LOADK R10 K22 ["Color3"]
-  SETTABLEKS R10 R9 K19 ["name"]
-  GETTABLEKS R14 R0 K0 ["info"]
-  GETTABLEKS R13 R14 K1 ["parts"]
-  GETTABLEKS R12 R13 K15 ["color3"]
-  GETTABLEKS R11 R12 K23 ["multiple"]
-  JUMPIFNOT R11 [+2]
-  LOADK R10 K24 ["MULTIPLE"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  DUPTABLE R4 K1 [{"tag"}]
+  LOADK R5 K2 ["size-full-0 auto-y col"]
+  SETTABLEKS R5 R4 K0 ["tag"]
+  DUPTABLE R5 K6 [{"Color3Placeholder", "TransparencyPlaceholder", "BrickColorPlaceholder"}]
+  GETTABLEKS R9 R0 K7 ["info"]
+  GETTABLEKS R8 R9 K8 ["parts"]
+  GETTABLEKS R7 R8 K9 ["color3"]
+  GETTABLEKS R6 R7 K10 ["value"]
+  JUMPIFNOT R6 [+40]
+  GETUPVAL R6 1
+  GETUPVAL R7 3
+  DUPTABLE R8 K14 [{"layoutOrder", "name", "value", "onFocusLost"}]
+  MOVE R9 R1
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K11 ["layoutOrder"]
+  LOADK R9 K15 ["Color3"]
+  SETTABLEKS R9 R8 K12 ["name"]
+  GETTABLEKS R13 R0 K7 ["info"]
+  GETTABLEKS R12 R13 K8 ["parts"]
+  GETTABLEKS R11 R12 K9 ["color3"]
+  GETTABLEKS R10 R11 K16 ["multiple"]
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K17 ["MULTIPLE"]
   JUMP [+12]
-  GETTABLEKS R14 R0 K0 ["info"]
-  GETTABLEKS R13 R14 K1 ["parts"]
-  GETTABLEKS R12 R13 K15 ["color3"]
-  GETTABLEKS R11 R12 K18 ["value"]
-  FASTCALL1 TOSTRING R11 [+2]
-  GETIMPORT R10 K26 [tostring]
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K18 ["value"]
-  NEWCLOSURE R10 P0
+  GETTABLEKS R13 R0 K7 ["info"]
+  GETTABLEKS R12 R13 K8 ["parts"]
+  GETTABLEKS R11 R12 K9 ["color3"]
+  GETTABLEKS R10 R11 K10 ["value"]
+  FASTCALL1 TOSTRING R10 [+2]
+  GETIMPORT R9 K19 [tostring]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K10 ["value"]
+  NEWCLOSURE R9 P0
   CAPTURE VAL R0
-  SETTABLEKS R10 R9 K20 ["onFocusLost"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K6 ["Color3Placeholder"]
-  GETTABLEKS R10 R0 K0 ["info"]
-  GETTABLEKS R9 R10 K1 ["parts"]
-  GETTABLEKS R8 R9 K17 ["transparency"]
-  GETTABLEKS R7 R8 K18 ["value"]
-  JUMPIFNOT R7 [+40]
-  GETUPVAL R7 1
-  GETUPVAL R8 4
-  DUPTABLE R9 K21 [{"layoutOrder", "name", "value", "onFocusLost"}]
-  MOVE R10 R1
-  CALL R10 0 1
-  SETTABLEKS R10 R9 K10 ["layoutOrder"]
-  LOADK R10 K27 ["Transparency"]
-  SETTABLEKS R10 R9 K19 ["name"]
-  GETTABLEKS R14 R0 K0 ["info"]
-  GETTABLEKS R13 R14 K1 ["parts"]
-  GETTABLEKS R12 R13 K17 ["transparency"]
-  GETTABLEKS R11 R12 K23 ["multiple"]
-  JUMPIFNOT R11 [+2]
-  LOADK R10 K24 ["MULTIPLE"]
+  SETTABLEKS R9 R8 K13 ["onFocusLost"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K3 ["Color3Placeholder"]
+  GETTABLEKS R9 R0 K7 ["info"]
+  GETTABLEKS R8 R9 K8 ["parts"]
+  GETTABLEKS R7 R8 K20 ["transparency"]
+  GETTABLEKS R6 R7 K10 ["value"]
+  JUMPIFNOT R6 [+40]
+  GETUPVAL R6 1
+  GETUPVAL R7 3
+  DUPTABLE R8 K14 [{"layoutOrder", "name", "value", "onFocusLost"}]
+  MOVE R9 R1
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K11 ["layoutOrder"]
+  LOADK R9 K21 ["Transparency"]
+  SETTABLEKS R9 R8 K12 ["name"]
+  GETTABLEKS R13 R0 K7 ["info"]
+  GETTABLEKS R12 R13 K8 ["parts"]
+  GETTABLEKS R11 R12 K20 ["transparency"]
+  GETTABLEKS R10 R11 K16 ["multiple"]
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K17 ["MULTIPLE"]
   JUMP [+12]
-  GETTABLEKS R14 R0 K0 ["info"]
-  GETTABLEKS R13 R14 K1 ["parts"]
-  GETTABLEKS R12 R13 K17 ["transparency"]
-  GETTABLEKS R11 R12 K18 ["value"]
-  FASTCALL1 TOSTRING R11 [+2]
-  GETIMPORT R10 K26 [tostring]
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K18 ["value"]
-  NEWCLOSURE R10 P1
+  GETTABLEKS R13 R0 K7 ["info"]
+  GETTABLEKS R12 R13 K8 ["parts"]
+  GETTABLEKS R11 R12 K20 ["transparency"]
+  GETTABLEKS R10 R11 K10 ["value"]
+  FASTCALL1 TOSTRING R10 [+2]
+  GETIMPORT R9 K19 [tostring]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K10 ["value"]
+  NEWCLOSURE R9 P1
   CAPTURE VAL R0
-  SETTABLEKS R10 R9 K20 ["onFocusLost"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K7 ["TransparencyPlaceholder"]
-  GETTABLEKS R10 R0 K0 ["info"]
-  GETTABLEKS R9 R10 K1 ["parts"]
-  GETTABLEKS R8 R9 K16 ["brickColor"]
-  GETTABLEKS R7 R8 K18 ["value"]
-  JUMPIFNOT R7 [+40]
-  GETUPVAL R7 1
-  GETUPVAL R8 4
-  DUPTABLE R9 K21 [{"layoutOrder", "name", "value", "onFocusLost"}]
-  MOVE R10 R1
-  CALL R10 0 1
-  SETTABLEKS R10 R9 K10 ["layoutOrder"]
-  LOADK R10 K28 ["BrickColor"]
-  SETTABLEKS R10 R9 K19 ["name"]
-  GETTABLEKS R14 R0 K0 ["info"]
-  GETTABLEKS R13 R14 K1 ["parts"]
-  GETTABLEKS R12 R13 K16 ["brickColor"]
-  GETTABLEKS R11 R12 K23 ["multiple"]
-  JUMPIFNOT R11 [+2]
-  LOADK R10 K24 ["MULTIPLE"]
+  SETTABLEKS R9 R8 K13 ["onFocusLost"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K4 ["TransparencyPlaceholder"]
+  GETTABLEKS R9 R0 K7 ["info"]
+  GETTABLEKS R8 R9 K8 ["parts"]
+  GETTABLEKS R7 R8 K22 ["brickColor"]
+  GETTABLEKS R6 R7 K10 ["value"]
+  JUMPIFNOT R6 [+40]
+  GETUPVAL R6 1
+  GETUPVAL R7 3
+  DUPTABLE R8 K14 [{"layoutOrder", "name", "value", "onFocusLost"}]
+  MOVE R9 R1
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K11 ["layoutOrder"]
+  LOADK R9 K23 ["BrickColor"]
+  SETTABLEKS R9 R8 K12 ["name"]
+  GETTABLEKS R13 R0 K7 ["info"]
+  GETTABLEKS R12 R13 K8 ["parts"]
+  GETTABLEKS R11 R12 K22 ["brickColor"]
+  GETTABLEKS R10 R11 K16 ["multiple"]
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K17 ["MULTIPLE"]
   JUMP [+12]
-  GETTABLEKS R14 R0 K0 ["info"]
-  GETTABLEKS R13 R14 K1 ["parts"]
-  GETTABLEKS R12 R13 K16 ["brickColor"]
-  GETTABLEKS R11 R12 K18 ["value"]
-  FASTCALL1 TOSTRING R11 [+2]
-  GETIMPORT R10 K26 [tostring]
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K18 ["value"]
-  NEWCLOSURE R10 P2
+  GETTABLEKS R13 R0 K7 ["info"]
+  GETTABLEKS R12 R13 K8 ["parts"]
+  GETTABLEKS R11 R12 K22 ["brickColor"]
+  GETTABLEKS R10 R11 K10 ["value"]
+  FASTCALL1 TOSTRING R10 [+2]
+  GETIMPORT R9 K19 [tostring]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K10 ["value"]
+  NEWCLOSURE R9 P2
   CAPTURE VAL R0
-  SETTABLEKS R10 R9 K20 ["onFocusLost"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K8 ["BrickColorPlaceholder"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  SETTABLEKS R9 R8 K13 ["onFocusLost"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K5 ["BrickColorPlaceholder"]
+  CALL R2 3 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
@@ -323,44 +307,37 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Components"]
-  GETTABLEKS R4 R5 K7 ["Util"]
-  GETTABLEKS R3 R4 K8 ["Color"]
-  GETTABLEKS R2 R3 K9 ["ColorEditor"]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K10 ["Parent"]
-  GETTABLEKS R3 R4 K11 ["Foundation"]
+  GETTABLEKS R3 R0 K8 ["PropertyEditorTypes"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R0 K12 ["PropertyEditorTypes"]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["React"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Parent"]
-  GETTABLEKS R5 R6 K13 ["React"]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K10 ["ReactUtils"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Parent"]
-  GETTABLEKS R6 R7 K14 ["ReactUtils"]
-  CALL R5 1 1
-  GETTABLEKS R6 R2 K15 ["Text"]
-  GETTABLEKS R7 R2 K16 ["View"]
-  GETTABLEKS R8 R4 K17 ["createElement"]
-  GETTABLEKS R10 R2 K18 ["Hooks"]
-  GETTABLEKS R9 R10 K19 ["useTokens"]
-  GETTABLEKS R10 R5 K20 ["createNextOrder"]
-  DUPCLOSURE R11 K21 [PROTO_0]
-  DUPCLOSURE R12 K22 [PROTO_1]
-  CAPTURE VAL R10
+  GETTABLEKS R5 R1 K11 ["Text"]
+  GETTABLEKS R6 R1 K12 ["View"]
+  GETTABLEKS R7 R3 K13 ["createElement"]
+  GETTABLEKS R9 R1 K14 ["Hooks"]
+  GETTABLEKS R8 R9 K15 ["useTokens"]
+  GETTABLEKS R9 R4 K16 ["createNextOrder"]
+  DUPCLOSURE R10 K17 [PROTO_0]
+  DUPCLOSURE R11 K18 [PROTO_1]
   CAPTURE VAL R9
   CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R6
-  CAPTURE VAL R4
-  DUPCLOSURE R13 K23 [PROTO_5]
-  CAPTURE VAL R10
-  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  DUPCLOSURE R12 K19 [PROTO_5]
+  CAPTURE VAL R9
   CAPTURE VAL R7
-  CAPTURE VAL R1
-  CAPTURE VAL R12
-  RETURN R13 1
+  CAPTURE VAL R6
+  CAPTURE VAL R11
+  RETURN R12 1

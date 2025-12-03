@@ -42,8 +42,7 @@ PROTO_1:
   GETUPVAL R7 3
   GETTABLEKS R6 R7 K5 ["View"]
   DUPTABLE R7 K12 [{"tag", "onActivated", "onStateChanged", "stateLayer", "LayoutOrder", "Visible"}]
-  GETTABLEKS R9 R0 K13 ["clickableViewProps"]
-  GETTABLEKS R8 R9 K6 ["tag"]
+  GETTABLEKS R8 R0 K13 ["clickableViewTag"]
   SETTABLEKS R8 R7 K6 ["tag"]
   GETTABLEKS R8 R0 K7 ["onActivated"]
   SETTABLEKS R8 R7 K7 ["onActivated"]
@@ -62,17 +61,10 @@ PROTO_1:
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K5 ["View"]
   DUPTABLE R11 K20 [{"tag", "backgroundStyle"}]
-  GETTABLEKS R13 R0 K21 ["affordanceViewProps"]
-  GETTABLEKS R12 R13 K6 ["tag"]
+  GETTABLEKS R12 R0 K21 ["affordanceViewTag"]
   SETTABLEKS R12 R11 K6 ["tag"]
   SETTABLEKS R2 R11 K19 ["backgroundStyle"]
-  GETTABLEKS R13 R0 K21 ["affordanceViewProps"]
-  JUMPIFNOT R13 [+5]
-  GETTABLEKS R13 R0 K21 ["affordanceViewProps"]
-  GETTABLEKS R12 R13 K22 ["children"]
-  JUMP [+1]
-  LOADNIL R12
-  CALL R9 3 1
+  CALL R9 2 1
   SETTABLEKS R9 R8 K17 ["HoverAffordance"]
   GETTABLEKS R9 R0 K22 ["children"]
   CALL R5 4 -1

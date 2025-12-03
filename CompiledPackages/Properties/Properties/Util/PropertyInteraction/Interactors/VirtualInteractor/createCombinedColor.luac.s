@@ -80,25 +80,22 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R2 R0 K6 ["PropertyEditorTypes"]
+  GETTABLEKS R5 R0 K6 ["Util"]
+  GETTABLEKS R4 R5 K7 ["PropertyInteraction"]
+  GETTABLEKS R3 R4 K8 ["Interactors"]
+  GETTABLEKS R2 R3 K9 ["PropertyInteractor"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R6 R0 K7 ["Util"]
-  GETTABLEKS R5 R6 K8 ["PropertyInteraction"]
-  GETTABLEKS R4 R5 K9 ["Interactors"]
-  GETTABLEKS R3 R4 K10 ["PropertyInteractor"]
+  GETTABLEKS R3 R0 K10 ["PropertyTypes"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R0 K11 ["PropertyTypes"]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K11 ["Parent"]
+  GETTABLEKS R4 R5 K12 ["VirtualPropertyDataTypes"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETIMPORT R7 K1 [script]
-  GETTABLEKS R6 R7 K12 ["Parent"]
-  GETTABLEKS R5 R6 K13 ["VirtualPropertyDataTypes"]
-  CALL R4 1 1
-  GETTABLEKS R5 R2 K14 ["read"]
-  GETTABLEKS R6 R2 K15 ["write"]
-  DUPCLOSURE R7 K16 [PROTO_2]
+  GETTABLEKS R4 R1 K13 ["read"]
+  GETTABLEKS R5 R1 K14 ["write"]
+  DUPCLOSURE R6 K15 [PROTO_2]
+  CAPTURE VAL R4
   CAPTURE VAL R5
-  CAPTURE VAL R6
-  RETURN R7 1
+  RETURN R6 1

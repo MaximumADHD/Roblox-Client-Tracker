@@ -104,8 +104,7 @@ PROTO_1:
   DUPTABLE R18 K52 [{"Slider"}]
   GETUPVAL R20 3
   GETTABLEKS R19 R20 K8 ["createElement"]
-  GETUPVAL R21 4
-  GETTABLEKS R20 R21 K51 ["Slider"]
+  GETUPVAL R20 5
   DUPTABLE R21 K62 [{"testId", "value", "range", "stepIncrement", "isDisabled", "knobVisibility", "variant", "size", "onValueChanged", "Size", "Position", "AnchorPoint"}]
   LOADK R22 K63 ["FaceSlider"]
   SETTABLEKS R22 R21 K10 ["testId"]
@@ -177,10 +176,15 @@ MAIN:
   GETTABLEKS R8 R0 K14 ["Hooks"]
   GETTABLEKS R7 R8 K15 ["useAbsoluteSize"]
   CALL R6 1 1
-  DUPCLOSURE R7 K16 [PROTO_1]
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K9 ["Components"]
+  GETTABLEKS R8 R9 K16 ["Slider"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K17 [PROTO_1]
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R2
-  RETURN R7 1
+  CAPTURE VAL R7
+  RETURN R8 1
