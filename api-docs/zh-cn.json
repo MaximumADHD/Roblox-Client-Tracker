@@ -1166,6 +1166,7 @@
       "FilterType": "@roblox/globaltype/OverlapParams.FilterType",
       "MaxParts": "@roblox/globaltype/OverlapParams.MaxParts",
       "CollisionGroup": "@roblox/globaltype/OverlapParams.CollisionGroup",
+      "Tolerance": "@roblox/globaltype/OverlapParams.Tolerance",
       "RespectCanCollide": "@roblox/globaltype/OverlapParams.RespectCanCollide",
       "BruteForceAllSlow": "@roblox/globaltype/OverlapParams.BruteForceAllSlow",
       "AddToFilter": "@roblox/globaltype/OverlapParams.AddToFilter"
@@ -1193,13 +1194,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#CollisionGroup",
     "code_sample": ""
   },
+  "@roblox/globaltype/OverlapParams.Tolerance": {
+    "documentation": "稍微增加边界查询操作的音量。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
+    "code_sample": ""
+  },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "决定边界查询操作是否考虑部件的 <code>BasePart.CanCollide</code> 属性值而非其 <code>BasePart.CanQuery</code> 值。",
+    "documentation": "确定边界查询操作是否考虑一个部件的 <code>BasePart.CanCollide</code> 属性值，而不是它的 <code>BasePart.CanQuery</code> 值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "当启用时，查询将忽略所有部件碰撞属性，并 对每个部件执行暴力检查。",
+    "documentation": "启用后，查询将忽略所有部件碰撞属性，并 对每个部件执行暴力检查。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
@@ -15356,7 +15362,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService": {
-    "documentation": "一个提供接口供您管理和展示个性化内容推荐的服务。",
+    "documentation": "一个提供接口让您管理和展示个性化内容推荐的服务。",
     "keys": {
       "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
       "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
@@ -15370,10 +15376,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
-    "documentation": "一个提供接口供您管理和展示个性化内容推荐的服务。"
+    "documentation": "一个提供接口让您管理和展示个性化内容推荐的服务。"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": "一个字典，包含以下字段： <ul> <li><code>ConfigName</code> &mdash; 特定配置的唯一 ID。这决定了候选项的排名方式。</li> <li><code>LocationId</code> &mdash; 开发者定义的字符串，指定推荐使用的位置，例如 <code>\"For_you\"</code> 或 <code>\"Lobby\"</code>。此参数不会影响返回的项，并且可以帮助您跟踪多种推荐功能在您的体验中的表现。每个位置的推荐指标将显示在 Creator Hub 中。 <code>LocationId</code> <strong>必须</strong> 是字符串，且不能是 <code>\"Other\"</code> 或 <code>\"other\"</code>，因为这些值已被 Creator Hub 保留。</li> <li><code>PageSize</code> &mdash; 每页返回的项数。</li> <li><code>BoostCustomTags</code> &mdash; 字符串标签列表。任何带有此标签的项将在排名中获得提升。注意：目前仅支持提升一个标签。</li> <li><code>CustomContexts</code> &mdash; 一组键值对表，用于传递用于排名的附加上下文数据。例如，<code>UserId</code> 用于服务器脚本。</li> </ul>"
+    "documentation": "一个包含以下字段的字典： <ul> <li><code>ConfigName</code> &mdash; 特定配置的唯一 ID。这决定了候选项目的排名。</li> <li><code>LocationId</code> &mdash; 开发者定义的字符串，指定推荐所使用的位置，例如 <code>\"For_you\"</code> 或 <code>\"Lobby\"</code>。此参数不会影响返回的项目，并且可以帮助您跟踪您体验中多个推荐功能的表现。每个位置的推荐指标将显示在 Creator Hub 中。<code>LocationId</code> <strong>必须</strong> 是字符串，不能是 <code>\"Other\"</code> 或 <code>\"other\"</code>，因为这些值是 Creator Hub 保留的。</li> <li><code>PageSize</code> &mdash; 每页返回的项目数量。</li> <li><code>BoostCustomTags</code> &mdash; 字符串标签的列表。任何具有此标签的项目在排名中将被提升。注意：目前只支持提升一个标签。</li> <li><code>CustomContexts</code> &mdash; 用于传递额外上下文数据以进行排名的键值对表。例如，在服务器脚本中使用 <code>UserId</code>。</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
     "documentation": ""
@@ -15397,13 +15403,13 @@
     "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\n-- 定义生成推荐列表的请求\nlocal request: GenerateRecommendationItemListRequest = {\n\tConfigName = \"MaximizeEngagement\",\n\tLocationId = \"Lobby\",\n\tPageSize = 10\n    -- 注意：取消注释并设置 CustomContexts.UserId 以用于服务器脚本。\n    -- 本地脚本无需设置。\n    -- CustomContexts = {\n    --     [\"UserId\"] = tostring(player.UserId),\n    -- }\n}\n\n-- 调用 GenerateItemListAsync 获取推荐页面\nlocal success, recommendationPages = pcall(function()\n    return RecommendationService:GenerateItemListAsync(request)\nend)"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0": {
-    "documentation": "一个提供接口供您管理和展示个性化内容推荐的服务。"
+    "documentation": "一个提供接口让您管理和展示个性化内容推荐的服务。"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1": {
     "documentation": "要检索的项目的 ID。"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0": {
-    "documentation": "一个字典，代表推荐项，包含以下字段： - <code>ItemId</code> &mdash; 项的唯一 ID。 - <code>ReferenceId</code> &mdash; 开发者提供的项的 ID。 - <code>TracingId</code> &mdash; 用于跟踪推荐会话的 ID。直接获取单个项时，此 ID 将为空。 - <code>Creator</code> &mdash; 一个表，包含 <code>CreatorId</code> 和 <code>CreatorType</code>。 - <code>Attributes</code> &mdash; 与项相关的内容属性列表。 - <code>CustomTags</code> &mdash; 自定义字符串标签列表。 - <code>Visibility</code> &mdash; 类型为 <code>RecommendationItemVisibility</code> 的枚举。"
+    "documentation": "一个表示推荐项的字典，包含以下字段： <ul> <li><code>ItemId</code> &mdash; 项目的唯一 ID。</li> <li><code>ReferenceId</code> &mdash; 开发者提供的项目 ID。</li> <li><code>TracingId</code> &mdash; 用于跟踪推荐会话的 ID。直接获取单个项目时，该值将为空。</li> <li><code>Creator</code> &mdash; 包含 <code>CreatorId</code> 和 <code>CreatorType</code> 的表。</li> <li><code>Attributes</code> &mdash; 与项目相关的内容属性列表。</li> <li><code>CustomTags</code> &mdash; 自定义字符串标签的列表。</li> <li><code>Visibility</code> &mdash; 类型枚举 <code>RecommendationItemVisibility</code>。</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync": {
     "documentation": "",
@@ -15424,19 +15430,19 @@
     "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\nlocal function getItem(itemId)\n    local success, item = pcall(function()\n        return RecommendationService:GetRecommendationItemAsync(itemId)\n    end)\n    if success and item then\n        print(\"成功检索到项目: \" .. item.ItemId)\n        print(\"  ReferenceId: \" .. item.ReferenceId)\n        -- 获取单个项目时，追踪 ID 将为空\n        if item.Creator then\n            print(\"  CreatorId: \" .. tostring(item.Creator.CreatorId))\n        end\n        if item.CustomTags then\n            print(\"  CustomTags: \")\n            for _, customTag in ipairs(item.CustomTags) do\n                print(\"    \" .. customTag)\n            end\n        end\n    else\n        warn(\"检索项目失败: \" .. itemId .. \". 错误: \" .. tostring(item))\n    end\nend\n\n-- 示例用法（需要有效的 itemId）\n-- getItem(\"some-item-id\")"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
-    "documentation": "一个提供接口供您管理和展示个性化内容推荐的服务。"
+    "documentation": "一个提供接口让您管理和展示个性化内容推荐的服务。"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
     "documentation": "行动类型的枚举。"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/2": {
-    "documentation": "从注册和 <code>GenerateItemListAsync</code> 返回的项 ID。"
+    "documentation": "从注册和 <code>GenerateItemListAsync</code> 返回的项目 ID。"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
-    "documentation": "从 <code>GenerateItemListAsync</code> 响应中返回的追踪 ID。每个项都有一个 <code>TracingId</code>。"
+    "documentation": "来自 <code>GenerateItemListAsync</code> 响应的跟踪 ID。每个项目都有一个 <code>TracingId</code>。"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
-    "documentation": "一个字典，包含以下字段： <ul> <li><code>Weight</code> &mdash; 表示行为权重的数字。默认值为 1。</li> <li><code>DestinationPlaceId</code> &mdash; 用户在行为后被发送到的地点 ID。用于 <code>Play</code>。</li> <li><code>CommentText</code> &mdash; 与该行为关联的任何文本，例如评论。用于 <code>Comment</code>。</li> <li><code>ReactionType</code> &mdash; 描述反应类型的字符串，例如 \"点赞\" 或 \"点踩\"。用于 <code>AddReaction</code> 或 <code>RemoveReaction</code>。</li> </ul>"
+    "documentation": "一个包含以下字段的字典： <ul> <li><code>Weight</code> &mdash; 一个表示操作权重的数字。默认值为 1。</li> <li><code>DestinationPlaceId</code> &mdash; 用户在操作后被发送到的地点的 ID。用于 <code>Play</code>。</li> <li><code>CommentText</code> &mdash; 与操作相关的任何文本，例如评论。用于 <code>Comment</code>。</li> <li><code>ReactionType</code> &mdash; 描述反应类型的字符串，例如 \"点赞\" 或 \"不喜欢\"。用于 <code>AddReaction</code> 或 <code>RemoveReaction</code>。</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent": {
     "documentation": "",
@@ -15467,19 +15473,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
-    "documentation": "一个提供接口供您管理和展示个性化内容推荐的服务。"
+    "documentation": "一个提供接口让您管理和展示个性化内容推荐的服务。"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
     "documentation": "印象类型的枚举。"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2": {
-    "documentation": "从注册和 <code>GenerateItemListAsync</code> 返回的项 ID。"
+    "documentation": "从注册和 <code>GenerateItemListAsync</code> 返回的项目 ID。"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
-    "documentation": "从 <code>GenerateItemListAsync</code> 响应中返回的追踪 ID。每个项都有一个 <code>TracingId</code>。"
+    "documentation": "来自 <code>GenerateItemListAsync</code> 响应的跟踪 ID。每个项目都有一个 <code>TracingId</code>。"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
-    "documentation": "一个字典，包含以下字段： <ul> <li><code>Duration</code> &mdash; 印象的持续时间，单位为秒。</li> <li><code>Weight</code> &mdash; 表示印象权重的数字。默认值为 1。</li> <li><code>ItemPosition</code> &mdash; 项在推荐列表中的位置。</li> <li><code>DepartureIntent</code> &mdash; 表示用户离开查看时的意图的 <code>RecommendationDepartureIntent</code>。例如，如果该视图被认为是良好的，则为 <code>Positive</code>。</li> </ul>"
+    "documentation": "一个包含以下字段的字典： <ul> <li><code>Duration</code> &mdash; 印象的持续时间（以秒为单位）。</li> <li><code>Weight</code> &mdash; 一个表示印象权重的数字。默认值为 1。</li> <li><code>ItemPosition</code> &mdash; 项目在推荐列表中的位置。</li> <li><code>DepartureIntent</code> &mdash; <code>RecommendationDepartureIntent</code> 表示用户离开视图时的意图。例如，如果视图被视为良好则为 <code>Positive</code>。</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
     "documentation": "",
@@ -15510,13 +15516,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
-    "documentation": "一个提供接口供您管理和展示个性化内容推荐的服务。"
+    "documentation": "一个提供接口让您管理和展示个性化内容推荐的服务。"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
     "documentation": "创建该项目的玩家。"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": "一个字典，包含以下字段： <ul> <li><code>ContentType</code> &mdash; 指定内容类型的 <code>RecommendationItemContentType</code>。类型以通用方式定义。例如，您可以使用 <code>Static</code> 代表图像，使用 <code>Dynamic</code> 代表视频，使用 <code>Interactive</code> 代表支持交互的 3D 模型。</li> <li><code>ReferenceId</code> &mdash; 开发者定义的唯一字符串以标识该项。</li> <li><code>Duration</code> &mdash; 内容的持续时间，单位为秒。</li> <li><code>Attributes</code> &mdash; 该项的属性表，例如 <code>AssetId</code> 或 <code>Description</code>。</li> <li><code>CustomTags</code> &mdash; 用于过滤和提升的字符串标签列表。</li> <li><code>Visibility</code> &mdash; 控制项可见性的 <code>RecommendationItemVisibility</code> 枚举，例如 <code>Public</code> 或 <code>Private</code>。</li> </ul>"
+    "documentation": "一个包含以下字段的字典： <ul> <li><code>ContentType</code> &mdash; 指定内容类型的 <code>RecommendationItemContentType</code>。类型以通用方式定义。例如，您可以为图像使用 <code>Static</code>，为视频使用 <code>Dynamic</code>，并为支持交互的 3D 模型使用 <code>Interactive</code>。</li> <li><code>ReferenceId</code> &mdash; 开发者定义的唯一标识该项目的字符串。</li> <li><code>Duration</code> &mdash; 内容的持续时间（以秒为单位）。</li> <li><code>Attributes</code> &mdash; 项目的属性表，例如 <code>AssetId</code> 或 <code>Description</code>。</li> <li><code>CustomTags</code> &mdash; 用于过滤和提升的字符串标签列表。</li> <li><code>Visibility</code> &mdash; <code>RecommendationItemVisibility</code> 枚举，控制项目的可见性，例如 <code>Public</code> 或 <code>Private</code>。</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
     "documentation": "一个仅包含两个字段的表：<code>ItemId</code> 和 <code>ReferenceId</code>。"
@@ -15544,7 +15550,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
-    "documentation": "一个提供接口供您管理和展示个性化内容推荐的服务。"
+    "documentation": "一个提供接口让您管理和展示个性化内容推荐的服务。"
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
     "documentation": "要删除的 itemId。"
@@ -15566,10 +15572,10 @@
     "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\nlocal function removeItem(itemId)\n    local success, err = pcall(function()\n        return RecommendationService:RemoveItemAsync(itemId)\n    end)\n    if success then\n        print(\"成功移除项目: \" .. itemId)\n    else\n        warn(\"移除项目失败: \" .. itemId .. \". 错误: \" .. tostring(err))\n    end\nend"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
-    "documentation": "一个提供接口供您管理和展示个性化内容推荐的服务。"
+    "documentation": "一个提供接口让您管理和展示个性化内容推荐的服务。"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": "一个字典，包含以下字段： <ul> <li><code>ItemId</code> &mdash; 要更新的项的 ID。</li> <li><code>ReferenceId</code> &mdash; 用于标识该项的新开发者定义字符串。</li> <li><code>Creator</code> &mdash; 项的新创建者。创建者是一个包含两个字段的表：<code>CreatorId: number</code> 和 <code>CreatorType: Enum.CreatorType</code>。</li> <li><code>Duration</code> &mdash; 内容的新持续时间，单位为秒。</li> <li><code>Visibility</code> &mdash; 项的新可见性设置。</li> <li><code>Attributes</code> &mdash; 项的新属性表。</li> <li><code>CustomTags</code> &mdash; 新的字符串标签列表。</li> </ul>"
+    "documentation": "一个包含以下字段的字典： <ul> <li><code>ItemId</code> &mdash; 要更新的项目的 ID。</li> <li><code>ReferenceId</code> &mdash; 用于识别项目的新开发者定义字符串。</li> <li><code>Creator</code> &mdash; 项目的新创作者。创作者是一个包含两个字段的表： <code>CreatorId: number</code> 和 <code>CreatorType: Enum.CreatorType</code>。</li> <li><code>Duration</code> &mdash; 内容的新持续时间（以秒为单位）。</li> <li><code>Visibility</code> &mdash; 项目的新可见性设置。</li> <li><code>Attributes</code> &mdash; 项目的新属性表。</li> <li><code>CustomTags</code> &mdash; 新字符串标签列表。</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -24665,7 +24671,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。",
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。",
     "keys": {
       "CreatorId": "@roblox/globaltype/DataModel.CreatorId",
       "CreatorType": "@roblox/globaltype/DataModel.CreatorType",
@@ -24700,12 +24706,12 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal Lighting = game:GetService(\"Lighting\")\n\n-- 修改这些服务属性的示例\nWorkspace.Gravity = 20\nLighting.ClockTime = 4"
   },
   "@roblox/globaltype/DataModel.CreatorId": {
-    "documentation": "描述拥有该地点的用户或组的ID。",
+    "documentation": "描述拥有此地点的用户或组的 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"游戏所有者已加入游戏！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"拥有此游戏的组的成员已加入游戏！\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
-    "documentation": "描述地点的 <code>CreatorType</code>，即地点是由用户还是组拥有。",
+    "documentation": "描述此地点的 <code>CreatorType</code>，即地点是由用户还是组拥有。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"游戏所有者已加入游戏！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"拥有此游戏的组的成员已加入游戏！\")\n\t\tend\n\tend\nend)"
   },
@@ -24715,17 +24721,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GameId": {
-    "documentation": "描述该地点在服务器上运行的体验的ID。",
+    "documentation": "描述在服务器上运行的地点所属的体验的 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GameId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GearGenreSetting": {
-    "documentation": "<strong>Deprecated:</strong> 此属性已被弃用，不再可用。它不应该被使用。<br>不可用。历史上描述了在Roblox网站上设置的地点的装备权限。",
+    "documentation": "<strong>Deprecated:</strong> 此属性已弃用，不再可用。应避免使用。<br>不再可用。历史上描述在 Roblox 网站上设置的地点的装备权限。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GearGenreSetting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.Genre": {
-    "documentation": "不可用。历史上描述了在Roblox网站上设置的地点的 <code>Genre</code>。",
+    "documentation": "不再可用。历史上描述在 Roblox 网站上设置的地点的 <code>Genre</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Genre",
     "code_sample": ""
   },
@@ -24735,37 +24741,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.MatchmakingType": {
-    "documentation": "表示服务器如何处理玩家的匹配。",
+    "documentation": "表示服务器中玩家的匹配方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#MatchmakingType",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PlaceId": {
-    "documentation": "描述在服务器上运行的地点的ID。",
+    "documentation": "描述在服务器上运行的地点的 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PlaceId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PlaceVersion": {
-    "documentation": "描述服务器当前运行的地点的版本。",
+    "documentation": "描述服务器正在运行的地点的版本。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PlaceVersion",
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"服务器版本: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "描述服务器的私有服务器ID，如果该服务器是私有服务器或 <code>保留服务器</code>。",
+    "documentation": "描述服务器的私有服务器 ID，如果服务器是私有服务器或 <code>保留的服务器</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
   "@roblox/globaltype/DataModel.PrivateServerOwnerId": {
-    "documentation": "描述拥有私有服务器的 <code>Player</code> 的 <code>UserId</code>（如果该服务器是私有服务器）。",
+    "documentation": "描述私有服务器的 <code>UserId</code>，如果服务器是私有的。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerOwnerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
   "@roblox/globaltype/DataModel.VIPServerId": {
-    "documentation": "<strong>Deprecated:</strong> 此属性已被弃用。请使用 <code>DataModel.PrivateServerId</code> 代替。<br>一个可以识别当前服务器为私有服务器的字符串。",
+    "documentation": "<strong>Deprecated:</strong> 此属性已弃用。请改用 <code>DataModel.PrivateServerId</code>。<br>一个可以识别当前服务器为私有服务器的字符串。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.VIPServerOwnerId": {
-    "documentation": "<strong>Deprecated:</strong> 此属性已被弃用。请使用 <code>DataModel.PrivateServerOwnerId</code> 代替。<br>拥有私有服务器的账户的 <code>UserId</code>。",
+    "documentation": "<strong>Deprecated:</strong> 此属性已弃用。请改用 <code>DataModel.PrivateServerOwnerId</code>。<br>拥有私有服务器的账户的 <code>UserId</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerOwnerId",
     "code_sample": ""
   },
@@ -24775,23 +24781,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.lighting": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被 <code>game:GetService(\"Lighting\")</code> 取代，应该使用此项。<br>指游戏的 <code>Lighting</code> 服务。",
+    "documentation": "<strong>Deprecated:</strong> 此项已被 <code>game:GetService(\"Lighting\")</code> 取代，应该改用此选项。<br>引用游戏的 <code>Lighting</code> 服务。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#lighting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.workspace": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的属性是 <code>DataModel.Workspace</code> 的变体，应该使用此项。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用属性是 <code>DataModel.Workspace</code> 的变体，应该改用此选项。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#workspace",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.BindToClose/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.BindToClose/param/1": {
-    "documentation": "在体验服务器关闭之前调用的函数。如果绑定的 函数接受一个参数，它传递 <code>CloseReason</code>，指定服务器关闭的原因。"
+    "documentation": "在体验服务器关闭前调用的函数。如果绑定函数接受参数，它将传递 <code>CloseReason</code>，指定服务器关闭的原因。"
   },
   "@roblox/globaltype/DataModel.BindToClose": {
-    "documentation": "绑定在服务器关闭之前调用的函数。",
+    "documentation": "绑定一个函数，以在服务器关闭前调用。",
     "params": [
       {
         "name": "self",
@@ -24807,13 +24813,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/return/0": {
-    "documentation": "一个包含任务调度程序执行的作业的信息的表，格式见上。"
+    "documentation": "一个表，包含执行的作业的信息，请参见上述格式。"
   },
   "@roblox/globaltype/DataModel.GetJobsInfo": {
-    "documentation": "返回一个表，包含调度程序执行的作业的基本信息。",
+    "documentation": "返回一个表，包含任务调度器执行的基本信息。",
     "params": [
       {
         "name": "self",
@@ -24827,13 +24833,13 @@
     "code_sample": "local jobInfo = game:GetJobsInfo()\nlocal jobTitles = jobInfo[1]\n\ntable.remove(jobInfo, 1)\n\nlocal divider = string.rep(\"-\", 120)\nprint(divider)\nwarn(\"工作信息:\")\nprint(divider)\n\nfor _, job in pairs(jobInfo) do\n\tfor jobIndex, jobValue in pairs(job) do\n\t\tlocal jobTitle = jobTitles[jobIndex]\n\t\twarn(jobTitle, \"=\", jobValue)\n\tend\n\tprint(divider)\nend"
   },
   "@roblox/globaltype/DataModel.GetMessage/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.GetMessage/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetMessage": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为该系统很早就被淘汰，最近设置此消息的API已被删除。<br><strong><em>[过时]:</em></strong> 此函数将始终返回一个空字符串。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用，因为该系统很早以前就被淘汰了，最近用于设置此消息的 API 被移除了。<br><strong><em>[已过时]:</em></strong> 此函数将始终返回一个空字符串。",
     "params": [
       {
         "name": "self",
@@ -24847,16 +24853,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetObjects/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.GetObjects/param/1": {
-    "documentation": "给定的内容URL。"
+    "documentation": "给定的内容 URL。"
   },
   "@roblox/globaltype/DataModel.GetObjects/return/0": {
-    "documentation": "一个与内容URL相关联的 <code>Instances</code> 数组。"
+    "documentation": "与内容 URL 关联的 <code>Instances</code> 数组。"
   },
   "@roblox/globaltype/DataModel.GetObjects": {
-    "documentation": "返回与给定内容URL关联的 <code>Instances</code> 数组。",
+    "documentation": "返回与给定内容 URL 关联的 <code>Instances</code> 数组。",
     "params": [
       {
         "name": "self",
@@ -24874,13 +24880,13 @@
     "code_sample": "local Selection = game:GetService(\"Selection\")\n\nlocal WEB_URL = \"插件 URL 在这里\"\n\nlocal function downloadPlugin(webURL)\n\t-- 获取内容 URL\n\tlocal contentID = string.match(webURL, \"%d+\")\n\tlocal contentURL = \"rbxassetid://\" .. contentID\n\n\t-- 下载对象\n\tlocal objects = game:GetObjects(contentURL)\n\n\t-- 决定将它们归属到哪里\n\tlocal selection = Selection:Get()\n\tlocal parent = #selection == 1 and selection[1] or workspace\n\n\t-- 将对象归属到父级\n\tfor _, object in pairs(objects) do\n\t\tobject.Parent = parent\n\tend\nend\n\ndownloadPlugin(WEB_URL)"
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请使用 <code>RunService:IsServer()</code> 检查您的代码是否在服务器上运行。<br>此方法不再有用，将始终返回false。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请使用 <code>RunService:IsServer()</code> 查看您的代码是否在服务器上运行。<br>此方法不再有用且将始终返回 false。",
     "params": [
       {
         "name": "self",
@@ -24894,16 +24900,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/1": {
     "documentation": "给定的 <code>GearType</code>。"
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/return/0": {
-    "documentation": "给定的 <code>GearType</code> 的装备是否在游戏中被允许。"
+    "documentation": "给定的 <code>GearType</code> 的装备是否被允许在游戏中使用。"
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed": {
-    "documentation": "<strong>Deprecated:</strong> 此属性已被弃用，不再可用。它不应该被使用。<br>返回是否允许将给定的 <code>GearType</code> 装备添加到 <code>Players</code> 的 <code>StarterGears</code> 中。",
+    "documentation": "<strong>Deprecated:</strong> 此属性已弃用且不再可用。应避免使用。<br>返回给定 <code>GearType</code> 的装备是否允许添加到 <code>Players</code> 的 <code>StarterGears</code>。",
     "params": [
       {
         "name": "self",
@@ -24921,13 +24927,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsLoaded/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.IsLoaded/return/0": {
     "documentation": "客户端是否已完成首次加载游戏。"
   },
   "@roblox/globaltype/DataModel.IsLoaded": {
-    "documentation": "如果客户端已完成首次加载游戏，则返回true。",
+    "documentation": "如果客户端已完成首次加载游戏，则返回 true。",
     "params": [
       {
         "name": "self",
@@ -24941,7 +24947,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- 创建一个基本的加载屏幕\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"加载中\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- 将整个屏幕 GUI 设为玩家 GUI 的父级\nscreenGui.Parent = playerGui\n\n-- 移除默认加载屏幕\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--task.wait(3)  -- 可选择性地强制屏幕显示至少几秒钟\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
   },
   "@roblox/globaltype/DataModel.SavePlace/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.SavePlace/param/1": {
     "documentation": ""
@@ -24950,7 +24956,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.SavePlace": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请勿在新工作中使用。<br>保存当前地点。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请勿将其用于新工作。<br>保存当前地点。",
     "params": [
       {
         "name": "self",
@@ -24968,10 +24974,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/1": {
-    "documentation": "要设置的 <code>DataModel.PlaceId</code> 的ID。"
+    "documentation": "要设置为 <code>DataModel.PlaceId</code> 的 ID。"
   },
   "@roblox/globaltype/DataModel.SetPlaceId": {
     "documentation": "设置当前游戏实例的 <code>DataModel.PlaceId</code>。",
@@ -24990,10 +24996,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/0": {
-    "documentation": "Roblox父子层次结构的根。它的直接子级是服务， 如 <code>Workspace</code> 和 <code>Lighting</code>，它们作为 Roblox游戏的基本组件。"
+    "documentation": "Roblox 父子层次结构的根。它的直接子项是服务，例如 <code>Workspace</code> 和 <code>Lighting</code>，这些服务作为 Roblox 游戏的基本组成部分。"
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/1": {
-    "documentation": "要设置的 <code>DataModel.GameId</code> 的ID。"
+    "documentation": "要设置为 <code>DataModel.GameId</code> 的 ID。"
   },
   "@roblox/globaltype/DataModel.SetUniverseId": {
     "documentation": "将当前游戏实例的 <code>DataModel.GameId</code> 设置为给定的 <code>universeId</code>。",
@@ -25015,7 +25021,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.OnClose": {
-    "documentation": "<strong>Deprecated:</strong> 此函数已被弃用。建议使用 <code>DataModel:BindToClose()</code> 代替。<br>在游戏关闭之前调用。当此回调返回时或超时期限到达时, 游戏完成关闭。",
+    "documentation": "<strong>Deprecated:</strong> 此函数已弃用。建议使用 <code>DataModel:BindToClose()</code>。<br>在游戏关闭之前调用。当此回调返回，或者超时期达到时，游戏完成关闭。",
     "params": [],
     "returns": [
       "@roblox/globaltype/DataModel.OnClose/return/0"
@@ -25101,7 +25107,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.AllowedGearTypeChanged": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被弃用。请勿在新工作中使用。<br>当调用 SetGearSettings 时，如果 <code>allowedGenres</code> 的值不同则触发。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用。请勿将其用于新工作。<br>当 SetGearSettings 使用不同的 <code>allowedGenres</code> 值调用时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.ConnectParallel",
@@ -25189,7 +25195,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest": {
-    "documentation": "当用户通过热键提示增加或减少图形质量时触发。",
+    "documentation": "当用户使用热键提示增加或降低图形质量时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.ConnectParallel",
@@ -25277,7 +25283,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.ItemChanged": {
-    "documentation": "<strong>Deprecated:</strong> 此函数已被 <code>Object.Changed</code> 取代，应该在新工作中使用此函数。<br>当 <code>DataModel</code> 中的任何对象的属性发生更改时触发。",
+    "documentation": "<strong>Deprecated:</strong> 此函数已被 <code>Object.Changed</code> 取代，应在新工作中使用此函数。<br>当 <code>DataModel</code> 中任意对象的属性被更改时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.ItemChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.ItemChanged.ConnectParallel",
@@ -25365,7 +25371,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.Loaded": {
-    "documentation": "当游戏首次加载完毕时在客户端触发。",
+    "documentation": "当游戏首次完成加载时在客户端触发。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.Loaded.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.Loaded.ConnectParallel",
@@ -26655,7 +26661,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction": {
-    "documentation": "一个促进客户端与服务器之间同步双向通信的对象。 调用 <code>RemoteFunction</code> 的脚本将在接收到响应之前被挂起。",
+    "documentation": "一个在客户端与服务器边界之间促进同步、双向通信的对象。调用 <code>RemoteFunction</code> 的脚本会在接收到接收方的响应之前挂起。",
     "keys": {
       "InvokeClient": "@roblox/globaltype/RemoteFunction.InvokeClient",
       "InvokeServer": "@roblox/globaltype/RemoteFunction.InvokeServer",
@@ -26666,13 +26672,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/param/0": {
-    "documentation": "一个促进客户端与服务器之间同步双向通信的对象。 调用 <code>RemoteFunction</code> 的脚本将在接收到响应之前被挂起。"
+    "documentation": "一个在客户端与服务器边界之间促进同步、双向通信的对象。调用 <code>RemoteFunction</code> 的脚本会在接收到接收方的响应之前挂起。"
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/param/1": {
-    "documentation": "与要调用的客户端相关联的 <code>Player</code>。"
+    "documentation": "与要调用的客户端关联的 <code>Player</code>。"
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/param/2": {
-    "documentation": "要传递给 <code>OnClientInvoke</code> 回调的值。"
+    "documentation": "传递给 <code>OnClientInvoke</code> 回调的值。"
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/return/0": {
     "documentation": "从 <code>OnClientInvoke</code> 回调返回的值。"
@@ -26700,10 +26706,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer/param/0": {
-    "documentation": "一个促进客户端与服务器之间同步双向通信的对象。 调用 <code>RemoteFunction</code> 的脚本将在接收到响应之前被挂起。"
+    "documentation": "一个在客户端与服务器边界之间促进同步、双向通信的对象。调用 <code>RemoteFunction</code> 的脚本会在接收到接收方的响应之前挂起。"
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer/param/1": {
-    "documentation": "要传递给 <code>OnServerInvoke</code> 回调的值。"
+    "documentation": "传递给 <code>OnServerInvoke</code> 回调的值。"
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer/return/0": {
     "documentation": "从 <code>OnServerInvoke</code> 回调返回的值。"
@@ -26733,7 +26739,7 @@
     "documentation": "回调函数返回的值。"
   },
   "@roblox/globaltype/RemoteFunction.OnClientInvoke": {
-    "documentation": "当 <code>RemoteFunction</code> 通过 <code>InvokeClient()</code> 调用时的回调。",
+    "documentation": "当调用 <code>InvokeClient()</code> 时的回调。",
     "params": [
       {
         "name": "arguments",
@@ -26747,7 +26753,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke/param/0": {
-    "documentation": "与 <code>InvokeServer()</code> 调用相关的客户端的 <code>Player</code>。"
+    "documentation": "与 <code>InvokeServer()</code> 调用相关联的客户端的 <code>Player</code>。"
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke/param/1": {
     "documentation": "通过 <code>InvokeServer()</code> 发送的参数。"
@@ -26756,7 +26762,7 @@
     "documentation": "回调函数返回的值。"
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke": {
-    "documentation": "当 <code>RemoteFunction</code> 通过 <code>InvokeServer()</code> 调用时的回调。",
+    "documentation": "当调用 <code>InvokeServer()</code> 时的回调。",
     "params": [
       {
         "name": "player",
@@ -47997,7 +48003,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.DirectChatRequester": {
-    "documentation": "<code>TextChannel</code> 只会将消息发送给可以直接向 <code>DirectChatRequester</code> 发送消息的用户。",
+    "documentation": "<code>TextChannel</code> 仅会向能够向 <code>DirectChatRequester</code> 发送直接 消息的用户发送消息。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChannel#DirectChatRequester",
     "code_sample": ""
   },
@@ -48005,13 +48011,13 @@
     "documentation": "表示一个文本聊天频道。"
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/param/1": {
-    "documentation": "<code>Player</code> 的 userId。"
+    "documentation": "<code>Player</code> 的用户 ID。"
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/return/0": {
-    "documentation": "如果为用户创建了新的 <code>TextSource</code>，则返回 <code>TextSource</code> 和 <code>true</code>；如果存在现有的 <code>TextSource</code>，则返回 <code>TextSource</code> 和 <code>false</code>；如果用户关闭了聊天或不在此服务器中，则返回 <code>nil</code> 和 <code>false</code>。"
+    "documentation": "如果为用户创建了新的 <code>TextSource</code>，则返回 <code>TextSource</code> 和 <code>true</code>； 如果有现有的 <code>TextSource</code>，则返回 <code>TextSource</code> 和 <code>false</code>； 如果用户禁用了聊天或未在此服务器中，则返回 <code>nil</code> 和 <code>false</code>。"
   },
   "@roblox/globaltype/TextChannel.AddUserAsync": {
-    "documentation": "将 <code>TextSource</code> 添加到给定 <code>Player</code> 的 <code>TextChannel</code>。",
+    "documentation": "将 <code>TextSource</code> 添加到指定用户 ID 的 <code>TextChannel</code> 中。",
     "params": [
       {
         "name": "self",
@@ -48035,13 +48041,13 @@
     "documentation": "发送到 <code>TextChannel</code> 的系统消息。"
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/param/2": {
-    "documentation": "用于识别系统消息类型，例如默认系统消息。"
+    "documentation": "用于识别系统消息类型，例如默认系统 消息。"
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/return/0": {
-    "documentation": "具有 <code>TextChatMessage.Status</code> 属性的 <code>TextChatMessage</code>，指示消息的状态。"
+    "documentation": "一个 <code>TextChatMessage</code>，其 <code>TextChatMessage.Status</code> 属性 表示消息的状态。"
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage": {
-    "documentation": "向用户显示系统消息。",
+    "documentation": "向用户显示一条系统消息。",
     "params": [
       {
         "name": "self",
@@ -48072,7 +48078,7 @@
     "documentation": "要附加到消息的自定义元数据。"
   },
   "@roblox/globaltype/TextChannel.SendAsync/return/0": {
-    "documentation": "具有 <code>TextChatMessage.Status</code> 属性的 <code>TextChatMessage</code>，指示消息的状态。"
+    "documentation": "一个 <code>TextChatMessage</code>，其 <code>TextChatMessage.Status</code> 属性 表示消息的状态。"
   },
   "@roblox/globaltype/TextChannel.SendAsync": {
     "documentation": "向服务器发送 <code>TextChatMessage</code>。",
@@ -48103,7 +48109,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
-    "documentation": "为 <code>TextChannel</code> 设置 <code>DirectChatRequester</code>。 <code>TextChannel</code> 只会将消息发送给可以直接向 <code>DirectChatRequester</code> 发送消息的用户。",
+    "documentation": "为 <code>TextChannel</code> 设置 <code>DirectChatRequester</code>。 <code>TextChannel</code> 仅会向能够向 <code>DirectChatRequester</code> 发送直接消息的用户 发送消息。",
     "params": [
       {
         "name": "self",
@@ -48122,7 +48128,7 @@
     "documentation": "传入的 <code>TextChatMessage</code>。"
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage/return/0": {
-    "documentation": "如果返回了 <code>TextChatMessageProperties</code>，则这些属性将与 <code>TextChatMessage</code> 参数合并以创建具有这些属性的新 <code>TextChatMessage</code>。"
+    "documentation": "如果返回了 <code>TextChatMessageProperties</code>，则这些属性将与 <code>TextChatMessage</code> 参数合并，以创建一个具有这些属性的新 <code>TextChatMessage</code>。"
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage": {
     "documentation": "在 <code>TextChannel</code> 接收传入消息时调用。",
@@ -48148,7 +48154,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
-    "documentation": "在 <code>TextChannel</code> 接收传入消息时为每个客户端调用，以确定是否应该将其发送给该客户端。",
+    "documentation": "在 <code>TextChannel</code> 接收传入消息时，为每个客户端调用，以确定是否应该将消息发送给该客户端。",
     "params": [
       {
         "name": "message",
@@ -48243,7 +48249,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextChannel.MessageReceived": {
-    "documentation": "在客户端调用 <code>TextChannel:DisplaySystemMessage()</code> 时，或者客户端从服务器接收到有效的 <code>TextChannel:SendAsync()</code> 响应时触发。",
+    "documentation": "在客户端调用 <code>TextChannel:DisplaySystemMessage()</code> 或者 客户端从服务器接收到有效的 <code>TextChannel:SendAsync()</code> 响应时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/TextChannel.MessageReceived.Connect",
       "ConnectParallel": "@roblox/globaltype/TextChannel.MessageReceived.ConnectParallel",
@@ -50891,7 +50897,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。",
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。",
     "keys": {
       "Archivable": "@roblox/globaltype/Instance.Archivable",
       "Capabilities": "@roblox/globaltype/Instance.Capabilities",
@@ -50945,53 +50951,53 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Archivable": {
-    "documentation": "确定<code>Instance</code>及其后代是否可以使用 <code>Instance:Clone()</code>进行克隆，并且可以被保存/发布。",
+    "documentation": "确定 <code>Instance</code> 及其后代是否可以使用 <code>Instance:Clone()</code> 进行克隆，并且可以被保存/发布。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Capabilities": {
-    "documentation": "允许在此容器内使用的脚本能力集。",
+    "documentation": "允许在此容器内使用的能力集合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Capabilities",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Name": {
-    "documentation": "一个非唯一标识符的<code>Instance</code>。",
+    "documentation": "一个非唯一的 <code>Instance</code> 标识符。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Name",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Parent": {
-    "documentation": "确定<code>Instance</code>的层次父。",
+    "documentation": "确定 <code>Instance</code> 的层次父级。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Parent",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RobloxLocked": {
-    "documentation": "一个已弃用的属性，以前用于保护<code>CoreGui</code>对象。",
+    "documentation": "一个弃用的属性，曾用于保护 <code>CoreGui</code> 对象。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#RobloxLocked",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Sandboxed": {
-    "documentation": "将实例变为一个沙盒容器。",
+    "documentation": "将实例转换为沙箱容器。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Sandboxed",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.UniqueId": {
-    "documentation": "该实例的唯一标识符。",
+    "documentation": "实例的唯一标识符。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#UniqueId",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.archivable": {
-    "documentation": "<strong>Deprecated:</strong> 该已弃用属性是<code>Instance.Archivable</code>的一个变体，应使用。",
+    "documentation": "<strong>Deprecated:</strong> 该弃用的属性是 <code>Instance.Archivable</code> 的一种变体，应该使用该属性。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.AddTag/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.AddTag/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.AddTag": {
-    "documentation": "应用一个标签到实例。",
+    "documentation": "对实例应用标签。",
     "params": [
       {
         "name": "self",
@@ -51007,10 +51013,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ClearAllChildren/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "该方法销毁所有实例的子对象。",
+    "documentation": "该方法销毁实例的所有子项。",
     "params": [
       {
         "name": "self",
@@ -51022,13 +51028,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Clone/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.Clone/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.Clone": {
-    "documentation": "创建一个实例及其所有后代的副本，忽略那些不 <code>Archivable</code>的实例。",
+    "documentation": "创建实例及其所有后代的副本，忽略那些不是 <code>Archivable</code> 的实例。",
     "params": [
       {
         "name": "self",
@@ -51042,10 +51048,10 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\n-- 获取对现有对象的引用\nlocal model = script.Parent.Model\n\n-- 创建模型的克隆\nlocal clone = model:Clone()\n\n-- 移动克隆，以便它不会与原始模型重叠\nclone:PivotTo(model.PrimaryPart.CFrame - (Vector3.xAxis * 10))\n\n-- 将克隆添加到工作区\nclone.Parent = Workspace"
   },
   "@roblox/globaltype/Instance.Destroy/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.Destroy": {
-    "documentation": "将<code>Instance.Parent</code>属性设置为<code>nil</code>，锁定<code>Class.Instance.Parent</code>属性，断开所有连接，并对所有子对象调用 <code>Destroy()</code>。",
+    "documentation": "将 <code>Instance.Parent</code> 属性设置为 <code>nil</code>，锁定 <code>Instance.Parent</code> 属性，断开所有连接，并对所有子项调用 <code>Destroy()</code>。",
     "params": [
       {
         "name": "self",
@@ -51057,16 +51063,16 @@
     "code_sample": "local part = script.Parent.Part\n\npart:Destroy()"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/1": {
-    "documentation": "要查找的<code>Instance.Name</code>。"
+    "documentation": "要查找的 <code>Instance.Name</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/return/0": {
-    "documentation": "找到的<code>Instance</code>。"
+    "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor": {
-    "documentation": "返回<code>Instance</code>的第一个祖先，其<code>Instance.Name</code>等于给定名称。",
+    "documentation": "返回 <code>Instance</code> 的第一个祖先， 其 <code>Instance.Name</code> 等于给定名称。",
     "params": [
       {
         "name": "self",
@@ -51084,16 +51090,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/1": {
-    "documentation": "要查找的<code>Object.ClassName</code>。"
+    "documentation": "要查找的 <code>Object.ClassName</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/return/0": {
-    "documentation": "找到的<code>Instance</code>。"
+    "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "返回<code>Instance</code>的第一个祖先，其<code>Object.ClassName</code>等于给定的className。",
+    "documentation": "返回 <code>Instance</code> 的第一个祖先， 其 <code>Object.ClassName</code> 等于给定的 className。",
     "params": [
       {
         "name": "self",
@@ -51111,16 +51117,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/1": {
-    "documentation": "要查找的<code>Object.ClassName</code>。"
+    "documentation": "要查找的 <code>Object.ClassName</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/return/0": {
-    "documentation": "找到的<code>Instance</code>。"
+    "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "返回<code>Instance</code>的第一个祖先，其<code>Object:IsA()</code>对给定的className返回true。",
+    "documentation": "返回 <code>Instance</code> 的第一个祖先， 对于它来说 <code>Object:IsA()</code> 对给定的 className 返回 true。",
     "params": [
       {
         "name": "self",
@@ -51138,19 +51144,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/1": {
-    "documentation": "要搜索的<code>Instance.Name</code>。"
+    "documentation": "要搜索的 <code>Instance.Name</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/2": {
-    "documentation": "是否应递归进行搜索。"
+    "documentation": "是否进行递归搜索。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/return/0": {
-    "documentation": "找到的<code>Instance</code>。"
+    "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChild": {
-    "documentation": "返回<code>Instance</code>的第一个子对象，具有给定名称。",
+    "documentation": "返回 <code>Instance</code> 的第一个子项， 找到的名称与给定名称相匹配。",
     "params": [
       {
         "name": "self",
@@ -51172,16 +51178,16 @@
     "code_sample": "local found = workspace:FindFirstChild(\"Brick\")\n\nif found then\n\tfound.Name = \"Foo\"\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/1": {
-    "documentation": "要查找的<code>Object.ClassName</code>。"
+    "documentation": "要查找的 <code>Object.ClassName</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/return/0": {
-    "documentation": "找到的<code>Instance</code>。"
+    "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass": {
-    "documentation": "返回<code>Instance</code>的第一个子对象，其<code>ClassName</code>等于给定className。",
+    "documentation": "返回 <code>Instance</code> 的第一个子项， 其 <code>ClassName</code> 等于给定的类名。",
     "params": [
       {
         "name": "self",
@@ -51199,19 +51205,19 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal humanoid\n\nwhile not humanoid do\n\thumanoid = character:FindFirstChildOfClass(\"Humanoid\")\n\tif not humanoid then\n\t\tcharacter.ChildAdded:Wait()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/1": {
-    "documentation": "要搜索的<code>Object.ClassName</code>。"
+    "documentation": "要搜索的 <code>Object.ClassName</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/2": {
-    "documentation": "是否应递归进行搜索。"
+    "documentation": "是否进行递归搜索。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/return/0": {
-    "documentation": "找到的<code>Instance</code>。"
+    "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA": {
-    "documentation": "返回<code>Instance</code>的第一个子对象，其中<code>Object:IsA()</code>对给定的className返回true。",
+    "documentation": "返回 <code>Instance</code> 的第一个子项， 对其 <code>Object:IsA()</code> 对给定 className 返回 true。",
     "params": [
       {
         "name": "self",
@@ -51233,16 +51239,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/1": {
-    "documentation": "要查找的<code>Instance.Name</code>。"
+    "documentation": "要查找的 <code>Instance.Name</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/return/0": {
-    "documentation": "找到的<code>Instance</code>。"
+    "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstDescendant": {
-    "documentation": "返回具有给定<code>Instance.Name</code>的第一个后代。",
+    "documentation": "返回具有给定 <code>Instance.Name</code> 的第一个后代。",
     "params": [
       {
         "name": "self",
@@ -51260,13 +51266,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetActor/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetActor/return/0": {
-    "documentation": "找到的<code>Actor</code>。"
+    "documentation": "找到的 <code>Actor</code>。"
   },
   "@roblox/globaltype/Instance.GetActor": {
-    "documentation": "返回与该实例关联的<code>Actor</code>（如果有）。",
+    "documentation": "返回与实例相关联的 <code>Actor</code>，如果有的话。",
     "params": [
       {
         "name": "self",
@@ -51280,13 +51286,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttribute/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetAttribute/param/1": {
-    "documentation": "要检索的属性名称。"
+    "documentation": "要检索的属性的名称。"
   },
   "@roblox/globaltype/Instance.GetAttribute/return/0": {
-    "documentation": "已分配给给定属性名称的值。如果没有分配属性，则返回<code>nil</code>。"
+    "documentation": "分配给给定属性名称的值。如果未分配属性，则返回 <code>nil</code>。"
   },
   "@roblox/globaltype/Instance.GetAttribute": {
     "documentation": "返回分配给给定属性名称的值。",
@@ -51307,16 +51313,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/1": {
-    "documentation": "正在返回变化信号的指定属性的名称。"
+    "documentation": "返回更改信号的指定属性的名称。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/return/0": {
-    "documentation": "当给定属性发生更改时触发的事件。"
+    "documentation": "在给定属性更改时触发的事件。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal": {
-    "documentation": "返回一个事件，当给定的属性发生更改时触发。",
+    "documentation": "返回在给定属性更改时触发的事件。",
     "params": [
       {
         "name": "self",
@@ -51334,13 +51340,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributes/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
-    "documentation": "每个属性的字符串→变体对的字典，其中字符串是属性名称，变体是非<code>nil</code>值。"
+    "documentation": "每个属性的字符串 → 变体对深的字典，其中字符串是属性的名称，变体是一个非空值。"
   },
   "@roblox/globaltype/Instance.GetAttributes": {
-    "documentation": "返回实例属性的字典。",
+    "documentation": "返回该实例属性的字典。",
     "params": [
       {
         "name": "self",
@@ -51354,13 +51360,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetChildren/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetChildren/return/0": {
-    "documentation": "包含实例子对象的数组。"
+    "documentation": "包含实例子项的数组。"
   },
   "@roblox/globaltype/Instance.GetChildren": {
-    "documentation": "返回包含所有实例子对象的数组。",
+    "documentation": "返回一个数组，包含实例的所有子项。",
     "params": [
       {
         "name": "self",
@@ -51374,16 +51380,16 @@
     "code_sample": "local children = workspace:GetChildren()\n\nfor i = 1, #children do\n\tprint(i, children[i].Name)\nend"
   },
   "@roblox/globaltype/Instance.GetDebugId/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetDebugId/param/1": {
     "documentation": "范围长度。"
   },
   "@roblox/globaltype/Instance.GetDebugId/return/0": {
-    "documentation": "调试ID字符串。"
+    "documentation": "调试 ID 字符串。"
   },
   "@roblox/globaltype/Instance.GetDebugId": {
-    "documentation": "返回一个由Roblox内部使用的调试ID的编码字符串。",
+    "documentation": "返回 Roblox 内部使用的调试 ID 的编码字符串。",
     "params": [
       {
         "name": "self",
@@ -51401,13 +51407,13 @@
     "code_sample": "print(workspace:GetDebugId()) --> 39FA_12\nprint(workspace:GetDebugId(10)) --> 39FA2FEF4D_12\nprint(workspace:GetDebugId(math.huge)) --> 12"
   },
   "@roblox/globaltype/Instance.GetDescendants/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetDescendants/return/0": {
     "documentation": "包含实例后代的数组。"
   },
   "@roblox/globaltype/Instance.GetDescendants": {
-    "documentation": "返回包含实例所有后代的数组。",
+    "documentation": "返回包含该实例所有后代的数组。",
     "params": [
       {
         "name": "self",
@@ -51421,13 +51427,13 @@
     "code_sample": "local descendants = workspace:GetDescendants()\n\n-- 遍历工作区的所有后代。如果找到一个\n-- BasePart，代码将该部件的颜色更改为绿色\nfor _, descendant in pairs(descendants) do\n\tif descendant:IsA(\"BasePart\") then\n\t\tdescendant.BrickColor = BrickColor.Green()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.GetFullName/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetFullName/return/0": {
-    "documentation": "该<code>Instance</code>的完整名称。"
+    "documentation": "完整的 <code>Instance</code> 名称。"
   },
   "@roblox/globaltype/Instance.GetFullName": {
-    "documentation": "返回描述实例谱系的字符串。",
+    "documentation": "返回描述实例祖先的字符串。",
     "params": [
       {
         "name": "self",
@@ -51441,16 +51447,16 @@
     "code_sample": "-- 创建一个简单的层次结构\nlocal model = Instance.new(\"Model\")\nlocal part = Instance.new(\"Part\")\npart.Parent = model\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nprint(fire:GetFullName()) --> Model.Part.Fire\n\nmodel.Parent = workspace\n\nprint(fire:GetFullName()) --> Workspace.Model.Part.Fire\n\npart.Name = \"你好，世界\"\n\nprint(fire:GetFullName()) --> Workspace.Model.你好，世界.Fire"
   },
   "@roblox/globaltype/Instance.GetStyled/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetStyled/param/1": {
     "documentation": "要查询的属性名称。"
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
-    "documentation": "指定属性的样式或显式修改值， 否则返回默认属性值（如果仍未样式/修改）。"
+    "documentation": "指定属性的样式或显式修改值， 如果未样式/修改，则返回默认属性值。"
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "返回指定属性的样式或显式修改值， 否则返回默认属性值（如果仍未样式/修改）。",
+    "documentation": "返回指定属性的样式或显式修改值， 如果未样式/修改，则返回默认属性值。",
     "params": [
       {
         "name": "self",
@@ -51468,13 +51474,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/1": {
-    "documentation": "要监听其更改的样式属性名称。"
+    "documentation": "要监听其变化的样式属性名称。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/return/0": {
-    "documentation": "当给定样式属性发生更改时触发的事件。"
+    "documentation": "在给定样式属性更改时触发的事件。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal": {
     "documentation": "",
@@ -51495,7 +51501,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetTags/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetTags/return/0": {
     "documentation": ""
@@ -51515,7 +51521,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.HasTag/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.HasTag/param/1": {
     "documentation": ""
@@ -51524,7 +51530,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.HasTag": {
-    "documentation": "检查实例是否具有指定标签。",
+    "documentation": "检查实例是否具有给定标签。",
     "params": [
       {
         "name": "self",
@@ -51542,16 +51548,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/1": {
-    "documentation": "后代的<code>Instance</code>。"
+    "documentation": "后代 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf/return/0": {
-    "documentation": "如果该<code>Instance</code>是给定后代的祖先，则返回true。"
+    "documentation": "如果 <code>Instance</code> 是给定后代的祖先，则为 true。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf": {
-    "documentation": "如果<code>Instance</code>是给定后代的祖先，则返回true。",
+    "documentation": "如果 <code>Instance</code> 是给定 后代的祖先，则返回 true。",
     "params": [
       {
         "name": "self",
@@ -51569,16 +51575,16 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal spawnLocation = Workspace.SpawnLocation\nlocal decal = spawnLocation.Decal\n\n-- 这些语句为真\nprint(Workspace:IsAncestorOf(spawnLocation))\nprint(Workspace:IsAncestorOf(decal))\nprint(spawnLocation:IsAncestorOf(decal))\n\n-- 这些语句为假\nprint(spawnLocation:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(spawnLocation))"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/1": {
-    "documentation": "祖先的<code>Instance</code>。"
+    "documentation": "祖先 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/return/0": {
-    "documentation": "如果该<code>Instance</code>是给定祖先的后代，则返回true。"
+    "documentation": "如果 <code>Instance</code> 是给定祖先的后代，则为 true。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf": {
-    "documentation": "如果<code>Instance</code>是给定祖先的后代，则返回true。",
+    "documentation": "如果 <code>Instance</code> 是给定 祖先的后代，则返回 true。",
     "params": [
       {
         "name": "self",
@@ -51596,16 +51602,16 @@
     "code_sample": "local part = Instance.new(\"Part\")\nprint(part:IsDescendantOf(game))\n--> false\n\npart.Parent = workspace\nprint(part:IsDescendantOf(game))\n--> true\n\npart.Parent = game\nprint(part:IsDescendantOf(game))\n--> true"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/1": {
     "documentation": "要查询的属性名称。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "布尔值，指示属性是否已从其代码实例化的默认值进行了修改。"
+    "documentation": "布尔值，指示该属性是否已从其代码实例化的默认值进行修改。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "如果指定属性中存储的值不等于代码实例化的默认值，返回 <code>true</code>。",
+    "documentation": "如果存储在指定属性中的值不等于代码实例化的默认值，则返回 true。",
     "params": [
       {
         "name": "self",
@@ -51623,13 +51629,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/1": {
     "documentation": "用于过滤元素的选择器字符串。"
   },
   "@roblox/globaltype/Instance.QueryDescendants/return/0": {
-    "documentation": "一个实例数组（如果没有匹配选择器则为空）。"
+    "documentation": "一个实例数组（如果没有匹配选择器，则为空）。"
   },
   "@roblox/globaltype/Instance.QueryDescendants": {
     "documentation": "",
@@ -51650,10 +51656,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Remove/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> 该项已弃用，建议使用<code>Instance:Destroy()</code>和<code>Instance:ClearAllChildren()</code>。如果您必须从游戏中移除对象，且希望稍后使用该对象，请将其<code>Parent</code>属性设置为<code>nil</code>，而不是使用此方法。<br>将对象的<code>Parent</code>设置为<code>nil</code>，并对其所有后代执行相同操作。",
+    "documentation": "<strong>Deprecated:</strong> 该项目已弃用，建议使用 <code>Instance:Destroy()</code> 和 <code>Instance:ClearAllChildren()</code>。 如果您必须从游戏中移除对象，并希望稍后使用该对象，请将其 <code>Parent</code> 属性设置为 <code>nil</code>，而不是使用此方法。<br>将对象的 <code>Parent</code> 设置为 <code>nil</code>，并对其所有后代执行相同操作。",
     "params": [
       {
         "name": "self",
@@ -51665,7 +51671,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Parent = workspace\nprint(part.Parent) --> 工作区\n\npart:Remove()\n\nprint(part.Parent) --> nil\n\npart.Parent = workspace\n\nprint(part.Parent) --> 工作区"
   },
   "@roblox/globaltype/Instance.RemoveTag/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.RemoveTag/param/1": {
     "documentation": ""
@@ -51687,7 +51693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/1": {
     "documentation": "要重置的属性名称。"
@@ -51709,10 +51715,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.SetAttribute/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.SetAttribute/param/1": {
-    "documentation": "要设置的属性的名称。"
+    "documentation": "要设置的属性名称。"
   },
   "@roblox/globaltype/Instance.SetAttribute/param/2": {
     "documentation": "要设置为指定属性的值。"
@@ -51738,19 +51744,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.WaitForChild/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.WaitForChild/param/1": {
-    "documentation": "要查找的<code>Instance.Name</code>。"
+    "documentation": "要查找的 <code>Instance.Name</code>。"
   },
   "@roblox/globaltype/Instance.WaitForChild/param/2": {
-    "documentation": "一个可选的超时参数。"
+    "documentation": "可选的超时参数。"
   },
   "@roblox/globaltype/Instance.WaitForChild/return/0": {
-    "documentation": "找到的<code>Instance</code>。"
+    "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.WaitForChild": {
-    "documentation": "返回具有给定名称的<code>Instance</code>的子项。如果子对象不存在，则将使当前线程等待，直到它存在。",
+    "documentation": "返回具有给定名称的 <code>Instance</code> 的子项。如果子项不存在，则将在当前线程中暂停，直到它存在。",
     "params": [
       {
         "name": "self",
@@ -51772,13 +51778,13 @@
     "code_sample": "local part = workspace:WaitForChild(\"Part\")\nprint(part.Name .. \" 已添加到 Workspace\")"
   },
   "@roblox/globaltype/Instance.children/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.children/return/0": {
     "documentation": "子对象/实例的数组。"
   },
   "@roblox/globaltype/Instance.children": {
-    "documentation": "<strong>Deprecated:</strong> 该项已被<code>Instance:GetChildren()</code>取代，应在所有新工作中使用。<br>返回对象的子对象数组。",
+    "documentation": "<strong>Deprecated:</strong> 该项目已被 <code>Instance:GetChildren()</code> 替代，应在所有新工作中使用。<br>返回对象的子项数组。",
     "params": [
       {
         "name": "self",
@@ -51792,13 +51798,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.clone/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.clone/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.clone": {
-    "documentation": "<strong>Deprecated:</strong> 该已弃用函数是<code>Instance:Clone()</code>的一个变体，应使用。",
+    "documentation": "<strong>Deprecated:</strong> 该弃用的函数是 <code>Instance:Clone()</code> 的变体，应该使用该函数。",
     "params": [
       {
         "name": "self",
@@ -51812,10 +51818,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.destroy/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.destroy": {
-    "documentation": "<strong>Deprecated:</strong> 该已弃用函数是<code>Instance:Destroy()</code>的一个变体，应使用。",
+    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Instance:Destroy()</code> 的一个变体，应该使用它。",
     "params": [
       {
         "name": "self",
@@ -51827,7 +51833,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.findFirstChild/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.findFirstChild/param/1": {
     "documentation": ""
@@ -51839,7 +51845,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.findFirstChild": {
-    "documentation": "<strong>Deprecated:</strong> 该已弃用函数是<code>Instance:FindFirstChild()</code>的一个变体，应使用。",
+    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Instance:FindFirstChild()</code> 的一个变体，应该使用它。",
     "params": [
       {
         "name": "self",
@@ -51861,13 +51867,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.getChildren/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.getChildren/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.getChildren": {
-    "documentation": "<strong>Deprecated:</strong> 这个已弃用的函数是 <code>Instance:GetChildren()</code> 的一种变体 应该使用这个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Instance:GetChildren()</code> 的一个变体，应该使用它。",
     "params": [
       {
         "name": "self",
@@ -51881,7 +51887,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/1": {
     "documentation": ""
@@ -51890,7 +51896,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.isDescendantOf": {
-    "documentation": "<strong>Deprecated:</strong> 这个已弃用的函数是 <code>Instance:IsDescendantOf()</code> 的一种变体 应该使用这个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Instance:IsDescendantOf()</code> 的一个变体，应该使用它。",
     "params": [
       {
         "name": "self",
@@ -51908,10 +51914,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.remove/param/0": {
-    "documentation": "<code>Instance</code>是Roblox类层次结构中所有类的基类， 可以成为<code>DataModel</code>树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> 这个已弃用的函数是 <code>Instance:Remove()</code> 的一种变体 这个函数也已被弃用。在新工作中都不应使用这两个函数。",
+    "documentation": "<strong>Deprecated:</strong> 此弃用函数是 <code>Instance:Remove()</code> 的一个变体，该函数也已被弃用。新的工作中不应使用这两个函数。",
     "params": [
       {
         "name": "self",
@@ -52000,7 +52006,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AncestryChanged": {
-    "documentation": "当对象或其祖先的 <code>Instance.Parent</code> 属性发生变化时触发。",
+    "documentation": "当对象或其祖先的 <code>Instance.Parent</code> 属性发生更改时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AncestryChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AncestryChanged.ConnectParallel",
@@ -52088,7 +52094,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AttributeChanged": {
-    "documentation": "当 <code>Instance</code> 上的任何属性更改时触发。",
+    "documentation": "每当 <code>Instance</code> 上的属性发生更改时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AttributeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AttributeChanged.ConnectParallel",
@@ -52176,7 +52182,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildAdded": {
-    "documentation": "在对象被作为子对象添加到此 <code>Instance</code> 时触发。",
+    "documentation": "在对象被添加到此 <code>Instance</code> 后触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildAdded.ConnectParallel",
@@ -52264,7 +52270,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildRemoved": {
-    "documentation": "当子对象从此 <code>Instance</code> 中移除后触发。",
+    "documentation": "在子项从此 <code>Instance</code> 中移除后触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildRemoved.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildRemoved.ConnectParallel",
@@ -52352,7 +52358,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantAdded": {
-    "documentation": "当后代添加到 <code>Instance</code> 时触发。",
+    "documentation": "在后代添加到 <code>Instance</code> 后触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantAdded.ConnectParallel",
@@ -52440,7 +52446,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantRemoving": {
-    "documentation": "在后代被移除之前立即触发。",
+    "documentation": "在 <code>Instance</code> 的后代被移除之前立即触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantRemoving.ConnectParallel",
@@ -52528,7 +52534,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.Destroying": {
-    "documentation": "在实例通过 <code>Instance:Destroy()</code> 被销毁之前立即触发（或被推迟到之后触发）。",
+    "documentation": "在通过 <code>Instance:Destroy()</code> 销毁实例之前立即触发（或被延迟到之后）。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.Destroying.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.Destroying.ConnectParallel",
@@ -52616,7 +52622,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.StyledPropertiesChanged": {
-    "documentation": "每当实例上的任何样式属性发生更改时触发，包括\\当属性被设置为 <code>nil</code>。",
+    "documentation": "每当实例的任何样式属性发生更改时触发，包括当属性被设置为 <code>nil</code> 时。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.StyledPropertiesChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.StyledPropertiesChanged.ConnectParallel",
@@ -52704,7 +52710,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.childAdded": {
-    "documentation": "<strong>Deprecated:</strong> 这个已弃用的事件是 <code>Instance.ChildAdded</code> 的一种变体 应该使用这个事件。",
+    "documentation": "<strong>Deprecated:</strong> 此弃用事件是 <code>Instance.ChildAdded</code> 的一个变体，应该使用它。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.childAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.childAdded.ConnectParallel",
@@ -65243,7 +65249,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.EnableVideoAds": {
-    "documentation": "启用 AdGui 以提供视频广告。",
+    "documentation": "启用 AdGui 进行视频广告播放。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#EnableVideoAds",
     "code_sample": ""
   },
@@ -65261,7 +65267,7 @@
     "documentation": "该方法的选项表： <ul> <li><code>PlayerId</code> – 与广告事件相关的玩家的用户 ID。</li> <li><code>AdEventType</code> – 描述 AdGui 事件的 <code>AdEventType</code> 枚举值。</li> </ul>"
   },
   "@roblox/globaltype/AdGui.OnAdEvent/return/0": {
-    "documentation": "回调是否成功响应了事件。"
+    "documentation": "回调是否已成功响应事件。"
   },
   "@roblox/globaltype/AdGui.OnAdEvent": {
     "documentation": "用于响应 AdGui 事件。",
@@ -75976,22 +75982,9 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GameSettings": {
-    "documentation": "一个包含各种杂项游戏内选项的容器。",
-    "keys": {
-      "VideoCaptureEnabled": "@roblox/globaltype/GameSettings.VideoCaptureEnabled",
-      "VideoRecording": "@roblox/globaltype/GameSettings.VideoRecording"
-    },
+    "documentation": "一个用于存放各种游戏内选项的容器。",
+    "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoCaptureEnabled": {
-    "documentation": "切换视频捕获是否启用。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoCaptureEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoRecording": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoRecording",
     "code_sample": ""
   },
   "@roblox/globaltype/VisualizationModeCategory": {
@@ -77709,7 +77702,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync": {
-    "documentation": "返回一个 <code>Pages</code> 对象，其中包含当前体验的所有 开发者产品的信息。",
+    "documentation": "返回一个 <code>Pages</code> 对象，该对象包含当前体验的所有开发者产品的信息。",
     "params": [
       {
         "name": "self",
@@ -77729,13 +77722,13 @@
     "documentation": "指定产品的资产 ID。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/2": {
-    "documentation": "指定要检索的信息类型的 <code>InfoType</code> 枚举值。"
+    "documentation": "一个 <code>InfoType</code> 枚举值，指定正在检索的信息类型。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0": {
-    "documentation": "包含有关查询项的信息的字典，具体描述见前面的表。"
+    "documentation": "包含有关查询项目的信息的字典，描述在之前的表中。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "返回使用其资产 ID 的资产的产品信息。",
+    "documentation": "使用其资产 ID 返回一个资产的产品信息。",
     "params": [
       {
         "name": "self",
@@ -77766,7 +77759,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync": {
-    "documentation": "返回给定 <code>subscriptionId</code> 的订阅产品信息。",
+    "documentation": "返回给定 <code>subscriptionId</code> 的订阅的产品信息。",
     "params": [
       {
         "name": "self",
@@ -77790,13 +77783,13 @@
     "documentation": "要检查其订阅详细信息的 <code>Player</code> 对象。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/2": {
-    "documentation": "要检查的订阅 ID。"
+    "documentation": "要检查的订阅的 ID。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync": {
-    "documentation": "返回包含给定 <code>subscriptionId</code> 的用户订阅详细信息的表。",
+    "documentation": "返回一个表，包含给定 <code>subscriptionId</code> 的用户订阅的详细信息。",
     "params": [
       {
         "name": "self",
@@ -77830,7 +77823,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync": {
-    "documentation": "返回一个 <code>Array</code>，包含有关给定 <code>subscriptionId</code> 用户的订阅付款历史最多一年的记录。",
+    "documentation": "返回一个 <code>Array</code>，包含用户的订阅支付历史，最长可达一年的 <code>subscriptionId</code>。",
     "params": [
       {
         "name": "self",
@@ -77855,16 +77848,16 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/1": {
-    "documentation": "要检查其订阅状态的 <code>Player</code> 对象。"
+    "documentation": "要检查订阅状态的 <code>Player</code> 对象。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/2": {
-    "documentation": "要检查的订阅 ID。"
+    "documentation": "要检查的订阅的 ID。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync": {
-    "documentation": "返回一个 <code>table</code>，其中包含用户的订阅状态，基于给定的 <code>subscriptionId</code>。",
+    "documentation": "返回一个 <code>table</code>，包含给定 <code>subscriptionId</code> 用户的订阅状态。",
     "params": [
       {
         "name": "self",
@@ -77892,10 +77885,10 @@
     "documentation": "用户 ID 的数组。"
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "返回一个包含 <code>PriceLevelInfo</code> 对象的数组，字典的键为用户 ID（字符串），其值为相应的价格级别（介于 1 和 1000 之间的整数）。"
+    "documentation": "返回一个包含 <code>PriceLevelInfo</code> 对象的数组，其中字典的键是用户 ID（字符串），值是相应的价格水平（介于 1 和 1000 之间的整数）。"
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "返回用户的区域化价格级别，表示其区域市场中项目的推荐价格。",
+    "documentation": "返回用户的区域价格水平，表示其区域市场中项目的推荐价格。",
     "params": [
       {
         "name": "self",
@@ -77916,13 +77909,13 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/1": {
-    "documentation": "要测试给定资产所有权的 <code>Player</code>。"
+    "documentation": "要测试是否拥有给定资产的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "要测试的给定玩家的资产 ID。"
+    "documentation": "用于测试给定玩家库存的资产 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
-    "documentation": "指示给定玩家的库存是否包含给定资产。"
+    "documentation": "指示给定玩家库存是否包含给定资产。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
     "documentation": "返回给定用户是否拥有给定资产。",
@@ -77950,16 +77943,16 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "要测试给定捆绑包所有权的 <code>Player</code>。"
+    "documentation": "要测试其库存是否拥有给定捆绑包的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "要测试的给定玩家的捆绑包 ID。"
+    "documentation": "用于测试给定玩家库存的捆绑包 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "指示给定玩家的库存是否包含给定捆绑包。"
+    "documentation": "指示给定玩家库存中是否包含给定捆绑包。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "返回给定玩家是否拥有给定捆绑包。",
+    "documentation": "返回给定玩家是否拥有给定的捆绑包。",
     "params": [
       {
         "name": "self",
@@ -77987,13 +77980,13 @@
     "documentation": "要提示购买物品的用户。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "将包含在批量购买中的头像物品的数组。 每个项目包含以下结构： <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 每个项目包含以下配对： <ul> <li><code>Type</code>: 对应的 <code>MarketplaceProductType</code>（枚举）。</li> <li><code>Id</code>: 资产或捆绑包的 ID。</li> </ul>"
+    "documentation": "要包括在批量购买中的头像物品的数组。 每个条目包含以下结构： <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 每个条目包含以下键值对： <ul> <li><code>Type</code>: 当前的 <code>MarketplaceProductType</code>（枚举）。</li> <li><code>Id</code>: 资产或捆绑包的 ID。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
     "documentation": "此时不可用。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "提示用户使用给定的 <code>assetId</code> 或 <code>bundleId</code> 购买多个头像物品。",
+    "documentation": "提示用户用给定的 <code>assetId</code> 或 <code>bundleId</code> 购买多个头像物品。",
     "params": [
       {
         "name": "self",
@@ -78026,7 +78019,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "提示用户购买给定的 <code>bundleId</code> 捆绑包。",
+    "documentation": "提示用户用给定的 <code>bundleId</code> 购买捆绑包。",
     "params": [
       {
         "name": "self",
@@ -78084,7 +78077,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "提示用户购买给定 <code>gamePassId</code> 的通行证。",
+    "documentation": "提示用户用给定的 <code>gamePassId</code> 购买通行证。",
     "params": [
       {
         "name": "self",
@@ -78107,7 +78100,7 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "被提示购买 Premium 的用户。"
+    "documentation": "正在提示购买 Premium 的用户。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
     "documentation": "提示用户购买 Roblox Premium。",
@@ -78141,7 +78134,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "提示用户购买具有给定 <code>productId</code> 的开发者产品。",
+    "documentation": "提示用户用给定的 <code>productId</code> 购买开发者产品。",
     "params": [
       {
         "name": "self",
@@ -78184,7 +78177,7 @@
     "documentation": "被忽略。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "提示用户购买具有给定 <code>assetId</code> 的物品。对于 USD 创建者商店的购买无效。",
+    "documentation": "提示用户用给定的 <code>assetId</code> 购买物品。此方法不适用于 USD 创作者商店购买。",
     "params": [
       {
         "name": "self",
@@ -78215,13 +78208,13 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "被提示订阅的 <code>Player</code> 对象。"
+    "documentation": "将被提示订阅的 <code>Player</code> 对象。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
-    "documentation": "要订阅的订阅 ID。"
+    "documentation": "要订阅的订阅的 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "提示用户为给定的 <code>subscriptionId</code> 购买订阅。",
+    "documentation": "提示用户订阅给定的 <code>subscriptionId</code>。",
     "params": [
       {
         "name": "self",
@@ -78244,16 +78237,16 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "您正在检查的 <code>Player</code> 的 <code>UserId</code>。"
+    "documentation": "您要检查的 <code>Player</code> 的 <code>UserId</code>。"
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "要检查的通行证 ID。不与资产 ID 混淆。"
+    "documentation": "您要检查的通行证 ID。与资产 ID 不要混淆。"
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "如果具有给定 <code>UserId</code> 的玩家拥有给定 <code>gamePassId</code> 的通行证，则返回 true。",
+    "documentation": "如果拥有给定 <code>gamePassId</code> 的玩家具有给定 <code>UserId</code>，则返回真。",
     "params": [
       {
         "name": "self",
@@ -78275,13 +78268,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt/param/0": {
-    "documentation": "传递给此回调的 <code>receiptInfo</code> 表包含以下数据： <ul> <li><code>PurchaseId</code> — 特定购买的唯一标识符。</li> <li><code>PlayerId</code> — 进行购买的用户的用户 ID。</li> <li><code>ProductId</code> — 购买产品的 ID。</li> <li><code>PlaceIdWherePurchased</code> — 进行购买的地点 ID。根据用户在游戏中的位置，购买地点的 ID 可能与当前地点的 ID 相同或不同。</li> <li><code>CurrencySpent</code> — 交易中花费的货币金额。</li> <li><code>CurrencyType</code> — 在购买中花费的货币类型；始终为 <code>CurrencyType.Robux</code>。</li> <li><code>ProductPurchaseChannel</code> — 用户获得开发者产品的方式。属于 <code>ProductPurchaseChannel</code> 之一。</li> </ul>"
+    "documentation": "传递给此回调的 <code>receiptInfo</code> 表包含以下数据： <ul> <li><code>PurchaseId</code> &mdash; 特定购买的唯一标识符。</li> <li><code>PlayerId</code> &mdash; 进行购买的用户 ID。</li> <li><code>ProductId</code> &mdash; 被购买产品的 ID。</li> <li><code>PlaceIdWherePurchased</code> &mdash; 进行购买的地点 ID。根据用户在游戏中的位置，购买地点的 ID 可能与当前地点的 ID 相同或不同。</li> <li><code>CurrencySpent</code> &mdash; 交易中花费的货币数量。</li> <li><code>CurrencyType</code> &mdash; 购买中花费的货币类型；始终为 <code>CurrencyType.Robux</code>。</li> <li><code>ProductPurchaseChannel</code> — 用户获取开发者产品的方式。来自 <code>ProductPurchaseChannel</code> 中的一个值。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt/return/0": {
-    "documentation": "表示开发者产品收据如何被处理的枚举值。 <ul> <li><code>PurchaseGranted</code>：</li> <li>表示体验成功授予玩家开发者产品。</li> <li>表示 Roblox 的开发者产品销售成功。</li> <li><code>NotProcessedYet</code>：</li> <li>表示体验未能授予玩家开发者产品。</li> </ul>"
+    "documentation": "表示开发者产品收据处理结果的枚举。 <ul> <li><code>PurchaseGranted</code>：</li> <li>表示体验已成功授予玩家开发者产品。</li> <li>表示 Roblox 该开发者产品销售已成功。</li> <li><code>NotProcessedYet</code>：</li> <li>表示体验未能授予玩家开发者产品。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt": {
-    "documentation": "处理开发者产品购买的回调。",
+    "documentation": "处理开发者产品购买收据的回调。",
     "params": [
       {
         "name": "receiptInfo",
@@ -78636,7 +78629,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished": {
-    "documentation": "当 Roblox Premium 的购买提示关闭时触发。",
+    "documentation": "当购买 Roblox Premium 的提示关闭时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished.ConnectParallel",
@@ -78724,7 +78717,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished": {
-    "documentation": "当开发者产品的购买提示关闭时触发。请勿使用此事件来处理购买。",
+    "documentation": "当开发者产品的购买提示关闭时触发。不要使用此事件处理购买。",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished.ConnectParallel",
@@ -78812,7 +78805,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished": {
-    "documentation": "当用于附属装备销售或其他资产的购买提示关闭时触发。不针对开发者产品或通行证提示触发。",
+    "documentation": "当关联装备销售或其他资产的购买提示关闭时触发。<strong>不</strong>会为开发者产品或通行证提示触发。",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished.ConnectParallel",
@@ -90406,7 +90399,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService": {
-    "documentation": "处理体验中的文本聊天的服务。",
+    "documentation": "处理体验内文本聊天的服务。",
     "keys": {
       "ChatTranslationEnabled": "@roblox/globaltype/TextChatService.ChatTranslationEnabled",
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
@@ -90429,22 +90422,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.ChatVersion": {
-    "documentation": "确定是否完全启用 <code>TextChatService</code> 或回退到 遗留聊天系统。",
+    "documentation": "确定是否完全启用 <code>TextChatService</code> 或切换到 旧版聊天系统。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#ChatVersion",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CreateDefaultCommands": {
-    "documentation": "确定 <code>TextChatService</code> 是否应创建默认 <code>TextChatCommands</code>。",
+    "documentation": "确定 <code>TextChatService</code> 是否应该创建默认的 <code>TextChatCommands</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultCommands",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CreateDefaultTextChannels": {
-    "documentation": "确定 <code>TextChatService</code> 是否应创建默认 <code>TextChannels</code>。",
+    "documentation": "确定 <code>TextChatService</code> 是否应该创建默认的 <code>TextChannels</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
-    "documentation": "处理体验中的文本聊天的服务。"
+    "documentation": "处理体验内文本聊天的服务。"
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
     "documentation": ""
@@ -90453,7 +90446,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
-    "documentation": "确定用户是否有权限在体验中聊天。",
+    "documentation": "确定用户在体验中是否有聊天权限。",
     "params": [
       {
         "name": "self",
@@ -90471,7 +90464,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/0": {
-    "documentation": "处理体验中的文本聊天的服务。"
+    "documentation": "处理体验内文本聊天的服务。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
     "documentation": ""
@@ -90483,7 +90476,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
-    "documentation": "确定两个用户是否会彼此收到消息。",
+    "documentation": "确定两个用户之间是否会接收消息。",
     "params": [
       {
         "name": "self",
@@ -90505,19 +90498,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/0": {
-    "documentation": "处理体验中的文本聊天的服务。"
+    "documentation": "处理体验内文本聊天的服务。"
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/1": {
-    "documentation": "将发起直接聊天请求的用户。如果 requesterUserId 不在当前服务器中，则该方法将出现错误。"
+    "documentation": "将发起直接聊天请求的用户。如果 requesterUserId 不在当前服务器，则此方法将出错。"
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/2": {
-    "documentation": "请求者用户ID想要直接聊天的用户列表。未在当前服务器中的用户将被忽略。"
+    "documentation": "请求者用户希望直接聊天的用户列表。当前服务器中未失效的用户将被忽略。"
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/return/0": {
-    "documentation": "可以参与直接聊天请求的用户列表。如果没有用户可以直接与请求者用户ID聊天，则结果是一个空数组。"
+    "documentation": "能够参与直接聊天请求的用户列表。如果没有用户可以直接与 requesterUserId 聊天，则结果是一个空数组。"
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync": {
-    "documentation": "根据父母控制设置等因素，确定用户是否有权限直接与其他用户在体验中聊天。",
+    "documentation": "根据家长控制设置等因素确定用户是否有权直接与其他用户聊天。",
     "params": [
       {
         "name": "self",
@@ -90539,7 +90532,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.DisplayBubble/param/0": {
-    "documentation": "处理体验中的文本聊天的服务。"
+    "documentation": "处理体验内文本聊天的服务。"
   },
   "@roblox/globaltype/TextChatService.DisplayBubble/param/1": {
     "documentation": "要在其上方显示气泡的部件或角色。"
@@ -90571,13 +90564,13 @@
     "documentation": "传入的 <code>TextChatMessage</code>。"
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/param/1": {
-    "documentation": "气泡聊天消息附加的部件或角色。"
+    "documentation": "气泡聊天消息所附加的部件或角色。"
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/return/0": {
-    "documentation": "如果返回 <code>BubbleChatMessageProperties</code>，其属性将覆盖 <code>BubbleChatConfiguration</code> 属性。"
+    "documentation": "如果返回一个 <code>BubbleChatMessageProperties</code>，那么其属性将覆盖 <code>BubbleChatConfiguration</code> 属性。"
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded": {
-    "documentation": "当气泡聊天即将显示时调用。",
+    "documentation": "当气泡聊天即将显示时被调用。",
     "params": [
       {
         "name": "message",
@@ -90598,10 +90591,10 @@
     "documentation": "传入的 <code>TextChatMessage</code>。"
   },
   "@roblox/globaltype/TextChatService.OnChatWindowAdded/return/0": {
-    "documentation": "如果返回 <code>ChatWindowMessageProperties</code>，其属性将覆盖 <code>ChatWindowConfiguration</code> 属性。"
+    "documentation": "如果返回一个 <code>ChatWindowMessageProperties</code>，那么其属性将覆盖 <code>ChatWindowConfiguration</code> 属性。"
   },
   "@roblox/globaltype/TextChatService.OnChatWindowAdded": {
-    "documentation": "当新消息即将显示在聊天窗口时调用。此操作只能在客户端实现。",
+    "documentation": "当新的消息即将显示在聊天窗口时被调用。只能在客户端实施。",
     "params": [
       {
         "name": "message",
@@ -90618,10 +90611,10 @@
     "documentation": "传入的 <code>TextChatMessage</code>。"
   },
   "@roblox/globaltype/TextChatService.OnIncomingMessage/return/0": {
-    "documentation": "如果返回 <code>TextChatMessageProperties</code>，则这些属性将与 <code>TextChatMessage</code> 参数合并，以创建一个新的 <code>TextChatMessage</code>，否则，如果返回 <code>nil</code>，则 <code>TextChatMessage</code> 不会更改。"
+    "documentation": "如果返回一个 <code>TextChatMessageProperties</code>，那么这些属性将与 <code>TextChatMessage</code> 参数合并，以创建一个带有这些属性的新 <code>TextChatMessage</code>，否则如果返回 <code>nil</code>，则 <code>TextChatMessage</code> 不会改变。"
   },
   "@roblox/globaltype/TextChatService.OnIncomingMessage": {
-    "documentation": "当 <code>TextChatService</code> 正在接收传入消息时调用。",
+    "documentation": "当 <code>TextChatService</code> 接收传入消息时被调用。",
     "params": [
       {
         "name": "message",
@@ -90800,7 +90793,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextChatService.MessageReceived": {
-    "documentation": "当在客户端上调用 <code>TextChannel:DisplaySystemMessage()</code> 或客户端接收到来自服务器的有效 <code>TextChannel:SendAsync()</code> 响应时触发。",
+    "documentation": "当在客户端调用 <code>TextChannel:DisplaySystemMessage()</code>，或当客户端从服务器接收到有效的 <code>TextChannel:SendAsync()</code> 响应时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/TextChatService.MessageReceived.Connect",
       "ConnectParallel": "@roblox/globaltype/TextChatService.MessageReceived.ConnectParallel",
@@ -97170,7 +97163,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。",
+    "documentation": "促进在Roblox平台上影响关系的社交功能。",
     "keys": {
       "CanSendCallInviteAsync": "@roblox/globaltype/SocialService.CanSendCallInviteAsync",
       "CanSendGameInviteAsync": "@roblox/globaltype/SocialService.CanSendGameInviteAsync",
@@ -97192,10 +97185,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.CanSendCallInviteAsync/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.CanSendCallInviteAsync/param/1": {
-    "documentation": "潜在发送通话邀请的玩家的 <code>Player</code> 实例。"
+    "documentation": "可能发送通话邀请的玩家的 <code>Player</code> 实例。"
   },
   "@roblox/globaltype/SocialService.CanSendCallInviteAsync/return/0": {
     "documentation": "指定的玩家是否可以发送通话邀请。"
@@ -97219,13 +97212,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal SocialService = game:GetService(\"SocialService\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\nbutton.Visible = false\n\n-- 函数检查玩家是否可以发送呼叫邀请\nlocal function canSendCallingInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendCallInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canCall = canSendCallingInvite(player)\nif canCall then\n\tbutton.Visible = true\n\tbutton.Activated:Connect(function()\n\t\tSocialService:PromptPhoneBook(player, \"\")\n\tend)\nend"
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/param/1": {
-    "documentation": "潜在发送邀请的玩家的 <code>Player</code> 实例。"
+    "documentation": "可能发送邀请的玩家的 <code>Player</code> 实例。"
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/param/2": {
-    "documentation": "可选的潜在 <strong>接收者</strong> 的 <code>Player.UserId</code>，用于检查发送者是否可以邀请该特定接收者。"
+    "documentation": "用于检查发件人是否可以邀请该特定接受者的可选 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/return/0": {
     "documentation": "指定的玩家是否可以发送邀请。"
@@ -97253,16 +97246,16 @@
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 函数检查玩家是否可以发送邀请\nlocal function canSendGameInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendGameInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canInvite = canSendGameInvite(player)\nif canInvite then\n\tSocialService:PromptGameInvite(player)\nend"
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/1": {
-    "documentation": "要提示玩家更改其 RSVP 状态的事件的事件 ID。此事件 ID 必须是在当前体验中存在的有效事件 ID，用字符串表示（而不是数字）。"
+    "documentation": "要提示玩家更改其RSVP状态的事件ID。此必须是当前体验中有效的事件ID，以字符串形式表示（而非数字）。"
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/return/0": {
-    "documentation": "返回一个 <code>RsvpStatus</code>，表示玩家对该事件的当前 RSVP 状态。如果玩家没有对事件进行 RSVP，返回值将是 <code>RsvpStatus.None</code>。"
+    "documentation": "返回一个 <code>RsvpStatus</code>，指示玩家对该事件的当前RSVP状态。如果玩家尚未对事件进行RSVP，则此 将返回 <code>RsvpStatus.None</code>。"
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync": {
-    "documentation": "返回本地玩家对给定事件的 RSVP 状态。",
+    "documentation": "返回本地玩家对给定事件的RSVP状态。",
     "params": [
       {
         "name": "self",
@@ -97280,16 +97273,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/1": {
     "documentation": "要检索的事件的字符串标识符。必须与当前体验中的事件对应。"
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync/return/0": {
-    "documentation": "描述事件的字典，或如果事件不存在、属于另一个体验或其他原因不可用，则返回 <code>nil</code>。"
+    "documentation": "描述事件的字典，或如果事件不存在、属于其他体验或以其他方式不可用，则返回 <code>nil</code>。"
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync": {
-    "documentation": "返回指定体验事件的详细信息，如果不可用，返回 <code>nil</code>。",
+    "documentation": "返回该指定体验事件的详细信息，如果不可用则返回 <code>nil</code>。",
     "params": [
       {
         "name": "self",
@@ -97307,16 +97300,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.GetPartyAsync/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.GetPartyAsync/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/SocialService.GetPartyAsync/return/0": {
-    "documentation": "一个代表指定派对的成员在体验中当前的字典数组。"
+    "documentation": "一个字典数组，表示当前在体验中的指定派对成员。"
   },
   "@roblox/globaltype/SocialService.GetPartyAsync": {
-    "documentation": "返回一个包含当前在体验中指定派对所有成员数据的字典数组。",
+    "documentation": "返回包含当前在体验中的指定派对所有成员的数据的字典数组。",
     "params": [
       {
         "name": "self",
@@ -97334,16 +97327,16 @@
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId == \"\" then\n\t\twarn(\"玩家不在派对中\")\n\t\treturn\n\tend\n\n\tlocal success, partyData = pcall(function()\n\t\treturn SocialService:GetPartyAsync(partyId)\n\tend)\n\n\tif success and partyData then\n\t\tfor _, partyMemberData in partyData do\n\t\t\tprint(\n\t\t\t\tpartyMemberData.UserId,\n\t\t\t\tpartyMemberData.PlaceId,\n\t\t\t\tpartyMemberData.JobId,\n\t\t\t\tpartyMemberData.PrivateServerId,\n\t\t\t\tpartyMemberData.ReservedServerAccessCode\n\t\t\t)\n\t\tend\n\telse\n\t\twarn(\"获取派对数据失败\")\n\tend\nend)"
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId/return/0": {
-    "documentation": "一个 <code>Player</code> 对象的表，其 <code>Player.PartyId</code> 属性与传入的 <code>partyId</code> 匹配。"
+    "documentation": "一个 <code>Player</code> 对象的表，其 <code>Player.PartyId</code> 属性与传递的 <code>partyId</code> 匹配。"
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId": {
-    "documentation": "返回所有当前连接的 <code>Player</code> 对象的表，这些对象的 <code>Player.PartyId</code> 属性与传入的 <code>partyId</code> 匹配。",
+    "documentation": "返回所有当前连接的 <code>Player</code> 对象的表，其 <code>Player.PartyId</code> 属性与传递的 <code>partyId</code> 匹配。",
     "params": [
       {
         "name": "self",
@@ -97361,13 +97354,13 @@
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tlocal partyPlayers: { Player } = SocialService:GetPlayersByPartyId(partyId)\n\n\t\tfor _, partyMember in partyPlayers do\n\t\t\tprint(\"派对成员: \" .. partyMember.Name)\n\t\tend\n\telse\n\t\twarn(\"玩家不在派对中\")\n\tend\nend)"
   },
   "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/return/0": {
-    "documentation": "一个描述当前体验中每个活动或即将到来的事件的字典数组，按最早开始的时间排序。"
+    "documentation": "一个字典数组，描述当前体验中每个活跃或即将到来的事件，按照即将开始的时间排序。"
   },
   "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync": {
-    "documentation": "返回当前体验的活动和即将到来的体验事件。",
+    "documentation": "返回当前体验的活跃和即将到来的体验事件。",
     "params": [
       {
         "name": "self",
@@ -97381,10 +97374,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.HideSelfView/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.HideSelfView": {
-    "documentation": "隐藏调用玩家的自视图。",
+    "documentation": "隐藏调用玩家的自我视图。",
     "params": [
       {
         "name": "self",
@@ -97396,10 +97389,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
-    "documentation": "提示玩家提交关于当前体验的反馈。",
+    "documentation": "提示玩家提交有关当前体验的反馈。",
     "params": [
       {
         "name": "self",
@@ -97411,16 +97404,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/1": {
-    "documentation": "要提示的 <code>Player</code>，用于显示邀请弹窗。"
+    "documentation": "要提示的 <code>Player</code> 的邀请弹出窗口。"
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/2": {
     "documentation": "可选的 <code>ExperienceInviteOptions</code> 对象，用于定制提示。"
   },
   "@roblox/globaltype/SocialService.PromptGameInvite": {
-    "documentation": "向给定的 <code>Player</code> 提示邀请界面。",
+    "documentation": "提示给定的 <code>Player</code> 显示邀请界面。",
     "params": [
       {
         "name": "self",
@@ -97440,16 +97433,16 @@
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 函数检查玩家是否可以发送邀请\nlocal function canSendGameInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendGameInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canInvite = canSendGameInvite(player)\nif canInvite then\n\tSocialService:PromptGameInvite(player)\nend"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/1": {
-    "documentation": "向给定的 <code>Player</code> 提示带有生成共享链接的 Roblox 平台级共享表单。"
+    "documentation": "提示给定的 <code>Player</code> 显示带生成共享链接的Roblox平台级共享页面。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Dictionary</code>，指定生成链接的配置。包括以下可选的键值对： <ul> <li><code>FallbackLinkId</code> (string)。确定此共享链接到期后将如何导向玩家。默认为体验加入链接。</li> <li><code>ExpirationSeconds</code> (number)。确定共享链接创建后的过期时间。截断为最近整数。默认值为 86,400。</li> <li><code>PreviewTitle</code> (string) 共享链接的预览标题。</li> <li><code>PreviewDescription</code> (string) 共享链接的预览描述。</li> <li><code>PreviewAssetId</code> (number) 用于共享链接预览的图像资产 ID。</li> <li><code>LaunchData</code> (string)。在玩家使用生成的共享链接加入时，用于在 <code>Player:GetJoinData()</code> 中设置参数。</li> </ul>"
+    "documentation": "<code>Dictionary</code>，指定生成链接的配置。包括以下可选的键值对： <ul> <li><code>FallbackLinkId</code> (string)。确定此共享链接过期后玩家将如何转向。默认指向体验加入链接。</li> <li><code>ExpirationSeconds</code> (number)。确定生成共享链接后的过期时间。四舍五入为最接近的整数。默认值为86400。</li> <li><code>PreviewTitle</code> (string) 共享链接的预览标题。</li> <li><code>PreviewDescription</code> (string) 共享链接的预览描述。</li> <li><code>PreviewAssetId</code> (number) 用于共享链接预览的图像资产ID。</li> <li><code>LaunchData</code> (string)。用于在使用生成的共享链接加入时设置 <code>Player:GetJoinData()</code> 中的参数。</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": "一个包含 <code>PromptLinkSharingResult</code> 的元组，指示链接共享提示的结果。"
+    "documentation": "一个元组，包含一个 <code>PromptLinkSharingResult</code>，指示链接共享提示的结果。"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -97474,16 +97467,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/1": {
-    "documentation": "要提示的玩家，显示通讯录。"
+    "documentation": "提示给定玩家以打开电话簿。"
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/2": {
-    "documentation": "字符串，用于帮助区分各种通讯录\"入口点\"或类似内容。例如，您可以传递一个字符串，定义呼叫玩家的角色当前所在的体验区域。"
+    "documentation": "用于帮助区分各种电话簿\"入口点\"或类似的字符串。例如，您可以传递一个字符串，定义调用玩家的角色当前所在的体验区域。"
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook": {
-    "documentation": "向给定的 <code>Player</code> 显示通讯录。",
+    "documentation": "提示给定的 <code>Player</code> 显示电话簿。",
     "params": [
       {
         "name": "self",
@@ -97503,16 +97496,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal SocialService = game:GetService(\"SocialService\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\nbutton.Visible = false\n\n-- 函数检查玩家是否可以发送呼叫邀请\nlocal function canSendCallingInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendCallInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canCall = canSendCallingInvite(player)\nif canCall then\n\tbutton.Visible = true\n\tbutton.Activated:Connect(function()\n\t\tSocialService:PromptPhoneBook(player, \"\")\n\tend)\nend"
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1": {
-    "documentation": "提示玩家更改其 RSVP 状态的事件 ID。此事件 ID 必须是当前体验中存在的有效事件 ID，表示为字符串（而非数字）。"
+    "documentation": "要提示玩家更改其RSVP状态的事件ID。此必须是当前体验中有效的事件ID，以字符串形式表示（而非数字）。"
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0": {
-    "documentation": "返回一个 <code>RsvpStatus</code>，指示提示关闭后玩家的新 RSVP 状态。如果玩家在不更改其 RSVP 状态的情况下关闭提示，则将返回 <code>RsvpStatus.None</code> 或其旧的 <code>RsvpStatus</code>（如果他们之前已选择了状态）。"
+    "documentation": "返回一个 <code>RsvpStatus</code>，指示玩家在提示关闭后的新RSVP状态。如果玩家在关闭提示时没有更改其RSVP状态，这将返回 <code>RsvpStatus.None</code> 或玩家已选择的旧 <code>RsvpStatus</code>。"
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync": {
-    "documentation": "提示本地 <code>Player</code> 更改其对给定事件的 RSVP 状态。",
+    "documentation": "提示本地 <code>Player</code> 更改其对给定事件的RSVP状态。",
     "params": [
       {
         "name": "self",
@@ -97530,13 +97523,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.ShowSelfView/param/0": {
-    "documentation": "促进影响在 Roblox 平台上建立的关系的社交功能。"
+    "documentation": "促进在Roblox平台上影响关系的社交功能。"
   },
   "@roblox/globaltype/SocialService.ShowSelfView/param/1": {
-    "documentation": "放置自视图的位置。"
+    "documentation": "放置自我视图的位置。"
   },
   "@roblox/globaltype/SocialService.ShowSelfView": {
-    "documentation": "显示调用玩家的自视图。",
+    "documentation": "显示调用玩家的自我视图。",
     "params": [
       {
         "name": "self",
@@ -97552,16 +97545,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/param/0": {
-    "documentation": "字符串，用于帮助区分各个通讯录入口点。"
+    "documentation": "用于帮助区分各种电话簿入口点的字符串。"
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/param/1": {
-    "documentation": "包含所有参与通话的玩家的数组。呼叫者始终是数组中的第一个玩家。"
+    "documentation": "一个包含所有参与通话玩家的数组。发起者将始终是数组中的第一个玩家。"
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0": {
-    "documentation": "包含 <code>PlaceId</code> 和 <code>ReservedServerAccessCode</code> 键的表，其值分别是 <code>DataModel.PlaceId</code> 和通过 <code>TeleportService:ReserveServer()</code> 返回的服务器访问代码。"
+    "documentation": "包含 <code>PlaceId</code> 和 <code>ReservedServerAccessCode</code> 键的表，其值分别是 <code>DataModel.PlaceId</code> 和由 <code>TeleportService:ReserveServer()</code> 返回的服务器访问代码。"
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked": {
-    "documentation": "当从通讯录拨打电话时的回调。",
+    "documentation": "在电话簿中拨打电话时的回调。",
     "params": [
       {
         "name": "tag",
@@ -97656,7 +97649,7 @@
     "returns": []
   },
   "@roblox/globaltype/SocialService.CallInviteStateChanged": {
-    "documentation": "当玩家的通话邀请状态更改时触发。",
+    "documentation": "当玩家的通话邀请状态变化时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/SocialService.CallInviteStateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/SocialService.CallInviteStateChanged.ConnectParallel",
@@ -97832,7 +97825,7 @@
     "returns": []
   },
   "@roblox/globaltype/SocialService.PhoneBookPromptClosed": {
-    "documentation": "当玩家关闭通讯录提示时触发。",
+    "documentation": "当玩家关闭电话簿提示时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/SocialService.PhoneBookPromptClosed.Connect",
       "ConnectParallel": "@roblox/globaltype/SocialService.PhoneBookPromptClosed.ConnectParallel",
@@ -109388,7 +109381,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RigType.R15": {
-    "documentation": "R15的骨架类型。",
+    "documentation": "R15 类型的装配。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -109398,7 +109391,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RigType.Custom": {
-    "documentation": "自定义的骨架类型。",
+    "documentation": "自定义类型的装配。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -109408,7 +109401,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RigType.None": {
-    "documentation": "无骨架类型。",
+    "documentation": "无类型的装配。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -109418,7 +109411,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.RigType": {
-    "documentation": "使用3D导入工具导入的骨架类型。",
+    "documentation": "通过 3D 导入器导入的装配类型。",
     "keys": {
       "R15": "@roblox/enum/RigType.R15",
       "Custom": "@roblox/enum/RigType.Custom",

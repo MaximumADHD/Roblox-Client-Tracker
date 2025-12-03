@@ -1166,6 +1166,7 @@
       "FilterType": "@roblox/globaltype/OverlapParams.FilterType",
       "MaxParts": "@roblox/globaltype/OverlapParams.MaxParts",
       "CollisionGroup": "@roblox/globaltype/OverlapParams.CollisionGroup",
+      "Tolerance": "@roblox/globaltype/OverlapParams.Tolerance",
       "RespectCanCollide": "@roblox/globaltype/OverlapParams.RespectCanCollide",
       "BruteForceAllSlow": "@roblox/globaltype/OverlapParams.BruteForceAllSlow",
       "AddToFilter": "@roblox/globaltype/OverlapParams.AddToFilter"
@@ -1193,13 +1194,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#CollisionGroup",
     "code_sample": ""
   },
+  "@roblox/globaltype/OverlapParams.Tolerance": {
+    "documentation": "Sedikit meningkatkan volume operasi pencarian batas.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
+    "code_sample": ""
+  },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "Menentukan apakah operasi pencarian batas mempertimbangkan nilai properti <code>BasePart.CanCollide</code> bagian dibandingkan nilai <code>BasePart.CanQuery</code>.",
+    "documentation": "Menentukan apakah operasi pencarian batas mempertimbangkan nilai properti <code>BasePart.CanCollide</code> dari sebuah bagian berdasarkan nilai <code>BasePart.CanQuery</code>-nya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "Ketika diaktifkan, pencarian akan mengabaikan semua properti tabrakan bagian dan melakukan pemeriksaan brute-force pada setiap bagian.",
+    "documentation": "Saat diaktifkan, query akan mengabaikan semua properti tabrakan bagian dan melakukan pemeriksaan secara brute-force pada setiap bagian.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
@@ -15356,7 +15362,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService": {
-    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi.",
+    "documentation": "Sebuah layanan yang menyediakan antarmuka untuk Anda mengelola dan menampilkan rekomendasi konten yang dipersonalisasi.",
     "keys": {
       "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
       "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
@@ -15370,10 +15376,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
-    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
+    "documentation": "Sebuah layanan yang menyediakan antarmuka untuk Anda mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": "Sebuah kamus yang berisi  fild berikut: <ul> <li><code>ConfigName</code> &mdash; ID unik untuk konfigurasi tertentu. Ini menentukan bagaimana kandidat diurutkan.</li> <li><code>LocationId</code> &mdash; Sebuah string yang ditentukan oleh pengembang yang menunjukkan lokasi di mana rekomendasi digunakan, seperti <code>\"For_you\"</code> atau <code>\"Lobby\"</code>. Parameter ini tidak akan mempengaruhi item yang dikembalikan, dan dapat membantu Anda melacak kinerja dari beberapa fitur rekomendasi dalam pengalaman Anda. Metrik rekomendasi untuk setiap lokasi individu akan ditampilkan di Creator Hub. <code>LocationId</code> <strong>harus</strong> berupa string dan tidak boleh <code>\"Other\"</code> atau <code>\"other\"</code> karena nilai ini dicadangkan oleh Creator Hub.</li> <li><code>PageSize</code> &mdash; Jumlah item yang dikembalikan untuk setiap halaman.</li> <li><code>BoostCustomTags</code> &mdash; Sebuah daftar tag string. Setiap item dengan tag ini akan ditingkatkan peringkatnya. Catatan: saat ini hanya mendukung peningkatan satu tag.</li> <li><code>CustomContexts</code> &mdash; Sebuah tabel pasangan kunci-nilai yang digunakan untuk mengirimkan data konteks tambahan untuk peringkat. Misalnya, <code>UserId</code> untuk skrip Server.</li> </ul>"
+    "documentation": "Sebuah kamus yang berisi bidang-bidang berikut: <ul> <li><code>ConfigName</code> &mdash; ID unik untuk konfigurasi tertentu.   Ini menentukan bagaimana kandidat diurutkan.</li> <li><code>LocationId</code> &mdash; Sebuah string yang ditentukan oleh pengembang yang   menunjukkan lokasi di mana rekomendasi digunakan, seperti <code>\"For_you\"</code> atau   <code>\"Lobby\"</code>. Parameter ini tidak akan memengaruhi item yang dikembalikan, dan dapat membantu Anda melacak kinerja beberapa fitur   rekomendasi dalam pengalaman Anda. Metrik rekomendasi untuk setiap   lokasi individu akan ditampilkan di Creator Hub.   <code>LocationId</code> <strong>harus</strong> berupa string dan tidak boleh <code>\"Other\"</code> atau   <code>\"other\"</code> karena nilai-nilai ini dicadangkan oleh Creator Hub.</li> <li><code>PageSize</code> &mdash; Jumlah item yang dikembalikan untuk setiap halaman.</li> <li><code>BoostCustomTags</code> &mdash; Sebuah daftar tag string. Item apa pun dengan tag ini   akan didorong dalam peringkat. Catatan: saat ini hanya mendukung   dorongan satu tag.</li> <li><code>CustomContexts</code> &mdash; Sebuah tabel pasangan kunci-nilai yang digunakan   untuk mengirimkan data konteks tambahan untuk pengurutan. Misalnya, <code>UserId</code>   untuk skrip Server.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
     "documentation": ""
@@ -15397,13 +15403,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0": {
-    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
+    "documentation": "Sebuah layanan yang menyediakan antarmuka untuk Anda mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1": {
     "documentation": "ID item yang akan diambil."
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0": {
-    "documentation": "Sebuah kamus yang mewakili item rekomendasi dengan bidang berikut: - <code>ItemId</code> &mdash; ID unik untuk item tersebut. - <code>ReferenceId</code> &mdash; ID yang diberikan oleh pengembang untuk item tersebut. - <code>TracingId</code> &mdash; ID untuk melacak sesi rekomendasi. Ini akan kosong saat mengambil satu item langsung. - <code>Creator</code> &mdash; Sebuah tabel yang berisi <code>CreatorId</code> dan <code>CreatorType</code>. - <code>Attributes</code> &mdash; Sebuah daftar atribut konten terkait dengan item tersebut. - <code>CustomTags</code> &mdash; Sebuah daftar tag string kustom. - <code>Visibility</code> &mdash; Sebuah enum bertipe <code>RecommendationItemVisibility</code>."
+    "documentation": "Sebuah kamus yang merepresentasikan item rekomendasi dengan bidang-bidang berikut: <ul> <li><code>ItemId</code> &mdash; ID unik untuk item tersebut.</li> <li><code>ReferenceId</code> &mdash; ID yang diberikan oleh pengembang untuk item tersebut.</li> <li><code>TracingId</code> &mdash; ID untuk melacak sesi rekomendasi. Ini   akan kosong saat mengambil satu item secara langsung.</li> <li><code>Creator</code> &mdash; Sebuah tabel yang berisi <code>CreatorId</code> dan   <code>CreatorType</code>.</li> <li><code>Attributes</code> &mdash; Sebuah daftar atribut konten yang terkait dengan   item tersebut.</li> <li><code>CustomTags</code> &mdash; Sebuah daftar tag string kustom.</li> <li><code>Visibility</code> &mdash; Sebuah enum dari tipe   <code>RecommendationItemVisibility</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync": {
     "documentation": "",
@@ -15424,7 +15430,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
-    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
+    "documentation": "Sebuah layanan yang menyediakan antarmuka untuk Anda mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
     "documentation": "Enum untuk tipe tindakan."
@@ -15433,10 +15439,10 @@
     "documentation": "ID item yang dikembalikan dari pendaftaran dan <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
-    "documentation": "ID pelacakan yang dikembalikan dari respons <code>GenerateItemListAsync</code>. Setiap item memiliki <code>TracingId</code>."
+    "documentation": "ID tracing yang dikembalikan dari respons <code>GenerateItemListAsync</code>. Setiap item memiliki <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
-    "documentation": "Sebuah kamus yang berisi bidang berikut: <ul> <li><code>Weight</code> &mdash; Sebuah angka yang mewakili bobot tindakan. Defaultnya adalah 1.</li> <li><code>DestinationPlaceId</code> &mdash; ID tempat tujuan yang dikirimkan ke pengguna setelah tindakan. Digunakan untuk <code>Play</code>.</li> <li><code>CommentText</code> &mdash; Teks apa pun yang terkait dengan tindakan, seperti komentar. Digunakan untuk <code>Comment</code>.</li> <li><code>ReactionType</code> &mdash; Sebuah string yang menggambarkan tipe reaksi, misalnya, \"suka\" atau \"tidak suka\". Digunakan untuk <code>AddReaction</code> atau <code>RemoveReaction</code>.</li> </ul>"
+    "documentation": "Sebuah kamus yang berisi bidang-bidang berikut: <ul> <li><code>Weight</code> &mdash; Sebuah angka yang merepresentasikan bobot tindakan.   Default adalah 1.</li> <li><code>DestinationPlaceId</code> &mdash; ID tempat di mana pengguna dikirim   setelah tindakan. Digunakan untuk   <code>Play</code>.</li> <li><code>CommentText</code> &mdash; Teks apa pun yang terkait dengan tindakan, seperti   sebuah komentar. Digunakan untuk <code>Comment</code>.</li> <li><code>ReactionType</code> &mdash; Sebuah string yang menggambarkan jenis reaksi,   misalnya, \"like\" atau \"dislike\". Digunakan untuk   <code>AddReaction</code> atau   <code>RemoveReaction</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent": {
     "documentation": "",
@@ -15467,7 +15473,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
-    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
+    "documentation": "Sebuah layanan yang menyediakan antarmuka untuk Anda mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
     "documentation": "Enum untuk tipe impresi."
@@ -15476,10 +15482,10 @@
     "documentation": "ID item yang dikembalikan dari pendaftaran dan <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
-    "documentation": "ID pelacakan yang dikembalikan dari respons <code>GenerateItemListAsync</code>. Setiap item memiliki <code>TracingId</code>."
+    "documentation": "ID tracing yang dikembalikan dari respons <code>GenerateItemListAsync</code>. Setiap item memiliki <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
-    "documentation": "Sebuah kamus yang berisi bidang berikut: <ul> <li><code>Duration</code> &mdash; Durasi impresi dalam detik.</li> <li><code>Weight</code> &mdash; Sebuah angka yang mewakili bobot impresi. Default adalah 1.</li> <li><code>ItemPosition</code> &mdash; Posisi item dalam daftar rekomendasi.</li> <li><code>DepartureIntent</code> &mdash; <code>RecommendationDepartureIntent</code> yang menunjukkan maksud pengguna saat meninggalkan tampilan. Misalnya, <code>Positive</code> jika tampilan dianggap baik.</li> </ul>"
+    "documentation": "Sebuah kamus yang berisi bidang-bidang berikut: <ul> <li><code>Duration</code> &mdash; Durasi impresi dalam detik.</li> <li><code>Weight</code> &mdash; Sebuah angka yang merepresentasikan bobot impresi.   Default adalah 1.</li> <li><code>ItemPosition</code> &mdash; Posisi item di dalam daftar rekomendasi.</li> <li><code>DepartureIntent</code> &mdash; <code>RecommendationDepartureIntent</code>   yang menunjukkan niat pengguna saat meninggalkan sebuah tampilan. Misalnya,   <code>Positive</code> jika tampilan dianggap baik.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
     "documentation": "",
@@ -15510,13 +15516,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
-    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
+    "documentation": "Sebuah layanan yang menyediakan antarmuka untuk Anda mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
     "documentation": "Pemain yang membuat item tersebut."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": "Sebuah kamus yang berisi bidang berikut: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code> yang menentukan tipe konten. Tipe didefinisikan secara umum. Misalnya, Anda dapat menggunakan <code>Static</code> untuk gambar, <code>Dynamic</code> untuk video, dan <code>Interactive</code> untuk model 3D yang mendukung interaksi.</li> <li><code>ReferenceId</code> &mdash; String yang ditentukan oleh pengembang yang secara unik mengidentifikasi item tersebut.</li> <li><code>Duration</code> &mdash; Durasi konten dalam detik.</li> <li><code>Attributes</code> &mdash; Tabel atribut untuk item, seperti <code>AssetId</code> atau <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; Daftar tag string untuk filter dan peningkatan.</li> <li><code>Visibility</code> &mdash; Enum <code>RecommendationItemVisibility</code> yang mengontrol visibilitas item, seperti <code>Public</code> atau <code>Private</code>.</li> </ul>"
+    "documentation": "Sebuah kamus yang berisi bidang-bidang berikut: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code>   yang menentukan jenis konten. Tipe didefinisikan secara umum.   Misalnya, Anda dapat menggunakan <code>Static</code> untuk gambar, <code>Dynamic</code> untuk video,   dan <code>Interactive</code> untuk model 3D yang mendukung interaksi.</li> <li><code>ReferenceId</code> &mdash; String yang ditentukan oleh pengembang yang secara unik   mengidentifikasi item tersebut.</li> <li><code>Duration</code> &mdash; Durasi konten dalam detik.</li> <li><code>Attributes</code> &mdash; Tabel atribut untuk item, seperti   <code>AssetId</code> atau <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; Daftar tag string untuk penyaringan dan   peningkatan.</li> <li><code>Visibility</code> &mdash; Enum   <code>RecommendationItemVisibility</code>   yang mengontrol visibilitas item, seperti <code>Public</code> atau   <code>Private</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
     "documentation": "Sebuah tabel dengan hanya dua bidang: <code>ItemId</code> dan <code>ReferenceId</code>."
@@ -15544,7 +15550,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
-    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
+    "documentation": "Sebuah layanan yang menyediakan antarmuka untuk Anda mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
     "documentation": "ItemId yang akan dihapus."
@@ -15566,10 +15572,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
-    "documentation": "Sebuah layanan yang menyediakan antarmuka bagi Anda untuk mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
+    "documentation": "Sebuah layanan yang menyediakan antarmuka untuk Anda mengelola dan menampilkan rekomendasi konten yang dipersonalisasi."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": "Sebuah kamus yang berisi bidang berikut: <ul> <li><code>ItemId</code> &mdash; ID item yang akan diperbarui.</li> <li><code>ReferenceId</code> &mdash; String yang ditentukan oleh pengembang yang baru untuk mengidentifikasi item tersebut.</li> <li><code>Creator</code> &mdash; Pencipta baru untuk item tersebut. Pencipta adalah tabel yang berisi dua bidang: <code>CreatorId: number</code> dan <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; Durasi baru untuk konten dalam detik.</li> <li><code>Visibility</code> &mdash; Pengaturan visibilitas baru untuk item tersebut.</li> <li><code>Attributes</code> &mdash; Tabel atribut baru untuk item tersebut.</li> <li><code>CustomTags</code> &mdash; Daftar baru tag string.</li> </ul>"
+    "documentation": "Sebuah kamus yang berisi bidang-bidang berikut: <ul> <li><code>ItemId</code> &mdash; ID dari item yang akan diperbarui.</li> <li><code>ReferenceId</code> &mdash; String baru yang ditentukan oleh pengembang untuk   mengidentifikasi item tersebut.</li> <li><code>Creator</code> &mdash; Pencipta baru untuk item tersebut. Pencipta adalah tabel   yang berisi dua bidang: <code>CreatorId: number</code> dan   <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; Durasi baru untuk konten dalam detik.</li> <li><code>Visibility</code> &mdash; Pengaturan visibilitas baru untuk item tersebut.</li> <li><code>Attributes</code> &mdash; Tabel atribut baru untuk item tersebut.</li> <li><code>CustomTags</code> &mdash; Daftar tag string baru.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -75977,21 +75983,8 @@
   },
   "@roblox/globaltype/GameSettings": {
     "documentation": "Sebuah wadah untuk berbagai opsi dalam permainan.",
-    "keys": {
-      "VideoCaptureEnabled": "@roblox/globaltype/GameSettings.VideoCaptureEnabled",
-      "VideoRecording": "@roblox/globaltype/GameSettings.VideoRecording"
-    },
+    "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoCaptureEnabled": {
-    "documentation": "Mengaktifkan atau menonaktifkan apakah perekaman video diaktifkan.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoCaptureEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoRecording": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoRecording",
     "code_sample": ""
   },
   "@roblox/globaltype/VisualizationModeCategory": {

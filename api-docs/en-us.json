@@ -1166,6 +1166,7 @@
       "FilterType": "@roblox/globaltype/OverlapParams.FilterType",
       "MaxParts": "@roblox/globaltype/OverlapParams.MaxParts",
       "CollisionGroup": "@roblox/globaltype/OverlapParams.CollisionGroup",
+      "Tolerance": "@roblox/globaltype/OverlapParams.Tolerance",
       "RespectCanCollide": "@roblox/globaltype/OverlapParams.RespectCanCollide",
       "BruteForceAllSlow": "@roblox/globaltype/OverlapParams.BruteForceAllSlow",
       "AddToFilter": "@roblox/globaltype/OverlapParams.AddToFilter"
@@ -1191,6 +1192,11 @@
   "@roblox/globaltype/OverlapParams.CollisionGroup": {
     "documentation": "The collision group used for the operation.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#CollisionGroup",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/OverlapParams.Tolerance": {
+    "documentation": "Slightly increases the volume of the boundary-querying operation.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
@@ -11948,7 +11954,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience.",
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience.",
     "keys": {
       "FinishRecording": "@roblox/globaltype/ChangeHistoryService.FinishRecording",
       "GetCanRedo": "@roblox/globaltype/ChangeHistoryService.GetCanRedo",
@@ -11965,10 +11971,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/1": {
-    "documentation": "Identifies the recording from the previous call to <code>TryBeginRecording()</code>. If the operation is <code>ChangeHistoryService.FinishRecordingOperation.Cancel</code>, this value is ignored, and the recording is determined by context."
+    "documentation": "The string returned by a previous call to <code>TryBeginRecording()</code>, used to identify which recording to finish. This identifier is <strong>not the same</strong> as the <code>name</code> of the action passed to <code>TryBeginRecording()</code>. If the operation is <code>FinishRecordingOperation.Cancel</code>, this value is ignored, and the recording is determined by context."
   },
   "@roblox/globaltype/ChangeHistoryService.FinishRecording/param/2": {
     "documentation": "Specifies the operation to take."
@@ -12001,7 +12007,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanRedo/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanRedo/return/0": {
     "documentation": ""
@@ -12021,7 +12027,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanUndo/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.GetCanUndo/return/0": {
     "documentation": ""
@@ -12041,7 +12047,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.IsRecordingInProgress/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.IsRecordingInProgress/param/1": {
     "documentation": ""
@@ -12068,7 +12074,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.Redo/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.Redo": {
     "documentation": "Executes the last action that was undone.",
@@ -12083,7 +12089,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.ResetWaypoints/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.ResetWaypoints": {
     "documentation": "Clears the history, causing all undo/redo waypoints to be removed.",
@@ -12098,13 +12104,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.SetEnabled/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.SetEnabled/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/ChangeHistoryService.SetEnabled": {
-    "documentation": "Sets whether or not the ChangeHistoryService is enabled.",
+    "documentation": "Sets whether or not <code>ChangeHistoryService</code> is enabled.",
     "params": [
       {
         "name": "self",
@@ -12120,7 +12126,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.SetWaypoint/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.SetWaypoint/param/1": {
     "documentation": ""
@@ -12142,7 +12148,7 @@
     "code_sample": "local ChangeHistoryService = game:GetService(\"ChangeHistoryService\")\nlocal Selection = game:GetService(\"Selection\")\n\nlocal toolbar = plugin:CreateToolbar(\"Example Plugin\")\nlocal button = toolbar:CreateButton(\"Neon it up\", \"\", \"\")\n\nbutton.Click:Connect(function()\n\tlocal parts = {}\n\tfor _, part in pairs(Selection:Get()) do\n\t\tif part:IsA(\"BasePart\") then\n\t\t\tparts[#parts + 1] = part\n\t\tend\n\tend\n\n\tif #parts > 0 then\n\t\t-- Calling SetWaypoint before the work will not cause any issues, however\n\t\t-- it is redundant, only the call AFTER the work is needed.\n\t\t--ChangeHistoryService:SetWaypoint(\"Setting selection to neon\")\n\n\t\tfor _, part in pairs(parts) do\n\t\t\tpart.Material = Enum.Material.Neon\n\t\tend\n\n\t\t-- Call SetWaypoint AFTER completing the work\n\t\tChangeHistoryService:SetWaypoint(\"Set selection to neon\")\n\telse\n\t\t-- Nothing to do. You do not need to call SetWaypoint in the case where\n\t\t-- the action did not end up making any changes to the experience.\n\tend\nend)"
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.TryBeginRecording/param/1": {
     "documentation": "Name of the action being performed suitable for logging and coding purposes."
@@ -12176,7 +12182,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ChangeHistoryService.Undo/param/0": {
-    "documentation": "<strong>Must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
+    "documentation": "Service which <strong>must</strong> be used by plugins to communicate to Studio how to undo and redo the changes which they make to the experience."
   },
   "@roblox/globaltype/ChangeHistoryService.Undo": {
     "documentation": "Undos the last action taken, for which there exists a waypoint.",
@@ -12444,7 +12450,7 @@
     "returns": []
   },
   "@roblox/globaltype/ChangeHistoryService.OnRedo": {
-    "documentation": "Fired when the user reverses the undo command. Waypoint describes the type action that has been redone.",
+    "documentation": "Fired when the user reverses the undo command.",
     "keys": {
       "Connect": "@roblox/globaltype/ChangeHistoryService.OnRedo.Connect",
       "ConnectParallel": "@roblox/globaltype/ChangeHistoryService.OnRedo.ConnectParallel",
@@ -12532,7 +12538,7 @@
     "returns": []
   },
   "@roblox/globaltype/ChangeHistoryService.OnUndo": {
-    "documentation": "Fired when the user undoes an action in studio. Waypoint describes the type action that has been undone.",
+    "documentation": "Fired when the user undoes an action in studio.",
     "keys": {
       "Connect": "@roblox/globaltype/ChangeHistoryService.OnUndo.Connect",
       "ConnectParallel": "@roblox/globaltype/ChangeHistoryService.OnUndo.ConnectParallel",
@@ -15373,7 +15379,7 @@
     "documentation": "A service that provides an interface for you to manage and display personalized content recommendations."
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": "A dictionary containing the following  fields: <ul> <li><code>ConfigName</code> &mdash; A unique ID for the specific configuration. This determines how the candidates are ranked.</li> <li><code>LocationId</code> &mdash; A developer-defined string that specifies the location where the recommendation is used, such as <code>\"For_you\"</code> or <code>\"Lobby\"</code>. This parameter will not affect the items returned, and it can help you track the performance of multiple recommendation features within your experience. Recommendation metrics for each individual location will be displayed in the Creator Hub. <code>LocationId</code> <strong>must</strong> be a string and cannot be <code>\"Other\"</code> or <code>\"other\"</code> as these values are reserved by the Creator Hub.</li> <li><code>PageSize</code> &mdash; The number of items returned for each page.</li> <li><code>BoostCustomTags</code> &mdash; A list of string tags. Any item with this tag will be boosted in ranking. Note: only supports boosting one tag now.</li> <li><code>CustomContexts</code> &mdash; A table of key-value pairs used to pass in additional context data for ranking. For example, <code>UserId</code> for a Server script.</li> </ul>"
+    "documentation": "A dictionary containing the following fields: <ul> <li><code>ConfigName</code> &mdash; A unique ID for the specific configuration.   This determines how the candidates are ranked.</li> <li><code>LocationId</code> &mdash; A developer-defined string that specifies the   location where the recommendation is used, such as <code>\"For_you\"</code> or   <code>\"Lobby\"</code>. This parameter will not affect the items returned, and it   can help you track the performance of multiple recommendation   features within your experience. Recommendation metrics for each   individual location will be displayed in the Creator Hub.   <code>LocationId</code> <strong>must</strong> be a string and cannot be <code>\"Other\"</code> or   <code>\"other\"</code> as these values are reserved by the Creator Hub.</li> <li><code>PageSize</code> &mdash; The number of items returned for each page.</li> <li><code>BoostCustomTags</code> &mdash; A list of string tags. Any item with this   tag will be boosted in ranking. Note: only supports boosting one tag   now.</li> <li><code>CustomContexts</code> &mdash; A table of key-value pairs used to pass in   additional context data for ranking. For example, <code>UserId</code> for a   Server script.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
     "documentation": ""
@@ -15403,7 +15409,7 @@
     "documentation": "The ID of the item to retrieve."
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0": {
-    "documentation": "A dictionary representing the recommendation item with the following fields: - <code>ItemId</code> &mdash; The unique ID for the item. - <code>ReferenceId</code> &mdash; The developer-provided ID for the item. - <code>TracingId</code> &mdash; An ID for tracking recommendation sessions. This will be empty when fetching a single item directly. - <code>Creator</code> &mdash; A table containing the <code>CreatorId</code> and <code>CreatorType</code>. - <code>Attributes</code> &mdash; A list of content attributes associated with the item. - <code>CustomTags</code> &mdash; A list of custom string tags. - <code>Visibility</code> &mdash; An enum of type <code>RecommendationItemVisibility</code>."
+    "documentation": "A dictionary representing the recommendation item with the following fields: <ul> <li><code>ItemId</code> &mdash; The unique ID for the item.</li> <li><code>ReferenceId</code> &mdash; The developer-provided ID for the item.</li> <li><code>TracingId</code> &mdash; An ID for tracking recommendation sessions. This   will be empty when fetching a single item directly.</li> <li><code>Creator</code> &mdash; A table containing the <code>CreatorId</code> and   <code>CreatorType</code>.</li> <li><code>Attributes</code> &mdash; A list of content attributes associated with   the item.</li> <li><code>CustomTags</code> &mdash; A list of custom string tags.</li> <li><code>Visibility</code> &mdash; An enum of type   <code>RecommendationItemVisibility</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync": {
     "documentation": "",
@@ -15436,7 +15442,7 @@
     "documentation": "The tracing ID returned from the <code>GenerateItemListAsync</code> response. Each item has a <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
-    "documentation": "A dictionary containing the following fields: <ul> <li><code>Weight</code> &mdash; A number representing the weight of the action. Default is 1.</li> <li><code>DestinationPlaceId</code> &mdash; The ID of the place the user was sent to after the action. Used for <code>Play</code>.</li> <li><code>CommentText</code> &mdash; Any text associated with the action, such as a comment. Used for <code>Comment</code>.</li> <li><code>ReactionType</code> &mdash; A string describing the type of reaction, for example, \"like\" or \"dislike\". Used for <code>AddReaction</code> or <code>RemoveReaction</code>.</li> </ul>"
+    "documentation": "A dictionary containing the following fields: <ul> <li><code>Weight</code> &mdash; A number representing the weight of the action.   Default is 1.</li> <li><code>DestinationPlaceId</code> &mdash; The ID of the place the user was sent   to after the action. Used for   <code>Play</code>.</li> <li><code>CommentText</code> &mdash; Any text associated with the action, such as a   comment. Used for <code>Comment</code>.</li> <li><code>ReactionType</code> &mdash; A string describing the type of reaction, for   example, \"like\" or \"dislike\". Used for   <code>AddReaction</code> or   <code>RemoveReaction</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent": {
     "documentation": "",
@@ -15479,7 +15485,7 @@
     "documentation": "The tracing ID returned from the <code>GenerateItemListAsync</code> response. Each item has a <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
-    "documentation": "A dictionary containing the following fields: <ul> <li><code>Duration</code> &mdash; The duration of the impression in seconds.</li> <li><code>Weight</code> &mdash; A number representing the weight of the impression. Default is 1.</li> <li><code>ItemPosition</code> &mdash; The position of the item in the recommendation list.</li> <li><code>DepartureIntent</code> &mdash; The <code>RecommendationDepartureIntent</code> indicating the user's intent when leaving a view. For example, <code>Positive</code> if the view is considered good.</li> </ul>"
+    "documentation": "A dictionary containing the following fields: <ul> <li><code>Duration</code> &mdash; The duration of the impression in seconds.</li> <li><code>Weight</code> &mdash; A number representing the weight of the impression.   Default is 1.</li> <li><code>ItemPosition</code> &mdash; The position of the item in the   recommendation list.</li> <li><code>DepartureIntent</code> &mdash; The <code>RecommendationDepartureIntent</code>   indicating the user's intent when leaving a view. For example,   <code>Positive</code> if the view is considered good.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
     "documentation": "",
@@ -15516,7 +15522,7 @@
     "documentation": "The player who created the item."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": "A dictionary containing the following fields: <ul> <li><code>ContentType</code> &mdash; The <code>RecommendationItemContentType</code> specifying the type of content. Type is defined in a generic way. For example, you can use <code>Static</code> for images, <code>Dynamic</code> for videos, and <code>Interactive</code> for 3D models that support interaction.</li> <li><code>ReferenceId</code> &mdash; The developer-defined string that uniquely identifies the item.</li> <li><code>Duration</code> &mdash; The duration of the content in seconds.</li> <li><code>Attributes</code> &mdash; The table of attributes for the item, such as <code>AssetId</code> or <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; The list of string tags for filtering and boosting.</li> <li><code>Visibility</code> &mdash; The <code>RecommendationItemVisibility</code> enum that controls the item's visibility, such as <code>Public</code> or <code>Private</code>.</li> </ul>"
+    "documentation": "A dictionary containing the following fields: <ul> <li><code>ContentType</code> &mdash; The <code>RecommendationItemContentType</code>   specifying the type of content. Type is defined in a generic way.   For example, you can use <code>Static</code> for images, <code>Dynamic</code> for videos,   and <code>Interactive</code> for 3D models that support interaction.</li> <li><code>ReferenceId</code> &mdash; The developer-defined string that uniquely   identifies the item.</li> <li><code>Duration</code> &mdash; The duration of the content in seconds.</li> <li><code>Attributes</code> &mdash; The table of attributes for the item, such as   <code>AssetId</code> or <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; The list of string tags for filtering and   boosting.</li> <li><code>Visibility</code> &mdash; The   <code>RecommendationItemVisibility</code>   enum that controls the item's visibility, such as <code>Public</code> or   <code>Private</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
     "documentation": "A table with only two fields: <code>ItemId</code> and <code>ReferenceId</code>."
@@ -15569,7 +15575,7 @@
     "documentation": "A service that provides an interface for you to manage and display personalized content recommendations."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": "A dictionary containing the following fields: <ul> <li><code>ItemId</code> &mdash; The ID of the item to update.</li> <li><code>ReferenceId</code> &mdash; The new developer-defined string to identify the item.</li> <li><code>Creator</code> &mdash; The new creator for the item. Creator is a table containing two fields: <code>CreatorId: number</code> and <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; The new duration for the content in seconds.</li> <li><code>Visibility</code> &mdash; The new visibility setting for the item.</li> <li><code>Attributes</code> &mdash; The new table of attributes for the item.</li> <li><code>CustomTags</code> &mdash; The new list of string tags.</li> </ul>"
+    "documentation": "A dictionary containing the following fields: <ul> <li><code>ItemId</code> &mdash; The ID of the item to update.</li> <li><code>ReferenceId</code> &mdash; The new developer-defined string to identify   the item.</li> <li><code>Creator</code> &mdash; The new creator for the item. Creator is a table   containing two fields: <code>CreatorId: number</code> and   <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; The new duration for the content in seconds.</li> <li><code>Visibility</code> &mdash; The new visibility setting for the item.</li> <li><code>Attributes</code> &mdash; The new table of attributes for the item.</li> <li><code>CustomTags</code> &mdash; The new list of string tags.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -32115,7 +32121,7 @@
     "returns": []
   },
   "@roblox/globaltype/NumberValue.Changed": {
-    "documentation": "Fired whenever the <code>NumberValue.Value</code> is changed.",
+    "documentation": "Fires whenever the <code>NumberValue.Value</code> is changed.",
     "keys": {
       "Connect": "@roblox/globaltype/NumberValue.Changed.Connect",
       "ConnectParallel": "@roblox/globaltype/NumberValue.Changed.ConnectParallel",
@@ -32556,7 +32562,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ValueBase": {
-    "documentation": "Base class of all 'Value Instance' objects.",
+    "documentation": "Base class of all \"value instance\" objects.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ValueBase",
     "code_sample": ""
@@ -40217,7 +40223,7 @@
     "returns": []
   },
   "@roblox/globaltype/StringValue.Changed": {
-    "documentation": "Fired whenever <code>StringValue.Value</code> is changed.",
+    "documentation": "Fires whenever <code>StringValue.Value</code> is changed.",
     "keys": {
       "Connect": "@roblox/globaltype/StringValue.Changed.Connect",
       "ConnectParallel": "@roblox/globaltype/StringValue.Changed.ConnectParallel",
@@ -53918,7 +53924,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.VolumetricAudio": {
-    "documentation": "",
+    "documentation": "<code>VolumetricAudio</code> setting to determine if volumetric audio is enabled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#VolumetricAudio",
     "code_sample": ""
   },
@@ -60014,16 +60020,16 @@
     "documentation": ""
   },
   "@roblox/globaltype/ReflectionService.GetClass/param/1": {
-    "documentation": ""
+    "documentation": "The name of the class for which you wish to retrieve information."
   },
   "@roblox/globaltype/ReflectionService.GetClass/param/2": {
-    "documentation": ""
+    "documentation": "An optional filter to restrict or expand the set of classes that this method can return and change the method's behavior."
   },
   "@roblox/globaltype/ReflectionService.GetClass/return/0": {
-    "documentation": ""
+    "documentation": "A <code>ReflectedClass</code> dictionary with reflection information if the class exists; otherwise, <code>nil</code>."
   },
   "@roblox/globaltype/ReflectionService.GetClass": {
-    "documentation": "",
+    "documentation": "Returns information about a class when given its name, assuming that class is accessible.",
     "params": [
       {
         "name": "self",
@@ -60048,13 +60054,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/ReflectionService.GetClasses/param/1": {
-    "documentation": ""
+    "documentation": "An optional filter to restrict or expand the set of classes that this method can return and change the method's behavior."
   },
   "@roblox/globaltype/ReflectionService.GetClasses/return/0": {
-    "documentation": ""
+    "documentation": "A list of <code>ReflectedClass</code> dictionaries with reflection information for each class that matches the filter criteria."
   },
   "@roblox/globaltype/ReflectionService.GetClasses": {
-    "documentation": "",
+    "documentation": "Returns a list of all classes accessible with filters applied.",
     "params": [
       {
         "name": "self",
@@ -60075,16 +60081,16 @@
     "documentation": ""
   },
   "@roblox/globaltype/ReflectionService.GetPropertiesOfClass/param/1": {
-    "documentation": ""
+    "documentation": "The name of the class for which you wish to retrieve properties."
   },
   "@roblox/globaltype/ReflectionService.GetPropertiesOfClass/param/2": {
-    "documentation": ""
+    "documentation": "An optional filter to restrict or expand the set of properties that this method can return and change the method's behavior."
   },
   "@roblox/globaltype/ReflectionService.GetPropertiesOfClass/return/0": {
-    "documentation": ""
+    "documentation": "A list of <code>ReflectedProperty</code> dictionaries with reflection information for each property of the class that matches the filter criteria."
   },
   "@roblox/globaltype/ReflectionService.GetPropertiesOfClass": {
-    "documentation": "",
+    "documentation": "Returns a list of properties for a given class with filters applied.",
     "params": [
       {
         "name": "self",
@@ -65996,7 +66002,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Object": {
-    "documentation": "Object is the base class for all classes in the Roblox class hierarchy.",
+    "documentation": "<code>Object</code> is the base class for all classes in the Roblox class hierarchy.",
     "keys": {
       "ClassName": "@roblox/globaltype/Object.ClassName",
       "className": "@roblox/globaltype/Object.className",
@@ -66018,7 +66024,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal/param/0": {
-    "documentation": "Object is the base class for all classes in the Roblox class hierarchy."
+    "documentation": "<code>Object</code> is the base class for all classes in the Roblox class hierarchy."
   },
   "@roblox/globaltype/Object.GetPropertyChangedSignal/param/1": {
     "documentation": "The property to connect to."
@@ -66045,7 +66051,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\n\nlocal currentColor = part.BrickColor\n\nlocal function onBrickColorChanged()\n\tlocal newColor = part.BrickColor\n\tprint(\"Color changed from\", currentColor.Name, \"to\", newColor.Name)\n\tcurrentColor = newColor\nend\npart:GetPropertyChangedSignal(\"BrickColor\"):Connect(onBrickColorChanged)\n\npart.BrickColor = BrickColor.new(\"Really red\")\npart.BrickColor = BrickColor.new(\"Really blue\")"
   },
   "@roblox/globaltype/Object.IsA/param/0": {
-    "documentation": "Object is the base class for all classes in the Roblox class hierarchy."
+    "documentation": "<code>Object</code> is the base class for all classes in the Roblox class hierarchy."
   },
   "@roblox/globaltype/Object.IsA/param/1": {
     "documentation": "The class against which the Object's class will be checked. Case-sensitive."
@@ -66072,7 +66078,7 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nprint(Workspace:IsA(\"Workspace\")) -- true\nprint(Workspace:IsA(\"BasePart\")) -- false\nprint(Workspace:IsA(\"Instance\")) -- true"
   },
   "@roblox/globaltype/Object.isA/param/0": {
-    "documentation": "Object is the base class for all classes in the Roblox class hierarchy."
+    "documentation": "<code>Object</code> is the base class for all classes in the Roblox class hierarchy."
   },
   "@roblox/globaltype/Object.isA/param/1": {
     "documentation": ""
@@ -66176,7 +66182,7 @@
     "returns": []
   },
   "@roblox/globaltype/Object.Changed": {
-    "documentation": "Fired immediately after a property of the object changes, with some limitations.",
+    "documentation": "Fires immediately after a property of the object changes, with some limitations.",
     "keys": {
       "Connect": "@roblox/globaltype/Object.Changed.Connect",
       "ConnectParallel": "@roblox/globaltype/Object.Changed.ConnectParallel",
@@ -67212,7 +67218,7 @@
   "@roblox/globaltype/UserInputService.AccelerometerEnabled": {
     "documentation": "Describes whether the user's device has an accelerometer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserInputService#AccelerometerEnabled",
-    "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal UserInputService = game:GetService(\"UserInputService\")\n\nlocal ball = script.Parent:WaitForChild(\"Ball\")\nlocal mass = ball:GetMass()\nlocal gravityForce = ball:WaitForChild(\"GravityForce\")\n\nlocal function moveBall(gravity)\n\tgravityForce.Force = gravity.Position * Workspace.Gravity * mass\nend\n\nif UserInputService.AccelerometerEnabled then\n\tUserInputService.DeviceGravityChanged:Connect(moveBall)\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/UserInputService.GamepadEnabled": {
     "documentation": "Describes whether the user's device has an available gamepad.",
@@ -72501,7 +72507,7 @@
     "returns": []
   },
   "@roblox/globaltype/ObjectValue.Changed": {
-    "documentation": "Fired whenever the <code>ObjectValue.Value</code> is changed.",
+    "documentation": "Fires whenever the <code>ObjectValue.Value</code> is changed.",
     "keys": {
       "Connect": "@roblox/globaltype/ObjectValue.Changed.Connect",
       "ConnectParallel": "@roblox/globaltype/ObjectValue.Changed.ConnectParallel",
@@ -75977,21 +75983,8 @@
   },
   "@roblox/globaltype/GameSettings": {
     "documentation": "A container for miscellaneous in-game options.",
-    "keys": {
-      "VideoCaptureEnabled": "@roblox/globaltype/GameSettings.VideoCaptureEnabled",
-      "VideoRecording": "@roblox/globaltype/GameSettings.VideoRecording"
-    },
+    "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoCaptureEnabled": {
-    "documentation": "Toggles whether or not video capture is enabled.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoCaptureEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoRecording": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoRecording",
     "code_sample": ""
   },
   "@roblox/globaltype/VisualizationModeCategory": {
@@ -82544,7 +82537,7 @@
     "documentation": "A dictionary containing optional parameters for the text generation request. The currently supported parameters are <code>UserPrompt</code>, <code>ContextToken</code>, and <code>MaxTokens</code>."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync/return/0": {
-    "documentation": "A dictionary containing the LLM's generated response."
+    "documentation": "A dictionary containing the generated response."
   },
   "@roblox/globaltype/TextGenerator.GenerateTextAsync": {
     "documentation": "Returns text generated by an LLM based on the provided system and user prompts.",
@@ -88359,6 +88352,7 @@
       "GetLocalPlayerTeleportData": "@roblox/globaltype/TeleportService.GetLocalPlayerTeleportData",
       "GetPlayerPlaceInstanceAsync": "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync",
       "GetTeleportSetting": "@roblox/globaltype/TeleportService.GetTeleportSetting",
+      "PromptExperienceDetailsAsync": "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync",
       "ReserveServer": "@roblox/globaltype/TeleportService.ReserveServer",
       "SetTeleportGui": "@roblox/globaltype/TeleportService.SetTeleportGui",
       "SetTeleportSetting": "@roblox/globaltype/TeleportService.SetTeleportSetting",
@@ -88470,6 +88464,40 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#GetTeleportSetting",
     "code_sample": ""
+  },
+  "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/0": {
+    "documentation": "Enables transporting <code>Players</code> between places and servers."
+  },
+  "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/1": {
+    "documentation": "The <code>Player</code> to be presented the prompt."
+  },
+  "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/2": {
+    "documentation": "<code>DataModel.UniverseId</code> of the experience to be presented to the <code>Player</code>"
+  },
+  "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/return/0": {
+    "documentation": "<code>PromptExperienceDetailsResult</code>"
+  },
+  "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync": {
+    "documentation": "Prompts a <code>Player</code> with information about the specified experience. The player can choose to teleport to the target experience through the prompt.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/1"
+      },
+      {
+        "name": "universeId",
+        "documentation": "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#PromptExperienceDetailsAsync",
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(function()\n\tTeleportService:PromptExperienceDetailsAsync(player, 8357232245)\nend)\nif not success then\n\twarn(\"Error prompting experience details: \" .. tostring(result))\nend\n\nif result == Enum.PromptExperienceDetailsResult.PromptClosed then\n\tprint(\"Player closed the experience details prompt\")\nelseif result == Enum.PromptExperienceDetailsResult.TeleportAttempted then\n\tprint(\"Player chose to teleport to the experience\")\nend"
   },
   "@roblox/globaltype/TeleportService.ReserveServer/param/0": {
     "documentation": "Enables transporting <code>Players</code> between places and servers."
@@ -95955,7 +95983,7 @@
     "returns": []
   },
   "@roblox/globaltype/BoolValue.Changed": {
-    "documentation": "Fired whenever the <code>BoolValue.Value</code> of the BoolValue is changed.",
+    "documentation": "Fires whenever the <code>BoolValue.Value</code> is changed.",
     "keys": {
       "Connect": "@roblox/globaltype/BoolValue.Changed.Connect",
       "ConnectParallel": "@roblox/globaltype/BoolValue.Changed.ConnectParallel",
@@ -101089,7 +101117,7 @@
     "code_sample": ""
   },
   "@roblox/enum/VolumetricAudio.Disabled": {
-    "documentation": "",
+    "documentation": "Volumetric audio is disabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -101099,7 +101127,7 @@
     "code_sample": ""
   },
   "@roblox/enum/VolumetricAudio.Automatic": {
-    "documentation": "",
+    "documentation": "Volumetric audio is in the default state, currently <code>Disabled</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -101109,7 +101137,7 @@
     "code_sample": ""
   },
   "@roblox/enum/VolumetricAudio.Enabled": {
-    "documentation": "",
+    "documentation": "Volumetric audio is enabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -101119,7 +101147,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.VolumetricAudio": {
-    "documentation": "",
+    "documentation": "Enum used with <code>SoundService.VolumetricAudio</code>.",
     "keys": {
       "Disabled": "@roblox/enum/VolumetricAudio.Disabled",
       "Automatic": "@roblox/enum/VolumetricAudio.Automatic",

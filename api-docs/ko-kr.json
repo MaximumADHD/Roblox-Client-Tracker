@@ -1166,6 +1166,7 @@
       "FilterType": "@roblox/globaltype/OverlapParams.FilterType",
       "MaxParts": "@roblox/globaltype/OverlapParams.MaxParts",
       "CollisionGroup": "@roblox/globaltype/OverlapParams.CollisionGroup",
+      "Tolerance": "@roblox/globaltype/OverlapParams.Tolerance",
       "RespectCanCollide": "@roblox/globaltype/OverlapParams.RespectCanCollide",
       "BruteForceAllSlow": "@roblox/globaltype/OverlapParams.BruteForceAllSlow",
       "AddToFilter": "@roblox/globaltype/OverlapParams.AddToFilter"
@@ -1193,13 +1194,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#CollisionGroup",
     "code_sample": ""
   },
+  "@roblox/globaltype/OverlapParams.Tolerance": {
+    "documentation": "경계 쿼리 작업의 볼륨을 약간 증가시킵니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
+    "code_sample": ""
+  },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "경계 쿼리 작업이 파트의 <code>BasePart.CanCollide</code> 속성 값을 고려하는지 여부를 결정합니다.",
+    "documentation": "경계 쿼리 작업이 파트의 <code>BasePart.CanCollide</code> 속성 값을 <code>BasePart.CanQuery</code> 값보다 고려할지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "활성화되면, 쿼리는 모든 파트 충돌 속성을 무시하고 모든 파트에서 브루트 포스 검사를 수행합니다.",
+    "documentation": "활성화되면 쿼리는 모든 파트 충돌 속성을 무시하고 모든 파트에 대해 강제 검사를 수행합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
@@ -15356,7 +15362,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService": {
-    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다.",
+    "documentation": "개인화된 콘텐츠 추천을 관리하고 표시하기 위한 인터페이스를 제공하는 서비스입니다.",
     "keys": {
       "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
       "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
@@ -15370,10 +15376,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
-    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
+    "documentation": "개인화된 콘텐츠 추천을 관리하고 표시하기 위한 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>ConfigName</code> &mdash; 특정 구성을 위한 고유 ID입니다. 이것이 후보 항목의 순위를 결정합니다.</li> <li><code>LocationId</code> &mdash; 추천이 사용되는 위치를 지정하는 개발자가 정의한 문자열로, 예를 들어 <code>\"For_you\"</code> 또는 <code>\"Lobby\"</code>와 같습니다. 이 매개변수는 반환되는 항목에 영향을 미치지 않으며, 경험 내에서 여러 추천 기능의 성능을 추적하는 데 도움이 될 수 있습니다. 각 개별 위치에 대한 추천 메트릭은 Creator Hub에 표시됩니다. <code>LocationId</code> <strong>must</strong>가 문자열이어야 하며 <code>\"Other\"</code> 또는 <code>\"other\"</code>일 수 없습니다. 이러한 값은 Creator Hub에서 예약되어 있습니다.</li> <li><code>PageSize</code> &mdash; 각 페이지에 대해 반환되는 항목의 수입니다.</li> <li><code>BoostCustomTags</code> &mdash; 태그 목록입니다. 이 태그가 있는 항목은 순위에서 높이 평가됩니다. 참고: 현재는 하나의 태그만 부스트 지원합니다.</li> <li><code>CustomContexts</code> &mdash; 순위를 위해 추가 컨텍스트 데이터를 전달하는 데 사용되는 키-값 쌍의 테이블입니다. 예를 들어, 서버 스크립트의 경우 <code>UserId</code>가 있습니다.</li> </ul>"
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>ConfigName</code> &mdash; 특정 구성에 대한 고유 ID입니다. 후보자 순위를 매기는 방법을 결정합니다.</li> <li><code>LocationId</code> &mdash; 추천이 사용되는 위치를 지정하는 개발자가 정의한 문자열입니다. 예: <code>\"For_you\"</code> 또는 <code>\"Lobby\"</code>. 이 매개변수는 반환되는 항목에 영향을 주지 않으며, 경험 내에서 여러 추천 기능의 성과를 추적하는 데 도움이 됩니다. 각 개별 위치에 대한 추천 메트릭은 Creator Hub에 표시됩니다. <code>LocationId</code> <strong>must</strong> be a string and cannot be <code>\"Other\"</code> or <code>\"other\"</code> as these values are reserved by the Creator Hub.</li> <li><code>PageSize</code> &mdash; 각 페이지에서 반환되는 항목 수입니다.</li> <li><code>BoostCustomTags</code> &mdash; 문자열 태그의 목록입니다. 이 태그가 있는 항목은 순위에서 상승합니다. 참고: 현재는 하나의 태그만 상승을 지원합니다.</li> <li><code>CustomContexts</code> &mdash; 순위를 매기기 위해 추가 컨텍스트 데이터를 전달하는 데 사용되는 키-값 쌍의 테이블입니다. 예: 서버 스크립트를 위한 <code>UserId</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
     "documentation": ""
@@ -15397,13 +15403,13 @@
     "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\n-- 추천 목록 생성을 위한 요청 정의\nlocal request: GenerateRecommendationItemListRequest = {\n\tConfigName = \"MaximizeEngagement\",\n\tLocationId = \"Lobby\",\n\tPageSize = 10\n    -- 주의: 서버 스크립트용으로 CustomContexts.UserId를 주석 해제하고 설정하세요. \n    -- 로컬 스크립트에서는 설정할 필요가 없습니다.\n    -- CustomContexts = {\n    --     [\"UserId\"] = tostring(player.UserId),\n    -- }\n}\n\n-- GenerateItemListAsync를 호출하여 추천 페이지를 가져옵니다\nlocal success, recommendationPages = pcall(function()\n    return RecommendationService:GenerateItemListAsync(request)\nend)"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0": {
-    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
+    "documentation": "개인화된 콘텐츠 추천을 관리하고 표시하기 위한 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1": {
     "documentation": "검색할 항목의 ID입니다."
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0": {
-    "documentation": "다음 필드를 포함하는 추천 항목을 나타내는 사전입니다: - <code>ItemId</code> &mdash; 항목의 고유 ID입니다. - <code>ReferenceId</code> &mdash; 항목에 대한 개발자가 제공한 ID입니다. - <code>TracingId</code> &mdash; 추천 세션을 추적하기 위한 ID입니다. 이는 단일 항목을 직접 가져올 때는 비어 있습니다. - <code>Creator</code> &mdash; <code>CreatorId</code>와 <code>CreatorType</code>을 포함하는 테이블입니다. - <code>Attributes</code> &mdash; 항목과 관련된 콘텐츠 속성 목록입니다. - <code>CustomTags</code> &mdash; 사용자 정의 문자열 태그 목록입니다. - <code>Visibility</code> &mdash; <code>RecommendationItemVisibility</code> 유형의 열거형입니다."
+    "documentation": "다음 필드를 포함하는 추천 항목을 나타내는 사전입니다: <ul> <li><code>ItemId</code> &mdash; 항목의 고유 ID입니다.</li> <li><code>ReferenceId</code> &mdash; 항목에 대한 개발자가 제공한 ID입니다.</li> <li><code>TracingId</code> &mdash; 추천 세션을 추적하기 위한 ID입니다. 단일 항목을 직접 가져올 때는 비어 있게 됩니다.</li> <li><code>Creator</code> &mdash; <code>CreatorId</code> 및 <code>CreatorType</code>을 포함하는 테이블입니다.</li> <li><code>Attributes</code> &mdash; 항목과 연결된 콘텐츠 속성 목록입니다.</li> <li><code>CustomTags</code> &mdash; 사용자 정의 문자열 태그 목록입니다.</li> <li><code>Visibility</code> &mdash; <code>RecommendationItemVisibility</code> 유형의 열거형입니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync": {
     "documentation": "",
@@ -15424,19 +15430,19 @@
     "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\nlocal function getItem(itemId)\n    local success, item = pcall(function()\n        return RecommendationService:GetRecommendationItemAsync(itemId)\n    end)\n    if success and item then\n        print(\"항목을 성공적으로 검색했습니다: \" .. item.ItemId)\n        print(\"  ReferenceId: \" .. item.ReferenceId)\n        -- 단일 항목을 직접 가져올 때 TracingId는 비어 있습니다\n        if item.Creator then\n            print(\"  CreatorId: \" .. tostring(item.Creator.CreatorId))\n        end\n        if item.CustomTags then\n            print(\"  CustomTags: \")\n            for _, customTag in ipairs(item.CustomTags) do\n                print(\"    \" .. customTag)\n            end\n        end\n    else\n        warn(\"항목을 검색하지 못했습니다: \" .. itemId .. \". 오류: \" .. tostring(item))\n    end\nend\n\n-- 예제 사용법 (유효한 itemId 필요)\n-- getItem(\"some-item-id\")"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
-    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
+    "documentation": "개인화된 콘텐츠 추천을 관리하고 표시하기 위한 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
     "documentation": "행동 유형에 대한 열거형입니다."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/2": {
-    "documentation": "등록된 후 반환된 항목 ID 및 <code>GenerateItemListAsync</code>."
+    "documentation": "등록에서 반환된 항목 ID와 <code>GenerateItemListAsync</code>입니다."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
-    "documentation": "<code>GenerateItemListAsync</code> 응답에서 반환된 추적 ID입니다. 각 항목에는 <code>TracingId</code>가 있습니다."
+    "documentation": "각 항목에 <code>TracingId</code>가 있습니다. 이 값은 <code>GenerateItemListAsync</code> 응답에서 반환된 추적 ID입니다."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
-    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>Weight</code> &mdash; 행동의 가중치를 나타내는 숫자입니다. 기본값은 1입니다.</li> <li><code>DestinationPlaceId</code> &mdash; 행동 후 사용자가 전송된 장소의 ID입니다. <code>Play</code>에 사용됩니다.</li> <li><code>CommentText</code> &mdash; 행동과 관련된 텍스트로, 예를 들어 코멘트입니다. <code>Comment</code>에 사용됩니다.</li> <li><code>ReactionType</code> &mdash; \"좋아요\" 또는 \"싫어요\"와 같은 반응 유형을 설명하는 문자열입니다. <code>AddReaction</code> 또는 <code>RemoveReaction</code>에 사용됩니다.</li> </ul>"
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>Weight</code> &mdash; 행동 가중치를 나타내는 숫자입니다. 기본값은 1입니다.</li> <li><code>DestinationPlaceId</code> &mdash; 사용자가 행동 후에 전송된 장소의 ID입니다. <code>Play</code>에 사용됩니다.</li> <li><code>CommentText</code> &mdash; 행동과 관련된 텍스트입니다(예: 댓글). <code>Comment</code>에 사용됩니다.</li> <li><code>ReactionType</code> &mdash; 반응 유형을 설명하는 문자열입니다(예: '좋아요' 또는 '싫어요'). <code>AddReaction</code> 또는 <code>RemoveReaction</code>에 사용됩니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent": {
     "documentation": "",
@@ -15467,19 +15473,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
-    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
+    "documentation": "개인화된 콘텐츠 추천을 관리하고 표시하기 위한 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
     "documentation": "인상의 유형에 대한 열거형입니다."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2": {
-    "documentation": "등록된 후 반환된 항목 ID 및 <code>GenerateItemListAsync</code>."
+    "documentation": "등록에서 반환된 항목 ID와 <code>GenerateItemListAsync</code>입니다."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
-    "documentation": "<code>GenerateItemListAsync</code> 응답에서 반환된 추적 ID입니다. 각 항목에는 <code>TracingId</code>가 있습니다."
+    "documentation": "각 항목에 <code>TracingId</code>가 있습니다. 이 값은 <code>GenerateItemListAsync</code> 응답에서 반환된 추적 ID입니다."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
-    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>Duration</code> &mdash; 인상의 지속 시간(초)입니다.</li> <li><code>Weight</code> &mdash; 인상의 가중치를 나타내는 숫자입니다. 기본값은 1입니다.</li> <li><code>ItemPosition</code> &mdash; 추천 목록에서 항목의 위치입니다.</li> <li><code>DepartureIntent</code> &mdash; 사용자가 뷰를 떠날 때의 의도를 나타내는 <code>RecommendationDepartureIntent</code>입니다. 예를 들어, 뷰가 좋다고 간주되면 <code>Positive</code>입니다.</li> </ul>"
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>Duration</code> &mdash; 인상의 지속 시간(초)입니다.</li> <li><code>Weight</code> &mdash; 인상의 가중치를 나타내는 숫자입니다. 기본값은 1입니다.</li> <li><code>ItemPosition</code> &mdash; 추천 목록에서 항목의 위치입니다.</li> <li><code>DepartureIntent</code> &mdash; 사용자가 뷰를 떠날 때의 의도를 나타내는 <code>RecommendationDepartureIntent</code>입니다. 예를 들어, 뷰가 좋게 평가되면 <code>Positive</code>로 표시됩니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
     "documentation": "",
@@ -15510,13 +15516,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
-    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
+    "documentation": "개인화된 콘텐츠 추천을 관리하고 표시하기 위한 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
     "documentation": "항목을 생성한 플레이어입니다."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>ContentType</code> &mdash; 콘텐츠 유형을 지정하는 <code>RecommendationItemContentType</code>입니다. 유형은 일반적인 방법으로 정의됩니다. 예를 들어, 이미지는 <code>Static</code>, 비디오는 <code>Dynamic</code>, 상호작용을 지원하는 3D 모델은 <code>Interactive</code>를 사용할 수 있습니다.</li> <li><code>ReferenceId</code> &mdash; 항목을 고유하게 식별하는 개발자 정의 문자열입니다.</li> <li><code>Duration</code> &mdash; 콘텐츠의 지속 시간(초)입니다.</li> <li><code>Attributes</code> &mdash; <code>AssetId</code> 또는 <code>Description</code>과 같은 항목의 속성 테이블입니다.</li> <li><code>CustomTags</code> &mdash; 필터링 및 부스트를 위한 문자열 태그 목록입니다.</li> <li><code>Visibility</code> &mdash; 항목의 가시성을 제어하는 <code>RecommendationItemVisibility</code> 열거형으로, 예를 들어 <code>Public</code> 또는 <code>Private</code>입니다.</li> </ul>"
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>ContentType</code> &mdash; 콘텐츠 유형을 지정하는 <code>RecommendationItemContentType</code>입니다. 유형은 일반적으로 정의됩니다. 예: 이미지를 위해 <code>Static</code>, 비디오를 위해 <code>Dynamic</code>, 상호작용을 지원하는 3D 모델을 위해 <code>Interactive</code>를 사용할 수 있습니다.</li> <li><code>ReferenceId</code> &mdash; 항목을 고유하게 식별하는 개발자가 정의한 문자열입니다.</li> <li><code>Duration</code> &mdash; 콘텐츠의 지속 시간(초)입니다.</li> <li><code>Attributes</code> &mdash; 항목의 속성 테이블(예: <code>AssetId</code> 또는 <code>Description</code>)입니다.</li> <li><code>CustomTags</code> &mdash; 필터링 및 부스를 위한 문자열 태그 목록입니다.</li> <li><code>Visibility</code> &mdash; 항목의 가시성을 제어하는 <code>RecommendationItemVisibility</code> 열거형입니다(예: <code>Public</code> 또는 <code>Private</code>).</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
     "documentation": "두 개의 필드(<code>ItemId</code> 및 <code>ReferenceId</code>)만 포함하는 테이블입니다."
@@ -15544,7 +15550,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
-    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
+    "documentation": "개인화된 콘텐츠 추천을 관리하고 표시하기 위한 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
     "documentation": "제거할 itemId입니다."
@@ -15566,10 +15572,10 @@
     "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\nlocal function removeItem(itemId)\n    local success, err = pcall(function()\n        return RecommendationService:RemoveItemAsync(itemId)\n    end)\n    if success then\n        print(\"아이템이 성공적으로 제거되었습니다: \" .. itemId)\n    else\n        warn(\"아이템 제거에 실패했습니다: \" .. itemId .. \". 오류: \" .. tostring(err))\n    end\nend"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
-    "documentation": "사용자가 관리하고 개인화된 콘텐츠 추천을 표시할 수 있는 인터페이스를 제공하는 서비스입니다."
+    "documentation": "개인화된 콘텐츠 추천을 관리하고 표시하기 위한 인터페이스를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>ItemId</code> &mdash; 업데이트할 항목의 ID입니다.</li> <li><code>ReferenceId</code> &mdash; 항목을 식별하기 위한 새로운 개발자 정의 문자열입니다.</li> <li><code>Creator</code> &mdash; 항목의 새로운 작성자입니다. 작성자는 두 개의 필드(<code>CreatorId: number</code> 및 <code>CreatorType: Enum.CreatorType</code>)를 포함하는 테이블입니다.</li> <li><code>Duration</code> &mdash; 콘텐츠의 새로운 지속 시간(초)입니다.</li> <li><code>Visibility</code> &mdash; 항목의 새로운 가시성 설정입니다.</li> <li><code>Attributes</code> &mdash; 항목의 새로운 속성 테이블입니다.</li> <li><code>CustomTags</code> &mdash; 새로운 문자열 태그 목록입니다.</li> </ul>"
+    "documentation": "다음 필드를 포함하는 사전입니다: <ul> <li><code>ItemId</code> &mdash; 업데이트할 항목의 ID입니다.</li> <li><code>ReferenceId</code> &mdash; 항목을 식별하기 위한 새로운 개발자 정의 문자열입니다.</li> <li><code>Creator</code> &mdash; 항목의 새 생성자입니다. Creator는 두 개의 필드를 포함하는 테이블입니다: <code>CreatorId: number</code> 및 <code>CreatorType: Enum.CreatorType</code></li> <li><code>Duration</code> &mdash; 콘텐츠의 새로운 지속 시간(초)입니다.</li> <li><code>Visibility</code> &mdash; 항목의 새로운 가시성 설정입니다.</li> <li><code>Attributes</code> &mdash; 항목의 새로운 속성 테이블입니다.</li> <li><code>CustomTags</code> &mdash; 새로운 문자열 태그 목록입니다.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -24665,7 +24671,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다.",
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다.",
     "keys": {
       "CreatorId": "@roblox/globaltype/DataModel.CreatorId",
       "CreatorType": "@roblox/globaltype/DataModel.CreatorType",
@@ -24700,12 +24706,12 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal Lighting = game:GetService(\"Lighting\")\n\n-- 이 서비스의 속성을 수정하는 예제\nWorkspace.Gravity = 20\nLighting.ClockTime = 4"
   },
   "@roblox/globaltype/DataModel.CreatorId": {
-    "documentation": "플레이스의 소유자인 사용자 또는 그룹의 ID를 설명합니다.",
+    "documentation": "플레이스를 소유한 사용자 또는 그룹의 ID를 설명합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"플레이스 소유자가 게임에 참가했습니다!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"플레이스를 소유한 그룹의 구성원이 게임에 참가했습니다!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
-    "documentation": "플레이스의 <code>CreatorType</code>을 설명하며, 플레이스가 사용자 또는 그룹에 의해 소유되는지를 나타냅니다.",
+    "documentation": "플레이스의 <code>CreatorType</code>을 설명하며, 플레이스가 사용자 또는 그룹에 의해 소유되고 있는지를 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"플레이스 소유자가 게임에 참가했습니다!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"플레이스를 소유한 그룹의 구성원이 게임에 참가했습니다!\")\n\t\tend\n\tend\nend)"
   },
@@ -24720,12 +24726,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GearGenreSetting": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 기능하지 않으며 사용해서는 안 됩니다.<br>기능하지 않습니다. 역사적으로 Roblox 웹사이트에서 설정된 장비 권한을 설명했습니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 기능이 없으며 사용해서는 안 됩니다.<br>기능이 없습니다. 과거에는 Roblox 웹사이트에서 설정된 플레이스의 장비 권한을 설명했습니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GearGenreSetting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.Genre": {
-    "documentation": "기능하지 않습니다. 역사적으로 Roblox 웹사이트에서 설정된 플레이스의 <code>Genre</code>를 설명했습니다.",
+    "documentation": "기능이 없습니다. 과거에는 Roblox 웹사이트에 설정된 플레이스의 <code>Genre</code>를 설명했습니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Genre",
     "code_sample": ""
   },
@@ -24735,7 +24741,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.MatchmakingType": {
-    "documentation": "서버의 플레이어가 매치메이킹에 의해 어떻게 처리되는지를 나타냅니다.",
+    "documentation": "서버에서 플레이어가 처리되는 방식을 나타냅니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#MatchmakingType",
     "code_sample": ""
   },
@@ -24750,22 +24756,22 @@
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"서버 버전: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "서버가 개인 서버이거나 <code>예약된 서버</code>인 경우, 서버의 개인 서버 ID를 설명합니다.",
+    "documentation": "서버가 개인 서버 또는 <code>예약된 서버</code>인 경우 해당 서버의 개인 서버 ID를 설명합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
   "@roblox/globaltype/DataModel.PrivateServerOwnerId": {
-    "documentation": "서버가 개인 서버인 경우, 해당 개인 서버의 <code>UserId</code> 를 설명합니다.",
+    "documentation": "서버가 개인 서버인 경우 개인 서버를 소유한 <code>Player</code>의 <code>UserId</code>를 설명합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerOwnerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
   "@roblox/globaltype/DataModel.VIPServerId": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 사용되지 않습니다. 대신 <code>DataModel.PrivateServerId</code> 를 사용하세요.<br>현재 서버를 개인 서버로 식별할 수 있는 문자열입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 사용되지 않습니다. 대신 <code>DataModel.PrivateServerId</code>를 사용하십시오.<br>현재 서버를 개인 서버로 식별할 수 있는 문자열입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.VIPServerOwnerId": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 사용되지 않습니다. 대신 <code>DataModel.PrivateServerOwnerId</code>를 사용하세요.<br>개인 서버를 소유하는 계정의 <code>UserId</code>입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 사용되지 않습니다. 대신 <code>DataModel.PrivateServerOwnerId</code>를 사용하십시오.<br>개인 서버를 소유한 계정의 <code>UserId</code>입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerOwnerId",
     "code_sample": ""
   },
@@ -24775,23 +24781,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.lighting": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 대체되었으며 <code>game:GetService(\"Lighting\")</code> 를 대신 사용해야 합니다.<br>게임의 <code>Lighting</code> 서비스를 참조합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 <code>game:GetService(\"Lighting\")</code>로 대체되었습니다. 대신 사용해야 합니다.<br>게임의 <code>Lighting</code> 서비스에 해당합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#lighting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.workspace": {
-    "documentation": "<strong>Deprecated:</strong> 이 사용 중지된 속성은 <code>DataModel.Workspace</code>의 변형으로 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 사용이 중단된 속성은 <code>DataModel.Workspace</code>의 변형이며, 대신 사용해야 합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#workspace",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.BindToClose/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.BindToClose/param/1": {
-    "documentation": "경험 서버가 종료되기 전에 호출되는 함수입니다. 만약 바인딩된 함수가 매개변수를 수신하면, 서버 종료의 사유를 나타내는 <code>CloseReason</code>을 전달합니다."
+    "documentation": "경험 서버가 종료되기 전에 호출되는 함수입니다. 바인딩된 함수가 매개변수를 받으면, 서버 종료 이유를 지정하는 <code>CloseReason</code>을 전달합니다."
   },
   "@roblox/globaltype/DataModel.BindToClose": {
-    "documentation": "서버가 종료되기 전에 호출될 함수를 바인딩합니다.",
+    "documentation": "서버가 종료되기 전에 호출되는 함수를 바인딩합니다.",
     "params": [
       {
         "name": "self",
@@ -24807,13 +24813,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/return/0": {
-    "documentation": "작업 스케줄러에 의해 수행된 작업에 대한 정보를 포함하는 테이블 입니다. 형식은 위와 같습니다."
+    "documentation": "작업 스케줄러가 수행한 작업에 대한 정보를 포함하는 테이블이며, 위의 형식과 같습니다."
   },
   "@roblox/globaltype/DataModel.GetJobsInfo": {
-    "documentation": "작업 스케줄러에 의해 수행된 작업에 대한 기본 정보를 포함하는 테이블을 반환합니다.",
+    "documentation": "작업 스케줄러가 수행한 작업에 대한 기본 정보를 포함하는 테이블을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -24827,13 +24833,13 @@
     "code_sample": "local jobInfo = game:GetJobsInfo()\nlocal jobTitles = jobInfo[1]\n\ntable.remove(jobInfo, 1)\n\nlocal divider = string.rep(\"-\", 120)\nprint(divider)\nwarn(\"구직 정보:\")\nprint(divider)\n\nfor _, job in pairs(jobInfo) do\n\tfor jobIndex, jobValue in pairs(job) do\n\t\tlocal jobTitle = jobTitles[jobIndex]\n\t\twarn(jobTitle, \"=\", jobValue)\n\tend\n\tprint(divider)\nend"
   },
   "@roblox/globaltype/DataModel.GetMessage/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.GetMessage/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetMessage": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 시스템이 아주 오래전에 단계적으로 제거되었고, 최근에는 이 메시지를 설정하기 위한 API가 제거되면서 더 이상 사용되지 않습니다.<br><strong><em>[구식]:</em></strong> 이 함수는 항상 빈 문자열을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 오래전에 단종된 시스템으로 인해 사용되지 않으며, 최근에 이 메시지를 설정하기 위한 API가 제거되었습니다.<br><strong><em>[사용 중단]:</em></strong> 이 함수는 항상 빈 문자열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -24847,16 +24853,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetObjects/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.GetObjects/param/1": {
     "documentation": "주어진 콘텐츠 URL입니다."
   },
   "@roblox/globaltype/DataModel.GetObjects/return/0": {
-    "documentation": "콘텐츠 URL에 관련된 <code>Instances</code>의 배열입니다."
+    "documentation": "콘텐츠 URL과 연결된 <code>Instances</code>의 배열입니다."
   },
   "@roblox/globaltype/DataModel.GetObjects": {
-    "documentation": "주어진 콘텐츠 URL과 관련된 <code>Instances</code>의 배열을 반환합니다.",
+    "documentation": "주어진 콘텐츠 URL과 연결된 <code>Instances</code>의 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -24874,13 +24880,13 @@
     "code_sample": "local Selection = game:GetService(\"Selection\")\n\nlocal WEB_URL = \"plugin URL here\"\n\nlocal function downloadPlugin(webURL)\n\t-- 콘텐츠 URL을 가져옵니다\n\tlocal contentID = string.match(webURL, \"%d+\")\n\tlocal contentURL = \"rbxassetid://\" .. contentID\n\n\t-- 객체를 다운로드합니다\n\tlocal objects = game:GetObjects(contentURL)\n\n\t-- 부모를 결정합니다\n\tlocal selection = Selection:Get()\n\tlocal parent = #selection == 1 and selection[1] or workspace\n\n\t-- 객체의 부모를 설정합니다\n\tfor _, object in pairs(objects) do\n\t\tobject.Parent = parent\n\tend\nend\n\ndownloadPlugin(WEB_URL)"
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. <code>RunService:IsServer()</code> 를 사용하여 코드가 서버에서 실행되는지 확인하세요.<br>이 방법은 더 이상 유용하지 않으며 항상 false를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 코드가 서버에서 실행되고 있는지 확인하려면 <code>RunService:IsServer()</code>를 사용하십시오.<br>이 메소드는 더 이상 유용하지 않으며 항상 false를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -24894,16 +24900,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/1": {
     "documentation": "주어진 <code>GearType</code>입니다."
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/return/0": {
-    "documentation": "주어진 <code>GearType</code>의 장비가 게임에서 허용되는지 여부입니다."
+    "documentation": "게임에서 주어진 <code>GearType</code>의 장비가 허용되는지 여부입니다."
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed": {
-    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 기능하지 않으며 사용하지 않아야 합니다.<br>주어진 <code>GearType</code>의 장비가 <code>Players'</code>Class.StarterGear|StarterGears`에 추가하는 것이 허용되는지 확인합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 속성은 더 이상 사용되지 않으며 작동하지 않습니다. 사용하지 않아야 합니다.<br>주어진 <code>GearType</code>의 장비가 <code>Players</code>의 <code>StarterGears</code>에 추가될 수 있는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -24921,13 +24927,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsLoaded/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.IsLoaded/return/0": {
-    "documentation": "클라이언트가 게임 로딩을 처음 완료했는지 여부입니다."
+    "documentation": "클라이언트가 게임을 처음 로드하는 것을 마쳤는지 여부입니다."
   },
   "@roblox/globaltype/DataModel.IsLoaded": {
-    "documentation": "클라이언트가 게임 로딩을 처음 완료했는지 여부를 반환합니다.",
+    "documentation": "클라이언트가 게임을 처음 로드하는 것을 마쳤는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -24941,7 +24947,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- 기본 로딩 화면 생성\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"로딩 중\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- 전체 화면 GUI를 플레이어 GUI에 부모로 설정\nscreenGui.Parent = playerGui\n\n-- 기본 로딩 화면 제거\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--task.wait(3)  -- 옵션으로 화면이 최소 몇 초 동안 표시되도록 강제 설정\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
   },
   "@roblox/globaltype/DataModel.SavePlace/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.SavePlace/param/1": {
     "documentation": ""
@@ -24950,7 +24956,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.SavePlace": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새 작업에서 사용하지 마세요.<br>현재 플레이스를 저장합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새로운 작업에 사용하지 마십시오.<br>현재 플레이스를 저장합니다.",
     "params": [
       {
         "name": "self",
@@ -24968,10 +24974,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/1": {
-    "documentation": "<code>DataModel.PlaceId</code>를 설정할 ID입니다."
+    "documentation": "설정할 <code>DataModel.PlaceId</code>입니다."
   },
   "@roblox/globaltype/DataModel.SetPlaceId": {
     "documentation": "현재 게임 인스턴스의 <code>DataModel.PlaceId</code>를 설정합니다.",
@@ -24990,10 +24996,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/0": {
-    "documentation": "Roblox의 부모-자식 계층 구조의 루트입니다. 그 직접 자식은 <code>Workspace</code> 및 <code>Lighting</code>와 같은 서비스이며, Roblox 게임의 기본 구성 요소 역할을 합니다."
+    "documentation": "Roblox의 부모-자식 계층 구조의 루트. 직접적인 자식은 <code>Workspace</code> 및 <code>Lighting</code>과 같은 서비스로, 이들은 Roblox 게임의 기본 요소로 작용합니다."
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/1": {
-    "documentation": "<code>DataModel.GameId</code>를 설정할 ID입니다."
+    "documentation": "설정할 <code>DataModel.GameId</code>입니다."
   },
   "@roblox/globaltype/DataModel.SetUniverseId": {
     "documentation": "현재 게임 인스턴스의 <code>DataModel.GameId</code>를 주어진 <code>universeId</code>로 설정합니다.",
@@ -25015,7 +25021,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.OnClose": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 더 이상 사용되지 않습니다. 대신 <code>DataModel:BindToClose()</code>를 사용하는 것이 권장됩니다.<br>게임이 종료되기 전에 호출됩니다. 이 콜백이 반환되거나 타임아웃 기간이 초과되면 게임이 종료됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 더 이상 사용되지 않습니다. 대신 <code>DataModel:BindToClose()</code>를 사용하는 것이 좋습니다.<br>게임이 종료되기 전에 호출됩니다. 이 콜백이 반환되거나 타임아웃 기간이 초과되면 게임 종료가 완료됩니다.",
     "params": [],
     "returns": [
       "@roblox/globaltype/DataModel.OnClose/return/0"
@@ -25101,7 +25107,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.AllowedGearTypeChanged": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새 작업에서 사용하지 마세요.<br>SetGearSettings가 <code>allowedGenres</code>에 대한 다른 값으로 호출되면 발생합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 항목은 더 이상 사용되지 않습니다. 새로운 작업에 사용하지 마십시오.<br>SetGearSettings에 대해 <code>allowedGenres</code>의 다른 값으로 호출될 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.ConnectParallel",
@@ -25189,7 +25195,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest": {
-    "documentation": "사용자가 단축키를 사용하여 그래픽 품질을 증가 또는 감소할 때 발생합니다.",
+    "documentation": "사용자가 단축키를 이용하여 그래픽 품질을 증가 또는 감소시키도록 요청할 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.ConnectParallel",
@@ -25277,7 +25283,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.ItemChanged": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Object.Changed</code>로 대체되었습니다. 이는 새 작업에서 사용해야 합니다.<br>Class.DataModel의 모든 객체의 속성이 변경될 때 발생합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>Object.Changed</code>로 대체되었으며, 새로운 작업에서 사용해야 합니다.<br><code>DataModel</code>의 모든 객체의 속성이 변경될 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.ItemChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.ItemChanged.ConnectParallel",
@@ -25365,7 +25371,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.Loaded": {
-    "documentation": "게임이 처음 로딩을 완료했을 때 클라이언트에서 발생합니다.",
+    "documentation": "게임이 처음으로 로딩을 마쳤을 때 클라이언트에서 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.Loaded.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.Loaded.ConnectParallel",
@@ -26655,7 +26661,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction": {
-    "documentation": "클라이언트-서버 경계를 가로지르는 동기식 양방향 통신을 촉진하는 객체입니다. <code>RemoteFunction</code>을 호출하는 스크립트는 수신자로부터 응답을 받을 때까지 대기합니다.",
+    "documentation": "클라이언트-서버 경계를 가로지르는 동기식 양방향 통신을 용이하게 하는 객체입니다. <code>RemoteFunction</code>을 호출하는 스크립트는 수신자로부터 응답을 받을 때까지 대기합니다.",
     "keys": {
       "InvokeClient": "@roblox/globaltype/RemoteFunction.InvokeClient",
       "InvokeServer": "@roblox/globaltype/RemoteFunction.InvokeServer",
@@ -26666,16 +26672,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/param/0": {
-    "documentation": "클라이언트-서버 경계를 가로지르는 동기식 양방향 통신을 촉진하는 객체입니다. <code>RemoteFunction</code>을 호출하는 스크립트는 수신자로부터 응답을 받을 때까지 대기합니다."
+    "documentation": "클라이언트-서버 경계를 가로지르는 동기식 양방향 통신을 용이하게 하는 객체입니다. <code>RemoteFunction</code>을 호출하는 스크립트는 수신자로부터 응답을 받을 때까지 대기합니다."
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/param/1": {
-    "documentation": "호출할 클라이언트에 연결된 <code>Player</code>입니다."
+    "documentation": "호출할 클라이언트와 관련된 <code>Player</code>입니다."
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/param/2": {
-    "documentation": "<code>OnClientInvoke</code> 콜백으로 전달할 값입니다."
+    "documentation": "<code>OnClientInvoke</code> 콜백에 전달할 값들입니다."
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/return/0": {
-    "documentation": "<code>OnClientInvoke</code> 콜백으로부터 반환된 값입니다."
+    "documentation": "<code>OnClientInvoke</code> 콜백에서 반환된 값들입니다."
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient": {
     "documentation": "<code>RemoteFunction</code>을 호출하여 <code>OnClientInvoke</code> 콜백을 호출합니다.",
@@ -26700,13 +26706,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer/param/0": {
-    "documentation": "클라이언트-서버 경계를 가로지르는 동기식 양방향 통신을 촉진하는 객체입니다. <code>RemoteFunction</code>을 호출하는 스크립트는 수신자로부터 응답을 받을 때까지 대기합니다."
+    "documentation": "클라이언트-서버 경계를 가로지르는 동기식 양방향 통신을 용이하게 하는 객체입니다. <code>RemoteFunction</code>을 호출하는 스크립트는 수신자로부터 응답을 받을 때까지 대기합니다."
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer/param/1": {
-    "documentation": "<code>OnServerInvoke</code> 콜백으로 전달할 값입니다."
+    "documentation": "<code>OnServerInvoke</code> 콜백에 전달할 값들입니다."
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer/return/0": {
-    "documentation": "<code>OnServerInvoke</code> 콜백으로부터 반환된 값입니다."
+    "documentation": "<code>OnServerInvoke</code> 콜백에서 반환된 값들입니다."
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer": {
     "documentation": "<code>RemoteFunction</code>을 호출하여 <code>OnServerInvoke</code> 콜백을 호출합니다.",
@@ -26730,7 +26736,7 @@
     "documentation": "<code>InvokeClient()</code>를 통해 전송된 매개변수입니다."
   },
   "@roblox/globaltype/RemoteFunction.OnClientInvoke/return/0": {
-    "documentation": "콜백 함수에 의해 반환된 값입니다."
+    "documentation": "콜백 함수에서 반환된 값들입니다."
   },
   "@roblox/globaltype/RemoteFunction.OnClientInvoke": {
     "documentation": "<code>RemoteFunction</code>이 <code>InvokeClient()</code>로 호출될 때의 콜백입니다.",
@@ -26747,13 +26753,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke/param/0": {
-    "documentation": "<code>InvokeServer()</code> 호출이 발생한 클라이언트와 연결된 <code>Player</code>입니다."
+    "documentation": "<code>InvokeServer()</code> 호출이 발생한 클라이언트와 관련된 <code>Player</code>입니다."
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke/param/1": {
     "documentation": "<code>InvokeServer()</code>를 통해 전송된 매개변수입니다."
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke/return/0": {
-    "documentation": "콜백 함수에 의해 반환된 값입니다."
+    "documentation": "콜백 함수에서 반환된 값들입니다."
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke": {
     "documentation": "<code>RemoteFunction</code>이 <code>InvokeServer()</code>로 호출될 때의 콜백입니다.",
@@ -47997,7 +48003,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.DirectChatRequester": {
-    "documentation": "<code>TextChannel</code>은 <code>DirectChatRequester</code>에 직접 메시지를 보낼 수 있는 사용자에게만 메시지를 전달합니다.",
+    "documentation": "<code>TextChannel</code>은 직접 메시지를 보낼 수 있는 사용자에게만 메시지를 전달합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChannel#DirectChatRequester",
     "code_sample": ""
   },
@@ -48005,13 +48011,13 @@
     "documentation": "텍스트 채팅 채널을 나타냅니다."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/param/1": {
-    "documentation": "<code>Player</code>의 userId."
+    "documentation": "<code>Player</code>의 userId입니다."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/return/0": {
-    "documentation": "사용자를 위해 새로운 <code>TextSource</code>가 생성될 경우 <code>TextSource</code>와 <code>true</code>를 반환하며, 기존 <code>TextSource</code>가 있을 경우 <code>TextSource</code>와 <code>false</code>를 반환하거나, 사용자가 채팅이 꺼져 있거나 이 서버에 존재하지 않을 경우 <code>nil</code>과 <code>false</code>를 반환합니다."
+    "documentation": "사용자를 위한 새로운 <code>TextSource</code>가 생성되면 <code>TextSource</code>와 <code>true</code>를 반환하고, 기존 <code>TextSource</code>가 있으면 <code>TextSource</code>와 <code>false</code>를 반환하며, 사용자가 채팅을 껐거나 이 서버에 없으면 <code>nil</code>과 <code>false</code>를 반환합니다."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync": {
-    "documentation": "<code>Player</code>의 userId를 사용하여 <code>TextChannel</code>에 <code>TextSource</code>를 추가합니다.",
+    "documentation": "<code>Player</code>의 userId에 주어진 <code>TextSource</code>를 <code>TextChannel</code>에 추가합니다.",
     "params": [
       {
         "name": "self",
@@ -48035,10 +48041,10 @@
     "documentation": "<code>TextChannel</code>에 전송되는 시스템 메시지입니다."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/param/2": {
-    "documentation": "기본 시스템 메시지와 같은 시스템 메시지 유형을 식별하는 데 사용합니다."
+    "documentation": "기본 시스템 메시지와 같은 시스템 메시지 유형을 식별하는 데 사용됩니다."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/return/0": {
-    "documentation": "메시지의 상태를 나타내는 <code>TextChatMessage.Status</code> 속성이 있는 <code>TextChatMessage</code>입니다."
+    "documentation": "메시지의 조건을 나타내는 <code>TextChatMessage.Status</code> 속성을 가진 <code>TextChatMessage</code>입니다."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage": {
     "documentation": "사용자에게 시스템 메시지를 표시합니다.",
@@ -48072,7 +48078,7 @@
     "documentation": "메시지에 첨부할 사용자 정의 메타데이터입니다."
   },
   "@roblox/globaltype/TextChannel.SendAsync/return/0": {
-    "documentation": "메시지의 상태를 나타내는 <code>TextChatMessage.Status</code> 속성이 있는 <code>TextChatMessage</code>입니다."
+    "documentation": "메시지의 조건을 나타내는 <code>TextChatMessage.Status</code> 속성을 가진 <code>TextChatMessage</code>입니다."
   },
   "@roblox/globaltype/TextChannel.SendAsync": {
     "documentation": "서버에 <code>TextChatMessage</code>를 보냅니다.",
@@ -48103,7 +48109,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
-    "documentation": "<code>TextChannel</code>의 <code>DirectChatRequester</code>를 설정합니다. <code>TextChannel</code>은 <code>DirectChatRequester</code>에 직접 메시지를 보낼 수 있는 사용자에게만 메시지를 전달합니다.",
+    "documentation": "<code>TextChannel</code>의 <code>DirectChatRequester</code>를 설정합니다. <code>TextChannel</code>은 직접 메시지를 보낼 수 있는 사용자에게만 메시지를 전달합니다.",
     "params": [
       {
         "name": "self",
@@ -48119,13 +48125,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage/param/0": {
-    "documentation": "수신 중인 <code>TextChatMessage</code>입니다."
+    "documentation": "수신된 <code>TextChatMessage</code>입니다."
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage/return/0": {
-    "documentation": "<code>TextChatMessageProperties</code>가 반환되면, 그 속성은 <code>TextChatMessage</code> 매개변수와 병합되어, 그 속성이 포함된 새로운 <code>TextChatMessage</code>를 생성합니다."
+    "documentation": "<code>TextChatMessageProperties</code>가 반환되면, 해당 속성은 <code>TextChatMessage</code> 매개변수와 병합되어 해당 속성을 가진 새로운 <code>TextChatMessage</code>가 생성됩니다."
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage": {
-    "documentation": "<code>TextChannel</code>가 수신 메시지를 받고 있을 때 호출됩니다.",
+    "documentation": "<code>TextChannel</code>이 수신 메시지를 받을 때 호출됩니다.",
     "params": [
       {
         "name": "message",
@@ -48139,7 +48145,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/param/0": {
-    "documentation": "보내지는 메시지로, 메시지의 발신자도 포함되어 있습니다."
+    "documentation": "전송 중인 메시지로, 메시지의 발신자도 포함되어 있습니다."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/param/1": {
     "documentation": "메시지를 수신할 사용자의 <code>TextSource</code>입니다."
@@ -48148,7 +48154,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback": {
-    "documentation": "<code>TextChannel</code>가 수신 중인 메시지에 대해 각 클라이언트에 대해 호출되어, 이 메시지를 해당 클라이언트에 전달할지 여부를 결정합니다.",
+    "documentation": "<code>TextChannel</code>이 수신 메시지를 받을 때 각 클라이언트마다 호출되어, 해당 클라이언트에게 전달되어야 하는지를 결정합니다.",
     "params": [
       {
         "name": "message",
@@ -48243,7 +48249,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextChannel.MessageReceived": {
-    "documentation": "<code>TextChannel:DisplaySystemMessage()</code>가 클라이언트에서 호출되거나, 클라이언트가 서버에서 유효한 <code>TextChannel:SendAsync()</code> 응답을 받을 때 발생합니다.",
+    "documentation": "<code>TextChannel:DisplaySystemMessage()</code>가 클라이언트에서 호출되거나 클라이언트가 서버로부터 유효한 <code>TextChannel:SendAsync()</code> 응답을 받을 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/TextChannel.MessageReceived.Connect",
       "ConnectParallel": "@roblox/globaltype/TextChannel.MessageReceived.ConnectParallel",
@@ -50945,12 +50951,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Archivable": {
-    "documentation": "<code>Instance</code> 및 그 자식들이 <code>Instance:Clone()</code>을 사용하여 복제될 수 있는지, 저장/게시할 수 있는지를 결정합니다.",
+    "documentation": "<code>Instance</code>와 그 자손이 <code>Instance:Clone()</code>을 사용하여 복제할 수 있는지, 그리고 저장/게시할 수 있는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Capabilities": {
-    "documentation": "이 컨테이너 내에서 스크립트에 허용된 기능의 집합입니다.",
+    "documentation": "이 컨테이너 내에서 스크립트에 사용될 수 있는 기능 집합입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Capabilities",
     "code_sample": ""
   },
@@ -50960,17 +50966,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Parent": {
-    "documentation": "<code>Instance</code>의 계층 부모를 결정합니다.",
+    "documentation": "<code>Instance</code>의 계층적 부모를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Parent",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RobloxLocked": {
-    "documentation": "<code>CoreGui</code> 객체를 보호하던 이전의 사용 중지된 속성입니다.",
+    "documentation": "이전에는 <code>CoreGui</code> 객체를 보호하는 데 사용된 속성입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#RobloxLocked",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Sandboxed": {
-    "documentation": "인스턴스를 샌드박스화된 컨테이너로 변환합니다.",
+    "documentation": "인스턴스를 샌드박스된 컨테이너로 전환합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Sandboxed",
     "code_sample": ""
   },
@@ -50980,7 +50986,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.archivable": {
-    "documentation": "<strong>Deprecated:</strong> 이 사용 중지된 속성은 <code>Instance.Archivable</code>의 변형입니다. 대신 사용하셔야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 속성은 <code>Instance.Archivable</code>의 변형으로, 대신 사용해야 합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#archivable",
     "code_sample": ""
   },
@@ -51010,7 +51016,7 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "인스턴스의 모든 자식들을 없애는 메소드입니다.",
+    "documentation": "인스턴스의 모든 자식 객체를 삭제하는 메서드입니다.",
     "params": [
       {
         "name": "self",
@@ -51028,7 +51034,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.Clone": {
-    "documentation": "인스턴스와 그 자손의 복사본을 생성하며, <code>Archivable</code>이 아닌 인스턴스는 무시합니다.",
+    "documentation": "인스턴스와 모든 자손의 복사본을 생성하며, <code>Archivable</code>이 아닌 인스턴스는 무시합니다.",
     "params": [
       {
         "name": "self",
@@ -51045,7 +51051,7 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.Destroy": {
-    "documentation": "<code>Instance.Parent</code> 속성을 <code>nil</code>로 설정하고, <code>Instance.Parent</code> 속성을 잠그며, 모든 연결을 끊고, 모든 자식에게 <code>Destroy()</code>를 호출합니다.",
+    "documentation": "<code>Instance.Parent</code> 속성을 <code>nil</code>로 설정하고, <code>Instance.Parent</code> 속성을 잠그고, 모든 연결을 끊고, 모든 자식에 대해 <code>Destroy()</code>를 호출합니다.",
     "params": [
       {
         "name": "self",
@@ -51060,13 +51066,13 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/1": {
-    "documentation": "<code>Instance.Name</code>을 찾습니다."
+    "documentation": "찾고자 하는 <code>Instance.Name</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/return/0": {
-    "documentation": "<code>Instance</code>를 찾았습니다."
+    "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor": {
-    "documentation": "<code>Instance.Name</code>이 주어진 이름과 동일한 첫 번째 조상을 반환합니다.",
+    "documentation": "<code>Instance</code>에서 주어진 이름과 같은 첫 번째 조상을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51087,13 +51093,13 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/1": {
-    "documentation": "<code>찾을 Class.Object.ClassName</code>입니다."
+    "documentation": "찾고자 하는 <code>Object.ClassName</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/return/0": {
-    "documentation": "<code>Instance</code>를 찾았습니다."
+    "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "<code>Instance</code>의 첫 번째 조상을 반환하며, <code>Object.ClassName</code>이 주어진 className과 같습니다.",
+    "documentation": "<code>Instance</code>의 첫 번째 조상 중 <code>Object.ClassName</code>이 주어진 className과 같은 조상을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51114,13 +51120,13 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/1": {
-    "documentation": "찾을 <code>Object.ClassName</code>입니다."
+    "documentation": "찾고자 하는 <code>Object.ClassName</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/return/0": {
-    "documentation": "<code>Instance</code>를 찾았습니다."
+    "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "<code>Instance</code>의 첫 번째 조상을 반환하며, <code>Object:IsA()</code>가 주어진 className에 대해 true인 경우입니다.",
+    "documentation": "<code>Instance</code>의 첫 번째 조상 중 <code>Object:IsA()</code>가 주어진 className에 대해 true를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51147,10 +51153,10 @@
     "documentation": "검색이 재귀적으로 수행되어야 하는지 여부입니다."
   },
   "@roblox/globaltype/Instance.FindFirstChild/return/0": {
-    "documentation": "<code>Instance</code>를 찾았습니다."
+    "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstChild": {
-    "documentation": "주어진 이름으로 <code>Instance</code>의 첫 번째 자식을 반환합니다.",
+    "documentation": "주어진 이름으로 찾아낸 <code>Instance</code>의 첫 번째 자식을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51175,13 +51181,13 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/1": {
-    "documentation": "찾을 <code>Object.ClassName</code>입니다."
+    "documentation": "검색할 <code>Object.ClassName</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/return/0": {
-    "documentation": "<code>Instance</code>를 찾았습니다."
+    "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass": {
-    "documentation": "주어진 클래스 이름과 같도록<code>Object.ClassName</code>인 <code>Instance</code>의 첫 번째 자식을 반환합니다.",
+    "documentation": "주어진 클래스 이름과 같은 <code>Instance</code>의 첫 번째 자식을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51208,10 +51214,10 @@
     "documentation": "검색이 재귀적으로 수행되어야 하는지 여부입니다."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/return/0": {
-    "documentation": "<code>Instance</code>를 찾았습니다."
+    "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA": {
-    "documentation": "주어진 클래스 이름에 대해 <code>Object:IsA()</code>가 true인 <code>Instance</code>의 첫 번째 자식을 반환합니다.",
+    "documentation": "주어진 className으로 <code>Instance</code>의 첫 번째 자식을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51239,7 +51245,7 @@
     "documentation": "검색할 <code>Instance.Name</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/return/0": {
-    "documentation": "<code>Instance</code>를 찾았습니다."
+    "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.FindFirstDescendant": {
     "documentation": "주어진 <code>Instance.Name</code>을 가진 첫 번째 자손을 반환합니다.",
@@ -51263,10 +51269,10 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.GetActor/return/0": {
-    "documentation": "<code>Actor</code>를 찾았습니다."
+    "documentation": "찾은 <code>Actor</code>입니다."
   },
   "@roblox/globaltype/Instance.GetActor": {
-    "documentation": "인스턴스와 관련된 <code>Actor</code>를 반환합니다, 있으면.",
+    "documentation": "<code>Instance</code>와 연결된 <code>Actor</code>를 반환합니다, 만약 있다면.",
     "params": [
       {
         "name": "self",
@@ -51286,7 +51292,7 @@
     "documentation": "가져올 속성의 이름입니다."
   },
   "@roblox/globaltype/Instance.GetAttribute/return/0": {
-    "documentation": "주어진 속성 이름에 할당된 값입니다. 속성이 없는 경우에는 <code>nil</code>을 반환합니다."
+    "documentation": "주어진 속성 이름에 할당된 값입니다. 할당된 속성이 없으면 <code>nil</code>이 반환됩니다."
   },
   "@roblox/globaltype/Instance.GetAttribute": {
     "documentation": "주어진 속성 이름에 할당된 값을 반환합니다.",
@@ -51310,13 +51316,13 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/1": {
-    "documentation": "변경 신호를 반환하는 지정된 속성의 이름입니다."
+    "documentation": "변경 신호가 반환되는 특정 속성의 이름입니다."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/return/0": {
-    "documentation": "지정된 속성이 변경될 때 발생하는 이벤트입니다."
+    "documentation": "주어진 속성이 변경될 때 발생하는 이벤트입니다."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal": {
-    "documentation": "지정된 속성이 변경될 때 발생하는 이벤트를 반환합니다.",
+    "documentation": "주어진 속성이 변경될 때 발생하는 이벤트를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51337,10 +51343,10 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
-    "documentation": "각 속성을 위한 문자열 → variant 쌍의 사전입니다. 문자열은 속성의 이름이고, variant은 비-<code>nil</code> 값입니다."
+    "documentation": "속성 이름이 키이고 비 <code>nil</code> 값이 값인 문자열 → 변형 쌍의 딕셔너리입니다."
   },
   "@roblox/globaltype/Instance.GetAttributes": {
-    "documentation": "인스턴스의 속성 집합을 반환합니다.",
+    "documentation": "인스턴스의 속성 딕셔너리를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51357,10 +51363,10 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.GetChildren/return/0": {
-    "documentation": "인스턴스 자식을 포함한 배열입니다."
+    "documentation": "인스턴스의 자식을 포함하는 배열입니다."
   },
   "@roblox/globaltype/Instance.GetChildren": {
-    "documentation": "인스턴스의 모든 자식의 배열을 반환합니다.",
+    "documentation": "인스턴스의 모든 자식을 포함하는 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51383,7 +51389,7 @@
     "documentation": "디버그 ID 문자열입니다."
   },
   "@roblox/globaltype/Instance.GetDebugId": {
-    "documentation": "Roblox에서 내부적으로 사용되는 디버그 ID의 코드화된 문자열을 반환합니다.",
+    "documentation": "로블록스가 내부적으로 사용하는 디버그 ID의 코드화된 문자열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51427,7 +51433,7 @@
     "documentation": "<code>Instance</code>의 전체 이름입니다."
   },
   "@roblox/globaltype/Instance.GetFullName": {
-    "documentation": "인스턴스의 조상에 대한 설명 문자열을 반환합니다.",
+    "documentation": "인스턴스의 조상을 설명하는 문자열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51444,13 +51450,13 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.GetStyled/param/1": {
-    "documentation": "질의할 속성의 이름입니다."
+    "documentation": "쿼리할 속성의 이름입니다."
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
-    "documentation": "지정된 속성의 스타일화되거나 명시적으로 수정된 값 또는, 그렇지 않을 경우 기본 속성 값을 반환합니다."
+    "documentation": "지정된 속성의 스타일화되거나 명시적으로 수정된 값입니다. 수정되지 않았을 경우 기본 속성 값이 반환됩니다."
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "지정된 속성의 스타일화되거나 명시적으로 수정된 값을 반환하며,  그렇지 않을 경우 기본 속성 값을 반환합니다.",
+    "documentation": "지정된 속성의 스타일이 지정되거나 명시적으로 수정된 값을 반환합니다. 수정되지 않았을 경우 기본 속성 값이 반환됩니다.",
     "params": [
       {
         "name": "self",
@@ -51471,7 +51477,7 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/1": {
-    "documentation": "변경을 청취할 스타일 속성의 이름입니다."
+    "documentation": "변경 사항을 감지할 스타일 속성의 이름입니다."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/return/0": {
     "documentation": "주어진 스타일 속성이 변경될 때 발생하는 이벤트입니다."
@@ -51501,7 +51507,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.GetTags": {
-    "documentation": "인스턴스에 적용된 모든 태그 배열을 가져옵니다.",
+    "documentation": "인스턴스에 적용된 모든 태그의 배열을 가져옵니다.",
     "params": [
       {
         "name": "self",
@@ -51548,7 +51554,7 @@
     "documentation": "자손 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.IsAncestorOf/return/0": {
-    "documentation": "주어진 자손의 조상인 경우 <code>true</code>를 반환합니다."
+    "documentation": "주어진 자손의 조상이면 <code>true</code>를 반환합니다."
   },
   "@roblox/globaltype/Instance.IsAncestorOf": {
     "documentation": "<code>Instance</code>가 주어진 자손의 조상인 경우 true를 반환합니다.",
@@ -51575,7 +51581,7 @@
     "documentation": "조상 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.IsDescendantOf/return/0": {
-    "documentation": "주어진 조상의 자손인 경우 <code>true</code>를 반환합니다."
+    "documentation": "주어진 조상의 자손이면 <code>true</code>를 반환합니다."
   },
   "@roblox/globaltype/Instance.IsDescendantOf": {
     "documentation": "<code>Instance</code>가 주어진 조상의 자손인 경우 <code>true</code>를 반환합니다.",
@@ -51599,13 +51605,13 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/1": {
-    "documentation": "질의할 속성의 이름입니다."
+    "documentation": "쿼리할 속성의 이름입니다."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "속성이 코드에서 생성된 기본값에서 수정되었는지를 나타내는 불린 값입니다."
+    "documentation": "해당 속성의 기본값에서 수정된 여부를 나타내는 불린 값입니다."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "지정된 속성에 저장된 값이 코드에서 생성된 기본값과 같지 않은 경우 <code>true</code>를 반환합니다.",
+    "documentation": "지정된 속성에 저장된 값이 코드인스턴스의 기본값과 같지 않으면 <code>true</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51626,10 +51632,10 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/1": {
-    "documentation": "요소를 필터링하기 위한 선택자 문자열입니다."
+    "documentation": "Selector string used to filter elements."
   },
   "@roblox/globaltype/Instance.QueryDescendants/return/0": {
-    "documentation": "인스턴스 배열입니다(선택자에 맞는 것이 없으면 비어 있습니다)."
+    "documentation": "An array of instances (empty if nothing matched the selector)."
   },
   "@roblox/globaltype/Instance.QueryDescendants": {
     "documentation": "",
@@ -51653,7 +51659,7 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> 이 항목은 <code>Instance:Destroy()</code> 및 <code>Instance:ClearAllChildren()</code>를 대체하여 사용 중지되었습니다. 객체를 게임에서 제거해야 하며, 객체를 나중에 사용하려면 이 방법 대신 <code>Parent</code> 속성을 <code>nil</code>로 설정해야 합니다.<br>객체의 <code>Parent</code>를 <code>nil</code>로 설정하고, 그 모든 자손에게도 동일하게 설정합니다.",
+    "documentation": "<strong>Deprecated:</strong> This item is deprecated in favor of <code>Instance:Destroy()</code> and <code>Instance:ClearAllChildren()</code>. If you must remove an object from the game, and wish to use the object later, set its <code>Parent</code> property to <code>nil</code> instead of using this method.<br>Sets the object's <code>Parent</code> to <code>nil</code>, and does the same for all its descendants.",
     "params": [
       {
         "name": "self",
@@ -51671,7 +51677,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.RemoveTag": {
-    "documentation": "인스턴스에서 태그를 제거합니다.",
+    "documentation": "Removes a tag from the instance.",
     "params": [
       {
         "name": "self",
@@ -51690,10 +51696,10 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/1": {
-    "documentation": "재설정할 속성의 이름입니다."
+    "documentation": "Name of the property to reset."
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault": {
-    "documentation": "속성을 기본 값으로 재설정합니다.",
+    "documentation": "Resets a property to its default value.",
     "params": [
       {
         "name": "self",
@@ -51712,13 +51718,13 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.SetAttribute/param/1": {
-    "documentation": "설정될 속성의 이름입니다."
+    "documentation": "The name of the attribute being set."
   },
   "@roblox/globaltype/Instance.SetAttribute/param/2": {
-    "documentation": "지정된 속성을 설정할 값입니다."
+    "documentation": "The value to set the specified attribute to."
   },
   "@roblox/globaltype/Instance.SetAttribute": {
-    "documentation": "주어진 이름의 속성을 주어진 값으로 설정합니다.",
+    "documentation": "Sets the attribute with the given name to the given value.",
     "params": [
       {
         "name": "self",
@@ -51744,13 +51750,13 @@
     "documentation": "<code>Instance.Name</code>을 찾습니다."
   },
   "@roblox/globaltype/Instance.WaitForChild/param/2": {
-    "documentation": "선택적 타임아웃 매개변수입니다."
+    "documentation": "선택적인 시간 초과 매개변수입니다."
   },
   "@roblox/globaltype/Instance.WaitForChild/return/0": {
-    "documentation": "<code>Instance</code>가 발견되었습니다."
+    "documentation": "찾은 <code>Instance</code>입니다."
   },
   "@roblox/globaltype/Instance.WaitForChild": {
-    "documentation": "주어진 이름을 가진 <code>Instance</code>의 자식을 반환합니다. 자식이 존재하지 않으면, 현재 스레드를 해당 자식이 생성될 때까지 대기합니다.",
+    "documentation": "Returns the child of the <code>Instance</code> with the given name. If the child does not exist, it will yield the current thread until it does.",
     "params": [
       {
         "name": "self",
@@ -51778,7 +51784,7 @@
     "documentation": "자식 객체/인스턴스의 배열입니다."
   },
   "@roblox/globaltype/Instance.children": {
-    "documentation": "<strong>Deprecated:</strong> <code>Instance:GetChildren()</code>로 대체된 항목으로, 모든 새로운 작업에서 사용해야 합니다.<br>객체의 자식 배열을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>Instance:GetChildren()</code>로 대체되었으며, 모든 새로운 작업에서 사용해야 합니다.<br>객체의 자식들로 이루어진 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -51911,7 +51917,7 @@
     "documentation": "<code>Instance</code>는 Roblox 클래스 계층의 모든 클래스의 기본 클래스입니다 <code>DataModel</code> 트리의 일부가 될 수 있습니다."
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Instance:Remove()</code>의 변형으로, 이 함수도 이미 deprecated 되었습니다. 새로운 작업에서 어떠한 함수도 사용하면 안됩니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Instance:Remove()</code>의 변형이며, 이 또한 deprecated되었습니다. 새 작업에서 이 함수들은 사용되어서는 안 됩니다.",
     "params": [
       {
         "name": "self",
@@ -52000,7 +52006,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AncestryChanged": {
-    "documentation": "<code>Instance.Parent</code> 속성이 객체 또는 그 조상 중 하나에서 변경될 때 발생합니다.",
+    "documentation": "<code>Instance.Parent</code> 객체의 속성이 변경될 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AncestryChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AncestryChanged.ConnectParallel",
@@ -52088,7 +52094,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AttributeChanged": {
-    "documentation": "<code>Instance</code>에서 속성이 변경될 때마다 발생합니다.",
+    "documentation": "<code>Instance</code>의 속성이 변경될 때마다 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AttributeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AttributeChanged.ConnectParallel",
@@ -52176,7 +52182,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildAdded": {
-    "documentation": "<code>Instance</code>에 객체가 부모로 추가된 후 발생합니다.",
+    "documentation": "이 <code>Instance</code>에 객체가 부모로 추가된 후에 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildAdded.ConnectParallel",
@@ -52264,7 +52270,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildRemoved": {
-    "documentation": "이 <code>Instance</code>에서 자식이 제거된 후 발생합니다.",
+    "documentation": "이 <code>Instance</code>에서 자식이 제거된 후에 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildRemoved.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildRemoved.ConnectParallel",
@@ -52352,7 +52358,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantAdded": {
-    "documentation": "이 <code>Instance</code>에 자손이 추가된 후 발생합니다.",
+    "documentation": "이 <code>Instance</code>에 자손이 추가된 후에 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantAdded.ConnectParallel",
@@ -52528,7 +52534,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.Destroying": {
-    "documentation": "인스턴스가 <code>Instance:Destroy()</code>를 통해 제거되기 직전에 발생합니다.",
+    "documentation": "인스턴스가 <code>Instance:Destroy()</code>를 통해 파괴되기 <strong>직전</strong> 또는 이후에 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.Destroying.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.Destroying.ConnectParallel",
@@ -52616,7 +52622,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.StyledPropertiesChanged": {
-    "documentation": "인스턴스의 스타일 속성이 변경될 때마다 발생하며, 속성이 <code>nil</code>로 설정될 때도 포함됩니다.",
+    "documentation": "인스턴스의 스타일 속성이 변경될 때마다 발생합니다. 속성이 <code>nil</code>로 설정될 때도 포함됩니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.StyledPropertiesChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.StyledPropertiesChanged.ConnectParallel",
@@ -52704,7 +52710,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.childAdded": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 이벤트는 <code>Instance.ChildAdded</code>의 변형으로, 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 이벤트는 <code>Instance.ChildAdded</code>의 변형이며, 대신 사용해야 합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.childAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.childAdded.ConnectParallel",
@@ -65243,7 +65249,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.EnableVideoAds": {
-    "documentation": "AdGui가 비디오 광고를 제공할 수 있게 합니다.",
+    "documentation": "AdGui가 비디오 광고를 제공합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#EnableVideoAds",
     "code_sample": ""
   },
@@ -75976,22 +75982,9 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GameSettings": {
-    "documentation": "게임 내 다양한 옵션을 위한 컨테이너입니다.",
-    "keys": {
-      "VideoCaptureEnabled": "@roblox/globaltype/GameSettings.VideoCaptureEnabled",
-      "VideoRecording": "@roblox/globaltype/GameSettings.VideoRecording"
-    },
+    "documentation": "게임 내 다양한 옵션을 위한 컨테이너.",
+    "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoCaptureEnabled": {
-    "documentation": "비디오 캡처가 활성화되어 있는지 여부를 토글합니다.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoCaptureEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoRecording": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoRecording",
     "code_sample": ""
   },
   "@roblox/globaltype/VisualizationModeCategory": {
@@ -77709,7 +77702,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync": {
-    "documentation": "<code>Pages</code> 객체를 반환하며, 현재 경험의 모든 개발자 제품에 대한 정보를 포함합니다.",
+    "documentation": "<code>Pages</code> 개체를 반환하여 현재 경험의 개발자 제품에 대한 정보를 포함합니다.",
     "params": [
       {
         "name": "self",
@@ -77726,13 +77719,13 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/1": {
-    "documentation": "지정된 제품의 자산 ID입니다."
+    "documentation": "지정한 제품의 자산 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/2": {
     "documentation": "가져올 정보의 유형을 지정하는 <code>InfoType</code> 열거형 값입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0": {
-    "documentation": "쿼리 항목에 대한 정보가 포함된 사전입니다. 이전 테이블에서 설명되었습니다."
+    "documentation": "조회된 항목에 대한 정보를 포함하는 딕셔너리입니다. 이전 테이블에서 설명되었습니다."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
     "documentation": "자산의 자산 ID를 사용하여 제품 정보를 반환합니다.",
@@ -77766,7 +77759,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync": {
-    "documentation": "지정된 <code>subscriptionId</code>에 대한 구독 제품 정보를 반환합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 구독 제품 정보를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -77787,7 +77780,7 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/1": {
-    "documentation": "구독 세부 정보를 확인할 <code>Player</code> 객체입니다."
+    "documentation": "구독 세부정보를 확인하려는 <code>Player</code> 개체입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/2": {
     "documentation": "확인할 구독의 ID입니다."
@@ -77796,7 +77789,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync": {
-    "documentation": "지정된 <code>subscriptionId</code>에 대한 사용자의 구독 세부 정보를 포함하는 테이블을 반환합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 사용자의 구독 세부정보를 포함하는 테이블을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -77830,7 +77823,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync": {
-    "documentation": "지정된 <code>subscriptionId</code>에 대한 사용자 구독 결제 내역이 최대 1년까지 포함된 <code>Array</code>를 반환합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 사용자의 구독 결제 기록을 최대 1년까지 포함하는 <code>Array</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -77855,7 +77848,7 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/1": {
-    "documentation": "구독 상태를 확인할 <code>Player</code> 객체입니다."
+    "documentation": "구독 상태를 확인하려는 <code>Player</code> 개체입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/2": {
     "documentation": "확인할 구독의 ID입니다."
@@ -77864,7 +77857,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync": {
-    "documentation": "지정된 <code>subscriptionId</code>에 대한 사용자의 구독 상태를 포함하는 <code>table</code>을 반환합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 사용자 구독 상태가 포함된 <code>table</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -77889,13 +77882,13 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/1": {
-    "documentation": "사용자 ID의 배열입니다."
+    "documentation": "사용자 ID 배열입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "사용자 ID(문자열)가 키로, 해당 가격 수준(1에서 1000 사이의 정수)이 값으로 있는 사전을 가진 <code>PriceLevelInfo</code> 객체의 배열을 반환합니다."
+    "documentation": "<code>PriceLevelInfo</code> 객체 배열을 반환하며, 키는 사용자 ID(문자열)이고 값은 해당 가격 수준(1과 1000 사이의 정수)인 딕셔너리를 포함합니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "사용자의 지역화된 가격 수준을 반환하며, 이는 그들의 지역 시장에서 아이템에 대한 추천 가격을 나타냅니다.",
+    "documentation": "사용자의 지역화된 가격을 반환하며, 해당 사용자의 지역 시장에서 아이템을 위한 권장 가격을 나타냅니다.",
     "params": [
       {
         "name": "self",
@@ -77916,16 +77909,16 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/1": {
-    "documentation": "주어진 자산의 소유 여부를 확인할 <code>Player</code> 객체입니다."
+    "documentation": "주어진 자산의 소유 여부를 테스트할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "주어진 플레이어 인벤토리를 테스트할 자산 ID입니다."
+    "documentation": "주어진 플레이어의 인벤토리를 테스트할 자산 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
-    "documentation": "주어진 플레이어의 인벤토리에 주어진 자산이 존재하는지 여부를 나타냅니다."
+    "documentation": "주어진 플레이어의 인벤토리에 주어진 자산이 포함되어 있는지를 나타냅니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "주어진 사용자가 주어진 자산을 소유하고 있는지 확인합니다.",
+    "documentation": "주어진 사용자가 주어진 자산을 보유하고 있는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -77950,16 +77943,16 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "주어진 번들의 소유 여부를 확인할 <code>Player</code> 객체입니다."
+    "documentation": "주어진 번들의 소유 여부를 테스트할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "주어진 플레이어 인벤토리를 테스트할 번들 ID입니다."
+    "documentation": "주어진 플레이어의 인벤토리를 테스트할 번들 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "주어진 플레이어의 인벤토리에 주어진 번들이 존재하는지 여부를 나타냅니다."
+    "documentation": "주어진 플레이어의 인벤토리에 주어진 번들이 포함되어 있는지를 나타냅니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "주어진 플레이어가 주어진 번들을 소유하고 있는지 확인합니다.",
+    "documentation": "주어진 플레이어가 주어진 번들을 소유하고 있는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -77987,13 +77980,13 @@
     "documentation": "아이템 구매를 요청할 사용자입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "대량 구매에 포함될 아바타 아이템의 배열입니다. 각 항목은 다음 구조를 가집니다: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 각 항목은 다음 쌍을 가집니다: <ul> <li><code>Type</code>: 해당하는 <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: 자산 또는 번들의 ID입니다.</li> </ul>"
+    "documentation": "대량 구매에 포함될 아바타 아이템의 배열입니다. 각 항목은 아래 구조를 포함합니다: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 각 항목에는 다음 쌍이 포함됩니다: <ul> <li><code>Type</code>: 해당 <code>MarketplaceProductType</code> (열거형).</li> <li><code>Id</code>: 자산 또는 번들의 ID입니다.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
-    "documentation": "현재 사용 불가능합니다."
+    "documentation": "현재 사용할 수 없습니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "사용자에게 주어진 <code>assetId</code> 또는 <code>bundleId</code>로 여러 아바타 아이템을 구매하도록 요청합니다.",
+    "documentation": "주어진 <code>assetId</code> 또는 <code>bundleId</code>로 여러 아바타 아이템을 구매하라고 사용자에게 알립니다.",
     "params": [
       {
         "name": "self",
@@ -78026,7 +78019,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "사용자에게 주어진 <code>bundleId</code>로 번들을 구매하라는 요청을 합니다.",
+    "documentation": "주어진 <code>bundleId</code>로 번들을 구매하라고 사용자에게 알립니다.",
     "params": [
       {
         "name": "self",
@@ -78055,7 +78048,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "사용자에게 주어진 <code>subscriptionId</code>에 대한 구독을 취소하도록 요청합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 구독을 취소하라고 사용자에게 알립니다.",
     "params": [
       {
         "name": "self",
@@ -78084,7 +78077,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "사용자에게 주어진 <code>gamePassId</code>로 패스를 구매하도록 요청합니다.",
+    "documentation": "주어진 <code>gamePassId</code>로 패스를 구매하라고 사용자에게 알립니다.",
     "params": [
       {
         "name": "self",
@@ -78107,7 +78100,7 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "Premium 구매를 요청받는 사용자입니다."
+    "documentation": "Premium 구매를 요청할 사용자입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
     "documentation": "사용자에게 Roblox Premium 구매를 요청합니다.",
@@ -78141,7 +78134,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "사용자에게 주어진 <code>productId</code>로 개발자 제품을 구매하도록 요청합니다.",
+    "documentation": "주어진 <code>productId</code>로 개발자 제품 구매를 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -78181,10 +78174,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/4": {
-    "documentation": "무시됩니다."
+    "documentation": "무시됨."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "사용자에게 주어진 <code>assetId</code>로 항목을 구매하도록 요청합니다. USD Creator Store 구매에 대해서는 작동하지 않습니다.",
+    "documentation": "주어진 <code>assetId</code>로 아이템 구매를 요청합니다. USD Creator Store 구매에는 작동하지 않습니다.",
     "params": [
       {
         "name": "self",
@@ -78215,13 +78208,13 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "구독을 요청할 <code>Player</code> 객체입니다."
+    "documentation": "구독을 요청할 <code>Player</code> 개체입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
     "documentation": "구독할 구독의 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "사용자에게 주어진 <code>subscriptionId</code>에 대한 구독 구매를 요청합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 구독 구매를 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -78244,16 +78237,16 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "인벤토리를 확인하려는 <code>Player</code>의 <code>UserId|UserId</code>입니다."
+    "documentation": "확인할 <code>Player</code>의 <code>UserId</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "확인할 패스 ID입니다. 자산 ID와 혼동하지 마십시오."
+    "documentation": "확인할 패스의 ID입니다. 자산 ID와 혼동되지 않도록 주의하세요."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "주어진 <code>UserId</code>를 가진 플레이어가 주어진 <code>gamePassId</code>를 소유하고 있는지 여부를 반환합니다.",
+    "documentation": "주어진 <code>UserId</code>를 가진 플레이어가 주어진 <code>gamePassId</code>로 패스를 소유하고 있는 경우 true를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -78275,13 +78268,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt/param/0": {
-    "documentation": "The <code>receiptInfo</code> table passed to this callback contains the following data: <ul> <li><code>PurchaseId</code> &mdash; A unique identifier for the specific purchase.</li> <li><code>PlayerId</code> &mdash; The user ID of the user who made the purchase.</li> <li><code>ProductId</code> &mdash; The ID of the purchased product.</li> <li><code>PlaceIdWherePurchased</code> &mdash; The place ID in which the purchase   was made. Depending on where the user is during gameplay, the   purchase place's ID can be the same as or different from the current   place's ID.</li> <li><code>CurrencySpent</code> &mdash; The amount of currency spent in the   transaction.</li> <li><code>CurrencyType</code> &mdash; The type of currency spent in the purchase;   always <code>CurrencyType.Robux</code>.</li> <li><code>ProductPurchaseChannel</code> — How the user acquired the developer   product. One of <code>ProductPurchaseChannel</code>.</li> </ul>"
+    "documentation": "<code>receiptInfo</code> 테이블은 이 콜백에 전달되며 다음 데이터가 포함됩니다: <ul> <li><code>PurchaseId</code> &mdash; 특정 구매를 위한 고유 식별자.</li> <li><code>PlayerId</code> &mdash; 구매를 한 사용자의 사용자 ID.</li> <li><code>ProductId</code> &mdash; 구매한 제품의 ID.</li> <li><code>PlaceIdWherePurchased</code> &mdash; 구매가 이루어진 장소 ID.   사용자가 게임 플레이 중에 있는 위치에 따라,   구매 장소의 ID가 현재 장소의 ID와 같거나 다를 수 있습니다.</li> <li><code>CurrencySpent</code> &mdash; 거래에서 사용된 화폐의 양.</li> <li><code>CurrencyType</code> &mdash; 구매 시 사용된 화폐 유형;   항상 <code>CurrencyType.Robux</code>입니다.</li> <li><code>ProductPurchaseChannel</code> — 사용자가 개발자 제품을 획득한 방법.   <code>ProductPurchaseChannel</code> 중 하나입니다.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt/return/0": {
-    "documentation": "An enum that represents how the developer product receipt was processed. <ul> <li><code>PurchaseGranted</code>:</li> <li>Indicates that the experience successfully granted the player the     developer product.</li> <li>Indicates to Roblox that the developer product sale was     successful.</li> <li><code>NotProcessedYet</code>:</li> <li>Indicates that the experience failed to grant the player the     developer product.</li> </ul>"
+    "documentation": "개발자 제품 영수증이 처리된 방법을 나타내는 열거형입니다. <ul> <li><code>PurchaseGranted</code>:</li> <li>경험이 사용자가 개발자 제품을 성공적으로 부여했음을 나타냅니다.</li> <li>개발자 제품 판매가 성공적임을 Roblox에 나타냅니다.</li> <li><code>NotProcessedYet</code>:</li> <li>경험이 사용자가 개발자 제품을 부여하지 못했음을 나타냅니다.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt": {
-    "documentation": "개발자 제품 구매의 영수증을 처리하는 콜백입니다.",
+    "documentation": "개발자 제품 구매 영수증을 처리하는 콜백입니다.",
     "params": [
       {
         "name": "receiptInfo",
@@ -78372,7 +78365,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchaseFinished": {
-    "documentation": "대량 아바타 아이템에 대한 구매 프롬프트가 닫힐 때 발생합니다.",
+    "documentation": "대량 아바타 아이템 구매 제안이 닫힐 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptBulkPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptBulkPurchaseFinished.ConnectParallel",
@@ -78548,7 +78541,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchaseFinished": {
-    "documentation": "패스에 대한 구매 프롬프트가 닫힐 때 발생합니다.",
+    "documentation": "패스 구매 제안이 닫힐 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchaseFinished.ConnectParallel",
@@ -78636,7 +78629,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished": {
-    "documentation": "Roblox Premium 구매 프롬프트가 닫힐 때 발생합니다.",
+    "documentation": "Roblox Premium 구매 제안이 닫힐 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished.ConnectParallel",
@@ -78724,7 +78717,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished": {
-    "documentation": "개발자 제품에 대한 구매 프롬프트가 닫힐 때 발생합니다. 이 이벤트를 사용하여 구매를 처리하지 마십시오.",
+    "documentation": "개발자 제품 구매 제안이 닫힐 때 발생합니다. 이 이벤트를 사용하여 구매를 처리하지 마세요.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished.ConnectParallel",
@@ -78812,7 +78805,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished": {
-    "documentation": "제휴 장비 판매 또는 기타 자산에 대한 구매 프롬프트가 닫힐 때 발생합니다. 개발자 제품이나 패스 프롬프트에는 발생하지 않습니다.",
+    "documentation": "제휴 기어 판매 또는 기타 자산 구매 제안이 닫힐 때 발생합니다. 개발자 제품 또는 패스 프롬프트에는 발생하지 않습니다.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished.ConnectParallel",
@@ -78900,7 +78893,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished": {
-    "documentation": "구독에 대한 구매 프롬프트가 닫힐 때 발생합니다.",
+    "documentation": "구독 구매 제안이 닫힐 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished.ConnectParallel",
@@ -90424,22 +90417,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.ChatTranslationEnabled": {
-    "documentation": "사용자가 채팅 번역 기능을 활성화했는지 여부를 결정합니다.",
+    "documentation": "사용자가 채팅 번역을 활성화했는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#ChatTranslationEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.ChatVersion": {
-    "documentation": "<code>TextChatService</code>를 완전히 활성화할지 아니면 구형 채팅 시스템으로 되돌릴지를 결정합니다.",
+    "documentation": "<code>TextChatService</code>를 완전히 활성화할지 또는 레거시 채팅 시스템으로 되돌릴지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#ChatVersion",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CreateDefaultCommands": {
-    "documentation": "<code>TextChatService</code>가 기본 <code>TextChatCommands</code>를 생성해야 하는지 여부를 결정합니다.",
+    "documentation": "<code>TextChatService</code>가 기본 <code>TextChatCommands</code>를 생성해야 하는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultCommands",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CreateDefaultTextChannels": {
-    "documentation": "<code>TextChatService</code>가 기본 <code>TextChannels</code>를 생성해야 하는지 여부를 결정합니다.",
+    "documentation": "<code>TextChatService</code>가 기본 <code>TextChannels</code>를 생성해야 하는지를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#CreateDefaultTextChannels",
     "code_sample": ""
   },
@@ -90453,7 +90446,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync": {
-    "documentation": "사용자가 경험에서 채팅할 권한이 있는지 결정합니다.",
+    "documentation": "사용자가 경험 내에서 채팅할 권한이 있는지를 결정합니다.",
     "params": [
       {
         "name": "self",
@@ -90483,7 +90476,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
-    "documentation": "두 사용자가 서로 메시지를 수신할 수 있는지 여부를 결정합니다.",
+    "documentation": "두 사용자가 서로 메시지를 받을 수 있는지를 결정합니다.",
     "params": [
       {
         "name": "self",
@@ -90508,16 +90501,16 @@
     "documentation": "경험 내 텍스트 채팅을 처리하는 서비스입니다."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/1": {
-    "documentation": "직접 채팅 요청을 시작할 사용자. requesterUserId가 현재 서버에 없으면 이 메서드는 오류를 발생시킵니다."
+    "documentation": "직접 채팅 요청을 시작했을 사용자입니다. 요청자 사용자 ID가 현재 서버에 없으면 이 메소드는 오류가 발생합니다."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/2": {
-    "documentation": "요청자 userId가 직접 대화하고자 하는 사용자 목록. 현재 서버에 없는 사용자는 무시됩니다."
+    "documentation": "요청자 사용자 ID가 직접 채팅하고자 하는 사용자 목록입니다. 현재 서버에 없는 사용자는 무시됩니다."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/return/0": {
-    "documentation": "직접 채팅 요청에 참여할 수 있는 사용자 목록. 요청자 userId와 직접 채팅할 수 있는 사용자가 없으면 결과는 빈 배열입니다."
+    "documentation": "직접 채팅 요청에 참여할 수 있는 사용자 목록입니다. 요청자 사용자 ID와 직접 채팅할 수 있는 사용자가 없으면 결과는 빈 배열입니다."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync": {
-    "documentation": "사용자의 부모 제어 설정에 따라서 경험의 다른 사용자와 직접 대화할 수 있는 권한이 있는지 결정합니다.",
+    "documentation": "사용자가 부모 보호 설정과 같은 요소에 따라 경험 내에서 다른 사용자와 직접 채팅할 권한이 있는지를 결정합니다.",
     "params": [
       {
         "name": "self",
@@ -90542,13 +90535,13 @@
     "documentation": "경험 내 텍스트 채팅을 처리하는 서비스입니다."
   },
   "@roblox/globaltype/TextChatService.DisplayBubble/param/1": {
-    "documentation": "버블을 표시할 파트 또는 캐릭터입니다."
+    "documentation": "버블을 표시할 부품 또는 캐릭터입니다."
   },
   "@roblox/globaltype/TextChatService.DisplayBubble/param/2": {
-    "documentation": "채팅 버블에 표시될 텍스트입니다."
+    "documentation": "채팅 버블에 표시할 텍스트입니다."
   },
   "@roblox/globaltype/TextChatService.DisplayBubble": {
-    "documentation": "제공된 파트 또는 플레이어 캐릭터 위에 채팅 버블을 표시합니다.",
+    "documentation": "제공된 부품 또는 플레이어 캐릭터 위에 채팅 버블을 표시합니다.",
     "params": [
       {
         "name": "self",
@@ -90568,16 +90561,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/param/0": {
-    "documentation": "수신된 <code>TextChatMessage</code>입니다."
+    "documentation": "수신되는 <code>TextChatMessage</code>입니다."
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/param/1": {
-    "documentation": "버블 채팅 메시지가 연결된 파트 또는 캐릭터입니다."
+    "documentation": "버블 채팅 메시지가 부착된 부품 또는 캐릭터입니다."
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/return/0": {
-    "documentation": "<code>BubbleChatMessageProperties</code>가 반환되면, 해당 속성이 <code>BubbleChatConfiguration</code> 속성을 재정의합니다."
+    "documentation": "만약 <code>BubbleChatMessageProperties</code>가 반환되면 그렇게 된 속성이 <code>BubbleChatConfiguration</code> 속성을 덮어씁니다."
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded": {
-    "documentation": "버블 채팅이 표시되기 직전 호출됩니다.",
+    "documentation": "버블 채팅이 표시될 때 호출됩니다.",
     "params": [
       {
         "name": "message",
@@ -90595,13 +90588,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.OnChatWindowAdded/param/0": {
-    "documentation": "수신된 <code>TextChatMessage</code>입니다."
+    "documentation": "수신되는 <code>TextChatMessage</code>입니다."
   },
   "@roblox/globaltype/TextChatService.OnChatWindowAdded/return/0": {
-    "documentation": "<code>ChatWindowMessageProperties</code>가 반환되면, 해당 속성이 <code>ChatWindowConfiguration</code> 속성을 재정의합니다."
+    "documentation": "만약 <code>ChatWindowMessageProperties</code>가 반환되면 그렇게 된 속성이 <code>ChatWindowConfiguration</code> 속성을 덮어씁니다."
   },
   "@roblox/globaltype/TextChatService.OnChatWindowAdded": {
-    "documentation": "채팅 창에 새 메시지가 표시되기 직전 호출됩니다. 이것은 클라이언트에서만 구현할 수 있습니다.",
+    "documentation": "채팅 창에 새 메시지가 표시되기 전에 호출됩니다. 이는 클라이언트에서만 구현될 수 있습니다.",
     "params": [
       {
         "name": "message",
@@ -90615,13 +90608,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.OnIncomingMessage/param/0": {
-    "documentation": "수신된 <code>TextChatMessage</code>입니다."
+    "documentation": "수신되는 <code>TextChatMessage</code>입니다."
   },
   "@roblox/globaltype/TextChatService.OnIncomingMessage/return/0": {
-    "documentation": "<code>TextChatMessageProperties</code>가 반환되면, 해당 속성이 <code>TextChatMessage</code> 매개변수와 병합되어 새로운 <code>TextChatMessage</code>를 생성하며, 그렇지 않으면 <code>nil</code>이 반환되면 <code>TextChatMessage</code>는 변경되지 않습니다."
+    "documentation": "만약 <code>TextChatMessageProperties</code>가 반환되면, 해당 속성이 <code>TextChatMessage</code> 매개변수와 병합되어 새로운 <code>TextChatMessage</code>가 생성되며, 그렇지 않으면 <code>nil</code>이 반환되면 <code>TextChatMessage</code>는 변경되지 않습니다."
   },
   "@roblox/globaltype/TextChatService.OnIncomingMessage": {
-    "documentation": "<code>TextChatService</code>가 수신 메시지를 받고 있을 때 호출됩니다.",
+    "documentation": "<code>TextChatService</code>가 수신된 메시지를 받고 있을 때 호출됩니다.",
     "params": [
       {
         "name": "message",
@@ -90800,7 +90793,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextChatService.MessageReceived": {
-    "documentation": "<code>TextChannel:DisplaySystemMessage()</code>가 클라이언트에서 호출되거나, 클라이언트가 서버로부터 유효한 <code>TextChannel:SendAsync()</code> 응답을 수신할 때 발생합니다.",
+    "documentation": "<code>TextChannel:DisplaySystemMessage()</code>가 클라이언트에서 호출되거나 클라이언트가 서버로부터 유효한 <code>TextChannel:SendAsync()</code> 응답을 받았을 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/TextChatService.MessageReceived.Connect",
       "ConnectParallel": "@roblox/globaltype/TextChatService.MessageReceived.ConnectParallel",
@@ -90888,7 +90881,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextChatService.SendingMessage": {
-    "documentation": "<code>TextChannel:SendAsync()</code>가 발신 클라이언트에 의해 호출될 때 발생합니다.",
+    "documentation": "<code>TextChannel:SendAsync()</code>가 전송하는 클라이언트에 의해 호출될 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/TextChatService.SendingMessage.Connect",
       "ConnectParallel": "@roblox/globaltype/TextChatService.SendingMessage.ConnectParallel",
@@ -97170,7 +97163,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다.",
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다.",
     "keys": {
       "CanSendCallInviteAsync": "@roblox/globaltype/SocialService.CanSendCallInviteAsync",
       "CanSendGameInviteAsync": "@roblox/globaltype/SocialService.CanSendGameInviteAsync",
@@ -97192,16 +97185,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.CanSendCallInviteAsync/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.CanSendCallInviteAsync/param/1": {
-    "documentation": "통화 초대를 보낼 가능성이 있는 플레이어의 <code>Player</code> 인스턴스입니다."
+    "documentation": "초대 호출을 보낼 가능성이 있는 플레이어의 <code>Player</code> 인스턴스입니다."
   },
   "@roblox/globaltype/SocialService.CanSendCallInviteAsync/return/0": {
-    "documentation": "지정된 플레이어가 통화 초대를 보낼 수 있는지 여부입니다."
+    "documentation": "지정된 플레이어가 호출 초대를 보낼 수 있는지를 나타냅니다."
   },
   "@roblox/globaltype/SocialService.CanSendCallInviteAsync": {
-    "documentation": "지정된 <code>Player</code>가 다른 플레이어를 통화에 초대할 수 있는지 여부를 나타냅니다.",
+    "documentation": "주어진 <code>Player</code>가 다른 플레이어를 호출에 초대할 수 있는지를 나타냅니다.",
     "params": [
       {
         "name": "self",
@@ -97219,19 +97212,19 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal SocialService = game:GetService(\"SocialService\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\nbutton.Visible = false\n\n-- 플레이어가 통화 초대를 보낼 수 있는지 확인하는 함수\nlocal function canSendCallingInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendCallInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canCall = canSendCallingInvite(player)\nif canCall then\n\tbutton.Visible = true\n\tbutton.Activated:Connect(function()\n\t\tSocialService:PromptPhoneBook(player, \"\")\n\tend)\nend"
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/param/1": {
     "documentation": "초대를 보낼 가능성이 있는 플레이어의 <code>Player</code> 인스턴스입니다."
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/param/2": {
-    "documentation": "보낼 수 있는지 확인하기 위해 사용되는 잠재적 수신자의 선택적 <code>Player.UserId</code>입니다."
+    "documentation": "선택 사항인 <strong>수신자</strong>의 <code>Player.UserId</code>로, 발신자가 특정 수신자를 초대할 수 있는지를 확인하는 데 사용됩니다."
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/return/0": {
-    "documentation": "지정된 플레이어가 초대를 보낼 수 있는지 여부입니다."
+    "documentation": "지정된 플레이어가 초대를 보낼 수 있는지를 나타냅니다."
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync": {
-    "documentation": "지정된 <code>Player</code>가 다른 플레이어를 초대할 수 있는지 여부를 나타냅니다.",
+    "documentation": "주어진 <code>Player</code>가 다른 플레이어를 초대할 수 있는지를 나타냅니다.",
     "params": [
       {
         "name": "self",
@@ -97253,13 +97246,13 @@
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 플레이어가 초대를 보낼 수 있는지 확인하는 함수\nlocal function canSendGameInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendGameInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canInvite = canSendGameInvite(player)\nif canInvite then\n\tSocialService:PromptGameInvite(player)\nend"
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/1": {
-    "documentation": "플레이어에게 RSVP 상태를 변경하라고 요청할 이벤트의 이벤트 ID입니다. 이는 현재 경험에 존재하는 유효한 이벤트 ID여야 하며, 문자열로 표현됩니다(숫자가 아님)."
+    "documentation": "플레이어에게 RSVP 상태를 변경하라고 프롬프트할 이벤트의 이벤트 ID입니다. 이는 현재 경험에 존재하는 유효한 이벤트 ID여야 하며, 문자열로 표시되어야 합니다(숫자가 아님)."
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/return/0": {
-    "documentation": "플레이어의 현재 RSVP 상태를 나타내는 <code>RsvpStatus</code>를 반환합니다. 플레이어가 이벤트에 RSVP하지 않은 경우, 이는 <code>RsvpStatus.None</code>을 반환합니다."
+    "documentation": "이벤트에 대한 플레이어의 현재 RSVP 상태를 나타내는 <code>RsvpStatus</code>를 반환합니다. 플레이어가 이벤트에 RSVP하지 않은 경우 <code>RsvpStatus.None</code>을 반환합니다."
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync": {
     "documentation": "주어진 이벤트에 대한 로컬 플레이어의 RSVP 상태를 반환합니다.",
@@ -97280,16 +97273,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/1": {
-    "documentation": "가져올 이벤트의 문자열 식별자입니다. 현재 경험의 이벤트에 해당해야 합니다."
+    "documentation": "가져올 이벤트의 문자열 식별자입니다. 현재 경험의 이벤트와 일치해야 합니다."
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync/return/0": {
-    "documentation": "이벤트를 설명하는 사전 또는 이벤트가 존재하지 않거나 다른 경험에 속하거나 기타 사용 불가능한 경우 <code>nil</code>을 반환합니다."
+    "documentation": "이벤트를 설명하는 사전 또는 이벤트가 존재하지 않거나 다른 경험에 속하거나 사용할 수 없는 경우 <code>nil</code>을 반환합니다."
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync": {
-    "documentation": "지정된 경험 이벤트에 대한 세부정보를 반환하거나 사용할 수 없는 경우 <code>nil</code>을 반환합니다.",
+    "documentation": "지정된 경험 이벤트에 대한 세부 정보를 반환하거나 사용할 수 없는 경우 <code>nil</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -97307,7 +97300,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.GetPartyAsync/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.GetPartyAsync/param/1": {
     "documentation": ""
@@ -97316,7 +97309,7 @@
     "documentation": "현재 경험에 있는 지정된 파티의 구성원을 나타내는 사전 배열입니다."
   },
   "@roblox/globaltype/SocialService.GetPartyAsync": {
-    "documentation": "지정된 파티의 모든 구성원에 대한 데이터를 포함하는 사전의 배열을 반환합니다.",
+    "documentation": "현재 경험에 있는 지정된 파티의 모든 구성원에 대한 데이터를 포함하는 사전 배열을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -97334,16 +97327,16 @@
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId == \"\" then\n\t\twarn(\"플레이어가 파티에 없습니다\")\n\t\treturn\n\tend\n\n\tlocal success, partyData = pcall(function()\n\t\treturn SocialService:GetPartyAsync(partyId)\n\tend)\n\n\tif success and partyData then\n\t\tfor _, partyMemberData in partyData do\n\t\t\tprint(\n\t\t\t\tpartyMemberData.UserId,\n\t\t\t\tpartyMemberData.PlaceId,\n\t\t\t\tpartyMemberData.JobId,\n\t\t\t\tpartyMemberData.PrivateServerId,\n\t\t\t\tpartyMemberData.ReservedServerAccessCode\n\t\t\t)\n\t\tend\n\telse\n\t\twarn(\"파티 데이터 검색 실패\")\n\tend\nend)"
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId/return/0": {
-    "documentation": "전달된 <code>partyId</code> 속성이 일치하는 <code>Player</code> 객체의 테이블입니다."
+    "documentation": "전달된 <code>partyId</code>와 일치하는 <code>Player</code> 객체의 테이블입니다."
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId": {
-    "documentation": "전달된 <code>partyId</code> 속성이 일치하는 모든 현재 연결된 <code>Player</code> 객체의 테이블을 반환합니다.",
+    "documentation": "전달된 <code>partyId</code>와 일치하는 모든 현재 연결된 <code>Player</code> 객체의 테이블을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -97361,13 +97354,13 @@
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tlocal partyPlayers: { Player } = SocialService:GetPlayersByPartyId(partyId)\n\n\t\tfor _, partyMember in partyPlayers do\n\t\t\tprint(\"파티원: \" .. partyMember.Name)\n\t\tend\n\telse\n\t\twarn(\"플레이어는 파티에 있지 않습니다\")\n\tend\nend)"
   },
   "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/return/0": {
-    "documentation": "현재 경험에서 각 활성 또는 예정된 이벤트를 설명하는 사전 배열이며, 가장 빠른 시작 시간이 먼저 정렬됩니다."
+    "documentation": "현재 경험의 각 활성 또는 다가오는 이벤트를 설명하는 사전 배열로, 가장 빠른 시작 시간이 먼저 오도록 정렬됩니다."
   },
   "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync": {
-    "documentation": "현재 경험에 대한 활성 및 예정된 경험 이벤트를 반환합니다.",
+    "documentation": "현재 경험에 대한 활성 및 다가오는 이벤트를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -97381,10 +97374,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.HideSelfView/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.HideSelfView": {
-    "documentation": "호출하는 플레이어의 자기 뷰를 숨깁니다.",
+    "documentation": "호출하는 플레이어의 자기 모습을 숨깁니다.",
     "params": [
       {
         "name": "self",
@@ -97396,10 +97389,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
-    "documentation": "현재 경험에 대한 피드백 제출을 요청합니다.",
+    "documentation": "현재 경험에 대한 피드백을 제출하도록 플레이어에게 프롬프트를 표시합니다.",
     "params": [
       {
         "name": "self",
@@ -97411,16 +97404,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/1": {
-    "documentation": "초대 팝업으로 프롬프트를 표시할 <code>Player</code>입니다."
+    "documentation": "초대 팝업으로 프롬프트할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/2": {
-    "documentation": "프롬프트를 사용자 지정하기 위한 선택적 <code>ExperienceInviteOptions</code> 객체입니다."
+    "documentation": "프롬프트를 사용자 정의하기 위한 선택 사항인 <code>ExperienceInviteOptions</code> 객체입니다."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite": {
-    "documentation": "지정된 <code>Player</code>에게 초대 화면을 표시합니다.",
+    "documentation": "주어진 <code>Player</code>에게 초대 화면을 표시합니다.",
     "params": [
       {
         "name": "self",
@@ -97440,16 +97433,16 @@
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 플레이어가 초대를 보낼 수 있는지 확인하는 함수\nlocal function canSendGameInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendGameInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canInvite = canSendGameInvite(player)\nif canInvite then\n\tSocialService:PromptGameInvite(player)\nend"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/1": {
     "documentation": "주어진 <code>Player</code>에게 생성된 공유 링크와 함께 Roblox 플랫폼 수준의 공유 시트를 표시합니다."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "생성된 링크에 대한 구성을 지정하는 <code>Dictionary</code> 다음의 선택적 키-값 쌍이 포함되어 있습니다: <ul> <li><code>FallbackLinkId</code> (문자열). 이 공유 링크가 만료될 경우 플레이어가 연결될 방법을 결정합니다. 기본값은 경험 참여 링크입니다.</li> <li><code>ExpirationSeconds</code> (숫자). 공유 링크가 생성된 이후 만료되는 시간을 결정합니다. 가장 가까운 정수로 잘라냅니다. 기본값은 86,400입니다.</li> <li><code>PreviewTitle</code> (문자열) 공유 링크의 미리보기 제목입니다.</li> <li><code>PreviewDescription</code> (문자열) 공유 링크의 미리보기 설명입니다.</li> <li><code>PreviewAssetId</code> (숫자) 공유 링크 미리보기에 사용되는 이미지 자산 ID입니다.</li> <li><code>LaunchData</code> (문자열). 생성된 공유 링크를 사용하여 플레이어가 참여할 때 <code>Player:GetJoinData()</code>에 매개변수를 설정하는 데 사용됩니다.</li> </ul>"
+    "documentation": "<code>Dictionary</code>로, 생성된 링크에 대한 구성을 지정합니다. 다음의 선택적 키-값 쌍을 포함합니다: <ul> <li><code>FallbackLinkId</code> (문자열). 이 공유 링크가 만료된 후 어떻게 플레이어를 안내할 지 결정합니다. 기본값은 경험 참여 링크입니다.</li> <li><code>ExpirationSeconds</code> (숫자). 공유 링크 생성 후 만료되는 시간을 결정합니다. 가장 가까운 정수로 잘립니다. 기본값은 86,400입니다.</li> <li><code>PreviewTitle</code> (문자열) 공유 링크의 미리보기 제목입니다.</li> <li><code>PreviewDescription</code> (문자열) 공유 링크의 미리보기 설명입니다.</li> <li><code>PreviewAssetId</code> (숫자) 공유 링크 미리보기에 사용될 이미지 자산 ID입니다.</li> <li><code>LaunchData</code> (문자열). 생성된 공유 링크를 사용하여 플레이어가 참여할 때 <code>Player:GetJoinData()</code>에서 매개변수를 설정하는 데 사용됩니다.</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": "링크 공유 프롬프트 결과를 나타내는 <code>PromptLinkSharingResult</code>를 포함하는 튜플입니다."
+    "documentation": "링크 공유 프롬프트의 결과를 나타내는 <code>PromptLinkSharingResult</code>를 포함하는 튜플입니다."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -97474,16 +97467,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/1": {
-    "documentation": "전화부로 프롬프트를 표시할 플레이어입니다."
+    "documentation": "전화록으로 프롬프트할 플레이어입니다."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/2": {
-    "documentation": "다양한 전화부 \"진입점\" 또는 유사한 것들 간의 구분을 돕기 위한 문자열입니다. 예를 들어, 호출하는 플레이어의 캐릭터가 현재 있는 경험의 특정 지역을 정의하는 문자열을 전달할 수 있습니다."
+    "documentation": "호출하는 플레이어의 캐릭터가 현재 위치한 경험의 지역을 정의하는 문자열과 같은, 다양한 전화록 \"진입점\" 등을 구분하는 데 도움이 되는 문자열입니다."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook": {
-    "documentation": "지정된 <code>Player</code>에게 전화부를 표시합니다.",
+    "documentation": "주어진 <code>Player</code>에게 전화록을 표시합니다.",
     "params": [
       {
         "name": "self",
@@ -97503,16 +97496,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal SocialService = game:GetService(\"SocialService\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\nbutton.Visible = false\n\n-- 플레이어가 통화 초대를 보낼 수 있는지 확인하는 함수\nlocal function canSendCallingInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendCallInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canCall = canSendCallingInvite(player)\nif canCall then\n\tbutton.Visible = true\n\tbutton.Activated:Connect(function()\n\t\tSocialService:PromptPhoneBook(player, \"\")\n\tend)\nend"
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1": {
-    "documentation": "플레이어에게 RSVP 상태 변경을 요청할 이벤트의 이벤트 ID입니다. 이는 현재 경험에 존재하는 유효한 이벤트 ID이어야 하며, 문자열로 표현되어야 합니다(숫자가 아님)."
+    "documentation": "플레이어에게 RSVP 상태를 변경하라고 프롬프트할 이벤트의 이벤트 ID입니다. 이는 현재 경험에 존재하는 유효한 이벤트 ID여야 하며, 문자열로 표시되어야 합니다(숫자가 아님)."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0": {
-    "documentation": "프롬프트가 닫힌 후 플레이어의 새 RSVP 상태를 나타내는 <code>RsvpStatus</code>를 반환합니다. 플레이어가 RSVP 상태를 변경하지 않고 프롬프트를 닫으면, 이는 <code>RsvpStatus.None</code> 또는 이미 선택한 상태에 대한 이전 <code>RsvpStatus</code>를 반환합니다."
+    "documentation": "프롬프트가 닫힌 후 플레이어의 새 RSVP 상태를 나타내는 <code>RsvpStatus</code>를 반환합니다. 플레이어가 RSVP 상태를 변경하지 않고 프롬프트를 닫는 경우, 이는 <code>RsvpStatus.None</code> 또는 그들이 이미 선택한 이전 <code>RsvpStatus</code>를 반환합니다."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync": {
-    "documentation": "로컬 <code>Player</code>에게 주어진 이벤트에 대한 RSVP 상태를 변경하도록 요청하는 프롬프트를 표시합니다.",
+    "documentation": "로컬 <code>Player</code>에게 주어진 이벤트에 대한 RSVP 상태를 변경하라는 프롬프트를 표시합니다.",
     "params": [
       {
         "name": "self",
@@ -97530,13 +97523,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.ShowSelfView/param/0": {
-    "documentation": "Roblox 플랫폼에서 만들어진 관계에 영향을 미치는 사회적 기능을 촉진합니다."
+    "documentation": "Roblox 플랫폼에서 이루어지는 관계에 영향을 미치는 사회적 기능을 촉진합니다."
   },
   "@roblox/globaltype/SocialService.ShowSelfView/param/1": {
-    "documentation": "자기 뷰를 배치할 위치입니다."
+    "documentation": "자기 모습을 배치할 위치입니다."
   },
   "@roblox/globaltype/SocialService.ShowSelfView": {
-    "documentation": "호출하는 플레이어의 자기 뷰를 표시합니다.",
+    "documentation": "호출하는 플레이어의 자기 모습을 보여줍니다.",
     "params": [
       {
         "name": "self",
@@ -97552,16 +97545,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/param/0": {
-    "documentation": "다양한 전화책 진입점을 구분하는 데 도움이 되는 문자열입니다."
+    "documentation": "다양한 전화록 진입점을 구분하는 데 도움이 되는 문자열입니다."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/param/1": {
-    "documentation": "전화를 걸 때 관련된 모든 플레이어를 포함하는 배열입니다. 발신자는 항상 배열의 첫 번째 플레이어입니다."
+    "documentation": "전화를 걸기에 관련된 모든 플레이어를 포함하는 배열입니다. 호출자는 항상 배열의 첫 번째 플레이어입니다."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0": {
-    "documentation": "<code>PlaceId</code> 및 <code>ReservedServerAccessCode</code> 키를 포함하는 테이블로, 이들의 값은 각각 <code>DataModel.PlaceId</code> 및 <code>TeleportService:ReserveServer()</code>가 반환하는 서버 접근 코드입니다."
+    "documentation": "<code>DataModel.PlaceId</code>와 <code>TeleportService:ReserveServer()</code>가 반환하는 서버 접근 코드의 값을 가진 <code>PlaceId</code> 및 <code>ReservedServerAccessCode</code> 키를 포함하는 테이블입니다."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked": {
-    "documentation": "전화책에서 전화를 걸 때 실행되는 콜백입니다.",
+    "documentation": "전화록에서 전화를 걸 때 호출되는 콜백입니다.",
     "params": [
       {
         "name": "tag",
@@ -97656,7 +97649,7 @@
     "returns": []
   },
   "@roblox/globaltype/SocialService.CallInviteStateChanged": {
-    "documentation": "플레이어의 통화 초대 상태가 변경될 때 발생합니다.",
+    "documentation": "플레이어의 호출 초대 상태가 변경될 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/SocialService.CallInviteStateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/SocialService.CallInviteStateChanged.ConnectParallel",
@@ -97832,7 +97825,7 @@
     "returns": []
   },
   "@roblox/globaltype/SocialService.PhoneBookPromptClosed": {
-    "documentation": "플레이어가 전화책 프롬프트를 닫을 때 발생합니다.",
+    "documentation": "플레이어가 전화록 프롬프트를 닫을 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/SocialService.PhoneBookPromptClosed.Connect",
       "ConnectParallel": "@roblox/globaltype/SocialService.PhoneBookPromptClosed.ConnectParallel",
@@ -109398,7 +109391,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RigType.Custom": {
-    "documentation": "사용자 정의 리그 유형입니다.",
+    "documentation": "사용자 지정 리그 유형입니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",

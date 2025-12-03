@@ -1166,6 +1166,7 @@
       "FilterType": "@roblox/globaltype/OverlapParams.FilterType",
       "MaxParts": "@roblox/globaltype/OverlapParams.MaxParts",
       "CollisionGroup": "@roblox/globaltype/OverlapParams.CollisionGroup",
+      "Tolerance": "@roblox/globaltype/OverlapParams.Tolerance",
       "RespectCanCollide": "@roblox/globaltype/OverlapParams.RespectCanCollide",
       "BruteForceAllSlow": "@roblox/globaltype/OverlapParams.BruteForceAllSlow",
       "AddToFilter": "@roblox/globaltype/OverlapParams.AddToFilter"
@@ -1193,13 +1194,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#CollisionGroup",
     "code_sample": ""
   },
+  "@roblox/globaltype/OverlapParams.Tolerance": {
+    "documentation": "Nieznacznie zwiększa głośność operacji zapytania granicy.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#Tolerance",
+    "code_sample": ""
+  },
   "@roblox/globaltype/OverlapParams.RespectCanCollide": {
-    "documentation": "Określa, czy operacja zapytania granicznego uwzględnia wartość właściwości <code>BasePart.CanCollide</code> części w odniesieniu do jej wartości <code>BasePart.CanQuery</code>.",
+    "documentation": "Określa, czy operacja zapytania granicy bierze pod uwagę wartość właściwości <code>BasePart.CanCollide</code> części w porównaniu do jej wartości <code>BasePart.CanQuery</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#RespectCanCollide",
     "code_sample": ""
   },
   "@roblox/globaltype/OverlapParams.BruteForceAllSlow": {
-    "documentation": "Po włączeniu, zapytanie zignoruje wszystkie właściwości kolizji części i przeprowadzi brutalną kontrolę na każdej części.",
+    "documentation": "Gdy jest włączona, zapytanie zignoruje wszystkie właściwości kolizji części i przeprowadzi brutalne sprawdzenie każdej części.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/OverlapParams#BruteForceAllSlow",
     "code_sample": ""
   },
@@ -15356,7 +15362,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService": {
-    "documentation": "Usługa, która zapewnia interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści.",
+    "documentation": "Usługa zapewniająca interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści.",
     "keys": {
       "GenerateItemListAsync": "@roblox/globaltype/RecommendationService.GenerateItemListAsync",
       "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
@@ -15370,10 +15376,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/0": {
-    "documentation": "Usługa, która zapewnia interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
+    "documentation": "Usługa zapewniająca interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/param/1": {
-    "documentation": "Słownik zawierający następujące  polaczki: <ul> <li><code>ConfigName</code> &mdash; Unikalny identyfikator dla konkretnej konfiguracji. Określa, jak kandydaci są oceniani.</li> <li><code>LocationId</code> &mdash; String określony przez dewelopera, który określa lokalizację, w której używana jest rekomendacja, na przykład <code>\"For_you\"</code> lub <code>\"Lobby\"</code>. Ten parametr nie wpłynie na zwracane elementy, a jego celem jest pomoc w śledzeniu wydajności wielu funkcji rekomendacji w ramach doświadczenia. Metryki rekomendacji dla każdej konkretnej lokalizacji będą wyświetlane w Creator Hub. <code>LocationId</code> <strong>musi</strong> być stringiem i nie może być <code>\"Other\"</code> lub <code>\"other\"</code>, ponieważ te wartości są zarezerwowane przez Creator Hub.</li> <li><code>PageSize</code> &mdash; Liczba elementów zwracanych na każdą stronę.</li> <li><code>BoostCustomTags</code> &mdash; Lista stringów tagów. Każdy element z tym tagiem będzie podwyższony w rankingu. Uwaga: obecnie obsługuje podnoszenie tylko jednego tagu.</li> <li><code>CustomContexts</code> &mdash; Tabela par klucz-wartość używana do przekazywania dodatkowych danych kontekstowych dla rankingu. Na przykład, <code>UserId</code> dla skryptu serwera.</li> </ul>"
+    "documentation": "Słownik zawierający następujące pola: <ul> <li><code>ConfigName</code> &mdash; Unikalny identyfikator dla danej konfiguracji.   To określa, jak kandydaci są oceniani.</li> <li><code>LocationId</code> &mdash; Właściwie zdefiniowany przez dewelopera ciąg,   który określa lokalizację, gdzie rekomendacja jest używana, np. <code>\"For_you\"</code>   lub <code>\"Lobby\"</code>. Ten parametr nie wpłynie na zwrócone elementy,   a może pomóc w śledzeniu wydajności wielu funkcji rekomendacji   w Twoim doświadczeniu. Metryki rekomendacji dla każdej   lokalizacji będą wyświetlane w Centrum Twórcy.   <code>LocationId</code> <strong>musi</strong> być ciągiem i nie może być <code>\"Other\"</code> lub   <code>\"other\"</code>, ponieważ te wartości są zarezerwowane przez Centrum   Twórcy.</li> <li><code>PageSize</code> &mdash; Liczba elementów zwracanych na każdą stronę.</li> <li><code>BoostCustomTags</code> &mdash; Lista tagów ciągowych. Każdy element z tym   tagiem zostanie wzmocniony w rankingu. Uwaga: obecnie obsługuje tylko   wzmocnienie jednego tagu.</li> <li><code>CustomContexts</code> &mdash; Tablica par klucz-wartość używana do przekazywania   dodatkowych danych kontekstowych do oceny. Na przykład <code>UserId</code> dla   skryptu Serwera.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GenerateItemListAsync/return/0": {
     "documentation": ""
@@ -15397,13 +15403,13 @@
     "code_sample": "local RecommendationService = game:GetService(\"RecommendationService\")\n\n-- Zdefiniuj żądanie do generowania listy rekomendacji\nlocal request: GenerateRecommendationItemListRequest = {\n\tConfigName = \"MaximizeEngagement\",\n\tLocationId = \"Lobby\",\n\tPageSize = 10\n    -- UWAGA: Usuń komentarz i ustaw CustomContexts.UserId dla skryptu serwera.\n    -- Nie ma potrzeby ustawiać dla skryptu lokalnego.\n    -- CustomContexts = {\n    --     [\"UserId\"] = tostring(player.UserId),\n    -- }\n}\n\n-- Wywołaj GenerateItemListAsync, aby uzyskać strony rekomendacji\nlocal success, recommendationPages = pcall(function()\n    return RecommendationService:GenerateItemListAsync(request)\nend)"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/0": {
-    "documentation": "Usługa, która zapewnia interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
+    "documentation": "Usługa zapewniająca interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/param/1": {
     "documentation": "Identyfikator elementu do pobrania."
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync/return/0": {
-    "documentation": "Słownik reprezentujący element rekomendacji z następującymi polami: - <code>ItemId</code> &mdash; Unikalny identyfikator dla elementu. - <code>ReferenceId</code> &mdash; Identyfikator podany przez dewelopera dla elementu. - <code>TracingId</code> &mdash; Identyfikator do śledzenia sesji rekomendacji. Będzie pusty podczas pobierania pojedynczego elementu bezpośrednio. - <code>Creator</code> &mdash; Tabela zawierająca <code>CreatorId</code> i <code>CreatorType</code>. - <code>Attributes</code> &mdash; Lista atrybutów treści związanych z elementem. - <code>CustomTags</code> &mdash; Lista niestandardowych tagów w postaci stringów. - <code>Visibility</code> &mdash; Enum typu <code>RecommendationItemVisibility</code>."
+    "documentation": "Słownik reprezentujący element rekomendacji z następującymi polami: <ul> <li><code>ItemId</code> &mdash; Unikalny identyfikator dla elementu.</li> <li><code>ReferenceId</code> &mdash; Identyfikator dostarczony przez dewelopera dla   elementu.</li> <li><code>TracingId</code> &mdash; Identyfikator do śledzenia sesji rekomendacji. To   będzie puste podczas pobierania pojedynczego elementu bezpośrednio.</li> <li><code>Creator</code> &mdash; Tabela zawierająca <code>CreatorId</code> oraz   <code>CreatorType</code>.</li> <li><code>Attributes</code> &mdash; Lista atrybutów treści związanych z   elementem.</li> <li><code>CustomTags</code> &mdash; Lista niestandardowych tagów ciągowych.</li> <li><code>Visibility</code> &mdash; Enum typu   <code>RecommendationItemVisibility</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync": {
     "documentation": "",
@@ -15424,19 +15430,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/0": {
-    "documentation": "Usługa, która zapewnia interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
+    "documentation": "Usługa zapewniająca interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/1": {
     "documentation": "Enum dla rodzaju akcji."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/2": {
-    "documentation": "Identyfikator elementu zwrócony podczas rejestracji i <code>GenerateItemListAsync</code>."
+    "documentation": "Identyfikator elementu zwrócony z rejestracji i <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/3": {
-    "documentation": "Identyfikator śledzenia zwrócony z odpowiedzi <code>GenerateItemListAsync</code>. Każdy element ma <code>TracingId</code>."
+    "documentation": "Identyfikator śledzenia zwrócony z <code>GenerateItemListAsync</code> odpowiedzi. Każdy element ma <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent/param/4": {
-    "documentation": "Słownik zawierający następujące pola: <ul> <li><code>Weight</code> &mdash; Liczba reprezentująca wagę akcji. Domyślnie wynosi 1.</li> <li><code>DestinationPlaceId</code> &mdash; Identyfikator miejsca, do którego użytkownik został wysłany po akcji. Używane dla <code>Play</code>.</li> <li><code>CommentText</code> &mdash; Wszelki tekst związany z akcją, na przykład komentarz. Używane dla <code>Comment</code>.</li> <li><code>ReactionType</code> &mdash; String opisujący typ reakcji, na przykład \"polubienie\" lub \"niepolubienie\". Używane dla <code>AddReaction</code> lub <code>RemoveReaction</code>.</li> </ul>"
+    "documentation": "Słownik zawierający następujące pola: <ul> <li><code>Weight</code> &mdash; Liczba reprezentująca wagę akcji.   Domyślnie wynosi 1.</li> <li><code>DestinationPlaceId</code> &mdash; Identyfikator miejsca, do którego został   wysłany użytkownik po akcji. Używane dla   <code>Play</code>.</li> <li><code>CommentText</code> &mdash; Dowolny tekst powiązany z akcją, taki jak   komentarz. Używane dla <code>Comment</code>.</li> <li><code>ReactionType</code> &mdash; Ciąg opisujący typ reakcji, na przykład   \"polubienie\" lub \"niepolubienie\". Używane dla   <code>AddReaction</code> lub   <code>RemoveReaction</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogActionEvent": {
     "documentation": "",
@@ -15467,19 +15473,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/0": {
-    "documentation": "Usługa, która zapewnia interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
+    "documentation": "Usługa zapewniająca interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/1": {
     "documentation": "Enum dla rodzaju impresji."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/2": {
-    "documentation": "Identyfikator elementu zwrócony podczas rejestracji i <code>GenerateItemListAsync</code>."
+    "documentation": "Identyfikator elementu zwrócony z rejestracji i <code>GenerateItemListAsync</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/3": {
-    "documentation": "Identyfikator śledzenia zwrócony z odpowiedzi <code>GenerateItemListAsync</code>. Każdy element ma <code>TracingId</code>."
+    "documentation": "Identyfikator śledzenia zwrócony z <code>GenerateItemListAsync</code> odpowiedzi. Każdy element ma <code>TracingId</code>."
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent/param/4": {
-    "documentation": "Słownik zawierający następujące pola: <ul> <li><code>Duration</code> &mdash; Czas wyświetlenia w sekundach.</li> <li><code>Weight</code> &mdash; Liczba reprezentująca wagę wyświetlenia. Domyślnie wynosi 1.</li> <li><code>ItemPosition</code> &mdash; Pozycja elementu na liście rekomendacji.</li> <li><code>DepartureIntent</code> &mdash; <code>RecommendationDepartureIntent</code>, wskazujący intencję użytkownika przy opuszczaniu widoku. Na przykład <code>Positive</code>, jeśli widok jest uważany za pozytywny.</li> </ul>"
+    "documentation": "Słownik zawierający następujące pola: <ul> <li><code>Duration</code> &mdash; Czas trwania wyświetlenia w sekundach.</li> <li><code>Weight</code> &mdash; Liczba reprezentująca wagę wyświetlenia.   Domyślnie wynosi 1.</li> <li><code>ItemPosition</code> &mdash; Pozycja elementu w   liście rekomendacji.</li> <li><code>DepartureIntent</code> &mdash; <code>RecommendationDepartureIntent</code>   wskazujący zamiar użytkownika po opuszczeniu widoku. Na przykład,   <code>Positive</code>, jeśli widok jest uważany za dobry.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.LogImpressionEvent": {
     "documentation": "",
@@ -15510,13 +15516,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
-    "documentation": "Usługa, która zapewnia interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
+    "documentation": "Usługa zapewniająca interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
     "documentation": "Gracz, który stworzył element."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": "Słownik zawierający następujące pola: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code>, określający typ treści. Typ jest definiowany w sposób ogólny. Na przykład, można użyć <code>Static</code> dla obrazów, <code>Dynamic</code> dla wideo i <code>Interactive</code> dla modeli 3D, które wspierają interakcję.</li> <li><code>ReferenceId</code> &mdash; String określony przez dewelopera, który unikalnie identyfikuje element.</li> <li><code>Duration</code> &mdash; Czas trwania treści w sekundach.</li> <li><code>Attributes</code> &mdash; Tabela atrybutów dla elementu, takich jak <code>AssetId</code> lub <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; Lista stringów tagów do filtrowania i podnoszenia.</li> <li><code>Visibility</code> &mdash; Enum <code>RecommendationItemVisibility</code>, który kontroluje widoczność elementu, taki jak <code>Public</code> lub <code>Private</code>.</li> </ul>"
+    "documentation": "Słownik zawierający następujące pola: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code>   określający typ treści. Typ jest definiowany w sposób ogólny.   Na przykład, możesz użyć <code>Static</code> dla obrazów, <code>Dynamic</code> dla wideo,   a <code>Interactive</code> dla modeli 3D, które obsługują interakcję.</li> <li><code>ReferenceId</code> &mdash; Właściwie zdefiniowany przez dewelopera ciąg,   który unikalnie identyfikuje element.</li> <li><code>Duration</code> &mdash; Czas trwania treści w sekundach.</li> <li><code>Attributes</code> &mdash; Tabela atrybutów dla elementu, takich jak   <code>AssetId</code> lub <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; Lista tagów ciągowych do filtrowania i   wzmocnienia.</li> <li><code>Visibility</code> &mdash; <code>RecommendationItemVisibility</code>   enum, który kontroluje widoczność elementu, taką jak <code>Public</code> lub   <code>Private</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
     "documentation": "Tabela z tylko dwoma polami: <code>ItemId</code> i <code>ReferenceId</code>."
@@ -15544,7 +15550,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/0": {
-    "documentation": "Usługa, która zapewnia interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
+    "documentation": "Usługa zapewniająca interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
     "documentation": "itemId do usunięcia."
@@ -15566,10 +15572,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/0": {
-    "documentation": "Usługa, która zapewnia interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
+    "documentation": "Usługa zapewniająca interfejs do zarządzania i wyświetlania spersonalizowanych rekomendacji treści."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": "Słownik zawierający następujące pola: <ul> <li><code>ItemId</code> &mdash; Identyfikator elementu do zaktualizowania.</li> <li><code>ReferenceId</code> &mdash; Nowy identyfikator podany przez dewelopera dla identyfikacji elementu.</li> <li><code>Creator</code> &mdash; Nowy twórca elementu. Twórca to tabela zawierająca dwa pola: <code>CreatorId: number</code> i <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; Nowy czas trwania treści w sekundach.</li> <li><code>Visibility</code> &mdash; Nowe ustawienie widoczności dla elementu.</li> <li><code>Attributes</code> &mdash; Nowa tabela atrybutów dla elementu.</li> <li><code>CustomTags</code> &mdash; Nowa lista stringów tagów.</li> </ul>"
+    "documentation": "Słownik zawierający następujące pola: <ul> <li><code>ItemId</code> &mdash; Identyfikator elementu do aktualizacji.</li> <li><code>ReferenceId</code> &mdash; Nowy dostarczony przez dewelopera ciąg do   identyfikacji elementu.</li> <li><code>Creator</code> &mdash; Nowy twórca dla elementu. Twórca to tabela   zawierająca dwa pola: <code>CreatorId: number</code> oraz   <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; Nowy czas trwania treści w sekundach.</li> <li><code>Visibility</code> &mdash; Nowe ustawienie widoczności dla elementu.</li> <li><code>Attributes</code> &mdash; Nowa tabela atrybutów dla elementu.</li> <li><code>CustomTags</code> &mdash; Nowa lista tagów ciągowych.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -24665,7 +24671,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie.",
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox.",
     "keys": {
       "CreatorId": "@roblox/globaltype/DataModel.CreatorId",
       "CreatorType": "@roblox/globaltype/DataModel.CreatorType",
@@ -24700,12 +24706,12 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal Lighting = game:GetService(\"Lighting\")\n\n-- Przykłady modyfikacji właściwości tych usług\nWorkspace.Gravity = 20\nLighting.ClockTime = 4"
   },
   "@roblox/globaltype/DataModel.CreatorId": {
-    "documentation": "Opisuje ID użytkownika lub grupy, która jest właścicielem miejsca.",
+    "documentation": "Opisuje identyfikator użytkownika lub grupy, która jest właścicielem miejsca.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Właściciel miejsca dołączył do gry!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"Członek grupy, która posiada to miejsce, dołączył do gry!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
-    "documentation": "Opisuje <code>CreatorType</code> miejsca, czy miejsce jest własnością  użytkownika czy grupy.",
+    "documentation": "Opisuje <code>CreatorType</code> miejsca, czy miejsce jest własnością  użytkownika, czy grupy.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Właściciel miejsca dołączył do gry!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"Członek grupy, która posiada to miejsce, dołączył do gry!\")\n\t\tend\n\tend\nend)"
   },
@@ -24715,83 +24721,83 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GameId": {
-    "documentation": "Opisuje ID doświadczenia, do którego należy miejsce działające na serwerze.",
+    "documentation": "Opisuje identyfikator doświadczenia, do którego należy miejsce działające na serwerze.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GameId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GearGenreSetting": {
-    "documentation": "<strong>Deprecated:</strong> Ta właściwość jest nieaktualna i nie działa już prawidłowo. Nie powinna być  używana.<br>Nie działa. Historycznie opisywało uprawnienia do ekwipunku miejsca  ustawione na stronie internetowej Roblox.",
+    "documentation": "<strong>Deprecated:</strong> Ta właściwość jest przestarzała i już nie działa. Nie powinna być  używana.<br>Nie funkcjonalne. Historycznie opisywało uprawnienia do sprzętu w miejscu  ustawionych na stronie internetowej Roblox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GearGenreSetting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.Genre": {
-    "documentation": "Nie działa. Historycznie opisywało <code>Genre</code> miejsca ustawione na stronie  internetowej Roblox.",
+    "documentation": "Nie funkcjonalne. Historycznie opisywało <code>Genre</code> miejsca jako  ustawione na stronie internetowej Roblox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Genre",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.JobId": {
-    "documentation": "Unikalny identyfikator dla działającego instancji serwera gry.",
+    "documentation": "Unikalny identyfikator instancji serwera gry działającego.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#JobId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.MatchmakingType": {
-    "documentation": "Reprezentuje sposób obsługi graczy na serwerze przez matchmaking.",
+    "documentation": "Reprezentuje sposób, w jaki gracze na serwerze są obsługiwani przez matchmaking.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#MatchmakingType",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PlaceId": {
-    "documentation": "Opisuje ID miejsca działającego na serwerze.",
+    "documentation": "Opisuje identyfikator miejsca działającego na serwerze.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PlaceId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PlaceVersion": {
-    "documentation": "Opisuje wersję miejsca, na którym działa serwer.",
+    "documentation": "Opisuje wersję miejsca, na której działa serwer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PlaceVersion",
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"Wersja serwera: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "Opisuje ID prywatnego serwera, jeśli serwer jest prywatnym  serwerem lub <code>rezerwowanym serwerem</code>.",
+    "documentation": "Opisuje ID prywatnego serwera serwera, jeśli serwer jest prywatny  serwerem lub <code>zarezerwowanym serwerem</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"SerwerVIP\"\n\t\telse\n\t\t\treturn \"SerwerZarezerwowany\"\n\t\tend\n\telse\n\t\treturn \"SerwerStandardowy\"\n\tend\nend\n\nprint(getServerType())"
   },
   "@roblox/globaltype/DataModel.PrivateServerOwnerId": {
-    "documentation": "Opisuje <code>UserId</code> gracza, który jest właścicielem  prywatnego serwera, jeśli serwer jest prywatny.",
+    "documentation": "Opisuje <code>UserId</code> <code>Player</code>, który jest właścicielem  prywatnego serwera, jeśli serwer jest prywatny.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerOwnerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"SerwerVIP\"\n\t\telse\n\t\t\treturn \"SerwerZarezerwowany\"\n\t\tend\n\telse\n\t\treturn \"SerwerStandardowy\"\n\tend\nend\n\nprint(getServerType())"
   },
   "@roblox/globaltype/DataModel.VIPServerId": {
-    "documentation": "<strong>Deprecated:</strong> Ta właściwość została wycofana. Użyj zamiast tego <code>DataModel.PrivateServerId</code>.<br>Ciąg znaków, który mógłby identyfikować obecny serwer jako prywatny serwer.",
+    "documentation": "<strong>Deprecated:</strong> Ta właściwość została przestarzała. Użyj <code>DataModel.PrivateServerId</code>  zamiast tego.<br>Ciąg, który może zidentyfikować bieżący serwer jako prywatny serwer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.VIPServerOwnerId": {
-    "documentation": "<strong>Deprecated:</strong> Ta właściwość została wycofana. Użyj zamiast tego  <code>DataModel.PrivateServerOwnerId</code>.<br>ID <code>UserId</code> konta, które jest właścicielem prywatnego  serwera.",
+    "documentation": "<strong>Deprecated:</strong> Ta właściwość została przestarzała. Użyj  <code>DataModel.PrivateServerOwnerId</code> zamiast tego.<br>ID <code>UserId</code> konta, które jest właścicielem prywatnego  serwera.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerOwnerId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.Workspace": {
-    "documentation": "Referencja do usługi <code>Workspace</code>.",
+    "documentation": "Odwołuje się do usługi <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Workspace",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.lighting": {
-    "documentation": "<strong>Deprecated:</strong> Ten element został zastąpiony przez  <code>game:GetService(\"Lighting\")</code>, którą  należy użyć zamiast.<br>Odnosi się do usługi <code>Lighting</code> w grze.",
+    "documentation": "<strong>Deprecated:</strong> Ten element został zastąpiony przez  <code>game:GetService(\"Lighting\")</code>, który  należy używać zamiast tego.<br>Odwołuje się do usługi <code>Lighting</code> gry.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#lighting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.workspace": {
-    "documentation": "<strong>Deprecated:</strong> Ta wycofana właściwość jest wariantem <code>DataModel.Workspace</code>, który  powinien być używany zamiast.",
+    "documentation": "<strong>Deprecated:</strong> Ta przestarzała właściwość jest wariantem <code>DataModel.Workspace</code>, który  powinien być używany zamiast tego.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#workspace",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.BindToClose/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.BindToClose/param/1": {
-    "documentation": "Funkcja wywoływana przed zamknięciem serwera doświadczenia. Jeśli przypisana  funkcja akceptuje parametr, przekazuje <code>CloseReason</code>  specyfikując powód zamknięcia serwera."
+    "documentation": "Funkcja wywoływana przed wyłączeniem serwera doświadczenia. Jeśli łączona  funkcja akceptuje parametr, przekazuje <code>CloseReason</code>  określający powód wyłączenia serwera."
   },
   "@roblox/globaltype/DataModel.BindToClose": {
-    "documentation": "Przypisuje funkcję, która ma być wywołana przed zamknięciem serwera.",
+    "documentation": "Łączy funkcję, która ma być wywołana przed wyłączeniem serwera.",
     "params": [
       {
         "name": "self",
@@ -24807,13 +24813,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/return/0": {
-    "documentation": "Tabela zawierająca informacje o zadaniach wykonywanych przez harmonogram  zadań, patrz powyżej dla formatu."
+    "documentation": "Tabela zawierająca informacje o zadaniach wykonywanych przez planistę  zadań, zobacz powyżej format."
   },
   "@roblox/globaltype/DataModel.GetJobsInfo": {
-    "documentation": "Zwraca tabelę zawierającą podstawowe informacje o zadaniach wykonywanych przez  harmonogram zadań.",
+    "documentation": "Zwraca tabelę zawierającą podstawowe informacje o zadaniach wykonywanych przez  planista zadań.",
     "params": [
       {
         "name": "self",
@@ -24827,13 +24833,13 @@
     "code_sample": "local jobInfo = game:GetJobsInfo()\nlocal jobTitles = jobInfo[1]\n\ntable.remove(jobInfo, 1)\n\nlocal divider = string.rep(\"-\", 120)\nprint(divider)\nwarn(\"INFORMACJE O PRACY:\")\nprint(divider)\n\nfor _, job in pairs(jobInfo) do\n\tfor jobIndex, jobValue in pairs(job) do\n\t\tlocal jobTitle = jobTitles[jobIndex]\n\t\twarn(jobTitle, \"=\", jobValue)\n\tend\n\tprint(divider)\nend"
   },
   "@roblox/globaltype/DataModel.GetMessage/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.GetMessage/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetMessage": {
-    "documentation": "<strong>Deprecated:</strong> Ten element jest nieaktualny, ponieważ system został wycofany bardzo dawno  temu, a niedawno API do ustawiania tej wiadomości zostały usunięte.<br><strong><em>[NIEAKTUALNE]:</em></strong> Ta funkcja zawsze zwraca pusty ciąg.",
+    "documentation": "<strong>Deprecated:</strong> Ten element jest przestarzały, ponieważ system został wycofany bardzo dawno temu,  a niedawno zostały usunięte API do ustawiania tego komunikatu.<br><strong><em>[NIEAKTUALNE]:</em></strong> Ta funkcja zawsze zwróci pusty ciąg.",
     "params": [
       {
         "name": "self",
@@ -24847,16 +24853,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetObjects/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.GetObjects/param/1": {
-    "documentation": "Podany adres URL treści."
+    "documentation": "Podany URL treści."
   },
   "@roblox/globaltype/DataModel.GetObjects/return/0": {
-    "documentation": "Tablica <code>Instances</code> związana z adresem URL treści."
+    "documentation": "Tablica <code>Instances</code> powiązanych z URL treści."
   },
   "@roblox/globaltype/DataModel.GetObjects": {
-    "documentation": "Zwraca tablicę <code>Instances</code> związanych z podanym  adresem URL treści.",
+    "documentation": "Zwraca tablicę <code>Instances</code> powiązanych z danym  URL treści.",
     "params": [
       {
         "name": "self",
@@ -24874,13 +24880,13 @@
     "code_sample": "local Selection = game:GetService(\"Selection\")\n\nlocal WEB_URL = \"plugin URL here\"\n\nlocal function downloadPlugin(webURL)\n\t-- pobierz adres URL zawartości\n\tlocal contentID = string.match(webURL, \"%d+\")\n\tlocal contentURL = \"rbxassetid://\" .. contentID\n\n\t-- pobierz obiekty\n\tlocal objects = game:GetObjects(contentURL)\n\n\t-- zdecyduj, gdzie je umieścić\n\tlocal selection = Selection:Get()\n\tlocal parent = #selection == 1 and selection[1] or workspace\n\n\t-- umieść obiekty\n\tfor _, object in pairs(objects) do\n\t\tobject.Parent = parent\n\tend\nend\n\ndownloadPlugin(WEB_URL)"
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode": {
-    "documentation": "<strong>Deprecated:</strong> Ten element jest nieaktualny. Użyj <code>RunService:IsServer()</code>, aby sprawdzić, czy  twój kod działa na serwerze.<br>Ta metoda nie jest już przydatna i zawsze zwraca fałsz.",
+    "documentation": "<strong>Deprecated:</strong> Ten element jest przestarzały. Użyj <code>RunService:IsServer()</code>, aby sprawdzić, czy twój  kod działa na serwerze.<br>Ta metoda przestała być użyteczna i zawsze zwraca fałsz.",
     "params": [
       {
         "name": "self",
@@ -24894,16 +24900,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/1": {
-    "documentation": "Podany <code>GearType</code>."
+    "documentation": "Dany <code>GearType</code>."
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/return/0": {
-    "documentation": "Czy ekwipunek o danym <code>GearType</code> jest dozwolony w grze."
+    "documentation": "Czy sprzęt danego <code>GearType</code> jest dozwolony w grze."
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed": {
-    "documentation": "<strong>Deprecated:</strong> Ta właściwość jest nieaktualna i nie działa już. Nie powinna być  używana.<br>Zwraca, czy ekwipunek o danym <code>GearType</code> jest dozwolony do dodawania  do <code>Players'</code> <code>StarterGears</code>.",
+    "documentation": "<strong>Deprecated:</strong> Ta właściwość jest przestarzała i już nie działa. Nie powinna być  używana.<br>Zwraca, czy sprzęt danego <code>GearType</code> może być dodany do <code>Players'</code> <code>StarterGears</code>.",
     "params": [
       {
         "name": "self",
@@ -24921,7 +24927,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsLoaded/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.IsLoaded/return/0": {
     "documentation": "Czy klient zakończył ładowanie gry po raz pierwszy."
@@ -24941,7 +24947,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SavePlace/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.SavePlace/param/1": {
     "documentation": ""
@@ -24950,7 +24956,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.SavePlace": {
-    "documentation": "<strong>Deprecated:</strong> Ten element jest nieaktualny. Nie używaj go w nowych pracach.<br>Zapisuje bieżące miejsce.",
+    "documentation": "<strong>Deprecated:</strong> Ten element jest przestarzały. Nie używaj go do nowej pracy.<br>Zapisuje bieżące miejsce.",
     "params": [
       {
         "name": "self",
@@ -24968,10 +24974,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/1": {
-    "documentation": "ID, które należy ustawić jako <code>DataModel.PlaceId</code>."
+    "documentation": "ID, które ma być ustawione na <code>DataModel.PlaceId</code>."
   },
   "@roblox/globaltype/DataModel.SetPlaceId": {
     "documentation": "Ustawia <code>DataModel.PlaceId</code> bieżącej instancji gry.",
@@ -24990,13 +24996,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/0": {
-    "documentation": "Pierwszy poziom hierarchii rodzic-dziecko w Robloxie. Jego bezpośrednimi dziećmi są usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które pełnią rolę podstawowych  składników gry w Robloxie."
+    "documentation": "Korzeń hierarchii rodzic-dziecko Roblox. Jego bezpośrednie dzieci to usługi,  takie jak <code>Workspace</code> i <code>Lighting</code>, które działają jako fundamentalne  komponenty gry Roblox."
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/1": {
-    "documentation": "ID, które należy ustawić jako <code>DataModel.GameId</code>."
+    "documentation": "ID, które ma być ustawione na <code>DataModel.GameId</code>."
   },
   "@roblox/globaltype/DataModel.SetUniverseId": {
-    "documentation": "Ustawia <code>DataModel.GameId</code> bieżącej instancji gry na dany  <code>universeId</code>.",
+    "documentation": "Ustawia <code>DataModel.GameId</code> bieżącej instancji gry na podany  <code>universeId</code>.",
     "params": [
       {
         "name": "self",
@@ -25015,7 +25021,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.OnClose": {
-    "documentation": "<strong>Deprecated:</strong> Ta funkcja jest nieaktualna. Zaleca się użycie <code>DataModel:BindToClose()</code> zamiast.<br>Wywoływana przed zamknięciem gry. Gdy ten callback zwraca, lub gdy  okres czasu upłynie, gra kończy zamykanie.",
+    "documentation": "<strong>Deprecated:</strong> Ta funkcja jest przestarzała. Zaleca się użycie  <code>DataModel:BindToClose()</code> zamiast tego.<br>Wywoływana przed wyłączeniem gry. Po zwróceniu tego callbacku lub osiągnięciu  limitu czasu gra kończy proces wyłączania.",
     "params": [],
     "returns": [
       "@roblox/globaltype/DataModel.OnClose/return/0"
@@ -25101,7 +25107,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.AllowedGearTypeChanged": {
-    "documentation": "<strong>Deprecated:</strong> Ten element jest nieaktualny. Nie używaj go w nowych pracach.<br>Wysyłane, gdy SetGearSettings jest wołane z inną wartością dla  <code>allowedGenres</code>.",
+    "documentation": "<strong>Deprecated:</strong> Ten element jest przestarzały. Nie używaj go do nowej pracy.<br>Wyzwala się, gdy SetGearSettings zostanie wywołane z inną wartością dla  <code>allowedGenres</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.ConnectParallel",
@@ -25189,7 +25195,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest": {
-    "documentation": "Wysyłane, gdy użytkownik dokonuje zwiększenia lub zmniejszenia jakości grafiki  za pomocą skrótów klawiaturowych.",
+    "documentation": "Wyzwala się, gdy użytkownik powoduje zwiększenie lub zmniejszenie jakości grafiki  za pomocą skrótów klawiszowych.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.ConnectParallel",
@@ -25277,7 +25283,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.ItemChanged": {
-    "documentation": "<strong>Deprecated:</strong> Ta funkcja została zastąpiona przez <code>Object.Changed</code>, którą powinno  się używać zamiast w nowych pracach.<br>Wysyłane, gdy właściwość dowolnego obiektu w <code>DataModel</code> zostanie zmieniona.",
+    "documentation": "<strong>Deprecated:</strong> Ta funkcja została zastąpiona przez <code>Object.Changed</code>, która powinna  być używana w nowej pracy zamiast tego.<br>Wyzwala się, gdy właściwość jakiegoś obiektu w <code>DataModel</code> jest zmieniana.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.ItemChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.ItemChanged.ConnectParallel",
@@ -25365,7 +25371,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.Loaded": {
-    "documentation": "Wysyłane na kliencie, gdy gra kończy ładowanie po raz pierwszy.",
+    "documentation": "Wyzwala się na kliencie, gdy gra skończy ładowanie po raz pierwszy.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.Loaded.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.Loaded.ConnectParallel",
@@ -26655,7 +26661,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction": {
-    "documentation": "Obiekt, który ułatwia synchroniczną dwukierunkową komunikację przez granicę serwera-klienta. Skrypty wywołujące <code>RemoteFunction</code> czekają na odpowiedź od odbiorcy.",
+    "documentation": "Obiekt, który ułatwia synchroniczną, dwukierunkową komunikację przez granicę klienta i serwera. Skrypty wywołujące <code>RemoteFunction</code> oczekują, aż dostaną odpowiedź od odbiorcy.",
     "keys": {
       "InvokeClient": "@roblox/globaltype/RemoteFunction.InvokeClient",
       "InvokeServer": "@roblox/globaltype/RemoteFunction.InvokeServer",
@@ -26666,19 +26672,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/param/0": {
-    "documentation": "Obiekt, który ułatwia synchroniczną dwukierunkową komunikację przez granicę serwera-klienta. Skrypty wywołujące <code>RemoteFunction</code> czekają na odpowiedź od odbiorcy."
+    "documentation": "Obiekt, który ułatwia synchroniczną, dwukierunkową komunikację przez granicę klienta i serwera. Skrypty wywołujące <code>RemoteFunction</code> oczekują, aż dostaną odpowiedź od odbiorcy."
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/param/1": {
-    "documentation": "<code>Player</code> powiązany z klientem do wywołania."
+    "documentation": "Klient który ma być wywołany, powiązany z <code>Player</code>."
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/param/2": {
-    "documentation": "Wartości do przekazania do funkcji zwrotnej <code>OnClientInvoke</code>."
+    "documentation": "Wartości do przekazania do <code>OnClientInvoke</code> funkcji zwrotnej."
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient/return/0": {
-    "documentation": "Wartości zwracane przez funkcję zwrotną <code>OnClientInvoke</code>."
+    "documentation": "Wartości zwracane z <code>OnClientInvoke</code> funkcji zwrotnej."
   },
   "@roblox/globaltype/RemoteFunction.InvokeClient": {
-    "documentation": "Wywołuje <code>RemoteFunction</code>, która z kolei wywołuje funkcję zwrotną <code>OnClientInvoke</code>.",
+    "documentation": "Wywołuje <code>RemoteFunction</code>, która następnie wywołuje <code>OnClientInvoke</code> funkcję zwrotną.",
     "params": [
       {
         "name": "self",
@@ -26700,16 +26706,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer/param/0": {
-    "documentation": "Obiekt, który ułatwia synchroniczną dwukierunkową komunikację przez granicę serwera-klienta. Skrypty wywołujące <code>RemoteFunction</code> czekają na odpowiedź od odbiorcy."
+    "documentation": "Obiekt, który ułatwia synchroniczną, dwukierunkową komunikację przez granicę klienta i serwera. Skrypty wywołujące <code>RemoteFunction</code> oczekują, aż dostaną odpowiedź od odbiorcy."
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer/param/1": {
-    "documentation": "Wartości do przekazania do funkcji zwrotnej <code>OnServerInvoke</code>."
+    "documentation": "Wartości do przekazania do <code>OnServerInvoke</code> funkcji zwrotnej."
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer/return/0": {
-    "documentation": "Wartości zwracane przez funkcję zwrotną <code>OnServerInvoke</code>."
+    "documentation": "Wartości zwracane z <code>OnServerInvoke</code> funkcji zwrotnej."
   },
   "@roblox/globaltype/RemoteFunction.InvokeServer": {
-    "documentation": "Wywołuje <code>RemoteFunction</code>, która z kolei wywołuje funkcję zwrotną <code>OnServerInvoke</code>.",
+    "documentation": "Wywołuje <code>RemoteFunction</code>, która następnie wywołuje <code>OnServerInvoke</code> funkcję zwrotną.",
     "params": [
       {
         "name": "self",
@@ -26733,7 +26739,7 @@
     "documentation": "Wartości zwracane przez funkcję zwrotną."
   },
   "@roblox/globaltype/RemoteFunction.OnClientInvoke": {
-    "documentation": "Funkcja zwrotna, gdy <code>RemoteFunction</code> jest wywoływana za pomocą <code>InvokeClient()</code>.",
+    "documentation": "Funkcja zwrotna, gdy <code>RemoteFunction</code> jest wywoływana przez <code>InvokeClient()</code>.",
     "params": [
       {
         "name": "arguments",
@@ -26747,7 +26753,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke/param/0": {
-    "documentation": "<code>Player</code> powiązany z klientem, z którego pochodzi wywołanie <code>InvokeServer()</code>."
+    "documentation": "Klient, powiązany z <code>Player</code>, z którego pochodzi wywołanie <code>InvokeServer()</code>."
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke/param/1": {
     "documentation": "Parametry wysyłane przez <code>InvokeServer()</code>."
@@ -26756,7 +26762,7 @@
     "documentation": "Wartości zwracane przez funkcję zwrotną."
   },
   "@roblox/globaltype/RemoteFunction.OnServerInvoke": {
-    "documentation": "Funkcja zwrotna, gdy <code>RemoteFunction</code> jest wywoływana za pomocą <code>InvokeServer()</code>.",
+    "documentation": "Funkcja zwrotna, gdy <code>RemoteFunction</code> jest wywoływana przez <code>InvokeServer()</code>.",
     "params": [
       {
         "name": "player",
@@ -47983,7 +47989,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel": {
-    "documentation": "Reprezentuje kanał czatu tekstowego.",
+    "documentation": "Reprezentuje kanał tekstowej czatu.",
     "keys": {
       "DirectChatRequester": "@roblox/globaltype/TextChannel.DirectChatRequester",
       "AddUserAsync": "@roblox/globaltype/TextChannel.AddUserAsync",
@@ -47997,21 +48003,21 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.DirectChatRequester": {
-    "documentation": "Kanał <code>TextChannel</code> będzie dostarczał wiadomości tylko do użytkowników, którzy mogą wysyłać wiadomości bezpośrednie do <code>DirectChatRequester</code>.",
+    "documentation": "Kanał <code>TextChannel</code> dostarczy wiadomości tylko do użytkowników, którzy mogą wysyłać wiadomości bezpośrednie do <code>DirectChatRequester</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChannel#DirectChatRequester",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/param/0": {
-    "documentation": "Reprezentuje kanał czatu tekstowego."
+    "documentation": "Reprezentuje kanał tekstowej czatu."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/param/1": {
-    "documentation": "UserId <code>Player</code>."
+    "documentation": "userId <code>Player</code>."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync/return/0": {
-    "documentation": "Zwraca <code>TextSource</code> i <code>true</code>, jeśli dla użytkownika utworzono nowy <code>TextSource</code>, <code>TextSource</code> i <code>false</code>, jeśli istnieje już <code>TextSource</code>, lub <code>nil</code> i <code>false</code>, jeśli użytkownik ma wyłączony czat lub nie jest na tym serwerze."
+    "documentation": "Zwraca <code>TextSource</code> i <code>true</code>, jeśli dla użytkownika utworzono nowy <code>TextSource</code>, <code>TextSource</code> i <code>false</code>, jeśli istnieje już <code>TextSource</code>, lub <code>nil</code> i <code>false</code>, jeśli użytkownik ma czat wyłączony lub nie jest na tym serwerze."
   },
   "@roblox/globaltype/TextChannel.AddUserAsync": {
-    "documentation": "Dodaje <code>TextSource</code> do <code>TextChannel</code> podając userId <code>Player</code>.",
+    "documentation": "Dodaje <code>TextSource</code> do <code>TextChannel</code> na podstawie userId <code>Player</code>.",
     "params": [
       {
         "name": "self",
@@ -48029,19 +48035,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/param/0": {
-    "documentation": "Reprezentuje kanał czatu tekstowego."
+    "documentation": "Reprezentuje kanał tekstowej czatu."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/param/1": {
     "documentation": "Komunikat systemowy wysyłany do <code>TextChannel</code>."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/param/2": {
-    "documentation": "Używane do identyfikacji typów komunikatów systemowych, takich jak wiadomości domyslne."
+    "documentation": "Używany do identyfikacji typów komunikatów systemowych, takich jak domyślne wiadomości systemowe."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage/return/0": {
-    "documentation": "Wiadomość <code>TextChatMessage</code> z właściwością <code>TextChatMessage.Status</code> wynikającą z warunków komunikatu."
+    "documentation": "Obiekt <code>TextChatMessage</code> z właściwością <code>TextChatMessage.Status</code> określającą stan wiadomości."
   },
   "@roblox/globaltype/TextChannel.DisplaySystemMessage": {
-    "documentation": "Wyświetla komunikat systemowy dla użytkownika.",
+    "documentation": "Wyświetla komunikat systemowy użytkownikowi.",
     "params": [
       {
         "name": "self",
@@ -48063,16 +48069,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.SendAsync/param/0": {
-    "documentation": "Reprezentuje kanał czatu tekstowego."
+    "documentation": "Reprezentuje kanał tekstowej czatu."
   },
   "@roblox/globaltype/TextChannel.SendAsync/param/1": {
     "documentation": "Wiadomość do wysłania do <code>TextChannel</code>."
   },
   "@roblox/globaltype/TextChannel.SendAsync/param/2": {
-    "documentation": "Niestandardowe metadane do załączenia do wiadomości."
+    "documentation": "Niestandardowe metadane do dołączenia do wiadomości."
   },
   "@roblox/globaltype/TextChannel.SendAsync/return/0": {
-    "documentation": "Wiadomość <code>TextChatMessage</code> z właściwością <code>TextChatMessage.Status</code> wynikającą z warunków komunikatu."
+    "documentation": "Obiekt <code>TextChatMessage</code> z właściwością <code>TextChatMessage.Status</code> określającą stan wiadomości."
   },
   "@roblox/globaltype/TextChannel.SendAsync": {
     "documentation": "Wysyła <code>TextChatMessage</code> do serwera.",
@@ -48097,13 +48103,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/0": {
-    "documentation": "Reprezentuje kanał czatu tekstowego."
+    "documentation": "Reprezentuje kanał tekstowej czatu."
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/TextChannel.SetDirectChatRequester": {
-    "documentation": "Ustawia <code>DirectChatRequester</code> dla <code>TextChannel</code>. Kanał <code>TextChannel</code> będzie dostarczać wiadomości tylko do użytkowników, którzy mogą wysyłać wiadomości bezpośrednie do <code>DirectChatRequester</code>.",
+    "documentation": "Ustawia <code>DirectChatRequester</code> dla tk <code>TextChannel</code>. <code>TextChannel</code> dostarczy wiadomości tylko do użytkowników, którzy mogą wysyłać wiadomości bezpośrednie do <code>DirectChatRequester</code>.",
     "params": [
       {
         "name": "self",
@@ -48119,10 +48125,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage/param/0": {
-    "documentation": "Przychodząca <code>TextChatMessage</code>."
+    "documentation": "Przychodzący <code>TextChatMessage</code>."
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage/return/0": {
-    "documentation": "Jeśli zostanie zwrócony <code>TextChatMessageProperties</code>, te właściwości są łączone z parametrem <code>TextChatMessage</code>, aby utworzyć nową <code>TextChatMessage</code> z tymi właściwościami."
+    "documentation": "Jeśli zwrócono <code>TextChatMessageProperties</code>, te właściwości są łączone z parametrem <code>TextChatMessage</code>, aby stworzyć nowy <code>TextChatMessage</code> z tymi właściwościami."
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage": {
     "documentation": "Wywoływane, gdy <code>TextChannel</code> otrzymuje przychodzącą wiadomość.",
@@ -48139,10 +48145,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/param/0": {
-    "documentation": "Wiadomość, która jest wysyłana, która również zawiera nadawcę wiadomości."
+    "documentation": "Wiadomość, która jest wysyłana, która zawiera również nadawcę wiadomości."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/param/1": {
-    "documentation": "<code>TextSource</code> użytkownika, który odbierze wiadomość."
+    "documentation": "<code>TextSource</code> użytkownika, który otrzyma wiadomość."
   },
   "@roblox/globaltype/TextChannel.ShouldDeliverCallback/return/0": {
     "documentation": ""
@@ -48243,7 +48249,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextChannel.MessageReceived": {
-    "documentation": "Wywoływane, gdy <code>TextChannel:DisplaySystemMessage()</code> jest wywoływane na kliencie, lub gdy klient otrzymuje ważną odpowiedź <code>TextChannel:SendAsync()</code> z serwera.",
+    "documentation": "Generowane, gdy <code>TextChannel:DisplaySystemMessage()</code> jest wywoływane na kliencie, lub gdy klient otrzymuje ważną odpowiedź <code>TextChannel:SendAsync()</code> z serwera.",
     "keys": {
       "Connect": "@roblox/globaltype/TextChannel.MessageReceived.Connect",
       "ConnectParallel": "@roblox/globaltype/TextChannel.MessageReceived.ConnectParallel",
@@ -50891,7 +50897,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>.",
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>.",
     "keys": {
       "Archivable": "@roblox/globaltype/Instance.Archivable",
       "Capabilities": "@roblox/globaltype/Instance.Capabilities",
@@ -50945,53 +50951,53 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Archivable": {
-    "documentation": "Określa, czy <code>Instance</code> i jego potomkowie mogą być klonowani za pomocą <code>Instance:Clone()</code>, i mogą być zapisywani/publikowani.",
+    "documentation": "Określa, czy <code>Instance</code> i jego potomkowie mogą być klonowani przy użyciu <code>Instance:Clone()</code>, oraz czy mogą być zapisani/opublikowani.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Capabilities": {
-    "documentation": "Zbiór możliwości dopuszczalnych do użycia dla skryptów wewnątrz tego kontenera.",
+    "documentation": "Zestaw możliwości dozwolonych do użycia dla skryptów wewnątrz tego kontenera.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Capabilities",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Name": {
-    "documentation": "Nieunikatowy identyfikator <code>Instance</code>.",
+    "documentation": "Niezbędny identyfikator <code>Instance</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Name",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Parent": {
-    "documentation": "Określa hierarchicznego rodzica <code>Instance</code>.",
+    "documentation": "Określa hierarchiczne rodzica <code>Instance</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Parent",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RobloxLocked": {
-    "documentation": "Właściwość przestarzała, która służyła do ochrony obiektów <code>CoreGui</code>.",
+    "documentation": "Przestarzała właściwość, która miała na celu ochronę obiektów <code>CoreGui</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#RobloxLocked",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Sandboxed": {
-    "documentation": "Zamienia instancję w kontener sandboxowy.",
+    "documentation": "Ustawia instancję jako piaskownicowy kontener.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Sandboxed",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.UniqueId": {
-    "documentation": "Unikalny identyfikator dla instancji.",
+    "documentation": "Unikalny identyfikator instancji.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#UniqueId",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.archivable": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała właściwość jest wariantem <code>Instance.Archivable</code>, który należy używać zamiast tego.",
+    "documentation": "<strong>Deprecated:</strong> Ta przestarzała właściwość jest wariantem <code>Instance.Archivable</code>, który powinien być zamiast tego używany.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.AddTag/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.AddTag/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.AddTag": {
-    "documentation": "Zastosowuje tag do instancji.",
+    "documentation": "Nakłada tag na instancję.",
     "params": [
       {
         "name": "self",
@@ -51007,7 +51013,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ClearAllChildren/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
     "documentation": "Ta metoda niszczy wszystkie dzieci instancji.",
@@ -51022,13 +51028,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Clone/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.Clone/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.Clone": {
-    "documentation": "Utwórz kopię instancji i wszystkich jej potomków, ignorując instancje, które nie są <code>Archivable</code>.",
+    "documentation": "Tworzy kopię instancji i wszystkich jej potomków, ignorując instancje, które nie są <code>Archivable</code>.",
     "params": [
       {
         "name": "self",
@@ -51042,10 +51048,10 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\n-- Uzyskaj odniesienie do istniejącego obiektu\nlocal model = script.Parent.Model\n\n-- Utwórz klon modelu\nlocal clone = model:Clone()\n\n-- Przenieś klon tak, aby nie zachodził na oryginalny model\nclone:PivotTo(model.PrimaryPart.CFrame - (Vector3.xAxis * 10))\n\n-- Dodaj klon do Workspace\nclone.Parent = Workspace"
   },
   "@roblox/globaltype/Instance.Destroy/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.Destroy": {
-    "documentation": "Ustawia właściwość <code>Instance.Parent</code> na <code>nil</code>, blokuje właściwość <code>Instance.Parent</code>, odłącza wszystkie połączenia oraz wywołuje <code>Destroy()</code> dla wszystkich dzieci.",
+    "documentation": "Ustawia właściwość <code>Instance.Parent</code> na <code>nil</code>, blokuje właściwość <code>Instance.Parent</code>, odłącza wszystkie połączenia i wywołuje <code>Destroy()</code> dla wszystkich dzieci.",
     "params": [
       {
         "name": "self",
@@ -51057,16 +51063,16 @@
     "code_sample": "local part = script.Parent.Part\n\npart:Destroy()"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/1": {
-    "documentation": "Właściwość <code>Instance.Name</code>, która ma być wyszukiwana."
+    "documentation": "Nazwa <code>Instance.Name</code>, której będziemy szukać."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/return/0": {
     "documentation": "Znaleziony <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor": {
-    "documentation": "Zwraca pierwszego przodka <code>Instance</code>, którego <code>Instance.Name</code> jest równy danej nazwie.",
+    "documentation": "Zwraca pierwszego przodka <code>Instance</code>, którego <code>Instance.Name</code> jest równy podanej nazwie.",
     "params": [
       {
         "name": "self",
@@ -51084,16 +51090,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/1": {
-    "documentation": "Właściwość <code>Object.ClassName</code>, która ma być wyszukiwana."
+    "documentation": "Nazwa <code>Object.ClassName</code>, której będziemy szukać."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/return/0": {
     "documentation": "Znaleziony <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "Zwraca pierwszego przodka <code>Instance</code>, którego <code>Object.ClassName</code> jest równy danemu className.",
+    "documentation": "Zwraca pierwszego przodka <code>Instance</code>, którego <code>Object.ClassName</code> jest równy podanemu className.",
     "params": [
       {
         "name": "self",
@@ -51111,16 +51117,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/1": {
-    "documentation": "Właściwość <code>Object.ClassName</code>, która ma być wyszukiwana."
+    "documentation": "Nazwa <code>Object.ClassName</code>, której będziemy szukać."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/return/0": {
     "documentation": "Znaleziony <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "Zwraca pierwszego przodka <code>Instance</code>, dla którego <code>Object:IsA()</code> zwraca prawda dla danego className.",
+    "documentation": "Zwraca pierwszego przodka <code>Instance</code>, dla którego <code>Object:IsA()</code> zwraca prawdę dla podanego className.",
     "params": [
       {
         "name": "self",
@@ -51138,19 +51144,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/1": {
-    "documentation": "Właściwość <code>Instance.Name</code>, która ma być wyszukiwana."
+    "documentation": "Nazwa <code>Instance.Name</code>, której będziemy szukać."
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/2": {
-    "documentation": "Czy wyszukiwanie powinno być prowadzone rekurencyjnie."
+    "documentation": "Czy wyszukiwanie powinno być przeprowadzone rekurencyjnie."
   },
   "@roblox/globaltype/Instance.FindFirstChild/return/0": {
     "documentation": "Znaleziony <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChild": {
-    "documentation": "Zwraca pierwsze dziecko <code>Instance</code>, które znaleziono z równą nazwą.",
+    "documentation": "Zwraca pierwsze dziecko <code>Instance</code>, znalezione o podanej nazwie.",
     "params": [
       {
         "name": "self",
@@ -51172,16 +51178,16 @@
     "code_sample": "local found = workspace:FindFirstChild(\"Brick\")\n\nif found then\n\tfound.Name = \"Foo\"\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/1": {
-    "documentation": "Właściwość <code>Object.ClassName</code>, która ma być wyszukiwana."
+    "documentation": "Nazwa <code>Object.ClassName</code>, której będziemy szukać."
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/return/0": {
     "documentation": "Znaleziony <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass": {
-    "documentation": "Zwraca pierwsze dziecko <code>Instance</code>, którego <code>ClassName</code> jest równa podanemu nazwie klasy.",
+    "documentation": "Zwraca pierwsze dziecko <code>Instance</code>, którego <code>ClassName</code> jest równy podanej nazwie klasy.",
     "params": [
       {
         "name": "self",
@@ -51199,13 +51205,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal humanoid\n\nwhile not humanoid do\n\thumanoid = character:FindFirstChildOfClass(\"Humanoid\")\n\tif not humanoid then\n\t\tcharacter.ChildAdded:Wait()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/1": {
-    "documentation": "Właściwość <code>Object.ClassName</code>, która ma być wyszukiwana."
+    "documentation": "Nazwa <code>Object.ClassName</code>, której będziemy szukać."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/2": {
-    "documentation": "Czy wyszukiwanie powinno być prowadzone rekurencyjnie."
+    "documentation": "Czy wyszukiwanie powinno być przeprowadzone rekurencyjnie."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/return/0": {
     "documentation": "Znaleziony <code>Instance</code>."
@@ -51233,16 +51239,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/1": {
-    "documentation": "Właściwość <code>Instance.Name</code>, która ma być wyszukiwana."
+    "documentation": "Nazwa <code>Instance.Name</code>, której będziemy szukać."
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/return/0": {
     "documentation": "Znaleziony <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstDescendant": {
-    "documentation": "Zwraca pierwszego potomka znalezionego z podanym <code>Instance.Name</code>.",
+    "documentation": "Zwraca pierwszego potomka znalezionego o podanej <code>Instance.Name</code>.",
     "params": [
       {
         "name": "self",
@@ -51260,13 +51266,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetActor/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetActor/return/0": {
     "documentation": "Znaleziony <code>Actor</code>."
   },
   "@roblox/globaltype/Instance.GetActor": {
-    "documentation": "Zwraca <code>Actor</code> powiązany z instancją, jeśli taki istnieje.",
+    "documentation": "Zwraca <code>Actor</code> powiązanego z instancją, jeśli taki istnieje.",
     "params": [
       {
         "name": "self",
@@ -51280,13 +51286,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttribute/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetAttribute/param/1": {
     "documentation": "Nazwa atrybutu, który jest pobierany."
   },
   "@roblox/globaltype/Instance.GetAttribute/return/0": {
-    "documentation": "Wartość, która została przypisana do podanej nazwy atrybutu. Jeśli nie przypisano żadnego atrybutu, zwracane jest <code>nil</code>."
+    "documentation": "Wartość, która została przypisana do podanej nazwy atrybutu. Jeśli żaden atrybut nie został przypisany, zwrócone jest <code>nil</code>."
   },
   "@roblox/globaltype/Instance.GetAttribute": {
     "documentation": "Zwraca wartość, która została przypisana do podanej nazwy atrybutu.",
@@ -51307,16 +51313,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/1": {
-    "documentation": "Nazwa wskazanego atrybutu, dla którego zwracany jest sygnał zmiany."
+    "documentation": "Nazwa określonego atrybutu, dla którego zwracany jest sygnał zmiany."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/return/0": {
-    "documentation": "Zdarzenie, które jest wyzwalane podczas zmiany danego atrybutu."
+    "documentation": "Zdarzenie, które wyzwala się, gdy dany atrybut zmienia się."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal": {
-    "documentation": "Zwraca zdarzenie, które jest wyzwalane, gdy dany atrybut ulega zmianie.",
+    "documentation": "Zwraca zdarzenie, które wyzwala się, gdy dany atrybut zmienia się.",
     "params": [
       {
         "name": "self",
@@ -51334,10 +51340,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributes/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
-    "documentation": "Słownik par typu string → wariant dla każdego atrybutu, gdzie string to nazwa atrybutu, a wariant to wartość nie-<code>nil</code>."
+    "documentation": "Słownik par string → wariant dla każdego atrybutu, w którym string to nazwa atrybutu, a wariant to wartość inna niż nil."
   },
   "@roblox/globaltype/Instance.GetAttributes": {
     "documentation": "Zwraca słownik atrybutów instancji.",
@@ -51354,7 +51360,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetChildren/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetChildren/return/0": {
     "documentation": "Tablica zawierająca dzieci instancji."
@@ -51374,7 +51380,7 @@
     "code_sample": "local children = workspace:GetChildren()\n\nfor i = 1, #children do\n\tprint(i, children[i].Name)\nend"
   },
   "@roblox/globaltype/Instance.GetDebugId/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetDebugId/param/1": {
     "documentation": "Długość zakresu."
@@ -51401,13 +51407,13 @@
     "code_sample": "print(workspace:GetDebugId()) --> 39FA_12\nprint(workspace:GetDebugId(10)) --> 39FA2FEF4D_12\nprint(workspace:GetDebugId(math.huge)) --> 12"
   },
   "@roblox/globaltype/Instance.GetDescendants/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetDescendants/return/0": {
     "documentation": "Tablica zawierająca potomków instancji."
   },
   "@roblox/globaltype/Instance.GetDescendants": {
-    "documentation": "Zwraca tablicę zawierającą wszystkie potomki instancji.",
+    "documentation": "Zwraca tablicę zawierającą wszystkich potomków instancji.",
     "params": [
       {
         "name": "self",
@@ -51421,7 +51427,7 @@
     "code_sample": "local descendants = workspace:GetDescendants()\n\n-- Przejdź przez wszystkich potomków Workspace. Jeśli znajdziesz\n-- BasePart, kod zmienia kolor tej części na zielony\nfor _, descendant in pairs(descendants) do\n\tif descendant:IsA(\"BasePart\") then\n\t\tdescendant.BrickColor = BrickColor.Green()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.GetFullName/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetFullName/return/0": {
     "documentation": "Pełna nazwa <code>Instance</code>."
@@ -51441,16 +51447,16 @@
     "code_sample": "-- Utwórz prostą hierarchię\nlocal model = Instance.new(\"Model\")\nlocal part = Instance.new(\"Part\")\npart.Parent = model\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nprint(fire:GetFullName()) --> Model.Part.Fire\n\nmodel.Parent = workspace\n\nprint(fire:GetFullName()) --> Workspace.Model.Part.Fire\n\npart.Name = \"Witaj, świecie\"\n\nprint(fire:GetFullName()) --> Workspace.Model.Witaj, świecie.Fire"
   },
   "@roblox/globaltype/Instance.GetStyled/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetStyled/param/1": {
-    "documentation": "Nazwa właściwości, dla której chcesz uzyskać informacje."
+    "documentation": "Nazwa właściwości do zapytania."
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
-    "documentation": "Stylizowana lub explicite zmodyfikowana wartość podanej właściwości, lub domyślna wartość, jeśli nie była stylizowana/zmieniana."
+    "documentation": "Stylizowana lub wyraźnie zmodyfikowana wartość określonej właściwości lub inth, że to, że żadna właściwość nie została stylizowana/zmodifikowana."
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "Zwraca stylizowaną lub explicite zmodyfikowaną wartość podanej właściwości, lub domyślną wartość, jeśli nie była stylizowana/zmieniana.",
+    "documentation": "Zwraca stylizowaną lub wyraźnie zmodyfikowaną wartość określonej właściwości, lub domyślną wartość właściwości, jeśli nie była stylizowana/zmodifikowana.",
     "params": [
       {
         "name": "self",
@@ -51468,13 +51474,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/1": {
-    "documentation": "Nazwa właściwości stylu, dla której chcesz śledzić zmiany."
+    "documentation": "Nazwa właściwości stylu, dla której posłuchamy zmian."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/return/0": {
-    "documentation": "Zdarzenie, które jest wyzwalane, gdy zmienia się dana właściwość stylu."
+    "documentation": "Zdarzenie, które wyzwala się, gdy zmienia się dana właściwość stylu."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal": {
     "documentation": "",
@@ -51495,13 +51501,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetTags/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.GetTags/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.GetTags": {
-    "documentation": "Pobierz tablicę wszystkich tagów zastosowanych do instancji.",
+    "documentation": "Pobiera tablicę wszystkich tagów nałożonych na instancję.",
     "params": [
       {
         "name": "self",
@@ -51515,7 +51521,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.HasTag/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.HasTag/param/1": {
     "documentation": ""
@@ -51542,7 +51548,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/1": {
     "documentation": "Dziecko <code>Instance</code>."
@@ -51569,13 +51575,13 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal spawnLocation = Workspace.SpawnLocation\nlocal decal = spawnLocation.Decal\n\n-- Te stwierdzenia są prawdziwe\nprint(Workspace:IsAncestorOf(spawnLocation))\nprint(Workspace:IsAncestorOf(decal))\nprint(spawnLocation:IsAncestorOf(decal))\n\n-- Te stwierdzenia są fałszywe\nprint(spawnLocation:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(spawnLocation))"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/1": {
     "documentation": "Rodzic <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.IsDescendantOf/return/0": {
-    "documentation": "Prawda, jeśli <code>Instance</code> jest potomkiem danego przodka."
+    "documentation": "Prawda, jeśli <code>Instance</code> jest potomkiem danego rodzica."
   },
   "@roblox/globaltype/Instance.IsDescendantOf": {
     "documentation": "Zwraca <code>true</code>, jeśli <code>Instance</code> jest potomkiem danego przodka.",
@@ -51596,16 +51602,16 @@
     "code_sample": "local part = Instance.new(\"Part\")\nprint(part:IsDescendantOf(game))\n--> fałsz\n\npart.Parent = workspace\nprint(part:IsDescendantOf(game))\n--> prawda\n\npart.Parent = game\nprint(part:IsDescendantOf(game))\n--> prawda"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/1": {
-    "documentation": "Nazwa właściwości, którą chcesz zapytać."
+    "documentation": "Nazwa właściwości do zapytania."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Wartość logiczna wskazująca, czy właściwość została zmodyfikowana w porównaniu do swojej domyślnej wartości ustawionej przez kod."
+    "documentation": "Boolean wskazujący, czy właściwość została zmodyfikowana od swojej wartości domyślnej zainicjowanej w kodzie."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Zwraca <code>true</code>, jeśli wartość przechowywana w określonej właściwości nie jest równa domyślnej wartości ustawionej przez kod.",
+    "documentation": "Zwraca <code>true</code>, jeśli wartość przechowywana w danej właściwości nie jest równa wartości domyślnej zainicjowanej w kodzie.",
     "params": [
       {
         "name": "self",
@@ -51623,13 +51629,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/1": {
-    "documentation": "Ciąg selektorów używany do filtrowania elementów."
+    "documentation": "Ciąg selektora używanego do filtrowania elementów."
   },
   "@roblox/globaltype/Instance.QueryDescendants/return/0": {
-    "documentation": "Tablica instancji (pusta, jeśli nic nie dopasowało selektora)."
+    "documentation": "Tablica instancji (pusta, jeśli nic nie pasowało do selektora)."
   },
   "@roblox/globaltype/Instance.QueryDescendants": {
     "documentation": "",
@@ -51650,10 +51656,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Remove/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> Ten element jest przestarzały na korzyść <code>Instance:Destroy()</code> i <code>Instance:ClearAllChildren()</code>. Jeśli musisz usunąć obiekt z gry, i chcesz używać tego obiektu później, ustaw jego właściwość <code>Parent</code> na <code>nil</code> zamiast używać tej metody.<br>Ustawia <code>Parent</code> obiektu na <code>nil</code> oraz zanika to samo dla wszystkich jego potomków.",
+    "documentation": "<strong>Deprecated:</strong> Ten element jest przestarzały na rzecz <code>Instance:Destroy()</code> i <code>Instance:ClearAllChildren()</code>. Jeśli musisz usunąć obiekt z gry, e i chcesz go później używać, zamiast tej metody ustaw jego właściwość <code>Parent</code> na <code>nil</code>.<br>Ustawia <code>Parent</code> obiektu na <code>nil</code>, a także czyni to dla wszystkich jego potomków.",
     "params": [
       {
         "name": "self",
@@ -51665,7 +51671,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Parent = workspace\nprint(part.Parent) --> Workspace\n\npart:Remove()\n\nprint(part.Parent) --> nil\n\npart.Parent = workspace\n\nprint(part.Parent) --> Workspace"
   },
   "@roblox/globaltype/Instance.RemoveTag/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.RemoveTag/param/1": {
     "documentation": ""
@@ -51687,7 +51693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/1": {
     "documentation": "Nazwa właściwości do zresetowania."
@@ -51709,16 +51715,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.SetAttribute/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.SetAttribute/param/1": {
     "documentation": "Nazwa atrybutu, który jest ustawiany."
   },
   "@roblox/globaltype/Instance.SetAttribute/param/2": {
-    "documentation": "Wartość, która ma zostać ustawiona dla określonego atrybutu."
+    "documentation": "Wartość, którą należy ustawić dla określonego atrybutu."
   },
   "@roblox/globaltype/Instance.SetAttribute": {
-    "documentation": "Ustawia atrybut z podaną nazwą na podaną wartość.",
+    "documentation": "Ustawia atrybut o podanej nazwie na daną wartość.",
     "params": [
       {
         "name": "self",
@@ -51738,19 +51744,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.WaitForChild/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.WaitForChild/param/1": {
-    "documentation": "Nazwa <code>Instance.Name</code>, która ma być wyszukiwana."
+    "documentation": "Nazwa <code>Instance</code>, którą należy znaleźć."
   },
   "@roblox/globaltype/Instance.WaitForChild/param/2": {
-    "documentation": "Opcjonalny parametr limitu czasowego."
+    "documentation": "Opcjonalny parametr czasu oczekiwania."
   },
   "@roblox/globaltype/Instance.WaitForChild/return/0": {
     "documentation": "Znaleziony <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.WaitForChild": {
-    "documentation": "Zwraca dziecko <code>Instance</code> o podanej nazwie. Jeśli dziecko nie istnieje, zablokuje bieżący wątek, aż do jego utworzenia.",
+    "documentation": "Zwraca dziecko <code>Instance</code> o podanej nazwie. Jeśli dziecko nie istnieje, zatrzyma obecny wątek, aż się pojawi.",
     "params": [
       {
         "name": "self",
@@ -51772,13 +51778,13 @@
     "code_sample": "local part = workspace:WaitForChild(\"Part\")\nprint(part.Name .. \" został dodany do Workspace\")"
   },
   "@roblox/globaltype/Instance.children/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.children/return/0": {
     "documentation": "Tablica obiektów/instancji dzieci."
   },
   "@roblox/globaltype/Instance.children": {
-    "documentation": "<strong>Deprecated:</strong> Ten element został zastąpiony przez <code>Instance:GetChildren()</code>, który powinien być używany we wszelkich nowych pracach.<br>Zwraca tablicę dzieci obiektu.",
+    "documentation": "<strong>Deprecated:</strong> Ten element został zastąpiony przez <code>Instance:GetChildren()</code>, który powinien być używany w całej nowej pracy.<br>Zwraca tablicę dzieci obiektu.",
     "params": [
       {
         "name": "self",
@@ -51792,13 +51798,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.clone/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.clone/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.clone": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Instance:Clone()</code>, który powinien być używany zamiast tego.",
+    "documentation": "<strong>Deprecated:</strong> Ten przestarzały funkcja jest wariantem <code>Instance:Clone()</code>, która powinna być używana zamiast tego.",
     "params": [
       {
         "name": "self",
@@ -51812,10 +51818,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.destroy/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.destroy": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Instance:Destroy()</code>, który powinien być używany zamiast tego.",
+    "documentation": "<strong>Deprecated:</strong> Ten przestarzały funkcja jest wariantem <code>Instance:Destroy()</code>, która powinna być używana zamiast tego.",
     "params": [
       {
         "name": "self",
@@ -51827,7 +51833,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.findFirstChild/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.findFirstChild/param/1": {
     "documentation": ""
@@ -51839,7 +51845,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.findFirstChild": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Instance:FindFirstChild()</code>, która powinna być używana zamiast tego.",
+    "documentation": "<strong>Deprecated:</strong> Ten przestarzały funkcja jest wariantem <code>Instance:FindFirstChild()</code>, która powinna być używana zamiast tego.",
     "params": [
       {
         "name": "self",
@@ -51861,13 +51867,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.getChildren/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.getChildren/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.getChildren": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Instance:GetChildren()</code>, która powinna być używana zamiast tego.",
+    "documentation": "<strong>Deprecated:</strong> Ten przestarzały funkcja jest wariantem <code>Instance:GetChildren()</code>, która powinna być używana zamiast tego.",
     "params": [
       {
         "name": "self",
@@ -51881,7 +51887,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/1": {
     "documentation": ""
@@ -51890,7 +51896,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.isDescendantOf": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Instance:IsDescendantOf()</code>, która powinna być używana zamiast tego.",
+    "documentation": "<strong>Deprecated:</strong> Ten przestarzały funkcja jest wariantem <code>Instance:IsDescendantOf()</code>, która powinna być używana zamiast tego.",
     "params": [
       {
         "name": "self",
@@ -51908,10 +51914,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.remove/param/0": {
-    "documentation": "<code>Instance</code> jest klasą bazową dla wszystkich klas w hierarchii klas Roblox która może być częścią drzewa <code>DataModel</code>."
+    "documentation": "<code>Instance</code> jest klasą podstawową dla wszystkich klas w hierarchii klas Roblox, która może być częścią drzewa <code>DataModel</code>."
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> Ta przestarzała funkcja jest wariantem <code>Instance:Remove()</code>, która również została przestarzała. Żadna z funkcji nie powinna być używana w nowych pracach.",
+    "documentation": "<strong>Deprecated:</strong> Ten przestarzały funkcja jest wariantem <code>Instance:Remove()</code>, która również została przestarzała. Żaden z tych funkcji nie powinien być używany w nowej pracy.",
     "params": [
       {
         "name": "self",
@@ -52000,7 +52006,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AncestryChanged": {
-    "documentation": "Zdarzenie wywoływane, gdy właściwość <code>Instance.Parent</code> obiektu lub jednego z jego przodków zostaje zmieniona.",
+    "documentation": "Wywołanie, gdy właściwość <code>Instance.Parent</code> obiektu lub jednego z jego przodków zostaje zmieniona.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AncestryChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AncestryChanged.ConnectParallel",
@@ -52088,7 +52094,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AttributeChanged": {
-    "documentation": "Wywoływane za każdym razem, gdy atrybut zostaje zmieniony w <code>Instance</code>.",
+    "documentation": "Wywołanie, gdy atrybut jest zmieniany w <code>Instance</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AttributeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AttributeChanged.ConnectParallel",
@@ -52176,7 +52182,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildAdded": {
-    "documentation": "Wywoływane, gdy obiekt zostaje przypisany do tego <code>Instance</code>.",
+    "documentation": "Wywołanie po tym, jak obiekt zostaje dodany do tej <code>Instance</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildAdded.ConnectParallel",
@@ -52264,7 +52270,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildRemoved": {
-    "documentation": "Wywoływane, gdy dziecko zostaje usunięte z tego <code>Instance</code>.",
+    "documentation": "Wywołanie po tym, jak dziecko jest usuwane z tej <code>Instance</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildRemoved.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildRemoved.ConnectParallel",
@@ -52352,7 +52358,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantAdded": {
-    "documentation": "Wywoływane, gdy potomek zostaje dodany do <code>Instance</code>.",
+    "documentation": "Wywołanie po tym, jak zstęp jest dodany do <code>Instance</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantAdded.ConnectParallel",
@@ -52440,7 +52446,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantRemoving": {
-    "documentation": "Wywoływane tuż przed usunięciem potomka z <code>Instance</code>.",
+    "documentation": "Wywołanie natychmiast przed usunięciem zstępu z <code>Instance</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantRemoving.ConnectParallel",
@@ -52528,7 +52534,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.Destroying": {
-    "documentation": "Wywoływane tuż przed (lub odsunięte do po) instancji, która jest niszczona za pomocą <code>Instance:Destroy()</code>.",
+    "documentation": "Wywołanie natychmiast przed (lub jest odkładane na później) instancja jest usuwana przez <code>Instance:Destroy()</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.Destroying.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.Destroying.ConnectParallel",
@@ -52616,7 +52622,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.StyledPropertiesChanged": {
-    "documentation": "Wywoływane za każdym razem, gdy jakakolwiek właściwość stylu jest zmieniana w instancji, łącznie z przypadkiem, gdy właściwość ustawiana jest na <code>nil</code>.",
+    "documentation": "Wywołanie, gdy jakikolwiek styl właściwości jest zmieniany w instancji, łącznie z chwilą, gdy właściwość jest ustawiona na <code>nil</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.StyledPropertiesChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.StyledPropertiesChanged.ConnectParallel",
@@ -65243,7 +65249,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.EnableVideoAds": {
-    "documentation": "Umożliwia AdGui serwowanie reklam wideo.",
+    "documentation": "Umożliwia AdGui wyświetlanie reklam wideo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#EnableVideoAds",
     "code_sample": ""
   },
@@ -65258,10 +65264,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.OnAdEvent/param/0": {
-    "documentation": "Tabela opcji dla metody: <ul> <li><code>PlayerId</code> – ID użytkownika gracza związane z wydarzeniem reklamy.</li> <li><code>AdEventType</code> – Wartość enum <code>AdEventType</code> opisująca zdarzenia AdGui   .</li> </ul>"
+    "documentation": "Tabela opcji dla metody: <ul> <li><code>PlayerId</code> – ID użytkownika gracza związane ze zdarzeniem reklamy.</li> <li><code>AdEventType</code> – Wartość enum <code>AdEventType</code> opisująca zdarzenia AdGui   .</li> </ul>"
   },
   "@roblox/globaltype/AdGui.OnAdEvent/return/0": {
-    "documentation": "Czy funkcja zwrotna pomyślnie zareagowała na zdarzenie."
+    "documentation": "Czy funkcja wywołania zwrotnego pomyślnie zareagowała na zdarzenie."
   },
   "@roblox/globaltype/AdGui.OnAdEvent": {
     "documentation": "Używane do reagowania na zdarzenia AdGui.",
@@ -75976,22 +75982,9 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GameSettings": {
-    "documentation": "Kontener dla różnych opcji w grze.",
-    "keys": {
-      "VideoCaptureEnabled": "@roblox/globaltype/GameSettings.VideoCaptureEnabled",
-      "VideoRecording": "@roblox/globaltype/GameSettings.VideoRecording"
-    },
+    "documentation": "Kontener na różne opcje w grze.",
+    "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoCaptureEnabled": {
-    "documentation": "Przełącza, czy przechwytywanie wideo jest włączone.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoCaptureEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/GameSettings.VideoRecording": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoRecording",
     "code_sample": ""
   },
   "@roblox/globaltype/VisualizationModeCategory": {
@@ -77677,7 +77670,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu.",
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia.",
     "keys": {
       "GetDeveloperProductsAsync": "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync",
       "GetProductInfo": "@roblox/globaltype/MarketplaceService.GetProductInfo",
@@ -77703,7 +77696,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync/return/0": {
     "documentation": ""
@@ -77723,19 +77716,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/1": {
-    "documentation": "Identyfikator zasobu podanego produktu."
+    "documentation": "Identyfikator zasobu określonego produktu."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/2": {
-    "documentation": "Wartość enum <code>InfoType</code>, określająca typ informacji, które są pobierane."
+    "documentation": "Wartość enum <code>InfoType</code> określająca typ informacji, które są pobierane."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0": {
-    "documentation": "Słownik zawierający informacje o zapytanym elemencie, opisane w wcześniejszych tabelach."
+    "documentation": "Słownik zawierający informacje o zapytanym przedmiocie, opisane w poprzednich tabelach."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "Zwraca informacje o produkcie zasobu za pomocą jego identyfikatora.",
+    "documentation": "Zwraca informacje o produkcie zasobu, korzystając z jego identyfikatora zasobu.",
     "params": [
       {
         "name": "self",
@@ -77757,16 +77750,16 @@
     "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/1": {
-    "documentation": "ID subskrypcji, którą chcesz sprawdzić."
+    "documentation": "Identyfikator subskrypcji do sprawdzenia."
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync": {
-    "documentation": "Zwraca informacje o produkcie subskrypcji dla podanego <code>subscriptionId</code>.",
+    "documentation": "Zwraca informacje o produkcie subskrypcyjnym dla danego <code>subscriptionId</code>.",
     "params": [
       {
         "name": "self",
@@ -77784,13 +77777,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/1": {
-    "documentation": "Obiekt <code>Player</code>, którego szczegóły subskrypcji chcesz sprawdzić."
+    "documentation": "Obiekt <code>Player</code>, dla którego chcesz sprawdzić szczegóły subskrypcji."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/2": {
-    "documentation": "ID subskrypcji, którą chcesz sprawdzić."
+    "documentation": "Identyfikator subskrypcji do sprawdzenia."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/return/0": {
     "documentation": ""
@@ -77818,7 +77811,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync/param/1": {
     "documentation": ""
@@ -77852,13 +77845,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/1": {
     "documentation": "Obiekt <code>Player</code>, którego status subskrypcji chcesz sprawdzić."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/2": {
-    "documentation": "ID subskrypcji, dla której chcesz sprawdzić status."
+    "documentation": "Identyfikator subskrypcji, dla której chcesz sprawdzić status."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/return/0": {
     "documentation": ""
@@ -77886,16 +77879,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/1": {
     "documentation": "Tablica identyfikatorów użytkowników."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "Zwraca tablicę obiektów <code>PriceLevelInfo</code> z słownikiem, w którym kluczami są identyfikatory użytkowników (napisy), a ich wartości to odpowiadające poziomy cen (liczby całkowite między 1 a 1000)."
+    "documentation": "Zwraca tablicę obiektów <code>PriceLevelInfo</code> z słownikiem, gdzie klucze to identyfikatory użytkowników (ciągi), a ich wartości to odpowiadające poziomy cen (liczby całkowite między 1 a 1000)."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "Zwraca zregionalizowany poziom ceny użytkownika, reprezentujący zalecaną cenę za przedmiot na ich regionalnym rynku.",
+    "documentation": "Zwraca zregionalizowany poziom ceny użytkownika, reprezentujący zalecaną cenę przedmiotu na ich lokalnym rynku.",
     "params": [
       {
         "name": "self",
@@ -77913,16 +77906,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/1": {
-    "documentation": "Obiekt <code>Player</code>, którego inventarz jest sprawdzany pod kątem własności danego zasobu."
+    "documentation": "Obiekt <code>Player</code>, którego inwentarz testowany jest pod kątem posiadania danego zasobu."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "Identyfikator zasobu, dla którego testowany jest inventarz danego gracza."
+    "documentation": "Identyfikator zasobu, dla którego testuje się inwentarz danego gracza."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
-    "documentation": "Wskazuje, czy inventarz danego gracza zawiera dany zasób."
+    "documentation": "Wskazuje, czy inwentarz danego gracza zawiera dany zasób."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
     "documentation": "Zwraca, czy dany użytkownik ma dany zasób.",
@@ -77947,19 +77940,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "Obiekt <code>Player</code>, którego inventarz jest sprawdzany pod kątem własności danego pakietu."
+    "documentation": "Obiekt <code>Player</code>, którego inwentarz testowany jest pod kątem posiadania danego zestawu."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "Identyfikator pakietu, dla którego testowany jest inventarz danego gracza."
+    "documentation": "Identyfikator zestawu, dla którego testuje się inwentarz danego gracza."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "Wskazuje, czy inventarz danego gracza zawiera dany pakiet."
+    "documentation": "Wskazuje, czy inwentarz danego gracza zawiera dany zestaw."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "Zwraca, czy dany gracz ma dany pakiet.",
+    "documentation": "Zwraca, czy dany gracz posiada dany zestaw.",
     "params": [
       {
         "name": "self",
@@ -77981,19 +77974,19 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Pakiet, który sprawdzamy: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"Wywołanie PlayerOwnsBundle nie powiodło się: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" posiada \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" nie posiada \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "Użytkownik, któremu proponuje się zakup przedmiotów."
+    "documentation": "Użytkownik, któremu zostanie przedstawiona prośba o zakup przedmiotów."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "Tablica przedmiotów awatara, które mają być włączone do zakupu zbiorczego. Każdy element zawiera następującą strukturę: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> Każdy element zawiera następujące pary: <ul> <li><code>Type</code>: Odpowiadający <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: Identyfikator zasobu lub pakietu.</li> </ul>"
+    "documentation": "Tablica przedmiotów awatara, które mają zostać uwzględnione w zbiorowym zakupie. Każdy element zawiera następującą strukturę: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> Każdy element zawiera następujące pary: <ul> <li><code>Type</code>: Odpowiedni <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: Identyfikator zasobu lub zestawu.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
     "documentation": "Obecnie niedostępne."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "Wzywa użytkownika do zakupu wielu przedmiotów awatara z danym <code>assetId</code> lub <code>bundleId</code>.",
+    "documentation": "Prosi użytkownika o zakup wielu przedmiotów awatara z podanym <code>assetId</code>  lub <code>bundleId</code>.",
     "params": [
       {
         "name": "self",
@@ -78017,7 +78010,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase/param/1": {
     "documentation": ""
@@ -78026,7 +78019,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "Proponuje użytkownikowi zakup pakietu o podanym <code>bundleId</code>.",
+    "documentation": "Prosi użytkownika o zakup zestawu z podanym <code>bundleId</code>.",
     "params": [
       {
         "name": "self",
@@ -78046,7 +78039,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription/param/1": {
     "documentation": ""
@@ -78055,7 +78048,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "Proponuje użytkownikowi anulowanie subskrypcji o podanym <code>subscriptionId</code>.",
+    "documentation": "Prosi użytkownika o anulowanie subskrypcji dla podanego <code>subscriptionId</code>.",
     "params": [
       {
         "name": "self",
@@ -78075,7 +78068,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase/param/1": {
     "documentation": ""
@@ -78084,7 +78077,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "Proponuje użytkownikowi zakup przepustki o podanym <code>gamePassId</code>.",
+    "documentation": "Prosi użytkownika o zakup przechowalni z podanym <code>gamePassId</code>.",
     "params": [
       {
         "name": "self",
@@ -78104,13 +78097,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "Użytkownik, któremu proponuje się zakup Premium."
+    "documentation": "Użytkownik, którego prosi się o zakup Premium."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
-    "documentation": "Proponuje użytkownikowi zakup Roblox Premium.",
+    "documentation": "Prosi użytkownika o zakup Roblox Premium.",
     "params": [
       {
         "name": "self",
@@ -78126,7 +78119,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase/param/1": {
     "documentation": ""
@@ -78141,7 +78134,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "Proponuje użytkownikowi zakup produktu dewelopera o podanym <code>productId</code>.",
+    "documentation": "Prosi użytkownika o zakup produktu dewelopera z podanym <code>productId</code>.",
     "params": [
       {
         "name": "self",
@@ -78169,7 +78162,7 @@
     "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal productId = 0000000 -- Zmień to na swój identyfikator produktu dewelopera\n\n-- Funkcja do wywołania prośby o zakup produktu dewelopera\nlocal function promptPurchase()\n\tMarketplaceService:PromptProductPurchase(player, productId)\nend\n\npromptPurchase()"
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/1": {
     "documentation": ""
@@ -78184,7 +78177,7 @@
     "documentation": "Ignorowane."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "Proponuje użytkownikowi zakup przedmiotu o podanym <code>assetId</code>. Nie działa dla zakupów w sklepie twórcy USD.",
+    "documentation": "Prosi użytkownika o zakup przedmiotu z podanym <code>assetId</code>. Nie działa w przypadku zakupów w USD Creator Store.",
     "params": [
       {
         "name": "self",
@@ -78212,16 +78205,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "Obiekt <code>Player</code>, który ma być zapytany o subskrypcję."
+    "documentation": "Obiekt <code>Player</code>, któremu należy zaproponować subskrypcję."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
-    "documentation": "ID subskrypcji, do której chcesz się zapisać."
+    "documentation": "Identyfikator subskrypcji, do której chcesz się zapisać."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "Proponuje użytkownikowi zakup subskrypcji o podanym <code>subscriptionId</code>.",
+    "documentation": "Prosi użytkownika o zakup subskrypcji dla danego <code>subscriptionId</code>.",
     "params": [
       {
         "name": "self",
@@ -78241,19 +78234,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/0": {
-    "documentation": "Usługa odpowiedzialna za transakcje w doświadczeniu."
+    "documentation": "Usługa odpowiedzialna za transakcje w trakcie doświadczenia."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "ID <code>UserId</code> gracza, którego inventarz sprawdzasz."
+    "documentation": "Identyfikator <code>UserId</code> <code>Player</code>, którego inwentarz  sprawdzasz."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "ID przepustki, którą chcesz sprawdzić. Nie mylić z identyfikatorem zasobu."
+    "documentation": "Identyfikator przechowalni, który chcesz sprawdzić. Nie mylić z identyfikatorem  zasobu."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "Zwraca prawdę, jeśli gracz z danym <code>UserId</code> ma przepustkę z podanym <code>gamePassId</code>.",
+    "documentation": "Zwraca prawdę, jeśli gracz o podanym <code>UserId</code>  posiada przeszły z danym <code>gamePassId</code>.",
     "params": [
       {
         "name": "self",
@@ -78275,10 +78268,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt/param/0": {
-    "documentation": "Tabela <code>receiptInfo</code> przekazywana do tego callbacka zawiera następujące dane: <ul> <li><code>PurchaseId</code> &mdash; Unikalny identyfikator dla danego zakupu.</li> <li><code>PlayerId</code> &mdash; ID użytkownika, który dokonał zakupu.</li> <li><code>ProductId</code> &mdash; ID zakupionego produktu.</li> <li><code>PlaceIdWherePurchased</code> &mdash; ID miejsca, w którym dokonano zakupu.   W zależności od tego, gdzie znajduje się użytkownik podczas rozgrywki,   ID miejsca zakupu może być takie samo lub różne od ID bieżącego miejsca.</li> <li><code>CurrencySpent</code> &mdash; Kwota waluty wydanej w transakcji.</li> <li><code>CurrencyType</code> &mdash; Rodzaj waluty wydanej w zakupie;   zawsze <code>CurrencyType.Robux</code>.</li> <li><code>ProductPurchaseChannel</code> — Jak użytkownik nabył produkt dewelopera.   Jeden z <code>ProductPurchaseChannel</code>.</li> </ul>"
+    "documentation": "Tabela <code>receiptInfo</code> przekazana do tego callbacka zawiera następujące dane: <ul> <li><code>PurchaseId</code> &mdash; Unikalny identyfikator dla konkretnego zakupu.</li> <li><code>PlayerId</code> &mdash; ID użytkownika, który dokonał zakupu.</li> <li><code>ProductId</code> &mdash; ID zakupionego produktu.</li> <li><code>PlaceIdWherePurchased</code> &mdash; ID miejsca, w którym dokonano zakupu.   W zależności od tego, gdzie użytkownik znajduje się podczas   rozgrywki, ID miejsca zakupu może być takie samo jak lub inne niż ID   aktualnego miejsca.</li> <li><code>CurrencySpent</code> &mdash; Kwota waluty wydanej w transakcji.</li> <li><code>CurrencyType</code> &mdash; Typ waluty wydanej w zakupie;   zawsze <code>CurrencyType.Robux</code>.</li> <li><code>ProductPurchaseChannel</code> — Jak użytkownik nabył produkt dewelopera.   Jeden z <code>ProductPurchaseChannel</code>.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt/return/0": {
-    "documentation": "Enum, który reprezentuje sposób, w jaki paragon za produkt dewelopera został przetworzony. <ul> <li><code>PurchaseGranted</code>:</li> <li>Wskazuje, że doświadczenie pomyślnie przyznało graczowi     produkt dewelopera.</li> <li>Wskazuje Robloxowi, że sprzedaż produktu dewelopera była     udana.</li> <li><code>NotProcessedYet</code>:</li> <li>Wskazuje, że doświadczenie nie przyznało graczowi     produktu dewelopera.</li> </ul>"
+    "documentation": "Enum, który reprezentuje, w jaki sposób pokwitowanie produktu dewelopera zostało przetworzone. <ul> <li><code>PurchaseGranted</code>:</li> <li>Wskazuje, że doświadczenie pomyślnie przyznało graczowi     produkt dewelopera.</li> <li>Informuje Roblox, że sprzedaż produktu dewelopera była     pomyślna.</li> <li><code>NotProcessedYet</code>:</li> <li>Wskazuje, że doświadczenie nie zdołało przyznać graczowi     produktu dewelopera.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.ProcessReceipt": {
     "documentation": "Callback do przetwarzania paragonów zakupów produktów dewelopera.",
@@ -78372,7 +78365,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchaseFinished": {
-    "documentation": "Uruchamia się, gdy zapytanie zakupu dla wielu przedmiotów awatara zostaje zamknięte.",
+    "documentation": "Zdarza się, gdy prośba o zakup zbiorczy przedmiotów awatara jest zamykana.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptBulkPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptBulkPurchaseFinished.ConnectParallel",
@@ -78548,7 +78541,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchaseFinished": {
-    "documentation": "Uruchamia się, gdy zapytanie zakupu dla przepustki zostaje zamknięte.",
+    "documentation": "Zdarza się, gdy prośba o zakup przechowalni jest zamykana.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptGamePassPurchaseFinished.ConnectParallel",
@@ -78636,7 +78629,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished": {
-    "documentation": "Uruchamia się, gdy zapytanie zakupu Roblox Premium zostaje zamknięte.",
+    "documentation": "Zdarza się, gdy prośba o zakup Roblox Premium zamyka się.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptPremiumPurchaseFinished.ConnectParallel",
@@ -78724,7 +78717,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished": {
-    "documentation": "Uruchamia się, gdy zapytanie zakupu dla produktu dewelopera zostaje zamknięte. Nie używaj tego zdarzenia do przetwarzania zakupów.",
+    "documentation": "Zdarza się, gdy prośba o zakup produktu dewelopera jest zamykana. Nie używaj tego zdarzenia do przetwarzania zakupów.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptProductPurchaseFinished.ConnectParallel",
@@ -78812,7 +78805,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished": {
-    "documentation": "Uruchamia się, gdy zapytanie zakupu dla sprzedaży sprzętu partnerskiego lub innego zasobu jest zamknięte. Nie uruchamia się dla produktów dewelopera ani zapytań przepustek.",
+    "documentation": "Zdarza się, gdy prośba o zakup sprzętu partnerskiego lub innego zasobu jest zamyka. <strong>Nie</strong> uruchamia się dla produktów dewelopera ani kontraktów.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptPurchaseFinished.ConnectParallel",
@@ -78900,7 +78893,7 @@
     "returns": []
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished": {
-    "documentation": "Uruchamia się, gdy zapytanie zakupu dla subskrypcji zostaje zamknięte.",
+    "documentation": "Zdarza się, gdy prośba o zakup subskrypcji zamyka się.",
     "keys": {
       "Connect": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished.Connect",
       "ConnectParallel": "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchaseFinished.ConnectParallel",
@@ -90406,7 +90399,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService": {
-    "documentation": "Usługa obsługująca czat tekstowy w doświadczeniach.",
+    "documentation": "Usługa obsługująca czat tekstowy w trakcie gry.",
     "keys": {
       "ChatTranslationEnabled": "@roblox/globaltype/TextChatService.ChatTranslationEnabled",
       "ChatVersion": "@roblox/globaltype/TextChatService.ChatVersion",
@@ -90429,7 +90422,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.ChatVersion": {
-    "documentation": "Określa, czy całkowicie włączyć <code>TextChatService</code> czy powrócić do starego systemu czatu.",
+    "documentation": "Określa, czy w pełni włączyć <code>TextChatService</code>, czy wrócić do starego systemu czatu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#ChatVersion",
     "code_sample": ""
   },
@@ -90444,7 +90437,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/0": {
-    "documentation": "Usługa obsługująca czat tekstowy w doświadczeniach."
+    "documentation": "Usługa obsługująca czat tekstowy w trakcie gry."
   },
   "@roblox/globaltype/TextChatService.CanUserChatAsync/param/1": {
     "documentation": ""
@@ -90471,7 +90464,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/0": {
-    "documentation": "Usługa obsługująca czat tekstowy w doświadczeniach."
+    "documentation": "Usługa obsługująca czat tekstowy w trakcie gry."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
     "documentation": ""
@@ -90483,7 +90476,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync": {
-    "documentation": "Określa, czy dwaj użytkownicy mogliby wymieniać wiadomości między sobą.",
+    "documentation": "Określa, czy dwaj użytkownicy otrzymają wiadomości między sobą.",
     "params": [
       {
         "name": "self",
@@ -90505,16 +90498,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/0": {
-    "documentation": "Usługa obsługująca czat tekstowy w doświadczeniach."
+    "documentation": "Usługa obsługująca czat tekstowy w trakcie gry."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/1": {
-    "documentation": "Użytkownik, który miałby zainicjować żądanie czatu bezpośredniego. Jeśli requesterUserId nie jest w aktualnym serwerze, ta metoda zgłosi błąd."
+    "documentation": "Użytkownik, który mógłby zainicjować prośbę o czat bezpośredni. Jeśli requesterUserId nie znajduje się na aktualnym serwerze, ta metoda zgłosi błąd."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/param/2": {
-    "documentation": "Lista użytkowników, z którymi requesterUserId chciałby czatować bezpośrednio. Użytkownicy nieobecni na aktualnym serwerze są ignorowani."
+    "documentation": "Lista użytkowników, z którymi requesterUserId chciałby czatować bezpośrednio. Użytkownicy, którzy nie są na aktualnym serwerze, są ignorowani."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync/return/0": {
-    "documentation": "Lista użytkowników, którzy mogą uczestniczyć w żądaniu czatu bezpośredniego. Jeśli żaden z użytkowników nie może czatować bezpośrednio z requesterUserId, wynikiem jest pusta tablica."
+    "documentation": "Lista użytkowników, którzy mogliby wziąć udział w prośbie o czat bezpośredni. Jeśli żaden z użytkowników nie może uczestniczyć w czacie bezpośrednim z requesterUserId, wynik jest pustą tablicą."
   },
   "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync": {
     "documentation": "Określa, czy użytkownik ma pozwolenie na czatowanie bezpośrednio z innymi użytkownikami w doświadczeniach w oparciu o czynniki takie jak ich ustawienia kontroli rodzicielskiej.",
@@ -90539,16 +90532,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.DisplayBubble/param/0": {
-    "documentation": "Usługa obsługująca czat tekstowy w doświadczeniach."
+    "documentation": "Usługa obsługująca czat tekstowy w trakcie gry."
   },
   "@roblox/globaltype/TextChatService.DisplayBubble/param/1": {
-    "documentation": "Element lub postać, nad którymi ma być wyświetlany dymek."
+    "documentation": "Część lub postać, nad którą ma być wyświetlany dymek."
   },
   "@roblox/globaltype/TextChatService.DisplayBubble/param/2": {
     "documentation": "Tekst, który ma być wyświetlany w dymku czatu."
   },
   "@roblox/globaltype/TextChatService.DisplayBubble": {
-    "documentation": "Wyświetla dymek czatu nad podanym elementem lub postacią gracza.",
+    "documentation": "Wyświetla dymek czatu nad podaną częścią lub postacią gracza.",
     "params": [
       {
         "name": "self",
@@ -90571,13 +90564,13 @@
     "documentation": "Nadchodząca <code>TextChatMessage</code>."
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/param/1": {
-    "documentation": "Element lub postać, do której jest przymocowana wiadomość dymkowa."
+    "documentation": "Część lub postać, do której przypisany jest dymek czatu."
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/return/0": {
-    "documentation": "Jeśli zwrócono <code>BubbleChatMessageProperties</code>, jego właściwości mają priorytet przed <code>BubbleChatConfiguration</code> właściwościami."
+    "documentation": "Jeśli zwrócono <code>BubbleChatMessageProperties</code>, jej właściwości przesłaniają właściwości <code>BubbleChatConfiguration</code>."
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded": {
-    "documentation": "Wywoływane, gdy dymek czatu ma być wyświetlany.",
+    "documentation": "Wywoływane, gdy dymek czatu ma zostać wyświetlony.",
     "params": [
       {
         "name": "message",
@@ -90598,10 +90591,10 @@
     "documentation": "Nadchodząca <code>TextChatMessage</code>."
   },
   "@roblox/globaltype/TextChatService.OnChatWindowAdded/return/0": {
-    "documentation": "Jeśli zwrócono <code>ChatWindowMessageProperties</code>, jego właściwości mają pierwszeństwo przed <code>ChatWindowConfiguration</code> właściwościami."
+    "documentation": "Jeśli zwrócono <code>ChatWindowMessageProperties</code>, jej właściwości przesłaniają właściwości <code>ChatWindowConfiguration</code>."
   },
   "@roblox/globaltype/TextChatService.OnChatWindowAdded": {
-    "documentation": "Wywoływane, gdy nowa wiadomość ma być wyświetlana w oknie czatu. Można to zaimplementować tylko na kliencie.",
+    "documentation": "Wywoływane, gdy nowa wiadomość ma być wyświetlona w oknie czatu. To można zaimplementować tylko po stronie klienta.",
     "params": [
       {
         "name": "message",
@@ -90618,7 +90611,7 @@
     "documentation": "Nadchodząca <code>TextChatMessage</code>."
   },
   "@roblox/globaltype/TextChatService.OnIncomingMessage/return/0": {
-    "documentation": "Jeśli zwrócono <code>TextChatMessageProperties</code>, te właściwości są łączone z parametrem <code>TextChatMessage</code>, aby stworzyć nową <code>TextChatMessage</code> z tymi właściwościami, w przeciwnym razie, jeśli zwrócono nil, <code>TextChatMessage</code> nie jest zmieniane."
+    "documentation": "Jeśli zwrócono <code>TextChatMessageProperties</code>, te właściwości są łączone z parametrem <code>TextChatMessage</code>, aby stworzyć nową <code>TextChatMessage</code> z tymi właściwościami, w przeciwnym razie, jeśli zwrócono <code>nil</code>, to <code>TextChatMessage</code> nie zmienia się."
   },
   "@roblox/globaltype/TextChatService.OnIncomingMessage": {
     "documentation": "Wywoływane, gdy <code>TextChatService</code> odbiera nadchodzącą wiadomość.",
@@ -90800,7 +90793,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextChatService.MessageReceived": {
-    "documentation": "Wywoływane, gdy <code>TextChannel:DisplaySystemMessage()</code> jest wywoływane na kliencie, lub gdy klient otrzymuje ważną <code>TextChannel:SendAsync()</code> odpowiedź z serwera.",
+    "documentation": "Wywoływane, gdy <code>TextChannel:DisplaySystemMessage()</code> jest wywoływane na kliencie, lub gdy klient otrzyma ważną <code>TextChannel:SendAsync()</code> odpowiedź z serwera.",
     "keys": {
       "Connect": "@roblox/globaltype/TextChatService.MessageReceived.Connect",
       "ConnectParallel": "@roblox/globaltype/TextChatService.MessageReceived.ConnectParallel",
@@ -97195,7 +97188,7 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.CanSendCallInviteAsync/param/1": {
-    "documentation": "Instancja <code>Player</code> gracza, który potencjalnie wysyła zaproszenie do rozmowy."
+    "documentation": "Instancja <code>Player</code> gracza potencjalnie wysyłającego zaproszenie do rozmowy."
   },
   "@roblox/globaltype/SocialService.CanSendCallInviteAsync/return/0": {
     "documentation": "Czy określony gracz może wysłać zaproszenie do rozmowy."
@@ -97222,10 +97215,10 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/param/1": {
-    "documentation": "Instancja <code>Player</code> gracza, który potencjalnie wysyła zaproszenie."
+    "documentation": "Instancja <code>Player</code> gracza potencjalnie wysyłającego zaproszenie."
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/param/2": {
-    "documentation": "Opcjonalny <code>Player.UserId</code> potencjalnego <strong>odbiorcy</strong>, używany do sprawdzenia, czy nadawca może zaprosić tego konkretnego odbiorcę."
+    "documentation": "Opcjonalny <code>Player.UserId</code> potencjalnego <strong>odbiorcy</strong>, używany do sprawdzania, czy nadawca może zaprosić tego konkretnego odbiorcę."
   },
   "@roblox/globaltype/SocialService.CanSendGameInviteAsync/return/0": {
     "documentation": "Czy określony gracz może wysłać zaproszenie."
@@ -97256,10 +97249,10 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/param/1": {
-    "documentation": "ID wydarzenia, dla którego chcesz poprosić gracza o zmianę statusu RSVP. To musi być ważne ID wydarzenia, które istnieje w aktualnym doświadczeniu, reprezentowane jako string (nie liczba)."
+    "documentation": "ID wydarzenia, aby wezwać gracza do zmiany statusu RSVP. Musi to być ważne ID wydarzenia, które istnieje w aktualnym doświadczeniu, reprezentowane jako ciąg (nie jako liczba)."
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync/return/0": {
-    "documentation": "Zwraca <code>RsvpStatus</code>, który wskazuje aktualny status RSVP gracza dla danego wydarzenia. Jeśli gracz nie zareagował na wydarzenie, zwróci <code>RsvpStatus.None</code>."
+    "documentation": "Zwraca <code>RsvpStatus</code>, wskazując aktualny status RSVP gracza dla wydarzenia. Jeśli gracz nie zadeklarował udziału w wydarzeniu, zwróci <code>RsvpStatus.None</code>."
   },
   "@roblox/globaltype/SocialService.GetEventRsvpStatusAsync": {
     "documentation": "Zwraca status RSVP lokalnego gracza dla danego wydarzenia.",
@@ -97283,13 +97276,13 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync/param/1": {
-    "documentation": "Identyfikator w postaci łańcucha zdarzenia do pobrania. Musi odpowiadać zdarzeniu w bieżącym doświadczeniu."
+    "documentation": "Ciąg identyfikujący wydarzenie do pobrania. Musi odpowiadać wydarzeniu w aktualnym doświadczeniu."
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync/return/0": {
-    "documentation": "Słownik opisujący zdarzenie lub <code>nil</code>, jeśli zdarzenie nie istnieje, ale należy do innego doświadczenia lub jest inaczej niedostępne."
+    "documentation": "Słownik opisujący wydarzenie lub <code>nil</code>, jeśli wydarzenie nie istnieje, ależy do innego doświadczenia lub jest inaczej niedostępne."
   },
   "@roblox/globaltype/SocialService.GetExperienceEventAsync": {
-    "documentation": "Zwraca szczegóły dla określonego zdarzenia doświadczenia lub <code>nil</code>, jeśli jest niedostępne.",
+    "documentation": "Zwraca szczegóły dla określonego wydarzenia doświadczenia lub <code>nil</code>, jeśli jest niedostępne.",
     "params": [
       {
         "name": "self",
@@ -97313,10 +97306,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/SocialService.GetPartyAsync/return/0": {
-    "documentation": "Tablica słowników reprezentujących członków określonej grupy, którzy obecnie są w doświadczeniu."
+    "documentation": "Tablica słowników reprezentujących członków określonej grupy, którzy obecnie znajdują się w doświadczeniu."
   },
   "@roblox/globaltype/SocialService.GetPartyAsync": {
-    "documentation": "Zwraca tablicę słowników zawierających dane dla wszystkich członków określonej grupy, którzy obecnie są w doświadczeniu.",
+    "documentation": "Zwraca tablicę słowników zawierających dane wszystkich członków określonej grupy, którzy obecnie znajdują się w doświadczeniu.",
     "params": [
       {
         "name": "self",
@@ -97340,10 +97333,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId/return/0": {
-    "documentation": "Tabela obiektów <code>Player</code>, których właściwość <code>Player.PartyId</code>  odpowiada podanemu <code>partyId</code>."
+    "documentation": "Tabela obiektów <code>Player</code>, których właściwość <code>Player.PartyId</code> odpowiada przekazanemu <code>partyId</code>."
   },
   "@roblox/globaltype/SocialService.GetPlayersByPartyId": {
-    "documentation": "Zwraca tabelę wszystkich obecnie połączonych obiektów <code>Player</code>, których właściwość <code>Player.PartyId</code> odpowiada podanemu <code>partyId</code>.",
+    "documentation": "Zwraca tabelę wszystkich obecnie połączonych obiektów <code>Player</code>, których właściwość <code>Player.PartyId</code> odpowiada przekazanemu <code>partyId</code>.",
     "params": [
       {
         "name": "self",
@@ -97364,10 +97357,10 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync/return/0": {
-    "documentation": "Tablica słowników opisujących każde aktywne lub nadchodzące wydarzenie w bieżącym doświadczeniu, uporządkowana od najwcześniejszego czasu rozpoczęcia."
+    "documentation": "Tablica słowników opisujących każde aktywne lub nadchodzące wydarzenie w aktualnym doświadczeniu, uporządkowana według najwcześniejszego czasu rozpoczęcia."
   },
   "@roblox/globaltype/SocialService.GetUpcomingExperienceEventsAsync": {
-    "documentation": "Zwraca aktywne i nadchodzące wydarzenia doświadczenia dla bieżącego doświadczenia.",
+    "documentation": "Zwraca aktywne i nadchodzące wydarzenia doświadczenia dla aktualnego doświadczenia.",
     "params": [
       {
         "name": "self",
@@ -97384,7 +97377,7 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.HideSelfView": {
-    "documentation": "Ukrywa widok samego gracza.",
+    "documentation": "Ukrywa widok self gracza wywołującego.",
     "params": [
       {
         "name": "self",
@@ -97399,7 +97392,7 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
-    "documentation": "Prosi gracza o przesłanie opinii na temat bieżącego doświadczenia.",
+    "documentation": "Wzywa gracza do przesłania opinii na temat aktualnego doświadczenia.",
     "params": [
       {
         "name": "self",
@@ -97414,13 +97407,13 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/1": {
-    "documentation": "Gracz <code>Player</code>, którego należy wezwać z oknem zaproszenia."
+    "documentation": "Gracz, którego chcesz wezwać do wyświetlenia okna zaproszenia."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite/param/2": {
-    "documentation": "Opcjonalny obiekt <code>ExperienceInviteOptions</code> do dostosowania zaproszenia."
+    "documentation": "Opcjonalny obiekt <code>ExperienceInviteOptions</code> do dostosowania ekretki."
   },
   "@roblox/globaltype/SocialService.PromptGameInvite": {
-    "documentation": "Prosi danego <code>Player</code> o wyświetlenie ekranu zaproszeń.",
+    "documentation": "Wzywa podanego <code>Player</code> do wyświetlenia ekranu zaproszenia.",
     "params": [
       {
         "name": "self",
@@ -97443,13 +97436,13 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/1": {
-    "documentation": "Prosi danego <code>Player</code> o wyświetlenie okna udostępniania z generowanym linkiem."
+    "documentation": "Wzywa podanego <code>Player</code> do arkusza udostępniania na poziomie platformy Roblox z wygenerowanym linkiem."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/2": {
-    "documentation": "<code>Słownik</code>, który określa konfigurację dla wygenerowanego linku. Zawiera następujące opcjonalne pary klucz-wartość: <ul> <li><code>FallbackLinkId</code> (string). Określa, jak ten link udostępniania   przekieruje gracza po jego wygaśnięciu. Domyślnie link do dołączenia do doświadczenia.</li> <li><code>ExpirationSeconds</code> (number). Określa czas do wygaśnięcia po utworzeniu linku.   Przycinane do najbliższej liczby całkowitej. Domyślnie to 86 400.</li> <li><code>PreviewTitle</code> (string) Tytuł podglądu linku udostępnienia.</li> <li><code>PreviewDescription</code> (string) Opis podglądu linku udostępnienia.</li> <li><code>PreviewAssetId</code> (number) Identyfikator zasobu obrazu używanego do podglądu linku udostępnienia.</li> <li><code>LaunchData</code> (string). Używane do ustawienia parametru w   <code>Player:GetJoinData()</code> kiedy gracz dołączył używając   wygenerowanego linku udostępnienia.</li> </ul>"
+    "documentation": "<code>Słownik</code>, który określa konfigurację dla wygenerowanego linku. Zawiera następujące opcjonalne pary klucz-wartość: <ul> <li><code>FallbackLinkId</code> (string). Określa, jak ten link udostępniania   przekieruje gracza po wygaśnięciu. Domyślnie prowadzi do linku do dołączenia d doświadczenia.</li> <li><code>ExpirationSeconds</code> (number). Określa czas wygaśnięcia po utworzeniu   linku do udostępniania. Zaokrągla do najbliższej liczby całkowitej. Domyślnie   wynosi 86 400.</li> <li><code>PreviewTitle</code> (string) Tytuł podglądu linku do udostępniania.</li> <li><code>PreviewDescription</code> (string) Opis podglądu linku do udostępniania.</li> <li><code>PreviewAssetId</code> (number) ID zasobu graficznego używanego do podglądu   linku do udostępniania.</li> <li><code>LaunchData</code> (string). Używane do ustawienia parametru w   <code>Player:GetJoinData()</code>, gdy gracz dołączył korzystając z   wygenerowanego linku do udostępniania.</li> </ul>"
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing/return/0": {
-    "documentation": "Krotka zawierająca <code>PromptLinkSharingResult</code> wskazującą wynik okna udostępnienia linku."
+    "documentation": "Krotka zawierająca <code>PromptLinkSharingResult</code>, wskazującą wynik zaproszenia do udostępnienia linku."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
     "documentation": "",
@@ -97477,13 +97470,13 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/1": {
-    "documentation": "Gracz, którego należy poprosić o wyświetlenie książki telefonicznej."
+    "documentation": "Gracz, który ma być wezwany do wyświetlenia książki telefonicznej."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/2": {
-    "documentation": "Łańcuch tekstowy, który pomoże zróżnicować różne \"punkty wejścia\" książki telefonicznej lub podobne. Na przykład możesz przekazać łańcuch definiujący, w jakim regionie doświadczenia znajduje się postać gracza wywołującego."
+    "documentation": "Ciąg, który pomaga odróżnić różne \"punkty wejścia\" książki telefonicznej lub podobne. Na przykład, możesz przekazać ciąg definiujący, w której części doświadczenia obecnie znajduje się postać wywołującego gracza."
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook": {
-    "documentation": "Prosi danego <code>Player</code> o wyświetlenie książki telefonicznej.",
+    "documentation": "Wzywa podanego <code>Player</code> do wyświetlenia książki telefonicznej.",
     "params": [
       {
         "name": "self",
@@ -97506,13 +97499,13 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/param/1": {
-    "documentation": "Identyfikator wydarzenia wydarzenia, do którego gracz ma zmienić swój status RSVP. Musi to być ważny identyfikator wydarzenia, który istnieje w bieżącym doświadczeniu, reprezentowany jako łańcuch (a nie liczba)."
+    "documentation": "ID wydarzenia, które ma być wezwane do zmiany statusu RSVP przez gracza. Musi to być ważne ID wydarzenia, które istnieje w aktualnym d doświadczeniu, reprezentowane jako ciąg (nie jako liczba)."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync/return/0": {
-    "documentation": "Zwraca <code>RsvpStatus</code>, wskazujące na nowy status RSVP gracza po zamknięciu okna dialogowego. Jeśli gracz zamknie okno dialogowe bez zmiany swojego statusu RSVP, zwróci to <code>RsvpStatus.None</code> lub jego stary <code>RsvpStatus</code>, jeśli już wybrał status."
+    "documentation": "Zwraca <code>RsvpStatus</code>, wskazując nowy status RSVP gracza po zamknięciu wezwania. Jeśli gracz zamknie wezwanie bez zmiany swojego statusu RSVP, zwróci to <code>RsvpStatus.None</code> lub ich stary <code>RsvpStatus</code>, jeśli wcześniej wybrali status."
   },
   "@roblox/globaltype/SocialService.PromptRsvpToEventAsync": {
-    "documentation": "Prosi lokalnego <code>Player</code> o zmianę statusu RSVP na dane wydarzenie.",
+    "documentation": "Wzywa lokalnego <code>Player</code> do zmiany swojego statusu RSVP na zadane wydarzenie.",
     "params": [
       {
         "name": "self",
@@ -97533,10 +97526,10 @@
     "documentation": "Ułatwia funkcje społeczne, które wpływają na relacje na platformie Roblox."
   },
   "@roblox/globaltype/SocialService.ShowSelfView/param/1": {
-    "documentation": "Pozycja, w której ma zostać umieszczony widok samego gracza."
+    "documentation": "Pozycja, w której ma zostać umieszczony widok self."
   },
   "@roblox/globaltype/SocialService.ShowSelfView": {
-    "documentation": "Pokazuje widok samego gracza.",
+    "documentation": "Pokazuje widok self gracza wywołującego.",
     "params": [
       {
         "name": "self",
@@ -97552,16 +97545,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/param/0": {
-    "documentation": "String pomagający w różnicowaniu różnych punktów dostępu książki telefonicznej."
+    "documentation": "Ciąg, który pomaga rozróżnić różne punkty wejścia w książce telefonicznej."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/param/1": {
-    "documentation": "Tablica zawierająca wszystkich graczy zaangażowanych w rozmowę. Osoba dzwoniąca zawsze będzie pierwszym graczem w tablicy."
+    "documentation": "Tablica zawierająca wszystkich graczy zaangażowanych w połączenie. Osoba wywołująca będzie zawsze pierwszym graczem w tablicy."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0": {
-    "documentation": "Tabela zawierająca klucze <code>PlaceId</code> i <code>ReservedServerAccessCode</code>, których tak wartości odpowiadają <code>DataModel.PlaceId</code> oraz kodowi dostępu serwera dostarczonemu przez <code>TeleportService:ReserveServer()</code>, odpowiednio."
+    "documentation": "Tabela zawierająca klucze <code>PlaceId</code> i <code>ReservedServerAccessCode</code>, których wartości to <code>DataModel.PlaceId</code> i kod dostępu serwera zwrócony przez <code>TeleportService:ReserveServer()</code>, odpowiednio."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked": {
-    "documentation": "Callback, gdy połączenie jest nawiązywane z książki telefonicznej.",
+    "documentation": "Callback na wypadek, gdyby połączenie zostało nawiązane z książki telefonicznej.",
     "params": [
       {
         "name": "tag",
@@ -97656,7 +97649,7 @@
     "returns": []
   },
   "@roblox/globaltype/SocialService.CallInviteStateChanged": {
-    "documentation": "Wydarza się, gdy stan zaproszenia do rozmowy gracza się zmienia.",
+    "documentation": "Wyzwala się, gdy stan zaproszenia do rozmowy gracza się zmienia.",
     "keys": {
       "Connect": "@roblox/globaltype/SocialService.CallInviteStateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/SocialService.CallInviteStateChanged.ConnectParallel",
@@ -97744,7 +97737,7 @@
     "returns": []
   },
   "@roblox/globaltype/SocialService.GameInvitePromptClosed": {
-    "documentation": "Wydarza się, gdy gracz zamyka okno zaproszenia.",
+    "documentation": "Wyzwala się, gdy gracz zamyka powiadomienie o zaproszeniu.",
     "keys": {
       "Connect": "@roblox/globaltype/SocialService.GameInvitePromptClosed.Connect",
       "ConnectParallel": "@roblox/globaltype/SocialService.GameInvitePromptClosed.ConnectParallel",
@@ -97832,7 +97825,7 @@
     "returns": []
   },
   "@roblox/globaltype/SocialService.PhoneBookPromptClosed": {
-    "documentation": "Wydarza się, gdy gracz zamyka okno książki telefonicznej.",
+    "documentation": "Wyzwala się, gdy gracz zamyka powiadomienie o książce telefonicznej.",
     "keys": {
       "Connect": "@roblox/globaltype/SocialService.PhoneBookPromptClosed.Connect",
       "ConnectParallel": "@roblox/globaltype/SocialService.PhoneBookPromptClosed.ConnectParallel",
@@ -109388,7 +109381,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RigType.R15": {
-    "documentation": "Typ riggów R15.",
+    "documentation": "Typ szkieletu R15.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -109398,7 +109391,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RigType.Custom": {
-    "documentation": "Typ riggów Custom.",
+    "documentation": "Typ szkieletu Custom.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -109408,7 +109401,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RigType.None": {
-    "documentation": "Typ riggów None.",
+    "documentation": "Typ szkieletu None.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -109418,7 +109411,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.RigType": {
-    "documentation": "Typ riggów importowanych przy użyciu 3D Importera.",
+    "documentation": "Typ szkieletu importowanego za pomocą importera 3D.",
     "keys": {
       "R15": "@roblox/enum/RigType.R15",
       "Custom": "@roblox/enum/RigType.Custom",
