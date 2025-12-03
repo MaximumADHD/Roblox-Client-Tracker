@@ -50,7 +50,7 @@ dependencies = ["Number Number 1.2.3 registry"]
 
 [[package]]
 name = "BuilderIcons"
-version = "0.1.19"
+version = "0.1.22"
 source = "registry"
 
 [[package]]
@@ -90,15 +90,15 @@ dependencies = [
     "ApolloClient ApolloClient 0.3.12 registry",
     "ApolloClientTesting ApolloClientTesting 0.3.10 registry",
     "AvatarExperienceDeps AvatarExperienceDeps 0.0.1 registry",
-    "BuilderIcons BuilderIcons 0.1.19 registry",
+    "BuilderIcons BuilderIcons 0.1.22 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "DataLoader DataLoader 0.2.0 registry",
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "FocusBehaviors FocusBehaviors 1.3.1 registry",
-    "Foundation Foundation 1.63.1 registry",
+    "FocusBehaviors FocusBehaviors 2.0.0 registry",
+    "Foundation Foundation 1.64.0 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.4.0 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
     "FoundationTestingLibrary FoundationTestingLibrary 0.1.1 registry",
@@ -107,7 +107,7 @@ dependencies = [
     "HMR HMR 0.1.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
     "InGameMenuDependencies InGameMenuDependencies 0.3.0 registry",
-    "InputHandlers InputHandlers 1.3.1 registry",
+    "InputHandlers InputHandlers 2.0.0 registry",
     "Jest Jest 3.13.3 registry",
     "JestBenchmark JestBenchmark 3.13.3 registry",
     "JestGlobals JestGlobals 2.4.1 registry",
@@ -129,7 +129,7 @@ dependencies = [
     "ReactDebugging ReactDebugging 1.8.0 registry",
     "ReactDevtoolsCore ReactDevtoolsCore 17.3.6 registry",
     "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.3.6 registry",
-    "ReactFocusNavigation ReactFocusNavigation 1.3.1 registry",
+    "ReactFocusNavigation ReactFocusNavigation 2.0.0 registry",
     "ReactGlobals ReactGlobals 17.3.6 registry",
     "ReactHMR ReactHMR 0.1.1 registry",
     "ReactIs ReactIs 17.3.6 registry",
@@ -161,7 +161,7 @@ dependencies = [
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
     "Scheduler Scheduler 17.3.6 registry",
-    "ServiceContractsProto ServiceContractsProto 0.0.51-alpha registry",
+    "ServiceContractsProto ServiceContractsProto 0.0.61-alpha registry",
     "Signal Signal 1.0.0 registry",
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
@@ -169,8 +169,8 @@ dependencies = [
     "SignalsRoblox SignalsRoblox 0.6.0 registry",
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
-    "Thumbnailing Thumbnailing 0.5.0 registry",
-    "UGCValidation UGCValidation 1.17.13 registry",
+    "Thumbnailing Thumbnailing 0.5.1 registry",
+    "UGCValidation UGCValidation 1.17.16 registry",
     "UIBlox UIBlox 0.2.181 registry",
     "UrlBuilder UrlBuilder 1.2.15 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
@@ -254,9 +254,9 @@ source = "registry"
 
 [[package]]
 name = "EventPropagation"
-version = "1.3.1"
+version = "2.0.0"
 source = "registry"
-dependencies = ["FocusNavigationUtils FocusNavigationUtils 1.3.1 registry"]
+dependencies = ["FocusNavigationUtils FocusNavigationUtils 2.0.0 registry"]
 
 [[package]]
 name = "Expect"
@@ -290,30 +290,31 @@ dependencies = [
 
 [[package]]
 name = "FocusBehaviors"
-version = "1.3.1"
+version = "2.0.0"
 source = "registry"
-dependencies = ["FocusNavigation FocusNavigation 1.3.1 registry"]
+dependencies = ["FocusNavigation FocusNavigation 2.0.0 registry"]
 
 [[package]]
 name = "FocusNavigation"
-version = "1.3.1"
+version = "2.0.0"
 source = "registry"
 dependencies = [
-    "EventPropagation EventPropagation 1.3.1 registry",
-    "FocusNavigationUtils FocusNavigationUtils 1.3.1 registry",
+    "EventPropagation EventPropagation 2.0.0 registry",
+    "FocusNavigationUtils FocusNavigationUtils 2.0.0 registry",
+    "InputHandlers InputHandlers 2.0.0 registry",
 ]
 
 [[package]]
 name = "FocusNavigationUtils"
-version = "1.3.1"
+version = "2.0.0"
 source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.63.1"
+version = "1.64.0"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.19 registry",
+    "BuilderIcons BuilderIcons 0.1.22 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.4.0 registry",
@@ -349,10 +350,10 @@ name = "FoundationTestingLibrary"
 version = "0.1.1"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.19 registry",
+    "BuilderIcons BuilderIcons 0.1.22 registry",
     "Cryo Cryo 1.1.0 registry",
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
-    "Foundation Foundation 1.63.1 registry",
+    "Foundation Foundation 1.64.0 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
     "JestGlobals JestGlobals 3.13.3 registry",
     "React React 17.3.6 registry",
@@ -430,10 +431,10 @@ dependencies = [
 
 [[package]]
 name = "InputHandlers"
-version = "1.3.1"
+version = "2.0.0"
 source = "registry"
 dependencies = [
-    "FocusNavigation FocusNavigation 1.3.1 registry",
+    "FocusNavigation FocusNavigation 2.0.0 registry",
     "Timers Timers 1.2.3 registry",
 ]
 
@@ -1340,12 +1341,12 @@ dependencies = [
 
 [[package]]
 name = "ReactFocusNavigation"
-version = "1.3.1"
+version = "2.0.0"
 source = "registry"
 dependencies = [
-    "FocusBehaviors FocusBehaviors 1.3.1 registry",
-    "FocusNavigation FocusNavigation 1.3.1 registry",
-    "FocusNavigationUtils FocusNavigationUtils 1.3.1 registry",
+    "FocusBehaviors FocusBehaviors 2.0.0 registry",
+    "FocusNavigation FocusNavigation 2.0.0 registry",
+    "FocusNavigationUtils FocusNavigationUtils 2.0.0 registry",
     "React React 17.3.6 registry",
 ]
 
@@ -1790,7 +1791,7 @@ dependencies = [
 
 [[package]]
 name = "ServiceContractsProto"
-version = "0.0.51-alpha"
+version = "0.0.61-alpha"
 source = "registry"
 
 [[package]]
@@ -1946,7 +1947,7 @@ dependencies = [
 
 [[package]]
 name = "Thumbnailing"
-version = "0.5.0"
+version = "0.5.1"
 source = "registry"
 
 [[package]]
@@ -1957,7 +1958,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.17.13"
+version = "1.17.16"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -1969,10 +1970,10 @@ name = "UIBlox"
 version = "0.2.181"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.19 registry",
+    "BuilderIcons BuilderIcons 0.1.22 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.63.1 registry",
+    "Foundation Foundation 1.64.0 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",

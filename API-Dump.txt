@@ -540,6 +540,10 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.ContentId: string
 	Property AssetPatchSettings.OutputPath: string
 	Property AssetPatchSettings.PatchId: string
+Class AssetQualityService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function AssetQualityService:FetchAssetQualitySummaryFromGltfAsync(gltfData: string, desiredQualityChecks: { any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function AssetQualityService:FetchAssetQualityVisualizationDataFromUrlAsync(visualizationUrl: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function AssetQualityService:GenerateAssetQualityGltfFromInstanceAsync(uploadModel: Model) -> string {RobloxScriptSecurity} [Yields]
 Class AssetService : Instance [NotCreatable] [Service]
 	Property AssetService.AllowInsertFreeAssets: boolean {RobloxScriptSecurity}
 	Function AssetService:CachePartOperationsAsync(partOperations: { any }) -> () {RobloxScriptSecurity} [Yields]
@@ -566,7 +570,6 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:LoadAssetAsync(assetId: number) -> Instance? [Yields]
 	Function AssetService:PromptCreateAssetAsync(player: Player, instance: Instance, assetType: Enum.AssetType) -> ...any [Yields]
 	Function AssetService:PromptImportAnimationClipFromVideoAsync(player: Player, progressCallback: (...any) -> ...any) -> ...any [Yields]
-	Function AssetService:RegisterUGCValidationFunction(function: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function AssetService:SavePlaceAsync(requestParameters: { [string]: any }?) -> () [Yields]
 	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields]
 	Event AssetService.AudioMetadataFailedResponse(requestid: number) {RobloxScriptSecurity}
@@ -1748,6 +1751,10 @@ Class CommerceService : Instance [NotCreatable] [Service]
 	Event CommerceService.PromptCommerceProductPurchaseFinished(user: Player, productId: string)
 	Event CommerceService.PromptCommerceProductPurchaseRequested(commerceProductId: string) {RobloxScriptSecurity}
 	Event CommerceService.PurchaseBrowserClosed() {RobloxScriptSecurity}
+Class CompositeValueCurve : Instance
+	Property CompositeValueCurve.CurveType: Enum.CompositeValueCurveType {🔐Basic}
+	Function CompositeValueCurve:GetComponentCurves() -> { Instance } {🔐Basic}
+	Function CompositeValueCurve:GetValueAtTime(time: number) -> any {🔐Basic}
 Class ConfigService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ConfigService:ClearTestingValue(key: string) -> ()
 	Function ConfigService:GetConfigAsync() -> ConfigSnapshot [Yields]
@@ -3615,6 +3622,7 @@ Class HumanoidDescription : Instance
 	Property HumanoidDescription.EmotesDataInternal: string {🔐Avatar} [Hidden] [NotScriptable]
 	Property HumanoidDescription.EquippedEmotesDataInternal: string {🔐Avatar} [Hidden] [NotScriptable]
 	Property HumanoidDescription.ResetIncludesBodyParts: boolean {🔐Avatar} {RobloxScriptSecurity} [Hidden]
+	Property HumanoidDescription.UseAvatarSettings: boolean {🔐Avatar}
 	Property HumanoidDescription.BodyTypeScale: number {🔐Avatar}
 	Property HumanoidDescription.DepthScale: number {🔐Avatar}
 	Property HumanoidDescription.HeadScale: number {🔐Avatar}
@@ -3744,10 +3752,23 @@ Class HumanoidRigDescription : Instance [NotBrowsable]
 	Property HumanoidRigDescription.RootTposeAdjustment: CFrame {🔐Animation}
 	Property HumanoidRigDescription.WaistTposeAdjustment: CFrame {🔐Animation}
 	Function HumanoidRigDescription:AutoRig(character: Instance) -> () {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
+	Function HumanoidRigDescription:GetJoint(label: Enum.RigLabel) -> Instance? {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
 	Function HumanoidRigDescription:GetJointFromName(name: string) -> Instance? {🔐Animation} {🧬Safe}
+	Function HumanoidRigDescription:GetJointLabels() -> { any } {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
 	Function HumanoidRigDescription:GetJointNames() -> { any } {🔐Animation} {🧬Safe}
+	Function HumanoidRigDescription:GetJointRangeMax(rigLabel: Enum.RigLabel) -> Vector3 {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
+	Function HumanoidRigDescription:GetJointRangeMin(rigLabel: Enum.RigLabel) -> Vector3 {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
+	Function HumanoidRigDescription:GetJointSize(label: Enum.RigLabel) -> number {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
+	Function HumanoidRigDescription:GetR15JointLabels() -> { any } {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
 	Function HumanoidRigDescription:GetR15JointNames() -> { any } {🔐Animation} {🧬Safe}
+	Function HumanoidRigDescription:GetR6JointLabels() -> { any } {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
 	Function HumanoidRigDescription:GetR6JointNames() -> { any } {🔐Animation} {🧬Safe}
+	Function HumanoidRigDescription:GetTposeAdjustment(label: Enum.RigLabel) -> CFrame {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
+	Function HumanoidRigDescription:SetJoint(label: Enum.RigLabel, character: Instance) -> () {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
+	Function HumanoidRigDescription:SetJointRangeMax(rigLabel: Enum.RigLabel, rangeMax: Vector3) -> () {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
+	Function HumanoidRigDescription:SetJointRangeMin(rigLabel: Enum.RigLabel, rangeMin: Vector3) -> () {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
+	Function HumanoidRigDescription:SetJointSize(label: Enum.RigLabel, size: number) -> () {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
+	Function HumanoidRigDescription:SetTposeAdjustment(label: Enum.RigLabel, transform: CFrame) -> () {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
 	Function HumanoidRigDescription:ShowVolumes(show: boolean) -> () {🔐Animation} {RobloxScriptSecurity} {🧬Safe}
 Class IKControl : Instance
 	Property IKControl.ChainRoot: Instance? {🔐Animation}
@@ -3842,6 +3863,7 @@ Class InputBinding : Instance
 	Property InputBinding.Scale: number {🔐Input}
 	Property InputBinding.UIButton: GuiButton? {🔐Input}
 	Property InputBinding.Vector2Scale: Vector2 {🔐Input}
+	Property InputBinding.Vector3Scale: Vector3 {🔐Input}
 	Property InputBinding.Backward: Enum.KeyCode {🔐Input}
 	Property InputBinding.Down: Enum.KeyCode {🔐Input}
 	Property InputBinding.Forward: Enum.KeyCode {🔐Input}
@@ -4172,6 +4194,12 @@ Class LuauScriptAnalyzerService : Instance [NotCreatable] [Service] [NotReplicat
 Class MLModelDeliveryService : Instance [NotCreatable] [Service]
 Class MLService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function MLService:CreateSessionAsync(assetId: string) -> MLSession [Yields]
+Class MakeupDescription : Instance
+	Property MakeupDescription.AssetId: number {🔐Avatar}
+	Property MakeupDescription.Instance: Instance? {🔐Avatar}
+	Property MakeupDescription.MakeupType: Enum.MakeupType {🔐Avatar}
+	Property MakeupDescription.Order: number {🔐Avatar}
+	Function MakeupDescription:GetAppliedInstance() -> Instance? {🔐Avatar}
 Class MarkerCurve : Instance
 	Property MarkerCurve.Length: number {🔐Animation} [ReadOnly]
 	Property MarkerCurve.ValuesAndTimes: BinaryString {🔐Animation} [Hidden] [NotScriptable]
@@ -5010,10 +5038,12 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MoverConstraintRootBehavior: Enum.MoverConstraintRootBehaviorMode [NotScriptable]
+	Property Workspace.NextGenerationReplication: Enum.RolloutState {🔐InternalTest} [NotScriptable]
 	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable]
 	Property Workspace.PhysicsImprovedSleep: Enum.RolloutState [NotScriptable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
 	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
+	Property Workspace.PlayerScriptsUseInputActionSystem: Enum.RolloutState [NotScriptable]
 	Property Workspace.PrimalPhysicsSolver: Enum.PrimalPhysicsSolver [NotScriptable]
 	Property Workspace.RenderingCacheOptimizations: Enum.RenderingCacheOptimizationMode [NotScriptable]
 	Property Workspace.ReplicateInstanceDestroySetting: Enum.ReplicateInstanceDestroySetting [NotScriptable]
@@ -5025,6 +5055,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.TerrainWeldsFixed: boolean [Hidden] [NotScriptable]
 	Property Workspace.TouchEventsUseCollisionGroups: Enum.RolloutState [NotScriptable]
 	Property Workspace.TouchesUseCollisionGroups: boolean [NotScriptable]
+	Property Workspace.UseFixedSimulation: Enum.RolloutState [NotScriptable]
 	Property Workspace.CurrentCamera: Camera? [NotReplicated]
 	Property Workspace.DistributedGameTime: number [NotReplicated]
 	Property Workspace.InsertPoint: Vector3 [NotReplicated]
@@ -6302,16 +6333,24 @@ Class SharedTableRegistry : Instance [NotCreatable] [Service] [NotReplicated]
 Class Sky : Instance
 	Property Sky.CelestialBodiesShown: boolean {🔐Environment}
 	Property Sky.MoonAngularSize: number {🔐Environment}
+	Property Sky.MoonTextureContent: Content {🔐Environment}
 	Property Sky.MoonTextureId: string {🔐Environment}
+	Property Sky.SkyboxBackContent: Content {🔐Environment}
 	Property Sky.SkyboxBk: string {🔐Environment}
 	Property Sky.SkyboxDn: string {🔐Environment}
+	Property Sky.SkyboxDownContent: Content {🔐Environment}
+	Property Sky.SkyboxFrontContent: Content {🔐Environment}
 	Property Sky.SkyboxFt: string {🔐Environment}
+	Property Sky.SkyboxLeftContent: Content {🔐Environment}
 	Property Sky.SkyboxLf: string {🔐Environment}
 	Property Sky.SkyboxOrientation: Vector3 {🔐Environment}
+	Property Sky.SkyboxRightContent: Content {🔐Environment}
 	Property Sky.SkyboxRt: string {🔐Environment}
 	Property Sky.SkyboxUp: string {🔐Environment}
+	Property Sky.SkyboxUpContent: Content {🔐Environment}
 	Property Sky.StarCount: number {🔐Environment}
 	Property Sky.SunAngularSize: number {🔐Environment}
+	Property Sky.SunTextureContent: Content {🔐Environment}
 	Property Sky.SunTextureId: string {🔐Environment}
 Class SlimService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Smoke : Instance
@@ -7486,7 +7525,6 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CreateEditableMeshFromBinaryStringRobloxOnly(value: BinaryStringValue) -> EditableMesh {RobloxScriptSecurity}
 	Function UGCValidationService:DoesMeshHaveSkinningData(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:FetchAssetWithFormat(url: string, assetFormat: string) -> { Instance } {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:FetchQualityResultsAsync(uploadModel: Model, desiredDatas: { any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetBoundingBoxManipulationData(partMeshObjects: { any }, partCFs: { any }, meshScales: { any }) -> { [string]: any } {RobloxScriptSecurity}
 	Function UGCValidationService:GetCagingRelevancyMetrics(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string, offsetInner: Vector3, offsetOuter: Vector3) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: EditableMesh, controlNames: { any }) -> ...any {RobloxScriptSecurity}
@@ -8399,6 +8437,13 @@ Enum AnimationClipFromVideoStatus
 	EnumItem AnimationClipFromVideoStatus.Cancelled : 11
 	EnumItem AnimationClipFromVideoStatus.ErrorMultiplePeople : 12
 	EnumItem AnimationClipFromVideoStatus.ErrorUploadingVideo : 2001
+Enum AnimationNodeBlend2DInputMode
+	EnumItem AnimationNodeBlend2DInputMode.Cartesian : 0
+	EnumItem AnimationNodeBlend2DInputMode.Polar : 1
+Enum AnimationNodeInterruptible
+	EnumItem AnimationNodeInterruptible.Always : 0
+	EnumItem AnimationNodeInterruptible.ClipFinished : 1
+	EnumItem AnimationNodeInterruptible.Expression : 2
 Enum AnimationNodePlayMode
 	EnumItem AnimationNodePlayMode.Loop : 0
 	EnumItem AnimationNodePlayMode.PingPong : 1
@@ -8423,6 +8468,9 @@ Enum AnimationNodeType
 	EnumItem AnimationNodeType.SequenceNode : 11
 	EnumItem AnimationNodeType.SpeedNode : 12
 	EnumItem AnimationNodeType.SubtractNode : 13
+Enum AnimationNodeWaitFor
+	EnumItem AnimationNodeWaitFor.ClipFinished : 0
+	EnumItem AnimationNodeWaitFor.Expression : 1
 Enum AnimationPriority
 	EnumItem AnimationPriority.Idle : 0
 	EnumItem AnimationPriority.Movement : 1
@@ -9026,6 +9074,15 @@ Enum CompletionTriggerKind
 	EnumItem CompletionTriggerKind.Invoked : 1
 	EnumItem CompletionTriggerKind.TriggerCharacter : 2
 	EnumItem CompletionTriggerKind.TriggerForIncompleteCompletions : 3
+Enum CompositeValueCurveType
+	EnumItem CompositeValueCurveType.ColorRGB : 0
+	EnumItem CompositeValueCurveType.ColorHSV : 1
+	EnumItem CompositeValueCurveType.NumberRange : 2
+	EnumItem CompositeValueCurveType.Rect : 3
+	EnumItem CompositeValueCurveType.UDim : 4
+	EnumItem CompositeValueCurveType.UDim2 : 5
+	EnumItem CompositeValueCurveType.Vector2 : 6
+	EnumItem CompositeValueCurveType.Vector3 : 7
 Enum CompressionAlgorithm
 	EnumItem CompressionAlgorithm.Zstd : 0
 Enum ComputerCameraMovementMode
@@ -9513,6 +9570,9 @@ Enum FilterErrorType
 Enum FilterResult
 	EnumItem FilterResult.Accepted : 0
 	EnumItem FilterResult.Rejected : 1
+Enum FilterType
+	EnumItem FilterType.Exclude : 0
+	EnumItem FilterType.Include : 1
 Enum FinishRecordingOperation
 	EnumItem FinishRecordingOperation.Cancel : 0
 	EnumItem FinishRecordingOperation.Commit : 1
@@ -10249,6 +10309,10 @@ Enum LuauTypeCheckMode
 	EnumItem LuauTypeCheckMode.NoCheck : 1
 	EnumItem LuauTypeCheckMode.Nonstrict : 2
 	EnumItem LuauTypeCheckMode.Strict : 3
+Enum MakeupType
+	EnumItem MakeupType.Face : 0
+	EnumItem MakeupType.Lip : 1
+	EnumItem MakeupType.Eye : 2
 Enum MarketplaceBulkPurchasePromptStatus
 	EnumItem MarketplaceBulkPurchasePromptStatus.Completed : 1
 	EnumItem MarketplaceBulkPurchasePromptStatus.Aborted : 2
@@ -10880,6 +10944,30 @@ Enum RibbonTool
 	EnumItem RibbonTool.Ungroup : 8
 	EnumItem RibbonTool.None : 9
 	EnumItem RibbonTool.PivotEditor : 10
+Enum RigLabel
+	EnumItem RigLabel.Invalid : 0
+	EnumItem RigLabel.Root : 1
+	EnumItem RigLabel.Pelvis : 2
+	EnumItem RigLabel.Waist : 3
+	EnumItem RigLabel.Chest : 4
+	EnumItem RigLabel.Neck : 5
+	EnumItem RigLabel.HeadBase : 6
+	EnumItem RigLabel.LeftClavicle : 7
+	EnumItem RigLabel.LeftShoulder : 8
+	EnumItem RigLabel.LeftElbow : 9
+	EnumItem RigLabel.LeftWrist : 10
+	EnumItem RigLabel.RightClavicle : 11
+	EnumItem RigLabel.RightShoulder : 12
+	EnumItem RigLabel.RightElbow : 13
+	EnumItem RigLabel.RightWrist : 14
+	EnumItem RigLabel.LeftHip : 15
+	EnumItem RigLabel.LeftKnee : 16
+	EnumItem RigLabel.LeftAnkle : 17
+	EnumItem RigLabel.LeftToes : 18
+	EnumItem RigLabel.RightHip : 19
+	EnumItem RigLabel.RightKnee : 20
+	EnumItem RigLabel.RightAnkle : 21
+	EnumItem RigLabel.RightToes : 22
 Enum RigScale
 	EnumItem RigScale.Default : 0
 	EnumItem RigScale.Rthro : 1

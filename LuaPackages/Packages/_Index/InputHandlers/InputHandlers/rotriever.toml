@@ -1,0 +1,29 @@
+[package]
+name = "InputHandlers"
+version = "2.0.0"
+readme = "README.md"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__",
+]
+publish = true
+authors = ["Roblox"]
+[dependencies.FocusNavigation]
+package = "FocusNavigation"
+version = "^2.0.0"
+
+[dependencies.Timers]
+target = "https://github.com/roblox/luau-polyfill"
+version = "^1.2.3"
+[dev_dependencies.EventPropagation]
+package = "EventPropagation"
+version = "^2.0.0"
+
+[dev_dependencies.JestGlobals]
+target = "https://github.com/roblox/jest-roblox"
+version = "^3.3.0"
+
+[dev_dependencies.Rhodium]
+target = "https://github.com/roblox/rhodium"
+version = "^0.4.6"

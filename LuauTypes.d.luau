@@ -5,9 +5,6 @@
 -- If anything critical does disappear from here, file an issue at this link:
 -- https://github.com/MaximumADHD/Roblox-Client-Tracker/issues
 
-----------------------------------------------
--- Offset: 7BA4E79
-----------------------------------------------
 
 -- SECTION BEGIN: RobloxGlobals
 
@@ -56,9 +53,6 @@ declare task: {
 
 -- SECTION END: RobloxGlobals
 
-----------------------------------------------
--- Offset: 7BA52D9
-----------------------------------------------
 
 -- SECTION BEGIN: TestEZ
 
@@ -105,9 +99,6 @@ declare function afterAll(eachFn: EachFunction)
 
 -- SECTION END: TestEZ
 
-----------------------------------------------
--- Offset: 7BA56A9
-----------------------------------------------
 
 -- SECTION BEGIN: BehaviorScript
 
@@ -128,169 +119,300 @@ declare function afterAll(eachFn: EachFunction)
 
 -- SECTION END: BehaviorScript
 
-----------------------------------------------
--- Offset: 7BA58F9
-----------------------------------------------
-        type Instances = { Instance }
-----------------------------------------------
--- Offset: 7BA5919
-----------------------------------------------
-        type ProjectionParams = {
-            Direction : Vector3,
-            Position : Vector3,
-            Size : Vector3,
-            Up : Vector3
+type NotificationInfo = {
+    Title: string?,
+    Text: string?,
+    Icon: string?,
+    Buttons: {NotificationButton}?,
+    OnDisplay: (() -> any)?,
+    OnDismiss: (() -> any)?
+}
+
+type Instances = { Instance }
+
+type ProjectionParams = {
+    Direction : Vector3,
+    Position : Vector3,
+    Size : Vector3,
+    Up : Vector3
+}
+
+type BrushConfig = {
+    AlphaBlendType : Enum.ImageAlphaType,
+    BlendIntensity : number,
+    ColorBlendType : Enum.ImageCombineType,
+    FadeAngle : number,
+    Decal : EditableImage
+}
+
+type BanConfigType = {
+    Duration: number,
+    DisplayReason: string,
+    PrivateReason: string,
+    ExcludeAltAccounts: boolean?,
+    ApplyToUniverse: boolean?,
+    UserIds: {number}
+}
+
+type UnbanConfigType = {
+    UserIds: {number},
+    ApplyToUniverse: boolean
+}
+
+type CaptureParams = {
+    UICaptureMode: Enum.UICaptureMode,
+    Metadata: string
+}
+
+type Creator = {
+    CreatorId: number,
+    CreatorType: Enum.CreatorType
+}
+
+type ReflectionClassFilter = {
+  Security: SecurityCapabilities?, -- default: SecurityCapabilities.fromCurrent()
+  IsA: string?, -- default: nil
+  ExcludeDisplay: boolean?, -- default: false
+}
+
+type ReflectionMemberFilter = {
+  Security: SecurityCapabilities?, -- default: SecurityCapabilities.fromCurrent()
+  ExcludeInherited: boolean?, -- default: false
+  ExcludeDisplay: boolean?, -- default: false
+}
+
+type ReflectionType = {
+  EngineType: string,
+  ScriptType: string?,
+  EnumType: string?,
+  InstanceType: string?
+  -- ContentType: Enum.AssetType?,
+}
+
+type ReflectedProperty = {
+  Name: string,
+  Serialized: boolean,
+  -- AliasFor: string?,
+
+  Type: ReflectionType,
+  ContentType: Enum.AssetType?,
+  -- DefaultValue: any,
+  -- MinValue: number?,
+  -- MaxValue: number?
+
+  Display: {
+    Category: string,
+    DepreciationMessage: string?,
+    LayoutOrder: number,
+  }?,
+  Permits: {
+    Read: SecurityCapabilities?,
+    ReadParallel: SecurityCapabilities?,
+    Write: SecurityCapabilities?,
+    WriteParallel: SecurityCapabilities?,
+  },
+}
+
+type ReflectedClass = {
+  Name: string,
+  Superclass: string?,
+  Subclasses: {string},
+  Display: {
+    Category: string,
+    DeprecationMessage: string?,
+    LayoutOrder: number,
+  }?,
+  Permits: {
+    GetService: SecurityCapabilities?,
+    New: SecurityCapabilities?,
+  }
+}
+
+type ReflectedProperties = { ReflectedProperty }
+
+type ReflectedClasses = { ReflectedClass }
+
+type ReflectedClassOrNil = ReflectedClass?
+
+type LuauExecutionTaskInput = {
+  BinaryInput: buffer?
+}
+
+type LuauExecutionTaskOutput = {
+  ReturnValues: { any }?,
+  BinaryOutput: buffer?
+}
+
+type RecommendationImpressionEventDetails = {
+    Duration: number?,
+    Weight: number?,
+    ItemPosition: number?,
+    DepartureIntent: Enum.RecommendationDepartureIntent?
+}
+
+type RecommendationActionEventDetails = {
+    Weight: number?,
+    DestinationPlaceId: number?,
+    CommentText: string?,
+    ReactionType: string?
+}
+
+type RecommendationItemContentAttribute = {
+    AssetId: number?,
+    Text: string?,
+    Description: string?,
+    SeekStartTime: number?,
+    SeekEndTime: number?,
+    TrimStartTime: number?,
+    TrimEndTime: number?
+}
+
+type GenerateRecommendationItemListRequest = {
+    ConfigName: string,
+    LocationId: string?,
+    PageSize: number?,
+    BoostCustomTags: {string}?,
+    CustomContexts: {[string]: string}?
+}
+
+type RecommendationItem = {
+    ItemId: string,
+    ReferenceId: string,
+    TracingId: string,
+    Creator: Creator?,
+    Attributes: { RecommendationItemContentAttribute }?,
+    CustomTags: { string }?
+}
+
+type RegisterRecommendationItemRequest = {
+    ContentType: Enum.RecommendationItemContentType?,
+    ReferenceId: string,
+    Duration: number?,
+    Attributes: { RecommendationItemContentAttribute }?,
+    CustomTags: { string }?,
+    Visibility: Enum.RecommendationItemVisibility?
+}
+
+type RegisterRecommendationItemResponse = {
+    ItemId: string,
+    ReferenceId: string
+}
+
+type UpdateRecommendationItemRequest = {
+    ItemId: string,
+    ReferenceId: string?,
+    Creator: Creator?,
+    Duration: number?,
+    Visibility: Enum.RecommendationItemVisibility?,
+    Attributes: { RecommendationItemContentAttribute }?,
+    CustomTags: { string }?
+}
+
+type LinkSharingOptions = {
+  FallbackLinkId: string?,
+  ExpirationSeconds: number?,
+  PreviewTitle: string?,
+  PreviewDescription: string?,
+  PreviewAssetId: number?,
+  LaunchData: string?
+}
+
+type ReviewableContentEvent = {
+    Id: string,
+    Ref: string?,
+    State: Enum.ReviewableContentState,
+    ModerationResult: {
+        Category: Enum.ModerationResultCategory,
+        Labels: { Enum.ModerationResultLabel }?
+    }?
+}
+
+type CreateReviewableContentParams = {
+    Id: string?,
+    Ref: string?,
+    Content: {
+        {
+            Image: {
+                UserId: number,
+                ContentKey: string
+            }?,
+            Video: {
+                UserId: number,
+                ContentKey: string
+            }?
         }
-----------------------------------------------
--- Offset: 7BA59B9
-----------------------------------------------
-        type BrushConfig = {
-            AlphaBlendType : Enum.ImageAlphaType,
-            BlendIntensity : number,
-            ColorBlendType : Enum.ImageCombineType,
-            FadeAngle : number,
-            Decal : EditableImage
-        }
-----------------------------------------------
--- Offset: 7BA5AA9
-----------------------------------------------
-        type BanConfigType = {
-	        Duration: number,
-	        DisplayReason: string,
-	        PrivateReason: string,
-	        ExcludeAltAccounts: boolean?,
-	        ApplyToUniverse: boolean?,
-	        UserIds: {number}
-        }
-----------------------------------------------
--- Offset: 7BA5B89
-----------------------------------------------
-        type UnbanConfigType = {
-	        UserIds: {number},
-	        ApplyToUniverse: boolean
-        }
-----------------------------------------------
--- Offset: 7BA5BE9
-----------------------------------------------
-        type NotificationButton = {
-            Text: string,
-            ButtonType: Enum.NotificationButtonType,
-            OnActivated: () -> any
-        }
-----------------------------------------------
--- Offset: 7BA5C89
-----------------------------------------------
-        type NotificationInfo = {
-            Title: string?,
-            Text: string?,
-            Icon: string?,
-            Buttons: {NotificationButton}?,
-            OnDisplay: (() -> any)?,
-            OnDismiss: (() -> any)?
-        }
-----------------------------------------------
--- Offset: 7BA5D79
-----------------------------------------------
-        type CaptureParams = {
-            UICaptureMode: Enum.UICaptureMode,
-            Metadata: string
-        }
-----------------------------------------------
--- Offset: 7BA5DE9
-----------------------------------------------
-        type RecommendationImpressionEventDetails = {
-            Duration: number?,
-            Weight: number?,
-            ItemPosition: number?
-        }
-----------------------------------------------
--- Offset: 7BA5E89
-----------------------------------------------
-        type RecommendationActionEventDetails = {
-            Weight: number?,
-            DestinationPlaceId: number?,
-            CommentText: string?,
-            ReactionType: string?
-        }
-----------------------------------------------
--- Offset: 7BA5F49
-----------------------------------------------
-        type RecommendationItemContentAttribute = {
-            AssetId: number?,
-            Text: string?,
-            Description: string?,
-            SeekStartTime: number?,
-            SeekEndTime: number?,
-            TrimStartTime: number?,
-            TrimEndTime: number?
-        }
-----------------------------------------------
--- Offset: 7BA6069
-----------------------------------------------
-        type GenerateRecommendationItemListRequest = {
-            ConfigName: string,
-            LocationId: string?,
-            PageSize: number?,
-            BoostCustomTags: {string}?,
-            CustomContexts: {[string]: string}?
-        }
-----------------------------------------------
--- Offset: 7BA6159
-----------------------------------------------
-        type Creator = {
-            CreatorId: number,
-            CreatorType: Enum.CreatorType
-        }
-----------------------------------------------
--- Offset: 7BA61B9
-----------------------------------------------
-        type RecommendationItem = {
-            ItemId: string,
-            ReferenceId: string,
-            TracingId: string,
-            Creator: Creator?,
-            Attributes: { RecommendationItemContentAttribute }?,
-            CustomTags: { string }?
-        }
-----------------------------------------------
--- Offset: 7BA62C9
-----------------------------------------------
-        type RegisterRecommendationItemRequest = {
-            ReferenceId: string,
-            Duration: number?,
-            Attributes: { RecommendationItemContentAttribute }?,
-            CustomTags: { string }?,
-            Visibility: Enum.RecommendationItemVisibility?
-        }
-----------------------------------------------
--- Offset: 7BA63E9
-----------------------------------------------
-        type RegisterRecommendationItemResponse = {
-            ItemId: string,
-            ReferenceId: string
-        }
-----------------------------------------------
--- Offset: 7BA6459
-----------------------------------------------
-        type UpdateRecommendationItemRequest = {
-            ItemId: string,
-            ReferenceId: string?,
-            Creator: Creator?,
-            Duration: number?,
-            Visibility: Enum.RecommendationItemVisibility?,
-            Attributes: { RecommendationItemContentAttribute }?,
-            CustomTags: { string }?
-        }
-----------------------------------------------
--- Offset: 7BA65A9
-----------------------------------------------
-        type LuauExecutionTaskInput = {
-            BinaryInput: buffer?
-        }
-----------------------------------------------
--- Offset: 7BA65F9
-----------------------------------------------
-        type LuauExecutionTaskOutput = {
-            ReturnValues: { any }?,
-            BinaryOutput: buffer?
-        }
+    }
+}
+
+type RequestReviewableContentReviewParams = {
+    ReviewableContentId: string
+}
+
+type NumberArray = { number }
+
+type PriceLevelInfo = {
+    UserId: number,
+    PriceLevel: number
+}
+
+type PriceLevelInfoArray = { PriceLevelInfo }
+
+type VideoSamplerOptions = {
+    Size: Enum.VideoSampleSize,
+}
+
+type VideoSample = {
+    Time: number,
+    Image: Content
+}
+
+type VideoSampleArray = { VideoSample }
+
+type TelemetryConfig = {
+  [string]: any
+}
+
+type TelemetryData = {
+  [string]: any
+}
+
+type TelemetryDataOrNil = TelemetryData?
+
+type AutoSetupAccessory = {
+	AccessoryType: Enum.AccessoryType,
+	IsLayered: boolean,
+	Instance: Model,
+}
+
+type AutoSetupParams = {
+	Body: Model?,
+	Accessories: { AutoSetupAccessory },
+}
+
+type InfoTypeArray = { Enum.InfoType }
+
+type ProductIdentifier = {
+    Id: number,
+    InfoType: Enum.InfoType
+}
+
+type ProductIdentifierArray = { ProductIdentifier }
+
+type RankedItem = {
+    ProductIdentifier: ProductIdentifier,
+    ProductInfo: { [string]: any }
+}
+
+type RankedItemArray = { RankedItem }
+
+type GenerateModelInputs = {
+    TextPrompt: string,
+    Size: Vector3?,
+    MaxTriangles: number?,
+    ShouldGenerateTextures: boolean?,
+}
+
+type GenerateModelSchema = {
+    PredefinedSchema: string,
+}
+

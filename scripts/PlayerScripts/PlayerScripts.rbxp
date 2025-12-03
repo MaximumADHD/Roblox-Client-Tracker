@@ -14,6 +14,18 @@
                     }
                 },
                 "PlayerModule": {
+                    "ServerAuthority": {
+                        "ServerAuthorityServer": {
+                            "$properties": {
+                                "Enabled": false
+                            }
+                        },
+                        "ServerAuthorityClient": {
+                            "$properties": {
+                                "Enabled": false
+                            }
+                        }
+                    },
                     "InputContexts": {
                         "Character": {
                             "$className": "InputContext",
