@@ -1,8 +1,0 @@
-MAIN:
-  PREPVARARGS 0
-  DUPTABLE R0 K2 [{"Left", "Right"}]
-  LOADK R1 K0 ["Left"]
-  SETTABLEKS R1 R0 K0 ["Left"]
-  LOADK R1 K1 ["Right"]
-  SETTABLEKS R1 R0 K1 ["Right"]
-  RETURN R0 1

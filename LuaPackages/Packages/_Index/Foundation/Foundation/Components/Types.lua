@@ -17,9 +17,6 @@ export type StateChangedCallback = (newState: ControlState) -> ()
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
-local InputSize = require(Foundation.Enums.InputSize)
-type InputSize = InputSize.InputSize
-
 export type ActionProps = {
 	onActivated: () -> (),
 	variant: ButtonVariant?,
@@ -178,35 +175,6 @@ export type BaseGuiObjectProps = {
 
 export type GuiObjectProps = BaseGuiObjectProps & BaseInteractableProps
 
-export type TextInputCommonProps = {
-	-- Input text value
-	text: string,
-	-- Ran when the input text changes
-	onChanged: (text: string) -> (),
-	-- The label shown alongside the TextArea
-	label: string,
-	-- Subcaption shown below the text input, red on error
-	hint: string?,
-	-- The size of the TextArea input
-	size: InputSize?,
-	-- Defined width of the TextArea by default
-	width: UDim?,
-	-- What text should be shown in the TextArea when there is no user input
-	placeholder: string?,
-	-- Whether the TextArea should be disabled to input
-	isDisabled: boolean?,
-	-- Whether the input is required, true for "*", false for " (optional)", nil for nothing
-	isRequired: boolean?,
-	-- Whether to show the TextArea input as erroneous
-	hasError: boolean?,
-	-- Partial TextBox ref exposed via imperative handle
-	textBoxRef: React.Ref<TextInputRef>?,
-	-- Ran when textbox focus is gained
-	onFocusGained: (() -> ())?,
-	-- Ran when textbox focus is lost
-	onFocusLost: (() -> ())?,
-}
-
 export type AspectRatioTable = {
 	AspectRatio: Bindable<number>,
 	AspectType: Bindable<Enum.AspectType>?,
@@ -296,10 +264,5 @@ export type CursorConfig = {
 }
 
 export type Cursor = CursorType | CursorConfig
-
-export type OverlayConfig = {
-	DisplayOrder: number?,
-	gui: nil,
-}
 
 return {}

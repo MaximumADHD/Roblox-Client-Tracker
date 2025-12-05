@@ -14,28 +14,21 @@ local PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
 
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local Flags = require(Foundation.Utility.Flags)
-local withDefaults = require(Foundation.Utility.withDefaults)
 local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
-local Types = require(Foundation.Components.Types)
-type OverlayConfig = Types.OverlayConfig
 
 local OverlayContext = require(script.Parent.OverlayContext)
 
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 
-type Props = ({ gui: GuiBase2d?, DisplayOrder: nil } | OverlayConfig) & {
+type Props = {
+	gui: GuiBase2d?,
 	children: React.ReactNode,
-}
-
-local defaultProps = {
-	DisplayOrder = Constants.MAX_LAYOUT_ORDER - 1,
 }
 
 local mainGui = if isPluginSecurity() then CoreGui else PlayerGui
 
-local function OverlayProvider(overlayProps: Props)
-	local props = if Flags.FoundationOverlayDisplayOrder then withDefaults(overlayProps, defaultProps) else overlayProps
+local function OverlayProvider(props: Props)
 	local overlay: GuiBase2d?, setOverlay = React.useState(props.gui)
 	local shouldMountOverlay, setShouldMountOverlay = React.useState(false)
 	local styleSheet = useStyleSheet()
@@ -54,7 +47,7 @@ local function OverlayProvider(overlayProps: Props)
 		end, { props.gui, overlay })
 	end
 
-	local shouldRender = props.gui == nil and mainGui ~= nil and shouldMountOverlay
+	local shouldRender = not props.gui and mainGui ~= nil and shouldMountOverlay
 
 	local overlayInstance = overlay
 	if Flags.FoundationOverlayProviderFrameTiming then
@@ -72,9 +65,7 @@ local function OverlayProvider(overlayProps: Props)
 				React.createElement("ScreenGui", {
 					Enabled = true,
 					-- Biggest DisplayOrder allowed. Don't try math.huge, it causes an overflow
-					DisplayOrder = if Flags.FoundationOverlayDisplayOrder
-						then props.DisplayOrder
-						else Constants.MAX_LAYOUT_ORDER - 1,
+					DisplayOrder = Constants.MAX_LAYOUT_ORDER - 1,
 					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 					ScreenInsets = if Flags.FoundationOverlayLuaAppInsetsFix
 						then Enum.ScreenInsets.CoreUISafeInsets

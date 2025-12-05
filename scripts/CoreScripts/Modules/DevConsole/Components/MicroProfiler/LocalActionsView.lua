@@ -12,9 +12,6 @@ local Roact = require(CorePackages.Packages.Roact)
 
 local LocalActionsView = Roact.Component:extend("LocalActionsView")
 
-local FFlagDevConsoleMpEnableOpenDumpsFolderButton =
-	game:DefineFastFlag("DevConsoleMpEnableOpenDumpsFolderButton", false)
-
 local DevConsoleMpToggleOnScreenMpCounterConfig = {
 	eventName = "DevConsoleMpToggleOnScreenMpCounter",
 	backends = { "RobloxTelemetryCounter" },
@@ -78,7 +75,7 @@ function LocalActionsView:render()
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
 						UIPadding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, Constants.MicroProfilerFormatting.OptionTextPadding),
+							PaddingLeft = UDim.new(0, 10),
 						}),
 						OptionLabel = Roact.createElement("TextLabel", {
 							Size = UDim2.fromScale(0, 1),
@@ -87,7 +84,7 @@ function LocalActionsView:render()
 							Text = "On-screen MicroProfiler visible",
 							TextXAlignment = Enum.TextXAlignment.Left,
 							Font = Constants.Font.MainWindow,
-							TextSize = Constants.MicroProfilerFormatting.OptionTextSize,
+							TextSize = 16,
 							TextColor3 = Color3.new(1, 1, 1),
 							LayoutOrder = 1,
 						}, {
@@ -128,23 +125,21 @@ function LocalActionsView:render()
 							}),
 						}),
 					},
-					if FFlagDevConsoleMpEnableOpenDumpsFolderButton
-						then {
-							UIPadding = Roact.createElement("UIPadding", {
-								PaddingBottom = UDim.new(0, 2),
-								PaddingLeft = UDim.new(0, 2),
-								PaddingRight = UDim.new(0, 2),
-								PaddingTop = UDim.new(0, 2),
-							}),
-							Button = Roact.createElement(BoxButton, {
-								text = "Open dump folder",
-								size = UDim2.fromScale(1, 1),
-								pos = UDim2.new(0, 0, 0, 0),
-								onClicked = function() end,
-							}),
-						}
-						else nil,
-				} :: { { [string]: any }? },
+					{
+						UIPadding = Roact.createElement("UIPadding", {
+							PaddingBottom = UDim.new(0, 2),
+							PaddingLeft = UDim.new(0, 2),
+							PaddingRight = UDim.new(0, 2),
+							PaddingTop = UDim.new(0, 2),
+						}),
+						Button = Roact.createElement(BoxButton, {
+							text = "Open dump folder",
+							size = UDim2.fromScale(1, 1),
+							pos = UDim2.new(0, 0, 0, 0),
+							onClicked = function() end,
+						}),
+					},
+				} :: { { [string]: any } },
 			},
 		},
 	})

@@ -1,4 +1,0 @@
-MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K2 [bit32.countlz]
-  RETURN R0 1

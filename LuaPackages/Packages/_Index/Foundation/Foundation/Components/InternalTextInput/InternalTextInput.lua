@@ -48,8 +48,8 @@ type TextInputProps = {
 	hasError: boolean?,
 	-- Whether the input is disabled
 	isDisabled: boolean?,
-	-- The number of lines to render at once
-	numLines: number?,
+	-- The number of lines to render based on text size
+	maxLines: number?,
 	-- On input text change
 	onChanged: (text: string) -> (),
 	onFocus: (() -> ())?,
@@ -68,7 +68,7 @@ type TextInputProps = {
 
 local defaultProps = {
 	size = InputSize.Large,
-	numLines = 1,
+	maxLines = 1,
 	testId = "--foundation-internal-text-input",
 }
 
@@ -145,7 +145,7 @@ end))
 local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<InternalTextInputRef>?)
 	local props = withDefaults(textInputProps, defaultProps)
 	local tokens = useTokens()
-	local lineCount = math.max(1, props.numLines :: number)
+	local lineCount = math.max(1, props.maxLines :: number)
 	local isMultiLine = lineCount > 1
 	local isScrollable = Flags.FoundationInternalTextInputScrolling and isMultiLine
 	local variantProps = useTextInputVariants(tokens, props.size)

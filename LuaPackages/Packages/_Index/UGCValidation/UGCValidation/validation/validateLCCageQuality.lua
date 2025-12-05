@@ -89,10 +89,7 @@ local function validateLCCageQuality(
 	if getEngineFeatureUGCValidateCageMeshDistance() then
 		if getFFlagUGCValidationEyebrowEyelashSupport() then
 			local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
-			if
-				assetTypeEnum ~= Enum.AssetType.EyebrowAccessory
-				and assetTypeEnum ~= Enum.AssetType.EyelashAccessory
-			then
+			if assetTypeEnum ~= Enum.AssetType.Eyebrow and assetTypeEnum ~= Enum.AssetType.Eyelash then
 				local success: boolean, failedReason: { string }? = validateCageMeshDistance(
 					innerCage,
 					outerCage,

@@ -1,5 +1,5 @@
-game:DefineFastFlag("UGCValidationEyebrowEyelashSupport2", false)
+game:DefineFastFlag("UGCValidationEyebrowEyelashSupport", false)
 
 return function()
-	return game:GetFastFlag("UGCValidationEyebrowEyelashSupport2")
+	return game:GetFastFlag("UGCValidationEyebrowEyelashSupport")
 end

@@ -64,8 +64,5 @@ return {
 	FoundationCursorScaledSliceFix = SafeFlags.createGetFFlag("FoundationCursorScaledSliceFix")(),
 	FoundationFixOptionSelectorGroupItemSize = SafeFlags.createGetFFlag("FoundationFixOptionSelectorGroupItemSize")(),
 	FoundationPopoverFixArrowPositioning = SafeFlags.createGetFFlag("FoundationPopoverFixArrowPositioning")(),
-	FoundationNumberInputDraggingDeltaFix = SafeFlags.createGetFFlag("FoundationNumberInputDraggingDeltaFix")(),
 	FoundationOverlayMountReorder = SafeFlags.createGetFFlag("FoundationOverlayMountReorder")(),
-	FoundationCheckboxIndeterminate = SafeFlags.createGetFFlag("FoundationCheckboxIndeterminate")(),
-	FoundationOverlayDisplayOrder = SafeFlags.createGetFFlag("FoundationOverlayDisplayOrder")(),
 }

@@ -8,11 +8,9 @@ local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local CheckedState = require(Foundation.Enums.CheckedState)
-type CheckedState = CheckedState.CheckedState
-
-local InputPlacement = require(Foundation.Enums.InputPlacement)
 local InputSize = require(Foundation.Enums.InputSize)
+local InputPlacement = require(Foundation.Enums.InputPlacement)
+
 type InputSize = InputSize.InputSize
 
 local function BasicStory(props)
@@ -90,27 +88,6 @@ local function CustomSelectionStory(props)
 	})
 end
 
-local function IndeterminateStory(props)
-	local controls = props.controls
-
-	local isChecked, setIsChecked = React.useState(CheckedState.Indeterminate :: CheckedState)
-
-	return React.createElement(View, {
-		tag = "col auto-xy size-3000-0",
-	}, {
-		React.createElement(Checkbox, {
-			isChecked = isChecked,
-			isDisabled = controls.isDisabled,
-			onActivated = function(value)
-				setIsChecked(value)
-			end,
-			size = controls.size,
-			label = controls.label or "",
-			placement = controls.placement,
-		}),
-	})
-end
-
 local function UncontrolledStory(props)
 	local controls = props.controls
 
@@ -119,7 +96,6 @@ local function UncontrolledStory(props)
 	}, {
 		React.createElement(Checkbox, {
 			isDisabled = controls.isDisabled,
-			isIndeterminate = controls.isIndeterminate,
 			onActivated = function(value)
 				print("isChecked: ", value)
 			end,
@@ -141,11 +117,6 @@ return {
 			name = "Custom Selection",
 			summary = "Select card container instead of checkbox",
 			story = CustomSelectionStory,
-		},
-		{
-			name = "Indeterminate",
-			summary = "A checkbox initialized with an indeterminate state",
-			story = IndeterminateStory,
 		},
 		{
 			name = "Uncontrolled",

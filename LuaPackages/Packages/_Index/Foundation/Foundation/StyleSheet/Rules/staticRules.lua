@@ -293,13 +293,6 @@ local function FlexItemRules(): { StyleRule }
 				FlexMode = Enum.UIFlexMode.Fill,
 			},
 		},
-		{
-			tag = "no-flex",
-			pseudo = "UIFlexItem",
-			properties = {
-				FlexMode = Enum.UIFlexMode.None,
-			},
-		},
 	}
 
 	local ratios = { 1, 2, 3, 4, 5 }
