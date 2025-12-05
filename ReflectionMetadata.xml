@@ -5283,6 +5283,12 @@
             <double name="UINumTicks">200</double>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">AlphaMode</string>
+            <bool name="FFlag">MaterialVariantAlphaMode</bool>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -8901,6 +8907,14 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">MakeupDescription</string>
+        <string name="ExplorerOrder">22</string>
+        <string name="ExplorerImageIndex">104</string>
+        <string name="FFlag">MakeupInHumanoidDescription</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Folder</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">77</string>
@@ -11129,6 +11143,12 @@
         <Properties>
           <string name="Name">TintMask</string>
           <bool name="FFlag">SurfaceAppearanceTintMaskSelectable</bool>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Opaque</string>
+          <bool name="FFlag">MaterialVariantAlphaMode</bool>
         </Properties>
       </Item>
     </Item>
