@@ -119,12 +119,6 @@ declare function afterAll(eachFn: EachFunction)
 
 -- SECTION END: BehaviorScript
 
-type NotificationButton = {
-    Text: string,
-    ButtonType: Enum.NotificationButtonType,
-    OnActivated: () -> any
-}
-
 type NotificationInfo = {
     Title: string?,
     Text: string?,
@@ -208,7 +202,7 @@ type ReflectedProperty = {
 
   Display: {
     Category: string,
-    DeprecationMessage: string?,
+    DepreciationMessage: string?,
     LayoutOrder: number,
   }?,
   Permits: {

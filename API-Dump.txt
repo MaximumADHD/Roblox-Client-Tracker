@@ -142,7 +142,6 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Property Instance.HistoryId: UniqueId {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property Instance.Name: string
 	Property Instance.Parent: Instance? [📁 LoadOnly] [NotReplicated]
-	Property Instance.PredictionMode: Enum.PredictionMode [ReadOnly] [NotScriptable]
 	Property Instance.PropertyStatusStudio: Enum.PropertyStatus {RobloxSecurity} [Hidden] [ReadOnly] [NotScriptable]
 	Property Instance.RobloxLocked: boolean {PluginSecurity} [Hidden]
 	Property Instance.SourceAssetId: number {RobloxScriptSecurity} [Hidden]
@@ -312,8 +311,7 @@ Class AnimationClipProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AnimationClipProvider:GetAnimationClipById(assetId: number, useCache: boolean) -> AnimationClip {🔐Animation} {PluginSecurity} [Deprecated]
 	Function AnimationClipProvider:GetAnimationNodeDefinition(type: Enum.AnimationNodeType) -> { [string]: any } {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationClipProvider:GetAnimationNodeTypes() -> { any } {🔐Animation} {RobloxScriptSecurity}
-	Function AnimationClipProvider:GetAnimations(userId: number) -> Instance? {🔐Animation} [Yields] [Deprecated]
-	Function AnimationClipProvider:GetAnimationsAsync(userId: number) -> Instance? {🔐Animation} [Yields]
+	Function AnimationClipProvider:GetAnimations(userId: number) -> Instance? {🔐Animation} [Yields]
 	Function AnimationClipProvider:GetClipEvaluatorAsync(assetId: string) -> ClipEvaluator {🔐Animation} [Yields]
 	Function AnimationClipProvider:GetMemStats() -> { [string]: any } {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationClipProvider:RegisterActiveAnimationClip(animationClip: AnimationClip) -> string {🔐Animation}
@@ -334,7 +332,6 @@ Class AnimationFromVideoCreatorStudioService : Instance [NotCreatable] [Service]
 Class AnimationNodeDefinition : Instance
 	Property AnimationNodeDefinition.NodeType: Enum.AnimationNodeType {🔐Animation}
 	Property AnimationNodeDefinition.InputPinData: BinaryString {🔐Animation} [Hidden] [NotScriptable]
-	Property AnimationNodeDefinition.NodeId: string {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationNodeDefinition:AddInputPin(pin: string) -> () {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationNodeDefinition:GetConnectedWires(pin: string) -> { Instance } {🔐Animation}
 	Function AnimationNodeDefinition:GetInputPinNames() -> { any } {🔐Animation} {RobloxScriptSecurity}
@@ -564,8 +561,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreateSurfaceAppearanceAsync(content: { [string]: any }) -> SurfaceAppearance [Yields]
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
-	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } [Yields] [Deprecated]
-	Function AssetService:GetAssetIdsForPackageAsync(packageAssetId: number) -> { any } [Yields]
+	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } [Yields]
 	Function AssetService:GetAudioMetadataAsync(idList: { any }) -> { any } [Yields]
 	Function AssetService:GetBundleDetailsAsync(bundleId: number) -> { [string]: any } [Yields]
 	Function AssetService:GetBundleDetailsSync(bundleId: number) -> { [string]: any } {RobloxScriptSecurity}
@@ -575,8 +571,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:PromptCreateAssetAsync(player: Player, instance: Instance, assetType: Enum.AssetType) -> ...any [Yields]
 	Function AssetService:PromptImportAnimationClipFromVideoAsync(player: Player, progressCallback: (...any) -> ...any) -> ...any [Yields]
 	Function AssetService:SavePlaceAsync(requestParameters: { [string]: any }?) -> () [Yields]
-	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields] [Deprecated]
-	Function AssetService:SearchAudioAsync(searchParameters: AudioSearchParams) -> AudioPages [Yields]
+	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields]
 	Event AssetService.AudioMetadataFailedResponse(requestid: number) {RobloxScriptSecurity}
 	Event AssetService.AudioMetadataRequest(requestid: number, request: { any }) {RobloxScriptSecurity}
 	Event AssetService.AudioMetadataResponse(requestid: number, response: { any }) {RobloxScriptSecurity}
@@ -1119,29 +1114,18 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Event AvatarCreationService.UgcValidationFailure(guid: string, errorMessage: string) {RobloxScriptSecurity}
 	Event AvatarCreationService.UgcValidationSuccess(guid: string, serializedModel: string, price: number) {RobloxScriptSecurity}
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function AvatarEditorService:CheckApplyDefaultClothing(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields] [Deprecated]
-	Function AvatarEditorService:CheckApplyDefaultClothingAsync(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields]
-	Function AvatarEditorService:ConformToAvatarRules(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields] [Deprecated]
-	Function AvatarEditorService:ConformToAvatarRulesAsync(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields]
+	Function AvatarEditorService:CheckApplyDefaultClothing(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields]
+	Function AvatarEditorService:ConformToAvatarRules(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields]
 	Function AvatarEditorService:GetAccessoryType(avatarAssetType: Enum.AvatarAssetType) -> Enum.AccessoryType
-	Function AvatarEditorService:GetAvatarRules() -> { [string]: any } [Yields] [Deprecated]
-	Function AvatarEditorService:GetAvatarRulesAsync() -> { [string]: any } [Yields]
-	Function AvatarEditorService:GetBatchItemDetails(itemIds: { any }, itemType: Enum.AvatarItemType) -> { any } [Yields] [Deprecated]
-	Function AvatarEditorService:GetBatchItemDetailsAsync(itemIds: { any }, itemType: Enum.AvatarItemType) -> { any } [Yields]
-	Function AvatarEditorService:GetFavorite(itemId: number, itemType: Enum.AvatarItemType) -> boolean [Yields] [Deprecated]
-	Function AvatarEditorService:GetFavoriteAsync(itemId: number, itemType: Enum.AvatarItemType) -> boolean [Yields]
-	Function AvatarEditorService:GetInventory(assetTypes: { any }) -> InventoryPages [Yields] [Deprecated]
-	Function AvatarEditorService:GetInventoryAsync(assetTypes: { any }) -> InventoryPages [Yields]
-	Function AvatarEditorService:GetItemDetails(itemId: number, itemType: Enum.AvatarItemType) -> { [string]: any } [Yields] [Deprecated]
-	Function AvatarEditorService:GetItemDetailsAsync(itemId: number, itemType: Enum.AvatarItemType) -> { [string]: any } [Yields]
-	Function AvatarEditorService:GetOutfitDetails(outfitId: number) -> { [string]: any } [Yields] [Deprecated]
-	Function AvatarEditorService:GetOutfitDetailsAsync(outfitId: number) -> { [string]: any } [Yields]
-	Function AvatarEditorService:GetOutfits(outfitSource: Enum.OutfitSource? = "All", outfitType: Enum.OutfitType? = "All") -> OutfitPages [Yields] [Deprecated]
-	Function AvatarEditorService:GetOutfitsAsync(outfitSource: Enum.OutfitSource? = "All", outfitType: Enum.OutfitType? = "All") -> OutfitPages [Yields]
-	Function AvatarEditorService:GetRecommendedAssets(assetType: Enum.AvatarAssetType, contextAssetId: number? = 0) -> { any } [Yields] [Deprecated]
-	Function AvatarEditorService:GetRecommendedAssetsAsync(assetType: Enum.AvatarAssetType, contextAssetId: number? = 0) -> { any } [Yields]
-	Function AvatarEditorService:GetRecommendedBundles(bundleId: number) -> { any } [Yields] [Deprecated]
-	Function AvatarEditorService:GetRecommendedBundlesAsync(bundleId: number) -> { any } [Yields]
+	Function AvatarEditorService:GetAvatarRules() -> { [string]: any } [Yields]
+	Function AvatarEditorService:GetBatchItemDetails(itemIds: { any }, itemType: Enum.AvatarItemType) -> { any } [Yields]
+	Function AvatarEditorService:GetFavorite(itemId: number, itemType: Enum.AvatarItemType) -> boolean [Yields]
+	Function AvatarEditorService:GetInventory(assetTypes: { any }) -> InventoryPages [Yields]
+	Function AvatarEditorService:GetItemDetails(itemId: number, itemType: Enum.AvatarItemType) -> { [string]: any } [Yields]
+	Function AvatarEditorService:GetOutfitDetails(outfitId: number) -> { [string]: any } [Yields]
+	Function AvatarEditorService:GetOutfits(outfitSource: Enum.OutfitSource? = "All", outfitType: Enum.OutfitType? = "All") -> OutfitPages [Yields]
+	Function AvatarEditorService:GetRecommendedAssets(assetType: Enum.AvatarAssetType, contextAssetId: number? = 0) -> { any } [Yields]
+	Function AvatarEditorService:GetRecommendedBundles(bundleId: number) -> { any } [Yields]
 	Function AvatarEditorService:NoPromptCreateOutfit(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, name: string, gearAssetId: number? = 0) -> boolean {RobloxScriptSecurity}
 	Function AvatarEditorService:NoPromptDeleteOutfit(outfitId: number) -> boolean {RobloxScriptSecurity}
 	Function AvatarEditorService:NoPromptRenameOutfit(outfitId: number, name: string) -> boolean {RobloxScriptSecurity}
@@ -1162,8 +1146,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarEditorService:PromptSaveAvatar(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType) -> ()
 	Function AvatarEditorService:PromptSetFavorite(itemId: number, itemType: Enum.AvatarItemType, shouldFavorite: boolean) -> ()
 	Function AvatarEditorService:PromptUpdateOutfit(outfitId: number, updatedOutfit: HumanoidDescription, rigType: Enum.HumanoidRigType) -> ()
-	Function AvatarEditorService:SearchCatalog(searchParameters: CatalogSearchParams) -> CatalogPages [Yields] [Deprecated]
-	Function AvatarEditorService:SearchCatalogAsync(searchParameters: CatalogSearchParams) -> CatalogPages [Yields]
+	Function AvatarEditorService:SearchCatalog(searchParameters: CatalogSearchParams) -> CatalogPages [Yields]
 	Function AvatarEditorService:SetAllowInventoryReadAccess(inventoryReadAccessGranted: boolean) -> () {RobloxScriptSecurity}
 	Function AvatarEditorService:SignalCreateOutfitFailed() -> () {RobloxScriptSecurity}
 	Function AvatarEditorService:SignalCreateOutfitPermissionDenied() -> () {RobloxScriptSecurity}
@@ -1209,8 +1192,7 @@ Class AvatarSettings : Instance [NotCreatable] [Service]
 	Event AvatarSettings.RefreshPluginState() {RobloxScriptSecurity}
 Class Backpack : Instance
 Class BadgeService : Instance [NotCreatable] [Service]
-	Function BadgeService:AwardBadge(userId: number, badgeId: number) -> boolean [Yields] [Deprecated]
-	Function BadgeService:AwardBadgeAsync(userId: number, badgeId: number) -> boolean [Yields]
+	Function BadgeService:AwardBadge(userId: number, badgeId: number) -> boolean [Yields]
 	Function BadgeService:CheckUserBadgesAsync(userId: number, badgeIds: { any }) -> { any } [Yields]
 	Function BadgeService:GetBadgeInfoAsync(badgeId: number) -> { [string]: any } [Yields]
 	Function BadgeService:IsDisabled(badgeId: number) -> boolean [Yields] [Deprecated]
@@ -3538,11 +3520,9 @@ Class Humanoid : Instance
 	Function Humanoid:AddCustomStatus(status: string) -> boolean {🔐Avatar} [Deprecated]
 	Function Humanoid:AddStatus(status: Enum.Status? = "Poison") -> boolean {🔐Avatar} [Deprecated]
 	Function Humanoid:ApplyAvatarRules(avatarRules: AvatarRules) -> () {🔐Avatar} {RobloxScriptSecurity} [Yields]
-	Function Humanoid:ApplyDescription(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🔐Avatar} [Yields] [Deprecated]
-	Function Humanoid:ApplyDescriptionAsync(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🔐Avatar} [Yields]
+	Function Humanoid:ApplyDescription(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🔐Avatar} [Yields]
 	Function Humanoid:ApplyDescriptionClientServer(humanoidDescription: HumanoidDescription) -> () {🔐Avatar} {RobloxScriptSecurity} [Yields]
-	Function Humanoid:ApplyDescriptionReset(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🔐Avatar} [Yields] [Deprecated]
-	Function Humanoid:ApplyDescriptionResetAsync(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🔐Avatar} [Yields]
+	Function Humanoid:ApplyDescriptionReset(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () {🔐Avatar} [Yields]
 	Function Humanoid:BuildRigFromAttachments() -> () {🔐Avatar}
 	Function Humanoid:CacheDefaults() -> () {🔐Avatar} {RobloxScriptSecurity}
 	Function Humanoid:ChangeState(state: Enum.HumanoidStateType? = "None") -> () {🔐Avatar}
@@ -3564,9 +3544,8 @@ Class Humanoid : Instance
 	Function Humanoid:LoadAnimation(animation: Animation) -> AnimationTrack {🔐Avatar} [Deprecated]
 	Function Humanoid:Move(moveDirection: Vector3, relativeToCamera: boolean? = false) -> () {🔐Avatar}
 	Function Humanoid:MoveTo(location: Vector3, part: Instance? = nil) -> () {🔐Avatar}
-	Function Humanoid:PlayEmote(emoteName: string) -> boolean {🔐Avatar} [Yields] [Deprecated]
+	Function Humanoid:PlayEmote(emoteName: string) -> boolean {🔐Avatar} [Yields]
 	Function Humanoid:PlayEmoteAndGetAnimTrackById(emoteId: number) -> ...any {🔐Avatar} {RobloxScriptSecurity} [Yields]
-	Function Humanoid:PlayEmoteAsync(emoteName: string) -> boolean {🔐Avatar} [Yields]
 	Function Humanoid:RemoveAccessories() -> () {🔐Avatar}
 	Function Humanoid:RemoveCustomStatus(status: string) -> boolean {🔐Avatar} [Deprecated]
 	Function Humanoid:RemoveStatus(status: Enum.Status? = "Poison") -> boolean {🔐Avatar} [Deprecated]
@@ -3849,7 +3828,6 @@ Class AssetImportSession : ImportSession [NotCreatable] [NotReplicated]
 	Function AssetImportSession:CreatePresetFromData(importData: Instance) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:GetImportTree() -> Instance? {RobloxScriptSecurity}
 	Function AssetImportSession:GetKeyframeSequences() -> { Instance } {RobloxScriptSecurity}
-	Function AssetImportSession:GetKeyframeSequencesForSelectedRestPose(modelInstance: Instance, restPoseSource: Enum.RestPoseModel) -> { Instance } {RobloxScriptSecurity}
 	Function AssetImportSession:GetRigVisualization(importDataInstance: Instance) -> Instance? {RobloxScriptSecurity}
 	Function AssetImportSession:GetUploadStatus() -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:HasAnimation() -> boolean {RobloxScriptSecurity}
@@ -3879,7 +3857,6 @@ Class InputAction : Instance
 	Event InputAction.StateChanged(value: any) {🔐Input}
 Class InputBinding : Instance
 	Property InputBinding.KeyCode: Enum.KeyCode {🔐Input}
-	Property InputBinding.PointerIndex: number {🔐Input}
 	Property InputBinding.PressedThreshold: number {🔐Input}
 	Property InputBinding.ReleasedThreshold: number {🔐Input}
 	Property InputBinding.ResponseCurve: number {🔐Input}
@@ -3913,10 +3890,8 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function InsertService:GetBaseCategories() -> { any } [Yields] [Deprecated]
 	Function InsertService:GetBaseSets() -> { any } [Yields] [Deprecated]
 	Function InsertService:GetCollection(categoryId: number) -> { any } [Yields] [Deprecated]
-	Function InsertService:GetFreeDecals(searchText: string, pageNum: number) -> { any } [Yields] [Deprecated]
-	Function InsertService:GetFreeDecalsAsync(searchText: string, pageNum: number) -> { any } [Yields]
-	Function InsertService:GetFreeModels(searchText: string, pageNum: number) -> { any } [Yields] [Deprecated]
-	Function InsertService:GetFreeModelsAsync(searchText: string, pageNum: number) -> { any } [Yields]
+	Function InsertService:GetFreeDecals(searchText: string, pageNum: number) -> { any } [Yields]
+	Function InsertService:GetFreeModels(searchText: string, pageNum: number) -> { any } [Yields]
 	Function InsertService:GetLatestAssetVersionAsync(assetId: number) -> number [Yields]
 	Function InsertService:GetLocalFileContents(contentId: string) -> string {RobloxScriptSecurity}
 	Function InsertService:GetUserCategories(userId: number) -> { any } [Yields] [Deprecated]
@@ -3996,8 +3971,7 @@ Class Keyframe : Instance
 Class KeyframeMarker : Instance
 	Property KeyframeMarker.Value: string {🔐Animation}
 Class KeyframeSequenceProvider : Instance [NotCreatable] [Service] [NotReplicated]
-	Function KeyframeSequenceProvider:GetAnimations(userId: number) -> Instance? [Yields] [Deprecated]
-	Function KeyframeSequenceProvider:GetAnimationsAsync(userId: number) -> Instance? [Yields]
+	Function KeyframeSequenceProvider:GetAnimations(userId: number) -> Instance? [Yields]
 	Function KeyframeSequenceProvider:GetKeyframeSequence(assetId: string) -> Instance? {PluginSecurity} [Deprecated]
 	Function KeyframeSequenceProvider:GetKeyframeSequenceAsync(assetId: string) -> Instance? [Yields]
 	Function KeyframeSequenceProvider:GetKeyframeSequenceById(assetId: number, useCache: boolean) -> Instance? {PluginSecurity} [Deprecated]
@@ -4150,7 +4124,6 @@ Class LodDataEntity : Instance [NotCreatable]
 	Property LodDataEntity.EntityScale: Vector3 [Hidden] [NotScriptable]
 	Property LodDataEntity.EntitySource: Instance? [Hidden] [NotScriptable]
 	Property LodDataEntity.IsSlimEnabled: boolean [Hidden] [NotScriptable]
-	Property LodDataEntity.SlimAnimationSource: SlimAnimationDataEntity? [Hidden] [NotScriptable]
 Class LodDataService : Instance [NotCreatable] [Service] [NotReplicated]
 Class LogReporterService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LogReporterService:ReportLog(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }) -> boolean {RobloxScriptSecurity}
@@ -4221,7 +4194,7 @@ Class LuauScriptAnalyzerService : Instance [NotCreatable] [Service] [NotReplicat
 Class MLModelDeliveryService : Instance [NotCreatable] [Service]
 Class MLService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function MLService:CreateSessionAsync(assetId: string) -> MLSession [Yields]
-Class MakeupDescription : Instance [NotBrowsable]
+Class MakeupDescription : Instance
 	Property MakeupDescription.AssetId: number {🔐Avatar}
 	Property MakeupDescription.Instance: Instance? {🔐Avatar}
 	Property MakeupDescription.MakeupType: Enum.MakeupType {🔐Avatar}
@@ -4237,8 +4210,7 @@ Class MarkerCurve : Instance
 Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:GetDeveloperProductsAsync() -> Instance? [Yields]
 	Function MarketplaceService:GetDeveloperProductsForExperienceDetailsPageAsync() -> Instance? {RobloxScriptSecurity} [Yields]
-	Function MarketplaceService:GetProductInfo(assetId: number, infoType: Enum.InfoType? = "Asset") -> { [string]: any } [Yields] [Deprecated]
-	Function MarketplaceService:GetProductInfoAsync(assetId: number, infoType: Enum.InfoType? = "Asset") -> { [string]: any } [Yields]
+	Function MarketplaceService:GetProductInfo(assetId: number, infoType: Enum.InfoType? = "Asset") -> { [string]: any } [Yields]
 	Function MarketplaceService:GetRobuxBalance() -> number {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:GetSubscriptionProductInfoAsync(subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptionId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -4254,10 +4226,8 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:PerformSubscriptionPurchase(subscriptionId: string) -> string {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PerformSubscriptionPurchaseV2(subscriptionId: string, paymentProvider: string) -> () {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PlayerCanMakePurchases(player: Instance) -> boolean {RobloxScriptSecurity}
-	Function MarketplaceService:PlayerOwnsAsset(player: Instance, assetId: number) -> boolean [Yields] [Deprecated]
-	Function MarketplaceService:PlayerOwnsAssetAsync(player: Instance, assetId: number) -> boolean [Yields]
-	Function MarketplaceService:PlayerOwnsBundle(player: Player, bundleId: number) -> boolean [Yields] [Deprecated]
-	Function MarketplaceService:PlayerOwnsBundleAsync(player: Player, bundleId: number) -> boolean [Yields]
+	Function MarketplaceService:PlayerOwnsAsset(player: Instance, assetId: number) -> boolean [Yields]
+	Function MarketplaceService:PlayerOwnsBundle(player: Player, bundleId: number) -> boolean [Yields]
 	Function MarketplaceService:PrepareCollectiblesPurchase(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:PromptBulkPurchase(player: Player, lineItems: { any }, options: { [string]: any }) -> ()
 	Function MarketplaceService:PromptBundlePurchase(player: Instance, bundleId: number) -> ()
@@ -4386,7 +4356,6 @@ Class MaterialService : Instance [NotCreatable] [Service]
 	Event MaterialService.MaterialFillToolEnabledChanged(shouldEnable: boolean) {RobloxScriptSecurity}
 	Event MaterialService.OverrideStatusChanged(material: Enum.Material) {RobloxScriptSecurity}
 Class MaterialVariant : Instance
-	Property MaterialVariant.AlphaMode: Enum.AlphaMode [NotBrowsable]
 	Property MaterialVariant.BaseMaterial: Enum.Material {✏️PluginSecurity}
 	Property MaterialVariant.ColorMap: string {PluginSecurity}
 	Property MaterialVariant.ColorMapContent: Content {PluginSecurity}
@@ -4952,7 +4921,6 @@ Class Model : PVInstance
 	Property Model.ModelMeshData: SharedString [Hidden] [NotScriptable]
 	Property Model.ModelMeshSize: Vector3 [Hidden] [NotScriptable]
 	Property Model.NeedsPivotMigration: boolean [Hidden] [NotReplicated] [NotScriptable]
-	Property Model.SlimAnimationTarget: SlimAnimationDataEntity? [Hidden] [NotScriptable]
 	Property Model.SlimHash: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Model.PrimaryPart: BasePart?
 	Property Model.Scale: number [NotReplicated] [NotScriptable]
@@ -5070,7 +5038,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MoverConstraintRootBehavior: Enum.MoverConstraintRootBehaviorMode [NotScriptable]
-	Property Workspace.NextGenerationReplication: Enum.RolloutState [NotScriptable]
+	Property Workspace.NextGenerationReplication: Enum.RolloutState {🔐InternalTest} [NotScriptable]
 	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable]
 	Property Workspace.PhysicsImprovedSleep: Enum.RolloutState [NotScriptable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
@@ -5094,7 +5062,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.RejectCharacterDeletions: Enum.RejectCharacterDeletions [NotScriptable]
 	Property Workspace.LuauTypeCheckMode: Enum.LuauTypeCheckMode {PluginSecurity}
 	Property Workspace.UseNewLuauTypeSolver: Enum.RolloutState [NotScriptable]
-	Property Workspace.AuthorityMode: Enum.AuthorityMode {RobloxScriptSecurity}
+	Property Workspace.AuthorityMode: Enum.AuthorityMode {🔐InternalTest}
 	Property Workspace.ModelStreamingBehavior: Enum.ModelStreamingBehavior [NotScriptable]
 	Property Workspace.StreamOutBehavior: Enum.StreamOutBehavior [NotScriptable]
 	Property Workspace.StreamingEnabled: boolean {✏️PluginSecurity}
@@ -5394,7 +5362,6 @@ Class Player : Instance
 	Property Player.MaximumSimulationRadius: number {🔐Players} {LocalUserSecurity} [Hidden] [NotReplicated]
 	Property Player.MembershipType: Enum.MembershipType {🔐Players} [ReadOnly]
 	Property Player.MembershipTypeReplicate: Enum.MembershipType {🔐Players} [Hidden] [NotScriptable]
-	Property Player.NeedRegionalFallback: boolean {🔐Players} {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Player.OsPlatform: string {🔐Players} {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Player.PartyId: string {🔐Players} {✏️RobloxSecurity} [Hidden] [NotReplicated]
 	Property Player.PlatformName: string {🔐Players} {RobloxScriptSecurity} [Hidden]
@@ -5423,33 +5390,26 @@ Class Player : Instance
 	Function Player:GetCanManageAsync() -> boolean {🔐Players} {RobloxScriptSecurity} [Yields]
 	Function Player:GetData() -> PlayerData {🔐Players}
 	Function Player:GetFriendStatus(player: Player) -> Enum.FriendStatus {🔐Players} {RobloxScriptSecurity}
-	Function Player:GetFriendsOnline(maxFriends: number? = 200) -> { any } {🔐Players} [Yields] [Deprecated]
-	Function Player:GetFriendsOnlineAsync(maxFriends: number? = 200) -> { any } {🔐Players} [Yields]
+	Function Player:GetFriendsOnline(maxFriends: number? = 200) -> { any } {🔐Players} [Yields]
 	Function Player:GetGameSessionID() -> string {🔐Players} {RobloxSecurity}
 	Function Player:GetJoinData() -> { [string]: any } {🔐Players} [CustomLuaState]
 	Function Player:GetMouse() -> Mouse {🔐Input | Players}
 	Function Player:GetNetworkPing() -> number {🔐Players} {🧬Safe}
-	Function Player:GetRankInGroup(groupId: number) -> number {🔐Players} [Yields] [Deprecated]
-	Function Player:GetRankInGroupAsync(groupId: number) -> number {🔐Players} [Yields]
-	Function Player:GetRoleInGroup(groupId: number) -> string {🔐Players} [Yields] [Deprecated]
-	Function Player:GetRoleInGroupAsync(groupId: number) -> string {🔐Players} [Yields]
+	Function Player:GetRankInGroup(groupId: number) -> number {🔐Players} [Yields]
+	Function Player:GetRoleInGroup(groupId: number) -> string {🔐Players} [Yields]
 	Function Player:GetUnder13() -> boolean {🔐Players} {RobloxScriptSecurity}
 	Function Player:HasAppearanceLoaded() -> boolean {🔐Players}
 	Function Player:IsBestFriendsWith(userId: number) -> boolean {🔐Players} [Yields] [Deprecated]
-	Function Player:IsFriendsWith(userId: number) -> boolean {🔐Players} [Yields] [Deprecated]
-	Function Player:IsFriendsWithAsync(userId: number) -> boolean {🔐Players} [Yields]
-	Function Player:IsInGroup(groupId: number) -> boolean {🔐Players} [Yields] [Deprecated]
-	Function Player:IsInGroupAsync(groupId: number) -> boolean {🔐Players} [Yields]
+	Function Player:IsFriendsWith(userId: number) -> boolean {🔐Players} [Yields]
+	Function Player:IsInGroup(groupId: number) -> boolean {🔐Players} [Yields]
 	Function Player:IsVerified() -> boolean {🔐Players}
 	Function Player:Kick(message: string? = "") -> () {🔐Players}
 	Function Player:LoadBoolean(key: string) -> boolean {🔐Players} [Deprecated]
-	Function Player:LoadCharacter() -> () {🔐Players} [Yields] [Deprecated]
+	Function Player:LoadCharacter() -> () {🔐Players} [Yields]
 	Function Player:LoadCharacterAppearance(assetInstance: Instance) -> () {🔐Avatar | Players} [Deprecated]
-	Function Player:LoadCharacterAsync() -> () {🔐Players} [Yields]
 	Function Player:LoadCharacterBlocking() -> () {🔐Players} {LocalUserSecurity} [Yields]
 	Function Player:LoadCharacterWithAvatarRules(avatarRules: AvatarRules) -> () {🔐Players} {RobloxScriptSecurity} [Yields]
-	Function Player:LoadCharacterWithHumanoidDescription(humanoidDescription: HumanoidDescription) -> () {🔐Players} [Yields] [Deprecated]
-	Function Player:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription: HumanoidDescription) -> () {🔐Players} [Yields]
+	Function Player:LoadCharacterWithHumanoidDescription(humanoidDescription: HumanoidDescription) -> () {🔐Players} [Yields]
 	Function Player:LoadData() -> () {🔐Players} {LocalUserSecurity} [Deprecated]
 	Function Player:LoadInstance(key: string) -> Instance? {🔐Players} [Deprecated]
 	Function Player:LoadNumber(key: string) -> number {🔐Players} [Deprecated]
@@ -5609,19 +5569,15 @@ Class Players : Instance [NotCreatable] [Service]
 	Property Players.numPlayers: number {🔐Players} [Hidden] [ReadOnly] [Deprecated]
 	Function Players:BanAsync(config: { [string]: any }) -> () {🔐Players} [Yields]
 	Function Players:Chat(message: string) -> () {🔐Players} {PluginSecurity}
-	Function Players:CreateHumanoidModelFromDescription(description: HumanoidDescription, rigType: Enum.HumanoidRigType, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> Model {🔐Avatar | Players} [Yields] [Deprecated]
-	Function Players:CreateHumanoidModelFromDescriptionAsync(description: HumanoidDescription, rigType: Enum.HumanoidRigType, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> Model {🔐Avatar | Players} [Yields]
-	Function Players:CreateHumanoidModelFromUserId(userId: number) -> Model {🔐Players} [Yields] [Deprecated]
-	Function Players:CreateHumanoidModelFromUserIdAsync(userId: number) -> Model {🔐Players} [Yields]
+	Function Players:CreateHumanoidModelFromDescription(description: HumanoidDescription, rigType: Enum.HumanoidRigType, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> Model {🔐Avatar | Players} [Yields]
+	Function Players:CreateHumanoidModelFromUserId(userId: number) -> Model {🔐Players} [Yields]
 	Function Players:CreateLocalPlayer() -> Player {🔐Players} {LocalUserSecurity}
 	Function Players:GetBanHistoryAsync(userId: number) -> BanHistoryPages {🔐Players} [Yields]
 	Function Players:GetCharacterAppearanceAsync(userId: number) -> Model {🔐Players} [Yields] [Deprecated]
 	Function Players:GetCharacterAppearanceInfoAsync(userId: number) -> { [string]: any } {🔐Players} [Yields]
 	Function Players:GetFriendsAsync(userId: number) -> FriendPages {🔐Players} [Yields]
-	Function Players:GetHumanoidDescriptionFromOutfitId(outfitId: number) -> HumanoidDescription {🔐Avatar | Players} [Yields] [Deprecated]
-	Function Players:GetHumanoidDescriptionFromOutfitIdAsync(outfitId: number) -> HumanoidDescription {🔐Avatar | Players} [Yields]
-	Function Players:GetHumanoidDescriptionFromUserId(userId: number) -> HumanoidDescription {🔐Avatar | Players} [Yields] [Deprecated]
-	Function Players:GetHumanoidDescriptionFromUserIdAsync(userId: number) -> HumanoidDescription {🔐Avatar | Players} [Yields]
+	Function Players:GetHumanoidDescriptionFromOutfitId(outfitId: number) -> HumanoidDescription {🔐Avatar | Players} [Yields]
+	Function Players:GetHumanoidDescriptionFromUserId(userId: number) -> HumanoidDescription {🔐Avatar | Players} [Yields]
 	Function Players:GetNameFromUserIdAsync(userId: number) -> string {🔐Players} [Yields]
 	Function Players:GetPlayerByUserId(userId: number) -> Player {🔐Players} {🧬Safe}
 	Function Players:GetPlayerFromCharacter(character: Model) -> Player {🔐Players}
@@ -5673,8 +5629,7 @@ Class Plugin : Instance [NotCreatable]
 	Property Plugin.IsDebuggable: boolean {RobloxScriptSecurity}
 	Property Plugin.MultipleDocumentInterfaceInstance: MultipleDocumentInterfaceInstance? {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function Plugin:Activate(exclusiveMouse: boolean) -> () {PluginSecurity}
-	Function Plugin:CreateDockWidgetPluginGui(pluginGuiId: string, dockWidgetPluginGuiInfo: DockWidgetPluginGuiInfo) -> DockWidgetPluginGui {PluginSecurity} [Yields] [Deprecated]
-	Function Plugin:CreateDockWidgetPluginGuiAsync(pluginGuiId: string, dockWidgetPluginGuiInfo: DockWidgetPluginGuiInfo) -> DockWidgetPluginGui {PluginSecurity} [Yields]
+	Function Plugin:CreateDockWidgetPluginGui(pluginGuiId: string, dockWidgetPluginGuiInfo: DockWidgetPluginGuiInfo) -> DockWidgetPluginGui {PluginSecurity} [Yields]
 	Function Plugin:CreatePluginAction(actionId: string, text: string, statusTip: string, iconName: string? = "", allowBinding: boolean? = true) -> PluginAction {PluginSecurity}
 	Function Plugin:CreatePluginMenu(id: string, title: string? = "", icon: string? = "") -> PluginMenu {PluginSecurity}
 	Function Plugin:CreateQWidgetPluginGui(pluginGuiId: string, pluginGuiOptions: { [string]: any }) -> QWidgetPluginGui {RobloxScriptSecurity} [Yields]
@@ -5688,10 +5643,8 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:GetSetting(key: string) -> any {PluginSecurity}
 	Function Plugin:GetStudioUserId() -> number {PluginSecurity} [Deprecated]
 	Function Plugin:GetUri() -> { [string]: any } {RobloxScriptSecurity}
-	Function Plugin:ImportFbxAnimation(rigModel: Instance, isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields] [Deprecated]
-	Function Plugin:ImportFbxAnimationAsync(rigModel: Instance, isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields]
-	Function Plugin:ImportFbxRig(isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields] [Deprecated]
-	Function Plugin:ImportFbxRigAsync(isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields]
+	Function Plugin:ImportFbxAnimation(rigModel: Instance, isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields]
+	Function Plugin:ImportFbxRig(isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields]
 	Function Plugin:Intersect(objects: { Instance }) -> Instance? {PluginSecurity}
 	Function Plugin:Invoke(key: string, arguments: ...any) -> () {RobloxScriptSecurity}
 	Function Plugin:IsActivated() -> boolean {PluginSecurity}
@@ -5706,9 +5659,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:PauseSound(sound: Instance) -> () {RobloxScriptSecurity}
 	Function Plugin:PlaySound(sound: Instance, normalizedTimePosition: number? = 0) -> () {RobloxScriptSecurity}
 	Function Plugin:PromptForExistingAssetId(assetType: string) -> number {PluginSecurity} [Yields]
-	Function Plugin:PromptForExistingAssetIdAsync(assetType: string) -> number {PluginSecurity} [Yields]
-	Function Plugin:PromptSaveSelection(suggestedFileName: string? = "") -> boolean {PluginSecurity} [Yields] [Deprecated]
-	Function Plugin:PromptSaveSelectionAsync(suggestedFileName: string? = "") -> boolean {PluginSecurity} [Yields]
+	Function Plugin:PromptSaveSelection(suggestedFileName: string? = "") -> boolean {PluginSecurity} [Yields]
 	Function Plugin:ResumeSound(sound: Instance) -> () {RobloxScriptSecurity}
 	Function Plugin:SaveSelectedToRoblox() -> () {PluginSecurity}
 	Function Plugin:SelectRibbonTool(tool: Enum.RibbonTool, position: UDim2) -> () {PluginSecurity}
@@ -6056,10 +6007,10 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property RunService.RunState: Enum.RunState {🔐Basic} {PluginSecurity} [NotReplicated]
 	Property RunService.FrameNumber: number {🔐Basic} [ReadOnly]
 	Function RunService:BindToRenderStep(name: string, priority: number, function: (...any) -> ...any) -> () {🔐Basic}
-	Function RunService:BindToSimulation(function: (...any) -> ...any, frequency: Enum.StepFrequency? = "Hz60") -> RBXScriptConnection {🔐Basic}
+	Function RunService:BindToSimulation(function: (...any) -> ...any, frequency: Enum.StepFrequency? = "Hz60") -> RBXScriptConnection {🔐Basic | InternalTest}
 	Function RunService:GetControlAndVariantRolloutFlags() -> ...any {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetCoreScriptVersion() -> string {🔐Basic} {RobloxScriptSecurity}
-	Function RunService:GetPredictionStatus(context: Instance) -> Enum.PredictionStatus {🔐Basic}
+	Function RunService:GetPredictionStatus(context: Instance) -> Enum.PredictionStatus {🔐Basic | InternalTest}
 	Function RunService:GetRobloxClientChannel() -> string {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetRobloxGuiFocused() -> boolean {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:GetRobloxVersion() -> string {🔐Basic} {RobloxScriptSecurity}
@@ -6074,7 +6025,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:Reset() -> () {🔐Basic} {PluginSecurity} [Deprecated]
 	Function RunService:Run() -> () {🔐Basic} {PluginSecurity}
 	Function RunService:Set3dRenderingEnabled(enable: boolean) -> () {🔐Basic} {RobloxScriptSecurity}
-	Function RunService:SetPredictionMode(context: Instance, mode: Enum.PredictionMode) -> () {🔐Basic}
+	Function RunService:SetPredictionMode(context: Instance, mode: Enum.PredictionMode) -> () {🔐Basic | InternalTest}
 	Function RunService:SetRobloxGuiFocused(focus: boolean) -> () {🔐Basic} {RobloxScriptSecurity}
 	Function RunService:Stop() -> () {🔐Basic} {PluginSecurity}
 	Function RunService:UnbindFromRenderStep(name: string) -> () {🔐Basic}
@@ -6401,45 +6352,6 @@ Class Sky : Instance
 	Property Sky.SunAngularSize: number {🔐Environment}
 	Property Sky.SunTextureContent: Content {🔐Environment}
 	Property Sky.SunTextureId: string {🔐Environment}
-Class SlimAnimationDataEntity : Instance [NotCreatable]
-	Property SlimAnimationDataEntity.EntitySource: Instance? [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.Handle: number [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.IsSlimEnabled: boolean [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.NumBones: number [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone0: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone1: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone10: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone11: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone12: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone13: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone14: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone15: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone16: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone17: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone18: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone19: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone2: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone20: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone21: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone22: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone23: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone24: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone25: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone26: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone27: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone28: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone29: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone3: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone30: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone31: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone4: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone5: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone6: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone7: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone8: CFrame [Hidden] [NotScriptable]
-	Property SlimAnimationDataEntity.SlimBone9: CFrame [Hidden] [NotScriptable]
-Class SlimAnimationReplicationService : Instance [NotCreatable] [Service]
-Class SlimReplicationService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SlimService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Smoke : Instance
 	Property Smoke.Color: Color3 {🔐Basic}
@@ -6473,8 +6385,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:InvokeShareSheetClosed() -> () {RobloxScriptSecurity}
 	Function SocialService:PromptFeedbackSubmissionAsync() -> () [Yields]
 	Function SocialService:PromptGameInvite(player: Instance, experienceInviteOptions: Instance? = nil) -> ()
-	Function SocialService:PromptLinkSharing(player: Player, options: { [string]: any }? = nil) -> ...any [Yields] [Deprecated]
-	Function SocialService:PromptLinkSharingAsync(player: Player, options: { [string]: any }? = nil) -> ...any [Yields]
+	Function SocialService:PromptLinkSharing(player: Player, options: { [string]: any }? = nil) -> ...any [Yields]
 	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> ()
 	Function SocialService:PromptRsvpToEventAsync(eventId: string) -> Enum.RsvpStatus [Yields]
 	Function SocialService:PromptRsvpToEventCompleted(eventId: string, success: boolean, rsvpStatus: Enum.RsvpStatus, previousRsvpStatus: Enum.RsvpStatus? = "None") -> () {RobloxScriptSecurity}
@@ -7088,10 +6999,8 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioService:IsPluginInstalled(assetId: number) -> boolean {RobloxScriptSecurity}
 	Function StudioService:IsPluginUpToDate(assetId: number, currentAssetVersion: number) -> boolean {RobloxScriptSecurity}
 	Function StudioService:OpenInBrowser_DONOTUSE(url: string) -> () {RobloxScriptSecurity}
-	Function StudioService:PromptImportFile(fileTypeFilter: { any }? = {}) -> Instance? {PluginSecurity} [Yields] [Deprecated]
-	Function StudioService:PromptImportFileAsync(fileTypeFilter: { any }? = {}) -> Instance? {PluginSecurity} [Yields]
-	Function StudioService:PromptImportFiles(fileTypeFilter: { any }? = {}) -> { Instance } {PluginSecurity} [Yields] [Deprecated]
-	Function StudioService:PromptImportFilesAsync(fileTypeFilter: { any }? = {}) -> { Instance } {PluginSecurity} [Yields]
+	Function StudioService:PromptImportFile(fileTypeFilter: { any }? = {}) -> Instance? {PluginSecurity} [Yields]
+	Function StudioService:PromptImportFiles(fileTypeFilter: { any }? = {}) -> { Instance } {PluginSecurity} [Yields]
 	Function StudioService:SetPluginEnabled(assetId: number, state: boolean) -> () {RobloxScriptSecurity}
 	Function StudioService:ShowPlaceVersionHistoryDialog(placeId: number) -> () {RobloxScriptSecurity} [Deprecated]
 	Function StudioService:ShowPublishToRoblox() -> () {RobloxScriptSecurity}
@@ -7237,8 +7146,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function TeleportService:GetThirdPartyTeleportInfo(goForth: boolean) -> ...any {RobloxScriptSecurity}
 	Function TeleportService:PromptExperienceDetailsAsync(player: Player, universeId: number) -> Enum.PromptExperienceDetailsResult [Yields]
 	Function TeleportService:PromptExperienceDetailsCompleted(resultEnum: Enum.PromptExperienceDetailsResult, errorMessage: string? = "") -> () {RobloxScriptSecurity}
-	Function TeleportService:ReserveServer(placeId: number) -> ...any [Yields] [Deprecated]
-	Function TeleportService:ReserveServerAsync(placeId: number) -> ...any [Yields]
+	Function TeleportService:ReserveServer(placeId: number) -> ...any [Yields]
 	Function TeleportService:SetTeleportGui(gui: Instance) -> ()
 	Function TeleportService:SetTeleportSetting(setting: string, value: any) -> ()
 	Function TeleportService:Teleport(placeId: number, player: Instance? = nil, teleportData: any, customLoadingScreen: Instance? = nil) -> ()
@@ -7316,8 +7224,7 @@ Class TestService : Instance [Service]
 	Function TestService:FetchExtraAssets(extraAssetsFileName: string) -> string {RobloxScriptSecurity}
 	Function TestService:Message(text: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Require(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
-	Function TestService:Run() -> () {PluginSecurity} [Yields] [Deprecated]
-	Function TestService:RunAsync() -> () {PluginSecurity} [Yields]
+	Function TestService:Run() -> () {PluginSecurity} [Yields]
 	Function TestService:ScopeTime() -> { [string]: any }
 	Function TestService:TakeSnapshot(snapshotname: string) -> () {🔐InternalTest}
 	Function TestService:TranscodePropertySet(extraAssetsFileName: string, psetFileName: string) -> string {RobloxScriptSecurity}
@@ -8481,7 +8388,6 @@ Enum AlphaMode
 	EnumItem AlphaMode.Overlay : 0
 	EnumItem AlphaMode.Transparency : 1
 	EnumItem AlphaMode.TintMask : 2
-	EnumItem AlphaMode.Opaque : 3 [NotBrowsable]
 Enum AnalyticsCustomFieldKeys
 	EnumItem AnalyticsCustomFieldKeys.CustomField01 : 0
 	EnumItem AnalyticsCustomFieldKeys.CustomField02 : 1
@@ -10316,7 +10222,6 @@ Enum KeyCode
 	EnumItem KeyCode.MouseX : 1031 [Deprecated]
 	EnumItem KeyCode.MouseY : 1032 [Deprecated]
 	EnumItem KeyCode.MousePosition : 1033
-	EnumItem KeyCode.Touch : 1034
 Enum KeyInterpolationMode
 	EnumItem KeyInterpolationMode.Constant : 0
 	EnumItem KeyInterpolationMode.Linear : 1
@@ -10991,9 +10896,6 @@ Enum RestPose
 	EnumItem RestPose.Default : 0
 	EnumItem RestPose.RotationsReset : 1
 	EnumItem RestPose.Custom : 2
-Enum RestPoseModel
-	EnumItem RestPoseModel.FromRigInACE : 0
-	EnumItem RestPoseModel.FromRigInFile : 1
 Enum ReturnKeyType
 	EnumItem ReturnKeyType.Default : 0
 	EnumItem ReturnKeyType.Done : 1
