@@ -1,0 +1,25 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["calling {root} {foo} {bar}"]
+  NAMECALL R0 R0 K1 ["info"]
+  CALL R0 2 0
+  LOADK R0 K2 ["done"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["pageLogger"]
+  CALL R0 1 1
+  NAMECALL R0 R0 K6 ["new"]
+  CALL R0 1 1
+  DUPTABLE R3 K8 [{"bar"}]
+  LOADK R4 K7 ["bar"]
+  SETTABLEKS R4 R3 K7 ["bar"]
+  NAMECALL R1 R0 K9 ["setContext"]
+  CALL R1 2 0
+  DUPCLOSURE R1 K10 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

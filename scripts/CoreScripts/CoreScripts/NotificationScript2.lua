@@ -47,6 +47,7 @@ local FFlagNotificationsRenameFriendRequestToConnection =
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 local FFlagFixOnBadgeAwardedError = game:DefineFastFlag("FixOnBadgeAwardedError", false)
+local FFlagFixGraphicsQualityLevelNotif = game:DefineFastFlag("FixGraphicsQualityLevelNotif", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -1090,7 +1091,7 @@ if not isTenFootInterface then
 	--GameSettings.Changed:connect(onGameSettingsChanged)
 
 	game.GraphicsQualityChangeRequest:Connect(function(graphicsIncrease) --graphicsIncrease is a boolean
-		onGameSettingsChanged("SavedQualityLevel", graphicsIncrease == true and 1 or -1)
+		onGameSettingsChanged("SavedQualityLevel", if FFlagFixGraphicsQualityLevelNotif then 0 else graphicsIncrease == true and 1 or -1)
 	end)
 end
 

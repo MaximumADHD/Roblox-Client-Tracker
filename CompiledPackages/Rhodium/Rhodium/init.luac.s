@@ -16,14 +16,9 @@ MAIN:
   GETIMPORT R5 K3 [script]
   GETTABLEKS R4 R5 K7 ["RemoteRhodium"]
   CALL R3 1 1
-  GETIMPORT R4 K1 [require]
-  GETIMPORT R6 K3 [script]
-  GETTABLEKS R5 R6 K8 ["FindBy"]
-  CALL R4 1 1
-  DUPTABLE R5 K9 [{"Element", "VirtualInput", "XPath", "RemoteRhodium", "FindBy"}]
-  SETTABLEKS R0 R5 K4 ["Element"]
-  SETTABLEKS R1 R5 K5 ["VirtualInput"]
-  SETTABLEKS R2 R5 K6 ["XPath"]
-  SETTABLEKS R3 R5 K7 ["RemoteRhodium"]
-  SETTABLEKS R4 R5 K8 ["FindBy"]
-  RETURN R5 1
+  DUPTABLE R4 K8 [{"Element", "VirtualInput", "XPath", "RemoteRhodium"}]
+  SETTABLEKS R0 R4 K4 ["Element"]
+  SETTABLEKS R1 R4 K5 ["VirtualInput"]
+  SETTABLEKS R2 R4 K6 ["XPath"]
+  SETTABLEKS R3 R4 K7 ["RemoteRhodium"]
+  RETURN R4 1

@@ -93,15 +93,22 @@ return function(UrlBuilder)
 			notifications = UrlBuilder.fromString("www:my/account#!/notifications"),
 			appPermissions = UrlBuilder.fromString("www:my/account#!/app-permissions"),
 			screentimeSettings = UrlBuilder.fromString("www:my/account#!/privacy/Screentime"),
-			blockedExperiencesSettings = UrlBuilder.fromString("www:my/account#!/privacy/ContentRestrictions/BlockedExperiences"),
+			blockedExperiencesSettings = UrlBuilder.fromString(
+				"www:my/account#!/privacy/ContentRestrictions/BlockedExperiences"
+			),
 			blockedUsersSettings = UrlBuilder.fromString("www:my/account#!/privacy/BlockedUsers"),
 			experienceChatSettings = UrlBuilder.fromString("www:my/account#!/privacy/Communication/ExperienceChat"),
 			partySettings = UrlBuilder.fromString("www:my/account#!/privacy/Communication/Party"),
+			communicationSettings = UrlBuilder.fromString("www:my/account#!/privacy/Communication"),
 			voiceSettings = UrlBuilder.fromString("www:my/account#!/privacy/Communication/Voice"),
 			tradingInventorySettings = UrlBuilder.fromString("www:my/account#!/privacy/TradingAndInventory"),
 			friendsContactsSettings = UrlBuilder.fromString("www:my/account#!/privacy/FriendsAndContacts"),
-			privateServerSettings = UrlBuilder.fromString("www:my/account#!/privacy/VisibilityAndPrivateServers/PrivateServerPrivacy"),
-			visibilitySettings = UrlBuilder.fromString("www:my/account#!/privacy/VisibilityAndPrivateServers/Visibility"),
+			privateServerSettings = UrlBuilder.fromString(
+				"www:my/account#!/privacy/VisibilityAndPrivateServers/PrivateServerPrivacy"
+			),
+			visibilitySettings = UrlBuilder.fromString(
+				"www:my/account#!/privacy/VisibilityAndPrivateServers/Visibility"
+			),
 		},
 		tencent = {
 			childrenPrivacyGuide = UrlBuilder.fromString("https://game.qq.com/privacy_guide_children.shtml"),
@@ -118,6 +125,8 @@ return function(UrlBuilder)
 			unreadCount = UrlBuilder.fromString("notifications:stream-notifications/unread-count"),
 		},
 		securityAlert = UrlBuilder.fromString("www:security-feedback?payload={payload}&username={username}"),
-		securityAlertWithChannel = UrlBuilder.fromString("www:security-feedback?payload={payload}&username={username}&channel={channel}"),
+		securityAlertWithChannel = UrlBuilder.fromString(
+			"www:security-feedback?payload={payload}&username={username}&channel={channel}"
+		),
 	}
 end

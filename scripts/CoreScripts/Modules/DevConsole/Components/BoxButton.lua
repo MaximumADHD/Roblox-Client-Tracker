@@ -7,12 +7,14 @@ local FONT = Constants.Font.MainWindowHeader
 local TEXT_SIZE = Constants.DefaultFontSize.MainWindowHeader
 local TEXT_COLOR = Constants.Color.Text
 local BACKGROUND_COLOR = Constants.Color.UnselectedGray
+local INACTIVE_COLOR = Constants.Color.InactiveBox
 
 export type Props = {
 	text: string,
 	size: UDim2?,
 	pos: UDim2?,
 	onClicked: (string) -> (),
+	enabled: boolean?,
 }
 
 local function BoxButton(props: Props)
@@ -20,6 +22,7 @@ local function BoxButton(props: Props)
 	local size = props.size
 	local pos = props.pos
 	local onClicked = props.onClicked
+	local enabled = if typeof(props.enabled) == "boolean" then props.enabled else true -- Default to true
 
 	-- LUAU FIXME: CLI-58211
 	local onActivated = React.useCallback(function()
@@ -35,8 +38,9 @@ local function BoxButton(props: Props)
 		Size = size,
 		Position = pos,
 
-		AutoButtonColor = true,
-		BackgroundColor3 = BACKGROUND_COLOR,
+		AutoButtonColor = enabled,
+		BackgroundColor3 = if enabled then BACKGROUND_COLOR else INACTIVE_COLOR,
+		Active = enabled,
 		BackgroundTransparency = 0,
 
 		[Roact.Event.Activated] = onActivated,

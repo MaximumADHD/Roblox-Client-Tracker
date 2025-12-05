@@ -264,7 +264,6 @@ local SettingsShowSignal = if Flags.GetFFlagPackagifySettingsShowSignal() then r
 local SettingsUtility = if Flags.GetFFlagPackagifySettingsShowSignal() then require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsUtility else nil
 
 local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
-local FFlagPassThemeToAppStyleProviderSettingsHub = game:DefineFastFlag("PassThemeToAppStyleProviderSettingsHub", false)
 
 local SPRING_PARAMS = {
 	frequency = 4,
@@ -869,9 +868,9 @@ local function CreateSettingsHub()
 
 		if FFlagInExperienceUseAppStyleProvider then
 			return React.createElement(AppStyleProvider, {
-				style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
+				style = {
 					themeName = DarkTheme,
-				} else nil,
+				} ,
 			}, {
 				PermissionsButtons = Roact.createElement(PermissionsButtons, {
 					isTenFootInterface = isTenFootInterface,
@@ -1649,9 +1648,9 @@ local function CreateSettingsHub()
 					}, 
 					{
 						AppStyleProvider = Roact.createElement(AppStyleProvider, {
-							style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
+							style = {
 								themeName = DarkTheme,
-							} else nil,
+							} ,
 						}, {
 							ButtonsFrame = Roact.createElement("Frame", {
 								BackgroundTransparency = 1,
@@ -1702,9 +1701,9 @@ local function CreateSettingsHub()
 						value = IXPService,
 					}, {
 						AppStyleProvider = Roact.createElement(AppStyleProvider, {
-							style = if FFlagPassThemeToAppStyleProviderSettingsHub then {
+							style = {
 								themeName = DarkTheme,
-							} else nil,
+							} ,
 						}, {
 							BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
 						})

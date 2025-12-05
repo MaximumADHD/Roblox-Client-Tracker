@@ -48,7 +48,7 @@ local function Story(props)
 				size = controls.size,
 				hasError = controls.hasError,
 				isDisabled = controls.isDisabled,
-				maxLines = controls.maxLines,
+				numLines = controls.numLines,
 				onChanged = handleChange,
 				onReturnPressed = onReturnPressed,
 				placeholder = controls.placeholder,
@@ -93,7 +93,7 @@ return {
 					Story,
 					Dash.union(props, {
 						controls = Dash.union(props.controls, {
-							maxLines = 1,
+							numLines = 1,
 						}),
 					})
 				)
@@ -124,7 +124,7 @@ return {
 		hasError = false,
 		isDisabled = false,
 		size = Dash.values(InputSize),
-		maxLines = 3,
+		numLines = 3,
 		width = 400,
 		placeholder = "Placeholder text",
 		leadingComponentIcon = {

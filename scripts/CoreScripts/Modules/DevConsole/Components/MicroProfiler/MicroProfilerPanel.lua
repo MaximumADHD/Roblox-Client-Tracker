@@ -90,57 +90,61 @@ function MicroProfilerPanel:render()
 		end
 	end
 
-	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, 0),
-		BackgroundTransparency = 1,
-		LayoutOrder = self.props.LayoutOrder,
-		AutomaticSize = Enum.AutomaticSize.Y,
-	}, {
-		UIListLayout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-		}),
-		Title = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 0, Constants.MicroProfilerFormatting.PanelTitleHeight),
+	return Roact.createElement(
+		"Frame",
+		{
+			Size = UDim2.new(1, 0, 0, 0),
 			BackgroundTransparency = 1,
-			Text = self.props.Title,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			Font = Constants.Font.MainWindowBold,
-			TextSize = Constants.MicroProfilerFormatting.TextSizePanelTitle,
-			TextColor3 = Color3.new(1, 1, 1),
-			LayoutOrder = 1,
-		}),
-		Tabs = if #sections > 1
-			then self:createTabSelector({
-				Size = UDim2.new(1, 0, 0, Constants.MicroProfilerFormatting.TabsHeight),
-				Position = UDim2.new(0, 0, 0, 0),
-				LayoutOrder = 2,
-				ButtonSize = UDim2.new(0, Constants.MicroProfilerFormatting.TabButtonWidth, 1, 0),
-			})
-			else nil,
-		Table = Roact.createElement(
-			"Frame",
-			{
-				Size = UDim2.new(1, 0, 0, 0),
+			LayoutOrder = self.props.LayoutOrder,
+			AutomaticSize = Enum.AutomaticSize.Y,
+		},
+		{
+			UIListLayout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+			}),
+			Title = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 0, Constants.MicroProfilerFormatting.PanelTitleHeight),
 				BackgroundTransparency = 1,
-				LayoutOrder = 3,
-				AutomaticSize = Enum.AutomaticSize.Y,
-			},
-			Immutable.JoinDictionaries({
-				UIListLayout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-				}),
-				UIStroke = Roact.createElement("UIStroke", {
-					Color = Color3.new(1, 1, 1),
-					Thickness = 1,
-					BorderStrokePosition = Enum.BorderStrokePosition.Inner,
-				}),
-			}, elements[self.state.CurrentSection])
-		),
-	})
+				Text = self.props.Title,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Font = Constants.Font.MainWindowBold,
+				TextSize = Constants.MicroProfilerFormatting.TextSizePanelTitle,
+				TextColor3 = Color3.new(1, 1, 1),
+				LayoutOrder = 1,
+			}),
+			Tabs = if #sections > 1
+				then self:createTabSelector({
+					Size = UDim2.new(1, 0, 0, Constants.MicroProfilerFormatting.TabsHeight),
+					Position = UDim2.new(0, 0, 0, 0),
+					LayoutOrder = 2,
+					ButtonSize = UDim2.new(0, Constants.MicroProfilerFormatting.TabButtonWidth, 1, 0),
+				})
+				else nil,
+			[`Table_{self.state.CurrentSection}`] = Roact.createElement(
+				"Frame",
+				{
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					LayoutOrder = 3,
+					AutomaticSize = Enum.AutomaticSize.Y,
+				},
+				Immutable.JoinDictionaries({
+					UIListLayout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+					}),
+					UIStroke = Roact.createElement("UIStroke", {
+						Color = Color3.new(1, 1, 1),
+						Thickness = 1,
+						BorderStrokePosition = Enum.BorderStrokePosition.Inner,
+					}),
+				}, elements[self.state.CurrentSection])
+			),
+		} :: { [string]: any }
+	)
 end
 
 return MicroProfilerPanel

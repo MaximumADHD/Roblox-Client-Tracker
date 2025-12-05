@@ -23,7 +23,6 @@ local InviteStore = require(ShareGameDirectory.InviteStore)
 local GetFFlagEnableSharedInviteStore = require(Modules.Flags.GetFFlagEnableSharedInviteStore)
 local GetFFlagAbuseReportAnalyticsHasLaunchData =
 	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
-local FFlagAddStyleProviderInvitePrompt = game:DefineFastFlag("AddStyleProviderInvitePrompt", false)
 
 local HIDE_INVITE_CONTEXT_BIND = "hideInvitePrompt"
 
@@ -63,30 +62,8 @@ function InviteToGamePrompt:_createTree(isVisible: boolean, props: InviteCustomi
 	local store = if GetFFlagEnableSharedInviteStore()
 		then InviteStore
 		else Rodux.Store.new(AppReducer, nil, { Rodux.thunkMiddleware })
-	return if FFlagAddStyleProviderInvitePrompt then
-		renderWithCoreScriptsStyleProvider({
-			FullModalShareGame = Roact.createElement(FullModalShareGameComponent, {
-				store = store,
-				isVisible = isVisible,
-				analytics = self.analytics,
-				promptMessage = props and props.promptMessage,
-				inviteUserId = props and props.inviteUserId,
-				inviteMessageId = props and props.inviteMessageId,
-				launchData = props and props.launchData,
-				isLoading = props and props.isLoading,
-				onAfterClosePage = function(_)
-					-- * "Why are we no-opting sentToUserIds?"
-					-- Originally our specs required us to pass the userIds of
-					-- invited users to our creators through this event.
-					-- After reviewing and observing how this information could be misused,
-					-- we have determined we do not want to incentivize inviting friends
-					-- needlessly this way and have disabled this feature in the meantime.
-					local sentToUserIds = {}
-					self:hide(sentToUserIds)
-				end,
-			})
-		})
-	else Roact.createElement(FullModalShareGameComponent, {
+	return renderWithCoreScriptsStyleProvider({
+		FullModalShareGame = Roact.createElement(FullModalShareGameComponent, {
 			store = store,
 			isVisible = isVisible,
 			analytics = self.analytics,
@@ -105,6 +82,7 @@ function InviteToGamePrompt:_createTree(isVisible: boolean, props: InviteCustomi
 				local sentToUserIds = {}
 				self:hide(sentToUserIds)
 			end,
+		})
 	})
 end
 

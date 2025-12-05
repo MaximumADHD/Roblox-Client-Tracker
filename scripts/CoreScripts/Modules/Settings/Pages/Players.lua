@@ -65,7 +65,6 @@ local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
 local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
-local FFlagFixFriendStatusImageLabelAccess = game:DefineFastFlag("FixFriendStatusImageLabelAccess", false)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 local SettingsFlags = require(script.Parent.Parent.Flags)
@@ -324,7 +323,7 @@ local function Initialize()
 			addFriendButton.Name = "FriendStatus"
 			addFriendButton.Selectable = false
 
-			if FFlagBuilderIcons and FFlagFixFriendStatusImageLabelAccess then
+			if FFlagBuilderIcons then
 				addFriendButton.FriendStatusTextLabel.TextTransparency = imgTrans
 			else
 				addFriendButton.FriendStatusImageLabel.ImageTransparency = imgTrans
@@ -340,7 +339,7 @@ local function Initialize()
 			local addFriendFunc = function()
 				if addFriendButton and addFriendImage and addFriendButton.ImageTransparency ~= 1 then
 					addFriendButton.ImageTransparency = 1
-					if FFlagBuilderIcons and FFlagFixFriendStatusImageLabelAccess then
+					if FFlagBuilderIcons then
 						addFriendImage.TextTransparency = 1
 					else
 						addFriendImage.ImageTransparency = 1

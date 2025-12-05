@@ -45,20 +45,24 @@ PROTO_1:
   CALL R1 0 1
   GETUPVAL R2 1
   GETUPVAL R3 2
-  DUPTABLE R4 K5 [{"clickableViewTag", "affordanceViewTag", "onActivated", "LayoutOrder", "Visible"}]
-  LOADK R5 K6 ["size-600-600"]
-  SETTABLEKS R5 R4 K0 ["clickableViewTag"]
-  LOADK R5 K7 ["size-400-400 position-center-center anchor-center-center radius-circle"]
-  SETTABLEKS R5 R4 K1 ["affordanceViewTag"]
-  GETTABLEKS R5 R0 K8 ["onClose"]
+  DUPTABLE R4 K5 [{"clickableViewProps", "affordanceViewProps", "onActivated", "LayoutOrder", "Visible"}]
+  DUPTABLE R5 K7 [{"tag"}]
+  LOADK R6 K8 ["size-600-600"]
+  SETTABLEKS R6 R5 K6 ["tag"]
+  SETTABLEKS R5 R4 K0 ["clickableViewProps"]
+  DUPTABLE R5 K7 [{"tag"}]
+  LOADK R6 K9 ["size-400-400 position-center-center anchor-center-center radius-circle"]
+  SETTABLEKS R6 R5 K6 ["tag"]
+  SETTABLEKS R5 R4 K1 ["affordanceViewProps"]
+  GETTABLEKS R5 R0 K10 ["onClose"]
   SETTABLEKS R5 R4 K2 ["onActivated"]
   GETTABLEKS R5 R0 K3 ["LayoutOrder"]
   SETTABLEKS R5 R4 K3 ["LayoutOrder"]
   GETTABLEKS R5 R0 K4 ["Visible"]
   SETTABLEKS R5 R4 K4 ["Visible"]
-  DUPTABLE R5 K10 [{"CloseIcon"}]
+  DUPTABLE R5 K12 [{"CloseIcon"}]
   GETUPVAL R7 3
-  GETTABLEKS R6 R7 K11 ["useMemo"]
+  GETTABLEKS R6 R7 K13 ["useMemo"]
   NEWCLOSURE R7 P0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U4
@@ -68,11 +72,11 @@ PROTO_1:
   CAPTURE UPVAL U7
   CAPTURE VAL R1
   NEWTABLE R8 0 2
-  GETTABLEKS R9 R0 K12 ["emphasis"]
+  GETTABLEKS R9 R0 K14 ["emphasis"]
   MOVE R10 R1
   SETLIST R8 R9 2 [1]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K9 ["CloseIcon"]
+  SETTABLEKS R6 R5 K11 ["CloseIcon"]
   CALL R2 3 -1
   RETURN R2 -1
 

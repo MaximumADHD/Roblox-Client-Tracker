@@ -1,0 +1,45 @@
+PROTO_0:
+  GETUPVAL R1 0
+  LOADB R2 0
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  LOADK R3 K1 ["Frame"]
+  NEWTABLE R4 8 0
+  GETIMPORT R5 K5 [Enum.AutomaticSize.XY]
+  SETTABLEKS R5 R4 K3 ["AutomaticSize"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K6 ["BackgroundTransparency"]
+  GETTABLEKS R5 R1 K7 ["enabled"]
+  SETTABLEKS R5 R4 K8 ["Visible"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K9 ["Change"]
+  GETTABLEKS R5 R6 K10 ["BackgroundColor3"]
+  GETTABLEKS R6 R1 K11 ["enable"]
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K12 ["Tag"]
+  LOADK R6 K13 ["VPF-AvoidFOUC"]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K14 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ViewportToolingFramework"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Hooks"]
+  GETTABLEKS R3 R4 K9 ["useToggleState"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R3 1

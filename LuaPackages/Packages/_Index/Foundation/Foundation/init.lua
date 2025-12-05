@@ -31,6 +31,7 @@ local AvatarGroupType = require(script.Enums.AvatarGroupType)
 local BadgeSize = require(script.Enums.BadgeSize)
 local BadgeVariant = require(script.Enums.BadgeVariant)
 local ButtonVariant = require(script.Enums.ButtonVariant)
+local CheckedState = require(script.Enums.CheckedState)
 local ChipSize = require(script.Enums.ChipSize)
 local ControlState = require(script.Enums.ControlState)
 local CursorType = require(script.Enums.CursorType)
@@ -70,6 +71,7 @@ export type AvatarGroupType = AvatarGroupType.AvatarGroupType
 export type BadgeSize = BadgeSize.BadgeSize
 export type BadgeVariant = BadgeVariant.BadgeVariant
 export type ButtonVariant = ButtonVariant.ButtonVariant
+export type CheckedState = CheckedState.CheckedState
 export type ChipSize = ChipSize.ChipSize
 export type ControlState = ControlState.ControlState
 export type CursorType = CursorType.CursorType
@@ -247,6 +249,9 @@ export type TabItem = Tabs.TabItem
 local Text = require(script.Components.Text)
 export type TextProps = Text.TextProps
 
+local TextArea = require(script.Components.TextArea)
+export type TextAreaProps = TextArea.TextAreaProps
+
 local TextInput = require(script.Components.TextInput)
 export type TextInputProps = TextInput.TextInputProps
 
@@ -304,6 +309,7 @@ local Foundation = strict({
 	SystemBanner = SystemBanner,
 	Tabs = Tabs,
 	Text = Text,
+	TextArea = TextArea,
 	TextInput = TextInput,
 	Toggle = Toggle,
 	Tooltip = Tooltip,
@@ -350,6 +356,7 @@ local Foundation = strict({
 		ButtonVariant = ButtonVariant,
 		-- **DEPRECATED**: CheckboxSize is deprecated. Use InputSize instead.
 		CheckboxSize = require(script.Enums.InputSize),
+		CheckedState = CheckedState,
 		ControlState = ControlState,
 		ChipSize = ChipSize,
 		CursorType = CursorType,
