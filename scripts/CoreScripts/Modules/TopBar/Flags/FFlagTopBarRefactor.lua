@@ -14,10 +14,15 @@ local FFlagMenuIconRemoveBinding = SharedFlags.FFlagMenuIconRemoveBinding
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+local FFlagWaitForGameLoadToAddLocalHistory = SharedFlags.FFlagWaitForGameLoadToAddLocalHistory
 local FFlagUnibarMenuIconLayoutFix = require(script.Parent.FFlagUnibarMenuIconLayoutFix)
 
-local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
-local FFlagAddTraversalBackButton = CoreScriptsRoactCommon.Traversal.Flags.FFlagAddTraversalBackButton
+local CoreScriptsRoactCommon
+local FFlagAddTraversalBackButton
+if FFlagWaitForGameLoadToAddLocalHistory then
+	CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+ 	FFlagAddTraversalBackButton = CoreScriptsRoactCommon.Traversal.Flags.FFlagAddTraversalBackButton
+end
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
@@ -33,4 +38,4 @@ return FFlagTopBarRefactor
     -- TopBar Fixes
     and FFlagTopBarStyleUseDisplayUIScale and FFlagAdaptUnibarAndTiltSizing and FFlagUnibarMenuIconLayoutFix
     -- TopBar Features
-    and FFlagAddTraversalBackButton and not FFlagAddUILessMode
+    and (FFlagWaitForGameLoadToAddLocalHistory and FFlagAddTraversalBackButton) and not FFlagAddUILessMode

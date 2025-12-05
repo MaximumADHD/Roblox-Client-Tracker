@@ -24,9 +24,12 @@ local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local Types = require(Components.Types)
+local Flags = require(Foundation.Utility.Flags)
 
 local NumberInputControls = require(script.Parent.NumberInputControls)
 local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
+
+local calculateNumberInputValueFromPositions = require(script.Parent.calculateNumberInputValueFromPositions)
 
 export type NumberInputRef = Types.TextInputRef
 
@@ -122,7 +125,13 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	local NumberInputControlsVariantProps = useNumberInputVariants(tokens, props.size)
 
 	local focused, setFocused = React.useState(false)
-	local lastDragPosition = React.useRef(nil :: Vector2?)
+	-- Remove with Flag.FoundationNumberInputDraggingDeltaFix
+	local lastDragPosition = if Flags.FoundationNumberInputDraggingDeltaFix
+		then nil :: never
+		else React.useRef(nil :: Vector2?)
+	local dragStartTable = if Flags.FoundationNumberInputDraggingDeltaFix
+		then React.useRef(nil :: { position: number, value: number }?)
+		else nil :: never
 	local isDisabledUp, isDisabledDown, upValue, downValue
 
 	local hasInvalidInput, setHasInvalidInput = React.useState(false)
@@ -253,29 +262,49 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		if not props.isScrubbable then
 			return
 		end
-		lastDragPosition.current = position
+		if Flags.FoundationNumberInputDraggingDeltaFix then
+			local value = tonumber(currentTextRef.current)
+			if dragStartTable and value then
+				dragStartTable.current = { position = position.X, value = value }
+			end
+		else
+			lastDragPosition.current = position
+		end
 	end, { props.isScrubbable } :: { unknown })
 
 	local onDrag = React.useCallback(function(_rbx, position: Vector2)
 		if not props.isScrubbable then
 			return
 		end
-		if lastDragPosition.current then
-			local delta = (position - lastDragPosition.current).X
-			local normalize = delta / math.abs(delta)
-
-			if normalize ~= normalize then
-				-- Check for normalize being NaN
-				normalize = 0
-			end
-
-			lastDragPosition.current = position
-
-			local current = tonumber(currentTextRef.current) :: number
-			if current then
-				local newValue = round(current + normalize * props.step, props.precision)
-				newValue = math.clamp(newValue, props.minimum, props.maximum)
+		if Flags.FoundationNumberInputDraggingDeltaFix then
+			if dragStartTable and dragStartTable.current then
+				local newValue = calculateNumberInputValueFromPositions(
+					dragStartTable.current.value,
+					dragStartTable.current.position,
+					position.X,
+					props.step
+				)
+				newValue = math.clamp(round(newValue, props.precision), props.minimum, props.maximum)
 				props.onChanged(newValue)
+			end
+		else
+			if lastDragPosition.current then
+				local delta = (position - lastDragPosition.current).X
+				local normalize = delta / math.abs(delta)
+
+				if normalize ~= normalize then
+					-- Check for normalize being NaN
+					normalize = 0
+				end
+
+				lastDragPosition.current = position
+
+				local current = tonumber(currentTextRef.current) :: number
+				if current then
+					local newValue = round(current + normalize * props.step, props.precision)
+					newValue = math.clamp(newValue, props.minimum, props.maximum)
+					props.onChanged(newValue)
+				end
 			end
 		end
 	end, { props.isScrubbable, props.onChanged } :: { unknown })
@@ -284,7 +313,13 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		if not props.isScrubbable then
 			return
 		end
-		lastDragPosition.current = nil
+		if Flags.FoundationNumberInputDraggingDeltaFix then
+			if dragStartTable and dragStartTable.current then
+				dragStartTable.current = nil
+			end
+		else
+			lastDragPosition.current = nil
+		end
 	end, { props.isScrubbable } :: { unknown })
 
 	local numberSequence = React.useMemo(function()

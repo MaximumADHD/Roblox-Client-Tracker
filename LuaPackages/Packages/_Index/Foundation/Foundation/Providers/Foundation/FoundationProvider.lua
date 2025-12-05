@@ -5,6 +5,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ContextStack = require(Packages.ReactUtils).ContextStack
 
+local Types = require(Foundation.Components.Types)
 local PreferencesProvider = require(Providers.Preferences.PreferencesProvider)
 local StyleProvider = require(Providers.Style.StyleProvider)
 local CursorProvider = require(Providers.Cursor)
@@ -12,14 +13,16 @@ local OverlayProvider = require(Providers.Overlay)
 local ResponsiveContext = require(Providers.Responsive.ResponsiveContext)
 local ResponsiveProvider = require(Providers.Responsive.ResponsiveProvider)
 local ElevationProvider = require(Providers.Elevation.ElevationProvider).ElevationProvider
+local Flags = require(Foundation.Utility.Flags)
 
+type OverlayConfig = Types.OverlayConfig
 type StyleProps = StyleProvider.StyleProviderProps
 type Preferences = PreferencesProvider.PreferencesProps
 type ResponsiveConfig = ResponsiveContext.ResponsiveConfig
 
 export type FoundationProviderProps = {
 	-- Plugins must provide overlay since they can't use the default PlayerGui
-	overlayGui: GuiBase2d?,
+	overlayGui: (OverlayConfig | GuiBase2d)?,
 	preferences: Preferences?,
 	responsiveConfig: ResponsiveConfig?,
 } & StyleProps
@@ -40,7 +43,12 @@ local function FoundationProvider(props: FoundationProviderProps)
 				scale = preferences.scale,
 			}),
 			React.createElement(ResponsiveProvider, { config = responsiveConfig }),
-			React.createElement(OverlayProvider, { gui = props.overlayGui }),
+			React.createElement(
+				OverlayProvider,
+				if Flags.FoundationOverlayDisplayOrder and typeof(props.overlayGui) == "table"
+					then { DisplayOrder = props.overlayGui.DisplayOrder }
+					else { gui = props.overlayGui }
+			),
 			React.createElement(CursorProvider),
 		},
 	}, props.children)

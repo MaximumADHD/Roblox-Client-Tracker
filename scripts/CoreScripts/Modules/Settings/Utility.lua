@@ -2494,7 +2494,7 @@ if isTenFootInterface() then
 end
 
 local nextPosTable = {}
-local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText)
+local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText, interactable)
 	local nextRowPositionY = 0
 	local isARealRow = selectionType ~= "TextBox" -- Textboxes are constructed in this function - they don't have an associated class.
 
@@ -2675,6 +2675,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			ZIndex = 2,
 			SelectionImageObject = SelectionOverrideObject,
 			ClearTextOnFocus = false,
+			Interactable = interactable,
 			Parent = RowFrame,
 		})
 		ValueChangerSelection = box
@@ -3114,8 +3115,8 @@ function moduleApiTable:CreateNewDropDown(dropDownStringTable, startPosition)
 	return CreateDropDown(dropDownStringTable, startPosition, nil)
 end
 
-function moduleApiTable:AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText)
-	return AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText)
+function moduleApiTable:AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText, interactable)
+	return AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText, interactable)
 end
 
 function moduleApiTable:AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpacing, autoSizeLabel)

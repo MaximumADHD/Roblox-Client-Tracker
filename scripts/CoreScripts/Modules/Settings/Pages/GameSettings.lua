@@ -89,6 +89,7 @@ local FFlagEnableVoiceSelectorTranslations = game:DefineFastFlag("EnableVoiceSel
 local FFlagHideVoiceChatSelectorForFae = game:DefineFastFlag("HideVoiceChatSelectorForFae_AEGIS2", false)
 local FFlagCenterShiftLockOverride = game:DefineFastFlag("CenterShiftLockOverride", true)
 local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelectorReconnectFocus2_AEGIS2", false)
+local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroProfilerReadOnlyInformationLabel", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -1036,7 +1037,7 @@ local function Initialize()
 	-- web server for micro profiler
 	local function createWebServerInformationRow()
 		this.InformationFrame, this.InformationLabel, this.InformationTextBox =
-			utility:AddNewRow(this, "MicroProfiler Information", "TextBox", nil, nil, 5)
+			utility:AddNewRow(this, "MicroProfiler Information", "TextBox", nil, nil, 5, nil, nil, nil, if FFlagMicroProfilerReadOnlyInformationLabel then false else nil)
 		this.InformationFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["InformationFrame"]
 
 		-- Override the default position

@@ -99,6 +99,8 @@ local Constants = {
 		DropDownEntryHeight = 40,
 		DropDownEntryWidth = 375,
 		DropDownArrowHeight = 12,
+
+		NumberInputTextSize = 14,
 	},
 	TopBarFormatting = {
 		BarTransparency = .64,
@@ -224,11 +226,14 @@ local Constants = {
 		PanelTitleHeight = 24,
 		OptionRowHeight = 32,
 		OptionCheckboxSize = 16,
+		OptionTextPadding = 10,
+		OptionTextSize = 16,
 		TabsHeight = 32,
 		TabButtonWidth = 128,
 		TabButtonPad = 5,
 		TextSizePanelTitle = 16,
 		TextSizePanelOptionLabel = 16,
+		RecentDumpPathPadding = 8,
 	},
 
 	ScriptProfilerFormatting = {

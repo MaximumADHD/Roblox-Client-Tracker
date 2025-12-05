@@ -27,28 +27,6 @@ type ControlState = ControlState.ControlState
 type TextInputRef = Types.TextInputRef
 
 export type TextInputProps = {
-	-- Input text value
-	text: string,
-	-- Type of text input. Only available for use in descendants of `CoreGui`.
-	textInputType: Enum.TextInputType?,
-	-- Size of the text input
-	size: InputSize?,
-	-- Whether the input is in an error state
-	hasError: boolean?,
-	-- Whether the input is disabled
-	isDisabled: boolean?,
-	-- Whether the input is required, true for "*", false for " (optional)", nil for nothing
-	isRequired: boolean?,
-	-- On input text change
-	onChanged: (text: string) -> (),
-	-- Input label text. To omit, set to an empty string
-	label: string,
-	-- Hint text below the input, is red on error
-	hint: string?,
-	-- Placeholder text for input
-	placeholder: string?,
-	-- Width of the component
-	width: UDim?,
 	-- Image before the input
 	leadingIcon: string?,
 	-- Image after the input, can be pressed
@@ -56,12 +34,11 @@ export type TextInputProps = {
 		name: string,
 		onActivated: () -> (),
 	}?,
-	-- Partial TextBox ref exposed via imperative handle
-	textBoxRef: React.Ref<TextInputRef>?,
-	onFocusGained: (() -> ())?,
-	onFocusLost: (() -> ())?,
+	-- Type of text input. Only available for use in descendants of CoreGui.
+	textInputType: Enum.TextInputType?,
+	-- Ran when return is pressed within the TextInput
 	onReturnPressed: (() -> ())?,
-} & Types.CommonProps
+} & Types.TextInputCommonProps & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Large,

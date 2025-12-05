@@ -5,6 +5,7 @@ local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
 local Actions = script.Parent.Parent.Parent.Actions
+local AppendRecentDumpPath = require(Actions.AppendRecentDumpPath)
 local SetRCCProfilerState = require(Actions.SetRCCProfilerState)
 
 local RCCProfilerDataCompleteListener = Roact.Component:extend("RCCProfilerDataCompleteListener")
@@ -19,6 +20,7 @@ function RCCProfilerDataCompleteListener:didMount()
 					self.props.dispatchSetRCCProfilerState(false)
 				else
 					self.props.dispatchSetRCCProfilerState(false, message)
+					self.props.dispatchAppendRecentDumpPath(message)
 				end
 			end
 		end)
@@ -44,6 +46,9 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		dispatchAppendRecentDumpPath = function(dumpPath: string)
+			dispatch(AppendRecentDumpPath(dumpPath))
+		end,
 		dispatchSetRCCProfilerState = function(waitingForRecording, fileLocation)
 			dispatch(SetRCCProfilerState(waitingForRecording, fileLocation))
 		end,
