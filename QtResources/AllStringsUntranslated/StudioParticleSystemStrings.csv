@@ -1,2 +1,0 @@
-Key,Context,Source,en-us
-Studio.ParticleSystem.Tooltip.FlipbookLayout.IncompatibleTexture,"Particle flipbooks require a texture size that is an exact multiple of the layout size. For example, if your layout is 4x4, your texture must be a size that can be perfectly divided by that grid, such as 64x64 or 128x128.",The texture size must be an exact multiple of the flipbook layout size.,The texture size must be an exact multiple of the flipbook layout size.

@@ -1,6 +1,0 @@
-Key,Context,Source,en-us
-Studio.CustomizedDefaults.DefaultPropertiesReset,"Toast when a user updates the default properties of an instance, %1 is the Instance type.",Default Properties of %1 have been reset.,Default Properties of %1 have been reset.
-Studio.CustomizedDefaults.DefaultPropertiesUpdated,"Toast when a user updates the default properties of an instance, %1 is the instance type.",Default Properties of %1 have been updated.,Default Properties of %1 have been updated.
-Studio.CustomizedDefaults.ResetDefault,"Class name is class name of the selected instance. So selecting a part will say ""Reset Default Part""",Reset Default %1,Reset Default %1
-Studio.CustomizedDefaults.SaveAsDefault,"Class name is class name of the selected instance. So selecting a part will say ""Save as Default Part""",Save as Default %1,Save as Default %1
-Studio.CustomizedDefaults.SaveAsDefaultBlockedByStyling,"Saving an Instance as the default is not allowed if the Instance is under a styled part of the hierarchy, the save as default action has this text in that case.",Save as Default (Stylesheet Overrides),Save as Default (Stylesheet Overrides)
