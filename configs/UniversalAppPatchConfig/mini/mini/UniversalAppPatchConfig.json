@@ -1,1 +1,9 @@
-{"AppStorageResetId":"0","AssetId":"118593852151835","AssetVersion":"5015","IsForcedUpdate":false,"LocalAssetURI":"rbxasset://models/UniversalApp/UniversalApp.rbxm","LocalAssetHash":"516a43750a8c932dba41bce2c7ec7bd5","MaxAppVersion":"702"}
+{
+  "AppStorageResetId": "0",
+  "AssetId": "118593852151835",
+  "AssetVersion": "5001",
+  "IsForcedUpdate": false,
+  "LocalAssetURI": "rbxasset://models/UniversalApp/UniversalApp.rbxm",
+  "LocalAssetHash": "d2307972a592294c6009189cba58d248",
+  "MaxAppVersion": "701"
+}
