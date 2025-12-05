@@ -2967,6 +2967,29 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "PredictionMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "PredictionMode"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "RobloxLocked",
                     "Security": {
                         "Read": "PluginSecurity",
@@ -6299,6 +6322,32 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetAnimationsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -6585,6 +6634,29 @@
         },
         {
             "Members": [
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "NodeId",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
                 {
                     "Capabilities": {
                         "Read": [
@@ -11095,6 +11167,29 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAssetIdsForPackageAsync",
+                    "Parameters": [
+                        {
+                            "Name": "packageAssetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -11293,6 +11388,29 @@
                 {
                     "MemberType": "Function",
                     "Name": "SearchAudio",
+                    "Parameters": [
+                        {
+                            "Name": "searchParameters",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "AudioSearchParams"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "AudioPages"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SearchAudioAsync",
                     "Parameters": [
                         {
                             "Name": "searchParameters",
@@ -22022,6 +22140,29 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CheckApplyDefaultClothingAsync",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "HumanoidDescription"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -22029,6 +22170,29 @@
                 {
                     "MemberType": "Function",
                     "Name": "ConformToAvatarRules",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "HumanoidDescription"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ConformToAvatarRulesAsync",
                     "Parameters": [
                         {
                             "Name": "humanoidDescription",
@@ -22059,6 +22223,22 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAvatarRulesAsync",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -22066,6 +22246,36 @@
                 {
                     "MemberType": "Function",
                     "Name": "GetBatchItemDetails",
+                    "Parameters": [
+                        {
+                            "Name": "itemIds",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Name": "itemType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarItemType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetBatchItemDetailsAsync",
                     "Parameters": [
                         {
                             "Name": "itemIds",
@@ -22117,6 +22327,36 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetFavoriteAsync",
+                    "Parameters": [
+                        {
+                            "Name": "itemId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "itemType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarItemType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -22124,6 +22364,29 @@
                 {
                     "MemberType": "Function",
                     "Name": "GetInventory",
+                    "Parameters": [
+                        {
+                            "Name": "assetTypes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "InventoryPages"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetInventoryAsync",
                     "Parameters": [
                         {
                             "Name": "assetTypes",
@@ -22168,6 +22431,36 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetItemDetailsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "itemId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "itemType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarItemType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -22190,6 +22483,29 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetOutfitDetailsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -22197,6 +22513,38 @@
                 {
                     "MemberType": "Function",
                     "Name": "GetOutfits",
+                    "Parameters": [
+                        {
+                            "Default": "All",
+                            "Name": "outfitSource",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "OutfitSource"
+                            }
+                        },
+                        {
+                            "Default": "All",
+                            "Name": "outfitType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "OutfitType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "OutfitPages"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetOutfitsAsync",
                     "Parameters": [
                         {
                             "Default": "All",
@@ -22251,6 +22599,37 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetRecommendedAssetsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarAssetType"
+                            }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "contextAssetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -22273,6 +22652,29 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetRecommendedBundlesAsync",
+                    "Parameters": [
+                        {
+                            "Name": "bundleId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -22280,6 +22682,29 @@
                 {
                     "MemberType": "Function",
                     "Name": "SearchCatalog",
+                    "Parameters": [
+                        {
+                            "Name": "searchParameters",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CatalogSearchParams"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "CatalogPages"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SearchCatalogAsync",
                     "Parameters": [
                         {
                             "Name": "searchParameters",
@@ -22832,6 +23257,36 @@
                 {
                     "MemberType": "Function",
                     "Name": "AwardBadge",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "badgeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "AwardBadgeAsync",
                     "Parameters": [
                         {
                             "Name": "userId",
@@ -70362,6 +70817,40 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Avatar"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "ApplyDescriptionAsync",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "assetTypeVerification",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AssetTypeVerification"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -70420,6 +70909,40 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Avatar"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "ApplyDescriptionResetAsync",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "assetTypeVerification",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AssetTypeVerification"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -70445,7 +70968,8 @@
                     },
                     "Security": "None",
                     "Tags": [
-                        "Yields"
+                        "Yields",
+                        "Deprecated"
                     ],
                     "ThreadSafety": "Unsafe"
                 },
@@ -70469,6 +70993,31 @@
                         "Name": "Tuple"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Avatar"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "PlayEmoteAsync",
+                    "Parameters": [
+                        {
+                            "Name": "emoteName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
                     "Tags": [
                         "Yields"
                     ],
@@ -75189,10 +75738,7 @@
             ],
             "MemoryCategory": "Animation",
             "Name": "HumanoidRigDescription",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -76158,6 +76704,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetKeyframeSequencesForSelectedRestPose",
+                    "Parameters": [
+                        {
+                            "Name": "modelInstance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "restPoseSource",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "RestPoseModel"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetRigVisualization",
                     "Parameters": [
                         {
@@ -76745,6 +77317,29 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "KeyCode"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "PointerIndex",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -77467,6 +78062,36 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetFreeDecalsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "searchText",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "pageNum",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -77474,6 +78099,36 @@
                 {
                     "MemberType": "Function",
                     "Name": "GetFreeModels",
+                    "Parameters": [
+                        {
+                            "Name": "searchText",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "pageNum",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetFreeModelsAsync",
                     "Parameters": [
                         {
                             "Name": "searchText",
@@ -78789,6 +79444,29 @@
                 {
                     "MemberType": "Function",
                     "Name": "GetAnimations",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAnimationsAsync",
                     "Parameters": [
                         {
                             "Name": "userId",
@@ -82102,7 +82780,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "MakeupDescription",
-            "Superclass": "Instance"
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -83106,6 +83787,37 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetProductInfoAsync",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Default": "Asset",
+                            "Name": "infoType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "InfoType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -83566,6 +84278,36 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PlayerOwnsAssetAsync",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -83573,6 +84315,36 @@
                 {
                     "MemberType": "Function",
                     "Name": "PlayerOwnsBundle",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        },
+                        {
+                            "Name": "bundleId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PlayerOwnsBundleAsync",
                     "Parameters": [
                         {
                             "Name": "player",
@@ -85684,6 +86456,27 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "AlphaMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AlphaMode"
+                    }
+                },
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
@@ -98355,20 +99148,12 @@
                     }
                 },
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
-                        ]
-                    },
                     "Category": "Server Authority",
                     "MemberType": "Property",
                     "Name": "AuthorityMode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -98724,14 +99509,6 @@
                     }
                 },
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "InternalTest"
-                        ],
-                        "Write": [
-                            "InternalTest"
-                        ]
-                    },
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "NextGenerationReplication",
@@ -106364,6 +107141,33 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetFriendsOnlineAsync",
+                    "Parameters": [
+                        {
+                            "Default": "200",
+                            "Name": "maxFriends",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -106389,6 +107193,32 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetRankInGroupAsync",
+                    "Parameters": [
+                        {
+                            "Name": "groupId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -106399,6 +107229,32 @@
                     ],
                     "MemberType": "Function",
                     "Name": "GetRoleInGroup",
+                    "Parameters": [
+                        {
+                            "Name": "groupId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetRoleInGroupAsync",
                     "Parameters": [
                         {
                             "Name": "groupId",
@@ -106465,6 +107321,32 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "IsFriendsWithAsync",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -106490,6 +107372,32 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "IsInGroupAsync",
+                    "Parameters": [
+                        {
+                            "Name": "groupId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -106500,6 +107408,25 @@
                     ],
                     "MemberType": "Function",
                     "Name": "LoadCharacter",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "LoadCharacterAsync",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -106561,6 +107488,32 @@
                     ],
                     "MemberType": "Function",
                     "Name": "LoadCharacterWithHumanoidDescription",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "LoadCharacterWithHumanoidDescriptionAsync",
                     "Parameters": [
                         {
                             "Name": "humanoidDescription",
@@ -108983,6 +109936,48 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Avatar",
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "CreateHumanoidModelFromDescriptionAsync",
+                    "Parameters": [
+                        {
+                            "Name": "description",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        },
+                        {
+                            "Name": "rigType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HumanoidRigType"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "assetTypeVerification",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AssetTypeVerification"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Model"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -108993,6 +109988,32 @@
                     ],
                     "MemberType": "Function",
                     "Name": "CreateHumanoidModelFromUserId",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Model"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "CreateHumanoidModelFromUserIdAsync",
                     "Parameters": [
                         {
                             "Name": "userId",
@@ -109135,6 +110156,33 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Avatar",
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetHumanoidDescriptionFromOutfitIdAsync",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "HumanoidDescription"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -109146,6 +110194,33 @@
                     ],
                     "MemberType": "Function",
                     "Name": "GetHumanoidDescriptionFromUserId",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "HumanoidDescription"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Avatar",
+                        "Players"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetHumanoidDescriptionFromUserIdAsync",
                     "Parameters": [
                         {
                             "Name": "userId",
@@ -110461,6 +111536,36 @@
                     },
                     "Security": "PluginSecurity",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "CreateDockWidgetPluginGuiAsync",
+                    "Parameters": [
+                        {
+                            "Name": "pluginGuiId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "dockWidgetPluginGuiInfo",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "DockWidgetPluginGuiInfo"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "DockWidgetPluginGui"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -110520,6 +111625,37 @@
                     },
                     "Security": "PluginSecurity",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ImportFbxAnimationAsync",
+                    "Parameters": [
+                        {
+                            "Name": "rigModel",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Default": "true",
+                            "Name": "isR15",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -110527,6 +111663,30 @@
                 {
                     "MemberType": "Function",
                     "Name": "ImportFbxRig",
+                    "Parameters": [
+                        {
+                            "Default": "true",
+                            "Name": "isR15",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ImportFbxRigAsync",
                     "Parameters": [
                         {
                             "Default": "true",
@@ -110571,7 +111731,53 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptForExistingAssetIdAsync",
+                    "Parameters": [
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptSaveSelection",
+                    "Parameters": [
+                        {
+                            "Default": "",
+                            "Name": "suggestedFileName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptSaveSelectionAsync",
                     "Parameters": [
                         {
                             "Default": "",
@@ -116650,8 +117856,7 @@
                 },
                 {
                     "Capabilities": [
-                        "Basic",
-                        "InternalTest"
+                        "Basic"
                     ],
                     "MemberType": "Function",
                     "Name": "BindToSimulation",
@@ -116711,8 +117916,7 @@
                 },
                 {
                     "Capabilities": [
-                        "Basic",
-                        "InternalTest"
+                        "Basic"
                     ],
                     "MemberType": "Function",
                     "Name": "GetPredictionStatus",
@@ -116954,8 +118158,7 @@
                 },
                 {
                     "Capabilities": [
-                        "Basic",
-                        "InternalTest"
+                        "Basic"
                     ],
                     "MemberType": "Function",
                     "Name": "SetPredictionMode",
@@ -123236,6 +124439,39 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
+            "Name": "SlimAnimationDataEntity",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SlimAnimationReplicationService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SlimReplicationService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
             "Name": "SlimService",
             "Superclass": "Instance",
             "Tags": [
@@ -123948,6 +125184,37 @@
                 {
                     "MemberType": "Function",
                     "Name": "PromptLinkSharing",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Player"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptLinkSharingAsync",
                     "Parameters": [
                         {
                             "Name": "player",
@@ -135768,6 +137035,30 @@
                     },
                     "Security": "PluginSecurity",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptImportFileAsync",
+                    "Parameters": [
+                        {
+                            "Default": "{}",
+                            "Name": "fileTypeFilter",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -135775,6 +137066,30 @@
                 {
                     "MemberType": "Function",
                     "Name": "PromptImportFiles",
+                    "Parameters": [
+                        {
+                            "Default": "{}",
+                            "Name": "fileTypeFilter",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptImportFilesAsync",
                     "Parameters": [
                         {
                             "Default": "{}",
@@ -138522,6 +139837,29 @@
                     },
                     "Security": "None",
                     "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ReserveServerAsync",
+                    "Parameters": [
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "Tags": [
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
@@ -139878,6 +141216,22 @@
                 {
                     "MemberType": "Function",
                     "Name": "Run",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "PluginSecurity",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RunAsync",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -160454,6 +161808,13 @@
                 {
                     "Name": "TintMask",
                     "Value": 2
+                },
+                {
+                    "Name": "Opaque",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "Value": 3
                 }
             ],
             "Name": "AlphaMode"
@@ -167742,6 +169103,10 @@
                     "Value": 1033
                 },
                 {
+                    "Name": "Touch",
+                    "Value": 1034
+                },
+                {
                     "Name": "World0",
                     "Tags": [
                         "Deprecated"
@@ -171375,6 +172740,19 @@
                 }
             ],
             "Name": "RestPose"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "FromRigInACE",
+                    "Value": 0
+                },
+                {
+                    "Name": "FromRigInFile",
+                    "Value": 1
+                }
+            ],
+            "Name": "RestPoseModel"
         },
         {
             "Items": [
