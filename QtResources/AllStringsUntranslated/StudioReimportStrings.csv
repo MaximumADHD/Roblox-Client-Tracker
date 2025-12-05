@@ -1,4 +1,0 @@
-Key,Context,Source,en-us
-Studio.Reimport.Actions.Configure,open configure dialog for reimport,Configure...,Configure...
-Studio.Reimport.Actions.Reimport,reimport action,Reimport,Reimport
-Studio.Reimport.Actions.ReimportRelativeToThis,reimport relative option for mesh parts,Reimport relative to this,Reimport relative to this

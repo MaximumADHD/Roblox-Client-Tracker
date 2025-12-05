@@ -1,5 +1,0 @@
-Key,Context,Source,en-us
-Studio.Settings.BetaFeature.HighDpiAndIconsDescription,Studio will look better on monitors with higher resolution.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.
-Studio.Settings.BetaFeature.HighDpiAndIconsTitle,,New Icons / DPI Aware Studio,New Icons / DPI Aware Studio
-Studio.Settings.BetaFeature.HighDpiRestartDescription,"Studio is in a potentially invalid state, and should be restarted to ensure propper functionality","New Icons / DPI Aware Studio Beta Feature has been changed, and requires a restart to take effect.","New Icons / DPI Aware Studio Beta Feature has been changed, and requires a restart to take effect."
-Studio.Settings.BetaFeature.HighDpiRestartTitle,,Beta Feature is in Invalid State,Beta Feature is in Invalid State

@@ -1,6 +1,0 @@
-Key,Context,Source,en-us
-Studio.CreatorConfig.Plugin.Button,The text displayed on the default button entry point for the Creator Config plugin.,Configs,Configs
-Studio.CreatorConfig.Plugin.Description,Description (tooltip) displayed on the entrypoint for Creator Configs plugin.,Update in-game values in real-time.,Update in-game values in real-time.
-Studio.CreatorConfig.Plugin.Name,Name of the creator configs plugin.,Configs,Configs
-Studio.CreatorConfig.Plugin.Toolbar,Toolbar section for creator configs,Configs,Configs
-Studio.CreatorConfig.RobloxRibbonMainWindow.OpenConfigs,Label in studio system menu under File,Open Configs,Open Configs

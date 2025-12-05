@@ -1,4 +1,0 @@
-Key,Context,Source,en-us
-Studio.TeamCreateStatusIndicator.PlaceUploadFailingMessage,Urgent messsage to be shown when place upload is failing continuously for Team Create to show that there is a recovery file being generated,Auto recovery backup has started.,Auto recovery backup has started.
-Studio.TeamCreateStatusIndicator.PlaceUploadFailingTip,Description message that gives users action to figure out where their recovery files are generated,Check console for auto-recovery details.,Check console for auto-recovery details.
-Studio.TeamCreateStatusIndicator.PlaceUploadFailingTitle,Urgent alert that shows to creator that place upload for Team Create is not working,Place upload is failing.,Place upload is failing.
