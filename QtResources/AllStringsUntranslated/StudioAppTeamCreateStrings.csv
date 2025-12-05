@@ -1,0 +1,47 @@
+Key,Context,Source,en-us
+Studio.App.TeamCreate.AnnotationCalloutDescription,Description of the new comments/annotations feature.,"Click the Add Comment button or press C, then click anywhere in the 3D workspace to leave a comment.","Click the Add Comment button or press C, then click anywhere in the 3D workspace to leave a comment."
+Studio.App.TeamCreate.AnnotationsCalloutTitle,Title of the callout introducing the 'Comments' feature.,Introducing Comments!,Introducing Comments!
+Studio.App.TeamCreate.ConfirmDisable,,Are you sure you want to turn Team Create off?,Are you sure you want to turn Team Create off?
+Studio.App.TeamCreate.ConfirmLossyDisable,,"Turning off team create may result in loss of work.
+Are you sure ?","Turning off team create may result in loss of work.
+Are you sure ?"
+Studio.App.TeamCreate.ConnectionResult1,,Connection Result: %1,Connection Result: %1
+Studio.App.TeamCreate.EditYourPlaceWithConnections,migration of friends to connections. for team create widget to turn on team create,"Edit your place with Connections, see the updates instantly.","Edit your place with Connections, see the updates instantly."
+Studio.App.TeamCreate.EditYourPlaceWithFriends,,"Edit your place with friends, see the updates instantly.","Edit your place with friends, see the updates instantly."
+Studio.App.TeamCreate.EnableTeamCreateEditPlaceTogether,,"Enable Team Create: edit your place together, see updates instantly.","Enable Team Create: edit your place together, see updates instantly."
+Studio.App.TeamCreate.FailedToCreatePlace,,Failed to create new place,Failed to create new place
+Studio.App.TeamCreate.FailedToTurnOnTeamCreate,,Failed to turn on Team Create.,Failed to turn on Team Create.
+Studio.App.TeamCreate.Form,,Form,Form
+Studio.App.TeamCreate.HearbeatDetectFail,,Studio detected Heartbeat failure.,Studio detected Heartbeat failure.
+Studio.App.TeamCreate.InviteAFriend,,Invite a friend,Invite a friend
+Studio.App.TeamCreate.LoadingGame,,Loading game,Loading game
+Studio.App.TeamCreate.LoadingGameWithAttemptCount1,Load game with display of the attempt count,Loading game (attempt #%1),Loading game (attempt #%1)
+Studio.App.TeamCreate.LoadingPlace1,,Loading place: %1,Loading place: %1
+Studio.App.TeamCreate.LoadingPlaceWithMissingName,,Loading place,Loading place
+Studio.App.TeamCreate.LogInToEnableTeamCreateOptions,,Log in to enable Team Create options for your place.,Log in to enable Team Create options for your place.
+Studio.App.TeamCreate.MembersOfYourGroupCanWorkTogether,,"Members of your group can work together, see updates instantly. Contact your admin to enable Team Create.","Members of your group can work together, see updates instantly. Contact your admin to enable Team Create."
+Studio.App.TeamCreate.MultipleUsers,,Multiple Users,Multiple Users
+Studio.App.TeamCreate.PermissionsMovedMessage1,,"We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>","We've moved permissions management to <a href=""%1"">Home &gt; Game Settings &gt; Permissions.</a>"
+Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,Request Status Code: %1,Request Status Code: %1
+Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogether,,Publish and enable Team Create to build this place together with your friends.,Publish and enable Team Create to build this place together with your friends.
+Studio.App.TeamCreate.PublishAndEnableteamCreateToBuildTogetherConnection,migration of friends to connections. Publish place to be able to use team create message,Publish and enable Team Create to build this place together with your Connections.,Publish and enable Team Create to build this place together with your Connections.
+Studio.App.TeamCreate.PublishingCurrentPlace,,Publishing current place...,Publishing current place...
+Studio.App.TeamCreate.RemovingThisUserWillPrevent,,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?
+Studio.App.TeamCreate.SaveAndEnableteamCreateToBuildTogether,,Save and enable Team Create to build this place together with your friends.,Save and enable Team Create to build this place together with your friends.
+Studio.App.TeamCreate.SaveAndEnableteamCreateToBuildTogetherConnection,Save place to enable Team Create message. Part of Friend to Connection migration,Save and enable Team Create to build this place together with your Connections.,Save and enable Team Create to build this place together with your Connections.
+Studio.App.TeamCreate.SaveFailedConfirmation,,"Save failed. Turning off team create may result in loss of work.
+Are you sure?","Save failed. Turning off team create may result in loss of work.
+Are you sure?"
+Studio.App.TeamCreate.SaveOnDisableLog,,Sent message to save game before Team Create turns off.,Sent message to save game before Team Create turns off.
+Studio.App.TeamCreate.SavingLatestUpdatesAndEnablingTeamCreate,,Saving latest updates and enabling Team Create...,Saving latest updates and enabling Team Create...
+Studio.App.TeamCreate.ShutdownWarning,,<b>Are you sure you want to quit Roblox Studio?</b>,<b>Are you sure you want to quit Roblox Studio?</b>
+Studio.App.TeamCreate.SyncComplete,,Sync has been completed.,Sync has been completed.
+Studio.App.TeamCreate.SyncProgress,,Replication Queue %1 of %2,Replication Queue %1 of %2
+Studio.App.TeamCreate.SyncProgressTitle,,<b>Data Sync Progress</b>,<b>Data Sync Progress</b>
+Studio.App.TeamCreate.SyncTerrainProgressTitle,,<b>Terrain Sync Progress</b>,<b>Terrain Sync Progress</b>
+Studio.App.TeamCreate.SyncingGenericWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing.,Quitting Roblox Studio will cause you to lose data that is currently syncing.
+Studio.App.TeamCreate.SyncingTerrainWarning,,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.,Quitting Roblox Studio will cause you to lose data that is currently syncing and might corrupt your Terrain.
+Studio.App.TeamCreate.TurnOn,,Turn On,Turn On
+Studio.App.TeamCreate.UnableToFetchPlaceAndUniverseInfo,Failed to fetch place or universe info when opening a place,Unable to fetch place/universe info,Unable to fetch place/universe info
+Studio.App.TeamCreate.UnpublishedChangesWarning,,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?,Other users are currently editing scripts. Turning off team create will lose these unpublished changes. Continue anyway?
+Studio.App.TeamCreate.UpdatingScriptVersionHistory,,Adding current script versions to Script Version History before closing place %1.,Adding current script versions to Script Version History before closing place %1.

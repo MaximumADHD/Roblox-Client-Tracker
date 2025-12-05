@@ -1,0 +1,76 @@
+Key,Context,Source,en-us
+Studio.ManageCollaborators.Buttons.Cancel,,Cancel,Cancel
+Studio.ManageCollaborators.Buttons.HideRole,, Hide 1 role, Hide 1 role
+Studio.ManageCollaborators.Buttons.HideRoles,, Hide {count} roles, Hide {count} roles
+Studio.ManageCollaborators.Buttons.No,,No,No
+Studio.ManageCollaborators.Buttons.Save,,Save,Save
+Studio.ManageCollaborators.Buttons.SaveToRoblox,,Save to Roblox,Save to Roblox
+Studio.ManageCollaborators.Buttons.SeeMoreRoles,, See {count} more roles, See {count} more roles
+Studio.ManageCollaborators.Buttons.SeeOneMoreRole,, See 1 more role, See 1 more role
+Studio.ManageCollaborators.Buttons.TurnOn,,Turn On,Turn On
+Studio.ManageCollaborators.Buttons.Yes,,Yes,Yes
+Studio.ManageCollaborators.CollaboratorTypes.Groups,,Groups,Groups
+Studio.ManageCollaborators.CollaboratorTypes.Owner,,Owner,Owner
+Studio.ManageCollaborators.CollaboratorTypes.Users,,Users,Users
+Studio.ManageCollaborators.Description.ConnectionsEditAccess,"warning shown in Studio Team Create when trying to add someone who is not a connection on Roblox that they need to be before being added as a collaborator. Note: connections are what friends used to be on Roblox, part of migration work.",(only connections can have edit access),(only connections can have edit access)
+Studio.ManageCollaborators.Description.DiscardChanges,,Would you like to discard all changes?,Would you like to discard all changes?
+Studio.ManageCollaborators.Description.FriendsEditAccess,,(only friends can have edit access),(only friends can have edit access)
+Studio.ManageCollaborators.Description.SaveEnableTC,,Saving these changes will turn on Team Create,Saving these changes will turn on Team Create
+Studio.ManageCollaborators.Description.SaveEnableTcCurrentEditors,,Team Create must be on to give access to your collaborators. Click Save to enable Team Create and edit with your friends.,Team Create must be on to give access to your collaborators. Click Save to enable Team Create and edit with your friends.
+Studio.ManageCollaborators.Description.SaveToRoblox,,Save your game to Roblox to start collaborating.,Save your game to Roblox to start collaborating.
+Studio.ManageCollaborators.Description.TurnOnTcConfirmation,,"To enable your collaborators to edit this place, Team Create will be turned on","To enable your collaborators to edit this place, Team Create will be turned on"
+Studio.ManageCollaborators.FailureMessage.LoadFailure,,Failed to load Permissions. Please try again.,Failed to load Permissions. Please try again.
+Studio.ManageCollaborators.FailureMessage.SaveFailure,,Failed to save Permissions. Please try again.,Failed to save Permissions. Please try again.
+Studio.ManageCollaborators.General.TitleCollaborators,,Collaborators,Collaborators
+Studio.ManageCollaborators.PermissionDescriptions.Admin,,"Can play, edit, and manage this game","Can play, edit, and manage this game"
+Studio.ManageCollaborators.PermissionDescriptions.CannotViewGroupRoles,,You don't have permission to view the access levels of group roles,You don't have permission to view the access levels of group roles
+Studio.ManageCollaborators.PermissionDescriptions.ConnectionToEdit,"Error shown when trying to add a non-connection as a collaborator in Team Create Manage Collaborators window in Studio. Note: connections are what friends used to be on Roblox, part of migration of Friends to Connection",User must be a connection to edit,User must be a connection to edit
+Studio.ManageCollaborators.PermissionDescriptions.Edit,,Can play and edit this game,Can play and edit this game
+Studio.ManageCollaborators.PermissionDescriptions.FriendToEdit,,User must be a friend to edit,User must be a friend to edit
+Studio.ManageCollaborators.PermissionDescriptions.GameOwnerToEdit,, Only game-owner can edit permissions, Only game-owner can edit permissions
+Studio.ManageCollaborators.PermissionDescriptions.GroupOwnerToEdit,,Only group-owner can edit permissions,Only group-owner can edit permissions
+Studio.ManageCollaborators.PermissionDescriptions.NoAccess,,Cannot play or edit this game,Cannot play or edit this game
+Studio.ManageCollaborators.PermissionDescriptions.NoEditMustBeFriend,,User must be a friend to edit,User must be a friend to edit
+Studio.ManageCollaborators.PermissionDescriptions.NoUserEditGroupGame,,Must be in owner group to edit,Must be in owner group to edit
+Studio.ManageCollaborators.PermissionDescriptions.Owner,,Owner of the game,Owner of the game
+Studio.ManageCollaborators.PermissionDescriptions.Play,,Can play this game,Can play this game
+Studio.ManageCollaborators.PermissionDescriptions.RoleHasEditPerms,,Role has Edit-level permissions to group-owned experiences,Role has Edit-level permissions to group-owned experiences
+Studio.ManageCollaborators.PermissionDescriptions.UsersOnlyPlayLevel,,Users can only be granted Play-level permissions to group-owned experiences,Users can only be granted Play-level permissions to group-owned experiences
+Studio.ManageCollaborators.PermissionLabels.Admin,,Manage,Manage
+Studio.ManageCollaborators.PermissionLabels.Edit,,Edit,Edit
+Studio.ManageCollaborators.PermissionLabels.Multiple,,(Multiple),(Multiple)
+Studio.ManageCollaborators.PermissionLabels.NoAccess,,No Access,No Access
+Studio.ManageCollaborators.PermissionLabels.Owner,,Owner,Owner
+Studio.ManageCollaborators.PermissionLabels.Play,,Play,Play
+Studio.ManageCollaborators.Permissions.FilterPill.All.Label,"Label for the ""All"" filter pill",All,All
+Studio.ManageCollaborators.Permissions.FilterPill.Creators.Label,"Label for the ""Creators"" filter pill",Creators,Creators
+Studio.ManageCollaborators.Permissions.FilterPill.Roles.Label,"Label for the ""Roles"" filter pill",Roles,Roles
+Studio.ManageCollaborators.Permissions.None.Label,Dropdown option label for taking away all permissions,No Access,No Access
+Studio.ManageCollaborators.Permissions.None.Subtext,Dropdown option description for taking away all permissions,Revoke all permissions,Revoke all permissions
+Studio.ManageCollaborators.Permissions.Universe.GranularEditor.Label,Dropdown option label for granting edit permissions,Edit,Edit
+Studio.ManageCollaborators.Permissions.Universe.GranularEditor.Subtext,Dropdown option description for granting edit permissions,Edit this experience,Edit this experience
+Studio.ManageCollaborators.Permissions.Universe.GranularPlayer.Label,Dropdown option label for granting play permissions,Play,Play
+Studio.ManageCollaborators.Permissions.Universe.GranularPlayer.Subtext,Dropdown option description for granting play permissions,Play this experience,Play this experience
+Studio.ManageCollaborators.Permissions.Universe.GranularPublisher.Label,Dropdown option label for granting publish permissions,Publish,Publish
+Studio.ManageCollaborators.Permissions.Universe.GranularPublisher.Subtext,Dropdown option description for granting publish permissions,Publish this experience,Publish this experience
+Studio.ManageCollaborators.Plugin.Button,,Toggle,Toggle
+Studio.ManageCollaborators.Plugin.Description,,Toggles the Template plugin window.,Toggles the Template plugin window.
+Studio.ManageCollaborators.Plugin.Name,,ManageCollaborators,ManageCollaborators
+Studio.ManageCollaborators.Plugin.Title,, Manage Collaborators, Manage Collaborators
+Studio.ManageCollaborators.Plugin.Toolbar,,ManageCollaborators,ManageCollaborators
+Studio.ManageCollaborators.SearchBar.AddUsers,,Add Users,Add Users
+Studio.ManageCollaborators.SearchBar.AddUsersGroups,,Add Users and Groups,Add Users and Groups
+Studio.ManageCollaborators.SearchBar.AgeNotVerifiedLabel,,Age not verified,Age not verified
+Studio.ManageCollaborators.SearchBar.AgeRestrictedLabel,,Age restricted,Age restricted
+Studio.ManageCollaborators.SearchBar.AgeWarning,,Only users who are age verified as 17+ can be added as collaborators.,Only users who are age verified as 17+ can be added as collaborators.
+Studio.ManageCollaborators.SearchBar.AgeWarningConnectionUsers,Warning that only connections can be added as collaborators in Studio team Create. Part of Friend to Connection migration.,Only connections can have edit access. This experience is restricted to age-verified 17+ creators.,Only connections can have edit access. This experience is restricted to age-verified 17+ creators.
+Studio.ManageCollaborators.SearchBar.AgeWarningGroups,,This experience is restricted to age-verified 17+ creators.,This experience is restricted to age-verified 17+ creators.
+Studio.ManageCollaborators.SearchBar.AgeWarningUsers,,Only friends can have edit access. This experience is restricted to age-verified 17+ creators.,Only friends can have edit access. This experience is restricted to age-verified 17+ creators.
+Studio.ManageCollaborators.SearchBar.ConnectionLabel,replacing friend with connection that is shown next to users photo in search results in manage collaborators in widget,Connection,Connection
+Studio.ManageCollaborators.SearchBar.FriendLabel,,Friend,Friend
+Studio.ManageCollaborators.SearchBar.NoResultsText,,There were no results,There were no results
+Studio.ManageCollaborators.SearchBar.TooManyResultsText,,You cannot add more than {maxNumCollaborators:int} collaborators,You cannot add more than {maxNumCollaborators:int} collaborators
+Studio.ManageCollaborators.SearchBar.UnknownError,,Unknown error,Unknown error
+Studio.ManageCollaborators.Title.DiscardChanges,, Discard Changes, Discard Changes
+Studio.ManageCollaborators.Title.RobloxStudio,,Roblox Studio,Roblox Studio
+Studio.ManageCollaborators.Title.TurnOnTcConfirmation,,Team Create will be turned on ,Team Create will be turned on 

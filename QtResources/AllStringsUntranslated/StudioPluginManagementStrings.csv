@@ -1,0 +1,18 @@
+Key,Context,Source,en-us
+Studio.PluginManagement.Entry.LastUpdatedDate,,Updated: {date:shortdate},Updated: {date:shortdate}
+Studio.PluginManagement.Entry.UpdateButton,,Update,Update
+Studio.PluginManagement.Entry.UpdateError,,Error. Try updating again.,Error. Try updating again.
+Studio.PluginManagement.Entry.UpdateSuccess,,Update complete!,Update complete!
+Studio.PluginManagement.EntrySeeMore.DetailsButton,,Details,Details
+Studio.PluginManagement.EntrySeeMore.RemoveButton,,Remove,Remove
+Studio.PluginManagement.Header.PendingUpdates,,Pending updates,Pending updates
+Studio.PluginManagement.Header.UpToDate,,Up to date,Up to date
+Studio.PluginManagement.Loading.Title,,Updating Plugins,Updating Plugins
+Studio.PluginManagement.Loading.UpdatingMessage,,Updating plugins...,Updating plugins...
+Studio.PluginManagement.Main.Title,,Plugins,Plugins
+Studio.PluginManagement.Main.UpdateAllButton,,Update all,Update all
+Studio.PluginManagement.Manage.WindowTitle,,Plugin Management,Plugin Management
+Studio.PluginManagement.Property.EnableInternalPlugins,The label for an internal-only setting in Studio to load certain internal plugins. Not visible to general users.,Load Internal Plugins,Load Internal Plugins
+Studio.PluginManagement.Toolbar.ManageButtonDescription,,Manage plugins installed from roblox.com,Manage plugins installed from roblox.com
+Studio.PluginManagement.Toolbar.ManageButtonTitle,,Manage Plugins,Manage Plugins
+Studio.PluginManagement.Toolbar.ToolbarTitle,,Tools,Tools

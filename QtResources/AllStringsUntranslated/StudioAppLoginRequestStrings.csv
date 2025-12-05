@@ -1,0 +1,14 @@
+Key,Context,Source,en-us
+Studio.App.LoginRequest.CaptchaError,Start page login,Please complete the Captcha in order to log in.,Please complete the Captcha in order to log in.
+Studio.App.LoginRequest.ErrorResponseParseError,Start page login,Could not parse error response from server.,Could not parse error response from server.
+Studio.App.LoginRequest.GenericError,Start page login,Login error. Please try again.,Login error. Please try again.
+Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
+Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
+Studio.App.LoginRequest.NullPasswordError,Start page login,Unable to log in via username / password. Please use your WeChat / QQ account to log in.,Unable to log in via username / password. Please use your WeChat / QQ account to log in.
+Studio.App.LoginRequest.ParseError,Start page login,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.
+Studio.App.LoginRequest.PasswordResetRequiredError,Start page login,Account has been locked. Please request a password reset.,Account has been locked. Please request a password reset.
+Studio.App.LoginRequest.TwoStepVerificationFailureError,Start page login,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>,Account issue encountered. Please contact <a href='https://www.roblox.com/support'>support</a>
+Studio.App.LoginRequest.TwoStepVerificationFloodedError,Start page login,Too many attempts. Please try again later.,Too many attempts. Please try again later.
+Studio.App.LoginRequest.UnknownError,Start page login,"Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>","Something went wrong. Please try again later, or contact <a href='https://www.roblox.com/support'>support</a>"
+Studio.App.LoginRequest.UserIdError,Start page login,Could not get user id from server.,Could not get user id from server.
+Studio.App.LoginRequest.UsernameError,Start page login,Could not get username from server.,Could not get username from server.

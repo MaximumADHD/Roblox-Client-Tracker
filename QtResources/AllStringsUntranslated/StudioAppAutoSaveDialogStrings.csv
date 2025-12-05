@@ -1,0 +1,23 @@
+Key,Context,Source,en-us
+Studio.App.AutoSaveDialog.ConfirmAutoSaveDelete,,Confirm Auto-Save Delete,Confirm Auto-Save Delete
+Studio.App.AutoSaveDialog.ConfirmDescription,,Are you sure you want to delete all AutoSaves? This cannot be undone.,Are you sure you want to delete all AutoSaves? This cannot be undone.
+Studio.App.AutoSaveDialog.ConfirmMessage1,,Do you want to delete all auto-recovery files?  There are %1 files.,Do you want to delete all auto-recovery files?  There are %1 files.
+Studio.App.AutoSaveDialog.ConfirmMessageSingular,,Do you want to delete all auto-recovery files?  There is 1 file.,Do you want to delete all auto-recovery files?  There is 1 file.
+Studio.App.AutoSaveDialog.ConfirmTitle,,Confirm Auto-Recovery Delete,Confirm Auto-Recovery Delete
+Studio.App.AutoSaveDialog.Delete,,Delete,Delete
+Studio.App.AutoSaveDialog.Delete1,,<font size=%1><b><i>Delete</i></b></font> will confirm that you want to delete all auto-recovery files.,<font size=%1><b><i>Delete</i></b></font> will confirm that you want to delete all auto-recovery files.
+Studio.App.AutoSaveDialog.DeleteAll,,Delete All,Delete All
+Studio.App.AutoSaveDialog.DeleteAllAutoSaves1,,Do you want to delete all auto-save files?  There are %1 file(s).,Do you want to delete all auto-save files?  There are %1 file(s).
+Studio.App.AutoSaveDialog.Description,,We have found recovery files,We have found recovery files
+Studio.App.AutoSaveDialog.Details,,Roblox Studio saves your progress automatically in case something unexpected happens. Simply double click on the file name to open it or right click to delete it.,Roblox Studio saves your progress automatically in case something unexpected happens. Simply double click on the file name to open it or right click to delete it.
+Studio.App.AutoSaveDialog.FileDetected,,An auto-recovered file was detected!,An auto-recovered file was detected!
+Studio.App.AutoSaveDialog.Ignore1,,"<font size=%1><b><i>Ignore</i></b></font> will continue and leave the files alone.  However, the next time Roblox Studio is run, this message box will pop up again.","<font size=%1><b><i>Ignore</i></b></font> will continue and leave the files alone.  However, the next time Roblox Studio is run, this message box will pop up again."
+Studio.App.AutoSaveDialog.NotShutProperly,,This means that Roblox Studio was not shut down properly and <u><i>may not have saved your data</i></u>!,This means that Roblox Studio was not shut down properly and <u><i>may not have saved your data</i></u>!
+Studio.App.AutoSaveDialog.Open,,Open,Open
+Studio.App.AutoSaveDialog.OpenEnd,,"Once an auto-recovered file is loaded, it will not be deleted until the file is re-saved with a different file name.","Once an auto-recovered file is loaded, it will not be deleted until the file is re-saved with a different file name."
+Studio.App.AutoSaveDialog.OpenRobloxFile,,Open Roblox File,Open Roblox File
+Studio.App.AutoSaveDialog.OpenStart1,,<font size=%1><b><i>Open</i></b></font> will open the file. You can choose which file to load if there is more than one file.,<font size=%1><b><i>Open</i></b></font> will open the file. You can choose which file to load if there is more than one file.
+Studio.App.AutoSaveDialog.RobloxPlaceFiles,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Places Files (*.rbxl),Roblox Places Files (*.rbxl)
+Studio.App.AutoSaveDialog.ShowInFolder,,Show in Folder,Show in Folder
+Studio.App.AutoSaveDialog.Title,,Auto-Recovery,Auto-Recovery
+Studio.App.AutoSaveDialog.WantToLoad,,Do you want to load the auto-recovered file?,Do you want to load the auto-recovered file?

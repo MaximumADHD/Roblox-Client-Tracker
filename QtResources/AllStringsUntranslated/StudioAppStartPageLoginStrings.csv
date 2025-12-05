@@ -1,0 +1,17 @@
+Key,Context,Source,en-us
+Studio.App.StartPageLogin.ForgotPassword,,Forgot Password?,Forgot Password?
+Studio.App.StartPageLogin.GenericError,Start page login,Login error. Please try again.,Login error. Please try again.
+Studio.App.StartPageLogin.LogIn,,Log In,Log In
+Studio.App.StartPageLogin.LoggingInElps,,Logging in...,Logging in...
+Studio.App.StartPageLogin.LoggingOutElps,,Logging out...,Logging out...
+Studio.App.StartPageLogin.NotAMemberYet,,Not a member yet?,Not a member yet?
+Studio.App.StartPageLogin.OpeningPlaceElps,,Opening place...,Opening place...
+Studio.App.StartPageLogin.Password,,Password,Password
+Studio.App.StartPageLogin.PrivacyPolicy,,Privacy Policy,Privacy Policy
+Studio.App.StartPageLogin.SignUp,,Sign up,Sign up
+Studio.App.StartPageLogin.StartCreatingOwnGames,,Start creating your own experiences!,Start creating your own experiences!
+Studio.App.StartPageLogin.TwoStepVerificationEmailInstruction,,Enter the code we just sent to you via email,Enter the code we just sent to you via email
+Studio.App.StartPageLogin.TwoStepVerificationSmsInstruction,,Enter the code we just sent to you via sms,Enter the code we just sent to you via sms
+Studio.App.StartPageLogin.TwoStepVerificationTitle,,2-Step Verification,2-Step Verification
+Studio.App.StartPageLogin.Username,,Username,Username
+Studio.App.StartPageLogin.WeChatQQLogin,,WeChat / QQ Login,WeChat / QQ Login

@@ -1,0 +1,17 @@
+Key,Context,Source,en-us
+Studio.MaxInstanceCount.CriticalDialogDetailedText,"Detailed text to be shown when the max instance count check fails and user cannot launch new Studio instance
+
+Note the following doesn't need to be translated:
+1. <br> is a line break
+2. <a href='%1'> and </a> are a hyper links that the Learn More text will be linked to",You have opened the maximum allowed Studio windows. Please close some and try again.<br><a href='%1'>Learn More</a>,You have opened the maximum allowed Studio windows. Please close some and try again.<br><a href='%1'>Learn More</a>
+Studio.MaxInstanceCount.CriticalDialogOKButton,Text for the OK button,OK,OK
+Studio.MaxInstanceCount.CriticalDialogText,Dialog text for the critical dialog,Can’t open Studio window,Can’t open Studio window
+Studio.MaxInstanceCount.DialogTitle,The title for the dialog that will be shown when user's machines are below minimum requirements of Studio,Roblox Studio,Roblox Studio
+Studio.MaxInstanceCount.WarningDialogCloseInstanceButton,Text for the close instance button,Close,Close
+Studio.MaxInstanceCount.WarningDialogDetailedText,"Detailed text to be shown when the max instance count check fails and user can choose to either dismiss this warning or close this Studio instance
+
+Note the following doesn't need to be translated:
+1. <br> is a line break
+2. <a href='%1'> and </a> are a hyper links that the Learn More text will be linked to","If you proceed, you may experience reduced performance.<br><a href='%1'>Learn More</a>","If you proceed, you may experience reduced performance.<br><a href='%1'>Learn More</a>"
+Studio.MaxInstanceCount.WarningDialogDismissButton,Text for the dismiss button,Proceed,Proceed
+Studio.MaxInstanceCount.WarningDialogText,Dialog text for the warning dialog,Low System Resources,Low System Resources

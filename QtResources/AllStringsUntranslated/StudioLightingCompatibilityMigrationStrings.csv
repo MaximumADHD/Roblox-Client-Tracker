@@ -1,0 +1,7 @@
+Key,Context,Source,en-us
+Studio.LightingCompatibilityMigration.BasicExample.Text,,Capybaras are cute!,Capybaras are cute!
+Studio.LightingCompatibilityMigration.CounterExample.Button,,Push me!,Push me!
+Studio.LightingCompatibilityMigration.CounterExample.CounterLabel,,You pressed me {counter} times!,You pressed me {counter} times!
+Studio.LightingCompatibilityMigration.Plugin.Button,,Lighting Compatibility Migration,Lighting Compatibility Migration
+Studio.LightingCompatibilityMigration.Plugin.Description,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
+Studio.LightingCompatibilityMigration.Plugin.Name,,LightingCompatibilityMigration,LightingCompatibilityMigration

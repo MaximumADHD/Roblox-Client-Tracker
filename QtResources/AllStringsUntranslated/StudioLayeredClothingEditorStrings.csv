@@ -1,0 +1,108 @@
+Key,Context,Source,en-us
+Studio.LayeredClothingEditor.Actions.Redo,,Redo,Redo
+Studio.LayeredClothingEditor.Actions.SelectLattice,,Select Lattice,Select Lattice
+Studio.LayeredClothingEditor.Actions.ToggleTransform,,Toggle Transform,Toggle Transform
+Studio.LayeredClothingEditor.Actions.Undo,,Undo,Undo
+Studio.LayeredClothingEditor.AddEditingItemFromExplorer.AddWithNoCageText,,Imported {itemName} does not contain an {cageName}. Please use Cage Generation in Edit to generate one.,Imported {itemName} does not contain an {cageName}. Please use Cage Generation in Edit to generate one.
+Studio.LayeredClothingEditor.AddEditingItemFromExplorer.ConfirmAddText,,Adding {itemName} to asset list?,Adding {itemName} to asset list?
+Studio.LayeredClothingEditor.AddEditingItemFromExplorer.ControlsPanelBlockerText,,Add and avatar or clothing instance from Explorer or workspace.,Add and avatar or clothing instance from Explorer or workspace.
+Studio.LayeredClothingEditor.AddEditingItemFromExplorer.InvalidAddText,,Only avatar or clothing item can be added,Only avatar or clothing item can be added
+Studio.LayeredClothingEditor.AddEditingItemFromExplorer.InvalidAddTextAccOnly,,Item is not valid for creating clothing or accessory.,Item is not valid for creating clothing or accessory.
+Studio.LayeredClothingEditor.AddEditingItemFromExplorer.Tooltip,,Add assets from Explorer,Add assets from Explorer
+Studio.LayeredClothingEditor.AssetType.Accessory,,Accessory,Accessory
+Studio.LayeredClothingEditor.AssetType.AssetType,,Asset Type,Asset Type
+Studio.LayeredClothingEditor.AssetType.Back,,Back,Back
+Studio.LayeredClothingEditor.AssetType.Center,,Center,Center
+Studio.LayeredClothingEditor.AssetType.Clothing,,Clothing,Clothing
+Studio.LayeredClothingEditor.AssetType.Dress,,Dress,Dress
+Studio.LayeredClothingEditor.AssetType.Face,,Face,Face
+Studio.LayeredClothingEditor.AssetType.Front,,Front,Front
+Studio.LayeredClothingEditor.AssetType.Hair,,Hair,Hair
+Studio.LayeredClothingEditor.AssetType.Hat,,Hat,Hat
+Studio.LayeredClothingEditor.AssetType.Jacket,,Jacket,Jacket
+Studio.LayeredClothingEditor.AssetType.LeftCollar,,Left Collar,Left Collar
+Studio.LayeredClothingEditor.AssetType.LeftShoe,,LeftShoe,LeftShoe
+Studio.LayeredClothingEditor.AssetType.LeftShoulder,,Left Shoulder,Left Shoulder
+Studio.LayeredClothingEditor.AssetType.Neck,,Neck,Neck
+Studio.LayeredClothingEditor.AssetType.Pants,,Pants,Pants
+Studio.LayeredClothingEditor.AssetType.Prompt,,Select the asset type:,Select the asset type:
+Studio.LayeredClothingEditor.AssetType.RightCollar,,Right Collar,Right Collar
+Studio.LayeredClothingEditor.AssetType.RightShoe,,RightShoe,RightShoe
+Studio.LayeredClothingEditor.AssetType.RightShoulder,,Right Shoulder,Right Shoulder
+Studio.LayeredClothingEditor.AssetType.Shirt,,Shirt,Shirt
+Studio.LayeredClothingEditor.AssetType.Shorts,,Shorts,Shorts
+Studio.LayeredClothingEditor.AssetType.Shoulder,,Shoulder,Shoulder
+Studio.LayeredClothingEditor.AssetType.Skirt,,Skirt,Skirt
+Studio.LayeredClothingEditor.AssetType.Sweater,,Sweater,Sweater
+Studio.LayeredClothingEditor.AssetType.TeeShirt,,Tee Shirt,Tee Shirt
+Studio.LayeredClothingEditor.AssetType.Waist,,Waist,Waist
+Studio.LayeredClothingEditor.ClothesHelper.BulkCreateAccessories,,Bulk Create Accessories,Bulk Create Accessories
+Studio.LayeredClothingEditor.ClothesHelper.BulkCreateAccessoriesTooltip,,Bulk Create Accessories from Imported Model,Bulk Create Accessories from Imported Model
+Studio.LayeredClothingEditor.ClothesHelper.CreateAccessory,,CreateAccessory,CreateAccessory
+Studio.LayeredClothingEditor.ClothesHelper.CreateAccessoryTooltip,,Create Accessory from Imported Model,Create Accessory from Imported Model
+Studio.LayeredClothingEditor.Dialog.Cancel,,Cancel,Cancel
+Studio.LayeredClothingEditor.Dialog.Confirm,,Confirm,Confirm
+Studio.LayeredClothingEditor.Dialog.DefaultTitle,,Layered Clothing Editor,Layered Clothing Editor
+Studio.LayeredClothingEditor.EditAndPreview.Prompt,,"Move, rotate, and scale accessory within the bounding box to adjust fitting. Once finished, click next to generate the asset.","Move, rotate, and scale accessory within the bounding box to adjust fitting. Once finished, click next to generate the asset."
+Studio.LayeredClothingEditor.EditAndPreview.PromptCage,,Adjust fitting by editing the cage mesh vertices. Use preview to access fitting quality with different options for bodies and animations.,Adjust fitting by editing the cage mesh vertices. Use preview to access fitting quality with different options for bodies and animations.
+Studio.LayeredClothingEditor.EditAndPreview.PromptNoCage,,"Move, rotate and scale accessory within the bounding box to adjust fitting. Use preview to access fitting quality on different bodies and animations.","Move, rotate and scale accessory within the bounding box to adjust fitting. Use preview to access fitting quality on different bodies and animations."
+Studio.LayeredClothingEditor.EditingMode.InnerCage,,Inner Cage,Inner Cage
+Studio.LayeredClothingEditor.EditingMode.MeshPart,,Mesh Part,Mesh Part
+Studio.LayeredClothingEditor.EditingMode.OuterCage,,Outer Cage,Outer Cage
+Studio.LayeredClothingEditor.EditingMode.Text,,Editing,Editing
+Studio.LayeredClothingEditor.Editor.CageGenerate,,Cage Generate,Cage Generate
+Studio.LayeredClothingEditor.Editor.Edit,,Edit,Edit
+Studio.LayeredClothingEditor.Editor.EditAndPreview,,Edit And Preview,Edit And Preview
+Studio.LayeredClothingEditor.Editor.Generate,,Generate,Generate
+Studio.LayeredClothingEditor.Editor.LatticeTool,,Lattice Tool,Lattice Tool
+Studio.LayeredClothingEditor.Editor.MeshPartMode,,"Move, rotate, and scale MeshPart to adjust fitting.","Move, rotate, and scale MeshPart to adjust fitting."
+Studio.LayeredClothingEditor.Editor.PointTool,,Point Tool,Point Tool
+Studio.LayeredClothingEditor.Editor.Preview,,Preview,Preview
+Studio.LayeredClothingEditor.Editor.Reset,,Reset,Reset
+Studio.LayeredClothingEditor.Editor.ResumeEditing,,Click here to resume editing cages.,Click here to resume editing cages.
+Studio.LayeredClothingEditor.Editor.RingTool,,Ring Tool,Ring Tool
+Studio.LayeredClothingEditor.Editor.Select,,Select,Select
+Studio.LayeredClothingEditor.EditorErrors.OpenedWhileRunning,,Layered Clothing Editor cannot be used while game is running!,Layered Clothing Editor cannot be used while game is running!
+Studio.LayeredClothingEditor.Flow.Back,,Back,Back
+Studio.LayeredClothingEditor.Flow.Generate,,Generate,Generate
+Studio.LayeredClothingEditor.Flow.Next,,Next,Next
+Studio.LayeredClothingEditor.Generate.Prompt,,The asset is ready.,The asset is ready.
+Studio.LayeredClothingEditor.Generate.Wait,,Please wait while the asset is being generated...,Please wait while the asset is being generated...
+Studio.LayeredClothingEditor.LatticeTool.GenerateMessageBoxText,,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?
+Studio.LayeredClothingEditor.Main.Title,,Accessory Fitting Tool,Accessory Fitting Tool
+Studio.LayeredClothingEditor.Main.ToolbarButton,,Accessory Fitting Tool,Accessory Fitting Tool
+Studio.LayeredClothingEditor.Main.Tooltip,,Edit and Preview Cage Mesh for Clothing and Accessories,Edit and Preview Cage Mesh for Clothing and Accessories
+Studio.LayeredClothingEditor.Meta.PluginName,,Layered Clothing Editor,Layered Clothing Editor
+Studio.LayeredClothingEditor.Meta.ToolbarName,,Avatar,Avatar
+Studio.LayeredClothingEditor.Preview.AddNew,,Add new...,Add new...
+Studio.LayeredClothingEditor.Preview.AnimationInvalidAdd,,Only a KeyframeSequence Instance can be added,Only a KeyframeSequence Instance can be added
+Studio.LayeredClothingEditor.Preview.Animations,,Animations,Animations
+Studio.LayeredClothingEditor.Preview.Asset,,Asset,Asset
+Studio.LayeredClothingEditor.Preview.AvatarInvalidAdd,,Only an avatar item can be added,Only an avatar item can be added
+Studio.LayeredClothingEditor.Preview.Avatars,,Avatars,Avatars
+Studio.LayeredClothingEditor.Preview.Clothing,,Clothing,Clothing
+Studio.LayeredClothingEditor.Preview.ClothingInvalidAdd,,Only a clothing item can be added,Only a clothing item can be added
+Studio.LayeredClothingEditor.Preview.ConfirmAddTile,,Add {itemName} tile?,Add {itemName} tile?
+Studio.LayeredClothingEditor.Preview.PanelBlockerAddAnimation,,Add a KeyframeSequence Instance from the Explorer,Add a KeyframeSequence Instance from the Explorer
+Studio.LayeredClothingEditor.Preview.PanelBlockerAddAvatar,,Add an avatar item from the Explorer,Add an avatar item from the Explorer
+Studio.LayeredClothingEditor.Preview.PanelBlockerAddClothing,,Add clothing item from the Explorer,Add clothing item from the Explorer
+Studio.LayeredClothingEditor.Preview.Transparency,,Transparency,Transparency
+Studio.LayeredClothingEditor.Reset.InnerCage,,Reset Inner Cage,Reset Inner Cage
+Studio.LayeredClothingEditor.Reset.OuterCage,,Reset Outer Cage,Reset Outer Cage
+Studio.LayeredClothingEditor.Select.Click,,Click here to begin selecting...,Click here to begin selecting...
+Studio.LayeredClothingEditor.Select.Invalid,,Invalid Selection,Invalid Selection
+Studio.LayeredClothingEditor.Select.LoseChanges,,You have unpublished changes on the previous item. You will lose those changes if you select this new item. Proceed?,You have unpublished changes on the previous item. You will lose those changes if you select this new item. Proceed?
+Studio.LayeredClothingEditor.Select.Part,,Part:,Part:
+Studio.LayeredClothingEditor.Select.Prompt,,Click the part you want to become the accessory.,Click the part you want to become the accessory.
+Studio.LayeredClothingEditor.Select.PromptGeneric,,Click the part or model that you would like to edit.,Click the part or model that you would like to edit.
+Studio.LayeredClothingEditor.Select.Selection,,Selection:,Selection:
+Studio.LayeredClothingEditor.SelectItem.Delete,,Delete,Delete
+Studio.LayeredClothingEditor.ToolSettings.FalloffDistance,,Falloff Distance,Falloff Distance
+Studio.LayeredClothingEditor.ToolSettings.Generate,,Generate,Generate
+Studio.LayeredClothingEditor.ToolSettings.LocalAlignment,,Local Alignment,Local Alignment
+Studio.LayeredClothingEditor.ToolSettings.Subdivisions,,Subdivisions,Subdivisions
+Studio.LayeredClothingEditor.ToolSettings.Target,,Target,Target
+Studio.LayeredClothingEditor.Transparency.InnerCage,,InnerCage,InnerCage
+Studio.LayeredClothingEditor.Transparency.Mesh,,Mesh,Mesh
+Studio.LayeredClothingEditor.Transparency.OuterCage,,OuterCage,OuterCage
+Studio.LayeredClothingEditor.Transparency.Title,,Transparency,Transparency

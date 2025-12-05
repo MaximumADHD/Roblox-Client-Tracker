@@ -1,0 +1,169 @@
+Key,Context,Source,en-us
+Studio.Ribbon.Action.AddTab,"Text appearing in a dropdown option that, when clicked, adds a new tab to the Ribbon. The dropdown is a dropdown of all the tabs in the Ribbon, so there is already an established context of tabs here, hence why the source text is just ""Add"".",Add,Add
+Studio.Ribbon.Action.CancelUpdate,Button text to cancel a pending update.,Cancel update,Cancel update
+Studio.Ribbon.Action.CollapseToolbar,"Action that when checked, will detach the Studio toolbar - Ribbon -  into a floating menu",Collapse toolbar,Collapse toolbar
+Studio.Ribbon.Action.CompactDensity,"Action that when checked will reduce the padding, spacing, text size for the main toolbar in Ribbon, making it more compact",Compact toolbar,Compact toolbar
+Studio.Ribbon.Action.Continue,"Button text for generic Continue actions.
+e.g. ""Restart now to get a new version of Studio"" > ""Continue""
+e.g. ""Download the new version of Studio"" > ""Continue""",Continue,Continue
+Studio.Ribbon.Action.FindAndReplaceAll,Tool to find and replace all instances of something within a script,Find in Place,Find in Place
+Studio.Ribbon.Action.ImportRobloxModel,Import from file a Roblox model,Import Roblox Model,Import Roblox Model
+Studio.Ribbon.Action.InviteCollaborators,Share your project and start building together,Invite Collaborators,Invite Collaborators
+Studio.Ribbon.Action.Labels,The action that hides/shows labels in the Studio Toolbar - Ribbon,Show labels,Show labels
+Studio.Ribbon.Action.Pivot,Edit the point around which the selected object rotates and translates,Pivot,Pivot
+Studio.Ribbon.Action.ToggleUpdateStatusPanel,Text displayed on the ribbon button used to open the update status panel/dialog.,Get Studio update,Get Studio update
+Studio.Ribbon.Action.UpdateAvailable,The text displayed on the update panel action button when an update is available.,Download update,Download update
+Studio.Ribbon.Action.UpdateFailed,The text displayed on the update panel action button when an update is failed.,Retry update,Retry update
+Studio.Ribbon.Action.UpdateInProgress,The text displayed on the update panel action button when an update is in progress.,Downloading update,Downloading update
+Studio.Ribbon.Action.UpdateReady,The text displayed on the update panel action button when an update is pre-downloaded and ready to apply.,Restart now,Restart now
+Studio.Ribbon.Action.ViewReleaseNotes,Text for a button that links to the latest release notes.,View release notes,View release notes
+Studio.Ribbon.Actions.AdGui,A GUI object that displays ads,AdGui,AdGui
+Studio.Ribbon.Actions.LaunchTestMode,Launches a testing session for the currently selected test mode,Launch Test Mode,Launch Test Mode
+Studio.Ribbon.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject under the control of a UIListLayout.,UIFlexItem,UIFlexItem
+Studio.Ribbon.Add,Add clients to the current server & clients testing session,Add,Add
+Studio.Ribbon.AddTools.Title,The title of the Add Tools dialog,Add Tools,Add Tools
+Studio.Ribbon.Dialog.ClosingStudio,Dialog text shown while closing Studio for an update.,Closing all open places,Closing all open places
+Studio.Ribbon.Plugin.Action.UpdateAvailable,,Update,Update
+Studio.Ribbon.Plugin.Add,Add clients to the current ongoing server & clients testing session,Add,Add
+Studio.Ribbon.Plugin.AddClients,,Add Clients,Add Clients
+Studio.Ribbon.Plugin.AddClientsTooltip,Add clients to the current server & clients testing session,Add clients to the current session,Add clients to the current session
+Studio.Ribbon.Plugin.AddSeparator,The title of the context menu item that adds a new divider to the current custom tab of the Ribbon,Add divider,Add divider
+Studio.Ribbon.Plugin.AddTools,The title of the context menu item that opens the Add Tools dialog in Ribbon,Add tools,Add tools
+Studio.Ribbon.Plugin.AddTools.Edit,A label for a tool in the Add Tools window indicating it is available in the Edit data model,Edit,Edit
+Studio.Ribbon.Plugin.AddTools.PlayClientOnly,Text to indicate that a tool is only available in the Play Client DM,Client,Client
+Studio.Ribbon.Plugin.AddTools.PlayServerOnly,Text to indicate that a tool is only available in the Play Server DM,Server,Server
+Studio.Ribbon.Plugin.AddTools.Title,The title of the Add Tools dialog,Add Tools,Add Tools
+Studio.Ribbon.Plugin.AnchorToolRibbonAction,"Tool operates as a key for both states: clicking on an unanchored object in the viewport anchors it, while clicking on an anchored object unanchors it.",Click object to anchor,Click object to anchor
+Studio.Ribbon.Plugin.Command,Opens the command bar plugin,Command,Command
+Studio.Ribbon.Plugin.DataModels.All,A dropdown option in the Add Tools window to filter tools for all data model contexts,All Contexts,All Contexts
+Studio.Ribbon.Plugin.DegreesFormat,Format for displaying the degree increment for rotating parts,{amount}°,{amount}°
+Studio.Ribbon.Plugin.DeleteSeparator,The name of the action to remove the currently selected divider in a Ribbon custom tab,Remove divider,Remove divider
+Studio.Ribbon.Plugin.DeleteTab,The tooltip of the delete tab button in Ribbon Manage Tabs dialog,Remove tab,Remove tab
+Studio.Ribbon.Plugin.DeleteTab.Text,"The text of the dialog which displays when you try to delete one tab in the Manage Tabs dialog, opened from Studio Ribbon",This will permanently delete the custom tab and cannot be undone.,This will permanently delete the custom tab and cannot be undone.
+Studio.Ribbon.Plugin.DeleteTab.Title,"The title of the dialog which displays when you try to delete one tab in the Manage Tabs dialog, opened from Studio Ribbon",Delete Tab,Delete Tab
+Studio.Ribbon.Plugin.DeleteTool,The name of the action to remove the currently selected tool in a Ribbon custom tab,Remove tool,Remove tool
+Studio.Ribbon.Plugin.DockUndockRibbon,The option to detach the Studio Ribbon into a floating menu,Autohide ribbon,Autohide ribbon
+Studio.Ribbon.Plugin.DraggerSettingsModesHeader,"In the Studio ribbon dropdown for dragger modes, the header above settings like Collisions and Join Surfaces",Dragger modes,Dragger modes
+Studio.Ribbon.Plugin.DraggerSettingsSnapHeader,"In the Studio ribbon dropdown for dragger settings, the header of the section above settings like ""Snap to Parts""",Snap,Snap
+Studio.Ribbon.Plugin.Exit,Exit client window in either a team test session or a server and clients session,Exit,Exit
+Studio.Ribbon.Plugin.Filter.AllCreators,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Creators,All Creators
+Studio.Ribbon.Plugin.Filter.AllPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Plugins,All Plugins
+Studio.Ribbon.Plugin.Filter.CloudPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Cloud Plugins,Cloud Plugins
+Studio.Ribbon.Plugin.Filter.LocalPlugins,Filter_LocalPlugins,Local Plugins,Local Plugins
+Studio.Ribbon.Plugin.Filter.RobloxStudio,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Roblox Studio,Roblox Studio
+Studio.Ribbon.Plugin.Geometric,,Geometric,Geometric
+Studio.Ribbon.Plugin.ImportQueueButton,Title of the Import Queue Modal,Import Queue,Import Queue
+Studio.Ribbon.Plugin.ImportQueueTooltip,"Tooltip that appears when hovering over the ""Import Queue"" button.",Open the Import Queue,Open the Import Queue
+Studio.Ribbon.Plugin.InviteCollaborators,Share your project and start building together.,Invite Collaborators,Invite Collaborators
+Studio.Ribbon.Plugin.InviteCollaboratorsTooltip,Tooltip for the manage collaborator button when in a non-team create place,Share your project and start building together,Share your project and start building together
+Studio.Ribbon.Plugin.Lock,,Lock,Lock
+Studio.Ribbon.Plugin.LockToolRibbonAction,"Tool operates as a key for both states: clicking on an unlocked object in the viewport locks it, while clicking on a locked object unlocks it.",Click object to lock,Click object to lock
+Studio.Ribbon.Plugin.ManageCollaborators,See and manage your collaborators,Manage Collaborators,Manage Collaborators
+Studio.Ribbon.Plugin.ManageCollaboratorsTooltip,Tooltip for manage collaborators button when in a team create place,See and manage your collaborators,See and manage your collaborators
+Studio.Ribbon.Plugin.ManageTabs,The title of the context menu action to manage Studio Ribbon tabs,Manage tabs,Manage tabs
+Studio.Ribbon.Plugin.ManageTabs.Title,The title of the Manage Tabs dialog in the Studio Ribbon,Manage Tabs,Manage Tabs
+Studio.Ribbon.Plugin.MoveDown,The name of the button that moves a tab down in the Ribbon Manage Tabs Window,Move down,Move down
+Studio.Ribbon.Plugin.MoveLeft,The name of the button that moves a tab or control to the left in the Ribbon UI,Move left,Move left
+Studio.Ribbon.Plugin.MoveRight,The name of the button that moves a tab or control to the right in the Ribbon UI,Move right,Move right
+Studio.Ribbon.Plugin.MoveUp,The name of the button that moves a tab up in the Ribbon Manage Tabs Window,Move up,Move up
+Studio.Ribbon.Plugin.Name,,Ribbon,Ribbon
+Studio.Ribbon.Plugin.Physical,,Physical,Physical
+Studio.Ribbon.Plugin.PlayersFormat,Format for displaying the number of players to add to a server,{amount} players,{amount} players
+Studio.Ribbon.Plugin.PrintActions,,Print Actions,Print Actions
+Studio.Ribbon.Plugin.PrintActionsTooltip,,Prints all actions to stdout as JSON,Prints all actions to stdout as JSON
+Studio.Ribbon.Plugin.ReloadTabs,Reload all the custom tabs in the Studio Ribbon from disk,Reload custom tabs,Reload custom tabs
+Studio.Ribbon.Plugin.ReloadTabsTooltip,,"Reloads the Ribbon, using current configuration on disk","Reloads the Ribbon, using current configuration on disk"
+Studio.Ribbon.Plugin.ResetTabs,The title of the context menu item in Ribbon Manage Tabs dialog that will reset all tabs to original Studio tabs,Reset all tabs,Reset all tabs
+Studio.Ribbon.Plugin.ResetTabs.Text,The content of the reset tabs dialog which resets all the Studio Ribbon tabs to factory default,This will permanently delete all of your custom tabs and restore the original Studio tabs to their default visibility.,This will permanently delete all of your custom tabs and restore the original Studio tabs to their default visibility.
+Studio.Ribbon.Plugin.ResetTabs.Title,The title of the reset tabs dialog which resets all the Studio Ribbon tabs to factory default,Reset all tabs?,Reset all tabs?
+Studio.Ribbon.Plugin.Search,The search bar placeholder in the Ribbon Add Tools dialog,Search,Search
+Studio.Ribbon.Plugin.Setting.AddClients,,Add Clients,Add Clients
+Studio.Ribbon.Plugin.Setting.Anchor,,Anchor,Anchor
+Studio.Ribbon.Plugin.Setting.Appearance,,Appearance,Appearance
+Studio.Ribbon.Plugin.Setting.Attachment,Create an attachment point on a BasePart for physics or effects,Attachment,Attachment
+Studio.Ribbon.Plugin.Setting.Constraint,,Constraint,Constraint
+Studio.Ribbon.Plugin.Setting.Effect,,Effect,Effect
+Studio.Ribbon.Plugin.Setting.Find,,Find,Find
+Studio.Ribbon.Plugin.Setting.Format,,Format,Format
+Studio.Ribbon.Plugin.Setting.Frame,,Frame,Frame
+Studio.Ribbon.Plugin.Setting.GUI,,GUI,GUI
+Studio.Ribbon.Plugin.Setting.Group,,Group,Group
+Studio.Ribbon.Plugin.Setting.Input,,Input,Input
+Studio.Ribbon.Plugin.Setting.InsertEffect,Label for the InsertEffect button on the Audio tab,Effects,Effects
+Studio.Ribbon.Plugin.Setting.InsertInOut,Label for the InsertInOut button on the Audio tab,In/Out,In/Out
+Studio.Ribbon.Plugin.Setting.InsertSpatial,Label for the InsertSpatial button on the Audio tab,Spatial,Spatial
+Studio.Ribbon.Plugin.Setting.Label,,Label,Label
+Studio.Ribbon.Plugin.Setting.Layout,,Layout,Layout
+Studio.Ribbon.Plugin.Setting.Lock,,Lock,Lock
+Studio.Ribbon.Plugin.Setting.Part,,Part,Part
+Studio.Ribbon.Plugin.Setting.PauseMode,,Pause,Pause
+Studio.Ribbon.Plugin.Setting.ResumeMode,,Resume,Resume
+Studio.Ribbon.Plugin.Setting.RunMode,,Play,Play
+Studio.Ribbon.Plugin.Setting.Script,,Script,Script
+Studio.Ribbon.Plugin.Setting.StepForwardMode,,Step Forward,Step Forward
+Studio.Ribbon.Plugin.Setting.Style,,Style,Style
+Studio.Ribbon.Plugin.Setting.Test,,Test,Test
+Studio.Ribbon.Plugin.Setting.TestMode,,Test Mode,Test Mode
+Studio.Ribbon.Plugin.Setting.TestingMode.DebugPlugin,Debug when a breakpoint is hit in a user's plugin,Debug Plugin,Debug Plugin
+Studio.Ribbon.Plugin.Setting.TestingMode.Run,Start the simulation at the camera's current position without a player,Run,Run
+Studio.Ribbon.Plugin.Setting.TestingMode.ServerAndClients,Start a server and multiple client sessions,Server and Clients,Server and Clients
+Studio.Ribbon.Plugin.Setting.TestingMode.TeamTest,Collaborators can join the simulation,Team Test,Team Test
+Studio.Ribbon.Plugin.Setting.TestingMode.Test,"Start simulation with a player at a SpawnLocation or coordinates of around (0,100)",Test,Test
+Studio.Ribbon.Plugin.Setting.TestingMode.TestHere,Start the simulation at the camera's current position,Test Here,Test Here
+Studio.Ribbon.Plugin.Setting.UIConstraint,,Constraint,Constraint
+Studio.Ribbon.Plugin.Setting.Weld,Connect BaseParts into rigid assemblies,Weld,Weld
+Studio.Ribbon.Plugin.ShowHideLabels,,Show/Hide labels,Show/Hide labels
+Studio.Ribbon.Plugin.ShowHideRibbon,,Show/Hide ribbon,Show/Hide ribbon
+Studio.Ribbon.Plugin.SocialPresence.Collaborate,,Collaborate,Collaborate
+Studio.Ribbon.Plugin.SortBy.AZ,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Sort by A-Z,Sort by A-Z
+Studio.Ribbon.Plugin.SortBy.ZA,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Sort by Z-A,Sort by Z-A
+Studio.Ribbon.Plugin.StudsFormat,Format for displaying the stud increment for moving parts,{amount} studs,{amount} studs
+Studio.Ribbon.Plugin.StudsSuffix,,studs,studs
+Studio.Ribbon.Plugin.TabLocation,The label for the dropdown menu to change the alignment of the Ribbon tabs. It is situated in the Manage Tabs dialog in Studio Ribbon,Align tabs to,Align tabs to
+Studio.Ribbon.Plugin.TabLocation.Center,"The ""Left"" setting of the tab location dropdown menu in Manage Tabs dialog opened from Studio Ribbon context menu",Center,Center
+Studio.Ribbon.Plugin.TabLocation.Left,"The ""Left"" setting of the tab location dropdown menu in Manage Tabs dialog opened from Studio Ribbon context menu",Left,Left
+Studio.Ribbon.Plugin.Tab.Avatar,,Avatar,Avatar
+Studio.Ribbon.Plugin.Tab.Custom,,Custom tabs coming soon!,Custom tabs coming soon!
+Studio.Ribbon.Plugin.Tab.Custom.Tooltip,,Create and manage your own tabs and toolbars,Create and manage your own tabs and toolbars
+Studio.Ribbon.Plugin.Tab.Delete,The option to delete a tab in Studio Ribbon,Delete tab,Delete tab
+Studio.Ribbon.Plugin.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
+Studio.Ribbon.Plugin.Tab.Hide,The option to hide a tab in Studio Ribbon,Hide tab,Hide tab
+Studio.Ribbon.Plugin.Tab.Home,,Home,Home
+Studio.Ribbon.Plugin.Tab.Model,,Model,Model
+Studio.Ribbon.Plugin.Tab.Plugins,,Plugins,Plugins
+Studio.Ribbon.Plugin.Tab.Rename,The option to rename a tab in Studio Ribbon,Rename tab,Rename tab
+Studio.Ribbon.Plugin.Tab.Script,,Script,Script
+Studio.Ribbon.Plugin.Tab.UI,,UI,UI
+Studio.Ribbon.Plugin.Tab.Untitled,Placeholder name for a newly added tab,Untitled,Untitled
+Studio.Ribbon.Plugin.Text,,Example Text!,Example Text!
+Studio.Ribbon.Plugin.ToolPluginName,"The format of a plugin name in the Add Tools UI. For example, this might read ""Cloud Plugin: Rojo"" or ""Local Plugin: Test.rbxm""",{pluginType} Plugin: {pluginName},{pluginType} Plugin: {pluginName}
+Studio.Ribbon.Plugin.Tooltip.Attachment,Tooltip for the attachment split button on ribbon,Create an attachment point on a BasePart for physics or effects,Create an attachment point on a BasePart for physics or effects
+Studio.Ribbon.Plugin.Tooltip.Constraint,Tooltip for Constraint split button on Ribbon,Move or connect BaseParts with physics,Move or connect BaseParts with physics
+Studio.Ribbon.Plugin.Tooltip.Format,,Format selected range of the script with correct layout and indentation,Format selected range of the script with correct layout and indentation
+Studio.Ribbon.Plugin.Tooltip.GUI,,Create a new GUI container,Create a new GUI container
+Studio.Ribbon.Plugin.Tooltip.Group,,Group selected parts into a new container,Group selected parts into a new container
+Studio.Ribbon.Plugin.Tooltip.InsertEffect,Tooltip for the InsertEffect button on the Audio tab,Insert Audio instances that apply an effect on audio streams.,Insert Audio instances that apply an effect on audio streams.
+Studio.Ribbon.Plugin.Tooltip.InsertInOut,Tooltip for the InsertInOut button on the Audio tab,Insert Audio instances which act as inputs or outputs.,Insert Audio instances which act as inputs or outputs.
+Studio.Ribbon.Plugin.Tooltip.InsertSpatial,Tooltip for the InsertSpatial button on the Audio tab,Insert Audio instance which interact spatially with the 3D environment.,Insert Audio instance which interact spatially with the 3D environment.
+Studio.Ribbon.Plugin.Tooltip.Mode,,Toggle between transforming objects geometrically or with physics simulation,Toggle between transforming objects geometrically or with physics simulation
+Studio.Ribbon.Plugin.Tooltip.Part,,Create a new Part,Create a new Part
+Studio.Ribbon.Plugin.Tooltip.Script,,Create a Script in the selected object,Create a Script in the selected object
+Studio.Ribbon.Plugin.Tooltip.Weld,Tooltip for Weld split button on Ribbon,Connect BaseParts into rigid assemblies,Connect BaseParts into rigid assemblies
+Studio.Ribbon.Plugin.UpdateAvailable,The text displayed on the button used to open the update panel when an update is available.,Update Available,Update Available
+Studio.Ribbon.Plugin.UpdateFailed,The text displayed on the button used to open the update panel when an update is failed.,Update Failed,Update Failed
+Studio.Ribbon.Plugin.UpdateInProgress,The text displayed on the button used to open the update panel when an update is in progress.,Updating...,Updating...
+Studio.Ribbon.Plugin.UpdateReady,The text displayed on the button used to open the update panel when an update is ready.,Update Ready,Update Ready
+Studio.Ribbon.SystemMenu.Help,File menu option for user to get help on what to do in studio,Help,Help
+Studio.Ribbon.SystemMenu.OpenFromFile,Open a roblox game from a file,Open from File,Open from File
+Studio.Ribbon.SystemMenu.Plugins,Plugins that the user owns,Plugins,Plugins
+Studio.Ribbon.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
+Studio.Ribbon.Title.AddNewTab,"Create a new, empty tab for a custom toolbar",Add New Tab,Add New Tab
+Studio.Ribbon.Title.UpdateAvailable,The text displayed on the update panel when an update is available.,Download the new version of Studio,Download the new version of Studio
+Studio.Ribbon.Title.UpdateFailed,The text displayed on the update panel when an update is failed.,The background download failed. Want to try again?,The background download failed. Want to try again?
+Studio.Ribbon.Title.UpdateInProgress,The text displayed on the update panel when an update is in progress.,Downloading update in the background,Downloading update in the background
+Studio.Ribbon.Title.UpdateReady,The text displayed on the update panel when an update is ready.,Restart now to get a new version of Studio,Restart now to get a new version of Studio
+Studio.Ribbon.Tooltip.AddNewTab,"Tooltip for adding a new, empty tab to the ribbon toolbar","Create a new, empty tab for a custom toolbar","Create a new, empty tab for a custom toolbar"
+Studio.Ribbon.Tooltip.UpdateAvailable,The text displayed on the update panel when an update is available.,Download the latest version and launch the installer to complete the update process.,Download the latest version and launch the installer to complete the update process.
+Studio.Ribbon.Tooltip.UpdateFailed,The text displayed on the update panel when an update is failed.,You’ll need to restart Studio and launch the installer to update.,You’ll need to restart Studio and launch the installer to update.
+Studio.Ribbon.Tooltip.UpdateInProgress,The text displayed on the update panel when an update is in progress.,You can disable background updates in settings.,You can disable background updates in settings.
+Studio.Ribbon.Tooltip.UpdateReady,The text displayed on the update panel when an update is ready.,Relaunch to enjoy the latest features and improvements.,Relaunch to enjoy the latest features and improvements.

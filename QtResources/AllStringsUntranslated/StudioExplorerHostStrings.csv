@@ -1,0 +1,7 @@
+Key,Context,Source,en-us
+Studio.ExplorerHost.BasicExample.Text,,Capybaras are cute!,Capybaras are cute!
+Studio.ExplorerHost.CounterExample.Button,,Push me!,Push me!
+Studio.ExplorerHost.CounterExample.CounterLabel,,You pressed me {counter} times!,You pressed me {counter} times!
+Studio.ExplorerHost.Plugin.Button,,Explorer Host,Explorer Host
+Studio.ExplorerHost.Plugin.Description,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
+Studio.ExplorerHost.Plugin.Name,,ExplorerHost,ExplorerHost

@@ -1,0 +1,72 @@
+Key,Context,Source,en-us
+Studio.App.ProjectFolderService.CannotDeleteFile,,The following file could not be deleted: %1.,The following file could not be deleted: %1.
+Studio.App.ProjectFolderService.DeduplicationError,,This place cannot be exported. The following deduplicated file path collides with an actual file path: %1.,This place cannot be exported. The following deduplicated file path collides with an actual file path: %1.
+Studio.App.ProjectFolderService.DidntSelectFolderError,,No directory was selected.,No directory was selected.
+Studio.App.ProjectFolderService.EditedSinceLastImportOutput,,%1 has been updated since the last import.,%1 has been updated since the last import.
+Studio.App.ProjectFolderService.ExportButtonText,,Export,Export
+Studio.App.ProjectFolderService.ExportError,,Error exporting. Please try again.,Error exporting. Please try again.
+Studio.App.ProjectFolderService.ExportFirstUseOfDirectoryWarningSubtext,,Export to directory %1 for the first time this session?,Export to directory %1 for the first time this session?
+Studio.App.ProjectFolderService.ExportFirstUseOfDirectoryWarningTitle,,Exporting to New Directory,Exporting to New Directory
+Studio.App.ProjectFolderService.ExportOverwriteFileWarning,,Export will overwrite file: %1.,Export will overwrite file: %1.
+Studio.App.ProjectFolderService.ExportUnderIneligibleRootWarningSubtext,,Scripts that are not parented to script / folder instances will appear under Scripts/Misc.,Scripts that are not parented to script / folder instances will appear under Scripts/Misc.
+Studio.App.ProjectFolderService.ExportUnderIneligibleRootWarningTitle,,Scripts parented to non script / folder instances.,Scripts parented to non script / folder instances.
+Studio.App.ProjectFolderService.FileDoesNotExistError,,File does not exist.,File does not exist.
+Studio.App.ProjectFolderService.FileModifiedSinceLastSyncWarning,,File modified since last sync: %1.,File modified since last sync: %1.
+Studio.App.ProjectFolderService.FirstUseOfDirectoryWarning,,This is your first time using directory %1.,This is your first time using directory %1.
+Studio.App.ProjectFolderService.FolderCreationError,,Unable to create directory: %1.,Unable to create directory: %1.
+Studio.App.ProjectFolderService.GetSourceMissingDmError,,Unable to get script source: DataModel not found.,Unable to get script source: DataModel not found.
+Studio.App.ProjectFolderService.GetSourceMissingSESError,,Unable to get script source: ScriptEditorService not found.,Unable to get script source: ScriptEditorService not found.
+Studio.App.ProjectFolderService.ImportAnywayButtonText,,Import Anyway,Import Anyway
+Studio.App.ProjectFolderService.ImportButtonText,,Import,Import
+Studio.App.ProjectFolderService.ImportError,,Error importing. Please try again.,Error importing. Please try again.
+Studio.App.ProjectFolderService.ImportErrorWithReason,,"Error importing ""%1"":  %2","Error importing ""%1"":  %2"
+Studio.App.ProjectFolderService.ImportFirstUseOfDirectoryWarningSubtext,,Import to directory %1 for the first time this session?,Import to directory %1 for the first time this session?
+Studio.App.ProjectFolderService.ImportFirstUseOfDirectoryWarningTitle,,Importing to New Directory,Importing to New Directory
+Studio.App.ProjectFolderService.IneligibleInstancesWarningSubtext,,Some folder or script Instances have tags/attributes. These instances will not be exported.,Some folder or script Instances have tags/attributes. These instances will not be exported.
+Studio.App.ProjectFolderService.IneligibleInstancesWarningTitle,,Tags and Attributes are not supported,Tags and Attributes are not supported
+Studio.App.ProjectFolderService.InstanceCreationError,,Error creating Instance (%1).,Error creating Instance (%1).
+Studio.App.ProjectFolderService.InstanceCreationMissingParentError,,Error creating Instance (%1): Parent does not exist.,Error creating Instance (%1): Parent does not exist.
+Studio.App.ProjectFolderService.InstanceMissingParentError,,Error creating Instance (%1): parent not found.,Error creating Instance (%1): parent not found.
+Studio.App.ProjectFolderService.InstanceMoveMissingParentError,,Error moving Instance (%1): Parent does not exist.,Error moving Instance (%1): Parent does not exist.
+Studio.App.ProjectFolderService.InvalidClassNameError,,Error creating Instance (%1): %2 is not a valid instance class.,Error creating Instance (%1): %2 is not a valid instance class.
+Studio.App.ProjectFolderService.InvalidFolderError,,%1 could not be found or is not a folder.,%1 could not be found or is not a folder.
+Studio.App.ProjectFolderService.InvalidInstanceJsonError,,An Instance entry is missing the %1 field in the data model file.,An Instance entry is missing the %1 field in the data model file.
+Studio.App.ProjectFolderService.InvalidInstancesArrayDmJsonError,,Error reading the data model file: Must contain an instances array of instance data.,Error reading the data model file: Must contain an instances array of instance data.
+Studio.App.ProjectFolderService.InvalidInstancesTable,,Error reading data model file: Malformed instances table.,Error reading data model file: Malformed instances table.
+Studio.App.ProjectFolderService.InvalidTypeError,,Error creating Instance (%1): %2 instances are not supported.,Error creating Instance (%1): %2 instances are not supported.
+Studio.App.ProjectFolderService.InvalidUniqueIdError,,Error creating Instance. Invalid UniqueId: (%1).,Error creating Instance. Invalid UniqueId: (%1).
+Studio.App.ProjectFolderService.MissingDetailsError,,An Instance entry is missing the Details field in the data model file.,An Instance entry is missing the Details field in the data model file.
+Studio.App.ProjectFolderService.MissingDmAfterWarningExportError,,Could not continue with export. DataModel not found.,Could not continue with export. DataModel not found.
+Studio.App.ProjectFolderService.MissingDmAfterWarningImportError,,Could not continue with import. DataModel not found.,Could not continue with import. DataModel not found.
+Studio.App.ProjectFolderService.MissingDmError,,Unable to setup script change detection: DataModel not found.,Unable to setup script change detection: DataModel not found.
+Studio.App.ProjectFolderService.MissingDmJsonError,,Could not find data model file.,Could not find data model file.
+Studio.App.ProjectFolderService.MissingParentError,,Could not move instance (%1) because the new parent (%2) could not be found.,Could not move instance (%1) because the new parent (%2) could not be found.
+Studio.App.ProjectFolderService.MissingScriptEditorServiceError,,Unable to setup script change detection: ScriptEditorService not found.,Unable to setup script change detection: ScriptEditorService not found.
+Studio.App.ProjectFolderService.MissingScriptsFolderError,,Import failed: Directory does not contain a Scripts directory.,Import failed: Directory does not contain a Scripts directory.
+Studio.App.ProjectFolderService.MultipleUsersWarning,,There are currently other users in the TeamCreate session.,There are currently other users in the TeamCreate session.
+Studio.App.ProjectFolderService.MultipleUsersWarningSubtext,,There are live collaborators in this session. Importing now may overwrite their work.,There are live collaborators in this session. Importing now may overwrite their work.
+Studio.App.ProjectFolderService.MultipleUsersWarningTitle,,Importing may overwrite live edits.,Importing may overwrite live edits.
+Studio.App.ProjectFolderService.NotLuauFileError,,Cannot set script source to a non luau file.,Cannot set script source to a non luau file.
+Studio.App.ProjectFolderService.OverwriteButtonText,,Overwrite,Overwrite
+Studio.App.ProjectFolderService.ParsingDmJsonError,,Could not parse data model file,Could not parse data model file
+Studio.App.ProjectFolderService.PathCreationError,,Error creating folder.,Error creating folder.
+Studio.App.ProjectFolderService.PathCreationForInstanceError,,Error creating instance: %1.,Error creating instance: %1.
+Studio.App.ProjectFolderService.PathTooLongError,,Error exporting: The following file path exceeds the limit of 255 characters: %1.,Error exporting: The following file path exceeds the limit of 255 characters: %1.
+Studio.App.ProjectFolderService.RootFolderCreationError,,Unable to create root directory: %1,Unable to create root directory: %1
+Studio.App.ProjectFolderService.RootPathNotAFolderError,,Directory nominated is not a directory: %1.,Directory nominated is not a directory: %1.
+Studio.App.ProjectFolderService.SaveBackupSubtext,,"To avoid data loss, consider saving a backup.","To avoid data loss, consider saving a backup."
+Studio.App.ProjectFolderService.SelectProjectFolder,,Select Project Directory,Select Project Directory
+Studio.App.ProjectFolderService.SetSourceMissingDmError,,Unable to set script source: DataModel not found.,Unable to set script source: DataModel not found.
+Studio.App.ProjectFolderService.SetSourceMissingSESError,,Unable to set script source: ScriptEditorService not found.,Unable to set script source: ScriptEditorService not found.
+Studio.App.ProjectFolderService.SuccessfulExport,,Successfully finished exporting scripts to %1.,Successfully finished exporting scripts to %1.
+Studio.App.ProjectFolderService.SyncInProgress,,A sync operation is currently in progress. Please try again later.,A sync operation is currently in progress. Please try again later.
+Studio.App.ProjectFolderService.UnableToCreateScriptsFolderError,,Unable to create scripts directory.,Unable to create scripts directory.
+Studio.App.ProjectFolderService.UnexportedChangesSubtext,,"Changes have been made in Studio that have not been exported. To avoid data loss, consider saving a backup.","Changes have been made in Studio that have not been exported. To avoid data loss, consider saving a backup."
+Studio.App.ProjectFolderService.UnexportedChangesWarningSubtext,,"To avoid data loss, consider saving a backup.","To avoid data loss, consider saving a backup."
+Studio.App.ProjectFolderService.UnexportedChangesWarningTitle,,Importing will overwrite changes in Studio,Importing will overwrite changes in Studio
+Studio.App.ProjectFolderService.UnimportedChangesSubtext,,"Changes have been made to local files that have not been imported. To avoid data loss, consider saving a backup.","Changes have been made to local files that have not been imported. To avoid data loss, consider saving a backup."
+Studio.App.ProjectFolderService.UnimportedChangesWarningSubtext,,"To avoid data loss, consider saving a backup.","To avoid data loss, consider saving a backup."
+Studio.App.ProjectFolderService.UnimportedChangesWarningTitle,,Exporting will overwrite changes to local files.,Exporting will overwrite changes to local files.
+Studio.App.ProjectFolderService.UnsupportedRootCreationError,,Error creating Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.,Error creating Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.
+Studio.App.ProjectFolderService.UnsupportedRootError,,Error moving Instance (%1): Instance is parented to an unsupported instance inside an unsupported service.,Error moving Instance (%1): Instance is parented to an unsupported instance inside an unsupported service.
+Studio.App.ProjectFolderService.UnsupportedRootMoveError,,Error moving Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.,Error moving Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.

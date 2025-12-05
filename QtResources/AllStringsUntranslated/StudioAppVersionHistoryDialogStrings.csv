@@ -1,0 +1,33 @@
+Key,Context,Source,en-us
+Studio.App.VersionHistoryDialog.BatchColumnTitle,,Scripts in Batch,Scripts in Batch
+Studio.App.VersionHistoryDialog.CommentColumnTitle,,Comment,Comment
+Studio.App.VersionHistoryDialog.CommittedColumnTitle,,Committed,Committed
+Studio.App.VersionHistoryDialog.CommitterColumnTitle,,Changed By,Changed By
+Studio.App.VersionHistoryDialog.CompareButtonText,,Compare selected versions,Compare selected versions
+Studio.App.VersionHistoryDialog.CompareWithPreviousButtonText,,Compare with previous version,Compare with previous version
+Studio.App.VersionHistoryDialog.ComparedVersionsIdentical3,,Versions %1 and %2 of the script '%3' are identical,Versions %1 and %2 of the script '%3' are identical
+Studio.App.VersionHistoryDialog.ConflictDialogMessage,,Unable to edit the following script(s) as they have uncommitted changes that'll be lost. Please commit or discard local changes and retry the operation.,Unable to edit the following script(s) as they have uncommitted changes that'll be lost. Please commit or discard local changes and retry the operation.
+Studio.App.VersionHistoryDialog.ConflictDialogTitle,,Unable To Edit Script(s),Unable To Edit Script(s)
+Studio.App.VersionHistoryDialog.ConflictingScripts,,Conflicting Script(s),Conflicting Script(s)
+Studio.App.VersionHistoryDialog.CurrentVersionLabel1,,%1 (Current),%1 (Current)
+Studio.App.VersionHistoryDialog.EditAllButtonText,,Open all scripts from batch,Open all scripts from batch
+Studio.App.VersionHistoryDialog.EditThisButtonText,,Open script,Open script
+Studio.App.VersionHistoryDialog.FailedToCompareScriptErrorMessage,,Failed to compare selected script(s). Please try again.,Failed to compare selected script(s). Please try again.
+Studio.App.VersionHistoryDialog.FailedToEditBatchErrorMessage,,Failed to edit scripts from the selected batch. Please try again.,Failed to edit scripts from the selected batch. Please try again.
+Studio.App.VersionHistoryDialog.FailedToEditScriptErrorMessage,,Failed to edit selected script version. Please try again.,Failed to edit selected script version. Please try again.
+Studio.App.VersionHistoryDialog.FailedToLoad,,Failed to load,Failed to load
+Studio.App.VersionHistoryDialog.FailedToLoadDataErrorMessage,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.
+Studio.App.VersionHistoryDialog.FailedToOpenScriptErrorMessage,,Failed to open selected script version. Please try again.,Failed to open selected script version. Please try again.
+Studio.App.VersionHistoryDialog.NoPublishNoVersionHistory,,Publish Place to begin tracking script history.,Publish Place to begin tracking script history.
+Studio.App.VersionHistoryDialog.NoScriptChanges,,No script changes,No script changes
+Studio.App.VersionHistoryDialog.NoScriptHistoryWarning,,This script does not have version history yet,This script does not have version history yet
+Studio.App.VersionHistoryDialog.OpenDialog,,View Script History,View Script History
+Studio.App.VersionHistoryDialog.OpenScriptsLabel,,Select script version(s) to open or compare,Select script version(s) to open or compare
+Studio.App.VersionHistoryDialog.PlaceVersionColumnTitle,,Place Version,Place Version
+Studio.App.VersionHistoryDialog.PlaceVersionLabel1,,Place V%1,Place V%1
+Studio.App.VersionHistoryDialog.ShowBatchContentsLink,,Show,Show
+Studio.App.VersionHistoryDialog.Title1,Title of dialog to view history for a script. Example: MyScriptName - Version History,%1 - Version History,%1 - Version History
+Studio.App.VersionHistoryDialog.VersionColumnTitle,,Version,Version
+Studio.App.VersionHistoryDialog.VersionComparedWithFmt2,,Version %1 compared with %2,Version %1 compared with %2
+Studio.App.VersionHistoryDialog.VersionHistoryHashMismatch,,Current Source does not match latest commit.,Current Source does not match latest commit.
+Studio.App.VersionHistoryDialog.ViewButtonText,,View,View

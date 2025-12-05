@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.App.TeamCreateLoaders.CollaboratorInPrivateScript,,Collaborator is in a Private Script,Collaborator is in a Private Script
+Studio.App.TeamCreateLoaders.EditingPrivateScript,,Editing a Private Script,Editing a Private Script
+Studio.App.TeamCreateLoaders.FlyToCollaborator,,Fly To Collaborator,Fly To Collaborator
+Studio.App.TeamCreateLoaders.Join,,Join,Join
+Studio.App.TeamCreateLoaders.JumpBackUnavailable,,No Previous Location Available,No Previous Location Available
+Studio.App.TeamCreateLoaders.LoadingCollaboratorStatus,,Loading Collaborator,Loading Collaborator
+Studio.App.TeamCreateLoaders.LoadingStatus,,Loading...,Loading...
+Studio.App.TeamCreateLoaders.NoPreviousLocation,,No Previous Location,No Previous Location
+Studio.App.TeamCreateLoaders.ReturnToPrevious,,Return to Previous,Return to Previous
+Studio.App.TeamCreateLoaders.ReturnToPreviousLocation,,Return to Previous Location,Return to Previous Location

@@ -1,0 +1,14 @@
+Key,Context,Source,en-us
+Studio.App.RobloxTextOutputWidget.AskAssistant,Send a message to Assistant using metadata from the selected output message,Ask Assistant,Ask Assistant
+Studio.App.RobloxTextOutputWidget.ClearOutput,,Clear Output,Clear Output
+Studio.App.RobloxTextOutputWidget.Context,,Context,Context
+Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
+Studio.App.RobloxTextOutputWidget.Filter,,Filter...,Filter...
+Studio.App.RobloxTextOutputWidget.LuaTableIndicator1,,table: %1,table: %1
+Studio.App.RobloxTextOutputWidget.MaxTableDepthReached,,Max table depth reached,Max table depth reached
+Studio.App.RobloxTextOutputWidget.Message,,Message,Message
+Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
+Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All
+Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureDescription,,"Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier.","Output gets an upgrade — expressive UI, filter/search, and copy/paste becomes easier."
+Studio.App.RobloxTextOutputWidget.TableOutputBetaFeatureTitle,,Expressive Output Window,Expressive Output Window
+Studio.App.RobloxTextOutputWidget.Timestamp,,Timestamp,Timestamp

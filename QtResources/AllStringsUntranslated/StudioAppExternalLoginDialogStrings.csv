@@ -1,0 +1,12 @@
+Key,Context,Source,en-us
+Studio.App.ExternalLoginDialog.CertificateCheckError,,"We failed the certificate check on your machine. If you can't see the login page, try refreshing or using external brower to login.","We failed the certificate check on your machine. If you can't see the login page, try refreshing or using external brower to login."
+Studio.App.ExternalLoginDialog.CertificateCheckTimeout,,"Timeout on certification check, might due to unstable internet. If you can't see the login page, try refreshing or using external brower to login.","Timeout on certification check, might due to unstable internet. If you can't see the login page, try refreshing or using external brower to login."
+Studio.App.ExternalLoginDialog.ExternalBrowserLogin,,External Browser Login,External Browser Login
+Studio.App.ExternalLoginDialog.FatalErrorMessage,,Failed to login. Please restart Studio or contact support if the problem persists.,Failed to login. Please restart Studio or contact support if the problem persists.
+Studio.App.ExternalLoginDialog.GenericErrorMessage,,Failed to login. Please try again or contact support if problem persists.,Failed to login. Please try again or contact support if problem persists.
+Studio.App.ExternalLoginDialog.MessageOnDialogClose,,Are you sure you want to close this window? This will close Roblox Studio.,Are you sure you want to close this window? This will close Roblox Studio.
+Studio.App.ExternalLoginDialog.NoNetworkMessage,,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,Please check that you are connected to the internet and try again. Please contact support if the problem persists.
+Studio.App.ExternalLoginDialog.ReloadLoginPage,,Refresh,Refresh
+Studio.App.ExternalLoginDialog.RobloxLogin,,Roblox login,Roblox login
+Studio.App.ExternalLoginDialog.StudioWillClose,,"Roblox Studio will now close, continue on the browser.","Roblox Studio will now close, continue on the browser."
+Studio.App.ExternalLoginDialog.WindowTitle,,Log In,Log In

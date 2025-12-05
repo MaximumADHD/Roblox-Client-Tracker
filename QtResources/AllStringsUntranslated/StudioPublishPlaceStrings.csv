@@ -1,0 +1,5 @@
+Key,Context,Source,en-us
+Studio.PublishPlace.AfterPublish.ViewCreatorHub,Link to display after publish in toast notification,View on Creator Hub,View on Creator Hub
+Studio.PublishPlace.AfterPublish.ViewCreatorHubText,Message to display after publish in toast notification,Changes published.,Changes published.
+Studio.PublishPlace.AfterPublish.ViewQuestionnaire,Message to display after publish in toast notification,View questionnaire,View questionnaire
+Studio.PublishPlace.AfterPublish.ViewQuestionnaireText,Message to display after publish in toast notification,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.

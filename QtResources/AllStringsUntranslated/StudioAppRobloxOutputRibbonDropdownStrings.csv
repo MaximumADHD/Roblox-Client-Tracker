@@ -1,0 +1,36 @@
+Key,Context,Source,en-us
+Studio.App.RobloxOutputRibbonDropdown.All,,All,All
+Studio.App.RobloxOutputRibbonDropdown.AllContexts,,All Contexts,All Contexts
+Studio.App.RobloxOutputRibbonDropdown.AllMessages,,All Messages,All Messages
+Studio.App.RobloxOutputRibbonDropdown.Client,,Client,Client
+Studio.App.RobloxOutputRibbonDropdown.Context,,Context,Context
+Studio.App.RobloxOutputRibbonDropdown.CopyFullContext,,Copy Full Context,Copy Full Context
+Studio.App.RobloxOutputRibbonDropdown.CoreScript,,CoreScript,CoreScript
+Studio.App.RobloxOutputRibbonDropdown.Edit,,Edit,Edit
+Studio.App.RobloxOutputRibbonDropdown.Error,,Error,Error
+Studio.App.RobloxOutputRibbonDropdown.Information,,Information,Information
+Studio.App.RobloxOutputRibbonDropdown.Log,,Log,Log
+Studio.App.RobloxOutputRibbonDropdown.LogMode,,Log Mode,Log Mode
+Studio.App.RobloxOutputRibbonDropdown.MessageTypes,,Message Types,Message Types
+Studio.App.RobloxOutputRibbonDropdown.None,,None,None
+Studio.App.RobloxOutputRibbonDropdown.NumberContexts1,,%1 Contexts,%1 Contexts
+Studio.App.RobloxOutputRibbonDropdown.NumberTypes1,,%1 Types,%1 Types
+Studio.App.RobloxOutputRibbonDropdown.Other,,Other,Other
+Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,NonNetworked,NonNetworked
+Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,Roblox Plugin,Roblox Plugin
+Studio.App.RobloxOutputRibbonDropdown.SelectMessageOnly,,Select Messages Only,Select Messages Only
+Studio.App.RobloxOutputRibbonDropdown.SelectMessagesOnly,,Select Messages Only,Select Messages Only
+Studio.App.RobloxOutputRibbonDropdown.Server,,Server,Server
+Studio.App.RobloxOutputRibbonDropdown.ShowContext,,Show Context,Show Context
+Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForExpandableTables,,Show memory address for expandable tables,Show memory address for expandable tables
+Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForTables,,Show Memory Address for Tables,Show Memory Address for Tables
+Studio.App.RobloxOutputRibbonDropdown.ShowSource,,Show Source,Show Source
+Studio.App.RobloxOutputRibbonDropdown.ShowTablesExpandedByDefault,,Show Tables Expanded by Default,Show Tables Expanded by Default
+Studio.App.RobloxOutputRibbonDropdown.ShowTimestamp,,Show Timestamp,Show Timestamp
+Studio.App.RobloxOutputRibbonDropdown.StackLines,,Stack Lines,Stack Lines
+Studio.App.RobloxOutputRibbonDropdown.Standalone,,Standalone,Standalone
+Studio.App.RobloxOutputRibbonDropdown.Studio,,Studio,Studio
+Studio.App.RobloxOutputRibbonDropdown.System,,System,System
+Studio.App.RobloxOutputRibbonDropdown.UserPlugin,,User Plugin,User Plugin
+Studio.App.RobloxOutputRibbonDropdown.Warning,,Warning,Warning
+Studio.App.RobloxOutputRibbonDropdown.WordWrap,,Word Wrap,Word Wrap

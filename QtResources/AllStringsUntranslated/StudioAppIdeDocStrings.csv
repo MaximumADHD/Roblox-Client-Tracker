@@ -1,0 +1,156 @@
+Key,Context,Source,en-us
+Studio.App.IdeDoc.AllRobloxFilesFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1),All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1)
+Studio.App.IdeDoc.AllRobloxPlaceFilesFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
+Studio.App.IdeDoc.AnimationFilesFBX,Roblox IDE Doc,Animation Files (*fbx),Animation Files (*fbx)
+Studio.App.IdeDoc.Archive,Roblox IDE Doc,Discard,Discard
+Studio.App.IdeDoc.AreYouSureYouWantToExit1,Message prompt for when user exits a Team Create place,Are you sure you want to exit '%1'?,Are you sure you want to exit '%1'?
+Studio.App.IdeDoc.AudioDisabledGoToServerAudioBehaviorToChange,Roblox IDE Doc,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.,Audio has been disabled. Please go to File->Settings->Studio and then Server Audio Behavior to change this.
+Studio.App.IdeDoc.AutoRecoveryFileCreated1,Roblox IDE Doc,%1 auto-recovery file was created,%1 auto-recovery file was created
+Studio.App.IdeDoc.AutoSaveFailure1,Message displayed when auto-save for a place fails.,Auto-Save Error: %1,Auto-Save Error: %1
+Studio.App.IdeDoc.AutoSaveFailure2,Message displayed when auto-save for a place fails.,Auto-Save Error HTTP %1: %2,Auto-Save Error HTTP %1: %2
+Studio.App.IdeDoc.AutoSavePublishFailure1,Message displayed when auto-save publish for a place fails.,Auto-Save Publish Error: %1,Auto-Save Publish Error: %1
+Studio.App.IdeDoc.AutoSavePublishFailure2,Message displayed when auto-save publish for a place fails.,Auto-Save Publish Error HTTP %1: %2,Auto-Save Publish Error HTTP %1: %2
+Studio.App.IdeDoc.AutoSaving,Roblox IDE Doc,Auto-Saving,Auto-Saving
+Studio.App.IdeDoc.Break,Roblox IDE Doc,Break,Break
+Studio.App.IdeDoc.Cancel,Roblox IDE Doc,Cancel,Cancel
+Studio.App.IdeDoc.CannotFindMesh,Roblox IDE Doc,Cannot find mesh,Cannot find mesh
+Studio.App.IdeDoc.CannotLoadPublishedPlace,Roblox IDE Doc,Cannot load published place,Cannot load published place
+Studio.App.IdeDoc.CannotOpenFileForRead,Roblox IDE Doc,Cannot open place file for read.,Cannot open place file for read.
+Studio.App.IdeDoc.Cleanup,Roblox IDE Doc (Team Test Server),Cleanup,Cleanup
+Studio.App.IdeDoc.ClickLiveErrorReports,Message clickable to direct users to creator dashboard analytics website for experience live errors.,Click to view live error reports.,Click to view live error reports.
+Studio.App.IdeDoc.ClickRealTimeMetrics,Message clickable to direct users to creator dashboard analytics website for experience real-time metrics.,Click to see real time usage metrics.,Click to see real time usage metrics.
+Studio.App.IdeDoc.CloudTestFailed,Roblox IDE Doc,Request to connect to team test failed.,Request to connect to team test failed.
+Studio.App.IdeDoc.CloudTestFetchConfigFailed,Roblox IDE Doc,Cannot fetch team test launch config.,Cannot fetch team test launch config.
+Studio.App.IdeDoc.ConnectingtoServer,Roblox IDE Doc,Connecting to server...,Connecting to server...
+Studio.App.IdeDoc.ConstraintObjectsWillNotWorkPhysicsSolverOverrideTrue,Roblox IDE Doc,Constraint objects will not function correctly because Workspace.TemporaryLegacyPhysicsSolverOverride is true,Constraint objects will not function correctly because Workspace.TemporaryLegacyPhysicsSolverOverride is true
+Studio.App.IdeDoc.Continue,Roblox IDE Doc,Continue,Continue
+Studio.App.IdeDoc.CouldNotLoadPlaceDueToPermissionError,Roblox IDE Doc,"<b>Sorry, we could not load this place due to a permission error</b>","<b>Sorry, we could not load this place due to a permission error</b>"
+Studio.App.IdeDoc.CouldNotTeleportToPlaceCannotEdit1,Roblox IDE Doc,Could not teleport to place %1 from studio. You can only teleport from studio to places you can edit.,Could not teleport to place %1 from studio. You can only teleport from studio to places you can edit.
+Studio.App.IdeDoc.DEPRECATEDPlaceNotDirty,Roblox IDE Doc,No changes detected. Did not save.,No changes detected. Did not save.
+Studio.App.IdeDoc.DeprecateCSG.v1,,You have been upgraded to the latest CSG engine due to a potential security vulnerability found in the legacy CSG engine. <a href=%1>Learn More</a>,You have been upgraded to the latest CSG engine due to a potential security vulnerability found in the legacy CSG engine. <a href=%1>Learn More</a>
+Studio.App.IdeDoc.DeprecateCSGv1,,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>
+Studio.App.IdeDoc.Discard,Roblox IDE Doc,Discard,Discard
+Studio.App.IdeDoc.DisconnectedFromTeamTestServer,Roblox IDE Doc,You have been disconnected from the team test server.,You have been disconnected from the team test server.
+Studio.App.IdeDoc.DoNotBreakWhilePlaceFileOpen,Roblox IDE Doc,Do not break again while this place file is open,Do not break again while this place file is open
+Studio.App.IdeDoc.DoNotUseReservedAutoSavePath1,Roblox IDE Doc,"This file path ""%1"" is reserved for auto-recovery. Try again with a different name","This file path ""%1"" is reserved for auto-recovery. Try again with a different name"
+Studio.App.IdeDoc.DontEnable,Roblox IDE Doc,Don't Enable,Don't Enable
+Studio.App.IdeDoc.DownloadACopy,Roblox IDE Doc,Download a Copy,Download a Copy
+Studio.App.IdeDoc.Enable,Roblox IDE Doc,Enable,Enable
+Studio.App.IdeDoc.ErrorLoadingPlacePleaseClosePlacetryAgain,Roblox IDE Doc,"An error has occurred while loading the place. Please close the place and try again. If this error persists, contact Customer Support.","An error has occurred while loading the place. Please close the place and try again. If this error persists, contact Customer Support."
+Studio.App.IdeDoc.ErrorWhileStartingServer1,Roblox IDE Doc,Error while starting server: %1,Error while starting server: %1
+Studio.App.IdeDoc.ExportFailure,Roblox IDE Doc,Export Failure,Export Failure
+Studio.App.IdeDoc.ExportPlace,Roblox IDE Doc,Export Place,Export Place
+Studio.App.IdeDoc.ExportSelection,Roblox IDE Doc,Export Selection,Export Selection
+Studio.App.IdeDoc.ExportingPlace,Roblox IDE Doc,Exporting Place,Exporting Place
+Studio.App.IdeDoc.ExportingSelection,Roblox IDE Doc,Exporting Selection,Exporting Selection
+Studio.App.IdeDoc.FailedToExportObjContactSupport,Roblox IDE Doc,Failed to export obj. Please try again or contact support if problem persists,Failed to export obj. Please try again or contact support if problem persists
+Studio.App.IdeDoc.FailedToPublishYourPlace,Roblox IDE Doc,Failed to publish your place.,Failed to publish your place.
+Studio.App.IdeDoc.FailedToPublishYourPlace1,Roblox IDE Doc,Failed to publish your place: %1,Failed to publish your place: %1
+Studio.App.IdeDoc.FailedToSavePlaceOnline,Roblox IDE Doc,Failed to save place online.  Check your connection and try again.,Failed to save place online.  Check your connection and try again.
+Studio.App.IdeDoc.FailedToSaveYourPlace,Roblox IDE Doc,Failed to save your place.,Failed to save your place.
+Studio.App.IdeDoc.FailedToSaveYourPlace1,Roblox IDE Doc,Failed to save your place: %1,Failed to save your place: %1
+Studio.App.IdeDoc.ImportingAnimationPleaseWait,Roblox IDE Doc,Importing animation. Please wait..,Importing animation. Please wait..
+Studio.App.IdeDoc.ImportingRigPleaseWait,Roblox IDE Doc,Importing rig. Please wait..,Importing rig. Please wait..
+Studio.App.IdeDoc.InsertedObjectWithConstraintsEnablePhysicsSolver,Roblox IDE Doc,"You inserted something with constraints, which only work with the PGS Physics solver.
+
+Would you like to enable the PGS Physics Solver?","You inserted something with constraints, which only work with the PGS Physics solver.
+
+Would you like to enable the PGS Physics Solver?"
+Studio.App.IdeDoc.Join,Roblox IDE Doc (Team Test Server) - join a session,Join,Join
+Studio.App.IdeDoc.JoinTeamTestServer,Roblox IDE Doc,Join Team Test Server,Join Team Test Server
+Studio.App.IdeDoc.JoiningTeamTestFailedBecause1,Roblox IDE Doc,Joining team test failed because %1.,Joining team test failed because %1.
+Studio.App.IdeDoc.KillScript,Roblox IDE Doc,Kill Script,Kill Script
+Studio.App.IdeDoc.LegacyPartNotCompatibleWithPhysics,Roblox IDE Doc,"Legacy Part not compatible with Physics, try separating and simplifying","Legacy Part not compatible with Physics, try separating and simplifying"
+Studio.App.IdeDoc.LoadingPlacePleaseWait,Roblox IDE Doc,Loading Place. Please wait...,Loading Place. Please wait...
+Studio.App.IdeDoc.LogInRequired,Roblox IDE Doc,Log in required,Log in required
+Studio.App.IdeDoc.NoFBXFileSelected,Roblox IDE Doc,No FBX file selected,No FBX file selected
+Studio.App.IdeDoc.NoRigWasPassedAsFirstArgument,Roblox IDE Doc,No rig was passed as first argument to ImportFbxAnimation,No rig was passed as first argument to ImportFbxAnimation
+Studio.App.IdeDoc.NotSavingChanges,Roblox IDE Doc,Not Saving Changes,Not Saving Changes
+Studio.App.IdeDoc.ObjFiletypeExpected1,Roblox IDE Doc,Obj filetype expected. '%1' received.,Obj filetype expected. '%1' received.
+Studio.App.IdeDoc.ObjModelFiletype,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Object Model (*.obj),Object Model (*.obj)
+Studio.App.IdeDoc.OpenAnimationFBXFile,Roblox IDE Doc,Open Animation FBX File,Open Animation FBX File
+Studio.App.IdeDoc.OpenPlaceFileCancelled,Roblox IDE Doc,File is in use or is not writable. Open cancelled by user.,File is in use or is not writable. Open cancelled by user.
+Studio.App.IdeDoc.OpenPlaceFileReadOnly,Roblox IDE Doc,File is in use or is not writable. Opened for read-only.,File is in use or is not writable. Opened for read-only.
+Studio.App.IdeDoc.OpeningPlace,Roblox IDE Doc,Opening Place,Opening Place
+Studio.App.IdeDoc.PasteInto,Roblox IDE Doc,Paste Into,Paste Into
+Studio.App.IdeDoc.PasteIntoAtOriginalLocation,"Pastes copied instances at their original world coordinates but also preserves their original hierarchical relationship to the currently selected object. Instead of simply placing the copied objects in the workspace, it pastes them as children of the selected object, while maintaining their original positions relative to the workspace.",Paste Into At Original Location,Paste Into At Original Location
+Studio.App.IdeDoc.PasteIntoSelected,Roblox IDE Doc,Paste Into Selected,Paste Into Selected
+Studio.App.IdeDoc.PasteIntoSelectedAtOriginalLocation,Roblox IDE Doc,Paste Into Selected At Original Location,Paste Into Selected At Original Location
+Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes to the place detected. Did not save.,No changes to the place detected. Did not save.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.BadRequest,Roblox IDE Doc,Attempted to upload invalid content.,Attempted to upload invalid content.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Conflict,Roblox IDE Doc,"Attempted to upload to a Team Create place, but Team Create is not enabled.","Attempted to upload to a Team Create place, but Team Create is not enabled."
+Studio.App.IdeDoc.PlaceUploadErrorMessage.FileSizeViolation,Roblox IDE Doc,The place is too large.,The place is too large.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Flooded,Roblox IDE Doc,"Too many upload requests, please wait before retrying.","Too many upload requests, please wait before retrying."
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Forbidden,Roblox IDE Doc,User does not have the correct permissions to manage this experience.,User does not have the correct permissions to manage this experience.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.MissingUserId,Roblox IDE Doc,Failed due to missing user id.,Failed due to missing user id.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.NetworkError,Roblox IDE Doc,Request did not reach the server. Please check your internet connection and try again.,Request did not reach the server. Please check your internet connection and try again.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.NoUsersInServer,Roblox IDE Doc,No valid user in the Team Create session.,No valid user in the Team Create session.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.NotFound,Roblox IDE Doc,Place upload server/endpoint not found.,Place upload server/endpoint not found.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.PublishAllDescendants,Roblox IDE Doc,Place upload failed when attempting to publish descendant assets.,Place upload failed when attempting to publish descendant assets.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.ServerBusy,Roblox IDE Doc,Server is busy and unable to process your upload request. Please try again in a couple minutes.,Server is busy and unable to process your upload request. Please try again in a couple minutes.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Success,Roblox IDE Doc,Place uploaded successfully.,Place uploaded successfully.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Unauthorized,Roblox IDE Doc,This operation requires an authenticated user.,This operation requires an authenticated user.
+Studio.App.IdeDoc.PlaceUploadErrorMessage.Unknown,Roblox IDE Doc,Internal server error.,Internal server error.
+Studio.App.IdeDoc.PlayGame,Roblox IDE Doc,Play Game,Play Game
+Studio.App.IdeDoc.PleaseCheckPermissionsAndTryAgain,Roblox IDE Doc,Please check permissions and try again.,Please check permissions and try again.
+Studio.App.IdeDoc.Publish,Roblox IDE Doc,Publish,Publish
+Studio.App.IdeDoc.PublishedFailed1,Roblox IDE Doc,%1 publish failed.,%1 publish failed.
+Studio.App.IdeDoc.PublishedSuccessfully1,Roblox IDE Doc,%1 was published successfully.,%1 was published successfully.
+Studio.App.IdeDoc.PublishedToRoblox1,Message displayed when a user successfully saves a place to Roblox.,"Published ""%1"" to Roblox.","Published ""%1"" to Roblox."
+Studio.App.IdeDoc.PublishedToRoblox2,"Message displayed when a user successfully saves a place to Roblox, %1 is place name and %2 is game name.","Published ""%1"" to ""%2"" in Roblox.","Published ""%1"" to ""%2"" in Roblox."
+Studio.App.IdeDoc.PublishedToRobloxNew1,Message displayed when a user successfully saves a place to Roblox.,"Published new changes in ""%1"" to Roblox.","Published new changes in ""%1"" to Roblox."
+Studio.App.IdeDoc.PublishedToRobloxNotMoved2,Message displayed when a user successfully saves a place to Roblox. %1 and %2 are both place names.,"Published ""%1"" to Roblox, but you are still editing ""%2"".","Published ""%1"" to Roblox, but you are still editing ""%2""."
+Studio.App.IdeDoc.PublishedToRobloxNotMoved3,"Message displayed when a user successfully saves a place to Roblox, %1 and %3 are place names and %2 is game name.","Published ""%1"" to ""%2"" in Roblox, but you are still editing ""%3"".","Published ""%1"" to ""%2"" in Roblox, but you are still editing ""%3""."
+Studio.App.IdeDoc.PublishedToRobloxSuccess,Message displayed when a user successfully publishes a place to Roblox.,Team Create user successfully published new changes to Roblox.,Team Create user successfully published new changes to Roblox.
+Studio.App.IdeDoc.PublishedToRobloxSuccess1,"Message displayed when a user successfully publishes a place to Roblox, %1 is publish initiator name.",%1 successfully published new changes to Roblox.,%1 successfully published new changes to Roblox.
+Studio.App.IdeDoc.RequestedAssetTypeNotSupported,Roblox IDE Doc,Requested asset type is not supported.,Requested asset type is not supported.
+Studio.App.IdeDoc.RequestingAccess,Roblox IDE Doc,Requesting access...,Requesting access...
+Studio.App.IdeDoc.RobloxPlaceFilesAndXMLPlaceFiles,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx),Roblox Place Files (*.rbxl);;Roblox XML Place Files (*.rbxlx)
+Studio.App.IdeDoc.RobloxPlaceSaveFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
+Studio.App.IdeDoc.SaveFailed1,Roblox IDE Doc,%1 save failed.,%1 save failed.
+Studio.App.IdeDoc.SaveFileFailure,Roblox IDE Doc,Save File Failure,Save File Failure
+Studio.App.IdeDoc.SavedSuccessfully1,Roblox IDE Doc,%1 was saved successfully.,%1 was saved successfully.
+Studio.App.IdeDoc.SavedToLocalFile1,Message displayed when a user successfully saves a place to a file. %1 is the file path.,"Saved to ""%1""","Saved to ""%1"""
+Studio.App.IdeDoc.SavedToRoblox1,Message displayed when a user successfully saves a place to Roblox.,"Saved ""%1"" to Roblox.","Saved ""%1"" to Roblox."
+Studio.App.IdeDoc.SavedToRoblox2,"Message displayed when a user successfully saves a place to Roblox, %1 is place name and %2 is game name.","Saved ""%1"" to ""%2"" in Roblox.","Saved ""%1"" to ""%2"" in Roblox."
+Studio.App.IdeDoc.SavedToRobloxNew1,Message displayed when a user successfully saves a place to Roblox.,"Saved new changes in ""%1"" to Roblox.","Saved new changes in ""%1"" to Roblox."
+Studio.App.IdeDoc.SavedToRobloxNotMoved2,Message displayed when a user successfully saves a place to Roblox. %1 and %2 are both place names.,"Saved ""%1"" to Roblox, but you are still editing ""%2"".","Saved ""%1"" to Roblox, but you are still editing ""%2""."
+Studio.App.IdeDoc.SavedToRobloxNotMoved3,"Message displayed when a user successfully saves a place to Roblox, %1 and %3 are place names and %2 is game name.","Saved ""%1"" to ""%2"" in Roblox, but you are still editing ""%3"".","Saved ""%1"" to ""%2"" in Roblox, but you are still editing ""%3""."
+Studio.App.IdeDoc.SavedToRobloxSuccess,Message displayed when a user successfully saves a place to Roblox.,Team Create user successfully saved new changes to Roblox.,Team Create user successfully saved new changes to Roblox.
+Studio.App.IdeDoc.SavedToRobloxSuccess1,"Message displayed when a user successfully saves a place to Roblox, %1 is save initiator name.",%1 successfully saved new changes to Roblox.,%1 successfully saved new changes to Roblox.
+Studio.App.IdeDoc.Saving,Roblox IDE Doc,Saving,Saving
+Studio.App.IdeDoc.SavingScripts,Roblox IDE Doc,Saving scripts...,Saving scripts...
+Studio.App.IdeDoc.SavingServerPlaceFailed1,Roblox IDE Doc,Saving Server Place Failed: %1,Saving Server Place Failed: %1
+Studio.App.IdeDoc.ScriptExecutionStoppedByUser,Roblox IDE Doc,Script execution stopped by user.,Script execution stopped by user.
+Studio.App.IdeDoc.ScriptRunningMayBeHanging,Roblox IDE Doc,"A script has been running for a long time, and may be hanging.","A script has been running for a long time, and may be hanging."
+Studio.App.IdeDoc.Server,Roblox IDE Doc,Server,Server
+Studio.App.IdeDoc.ShutdownServer,Roblox IDE Doc (Starting servers),Shutdown Server,Shutdown Server
+Studio.App.IdeDoc.SorryPublishedPlaceCannotBeLoaded1,Roblox IDE Doc,"Sorry, this place could not be loaded.
+
+Details: ""%1""","Sorry, this place could not be loaded.
+
+Details: ""%1"""
+Studio.App.IdeDoc.Start,Roblox IDE Doc (Starting servers),Start,Start
+Studio.App.IdeDoc.StartServer,Roblox IDE Doc,Start Server,Start Server
+Studio.App.IdeDoc.StartServerAndPlayers,Roblox IDE Doc,Start Server and Players,Start Server and Players
+Studio.App.IdeDoc.StatusInitializing,Roblox IDE Doc,Initializing...,Initializing...
+Studio.App.IdeDoc.StatusLoading,Roblox IDE Doc,Loading test...,Loading test...
+Studio.App.IdeDoc.StatusSaving,Roblox IDE Doc,Saving world...,Saving world...
+Studio.App.IdeDoc.StatusSettingUp,Roblox IDE Doc,Setting up...,Setting up...
+Studio.App.IdeDoc.SuccessfullyDownloadedCopyTo1,Roblox IDE Doc,Successfully downloaded a copy to '%1',Successfully downloaded a copy to '%1'
+Studio.App.IdeDoc.TeamCreateSessionCancelledByUser,Roblox IDE Doc,Team Create session was cancelled by user,Team Create session was cancelled by user
+Studio.App.IdeDoc.TeamTest,Roblox IDE Doc,Team Test,Team Test
+Studio.App.IdeDoc.TestingModeAnyChangesYouMakeWillBeLost,Roblox IDE Doc,"You are in testing mode, any changes you make will be lost when you press the stop button","You are in testing mode, any changes you make will be lost when you press the stop button"
+Studio.App.IdeDoc.UnableToDeterminePlaceUniverse,Roblox IDE Doc,"Unable to determine place/universe, proceeding with Edit alone","Unable to determine place/universe, proceeding with Edit alone"
+Studio.App.IdeDoc.UncommittedScriptChangesNotPublished,Roblox IDE Doc,Your uncommitted script changes have not been published.,Your uncommitted script changes have not been published.
+Studio.App.IdeDoc.UncommittedScriptChangesNotSaved,Roblox IDE Doc,Your uncommitted script changes have not been saved.,Your uncommitted script changes have not been saved.
+Studio.App.IdeDoc.UncommittedScriptChangesPublishedToNewPlace,Roblox IDE Doc,Your uncommitted script changes have been published to the new place.,Your uncommitted script changes have been published to the new place.
+Studio.App.IdeDoc.UncommittedScriptChangesSavedToNewPlace,Roblox IDE Doc,Your uncommitted script changes have been saved to the new place.,Your uncommitted script changes have been saved to the new place.
+Studio.App.IdeDoc.UserNotLoggedIn,Roblox IDE Doc,User not logged in.,User not logged in.
+Studio.App.IdeDoc.VerbNotFound1,Roblox IDE Doc,%1 verb not found.,%1 verb not found.
+Studio.App.IdeDoc.WasAutoSaved1,Roblox IDE Doc,%1 was auto-saved,%1 was auto-saved
+Studio.App.IdeDoc.WasSaved1,Roblox IDE Doc,%1 was saved,%1 was saved
+Studio.App.IdeDoc.WasSavedToFile1,Roblox IDE Doc,%1 was saved to file,%1 was saved to file
+Studio.App.IdeDoc.WouldYouLikeToPublishTheseChanges,Roblox IDE Doc,Would you like to publish these changes?,Would you like to publish these changes?
+Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like to save these changes?,Would you like to save these changes?
+Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.

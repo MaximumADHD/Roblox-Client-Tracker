@@ -1,0 +1,52 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,hi-in,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,,,Create and bind Behavior: %1,Create and bind Behavior: %1,إنشاء ودمج السلوك: %1,Bahvior erstellen und binden: %1,Crear y enlazar Behavior: %1,Comportement de création et de liaison : %1,बिहेवियर बनाएँ और बाइंड करें : %1,Buat dan ikat Perilaku: %1,Crea e associa comportamento: %1,作成して動作をバインド: %1,행동 생성 및 바인딩: %1,Utwórz i powiąż zachowanie: %1,Criar e vincular comportamento: %1,,สร้างและเชื่อมโยงลักษณะการทำงาน: %1,Davranış oluştur ve bağla: %1,Tạo và ràng buộc Behavior: %1,创建并绑定行为：%1,创建并绑定行为：%1,建立並綁定行為：%1
+Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,,,Search for a Behavior to bind to,Search for a Behavior to bind to,البحث عن سلوك لإجراء دمج معه,"Suche nach einem Behavior, an das gebunden werden soll",Buscar un Behavior al que vincular,Recherche d'un comportement à associer,बाइंड करने के लिए कोई बिहेवियर सर्च करें,Cari Perilaku untuk diikatkan,Cerca un comportamento da associare a,以下とバインドする動作をサーチ:,바인딩할 행동을 검색하세요,"Wyszukaj zachowanie, z którym chcesz się powiązać",Pesquisar por um comportamento para vincular,,ค้นหาลักษณะการทำงานที่จะเชื่อมโยง,Bağlanacak bir Davranış ara,Tìm kiếm một Behavior để ràng buộc,搜索要绑定的行为,搜索要绑定的行为,搜尋要綁定的行為
+Studio.DistributedScripts.AddBehaviorBindingPopup.NoBehaviorBindingsCreated,,,No Behaviors have been bound yet,No Behaviors have been bound yet,لم يتم دمج أي سلوكيات حتى الآن,Es wurden noch keine Behaviors gebunden,Aún no se han vinculado Behaviors,Aucun comportement n'a encore été associé,अभी तक कोई बिहेवियर बाइंड नहीं किया गया है,Belum ada Perilaku yang diikat,Nessun comportamento è stato ancora associato,バインドされた動作がまだありません,아직 바인딩된 행동이 없습니다,Nie powiązano jeszcze żadnych zachowań,Nenhum comportamento foi vinculado ainda,,ยังไม่มีลักษณะการทำงานที่เชื่อมโยงไว้,Henüz hiçbir davranış bağlanmadı,Chưa ràng buộc Behavior nào,尚未绑定任何行为,尚未绑定任何行为,尚未綁定任何行為
+Studio.DistributedScripts.NoBehaviorBindingsLabelItem.NoBehaviorsFound,,,No bindable Behaviors were found,No bindable Behaviors were found,لم يتم العثور على سلوكيات قابلة للدمج,Es wurden keine bindbaren Behaviors gefunden,No se encontraron comportamientos vinculables,Aucun comportement associable n'a été trouvé,कोई बाइंड करने लायक बिहेवियर नहीं मिला,Tidak ada Perilaku yang dapat diikat,Non sono stati trovati comportamenti da associare,バインドできる動作が見つかりません,바인딩할 수 있는 행동을 찾지 못했습니다,"Nie znaleziono zachowań, które można powiązać",Não foram encontrados comportamentos vinculáveis,,ไม่พบลักษณะการทำงานที่เชื่อมโยงได้,Bağlanabilir Davranış bulunamadı,Không có Behavior nào có thể ràng buộc,未找到可绑定的行为,未找到可绑定的行为,找不到可綁定的行為
+Studio.DistributedScripts.BehaviorName,,,Behavior,Behavior,سلوك,Behavior,Behavior,Comportement,बिहेवियर,Perilaku,Comportamento,動作,행동,Zachowanie,Comportamento,,ลักษณะการทำงาน,Davranış,Behavior,行为,行为,行為
+Studio.DistributedScripts.RobloxRibbonMainWindow.InsertABehavior,,,Insert a behavior,Insert a behavior,إدراج سلوك,Ein Verhalten einfügen,Insertar un comportamiento,Insérer un comportement,बिहेवियर डालें,Masukkan perilaku,Inserisci un comportamento,動作を挿入,행동 삽입하기,Wstaw zachowanie,Inserir um comportamento,,แทรกลักษณะการทำงาน,Bir davranış ekle,Chèn một hành vi,插入行为,插入行为,插入行為
+Studio.DistributedScripts.ResimulatedClient,,,Client (Resim),Client (Resim),العميل (مُعاد محاكاته),Client (Resim),Cliente (Resimulado),Client (Resim),क्लाइंट (Resim),Klien (Resim),Client (Resim),クライアント（再シミュレーション）,클라이언트(재시뮬),Klient (Resim),Cliente (Resimulação),,ไคลเอ็นต์ (Resim),İstemci (Resimülasyon),Máy khách (Resim),客户端（重新模拟）,客户端（重新模拟）,用戶 (Resim)
+Studio.DistributedScripts.ResimulatedServer,,,Server (Resim),Server (Resim),الخادم (مُعاد محاكاته),Server (Resim),Servidor (Resimulado),Serveur (Resim),सर्वर (Resim),Server (Resim),Server (Resim),サーバー（再シミュレーション）,서버(재시뮬),Serwer (Resim),Servidor (Resimulação),,เซิร์ฟเวอร์ (Resim),Sunucu (Resimülasyon),Máy chủ (Resim),服务器（重新模拟）,服务器（重新模拟）,伺服器 (Resim)
+Studio.DistributedScripts.ResimulatedEdit,,,Edit (Resim),Edit (Resim),تحرير (مُعاد محاكاته),Bearbeiten (Resim),Edición (Resimulado),Éditer (Resim),एडिट करें (रीसिम्युलेशन),Edit (Resim),Modifica (Resim),編集（再シミュレーション）,편집(재시뮬),Edytowanie (Resim),Editar (Resimulação),,แก้ไข (Resim),Düzenleme (Resimülasyon),Chỉnh sửa (Resim),编辑（重新模拟）,编辑（重新模拟）,編輯 (Resim)
+Studio.DistributedScripts.ResimulatedCoreScript,,,CoreScript (Resim),CoreScript (Resim),النص الأساسي (مُعاد محاكاته),CoreScript (Resim),CoreScript (Resimulado),CoreScript (Resim),CoreScript (रीसिम्युलेशन),CoreScript (Resim),CoreScript (Resim),CoreScript（再シミュレーション）,CoreScript(재시뮬),CoreScript (Resim),CoreScript (Resimulação),,CoreScript (Resim),CoreScript (Resimülasyon),CoreScript (Resim),核心脚本（重新模拟）,核心脚本（重新模拟）,CoreScript (Resim)
+Studio.DistributedScripts.ResimulatedStandalone,,,Standalone (Resim),Standalone (Resim),مستقل (مُعاد محاكاته),Standalone (Resim),Independiente (Resimulado),Autonome (Resim),स्टैंडअलोन (रीसिम्युलेशन),Standalone (Resim),Standalone (Resim),自己完結型（再シミュレーション）,독립형(재시뮬),Samodzielny (Resim),Autônomo (Resimulação),,สแตนด์อโลน (Resim),Bağımsız (Resimülasyon),Độc lập (Resim),独立节点（重新模拟）,独立节点（重新模拟）,獨立 (Resim)
+Studio.DistributedScripts.ResimulatedStudio,,,Studio (Resim),Studio (Resim),Studio (مُعاد محاكاته),Studio (Resim),Studio (Resimulado),Studio (Resim),Studio (रीसिम्युलेशन),Studio (Resim),Studio (Resim),Studio（再シミュレーション）,Studio(재시뮬),Studio (Resim),Studio (Resimulação),,สตูดิโอ (Resim),Studio (Resimülasyon),Studio (Resim),Studio（重新模拟）,Studio（重新模拟）,Studio (Resim)
+Studio.DistributedScripts.BehaviorScript,,,Behavior Script,Behavior Script,النص البرمجي للسلوك,Verhaltensskript,Script Behavior,Script de comportement,बिहेवियर स्क्रिप्ट,Skrip Perilaku,Script di comportamento,動作スクリプト,행동 스크립트,Skrypt zachowania,Script de comportamento,,สคริปต์ลักษณะการทำงาน,Davranış Komut Dosyası,Tập lệnh hành vi,行为脚本,行为脚本,行為指令碼
+Studio.DistributedScripts.SelectAuroraScript,,,Select AuroraScript,Select AuroraScript,,AuroraScript auswählen,Seleccionar AuroraScript,Sélectionner AuroraScript,AuroraScript चुनें,Pilih AuroraScript,Seleziona AuroraScript,AuroraScript を選択,AuroraScript 선택,Wybierz AuroraScript,Selecionar AuroraScript,,เลือก AuroraScript,AuroraScript'i Seç,Chọn AuroraScript,选择 AuroraScript,选择 AuroraScript,選擇 AuroraScript
+Studio.DistributedScripts.SelectAndOpenAuroraScript,,,Select + Open AuroraScript,Select + Open AuroraScript,,AuroraScript auswählen + öffnen,Seleccionar + Abrir AuroraScript,Sélectionner + Ouvrir AuroraScript,'+ AuroraScript खोलें' चुनें,Pilih + Buka AuroraScript,Seleziona + Apri AuroraScript,選択して AuroraScript を開く,AuroraScript 선택 및 열기,Wybierz + Otwórz AuroraScript,Selecione e abra o AuroraScript,,เลือก + เปิด AuroraScript,AuroraScript'i Seç + Aç,Chọn + Mở AuroraScript,选择 + 打开 AuroraScript,选择 + 打开 AuroraScript,選擇 + 開啟 AuroraScript
+Studio.DistributedScripts.AuroraScriptBindingsUploadWarning,,,"AuroraScript bindings will be removed during upload, which may break functionality. Consider converting to local scripts first.
+
+Continue with upload anyway?","AuroraScript bindings will be removed during upload, which may break functionality. Consider converting to local scripts first.
+
+Continue with upload anyway?",,"AuroraScript-Bindings werden beim Hochladen entfernt, was die Funktionalität beeinträchtigen kann. Wandle sie am besten vorher in LocalScripts um.
+
+Upload trotzdem fortsetzen?","Se eliminarán los enlaces de AuroraScript durante la carga, lo que puede afectar la funcionalidad. Considera convertir primero a scripts locales.
+
+¿Continuar con la carga?","Les liaisons AuroraScript seront supprimées pendant le téléchargement, ce qui risque d'interrompre la fonctionnalité. Envisage d'abord de convertir les scripts locaux.","अपलोड के दौरान AuroraScript बाइंडिंग हटा दी जाएगी, जिससे फ़ंक्शनैलिटी ब्रेक हो सकती है. पहले लोकल स्क्रिप्ट में बदलकर देखें.
+
+फिर भी अपलोड जारी रखना है?","AuroraScript binding akan dihapus selama proses upload. Hal ini dapat merusak fungsionalitas. Pertimbangkan untuk mengonversi ke skrip lokal terlebih dahulu.
+
+Lanjutkan proses upload?","I binding AuroraScript verranno rimossi durante il caricamento. Questa azione potrebbe compromettere la funzionalità. Valuta attentamente se effettuare prima la conversione in script locali.
+
+Proseguire comunque con il caricamento?","アップロード中に AuroraScript のバインドは削除されます（これは、機能を壊す可能性があります）。まずローカルスクリプトに変換することを検討してください。
+
+アップロードを続けますか？","업로드 중 AuroraScript 바인딩이 제거되며, 이로 인해 기능이 손상될 수 있습니다. 먼저 로컬 스크립트로 전환하는 것을 고려해 보세요.
+
+그래도 업로드를 계속할까요?","Powiązania AuroraScript zostaną usunięte podczas przesyłania, co może spowodować awarię funkcjonalności. Rozważ najpierw konwersję na skrypty lokalne.
+
+Czy mimo to kontynuować przesyłanie?","As ligações AuroraScript serão removidas durante o upload, o que poderá quebrar funcionalidade. Considere a conversão para scripts locais primeiro.
+
+Continuar com o upload mesmo assim?",,"การผูก AuroraScript จะถูกลบออกระหว่างการอัปโหลด ซึ่งอาจทำให้ฟังก์ชันการทำงานเสียหาย ลองแปลงเป็นสคริปต์ของระบบก่อน
+
+ต้องการอัปโหลดต่อหรือไม่?","AuroraScript bağlamaları yükleme sırasında kaldırılacağı için işlevsellik zarar görebilir. Önce yerel komut dosyalarına dönüştürmeyi düşün.
+
+Yüklemeye yine de devam edilsin mi?","Các liên kết AuroraScript sẽ bị xóa trong quá trình tải lên và làm ảnh hưởng đến chức năng hoạt động. Bạn nên chuyển đổi sang tập lệnh cục bộ trước khi tải lên.
+
+Vẫn tiếp tục tải lên?","上传过程中将移除 AuroraScript 绑定，这可能会导致功能失效。建议先转换为本地脚本。
+
+确定要继续上传吗？","上传过程中将移除 AuroraScript 绑定，这可能会导致功能失效。建议先转换为本地脚本。
+
+确定要继续上传吗？","AuroraScript 繫結會在上傳期間移除，這可能會導致功能失效。請考慮先轉換為本機指令碼。
+
+是否仍要繼續上傳？"
+Studio.DistributedScripts.AuroraScriptUploadError,,,AuroraScripts can't be included in uploads,AuroraScripts can't be included in uploads,,Es dürfen keine AuroraScripts in Uploads enthalten sein,No se pueden incluir los scripts de AuroraScripts en las cargas,Les AuroraScripts ne peuvent pas être inclus dans les téléchargements,अपलोड में AuroraScripts शामिल नहीं किए जा सकते,AuroraScripts tidak dapat disertakan dalam upload,Gli AuroraScripts non possono essere inclusi nei caricamenti,AuroraScripts をアップロードに入れることはできません,AuroraScripts가 업로드에 포함될 수 없습니다,Nie można przesyłać plików AuroraScript,AuroraScripts não podem ser incluídos em uploads,,ไม่สามารถรวม AuroraScripts ไว้ในการอัปโหลดได้,AuroraScript'ler yüklemelere dâhil edilemez,Không thể tải lên tệp có chứa AuroraScript,无法在上传内容中包含 AuroraScripts,无法在上传内容中包含 AuroraScripts,AuroraScripts 無法納入上傳項目中

@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.App.CreateNewGameWidget.CreateNewGame,,Create New Game,Create New Game
+Studio.App.CreateNewGameWidget.GroupHasNoArchivedGames,,This group doesn't have any archived games,This group doesn't have any archived games
+Studio.App.CreateNewGameWidget.GroupHasNoGames,,This group doesn't have any games,This group doesn't have any games
+Studio.App.CreateNewGameWidget.LearnMore,,Learn More,Learn More
+Studio.App.CreateNewGameWidget.NoArchivedGames,,You don't have any archived games,You don't have any archived games
+Studio.App.CreateNewGameWidget.NoArchivedGamesFound,,No archived games found,No archived games found
+Studio.App.CreateNewGameWidget.NoEditInvitations,,You haven't been invited to edit any games,You haven't been invited to edit any games
+Studio.App.CreateNewGameWidget.NoGamesFound,,No games found,No games found
+Studio.App.CreateNewGameWidget.NoRecentEditedGames,,You haven't edited any games recently,You haven't edited any games recently
+Studio.App.CreateNewGameWidget.YouDontHaveAnyGames,,You don't have any games,You don't have any games

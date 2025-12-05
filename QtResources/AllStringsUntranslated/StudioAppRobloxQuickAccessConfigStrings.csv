@@ -1,0 +1,15 @@
+Key,Context,Source,en-us
+Studio.App.RobloxQuickAccessConfig.Add,,Add >>,Add >>
+Studio.App.RobloxQuickAccessConfig.AdvancedCustomization,,Advanced Customization,Advanced Customization
+Studio.App.RobloxQuickAccessConfig.AllActions,,All Actions,All Actions
+Studio.App.RobloxQuickAccessConfig.AlreadyAvailable,,"The selected action is already available in Quick Access Bar.
+Please try to add a different action.","The selected action is already available in Quick Access Bar.
+Please try to add a different action."
+Studio.App.RobloxQuickAccessConfig.ChangesToSettings,,"You have made changes to your settings.
+Do you want to keep your changes?","You have made changes to your settings.
+Do you want to keep your changes?"
+Studio.App.RobloxQuickAccessConfig.CustomizeQuickAccessToolbar,,Customize Quick Access Toolbar,Customize Quick Access Toolbar
+Studio.App.RobloxQuickAccessConfig.QuickAccessBarActions,,Quick Access Bar Actions,Quick Access Bar Actions
+Studio.App.RobloxQuickAccessConfig.Remove,,Remove,Remove
+Studio.App.RobloxQuickAccessConfig.SearchActions,,Search Actions,Search Actions
+Studio.App.RobloxQuickAccessConfig.SomeAlreadyAvailable,,One or more of the selected actions are already available in the Quick Access Bar and could not be re-added.,One or more of the selected actions are already available in the Quick Access Bar and could not be re-added.

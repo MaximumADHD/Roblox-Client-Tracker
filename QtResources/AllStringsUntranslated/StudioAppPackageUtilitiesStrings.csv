@@ -1,0 +1,14 @@
+Key,Context,Source,en-us
+Studio.App.PackageUtilities.ErrorMessageForModifiedPackageInDM,,Error: Cannot save place to Roblox while there are packages with unpublished changes.,Error: Cannot save place to Roblox while there are packages with unpublished changes.
+Studio.App.PackageUtilities.GoToRevisionError1,,Package go to revision error: %1,Package go to revision error: %1
+Studio.App.PackageUtilities.LostAccessToOriginal,,"Failed to fetch original package version, preserving all tags and attributes as customizations.","Failed to fetch original package version, preserving all tags and attributes as customizations."
+Studio.App.PackageUtilities.ModifiedPackagesInDMError,,Error: Cannot publish place to Roblox while there are packages with unpublished changes.,Error: Cannot publish place to Roblox while there are packages with unpublished changes.
+Studio.App.PackageUtilities.OldMetaData1,,Published package %1 has an older metadata format. Please republish it for better version control related supports.,Published package %1 has an older metadata format. Please republish it for better version control related supports.
+Studio.App.PackageUtilities.PendingPackagesInDMError,,Unable to publish this place as there may be modified packages. Please try again later.,Unable to publish this place as there may be modified packages. Please try again later.
+Studio.App.PackageUtilities.PermissionEdit,,Edit,Edit
+Studio.App.PackageUtilities.PermissionNoAccess,,No Access,No Access
+Studio.App.PackageUtilities.PermissionOwn,,Own,Own
+Studio.App.PackageUtilities.PermissionUseView,,Use & View,Use & View
+Studio.App.PackageUtilities.SelectInExplorer,Button text. The button allows user to select some packages in Explorer,Select in Explorer,Select in Explorer
+Studio.App.PackageUtilities.UndoChangesError1,,Package undo changes error: %1,Package undo changes error: %1
+Studio.App.PackageUtilities.UpdateError1,,Package update error: %1,Package update error: %1

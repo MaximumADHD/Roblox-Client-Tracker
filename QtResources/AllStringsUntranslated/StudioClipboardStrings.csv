@@ -1,0 +1,9 @@
+Key,Context,Source,en-us
+Studio.Clipboard.Copy,"Describes the ""Copy"" clipboard action, i.e. Ctrl + C",Copy,Copy
+Studio.Clipboard.Paste,"Describes the ""Paste"" clipboard action, i.e. Ctrl + V",Paste,Paste
+Studio.Clipboard.PasteAtOriginalLocation,Describes the action of pasting Instances from the clipboard in Studio such that they are positioned at the same place as where they were originally copied,Paste at Original Location,Paste at Original Location
+Studio.Clipboard.PasteInto,Describes the action of pasting Instances from the clipboard into the currently selected Instances in Studio,Paste Into,Paste Into
+Studio.Clipboard.PasteIntoAtOriginalLocation,A combination of PasteInto and PasteAtOriginalLocation; describes the action of pasting Instances from the clipboard in Studio into the currently selected Instances such that they are at the same position as where they were originally copied,Paste into at Original Location,Paste into at Original Location
+Studio.Clipboard.PasteIntoSelected,"Like PasteInto, but with extra clarification that it is pasting into the selected Instances",Paste Into Selected,Paste Into Selected
+Studio.Clipboard.PasteIntoSelectedAtOriginalLocation,"Like PasteIntoAtOriginalLocation, but with extra clarification that it is pasting into the selected Instances",Paste Into Selected At Original Location,Paste Into Selected At Original Location
+Studio.Clipboard.PasteTooltip,Tooltip that appears for the common Ctrl+V Paste action,Paste item in clipboard,Paste item in clipboard

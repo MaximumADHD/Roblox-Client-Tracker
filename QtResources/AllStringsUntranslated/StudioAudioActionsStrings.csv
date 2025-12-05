@@ -1,0 +1,24 @@
+Key,Context,Source,en-us
+Studio.AudioActions.Action.FindPlaying,Label for the button that triggers the 'Find Playing' action,Find Playing,Find Playing
+Studio.AudioActions.Action.Insert,Label for the button that triggers the 'Insert' action for the '%s' instance,%s,%s
+Studio.AudioActions.Action.InsertAfter,Label for the button that triggers the 'Insert After' action,Insert After...,Insert After...
+Studio.AudioActions.Action.InsertBefore,Label for the button that triggers the 'Insert Before' action,Insert Before...,Insert Before...
+Studio.AudioActions.Action.InsertBetween,Label for the button that triggers the 'Insert Between' action,Insert Between...,Insert Between...
+Studio.AudioActions.Action.MainVolume,Label for the slider that controls the 'Main Volume' setting,Main Volume,Main Volume
+Studio.AudioActions.Action.MigrateSounds,Label for the button that triggers the 'Migrate Sounds' action,Migrate Sounds,Migrate Sounds
+Studio.AudioActions.Action.SelectInputs,Label for the button that triggers the 'Select Inputs' action,Select Inputs,Select Inputs
+Studio.AudioActions.Action.SelectOutputs,Label for the button that triggers the 'Select Outputs' action,Select Outputs,Select Outputs
+Studio.AudioActions.Action.StopPlaying,Label for the button that triggers the 'Stop Playing' action,Stop Playing,Stop Playing
+Studio.AudioActions.Action.WireUp,Label for the button that triggers the 'Wire Up' action for the '%s' instance and the '%t' instance,Wire %s -> %t,Wire %s -> %t
+Studio.AudioActions.Action.WireUpDisabled,Label for the button that triggers the 'Wire Up' action when it is disabled,Wire Up,Wire Up
+Studio.AudioActions.Tooltip.FindPlaying,Description of the behavior of the 'Find Playing' action,Select all AudioPlayers that are currently playing audio,Select all AudioPlayers that are currently playing audio
+Studio.AudioActions.Tooltip.Insert,Description of the behavior of the 'Insert' action for the '%s' instance,Insert %s under the selected instance,Insert %s under the selected instance
+Studio.AudioActions.Tooltip.InsertAfter,Description of the behavior of the 'Insert After' action,Insert an intsance as an output from the selected instance,Insert an intsance as an output from the selected instance
+Studio.AudioActions.Tooltip.InsertBefore,Description of the behavior of the 'Insert Before' action,Insert an instance as an input to the selected instance,Insert an instance as an input to the selected instance
+Studio.AudioActions.Tooltip.InsertBetween,Description of the behavior of the 'Insert Between' action,Insert an instance between two nodes connected by a Wire,Insert an instance between two nodes connected by a Wire
+Studio.AudioActions.Tooltip.MainVolume,Description of the behavior of the 'Main Volume' setting,Change the sound output level of Studio,Change the sound output level of Studio
+Studio.AudioActions.Tooltip.MigrateSounds,Description of the behavior of the 'Migrate Sounds' action,Update selected Sound instances to AudioPlayers,Update selected Sound instances to AudioPlayers
+Studio.AudioActions.Tooltip.SelectInputs,Description of the behavior of the 'Select Inputs' action,Select all input instances wired to an Instance,Select all input instances wired to an Instance
+Studio.AudioActions.Tooltip.SelectOutputs,Description of the behavior of the 'Select Outputs' action,Select all output instances wired from an Instance,Select all output instances wired from an Instance
+Studio.AudioActions.Tooltip.StopPlaying,Description of the behavior of the 'Stop Playing' action,Stop all audio instances that are playing sound,Stop all audio instances that are playing sound
+Studio.AudioActions.Tooltip.WireUp,Description of the behavior of the 'Wire Up' action,Connect two selected audio instances with a Wire,Connect two selected audio instances with a Wire

@@ -1,0 +1,49 @@
+Key,Context,Source,en-us
+Studio.App.SettingsCategory.CodeAssist,,Code Assist,Code Assist
+Studio.App.SettingsCategory.DiagnosticsBenchmarking,,Benchmarking,Benchmarking
+Studio.App.SettingsCategory.DiagnosticsErrors,,Errors,Errors
+Studio.App.SettingsCategory.DiagnosticsPerformance,,Performance,Performance
+Studio.App.SettingsCategory.DiagnosticsProfile,,Profile,Profile
+Studio.App.SettingsCategory.DraggerBehavior,,Dragger Behavior,Dragger Behavior
+Studio.App.SettingsCategory.DraggerVisualization,,Dragger Visualization,Dragger Visualization
+Studio.App.SettingsCategory.GameOptionsInput,,Input,Input
+Studio.App.SettingsCategory.GameOptionsInternal,,Internal,Internal
+Studio.App.SettingsCategory.GameOptionsOnline,,Online,Online
+Studio.App.SettingsCategory.GameOptionsSound,,Sound,Sound
+Studio.App.SettingsCategory.GameOptionsVideo,,Video,Video
+Studio.App.SettingsCategory.General,,General,General
+Studio.App.SettingsCategory.LuaDiagnostics,,Diagnostics,Diagnostics
+Studio.App.SettingsCategory.LuaSettings,,Online,Online
+Studio.App.SettingsCategory.NetworkAdvanced,,Advanced,Advanced
+Studio.App.SettingsCategory.NetworkAppearance,,Appearance,Appearance
+Studio.App.SettingsCategory.NetworkDiagnostics,,Diagnostics,Diagnostics
+Studio.App.SettingsCategory.NetworkProxy,,Proxy,Proxy
+Studio.App.SettingsCategory.PhysicsDisplay,,Display,Display
+Studio.App.SettingsCategory.PhysicsPerformance,,Performance,Performance
+Studio.App.SettingsCategory.RenderingCache,,Cache,Cache
+Studio.App.SettingsCategory.RenderingDebug,,Debug,Debug
+Studio.App.SettingsCategory.RenderingGeneral,,General,General
+Studio.App.SettingsCategory.RenderingPerformance,,Performance,Performance
+Studio.App.SettingsCategory.SelectionVisualization,,Selection Visualization,Selection Visualization
+Studio.App.SettingsCategory.StudioAdvanced,,Advanced,Advanced
+Studio.App.SettingsCategory.StudioAudio,,Audio,Audio
+Studio.App.SettingsCategory.StudioAutoRecovery,,Auto-Recovery,Auto-Recovery
+Studio.App.SettingsCategory.StudioBrowsing,,Browsing,Browsing
+Studio.App.SettingsCategory.StudioCamera,,Camera,Camera
+Studio.App.SettingsCategory.StudioDebugger,,Debugger,Debugger
+Studio.App.SettingsCategory.StudioDirectories,,Directories,Directories
+Studio.App.SettingsCategory.StudioExplorer,,Explorer,Explorer
+Studio.App.SettingsCategory.StudioGeneral,,General,General
+Studio.App.SettingsCategory.StudioOutput,,Output,Output
+Studio.App.SettingsCategory.StudioPrimaryPart,,PrimaryPart,PrimaryPart
+Studio.App.SettingsCategory.StudioScriptEditor,,Script Editor,Script Editor
+Studio.App.SettingsCategory.StudioScriptEditorColors,,Script Editor Colors,Script Editor Colors
+Studio.App.SettingsCategory.StudioScriptSync,Settings Category for FileSync settings,Script Sync,Script Sync
+Studio.App.SettingsCategory.StudioStreaming,Streaming category for Studio Settings,Streaming,Streaming
+Studio.App.SettingsCategory.StudioTools,,Tools,Tools
+Studio.App.SettingsCategory.StudioUndo,,Undo,Undo
+Studio.App.SettingsCategory.StudioUpdates,Settings category for Studio Updates.,Updates,Updates
+Studio.App.SettingsCategory.StudioVisualization,,Visualization,Visualization
+Studio.App.SettingsCategory.TaskSchedulerConfiguration,,Configuration,Configuration
+Studio.App.SettingsCategory.TaskSchedulerDiagnostics,,Diagnostics,Diagnostics
+Studio.App.SettingsCategory.Theme,,Theme,Theme

@@ -1,0 +1,23 @@
+Key,Context,Source,en-us
+Studio.App.AddEmulationDeviceDialog.AddNewDevice,,Add New Device,Add New Device
+Studio.App.AddEmulationDeviceDialog.BottomSafeZoneOffset,,Bottom,Bottom
+Studio.App.AddEmulationDeviceDialog.DeviceForm,,Device Form,Device Form
+Studio.App.AddEmulationDeviceDialog.DeviceMemoryMB,,Simulated Memory (MB),Simulated Memory (MB)
+Studio.App.AddEmulationDeviceDialog.DeviceName,,Device Name,Device Name
+Studio.App.AddEmulationDeviceDialog.GuiInsets,,GuiInsets,GuiInsets
+Studio.App.AddEmulationDeviceDialog.KeyboardAnimationDuration,,Keyboard Animation Duration (s),Keyboard Animation Duration (s)
+Studio.App.AddEmulationDeviceDialog.KeyboardSettings,,Keyboard Settings,Keyboard Settings
+Studio.App.AddEmulationDeviceDialog.LandscapeKeyboardHeight,,Keyboard Height (Landscape),Keyboard Height (Landscape)
+Studio.App.AddEmulationDeviceDialog.LandscapeSafeZoneOffsets,,SafeZoneOffsets (Landscape),SafeZoneOffsets (Landscape)
+Studio.App.AddEmulationDeviceDialog.LeftSafeZoneOffset,,Left,Left
+Studio.App.AddEmulationDeviceDialog.NameAlreadyInUse1,Error message that is displayed if the user tries to set the name of a new custom emulation device to one that already exists.,"The name ""%1"" is already in use.","The name ""%1"" is already in use."
+Studio.App.AddEmulationDeviceDialog.NameInUse1,,"<nobr><font color=""#ff0000"">The name ""%1"" is already in use.</font></nobr>","<nobr><font color=""#ff0000"">The name ""%1"" is already in use.</font></nobr>"
+Studio.App.AddEmulationDeviceDialog.NameIsReserved1,"Error message that is displayed if the user tries to set the name of a new custom emulation device to one that is used internally, and unavailable for the user. The name is reserved by the system.","The name ""%1"" is reserved.","The name ""%1"" is reserved."
+Studio.App.AddEmulationDeviceDialog.Platform,,Platform,Platform
+Studio.App.AddEmulationDeviceDialog.PortraitKeyboardHeight,,Keyboard Height (Portrait),Keyboard Height (Portrait)
+Studio.App.AddEmulationDeviceDialog.PortraitSafeZoneOffsets,,SafeZoneOffsets (Portrait),SafeZoneOffsets (Portrait)
+Studio.App.AddEmulationDeviceDialog.ResolutionDpi,,Resolution (DPI),Resolution (DPI)
+Studio.App.AddEmulationDeviceDialog.ResolutionScale,,Resolution Scaling,Resolution Scaling
+Studio.App.AddEmulationDeviceDialog.RightSafeZoneOffset,,Right,Right
+Studio.App.AddEmulationDeviceDialog.TopSafeZoneOffset,,Top,Top
+Studio.App.AddEmulationDeviceDialog.userAgentString,,User Agent String,User Agent String

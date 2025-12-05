@@ -1,0 +1,15 @@
+Key,Context,Source,en-us
+Studio.App.UploadMeshRequest.AnimationDataInMeshIsUnsupported,,Animation data in mesh is unsupported,Animation data in mesh is unsupported
+Studio.App.UploadMeshRequest.ContainsMoreThan1Triangles,,Contains more than %1 triangles,Contains more than %1 triangles
+Studio.App.UploadMeshRequest.CouldNotFindTexture1PleaseVerify,,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the fbx/obj file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the fbx/obj file"
+Studio.App.UploadMeshRequest.MeshContainedRiggingData,,Mesh contained rigging data,Mesh contained rigging data
+Studio.App.UploadMeshRequest.MeshContainsMultipleMeshes,,Mesh contained multiple meshes that were merged,Mesh contained multiple meshes that were merged
+Studio.App.UploadMeshRequest.MeshContainsMultipleTextures,,Mesh contained multiple textures so mesh texture may be incorrect,Mesh contained multiple textures so mesh texture may be incorrect
+Studio.App.UploadMeshRequest.MeshHasBeenResized,,Mesh has been resized,Mesh has been resized
+Studio.App.UploadMeshRequest.MultipleMeshesUnsupported,,Multiple meshes in mesh is unsupported,Multiple meshes in mesh is unsupported
+Studio.App.UploadMeshRequest.MultipleTexturesUnsupported,,Multiple textures in mesh is unsupported,Multiple textures in mesh is unsupported
+Studio.App.UploadMeshRequest.NoVerticesFound,,No vertices found,No vertices found
+Studio.App.UploadMeshRequest.TextureFormatIsUnsupportedPlease,,Texture format is unsupported. Please use a supported texture format,Texture format is unsupported. Please use a supported texture format
+Studio.App.UploadMeshRequest.TextureNotFound,,Texture not found,Texture not found
+Studio.App.UploadMeshRequest.ThereWereErrorsWhileImportingYou,,There were errors while importing your mesh,There were errors while importing your mesh
+Studio.App.UploadMeshRequest.UnsupportedTextureFormat,,Unsupported texture format,Unsupported texture format

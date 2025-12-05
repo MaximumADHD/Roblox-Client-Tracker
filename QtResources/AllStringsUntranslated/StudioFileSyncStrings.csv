@@ -1,0 +1,33 @@
+Key,Context,Source,en-us
+Studio.FileSync.Buttons.Ok,,Ok,Ok
+Studio.FileSync.DateTime.At,, at, at
+Studio.FileSync.Errors.ExportFailure,,Failed Export,Failed Export
+Studio.FileSync.Errors.FileSyncError,,Script Sync Error,Script Sync Error
+Studio.FileSync.Errors.ImportFailure,,Failed Import,Failed Import
+Studio.FileSync.Errors.NoDirectory,,Please select a directory.,Please select a directory.
+Studio.FileSync.KeyboardShortcuts.Export,,F2,F2
+Studio.FileSync.KeyboardShortcuts.Import,,F6,F6
+Studio.FileSync.Labels.AutoImport,,Auto Import before Playtest,Auto Import before Playtest
+Studio.FileSync.Labels.Connections,,Connections,Connections
+Studio.FileSync.Labels.LastExport,,Last Export:,Last Export:
+Studio.FileSync.Labels.LastImport,,Last Import:,Last Import:
+Studio.FileSync.Labels.LocalDirectory,,Local Directory,Local Directory
+Studio.FileSync.Labels.Place,,Place,Place
+Studio.FileSync.Labels.SelectFolder,,Select Folder,Select Folder
+Studio.FileSync.Labels.Settings,,Settings,Settings
+Studio.FileSync.Operations.Export,,Export,Export
+Studio.FileSync.Operations.Import,,Import,Import
+Studio.FileSync.Plugin.Button,,Toggle,Toggle
+Studio.FileSync.Plugin.Description,,Toggles the Script Sync plugin window.,Toggles the Script Sync plugin window.
+Studio.FileSync.Plugin.Name,,Script Sync,Script Sync
+Studio.FileSync.Plugin.Text,,Example Text!,Example Text!
+Studio.FileSync.Plugin.Toolbar,,Script Sync,Script Sync
+Studio.FileSync.Status.BothChanges.MainText,,Studio and Local Files Have Changes,Studio and Local Files Have Changes
+Studio.FileSync.Status.BothChanges.SubText,,"To resolve, export or import your changes. Data loss may occur.","To resolve, export or import your changes. Data loss may occur."
+Studio.FileSync.Status.LocalChanges.MainText,,Studio is Out of Date,Studio is Out of Date
+Studio.FileSync.Status.LocalChanges.SubText,,"To resolve, import your local changes","To resolve, import your local changes"
+Studio.FileSync.Status.NoChanges.MainText,,All Instances are Up to Date,All Instances are Up to Date
+Studio.FileSync.Status.StudioChanges.MainText,,Your Local Files are Out of Date,Your Local Files are Out of Date
+Studio.FileSync.Status.StudioChanges.SubText,,"To resolve, export changes from Studio","To resolve, export changes from Studio"
+Studio.FileSync.Successes.ExportSuccess,,Successfully Exported,Successfully Exported
+Studio.FileSync.Successes.ImportSuccess,,Successfully Imported,Successfully Imported

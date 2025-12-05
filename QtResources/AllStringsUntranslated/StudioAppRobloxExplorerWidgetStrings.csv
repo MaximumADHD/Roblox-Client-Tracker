@@ -1,0 +1,19 @@
+Key,Context,Source,en-us
+Studio.App.RobloxExplorerWidget.AutoupdateDisabled,,Package auto-update is disabled,Package auto-update is disabled
+Studio.App.RobloxExplorerWidget.AutoupdateOff,,Package auto-updates are off,Package auto-updates are off
+Studio.App.RobloxExplorerWidget.AutoupdateOn,,Package auto-updates are on,Package auto-updates are on
+Studio.App.RobloxExplorerWidget.ExplorerHeaderResult.Singular,,1 match,1 match
+Studio.App.RobloxExplorerWidget.ExplorerHeaderResults1,,%1 matches,%1 matches
+Studio.App.RobloxExplorerWidget.FileSyncScriptErrored,,The file in disk might have been renamed or changed location,The file in disk might have been renamed or changed location
+Studio.App.RobloxExplorerWidget.FileSyncScriptSyncing,,Local changes are being synced with Studio,Local changes are being synced with Studio
+Studio.App.RobloxExplorerWidget.FilterPlaceholder1,,Filter workspace %1,Filter workspace %1
+Studio.App.RobloxExplorerWidget.HasCustomizations1,Tooltip shown when hovering the original package name,Is customized configuration of package %1,Is customized configuration of package %1
+Studio.App.RobloxExplorerWidget.NewExplorerFilteringTooltipDescription,,"You can now search by properties, tags, and more. Click the link to open the Creator Hub to learn more.","You can now search by properties, tags, and more. Click the link to open the Creator Hub to learn more."
+Studio.App.RobloxExplorerWidget.NewExplorerFilteringTooltipTitle,,New Explorer Filtering,New Explorer Filtering
+Studio.App.RobloxExplorerWidget.OriginalPackageName,Tooltip shown when hovering the original package name,Original name of this package,Original name of this package
+Studio.App.RobloxExplorerWidget.SelectAllMatches1,%1 is the hotkey,Select All Matches (%1),Select All Matches (%1)
+Studio.App.RobloxExplorerWidget.SelectNextMatch1,%1 is the hotkey,Select Next Match (%1),Select Next Match (%1)
+Studio.App.RobloxExplorerWidget.SelectPreviousMatch1,%1 is the hotkey,Select Previous Match (%1),Select Previous Match (%1)
+Studio.App.RobloxExplorerWidget.SelectRefreshResults,,Refresh Results,Refresh Results
+Studio.App.RobloxExplorerWidget.UnpublishedChanges,,Package has unpublished changes,Package has unpublished changes
+Studio.App.RobloxExplorerWidget.UpdateAvailable,,Package update available,Package update available

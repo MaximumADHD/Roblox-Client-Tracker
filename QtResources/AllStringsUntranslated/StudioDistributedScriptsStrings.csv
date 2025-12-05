@@ -1,0 +1,97 @@
+Key,Context,Source,en-us
+Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,Displayed in the AddBehaviorBindingPopup to label a Behavior that will be newly created and bound to the selected Instances.,Create and bind Behavior: %1,Create and bind Behavior: %1
+Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,Text that appears in the text box of the AddBehaviorBindingPopup letting users know how to use it.,Search for a Behavior to bind to,Search for a Behavior to bind to
+Studio.DistributedScripts.AddBehaviorBindingPopup.NoBehaviorBindingsCreated,Displayed in the AddBehaviorBindingPopup when no behaviors have been bound yet.,No Behaviors have been bound yet,No Behaviors have been bound yet
+Studio.DistributedScripts.BehaviorName,"The name of a Behavior (otherwise known as an AuroraScript, or a Distributed Script).",Behavior,Behavior
+Studio.DistributedScripts.BehaviorScript,A script that defines a behavior,Behavior Script,Behavior Script
+Studio.DistributedScripts.NoBehaviorBindingsLabelItem.NoBehaviorsFound,"Displays when the user goes to bind a Behavior, but there aren't any Behaviors for them to bind.",No bindable Behaviors were found,No bindable Behaviors were found
+Studio.DistributedScripts.ResimulatedClient,"This will appear along with statements printed from studio if they happen during resimulation.
+
+Represents a resimulated client. If the client gets told the true authoritative state differs from what they, they need to rollback their state and rerun the world with the update. For example, if you have 100 gold coins and the client tells you you actually have 50 gold coins, the client will rerun the logic of the world with 50 gold coins.   
+
+State = state of the game. For example, if you have 100 gold coins, that would be part of the game state. 
+
+Note: Must be consistent with translations for
+
+Client (Resim)
+Server (Resim)
+Standalone (Resim)
+Studio (Resim)
+Edit (Resim)
+CoreScript (Resim)
+
+These are all derived from Studio.App.RobloxOutputRibbonDropdown.Client, Studio.App.RobloxOutputRibbonDropdown.Server, etc.",Client (Resim),Client (Resim)
+Studio.DistributedScripts.ResimulatedCoreScript,"This will appear along with statements printed from studio if they happen during resimulation.
+
+Represents a resimulated core script. If a core script gets told the true authoritative state differs from what they, they need to rollback their state and rerun the world with the update. For example, if you have 100 gold coins and the core script tells you you actually have 50 gold coins, the core script will rerun the logic of the world with 50 gold coins.   
+
+State = state of the game. For example, if you have 100 gold coins, that would be part of the game state. 
+
+Note: Must be consistent with translations for
+
+Client (Resim)
+Server (Resim)
+Standalone (Resim)
+Studio (Resim)
+Edit (Resim)
+CoreScript (Resim)
+
+These are all derived from Studio.App.RobloxOutputRibbonDropdown.Client, Studio.App.RobloxOutputRibbonDropdown.Server, etc.",CoreScript (Resim),CoreScript (Resim)
+Studio.DistributedScripts.ResimulatedEdit,"This will appear along with statements printed from studio if they happen during resimulation.
+
+Represents a resimulated edit dm. If the edit dm gets told the true authoritative state differs from what they, they need to rollback their state and rerun the world with the update. For example, if you have 100 gold coins and the edit dm tells you you actually have 50 gold coins, the edit dm will rerun the logic of the world with 50 gold coins.   
+
+State = state of the game. For example, if you have 100 gold coins, that would be part of the game state. 
+
+Note: Must be consistent with translations for
+
+Client (Resim)
+Server (Resim)
+Standalone (Resim)
+Studio (Resim)
+Edit (Resim)
+CoreScript (Resim)
+
+These are all derived from Studio.App.RobloxOutputRibbonDropdown.Client, Studio.App.RobloxOutputRibbonDropdown.Server, etc.",Edit (Resim),Edit (Resim)
+Studio.DistributedScripts.ResimulatedServer,"This will appear along with statements printed from studio if they happen during resimulation.
+
+Represents a resimulated server. If the server gets told the true authoritative state differs from what they, they need to rollback their state and rerun the world with the update. For example, if you have 100 gold coins and the server tells you you actually have 50 gold coins, the server will rerun the logic of the world with 50 gold coins.   
+
+State = state of the game. For example, if you have 100 gold coins, that would be part of the game state. 
+
+Note: Must be consistent with translations for
+
+Client (Resim)
+Server (Resim)
+Standalone (Resim)
+Studio (Resim)
+Edit (Resim)
+CoreScript (Resim)
+
+These are all derived from Studio.App.RobloxOutputRibbonDropdown.Client, Studio.App.RobloxOutputRibbonDropdown.Server, etc.",Server (Resim),Server (Resim)
+Studio.DistributedScripts.ResimulatedStandalone,"This will appear along with statements printed from studio if they happen during resimulation.
+
+Represents a resimulated standalone dm. If a standalone dm gets told the true authoritative state differs from what they, they need to rollback their state and rerun the world with the update. For example, if you have 100 gold coins and the standalone tells you you actually have 50 gold coins, the standalone will rerun the logic of the world with 50 gold coins.   
+
+State = state of the game. For example, if you have 100 gold coins, that would be part of the game state. 
+
+Note: Must be consistent with translations for
+
+Client (Resim)
+Server (Resim)
+Standalone (Resim)
+Studio (Resim)
+Edit (Resim)
+CoreScript (Resim)
+
+These are all derived from Studio.App.RobloxOutputRibbonDropdown.Client, Studio.App.RobloxOutputRibbonDropdown.Server, etc.",Standalone (Resim),Standalone (Resim)
+Studio.DistributedScripts.ResimulatedStudio,"This isn't as well defined as the rest but is here for consistency. Must be consistent with translations for  
+Client (Resim) 
+Server (Resim) 
+Standalone (Resim)
+Studio (Resim) 
+Edit (Resim) 
+CoreScript (Resim)  
+
+These are all derived from Studio.App.RobloxOutputRibbonDropdown.Client, Studio.App.RobloxOutputRibbonDropdown.Server, etc.",Studio (Resim),Studio (Resim)
+Studio.DistributedScripts.RobloxRibbonMainWindow.InsertABehavior,Describes how inserting a Behavior from the Studio ribbon works.,Insert a behavior,Insert a behavior

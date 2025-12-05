@@ -1,0 +1,21 @@
+Key,Context,Source,en-us
+Studio.App.LoginManager.CaptchaClosed,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.
+Studio.App.LoginManager.CaptchaError,,Error displaying captcha,Error displaying captcha
+Studio.App.LoginManager.CaptchaInvalid,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.
+Studio.App.LoginManager.ClosingDownAllOpenPlacesElps,,Closing down all open places...,Closing down all open places...
+Studio.App.LoginManager.FailToFetchModerationInfo,,Fail to get moderation status. Please try to login again or contact support if problem persists.,Fail to get moderation status. Please try to login again or contact support if problem persists.
+Studio.App.LoginManager.GetUserAgreementsFailure,,Failed to get user agreements. Please try to login again or contact support if problem persists.,Failed to get user agreements. Please try to login again or contact support if problem persists.
+Studio.App.LoginManager.LocaleFetchError1,,Failed to fetch account locale: %1,Failed to fetch account locale: %1
+Studio.App.LoginManager.LogOut,,Log Out,Log Out
+Studio.App.LoginManager.LoggedOut,,Logged Out,Logged Out
+Studio.App.LoginManager.MetadataFetchError1,,Failed to fetch account info: %1,Failed to fetch account info: %1
+Studio.App.LoginManager.PrivacyPolicy,,Privacy Policy,Privacy Policy
+Studio.App.LoginManager.SecurityQuestionsClosed,,Login requires Security Questions Verification. Please try again.,Login requires Security Questions Verification. Please try again.
+Studio.App.LoginManager.TermsOfService,,Terms Of Use,Terms Of Use
+Studio.App.LoginManager.ToSIAgree,,I Agree,I Agree
+Studio.App.LoginManager.ToSMessage1,,"<span>By clicking ""%1"", you are agreeing to </span>","<span>By clicking ""%1"", you are agreeing to </span>"
+Studio.App.LoginManager.ToSMessage3,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>."
+Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service
+Studio.App.LoginManager.TwoSVClosed,,Login requires Two Step Verification. Please try again.,Login requires Two Step Verification. Please try again.
+Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.
+Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.

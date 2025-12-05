@@ -1,0 +1,36 @@
+Key,Context,Source,en-us
+Studio.App.Actions.AudioDiscovery,Name of the action to display the Audio Discovery plugin,Audio Discovery,Audio Discovery
+Studio.App.Actions.BillboardGui,,BillboardGui,BillboardGui
+Studio.App.Actions.CanvasGroup,,CanvasGroup,CanvasGroup
+Studio.App.Actions.EventEmulator,Name of the action to display the Event Emulator plugin,Event Emulator,Event Emulator
+Studio.App.Actions.ExitClient,Exit the client in a multi-client testing session,Exit Client,Exit Client
+Studio.App.Actions.Highlight,Name of the action to insert a Highlight into the workspace,Highlight,Highlight
+Studio.App.Actions.ImageButton,An ImageButton behaves similarly to an ImageLabel in regards to rendering with the additional behaviors of a GuiButton.,ImageButton,ImageButton
+Studio.App.Actions.ImageLabel,"An ImageLabel renders a rectangle, like a Frame does, with an image.",ImageLabel,ImageLabel
+Studio.App.Actions.Inspector,Name of the action to display the Inspector plugin,Inspector,Inspector
+Studio.App.Actions.LocalizationTools,Name of the action to display the Localization Tools plugin,Localization Tool,Localization Tool
+Studio.App.Actions.LogoutMenu,,Username,Username
+Studio.App.Actions.Perf,"A shortened form of the word Performance, used for the Scene Budget Thermometer button label.",Perf,Perf
+Studio.App.Actions.ScreenGui,The main storage object for 2D GuiObjects displayed on the user's screen.,ScreenGui,ScreenGui
+Studio.App.Actions.ScrollingFrame,"A container object used to layout other GUI objects, and allows for scrolling. A special Frame that handles all scrolling for you, with a range of different ways to customize how the scrolling works.",ScrollingFrame,ScrollingFrame
+Studio.App.Actions.Storybook,Name of the action to display the Storybook plugin,Storybook,Storybook
+Studio.App.Actions.SuperTemplate,Name of the action to display the Super Template plugin,Super Template,Super Template
+Studio.App.Actions.SurfaceGui,,SurfaceGui,SurfaceGui
+Studio.App.Actions.TextBox,"Allows the player to provide text input. It behaves similarly to a TextButton, except that a single TextBox can be put in focus by clicking, tapping or gamepad selection.",TextBox,TextBox
+Studio.App.Actions.TextButton,A TextButton behaves similarly to TextLabel in regards to rendering with the additional behaviors of a GuiButton.,TextButton,TextButton
+Studio.App.Actions.TextLabel,"A TextLabel renders a rectangle, like a Frame, with styled text.",TextLabel,TextLabel
+Studio.App.Actions.UIAspectRatioConstraint,,UIAspectRatioConstraint,UIAspectRatioConstraint
+Studio.App.Actions.UICorner,,UICorner,UICorner
+Studio.App.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject under the control of a UIListLayout.,UIFlexItem,UIFlexItem
+Studio.App.Actions.UIGradient,,UIGradient,UIGradient
+Studio.App.Actions.UIGridLayout,,UIGridLayout,UIGridLayout
+Studio.App.Actions.UIListLayout,,UIListLayout,UIListLayout
+Studio.App.Actions.UIPadding,,UIPadding,UIPadding
+Studio.App.Actions.UIPageLayout,,UIPageLayout,UIPageLayout
+Studio.App.Actions.UIScale,,UIScale,UIScale
+Studio.App.Actions.UISizeConstraint,,UISizeConstraint,UISizeConstraint
+Studio.App.Actions.UIStroke,,UIStroke,UIStroke
+Studio.App.Actions.UITableLayout,,UITableLayout,UITableLayout
+Studio.App.Actions.UITextSizeConstraint,,UITextSizeConstraint,UITextSizeConstraint
+Studio.App.Actions.VideoFrame,,VideoFrame,VideoFrame
+Studio.App.Actions.ViewportFrame,,ViewportFrame,ViewportFrame

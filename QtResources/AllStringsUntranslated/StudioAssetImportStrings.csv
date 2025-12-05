@@ -1,0 +1,5 @@
+Key,Context,Source,en-us
+Studio.AssetImport.GrantExperienceAssetPermissionsErrorMessage,,Failed to grant Game permission to use asset %1.,Failed to grant Game permission to use asset %1.
+Studio.AssetImport.ImportFilePickerCaption,,"Open 3D File (FBX, OBJ, GLB, GLTF)","Open 3D File (FBX, OBJ, GLB, GLTF)"
+Studio.AssetImport.ImportMultifilePickerCaption,"This text appears on the top of a file browser window on Windows or Mac, prompting users to choose a file with the specified file types.","Open 3D or Image File (FBX, OBJ, GLB, GLTF, BMP, JPEG, JPG, PNG, TGA)","Open 3D or Image File (FBX, OBJ, GLB, GLTF, BMP, JPEG, JPG, PNG, TGA)"
+Studio.AssetImport.TextureFilePickerCaption,,Open Texture File,Open Texture File

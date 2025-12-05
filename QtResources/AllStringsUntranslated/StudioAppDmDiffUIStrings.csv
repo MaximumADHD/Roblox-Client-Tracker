@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.App.DmDiffUI.Added1,,%1 (added),%1 (added)
+Studio.App.DmDiffUI.Compare,,Compare,Compare
+Studio.App.DmDiffUI.Deleted1,,%1 (deleted),%1 (deleted)
+Studio.App.DmDiffUI.DescendantChangesToolTip1,,%1 descendant change(s),%1 descendant change(s)
+Studio.App.DmDiffUI.Error,,Diff views for older versions are not supported,Diff views for older versions are not supported
+Studio.App.DmDiffUI.Properties,,Properties,Properties
+Studio.App.DmDiffUI.Title1,,%1 Diff Viewer,%1 Diff Viewer
+Studio.App.DmDiffUI.Version.Error,,Diffs are not available for older versions. Select or create a newer version to compare.,Diffs are not available for older versions. Select or create a newer version to compare.
+Studio.App.DmDiffUI.Visual.Diff.Tab,,Visual Overview,Visual Overview
+Studio.App.DmDiffUI.with,,with,with

@@ -1,0 +1,36 @@
+Key,Context,Source,en-us
+Studio.App.PackageMassUpdate.AboutVersion,Heading for version description,About Version,About Version
+Studio.App.PackageMassUpdate.All,Text for checkbox option that can check all the children checkboxs,All,All
+Studio.App.PackageMassUpdate.AllPlaces,Updated text for checkbox option that can check all the children checkboxes,All Places in this Experience,All Places in this Experience
+Studio.App.PackageMassUpdate.CancelConfirmation,,Update hasn't been completed. Once we finish cancelling we will close this window. Are you sure that you want to cancel?,Update hasn't been completed. Once we finish cancelling we will close this window. Are you sure that you want to cancel?
+Studio.App.PackageMassUpdate.CancelConfirmationWindowTitle,Window title for cancel confirmation,Cancel Update,Cancel Update
+Studio.App.PackageMassUpdate.Cancelled,One of the update status,Cancelled,Cancelled
+Studio.App.PackageMassUpdate.Cancelling,One of the update status,Cancelling...,Cancelling...
+Studio.App.PackageMassUpdate.ChangeHistoryWayPoint,,Update packages in current place to latest,Update packages in current place to latest
+Studio.App.PackageMassUpdate.Current,"Text that shows on the current place, which indicates the place is the current one that the user is working on",Current,Current
+Studio.App.PackageMassUpdate.ErrorCannotOpenTCPlaceDueToCancellation,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation
+Studio.App.PackageMassUpdate.ErrorCannotOpenTCPlaceDueToTimeout,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout
+Studio.App.PackageMassUpdate.ErrorCannotSavePlace,,Error: Cannot save place to Roblox,Error: Cannot save place to Roblox
+Studio.App.PackageMassUpdate.ErrorCannotSavePlaceDueToException,,"Error: Cannot save place to Roblox, due to: ","Error: Cannot save place to Roblox, due to: "
+Studio.App.PackageMassUpdate.ErrorCannotSavePlaceDueToTCDisconnection,,Error: Cannot save place to Roblox due to team create disconnection,Error: Cannot save place to Roblox due to team create disconnection
+Studio.App.PackageMassUpdate.ErrorNoDataModel,,Error: No datamodel,Error: No datamodel
+Studio.App.PackageMassUpdate.ErrorUnpublishedPackge,,Error: Cannot save place to Roblox while there are packages with unpublished changes,Error: Cannot save place to Roblox while there are packages with unpublished changes
+Studio.App.PackageMassUpdate.ErrorUpdatePackageFailsWithException,,Error: Update package fails with exception,Error: Update package fails with exception
+Studio.App.PackageMassUpdate.InitializationFailed,,Could not initialize Mass Update Window for this Package.,Could not initialize Mass Update Window for this Package.
+Studio.App.PackageMassUpdate.Latest,Latest label for the last version of the package,Latest,Latest
+Studio.App.PackageMassUpdate.MassUpdate,A function that enables developer to update package across places.,Mass Update,Mass Update
+Studio.App.PackageMassUpdate.PartiallyUpdated,,Partially Updated,Partially Updated
+Studio.App.PackageMassUpdate.PublishedBy,The username of the creator that published the package,Published by,Published by
+Studio.App.PackageMassUpdate.PublishedOn,The date that the package is published,Published on,Published on
+Studio.App.PackageMassUpdate.SelectPlaces,Heading for selection list in mass update window,Select Places to Update,Select Places to Update
+Studio.App.PackageMassUpdate.UpdateDescription1,<b>%1</b> should not be translated. %1 is name of the package to be updated.,Update all <b>%1</b> copies in the following places of this game to,Update all <b>%1</b> copies in the following places of this game to
+Studio.App.PackageMassUpdate.UpdateFailed,One of the update status,Update Failed,Update Failed
+Studio.App.PackageMassUpdate.UpdateTo,Label for most recent version to update to,Update to,Update to
+Studio.App.PackageMassUpdate.Updated,One of the update status,Updated,Updated
+Studio.App.PackageMassUpdate.UpdatesAllCopies,Description for selection list in mass update window,Updates all copies in a place. We recommend closing other Studio instances before updating.,Updates all copies in a place. We recommend closing other Studio instances before updating.
+Studio.App.PackageMassUpdate.UpdatingProgress1,%1 is the number of the progress. e.g. Updating (36%),Updating (%1%),Updating (%1%)
+Studio.App.PackageMassUpdate.Version,Version of a package,Version,Version
+Studio.App.PackageMassUpdate.VersionContent1,latest mean the last version of the package,%1 (latest),%1 (latest)
+Studio.App.PackageMassUpdate.Waiting,One of the update status,Waiting,Waiting
+Studio.App.PackageMassUpdate.WarningMessage,,Note: We recommend closing other Studio instances before mass updating.,Note: We recommend closing other Studio instances before mass updating.
+Studio.App.PackageMassUpdate.WarningModifiedPackages2,%1 is the number of modified packages detected. %2 is the total number of packages detected. e.g. Warning: Did not update 8/10 packages due to modifications,Warning: Did not update %1/%2 packages due to modifications,Warning: Did not update %1/%2 packages due to modifications

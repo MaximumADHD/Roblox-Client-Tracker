@@ -1,0 +1,879 @@
+Key,Context,Source,en-us
+Studio.App.AIDiffMessage.ChangeSummary,,Change Summary,Change Summary
+Studio.App.AIDiffMessage.NoChanges,,The package has no changes.,The package has no changes.
+Studio.App.AIDiffMessage.PromptLimit,,Looks like there are too many changes between these versions. Please try again with a simpler request.,Looks like there are too many changes between these versions. Please try again with a simpler request.
+Studio.App.AIDiffMessage.QuotaLimit,,You have hit your quota limit for the day. Try sending a request tomorrow.,You have hit your quota limit for the day. Try sending a request tomorrow.
+Studio.App.AIDiffMessage.RequestTimeout,,"Sorry, I'm experiencing a high volume of requests. Please try again later.","Sorry, I'm experiencing a high volume of requests. Please try again later."
+Studio.App.AIDiffMessage.ServerError,,"Network error, please try again later.","Network error, please try again later."
+Studio.App.AIDiffMessage.StopGeneration,,Stop,Stop
+Studio.App.AIDiffMessage.UnknownError,,An error occurred. Please try again later.,An error occurred. Please try again later.
+Studio.App.AboutStudioDialog.AmongRegisteredTrademarks,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks2 without contact us hyper link,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries."
+Studio.App.AboutStudioDialog.ContactUs,Hyper link for contacting Roblox support,Contact Us,Contact Us
+Studio.App.AboutStudioDialog.PrivacyPolicy,Hyper link for privacy policy,Privacy Policy,Privacy Policy
+Studio.App.AboutStudioDialog.UpdatesNotAvailableForBuild,,Updates not available for this build,Updates not available for this build
+Studio.App.ActionInitializer.ToggleSnapToParts,,Snap to Parts - Toggle,Snap to Parts - Toggle
+Studio.App.ActionInitializer.ToggleSnapToPartsTooltip,,Toggle whether dragger tools snap to the edges / centers of parts.,Toggle whether dragger tools snap to the edges / centers of parts.
+Studio.App.AddAttributeDialog.AttributeAlreadyExists,Displayed when adding an attribute and entering a name that exists.,Attribute already exists.,Attribute already exists.
+Studio.App.AddAttributeDialog.AttributeCantStartWithRBX,Displayed when adding a new attribute in the Add Attribute dialog.,Can't start with 'RBX'.,Can't start with 'RBX'.
+Studio.App.AddAttributeDialog.AttributeName,Displayed to the left of attribute name line edit.,Name,Name
+Studio.App.AddAttributeDialog.AttributeType,Displayed to the left of attribute type combo box,Type,Type
+Studio.App.AddAttributeDialog.ContainsIllegalCharacter,Displayed when an attribute contains special characters or an underscore,Contains illegal character(s).,Contains illegal character(s).
+Studio.App.AddImageDialog.ChooseFile,,Choose File,Choose File
+Studio.App.AddImageDialog.ChooseImageUpload,,Choose image to upload,Choose image to upload
+Studio.App.AddImageDialog.CreateAssetName,,Creating asset name...,Creating asset name...
+Studio.App.AddImageDialog.FileDoesNotExist,,File does not exist,File does not exist
+Studio.App.AddImageDialog.Image,,Image:,Image:
+Studio.App.AddImageDialog.ImageFileRequired,,Image file is required,Image file is required
+Studio.App.AddImageDialog.Name,,Name:,Name:
+Studio.App.AnimationFromVideoCreatorStudioService.FileTooLarge,,File is too large; must be less than %1MB,File is too large; must be less than %1MB
+Studio.App.AnimationFromVideoCreatorStudioService.NoFileSelected,,No file selected,No file selected
+Studio.App.AnimationFromVideoCreatorStudioService.SelectMP4VideoFile,,Select a video,Select a video
+Studio.App.AnimationFromVideoCreatorStudioService.UploadFailed,,Upload failed,Upload failed
+Studio.App.AssetAccess.ShareOutputMessage1,,The experience doesn't have access permission to use asset id %1. Click to share access,The experience doesn't have access permission to use asset id %1. Click to share access
+Studio.App.AssetAccess.ShareOutputMessageToolTip,,Share access to asset(s),Share access to asset(s)
+Studio.App.AssetAccess.ShareOutputMessageUnavailable,,Asset access sharing unavailable,Asset access sharing unavailable
+Studio.App.AttributeRenameDialog.AttributeAlphanumberic,Displayed when entering an illegal character while renaming an attribute,Attributes can only contain alphanumeric characters and underscores.,Attributes can only contain alphanumeric characters and underscores.
+Studio.App.AttributeRenameDialog.AttributeContainsIllegalCharacters,Displayed when entering an illegal character while renaming an attribute,Attribute contains illegal character(s).,Attribute contains illegal character(s).
+Studio.App.AttributeRenameDialog.AttributeLengthAndSuggestion2,"Displayed when exceeding maximum characters while editing, along with AttributeNameExceeds1",Current name length is: %1. Try to use a name within %2 characters.,Current name length is: %1. Try to use a name within %2 characters.
+Studio.App.AttributeRenameDialog.AttributeNameAlreadyExists,Displayed when renaming an attribute and entering a name that exists.,Attribute name already exists.,Attribute name already exists.
+Studio.App.AttributeRenameDialog.AttributeNameCantBeEmpty,Displayed when trying to commit an empty attribute while editing.,Attribute name cannot be empty.,Attribute name cannot be empty.
+Studio.App.AttributeRenameDialog.AttributeNameCantStartWithRBX,Displayed when editing and trying to add RBX at the beginning.,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.
+Studio.App.AttributeRenameDialog.AttributeNameExceeds1,Displayed when exceeding maximum charecters while editing.,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.
+Studio.App.AttributeRenameDialog.AttributeTryDifferentName,Displayed when editing an attribute and entering a name that exists.,Try to use a different name.,Try to use a different name.
+Studio.App.AudioImportConfirmationDialog.ConfirmAudioImport,,Confirm Audio Import,Confirm Audio Import
+Studio.App.AudioImportConfirmationDialog.NoFilesAvailable,,No files available,No files available
+Studio.App.AudioImportOptionsDialog.ConfirmAudioImport,,Confirm Audio Import,Confirm Audio Import
+Studio.App.AudioPrivacyCheck.GrantPermissionFailure3,"Appears in output window when permission granting fails. %1 and %2 are replaced by assed ids, and %3 is replaced by an error code.",Failed to grant universe [%1] permission to asset [%2]: %3,Failed to grant universe [%1] permission to asset [%2]: %3
+Studio.App.AudioPrivacyCheck.GrantPermissionUserFailure3,"Appears in output window when permission granting fails. %1 is replaced by universe id, %2 is replaced by assed id and %3 is replaced by user id.",Your User ID %3 is not authorized to grant asset permissions. Failed to grant the Universe %1 permission to use asset %2.,Your User ID %3 is not authorized to grant asset permissions. Failed to grant the Universe %1 permission to use asset %2.
+Studio.App.AudioResourceController.AudioReferencedByName,,"Audio files are referenced by name, so any references to this asset will fail to load. Are you sure you want to remove it?","Audio files are referenced by name, so any references to this asset will fail to load. Are you sure you want to remove it?"
+Studio.App.AuthenticationHelper.AuthFailedTimeout,,Could not authenticate user. Request timed out.,Could not authenticate user. Request timed out.
+Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
+Studio.App.Authenticator.TwoStepFailedParse,,"An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists.","An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists."
+Studio.App.AutoSave.AutoSaveRecovery,,Auto-Save Recovery,Auto-Save Recovery
+Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,%1 more children...,%1 more children...
+Studio.App.AutocompleteTooltip.FunctionNumberLabelTextFmt2,,%1 of %2,%1 of %2
+Studio.App.AuxiliaryView.RenderException1,,Adding AuxiliaryView failed with error,Adding AuxiliaryView failed with error
+Studio.App.AvatarImportService.OpenRigFBXFile,,Open Rig FBX File,Open Rig FBX File
+Studio.App.BaseDataModel.MigrateOneUnionBody,,"Do you want Studio to perform a one-time migration resizing one union to retain its original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature.","Do you want Studio to perform a one-time migration resizing one union to retain its original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature."
+Studio.App.BaseDataModel.MigrateOneUnionTitle,,One union is being reinterpreted,One union is being reinterpreted
+Studio.App.BaseDataModel.MigrateUnionsBody1,,"Do you want Studio to perform a one-time migration resizing %1 unions to retain their original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature.","Do you want Studio to perform a one-time migration resizing %1 unions to retain their original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature."
+Studio.App.BaseDataModel.MigrateUnionsTitle1,,%1 unions are being reinterpreted,%1 unions are being reinterpreted
+Studio.App.BetaFeature.SmoothVoxelsDescription,,Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!),Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!)
+Studio.App.BetaFeature.SmoothVoxelsTitle,,Smooth Voxels,Smooth Voxels
+Studio.App.BetaFeature.UpgradeShorelinesDescription,,"Enable the new terrain upgrade which provides a smooth connection where water joins the shores. This upgrade also allows water edges to animate following the water's movement. After enabling the beta, you can choose to apply the shorelines upgrade for each of your places independently, through the Terrain Editor. The upgrade can be reverted with the Undo command.","Enable the new terrain upgrade which provides a smooth connection where water joins the shores. This upgrade also allows water edges to animate following the water's movement. After enabling the beta, you can choose to apply the shorelines upgrade for each of your places independently, through the Terrain Editor. The upgrade can be reverted with the Undo command."
+Studio.App.BetaFeature.UpgradeShorelinesTitle,,Upgrade Shorelines,Upgrade Shorelines
+Studio.App.BreakpointConditionEditDialog.BreakpointCondition,,Breakpoint Condition,Breakpoint Condition
+Studio.App.BreakpointConditionEditDialog.Condition,,Condition:,Condition:
+Studio.App.BreakpointTooltip.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"
+Studio.App.BreakpointTooltip.ConditionText,,Condition,Condition
+Studio.App.BreakpointTooltip.ContinueExecutionText,,Continuing Execution,Continuing Execution
+Studio.App.BreakpointTooltip.DisabledForCurrentContext,,Disabled For Current Context,Disabled For Current Context
+Studio.App.BreakpointTooltip.LogExpressionText,,Log Expression,Log Expression
+Studio.App.Breakpoints.Breakpoints,,Breakpoints,Breakpoints
+Studio.App.Breakpoints.DeleteAllBreakpoints,Debugger widgets,Delete All Breakpoints,Delete All Breakpoints
+Studio.App.Breakpoints.DeleteSelectedBreakpoint,Debugger widgets,Delete Selected Breakpoint,Delete Selected Breakpoint
+Studio.App.Breakpoints.GoToSourceCode,Debugger widgets,Go To Source Code,Go To Source Code
+Studio.App.BreakpointsTreeWidget.HeaderLabelCondition,In breakpoints,Condition,Condition
+Studio.App.BreakpointsTreeWidget.HeaderLabelEnabled,In breakpoints,Enabled,Enabled
+Studio.App.BreakpointsTreeWidget.HeaderLabelLine,In breakpoints,Line,Line
+Studio.App.BreakpointsTreeWidget.HeaderLabelScriptName,In breakpoints,Script Name,Script Name
+Studio.App.BreakpointsTreeWidget.HeaderLabelSourceLine,In breakpoints,Source Line,Source Line
+Studio.App.BreakpointsWidget.DisableAllBreakpoints,,Disable All Breakpoints,Disable All Breakpoints
+Studio.App.BreakpointsWidget.DoYouWantToDeleteAllBreakpoints,,Do you want to delete all breakpoints?,Do you want to delete all breakpoints?
+Studio.App.BreakpointsWidget.EnableAllBreakpoints,,Enable All Breakpoints,Enable All Breakpoints
+Studio.App.BrowserServiceController.Hidden,,(Hidden),(Hidden)
+Studio.App.BrowserServiceController.OSNotUpToDate,,"Your OS is not up to date, some functions may not be fully supported","Your OS is not up to date, some functions may not be fully supported"
+Studio.App.BulkAudioImportRateLimiting.NoCapacity,,Audio uploads are temporarily unavailable. Please try again later.,Audio uploads are temporarily unavailable. Please try again later.
+Studio.App.BulkAudioImportRateLimiting.UploadsDefault2,,"You have %1 audio uploads per 30 days.
+(<a href=%2>Learn more</a>)","You have %1 audio uploads per 30 days.
+(<a href=%2>Learn more</a>)"
+Studio.App.BulkAudioImportRateLimiting.UploadsLeft4,,"%1 of %2 audio uploads left until %3.
+(<a href=%4>Learn more</a>)","%1 of %2 audio uploads left until %3.
+(<a href=%4>Learn more</a>)"
+Studio.App.BulkAudioImportRateLimiting.UploadsReachedLimit2,,"You've reached your audio upload limit. It refreshes on %1.
+(<a href=%2>Learn more</a>)","You've reached your audio upload limit. It refreshes on %1.
+(<a href=%2>Learn more</a>)"
+Studio.App.BulkImport.CancelImport,Bulk importer,Cancel Import,Cancel Import
+Studio.App.BulkImport.ClearWindow,Bulk importer,Clear Window,Clear Window
+Studio.App.BulkImport.CloseWindow,Bulk importer,Close Window,Close Window
+Studio.App.BulkImport.Collapse,Bulk importer,Collapse,Collapse
+Studio.App.BulkImport.Completed,Bulk importer,Completed,Completed
+Studio.App.BulkImport.Expand,Bulk importer,Expand,Expand
+Studio.App.BulkImport.Import,Bulk importer,Import,Import
+Studio.App.BulkImport.ProgressFmt2,Bulk importer,Imported %1 of %2 files,Imported %1 of %2 files
+Studio.App.BulkImportService.UniverseNotValid,,Universe is not valid,Universe is not valid
+Studio.App.BulkImportService.UniverseResourcesNotLoaded,,Universe resources are not loaded yet,Universe resources are not loaded yet
+Studio.App.BulkImportWidget.CancelImport,,Cancel Import,Cancel Import
+Studio.App.BulkImportWidget.ContinueImport,,Continue Import,Continue Import
+Studio.App.BulkImportWidget.ImportNotComplete,,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?
+Studio.App.BulkImporter.RetryingUploadIn1SecondS,,Retrying upload in %1 second(s),Retrying upload in %1 second(s)
+Studio.App.BulkImporter.SplitFrom1,,Split from %1,Split from %1
+Studio.App.BulkImporterImpl.AssetHasBeenRenamedTo1,,Asset has been renamed to '%1',Asset has been renamed to '%1'
+Studio.App.BulkImporterImpl.AssetNameModerated,,Asset name on website has been moderated,Asset name on website has been moderated
+Studio.App.BulkImporterImpl.RetryLimitHitTryAgainIfNotExceedingDailyLimit,,Upload retry limit for this asset has been reached. If daily limit hasn't been exceeded try again later.,Upload retry limit for this asset has been reached. If daily limit hasn't been exceeded try again later.
+Studio.App.BulkImporterImpl.RetryLimitHitTryAgainLater,,Retry limit hit. Try again later,Retry limit hit. Try again later
+Studio.App.BulkImporterImpl.RetryLimtHitTryAgainLater,,Retry limit hit. Try again later,Retry limit hit. Try again later
+Studio.App.BulkImporterImpl.RetryingUpload,,Retrying upload,Retrying upload
+Studio.App.BulkVideoImportInfos.PreparingToUpload,,Preparing to upload,Preparing to upload
+Studio.App.BulkVideoImportInfos.ProcessProgress1,Display the video processing progress in percent.,Processing: %1%,Processing: %1%
+Studio.App.BulkVideoImportInfos.UploadCanceled,,Video upload is canceled.,Video upload is canceled.
+Studio.App.BulkVideoImportInfos.UploadCannotBeCanceled,,Video processing cannot be canceled.,Video processing cannot be canceled.
+Studio.App.BulkVideoImportInfos.UploadProgress1,Display the video uploading progress in percent.,Uploading: %1%,Uploading: %1%
+Studio.App.BulkVideoImportRateLimiting.NoCapacity,,Video uploads are temporarily unavailable. Please try again later.,Video uploads are temporarily unavailable. Please try again later.
+Studio.App.BulkVideoImportRateLimiting.UploadsDefault2,,"You have %1 video uploads per 30 days.
+(<a href=%2>Learn more</a>)","You have %1 video uploads per 30 days.
+(<a href=%2>Learn more</a>)"
+Studio.App.BulkVideoImportRateLimiting.UploadsLeft4,,"%1 of %2 video uploads left until %3.
+(<a href=%4>Learn more</a>)","%1 of %2 video uploads left until %3.
+(<a href=%4>Learn more</a>)"
+Studio.App.BulkVideoImportRateLimiting.UploadsReachedLimit2,,"You've reached your video upload limit. It refreshes on %1.
+(<a href=%2>Learn more</a>)","You've reached your video upload limit. It refreshes on %1.
+(<a href=%2>Learn more</a>)"
+Studio.App.CalibrateDeviceScalingDialog.AdjustTheSlider,,Adjust the slider so that the image below is about the size of a student ID or library card (8.56 cm or 3.37 inches wide).,Adjust the slider so that the image below is about the size of a student ID or library card (8.56 cm or 3.37 inches wide).
+Studio.App.CalibrateDeviceScalingDialog.CalibrateDeviceScaling,,Calibrate Device Scaling,Calibrate Device Scaling
+Studio.App.CalibrateDeviceScalingDialog.DecreaseImageSize,,Decrease image size,Decrease image size
+Studio.App.CalibrateDeviceScalingDialog.EstimateScreenSize,,"To accurately scale to physical size, we need to get an estimate of your screen size.","To accurately scale to physical size, we need to get an estimate of your screen size."
+Studio.App.CalibrateDeviceScalingDialog.IncreaseImageSize,,Increase image size,Increase image size
+Studio.App.CallStack.CallStack,Call Stack widgets,Call Stack,Call Stack
+Studio.App.CallStack.Frame,Call Stack widgets,Frame,Frame
+Studio.App.CallStack.FunctionExplanation,Call Stack widgets,Function Explanation,Function Explanation
+Studio.App.CallStack.FunctionName,Call Stack widgets,Function Name,Function Name
+Studio.App.CallStack.LineNo,Call Stack widgets,Line No.,Line No.
+Studio.App.CallStack.Source,Call Stack widgets,Source,Source
+Studio.App.CallStack.What,Call Stack widgets,What,What
+Studio.App.CallStackWidget.CurrentScript,,Current Script: ,Current Script: 
+Studio.App.Callout.GotIt,Button that a user clicks to dismiss a Teaching Callout. Teaching Callouts are used to showcase new Studio features to users.,Got it!,Got it!
+Studio.App.Callout.LearnMore,"Within a Teaching Callout, this text is a link that takes a user to a learning resource for a new feature. Teaching Callouts are used to showcase new Studio features to users.",Learn more,Learn more
+Studio.App.CalloutController.AssetManagerCalloutDescription,Description that appears in the Teaching Callout pointing out the new Asset Manager feature.,"Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!","Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!"
+Studio.App.CalloutController.AssetManagerCalloutTitle,Name of the new Asset Manager built-in plugin that displays as a title for a Teaching Callout that points to the button for the plugin.,Asset Manager,Asset Manager
+Studio.App.CalloutController.DraggerModeCalloutDescription,,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.
+Studio.App.CalloutController.DraggerModeCalloutTitle,,Drag Mode,Drag Mode
+Studio.App.CalloutController.PivotEditorCalloutDescription,,Change the pivot point around which an object rotates and translates.,Change the pivot point around which an object rotates and translates.
+Studio.App.CalloutController.PivotEditorCalloutTitle,,Pivot Editor,Pivot Editor
+Studio.App.CalloutService.InvalidLayerCollector,,Not a valid type of LayerCollector,Not a valid type of LayerCollector
+Studio.App.CalloutService.NoLayerCollector,,Could not find a LayerCollector for target,Could not find a LayerCollector for target
+Studio.App.CalloutService.NotAvailable,,CalloutService is not available when either FFlagStudioEnableTeachingCallouts or FFlagStudioCalloutsInLua are false,CalloutService is not available when either FFlagStudioEnableTeachingCallouts or FFlagStudioCalloutsInLua are false
+Studio.App.CalloutService.TargetNotGuiBase2d,,Target is not a GuiBase2d,Target is not a GuiBase2d
+Studio.App.ChatSessionHandler.All,,All,All
+Studio.App.ChatSessionHandler.TeamChat,,Team Chat,Team Chat
+Studio.App.ClientServerToggleFTUE.ClientServerToggle,,Client/Server Toggle,Client/Server Toggle
+Studio.App.ClientServerToggleFTUE.ToggleClientServerMode,,Click on the icon to toggle between client and server mode while testing,Click on the icon to toggle between client and server mode while testing
+Studio.App.CloudEditController.JoinTeamTestServer,,Join Team Test Server,Join Team Test Server
+Studio.App.CloudEditController.ShutdownServer,,Shutdown Server,Shutdown Server
+Studio.App.CloudEditController.StartServerAndPlayers,,Start Server and Players,Start Server and Players
+Studio.App.CloudEditUserData.FailToRestoreCameraPosition,,Failed to restore camera position: %s,Failed to restore camera position: %s
+Studio.App.CmdService.NoCommandError1,,"Cannot execute unregistered command (%1)
+","Cannot execute unregistered command (%1)
+"
+Studio.App.CmdService.ReentrancyError1,,"Cannot execute command (%1) while another instance of it is still running
+","Cannot execute command (%1) while another instance of it is still running
+"
+Studio.App.CmdService.UnexpectedArgsError1,,"Cannot execute command (%1) due to unexpected arguments
+","Cannot execute command (%1) due to unexpected arguments
+"
+Studio.App.CmdSnippetExportPack.FailToOpenFileToWriteFmt1,,Fail to open file %1 to write.,Fail to open file %1 to write.
+Studio.App.CmdSnippetExportPack.FailToWriteFileFmt1,,Fail to write file to %1.,Fail to write file to %1.
+Studio.App.CmdSnippetImportPack.FailToOpenFile,,Fail to open file from path.,Fail to open file from path.
+Studio.App.CmdSnippetImportPack.InvalidPath,,Invalid file path.,Invalid file path.
+Studio.App.CmdSnippetImportPack.JsonFormatInvalid,,This is not valid snippet pack json file.,This is not valid snippet pack json file.
+Studio.App.Collaboration.ConnectingtoServer,Connect to team test server,Connecting to server...,Connecting to server...
+Studio.App.Collaboration.FailedToArchiveNewGame,,Failed to archive new game.,Failed to archive new game.
+Studio.App.Collaboration.FailedToUnarchive,,Failed to remove game from archive.,Failed to remove game from archive.
+Studio.App.Collaboration.FailedToUnarchiveGame,,Failed to remove game from archive.,Failed to remove game from archive.
+Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip,,Invalid arguments to Color3 constructor,Invalid arguments to Color3 constructor
+Studio.App.CommandBar.Command,,Command,Command
+Studio.App.CommandLine.InvalidArgument2,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
+Studio.App.CommitScriptsDialog.CommitButtonText,,Commit,Commit
+Studio.App.CommitScriptsDialog.CommitMessagePlaceHolderText,,"Add a comment to describe what changed.
+<Ctrl Enter> To commit.","Add a comment to describe what changed.
+<Ctrl Enter> To commit."
+Studio.App.CommitScriptsDialog.ScriptSectionHeader,,Script,Script
+Studio.App.CommitScriptsDialog.Title,,Commit Scripts,Commit Scripts
+Studio.App.CoreScriptBuilder.ParseFailInvalidArg,Internal feature. Text in output window.,Parsing port string failed with std::invalid_argument,Parsing port string failed with std::invalid_argument
+Studio.App.CoreScriptBuilder.ParseFailOutOfRange,Internal feature. Text in output window.,Parsing port string failed with std::out_of_range,Parsing port string failed with std::out_of_range
+Studio.App.CoreScriptBuilder.WaitForReadyReadFailed1,Internal feature. Text in output window.,QProcess::waitForReadyRead failed(%1),QProcess::waitForReadyRead failed(%1)
+Studio.App.CoreScriptBuilder.WaitForStartedFailed1,Internal feature. Text in output window.,QProcess::waitForStarted failed(%1),QProcess::waitForStarted failed(%1)
+Studio.App.CoreScriptBuilder.WaitForStartedFailedHelp,Internal feature. Text in output window.,This error usually means that robloxdev-cli could not be found. Have you made sure that robloxdev-cli is in your PATH or you have set FFlagDebugStudioCoreScriptBuilderExecutable to point to the right location?,This error usually means that robloxdev-cli could not be found. Have you made sure that robloxdev-cli is in your PATH or you have set FFlagDebugStudioCoreScriptBuilderExecutable to point to the right location?
+Studio.App.CorruptedInstallationDialog.DefaultMessage,,Some Studio files are missing or corrupted. Please reinstall Studio by following the instructions at https://en.help.roblox.com/hc/en-us/articles/203312910?fromStudio=true,Some Studio files are missing or corrupted. Please reinstall Studio by following the instructions at https://en.help.roblox.com/hc/en-us/articles/203312910?fromStudio=true
+Studio.App.CurrentlyEditingWindow.CurrentlyEditing,,Currently Editing,Currently Editing
+Studio.App.DataModelLifeCycle.AeroMeshPleaseWait,Waiting for aerodynamic mesh generation to complete,Please Wait,Please Wait
+Studio.App.DataModelLifeCycle.CannotOpenFileForRead,Failed to open file during open place process,Cannot open place file for reading.,Cannot open place file for reading.
+Studio.App.DataModelLifeCycle.GameIsGoneWhileLoadingDM,Game has disappeared during the dm loading process,Game has disappeared while loading dm (client).,Game has disappeared while loading dm (client).
+Studio.App.DataModelLifeCycle.ProcessingAeroMeshes,Shown during aerodynamic mesh generation,Processing aerodynamic meshes,Processing aerodynamic meshes
+Studio.App.DataModelLoading.CannotOpenFileForRead,Failed to open file during open place process,Cannot open place file for reading.,Cannot open place file for reading.
+Studio.App.DataModelPackageManager.DonTNotifyMeAgain,,Don't notify me again,Don't notify me again
+Studio.App.DataModelPackageManager.InsufficientPermissions,,Unable to retrieve Packages status because of insufficient permissions. You may be unable to publish this place,Unable to retrieve Packages status because of insufficient permissions. You may be unable to publish this place
+Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
+Studio.App.DataModelPackageManager.PrimaryPartRemoved,,PrimaryPart removed. You won't be able to publish this Package until you set the PrimaryPart again.,PrimaryPart removed. You won't be able to publish this Package until you set the PrimaryPart again.
+Studio.App.DataModelPackageManager.UnexpectedPlacementNewVersions,,Changing the PrimaryPart may result in unexpected placement when you get new versions. Make sure the new PrimaryPart is where you want your Package to update from.,Changing the PrimaryPart may result in unexpected placement when you get new versions. Make sure the new PrimaryPart is where you want your Package to update from.
+Studio.App.Debugger.PausedForDebugging,,Rendering is paused for debugging...,Rendering is paused for debugging...
+Studio.App.DebuggerClientManager.Disable,,Disable,Disable
+Studio.App.DebuggerClientManager.KeepBreakingOnError,,Keep breaking on error,Keep breaking on error
+Studio.App.DebuggerClientManager.RobloxLuaDebuggerCaughtError,,"The Roblox Lua Debugger caught an error and will now take you to the exception in the script.
+
+ You can modify this behavior, when a script is open, by going to the Script Menu tab and changing the 'Break On Error' settings. 
+","The Roblox Lua Debugger caught an error and will now take you to the exception in the script.
+
+ You can modify this behavior, when a script is open, by going to the Script Menu tab and changing the 'Break On Error' settings. 
+"
+Studio.App.DebuggerViewsManager.Breakpoints,,Breakpoints,Breakpoints
+Studio.App.DebuggerViewsManager.Watch,,Watch,Watch
+Studio.App.DeclarationView.BackEnd,,<b>Back-end: </b>This item can only be used from game servers and solo games.,<b>Back-end: </b>This item can only be used from game servers and solo games.
+Studio.App.DeclarationView.Deprecated,,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.,<b>Deprecated: </b>This item is deprecated. Do not use it for new work.
+Studio.App.DeclarationView.MemberOf1,,"Member of <label style=""font-weight: bold"">%1</label>","Member of <label style=""font-weight: bold"">%1</label>"
+Studio.App.DeclarationView.Summary,,Summary:,Summary:
+Studio.App.Deployment.CSBFailure,Internal feature. Text in output window.,Failed to initialize CoreScriptBuilder with: %1,Failed to initialize CoreScriptBuilder with: %1
+Studio.App.Deployment.CSBFailure1,Internal feature. Text in output window.,Failed to initialize CoreScriptBuilder with: %1,Failed to initialize CoreScriptBuilder with: %1
+Studio.App.Deployment.PatchBuilderFailure1,Internal feature. Text in output window.,Failed to initialize patch builder with: %1,Failed to initialize patch builder with: %1
+Studio.App.DiagnosticBar.VRDevice1,"Text that displays which vr headset is currently connected or if no headset is connected. The argument should be the name of the vr device: Vive, Index, Oculus, or others.",VR Device: %1,VR Device: %1
+Studio.App.DiagnosticBar.VRDeviceNotDetected,Text when no Virtual Reality headset is detected,None Detected,None Detected
+Studio.App.Diagnostics.Cancel,This is text for a button that is shown to the user to let them cancel and not restart Studio,Cancel,Cancel
+Studio.App.Diagnostics.Continue,This is text for a button that is shown to the user to let them continue running Studio and not restart,Continue,Continue
+Studio.App.Diagnostics.LowMemoryActionWarning,This message is shown to users when Studio detects that the user is low on memory. Studio will offer the user the option to restart or continue what they were trying to do.,Studio may become unstable and the attempted operation may not succeed. Would you like to restart or continue the operation?,Studio may become unstable and the attempted operation may not succeed. Would you like to restart or continue the operation?
+Studio.App.Diagnostics.LowOnMemory,This is shown as title text for a dialog that is displayed to the user when Studio is running low on memory.,Studio is low on memory.,Studio is low on memory.
+Studio.App.Diagnostics.LowOnMemoryAction,This is shown as a description for a dialog that is displayed to the user when Studio is running low on memory to tell them to close Studio and try again.,Please restart Studio and try again.,Please restart Studio and try again.
+Studio.App.Diagnostics.Restart,This is text for a button that is shown to the user to let them restart Studio,Restart,Restart
+Studio.App.DocTabManager.CloseTab,,Close Tab,Close Tab
+Studio.App.DocTabManager.CloseTabsOther,,Close Other Tabs,Close Other Tabs
+Studio.App.DocTabManager.CloseTabsRight,,Close Tabs to the Right,Close Tabs to the Right
+Studio.App.DocumentationView.Copied,,Copied!,Copied!
+Studio.App.DocumentationView.HideCodeSample,,Hide Code Example,Hide Code Example
+Studio.App.DocumentationView.LearnMore,,Learn more,Learn more
+Studio.App.DocumentationView.Overload,,+1 overload,+1 overload
+Studio.App.DocumentationView.Overload.Plural1,%1 is an integer. example '+2 overloads',+%1 overloads,+%1 overloads
+Studio.App.DocumentationView.Overloads,,overloads,overloads
+Studio.App.DocumentationView.ShowCodeSample,,Show Code Example,Show Code Example
+Studio.App.DragDrop.Count1,"A count of instances selected when there is nothing similar between them. For example, selecting 3 random instances will show (x3)",(x%1),(x%1)
+Studio.App.DragDrop.NameAndCount2,"An instance name and a count of how many of those instances are selected (when more than 1). For example, dragging three things named Folder will show as Folder (x3).",%1 (x%2),%1 (x%2)
+Studio.App.DraggerModeSettings.DragMode,The title for the setting that toggles current dragging mode of the select action (it toggles between Geometric and Physical),Drag Mode,Drag Mode
+Studio.App.DumpQtitanVisualHierarchyToLog,,Dump Visual Qtitan Hierarchy To Log,Dump Visual Qtitan Hierarchy To Log
+Studio.App.EntityProperties.NetworkFailedOperation,,"Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support","Operation failed. Please check your network connection and try again. If the error persists, contact Customer Support"
+Studio.App.Error.Publishing.Dependancies,,Error publishing asset dependancies,Error publishing asset dependancies
+Studio.App.ExceptionPopup.Title,Appears when an exception paused execution in the debugger,Exception Hit,Exception Hit
+Studio.App.ExplorerFilterPicker.Properties,,Properties,Properties
+Studio.App.ExplorerFilterPicker.Reference,The header for the syntax guide wiki article--reference as in a source of information.,Reference,Reference
+Studio.App.ExplorerFilterPicker.SyntaxGuide,,Syntax Guide,Syntax Guide
+Studio.App.FBXMeshImporter.ContainsRiggingData,Warning message that displays if a user tries to import a 3D mesh that contains animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.,Animation data detected! Studio does not support animation data. You may experience issues if the mesh is dependent on the initial position of the animation data.
+Studio.App.FBXMeshImporter.MeshHasNoVertices,Error message that displays if a user tries to import a 3D mesh that has no vertices.,Your mesh has no vertices! Please check the validity of your mesh and try again.,Your mesh has no vertices! Please check the validity of your mesh and try again.
+Studio.App.FBXMeshImporter.MeshHasTooManyTriangles2,"Error message that displays if a user tries to import a 3D mesh that has too many faces (aka triangles). First argument is the max limit of triangles, second argument is the amount of triangles that were in the uploaded mesh.",Your mesh has too many triangles! Limit is %1. Your mesh has %2.,Your mesh has too many triangles! Limit is %1. Your mesh has %2.
+Studio.App.FBXMeshImporter.MultipleMeshes,"Warning message that appears if a user tries to import a 3D mesh file that contains multiple meshes. Studio reacts to this by joining the meshes together, but this could mess up the textures of the mesh.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect."
+Studio.App.FBXMeshImporter.MultipleTextures,"Warning message that appears if a user tries to import a 3D mesh that contains multiple textures. Studio only allows one of these textures, but this may result in the texture not looking correct.",Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.,Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.
+Studio.App.FBXMeshImporter.UnexpectedFileType,Error message that appears if the user tries to import a 3D FBX mesh that is not properly formatted.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.
+Studio.App.FileSyncService.CanOnlyAddFolderOrScript,,Can only add Folder or Script.,Can only add Folder or Script.
+Studio.App.FileSyncService.CanOnlyAddSupportedClass,,"Can only add Folder, Script, LocalScript, ModuleScript or StringValue.","Can only add Folder, Script, LocalScript, ModuleScript or StringValue."
+Studio.App.FileSyncService.CanOnlyParentToFolder,,Can only parent to Folder.,Can only parent to Folder.
+Studio.App.FileSyncService.FileNameIsInvalid,,File name is invalid.,File name is invalid.
+Studio.App.FileSyncService.Info,,Info,Info
+Studio.App.FileSyncService.InstanceAlreadyExists,,Instance already exists.,Instance already exists.
+Studio.App.FileSyncService.UnknownError,,Unknown Error.,Unknown Error.
+Studio.App.FindDialog.FindCount2,,%1 of %2,%1 of %2
+Studio.App.FindDialog.LineNumber1,,Line number (1-%1):,Line number (1-%1):
+Studio.App.FindReplaceController.AreYouSureYouWantToReplaceAll,,"Are you sure you want to replace all? 
+This action cannot be undone.","Are you sure you want to replace all? 
+This action cannot be undone."
+Studio.App.FindReplaceController.FindAllReplaceAll,,Find All / Replace All,Find All / Replace All
+Studio.App.FindReplaceController.FindReplaceWindow,,Find/Replace Window,Find/Replace Window
+Studio.App.FindReplaceOpenAndLockScriptsDialog.LockingScriptsElps,,Locking Scripts...,Locking Scripts...
+Studio.App.FindReplaceOpenLockedScriptsDialog.Editor,,Editor,Editor
+Studio.App.FindReplaceOpenLockedScriptsDialog.Script,,Script,Script
+Studio.App.FindReplaceOpenLockedScriptsDialog.StringCouldNotBeReplacedInAllScripts,,String could not be replaced in all scripts.,String could not be replaced in all scripts.
+Studio.App.FindReplaceOpenLockedScriptsDialog.UnableToReplaceAll,,"Unable to replace all while one or more Scripts are being blocked by other users. 
+Try again when all scripts are unlocked.","Unable to replace all while one or more Scripts are being blocked by other users. 
+Try again when all scripts are unlocked."
+Studio.App.FindReplaceOpenLockedScriptsDialog.UnableToReplaceWhileScriptsBlocked,,"Unable to replace while one or more Scripts are being blocked by other users. 
+Try again when all scripts are unlocked.","Unable to replace while one or more Scripts are being blocked by other users. 
+Try again when all scripts are unlocked."
+Studio.App.FindReplaceWindow.AllScripts,,All Scripts,All Scripts
+Studio.App.FindReplaceWindow.NoResults,,No Results Found,No Results Found
+Studio.App.FindReplaceWindow.OneResultOneFile,,1 result in 1 file,1 result in 1 file
+Studio.App.FindReplaceWindow.ResultsOneFile1,,%1 results in 1 file,%1 results in 1 file
+Studio.App.FindReplaceWindow.ResultsPerFile2,,%1 results in %2 files,%1 results in %2 files
+Studio.App.FindReplaceWindow.WhereToLook,,Where to look,Where to look
+Studio.App.FlagEditor.OfferRestart,,You must restart Studio for fast flag changes to take effect.,You must restart Studio for fast flag changes to take effect.
+Studio.App.FlagEditor.OfferRestartTitle,,Overrides Saved,Overrides Saved
+Studio.App.Foobar.Footest,,FooBarFooBarTest,FooBarFooBarTest
+Studio.App.ForceResetLayoutSettingsBody,,"An unexpected problem has occurred with the docking layout. The current layout will be reset and Studio must be restarted.
+We are investigating this issue further and apologize for the inconvenience.","An unexpected problem has occurred with the docking layout. The current layout will be reset and Studio must be restarted.
+We are investigating this issue further and apologize for the inconvenience."
+Studio.App.ForceResetLayoutSettingsTitle,,Dock Layout Error,Dock Layout Error
+Studio.App.GUAC.FailedToFetch,,Web request to load GUAC policies failed. The backend UniversalAppConfiguration service may be down.,Web request to load GUAC policies failed. The backend UniversalAppConfiguration service may be down.
+Studio.App.GUAC.UserFriendlyFailedToFetch,Show user some error message in the case of no internet during startup.,No internet connection. Check your network and try opening Studio again.,No internet connection. Check your network and try opening Studio again.
+Studio.App.GUAC.UserFriendlyFailedToFetch1,main,Failed to load settings with %s. Please restart Studio or contact support if the problem persists.,Failed to load settings with %s. Please restart Studio or contact support if the problem persists.
+Studio.App.GameGridViewWithHeader.Owner,,Owner:,Owner:
+Studio.App.GameGridViewWithHeader.Refresh,,Refresh,Refresh
+Studio.App.GameGridViewWithHeader.Sort,,Sort:,Sort:
+Studio.App.GameWidget.Draft,,Draft,Draft
+Studio.App.GameWidget.ExperienceAgeRestricted,Title for column inicating if place is restricted to 17+ aged users.,Ages 17+,Ages 17+
+Studio.App.GameWidget.LocalFile,,Local File,Local File
+Studio.App.GameWidget.Private,,Private,Private
+Studio.App.GameWidget.Public,,Public,Public
+Studio.App.GameWidget.TemplateHasInstruction,,This template contains instructions about how to get started in Studio,This template contains instructions about how to get started in Studio
+Studio.App.GeneralCmd.HELP,,Command Help,Command Help
+Studio.App.GeneralCmd.HELPTooltip,,List all commands with optional filtering,List all commands with optional filtering
+Studio.App.GeneralCmd.REPEAT,,Repeat Command,Repeat Command
+Studio.App.GeneralCmd.REPEATTooltip,,Repeat a command in the command history some number of times,Repeat a command in the command history some number of times
+Studio.App.GenericResourceController.RemovingGameAsset,,Removing game asset(s),Removing game asset(s)
+Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
+Studio.App.GradientEditor.Time,,Time,Time
+Studio.App.Help.OpenDeveloperForumUrl,Launches Developer Forum URL,Developer Forum,Developer Forum
+Studio.App.Help.OpenDocumentationUrl,Launches documentation DevHub URL,Documentation,Documentation
+Studio.App.Help.OpenTutorialsUrl,Launches tutorials DevHub URL,Tutorials,Tutorials
+Studio.App.Help.StartStudioTour,Starts the Studio Tour,Studio Tour,Studio Tour
+Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings not available,Game Settings not available
+Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,Open Game Settings,Open Game Settings
+Studio.App.IDEPermissionsResolutionLinkDefinition.AssetInfo3,,"Name: %1
+AssetId: %2
+Type: %3","Name: %1
+AssetId: %2
+Type: %3"
+Studio.App.IDEPermissionsResolutionLinkDefinition.ExperienceSuccessMessage1,Message that's output after user sucessfully grants their experience permission to use asset,Successfully granted the experience permission to use asset %1,Successfully granted the experience permission to use asset %1
+Studio.App.IDEPermissionsResolutionLinkDefinition.FailureMessage1,Message that's output after user fails to grant their universe permission to use asset,Failed to grant Universe permission to use asset %1,Failed to grant Universe permission to use asset %1
+Studio.App.IDEPermissionsResolutionLinkDefinition.LoadingElps,,Loading...,Loading...
+Studio.App.IDEPermissionsResolutionLinkDefinition.OpenPermissionsResolution,,Open Permissions Resolution,Open Permissions Resolution
+Studio.App.IDEPermissionsResolutionLinkDefinition.PermissionsResolutionNotAvailable,,Permissions Resolution not available,Permissions Resolution not available
+Studio.App.IDEPermissionsResolutionLinkDefinition.SuccessMessage1,Message that's output after user sucessfully grants their universe permission to use asset,Successfully granted Universe permission to use asset %1,Successfully granted Universe permission to use asset %1
+Studio.App.IDEScriptLinkDefinition.MalformedLink,,Malformed link,Malformed link
+Studio.App.IDEScriptLinkDefinition.SourceNotAvailable,,Source not available,Source not available
+Studio.App.ImagePickerWidget.AddImageElps,,Add Image...,Add Image...
+Studio.App.ImageResourceController.ImagesReferencedByName,,"Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?","Images are referenced by name, so any references to this image will fail to load. Are you sure you want to remove it?"
+Studio.App.InsertObject.MultipleSelectionError,,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.,InsertObject: Cannot do insert object when there are multiple selections. Please make sure you select a valid target object.
+Studio.App.InsertObject.SearchObject1,,Search object %1,Search object %1
+Studio.App.InsertObjectUtils.CannotBeChildOf,,%s cannot be a child of %s,%s cannot be a child of %s
+Studio.App.InsertObjectWidget.EmptyFrequentlyUsedList,,Objects are not usually inserted under this parent.,Objects are not usually inserted under this parent.
+Studio.App.InsertObjectWidget.ExpandTooltip,,Toggle expanded view,Toggle expanded view
+Studio.App.InsertObjectWidget.FavoritesCategory,,Frequently Used,Frequently Used
+Studio.App.InsertObjectWidget.NoResultsFound,,No Results Found,No Results Found
+Studio.App.InsertObjectWidget.SeeAllButton,,See All,See All
+Studio.App.InsertObjectWidget.SelectInsertedObject,,Select object after insert,Select object after insert
+Studio.App.InsertObjectWidget.ShowRecommendedOnly,,Show only recommended objects,Show only recommended objects
+Studio.App.InsertObjectWidget.UnpreferredObjectTooltip,,This object does not make sense under the currently selected parent.,This object does not make sense under the currently selected parent.
+Studio.App.InsertServiceAction.DEPRECATEDHideService,,Hide Service in Explorer,Hide Service in Explorer
+Studio.App.InsertServiceAction.DEPRECATEDShowServicesElps,,Show Services...,Show Services...
+Studio.App.InsertServiceAction.HideService,,Hide Service in Explorer,Hide Service in Explorer
+Studio.App.InsertServiceAction.ShowServicesElps,,Show Services...,Show Services...
+Studio.App.InsertServiceDialog.Done,,Done,Done
+Studio.App.InsertServiceDialog.InsertService,,Insert Service,Insert Service
+Studio.App.InstanceSelectionEditor.ClearValue,,Clear Value,Clear Value
+Studio.App.InstanceSelectionEditor.SelectValue,,Select Value,Select Value
+Studio.App.LinkedSourceMigrator.Description,,"LinkedSources are being deprecated, do you want to convert them?","LinkedSources are being deprecated, do you want to convert them?"
+Studio.App.LinkedSourceMigrator.Details,,These LinkedSource scripts will be converted to embedded scripts:,These LinkedSource scripts will be converted to embedded scripts:
+Studio.App.LinkedSourceMigrator.FailedDescription,,"These LinkedSources failed to load and have not been migrated, please try again later:","These LinkedSources failed to load and have not been migrated, please try again later:"
+Studio.App.LinkedSourceMigrator.MigrateButton,,Convert,Convert
+Studio.App.LinkedSourceMigrator.Title,,LinkedSource Migrator,LinkedSource Migrator
+Studio.App.LocalizationPlugin.CSVEmpty,,LocalizationTable:EncodeCSV returned empty string,LocalizationTable:EncodeCSV returned empty string
+Studio.App.LocalizationPlugin.CouldNotFindLocalizationService,,Could not find LocalizationService,Could not find LocalizationService
+Studio.App.LocalizationPlugin.CouldntOpenFile1,,Couldn't open file %1,Couldn't open file %1
+Studio.App.LocalizationPlugin.ErrorReading1Csv2,,Error reading %1.csv: %2,Error reading %1.csv: %2
+Studio.App.LocalizationPlugin.ErrorWritingToFile1,,Error writing to file %1,Error writing to file %1
+Studio.App.LocalizationPlugin.NoFileSelected,,No file selected,No file selected
+Studio.App.LockedScriptsCommitProgressDialog.CommittingStatus,,Applying edits...,Applying edits...
+Studio.App.LockedScriptsCommitProgressDialog.FailedStatus,,Failed,Failed
+Studio.App.LockedScriptsCommitProgressDialog.Label,,Applying edits from the following scripts,Applying edits from the following scripts
+Studio.App.LockedScriptsCommitProgressDialog.ScriptNameColumn,,Script Name,Script Name
+Studio.App.LockedScriptsCommitProgressDialog.ScriptStatusColumn,,Status,Status
+Studio.App.LockedScriptsCommitProgressDialog.Title,,Apply Edits Progress,Apply Edits Progress
+Studio.App.LockedScriptsVersionHistory.ApplyEditsRejectedTitle,,Script Apply Edits Failure,Script Apply Edits Failure
+Studio.App.LockedScriptsVersionHistory.ApplyingEditsBatchNotification1,,Applying edits from %1 scripts...,Applying edits from %1 scripts...
+Studio.App.LockedScriptsVersionHistory.ApplyingEditsBatchNotification2,,Applying edits from %1 and %2 more scripts...,Applying edits from %1 and %2 more scripts...
+Studio.App.LockedScriptsVersionHistory.ApplyingEditsNotification1,,Applying edits from %1...,Applying edits from %1...
+Studio.App.LockedScriptsVersionHistory.ApplyingEditsOnPlaceClose,,Applying script changes. Studio will close automatically when complete,Applying script changes. Studio will close automatically when complete
+Studio.App.LockedScriptsVersionHistory.AutoGeneratedCommitFmt1,,Applied edits to %1 script(s),Applied edits to %1 script(s)
+Studio.App.LockedScriptsVersionHistory.CommitRejected,,"Some of the scripts cannot be saved.
+Please check their status.","Some of the scripts cannot be saved.
+Please check their status."
+Studio.App.LockedScriptsVersionHistory.CommitRejectedInProgress,,"Server rejected apply edits.
+Someone else is saving changes.","Server rejected apply edits.
+Someone else is saving changes."
+Studio.App.LockedScriptsVersionHistory.CommitRejectedInternalError,,"Server rejected apply edits due to internal error.
+Please try again later","Server rejected apply edits due to internal error.
+Please try again later"
+Studio.App.LoginPage.LoadingStudioElps,,Loading Studio...,Loading Studio...
+Studio.App.LoginPage.LoggingInElps,,Logging in...,Logging in...
+Studio.App.LoginPage.LoggingOutElps,,Logging out...,Logging out...
+Studio.App.LoginPage.StartCreatingOwnGames,,Start creating your own experiences!,Start creating your own experiences!
+Studio.App.LoginPage.StudioVersion1,,Roblox Studio Version %1,Roblox Studio Version %1
+Studio.App.LoginPageDocumentPanel.LoginPage,,Login Page,Login Page
+Studio.App.MLCodeAssistanceController.EmptyCodeSuggestionReceived,,Empty code suggestion received.,Empty code suggestion received.
+Studio.App.MLCodeAssistanceController.InsufficientLinesPrompt,,"Code Assist can save you time!
+Start by writing some code to set the context, and you will get suggestions when you stop typing.","Code Assist can save you time!
+Start by writing some code to set the context, and you will get suggestions when you stop typing."
+Studio.App.MLCodeAssistanceController.InsufficientLinesPromptShortcutFmt1,,You can also use %1 at any time to request a suggestion.,You can also use %1 at any time to request a suggestion.
+Studio.App.MLCodeAssistanceController.NoCodeSuggestionReceived,,No code suggestion received.,No code suggestion received.
+Studio.App.ManageEmulationDeviceDialog.CloneDevice,,Clone Device,Clone Device
+Studio.App.ManageEmulationDeviceDialog.EmulationDeviceManager,,Emulation Device Manager,Emulation Device Manager
+Studio.App.ManageEmulationDeviceDialog.NewDevicePrefix,,newDevice,newDevice
+Studio.App.MeshImportOptionsDialog.ApplyAll,,Apply All,Apply All
+Studio.App.MeshImportOptionsDialog.FileCount2,,%1 of %2 files,%1 of %2 files
+Studio.App.MeshImportOptionsDialog.ImportFileAsSingleMesh,,Import file as single mesh,Import file as single mesh
+Studio.App.MeshImportOptionsDialog.MeshImportOptions,,Mesh Import Options,Mesh Import Options
+Studio.App.MeshImportOptionsDialog.NoFilesAvailable,,No files available,No files available
+Studio.App.MeshImportOptionsDialog.RescaleIfTooLarge,,Rescale if too large,Rescale if too large
+Studio.App.MeshImportOptionsDialog.ReverseInwardPointingMeshNormals,,Reverse inward-pointing mesh normals,Reverse inward-pointing mesh normals
+Studio.App.MeshPartLOD.FidelityWarning1,MeshPart renderFidelity property selector,Failed to change renderFidelity for asset id %1,Failed to change renderFidelity for asset id %1
+Studio.App.MeshPartLOD.Info1,MeshPart renderFidelity property selector,Finished simplifying %1 mesh parts,Finished simplifying %1 mesh parts
+Studio.App.MeshPartLOD.NotEnoughFacesInfo1,MeshPart renderFidelity property selector,Asset id %1 has too few triangles for renderFidelity to be set to Automatic or Performance,Asset id %1 has too few triangles for renderFidelity to be set to Automatic or Performance
+Studio.App.MeshPartLOD.RenderFidelityWarning1,MeshPart renderFidelity property selector,Failed to change renderFidelity for asset id %1,Failed to change renderFidelity for asset id %1
+Studio.App.MeshPartLOD.Warning1,MeshPart renderFidelity property selector,Mesh Publish failure for asset id %1,Mesh Publish failure for asset id %1
+Studio.App.MeshPartLODNotification.Dismiss,MeshPart renderFidelity property selector,Do not show again,Do not show again
+Studio.App.MeshPartLODNotification.Message,MeshPart renderFidelity property selector,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.,RenderFidelity was set to Automatic or Performance. This may require the asset to go through moderation and create a new assetId.
+Studio.App.MeshResourceController.MeshReferencedByName,,"Meshes are referenced by name, so any references to this mesh will fail to load. Are you sure you want to remove it?","Meshes are referenced by name, so any references to this mesh will fail to load. Are you sure you want to remove it?"
+Studio.App.MeshSplitterDialog.Checked12,,Checked (%1/%2),Checked (%1/%2)
+Studio.App.MeshSplitterDialog.FilesCantBeImported,,The following files cannot be imported.,The following files cannot be imported.
+Studio.App.MeshSplitterDialog.ImportRemainingFiles,,Import Remaining Files,Import Remaining Files
+Studio.App.MeshSplitterDialog.MeshSplittingCheck,,Mesh Splitting Check,Mesh Splitting Check
+Studio.App.MeshSplitterDialog.WillBeSplitWarning,,"If a mesh contains multiple assets, it will be split into separate assets.","If a mesh contains multiple assets, it will be split into separate assets."
+Studio.App.MeshSplitterImpl.ContainsMoreMeshes,,The mesh file contained more than %1 meshes.,The mesh file contained more than %1 meshes.
+Studio.App.MoveGridSettings.MoveGridSize,"The title of the setting for the size (in studs) of the grid that the move action will snap to. Default is 4, but can be fractional (1.2) as well",Move Grid Size,Move Grid Size
+Studio.App.MyGamesPage.GamesInvitedToEdit,,"Games that you have
+been invited to edit","Games that you have
+been invited to edit"
+Studio.App.MyGamesPage.GroupGames,,Group Games,Group Games
+Studio.App.MyGamesPage.SharedWithMe,,Shared With Me,Shared With Me
+Studio.App.MyWatchTreeWidget.DeleteAll,,Delete All,Delete All
+Studio.App.MyWatchTreeWidget.DeleteWatch,,Delete Watch,Delete Watch
+Studio.App.OSVersionWarning.LearnMore,Appears on a popup that warns users they are using an OS version that will soon no longer be supported. Links to a page with more information.,Learn More,Learn More
+Studio.App.OSVersionWarning.MacOS1010,,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.
+Studio.App.OSVersionWarning.MacOS109,,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.
+Studio.App.ObjectBrowserManager.FailedToOpenObjectBrowser,,"Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
+Studio.App.OnPublishDialog.BasicSettings,,Basic Settings,Basic Settings
+Studio.App.OnPublishDialog.Description,,Description:,Description:
+Studio.App.OnPublishDialog.Genre,,Genre:,Genre:
+Studio.App.OnPublishDialog.Name,,Name:,Name:
+Studio.App.OnPublishDialog.Privacy,,Privacy:,Privacy:
+Studio.App.OnPublishDialog.Title,,Publish,Publish
+Studio.App.OpenIDEDocErr.CancelledByUser,,User cancels place open.,User cancels place open.
+Studio.App.OpenIDEDocErr.CloudEditConnectCancelledByUser,,User cancelled cloud edit connection.,User cancelled cloud edit connection.
+Studio.App.OpenIDEDocErr.CloudEditConnectCancelledByUser.Concise,,The connection was cancelled. ,The connection was cancelled. 
+Studio.App.OpenIDEDocErr.HTTPCallFailed,,"User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service.","User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service."
+Studio.App.OpenIDEDocErr.HTTPCallFailed.Concise,,Please check that you are connected to the internet and try again. ,Please check that you are connected to the internet and try again. 
+Studio.App.OpenIDEDocErr.Others,,"Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
+Studio.App.OpenIDEDocErr.Others.Concise,,Please restart your application and try again. ,Please restart your application and try again. 
+Studio.App.Package.NoChanges,Shows when there are no changes between two package versions,The package has no changes.,The package has no changes.
+Studio.App.Package.ShowPackagesDiff1,,Compare %1 Package Versions,Compare %1 Package Versions
+Studio.App.Package.Version.Current1,,Version %1 (Current),Version %1 (Current)
+Studio.App.Package.Version.Latest1,,Version %1 (Latest),Version %1 (Latest)
+Studio.App.Package.Version.Local,,Local Copy,Local Copy
+Studio.App.Package.Version1,,Version %1,Version %1
+Studio.App.Package.VersionCurrent,,Current,Current
+Studio.App.PackageContextMenu.MassUpdatePackage,,Update All,Update All
+Studio.App.PackageContextMenu.PackageDetails,,Package Details,Package Details
+Studio.App.PackageContextMenu.ShowPackagesDiff,,Compare Package Versions,Compare Package Versions
+Studio.App.PackageResourceController.ManagePackage,,Manage Package,Manage Package
+Studio.App.PackageResourceController.PackageDetails,,Package Details,Package Details
+Studio.App.PackageResourceController.PackageInsertError1,,Game Explorer Package insert error: %1,Game Explorer Package insert error: %1
+Studio.App.Parts.Surface,Parts menu,Surface,Surface
+Studio.App.Parts.SurfaceTooltip,tooltip,"Pick a surface type, and click on part surfaces to apply","Pick a surface type, and click on part surfaces to apply"
+Studio.App.Physics.AeroMeshPleaseWait,Waiting for aerodynamic mesh generation to complete,Please Wait,Please Wait
+Studio.App.Physics.ProcessingAeroMeshes,Shown during aerodynamic mesh generation,Processing aerodynamic meshes,Processing aerodynamic meshes
+Studio.App.PlaceAnnotations.AddAnnotation,"Enables/disables the comment cursor, allowing the user to place comments in the 3D workspace.",Toggle comment cursor,Toggle comment cursor
+Studio.App.PlaceAnnotations.AddAnnotation2,Enables/disables a mouse cursor that allows users to place comments.,Toggle comment cursor,Toggle comment cursor
+Studio.App.PlaceAnnotations.AddAnnotationTooltip,Tooltip description for the Add Annotation button.,Toggle the comment cursor to leave comments in the 3D viewport.,Toggle the comment cursor to leave comments in the 3D viewport.
+Studio.App.PlaceAnnotations.Toggle,Opens the Place Comments feature.,Comments,Comments
+Studio.App.PlaceAnnotations.Toggle2,Toggles visibility of a panel displaying Comments.,Toggle Comments panel,Toggle Comments panel
+Studio.App.PlaceAnnotations.ToggleTooltip,Toggle the comment panel to display comment threads.,Toggle the comment panel to display comment threads.,Toggle the comment panel to display comment threads.
+Studio.App.PlaceAnnotations.Window,Toggles the Comments window.,Comments,Comments
+Studio.App.PlaceResourceController.AddingPlace,,Adding Place...,Adding Place...
+Studio.App.PlaceResourceController.CantRemoveStartPlace,,You cannot remove the start place from a game.,You cannot remove the start place from a game.
+Studio.App.PlaceResourceController.ErrorWhileAddingPlace,,Error while adding place. See Output window for details.,Error while adding place. See Output window for details.
+Studio.App.PlaceResourceController.ThisFunctionalityHasBeenDisabled,,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.,This functionality has been disabled. You can update your start place by doing File > Publish to Roblox As... and selecting the start place.
+Studio.App.PlaceSessionTaskRegister.CreatingDataModel,This message is shown in a dialog while the place is opening,Creating data model...,Creating data model...
+Studio.App.PlaceSessionTaskRegister.InitializingPlugins,status message displayed while loading plugins is displayed in a dialog while a place is opening,Initializing plugins...,Initializing plugins...
+Studio.App.PlaceSessionTaskRegister.LoadingDataModel,This message is shown in a dialog while the place is opening,Loading data model...,Loading data model...
+Studio.App.PlaceSessionTaskRegister.OpenPlaceCancelled,This message is shown in a dialog when the place opening is cancelled,Returning to start page...,Returning to start page...
+Studio.App.PlaceSessionTaskRegister.OpenPlaceSuccess,This message is shown in a dialog when the place is opened successfully,Opening Roblox Studio...,Opening Roblox Studio...
+Studio.App.PlaceVersionHistory.BetaFeatureDescription,,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.,Enable developers to revert versions in Roblox Studio and provide downloadable history of all versions of a place.
+Studio.App.PlaceVersionHistory.BetaFeatureTitle,,Place Version History in Studio,Place Version History in Studio
+Studio.App.PlaceVersionHistoryDialog.Empty,,No Place Versions found,No Place Versions found
+Studio.App.PlaceVersionHistoryDialog.HelpLink,,More information,More information
+Studio.App.PlaceVersionHistoryDialog.PublishedColumnTitle,,Published,Published
+Studio.App.PlaceVersionHistoryDialog.Tip,,Select a place version to download and open it,Select a place version to download and open it
+Studio.App.PlaceVersionHistoryDialog.Title1,Title of dialog to view history for a place. Example: MyPlaceName - Version History,%1 - Version History,%1 - Version History
+Studio.App.PlaceVersionHistoryDialog.ViewHistory,,View History,View History
+Studio.App.PlaceWebFactory.ErrorGettingMetadataForPlace,,Error getting metadata for related place,Error getting metadata for related place
+Studio.App.PlaceWebFactory.UnableToGetPlaceIdFromPlaceMetadata,,Unable to get place id from place metadata,Unable to get place id from place metadata
+Studio.App.PlayModifiedScriptController.AlwaysSave,,Always Save,Always Save
+Studio.App.PlayModifiedScriptController.FailToApplyChange,,Fail to apply change from play test for %1 because: %2,Fail to apply change from play test for %1 because: %2
+Studio.App.PlayModifiedScriptController.FailToFindInstance,,Fail to find script instance to apply,Fail to find script instance to apply
+Studio.App.PlayModifiedScriptController.KeepTheseChanges,,You've made script changes while playing.  Would you like to keep these changes?,You've made script changes while playing.  Would you like to keep these changes?
+Studio.App.PluginLoader.CloudLoadFailedFmt1,error fetching installed plugins from cloud,Failed to load installed plugins from cloud: %1,Failed to load installed plugins from cloud: %1
+Studio.App.PluginLoader.CloudLoadPermissionsFailedFmt1,error fetching plugin permissions from cloud,Failed to load plugin permissions from cloud: %1,Failed to load plugin permissions from cloud: %1
+Studio.App.PluginLoader.CloudWriteFailedFmt1,error writing installed plugins to cloud,Failed to write installed plugins to cloud: %1,Failed to write installed plugins to cloud: %1
+Studio.App.PluginLoader.CloudWritePermissionsFailedFmt1,error writing plugin permissions to cloud,Failed to write plugin permissions to cloud: %1,Failed to write plugin permissions to cloud: %1
+Studio.App.PluginLoader.DownloadFailedFmt1,error downloading plugin,Failed to download plugin: %1,Failed to download plugin: %1
+Studio.App.PluginLoader.RefreshingPluginElps,,Refreshing plugin...,Refreshing plugin...
+Studio.App.PluginLoader.RefreshingPluginsElps,,Refreshing plugins...,Refreshing plugins...
+Studio.App.PluginLoadingDmTaskRegister.LoadingPlugins,status message displayed while loading plugins is displayed in a dialog while a place is opening,Loading plugins...,Loading plugins...
+Studio.App.PluginPermissionsDialog.Allow,,Allow,Allow
+Studio.App.PluginPermissionsDialog.Deny,,Deny,Deny
+Studio.App.PluginPermissionsDialog.HttpDomainPermission,,Allow plugin %1 to access %2?,Allow plugin %1 to access %2?
+Studio.App.PluginPermissionsDialog.ScriptInjectionPermission,,Do you want to allow Plugin %1 to manage scripts in your game?,Do you want to allow Plugin %1 to manage scripts in your game?
+Studio.App.PluginPermissionsDialog.ScriptInjectionWarning,,"Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management.","Plugin %1 is attempting to insert or modify scripts in your game. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management."
+Studio.App.PluginPermissionsDialog.Warning,,You can always revoke this permission from Plugins > Plugin Management.,You can always revoke this permission from Plugins > Plugin Management.
+Studio.App.PluginWidgetRelay.RenderingFailed1,,"Adding plugin window failed with error: %1 
+ Your plugin windows may not work correctly. Please close and reopen the place to restore plugin window functionality. If this problem persists, please contact Roblox customer support.","Adding plugin window failed with error: %1 
+ Your plugin windows may not work correctly. Please close and reopen the place to restore plugin window functionality. If this problem persists, please contact Roblox customer support."
+Studio.App.PopupImagePicker.Search,Displayed as a label in the popup image picker,Search:,Search:
+Studio.App.PopupImagePicker.Url,Displayed as a label in the popup image picker,URL:,URL:
+Studio.App.ProjectConfig.UnexpectedFieldWarning2,,"The Project File has unexpected fields, they will be ignored. 
+%1 
+%2","The Project File has unexpected fields, they will be ignored. 
+%1 
+%2"
+Studio.App.Properites.AttributeCantStartWithRBX,,Can't start with 'RBX'.,Can't start with 'RBX'.
+Studio.App.Properites.AttributeNameCantStartWithRBX,Displayed when editing and trying to add RBX at the beginning.,Attribute name can't start with 'RBX'.,Attribute name can't start with 'RBX'.
+Studio.App.QtUtilities.DisabledDuringTesting,,Disabled during testing,Disabled during testing
+Studio.App.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
+Studio.App.RESTRICTED.QtUtilities.DisabledDuringTesting,,Disabled during testing,Disabled during testing
+Studio.App.RESTRICTED.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
+Studio.App.RbxWorkspace.PluginInstallationFailed,,Plugin Installation failed,Plugin Installation failed
+Studio.App.RbxWorkspace.PluginModerationCheckFailed,,Plugin moderation check failed,Plugin moderation check failed
+Studio.App.RbxWorkspace.PressOkForSnapshot,,"Press OK when you've positioned the camera, and are ready to take a snapshot.","Press OK when you've positioned the camera, and are ready to take a snapshot."
+Studio.App.RbxWorkspace.Processing,,Processing...,Processing...
+Studio.App.RbxWorkspace.SnapshotInProgress,,Snapshot in progress...,Snapshot in progress...
+Studio.App.RbxWorkspace.TakeSnapshot,,Take Snapshot,Take Snapshot
+Studio.App.RecentGamesPage.RecentGames,,Recent Games,Recent Games
+Studio.App.RenderScheduler.DeprecatedDirect3D9,,"On August 16th, the Roblox application will require DirectX 10 or higher feature level support.
+
+To keep using the Roblox application, please use a device that is compatible with Roblox’s system requirements.","On August 16th, the Roblox application will require DirectX 10 or higher feature level support.
+
+To keep using the Roblox application, please use a device that is compatible with Roblox’s system requirements."
+Studio.App.RenderScheduler.FailedCreateGameWindow,,Failed to Create Game Window.  A key file may have gotten Corrupted.  Please try to reInstall Roblox Studio.  If the issue persists make sure your drivers are up to date http://www.roblox.com/drivers or Contact Customer support,Failed to Create Game Window.  A key file may have gotten Corrupted.  Please try to reInstall Roblox Studio.  If the issue persists make sure your drivers are up to date http://www.roblox.com/drivers or Contact Customer support
+Studio.App.RenderScheduler.FailedToBindToWorkspace,,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.,Failed to Bind to Workspace. Please restart Studio in order to resolve the issue.
+Studio.App.RenderScheduler.NoRenderBackend,Warning regarding current device specifications and link to documentation for more information.,"Your computer's graphics card is not compatible with Roblox's minimum system requirements.
+
+Visit https://create.roblox.com/docs/studio/setup#system-requirements for more information.","Your computer's graphics card is not compatible with Roblox's minimum system requirements.
+
+Visit https://create.roblox.com/docs/studio/setup#system-requirements for more information."
+Studio.App.ResetLayoutSettingsText,,Resetting layout requires restarting Studio,Resetting layout requires restarting Studio
+Studio.App.ResetLayoutSettingsTitle,,Reset Layout Settings,Reset Layout Settings
+Studio.App.ResetModifiedProperty1,Menu action to reset a property to its default,Reset %1 to Default,Reset %1 to Default
+Studio.App.Restart.RestartLater,restart studio later,Restart Later,Restart Later
+Studio.App.Restart.RestartNow,restart studio right now,Restart,Restart
+Studio.App.RibbonUpdatesBar.StudioNotifications,,Creator Notifications,Creator Notifications
+Studio.App.RibbonUpdatesBar.StudioNotifications.ToolTip,,Receive important updates about your creations all in one place,Receive important updates about your creations all in one place
+Studio.App.RibbonUpdatesBar.UpdateAvailableAction,,Update Available,Update Available
+Studio.App.RibbonUpdatesBar.UpdateAvailableAction.Channel,,Channel update available,Channel update available
+Studio.App.RibbonUpdatesBar.UpdateAvailableAction.Studio,,Update available,Update available
+Studio.App.RibbonUpdatesBar.UpdateAvailableAction.Tooltip,,Studio will save all changes and restart,Studio will save all changes and restart
+Studio.App.RibbonUpdatesBar.WhatsNewAction,,Notifications,Notifications
+Studio.App.RibbonUpdatesBar.WhatsNewAction.ToolTip,,Click this button to see what's new with Studio and our developer community!,Click this button to see what's new with Studio and our developer community!
+Studio.App.RobloxApplication.AbnormalTerminateMessage,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.
+Studio.App.RobloxDiagnosticsView.HeaderLabelName,In performance,Name,Name
+Studio.App.RobloxDiagnosticsView.HeaderLabelValue,In performance,Value,Value
+Studio.App.RobloxDocManager.ApplyingScriptEdits,,Applying script edits...,Applying script edits...
+Studio.App.RobloxDocManager.NoScriptChanges,,No script changes.,No script changes.
+Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
+Studio.App.RobloxDocManager.StartPage,,Start Page,Start Page
+Studio.App.RobloxGameExplorer.LoadingElps,,Loading...,Loading...
+Studio.App.RobloxGameExplorer.PublishToLoad,,Publish this place to load game data,Publish this place to load game data
+Studio.App.RobloxGameExplorer.PublishToLoadClick,,Publish this place to load game data (double click here),Publish this place to load game data (double click here)
+Studio.App.RobloxKeyboardConfig.ClearShortcut,,Clear Shortcut,Clear Shortcut
+Studio.App.RobloxKeyboardConfigWidget.Description,,Description,Description
+Studio.App.RobloxKeyboardConfigWidget.Name,,Name,Name
+Studio.App.RobloxKeyboardConfigWidget.SearchActions,,Search Actions,Search Actions
+Studio.App.RobloxKeyboardConfigWidget.Shortcut,,Shortcut,Shortcut
+Studio.App.RobloxMouseConfig.ContextMenu,,Context Menu,Context Menu
+Studio.App.RobloxMouseConfig.RightClick,,Right Click,Right Click
+Studio.App.RobloxMouseConfig.RightClickAlt,,Right Click + Alt,Right Click + Alt
+Studio.App.RobloxMouseConfig.RightClickCtrl,,Right Click + Ctrl,Right Click + Ctrl
+Studio.App.RobloxMouseConfig.RightClickShift,,Right Click + Shift,Right Click + Shift
+Studio.App.RobloxPropertiesWidget.FilterPlaceholder1,,Filter Properties %1,Filter Properties %1
+Studio.App.RobloxPropertiesWidget.ItemCount1,,%1 items,%1 items
+Studio.App.RobloxPropertiesWidget.ItemsCount2,,%1 - %2 items,%1 - %2 items
+Studio.App.RobloxPropertiesWidget.ItemsCount3,,"%1 ""%2"" - %3 items","%1 ""%2"" - %3 items"
+Studio.App.RobloxScriptDiffDoc.Diff.Accept,,Accept,Accept
+Studio.App.RobloxScriptDiffDoc.Diff.Cancel,,Cancel,Cancel
+Studio.App.RobloxScriptDiffDoc.Diff.Commit,,Commit,Commit
+Studio.App.RobloxScriptDiffDoc.Diff.Text,,Review the changes and click '%1' to apply them to your script,Review the changes and click '%1' to apply them to your script
+Studio.App.RobloxScriptDiffDoc.Diff1,This string serves as a tab title for a script diff view of a single script. The argument will be a script path/name.,%1 (Diff),%1 (Diff)
+Studio.App.RobloxScriptDiffDoc.DiffResult,,Diff Result,Diff Result
+Studio.App.RobloxScriptDiffDoc.MultipleDiffs1,This string serves as a tab title for a script diff view of multiple scripts. The argument will be a number indicating how many scripts are being diffed in this tab.,%1 Scripts (Diff),%1 Scripts (Diff)
+Studio.App.RobloxScriptReview.HeaderLabelActivity,In script performance,Activity,Activity
+Studio.App.RobloxScriptReview.HeaderLabelCount,In script performance,Count,Count
+Studio.App.RobloxScriptReview.HeaderLabelName,In script performance,Name,Name
+Studio.App.RobloxScriptReview.HeaderLabelRate,In script performance,Rate,Rate
+Studio.App.RobloxSettingsDialog.ReopenForSettingsChanges,,Some of these setting changes will not take effect until you reopen the place file,Some of these setting changes will not take effect until you reopen the place file
+Studio.App.RobloxSettingsDialog.ResetAllSettings,,Reset All Settings,Reset All Settings
+Studio.App.RobloxSettingsDialog.ResetSettingsText,,Resetting settings will not take effect until you restart Roblox,Resetting settings will not take effect until you restart Roblox
+Studio.App.RobloxSettingsDialog.ResetSettingsTitle,,Reset Settings,Reset Settings
+Studio.App.RobloxSettingsDialog.RestartForSettingsChanges,,Some of these setting changes will not take effect until you restart Studio,Some of these setting changes will not take effect until you restart Studio
+Studio.App.RobloxSettingsDialog.SaveChanges,,Save Changes,Save Changes
+Studio.App.RobloxSettingsDialog.SettingsModificationWarning,,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>
+Studio.App.RobloxSettingsDialog.SettingsSearch,,Search...,Search...
+Studio.App.RobloxStudio.BelowMinSpec,The message to be shown when user's machine is below Studio minimum requirements.,"Your system is below the minimum requirements. To keep using the Roblox Studio, please use a device that meets the minimum requirements.","Your system is below the minimum requirements. To keep using the Roblox Studio, please use a device that meets the minimum requirements."
+Studio.App.RobloxStudio.ChannelOutOfDateReinstall1,,"This is an expired channel build. To move back to latest production Roblox Studio, please close all instances, unenroll your user from the channel, and reinstall from %1","This is an expired channel build. To move back to latest production Roblox Studio, please close all instances, unenroll your user from the channel, and reinstall from %1"
+Studio.App.RobloxStudio.FailToLoadRequiredDLLs1,,Failed to locate some required DLLs. Please close all instances and reinstall Roblox Studio from %1,Failed to locate some required DLLs. Please close all instances and reinstall Roblox Studio from %1
+Studio.App.RobloxStudio.OutOfDateReinstall1,,The version of Roblox Studio is out of date. Please close all instances and reinstall from %1,The version of Roblox Studio is out of date. Please close all instances and reinstall from %1
+Studio.App.RobloxTaskScheduler.HeaderLabelActivity,In task scheduler,Activity,Activity
+Studio.App.RobloxTaskScheduler.HeaderLabelName,In task scheduler,Name,Name
+Studio.App.RobloxTaskScheduler.HeaderLabelRate,In task scheduler,Rate,Rate
+Studio.App.RobloxTaskScheduler.HeaderLabelTime,In task scheduler,Time,Time
+Studio.App.RobloxTeamCreateWidget.DeleteUser,,Delete User,Delete User
+Studio.App.RobloxTeamCreateWidget.GroupOwnedPlace,,Group owned place,Group owned place
+Studio.App.RobloxTeamCreateWidget.TeamCreateDisabled,,Team Create in this game is disabled. Please enable Team Create to add editors to your place.,Team Create in this game is disabled. Please enable Team Create to add editors to your place.
+Studio.App.RobloxTeamCreateWidget.TeamCreateOptions,,Team Create Options,Team Create Options
+Studio.App.RobloxTeamCreateWidget.TurnOffTeamCreate,,Turn OFF Team Create,Turn OFF Team Create
+Studio.App.RobloxTutorials.CopyText,,Build amazing games with Roblox Studio. No experience necessary!,Build amazing games with Roblox Studio. No experience necessary!
+Studio.App.RobloxTutorials.LearnNow,,Learn now,Learn now
+Studio.App.RobloxViewStudio.ExitUiLayer,,Exit UI Layer,Exit UI Layer
+Studio.App.RobloxViewStudio.SelectUILayer1,,"Select UI Layer ""%1""","Select UI Layer ""%1"""
+Studio.App.RobloxViewStudio.SelectUiLayer,,Select UI Layer,Select UI Layer
+Studio.App.RobloxViewStudio.UseLocalSpace,,Use Local Space,Use Local Space
+Studio.App.RobloxViewStudio.UseWorldSpace,,Use World Space,Use World Space
+Studio.App.RobloxWebDocWidget.Address,,Address,Address
+Studio.App.RobloxWebDocWidget.GoBack,,Go Back,Go Back
+Studio.App.RobloxWebDocWidget.GoForward,,Go Forward,Go Forward
+Studio.App.RotateGridSettings.RotateGridSize,The title of the setting for the size (in degrees) of the angle that rotating object will snap to. Default is 90deg but can be any value between 1 and 360,Rotate Grid Size,Rotate Grid Size
+Studio.App.SandboxLocalCache.DialogTitle,,Drafts Local Cache,Drafts Local Cache
+Studio.App.SandboxLocalCache.MetaDataCorruptedMessage,,"Can't restore drafts information, metadata corrupted","Can't restore drafts information, metadata corrupted"
+Studio.App.SandboxLocalCache.MetaDataFilesCorruptedMessage,,"Can't restore some of the drafts information
+
+Metadata files corrupted:","Can't restore some of the drafts information
+
+Metadata files corrupted:"
+Studio.App.SandboxLocalCache.SourcesMissingCorruptedMessage,,"Unable to restore some of the drafts.
+
+Files are missing or corrupted:","Unable to restore some of the drafts.
+
+Files are missing or corrupted:"
+Studio.App.SandboxWidget.Revert,,Revert,Revert
+Studio.App.SandboxWidget.SelectAndOpenScript,,Select and open script,Select and open script
+Studio.App.SandboxWidget.Submit,,Submit,Submit
+Studio.App.SandboxWidget.Update,,Update,Update
+Studio.App.SandboxWidget.ViewDiff,,View Diff,View Diff
+Studio.App.ScriptAnalysisWidget.DisplayOnlyCurrentScript,,Display only current script,Display only current script
+Studio.App.ScriptAnalysisWidget.ErrorDisplayToggle,,Toggle lint error display,Toggle lint error display
+Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Errors
+Studio.App.ScriptAnalysisWidget.NumHintsTextFmt2,,%1 of %2 Hints,%1 of %2 Hints
+Studio.App.ScriptAnalysisWidget.NumInformationTextFmt2,,%1 of %2 Information,%1 of %2 Information
+Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
+Studio.App.ScriptAnalysisWidget.WarningDisplayToggle,,Toggle lint warning display,Toggle lint warning display
+Studio.App.ScriptComboBox.RunACommand,,Run a command,Run a command
+Studio.App.ScriptCommandHandler.OpenScriptFile,,Open Script File,Open Script File
+Studio.App.ScriptDocument.DeletedPrefix,,[DELETED] ,[DELETED] 
+Studio.App.ScriptDocument.DisabledPrefix,,[Disabled] ,[Disabled] 
+Studio.App.ScriptDocument.EditingSuffixFmt1,, (%1 Editing), (%1 Editing)
+Studio.App.ScriptInjection.DeniedError,,"Plugin ""%1"" was denied script injection permission. You can grant this permission in the Plugin Manager.","Plugin ""%1"" was denied script injection permission. You can grant this permission in the Plugin Manager."
+Studio.App.ScriptInjection.FirstDeniedError,,"Plugin ""%1"" was denied script injection permission. The user has been prompted for future attempts.","Plugin ""%1"" was denied script injection permission. The user has been prompted for future attempts."
+Studio.App.ScriptPickerDialog.AlreadyTaken,,Name already taken (not case sensitive),Name already taken (not case sensitive)
+Studio.App.ScriptPickerDialog.CanNotBeEmpty,,Name cannot be empty,Name cannot be empty
+Studio.App.ScriptPickerDialog.CreateNewLinkedsource,,Create new LinkedSource,Create new LinkedSource
+Studio.App.ScriptPickerDialog.LinkedsourceDescriptionLabel,,"LinkedSources can be referenced by scripts in your game, allowing you to update all of them at the same time.","LinkedSources can be referenced by scripts in your game, allowing you to update all of them at the same time."
+Studio.App.ScriptRecoveryWidget.ErrorRecovering,,Errors occurred while automatically recovering scripts.,Errors occurred while automatically recovering scripts.
+Studio.App.ScriptRecoveryWidget.ErrorRemovedFromWorksapce,,Unable to perform diff because this script has been removed from Workspace.,Unable to perform diff because this script has been removed from Workspace.
+Studio.App.ScriptRecoveryWidget.ErrorWriting,,Issue with writing script autosave,Issue with writing script autosave
+Studio.App.ScriptRecoveryWidget.InitialWarning,,"You were disconnected from the last Team Create session without saving your scripts.
+Some of those scripts have either been changed or are currently being edited by another user.
+Please see the Script Recovery Widget to resolve these files. ","You were disconnected from the last Team Create session without saving your scripts.
+Some of those scripts have either been changed or are currently being edited by another user.
+Please see the Script Recovery Widget to resolve these files. "
+Studio.App.ScriptRecoveryWidget.OpenFile,,Open file,Open file
+Studio.App.ScriptRecoveryWidget.ScriptNoLongerExists,,Script no longer exists,Script no longer exists
+Studio.App.ScriptRecoveryWidget.SelectAndOpenScript,,Select and open script,Select and open script
+Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
+Studio.App.ScriptResourceController.ConfirmPublishChanges,,Are you sure you want to publish your changes?,Are you sure you want to publish your changes?
+Studio.App.ScriptResourceController.ConfirmWillDestroyChanges,,This will destroy all local changes you have made. Are you sure?,This will destroy all local changes you have made. Are you sure?
+Studio.App.ScriptSetting.AlwaysSave,,Always Save,Always Save
+Studio.App.ScriptSetting.KeepTheseChanges,,You've made script changes while playing.  Would you like to keep these changes?,You've made script changes while playing.  Would you like to keep these changes?
+Studio.App.ScriptTextEditor.FilterText,,  Type to filter functions. Tab or Enter to go to selected function,  Type to filter functions. Tab or Enter to go to selected function
+Studio.App.ScriptingHostAppServices.NoSuggestionReceivedServerError1,,No code suggestion received. Server Error code: %1.,No code suggestion received. Server Error code: %1.
+Studio.App.ScriptingHostAppServices.ResponseChatFiltered,,No code suggestion received. Response was caught by the text filter.,No code suggestion received. Response was caught by the text filter.
+Studio.App.ScriptingHostAppServices.TooManyRequests,"Too many requests, please try again later.","Too many requests, please try again later.","Too many requests, please try again later."
+Studio.App.ScriptingHostAppServices.UsageExceeded,,Daily AI Code completion usage exceeded. Please try again tomorrow.,Daily AI Code completion usage exceeded. Please try again tomorrow.
+Studio.App.ScriptsInBatchDialog.FailedToLoadDataErrorMessage,,Failed to load data. Please close this dialog and try again.,Failed to load data. Please close this dialog and try again.
+Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,Script,Script
+Studio.App.ScriptsInBatchDialog.Title,,Scripts In Batch,Scripts In Batch
+Studio.App.ScriptsInBatchDialog.VersionSectionHeader,,Version,Version
+Studio.App.Settings.FolderSelectionDialogTitle,,Select folder to save Roblox documents,Select folder to save Roblox documents
+Studio.App.Settings.SelectDocumentsFolder,,Select folder to save Roblox documents,Select folder to save Roblox documents
+Studio.App.Settings.SelectFolderMessageBoxText,,"Need a location to store local files.
+Do you want to pick a file path now?","Need a location to store local files.
+Do you want to pick a file path now?"
+Studio.App.Shapes.CornerWedge,,Corner Wedge,Corner Wedge
+Studio.App.Shapes.Cylinder,,Cylinder,Cylinder
+Studio.App.Shapes.Sphere,,Sphere,Sphere
+Studio.App.ShareModal.By1,,By %1,By %1
+Studio.App.ShareModal.CopyLink,,Copy Link,Copy Link
+Studio.App.ShareModal.Failed,,Failed,Failed
+Studio.App.ShareModal.LinkCopied,,Link Copied,Link Copied
+Studio.App.ShareModal.SearchPlaceholderText,,Search for friends,Search for friends
+Studio.App.ShareModal.ShareGame,,Share Game,Share Game
+Studio.App.ShareModal.ShareWithRobloxFriends,,Share with Roblox Friends,Share with Roblox Friends
+Studio.App.ShareModal.Shared,,Shared,Shared
+Studio.App.ShareModalController.CheckOutMyGame,,Check out my game!,Check out my game!
+Studio.App.ShareModalController.CheckOutThisGame,,Check out this game!,Check out this game!
+Studio.App.ShareModalController.Offline,,Offline,Offline
+Studio.App.ShareModalController.Online,,Online,Online
+Studio.App.ShareModalInfoBox.MakeGamePublicToShare,,Make your game public to share it,Make your game public to share it
+Studio.App.SnippetVerifier.PackDespTooLongFmt2,,"Snippet pack description (%1) is too long, shouldn't be longer than %2","Snippet pack description (%1) is too long, shouldn't be longer than %2"
+Studio.App.SnippetVerifier.PackNameTooLongFmt2,,"Snippet pack name (%1) is too long, shouldn't be longer than %2","Snippet pack name (%1) is too long, shouldn't be longer than %2"
+Studio.App.SnippetVerifier.SnippetDespTooLongFmt2,,"Snippet description (%1) is too long, shouldn't be longer than %2","Snippet description (%1) is too long, shouldn't be longer than %2"
+Studio.App.SnippetVerifier.SnippetIdTooLongFmt2,,"Snippet name (%1) is too long, shouldn't be longer than %2","Snippet name (%1) is too long, shouldn't be longer than %2"
+Studio.App.SnippetVerifier.SnippetPrefixInvalidCharFmt1,,"Invalid character in prefix (%1), it can only be  '_', number, or letter.","Invalid character in prefix (%1), it can only be  '_', number, or letter."
+Studio.App.SnippetVerifier.SnippetPrefixTooLongFmt2,,"Snippet prefix (%1) is too long, shouldn't be longer than %2","Snippet prefix (%1) is too long, shouldn't be longer than %2"
+Studio.App.SplineEditor.Envelope,,Envelope,Envelope
+Studio.App.SplineEditor.Time,,Time,Time
+Studio.App.StartPageDocumentPanel.StartPage,,Start Page,Start Page
+Studio.App.Studio.App.OSVersionWarning.MacOS1010,,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in October 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.
+Studio.App.StudioCmdService.PermissionError3,,"The current identity (%1) cannot execute command (%2), lacking permission (%3)
+","The current identity (%1) cannot execute command (%2), lacking permission (%3)
+"
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToCancellation,,Failed to open the team create place due to cancellation,Failed to open the team create place due to cancellation
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictGlobal,,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToConflictLuobu,,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToTimeout,,Failed to open the team create place due to timeout,Failed to open the team create place due to timeout
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToVersionConflictGlobal,,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn,Global Studio does not support joining a TeamCreate session with a Luobu Studio developer. Please download Luobu Studio to use TeamCreate together: www.robloxdev.cn
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceDueToVersionConflictLuobu,,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn,Luobu Studio does not support joining a TeamCreate session with a global Studio developer. Please ask your teammates to download Loubu Studio to use TeamCreate together: www.robloxdev.cn
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceGeneral,,"Failed to open the team create place, please try again","Failed to open the team create place, please try again"
+Studio.App.StudioDataModelLoadUtil.ErrorCannotOpenTCPlaceWithErrorCode1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.","Failed to open the team create place, please try again. (Error Code: %1)","Failed to open the team create place, please try again. (Error Code: %1)"
+Studio.App.StudioDeviceEmulatorService.CannotChangeEmulationDevice,,Can't set emulation device in current game state.,Can't set emulation device in current game state.
+Studio.App.StudioDeviceEmulatorService.InvalidOrientation1,,Can't set orientation to '%1'.,Can't set orientation to '%1'.
+Studio.App.StudioDeviceEmulatorService.NonExistantDeviceId1,,Device ID '%1' doesn't exist.,Device ID '%1' doesn't exist.
+Studio.App.StudioPackageManager.PackageScriptDocMessage,,This script is part of a package. <a href='unlinkpackage://asset'>Click here</a> to modify.,This script is part of a package. <a href='unlinkpackage://asset'>Click here</a> to modify.
+Studio.App.StudioPackageManager.PackageUnlinkConfirmation,,Modifying packages disables auto-update until you publish or revert the changes,Modifying packages disables auto-update until you publish or revert the changes
+Studio.App.StudioPackageManager.PackageUnlinkManyConfirmation1,%1 is a small number typically 2 or 3.,Making edits to %1 packages. You will not be able to update those packages until the edits are published or reverted.,Making edits to %1 packages. You will not be able to update those packages until the edits are published or reverted.
+Studio.App.StudioPackageManager.PackageUnlinkOneConfirmation,,Making edits to this package will disable the ability to update it until those edits have been published or reverted.,Making edits to this package will disable the ability to update it until those edits have been published or reverted.
+Studio.App.StudioPackageManager.PackageUnlinkRevertButton,"The user modified a package, and we told them that this will have consequences. We're offering them a chance to avoid this by clicking a button and reverting the changes.",Revert Changes,Revert Changes
+Studio.App.StudioPackageManager.ReadOnlyScriptDocMessage,,This script is read-only as it is part of a package. <a href='unlinkpackage://asset'>Click here</a> to unlink the package.,This script is read-only as it is part of a package. <a href='unlinkpackage://asset'>Click here</a> to unlink the package.
+Studio.App.StudioProjectConfig.UnexpectedFieldWarning2,,"The Project File has unexpected fields, they will be ignored. 
+%1 
+%2","The Project File has unexpected fields, they will be ignored. 
+%1 
+%2"
+Studio.App.StudioScriptEditor.AICOLegalToast,,"<a href='#'>AI coding is available</a>, agree to the terms and conditions to try it out!","<a href='#'>AI coding is available</a>, agree to the terms and conditions to try it out!"
+Studio.App.StudioScriptEditor.LiveScriptingBannerDisabled,,"A collaborator has disabled LiveScripting after the server was started. To apply, all collaborators must leave the session so the server can restart. ","A collaborator has disabled LiveScripting after the server was started. To apply, all collaborators must leave the session so the server can restart. "
+Studio.App.StudioScriptEditor.LiveScriptingBannerEnabled,,"A collaborator has enabled LiveScripting after the server was started. To apply, all collaborators must leave the session so the server can restart. ","A collaborator has enabled LiveScripting after the server was started. To apply, all collaborators must leave the session so the server can restart. "
+Studio.App.StudioScriptEditor.LiveScriptingEnableInDraftMode,,"LiveScripting doesn't work in Draft mode. If you want to try LiveScripting, please turn off Draft mode. <a href='#'>Learn more</a>","LiveScripting doesn't work in Draft mode. If you want to try LiveScripting, please turn off Draft mode. <a href='#'>Learn more</a>"
+Studio.App.StudioScriptEditor.LiveScriptingServerDefaultEnabled,,This place has been enrolled in the LiveScripting Beta. Now you can code with your team at the same time! <a href='#'>Learn more</a>,This place has been enrolled in the LiveScripting Beta. Now you can code with your team at the same time! <a href='#'>Learn more</a>
+Studio.App.StudioScriptEditor.PerformanceBanner,,We have disabled some language features because this script is too long and it's affecting system performance. You can change this in Settings,We have disabled some language features because this script is too long and it's affecting system performance. You can change this in Settings
+Studio.App.StudioScriptEditor.WaitingRemoteEvent,,Script Editor's read-only due to an unstable connection; it'll be editable again once stable.,Script Editor's read-only due to an unstable connection; it'll be editable again once stable.
+Studio.App.StudioSerializerHelper.ErrorSavingFile2,,Error saving file '%1' - %2,Error saving file '%1' - %2
+Studio.App.StudioServiceHost.ConvertToPackageFailed,,Convert to package failed.,Convert to package failed.
+Studio.App.StudioUtilities.CannotInsertAtThisTime,,Can't insert at this time.,Can't insert at this time.
+Studio.App.StudioUtilities.InsertInstanceFailed,,Insert instance failed.,Insert instance failed.
+Studio.App.StudioUtilities.LogInRequired,,Log in required,Log in required
+Studio.App.StudioUtilities.UnableToOpenCorruptedModel1,,"Unable to open model ""%1"". The file is corrupted.","Unable to open model ""%1"". The file is corrupted."
+Studio.App.StudioUtilities.YouMustLogInToPerformThisAction,,You must log in to perform this action!,You must log in to perform this action!
+Studio.App.TabTooltip.ReplaceTooltipText,,"Replace tooltip text by
+setting text property","Replace tooltip text by
+setting text property"
+Studio.App.TeamCreateActivePlayersDialog.PlayerID1,String for Player ID,Player ID: '%1',Player ID: '%1'
+Studio.App.TeamCreateActivePlayersDialog.TopLabelText1,Display this message to inform user about the ongoing active team create session,Place '%1' currently has an active Team Create Session with other users. The following users will need to close their session in order to proceed with this operation,Place '%1' currently has an active Team Create Session with other users. The following users will need to close their session in order to proceed with this operation
+Studio.App.TeamCreateActivePlayersDialog.UnableToRetrieveUsernames1,Error message on fetching failure,"Unable to retrieve usernames.
+Additional Info: '%1'","Unable to retrieve usernames.
+Additional Info: '%1'"
+Studio.App.TeamCreateActivePlayersDialog.UnexpectedDataFormat,Display this message when fetched result has unexpected format,Unexpected data format.,Unexpected data format.
+Studio.App.TeamCreateActivePlayersDialog.UsernameField,Username field,User Name,User Name
+Studio.App.TeamCreateConnectionDialog.YouHaveLostConnectionToTheServer,,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.,You have lost connection to the server. Trying to reconnect...<br><br>Recent copy of the place has been saved. <a href='openautosave://file'>Click here</a> to open the saved place.
+Studio.App.TeamCreateJoinMessage.NewConnected,Team Create Join Message,You have connected to the server.,You have connected to the server.
+Studio.App.TeamCreateJoinMessage.NewConnecting,Team Create Join Message,Connecting to server...,Connecting to server...
+Studio.App.TeamCreateJoinMessage.Reconnected,Team Create Join Message,You have reconnected to the server.,You have reconnected to the server.
+Studio.App.TeamCreateJoinMessage.Reconnecting,Team Create Join Message,Reconnecting to server...,Reconnecting to server...
+Studio.App.TeamCreateJoinMessage.SettingUpServer,Team Create Join Message,Setting up server...,Setting up server...
+Studio.App.TeamCreateUserData.FailToRestoreCameraPosition1,,Failed to restore camera position: {{}},Failed to restore camera position: {{}}
+Studio.App.TeamTest.StartStatus,Status message displayed on the modal dialog when starting the Team Test,Join Team Test Server,Join Team Test Server
+Studio.App.TeamTest.StartTitle,Title for the modal dialog when starting a Team Test,Team Test,Team Test
+Studio.App.TeamTestManager.DisconnectedFromTeamTestServer,Disconnect from TeamTest Server,You have been disconnected from the team test server.,You have been disconnected from the team test server.
+Studio.App.TemplatePage.Gameplay,,Gameplay,Gameplay
+Studio.App.TemplatePage.Theme,,Theme,Theme
+Studio.App.TemplatePageController.Baseplate,,Baseplate,Baseplate
+Studio.App.TemplatesPage.AllTemplates,Templates page tab,All Templates,All Templates
+Studio.App.TemplatesPage.TeamCreate,,Team Create,Team Create
+Studio.App.TextureGenerator.GenerationRequestFailed,,Generation request failed.,Generation request failed.
+Studio.App.TextureGenerator.PreviewRequestFailed,,Preview request failed.,Preview request failed.
+Studio.App.TextureGenerator.UVUnwrappingFailed,,UV unwrapping failed.,UV unwrapping failed.
+Studio.App.Theme.InvalidGetThemeApi,"Theme:GetPath api has been removed, so it cannot be used anymore",GetPath is not a valid member of Theme,GetPath is not a valid member of Theme
+Studio.App.ToastNotificationService.NotAvailable,,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false
+Studio.App.Tooltip.GoToSource,,Go to source,Go to source
+Studio.App.Tooltip.Variadic,,Variadic,Variadic
+Studio.App.TutorialBanner.ContinueYourJourneyText,,"Continue your journey with our tutorials, and discover how to build and script complete experiences in Studio.","Continue your journey with our tutorials, and discover how to build and script complete experiences in Studio."
+Studio.App.TutorialBanner.CreateYourFirstProjectText,,Create your first project in Studio with our quick introductory tour.,Create your first project in Studio with our quick introductory tour.
+Studio.App.TutorialBanner.GetStartedText,,Get Started,Get Started
+Studio.App.TutorialBanner.LearnStudioText,, LEARN STUDIO , LEARN STUDIO 
+Studio.App.TutorialBanner.LearnWithTutorialsText,,Learn with tutorials,Learn with tutorials
+Studio.App.TutorialBanner.OpenTutorialsText,, OPEN TUTORIALS , OPEN TUTORIALS 
+Studio.App.TutorialBanner.StartTourText,, START TOUR , START TOUR 
+Studio.App.TutorialBanner.TakeTheStudioTourText,,Take the Studio Tour,Take the Studio Tour
+Studio.App.TutorialPage.Header,,Learn the fundamentals of Studio,Learn the fundamentals of Studio
+Studio.App.TutorialPage.HeaderText,,Learn the fundamentals of Roblox Studio,Learn the fundamentals of Roblox Studio
+Studio.App.TutorialPage.OpenTemplate,,Start with a Template instead,Start with a Template instead
+Studio.App.TutorialPage.RestartTour,,Restart Tour,Restart Tour
+Studio.App.TutorialPage.StartTour,,Start Tour,Start Tour
+Studio.App.TutorialPage.SubHeaderText,,Learn the Studio interface and main controls in a few easy steps to start creating on Roblox!,Learn the Studio interface and main controls in a few easy steps to start creating on Roblox!
+Studio.App.TutorialPage.TabTitle,Tour Tab in Start Page,Tour,Tour
+Studio.App.TutorialPage.Title,Tutorial Tab in Start Page,Tour,Tour
+Studio.App.TwoStepVerificationPage.Enter6DigitCode,,Enter 6-digit code,Enter 6-digit code
+Studio.App.TwoStepVerificationPage.NeedHelpContact,,Need help? Contact ,Need help? Contact 
+Studio.App.TwoStepVerificationPage.RobloxSupport,,Roblox Support,Roblox Support
+Studio.App.TwoStepVerificationPage.StartOver,,Start Over,Start Over
+Studio.App.TwoStepVerificationPage.TrustThisDeviceFor30Days,,Trust this device for 30 days,Trust this device for 30 days
+Studio.App.TwoStepVerificationPage.Verify,,Verify,Verify
+Studio.App.UIEditor.ScrollingFrame,ui editor menu,Scrolling Frame,Scrolling Frame
+Studio.App.UIEditor.TextButton,ui editor menu,Text Button,Text Button
+Studio.App.UIEditor.TextLabel,ui editor menu,Text Label,Text Label
+Studio.App.UIEditorWidget.ZoomInButton,,+,+
+Studio.App.UIEditorWidget.ZoomOutButton,,-,-
+Studio.App.UniverseController.CanAddToGame,,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.
+Studio.App.UniverseController.FailedToLoadGameAssets,,"Failed to load game assets, some Studio features have been disabled.","Failed to load game assets, some Studio features have been disabled."
+Studio.App.UniverseController.FailedToLoadGameSettings,,"Failed to load game settings, some Studio features have been disabled.","Failed to load game settings, some Studio features have been disabled."
+Studio.App.UniverseController.PermissionDenied,,Unable to load universe. Permission denied.,Unable to load universe. Permission denied.
+Studio.App.UniverseController.ThisPlaceDoesNotBelongToAGame,,This place does not belong to a game.,This place does not belong to a game.
+Studio.App.UpdateNotifications.InChannel,,In Channel,In Channel
+Studio.App.UpdateNotifications.InChannelToolTipFmt1,,Channel: %1,Channel: %1
+Studio.App.UpdateUIManager.Chat,,Chat,Chat
+Studio.App.UpdateUIManager.Cores,CPU Core Count,Cores,Cores
+Studio.App.UpdateUIManager.PublishTcDocToDiffSlot,,Publish Team Create Document to a different slot,Publish Team Create Document to a different slot
+Studio.App.UpdateUIManager.PublishToRobloxToElps,,Publish to Roblox To...,Publish to Roblox To...
+Studio.App.UpdateUIManager.SaveTcDocToDiffSlot,,Save Team Create Document to a different slot,Save Team Create Document to a different slot
+Studio.App.UpdateUIManager.SaveToRobloxToElps,,Save to Roblox To...,Save to Roblox To...
+Studio.App.UpdateUIManager.Scheduler,Object used to schedule jobs,Scheduler,Scheduler
+Studio.App.UpdateUIManager.ViewChatWindow,,View Chat Window,View Chat Window
+Studio.App.UploadImageRequest.CouldNotOpenFile,,Could not open file %1,Could not open file %1
+Studio.App.UploadImageRequest.CouldNotOpenFile1,,Could not open file %1,Could not open file %1
+Studio.App.UploadImageRequest.UploadingQuickly1,,Uploading too quickly. Try again in %1 minute(s),Uploading too quickly. Try again in %1 minute(s)
+Studio.App.UploadImageRequest.UploadingQuicklyHour1,,Uploading too quickly. Try again in %1 hour(s),Uploading too quickly. Try again in %1 hour(s)
+Studio.App.UploadImageRequest.UploadingTooQuickly,,Uploading too quickly,Uploading too quickly
+Studio.App.UploadTextureRequest.CouldNotReadTexture1FromTheDisk,,"Could not read texture ""%1"" from the disk","Could not read texture ""%1"" from the disk"
+Studio.App.UserPlaceCreatorsListWidget.Offline,User is offline,Offline,Offline
+Studio.App.UserPlaceCreatorsListWidget.PlaceOwner,User is owner of place,Place Owner,Place Owner
+Studio.App.UserPlaceCreatorsListWidget.PlaceOwnerOffline,User is owner of place and is offline,Place Owner (Offline),Place Owner (Offline)
+Studio.App.VersionControl.CloseScript,,Close,Close
+Studio.App.VersionControl.CommitEditsToServer,,Commit edits to server,Commit edits to server
+Studio.App.VersionControl.CompareWithServer,,Compare with server,Compare with server
+Studio.App.VersionControl.DiscardSandboxEdits,,Discard sandbox edits,Discard sandbox edits
+Studio.App.VersionHistoryController.AutoCommitMessage,,Auto generated commit,Auto generated commit
+Studio.App.VersionHistoryController.AutoCommitNewSlotInitialPublish,,Initial publish commit,Initial publish commit
+Studio.App.VersionHistoryController.AutoCommitNewSlotMessage1,,Initial commit published from place: %1,Initial commit published from place: %1
+Studio.App.VersionHistoryController.AutoCommitPlaceRevision1,,Overwriting place from version: %1,Overwriting place from version: %1
+Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt3,,This version is read-only. <a href='%1://%2_%3'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3'>Click here to edit.</a>
+Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageFmt4,,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>,This version is read-only. <a href='%1://%2_%3_%4'>Click here to edit.</a>
+Studio.App.VersionHistoryController.ReadOnlyScriptDocMessageNoEdit,,This version is read-only.,This version is read-only.
+Studio.App.VersionHistoryController.ScriptEditErrorMessage,,Unable to edit script. Please try again.,Unable to edit script. Please try again.
+Studio.App.VideoControl.RecordingStarted,,Video recording started,Video recording started
+Studio.App.VideoControl.RecordingStopped,,Video recording stopped,Video recording stopped
+Studio.App.Watch.Watch,,Watch,Watch
+Studio.App.WatchTreeWidget.DeleteAll,,Delete All,Delete All
+Studio.App.WatchTreeWidget.DeleteWatch,,Delete Watch,Delete Watch
+Studio.App.WatchWidget.CopyEntry,Copy Entry in the WatchWidget copies via context menu only the variable info from the column selected and row currently highlighted,Copy Entry,Copy Entry
+Studio.App.WatchWidget.CopyRow,Copy Row in the WatchWidget copies all the variable info via context menu,Copy Row,Copy Row
+Studio.App.WatchWidget.Expression,,Expression,Expression
+Studio.App.WatchWidget.Global,,Global,Global
+Studio.App.WatchWidget.Local,,Local,Local
+Studio.App.WatchWidget.MyWatches,,My Watches,My Watches
+Studio.App.WatchWidget.Name,,Name,Name
+Studio.App.WatchWidget.ScriptName,,Script Name,Script Name
+Studio.App.WatchWidget.Value,,Value,Value
+Studio.App.WhatsNewWindow.GetAllUpdates,,Get All Updates,Get All Updates
+Studio.App.WhatsNewWindow.HttpFailure,,Unable to retrieve Whats New Updates from the DevForums page,Unable to retrieve Whats New Updates from the DevForums page
+Studio.App.WhatsNewWindow.PopupDescription,,Click this button to see what's new with Studio and our developer community!,Click this button to see what's new with Studio and our developer community!
+Studio.App.WhatsNewWindow.PopupGotIt,,Got it,Got it
+Studio.App.WhatsNewWindow.PopupTitle,,What's New?,What's New?
+Studio.App.WhatsNewWindow.SeeAllUpdates,,See All,See All

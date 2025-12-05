@@ -1,0 +1,41 @@
+Key,Context,Source,en-us
+Studio.App.GamesPageController.Alphabetical,,Alphabetical,Alphabetical
+Studio.App.GamesPageController.ArchiveGame,,Archive Game,Archive Game
+Studio.App.GamesPageController.ArchiveGameDetails,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
+Studio.App.GamesPageController.ArchiveGameFail,,Failed to archive game,Failed to archive game
+Studio.App.GamesPageController.Archived,,Archived,Archived
+Studio.App.GamesPageController.ArchivedFile1,,Archived %1,Archived %1
+Studio.App.GamesPageController.ArchivingAGameMakesItPrivate,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='https://wiki.roblox.com/'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
+Studio.App.GamesPageController.ArchivingAGameMakesItPrivate1,,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>,<p>Archiving a game makes it private so only <br>you can play. Any running servers will be <br>shutdown. <a href='%1'>Learn more</a><br><br>Are you sure you want to archive this game?</p>
+Studio.App.GamesPageController.CantOpenArchivedGame,,You cannot open archived games. You must restore the game to open it.,You cannot open archived games. You must restore the game to open it.
+Studio.App.GamesPageController.ConfirmPrivateWarn,,"Are you sure you want to make this game private?
+This will shutdown all running servers.","Are you sure you want to make this game private?
+This will shutdown all running servers."
+Studio.App.GamesPageController.ConfirmRemoveSelf,,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.
+Studio.App.GamesPageController.ConfirmTeamCreateOff,,"Turning off team create may result in loss of work.
+Are you sure?","Turning off team create may result in loss of work.
+Are you sure?"
+Studio.App.GamesPageController.DateCreated,,Date Created,Date Created
+Studio.App.GamesPageController.DateCreatedDescending,,Date Created (Descending),Date Created (Descending)
+Studio.App.GamesPageController.FailedPublic,,Failed to make game public,Failed to make game public
+Studio.App.GamesPageController.FailedToLeaveTeamCreateGame,,Failed to leave team create game.,Failed to leave team create game.
+Studio.App.GamesPageController.FailedToMakeGamePublic,,Failed to make game public,Failed to make game public
+Studio.App.GamesPageController.FailedToOpenLocalFile,,Failed to open local file,Failed to open local file
+Studio.App.GamesPageController.LastModified,,Last Modified,Last Modified
+Studio.App.GamesPageController.LeaveTeamCreateFail,,Failed to leave team create game.,Failed to leave team create game.
+Studio.App.GamesPageController.MakePrivateFail,,Failed to make game private,Failed to make game private
+Studio.App.GamesPageController.MakePublicFail,,Failed to make game public,Failed to make game public
+Studio.App.GamesPageController.MakingGamePrivate,,Making game private,Making game private
+Studio.App.GamesPageController.No.Edit.Permission,,You no longer have edit permission to the selected place. It will be removed from this list.,You no longer have edit permission to the selected place. It will be removed from this list.
+Studio.App.GamesPageController.NotAuthorizedToConfigureGame,,You are not authorized to configure this game.,You are not authorized to configure this game.
+Studio.App.GamesPageController.PromptUserForMakingGamePrivate,Do not translate,"Are you sure you want to make this game private?
+This will shutdown all running servers.","Are you sure you want to make this game private?
+This will shutdown all running servers."
+Studio.App.GamesPageController.RemoveTeamCreateConfirm,,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.,Are you sure you want to remove yourself from this game? You will no longer be able to edit it.
+Studio.App.GamesPageController.RemoveTeamCreateGame,,Remove Team Create Game,Remove Team Create Game
+Studio.App.GamesPageController.RestoreGameFail,,Failed to restore game,Failed to restore game
+Studio.App.GamesPageController.Restored,,Restored,Restored
+Studio.App.GamesPageController.RestoredFile1,,Restored %1,Restored %1
+Studio.App.GamesPageController.UndoArchiveGameFail,,Failed to undo archived game,Failed to undo archived game
+Studio.App.GamesPageController.UndoRestoreGameFail,,Failed to undo restored game,Failed to undo restored game
+Studio.App.GamesPageController.YouCannotOpenArchivedGames,,You cannot open archived games. You must restore the game to open it.,You cannot open archived games. You must restore the game to open it.

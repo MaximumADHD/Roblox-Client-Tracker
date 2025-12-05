@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.App.RobloxScriptDoc.BreakpointsDisabledLinkedSource,,Breakpoints are currently disabled for LinkedSource.,Breakpoints are currently disabled for LinkedSource.
+Studio.App.RobloxScriptDoc.CantAccessRevertingChange,,"Cannot gain write access to script, reverting your change","Cannot gain write access to script, reverting your change"
+Studio.App.RobloxScriptDoc.CloseOtherScripts,,Close Other Scripts,Close Other Scripts
+Studio.App.RobloxScriptDoc.CloseScript,,Close Script,Close Script
+Studio.App.RobloxScriptDoc.DockTab,,Dock Tab,Dock Tab
+Studio.App.RobloxScriptDoc.LockTakenInactivity,,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
+Studio.App.RobloxScriptDoc.MultipleScriptLocks,,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
+Studio.App.RobloxScriptDoc.OtherChangesReverted1,,"%1 is currently modifying this script, your changes will be reverted","%1 is currently modifying this script, your changes will be reverted"
+Studio.App.RobloxScriptDoc.ScriptDeleted1,,%1 has been deleted from the server,%1 has been deleted from the server
+Studio.App.RobloxScriptDoc.ShowInExplorer,,Show in Explorer,Show in Explorer

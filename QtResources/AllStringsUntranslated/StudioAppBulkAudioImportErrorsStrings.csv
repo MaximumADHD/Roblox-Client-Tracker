@@ -1,0 +1,16 @@
+Key,Context,Source,en-us
+Studio.App.BulkAudioImportErrors.AudioCostUnverifiedFormat1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Verifing the audio cost did not return correctly formatted data. Status Code: '%1',Verifing the audio cost did not return correctly formatted data. Status Code: '%1'
+Studio.App.BulkAudioImportErrors.AudioUploadErrorCode1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Uploading the audio file failed. Status Code: '%1',Uploading the audio file failed. Status Code: '%1'
+Studio.App.BulkAudioImportErrors.DurationEstimationError,,The duration estimation error was greater than the acceptable margin of error.,The duration estimation error was greater than the acceptable margin of error.
+Studio.App.BulkAudioImportErrors.DurationTooLarge,,The duration of the audio file is too long.,The duration of the audio file is too long.
+Studio.App.BulkAudioImportErrors.FileCorrupted,,The file is corrupted.,The file is corrupted.
+Studio.App.BulkAudioImportErrors.FileSizeEstimationError,,The file size estimation error was greater than the acceptable margin of error.,The file size estimation error was greater than the acceptable margin of error.
+Studio.App.BulkAudioImportErrors.FileTooLarge,,The file in the request is too large.,The file in the request is too large.
+Studio.App.BulkAudioImportErrors.FileTypeNotSupported,,The file type is not supported.,The file type is not supported.
+Studio.App.BulkAudioImportErrors.InsufficentFunds,,The user/group does not have sufficient funds to publish.,The user/group does not have sufficient funds to publish.
+Studio.App.BulkAudioImportErrors.MissingGroupPermissions,,Missing permissions to spend group funds.,Missing permissions to spend group funds.
+Studio.App.BulkAudioImportErrors.RejectedAudio,,The audio file has already been reviewed and rejected.,The audio file has already been reviewed and rejected.
+Studio.App.BulkAudioImportErrors.TooManyRequests,,Too many requests. Try again later.,Too many requests. Try again later.
+Studio.App.BulkAudioImportErrors.UnableToPurchase,,Error while trying to purchase the product.,Error while trying to purchase the product.
+Studio.App.BulkAudioImportErrors.UploadLimitReached,,Reached your audio upload limit.,Reached your audio upload limit.
+Studio.App.BulkAudioImportErrors.UploadUnavailable,,Audio file could not be uploaded at this time.,Audio file could not be uploaded at this time.

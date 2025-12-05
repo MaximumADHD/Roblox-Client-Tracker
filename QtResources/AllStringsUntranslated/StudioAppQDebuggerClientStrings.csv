@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.App.QDebuggerClient.Breakpoint,,Breakpoint,Breakpoint
+Studio.App.QDebuggerClient.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"
+Studio.App.QDebuggerClient.ConditionText,,Condition,Condition
+Studio.App.QDebuggerClient.ContinueExecutionText,,Continuing Execution,Continuing Execution
+Studio.App.QDebuggerClient.EnableBreakpoint,,Enable Breakpoint,Enable Breakpoint
+Studio.App.QDebuggerClient.InvalidBreakpointMessage,,The breakpoint will not currently be hit.,The breakpoint will not currently be hit.
+Studio.App.QDebuggerClient.InvalidText,,Invalid,Invalid
+Studio.App.QDebuggerClient.LogExpressionText,,Log Expression,Log Expression
+Studio.App.QDebuggerClient.WatchExpression,,Watch Expression:,Watch Expression:
+Studio.App.QDebuggerClient.WatchWindowTitle,,Watch,Watch

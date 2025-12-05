@@ -1,0 +1,352 @@
+Key,Context,Source,en-us
+Studio.App.Property.ActionOnAutoResumeSync,"The action to take when resuming sync if there is a mismatch between the file's contents in Studio, and the file system",Resume conflicted sync on place open,Resume conflicted sync on place open
+Studio.App.Property.ActionOnStopSync,,Keep local files after sync,Keep local files after sync
+Studio.App.Property.ActiveColor,,Active Selection Color,Active Selection Color
+Studio.App.Property.ActiveHoverOverColor,,Active Hover Over Color,Active Hover Over Color
+Studio.App.Property.AdditionalCoreIncludeDirs,,Additional Core Include Dirs,Additional Core Include Dirs
+Studio.App.Property.AllowSleep,,Allow Sleep,Allow Sleep
+Studio.App.Property.AlwaysSaveScriptChanges,,Always Save Script Changes,Always Save Script Changes
+Studio.App.Property.AnimateHoverOver,,Animate Hover Over,Animate Hover Over
+Studio.App.Property.AreAnchorsShown,,Are Anchors Shown,Are Anchors Shown
+Studio.App.Property.AreAssembliesShown,,Are Assemblies Shown,Are Assemblies Shown
+Studio.App.Property.AreAwakePartsHighlighted,,Are Awake Parts Highlighted,Are Awake Parts Highlighted
+Studio.App.Property.AreBodyTypesShown,,Are Body Types Shown,Are Body Types Shown
+Studio.App.Property.AreCentersOfMassShown,,Are Assembly Centers of Mass Shown,Are Assembly Centers of Mass Shown
+Studio.App.Property.AreCollisionCostsShown,,Show Collision Performance,Show Collision Performance
+Studio.App.Property.AreConstraintForcesShownForSelectedOrHoveredInstances,,Are Constraint Forces Shown For Selected Or Hovered Instances,Are Constraint Forces Shown For Selected Or Hovered Instances
+Studio.App.Property.AreConstraintTorquesShownForSelectedOrHoveredInstances,,Are Constraint Torques Shown For Selected Or Hovered Instances,Are Constraint Torques Shown For Selected Or Hovered Instances
+Studio.App.Property.AreContactForcesShownForSelectedOrHoveredAssemblies,,Are Contact Forces Shown For Selected Or Hovered Assemblies,Are Contact Forces Shown For Selected Or Hovered Assemblies
+Studio.App.Property.AreContactIslandsShown,,Are Contact Islands Shown,Are Contact Islands Shown
+Studio.App.Property.AreContactPointsShown,,Are Contact Points Shown,Are Contact Points Shown
+Studio.App.Property.AreFluidForcesShownForSelectedOrHoveredAssemblies,,Show fluid forces for selected or hovered mechanisms,Show fluid forces for selected or hovered mechanisms
+Studio.App.Property.AreGravityForcesShownForSelectedOrHoveredAssemblies,,Are Gravity Forces Shown For Selected Or Hovered Assemblies,Are Gravity Forces Shown For Selected Or Hovered Assemblies
+Studio.App.Property.AreJointCoordinatesShown,,Are Joint Coordinates Shown,Are Joint Coordinates Shown
+Studio.App.Property.AreMagnitudesShownForDrawnForcesAndTorques,,Are Magnitudes Shown For Drawn Forces And Torques,Are Magnitudes Shown For Drawn Forces And Torques
+Studio.App.Property.AreMechanismsShown,,Are Mechanisms Shown,Are Mechanisms Shown
+Studio.App.Property.AreModelCoordsShown,,Are Model Coords Shown,Are Model Coords Shown
+Studio.App.Property.AreNonAnchorsShown,,Are NonAnchors Shown,Are NonAnchors Shown
+Studio.App.Property.AreOwnersShown,,Are Owners Shown,Are Owners Shown
+Studio.App.Property.ArePartCoordsShown,,Are Part Coords Shown,Are Part Coords Shown
+Studio.App.Property.ArePhysicsRejectionsReported,,Are Physics Rejections Reported,Are Physics Rejections Reported
+Studio.App.Property.AreRegionsShown,,Are Regions Shown,Are Regions Shown
+Studio.App.Property.AreScriptStartsReported,,Are Script Starts Reported,Are Script Starts Reported
+Studio.App.Property.AreSolverIslandsShown,,Are Solver Islands Shown,Are Solver Islands Shown
+Studio.App.Property.AreTerrainReplicationRegionsShown,,Are Terrain Replication Regions Shown,Are Terrain Replication Regions Shown
+Studio.App.Property.AreTimestepsShown,,Are Timesteps Shown,Are Timesteps Shown
+Studio.App.Property.AreUnalignedPartsShown,,Are Unaligned Parts Shown,Are Unaligned Parts Shown
+Studio.App.Property.AreWorldCoordsShown,,Are World Coords Shown,Are World Coords Shown
+Studio.App.Property.AttachDebuggerTo,,Attach Debugger To,Attach Debugger To
+Studio.App.Property.AutoCleanEmptyLine,,Auto Clean Empty Line,Auto Clean Empty Line
+Studio.App.Property.AutoClosingBrackets,,Auto Closing Brackets,Auto Closing Brackets
+Studio.App.Property.AutoClosingDelete,,Auto Delete Closing Brackets and Quotes,Auto Delete Closing Brackets and Quotes
+Studio.App.Property.AutoClosingQuotes,,Auto Closing Quotes,Auto Closing Quotes
+Studio.App.Property.AutoCommitLockedScriptsOnSave,,Automatically commit locked scripts when you save or publish to Roblox,Automatically commit locked scripts when you save or publish to Roblox
+Studio.App.Property.AutoFRMLevel,,Auto FRM Level,Auto FRM Level
+Studio.App.Property.AutoIndent,,Auto Indent,Auto Indent
+Studio.App.Property.AutoIndentRule,,Auto Indent Rule,Auto Indent Rule
+Studio.App.Property.AutoRecoveryEnabled,,Auto-Recovery Enabled,Auto-Recovery Enabled
+Studio.App.Property.AutoRecoveryIntervalMinutes,,Auto-Recovery Interval (Minutes),Auto-Recovery Interval (Minutes)
+Studio.App.Property.AutoRecoveryPath,,Auto-Recovery Path,Auto-Recovery Path
+Studio.App.Property.AutoResumeSyncOnPlaceOpen,Setting description for auto resuming file sync across sessions,Auto resume sync on place open,Auto resume sync on place open
+Studio.App.Property.AutoSaveEnabled,,Auto-Save Enabled,Auto-Save Enabled
+Studio.App.Property.AutoSaveIntervalMinutes,,Auto-Save Interval (Minutes),Auto-Save Interval (Minutes)
+Studio.App.Property.AutoSavePath,,Auto-Save Path,Auto-Save Path
+Studio.App.Property.AutoUpdateEnabled,Setting to enable automatically downloading updates in the background (without restarting Studio).,Automatically background download updates,Automatically background download updates
+Studio.App.Property.AutocompleteAcceptanceBehavior,Specifies what behavior to use when accepting autocomplete suggestions,Autocomplete Acceptance Behavior,Autocomplete Acceptance Behavior
+Studio.App.Property.AutocompleteBehaviorOnEnter,Specifies autocomplete behavior when accepting a suggestion with the Enter key,Autocomplete Behavior On Enter,Autocomplete Behavior On Enter
+Studio.App.Property.AutocompleteBehaviorOnTab,Specifies autocomplete behavior when accepting a suggestion with the Tab key,Autocomplete Behavior On Tab,Autocomplete Behavior On Tab
+Studio.App.Property.AutomaticTriggerAICO,Automatically trigger AI Code Completion.,Suggest Code Automatically,Suggest Code Automatically
+Studio.App.Property.AutomaticTriggerAICOFullRelease,Automatically trigger AI Code Completion.,Auto-trigger,Auto-trigger
+Studio.App.Property.BackgroundColor,,Background Color,Background Color
+Studio.App.Property.BasicObjectsDisplayMode,,Basic Objects Display Mode,Basic Objects Display Mode
+Studio.App.Property.BoolColor,,Bool Color,Bool Color
+Studio.App.Property.BoundingBoxMoveHandles,,Use Bounding Box Move Handles,Use Bounding Box Move Handles
+Studio.App.Property.BracketColor,,Script Bracket Color,Script Bracket Color
+Studio.App.Property.BubbleChatLifetime,,Bubble Chat Lifetime,Bubble Chat Lifetime
+Studio.App.Property.BubbleChatMaxBubbles,,Bubble Chat Max Bubbles,Bubble Chat Max Bubbles
+Studio.App.Property.BuiltInFunctionColor,,Built-in Function Color,Built-in Function Color
+Studio.App.Property.CameraAdaptiveSpeed,,'Zoom To' - Adapt Camera Speed,'Zoom To' - Adapt Camera Speed
+Studio.App.Property.CameraLookSensitivity,Factor applied to the mouse delta when rotating the camera,Camera Look Sensitivity,Camera Look Sensitivity
+Studio.App.Property.CameraMouseWheelSpeed,,Scroll Speed,Scroll Speed
+Studio.App.Property.CameraNavigationModel,Navigation model for the studio camera,Navigation Model,Navigation Model
+Studio.App.Property.CameraOrbitSensitivity,Factor applied to camera orbit movements in Studio,Camera Orbit Sensitivity,Camera Orbit Sensitivity
+Studio.App.Property.CameraPanSensitivity,Factor applied to camera panning movements in Studio,Camera Pan Sensitivity,Camera Pan Sensitivity
+Studio.App.Property.CameraPanSpeed,,Pan Speed,Pan Speed
+Studio.App.Property.CameraShiftFactor,Factor applied to camera movements when holding the shift key in Studio,Camera Shift Factor,Camera Shift Factor
+Studio.App.Property.CameraShiftSpeed,,Shift Speed,Shift Speed
+Studio.App.Property.CameraSpeed,,Camera Speed,Camera Speed
+Studio.App.Property.CameraSpeedAdjustBinding,,Change Camera Speed,Change Camera Speed
+Studio.App.Property.CameraTweenFocus,,'Zoom To' - Tween Transition,'Zoom To' - Tween Transition
+Studio.App.Property.CameraZoomSpeed,How far the camera moves per zoom increment,Camera Zoom Speed,Camera Zoom Speed
+Studio.App.Property.CameraZoomToMousePosition,,Scroll Towards Cursor Position,Scroll Towards Cursor Position
+Studio.App.Property.ChatHistory,,Chat History,Chat History
+Studio.App.Property.ChatScrollLength,,Chat Scroll Length,Chat Scroll Length
+Studio.App.Property.ClearOutputOnStart,,Clear Output On Start,Clear Output On Start
+Studio.App.Property.ClientPhysicsSendRate,,Client Physics Send Rate,Client Physics Send Rate
+Studio.App.Property.CommandBarLocalState,,Command bar operates on local state at breakpoint,Command bar operates on local state at breakpoint
+Studio.App.Property.CommentColor,,Comment Color,Comment Color
+Studio.App.Property.CurrentLineHighlightColor,The highlight color of the line we are currently editing in script editor,Current Line Highlight Color,Current Line Highlight Color
+Studio.App.Property.DEPRECATEDHoverBoxThickness,,Hover Box Thickness,Hover Box Thickness
+Studio.App.Property.DEPRECATEDSelectionThickness,,Selection Box Thickness,Selection Box Thickness
+Studio.App.Property.DataGCRate,,Data GC Rate,Data GC Rate
+Studio.App.Property.DataModel,,Data Model Count,Data Model Count
+Studio.App.Property.DataMtuAdjust,,Data Mtu Adjust,Data Mtu Adjust
+Studio.App.Property.DataSendRate,,Data Send Rate,Data Send Rate
+Studio.App.Property.DebuggerCurrentLineColor,The color of the current line we are stopped on in the debugger.,Debugger Current Line Color,Debugger Current Line Color
+Studio.App.Property.DebuggerErrorLineColor,The color of the line we have stopped on in the debugger because it produced an error.,Debugger Error Line Color,Debugger Error Line Color
+Studio.App.Property.DefaultInstancesDir,User specified directory for where to place user provided instance defaults,Instance Defaults Dir,Instance Defaults Dir
+Studio.App.Property.DefaultScriptFileDir,,Default Script File Dir,Default Script File Dir
+Studio.App.Property.DefaultWaitTime,,Default Wait Time,Default Wait Time
+Studio.App.Property.DeprecatedObjectsShown,,Deprecated Objects Shown,Deprecated Objects Shown
+Studio.App.Property.DevicePairingCode,,Device Pairing Code,Device Pairing Code
+Studio.App.Property.DisableAccuratePlaySolo,,Disable Accurate Play Solo,Disable Accurate Play Solo
+Studio.App.Property.DisableCSGv2,,Enable Legacy CSG for Roblox Tools,Enable Legacy CSG for Roblox Tools
+Studio.App.Property.DisableCSGv3ForPlugins,,Enable Legacy CSG for Plugins,Enable Legacy CSG for Plugins
+Studio.App.Property.DisplayLanguage,,Language,Language
+Studio.App.Property.DocViewCodeBackgroundColor,,Documentation Code Block Background Color,Documentation Code Block Background Color
+Studio.App.Property.DragMultiplePartsAsSinglePart,,Drag Multiple Parts As Single Part,Drag Multiple Parts As Single Part
+Studio.App.Property.DraggerActiveColor,,Active Dragger Color,Active Dragger Color
+Studio.App.Property.DraggerMajorGridIncrement,,Major Grid Line Every...,Major Grid Line Every...
+Studio.App.Property.DraggerMaxSoftSnaps,,Move/Scale Max Soft Snaps,Move/Scale Max Soft Snaps
+Studio.App.Property.DraggerPassiveColor,,Passive Dragger Color,Passive Dragger Color
+Studio.App.Property.DraggerShowHoverRuler,,Show Hover Ruler,Show Hover Ruler
+Studio.App.Property.DraggerShowMeasurement,,Show Numeric Measurements,Show Numeric Measurements
+Studio.App.Property.DraggerShowTargetSnap,,Show Snap Targets,Show Snap Targets
+Studio.App.Property.DraggerSoftSnapMarginFactor,,Soft Snap Margin Multiplier,Soft Snap Margin Multiplier
+Studio.App.Property.DraggerSummonMarginFactor,,Summon Snap Margin Multiplier,Summon Snap Margin Multiplier
+Studio.App.Property.DraggerTiltRotateDuration,,Tilt/Rotate Animation Duration,Tilt/Rotate Animation Duration
+Studio.App.Property.EagerBulkExecution,,Eager Bulk Execution,Eager Bulk Execution
+Studio.App.Property.EditQualityLevel,,Editor Quality Level,Editor Quality Level
+Studio.App.Property.EnableAssistantSelectionTooltips,Setting for enabling the assistant actions when text is selected,Enable Assistant Selection Tooltips,Enable Assistant Selection Tooltips
+Studio.App.Property.EnableAutocomplete,,Enable Autocomplete,Enable Autocomplete
+Studio.App.Property.EnableAutocompleteDocView,,Enable Autocomplete Documentation,Enable Autocomplete Documentation
+Studio.App.Property.EnableCodeAssist,Enables code assist feature.,Enable Code-Assist,Enable Code-Assist
+Studio.App.Property.EnableCoreScriptDebugger,,Enable CoreScript Debugger,Enable CoreScript Debugger
+Studio.App.Property.EnableHttpSandboxing,,Enable Http Sandboxing,Enable Http Sandboxing
+Studio.App.Property.EnableIndentationRulers,Draw markers for indentation in Script Editor,Enable Indentation Rulers,Enable Indentation Rulers
+Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,Enable Internal Beta Features
+Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
+Studio.App.Property.EnableInternalPlugins,This is a string for an internal-only setting to load a specific list of plugins in studio.,Enable Internal Plugins,Enable Internal Plugins
+Studio.App.Property.EnableLinting,,Enable Linting,Enable Linting
+Studio.App.Property.EnableOnTypeAutocomplete,,Enable On-Type Autocomplete,Enable On-Type Autocomplete
+Studio.App.Property.EnableScriptAnalysis,,Enable Script Analysis,Enable Script Analysis
+Studio.App.Property.EnableScrollbarMarkers,Enable scrollbar markers for Script Editor inside Roblox Studio.,Enable Scrollbar Markers,Enable Scrollbar Markers
+Studio.App.Property.EnableSignatureHelp,,Enable Signature Help,Enable Signature Help
+Studio.App.Property.EnableSignatureHelpDocView,,Enable Signature Help Documentation,Enable Signature Help Documentation
+Studio.App.Property.EnableStudioStreaming,Enables Studio streaming,Enable Studio Streaming,Enable Studio Streaming
+Studio.App.Property.EnableTeamCreateToggle,,Display Team Create toggle when creating a new experience,Display Team Create toggle when creating a new experience
+Studio.App.Property.EnableTemporaryTabs,Enable script tab previews in Roblox Studio,Enable Temporary Script Tabs,Enable Temporary Script Tabs
+Studio.App.Property.EnableTemporaryTabsInExplorer,Enable script tab previews in Roblox Studio's explorer widget.,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer
+Studio.App.Property.EnableTypeHover,,Enable Type Hover,Enable Type Hover
+Studio.App.Property.ErrorColor,,Error Color,Error Color
+Studio.App.Property.ErrorReporting,,Error Reporting,Error Reporting
+Studio.App.Property.ExportMergeByMaterial,,Export Merge By Material,Export Merge By Material
+Studio.App.Property.FileExtension,Choosing default file extension for Script Sync,File extension,File extension
+Studio.App.Property.FindSelectionBackgroundColor,,Find Selection Background Color,Find Selection Background Color
+Studio.App.Property.FluidForceDrawScale,,Fluid Force Draw Scale,Fluid Force Draw Scale
+Studio.App.Property.Font,,Font,Font
+Studio.App.Property.ForceDrawScale,,Force Draw Scale (Applies Both To Constraints And To Contacts),Force Draw Scale (Applies Both To Constraints And To Contacts)
+Studio.App.Property.FormatOnPaste,,Format On Paste,Format On Paste
+Studio.App.Property.FormatOnType,,Format On Type,Format On Type
+Studio.App.Property.FrameRateManager,,Frame Rate Manager,Frame Rate Manager
+Studio.App.Property.FreeCameraSpeedScroll,,Scroll Wheel Adjusts Free-Camera Speed,Scroll Wheel Adjusts Free-Camera Speed
+Studio.App.Property.FunctionColor,,"""function"" Color","""function"" Color"
+Studio.App.Property.FunctionNameColor,,Function Name Color,Function Name Color
+Studio.App.Property.GcFrequency,,Gc Frequency,Gc Frequency
+Studio.App.Property.GcLimit,,Gc Limit,Gc Limit
+Studio.App.Property.GcPause,,Gc Pause,Gc Pause
+Studio.App.Property.GcStepMul,,Gc StepMul,Gc StepMul
+Studio.App.Property.GfxCard,,Gfx Card,Gfx Card
+Studio.App.Property.GraphicsMode,,Graphics Mode,Graphics Mode
+Studio.App.Property.HardwareMouse,,Hardware Mouse,Hardware Mouse
+Studio.App.Property.HighlightCurrentLine,Should we highlight the line we are currently editing in script editor,Highlight Current Line,Highlight Current Line
+Studio.App.Property.HighlightOccurances,Should we highlight other occurances of the word under the cursor in script editor,Highlight Current Word,Highlight Current Word
+Studio.App.Property.HintColor,,Hint Color,Hint Color
+Studio.App.Property.HoverAnimateSpeed,,Hover Animate Speed,Hover Animate Speed
+Studio.App.Property.HoverBoxThickness,,Hover Box Thickness,Hover Box Thickness
+Studio.App.Property.HoverLineThickness,,Hover Line Thickness,Hover Line Thickness
+Studio.App.Property.HoverOverColor,,Hover Over Color,Hover Over Color
+Studio.App.Property.HttpProxyEnabled,,Proxy Enabled,Proxy Enabled
+Studio.App.Property.HttpProxyURL,,Proxy URL,Proxy URL
+Studio.App.Property.ImportPivot,,Set Pivot of Imported Parts,Set Pivot of Imported Parts
+Studio.App.Property.IncomingReplicationLag,,Incoming Replication Lag (seconds),Incoming Replication Lag (seconds)
+Studio.App.Property.IncommingReplicationLag,,Incomming Replication Lag,Incomming Replication Lag
+Studio.App.Property.IndentUsingSpaces,,Indent Using Spaces,Indent Using Spaces
+Studio.App.Property.InformationColor,,Information Color,Information Color
+Studio.App.Property.InsertObjectWidgetUIInstancePolicySelection,Selects which properties to use when creating new UI Instances with the Insert Object Widget. Only applies to Studio.,UI Instance defaults,UI Instance defaults
+Studio.App.Property.InstanceCount,,Instance Count,Instance Count
+Studio.App.Property.IsFmodProfilingEnabled,,Is Fmod Profiling Enabled,Is Fmod Profiling Enabled
+Studio.App.Property.IsInterpolationThrottleShown,,Is Interpolation Throttle Shown,Is Interpolation Throttle Shown
+Studio.App.Property.IsQueueErrorComputed,,Is Queue Error Computed,Is Queue Error Computed
+Studio.App.Property.IsReceiveAgeShown,,Is Receive Age Shown,Is Receive Age Shown
+Studio.App.Property.IsScriptStackTracingEnabled,,Is Script Stack Tracing Enabled,Is Script Stack Tracing Enabled
+Studio.App.Property.IsTreeShown,,Is Tree Shown,Is Tree Shown
+Studio.App.Property.JobCount,,Job Count,Job Count
+Studio.App.Property.KeywordColor,,Keyword Color,Keyword Color
+Studio.App.Property.Language,,Language,Language
+Studio.App.Property.LargeFileLineCountThreshold,,Large File Line Count Threshold,Large File Line Count Threshold
+Studio.App.Property.LargeFileThreshold,,Large File Character Threshold,Large File Character Threshold
+Studio.App.Property.LineThickness,,Line Thickness,Line Thickness
+Studio.App.Property.LoadAllBuiltinPluginsInTestMode,,Load All Built-In Plugins in Test Mode,Load All Built-In Plugins in Test Mode
+Studio.App.Property.LoadAllBuiltinPluginsInTestModeTooltip,,"Load All Built-In Plugins when running in test modes, this will allow full edit-time functionality in test modes, but may slow down test mode startup times.","Load All Built-In Plugins when running in test modes, this will allow full edit-time functionality in test modes, but may slow down test mode startup times."
+Studio.App.Property.LoadUserPluginsInTestMode,,Load User Plugins in Test Mode,Load User Plugins in Test Mode
+Studio.App.Property.LoadUserPluginsInTestModeTooltip,,"Load User Plugins when running in test modes, unchecking this box may improve test mode startup time.","Load User Plugins when running in test modes, unchecking this box may improve test mode startup time."
+Studio.App.Property.LocalAssetsFolder,,Local Assets Folder,Local Assets Folder
+Studio.App.Property.LocalColor,,"""local"" Color","""local"" Color"
+Studio.App.Property.LuaDebuggerEnabled,,Debugger Enabled,Debugger Enabled
+Studio.App.Property.LuaRamLimit,,Lua Ram Limit,Lua Ram Limit
+Studio.App.Property.LuauKeywordColor,,Luau Keyword Color,Luau Keyword Color
+Studio.App.Property.MainVolume,,Main Volume,Main Volume
+Studio.App.Property.MatchingWordBackgroundColor,,Matching Word Background Color,Matching Word Background Color
+Studio.App.Property.MaximumOutputLines,,Maximum Output Lines,Maximum Output Lines
+Studio.App.Property.MaximumTableDepth,,Maximum Table Depth,Maximum Table Depth
+Studio.App.Property.MenuItemBackgroundColor,,Menu Item Background,Menu Item Background
+Studio.App.Property.MeshCacheSize,,Mesh Cache Size,Mesh Cache Size
+Studio.App.Property.MeshPartDetailLevel,,Mesh Detail Level,Mesh Detail Level
+Studio.App.Property.MethodColor,,Local Method Color,Local Method Color
+Studio.App.Property.NetworkOwnerRate,,Network Owner Rate,Network Owner Rate
+Studio.App.Property.NewUniversesTeamCreateDisabled,,File > New creates a place with Team Create off,File > New creates a place with Team Create off
+Studio.App.Property.NilColor,,"""nil"" Color","""nil"" Color"
+Studio.App.Property.NumberColor,,Number Color,Number Color
+Studio.App.Property.OnlyPlayAudioFromWindowInFocus,,Only Play Audio from Window in Focus,Only Play Audio from Window in Focus
+Studio.App.Property.OpenCertManagerDialog,,Trusted Certs,Trusted Certs
+Studio.App.Property.OpenCertManagerDialogButton,,Manage,Manage
+Studio.App.Property.OperatorColor,,Operator Color,Operator Color
+Studio.App.Property.OsIs64Bit,,Os Is 64 Bit,Os Is 64 Bit
+Studio.App.Property.OsPlatform,,Os Platform,Os Platform
+Studio.App.Property.OsPlatformId,,Os Platform Id,Os Platform Id
+Studio.App.Property.OsVer,,Os Ver,Os Ver
+Studio.App.Property.OutputFont,,Output Font,Output Font
+Studio.App.Property.OutputLayoutMode,,Output Layout Mode,Output Layout Mode
+Studio.App.Property.OutputTextEffectsUnsupported,,Text effects are currently unsupported in the Output window.,Text effects are currently unsupported in the Output window.
+Studio.App.Property.OverrideCoreScripts,,Override Core Scripts,Override Core Scripts
+Studio.App.Property.OverrideCoreScriptsDir,,Override Core Scripts Dir,Override Core Scripts Dir
+Studio.App.Property.OverrideStarterScript,,Override Starter Script,Override Starter Script
+Studio.App.Property.PermissionLevelShown,,Permission Level Shown,Permission Level Shown
+Studio.App.Property.PhysicalDraggersSelectScopeByDefault,,Physical Draggers Select Scope (Alt-click) By Default,Physical Draggers Select Scope (Alt-click) By Default
+Studio.App.Property.PhysicsEnvironmentalThrottle,,Physics Environmental Throttle,Physics Environmental Throttle
+Studio.App.Property.PhysicsMtuAdjust,,Physics Mtu Adjust,Physics Mtu Adjust
+Studio.App.Property.PhysicsSendRate,,Physics Send Rate,Physics Send Rate
+Studio.App.Property.PivotSnapToGeometryColor,,Pivot Snap To Geometry Color,Pivot Snap To Geometry Color
+Studio.App.Property.PlayerCount,,Player Count,Player Count
+Studio.App.Property.PluginDebuggingEnabled,,Plugin Debugging Enabled,Plugin Debugging Enabled
+Studio.App.Property.PluginHangDetectionEnabled,A setting to enable plugin hang detection,Enable Plugin Hang Detection,Enable Plugin Hang Detection
+Studio.App.Property.PluginsDir,,Plugins Dir,Plugins Dir
+Studio.App.Property.PreferredClientPort,,Preferred Client Port,Preferred Client Port
+Studio.App.Property.PreprocessorColor,,Preprocessor Color,Preprocessor Color
+Studio.App.Property.PrimaryTextColor,,Menu Primary Text Color,Menu Primary Text Color
+Studio.App.Property.PrintBits,,Print Bits,Print Bits
+Studio.App.Property.PrintEvents,,Print Events,Print Events
+Studio.App.Property.PrintFilters,,Print Filters,Print Filters
+Studio.App.Property.PrintInstances,,Print Instances,Print Instances
+Studio.App.Property.PrintJoinSizeBreakdown,,Print Join Size Breakdown,Print Join Size Breakdown
+Studio.App.Property.PrintPhysicsErrors,,Print PhysicsErrors,Print PhysicsErrors
+Studio.App.Property.PrintProperties,,Print Properties,Print Properties
+Studio.App.Property.PrintSplitMessage,,Print Split Message,Print Split Message
+Studio.App.Property.PrintStreamInstanceQuota,,Print Stream Instance Quota,Print Stream Instance Quota
+Studio.App.Property.PrintTouches,,Print Touches,Print Touches
+Studio.App.Property.PropertyColor,,Local Property Color,Local Property Color
+Studio.App.Property.ProxyEnabled,,Proxy Enabled,Proxy Enabled
+Studio.App.Property.ProxyURL,,Proxy URL,Proxy URL
+Studio.App.Property.QualityLevel,,Quality Level,Quality Level
+Studio.App.Property.RandomizeJoinInstanceOrder,,Randomize Test Join Order,Randomize Test Join Order
+Studio.App.Property.ReceiveRate,,Receive Rate,Receive Rate
+Studio.App.Property.RecentSavesDir,,Recent Saves Dir,Recent Saves Dir
+Studio.App.Property.ReloadAssets,,ReloadAssets,ReloadAssets
+Studio.App.Property.ReloadBuiltinPluginsOnChange,,Reload builtin plugins on file changed,Reload builtin plugins on file changed
+Studio.App.Property.ReloadLocalPluginsOnChange,,Reload plugins on file changed,Reload plugins on file changed
+Studio.App.Property.RenderCSGTrianglesDebug,,Render CSG Triangles Debug,Render CSG Triangles Debug
+Studio.App.Property.RenderStreamedRegions,,Render Streamed Regions,Render Streamed Regions
+Studio.App.Property.RenderThrottlePercentage,,Render Throttle Percentage,Render Throttle Percentage
+Studio.App.Property.ReportAbuseChatHistory,,Report Abuse Chat History,Report Abuse Chat History
+Studio.App.Property.ReportSoundWarnings,,Report Sound Warnings,Report Sound Warnings
+Studio.App.Property.RespectStudioShortcutsWhenGameHasFocus,,Respect Studio shortcuts when game has focus,Respect Studio shortcuts when game has focus
+Studio.App.Property.RobloxProductName,,Roblox Product Name,Roblox Product Name
+Studio.App.Property.RobloxVersion,,Roblox Version,Roblox Version
+Studio.App.Property.RulerColor,,Script Ruler Color,Script Ruler Color
+Studio.App.Property.Rulers,,"Rulers (1, 2, ...)","Rulers (1, 2, ...)"
+Studio.App.Property.RuntimeUndoBehavior,,Runtime Undo Behavior,Runtime Undo Behavior
+Studio.App.Property.SIMD,,SIMD,SIMD
+Studio.App.Property.SchedulerDutyCycle,,Scheduler Duty Cycle,Scheduler Duty Cycle
+Studio.App.Property.SchedulerRate,,Scheduler Rate,Scheduler Rate
+Studio.App.Property.ScriptEditorColorPreset,The set of colors used in syntax highlighting in script editor,Script Editor Color Preset,Script Editor Color Preset
+Studio.App.Property.ScriptEditorIndentationRulerColor,Color for indentation markers in Script Editor,Indentation Ruler Color,Indentation Ruler Color
+Studio.App.Property.ScriptEditorMenuBorderColor,,Script Editor Menu Border,Script Editor Menu Border
+Studio.App.Property.ScriptEditorScrollbarBackgroundColor,,Script Editor Scrollbar Background,Script Editor Scrollbar Background
+Studio.App.Property.ScriptEditorScrollbarHandleColor,,Script Editor Scrollbar Handle,Script Editor Scrollbar Handle
+Studio.App.Property.ScriptEditorShouldShowPluginMethods,Autocomplete should show Plugin security level methods in Script Editor,Autocomplete Plugin-security methods,Autocomplete Plugin-security methods
+Studio.App.Property.ScriptTimeoutLength,,Script Timeout Length,Script Timeout Length
+Studio.App.Property.ScrollPastLastLine,,Scroll Past Last Line,Scroll Past Last Line
+Studio.App.Property.SearchContentForCoreScripts,,Search Content For Core Scripts,Search Content For Core Scripts
+Studio.App.Property.SecondaryColor,,Menu Secondary Text Color,Menu Secondary Text Color
+Studio.App.Property.SecondaryTextColor,,Menu Secondary Text Color,Menu Secondary Text Color
+Studio.App.Property.SelectColor,,Selection Color,Selection Color
+Studio.App.Property.SelectHoverColor,,Select/Hover Color,Select/Hover Color
+Studio.App.Property.SelectedMenuItemBackgroundColor,,Selected Menu Item Background,Selected Menu Item Background
+Studio.App.Property.SelectedTextColor,,Menu Selected Text Color,Menu Selected Text Color
+Studio.App.Property.SelectionBackgroundColor,,Selection Background Color,Selection Background Color
+Studio.App.Property.SelectionBoxThickness,,Selection Box Thickness,Selection Box Thickness
+Studio.App.Property.SelectionColor,,Selection Color,Selection Color
+Studio.App.Property.SelectionLineThickness,,Selection Line Thickness,Selection Line Thickness
+Studio.App.Property.SelectionThickness,,Selection Box Thickness,Selection Box Thickness
+Studio.App.Property.SelfColor,,"""self"" Color","""self"" Color"
+Studio.App.Property.ServerAudioBehavior,,Server Audio Behavior,Server Audio Behavior
+Studio.App.Property.ShowActiveAnimationAsset,,Show Active Animation Asset,Show Active Animation Asset
+Studio.App.Property.ShowBoundingBoxes,,Show Bounding Boxes,Show Bounding Boxes
+Studio.App.Property.ShowCoreGUIInExplorerWhilePlaying,,Show Core GUI in Explorer while Playing,Show Core GUI in Explorer while Playing
+Studio.App.Property.ShowCorePackages,,Show CorePackages,Show CorePackages
+Studio.App.Property.ShowCorePackagesInExplorer,,Show CorePackages In Explorer,Show CorePackages In Explorer
+Studio.App.Property.ShowDecompositionGeometry,,Show Decomposition Geometry,Show Decomposition Geometry
+Studio.App.Property.ShowDeploymentWarnings,,Show Deployment Warnings,Show Deployment Warnings
+Studio.App.Property.ShowDiagnosticsBar,,Show Diagnostics Bar,Show Diagnostics Bar
+Studio.App.Property.ShowFileSyncService,,Show FileSyncService,Show FileSyncService
+Studio.App.Property.ShowFluidForcesForSelectedOrHoveredMechanisms,,Show fluid forces for selected or hovered mechanisms,Show fluid forces for selected or hovered mechanisms
+Studio.App.Property.ShowHiddenObjectsInExplorer,,Show Hidden Objects in Explorer,Show Hidden Objects in Explorer
+Studio.App.Property.ShowHoverOver,,Show Hover Over,Show Hover Over
+Studio.App.Property.ShowInstanceNamesForDrawnForcesAndTorques,,Show instance names for drawn forces and torques,Show instance names for drawn forces and torques
+Studio.App.Property.ShowLightGuides,,Show Light Guides,Show Light Guides
+Studio.App.Property.ShowNavigationAreas,,Show Navigation Areas,Show Navigation Areas
+Studio.App.Property.ShowNavigationLabels,,Show Navigation Labels,Show Navigation Labels
+Studio.App.Property.ShowNavigationMesh,,Show Navigation Mesh,Show Navigation Mesh
+Studio.App.Property.ShowPathfindingLinks,,Show Pathfinding Links,Show Pathfinding Links
+Studio.App.Property.ShowPluginGUIServiceInExplorer,,Show Plugin GUI Service in Explorer,Show Plugin GUI Service in Explorer
+Studio.App.Property.ShowPlusButtonOnHoverInExplorer,,Show plus button on hover in Explorer,Show plus button on hover in Explorer
+Studio.App.Property.ShowQTWarningsInOutput,,Show QT warnings in output,Show QT warnings in output
+Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,Show Roblox Plugin GUI Service in Explorer,Show Roblox Plugin GUI Service in Explorer
+Studio.App.Property.ShowSinglySelectedAttachmentParentFrame,,Show Singly Selected Attachment Parent Frame,Show Singly Selected Attachment Parent Frame
+Studio.App.Property.ShowWhitespace,,Show Whitespace,Show Whitespace
+Studio.App.Property.SkipClosingBracketsAndQuotes,,Skip Closing Brackets and Quotes,Skip Closing Brackets and Quotes
+Studio.App.Property.SoftwareSound,,Software Sound,Software Sound
+Studio.App.Property.SolverConvergenceMetricType,,Solver Convergence Metric Type,Solver Convergence Metric Type
+Studio.App.Property.SolverConvergenceVisualizationMode,,Solver Convergence Visualization Mode,Solver Convergence Visualization Mode
+Studio.App.Property.StreamingMaxRadius,The maximum bounds for which we should include objects for streaming.,Maximum Radius for Streaming,Maximum Radius for Streaming
+Studio.App.Property.StreamingMinRadius,Number that indicates the minimum bounds that objects should be included for streaming.,Minimum Radius for Streaming,Minimum Radius for Streaming
+Studio.App.Property.StringColor,,String Color,String Color
+Studio.App.Property.SystemProductName,,System Product Name,System Product Name
+Studio.App.Property.TODColor,,TOD Color,TOD Color
+Studio.App.Property.TODO,,TODO,TODO
+Studio.App.Property.TODOColo,,foo,foo
+Studio.App.Property.TODOColor,,TODO Color,TODO Color
+Studio.App.Property.TODOThing,,foo,foo
+Studio.App.Property.TabWidth,,Tab Width,Tab Width
+Studio.App.Property.TextColor,,Text Color,Text Color
+Studio.App.Property.TextWrapping,,Text Wrapping,Text Wrapping
+Studio.App.Property.Theme,,Theme,Theme
+Studio.App.Property.ThreadPoolConfig,,Thread Pool Config,Thread Pool Config
+Studio.App.Property.ThreadPoolSize,,Thread Pool Size,Thread Pool Size
+Studio.App.Property.ThrottleAdjustTime,,Throttle Adjust Time,Throttle Adjust Time
+Studio.App.Property.TickCountPreciseOverride,,Tick Count Precise Override,Tick Count Precise Override
+Studio.App.Property.ToolboxAudioInsertionMode,"testing if this actually works TODO write real description, but probably we won't actually keep this string around",Toolbox Audio Insertion Mode,Toolbox Audio Insertion Mode
+Studio.App.Property.TouchSendRate,,Touch Send Rate,Touch Send Rate
+Studio.App.Property.TrackDataTypes,,Track Data Types,Track Data Types
+Studio.App.Property.TrackPhysicsDetails,,Track Physics Details,Track Physics Details
+Studio.App.Property.UsePhysicsPacketCache,,Use Physics Packet Cache,Use Physics Packet Cache
+Studio.App.Property.VRMode,,Enable VR Mode,Enable VR Mode
+Studio.App.Property.VideoCaptureEnabled,,Video Capture Enabled,Video Capture Enabled
+Studio.App.Property.VideoMemory,,Video Memory,Video Memory
+Studio.App.Property.VideoQuality,,Video Quality,Video Quality
+Studio.App.Property.ViewMode,,View Mode,View Mode
+Studio.App.Property.WaitingThreadsBudget,,Waiting Threads Budget,Waiting Threads Budget
+Studio.App.Property.WarningColor,,Warning Color,Warning Color
+Studio.App.Property.WhitespaceColor,,Whitespace Color,Whitespace Color
+Studio.App.Property.WireframeRendering,,Wireframe Rendering,Wireframe Rendering

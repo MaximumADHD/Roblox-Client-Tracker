@@ -1,0 +1,15 @@
+Key,Context,Source,en-us
+Studio.App.Merge3.ConfirmUnresolvedConflictsTitle,,Unresolved Conflicts,Unresolved Conflicts
+Studio.App.Merge3.ConflictMarkerRemaining,,1 conflict; 1 marker remaining,1 conflict; 1 marker remaining
+Studio.App.Merge3.ConflictMarkersRemaining1,,1 conflict; %1 markers remaining,1 conflict; %1 markers remaining
+Studio.App.Merge3.ConflictsMarkerRemaining1,,%1 conflicts; 1 marker remaining,%1 conflicts; 1 marker remaining
+Studio.App.Merge3.ConflictsMarkersRemaining2,,%1 conflicts; %2 markers remaining,%1 conflicts; %2 markers remaining
+Studio.App.Merge3.DialogTitle1,Merge Server with Draft - PlayerDataManagerScript,Merge Server with Draft - %1,Merge Server with Draft - %1
+Studio.App.Merge3.EditToResolveConflicts,,Edit to resolve conflicts.  Then remove all conflict markers to save this to your drafts.,Edit to resolve conflicts.  Then remove all conflict markers to save this to your drafts.
+Studio.App.Merge3.Mine,,Mine (Draft),Mine (Draft)
+Studio.App.Merge3.NextConflict,,Next Conflict >>,Next Conflict >>
+Studio.App.Merge3.NextMarker,,Next Marker >,Next Marker >
+Studio.App.Merge3.Original,,Original,Original
+Studio.App.Merge3.PrevConflict,,<< Prev Conflict,<< Prev Conflict
+Studio.App.Merge3.PrevMarker,,< Prev Marker,< Prev Marker
+Studio.App.Merge3.Theirs,,Theirs (Server),Theirs (Server)

@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.App.SettingsHeader.Diagnostics,,Diagnostics,Diagnostics
+Studio.App.SettingsHeader.GameOptions,,Game Options,Game Options
+Studio.App.SettingsHeader.Lua,,Lua,Lua
+Studio.App.SettingsHeader.Network,,Network,Network
+Studio.App.SettingsHeader.Physics,,Physics,Physics
+Studio.App.SettingsHeader.Rendering,,Rendering,Rendering
+Studio.App.SettingsHeader.ScriptEditor,,Script Editor,Script Editor
+Studio.App.SettingsHeader.Selection,,Selection,Selection
+Studio.App.SettingsHeader.Studio,,Studio,Studio
+Studio.App.SettingsHeader.TaskScheduler,,Task Scheduler,Task Scheduler

@@ -1,0 +1,50 @@
+Key,Context,Source,en-us
+Studio.App.RobloxStudioVerbs.ApplyScale,Apply the 3d scale that on object had to all of its children instead.,Apply Scale,Apply Scale
+Studio.App.RobloxStudioVerbs.DirtyPublishWarning1,,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>
+Studio.App.RobloxStudioVerbs.Grant.Permission,,Grant Permission,Grant Permission
+Studio.App.RobloxStudioVerbs.GrantUniversePermissionQuestion,,Do you want to allow this game to use this asset?,Do you want to allow this game to use this asset?
+Studio.App.RobloxStudioVerbs.GrantUniversePermissionQuestionCancelButton,,Cancel,Cancel
+Studio.App.RobloxStudioVerbs.InsertModelExtFile,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Model Files (*.rbxm *.rbxmx),Roblox Model Files (*.rbxm *.rbxmx)
+Studio.App.RobloxStudioVerbs.InsertModelExtScript,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Model Files (*.rbxm *.rbxmx);;Scripts (*.rbxs *.lua *.txt),Roblox Model Files (*.rbxm *.rbxmx);;Scripts (*.rbxs *.lua *.txt)
+Studio.App.RobloxStudioVerbs.InsertOpenFile,,Open file to Insert,Open file to Insert
+Studio.App.RobloxStudioVerbs.InsertOpenModel,,Open Roblox Model,Open Roblox Model
+Studio.App.RobloxStudioVerbs.IntersectFailed,,Intersect failed,Intersect failed
+Studio.App.RobloxStudioVerbs.LinkedSource,,"Unable to create LinkedSource, see output for details.","Unable to create LinkedSource, see output for details."
+Studio.App.RobloxStudioVerbs.LoadCSVExt,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",LocalizationTable CSV (*.csv),LocalizationTable CSV (*.csv)
+Studio.App.RobloxStudioVerbs.LoadCSVFile,,Open LocalizationTable CSV,Open LocalizationTable CSV
+Studio.App.RobloxStudioVerbs.NegationFailed,,Negation failed,Negation failed
+Studio.App.RobloxStudioVerbs.NotAllScriptsAreSaved,,Some Scripts (indicated with a * on the Script name) were not synced successfully. Please contact #ride,Some Scripts (indicated with a * on the Script name) were not synced successfully. Please contact #ride
+Studio.App.RobloxStudioVerbs.PackageLinkCopy,,Cannot copy selection(s) with PackageLink included!,Cannot copy selection(s) with PackageLink included!
+Studio.App.RobloxStudioVerbs.PackageLinkCut,,Cannot cut selection(s) with PackageLink included!,Cannot cut selection(s) with PackageLink included!
+Studio.App.RobloxStudioVerbs.PackageLinkDuplicate,,Cannot duplicate selection(s) with PackageLink included!,Cannot duplicate selection(s) with PackageLink included!
+Studio.App.RobloxStudioVerbs.PlaySolo,,Play Solo,Play Solo
+Studio.App.RobloxStudioVerbs.PlaySoloSaveFailure,,Play solo - save failure,Play solo - save failure
+Studio.App.RobloxStudioVerbs.PluginNotAssociatedWithProject,,This Plugin is not associated with an external project - this functionality cannot be used. Please contact #ride,This Plugin is not associated with an external project - this functionality cannot be used. Please contact #ride
+Studio.App.RobloxStudioVerbs.PublishConfirm,,Publish,Publish
+Studio.App.RobloxStudioVerbs.PublishConfirmTitle,,Uncommitted changes,Uncommitted changes
+Studio.App.RobloxStudioVerbs.Publishing,,Publishing,Publishing
+Studio.App.RobloxStudioVerbs.QuickOpen,,Quick Open,Quick Open
+Studio.App.RobloxStudioVerbs.QuickOpenActions,,Quick Open Actions,Quick Open Actions
+Studio.App.RobloxStudioVerbs.Redo1,,Redo %s,Redo %s
+Studio.App.RobloxStudioVerbs.RemoteDebug,,Remote Debug,Remote Debug
+Studio.App.RobloxStudioVerbs.RemoteDebugSaveFailure,,Remote Debug - save failure,Remote Debug - save failure
+Studio.App.RobloxStudioVerbs.ResetScale,Remove the 3d scale that an object had resetting it back to its original size.,Reset Scale,Reset Scale
+Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder (RBXP),Reveal In Explorer/Finder (RBXP)
+Studio.App.RobloxStudioVerbs.RobloxLuaScripts,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Lua Scripts (*.lua),Roblox Lua Scripts (*.lua)
+Studio.App.RobloxStudioVerbs.RobloxModelFiles,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Model Files (*.rbxm),Roblox Model Files (*.rbxm)
+Studio.App.RobloxStudioVerbs.RobloxXmlModelFiles,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox XML Model Files (*.rbxmx),Roblox XML Model Files (*.rbxmx)
+Studio.App.RobloxStudioVerbs.SaveAsPlugin,,Save As Plugin,Save As Plugin
+Studio.App.RobloxStudioVerbs.SavingTo,,Saving to Roblox...,Saving to Roblox...
+Studio.App.RobloxStudioVerbs.ScreenshotSaved,,Screenshot saved! Click here to open screenshot folder.,Screenshot saved! Click here to open screenshot folder.
+Studio.App.RobloxStudioVerbs.SeparateFailed,,Separate failed,Separate failed
+Studio.App.RobloxStudioVerbs.ShouldUnscale,,"This nonuniformly scaled union contains parts which can't be exactly represented separately, before separating:
+Reset the scale to make re-unioning easier, or Apply the scale as closely as possible.","This nonuniformly scaled union contains parts which can't be exactly represented separately, before separating:
+Reset the scale to make re-unioning easier, or Apply the scale as closely as possible."
+Studio.App.RobloxStudioVerbs.StartServer,,Start server,Start server
+Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure,Start server - save failure
+Studio.App.RobloxStudioVerbs.StartingPlayers,,Starting players,Starting players
+Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,Sync Instance (RBXP),Sync Instance (RBXP)
+Studio.App.RobloxStudioVerbs.UnableToBuildPluginProject,,Studio is unable to build and load this Plugin. Please contact #ride,Studio is unable to build and load this Plugin. Please contact #ride
+Studio.App.RobloxStudioVerbs.Undo1,,Undo %s,Undo %s
+Studio.App.RobloxStudioVerbs.UnionFailed,,Union failed,Union failed
+Studio.App.RobloxStudioVerbs.Warning,,Warning,Warning

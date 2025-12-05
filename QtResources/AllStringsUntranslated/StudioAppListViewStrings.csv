@@ -1,0 +1,21 @@
+Key,Context,Source,en-us
+Studio.App.ListView.AgeVerified,Shows users age verification status.  This should ideally stay as 3 max 4 characters if translated to something else.,17+,17+
+Studio.App.ListView.DateCreated,,Date Created,Date Created
+Studio.App.ListView.Description,,Description,Description
+Studio.App.ListView.ExperienceName,The name of my game,Experience Name,Experience Name
+Studio.App.ListView.LastModified,,Last Modified,Last Modified
+Studio.App.ListView.Owner,,Owner,Owner
+Studio.App.ListView.Owner.You,,You,You
+Studio.App.ListView.Playability,,Playability,Playability
+Studio.App.ListView.ShowPlaces1,,View %1 Places,View %1 Places
+Studio.App.ListView.TeamCreate,,Team Create,Team Create
+Studio.App.ListView.TeamCreateOff,,Off,Off
+Studio.App.ListView.TeamCreateOn,,On,On
+Studio.App.ListView.ToolTipLoadingComplete,,Loading complete!,Loading complete!
+Studio.App.ListView.ToolTipPleaseWait1,,Please wait... %1 games loaded.,Please wait... %1 games loaded.
+Studio.App.ListView.Type,,Type,Type
+Studio.App.ListView.Type.Cloud,,Cloud,Cloud
+Studio.App.ListView.Type.Local,,Local File,Local File
+Studio.App.ListView.Type.TeamCreate,,Team Create,Team Create
+Studio.App.ListView.TypeCloud,,Cloud,Cloud
+Studio.App.ListView.TypeLocal,,Local File,Local File

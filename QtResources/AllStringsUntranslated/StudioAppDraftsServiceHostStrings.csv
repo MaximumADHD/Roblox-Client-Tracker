@@ -1,0 +1,36 @@
+Key,Context,Source,en-us
+Studio.App.DraftsServiceHost.CommitRejected,,"Some of the scripts cannot be committed.
+Please check their status first.","Some of the scripts cannot be committed.
+Please check their status first."
+Studio.App.DraftsServiceHost.CommitRejectedInProgress,,"Server rejected commit.
+Someone else is committing changes.","Server rejected commit.
+Someone else is committing changes."
+Studio.App.DraftsServiceHost.CommitRejectedInternalError,,"Server rejected commit due to internal error.
+Please try again later","Server rejected commit due to internal error.
+Please try again later"
+Studio.App.DraftsServiceHost.CommitRejectedTitle,,Script Commit Failure,Script Commit Failure
+Studio.App.DraftsServiceHost.ConfirmScriptDeleteButton,,Delete,Delete
+Studio.App.DraftsServiceHost.ConfirmScriptDeleteMine1,,"Are you sure you want to delete %1 from the place?
+
+You have uncommitted edits on this script","Are you sure you want to delete %1 from the place?
+
+You have uncommitted edits on this script"
+Studio.App.DraftsServiceHost.ConfirmScriptDeleteMultiple1,,"Are you sure you want to delete these %1 scripts from the place?
+
+You and/or other people have uncommitted edits on %1 of these scripts","Are you sure you want to delete these %1 scripts from the place?
+
+You and/or other people have uncommitted edits on %1 of these scripts"
+Studio.App.DraftsServiceHost.ConfirmScriptDeleteOthers1,,"Are you sure you want to delete %1 from the place?
+
+Other people have uncommitted edits on this script","Are you sure you want to delete %1 from the place?
+
+Other people have uncommitted edits on this script"
+Studio.App.DraftsServiceHost.IsTeamTest,,Local changes to drafts are not available in Team Test,Local changes to drafts are not available in Team Test
+Studio.App.DraftsServiceHost.MultiScriptDiffsWarning1,,Opening more than %1 diff(s) at once may affect Studio's performance. Open anyway?,Opening more than %1 diff(s) at once may affect Studio's performance. Open anyway?
+Studio.App.DraftsServiceHost.NoDataModel,,The DataModel is not available,The DataModel is not available
+Studio.App.DraftsServiceHost.NoDraftsService,,DraftsService is not available,DraftsService is not available
+Studio.App.DraftsServiceHost.NotTeamCreate,,Enable Team Create to use Drafts,Enable Team Create to use Drafts
+Studio.App.DraftsServiceHost.ServerCompareRemoved1,,Unable to compare draft '%1' with server version because script has been removed from Workspace,Unable to compare draft '%1' with server version because script has been removed from Workspace
+Studio.App.DraftsServiceHost.UncommittedDraftsWarning1,,Script changes are local and are not published until committed. <a href=%1>Learn More</a>,Script changes are local and are not published until committed. <a href=%1>Learn More</a>
+Studio.App.DraftsServiceHost.UpdateCacheMissing1,,Unable to update draft '%1' because local cache missing data,Unable to update draft '%1' because local cache missing data
+Studio.App.DraftsServiceHost.UpdateRemoved1,,Unable to update draft '%1' because script has been removed from Workspace,Unable to update draft '%1' because script has been removed from Workspace

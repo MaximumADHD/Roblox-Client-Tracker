@@ -1,0 +1,6 @@
+Key,Context,Source,en-us
+Studio.MinSpec.DialogClose,The close button of the dialog that will be shown when the user's machine fails meet the Studio minimum requirements.,Close,Close
+Studio.MinSpec.DialogCreatorHub,The creator hub link button of the dialog that will be shown when the user's machine fails meet the Studio minimum requirements.,Visit Creator Hub,Visit Creator Hub
+Studio.MinSpec.DialogDetailedText,Detailed text to be shown when the user's machine fails meet the Studio minimum requirements.,Please upgrade or access on a different device.,Please upgrade or access on a different device.
+Studio.MinSpec.DialogText,Text to be shown when the user's machine fails meet the Studio minimum requirements.,This system does not meet the minimum requirements to run Roblox Studio,This system does not meet the minimum requirements to run Roblox Studio
+Studio.MinSpec.DialogTitle,The title for the dialog that will be shown when user's machines are below minimum requirements of Studio,Roblox Studio,Roblox Studio

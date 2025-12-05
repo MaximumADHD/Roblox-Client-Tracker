@@ -1,0 +1,126 @@
+Key,Context,Source,en-us
+Studio.App.MainWindow.32BitParens,Main Window, (32bit), (32bit)
+Studio.App.MainWindow.64BitParens,Main Window, (64bit), (64bit)
+Studio.App.MainWindow.AboutRobloxStudio,Main Window,About Roblox Studio,About Roblox Studio
+Studio.App.MainWindow.AboutToLogOutNewLine,Main Window,"Roblox Studio is about to log out.
+
+","Roblox Studio is about to log out.
+
+"
+Studio.App.MainWindow.AmongRegisteredTrademarks,Main Window,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='https://www.roblox.com/support'>https://www.roblox.com/support</a></p></div>","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='https://www.roblox.com/support'>https://www.roblox.com/support</a></p></div>"
+Studio.App.MainWindow.AmongRegisteredTrademarks2,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks with only hyper link excluded,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='%1'>%2</a></p></div>","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.</p><p>Contact us at <a href='%1'>%2</a></p></div>"
+Studio.App.MainWindow.ArgumentsBreak,Main Window,Arguments:<br>,Arguments:<br>
+Studio.App.MainWindow.BreakPathSpace,Main Window,<br>Path: ,<br>Path: 
+Studio.App.MainWindow.BuildTypeSpace1,Main Window,Build Type: %1,Build Type: %1
+Studio.App.MainWindow.Channel1,Main Window,Channel: %1,Channel: %1
+Studio.App.MainWindow.ClearTerrain,Main Window,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.,The Terrain object persists in your workspace and can't be removed. Deleting it will clear existing terrain.
+Studio.App.MainWindow.ClearTerrainTitle,Main Window,No terrain to clear,No terrain to clear
+Studio.App.MainWindow.CloseFile,Main Window,Close File,Close File
+Studio.App.MainWindow.CloseFileStatusTip,Main Window,Close the open file,Close the open file
+Studio.App.MainWindow.ClosePlace,Main Window,Close Place,Close Place
+Studio.App.MainWindow.ClosePlaceStatusTip,Main Window,Close the open place,Close the open place
+Studio.App.MainWindow.CloseStudio,Main Window,Close Studio,Close Studio
+Studio.App.MainWindow.CloseTab,Main Window,Close Tab,Close Tab
+Studio.App.MainWindow.CloseTabStatusTip,Main Window,Close the active tab,Close the active tab
+Studio.App.MainWindow.ConnectionLostLocalFileNotRecoverable,Main Window,Internal Error: Connection was lost and local file was not recoverable. Contact Customer support if the error persists,Internal Error: Connection was lost and local file was not recoverable. Contact Customer support if the error persists
+Studio.App.MainWindow.ConnectionLostUnableToReconnect,Main Window,Internal Error: Connection was lost and unable to reconnect. Contact Customer support if the error persists,Internal Error: Connection was lost and unable to reconnect. Contact Customer support if the error persists
+Studio.App.MainWindow.CopyrightRobloxCorporation2,Main Window,%1%2 Roblox Corporation. ,%1%2 Roblox Corporation. 
+Studio.App.MainWindow.CreateNewPlaceFailureMessage,Main Window,"Failed to create new place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to create new place. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
+Studio.App.MainWindow.DEPRECATEDSelectionImprovementsTooltipTitle,,New Selection Improvements!,New Selection Improvements!
+Studio.App.MainWindow.DbarFatalBugNotice1,,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...
+Studio.App.MainWindow.Debug,Main Window,Debug,Debug
+Studio.App.MainWindow.DebugOnlyWithBrs,Main Window,<br><hr><br><br>DEBUG ONLY<br><hr>,<br><hr><br><br>DEBUG ONLY<br><hr>
+Studio.App.MainWindow.DisconnectFromTeamCreateOutOfDate,Main Window,"Roblox Studio has disconnected from Team Create. The running version of Studio is out of date, and may be the cause of this disconnect. Please update Studio if this error persists","Roblox Studio has disconnected from Team Create. The running version of Studio is out of date, and may be the cause of this disconnect. Please update Studio if this error persists"
+Studio.App.MainWindow.DraggerImprovementsBetaTitle,,New Dragger Improvements [BETA],New Dragger Improvements [BETA]
+Studio.App.MainWindow.DraggerImprovementsTooltipDescription,,Learn about changes we've made to the draggers and give feedback in the linked DevForum post.,Learn about changes we've made to the draggers and give feedback in the linked DevForum post.
+Studio.App.MainWindow.FailedConnectRemoteServers,Main Window,"Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode.","Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode."
+Studio.App.MainWindow.FailedToAutoSave,Main Window,Failed to AutoSave,Failed to AutoSave
+Studio.App.MainWindow.FailedToAutoSaveTemporarilyDisable,Main Window,Failed to AutoSave.  Do you want to temporarily disable AutoSave?,Failed to AutoSave.  Do you want to temporarily disable AutoSave?
+Studio.App.MainWindow.FailedToFetchConfigurationSettings,Main Window,Studio failed to fetch configuration settings.,Studio failed to fetch configuration settings.
+Studio.App.MainWindow.FailedToLoadSettings,Main Window,Failed to load settings,Failed to load settings
+Studio.App.MainWindow.FailedToOpenObjectBrowser,Main Window,"Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
+Studio.App.MainWindow.FatalErrorDialog1,"Message shown when Studio experiences an error that it can't recover from, and must exit. %1 is the message for the error that occurred.",Studio encountered an unrecoverable error and must shut down: %1,Studio encountered an unrecoverable error and must shut down: %1
+Studio.App.MainWindow.FileNotExistNewLine1,Main Window,"%1
+This file doesn't exist.","%1
+This file doesn't exist."
+Studio.App.MainWindow.FileSetToReadOnlyNewLine1,Main Window,"%1
+This file is set to read-only.
+Try again with a different name","%1
+This file is set to read-only.
+Try again with a different name"
+Studio.App.MainWindow.InternalErrorNoDataModelForPackages,Main Window,Internal Error: Unable to find data model to retrieve package data.,Internal Error: Unable to find data model to retrieve package data.
+Studio.App.MainWindow.LogInToCreateNewFiles,Main Window,You must log in to create new files.,You must log in to create new files.
+Studio.App.MainWindow.LogInToOpenFiles,Main Window,You must log in to open files.,You must log in to open files.
+Studio.App.MainWindow.LostConnectionToServerReconnectOrLocalCopy,Main Window,You have lost connection to the server. Do you want to reconnect or open a local copy of the place?,You have lost connection to the server. Do you want to reconnect or open a local copy of the place?
+Studio.App.MainWindow.LostEditAccessToPlace,Main Window,"You no longer have access to this experience. If you believe this is an error, please contact the owner.","You no longer have access to this experience. If you believe this is an error, please contact the owner."
+Studio.App.MainWindow.NoLocalFFlagsLoaded,Main Window,No local Fast Flags were loaded. ClientAppSettings.json may be incorrectly formatted or corrupted.,No local Fast Flags were loaded. ClientAppSettings.json may be incorrectly formatted or corrupted.
+Studio.App.MainWindow.NoLongerLoggedInNewLine,Main Window,"Roblox Studio is no longer logged in.
+
+","Roblox Studio is no longer logged in.
+
+"
+Studio.App.MainWindow.NoOpt,Main Window,NoOpt,NoOpt
+Studio.App.MainWindow.NoTextFromOutputWidget,Main Window,Could not get text from Output widget,Could not get text from Output widget
+Studio.App.MainWindow.OpenExistingLocalFile,Main Window,Open an existing local file,Open an existing local file
+Studio.App.MainWindow.OpenFromFilePrompt,Main Window,Open from File...,Open from File...
+Studio.App.MainWindow.OpenFromRobloxPrompt,Main Window,Open from Roblox...,Open from Roblox...
+Studio.App.MainWindow.OpenLocalCopy,Main Window,Open Local Copy,Open Local Copy
+Studio.App.MainWindow.OpenPlaceFailureIncidentAndPlaceId2,Incident ID and Place ID field displayed in error message dialog,Incident ID: %1<br>Place ID: %2,Incident ID: %1<br>Place ID: %2
+Studio.App.MainWindow.OpenPlaceFailureIncidentAndPlaceId3,"Incident ID, Place ID and Place name field displayed in error message dialog",Incident ID: %1<br>Place ID: %2<br>Place name: %3,Incident ID: %1<br>Place ID: %2<br>Place name: %3
+Studio.App.MainWindow.OpenPlaceFailureIncidentId1,Incident ID field displayed in error message dialog,Incident ID: %1,Incident ID: %1
+Studio.App.MainWindow.OpenPlaceFailureReportToForum1,Devforum link field displayed in error message dialog,"If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>. ","If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>. "
+Studio.App.MainWindow.OpenRecentGameRoblox,Main Window,Open a recent Game from Roblox,Open a recent Game from Roblox
+Studio.App.MainWindow.OpenRobloxFile,Main Window,Open Roblox File,Open Roblox File
+Studio.App.MainWindow.PluginManagement,Main Window,Plugin Management,Plugin Management
+Studio.App.MainWindow.PrivacyPolicyLink1,,<p><a href='%1'>Privacy Policy</a></p>,<p><a href='%1'>Privacy Policy</a></p>
+Studio.App.MainWindow.QTVersionSpace,Main Window,Qt Version: ,Qt Version: 
+Studio.App.MainWindow.Reconnect,Main Window,Reconnect,Reconnect
+Studio.App.MainWindow.RemovedAsTeamCreateContributor,Main Window,You have been removed as a Team Create contributor.,You have been removed as a Team Create contributor.
+Studio.App.MainWindow.RobloxInternalChannelError,Main Window,ROBLOX INTERNAL: Please check if you or an existing user in this Team Create session are in a channel. All users in a Team Create session must be on the same RCC channel.,ROBLOX INTERNAL: Please check if you or an existing user in this Team Create session are in a channel. All users in a Team Create session must be on the same RCC channel.
+Studio.App.MainWindow.RobloxStudio,Main Window,Roblox Studio,Roblox Studio
+Studio.App.MainWindow.RobloxStudioSpace,Main Window,Roblox Studio ,Roblox Studio 
+Studio.App.MainWindow.SaveActiveLocalFile,Main Window,Save the active local file,Save the active local file
+Studio.App.MainWindow.SaveActiveLocalFileNewName,Main Window,Save the active local file with a new name,Save the active local file with a new name
+Studio.App.MainWindow.SaveChangesTo1,Main Window,Save changes to %1?,Save changes to %1?
+Studio.App.MainWindow.SaveToFile,Main Window,Save to File,Save to File
+Studio.App.MainWindow.SaveToFileAsPrompt,Main Window,Save to File As...,Save to File As...
+Studio.App.MainWindow.SelectionImprovementsBetaTitle,,New Selection Improvements! (BETA),New Selection Improvements! (BETA)
+Studio.App.MainWindow.SelectionImprovementsTooltipDescription,,"Studio now uses geometric outlines on selection and hover, alt+clicking activates selection cycling, ctrl+clicking allows you to select parents, and more! Details can be found on the link below.","Studio now uses geometric outlines on selection and hover, alt+clicking activates selection cycling, ctrl+clicking allows you to select parents, and more! Details can be found on the link below."
+Studio.App.MainWindow.SelectionImprovementsTooltipTitle,,New Selection Improvements!,New Selection Improvements!
+Studio.App.MainWindow.StudsSuffix,, studs, studs
+Studio.App.MainWindow.Styling.DeleteBaseStyleSheetPopup.Description,Relating to Engine Styling.,Are you sure you want to delete the Base StyleSheet? This may cause Studio property defaults to override styles.,Are you sure you want to delete the Base StyleSheet? This may cause Studio property defaults to override styles.
+Studio.App.MainWindow.Styling.DeleteBaseStyleSheetPopup.Title,Relating to Engine Styling.,Confirm deletion of Base StyleSheet?,Confirm deletion of Base StyleSheet?
+Studio.App.MainWindow.Styling.DeleteRootStyleDerivePopup.Description,Relating to Engine Styling.,Are you sure you want to delete this StyleDerive from the Root StyleSheet? This may cause Studio property defaults to override styles.,Are you sure you want to delete this StyleDerive from the Root StyleSheet? This may cause Studio property defaults to override styles.
+Studio.App.MainWindow.Styling.DeleteRootStyleDerivePopup.Title,Confirm delete StyleDerive from Root StyleSheet?,Confirm delete StyleDerive from Root StyleSheet?,Confirm delete StyleDerive from Root StyleSheet?
+Studio.App.MainWindow.TeamCreateDisabledDisconnect,Main Window,Team Create has been disabled for this place.,Team Create has been disabled for this place.
+Studio.App.MainWindow.TeamCreateReconnectFailedUnableToFetchSettingsData,Main Window,Team Create reconnect failed. Unable to fetch game settings data.,Team Create reconnect failed. Unable to fetch game settings data.
+Studio.App.MainWindow.TextureGeneratorCalloutDescription,,Create custom textures for one or more MeshParts using text prompts. Try it now!,Create custom textures for one or more MeshParts using text prompts. Try it now!
+Studio.App.MainWindow.TextureGeneratorCalloutTitle,,Texture Generator [BETA],Texture Generator [BETA]
+Studio.App.MainWindow.ThirdpartyNotices,About Dialog,Third Party Notices,Third Party Notices
+Studio.App.MainWindow.ThirdpartyUses2,About Dialog,Uses '%1' from '%2',Uses '%1' from '%2'
+Studio.App.MainWindow.UnableToConnect,Main Window,Unable to Connect,Unable to Connect
+Studio.App.MainWindow.UnableToCreateAutoSaveFile1,Main Window,"Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1"".","Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1""."
+Studio.App.MainWindow.UnableToFetchUniversePermissions1,Main Window,Unable to fetch universe permissions: %1,Unable to fetch universe permissions: %1
+Studio.App.MainWindow.UnableToJoinTeamCreateSessionForPlaceId2,Main Window,We could not join the Team Create session for place [%1]. %2,We could not join the Team Create session for place [%1]. %2
+Studio.App.MainWindow.UnableToJoinTeamCreateSessionForPlaceName2,Main Window,"We could not join the Team Create session for place ""%1"". %2","We could not join the Team Create session for place ""%1"". %2"
+Studio.App.MainWindow.UnableToLockFileForOpen,Main Window,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.
+Studio.App.MainWindow.UnableToLockFileForOpen1,Main Window,"""%1"" is currently in use or is read-only. Would you like to open the file read-only?","""%1"" is currently in use or is read-only. Would you like to open the file read-only?"
+Studio.App.MainWindow.UnableToOpenDeletedFile1,Main Window,"Could not open the file ""%1"" because it no longer exists.","Could not open the file ""%1"" because it no longer exists."
+Studio.App.MainWindow.UnableToOpenGameOrPlaceRestartApplication,Main Window,"Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the game or place. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
+Studio.App.MainWindow.UnableToOpenPlace2,Main Window,"Could not open the place ""%1"" with exception: ""%2"".","Could not open the place ""%1"" with exception: ""%2""."
+Studio.App.MainWindow.UploadingImageQuitAnyway,Main Window,Roblox is uploading an image. Quit anyway?,Roblox is uploading an image. Quit anyway?
+Studio.App.MainWindow.UploadingPlaceQuitCommitAuto,Main Window,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.
+Studio.App.MainWindow.UploadingPlaceQuitPublish,Main Window,Unable to close Studio because we are currently publishing.,Unable to close Studio because we are currently publishing.
+Studio.App.MainWindow.UploadingPlaceQuitPublishAuto,Main Window,Publishing in progress. Studio will close automatically when complete.,Publishing in progress. Studio will close automatically when complete.
+Studio.App.MainWindow.UploadingPlaceQuitPublishFailed,Main Window,Failed To Publish. Please try again later.,Failed To Publish. Please try again later.
+Studio.App.MainWindow.UploadingPlaceQuitSave,Main Window,Unable to close Studio because we are currently saving.,Unable to close Studio because we are currently saving.
+Studio.App.MainWindow.UploadingPlaceQuitSaveAuto,Main Window,Saving in progress. Studio will close automatically when complete.,Saving in progress. Studio will close automatically when complete.
+Studio.App.MainWindow.UploadingPlaceQuitSaveFailed,Main Window,Failed To Save. Please try again later.,Failed To Save. Please try again later.
+Studio.App.MainWindow.UploadingVideoQuitAnyway,Main Window,Roblox is uploading a video. Quit anyway?,Roblox is uploading a video. Quit anyway?
+Studio.App.MainWindow.Version1,Main Window,Version %1,Version %1
+Studio.App.MainWindow.VersionLatest,About Dialog,Latest version available %1,Latest version available %1
+Studio.App.MainWindow.VersionLatest1,About Dialog,Latest version available %1,Latest version available %1
+Studio.App.MainWindow.WaitingForShutdown,Main Window,Waiting for Shutdown,Waiting for Shutdown
+Studio.App.MainWindow.WeCouldNotJoinTeamCreatePlaceId2,Main Window,We could not join the Team Create session for place [%1]. %2,We could not join the Team Create session for place [%1]. %2
+Studio.App.MainWindow.WeCouldNotOpenPlaceId2,Main Window,We could not open the place [%1]. %2,We could not open the place [%1]. %2
+Studio.App.MainWindow.WeCouldNotOpenPlaceName2,Main Window,"We could not open the place ""%1"". %2","We could not open the place ""%1"". %2"

@@ -1,0 +1,25 @@
+Key,Context,Source,en-us
+Studio.App.ScriptEditorCmdBase.DELETETOSTARTOFLINE,,Delete to start of line,Delete to start of line
+Studio.App.ScriptEditorCmdBase.DELETETOSTARTOFLINEToolTip,,Delete to the start of the current line,Delete to the start of the current line
+Studio.App.ScriptEditorCmdBase.FOLDALL,,Collapse All Folds,Collapse All Folds
+Studio.App.ScriptEditorCmdBase.FOLDALLToolTip,,Collapse All Folds,Collapse All Folds
+Studio.App.ScriptEditorCmdBase.FORMATALL,,Format Document...,Format Document...
+Studio.App.ScriptEditorCmdBase.FORMATALLToolTip,,Format whole document,Format whole document
+Studio.App.ScriptEditorCmdBase.FORMATSEL,,Format Selection,Format Selection
+Studio.App.ScriptEditorCmdBase.FORMATSELToolTip,,Format selected range of document,Format selected range of document
+Studio.App.ScriptEditorCmdBase.INDENT,,Indent,Indent
+Studio.App.ScriptEditorCmdBase.INDENTToolTip,,Indent selected line(s),Indent selected line(s)
+Studio.App.ScriptEditorCmdBase.MOVELINESDOWN,,Move Lines Down,Move Lines Down
+Studio.App.ScriptEditorCmdBase.MOVELINESDOWNToolTip,,Move selected line(s) downwards,Move selected line(s) downwards
+Studio.App.ScriptEditorCmdBase.MOVELINESUP,,Move Lines Up,Move Lines Up
+Studio.App.ScriptEditorCmdBase.MOVELINESUPToolTip,,Move selected line(s) upwards,Move selected line(s) upwards
+Studio.App.ScriptEditorCmdBase.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
+Studio.App.ScriptEditorCmdBase.NEWLINEABOVEToolTip,,Insert a newline above the current line,Insert a newline above the current line
+Studio.App.ScriptEditorCmdBase.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
+Studio.App.ScriptEditorCmdBase.NEWLINEBELOWToolTip,,Insert a newline below the current line,Insert a newline below the current line
+Studio.App.ScriptEditorCmdBase.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
+Studio.App.ScriptEditorCmdBase.TOGGLECOMMENTToolTip,,Toggle selection commenting,Toggle selection commenting
+Studio.App.ScriptEditorCmdBase.UNFOLDALL,,Expands all folds,Expands all folds
+Studio.App.ScriptEditorCmdBase.UNFOLDALLToolTip,,Expands all folds,Expands all folds
+Studio.App.ScriptEditorCmdBase.UNINDENT,,Unindent,Unindent
+Studio.App.ScriptEditorCmdBase.UNINDENTToolTip,,Unindent selected line(s),Unindent selected line(s)

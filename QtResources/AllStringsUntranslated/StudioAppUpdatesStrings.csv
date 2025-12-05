@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.App.Updates.BetaFeatureDescription,,"Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio","Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio"
+Studio.App.Updates.BetaFeatureName,,Safe Studio Updates,Safe Studio Updates
+Studio.App.Updates.ShutdownConfirmationText,,There is a new Studio update available. Shutdown to update?,There is a new Studio update available. Shutdown to update?
+Studio.App.Updates.ShutdownPromptButton,Button name in 'Are you sure you want to shut down Studio for update? [Shutdown] [Cancel]',Shutdown,Shutdown
+Studio.App.Updates.SnoozeButton,,Snooze,Snooze
+Studio.App.Updates.UpdateAvailableButton,,Update Available,Update Available
+Studio.App.Updates.UpdateAvailableMessage,,Do you want to restart Studio and update now?,Do you want to restart Studio and update now?
+Studio.App.Updates.UpdateAvailableTitle,,Update Available,Update Available
+Studio.App.Updates.UpdateAvailableToast,,A new version of Studio is available,A new version of Studio is available
+Studio.App.Updates.UpdateNowButton,,Update Now,Update Now

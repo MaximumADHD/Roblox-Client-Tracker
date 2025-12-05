@@ -1,0 +1,21 @@
+Key,Context,Source,en-us
+Studio.App.RemoteDebugger.AddRow,,Add Row,Add Row
+Studio.App.RemoteDebugger.AssetProxy,,Asset Proxy:,Asset Proxy:
+Studio.App.RemoteDebugger.AssetProxyError,,Error starting server,Error starting server
+Studio.App.RemoteDebugger.AssetProxyRunning2,,Asset Proxy running at %1:%2,Asset Proxy running at %1:%2
+Studio.App.RemoteDebugger.AssetProxyStopped,,Asset Proxy stopped,Asset Proxy stopped
+Studio.App.RemoteDebugger.ColumnAssetId,,Asset Id,Asset Id
+Studio.App.RemoteDebugger.ColumnPath,,Path,Path
+Studio.App.RemoteDebugger.ErrorAssetMissing,,Asset not found or not accessible to ContentProvider,Asset not found or not accessible to ContentProvider
+Studio.App.RemoteDebugger.ErrorDuplicateId,,Duplicate Asset ID,Duplicate Asset ID
+Studio.App.RemoteDebugger.InvalidIp,,Invalid IP Address. ,Invalid IP Address. 
+Studio.App.RemoteDebugger.InvalidPort,,Invalid Port. ,Invalid Port. 
+Studio.App.RemoteDebugger.IpAddress,,IP Address:,IP Address:
+Studio.App.RemoteDebugger.Messages,,Messages,Messages
+Studio.App.RemoteDebugger.Port,,Port:,Port:
+Studio.App.RemoteDebugger.RemoveRow,,Remove Row,Remove Row
+Studio.App.RemoteDebugger.Start,,Start,Start
+Studio.App.RemoteDebugger.Stop,,Stop,Stop
+Studio.App.RemoteDebugger.TabAssetOverrides,,Asset Overrides,Asset Overrides
+Studio.App.RemoteDebugger.TabServerStatus,,Server Status,Server Status
+Studio.App.RemoteDebugger.Title,,Remote Debugging,Remote Debugging

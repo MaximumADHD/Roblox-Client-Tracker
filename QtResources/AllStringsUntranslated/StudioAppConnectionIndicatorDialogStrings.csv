@@ -1,0 +1,14 @@
+Key,Context,Source,en-us
+Studio.App.ConnectionIndicatorDialog.DelayedConnectionMessage,,Weak connection,Weak connection
+Studio.App.ConnectionIndicatorDialog.DelayedConnectionTip,,Check your internet connection to avoid delays during saves and collaboration.,Check your internet connection to avoid delays during saves and collaboration.
+Studio.App.ConnectionIndicatorDialog.DelayedConnectionTitle,,Changes may be delayed,Changes may be delayed
+Studio.App.ConnectionIndicatorDialog.DisconnectedTitle,,Disconnected,Disconnected
+Studio.App.ConnectionIndicatorDialog.GoodConnectionMessage,,Connection established,Connection established
+Studio.App.ConnectionIndicatorDialog.GoodConnectionTitle,,Changes synced to Team Create,Changes synced to Team Create
+Studio.App.ConnectionIndicatorDialog.PlaceSizeApproachingLimitMessage,Subtitle  for notification warning place size is getting too large,Approaching Size Limit,Approaching Size Limit
+Studio.App.ConnectionIndicatorDialog.PlaceSizeApproachingLimitTip1,Message specifying the size limit in Studio and that their place is getting close to that size,Your place is nearing the stable size limit. Consider reducing its size to avoid issues with saving and publishing. <a href='%1'>Learn More</a>,Your place is nearing the stable size limit. Consider reducing its size to avoid issues with saving and publishing. <a href='%1'>Learn More</a>
+Studio.App.ConnectionIndicatorDialog.PlaceSizeApproachingLimitTitle,Title for notification warning place size is getting too large,Saving To Roblox Warning,Saving To Roblox Warning
+Studio.App.ConnectionIndicatorDialog.PlaceSizeTooLargeMessage,Subtitle for notification alert that place size has gotten too large,Place Too Large,Place Too Large
+Studio.App.ConnectionIndicatorDialog.PlaceSizeTooLargeTip,Message for notification alert that place size has gotten too large,Your place has exceeded the stable size limit. Please reduce its size to enable saving again. Attempt place save again after making changes.,Your place has exceeded the stable size limit. Please reduce its size to enable saving again. Attempt place save again after making changes.
+Studio.App.ConnectionIndicatorDialog.PlaceSizeTooLargeTip1,Message for notification alert that place size has gotten too large,"Reduce its size to enable saving and publishing again. For now, it's being backed up with Auto Recovery. <a href='%1'>Learn More</a>","Reduce its size to enable saving and publishing again. For now, it's being backed up with Auto Recovery. <a href='%1'>Learn More</a>"
+Studio.App.ConnectionIndicatorDialog.PlaceSizeTooLargeTitle,Title for notification alert that place size has gotten too large and they won't be able to save,Saving to Roblox disabled,Saving to Roblox disabled

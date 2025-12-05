@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.App.RobloxChatWidget.ChatOptions,,Chat Options,Chat Options
+Studio.App.RobloxChatWidget.ChattingWith,,Chatting with %1,Chatting with %1
+Studio.App.RobloxChatWidget.ConnectingToChatElps,,Connecting to chat...,Connecting to chat...
+Studio.App.RobloxChatWidget.ContentModerated,,Content was moderated. Message not sent.,Content was moderated. Message not sent.
+Studio.App.RobloxChatWidget.DeprecatingSoon,,Team Chat is deprecated and will be removed in January 2025.,Team Chat is deprecated and will be removed in January 2025.
+Studio.App.RobloxChatWidget.DeprecatingSoon2,"Informs user about deprecation of TC chat widget. The tags around ""Learn more"" are for formatting purposes and do not need translation.","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>"
+Studio.App.RobloxChatWidget.DisabledChatMessage,,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4
+Studio.App.RobloxChatWidget.FailedSendAMessage,,Failed to send message: ,Failed to send message: 
+Studio.App.RobloxChatWidget.NotFriendErrorMessage,,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.
+Studio.App.RobloxChatWidget.SendAMessage,,Send a message,Send a message

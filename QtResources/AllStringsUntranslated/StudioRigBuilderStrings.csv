@@ -1,0 +1,11 @@
+Key,Context,Source,en-us
+Studio.RigBuilder.Plugin.Button,,Build Rig,Build Rig
+Studio.RigBuilder.Plugin.Description,,Insert rigs to animate,Insert rigs to animate
+Studio.RigBuilder.Plugin.Title,,Rig Builder,Rig Builder
+Studio.RigBuilder.Plugin.Toolbar,,Rig Builder,Rig Builder
+Studio.RigBuilder.R15RigOption.RthroNormal,,Rthro Normal,Rthro Normal
+Studio.RigBuilder.R15RigOption.RthroSlender,,Rthro Slender,Rthro Slender
+Studio.RigBuilder.RigOption.BlockRig,,Block Rig,Block Rig
+Studio.RigBuilder.RigOption.ManRig,,Man Rig,Man Rig
+Studio.RigBuilder.RigOption.MeshRig,,Mesh Rig,Mesh Rig
+Studio.RigBuilder.RigOption.WomanRig,,Woman Rig,Woman Rig

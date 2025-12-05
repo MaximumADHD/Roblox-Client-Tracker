@@ -1,0 +1,20 @@
+Key,Context,Source,en-us
+Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
+Studio.App.Properties.AttributeAlreadyExists,Displayed when adding an attribute and entering a name that exists.,Attribute already exists.,Attribute already exists.
+Studio.App.Properties.AttributeCantStartWithRBX,Displayed when adding a new attribute in the Add Attribute dialog.,Can't start with 'RBX'.,Can't start with 'RBX'.
+Studio.App.Properties.AttributeLengthAndSuggestion2,"Displayed when exceeding maximum characters while editing, along with AttributeNameExceeds1",Current name length is: %1. Try to use a name within %2 characters.,Current name length is: %1. Try to use a name within %2 characters.
+Studio.App.Properties.AttributeName,Displayed to the left of attribute name line edit.,Name,Name
+Studio.App.Properties.AttributeNameCantBeEmpty,Displayed when trying to commit an empty attribute while editing.,Attribute name cannot be empty.,Attribute name cannot be empty.
+Studio.App.Properties.AttributeNameExceeds1,Displayed when exceeding maximum charecters while editing.,Attribute name exceeds %1 characters.,Attribute name exceeds %1 characters.
+Studio.App.Properties.AttributeTryDifferentName,Displayed when editing an attribute and entering a name that exists.,Try to use a different name.,Try to use a different name.
+Studio.App.Properties.AttributeType,Displayed to the left of attribute type combo box,Type,Type
+Studio.App.Properties.Button.FontFamily.Bold.Label,"Label for the button, not normally shown.",Bold,Bold
+Studio.App.Properties.Button.FontFamily.Bold.ToolTip,Tooltip for a button that toggles bold on/off in TextLabel/etc objects.,Whether the text should be displayed emboldened.,Whether the text should be displayed emboldened.
+Studio.App.Properties.Button.FontFamily.Italic.Label,"Label for the button, not normally shown.",Italic,Italic
+Studio.App.Properties.Button.FontFamily.Italic.ToolTip,Tooltip for a button that toggles italic on/off in TextLabel/etc objects.,Whether the text should be displayed in an italicized font.,Whether the text should be displayed in an italicized font.
+Studio.App.Properties.CustomizedAttributeTooltip,Title/text for Add Attribute button/dialog,This attribute is customized. Its value will be retained when updating to a new version. Publishing the package makes the customization the new default.,This attribute is customized. Its value will be retained when updating to a new version. Publishing the package makes the customization the new default.
+Studio.App.Properties.MultipleTypes,,<Multiple Types>,<Multiple Types>
+Studio.App.Properties.NoAttributeAdded,Displayed in Attributes Section when no attribute has been added yet.,No Attribute has been added yet,No Attribute has been added yet
+Studio.App.Properties.NoTagsAdded,Displayed in Tags Section when no tags have been added yet.,No Tags have been added yet,No Tags have been added yet
+Studio.App.Properties.TitleFmt1,title of properties widget,Properties - %1,Properties - %1
+Studio.App.Properties.UnknownAttribute,Displayed when an unhandled exception occurs.,Unknown attributes runtime error.,Unknown attributes runtime error.

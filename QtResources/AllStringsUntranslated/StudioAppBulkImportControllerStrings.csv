@@ -1,0 +1,19 @@
+Key,Context,Source,en-us
+Studio.App.BulkImportController.AllSupportedTypes1,,All Supported Types (%1),All Supported Types (%1)
+Studio.App.BulkImportController.AllSupportedTypes2,,All Supported Types (%1 %2);;Images (%1);;Meshes (%2),All Supported Types (%1 %2);;Images (%1);;Meshes (%2)
+Studio.App.BulkImportController.AlreadyBusy,,Already busy importing. Please try again later.,Already busy importing. Please try again later.
+Studio.App.BulkImportController.BusyCancelingPleaseTryAgainLater,,Busy canceling. Please try again later.,Busy canceling. Please try again later.
+Studio.App.BulkImportController.BusySplitting,,Already busy mesh splitting. Please try again later.,Already busy mesh splitting. Please try again later.
+Studio.App.BulkImportController.CancelledBeforeProcessing,,Some files were not uploaded.,Some files were not uploaded.
+Studio.App.BulkImportController.CouldNotStart,,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.,Could not start mesh splitting. Please restart Studio or contact support if the problem persists.
+Studio.App.BulkImportController.EmptyListToSplit,,Got an empty list of assets to split. Please try again or contact support if the problem persists.,Got an empty list of assets to split. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.EmptyListToSpliut,,Got an empty list of assets to split. Please try again or contact support if the problem persists.,Got an empty list of assets to split. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.GotEmptyList,,Got an empty list of files to import. Please try again or contact support if the problem persists.,Got an empty list of files to import. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.ImagesSupportedTypes1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Images (%1),Images (%1)
+Studio.App.BulkImportController.MeshesSupportedTypes1,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Meshes (%1),Meshes (%1)
+Studio.App.BulkImportController.TooManyFiles1,,You cannot import more than %1 files at a time.,You cannot import more than %1 files at a time.
+Studio.App.BulkImportController.TooManyFiles2,,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.,You cannot import more than %1 assets at a time. The %2 file(s) you selected exceeds the limit. Please re-select file to import.
+Studio.App.BulkImportController.TooManyToSplit,,You cannot split more than %1 files at a time.,You cannot split more than %1 files at a time.
+Studio.App.BulkImportController.TryAgain,,Did not get a result. Please try again or contact support if the problem persists.,Did not get a result. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.UnknownError,,An unknown error occurred. Please try again or contact support if the problem persists.,An unknown error occurred. Please try again or contact support if the problem persists.
+Studio.App.BulkImportController.UnsupportedAsset,,List of files contains unsupported asset type. Please try again or contact support if the problem persists.,List of files contains unsupported asset type. Please try again or contact support if the problem persists.

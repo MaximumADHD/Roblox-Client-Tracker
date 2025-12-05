@@ -1,0 +1,13 @@
+Key,Context,Source,en-us
+Studio.App.EmbeddedFindReplaceWidget.Close,,Close,Close
+Studio.App.EmbeddedFindReplaceWidget.Filter,,Filter,Filter
+Studio.App.EmbeddedFindReplaceWidget.KofNMatch,,%1 of %2 matches,%1 of %2 matches
+Studio.App.EmbeddedFindReplaceWidget.KofNMatch2,,%1 of %2 matches,%1 of %2 matches
+Studio.App.EmbeddedFindReplaceWidget.KofOneMatch1,,%1 of 1 match,%1 of 1 match
+Studio.App.EmbeddedFindReplaceWidget.MatchCase,,Match Case,Match Case
+Studio.App.EmbeddedFindReplaceWidget.MatchWholeWord,,Match Whole Word,Match Whole Word
+Studio.App.EmbeddedFindReplaceWidget.NMatches1,,%1 matches,%1 matches
+Studio.App.EmbeddedFindReplaceWidget.OneMatch,,1 match,1 match
+Studio.App.EmbeddedFindReplaceWidget.RegularExpression,,Regular Expression,Regular Expression
+Studio.App.EmbeddedFindReplaceWidget.ReplaceAll,,Replace All,Replace All
+Studio.App.EmbeddedFindReplaceWidget.ReplaceNext,,Replace Next,Replace Next

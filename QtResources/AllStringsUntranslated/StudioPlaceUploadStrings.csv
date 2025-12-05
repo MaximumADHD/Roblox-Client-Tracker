@@ -1,0 +1,2 @@
+Key,Context,Source,en-us
+Studio.PlaceUpload.ErrorMessage.BadRequest,Message the user sees when a place save attempt returns a Bad Request error,Place save was rejected. Check your network and try again later.,Place save was rejected. Check your network and try again later.
