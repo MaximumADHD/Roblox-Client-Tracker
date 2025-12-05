@@ -2,7 +2,7 @@ struct PartMaterialConsts
 {
     float textureTiling;
     float plasticRoughness;
-    float unused;
+    float overlay;
     float normalDetailTiling;
     float normalDetailScale;
     float farTilingDiffuse;
@@ -17,5 +17,5 @@ struct PartMaterialConsts
     float farSpecularCutoffScale;
     float isNonSmoothPlastic;
     vec3 emissive;
-    float unused2;
+    float unused;
 };
